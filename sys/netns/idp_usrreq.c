@@ -180,7 +180,7 @@ idp_output(m0, va_alist)
 	/*
 	 * Make sure packet is actually of even length.
 	 */
-	
+
 	if (len & 1) {
 		m = mprev;
 		if ((m->m_flags & M_EXT) == 0 &&
@@ -273,7 +273,7 @@ idp_ctloutput(req, so, level, name, value)
 		case SO_HEADERS_ON_INPUT:
 			mask = NSP_RAWIN;
 			goto get_flags;
-			
+
 		case SO_HEADERS_ON_OUTPUT:
 			mask = NSP_RAWOUT;
 		get_flags:

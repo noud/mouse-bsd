@@ -44,7 +44,7 @@ int	errp2 = -1;
 
 /*
  * Check partitions for consistency :
- *	GEM vs BGM 
+ *	GEM vs BGM
  *	Start sector > 2
  *	End sector < secperunit
  *	other partition overlap

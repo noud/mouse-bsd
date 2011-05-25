@@ -213,7 +213,7 @@
 #define SA3_DPWRDWN_DEFAULT	0x00	/* default value */
 
 #define SA3_APWRDWN		0x13	/* Analog Partial Power Down (R/W) */
-#define   SA3_APWRDWN_FMDAC	0x10	/* FMDAC for OPL3 power down */ 
+#define   SA3_APWRDWN_FMDAC	0x10	/* FMDAC for OPL3 power down */
 #define   SA3_APWRDWN_AD	0x08	/* A/D for WSS recording power down */
 #define   SA3_APWRDWN_DA	0x04	/* D/A for WSS playback power down */
 #define   SA3_APWRDWN_SBDAC	0x02	/* D/A for SB power down */

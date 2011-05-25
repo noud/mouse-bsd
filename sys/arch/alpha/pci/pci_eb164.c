@@ -42,17 +42,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -111,7 +111,7 @@ void	dec_eb164_intr_disestablish __P((void *, void *));
 void	*dec_eb164_pciide_compat_intr_establish __P((void *, struct device *,
 	    struct pci_attach_args *, int, int (*)(void *), void *));
 
-#define	EB164_SIO_IRQ	4  
+#define	EB164_SIO_IRQ	4
 #define	EB164_MAX_IRQ	24
 #define	PCI_STRAY_MAX	5
 
@@ -149,7 +149,7 @@ pci_eb164_pickintr(ccp)
 	    &eb164_intrgate_ioh) != 0)
 		panic("pci_eb164_pickintr: couldn't map interrupt PLD");
 	for (i = 0; i < EB164_MAX_IRQ; i++)
-		eb164_intr_disable(i);	
+		eb164_intr_disable(i);
 
 	eb164_pci_intr = alpha_shared_intr_alloc(EB164_MAX_IRQ);
 	for (i = 0; i < EB164_MAX_IRQ; i++) {
@@ -170,10 +170,10 @@ pci_eb164_pickintr(ccp)
 	set_iointr(eb164_iointr);
 }
 
-int     
+int
 dec_eb164_intr_map(ccv, bustag, buspin, line, ihp)
         void *ccv;
-        pcitag_t bustag; 
+        pcitag_t bustag;
         int buspin, line;
         pci_intr_handle_t *ihp;
 {
@@ -294,7 +294,7 @@ dec_eb164_intr_disestablish(ccv, cookie)
 	struct alpha_shared_intrhand *ih = cookie;
 	unsigned int irq = ih->ih_num;
 	int s;
- 
+
 	s = splhigh();
 
 	alpha_shared_intr_disestablish(eb164_pci_intr, cookie,
@@ -304,7 +304,7 @@ dec_eb164_intr_disestablish(ccv, cookie)
 		alpha_shared_intr_set_dfltsharetype(eb164_pci_intr, irq,
 		    IST_NONE);
 	}
- 
+
 	splx(s);
 }
 
@@ -342,7 +342,7 @@ eb164_iointr(framep, vec)
 	void *framep;
 	unsigned long vec;
 {
-	int irq; 
+	int irq;
 
 	if (vec >= 0x900) {
 		if (vec >= 0x900 + (EB164_MAX_IRQ << 4))

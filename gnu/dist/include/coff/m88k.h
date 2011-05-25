@@ -28,7 +28,7 @@ struct external_filehdr {
 #define PAGEMAGICBCS 0413
 
 
-typedef struct 
+typedef struct
 {
   char 	magic[2];		/* type of file				*/
   char	vstamp[2];		/* version stamp			*/
@@ -51,7 +51,7 @@ AOUTHDR;
 /********************** SECTION HEADER **********************/
 
 
-struct external_scnhdr 
+struct external_scnhdr
 {
   char		s_name[8];	/* section name			*/
   char		s_paddr[4];	/* physical address, aliased s_nlib */
@@ -104,7 +104,7 @@ struct external_lineno{
 #define E_FILNMLEN	14	/* # characters in a file name		*/
 #define E_DIMNUM	4	/* # array dimensions in auxiliary entry */
 
-struct external_syment 
+struct external_syment
 {
   union {
     char e_name[E_SYMNMLEN];
@@ -142,7 +142,7 @@ union external_auxent {
 	char  x_size[4];	/* str/union/array size */
       } x_lnsz;
     } x_misc;
-    
+
     /* 12 */
     union {
       struct {			/* if ISFCN, tag, or .bb */
@@ -154,9 +154,9 @@ union external_auxent {
       } x_ary;
     } x_fcnary;
     /* 20 */
-    
+
   } x_sym;
-  
+
   union {
     char x_fname[E_FILNMLEN];
     struct {
@@ -164,13 +164,13 @@ union external_auxent {
       char x_offset[4];
     } x_n;
   } x_file;
-  
+
   struct {
     char x_scnlen[4];		/* section length */
     char x_nreloc[4];		/* # relocation entries */
     char x_nlinno[4];		/* # line numbers */
   } x_scn;
-  
+
   struct {
     char x_tvfill[4];		/* tv fill value */
     char x_tvlen[2];		/* length of .tv */

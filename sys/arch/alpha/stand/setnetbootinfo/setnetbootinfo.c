@@ -183,7 +183,7 @@ main(argc, argv)
 	if (read(fd, netbb, sb.st_size) != sb.st_size)
 		err(1, "read of %lu from %s failed",
 		    (unsigned long)sb.st_size, netboot);
-	
+
 	if (verbose)
 		printf("closing %s...\n", netboot);
 	close(fd);

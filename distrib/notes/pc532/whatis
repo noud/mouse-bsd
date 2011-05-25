@@ -1,4 +1,4 @@
-.\"	$NetBSD: whatis,v 1.5 1999/01/13 07:30:08 ross Exp $	
+.\"	$NetBSD: whatis,v 1.5 1999/01/13 07:30:08 ross Exp $
 .
 For the pc532 port, there are a few known problems.  They include:
 .Bl -enum

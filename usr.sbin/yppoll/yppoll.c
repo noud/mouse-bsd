@@ -159,7 +159,7 @@ get_remote_info(indomain, inmap, server, outorder, outname)
 	client = clntudp_create(&rsrv_sin, YPPROG, YPVERS, tv, &rsrv_sock);
 	if (client == NULL)
 		errx(1, "clntudp_create: no contact with host %s.\n", server);
-	
+
 	yprnk.domain = indomain;
 	yprnk.map = inmap;
 

@@ -44,7 +44,7 @@
 
 #include <compat/aout/aout_exec.h>
 #include <compat/aout/aout_syscall.h>
- 
+
 const char aout_emul_path[] = "/emul/aout";
 extern struct sysent aout_sysent[];
 #ifdef SYSCALL_DEBUG

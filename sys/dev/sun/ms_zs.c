@@ -99,7 +99,7 @@ struct cfattach ms_zs_ca = {
 /*
  * ms_match: how is this zs channel configured?
  */
-int 
+int
 ms_zs_match(parent, cf, aux)
 	struct device *parent;
 	struct cfdata *cf;
@@ -117,7 +117,7 @@ ms_zs_match(parent, cf, aux)
 	return 0;
 }
 
-void 
+void
 ms_zs_attach(parent, self, aux)
 	struct device *parent, *self;
 	void   *aux;

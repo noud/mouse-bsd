@@ -1,4 +1,4 @@
-.\"$NetBSD: hardware,v 1.12 1999/01/13 07:30:08 ross Exp $	
+.\"$NetBSD: hardware,v 1.12 1999/01/13 07:30:08 ross Exp $
 .
 NetBSD/sparc \*V runs on the following classes of machines:
 .Bl -bullet -compact
@@ -33,28 +33,28 @@ faster CPU.)
 .Pp
 Supported devices include:
 .Bl -tag -width indent
-.	It Em sun4c/sun4m sbus video: 
+.	It Em sun4c/sun4m sbus video:
 cgsix, cgthree, and bwtwo frame buffers
 .		br
 cgfourteen and tcx frame buffers (limited
 .Dq emulation
 mode)
-.	It Em sun4 video (not thoroughly tested?): 
+.	It Em sun4 video (not thoroughly tested?):
 P4 on-board bwtwo, and VME cgtwo card
-.	It Em serial ports: 
+.	It Em serial ports:
 ttya and ttyb (can be used as console if needed)
-.	It Em ethernet: 
-on-board AMD Lance ethernet ("le0"), 
+.	It Em ethernet:
+on-board AMD Lance ethernet ("le0"),
 .		br
-Sbus AMD Lance ethernet cards, 
+Sbus AMD Lance ethernet cards,
 .		br
-on-board Intel 82586 ethernet (ie0 on 4/100's and 4/200's), 
+on-board Intel 82586 ethernet (ie0 on 4/100's and 4/200's),
 .		br
 VME Intel 82586 ethernet cards
-.	It Em SCSI: 
+.	It Em SCSI:
 on-board "esp" SCSI controller (sun4c, sun4m and the 4/300),
 .		br
-sbus "esp" SCSI controller, 
+sbus "esp" SCSI controller,
 .		br
 Sun "SUN-3"/"si" VME SCSI controller (polled mode only, slow),
 .		br

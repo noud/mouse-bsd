@@ -302,7 +302,7 @@ searchloop:
 					namlen = ep->d_type;
 #else
 				if (vdp->v_mount->mnt_maxsymlinklen <= 0
-				    && needswap != 0) 
+				    && needswap != 0)
 					namlen = ep->d_type;
 				else
 				namlen = ep->d_namlen;
@@ -1075,7 +1075,7 @@ ufs_dirempty(ip, parentino, cred)
 			continue;
 		/* accept only "." and ".." */
 #if (BYTE_ORDER == LITTLE_ENDIAN)
-		if (ITOV(ip)->v_mount->mnt_maxsymlinklen > 0 || 
+		if (ITOV(ip)->v_mount->mnt_maxsymlinklen > 0 ||
 		   UFS_IPNEEDSWAP(ip) != 0)
 			namlen = dp->d_namlen;
 		else

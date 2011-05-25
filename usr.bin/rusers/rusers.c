@@ -3,7 +3,7 @@
 /*-
  *  Copyright (c) 1993 John Brezak
  *  All rights reserved.
- * 
+ *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
  *  are met:
@@ -14,7 +14,7 @@
  *     documentation and/or other materials provided with the distribution.
  *  3. The name of the author may not be used to endorse or promote products
  *     derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR `AS IS'' AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -80,7 +80,7 @@ int
 search_host(struct in_addr addr)
 {
 	struct host_list *hp;
-	
+
 	if (!hosts)
 		return(0);
 
@@ -110,27 +110,27 @@ rusers_reply(char *replyp, struct sockaddr_in *raddrp)
 	struct hostent *hp;
 	struct utmpidlearr *up = (struct utmpidlearr *)replyp;
 	char *host;
-	
+
 	if (search_host(raddrp->sin_addr))
 		return(0);
 
 	if (!allopt && !up->uia_cnt)
 		return(0);
-	
+
 	hp = gethostbyaddr((char *)&raddrp->sin_addr.s_addr,
 			   sizeof(struct in_addr), AF_INET);
 	if (hp)
 		host = hp->h_name;
 	else
 		host = inet_ntoa(raddrp->sin_addr);
-	
+
 #define HOSTWID (int)sizeof(up->uia_arr[0]->ui_utmp.ut_host)
 #define LINEWID (int)sizeof(up->uia_arr[0]->ui_utmp.ut_line)
 #define NAMEWID (int)sizeof(up->uia_arr[0]->ui_utmp.ut_name)
 
 	if (!longopt)
 		printf("%-*.*s ", HOSTWID, HOSTWID, host);
-	
+
 	for (x = 0; x < up->uia_cnt; x++) {
 		unsigned int minutes;
 		char	date[26], idle[8];
@@ -144,7 +144,7 @@ rusers_reply(char *replyp, struct sockaddr_in *raddrp)
 		}
 
 		snprintf(local, sizeof(local), "%.*s:%s",
-		    HOSTWID, host, 
+		    HOSTWID, host,
 		    up->uia_arr[x]->ui_utmp.ut_line);
 
 		snprintf(date, sizeof(date), "%s",
@@ -185,7 +185,7 @@ rusers_reply(char *replyp, struct sockaddr_in *raddrp)
 	}
 	if (!longopt)
 		putchar('\n');
-	
+
 	remember_host(raddrp->sin_addr);
 	return(0);
 }
@@ -198,7 +198,7 @@ onehost(char *host)
 	enum clnt_stat clnt_stat;
 	struct sockaddr_in addr;
 	struct hostent *hp;
-	
+
 	hp = gethostbyname(host);
 	if (hp == NULL)
 		errx(1, "unknown host \"%s\"", host);
@@ -244,7 +244,7 @@ main(int argc, char *argv[])
 {
 	int ch;
 	extern int optind;
-	
+
 	while ((ch = getopt(argc, argv, "al")) != -1)
 		switch (ch) {
 		case 'a':

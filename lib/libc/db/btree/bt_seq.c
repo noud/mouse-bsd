@@ -372,7 +372,7 @@ __bt_first(t, key, erval, exactp)
 			*erval = *ep;
 			return (RET_SUCCESS);
 		}
-			
+
 		/*
 		 * Walk backwards, as long as the entry matches and there are
 		 * keys left in the tree.  Save a copy of each match in case

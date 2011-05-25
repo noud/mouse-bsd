@@ -227,7 +227,7 @@ osf1_exec_ecoff_dynamic(struct proc *p, struct exec_package *epp)
 	struct nameidata nd;
 	struct vnode *ldr_vp;
 	const char *pathbuf;
-        size_t resid;  
+        size_t resid;
 	int error;
 
 	/*
@@ -275,7 +275,7 @@ osf1_exec_ecoff_dynamic(struct proc *p, struct exec_package *epp)
                 goto badunlock;
         }
 
-	/* 
+	/*
 	 * If loader's mount point disallows set-id execution,
 	 * disable set-id.
 	 */

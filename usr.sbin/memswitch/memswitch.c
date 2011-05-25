@@ -157,7 +157,7 @@ main(argc, argv)
 			usage();
 		restore(argv[0]);
 		break;
-		
+
 	}
 
 	return 0;

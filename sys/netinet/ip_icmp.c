@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -226,7 +226,7 @@ icmp_error(n, type, code, dest, destifp)
 		icp->icmp_gwaddr.s_addr = dest;
 	else {
 		icp->icmp_void = 0;
-		/* 
+		/*
 		 * The following assignments assume an overlay with the
 		 * zeroed icmp_void field.
 		 */
@@ -364,7 +364,7 @@ icmp_input(m, va_alist)
 			case ICMP_UNREACH_NEEDFRAG:
 				code = PRC_MSGSIZE;
 				break;
-				
+
 			case ICMP_UNREACH_NET_UNKNOWN:
 			case ICMP_UNREACH_NET_PROHIB:
 			case ICMP_UNREACH_TOSNET:
@@ -446,7 +446,7 @@ icmp_input(m, va_alist)
 		icp->icmp_rtime = iptime();
 		icp->icmp_ttime = icp->icmp_rtime;	/* bogus, do later! */
 		goto reflect;
-		
+
 	case ICMP_MASKREQ:
 		if (icmpmaskrepl == 0)
 			break;
@@ -572,7 +572,7 @@ icmp_reflect(m)
 
 	/* look for packet sent to broadcast address */
 	if (ia == NULL && (m->m_pkthdr.rcvif->if_flags & IFF_BROADCAST)) {
-		for (ifa = m->m_pkthdr.rcvif->if_addrlist.tqh_first;  
+		for (ifa = m->m_pkthdr.rcvif->if_addrlist.tqh_first;
 		    ifa != NULL; ifa = ifa->ifa_list.tqe_next) {
 			if (ifa->ifa_addr->sa_family != AF_INET)
 				continue;
@@ -626,7 +626,7 @@ icmp_reflect(m)
 	   interface.  This can happen when routing is asymmetric, or
 	   when the incoming packet was encapsulated */
 	if (sin == (struct sockaddr_in *)0) {
-		for (ifa = m->m_pkthdr.rcvif->if_addrlist.tqh_first;  
+		for (ifa = m->m_pkthdr.rcvif->if_addrlist.tqh_first;
 		     ifa != NULL; ifa = ifa->ifa_list.tqe_next) {
 			if (ifa->ifa_addr->sa_family != AF_INET)
 				continue;
@@ -697,7 +697,7 @@ icmp_reflect(m)
 			    /*
 			     * Should check for overflow, but it "can't happen"
 			     */
-			    if (opt == IPOPT_RR || opt == IPOPT_TS || 
+			    if (opt == IPOPT_RR || opt == IPOPT_TS ||
 				opt == IPOPT_SECURITY) {
 				    bcopy((caddr_t)cp,
 					mtod(opts, caddr_t) + opts->m_len, len);
@@ -833,21 +833,21 @@ icmp_mtudisc(icp)
 
 	/* Table of common MTUs: */
 
-	static u_long mtu_table[] = {65535, 65280, 32000, 17914, 9180, 8166, 
+	static u_long mtu_table[] = {65535, 65280, 32000, 17914, 9180, 8166,
 				     4352, 2002, 1492, 1006, 508, 296, 68, 0};
-    
+
 	rt = rtalloc1(dst, 1);
 	if (rt == 0)
 		return;
-    
+
 	/* If we didn't get a host route, allocate one */
-    
+
 	if ((rt->rt_flags & RTF_HOST) == 0) {
 		struct rtentry *nrt;
 
-		error = rtrequest((int) RTM_ADD, dst, 
+		error = rtrequest((int) RTM_ADD, dst,
 		    (struct sockaddr *) rt->rt_gateway,
-		    (struct sockaddr *) 0, 
+		    (struct sockaddr *) 0,
 		    RTF_GATEWAY | RTF_HOST | RTF_DYNAMIC, &nrt);
 		if (error) {
 			rtfree(rt);
@@ -901,7 +901,7 @@ icmp_mtudisc(icp)
 	if ((rt->rt_rmx.rmx_locks & RTV_MTU) == 0) {
 		if (mtu < 296 || mtu > rt->rt_ifp->if_mtu)
 			rt->rt_rmx.rmx_locks |= RTV_MTU;
-		else if (rt->rt_rmx.rmx_mtu > mtu || 
+		else if (rt->rt_rmx.rmx_mtu > mtu ||
 			 rt->rt_rmx.rmx_mtu == 0)
 			rt->rt_rmx.rmx_mtu = mtu;
 	}
@@ -955,7 +955,7 @@ icmp_mtudisc_timeout(rt, r)
 {
 	if (rt == NULL)
 		panic("icmp_mtudisc_timeout:  bad route to timeout");
-	if ((rt->rt_flags & (RTF_DYNAMIC | RTF_HOST)) == 
+	if ((rt->rt_flags & (RTF_DYNAMIC | RTF_HOST)) ==
 	    (RTF_DYNAMIC | RTF_HOST)) {
 		rtrequest((int) RTM_DELETE, (struct sockaddr *)rt_key(rt),
 		    rt->rt_gateway, rt_mask(rt), rt->rt_flags, 0);

@@ -94,7 +94,7 @@ _getsr(void)
  * Requirement: imp >= (highest network, tty, or disk IPL)
  * This is used mostly in the VM code. (Why not splvm?)
  * Note that the VM code runs at spl7 during kernel
- * initialization, and later at spl0, so we have to 
+ * initialization, and later at spl0, so we have to
  * use splraise to avoid enabling interrupts early.
  */
 #define splimp()        _splraise(PSL_S|PSL_IPL4)

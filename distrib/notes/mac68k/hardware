@@ -1,4 +1,4 @@
-.\"	$NetBSD: hardware,v 1.15 1999/05/07 03:30:44 ender Exp $	
+.\"	$NetBSD: hardware,v 1.15 1999/05/07 03:30:44 ender Exp $
 NetBSD/mac68k \*V runs on several of the older Macintosh computers.
 About 4MB of RAM might be sufficient to boot, and the system can probably
 be squeezed onto a 40MB hard disk by leaving off an unnecessary set or two.
@@ -66,7 +66,7 @@ Some of the known ones in this category:
 .Pp
 .Bl -bullet -compact
 .It
-Classic-series Macs 
+Classic-series Macs
 .It
 PowerBook 100-series and Duo-series Macs
 .El

@@ -116,7 +116,7 @@ extern int pmap_debug_level;
 #endif
 
 #define KBDUNIT(u)	(minor(u) / 2)
-#define KBDFLAG(u)	(minor(u) % 2) 
+#define KBDFLAG(u)	(minor(u) % 2)
 
 #define KBDFLAG_RAWUNIT	0
 #define KBDFLAG_CONUNIT	1
@@ -410,7 +410,7 @@ kbdcmd(sc, cmd)
 	for (retry = 7; retry >= 0; --retry) {
 
 		/* Wait for empty kbd transmit register */
-		 
+
 		for (i = 1000; i; i--) {
 			if (bus_space_read_1(sc->sc_iot, sc->sc_ioh, KBD_STATUS) & KBD_ST_TXE)
 				break;
@@ -421,7 +421,7 @@ kbdcmd(sc, cmd)
 
 		bus_space_write_1(sc->sc_iot, sc->sc_ioh, KBD_DATA, cmd);
 		delay(200);
-	
+
 		/* Wait for full kbd receive register */
 
 		for (i = 0; i < 1000; i++) {
@@ -568,7 +568,7 @@ kdbgetstate(sc)
 	return(modifiers);
 }
 #endif
-  
+
 int
 getkey_polled()
 {
@@ -586,7 +586,7 @@ getkey_polled()
 		printf("console_kbd = 0\n");
 		halt();
 	}
-	
+
 	s = splhigh();
 
 	key = 0;
@@ -837,9 +837,9 @@ kbddecodekey(sc, code)
 	if (rawkbd_device == 1 && code != 0) {
 		struct kbd_data buffer;
 		int s;
-  
+
   /* Add this event to the queue. */
- 
+
  		buffer.keycode = code;
  		microtime(&buffer.event_time);
 		s=spltty();
@@ -912,7 +912,7 @@ kbddecodekey(sc, code)
 
 		sprintf(err, "\n\rUnknown keycode %04x\n\r", code);
 		dprintf(err);
- 
+
 	}*/
 #endif
 
@@ -987,7 +987,7 @@ kbddecodekey(sc, code)
 					printf("Kernel interruption - nosync\n");
 					cpu_reboot(RB_NOSYNC | RB_HALT, NULL);
 					break;
-	
+
 				default:
 					printf("Special key %04x\n", key);
 					break;

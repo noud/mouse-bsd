@@ -36,7 +36,7 @@ extern int kernel_u_size PARAMS ((void));
 /* GNU/Linux uses the SYSV i386v-nat.c support, but doesn't have <sys/reg.h> */
 
 #define NO_SYS_REG_H
- 
+
 /* GNU/Linux supports the 386 hardware debugging registers.  */
 
 #define TARGET_HAS_HARDWARE_WATCHPOINTS

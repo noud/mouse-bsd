@@ -921,18 +921,18 @@ the standard.
 @c to @code{libf2c} to map the old names to the new names,
 @c for automatic use by programs that interface to the
 @c library procedures via the external-procedure mechanism.
-@c 
+@c
 @c For example, the intrinsic @code{FPUTC} previously was
 @c implemented by @code{g77} as a call to the @code{libf2c}
 @c routine @samp{fputc_}.
 @c This would conflict with a Fortran procedure named @code{FPUTC}
 @c (using default compiler options), and this conflict
 @c would cause a crash under certain circumstances.
-@c 
+@c
 @c Now, the intrinsic @code{FPUTC} calls @samp{G77_fputc_0},
 @c which does not conflict with the @samp{fputc_} external
 @c that implements a Fortran procedure named @code{FPUTC}.
-@c 
+@c
 @c Programs that refer to @code{FPUTC} as an external procedure
 @c without supplying their own implementation will link to
 @c the new @code{libf2c} routine @samp{fputc_}, which is

@@ -120,7 +120,7 @@ struct linux_sys_socket_args {
 
 struct linux_sys_socketpair_args {
 	syscallarg(int) domain;
-	syscallarg(int) type;	
+	syscallarg(int) type;
 	syscallarg(int) protocol;
 	syscallarg(int *) rsv;
 };

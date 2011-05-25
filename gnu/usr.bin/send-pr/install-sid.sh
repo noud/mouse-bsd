@@ -71,7 +71,7 @@ if grep $SUBMITTER $TEMP > /dev/null; then
   cp $TEMP $SPPATH &&
   chmod a+rx $SPPATH &&
   rm -f $TEMP $SPPATH.orig ||
-  { echo "$COMMAND: unable to replace send-pr" >&2 ; exit 1; }  
+  { echo "$COMMAND: unable to replace send-pr" >&2 ; exit 1; }
 else
   echo "$COMMAND: something went wrong when sed-ing the submitter into send-pr" >&2
   exit 1

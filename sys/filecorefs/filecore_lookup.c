@@ -125,7 +125,7 @@ filecore_lookup(v)
 	fcmp = dp->i_mnt;
 	lockparent = flags & LOCKPARENT;
 	wantparent = flags & (LOCKPARENT|WANTPARENT);
-	
+
 	/*
 	 * Check accessiblity of directory.
 	 */
@@ -145,10 +145,10 @@ filecore_lookup(v)
 	 */
 	if ((error = cache_lookup(vdp, vpp, cnp)) >= 0)
 		return (error);
-	
+
 	name = cnp->cn_nameptr;
 	namelen = cnp->cn_namelen;
-	
+
 	/*
 	 * If there is cached information on a previous search of
 	 * this directory, pick up where we last left off.
@@ -181,7 +181,7 @@ filecore_lookup(v)
 	}
 
 	de = fcdirentry(bp->b_data, i);
-	
+
 searchloop:
 	while (de->name[0] != 0 && i < endsearch) {
 		/*
@@ -225,11 +225,11 @@ notfound:
 	if (nameiop == CREATE || nameiop == RENAME)
 		return (EROFS);
 	return (ENOENT);
-	
+
 found:
 	if (numdirpasses == 2)
 		filecore_nchstats.ncs_pass2++;
-	
+
 	/*
 	 * Found component in pathname.
 	 * If the final component of path name, save information
@@ -237,7 +237,7 @@ found:
 	 */
 	if ((flags & ISLASTCN) && nameiop == LOOKUP)
 		dp->i_diroff = i;
-	
+
 	/*
 	 * Step through the translation in the name.  We do not `iput' the
 	 * directory because we may need it again if a symbolic link
@@ -298,7 +298,7 @@ found:
 		}
 		*vpp = tdp;
 	}
-	
+
 	/*
 	 * Insert name into cache if appropriate.
 	 */

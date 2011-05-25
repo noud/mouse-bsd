@@ -1,4 +1,4 @@
-.\" $NetBSD: xfer,v 1.6 1999/05/19 05:49:06 gwr Exp $	
+.\" $NetBSD: xfer,v 1.6 1999/05/19 05:49:06 gwr Exp $
 .
 Installation is supported from several media types, including:
 .Bl -bullet -compact -offset indent
@@ -20,7 +20,7 @@ The procedure for transferring the distribution sets onto
 installation media depends on the type of media. Instructions
 for each type of media are given below.
 .Pp
-In order to create installation media, you will need all the 
+In order to create installation media, you will need all the
 files in the directory
 .Dl \&.../NetBSD-\*V/\*[MACHINE]/
 .
@@ -79,7 +79,7 @@ machine's recently aquired IP
 .if r_sun3 address.
 .if r_sun3x address and an extension which corresponds to the
 .if r_sun3x machine architecture.
-(It may be handy to have a hexadecimal 
+(It may be handy to have a hexadecimal
 calculator for this next step.) The filename
 .if r_sun3x prefix
 is created by

@@ -269,7 +269,7 @@ convert_to_pointer_force (type, expr)
 {
   register tree intype = TREE_TYPE (expr);
   register enum tree_code form = TREE_CODE (intype);
-  
+
   if (integer_zerop (expr))
     {
       expr = build_int_2 (0, 0);
@@ -441,7 +441,7 @@ convert_to_reference (reftype, expr, convtype, flags, decl)
 	{
 	  tree ttl = TREE_TYPE (reftype);
 	  tree ttr;
-	  
+
 	  {
 	    int r = TREE_READONLY (expr);
 	    int v = TREE_THIS_VOLATILE (expr);
@@ -485,7 +485,7 @@ convert_to_reference (reftype, expr, convtype, flags, decl)
 	  && (comptypes (TREE_TYPE (intype), type, -1)))
 	cp_warning ("casting `%T' to `%T' does not dereference pointer",
 		    intype, reftype);
-	  
+
       rval = build_unary_op (ADDR_EXPR, expr, 0);
       if (rval != error_mark_node)
 	rval = convert_force (build_pointer_type (TREE_TYPE (reftype)),
@@ -665,7 +665,7 @@ ocp_convert (type, expr, convtype, flags)
   else if (TYPE_MAIN_VARIANT (type) == TYPE_MAIN_VARIANT (TREE_TYPE (e)))
     /* Trivial conversion: cv-qualifiers do not matter on rvalues.  */
     return fold (build1 (NOP_EXPR, type, e));
-  
+
   if (code == VOID_TYPE && (convtype & CONV_STATIC))
     return build1 (CONVERT_EXPR, type, e);
 
@@ -966,7 +966,7 @@ build_expr_type_conversion (desires, expr, complain)
 	return (desires & WANT_FLOAT) ? expr : NULL_TREE;
       case POINTER_TYPE:
 	return (desires & WANT_POINTER) ? expr : NULL_TREE;
-	
+
       case FUNCTION_TYPE:
       case ARRAY_TYPE:
 	return (desires & WANT_POINTER) ? default_conversion (expr)
@@ -1098,7 +1098,7 @@ type_promotes_to (type)
    to TYPE.  Return the resulting expression, or error_mark_node if
    the conversion was impossible.  */
 
-tree 
+tree
 perform_qualification_conversions (type, expr)
      tree type;
      tree expr;

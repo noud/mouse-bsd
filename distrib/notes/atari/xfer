@@ -1,4 +1,4 @@
-.\"	$NetBSD: xfer,v 1.11 1999/04/06 12:33:38 leo Exp $	
+.\"	$NetBSD: xfer,v 1.11 1999/04/06 12:33:38 leo Exp $
 Installation is supported from several media types, including:
 .Pp
 .Bl -bullet -compact

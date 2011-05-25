@@ -61,7 +61,7 @@ struct protosw natmsw[] = {
 { SOCK_STREAM,	&natmdomain,	PROTO_NATMAAL5, PR_CONNREQUIRED,
   0,	0,	0,	0,
   natm_usrreq,
-  0,	0,	0,	0,	
+  0,	0,	0,	0,
 #if defined(__NetBSD__) || defined(__OpenBSD__)
 	natm5_sysctl
 #endif
@@ -69,7 +69,7 @@ struct protosw natmsw[] = {
 { SOCK_DGRAM,	&natmdomain,	PROTO_NATMAAL5,	PR_CONNREQUIRED | PR_ATOMIC,
   0,	0,	0,	0,
   natm_usrreq,
-  0,	0,	0,	0,	
+  0,	0,	0,	0,
 #if defined(__NetBSD__) || defined(__OpenBSD__)
 	natm5_sysctl
 #endif
@@ -77,7 +77,7 @@ struct protosw natmsw[] = {
 { SOCK_STREAM,	&natmdomain,	PROTO_NATMAAL0, PR_CONNREQUIRED,
   0,	0,	0,	0,
   natm_usrreq,
-  0,	0,	0,	0,	
+  0,	0,	0,	0,
 #if defined(__NetBSD__) || defined(__OpenBSD__)
 	natm0_sysctl
 #endif
@@ -85,7 +85,7 @@ struct protosw natmsw[] = {
 };
 
 struct domain natmdomain =
-    { PF_NATM, "natm", natm_init, 0, 0, 
+    { PF_NATM, "natm", natm_init, 0, 0,
       natmsw, &natmsw[sizeof(natmsw)/sizeof(natmsw[0])], 0,
       0, 0, 0};
 

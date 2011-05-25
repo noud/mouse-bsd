@@ -64,8 +64,8 @@ struct fbdriver {
 	int	(*fbd_poll) __P((dev_t, int, struct proc *));
 	int	(*fbd_mmap) __P((dev_t, int, int));
 #ifdef notyet
-	/* 
-	 * XXX redundant idea? these can hook into rasops on a per-device 
+	/*
+	 * XXX redundant idea? these can hook into rasops on a per-device
 	 * basis like: fb_rinfo.ri_ops.copycols = ....;
 	 */
 	void	(*fbd_wrrop)();		/* `write region' rasterop */

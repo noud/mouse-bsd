@@ -1,27 +1,27 @@
 /*	$NetBSD: db_aout.c,v 1.26 1999/06/15 00:23:19 thorpej Exp $	*/
 
-/* 
+/*
  * Mach Operating System
  * Copyright (c) 1991,1990 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
+ *
  * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
  * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND FOR
  * ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
- * 
+ *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
  *  School of Computer Science
  *  Carnegie Mellon University
  *  Pittsburgh PA 15213-3890
- * 
+ *
  * any improvements or extensions that they make and grant Carnegie the
  * rights to redistribute these changes.
  */
@@ -124,7 +124,7 @@ db_aout_sym_init(symsize, vsymtab, vesymtab, name)
 	    return (FALSE);
         }
 #undef	round_to_size
-        
+
 	for (sp = sym_start; sp < sym_end; sp++) {
 	    register int strx;
 	    strx = sp->n_un.n_strx;
@@ -149,7 +149,7 @@ db_aout_sym_init(symsize, vsymtab, vesymtab, name)
                           (long)vesymtab - (long)vsymtab, name);
 		return (TRUE);
         }
-	
+
 	return (FALSE);
 }
 
@@ -274,7 +274,7 @@ db_aout_line_at_pc(symtab, cursym, filename, linenum, off)
 	    if (sp->n_value <= off && (off - sp->n_value) <= sodiff &&
 		NEWSRC(sp->n_un.n_name)) {
 #endif
-	    if ((sp->n_type & N_TYPE) == N_FN || NEWSRC(sp->n_un.n_name)) { 
+	    if ((sp->n_type & N_TYPE) == N_FN || NEWSRC(sp->n_un.n_name)) {
 		sodiff = lndiff = -1UL;
 		ln = 0;
 		fname = NULL;

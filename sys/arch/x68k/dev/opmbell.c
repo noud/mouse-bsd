@@ -376,7 +376,7 @@ bell_pitchtokey(pitch)
  * Its values have been calculated as table[i] = -15 * log10(i/100)
  * with an obvious exception for i = 0; This log-table converts a linear
  * volume-scaling (0...100) to a logarithmic scaling as present in the
- * OPM chips. so: Volume 50% = 6 db. 
+ * OPM chips. so: Volume 50% = 6 db.
  */
 
 static u_char vol_table[] = {
@@ -447,7 +447,7 @@ bell_timeout(arg)
 {
     struct bell_softc *sc = &bell_softc[0];
 
-    sc->sc_flags &= ~BELLF_OUT; 
+    sc->sc_flags &= ~BELLF_OUT;
     bell_off(sc);
     untimeout(bell_timeout, (caddr_t)NULL);
 }

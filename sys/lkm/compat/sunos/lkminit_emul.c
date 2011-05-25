@@ -57,7 +57,7 @@ MOD_EXEC("sunos", -1, &sunos_lkm_execsw);
  */
 int
 compat_sunos_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

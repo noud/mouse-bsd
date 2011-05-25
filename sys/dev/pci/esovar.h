@@ -125,7 +125,7 @@ struct eso_softc {
 
 	/* Audio 2 state */
 	uint8_t			sc_a2c2;	/* Audio 2 Control 2 */
-	
+
 	/* Mixer state */
 	uint8_t			sc_gain[ESO_NGAINDEVS][2];
 #define	ESO_LEFT		0

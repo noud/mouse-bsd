@@ -106,11 +106,11 @@ getremcap(host)
 			fprintf(stderr, "tip: unknown host %s\n", host);
 			break;
 		case -2:
-			fprintf(stderr, 
+			fprintf(stderr,
 			    "tip: can't open host description file\n");
 			break;
 		case -3:
-			fprintf(stderr, 
+			fprintf(stderr,
 			    "tip: possible reference loop in host description file\n");
 			break;
 		}

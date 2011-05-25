@@ -40,9 +40,9 @@
  *	@(#)x25err.h	8.1 (Berkeley) 6/10/93
  */
 
-/* 
- *  
- *  X.25 Reset and Clear errors and diagnostics.  These values are 
+/*
+ *
+ *  X.25 Reset and Clear errors and diagnostics.  These values are
  *  returned in the u_error field of the u structure.
  *
  */

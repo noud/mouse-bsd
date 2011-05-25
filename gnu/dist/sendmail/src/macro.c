@@ -241,7 +241,7 @@ define(n, v, e)
 {
 	if (tTd(35, 9))
 	{
-		printf("%sdefine(%s as ", 
+		printf("%sdefine(%s as ",
 		    (e->e_macro[n & 0377] == NULL) ? "" : "re", macname(n));
 		xputs(v);
 		printf(")\n");

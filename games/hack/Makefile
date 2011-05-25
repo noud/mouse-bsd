@@ -50,7 +50,7 @@ alloc.o hack.Decl.o hack.apply.o hack.bones.o hack.o hack.cmd.o hack.do.o \
 afterinstall: clobber
 .endif
 
-clobber: 
+clobber:
 	${INSTALL} ${INSTPRIV} -c -o games -g games -m 660 /dev/null \
 	    ${DESTDIR}/var/games/hackdir/perm
 	${INSTALL} ${INSTPRIV} -c -o games -g games -m 660 /dev/null \

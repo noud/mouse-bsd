@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 1987-1993, The University of Utah and
  * the Center for Software Science at the University of Utah (CSS).
  * All rights reserved.

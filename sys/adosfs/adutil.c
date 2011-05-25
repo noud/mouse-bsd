@@ -49,7 +49,7 @@ static int CapitalChar __P((int, int));
 
 extern struct simplelock adosfs_hashlock;
 
-struct vnode * 
+struct vnode *
 adosfs_ahashget(mp, an)
 	struct mount *mp;
 	ino_t an;
@@ -172,7 +172,7 @@ static int
 CapitalChar(ch, inter)
 	int ch, inter;
 {
-	if ((ch >= 'a' && ch <= 'z') || 
+	if ((ch >= 'a' && ch <= 'z') ||
 	    (inter && ch >= 0xe0 && ch <= 0xfe && ch != 0xf7))
 		return(ch - ('a' - 'A'));
 	return(ch);
@@ -184,7 +184,7 @@ adoscksum(bp, n)
 	int n;
 {
 	u_int32_t sum, *lp;
-	
+
 	lp = (u_int32_t *)bp->b_data;
 	sum = 0;
 
@@ -198,11 +198,11 @@ adoscaseequ(name1, name2, len, inter)
 	const u_char *name1, *name2;
 	int len, inter;
 {
-	while (len-- > 0) 
-		if (CapitalChar(*name1++, inter) != 
+	while (len-- > 0)
+		if (CapitalChar(*name1++, inter) !=
 		    CapitalChar(*name2++, inter))
 			return 0;
-	
+
 	return 1;
 }
 

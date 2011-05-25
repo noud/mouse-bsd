@@ -387,7 +387,7 @@ dos2unixfn(dn, un, lower)
 		thislong++;
 	}
 	dn += 8;
-	
+
 	/*
 	 * Now, if there is an extension then put in a period and copy in
 	 * the extension.

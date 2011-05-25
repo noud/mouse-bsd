@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1992 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -56,21 +56,21 @@
  * 	a non-crypting version of sup. Also fixed to skip leading
  * 	white space from crypts in host files.
  * 	[92/09/01            mrt]
- * 
+ *
  * Revision 1.19  92/08/11  12:07:59  mrt
  * 		Made maxchildren a patchable variable, which can be set by the
  * 		command line switch -C or else defaults to the MAXCHILDREN
  * 		defined in sup.h. Added most of Brad's STUMP changes.
  * 	Increased PGMVERSION to 12 to reflect substantial changes.
  * 	[92/07/28            mrt]
- * 
+ *
  * Revision 1.18  90/12/25  15:15:39  ern
  * 	Yet another rewrite of the logging code. Make up the text we will write
  * 	   and then get in, write it and get out.
  * 	Also set error on write-to-full-disk if the logging is for recording
  * 	   server is busy.
  * 	[90/12/25  15:15:15  ern]
- * 
+ *
  * Revision 1.17  90/05/07  09:31:13  dlc
  * 	Sigh, some more fixes to the new "crypt" file handling code.  First,
  * 	just because the "crypt" file is in a local file system does not mean
@@ -83,13 +83,13 @@
  * 	to cause fewer surprises to people supping out of a shared file system
  * 	such as AFS.
  * 	[90/05/07            dlc]
- * 
+ *
  * Revision 1.16  90/04/29  04:21:08  dlc
  * 	Fixed logic bug in docrypt() which would not get the stat information
  * 	from the crypt file if the crypt key had already been set from a
  * 	"host" file.
  * 	[90/04/29            dlc]
- * 
+ *
  * Revision 1.15  90/04/18  19:51:27  dlc
  * 	Added the new routines local_file(), link_nofollow() for use in
  * 	dectecting whether a file is located in a local file system.  These
@@ -107,18 +107,18 @@
  * 	the saved uid/gid are both valid, then the server will set its uid/gid
  * 	to these values.
  * 	[90/04/18            dlc]
- * 
+ *
  * Revision 1.14  89/08/23  14:56:15  gm0w
  * 	Changed msgf routines to msg routines.
  * 	[89/08/23            gm0w]
- * 
+ *
  * Revision 1.13  89/08/03  19:57:33  mja
  * 	Remove setaid() call.
- * 
+ *
  * Revision 1.12  89/08/03  19:49:24  mja
  * 	Updated to use v*printf() in place of _doprnt().
  * 	[89/04/19            mja]
- * 
+ *
  * 11-Sep-88  Glenn Marcy (gm0w) at Carnegie-Mellon University
  *	Added code to record release name in logfile.
  *
@@ -253,10 +253,10 @@
 #ifdef __SVR4
 # include <sys/mkdev.h>
 # include <sys/statvfs.h>
-#endif 
+#endif
 #ifdef LIBWRAP
 #include <tcpd.h>
-#endif  
+#endif
 
 #include "supcdefs.h"
 #include "supextern.h"
@@ -387,7 +387,7 @@ char **argv;
 	time_t tloc;
 #ifdef LIBWRAP
         struct request_info req;
-#endif  
+#endif
 
 	/* initialize global variables */
 	pgmversion = PGMVERSION;	/* export version number */
@@ -413,12 +413,12 @@ char **argv;
 			logquit (1,"Can't connect to network");
 #ifdef LIBWRAP
 		request_init(&req, RQ_DAEMON, "supfilesrv", RQ_FILE, netfile,
-		    NULL);      
+		    NULL);
 		fromhost(&req);
 		if (hosts_access(&req) == 0) {
 			logdeny("refused connection from %.500s",
-			    eval_client(&req));   
-			servicekill();       
+			    eval_client(&req));
+			servicekill();
 			exit(1);
 		}
 		if (clog) {
@@ -453,12 +453,12 @@ char **argv;
 		if ((pid = fork()) == 0) { /* server process */
 #ifdef LIBWRAP
 			request_init(&req, RQ_DAEMON, "supfilesrv", RQ_FILE,
-			    netfile, NULL);      
+			    netfile, NULL);
 			fromhost(&req);
 			if (hosts_access(&req) == 0) {
 				logdeny("refused connection from %.500s",
-				    eval_client(&req));   
-				servicekill();       
+				    eval_client(&req));
+				servicekill();
 				exit(1);
 			}
 			if (clog) {
@@ -1816,7 +1816,7 @@ time_t time;
  * following of the last path component disabled, the attempt to open a
  * file which is a symlink will succeed, so we check for the BSD symlink
  * file type here.  Also, the link following on/off and RFS file types
- * are only relevant in a MACH environment. 
+ * are only relevant in a MACH environment.
  */
 #ifdef	AFS
 #include <sys/viceioctl.h>

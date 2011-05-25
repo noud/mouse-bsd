@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1985
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -19,7 +19,7 @@
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -35,14 +35,14 @@
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -257,7 +257,7 @@ res_pquery(const res_state statp, const u_char *msg, int len, FILE *file) {
 		fprintf(file, ", %s: %d",
 			p_section(ns_s_ar, opcode), arcount);
 	}
-	if ((!statp->pfcode) || (statp->pfcode & 
+	if ((!statp->pfcode) || (statp->pfcode &
 		(RES_PRF_HEADX | RES_PRF_HEAD2 | RES_PRF_HEAD1))) {
 		putc('\n',file);
 	}
@@ -799,7 +799,7 @@ loc_aton(ascii, binary)
 		altsign = -1;
 		cp++;
 	}
-    
+
 	if (*cp == '+')
 		cp++;
 
@@ -828,7 +828,7 @@ loc_aton(ascii, binary)
 		goto defaults;
 
 	siz = precsize_aton(&cp);
-	
+
 	while (!isspace(*cp) && (cp < maxcp))	/* if trailing garbage or m */
 		cp++;
 
@@ -861,7 +861,7 @@ loc_aton(ascii, binary)
 	PUTLONG(latit,bcp);
 	PUTLONG(longit,bcp);
 	PUTLONG(alt,bcp);
-    
+
 	return (16);		/* size of RR in octets */
 }
 
@@ -886,7 +886,7 @@ loc_ntoa(binary, ascii)
 	int32_t latval, longval, altval;
 	u_int32_t templ;
 	u_int8_t sizeval, hpval, vpval, versionval;
-    
+
 	char *sizestr, *hpstr, *vpstr;
 
 	versionval = *cp++;
@@ -1000,8 +1000,8 @@ dn_count_labels(const char *name) {
 }
 
 
-/* 
- * Make dates expressed in seconds-since-Jan-1-1970 easy to read.  
+/*
+ * Make dates expressed in seconds-since-Jan-1-1970 easy to read.
  * SIG records are required to be printed like this, by the Secure DNS RFC.
  */
 char *
@@ -1010,7 +1010,7 @@ p_secstodate (u_long secs) {
 	static char output[15];		/* YYYYMMDDHHMMSS and null */
 	time_t clock = secs;
 	struct tm *time;
-	
+
 #ifdef HAVE_TIME_R
 	gmtime_r(&clock, &time);
 #else

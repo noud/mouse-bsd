@@ -1,4 +1,4 @@
-#	$NetBSD: Makefile.inc,v 1.13 1999/05/11 20:46:59 veego Exp $ 
+#	$NetBSD: Makefile.inc,v 1.13 1999/05/11 20:46:59 veego Exp $
 
 # TOP is assumed to be defined by Makefile including this one.
 

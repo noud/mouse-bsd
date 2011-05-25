@@ -4,7 +4,7 @@
 ** config.c                         This file handles the config file
 **
 ** This program is in the public domain and may be used freely by anyone
-** who wants to. 
+** who wants to.
 **
 ** Last update: 6 Dec 1992
 **
@@ -26,7 +26,7 @@
 
 #define MAXLINE         1024
 #define MAXNETS         1024
- 
+
 u_long localnet[MAXNETS], localmask[MAXNETS];
 int netcnt;
 
@@ -39,7 +39,7 @@ int parse_config(path, silent_flag)
 
   if (!path)
     path = PATH_CONFIG;
-  
+
   fp = fopen(path, "r");
   if (!fp)
   {

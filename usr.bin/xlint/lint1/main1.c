@@ -176,7 +176,7 @@ usage()
 	(void)fprintf(stderr, "usage: lint1 [-abcdeghprstuvyzF] src dest\n");
 	exit(1);
 }
-	
+
 void
 norecover()
 {

@@ -130,7 +130,7 @@ static int dump_reg_flag;	/* Non-zero means do a dump_registers cmd when
 				   monitor_wait wakes up.  */
 
 static DCACHE *remote_dcache;
-static int first_time=0;	/* is this the first time we're executing after 
+static int first_time=0;	/* is this the first time we're executing after
 					gaving created the child proccess? */
 
 /* Convert hex digit A to a number.  */
@@ -143,7 +143,7 @@ fromhex (a)
     return a - '0';
   else if (a >= 'a' && a <= 'f')
     return a - 'a' + 10;
-  else 
+  else
     error ("Invalid hex digit %d", a);
 }
 
@@ -158,7 +158,7 @@ fromhex (a)
    If it is a '%s' format, the argument is a string; otherwise the
    argument is assumed to be a long integer.
 */
-  
+
 static void
 monitor_vsprintf (sndbuf, pattern, args)
      char *sndbuf;
@@ -438,7 +438,7 @@ monitor_expect (string, buf, buflen)
 	c = readchar (timeout);
 
       /* Don't expect any ^C sent to be echoed */
-	
+
       if (*p == '\003' || c == *p)
 	{
 	  p++;
@@ -639,7 +639,7 @@ monitor_open (args, mon_ops, from_tty)
 	  perror_with_name (dev_name);
 	}
     }
-  
+
   SERIAL_RAW (monitor_desc);
 
   SERIAL_FLUSH_INPUT (monitor_desc);
@@ -658,7 +658,7 @@ monitor_open (args, mon_ops, from_tty)
       monitor_stop ();
       if ((current_monitor->flags & MO_NO_ECHO_ON_OPEN) == 0)
         {
-        monitor_expect_prompt (NULL, 0); 
+        monitor_expect_prompt (NULL, 0);
       }
     }
 
@@ -667,9 +667,9 @@ monitor_open (args, mon_ops, from_tty)
     {
       /* Some of the characters we send may not be echoed,
 	 but we hope to get a prompt at the end of it all. */
-	 
+
       if ((current_monitor->flags & MO_NO_ECHO_ON_OPEN) == 0)
-        monitor_printf(*p); 
+        monitor_printf(*p);
       else
         monitor_printf_noecho (*p);
       monitor_expect_prompt (NULL, 0);
@@ -822,7 +822,7 @@ monitor_interrupt (signo)
 {
   /* If this doesn't work, try more severe steps.  */
   signal (signo, monitor_interrupt_twice);
-  
+
   if (remote_debug)
     printf_unfiltered ("monitor_interrupt called\n");
 
@@ -836,7 +836,7 @@ monitor_interrupt_twice (signo)
      int signo;
 {
   signal (signo, ofunc);
-  
+
   monitor_interrupt_query ();
 
   signal (signo, monitor_interrupt);
@@ -977,7 +977,7 @@ monitor_fetch_register (regno)
     }
 
   /* Skip leading spaces and "0x" if MO_HEX_PREFIX flag is set */
-  if (current_monitor->flags & MO_HEX_PREFIX) 
+  if (current_monitor->flags & MO_HEX_PREFIX)
     {
       int c;
       c = readchar (timeout);
@@ -1052,7 +1052,7 @@ static void
 monitor_fetch_registers (regno)
      int regno;
 {
-  if (current_monitor->getreg.cmd) 
+  if (current_monitor->getreg.cmd)
     {
       if (regno >= 0)
 	{
@@ -1281,7 +1281,7 @@ monitor_read_memory_single (memaddr, myaddr, len)
      skipping spaces.  */
 
   /* Skip leading spaces and "0x" if MO_HEX_PREFIX flag is set. */
-  if (current_monitor->flags & MO_HEX_PREFIX) 
+  if (current_monitor->flags & MO_HEX_PREFIX)
     {
       int c;
 
@@ -1732,7 +1732,7 @@ monitor_command (args, from_tty)
 static int
 from_hex (a)
      int a;
-{  
+{
   if (a >= '0' && a <= '9')
     return a - '0';
   if (a >= 'a' && a <= 'f')
@@ -1816,5 +1816,5 @@ When enabled, a hashmark \'#\' is displayed.",
 		     &showlist);
 
   add_com ("monitor", class_obscure, monitor_command,
-	   "Send a command to the debug monitor."); 
+	   "Send a command to the debug monitor.");
 }

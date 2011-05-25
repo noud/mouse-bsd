@@ -2,14 +2,14 @@
 
 /*
  * /src/NTP/REPOSITORY/v4/libparse/clk_dcf7000.c,v 3.18 1997/01/19 12:44:36 kardel Exp
- *  
+ *
  * clk_dcf7000.c,v 3.18 1997/01/19 12:44:36 kardel Exp
  *
  * ELV DCF7000 module
  *
  * Copyright (C) 1992,1993,1994,1995,1996 by Frank Kardel
  * Friedrich-Alexander Universität Erlangen-Nürnberg, Germany
- *                                    
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -40,7 +40,7 @@ static struct format dcf7000_fmt =
   },
   "  -  -  -  -  -  -  -  \r",
   0
-};    
+};
 
 static u_long cvt_dcf7000 P((char *, unsigned int, void *, clocktime_t *, void *));
 
@@ -101,7 +101,7 @@ cvt_dcf7000(buffer, size, vf, clock, vt)
 	{
 	  char *f = &buffer[format->field_offsets[O_FLAGS].offset];
 	  long flags;
-	  
+
 	  clock->flags = 0;
 	  clock->usecond = 0;
 

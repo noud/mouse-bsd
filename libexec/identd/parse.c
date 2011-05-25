@@ -166,7 +166,7 @@ int check_crypt(faddr)
   int i;
   extern int netcnt;
   extern u_long localnet[], localmask[];
- 
+
   for (i = 0; i < netcnt; i++) {
     if ((faddr->s_addr & localmask[i]) == localnet[i])
       return 0;
@@ -475,7 +475,7 @@ int parse(fp, laddr, faddr)
     {
       /*
       ** Open the kernel memory device and read the nlist table
-      ** 
+      **
       ** Of course k_open should not call ERROR (which then exits)
       ** but maybe use syslog(LOG_ERR) and return non-zero. But I am
       ** too lazy to change them all ...

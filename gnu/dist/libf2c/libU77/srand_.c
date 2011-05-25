@@ -24,7 +24,7 @@ Boston, MA 02111-1307, USA.  */
 #endif
 #include "f2c.h"
 
-/* Subroutine */ 
+/* Subroutine */
 #ifdef KR_headers
 int G77_srand_0 (seed)
      integer *seed;

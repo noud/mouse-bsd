@@ -22,13 +22,13 @@ SECTIONS
   }
   .shbss SIZEOF(.text) + ADDR(.text) :	{
     *(.shbss)
-  } 
+  }
   .data  : {
     *(.data)
     ${RELOCATING+ __edata  =  .};
   }
   .bss   SIZEOF(.data) + ADDR(.data) :
-  { 					
+  {
    *(.bss)
    *(COMMON)
      ${RELOCATING+ __end = ALIGN(0x8)};

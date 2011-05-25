@@ -352,7 +352,7 @@ sys_msgget(p, v, retval)
 		}
 		if (msqid == msginfo.msgmni) {
 			MSG_PRINTF(("no more msqid_ds's available\n"));
-			return (ENOSPC);	
+			return (ENOSPC);
 		}
 		MSG_PRINTF(("msqid %d is available\n", msqid));
 		msqptr->msg_perm._key = key;

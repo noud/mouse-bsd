@@ -112,7 +112,7 @@ main(int argc, char **argv)
 		  if (c == '\n')
 		    ++lineno;
 		  break;
-		  
+
 		default:
 		  putchar (c);
 		  break;
@@ -131,7 +131,7 @@ main(int argc, char **argv)
 		case '\'':
 		  putchar (c);
 		  goto next_char;
-		  
+
 		case '\n':
 		  putchar ('\\');
 		  putchar ('n');
@@ -139,7 +139,7 @@ main(int argc, char **argv)
 		  putchar ('\n');
 		  ++lineno;
 		  break;
-		  
+
 		case '\\':
 		  putchar (c);
 		  c = getchar ();
@@ -148,7 +148,7 @@ main(int argc, char **argv)
 		  if (c == '\n')
 		    ++lineno;
 		  break;
-		  
+
 		default:
 		  putchar (c);
 		  break;
@@ -173,7 +173,7 @@ main(int argc, char **argv)
 		  ++lineno;
 		  putchar (c);
 		  break;
-		  
+
 		case '*':
 		  c = getchar ();
 		  die_unless (c != EOF);
@@ -189,7 +189,7 @@ main(int argc, char **argv)
 		      putchar (c);
 		    }
 		  break;
-		  
+
 		default:
 		  /* Don't bother outputting content of comments.  */
 		  break;
@@ -197,7 +197,7 @@ main(int argc, char **argv)
 	    }
 	  break;
 	}
-      
+
     next_char:
       ;
     }

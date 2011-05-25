@@ -119,7 +119,7 @@
 #endif
 
 /* number of transmit/receive buffers */
-#ifndef TL_NBUF 
+#ifndef TL_NBUF
 #define TL_NBUF 10
 #endif
 
@@ -157,7 +157,7 @@ void	tl_mii_sync __P((struct tl_softc *));
 void	tl_mii_sendbits __P((struct tl_softc *, u_int32_t, int));
 
 
-#if defined(TLDEBUG_RX) 
+#if defined(TLDEBUG_RX)
 static void ether_printheader __P((struct ether_header*));
 #endif
 
@@ -309,7 +309,7 @@ tl_pci_attach(parent, self, aux)
 
 	/*
 	 * Map the card space. Fisrt we have to find the I/O and MEM
-	 * registers. I/O is supposed to be at 0x10, MEM at 0x14, 
+	 * registers. I/O is supposed to be at 0x10, MEM at 0x14,
 	 * but some boards (Compaq Netflex 3/P PCI) seem to have it reversed.
 	 * The ThunderLAN manual is not consistent about this either (there
 	 * are both cases in code examples).
@@ -430,7 +430,7 @@ tl_pci_attach(parent, self, aux)
 	    tl_mediastatus);
 	mii_attach(self, &sc->tl_mii, 0xffffffff, MII_PHY_ANY,
 	    MII_OFFSET_ANY, 0);
-	if (LIST_FIRST(&sc->tl_mii.mii_phys) == NULL) { 
+	if (LIST_FIRST(&sc->tl_mii.mii_phys) == NULL) {
 		ifmedia_add(&sc->tl_mii.mii_media, IFM_ETHER|IFM_NONE, 0, NULL);
 		ifmedia_set(&sc->tl_mii.mii_media, IFM_ETHER|IFM_NONE);
 	} else
@@ -501,7 +501,7 @@ static void tl_shutdown(v)
 	tl_softc_t *sc = v;
 	struct Tx_list *Tx;
 	int i;
-	
+
 	if ((sc->tl_if.if_flags & IFF_RUNNING) == 0)
 		return;
 	/* disable interrupts */
@@ -512,7 +512,7 @@ static void tl_shutdown(v)
 	TL_HR_WRITE(sc, TL_HOST_CMD, HOST_CMD_STOP);
 	DELAY(100000);
 
-	/* stop statistics reading loop, read stats */ 
+	/* stop statistics reading loop, read stats */
 	untimeout(tl_ticks, sc);
 	tl_read_stats(sc);
 
@@ -892,7 +892,7 @@ tl_intr(v)
 	int ack = 0;
 	int size;
 
-	int_reg = TL_HR_READ(sc, TL_HOST_INTR_DIOADR);	
+	int_reg = TL_HR_READ(sc, TL_HOST_INTR_DIOADR);
 	int_type = int_reg  & TL_INTR_MASK;
 	if (int_type == 0)
 		return 0;
@@ -1003,7 +1003,7 @@ tl_intr(v)
 			    "cleared\n", sc->sc_dev.dv_xname);
 			return 0;
 		} else
-#endif			
+#endif
 		{
 		/*
 		 * write adress of Rx list and send Rx GO command, ack
@@ -1090,7 +1090,7 @@ tl_intr(v)
 			    sc->sc_dev.dv_xname, netstat);
 			/* Ack interrupts */
 			tl_intreg_write_byte(sc, TL_INT_NET+TL_INT_NetSts,
-			    netstat);	
+			    netstat);
 			ack++;
 		}
 		break;
@@ -1102,7 +1102,7 @@ tl_intr(v)
 
 	if (ack) {
 		/* Ack the interrupt and enable interrupts */
-		TL_HR_WRITE(sc, TL_HOST_CMD, ack | int_type | HOST_CMD_ACK | 
+		TL_HR_WRITE(sc, TL_HOST_CMD, ack | int_type | HOST_CMD_ACK |
 		    HOST_CMD_IntOn);
 		return 1;
 	}
@@ -1112,7 +1112,7 @@ tl_intr(v)
 }
 
 static int
-tl_ifioctl(ifp, cmd, data) 
+tl_ifioctl(ifp, cmd, data)
     struct ifnet *ifp;
 	ioctl_cmd_t cmd;
 	caddr_t data;
@@ -1120,7 +1120,7 @@ tl_ifioctl(ifp, cmd, data)
 	struct tl_softc *sc = ifp->if_softc;
 	struct ifreq *ifr = (struct ifreq *)data;
 	int s, error;
-	
+
 	s = splnet();
 	switch(cmd) {
 	case SIOCSIFADDR: {
@@ -1141,7 +1141,7 @@ tl_ifioctl(ifp, cmd, data)
 			struct ns_addr *ina = &IA_SNS(ifa)->sns_addr;
 
 			if (ns_nullhost(*ina))
-				ina->x_host  = 
+				ina->x_host  =
 				    *(union ns_host*) LLADDR(ifp->if_sadl);
 			else
 				bcopy(ina->x_host.c_host, LLADDR(ifp->if_sadl),
@@ -1344,7 +1344,7 @@ tbdinit:
 #ifdef TLDEBUG_TX
 	printf("%s: sending, Tx : stat = 0x%x\n", sc->sc_dev.dv_xname,
 	    Tx->hw_list.stat);
-#if 0 
+#if 0
 	for(segment = 0; segment < TL_NSEG; segment++) {
 		printf("    seg %d addr 0x%x len 0x%x\n",
 		    segment,
@@ -1492,7 +1492,7 @@ static void tl_ticks(v)
 	} else {
 		sc->tl_lasttx++;
 		if (sc->tl_lasttx >= TL_IDLETIME) {
-			/* 
+			/*
 			 * No TX activity in the last TL_IDLETIME seconds.
 			 * sends a LLC Class1 TEST pkt
 			 */
@@ -1652,7 +1652,7 @@ static int tl_multicast_hash(a)
 	return hash;
 }
 
-#if defined(TLDEBUG_RX) 
+#if defined(TLDEBUG_RX)
 void
 ether_printheader(eh)
 	struct ether_header *eh;

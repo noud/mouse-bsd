@@ -587,7 +587,7 @@ AC_DEFUN(AM_LC_MESSAGES,
   fi])
 
 # Check to see if we use dir\file name conventtion
-# If so, set macro HAVE_DOS_FILE_NAMES 
+# If so, set macro HAVE_DOS_FILE_NAMES
 dnl AC_DOSFILE()
 AC_DEFUN(AC_DOSFILE,
 [AC_CACHE_CHECK([for dos file convention], ac_cv_dosfile,

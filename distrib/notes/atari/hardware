@@ -1,4 +1,4 @@
-.\"	$NetBSD: hardware,v 1.14 1999/04/30 18:26:58 leo Exp $	
+.\"	$NetBSD: hardware,v 1.14 1999/04/30 18:26:58 leo Exp $
 NetBSD/atari \*V runs on a TT030, Falcon and Hades. An FPU is not required.
 The minimum amount of RAM required is 4Mb. On the Hades, only the Tseng PCI
 VGA cards (et4000/et6000/et6100) are supported in the \*V release. When

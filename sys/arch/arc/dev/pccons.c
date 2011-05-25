@@ -963,7 +963,7 @@ pccnpollc(dev, on)
 			}
 		}
 	}
-}	
+}
 
 /*
  * Set line parameters.
@@ -996,7 +996,7 @@ static char bgansitopc[] = {
 };
 
 static u_char iso2ibm437[] =
-{     
+{
             0,     0,     0,     0,     0,     0,     0,     0,
             0,     0,     0,     0,     0,     0,     0,     0,
             0,     0,     0,     0,     0,     0,     0,     0,
@@ -1077,7 +1077,7 @@ sput(cp, n)
 		switch (c) {
 		case 0x1B:
 			if (vs.state >= VSS_ESCAPE) {
-				wrtchar(c, vs.so_at); 
+				wrtchar(c, vs.so_at);
 				vs.state = 0;
 				goto maybe_scroll;
 			} else
@@ -1178,7 +1178,7 @@ sput(cp, n)
 						vs.state = 0;
 						break;
 					default: /* Invalid, clear state */
-						wrtchar(c, vs.so_at); 
+						wrtchar(c, vs.so_at);
 						vs.state = 0;
 						goto maybe_scroll;
 				}
@@ -1216,7 +1216,7 @@ sput(cp, n)
 						cx %= vs.nrow;
 					pos = crtat - Crtat;
 					pos += vs.ncol * cx;
-					if (pos >= vs.nchr) 
+					if (pos >= vs.nchr)
 						pos -= vs.nchr;
 					crtat = Crtat + pos;
 					vs.state = 0;
@@ -1467,7 +1467,7 @@ sput(cp, n)
 					}
 					vs.state = 0;
 					break;
-					
+
 				default: /* Only numbers valid here */
 					if ((c >= '0') && (c <= '9')) {
 						if (vs.state >= VSS_EPARAM) {

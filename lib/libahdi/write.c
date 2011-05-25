@@ -230,7 +230,7 @@ ahdi_writelabel (ptable, diskname, flags)
 			free (root);
 			return (-1);
 		}
-		
+
 		/*
 		 * Note first netbsd partition for invalidate_netbsd_label().
 		 */

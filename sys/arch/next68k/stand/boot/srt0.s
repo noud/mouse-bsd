@@ -41,7 +41,7 @@
     .text
     .globl start
 
-start:	
+start:
     || clear bss (this shouldn't hurt us i.e. cause an exception)
     movel #_edata,a2		| start of BSS
     movel #_end,a3		| end
@@ -76,7 +76,7 @@ Lclr:
     || restore prom vectors
     movel save_vbr, a0
     movec a0,vbr
-    
+
     || return kernel start address (still in d0)
     rts
 
@@ -88,7 +88,7 @@ hloop:
     movel #halt, d0
     trap #13			| halt the system
     bra hloop			| and don't allow continuation
-    
+
     .globl _trap
 trap:
     moveml d0-d7/a0-a7,sp@-	| save all registers
@@ -102,7 +102,7 @@ trap:
     rte
 Lstop:
     bra Lstop			| don't move
-    
+
     .data
 save_vbr:
     .long 0

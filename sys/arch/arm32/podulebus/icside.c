@@ -119,14 +119,14 @@ struct ide_version {
 	/* A3USER - Unsupported */
 /*	{ 1,  0, 0, NULL, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 } },*/
 	/* ARCIN V6 - Supported */
-	{ 3,  0, 2, "ARCIN V6", 
+	{ 3,  0, 2, "ARCIN V6",
 	  { V6_P_IDE_BASE, V6_S_IDE_BASE },
 	  { V6_P_AUX_BASE, V6_S_AUX_BASE },
 	  { V6_P_IRQ_BASE, V6_S_IRQ_BASE },
 	  { V6_P_IRQSTAT_BASE, V6_S_IRQSTAT_BASE }
 	},
 	/* ARCIN V5 - Supported (ID reg not supported so reads as 15) */
-	{ 15,  1, 1, "ARCIN V5", 
+	{ 15,  1, 1, "ARCIN V5",
 	  { V5_IDE_BASE, 0 },
 	  { V5_AUX_BASE, 0 },
 	  { V5_IRQ_BASE, 0 },

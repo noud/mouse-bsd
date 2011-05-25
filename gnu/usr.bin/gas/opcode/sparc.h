@@ -115,7 +115,7 @@ The following chars are unused: (note: ,[] are used as punctuation)
 */
 
 /* The order of the opcodes in this table is significant:
-	
+
 	* The assembler requires that all instances of the same mnemonic must
 	be consecutive.	If they aren't, the assembler will bomb at runtime.
 
@@ -869,7 +869,7 @@ condfc("fbule",	"cb013", 0xe, 0),
 
 { "cpop1",	F3(2, 0x36, 0), F3(~2, ~0x36, ~1), "[1+2],d", 0, v6 },
 { "cpop2",	F3(2, 0x37, 0), F3(~2, ~0x37, ~1), "[1+2],d", 0, v6 },
-    
+
 
 
 };

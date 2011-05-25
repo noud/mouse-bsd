@@ -480,7 +480,7 @@ init_reload ()
 	      CLEAR_HARD_REG_BIT (index, regno);
 	    }
 	}
-      
+
       GO_IF_HARD_REG_EQUAL (base, reg_class_contents[BASE_REG_CLASS],
 			    baseok);
       for (p = reg_class_subclasses[BASE_REG_CLASS];
@@ -638,7 +638,7 @@ reload (first, global, dumpfile)
   /* Look for REG_EQUIV notes; record what each pseudo is equivalent to.
      Also find all paradoxical subregs and find largest such for each pseudo.
      On machines with small register classes, record hard registers that
-     are used for user variables.  These can never be used for spills. 
+     are used for user variables.  These can never be used for spills.
      Also look for a "constant" NOTE_INSN_SETJMP.  This means that all
      caller-saved registers must be marked live.  */
 
@@ -1048,10 +1048,10 @@ reload (first, global, dumpfile)
  	      rtx old_notes = REG_NOTES (insn);
 	      int did_elimination = 0;
 
-	      /* To compute the number of reload registers of each class 
+	      /* To compute the number of reload registers of each class
 		 needed for an insn, we must simulate what choose_reload_regs
 		 can do.  We do this by splitting an insn into an "input" and
-		 an "output" part.  RELOAD_OTHER reloads are used in both. 
+		 an "output" part.  RELOAD_OTHER reloads are used in both.
 		 The input part uses those reloads, RELOAD_FOR_INPUT reloads,
 		 which must be live over the entire input section of reloads,
 		 and the maximum of all the RELOAD_FOR_INPUT_ADDRESS and
@@ -1403,10 +1403,10 @@ reload (first, global, dumpfile)
 			break;
 		      }
 
-		  caller_save_needs 
+		  caller_save_needs
 		    = (caller_save_group_size > 1
 		       ? insn_needs.other.groups
-		       : insn_needs.other.regs[nongroup_need]); 
+		       : insn_needs.other.regs[nongroup_need]);
 
 		  if (caller_save_needs[(int) caller_save_spill_class] == 0)
 		    {
@@ -1550,7 +1550,7 @@ reload (first, global, dumpfile)
 		       mode_name[(int) group_mode[i]],
 		       reg_class_names[i], INSN_UID (max_groups_insn[i]));
 	  }
-			 
+
       /* If we have caller-saves, set up the save areas and see if caller-save
 	 will need a spill register.  */
 
@@ -1671,8 +1671,8 @@ reload (first, global, dumpfile)
 	 were in a block that didn't need any spill registers of a conflicting
 	 class.  We used to try to mark off the need for those registers,
 	 but doing so properly is very complex and reallocating them is the
-	 simpler approach.  First, "pack" potential_reload_regs by pushing 
-	 any nonnegative entries towards the end.  That will leave room 
+	 simpler approach.  First, "pack" potential_reload_regs by pushing
+	 any nonnegative entries towards the end.  That will leave room
 	 for the registers we already spilled.
 
 	 Also, undo the marking of the spill registers from the last time
@@ -2159,7 +2159,7 @@ reload (first, global, dumpfile)
       if (size > STACK_CHECK_MAX_FRAME_SIZE)
 	warning ("frame size too large for reliable stack checking");
     }
-	
+
   /* Indicate that we no longer have known memory locations or constants.  */
   reg_equiv_constant = 0;
   reg_equiv_memory_loc = 0;
@@ -2775,7 +2775,7 @@ set_label_offsets (x, insn, initial_p)
 	if (p->offset != p->initial_offset)
 	  p->can_eliminate = 0;
       break;
-      
+
     default:
       break;
     }
@@ -2983,7 +2983,7 @@ eliminate_regs (x, mem_mode, insn)
       return x;
 
     case MULT:
-      /* If this is the product of an eliminable register and a 
+      /* If this is the product of an eliminable register and a
 	 constant, apply the distribute law and move the constant out
 	 so that we have (plus (mult ..) ..).  This is needed in order
 	 to keep load-address insns valid.   This case is pathological.
@@ -3134,10 +3134,10 @@ eliminate_regs (x, mem_mode, insn)
 #ifdef WORD_REGISTER_OPERATIONS
 		   /* On these machines, combine can create rtl of the form
 		      (set (subreg:m1 (reg:m2 R) 0) ...)
-		      where m1 < m2, and expects something interesting to 
+		      where m1 < m2, and expects something interesting to
 		      happen to the entire word.  Moreover, it will use the
 		      (reg:m2 R) later, expecting all bits to be preserved.
-		      So if the number of words is the same, preserve the 
+		      So if the number of words is the same, preserve the
 		      subreg so that push_reloads can see it.  */
 		   && ! ((x_size-1)/UNITS_PER_WORD == (new_size-1)/UNITS_PER_WORD)
 #endif
@@ -3311,7 +3311,7 @@ eliminate_regs (x, mem_mode, insn)
 	}
       else
 	return x;
-      
+
     default:
       break;
     }
@@ -3517,7 +3517,7 @@ eliminate_regs_in_insn (insn, replace)
   old_asm_operands_vec = 0;
 
   /* Replace the body of this insn with a substituted form.  If we changed
-     something, return non-zero.  
+     something, return non-zero.
 
      If we are replacing a body that was a (set X (plus Y Z)), try to
      re-recognize the insn.  We do this in case we had a simple addition
@@ -3743,9 +3743,9 @@ spill_hard_reg (regno, global, dumpfile, cant_eliminate)
       }
   for (i = 0; i < scratch_list_length; i++)
     {
-     if (scratch_list[i] 
-          && regno >= REGNO (scratch_list[i]) 
-          && regno <  REGNO (scratch_list[i]) 
+     if (scratch_list[i]
+          && regno >= REGNO (scratch_list[i])
+          && regno <  REGNO (scratch_list[i])
                       + HARD_REGNO_NREGS (REGNO (scratch_list[i]),
                                           GET_MODE (scratch_list[i])))
 	{
@@ -3772,7 +3772,7 @@ spill_hard_reg (regno, global, dumpfile, cant_eliminate)
   return something_changed;
 }
 
-/* Find all paradoxical subregs within X and update reg_max_ref_width. 
+/* Find all paradoxical subregs within X and update reg_max_ref_width.
    Also mark any hard registers used to store user variables as
    forbidden from being used for spill registers.  */
 
@@ -3809,7 +3809,7 @@ scan_paradoxical_subregs (x)
 	reg_max_ref_width[REGNO (SUBREG_REG (x))]
 	  = GET_MODE_SIZE (GET_MODE (x));
       return;
-      
+
     default:
       break;
     }
@@ -4144,7 +4144,7 @@ reload_as_needed (first, live_known)
 		 Record the choices of reload reg in reload_reg_rtx.  */
 	      choose_reload_regs (insn, avoid_return_reg);
 
-	      /* Merge any reloads that we didn't combine for fear of 
+	      /* Merge any reloads that we didn't combine for fear of
 		 increasing the number of spill registers needed but now
 		 discover can be safely merged.  */
 	      if (SMALL_REGISTER_CLASSES)
@@ -4732,7 +4732,7 @@ reload_reg_free_before_p (regno, opnum, type)
 	      && ! TEST_HARD_REG_BIT (reload_reg_used_in_insn, regno)
 	      && ! TEST_HARD_REG_BIT (reload_reg_used_in_op_addr_reload, regno)
 	      && ! TEST_HARD_REG_BIT (reload_reg_used_in_op_addr, regno));
-				   
+
     case RELOAD_FOR_OUTPUT:
       /* There is no reason to call this function for output reloads, thus
 	 anything we'd put here wouldn't be tested.  So just abort.  */
@@ -4811,7 +4811,7 @@ reload_reg_reaches_end_p (regno, opnum, type)
       return 1;
 
       /* If this use is for part of the insn,
-	 its value reaches if no subsequent part uses the same register. 
+	 its value reaches if no subsequent part uses the same register.
 	 Just like the above function, don't try to do this with lots
 	 of fallthroughs.  */
 
@@ -4862,7 +4862,7 @@ reload_reg_reaches_end_p (regno, opnum, type)
 
     case RELOAD_FOR_INPUT:
       /* Similar to input address, except we start at the next operand for
-	 both input and input address and we do not check for 
+	 both input and input address and we do not check for
 	 RELOAD_FOR_OPERAND_ADDRESS and RELOAD_FOR_INSN since these
 	 would conflict.  */
 
@@ -4942,7 +4942,7 @@ reloads_conflict (r1, r2)
   switch (r1_type)
     {
     case RELOAD_FOR_INPUT:
-      return (r2_type == RELOAD_FOR_INSN 
+      return (r2_type == RELOAD_FOR_INSN
 	      || r2_type == RELOAD_FOR_OPERAND_ADDRESS
 	      || r2_type == RELOAD_FOR_OPADDR_ADDR
 	      || r2_type == RELOAD_FOR_INPUT
@@ -4971,7 +4971,7 @@ reloads_conflict (r1, r2)
 	      || r2_type == RELOAD_FOR_OPERAND_ADDRESS);
 
     case RELOAD_FOR_OPADDR_ADDR:
-      return (r2_type == RELOAD_FOR_INPUT 
+      return (r2_type == RELOAD_FOR_INPUT
 	      || r2_type == RELOAD_FOR_OPADDR_ADDR);
 
     case RELOAD_FOR_OUTPUT:
@@ -5201,7 +5201,7 @@ allocate_reload_reg (r, insn, last_reload, noerror)
 	 of leapfrogging each other.  Don't do this, however, when we have
 	 group needs and failure would be fatal; if we only have a relatively
 	 small number of spill registers, and more than one of them has
-	 group needs, then by starting in the middle, we may end up 
+	 group needs, then by starting in the middle, we may end up
 	 allocating the first one in such a way that we are not left with
 	 sufficient groups to handle the rest.  */
 
@@ -5209,7 +5209,7 @@ allocate_reload_reg (r, insn, last_reload, noerror)
 	i = last_spill_reg;
       else
 	i = -1;
-	  
+
       for (count = 0; count < n_spills; count++)
 	{
 	  int class = (int) reload_reg_class[r];
@@ -5295,7 +5295,7 @@ allocate_reload_reg (r, insn, last_reload, noerror)
   if (new == 0 || GET_MODE (new) != reload_mode[r])
     spill_reg_rtx[i] = new
       = gen_rtx_REG (reload_mode[r], spill_regs[i]);
-	    
+
   regno = true_regnum (new);
 
   /* Detect when the reload reg can't hold the reload mode.
@@ -6129,7 +6129,7 @@ choose_reload_regs (insn, avoid_return_reg)
 /* If SMALL_REGISTER_CLASSES is non-zero, we may not have merged two
    reloads of the same item for fear that we might not have enough reload
    registers. However, normally they will get the same reload register
-   and hence actually need not be loaded twice.  
+   and hence actually need not be loaded twice.
 
    Here we check for the most common case of this phenomenon: when we have
    a number of reloads for the same object, each of which were allocated
@@ -6234,7 +6234,7 @@ merge_assigned_reloads (insn)
 		     ? RELOAD_FOR_OTHER_ADDRESS : RELOAD_OTHER);
 	}
     }
-}	    
+}
 
 
 /* Output insns to reload values in and out of the chosen reload regs.  */
@@ -6642,7 +6642,7 @@ emit_reload_insns (insn)
 		     to see if it is being used as a scratch or intermediate
 		     register and generate code appropriately.  If we need
 		     a scratch register, use REAL_OLDEQUIV since the form of
-		     the insn may depend on the actual address if it is 
+		     the insn may depend on the actual address if it is
 		     a MEM.  */
 
 		  if (second_reload_reg)
@@ -7283,7 +7283,7 @@ emit_reload_insns (insn)
 		  reg_last_reload_reg[nregno] = reload_reg_rtx[r];
 
 		  /* If NREGNO is a hard register, it may occupy more than
-		     one register.  If it does, say what is in the 
+		     one register.  If it does, say what is in the
 		     rest of the registers assuming that both registers
 		     agree on how many words the object takes.  If not,
 		     invalidate the subsequent registers.  */
@@ -7331,7 +7331,7 @@ emit_reload_insns (insn)
 		  nnr = (nregno >= FIRST_PSEUDO_REGISTER ? 1
 			 : HARD_REGNO_NREGS (nregno,
 					     GET_MODE (reload_reg_rtx[r])));
-		  
+
 		  reg_last_reload_reg[nregno] = reload_reg_rtx[r];
 
 		  if (nregno < FIRST_PSEUDO_REGISTER)
@@ -7399,7 +7399,7 @@ emit_reload_insns (insn)
 
 /* Emit code to perform a reload from IN (which may be a reload register) to
    OUT (which may also be a reload register).  IN or OUT is from operand
-   OPNUM with reload type TYPE. 
+   OPNUM with reload type TYPE.
 
    Returns first insn emitted.  */
 
@@ -7775,7 +7775,7 @@ inc_for_reload (reloadreg, value, inc_amount)
   add_insn = emit_insn (gen_rtx_SET (VOIDmode, incloc,
 				     gen_rtx_PLUS (GET_MODE (incloc),
 						   incloc, inc)));
-							  
+
   code = recog_memoized (add_insn);
   if (code >= 0)
     {
@@ -7905,7 +7905,7 @@ count_occurrences (x, find)
       if (SET_DEST (x) == find)
 	return count_occurrences (SET_SRC (x), find);
       break;
-      
+
     default:
       break;
     }
@@ -8223,7 +8223,7 @@ reload_cse_no_longer_dead (regno, mode)
    This function also detects cases where we load a value from memory
    into two different registers, and (if memory is more expensive than
    registers) changes it to simply copy the first register into the
-   second register.  
+   second register.
 
    Another optimization is performed that scans the operands of each
    instruction to see whether the value is already available in a
@@ -8271,7 +8271,7 @@ reload_cse_regs (first)
 	  continue;
 	}
 
-#ifdef NON_SAVING_SETJMP 
+#ifdef NON_SAVING_SETJMP
       if (NON_SAVING_SETJMP && GET_CODE (insn) == NOTE
 	  && NOTE_LINE_NUMBER (insn) == NOTE_INSN_SETJMP)
 	{
@@ -8323,7 +8323,7 @@ reload_cse_regs (first)
 	    reload_cse_delete_death_notes (insn);
 	  else if (reload_cse_simplify_operands (insn))
 	    reload_cse_delete_death_notes (insn);
-	    
+
 	  reload_cse_record_set (body, body);
 	}
       else if (GET_CODE (body) == PARALLEL)
@@ -8347,7 +8347,7 @@ reload_cse_regs (first)
 	      /* We're done with this insn.  */
 	      continue;
 	    }
-	  
+
 	  /* It's not a no-op, but we can try to simplify it.  */
 	  CLEAR_HARD_REG_SET (no_longer_dead_regs);
 	  for (i = XVECLEN (body, 0) - 1; i >= 0; --i)
@@ -8601,8 +8601,8 @@ reload_cse_simplify_set (set, insn)
 }
 
 /* Try to replace operands in INSN with equivalent values that are already
-   in registers.  This can be viewed as optional reloading.  
- 
+   in registers.  This can be viewed as optional reloading.
+
    For each non-register operand in the insn, see if any hard regs are
    known to be equivalent to that operand.  Record the alternatives which
    can accept these hard registers.  Among all alternatives, select the
@@ -8620,7 +8620,7 @@ reload_cse_simplify_operands (insn)
   int i,j;
 
   char *constraints[MAX_RECOG_OPERANDS];
-  
+
   /* Vector recording how bad an alternative is.  */
   int *alternative_reject;
   /* Vector recording how many registers can be introduced by choosing
@@ -8633,7 +8633,7 @@ reload_cse_simplify_operands (insn)
   /* Array of alternatives, sorted in order of decreasing desirability.  */
   int *alternative_order;
   rtx reg = gen_rtx_REG (VOIDmode, -1);
-  
+
   /* Find out some information about this insn.  */
   insn_code_number = recog_memoized (insn);
   /* We don't modify asm instructions.  */
@@ -8642,7 +8642,7 @@ reload_cse_simplify_operands (insn)
 
   n_operands = insn_n_operands[insn_code_number];
   n_alternatives = insn_n_alternatives[insn_code_number];
-  
+
   if (n_alternatives == 0 || n_operands == 0)
     return 0;
   insn_extract (insn);
@@ -8710,12 +8710,12 @@ reload_cse_simplify_operands (insn)
 	  for (;;)
 	    {
 	      char c = *p++;
-	      
+
 	      switch (c)
 		{
 		case '=':  case '+':  case '?':
 		case '#':  case '&':  case '!':
-		case '*':  case '%':  
+		case '*':  case '%':
 		case '0':  case '1':  case '2':  case '3':  case '4':
 		case 'm':  case '<':  case '>':  case 'V':  case 'o':
 		case 'E':  case 'F':  case 'G':  case 'H':
@@ -8790,12 +8790,12 @@ reload_cse_simplify_operands (insn)
 	      best_nregs = this_nregs;
 	    }
 	}
-      
+
       tmp = alternative_order[best];
       alternative_order[best] = alternative_order[i];
       alternative_order[i] = tmp;
     }
-  
+
   /* Substitute the operands as determined by op_alt_regno for the best
      alternative.  */
   j = alternative_order[0];
@@ -8971,7 +8971,7 @@ reload_cse_record_set (set, body)
 	      if (tmp)
 		reg_values[dreg] = gen_rtx_EXPR_LIST (dest_mode, tmp,
 						      reg_values[dreg]);
-	    }	      
+	    }
 	}
       else
 	reg_values[dreg] = gen_rtx_EXPR_LIST (dest_mode, src, NULL_RTX);

@@ -69,7 +69,7 @@ ip6_print(register const u_char *bp, register int length)
 	register const u_char *cp;
 	int nh;
 	u_int flow;
-	
+
 	ip6 = (const struct ip6_hdr *)bp;
 
 #ifdef TCPDUMP_ALIGN
@@ -200,7 +200,7 @@ ip6_print(register const u_char *bp, register int length)
 	}
 
  end:
-	
+
 	flow = ntohl(ip6->ip6_flow);
 #if 0
 	/* rfc1883 */

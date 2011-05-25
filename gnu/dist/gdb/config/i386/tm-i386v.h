@@ -39,7 +39,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /* Initializer for an array of names of registers.
    There should be NUM_REGS strings in this initializer.  */
 
-/* the order of the first 8 registers must match the compiler's 
+/* the order of the first 8 registers must match the compiler's
  * numbering scheme (which is the same as the 386 scheme)
  * also, this table must match regmap in i386-pinsn.c.
  */

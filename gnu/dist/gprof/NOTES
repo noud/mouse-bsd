@@ -114,7 +114,7 @@ Here are some examples:
 				dots.  In such cases, it is necessar to
 				add a leading colon to the name.  For example,
 				":.mul" selects function ".mul".
-				
+
 	main.c:main		Selects function "main" in file "main.c".
 
 	main.c:134		Selects line 134 in file "main.c".
@@ -191,7 +191,7 @@ Short Form:	Long Form:
 			option is specified multiple times, the flat
 			profile includes symbols selected by the union
 			of all symspecs.
-			
+
 -P[symspec]	--no-flat-profile[=symspec]
 			Suppress output in the flat profile.  If given
 			without an argument, the flat profile is suppressed

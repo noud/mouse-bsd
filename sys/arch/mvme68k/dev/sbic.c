@@ -631,7 +631,7 @@ sbic_scsidone(acb, stat)
 
 #ifdef DEBUG
         if (report_sense)
-            printf(" => %02x %02x\n", xs->sense.scsi_sense.flags, 
+            printf(" => %02x %02x\n", xs->sense.scsi_sense.flags,
 			xs->sense.scsi_sense.extra_bytes[3]);
 #endif
 
@@ -2499,7 +2499,7 @@ sbicnextstate(dev, csr, asr)
                 if ( acb->xs->sc_link->scsipi_scsi.target == newtarget &&
                      acb->xs->sc_link->scsipi_scsi.lun    == newlun) {
                     /*
-                     * We've found the saved entry. Dequeue it, and 
+                     * We've found the saved entry. Dequeue it, and
                      * make it current again.
                      */
                     TAILQ_REMOVE(&dev->nexus_list, acb, chain);

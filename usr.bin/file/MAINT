@@ -1,5 +1,5 @@
 $NetBSD: MAINT,v 1.4 1998/09/20 15:27:15 christos Exp $
-Id: MAINT,v 1.3 1997/11/05 16:03:18 christos Exp 
+Id: MAINT,v 1.3 1997/11/05 16:03:18 christos Exp
 
 Maintenance notes:
 
@@ -8,7 +8,7 @@ but to make my life easier I'd like to request the following:
 
 - Don't change the version numbers!
 
-If your changes are extensive, I will have to work hard to 
+If your changes are extensive, I will have to work hard to
 integrate them into my version.  If you check it into SCCS locally,
 the version numbers will likely be kept. IF you check it into RCS
 or CVS locally, please use -k to keep the version numbers, and

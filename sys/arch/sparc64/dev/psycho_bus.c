@@ -431,7 +431,7 @@ psycho_intr_establish(t, level, flags, handler, arg)
 	struct psycho_softc *sc = pp->pp_sc;
 	struct intrhand *ih;
 	int ino;
-	long vec = level; 
+	long vec = level;
 
 	ih = (struct intrhand *)
 		malloc(sizeof(struct intrhand), M_DEVBUF, M_NOWAIT);
@@ -507,7 +507,7 @@ psycho_intr_establish(t, level, flags, handler, arg)
 /* XXXMRG XXXMRG XXXMRG everything below here looks OK .. needs testing etc..*/
 
 /*
- * Here are the iommu control routines. 
+ * Here are the iommu control routines.
  */
 void
 psycho_enter(pp, va, pa, flags)
@@ -524,9 +524,9 @@ psycho_enter(pp, va, pa, flags)
 		panic("psycho_enter: va 0x%lx not in DVMA space",va);
 #endif
 
-	tte = MAKEIOTTE(pa, !(flags&BUS_DMA_NOWRITE), !(flags&BUS_DMA_NOCACHE), 
+	tte = MAKEIOTTE(pa, !(flags&BUS_DMA_NOWRITE), !(flags&BUS_DMA_NOCACHE),
 			!(flags&BUS_DMA_COHERENT));
-	
+
 	/* Is the streamcache flush really needed? */
 	bus_space_write_8(sc->sc_bustag,
 	    &sc->sc_is.is_sb->strbuf_pgflush, 0, va);
@@ -536,7 +536,7 @@ psycho_enter(pp, va, pa, flags)
 	bus_space_write_8(sc->sc_bustag,
 	    &sc->sc_regs->psy_iommu.iommu_flush, 0, va);
 	DPRINTF(PDB_BUSDMA, ("psycho_enter: va %lx pa %lx TSB[%lx]@%p=%lx\n",
-		       va, (long)pa, IOTSBSLOT(va,sc->sc_is.is_tsbsize), 
+		       va, (long)pa, IOTSBSLOT(va,sc->sc_is.is_tsbsize),
 		       &sc->sc_is.is_tsb[IOTSBSLOT(va,sc->sc_is.is_tsbsize)],
 		       (long)tte));
 }
@@ -558,9 +558,9 @@ psycho_remove(pp, va, len)
 	if (va < sc->sc_is.is_dvmabase)
 		panic("psycho_remove: va 0x%lx not in BUSDMA space", (long)va);
 	if ((long)(va + len) < (long)va)
-		panic("psycho_remove: va 0x%lx + len 0x%lx wraps", 
+		panic("psycho_remove: va 0x%lx + len 0x%lx wraps",
 		      (long) va, (long) len);
-	if (len & ~0xfffffff) 
+	if (len & ~0xfffffff)
 		panic("psycho_remove: rediculous len 0x%lx", (long)len);
 #endif
 
@@ -569,7 +569,7 @@ psycho_remove(pp, va, len)
 
 		/*
 		 * Streaming buffer flushes:
-		 * 
+		 *
 		 *   1 Tell strbuf to flush by storing va to strbuf_pgflush
 		 * If we're not on a cache line boundary (64-bits):
 		 *   2 Store 0 in flag
@@ -578,10 +578,10 @@ psycho_remove(pp, va, len)
 		 *
 		 * If it takes more than .5 sec, something went wrong.
 		 */
-		DPRINTF(PDB_BUSDMA, ("psycho_remove: flushing va %p TSB[%lx]@%p=%lx, %lu bytes left\n", 	       
-		    (long)va, (long)IOTSBSLOT(va,sc->sc_is.is_tsbsize), 
+		DPRINTF(PDB_BUSDMA, ("psycho_remove: flushing va %p TSB[%lx]@%p=%lx, %lu bytes left\n",
+		    (long)va, (long)IOTSBSLOT(va,sc->sc_is.is_tsbsize),
 		    (long)&sc->sc_is.is_tsb[IOTSBSLOT(va,sc->sc_is.is_tsbsize)],
-		    (long)(sc->sc_is.is_tsb[IOTSBSLOT(va,sc->sc_is.is_tsbsize)]), 
+		    (long)(sc->sc_is.is_tsb[IOTSBSLOT(va,sc->sc_is.is_tsbsize)]),
 		    (u_long)len));
 		bus_space_write_8(sc->sc_bustag,
 		    &sc->sc_is.is_sb->strbuf_pgflush, 0, va);
@@ -589,10 +589,10 @@ psycho_remove(pp, va, len)
 			psycho_flush(sc);
 			len = 0;
 		} else len -= NBPG;
-		DPRINTF(PDB_BUSDMA, ("psycho_remove: flushed va %p TSB[%lx]@%p=%lx, %lu bytes left\n", 	       
-		    (long)va, (long)IOTSBSLOT(va,sc->sc_is.is_tsbsize), 
+		DPRINTF(PDB_BUSDMA, ("psycho_remove: flushed va %p TSB[%lx]@%p=%lx, %lu bytes left\n",
+		    (long)va, (long)IOTSBSLOT(va,sc->sc_is.is_tsbsize),
 		    (long)&sc->sc_is.is_tsb[IOTSBSLOT(va,sc->sc_is.is_tsbsize)],
-		    (long)(sc->sc_is.is_tsb[IOTSBSLOT(va,sc->sc_is.is_tsbsize)]), 
+		    (long)(sc->sc_is.is_tsb[IOTSBSLOT(va,sc->sc_is.is_tsbsize)]),
 		    (u_long)len));
 
 		sc->sc_is.is_tsb[IOTSBSLOT(va,sc->sc_is.is_tsbsize)] = 0;
@@ -602,7 +602,7 @@ psycho_remove(pp, va, len)
 	}
 }
 
-int 
+int
 psycho_flush(sc)
 	struct psycho_softc *sc;
 {
@@ -625,23 +625,23 @@ psycho_flush(sc)
 	bus_space_write_8(sc->sc_bustag, &is->is_sb->strbuf_flushsync, 0, is->is_flushpa);
 	membar_sync();
 
-	microtime(&flushtimeout); 
+	microtime(&flushtimeout);
 	cur = flushtimeout;
 	BUMPTIME(&flushtimeout, 500000); /* 1/2 sec */
 
-	DPRINTF(PDB_BUSDMA, ("psycho_flush: flush = %lx at va = %lx pa = %lx now=%lx:%lx until = %lx:%lx\n", 
-	    (long)is->is_flush, (long)&is->is_flush, 
-	    (long)is->is_flushpa, cur.tv_sec, cur.tv_usec, 
+	DPRINTF(PDB_BUSDMA, ("psycho_flush: flush = %lx at va = %lx pa = %lx now=%lx:%lx until = %lx:%lx\n",
+	    (long)is->is_flush, (long)&is->is_flush,
+	    (long)is->is_flushpa, cur.tv_sec, cur.tv_usec,
 	    flushtimeout.tv_sec, flushtimeout.tv_usec));
 	/* Bypass non-coherent D$ */
-	while (!ldxa(is->is_flushpa, ASI_PHYS_CACHED) && 
-	       ((cur.tv_sec <= flushtimeout.tv_sec) && 
+	while (!ldxa(is->is_flushpa, ASI_PHYS_CACHED) &&
+	       ((cur.tv_sec <= flushtimeout.tv_sec) &&
 		(cur.tv_usec <= flushtimeout.tv_usec)))
 		microtime(&cur);
 
 #ifdef DIAGNOSTIC
 	if (!is->is_flush) {
-		printf("psycho_flush: flush timeout %p at %p\n", (long)is->is_flush, 
+		printf("psycho_flush: flush timeout %p at %p\n", (long)is->is_flush,
 		       (long)is->is_flushpa); /* panic? */
 #ifdef DDB
 		Debugger();
@@ -699,7 +699,7 @@ psycho_dmamap_load(t, map, buf, buflen, p, flags)
 	/*
 	 * XXX Need to implement "don't dma across this boundry".
 	 */
-	
+
 	s = splhigh();
 	err = extent_alloc(sc->sc_is.is_dvmamap, sgsize, NBPG,
 			     map->_dm_boundary, EX_NOWAIT, (u_long *)&dvmaddr);
@@ -709,12 +709,12 @@ psycho_dmamap_load(t, map, buf, buflen, p, flags)
 		return (err);
 
 #ifdef DEBUG
-	if (dvmaddr == (bus_addr_t)-1)	
-	{ 
+	if (dvmaddr == (bus_addr_t)-1)
+	{
 		printf("psycho_dmamap_load(): dvmamap_alloc(%d, %x) failed!\n", sgsize, flags);
 		Debugger();
-	}		
-#endif	
+	}
+#endif
 	if (dvmaddr == (bus_addr_t)-1)
 		return (ENOMEM);
 
@@ -757,7 +757,7 @@ psycho_dmamap_load(t, map, buf, buflen, p, flags)
 		DPRINTF(PDB_BUSDMA, ("psycho_dmamap_load: map %p loading va %lx at pa %lx\n",
 		    map, (long)dvmaddr, (long)(curaddr & ~(NBPG-1))));
 		psycho_enter(pp, trunc_page(dvmaddr), trunc_page(curaddr), flags);
-			
+
 		dvmaddr += PAGE_SIZE;
 		vaddr += sgsize;
 		buflen -= sgsize;
@@ -796,14 +796,14 @@ psycho_dmamap_unload(t, map)
 	/* Mark the mappings as invalid. */
 	map->dm_mapsize = 0;
 	map->dm_nsegs = 0;
-	
+
 	/* Unmapping is bus dependent */
 	s = splhigh();
 	error = extent_free(sc->sc_is.is_dvmamap, dvmaddr, sgsize, EX_NOWAIT);
 	splx(s);
 	if (error != 0)
 		printf("warning: %qd of DVMA space lost\n", (long long)sgsize);
-	cache_flush((caddr_t)dvmaddr, (u_int) sgsize);	
+	cache_flush((caddr_t)dvmaddr, (u_int) sgsize);
 #else
 	bus_dmamap_unload(t->_parent, map);
 #endif
@@ -827,7 +827,7 @@ psycho_dmamap_sync(t, map, offset, len, ops)
 	 */
 
 	if (ops & BUS_DMASYNC_PREREAD) {
-		DPRINTF(PDB_BUSDMA, ("psycho_dmamap_sync: syncing va %p len %lu BUS_DMASYNC_PREREAD\n", 	       
+		DPRINTF(PDB_BUSDMA, ("psycho_dmamap_sync: syncing va %p len %lu BUS_DMASYNC_PREREAD\n",
 		    (long)va, (u_long)len));
 
 		/* Nothing to do */;
@@ -836,13 +836,13 @@ psycho_dmamap_sync(t, map, offset, len, ops)
 		/*
 		 * We should sync the IOMMU streaming caches here first.
 		 */
-		DPRINTF(PDB_BUSDMA, ("psycho_dmamap_sync: syncing va %p len %lu BUS_DMASYNC_POSTREAD\n", 	       
+		DPRINTF(PDB_BUSDMA, ("psycho_dmamap_sync: syncing va %p len %lu BUS_DMASYNC_POSTREAD\n",
 		    (long)va, (u_long)len));
 		while (len > 0) {
-			
+
 			/*
 			 * Streaming buffer flushes:
-			 * 
+			 *
 			 *   1 Tell strbuf to flush by storing va to strbuf_pgflush
 			 * If we're not on a cache line boundary (64-bits):
 			 *   2 Store 0 in flag
@@ -851,7 +851,7 @@ psycho_dmamap_sync(t, map, offset, len, ops)
 			 *
 			 * If it takes more than .5 sec, something went wrong.
 			 */
-			DPRINTF(PDB_BUSDMA, ("psycho_dmamap_sync: flushing va %p, %lu bytes left\n", 	       
+			DPRINTF(PDB_BUSDMA, ("psycho_dmamap_sync: flushing va %p, %lu bytes left\n",
 			    (long)va, (u_long)len));
 			bus_space_write_8(sc->sc_bustag,
 			    &sc->sc_is.is_sb->strbuf_pgflush, 0, va);
@@ -864,7 +864,7 @@ psycho_dmamap_sync(t, map, offset, len, ops)
 		}
 	}
 	if (ops & BUS_DMASYNC_PREWRITE) {
-		DPRINTF(PDB_BUSDMA, ("psycho_dmamap_sync: syncing va %p len %lu BUS_DMASYNC_PREWRITE\n", 	       
+		DPRINTF(PDB_BUSDMA, ("psycho_dmamap_sync: syncing va %p len %lu BUS_DMASYNC_PREWRITE\n",
 		    (long)va, (u_long)len));
 		/* Nothing to do */;
 	}
@@ -894,7 +894,7 @@ psycho_dmamem_alloc(t, size, alignment, boundary, segs, nsegs, rsegs, flags)
 	struct psycho_pbm *pp = (struct psycho_pbm *)t->_cookie;
 	struct psycho_softc *sc = pp->pp_sc;
 
-	if ((error = bus_dmamem_alloc(t->_parent, size, alignment, 
+	if ((error = bus_dmamem_alloc(t->_parent, size, alignment,
 				     boundary, segs, nsegs, rsegs, flags)))
 		return (error);
 
@@ -985,7 +985,7 @@ psycho_dmamem_map(t, segs, nsegs, size, kvap, flags)
 	struct pglist *mlist;
 	int cbit;
 
-	/* 
+	/*
 	 * digest flags:
 	 */
 	cbit = 0;
@@ -1023,12 +1023,12 @@ psycho_dmamem_unmap(t, kva, size)
 	caddr_t kva;
 	size_t size;
 {
-	
+
 #ifdef DIAGNOSTIC
 	if ((u_long)kva & PGOFSET)
 		panic("psycho_dmamem_unmap");
 #endif
-	
+
 	size = round_page(size);
 	pmap_remove(pmap_kernel(), (vaddr_t)kva, size);
 }

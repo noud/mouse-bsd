@@ -162,16 +162,16 @@ int	reloc_kernel = RELOC_KERNEL;		/* Patchable	*/
  *	Interrupts are disabled
  *	PA == VA, we don't have to relocate addresses before enabling
  *		the MMU
- * 	Exec is no longer available (because we're loaded all over 
+ * 	Exec is no longer available (because we're loaded all over
  *		low memory, no ExecBase is available anymore)
  *
  * It's purpose is:
- *	Do the things that are done in locore.s in the hp300 version, 
+ *	Do the things that are done in locore.s in the hp300 version,
  *		this includes allocation of kernel maps and enabling the MMU.
- * 
- * Some of the code in here is `stolen' from Amiga MACH, and was 
+ *
+ * Some of the code in here is `stolen' from Amiga MACH, and was
  * written by Bryan Ford and Niklas Hallqvist.
- * 
+ *
  * Very crude 68040 support by Michael L. Hitch.
  */
 
@@ -217,7 +217,7 @@ char	*esym_addr;		/* Address of kernel '_esym' symbol	*/
 	machineid      = id;
 	esym           = esym_addr;
 
-	/* 
+	/*
 	 * the kernel ends at end() or esym.
 	 */
 	if(esym == NULL)
@@ -259,7 +259,7 @@ char	*esym_addr;		/* Address of kernel '_esym' symbol	*/
 	pstart = (u_int)end_loaded;
 	pstart = m68k_round_page(pstart);
 	avail  = stphysize - pstart;
-  
+
 	/*
 	 * Calculate the number of pages needed for Sysseg.
 	 * For the 68030, we need 256 descriptors (segment-table-entries).
@@ -281,7 +281,7 @@ char	*esym_addr;		/* Address of kernel '_esym' symbol	*/
 	Sysseg_pa  = (u_int)Sysseg + kbase;
 	pstart    += kstsize * NBPG;
 	avail     -= kstsize * NBPG;
-  
+
 	/*
 	 * Determine the number of pte's we need for extra's like
 	 * ST I/O map's.
@@ -304,7 +304,7 @@ char	*esym_addr;		/* Address of kernel '_esym' symbol	*/
 	ptsize  = (Sysptsize + howmany(ptextra, NPTEPG)) << PGSHIFT;
 	pstart += ptsize;
 	avail  -= ptsize;
-  
+
 	/*
 	 * allocate kernel page table map
 	 */
@@ -355,14 +355,14 @@ char	*esym_addr;		/* Address of kernel '_esym' symbol	*/
 	for(i = NBPG; i < (u_int)etext; i += NBPG, pg_proto += NBPG)
 		*pg++ = pg_proto;
 
-	/* 
+	/*
 	 * data, bss and dynamic tables are read/write
 	 */
 	pg_proto = (pg_proto & PG_FRAME) | PG_RW | PG_V;
 
 #if defined(M68040) || defined(M68060)
 	/*
-	 * Map the kernel segment table cache invalidated for 
+	 * Map the kernel segment table cache invalidated for
 	 * these machines (for the 68040 not strictly necessary, but
 	 * recommended by Motorola; for the 68060 mandatory)
 	 */
@@ -472,7 +472,7 @@ char	*esym_addr;		/* Address of kernel '_esym' symbol	*/
 	for (i = 0, physmem = 0; usable_segs[i].start; i++)
 		physmem += usable_segs[i].end - usable_segs[i].start;
 	physmem >>= PGSHIFT;
-  
+
 	/*
 	 * get the pmap module in sync with reality.
 	 */
@@ -489,8 +489,8 @@ char	*esym_addr;		/* Address of kernel '_esym' symbol	*/
 	cpu_init_kcorehdr(kbase);
 
 	/*
-	 * copy over the kernel (and all now initialized variables) 
-	 * to fastram.  DONT use bcopy(), this beast is much larger 
+	 * copy over the kernel (and all now initialized variables)
+	 * to fastram.  DONT use bcopy(), this beast is much larger
 	 * than 128k !
 	 */
 	if(kbase) {
@@ -513,8 +513,8 @@ char	*esym_addr;		/* Address of kernel '_esym' symbol	*/
 		 */
 		if (cputype == CPU_68060) {
 			/* XXX: Need the branch cache be cleared? */
-			asm volatile (".word 0x4e7a,0x0002;" 
-				      "orl #0x400000,d0;" 
+			asm volatile (".word 0x4e7a,0x0002;"
+				      "orl #0x400000,d0;"
 				      ".word 0x4e7b,0x0002" : : : "d0");
 		}
 		asm volatile ("movel %0,a0;"
@@ -534,7 +534,7 @@ char	*esym_addr;		/* Address of kernel '_esym' symbol	*/
 		tc = 0x82d08b00;
 		asm volatile ("pmove %0@,tc" : : "a" (&tc));
 	}
- 
+
 	/* Is this to fool the optimizer?? */
 	i = *(int *)proc0paddr;
 	*(volatile int *)proc0paddr = i;
@@ -822,7 +822,7 @@ u_long	kbase;
 	m->sg_v		= SG_V;
 	m->sg_frame	= SG_FRAME;
 	m->sg_ishift	= SG_ISHIFT;
-	m->sg_pmask	= SG_PMASK; 
+	m->sg_pmask	= SG_PMASK;
 	m->sg40_shift1	= SG4_SHIFT1;
 	m->sg40_mask2	= SG4_MASK2;
 	m->sg40_shift2	= SG4_SHIFT2;
@@ -879,7 +879,7 @@ mmu030_setup(sysseg, kstsize, pt, ptsize, sysptmap, sysptsize, kbase)
 	 * considered a PT page, hence the +sysptsize.
 	 */
 	sg  = sysseg;
-	pg  = sysptmap; 
+	pg  = sysptmap;
 	epg = &pg[(ptsize >> PGSHIFT) + sysptsize];
 	while(pg < epg) {
 		*sg++ = sg_proto;
@@ -888,7 +888,7 @@ mmu030_setup(sysseg, kstsize, pt, ptsize, sysptmap, sysptsize, kbase)
 		pg_proto += NBPG;
 	}
 
-	/* 
+	/*
 	 * invalidate the remainder of the tables
 	 */
 	epg = &sysptmap[sysptsize * NPTEPG];
@@ -996,7 +996,7 @@ initcpu()
 			extern trapfun illinst;
 #endif
 
-			asm volatile ("movl %0,d0; .word 0x4e7b,0x0808" : : 
+			asm volatile ("movl %0,d0; .word 0x4e7b,0x0808" : :
 					"d"(m68060_pcr_init):"d0" );
 
 			/* bus/addrerr vectors */
@@ -1078,8 +1078,8 @@ dump_segtable(stp)
 		shift = SG_ISHIFT;
 	}
 
-	/* 
-	 * XXX need changes for 68040 
+	/*
+	 * XXX need changes for 68040
 	 */
 	for (i = 0; s < es; s++, i++)
 		if (*s & SG_V)

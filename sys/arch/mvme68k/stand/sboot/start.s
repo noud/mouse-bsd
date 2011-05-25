@@ -40,7 +40,7 @@ start:
 	jra	Ldoit
 restart:
 	movb	#1,_reboot | fall through
-	
+
 Ldoit:
 	movl	#0x00006ff0,sp
 	jsr _sboot

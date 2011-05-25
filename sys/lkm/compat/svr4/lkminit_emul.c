@@ -62,7 +62,7 @@ MOD_EXEC("svr4", -1, &svr4_lkm_execsw);
  */
 int
 compat_svr4_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

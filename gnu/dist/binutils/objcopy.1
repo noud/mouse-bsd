@@ -15,22 +15,22 @@ objcopy \- copy and translate object files
 .na
 .TP
 .B objcopy
-.RB "[\|" \-F\ \fIbfdname\fR\ |\ \fB\-\-target=\fIbfdname\fR "\|]" 
-.RB "[\|" \-I\ \fIbfdname\fR\ |\ \fB\-\-input\-target=\fIbfdname\fR "\|]" 
-.RB "[\|" \-O\ \fIbfdname\fR\ |\ \fB\-\-output\-target=\fIbfdname\fR "\|]" 
+.RB "[\|" \-F\ \fIbfdname\fR\ |\ \fB\-\-target=\fIbfdname\fR "\|]"
+.RB "[\|" \-I\ \fIbfdname\fR\ |\ \fB\-\-input\-target=\fIbfdname\fR "\|]"
+.RB "[\|" \-O\ \fIbfdname\fR\ |\ \fB\-\-output\-target=\fIbfdname\fR "\|]"
 .RB "[\|" \-R\ \fIsectionname\fR\ |\ \fB\-\-remove\-section=\fIsectionname\fR "\|]"
-.RB "[\|" \-S\fR\ |\ \fB\-\-strip\-all\fR "\|]" 
-.RB "[\|" \-g\fR\ |\ \fB\-\-strip\-debug\fR "\|]" 
-.RB "[\|" \-\-strip\-unneeded\fR "\|]" 
-.RB "[\|" \-K\ \fIsymbolname\fR\ |\ \fB\-\-keep\-symbol=\fIsymbolname\fR "\|]" 
-.RB "[\|" \-N\ \fIsymbolname\fR\ |\ \fB\-\-strip\-symbol=\fIsymbolname\fR "\|]" 
-.RB "[\|" \-L\ \fIsymbolname\fR\ |\ \fB\-\-localize\-symbol=\fIsymbolname\fR "\|]" 
-.RB "[\|" \-W\ \fIsymbolname\fR\ |\ \fB\-\-weaken\-symbol=\fIsymbolname\fR "\|]" 
-.RB "[\|" \-x\fR\ |\ \fB\-\-discard\-all\fR "\|]" 
-.RB "[\|" \-X\fR\ |\ \fB\-\-discard\-locals\fR "\|]" 
-.RB "[\|" \-b\ \fIbyte\fR\ |\ \fB\-\-byte=\fIbyte\fR "\|]" 
-.RB "[\|" \-i\ \fIinterleave\fR\ |\ \fB\-\-interleave=\fIinterleave\fR "\|]" 
-.RB "[\|" \-p\fR\ |\ \fB\-\-preserve\-dates\fR "\|]" 
+.RB "[\|" \-S\fR\ |\ \fB\-\-strip\-all\fR "\|]"
+.RB "[\|" \-g\fR\ |\ \fB\-\-strip\-debug\fR "\|]"
+.RB "[\|" \-\-strip\-unneeded\fR "\|]"
+.RB "[\|" \-K\ \fIsymbolname\fR\ |\ \fB\-\-keep\-symbol=\fIsymbolname\fR "\|]"
+.RB "[\|" \-N\ \fIsymbolname\fR\ |\ \fB\-\-strip\-symbol=\fIsymbolname\fR "\|]"
+.RB "[\|" \-L\ \fIsymbolname\fR\ |\ \fB\-\-localize\-symbol=\fIsymbolname\fR "\|]"
+.RB "[\|" \-W\ \fIsymbolname\fR\ |\ \fB\-\-weaken\-symbol=\fIsymbolname\fR "\|]"
+.RB "[\|" \-x\fR\ |\ \fB\-\-discard\-all\fR "\|]"
+.RB "[\|" \-X\fR\ |\ \fB\-\-discard\-locals\fR "\|]"
+.RB "[\|" \-b\ \fIbyte\fR\ |\ \fB\-\-byte=\fIbyte\fR "\|]"
+.RB "[\|" \-i\ \fIinterleave\fR\ |\ \fB\-\-interleave=\fIinterleave\fR "\|]"
+.RB "[\|" \-p\fR\ |\ \fB\-\-preserve\-dates\fR "\|]"
 .RB "[\|" \-\-debugging "\|]"
 .RB "[\|" \-\-gap\-fill=\fIval\fR "\|]"
 .RB "[\|" \-\-pad\-to=\fIaddress\fR "\|]"
@@ -45,19 +45,19 @@ objcopy \- copy and translate object files
 .RB "[\|" \-\-change\-leading\-char\fR "\|]"
 .RB "[\|" \-\-remove\-leading\-char\fR "\|]"
 .RB "[\|" \-\-weaken\fR "\|]"
-.RB "[\|" \-v\ |\ \-\-verbose\fR "\|]" 
-.RB "[\|" \-V\ |\ \-\-version\fR "\|]" 
-.RB "[\|" \-\-help\fR "\|]" 
+.RB "[\|" \-v\ |\ \-\-verbose\fR "\|]"
+.RB "[\|" \-V\ |\ \-\-version\fR "\|]"
+.RB "[\|" \-\-help\fR "\|]"
 .B infile
-.RB "[\|" outfile\fR "\|]" 
+.RB "[\|" outfile\fR "\|]"
 .SH DESCRIPTION
-The GNU 
+The GNU
 .B objcopy
-utility copies the contents of an object file to another.  
-.B objcopy 
+utility copies the contents of an object file to another.
+.B objcopy
 uses the GNU BFD Library to read and write the object files.  It can
 write the destination object file in a format different from that of
-the source object file.  The exact behavior of 
+the source object file.  The exact behavior of
 .B objcopy
 is controlled by command-line options.
 .PP
@@ -107,16 +107,16 @@ name of the input file.
 .SH OPTIONS
 .TP
 .B \-I \fIbfdname\fR, \fB\-\-input\-target=\fIbfdname
-Consider the source file's object format to be 
+Consider the source file's object format to be
 .IR bfdname ,
 rather than attempting to deduce it.
 .TP
 .B \-O \fIbfdname\fR, \fB\-\-output\-target=\fIbfdname
-Write the output file using the object format 
+Write the output file using the object format
 .IR bfdname .
 .TP
 .B \-F \fIbfdname\fR, \fB\-\-target=\fIbfdname
-Use 
+Use
 .I bfdname
 as the object format for both the input and the output file; i.e.
 simply transfer data from source to destination with no translation.
@@ -238,7 +238,7 @@ names.
 .B \-\-change\-leading\-char
 Some object file formats use special characters at the start of
 symbols.  The most common such character is underscore, which compilers
-often add before every symbol.  This option tells 
+often add before every symbol.  This option tells
 .B objcopy
 to change the leading character of every symbol when it converts
 between object file formats.  If the object file formats use the same
@@ -273,11 +273,11 @@ Show a summary of the options to
 .B objcopy
 and exit.
 .SH "SEE ALSO"
-.RB "`\|" binutils "\|'" 
-entry in 
+.RB "`\|" binutils "\|'"
+entry in
 .B
 info\c
-\&; 
+\&;
 .I
 The GNU Binary Utilities\c
 \&, Roland H. Pesch (June 1993).

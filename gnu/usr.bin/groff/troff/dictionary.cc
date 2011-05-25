@@ -22,7 +22,7 @@ Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
 #include "troff.h"
 #include "symbol.h"
 #include "dictionary.h"
-  
+
 // is `p' a good size for a hash table
 
 static int is_good_size(int p)
@@ -49,7 +49,7 @@ dictionary::dictionary(int n) : threshold(0.5), factor(1.5), used(0), size(n)
 void *dictionary::lookup(symbol s, void *v)
 {
   int i;
-  for (i = int(s.hash() % size); 
+  for (i = int(s.hash() % size);
        table[i].v != 0;
        i == 0 ? i = size - 1: --i)
     if (s == table[i].s) {
@@ -92,7 +92,7 @@ void *dictionary::lookup(const char *p)
 }
 
 // see Knuth, Sorting and Searching, p527, Algorithm R
-  
+
 void *dictionary::remove(symbol s)
 {
   // this relies on the fact that we are using linear probing

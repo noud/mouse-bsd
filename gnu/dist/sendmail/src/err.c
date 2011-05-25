@@ -403,7 +403,7 @@ putoutmsg(msg, holdmsg, heldmsg)
 
 	if (OutChannel == NULL)
 		return;
-	
+
 	/* if DisConnected, OutChannel now points to the transcript */
 	if (!DisConnected &&
 	    (OpMode == MD_SMTP || OpMode == MD_DAEMON || OpMode == MD_ARPAFTP))
@@ -467,7 +467,7 @@ puterrmsg(msg)
 
 	if (CurEnv == NULL)
 		return;
-	
+
 	if (msgcode == '6')
 	{
 		/* notify the postmaster */

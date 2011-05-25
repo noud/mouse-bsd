@@ -70,7 +70,7 @@ u_int arm_fpe_core_workspace;
 /*
  * Error messages for the various exceptions, numbered 0-5
  */
- 
+
 static const char *exception_errors[] = {
 	"invalid operation",
 	"division by zero (0)",
@@ -120,7 +120,7 @@ arm_fpe_boot(cpu)
 {
 	u_int workspace;
 	int id;
-	
+
 #ifdef DEBUG
 	/* Print a bit of debugging info */
 	printf("FPE: base=%08x\n", (u_int)fpe_arm_start);
@@ -203,7 +203,7 @@ arm_fpe_postproc(fpframe, frame)
          * before we switch()'ed, we might not be on the queue
          * indicated by our priority
          */
-	
+
 	        s = splstatclock();
 		setrunqueue(p);
 		p->p_stats->p_ru.ru_nivcsw++;

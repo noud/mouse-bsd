@@ -29,7 +29,7 @@ options 	DRACO
 #endif
 #ifdef AMIGA_CONFIGURATION
 options 	BB060STUPIDROM	# You need this, if you have a non-DraCo
-				# MC68060 with an OS ROM up to (at least) 
+				# MC68060 with an OS ROM up to (at least)
 				# V40 (OS3.1) and want to boot with the
 				# bootblock.
 				# You do not need this if you have a DraCo,
@@ -140,7 +140,7 @@ options 	SYSVSEM		# System V-like semaphores
 options 	KTRACE		# system call tracing support
 options 	LKM		# Loadable kernel modules
 options 	UCONSOLE	# anyone can redirect a virtual console
-#options 	INSECURE	# allow, among other insecure stuff, LKM 
+#options 	INSECURE	# allow, among other insecure stuff, LKM
 				# loading in multi-user mode.
 options 	SCSIVERBOSE	# Verbose SCSI errors
 
@@ -302,7 +302,7 @@ lpt0		at drsupio? port ?	# DraCo parallel
 #
 
 #ifndef DRACO_CONFIGURATION
-# Alas, Melody-Z2 dont configure in the DraCo bus. 
+# Alas, Melody-Z2 dont configure in the DraCo bus.
 melody* 	at zbus0		# Melody MPEG audio decoder
 audio*		at melody?
 #endif
@@ -348,9 +348,9 @@ aftsc0		at mainbus0		# A4000T scsi
 scsibus*	at aftsc0
 flsc0		at zbus0		# FastlaneZ3 scsi
 scsibus*	at flsc0
-bzsc0		at zbus0		# Blizzard 1230 I,II scsi 
+bzsc0		at zbus0		# Blizzard 1230 I,II scsi
 scsibus*	at bzsc0
-bzivsc0 	at zbus0		# Blizzard 12x0 IV scsi 
+bzivsc0 	at zbus0		# Blizzard 12x0 IV scsi
 scsibus*	at bzivsc0
 bztzsc0 	at zbus0		# Blizzard 2060 scsi
 scsibus*	at bztzsc0

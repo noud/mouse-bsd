@@ -1,26 +1,26 @@
 /* Copyright 1993 Free Software Foundation, Inc.
-   
+
    This file is part of GDB.
-   
+
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; either version 2 of the License, or
    (at your option) any later version.
-   
+
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 static 	char udip2soc_c[]="@(#)udip2soc.c	2.11  Daniel Mann";
 static  char udip2soc_c_AMD[]="@(#)udip2soc.c	2.8, AMD";
-/* 
+/*
 *       This module converts UDI Procedural calls into
-*	UDI socket messages for UNIX. 
+*	UDI socket messages for UNIX.
 *	It is used by DFE client processes
 ********************************************************************** HISTORY
 */
@@ -96,8 +96,8 @@ char	dfe_errmsg[ERRMSG_SIZE];/* error string */
 
 /* local dec/defs. which are not in a .h   file *************** LOCAL DEC/DEFS
 */
-LOCAL connection_t	soc_con[MAX_SESSIONS];	
-LOCAL session_t	session[MAX_SESSIONS];	
+LOCAL connection_t	soc_con[MAX_SESSIONS];
+LOCAL session_t	session[MAX_SESSIONS];
 LOCAL UDR	udr;
 LOCAL UDR*	udrs = &udr;		/* UDR for current session */
 LOCAL int	current;		/* int-id for current session */
@@ -257,7 +257,7 @@ UDIConnect(Config, Session)
 	  {
 	    session[*Session].soc_con_p = &soc_con[rcnt];
 	    soc_con[cnt].in_use = FALSE;	/* don't need new connect */
-	    goto tip_connect; 
+	    goto tip_connect;
 	}
       }
 /*------------------------------------------------------------------ SOCKET */
@@ -317,7 +317,7 @@ UDIConnect(Config, Session)
 	      arg0++;
 	    else
 	      arg0 = soc_con[cnt].tip_exe;
-    
+
 	    pid = vfork();
 
 	    if (pid == 0)	/* Child */
@@ -340,7 +340,7 @@ UDIConnect(Config, Session)
 	    pos = 3;
     	    for (pos = 3; pos > 0; pos--)
 	      {
-		if (!connect(soc_con[cnt].dfe_sd, 
+		if (!connect(soc_con[cnt].dfe_sd,
 			     &soc_con[cnt].tip_sockaddr,
 			     sizeof(soc_con[cnt].tip_sockaddr)))
 		  break;
@@ -1032,7 +1032,7 @@ UDIBreakId	break_id;	/* in -- assigned break id */
 
 /************************************************************** UDI_GET_STDOUT
 * UDIGetStdout()  is  called   when   a   call   to
-* UDIWait() indicates there is STD output data ready. 
+* UDIWait() indicates there is STD output data ready.
 */
 UDIError UDIGetStdout(buf, bufsize, count_done)
 UDIHostMemPtr	buf;		/* out -- buffer to be filled */

@@ -264,7 +264,7 @@ simide_attach(parent, self, aux)
 		iobase = pa->pa_podule->mod_base;
 		if (bus_space_map(cp->cmd_iot, iobase +
 		    simide_info[channel].drive_registers,
-		    DRIVE_REGISTERS_SPACE, 0, &cp->cmd_ioh)) 
+		    DRIVE_REGISTERS_SPACE, 0, &cp->cmd_ioh))
 			continue;
 		if (bus_space_map(cp->ctl_iot, iobase +
 		    simide_info[channel].aux_register, 4, 0, &cp->ctl_ioh)) {

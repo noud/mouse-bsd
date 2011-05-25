@@ -91,7 +91,7 @@ print_insn_h8500 (addr, info)
 
 if (0)  {
     static    int one;
-    if (!one ) 
+    if (!one )
       {
 	one = 1;
 	for (opcode = h8500_table; opcode->name; opcode++)

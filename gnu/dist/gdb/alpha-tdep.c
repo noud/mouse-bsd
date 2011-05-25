@@ -432,7 +432,7 @@ heuristic_proc_start(pc)
 		  warning("Hit beginning of text section without finding");
 		else
 		  warning("Hit heuristic-fence-post without finding");
-		
+
 		warning("enclosing function for address 0x%lx", pc);
 		if (!blurb_printed)
 		  {
@@ -447,7 +447,7 @@ Otherwise, you told GDB there was a function where there isn't one, or\n\
 		  }
 	      }
 
-	    return 0; 
+	    return 0;
 	  }
 	else if (ABOUT_TO_RETURN(start_pc))
 	    break;
@@ -483,7 +483,7 @@ heuristic_proc_desc(start_pc, limit_pc, next_frame)
 	unsigned long word;
 	int status;
 
-	status = read_memory_nobpt (cur_pc, buf, 4); 
+	status = read_memory_nobpt (cur_pc, buf, 4);
 	if (status)
 	  memory_error (status, cur_pc);
 	word = extract_unsigned_integer (buf, 4);
@@ -862,7 +862,7 @@ init_extra_frame_info (frame)
    we basically have to look at symbol information for the function
    that we stopped in, which tells us *which* register (if any) is
    the base of the frame pointer, and what offset from that register
-   the frame itself is at.  
+   the frame itself is at.
 
    This presents a problem when trying to examine a stack in memory
    (that isn't executing at the moment), using the "frame" command.  We
@@ -947,7 +947,7 @@ alpha_push_arguments (nargs, args, sp, struct_return, struct_addr)
 
   /* Make room for the arguments on the stack.  */
   if (accumulate_size < arg_regs_size)
-    accumulate_size = arg_regs_size; 
+    accumulate_size = arg_regs_size;
   sp -= accumulate_size;
 
   /* Keep sp aligned to a multiple of 16 as the compiler does it too.  */
@@ -989,7 +989,7 @@ alpha_push_dummy_frame()
   link = (struct linked_proc_info *) xmalloc(sizeof (struct linked_proc_info));
   link->next = linked_proc_desc_table;
   linked_proc_desc_table = link;
- 
+
   proc_desc = &link->info;
 
   /*
@@ -1066,7 +1066,7 @@ alpha_push_dummy_frame()
 	save_address += 8;
       }
 
-  /* Set and save the frame address for the dummy.  
+  /* Set and save the frame address for the dummy.
      This is tricky. The only registers that are suitable for a frame save
      are those that are preserved across procedure calls (s0-s6). But if
      a read system call is interrupted and then a dummy call is made
@@ -1305,7 +1305,7 @@ alpha_register_convert_to_raw (valtype, regnum, virtual_buffer, raw_buffer)
     error ("Cannot store value in floating point register");
 }
 
-/* Given a return value in `regbuf' with a type `valtype', 
+/* Given a return value in `regbuf' with a type `valtype',
    extract and copy its value into `valbuf'.  */
 
 void
@@ -1322,7 +1322,7 @@ alpha_extract_return_value (valtype, regbuf, valbuf)
     memcpy (valbuf, regbuf + REGISTER_BYTE (V0_REGNUM), TYPE_LENGTH (valtype));
 }
 
-/* Given a return value in `regbuf' with a type `valtype', 
+/* Given a return value in `regbuf' with a type `valtype',
    write its value into the appropriate register.  */
 
 void
@@ -1333,7 +1333,7 @@ alpha_store_return_value (valtype, valbuf)
   char raw_buffer[MAX_REGISTER_RAW_SIZE];
   int regnum = V0_REGNUM;
   int length = TYPE_LENGTH (valtype);
-  
+
   if (TYPE_CODE (valtype) == TYPE_CODE_FLT)
     {
       regnum = FP0_REGNUM;
@@ -1422,7 +1422,7 @@ search.  The only need to set it is when debugging a stripped executable.",
 
 /* Non-zero if we just simulated a single-step ptrace call.  This is
    needed because we cannot remove the breakpoints in the inferior
-   process until after the `wait' in `wait_for_inferior'. */  
+   process until after the `wait' in `wait_for_inferior'. */
 
 int one_stepped;
 

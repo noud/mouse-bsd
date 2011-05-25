@@ -40,7 +40,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* These are stored in the bfd's tdata */
 
-struct lynx_core_struct 
+struct lynx_core_struct
 {
   int sig;
   char cmd[PNMLEN + 1];
@@ -146,7 +146,7 @@ lynx_core_file_p (abfd)
 	bfd_set_error (bfd_error_wrong_format);
       return NULL;
     }
-  
+
   core_signal (abfd) = threadp->currsig;
 
   newsect = make_bfd_asection (abfd, ".stack",

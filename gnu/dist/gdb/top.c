@@ -848,7 +848,7 @@ execute_control_command (cmd)
 	old_chain = make_cleanup (free_current_contents, &new_line);
 	expr = parse_expression (new_line);
 	make_cleanup (free_current_contents, &expr);
-	
+
 	ret = simple_control;
 	loop = 1;
 
@@ -887,9 +887,9 @@ execute_control_command (cmd)
 		   at this point.  */
 		if (ret == continue_control)
 		  break;
-		
+
 		/* Get the next statement.  */
-		current = current->next; 
+		current = current->next;
 	      }
 	  }
 
@@ -1120,7 +1120,7 @@ insert_args (line)
     {
       len += p - line;
       i = p[4] - '0';
-      
+
       if (i >= user_args->count)
 	{
 	  error ("Missing argument %d in user function.\n", i);
@@ -2256,7 +2256,7 @@ read_next_line (command)
      executed.  */
   if (p1 == p || p[0] == '#')
     return nop_command;
-      
+
   /* Is this the end of a simple, while, or if control structure?  */
   if (p1 - p == 3 && !strncmp (p, "end", 3))
     return end_command;
@@ -2307,7 +2307,7 @@ read_next_line (command)
   return ok_command;
 }
 
-/* Recursively read in the control structures and create a command_line 
+/* Recursively read in the control structures and create a command_line
    structure from them.
 
    The parent_control parameter is the control structure in which the
@@ -2365,7 +2365,7 @@ recurse_read_control_structure (current_cmd)
 	      break;
 	    }
 	}
-      
+
       /* Not the end of a control structure.  */
       if (val == else_command)
 	{
@@ -2480,7 +2480,7 @@ int from_tty;
 	  if (ret == invalid_control)
 	    break;
 	}
-      
+
       if (tail)
 	{
 	  tail->next = next;
@@ -2897,7 +2897,7 @@ quit_force (args, from_tty)
 {
   int exit_code = 0;
 
-  /* An optional expression may be used to cause gdb to terminate with the 
+  /* An optional expression may be used to cause gdb to terminate with the
      value of that expression. */
   if (args)
     {
@@ -3856,7 +3856,7 @@ This value is used to set the time limit for gdb to wait for a response\n\
 from he target.", &setlist),
 		     &showlist);
 
-  c = add_set_cmd ("annotate", class_obscure, var_zinteger, 
+  c = add_set_cmd ("annotate", class_obscure, var_zinteger,
 		   (char *)&annotation_level, "Set annotation_level.\n\
 0 == normal;     1 == fullname (for use when running under emacs)\n\
 2 == output annotated suitably for use by programs that control GDB.",

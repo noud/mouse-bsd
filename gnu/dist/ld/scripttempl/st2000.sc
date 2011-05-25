@@ -3,11 +3,11 @@ OUTPUT_FORMAT("${OUTPUT_FORMAT}")
 OUTPUT_ARCH(${ARCH})
 
 
-SECTIONS 				
-{ 					
+SECTIONS
+{
 .text :
-	{ 					
-	  *(.text) 				
+	{
+	  *(.text)
 	  *(.strings)
    	  _etext = .;
 	*(.data)

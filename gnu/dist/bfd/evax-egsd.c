@@ -591,7 +591,7 @@ _bfd_evax_write_egsd (abfd)
 
   _bfd_evax_output_alignment (abfd, 8);
   _bfd_evax_output_pop (abfd);
-  _bfd_evax_output_end (abfd); 
+  _bfd_evax_output_end (abfd);
 
   return 0;
 }

@@ -3,7 +3,7 @@
 .(b
 .TS
 center expand box;
-c c 
+c c
 a | a .
 service primitive & arguments	Unix system calls & arguments
 =
@@ -11,7 +11,7 @@ T_CONNECT.request	\fIsocket(), connect(), setsockopt()\fR
 called address	\fIconnect()\fR argument
 calling address	\fIconnect()\fR argument
 quality of service	not implemented
-buffer management	\fIsetsockopt()\fR argument 
+buffer management	\fIsetsockopt()\fR argument
 security	not implemented
 data	\fIsetsockopt(), getsockopt()\fR
 _
@@ -30,28 +30,28 @@ data	\fIsetsocktopt, getsockopt()\fR
 =
 T_DATA.request	\fIrecvv(), sendv()\fR
 _
-T_DATA.indication	return from \fIrecvv()\fR, \fIsendv()\fR, or \fIselect()\fR; 
-	or signal SIGIO 
+T_DATA.indication	return from \fIrecvv()\fR, \fIsendv()\fR, or \fIselect()\fR;
+	or signal SIGIO
 	ioctl(FIONREAD) tells how much has been
 	queued to read
 =
 T_EXPEDITED_DATA.request	\fIsendv()\fR with MSG_OOB flag
 _
 T_EXPEDITED_DATA.indication	SIGURG, \fIgetsockopt()\fR with TPFLAG_XPD,
-	return from \fIselect()\fR with exceptional 
+	return from \fIselect()\fR with exceptional
 	conditions mask
 =
 T_DISCONNECT.request	\fIclose()\fR
 data	\fIsetsockopt()\fR
 _
-T_DISCONNECT.indication	SIGURG, 
+T_DISCONNECT.indication	SIGURG,
 	error return on other primitives
 reason	 errno
 data	\fIgetsockopt()\**\fR
 =
 T_STATUS.request	\fIgetsockopt()\fR, \fItpstat\fR utility program
 _
-T_STATUS.indication	\fIgetsockopt()\fR, \fIselect()\fR, \fItpstat\fR 
+T_STATUS.indication	\fIgetsockopt()\fR, \fIselect()\fR, \fItpstat\fR
 .TE
 .(c
 \fBFigure \n+(FG\fR: Transport Service Primitives

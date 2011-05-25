@@ -1,12 +1,12 @@
 /*	$NetBSD: llc_input.c,v 1.8 2000/02/01 00:00:22 thorpej Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1990, 1991, 1992
- *		Dirk Husemann, Computer Science Department IV, 
+ *		Dirk Husemann, Computer Science Department IV,
  * 		University of Erlangen-Nuremberg, Germany.
  * Copyright (c) 1992, 1993
  *	The Regents of the University of California.  All rights reserved.
- * 
+ *
  * This code is derived from software contributed to Berkeley by
  * Dirk Husemann and the Computer Science Department (IV) of
  * the University of Erlangen-Nuremberg, Germany.
@@ -137,7 +137,7 @@ llcintr()
 		 *  |  ...                       |    |	   /
 		 *      			      	 -/
 		 *
-		 * Thus the we expect to have exactly 
+		 * Thus the we expect to have exactly
 		 * (sdlhdr->sdlhdr_len+sizeof(struct sdl_hdr)) in the mbuf chain
 		 */
 		expected_len = sdlhdr->sdlhdr_len + sizeof(struct sdl_hdr);
@@ -170,7 +170,7 @@ llcintr()
 		 * is less than the established I/S frame length (DSAP + SSAP +
 		 * control + N(R)&P/F = 4) --- we drop those suckers
 		 */
-		if (((frame->llc_control & 0x03) != 0x03) 
+		if (((frame->llc_control & 0x03) != 0x03)
 		    && ((expected_len - sizeof(struct sdl_hdr)) < LLC_ISFRAMELEN)) {
 			m_freem(m);
 			printf("llc: hurz error\n");
@@ -191,9 +191,9 @@ llcintr()
 			llrt = npaidb_enter(&sdlhdr->sdlhdr_src, 0, 0, 0);
 #endif /* notyet */
 		else {
-			/* 
+			/*
 			 * We cannot do anything currently here as we
-			 * don't `know' this link --- drop it 
+			 * don't `know' this link --- drop it
 			 */
 			m_freem(m);
 			continue;
@@ -205,7 +205,7 @@ llcintr()
 		 * If the link is not existing right now, we can try and look up
 		 * the SAP info block.
 		 */
-		if ((linkp == 0) && frame->llc_ssap) 
+		if ((linkp == 0) && frame->llc_ssap)
 			sapinfo = llc_getsapinfo(frame->llc_dsap, ifp);
 
 		/*
@@ -279,7 +279,7 @@ llcintr()
 		 * front of the mbuf chain (I don't like 'em)
 		 */
 		m_adj(m, sizeof(struct sdl_hdr));
-		/* 
+		/*
 		 * LLC_UFRAMELEN is sufficient, m_pullup() will pull up
 		 * the min(m->m_len, maxprotohdr_len [=40]) thus doing
 		 * the trick ...
@@ -298,9 +298,9 @@ llcintr()
  *                 Basically we (indirectly) call the appropriate
  *                 state handler function that's pointed to by
  *                 llcl_statehandler.
- * 
+ *
  *                 The statehandler returns an action code ---
- *                 further actions like 
+ *                 further actions like
  *                         o notify network layer
  *                         o block further sending
  *                         o deblock link
@@ -334,7 +334,7 @@ llc_input(m, va_alist)
 		m_freem(m);
 		return 0;
 	}
-	pollfinal = ((frame->llc_control & 0x03) == 0x03) ? 
+	pollfinal = ((frame->llc_control & 0x03) == 0x03) ?
 		LLCGBITS(frame->llc_control, u_pf) :
 			LLCGBITS(frame->llc_control_ext, s_pf);
 
@@ -343,7 +343,7 @@ llc_input(m, va_alist)
 	 */
 	frame_kind = llc_decode(frame, linkp);
 
-	switch (action = llc_statehandler(linkp, frame, frame_kind, cmdrsp, 
+	switch (action = llc_statehandler(linkp, frame, frame_kind, cmdrsp,
 					  pollfinal)) {
 	case LLC_DATA_INDICATION:
 		m_adj(m, LLC_ISFRAMELEN);
@@ -404,7 +404,7 @@ llc_ctlinput(prc, addr, info)
 		nlrt = (struct rtentry *) 0;
 	} else {
 		/* or this one */
-		sap = 0; 
+		sap = 0;
 		config = (struct dllconfig *) 0;
 		pcb = ctlinfo->dlcti_pcb;
 		nlrt = ctlinfo->dlcti_rt;
@@ -415,7 +415,7 @@ llc_ctlinput(prc, addr, info)
 
 		linkp = ((struct npaidbentry *)llrt->rt_llinfo)->np_link;
 	}
-	
+
 	switch (prc) {
 	case PRC_IFUP:
 		(void) llc_setsapinfo(ifp, addr->sa_family, sap, config);
@@ -448,11 +448,11 @@ llc_ctlinput(prc, addr, info)
 			}
 		}
 	}
-	
-	case PRC_CONNECT_REQUEST: 
+
+	case PRC_CONNECT_REQUEST:
 		if (linkp == 0) {
-			if ((linkp = llc_newlink((struct sockaddr_dl *) nlrt->rt_gateway, 
-						 nlrt->rt_ifp, nlrt, 
+			if ((linkp = llc_newlink((struct sockaddr_dl *) nlrt->rt_gateway,
+						 nlrt->rt_ifp, nlrt,
 						 pcb, llrt)) == 0)
 				return (0);
 			((struct npaidbentry *)llrt->rt_llinfo)->np_link = linkp;
@@ -462,9 +462,9 @@ llc_ctlinput(prc, addr, info)
 			splx(i);
 		}
 		return ((caddr_t)linkp);
-	
+
 	case PRC_DISCONNECT_REQUEST:
-		if (linkp == 0) 
+		if (linkp == 0)
 			panic("no link control block!");
 
 		i = splimp();
@@ -477,9 +477,9 @@ llc_ctlinput(prc, addr, info)
 		 * cleaning neutrum (i.e. llc_timer()).
 		 */
 		break;
-	
+
 	case PRC_RESET_REQUEST:
-		if (linkp == 0) 
+		if (linkp == 0)
 			panic("no link control block!");
 
 		i = splimp();
@@ -490,6 +490,6 @@ llc_ctlinput(prc, addr, info)
 		break;
 
 	}
-	
+
 	return 0;
 }

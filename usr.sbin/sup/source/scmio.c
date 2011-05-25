@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1992 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -98,7 +98,7 @@
  *	Any time a process receives a message it does not expect,
  *	the "readmsg" routine will send a MSGGOAWAY message and
  *	return SCMEOF.
- *	
+ *
  *	Each message has this format:
  *	    ----------    ------------    ------------         ----------
  *	    |msg type|    |count|data|    |count|data|   ...   |ENDCOUNT|
@@ -113,12 +113,12 @@
  * Revision 1.7  92/09/09  22:04:41  mrt
  * 	Removed the data encryption routines from here to netcrypt.c
  * 	[92/09/09            mrt]
- * 
+ *
  * Revision 1.6  92/08/11  12:05:57  mrt
- * 	Brad's changes: Delinted,Added forward declarations of 
+ * 	Brad's changes: Delinted,Added forward declarations of
  * 	static functions. Added copyright.
  * 	[92/07/24            mrt]
- * 
+ *
  * 27-Dec-87  Glenn Marcy (gm0w) at Carnegie-Mellon University
  *	Added crosspatch support.
  *

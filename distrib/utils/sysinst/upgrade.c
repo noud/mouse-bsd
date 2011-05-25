@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -114,7 +114,7 @@ do_upgrade()
  * save target /etc files.
  * if target /etc.old exists, print a warning message and give up.
  * otherwise move /etc into target /etc.old, and then copy
- * back files we might want during the installation --  in case 
+ * back files we might want during the installation --  in case
  * we are upgrading the target root.
  */
 int
@@ -145,7 +145,7 @@ save_etc()
 	cp_within_target("/etc.old/ld.so.conf", "/etc/");
 	cp_within_target("/etc.old/resolv.conf", "/etc/");
 
-	/* 
+	/*
 	 * do NOT create fstab so that restarting an incomplete
 	 * upgrade (eg., after power failure) will fail, and
 	 * force the user to check and restore their old /etc.
@@ -179,7 +179,7 @@ merge_etc()
 	/* just move back fstab, so we can boot cleanly.  */
 	cp_within_target("/etc.old/fstab", "/etc/");
 
-	return 0;	
+	return 0;
 }
 
 /*

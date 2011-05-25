@@ -273,7 +273,7 @@ You may want to use this option if you are linking files with an unusual
 binary format.  You can also use @samp{-b} to switch formats explicitly (when
 linking object files of different formats), by including
 @samp{-b @var{input-format}} before each group of object files in a
-particular format.  
+particular format.
 
 The default format is taken from the environment variable
 @code{GNUTARGET}.
@@ -302,7 +302,7 @@ specified by any @samp{-L} options.
 @kindex -d
 @kindex -dc
 @kindex -dp
-@item -d 
+@item -d
 @itemx -dc
 @itemx -dp
 These three options are equivalent; multiple forms are supported for
@@ -315,7 +315,7 @@ Commands}.
 @cindex entry point, from command line
 @kindex -e @var{entry}
 @kindex --entry=@var{entry}
-@item -e @var{entry} 
+@item -e @var{entry}
 @itemx --entry=@var{entry}
 Use @var{entry} as the explicit symbol for beginning execution of your
 program, rather than the default entry point. @xref{Entry Point}, for a
@@ -466,7 +466,7 @@ behaviour of the AIX linker.
 @cindex search directory, from cmd line
 @kindex -L@var{dir}
 @kindex --library-path=@var{dir}
-@item -L@var{searchdir} 
+@item -L@var{searchdir}
 @itemx --library-path=@var{searchdir}
 Add path @var{searchdir} to the list of paths that @code{ld} will search
 for archive libraries and @code{ld} control scripts.  You may use this
@@ -529,7 +529,7 @@ Set the text segment to be read only, and mark the output as
 @kindex --omagic
 @cindex read/write from cmd line
 @cindex OMAGIC
-@item -N 
+@item -N
 @itemx --omagic
 Set the text and data sections to be readable and writable.  Also, do
 not page-align the data segment.  If the output format supports Unix
@@ -555,7 +555,7 @@ turn serve as input to @code{ld}.  This is often called @dfn{partial
 linking}.  As a side effect, in environments that support standard Unix
 magic numbers, this option also sets the output file's magic number to
 @code{OMAGIC}.
-@c ; see @code{-N}. 
+@c ; see @code{-N}.
 If this option is not specified, an absolute file is produced.  When
 linking C++ programs, this option @emph{will not} resolve references to
 constructors; to do that, use @samp{-Ur}.
@@ -579,21 +579,21 @@ the @code{-rpath} option.
 @kindex -s
 @kindex --strip-all
 @cindex strip all symbols
-@item -s 
+@item -s
 @itemx --strip-all
 Omit all symbol information from the output file.
 
 @kindex -S
 @kindex --strip-debug
 @cindex strip debugger symbols
-@item -S 
+@item -S
 @itemx --strip-debug
 Omit debugger symbol information (but not all symbols) from the output file.
 
 @kindex -t
 @kindex --trace
 @cindex input files, displaying
-@item -t 
+@item -t
 @itemx --trace
 Print the names of the input files as @code{ld} processes them.
 
@@ -645,7 +645,7 @@ Delete all local symbols.
 @kindex --discard-locals
 @cindex local symbols, deleting
 @cindex L, deleting symbols beginning
-@item -X 
+@item -X
 @itemx --discard-locals
 Delete all temporary local symbols.  For most targets, this is all local
 symbols whose names begin with @samp{L}.
@@ -712,7 +712,7 @@ multiple times on the command line: it affects library searching for
 @kindex -dn
 @kindex -non_shared
 @kindex -static
-@item -Bstatic 
+@item -Bstatic
 @itemx -dn
 @itemx -non_shared
 @itemx -static
@@ -857,7 +857,7 @@ This option is ignored for SVR4 compatibility.
 @cindex synthesizing linker
 @cindex relaxing addressing modes
 @item --relax
-An option with machine dependent effects.  
+An option with machine dependent effects.
 @ifset GENERIC
 This option is only supported on a few targets.
 @end ifset
@@ -1041,7 +1041,7 @@ for compatibility with other linkers, you may omit the leading
 
 @kindex -Ur
 @cindex constructors
-@item -Ur 
+@item -Ur
 For anything other than C++ programs, this option is equivalent to
 @samp{-r}: it generates relocatable output---i.e., an output file that can in
 turn serve as input to @code{ld}.  When linking C++ programs, @samp{-Ur}
@@ -1276,15 +1276,15 @@ The command language provides explicit control over the link process,
 allowing complete specification of the mapping between the linker's
 input files and its output.  It controls:
 @itemize @bullet
-@item 
-input files 
-@item 
+@item
+input files
+@item
 file formats
-@item 
+@item
 output file layout
-@item 
+@item
 addresses of sections
-@item 
+@item
 placement of common blocks
 @end itemize
 
@@ -1346,16 +1346,16 @@ Many useful commands involve arithmetic expressions.  The syntax for
 expressions in the command language is identical to that of C
 expressions, with the following features:
 @itemize @bullet
-@item 
+@item
 All expressions evaluated as integers and
 are of ``long'' or ``unsigned long'' type.
-@item 
+@item
 All constants are integers.
-@item 
+@item
 All of the C arithmetic operators are provided.
-@item 
+@item
 You may reference, define, and create global variables.
-@item 
+@item
 You may call special purpose built-in functions.
 @end itemize
 
@@ -1408,7 +1408,7 @@ _as_neg = -57005;
 @cindex suffixes for integers
 @cindex integer suffixes
 Additionally the suffixes @code{K} and @code{M} may be used to scale a
-constant by 
+constant by
 @c TEXI2ROFF-KILL
 @ifinfo
 @c END TEXI2ROFF-KILL
@@ -1515,7 +1515,7 @@ precedence      associativity   Operators                Notes
 (lowest)
 @end smallexample
 Notes:
-(1) Prefix operators 
+(1) Prefix operators
 (2) @xref{Assignment}.
 @c TEXI2ROFF-KILL
 @end ifinfo
@@ -1533,7 +1533,7 @@ height2pt&\omit&&\omit&&\omit&\cr
 height2pt&\omit&&\omit&&\omit&\cr
 &highest&&&&&\cr
 % '176 is tilde, '~' in tt font
-&1&&left&&\qquad-          \char'176\      !\qquad\dag&\cr 
+&1&&left&&\qquad-          \char'176\      !\qquad\dag&\cr
 &2&&left&&*          /        \%&\cr
 &3&&left&&+          -&\cr
 &4&&left&&>>         <<&\cr
@@ -1592,24 +1592,24 @@ symbols, using any of the C assignment operators:
 Two things distinguish assignment from other operators in @code{ld}
 expressions.
 @itemize @bullet
-@item 
+@item
 Assignment may only be used at the root of an expression;
 @samp{a=b+3;} is allowed, but @samp{a+b=3;} is an error.
 
 @kindex ;
 @cindex semicolon
-@item 
+@item
 You must place a trailing semicolon (``@key{;}'') at the end of an
 assignment statement.
 @end itemize
 
 Assignment statements may appear:
 @itemize @bullet
-@item 
+@item
 as commands in their own right in an @code{ld} script; or
-@item 
+@item
 as independent statements within a @code{SECTIONS} command; or
-@item 
+@item
 as part of the contents of a section definition in a
 @code{SECTIONS} command.
 @end itemize
@@ -1639,11 +1639,11 @@ section definition by using the absolute assignment function
 is the last byte of an output section named @code{.data}:
 @smallexample
 SECTIONS@{ @dots{}
-  .data : 
+  .data :
     @{
       *(.data)
       _edata = ABSOLUTE(.) ;
-    @} 
+    @}
 @dots{} @}
 @end smallexample
 
@@ -1657,7 +1657,7 @@ result of an expression is required, but the value is not available,
 then an error results.  For example, a script like the following
 @smallexample
 SECTIONS @{ @dots{}
-  text 9+this_isnt_constant : 
+  text 9+this_isnt_constant :
     @{ @dots{}
     @}
 @dots{} @}
@@ -1702,7 +1702,7 @@ values:
 @group
 SECTIONS@{ @dots{}
   .output1 :
-    @{ 
+    @{
     start_of_output_1 = ABSOLUTE(.);
     @dots{}
     @}
@@ -1728,7 +1728,7 @@ Options}).
 @item ALIGN(@var{exp})
 Return the result of the current location counter (@code{.}) aligned to
 the next @var{exp} boundary.  @var{exp} must be an expression whose
-value is a power of two.  This is equivalent to 
+value is a power of two.  This is equivalent to
 @smallexample
 (. + @var{exp} - 1) & ~(@var{exp} - 1)
 @end smallexample
@@ -1813,7 +1813,7 @@ SECTIONS@{ @dots{}
 @itemx sizeof_headers
 Return the size in bytes of the output file's headers.  You can use this number
 as the start address of the first section, if you choose, to facilitate
-paging. 
+paging.
 
 @kindex MAX
 @item MAX(@var{exp1}, @var{exp2})
@@ -1854,15 +1854,15 @@ memory in the target.  By using it carefully, you can describe which
 memory regions may be used by the linker, and which memory regions it
 must avoid.  The linker does not shuffle sections to fit into the
 available regions, but does move the requested sections into the correct
-regions and issue errors when the regions become too full.  
+regions and issue errors when the regions become too full.
 
 A command file may contain at most one use of the @code{MEMORY}
 command; however, you can define as many blocks of memory within it as
 you wish.  The syntax is:
-        
+
 @smallexample
 @group
-MEMORY 
+MEMORY
   @{
     @var{name} (@var{attr}) : ORIGIN = @var{origin}, LENGTH = @var{len}
     @dots{}
@@ -1927,7 +1927,7 @@ abbreviated to @code{org} or @code{o} (but not, for example, @samp{ORG}).
 @item @var{len}
 is the size in bytes of the region (an expression).
 The keyword @code{LENGTH} may be abbreviated to @code{len} or @code{l}.
-@end table 
+@end table
 
 For example, to specify that memory has two regions available for
 allocation---one starting at 0 for 256 kilobytes, and the other starting
@@ -1938,7 +1938,7 @@ will get the sections.
 
 @smallexample
 @group
-MEMORY 
+MEMORY
   @{
   rom (rx)  : ORIGIN = 0, LENGTH = 256K
   ram (!rx) : org = 0x40000000, l = 4M
@@ -1965,13 +1965,13 @@ but you can have as many statements within it as you wish.  Statements
 within the @code{SECTIONS} command can do one of three things:
 
 @itemize @bullet
-@item 
+@item
 define the entry point;
 
-@item 
+@item
 assign a value to a symbol;
 
-@item 
+@item
 describe the placement of a named output section, and which input
 sections go into it.
 @end itemize
@@ -2078,7 +2078,7 @@ To specify a list of particular files by name:
 @noindent
 The example also illustrates that multiple statements can be included in
 the contents of a section definition, since each file name is a separate
-statement. 
+statement.
 
 @kindex @var{filename}(@var{section})
 @cindex files and sections, section defn
@@ -2098,7 +2098,7 @@ with whitespace.
 Instead of explicitly naming particular input files in a link control
 script, you can refer to @emph{all} files from the @code{ld} command
 line: use @samp{*} instead of a particular file name before the
-parenthesized input-file section list.  
+parenthesized input-file section list.
 
 If you have already explicitly included some files by name, @samp{*}
 refers to all @emph{remaining} files---those whose places in the output
@@ -2113,7 +2113,7 @@ SECTIONS @{
   .text :@{
     *("1" "2" "3" "4")
   @}
-  
+
   .data :@{
     *("13" "14")
   @}
@@ -2172,11 +2172,11 @@ sections of all the input files:
 
 @smallexample
 @group
-SECTIONS @{ 
+SECTIONS @{
   .text : @{ *(.text) @}
-  .data : @{ *(.data) @} 
-  .bss :  @{ *(.bss)  *(COMMON) @} 
-@} 
+  .data : @{ *(.data) @}
+  .bss :  @{ *(.bss)  *(COMMON) @}
+@}
 @end group
 @end smallexample
 
@@ -2209,7 +2209,7 @@ SECTIONS @{
     @}
 @}
 @end group
-@end smallexample        
+@end smallexample
 
 This example shows how wildcard patterns might be used to partition
 files.  All @code{.text} sections are placed in @code{.text}, and all
@@ -2309,7 +2309,7 @@ containing symbols matching the object file names:
 @kindex @var{symbol} @var{f}= @var{expression} ;
 @item @var{symbol} = @var{expression} ;
 @itemx @var{symbol} @var{f}= @var{expression} ;
-@var{symbol} is any symbol name (@pxref{Symbols}).  ``@var{f}='' 
+@var{symbol} is any symbol name (@pxref{Symbols}).  ``@var{f}=''
 refers to any of the operators @code{&= += -= *= /=} which combine
 arithmetic and assignment.
 
@@ -2401,7 +2401,7 @@ all optional.
 @cindex start address, section
 @cindex section start
 @cindex section address
-@item @var{start} 
+@item @var{start}
 You can force the output section to be loaded at a specified address by
 specifying @var{start} immediately following the section name.
 @var{start} can be represented as any expression. The following
@@ -2470,7 +2470,7 @@ and one called @samp{.mdata}, which is loaded at the end of the
 SECTIONS
   @{
   .text 0x1000 : @{ *(.text) _etext = . ; @}
-  .mdata 0x2000 : 
+  .mdata 0x2000 :
     AT ( ADDR(.text) + SIZEOF ( .text ) )
     @{ _data = . ; *(.data); _edata = . ;  @}
   .bss 0x3000 :
@@ -2504,7 +2504,7 @@ for (dst = _bstart; dst< _bend; dst++)
 @cindex section, assigning to memory region
 @cindex memory regions and sections
 @item >@var{region}
-Assign this section to a previously defined region of memory.  
+Assign this section to a previously defined region of memory.
 @xref{MEMORY}.
 
 @kindex :@var{phdr}
@@ -2796,15 +2796,15 @@ sense for your layout.
 You may indicate it in any of the following ways (shown in descending
 order of priority: methods higher in the list override methods lower down).
 @itemize @bullet
-@item 
+@item
 the @samp{-e} @var{entry} command-line option;
-@item 
+@item
 the @code{ENTRY(@var{symbol})} command in a linker control script;
-@item 
+@item
 the value of the symbol @code{start}, if present;
-@item 
+@item
 the address of the first byte of the @code{.text} section, if present;
-@item 
+@item
 The address @code{0}.
 @end itemize
 
@@ -2862,9 +2862,9 @@ VERS_1.1 @{
 	 global:
 		 foo1;
 	 local:
-		 old*; 
-		 original*; 
-		 new*; 
+		 old*;
+		 original*;
+		 new*;
 @};
 
 VERS_1.2 @{
@@ -3056,7 +3056,7 @@ with the @code{-L} option.  You can nest calls to @code{INCLUDE} up to
 @item INPUT ( @var{file}, @var{file}, @dots{} )
 @itemx INPUT ( @var{file} @var{file} @dots{} )
 Use this command to include binary input files in the link, without
-including them in a particular section definition.  
+including them in a particular section definition.
 Specify the full name for each @var{file}, including @samp{.a} if
 required.
 
@@ -3127,7 +3127,7 @@ effect as @samp{-L@var{path}} on the command line.
 @cindex first input file
 @item STARTUP ( @var{filename} )
 Ensure that @var{filename} is the first input file used in the link
-process. 
+process.
 
 @ifclear SingleFormat
 @cindex input file format
@@ -3612,10 +3612,10 @@ This command does nothing whatever; it's only accepted for compatibility.
 @cindex @code{FORMAT} (MRI)
 @item FORMAT @var{output-format}
 Similar to the @code{OUTPUT_FORMAT} command in the more general linker
-language, but restricted to one of these output formats: 
+language, but restricted to one of these output formats:
 
 @enumerate
-@item 
+@item
 S-records, if @var{output-format} is @samp{S}
 
 @item

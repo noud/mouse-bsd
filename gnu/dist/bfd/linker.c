@@ -59,7 +59,7 @@ SECTION
 	a.out (in <<aoutx.h>>) and ECOFF (in <<ecoff.c>>).  The a.out
 	routines are used as examples throughout this section.
 
-@menu	
+@menu
 @* Creating a Linker Hash Table::
 @* Adding Symbols to the Hash Table::
 @* Performing the Final Link::
@@ -600,7 +600,7 @@ bfd_wrapped_link_hash_lookup (abfd, info, string, create, copy, follow)
    struct bfd_link_hash_entry * with no explicit cast required on the
    call.  */
 
-void 
+void
 bfd_link_hash_traverse (table, func, info)
      struct bfd_link_hash_table *table;
      boolean (*func) PARAMS ((struct bfd_link_hash_entry *, PTR));
@@ -2444,7 +2444,7 @@ _bfd_generic_reloc_link_order (abfd, info, sec, link_order)
   r = (arelent *) bfd_alloc (abfd, sizeof (arelent));
   if (r == (arelent *) NULL)
     return false;
-      
+
   r->address = link_order->offset;
   r->howto = bfd_reloc_type_lookup (abfd, link_order->u.reloc.p->reloc);
   if (r->howto == 0)
@@ -2718,7 +2718,7 @@ default_indirect_link_order (output_bfd, info, output_section, link_order,
 	      if (h != NULL)
 		set_symbol_from_hash (sym, h);
 	    }
-	}	  
+	}
     }
 
   /* Get and relocate the section contents.  */

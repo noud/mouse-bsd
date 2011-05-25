@@ -52,7 +52,7 @@ static void printmorg __P((const SQUARE *));
  *	This routine prints out the current board
  */
 void
-printboard() 
+printboard()
 {
 	int i;
 
@@ -68,7 +68,7 @@ printboard()
  *	This routine lists where each player is.
  */
 void
-where() 
+where()
 {
 	int i;
 

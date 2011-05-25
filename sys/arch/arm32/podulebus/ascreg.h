@@ -174,7 +174,7 @@ struct sdmac {
 /*
  * My ID register, and/or CDB Size
  */
-  
+
 #define SBIC_ID_FS_8_10		0x00	/* Input clock is  8-10 Mhz */
 					/* 11 Mhz is invalid */
 #define SBIC_ID_FS_12_15	0x40	/* Input clock is 12-15 Mhz */
@@ -187,7 +187,7 @@ struct sdmac {
 /*
  * Control register
 */
-  
+
 #define SBIC_CTL_DMA		0x80	/* Single byte dma */
 #define SBIC_CTL_DBA_DMA	0x40	/* direct buffer acces (bus master)*/
 #define SBIC_CTL_BURST_DMA	0x20	/* continuous mode (8237) */
@@ -207,7 +207,7 @@ struct sdmac {
 /*
  * Auxiliary Status Register
  */
-  
+
 #define SBIC_ASR_INT		0x80	/* Interrupt pending */
 #define SBIC_ASR_LCI		0x40	/* Last command ignored */
 #define SBIC_ASR_BSY		0x20	/* Busy, only cmd/data/asr readable */
@@ -215,7 +215,7 @@ struct sdmac {
 #define SBIC_ASR_xxx		0x0c
 #define SBIC_ASR_PE		0x02	/* Parity error (even) */
 #define SBIC_ASR_DBR		0x01	/* Data Buffer Ready */
-   
+
 /* DMAC constants */
 
 #define DMAC_Bits		0x01

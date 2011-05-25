@@ -10,7 +10,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -26,7 +26,7 @@
  * 4. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -150,7 +150,7 @@ getnameinfo(sa, salen, host, hostlen, serv, servlen, flags)
 	len = sa->sa_len;
 	if (len != salen) return ENI_SALEN;
 #endif
-	
+
 	family = sa->sa_family;
 	for (i = 0; afdl[i].a_af; i++)
 		if (afdl[i].a_af == family) {
@@ -158,10 +158,10 @@ getnameinfo(sa, salen, host, hostlen, serv, servlen, flags)
 			goto found;
 		}
 	return ENI_FAMILY;
-	
+
  found:
 	if (salen != afd->a_socklen) return ENI_SALEN;
-	
+
 	port = ((struct sockinet *)sa)->si_port; /* network byte order */
 	addr = (char *)sa + afd->a_off;
 
@@ -189,7 +189,7 @@ getnameinfo(sa, salen, host, hostlen, serv, servlen, flags)
 			flags |= NI_NUMERICHOST;
 		v4a >>= IN_CLASSA_NSHIFT;
 		if (v4a == 0 || v4a == IN_LOOPBACKNET)
-			flags |= NI_NUMERICHOST;			
+			flags |= NI_NUMERICHOST;
 		break;
 	case AF_INET6:
 		pfx = ((struct sockaddr_in6 *)sa)->sin6_addr.s6_addr[0];

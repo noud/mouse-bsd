@@ -92,7 +92,7 @@
 #define PIL_SER		12
 #define PIL_AUD		13
 
-/* 
+/*
  * SPARC V9 CCR register
  *
  */
@@ -223,7 +223,7 @@
 #define KERN_MM		PSTATE_MM_TSO
 #define USER_MM		PSTATE_MM_RMO
 
-/* 
+/*
  * Register window handlers.  These point to generic routines that check the
  * stack pointer and then vector to the real handler.  We could optimize this
  * if we could guarantee only 32-bit or 64-bit stacks.
@@ -321,7 +321,7 @@ static __inline int name##X(const char* file, int line) \
 }
 
 #else
-#define SPLPRINT(x)	
+#define SPLPRINT(x)
 #define	SPL(name, newpil) \
 static __inline int name __P((void)); \
 static __inline int name() \

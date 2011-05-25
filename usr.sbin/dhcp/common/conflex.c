@@ -100,7 +100,7 @@ static int get_char (cfile)
 	int c = getc (cfile);
 	if (!ugflag) {
 		if (c == EOL) {
-			if (cur_line == line1) {	
+			if (cur_line == line1) {
 				cur_line = line2;
 				prev_line = line1;
 			} else {
@@ -119,7 +119,7 @@ static int get_char (cfile)
 		}
 	} else
 		ugflag = 0;
-	return c;		
+	return c;
 }
 
 static int get_token (cfile)

@@ -65,15 +65,15 @@ char *slash = ":";
 
 static search_dirs_type **search_tail_ptr = &search_head;
 
-typedef struct search_arch 
+typedef struct search_arch
 {
-  char *name; 
+  char *name;
   struct search_arch *next;
 } search_arch_type;
 
 static search_arch_type *search_arch_head;
 static search_arch_type **search_arch_tail_ptr = &search_arch_head;
- 
+
 static boolean ldfile_open_file_search
   PARAMS ((const char *arch, lang_input_statement_type *,
 	   const char *lib, const char *suffix));
@@ -139,7 +139,7 @@ ldfile_open_file_search (arch, entry, lib, suffix)
 
   for (search = search_head;
        search != (search_dirs_type *)NULL;
-       search = search->next) 
+       search = search->next)
     {
       char *string;
 
@@ -162,8 +162,8 @@ ldfile_open_file_search (arch, entry, lib, suffix)
 		 lib, entry->filename, arch, suffix);
       else if (entry->filename[0] == '/' || entry->filename[0] == '.'
 #if defined (__MSDOS__) || defined (_WIN32)
-	       || entry->filename[0] == '\\' 
-	       || (isalpha (entry->filename[0]) 
+	       || entry->filename[0] == '\\'
+	       || (isalpha (entry->filename[0])
 	           && entry->filename[1] == ':')
 #endif
 	  )
@@ -297,7 +297,7 @@ ldfile_open_command_file (name)
     einfo("%P%F: cannot open linker script file %s: %E\n",name);
   }
   lex_push_file(ldlex_input_stack, name);
-  
+
   ldfile_input_filename = name;
   lineno = 1;
   had_script = true;
@@ -326,7 +326,7 @@ char *name;
 	NULL, ""
   };
   struct tabentry *tp;
-  
+
 
   for ( tp = arch_tab; tp->cmd_switch != NULL; tp++ ){
     if ( !strcmp(name,tp->cmd_switch) ){

@@ -3,15 +3,15 @@
 /*
  *      Copyright (c) 1994 Christopher G. Demetriou.
  *      @(#)Copyright (c) 1994, Simon J. Gerraty.
- *      
+ *
  *      This is free software.  It comes with NO WARRANTY.
- *      Permission to use, modify and distribute this source code 
+ *      Permission to use, modify and distribute this source code
  *      is granted subject to the following conditions.
- *      1/ that the above copyright notice and this notice 
- *      are preserved in all copies and that due credit be given 
- *      to the author.  
- *      2/ that any changes to this code are clearly commented 
- *      as such so that the author does not get blamed for bugs 
+ *      1/ that the above copyright notice and this notice
+ *      are preserved in all copies and that due credit be given
+ *      to the author.
+ *      2/ that any changes to this code are clearly commented
+ *      as such so that the author does not get blamed for bugs
  *      other than his own.
  */
 
@@ -131,7 +131,7 @@ add_tty(name)
 	char *rcp;
 
 	Flags |= AC_T;
-	
+
 	if ((tp = NEW(struct tty_list)) == NULL)
 		err(1, "malloc");
 	tp->len = 0;				/* full match */
@@ -160,7 +160,7 @@ do_tty(name)
 {
 	struct tty_list *tp;
 	int def_ret = 0;
-	
+
 	for (tp = Ttys; tp != NULL; tp = tp->next) {
 		if (tp->ret == 0)		/* specific don't */
 			def_ret = 1;		/* default do */
@@ -183,7 +183,7 @@ compare(a, b)
 }
 
 /*
- * Deal correctly with multiple virtual consoles/login ttys. 
+ * Deal correctly with multiple virtual consoles/login ttys.
  * We read the ttyent's from /etc/ttys and classify as login
  * ttys ones that are running getty and they are turned on.
  */
@@ -250,7 +250,7 @@ update_user(head, name, secs)
 	 */
 	if (Flags & AC_U)
 		return head;
-	
+
 	if ((up = NEW(struct user_list)) == NULL)
 		err(1, "malloc");
 	up->next = head;
@@ -315,11 +315,11 @@ main(argc, argv)
 		 */
 		if (access(_PATH_WTMP, 0) != 0 && errno == ENOENT)
 			return 0;
-		
+
 		fp = file(_PATH_WTMP);
 	}
 	ac(fp);
-	
+
 	return 0;
 }
 
@@ -364,7 +364,7 @@ show_today(users, logins, secs)
 
 	/* restore the missing second */
 	yesterday++;
-	
+
 	for (lp = logins; lp != NULL; lp = lp->next) {
 		secs = yesterday - lp->usr.ut_time;
 		Users = update_user(Users, lp->usr.ut_name, secs);
@@ -391,7 +391,7 @@ log_out(head, up)
 {
 	struct utmp_list *lp, *lp2, *tlp;
 	time_t secs;
-	
+
 	for (lp = head, lp2 = NULL; lp != NULL; )
 		if (*up->ut_line == '~' || strncmp(lp->usr.ut_line, up->ut_line,
 		    sizeof (up->ut_line)) == 0) {
@@ -471,7 +471,7 @@ ac(fp)
 	struct tm *ltm;
 	time_t secs = 0;
 	int day = -1;
-	
+
 	while (fread((char *)&usr, sizeof(usr), 1, fp) == 1) {
 		if (!FirstTime)
 			FirstTime = usr.ut_time;
@@ -534,7 +534,7 @@ ac(fp)
 	(void)fclose(fp);
 	usr.ut_time = time((time_t *)0);
 	(void)strcpy(usr.ut_line, "~");
-	
+
 	if (Flags & AC_D) {
 		ltm = localtime(&usr.ut_time);
 		if (day >= 0 && day != ltm->tm_yday) {

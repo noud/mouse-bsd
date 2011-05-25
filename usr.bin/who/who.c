@@ -198,7 +198,7 @@ output(up)
 	if (show_term || show_idle) {
 		if (now == 0)
 			time(&now);
-		
+
 		strncpy(line, up->ut_line, sizeof (up->ut_line));
 		line[sizeof (up->ut_line)] = '\0';
 
@@ -206,7 +206,7 @@ output(up)
 			state = (sb.st_mode & 020) ? '+' : '-';
 			idle = now - sb.st_atime;
 		}
-		
+
 	}
 
 	(void)printf("%-*.*s ", (int)UT_NAMESIZE, (int)UT_NAMESIZE, up->ut_name);
@@ -219,16 +219,16 @@ output(up)
 	(void)printf("%.12s ", ctime(&up->ut_time) + 4);
 
 	if (show_idle) {
-		if (idle < 60) 
+		if (idle < 60)
 			(void)printf("  .   ");
 		else if (idle < (24 * 60 * 60))
-			(void)printf("%02ld:%02ld ", 
+			(void)printf("%02ld:%02ld ",
 				     (long)(idle / (60 * 60)),
 				     (long)(idle % (60 * 60)) / 60);
 		else
 			(void)printf(" old  ");
 	}
-	
+
 	if (*up->ut_host)
 		printf("\t(%.*s)", (int)UT_HOSTSIZE, up->ut_host);
 	(void)putchar('\n');
@@ -241,13 +241,13 @@ output_labels()
 
 	if (show_term)
 		(void)printf("S ");
-	
+
 	(void)printf("%-*.*s ", (int)UT_LINESIZE, (int)UT_LINESIZE, "LINE");
 	(void)printf("WHEN         ");
 
 	if (show_idle)
 		(void)printf("IDLE  ");
-	
+
 	(void)printf("\t%.*s", (int)UT_HOSTSIZE, "FROM");
 
 	(void)putchar('\n');

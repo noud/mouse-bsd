@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -50,7 +50,7 @@
  *  ABOUT THE SUITABILITY OF THIS SOFTWARE FOR ANY PURPOSE.  THIS SOFTWARE IS
  *  PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES,
  *  INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
- *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND 
+ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND
  *  NON-INFRINGEMENT.
  *
  *  IN NO EVENT SHALL USC, OR ANY OTHER CONTRIBUTOR BE LIABLE FOR ANY
@@ -62,7 +62,7 @@
  *  noted when applicable.
  */
 /*
- *  Questions concerning this software should be directed to 
+ *  Questions concerning this software should be directed to
  *  Pavlin Ivanov Radoslavov (pavlin@catarina.usc.edu)
  *
  *  KAME Id: mld6.c,v 1.3 1999/10/26 08:39:19 itojun Exp
@@ -382,7 +382,7 @@ make_mld6_msg(type, code, src, dst, group, ifindex, delay, datalen, alert)
 	datalen = sizeof(struct mld6_hdr);
 	break;
     }
-   
+
     bzero(mhp, sizeof(*mhp));
     mhp->mld6_type = type;
     mhp->mld6_code = code;
@@ -452,7 +452,7 @@ send_mld6(type, code, src, dst, group, index, delay, datalen, alert)
 {
     int setloop = 0;
     struct sockaddr_in6 *dstp;
-	
+
     make_mld6_msg(type, code, src, dst, group, index, delay, datalen, alert);
     dstp = (struct sockaddr_in6 *)sndmh.msg_name;
     if (IN6_ARE_ADDR_EQUAL(&dstp->sin6_addr, &allnodes_group.sin6_addr)) {
@@ -473,7 +473,7 @@ send_mld6(type, code, src, dst, group, index, delay, datalen, alert)
 	    k_set_loop(mld6_socket, FALSE);
 	return;
     }
-    
+
     IF_DEBUG(DEBUG_PKT|debug_kind(IPPROTO_IGMP, type, 0))
 	log(LOG_DEBUG, 0, "SENT %s from %-15s to %s",
 	    packet_kind(IPPROTO_ICMPV6, type, 0),

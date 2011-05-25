@@ -12,12 +12,12 @@
 
 /*
  * Some of these registers apply to only one interface and some
- * apply to both. The registers which apply to the Sun3/50 onboard 
+ * apply to both. The registers which apply to the Sun3/50 onboard
  * version only are udc_rdata and udc_raddr. The registers which
  * apply to the Sun3 vme version only are dma_addr, dma_count, bpr,
- * iv_am, and bcrh. Thus, the sbc registers, fifo_data, bcr, and csr 
+ * iv_am, and bcrh. Thus, the sbc registers, fifo_data, bcr, and csr
  * apply to both interfaces.
- * One other feature of the vme interface: a write to the dma count 
+ * One other feature of the vme interface: a write to the dma count
  * register also causes a write to the fifo byte count register and
  * vis versa.
  */

@@ -31,7 +31,7 @@ return-rst done, to/dup-to/fastroute remain - ip_forward() problems :-(
 
 * ipfsync() should change IP#'s in current mappings as well as what's
   in rules.
- 
+
 * document bimap
 
 * document NAT rule order processing

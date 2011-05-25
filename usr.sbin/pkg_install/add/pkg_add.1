@@ -57,7 +57,7 @@ to insure it poses no danger to your system's integrity.  Pay particular
 attention to any +INSTALL, +DEINSTALL, +REQUIRE or +MTREE_DIRS files,
 and inspect the +CONTENTS file for
 .Cm @cwd ,
-.Cm @mode 
+.Cm @mode
 (check for setuid),
 .Cm @dirrm ,
 .Cm @exec ,
@@ -72,17 +72,17 @@ command to examine the package file.
 The following command line arguments are supported:
 .Bl -tag -width indent
 .It Ar pkg-name [ ... ]
-The named packages are installed. 
+The named packages are installed.
 .Ar pkg-name
 may be either a URL or a local pathname,
 a package name of "-" will cause
 .Nm
 to read from stdin.
 If the packages are not found in the current
-working directory, 
+working directory,
 .Nm
 will search them in each directory named by the
-.Ev PKG_PATH 
+.Ev PKG_PATH
 environment variable.
 Any dependencies required by the installed package will be searched
 in the same location that the original package was installed from.
@@ -128,8 +128,8 @@ options).
 .It Fl t Ar template
 Use
 .Ar template
-as the input to 
-.Xr mktemp 3 
+as the input to
+.Xr mktemp 3
 when creating a ``staging area.''
 By default, this is the string
 .Pa /var/tmp/instmp.XXXXXX ,
@@ -208,7 +208,7 @@ passive mode
 .Ef
 ftp.
 .Sh TECHNICAL DETAILS
-.Nm 
+.Nm
 extracts each package's "packing list"
 into a special staging directory in /tmp (or $PKG_TMPDIR if set)
 and then runs through the following sequence to fully extract the contents
@@ -253,7 +253,7 @@ final location, otherwise it is extracted into the staging area.
 .It
 If the package contains a
 .Ar require
-script (see 
+script (see
 .Xr pkg_create 1 ),
 it is executed with the following arguments:
 .Bl -tag -width indentindent
@@ -297,19 +297,19 @@ file (see
 then mtree is invoked as:
 .Bd -filled -offset indent -compact
 .Cm mtree
-.Fl u 
-.Fl f 
+.Fl u
+.Fl f
 .Ar mtreefile
 .Fl d
-.Fl e 
-.Fl p 
-.Pa prefix 
+.Fl e
+.Fl p
+.Pa prefix
 .Ed
 where
 .Pa prefix
 is either the prefix specified with the
 .Fl p
-flag or, if no 
+flag or, if no
 .Fl p
 flag was specified, the name of the first directory named by a
 .Cm @cwd
@@ -332,7 +332,7 @@ script, description, and display files are copied into
 .Pa /var/db/pkg/<pkg-name>
 for subsequent possible use by
 .Xr pkg_delete 1 .
-Any package dependencies are recorded in the other packages' 
+Any package dependencies are recorded in the other packages'
 .Pa /var/db/pkg/<other-pkg>/+REQUIRED_BY
 file
 (if the environment variable PKG_DBDIR is set, this overrides the
@@ -398,7 +398,7 @@ Hard links between files in a distribution are only preserved if either
 (1) the staging area is on the same file system as the target directory of
 all the links to the file, or (2) all the links to the file are bracketed by
 .Cm @cwd
-directives in the contents file, 
+directives in the contents file,
 .Em and
 and the link names are extracted with a single
 .Cm tar

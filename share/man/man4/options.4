@@ -254,7 +254,7 @@ Note that this sets the value of the
 .Xr sysctl 3
 variable which may be changed at run time -- see
 .Xr sysctl 8
-for details. 
+for details.
 .It Cd options DDB_HISTORY_SIZE=integer
 If this is non-zero, enable history editing in the kernel debugger
 and set the size of the history to this value.
@@ -851,15 +851,15 @@ and
 .Xr sysctl 3
 for details.
 .It Cd options RASOPS_CLIPPING
-Enables clipping within the 
+Enables clipping within the
 .Nm rasops
-raster-console output system. 
+raster-console output system.
 .Em NOTE :
 only available on architectures that use
 .Nm rasops
 for console output.
 .It Cd options RASOPS_SMALL
-Removes optimized character writing code from the 
+Removes optimized character writing code from the
 .Nm rasops
 raster-console output system.
 .Em NOTE :
@@ -1413,7 +1413,7 @@ Overrides the extended memory size passed in from the boot block.
 (Value given in kilobytes. Extended memory does not include the first megabyte.)
 Use this option only if the boot block reports the size incorrectly.
 .It Cd options FRENCH_KBD,FINNISH_KBD,GERMAN_KBD,NORWEGIAN_KBD
-Select a non-US keyboard layout for the 
+Select a non-US keyboard layout for the
 .Em pccons
 console driver.
 .It Cd options CYRIX_CACHE_WORKS
@@ -1447,7 +1447,7 @@ instructions and data types and software support for floating point traps.
 .Bl -ohang
 .It Cd options AUDIO_DEBUG
 Enable simple event debugging of the logging of the
-.Xr audio 4 
+.Xr audio 4
 device.
 .It Cd options BLINK
 Enable blinking of LED.  Blink rate is full cycle every N seconds for

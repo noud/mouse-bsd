@@ -153,12 +153,12 @@
 #define	WDSD_LBA	0x40	/* logical block addressing */
 
 /* Commands for ATAPI devices */
-#define ATAPI_CHECK_POWER_MODE	0xe5 
+#define ATAPI_CHECK_POWER_MODE	0xe5
 #define ATAPI_EXEC_DRIVE_DIAGS	0x90
 #define ATAPI_IDLE_IMMEDIATE	0xe1
 #define ATAPI_NOP		0x00
-#define ATAPI_PKT_CMD		0xa0 
-#define ATAPI_IDENTIFY_DEVICE	0xa1 
+#define ATAPI_PKT_CMD		0xa0
+#define ATAPI_IDENTIFY_DEVICE	0xa1
 #define ATAPI_SOFT_RESET	0x08
 #define ATAPI_SLEEP		0xe6
 #define ATAPI_STANDBY_IMMEDIATE	0xe0
@@ -172,7 +172,7 @@
 #define WDCI_IN          0x02    /* transfer to(1) or from(0) the host */
 #define WDCI_RELEASE     0x04    /* bus released until completion */
 
-#define PHASE_CMDOUT    (WDCS_DRQ | WDCI_CMD)  
+#define PHASE_CMDOUT    (WDCS_DRQ | WDCI_CMD)
 #define PHASE_DATAIN    (WDCS_DRQ | WDCI_IN)
 #define PHASE_DATAOUT   WDCS_DRQ
 #define PHASE_COMPLETED (WDCI_IN | WDCI_CMD)

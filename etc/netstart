@@ -129,7 +129,7 @@ fi
 #
 # Note that $ifaliases_xxN works only with certain configurations and
 # considered not recommended.  Use /etc/ifconfig.xxN if possible.
-# 
+#
 if [ -n "$configured_interfaces" ]; then
 	echo 'adding interface aliases:';
 	done_aliases_message=yes
@@ -181,7 +181,7 @@ fi
 # of the same name, will be run as `pppd <peer>'.
 if [ -n "$ppp_peers" ]; then
 	# pppd is in /usr - need to ensure it is mounted
-	mount /usr >/dev/null 2>&1	
+	mount /usr >/dev/null 2>&1
 	set -- $ppp_peers
 	echo -n "starting pppd:"
 	while [ $# -ge 1 ]; do

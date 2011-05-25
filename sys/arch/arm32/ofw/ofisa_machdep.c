@@ -60,7 +60,7 @@ int
 ofisa_ignore_child(pphandle, cphandle)
 	int pphandle, cphandle;
 {
-	
+
 	return (0);
 }
 

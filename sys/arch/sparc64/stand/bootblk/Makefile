@@ -30,7 +30,7 @@ CPPFLAGS=	${INCLUDES} ${IDENT} ${PARAM} -D_LKM ${SVR4}
 
 #all:: bootblk.text bootblk
 
-#clean:: 
+#clean::
 #	rm assym.fth.h bootblk.text machine bootblk
 
 machine:

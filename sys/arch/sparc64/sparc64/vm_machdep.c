@@ -109,7 +109,7 @@ pagemove(from, to, size)
 /*
  * Map a user I/O request into kernel virtual address space.
  * Note: the pages are already locked by uvm_vslock(), so we
- * do not need to pass an access_type to pmap_enter().   
+ * do not need to pass an access_type to pmap_enter().
  */
 void
 vmapbuf(bp, len)
@@ -211,7 +211,7 @@ char cpu_forkname[] = "cpu_fork()";
 /*
  * Finish a fork operation, with process p2 nearly set up.
  * Copy and update the pcb and trap frame, making the child ready to run.
- * 
+ *
  * Rig the child's kernel stack so that it will start out in
  * proc_trampoline() and call child_return() with p2 as an
  * argument. This causes the newly-created child process to go
@@ -255,7 +255,7 @@ cpu_fork(p1, p2, stack, stacksize)
 #if 0
 		/* Make sure our D$ is not polluted w/bad data */
 		blast_vcache();
-		/* 
+		/*
 		 * We should not need to copy this out cause we should be
 		 * able to directly reload our windows from the pcb.
 		 */
@@ -332,12 +332,12 @@ cpu_fork(p1, p2, stack, stacksize)
 	npcb->pcb_sp = (long)rp - STACK_OFFSET;
 
 #ifdef NOTDEF_DEBUG
-	printf("cpu_fork: Copying over trapframe: otf=%p ntf=%p sp=%p opcb=%p npcb=%p\n", 
+	printf("cpu_fork: Copying over trapframe: otf=%p ntf=%p sp=%p opcb=%p npcb=%p\n",
 	       (struct trapframe *)((int)opcb + USPACE - sizeof(*tf2)), tf2, rp, opcb, npcb);
 	printf("cpu_fork: tstate=%x:%x pc=%x:%x npc=%x:%x rsp=%x\n",
-	       (long)(tf2->tf_tstate>>32), (long)tf2->tf_tstate, 
+	       (long)(tf2->tf_tstate>>32), (long)tf2->tf_tstate,
 	       (long)(tf2->tf_pc>>32), (long)tf2->tf_pc,
-	       (long)(tf2->tf_npc>>32), (long)tf2->tf_npc, 
+	       (long)(tf2->tf_npc>>32), (long)tf2->tf_npc,
 	       (long)(tf2->tf_out[6]));
 	Debugger();
 #endif
@@ -446,7 +446,7 @@ cpu_coredump(p, vp, cred, chdr)
 			savefpstate(p->p_md.md_fpstate);
 		md_core.md_fpstate = *p->p_md.md_fpstate;
 	} else
-		bzero((caddr_t)&md_core.md_fpstate, 
+		bzero((caddr_t)&md_core.md_fpstate,
 		      sizeof(md_core.md_fpstate));
 
 	CORE_SETMAGIC(cseg, CORESEGMAGIC, MID_MACHINE, CORE_CPU);

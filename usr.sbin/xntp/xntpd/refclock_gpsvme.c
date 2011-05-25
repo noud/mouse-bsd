@@ -3,21 +3,21 @@
 /*
  * refclock_gpsvme.c  NTP clock driver for the TrueTime GPS-VME
  * R. Schmidt, Time Service, US Naval Obs.  res@tuttle.usno.navy.mil
- * 
- * The refclock type has been defined as 16 (until new id assigned). 
+ *
+ * The refclock type has been defined as 16 (until new id assigned).
  * These DEFS are included in the Makefile:
  *      DEFS= -DHAVE_TERMIOS -DSYS_HPUX=9
  *      DEFS_LOCAL=  -DREFCLOCK
  *      CLOCKDEFS=   -DGPSVME
  *  The file map_vme.c does the VME memory mapping, and includes vme_init().
  *  map_vme.c is HP-UX specific, because HPUX cannot mmap() device files! Boo!
- *  The file gps.h   provides TrueTime register info. 
+ *  The file gps.h   provides TrueTime register info.
  */
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
 
-#if defined(REFCLOCK) && defined(GPSVME) 
+#if defined(REFCLOCK) && defined(GPSVME)
 #include <stdio.h>
 #include <syslog.h>
 #include <ctype.h>
@@ -45,7 +45,7 @@ extern int init_vme();		/* This is just a call to map_vme() */
 unsigned short  *greg[NREGS];	/* GPS registers defined in gps.h */
 void *gps_base;			/* Base address of GPS VME card returned by */
 				/* the map_vme() call */
-extern caddr_t map_vme ();   
+extern caddr_t map_vme ();
 extern void unmap_vme();	/* Unmaps the VME space */
 
 struct vmedate {		/* structure needed by ntp */
@@ -69,7 +69,7 @@ struct vmedate *get_gpsvme_time();
 #define BMAX  50        /* timecode buffer length */
 
 /*
- * VME interface parameters. 
+ * VME interface parameters.
  */
 #define VMEPRECISION    (-21)      /* precision assumed (1 us) */
 #define USNOREFID       "USNO\0"  /* Or whatever? */
@@ -318,7 +318,7 @@ vme_report_event(vme, code)
         int code;
 {
         struct peer *peer;
-        
+
         peer = vme->peer;
         if (vme->status != (u_short)code) {
                 vme->status = (u_short)code;
@@ -350,17 +350,17 @@ vme_poll(unit, peer)
         int unit;
         struct peer *peer;
 {
-        struct vmedate *tptr; 
+        struct vmedate *tptr;
         struct vmeunit *vme;
         l_fp tstmp;
         time_t tloc;
         struct tm *tadr;
 
-        
+
         vme = (struct vmeunit *)emalloc(sizeof(struct vmeunit *));
         tptr = (struct vmedate *)emalloc(sizeof(struct vmedate *));
 
- 
+
         if (unit >= MAXUNITS) {
                 msyslog(LOG_ERR, "vme_poll: unit %d invalid", unit);
                 return;
@@ -372,8 +372,8 @@ vme_poll(unit, peer)
         vme = vmeunits[unit];        /* Here is the structure */
         vme->polls++;
 
-        tptr = &vme->vmedata; 
-        
+        tptr = &vme->vmedata;
+
         if ((tptr = get_gpsvme_time()) == NULL ) {
                 vme_report_event(vme, CEVNT_BADREPLY);
                 return;
@@ -383,7 +383,7 @@ vme_poll(unit, peer)
         vme->lasttime = current_time;
 
         /*
-         * Get VME time and convert to timestamp format. 
+         * Get VME time and convert to timestamp format.
          * The year must come from the system clock.
          */
 /*
@@ -392,7 +392,7 @@ vme_poll(unit, peer)
         tptr->year = (unsigned short)(tadr->tm_year + 1900);
 */
 
-        sprintf(vme->a_lastcode, 
+        sprintf(vme->a_lastcode,
             "%3.3d %2.2d:%2.2d:%2.2d.%.6d %1d\0",
             tptr->doy, tptr->hr, tptr->mn,
             tptr->sec, tptr->frac, tptr->status);
@@ -576,7 +576,7 @@ struct vmedate *get_gpsvme_time()
         time_t  mktime(),time();
         struct tm *gmtime(), *gmt;
         char  *gpsmicro;
-        gpsmicro = (char *) malloc(7);  
+        gpsmicro = (char *) malloc(7);
 
         time_vme = (struct vmedate *)malloc(sizeof(struct vmedate ));
         *greg = (unsigned short *)malloc(sizeof(short) * NREGS);
@@ -586,9 +586,9 @@ struct vmedate *get_gpsvme_time()
         set = *greg[0];
 /*  read the registers : */
 /* get year */
-        time_vme->year  = (unsigned short)  *greg[6];  
+        time_vme->year  = (unsigned short)  *greg[6];
 /* Get doy */
-        time_vme->doy =  (unsigned short) (*greg[5] & MASKDAY);  
+        time_vme->doy =  (unsigned short) (*greg[5] & MASKDAY);
 /* Get hour */
         time_vme->hr =  (unsigned short) ((*greg[4] & MASKHI) >>8);
 /* Get minutes */
@@ -609,7 +609,7 @@ struct vmedate *get_gpsvme_time()
 
 /*      unmap_vme(); */
 
-        if (!status) { 
+        if (!status) {
                 return ((void *)NULL);
                 }
         else

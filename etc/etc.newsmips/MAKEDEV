@@ -139,10 +139,10 @@ tun*)
 md*)
 	unit=${i#md}; blk=2; chr=10;
 	rm -f md${unit}? rmd${unit}?
-	mknod md${unit}a  b $blk $(($unit * 8 + 0)) 
-	mknod md${unit}c  b $blk $(($unit * 8 + 2)) 
-#	mknod rmd${unit}a c $chr $(($unit * 8 + 0)) 
-#	mknod rmd${unit}c c $chr $(($unit * 8 + 2)) 
+	mknod md${unit}a  b $blk $(($unit * 8 + 0))
+	mknod md${unit}c  b $blk $(($unit * 8 + 2))
+#	mknod rmd${unit}a c $chr $(($unit * 8 + 0))
+#	mknod rmd${unit}c c $chr $(($unit * 8 + 2))
 	chgrp operator md${unit}? #rmd${unit}?
 	chmod 640 md${unit}? #rmd${unit}?
 	;;

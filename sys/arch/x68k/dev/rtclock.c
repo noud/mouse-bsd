@@ -162,21 +162,21 @@ rtgettod()
 	range_test(day, 1, 31);
 	range_test(month, 1, 12);
 	range_test(year, STARTOFTIME, 2000);
-  
+
 	tmp = 0;
 
 	for (i = STARTOFTIME; i < year; i++)
 		tmp += days_in_year(i);
 	if (leapyear(year) && month > FEBRUARY)
 		tmp++;
-  
+
 	for (i = 1; i < month; i++)
 		tmp += days_in_month(i);
-  
+
 	tmp += (day - 1);
 
 	tmp = ((tmp * 24 + hour) * 60 + min + rtc_offset) * 60 + sec;
-  
+
 	return tmp;
 }
 
@@ -231,7 +231,7 @@ rtsettod (tim)
 
 	mon1 = i / 10;
 	mon2 = i % 10;
-  
+
 	/* Days are what is left over (+1) from all that. */
 	day ++;
 	day1 = day / 10;

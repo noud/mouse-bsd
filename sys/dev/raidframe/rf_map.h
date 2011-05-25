@@ -41,7 +41,7 @@ rf_MapAccess(RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidAddress, RF_SectorCount_t numBlocks,
     caddr_t buffer, int remap);
 
-void 
+void
 rf_MarkFailuresInASMList(RF_Raid_t * raidPtr,
     RF_AccessStripeMapHeader_t * asm_h);
 
@@ -77,16 +77,16 @@ void    rf_PrintAccessStripeMap(RF_AccessStripeMapHeader_t * asm_h);
 
 void    rf_PrintFullAccessStripeMap(RF_AccessStripeMapHeader_t * asm_h, int prbuf);
 
-void 
+void
 rf_PrintRaidAddressInfo(RF_Raid_t * raidPtr, RF_RaidAddr_t raidAddr,
     RF_SectorCount_t numBlocks);
 
-void 
+void
 rf_ASMParityAdjust(RF_PhysDiskAddr_t * toAdjust,
     RF_StripeNum_t startAddrWithinStripe, RF_SectorNum_t endAddress,
     RF_RaidLayout_t * layoutPtr, RF_AccessStripeMap_t * asm_p);
 
-void 
+void
 rf_ASMCheckStatus(RF_Raid_t * raidPtr, RF_PhysDiskAddr_t * pda_p,
     RF_AccessStripeMap_t * asm_p, RF_RaidDisk_t ** disks, int parity);
 

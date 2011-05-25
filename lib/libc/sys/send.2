@@ -59,9 +59,9 @@ and
 .Fn sendmsg
 are used to transmit a message to another socket.
 .Fn send
-may be used only when the socket is in a 
+may be used only when the socket is in a
 .Em connected
-state, while 
+state, while
 .Fn sendto
 and
 .Fn sendmsg
@@ -69,7 +69,7 @@ may be used at any time.
 .Pp
 The address of the target is given by
 .Fa to
-with 
+with
 .Fa tolen
 specifying its size.
 The length of the message is given by
@@ -116,7 +116,7 @@ data.
 .Dv MSG_DONTROUTE
 is usually used only by diagnostic or routing programs.
 .Pp
-See 
+See
 .Xr recv 2
 for a description of the
 .Fa msghdr

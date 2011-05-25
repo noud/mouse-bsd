@@ -81,7 +81,7 @@ topcat_init(ip)
 
 	/*
 	 * Determine the number of planes by writing to the first frame
-	 * buffer display location, then reading it back. 
+	 * buffer display location, then reading it back.
 	 */
 	REGBASE->wen = ~0;
 	REGBASE->fben = ~0;
@@ -147,7 +147,7 @@ topcat_clear(ip, sy, sx, h, w)
 	register int sy, sx, h, w;
 {
 	topcat_windowmove(ip, sy * ip->ftheight, sx * ip->ftwidth,
-			  sy * ip->ftheight, sx * ip->ftwidth, 
+			  sy * ip->ftheight, sx * ip->ftwidth,
 			  h  * ip->ftheight, w  * ip->ftwidth,
 			  RR_CLEAR);
 }
@@ -175,7 +175,7 @@ topcat_windowmove(ip, sy, sx, dy, dx, h, w, func)
 	int sy, sx, dy, dx, h, w, func;
 {
   	register struct tcboxfb *rp = REGBASE;
-	
+
 	if (h == 0 || w == 0)
 		return;
 	tc_waitbusy(ip->regbase, ip->planemask);

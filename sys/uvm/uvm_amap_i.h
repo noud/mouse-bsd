@@ -110,7 +110,7 @@ amap_lookups(aref, offset, anons, npages)
 /*
  * amap_add: add (or replace) a page to an amap
  *
- * => caller must lock amap.   
+ * => caller must lock amap.
  * => if (replace) caller must lock anon because we might have to call
  *	pmap_page_protect on the anon's page.
  * => returns an "offset" which is meaningful to amap_unadd().
@@ -136,7 +136,7 @@ amap_add(aref, offset, anon, replace)
 
 		if (amap->am_anon[slot] == NULL)
 			panic("amap_add: replacing null anon");
-		if (amap->am_anon[slot]->u.an_page != NULL && 
+		if (amap->am_anon[slot]->u.an_page != NULL &&
 		    (amap->am_flags & AMAP_SHARED) != 0) {
 			pmap_page_protect(amap->am_anon[slot]->u.an_page,
 			    VM_PROT_NONE);
@@ -218,7 +218,7 @@ amap_ref(entry, flags)
 		if (flags & AMAP_REFALL)
 			amap_pp_adjref(amap, 0, amap->am_nslot << PAGE_SHIFT, 1);
 		else
-			amap_pp_adjref(amap, entry->aref.ar_pageoff, 
+			amap_pp_adjref(amap, entry->aref.ar_pageoff,
 			 	entry->end - entry->start, 1);
 	}
 #endif
@@ -276,7 +276,7 @@ amap_unref(entry, all)
 		if (all)
 			amap_pp_adjref(amap, 0, amap->am_nslot << PAGE_SHIFT, -1);
 		else
-			amap_pp_adjref(amap, entry->aref.ar_pageoff, 
+			amap_pp_adjref(amap, entry->aref.ar_pageoff,
 			    entry->end - entry->start, -1);
 	}
 #endif

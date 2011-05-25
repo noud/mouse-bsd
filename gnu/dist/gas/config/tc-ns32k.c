@@ -2268,9 +2268,9 @@ md_undefined_symbol (name)
     {
       if (!got_symbol)
 	{
-	  if (symbol_find(name)) 
+	  if (symbol_find(name))
 	    as_bad("GOT already in symbol table");
-	  got_symbol = symbol_new (name, undefined_section, 
+	  got_symbol = symbol_new (name, undefined_section,
 					 (valueT) 0, &zero_address_frag);
 	};
       return got_symbol;

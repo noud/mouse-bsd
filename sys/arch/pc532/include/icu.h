@@ -1,6 +1,6 @@
 /*	$NetBSD: icu.h,v 1.10 1997/03/20 12:02:40 matthias Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1993 Philip A. Nelson.
  * All rights reserved.
  *

@@ -76,7 +76,7 @@
 /* Text segment offset. */
 #define	FREEBSD_N_TXTOFF(ex) \
 	(FREEBSD_N_GETMAGIC(ex) == ZMAGIC ? __LDPGSZ : \
-	 FREEBSD_N_GETMAGIC(ex) == QMAGIC ? 0 : sizeof(struct exec)) 
+	 FREEBSD_N_GETMAGIC(ex) == QMAGIC ? 0 : sizeof(struct exec))
 
 /* Data segment offset. */
 #define	FREEBSD_N_DATOFF(ex) \

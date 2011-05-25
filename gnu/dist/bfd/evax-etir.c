@@ -221,12 +221,12 @@ image_write_q (abfd, value)
 #define HIGHBIT(op) ((op & 0x80000000L) == 0x80000000L)
 
 /* etir_sta
-  
+
    evax stack commands
-  
+
    handle sta_xxx commands in etir section
    ptr points to data area in record
-  
+
    see table B-8 of the openVMS linker manual  */
 
 static boolean
@@ -330,12 +330,12 @@ etir_sta (abfd, cmd, ptr)
 
 /*
    etir_sto
-  
+
    evax store commands
-  
+
    handle sto_xxx commands in etir section
    ptr points to data area in record
-  
+
    see table B-9 of the openVMS linker manual  */
 
 static boolean
@@ -550,7 +550,7 @@ etir_sto (abfd, cmd, ptr)
    all 32 bit signed arithmetic
    all word just like a stack calculator
    arguments are popped from stack, results are pushed on stack
-  
+
    see table B-10 of the openVMS linker manual  */
 
 static boolean
@@ -709,7 +709,7 @@ etir_opr (abfd, cmd, ptr)
 
 
 /* control commands
-  
+
    see table B-11 of the openVMS linker manual  */
 
 static boolean
@@ -772,7 +772,7 @@ etir_ctl (abfd, cmd, ptr)
 
 
 /* store conditional commands
-  
+
    see table B-12 and B-13 of the openVMS linker manual  */
 
 static boolean
@@ -914,7 +914,7 @@ tir_cmd (abfd, cmd, ptr)
 
   while (tir_table[i].mincod >= 0)
     {
-      if ( (tir_table[i].mincod <= cmd) 
+      if ( (tir_table[i].mincod <= cmd)
 	&& (cmd <= tir_table[i].maxcod))
 	{
 	  res = tir_table[i].explain (abfd, cmd, ptr);
@@ -956,7 +956,7 @@ analyze_etir (abfd, ptr, length)
 
 
 /* process ETIR record
-  
+
    return 0 on success, -1 on error  */
 
 int
@@ -979,7 +979,7 @@ _bfd_evax_slurp_etir (abfd)
 
 /* process EDBG record
    return 0 on success, -1 on error
-  
+
    not implemented yet  */
 
 int
@@ -997,7 +997,7 @@ _bfd_evax_slurp_edbg (abfd)
 
 /* process ETBT record
    return 0 on success, -1 on error
-  
+
    not implemented yet  */
 
 int
@@ -1109,7 +1109,7 @@ end_etir_record (abfd)
     bfd *abfd;
 {
   _bfd_evax_output_pop (abfd);
-  _bfd_evax_output_end (abfd); 
+  _bfd_evax_output_end (abfd);
 }
 
 /* write section contents for bfd abfd  */

@@ -83,7 +83,7 @@ struct external_exec {
 #define N_DRELOFF	N_DROFF
 #define N_SYMOFF(x)	( N_DROFF(x) + (x).a_drsize )
 #define N_STROFF(x)	( N_SYMOFF(x) + (x).a_syms )
-#define N_DATADDR(x)	( (x).a_dload )    
+#define N_DATADDR(x)	( (x).a_dload )
 
 /* Address of text segment in memory after it is loaded.  */
 #if !defined (N_TXTADDR)
@@ -136,7 +136,7 @@ struct nlist {
  *		'bal' entry point to the procedure (see following).  These
  *		entries come from '.leafproc' directives in which two different
  *		symbols are specified (the first one is represented here).
- *	
+ *
  *
  *	n_other == N_BALNAME
  *		the symbol is the 'bal' entry point to a leaf procedure.
@@ -171,7 +171,7 @@ struct relocation_info {
 		r_length:2,	/* Number of bytes to relocate:
 				 *	0 => 1 byte
 				 *	1 => 2 bytes -- used for 13 bit pcrel
-				 *	2 => 4 bytes 
+				 *	2 => 4 bytes
 				 */
 		r_extern:1,
 		r_bsr:1,	/* Something for the GNU NS32K assembler */

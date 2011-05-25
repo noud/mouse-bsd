@@ -41,7 +41,7 @@ static char sccsid[] = "@(#)msgs.c	8.1 (Berkeley) 6/6/93";
 __RCSID("$NetBSD: msgs.c,v 1.4 1997/10/20 00:23:27 lukem Exp $");
 #endif /* not lint */
 
-/* 
+/*
  * A package to display what is happening every MSG_INTERVAL seconds
  * if we are slow connecting.
  */

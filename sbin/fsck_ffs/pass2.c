@@ -186,7 +186,7 @@ pass2()
 	/* byte swapping in direcoties entries, if needed, have been done.
 	 * Now rescan dirs for pass2check()
 	 */
-	if (do_dirswap) { 
+	if (do_dirswap) {
 		do_dirswap = 0;
 		for (inpp = inpsort; inpp < inpend; inpp++) {
 			inp = *inpp;
@@ -261,7 +261,7 @@ pass2check(idesc)
 		dirp->d_type = typemap[iswap32(dirp->d_ino)];
 		ret |= ALTERED;
 	}
-	/* 
+	/*
 	 * check for "."
 	 */
 	if (idesc->id_entryno != 0)

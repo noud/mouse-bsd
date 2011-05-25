@@ -104,7 +104,7 @@ ATOF_TARG_C = $(srcdir)/config/atof-@atof@.c
 ATOF_TARG_O = atof-@atof@.o
 
 # use @target_cpu_type@ for refering to configured target name
-IT_HDRS=itbl-parse.h $(srcdir)/itbl-ops.h 
+IT_HDRS=itbl-parse.h $(srcdir)/itbl-ops.h
 IT_SRCS=itbl-parse.c itbl-lex.c $(srcdir)/itbl-ops.c
 IT_DEPS=$(srcdir)/itbl-parse.y $(srcdir)/itbl-lex.l $(srcdir)/config/itbl-@target_cpu_type@.h
 IT_OBJS=itbl-parse.o itbl-lex.o itbl-ops.o
@@ -1204,16 +1204,16 @@ LIBS = @LIBS@
 itbl_test_OBJECTS =  itbl-parse.o itbl-lex.o
 itbl_test_DEPENDENCIES =  itbl-test-ops.o itbl-test.o \
 ../libiberty/libiberty.a
-itbl_test_LDFLAGS = 
+itbl_test_LDFLAGS =
 as_new_OBJECTS =  app.o as.o atof-generic.o bignum-copy.o cond.o \
 depend.o ecoff.o ehopt.o expr.o flonum-copy.o flonum-konst.o \
 flonum-mult.o frags.o hash.o input-file.o input-scrub.o listing.o \
 literal.o macro.o messages.o output-file.o read.o sb.o stabs.o \
 subsegs.o symbols.o write.o
-as_new_LDFLAGS = 
+as_new_LDFLAGS =
 gasp_new_OBJECTS =  gasp.o macro.o sb.o hash.o
 gasp_new_DEPENDENCIES =  ../libiberty/libiberty.a
-gasp_new_LDFLAGS = 
+gasp_new_LDFLAGS =
 SCRIPTS =  $(noinst_SCRIPTS)
 
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
@@ -1239,7 +1239,7 @@ default: all
 
 .SUFFIXES:
 .SUFFIXES: .S .c .l .lo .o .s .y
-$(srcdir)/Makefile.in: @MAINT@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/Makefile.in: @MAINT@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --cygnus Makefile
 
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status

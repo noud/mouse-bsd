@@ -51,7 +51,7 @@ extern void print_387_status_word ();
  * location where the gdb registers[i] is stored.
  */
 
-static int reg_offset[] = 
+static int reg_offset[] =
 {
   REG_OFFSET(eax),  REG_OFFSET(ecx), REG_OFFSET(edx), REG_OFFSET(ebx),
   REG_OFFSET(uesp), REG_OFFSET(ebp), REG_OFFSET(esi), REG_OFFSET(edi),
@@ -84,7 +84,7 @@ gnu_fetch_registers (int reg)
 {
   struct proc *thread;
   thread_state_t state;
-  
+
   inf_update_procs (current_inferior); /* Make sure we know about new threads.  */
 
   thread = inf_tid_to_thread (current_inferior, inferior_pid);
@@ -105,7 +105,7 @@ gnu_fetch_registers (int reg)
   else
     {
       proc_debug (thread, "fetching all registers");
-      for (reg = 0; reg < NUM_REGS; reg++) 
+      for (reg = 0; reg < NUM_REGS; reg++)
 	supply_register (reg, REG_ADDR(state, reg));
       thread->fetched_regs = ~0;
     }
@@ -125,7 +125,7 @@ gnu_store_registers (reg)
   int was_aborted, was_valid;
   thread_state_t state;
   thread_state_data_t old_state;
-  
+
   inf_update_procs (current_inferior); /* Make sure we know about new threads.  */
 
   thread = inf_tid_to_thread (current_inferior, inferior_pid);
@@ -175,7 +175,7 @@ gnu_store_registers (reg)
       else
 	{
 	  proc_debug (thread, "storing all registers");
-	  for (reg = 0; reg < NUM_REGS; reg++) 
+	  for (reg = 0; reg < NUM_REGS; reg++)
 	    STORE_REGS (state, reg, 1);
 	}
     }
@@ -186,7 +186,7 @@ gnu_store_registers (reg)
  *
  * i387 status dumper. See also i387-tdep.c
  */
-struct env387 
+struct env387
 {
   unsigned short control;
   unsigned short r0;
@@ -215,22 +215,22 @@ print_387_status (status, ep)
   int top;
   int fpreg;
   unsigned char *p;
-  
+
   bothstatus = ((status != 0) && (ep->status != 0));
-  if (status != 0) 
+  if (status != 0)
     {
       if (bothstatus)
 	printf_unfiltered ("u: ");
       print_387_status_word (status);
     }
-  
-  if (ep->status != 0) 
+
+  if (ep->status != 0)
     {
       if (bothstatus)
 	printf_unfiltered ("e: ");
       print_387_status_word (ep->status);
     }
-  
+
   print_387_control_word (ep->control);
   printf_unfiltered ("last exception: ");
   printf_unfiltered ("opcode %s; ", local_hex_string(ep->opcode));
@@ -238,17 +238,17 @@ print_387_status (status, ep)
   printf_unfiltered ("%s; ", local_hex_string(ep->eip));
   printf_unfiltered ("operand %s", local_hex_string(ep->operand_seg));
   printf_unfiltered (":%s\n", local_hex_string(ep->operand));
-  
+
   top = (ep->status >> 11) & 7;
-  
+
   printf_unfiltered ("regno  tag  msb              lsb  value\n");
-  for (fpreg = 7; fpreg >= 0; fpreg--) 
+  for (fpreg = 7; fpreg >= 0; fpreg--)
     {
       double val;
-      
+
       printf_unfiltered ("%s %d: ", fpreg == top ? "=>" : "  ", fpreg);
-      
-      switch ((ep->tag >> (fpreg * 2)) & 3) 
+
+      switch ((ep->tag >> (fpreg * 2)) & 3)
 	{
 	case 0: printf_unfiltered ("valid "); break;
 	case 1: printf_unfiltered ("zero  "); break;
@@ -257,7 +257,7 @@ print_387_status (status, ep)
 	}
       for (i = 9; i >= 0; i--)
 	printf_unfiltered ("%02x", ep->regs[fpreg][i]);
-      
+
       floatformat_to_double (&floatformat_i387_ext, (char *)ep->regs[fpreg],
 			       &val);
       printf_unfiltered ("  %g\n", val);
@@ -271,7 +271,7 @@ print_387_status (status, ep)
   if (ep->r3)
     printf_unfiltered ("warning: reserved3 is %s\n", local_hex_string(ep->r3));
 }
-	
+
 /*
  * values that go into fp_kind (from <i386/fpreg.h>)
  */
@@ -301,7 +301,7 @@ get_i387_state (fstate)
   unsigned int fsCnt = i386_FLOAT_STATE_COUNT;
   struct i386_float_state *fsp;
   struct proc *thread = inf_tid_to_thread (current_inferior, inferior_pid);
-  
+
   if (!thread)
     error ("get_i387_state: Invalid thread");
 
@@ -341,16 +341,16 @@ i386_mach3_float_info()
   char buf [sizeof (struct fpstate) + 2 * sizeof (int)];
   int valid = 0;
   fpstate_t fps;
-  
+
   if (target_has_execution)
     valid = get_i387_state (buf);
 
-  if (!valid) 
+  if (!valid)
     {
       warning ("no floating point status saved");
       return;
     }
-  
+
   fps = (fpstate_t) buf;
 
   print_387_status (fps->status, (struct env387 *)fps->state);

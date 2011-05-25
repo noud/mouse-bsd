@@ -98,7 +98,7 @@ get_device(name, devpp, partp)
 
 	*devpp = NULL;
 	*partp = 0;
-    
+
 	if (strncmp(name, "/dev/", 5) == 0)
 		name += 5;
 
@@ -128,7 +128,7 @@ get_device(name, devpp, partp)
 				}
 			}
 		}
-	} 
+	}
 }
 
 
@@ -138,7 +138,7 @@ static void
 set_root_device()
 {
 	char *ptr;
-            
+
 	if (boot_file)
 		get_device(boot_file, &booted_device, &booted_partition);
 	if (boot_args) {

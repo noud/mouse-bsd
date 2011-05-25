@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1985, 1988, 1993
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -19,7 +19,7 @@
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -264,7 +264,7 @@ ho_byaddr(struct irs_ho *this, const void *addr, int len, int af) {
 	u_char buf[MAXPACKET];
 	struct hostent *hp;
 	int n, size;
-	
+
 	if (init(this) == -1)
 		return (NULL);
 
@@ -664,7 +664,7 @@ addrsort(res_state statp, char **ap, int num) {
 	p = ap;
 	for (i = 0; i < num; i++, p++) {
 		for (j = 0 ; (unsigned)j < statp->nsort; j++)
-			if (statp->sort_list[j].addr.s_addr == 
+			if (statp->sort_list[j].addr.s_addr ==
 			    (((struct in_addr *)(*p))->s_addr &
 			     statp->sort_list[j].mask))
 				break;
@@ -698,7 +698,7 @@ addrsort(res_state statp, char **ap, int num) {
 static int
 init(struct irs_ho *this) {
 	struct pvt *pvt = (struct pvt *)this->private;
-	
+
 	if (!pvt->res && !ho_res_get(this))
 		return (-1);
 	if (((pvt->res->options & RES_INIT) == 0) &&

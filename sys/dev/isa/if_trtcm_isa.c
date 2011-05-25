@@ -20,7 +20,7 @@
  *    must display the following acknowledgement:
  *        This product includes software developed by The NetBSD
  *        Foundation, Inc. and its contributors.
- * 4. Neither the name of The NetBSD Foundation nor the names of its 
+ * 4. Neither the name of The NetBSD Foundation nor the names of its
  *    contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
@@ -69,7 +69,7 @@ void	trtcm_isa_mediastatus __P((struct tr_softc *, struct ifmediareq *));
 
 /*
  * TODO:
- * 
+ *
  * if_media handling in the 3com case
  * mediachange() and mediastatus() function
  * certain newer cards can set their speed on the fly via

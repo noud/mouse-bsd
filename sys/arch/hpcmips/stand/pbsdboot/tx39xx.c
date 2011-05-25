@@ -80,13 +80,13 @@ tx39xx_init(SYSTEM_INFO *info)
 	system_info.si_boot = mips_boot;
 	system_info.si_intrvec = 0x80;
 
-	__tx39conf_addr = (int)VirtualAlloc(0, TX39_SYSADDR_CONFIG_REG_LEN, MEM_RESERVE, 
+	__tx39conf_addr = (int)VirtualAlloc(0, TX39_SYSADDR_CONFIG_REG_LEN, MEM_RESERVE,
 			    PAGE_NOACCESS);
-	if (!VirtualCopy((LPVOID)__tx39conf_addr, 
-			 (LPVOID)(TX39_SYSADDR_CONFIG_REG >> 8), 
+	if (!VirtualCopy((LPVOID)__tx39conf_addr,
+			 (LPVOID)(TX39_SYSADDR_CONFIG_REG >> 8),
 			 TX39_SYSADDR_CONFIG_REG_LEN,
 			 PAGE_READWRITE|PAGE_NOCACHE|PAGE_PHYSICAL)) {
-		msg_printf(MSG_ERROR, whoami, 
+		msg_printf(MSG_ERROR, whoami,
 			   TEXT("Mapping TX39 configuration register failed.\n"));
 	}
 }
@@ -101,7 +101,7 @@ tx39xx_asm_code_holder()
 	 *   register unsigned char *addr;
 	 *   register unsigned char *p;
 	 *   register int i;
-	 * 
+	 *
 	 *   addr = map->base;
 	 *   i = 0;
 	 *   while (p = map->leaf[i / map->leafsize][i % map->leafsize]) {
@@ -216,7 +216,7 @@ tx39xx_asm_code_holder()
 		"move t3, a0;"
 	);
 
-	/* 
+	/*
 	 * Flush cache
 	 */
 	__asm(
@@ -263,8 +263,8 @@ tx39xx_asm_code_holder()
 		"mtc0	t6, $3;"
 		"nop;"
 	);
-	/* 
-	 *  Jump to kernel entry 
+	/*
+	 *  Jump to kernel entry
 	 */
 	__asm(
 

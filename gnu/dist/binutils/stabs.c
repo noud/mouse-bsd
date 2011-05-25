@@ -1925,7 +1925,7 @@ parse_stab_sun_floating_type (dhandle, pp)
       || details == NF_COMPLEX32)
     return debug_make_complex_type (dhandle, bytes);
 
-  return debug_make_float_type (dhandle, bytes);      
+  return debug_make_float_type (dhandle, bytes);
 }
 
 /* Handle an enum type.  */
@@ -3039,7 +3039,7 @@ parse_stab_tilde_field (dhandle, info, pp, typenums, retvptrbase, retownvptr)
       *pp = p + 1;
     }
 
-  return true;    
+  return true;
 }
 
 /* Read a definition of an array type.  */

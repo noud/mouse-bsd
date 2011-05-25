@@ -97,7 +97,7 @@ _sigcode:	pushr	$0x3f
 		popr	$0x3f
 		chmk	$SYS___sigreturn14
 		chmk	$SYS_exit
-		halt	
+		halt
 		.align	2
 _esigcode:
 
@@ -110,7 +110,7 @@ _ibcs2_sigcode:	pushr	$0x3f
 		popr	$0x3f
 		chmk	$SYS___sigreturn14
 		chmk	$SYS_exit
-		halt	
+		halt
 		.align	2
 _ibcs2_esigcode:
 #endif /* COMPAT_IBCS2 */
@@ -124,7 +124,7 @@ _ultrix_sigcode:	pushr	$0x3f
 		popr	$0x3f
 		chmk	$ULTRIX_SYS_sigreturn
 		chmk	$SYS_exit
-		halt	
+		halt
 		.align	2
 _ultrix_esigcode:
 #endif
@@ -154,11 +154,11 @@ ENTRY(badaddr,0)			# Called with addr,b/w/l
 		movab	4f,_memtest	# Set the return address
 
 		caseb	r1,$1,$4	# What is the size
-1:		.word	1f-1b		
+1:		.word	1f-1b
 		.word	2f-1b
 		.word	3f-1b		# This is unused
 		.word	3f-1b
-		
+
 1:		movb	(r2),r1		# Test a byte
 		brb	5f
 
@@ -210,7 +210,7 @@ _longjmp:.word	0
 	movl	4(r1), fp
 	movl	12(r1), sp
 	jmp	*8(r1)
-#endif 
+#endif
 
 #
 # setrunqueue/remrunqueue fast variants.
@@ -254,7 +254,7 @@ idle:	mtpr	$0,$PR_IPL		# Enable all types of interrupts
 	brb	Swtch			# Yes, goto switch again.
 
 #
-# cpu_switch, cpu_exit and the idle loop implemented in assembler 
+# cpu_switch, cpu_exit and the idle loop implemented in assembler
 # for efficiency. r0 contains pointer to last process.
 #
 
@@ -318,7 +318,7 @@ ENTRY(cpu_exit,0)
 
 
 #
-# copy/fetch/store routines. 
+# copy/fetch/store routines.
 #
 
 	.globl	_copyin, _copyout

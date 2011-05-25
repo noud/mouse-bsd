@@ -59,7 +59,7 @@ pyr_do_registers_info (regnum, fpregs)
      Here (and elsewhere) we take advantage of that.  Yuk.  */
   long raw_regs[MAX_REGISTER_RAW_SIZE*NUM_REGS];
   register int i;
-  
+
   for (i = 0 ; i < 64 ; i++) {
     read_relative_register_raw_bytes(i, raw_regs+i);
   }
@@ -69,7 +69,7 @@ pyr_do_registers_info (regnum, fpregs)
     for (i = 0; i < NUM_REGS; i++)
       if (i == regnum) {
 	long val = raw_regs[i];
-	
+
 	fputs_filtered (reg_names[i], stdout);
 	printf_filtered(":");
 	print_spaces_filtered (6 - strlen (reg_names[i]), stdout);
@@ -145,7 +145,7 @@ CORE_ADDR frame_args_addr (frame)
     of the macros in tm-pyramid.h  The quantity of information produced
     when these functions are used makes the gdb  unusable as a
     debugger for user programs.  */
-    
+
 extern unsigned pyr_saved_pc(), pyr_frame_chain();
 
 CORE_ADDR pyr_frame_chain(frame)
@@ -205,8 +205,8 @@ pyr_print_insn (memaddr, stream)
   index_reg_regno = insn_decode.index_reg;
   op_1_regno = insn_decode.operand_1;
   op_2_regno = insn_decode.operand_2;
-  
-  
+
+
   if (*((int *)buffer) == 0x0) {
     /* "halt" looks just like an invalid "jump" to the insn decoder,
        so is dealt with as a special case */
@@ -234,15 +234,15 @@ pyr_print_insn (memaddr, stream)
 	 unconditional branch insn exists, we will have to FIXME to
 	 treat the insn mnemnonic of all branch instructions here as a
 	 special case: check the operands of branch insn and print an
-	 appropriate mnemonic. */ 
+	 appropriate mnemonic. */
 
       fprintf_unfiltered (stream, "%s\t", pyr_opcodes[i].name);
 
     /* Print the operands of the insn (as specified in
-       insn.operand_mode). 
+       insn.operand_mode).
        Branch operands of branches are a special case: they are a word
        offset, not a byte offset. */
-  
+
     if (insn_decode.operator == 0x01 || insn_decode.operator == 0x02) {
       register int bit_codes=(insn >> 16)&0xf;
       register int i;
@@ -268,13 +268,13 @@ pyr_print_insn (memaddr, stream)
 		 reg_names [op_1_regno],
 		 reg_names [op_2_regno]);
 	break;
-	    
+
       case 1:
 	fprintf_unfiltered (stream, " 0x%0x,%s",
 		 op_1_regno,
 		 reg_names [op_2_regno]);
 	break;
-	
+
       case 2:
 	read_memory (memaddr+4, buffer, MAXLEN);
 	insn_size += 4;
@@ -288,7 +288,7 @@ pyr_print_insn (memaddr, stream)
 		 reg_names [op_1_regno],
 		 reg_names [op_2_regno]);
 	break;
-	
+
       case 4:
 	read_memory (memaddr+4, buffer, MAXLEN);
 	insn_size += 4;
@@ -298,7 +298,7 @@ pyr_print_insn (memaddr, stream)
 		 reg_names [op_1_regno],
 		 reg_names [op_2_regno]);
 	break;
-	
+
 	/* S1 destination mode */
       case 5:
 	fprintf_unfiltered (stream,
@@ -308,7 +308,7 @@ pyr_print_insn (memaddr, stream)
 		 reg_names [index_reg_regno],
 		 index_multiplier);
 	break;
-	
+
       case 6:
 	fprintf_unfiltered (stream,
 		 ((index_reg_regno) ? " $%#0x,(%s)[%s*%1d]"
@@ -318,7 +318,7 @@ pyr_print_insn (memaddr, stream)
 		 reg_names [index_reg_regno],
 		 index_multiplier);
 	break;
-	
+
       case 7:
 	read_memory (memaddr+4, buffer, MAXLEN);
 	insn_size += 4;
@@ -331,7 +331,7 @@ pyr_print_insn (memaddr, stream)
 		 reg_names [index_reg_regno],
 		 index_multiplier);
 	break;
-	
+
       case 8:
 	fprintf_unfiltered (stream,
 		 ((index_reg_regno) ? " (%s),(%s)[%s*%1d]" : " (%s),(%s)"),
@@ -340,7 +340,7 @@ pyr_print_insn (memaddr, stream)
 		 reg_names [index_reg_regno],
 		 index_multiplier);
 	break;
-	
+
       case 9:
 	read_memory (memaddr+4, buffer, MAXLEN);
 	insn_size += 4;
@@ -355,7 +355,7 @@ pyr_print_insn (memaddr, stream)
 		 reg_names [index_reg_regno],
 		 index_multiplier);
 	break;
-	
+
 	/* S2 destination mode */
       case 10:
 	read_memory (memaddr+4, buffer, MAXLEN);
@@ -398,14 +398,14 @@ pyr_print_insn (memaddr, stream)
 		 reg_names [index_reg_regno],
 		 index_multiplier);
 	break;
-	
+
       case 13:
 	read_memory (memaddr+4, buffer, MAXLEN);
 	insn_size += 4;
 	extra_1 = * ((int *) buffer);
 	fprintf_unfiltered (stream,
 		 ((index_reg_regno)
-		  ? " (%s),%#0x(%s)[%s*%1d]" 
+		  ? " (%s),%#0x(%s)[%s*%1d]"
 		  : " (%s),%#0x(%s)"),
 		 reg_names [op_1_regno],
 		 extra_1,
@@ -430,7 +430,7 @@ pyr_print_insn (memaddr, stream)
 		 reg_names [index_reg_regno],
 		 index_multiplier);
 	break;
-	
+
       default:
 	fprintf_unfiltered (stream,
 		 ((index_reg_regno) ? "%s,%s [%s*%1d]" : "%s,%s"),
@@ -444,7 +444,7 @@ pyr_print_insn (memaddr, stream)
 	break;
       } /* switch */
     }
-  
+
   {
     return insn_size;
   }

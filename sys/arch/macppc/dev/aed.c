@@ -114,11 +114,11 @@ aedattach(parent, self, aux)
 	sc->sc_rptinterval = 6;
 	sc->sc_repeating = -1;          /* not repeating */
 
-	/* Pull in the options flags. */ 
+	/* Pull in the options flags. */
 	sc->sc_options = (sc->sc_dev.dv_cfdata->cf_flags | aed_options);
 
 	sc->sc_ioproc = NULL;
-	
+
 	sc->sc_buttons = 0;
 
 	sc->sc_open = 0;
@@ -131,7 +131,7 @@ aedattach(parent, self, aux)
 }
 
 /*
- * Given a keyboard ADB event, record the keycode and call the key 
+ * Given a keyboard ADB event, record the keycode and call the key
  * repeat handler, optionally passing the event through the mouse
  * button emulation handler first.  Pass mouse events directly to
  * the handoff function.
@@ -168,7 +168,7 @@ aed_input(event)
  * 3rd mouse button events while the 1, 2, and 3 keys will generate
  * the corresponding mouse button event.
  */
-static void 
+static void
 aed_emulate_mouse(event)
 	adb_event_t *event;
 {
@@ -305,7 +305,7 @@ aed_emulate_mouse(event)
  * for the repeating key and schedules the next call at sc_rptinterval
  * ticks in the future.
  */
-static void 
+static void
 aed_kbdrpt(kstate)
 	void *kstate;
 {
@@ -330,7 +330,7 @@ aed_kbdrpt(kstate)
  * a new repeating key event if needed, and hands the event off to the
  * appropriate subsystem.
  */
-static void 
+static void
 aed_dokeyupdown(event)
 	adb_event_t *event;
 {
@@ -370,7 +370,7 @@ aed_handoff(event)
 /*
  * Place the event in the event queue and wakeup any waiting processes.
  */
-static void 
+static void
 aed_enqevent(event)
     adb_event_t *event;
 {
@@ -401,7 +401,7 @@ aed_enqevent(event)
 	splx(s);
 }
 
-int 
+int
 aedopen(dev, flag, mode, p)
     dev_t dev;
     int flag, mode;
@@ -431,7 +431,7 @@ aedopen(dev, flag, mode, p)
 }
 
 
-int 
+int
 aedclose(dev, flag, mode, p)
     dev_t dev;
     int flag, mode;
@@ -447,7 +447,7 @@ aedclose(dev, flag, mode, p)
 }
 
 
-int 
+int
 aedread(dev, uio, flag)
     dev_t dev;
     struct uio *uio;
@@ -496,7 +496,7 @@ aedread(dev, uio, flag)
 }
 
 
-int 
+int
 aedwrite(dev, uio, flag)
     dev_t dev;
     struct uio *uio;
@@ -506,7 +506,7 @@ aedwrite(dev, uio, flag)
 }
 
 
-int 
+int
 aedioctl(dev, cmd, data, flag, p)
     dev_t dev;
     int cmd;
@@ -575,7 +575,7 @@ aedioctl(dev, cmd, data, flag, p)
 }
 
 
-int 
+int
 aedpoll(dev, events, p)
 	dev_t dev;
 	int events;
@@ -584,7 +584,7 @@ aedpoll(dev, events, p)
 	int s, revents;
 
 	revents = events & (POLLOUT | POLLWRNORM);
-	
+
 	if ((events & (POLLIN | POLLRDNORM)) == 0)
 		return (revents);
 

@@ -232,7 +232,7 @@ ex_read(sp, cmdp)
 		default:
 			ex_emsg(sp, cmdp->argv[0]->bp, EXM_FILECOUNT);
 			return (1);
-		
+
 		}
 		break;
 	}

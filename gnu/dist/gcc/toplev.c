@@ -103,7 +103,7 @@ vms_fopen (fname, type)
 #endif
 
 /* If more than one debugging type is supported, you must define
-   PREFERRED_DEBUGGING_TYPE to choose a format in a system-dependent way. 
+   PREFERRED_DEBUGGING_TYPE to choose a format in a system-dependent way.
 
    This is one long line cause VAXC can't handle a \-newline.  */
 #if 1 < (defined (DBX_DEBUGGING_INFO) + defined (SDB_DEBUGGING_INFO) + defined (DWARF_DEBUGGING_INFO) + defined (DWARF2_DEBUGGING_INFO) + defined (XCOFF_DEBUGGING_INFO))
@@ -611,7 +611,7 @@ int flag_pic;
 
 int flag_exceptions;
 
-/* Nonzero means use the new model for exception handling. Replaces 
+/* Nonzero means use the new model for exception handling. Replaces
    -DNEW_EH_MODEL as a compile option. */
 
 int flag_new_exceptions = 0;
@@ -663,7 +663,7 @@ int flag_branch_on_count_reg;
 
 
 /* -finhibit-size-directive inhibits output of .size for ELF.
-   This is used only for compiling crtstuff.c, 
+   This is used only for compiling crtstuff.c,
    and it may be extended to other effects
    needed for crtstuff.c on other systems.  */
 int flag_inhibit_size_directive = 0;
@@ -1053,12 +1053,12 @@ documented_lang_options[] =
   { "-trigraphs", "" },
   { "-undef", "" },
   { "-remap", "" },
-  
+
 #define DEFINE_LANG_NAME(NAME) { NULL, NAME },
-  
+
   /* These are for obj c.  */
   DEFINE_LANG_NAME ("Objective C")
-  
+
   { "-lang-objc", "" },
   { "-gen-decls", "Dump decls to a .decl file" },
   { "-fgnu-runtime", "Generate code for GNU runtime envrionment" },
@@ -1073,7 +1073,7 @@ documented_lang_options[] =
     "Generate C header of platform specific features" },
 
 #include "options.h"
-  
+
 };
 
 /* Here is a table, controlled by the tm.h file, listing each -m switch
@@ -1152,7 +1152,7 @@ unsigned id_clash_len;
 /* Nonzero means warn about any objects definitions whose size is larger
    than N bytes.  Also want about function definitions whose returned
    values are larger than N bytes. The value N is in `larger_than_size'.  */
- 
+
 int warn_larger_than;
 unsigned larger_than_size;
 
@@ -1556,7 +1556,7 @@ v_message_with_decl (decl, prefix, s, ap)
     {
       char fmt[sizeof "%.255s"];
       long width = p - s;
-             
+
       if (width > 255L) width = 255L;	/* arbitrary */
       sprintf (fmt, "%%.%lds", width);
       fprintf (stderr, fmt, s);
@@ -2175,7 +2175,7 @@ xcalloc (size1, size2)
 }
 
 
-/* Same as `realloc' but report error if no memory available.  
+/* Same as `realloc' but report error if no memory available.
    Also handle null PTR even if the vendor realloc gets it wrong.  */
 
 char *
@@ -2429,21 +2429,21 @@ open_dump_file (suffix, function_name)
 
        if (rtl_dump_file != NULL)
 	 fclose (rtl_dump_file);
-  
+
        strcpy (dumpname, dump_base_name);
        strcat (dumpname, suffix);
-       
+
        rtl_dump_file = fopen (dumpname, "a");
-       
+
        if (rtl_dump_file == NULL)
 	 pfatal_with_name (dumpname);
-       
+
        free (dumpname);
 
        if (function_name)
 	 fprintf (rtl_dump_file, "\n;; Function %s\n\n", function_name);
      });
-  
+
   return;
 }
 
@@ -2458,10 +2458,10 @@ close_dump_file (func, insns)
      {
        if (func)
 	 func (rtl_dump_file, insns);
-       
+
        fflush (rtl_dump_file);
        fclose (rtl_dump_file);
-       
+
        rtl_dump_file = NULL;
      });
 
@@ -2491,17 +2491,17 @@ clean_dump_file (suffix)
 
   strcpy (dumpname, dump_base_name);
   strcat (dumpname, suffix);
-       
+
   rtl_dump_file = fopen (dumpname, "w");
 
   if (rtl_dump_file == NULL)
-    pfatal_with_name (dumpname);       
+    pfatal_with_name (dumpname);
 
   free (dumpname);
 
   fclose (rtl_dump_file);
   rtl_dump_file = NULL;
-  
+
   return;
 }
 
@@ -2724,7 +2724,7 @@ compile_file (name)
       Therefore, I took out that change.
       In future versions we should find another way to solve
       that dbx problem.  -- rms, 23 May 93.  */
-      
+
   /* Don't let the first function fall at the same address
      as gcc_compiled., if profiling.  */
   if (profile_flag || profile_block_flag)
@@ -2916,7 +2916,7 @@ compile_file (name)
 	    && ! DECL_ARTIFICIAL (decl)
 	    && ! TREE_PUBLIC (decl))
 	  {
-	    pedwarn_with_decl (decl, 
+	    pedwarn_with_decl (decl,
 			       "`%s' declared `static' but never defined");
 	    /* This symbol is effectively an "extern" declaration now.  */
 	    TREE_PUBLIC (decl) = 1;
@@ -3021,15 +3021,15 @@ compile_file (name)
   /* Output some stuff at end of file if nec.  */
 
   end_final (dump_base_name);
-   
+
   if (branch_prob_dump)
     open_dump_file (".bp", NULL);
-   
+
   TIMEVAR (dump_time, end_branch_prob (rtl_dump_file));
-   
+
   if (branch_prob_dump)
     close_dump_file (NULL, NULL_RTX);
-   
+
 #ifdef ASM_FILE_END
   ASM_FILE_END (asm_out_file);
 #endif
@@ -3251,10 +3251,10 @@ rest_of_compilation (decl)
       if (rtl_dump)
 	{
 	  open_dump_file (".rtl", decl_printable_name (decl, 2));
-	  
+
 	  if (DECL_SAVED_INSNS (decl))
 	    fprintf (rtl_dump_file, ";; (integrable)\n\n");
-	  
+
 	  close_dump_file (print_rtl, insns);
 	}
 
@@ -3479,7 +3479,7 @@ rest_of_compilation (decl)
 					   !JUMP_AFTER_REGSCAN));
 
       /* Dump rtl code after cse, if we are doing that.  */
-      
+
       if (cse_dump)
 	close_dump_file (print_rtl, insns);
     }
@@ -3489,14 +3489,14 @@ rest_of_compilation (decl)
 
   if (addressof_dump)
     dump_rtl (".addressof", decl, print_rtl, insns);
-  
+
   /* Perform global cse.  */
 
   if (optimize > 0 && flag_gcse)
     {
       if (gcse_dump)
 	open_dump_file (".gcse", IDENTIFIER_POINTER (DECL_NAME (decl)));
-      
+
       TIMEVAR (gcse_time, gcse_main (insns, rtl_dump_file));
 
       if (gcse_dump)
@@ -3508,17 +3508,17 @@ rest_of_compilation (decl)
     {
       if (loop_dump)
 	open_dump_file (".loop", decl_printable_name (decl, 2));
-	
+
       TIMEVAR
 	(loop_time,
 	 {
 	   if (flag_rerun_loop_opt)
 	     {
 	       /* We only want to perform unrolling once.  */
-	       
+
 	       loop_optimize (insns, rtl_dump_file, 0);
-	       
-	
+
+
 	       /* The first call to loop_optimize makes some instructions
 		  trivially dead.  We delete those instructions now in the
 		  hope that doing so will make the heuristics in loop work
@@ -3531,9 +3531,9 @@ rest_of_compilation (decl)
 	     }
 	   loop_optimize (insns, rtl_dump_file, flag_unroll_loops);
 	 });
-      
+
       /* Dump rtl code after loop opt, if we are doing that.  */
-      
+
       if (loop_dump)
 	close_dump_file (print_rtl, insns);
     }
@@ -3542,7 +3542,7 @@ rest_of_compilation (decl)
     {
       if (cse2_dump)
 	open_dump_file (".cse2", decl_printable_name (decl, 2));
-      
+
       if (flag_rerun_cse_after_loop)
 	{
 	  /* Running another jump optimization pass before the second
@@ -3554,7 +3554,7 @@ rest_of_compilation (decl)
 	  TIMEVAR (jump_time, jump_optimize (insns, !JUMP_CROSS_JUMP,
 					     !JUMP_NOOP_MOVES,
 					     JUMP_AFTER_REGSCAN));
-	  
+
 	  TIMEVAR (cse2_time, reg_scan (insns, max_reg_num (), 0));
 	  TIMEVAR (cse2_time, tem = cse_main (insns, max_reg_num (),
 					      1, rtl_dump_file));
@@ -3571,28 +3571,28 @@ rest_of_compilation (decl)
 	  TIMEVAR (jump_time, reg_scan (insns, max_reg_num (), 0));
 	  TIMEVAR (jump_time, thread_jumps (insns, max_reg_num (), 0));
 	}
-      
+
       /* Dump rtl code after cse, if we are doing that.  */
-      
+
       if (cse2_dump)
 	close_dump_file (print_rtl, insns);
     }
-  
+
   if (profile_arc_flag || flag_test_coverage || flag_branch_probabilities)
     {
       if (branch_prob_dump)
 	open_dump_file (".bp", decl_printable_name (decl, 2));
-    
+
       TIMEVAR
 	(branch_prob_time,
 	 {
 	   branch_prob (insns, rtl_dump_file);
 	 });
-      
+
       if (branch_prob_dump)
 	close_dump_file (print_rtl, insns);
     }
-  
+
   /* We are no longer anticipating cse in this function, at least.  */
 
   cse_not_expected = 1;
@@ -3611,7 +3611,7 @@ rest_of_compilation (decl)
 
   if (flow_dump)
     open_dump_file (".flow", decl_printable_name (decl, 2));
-  
+
   if (obey_regdecls)
     {
       TIMEVAR (flow_time,
@@ -3644,15 +3644,15 @@ rest_of_compilation (decl)
 
   if (flow_dump)
     close_dump_file (print_rtl_with_bb, insns);
-  
+
   /* If -opt, try combining insns through substitution.  */
 
   if (optimize > 0)
     {
       TIMEVAR (combine_time, combine_instructions (insns, max_reg_num ()));
-      
+
       /* Dump rtl code after insn combination.  */
-      
+
       if (combine_dump)
 	dump_rtl (".combine", decl, print_rtl_with_bb, insns);
     }
@@ -3663,10 +3663,10 @@ rest_of_compilation (decl)
     {
       if (regmove_dump)
 	open_dump_file (".regmove", decl_printable_name (decl, 2));
-      
+
       TIMEVAR (regmove_time, regmove_optimize (insns, max_reg_num (),
 					       rtl_dump_file));
-      
+
       if (regmove_dump)
 	close_dump_file (print_rtl_with_bb, insns);
     }
@@ -3678,14 +3678,14 @@ rest_of_compilation (decl)
     {
       if (sched_dump)
 	open_dump_file (".sched", decl_printable_name (decl, 2));
-      
+
       /* Do control and data sched analysis,
 	 and write some of the results to dump file.  */
 
       TIMEVAR (sched_time, schedule_insns (rtl_dump_file));
-      
+
       /* Dump rtl after instruction scheduling.  */
-      
+
       if (sched_dump)
 	close_dump_file (print_rtl_with_bb, insns);
     }
@@ -3706,10 +3706,10 @@ rest_of_compilation (decl)
   if (local_reg_dump)
     {
       open_dump_file (".lreg", decl_printable_name (decl, 2));
-      
+
       TIMEVAR (dump_time, dump_flow_info (rtl_dump_file));
       TIMEVAR (dump_time, dump_local_alloc (rtl_dump_file));
-      
+
       close_dump_file (print_rtl_with_bb, insns);
     }
 
@@ -3786,7 +3786,7 @@ rest_of_compilation (decl)
       TIMEVAR (jump_time, jump_optimize (insns, JUMP_CROSS_JUMP,
 					 JUMP_NOOP_MOVES,
 					 !JUMP_AFTER_REGSCAN));
-      
+
       /* Dump rtl code after jump, if we are doing that.  */
 
       if (jump2_opt_dump)
@@ -3808,7 +3808,7 @@ rest_of_compilation (decl)
   if (optimize > 0 && flag_delayed_branch)
     {
       TIMEVAR (dbr_sched_time, dbr_schedule (insns, rtl_dump_file));
-      
+
       if (dbr_sched_dump)
 	dump_rtl (".dbr", decl, print_rtl_with_bb, insns);
     }
@@ -3959,47 +3959,47 @@ display_help ()
   for (i = NUM_ELEM (f_options); i--;)
     {
       char * description = f_options[i].description;
-      
+
       if (description != NULL && * description != 0)
 	printf ("  -f%-21s %s\n",
 		f_options[i].string, description);
     }
-  
+
   printf ("  -O[number]              Set optimisation level to [number]\n");
   printf ("  -Os                     Optimise for space rather than speed\n");
   printf ("  -pedantic               Issue warnings needed by strict compliance to ANSI C\n");
   printf ("  -pedantic-errors        Like -pedantic except that errors are produced\n");
   printf ("  -w                      Suppress warnings\n");
   printf ("  -W                      Enable extra warnings\n");
-  
+
   for (i = NUM_ELEM (W_options); i--;)
     {
       char * description = W_options[i].description;
-      
+
       if (description != NULL && * description != 0)
 	printf ("  -W%-21s %s\n",
 		W_options[i].string, description);
     }
-  
+
   printf ("  -Wid-clash-<num>        Warn if 2 identifiers have the same first <num> chars\n");
   printf ("  -Wlarger-than-<number>  Warn if an object is larger than <number> bytes\n");
   printf ("  -p                      Enable function profiling\n");
 #if defined (BLOCK_PROFILER) || defined (FUNCTION_BLOCK_PROFILER)
   printf ("  -a                      Enable block profiling \n");
-#endif  
+#endif
 #if defined (BLOCK_PROFILER) || defined (FUNCTION_BLOCK_PROFILER) || defined FUNCTION_BLOCK_PROFILER_EXIT
   printf ("  -ax                     Enable jump profiling \n");
-#endif  
+#endif
   printf ("  -o <file>               Place output into <file> \n");
   printf ("  -G <number>             Put global and static data smaller than <number>\n");
   printf ("                           bytes into a special section (on some targets)\n");
-  
+
   for (i = NUM_ELEM (debug_args); i--;)
     {
       if (debug_args[i].description != NULL)
 	printf ("  -%-22s %s\n", debug_args[i].arg, debug_args[i].description);
     }
-  
+
   printf ("  -aux-info <file>        Emit declaration info into <file>.X\n");
   printf ("  -quiet                  Do not display functions compiled or elapsed time\n");
   printf ("  -version                Display the compiler's version\n");
@@ -4012,7 +4012,7 @@ display_help ()
 
   undoc = 0;
   lang  = "language";
-  
+
   /* Display descriptions of language specific options.
      If there is no description, note that there is an undocumented option.
      If the description is empty, do not display anything.  (This allows
@@ -4020,11 +4020,11 @@ display_help ()
      If the option string is missing, then this is a marker, indicating
      that the description string is in fact the name of a language, whoes
      language specific options are to follow.  */
-  
+
   if (NUM_ELEM (documented_lang_options) > 1)
     {
       int       looking_for_start = 0;
-      
+
       printf ("\nLanguage specific options:\n");
 
       for (i = 0; i < NUM_ELEM (documented_lang_options); i++)
@@ -4043,7 +4043,7 @@ display_help ()
 		  ("\nThere are undocumented %s specific options as well.\n",
 			lang);
 	      undoc = 0;
-	      
+
 	      printf ("\n Options for %s:\n", description);
 
 	      lang = description;
@@ -4063,9 +4063,9 @@ display_help ()
       )
     {
       int doc = 0;
-      
+
       undoc = 0;
-  
+
       printf ("\nTarget specific options:\n");
 
       for (i = NUM_ELEM (target_switches); i--;)
@@ -4080,8 +4080,8 @@ display_help ()
 	  else if (* description != 0)
 	    doc += printf ("  %-23.23s %s\n", option, description);
 	}
-      
-#ifdef TARGET_OPTIONS      
+
+#ifdef TARGET_OPTIONS
       for (i = NUM_ELEM (target_options); i--;)
 	{
 	  char * option      = target_options[i].prefix;
@@ -4125,11 +4125,11 @@ check_lang_option (option, lang_option)
   /* If they do not match to the first n characters then fail.  */
   if (strncmp (option, lang_option, len) != 0)
     return 0;
-	  
+
   /* Do not accept a lang option, if it matches a normal -f or -W
      option.  Chill defines a -fpack, but we want to support
      -fpack-struct.  */
-	  
+
   /* An exact match is OK  */
   if (strlen (option) == len)
     return 1;
@@ -4149,7 +4149,7 @@ check_lang_option (option, lang_option)
      Skip past the prefix and search for the remainder in the
      appropriate table of options.  */
   option += 2;
-	  
+
   if (option[0] == 'n' && option[1] == 'o' && option[2] == '-')
     option += 3;
 
@@ -4242,11 +4242,11 @@ main (argc, argv, envp)
 	  /* Handle -Os, -O2, -O3, -O69, ...  */
 	  char *p = &argv[i][2];
 	  int c;
-	  
+
 	  if ((p[0] == 's') && (p[1] == 0))
 	    optimize_size = 1;
 	  else
-	    {	    
+	    {
 	      while ((c = *p++))
 		if (! (c >= '0' && c <= '9'))
 		  break;
@@ -4259,7 +4259,7 @@ main (argc, argv, envp)
   /* Optimizing for size forces optimize to be no less than 2. */
   if (optimize_size && (optimize < 2))
     optimize = 2;
-    
+
   obey_regdecls = (optimize == 0);
 
   if (optimize >= 1)
@@ -4316,19 +4316,19 @@ main (argc, argv, envp)
   for (i = 1; i < argc; i++)
     {
       size_t j;
-      
+
       /* If this is a language-specific option,
 	 decode it in a language-specific way.  */
       for (j = NUM_ELEM (documented_lang_options); j--;)
 	if (check_lang_option (argv[i], documented_lang_options[j].option))
 	  break;
-      
+
       if (j != -1)
 	{
 	  /* If the option is valid for *some* language,
 	     treat it as valid even if this language doesn't understand it.  */
 	  int strings_processed = lang_decode_option (argc - i, argv + i);
-	  
+
 	  /* BEGIN CYGNUS LOCAL  --help/nickc */
 	  if (!strcmp (argv[i], "--help"))
 	    {
@@ -4336,7 +4336,7 @@ main (argc, argv, envp)
 	      exit (0);
 	    }
 	  /* END CYGNUS LOCAL */
-	  
+
 	  if (strings_processed != 0)
 	    i += strings_processed - 1;
 	}
@@ -4416,7 +4416,7 @@ main (argc, argv, envp)
 		  case 'J':
 		    jump2_opt_dump = 1;
 		    break;
-#ifdef STACK_REGS		    
+#ifdef STACK_REGS
 		  case 'k':
 		    stack_reg_dump = 1;
 		    break;
@@ -4630,7 +4630,7 @@ main (argc, argv, envp)
 #if !defined (FUNCTION_BLOCK_PROFILER_EXIT) || !defined (BLOCK_PROFILER) || !defined (FUNCTION_BLOCK_PROFILER)
 	      warning ("`-ax' option (jump profiling) not supported");
 #else
-	      profile_block_flag = (!profile_block_flag 
+	      profile_block_flag = (!profile_block_flag
 	                               || profile_block_flag == 2) ? 2 : 3;
 #endif
 	    }
@@ -4958,7 +4958,7 @@ print_single_switch (file, pos, max, indent, sep, term, type, name)
   pos += len;
   return pos;
 }
-     
+
 /* Print active target switches to FILE.
    POS is the current cursor position and MAX is the size of a "line".
    Each line begins with INDENT and ends with TERM.
@@ -5057,7 +5057,7 @@ debug_start_source_file (filename)
   if (debug_info_level == DINFO_LEVEL_VERBOSE
       && write_symbols == DWARF2_DEBUG)
     dwarf2out_start_source_file (filename);
-#endif /* DWARF2_DEBUGGING_INFO */  
+#endif /* DWARF2_DEBUGGING_INFO */
 #ifdef SDB_DEBUGGING_INFO
   if (write_symbols == SDB_DEBUG)
     sdbout_start_new_source_file (filename);

@@ -61,7 +61,7 @@
  * pinging you can use up all your bandwidth).  Made low clist behavior
  * more robust and slightly less likely to hang serial line.
  * Sped up a bunch of things.
- * 
+ *
  * Note that splimp() is used throughout to block both (tty) input
  * interrupts and network activity; thus, splimp must be >= spltty.
  */

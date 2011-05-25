@@ -41,11 +41,11 @@ struct external_filehdr {
 /* from winnt.h */
 #define IMAGE_NT_OPTIONAL_HDR_MAGIC        0x10b
 
-#define PPCBADMAG(x) ((x).f_magic != PPCMAGIC) 
+#define PPCBADMAG(x) ((x).f_magic != PPCMAGIC)
 
 /********************** AOUT "OPTIONAL HEADER" **********************/
 
-typedef struct 
+typedef struct
 {
   char 	magic[2];		/* type of file				*/
   char	vstamp[2];		/* version stamp			*/
@@ -117,7 +117,7 @@ struct external_lineno {
 
 #define E_DIMNUM	4     /* # array dimensions in auxiliary entry */
 
-struct external_syment 
+struct external_syment
 {
   union {
     char e_name[E_SYMNMLEN];
@@ -134,13 +134,13 @@ struct external_syment
 };
 
 #define	SYMENT	struct external_syment
-#define	SYMESZ	18	
+#define	SYMESZ	18
 
 #define N_BTMASK	(0xf)
 #define N_TMASK		(0x30)
 #define N_BTSHFT	(4)
 #define N_TSHIFT	(2)
-  
+
 union external_auxent {
   struct {
     char x_tagndx[4];	           /* str, un, or enum tag indx       */
@@ -162,7 +162,7 @@ union external_auxent {
     } x_fcnary;
     char x_tvndx[2];		   /* tv index                        */
   } x_sym;
-  
+
   union {
     char x_fname[E_FILNMLEN];
     struct {
@@ -170,7 +170,7 @@ union external_auxent {
       char x_offset[4];
     } x_n;
   } x_file;
-  
+
   struct {
     char x_scnlen[4];	           /* section length                  */
     char x_nreloc[2];	           /* # relocation entries            */

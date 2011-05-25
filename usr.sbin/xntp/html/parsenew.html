@@ -113,7 +113,7 @@ struct clockformat
   /* conversion routine - your routine - cvt_&lt;yourclock&gt; */
   void          (*syncevt)();
   /* routine for handling RS232 sync events (time stamps) - usually sync_simple */
-  u_long (*syncpps)(); 
+  u_long (*syncpps)();
   /* PPS input routine - usually pps_simple */
   u_long (*synth)();
   /* time code synthesizer - usually not used - (long (*)())0 */
@@ -222,7 +222,7 @@ termio*.h c_cflag macros.
 
     u_char  cl_type;              /* clock type (ntp control) */
          Type if clock as in clock status word (ntp control messages) - usually 0
-	 
+
     u_long  cl_maxunsync;         /* time to trust oscillator after loosing synch
   */
          seconds a clock can be trusted after loosing synchronisation.

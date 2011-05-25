@@ -159,10 +159,10 @@ and David Henkel-Wallace (@code{gumby@@cygnus.com}).
 @node How It Works, What BFD Version 2 Can Do, History, Overview
 @section How To Use BFD
 
-To use the library, include @file{bfd.h} and link with @file{libbfd.a}.	
+To use the library, include @file{bfd.h} and link with @file{libbfd.a}.
 
 BFD provides a common interface to the parts of an object file
-for a calling application. 
+for a calling application.
 
 When an application sucessfully opens a target file (object, archive, or
 whatever), a pointer to an internal structure is returned. This pointer
@@ -175,7 +175,7 @@ with @samp{bfd_} to reduce namespace pollution.
 
 For example, this sequence does what you would probably expect:
 return the number of sections in an object file attached to a BFD
-@code{abfd}. 
+@code{abfd}.
 
 @lisp
 @c @cartouche

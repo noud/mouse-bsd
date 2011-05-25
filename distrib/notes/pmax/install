@@ -1,4 +1,4 @@
-.\"	$NetBSD: install,v 1.23 1999/12/28 11:05:48 simonb Exp $	
+.\"	$NetBSD: install,v 1.23 1999/12/28 11:05:48 simonb Exp $
 .\"
 .\" Copyright (c) 1999 The NetBSD Foundation, Inc.
 .\" All rights reserved.
@@ -348,7 +348,7 @@ for a serial console with a vt100-compatible terminal, or
 .Ic xterm
 or
 .Ic xterms
-for a 
+for a
 .Xr tip 1
 or
 .Xr cu 1

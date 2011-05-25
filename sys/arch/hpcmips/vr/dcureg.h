@@ -36,7 +36,7 @@
 
 /*
  *	DCU (DMA Control UNIT) Registers.
- *		start 0x0B000040 
+ *		start 0x0B000040
  */
 #define	DMARST_REG_W		0x000		/* DMA Reset Register */
 #define		DMARST			(1)		/* DMA reset */

@@ -22,9 +22,9 @@ CONTROL CODES
 	LF  (0x0a)	move to next line, same column
 	VT  (0x0b)	move to next line, same column
 	FF  (0x0c)	move to next line, same column
-	
+
 	CR  (0x0d)	move to left margin on current column
-	
+
 	SO  (0x0e)	invoke character set G1 into GL
 	SI  (0x0f)	invoke character set G0 into GL
 
@@ -42,7 +42,7 @@ CONTROL CODES
 	EM  (0x19)	ignored
 
 	SUB (0x1a)	abort current escape sequence
-	
+
 	ESC (0x1b)	start of escape sequence
 
 	FS  (0x1c)	ignored
@@ -108,8 +108,8 @@ ESCAPE SEQUENCES                                              DIGITAL EQUIPMENT
 
 	ESC ~		Lock Shift G1 -> GR
 
-	ESC [ ? <p> h	set dec private modes 	
-	ESC [ ? <p> l	reset dec private modes 	
+	ESC [ ? <p> h	set dec private modes
+	ESC [ ? <p> l	reset dec private modes
 		 1	CKM - cursor key mode
 		 6	OM - origin mode
 		 7	AWM - auto wrap mode
@@ -245,7 +245,7 @@ ESC&f<attr>a<key>k<llen>d<slen>L<label><string>		set function key label
 
 EXAMPLE:
 ========
-	
+
 	ESC&f0a1k16d1LFUNCTION  KEY   0
 
 	sets function key label 1 to "FUNCTION  KEY   ".

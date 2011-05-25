@@ -146,7 +146,7 @@ leap_process()
 				bits = leap_indicator;
 			else if (leapbits != 0)
 				bits = leapbits;
-			
+
 			if (bits != 0 && !pll_control) {
 				l_fp tmp;
 
@@ -264,7 +264,7 @@ leap_setleap(indicator, warning)
 	if (indicator != ~0)
 		if (leapnext > DAYBEFORE)
 			i = 1;
-	
+
 	if (i) {
 		msyslog(LOG_ERR,
 		    "attempt to set leap bits at unlikely time of month");

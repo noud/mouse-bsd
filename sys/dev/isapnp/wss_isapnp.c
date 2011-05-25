@@ -110,7 +110,7 @@ wss_isapnp_attach(parent, self, aux)
 		printf("%s: match failed?\n", self->dv_xname);
 		return;
 	}
-			
+
 	if (isapnp_config(ipa->ipa_iot, ipa->ipa_memt, ipa)) {
 		printf("%s: error in region allocation\n", self->dv_xname);
 		return;
@@ -160,7 +160,7 @@ wss_isapnp_attach(parent, self, aux)
 	sc->wss_ic = ipa->ipa_ic;
 	sc->wss_irq = ipa->ipa_irq[0].num;
 	sc->wss_playdrq = ipa->ipa_drq[0].num;
-	sc->wss_recdrq = 
+	sc->wss_recdrq =
 	    ipa->ipa_ndrq > 1 ? ipa->ipa_drq[1].num : ipa->ipa_drq[0].num;
 
 	if (!ad1848_isa_probe(&sc->sc_ad1848)) {

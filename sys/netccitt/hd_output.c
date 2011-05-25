@@ -154,7 +154,7 @@ hd_start(hdp)
  * rest of the control part of the frame and then writes it out.  It also
  * starts the  acknowledgement  timer and keeps  the iframe in the Retransmit
  * queue (Retxq) just in case  we have to do this again.
- * 
+ *
  * Note: This routine is also called from hd_input.c when retransmission of old
  * frames is required.
  */

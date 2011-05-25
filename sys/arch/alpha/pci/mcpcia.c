@@ -340,7 +340,7 @@ mcpcia_config_cleanup()
 	for (i = 0; i < mcpcia_cd.cd_ndevs; i++) {
 		if ((mcp = mcpcia_cd.cd_devs[i]) == NULL)
 			continue;
-		
+
 		ccp = mcp->mcpcia_cc;
 		if (ccp == NULL)
 			continue;

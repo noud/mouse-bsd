@@ -1,4 +1,4 @@
-.\" $NetBSD: upgrade,v 1.2 1999/05/04 03:37:09 simonb Exp $	
+.\" $NetBSD: upgrade,v 1.2 1999/05/04 03:37:09 simonb Exp $
 .\"
 .\" Copyright (c) 1999 The NetBSD Foundation, Inc.
 .\" All rights reserved.
@@ -134,5 +134,5 @@ of the version of
 .Nx
 that you upgraded from and have since been removed from the
 .Nx
-distribution. 
+distribution.
 .\}

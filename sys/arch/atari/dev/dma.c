@@ -173,7 +173,7 @@ int	*lock_stat;
 {
 	int		sps;
 	DMA_ENTRY	*req;
-	
+
 	sps = splhigh();
 
 	/*

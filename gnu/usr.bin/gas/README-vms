@@ -1,5 +1,5 @@
 	This document explains a couple of things that are specific to VMS.
-There are currently two "chapters", the first deals with cross-assembly 
+There are currently two "chapters", the first deals with cross-assembly
 issues, and the second deals with the VMS debugger and GNU-CC.
 
 
@@ -7,7 +7,7 @@ issues, and the second deals with the VMS debugger and GNU-CC.
 ****************** Notes for Cross Assembly with VMS ******************
 ***********************************************************************
 
-	If you wish to build gas on a non-VMS system to cross-assemble, 
+	If you wish to build gas on a non-VMS system to cross-assemble,
 you should use:
 
 configure ${hosttype} -target=vms
@@ -22,22 +22,22 @@ namely a two-byte count followed by that number of bytes.
 	If you try to copy the file to a VMS system using ftp, the ftp
 protocol will screw up the file by looking for nulls (record terminator for
 unix) and it will insert it's own record terminators at that point.  This
-will obviously corrupt the file. 
+will obviously corrupt the file.
 
 	If you try to transfer the file with ftp in binary mode, the
 file itself will not be corrupt, but VMS will think that the file contains
-fixed-length records of 512 bytes.  You can use the public-domain FILE 
+fixed-length records of 512 bytes.  You can use the public-domain FILE
 utility to change this with a command like:
 
 $FILE foo.o/type=variable
 
-If you do not have this utility available, the following program can be 
+If you do not have this utility available, the following program can be
 used to perform this task:
 
 	#include <fab.h>
 	
 	#define RME$C_SETRFM 1
-	 
+	
 	struct FAB * fab;
 	
 	main(int argc, char * argv[]){
@@ -67,9 +67,9 @@ depends upon which NFS software you are running on the VMS system.  There
 are a number of different TCP/IP packages for VMS available, and only very
 limited testing has been performed.   In the tests that has been done so
 far, the contents of the file will always be correct when transferring the
-file via NFS, but the record attributes may or may not be correct. 
+file via NFS, but the record attributes may or may not be correct.
 
-	One proprietary TCP/IP/NFS package for VMS is known to 
+	One proprietary TCP/IP/NFS package for VMS is known to
 automatically fix the record attributes of the object file if you NFS mount
 a unix disk from the VMS system, and if the file has a ".obj" extension on
 the unix system.  Other TCP/IP packages might do this for you as well, but
@@ -79,15 +79,15 @@ No matter what method you use to get the file to the VMS system, it is
 always a good idea to check to make sure that it is the correct type by
 doing a "$dir/full" on the object file. The desired record attributes will
 be "None".  Undesirable record attributes will be "Stream-LF" or anything
-else. 
+else.
 
-Once you get the files on the VMS system, you can check their integrity 
+Once you get the files on the VMS system, you can check their integrity
 with the "$anal/obj" command.  (Naturally at some point you should rename
-the .o files to .obj).  As far as the debugger is concerned, the records 
+the .o files to .obj).  As far as the debugger is concerned, the records
 will be correct, but the debugger will not be able to find the source files,
 since it only has the file name, and not the full directory specification.
-You must give the debugger some help by telling it which directories to 
-search for the individual files - once you have done this you should be 
+You must give the debugger some help by telling it which directories to
+search for the individual files - once you have done this you should be
 able to proceed normally.
 
 	It is a good idea to use names for your files which will be valid
@@ -101,7 +101,7 @@ in a meaningful way.  You must help the debugger by using the "SET FILE="
 command to tell the debugger where to look for source files. The debugger
 records will be correct, except that the debugger will not be initially
 able to find the source files.  You can use the "SET FILE" command to tell
-the debugger where to look for the source files. 
+the debugger where to look for the source files.
 
 I have only tested this with a SVr4 i486 machine, and everything seems to
 work OK, with the limited testing that I have done.  Other machines may
@@ -109,10 +109,10 @@ or may not work.  You should read the chapters on cross-compilers in the gcc
 manual before fooling with this.  Since gas does not need to do any floating
 point arithmetic, the floating point constants that are generated here should
 be correct - the only concern is with constant folding in the main compiler.
-The range and precision of floats and doubles are similar on the 486 (with 
+The range and precision of floats and doubles are similar on the 486 (with
 a builtin 80387) and the VAX, although there is a factor of 2 to 4
 difference in the range.  The double, as implemented on the 486, is quite
-similar to the G_FLOAT on the VAX. 
+similar to the G_FLOAT on the VAX.
 
 ***********************************************************************
 ****************** Notes for using GNU CC with the VMS debugger********
@@ -120,7 +120,7 @@ similar to the G_FLOAT on the VAX.
 
 
 	1) You should be aware that GNU-C, as with any other decent compiler,
-will do things when optimization is turned on that you may not expect. 
+will do things when optimization is turned on that you may not expect.
 Sometimes intermediate results are not written to variables, if they are only
 used in one place, and sometimes variables that are not used at all will not be
 written to the symbol table.  Also, parameters to inline functions are often
@@ -192,11 +192,11 @@ rather restrictive to force the user to debug the program by converting all of
 the inline functions to normal functions.  What I have done is to essentially
 "add" (with the debugger) source lines from the include files that contain the
 inline functions.  Thus when you step into an inline function it appears as if
-you have called the function, and you can examine variables and so forth. 
+you have called the function, and you can examine variables and so forth.
 There are several *very* important differences, however.  First of all, since
 there is no function call involved, you cannot step over the inline function
 call - you always step into it. Secondly, since the same source lines are used
-in many locations, there is a seperate copy of the source for *each* usage. 
+in many locations, there is a seperate copy of the source for *each* usage.
 Without this, breakpoints do not work, since we must have a 1-to-1 mapping
 between source lines and PC.
 	Since you cannot step over inline function calls, it can be a real pain
@@ -210,7 +210,7 @@ GNU_GXX_INCLUDE:).  Thus, without the switch the user only debugs his/her own
 inline functions, and not the system ones. (This is especially useful if you do
 a lot of stream I/O in C++).  This probably will not provide enough granularity
 for many users, but for now this is still somewhat experimental, and I would
-like to reflect upon it and get some feedback before I go any further. 
+like to reflect upon it and get some feedback before I go any further.
 Possible solutions include an interactive prompting, a logical name, or a new
 command line option in gcc.c (which is then passed through somehow to the guts
 of the assembler).

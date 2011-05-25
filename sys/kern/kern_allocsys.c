@@ -187,7 +187,7 @@ allocsys(v, mdcallback)
 	if (mdcallback != NULL)
 		v = mdcallback(v);
 
-	/* 
+	/*
 	 * Ensure a minimum of 16 buffers.
 	 */
 	if (nbuf == 0) {

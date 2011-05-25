@@ -67,7 +67,7 @@ Lintr_disabled_mask:
 Lintr_claimed_mask:
 	.word	_C_LABEL(intr_claimed_mask)
 
-Lcurrent_spl_level:	
+Lcurrent_spl_level:
 	.word	_C_LABEL(current_spl_level)
 
 Lcurrent_intr_depth:
@@ -154,7 +154,7 @@ Lfind_highest_ipl:
 	ldr	r6, [r7]
 	bic	r6, r6, r0		/* mask out disabled */
 	ldr	r7, Lintr_current_mask	/* get claimed mask */
-	str	r6, [r7]		/* new current mask */	
+	str	r6, [r7]		/* new current mask */
 
 	/* Update the DC21285 irq masks */
 	bl	_C_LABEL(irq_setmasks_nointr)
@@ -233,7 +233,7 @@ nextirq:
 	ldr	r0, [r1]
 	bic	r0, r0, r2		/* mask out disabled */
 	ldr	r1, Lintr_current_mask	/* get claimed mask */
-	str	r0, [r1]		/* new current mask */	
+	str	r0, [r1]		/* new current mask */
 	bl	_C_LABEL(irq_setmasks)
 
 	bl	_C_LABEL(dosoftints)	/* Handle the soft interrupts */
@@ -303,7 +303,7 @@ irqast:
 	PULLFRAMEFROMSVCANDEXIT
 
 	movs	pc, lr			/* Exit */
-	
+
 Lcnt:
 	.word	_C_LABEL(uvmexp)
 

@@ -312,7 +312,7 @@ parse_require(node, buffer)
 	char *buffer;
 {
 	char *s;
-	
+
 	while ((s = strsep(&buffer, " \t\n")) != NULL)
 		if (*s != '\0')
 			add_require(node, s);
@@ -328,7 +328,7 @@ parse_provide(node, buffer)
 	char *buffer;
 {
 	char *s;
-	
+
 	while ((s = strsep(&buffer, " \t\n")) != NULL)
 		if (*s != '\0')
 			add_provide(node, s);
@@ -344,7 +344,7 @@ parse_before(node, buffer)
 	char *buffer;
 {
 	char *s;
-	
+
 	while ((s = strsep(&buffer, " \t\n")) != NULL)
 		if (*s != '\0')
 			add_before(node, s);
@@ -457,7 +457,7 @@ insert_before()
 	f_reqnode *rnode;
 	beforelist *bl;
 	int new;
-	
+
 	while (bl_list != NULL) {
 		bl = bl_list->next;
 
@@ -491,7 +491,7 @@ void
 crunch_all_files()
 {
 	int i;
-	
+
 	for (i = 0; i < file_count; i++)
 		crunch_file(file_list[i]);
 	insert_before();
@@ -534,7 +534,7 @@ satisfy_req(rnode, filename)
 	if (head->next == NULL)
 		return;
 
-	/* 
+	/*
 	 * if list is marked as in progress,
 	 *	print that there is a circular dependency on it and abort
 	 */
@@ -546,7 +546,7 @@ satisfy_req(rnode, filename)
 	}
 
 	head->in_progress = SET;
-	
+
 	/*
 	 * while provision_list is not empty
 	 *	do_file(first_member_of(provision_list));
@@ -568,7 +568,7 @@ do_file(fnode)
 	f_reqnode *r, *r_tmp;
 	f_provnode *p, *p_tmp;
 	provnode *pnode;
-	int was_set;	
+	int was_set;
 
 	DPRINTF((stderr, "do_file on %s.\n", fnode->filename));
 
@@ -625,7 +625,7 @@ do_file(fnode)
 	/* if we were already in progress, don't print again */
 	if (was_set == 0)
 		printf("%s\n", fnode->filename);
-	
+
 	if (fnode->next != NULL) {
 		fnode->next->last = fnode->last;
 	}

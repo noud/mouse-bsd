@@ -67,7 +67,7 @@ void	setredzone __P((u_short *, caddr_t));
 /*
  * Finish a fork operation, with process p2 nearly set up.
  * Copy and update the pcb and trap frame, making the child ready to run.
- * 
+ *
  * Rig the child's kernel stack so that it will start out in
  * proc_trampoline() and call child_return() with p2 as an
  * argument. This causes the newly-created child process to go
@@ -312,7 +312,7 @@ vmapbuf(bp, len)
 	 * The region is locked, so we expect that pmap_pte() will return
 	 * non-NULL.
 	 * XXX: unwise to expect this in a multithreaded environment.
-	 * anything can happen to a pmap between the time we lock a 
+	 * anything can happen to a pmap between the time we lock a
 	 * region, release the pmap lock, and then relock it for
 	 * the pmap_extract().
 	 *

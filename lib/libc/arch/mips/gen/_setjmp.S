@@ -65,7 +65,7 @@
 	.set	noreorder
 
 LEAF(_setjmp)
-#ifdef ABICALLS 
+#ifdef ABICALLS
 	#.set noreorder
 	.cpload t9
 	#.set reorder
@@ -107,14 +107,14 @@ LEAF(_setjmp)
 END(_setjmp)
 
 LEAF(_longjmp)
-#ifdef ABICALLS 
+#ifdef ABICALLS
 	.set    noreorder
 	.cpload t9
 	.set    reorder
 	subu	sp, sp, 32
 	.cprestore 16
 	.set    noreorder
-#endif  
+#endif
 	REG_PROLOGUE
 	REG_L	v0, (_OFFSETOF_SC_REGS)(a0)	# get magic number
 	REG_L	ra, (2 * 4)(a0)

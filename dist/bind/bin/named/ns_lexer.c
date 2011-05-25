@@ -127,7 +127,7 @@ token_to_text(int token, YYSTYPE lval) {
 			break;
 		case L_NUMBER:
 			sprintf(buffer, "%ld", lval.num);
-			break;	
+			break;
 		case L_END_INCLUDE:
 			sprintf(buffer, "<end of include>");
 			break;
@@ -159,8 +159,8 @@ parser_complain(int is_warning, int print_last_token, const char *format,
 	if (current_file->next != NULL) {
 		for (lf = current_file; lf != NULL; lf = lf->next) {
 			log_write(log_ctx, ns_log_parser, severity,
-				  "%s '%s' line %d", 
-				  (lf == current_file) ? 
+				  "%s '%s' line %d",
+				  (lf == current_file) ?
 				  "In" : "included from",
 				  lf->name, lf->line_number);
 		}
@@ -220,11 +220,11 @@ struct keyword {
  * matches that in a %token statement inside the parser.y file.
  */
 static struct keyword keywords[] = {
-	{"acl", T_ACL}, 
+	{"acl", T_ACL},
 	{"address", T_ADDRESS},
 	{"algorithm", T_ALGID},
 	{"allow", T_ALLOW},
-	{"allow-query", T_ALLOW_QUERY}, 
+	{"allow-query", T_ALLOW_QUERY},
 	{"allow-recursion", T_ALLOW_RECURSION},
 	{"allow-transfer", T_ALLOW_TRANSFER},
 	{"allow-update", T_ALLOW_UPDATE},
@@ -246,16 +246,16 @@ static struct keyword keywords[] = {
 	{"debug", T_DEBUG},
 	{"default", T_DEFAULT},
 	{"dialup", T_DIALUP},
-	{"directory", T_DIRECTORY}, 
+	{"directory", T_DIRECTORY},
 	{"dump-file", T_DUMP_FILE},
 	{"dynamic", T_DYNAMIC},
 	{"fail", T_FAIL},
 	{"fake-iquery", T_FAKE_IQUERY},
 	{"false", T_FALSE},
 	{"fetch-glue", T_FETCH_GLUE},
-	{"file", T_FILE}, 
-	{"files", T_FILES}, 
-	{"first", T_FIRST}, 
+	{"file", T_FILE},
+	{"files", T_FILES},
+	{"first", T_FIRST},
 	{"forward", T_FORWARD},
 	{"forwarders", T_FORWARDERS},
 	{"group", T_GROUP},
@@ -312,9 +312,9 @@ static struct keyword keywords[] = {
 	{"response", T_RESPONSE},
 	{"secret", T_SECRET},
 	{"serial-queries", T_SERIAL_QUERIES},
-	{"server", T_SERVER}, 
-	{"severity", T_SEVERITY}, 
-	{"size", T_SIZE}, 
+	{"server", T_SERVER},
+	{"severity", T_SEVERITY},
+	{"size", T_SIZE},
 	{"slave", T_SLAVE},
 	{"sortlist", T_SORTLIST},
 	{"stacksize", T_STACKSIZE},
@@ -322,16 +322,16 @@ static struct keyword keywords[] = {
 	{"statistics-interval", T_STATS_INTERVAL},
 	{"stub", T_STUB},
 	{"support-ixfr", T_SUPPORT_IXFR},
-	{"syslog", T_SYSLOG}, 
+	{"syslog", T_SYSLOG},
 	{"topology", T_TOPOLOGY},
-	{"transfer-format", T_TRANSFER_FORMAT}, 
+	{"transfer-format", T_TRANSFER_FORMAT},
 	{"transfer-source", T_TRANSFER_SOURCE},
-	{"transfers", T_TRANSFERS}, 
-	{"transfers-in", T_TRANSFERS_IN}, 
-	{"transfers-out", T_TRANSFERS_OUT}, 
-	{"transfers-per-ns", T_TRANSFERS_PER_NS}, 
+	{"transfers", T_TRANSFERS},
+	{"transfers-in", T_TRANSFERS_IN},
+	{"transfers-out", T_TRANSFERS_OUT},
+	{"transfers-per-ns", T_TRANSFERS_PER_NS},
 	{"treat-cr-as-space", T_TREAT_CR_AS_SPACE},
-	{"true", T_TRUE}, 
+	{"true", T_TRUE},
 	{"trusted-keys", T_TRUSTED_KEYS},
 	{"type", T_TYPE},
 	{"unix", T_UNIX},
@@ -339,9 +339,9 @@ static struct keyword keywords[] = {
 	{"use-id-pool", T_USE_ID_POOL},
 	{"use-ixfr", T_USE_IXFR},
 	{"version", T_VERSION},
-	{"versions", T_VERSIONS}, 
+	{"versions", T_VERSIONS},
 	{"warn", T_WARN},
-	{"yes", T_YES}, 
+	{"yes", T_YES},
 	{"zone", T_ZONE},
 	{(char *) NULL, 0},
 };
@@ -622,7 +622,7 @@ yylex() {
 			} else
 				if (special_char(c)) {
 					if (c == ';') {
-						token = L_EOS; 
+						token = L_EOS;
 						break;
 					}
 					if (c == '"') {
@@ -727,7 +727,7 @@ yylex() {
 				}
 			}
 			break;
-			
+
 		default:
 			panic("unhandled state in yylex", NULL);
 		}
@@ -751,7 +751,7 @@ import_constants(const struct ns_sym *s, int type) {
 		value.integer = s->number;
 		define_symbol(constants, s->name, type, value, 0);
 	}
-}	
+}
 
 static void
 import_res_constants(const struct res_sym *r, int type) {
@@ -760,7 +760,7 @@ import_res_constants(const struct res_sym *r, int type) {
 		value.integer = r->number;
 		define_symbol(constants, r->name, type, value, 0);
 	}
-}	
+}
 
 #define CONSTANTS_TABLE_SIZE 397	/* should be prime */
 

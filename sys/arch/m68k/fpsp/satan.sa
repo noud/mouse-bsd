@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -77,7 +77,7 @@ satan	IDNT	2,1 Motorola 040 Floating Point Software Package
 	section	8
 
 	include fpsp.h
-	
+
 BOUNDS1	DC.L $3FFB8000,$4002FFFF
 
 ONE	DC.L $3F800000
@@ -347,7 +347,7 @@ ATANMAIN:
 *--THE REASON FOR THIS REARRANGEMENT IS TO MAKE THE INDEPENDENT
 *--PARTS A1*U*V AND (A2 + ... STUFF) MORE LOAD-BALANCED
 
-	
+
 	FMOVE.X		FP0,FP1
 	FMUL.X		FP1,FP1
 	FMOVE.D		ATANA3,FP2
@@ -357,7 +357,7 @@ ATANMAIN:
 	FADD.D		ATANA2,FP2	...A2+V*(A3+V)
 	FMUL.D		ATANA1,FP1	...A1*U*V
 	FMUL.X		FP2,FP1		...A1*U*V*(A2+V*(A3+V))
-	
+
 	FADD.X		FP1,FP0		...ATAN(U), FP1 RELEASED
 	FMOVE.L		d1,FPCR		;restore users exceptions
 	FADD.X		ATANF(a6),FP0	...ATAN(X)
@@ -381,7 +381,7 @@ ATANSM:
 *--COMPUTE POLYNOMIAL
 	FMUL.X		FP0,FP0	...FP0 IS Y = X*X
 
-	
+
 	CLR.W		XDCARE(a6)
 
 	FMOVE.X		FP0,FP1
@@ -406,7 +406,7 @@ ATANSM:
 	FMUL.X		X(a6),FP0		...X*Y
 
 	FADD.X		FP2,FP1		...[B1+Z*(B3+Z*B5)]+[Y*(B2+Z*(B4+Z*B6))]
-	
+
 
 	FMUL.X		FP1,FP0	...X*Y*([B1+Z*(B3+Z*B5)]+[Y*(B2+Z*(B4+Z*B6))])
 
@@ -438,7 +438,7 @@ ATANBIG:
 	FMOVE.S		#:BF800000,FP1	...LOAD -1
 	FDIV.X		FP0,FP1		...FP1 IS -1/X
 
-	
+
 *--DIVIDE IS STILL CRANKING
 
 	FMOVE.X		FP1,FP0		...FP0 IS X'
@@ -464,14 +464,14 @@ ATANBIG:
 	FMUL.X		X(a6),FP0		...X'*Y
 
 	FADD.X		FP2,FP1		...[Y*(C2+Z*C4)]+[C1+Z*(C3+Z*C5)]
-	
+
 
 	FMUL.X		FP1,FP0		...X'*Y*([B1+Z*(B3+Z*B5)]
 *					...	+[Y*(B2+Z*(B4+Z*B6))])
 	FADD.X		X(a6),FP0
 
 	FMOVE.L		d1,FPCR		;restore users exceptions
-	
+
 	btst.b		#7,(a0)
 	beq.b		pos_big
 
@@ -499,5 +499,5 @@ pos_huge:
 	fmove.l		d1,fpcr
 	fsub.x		PTINY,fp0
 	bra		t_frcinx
-	
+
 	end

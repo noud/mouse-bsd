@@ -17,10 +17,10 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *        This product includes software developed by the NetBSD 
+ *        This product includes software developed by the NetBSD
  *	  Foundation, Inc. and its contributors.
- * 4. Neither the name of The NetBSD Foundation nor the names of its 
- *    contributors may be used to endorse or promote products derived 
+ * 4. Neither the name of The NetBSD Foundation nor the names of its
+ *    contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
@@ -607,8 +607,8 @@ struct audio_hw_if gus_hw_if = {
 	gus_mixer_query_devinfo,
 	ad1848_isa_malloc,
 	ad1848_isa_free,
-	ad1848_isa_round_buffersize, 
-	ad1848_isa_mappage, 
+	ad1848_isa_round_buffersize,
+	ad1848_isa_mappage,
 	gus_get_props,
 };
 
@@ -616,25 +616,25 @@ static struct audio_hw_if gusmax_hw_if = {
 	gusmaxopen,
 	gusmax_close,
 	NULL,				/* drain */
-	
+
 	gus_query_encoding, /* query encoding */
-	
+
 	gusmax_set_params,
-	
+
 	gusmax_round_blocksize,
-	
+
 	gusmax_commit_settings,
-	
+
 	NULL,
 	NULL,
-	
+
 	gusmax_dma_output,
 	gusmax_dma_input,
 	gusmax_halt_out_dma,
 	gusmax_halt_in_dma,
-	
+
 	gusmax_speaker_ctl,
-	
+
 	gus_getdev,
 	NULL,
 	gusmax_mixer_set_port,
@@ -642,8 +642,8 @@ static struct audio_hw_if gusmax_hw_if = {
 	gusmax_mixer_query_devinfo,
 	ad1848_isa_malloc,
 	ad1848_isa_free,
-	ad1848_isa_round_buffersize, 
-	ad1848_isa_mappage, 
+	ad1848_isa_round_buffersize,
+	ad1848_isa_mappage,
 	gusmax_get_props,
 };
 
@@ -991,7 +991,7 @@ gusattach(parent, self, aux)
 
 	/* A GUS MAX should always have a CODEC installed */
 	if ((sc->sc_revision >= 10) & !(HAS_CODEC(sc)))
-		printf("%s: WARNING: did not attach CODEC on MAX\n", 
+		printf("%s: WARNING: did not attach CODEC on MAX\n",
                        sc->sc_dev.dv_xname);
 
 	/*
@@ -1231,7 +1231,7 @@ gus_dma_output(addr, buf, size, intr, arg)
 
 	flags = GUSMASK_DMA_WRITE;
 	if (sc->sc_precision == 16)
-	    flags |= GUSMASK_DMA_DATA_SIZE; 
+	    flags |= GUSMASK_DMA_DATA_SIZE;
 	if (sc->sc_encoding == AUDIO_ENCODING_ULAW ||
 	    sc->sc_encoding == AUDIO_ENCODING_ALAW ||
 	    sc->sc_encoding == AUDIO_ENCODING_ULINEAR_BE ||
@@ -1429,12 +1429,12 @@ gus_dmaout_timeout(arg)
  	s = splgus();
  	SELECT_GUS_REG(iot, ioh2, GUSREG_DMA_CONTROL);
  	bus_space_write_1(iot, ioh2, GUS_DATA_HIGH, 0);
- 	
+
 #if 0
  	/* XXX we will dmadone below? */
  	isa_dmaabort(sc->sc_dev.dv_parent, sc->sc_playdrq);
 #endif
- 	
+
  	gus_dmaout_dointr(sc);
  	splx(s);
 }
@@ -1554,7 +1554,7 @@ gus_dmaout_dointr(sc)
 	     */
 	    if (++sc->sc_bufcnt == 2) {
 		/*
-		 * XXX 
+		 * XXX
 		 * If we're too slow in reaction here,
 		 * the voice could be just approaching the
 		 * end of its run.  It should be set to stop,
@@ -1599,7 +1599,7 @@ gus_dmaout_dointr(sc)
 	 * flip to the next DMA buffer
 	 */
 
-	sc->sc_dmabuf = ++sc->sc_dmabuf % sc->sc_nbufs; 
+	sc->sc_dmabuf = ++sc->sc_dmabuf % sc->sc_nbufs;
 	/*
 	 * See comments below about DMA admission control strategy.
 	 * We can call the upper level here if we have an
@@ -1683,7 +1683,7 @@ gus_voice_intr(sc)
 			    /*
 			     * probably a race to get here: the voice
 			     * stopped while the DMA code was just trying to
-			     * get the next buffer in place. 
+			     * get the next buffer in place.
 			     * Start the voice again.
 			     */
 			    printf("%s: stopped voice not drained? (%x)\n",
@@ -1804,7 +1804,7 @@ gus_start_playing(sc, bufno)
 	sc->sc_voc[GUS_VOICE_LEFT].end_addr =
 		sc->sc_voc[GUS_VOICE_LEFT].current_addr + sc->sc_chanblocksize - 1;
 	sc->sc_voc[GUS_VOICE_RIGHT].current_addr =
-		sc->sc_voc[GUS_VOICE_LEFT].current_addr + 
+		sc->sc_voc[GUS_VOICE_LEFT].current_addr +
 		(gus_dostereo && sc->sc_channels == 2 ? GUS_LEFT_RIGHT_OFFSET : 0);
 	/*
 	 * set up right channel to just loop forever, no interrupts,
@@ -1858,12 +1858,12 @@ gus_continue_playing(sc, voice)
 	SELECT_GUS_REG(iot, ioh2, GUSREG_VOICE_CNTL);
 	bus_space_write_1(iot, ioh2, GUS_DATA_HIGH, sc->sc_voc[voice].voccntl & ~(GUSMASK_VOICE_IRQ));
 
-	/* 
+	/*
 	 * update playbuf to point to the buffer the hardware just started
 	 * playing
 	 */
 	sc->sc_playbuf = ++sc->sc_playbuf % sc->sc_nbufs;
-    
+
 	/*
 	 * account for buffer just finished
 	 */
@@ -1880,7 +1880,7 @@ gus_continue_playing(sc, voice)
 	 * buffer, [plus extra contiguous buffers (if ready)].
 	 */
 
-	/* 
+	/*
 	 * set endpoint at end of buffer we just started playing.
 	 *
 	 * The total gets -1 because end addrs are one less than you might
@@ -2399,7 +2399,7 @@ struct gus_softc *sc;
 {
 	/*
 	 * We use sc_nbufs * blocksize bytes of storage in the on-board GUS
-	 * ram. 
+	 * ram.
 	 * For mono, each of the sc_nbufs buffers is DMA'd to in one chunk,
 	 * and both left & right channels play the same buffer.
 	 *
@@ -2904,7 +2904,7 @@ gus_init_cs4231(sc)
 		sc->sc_mixcontrol &= ~GUSMASK_LINE_IN; /* 0 enables. */
 		sc->sc_mixcontrol |= GUSMASK_MIC_IN; /* 1 enables. */
 		bus_space_write_1(iot, ioh1, GUS_MIX_CONTROL, sc->sc_mixcontrol);
-		
+
 		ad1848_isa_attach(&sc->sc_codec);
 		/* turn on pre-MUX microphone gain. */
 		ad1848_set_mic_gain(&sc->sc_codec.sc_ad1848, &vol);
@@ -2978,7 +2978,7 @@ gus_dma_input(addr, buf, size, callback, arg)
 	bus_space_handle_t ioh2 = sc->sc_ioh2;
 	u_char dmac;
 	DMAPRINTF(("gus_dma_input called\n"));
-    
+
 	/*
 	 * Sample SIZE bytes of data from the card, into buffer at BUF.
 	 */
@@ -3116,7 +3116,7 @@ gus_halt_in_dma(addr)
   	SELECT_GUS_REG(iot, ioh2, GUSREG_SAMPLE_CONTROL);
  	bus_space_write_1(iot, ioh2, GUS_DATA_HIGH,
  	     bus_space_read_1(iot, ioh2, GUS_DATA_HIGH) & ~(GUSMASK_SAMPLE_START|GUSMASK_SAMPLE_IRQ));
-  
+
  	isa_dmaabort(sc->sc_ic, sc->sc_recdrq);
 	sc->sc_flags &= ~GUS_DMAIN_ACTIVE;
 	sc->sc_dmainintr = 0;
@@ -3156,7 +3156,7 @@ gusmax_mixer_get_port(addr, cp)
 	struct ad1848_volume vol;
 	int error = ad1848_mixer_get_port(&ac->sc_ad1848, gusmapping,
 					  nummap, cp);
-    
+
 	if (error != ENXIO)
 	  return (error);
 
@@ -3202,7 +3202,7 @@ gus_mixer_get_port(addr, cp)
 
 	if (!HAS_MIXER(sc) && cp->dev > GUSICS_MASTER_MUTE)
 		return ENXIO;
-    
+
 	switch (cp->dev) {
 
 	case GUSICS_MIC_IN_MUTE:	/* Microphone */
@@ -3269,7 +3269,7 @@ gus_mixer_get_port(addr, cp)
 				error = 0;
 		}
 		break;
-	
+
 	case GUSICS_LINE_IN_LVL:	/* line in */
 		if (cp->type == AUDIO_MIXER_VALUE) {
 			vol.left = ic->sc_setting[GUSMIX_CHAN_LINE][ICSMIX_LEFT];
@@ -3368,7 +3368,7 @@ gusmax_mixer_set_port(addr, cp)
 	struct ad1848_volume vol;
 	int error = ad1848_mixer_set_port(&ac->sc_ad1848, gusmapping,
 					  nummap, cp);
-    
+
 	if (error != ENXIO)
 	  return (error);
 
@@ -3414,7 +3414,7 @@ gus_mixer_set_port(addr, cp)
 
 	if (!HAS_MIXER(sc) && cp->dev > GUSICS_MASTER_MUTE)
 		return ENXIO;
-    
+
 	switch (cp->dev) {
 
 	case GUSICS_MIC_IN_MUTE:	/* Microphone */
@@ -3495,7 +3495,7 @@ gus_mixer_set_port(addr, cp)
 			}
 		}
 		break;
-	
+
 	case GUSICS_LINE_IN_LVL:	/* line in */
 		if (cp->type == AUDIO_MIXER_VALUE) {
 			if (ad1848_to_vol(cp, &vol)) {
@@ -3673,7 +3673,7 @@ gusmax_mixer_query_devinfo(addr, dip)
 	dip->prev = GUSMAX_LINE_IN_LVL;
 	dip->next = AUDIO_MIXER_LAST;
 	goto mute;
-	
+
     case GUSMAX_DAC_MUTE:
 	dip->mixer_class = GUSMAX_INPUT_CLASS;
 	dip->type = AUDIO_MIXER_ENUM;
@@ -3687,7 +3687,7 @@ gusmax_mixer_query_devinfo(addr, dip)
 	dip->prev = GUSMAX_CD_LVL;
 	dip->next = AUDIO_MIXER_LAST;
 	goto mute;
-	
+
     case GUSMAX_MONO_MUTE:
 	dip->mixer_class = GUSMAX_INPUT_CLASS;
 	dip->type = AUDIO_MIXER_ENUM;
@@ -3715,7 +3715,7 @@ gusmax_mixer_query_devinfo(addr, dip)
 	strcpy(dip->un.e.member[1].label.name, AudioNon);
 	dip->un.e.member[1].ord = 1;
 	break;
-	
+
     case GUSMAX_REC_LVL:	/* record level */
 	dip->type = AUDIO_MIXER_VALUE;
 	dip->mixer_class = GUSMAX_RECORD_CLASS;
@@ -3763,7 +3763,7 @@ gusmax_mixer_query_devinfo(addr, dip)
 	dip->next = dip->prev = AUDIO_MIXER_LAST;
 	strcpy(dip->label.name, AudioCmonitor);
 	break;
-	    
+
     case GUSMAX_RECORD_CLASS:			/* record source class */
 	dip->type = AUDIO_MIXER_CLASS;
 	dip->mixer_class = GUSMAX_RECORD_CLASS;
@@ -3850,7 +3850,7 @@ gus_mixer_query_devinfo(addr, dip)
 		dip->prev = GUSICS_LINE_IN_LVL;
 		dip->next = AUDIO_MIXER_LAST;
 		goto mute;
-	
+
 	case GUSICS_DAC_MUTE:
 		dip->mixer_class = GUSICS_INPUT_CLASS;
 		dip->type = AUDIO_MIXER_ENUM;
@@ -3864,7 +3864,7 @@ gus_mixer_query_devinfo(addr, dip)
 		dip->prev = GUSICS_CD_LVL;
 		dip->next = AUDIO_MIXER_LAST;
 		goto mute;
-	
+
 	case GUSICS_MIC_IN_MUTE:
 		dip->mixer_class = GUSICS_INPUT_CLASS;
 		dip->type = AUDIO_MIXER_ENUM;
@@ -3885,7 +3885,7 @@ mute:
 		strcpy(dip->un.e.member[1].label.name, AudioNon);
 		dip->un.e.member[1].ord = 1;
 		break;
-	
+
 	case GUSICS_RECORD_SOURCE:
 		dip->mixer_class = GUSICS_RECORD_CLASS;
 		dip->type = AUDIO_MIXER_ENUM;

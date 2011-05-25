@@ -1,4 +1,4 @@
-.\"	$NetBSD: hardware,v 1.8 1999/06/29 03:07:01 minoura Exp $	
+.\"	$NetBSD: hardware,v 1.8 1999/06/29 03:07:01 minoura Exp $
 .
 NetBSD/x68k \*V runs on the Sharp X68030 series PCs with a
 .Em true

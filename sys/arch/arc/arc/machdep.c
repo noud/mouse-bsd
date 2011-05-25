@@ -404,7 +404,7 @@ mach_init(argc, argv, envv)
 	 * Set the VM page size.
 	 */
 	uvm_setpagesize();
- 
+
 	/* make sure that we don't call BIOS console from now on */
 	cn_tab = NULL;
 
@@ -557,7 +557,7 @@ mach_init(argc, argv, envv)
 	 * virtual address space.
 	 */
 	size = (vm_size_t)allocsys(NULL, NULL);
-	v = (caddr_t)pmap_steal_memory(size, NULL, NULL); 
+	v = (caddr_t)pmap_steal_memory(size, NULL, NULL);
 	if ((allocsys(v, NULL) - v) != size)
 		panic("mach_init: table size inconsistency");
 
@@ -588,19 +588,19 @@ tlb_init_pica()
 	tlb.tlb_lo0 = vad_to_pfn(PICA_P_LOCAL_VIDEO_CTRL) | MIPS3_PG_IOPAGE;
 	tlb.tlb_lo1 = vad_to_pfn(PICA_P_LOCAL_VIDEO_CTRL + PICA_S_LOCAL_VIDEO_CTRL/2) | MIPS3_PG_IOPAGE;
 	mips3_TLBWriteIndexedVPS(4, &tlb);
-	
+
 	tlb.tlb_mask = MIPS3_PG_SIZE_1M;
 	tlb.tlb_hi = mips3_vad_to_vpn(PICA_V_EXTND_VIDEO_CTRL);
 	tlb.tlb_lo0 = vad_to_pfn(PICA_P_EXTND_VIDEO_CTRL) | MIPS3_PG_IOPAGE;
 	tlb.tlb_lo1 = vad_to_pfn(PICA_P_EXTND_VIDEO_CTRL + PICA_S_EXTND_VIDEO_CTRL/2) | MIPS3_PG_IOPAGE;
 	mips3_TLBWriteIndexedVPS(5, &tlb);
-	
+
 	tlb.tlb_mask = MIPS3_PG_SIZE_4M;
 	tlb.tlb_hi = mips3_vad_to_vpn(PICA_V_LOCAL_VIDEO);
 	tlb.tlb_lo0 = vad_to_pfn(PICA_P_LOCAL_VIDEO) | MIPS3_PG_IOPAGE;
 	tlb.tlb_lo1 = vad_to_pfn(PICA_P_LOCAL_VIDEO + PICA_S_LOCAL_VIDEO/2) | MIPS3_PG_IOPAGE;
 	mips3_TLBWriteIndexedVPS(6, &tlb);
-	
+
 	tlb.tlb_mask = MIPS3_PG_SIZE_16M;
 	tlb.tlb_hi = mips3_vad_to_vpn(PICA_V_ISA_IO);
 	tlb.tlb_lo0 = vad_to_pfn(PICA_P_ISA_IO) | MIPS3_PG_IOPAGE;
@@ -1117,5 +1117,5 @@ atoi(s, b)
 	if (neg)
 		val = -val;
 out:
-	return val;	
+	return val;
 }

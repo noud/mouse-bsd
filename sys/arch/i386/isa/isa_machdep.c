@@ -169,7 +169,7 @@ isa_defaultirq()
 	for (i = 0; i < ICU_LEN; i++)
 		setgate(&idt[ICU_OFFSET + i].gd, IDTVEC(intr)[i], 0,
 		    SDT_SYS386IGT, SEL_KPL);
-  
+
 	/* initialize 8259's */
 	outb(IO_ICU1, 0x11);		/* reset; program device, four bytes */
 	outb(IO_ICU1+1, ICU_OFFSET);	/* starting at this vector index */
@@ -651,7 +651,7 @@ _isa_bus_dmamap_create(t, size, nsegments, maxsegsz, boundary, flags, dmamp)
 	 */
 	if (avail_end <= t->_bounce_thresh ||
 	    (flags & ISABUS_DMA_32BIT) != 0) {
-		/* Bouncing not necessary due to memory size. */ 
+		/* Bouncing not necessary due to memory size. */
 		map->_dm_bounce_thresh = 0;
 	}
 	cookieflags = 0;
@@ -720,7 +720,7 @@ _isa_bus_dmamap_destroy(t, map)
 int
 _isa_bus_dmamap_load(t, map, buf, buflen, p, flags)
 	bus_dma_tag_t t;
-	bus_dmamap_t map; 
+	bus_dmamap_t map;
 	void *buf;
 	bus_size_t buflen;
 	struct proc *p;
@@ -789,7 +789,7 @@ _isa_bus_dmamap_load(t, map, buf, buflen, p, flags)
  * Like _isa_bus_dmamap_load(), but for mbufs.
  */
 int
-_isa_bus_dmamap_load_mbuf(t, map, m0, flags)  
+_isa_bus_dmamap_load_mbuf(t, map, m0, flags)
 	bus_dma_tag_t t;
 	bus_dmamap_t map;
 	struct mbuf *m0;

@@ -3,7 +3,7 @@
 This is a program which I wrote as a clone of the UNIX 'units'
 command.  I threw it together in a couple days, but it seems to work,
 with some restrictions.  I have tested it under DOS with Borland C and
-Ultrix 4.2, and SunOS 4.1.  
+Ultrix 4.2, and SunOS 4.1.
 
 This program differs from the unix units program in the following
 ways:

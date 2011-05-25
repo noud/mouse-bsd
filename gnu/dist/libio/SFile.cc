@@ -1,4 +1,4 @@
-/* 
+/*
 Copyright (C) 1993 Free Software Foundation
 
 This file is part of the GNU IO Library.  This library is free
@@ -22,7 +22,7 @@ the resulting executable to be covered by the GNU General Public License.
 This exception does not however invalidate any other reasons why
 the executable file might be covered by the GNU General Public License. */
 
-/* 
+/*
 Copyright (C) 1988 Free Software Foundation
     written by Doug Lea (dl@rocky.oswego.edu)
 
@@ -46,14 +46,14 @@ Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 SFile::SFile(const char *filename, int size, int mode, int prot)
 : fstream(filename, mode, prot)
-{ 
-  sz = size; 
+{
+  sz = size;
 }
 
 SFile::SFile(int fd, int size)
 : fstream(fd)
-{ 
-  sz = size; 
+{
+  sz = size;
 }
 
 void SFile::open(const char *name, int size, int mode, int prot)

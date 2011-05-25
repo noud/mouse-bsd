@@ -64,7 +64,7 @@ gpbusmatch(parent, match, aux)
 {
 	platid_mask_t mask;
 	struct gpbus_attach_args *gpa = aux;
-    
+
 	if (strcmp(gpa->gpa_busname, match->cf_driver->cd_name))
 		return 0;
 	if (match->cf_loc[GPBUSIFCF_PLATFORM] == 0)
@@ -102,7 +102,7 @@ gpbusattach(parent, self, aux)
 	int port;
 	int *loc;
 	int mode;
-    
+
 	struct gpbus_softc *sc = (void*)self;
 	sc->sc_gc = gpa->gpa_gc;
 	sc->sc_gf = gpa->gpa_gf;
@@ -129,11 +129,11 @@ gpbusattach(parent, self, aux)
 	if ((port = loc[GPBUSIFCF_COMCTRL]) != GPBUSIFCF_COMCTRL)
 		gpa->gpa_gf->gf_map(gpa->gpa_gc, GIUPORT_COM, port);
 	/*
-	 * Button 
+	 * Button
 	 */
 	sc->sc_button_mask = 0;
 #if 1 /* Windows CE default */
-	mode = VRGIU_INTR_EDGE_HOLD; 
+	mode = VRGIU_INTR_EDGE_HOLD;
 #else /* XXX Don't challenge! Freestyle Only */
 	mode = VRGIU_INTR_LEVEL_LOW_HOLD;
 #endif

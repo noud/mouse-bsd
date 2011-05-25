@@ -312,7 +312,7 @@ void
 setbinary(argc, argv)
 	int argc;
 	char *argv[];
-{      
+{
 
 	settftpmode("octet");
 }
@@ -397,7 +397,7 @@ put(argc, argv)
 	}
 				/* this assumes the target is a directory */
 				/* on a remote unix system.  hmmmm.  */
-	cp = strchr(targ, '\0'); 
+	cp = strchr(targ, '\0');
 	*cp++ = '/';
 	for (n = 1; n < argc - 1; n++) {
 		strcpy(cp, tail(argv[n]));
@@ -589,7 +589,7 @@ tail(filename)
 	char *filename;
 {
 	char *s;
-	
+
 	while (*filename) {
 		s = strrchr(filename, '/');
 		if (s == NULL)

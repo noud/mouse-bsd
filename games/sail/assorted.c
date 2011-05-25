@@ -234,7 +234,7 @@ int rig, shot, hittable, roll;
 			makemsg(on, "crew mutinying!");
 			on->specs->qual = 5;
 			Write(W_CAPTURED, on, on->file->index, 0, 0, 0);
-		} else 
+		} else
 			makemsg(on, "crew demoralized");
 		Write(W_QUAL, on, on->specs->qual, 0, 0, 0);
 	}

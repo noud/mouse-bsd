@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1992 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -33,7 +33,7 @@
  * 	Brad's changes: delinted, added forward declarations of static
  * 	functions.Added Copyright.
  * 	[92/07/24            mrt]
- * 
+ *
  * 18-Mar-88  Glenn Marcy (gm0w) at Carnegie-Mellon University
  *	Added host=<hostfile> support to releases file.
  *
@@ -748,11 +748,11 @@ char *pattern,*match;
 	register char *p,*m;
 	register char *pb,*pe;
 
-	p = pattern; 
+	p = pattern;
 	m = match;
-	while (*m && *p == *m ) { 
-		p++; 
-		m++; 
+	while (*m && *p == *m ) {
+		p++;
+		m++;
 	}
 	if (*p == '\0' && *m == '\0')
 		return (TRUE);
@@ -821,7 +821,7 @@ char *scanfile;
 	TREE *tmp, *t = NULL;
 	int notwanted;
 	TREELIST *tl;
-        
+
 	if (scanfile == NULL)
 		scanfile = FILESCANDEF;
 	(void) sprintf (buf,FILESCAN,collname,scanfile);

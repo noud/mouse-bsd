@@ -68,11 +68,11 @@ LFLAGS+=-P${LPREFIX}
 	${LEX.l} -o${.TARGET} ${.IMPSRC}
 .l.o:
 	${LEX.l} -o${.TARGET:R}.${LPREFIX}.c ${.IMPSRC}
-	${COMPILE.c} -o ${.TARGET} ${.TARGET:R}.${LPREFIX}.c 
+	${COMPILE.c} -o ${.TARGET} ${.TARGET:R}.${LPREFIX}.c
 	rm -f ${.TARGET:R}.${LPREFIX}.c
 .l.lo:
 	${LEX.l} -o${.TARGET:R}.${LPREFIX}.c ${.IMPSRC}
-	${HOST_COMPILE.c} -o ${.TARGET} ${.TARGET:R}.${LPREFIX}.c 
+	${HOST_COMPILE.c} -o ${.TARGET} ${.TARGET:R}.${LPREFIX}.c
 	rm -f ${.TARGET:R}.${LPREFIX}.c
 .endif
 

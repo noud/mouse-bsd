@@ -8,7 +8,7 @@ X-Mailer: ELM [version 2.4 PL22]
 Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Content-Length: 69132     
+Content-Length: 69132
 
 OK. Here is a new shell archive.
 
@@ -69,7 +69,7 @@ X
 The first tool, cqueue, checks the sendmail queue for problems. We use
 it to flag problems with subdomain mail servers (and even our own servers
 once in a while ;-). We run it via a cron job every hour during the day.
-You may find this too frequent, however. 
+You may find this too frequent, however.
 X
 The other program, postclip, is used to "filter" non-deliverable NDNs that
 get sent to our Postmaster account now and then. This ensures privacy of
@@ -77,8 +77,8 @@ e-mail and helps avoid disk problems from huge NDNs. It is different than
 a brute force "just keep the header" approach because it tries hard to keep
 other parts of the message that look like non-delivery information.
 X
-Both have been used for some time at our site with no problems. Everything 
-you need should be in this distribution: source, manual pages, and support 
+Both have been used for some time at our site with no problems. Everything
+you need should be in this distribution: source, manual pages, and support
 libs. See the manual pages for a complete description of each tool.
 X
 3. Installation
@@ -92,13 +92,13 @@ appropriate directory on your system. This might be something like
 X
 Next, install all of the Perl libraries located in the lib subdirectory
 to your Perl library area. /usr/local/lib/perl is a good bet. The person
-who installed Perl at your site will be able to tell you for sure. 
+who installed Perl at your site will be able to tell you for sure.
 X
 Finally, you need to install the programs. Note that cqueue wants to
 run setuid root by default. This is because the sendmail queue is normally
 only readable by root or some special group. In order to let any user
 run this suidperl is used. suidperl allows a Perl program to run with the
-privileges of another user. 
+privileges of another user.
 X
 You will have to edit both the cqueue and postclip programs to change
 the #! line at the top of each. Just change the pathname to whatever is
@@ -270,7 +270,7 @@ sed 's/^X//' << 'SHAR_EOF' > 'libs/date.pl' &&
 ;#		Also added a couple of SunOS 4.1.1 strftime-ish formats, %i and %k
 ;#		for space padded hours (` 1' to `12' and ` 0' to `23' respectivly),
 ;#		and %C for locale long date/time format.  Changed &ampmH to take a
-;#		pad char parameter to make to evaled code for %i and %k simpler. 
+;#		pad char parameter to make to evaled code for %i and %k simpler.
 ;#		Added %E for suffixed day-of-month (ie 1st, 3rd, 4th etc).
 ;#
 ;#	NONE		3.1		16jul92		tmcgonigal
@@ -370,7 +370,7 @@ X		  '%Z', q|$rep = $TZ; 1|,							# time zone from TZ env. var.
 X		  '%%', q|$rep = '%'; $adv=1|,						# insert a `%'
 X		  '%+', q|$rep = '+'|								# insert a `+'
 );
-X	
+X
 sub main'date {
 X	local($time, $format) = @_;
 X	local($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst);
@@ -385,7 +385,7 @@ X	}
 X
 X	# Use local time if can't find a TZ in the environment
 X	$TZ = defined($ENV{'TZ'}) ? $ENV{'TZ'} : $defaultTZ;
-X	($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = 
+X	($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) =
 X		&gettime ($TZ, $time);
 X
 X	# Hack to deal with 'PST8PDT' format of TZ
@@ -416,7 +416,7 @@ X			}
 X		} else {
 X			$rep = "";
 X		}
-X			
+X
 X		# do the substitution
 X		substr ($format, $pos, 2) =~ s/$tag/$rep/;
 X		$pos++ if ($adv);
@@ -434,10 +434,10 @@ X	return $mday . 'nd' if ($mday =~ m/.*2$/);
 X	return $mday . 'rd' if ($mday =~ m/.*3$/);
 X	return $mday . 'th';
 }
-X	
+X
 # weekno - figure out week number
 sub wkno {
-X	local ($year, $yday, $firstweekday) = @_;   
+X	local ($year, $yday, $firstweekday) = @_;
 X	local ($jan1, @jan1, $wks);
 X
 X	# figure out the `time' value for January 1 of the given year
@@ -445,7 +445,7 @@ X	$jan1 = &maketime ($TZ, 0, 0, 0, 1, 0, $year-1900);
 X
 X	# figure out what day of the week January 1 was
 X	@jan1= &gettime ($TZ, $jan1);
-X	
+X
 X	# and calculate the week number
 X	$wks = (($yday + ($jan1[6] - $firstweekday)) + 1)/ 7;
 X	$wks += (($wks - int($wks) > 0.0) ? 1 : 0);
@@ -523,7 +523,7 @@ X
 #			number of seconds this time field may specify. For
 #			example, the minutes field would be non-zero
 #			when there are 60 or more seconds.
-#			
+#
 #    Separator		How to separate this time field from the next
 #			*greater* field.
 #
@@ -564,7 +564,7 @@ X
 sub main'Seconds_To_Elapsed
 {
 X   local ($Seconds, $Collapse) = @_;
-X   local ($Type, $Multiplier, @Multipliers, $Separator, $DHMS_Used, 
+X   local ($Type, $Multiplier, @Multipliers, $Separator, $DHMS_Used,
 X          $Elapsed, @Mult_And_Seps, $Print_Field);
 X
 X   $Multiplier = 1;
@@ -576,7 +576,7 @@ X   while (1)
 X   {
 X      ($Type, $Multiplier, $Separator, $Format) = splice (@Mult_And_Seps, 0, 4);
 X      last if (! $Multiplier);
-X      $Seconds -= $DHMS_Used * $Multiplier 
+X      $Seconds -= $DHMS_Used * $Multiplier
 X         if ($DHMS_Used = int ($Seconds / $Multiplier));
 X
 X      # Figure out if we should print this field
@@ -597,7 +597,7 @@ X	    $Print_Field = $DHMS_Used || $Printed_Field {$HOURS};
 X	 }
 X	 else
 X	 {
-X	    $Format = ":%02d" 
+X	    $Format = ":%02d"
 X	       if (! $Printed_Field {$MINUTES});
 X	    $Print_Field = 1;
 X	 };
@@ -609,7 +609,7 @@ X	 $Print_Field = 1;
 X      };
 X
 X      $Printed_Field {$Type} = $Print_Field;
-X      $Elapsed .= sprintf ("$Format%s", $DHMS_Used, $Separator) 
+X      $Elapsed .= sprintf ("$Format%s", $DHMS_Used, $Separator)
 X	 if ($Print_Field);
 X   };
 X
@@ -642,7 +642,7 @@ sed 's/^X//' << 'SHAR_EOF' > 'libs/mail.pl' &&
 X
 package mail;
 X
-# Mailer statement to eval. $Users, $Subject, and $Verbose are substituted 
+# Mailer statement to eval. $Users, $Subject, and $Verbose are substituted
 # via eval
 $BIN_MAILER 		= "/usr/ucb/mail \$Verbose -s '\$Subject' \$Users";
 X
@@ -657,11 +657,11 @@ X
 ;# message. This is a new option and thus the backwards-compatible hack.
 ;# $Users should be a space separated list of mail-ids.
 ;#
-;# If everything went OK $Status will be 1 and $Error_Msg can be ignored; 
+;# If everything went OK $Status will be 1 and $Error_Msg can be ignored;
 ;# otherwise, $Status will be 0 and $Error_Msg will contain an error message.
-;# 
+;#
 ;# If $Use_Sendmail is 1 then sendmail is used to send the message. Normally
-;# a mailer such as Mail is used. By specifiying this you can include 
+;# a mailer such as Mail is used. By specifiying this you can include
 ;# headers in addition to text in either $Message or $Message_Is_File.
 ;# If either $Message or $Message_Is_File contain a Subject: header then
 ;# $Subject is ignored; otherwise, a Subject: header is automatically created.
@@ -669,7 +669,7 @@ X
 ;# is automatically created from the $Users argument. The mail is still
 ;# sent, however, to the recipients listed in $Users. This is keeping with
 ;# normal sendmail usage (header vs. envelope).
-;# 
+;#
 ;# In both bin mailer and sendmail modes $Verbose will turn on verbose mode
 ;# (normally just sendmail verbose mode output).
 ;#
@@ -681,7 +681,7 @@ X
 ;###############################################################################
 sub main'Send_Mail
 {
-X   local ($Users, $Subject, $Message, $Message_Is_File, $Verbose, 
+X   local ($Users, $Subject, $Message, $Message_Is_File, $Verbose,
 X	  $Use_Sendmail) = @_;
 X   local ($BIN_MAILER_HANDLE, $Mailer_Command, $Header_Found, %Header_Map,
 X	  $Header_Extra, $Mailer);
@@ -741,12 +741,12 @@ X   $SIG {'PIPE'} = "mail'Cleanup";
 X
 X   # Open mailer
 X   return (0, "can not open mail program: $Mailer") if (! open (MAILER, "| $Mailer"));
-X   
+X
 X   # Send off the mail!
 X   print MAILER $Message;
 X   close (MAILER);
 X   return (0, "error running mail program: $Mailer") if ($?);
-X   
+X
 X   # Everything must have went AOK
 X   return (1);
 };
@@ -787,12 +787,12 @@ sed 's/^X//' << 'SHAR_EOF' > 'libs/mqueue.pl' &&
 ;#    mqueue.pl - functions to work with the sendmail queue
 ;#
 ;# DESCRIPTION
-;#    Both Get_Queue_IDs and Parse_Control_File are available to get 
+;#    Both Get_Queue_IDs and Parse_Control_File are available to get
 ;#    information about the sendmail queue. The cqueue program is a good
 ;#    example of how these functions work.
 ;#
 ;# AUTHOR
-;#    Michael S. Muegel (mmuegel@mot.com)  
+;#    Michael S. Muegel (mmuegel@mot.com)
 ;#
 ;# RCS INFORMATION
 ;#    mmuegel
@@ -806,8 +806,8 @@ X
 ;#
 ;# Will figure out the queue IDs in $Queue that have both control and data
 ;# files. They are returned in @Valid_IDs. Those IDs that have a
-;# control file and no data file are saved to the array globbed by 
-;# *Missing_Control_IDs. Likewise, those IDs that have a data file and no 
+;# control file and no data file are saved to the array globbed by
+;# *Missing_Control_IDs. Likewise, those IDs that have a data file and no
 ;# control file are saved to the array globbed by *Missing_Data_IDs.
 ;#
 ;# If $Skip_Locked is true they a message that has a lock file is skipped
@@ -827,7 +827,7 @@ X
 ;###############################################################################
 sub main'Get_Queue_IDs
 {
-X   local ($Queue, $Skip_Locked, *Missing_Control_IDs, 
+X   local ($Queue, $Skip_Locked, *Missing_Control_IDs,
 X          *Missing_Data_IDs) = @_;
 X   local (*QUEUE, @Files, %Lock_IDs, %Data_IDs, %Control_IDs, $_);
 X
@@ -838,7 +838,7 @@ X   # Save each data, lock, and queue file in @Files
 X   opendir (QUEUE, $Queue) || return (0, "error getting directory listing of $Queue");
 X   @Files = grep (/^(df|lf|qf)/, readdir (QUEUE));
 X   closedir (QUEUE);
-X   
+X
 X   # Create indexed list of data and control files. IF $Skip_Locked is true
 X   # then skip either if there is a lock file present.
 X   if ($Skip_Locked)
@@ -852,12 +852,12 @@ X   {
 X      grep ((s/^df//) && ($Data_IDs {$_} = 1), @Files);
 X      grep ((s/^qf//) && ($Control_IDs {$_} = 1), @Files);
 X   };
-X   
+X
 X   # Find missing control and data files and remove them from the lists of each
 X   @Missing_Control_IDs = sort (grep ((! $Control_IDs {$_}) && (delete $Data_IDs {$_}), keys (%Data_IDs)));
 X   @Missing_Data_IDs = sort (grep ((! $Data_IDs {$_} && (delete $Control_IDs {$_})), keys (%Control_IDs)));
-X   
-X   
+X
+X
 X   # Return the IDs in an appartently random order
 X   return (1, "", keys (%Control_IDs));
 };
@@ -872,7 +872,7 @@ X
 ;#
 ;# The following globbed variables are set (or cleared) by this function:
 ;#
-;#    $Sender           The sender's address. 
+;#    $Sender           The sender's address.
 ;#
 ;#    @Recipients       One or more addresses for the recipient of the mail.
 ;#
@@ -883,7 +883,7 @@ X
 ;#                      seconds since 00:00:00 GMT 1/1/70.
 ;#
 ;#    $Priority         An integer representing the current message priority.
-;#                      This is used to order the queue. Higher numbers mean 
+;#                      This is used to order the queue. Higher numbers mean
 ;#                      lower priorities.
 ;#
 ;#    $Status_Message   The status of the mail message. It can contain any
@@ -897,14 +897,14 @@ X
 ;#
 ;# If everything went AOK then $Status is 1. If the message with queue ID
 ;# $Queue_ID just does not exist anymore -1 is returned. This is very
-;# possible and should be allowed for. Otherwise, $Status is 0 and $Msg 
+;# possible and should be allowed for. Otherwise, $Status is 0 and $Msg
 ;# tells what went wrong.
 ;#
 ;# Globals:
 ;#    None
 ;#
 ;# Arguments:
-;#    $Queue, $Queue_ID, *Sender, *Recipients, *Errors_To, *Creation_Time, 
+;#    $Queue, $Queue_ID, *Sender, *Recipients, *Errors_To, *Creation_Time,
 ;#    *Priority, *Status_Message, *Headers
 ;#
 ;# Returns:
@@ -923,7 +923,7 @@ X		     '$Priority', 'P');
 X
 X   # Open up the control file for read
 X   $Control = "$Queue/qf$Queue_ID";
-X   if (! open (Control)) 
+X   if (! open (Control))
 X   {
 X      return (-1) if ((-x $Queue) && (! -f "$Queue/qf$Queue_ID") &&
 X       (! -f "$Queue/df$Queue_ID"));
@@ -1024,20 +1024,20 @@ X
 ;###############################################################################
 ;# New_Getopts
 ;#
-;# Does not care about order of switches, options, and arguments like 
+;# Does not care about order of switches, options, and arguments like
 ;# getopts.pl. Thus all non-switches/options will be kept in ARGV even if they
 ;# are not at the end. If $Pass_Invalid is set all unkown options will be
 ;# passed back to the caller by keeping them in @ARGV. This is useful when
 ;# parsing a command line for your script while ignoring options that you
-;# may pass to another script. If this is set New_Getopts tries to maintain 
+;# may pass to another script. If this is set New_Getopts tries to maintain
 ;# the switch clustering on the unkown switches.
 ;#
-;# Accepts the special argument -usage to print the Usage string. Also accepts 
-;# the special option -version which prints the contents of the string 
-;# $VERSION. $VERSION may or may not have an embeded \n in it. If -usage 
+;# Accepts the special argument -usage to print the Usage string. Also accepts
+;# the special option -version which prints the contents of the string
+;# $VERSION. $VERSION may or may not have an embeded \n in it. If -usage
 ;# or -version are specified a status of -1 is returned. Note that the usage
 ;# option is only accepted if the usage string is not null.
-;# 
+;#
 ;# $Switches is just like the formal arguemnt of getopts.pl. $Usage is a usage
 ;# string with or without a trailing \n. *Switch_To_Order is an optional
 ;# pointer to the name of an associative array which will contain a mapping of
@@ -1054,23 +1054,23 @@ X
 ;# array by using split (/$;/, ...).
 ;#
 ;# *Split_ARGV is an optional pointer to an array which will conatin the
-;# original switches along with their values. For the example used above 
+;# original switches along with their values. For the example used above
 ;# Split_ARGV would contain:
 ;#
 ;#   @Split_ARGV = ("v", "", "x", "test");
 ;#
-;# Another exciting ;-) feature that newgetopts has. Along with creating the 
-;# normal $opt_ scalars for the last value of an argument the list @opt_ is 
-;# created. It is an array which contains all the values of arguments to the 
-;# basename of the variable. They are stored in the order which they occured 
-;# on the command line starting with $[. Note that blank arguments are stored 
-;# as "". Along with providing support for multiple options on the command 
-;# line this also provides a method of counting the number of times an option 
+;# Another exciting ;-) feature that newgetopts has. Along with creating the
+;# normal $opt_ scalars for the last value of an argument the list @opt_ is
+;# created. It is an array which contains all the values of arguments to the
+;# basename of the variable. They are stored in the order which they occured
+;# on the command line starting with $[. Note that blank arguments are stored
+;# as "". Along with providing support for multiple options on the command
+;# line this also provides a method of counting the number of times an option
 ;# was specified via $#opt_.
 ;#
 ;# Automatically resets all $opt_, @opt_, %Switch_To_Order, and @Split_ARGV
 ;# variables so that New_Getopts may be called more than once from within
-;# the same program. Thus, if $opt_v is set upon entry to New_Getopts and 
+;# the same program. Thus, if $opt_v is set upon entry to New_Getopts and
 ;# -v is not in @ARGV $opt_v will not be set upon exit.
 ;#
 ;# Arguments:
@@ -1079,7 +1079,7 @@ X
 ;# Returns:
 ;#    -1, 0, or 1 depending on status (printed Usage/Version, OK, not OK)
 ;###############################################################################
-sub New_Getopts 
+sub New_Getopts
 {
 X    local($taint_argumentative, $Usage, $Pass_Invalid, *Switch_To_Order,
 X          *Split_ARGV) = @_;
@@ -1097,7 +1097,7 @@ X    @Split_ARGV = ();
 X
 X    # Get the basename of the calling script
 X    ($Script_Name = $0) =~ s/.*\///;
-X    
+X
 X    # Make Usage have a trailing \n
 X    $Usage .= "\n" if ($Usage !~ /\n$/);
 X
@@ -1142,12 +1142,12 @@ X           $pos = index($argumentative,$first);
 X
 X           $Switch_To_Order {$first} = join ($;, split (/$;/, $Switch_To_Order {$first}), ++$Order);
 X
-X           if($pos >= $[) 
+X           if($pos >= $[)
 X           {
-X               if($args[$pos+1] eq ':') 
+X               if($args[$pos+1] eq ':')
 X               {
 X                   shift(@ARGV);
-X                   if($rest eq '') 
+X                   if($rest eq '')
 X                   {
 X                       $rest = shift(@ARGV);
 X                   }
@@ -1156,24 +1156,24 @@ X                   eval "\$opt_$first = \$rest;";
 X                   eval "push (\@opt_$first, \$rest);";
 X                   push (@Split_ARGV, $first, $rest);
 X               }
-X               else 
+X               else
 X               {
 X                   eval "\$opt_$first = 1";
 X                   eval "push (\@opt_$first, '');";
 X                   push (@Split_ARGV, $first, "");
 X
-X                   if($rest eq '') 
+X                   if($rest eq '')
 X                   {
 X                       shift(@ARGV);
 X                   }
-X                   else 
+X                   else
 X                   {
 X                       $ARGV[0] = "-$rest";
 X                   }
 X               }
 X           }
 X
-X           else 
+X           else
 X           {
 X               # Save any other switches if $Pass_Valid
 X               if ($Pass_Invalid)
@@ -1185,11 +1185,11 @@ X               {
 X                  warn "${Script_Name}: unknown option: $first\n";
 X                  ++$errs;
 X               };
-X               if($rest ne '') 
+X               if($rest ne '')
 X               {
 X                   $ARGV[0] = "-$rest";
 X               }
-X               else 
+X               else
 X               {
 X                   shift(@ARGV);
 X               }
@@ -1220,7 +1220,7 @@ X    else
 X    {
 X       return (1);
 X    }
-X       
+X
 }
 X
 1;
@@ -1256,8 +1256,8 @@ X
 ;###############################################################################;# Center
 ;#
 ;# Center $Text assuming the output should be $Columns wide. $Text can span
-;# multiple lines, of course :-). Lines within $Text that contain only 
-;# whitespace are not centered and are instead collapsed. This may save time 
+;# multiple lines, of course :-). Lines within $Text that contain only
+;# whitespace are not centered and are instead collapsed. This may save time
 ;# when printing them later.
 ;#
 ;# Arguments:
@@ -1283,11 +1283,11 @@ X
 ;# Text in $String will be fomratted such that the following hold:
 ;#
 ;#    + $String contains the (possibly) multi-line text to print. It is
-;#	automatically word-wrapped to fit in $Columns. 
+;#	automatically word-wrapped to fit in $Columns.
 ;#
 ;#    + \n'd are maintained and are not folded.
 ;#
-;#    + $Offset	is pre-pended before each separate line of text. 
+;#    + $Offset	is pre-pended before each separate line of text.
 ;#
 ;#    + If $Offset_Once	is $TRUE $Offset will only appear on the first line.
 ;#      All other lines will be indented to match the amount of whitespace of
@@ -1318,7 +1318,7 @@ X
 ;###############################################################################
 sub main'Format_Text_Block
 {
-X   local ($String, $Real_Offset, $Offset_Once, $Bullet_Indent, $Columns, 
+X   local ($String, $Real_Offset, $Offset_Once, $Bullet_Indent, $Columns,
 X      $Split_Expr, $Offset_Blank) = @_;
 X
 X   local ($New_Line, $Line, $Chars_Per_Line, $Space_Offset, $Buffer,
@@ -1347,7 +1347,7 @@ X      $Offset = $Real_Offset if ($Bullet_Indent);
 X
 X      # Find where to split the line
 X      if ($Line ne $BLANK_TAG)
-X      { 
+X      {
 X         $New_Line = "";
 X         while ($Line =~ /^([$Split_Expr]*)([^$Split_Expr]+)/)
 X         {
@@ -1424,9 +1424,9 @@ X
 ;#
 ;#    (<number>(s|m|h|d))+
 ;#
-;# to seconds. The second part of the time spec specifies seconds, minutes, 
-;# hours, or days, respectfully. The first part is the number of those untis. 
-;# There can be any number of such specifiers. As an example, 1h30m means 1 
+;# to seconds. The second part of the time spec specifies seconds, minutes,
+;# hours, or days, respectfully. The first part is the number of those untis.
+;# There can be any number of such specifiers. As an example, 1h30m means 1
 ;# hour and 30 minutes.
 ;#
 ;# If the parsing went OK then $Status is 1, $Msg is undefined, and $Seconds
@@ -1486,8 +1486,8 @@ sed 's/^X//' << 'SHAR_EOF' > 'man/cqueue.1' &&
 .SH NAME
 \*(mp - check sendmail queue for problems
 .SH SYNOPSIS
-.IP \*(mp 7 
-[ \fB-abdms\fR ] [ \fB-q\fR \fIqueue-dir\fI ] [ \fB-t\fR \fItime\fR ] 
+.IP \*(mp 7
+[ \fB-abdms\fR ] [ \fB-q\fR \fIqueue-dir\fI ] [ \fB-t\fR \fItime\fR ]
 [ \fB-u\fR \fIusers\fR ] [ \fB-w\fR \fIwidth\fR ]
 .SH DESCRIPTION
 Reports on problems in the sendmail queue. With no options this simply
@@ -1561,7 +1561,7 @@ is gleaned from the recipient addresses for each message.
 Thus the actual host names for this summary should be taken with a grain
 of salt since ruleset 0 has not been applied to the address the host was
 taken from nor were MX records consulted. It would be possible to add
-this; however, the execution time of the script would increase 
+this; however, the execution time of the script would increase
 dramatically. The second summary is by status message.
 .IP "\fB-u\fR \fIusers\fR"
 Specify list of users to send a mail report to other than
@@ -1570,7 +1570,7 @@ specified. Multiple recipients may be separated by spaces.
 .IP "\fB-w\fR \fIwidth\fR"
 Specify the page width to which the output should tailored. \fIwidth\fR
 should be an integer representing some character position. The default is
-80 or some other site configured value. Output is folded neatly to match 
+80 or some other site configured value. Output is folded neatly to match
 \fIwidth\fR.
 .SH EXAMPLES
 .nf
@@ -1579,7 +1579,7 @@ Tue Jan 19 12:07:20 CST 1993
 X
 % \fBcqueue -t 21h45m -w 70\fR
 X
-Summary of messages in queue longer than 21:45:00 by destination 
+Summary of messages in queue longer than 21:45:00 by destination
 host:
 X
 X   Number of
@@ -1600,7 +1600,7 @@ X   2           Deferred: Host Name Lookup Failure
 X   ---------
 X   3
 X
-Detail of messages in queue longer than 21:45:00 sorted by creation 
+Detail of messages in queue longer than 21:45:00 sorted by creation
 date:
 X
 X   ID:        AA20573
@@ -1671,7 +1671,7 @@ that have a subject that begins with 'Returned mail:' are filtered. This
 ensures that other mail is not accidently mucked with. Finally, note that
 \fBsendmail\fR is used to deliver the message after it has been (possibly)
 filtered. All of the original headers will remain intact.
-.sp 1 
+.sp 1
 You can use this with any \fBsendmail\fR by modifying the Postmaster alias.
 If you use IDA \fBsendmail\fR you could add the following to <machine>.m4:
 .sp 1
@@ -1699,7 +1699,7 @@ Corporate Information Office, Schaumburg, IL
 Motorola, Inc.
 .fi
 .SH CREDITS
-The original idea to filter Postmaster mail was taken from a script by 
+The original idea to filter Postmaster mail was taken from a script by
 Christopher Davis <ckd@eff.org>.
 .SH COPYRIGHT NOTICE
 Copyright 1992, Motorola, Inc.
@@ -1757,7 +1757,7 @@ require "strings1.pl";
 require "elapsed.pl";
 X
 ($Script_Name = $0) =~ s/.*\///;
-X         
+X
 # Some defaults you may want to change
 $DEF_TIME	= "2h";
 $DEF_QUEUE      = "/usr/spool/mqueue";
@@ -1776,7 +1776,7 @@ $Status = &New_Getopts ($SWITCHES, $USAGE);
 exit (0) if ($Status == -1);
 exit (1) if (! $Status);
 X
-# Check args 
+# Check args
 die "${Script_Name}: -u only valid with -m\n" if (($opt_u) && (! $opt_m));
 die "${Script_Name}: -a not valid with -t option\n" if ($opt_a && $opt_t);
 $opt_u = getlogin || (getpwuid ($<))[0] || $ENV{"USER"} || die "${Script_Name}: can not determine who you are!\n" if (! $opt_u);
@@ -1809,13 +1809,13 @@ X
 if ($opt_b)
 {
 X
-X   $Report = "\nMessages missing control files:\n\n   " . 
-X             join ("\n   ", @Missing_Control_IDs) . 
-X             "\n" 
+X   $Report = "\nMessages missing control files:\n\n   " .
+X             join ("\n   ", @Missing_Control_IDs) .
+X             "\n"
 X      if (@Missing_Control_IDs);
 X
-X   $Report .= "\nMessages missing data files:\n\n   " . 
-X              join ("\n   ", @Missing_Data_IDs) . 
+X   $Report .= "\nMessages missing data files:\n\n   " .
+X              join ("\n   ", @Missing_Data_IDs) .
 X              "\n"
 X      if (@Missing_Data_IDs);
 };
@@ -1824,8 +1824,8 @@ X
 foreach $Queue_ID (@Queue_IDs)
 {
 X   # Get lots of info about this sendmail message via the control file
-X   ($Status, $Msg) = &Parse_Control_File ($opt_q, $Queue_ID, *Sender, 
-X      *Recipients, *Errors_To, *Creation_Time, *Priority, *Status_Message, 
+X   ($Status, $Msg) = &Parse_Control_File ($opt_q, $Queue_ID, *Sender,
+X      *Recipients, *Errors_To, *Creation_Time, *Priority, *Status_Message,
 X      *Headers);
 X   next if ($Status == -1);
 X   if (! $Status)
@@ -1867,7 +1867,7 @@ X      # more than one message created at the same time)
 X      if ($opt_d)
 X      {
 X         $Creation_Date = &date ($Creation_Time, $DATE_FORMAT);
-X         $Recipient_Info = &Format_Text_Block (join (", ", @Recipients), 
+X         $Recipient_Info = &Format_Text_Block (join (", ", @Recipients),
 X	    "   Recipient: ", 1, 0, $opt_w, $SPLIT_EXPR);
 X         $Time_To_Report {$Creation_Time} .= <<"EOS";
 X
@@ -1880,7 +1880,7 @@ X
 X         # Add the status message if available to long report
 X         if ($Status_Message)
 X         {
-X	    $Time_To_Report {$Creation_Time} .= &Format_Text_Block ($Status_Message, 
+X	    $Time_To_Report {$Creation_Time} .= &Format_Text_Block ($Status_Message,
 X   	       "   Status:    ", 1, 0, $opt_w, $SPLIT_EXPR) . "\n";
 X         };
 X      };
@@ -1893,7 +1893,7 @@ if ($opt_s)
 {
 X   foreach $Host (sort (keys (%Host_Queued)))
 X   {
-X      $Host_Report .= &Format_Text_Block ($Host, 
+X      $Host_Report .= &Format_Text_Block ($Host,
 X         sprintf ("   %-9d   ", $Host_Queued{$Host}), 1, 0, $opt_w,
 X         $SPLIT_EXPR) . "\n";
 X      $Num_Hosts += $Host_Queued{$Host};
@@ -1920,8 +1920,8 @@ if ($opt_s)
 {
 X   foreach $Message (sort (keys (%Message_Queued)))
 X   {
-X      $Message_Report .= &Format_Text_Block ($Message, 
-X         sprintf ("   %-9d   ", $Message_Queued{$Message}), 1, 0, $opt_w, 
+X      $Message_Report .= &Format_Text_Block ($Message,
+X         sprintf ("   %-9d   ", $Message_Queued{$Message}), 1, 0, $opt_w,
 X         $SPLIT_EXPR) . "\n";
 X      $Num_Messages += $Message_Queued{$Message};
 X   };
@@ -2022,7 +2022,7 @@ $Users = join (" ", @ARGV);
 @ARGV = ();
 X
 # Suck in the original header and save a few interesting lines
-while (<>) 
+while (<>)
 {
 X    $Buffer .= $_ if (! /^From /);
 X    $Subject = $1 if (/^Subject:\s+(.*)$/);
@@ -2041,7 +2041,7 @@ X   $* = 1;
 X   while (<>)
 X   {
 X      push (@Paragraphs, $_);
-X      $Last_Error_Para = $#Paragraphs 
+X      $Last_Error_Para = $#Paragraphs
 X	 if (/unsent message follows/i || /was not delivered because/);
 X   };
 X

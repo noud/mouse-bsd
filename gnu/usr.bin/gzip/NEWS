@@ -130,7 +130,7 @@ Major changes from 1.0.4 to 1.0.5.
 Major changes from 1.0.3 to 1.0.4.
 * Added optimized asm version for 68020.
 * Add support for DJGPP.
-	
+
 * Add support for the Atari ST.
 * Added zforce to rename gzip'ed files with truncated names.
 * Do not install with name uncompress (some systems rely on the

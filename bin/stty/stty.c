@@ -64,7 +64,7 @@ __RCSID("$NetBSD: stty.c,v 1.17 1999/03/02 17:30:05 christos Exp $");
 int main __P((int, char *[]));
 
 int
-main(argc, argv) 
+main(argc, argv)
 	int argc;
 	char *argv[];
 {
@@ -121,7 +121,7 @@ args:	argc -= optind;
 		gprint(&i.t);
 		break;
 	}
-	
+
 	for (i.set = i.wset = 0; *argv; ++argv) {
 		if (ksearch(&argv, &i))
 			continue;

@@ -128,7 +128,7 @@ struct wdc_softc { /* Per controller state */
   * These commands are queued in a list.
   */
 struct wdc_xfer {
-	volatile u_int c_flags;    
+	volatile u_int c_flags;
 #define C_ATAPI  	0x0001 /* xfer is ATAPI request */
 #define C_TIMEOU  	0x0002 /* xfer processing timed out */
 #define C_POLL		0x0004 /* cmd is polled */
@@ -168,7 +168,7 @@ void   wdc_free_xfer  __P((struct channel_softc *, struct wdc_xfer *));
 void  wdcstart __P((struct channel_softc *));
 void  wdcrestart __P((void*));
 int   wdcreset	__P((struct channel_softc *, int));
-#define VERBOSE 1 
+#define VERBOSE 1
 #define SILENT 0 /* wdcreset will not print errors */
 int   wdcwait __P((struct channel_softc *, int, int, int));
 void  wdcbit_bucket __P(( struct channel_softc *, int));
@@ -181,10 +181,10 @@ int	wdc_addref __P((struct channel_softc *));
 void	wdc_delref __P((struct channel_softc *));
 void	wdc_kill_pending __P((struct channel_softc *));
 
-/*	
+/*
  * ST506 spec says that if READY or SEEKCMPLT go off, then the read or write
  * command is aborted.
- */   
+ */
 #define wait_for_drq(chp, timeout) wdcwait((chp), WDCS_DRQ, WDCS_DRQ, (timeout))
 #define wait_for_unbusy(chp, timeout)	wdcwait((chp), 0, 0, (timeout))
 #define wait_for_ready(chp, timeout) wdcwait((chp), WDCS_DRDY, \

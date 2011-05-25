@@ -2,7 +2,7 @@
 
 LIB=sa
 
-CLEANFILES+=SRT0.o 
+CLEANFILES+=SRT0.o
 
 MKPIC=no
 MKPROFILE=no
@@ -38,9 +38,9 @@ CPPFLAGS+= -I. -I${.CURDIR}/../libbug -I${S}/lib/libsa -I${S}
 COPTS= #-fno-defer-pop
 CFLAGS= -O2 ${COPTS} ${DEFS} ${DBG}
 
-.PATH:  ${DIR_SA} ${DIR_KERN} 
+.PATH:  ${DIR_SA} ${DIR_KERN}
 
-all: libsa.a SRT0.o 
+all: libsa.a SRT0.o
 
 # only needed during build
 libinstall::

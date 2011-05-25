@@ -1157,7 +1157,7 @@ int
 mips_check_split (address, mode)
      rtx address;
      enum machine_mode mode;
-{     
+{
   /* ??? This is the same check used in simple_memory_operand.
      We use it here because LO_SUM is not offsettable.  */
   if (GET_MODE_SIZE (mode) > UNITS_PER_WORD)
@@ -1596,7 +1596,7 @@ embedded_pic_offset (x)
       rtx seq;
 
       embedded_pic_fnaddr_rtx = gen_reg_rtx (Pmode);
-      
+
       /* Output code at function start to initialize the pseudo-reg.  */
       /* ??? We used to do this in FINALIZE_PIC, but that does not work for
 	 inline functions, because it is called after RTL for the function
@@ -1995,7 +1995,7 @@ mips_move_1word (operands, insn, unsignedp)
 
 	  if (i > sizeof (volatile_buffer) - sizeof ("%{%}"))
 	    abort ();
-	  
+
 	  sprintf (volatile_buffer, "%%{%s%%}", ret);
 	  ret = volatile_buffer;
 	}
@@ -2049,7 +2049,7 @@ mips_move_2words (operands, insn)
       op1 = SUBREG_REG (op1);
       code1 = GET_CODE (op1);
     }
-      
+
   /* Sanity check.  */
   if (GET_CODE (operands[1]) == SIGN_EXTEND
       && code1 != REG
@@ -2238,7 +2238,7 @@ mips_move_2words (operands, insn)
 		      : "mt%0\t%.\n");
 	    }
 	}
-	
+
       else if (code1 == CONST_INT && GET_MODE (op0) == DImode
 	       && GP_REG_P (regno0))
 	{
@@ -2439,7 +2439,7 @@ mips_move_2words (operands, insn)
 
 	  if (i > sizeof (volatile_buffer) - sizeof ("%{%}"))
 	    abort ();
-	  
+
 	  sprintf (volatile_buffer, "%%{%s%%}", ret);
 	  ret = volatile_buffer;
 	}
@@ -2526,7 +2526,7 @@ mips_address_cost (addr)
   return 4;
 }
 
-/* Return nonzero if X is an address which needs a temporary register when 
+/* Return nonzero if X is an address which needs a temporary register when
    reloaded while generating PIC code.  */
 
 int
@@ -2932,7 +2932,7 @@ gen_conditional_move (operands)
     }
   else if (cmp_code == NE)
     cmp_code = EQ, move_code = EQ;
-	  
+
   if (mode == SImode || mode == DImode)
     cmp_mode = mode;
   else if (mode == SFmode || mode == DFmode)
@@ -3176,7 +3176,7 @@ expand_block_move (operands)
     block_move_call (dest_reg, src_reg, bytes_rtx);
 }
 
-/* Emit load/stores for a small constant block_move. 
+/* Emit load/stores for a small constant block_move.
 
    operands[0] is the memory address of the destination.
    operands[1] is the memory address of the source.
@@ -3679,7 +3679,7 @@ function_arg (cum, mode, type, named)
       fprintf (stderr, HOST_PTR_PRINTF, type);
       fprintf (stderr, ", %d ) = ", named);
     }
-  
+
 
   cum->last_arg_fp = 0;
   switch (mode)
@@ -3841,7 +3841,7 @@ function_arg (cum, mode, type, named)
 		  else
 		    reg = gen_rtx (REG, word_mode, regno);
 
-		  XVECEXP (ret, 0, i) 
+		  XVECEXP (ret, 0, i)
 		    = gen_rtx (EXPR_LIST, VOIDmode, reg,
 			       GEN_INT (bitpos / BITS_PER_UNIT));
 
@@ -3993,7 +3993,7 @@ override_options ()
 
   /* If both single-float and soft-float are set, then clear the one that
      was set by TARGET_DEFAULT, leaving the one that was set by the
-     user.  We assume here that the specs prevent both being set by the 
+     user.  We assume here that the specs prevent both being set by the
      user. */
 #ifdef TARGET_DEFAULT
   if (TARGET_SINGLE_FLOAT && TARGET_SOFT_FLOAT)
@@ -4668,7 +4668,7 @@ print_operand (file, op, letter)
 	    fputs (".set\tnoat\n\t", file);
 	  break;
 
-	case ']': 
+	case ']':
 	  if (set_noat == 0)
 	    error ("internal error: %%] found without a %%[ in assembler pattern");
 	  else if (--set_noat == 0)
@@ -5156,7 +5156,7 @@ mips_output_lineno (stream, line)
       fprintf (stream, "\n\t%s.loc\t%d %d\n",
 	       (ignore_line_number) ? "#" : "",
 	       num_source_filenames, line);
-  
+
       LABEL_AFTER_LOC (stream);
     }
 }
@@ -5314,7 +5314,7 @@ mips_asm_file_end (file)
 	    }
 	}
     }
-      
+
   if (TARGET_FILE_SWITCHING && ! TARGET_MIPS16)
     {
       fprintf (file, "\n\t.text\n");
@@ -5865,7 +5865,7 @@ save_restore_insns (store_p, large_reg, large_offset, file)
 			      ? (store_p) ? "sd" : "ld"
 			      : (store_p) ? "sw" : "lw"),
 			     reg_names[r]);
-		    fprintf (file, HOST_WIDE_INT_PRINT_DEC, 
+		    fprintf (file, HOST_WIDE_INT_PRINT_DEC,
 			     gp_offset - base_offset);
 		    fprintf (file, "(%s)\n", reg_names[REGNO(base_reg_rtx)]);
 		    if (! store_p
@@ -6739,7 +6739,7 @@ mips_expand_epilogue ()
 					   g6_rtx));
 		  tsize = 0;
 		}
-	      
+
 	      if (tsize && tsize != orig_tsize)
 		tsize_rtx = GEN_INT (tsize);
 	    }
@@ -6842,7 +6842,7 @@ mips_select_rtx_section (mode, x)
     {
       /* For hosted applications, always put constants in small data if
 	 possible, as this gives the best performance.  */
-     
+
       if (GET_MODE_SIZE (mode) <= mips_section_threshold
 	  && mips_section_threshold > 0)
 	SMALL_DATA_SECTION ();
@@ -6964,7 +6964,7 @@ mips_function_value (valtype, func)
 
 	  fields[i++] = field;
 	}
-	  
+
       /* Must check i, so that we reject structures with no elements.  */
       if (! field)
 	{
@@ -8026,7 +8026,7 @@ mips16_optimize_gp (first)
 	      emit_insn_after (gen_rtx (SET, VOIDmode, SET_DEST (set1),
 					force_const_mem (Pmode, sym)),
 			       next);
-	      
+
 	      PUT_CODE (insn, NOTE);
 	      NOTE_LINE_NUMBER (insn) = NOTE_INSN_DELETED;
 	      NOTE_SOURCE_FILE (insn) = 0;

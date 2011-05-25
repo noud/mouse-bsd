@@ -77,18 +77,18 @@ extern struct monitor_list *monitors;
 
 /*
  * Note structure is 5 long words big.  This may come in handy for
- * contiguous allocations 
- * 
+ * contiguous allocations
+ *
  * Please do fill in everything correctly this is the main input for
  * all other programs.  In other words all problems with RTG start here.
  * If you do not mimic everyone else exactly problems will appear.
  * If you need a template look at alloc_bitmap() in grf_cc.c.
  *
- * WARNING: the plane array is only for convience, all data for bitplanes 
+ * WARNING: the plane array is only for convience, all data for bitplanes
  *	MUST be contiguous.  This is for mapping purposes.  The reason
  *	for the plane pointers and row_mod is to support interleaving
- *	on monitors that wish to support this. 
- *	
+ *	on monitors that wish to support this.
+ *
  * 2nd Warning: Also don't get funky with these pointers you are expected
  *	to place the start of mappable plane data in ``hardware_address'',
  *	``hardware_address'' is the only thing that /dev/view checks and it
@@ -97,11 +97,11 @@ extern struct monitor_list *monitors;
  *	so that the entire contiguous plane data is exactly:
  *	bytes_per_row*height*depth long starting at the physical address
  *	contained within hardware_address.
- *	
+ *
  * Final Warning: Plane data must begin on a PAGE address and the allocation
  *	must be ``n'' PAGES big do to mapping requirements (otherwise the
  *	user could write over non-allocated memory.
- *	
+ *
  */
 struct bitmap {
     u_short   bytes_per_row;	  /* number of bytes per display row. */
@@ -138,11 +138,11 @@ enum bitmap_flags {
  */
 
 /*
- * valid masks are a bitfield of zeros followed by ones that indicate 
- * which mask are valid for each component.  The ones and zeros will 
+ * valid masks are a bitfield of zeros followed by ones that indicate
+ * which mask are valid for each component.  The ones and zeros will
  * be contiguous so adding one to this value yields the number of
- * levels for that component. 
- * -ch 
+ * levels for that component.
+ * -ch
  */
 
 struct colormap {
@@ -188,10 +188,10 @@ enum colormap_type {
 /*
  * View stuff.
  */
-typedef void remove_view_func (view_t *v);                               
-typedef void free_view_func (view_t *v);                               
-typedef void display_view_func (view_t *v);             
-typedef dmode_t *get_mode_func (view_t *v);    
+typedef void remove_view_func (view_t *v);
+typedef void free_view_func (view_t *v);
+typedef void display_view_func (view_t *v);
+typedef dmode_t *get_mode_func (view_t *v);
 typedef int get_colormap_func (view_t *v, colormap_t *);
 typedef int use_colormap_func (view_t *v, colormap_t *);
 
@@ -219,7 +219,7 @@ struct view {
 typedef view_t *alloc_view_func (dmode_t *mode, dimen_t *dim, u_char depth);
 typedef view_t *get_current_view_func (dmode_t *);
 typedef monitor_t  *get_monitor_func (dmode_t *);
-    
+
 struct display_mode {
     LIST_ENTRY(display_mode) link;
     u_char    *name;			/* logical name for mode. */
@@ -248,7 +248,7 @@ struct monitor {
     vbl_handler_func	*vbl_handler;	/* called on every vbl if not NULL */
     get_next_mode_func	*get_next_mode;	/* return next mode in list */
     get_best_mode_func	*get_best_mode; /* return mode that best fits */
-    
+
     alloc_bitmap_func	*alloc_bitmap;
     free_bitmap_func	*free_bitmap;
 };

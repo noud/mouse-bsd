@@ -49,7 +49,7 @@ public:
   raw_storage_iterator<ForwardIterator, T>& operator=(const T& element) {
     construct(&*iter, element);
     return *this;
-  }        
+  }
   raw_storage_iterator<ForwardIterator, T>& operator++() {
     ++iter;
     return *this;

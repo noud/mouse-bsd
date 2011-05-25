@@ -35,53 +35,53 @@
 
 /*
 **++
-** 
+**
 **  FACILITY:
 **
 **    Driver for smart card
 **
 **  ABSTRACT:
 **
-**    The driver provides access to a Smart Card for the DNARD.  
+**    The driver provides access to a Smart Card for the DNARD.
 **
 **    There is no Smart Card silicon.  Several i/o pins
-**    connect to the pads on the Smart Card, and the driver is 
-**    is responsible for driving the signals in accordance with 
+**    connect to the pads on the Smart Card, and the driver is
+**    is responsible for driving the signals in accordance with
 **    ISO 7816-3 (the Smart Card spec)
 **
 **    This driver puts a high load on the system due to the need
 **    to interrupt at a high rate (up to 50 Khz) during bit detection.
-**     
+**
 **
 **    The driver is dived into the standard top half ioctl, and bottom
-**    half interupt.  The interrupt is FIQ, which requires its own stack.  
+**    half interupt.  The interrupt is FIQ, which requires its own stack.
 **    disable_interrupts and restore_interrupts must be used to protect from
 **    a FIQ.  Since splxxx functions do not use this, the bottom half cannot
-**    use any standard functions (ie like wakeup, timeout, etc.  
+**    use any standard functions (ie like wakeup, timeout, etc.
 **    Thus the communication from the bottom half
 **    to the top half uses a "done" bit called masterDone.  This bit
-**    is set by the master state machine when all bottom half work is 
+**    is set by the master state machine when all bottom half work is
 **    complete.  The top half checks/sleeps on this masterDone bit.
 **
 **    The FIQ is driven by Timer 2 (T2)in the sequoia.  All times are
 **    referenced to T2 counts.
 **
-**    The bottom half is done as a several linked state machines.  
-**    The top level machine is the maserSM (ie master State Machine).  This 
-**    machine calls mid level protocol machines, ie ATRSM (Answer To Reset 
-**    State Machine), t0SendSM (T=0 Send State Machine), and t0RecvSM (T=0 Recv 
+**    The bottom half is done as a several linked state machines.
+**    The top level machine is the maserSM (ie master State Machine).  This
+**    machine calls mid level protocol machines, ie ATRSM (Answer To Reset
+**    State Machine), t0SendSM (T=0 Send State Machine), and t0RecvSM (T=0 Recv
 **    State Machine).  These mid level protocol machines in turn call low level
 **    bit-bashing machines, ie coldResetSM, t0SendByteSM, T0RecvByteSM.
 **
 **    Smart Cards are driven in a command/response mode.  Ie you issue a command
 **    to the Smart Card and it responds.  This command/response mode is reflected
-**    in the structure of the driver.  Ie the ioctl gets a command, it 
+**    in the structure of the driver.  Ie the ioctl gets a command, it
 **    gives it to the bottom half to execute and goes to sleep.  The bottom half
 **    executes the command and gets the response to from the card and then
 **    notifies the top half that it has completed.  Commands usually complete
-**    in under a second.  
+**    in under a second.
 **
-** 
+**
 **
 **  AUTHORS:
 **
@@ -121,12 +121,12 @@
 #include <machine/cpufunc.h>
 
 
-/* SCR_DEBUG is the master switch for turning on debugging */        
-//#define SCR_DEBUG 1     
+/* SCR_DEBUG is the master switch for turning on debugging */
+//#define SCR_DEBUG 1
 #ifdef SCR_DEBUG
-    #define KERNEL_DEBUG 
+    #define KERNEL_DEBUG
     #ifdef DDB
-        #define DEBUGGER printf("file = %s, line = %d\n",__FILE__,__LINE__);Debugger()        
+        #define DEBUGGER printf("file = %s, line = %d\n",__FILE__,__LINE__);Debugger()
     #else
         #define DEBUGGER panic("file = %s, line = %d\n",__FILE__,__LINE__);
     #endif
@@ -154,13 +154,13 @@
 
 #define scr_lcr scr_cfcr
 
-/* 
-** Macro to extract the minor device number from the device Identifier 
+/*
+** Macro to extract the minor device number from the device Identifier
 */
 #define SCRUNIT(x)      (minor(x))
 
-/* 
-** Macros to clear/set/test bit flags. 
+/*
+** Macros to clear/set/test bit flags.
 */
 #define SET(t, f)       (t) |= (f)
 #define CLR(t, f)       (t) &= ~(f)
@@ -175,7 +175,7 @@
     #define KERNEL_DEBUG
     #define ASSERT(f)	        do { if (!(f)) { DEBUGGER;} }while(0)
     #define TOGGLE_TEST_PIN()   scrToggleTestPin()
-    #define INVALID_STATE_CMD(sc,state,cmd)  invalidStateCmd(sc,state,cmd,__LINE__); 
+    #define INVALID_STATE_CMD(sc,state,cmd)  invalidStateCmd(sc,state,cmd,__LINE__);
 #else
     #define ASSERT(f)
     #define TOGGLE_TEST_PIN()
@@ -196,7 +196,7 @@
 
 
 
-/* 
+/*
 ** The first and last bytes of the debug control variables is reserved for
 ** the standard KERN_DEBUG_xxx macros, so we can tailor the middle two bytes
 */
@@ -210,10 +210,10 @@
 #define MASTER_SM_DEBUG_INFO		0x00008000
 #define COLD_RESET_SM_DEBUG_INFO	0x00010000
 #define ATR_SM_DEBUG_INFO			0x00020000
-#define T0_RECV_BYTE_SM_DEBUG_INFO	0x00040000	
-#define T0_SEND_BYTE_SM_DEBUG_INFO	0x00080000	
-#define T0_RECV_SM_DEBUG_INFO		0x00100000	
-#define T0_SEND_SM_DEBUG_INFO		0x00200000	
+#define T0_RECV_BYTE_SM_DEBUG_INFO	0x00040000
+#define T0_SEND_BYTE_SM_DEBUG_INFO	0x00080000
+#define T0_RECV_SM_DEBUG_INFO		0x00100000
+#define T0_SEND_SM_DEBUG_INFO		0x00200000
 
 
 int scrdebug =  //SCRPROBE_DEBUG_INFO	    |
@@ -239,7 +239,7 @@ int scrdebug =  //SCRPROBE_DEBUG_INFO	    |
 
 /*
 ** the bottom half of the driver is done as several linked state machines
-** below are all the states of the machines, and the commands that are 
+** below are all the states of the machines, and the commands that are
 ** sent to each machine
 */
 
@@ -255,7 +255,7 @@ int scrdebug =  //SCRPROBE_DEBUG_INFO	    |
 #define		mcT0Recv			0x010a		/* T0 recv finished */
 
 /* states in Master state machine (ms = Master State) */
-#define		msIdleOff		    0x0200      /* in idle state, card powered off */    
+#define		msIdleOff		    0x0200      /* in idle state, card powered off */
 #define		msColdReset		    0x0201      /* turning on power, clock, reset */
 #define		msATR			    0x0202      /* getting ATR sequence from card */
 #define		msIdleOn		    0x0203      /* idle, put card powered on */
@@ -282,7 +282,7 @@ int scrdebug =  //SCRPROBE_DEBUG_INFO	    |
 
 
 
-/* commands to T0 recv state machine */     
+/* commands to T0 recv state machine */
 #define 	t0rcStart			0x0500      /* start */
 #define		t0rcTWorkWaiting	0x0501      /* work waiting timeout */
 
@@ -330,10 +330,10 @@ int scrdebug =  //SCRPROBE_DEBUG_INFO	    |
 #define		t0rbcTFindStartMid	0x0d03		/* start bit mid search */
 #define		t0rbcTClockData		0x0d04		/* data bit search */
 #define		t0rbcTErrorStart	0x0d05		/* start to send error  */
-#define		t0rbcTErrorStop		0x0d06		/* stop sending error	*/ 
+#define		t0rbcTErrorStop		0x0d06		/* stop sending error	*/
 
 /* states in T0 Recv Byte state machine */
-#define		t0rbsIdle			0x0e00      /* idle */    
+#define		t0rbsIdle			0x0e00      /* idle */
 #define		t0rbsFindStartEdge  0x0e01		/* looking for start bit */
 #define		t0rbsFindStartMid   0x0e02		/* looking for start bit */
 #define		t0rbsClockData		0x0e03		/* looking for data bits */
@@ -362,12 +362,12 @@ int scrdebug =  //SCRPROBE_DEBUG_INFO	    |
 
 
 
-/* 
-** generic middle level state machine commands 
+/*
+** generic middle level state machine commands
 ** sent by T0 Send Byte & T0 recv Byte to T0 Send and T0 Recv
 */
 #define		gcT0RecvByte		0x1100      /* receive finished */
-#define		gcT0RecvByteErr		0x1101      /* receive got error */                        
+#define		gcT0RecvByteErr		0x1101      /* receive got error */
 #define		gcT0SendByte		0x1102      /* send finished */
 #define		gcT0SendByteErr		0x1103      /* send got error */
 
@@ -376,23 +376,23 @@ int scrdebug =  //SCRPROBE_DEBUG_INFO	    |
 
 
 
-/* 
+/*
 **
 ** below are definitions associated with Smart Card
 **
-*/ 
+*/
 
 
-/* 
+/*
 ** Frequency of clock sent to card
 ** NCI's card is running at 1/2 freq, so in debug we can make
 ** use of this to toggle more debug signals and still be within
-** interrupt time budget 
+** interrupt time budget
 */
 #ifdef  SCR_DEBUG
     #define CARD_FREQ_DEF			(3579000/2)
 #else
-    #define CARD_FREQ_DEF			(3579000) 
+    #define CARD_FREQ_DEF			(3579000)
 #endif
 
 
@@ -400,7 +400,7 @@ int scrdebug =  //SCRPROBE_DEBUG_INFO	    |
 /* byte logic level and msb/lsb coding */
 #define CONVENTION_UNKOWN		        0
 #define CONVENTION_INVERSE		        1
-#define CONVENTION_DIRECT		        2    
+#define CONVENTION_DIRECT		        2
 #define CONVENIONT_INVERSE_ID			0x3f
 #define CONVENTION_DIRECT_FIX			0x3b
 #define CONVENTION_DIRECT_ID			0x23
@@ -413,7 +413,7 @@ int scrdebug =  //SCRPROBE_DEBUG_INFO	    |
 
 /* default settings to use if not specified in ATR */
 #define N_DEFAULT			    0		/* guard time default */
-#define Fi_DEFAULT			    372		/* clock rate conversion default */			
+#define Fi_DEFAULT			    372		/* clock rate conversion default */
 #define Di_DEFAULT			    1		/* bit rate adjustment factor */
 #define Wi_DEFAULT			    10		/* waiting time */
 
@@ -441,16 +441,16 @@ int DI2Di[16] = {  0,   1,   2,   4,   8,   16, 32,   0,
 
 
 /* timeouts for various places - see ISO 7816-3 */
-#define T_t2					((300   * TIMER_FREQ) / sc->cardFreq)	  
-#define T_t3					((40000 * (TIMER_FREQ/1024)) / (sc->cardFreq/1024)) 
+#define T_t2					((300   * TIMER_FREQ) / sc->cardFreq)
+#define T_t3					((40000 * (TIMER_FREQ/1024)) / (sc->cardFreq/1024))
 #define T_WORK_WAITING			(((960 * sc->Wi * sc->Fi ) / (sc->cardFreq/1024))  * (TIMER_FREQ/1024))
 #define PARITY_ERROR_MAX 3		/* maximum parity errors on 1 byte before giving up  */
 
-/* 
-** its possible for the HAT to wedge.  If that happens, all timing is sick, so 
-** we use timeout below (driven of system sleeps) as a "watchdog" 
+/*
+** its possible for the HAT to wedge.  If that happens, all timing is sick, so
+** we use timeout below (driven of system sleeps) as a "watchdog"
 */
-#define MAX_FIQ_TIME     5      /* maximum time we are willing to run the FIQ */ 
+#define MAX_FIQ_TIME     5      /* maximum time we are willing to run the FIQ */
 
 
 /* used to decode T0 commands */
@@ -462,11 +462,11 @@ int DI2Di[16] = {  0,   1,   2,   4,   8,   16, 32,   0,
 **
 ** DATA STRUCTURES
 **
-*/                                     
+*/
 typedef unsigned char BYTE;
 
 /* our soft c structure */
-struct scr_softc 
+struct scr_softc
 {
     struct device       dev;
     int                 open;
@@ -517,7 +517,7 @@ struct scr_softc
     int masterDone; /* flag used by bottom half to tell top half its done */
     int bigTrouble; /* david/jim, remove this when the dust settles  */
 
-    /* pointers used by ioctl */        
+    /* pointers used by ioctl */
     ScrOn * pIoctlOn;   /* pointer to on ioctl data */
     ScrT0 * pIoctlT0;   /* pointer to T0 ioctl data */
 };
@@ -526,21 +526,21 @@ struct scr_softc
 static int devices = 0;
 
 /* used as reference for tsleep */
-static int tsleepIdent;   
+static int tsleepIdent;
 
 
-/* 
+/*
 ** only 1 device is using the hat at any one time
 ** variable below must be acquired using splhigh before using the hat
 */
-static int hatLock = FALSE;     
+static int hatLock = FALSE;
 
 
 
 
-/* 
-** data structures associated with our timeout queue that we run for the 
-** bottom half of the driver 
+/*
+** data structures associated with our timeout queue that we run for the
+** bottom half of the driver
 */
 
 /* timeout callout structure */
@@ -554,14 +554,14 @@ typedef struct callout_t
 }Callout;
 
 /* actual callout array */
-#define  SCR_CLK_CALLOUT_COUNT 10       
+#define  SCR_CLK_CALLOUT_COUNT 10
 static Callout  scrClkCalloutArray[SCR_CLK_CALLOUT_COUNT];
 
 /* callout lists */
 static Callout *scrClkCallFree;                     /* free queue */
 static Callout  scrClkCallTodo;                     /* todo queue */
 
-/* 
+/*
 ** information kept for the clock/FIQ that drives our timeout queue
 */
 static int scrClkEnable = 0;                   /* true if clock enabled */
@@ -590,7 +590,7 @@ static unsigned char hatStack[HATSTACKSIZE];   /* actual stack used during a FIQ
 
 /*
 **
-** functions in top half of driver 
+** functions in top half of driver
 **
 */
 
@@ -606,7 +606,7 @@ int     scrwrite    __P((dev_t dev, struct uio *uio, int flag));
 int     scrioctl    __P((dev_t dev, u_long cmd, caddr_t data, int flag, struct proc  *p));
 void    scrstop     __P((struct tty *tp, int flag));
 
-static void   initStates           __P((struct scr_softc * sc)); 
+static void   initStates           __P((struct scr_softc * sc));
 
 
 
@@ -631,9 +631,9 @@ static void   coldResetSM          __P((struct scr_softc * sc,int cnd));
 static void   t0SendByteSM         __P((struct scr_softc * sc,int cnd));
 static void   t0RecvByteSM         __P((struct scr_softc * sc,int cnd));
 
-static void   cardOff              __P((struct scr_softc * sc));              
+static void   cardOff              __P((struct scr_softc * sc));
 
-/* 
+/*
 ** functions used for our own timeout routines.
 ** we cannot use system ones as we are running at a spl level
 ** that can interrupt the system timeout routines
@@ -642,9 +642,9 @@ static void scrClkInit     __P(());
 static void scrClkStart    __P((struct scr_softc* sc,int countPerTick));
 static void scrClkAdj      __P((int count));
 static void scrClkStop     __P((void));
-static void hatClkIrq      __P((int count));               
+static void hatClkIrq      __P((int count));
 
-static void scrTimeout     __P((void (*func)(struct scr_softc*,int), struct scr_softc*, int arg, int count));  
+static void scrTimeout     __P((void (*func)(struct scr_softc*,int), struct scr_softc*, int arg, int count));
 static void scrUntimeout   __P((void (*func)(struct scr_softc*,int), struct scr_softc*, int arg));
 
 
@@ -656,7 +656,7 @@ static void scrUntimeout   __P((void (*func)(struct scr_softc*,int), struct scr_
 
 
 
-/* Declare the cdevsw and bdevsw entrypoint routines 
+/* Declare the cdevsw and bdevsw entrypoint routines
 */
 cdev_decl(scr);
 bdev_decl(scr);
@@ -675,17 +675,17 @@ extern struct cfdriver scr_cd;
 **  FUNCTIONAL DESCRIPTION:
 **
 **      scrProbe
-**     
-**     This is the probe routine for the Smart Card.  Because the 
+**
+**     This is the probe routine for the Smart Card.  Because the
 **     Smart Card is hard wired, there is no probing to peform.  The
 **     function ensures that a succesfull problem occurs only once.
 **
 **  FORMAL PARAMETERS:
 **
-**     parent  - input  : pointer to the parent device 
+**     parent  - input  : pointer to the parent device
 **     match   - not used
 **     aux     - output : pointer to an isa_attach_args structure.
-**     
+**
 **  IMPLICIT INPUTS:
 **
 **     none.
@@ -697,7 +697,7 @@ extern struct cfdriver scr_cd;
 **  FUNCTION VALUE:
 **
 **     0 - Probe failed to find the requested device.
-**     1 - Probe successfully talked to the device. 
+**     1 - Probe successfully talked to the device.
 **
 **  SIDE EFFECTS:
 **
@@ -710,7 +710,7 @@ int scrprobe(parent, match, aux)
     void            *aux;
 {
     struct isa_attach_args  *ia = aux;
-    int                     rv = 0;           
+    int                     rv = 0;
 
     KERN_DEBUG (scrdebug, SCRPROBE_DEBUG_INFO,("scrprobe: called, name = %s\n",
                                                parent->dv_cfdata->cf_driver->cd_name));
@@ -719,7 +719,7 @@ int scrprobe(parent, match, aux)
         devices == 0)
     {
         /* set "devices" to ensure that we respond only once */
-        devices++;      
+        devices++;
 
         /* tell the caller that we are not using any resource */
         ia->ia_iosize = -1;
@@ -730,7 +730,7 @@ int scrprobe(parent, match, aux)
 
         KERN_DEBUG (scrdebug, SCRPROBE_DEBUG_INFO,("scrprobe: successful \n"));
 
-    } 
+    }
 
 
     return (rv);
@@ -744,7 +744,7 @@ int scrprobe(parent, match, aux)
 **
 **      scrattach
 **
-**      Initialize the clock and state machines 
+**      Initialize the clock and state machines
 **
 **  FORMAL PARAMETERS:
 **
@@ -759,7 +759,7 @@ int scrprobe(parent, match, aux)
 **  IMPLICIT OUTPUTS:
 **
 **      scrconsinit - clock callout functions set
-**                    state machines all at idle 
+**                    state machines all at idle
 **
 **  FUNCTION VALUE:
 **
@@ -786,7 +786,7 @@ void scrattach(parent, self, aux)
         scrClkInit(sc);
         initStates(sc);
         sc->open = FALSE;
-    } 
+    }
 
     else
     {
@@ -829,13 +829,13 @@ void scrattach(parent, self, aux)
 */
 static void initStates(struct scr_softc * sc)
 {
-    sc->masterS         = msIdleOff;    
-    sc->t0RecvS         = t0rsIdle;         
-    sc->t0SendS         = t0ssIdle;         
-    sc->coldResetS      = crsIdle;          
-    sc->ATRS            = atrsIdle;         
-    sc->t0RecvByteS     = t0rbsIdle;            
-    sc->t0SendByteS     = t0sbsIdle;            
+    sc->masterS         = msIdleOff;
+    sc->t0RecvS         = t0rsIdle;
+    sc->t0SendS         = t0ssIdle;
+    sc->coldResetS      = crsIdle;
+    sc->ATRS            = atrsIdle;
+    sc->t0RecvByteS     = t0rbsIdle;
+    sc->t0SendByteS     = t0sbsIdle;
 }
 
 
@@ -854,8 +854,8 @@ static void initStates(struct scr_softc * sc)
 **     dev  - input : Device identifier consisting of major and minor numbers.
 **     flag - input : Indicates if this is a blocking I/O call.
 **     mode - not used.
-**     p    - input : Pointer to the proc structure of the process 
-**            performing the open. 
+**     p    - input : Pointer to the proc structure of the process
+**            performing the open.
 **
 **  IMPLICIT INPUTS:
 **
@@ -889,7 +889,7 @@ struct proc *p;
                  unit, flag));
 
     /* Sanity check the minor device number we have been instructed
-    ** to open and set up our softc structure pointer. 
+    ** to open and set up our softc structure pointer.
     */
     if (unit >= scr_cd.cd_ndevs)
     {
@@ -905,7 +905,7 @@ struct proc *p;
 
 
     // david,jim - remove ifdef this when NCI can cope with only 1 open
-#if 0   
+#if 0
     if (sc->open)
     {
 
@@ -919,7 +919,7 @@ struct proc *p;
 #endif
 
     KERN_DEBUG (scrdebug, SCROPEN_DEBUG_INFO,("scropen: success \n"));
-    /* Now invoke the line discipline open routine 
+    /* Now invoke the line discipline open routine
     */
 
     return 0;
@@ -938,7 +938,7 @@ struct proc *p;
 **     dev  - input : Device identifier consisting of major and minor numbers.
 **     flag - Not used.
 **     mode - Not used.
-**     p    - Not used. 
+**     p    - Not used.
 **
 **  IMPLICIT INPUTS:
 **
@@ -974,7 +974,7 @@ int scrclose(dev, flag, mode, p)
                  SCRUNIT(dev), flag));
 
     // david,jim - remove ifdef this when NCI can cope with only 1 open
-#if 0   
+#if 0
     /* Check we are open in the first place
     */
     if (sc->open)
@@ -984,9 +984,9 @@ int scrclose(dev, flag, mode, p)
         initStates(sc);
         sc->open = FALSE;
 
-    } 
-    
-    
+    }
+
+
     else
     {
         KERN_DEBUG (scrdebug, SCRCLOSE_DEBUG_INFO,("\t scrclose, device not open\n"));
@@ -1008,7 +1008,7 @@ int scrclose(dev, flag, mode, p)
 **      not supported
 **
 **  FORMAL PARAMETERS:
-**      
+**
 **      dev  - input : Device identifier consisting of major and minor numbers.
 **      uio  - input : Pointer to the user I/O information (ie. write data).
 **      flag - input : Information on how the I/O should be done (eg. blocking
@@ -1037,7 +1037,7 @@ struct uio *uio;
 int        flag;
 {
     return ENODEV;
-} 
+}
 
 
 
@@ -1050,7 +1050,7 @@ int        flag;
 **      not supported
 **
 **  FORMAL PARAMETERS:
-**      
+**
 **      dev  - input : Device identifier consisting of major and minor numbers.
 **      uio  - input : Pointer to the user I/O information (ie. read buffer).
 **      flag - input : Information on how the I/O should be done (eg. blocking
@@ -1079,7 +1079,7 @@ struct uio  *uio;
 int         flag;
 {
     return ENODEV;
-} 
+}
 
 
 
@@ -1092,7 +1092,7 @@ int         flag;
 **     scrstop
 **
 **     should not be called
-**  
+**
 **  FORMAL PARAMETERS:
 **
 **     tp   - Pointer to our tty structure.
@@ -1120,7 +1120,7 @@ void scrstop(tp, flag)
     int flag;
 {
     panic("scrstop: not implemented");
-} 
+}
 
 
 
@@ -1158,7 +1158,7 @@ struct tty * scrtty(dev)
 {
     panic("scrtty: not implemented");
     return NULL;
-} 
+}
 
 
 
@@ -1170,48 +1170,48 @@ struct tty * scrtty(dev)
 **
 **     This routine is responsible for performing I/O controls.
 **
-**      There are 4 commands.  Status, On, T0 and Off.  
+**      There are 4 commands.  Status, On, T0 and Off.
 **
 **      Status checks to see if the card is inserted.  This command
 **      does not use the state machines
 **
-**      On turns the card on and gets the ATR sequence from the card. 
+**      On turns the card on and gets the ATR sequence from the card.
 **      This command does use the state machines
 **
 **      T0 is used to read and write the card.  This command does use
 **      the state machines
-**  
-**      Off turns the card off.  This command does not use the state
-**      machines. 
 **
-**     
+**      Off turns the card off.  This command does not use the state
+**      machines.
+**
+**
 **  FORMAL PARAMETERS:
 **
 **     dev - input :  Device identifier consisting of major and minor numbers.
-**     cmd - input : The requested IOCTL command to be performed. 
+**     cmd - input : The requested IOCTL command to be performed.
 **                   See scrio.h for details
 **
 **
 **                   Bit Position      { 3322222222221111111111
-**                                     { 10987654321098765432109876543210 
+**                                     { 10987654321098765432109876543210
 **                   Meaning           | DDDLLLLLLLLLLLLLGGGGGGGGCCCCCCCC
 **
 **                   D - Command direction, in/out/both.
 **                   L - Command argument length.
 **                   G - Command group, 't' used for tty.
 **                   C - Actual command enumeration.
-** 
+**
 **     data - input/output : Direction depends on the command.
 **     flag - input : Not used by us but passed to line discipline and ttioctl
 **     p    - input : pointer to proc structure of user.
-**     
+**
 **  IMPLICIT INPUTS:
 **
 **     none.
 **
 **  IMPLICIT OUTPUTS:
 **
-**     sc->masterS      state of master state machine 
+**     sc->masterS      state of master state machine
 **
 **
 **  FUNCTION VALUE:
@@ -1233,14 +1233,14 @@ struct proc  *p;
 {
     int                 unit = SCRUNIT(dev);
     struct scr_softc*   sc  = scr_cd.cd_devs[unit];
-    
+
     int                 error = 0;          /* error value returned */
     int                 masterDoneRetries= 0;         /* nuber of times we looked at masterDone */
     int                 done;               /* local copy of masterDone */
-    
+
     ScrStatus *         pIoctlStatus;       /* pointer to status ioctl */
     ScrOff *            pIoctlOff;          /* pointer to off ioctl */
-    
+
     u_int               savedInts;          /* saved interrupts */
     int                 s;                  /* saved spl value */
 
@@ -1255,8 +1255,8 @@ struct proc  *p;
 
     switch (cmd)
     {
-        /* 
-        ** get the status of the card, ie is it in, in but off, in and on 
+        /*
+        ** get the status of the card, ie is it in, in but off, in and on
         */
         case SCRIOSTATUS:
             pIoctlStatus = (ScrStatus*)data;
@@ -1265,7 +1265,7 @@ struct proc  *p;
                 savedInts = disable_interrupts(I32_bit | F32_bit);
                 if (sc->masterS == msIdleOn)
                 {
-                    pIoctlStatus->status = CARD_ON;   
+                    pIoctlStatus->status = CARD_ON;
                 }
                 else
                 {
@@ -1283,12 +1283,12 @@ struct proc  *p;
 
 
 
-        /* 
-        ** turn the card on and get the ATR sequence 
+        /*
+        ** turn the card on and get the ATR sequence
         */
         case SCRIOON:
             sc->pIoctlOn = (ScrOn*)data;
-            // acquire the hat lock. 
+            // acquire the hat lock.
             while (1)
             {
                 s = splhigh();
@@ -1299,11 +1299,11 @@ struct proc  *p;
                     break;
                 }
                 splx(s);
-        
-                tsleep(&tsleepIdent ,PZERO,"hat", 1); 
+
+                tsleep(&tsleepIdent ,PZERO,"hat", 1);
             }
-            
-            
+
+
             // check to see if the card is in
             if(!scrGetDetect())
             {
@@ -1313,38 +1313,38 @@ struct proc  *p;
                 sc->pIoctlOn->status = ERROR_CARD_REMOVED;
             }
 
-            
-            // check to see if we are already on 
+
+            // check to see if we are already on
             else if(sc->masterS == msIdleOn)
             {
                 sc->pIoctlOn->status = ERROR_CARD_ON;
             }
-            
-            // card was in, card is off, so lets start it 
-            else             
-            {   
-                // set up the top half 
+
+            // card was in, card is off, so lets start it
+            else
+            {
+                // set up the top half
                 sc->masterDone = FALSE;
                 sc->bigTrouble = FALSE;    /* david/jim, remove this when the dust settles  */
 
-                        
-                
+
+
                 // start bottom half
                 scrClkStart (sc,400);
-                savedInts = disable_interrupts(I32_bit | F32_bit);     
+                savedInts = disable_interrupts(I32_bit | F32_bit);
                 masterSM(sc,mcOn);
                 restore_interrupts(savedInts);
-                
-    
 
-                // see if bottom half done 
+
+
+                // see if bottom half done
                 while (1)
                 {
-                    // check that we have not looped too many times 
-                    if(masterDoneRetries >= MAX_FIQ_TIME * HZ)  
+                    // check that we have not looped too many times
+                    if(masterDoneRetries >= MAX_FIQ_TIME * HZ)
                     {
 //printf("MAX_FIQ_TIME reached \n");
-                        // big problems, so reset bottom 
+                        // big problems, so reset bottom
                         savedInts = disable_interrupts(I32_bit | F32_bit);
                         scrClkInit();
                         initStates(sc);
@@ -1352,39 +1352,39 @@ struct proc  *p;
                         sc->status = ERROR_CARD_REMOVED;
                         sc->masterDone = TRUE;
                         restore_interrupts(savedInts);
-                        // dont stop clock, done at bottom of case 
+                        // dont stop clock, done at bottom of case
                     }
                     masterDoneRetries ++;
 
-                    // get done bit 
+                    // get done bit
                     savedInts = disable_interrupts(I32_bit | F32_bit);
                     done =  sc->masterDone;
                     restore_interrupts(savedInts);
 
-                    // see if all done 
+                    // see if all done
                     if(done)
                     {
                         break;
                     }
 
-                    
-                    // wait for a while 
-                    tsleep(&tsleepIdent ,PZERO,"hat", 1);  
+
+                    // wait for a while
+                    tsleep(&tsleepIdent ,PZERO,"hat", 1);
                 }
 
 
                 // stop bottom half
                 scrClkStop();
-    
-    
+
+
                 /* need to fix up count bits in non hat interrupt time, so */
                 if (sc->status == ERROR_OK)
                 {
-                    sc->clkCountStartRecv = CLK_COUNT_START;  
+                    sc->clkCountStartRecv = CLK_COUNT_START;
                     sc->clkCountDataRecv  = sc->clkCountStartRecv * START_2_DATA;
                     sc->clkCountDataSend  = CLK_COUNT_DATA;
                 }
-    
+
 
 
                 /* takes while to turn off all lines, so keep out of hat */
@@ -1392,33 +1392,33 @@ struct proc  *p;
                 {
                     cardOff(sc);
                 }
-                // get the status back from the state machine 
+                // get the status back from the state machine
                 sc->pIoctlOn->status = sc->status;
-           
-            
+
+
             }
 
 
-            // release  the hat lock. 
+            // release  the hat lock.
             s = splhigh();
             ASSERT(hatlock);
             hatLock = FALSE;
             splx(s);
-            
+
             // david,jim hack to stop ioctl memcpy problem, to be removed when problem fixed ejg
             if (sc->pIoctlOn->status != ERROR_OK)
             {
-                sc->pIoctlOn->atrLen = 0; 
+                sc->pIoctlOn->atrLen = 0;
             }
             break;
-        
-    
+
+
         /*
         ** turn the card off
         */
         case SCRIOOFF:
             pIoctlOff = (ScrOff*)data;
-            // card off does not requires any  state processing, so do work here 
+            // card off does not requires any  state processing, so do work here
             initStates(sc);
             cardOff(sc);
             // do not  call scrClkInit() as it is idle already
@@ -1427,12 +1427,12 @@ struct proc  *p;
 
 
         /*
-        ** do a T0 read or write 
+        ** do a T0 read or write
         */
         case SCRIOT0:
             sc->pIoctlT0 = (ScrT0*)data;
-            
-            // acquire the hat lock. 
+
+            // acquire the hat lock.
             while (1)
             {
                 s = splhigh();
@@ -1443,10 +1443,10 @@ struct proc  *p;
                     break;
                 }
                 splx(s);
-                
-                tsleep(&tsleepIdent ,PZERO,"hat", 1); 
+
+                tsleep(&tsleepIdent ,PZERO,"hat", 1);
             }
-            
+
             // check to see if the card is in
             if(!scrGetDetect())
             {
@@ -1456,24 +1456,24 @@ struct proc  *p;
                 sc->pIoctlT0->status = ERROR_CARD_REMOVED;
             }
 
-            
-            // check to see if card is off 
+
+            // check to see if card is off
             else if(sc->masterS == msIdleOff)
             {
                 sc->pIoctlT0->status = ERROR_CARD_OFF;
             }
-            
-            // card was in, card is on, lets do command
-            else             
 
-            {   
-                // set up the top half 
+            // card was in, card is on, lets do command
+            else
+
+            {
+                // set up the top half
                 sc->masterDone = FALSE;
                 sc->bigTrouble = FALSE;    /* david/jim, remove this when the dust settles  */
-                
+
                 // start bottom half
                 scrClkStart (sc,sc->clkCountDataSend);
-                savedInts = disable_interrupts(I32_bit | F32_bit); 
+                savedInts = disable_interrupts(I32_bit | F32_bit);
                 if (sc->pIoctlT0->writeBuffer)
                 {
                     masterSM(sc,mcT0DataSend);
@@ -1483,16 +1483,16 @@ struct proc  *p;
                     masterSM(sc,mcT0DataRecv);
                 }
                 restore_interrupts(savedInts);
-    
 
-               // see if bottom half done 
+
+               // see if bottom half done
                while (1)
                {
-                     // check that we have not looped too many times 
-                     if(masterDoneRetries >= MAX_FIQ_TIME * HZ)  
+                     // check that we have not looped too many times
+                     if(masterDoneRetries >= MAX_FIQ_TIME * HZ)
                      {
 //printf("MAX_FIQ_TIME reached \n");
-                        // big problems, so reset bottom 
+                        // big problems, so reset bottom
                         savedInts = disable_interrupts(I32_bit | F32_bit);
                         scrClkInit();
                         initStates(sc);
@@ -1502,46 +1502,46 @@ struct proc  *p;
                         restore_interrupts(savedInts);
                      }
                      masterDoneRetries ++;
-                    
-                    
-                    // get done bit 
+
+
+                    // get done bit
                     savedInts = disable_interrupts(I32_bit | F32_bit);
                     done =  sc->masterDone;
                     restore_interrupts(savedInts);
 
-                    
-                    // see if all done 
+
+                    // see if all done
                     if(done)
                     {
                         break;
                     }
 
-                    
-                    // wait for a while 
-                    tsleep(&tsleepIdent ,PZERO,"hat", 1); 
+
+                    // wait for a while
+                    tsleep(&tsleepIdent ,PZERO,"hat", 1);
                 }
 
                 // stop bottom half
                 scrClkStop();
-     
-    
 
-                // get the status back from the state machine 
+
+
+                // get the status back from the state machine
                 sc->pIoctlT0->status = sc->status;
             }
-            
-            
-            // release  the hat lock. 
+
+
+            // release  the hat lock.
             s = splhigh();
             hatLock = FALSE;
             splx(s);
-            
-            
-            
+
+
+
             // david, jim hack to stop ioctl memcpy problem, to be removed when problem fixed ejg
             if (sc->pIoctlT0->status != ERROR_OK)
             {
-                sc->pIoctlT0->dataLen = 0;   
+                sc->pIoctlT0->dataLen = 0;
             }
             break;
 
@@ -1552,7 +1552,7 @@ struct proc  *p;
     }
 
 
- 
+
     KERN_DEBUG (scrdebug, SCRIOCTL_DEBUG_INFO,
                 ("scrioctl: exiting with sc->status %d\n", error));
     return (error);
@@ -1566,8 +1566,8 @@ struct proc  *p;
 /*
 **
 ** All functions below this point are the bottom half of the driver
-** 
-** All are called during a FIQ, except for some functions in masterSM which 
+**
+** All are called during a FIQ, except for some functions in masterSM which
 ** provides the interface between the bottom half and top half of
 ** the driver (nb masterDone() helps masterSM() out with this interface
 ** between top and bottom parts of the driver.
@@ -1581,12 +1581,12 @@ struct proc  *p;
 **
 **      masterSM
 **
-**      This state machine implements the top level state control  It 
+**      This state machine implements the top level state control  It
 **      receives commands to turn the card on, and do T0 reads and T0 writes
 **      from the scrioctl.  It then calls mid level state machine to action
-**      these commands.  
+**      these commands.
 **
-**      This machine is the only machine to keep state between scrioctl calls.  
+**      This machine is the only machine to keep state between scrioctl calls.
 **      Between calls, the state will be either msIdleOff, or msIdleOn.  msIdleOff
 **      indicates that no signals are applied to the card.  msidleOn indicates that
 **      power and clock are supplied to the card, and that the card has performed
@@ -1604,7 +1604,7 @@ struct proc  *p;
 **
 **      sc      -  Pointer to the softc structure.
 **      cmd     -  command to the state machine, can be from ioctl, or mid level SM
-**      
+**
 **  IMPLICIT INPUTS:
 **
 **      sc->masterS     state of this machine
@@ -1619,39 +1619,39 @@ struct proc  *p;
 **
 **  SIDE EFFECTS:
 **
-**      power and clock applied to card if successful ATR 
+**      power and clock applied to card if successful ATR
 **--
 */
 static void masterSM(struct scr_softc * sc,int cmd)
 {
 
-    if (sc->bigTrouble) return;     // david,jim , remove this when dust settles 
+    if (sc->bigTrouble) return;     // david,jim , remove this when dust settles
 
     switch (sc->masterS)
     {
-        case msIdleOff: 
+        case msIdleOff:
             switch (cmd)
             {
-                case mcOn:  
+                case mcOn:
                     if (scrGetDetect())
                     {
-                        /* 
-                        ** the card is off, and we want it on 
+                        /*
+                        ** the card is off, and we want it on
                         */
-                        
+
                         /* set initial values */
-                        sc->status          = 0;        
-                        sc->convention      = CONVENTION_UNKOWN;            
-                        sc->protocolType    = 0;        
-                        sc->N               = N_DEFAULT;    
-                        sc->Fi              = Fi_DEFAULT;   
-                        sc->Di              = Di_DEFAULT;   
-                        sc->Wi              = Wi_DEFAULT;   
+                        sc->status          = 0;
+                        sc->convention      = CONVENTION_UNKOWN;
+                        sc->protocolType    = 0;
+                        sc->N               = N_DEFAULT;
+                        sc->Fi              = Fi_DEFAULT;
+                        sc->Di              = Di_DEFAULT;
+                        sc->Wi              = Wi_DEFAULT;
                         sc->cardFreq        = CARD_FREQ_DEF;
-                        sc->clkCountStartRecv = CLK_COUNT_START;  
+                        sc->clkCountStartRecv = CLK_COUNT_START;
                         sc->clkCountDataRecv  = sc->clkCountStartRecv * START_2_DATA;
                         sc->clkCountDataSend  = CLK_COUNT_DATA;
-                        
+
                         /* get coldResetSM  to turn on power, clock, reset */
                         sc->masterS = msColdReset;
                         coldResetSM(sc,crcStart);
@@ -1673,8 +1673,8 @@ static void masterSM(struct scr_softc * sc,int cmd)
         case msColdReset:
             switch (cmd)
             {
-                case mcColdReset:   
-                    /* 
+                case mcColdReset:
+                    /*
                     ** coldResetSM has turned on power, clock , reset
                     ** tell ATRSM to get the ATR sequence from the card
                     */
@@ -1693,10 +1693,10 @@ static void masterSM(struct scr_softc * sc,int cmd)
             {
                 case mcATR:
                     /*
-                    ** ATRSM has tried to get ATR sequence, so give 
+                    ** ATRSM has tried to get ATR sequence, so give
                     ** back results to scrioctl.  ATR sequence data
-                    ** was copied directly into ioctl data area, so 
-                    ** no need to copy data 
+                    ** was copied directly into ioctl data area, so
+                    ** no need to copy data
                     */
                     if(sc->status == ERROR_OK)
                     {
@@ -1724,20 +1724,20 @@ static void masterSM(struct scr_softc * sc,int cmd)
 
                 case mcT0DataSend:
                     /*
-                    ** card is on, and we want to T0 Send, so 
-                    ** as t0SendSM to do work 
+                    ** card is on, and we want to T0 Send, so
+                    ** as t0SendSM to do work
                     */
-                    sc->status  = ERROR_OK;        
+                    sc->status  = ERROR_OK;
                     sc->masterS = msT0Send;
                     t0SendSM(sc,t0scStart);
                     break;
 
                 case mcT0DataRecv:
                     /*
-                    ** card is on, and we want to T0 Recv, so 
-                    ** as t0RecvSM to do work 
+                    ** card is on, and we want to T0 Recv, so
+                    ** as t0RecvSM to do work
                     */
-                    sc->status  = ERROR_OK;        
+                    sc->status  = ERROR_OK;
                     sc->masterS = msT0Recv;
                     t0RecvSM(sc,t0rcStart);
                     break;
@@ -1772,8 +1772,8 @@ static void masterSM(struct scr_softc * sc,int cmd)
                 case mcT0Recv:
                     /*
                     ** t0RecvSM has tried to recv , so lets give back results
-                    ** data was written directly into ioctl data area, so we 
-                    ** do not  need to copy any data 
+                    ** data was written directly into ioctl data area, so we
+                    ** do not  need to copy any data
                     */
                     sc->pIoctlT0->dataLen = sc->dataCount;
                     sc->masterS = msIdleOn;
@@ -1803,30 +1803,30 @@ static void masterSM(struct scr_softc * sc,int cmd)
 **      t0SendSM
 **
 **      This is the T=0 Send State Machine.  It is responsible
-**      for performing the send part of the ISO 7816-3 T=0 
-**      protocol.  It is mid level protocol state machine. 
+**      for performing the send part of the ISO 7816-3 T=0
+**      protocol.  It is mid level protocol state machine.
 **
-**      Once started, this machine is driven entirely via the 
-**      FIQ/timeout structure .  
+**      Once started, this machine is driven entirely via the
+**      FIQ/timeout structure .
 **
-**      
+**
 **
 **  FORMAL PARAMETERS:
 **
 **      sc      -  Pointer to the softc structure.
-**      cmd     -  command to this machine 
+**      cmd     -  command to this machine
 **
 **  IMPLICIT INPUTS:
 **
-**      sc->t0SendS             state of this machine 
+**      sc->t0SendS             state of this machine
 **      sc->pIoctlT0->command   command to send to card
-**      sc->pIoctlT0->data      data to send to card 
+**      sc->pIoctlT0->data      data to send to card
 **
 **  IMPLICIT OUTPUTS:
 **
-**      sc->status              error status from this machine 
-**      sc->pIoctlT0->sw1       command status from card 
-**      sc->pIoctlT0->sw2       command status from card 
+**      sc->status              error status from this machine
+**      sc->pIoctlT0->sw1       command status from card
+**      sc->pIoctlT0->sw2       command status from card
 **      sc->status              error status from this machine
 **
 **  FUNCTION VALUE:
@@ -1840,41 +1840,41 @@ static void masterSM(struct scr_softc * sc,int cmd)
 */
 static void   t0SendSM         (struct scr_softc * sc, int cmd)
 {
-    if (sc->bigTrouble) return;     // david,jim , remove this when dust settles 
+    if (sc->bigTrouble) return;     // david,jim , remove this when dust settles
     /*
     ** check for major failures that are common to most states
     */
     if (cmd == t0scTWorkWaiting ||
-        cmd == gcT0RecvByteErr  || 
-        cmd == gcT0SendByteErr 
+        cmd == gcT0RecvByteErr  ||
+        cmd == gcT0SendByteErr
         )
     {
         switch(cmd)
         {
             case t0scTWorkWaiting:
-                ASSERT(sc->t0SendS != t0ssIdle); 
-                
+                ASSERT(sc->t0SendS != t0ssIdle);
+
                 /* kill all lower machines */
                 t0SendByteSM(sc,t0sbcAbort);
                 t0RecvByteSM(sc,t0rbcAbort);
-        
+
                 /* set status */
                 sc->status = ERROR_WORK_WAITING;
                 break;
-    
-            case gcT0RecvByteErr:   // fall through 
+
+            case gcT0RecvByteErr:   // fall through
             case gcT0SendByteErr:
                 scrUntimeout(t0SendSM, sc, t0scTWorkWaiting);
-                // done set status, already set in lower machine 
+                // done set status, already set in lower machine
                 break;
 
-            default: 
+            default:
                 INVALID_STATE_CMD(sc, sc->t0SendS,cmd);
                 break;
         }
 
         /* change states */
-        sc->t0SendS = t0ssIdle;   
+        sc->t0SendS = t0ssIdle;
         masterSM(sc,mcT0Send);
         return;
     }
@@ -1888,12 +1888,12 @@ static void   t0SendSM         (struct scr_softc * sc, int cmd)
                     /* set initial values */
                     sc->t0SendS = t0ssSendHeader;
                     sc->t0ByteParent = t0SendSM;
-                    sc->commandCount = 0;   
+                    sc->commandCount = 0;
                     sc->dataCount = 0;
                     sc->dataMax = sc->pIoctlT0->command[CMD_BUF_DATA_LEN_OFF];
                     sc->dataByte = sc->pIoctlT0->command[sc->commandCount];
 
-                    // get a byte 
+                    // get a byte
                     t0SendByteSM(sc,t0sbcStart);
                     break;
 
@@ -1942,7 +1942,7 @@ static void   t0SendSM         (struct scr_softc * sc, int cmd)
                         sc->t0SendS = t0ssSendData;
                         sc->dataByte = sc->pIoctlT0->data[sc->dataCount];
                         t0SendByteSM(sc,t0sbcStart);
-                        sc->dataCount++;    
+                        sc->dataCount++;
                     }
 
                     /* see if we should send one data byte */
@@ -1953,7 +1953,7 @@ static void   t0SendSM         (struct scr_softc * sc, int cmd)
                         sc->t0SendS = t0ssSendByte;
                         sc->dataByte = sc->pIoctlT0->data[ sc->dataCount];
                         t0SendByteSM(sc,t0sbcStart);
-                        sc->dataCount++;    
+                        sc->dataCount++;
                     }
 
                     /* see if we should extend the work waiting period */
@@ -1965,7 +1965,7 @@ static void   t0SendSM         (struct scr_softc * sc, int cmd)
 
 #ifdef ORIGINAL_SW1_CODE /* XXX XXX XXX cgd */
                     /* see if we have a SW1 byte */
-                    else if ( ((sc->dataByte & 0xf0)  == 0x60) || ((sc->dataByte & 0xf0)  == 0x90)  
+                    else if ( ((sc->dataByte & 0xf0)  == 0x60) || ((sc->dataByte & 0xf0)  == 0x90)
                               &&
                               sc->dataByte != 0x60)
 #else /* XXX XXX XXX cgd */
@@ -2014,7 +2014,7 @@ static void   t0SendSM         (struct scr_softc * sc, int cmd)
                         sc->t0SendS = t0ssRecvSW1;
                     }
 
-                    // ask for another byte 
+                    // ask for another byte
                     t0RecvByteSM(sc,t0rbcStart);
                     scrTimeout(t0SendSM,sc,t0scTWorkWaiting,T_WORK_WAITING);
                     break;
@@ -2035,7 +2035,7 @@ static void   t0SendSM         (struct scr_softc * sc, int cmd)
                         sc->t0SendS = t0ssSendData;
                         sc->dataByte = sc->pIoctlT0->data[ sc->dataCount];
                         t0SendByteSM(sc,t0sbcStart);
-                        sc->dataCount++;    
+                        sc->dataCount++;
                     }
 
                     /* wait for sw1 byte */
@@ -2101,28 +2101,28 @@ static void   t0SendSM         (struct scr_softc * sc, int cmd)
 **      t0RecvSM
 **
 **      This is the T=0 Recv State Machine.  It is responsible
-**      for performing the recv part of the ISO 7816-3 T=0 
+**      for performing the recv part of the ISO 7816-3 T=0
 **      protocol.   It is mid level protocol state machine.
 **
-**      Once started, this machine is driven entirely via the 
-**      FIQ/timeout structure .  
+**      Once started, this machine is driven entirely via the
+**      FIQ/timeout structure .
 **
 **  FORMAL PARAMETERS:
 **
 **      sc      -  Pointer to the softc structure.
-**      cmd     -  command to this machine 
+**      cmd     -  command to this machine
 **
 **  IMPLICIT INPUTS:
 **
-**      sc->t0RecvS             state of this machine 
+**      sc->t0RecvS             state of this machine
 **      sc->pIoctlT0->command   command to send to card
 **
 **  IMPLICIT OUTPUTS:
 **
-**      sc->pIoctlT0->data      data from card 
-**      sc->pIoctlT0->dataLen   size of data from card 
-**      sc->pIoctlT0->sw1       command status from card 
-**      sc->pIoctlT0->sw2       command status from card 
+**      sc->pIoctlT0->data      data from card
+**      sc->pIoctlT0->dataLen   size of data from card
+**      sc->pIoctlT0->sw1       command status from card
+**      sc->pIoctlT0->sw2       command status from card
 **      sc->status              error status from this machine
 **
 **  FUNCTION VALUE:
@@ -2136,46 +2136,46 @@ static void   t0SendSM         (struct scr_softc * sc, int cmd)
 */
 static void   t0RecvSM (struct scr_softc * sc,int cmd)
 {
-    if (sc->bigTrouble) return;     // david,jim , remove this when dust settles 
+    if (sc->bigTrouble) return;     // david,jim , remove this when dust settles
 
     /*
     ** check for major failures that are common to most states
     */
     if (cmd == t0rcTWorkWaiting ||
-        cmd == gcT0RecvByteErr  || 
+        cmd == gcT0RecvByteErr  ||
         cmd == gcT0SendByteErr  )
-        
+
     {
         switch(cmd)
         {
-    
+
             case t0rcTWorkWaiting:
-                ASSERT(sc->t0RecvS != t0rsIdle); 
-                
+                ASSERT(sc->t0RecvS != t0rsIdle);
+
                 /* kill all lower level machines */
                 t0SendByteSM(sc,t0sbcAbort);
                 t0RecvByteSM(sc,t0rbcAbort);
-                
+
                 /* set status */
                 sc->status = ERROR_WORK_WAITING;
                 break;
-            
+
             case gcT0RecvByteErr:       // fall through
             case gcT0SendByteErr:
                 /* kill all the timers */
                 scrUntimeout(t0RecvSM, sc,t0rcTWorkWaiting);
                 break;
-            
+
             default:
                 INVALID_STATE_CMD(sc, sc->t0RecvS,cmd);
                 break;
-            
+
         }
 
 
 
         /* change state */
-        sc->t0RecvS = t0rsIdle;   
+        sc->t0RecvS = t0rsIdle;
         masterSM(sc,mcT0Recv);
 
         /* all done */
@@ -2191,7 +2191,7 @@ static void   t0RecvSM (struct scr_softc * sc,int cmd)
                     /* set initial values */
                     sc->t0RecvS = t0rsSendHeader;
                     sc->t0ByteParent = t0RecvSM;
-                    sc->commandCount = 0;   
+                    sc->commandCount = 0;
                     sc->dataCount = 0;
                     sc->dataMax = sc->pIoctlT0->command[CMD_BUF_DATA_LEN_OFF];
                     if (sc->dataMax == 0)
@@ -2270,12 +2270,12 @@ static void   t0RecvSM (struct scr_softc * sc,int cmd)
 
 #ifdef ORIGINAL_SW1_CODE /* XXX XXX XXX cgd */
                     /* see if we have a SW1 byte */
-                    else if ( ((sc->dataByte & 0xf0)  == 0x60) || ((sc->dataByte & 0xf0)  == 0x90)  
+                    else if ( ((sc->dataByte & 0xf0)  == 0x60) || ((sc->dataByte & 0xf0)  == 0x90)
                               &&
                               sc->dataByte != 0x60)
 #else /* XXX XXX XXX cgd */
                     /* see if we have a SW1 byte */
-                    else if ( ( ((sc->dataByte & 0xf0)  == 0x60) || ((sc->dataByte & 0xf0)  == 0x90) ) 
+                    else if ( ( ((sc->dataByte & 0xf0)  == 0x60) || ((sc->dataByte & 0xf0)  == 0x90) )
                               &&
                               sc->dataByte != 0x60)
 #endif /* XXX XXX XXX cgd */
@@ -2310,7 +2310,7 @@ static void   t0RecvSM (struct scr_softc * sc,int cmd)
                     /* clock in byte */
                     scrUntimeout(t0RecvSM, sc,t0rcTWorkWaiting);
                     sc->pIoctlT0->data[sc->dataCount] = sc->dataByte;
-                    sc->dataCount++;    
+                    sc->dataCount++;
 
 
                     if (sc->dataCount < sc->dataMax)
@@ -2325,7 +2325,7 @@ static void   t0RecvSM (struct scr_softc * sc,int cmd)
                         sc->t0RecvS = t0rsRecvSW1;
                     }
 
-                    // ask for another byte 
+                    // ask for another byte
                     scrTimeout(t0RecvSM,sc,t0rcTWorkWaiting,T_WORK_WAITING);
                     t0RecvByteSM(sc,t0rbcStart);
                     break;
@@ -2343,7 +2343,7 @@ static void   t0RecvSM (struct scr_softc * sc,int cmd)
                     /* clock in data */
                     scrUntimeout(t0RecvSM, sc,t0rcTWorkWaiting);
                     sc->pIoctlT0->data[sc->dataCount] = sc->dataByte;
-                    sc->dataCount++;    
+                    sc->dataCount++;
 
                     /* decide if we have all data */
                     if (sc->dataCount >= sc->dataMax)
@@ -2388,7 +2388,7 @@ static void   t0RecvSM (struct scr_softc * sc,int cmd)
                     scrUntimeout(t0RecvSM, sc,t0rcTWorkWaiting);
                     sc->pIoctlT0->sw2 = sc->dataByte;
 
-                    sc->t0RecvS = t0rsIdle; 
+                    sc->t0RecvS = t0rsIdle;
                     masterSM(sc,mcT0Recv);
                     break;
 
@@ -2411,7 +2411,7 @@ static void   t0RecvSM (struct scr_softc * sc,int cmd)
 **
 **      coldResetSM
 **
-**      This state machine switches on the power, clock and reset pins 
+**      This state machine switches on the power, clock and reset pins
 **      in the correct order/timing.
 **      It is a low level bit-bashing state machine.
 **
@@ -2419,11 +2419,11 @@ static void   t0RecvSM (struct scr_softc * sc,int cmd)
 **  FORMAL PARAMETERS:
 **
 **      sc      -  Pointer to the softc structure.
-**      cmd     -  command to this machine 
+**      cmd     -  command to this machine
 **
 **  IMPLICIT INPUTS:
 **
-**      sc->coldResetS     state of this machine 
+**      sc->coldResetS     state of this machine
 **
 **  IMPLICIT OUTPUTS:
 **
@@ -2435,12 +2435,12 @@ static void   t0RecvSM (struct scr_softc * sc,int cmd)
 **
 **  SIDE EFFECTS:
 **
-**      signals to card are on 
+**      signals to card are on
 **--
 */
 static void   coldResetSM(struct scr_softc * sc,int cmd)
 {
-    if (sc->bigTrouble) return;     // david,jim , remove this when dust settles 
+    if (sc->bigTrouble) return;     // david,jim , remove this when dust settles
 
     switch (sc->coldResetS)
     {
@@ -2464,7 +2464,7 @@ static void   coldResetSM(struct scr_softc * sc,int cmd)
             }
             break;
 
-        case    crsT2Wait:      
+        case    crsT2Wait:
             switch (cmd)
             {
                 case crcT2:
@@ -2473,7 +2473,7 @@ static void   coldResetSM(struct scr_softc * sc,int cmd)
 
                     /* tell master state machine that we are all done */
                     sc->coldResetS = crsIdle;
-                    masterSM(sc,mcColdReset);       
+                    masterSM(sc,mcColdReset);
                     break;
 
                 default:
@@ -2495,33 +2495,33 @@ static void   coldResetSM(struct scr_softc * sc,int cmd)
 **
 **      ATRSM
 **
-**      This is the Answer To Reset State Machine.  It is responsible 
+**      This is the Answer To Reset State Machine.  It is responsible
 **      for performing the Answer To Reset as specified in ISO 7816-3.
 **      It is mid level protocol state machine.
 **
-**      Once started, this machine is driven entirely via the 
+**      Once started, this machine is driven entirely via the
 **      FIQ/timeout structure.
 **
 **
 **      During the first byte, we have to check if the card is operating
-**      at full speed or half speed.  The first couple of bits are 
+**      at full speed or half speed.  The first couple of bits are
 **      checked to see if it is 1/2 speed, and if so, the clock is changed
 **      and the state adjustes
 **
 **      At the end of the first byte we have to determin the logic being
-**      used by the card, ie is it active high/low and msb/lsb.  
+**      used by the card, ie is it active high/low and msb/lsb.
 **
 **
 **  FORMAL PARAMETERS:
 **
 **      sc      -  Pointer to the softc structure.
-**      cmd     -  command to this machine 
+**      cmd     -  command to this machine
 **
 **  IMPLICIT INPUTS:
 **
-**      sc->pIoctlAtr->atr      data from card 
-**      sc->pIoctlT0->sw1       command status from card 
-**      sc->pIoctlT0->sw2       command status from card 
+**      sc->pIoctlAtr->atr      data from card
+**      sc->pIoctlT0->sw1       command status from card
+**      sc->pIoctlT0->sw2       command status from card
 **      sc->status              error status from this machine
 **
 **  IMPLICIT OUTPUTS:
@@ -2529,7 +2529,7 @@ static void   coldResetSM(struct scr_softc * sc,int cmd)
 **      sc->pIoctlOn->atrBuf    data from ATR sequence
 **      sc->pIoctlOn->atrLen    size of data from ATR sequence
 **      sc->status              error status from this machine
-**      
+**
 **
 **  FUNCTION VALUE:
 **
@@ -2545,14 +2545,14 @@ static void ATRSM (struct scr_softc * sc,int cmd)
     int lc;
     int tck;
 
-    if (sc->bigTrouble) return;     // david,jim , remove this when dust settles 
+    if (sc->bigTrouble) return;     // david,jim , remove this when dust settles
 
-    /* 
+    /*
     ** check for major failures that are common to most states
     */
     if (cmd == atrcT3            ||
         cmd == atrcTWorkWaiting  ||
-        cmd == gcT0RecvByteErr  
+        cmd == gcT0RecvByteErr
         )
     {
         switch(cmd)
@@ -2562,24 +2562,24 @@ static void ATRSM (struct scr_softc * sc,int cmd)
                 sc->status = ERROR_ATR_T3;
                 t0RecvByteSM(sc,t0rbcAbort);
                 break;
-            
+
             case atrcTWorkWaiting:
                 scrUntimeout (ATRSM,sc,atrcT3);
                 sc->status = ERROR_WORK_WAITING;
                 t0RecvByteSM(sc,t0rbcAbort);
                 break;
-            
+
             case gcT0RecvByteErr:
                 scrUntimeout (ATRSM,sc,atrcT3);
                 scrUntimeout (ATRSM,sc,atrcTWorkWaiting);
                 /* done set status, its already set */
                 break;
-            
+
             default:
                 INVALID_STATE_CMD(sc,sc->ATRS,cmd);
                 break;
         }
-      
+
         /* change state */
         sc->ATRS = atrsIdle;
         masterSM(sc,mcATR);
@@ -2611,7 +2611,7 @@ static void ATRSM (struct scr_softc * sc,int cmd)
             {
                 case gcT0RecvByte:
                     scrUntimeout(ATRSM,sc,atrcT3);
-                    sc->pIoctlOn->atrBuf[sc->pIoctlOn->atrLen] = sc->dataByte;  
+                    sc->pIoctlOn->atrBuf[sc->pIoctlOn->atrLen] = sc->dataByte;
                     sc->pIoctlOn->atrLen++;
                     if(sc->pIoctlOn->atrLen >= ATR_BUF_MAX)
                     {
@@ -2662,36 +2662,36 @@ static void ATRSM (struct scr_softc * sc,int cmd)
 
                         sc->atrTABCDx = 1;
                         sc->atrKCount = 1;
-    
+
                         /* if there are no TDx following set T0 protocol */
                         if (ISCLR(sc->atrY,ATR_Y_TD))
                         {
-                            sc->protocolType    = PROTOCOL_T0;      
+                            sc->protocolType    = PROTOCOL_T0;
                         }
-    
-    
+
+
                         if (sc->atrY)
                         {
-    
+
                             sc->ATRS = atrsTABCD;
                             scrTimeout(ATRSM,sc,atrcTWorkWaiting,T_WORK_WAITING);
                             t0RecvByteSM(sc,t0rbcStart);
                         }
-    
+
                         else if (sc->atrK)
                         {
                             sc->ATRS = atrsTK;
                             scrTimeout(ATRSM,sc,atrcTWorkWaiting,T_WORK_WAITING);
                             t0RecvByteSM(sc,t0rbcStart);
                         }
-    
+
                         else if (sc->protocolType != PROTOCOL_T0)
                         {
                             sc->ATRS = atrsTCK;
                             scrTimeout(ATRSM,sc,atrcTWorkWaiting,T_WORK_WAITING);
                             t0RecvByteSM(sc,t0rbcStart);
                         }
-    
+
                         else /* got all of ATR */
                         {
                             sc->ATRS = atrsIdle;
@@ -2738,22 +2738,22 @@ static void ATRSM (struct scr_softc * sc,int cmd)
                                     sc->status = ERROR_ATR_FI_INVALID;
                                     sc->Fi = Fi_DEFAULT;
                                 }
-    
+
                                 sc->Di = DI2Di[(sc->dataByte & 0x0f)];
                                 if (sc->Di == 0)
                                 {
                                     sc->status = ERROR_ATR_DI_INVALID;
                                     sc->Di = Di_DEFAULT;
                                 }
-    
+
                             }
                         }
-    
+
                         else if (sc->atrY & ATR_Y_TB)
                         {
                             sc->atrY &= ~ATR_Y_TB;
                         }
-    
+
                         else if (sc->atrY & ATR_Y_TC)
                         {
                             sc->atrY &= ~ATR_Y_TC;
@@ -2761,13 +2761,13 @@ static void ATRSM (struct scr_softc * sc,int cmd)
                             {
                                 sc->N = sc->dataByte;
                             }
-    
+
                             if (sc->atrTABCDx == 2)
                             {
                                 sc->Wi = sc->dataByte;
                             }
                         }
-    
+
                         else
                         {
                             ASSERT(sc->atrY & ATR_Y_TD);
@@ -2783,8 +2783,8 @@ static void ATRSM (struct scr_softc * sc,int cmd)
                             /* store protocols */
                             sc->protocolType = (1 << (sc->dataByte &0x0f));
                         }
-    
-    
+
+
                         /* see what we should do next */
                         if (sc->atrY)
                         {
@@ -2792,21 +2792,21 @@ static void ATRSM (struct scr_softc * sc,int cmd)
                             scrTimeout(ATRSM,sc,atrcTWorkWaiting,T_WORK_WAITING);
                             t0RecvByteSM(sc,t0rbcStart);
                         }
-    
+
                         else if (sc->atrK)
                         {
                             sc->ATRS = atrsTK;
                             scrTimeout(ATRSM,sc,atrcTWorkWaiting,T_WORK_WAITING);
                             t0RecvByteSM(sc,t0rbcStart);
                         }
-    
+
                         else if (sc->protocolType != PROTOCOL_T0)
                         {
                             sc->ATRS = atrsTCK;
                             scrTimeout(ATRSM,sc,atrcTWorkWaiting,T_WORK_WAITING);
                             t0RecvByteSM(sc,t0rbcStart);
                         }
-    
+
                         else /* got all of ATR */
                         {
                             sc->ATRS = atrsIdle;
@@ -2842,22 +2842,22 @@ static void ATRSM (struct scr_softc * sc,int cmd)
                     }
                     else
                     {
-    
+
                         if (sc->atrKCount < sc->atrK)
                         {
                             sc->atrKCount++;
                             scrTimeout(ATRSM,sc,atrcTWorkWaiting,T_WORK_WAITING);
                             t0RecvByteSM(sc,t0rbcStart);
                         }
-    
-    
+
+
                         else if (sc->protocolType != PROTOCOL_T0)
                         {
                             sc->ATRS = atrsTCK;
                             scrTimeout(ATRSM,sc,atrcTWorkWaiting,T_WORK_WAITING);
                             t0RecvByteSM(sc,t0rbcStart);
                         }
-    
+
                         else /* got all of ATR */
                         {
                             sc->ATRS = atrsIdle;
@@ -2896,7 +2896,7 @@ static void ATRSM (struct scr_softc * sc,int cmd)
                         {
                             tck ^= sc->pIoctlOn->atrBuf[lc];
                         }
-    
+
                         if (tck == sc->pIoctlOn->atrBuf[sc->pIoctlOn->atrLen-1])
                         {
                             sc->ATRS = atrsIdle;
@@ -2936,28 +2936,28 @@ static void ATRSM (struct scr_softc * sc,int cmd)
 **      This state machine attempts to read 1 byte from a card.
 **      It is a low level bit-bashing state machine.
 **
-**      Data from the card is async, so the machine scans at 
-**      5 times the data rate looking for a state bit.  Once 
-**      a start bit has been found, it waits for the middle of 
+**      Data from the card is async, so the machine scans at
+**      5 times the data rate looking for a state bit.  Once
+**      a start bit has been found, it waits for the middle of
 **      the bit and starts sampling at the bit rate.
 **
 **      Several mid level machines can use this machine, so the value
 **      sc->t0ByteParent is used to point to back to the mid level machine
-**      
+**
 **
 **  FORMAL PARAMETERS:
 **
 **      sc      -  Pointer to the softc structure.
-**      cmd     -  command to this machine 
+**      cmd     -  command to this machine
 **
 **  IMPLICIT INPUTS:
 **
-**      sc->t0RecvByteS     state of this machine 
+**      sc->t0RecvByteS     state of this machine
 **      sc->t0ByteParent    mid level machine that started this machine
 **
 **  IMPLICIT OUTPUTS:
 **
-**      sc->shiftByte       byte read from the card 
+**      sc->shiftByte       byte read from the card
 **      sc->status          error value if could not read byte
 **
 **  FUNCTION VALUE:
@@ -2971,7 +2971,7 @@ static void ATRSM (struct scr_softc * sc,int cmd)
 */
 static void   t0RecvByteSM(struct scr_softc* sc,int cmd)
 {
-    if (sc->bigTrouble) return;     // david,jim , remove this when dust settles 
+    if (sc->bigTrouble) return;     // david,jim , remove this when dust settles
 
     if (cmd == t0rbcAbort)
     {
@@ -2983,7 +2983,7 @@ static void   t0RecvByteSM(struct scr_softc* sc,int cmd)
         scrUntimeout(t0RecvByteSM, sc,t0rbcTErrorStop);
 
         scrSetDataHighZ();
-        sc->t0RecvByteS = t0rbsIdle; 
+        sc->t0RecvByteS = t0rbsIdle;
         return;
     }
 
@@ -2998,7 +2998,7 @@ static void   t0RecvByteSM(struct scr_softc* sc,int cmd)
                     sc->shiftBits   = 0;
                     sc->shiftByte   = 0;
                     sc->shiftParity = 0;
-                    sc->shiftParityCount = 0; 
+                    sc->shiftParityCount = 0;
                     scrClkAdj(sc->clkCountStartRecv); /* recv data clock running at 5 times */
 
                     /* check if start bit is already here */
@@ -3038,7 +3038,7 @@ static void   t0RecvByteSM(struct scr_softc* sc,int cmd)
                     else
                     {
                         /* found start bit, look for mid bit */
-                        scrTimeout(t0RecvByteSM,sc,t0rbcTFindStartMid,sc->clkCountStartRecv * 2); 
+                        scrTimeout(t0RecvByteSM,sc,t0rbcTFindStartMid,sc->clkCountStartRecv * 2);
                         sc->t0RecvByteS = t0rbsFindStartMid;
                     }
                     break;
@@ -3077,14 +3077,14 @@ static void   t0RecvByteSM(struct scr_softc* sc,int cmd)
             break;
 
 
-        case    t0rbsClockData:     
+        case    t0rbsClockData:
             TOGGLE_TEST_PIN();
             switch (cmd)
             {
                 case t0rbcTClockData:
                     if (sc->shiftBits < 8)
                     {
-                        if (sc->convention == CONVENTION_INVERSE || 
+                        if (sc->convention == CONVENTION_INVERSE ||
                             sc->convention == CONVENTION_UNKOWN)
                         {
                             /* logic 1 is low, msb is first */
@@ -3119,9 +3119,9 @@ static void   t0RecvByteSM(struct scr_softc* sc,int cmd)
                         {
                             /* adjust counts down to 1/2 freq */
                             sc->cardFreq        = CARD_FREQ_DEF / 2;
-                            sc->clkCountStartRecv   = sc->clkCountStartRecv *2; 
-                            sc->clkCountDataRecv    = sc->clkCountDataRecv  *2;  
-                            sc->clkCountDataSend    = sc->clkCountDataSend  *2;  
+                            sc->clkCountStartRecv   = sc->clkCountStartRecv *2;
+                            sc->clkCountDataRecv    = sc->clkCountDataRecv  *2;
+                            sc->clkCountDataSend    = sc->clkCountDataSend  *2;
 
 
                             /* adjust this so that we have clocked in only fist bit of TS */
@@ -3220,7 +3220,7 @@ static void   t0RecvByteSM(struct scr_softc* sc,int cmd)
             break;
 
 
-        case    t0rbsSendError:     
+        case    t0rbsSendError:
             TOGGLE_TEST_PIN();
             switch (cmd)
             {
@@ -3271,12 +3271,12 @@ static void   t0RecvByteSM(struct scr_softc* sc,int cmd)
 **  FORMAL PARAMETERS:
 **
 **      sc      -  Pointer to the softc structure.
-**      cmd     -  command to this machine 
+**      cmd     -  command to this machine
 **
 **  IMPLICIT INPUTS:
 **
-**      sc->t0SendByteS     state of this machine 
-**      sc->shiftByte       byte to write to the card 
+**      sc->t0SendByteS     state of this machine
+**      sc->shiftByte       byte to write to the card
 **
 **  IMPLICIT OUTPUTS:
 **
@@ -3301,8 +3301,8 @@ static void t0SendByteSM (struct scr_softc * sc,int cmd)
     //}
     //
     //bigTroubleTest++;
-    
-    if (sc->bigTrouble) return;     // david,jim , remove this when dust settles 
+
+    if (sc->bigTrouble) return;     // david,jim , remove this when dust settles
 
     if (cmd == t0sbcAbort)
     {
@@ -3357,7 +3357,7 @@ static void t0SendByteSM (struct scr_softc * sc,int cmd)
         case t0sbsWaitGuardTime:
             switch (cmd)
             {
-                case t0sbcTGuardTime: 
+                case t0sbcTGuardTime:
                     TOGGLE_TEST_PIN();
                     /*  set start bit */
                     scrTimeout(t0SendByteSM,sc,t0sbcTClockData,sc->clkCountDataSend);
@@ -3375,7 +3375,7 @@ static void t0SendByteSM (struct scr_softc * sc,int cmd)
         case t0sbsClockData:
             switch (cmd)
             {
-                case t0sbcTClockData: 
+                case t0sbcTClockData:
                     TOGGLE_TEST_PIN();
                     /* clock out data bit */
                     if (sc->shiftBits < 8)
@@ -3446,7 +3446,7 @@ static void t0SendByteSM (struct scr_softc * sc,int cmd)
         case t0sbsWaitError:
             switch (cmd)
             {
-                case t0sbcTError: 
+                case t0sbcTError:
                     /* no error indicated*/
                     if (scrGetData())
                     {
@@ -3570,7 +3570,7 @@ static void   cardOff  (struct scr_softc * sc)
 **
 **      scrClkInit
 **
-**      Init the callout queues.  The callout queues are used 
+**      Init the callout queues.  The callout queues are used
 **      by the timeout/untimeout queues
 **
 **  FORMAL PARAMETERS:
@@ -3622,9 +3622,9 @@ static void scrClkInit(void)
 **
 **      scrClkStart
 **
-**      This function starts the clock running.  The clock is reall the 
+**      This function starts the clock running.  The clock is reall the
 **      HAT clock (High Available Timer) that is using a FIQ (fast interrupt
-**      request).   
+**      request).
 **
 **  FORMAL PARAMETERS:
 **
@@ -3650,11 +3650,11 @@ static void scrClkInit(void)
 */
 static void scrClkStart(struct scr_softc * sc,int countPerTick)
 {
-    u_int savedInts; 
+    u_int savedInts;
 
     savedInts = disable_interrupts(I32_bit | F32_bit);
 
-    
+
 
     ASSERT(scrClkCallTodo.c_next == NULL);
     ASSERT(!scrClkEnable);
@@ -3700,8 +3700,8 @@ static void scrClkStart(struct scr_softc * sc,int countPerTick)
 **--
 */
 static void scrClkAdj (int count)
-{   
-    u_int savedInts; 
+{
+    u_int savedInts;
 
     if (count != scrClkCount)
     {
@@ -3727,7 +3727,7 @@ static void scrClkAdj (int count)
 **  FORMAL PARAMETERS:
 **
 **      nill
-**      
+**
 **
 **  IMPLICIT INPUTS:
 **
@@ -3748,7 +3748,7 @@ static void scrClkAdj (int count)
 */
 static void scrClkStop(void)
 {
-    u_int savedInts; 
+    u_int savedInts;
     savedInts = disable_interrupts(I32_bit | F32_bit);
 
     ASSERT(scrClkEnable);
@@ -3768,15 +3768,15 @@ static void scrClkStop(void)
 **      hatClkIrq
 **
 **      This is what the HAT clock calls.   This call drives
-**      the timeout queues, which in turn drive the state machines 
-**      
+**      the timeout queues, which in turn drive the state machines
+**
 **      Be very carefully when calling a timeout as the function
-**      that is called may in turn do timeout/untimeout calls 
-**      before returning 
+**      that is called may in turn do timeout/untimeout calls
+**      before returning
 **
 **  FORMAL PARAMETERS:
 **
-**      int x       - not used 
+**      int x       - not used
 **
 **  IMPLICIT INPUTS:
 **
@@ -3871,7 +3871,7 @@ static void myHatWedge(int nFIQs)
 {
     #ifdef DEBUG
         printf("myHatWedge: nFIQ = %d\n",nFIQs);
-    #endif    
+    #endif
 }
 
 
@@ -4054,7 +4054,7 @@ int arg;
 **  FORMAL PARAMETERS:
 **
 **      sc      - pointer to soft c
-**      state   - state of machine 
+**      state   - state of machine
 **      cmd     - command of machine
 **      line    - line that problem was detected
 **
@@ -4194,10 +4194,10 @@ char * getText(int x)
 
             /* states in in TO Recv Byte state machine */
         case    t0rbsIdle:          return "t0rbsIdle";
-        case    t0rbsFindStartEdge: return "t0rbcFindStartEdge";    
-        case    t0rbsFindStartMid:  return "t0rbcFindStartMid"; 
-        case    t0rbsClockData:     return "t0rbcClockData";    
-        case    t0rbsSendError:     return "t0rbcSendError";    
+        case    t0rbsFindStartEdge: return "t0rbcFindStartEdge";
+        case    t0rbsFindStartMid:  return "t0rbcFindStartMid";
+        case    t0rbsClockData:     return "t0rbcClockData";
+        case    t0rbsSendError:     return "t0rbcSendError";
 
 
             /* commands to T0 Send Byte  state machine */

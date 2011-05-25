@@ -142,13 +142,13 @@ struct fd_softc {
 	int	seekRetries;
 	int	sectRetries;
 	int	verifyRetries;
-	
+
 /* hardware info */
 	int	drvFlags;		/* Copy of drive flags */
 	short   stepDirection;		/* Current step direction */
 	diskPosition_t pos;		/* Physical position on disk */
-	
-	
+
+
 /* drive info */
 	short	unit;			/* Drive # as seen by IWM */
 	short	partition;		/* "Partition" info {a,b,c,...} */
@@ -194,8 +194,8 @@ typedef struct iwm_softc iwm_softc_t;
  **     Exported functions
  **/
 
-/* 
- * IWM Loadable Kernel Module : Exported functions 
+/*
+ * IWM Loadable Kernel Module : Exported functions
  */
 #ifdef _LKM
 int	fdModInit __P((void));
@@ -225,7 +225,7 @@ int	iwmSelectSide __P((int32_t side));
 int	iwmTrack00 __P((void));
 int	iwmSeek __P((int32_t steps));
 
-int     iwmReadSector __P((sectorHdr_t *hdr, cylCacheSlot_t *r_slots, 
+int     iwmReadSector __P((sectorHdr_t *hdr, cylCacheSlot_t *r_slots,
 			   caddr_t buf));
 int	iwmWriteSector __P((sectorHdr_t *hdr, cylCacheSlot_t *w_slots));
 

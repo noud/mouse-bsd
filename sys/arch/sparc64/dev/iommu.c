@@ -127,13 +127,13 @@ iommu_init(name, is, tsbsize)
 	 * but I don't want to get into that sort of cruft.
 	 *
 	 * First we need to allocate a IOTSB.  Problem is that the IOMMU
-	 * can only access the IOTSB by physical address, so all the 
+	 * can only access the IOTSB by physical address, so all the
 	 * pages must be contiguous.  Luckily, the smallest IOTSB size
 	 * is one 8K page.
 	 */
 	if (tsbsize != 0)
 		panic("tsbsize != 0; FIX ME");	/* XXX */
-	
+
 	/* we want 8K pages */
 	is->is_cr = IOMMUCR_8KPG | IOMMUCR_EN;
 	/*
@@ -202,7 +202,7 @@ iommu_reset(is)
 }
 
 /*
- * Here are the iommu control routines. 
+ * Here are the iommu control routines.
  */
 void
 iommu_enter(is, va, pa, flags)
@@ -218,25 +218,25 @@ iommu_enter(is, va, pa, flags)
 		panic("sbus_enter: va 0x%lx not in DVMA space",va);
 #endif
 
-	tte = MAKEIOTTE(pa, !(flags&BUS_DMA_NOWRITE), !(flags&BUS_DMA_NOCACHE), 
+	tte = MAKEIOTTE(pa, !(flags&BUS_DMA_NOWRITE), !(flags&BUS_DMA_NOCACHE),
 			!(flags&BUS_DMA_COHERENT));
-	
+
 	/* Is the streamcache flush really needed? */
 	bus_space_write_8(is->is_bustag, &is->is_sb->strbuf_pgflush,
 			  0, va);
 	iommu_flush(is);
 #ifdef DEBUG
 	if (iommudebug & IDB_DVMA)
-		printf("Clearing TSB slot %d for va %p\n", 
+		printf("Clearing TSB slot %d for va %p\n",
 		       (int)IOTSBSLOT(va,is->is_tsbsize), va);
 #endif
 	is->is_tsb[IOTSBSLOT(va,is->is_tsbsize)] = tte;
-	bus_space_write_8(is->is_bustag, &is->is_iommu->iommu_flush, 
+	bus_space_write_8(is->is_bustag, &is->is_iommu->iommu_flush,
 			  0, va);
 #ifdef DEBUG
 	if (iommudebug & IDB_DVMA)
 		printf("sbus_enter: va %lx pa %lx TSB[%lx]@%p=%lx\n",
-		       va, (long)pa, IOTSBSLOT(va,is->is_tsbsize), 
+		       va, (long)pa, IOTSBSLOT(va,is->is_tsbsize),
 		       &is->is_tsb[IOTSBSLOT(va,is->is_tsbsize)],
 		       (long)tte);
 #endif
@@ -258,9 +258,9 @@ iommu_remove(is, va, len)
 	if (va < is->is_dvmabase)
 		panic("sbus_remove: va 0x%lx not in DVMA space", (long)va);
 	if ((long)(va + len) < (long)va)
-		panic("sbus_remove: va 0x%lx + len 0x%lx wraps", 
+		panic("sbus_remove: va 0x%lx + len 0x%lx wraps",
 		      (long) va, (long) len);
-	if (len & ~0xfffffff) 
+	if (len & ~0xfffffff)
 		panic("sbus_remove: rediculous len 0x%lx", (long)len);
 #endif
 
@@ -269,7 +269,7 @@ iommu_remove(is, va, len)
 
 		/*
 		 * Streaming buffer flushes:
-		 * 
+		 *
 		 *   1 Tell strbuf to flush by storing va to strbuf_pgflush
 		 * If we're not on a cache line boundary (64-bits):
 		 *   2 Store 0 in flag
@@ -280,10 +280,10 @@ iommu_remove(is, va, len)
 		 */
 #ifdef DEBUG
 		if (iommudebug & IDB_DVMA)
-			printf("sbus_remove: flushing va %p TSB[%lx]@%p=%lx, %lu bytes left\n", 	       
-			       (long)va, (long)IOTSBSLOT(va,is->is_tsbsize), 
+			printf("sbus_remove: flushing va %p TSB[%lx]@%p=%lx, %lu bytes left\n",
+			       (long)va, (long)IOTSBSLOT(va,is->is_tsbsize),
 			       (long)&is->is_tsb[IOTSBSLOT(va,is->is_tsbsize)],
-			       (long)(is->is_tsb[IOTSBSLOT(va,is->is_tsbsize)]), 
+			       (long)(is->is_tsb[IOTSBSLOT(va,is->is_tsbsize)]),
 			       (u_long)len);
 #endif
 		bus_space_write_8(is->is_bustag, &is->is_sb->strbuf_pgflush, 0, va);
@@ -293,10 +293,10 @@ iommu_remove(is, va, len)
 		} else len -= NBPG;
 #ifdef DEBUG
 		if (iommudebug & IDB_DVMA)
-			printf("sbus_remove: flushed va %p TSB[%lx]@%p=%lx, %lu bytes left\n", 	       
-			       (long)va, (long)IOTSBSLOT(va,is->is_tsbsize), 
+			printf("sbus_remove: flushed va %p TSB[%lx]@%p=%lx, %lu bytes left\n",
+			       (long)va, (long)IOTSBSLOT(va,is->is_tsbsize),
 			       (long)&is->is_tsb[IOTSBSLOT(va,is->is_tsbsize)],
-			       (long)(is->is_tsb[IOTSBSLOT(va,is->is_tsbsize)]), 
+			       (long)(is->is_tsb[IOTSBSLOT(va,is->is_tsbsize)]),
 			       (u_long)len);
 #endif
 		is->is_tsb[IOTSBSLOT(va,is->is_tsbsize)] = 0;
@@ -305,7 +305,7 @@ iommu_remove(is, va, len)
 	}
 }
 
-int 
+int
 iommu_flush(is)
 	struct iommu_state *is;
 {
@@ -327,26 +327,26 @@ iommu_flush(is)
 	bus_space_write_8(is->is_bustag, &is->is_sb->strbuf_flushsync, 0, is->is_flushpa);
 	membar_sync();
 
-	microtime(&flushtimeout); 
+	microtime(&flushtimeout);
 	cur = flushtimeout;
 	BUMPTIME(&flushtimeout, 500000); /* 1/2 sec */
-	
+
 #ifdef DEBUG
 	if (iommudebug & IDB_DVMA)
-		printf("sbus_flush: flush = %lx at va = %lx pa = %lx now=%lx:%lx until = %lx:%lx\n", 
-		       (long)is->is_flush, (long)&is->is_flush, 
-		       (long)is->is_flushpa, cur.tv_sec, cur.tv_usec, 
+		printf("sbus_flush: flush = %lx at va = %lx pa = %lx now=%lx:%lx until = %lx:%lx\n",
+		       (long)is->is_flush, (long)&is->is_flush,
+		       (long)is->is_flushpa, cur.tv_sec, cur.tv_usec,
 		       flushtimeout.tv_sec, flushtimeout.tv_usec);
 #endif
 	/* Bypass non-coherent D$ */
-	while (!ldxa(is->is_flushpa, ASI_PHYS_CACHED) && 
-	       ((cur.tv_sec <= flushtimeout.tv_sec) && 
+	while (!ldxa(is->is_flushpa, ASI_PHYS_CACHED) &&
+	       ((cur.tv_sec <= flushtimeout.tv_sec) &&
 		(cur.tv_usec <= flushtimeout.tv_usec)))
 		microtime(&cur);
 
 #ifdef DIAGNOSTIC
 	if (!is->is_flush) {
-		printf("sbus_flush: flush timeout %p at %p\n", (long)is->is_flush, 
+		printf("sbus_flush: flush timeout %p at %p\n", (long)is->is_flush,
 		       (long)is->is_flushpa); /* panic? */
 #ifdef DDB
 		Debugger();

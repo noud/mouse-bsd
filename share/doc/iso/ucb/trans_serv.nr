@@ -8,10 +8,10 @@ set of system calls and library routines that
 compose the
 Berkeley
 Unix interprocess communication service (IPC).
-To every extent possible 
+To every extent possible
 the ARGO transport service is provided by the same IPC mechanisms
 that support
-the transport-level services 
+the transport-level services
 included in the
 AOS distribution.
 In some instances, the interface
@@ -20,7 +20,7 @@ the services required by ISO 8073,
 so system calls were added to support these services.
 It is felt that this is superior to modifying
 existing system calls, in order to avoid the
-recoding of existing Unix utilities. 
+recoding of existing Unix utilities.
 .pp
 What follows is a description of the system calls
 that are used to provide the transport service.
@@ -42,14 +42,14 @@ Establishing a TP connection is similar to
 establishing a connection using any other
 transport protocol supported by Unix.
 The same system calls are used, and the passive open
-is required.  
-Some of the parameters to the system calls differ. 
+is required.
+Some of the parameters to the system calls differ.
 .pp
 The following call creates a communication endpoint called a
 \fIsocket\fR.
 It returns
 a positive integer called a
-\fIsocket descriptor\fR, 
+\fIsocket descriptor\fR,
 which
 will be a parameter in all communication primitives.
 .(b
@@ -67,11 +67,11 @@ l l l.
 .pp
 The \fIaf\fR parameter describes the format of addresses
 used in this communication.
-Existing formats include AF_INET (DoD Internet addresses), 
+Existing formats include AF_INET (DoD Internet addresses),
 AF_PUP (Xerox PUP-I Internet addresses), and AF_UNIX
 (addresses are Unix file names, for intra-machine IPC only).
 TP runs in either the Internet domain or the ISO domain (AF_ISO).
-When using the Internet domain, the network layer is the DoD Internet IP 
+When using the Internet domain, the network layer is the DoD Internet IP
 with Internet-style addresses. The ISO domain uses the ISO
 network service and ISO-style addresses\**.
 .(f
@@ -188,7 +188,7 @@ l l l l.
 .)b
 .pp
 The \fItype\fR parameter in the \fIsocket()\fR call
-distinguishes 
+distinguishes
 datagram protocols, stream protocols, sequenced
 packet protocols, reliable datagram protocols, and
 "raw" protocols (in other words, the absence of a transport protocol).
@@ -210,7 +210,7 @@ The standard Internet database tools that serve TCP users
 can
 also serve user of TP
 in the Internet domain, if the TP protocol number is added to the
-proper Internet database file, 
+proper Internet database file,
 \fC/etc/protocols\fR.
 This change must be made for TP to run in either the Internet or
 in the ISO domain.
@@ -221,7 +221,7 @@ This set of tools is described in the manual pages
 \fIisodir(3)\fR.
 .pp
 When a socket is created, it is not given an address.
-Since a socket cannot be reached by a remote entity unless it has an address, 
+Since a socket cannot be reached by a remote entity unless it has an address,
 the user must request that a socket be given an address by
 using the \fIbind()\fR system call:
 .(b
@@ -242,9 +242,9 @@ l l l.
 The address is expected to be in the format specified by the
 \fIaf\fR parameter to the \fIsocket()\fR
 call that yielded the socket descriptor \fIs\fR.
-If the user 
+If the user
 passes an address parameter with a zero-valued transport suffix,
-the transport layer 
+the transport layer
 assigns an unused 2-byte transport selector.
 This is a 4.3 Unix convention; it is not part of any ISO standard.
 .pp
@@ -292,7 +292,7 @@ The \fIqueuelen\fR argument specifies the maximum
 number of pending connection
 requests that will be queued for acceptance by this user.
 Connections are then accepted by the
-system call \fIaccept()\fR.  
+system call \fIaccept()\fR.
 There is no way to refuse connections.
 The functional equivalent of connection
 refusal is accomplished by accepting a connection and immediately
@@ -341,13 +341,13 @@ In order to prevent this problem from occurring, the caller must
 prevent the issuance of asynchronous indications until the
 \fIaccept()\fR
 call has returned.
-Asynchronous indications are discussed below, in 
+Asynchronous indications are discussed below, in
 the section titled
 "Indications from the transport layer to the transport user".
 .pp
-It is possible to discover the 
-address bound to a 
-socket with the 
+It is possible to discover the
+address bound to a
+socket with the
 \fIgetsockname()\fR system call.
 .(b
 \fC
@@ -383,18 +383,18 @@ l l l.
 \fR
 .)b
 .lp
-The names returned by 
-\fIgetsockname()\fR and \fIgetpeername()\fR 
+The names returned by
+\fIgetsockname()\fR and \fIgetpeername()\fR
 do not contain extended TSELs.
-Extended TSELs can be retrieved with 
-the \fIgetsockopt()\fR and 
+Extended TSELs can be retrieved with
+the \fIgetsockopt()\fR and
 \fIsetsockopt()\fR system calls, described below.
 .pp
 Unix supports several protocol-independent options
 and protocol-specific options
 associated with sockets.
 These options can be inspected and changed by using
-the \fIgetsockopt()\fR and 
+the \fIgetsockopt()\fR and
 \fIsetsockopt()\fR system calls.
 .(b
 \fC
@@ -434,7 +434,7 @@ are possible values for the \fIlevel\fR argument.
 The \fIoption\fR argument is an integer that identifies
 the option chosen.
 .\" LIST THE OPTIONS HERE
-The options available to TP users provide the 
+The options available to TP users provide the
 user with the ability to control various TP protocol options
 including but not limited to
 TP class, TPDU size negotiated, TPDU format used,
@@ -447,13 +447,13 @@ of length 1 byte - 64 bytes for sockets bound to addresses in the
 AF_ISO address family.
 The ARGO user program uses the
 \fIgetsockopt()\fR
-and 
+and
 \fIsetsockopt()\fR
-system calls to 
+system calls to
 discover and assign extended TSELs.
 .pp
 To create a socket with an extended TSEL,
-the process 
+the process
 .ip \(bu 5
 opens a socket with \fCsocket(AF_ISO, SOCK_SEQPACKET, ISOPROTO_TP)\fR
 .ip \(bu 5
@@ -468,24 +468,24 @@ to use the socket as desired.
 .lp
 To connect to a transport entity that is bound to a TSAP-address with
 an extended TSEL, the
-process 
+process
 .ip \(bu 5
 opens a socket with \fCsocket(AF_ISO, SOCK_SEQPACKET, ISOPROTO_TP)\fR
 .ip \(bu 5
 uses \fIsetsockopt()\fR, with the command TPOPT_PEER_TSEL,
 to assign a PEER TSEL to the socket.
-This TSEL is used by the transport entity 
-for all subsequent connect requests made on this socket, 
+This TSEL is used by the transport entity
+for all subsequent connect requests made on this socket,
 unless the peer TSEL is changed by another call to
 \fIsetsockopt()\fR employing the command TPOPT_PEER_TSEL.
 .lp
 To discover the TSEL of the peer of a connected socket,
-the process 
+the process
 .ip \(bu 5
 uses \fIgetsockopt()\fR with the command TPOPT_PEER_TSEL.
 .lp
 To discover the TSEL of socket's own address,
-the process 
+the process
 .ip \(bu 5
 uses \fIgetsockopt()\fR with the command TPOPT_MY_TSEL.
 .sh 1 "Data transfer"
@@ -501,22 +501,22 @@ A signal is the mechanism used to indicate
 the presence of expedited data or out-of-band data.
 If the send primitive as interrupted before completion,
 the user could not determine how many octets of data were sent.
-All forms of the existing interface 
-(\fIsend()\fR, 
-\fIrecv()\fR, 
-\fIsendmsg()\fR, 
-\fIrecvmsg()\fR, 
-\fIsendto()\fR, 
-\fIrecvfrom()\fR, 
-\fIwrite()\fR, 
-\fIread\fR, 
-\fIwritev()\fR, 
+All forms of the existing interface
+(\fIsend()\fR,
+\fIrecv()\fR,
+\fIsendmsg()\fR,
+\fIrecvmsg()\fR,
+\fIsendto()\fR,
+\fIrecvfrom()\fR,
+\fIwrite()\fR,
+\fIread\fR,
+\fIwritev()\fR,
 and \fIreadv()\fR system calls)
 return an octet count
 when the system call completes, and to return a short count
-if the system call is interrupted. 
+if the system call is interrupted.
 .pp
-The system calls sendmsg and recvmsg 
+The system calls sendmsg and recvmsg
 have been revised to make them more convenient for receipt of
 out of band data.
 .(b
@@ -557,11 +557,11 @@ The TP specification requires that TSDUs be unlimited in size.
 System calls cannot pass unlimited amounts of data between the user
 and the kernel, so
 there cannot be a one-to-one correspondence between TSDUs and
-system calls. 
+system calls.
 The \fIflags\fR
 parameter is used to mark the end-of-TSDU on sending data.
-When receiving, 
-TP sets this bit 
+When receiving,
+TP sets this bit
 in the flags element of the msghdr structure
 when the end of a TSDU is consumed.
 This way one TSDU can span several system calls.
@@ -576,7 +576,7 @@ DoD Internet protocols.  It is also used to provide the expedited data service
 of the ISO protocols.
 The transport layer will deliver one expedited datum (there will be a
 one-to-one correspondence between expedited TSDUs and XPD TPDUs)
-at a time.  
+at a time.
 The user must receive the datum before the transport
 layer will accept more expedited data.
 Each expedited datum my contain up to 16 octets.
@@ -605,7 +605,7 @@ connections associated with the process will be disconnected.
 .sh 1 "Indications from the transport layer to the transport user"
 .pp
 The above set of system calls allows you to establish
-a connection, transfer data, and disconnect. 
+a connection, transfer data, and disconnect.
 The
 presence or reception of expedited data is indicated
 by TP setting the MSG_OOB bit in the flags element of the msg structure.
@@ -635,9 +635,9 @@ l l l.
 .)b
 .pp
 The \fIsignal_number\fR argument will be the well-known constant SIGURG.
-There are two reasons for 
+There are two reasons for
 the transport layer to issue
-a SIGURG:  
+a SIGURG:
 expedited data
 are present or
 disconnection was initiated by a transport entity or by the peer.
@@ -667,7 +667,7 @@ tab(+);
 l s s s.
 #include <sys/types.h>
 +
-nfound = select( num_to_scan, recvmask, sendmask, 
+nfound = select( num_to_scan, recvmask, sendmask,
 +exceptmask, timeout )
 .T&
 l l l.
@@ -678,7 +678,7 @@ l l l.
 \fR
 .)b
 .pp
-This system call takes as parameters a set of masks 
+This system call takes as parameters a set of masks
 that specify a subset of the socket descriptors that are in
 use by the user program.
 \fISelect()\fR inspects the sockets to see if they have data

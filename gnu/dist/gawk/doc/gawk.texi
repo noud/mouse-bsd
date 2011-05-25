@@ -140,7 +140,7 @@ Registered Trademark of Paramount Pictures Corporation. @*
 @sp 3
 Copyright @copyright{} 1989, 1991, 92, 93, 96, 97 Free Software Foundation, Inc.
 @sp 2
-        
+
 This is Edition @value{EDITION} of @cite{@value{TITLE}}, @*
 for the @value{VERSION}.@value{PATCHLEVEL} (or later) version of the GNU implementation of AWK.
 
@@ -239,7 +239,7 @@ of AWK.
                                 expressions.
 * Reading Files::               How to read files and manipulate fields.
 * Printing::                    How to print using @code{awk}.  Describes the
-                                @code{print} and @code{printf} statements.  
+                                @code{print} and @code{printf} statements.
                                 Also describes redirection of output.
 * Expressions::                 Expressions are the basic building blocks of
                                 statements.
@@ -838,7 +838,7 @@ languages
 * This Manual::                 Using this @value{DOCUMENT}. Includes sample
                                 input files that you can use.
 * Conventions::                 Typographical Conventions.
-* Sample Data Files::           Sample data files for use in the @code{awk} 
+* Sample Data Files::           Sample data files for use in the @code{awk}
                                 programs illustrated in this @value{DOCUMENT}.
 @end menu
 
@@ -878,7 +878,7 @@ The term @dfn{@code{awk} program} refers to a program written by you in
 the @code{awk} programming language.
 
 @xref{Getting Started, ,Getting Started with @code{awk}}, for the bare
-essentials you need to know to start using @code{awk}.  
+essentials you need to know to start using @code{awk}.
 
 Some useful ``one-liners'' are included to give you a feel for the
 @code{awk} language (@pxref{One-liners, ,Useful One Line Programs}).
@@ -1015,7 +1015,7 @@ sabafoo      555-2127     1200/300          C
 
 @cindex @file{inventory-shipped} file
 The second data file, called @file{inventory-shipped}, represents
-information about shipments during the year.  
+information about shipments during the year.
 Each record contains the month of the year, the number
 of green crates shipped, the number of red boxes shipped, the number of
 orange bags shipped, and the number of blue packages shipped,
@@ -1657,7 +1657,7 @@ However, @code{gawk} will ignore newlines after any of the following:
 @noindent
 A newline at any other point is considered the end of the statement.
 (Splitting lines after @samp{?} and @samp{:} is a minor @code{gawk}
-extension.  The @samp{?} and @samp{:} referred to here is the 
+extension.  The @samp{?} and @samp{:} referred to here is the
 three operand conditional expression described in
 @ref{Conditional Exp, ,Conditional Expressions}.)
 
@@ -1786,7 +1786,7 @@ utility programs, advanced patterns, field separators, arithmetic
 statements, and other selection criteria, you can produce much more
 complex output.  The @code{awk} language is very useful for producing
 reports from large amounts of raw data, such as summarizing information
-from the output of other utility programs like @code{ls}.  
+from the output of other utility programs like @code{ls}.
 (@xref{More Complex, ,A More Complex Example}.)
 
 Programs written with @code{awk} are usually much smaller than they would
@@ -2325,7 +2325,7 @@ traditional @code{egrep} utility.
 @cindex POSIX @code{awk}
 @dfn{Character classes} are a new feature introduced in the POSIX standard.
 A character class is a special notation for describing
-lists of characters that have a specific attribute, but where the 
+lists of characters that have a specific attribute, but where the
 actual characters themselves can vary from country to country and/or
 from character set to character set.  For example, the notion of what
 is an alphabetic character differs in the USA and in France.
@@ -3106,9 +3106,9 @@ with optional leading and/or trailing white space
 $ echo record 1 AAAA record 2 BBBB record 3 |
 > gawk 'BEGIN @{ RS = "\n|( *[[:upper:]]+ *)" @}
 >             @{ print "Record =", $0, "and RT =", RT @}'
-@print{} Record = record 1 and RT =  AAAA 
-@print{} Record = record 2 and RT =  BBBB 
-@print{} Record = record 3 and RT = 
+@print{} Record = record 1 and RT =  AAAA
+@print{} Record = record 2 and RT =  BBBB
+@print{} Record = record 3 and RT =
 @print{}
 @end example
 
@@ -3311,7 +3311,7 @@ $ awk '@{ $3 = $2 - 10; print $2, $3 @}' inventory-shipped
 The @samp{-} sign represents subtraction, so this program reassigns
 field three, @code{$3}, to be the value of field two minus ten,
 @samp{$2 - 10}.  (@xref{Arithmetic Ops, ,Arithmetic Operators}.)
-Then field two, and the new value for field three, are printed.  
+Then field two, and the new value for field three, are printed.
 
 In order for this to work, the text in field @code{$2} must make sense
 as a number; the string of characters must be converted to a number in
@@ -3425,7 +3425,7 @@ after the new value of @code{NF}, and @code{$0} will be recomputed.
 Here is an example:
 
 @example
-$ echo a b c d e f | ../gawk '@{ print "NF =", NF; 
+$ echo a b c d e f | ../gawk '@{ print "NF =", NF;
 >                               NF = 3; print $0 @}'
 @print{} NF = 6
 @print{} a b c
@@ -3642,7 +3642,7 @@ Here is an example:
 @example
 @group
 $ echo a b | gawk 'BEGIN @{ FS = "" @}
->                  @{ 
+>                  @{
 >                      for (i = 1; i <= NF; i = i + 1)
 >                          print "Field", i, "is", $i
 >                  @}'
@@ -3688,7 +3688,7 @@ appropriately.  For example, to use a @samp{\} as the field separator, you
 would have to type:
 
 @example
-# same as FS = "\\" 
+# same as FS = "\\"
 awk -F\\\\ '@dots{}' files @dots{}
 @end example
 
@@ -3876,15 +3876,15 @@ to illustrate the use of @code{FIELDWIDTHS}.
 @group
  10:06pm  up 21 days, 14:04,  23 users
 User     tty       login@  idle   JCPU   PCPU  what
-hzuo     ttyV0     8:58pm            9      5  vi p24.tex 
-hzang    ttyV3     6:37pm    50                -csh 
-eklye    ttyV5     9:53pm            7      1  em thes.tex 
-dportein ttyV6     8:17pm  1:47                -csh 
-gierd    ttyD3    10:00pm     1                elm 
-dave     ttyD4     9:47pm            4      4  w 
-brent    ttyp0    26Jun91  4:46  26:46   4:41  bash 
+hzuo     ttyV0     8:58pm            9      5  vi p24.tex
+hzang    ttyV3     6:37pm    50                -csh
+eklye    ttyV5     9:53pm            7      1  em thes.tex
+dportein ttyV6     8:17pm  1:47                -csh
+gierd    ttyD3    10:00pm     1                elm
+dave     ttyD4     9:47pm            4      4  w
+brent    ttyp0    26Jun91  4:46  26:46   4:41  bash
 dave     ttyq4    26Jun9115days     46     46  wnewmail
-@end group 
+@end group
 @end example
 
 The following program takes the above input, converts the idle time to
@@ -3906,7 +3906,7 @@ NR > 2 @{
     @}
     if (idle ~ /days/)
         idle *= 24 * 60 * 60
- 
+
     print $1, $2, idle
 @}
 @end group
@@ -4061,13 +4061,13 @@ $ awk -f addrs.awk addresses
 @print{} Name is: Jane Doe
 @print{} Address is: 123 Main Street
 @print{} City and State are: Anywhere, SE 12345-6789
-@print{} 
+@print{}
 @end group
 @group
 @print{} Name is: John Smith
 @print{} Address is: 456 Tree-lined Avenue
 @print{} City and State are: Smallville, MW 98765-4321
-@print{} 
+@print{}
 @dots{}
 @end group
 @end example
@@ -4744,7 +4744,7 @@ files, or using the @samp{-v} command line option
 
 @ignore
 Exercise,
-Rewrite the 
+Rewrite the
 @example
 awk 'BEGIN @{ print "Month Crates"
              print "----- ------" @}
@@ -4762,9 +4762,9 @@ line:
 $ awk 'BEGIN @{ OFS = ";"; ORS = "\n\n" @}
 >            @{ print $1, $2 @}' BBS-list
 @print{} aardvark;555-5553
-@print{} 
+@print{}
 @print{} alpo-net;555-3412
-@print{} 
+@print{}
 @print{} barfly;555-7685
 @dots{}
 @end group
@@ -4863,7 +4863,7 @@ the @dfn{format string}.
 The format string is very similar to that in the ANSI C library function
 @code{printf}.  Most of @var{format} is text to be output verbatim.
 Scattered among this text are @dfn{format specifiers}, one per item.
-Each format specifier says to output the next item in the argument list 
+Each format specifier says to output the next item in the argument list
 at that place in the format.
 
 The @code{printf} statement does not automatically append a newline to its
@@ -4920,7 +4920,7 @@ printf "%4.3e\n", 1950
 @noindent
 prints @samp{1.950e+03}, with a total of four significant figures of
 which three follow the decimal point.  The @samp{4.3} are modifiers,
-discussed below. @samp{%E} uses @samp{E} instead of @samp{e} in the output. 
+discussed below. @samp{%E} uses @samp{E} instead of @samp{e} in the output.
 
 @item f
 This prints a number in floating point notation.
@@ -6581,15 +6581,15 @@ following, symmetric, matrix:
 %   \hfil -- infinite glue; has the effect of right-justifying in this case.
 %   #     -- replaced by the text (for instance, `STRNUM', in the last row).
 %   \quad -- about the width of an `M'. Just separates the columns.
-% 
+%
 % The second column (\vrule#) is what generates the vertical rule that
 % spans table rows.
-% 
+%
 % The doubled && before the next entry means `repeat the following
 % template as many times as necessary on each line' -- in our case, twice.
-% 
+%
 % The template itself, \quad#\hfil, left-justifies with a little space before.
-% 
+%
 \halign{\strut\hfil#\quad&\vrule#&&\quad#\hfil\cr
 	&&STRING	&NUMERIC	&STRNUM\cr
 % The \omit tells TeX to skip inserting the template for this column on
@@ -6761,7 +6761,7 @@ x == "foo"
 
 @noindent
 has the value of one, or is true, if the variable @code{x}
-is precisely @samp{foo}.  By contrast, 
+is precisely @samp{foo}.  By contrast,
 
 @example
 x ~ /foo/
@@ -6964,7 +6964,7 @@ x == y ? a[i++] : b[i++]
 This is guaranteed to increment @code{i} exactly once, because each time
 only one of the two increment expressions is executed,
 and the other is not.
-@xref{Arrays, ,Arrays in @code{awk}}, 
+@xref{Arrays, ,Arrays in @code{awk}},
 for more information about arrays.
 
 @cindex differences between @code{gawk} and @code{awk}
@@ -7013,7 +7013,7 @@ a variable, and space would make the expression look like concatenation
 of a variable with an expression inside parentheses.  Space before the
 parenthesis is harmless with built-in functions, but it is best not to get
 into the habit of using space to avoid mistakes with user-defined
-functions. 
+functions.
 
 Each function expects a particular number of arguments.  For example, the
 @code{sqrt} function must be called with a single argument, the number
@@ -7748,7 +7748,7 @@ keeps running.
 The first thing the @code{while} statement does is test @var{condition}.
 If @var{condition} is true, it executes the statement @var{body}.
 @ifinfo
-(The @var{condition} is true when the value 
+(The @var{condition} is true when the value
 is not zero and not a null string.)
 @end ifinfo
 After @var{body} has been executed,
@@ -7962,7 +7962,7 @@ When the remainder is zero in the first @code{if} statement, @code{awk}
 immediately @dfn{breaks out} of the containing @code{for} loop.  This means
 that @code{awk} proceeds immediately to the statement following the loop
 and continues processing.  (This is very different from the @code{exit}
-statement which stops the entire @code{awk} program.  
+statement which stops the entire @code{awk} program.
 @xref{Exit Statement, ,The @code{exit} Statement}.)
 
 Here is another program equivalent to the previous one.  It illustrates how
@@ -7997,7 +7997,7 @@ used outside the body of a loop.  However, although it was never documented,
 historical implementations of @code{awk} have treated the @code{break}
 statement outside of a loop as if it were a @code{next} statement
 (@pxref{Next Statement, ,The @code{next} Statement}).
-Recent versions of Unix @code{awk} no longer allow this usage. 
+Recent versions of Unix @code{awk} no longer allow this usage.
 @code{gawk} will support this use of @code{break} only if @samp{--traditional}
 has been specified on the command line
 (@pxref{Options, ,Command Line Options}).
@@ -8099,7 +8099,7 @@ used outside the body of a loop.  However, although it was never documented,
 historical implementations of @code{awk} have treated the @code{continue}
 statement outside of a loop as if it were a @code{next} statement
 (@pxref{Next Statement, ,The @code{next} Statement}).
-Recent versions of Unix @code{awk} no longer allow this usage. 
+Recent versions of Unix @code{awk} no longer allow this usage.
 @code{gawk} will support this use of @code{continue} only if
 @samp{--traditional} has been specified on the command line
 (@pxref{Options, ,Command Line Options}).
@@ -8441,8 +8441,8 @@ Unlike most @code{awk} arrays,
 @example
 @group
 $ awk 'BEGIN @{
->        for (i = 0; i < ARGC; i++) 
->            print ARGV[i] 
+>        for (i = 0; i < ARGC; i++)
+>            print ARGV[i]
 >      @}' inventory-shipped BBS-list
 @print{} awk
 @print{} inventory-shipped
@@ -8611,8 +8611,8 @@ and @code{ARGV}:
 @example
 @group
 $ awk 'BEGIN @{
->        for (i = 0; i < ARGC; i++) 
->            print ARGV[i] 
+>        for (i = 0; i < ARGC; i++)
+>            print ARGV[i]
 >      @}' inventory-shipped BBS-list
 @print{} awk
 @print{} inventory-shipped
@@ -11029,7 +11029,7 @@ However, when arrays are the parameters to functions, they are @emph{not}
 copied.  Instead, the array itself is made available for direct manipulation
 by the function.  This is usually called @dfn{call by reference}.
 Changes made to an array parameter inside the body of a function @emph{are}
-visible outside that function.  
+visible outside that function.
 @ifinfo
 This can be @strong{very} dangerous if you do not watch what you are
 doing.  For example:
@@ -11334,7 +11334,7 @@ which summarizes the extensions.  Also see
 @cindex @code{--copyleft} option
 @cindex @code{--copyright} option
 Print the short version of the General Public License, and then exit.
-This option may disappear in a future version of @code{gawk}.  
+This option may disappear in a future version of @code{gawk}.
 
 @item -W help
 @itemx -W usage
@@ -12056,7 +12056,7 @@ do rounding will often depend
 upon the system's C @code{sprintf} subroutine.
 On many machines,
 @code{sprintf} rounding is ``unbiased,'' which means it doesn't always
-round a trailing @samp{.5} up, contrary to naive expectations.  In unbiased 
+round a trailing @samp{.5} up, contrary to naive expectations.  In unbiased
 rounding, @samp{.5} rounds to even, rather than always up, so 1.5 rounds to
 2 but 4.5 rounds to 4.
 The result is that if you are using a format that does
@@ -12562,7 +12562,7 @@ BEGIN  @{
     if (_tm_test) @{
         printf "Enter date as yyyy mm dd hh mm ss: "
         getline _tm_test_date
-    
+
         t = mktime(_tm_test_date)
         r = strftime("%Y %m %d %H %M %S", t)
         printf "Got back (%s)\n", r
@@ -14226,7 +14226,7 @@ egrep @r{[} @var{options} @r{]} '@var{pattern}' @var{files} @dots{}
 The @var{pattern} is a regexp.
 In typical usage, the regexp is quoted to prevent the shell from expanding
 any of the special characters as file name wildcards.
-Normally, @code{egrep} prints the 
+Normally, @code{egrep} prints the
 lines that matched.  If multiple file names are provided on the command
 line, each output line is preceded by the name of the file and a colon.
 
@@ -15104,7 +15104,7 @@ NR == 1 @{
     next
 @}
 @end group
-    
+
 @{
     equal = are_equal()
 
@@ -17711,10 +17711,10 @@ matches @var{r1}, and then @var{r2} (concatenation).
 matches one or more @var{r}'s.
 
 @item @var{r}*
-matches zero or more @var{r}'s. 
+matches zero or more @var{r}'s.
 
 @item @var{r}?
-matches zero or one @var{r}'s. 
+matches zero or one @var{r}'s.
 
 @item (@var{r})
 matches @var{r} (grouping).
@@ -17940,7 +17940,7 @@ are executed.
 @item nextfile
 Stop processing the current input file.  The next input record read comes
 from the next input file.  @code{FILENAME} is updated, @code{FNR} is set to one,
-@code{ARGIND} is incremented, 
+@code{ARGIND} is incremented,
 and processing starts over with the first pattern in the @code{awk} program.
 If the end of the input data is reached, the @code{END} rule(s), if any,
 are executed.
@@ -18639,7 +18639,7 @@ and several subdirectories related to different, non-Unix,
 operating systems.
 
 @table @asis
-@item various @samp{.c}, @samp{.y}, and @samp{.h} files 
+@item various @samp{.c}, @samp{.y}, and @samp{.h} files
 These files are the actual @code{gawk} source code.
 @end table
 
@@ -19075,7 +19075,7 @@ needed in the VMS POSIX environment.
 @node PC Installation, Atari Installation, VMS Installation, Installation
 @appendixsec MS-DOS and OS/2 Installation and Compilation
 
-@cindex installation, MS-DOS and OS/2 
+@cindex installation, MS-DOS and OS/2
 If you have received a binary distribution prepared by the DOS
 maintainers, then @code{gawk} and the necessary support files will appear
 under the @file{gnu} directory, with executables in @file{gnu/bin},
@@ -19088,7 +19088,7 @@ edited.
 
 The binary distribution will contain a separate file describing the
 contents. In particular, it may include more than one version of the
-@code{gawk} executable. OS/2 binary distributions may have a 
+@code{gawk} executable. OS/2 binary distributions may have a
 different arrangement, but installation is similar.
 
 The OS/2 and MS-DOS versions of @code{gawk} search for program files as
@@ -19097,7 +19097,7 @@ However, semicolons (rather than colons) separate elements
 in the @code{AWKPATH} variable. If @code{AWKPATH} is not set or is empty,
 then the default search path is @code{@w{".;c:/lib/awk;c:/gnu/lib/awk"}}.
 
-An @code{sh}-like shell (as opposed to @code{command.com} under MS-DOS 
+An @code{sh}-like shell (as opposed to @code{command.com} under MS-DOS
 or @code{cmd.exe} under OS/2) may be useful for @code{awk} programming.
 Ian Stewartson has written an excellent shell for MS-DOS and OS/2, and a
 @code{ksh} clone and GNU Bash are available for OS/2. The file
@@ -19262,7 +19262,7 @@ This includes a shell based on @code{pdksh}.  The primary component of
 this environment is a Unix emulation library, @file{ixemul.lib}.
 @c could really use more background here, who wrote this, etc.
 
-A more complete distribution for the Amiga is available on 
+A more complete distribution for the Amiga is available on
 the Geek Gadgets CD-ROM from:
 
 @quotation
@@ -19607,7 +19607,7 @@ for this @value{DOCUMENT}.  If at all possible, please use real
 Texinfo, instead of just supplying unformatted ASCII text (although
 even that is better than no documentation at all).
 Conventions to be followed in @cite{@value{TITLE}} are provided
-after the @samp{@@bye} at the end of the Texinfo source file. 
+after the @samp{@@bye} at the end of the Texinfo source file.
 If possible, please update the man page as well.
 
 You will also have to sign paperwork for your documentation changes.
@@ -19736,9 +19736,9 @@ From emory!scalpel.netlabs.com!lwall Tue Oct 31 12:43:17 1995
 Return-Path: <emory!scalpel.netlabs.com!lwall>
 Message-Id: <9510311732.AA28472@scalpel.netlabs.com>
 To: arnold@skeeve.atl.ga.us (Arnold D. Robbins)
-Subject: Re: May I quote you? 
+Subject: Re: May I quote you?
 In-Reply-To: Your message of "Tue, 31 Oct 95 09:11:00 EST."
-             <m0tAHPQ-00014MC@skeeve.atl.ga.us> 
+             <m0tAHPQ-00014MC@skeeve.atl.ga.us>
 Date: Tue, 31 Oct 95 09:32:46 -0800
 From: Larry Wall <emory!scalpel.netlabs.com!lwall>
 
@@ -19746,7 +19746,7 @@ From: Larry Wall <emory!scalpel.netlabs.com!lwall>
 : thoroughly updated manual. One of the sections deals with planned future
 : extensions and enhancements.  I have the following at the beginning
 : of it:
-: 
+:
 : @cindex PERL
 : @cindex Wall, Larry
 : @display
@@ -19756,7 +19756,7 @@ From: Larry Wall <emory!scalpel.netlabs.com!lwall>
 : @i{Hey!} @*
 : Larry Wall
 : @end display
-: 
+:
 : Before I actually release this for publication, I wanted to get your
 : permission to quote you.  (Hopefully, in the spirit of much of GNU, the
 : implied humor is visible... :-)
@@ -20701,7 +20701,7 @@ when it starts in an interactive mode:
 Gnomovision version 69, Copyright (C) 19@var{yy} @var{name of author}
 Gnomovision comes with ABSOLUTELY NO WARRANTY; for details
 type `show w'.  This is free software, and you are welcome
-to redistribute it under certain conditions; type `show c' 
+to redistribute it under certain conditions; type `show c'
 for details.
 @end smallexample
 
@@ -20719,7 +20719,7 @@ necessary.  Here is a sample; alter the names:
 @group
 Yoyodyne, Inc., hereby disclaims all copyright
 interest in the program `Gnomovision'
-(which makes passes at compilers) written 
+(which makes passes at compilers) written
 by James Hacker.
 
 @var{signature of Ty Coon}, 1 April 1989

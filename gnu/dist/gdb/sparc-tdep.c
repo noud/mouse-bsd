@@ -300,7 +300,7 @@ sparc_extract_struct_value_address (regbuf)
   return extract_address (regbuf + REGISTER_BYTE (O0_REGNUM),
 			  REGISTER_RAW_SIZE (O0_REGNUM));
 #else
-  return read_memory_integer (((int *)(regbuf)) [SP_REGNUM] + (16 * SPARC_INTREG_SIZE), 
+  return read_memory_integer (((int *)(regbuf)) [SP_REGNUM] + (16 * SPARC_INTREG_SIZE),
 	       		      TARGET_PTR_BIT / TARGET_CHAR_BIT);
 #endif
 }
@@ -394,7 +394,7 @@ setup_arbitrary_frame (argc, argv)
 
   if (!frame)
     fatal ("internal: create_new_frame returned invalid frame");
-  
+
   frame->bottom = argv[1];
   frame->pc = FRAME_SAVED_PC (frame);
   return frame;
@@ -412,7 +412,7 @@ setup_arbitrary_frame (argc, argv)
 static CORE_ADDR examine_prologue PARAMS ((CORE_ADDR, int, struct frame_info *,
 					   struct frame_saved_regs *));
 
-static CORE_ADDR 
+static CORE_ADDR
 examine_prologue (start_pc, frameless_p, fi, saved_regs)
      CORE_ADDR start_pc;
      int frameless_p;
@@ -525,7 +525,7 @@ examine_prologue (start_pc, frameless_p, fi, saved_regs)
   return pc;
 }
 
-CORE_ADDR 
+CORE_ADDR
 skip_prologue (start_pc, frameless_p)
      CORE_ADDR start_pc;
      int frameless_p;
@@ -639,12 +639,12 @@ get_saved_register (raw_buffer, optimized, addrp, frame, regnum, lval)
       /* error ("No selected frame."); */
       if (!target_has_registers)
         error ("The program has no registers now.");
-      if (selected_frame == NULL) 
+      if (selected_frame == NULL)
         error ("No selected frame.");
       /* Try to use selected frame */
-      frame = get_prev_frame (selected_frame);  
+      frame = get_prev_frame (selected_frame);
       if (frame == 0)
-        error ("Cmd not meaningful in the outermost frame."); 
+        error ("Cmd not meaningful in the outermost frame.");
     }
 
 
@@ -917,7 +917,7 @@ sparc_frame_find_saved_regs (fi, saved_regs_addr)
 #endif /* FP0_REGNUM */
       for (regnum = Y_REGNUM; regnum < NUM_REGS; regnum++)
 	saved_regs_addr->regs[regnum] =
-	  frame_addr + (regnum - Y_REGNUM) * SPARC_INTREG_SIZE 
+	  frame_addr + (regnum - Y_REGNUM) * SPARC_INTREG_SIZE
 	    - DUMMY_STACK_REG_BUF_SIZE;
       frame_addr = fi->bottom ?
 	fi->bottom : read_register (SP_REGNUM);
@@ -1200,8 +1200,8 @@ sunos4_skip_trampoline_code (pc)
     and the floating point set by:
 
 	typedef struct prfpregset {
-		union { 
-			u_long  pr_regs[32]; 
+		union {
+			u_long  pr_regs[32];
 			double  pr_dregs[16];
 		} pr_fr;
 		void *  pr_filler;
@@ -1286,13 +1286,13 @@ int regno;
     (fpregset_t *), unpack the register contents and supply them as gdb's
     idea of the current floating point register values. */
 
-void 
+void
 supply_fpregset (fpregsetp)
 prfpregset_t *fpregsetp;
 {
   register int regi;
   char *from;
-  
+
   for (regi = FP0_REGNUM ; regi < FP_MAX_REGNUM ; regi++)
     {
       from = (char *) &fpregsetp->pr_fr.pr_regs[regi-FP0_REGNUM];

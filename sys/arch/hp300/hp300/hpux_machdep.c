@@ -92,8 +92,8 @@
 #include <sys/mman.h>
 #include <sys/mount.h>
 #include <sys/namei.h>
-#include <sys/poll.h> 
-#include <sys/proc.h> 
+#include <sys/poll.h>
+#include <sys/proc.h>
 #include <sys/ptrace.h>
 #include <sys/signalvar.h>
 #include <sys/stat.h>
@@ -101,7 +101,7 @@
 #include <sys/tty.h>
 #include <sys/user.h>
 #include <sys/vnode.h>
-#include <sys/wait.h> 
+#include <sys/wait.h>
 
 #include <machine/cpu.h>
 #include <machine/reg.h>
@@ -110,7 +110,7 @@
 
 #include <vm/vm.h>
 #include <vm/vm_param.h>
-#include <vm/vm_map.h> 
+#include <vm/vm_map.h>
 
 #include <uvm/uvm_extern.h>
 
@@ -247,7 +247,7 @@ hpux_sys_advise(p, v, retval)
 
 	switch (SCARG(uap, arg)) {
 	case 0:
-		p->p_md.md_flags |= MDP_HPUXMMAP; 
+		p->p_md.md_flags |= MDP_HPUXMMAP;
 		break;
 
 	case 1:
@@ -272,14 +272,14 @@ hpux_sys_advise(p, v, retval)
  */
 int
 hpux_sys_getcontext(p, v, retval)
-	struct proc *p; 
+	struct proc *p;
 	void *v;
-	register_t *retval; 
+	register_t *retval;
 {
 	struct hpux_sys_getcontext_args *uap = v;
 	const char *str;
 	int l, i, error = 0;
-	int len; 
+	int len;
 
 	for (i = 0; context_table[i].str != NULL; i++)
 		if (context_table[i].val == fputype)
@@ -307,11 +307,11 @@ hpux_sys_getcontext(p, v, retval)
  */
 int
 hpux_to_bsd_uoff(off, isps, p)
-	int *off, *isps; 
+	int *off, *isps;
 	struct proc *p;
 {
 	int *ar0 = p->p_md.md_regs;
-	struct hpux_fp *hp; 
+	struct hpux_fp *hp;
 	struct bsdfp *bp;
 	u_int raddr;
 
@@ -319,7 +319,7 @@ hpux_to_bsd_uoff(off, isps, p)
 
 	/* u_ar0 field; procxmt puts in U_ar0 */
 	if ((int)off == HPUOFF(hpuxu_ar0))
-		return(UOFF(U_ar0)); 
+		return(UOFF(U_ar0));
 
 	if (fputype) {
 		/* FP registers from PCB */
@@ -654,7 +654,7 @@ hpux_sys_sigreturn(p, v, retval)
 	 */
 	if (flags & HSS_RTEFRAME) {
 		int sz;
-		
+
 		/* grab frame type and validate */
 		sz = tstate.hss_frame.f_format;
 		if (sz > 15 || (sz = exframesize[sz]) < 0 ||

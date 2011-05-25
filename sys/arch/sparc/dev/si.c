@@ -297,7 +297,7 @@ si_match(parent, cf, aux)
 {
 	struct vme_attach_args	*va = aux;
 	vme_chipset_tag_t	ct = va->va_vct;
-        vme_am_t		mod; 
+        vme_am_t		mod;
         vme_addr_t		vme_addr;
 
 

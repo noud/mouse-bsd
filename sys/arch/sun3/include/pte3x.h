@@ -57,7 +57,7 @@
  *
  * A virtual address is translated into a physical address by dividing its
  * bits into four fields.  The first three fields are used as indexes into
- * descriptor tables and the last field (the 13 lowest significant 
+ * descriptor tables and the last field (the 13 lowest significant
  * bits) is an offset to be added to the base address found at the final
  * table.  The first three fields are named TIA, TIB and TIC respectively.
  *  31                                    12                        0
@@ -90,7 +90,7 @@
 	((unsigned long) ((va) & MMU_TIC_MASK) >> MMU_TIC_SHIFT)
 
 /*
- * The widths of the TIA, TIB, and TIC fields determine the size (in 
+ * The widths of the TIA, TIB, and TIC fields determine the size (in
  * elements) of the tables they index.
  */
 #define MMU_A_TBL_SIZE (128)

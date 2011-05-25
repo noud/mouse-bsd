@@ -751,7 +751,7 @@ grepfile (file, stats)
       if (desc < 0)
 	{
 	  int e = errno;
-	    
+
 	  if (is_EISDIR (e, file) && directories == RECURSE_DIRECTORIES)
 	    {
 	      if (stat (file, &stats->stat) != 0)
@@ -762,7 +762,7 @@ grepfile (file, stats)
 
 	      return grepdir (file, stats);
 	    }
-	      
+
 	  if (!suppress_errors)
 	    {
 	      if (directories == SKIP_DIRECTORIES)

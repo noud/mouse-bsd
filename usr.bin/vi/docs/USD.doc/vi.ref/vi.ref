@@ -879,7 +879,7 @@ has been written to understand the obvious extension to the historic
 tags file format, i.e., more than a single line in the tags file with
 the same initial tag name.
 If you wish to extend your
-.CO ctags 
+.CO ctags
 implementation or other tool with which you build tags files,
 this extension should be simple and will require no changes to
 .CO nvi .
@@ -949,7 +949,7 @@ queries all attached
 databases for the pattern.
 If the pattern is a double-quote character followed by a valid buffer
 name (e.g.,
-.LI """<character>" ), 
+.LI """<character>" ),
 then the contents of the named buffer are used as the pattern.
 Otherwise, the pattern is a Regular Expression.
 .sp
@@ -1292,7 +1292,7 @@ as a vi message in the screen
 .IP "viNewScreen screenId [file]"
 Create a new screen.
 .IP "viEndScreen screenId"
-Exit the screen 
+Exit the screen
 .LI screenId .
 .IP "viSwitchScreen screenId screenId"
 Switch from the screen

@@ -302,7 +302,7 @@ read_blocks(dp, buf, count)
 		buf += sblock.fs_bsize;
 		count -= sblock.fs_bsize;
 	}
-  
+
 	/* indirect block §Ú∆…§‡ */
 	for (i = 0; i < NIADDR && count > 0; i++) {
 		count = read_indirect(dp->di_ib[i], i, &buf, count);

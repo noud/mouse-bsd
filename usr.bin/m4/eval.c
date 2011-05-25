@@ -187,7 +187,7 @@ eval(argv, argc, td)
 	/*
 	 * dosysval - return value of the last
 	 * system call.
-	 * 
+	 *
 	 */
 		pbnum(sysval);
 		break;
@@ -225,7 +225,7 @@ eval(argv, argc, td)
 	case SUBSTYPE:
 	/*
 	 * dosub - select substring
-	 * 
+	 *
 	 */
 		if (argc > 3)
 			dosub(argv, argc);

@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
    What is important here is that it can be built up sequentially
    during the process of parsing; the lower levels of the tree always
    come first in the result.  */
-   
+
 #include "defs.h"
 #include "gdb_string.h"
 #include "symtab.h"
@@ -73,7 +73,7 @@ struct funcall
 
 static struct funcall *funcall_chain;
 
-/* Assign machine-independent names to certain registers 
+/* Assign machine-independent names to certain registers
    (unless overridden by the REGISTER_NAMES table) */
 
 #ifdef NO_STD_REGS
@@ -250,7 +250,7 @@ write_exp_elt_intern (expelt)
    constant itself into however many expression elements are needed
    to hold it, and then writing another expression element that contains
    the length of the string.  I.E. an expression element at each end of
-   the string records the string length, so you can skip over the 
+   the string records the string length, so you can skip over the
    expression elements containing the actual string bytes from either
    end of the string.  Note that this also allows gdb to handle
    strings with embedded null bytes, as is required for some languages.
@@ -452,7 +452,7 @@ write_dollar_variable (str)
 	i = - i;
       goto handle_last;
     }
-  
+
   /* Handle tokens that refer to machine registers:
      $ followed by a register name.  */
   for (i = 0; i < NUM_REGS; i++)
@@ -473,7 +473,7 @@ write_dollar_variable (str)
 
   write_exp_elt_opcode (OP_INTERNALVAR);
   write_exp_elt_intern (lookup_internalvar (copy_name (str) + 1));
-  write_exp_elt_opcode (OP_INTERNALVAR); 
+  write_exp_elt_opcode (OP_INTERNALVAR);
   return;
  handle_last:
   write_exp_elt_opcode (OP_LAST);
@@ -483,7 +483,7 @@ write_dollar_variable (str)
  handle_register:
   write_exp_elt_opcode (OP_REGISTER);
   write_exp_elt_longcst (i);
-  write_exp_elt_opcode (OP_REGISTER); 
+  write_exp_elt_opcode (OP_REGISTER);
   return;
 }
 
@@ -559,9 +559,9 @@ length_of_subexp (expr, endpos)
       break;
 
     case OP_COMPLEX:
-      oplen = 1; 
+      oplen = 1;
       args = 2;
-      break; 
+      break;
 
     case OP_FUNCALL:
     case OP_F77_UNDETERMINED_ARGLIST:
@@ -699,9 +699,9 @@ prefixify_subexp (inexpr, outexpr, inend, outbeg)
       break;
 
     case OP_COMPLEX:
-      oplen = 1; 
-      args = 2; 
-      break; 
+      oplen = 1;
+      args = 2;
+      break;
 
     case OP_FUNCALL:
     case OP_F77_UNDETERMINED_ARGLIST:
@@ -900,7 +900,7 @@ parse_expression (string)
 /* Stuff for maintaining a stack of types.  Currently just used by C, but
    probably useful for any language which declares its types "backwards".  */
 
-void 
+void
 push_type (tp)
      enum type_pieces tp;
 {
@@ -926,7 +926,7 @@ push_type_int (n)
   type_stack[type_stack_depth++].int_val = n;
 }
 
-enum type_pieces 
+enum type_pieces
 pop_type ()
 {
   if (type_stack_depth)

@@ -248,7 +248,7 @@ printop (info, opptr, inst, pc, first)
       else
 	(*info->fprintf_func) (info->stream, "%x", extracted_field);
       break;
-			
+
     case PCREL:
       (*info->print_address_func)
 	(pc + (4 * (SEXT (inst, opptr->offset, opptr->width))),

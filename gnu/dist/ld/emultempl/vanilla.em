@@ -51,7 +51,7 @@ vanilla_get_script(isfile)
   return "";
 }
 
-struct ld_emulation_xfer_struct ld_vanilla_emulation = 
+struct ld_emulation_xfer_struct ld_vanilla_emulation =
 {
   vanilla_before_parse,
   syslib_default,

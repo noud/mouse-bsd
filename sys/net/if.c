@@ -39,7 +39,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -51,7 +51,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -142,7 +142,7 @@ void	if_slowtimo __P((void *arg));
  * should be more generalized?
  */
 extern void nd6_setmtu __P((struct ifnet *));
-#endif 
+#endif
 
 int	if_rt_walktree __P((struct radix_node *, void *));
 
@@ -268,7 +268,7 @@ if_attach(ifp)
 	    ifp->if_index >= if_indexlim) {
 		size_t n;
 		caddr_t q;
-		
+
 		while (ifp->if_index >= if_indexlim)
 			if_indexlim <<= 1;
 
@@ -937,7 +937,7 @@ ifioctl(so, cmd, data, p)
 		if (ifp->if_mtu != oldmtu) {
 #ifdef INET6
 			nd6_setmtu(ifp);
-#endif 
+#endif
 		}
 		break;
 	}
@@ -953,7 +953,7 @@ ifioctl(so, cmd, data, p)
 		error = (*ifp->if_ioctl)(ifp, cmd, data);
 		break;
 
-	case SIOCSDRVSPEC:  
+	case SIOCSDRVSPEC:
 		/* XXX:  need to pass proc pointer through to driver... */
 		if ((error = suser(p->p_ucred, &p->p_acflag)) != 0)
 			return (error);
@@ -1061,7 +1061,7 @@ ifconf(cmd, data)
 			if (error)
 				break;
 			space -= sizeof (ifr), ifrp++;
-		} else 
+		} else
 		    for (; space >= sizeof (ifr) && ifa != 0; ifa = ifa->ifa_list.tqe_next) {
 			register struct sockaddr *sa = ifa->ifa_addr;
 #if defined(COMPAT_43) || defined(COMPAT_LINUX) || defined(COMPAT_SVR4)

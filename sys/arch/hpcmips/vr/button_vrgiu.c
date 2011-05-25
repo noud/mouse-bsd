@@ -97,7 +97,7 @@ button_vrgiu_attach(parent, self, aux)
 	int *loc;
 	struct button_vrgiu_softc *sc = (void*)self;
 	int mode;
-    
+
 	sc->sc_gc = gpa->gpa_gc;
 	sc->sc_gf = gpa->gpa_gf;
 
@@ -110,7 +110,7 @@ button_vrgiu_attach(parent, self, aux)
 
 #if 0
 #if 1 /* Windows CE default */
-	mode = VRGIU_INTR_EDGE_HOLD; 
+	mode = VRGIU_INTR_EDGE_HOLD;
 #else /* XXX Don't challenge! Freestyle Only */
 	mode = VRGIU_INTR_LEVEL_LOW_HOLD;
 #endif

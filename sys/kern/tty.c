@@ -199,7 +199,7 @@ ttyopen(tp, dialout, nonblock)
 			 * processes to close the tty first.
 			 */
 			while (ISSET(tp->t_state, TS_DIALOUT) ||
-			       (!ISSET(tp->t_state, TS_CARR_ON) && 
+			       (!ISSET(tp->t_state, TS_CARR_ON) &&
 				!ISSET(tp->t_cflag, CLOCAL | MDMBUF))) {
 				tp->t_wopen++;
 				error = ttysleep(tp, &tp->t_rawq,

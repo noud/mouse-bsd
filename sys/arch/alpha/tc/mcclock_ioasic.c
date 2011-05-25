@@ -40,7 +40,7 @@ __KERNEL_RCSID(0, "$NetBSD: mcclock_ioasic.c,v 1.8 1997/09/02 13:20:14 thorpej E
 #include <dev/dec/mcclockvar.h>
 #include <dev/ic/mc146818reg.h>
 #include <dev/tc/tcreg.h>
-#include <dev/tc/tcvar.h> 
+#include <dev/tc/tcvar.h>
 #include <dev/tc/ioasicvar.h>                   /* XXX */
 
 struct mcclock_ioasic_clockdatum {
@@ -59,7 +59,7 @@ void	mcclock_ioasic_attach __P((struct device *, struct device *, void *));
 
 struct cfattach mcclock_ioasic_ca = {
 	sizeof (struct mcclock_ioasic_softc), mcclock_ioasic_match,
-	    mcclock_ioasic_attach, 
+	    mcclock_ioasic_attach,
 };
 
 void	mcclock_ioasic_write __P((struct mcclock_softc *, u_int, u_int));

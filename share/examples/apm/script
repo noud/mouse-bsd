@@ -5,7 +5,7 @@
 
 #
 # Link this script to /etc/apm/{suspend,standby,resume,line,battery}
-# to play some sounds on suspend/resume, and enable/shutdown the 
+# to play some sounds on suspend/resume, and enable/shutdown the
 # network card. See apmd(8) for more information.
 #
 
@@ -21,7 +21,7 @@ if=ne0
 
 
 case $0 in
-*suspend)	
+*suspend)
 	logger 'Suspending...'
 	pcmplay -f 22050 -c 1 $S/KDE_Window_UnMaximize.wav
 	# In case some NFS mounts still exist - we don't want them to hang:

@@ -96,7 +96,7 @@ emul_find(p, sgp, prefix, path, pbuf, cflag)
 
 	sz = MAXPATHLEN - (ptr - buf);
 
-	/* 
+	/*
 	 * If sgp is not given then the path is already in kernel space
 	 */
 	if (sgp == NULL)

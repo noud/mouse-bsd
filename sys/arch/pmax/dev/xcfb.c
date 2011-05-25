@@ -211,7 +211,7 @@ xcfbinit(fi, base, unit, silent)
 	int unit;
 	int silent;
 {
-	
+
 	/*XXX*/
 	/*
 	 * Or Cached? A comment in the Mach driver suggests that the X server

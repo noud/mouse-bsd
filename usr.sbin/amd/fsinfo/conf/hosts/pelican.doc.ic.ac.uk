@@ -17,7 +17,7 @@ dumphost flamingo.doc.ic.ac.uk
 fs /dev/xd0b {
 	fstype = swap
 }
-	
+
 // root
 fs /dev/xd0a {
 	fstype = FSTYPE_UFS
@@ -29,7 +29,7 @@ fs /dev/xd0a {
 		exportfs "-ro,access=tsunfs,root=tsunfs"
 	}
 }
-	
+
 // usr
 fs /dev/xd0f {
 	fstype = FSTYPE_UFS
@@ -42,7 +42,7 @@ fs /dev/xd0f {
 		exportfs "-ro,access=teach_hosts,root=gould:flamingo:tsunfs"
 	}
 }
-	
+
 // tmp
 fs /dev/xd0d {
 	fstype = FSTYPE_UFS
@@ -59,7 +59,7 @@ fs /dev/xd0d {
 				tsun19.doc.ic.ac.uk"
 	}
 }
-	
+
 // var
 fs /dev/xd0e {
 	fstype = FSTYPE_UFS
@@ -107,7 +107,7 @@ fs /dev/xd0e {
 		}
 	}
 }
-	
+
 // export for diskless clients
 fs /dev/xd0h {
 	fstype = FSTYPE_UFS
@@ -136,7 +136,7 @@ fs /dev/xd0h {
 				volname /vol/export/roots/tcsun5
 				exportfs "-root=tcsun5.doc.ic.ac.uk,access=tcsun5.doc.ic.ac.uk"
 			}
-		
+
 			tsun16 {
 				volname /vol/export/roots/tsun16
 				exportfs "-root=tsun16.doc.ic.ac.uk,access=tsun16.doc.ic.ac.uk"
@@ -194,7 +194,7 @@ fs /dev/xd0h {
 		}
 	}
 }
-	
+
 // home directories
 fs /dev/xd0g {
 	fstype = FSTYPE_UFS

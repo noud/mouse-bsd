@@ -329,7 +329,7 @@ int ideiwrite __P((struct ide_softc *, long, u_char *, int));
 
 int ide_no_int = 0;
 
-#ifdef DEBUG 
+#ifdef DEBUG
 void ide_dump_regs __P((ide_regmap_p));
 
 int ide_debug = 0;
@@ -571,7 +571,7 @@ ide_scsicmd(xs)
 
 	if (flags & XS_CTL_DATA_UIO)
 		panic("ide: scsi data uio requested");
-	
+
 	if (dev->sc_xs && flags & XS_CTL_POLL)
 		panic("ide_scsicmd: busy");
 
@@ -627,13 +627,13 @@ ide_donextcmd(dev)
 		return;
 	}
 	if (flags & XS_CTL_POLL || ide_no_int)
-		stat = ideicmd(dev, slp->scsipi_scsi.target, xs->cmd, xs->cmdlen, 
+		stat = ideicmd(dev, slp->scsipi_scsi.target, xs->cmd, xs->cmdlen,
 		    xs->data, xs->datalen);
 	else if (idego(dev, xs) == 0)
 		return;
-	else 
+	else
 		stat = dev->sc_stat[0];
-	
+
 	if (dev->sc_xs)
 		ide_scsidone(dev, stat);
 }
@@ -712,18 +712,18 @@ idegetsense(dev, xs)
 	if (dev->sc_cur->sc_flags & IDEF_ATAPI)
 		return (0);
 	slp = xs->sc_link;
-	
+
 	rqs.opcode = REQUEST_SENSE;
 	rqs.byte2 = slp->scsipi_scsi.lun << 5;
 #ifdef not_yet
-	rqs.length = xs->req_sense_length ? xs->req_sense_length : 
+	rqs.length = xs->req_sense_length ? xs->req_sense_length :
 	    sizeof(xs->sense.scsi_sense);
 #else
 	rqs.length = sizeof(xs->sense.scsi_sense);
 #endif
-	    
+
 	rqs.unused[0] = rqs.unused[1] = rqs.control = 0;
-	
+
 	return(ideicmd(dev, slp->scsipi_scsi.target, &rqs, sizeof(rqs),
 		&xs->sense.scsi_sense, rqs.length));
 }
@@ -1306,7 +1306,7 @@ idesc_intr(arg)
 		/* Check return value here? */
 		idestart (dev);
 	return (1);
-}	
+}
 
 int ide_atapi_start(dev)
 	struct idec_softc *dev;

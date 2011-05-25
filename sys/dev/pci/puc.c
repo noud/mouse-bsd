@@ -258,7 +258,7 @@ puc_attach(parent, self, aux)
 		if (bus_space_subregion(sc->sc_bar_mappings[barindex].t,
 		    sc->sc_bar_mappings[barindex].h,
 		    sc->sc_desc->ports[i].offset,
-		    sc->sc_bar_mappings[barindex].s - 
+		    sc->sc_bar_mappings[barindex].s -
 		      sc->sc_desc->ports[i].offset,
 		    &subregion_handle)) {
 			printf("%s: couldn't get subregion for port %d\n",
@@ -286,7 +286,7 @@ puc_print(aux, pnp)
 	const char *pnp;
 {
 	struct puc_attach_args *paa = aux;
-        
+
 	if (pnp)
 		printf("%s at %s", puc_port_type_name(paa->type), pnp);
 	printf(" port %d", paa->port);

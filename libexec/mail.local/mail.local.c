@@ -254,7 +254,7 @@ bad:
 			close(lfd);
 		}
 	}
-	if (created) 
+	if (created)
 		(void)fchown(mbfd, pw->pw_uid, pw->pw_gid);
 
 	(void)fsync(mbfd);		/* Don't wait for update. */

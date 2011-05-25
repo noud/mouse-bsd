@@ -307,11 +307,11 @@ netbsd_translate_from_native_sym_flags (abfd, cache_ptr)
             cache_ptr->symbol.section = obj_bsssec (abfd);
             break;
           }
-        
+
         cache_ptr->symbol.flags |= BSF_CONSTRUCTOR;
       }
       break;
-      
+
     case N_WARNING:
       /* This symbol is the text of a warning message.  The next
          symbol is the symbol to associate the warning with.  If a
@@ -350,7 +350,7 @@ netbsd_translate_to_native_sym_flags (abfd, cache_ptr, sym_pointer)
   boolean is_size_symbol;
 
   is_size_symbol = (sym_pointer->e_type[0] & N_TYPE) == N_SIZE;
-  
+
   /* Mask out any existing type bits in case copying from one section
      to another.  */
   sym_pointer->e_type[0] &= ~N_TYPE;
@@ -716,8 +716,8 @@ netbsd_slurp_dynamic_symtab (abfd)
 	    }
 	  return false;
 	}
-    }  
-  
+    }
+
   /* Get the dynamic strings.  */
   if (info->dynstr == (char *) NULL)
     {

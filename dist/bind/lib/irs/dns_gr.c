@@ -42,7 +42,7 @@ static int __bind_irs_gr_unneeded;
 #include <unistd.h>
 
 #include <sys/types.h>
-#include <netinet/in.h> 
+#include <netinet/in.h>
 #include <arpa/nameser.h>
 #include <resolv.h>
 
@@ -209,7 +209,7 @@ get_hes_group(struct irs_gr *this, const char *name, const char *type) {
 	if (!(cp = strchr(cp, ':')))
 		goto cleanup;
 	*cp++ = '\0';
-	
+
 	pvt->group.gr_passwd = cp;
 	if (!(cp = strchr(cp, ':')))
 		goto cleanup;
@@ -247,10 +247,10 @@ get_hes_group(struct irs_gr *this, const char *name, const char *type) {
 			goto cleanup;
 	}
 	pvt->group.gr_mem[num_members] = NULL;
-	
+
 	return (&pvt->group);
-	
- cleanup:	
+
+ cleanup:
 	if (pvt->group.gr_mem) {
 		free(pvt->group.gr_mem);
 		pvt->group.gr_mem = NULL;

@@ -89,7 +89,7 @@ extern struct cfdriver lpt_cd;
 
 void
 lpt_attach_subr(sc)
-	struct lpt_softc *sc; 
+	struct lpt_softc *sc;
 {
 	sc->sc_state = 0;
 }
@@ -268,7 +268,7 @@ pushbytes(sc)
 	return 0;
 }
 
-/* 
+/*
  * Copy a line from user space to a local buffer, then call putc to get the
  * chars moved to the output queue.
  */

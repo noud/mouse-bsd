@@ -114,7 +114,7 @@ struct bdevsw	bdevsw[] =
 int	nblkdev = sizeof(bdevsw) / sizeof(bdevsw[0]);
 
 /*
- * Swapdev is a fake block device implemented  in sw.c and only used 
+ * Swapdev is a fake block device implemented  in sw.c and only used
  * internally to get to swstrategy.  It cannot be provided to the
  * users, because the swstrategy routine munches the b_dev and b_blkno
  * entries before calling the appropriate driver.  This would horribly

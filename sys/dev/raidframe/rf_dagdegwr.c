@@ -71,14 +71,14 @@
  * the DAG creation routines to be replaced at this single point.
  */
 
-static 
+static
 RF_CREATE_DAG_FUNC_DECL(rf_CreateSimpleDegradedWriteDAG)
 {
 	rf_CommonCreateSimpleDegradedWriteDAG(raidPtr, asmap, dag_h, bp,
 	    flags, allocList, 1, rf_RecoveryXorFunc, RF_TRUE);
 }
 
-void 
+void
 rf_CreateDegradedWriteDAG(raidPtr, asmap, dag_h, bp, flags, allocList)
 	RF_Raid_t *raidPtr;
 	RF_AccessStripeMap_t *asmap;
@@ -147,7 +147,7 @@ rf_CreateDegradedWriteDAG(raidPtr, asmap, dag_h, bp, flags, allocList)
  * is used.
  *****************************************************************************/
 
-void 
+void
 rf_CommonCreateSimpleDegradedWriteDAG(raidPtr, asmap, dag_h, bp, flags,
     allocList, nfaults, redFunc, allowBufferRecycle)
 	RF_Raid_t *raidPtr;
@@ -512,7 +512,7 @@ rf_CommonCreateSimpleDegradedWriteDAG(raidPtr, asmap, dag_h, bp, flags,
   pda_p->next = NULL; \
   RF_MallocAndAdd(pda_p->bufPtr,rf_RaidAddressToByte(raidPtr,num),(char *), allocList)
 
-void 
+void
 rf_WriteGenerateFailedAccessASMs(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -653,7 +653,7 @@ rf_WriteGenerateFailedAccessASMs(
   (_node_).params[2].v = parityStripeID; \
   (_node_).params[3].v = RF_CREATE_PARAM3(RF_IO_NORMAL_PRIORITY, 0, 0, which_ru)
 
-void 
+void
 rf_DoubleDegSmallWrite(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -684,11 +684,11 @@ rf_DoubleDegSmallWrite(
 	/* Hdr | ------Block- /  /         \   Rrd  Rrd ...  Rrd  Rp Rq \  \
 	 * /  -------PQ----- /   \   \ Wud   Wp  WQ	     \    |   /
 	 * --Unblock- | T
-	 * 
+	 *
 	 * Rrd = read recovery data  (potentially none) Wud = write user data
 	 * (not incl. failed disks) Wp = Write P (could be two) Wq = Write Q
 	 * (could be two)
-	 * 
+	 *
 	 */
 
 	rf_WriteGenerateFailedAccessASMs(raidPtr, asmap, &npdas, &nRrdNodes, &pqPDAs, &nPQNodes, allocList);

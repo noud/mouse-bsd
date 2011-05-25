@@ -186,7 +186,7 @@ lla_snprintf(adrp, len)
 	    '0','1','2','3','4','5','6','7',
 	    '8','9','a','b','c','d','e','f'
 	};
-		
+
 	int i;
 	char *p;
 
@@ -214,9 +214,9 @@ struct protosw arpsw[] = {
 };
 
 
-struct domain arpdomain = 
+struct domain arpdomain =
 { 	PF_ARP,  "arp", 0, 0, 0,
-	arpsw, &arpsw[sizeof(arpsw)/sizeof(arpsw[0])] 
+	arpsw, &arpsw[sizeof(arpsw)/sizeof(arpsw[0])]
 };
 
 /*
@@ -296,12 +296,12 @@ arp_drain()
 	register struct llinfo_arp *la, *nla;
 	int count = 0;
 	struct mbuf *mold;
-	
+
 	if (arp_lock_try(0) == 0) {
 		printf("arp_drain: locked; punting\n");
 		return;
 	}
-	
+
 	for (la = llinfo_arp.lh_first; la != 0; la = nla) {
 		nla = la->la_list.le_next;
 
@@ -346,7 +346,7 @@ arptimer(arg)
 	}
 
 	ARP_UNLOCK();
-	
+
 	splx(s);
 }
 
@@ -491,7 +491,7 @@ arp_rtrequest(req, rt, sa)
 			rt->rt_expire = 0;
 			Bcopy(LLADDR(rt->rt_ifp->if_sadl),
 			    LLADDR(SDL(gate)),
-			    SDL(gate)->sdl_alen = 
+			    SDL(gate)->sdl_alen =
 			    rt->rt_ifp->if_data.ifi_addrlen);
 #if NLOOP > 0
 			if (useloopback)
@@ -512,7 +512,7 @@ arp_rtrequest(req, rt, sa)
 		mold = la->la_hold;
 		la->la_hold = 0;
 		splx(s);
-		
+
 		if (mold)
 			m_freem(mold);
 
@@ -580,7 +580,7 @@ arpresolve(ifp, rt, m, dst, desten)
 	struct sockaddr_dl *sdl;
 	struct mbuf *mold;
 	int s;
-	
+
 	if (rt)
 		la = (struct llinfo_arp *)rt->rt_llinfo;
 	else {
@@ -617,7 +617,7 @@ arpresolve(ifp, rt, m, dst, desten)
 	if (mold)
 		m_freem(mold);
 
-	
+
 	/*
 	 * Re-send the ARP request when appropriate.
 	 */
@@ -711,7 +711,7 @@ in_arpinput(m)
 	int op;
 	struct mbuf *mold;
 	int s;
-	
+
 
 	ah = mtod(m, struct arphdr *);
 	op = ntohs(ah->ar_op);
@@ -802,19 +802,19 @@ in_arpinput(m)
 				    lla_snprintf(ar_sha(ah), ah->ar_hln));
 			}
 		}
-		/* 
+		/*
 		 * sanity check for the address length.
 		 * XXX this does not work for protocols with variable address
 		 * length. -is
 		 */
 		if (sdl->sdl_alen &&
 		    sdl->sdl_alen != ah->ar_hln) {
-			log(LOG_WARNING, 
+			log(LOG_WARNING,
 			    "arp from %s: new addr len %d, was %d",
 			    in_fmtaddr(isaddr), ah->ar_hln, sdl->sdl_alen);
 		}
 		if (ifp->if_data.ifi_addrlen != ah->ar_hln) {
-			log(LOG_WARNING, 
+			log(LOG_WARNING,
 			    "arp from %s: addr len: new %d, i/f %d (ignored)",
 			    in_fmtaddr(isaddr), ah->ar_hln,
 			    ifp->if_data.ifi_addrlen);
@@ -1118,7 +1118,7 @@ revarpwhoarewe(ifp, serv_in, clnt_in)
 	struct in_addr *clnt_in;
 {
 	int result, count = 20;
-	
+
 	myip_initialized = 0;
 	myip_ifp = ifp;
 
@@ -1133,7 +1133,7 @@ revarpwhoarewe(ifp, serv_in, clnt_in)
 
 	if (!myip_initialized)
 		return ENETUNREACH;
-	
+
 	bcopy((caddr_t)&srv_ip, serv_in, sizeof(*serv_in));
 	bcopy((caddr_t)&myip, clnt_in, sizeof(*clnt_in));
 	return 0;

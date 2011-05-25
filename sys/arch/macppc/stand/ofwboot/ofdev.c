@@ -58,7 +58,7 @@ filename(str, ppart)
 	char savec;
 	int dhandle;
 	char devtype[16];
-	
+
 	lp = str;
 	devtype[0] = 0;
 	*ppart = 0;
@@ -103,14 +103,14 @@ strategy(devdata, rw, blk, size, buf, rsize)
 	struct of_dev *dev = devdata;
 	u_quad_t pos;
 	int n;
-	
+
 	if (rw != F_READ)
 		return EPERM;
 	if (dev->type != OFDEV_DISK)
 		panic("strategy");
-	
+
 	pos = (u_quad_t)(blk + dev->partoff) * dev->bsize;
-	
+
 	for (;;) {
 		if (OF_seek(dev->handle, pos) < 0)
 			break;
@@ -130,7 +130,7 @@ devclose(of)
 	struct open_file *of;
 {
 	struct of_dev *op = of->f_devdata;
-	
+
 	if (op->type == OFDEV_NET)
 		net_close(op);
 	OF_call_method("dma-free", op->handle, 2, 0, op->dmabuf, MAXPHYS);
@@ -173,7 +173,7 @@ get_long(p)
 	const void *p;
 {
 	const unsigned char *cp = p;
-	
+
 	return cp[0] | (cp[1] << 8) | (cp[2] << 16) | (cp[3] << 24);
 }
 
@@ -193,11 +193,11 @@ search_label(devp, off, buf, lp, off0)
 	int i;
 	u_long poff;
 	static int recursion;
-	
+
 	if (strategy(devp, F_READ, off, DEV_BSIZE, buf, &read)
 	    || read != DEV_BSIZE)
 		return ERDLAB;
-	
+
 	if (buf[510] != 0x55 || buf[511] != 0xaa)
 		return ERDLAB;
 
@@ -325,7 +325,7 @@ devopen(of, name, file)
 			part = partition ? partition - 'a' : 0;
 			ofdev.partoff = label.d_partitions[part].p_offset;
 		}
-		
+
 		of->f_dev = devsw;
 		of->f_devdata = &ofdev;
 		bcopy(&file_system_ufs, file_system, sizeof file_system[0]);

@@ -54,11 +54,11 @@
  */
 
 #define	ISPL(s)		((s) & SEL_RPL)	/* what is the priority level of a selector */
-#define	SEL_KPL		0		/* kernel privilege level */	
-#define	SEL_UPL		3		/* user privilege level */	
+#define	SEL_KPL		0		/* kernel privilege level */
+#define	SEL_UPL		3		/* user privilege level */
 #define	SEL_RPL		3		/* requester's privilege level mask */
 #define	ISLDT(s)	((s) & SEL_LDT)	/* is it local or global */
-#define	SEL_LDT		4		/* local descriptor table */	
+#define	SEL_LDT		4		/* local descriptor table */
 #define	IDXSEL(s)	(((s) >> 3) & 0x1fff)		/* index of selector */
 #define	GSEL(s,r)	(((s) << 3) | r)		/* a global selector */
 #define	LSEL(s,r)	(((s) << 3) | r | SEL_LDT)	/* a local selector */

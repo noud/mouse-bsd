@@ -56,7 +56,7 @@ fatal_dump_core PARAMS((char *, ...));
 static void
 prompt_for_continue PARAMS ((void));
 
-static void 
+static void
 set_width_command PARAMS ((char *, int, struct cmd_list_element *));
 
 /* If this definition isn't overridden by the header files, assume
@@ -401,7 +401,7 @@ error (va_alist)
 #endif
   if (error_hook)
     (*error_hook) ();
-  else 
+  else
     {
       error_begin ();
 #ifdef ANSI_PROTOTYPES
@@ -645,8 +645,8 @@ notice_quit()
 #elif defined(_MSC_VER) /* should test for wingdb instead? */
 
 /*
- * Windows translates all keyboard and mouse events 
- * into a message which is appended to the message 
+ * Windows translates all keyboard and mouse events
+ * into a message which is appended to the message
  * queue for the process.
  */
 
@@ -691,7 +691,7 @@ request_quit (signo)
 #ifdef REQUEST_QUIT
   REQUEST_QUIT;
 #else
-  if (immediate_quit) 
+  if (immediate_quit)
     quit ();
 #endif
 }
@@ -1045,7 +1045,7 @@ query (va_alist)
 	  break;
 	}
       if (answer != '\n')	/* Eat rest of input line, to EOF or newline */
-	do 
+	do
 	  {
 	    ans2 = fgetc (stdin);
 	    clearerr (stdin);
@@ -1122,7 +1122,7 @@ parse_escape (string_ptr)
       if (c == '?')
 	return 0177;
       return (c & 0200) | (c & 037);
-      
+
     case '0':
     case '1':
     case '2':
@@ -1168,7 +1168,7 @@ gdb_printchar (c, stream, quoter)
 
   c &= 0xFF;			/* Avoid sign bit follies */
 
-  if (              c < 0x20  ||		/* Low control chars */	
+  if (              c < 0x20  ||		/* Low control chars */
       (c >= 0x7F && c < 0xA0) ||		/* DEL, High controls */
       (sevenbit_strings && c >= 0x80)) {	/* high order bit set */
     switch (c)
@@ -1237,7 +1237,7 @@ static char *wrap_indent;
 static int wrap_column;
 
 /* ARGSUSED */
-static void 
+static void
 set_width_command (args, from_tty, c)
      char *args;
      int from_tty;
@@ -1271,7 +1271,7 @@ prompt_for_continue ()
     strcat (cont_prompt, "\n\032\032prompt-for-continue\n");
 
   /* We must do this *before* we call gdb_readline, else it will eventually
-     call us -- thinking that we're trying to print beyond the end of the 
+     call us -- thinking that we're trying to print beyond the end of the
      screen.  */
   reinitialize_more_filter ();
 
@@ -1319,7 +1319,7 @@ reinitialize_more_filter ()
 }
 
 /* Indicate that if the next sequence of characters overflows the line,
-   a newline should be inserted here rather than when it hits the end. 
+   a newline should be inserted here rather than when it hits the end.
    If INDENT is non-null, it is a string to be printed to indent the
    wrapped part on the next line.  INDENT must remain accessible until
    the next call to wrap_here() or until a newline is printed through
@@ -1448,7 +1448,7 @@ fputs_maybe_filtered (linebuffer, stream, filter)
   /* Go through and output each character.  Show line extension
      when this is necessary; prompt user for new page when this is
      necessary.  */
-  
+
   lineptr = linebuffer;
   while (*lineptr)
     {
@@ -1481,7 +1481,7 @@ fputs_maybe_filtered (linebuffer, stream, filter)
 	      chars_printed++;
 	      lineptr++;
 	    }
-      
+
 	  if (chars_printed >= chars_per_line)
 	    {
 	      unsigned int save_chars = chars_printed;
@@ -1507,7 +1507,7 @@ fputs_maybe_filtered (linebuffer, stream, filter)
 		  /* FIXME, this strlen is what prevents wrap_indent from
 		     containing tabs.  However, if we recurse to print it
 		     and count its chars, we risk trouble if wrap_indent is
-		     longer than (the user settable) chars_per_line. 
+		     longer than (the user settable) chars_per_line.
 		     Note also that this can set chars_printed > chars_per_line
 		     if we are printing a long string.  */
 		  chars_printed = strlen (wrap_indent)
@@ -1976,7 +1976,7 @@ fprintf_symbol_filtered (stream, name, lang, arg_mode)
 /* Do a strcmp() type operation on STRING1 and STRING2, ignoring any
    differences in whitespace.  Returns 0 if they match, non-zero if they
    don't (slightly different than strcmp()'s range of return values).
-   
+
    As an extra hack, string1=="FOO(ARGS)" matches string2=="FOO".
    This "feature" is useful when searching for matching C++ function names
    (such as if the user types 'break FOO', where FOO is a mangled C++
@@ -2016,7 +2016,7 @@ initialize_utils ()
 {
   struct cmd_list_element *c;
 
-  c = add_set_cmd ("width", class_support, var_uinteger, 
+  c = add_set_cmd ("width", class_support, var_uinteger,
 		  (char *)&chars_per_line,
 		  "Set number of characters gdb thinks are in a line.",
 		  &setlist);
@@ -2028,13 +2028,13 @@ initialize_utils ()
 		  var_uinteger, (char *)&lines_per_page,
 		  "Set number of lines gdb thinks are in a page.", &setlist),
      &showlist);
-  
+
   /* These defaults will be used if we are unable to get the correct
      values from termcap.  */
 #if defined(__GO32__)
   lines_per_page = ScreenRows();
   chars_per_line = ScreenCols();
-#else  
+#else
   lines_per_page = 24;
   chars_per_line = 80;
 
@@ -2058,7 +2058,7 @@ initialize_utils ()
 	if (status > 0)
 	  {
 	    int val;
-	    
+
 	    val = tgetnum ("li");
 	    if (val >= 0)
 	      lines_per_page = val;
@@ -2068,7 +2068,7 @@ initialize_utils ()
 		 that paging is not useful (e.g. emacs shell window),
 		 so disable paging.  */
 	      lines_per_page = UINT_MAX;
-	    
+
 	    val = tgetnum ("co");
 	    if (val >= 0)
 	      chars_per_line = val;
@@ -2090,21 +2090,21 @@ initialize_utils ()
   set_width_command ((char *)NULL, 0, c);
 
   add_show_from_set
-    (add_set_cmd ("demangle", class_support, var_boolean, 
+    (add_set_cmd ("demangle", class_support, var_boolean,
 		  (char *)&demangle,
 		"Set demangling of encoded C++ names when displaying symbols.",
 		  &setprintlist),
      &showprintlist);
 
   add_show_from_set
-    (add_set_cmd ("sevenbit-strings", class_support, var_boolean, 
+    (add_set_cmd ("sevenbit-strings", class_support, var_boolean,
 		  (char *)&sevenbit_strings,
    "Set printing of 8-bit characters in strings as \\nnn.",
 		  &setprintlist),
      &showprintlist);
 
   add_show_from_set
-    (add_set_cmd ("asm-demangle", class_support, var_boolean, 
+    (add_set_cmd ("asm-demangle", class_support, var_boolean,
 		  (char *)&asm_demangle,
 	"Set demangling of C++ names in disassembly listings.",
 		  &setprintlist),
@@ -2183,7 +2183,7 @@ get_field (data, order, total_len, start, len)
     }
   return result;
 }
-  
+
 /* Convert from FMT to a DOUBLEST.
    FROM is the address of the extended float.
    Store the DOUBLEST in *TO.  */
@@ -2221,7 +2221,7 @@ floatformat_to_doublest (fmt, from, to)
 
       longswaps = fmt -> totalsize / FLOATFORMAT_CHAR_BIT;
       longswaps >>= 3;
-      
+
       if (newfrom == NULL)
 	{
 	  newfrom = (unsigned char *) xmalloc (fmt -> totalsize);
@@ -2534,7 +2534,7 @@ get_cell()
 
 static int thirty_two = 32;	/* eliminate warning from compiler on 32-bit systems */
 
-char* 
+char*
 paddr(addr)
   t_addr addr;
 {
@@ -2557,7 +2557,7 @@ paddr(addr)
   return paddr_str;
 }
 
-char* 
+char*
 preg(reg)
   t_reg reg;
 {

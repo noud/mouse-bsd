@@ -245,7 +245,7 @@ main(argc, argv)
 		if (kvm_write(kd, nl[N_SPP_DEBX].n_value, &spp_debx,
 		    sizeof(spp_debx)) != sizeof(spp_debx))
 			errx(4, "write spp_debx: %s\n", kvm_geterr(kd));
-		
+
 		if (kvm_write(kd, nl[N_SPP_DEBUG].n_value, spp_debug,
 		    sizeof(spp_debug)) != sizeof(spp_debug))
 			errx(4, "write spp_debug: %s\n", kvm_geterr(kd));

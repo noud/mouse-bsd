@@ -194,7 +194,7 @@ const CGEN_ATTR_TABLE m32r_cgen_insn_attr_table[] =
   { 0, 0 }
 };
 
-CGEN_KEYWORD_ENTRY m32r_cgen_opval_h_gr_entries[] = 
+CGEN_KEYWORD_ENTRY m32r_cgen_opval_h_gr_entries[] =
 {
   { "fp", 13 },
   { "lr", 14 },
@@ -217,13 +217,13 @@ CGEN_KEYWORD_ENTRY m32r_cgen_opval_h_gr_entries[] =
   { "r15", 15 }
 };
 
-CGEN_KEYWORD m32r_cgen_opval_h_gr = 
+CGEN_KEYWORD m32r_cgen_opval_h_gr =
 {
   & m32r_cgen_opval_h_gr_entries[0],
   19
 };
 
-CGEN_KEYWORD_ENTRY m32r_cgen_opval_h_cr_entries[] = 
+CGEN_KEYWORD_ENTRY m32r_cgen_opval_h_cr_entries[] =
 {
   { "psw", 0 },
   { "cbr", 1 },
@@ -239,7 +239,7 @@ CGEN_KEYWORD_ENTRY m32r_cgen_opval_h_cr_entries[] =
   { "cr6", 6 }
 };
 
-CGEN_KEYWORD m32r_cgen_opval_h_cr = 
+CGEN_KEYWORD m32r_cgen_opval_h_cr =
 {
   & m32r_cgen_opval_h_cr_entries[0],
   12
@@ -1938,7 +1938,7 @@ m32r_cgen_dis_hash_insn (buf, value)
   return CGEN_DIS_HASH (buf, value);
 }
 
-CGEN_OPCODE_DATA m32r_cgen_opcode_data = 
+CGEN_OPCODE_DATA m32r_cgen_opcode_data =
 {
   & m32r_cgen_hw_entries[0],
   & m32r_cgen_insn_table,

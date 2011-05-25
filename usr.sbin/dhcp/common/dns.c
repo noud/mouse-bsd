@@ -197,7 +197,7 @@ static int nslookup (id, qname, namelen, qtype, qclass)
 	int len;
 	int i, status;
 	struct sockaddr_in *server = pick_name_server ();
-	
+
 	if (!server)
 		return 0;
 
@@ -213,7 +213,7 @@ static int nslookup (id, qname, namelen, qtype, qclass)
 	s = (u_int8_t *)(hdr + 1);
 	memcpy (s, qname, namelen);
 	s += namelen;
-	
+
 	/* Set the query type. */
 	putUShort (s, qtype);
 	s += sizeof (u_int16_t);
@@ -257,7 +257,7 @@ static int zonelookup (id, qname, namelen, qclass)
 	int len;
 	int i, status, count;
 	struct sockaddr_in *server = pick_name_server ();
-	
+
 	if (!server)
 		return 0;
 
@@ -272,7 +272,7 @@ static int zonelookup (id, qname, namelen, qclass)
 	s = (u_int8_t *)(hdr + 1);
 	memcpy (s, qname, namelen);
 	s += namelen;
-	
+
 	/* Set the query type. */
 	putUShort (s, T_SOA);
 	s += sizeof (u_int16_t);

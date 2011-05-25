@@ -1,7 +1,7 @@
 /* Definitions of target machine for GNU compiler, for ARM with a.out
    Copyright (C) 1995, 1996, 1997 Free Software Foundation, Inc.
    Contributed by Richard Earnshaw (rearnsha@armltd.co.uk).
-   
+
 This file is part of GNU CC.
 
 GNU CC is free software; you can redistribute it and/or modify
@@ -109,7 +109,7 @@ do {									\
   text_section ();							\
   ASM_OUTPUT_INTERNAL_LABEL (STREAM, "Ltext", 0);			\
 } while (0)
-  
+
 /* Output a function label definition.  */
 #define ASM_DECLARE_FUNCTION_NAME(STREAM,NAME,DECL) \
     ASM_OUTPUT_LABEL(STREAM, NAME)
@@ -160,7 +160,7 @@ do { char dstr[30];							\
 	      l[0], l[1], l[2], ASM_COMMENT_START, dstr);		\
    } while (0)
 
-    
+
 #define ASM_OUTPUT_DOUBLE(STREAM, VALUE)  				\
 do { char dstr[30];							\
      long l[2];								\

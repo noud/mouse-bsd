@@ -112,7 +112,7 @@ vrpmuattach(parent, self, aux)
 	sc->sc_iot = iot;
 	sc->sc_ioh = ioh;
 
-	if (!(sc->sc_handler = 
+	if (!(sc->sc_handler =
 	      vrip_intr_establish(va->va_vc, va->va_intr, IPL_TTY,
 				  vrpmu_intr, sc))) {
 		printf (": can't map interrupt line.\n");

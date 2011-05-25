@@ -615,7 +615,7 @@ get_indirect_operand (fragment, size, buffer)
 	      {
 		size_t i, len;
 		int bufcnt;
-		
+
 		len = strlen (current_ind->syntax);
 		for (i = 0, bufcnt = 0; i < len; i++, bufcnt++)
 		  {

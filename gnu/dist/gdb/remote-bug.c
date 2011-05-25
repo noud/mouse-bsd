@@ -419,7 +419,7 @@ bug_srec_write_cr (s)
 	while (sr_pollchar() != *p);
       }
   else
-    {  
+    {
       sr_write_cr (s);
 /*       return(bug_scan (s) || bug_scan ("\n")); */
     }
@@ -538,7 +538,7 @@ bug_store_register (regno)
 	{
 	  unsigned char *fpreg_buf =
 	    (unsigned char *)&registers[REGISTER_BYTE(regno)];
-	  
+
 	  sprintf(buffer, "rs %s %1x_%02x%1x_%1x%02x%02x%02x%02x%02x%02x;d",
 		  regname,
 		  /* sign */
@@ -1047,7 +1047,7 @@ This affects the communication protocol with the remote target.",
 		  "\
 Set echo-verification.\n\
 When on, use verification by echo when downloading S-records.  This is\n\
-much slower, but generally more reliable.", 
+much slower, but generally more reliable.",
 		  &setlist),
      &showlist);
 }

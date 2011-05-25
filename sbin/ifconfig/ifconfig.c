@@ -359,7 +359,7 @@ main(argc, argv)
 		case 'b':
 			bflag = 1;
 			break;
-			
+
 		case 'd':
 			dflag = 1;
 			break;
@@ -386,7 +386,7 @@ main(argc, argv)
 			uflag = 1;
 			break;
 
-			
+
 		default:
 			usage();
 			/* NOTREACHED */
@@ -1862,7 +1862,7 @@ in_getaddr(s, which)
 
 	if (which == ADDR) {
 		char *p = NULL;
-	    
+
 		if((p = strrchr(s, '/')) != NULL) {
 			/* address is `name/masklen' */
 			int masklen;
@@ -1875,8 +1875,8 @@ in_getaddr(s, which)
 				errx(1, "%s: bad value", s);
 			}
 			min->sin_len = sizeof(*min);
-			min->sin_addr.s_addr = 
-				htonl(~((1LL << (32 - masklen)) - 1) & 
+			min->sin_addr.s_addr =
+				htonl(~((1LL << (32 - masklen)) - 1) &
 				      0xffffffff);
 		}
 	}

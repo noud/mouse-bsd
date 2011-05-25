@@ -6,7 +6,7 @@ try it out.  There is no manual; the release of version 1.12 will
 contain a manual.
 
 GNU tar is based heavily on John Gilmore's public domain tar, but with
-added features.  The manual is currently being written.  
+added features.  The manual is currently being written.
 
 This distribution also includes rmt, the remote tape server (which
 normally must reside in /etc).  The mt tape drive control program is

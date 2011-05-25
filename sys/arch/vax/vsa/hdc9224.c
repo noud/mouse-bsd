@@ -15,7 +15,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *	This product includes software developed at Ludd, University of 
+ *	This product includes software developed at Ludd, University of
  *	Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -59,14 +59,14 @@ static int keepLock = 0;
 #include <sys/kernel.h>
 #include <sys/conf.h>
 #include <sys/file.h>
-#include <sys/stat.h> 
+#include <sys/stat.h>
 #include <sys/ioctl.h>
 #include <sys/buf.h>
 #include <sys/proc.h>
 #include <sys/user.h>
 #include <sys/map.h>
 #include <sys/device.h>
-#include <sys/dkstat.h> 
+#include <sys/dkstat.h>
 #include <sys/disklabel.h>
 #include <sys/disk.h>
 #include <sys/syslog.h>
@@ -84,13 +84,13 @@ static int keepLock = 0;
 
 
 /*
- * some definitions 
+ * some definitions
  */
 #define CTLRNAME  "hdc"
 #define UNITNAME  "rd"
 #define HDC_PRI	  LOG_INFO
 
-/* Bits in minor device */ 
+/* Bits in minor device */
 #define HDCUNIT(dev)	DISKUNIT(dev)
 #define HDCPART(dev)	DISKPART(dev)
 #define HDCCTLR(dev)	0
@@ -99,8 +99,8 @@ static int keepLock = 0;
 #define MAX_WAIT	(1000*1000)	/* # of loop-instructions in seconds */
 
 
-/* 
- * on-disk geometry block 
+/*
+ * on-disk geometry block
  */
 #define _aP	__attribute__ ((packed))	/* force byte-alignment */
 struct rdgeom {
@@ -212,9 +212,9 @@ int hdc_getlabel __P((struct hdcsoftc *hdc, struct rdsoftc *rd, int drive));
 void rdgetlabel __P((struct rdsoftc *sc));
 
 /*
- * new-config's hdcmatch() is similiar to old-config's hdcprobe(), 
+ * new-config's hdcmatch() is similiar to old-config's hdcprobe(),
  * thus we probe for the existence of the controller and reset it.
- * NB: we can't initialize the controller yet, since space for hdcsoftc 
+ * NB: we can't initialize the controller yet, since space for hdcsoftc
  *     is not yet allocated. Thus we do this in hdcattach()...
  */
 int
@@ -236,7 +236,7 @@ hdcmatch(parent, cf, aux)
 	 * only(?) VS2000/KA410 has exactly one HDC9224 controller
 	 */
 	if (vax_boardtype != VAX_BTYP_410) {
-		printf ("unexpected boardtype 0x%x in hdcmatch()\n", 
+		printf ("unexpected boardtype 0x%x in hdcmatch()\n",
 			vax_boardtype);
 		return (0);
 	}
@@ -267,7 +267,7 @@ rdprint(aux, name)
 /*
  * hdc_attach() probes for all possible devices
  */
-void 
+void
 hdcattach(parent, self, aux)
 	struct device *parent, *self;
 	void *aux;
@@ -296,7 +296,7 @@ hdcattach(parent, self, aux)
 	sc->sc_dkc     = (void*)uvax_phys2virt(KA410_DKC_BASE);
 	sc->sc_dmabase = (void*)uvax_phys2virt(KA410_DMA_BASE);
 	sc->sc_dmasize = KA410_DMA_SIZE;
-					      
+
 	if (hdc_reset(sc) != 0) {
 		delay(500*1000);	/* wait .5 seconds */
 		if (hdc_reset(sc) != 0)
@@ -350,7 +350,7 @@ rdmatch(parent, cf, aux)
 
 	debug (("cstat: %x dstat: %x\n", hdc->sc_sreg.udc_cstat,
 		hdc->sc_sreg.udc_dstat));
-	if (drive == 1) 
+	if (drive == 1)
 	  return (0);	/* XXX */
 
 	return (1);
@@ -386,7 +386,7 @@ rdattach(parent, self, aux)
 	else {
 		hdc_getdata(hdc, rd, rd->sc_drive);
 		printf("%s, %ld MB, %ld LBN, %d cyl, %d head, %d sect/track\n",
-		       rp->diskname, rp->diskblks/2048, rp->disklbns, 
+		       rp->diskname, rp->diskblks/2048, rp->disklbns,
 		       rp->cylinders, rp->heads, rp->sectors);
 	}
 	/*
@@ -398,7 +398,7 @@ rdattach(parent, self, aux)
 
 int hdc_strategy(struct hdcsoftc *, struct rdsoftc *, int, int, int, int, char *);
 /*
- * Read/write routine for a buffer.  For now we poll the controller, 
+ * Read/write routine for a buffer.  For now we poll the controller,
  * thus this routine waits for the transfer to complete.
  */
 void
@@ -419,7 +419,7 @@ rdstrategy(bp)
 	 */
 	if (bp->b_bcount == 0)
 		goto done;
-	
+
 	/*
 	 * what follows now should not be here but in rdstart...
 	 */
@@ -430,7 +430,7 @@ rdstrategy(bp)
 
 	/* nblks = howmany(bp->b_bcount, sd->sc_dk.dk_label->d_secsize); */
 
-	if (hdc_strategy(hdc, rd, HDCUNIT(bp->b_dev), 
+	if (hdc_strategy(hdc, rd, HDCUNIT(bp->b_dev),
 			 ((bp->b_flags & B_READ) ? F_READ : F_WRITE),
 			 blkno, bp->b_bcount, bp->b_data) == 0)
 		goto done;
@@ -475,7 +475,7 @@ hdc_strategy(hdc, rd, unit, func, dblk, size, buf)
 	  p->udc_dhead = 0;
 	  p->udc_dcyl  = 0;
 
-	  p->udc_scnt  = size/512; 
+	  p->udc_scnt  = size/512;
 	  p->udc_rtcnt = 0xF0;
 	  p->udc_mode  = 0xC0;
 	  p->udc_term  = 0xB4;
@@ -501,7 +501,7 @@ hdc_strategy(hdc, rd, unit, func, dblk, size, buf)
 
 	  return (res);
 	}
-	
+
 	scount = size / 512;
 	while (scount) {
 	  /*
@@ -511,7 +511,7 @@ hdc_strategy(hdc, rd, unit, func, dblk, size, buf)
 	  sect = dblk % lp->d_secpercyl;
 	  head = sect / lp->d_nsectors;
 	  sect = sect % lp->d_nsectors;
-	  if (unit == 2) 
+	  if (unit == 2)
 		sect++;
 	  else
 		cyl++;		/* first cylinder is reserved */
@@ -533,19 +533,19 @@ hdc_strategy(hdc, rd, unit, func, dblk, size, buf)
 	  p->udc_dhead = head;
 	  p->udc_dcyl  = cyl;
 
-	  p->udc_scnt  = size/512; 
+	  p->udc_scnt  = size/512;
 
 	  if (unit == 2) {	/* floppy */
 	    p->udc_rtcnt = 0xF2;
 	    p->udc_mode	 = 0x81;	/* RX33 with RX50 media */
 	    p->udc_mode	 = 0x82;	/* RX33 with RX33 media */
-	    p->udc_term	 = 0xB4;	
+	    p->udc_term	 = 0xB4;
 	  } else {		 /* disk */
 	    p->udc_rtcnt = 0xF0;
 	    p->udc_mode	 = 0xC0;
 	    p->udc_term	 = 0xB4;
 	  }
-	  
+
 	  vsbus_lockDMA(hdc->sc_cfargs);
 	  haveLock = 1;
 	  keepLock = 1;
@@ -604,7 +604,7 @@ hdc_printgeom(p)
 	printf ("media-ID: %s, interleave: %d, headskew: %d, cylskew: %d\n",
 		dname, p->interleave, p->headskew, p->cylskew);
 	printf ("gap0: %d, gap1: %d, gap2: %d, gap3: %d, sync-value: %d\n",
-		p->gap0_size, p->gap1_size, p->gap2_size, p->gap3_size, 
+		p->gap0_size, p->gap1_size, p->gap2_size, p->gap3_size,
 		p->sync_value);
 }
 #endif
@@ -762,7 +762,7 @@ hdcopen (dev, flag, fmt, p)
 		return (ENXIO);
 	}
 	hdc = (void *)rd->sc_dev.dv_parent;
-	
+
 	/* XXX here's much more to do! XXX */
 
 	hdc_getdata (hdc, rd, unit);
@@ -862,7 +862,7 @@ hdcioctl(dev, cmd, data, flag, p)
 			sd->flags &= ~SDF_WLABEL;
 */
 		return (0);
-	      
+
 	default:
 		if (HDCPART(dev) != RAW_PART)
 			return ENOTTY;
@@ -874,7 +874,7 @@ hdcioctl(dev, cmd, data, flag, p)
 cdev_decl(hdc);
 
 /*
- * 
+ *
  */
 int
 hdcread (dev, uio, flag)
@@ -929,7 +929,7 @@ hdc_readregs(sc)
 	trace(("hdc_readregs()\n"));
 
 	sc->sc_dkc->dkc_cmd = 0x40;	/* set internal counter to zero */
-	p = (void*)&sc->sc_sreg;	
+	p = (void*)&sc->sc_sreg;
 	for (i=0; i<10; i++)
 		*p++ = sc->sc_dkc->dkc_reg;	/* dkc_reg auto-increments */
 }
@@ -946,7 +946,7 @@ hdc_writeregs(sc)
 	trace(("hdc_writeregs()\n"));
 
 	sc->sc_dkc->dkc_cmd = 0x40;	/* set internal counter to zero */
-	p = (void*)&sc->sc_creg;	
+	p = (void*)&sc->sc_creg;
 	for (i=0; i<10; i++)
 		sc->sc_dkc->dkc_reg = *p++;	/* dkc_reg auto-increments */
 }
@@ -1003,12 +1003,12 @@ hdc_command(sc, cmd)
  * This will not interrupt data-transfer commands!
  * Also no interrupt is generated, thus we don't use hdc_command()
  */
-int 
+int
 hdc_reset(sc)
 	struct hdcsoftc *sc;
 {
 	trace (("hdc_reset()\n"));
-	
+
 	sc->sc_dkc->dkc_cmd = DKC_CMD_RESET;	/* issue RESET command */
 	hdc_readregs(sc);			/* read the status registers */
 	sc->sc_status = sc->sc_dkc->dkc_stat;
@@ -1117,7 +1117,7 @@ hdc_rdselect(sc, unit)
 	error = hdc_command (sc, DKC_CMD_DRSEL_HDD | unit);
 	if (error)
 		error = hdc_command (sc, DKC_CMD_DRSEL_HDD | unit);
-	
+
 	return (error);
 }
 
@@ -1125,7 +1125,7 @@ hdc_rdselect(sc, unit)
  * bring command-regs into some known-to-work state and select
  * the drive with the DRIVE SELECT command.
  */
-int 
+int
 hdc_select(sc, unit)
 	struct hdcsoftc *sc;
 	int unit;

@@ -3,7 +3,7 @@
 /*
  * NETBIOS protocol formats
  *
- * @(#) Header: netbios.h,v 1.1 94/06/09 11:47:15 mccanne Exp 
+ * @(#) Header: netbios.h,v 1.1 94/06/09 11:47:15 mccanne Exp
  */
 
 struct p8022Hdr {

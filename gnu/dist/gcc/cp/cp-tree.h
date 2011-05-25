@@ -93,13 +93,13 @@ struct lang_id2
   tree type_desc, as_list, error_locus;
 };
 
-typedef struct 
+typedef struct
 {
   tree t;
   int new_type_flag;
 } flagged_type_tree;
 
-typedef struct 
+typedef struct
 {
   char common[sizeof (struct tree_common)];
   struct rtx_def *rtl;	/* Unused, but required to match up with what
@@ -464,8 +464,8 @@ extern int name_mangling_version;
 /* Nonzero means that guiding declarations are allowed.  */
 extern int flag_guiding_decls;
 
-/* Nonzero if squashed mangling is to be performed. 
-   This uses the B and K codes to reference previously seen class types 
+/* Nonzero if squashed mangling is to be performed.
+   This uses the B and K codes to reference previously seen class types
    and class qualifiers.       */
 extern int flag_do_squangling;
 
@@ -899,7 +899,7 @@ struct lang_type
 #define TYPE_HAS_DEFAULT_CONSTRUCTOR(NODE) (TYPE_LANG_SPECIFIC(NODE)->type_flags.has_default_ctor)
 
 /* Nonzero means the type declared a ctor as private or protected.  We
-   use this to make sure we don't try to generate a copy ctor for a 
+   use this to make sure we don't try to generate a copy ctor for a
    class that has a member of type NODE.  */
 #define TYPE_HAS_NONPUBLIC_CTOR(NODE) (TYPE_LANG_SPECIFIC(NODE)->type_flags.has_nonpublic_ctor)
 
@@ -1139,7 +1139,7 @@ struct lang_decl
 #define SHARED_MEMBER_P(NODE) \
   (TREE_CODE (NODE) == VAR_DECL || TREE_CODE (NODE) == TYPE_DECL \
    || TREE_CODE (NODE) == CONST_DECL)
-				
+
 /* Nonzero for FUNCTION_DECL means that this decl is a non-static
    member function.  */
 #define DECL_NONSTATIC_MEMBER_FUNCTION_P(NODE) \
@@ -1647,7 +1647,7 @@ extern int flag_new_for_scope;
 #define UPT_PARMS(NODE)         TREE_VALUE(TYPE_VALUES(NODE))
 
 /* An un-parsed default argument looks like an identifier.  */
-#define DEFARG_NODE_CHECK(t)	TREE_CHECK(t, DEFAULT_ARG) 
+#define DEFARG_NODE_CHECK(t)	TREE_CHECK(t, DEFAULT_ARG)
 #define DEFARG_LENGTH(NODE)	(DEFARG_NODE_CHECK(NODE)->identifier.length)
 #define DEFARG_POINTER(NODE)	(DEFARG_NODE_CHECK(NODE)->identifier.pointer)
 
@@ -2005,7 +2005,7 @@ extern int current_function_parms_stored;
 #define VPTR_NAME_P(ID_NODE) (IDENTIFIER_POINTER (ID_NODE)[0] == JOINER \
 			      && IDENTIFIER_POINTER (ID_NODE)[1] == 'v')
 #define DESTRUCTOR_NAME_P(ID_NODE) (IDENTIFIER_POINTER (ID_NODE)[1] == JOINER \
-                                    && IDENTIFIER_POINTER (ID_NODE)[2] == '_') 
+                                    && IDENTIFIER_POINTER (ID_NODE)[2] == '_')
 
 #define VTABLE_NAME_P(ID_NODE) (IDENTIFIER_POINTER (ID_NODE)[1] == 'v' \
   && IDENTIFIER_POINTER (ID_NODE)[2] == 't' \
@@ -2171,7 +2171,7 @@ extern tree current_class_type;	/* _TYPE: the type of the current class */
 
    These are used in global lookup to support elaborated types and
    qualifiers.
-   
+
    LOOKUP_PREFER_TYPES means not to accept objects, and possibly namespaces.
    LOOKUP_PREFER_NAMESPACES means not to accept objects, and possibly types.
    LOOKUP_PREFER_BOTH means class-or-namespace-name.
@@ -2201,7 +2201,7 @@ extern tree current_class_type;	/* _TYPE: the type of the current class */
 #define LOOKUP_TYPES_ONLY(f)  \
   (!((f) & LOOKUP_PREFER_NAMESPACES) && ((f) & LOOKUP_PREFER_TYPES))
 #define LOOKUP_QUALIFIERS_ONLY(f)     ((f) & LOOKUP_PREFER_BOTH)
-     
+
 
 /* These flags are used by the conversion code.
    CONV_IMPLICIT   :  Perform implicit conversions (standard and user-defined).
@@ -2246,7 +2246,7 @@ extern tree current_class_type;	/* _TYPE: the type of the current class */
 #define TEMPLATE_PARM_ORIG_LEVEL(NODE) (((template_parm_index*) NODE)->orig_level)
 #define TEMPLATE_PARM_DECL(NODE) (((template_parm_index*) NODE)->decl)
 
-/* These macros are for accessing the fields of TEMPLATE_TYPE_PARM 
+/* These macros are for accessing the fields of TEMPLATE_TYPE_PARM
    and TEMPLATE_TEMPLATE_PARM nodes.  */
 #define TEMPLATE_TYPE_PARM_INDEX(NODE) (TYPE_FIELDS (NODE))
 #define TEMPLATE_TYPE_IDX(NODE) \
@@ -2472,7 +2472,7 @@ extern tree grokbitfield			PROTO((tree, tree, tree));
 extern tree groktypefield			PROTO((tree, tree));
 extern tree grokoptypename			PROTO((tree, tree));
 extern int copy_assignment_arg_p		PROTO((tree, int));
-extern void cplus_decl_attributes		PROTO((tree, tree, tree)); 
+extern void cplus_decl_attributes		PROTO((tree, tree, tree));
 extern tree constructor_name_full		PROTO((tree));
 extern tree constructor_name			PROTO((tree));
 extern void setup_vtbl_ptr			PROTO((void));

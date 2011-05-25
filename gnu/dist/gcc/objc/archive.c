@@ -60,7 +60,7 @@ static int
 objc_write_register_common (struct objc_typed_stream* stream,
 			    unsigned long key);
 
-static int 
+static int
 objc_write_class (struct objc_typed_stream* stream,
 			 struct objc_class* class);
 
@@ -127,7 +127,7 @@ __objc_code_unsigned_short (unsigned char* buf, unsigned short val)
       buf[0] = val|_B_SINT;
       return 1;
     }
-  else 
+  else
     {
       int c, b;
 
@@ -149,14 +149,14 @@ __objc_code_unsigned_short (unsigned char* buf, unsigned short val)
 }
 
 int
-objc_write_unsigned_short (struct objc_typed_stream* stream, 
+objc_write_unsigned_short (struct objc_typed_stream* stream,
 			   unsigned short value)
 {
   unsigned char buf[sizeof (unsigned short)+1];
   int len = __objc_code_unsigned_short (buf, value);
   return (*stream->write)(stream->physical, buf, len);
 }
-      
+
 static __inline__ int
 __objc_code_short (unsigned char* buf, short val)
 {
@@ -174,7 +174,7 @@ objc_write_short (struct objc_typed_stream* stream, short value)
   int len = __objc_code_short (buf, value);
   return (*stream->write)(stream->physical, buf, len);
 }
-      
+
 
 static __inline__ int
 __objc_code_unsigned_int (unsigned char* buf, unsigned int val)
@@ -184,7 +184,7 @@ __objc_code_unsigned_int (unsigned char* buf, unsigned int val)
       buf[0] = val|_B_SINT;
       return 1;
     }
-  else 
+  else
     {
       int c, b;
 
@@ -239,7 +239,7 @@ __objc_code_unsigned_long (unsigned char* buf, unsigned long val)
       buf[0] = val|_B_SINT;
       return 1;
     }
-  else 
+  else
     {
       int c, b;
 
@@ -261,7 +261,7 @@ __objc_code_unsigned_long (unsigned char* buf, unsigned long val)
 }
 
 int
-objc_write_unsigned_long (struct objc_typed_stream* stream, 
+objc_write_unsigned_long (struct objc_typed_stream* stream,
 			  unsigned long value)
 {
   unsigned char buf[sizeof(unsigned long)+1];
@@ -294,7 +294,7 @@ objc_write_string (struct objc_typed_stream* stream,
 {
   unsigned char buf[sizeof(unsigned int)+1];
   int len = __objc_code_unsigned_int (buf, nbytes);
-  
+
   if ((buf[0]&_B_CODE) == _B_SINT)
     buf[0] = (buf[0]&_B_VALUE)|_B_SSTR;
 
@@ -325,7 +325,7 @@ objc_write_string_atomic (struct objc_typed_stream* stream,
 }
 
 static int
-objc_write_register_common (struct objc_typed_stream* stream, 
+objc_write_register_common (struct objc_typed_stream* stream,
 			    unsigned long key)
 {
   unsigned char buf[sizeof (unsigned long)+2];
@@ -369,7 +369,7 @@ __objc_write_extension (struct objc_typed_stream* stream, unsigned char code)
       unsigned char buf = code|_B_EXT;
       return (*stream->write)(stream->physical, &buf, 1);
     }
-  else 
+  else
     {
       objc_error(nil, OBJC_ERR_BAD_OPCODE,
 		 "__objc_write_extension: bad opcode %c\n", code);
@@ -393,7 +393,7 @@ __objc_write_object (struct objc_typed_stream* stream, id object)
     return objc_write_use_common(stream, 0);
 }
 
-int 
+int
 objc_write_object_reference (struct objc_typed_stream* stream, id object)
 {
   unsigned long key;
@@ -404,12 +404,12 @@ objc_write_object_reference (struct objc_typed_stream* stream, id object)
   return objc_write_unsigned_long (stream, PTR2LONG (object));
 }
 
-int 
+int
 objc_write_root_object (struct objc_typed_stream* stream, id object)
 {
   int len = 0;
   if (stream->writing_root_p)
-    objc_error (nil, OBJC_ERR_RECURSE_ROOT, 
+    objc_error (nil, OBJC_ERR_RECURSE_ROOT,
 		"objc_write_root_object called recursively");
   else
     {
@@ -422,7 +422,7 @@ objc_write_root_object (struct objc_typed_stream* stream, id object)
   return len;
 }
 
-int 
+int
 objc_write_object (struct objc_typed_stream* stream, id object)
 {
   unsigned long key;
@@ -452,7 +452,7 @@ __objc_write_class (struct objc_typed_stream* stream, struct objc_class* class)
 }
 
 
-static int 
+static int
 objc_write_class (struct objc_typed_stream* stream,
 			 struct objc_class* class)
 {
@@ -470,7 +470,7 @@ objc_write_class (struct objc_typed_stream* stream,
 }
 
 
-__inline__ int 
+__inline__ int
 __objc_write_selector (struct objc_typed_stream* stream, SEL selector)
 {
   const char* sel_name;
@@ -482,7 +482,7 @@ __objc_write_selector (struct objc_typed_stream* stream, SEL selector)
   return objc_write_string (stream, sel_name, strlen ((char*)sel_name));
 }
 
-int 
+int
 objc_write_selector (struct objc_typed_stream* stream, SEL selector)
 {
   const char* sel_name;
@@ -498,7 +498,7 @@ objc_write_selector (struct objc_typed_stream* stream, SEL selector)
   else
     {
       int length;
-      hash_add (&stream->stream_table, 
+      hash_add (&stream->stream_table,
 		LONG2PTR(key=PTR2LONG(sel_name)), (char*)sel_name);
       if ((length = objc_write_register_common (stream, key)))
 	return __objc_write_selector (stream, selector);
@@ -509,7 +509,7 @@ objc_write_selector (struct objc_typed_stream* stream, SEL selector)
 
 
 /*
-** Read operations 
+** Read operations
 */
 
 __inline__ int
@@ -686,7 +686,7 @@ __objc_read_nbyte_uint (struct objc_typed_stream* stream,
     (*val) = ((*val)*0x100) + buf[pos++];
   return len;
 }
-  
+
 
 __inline__ int
 objc_read_unsigned_int (struct objc_typed_stream* stream,
@@ -722,7 +722,7 @@ __objc_read_nbyte_ulong (struct objc_typed_stream* stream,
     (*val) = ((*val)*0x100) + buf[pos++];
   return len;
 }
-  
+
 
 __inline__ int
 objc_read_unsigned_long (struct objc_typed_stream* stream,
@@ -793,7 +793,7 @@ objc_read_string (struct objc_typed_stream* stream,
 	  }
 	}
 	break;
-	
+
       default:
 	objc_error(nil, OBJC_ERR_BAD_DATA,
 		   "expected string, got opcode %c\n", (buf[0]&_B_CODE));
@@ -857,9 +857,9 @@ objc_read_object (struct objc_typed_stream* stream, id* object)
 	{
 	  struct objc_list* other;
 	  len = objc_read_unsigned_long (stream, &key);
-	  other = (struct objc_list*)hash_value_for_key (stream->object_refs, 
+	  other = (struct objc_list*)hash_value_for_key (stream->object_refs,
 							 LONG2PTR(key));
-	  hash_add (&stream->object_refs, LONG2PTR(key), 
+	  hash_add (&stream->object_refs, LONG2PTR(key),
 		    (void*)list_cons(object, other));
 	}
 
@@ -957,7 +957,7 @@ objc_read_selector (struct objc_typed_stream* stream, SEL* selector)
 	      (*selector) = (SEL)0;
 	      return 0;
 	    }
-	  else 
+	  else
 	    (*selector) = sel_get_any_uid(selector_name);
 	  objc_free(selector_name);
 
@@ -971,7 +971,7 @@ objc_read_selector (struct objc_typed_stream* stream, SEL* selector)
 	  if (key)
 	    objc_error(nil, OBJC_ERR_BAD_KEY, "cannot register use upcode...");
 	  len = __objc_read_nbyte_ulong(stream, (buf[0] & _B_VALUE), &key);
-	  (*selector) = hash_value_for_key (stream->stream_table, 
+	  (*selector) = hash_value_for_key (stream->stream_table,
 					    LONG2PTR(key));
 	}
 
@@ -988,7 +988,7 @@ objc_read_selector (struct objc_typed_stream* stream, SEL* selector)
 
 /*
 ** Write one object, encoded in TYPE and pointed to by DATA to the
-** typed stream STREAM.  
+** typed stream STREAM.
 */
 
 int
@@ -1010,7 +1010,7 @@ objc_write_type(TypedStream* stream, const char* type, const void* data)
   case _C_CHR:
     return objc_write_char(stream, *(char*)data);
     break;
-    
+
   case _C_UCHR:
     return objc_write_unsigned_char(stream, *(unsigned char*)data);
     break;
@@ -1044,7 +1044,7 @@ objc_write_type(TypedStream* stream, const char* type, const void* data)
     break;
 
   case _C_ATOM:
-    return objc_write_string_atomic (stream, *(char**)data, 
+    return objc_write_string_atomic (stream, *(char**)data,
 				     strlen(*(char**)data));
     break;
 
@@ -1055,7 +1055,7 @@ objc_write_type(TypedStream* stream, const char* type, const void* data)
 	;
       return objc_write_array (stream, type, len, data);
     }
-    break; 
+    break;
 
   case _C_STRUCT_B:
     {
@@ -1087,7 +1087,7 @@ objc_write_type(TypedStream* stream, const char* type, const void* data)
 ** Read one object, encoded in TYPE and pointed to by DATA to the
 ** typed stream STREAM.  DATA specifies the address of the types to
 ** read.  Expected type is checked against the type actually present
-** on the stream. 
+** on the stream.
 */
 
 int
@@ -1110,7 +1110,7 @@ objc_read_type(TypedStream* stream, const char* type, void* data)
   case _C_CHR:
     return objc_read_char (stream, (char*)data);
     break;
-    
+
   case _C_UCHR:
     return objc_read_unsigned_char (stream, (unsigned char*)data);
     break;
@@ -1151,7 +1151,7 @@ objc_read_type(TypedStream* stream, const char* type, void* data)
 	;
       return objc_read_array (stream, type, len, data);
     }
-    break; 
+    break;
 
   case _C_STRUCT_B:
     {
@@ -1181,7 +1181,7 @@ objc_read_type(TypedStream* stream, const char* type, void* data)
 
 /*
 ** Write the object specified by the template TYPE to STREAM.  Last
-** arguments specify addresses of values to be written.  It might 
+** arguments specify addresses of values to be written.  It might
 ** seem surprising to specify values by address, but this is extremely
 ** convenient for copy-paste with objc_read_types calls.  A more
 ** down-to-the-earth cause for this passing of addresses is that values
@@ -1189,7 +1189,7 @@ objc_read_type(TypedStream* stream, const char* type, void* data)
 ** variable number of arguments.
 */
 
-int 
+int
 objc_write_types (TypedStream* stream, const char* type, ...)
 {
   va_list args;
@@ -1212,16 +1212,16 @@ objc_write_types (TypedStream* stream, const char* type, ...)
       case _C_SEL:
 	res = objc_write_selector (stream, *va_arg(args, SEL*));
 	break;
-	
+
       case _C_CHR:
 	res = objc_write_char (stream, *va_arg (args, char*));
 	break;
-	
+
       case _C_UCHR:
 	res = objc_write_unsigned_char (stream,
 					*va_arg (args, unsigned char*));
 	break;
-	
+
       case _C_SHT:
 	res = objc_write_short (stream, *va_arg(args, short*));
 	break;
@@ -1234,7 +1234,7 @@ objc_write_types (TypedStream* stream, const char* type, ...)
       case _C_INT:
 	res = objc_write_int(stream, *va_arg(args, int*));
 	break;
-	
+
       case _C_UINT:
 	res = objc_write_unsigned_int(stream, *va_arg(args, unsigned int*));
 	break;
@@ -1242,7 +1242,7 @@ objc_write_types (TypedStream* stream, const char* type, ...)
       case _C_LNG:
 	res = objc_write_long(stream, *va_arg(args, long*));
 	break;
-	
+
       case _C_ULNG:
 	res = objc_write_unsigned_long(stream, *va_arg(args, unsigned long*));
 	break;
@@ -1272,10 +1272,10 @@ objc_write_types (TypedStream* stream, const char* type, ...)
 	  if (*t != _C_ARY_E)
 	    objc_error(nil, OBJC_ERR_BAD_TYPE, "expected `]', got: %s", t);
 	}
-	break; 
-	
+	break;
+
       default:
-	objc_error(nil, OBJC_ERR_BAD_TYPE, 
+	objc_error(nil, OBJC_ERR_BAD_TYPE,
 		   "objc_write_types: cannot parse typespec: %s\n", type);
       }
     }
@@ -1284,12 +1284,12 @@ objc_write_types (TypedStream* stream, const char* type, ...)
 }
 
 
-/* 
+/*
 ** Last arguments specify addresses of values to be read.  Expected
-** type is checked against the type actually present on the stream. 
+** type is checked against the type actually present on the stream.
 */
 
-int 
+int
 objc_read_types(TypedStream* stream, const char* type, ...)
 {
   va_list args;
@@ -1312,15 +1312,15 @@ objc_read_types(TypedStream* stream, const char* type, ...)
       case _C_SEL:
 	res = objc_read_selector(stream, va_arg(args, SEL*));
 	break;
-	
+
       case _C_CHR:
 	res = objc_read_char(stream, va_arg(args, char*));
 	break;
-	
+
       case _C_UCHR:
 	res = objc_read_unsigned_char(stream, va_arg(args, unsigned char*));
 	break;
-	
+
       case _C_SHT:
 	res = objc_read_short(stream, va_arg(args, short*));
 	break;
@@ -1332,7 +1332,7 @@ objc_read_types(TypedStream* stream, const char* type, ...)
       case _C_INT:
 	res = objc_read_int(stream, va_arg(args, int*));
 	break;
-	
+
       case _C_UINT:
 	res = objc_read_unsigned_int(stream, va_arg(args, unsigned int*));
 	break;
@@ -1340,7 +1340,7 @@ objc_read_types(TypedStream* stream, const char* type, ...)
       case _C_LNG:
 	res = objc_read_long(stream, va_arg(args, long*));
 	break;
-	
+
       case _C_ULNG:
 	res = objc_read_unsigned_long(stream, va_arg(args, unsigned long*));
 	break;
@@ -1364,10 +1364,10 @@ objc_read_types(TypedStream* stream, const char* type, ...)
 	  if (*t != _C_ARY_E)
 	    objc_error(nil, OBJC_ERR_BAD_TYPE, "expected `]', got: %s", t);
 	}
-	break; 
-	
+	break;
+
       default:
-	objc_error(nil, OBJC_ERR_BAD_TYPE, 
+	objc_error(nil, OBJC_ERR_BAD_TYPE,
 		   "objc_read_types: cannot parse typespec: %s\n", type);
       }
     }
@@ -1398,7 +1398,7 @@ objc_write_array (TypedStream* stream, const char* type,
 /*
 ** Read an array of COUNT elements of TYPE into the memory address
 ** DATA.  The memory pointed to by data is supposed to be allocated
-** by the callee.  This is equivalent of 
+** by the callee.  This is equivalent of
 **   objc_read_type (stream, "[N<type>]", data)
 */
 
@@ -1417,13 +1417,13 @@ objc_read_array (TypedStream* stream, const char* type,
   return 1;
 }
 
-static int 
+static int
 __objc_fread(FILE* file, char* data, int len)
 {
   return fread(data, len, 1, file);
 }
 
-static int 
+static int
 __objc_fwrite(FILE* file, char* data, int len)
 {
   return fwrite(data, len, 1, file);
@@ -1435,14 +1435,14 @@ __objc_feof(FILE* file)
   return feof(file);
 }
 
-static int 
+static int
 __objc_no_write(FILE* file, char* data, int len)
 {
   objc_error (nil, OBJC_ERR_NO_WRITE, "TypedStream not open for writing");
   return 0;
 }
 
-static int 
+static int
 __objc_no_read(FILE* file, char* data, int len)
 {
   objc_error (nil, OBJC_ERR_NO_READ, "TypedStream not open for reading");
@@ -1507,7 +1507,7 @@ static void __objc_finish_read_root_object(struct objc_typed_stream* stream)
 	  reflist = reflist->tail;
 	}
     }
-    
+
   /* apply __objc_free to all objects stored in free_list */
   for (node = hash_next (free_list, NULL); node;
        node = hash_next (free_list, node))
@@ -1519,7 +1519,7 @@ static void __objc_finish_read_root_object(struct objc_typed_stream* stream)
   hash_delete (stream->object_refs);
   stream->object_refs = hash_new(8, (hash_func_type)hash_ptr,
 				 (compare_func_type)compare_ptrs);
-  
+
   /* call -awake for all objects read  */
   if (awake_sel)
     {
@@ -1543,7 +1543,7 @@ static void __objc_finish_read_root_object(struct objc_typed_stream* stream)
 ** Open the stream PHYSICAL in MODE
 */
 
-TypedStream* 
+TypedStream*
 objc_open_typed_stream (FILE* physical, int mode)
 {
   TypedStream* s = (TypedStream*)objc_malloc(sizeof(TypedStream));
@@ -1576,7 +1576,7 @@ objc_open_typed_stream (FILE* physical, int mode)
       s->read = (objc_typed_read_func)__objc_no_read;
       s->write = (objc_typed_write_func)__objc_fwrite;
       __objc_write_typed_stream_signature (s);
-    }      
+    }
   else
     {
       objc_close_typed_stream (s);
@@ -1613,7 +1613,7 @@ objc_open_typed_stream_for_file (const char* file_name, int mode)
 }
 
 /*
-** Close STREAM freeing the structure it self.  If it was opened with 
+** Close STREAM freeing the structure it self.  If it was opened with
 ** objc_open_typed_stream_for_file, the file will also be closed.
 */
 

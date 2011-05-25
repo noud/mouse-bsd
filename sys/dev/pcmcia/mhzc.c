@@ -45,7 +45,7 @@
  * working!
  */
 
-#include "opt_inet.h" 
+#include "opt_inet.h"
 #include "opt_ns.h"
 #include "bpfilter.h"
 
@@ -60,10 +60,10 @@
 #include <sys/tty.h>
 #include <sys/device.h>
 
-#include <net/if.h>     
-#include <net/if_dl.h>  
+#include <net/if.h>
+#include <net/if_dl.h>
 #include <net/if_ether.h>
-#include <net/if_media.h> 
+#include <net/if_media.h>
 
 #ifdef INET
 #include <netinet/in.h>
@@ -72,11 +72,11 @@
 #include <netinet/ip.h>
 #include <netinet/if_inarp.h>
 #endif
-        
-#ifdef NS 
+
+#ifdef NS
 #include <netns/ns.h>
 #include <netns/ns_if.h>
-#endif  
+#endif
 
 #if NBPFILTER > 0
 #include <net/bpf.h>
@@ -547,7 +547,7 @@ mhzc_em3336_enable(sc)
 	 * way (as per my reference... the Linux smc91c92_cs.c driver by
 	 * David A. Hinds).
 	 */
-	
+
 	/* Map the ISRPOWEREG. */
 	if (pcmcia_mem_alloc(sc->sc_pf, 0x1000, &memh) != 0) {
 		printf("%s: unable to allocate memory space\n",

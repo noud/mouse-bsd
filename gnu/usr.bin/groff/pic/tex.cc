@@ -93,7 +93,7 @@ void tex_output::set_pen_size(double ps)
     ps = -1.0;
   if (ps != pen_size) {
     pen_size = ps;
-    printf("    \\special{pn %d}%%\n", 
+    printf("    \\special{pn %d}%%\n",
 	   ps < 0.0 ? DEFAULT_PEN_SIZE : int(ps*(1000.0/72.0) + .5));
   }
 }
@@ -239,7 +239,7 @@ void tex_output::solid_arc(const position &cent, double rad,
 	 -end_angle,
 	 (-end_angle > -start_angle) ? M_PI * 2 - start_angle : -start_angle);
 }
-  
+
 void tex_output::arc(const position &start, const position &cent,
 		     const position &end, const line_type &lt)
 {
@@ -407,5 +407,5 @@ output *make_tpic_output()
 {
   return new tpic_output;
 }
- 
+
 #endif

@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: checkmount_bsd44.c,v 1.2 1999/01/10 21:54:06 ezk Exp 
+ * Id: checkmount_bsd44.c,v 1.2 1999/01/10 21:54:06 ezk Exp
  *
  */
 

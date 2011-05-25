@@ -98,7 +98,7 @@ void grfattach __P((struct device *, struct device *, void *));
 int grfmatch __P((struct device *, struct cfdata *, void *));
 int grfprint __P((void *, const char *));
 /*
- * pointers to grf drivers device structs 
+ * pointers to grf drivers device structs
  */
 struct grf_softc *grfsp[NGRF];
 
@@ -112,7 +112,7 @@ struct cfattach grf_ca = {
 static struct cfdata *cfdata;
 
 /*
- * match if the unit of grf matches its perspective 
+ * match if the unit of grf matches its perspective
  * low level board driver.
  */
 int
@@ -145,7 +145,7 @@ grfattach(pdp, dp, auxp)
 	grfsp[gp->g_unit] = (struct grf_softc *)pdp;
 
 	/*
-	 * find our major device number 
+	 * find our major device number
 	 */
 	for(maj = 0; maj < nchrdev; maj++)
 		if (cdevsw[maj].d_open == grfopen)
@@ -160,7 +160,7 @@ grfattach(pdp, dp, auxp)
 		else
 			printf(" colors %d\n", gp->g_display.gd_colors);
 	}
-	
+
 	/*
 	 * try and attach an ite
 	 */
@@ -292,7 +292,7 @@ grfioctl(dev, cmd, data, flag, p)
 		/*
 		 * check to see whether it's a command recognized by the
 		 * view code if the unit is 0
-		 * XXX 
+		 * XXX
 		 */
 		if (GRFUNIT(dev) == 0)
 			return(viewioctl(dev, cmd, data, flag, p));
@@ -315,7 +315,7 @@ grfpoll(dev, events, p)
 }
 
 /*
- * map the contents of a graphics display card into process' 
+ * map the contents of a graphics display card into process'
  * memory space.
  */
 int
@@ -325,11 +325,11 @@ grfmmap(dev, off, prot)
 {
 	struct grf_softc *gp;
 	struct grfinfo *gi;
-	
+
 	gp = grfsp[GRFUNIT(dev)];
 	gi = &gp->g_display;
 
-	/* 
+	/*
 	 * control registers
 	 */
 	if (off >= 0 && off < gi->gd_regsize)

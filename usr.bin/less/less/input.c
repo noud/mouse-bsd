@@ -10,25 +10,25 @@
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice in the documentation and/or other materials provided with 
+ *    notice in the documentation and/or other materials provided with
  *    the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
- * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN 
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 
 /*
- * High level routines dealing with getting lines of input 
+ * High level routines dealing with getting lines of input
  * from the file being viewed.
  *
  * When we speak of "lines" here, we mean PRINTABLE lines;
@@ -80,7 +80,7 @@ forw_line(curr_pos)
 		 * If we're not ignoring EOI, we *could* do the same, but
 		 * for efficiency we prepare several lines ahead at once.
 		 */
-		prep_hilite(curr_pos, curr_pos + 3*size_linebuf, 
+		prep_hilite(curr_pos, curr_pos + 3*size_linebuf,
 				ignore_eoi ? 1 : -1);
 #endif
 	if (ch_seek(curr_pos))
@@ -190,7 +190,7 @@ back_line(curr_pos)
 	}
 #if HILITE_SEARCH
 	if (hilite_search == OPT_ONPLUS)
-		prep_hilite((curr_pos < 3*size_linebuf) ? 
+		prep_hilite((curr_pos < 3*size_linebuf) ?
 				0 : curr_pos - 3*size_linebuf, curr_pos, -1);
 #endif
 	if (ch_seek(curr_pos-1))
@@ -269,7 +269,7 @@ back_line(curr_pos)
 	 * until we reach the curr_pos.
 	 *
 	 * {{ This algorithm is pretty inefficient if the lines
-	 *    are much longer than the screen width, 
+	 *    are much longer than the screen width,
 	 *    but I don't know of any better way. }}
 	 */
 	if (ch_seek(new_pos))

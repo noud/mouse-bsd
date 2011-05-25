@@ -53,7 +53,7 @@
  * XXX there are too many oppertunities to trash the stack from the command
  * line - ad
  */
- 
+
 #include <sys/cdefs.h>
 #ifndef lint
 __RCSID("$NetBSD: cdplay.c,v 1.5 2000/01/05 18:15:20 ad Exp $");
@@ -186,7 +186,7 @@ help()
 	printf("\tThe plain target address is taken as a synonym for play.\n");
 }
 
-void 
+void
 usage()
 {
 
@@ -194,7 +194,7 @@ usage()
 	exit(1);
 }
 
-int 
+int
 main(argc, argv)
 	int argc;
 	char **argv;
@@ -237,7 +237,7 @@ main(argc, argv)
 		sprintf(defdev, "cd0%c", 'a' + RAW_PART);
 		cdname = defdev;
 	}
-	
+
 	opencd();
 
 	if (argc > 0) {
@@ -257,7 +257,7 @@ main(argc, argv)
 		arg = parse(buf, &cmd);
 		return (run(cmd, arg));
 	}
-	
+
 	printf("Type `?' for command list\n\n");
 
 	hist = history_init();
@@ -299,7 +299,7 @@ main(argc, argv)
 	history_end(hist);
 }
 
-int 
+int
 run(cmd, arg)
 	int cmd;
 	char *arg;
@@ -309,7 +309,7 @@ run(cmd, arg)
 	switch (cmd) {
 	case CMD_QUIT:
 		exit(0);
-	
+
 	case CMD_CLOSE:
 		if (fd >= 0) {
 			ioctl(fd, CDIOCALLOW);
@@ -321,10 +321,10 @@ run(cmd, arg)
 		}
 		break;
 	}
-	
+
 	if (fd < 0 && !opencd())
 		return (0);
-	
+
 	switch (cmd) {
 	case CMD_INFO:
 		return (info(arg));
@@ -399,7 +399,7 @@ run(cmd, arg)
 			return (0);
 		}
 		return (setvol(l, r));
-		
+
 	case CMD_HELP:
 	default:
 		help();
@@ -408,13 +408,13 @@ run(cmd, arg)
 	}
 }
 
-int 
+int
 play(arg)
 	char *arg;
 {
 	int rc, n, start, end, istart, iend, blk, len;
 	struct ioc_toc_header h;
-	
+
 	if ((rc = ioctl(fd, CDIOREADTOCHEADER, &h)) <  0)
 		return (rc);
 
@@ -430,12 +430,12 @@ play(arg)
 		/* Play the whole disc */
 		if (!msf)
 			return (play_blocks(0, be32toh(toc_buffer[n].addr.lba)));
-		
+
 		return (play_blocks(0, msf2lba(toc_buffer[n].addr.msf.minute,
-		    toc_buffer[n].addr.msf.second, 
+		    toc_buffer[n].addr.msf.second,
 		    toc_buffer[n].addr.msf.frame)));
 	}
-	
+
 	if (strchr(arg, '#')) {
 		/* Play block #blk [ len ] */
 		len = 0;
@@ -454,7 +454,7 @@ play(arg)
 		}
 		return (play_blocks(blk, len));
 	}
-	
+
 	if (strchr(arg, ':')) {
 		/*
 		 * Play MSF m1:s1 [ .f1 ] [ m2:s2 [ .f2 ] ]
@@ -469,22 +469,22 @@ play(arg)
 		unsigned char tm, ts, tf;
 
 		tr2 = m2 = s2 = f2 = f1 = 0;
-		if (8 == sscanf(arg, "%d %d:%d.%d %d %d:%d.%d", &tr1, &m1, 
+		if (8 == sscanf(arg, "%d %d:%d.%d %d %d:%d.%d", &tr1, &m1,
 		    &s1, &f1, &tr2, &m2, &s2, &f2))
 			goto Play_Relative_Addresses;
 
 		tr2 = m2 = s2 = f2 = f1 = 0;
-		if (7 == sscanf(arg, "%d %d:%d %d %d:%d.%d", &tr1, &m1, &s1, 
+		if (7 == sscanf(arg, "%d %d:%d %d %d:%d.%d", &tr1, &m1, &s1,
 		    &tr2, &m2, &s2, &f2))
 			goto Play_Relative_Addresses;
 
 		tr2 = m2 = s2 = f2 = f1 = 0;
-		if (7 == sscanf(arg, "%d %d:%d.%d %d %d:%d", &tr1, &m1, &s1, 
+		if (7 == sscanf(arg, "%d %d:%d.%d %d %d:%d", &tr1, &m1, &s1,
 		    &f1, &tr2, &m2, &s2))
 			goto Play_Relative_Addresses;
 
 		tr2 = m2 = s2 = f2 = f1 = 0;
-		if (7 == sscanf(arg, "%d %d:%d.%d %d:%d.%d", &tr1, &m1, &s1, 
+		if (7 == sscanf(arg, "%d %d:%d.%d %d:%d.%d", &tr1, &m1, &s1,
 		    &f1, &m2, &s2, &f2))
 			goto Play_Relative_Addresses;
 
@@ -494,27 +494,27 @@ play(arg)
 			goto Play_Relative_Addresses;
 
 		tr2 = m2 = s2 = f2 = f1 = 0;
-		if (6 == sscanf(arg, "%d %d:%d %d:%d.%d", &tr1, &m1, &s1, &m2, 
+		if (6 == sscanf(arg, "%d %d:%d %d:%d.%d", &tr1, &m1, &s1, &m2,
 		    &s2, &f2))
 			goto Play_Relative_Addresses;
 
 		tr2 = m2 = s2 = f2 = f1 = 0;
-		if (6 == sscanf(arg, "%d %d:%d.%d %d %d", &tr1, &m1, &s1, &f1, 
+		if (6 == sscanf(arg, "%d %d:%d.%d %d %d", &tr1, &m1, &s1, &f1,
 		    &tr2, &m2))
 			goto Play_Relative_Addresses;
 
 		tr2 = m2 = s2 = f2 = f1 = 0;
-		if (5 == sscanf(arg, "%d %d:%d %d:%d", &tr1, &m1, &s1, &m2, 
+		if (5 == sscanf(arg, "%d %d:%d %d:%d", &tr1, &m1, &s1, &m2,
 		    &s2))
 			goto Play_Relative_Addresses;
 
 		tr2 = m2 = s2 = f2 = f1 = 0;
-		if (5 == sscanf(arg, "%d %d:%d %d %d", &tr1, &m1, &s1, &tr2, 
+		if (5 == sscanf(arg, "%d %d:%d %d %d", &tr1, &m1, &s1, &tr2,
 		    &m2))
 			goto Play_Relative_Addresses;
 
 		tr2 = m2 = s2 = f2 = f1 = 0;
-		if (5 == sscanf(arg, "%d %d:%d.%d %d", &tr1, &m1, &s1, &f1, 
+		if (5 == sscanf(arg, "%d %d:%d.%d %d", &tr1, &m1, &s1, &f1,
 		    &tr2))
 			goto Play_Relative_Addresses;
 
@@ -545,7 +545,7 @@ Play_Relative_Addresses:
 			tf = toc_buffer[tr1].addr.msf.frame;
 		} else
 			lba2msf(be32toh(toc_buffer[tr1].addr.lba), &tm, &ts, &tf);
-		if ((m1 > tm) || ((m1 == tm) && ((s1 > ts) || ((s1 == ts) && 
+		if ((m1 > tm) || ((m1 == tm) && ((s1 > ts) || ((s1 == ts) &&
 		    (f1 > tf))))) {
 			printf("Track %d is not that long.\n", tr1);
 			return (0);
@@ -627,7 +627,7 @@ Play_Relative_Addresses:
 		} else
 			lba2msf(be32toh(toc_buffer[n].addr.lba), &tm, &ts, &tf);
 
-		if ((tr2 < n) && ((m2 > tm) || ((m2 == tm) && ((s2 > ts) || 
+		if ((tr2 < n) && ((m2 > tm) || ((m2 == tm) && ((s2 > ts) ||
 		    ((s2 == ts) && (f2 > tf)))))) {
 			printf("The playing time of the disc is not that long.\n");
 			return (0);
@@ -703,7 +703,7 @@ strstatus(sts)
 	}
 }
 
-int 
+int
 pstatus(arg)
 	char *arg;
 {
@@ -773,7 +773,7 @@ pstatus(arg)
 	return (0);
 }
 
-int 
+int
 info(arg)
 	char *arg;
 {
@@ -802,12 +802,12 @@ info(arg)
 	return (0);
 }
 
-void 
+void
 lba2msf(lba, m, s, f)
 	u_long lba;
 	u_char *m, *s, *f;
 {
-	
+
 	lba += 150;		/* block start offset */
 	lba &= 0xffffff;	/* negative lbas use only 24 bits */
 	*m = lba / (60 * 75);
@@ -816,7 +816,7 @@ lba2msf(lba, m, s, f)
 	*f = lba % 75;
 }
 
-u_int 
+u_int
 msf2lba(m, s, f)
 	u_char m, s, f;
 {
@@ -824,7 +824,7 @@ msf2lba(m, s, f)
 	return (((m * 60) + s) * 75 + f) - 150;
 }
 
-void 
+void
 prtrack(e, lastflag)
 	struct cd_toc_entry *e;
 	int lastflag;
@@ -863,7 +863,7 @@ prtrack(e, lastflag)
 	    (e->control & 4) ? "data" : "audio");
 }
 
-int 
+int
 play_track(tstart, istart, tend, iend)
 	int tstart, istart, tend, iend;
 {
@@ -877,7 +877,7 @@ play_track(tstart, istart, tend, iend)
 	return (ioctl(fd, CDIOCPLAYTRACKS, &t));
 }
 
-int 
+int
 play_blocks(blk, len)
 	int blk, len;
 {
@@ -889,7 +889,7 @@ play_blocks(blk, len)
 	return (ioctl(fd, CDIOCPLAYBLOCKS, &t));
 }
 
-int 
+int
 setvol(left, right)
 	int left, right;
 {
@@ -903,7 +903,7 @@ setvol(left, right)
 	return (ioctl(fd, CDIOCSETVOL, &v));
 }
 
-int 
+int
 read_toc_entrys(len)
 	int len;
 {
@@ -917,7 +917,7 @@ read_toc_entrys(len)
 	return (ioctl(fd, CDIOREADTOCENTRYS, (char *)&t));
 }
 
-int 
+int
 play_msf(start_m, start_s, start_f, end_m, end_s, end_f)
 	int start_m, start_s, start_f, end_m, end_s, end_f;
 {
@@ -933,7 +933,7 @@ play_msf(start_m, start_s, start_f, end_m, end_s, end_f)
 	return (ioctl(fd, CDIOCPLAYMSF, (char *) &a));
 }
 
-int 
+int
 status(trk, min, sec, frame)
 	int *trk, *min, *sec, *frame;
 {
@@ -1031,7 +1031,7 @@ parse(buf, cmd)
 	return (p);
 }
 
-int 
+int
 opencd()
 {
 	char devbuf[80];

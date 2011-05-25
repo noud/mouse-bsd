@@ -393,7 +393,7 @@ berkeley_sum (abfd, sec, ignore)
     bsssize += size;
 }
 
-static void 
+static void
 print_berkeley_format (abfd)
      bfd *abfd;
 {

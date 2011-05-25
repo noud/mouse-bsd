@@ -51,7 +51,7 @@ main (ac, av)
   enum sim_stop reason;
   int sigrc;
 
-  while ((i = getopt (ac, av, "m:p:s:tv")) != EOF) 
+  while ((i = getopt (ac, av, "m:p:s:tv")) != EOF)
     switch (i)
       {
       case 'm':
@@ -86,9 +86,9 @@ main (ac, av)
     }
 
   abfd = bfd_openr (name, 0);
-  if (!abfd) 
+  if (!abfd)
     {
-      fprintf (stderr, "run: can't open %s: %s\n", 
+      fprintf (stderr, "run: can't open %s: %s\n",
 	      name, bfd_errmsg(bfd_get_error()));
       exit (1);
     }

@@ -67,7 +67,7 @@ err:
 	mov	#0xff, r0
 	jmp	@r2
 	nop
-	
+
 	.align 2
 LSYS_vfork:	.long SYS_vfork
 L_errno:	.long	_errno

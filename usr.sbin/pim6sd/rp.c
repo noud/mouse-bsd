@@ -49,7 +49,7 @@
  *  ABOUT THE SUITABILITY OF THIS SOFTWARE FOR ANY PURPOSE.  THIS SOFTWARE IS
  *  PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES,
  *  INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
- *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND 
+ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND
  *  NON-INFRINGEMENT.
  *
  *  IN NO EVENT SHALL USC, OR ANY OTHER CONTRIBUTOR BE LIABLE FOR ANY
@@ -66,12 +66,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -120,7 +120,7 @@ u_int8          		my_cand_rp_priority;
 u_int16         		my_cand_rp_holdtime;
 u_int16         		my_cand_rp_adv_period;	/* The locally configured Cand-RP
 					 		 * adv. period. */
-u_int16         		my_bsr_period;		/* The locally configured BSR	
+u_int16         		my_bsr_period;		/* The locally configured BSR
 							   period */
 u_int16         		pim_cand_rp_adv_timer;
 u_int8          		cand_rp_flag = FALSE;	/* Candidate RP flag */
@@ -204,9 +204,9 @@ bootstrap_initial_delay()
     /*
      * The bootstrap timer initial value (if Cand-BSR). It depends of the
      * bootstrap router priority: higher priority has shorter value:
-     * 
+     *
      * Delay = 5 + 2*log_2(1 + bestPriority - myPriority) + AddrDelay;
-     * 
+     *
      * bestPriority = Max(storedPriority, myPriority); if (bestPriority ==
      * myPriority) AddrDelay = log_2(bestAddr - myAddr)/16; else AddrDelay =
      * 2 - (myAddr/2^31);
@@ -241,8 +241,8 @@ bootstrap_initial_delay()
  */
    /* Calculate log_2(Delay) */
 //    log_mask = sizeof(Delay) << 3;
-//    log_mask = (1 << (log_mask - 1)); 	
-/* Set the leftmost bit to `1` 
+//    log_mask = (1 << (log_mask - 1));
+/* Set the leftmost bit to `1`
 */
 
  /*   for (log_of_2 = (sizeof(Delay) << 3) - 1; log_of_2; log_of_2--)
@@ -721,14 +721,14 @@ delete_grp_mask(used_cand_rp_list, used_grp_mask_list, group_addr, group_mask)
 	 grp_mask_ptr = grp_mask_ptr->next)
     {
 	for (i = 0; i < sizeof(struct in6_addr); i++)
-	    prefix_h2.sin6_addr.s6_addr[i] = 
+	    prefix_h2.sin6_addr.s6_addr[i] =
 		grp_mask_ptr->group_addr.sin6_addr.s6_addr[i]&grp_mask_ptr->group_mask.s6_addr[i];
 
 	if (inet6_lessthan(&prefix_h2, &prefix_h))
 	    continue;
 	if (IN6_ARE_ADDR_EQUAL(&grp_mask_ptr->group_addr.sin6_addr,
 			       &group_addr->sin6_addr) &&
-	    IN6_ARE_ADDR_EQUAL(&grp_mask_ptr->group_mask, &group_mask))	
+	    IN6_ARE_ADDR_EQUAL(&grp_mask_ptr->group_mask, &group_mask))
 	    break;
 	else
 	    return;		/* Not found */
@@ -1017,11 +1017,11 @@ rp_grp_match(group)
 
     struct sockaddr_in6     prefix_h;
     struct sockaddr_in6	    prefix_h2;
-    int i;	
+    int i;
 
     if (grp_mask_list == (grp_mask_t *) NULL)
 	return (rp_grp_entry_t *) NULL;
- 
+
     /* XXX :I compare on the adresses , inet6_equal use the scope too */
     prefix_h.sin6_scope_id = prefix_h2.sin6_scope_id = 0;
 
@@ -1029,11 +1029,11 @@ rp_grp_match(group)
 	 grp_mask_ptr = grp_mask_ptr->next)
     {
 	for (i = 0; i < sizeof(struct in6_addr); i++)
-	    prefix_h2.sin6_addr.s6_addr[i] = 
+	    prefix_h2.sin6_addr.s6_addr[i] =
 		(grp_mask_ptr->group_addr.sin6_addr.s6_addr[i] &
 		 grp_mask_ptr->group_mask.s6_addr[i]);
 	for (i = 0; i < sizeof(struct in6_addr); i++)
-	    prefix_h.sin6_addr.s6_addr[i] = 
+	    prefix_h.sin6_addr.s6_addr[i] =
 		(group->sin6_addr.s6_addr[i] &
 		 grp_mask_ptr->group_mask.s6_addr[i]);
 
@@ -1190,7 +1190,7 @@ create_pim6_bootstrap_message(send_buff)
  * mrtentry_ptr. Return TRUE or FALSE.
  */
 
-int 
+int
 check_mrtentry_rp(mrtentry_ptr, rp_addr)
     mrtentry_t     	*mrtentry_ptr;
     struct sockaddr_in6	*rp_addr;

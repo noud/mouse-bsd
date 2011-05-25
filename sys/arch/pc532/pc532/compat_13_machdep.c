@@ -50,7 +50,7 @@
 #include <sys/proc.h>
 #include <sys/user.h>
 #include <sys/mount.h>
-#include <sys/syscallargs.h> 
+#include <sys/syscallargs.h>
 
 int
 compat_13_sys_sigreturn(p, v, retval)

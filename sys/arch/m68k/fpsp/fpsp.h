@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -38,7 +38,7 @@
 *
 *	These equates are used to access the exception frame, the fsave
 *	frame and any local variables needed by the FPSP package.
-*	
+*
 *	All FPSP handlers begin by executing:
 *
 *		link	a6,#-LOCAL_SIZE
@@ -115,7 +115,7 @@ USER_FP1	equ	LV+28		;saved user FP1
 USER_FP2	equ	LV+40		;saved user FP2
 USER_FP3	equ	LV+52		;saved user FP3
 USER_FPCR	equ	LV+64		;saved user FPCR
-FPCR_ENABLE	equ	USER_FPCR+2	;	FPCR exception enable 
+FPCR_ENABLE	equ	USER_FPCR+2	;	FPCR exception enable
 FPCR_MODE	equ	USER_FPCR+3	;	FPCR rounding mode control
 USER_FPSR	equ	LV+68		;saved user FPSR
 FPSR_CC		equ	USER_FPSR+0	;	FPSR condition code
@@ -168,8 +168,8 @@ CMDREG2B	equ	LV-52		;cmd reg for machine 2
 CMDREG3B	equ	LV-48		;cmd reg for E3 exceptions (2 bytes)
 *
 NMNEXC		equ	LV-44		;NMNEXC (unsup,snan bits only)
-nmn_unsup_bit	equ	1	
-nmn_snan_bit	equ	0	
+nmn_unsup_bit	equ	1
+nmn_snan_bit	equ	0
 *
 NMCEXC		equ	LV-43		;NMNEXC & NMCEXC
 nmn_operr_bit	equ	7
@@ -274,7 +274,7 @@ z_mask		equ	$04000000
 inf_mask	equ	$02000000
 nan_mask	equ	$01000000
 *
-bsun_mask	equ	$00008000	
+bsun_mask	equ	$00008000
 snan_mask	equ	$00004000
 operr_mask	equ	$00002000
 ovfl_mask	equ	$00001000

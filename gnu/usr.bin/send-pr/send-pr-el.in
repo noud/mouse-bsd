@@ -25,7 +25,7 @@
 ;;;;    This file contains the EMACS interface to the Problem Report Management
 ;;;;	System (GNATS):
 ;;;;
-;;;;		- The `send-pr' command and the `send-pr-mode' for sending 
+;;;;		- The `send-pr' command and the `send-pr-mode' for sending
 ;;;;              Problem Reports (PRs).
 ;;;;
 ;;;;    For more information about how to send a PR see send-pr(1).
@@ -353,7 +353,7 @@ buffer was loaded with emacsclient, in which case save the buffer and exit."
    (t
     (save-buffer)
     (message "Exit emacs to send the PR."))))
-   
+
 ;;;;---------------------------------------------------------------------------
 ;;;; send-pr:send-pr-mode mode
 ;;;;---------------------------------------------------------------------------
@@ -441,7 +441,7 @@ if it is not nil."
 	    (if (or (looking-at "<.*>$") (eolp))
 		t
 	      (looking-at ".*$")	; to set match-{beginning,end}
-	      (gnats::nth-word 
+	      (gnats::nth-word
 	       (buffer-substring (match-beginning 0) (match-end 0))
 	       elem))))
       (and move pos (goto-char pos)))))
@@ -500,7 +500,7 @@ if it is not nil."
     (and thing (eq t thing)
 	 (not (eq 'multi-text (gnats::field-type field)))
 	 (gnats:change-field field))))
-    
+
 (defun gnats:change-field (&optional field default)
   "Change the value of the field containing the cursor.  With arg, ask the
 user for the field to change.  From a program, the function takes optional
@@ -527,7 +527,7 @@ arguments of the field to change and the default value to use."
 	    (or default (setq default (gnats::field-default field)))
 	    (setq new
 		  (if (eq type 'enum)
-		      (completing-read prompt domain nil t 
+		      (completing-read prompt domain nil t
 				       (if gnats::emacs-19p (cons default 0)
 					 default))
 		    (read-string prompt (if gnats::emacs-19p (cons default 1)
@@ -551,7 +551,7 @@ arguments of the field to change and the default value to use."
     (delete-horizontal-space)
     (looking-at ".*$")
     (replace-match (concat " " value) t)))
-  
+
 (defun gnats::before-keyword (&optional where)
   "Returns t if point is in some white space before a keyword.
 If where is nil, then point is not changed; if where is t then point is moved
@@ -590,7 +590,7 @@ to the beginning of the keyword."
     (cond ((and (looking-at gnats::keyword)
 	       (< old-point (match-end 0)))
 	   (prog1 t
-	     (if (eq where t) 
+	     (if (eq where t)
 		 t
 	       (goto-char old-point))))
 	  (t (goto-char old-point)
@@ -598,7 +598,7 @@ to the beginning of the keyword."
 
 (defun gnats::forward-bofield ()
   "Moves point to the beginning of a field. Assumes that point is in the
-keyword." 
+keyword."
   ;;
   (if (re-search-forward "[ \t\n\f]+[^ \t\n\f]" (point-max) '-)
       (backward-char)
@@ -612,17 +612,17 @@ keyword."
     t))
 
 (defun gnats::forward-eofield ()
-  "Moves point to the end of a field. Assumes that point is in the field." 
+  "Moves point to the end of a field. Assumes that point is in the field."
   ;;
   ;; look for the next field
-  (if (re-search-forward gnats::keyword (point-max) '-) 
+  (if (re-search-forward gnats::keyword (point-max) '-)
       (progn (beginning-of-line) (gnats::backward-eofield))
   (re-search-backward "[^ \t\n\f][ \t\n\f]*" (point-min) '-)
   (forward-char)))
 
 (defun gnats::backward-bofield ()
   "Moves point to the beginning of a field. Assumes that point is in the
-field." 
+field."
   ;;
   ;;look for previous field
   (if (re-search-backward gnats::keyword (point-min) '-)
@@ -714,22 +714,22 @@ the whole string is returned."
       (cond ((eq elem 0) string)
 	    ((eq elem 1) (gnats::first-word string))
 	    ((equal string "") "")
-	    ((>= elem 2) 
+	    ((>= elem 2)
 	     (let ((i 0) (value ""))
 	       (setq string		; strip leading blanks
 		     (substring string (or (string-match "[^ \t]" string) 0)))
 	       (while (< i elem)
-		 (setq value 
-		       (substring string 0 
+		 (setq value
+		       (substring string 0
 				  (string-match "[ \t]*$\\|[ \t]+" string)))
-		 (setq string 
+		 (setq string
 		       (substring string (match-end 0)))
 		 (setq i (+ i 1)))
 	       value)))
     (gnats::first-word string)))
 
 (defun gnats::first-word (string)
-  (setq string 
+  (setq string
 	(substring string (or (string-match "[^ \t]" string) 0)))
   (substring string 0 (string-match "[ \t]*$\\|[ \t]+" string)))
 
@@ -774,7 +774,7 @@ the whole string is returned."
     (defun setenv (variable &optional value)
       "Set the value of the environment variable named VARIABLE to VALUE.
 VARIABLE should be a string.  VALUE is optional; if not provided or is
-`nil', the environment variable VARIABLE will be removed.  
+`nil', the environment variable VARIABLE will be removed.
 This function works by modifying `process-environment'."
       (interactive "sSet environment variable: \nsSet %s to value: ")
       (if (string-match "=" variable)

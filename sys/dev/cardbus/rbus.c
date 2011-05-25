@@ -126,7 +126,7 @@ rbus_space_alloc_subregion(rbt, substart, subend, addr, size, mask, align, flags
       }
     } else if (decodesize == 0) {
       /* maybe, the resister is overflowed. */
-      
+
       if (extent_alloc_subregion(rbt->rb_ext, addr, addr + size, size,
 				 0, 0, exflags, (u_long *)&result)) {
 	return 1;
@@ -237,7 +237,7 @@ rbus_new_body(bt, parent, ex, start, end, offset, flags)
 					 M_NOWAIT))) {
     panic("no memory for rbus instance");
   }
-  
+
   rb->rb_bt = bt;
   rb->rb_parent = parent;
   rb->rb_start = start;
@@ -278,7 +278,7 @@ rbus_new(parent, start, size, offset, flags)
   if (flags == RBUS_SPACE_SHARE) {
     ex = parent->rb_ext;
   } else if (flags == RBUS_SPACE_DEDICATE) {
-    if (NULL == (ex = extent_create("rbus", start, end, M_DEVBUF, NULL, 0, 
+    if (NULL == (ex = extent_create("rbus", start, end, M_DEVBUF, NULL, 0,
 				    EX_NOCOALESCE|EX_NOWAIT))) {
       free(rb, M_DEVBUF);
       return NULL;
@@ -323,7 +323,7 @@ rbus_new_root_delegate(bt, start, size, offset)
 				  NULL, 0, EX_NOCOALESCE|EX_NOWAIT))) {
     return NULL;
   }
-  
+
   rb = rbus_new_body(bt, NULL, ex, start, start + size, offset,
 		     RBUS_SPACE_DEDICATE);
 

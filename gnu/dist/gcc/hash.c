@@ -101,7 +101,7 @@ hash_lookup (table, string, create, copy)
   struct hash_entry *hashp;
   unsigned int len;
   unsigned int index;
-  
+
   hash = 0;
   len = 0;
   s = (const unsigned char *) string;

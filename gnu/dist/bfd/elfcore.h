@@ -71,7 +71,7 @@ bfd_prstatus (abfd, descdata, descsz, filepos, thread)
       if (!p)
 	return false;
       strcpy (p, secname);
-      
+
       newsect = bfd_make_section (abfd, p);
       if (newsect == NULL)
 	return false;

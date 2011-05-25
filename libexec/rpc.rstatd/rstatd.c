@@ -76,7 +76,7 @@ main(argc, argv)
         int proto = 0;
 	struct sockaddr_in from;
 	int fromlen;
-        
+
         if (argc == 2)
                 closedown = atoi(argv[1]);
         if (closedown <= 0)
@@ -103,7 +103,7 @@ main(argc, argv)
 		(void) signal(SIGTERM, cleanup);
 		(void) signal(SIGHUP, cleanup);
         }
-        
+
         openlog("rpc.rstatd", LOG_PID, LOG_DAEMON);
 
 	transp = svcudp_create(sock);

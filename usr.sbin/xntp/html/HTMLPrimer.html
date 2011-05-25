@@ -10,7 +10,7 @@
 
 <P>
 This is a primer for producing documents in HTML, the markup language
-used by the World Wide Web. 
+used by the World Wide Web.
 
 <UL>
 <LI><A HREF="#A1.1">Acronym Expansion</A>
@@ -46,10 +46,10 @@ used by the World Wide Web.
     <LI><A HREF="#A1.4.3">Extended Quotes</A>
     <LI><A HREF="#A1.4.4">Addresses</A>
     </UL>
-    
+
 <LI><A HREF="#A1.5">Character Formatting</A>
     <UL>
-    <LI><A HREF="#A1.5.1">Physical Versus Logical: 
+    <LI><A HREF="#A1.5.1">Physical Versus Logical:
          Use Logical Tags When Possible</A>
       <UL>
       <LI><A HREF="#A1.5.1.1">Logical Styles</A>
@@ -110,9 +110,9 @@ This primer assumes that you have:
 
 <UL>
 <LI>at least a passing knowledge of how to use NCSA Mosaic or some
-    other Web browser 
+    other Web browser
 <LI>a general understanding of how Web servers and client browsers
-    work 
+    work
 <LI>access to a Web server for which you would like to produce HTML
     documents, or that you wish to produce HTML documents for personal
     use
@@ -132,22 +132,22 @@ of HTML.
     <I>You can preview a document in progress with NCSA Mosaic (and
     some </I><I>other Web browsers). Open it with the </I><B>Open Local
     </B><I>command under the </I><B>File</B><I> menu. </I>
-    
+
     <P>
     <I>After you edit the source HTML file, save the changes. Return
     to NCSA </I><I>Mosaic and </I><B>Reload</B><I> the document. The
     changes are reflected in the on-</I><I>screen display.</I>
-    
+
 </BLOCKQUOTE>
 
 <H3><A NAME = "A1.3.1">The Minimal HTML Document</A></H3>
 <P>
-Here is a bare-bones example of HTML: 
+Here is a bare-bones example of HTML:
 
 <PRE>
     &lt;TITLE&gt;The simplest HTML example&lt;/TITLE&gt;
     &lt;H1&gt;This is a level-one heading&lt;/H1&gt;
-    Welcome to the world of HTML. 
+    Welcome to the world of HTML.
     This is one paragraph.&lt;P&gt;
     And this is a second.&lt;P&gt;
 </PRE>
@@ -174,7 +174,7 @@ e.g. <SAMP>&lt;H1&gt;</SAMP> and <SAMP>&lt;/H1&gt;</SAMP>. The ending
 tag looks just like the starting tag except a slash (/) precedes the
 text within the brackets. In the example, <SAMP>&lt;H1&gt;</SAMP> tells
 the Web browser to start formatting a level-one heading; <SAMP>&lt;/H1&gt;</SAMP>
-tells the browser that the heading is complete. 
+tells the browser that the heading is complete.
 
 <P>
 The primary exception to the pairing rule is the <SAMP>&lt;P&gt;</SAMP>
@@ -187,7 +187,7 @@ is equivalent to </I><SAMP>&lt;TITLE&gt;</SAMP><I> or </I><SAMP>&lt;TiTlE&gt;</S
 
 <P>
 Not all tags are supported by all World Wide Web browsers. If a browser
-does not support a tag, it just ignores it. 
+does not support a tag, it just ignores it.
 
 <H3><A NAME = "A1.3.2">Basic Markup Tags</A></H3>
 <H4><A NAME = "A1.3.2.1">Title</A></H4>
@@ -195,14 +195,14 @@ does not support a tag, it just ignores it.
 Every HTML document should have a title. A title is generally displayed
 separately from the document and is used primarily for document identification
 in other contexts (e.g., a WAIS search). Choose about half a dozen
-words that describe the document's purpose. 
+words that describe the document's purpose.
 <BLOCKQUOTE>
     <I>In the X Window System and Microsoft Windows versions of NCSA
     </I><I>Mosaic, the </I><B>Document Title</B><I> field is at the
     top of the screen just below the </I><I>pulldown menus. In NCSA
     Mosaic for Macintosh, text tagged as </I><SAMP>&lt;TITLE&gt;</SAMP>
     <I>appears as the window title.</I>
-    
+
 </BLOCKQUOTE>
 
 <H4><A NAME = "A1.3.2.2">Headings</A></H4>
@@ -218,11 +218,11 @@ be tagged <SAMP>&lt;H1&gt;</SAMP>. The syntax of the heading tag is:
 
 <P>
 where <VAR>y</VAR> is a number between 1 and 6 specifying the level
-of the heading. 
+of the heading.
 
 <P>
 For example, the coding for the ``Headings'' section heading above
-is 
+is
 
 <PRE>
     &lt;H3&gt;Headings&lt;/H3&gt;
@@ -235,7 +235,7 @@ multipart documents, the text of the first heading should be suitable
 for a reader who is already browsing related information (e.g., a chapter
 title), while the title tag should identify the document in a wider
 context (e.g., include both the book title and the chapter title, although
-this can sometimes become overly long). 
+this can sometimes become overly long).
 
 <H4><A NAME = "A1.3.2.3">Paragraphs</A></H4>
 <P>
@@ -245,7 +245,7 @@ source file, and multiple spaces are collapsed into a single space.
 (There are couple of exceptions; space following a <SAMP>&lt;P&gt;</SAMP>
 or <SAMP>&lt;H</SAMP><VAR>y</VAR><SAMP>&gt;</SAMP> tag, for example,
 is ignored.) Notice that in the bare-bones example, the first paragraph
-is coded as 
+is coded as
 
 <PRE>
     Welcome to HTML.
@@ -255,7 +255,7 @@ is coded as
 <P>
 In the source file, there is a line break between the sentences. A
 Web browser ignores this line break and starts a new paragraph only
-when it reaches a <SAMP>&lt;P&gt;</SAMP> tag. 
+when it reaches a <SAMP>&lt;P&gt;</SAMP> tag.
 
 <P>
 <STRONG>Important:</STRONG> You must separate paragraphs with <SAMP>&lt;P&gt;</SAMP>.
@@ -264,11 +264,11 @@ HTML relies almost entirely on the tags for formatting instructions,
 and without the <SAMP>&lt;P&gt;</SAMP> tags, the document becomes one
 large paragraph. (The exception is text tagged as ``preformatted,''
 which is explained below.) For instance, the following would produce
-identical output as the first bare-bones HTML example: 
+identical output as the first bare-bones HTML example:
 
 <PRE>
-    &lt;TITLE&gt;The simplest HTML example&lt;/TITLE&gt;&lt;H1&gt;This is a level 
-    one heading&lt;/H1&gt;Welcome to the world of HTML. This is one 
+    &lt;TITLE&gt;The simplest HTML example&lt;/TITLE&gt;&lt;H1&gt;This is a level
+    one heading&lt;/H1&gt;Welcome to the world of HTML. This is one
     paragraph.&lt;P&gt;And this is a second.&lt;P&gt;
 </PRE>
 
@@ -279,7 +279,7 @@ on separate lines, and paragraphs should be separated by blank lines
 <BLOCKQUOTE>
     <I>NCSA Mosaic handles &lt;P&gt; by ending the current paragraph
     and insert</I><I>ing a blank line. </I>
-    
+
 </BLOCKQUOTE>
 
 <P>
@@ -338,7 +338,7 @@ stands for <DFN>anchor</DFN>. To include an anchor in your document:
 </OL>
 
 <P>
-Here is an sample hypertext reference: 
+Here is an sample hypertext reference:
 
 <PRE>
     &lt;A HREF=&quot;MaineStats.html&quot;&gt;Maine&lt;/A&gt;
@@ -396,13 +396,13 @@ where <VAR>scheme</VAR> is one of
 <DD>
 <DT>
 <DD>a file on your local system, or a file on an anonymous FTP server
-    
+
 <DT><SAMP>http</SAMP>
-<DD>a file on a World Wide Web server 
+<DD>a file on a World Wide Web server
 <DT><SAMP>gopher</SAMP>
-<DD>a file on a Gopher server 
+<DD>a file on a Gopher server
 <DT><SAMP>WAIS</SAMP>
-<DD>a file on a WAIS server 
+<DD>a file on a WAIS server
 <DT><SAMP>news</SAMP>
 <DD>an Usenet newsgroup
 <DT><SAMP>telnet</SAMP>
@@ -418,7 +418,7 @@ For example, to include a link to this primer in your document, you
 would use
 
 <PRE>
-    &lt;A HREF = &quot;http://www.ncsa.uiuc.edu/General/Internet/WWW/HTMLPrimer.html&quot;&gt; 
+    &lt;A HREF = &quot;http://www.ncsa.uiuc.edu/General/Internet/WWW/HTMLPrimer.html&quot;&gt;
     NCSA's Beginner's Guide to HTML&lt;/A&gt;
 </PRE>
 
@@ -444,7 +444,7 @@ Anchors can also be used to move to a particular section in a document.
 Suppose you wish to set a link from document A and a specific section
 in document B. (Call this file <SAMP>documentB.html</SAMP>.) First
 you need to set up a <DFN>named anchor</DFN> in document B. For example,
-to set up an anchor named ``Jabberwocky'' to document B, enter 
+to set up an anchor named ``Jabberwocky'' to document B, enter
 
 <PRE>
     Here's &lt;A NAME = &quot;Jabberwocky&quot;&gt;some text&lt;/a&gt;
@@ -460,11 +460,11 @@ but also the named anchor, separated by a hash mark (#).
 
 <P>
 Now clicking on the word ``link'' in document A sends the reader directly
-to the words ``some text'' in document B. 
+to the words ``some text'' in document B.
 
 <H4><A NAME = "A1.3.3.4">Links to Specific Sections Within the Current Document</A></H4>
 <P>
-The technique is exactly the same except the filename is omitted. 
+The technique is exactly the same except the filename is omitted.
 
 <P>
 For example, to link to the Jabberwocky anchor from within the same
@@ -482,21 +482,21 @@ sections, extended quotations, character formatting, and other items.
 
 <H3><A NAME = "A1.4.1">Lists</A></H3>
 <P>
-HTML supports unnumbered, numbered, and definition lists. 
+HTML supports unnumbered, numbered, and definition lists.
 
 <H4><A NAME = "A1.4.1.1">Unnumbered Lists</A></H4>
 <P>
 To make an unnumbered list,
 
 <OL>
-<LI>Start with an opening list <SAMP>&lt;UL&gt;</SAMP> tag. 
+<LI>Start with an opening list <SAMP>&lt;UL&gt;</SAMP> tag.
 <LI>Enter the <SAMP>&lt;LI&gt;</SAMP> tag followed by the individual
-    item. (No closing <SAMP>&lt;/LI&gt;</SAMP> tag is needed.) 
-<LI>End with a closing list <SAMP>&lt;/UL&gt;</SAMP> tag. 
+    item. (No closing <SAMP>&lt;/LI&gt;</SAMP> tag is needed.)
+<LI>End with a closing list <SAMP>&lt;/UL&gt;</SAMP> tag.
 </OL>
 
 <P>
-Below an example two-item list: 
+Below an example two-item list:
 
 <PRE>
     &lt;UL&gt;
@@ -509,8 +509,8 @@ Below an example two-item list:
 The output is:
 
 <UL>
-<LI>apples 
-<LI>bananas 
+<LI>apples
+<LI>bananas
 </UL>
 
 <P>
@@ -537,9 +537,9 @@ same <SAMP>&lt;LI&gt;</SAMP> tag. The following HTML code
 produces this formatted output:
 
 <OL>
-<LI>oranges 
-<LI>peaches 
-<LI>grapes 
+<LI>oranges
+<LI>peaches
+<LI>grapes
 </OL>
 
 <H4><A NAME = "A1.4.1.3">Definition Lists </A></H4>
@@ -549,13 +549,13 @@ as <SAMP>DT</SAMP>) and a definition (abbreviated as <SAMP>DD</SAMP>).
 Web browsers generally format the definition on a new line.
 
 <P>
-The following is an example of a definition list: 
+The following is an example of a definition list:
 
 <PRE>
     &lt;DL&gt;
     &lt;DT&gt; NCSA
     &lt;DD&gt; NCSA, the National Center for Supercomputing Applications,
-         is located on the campus of the University of Illinois 
+         is located on the campus of the University of Illinois
          at Urbana-Champaign. NCSA is one of the participants in the
          National MetaCenter for Computational Science and Engineering.
     &lt;DT&gt; Cornell Theory Center
@@ -566,18 +566,18 @@ The following is an example of a definition list:
 </PRE>
 
 <P>
-The output looks like: 
+The output looks like:
 
 <DL COMPACT>
 <DT>NCSA
 <DD>NCSA, the National Center for Supercomputing Applications, is located
     on the campus of the University of Illinois at Urbana-Champaign.
     NCSA is one of the participants in the National MetaCenter for
-    Computational Science and Engineering. 
-<DT>Cornell Theory Center 
+    Computational Science and Engineering.
+<DT>Cornell Theory Center
 <DD>CTC is located on the campus of Cornell University in Ithaca, New
     York. CTC is another participant in the National MetaCenter for
-    Computational Science and Engineering. 
+    Computational Science and Engineering.
 </DL>
 
 <P>
@@ -592,7 +592,7 @@ should limit the nesting to three levels. You can also have a number
 of paragraphs, each containing a nested list, in a single list item.
 
 <P>
- An example nested list: 
+ An example nested list:
 
 <PRE>
     &lt;UL&gt;
@@ -609,17 +609,17 @@ of paragraphs, each containing a nested list, in a single list item.
 </PRE>
 
 <P>
-The nested list is displayed as 
+The nested list is displayed as
 
 <UL>
-<LI>A few New England states: 
+<LI>A few New England states:
     <UL>
-    <LI>Vermont 
-    <LI>New Hampshire 
+    <LI>Vermont
+    <LI>New Hampshire
     </UL>
-<LI>One Midwestern state: 
+<LI>One Midwestern state:
     <UL>
-    <LI>Michigan 
+    <LI>Michigan
     </UL>
 </UL>
 
@@ -630,18 +630,18 @@ to generate text in a fixed-width font and cause spaces, new lines,
 and tabs to be significant. (That is, multiple spaces are displayed
 as multiple spaces, and lines break in the same locations as in the
 source HTML file.) This is useful for program listings. For example,
-the following lines 
+the following lines
 
 <PRE>
     &lt;PRE&gt;
-      #!/bin/csh                           
-      cd $SCR                             
-      cfs get mysrc.f:mycfsdir/mysrc.f   
-      cfs get myinfile:mycfsdir/myinfile   
-      fc -02 -o mya.out mysrc.f           
-      mya.out                              
-      cfs save myoutfile:mycfsdir/myoutfile 
-      rm *                                
+      #!/bin/csh
+      cd $SCR
+      cfs get mysrc.f:mycfsdir/mysrc.f
+      cfs get myinfile:mycfsdir/myinfile
+      fc -02 -o mya.out mysrc.f
+      mya.out
+      cfs save myoutfile:mycfsdir/myoutfile
+      rm *
     &lt;/PRE&gt;
 </PRE>
 
@@ -649,13 +649,13 @@ the following lines
 display as
 
 <PRE>
-      #!/bin/csh                           
-      cd $SCR                             
-      cfs get mysrc.f:mycfsdir/mysrc.f   
-      cfs get myinfile:mycfsdir/myinfile   
-      fc -02 -o mya.out mysrc.f           
-      mya.out                              
-      cfs save myoutfile:mycfsdir/myoutfile 
+      #!/bin/csh
+      cd $SCR
+      cfs get mysrc.f:mycfsdir/mysrc.f
+      cfs get myinfile:mycfsdir/myinfile
+      fc -02 -o mya.out mysrc.f
+      mya.out
+      cfs save myoutfile:mycfsdir/myoutfile
       rm *
 </PRE>
 
@@ -684,8 +684,8 @@ An example:
     &lt;BLOCKQUOTE&gt;
     I still have a dream. It is a dream deeply rooted in the
     American dream. &lt;P&gt;
-    I have a dream that one day this nation will rise up and 
-    live out the true meaning of its creed. We hold these truths 
+    I have a dream that one day this nation will rise up and
+    live out the true meaning of its creed. We hold these truths
     to be self-evident that all men are created equal. &lt;P&gt;
     &lt;/BLOCKQUOTE&gt;
 </PRE>
@@ -695,22 +695,22 @@ The result is:
 <BLOCKQUOTE>
     I still have a dream. It is a dream deeply rooted in the American
     dream.
-    
+
     <P>
     I have a dream that one day this nation will rise up and live out
     the true meaning of its creed. We hold these truths to be self-evident
     that all men are created equal.
-    
+
 </BLOCKQUOTE>
 
 <H3><A NAME = "A1.4.4">Addresses</A></H3>
 <P>
 The <SAMP>&lt;ADDRESS&gt;</SAMP> tag is generally used to specify the
 author of a document and a means of contacting the author (e.g., an
-email address). This is usually the last item in a file. 
+email address). This is usually the last item in a file.
 
 <P>
-For example, the last line of the online version of this guide is 
+For example, the last line of the online version of this guide is
 
 <PRE>
     &lt;ADDRESS&gt;
@@ -774,20 +774,20 @@ sections be displayed in red instead. Logical styles offer this flexibility.
     pick</EM><EM>pockets</EM>.)
 <DT><SAMP>&lt;CITE&gt;</SAMP>
 <DD>for titles of books, films, etc. Typically displayed in italics.
-    (<CITE>A </CITE><CITE>Beginner's Guide to HTML</CITE>) 
+    (<CITE>A </CITE><CITE>Beginner's Guide to HTML</CITE>)
 <DT><SAMP>&lt;CODE&gt;</SAMP>
 <DD>for snippets of computer code. Displayed in a fixed-width font.
-    (The <SAMP>&lt;stdio.h&gt;</SAMP> header file) 
+    (The <SAMP>&lt;stdio.h&gt;</SAMP> header file)
 <DT> <SAMP>&lt;KBD&gt;</SAMP>
 <DD>for user keyboard entry. Should be displayed in a bold fixed-width
     font, but many browsers render it in the plain fixed-width font.
     (Enter <KBD>passwd</KBD> to change your password.)
 <DT><SAMP>&lt;SAMP&gt;</SAMP>
 <DD>for computer status messages. Displayed in a fixed-width font.
-    (<SAMP>Segmentation fault: Core dumped.</SAMP>) 
+    (<SAMP>Segmentation fault: Core dumped.</SAMP>)
 <DT><SAMP>&lt;STRONG&gt;</SAMP>
 <DD>for strong emphasis. Typically displayed in bold. (<STRONG>Important</STRONG>)
-    
+
 <DT><SAMP>&lt;VAR&gt;</SAMP>
 <DD>for a ``metasyntactic'' variable, where the user is to replace
     the variable with a specific instance. Typically displayed in italics.
@@ -831,10 +831,10 @@ To use one of these characters in an HTML document, you must enter
 its <DFN>escape </DFN><DFN>sequence</DFN> instead:
 
 <DL COMPACT>
-<DT><SAMP>&amp;lt;</SAMP> 
-<DD>the escape sequence for &lt; 
+<DT><SAMP>&amp;lt;</SAMP>
+<DD>the escape sequence for &lt;
 <DT><SAMP>&amp;gt;</SAMP>
-<DD>the escape sequence for &gt; 
+<DD>the escape sequence for &gt;
 <DT><SAMP>&amp;amp;</SAMP>
 <DD>the escape sequence for &amp;
 <DT><SAMP>&amp;quot;</SAMP>
@@ -847,16 +847,16 @@ Additional escape sequences support accented characters. For example:
 <DL COMPACT>
 <DT><SAMP>&amp;ouml;</SAMP>
 <DD>the escape sequence for a lowercase o with an umlaut: &ouml;
-    
+
 <DT><SAMP>&amp;ntilde;</SAMP>
-<DD>the escape sequence for a lowercase n with an tilde: &ntilde; 
+<DD>the escape sequence for a lowercase n with an tilde: &ntilde;
 <DT><SAMP>&amp;Egrave;</SAMP>
 <DD>the escape sequence for an uppercase E with a grave accent: &Egrave;
-    
+
 </DL>
 
 <P>
-<A HREF = "http://www.w3.org/hypertext/WWW/MarkUp/ISOlat1.html"> A full 
+<A HREF = "http://www.w3.org/hypertext/WWW/MarkUp/ISOlat1.html"> A full
 list of supported characters</A> is available.
 
 <P>
@@ -908,14 +908,14 @@ Filenames of X Bitmap images must end with <SAMP>.xbm</SAMP>.
 
 <P>
 <IMG SRC = "Graphics/RandomPic.gif" ALT = "">By default the bottom
-of an image is aligned with the text as shown in this paragraph. 
+of an image is aligned with the text as shown in this paragraph.
 
 <P>
 <IMG SRC = "Graphics/RandomPic.gif" ALT = "" ALIGN = TOP>
 Add the <SAMP>ALIGN=TOP</SAMP>
 option if you want the browser to align adjacent text with the top
 of the image as shown in this paragraph. The full in-line image tag
-with the top alignment is: 
+with the top alignment is:
 
 <PRE>
     &lt;IMG ALIGN=top SRC=<VAR>image_URL</VAR>&gt;
@@ -951,7 +951,7 @@ image and is useful if you do not wish to slow down the loading of
 the main document with large in-line images.
 
 <P>
-To include a reference to an external image, use 
+To include a reference to an external image, use
 
 <PRE>
     &lt;A HREF = <VAR>image_URL</VAR>&gt;link anchor&lt;/A&gt;
@@ -997,7 +997,7 @@ extensions are:
 
 <P>
 Make sure your intended audience has the necessary viewers. Most UNIX
-workstations, for instance, cannot view QuickTime movies. 
+workstations, for instance, cannot view QuickTime movies.
 
 <H2><A NAME = "A1.8">Troubleshooting</A></H2>
 <H3><A NAME = "A1.8.1">Avoid Overlapping Tags</A></H3>
@@ -1095,7 +1095,7 @@ appropriately (world-readable).
 
 <H2><A NAME = "A1.9">A Longer Example</A></H2>
 <P>
-Here is a longer example of an HTML document: 
+Here is a longer example of an HTML document:
 
 <PRE>
     &lt;HEAD&gt;
@@ -1105,16 +1105,16 @@ Here is a longer example of an HTML document:
     &lt;H1&gt;A Longer Example&lt;/H1&gt;
     This is a simple HTML document. This is the first
     paragraph. &lt;P&gt;
-    This is the second paragraph, which shows special effects.  This is a 
+    This is the second paragraph, which shows special effects.  This is a
     word in &lt;I&gt;italics&lt;/I&gt;.  This is a word in &lt;B&gt;bold&lt;/B&gt;.
-    Here is an in-lined GIF image: &lt;IMG SRC = &quot;myimage.gif&quot;&gt;. 
+    Here is an in-lined GIF image: &lt;IMG SRC = &quot;myimage.gif&quot;&gt;.
     &lt;P&gt;
-    This is the third paragraph, which demonstrates links.  Here is 
+    This is the third paragraph, which demonstrates links.  Here is
     a hypertext link from the word &lt;A HREF = &quot;subdir/myfile.html&quot;&gt;foo&lt;/A&gt;
-    to a document called &quot;subdir/myfile.html&quot;. (If you 
-    try to follow this link, you will get an error screen.) &lt;P&gt; 
+    to a document called &quot;subdir/myfile.html&quot;. (If you
+    try to follow this link, you will get an error screen.) &lt;P&gt;
     &lt;H2&gt;A second-level header&lt;/H2&gt;
-    Here is a section of text that should display as a 
+    Here is a section of text that should display as a
     fixed-width font: &lt;P&gt;
     &lt;PRE&gt;
         On the stiff twig up there
@@ -1181,13 +1181,13 @@ These cover similar information as this guide:
 <H3><A NAME = "A1.10.4">Additional References</A></H3>
 <UL>
 <LI><A HREF = "http://kuhttp.cc.ukans.edu/lynx_help/HTML_quick.html">
-    <CITE>The HTML Quick Reference Guide</CITE></A>, 
+    <CITE>The HTML Quick Reference Guide</CITE></A>,
     which provides a comprehensive listing of HTML codes
 <LI><A HREF = "http://www.w3.org/hypertext/WWW/MarkUp/MarkUp.html">
     The official HTML specification</A>
-<LI><A HREF = "http://www.w3.org/hypertext/WWW/MarkUp/SGML.html">A 
+<LI><A HREF = "http://www.w3.org/hypertext/WWW/MarkUp/SGML.html">A
     description of SGML</A>, the Standard Generalized Markup Language
-<LI><A HREF 
+<LI><A HREF
 = "http://www.ietf.cnri.reston.va.us/html.charters/html-charter.html">
 <cite>The HTML Working Group of the IETF</cite></A>.
 </UL>

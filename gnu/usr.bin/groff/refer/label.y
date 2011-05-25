@@ -44,7 +44,7 @@ label_info *lookup_label(const string &label);
 struct expression {
   enum {
     // Does the tentative label depend on the reference?
-    CONTAINS_VARIABLE = 01, 
+    CONTAINS_VARIABLE = 01,
     CONTAINS_STAR = 02,
     CONTAINS_FORMAT = 04,
     CONTAINS_AT = 010
@@ -127,7 +127,7 @@ public:
   map_expr(expression *e, map_func *f) : unary_expr(e), func(f) { }
   void evaluate(int, const reference &, string &, substring_position &);
 };
-  
+
 typedef const char *extractor_func(const char *, const char *, const char **);
 
 class extractor_expr : public unary_expr {
@@ -143,7 +143,7 @@ public:
 class truncate_expr : public unary_expr {
   int n;
 public:
-  truncate_expr(expression *e, int i) : n(i), unary_expr(e) { } 
+  truncate_expr(expression *e, int i) : n(i), unary_expr(e) { }
   void evaluate(int, const reference &, string &, substring_position &);
 };
 
@@ -271,7 +271,7 @@ alternative:
 		{ $$ = new alternative_expr($1, $3); }
 	| alternative '&' list
 		{ $$ = new conditional_expr($1, $3, 0); }
-	;	
+	;
 
 list:
 	substitute
@@ -314,7 +314,7 @@ string:
 		    break;
 		  }
 		}
-	
+
 	| '%' digits
 		{
 		  $$ = new format_expr('0', $2.ndigits, $2.val);
@@ -382,8 +382,8 @@ digits:
 	| digits TOKEN_DIGIT
 		{ $$.ndigits = $1.ndigits + 1; $$.val = $1.val*10 + $2; }
 	;
-	
-      
+
+
 flag:
 	/* empty */
 		{ $$ = 0; }
@@ -893,7 +893,7 @@ const substring_position &reference::get_separator_pos(label_type type) const
 const string &reference::get_label(label_type type) const
 {
   if (type == SHORT_LABEL && short_label_flag)
-    return short_label; 
+    return short_label;
   else
     return label;
 }
@@ -906,7 +906,7 @@ int reference::merge_labels_by_parts(reference **v, int n, label_type type,
   const string &lb = get_label(type);
   const substring_position &sp = get_separator_pos(type);
   if (sp.start < 0
-      || sp.start != v[0]->get_separator_pos(type).start 
+      || sp.start != v[0]->get_separator_pos(type).start
       || memcmp(lb.contents(), v[0]->get_label(type).contents(),
 		sp.start) != 0)
     return 0;

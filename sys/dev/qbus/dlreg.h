@@ -52,7 +52,7 @@ struct DLregs
 	volatile u_short dl_rbuf; /* Receive Buffer (R) */
 	volatile u_short dl_xcsr; /* Transmit Control/Status Register (R/W) */
 	volatile union w_b u_xbuf; /* Transmit Buffer (W) */
-#define dl_xbuf u_xbuf.bytes.byte_lo	
+#define dl_xbuf u_xbuf.bytes.byte_lo
 };
 
 typedef struct DLregs dlregs;

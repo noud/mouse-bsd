@@ -6,13 +6,13 @@ Lprint_str:	jmp _C_LABEL(print_str)
 Lprint_num:	jmp _C_LABEL(print_num)
 
 _060FPSP_TEST:
-        .long    Lprint_str - _060FPSP_TEST      
+        .long    Lprint_str - _060FPSP_TEST
 	.long    Lprint_num - _060FPSP_TEST
 	.space   120
 #include "ftest.S"
 
 _060ISP_TEST:
-        .long    Lprint_str - _060ISP_TEST      
+        .long    Lprint_str - _060ISP_TEST
 	.long    Lprint_num - _060ISP_TEST
 	.space   120
 #include "itest.S"

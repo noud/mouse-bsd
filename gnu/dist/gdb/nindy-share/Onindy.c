@@ -218,7 +218,7 @@ getpkt (buf)
 		if ( csum == recv ){
 			break;
 		}
-	
+
 		fprintf(stderr,
 			"Bad checksum (recv=0x%02x; calc=0x%02x); retrying\r\n",
 								recv, csum );
@@ -507,10 +507,10 @@ OninRegPut( regname, val )
  *	Get a dump of the contents of the entire 960 register set.  The
  *	individual registers appear in the dump in the following order:
  *
- *		pfp  sp   rip  r3   r4   r5   r6   r7 
- *		r8   r9   r10  r11  r12  r13  r14  r15 
- *		g0   g1   g2   g3   g4   g5   g6   g7 
- *		g8   g9   g10  g11  g12  g13  g14  fp 
+ *		pfp  sp   rip  r3   r4   r5   r6   r7
+ *		r8   r9   r10  r11  r12  r13  r14  r15
+ *		g0   g1   g2   g3   g4   g5   g6   g7
+ *		g8   g9   g10  g11  g12  g13  g14  fp
  *		pc   ac   ip   tc   fp0  fp1  fp2  fp3
  *
  *	Each individual register comprises exactly 4 bytes, except for

@@ -605,7 +605,7 @@ struct	statetoopt	tosecopts[] = {
 #ifdef	bsdi
 struct ether_addr *
 ether_aton(s)
-	char *s;   
+	char *s;
 {
 	static struct ether_addr n;
 	u_int i[6];
@@ -1846,7 +1846,7 @@ u_long	init;
 {
 	u_long	sum = init;
 	int	nwords = len >> 1;
- 
+
 	for(; nwords > 0; nwords--)
 		sum += *buf++;
 	sum = (sum>>16) + (sum & 0xffff);
@@ -1861,7 +1861,7 @@ u_int	len;
 {
 	u_long	sum = 0;
 	int	nwords = len >> 1;
- 
+
 	for(; nwords > 0; nwords--)
 		sum += *buf++;
 	return sum;

@@ -140,7 +140,7 @@ fprintstr(fp, str)
 
 	if (fputc('\t', fp) < 0)
 		return -1;
-	
+
 	for (n = 1; *str; str++, n++) {
 		switch (*str) {
 		case '\\':
@@ -291,7 +291,7 @@ emitlocs()
 	char *tfname;
 	int rval;
 	FILE *tfp;
-	
+
 	tfname = "tmp_locators.h";
 	if ((tfp = fopen(tfname, "w")) == NULL)
 		return (herr("open", tfname, NULL));

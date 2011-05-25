@@ -99,7 +99,7 @@ void
 cgen_save_fixups ()
 {
   saved_num_fixups = num_fixups;
-  
+
   memcpy (saved_fixups, fixups, sizeof (fixups[0]) * num_fixups);
 
   num_fixups = 0;
@@ -109,7 +109,7 @@ void
 cgen_restore_fixups ()
 {
   num_fixups = saved_num_fixups;
-  
+
   memcpy (fixups, saved_fixups, sizeof (fixups[0]) * num_fixups);
 
   saved_num_fixups = 0;
@@ -134,7 +134,7 @@ cgen_swap_fixups ()
       tmp = saved_num_fixups;
       saved_num_fixups = num_fixups;
       num_fixups = tmp;
-      
+
       for (tmp = MAX_FIXUPS; tmp--;)
 	{
 	  tmp_fixup          = saved_fixups [tmp];
@@ -339,7 +339,7 @@ cgen_asm_finish_insn (insn, buf, length)
   /* ??? Target foo issues various warnings here, so one might want to provide
      a hook here.  However, our caller is defined in tc-foo.c so there
      shouldn't be a need for a hook.  */
-  
+
   /* Write out the instruction.
      It is important to fetch enough space in one call to `frag_more'.
      We use (f - frag_now->fr_literal) to compute where we are and we
@@ -383,10 +383,10 @@ cgen_asm_finish_insn (insn, buf, length)
       /* Ensure variable part and fixed part are in same fragment.  */
       /* FIXME: Having to do this seems like a hack.  */
       frag_grow (max_len);
-      
+
       /* Allocate space for the fixed part.  */
       f = frag_more (byte_len);
-      
+
       /* Create a relaxable fragment for this instruction.  */
       old_frag = frag_now;
 
@@ -399,7 +399,7 @@ cgen_asm_finish_insn (insn, buf, length)
 		fixups[relax_operand].exp.X_add_symbol,
 		fixups[relax_operand].exp.X_add_number,
 		f);
-      
+
       /* Record the operand number with the fragment so md_convert_frag
 	 can use cgen_md_record_fixup to record the appropriate reloc.  */
       old_frag->fr_cgen.insn    = insn;

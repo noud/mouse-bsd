@@ -11,16 +11,16 @@ crypto library interface by the DNS Security code in BIND.
 		CRYPTFLAGS must include -DDNSSAFE
 		CRYPTINCL must include -I../dnssafe
 
-	if you have RSAREF 
-		CRYPTFLAGS must include -DRSAREF 
+	if you have RSAREF
+		CRYPTFLAGS must include -DRSAREF
 		CRYPTINCL must include -I<path to rsa include files>
-		
-	if you have BSAFE 
+
+	if you have BSAFE
 		CRYPTFLAGS must include -DBSAFE
 		CRYPTINCL must include -I<path to bsafe include files>
 
-	if you want HMAC-MD5 support 
-		CRYPTFLAGs must include -DHMAC	
+	if you want HMAC-MD5 support
+		CRYPTFLAGs must include -DHMAC
 
 2. Building BIND as usual will include the dst library routines into
    libbind.a, and link them into the BIND programs that use crypto

@@ -82,12 +82,12 @@
 #include <ufs/lfs/lfs.h>
 #include <ufs/lfs/lfs_extern.h>
 
-void 
+void
 lfs_dump_super(lfsp)
 	struct lfs *lfsp;
 {
 	int i;
-	
+
 	printf("%s%x\t%s%x\t%s%d\t%s%d\n",
 	       "magic	 ", lfsp->lfs_magic,
 	       "version	 ", lfsp->lfs_version,
@@ -98,42 +98,42 @@ lfs_dump_super(lfsp)
 	       "bsize	 ", lfsp->lfs_bsize,
 	       "fsize	 ", lfsp->lfs_fsize,
 	       "frag	 ", lfsp->lfs_frag);
-	
+
 	printf("%s%d\t%s%d\t%s%d\t%s%d\n",
 	       "minfree	 ", lfsp->lfs_minfree,
 	       "inopb	 ", lfsp->lfs_inopb,
 	       "ifpb	 ", lfsp->lfs_ifpb,
 	       "nindir	 ", lfsp->lfs_nindir);
-	
+
 	printf("%s%d\t%s%d\t%s%d\t%s%d\n",
 	       "nseg	 ", lfsp->lfs_nseg,
 	       "nspf	 ", lfsp->lfs_nspf,
 	       "cleansz	 ", lfsp->lfs_cleansz,
 	       "segtabsz ", lfsp->lfs_segtabsz);
-	
+
 	printf("%s%x\t%s%d\t%s%lx\t%s%d\n",
 	       "segmask	 ", lfsp->lfs_segmask,
 	       "segshift ", lfsp->lfs_segshift,
 	       "bmask	 ", (unsigned long)lfsp->lfs_bmask,
 	       "bshift	 ", lfsp->lfs_bshift);
-	
+
 	printf("%s%lu\t%s%d\t%s%lx\t%s%u\n",
 	       "ffmask	 ", (unsigned long)lfsp->lfs_ffmask,
 	       "ffshift	 ", lfsp->lfs_ffshift,
 	       "fbmask	 ", (unsigned long)lfsp->lfs_fbmask,
 	       "fbshift	 ", lfsp->lfs_fbshift);
-	
+
 	printf("%s%d\t%s%d\t%s%x\t%s%qx\n",
 	       "sushift	 ", lfsp->lfs_sushift,
 	       "fsbtodb	 ", lfsp->lfs_fsbtodb,
 	       "cksum	 ", lfsp->lfs_cksum,
 	       "maxfilesize ", (long long)lfsp->lfs_maxfilesize);
-	
+
 	printf("Superblock disk addresses:");
 	for (i = 0; i < LFS_MAXNUMSB; i++)
 		printf(" %x", lfsp->lfs_sboffs[i]);
 	printf("\n");
-	
+
 	printf("Checkpoint Info\n");
 	printf("%s%d\t%s%x\t%s%d\n",
 	       "free	 ", lfsp->lfs_free,
@@ -154,7 +154,7 @@ lfs_dump_dinode(dip)
 	struct dinode *dip;
 {
 	int i;
-	
+
 	printf("%s%u\t%s%d\t%s%u\t%s%u\t%s%qu\n",
 	       "mode  ", dip->di_mode,
 	       "nlink ", dip->di_nlink,
@@ -178,12 +178,12 @@ lfs_check_segsum(struct lfs *fs, struct segment *sp, char *file, int line)
 {
 	int actual, i;
 #if 0
-	static int offset; 
+	static int offset;
 #endif
-	
+
 	if((actual = i = 1) == 1)
 		return; /* XXXX not checking this anymore, really */
-	
+
 	if(sp->sum_bytes_left >= sizeof(FINFO) - sizeof(ufs_daddr_t)
 	   && sp->fip->fi_nblocks > 512) {
 		printf("%s:%d: fi_nblocks = %d\n",file,line,sp->fip->fi_nblocks);
@@ -191,21 +191,21 @@ lfs_check_segsum(struct lfs *fs, struct segment *sp, char *file, int line)
 		Debugger();
 #endif
 	}
-	
+
 	if(sp->sum_bytes_left > 484) {
 		printf("%s:%d: bad value (%d = -%d) for sum_bytes_left\n",
 		       file, line, sp->sum_bytes_left, LFS_SUMMARY_SIZE-sp->sum_bytes_left);
 		panic("too many bytes");
 	}
-	
+
 	actual = LFS_SUMMARY_SIZE
 		/* amount taken up by FINFOs */
 		- ((char *)&(sp->fip->fi_blocks[sp->fip->fi_nblocks]) - (char *)(sp->segsum))
 			/* amount taken up by inode blocks */
 			- sizeof(ufs_daddr_t)*((sp->ninodes+INOPB(fs)-1) / INOPB(fs));
 #if 0
-	if(actual - sp->sum_bytes_left < offset) 
-	{  
+	if(actual - sp->sum_bytes_left < offset)
+	{
 		printf("%s:%d: offset changed %d -> %d\n", file, line,
 		       offset, actual-sp->sum_bytes_left);
 		offset = actual - sp->sum_bytes_left;
@@ -243,7 +243,7 @@ lfs_check_bpp(fs, sp, file, line)
 	daddr_t blkno;
 	struct buf **bpp;
 	struct vnode *devvp;
-	
+
 	devvp = VTOI(fs->lfs_ivnode)->i_devvp;
 	blkno = (*(sp->bpp))->b_blkno;
 	for(bpp=sp->bpp; bpp < sp->cbpp; bpp++) {

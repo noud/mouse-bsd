@@ -64,7 +64,7 @@ _readPram:
 	moveml	d1/a1,sp@-
 	moveq	#0,d0		|  zero out length register
 	moveb	a6@(19),d0	|  move the length byte in
-	moveq	#0,d1		|  zero out location 
+	moveq	#0,d1		|  zero out location
 	moveb	a6@(15),d1	|  now get out PRam location
 	lea	_SysParam,a1	|  start of PRam data
 	movel	a6@(8),a0	|  get our data address
@@ -73,7 +73,7 @@ _readPramAgain:
 	bcs	_readPramDone	|  see if we are through
 	moveb	a1@(d1),a0@+	|  transfer byte
 	addql	#1,d1		|  next byte
-	jmp	_readPramAgain	|  do it again 
+	jmp	_readPramAgain	|  do it again
 _readPramDone:
 	clrw	d0
 	moveml	sp@+,d1/a1
@@ -88,7 +88,7 @@ _writePram:
 	moveml	d1/a1,sp@-
 	moveq	#0,d0		|  zero out length register
 	moveb	a6@(19),d0	|  move the length byte in
-	moveq	#0,d1		|  zero out location 
+	moveq	#0,d1		|  zero out location
 	moveb	a6@(15),d1	|  now get out PRam location
 	lea	_SysParam,a1	|  start of PRam data
 	movel	a6@(8),a0	|  get our data address
@@ -99,7 +99,7 @@ _writePramAgain:
 	bcc	_writePramDone	|  do not write if beyond end
 	moveb	a0@+,a1@(d1)	|  transfer byte
 	addql	#1,d1		|  next byte
-	jmp	_writePramAgain |  do it again 
+	jmp	_writePramAgain |  do it again
 _writePramDone:
 	.word	0xa038		|  writeParam
 	moveml	sp@+,d1/a1
@@ -147,7 +147,7 @@ _setPramTime:
 	unlk	a6		|  clean up after ourselves
 	rts			|  and return to caller
 
-#else			
+#else
 /* The following routines are the hardware specific routines for the
  * machines that use the II-like method to access the PRAM, and are only
  * defined when the MRG method is not used to access the PRAM.
@@ -181,7 +181,7 @@ _writePramII:
 	moveb	a6@(19),d0	|  move the length byte in
 	swap	d0		|  and make that the MSW
 	moveb	a6@(15),d0	|  now get out PRAM location
-	nop			|  and set up for non-extended write 
+	nop			|  and set up for non-extended write
 	movel	a6@(8),a0	|  get our data address
 	jbsr	_PRAMacc	|  and go write the data
 	unlk a6			|  clean up after ourselves
@@ -272,7 +272,7 @@ putSecb:
 	moveb	d0,d1		| set our first secs byte
 	swap	d1		| and return command to orig. config
 	bsr	_Transfer	| write that byte
-	rorl	#8,d0		| shift our time to the right 
+	rorl	#8,d0		| shift our time to the right
 	addqb	#4,d1		| increment to the next sec byte
 	dbf	d4,putSecb	| any more bytes to put ?
 	movel	#0x00d50035,d1	| we have to set the write protect bit
@@ -340,13 +340,13 @@ Loaddata:
 	moveb	a0@,d1		| get our (data/dummy) byte into d1
 	swap	d1		| move (data/dummy) byte to MSW
 	movew	d3,d1		| now move command into d1
-tagain:	
+tagain:
 	bsr	_Transfer	| now execute that command
 	swap	d1		| we want access to (data/dummy) byte
 	moveb	d1,a0@+		| move (data/dummy) byte back to a0,
 	moveb	a0@,d1		| NEXT VICTIM!!
 	swap	d1		| now we want to tweak the command
-	addqw	#4,d1		| increment our memory addr by 1 (this even 
+	addqw	#4,d1		| increment our memory addr by 1 (this even
 				| works if we want to dump across 32 byte
 				| boundries for an extended command!!!
 				| thanks to the oriw #$3880 above !!!)
@@ -398,7 +398,7 @@ Cleanup:
 
 writebyte:
 	moveq	#7,d3		| set our bit counter to 8
-wagain:	
+wagain:
 	lsrb	#1,d2		| ditch the old data channel value
 	roxlb	#1,d1		| and move a new value to X
 	roxlb	#1,d2		| now move value from X to data channel
@@ -416,7 +416,7 @@ readbyte:
 ragain:
 	bclr	#1,a1@		| strobe the clock line to make
 	bset	#1,a1@		| the data valid
-	moveb	a1@,d2		| and get out data byte	
+	moveb	a1@,d2		| and get out data byte
 	lsrb	#1,d2		| get the data channel value to X
 	roxlb	#1,d1		| and move X to data byte
 	dbf	d3,ragain	| do this until we've received a whole byte

@@ -5,28 +5,28 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 # M68000 Hi-Performance Microprocessor Division
-# M68060 Software Package Production Release 
-# 
+# M68060 Software Package Production Release
+#
 # M68060 Software Package Copyright (C) 1993, 1994, 1995, 1996 Motorola Inc.
 # All rights reserved.
-# 
+#
 # THE SOFTWARE is provided on an "AS IS" basis and without warranty.
 # To the maximum extent permitted by applicable law,
 # MOTOROLA DISCLAIMS ALL WARRANTIES WHETHER EXPRESS OR IMPLIED,
 # INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS
 # FOR A PARTICULAR PURPOSE and any warranty against infringement with
 # regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-# and any accompanying written materials. 
-# 
+# and any accompanying written materials.
+#
 # To the maximum extent permitted by applicable law,
 # IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
 # (INCLUDING WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS,
 # BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR OTHER PECUNIARY LOSS)
 # ARISING OF THE USE OR INABILITY TO USE THE SOFTWARE.
-# 
+#
 # Motorola assumes no responsibility for the maintenance and support
-# of the SOFTWARE.  
-# 
+# of the SOFTWARE.
+#
 # You are hereby granted a copyright license to use, modify, and distribute the
 # SOFTWARE so long as this entire notice is retained without alteration
 # in any modified and/or redistributed versions, and that such modified
@@ -206,7 +206,7 @@ ldivfinish:
 	beq.b		lddone			# divu has no processing!!!
 
 # it was a divs.l, so ccode setting is a little more complicated...
-	tst.b		NDIVIDEND(%a6)		# remainder has same sign 
+	tst.b		NDIVIDEND(%a6)		# remainder has same sign
 	beq.b		ldcc			# as dividend.
 	neg.l		%d5			# sgn(rem) = sgn(dividend)
 ldcc:
@@ -302,7 +302,7 @@ ldclassical:
 # dividing the divisor word into each dividend word. In this case,
 # the first two quotient words must be zero, or overflow would occur.
 # Since we already checked this case above, we can treat the most significant
-# longword of the dividend as (0) remainder (see Knuth) and merely complete 
+# longword of the dividend as (0) remainder (see Knuth) and merely complete
 # the last two divisions to get a quotient longword and word remainder:
 
 	clr.l		%d1
@@ -338,12 +338,12 @@ lddknuth:
 	clr.b		DDSECOND(%a6)		# clear flag for quotient digits
 	clr.l		%d1			# %d1 will hold trial quotient
 lddnchk:
-	btst		&31, %d7		# must we normalize? first word of 
+	btst		&31, %d7		# must we normalize? first word of
 	bne.b		lddnormalized		# divisor (V1) must be >= 65536/2
 	addq.l		&0x1, DDNORMAL(%a6)	# count normalization shifts
 	lsl.l		&0x1, %d7		# shift the divisor
 	lsl.l		&0x1, %d6		# shift u4,u3 with overflow to u2
-	roxl.l		&0x1, %d5		# shift u1,u2 
+	roxl.l		&0x1, %d5		# shift u1,u2
 	bra.w		lddnchk
 lddnormalized:
 
@@ -358,7 +358,7 @@ lddnormalized:
 	mov.w		&0xffff, %d1		# use max trial quotient word
 	bra.b		lddadj0
 lddqcalc1:
-	mov.l		%d5, %d1		
+	mov.l		%d5, %d1
 
 	divu.w		%d3, %d1		# use quotient of mslw/msw
 
@@ -426,7 +426,7 @@ ldd2nd:
 	tst.b		DDSECOND(%a6)	# both q words done?
 	bne.b		lddremain
 # first quotient digit now correct. store digit and shift the
-# (subtracted) dividend 
+# (subtracted) dividend
 	mov.w		%d1, DDQUOTIENT(%a6)
 	clr.l		%d1
 	swap		%d5
@@ -481,7 +481,7 @@ ldmm2:
 	clr.w		%d2			# lsw of two mixed products used,
 	swap		%d5			# now use msws of longwords
 	swap		%d2
-	add.l		%d2, %d5				
+	add.l		%d2, %d5
 	add.l		%d3, %d5	# %d5 now ms 32 bits of final product
 	rts
 
@@ -599,7 +599,7 @@ mulu64_ddone:
 # the values at the location pointed to by a0.
 # use movm here to not disturb the condition codes.
 mulu64_end:
-	exg		%d1,%d0		
+	exg		%d1,%d0
 	movm.l		&0x0003,([0x10,%a6])		# save result
 
 # EPILOGUE BEGIN ########################################################
@@ -653,7 +653,7 @@ _060LSP__imuls64_:
 # the result sign is the exclusive or of the operand sign bits.
 muls64_chk_md_sgn:
 	tst.l		%d1			# is multiplicand negative?
-	bge.b		muls64_alg		# no	
+	bge.b		muls64_alg		# no
 	neg.l		%d1			# make multiplicand positive
 
 	eori.b		&0x1,%d5		# calculate correct sign
@@ -736,7 +736,7 @@ muls64_ddone:
 # the values at the location pointed to by a0.
 # use movm here to not disturb the condition codes.
 muls64_end:
-	exg		%d1,%d0		
+	exg		%d1,%d0
 	movm.l		&0x0003,([0x10,%a6])	# save result at (a0)
 
 # EPILOGUE BEGIN ########################################################

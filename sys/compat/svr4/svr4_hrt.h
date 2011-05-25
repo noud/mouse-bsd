@@ -86,10 +86,10 @@ typedef struct {
 } svr4_hrt_time_t;
 
 #define	SVR4_HRT_DONE	1
-#define	SVR4_HRT_ERROR	2	
+#define	SVR4_HRT_ERROR	2
 
 #define SVR4_HRT_CLK_STD	1
 #define SVR4_HRT_CLK_USERVIRT	2
-#define SVR4_HRT_CLK_PROCVIRT	4	
+#define SVR4_HRT_CLK_PROCVIRT	4
 
 #endif /* !_SVR4_HRT_H_ */

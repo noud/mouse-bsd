@@ -606,7 +606,7 @@ parse_args (argc, argv)
 	     getopt can't handle two args to an option without kludges.  */
 	  break;
 	case 'o':
-	  lang_add_output (optarg, 0); 
+	  lang_add_output (optarg, 0);
 	  break;
 	case OPTION_OFORMAT:
 	  lang_add_output_format (optarg, (char *) NULL, (char *) NULL, 0);
@@ -753,9 +753,9 @@ This program is free software; you may redistribute it under the terms of\n\
 the GNU General Public License.  This program has absolutely no warranty.\n");
 	  {
 	    ld_emulation_xfer_type **ptr = ld_emulations;
-    
+
 	    printf ("  Supported emulations:\n");
-	    while (*ptr) 
+	    while (*ptr)
 	      {
 		printf ("   %s\n", (*ptr)->emulation_name);
 		ptr++;
@@ -819,10 +819,10 @@ the GNU General Public License.  This program has absolutely no warranty.\n");
 	  break;
 	case OPTION_SPLIT_BY_RELOC:
 	  config.split_by_reloc = atoi (optarg);
-	  break; 
+	  break;
 	case OPTION_SPLIT_BY_FILE:
 	  config.split_by_file = true;
-	  break; 
+	  break;
 	case '(':
 	  if (ingroup)
 	    {

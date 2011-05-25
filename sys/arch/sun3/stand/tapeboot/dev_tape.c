@@ -170,7 +170,7 @@ tape_strategy(devdata, flag, dblk, size, buf, rsize)
 #endif
 
 	dmabuf = dvma_mapin(buf, size);
-	
+
 	si->si_bn = dblk;
 	si->si_ma = dmabuf;
 	si->si_cc =	size;

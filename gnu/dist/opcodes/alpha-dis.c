@@ -135,7 +135,7 @@ print_insn_alpha (memaddr, info)
 
   /* No instruction found */
   (*info->fprintf_func) (info->stream, ".long %#08x", insn);
-    
+
   return 4;
 
 found:

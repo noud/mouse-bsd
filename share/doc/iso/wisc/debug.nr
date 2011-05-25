@@ -8,11 +8,11 @@
 .NC "Debugging, Testing, and Statistics"
 .sh 1 "Introduction"
 .pp
-This section describes the methods used 
+This section describes the methods used
 to test and debug the ARGO kernel.
-Three facilities are used in combination: 
+Three facilities are used in combination:
 debug options,
-simple statistics gathering, 
+simple statistics gathering,
 and
 protocol event tracing.
 Many of the debug options
@@ -23,10 +23,10 @@ so that errors are be introduced in desirable ways.
 .pp
 TP and CLNP keep simple statistics.
 These statistics include such things as the total
-number of PDUs that are sent and received, 
+number of PDUs that are sent and received,
 a count of various types of errors
 that can be encountered when parsing an incoming PDU,
-and the average and standard deviation of round trip times for 
+and the average and standard deviation of round trip times for
 transport PDUs.
 These statistics are useful for debugging.
 For example,
@@ -39,7 +39,7 @@ They can be printed or cleared by user-level utility programs.
 The tracing facility allows selective tracing of events.
 Events are grouped into categories relating to different
 functions of TP.
-For example, it is possible to 
+For example, it is possible to
 trace only the events that pertain to acknowledgments.
 .pp
 At run time the debugging and tracing options can
@@ -66,11 +66,11 @@ ENDDEBUG
 .lp
 IFDEBUG and ENDDEBUG are macros that are defined in one of two ways.
 If the system is configured with the ARGO_DEBUG
-option, an array 
+option, an array
 \fCargo_debug[128]\fR
 is declared, and
 IFDEBUG and ENDDEBUG are defined thus:
-.(b 
+.(b
 .nf
 \fC
 #define IFDEBUG(option) if(argo_debug[option]) {
@@ -84,15 +84,15 @@ two macros resolve to the C comment delimiters, \fC/*\fR and \fC*/\fR,
 causing all the debugging code lying between the macros
 to be elided.
 .pp
-TP, CLNP, and CONS debugging can be enabled independently. 
-All debugging requires that the code be compiled with the 
-option ARGO_DEBUG. 
-The \fIconfig(8)\fR option CLNP_DEBUG will include debugging printfs for CLNP. 
+TP, CLNP, and CONS debugging can be enabled independently.
+All debugging requires that the code be compiled with the
+option ARGO_DEBUG.
+The \fIconfig(8)\fR option CLNP_DEBUG will include debugging printfs for CLNP.
 TP_DEBUG has the same effect for TP.
 .pp
 The array elements of \fCargo_debug[]\fR are set by
 the utility program
-\fIbark\fR, 
+\fIbark\fR,
 which reads and writes
 \fC/dev/kmem\fIN\fR.
 See the manual page \fIbark(8)\fR.
@@ -100,9 +100,9 @@ See the manual page \fIbark(8)\fR.
 Several debugging options cause TP to behave pathologically,
 for the purpose of reproducing difficult-to-reproduce
 error conditions that the protocol must correct.
-For example, the 
+For example, the
 \fID_DROP\fR, or \fIbark -on T.drop\fR
-option causes 
+option causes
 \fItp_input()\fR
 to discard TPDUs on a pseudo-random basis.
 These will be described below.
@@ -110,18 +110,18 @@ These will be described below.
 .pp
 .sh 2 "CLNP Statistics"
 .pp
-CLNP keeps a set of statistics related to its operation. 
-Statistics include such things as NPDUs sent, received, and dropped. 
+CLNP keeps a set of statistics related to its operation.
+Statistics include such things as NPDUs sent, received, and dropped.
 These statistics are stored in the global structure \fIclnp_stat\fR.
 The utility program \fInetstat(8)\fR may be used to print these statistics.
 .sh 2 "TP Statistics"
 .pp
 TP keeps a set of running counts of certain events.
-The statistics include such things as the numbers 
+The statistics include such things as the numbers
 of each type of TPDU sent and received, TPDUs dropped,
 and the numbers of occurrences of certain types of errors.
 The statistics are stored in the global structure \fItp_stat\fR.
-The utility programs 
+The utility programs
 \fItpstat\fR and
 \fItpmon\fR
 read \fC/dev/kmem\fIN\fR
@@ -144,10 +144,10 @@ See the manual pages \fItpstat(8)\fR and \fItpmon(8)\fR.
 .sh 2 "CLNP Tracing"
 .pp
 CLNP does not support event tracing.
-.sh 2 "TP Tracing" 
+.sh 2 "TP Tracing"
 .pp
 The tracing facility consists of a circular buffer (an array)
-of structures that are written by the kernel at various times, 
+of structures that are written by the kernel at various times,
 and a utility program that reads \fC/dev/kmem\fIN\fR
 to interpret the contents of the buffer.
 The trace structure is a union of the structures that
@@ -167,7 +167,7 @@ ENDTRACE
 .fi
 .)b
 .pp
-The tracing macros are defined in the same manner as the 
+The tracing macros are defined in the same manner as the
 debugging macros:
 .(b
 .nf
@@ -185,8 +185,8 @@ used, these macros become C-style comment delimiters.
 The tracing procedure copies \fIh->tpdu_li + 1\fR bytes beginning at
 location \fIh\fR into a trace structure in the circular buffer.
 The utility program \fItppt\fR
-reads the trace structure, 
-interprets the data as a TPDU header,  
+reads the trace structure,
+interprets the data as a TPDU header,
 and prints the header in hexadecimal form, with a banner identifying
 the event as an incoming TPDU:
 .(b
@@ -195,15 +195,15 @@ the event as an incoming TPDU:
 1a: Ref 22 	arg 14(0xe), 	@ 91990 : 0000.453125  	tpdu
 INPUT  total len 22
 HDRLEN:  21+1 	CR_TPDU_type 	cdt 0(0x0) 	dref 0x0
-		 + 0: 0x15 0xe0 0x00 0x00   4: 0x00 0x03 0x00 0xc1 
-		 + 8: 0x06 0x74 0x70 0x70  12: 0x69 0x6e 0x67 0xc2 
-		 +16: 0x02 0x00 0x07 0xc0  20: 0x01 0x08 0x00 0x00 
+		 + 0: 0x15 0xe0 0x00 0x00   4: 0x00 0x03 0x00 0xc1
+		 + 8: 0x06 0x74 0x70 0x70  12: 0x69 0x6e 0x67 0xc2
+		 +16: 0x02 0x00 0x07 0xc0  20: 0x01 0x08 0x00 0x00
 
 \fR
 .fi
 .)b
 .pp
-In addition to the data copied from the arguments to tpTrace(), 
+In addition to the data copied from the arguments to tpTrace(),
 each trace structure contains
 a time stamp and an event sequence number, and in many cases, the
 connection reference to which the traced event applies.
@@ -217,26 +217,26 @@ it is possible to "see" the resequencing function of TP
 working when a debug option is used to cause
 TPDUs to be dropped occasionally.
 .pp
-See the manual page \fItppt(8)\fR. 
+See the manual page \fItppt(8)\fR.
 .sh 1 "Testing"
 .pp
 .sh 2 "CLNP Testing"
 .pp
-CLNP was tested in two rather different ways. 
+CLNP was tested in two rather different ways.
 The first method of testing used the
 raw CLNP interface with the program \fIclnptest\fR.
-\fIclnptest\fR allows a user to send or receive CLNP NSDUs. 
+\fIclnptest\fR allows a user to send or receive CLNP NSDUs.
 With \fIclnptest\fR, a user can send CLNP NSDUs with various
 combinations of options and observe the result.
 .pp
 The second method of testing CLNP was to have TP use CLNP as its network
-layer protocol. 
-This method provides a good stress test for CLNP. 
+layer protocol.
+This method provides a good stress test for CLNP.
 Unfortunately, TP generally calls CLNP in the same manner, so that not all
 of the CLNP options are exercised.
 .sh 3 "Clnptest"
 .pp
-The program \fIclnptest\fR can be invoked as either 
+The program \fIclnptest\fR can be invoked as either
 a reader or as a writer:
 .(b
 \fC
@@ -244,13 +244,13 @@ clnptest <options>
 \fR
 .)b
 The \fI-r\fR option invokes \fIclnptest\fR as a reader, the
-\fI-w\fR option invokes it as a writer. 
-Other options allow the user to indicate the destination, number of NSDUs, 
+\fI-w\fR option invokes it as a writer.
+Other options allow the user to indicate the destination, number of NSDUs,
 size of NSDUs,
-and NSDUs options. 
+and NSDUs options.
 See \fIclnptest(8)\fR for more information.
 .pp
-\fIclnptest\fR is normally used in the following manner. 
+\fIclnptest\fR is normally used in the following manner.
 On one machine, invoke \fIclnptest\fR as a reader:
 .(b
 \fC
@@ -267,29 +267,29 @@ clnptest -w -h a -oR "b, c, d"
 This sends an NSDU to host 'a', source routing it via
 hosts 'b', 'c', and 'd'.
 .sh 3 "The Troll"
-In order to test CLNP reassembly certain errors must be generated. 
-The mechanism used has two parts, 
+In order to test CLNP reassembly certain errors must be generated.
+The mechanism used has two parts,
 the user program \fIclnptroll\fR, which enables and disables
-the generation of these errors, and the 
+the generation of these errors, and the
 kernel resident error-creation routines.
 .pp
-Troll options allow one to duplicate an NSDU with a specified frequency. 
+Troll options allow one to duplicate an NSDU with a specified frequency.
 The kernel must be compiled with the \fIconfig\fR option \fITROLL\fR
 in order to include troll code.
 See \fIclnptroll(8)\fR for more information.
 .sh 3 "Debugging CLNP"
 .pp
-The following sections describe the \fIbark\fR options 
-appropriate for testing parts of CLNP. 
+The following sections describe the \fIbark\fR options
+appropriate for testing parts of CLNP.
 Refer to \fIbark(8)\fR for more information about debugging
 using \fIbark\fR..
 .sh 4 "Sending NSDUs"
 .pp
 Turning on the \fIbark\fR
 option \fIC.output\fR causes information to be
-printed whenever an NSDU is transmitted. 
-Translation of NSAP addresses to SNPA can be monitored by turning on 
-the \fIC.un\fR, or \fIC.lan\fR options. 
+printed whenever an NSDU is transmitted.
+Translation of NSAP addresses to SNPA can be monitored by turning on
+the \fIC.un\fR, or \fIC.lan\fR options.
 Parts of outgoing NSDUs can be dumped when the \fIC.dumpout\fR
 option is on.
 Routing activity can be watched by turning on \fIC.route\fR and \fIC.iso\fR.
@@ -301,20 +301,20 @@ whenever NSDUs are forwarded.
 .sh 4 "Receiving NSDUs"
 .pp
 Information is displayed about incoming NSDUs when the \fIC.input\fR
-option is enabled. 
-A portion of incoming NSDUs can be dumped by turning on the 
+option is enabled.
+A portion of incoming NSDUs can be dumped by turning on the
 \fIC.dumpin\fR option.
 .sh 4 "Fragmentation and Reassembly"
 .pp
-The options \fIC.frag\fR and \fIC.reass\fR turn on debugging for the 
+The options \fIC.frag\fR and \fIC.reass\fR turn on debugging for the
 CLNP fragmentation and reassembly functions.
 .sh 2 "TP Testing"
 .pp
 Five services were used for most of the testing:
 the \fIdiscard\fR service,
-the \fIecho\fR service, 
-the \fIremote login\fR service, 
-the \fIremote shell\fR service, 
+the \fIecho\fR service,
+the \fIremote login\fR service,
+the \fIremote shell\fR service,
 and
 the \fIsimple file transfer\fR service.\**
 .(f
@@ -324,10 +324,10 @@ These programs in their original forms were very cumbersome to use;
 consequently they evolved to become the services described here.
 .)f
 Each service consists of a daemon process or server that listens
-on a well-known transport selector (which is listed in the 
+on a well-known transport selector (which is listed in the
 ARGO directory service), and an active process that contacts the
 server.
-Four of these services,  
+Four of these services,
 discard, echo, remote login, and remote shell,
 are supported by the
 \fIisod\fR suite of daemons, which is a
@@ -337,7 +337,7 @@ the ISO protocol suite.
 The discard server listens on the transport selector
 registered in the ARGO directory service for the application
 "discard".
-The server accepts incoming connection requests, 
+The server accepts incoming connection requests,
 receives TSDUs, and throws away the TSDUs.
 It never initiates a disconnect, but expects its peer
 to disconnect the transport connection.
@@ -346,36 +346,36 @@ The program \fItpdiscard\fR connects to the
 discard server.
 The transport service and protocol options it uses are those
 indicated in the ARGO directory service.
-By changing the directory service entry for the 
+By changing the directory service entry for the
 discard service, each of the transport service options and
 protocol options can be demonstrated.
 See the manual pages
 \fItpdiscard(8)\fR,
 \fItp(4p)\fR,
-and 
+and
 \fIisodir(5)\fR
 for more information.
 .sh 3 "The Echo Service"
 The echo server listens on the transport selector
 registered in the ARGO directory service for the application
 "echo".
-The server accepts incoming connection requests, 
+The server accepts incoming connection requests,
 receives TSDUs, and returns the TSDUs to the sender.
 It never initiates a disconnect, but expects its peer
 to disconnect the transport connection.
 .pp
-The 
+The
 program \fItpping\fR connects to the
 echo server.
 The transport service and protocol options it uses are those
 indicated in the ARGO directory service.
-By changing the directory service entry for the 
+By changing the directory service entry for the
 echo service, each of the transport service options and
 protocol options can be demonstrated.
 See the manual pages
 \fItpping(8)\fR,
 \fItp(4p)\fR,
-and 
+and
 \fIisodir(5)\fR
 for more information.
 .sh 3 "The Remote Login Service"
@@ -393,13 +393,13 @@ the server runs, a login is started.
 The program \fIrlogin.iso\fR connects to the remote login server.
 The transport service and protocol options it uses are those
 indicated in the ARGO directory service.
-By changing the directory service entry for the 
+By changing the directory service entry for the
 login service, each of the transport service options and
 protocol options can be demonstrated.
 See the manual pages
 \fIrlogin.iso(8)\fR,
 \fItp(4p)\fR,
-and 
+and
 \fIisodir(5)\fR
 for more information.
 .sh 3 "The Remote Shell Service"
@@ -407,7 +407,7 @@ The remote shell server listens on the transport selector
 registered in the ARGO directory service for the application
 "shell".
 The server accepts incoming connection requests,
-implements the BSD remote command authorization protocol, 
+implements the BSD remote command authorization protocol,
 checks permissions using
 the \fC~/.rhosts\fR, and \fC/etc/passwd\fR files, and
 uses the ARGO directory service to discover name-to-NSAP-address
@@ -416,17 +416,17 @@ If the remote user is authorized to execute a shell on
 the end system on which
 the server runs, a shell is started.
 .pp
-The program \fIrcp.iso\fR connects to the remote shell server to 
+The program \fIrcp.iso\fR connects to the remote shell server to
 effect a remote copy.
 The transport service and protocol options it uses are those
 indicated in the ARGO directory service.
-By changing the directory service entry for the 
+By changing the directory service entry for the
 shell service, each of the transport service options and
 protocol options can be demonstrated.
 See the manual pages
 \fIrcp.iso(8)\fR,
 \fItp(4p)\fR,
-and 
+and
 \fIisodir(5)\fR
 for more information.
 .sh 3 "The Simple File Transfer Service"
@@ -438,13 +438,13 @@ which cooperate to transfer one file.
 The passive program, \fItpfileget\fR,
 listens on the transport selector registered in the ARGO directory service
 to support the application named "tptestsel".
-The sending program, \fItpfileput\fR, 
+The sending program, \fItpfileput\fR,
 connects to the passive program, transfers in one TSDU
 the file named on the \fItpfileput\fR command line, and waits for the
 passive end to close the connection.
-\fITpfileget\fR 
+\fITpfileget\fR
 opens a file of the name given on its command line,
-accepts one connection request, receives 
+accepts one connection request, receives
 one TSDU, writes the contents of that TSDU to the opened file,
 and when it receives the end-of-TSDU indication,
 \fItpfileget\fR closes the transport connection.
@@ -454,7 +454,7 @@ record that describes the applicaition "tptestsel".
 See the manual pages
 \fItpfileget(8)\fR,
 \fItp(4p)\fR,
-and 
+and
 \fIisodir(5)\fR
 for more information.
 .sh 3 "Internal TP Testing"
@@ -474,12 +474,12 @@ See the manual pages
 \fItppt(8)\fR,
 \fIbark(8)\fR,
 \fItp(4p)\fR,
-and 
+and
 \fIisodir(5)\fR
 for more information.
 .sh 4 "Normal and Expedited Data Transfer:"
 .pp
-TSDUs are 
+TSDUs are
 distinguished by the presence or absence of the
 EOTSDU bit in the \fIflags\fR parameter of the
 \fIsendv()\fR system call.
@@ -494,15 +494,15 @@ the function that copies user data into mbuf chains
 reorganizes mbuf chains into TPDUs,
 is observed using several debug options
 and trace options
-in the routines \fIsosend()\fR 
+in the routines \fIsosend()\fR
 and \fItp_sbsend()\fR.
 On input, the reassembling mechanism
 is observed in the routine \fItp_stash()\fR.
-The debug options 
-\fBT.ndata\fR, 
-\fBT.sb\fR, and 
+The debug options
+\fBT.ndata\fR,
+\fBT.sb\fR, and
 \fBT.xpd\fR
-print information 
+print information
 pertinent to this function.
 .pp
 Expedited data complicates the matter of segmenting
@@ -519,16 +519,16 @@ then transferring it back with \fIrcp\fR (the TCP version) if necessary, and
 using
 \fIdiff\fR, one can see that data are transferred correctly.
 The \fBT.input\fR trace option creates a readable hexadecimal dump of incoming TPDUs.
-The 
+The
 \fBT.emit\fR
 trace option creates the same sort of dump for outgoing
 TPDUs in \fItp_emit()\fR.
 Sequencing
-can be observed by using the 
+can be observed by using the
 \fBT.ndata\fR
-and 
+and
 \fBT.input\fR
-or 
+or
 \fBT.emit\fR
 trace options
 to see the sequence numbers assigned to TPDUs.
@@ -539,7 +539,7 @@ debug option causes \fItp_input()\fR
 to throw away occasional TPDUs.
 (The formula for determining when to discard a TPDU
 is ad hoc and simplistic.  It causes TPDUs to be
-discarded frequently but not so frequently that the 
+discarded frequently but not so frequently that the
 receiving side has no chance to recover.)
 With tracing on and the file transfer programs running,
 resequencing can be observed
@@ -561,7 +561,7 @@ The following statistics are of interest:
 \fIn\fR XPD marks discarded
 \fIn\fR XPD stopped data flow \fIm\fR times
 \fIn\fR DTs out of order
-\fIn\fR DTs not in window 
+\fIn\fR DTs not in window
 \fIn\fR duplicate DTs
 \fIn\fR XPDs not in window
 \fIn\fR XPDs w/o credit to stash
@@ -578,7 +578,7 @@ The following statistics are of interest:
 The checksum generation and checking
 routines were first written and debugged as user-level
 routines before they were modified for kernel use.
-The kernel routines may be observed with the 
+The kernel routines may be observed with the
 \fBT.chksum\fR
 debug option.
 Various sizes of mbufs can be created by creative use of the
@@ -597,7 +597,7 @@ The statistics that are pertinent to checksumming are:
 .)b
 .sh 4 "Acknowledgment:"
 .pp
-Acknowledgment can be observed by using the 
+Acknowledgment can be observed by using the
 debug and trace options
 \fBT.aks\fR,
 \fBT.akr\fR,
@@ -605,14 +605,14 @@ debug and trace options
 \fBT.emit\fR,
 and
 \fBT.driver\fR.
-The transport driver (finite state machine) and the routine 
+The transport driver (finite state machine) and the routine
 \fItp_goodack()\fR dump information appropriate to acknowledgments.
-If the \fBT.ndata\fR, and \fBT.emit\fR or \fBT.input\fR trace options are used 
+If the \fBT.ndata\fR, and \fBT.emit\fR or \fBT.input\fR trace options are used
 along with the \fBT.aks\fR and \fBT.akr\fR trace options,
 a complete picture of the data transfer and acknowledgment
 activity can be created.
 The acknowledgments for expedited data are traced with
-the 
+the
 \fBT.xpd\fR
 trace option.
 The routine \fItp_goodXack()\fR and the finite state
@@ -643,7 +643,7 @@ ACK reasons:
 .)b
 .pp
 The smoothed average round trip time is kept
-for outgoing TPDUs for each transport connection 
+for outgoing TPDUs for each transport connection
 and for the entire TP entity.
 The time each TPDU is transmitted is recorded, and when an acknowledgment
 arrives, the round trip time is computed for the lowest
@@ -683,18 +683,18 @@ Flow control activity is the transfer of credit information
 from end to end and the proper use of that information.
 To see that it works properly, one must observe three
 things:
-the receiving window must shut down and reopen, 
-the sender must transmit enough TPDUs to fill the receiver's window 
+the receiving window must shut down and reopen,
+the sender must transmit enough TPDUs to fill the receiver's window
 but no more, and the receiver must renege previously advertised credit.
 These three behaviors have been observed as follows.
 .pp
-Tracing with the 
-\fBT.ndata\fR, 
+Tracing with the
+\fBT.ndata\fR,
 \fBT.aks, \fR
 \fBT.akr, \fR
-\fBT.emit\fR 
-and 
-\fBT.input\fR 
+\fBT.emit\fR
+and
+\fBT.input\fR
 trace options
 are used.
 The program \fItpdiscard\fR or a simple file transfer
@@ -709,7 +709,7 @@ the ARGO transport entity does not renege its advertised credit
 under normal operation.
 At the beginning of a connection a closed window may almost always
 be observed.
-The receiving user process may be stopped 
+The receiving user process may be stopped
 to force a window to shut down.
 The interesting statistics are
 .(b
@@ -740,21 +740,21 @@ acknowledged, one needs only to use the
 debug option to cause TPDUs to be dropped by the receiving side.
 They are then retransmitted by the sender
 and finally dropped when the acknowledgment arrives.
-That the buffers used to hold retained TPDUs are freed 
-can be observed by 
+That the buffers used to hold retained TPDUs are freed
+can be observed by
 running \fInetstat(8)\fR with the -m option
 on a quiescent system to observe the number of mbufs in use,
 then
-running a test with the 
+running a test with the
 \fBT.drop\fR debug option on to cause retransmission,
-and 
+and
 finally
 running netstat -m again after the test is over,
 to see that all the mbufs have been freed by TP.
 The actual retransmission activity can be observed in a trace
 with the
 \fBT.ndata, \fR
-\fBT.emit\fR and 
+\fBT.emit\fR and
 \fBT.input\fR trace options.
 The retransmission strategy to be used is controlled by the
 ARGO directory service.
@@ -779,9 +779,9 @@ as they are cancelled, and as they expire.
 The statistics
 .(b
 .nf
-\fIn\fR ticks 
-\fIn\fR timers set 
-\fIn\fR timers expired 
+\fIn\fR ticks
+\fIn\fR timers set
+\fIn\fR timers expired
 \fIn\fR timers cancelled
 \fIn\fR inactive timers cancelled
 \fIn\fR connections dropped due to retrans limit
@@ -799,20 +799,20 @@ so that connection establishment will time out, and
 .np
 to attempt to open a connection to a transport selector on which
 no process is listening.
-Either of these actions, along with the 
+Either of these actions, along with the
 \fBT.connect\fR
 trace or debug option will permit
 observation of the timeout facilities.
 .sh 4 "TPDU creation and parsing:"
 .pp
-TPDUs are created for output in 
+TPDUs are created for output in
 \fItp_emit()\fR.
-The 
+The
 \fBT.emit\fR
 trace
 option dumps TPDUs as they are transmitted.
 \fITp_input()\fR parses TPDUs on input.
-The 
+The
 \fBT.input\fR
 trace
 option dumps TPDUs as they are received.
@@ -820,17 +820,17 @@ The debug options \fBT.emit\fR and \fBT.input\fR dump a lot of excess informatio
 to the console, and are used primarily for debugging
 extremely pathological behavior.
 .pp
-By tracing the execution of 
+By tracing the execution of
 \fItpdiscard\fR or a simple file transfer,
 with a variety protocol and service options,
-using the 
+using the
 \fBT.connect,\fR
 \fBT.emit,\fR
 \fBT.input,\fR
 \fBT.ndata,\fR
 \fBT.aks,\fR
 \fBT.akr,\fR
-and 
+and
 \fBT.xpd\fR
 options,
 one can verify the correct placement of TPDU options
@@ -838,7 +838,7 @@ on all types of TPDUs.
 The interesting statistics are
 .(b
 .nf
-\fIn\fR variable parameters ignored 
+\fIn\fR variable parameters ignored
 \fIn\fR invalid parameter codes
 \fIn\fR invalid parameter values
 \fIn\fR invalid dutypes
@@ -849,8 +849,8 @@ The interesting statistics are
 \fIn\fR connections used extended format
 \fIn\fR connections allowed transport XPD
 \fIn\fR connections turned off checksumming
-\fIn\fR TP 4 connections 
-\fIn\fR TP 0 connections 
+\fIn\fR TP 4 connections
+\fIn\fR TP 0 connections
 .fi
 .)b
 .sh 4 "Separation and concatenation:"
@@ -917,7 +917,7 @@ Inactivity control can be observed by turning on the trace options
 during a simple file transfer.
 In the middle of the transfer, if the sender process
 is stopped, both TP entities continue
-to send acknowledgments. 
+to send acknowledgments.
 This can be observed in the trace.
 If the file tranfer is between machines, taking down one of the machines
 will cause the inactivity timer on the other machine to expire.
@@ -925,7 +925,7 @@ The TP entity will respond to this by sending a DR TPDU
 to close the connection, which can be observed in the trace.
 The expiration of the timer can be observed in a trace if the
 \fBT.driver\fR option is used.
-This option traces all events and state changes in the 
+This option traces all events and state changes in the
 TP
 finite state machine.
 .sh 4 "Connection establishment:"
@@ -933,7 +933,7 @@ finite state machine.
 The process of connection establishment can be observed with the
 \fBT.connect\fR
 trace and debug options, and
-the 
+the
 \fBT.driver \fR
 trace option.
 Various states of the connection establishment state machine
@@ -964,7 +964,7 @@ may be observed with the
 the trace options
 \fBT.input\fR
 or
-\fBT.emit\fR, 
+\fBT.emit\fR,
 \fBT.driver\fR
 and
 running the
@@ -972,7 +972,7 @@ discard or file transfer programs.
 .sh 4 "Association of TPDUs with Transport Connection:"
 .pp
 The problem of locating a transport connection
-given a TPDU is handled in 
+given a TPDU is handled in
 \fItp_input()\fR in one of two ways.
 For an incoming CR TPDU, the transport suffix
 is used to locate a transport protocol
@@ -983,7 +983,7 @@ to locate the appropriate transport connection.
 This is done by scanning the list of reference blocks.
 Debug and trace options
 were used to debug these sections of code but have since been
-removed due to their effect on the readability 
+removed due to their effect on the readability
 and maintainability of this code.
 The trace options
 \fBT.connect\fR
@@ -996,7 +996,7 @@ When a TPDU arrives for a given socket,
 the trace records created by the
 \fBT.input \fR
 option will also contain the address of the PCB that is found
-in 
+in
 \fItp_input()\fR.
 These two addresses can be compared in the trace output to observe
 that the proper association is made.
@@ -1017,9 +1017,9 @@ This code was removed because it significantly complicated code maintenance.
 .sh 4 "User Interface:"
 .pp
 The debug and trace options
-\fBT.request\fR, 
+\fBT.request\fR,
 \fBT.params,\fR
-\fBT.indication\fR 
+\fBT.indication\fR
 and
 \fBT.syscall\fR and
 dump information about the user interface.
@@ -1028,7 +1028,7 @@ routines for debugging has since been removed so that
 the source (which is functionally unchanged from the 4.3 release)
 would not unnecessarily be changed.
 \fIRlogin.iso\fR, the TP version of remote login,
-exercises some of the original BSD data transfer system calls 
+exercises some of the original BSD data transfer system calls
 (\fIread()\fR and \fIwrite()\fR)
 rather than \fIsendv()\fR and \fIrecv()\fR.
 The interesting statistics are
@@ -1039,7 +1039,7 @@ The interesting statistics are
 \fIn\fR connections used extended format
 \fIn\fR connections allowed transport XPD
 \fIn\fR connections turned off checksumming
-\fIn\fR TP 4 connections 
-\fIn\fR TP 0 connections 
+\fIn\fR TP 4 connections
+\fIn\fR TP 0 connections
 .fi
 .)b

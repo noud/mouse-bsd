@@ -146,7 +146,7 @@ include "dev/scsipi/files.scsipi"
 major	{ sd = 20 }
 major	{ cd = 22 }
 
-# builtin NCR5380 SCSI-controller on VAXstation 
+# builtin NCR5380 SCSI-controller on VAXstation
 device	ncr: scsi, ncr5380sbc
 attach	ncr at vsbus
 file	arch/vax/vsa/ncr.c		ncr needs-flag

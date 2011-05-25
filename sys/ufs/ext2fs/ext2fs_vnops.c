@@ -376,7 +376,7 @@ ext2fs_setattr(v)
 			return (EROFS);
 		if (cred->cr_uid != ip->i_e2fs_uid &&
 			(error = suser(cred, &p->p_acflag)) &&
-			((vap->va_vaflags & VA_UTIMES_NULL) == 0 || 
+			((vap->va_vaflags & VA_UTIMES_NULL) == 0 ||
 			(error = VOP_ACCESS(vp, VWRITE, cred, p))))
 			return (error);
 		if (vap->va_atime.tv_sec != VNOVAL)
@@ -746,7 +746,7 @@ abortit:
 	 * directory heirarchy above the target, as this would
 	 * orphan everything below the source directory. Also
 	 * the user must have write permission in the source so
-	 * as to be able to change "..". We must repeat the call 
+	 * as to be able to change "..". We must repeat the call
 	 * to namei, as the parent directory is unlocked by the
 	 * call to checkpath().
 	 */
@@ -773,7 +773,7 @@ abortit:
 	}
 	/*
 	 * 2) If target doesn't exist, link the target
-	 *    to the source and unlink the source. 
+	 *    to the source and unlink the source.
 	 *    Otherwise, rewrite the target directory
 	 *    entry to reference the source inode and
 	 *    expunge the original entry's existence.
@@ -927,7 +927,7 @@ abortit:
 			dp->i_flag |= IN_CHANGE;
 			error = vn_rdwr(UIO_READ, fvp, (caddr_t)&dirbuf,
 				sizeof (struct ext2fs_dirtemplate), (off_t)0,
-				UIO_SYSSPACE, IO_NODELOCKED, 
+				UIO_SYSSPACE, IO_NODELOCKED,
 				tcnp->cn_cred, (size_t *)0, (struct proc *)0);
 			if (error == 0) {
 					namlen = dirbuf.dotdot_namlen;
@@ -1399,7 +1399,7 @@ ext2fs_reclaim(v)
 	struct inode *ip;
 	extern int prtactive;
 
-	if (prtactive && vp->v_usecount != 0) 
+	if (prtactive && vp->v_usecount != 0)
 		vprint("ext2fs_reclaim: pushing active", vp);
 	/*
 	 * Remove the inode from its hash chain.

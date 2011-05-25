@@ -423,7 +423,7 @@ sparc64_elf_build_plt (output_bfd, contents, nentries)
 {
   const unsigned int nop = 0x01000000;
   int i, j;
-  
+
   /* The first four entries are reserved, and are initially undefined.
      We fill them with `illtrap 0' to force ld.so to do something.  */
 
@@ -457,7 +457,7 @@ sparc64_elf_build_plt (output_bfd, contents, nentries)
   /* Now the tricky bit.  Entries 32768 and higher are grouped in blocks of
      160: 160 entries and 160 pointers.  This is to separate code from data,
      which is much friendlier on the cache.  */
-  
+
   for (; i < nentries; i += 160)
     {
       int block = (i + 160 <= nentries ? 160 : nentries - i);
@@ -758,7 +758,7 @@ sparc64_elf_check_relocs (abfd, info, sec, relocs)
 	case R_SPARC_UA16:
 	  /* When creating a shared object, we must copy these relocs
 	     into the output file.  We create a reloc section in
-	     dynobj and make room for the reloc. 
+	     dynobj and make room for the reloc.
 
 	     But don't do this for debugging sections -- this shows up
 	     with DWARF2 -- first because they are not loaded, and
@@ -1832,12 +1832,12 @@ sparc64_elf_relocate_section (output_bfd, info, input_bfd, input_section,
 		  {
 		    /* Assume this is a call protected by other code that
 		       detect the symbol is undefined.  If this is the case,
-		       we can safely ignore the overflow.  If not, the 
+		       we can safely ignore the overflow.  If not, the
 		       program is hosed anyway, and a little warning isn't
 		       going to help.  */
 		    break;
 		  }
-		  
+
 	        name = h->root.root.string;
 	      }
 	    else
@@ -2159,14 +2159,14 @@ sparc64_elf_merge_private_bfd_data (ibfd, obfd)
       elf_flags_init (obfd) = true;
       elf_elfheader (obfd)->e_flags = new_flags;
     }
-                      
+
   else if (new_flags == old_flags)      /* Compatible flags are ok */
     ;
-                            
+
   else                                  /* Incompatible flags */
     {
       error = false;
-  
+
       old_flags |= (new_flags & (EF_SPARC_SUN_US1|EF_SPARC_HAL_R1));
       new_flags |= (old_flags & (EF_SPARC_SUN_US1|EF_SPARC_HAL_R1));
       if ((old_flags & (EF_SPARC_SUN_US1|EF_SPARC_HAL_R1)) ==
@@ -2177,7 +2177,7 @@ sparc64_elf_merge_private_bfd_data (ibfd, obfd)
             ("%s: linking UltraSPARC specific with HAL specific code",
              bfd_get_filename (ibfd));
         }
-        
+
       /* Choose the most restrictive memory ordering */
       old_mm = (old_flags & EF_SPARCV9_MM);
       new_mm = (new_flags & EF_SPARCV9_MM);
@@ -2215,7 +2215,7 @@ sparc64_elf_object_p (abfd)
      bfd *abfd;
 {
   unsigned long mach = bfd_mach_sparc_v9;
-  
+
   if (elf_elfheader (abfd)->e_flags & EF_SPARC_SUN_US1)
     mach = bfd_mach_sparc_v9a;
   return bfd_default_set_arch_mach (abfd, bfd_arch_sparc, mach);

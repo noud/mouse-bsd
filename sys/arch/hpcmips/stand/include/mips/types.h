@@ -44,10 +44,10 @@
 #include <sys/cdefs.h>
 
 /*
- * Note that mips_reg_t is distinct from the register_t defined 
+ * Note that mips_reg_t is distinct from the register_t defined
  * in <types.h> to allow these structures to be as hidden from
  * the rest of the operating system as possible.
- * 
+ *
  */
 
 #if defined(_MIPS_BSD_API) && _MIPS_BSD_API != _MIPS_BSD_ABI_LP32

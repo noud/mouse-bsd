@@ -339,10 +339,10 @@ struct RF_AccessStripeMapHeader_s {
   ( (_psid_) * (_layoutPtr_)->SUsPerPU * (_layoutPtr_)->numDataCol * (_layoutPtr_)->sectorsPerStripeUnit )
 
 RF_LayoutSW_t *rf_GetLayout(RF_ParityConfig_t parityConfig);
-int 
+int
 rf_ConfigureLayout(RF_ShutdownList_t ** listp, RF_Raid_t * raidPtr,
     RF_Config_t * cfgPtr);
-RF_StripeNum_t 
+RF_StripeNum_t
 rf_MapStripeIDToParityStripeID(RF_RaidLayout_t * layoutPtr,
     RF_StripeNum_t stripeID, RF_ReconUnitNum_t * which_ru);
 

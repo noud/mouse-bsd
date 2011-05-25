@@ -106,7 +106,7 @@
 
 #if defined(__NetBSD__) || defined(__OpenBSD__)
 #ifdef INET
-#include <netinet/in.h> 
+#include <netinet/in.h>
 #include <netinet/if_inarp.h>
 #endif
 
@@ -440,7 +440,7 @@ cue_setmulti(sc)
 		if (ifma->ifma_addr->sa_family != AF_LINK)
 			continue;
 		h = cue_crc(LLADDR((struct sockaddr_dl *)ifma->ifma_addr));
-		sc->cue_mctab[h >> 3] |= 1 << (h & 0x7);		
+		sc->cue_mctab[h >> 3] |= 1 << (h & 0x7);
 	}
 #endif
 
@@ -450,7 +450,7 @@ cue_setmulti(sc)
 	 */
 	if (ifp->if_flags & IFF_BROADCAST) {
 		h = cue_crc(etherbroadcastaddr);
-		sc->cue_mctab[h >> 3] |= 1 << (h & 0x7);		
+		sc->cue_mctab[h >> 3] |= 1 << (h & 0x7);
 	}
 
 	cue_mem(sc, CUE_CMD_WRITESRAM, CUE_MCAST_TABLE_ADDR,

@@ -95,7 +95,7 @@ main (argc, argv)
   int dirsize;
   /* Number of elements used.  */
   int ndir;
-  
+
   struct stat homebuf, cwdbuf;
   char *homedir, *homeinit;
 
@@ -400,10 +400,10 @@ main (argc, argv)
 	 need them if homedir is set.  Make sure that they are
 	 zero in case one of them fails (this guarantees that they
 	 won't match if either exists).  */
-      
+
       memset (&homebuf, 0, sizeof (struct stat));
       memset (&cwdbuf, 0, sizeof (struct stat));
-      
+
       stat (homeinit, &homebuf);
       stat (gdbinit, &cwdbuf); /* We'll only need this if
 				       homedir was set.  */
@@ -480,7 +480,7 @@ main (argc, argv)
 
   /* Read the .gdbinit file in the current directory, *if* it isn't
      the same as the $HOME/.gdbinit file (it should exist, also).  */
-  
+
   if (!homedir
       || memcmp ((char *) &homebuf, (char *) &cwdbuf, sizeof (struct stat)))
     if (!inhibit_gdbinit)
@@ -542,8 +542,8 @@ main (argc, argv)
 #endif
     }
 
-  /* The default command loop. 
-     The WIN32 Gui calls this main to set up gdb's state, and 
+  /* The default command loop.
+     The WIN32 Gui calls this main to set up gdb's state, and
      has its own command loop. */
 #if !defined _WIN32 || defined __GNUC__
   while (1)

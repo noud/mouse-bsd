@@ -37,7 +37,7 @@ static int filter_ldisplay __P((SCR *, FILE *));
  *	replace the original text with the stdout/stderr output of
  *	the utility.
  *
- * PUBLIC: int ex_filter __P((SCR *, 
+ * PUBLIC: int ex_filter __P((SCR *,
  * PUBLIC:    EXCMD *, MARK *, MARK *, MARK *, char *, enum filtertype));
  */
 int

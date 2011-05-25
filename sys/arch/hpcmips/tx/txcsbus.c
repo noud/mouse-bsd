@@ -94,7 +94,7 @@ struct cfattach txcsbus_ca = {
 	sizeof(struct txcsbus_softc), txcsbus_match, txcsbus_attach
 };
 
-bus_space_tag_t __txcsbus_alloc_cstag __P((struct txcsbus_softc*, 
+bus_space_tag_t __txcsbus_alloc_cstag __P((struct txcsbus_softc*,
 					   struct cs_handle*));
 
 int
@@ -110,7 +110,7 @@ txcsbus_match(parent, cf, aux)
 		return 0;
 	}
 
-	if (cf->cf_loc[TXCSBUSIFCF_PLATFORM] == 
+	if (cf->cf_loc[TXCSBUSIFCF_PLATFORM] ==
 	    TXCSBUSIFCF_PLATFORM_DEFAULT) {
 		return 1;
 	}
@@ -148,9 +148,9 @@ txcsbus_print(aux, pnp)
 {
 #define PRINTIRQ(i) i, (i) / 32, (i) % 32
 	struct cs_attach_args *ca = aux;
-	
+
 	if (ca->ca_csreg.cs != TXCSBUSCF_REGCS_DEFAULT) {
-		printf(" regcs %s %dbit %#x+%#x", 
+		printf(" regcs %s %dbit %#x+%#x",
 		       __csmap[ca->ca_csreg.cs].cs_name,
 		       ca->ca_csreg.cswidth,
 		       ca->ca_csreg.csbase,
@@ -158,7 +158,7 @@ txcsbus_print(aux, pnp)
 	}
 
 	if (ca->ca_csio.cs != TXCSBUSCF_IOCS_DEFAULT) {
-		printf(" iocs %s %dbit %#x+%#x", 
+		printf(" iocs %s %dbit %#x+%#x",
 		       __csmap[ca->ca_csio.cs].cs_name,
 		       ca->ca_csio.cswidth,
 		       ca->ca_csio.csbase,
@@ -166,13 +166,13 @@ txcsbus_print(aux, pnp)
 	}
 
 	if (ca->ca_csmem.cs != TXCSBUSCF_MEMCS_DEFAULT) {
-		printf(" memcs %s %dbit %#x+%#x", 
+		printf(" memcs %s %dbit %#x+%#x",
 		       __csmap[ca->ca_csmem.cs].cs_name,
 		       ca->ca_csmem.cswidth,
 		       ca->ca_csmem.csbase,
 		       ca->ca_csmem.cssize);
 	}
-	
+
 	if (ca->ca_irq1 != TXCSBUSCF_IRQ1_DEFAULT) {
 		printf(" irq1 %d(%d:%d)", PRINTIRQ(ca->ca_irq1));
 	}
@@ -196,7 +196,7 @@ txcsbus_search(parent, cf, aux)
 {
 	struct txcsbus_softc *sc = (void*)parent;
 	struct cs_attach_args ca;
-	
+
 	ca.ca_tc		= sc->sc_tc;
 
 	ca.ca_csreg.cs		= cf->cf_loc[TXCSBUSCF_REGCS];
@@ -229,7 +229,7 @@ txcsbus_search(parent, cf, aux)
 	ca.ca_irq1		= cf->cf_loc[TXCSBUSCF_IRQ1];
 	ca.ca_irq2		= cf->cf_loc[TXCSBUSCF_IRQ2];
 	ca.ca_irq3		= cf->cf_loc[TXCSBUSCF_IRQ3];
-	
+
 	if ((*cf->cf_attach->ca_match)(parent, cf, &ca)) {
 		config_attach(parent, cf, &ca, txcsbus_print);
 	}
@@ -281,7 +281,7 @@ __txcsbus_alloc_cstag(sc, csh)
 #endif /* TX391X */
 #ifdef TX392X
 			reg = tx_conf_read(tc, TX39_MEMCONFIG1_REG);
-			reg |= ((cs == TX39_MCS0) ? 
+			reg |= ((cs == TX39_MCS0) ?
 				TX39_MEMCONFIG1_MCS0_32 :
 				TX39_MEMCONFIG1_MCS1_32);
 			tx_conf_write(tc, TX39_MEMCONFIG1_REG, reg);
@@ -298,7 +298,7 @@ __txcsbus_alloc_cstag(sc, csh)
 			/* TX391X always 16bit port */
 #ifdef TX392X
 			reg = tx_conf_read(tc, TX39_MEMCONFIG1_REG);
-			reg &= ~((cs == TX39_MCS0) ? 
+			reg &= ~((cs == TX39_MCS0) ?
 				 TX39_MEMCONFIG1_MCS0_32 :
 				 TX39_MEMCONFIG1_MCS1_32);
 			tx_conf_write(tc, TX39_MEMCONFIG1_REG, reg);
@@ -348,7 +348,7 @@ __txcsbus_alloc_cstag(sc, csh)
 			      "not allowed");
 		}
 	}
-	
+
 	hpcmips_init_bus_space_extent(iot);
 
 	return iot;

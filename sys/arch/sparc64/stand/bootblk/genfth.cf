@@ -89,12 +89,12 @@ include <ufs/ffs/fs.h>
 #
 define	dev_bsize	DEV_BSIZE
 define	maxbsize	MAXBSIZE
-define	bbsize		BBSIZE		
-define	sbsize		SBSIZE		
-define	bboff		BBOFF		
-define	sboff		SBOFF		
-define	bblock		BBLOCK		
-define	sblock		SBLOCK		
+define	bbsize		BBSIZE
+define	sbsize		SBSIZE
+define	bboff		BBOFF
+define	sboff		SBOFF
+define	bblock		BBLOCK
+define	sblock		SBLOCK
 
 #
 # ufs superblock

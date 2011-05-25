@@ -240,7 +240,7 @@ svr4_ptm_alloc(p)
 	 * /dev/ptmx open automatically just open a pty, that (after
 	 * STREAMS I_PUSHes), is just a plain pty.  fstat() is used
 	 * to get the minor device number to map to a tty.
-	 * 
+	 *
 	 * Cycle through the names. If sys_open() returns ENOENT (or
 	 * ENXIO), short circuit the cycle and exit.
 	 */

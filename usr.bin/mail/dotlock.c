@@ -79,7 +79,7 @@ create_exclusive(fname)
 	else
 		ptr++;
 
-	(void) snprintf(path, sizeof(path), "%.*s.%s.%lx", 
+	(void) snprintf(path, sizeof(path), "%.*s.%s.%lx",
 	    (int)(ptr - fname), fname, hostname, (u_long)cookie);
 
 	/*

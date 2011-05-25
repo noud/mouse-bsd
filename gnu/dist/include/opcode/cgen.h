@@ -311,7 +311,7 @@ const char * cgen_parse_operand PARAMS ((enum cgen_parse_operand_type,
 void cgen_save_fixups PARAMS ((void));
 void cgen_restore_fixups PARAMS ((void));
 void cgen_swap_fixups PARAMS ((void));
-     
+
 /* Add a register to the assembler's hash table.
    This makes lets GAS parse registers for us.
    ??? This isn't currently used, but it could be in the future.  */
@@ -388,19 +388,19 @@ typedef struct cgen_keyword
 {
   /* Pointer to initial [compiled in] values.  */
   CGEN_KEYWORD_ENTRY * init_entries;
-  
+
   /* Number of entries in `init_entries'.  */
   unsigned int num_init_entries;
-  
+
   /* Hash table used for name lookup.  */
   CGEN_KEYWORD_ENTRY ** name_hash_table;
-  
+
   /* Hash table used for value lookup.  */
   CGEN_KEYWORD_ENTRY ** value_hash_table;
-  
+
   /* Number of entries in the hash_tables.  */
   unsigned int hash_table_size;
-  
+
   /* Pointer to null keyword "" entry if present.  */
   const CGEN_KEYWORD_ENTRY * null_entry;
 } CGEN_KEYWORD;
@@ -411,13 +411,13 @@ typedef struct
 {
   /* Table being searched.  */
   const CGEN_KEYWORD * table;
-  
+
   /* Specification of what is being searched for.  */
   const char * spec;
-  
+
   /* Current index in hash table.  */
   unsigned int current_hash;
-  
+
   /* Current element in current hash chain.  */
   CGEN_KEYWORD_ENTRY * current_entry;
 } CGEN_KEYWORD_SEARCH;
@@ -647,7 +647,7 @@ struct cgen_insn
      either to the format table or to a separate table of its own.  Not
      sure this is desirable yet.  */
   struct cgen_base base;
-  
+
 /* Given a pointer to a cgen_insn struct, return a pointer to `base'.  */
 #define CGEN_INSN_BASE(insn) (&(insn)->base)
 
@@ -713,25 +713,25 @@ typedef struct
 {
   /* Pointer to initial [compiled in] entries.  */
   const CGEN_INSN * init_entries;
-  
+
   /* Size of an entry (since the attribute member is variable sized).  */
   unsigned int entry_size;
-  
+
   /* Number of entries in `init_entries', including trailing NULL entry.  */
   unsigned int num_init_entries;
-  
+
   /* Values added at runtime.  */
   CGEN_INSN_LIST * new_entries;
-  
+
   /* Assembler hash function.  */
   unsigned int (* asm_hash) PARAMS ((const char *));
-  
+
   /* Number of entries in assembler hash table.  */
   unsigned int asm_hash_table_size;
-  
+
   /* Disassembler hash function.  */
   unsigned int (* dis_hash) PARAMS ((const char *, unsigned long));
-  
+
   /* Number of entries in disassembler hash table.  */
   unsigned int dis_hash_table_size;
 } CGEN_INSN_TABLE;

@@ -39,8 +39,8 @@ const int BLOCK_SIZE = 1024;
 // the size will be chosen from the following array
 // add some more if you want
 // I think it unlikely that we'll need more than a million symbols
-static const unsigned int table_sizes[] = { 
-101, 503, 1009, 2003, 3001, 4001, 5003, 10007, 20011, 40009, 80021, 160001, 500009, 1000003, 0 
+static const unsigned int table_sizes[] = {
+101, 503, 1009, 2003, 3001, 4001, 5003, 10007, 20011, 40009, 80021, 160001, 500009, 1000003, 0
 };
 const double FULL_MAX = 0.3;	// don't let the table get more than this full
 
@@ -86,8 +86,8 @@ symbol::symbol(const char *p, int how)
   }
   unsigned int hc = hash_string(p);
   const char **pp;
-  for (pp = table + hc % table_size; 
-       *pp != 0; 
+  for (pp = table + hc % table_size;
+       *pp != 0;
        (pp == table ? pp = table + table_size - 1 : --pp))
     if (strcmp(p, *pp) == 0) {
       s = *pp;
@@ -109,7 +109,7 @@ symbol::symbol(const char *p, int how)
     table = (const char **)new char*[table_size];
     for (i = 0; i < table_size; i++)
       table[i] = 0;
-    for (pp = old_table + old_table_size - 1; 
+    for (pp = old_table + old_table_size - 1;
 	 pp >= old_table;
 	 --pp) {
 	   symbol temp(*pp, 1); /* insert it into the new table */
@@ -117,7 +117,7 @@ symbol::symbol(const char *p, int how)
 	 }
     a_delete old_table;
     for (pp = table + hc % table_size;
-	 *pp != 0; 
+	 *pp != 0;
 	 (pp == table ? pp = table + table_size - 1 : --pp))
       ;
   }

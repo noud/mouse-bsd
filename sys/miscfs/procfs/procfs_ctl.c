@@ -92,7 +92,7 @@ static vfs_namemap_t signames[] = {
 
 int procfs_control __P((struct proc *, struct proc *, int, int));
 
-/* Macros to clear/set/test flags. */ 
+/* Macros to clear/set/test flags. */
 #define	SET(t, f)	(t) |= (f)
 #define	CLR(t, f)	(t) &= ~(f)
 #define	ISSET(t, f)	((t) & (f))
@@ -111,7 +111,7 @@ procfs_control(curp, p, op, sig)
 	 */
 	switch (op) {
 	case PROCFS_CTL_ATTACH:
-		/* 
+		/*
 		 * You can't attach to a process if:
 		 *      (1) it's the process that's doing the attaching,
 		 */
@@ -244,7 +244,7 @@ procfs_control(curp, p, op, sig)
 			/* give process back to original parent */
 			if (p->p_oppid != p->p_pptr->p_pid) {
 				struct proc *pp;
-	
+
 				pp = pfind(p->p_oppid);
 				proc_reparent(p, pp ? pp : initproc);
 			}

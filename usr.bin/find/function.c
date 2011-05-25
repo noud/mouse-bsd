@@ -124,7 +124,7 @@ find_parsenum(plan, option, vp, endch)
 {
 	int64_t value;
 	char *endchar, *str;	/* Pointer to character ending conversion. */
-    
+
 	/* Determine comparison from leading + or -. */
 	str = vp;
 	switch (*str) {
@@ -140,7 +140,7 @@ find_parsenum(plan, option, vp, endch)
 		plan->flags = F_EQUAL;
 		break;
 	}
-    
+
 	/*
 	 * Convert the string with strtol().  Note, if strtol() returns zero
 	 * and endchar points to the beginning of the string we know we have
@@ -182,7 +182,7 @@ f_amin(plan, entry)
 	COMPARE((now - entry->fts_statp->st_atime +
 	    SECSPERMIN - 1) / SECSPERMIN, plan->t_data);
 }
- 
+
 PLAN *
 c_amin(argvp, isok)
 	char ***argvp;
@@ -215,7 +215,7 @@ f_atime(plan, entry)
 	COMPARE((now - entry->fts_statp->st_atime +
 	    SECSPERDAY - 1) / SECSPERDAY, plan->t_data);
 }
- 
+
 PLAN *
 c_atime(argvp, isok)
 	char ***argvp;
@@ -248,7 +248,7 @@ f_cmin(plan, entry)
 	COMPARE((now - entry->fts_statp->st_ctime +
 	    SECSPERMIN - 1) / SECSPERMIN, plan->t_data);
 }
- 
+
 PLAN *
 c_cmin(argvp, isok)
 	char ***argvp;
@@ -281,7 +281,7 @@ f_ctime(plan, entry)
 	COMPARE((now - entry->fts_statp->st_ctime +
 	    SECSPERDAY - 1) / SECSPERDAY, plan->t_data);
 }
- 
+
 PLAN *
 c_ctime(argvp, isok)
 	char ***argvp;
@@ -313,7 +313,7 @@ f_always_true(plan, entry)
 {
 	return (1);
 }
- 
+
 PLAN *
 c_depth(argvp, isok)
 	char ***argvp;
@@ -323,7 +323,7 @@ c_depth(argvp, isok)
 
 	return (palloc(N_DEPTH, f_always_true));
 }
- 
+
 /*
  * [-exec | -ok] utility [arg ... ] ; functions --
  *
@@ -374,7 +374,7 @@ f_exec(plan, entry)
 	pid = waitpid(pid, &status, 0);
 	return (pid != -1 && WIFEXITED(status) && !WEXITSTATUS(status));
 }
- 
+
 /*
  * c_exec --
  *	build three parallel arrays, one with pointers to the strings passed
@@ -392,7 +392,7 @@ c_exec(argvp, isok)
 	char **argv, **ap, *p;
 
 	isoutput = 1;
-    
+
 	new = palloc(N_EXEC, f_exec);
 	if (isok)
 		new->flags = F_NEEDOK;
@@ -428,7 +428,7 @@ c_exec(argvp, isok)
 	*argvp = argv + 1;
 	return (new);
 }
- 
+
 /*
  * -flags [-]flags functions --
  */
@@ -446,7 +446,7 @@ f_flags(plan, entry)
 		return (flags == plan->f_data);
 	/* NOTREACHED */
 }
- 
+
 PLAN *
 c_flags(argvp, isok)
 	char ***argvp;
@@ -474,7 +474,7 @@ c_flags(argvp, isok)
 	return (new);
 }
 
- 
+
 /*
  * -follow functions --
  *
@@ -491,7 +491,7 @@ c_follow(argvp, isok)
 
 	return (palloc(N_FOLLOW, f_always_true));
 }
- 
+
 /*
  * -fstype functions --
  *
@@ -527,8 +527,8 @@ f_fstype(plan, entry)
 			p[0] = '.';
 			save[1] = p[1];
 			p[1] = '\0';
-			
-		} else 
+
+		} else
 			p = NULL;
 
 		if (statfs(entry->fts_accpath, &sb))
@@ -550,14 +550,14 @@ f_fstype(plan, entry)
 	}
 	switch (plan->flags) {
 	case F_MTFLAG:
-		return (val & plan->mt_data);	
+		return (val & plan->mt_data);
 	case F_MTTYPE:
 		return (strncmp(fstype, plan->c_data, MFSNAMELEN) == 0);
 	default:
 		abort();
 	}
 }
- 
+
 PLAN *
 c_fstype(argvp, isok)
 	char ***argvp;
@@ -565,10 +565,10 @@ c_fstype(argvp, isok)
 {
 	char *arg = **argvp;
 	PLAN *new;
-    
+
 	(*argvp)++;
 	ftsoptions &= ~FTS_NOSTAT;
-    
+
 	new = palloc(N_FSTYPE, f_fstype);
 
 	switch (*arg) {
@@ -592,7 +592,7 @@ c_fstype(argvp, isok)
 	new->c_data = arg;
 	return (new);
 }
- 
+
 /*
  * -group gname functions --
  *
@@ -607,7 +607,7 @@ f_group(plan, entry)
 {
 	return (entry->fts_statp->st_gid == plan->g_data);
 }
- 
+
 PLAN *
 c_group(argvp, isok)
 	char ***argvp;
@@ -617,7 +617,7 @@ c_group(argvp, isok)
 	PLAN *new;
 	struct group *g;
 	gid_t gid;
-    
+
 	(*argvp)++;
 	ftsoptions &= ~FTS_NOSTAT;
 
@@ -628,7 +628,7 @@ c_group(argvp, isok)
 			errx(1, "-group: %s: no such group", gname);
 	} else
 		gid = g->gr_gid;
-    
+
 	new = palloc(N_GROUP, f_group);
 	new->g_data = gid;
 	return (new);
@@ -646,7 +646,7 @@ f_inum(plan, entry)
 {
 	COMPARE(entry->fts_statp->st_ino, plan->i_data);
 }
- 
+
 PLAN *
 c_inum(argvp, isok)
 	char ***argvp;
@@ -654,15 +654,15 @@ c_inum(argvp, isok)
 {
 	char *arg = **argvp;
 	PLAN *new;
-    
+
 	(*argvp)++;
 	ftsoptions &= ~FTS_NOSTAT;
-    
+
 	new = palloc(N_INUM, f_inum);
 	new->i_data = find_parsenum(new, "-inum", arg, NULL);
 	return (new);
 }
- 
+
 /*
  * -links n functions --
  *
@@ -675,7 +675,7 @@ f_links(plan, entry)
 {
 	COMPARE(entry->fts_statp->st_nlink, plan->l_data);
 }
- 
+
 PLAN *
 c_links(argvp, isok)
 	char ***argvp;
@@ -683,15 +683,15 @@ c_links(argvp, isok)
 {
 	char *arg = **argvp;
 	PLAN *new;
-    
+
 	(*argvp)++;
 	ftsoptions &= ~FTS_NOSTAT;
-    
+
 	new = palloc(N_LINKS, f_links);
 	new->l_data = (nlink_t)find_parsenum(new, "-links", arg, NULL);
 	return (new);
 }
- 
+
 /*
  * -ls functions --
  *
@@ -705,7 +705,7 @@ f_ls(plan, entry)
 	printlong(entry->fts_path, entry->fts_accpath, entry->fts_statp);
 	return (1);
 }
- 
+
 PLAN *
 c_ls(argvp, isok)
 	char ***argvp;
@@ -713,7 +713,7 @@ c_ls(argvp, isok)
 {
 	ftsoptions &= ~FTS_NOSTAT;
 	isoutput = 1;
-    
+
 	return (palloc(N_LS, f_ls));
 }
 
@@ -733,7 +733,7 @@ f_mmin(plan, entry)
 	COMPARE((now - entry->fts_statp->st_mtime + SECSPERMIN - 1) /
 	    SECSPERMIN, plan->t_data);
 }
- 
+
 PLAN *
 c_mmin(argvp, isok)
 	char ***argvp;
@@ -766,7 +766,7 @@ f_mtime(plan, entry)
 	COMPARE((now - entry->fts_statp->st_mtime + SECSPERDAY - 1) /
 	    SECSPERDAY, plan->t_data);
 }
- 
+
 PLAN *
 c_mtime(argvp, isok)
 	char ***argvp;
@@ -797,7 +797,7 @@ f_name(plan, entry)
 {
 	return (!fnmatch(plan->c_data, entry->fts_name, 0));
 }
- 
+
 PLAN *
 c_name(argvp, isok)
 	char ***argvp;
@@ -811,7 +811,7 @@ c_name(argvp, isok)
 	new->c_data = pattern;
 	return (new);
 }
- 
+
 /*
  * -newer file functions --
  *
@@ -826,7 +826,7 @@ f_newer(plan, entry)
 {
 	return (entry->fts_statp->st_mtime > plan->t_data);
 }
- 
+
 PLAN *
 c_newer(argvp, isok)
 	char ***argvp;
@@ -835,7 +835,7 @@ c_newer(argvp, isok)
 	char *filename = **argvp;
 	PLAN *new;
 	struct stat sb;
-    
+
 	(*argvp)++;
 	ftsoptions &= ~FTS_NOSTAT;
 
@@ -845,7 +845,7 @@ c_newer(argvp, isok)
 	new->t_data = sb.st_mtime;
 	return (new);
 }
- 
+
 /*
  * -nogroup functions --
  *
@@ -860,7 +860,7 @@ f_nogroup(plan, entry)
 
 	return (group_from_gid(entry->fts_statp->st_gid, 1) ? 0 : 1);
 }
- 
+
 PLAN *
 c_nogroup(argvp, isok)
 	char ***argvp;
@@ -870,7 +870,7 @@ c_nogroup(argvp, isok)
 
 	return (palloc(N_NOGROUP, f_nogroup));
 }
- 
+
 /*
  * -nouser functions --
  *
@@ -885,7 +885,7 @@ f_nouser(plan, entry)
 
 	return (user_from_uid(entry->fts_statp->st_uid, 1) ? 0 : 1);
 }
- 
+
 PLAN *
 c_nouser(argvp, isok)
 	char ***argvp;
@@ -895,7 +895,7 @@ c_nouser(argvp, isok)
 
 	return (palloc(N_NOUSER, f_nouser));
 }
- 
+
 /*
  * -path functions --
  *
@@ -909,7 +909,7 @@ f_path(plan, entry)
 {
 	return (!fnmatch(plan->c_data, entry->fts_path, 0));
 }
- 
+
 PLAN *
 c_path(argvp, isok)
 	char ***argvp;
@@ -923,7 +923,7 @@ c_path(argvp, isok)
 	new->c_data = pattern;
 	return (new);
 }
- 
+
 /*
  * -perm functions --
  *
@@ -946,7 +946,7 @@ f_perm(plan, entry)
 		return (mode == plan->m_data);
 	/* NOTREACHED */
 }
- 
+
 PLAN *
 c_perm(argvp, isok)
 	char ***argvp;
@@ -972,7 +972,7 @@ c_perm(argvp, isok)
 	new->m_data = getmode(set, 0);
 	return (new);
 }
- 
+
 /*
  * -print functions --
  *
@@ -1016,7 +1016,7 @@ f_printx(plan, entry)
 	fputc('\n', stdout);
 	return 1;
 }
- 
+
 PLAN *
 c_print(argvp, isok)
 	char ***argvp;
@@ -1046,7 +1046,7 @@ c_printx(argvp, isok)
 
 	return palloc(N_PRINTX, f_printx);
 }
- 
+
 /*
  * -prune functions --
  *
@@ -1063,7 +1063,7 @@ f_prune(plan, entry)
 		err(1, "%s", entry->fts_path);
 	return (1);
 }
- 
+
 PLAN *
 c_prune(argvp, isok)
 	char ***argvp;
@@ -1087,7 +1087,7 @@ f_regex(plan, entry)
 
 	return (regexec(&plan->regexp_data, entry->fts_path, 0, NULL, 0) == 0);
 }
- 
+
 static PLAN *
 c_regex_common(argvp, isok, type, regcomp_flags)
 	char ***argvp;
@@ -1112,7 +1112,7 @@ c_regex_common(argvp, isok, type, regcomp_flags)
 		regerror(rv, &reg, errbuf, sizeof errbuf);
 		errx(1, "regexp %s: %s", regexp, errbuf);
 	}
-	
+
 	new = palloc(type, f_regex);
 	new->regexp_data = reg;
 	return (new);
@@ -1157,7 +1157,7 @@ f_size(plan, entry)
 	    FIND_SIZE : entry->fts_statp->st_size;
 	COMPARE(size, plan->o_data);
 }
- 
+
 PLAN *
 c_size(argvp, isok)
 	char ***argvp;
@@ -1166,7 +1166,7 @@ c_size(argvp, isok)
 	char *arg = **argvp;
 	PLAN *new;
 	char endch;
-    
+
 	(*argvp)++;
 	ftsoptions &= ~FTS_NOSTAT;
 
@@ -1177,7 +1177,7 @@ c_size(argvp, isok)
 		divsize = 0;
 	return (new);
 }
- 
+
 /*
  * -type c functions --
  *
@@ -1192,7 +1192,7 @@ f_type(plan, entry)
 {
 	return ((entry->fts_statp->st_mode & S_IFMT) == plan->m_data);
 }
- 
+
 PLAN *
 c_type(argvp, isok)
 	char ***argvp;
@@ -1201,7 +1201,7 @@ c_type(argvp, isok)
 	char *typestring = **argvp;
 	PLAN *new;
 	mode_t  mask = (mode_t)0;
-    
+
 	(*argvp)++;
 	ftsoptions &= ~FTS_NOSTAT;
 
@@ -1244,12 +1244,12 @@ c_type(argvp, isok)
 	default:
 		errx(1, "-type: %s: unknown type", typestring);
 	}
-    
+
 	new = palloc(N_TYPE, f_type);
 	new->m_data = mask;
 	return (new);
 }
- 
+
 /*
  * -user uname functions --
  *
@@ -1264,7 +1264,7 @@ f_user(plan, entry)
 {
 	return (entry->fts_statp->st_uid == plan->u_data);
 }
- 
+
 PLAN *
 c_user(argvp, isok)
 	char ***argvp;
@@ -1274,7 +1274,7 @@ c_user(argvp, isok)
 	PLAN *new;
 	struct passwd *p;
 	uid_t uid;
-    
+
 	(*argvp)++;
 	ftsoptions &= ~FTS_NOSTAT;
 
@@ -1290,7 +1290,7 @@ c_user(argvp, isok)
 	new->u_data = uid;
 	return (new);
 }
- 
+
 /*
  * -xdev functions --
  *
@@ -1325,7 +1325,7 @@ f_expr(plan, entry)
 	    p && (state = (p->eval)(p, entry)); p = p->next);
 	return (state);
 }
- 
+
 /*
  * N_OPENPAREN and N_CLOSEPAREN nodes are temporary place markers.  They are
  * eliminated during phase 2 of find_formplan() --- the '(' node is converted
@@ -1338,7 +1338,7 @@ c_openparen(argvp, isok)
 {
 	return (palloc(N_OPENPAREN, (int (*) __P((PLAN *, FTSENT *)))-1));
 }
- 
+
 PLAN *
 c_closeparen(argvp, isok)
 	char ***argvp;
@@ -1346,7 +1346,7 @@ c_closeparen(argvp, isok)
 {
 	return (palloc(N_CLOSEPAREN, (int (*) __P((PLAN *, FTSENT *)))-1));
 }
- 
+
 /*
  * ! expression functions --
  *
@@ -1365,7 +1365,7 @@ f_not(plan, entry)
 	    p && (state = (p->eval)(p, entry)); p = p->next);
 	return (!state);
 }
- 
+
 PLAN *
 c_not(argvp, isok)
 	char ***argvp;
@@ -1373,7 +1373,7 @@ c_not(argvp, isok)
 {
 	return (palloc(N_NOT, f_not));
 }
- 
+
 /*
  * expression -o expression functions --
  *

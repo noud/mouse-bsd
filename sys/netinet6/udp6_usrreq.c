@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -187,7 +187,7 @@ udp6_input(mp, offp, proto)
 	ulen = ntohs((u_short)uh->uh_ulen);
 	if (ulen == 0 && plen > 0xffff)	/* jumbogram */
 		ulen = plen;
-	
+
 	if (plen != ulen) {
 		udp6stat.udp6s_badlen++;
 		goto bad;
@@ -243,7 +243,7 @@ udp6_input(mp, offp, proto)
 		 * matches one of the multicast groups specified in the socket.
 		 */
 
-		/* 
+		/*
 		 * Construct sockaddr format source address.
 		 */
 		bzero(&udp_in6, sizeof(udp_in6));
@@ -606,7 +606,7 @@ udp6_output(in6p, m, addr6, control)
 		 * embed the interface
 		 * index in the address.
 		 *
-		 * XXX advanced-api value overrides sin6_scope_id 
+		 * XXX advanced-api value overrides sin6_scope_id
 		 */
 		if (IN6_IS_ADDR_LINKLOCAL(faddr) ||
 		    IN6_IS_ADDR_MC_LINKLOCAL(faddr)) {
@@ -631,7 +631,7 @@ udp6_output(in6p, m, addr6, control)
 				faddr->s6_addr16[1] = oifp->if_index;
 			} else if (sin6->sin6_scope_id) {
 				/* boundary check */
-				if (sin6->sin6_scope_id < 0 
+				if (sin6->sin6_scope_id < 0
 				    || if_index < sin6->sin6_scope_id) {
 					error = ENXIO;  /* XXX EINVAL? */
 					goto release;
@@ -784,7 +784,7 @@ udp6_usrreq(so, req, m, addr6, control, p)
 	int	error = 0;
 	int	s;
 
-	/* 
+	/*
 	 * MAPPED_ADDR implementation info:
 	 *  Mapped addr support for PRU_CONTROL is not necessary.
 	 *  Because typical user of PRU_CONTROL is such as ifconfig,
@@ -813,7 +813,7 @@ udp6_usrreq(so, req, m, addr6, control, p)
 	case PRU_ATTACH:
 		/*
 		 * MAPPED_ADDR implementation spec:
-		 *  Always attach for IPv6, 
+		 *  Always attach for IPv6,
 		 *  and only when necessary for IPv4.
 		 */
 		if (in6p != NULL) {
@@ -862,7 +862,7 @@ udp6_usrreq(so, req, m, addr6, control, p)
 		error = in6_pcbconnect(in6p, addr6);
 		if (ip6_auto_flowlabel) {
 			in6p->in6p_flowinfo &= ~IPV6_FLOWLABEL_MASK;
-			in6p->in6p_flowinfo |= 
+			in6p->in6p_flowinfo |=
 				(htonl(ip6_flow_seq++) & IPV6_FLOWLABEL_MASK);
 		}
 		splx(s);
@@ -976,7 +976,7 @@ udp6_sysctl(name, namelen, oldp, oldlenp, newp, newlen)
 		return sysctl_int(oldp, oldlenp, newp, newlen,
 		    &udp6_sendspace);
 	case UDP6CTL_RECVSPACE:
-		return sysctl_int(oldp, oldlenp, newp, newlen, 
+		return sysctl_int(oldp, oldlenp, newp, newlen,
 		    &udp6_recvspace);
 	default:
 		return ENOPROTOOPT;

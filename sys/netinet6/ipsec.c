@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -243,7 +243,7 @@ ipsec4_getpolicybysock(m, dir, so, error)
 			ip4_def_policy.refcnt++;
 			*error = 0;
 			return &ip4_def_policy;
-			
+
 		case IPSEC_POLICY_IPSEC:
 			currsp->refcnt++;
 			*error = 0;
@@ -453,7 +453,7 @@ ipsec6_getpolicybysock(m, dir, so, error)
 			ip6_def_policy.refcnt++;
 			*error = 0;
 			return &ip6_def_policy;
-			
+
 		case IPSEC_POLICY_IPSEC:
 			currsp->refcnt++;
 			*error = 0;
@@ -1540,7 +1540,7 @@ ipsec_in_reject(sp, m)
 	case IPSEC_POLICY_BYPASS:
 	case IPSEC_POLICY_NONE:
 		return 0;
-	
+
 	case IPSEC_POLICY_IPSEC:
 		break;
 
@@ -1727,7 +1727,7 @@ ipsec_hdrsiz(sp)
 	case IPSEC_POLICY_BYPASS:
 	case IPSEC_POLICY_NONE:
 		return 0;
-	
+
 	case IPSEC_POLICY_IPSEC:
 		break;
 

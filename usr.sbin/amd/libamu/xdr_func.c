@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: xdr_func.c,v 1.2 1999/01/10 21:54:39 ezk Exp 
+ * Id: xdr_func.c,v 1.2 1999/01/10 21:54:39 ezk Exp
  *
  */
 

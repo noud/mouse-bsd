@@ -40,7 +40,7 @@
  * Foundation.
  *
  * Modified 1991 by Donn Seeley at UUNET Technologies, Inc.
- * 
+ *
  * Linker `ld' for GNU
  - Copyright (C) 1988 Free Software Foundation, Inc.
 
@@ -201,7 +201,7 @@ extern int	list_warning_symbols;
  * Define a linked list of strings which define symbols which should be
  * treated as set elements even though they aren't.  Any symbol with a prefix
  * matching one of these should be treated as a set element.
- * 
+ *
  * This is to make up for deficiencies in many assemblers which aren't willing
  * to pass any stabs through to the loader which they don't understand.
  */
@@ -221,10 +221,10 @@ extern symbol	*dynamic_symbol;	/* the symbol __DYNAMIC */
 /*
  * Each input file, and each library member ("subfile") being loaded, has a
  * `file_entry' structure for it.
- * 
+ *
  * For files specified by command args, these are contained in the vector which
  * `file_table' points to.
- * 
+ *
  * For library members, they are dynamically allocated, and chained through the
  * `chain' field. The chain is found in the `subfiles' field of the
  * `file_entry'. The `file_entry' objects for the members have `superfile'

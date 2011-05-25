@@ -4,7 +4,7 @@
 
 # options understood by the mac68k-specific part of the kernel
 # (note, these are case-sensitive)
-defopt	opt_adb.h	ADB_DEBUG MRG_ADB ALTXBUTTONS 
+defopt	opt_adb.h	ADB_DEBUG MRG_ADB ALTXBUTTONS
 defopt	opt_mac68k.h	DISABLE_EXT_CACHE ZS_CONSOLE_ABORT
 
 defopt	opt_wsdisplay_compat.h	WSDISPLAY_COMPAT_ITEFONT

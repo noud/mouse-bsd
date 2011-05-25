@@ -190,7 +190,7 @@ void ntptracemain
 		default:
 			break;
 		}
-	
+
 	if (errflg || (argc - ntp_optind) > 1) {
 		(void) fprintf(stderr,
 			"usage: %s [-dnv] [-o version#] [-r retries] [-t timeout] [server]\n",
@@ -225,7 +225,7 @@ void ntptracemain
 		firstserver = addservbyname(argv[ntp_optind]);
 	else
 		firstserver = addservbyname("localhost");
-		
+
 	if (firstserver == NULL) {
 		/* a message has already been printed */
 		exit(2);
@@ -235,7 +235,7 @@ void ntptracemain
 	 * Initialize the time of day routines and the I/O subsystem
 	 */
 	setup_io();
-	
+
 	DoTrace(firstserver);
 
 #ifdef SYS_WINNT
@@ -334,7 +334,7 @@ register struct server *server;
 	    timeout.tv_sec = sys_timeout;
 	    timeout.tv_usec = 0;
 	    n = select(fd+1, &fds, (fd_set *)0, (fd_set *)0, &timeout);
-	    
+
 	    if (n == 0) {	/* timed out */
 		if (debug)
 			printf("timeout\n");
@@ -345,7 +345,7 @@ register struct server *server;
 		return(0);
 	    }
 	    get_systime(&ts);
-	    
+
 	    if (free_recvbufs == 0) {
 		msyslog(LOG_ERR, "no buffers");
 		exit(1);
@@ -378,7 +378,7 @@ register struct server *server;
 	    status = ReceiveBuf(server, rb);
 
 	    freerecvbuf(rb);
-	    
+
 	    return(status);
 	}
 }
@@ -400,7 +400,7 @@ ReceiveBuf(server, rbufp)
 	l_fp ci;
 	struct server *nextserver;
 	struct in_addr nextia;
-	
+
 
 	if (debug) {
 		printf("ReceiveBuf(%s, ", ntoa(&server->srcadr));
@@ -444,7 +444,7 @@ ReceiveBuf(server, rbufp)
 			    PKT_MODE(rpkt->li_vn_mode), rpkt->stratum);
 		return(0);
 	}
-	
+
 	/*
 	 * Decode the org timestamp and make sure we're getting a response
 	 * to our last request.
@@ -455,7 +455,7 @@ ReceiveBuf(server, rbufp)
 			printf("receive: pkt.org and peer.xmt differ\n");
 		return(0);
 	}
-	
+
 	/*
 	 * Looks good.  Record info from the packet.
 	 */
@@ -550,7 +550,7 @@ struct in_addr *iap;
 	server->srcadr.sin_port = htons(NTP_PORT);
 
 	sys_servers[sys_numservers++] = server;
-	
+
 	return(server);
 }
 /*
@@ -708,7 +708,7 @@ decodeipaddr(num, ipaddr)
 		*ipaddr <<= 8;
 		*ipaddr += temp;
 	}
-	
+
 	if (i < 4)
 		return 0;
 	*ipaddr = htonl(*ipaddr);
@@ -749,7 +749,7 @@ printserver(pp, fp)
 	    pp->stratum, pp->precision,
 	    pp->leap & 0x2 ? '1' : '0',
 	    pp->leap & 0x1 ? '1' : '0');
-	
+
 	(void) fprintf(fp, "refid ");
 	printrefid(fp, pp);
 
@@ -763,7 +763,7 @@ printserver(pp, fp)
 		fptoa(pp->rootdelay, 5), ufptoa(pp->rootdispersion, 5));
 	(void) fprintf(fp, ", synch dist %s\n",
 		ufptoa(synchdist, 5));
-	
+
 	(void) fprintf(fp, "reference time:      %s\n",
 	    prettydate(&pp->reftime));
 	(void) fprintf(fp, "originate timestamp: %s\n",

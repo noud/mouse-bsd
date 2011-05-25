@@ -45,8 +45,8 @@ struct nca_softc {
         int             sc_tc;
         int             sc_datain;
         size_t          sc_dmasize;
-        size_t          sc_dmatrans; 
-        char            **sc_dmaaddr; 
+        size_t          sc_dmatrans;
+        char            **sc_dmaaddr;
         size_t          *sc_pdmalen;
 
         void *sc_ih;

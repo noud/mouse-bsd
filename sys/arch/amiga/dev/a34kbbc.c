@@ -135,8 +135,8 @@ a34kugettod(tvp)
 
 
 	if ((dt.dt_hour > 23) ||
-	    (dt.dt_wday > 6) || 
-	    (dt.dt_day  > 31) || 
+	    (dt.dt_wday > 6) ||
+	    (dt.dt_day  > 31) ||
 	    (dt.dt_mon  > 12) ||
 	    /* (dt.dt_year < STARTOFTIME) || */ (dt.dt_year > 2036))
 		return (0);

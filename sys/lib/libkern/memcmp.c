@@ -49,7 +49,7 @@ __RCSID("$NetBSD: memcmp.c,v 1.3 1998/03/27 01:30:04 cgd Exp $");
 #include <string.h>
 #else
 #include <lib/libkern/libkern.h>
-#endif 
+#endif
 
 /*
  * Compare memory regions.

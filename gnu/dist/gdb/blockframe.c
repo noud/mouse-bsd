@@ -35,7 +35,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
    has a way to detect the bottom of the stack, there is no need
    to call this function from FRAME_CHAIN_VALID; the reason for
    doing so is that some machines have no way of detecting bottom
-   of stack. 
+   of stack.
 
    A PC of zero is always considered to be the bottom of the stack. */
 
@@ -51,7 +51,7 @@ inside_entry_file (addr)
   /* Do not stop backtracing if the pc is in the call dummy
      at the entry point.  */
 /* FIXME: Won't always work with zeros for the last two arguments */
-  if (PC_IN_CALL_DUMMY (addr, 0, 0))	
+  if (PC_IN_CALL_DUMMY (addr, 0, 0))
     return 0;
 #endif
   return (addr >= symfile_objfile -> ei.entry_file_lowpc &&
@@ -87,9 +87,9 @@ CORE_ADDR pc;
       mainsym = lookup_symbol ("main", NULL, VAR_NAMESPACE, NULL, NULL);
       if (mainsym && SYMBOL_CLASS(mainsym) == LOC_BLOCK)
         {
-          symfile_objfile->ei.main_func_lowpc = 
+          symfile_objfile->ei.main_func_lowpc =
 	    BLOCK_START (SYMBOL_BLOCK_VALUE (mainsym));
-          symfile_objfile->ei.main_func_highpc = 
+          symfile_objfile->ei.main_func_highpc =
 	    BLOCK_END (SYMBOL_BLOCK_VALUE (mainsym));
         }
     }
@@ -385,7 +385,7 @@ get_prev_frame_info (next_frame)
       		(where the PC is already set up) and here (where it isn't).
       INIT_FRAME_PC is only called from here, always after
       		INIT_EXTRA_FRAME_INFO.
-   
+
    The catch is the MIPS, where INIT_EXTRA_FRAME_INFO requires the PC
    value (which hasn't been set yet).  Some other machines appear to
    require INIT_EXTRA_FRAME_INFO before they can do INIT_FRAME_PC.  Phoo.
@@ -549,7 +549,7 @@ blockvector_for_pc_sect (pc, section, pindex, symtab)
      struct sec *section;
      int *pindex;
      struct symtab *symtab;
-     
+
 {
   register struct block *b;
   register int bot, top, half;
@@ -925,12 +925,12 @@ sigtramp_saved_pc (frame)
 
 /*
  * GENERIC DUMMY FRAMES
- * 
+ *
  * The following code serves to maintain the dummy stack frames for
  * inferior function calls (ie. when gdb calls into the inferior via
- * call_function_by_hand).  This code saves the machine state before 
- * the call in host memory, so we must maintain an independant stack 
- * and keep it consistant etc.  I am attempting to make this code 
+ * call_function_by_hand).  This code saves the machine state before
+ * the call in host memory, so we must maintain an independant stack
+ * and keep it consistant etc.  I am attempting to make this code
  * generic enough to be used by many targets.
  *
  * The cheapest and most generic way to do CALL_DUMMY on a new target
@@ -946,7 +946,7 @@ static struct dummy_frame *dummy_frame_stack = NULL;
    Search the stack of dummy frames for one matching the given PC, FP and SP.
    This is the work-horse for pc_in_call_dummy and read_register_dummy     */
 
-char * 
+char *
 generic_find_dummy_frame (pc, fp)
      CORE_ADDR pc;
      CORE_ADDR fp;
@@ -977,7 +977,7 @@ generic_pc_in_call_dummy (pc, fp)
   return (generic_find_dummy_frame (pc, fp) != 0);
 }
 
-/* Function: read_register_dummy 
+/* Function: read_register_dummy
    Find a saved register from before GDB calls a function in the inferior */
 
 CORE_ADDR
@@ -1008,8 +1008,8 @@ generic_push_dummy_frame ()
   struct dummy_frame *dummy_frame;
   CORE_ADDR fp = (get_current_frame ())->frame;
 
-  /* check to see if there are stale dummy frames, 
-     perhaps left over from when a longjump took us out of a 
+  /* check to see if there are stale dummy frames,
+     perhaps left over from when a longjump took us out of a
      function that was called by the debugger */
 
   dummy_frame = dummy_frame_stack;
@@ -1050,10 +1050,10 @@ generic_pop_dummy_frame ()
   free (dummy_frame);
 }
 
-/* Function: frame_chain_valid 
+/* Function: frame_chain_valid
    Returns true for a user frame or a call_function_by_hand dummy frame,
    and false for the CRT0 start-up frame.  Purpose is to terminate backtrace */
- 
+
 int
 generic_frame_chain_valid (fp, fi)
      CORE_ADDR fp;
@@ -1066,10 +1066,10 @@ generic_frame_chain_valid (fp, fi)
 	    && (fi->frame INNER_THAN fp || fi->frame == fp)
 	    && !inside_entry_file (FRAME_SAVED_PC(fi)));
 }
- 
+
 /* Function: get_saved_register
    Find register number REGNUM relative to FRAME and put its (raw,
-   target format) contents in *RAW_BUFFER.  
+   target format) contents in *RAW_BUFFER.
 
    Set *OPTIMIZED if the variable was optimized out (and thus can't be
    fetched).  Note that this is never set to anything other than zero
@@ -1124,8 +1124,8 @@ generic_get_saved_register (raw_buffer, optimized, addrp, frame, regnum, lval)
 	  if (lval)			/* found it in a CALL_DUMMY frame */
 	    *lval = not_lval;
 	  if (raw_buffer)
-	    memcpy (raw_buffer, 
-		    generic_find_dummy_frame (frame->pc, frame->frame) + 
+	    memcpy (raw_buffer,
+		    generic_find_dummy_frame (frame->pc, frame->frame) +
 		    REGISTER_BYTE (regnum),
 		    REGISTER_RAW_SIZE (regnum));
 	      return;
@@ -1139,7 +1139,7 @@ generic_get_saved_register (raw_buffer, optimized, addrp, frame, regnum, lval)
 	  if (regnum == SP_REGNUM)
 	    {
 	      if (raw_buffer)		/* SP register treated specially */
-		store_address (raw_buffer, REGISTER_RAW_SIZE (regnum), 
+		store_address (raw_buffer, REGISTER_RAW_SIZE (regnum),
 			       fsr.regs[regnum]);
 	    }
 	  else
@@ -1147,7 +1147,7 @@ generic_get_saved_register (raw_buffer, optimized, addrp, frame, regnum, lval)
 	      if (addrp)		/* any other register */
 		*addrp = fsr.regs[regnum];
 	      if (raw_buffer)
-		read_memory (fsr.regs[regnum], raw_buffer, 
+		read_memory (fsr.regs[regnum], raw_buffer,
 			     REGISTER_RAW_SIZE (regnum));
 	    }
 	  return;

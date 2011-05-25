@@ -154,7 +154,7 @@ asm (TEXT_SECTION_ASM_OP);
      the catch block which basically wraps all the "catch (...) {...}"
      statements in a big if/then/else construct that matches the
      correct block to call.
-     
+
      ===================================================================== */
 
 /* local globals for function calls
@@ -197,7 +197,7 @@ init_exception_processing ()
 {
   /* void vtype () */
   tree vtype = build_function_type (void_type_node, void_list_node);
-  
+
   if (flag_honor_std)
     push_namespace (get_identifier ("std"));
   Terminate = auto_function (get_identifier ("terminate"),
@@ -263,11 +263,11 @@ call_eh_info ()
       /* struct cp_eh_info.  This must match exception.cc.  Note that this
 	 type is not pushed anywhere.  */
       t1= make_lang_type (RECORD_TYPE);
-      fields[0] = build_lang_field_decl (FIELD_DECL, 
+      fields[0] = build_lang_field_decl (FIELD_DECL,
                     get_identifier ("handler_label"), ptr_type_node);
-      fields[1] = build_lang_field_decl (FIELD_DECL, 
+      fields[1] = build_lang_field_decl (FIELD_DECL,
                     get_identifier ("dynamic_handler_chain"), ptr_type_node);
-      fields[2] = build_lang_field_decl (FIELD_DECL, 
+      fields[2] = build_lang_field_decl (FIELD_DECL,
                     get_identifier ("info"), ptr_type_node);
       /* N.B.: The fourth field LEN is expected to be
 	 the number of fields - 1, not the total number of fields.  */
@@ -275,17 +275,17 @@ call_eh_info ()
       t1 = build_pointer_type (t1);
 
       t1= make_lang_type (RECORD_TYPE);
-      fields[0] = build_lang_field_decl (FIELD_DECL, 
+      fields[0] = build_lang_field_decl (FIELD_DECL,
                     get_identifier ("match_function"), ptr_type_node);
-      fields[1] = build_lang_field_decl (FIELD_DECL, 
+      fields[1] = build_lang_field_decl (FIELD_DECL,
                     get_identifier ("language"), short_integer_type_node);
-      fields[2] = build_lang_field_decl (FIELD_DECL, 
+      fields[2] = build_lang_field_decl (FIELD_DECL,
                     get_identifier ("version"), short_integer_type_node);
       /* N.B.: The fourth field LEN is expected to be
 	 the number of fields - 1, not the total number of fields.  */
       finish_builtin_type (t1, "__eh_info", fields, 2, ptr_type_node);
       t = make_lang_type (RECORD_TYPE);
-      fields[0] = build_lang_field_decl (FIELD_DECL, 
+      fields[0] = build_lang_field_decl (FIELD_DECL,
                                               get_identifier ("eh_info"), t1);
       fields[1] = build_lang_field_decl (FIELD_DECL, get_identifier ("value"),
 					 ptr_type_node);
@@ -476,17 +476,17 @@ build_eh_type (exp)
 /* This routine is called to mark all the symbols representing runtime
    type functions in the exception table as haveing been referenced.
    This will make sure code is emitted for them. Called from finish_file. */
-void 
-mark_all_runtime_matches () 
+void
+mark_all_runtime_matches ()
 {
   int x,num;
   void **ptr;
   tree exp;
-  
+
   num = find_all_handler_type_matches (&ptr);
   if (num == 0 || ptr == NULL)
     return;
-  
+
   for (x=0; x <num; x++)
     {
       exp = (tree) ptr[x];
@@ -497,7 +497,7 @@ mark_all_runtime_matches ()
             TREE_SYMBOL_REFERENCED (DECL_ASSEMBLER_NAME (exp)) = 1;
         }
     }
-  
+
   free (ptr);
 }
 
@@ -604,11 +604,11 @@ expand_start_catch_block (declspecs, declarator)
 }
 
 
-/* This function performs the expand_start_catch_block functionality for 
+/* This function performs the expand_start_catch_block functionality for
    exceptions implemented in the old style, where catch blocks were all
    called, and had to check the runtime information themselves. */
 
-static void 
+static void
 process_start_catch_block_old (declspecs, declarator)
      tree declspecs, declarator;
 {
@@ -722,12 +722,12 @@ process_start_catch_block_old (declspecs, declarator)
   emit_line_note (input_filename, lineno);
 }
 
-/* This function performs the expand_start_catch_block functionality for 
+/* This function performs the expand_start_catch_block functionality for
    exceptions implemented in the new style. __throw determines whether
    a handler needs to be called or not, so the handler itself has to do
    nothing additionaal. */
 
-static void 
+static void
 process_start_catch_block (declspecs, declarator)
      tree declspecs, declarator;
 {
@@ -840,7 +840,7 @@ expand_end_catch_block ()
   /* Cleanup the EH parameter.  */
   expand_end_bindings (getdecls (), kept_level_p (), 0);
   poplevel (kept_level_p (), 1, 0);
-      
+
   /* Cleanup the EH object.  */
   expand_end_bindings (getdecls (), kept_level_p (), 0);
   poplevel (kept_level_p (), 1, 0);
@@ -915,7 +915,7 @@ expand_end_eh_spec (raises)
 	(NULL_TREE, integer_type_node, tree_cons
 	 (NULL_TREE, TREE_TYPE (decl), void_list_node));
       tmp = build_function_type	(void_type_node, tmp);
-  
+
       fn = build_lang_decl (FUNCTION_DECL, fn, tmp);
       DECL_EXTERNAL (fn) = 1;
       TREE_PUBLIC (fn) = 1;

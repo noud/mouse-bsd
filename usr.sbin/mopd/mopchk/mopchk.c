@@ -91,7 +91,7 @@ main(argc, argv)
 			/* NOTREACHED */
 		}
 	}
-	
+
 	if (VersionFlag)
 		printf("%s: Version %s\n", __progname, version);
 
@@ -111,7 +111,7 @@ main(argc, argv)
 				    ii->eaddr[5]);
 		}
 	}
-	
+
 	if (VersionFlag || AllFlag)
 		i = 1;
 	else

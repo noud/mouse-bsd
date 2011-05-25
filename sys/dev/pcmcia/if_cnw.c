@@ -85,7 +85,7 @@
  * John Markus Bjørndalen
  * Department of Computer Science
  * University of Tromsø
- * Norway             
+ * Norway
  * johnm@staff.cs.uit.no, http://www.cs.uit.no/~johnm/
  */
 
@@ -238,9 +238,9 @@ static int wait_WOC __P((struct cnw_softc *, int));
 static int read16 __P((struct cnw_softc *, int));
 static int cnw_cmd __P((struct cnw_softc *, int, int, int, int));
 
-/* 
- * Wait until the WOC (Write Operation Complete) bit in the 
- * ASR (Adapter Status Register) is asserted. 
+/*
+ * Wait until the WOC (Write Operation Complete) bit in the
+ * ASR (Adapter Status Register) is asserted.
  */
 static int
 wait_WOC(sc, line)
@@ -263,7 +263,7 @@ wait_WOC(sc, line)
 
 
 /*
- * Read a 16 bit value from the card. 
+ * Read a 16 bit value from the card.
  */
 static int
 read16(sc, offset)
@@ -657,7 +657,7 @@ cnw_start(ifp)
 		if (ifp->if_bpf)
 			bpf_mtap(ifp->if_bpf, m0);
 #endif
-		
+
 		cnw_transmit(sc, m0);
 		++ifp->if_opackets;
 		ifp->if_timer = 3; /* start watchdog timer */
@@ -980,7 +980,7 @@ cnw_intr(arg)
 			/* Continue to send packets from the queue */
 			cnw_start(&sc->sc_ethercom.ec_if);
 		}
-				
+
 	}
 }
 

@@ -249,7 +249,7 @@ time_t *tod;
     /*
      *  Display the current time.
      *  "ctime" always returns a string that looks like this:
-     *  
+     *
      *	Sun Sep 16 01:03:52 1973
      *      012345678901234567890123
      *	          1         2
@@ -1064,7 +1064,7 @@ int line;
 	lastcol = 1;
     }
     old++;
-	
+
     /*
      *  main loop -- check each character.  If the old and new aren't the
      *	same, then update the display.  When the distance from the
@@ -1105,7 +1105,7 @@ int line;
 		/* already there, update position */
 		lastcol++;
 	    }
-		
+
 	    /* write what we need to */
 	    if (ch == '\0')
 	    {
@@ -1120,11 +1120,11 @@ int line;
 	    /* put the new character in the screen buffer */
 	    *old = ch;
 	}
-	    
+
 	/* update working column and screen buffer pointer */
 	newcol++;
 	old++;
-	    
+
     } while (ch != '\0');
 
     /* zero out the rest of the line buffer -- MUST BE DONE! */

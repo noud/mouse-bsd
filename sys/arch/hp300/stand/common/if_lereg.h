@@ -127,7 +127,7 @@ struct init_block {
 #define	LE_DRX		0x0001		/* disable receiver */
 #define	LE_NORMAL	0x0000
 
-/* 
+/*
  * Message descriptor
  */
 struct mds {

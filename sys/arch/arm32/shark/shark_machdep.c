@@ -172,7 +172,7 @@ cpu_reboot(howto, bootstr)
  *  - take over memory management from OFW;
  *  - set-up the stacks
  *  - set-up the exception handlers
- * 
+ *
  * Return the new stackptr (va) for the SVC frame.
  *
  */
@@ -210,7 +210,7 @@ initarm(ofw_handle)
 
 	/* Set-up the ISA system: must be done before consinit */
 	isa_init(isa_io_virtaddr, isa_mem_virtaddr);
-  
+
 	/* Initialize the console (which will call into OFW). */
 	/* This will allow us to see panic messages and other printf output. */
 	consinit();
@@ -324,7 +324,7 @@ process_kernel_args(void)
 #ifdef RB_QUIET
 	int bool;
 #endif
-	
+
 #if defined(RB_QUIET) && defined(BOOT_QUIETLY)
 	boothowto |= RB_QUIET;
 #endif

@@ -81,7 +81,7 @@ __gettemp(path, doopen, domkdir)
 		if (*trv == 'X')
 			xcnt++;
 		else
-			xcnt = 0;	
+			xcnt = 0;
 
 	/* Use at least one from xtra.  Use 2 if more than 6 X's. */
 	if (*(trv-1) == 'X')

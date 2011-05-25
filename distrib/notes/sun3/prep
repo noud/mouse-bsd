@@ -1,4 +1,4 @@
-.\"	$NetBSD: prep,v 1.5 1999/05/19 05:49:06 gwr Exp $	
+.\"	$NetBSD: prep,v 1.5 1999/05/19 05:49:06 gwr Exp $
 .
 Sun3 machines usually need little or no preparation before installing
 NetBSD, other than the usual, well advised precaution of

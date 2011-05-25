@@ -23,7 +23,7 @@
                 Computer Science Department, 9062
                 Western Washington University
                 Bellingham, WA 98226-9062
-       
+
 *************************************************************************/
 
 #include "bcdefs.h"
@@ -53,7 +53,7 @@ byte (pc)
      program_counter *pc;
 {
   int seg, offset;
-    
+
   seg = pc->pc_addr >> BC_SEG_LOG;
   offset = pc->pc_addr++ % BC_SEG_SIZE;
   return (functions[pc->pc_func].f_body[seg][offset]);
@@ -67,7 +67,7 @@ execute ()
 {
   int label_num, l_gp, l_off;
   bc_label_group *gp;
-  
+
   char inst, ch;
   int  new_func;
   int  var_name;
@@ -89,7 +89,7 @@ execute ()
       signal (SIGINT, stop_execution);
       had_sigint = FALSE;
     }
-   
+
   while (pc.pc_addr < functions[pc.pc_func].f_code_size && !runtime_error)
     {
       inst = byte(&pc);
@@ -97,7 +97,7 @@ execute ()
 #if DEBUG > 3
       { /* Print out address and the stack before each instruction.*/
 	int depth; estack_rec *temp = ex_stack;
-	
+
 	printf ("func=%d addr=%d inst=%c\n",pc.pc_func, pc.pc_addr, inst);
 	if (temp == NULL) printf ("empty stack.\n", inst);
 	else
@@ -144,7 +144,7 @@ execute ()
       case 'C' : /* Call a function. */
 	/* Get the function number. */
 	new_func = byte(&pc);
-	if ((new_func & 0x80) != 0) 
+	if ((new_func & 0x80) != 0)
 	  new_func = ((new_func << 8) & 0x7f) + byte(&pc);
 
 	/* Check to make sure it is defined. */
@@ -179,7 +179,7 @@ execute ()
 
       case 'K' : /* Push a constant */
 	/* Get the input base and convert it to a bc number. */
-	if (pc.pc_func == 0) 
+	if (pc.pc_func == 0)
 	  const_base = i_base;
 	else
 	  const_base = fn_stack->s_val;
@@ -278,8 +278,8 @@ execute ()
 	    int2num (&ex_stack->s_num, ex_stack->s_num->n_len
 		     + ex_stack->s_num->n_scale);
 	  break;
-		
-	case 'S':  /* Scale function. */ 
+
+	case 'S':  /* Scale function. */
 	  int2num (&ex_stack->s_num, ex_stack->s_num->n_scale);
 	  break;
 
@@ -300,7 +300,7 @@ execute ()
 	  var_name = ((var_name << 8) & 0x7f) + byte(&pc);
 	decr_var (var_name);
 	break;
-      
+
       case 'h' : /* Halt the machine. */
 	exit (0);
 
@@ -337,7 +337,7 @@ execute ()
 	while ((ch = byte(&pc)) != '"') out_schar (ch);
 	fflush (stdout);
 	break;
-		   
+
       case 'x' : /* Exchange Top of Stack with the one under the tos. */
 	if (check_stack(2)) {
 	  bc_num temp = ex_stack->s_num;
@@ -535,7 +535,7 @@ execute ()
       pc.pc_func = fpop ();
     }
 
-  /* Clean up the execution stack. */ 
+  /* Clean up the execution stack. */
   while (ex_stack != NULL) pop();
 
   /* Clean up the interrupt stuff. */
@@ -565,7 +565,7 @@ char
 input_char ()
 {
   char in_ch;
-  
+
   /* Get a character from the standard input for the read function. */
   in_ch = getchar();
 
@@ -588,7 +588,7 @@ input_char ()
     return (in_ch);
   if (in_ch <= ' ')
     return (' ');
-  
+
   return (':');
 }
 
@@ -616,7 +616,7 @@ push_constant (in_char, conv_base)
 
   /* The conversion base. */
   int2num (&mult, conv_base);
-  
+
   /* Get things ready. */
   in_ch = in_char();
   while (in_ch == ' ')
@@ -672,7 +672,7 @@ push_constant (in_char, conv_base)
       bc_divide (result, divisor, &result, digits);
       bc_add (build, result, &build, 0);
     }
-  
+
   /* Final work.  */
   if (negative)
     bc_sub (_zero_, build, &build, 0);
@@ -698,7 +698,7 @@ push_b10_const (pc)
   int kdigits, kscale;
   char inchar;
   char *ptr;
-  
+
   /* Count the digits and get things ready. */
   look_pc = *pc;
   kdigits = 0;
@@ -721,7 +721,7 @@ push_b10_const (pc)
 
   /* Get the first character again and move the pc. */
   inchar = byte(pc);
-  
+
   /* Secial cases of 0, 1, and A-F single inputs. */
   if (kdigits == 1 && kscale == 0)
     {

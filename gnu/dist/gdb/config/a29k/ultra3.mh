@@ -3,10 +3,10 @@
 CC=u3cc
 
 XM_FILE= xm-ultra3.h
-XDEPFILES= ultra3-xdep.o 
+XDEPFILES= ultra3-xdep.o
 
 MH_CFLAGS = -DSYM1
-XM_CLIBS = -lsysv -ljobs -ltermlib 
+XM_CLIBS = -lsysv -ljobs -ltermlib
 
 NAT_FILE= nm-ultra3.h
 NATDEPFILES= infptrace.o inftarg.o fork-child.o ultra3-nat.o

@@ -255,7 +255,7 @@ initmem()
 	mblks = xcalloc(nmblks = ML_INC, sizeof (mbl_t *));
 }
 
-	
+
 /*
  * Allocate memory associated with level l.
  */

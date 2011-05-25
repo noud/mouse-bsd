@@ -44,7 +44,7 @@
  *	definitions pertaining to the SCSI common command set that are
  *	common to all SCSI device types (ie disk, tapes, WORM, printers, etc).
  *	Some of the references from the proceedings of the
- *	1984 Mini/Micro Northeast conference might help in understanding SCSI. 
+ *	1984 Mini/Micro Northeast conference might help in understanding SCSI.
  *
  * from: Header: /sprite/src/kernel/dev/RCS/scsi.h,
  *	v 9.1 90/02/13 23:11:24 jhh Exp  SPRITE (Berkeley)
@@ -67,7 +67,7 @@
  */
 
 /*
- * Scsi Group0 commands all are 6 bytes and have a format according to 
+ * Scsi Group0 commands all are 6 bytes and have a format according to
  * struct ScsiGroup0Cmd.
  */
 #define SCSI_TEST_UNIT_READY	0x00
@@ -103,7 +103,7 @@
  * Group1 commands are all 10 bytes and have a format according to
  * struct ScsiGroup1Cmd.
  */
-#define SCSI_READ_CAPACITY	0x25	
+#define SCSI_READ_CAPACITY	0x25
 #define	SCSI_READ_EXT		0x28
 #define	SCSI_WRITE_EXT		0x2a
 #define	SCSI_SEEK_EXT		0x2b
@@ -131,7 +131,7 @@
 #define SCSI_CTRL_LINK_INTR	0x02	/* Interrupt after linked command */
 
 /*
- * The standard group0 6-byte SCSI control block.  Note that the 
+ * The standard group0 6-byte SCSI control block.  Note that the
  * fields between highAddr and blockCount inclusive are command dependent.
  * The definitions Addr and BlockCount cover most of the commands we will
  * use.
@@ -203,7 +203,7 @@ typedef struct ScsiStartStopCmd {
 } ScsiStartStopCmd;
 
 /*
- * The standard group1 10-byte SCSI control block.  Note that the 
+ * The standard group1 10-byte SCSI control block.  Note that the
  * fields between highAddr and blockCount inclusive are command dependent.
  * The definitions Addr and BlockCount cover most of the commands we will
  * use.
@@ -238,7 +238,7 @@ typedef struct ScsiGroup1Cmd {
 
 /*
  * SCSI status completion information.
- * This is returned by the device when a command completes. 
+ * This is returned by the device when a command completes.
  */
 #define	SCSI_STATUS_CHECKCOND	0x02	/* Check Condition (ie., read sense) */
 #define	SCSI_STATUS_CONDMET	0x04	/* Condition Met (ie., search worked) */
@@ -323,7 +323,7 @@ typedef struct ScsiClass7Sense {
 } ScsiClass7Sense;			/* 8 Bytes */
 
 /*
- * Key values for standardized sense class 7. 
+ * Key values for standardized sense class 7.
  */
 #define SCSI_CLASS7_NO_SENSE		0
 #define SCSI_CLASS7_RECOVERABLE		1
@@ -349,7 +349,7 @@ typedef struct ScsiClass7Sense {
 #define SCSI_CLASS7_RESERVED_15		15
 
 /*
- * Data return by the SCSI inquiry command. 
+ * Data return by the SCSI inquiry command.
  */
 typedef struct ScsiInquiryData {
 #if BYTE_ORDER == BIG_ENDIAN
@@ -483,7 +483,7 @@ typedef struct ScsiTapeModeSelectHdr {
  *	the Logical Unit of the Target which is requesting a reconnect.
  * SCSI_DIS_REC_IDENTIFY - Sent from the host to a target to indicate
  *	is supports connect/dis-connect
- *	
+ *
  */
 #define SCSI_COMMAND_COMPLETE		0x00
 #define SCSI_EXTENDED_MSG		0x01

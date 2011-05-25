@@ -10,19 +10,19 @@
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice in the documentation and/or other materials provided with 
+ *    notice in the documentation and/or other materials provided with
  *    the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
- * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN 
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -32,7 +32,7 @@
  *
  * It is actually a pointer to an ifile structure,
  * but is opaque outside this module.
- * Ifile structures are kept in a linked list in the order they 
+ * Ifile structures are kept in a linked list in the order they
  * appear on the command line.
  * Any new file which does not already appear in the list is
  * inserted after the current file.
@@ -104,7 +104,7 @@ link_ifile(p, prev)
 	incr_index(p->h_next, 1);
 	ifiles++;
 }
-	
+
 	static void
 unlink_ifile(p)
 	struct ifile *p;
@@ -202,7 +202,7 @@ getoff_ifile(ifile)
 	IFILE ifile;
 {
 	IFILE newifile;
-	
+
 	if ((newifile = prev_ifile(ifile)) != NULL_IFILE)
 		return (newifile);
 	if ((newifile = next_ifile(ifile)) != NULL_IFILE)
@@ -270,7 +270,7 @@ get_filename(ifile)
 get_index(ifile)
 	IFILE ifile;
 {
-	return (int_ifile(ifile)->h_index); 
+	return (int_ifile(ifile)->h_index);
 }
 
 /*
@@ -354,8 +354,8 @@ if_dump()
 
 	for (p = anchor.h_next;  p != &anchor;  p = p->h_next)
 	{
-		printf("%x: %d. <%s> pos %d,%x\n", 
-			p, p->h_index, p->h_filename, 
+		printf("%x: %d. <%s> pos %d,%x\n",
+			p, p->h_index, p->h_filename,
 			p->h_scrpos.ln, p->h_scrpos.pos);
 		ch_dump(p->h_filestate);
 	}

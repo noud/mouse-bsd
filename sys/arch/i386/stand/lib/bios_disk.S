@@ -6,30 +6,30 @@
  * Mach Operating System
  * Copyright (c) 1992, 1991 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
+ *
  * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
  * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND FOR
  * ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
- * 
+ *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
  *  School of Computer Science
  *  Carnegie Mellon University
  *  Pittsburgh PA 15213-3890
- * 
+ *
  * any improvements or extensions that they make and grant Carnegie Mellon
  * the rights to redistribute these changes.
  */
 
 /*
-  Copyright 1988, 1989, 1990, 1991, 1992 
+  Copyright 1988, 1989, 1990, 1991, 1992
    by Intel Corporation, Santa Clara, California.
 
                 All Rights Reserved
@@ -67,7 +67,7 @@ WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #			%dh = head
 #			%dl = drive (0x80 for hard disk, 0x0 for floppy disk)
 #			%es:%bx = segment:offset of buffer
-#	Return:		
+#	Return:
 #			%al = 0x0 on success; err code on failure
 */
 ENTRY(biosread)
@@ -218,7 +218,7 @@ ENTRY(int13_extension)
 #	Call with	%ah = 0x42
 #			%ds:%si = parameter block
 #			%dl = drive (0x80 for hard disk, 0x0 for floppy disk)
-#	Return:		
+#	Return:
 #			%al = 0x0 on success; err code on failure
 */
 ENTRY(biosextread)

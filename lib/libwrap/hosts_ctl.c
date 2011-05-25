@@ -6,10 +6,10 @@
   * access control checker. The host name and user name arguments should be
   * empty strings, STRING_UNKNOWN or real data. If a match is found, the
   * optional shell command is executed.
-  * 
+  *
   * Restriction: this interface does not pass enough information to support
   * selective remote username lookups or selective hostname double checks.
-  * 
+  *
   * Author: Wietse Venema, Eindhoven University of Technology, The Netherlands.
   */
 

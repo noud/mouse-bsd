@@ -3,11 +3,11 @@
  /*
   * Routines to report various classes of problems. Each report is decorated
   * with the current context (file name and line number), if available.
-  * 
+  *
   * tcpd_warn() reports a problem and proceeds.
-  * 
+  *
   * tcpd_jump() reports a problem and jumps.
-  * 
+  *
   * Author: Wietse Venema, Eindhoven University of Technology, The Netherlands.
   */
 

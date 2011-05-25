@@ -406,11 +406,11 @@ void simple_entry::position_vertically()
       // Peform the motion in two stages so that the center is rounded
       // vertically upwards even if net vertical motion is upwards.
       printfs(".sp |\\n[%1]u\n", row_start_reg(start_row));
-      printfs(".sp \\n[" BOTTOM_REG "]u-\\n[%1]u-1v/2u\n", 
+      printfs(".sp \\n[" BOTTOM_REG "]u-\\n[%1]u-1v/2u\n",
 	      row_start_reg(start_row));
       break;
     case entry_modifier::BOTTOM:
-      printfs(".sp |\\n[%1]u+\\n[" BOTTOM_REG "]u-\\n[%1]u-1v\n", 
+      printfs(".sp |\\n[%1]u+\\n[" BOTTOM_REG "]u-\\n[%1]u-1v\n",
 	      row_start_reg(start_row));
       break;
     default:
@@ -634,12 +634,12 @@ void block_entry::position_vertically()
       // Peform the motion in two stages so that the center is rounded
       // vertically upwards even if net vertical motion is upwards.
       printfs(".sp |\\n[%1]u\n", row_start_reg(start_row));
-      printfs(".sp \\n[" BOTTOM_REG "]u-\\n[%1]u-\\n[%2]u/2u\n", 
+      printfs(".sp \\n[" BOTTOM_REG "]u-\\n[%1]u-\\n[%2]u/2u\n",
 	      row_start_reg(start_row),
 	      block_height_reg(start_row, start_col));
       break;
     case entry_modifier::BOTTOM:
-      printfs(".sp |\\n[%1]u+\\n[" BOTTOM_REG "]u-\\n[%1]u-\\n[%2]u\n", 
+      printfs(".sp |\\n[%1]u+\\n[" BOTTOM_REG "]u-\\n[%1]u-\\n[%2]u\n",
 	      row_start_reg(start_row),
 	      block_height_reg(start_row, start_col));
       break;
@@ -680,8 +680,8 @@ void block_entry::do_divert(int alphabetic, int ncols, const string *mw,
     printfs(">?\\n[%1]u", span_width_reg(start_col, end_col));
   }
   else
-    printfs("(u;\\n[%1]>?(\\n[.l]*%2/%3))", 
-	    span_width_reg(start_col, end_col), 
+    printfs("(u;\\n[%1]>?(\\n[.l]*%2/%3))",
+	    span_width_reg(start_col, end_col),
 	    as_string(end_col - start_col + 1),
 	    as_string(ncols + 1));
   if (alphabetic)
@@ -836,7 +836,7 @@ void single_line_entry::simple_print(int dont_move)
   if (!dont_move)
     prints("\\v'" BAR_HEIGHT "'");
 }
-  
+
 single_line_entry *single_line_entry::to_single_line_entry()
 {
   return this;
@@ -1867,14 +1867,14 @@ string row_start_reg(int row)
   static char name[sizeof(ROW_START_PREFIX)+INT_DIGITS];
   sprintf(name, ROW_START_PREFIX "%d", row);
   return string(name);
-}  
+}
 
 string column_start_reg(int col)
 {
   static char name[sizeof(COLUMN_START_PREFIX)+INT_DIGITS];
   sprintf(name, COLUMN_START_PREFIX "%d", col);
   return string(name);
-}  
+}
 
 string column_end_reg(int col)
 {
@@ -1909,12 +1909,12 @@ void init_span_reg(int start_col, int end_col)
 void compute_span_width(int start_col, int end_col)
 {
   printfs(".nr %1 \\n[%1]>?(\\n[%2]+\\n[%3])\n"
-	  ".if \\n[%4] .nr %1 \\n[%1]>?(\\n[%4]+2n)\n", 
+	  ".if \\n[%4] .nr %1 \\n[%1]>?(\\n[%4]+2n)\n",
 	  span_width_reg(start_col, end_col),
 	  span_left_numeric_width_reg(start_col, end_col),
 	  span_right_numeric_width_reg(start_col, end_col),
 	  span_alphabetic_width_reg(start_col, end_col));
-	 
+
 }
 
 // Increase the widths of columns so that the width of any spanning entry
@@ -1924,7 +1924,7 @@ void compute_span_width(int start_col, int end_col)
 void table::divide_span(int start_col, int end_col)
 {
   assert(end_col > start_col);
-  printfs(".nr " NEEDED_REG " \\n[%1]-(\\n[%2]", 
+  printfs(".nr " NEEDED_REG " \\n[%1]-(\\n[%2]",
 	  span_width_reg(start_col, end_col),
 	  span_width_reg(start_col, start_col));
   int i;
@@ -1939,7 +1939,7 @@ void table::divide_span(int start_col, int end_col)
 	  as_string(end_col - start_col + 1));
   prints(".if \\n[" NEEDED_REG "] \\{");
   for (i = start_col; i <= end_col; i++)
-    printfs(".nr %1 +\\n[" NEEDED_REG "]\n", 
+    printfs(".nr %1 +\\n[" NEEDED_REG "]\n",
 	    span_width_reg(i, i));
   int equal_flag = 0;
   for (i = start_col; i <= end_col && !equal_flag; i++)
@@ -1948,7 +1948,7 @@ void table::divide_span(int start_col, int end_col)
   if (equal_flag) {
     for (i = 0; i < ncolumns; i++)
       if (i < start_col || i > end_col)
-	printfs(".nr %1 +\\n[" NEEDED_REG "]\n", 
+	printfs(".nr %1 +\\n[" NEEDED_REG "]\n",
 	    span_width_reg(i, i));
   }
   prints(".\\}\n");
@@ -1958,7 +1958,7 @@ void table::divide_span(int start_col, int end_col)
 void table::sum_columns(int start_col, int end_col)
 {
   assert(end_col > start_col);
-  printfs(".nr %1 \\n[%2]", 
+  printfs(".nr %1 \\n[%2]",
 	  span_width_reg(start_col, end_col),
 	  span_width_reg(start_col, start_col));
   for (int i = start_col + 1; i <= end_col; i++)
@@ -2088,7 +2088,7 @@ void table::make_columns_equal()
     prints('\n');
     for (i = first + 1; i < ncolumns; i++)
       if (equal[i])
-	printfs(".nr %1 \\n[%2]\n", 
+	printfs(".nr %1 \\n[%2]\n",
 		span_width_reg(i, i),
 		span_width_reg(first, first));
   }
@@ -2154,7 +2154,7 @@ void table::print_single_hline(int r)
   else {
     int start_col = 0;
     for (;;) {
-      while (start_col < ncolumns 
+      while (start_col < ncolumns
 	     && entry[r][start_col] != 0
 	     && entry[r][start_col]->start_row != r)
 	start_col++;
@@ -2203,7 +2203,7 @@ void table::print_double_hline(int r)
   else {
     int start_col = 0;
     for (;;) {
-      while (start_col < ncolumns 
+      while (start_col < ncolumns
 	     && entry[r][start_col] != 0
 	     && entry[r][start_col]->start_row != r)
 	start_col++;
@@ -2268,7 +2268,7 @@ void table::compute_vrule_top_adjust(int start_row, int col, string &result)
     if (start_row == 0)
       return;
     for (stuff *p = stuff_list; p && p->row <= start_row; p = p->next)
-      if (p->row == start_row 
+      if (p->row == start_row
 	  && (p->is_single_line() || p->is_double_line()))
 	return;
   }
@@ -2408,7 +2408,7 @@ void table::build_vrule_list()
     for (col = 0; col < ncolumns+1; col++)
       if (vline[end_row][col] > 0
 	  && !vline_spanned(end_row, col)
-	  && (end_row == nrows - 1 
+	  && (end_row == nrows - 1
 	      || vline[end_row+1][col] != vline[end_row][col]
 	      || vline_spanned(end_row+1, col))) {
 	int start_row;
@@ -2774,5 +2774,5 @@ void printfs(const char *s, const string &arg1, const string &arg2,
 	prints(c);
     }
   }
-}  
+}
 

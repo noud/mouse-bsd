@@ -30,7 +30,7 @@
 
 struct ac97_codec_if;
 
-/* 
+/*
  * This is the interface used to attach the AC97 compliant CODEC.
  */
 struct ac97_host_if {

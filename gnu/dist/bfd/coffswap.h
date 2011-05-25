@@ -344,7 +344,7 @@ coff_swap_sym_in (abfd, ext1, in1)
     memcpy(in->_n._n_name, ext->e.e_name, SYMNMLEN);
 #endif
   }
-  in->n_value = bfd_h_get_32(abfd, (bfd_byte *) ext->e_value); 
+  in->n_value = bfd_h_get_32(abfd, (bfd_byte *) ext->e_value);
   in->n_scnum = bfd_h_get_16(abfd, (bfd_byte *) ext->e_scnum);
   if (sizeof(ext->e_type) == 2){
     in->n_type = bfd_h_get_16(abfd, (bfd_byte *) ext->e_type);
@@ -410,7 +410,7 @@ coff_swap_aux_in (abfd, ext1, type, class, indx, numaux, in1)
     case C_FILE:
       if (ext->x_file.x_fname[0] == 0) {
 	  in->x_file.x_n.x_zeroes = 0;
-	  in->x_file.x_n.x_offset = 
+	  in->x_file.x_n.x_offset =
 	   bfd_h_get_32(abfd, (bfd_byte *) ext->x_file.x_n.x_offset);
 	} else {
 #if FILNMLEN != E_FILNMLEN

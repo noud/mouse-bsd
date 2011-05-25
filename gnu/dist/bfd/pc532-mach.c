@@ -49,7 +49,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define N_SHARED_LIB(x) 0
 #define SEGMENT_SIZE TARGET_PAGE_SIZE
 #define DEFAULT_ARCH bfd_arch_ns32k
-  
+
 #define MY(OP) CAT(pc532machaout_,OP)
 
 /* Must be the same as aout-ns32k.c */
@@ -74,7 +74,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define MY_text_includes_header 1
 
 #define MY_exec_header_not_counted 1
-     
+
 #define MYNSX(OP) CAT(ns32kaout_,OP)
 reloc_howto_type *
 MYNSX(bfd_reloc_type_lookup)
@@ -91,13 +91,13 @@ bfd *abfd;
 {
   struct external_exec exec_bytes;
   struct internal_exec *execp = exec_hdr (abfd);
-  
+
 #if CHOOSE_RELOC_SIZE
   CHOOSE_RELOC_SIZE(abfd);
 #else
   obj_reloc_entry_size (abfd) = RELOC_STD_SIZE;
 #endif
-  
+
   BFD_ASSERT (bfd_get_arch (abfd) == bfd_arch_ns32k);
   switch (bfd_get_mach (abfd))
     {
@@ -110,9 +110,9 @@ bfd *abfd;
       break;
     }
   N_SET_FLAGS (*execp, aout_backend_info (abfd)->exec_hdr_flags);
-  
+
   WRITE_HEADERS(abfd, execp);
-  
+
   return true;
 }
 

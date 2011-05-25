@@ -59,7 +59,7 @@
     bus_space_write_4((x)->sc_iot, (x)->sc_ioh, (o), htole32(d))
 
 #endif	/* _KERNEL */
- 
+
 /*
  * HBA registers
  */
@@ -161,8 +161,8 @@ struct eata_cp {
 };
 
 /*
- * EATA status packet as returned by controller upon command completion. It 
- * contains status, message info and a handle on the initiating CCB. 
+ * EATA status packet as returned by controller upon command completion. It
+ * contains status, message info and a handle on the initiating CCB.
  */
 struct eata_sp {
 	u_int8_t	sp_hba_status;		/* host adapter status */
@@ -176,8 +176,8 @@ struct eata_sp {
 	u_int8_t	sp_messages[9];
 };
 
-/* 
- * HBA status as returned by status packet. Bit 7 signals end of command. 
+/*
+ * HBA status as returned by status packet. Bit 7 signals end of command.
  */
 #define HA_NO_ERROR             0x00    /* No error on command */
 #define HA_ERROR_SEL_TO         0x01    /* Device selection timeout */
@@ -213,7 +213,7 @@ struct eata_sg {
 
 /*
  * EATA configuration data as returned by HBA. XXX this is bogus, some fields
- * don't *seem* to be filled on my SmartCache III. Also, it doesn't sync up 
+ * don't *seem* to be filled on my SmartCache III. Also, it doesn't sync up
  * with the structure FreeBSD uses. [ad]
  */
 struct eata_cfg {
@@ -270,7 +270,7 @@ struct eata_inquiry_data {
 	u_int8_t 	ei_response_format;
 	u_int8_t 	ei_additional_length;
 	u_int8_t 	ei_unused[2];
-	u_int8_t	ei_flags;	
+	u_int8_t	ei_flags;
 	char		ei_vendor[8];	/* Vendor, e.g: DPT, NEC */
 	char		ei_model[7];	/* Model number */
 	char		ei_suffix[9];	/* Model number suffix */

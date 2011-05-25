@@ -1,23 +1,23 @@
 /*
- * main.c -- Expression tree constructors and main program for gawk. 
+ * main.c -- Expression tree constructors and main program for gawk.
  */
 
-/* 
+/*
  * Copyright (C) 1986, 1988, 1989, 1991-1997 the Free Software Foundation, Inc.
- * 
+ *
  * This file is part of GAWK, the GNU implementation of the
  * AWK Programming Language.
- * 
+ *
  * GAWK is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * GAWK is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
@@ -42,7 +42,7 @@ NODE *ARGC_node, *ARGIND_node, *ARGV_node, *CONVFMT_node, *ENVIRON_node;
 NODE *ERRNO_node, *FIELDWIDTHS_node, *FILENAME_node, *FNR_node, *FS_node;
 NODE *IGNORECASE_node, *NF_node, *NR_node, *OFMT_node, *OFS_node;
 NODE *ORS_node, *RLENGTH_node, *RSTART_node, *RS_node, *RT_node, *SUBSEP_node;
- 
+
 long NF;
 long NR;
 long FNR;
@@ -175,7 +175,7 @@ char **argv;
 	/* Set up the special variables */
 	/*
 	 * Note that this must be done BEFORE arg parsing else -F
-	 * breaks horribly 
+	 * breaks horribly
 	 */
 	init_vars();
 
@@ -596,7 +596,7 @@ load_environ()
 	NODE **aptr;
 	register int i;
 
-	ENVIRON_node = install("ENVIRON", 
+	ENVIRON_node = install("ENVIRON",
 			node(Nnull_string, Node_var, (NODE *) NULL));
 	for (i = 0; environ[i] != NULL; i++) {
 		static char nullstr[] = "";

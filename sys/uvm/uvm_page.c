@@ -1,8 +1,8 @@
 /*	$NetBSD: uvm_page.c,v 1.30 2000/02/13 03:34:40 thorpej Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1997 Charles D. Cranor and Washington University.
- * Copyright (c) 1991, 1993, The Regents of the University of California.  
+ * Copyright (c) 1991, 1993, The Regents of the University of California.
  *
  * All rights reserved.
  *
@@ -20,7 +20,7 @@
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
  *	This product includes software developed by Charles D. Cranor,
- *      Washington University, the University of California, Berkeley and 
+ *      Washington University, the University of California, Berkeley and
  *      its contributors.
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
@@ -44,17 +44,17 @@
  *
  * Copyright (c) 1987, 1990 Carnegie-Mellon University.
  * All rights reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -200,7 +200,7 @@ uvm_pageremove(pg)
 
 /*
  * uvm_page_init: init the page system.   called from uvm_init().
- * 
+ *
  * => we return the range of kernel virtual memory in kvm_startp/kvm_endp
  */
 
@@ -210,7 +210,7 @@ uvm_page_init(kvm_startp, kvm_endp)
 {
 	vsize_t freepages, pagecount, n;
 	vm_page_t pagearray;
-	int lcv, i;  
+	int lcv, i;
 	paddr_t paddr;
 
 
@@ -237,7 +237,7 @@ uvm_page_init(kvm_startp, kvm_endp)
 	TAILQ_INIT(uvm.page_hash);		/* init hash table */
 	simple_lock_init(&uvm.hashlock);	/* init hash table lock */
 
-	/* 
+	/*
 	 * step 3: allocate vm_page structures.
 	 */
 
@@ -250,15 +250,15 @@ uvm_page_init(kvm_startp, kvm_endp)
 
 	if (vm_nphysseg == 0)
 		panic("vm_page_bootstrap: no memory pre-allocated");
-	
+
 	/*
-	 * first calculate the number of free pages...  
+	 * first calculate the number of free pages...
 	 *
 	 * note that we use start/end rather than avail_start/avail_end.
 	 * this allows us to allocate extra vm_page structures in case we
 	 * want to return some memory to the pool after booting.
 	 */
-	 
+
 	freepages = 0;
 	for (lcv = 0 ; lcv < vm_nphysseg ; lcv++)
 		freepages += (vm_physmem[lcv].end - vm_physmem[lcv].start);
@@ -272,20 +272,20 @@ uvm_page_init(kvm_startp, kvm_endp)
 	 * truncation errors (since we can only allocate in terms of whole
 	 * pages).
 	 */
-	 
+
 	pagecount = ((freepages + 1) << PAGE_SHIFT) /
 	    (PAGE_SIZE + sizeof(struct vm_page));
 	pagearray = (vm_page_t)uvm_pageboot_alloc(pagecount *
 	    sizeof(struct vm_page));
 	memset(pagearray, 0, pagecount * sizeof(struct vm_page));
-					 
+
 	/*
 	 * step 4: init the vm_page structures and put them in the correct
 	 * place...
 	 */
 
 	for (lcv = 0 ; lcv < vm_nphysseg ; lcv++) {
-	 
+
 		n = vm_physmem[lcv].end - vm_physmem[lcv].start;
 		if (n > pagecount) {
 			printf("uvm_page_init: lost %ld page(s) in init\n",
@@ -341,10 +341,10 @@ uvm_page_init(kvm_startp, kvm_endp)
 
 /*
  * uvm_setpagesize: set the page size
- * 
+ *
  * => sets page_shift and page_mask from uvmexp.pagesize.
  * => XXXCDC: move global vars.
- */   
+ */
 
 void
 uvm_setpagesize()
@@ -370,8 +370,8 @@ uvm_pageboot_alloc(size)
 #if defined(PMAP_STEAL_MEMORY)
 	vaddr_t addr;
 
-	/* 
-	 * defer bootstrap allocation to MD code (it may want to allocate 
+	/*
+	 * defer bootstrap allocation to MD code (it may want to allocate
 	 * from a direct-mapped segment).  pmap_steal_memory should round
 	 * off virtual_space_start/virtual_space_end.
 	 */
@@ -997,7 +997,7 @@ uvm_pagerealloc(pg, newobj, newoff)
 		pg->version++;
 		uvm_pageinsert(pg);
 	}
- 
+
 	return;
 }
 
@@ -1028,27 +1028,27 @@ struct vm_page *pg;
 	if (pg->flags & PG_TABLED) {
 
 		/*
-		 * if the object page is on loan we are going to drop ownership.  
+		 * if the object page is on loan we are going to drop ownership.
 		 * it is possible that an anon will take over as owner for this
 		 * page later on.   the anon will want a !PG_CLEAN page so that
-		 * it knows it needs to allocate swap if it wants to page the 
-		 * page out. 
+		 * it knows it needs to allocate swap if it wants to page the
+		 * page out.
 		 */
 
 		if (saved_loan_count)
 			pg->flags &= ~PG_CLEAN;	/* in case an anon takes over */
 
 		uvm_pageremove(pg);
-		
+
 		/*
 		 * if our page was on loan, then we just lost control over it
 		 * (in fact, if it was loaned to an anon, the anon may have
 		 * already taken over ownership of the page by now and thus
-		 * changed the loan_count [e.g. in uvmfault_anonget()]) we just 
-		 * return (when the last loan is dropped, then the page can be 
+		 * changed the loan_count [e.g. in uvmfault_anonget()]) we just
+		 * return (when the last loan is dropped, then the page can be
 		 * freed by whatever was holding the last loan).
 		 */
-		if (saved_loan_count) 
+		if (saved_loan_count)
 			return;
 
 	} else if (saved_loan_count && (pg->pqflags & PQ_ANON)) {
@@ -1072,7 +1072,7 @@ struct vm_page *pg;
 		panic("uvm_pagefree: loan count");
 	}
 #endif
-	
+
 
 	/*
 	 * now remove the page from the queues
@@ -1102,7 +1102,7 @@ struct vm_page *pg;
 	}
 
 	/*
-	 * and put on free queue 
+	 * and put on free queue
 	 */
 
 	s = uvm_lock_fpageq();

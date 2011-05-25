@@ -1074,12 +1074,12 @@ prefixlen(s)
 {
 	int len = atoi(s), q, r;
 
-	rtm_addrs |= RTA_NETMASK;	
+	rtm_addrs |= RTA_NETMASK;
 	if (len < -1 || len > 129) {
 		(void) fprintf(stderr, "%s: bad value\n", s);
 		exit(1);
 	}
-	
+
 	q = len >> 3;
 	r = len & 7;
 	so_mask.sin6.sin6_family = AF_INET6;

@@ -35,7 +35,7 @@
 #include "ams.h"
 #include <machine/asm.h>
 
-/* 
+/*
  * ADB subsystem routines in assembly
  */
 

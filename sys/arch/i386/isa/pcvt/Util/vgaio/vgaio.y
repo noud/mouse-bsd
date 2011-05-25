@@ -118,7 +118,7 @@ const char *getname(struct reg r) {
 		if(regnames[idx].id == r.group)
 			return regnames[idx].name;
 	return "??";
-}	
+}
 
 /* return ptr to string of 1s and 0s for value */
 char *
@@ -174,7 +174,7 @@ void getreg(struct reg r) {
 		val = inb(0x3cc);
 		break;
 	}
-		
+
 	printf("%s%02x = 0x%02x = %sB\n",
 	       getname(r), r.num, val, bin_str(val, 8));
 }
@@ -208,7 +208,7 @@ void setreg(struct reg r, int val) {
 		outb(0x3c2, val);
 		break;
 	}
-		
+
 	printf("%s%02x set to 0x%02x = %sB now\n",
 	       getname(r), r.num, val, bin_str(val, 8));
 }

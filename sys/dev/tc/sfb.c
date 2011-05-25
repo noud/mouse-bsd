@@ -53,7 +53,7 @@ __KERNEL_RCSID(0, "$NetBSD: sfb.c,v 1.34 2000/02/18 06:51:51 nisimura Exp $");
 #include <dev/wsfont/wsfont.h>
 
 #include <dev/tc/tcvar.h>
-#include <dev/ic/bt459reg.h>	
+#include <dev/ic/bt459reg.h>
 #include <dev/tc/sfbreg.h>
 
 #include <uvm/uvm_extern.h>
@@ -77,7 +77,7 @@ __KERNEL_RCSID(0, "$NetBSD: sfb.c,v 1.34 2000/02/18 06:51:51 nisimura Exp $");
  *			u_int8_t u0;
  *			u_int8_t u1;
  *			u_int8_t u2;
- *			unsigned :8; 
+ *			unsigned :8;
  *		} bt_lo;
  *		struct {
  *
@@ -525,7 +525,7 @@ sfb_cnattach(addr)
         long defattr;
 
         sfb_getdevconfig(addr, dcp);
- 
+
         (*dcp->rinfo.ri_ops.alloc_attr)(&dcp->rinfo, 0, 0, 0, &defattr);
 
         wsdisplay_cnattach(&sfb_stdscreen, &dcp->rinfo, 0, 0, defattr);
@@ -542,7 +542,7 @@ sfbintr(arg)
 	caddr_t sfbasic = sfbbase + SFB_ASIC_OFFSET;
 	caddr_t vdac;
 	int v;
-	
+
 	*(u_int32_t *)(sfbasic + SFB_ASIC_CLEAR_INTR) = 0;
 	/* *(u_int32_t *)(sfbasic + SFB_ASIC_ENABLE_INTR) = 1; */
 
@@ -630,7 +630,7 @@ sfbinit(dc)
 	*(u_int32_t *)(sfbasic + SFB_ASIC_PIXELMASK) = ~0;
 	*(u_int32_t *)(sfbasic + SFB_ASIC_MODE) = 0; /* MODE_SIMPLE */
 	*(u_int32_t *)(sfbasic + SFB_ASIC_ROP) = 3;  /* ROP_COPY */
-	
+
 	*(u_int32_t *)(sfbasic + 0x180000) = 0; /* Bt459 reset */
 
 	SELECT(vdac, BT459_IREG_COMMAND_0);
@@ -841,7 +841,7 @@ bt459_set_curpos(sc)
 
 	x += sc->sc_cursor.cc_magic.x;
 	y += sc->sc_cursor.cc_magic.y;
-	
+
 	s = spltty();
 
 	SELECT(vdac, BT459_IREG_CURSOR_X_LOW);

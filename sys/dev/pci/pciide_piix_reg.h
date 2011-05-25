@@ -51,7 +51,7 @@
 #define PIIX_BMIBA_RTE_IO 0x000000001 /* base addr maps to I/O space */
 
 /*
- * IDE timing register 
+ * IDE timing register
  * 0x40/0x41 is for primary, 0x42/0x43 for secondary channel
  */
 #define PIIX_IDETIM 0x40

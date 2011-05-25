@@ -277,7 +277,7 @@ cl_deleteln(sp)
 	return (deleteln() == ERR);
 }
 
-/* 
+/*
  * cl_ex_adjust --
  *	Adjust the screen for ex.  This routine is purely for standalone
  *	ex programs.  All special purpose, all special case.
@@ -483,7 +483,7 @@ cl_suspend(sp, allowedp)
 	 *
 	 * Setting allowedp to 0 will cause the editor to reject the command.
 	 */
-	if (F_ISSET(sp, SC_EX)) { 
+	if (F_ISSET(sp, SC_EX)) {
 		/* Save the terminal settings, and restore the original ones. */
 		if (F_ISSET(gp, G_STDIN_TTY)) {
 			(void)tcgetattr(STDIN_FILENO, &t);
@@ -583,7 +583,7 @@ cl_suspend(sp, allowedp)
 /*
  * cl_usage --
  *	Print out the curses usage messages.
- * 
+ *
  * PUBLIC: void cl_usage __P((void));
  */
 void

@@ -105,7 +105,7 @@ struct fat {
 	u_int8_t media;		/* the media descriptor again */
 	u_int8_t padded;	/* always 0xff */
 	u_int8_t contents[1];	/* the `1' is a placeholder only */
-}; 
+};
 
 
 int main __P((int, char *[]));
@@ -222,7 +222,7 @@ setup_boot_sector_from_template(bs, dp)
 	    MIN(sizeof(dp->ext_label), sizeof(exb->exVolumeLabel)));
 	(void) memcpy(exb->exFileSysType, dp->ext_fsysid,
 	    MIN(sizeof(dp->ext_fsysid), sizeof(exb->exFileSysType)));
-	(void) memcpy(bs->bs50.bsBPB, &bpb, 
+	(void) memcpy(bs->bs50.bsBPB, &bpb,
 	    MIN(sizeof(bpb), sizeof(bs->bs50.bsBPB)));
 }
 

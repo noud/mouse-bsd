@@ -218,7 +218,7 @@ isonum_721(p)
 }
 
 /* 7.2.2: unsigned big-endian 16-bit value.  NOT USED IN KERNEL. */
-static __inline int     
+static __inline int
 isonum_722(p)
 	unsigned char *p;
 {
@@ -227,7 +227,7 @@ isonum_722(p)
 #else
 	return ((char)*p << 8)|p[1];
 #endif
-} 
+}
 
 /* 7.2.3: unsigned both-endian (little, then big) 16-bit value */
 static __inline int

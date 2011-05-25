@@ -50,7 +50,7 @@
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/kernel.h>
-#include <sys/mbuf.h> 
+#include <sys/mbuf.h>
 #include <sys/syslog.h>
 #include <sys/socket.h>
 #include <sys/device.h>
@@ -242,7 +242,7 @@ hme_config(sc)
 
 	/* Initialize ifmedia structures and MII info */
 	mii->mii_ifp = ifp;
-	mii->mii_readreg = hme_mii_readreg; 
+	mii->mii_readreg = hme_mii_readreg;
 	mii->mii_writereg = hme_mii_writereg;
 	mii->mii_statchg = hme_mii_statchg;
 
@@ -506,7 +506,7 @@ hme_init(sc)
 	/*
 	 * Init seed for backoff
 	 * (source suggested by manual: low 10 bits of MAC address)
-	 */ 
+	 */
 	v = ((ea[4] << 8) | ea[5]) & 0x3fff;
 	bus_space_write_4(t, mac, HME_MACI_RANDSEED, v);
 
@@ -626,8 +626,8 @@ hme_init(sc)
 static __inline__ int
 ether_cmp(a, b)
 	u_char *a, *b;
-{       
-        
+{
+
 	if (a[5] != b[5] || a[4] != b[4] || a[3] != b[3] ||
 	    a[2] != b[2] || a[1] != b[1] || a[0] != b[0])
 		return (0);
@@ -1210,7 +1210,7 @@ hme_ioctl(ifp, cmd, data)
 				bcopy(ina->x_host.c_host,
 				    LLADDR(ifp->if_sadl),
 				    sizeof(sc->sc_enaddr));
-			}	
+			}
 			/* Set new address. */
 			hme_init(sc);
 			break;

@@ -126,43 +126,43 @@ Report problems and direct all questions to:
  *
  * Revision 4.8  89/05/01  15:09:41  narten
  * changed getwd to not stat empty directories.
- * 
+ *
  * Revision 4.7  88/08/09  19:12:53  eggert
  * Fix troff macro comment leader bug; add Prolog; allow cc -R; remove lint.
- * 
+ *
  * Revision 4.6  87/12/18  11:40:23  narten
  * additional file types added from 4.3 BSD version, and SPARC assembler
  * comment character added. Also, more lint cleanups. (Guy Harris)
- * 
+ *
  * Revision 4.5  87/10/18  10:34:16  narten
  * Updating version numbers. Changes relative to 1.1 actually relative
  * to verion 4.3
- * 
+ *
  * Revision 1.3  87/03/27  14:22:21  jenkins
  * Port to suns
- * 
+ *
  * Revision 1.2  85/06/26  07:34:28  svb
  * Comment leader '% ' for '*.tex' files added.
- * 
+ *
  * Revision 4.3  83/12/15  12:26:48  wft
  * Added check for KDELIM in filenames to pairfilenames().
- * 
+ *
  * Revision 4.2  83/12/02  22:47:45  wft
  * Added csh, red, and sl filename suffixes.
- * 
+ *
  * Revision 4.1  83/05/11  16:23:39  wft
  * Added initialization of Dbranch to InitAdmin(). Canged pairfilenames():
  * 1. added copying of path from workfile to RCS file, if RCS file is omitted;
  * 2. added getting the file status of RCS and working files;
  * 3. added ignoring of directories.
- * 
+ *
  * Revision 3.7  83/05/11  15:01:58  wft
  * Added comtable[] which pairs filename suffixes with comment leaders;
  * updated InitAdmin() accordingly.
- * 
+ *
  * Revision 3.6  83/04/05  14:47:36  wft
  * fixed Suffix in InitAdmin().
- * 
+ *
  * Revision 3.5  83/01/17  18:01:04  wft
  * Added getwd() and rename(); these can be removed by defining
  * V4_2BSD, since they are not needed in 4.2 bsd.
@@ -230,27 +230,27 @@ struct compair {
 */
 static struct compair const comtable[] = {
 	{ "a"	, "-- "	},	/* Ada */
-	{ "ada"	, "-- "	},	
-	{ "adb"	, "-- "	},	
-	{ "ads"	, "-- "	},	
+	{ "ada"	, "-- "	},
+	{ "adb"	, "-- "	},
+	{ "ads"	, "-- "	},
 	{ "asm"	, ";; "	},	/* assembler (MS-DOS) */
 	{ "bat"	, ":: "	},	/* batch (MS-DOS) */
 	{ "body", "-- "	},	/* Ada */
 	{ "c"	, " * "	},	/* C */
 	{ "c++"	, "// "	},	/* C++ in all its infinite guises */
-	{ "cc"	, "// "	},	
-	{ "cpp"	, "// "	},	
-	{ "cxx"	, "// "	},	
+	{ "cc"	, "// "	},
+	{ "cpp"	, "// "	},
+	{ "cxx"	, "// "	},
 	{ "cl"	, ";;; "},	/* Common Lisp */
 	{ "cmd"	, ":: "	},	/* command (OS/2) */
 	{ "cmf"	, "c "	},	/* CM Fortran */
 	{ "cs"	, " * "	},	/* C* */
 	{ "el"	, "; "	},	/* Emacs Lisp */
 	{ "f"	, "c "	},	/* Fortran */
-	{ "for"	, "c "	},	
+	{ "for"	, "c "	},
 	{ "h"	, " * "	},	/* C-header */
 	{ "hpp"	, "// "	},	/* C++ header */
-	{ "hxx"	, "// "	},	
+	{ "hxx"	, "// "	},
 	{ "l"	, " * "	},	/* lex (NOTE: franzlisp disagrees) */
 	{ "lisp", ";;; "},	/* Lucid Lisp */
 	{ "lsp"	, ";; "	},	/* Microsoft Lisp */
@@ -261,7 +261,7 @@ static struct compair const comtable[] = {
 	{ "mm"	, ".\\\" "},	/* troff -mm */
 	{ "ms"	, ".\\\" "},	/* troff -ms */
 	{ "p"	, " * "	},	/* Pascal */
-	{ "pas"	, " * "	},	
+	{ "pas"	, " * "	},
 	{ "ps"	, "% "	},	/* PostScript */
 	{ "spec", "-- "	},	/* Ada */
 	{ "sty"	, "% "	},	/* LaTeX style */

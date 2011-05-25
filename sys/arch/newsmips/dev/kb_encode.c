@@ -93,7 +93,7 @@ kbd_encode(c)
 	kp = &key_table_addr[c_mask];
 	if (c & OFF)
 		kp->key_flags &= ~KEY_PRESS;
-	else if ((kp->key_flags & KEY_PRESS) && 
+	else if ((kp->key_flags & KEY_PRESS) &&
 	    ((kbd_status & KBD_NOTREPT) || (kp->key_flags & NOT_REPT)))
 		return (0);
 	else

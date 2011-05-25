@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -36,11 +36,11 @@
 * Do_func performs the unimplemented operation.  The operation
 * to be performed is determined from the lower 7 bits of the
 * extension word (except in the case of fmovecr and fsincos).
-* The opcode and tag bits form an index into a jump table in 
-* tbldo.sa.  Cases of zero, infinity and NaN are handled in 
+* The opcode and tag bits form an index into a jump table in
+* tbldo.sa.  Cases of zero, infinity and NaN are handled in
 * do_func by forcing the default result.  Normalized and
 * denormalized (there are no unnormalized numbers at this
-* point) are passed onto the emulation code.  
+* point) are passed onto the emulation code.
 *
 * CMDREG1B and STAG are extracted from the fsave frame
 * and combined to form the table index.  The function called
@@ -93,7 +93,7 @@ do_func:
 * directly.
 *
 	bfextu	CMDREG1B(a6){0:6},d0 ;get opclass and src fields
-	cmpi.l	#$17,d0		;if op class and size fields are $17, 
+	cmpi.l	#$17,d0		;if op class and size fields are $17,
 *				;it is FMOVECR; if not, continue
 	bne.b	not_fmovecr
 	jmp	smovcr		;fmovecr; jmp directly to emulation
@@ -101,7 +101,7 @@ do_func:
 not_fmovecr:
 	move.w	CMDREG1B(a6),d0
 	and.l	#$7F,d0
-	cmpi.l	#$38,d0		;if the extension is >= $38, 
+	cmpi.l	#$38,d0		;if the extension is >= $38,
 	bge.b	serror		;it is illegal
 	bfextu	STAG(a6){0:3},d1
 	lsl.l	#3,d0		;make room for STAG
@@ -136,7 +136,7 @@ ld_mzinx:
 	bsr	ld_mzero	;if neg, load neg zero, return here
 	bra	t_inx2		;now, set the inx for the next inst
 *
-* Load a signed zero to fp0; do not set inex2/ainex 
+* Load a signed zero to fp0; do not set inex2/ainex
 *
 	xdef	szero
 szero:
@@ -144,7 +144,7 @@ szero:
 	bne	ld_mzero	;if neg, load neg zero
 	bra	ld_pzero	;load positive zero
 *
-* Load a signed infinity to fp0; do not set inex2/ainex 
+* Load a signed infinity to fp0; do not set inex2/ainex
 *
 	xdef	sinf
 sinf:
@@ -152,7 +152,7 @@ sinf:
 	bne	ld_minf			;if negative branch
 	bra	ld_pinf
 *
-* Load a signed one to fp0; do not set inex2/ainex 
+* Load a signed one to fp0; do not set inex2/ainex
 *
 	xdef	sone
 sone:
@@ -160,7 +160,7 @@ sone:
 	bne	ld_mone
 	bra	ld_pone
 *
-* Load a signed pi/2 to fp0; do not set inex2/ainex 
+* Load a signed pi/2 to fp0; do not set inex2/ainex
 *
 	xdef	spi_2
 spi_2:
@@ -185,13 +185,13 @@ sopr_inf:
 	bne	t_operr
 	bra	ld_pinf
 *
-*	FLOGNP1 
+*	FLOGNP1
 *
 	xdef	sslognp1
 sslognp1:
 	fmovem.x (a0),fp0
 	fcmp.b	#-1,fp0
-	fbgt	slognp1		
+	fbgt	slognp1
 	fbeq	t_dz2		;if = -1, divide by zero exception
 	fmove.l	#0,FPSR		;clr N flag
 	bra	t_operr		;take care of operands < -1
@@ -211,7 +211,7 @@ setoxm1i:
 *
 	xdef	sslogn
 sslogn:
-	btst.b	#sign_bit,LOCAL_EX(a0) 
+	btst.b	#sign_bit,LOCAL_EX(a0)
 	bne	t_operr		;take care of operands < 0
 	cmpi.w	#$3fff,LOCAL_EX(a0) ;test for 1.0 input
 	bne	slogn
@@ -224,7 +224,7 @@ sslogn:
 
 	xdef	sslognd
 sslognd:
-	btst.b	#sign_bit,LOCAL_EX(a0) 
+	btst.b	#sign_bit,LOCAL_EX(a0)
 	beq	slognd
 	bra	t_operr		;take care of operands < 0
 
@@ -246,7 +246,7 @@ sslog10:
 
 	xdef	sslog10d
 sslog10d:
-	btst.b	#sign_bit,LOCAL_EX(a0) 
+	btst.b	#sign_bit,LOCAL_EX(a0)
 	beq	slog10d
 	bra	t_operr		;take care of operands < 0
 
@@ -268,7 +268,7 @@ sslog2:
 
 	xdef	sslog2d
 sslog2d:
-	btst.b	#sign_bit,LOCAL_EX(a0) 
+	btst.b	#sign_bit,LOCAL_EX(a0)
 	beq	slog2d
 	bra	t_operr		;take care of operands < 0
 
@@ -335,7 +335,7 @@ smod_zsn:
 	btst.l	#7,d0		;test if + or -
 	beq	ld_pzero	;if pos then load +0
 	bra	ld_mzero	;else neg load -0
-	
+
 smod_fpn:
 	move.b	ETEMP(a6),d1	;get sign of src op
 	move.b	FPTEMP(a6),d0	;get sign of dst op
@@ -352,7 +352,7 @@ smod_nrm:
 	fmove.l USER_FPCR(a6),fpcr ;use user's rmode and precision
 	fmove.x FPTEMP(a6),fp0	;return dest to fp0
 	rts
-		
+
 *
 *	FREM
 *
@@ -397,7 +397,7 @@ prem:
 	lea	premt,a1
 	move.l	(a1,d1.w*4),a1
 	jmp	(a1)
-	
+
 srem_snan:
 	bra	src_nan
 srem_dnan:
@@ -415,7 +415,7 @@ srem_zsn:
 	btst.l	#7,d0		;test if + or -
 	beq	ld_pzero	;if pos then load +0
 	bra	ld_mzero	;else neg load -0
-	
+
 srem_fpn:
 	move.b	ETEMP(a6),d1	;get sign of src op
 	move.b	FPTEMP(a6),d0	;get sign of dst op
@@ -523,7 +523,7 @@ ssincosnan:
 	bsr	sto_cos
 	bra	src_nan
 *
-* This code forces default values for the zero, inf, and nan cases 
+* This code forces default values for the zero, inf, and nan cases
 * in the transcendentals code.  The CC bits must be set in the
 * stacked FPSR to be correctly reported.
 *

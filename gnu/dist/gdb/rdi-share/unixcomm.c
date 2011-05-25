@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright (C) 1995 Advanced RISC Machines Limited. All rights reserved.
- * 
+ *
  * This software may be freely used, copied, modified, and distributed
  * provided that the above copyright notice is preserved in all copies of the
  * software.
@@ -47,7 +47,7 @@
 # ifdef sun
 #  include <sys/ttydev.h>
 # endif
-# ifdef __alpha 
+# ifdef __alpha
 #  include <sys/ioctl.h>
 # else
 #  include <sys/filio.h>
@@ -138,7 +138,7 @@ extern const char *Unix_MatchValidSerialDevice(const char *name)
         /* Skip over commas */
         i++;
         break;
-      
+
       default:
         return 0;
         /* Unexpected character => error - not matched */
@@ -153,12 +153,12 @@ extern const char *Unix_MatchValidSerialDevice(const char *name)
       case 'H': {
         char ch = tolower(name[i]);
         int j, continue_from, len;
-        
+
         /* If the next character is a comma or a NULL then this is
          * a request for the default Serial port
          */
         if (name[++i] == 0 || name[i] == ',') {
-          if (ch=='s') 
+          if (ch=='s')
               sername=SERPORT1;
           break;
         }
@@ -180,9 +180,9 @@ extern const char *Unix_MatchValidSerialDevice(const char *name)
           case 's': {
             /* Match serial port */
             if (len==1) {
-              if (name[i]=='1') 
+              if (name[i]=='1')
                   sername=SERPORT1;
-              else if (name[i]=='2') 
+              else if (name[i]=='2')
                   sername=SERPORT2;
             } else if (len==strlen(SERPORT1)) {
               if (strncmp(name+i,SERPORT1,strlen(SERPORT1)) == 0)
@@ -194,7 +194,7 @@ extern const char *Unix_MatchValidSerialDevice(const char *name)
             break;
           }
 
-          case 'h': 
+          case 'h':
             /* We don't actually deal with the H case here, we just
              * match it and allow it through.
              */
@@ -344,7 +344,7 @@ extern void Unix_IsValidParallelDevice(
         /* Skip over commas */
         i++;
         break;
-      
+
       default:
       case 0:
         /* End of string or bad characcter means we have finished */
@@ -358,7 +358,7 @@ extern void Unix_IsValidParallelDevice(
       case 'H': {
         char ch = tolower(portstring[i]);
         int j, continue_from, len;
-        
+
         /* If the next character is a comma or a NULL then this is
          * a request for the default Serial or Parallel port
          */
@@ -410,7 +410,7 @@ extern void Unix_IsValidParallelDevice(
             break;
           }
 
-          case 'h': 
+          case 'h':
             /* We don't actually deal with the H case here, we just
              * match it and allow it through.
              */

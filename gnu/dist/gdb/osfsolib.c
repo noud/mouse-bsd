@@ -1,6 +1,6 @@
 /* Handle OSF/1 shared libraries for GDB, the GNU Debugger.
    Copyright 1993, 1994, 1995, 1996 Free Software Foundation, Inc.
-   
+
 This file is part of GDB.
 
 This program is free software; you can redistribute it and/or modify
@@ -233,10 +233,10 @@ solib_map_sections (so)
   struct section_table *p;
   struct cleanup *old_chain;
   bfd *abfd;
-  
+
   filename = tilde_expand (so -> so_name);
   old_chain = make_cleanup (free, filename);
-  
+
   scratch_chan = openp (getenv ("PATH"), 1, filename, O_RDONLY, 0,
 			&scratch_pathname);
   if (scratch_chan < 0)
@@ -268,7 +268,7 @@ solib_map_sections (so)
     }
   if (build_section_table (abfd, &so -> sections, &so -> sections_end))
     {
-      error ("Can't find the file sections in `%s': %s", 
+      error ("Can't find the file sections in `%s': %s",
 	     bfd_get_filename (exec_bfd), bfd_errmsg (bfd_get_error ()));
     }
 
@@ -519,7 +519,7 @@ find_solib (so_list_ptr)
   struct so_list *so_list_next = NULL;
   struct link_map *lm = NULL;
   struct so_list *new;
-  
+
   if (so_list_ptr == NULL)
     {
       /* We are setting up for a new scan through the loaded images. */
@@ -552,7 +552,7 @@ find_solib (so_list_ptr)
       else
 	{
 	  so_list_head = new;
-	}      
+	}
       so_list_next = new;
       xfer_link_map_member (new, lm);
     }
@@ -584,7 +584,7 @@ symbol_add_stub (arg)
       if (lowest_sect)
 	text_addr = bfd_section_vma (so -> abfd, lowest_sect) + LM_OFFSET (so);
     }
-  
+
   so -> objfile = symbol_file_add (so -> so_name, so -> from_tty,
 				   text_addr,
 				   0, 0, 0);
@@ -611,7 +611,7 @@ solib_add (arg_string, from_tty, target)
      char *arg_string;
      int from_tty;
      struct target_ops *target;
-{	
+{
   register struct so_list *so = NULL;   	/* link map state variable */
 
   /* Last shared library that we read.  */
@@ -620,13 +620,13 @@ solib_add (arg_string, from_tty, target)
   char *re_err;
   int count;
   int old;
-  
+
   if ((re_err = re_comp (arg_string ? arg_string : ".")) != NULL)
     {
       error ("Invalid regexp: %s", re_err);
     }
-  
-  
+
+
   /* Add the shared library sections to the section table of the
      specified target, if any.  */
   if (target)
@@ -641,7 +641,7 @@ solib_add (arg_string, from_tty, target)
 	      count += so -> sections_end - so -> sections;
 	    }
 	}
-      
+
       if (count)
 	{
 	  int update_coreops;
@@ -650,7 +650,7 @@ solib_add (arg_string, from_tty, target)
 	     here, otherwise we dereference a potential dangling pointer
 	     for each call to target_read/write_memory within this routine.  */
 	  update_coreops = core_ops.to_sections == target->to_sections;
-	     
+
 	  /* Reallocate the target's section table including the new size.  */
 	  if (target -> to_sections)
 	    {
@@ -666,7 +666,7 @@ solib_add (arg_string, from_tty, target)
 		xmalloc ((sizeof (struct section_table)) * count);
 	    }
 	  target -> to_sections_end = target -> to_sections + (count + old);
-	  
+
 	  /* Update the to_sections field in the core_ops structure
 	     if needed.  */
 	  if (update_coreops)
@@ -682,14 +682,14 @@ solib_add (arg_string, from_tty, target)
 		{
 		  count = so -> sections_end - so -> sections;
 		  memcpy ((char *) (target -> to_sections + old),
-			  so -> sections, 
+			  so -> sections,
 			  (sizeof (struct section_table)) * count);
 		  old += count;
 		}
 	    }
 	}
     }
-  
+
   /* Now add the symbol files.  */
   so = NULL;
   while ((so = find_solib (so)) != NULL)
@@ -744,7 +744,7 @@ info_sharedlibrary_command (ignore, from_tty)
 {
   register struct so_list *so = NULL;  	/* link map state variable */
   int header_done = 0;
-  
+
   if (exec_bfd == NULL)
     {
       printf_unfiltered ("No exec file.\n");
@@ -776,7 +776,7 @@ info_sharedlibrary_command (ignore, from_tty)
     }
   if (so_list_head == NULL)
     {
-      printf_unfiltered ("No shared libraries loaded at this time.\n");	
+      printf_unfiltered ("No shared libraries loaded at this time.\n");
     }
 }
 
@@ -809,7 +809,7 @@ solib_address (address)
      CORE_ADDR address;
 {
   register struct so_list *so = 0;   	/* link map state variable */
-  
+
   while ((so = find_solib (so)) != NULL)
     {
       if (so -> so_name[0] && so -> textsection)
@@ -824,12 +824,12 @@ solib_address (address)
 
 /* Called by free_all_symtabs */
 
-void 
+void
 clear_solib()
 {
   struct so_list *next;
   char *bfd_filename;
-  
+
   while (so_list_head)
     {
       if (so_list_head -> sections)
@@ -846,7 +846,7 @@ clear_solib()
       else
 	/* This happens for the executable on SVR4.  */
 	bfd_filename = NULL;
-      
+
       next = so_list_head -> next;
       if (bfd_filename)
 	free ((PTR)bfd_filename);
@@ -854,17 +854,17 @@ clear_solib()
       so_list_head = next;
     }
 }
-  
+
 /*
-  
+
 GLOBAL FUNCTION
-  
+
 	solib_create_inferior_hook -- shared library startup support
-  
+
 SYNOPSIS
-  
+
 	void solib_create_inferior_hook()
-  
+
 DESCRIPTION
 
 	When gdb starts up the inferior, it nurses it along (through the
@@ -906,7 +906,7 @@ solib_create_inferior_hook()
      which point all of the libraries will have been mapped in and we
      can go groveling around in the rld structures to find
      out what we need to know about them. */
- 
+
   clear_proceed_status ();
   stop_soon_quietly = 1;
   stop_signal = TARGET_SIGNAL_0;
@@ -957,7 +957,7 @@ _initialize_solib()
 {
   add_com ("sharedlibrary", class_files, sharedlibrary_command,
 	   "Load shared object library symbols for files matching REGEXP.");
-  add_info ("sharedlibrary", info_sharedlibrary_command, 
+  add_info ("sharedlibrary", info_sharedlibrary_command,
 	    "Status of loaded shared object libraries.");
 
   add_show_from_set

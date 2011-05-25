@@ -128,7 +128,7 @@ main(argc, argv)
 	if ((sender_semid = semget(semkey, 1, IPC_CREAT | 0640)) == -1)
 		err(1, "semget");
 
-	
+
 	sun.buf = &s_ds;
 	if (semctl(sender_semid, 0, IPC_STAT, sun) == -1)
 		err(1, "semctl IPC_STAT");

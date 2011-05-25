@@ -46,18 +46,18 @@
  * SUCH DAMAGE.
  * ---------------------------------
  * Copyright (c) Xerox Corporation 1992. All rights reserved.
- * 
+ *
  * License is granted to copy, to use, and to make and to use derivative works
  * for research and evaluation purposes, provided that Xerox is acknowledged
  * in all documentation pertaining to any such copy or derivative work. Xerox
  * grants no other licenses expressed or implied. The Xerox trade name should
  * not be used in any advertising without its written permission.
- * 
+ *
  * XEROX CORPORATION MAKES NO REPRESENTATIONS CONCERNING EITHER THE
  * MERCHANTABILITY OF THIS SOFTWARE OR THE SUITABILITY OF THIS SOFTWARE FOR
  * ANY PARTICULAR PURPOSE.  The software is provided "as is" without express
  * or implied warranty of any kind.
- * 
+ *
  * These notices must be retained in any copies of any part of this software.
  */
 
@@ -138,7 +138,7 @@ log(int severity, int syserr, char *format, ...)
 
 	va_start(ap, format);
 #else
-void 
+void
 log(severity, syserr, format, va_alist)
 	int     severity, syserr;
 	char   *format;
@@ -178,7 +178,7 @@ log(severity, syserr, format, va_alist)
 /*
  * Send a neighbors-list request.
  */
-void 
+void
 ask(dst)
 	u_int32_t  dst;
 {
@@ -186,7 +186,7 @@ ask(dst)
 			htonl(MROUTED_LEVEL), 0);
 }
 
-void 
+void
 ask2(dst)
 	u_int32_t  dst;
 {
@@ -197,7 +197,7 @@ ask2(dst)
 /*
  * Process an incoming neighbor-list message.
  */
-void 
+void
 accept_neighbors(src, dst, p, datalen, level)
 	u_int32_t	src, dst, level;
 	u_char	*p;
@@ -230,7 +230,7 @@ accept_neighbors(src, dst, p, datalen, level)
 	}
 }
 
-void 
+void
 accept_neighbors2(src, dst, p, datalen, level)
 	u_int32_t	src, dst, level;
 	u_char	*p;
@@ -247,7 +247,7 @@ accept_neighbors2(src, dst, p, datalen, level)
 	if ((level >> 16) & NF_GENID)  { printf (",genid"); }
 	if ((level >> 16) & NF_MTRACE) { printf (",mtrace"); }
 	printf ("]:\n");
-	
+
 	while (p < ep) {
 		register u_char metric;
 		register u_char thresh;
@@ -289,7 +289,7 @@ accept_neighbors2(src, dst, p, datalen, level)
 	}
 }
 
-int 
+int
 get_number(var, deflt, pargv, pargc)
 	int    *var, *pargc, deflt;
 	char ***pargv;

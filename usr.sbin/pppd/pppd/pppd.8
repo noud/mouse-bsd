@@ -1,6 +1,6 @@
 .\"	$NetBSD: pppd.8,v 1.26 1999/10/28 09:41:56 is Exp $
 .\" manual page [] for pppd 2.3
-.\" Id: pppd.8,v 1.46 1999/08/24 05:31:10 paulus Exp 
+.\" Id: pppd.8,v 1.46 1999/08/24 05:31:10 paulus Exp
 .\" SH section heading
 .\" SS subsection heading
 .\" LP paragraph
@@ -173,7 +173,7 @@ bytes of data).  (Note that for IPv6 MRU must be at least 1280)
 Set the MTU [Maximum Transmit Unit] value to \fIn\fR.  Unless the
 peer requests a smaller value via MRU negotiation, pppd will
 request that the kernel networking code send data packets of no more
-than \fIn\fR bytes through the PPP network interface.  (Note that for 
+than \fIn\fR bytes through the PPP network interface.  (Note that for
 IPv6 MTU must be at least 1280)
 .TP
 .B passive
@@ -1313,7 +1313,7 @@ invoked in the same manner and with the same parameters as the ip-up
 script.
 .TP
 .B /etc/ppp/ipv6-up
-Like /etc/ppp/ip-up, except that it is executed when the link is available 
+Like /etc/ppp/ip-up, except that it is executed when the link is available
 for sending and receiving IPv6 packets. It is executed with the parameters
 .IP
 \fIinterface-name tty-device speed local-link-local-address
@@ -1321,7 +1321,7 @@ remote-link-local-address ipparam\fR
 .TP
 .B /etc/ppp/ipv6-down
 Similar to /etc/ppp/ip-down, but it is executed when IPv6 packets can no
-longer be transmitted on the link. It is executed with the same parameters 
+longer be transmitted on the link. It is executed with the same parameters
 as the ipv6-up script.
 .TP
 .B /etc/ppp/ipx-up
@@ -1331,7 +1331,7 @@ executed with the parameters
 .IP
 \fIinterface-name tty-device speed network-number local-IPX-node-address
 remote-IPX-node-address local-IPX-routing-protocol remote-IPX-routing-protocol
-local-IPX-router-name remote-IPX-router-name ipparam pppd-pid\fR 
+local-IPX-router-name remote-IPX-router-name ipparam pppd-pid\fR
 .IP
 The local-IPX-routing-protocol and remote-IPX-routing-protocol field
 may be one of the following:

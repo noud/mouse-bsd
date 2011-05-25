@@ -248,7 +248,7 @@ int     linenum;
 			return NULL;
 		} else if (fil.fr_flags & FR_RETRST) {
 			fprintf(stderr,
-				"%d: Can only use return-rst with 'in'\n", 
+				"%d: Can only use return-rst with 'in'\n",
 				linenum);
 			return NULL;
 		}
@@ -429,7 +429,7 @@ int     linenum;
 					fprintf(stderr,
 						"%d: unknown protocol (%s)\n",
 						linenum, proto);
-					return NULL;		
+					return NULL;
 				}
 				fil.fr_proto = i;
 			}
@@ -706,7 +706,7 @@ int     linenum;
 				fprintf(stderr, "%d: bad mask (%s)\n",
 					linenum, s);
 				return -1;
-			} 
+			}
 			*msk = maskaddr.s_addr;
 		} else {
 			/*
@@ -897,7 +897,7 @@ int     linenum;
 		return 0;
 	}
 	sp = getservbyname(name, "tcp");
-	if (sp) 
+	if (sp)
 		p1 = sp->s_port;
 	sp2 = getservbyname(name, "udp");
 	if (!sp || !sp2) {
@@ -1226,7 +1226,7 @@ int     linenum;
 	(*cp)++;
 	if (isdigit(***cp)) {
 		if (!ratoi(**cp, &i, 0, 255)) {
-			fprintf(stderr, 
+			fprintf(stderr,
 				"%d: Invalid icmp code (%s) specified\n",
 				linenum, **cp);
 			return -1;
@@ -1247,7 +1247,7 @@ int     linenum;
 char	*icmpcodes[] = {
 	"net-unr", "host-unr", "proto-unr", "port-unr", "needfrag", "srcfail",
 	"net-unk", "host-unk", "isolate", "net-prohib", "host-prohib",
-	"net-tos", "host-tos", "filter-prohib", "host-preced", "preced-cutoff", 
+	"net-tos", "host-tos", "filter-prohib", "host-preced", "preced-cutoff",
 	NULL };
 /*
  * Return the number for the associated ICMP unreachable code.
@@ -1282,7 +1282,7 @@ char *str;
 int	addkeep(cp, fp, linenum)
 char	***cp;
 struct	frentry	*fp;
-int     linenum; 
+int     linenum;
 {
 	if (fp->fr_proto != IPPROTO_TCP && fp->fr_proto != IPPROTO_UDP &&
 	    fp->fr_proto != IPPROTO_ICMP && !(fp->fr_ip.fi_fl & FI_TCPUDP)) {
@@ -1442,7 +1442,7 @@ struct	frentry	*fp;
 			else
 				printf("level %s ", u);
 		}
-			
+
 	}
 	if (fp->fr_flags & FR_QUICK)
 		printf("quick ");

@@ -1850,7 +1850,7 @@ Description:
 Returns @code{.TRUE.} if bit @var{Pos} in @var{I} is
 1, @code{.FALSE.} otherwise.
 
-(Bit 0 is the low-order (rightmost) bit, adding the value 
+(Bit 0 is the low-order (rightmost) bit, adding the value
 @ifinfo
 2**0,
 @end ifinfo
@@ -1861,7 +1861,7 @@ $2^0$,
 @end iftex
 or 1,
 to the number if set to 1;
-bit 1 is the next-higher-order bit, adding 
+bit 1 is the next-higher-order bit, adding
 @ifinfo
 2**1,
 @end ifinfo
@@ -1871,7 +1871,7 @@ $2^1$,
 @end tex
 @end iftex
 or 2;
-bit 2 adds 
+bit 2 adds
 @ifinfo
 2**2,
 @end ifinfo
@@ -6639,14 +6639,14 @@ Description:
 
 The rightmost @var{Size} bits of the argument @var{I}
 are shifted circularly @var{Shift}
-places, i.e.@: the bits shifted out of one end are shifted into 
+places, i.e.@: the bits shifted out of one end are shifted into
 the opposite end.
 No bits are lost.
 The unshifted bits of the result are the same as
 the unshifted bits of @var{I}.
 The  absolute value of the argument @var{Shift}
-must be less than or equal to @var{Size}.  
-The value of @var{Size} must be greater than or equal to one and less than 
+must be less than or equal to @var{Size}.
+The value of @var{Size} must be greater than or equal to one and less than
 or equal to @samp{BIT_SIZE(@var{I})}.
 
 @xref{IShft Intrinsic}, for the logical shift equivalent.

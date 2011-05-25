@@ -106,7 +106,7 @@ scdebug_call(p, code, args)
 	if (!(scdebug & SCDEBUG_ALL || code < 0 || code >= em->e_nsysent ||
 	     sy->sy_call == sys_nosys))
 		return;
-		
+
 	printf("proc %d (%s): %s num ", p->p_pid, p->p_comm, em->e_name);
 	if (code < 0 || code >= em->e_nsysent)
 		printf("OUT OF RANGE (%d)", code);
@@ -142,7 +142,7 @@ scdebug_ret(p, code, error, retval)
 	if (!(scdebug & SCDEBUG_ALL || code < 0 || code >= em->e_nsysent ||
 	    sy->sy_call == sys_nosys))
 		return;
-		
+
 	printf("proc %d (%s): %s num ", p->p_pid, p->p_comm, em->e_name);
 	if (code < 0 || code >= em->e_nsysent)
 		printf("OUT OF RANGE (%d)", code);

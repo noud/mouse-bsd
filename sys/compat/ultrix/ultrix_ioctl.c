@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * loosely from: Header: sunos_ioctl.c,v 1.7 93/05/28 04:40:43 torek Exp 
+ * loosely from: Header: sunos_ioctl.c,v 1.7 93/05/28 04:40:43 torek Exp
  */
 
 #include "opt_compat_ultrix.h"
@@ -81,7 +81,7 @@ static struct speedtab sptab[] = {
 	{ -1, -1 }
 };
 
-static u_long s2btab[] = { 
+static u_long s2btab[] = {
 	0,
 	50,
 	75,
@@ -201,7 +201,7 @@ stios2btios(st, bt)
 	case 0x00000030:
 		r = CS8;
 		break;
-	}		
+	}
 	r |=	((l & 0x00000040) ? CSTOPB	: 0);
 	r |=	((l & 0x00000080) ? CREAD	: 0);
 	r |= 	((l & 0x00000100) ? PARENB	: 0);
@@ -501,7 +501,7 @@ ultrix_sys_ioctl(p, v, retval)
 		int on = 1;
 		return (*ctl)(fp, TIOCCONS, (caddr_t)&on, p);
 	    }
-	case _IOW('t', 37, struct sunos_ttysize): 
+	case _IOW('t', 37, struct sunos_ttysize):
 	    {
 		struct winsize ws;
 		struct sunos_ttysize ss;
@@ -517,7 +517,7 @@ ultrix_sys_ioctl(p, v, retval)
 
 		return ((*ctl)(fp, TIOCSWINSZ, (caddr_t)&ws, p));
 	    }
-	case _IOW('t', 38, struct sunos_ttysize): 
+	case _IOW('t', 38, struct sunos_ttysize):
 	    {
 		struct winsize ws;
 		struct sunos_ttysize ss;
@@ -537,17 +537,17 @@ ultrix_sys_ioctl(p, v, retval)
 		SCARG(uap, com) = TIOCGPGRP;
 		break;
 
-	/* Emulate termio or termios tcget() */	
+	/* Emulate termio or termios tcget() */
 	case ULTRIX_TCGETA:
-	case ULTRIX_TCGETS: 
+	case ULTRIX_TCGETS:
 	    {
 		struct termios bts;
 		struct ultrix_termios sts;
 		struct ultrix_termio st;
-	
+
 		if ((error = (*ctl)(fp, TIOCGETA, (caddr_t)&bts, p)) != 0)
 			return error;
-	
+
 		btios2stios (&bts, &sts);
 		if (SCARG(uap, com) == ULTRIX_TCGETA) {
 			stios2stio (&sts, &st);
@@ -567,7 +567,7 @@ ultrix_sys_ioctl(p, v, retval)
 		struct ultrix_termios sts;
 		struct ultrix_termio st;
 		int result;
-	       
+
 		if ((error = copyin(SCARG(uap, data), (caddr_t)&st,
 		    sizeof (st))) != 0)
 			return error;
@@ -718,7 +718,7 @@ ultrix_sys_ioctl(p, v, retval)
 	/* 30: _IOWR('i', 30, struct arpreq):  Ultrix SIOCSARP */
 	/* 31: _IOWR('i', 31, struct arpreq):  Ultrix SIOCGARP */
 	/* 32: _IOWR('i', 32, struct arpreq):  Ultrix SIOCDARP */
-	
+
 	case _IOWR('i', 41, struct ifreq):
 		IFREQ_INOUT(SIOCGIFMETRIC);
 

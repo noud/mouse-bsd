@@ -336,7 +336,7 @@ main(argc, argv)
 
 	if (all == 0)
 		errx(1, "interface %s does not exist", name);
-	
+
 
 	exit (0);
 }
@@ -513,7 +513,7 @@ status()
 			}
 		} else for (p = afs; p->af_name; p++) {
 			if (p->af_af == info.rti_info[RTAX_IFA]->sa_family &&
-			    p->af_status != ether_status) 
+			    p->af_status != ether_status)
 				(*p->af_status)(0);
 		}
 	}
@@ -577,7 +577,7 @@ in_status(force)
 #if 0
 	char *inet_ntoa();
 #endif
-	
+
 	memset(&null_sin, 0, sizeof(null_sin));
 
 	sin = (struct sockaddr_in *)info.rti_info[RTAX_IFA];
@@ -620,7 +620,7 @@ in6_status(force)
 #if 0
 	char *inet_ntop();
 #endif
-	
+
 
 	memset(&null_sin, 0, sizeof(null_sin));
 

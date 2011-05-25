@@ -184,7 +184,7 @@ ascattach(pdp, dp, auxp)
 #if ASC_POLL > 0
         if (boot_args) {
         	char *ptr;
-       
+
 		ptr = strstr(boot_args, "ascpoll");
 		if (ptr)
 			asc_poll = 1;
@@ -312,7 +312,7 @@ asc_dmastop(dev)
 			while ((sdp->ISTR & ISTR_FE_FLG) == 0)
 				;
 		}
-		/* 
+		/*
 		 * clear possible interrupt and stop dma
 		 */
 		sdp->CINT = 1;
@@ -355,7 +355,7 @@ asc_dmaintr(dev)
 		sdp->CINT = 1;	/* clear possible interrupt */
 
 		/*
-		 * check for SCSI ints in the same go and 
+		 * check for SCSI ints in the same go and
 		 * eventually save an interrupt
 		 */
 	}
@@ -391,7 +391,7 @@ asc_dmanext(dev)
 		return(0);
 	}
 	if ((dev->sc_dmacmd & (CNTR_TCEN | CNTR_DDIR)) == 0) {
-		  /* 
+		  /*
 		   * only FLUSH if terminal count not enabled,
 		   * and reading from peripheral
 		   */
@@ -399,7 +399,7 @@ asc_dmanext(dev)
 		while ((sdp->ISTR & ISTR_FE_FLG) == 0)
 			;
         }
-	/* 
+	/*
 	 * clear possible interrupt and stop dma
 	 */
 	sdp->CINT = 1;	/* clear possible interrupt */
@@ -450,7 +450,7 @@ asc_intr(arg)
 {
 	struct asc_softc *sc = arg;
 	int intr;
-	
+
 /*	printf("ascintr:");*/
        	intr = ReadByte(sc->sc_intstat);
 /*	printf("%02x\n", intr);*/

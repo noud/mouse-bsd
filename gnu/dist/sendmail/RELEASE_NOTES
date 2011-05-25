@@ -411,7 +411,7 @@ summary of the changes in that release.
 		only done if you had magic characters (0x81) to indicate
 		macro expansion.  Now $x will be expanded.  This means that
 		real dollar signs have to be backslash escaped.
-	TCP Wrappers expects "unknown" in the hostname argument if the 
+	TCP Wrappers expects "unknown" in the hostname argument if the
 		reverse DNS lookup for the incoming connection fails.
 		Problem noted by Randy Grimshaw of Syracuse University and
 		Wietse Venema of the Global Security Analysis Lab at
@@ -459,7 +459,7 @@ summary of the changes in that release.
 		output easier to decipher.  Problem noted by Aidan Nichol
 		of Procter & Gamble.
 	The LDAP map -s flag was not properly parsed and the error message
-		given included the remainder of the arguments instead of 
+		given included the remainder of the arguments instead of
 		solely the argument in error.  Problem noted by Aidan Nichol
 		of Procter & Gamble.
 	New DontBlameSendmail option.  This option allows administrators to
@@ -756,7 +756,7 @@ summary of the changes in that release.
 		Kari Hurtta of the Finnish Meteorological Institute.
 	CONFIG: .cf files are now stored in the same directory with the
 		.mc files instead of in the obj directory.
-	CONFIG: New options confSINGLE_LINE_FROM_HEADER, 
+	CONFIG: New options confSINGLE_LINE_FROM_HEADER,
 		confALLOW_BOGUS_HELO, and confMUST_QUOTE_CHARS for
 		setting SingleLineFromHeader, AllowBogusHELO, and
 		MustQuoteChars respectively.
@@ -765,7 +765,7 @@ summary of the changes in that release.
 		status on a per-user basis.  Code donated by John Myers of
 		CMU (now of Netscape).
 	MAIL.LOCAL: HP-UX support from Randall S. Winchester of the
-		University of Maryland.  NOTE: mail.local is not 
+		University of Maryland.  NOTE: mail.local is not
 		compatible with the stock HP-UX mail format.  Be sure to
 		read mail.local/README.
 	MAIL.LOCAL: Prevent other mail delivery agents from stealing a
@@ -994,7 +994,7 @@ summary of the changes in that release.
 			chownsafe() to always return 0 even if the OS does
 			not permit file giveaways.  Problem noted by
 			Yasutaka Sumi of The University of Tokyo.
-		IRIX6: Syslog buffer size set to 512 bytes.  Reported by 
+		IRIX6: Syslog buffer size set to 512 bytes.  Reported by
 			Gerald Rinske of Siemens Business Services VAS.
 		Linux: Pad process title with NULLs.  Problem noted by
 			Jon Lewis of Florida Digital Turnpike.
@@ -2251,7 +2251,7 @@ summary of the changes in that release.
 		framework is gratefully appreciated.
 	New SingleThreadDelivery option (requires HostStatusDirectory to
 		operate).  Avoids letting two sendmails on the local machine
-		open connections to the same remote host at the same time.  
+		open connections to the same remote host at the same time.
 		This reduces load on the other machine, but can cause mail to
 		be delayed (for example, if one sendmail is delivering a huge
 		message, other sendmails won't be able to send even small
@@ -3182,7 +3182,7 @@ summary of the changes in that release.
 	Add multiple queue timeouts (both return and warning).  These are
 		set by the Precedence: or Priority: header fields to one of
 		three values.  If a Priority: is set and has value "normal",
-		"urgent", or "non-urgent" the corresponding timeouts are 
+		"urgent", or "non-urgent" the corresponding timeouts are
 		used.  If no priority is set, the Precedence: is consulted;
 		if negative, non-urgent timeouts are used; if greater than
 		zero, urgent timeouts are used.  Otherwise, normal timeouts
@@ -5067,7 +5067,7 @@ summary of the changes in that release.
 	CONFIG: class $=Z is a set of UUCP hosts that use uucp-dom
 		connections (domain-ized UUCP).
 	CONFIG: fix bug in default maps (-o must be before database file
-		name).  Pointed out by Christophe Wolfhugel.  
+		name).  Pointed out by Christophe Wolfhugel.
 	CONFIG: add FEATURE(nodns) to state that we are not relying on
 		DNS.  This would presumably be used in UUCP islands.
 	CONFIG: add OSTYPE(nextstep) and OSTYPE(linux).

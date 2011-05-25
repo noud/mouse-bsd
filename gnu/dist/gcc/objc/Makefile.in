@@ -41,7 +41,7 @@ AR = ar
 AR_FLAGS = rc
 
 # Define this as & to perform parallel make on a Sequent.
-# Note that this has some bugs, and it seems currently necessary 
+# Note that this has some bugs, and it seems currently necessary
 # to compile all the gen* files first by hand to avoid erroneous results.
 P =
 
@@ -69,7 +69,7 @@ objc-runtime:
 	cd ..; $(MAKE) libobjc.a
 
 # copy objc headers to installation include directory
-copy-headers: 
+copy-headers:
 	-rm -fr $(incinstalldir)/objc
 	-mkdir $(incinstalldir)/objc
 	for file in $(OBJC_H); do \

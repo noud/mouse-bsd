@@ -80,7 +80,7 @@ ENTRY(iic_set_state)
 */
 
 	IRQdisable
- 
+
 	/* Get current value of control register */
 
 	ldrb	r3, [r2, #(IOMD_IOCR << 2)]

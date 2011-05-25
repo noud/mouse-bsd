@@ -31,7 +31,7 @@
 #ifndef __SGI_STL_INTERNAL_BVECTOR_H
 #define __SGI_STL_INTERNAL_BVECTOR_H
 
-__STL_BEGIN_NAMESPACE 
+__STL_BEGIN_NAMESPACE
 
 static const int __WORD_BIT = int(CHAR_BIT*sizeof(unsigned int));
 
@@ -48,9 +48,9 @@ public:
   __bit_reference() : p(0), mask(0) {}
   operator bool() const { return !(!(*p & mask)); }
   __bit_reference& operator=(bool x) {
-    if (x)      
+    if (x)
       *p |= mask;
-    else 
+    else
       *p &= ~mask;
     return *this;
   }
@@ -222,8 +222,8 @@ struct __bit_const_iterator
   difference_type operator-(const_iterator x) const {
     return __WORD_BIT * (p - x.p) + offset - x.offset;
   }
-  const_reference operator[](difference_type i) { 
-    return *(*this + i); 
+  const_reference operator[](difference_type i) {
+    return *(*this + i);
   }
   bool operator==(const const_iterator& x) const {
     return p == x.p && offset == x.offset;
@@ -239,7 +239,7 @@ struct __bit_const_iterator
 // The next few lines are confusing.  What we're doing is declaring a
 //  partial specialization of vector<T, Alloc> if we have the necessary
 //  compiler support.  Otherwise, we define a class bit_vector which uses
-//  the default allocator.  In either case, we typedef "data_allocator" 
+//  the default allocator.  In either case, we typedef "data_allocator"
 //  appropriately.
 
 #if defined(__STL_CLASS_PARTIAL_SPECIALIZATION) && !defined(__STL_NEED_BOOL)
@@ -262,12 +262,12 @@ class bit_vector
 #      ifdef __SGI_STL_VECBOOL_TEMPLATE
   typedef simple_alloc<unsigned int, Alloc> data_allocator;
 #      else /* __SGI_STL_VECBOOL_TEMPLATE */
-  typedef simple_alloc<unsigned int, alloc> data_allocator;  
+  typedef simple_alloc<unsigned int, alloc> data_allocator;
 #      endif /* __SGI_STL_VECBOOL_TEMPLATE */
 public:
   typedef bool value_type;
   typedef size_t size_type;
-  typedef ptrdiff_t difference_type; 
+  typedef ptrdiff_t difference_type;
   typedef __bit_reference reference;
   typedef bool const_reference;
   typedef __bit_reference* pointer;
@@ -280,7 +280,7 @@ public:
   typedef reverse_iterator<const_iterator> const_reverse_iterator;
   typedef reverse_iterator<iterator> reverse_iterator;
 #else /* __STL_CLASS_PARTIAL_SPECIALIZATION */
-  typedef reverse_iterator<const_iterator, value_type, const_reference, 
+  typedef reverse_iterator<const_iterator, value_type, const_reference,
                            difference_type> const_reverse_iterator;
   typedef reverse_iterator<iterator, value_type, reference, difference_type>
           reverse_iterator;
@@ -328,7 +328,7 @@ protected:
     start = iterator();
     finish = iterator();
     end_of_storage = 0;
-    for ( ; first != last; ++first) 
+    for ( ; first != last; ++first)
       push_back(*first);
   }
 
@@ -374,7 +374,7 @@ protected:
         start = iterator(q, 0);
       }
     }
-  }      
+  }
 
 #endif /* __STL_MEMBER_TEMPLATES */
 
@@ -385,12 +385,12 @@ public:
   const_iterator end() const { return finish; }
 
   reverse_iterator rbegin() { return reverse_iterator(end()); }
-  const_reverse_iterator rbegin() const { 
-    return const_reverse_iterator(end()); 
+  const_reverse_iterator rbegin() const {
+    return const_reverse_iterator(end());
   }
   reverse_iterator rend() { return reverse_iterator(begin()); }
-  const_reverse_iterator rend() const { 
-    return const_reverse_iterator(begin()); 
+  const_reverse_iterator rend() const {
+    return const_reverse_iterator(begin());
   }
 
   size_type size() const { return size_type(end() - begin()); }
@@ -498,7 +498,7 @@ public:
     insert_range(position, first, last, iterator_category(first));
   }
 #else /* __STL_MEMBER_TEMPLATES */
-  void insert(iterator position, const_iterator first, 
+  void insert(iterator position, const_iterator first,
               const_iterator last) {
     if (first == last) return;
     size_type n = 0;
@@ -541,7 +541,7 @@ public:
     }
   }
 #endif /* __STL_MEMBER_TEMPLATES */
-  
+
   void insert(iterator position, size_type n, bool x) {
     if (n == 0) return;
     if (capacity() - size() >= n) {
@@ -576,7 +576,7 @@ public:
     return first;
   }
   void resize(size_type new_size, bool x = bool()) {
-    if (new_size < size()) 
+    if (new_size < size())
       erase(begin() + difference_type(new_size), end());
     else
       insert(end(), new_size - size(), x);
@@ -607,7 +607,7 @@ inline bool operator<(const bit_vector& x, const bit_vector& y) {
 #pragma reset woff 1174
 #endif
 
-__STL_END_NAMESPACE 
+__STL_END_NAMESPACE
 
 #endif /* __SGI_STL_INTERNAL_BVECTOR_H */
 

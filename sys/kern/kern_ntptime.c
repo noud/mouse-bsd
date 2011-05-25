@@ -70,7 +70,7 @@
 
 /*
  * The following variables are used by the hardclock() routine in the
- * kern_clock.c module and are described in that module. 
+ * kern_clock.c module and are described in that module.
  */
 extern struct timeval time;	/* kernel time variable */
 extern int time_state;		/* clock state */

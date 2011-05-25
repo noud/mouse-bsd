@@ -63,7 +63,7 @@ struct uvm_aiodesc {
 struct uvm_pagerops {
 	void		(*pgo_init) __P((void));/* init pager */
 	void		(*pgo_reference)	/* add reference to obj */
-			 __P((struct uvm_object *));		
+			 __P((struct uvm_object *));
 	void			(*pgo_detach)	/* drop reference to obj */
 			 __P((struct uvm_object *));
 	int			(*pgo_fault)	/* special nonstd fault fn */
@@ -71,15 +71,15 @@ struct uvm_pagerops {
 				 vm_page_t *, int, int, vm_fault_t,
 				 vm_prot_t, int));
 	boolean_t		(*pgo_flush)	/* flush pages out of obj */
-			 __P((struct uvm_object *, vaddr_t, 
+			 __P((struct uvm_object *, vaddr_t,
 				vaddr_t, int));
 	int			(*pgo_get)	/* get/read page */
-			 __P((struct uvm_object *, vaddr_t, 
+			 __P((struct uvm_object *, vaddr_t,
 				 vm_page_t *, int *, int, vm_prot_t, int, int));
 	int			(*pgo_asyncget)	/* start async get */
 			 __P((struct uvm_object *, vaddr_t, int));
 	int			(*pgo_put)	/* put/write page */
-			 __P((struct uvm_object *, vm_page_t *, 
+			 __P((struct uvm_object *, vm_page_t *,
 				 int, boolean_t));
 	void			(*pgo_cluster)	/* return range of cluster */
 			__P((struct uvm_object *, vaddr_t, vaddr_t *,
@@ -124,7 +124,7 @@ struct uvm_pagerops {
 
 #ifdef UVM_PAGER_INLINE
 #define PAGER_INLINE static __inline
-#else 
+#else
 #define PAGER_INLINE /* nothing */
 #endif /* UVM_PAGER_INLINE */
 
@@ -132,21 +132,21 @@ struct uvm_pagerops {
  * prototypes
  */
 
-void		uvm_pager_dropcluster __P((struct uvm_object *, 
-					struct vm_page *, struct vm_page **, 
+void		uvm_pager_dropcluster __P((struct uvm_object *,
+					struct vm_page *, struct vm_page **,
 					int *, int));
 void		uvm_pager_init __P((void));
-int		uvm_pager_put __P((struct uvm_object *, struct vm_page *, 
-				   struct vm_page ***, int *, int, 
+int		uvm_pager_put __P((struct uvm_object *, struct vm_page *,
+				   struct vm_page ***, int *, int,
 				   vaddr_t, vaddr_t));
 
 PAGER_INLINE struct vm_page *uvm_pageratop __P((vaddr_t));
 
-vaddr_t	uvm_pagermapin __P((struct vm_page **, int, 
+vaddr_t	uvm_pagermapin __P((struct vm_page **, int,
 				    struct uvm_aiodesc **, int));
 void		uvm_pagermapout __P((vaddr_t, int));
 struct vm_page **uvm_mk_pcluster  __P((struct uvm_object *, struct vm_page **,
-				       int *, struct vm_page *, int, 
+				       int *, struct vm_page *, int,
 				       vaddr_t, vaddr_t));
 void		uvm_shareprot __P((vm_map_entry_t, vm_prot_t));
 

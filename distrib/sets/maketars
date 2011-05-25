@@ -24,7 +24,7 @@ while : ; do
 	-b*)
 		lists="$xlists $nlists"
 		;;
-	-x*)	
+	-x*)
 		lists=$xlists
 		;;
 	-a*)
@@ -39,12 +39,12 @@ while : ; do
 	-d*)
 		dest=$2; shift
 		;;
-	-t*)	
+	-t*)
 		tars=$2; shift
 		;;
 	-*)
 		cat 1>&2 <<USAGE
-Usage: $0 [-b] [-x] [-a arch] [-m machine] [-s setsdir] 
+Usage: $0 [-b] [-x] [-a arch] [-m machine] [-s setsdir]
 		[-d dest] [-t tars] [setname ...]
 	-b		make netbsd + x11 lists
 	-x		only make x11 lists

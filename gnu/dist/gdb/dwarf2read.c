@@ -42,7 +42,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "gdb_string.h"
 #include <sys/types.h>
 
-/* .debug_info header for a compilation unit 
+/* .debug_info header for a compilation unit
    Because of alignment constraints, this structure has padding and cannot
    be mapped directly onto the beginning of the .debug_info section.  */
 typedef struct comp_unit_header
@@ -318,7 +318,7 @@ static int islocal;		/* Kludge to identify local variables */
 static int frame_base_reg;
 static CORE_ADDR frame_base_offset;
 
-/* This value is added to each symbol value.  FIXME:  Generalize to 
+/* This value is added to each symbol value.  FIXME:  Generalize to
    the section_offsets structure used by dbxread (once this is done,
    pass the appropriate section number to end_symtab).  */
 static CORE_ADDR baseaddr;	/* Add to each symbol value */
@@ -645,7 +645,7 @@ static void dwarf2_add_field PARAMS ((struct field_info *, struct die_info *,
 				      struct objfile *));
 
 static void dwarf2_attach_fields_to_type PARAMS ((struct field_info *,
-						  struct type *, 
+						  struct type *,
 						  struct objfile *));
 
 static char *skip_member_fn_name PARAMS ((char *));
@@ -852,7 +852,7 @@ dwarf2_build_psymtabs (objfile, section_offsets, mainline)
   else
 #endif
     /* only test this case for now */
-    {		
+    {
       /* In this case we have to work a bit harder */
       dwarf2_build_psymtabs_hard (objfile, section_offsets, mainline);
     }
@@ -1050,7 +1050,7 @@ scan_partial_symbols (info_ptr, objfile, lowpc, highpc)
 
   int nesting_level = 1;
   int has_pc_info;
-  
+
   *lowpc  = ((CORE_ADDR) -1);
   *highpc = ((CORE_ADDR) 0);
 
@@ -3740,7 +3740,7 @@ dwarf_attr (die, name)
       if (ref_die)
 	return dwarf_attr (ref_die, name);
     }
-    
+
   return NULL;
 }
 
@@ -4014,9 +4014,9 @@ done:
 
 	DW_AT_name:		/srcdir/list0.c
 	DW_AT_comp_dir:		/compdir
-	files.files[0].name:	list0.h		
+	files.files[0].name:	list0.h
 	files.files[0].dir:	/srcdir
-	files.files[1].name:	list0.c		
+	files.files[1].name:	list0.c
 	files.files[1].dir:	/srcdir
 
    The line number information for list0.c has to end up in a single
@@ -5609,7 +5609,7 @@ dwarf2_fundamental_type (objfile, typeid)
    DW_AT_frame_base attribute, the global islocal flag is set.
    Hopefully the machine dependent code knows how to set up a virtual
    frame pointer for the local references.
- 
+
    Note that stack[0] is unused except as a default error return.
    Note that stack overflow is not yet handled.  */
 

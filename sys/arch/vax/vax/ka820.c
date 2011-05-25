@@ -48,7 +48,7 @@
 #include <sys/device.h>
 #include <sys/systm.h>
 
-#include <vm/vm.h> 
+#include <vm/vm.h>
 #include <vm/vm_kern.h>
 
 #include <machine/ka820.h>
@@ -258,7 +258,7 @@ ms820_attach(parent, self, aux)
 	if ((MEMRD(BIREG_VAXBICSR) & BICSR_STS) == 0)
 		printf(": failed self test\n");
 	else
-		printf(": size %dMB, %s chips\n", ((MEMRD(MSREG_CSR1) & 
+		printf(": size %dMB, %s chips\n", ((MEMRD(MSREG_CSR1) &
 		    MS1_MSIZEMASK) >> 20), (MEMRD(MSREG_CSR1) & MS1_RAMTYMASK
 		    ? MEMRD(MSREG_CSR1) & MS1_RAMTY256K ? "256K":"1M":"64K"));
 

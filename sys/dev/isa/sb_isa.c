@@ -148,8 +148,8 @@ sb_isa_attach(parent, self, aux)
 	struct sbdsp_softc *sc = (struct sbdsp_softc *)self;
 	struct isa_attach_args *ia = aux;
 
-	if (!sbfind(parent, sc, ia) || 
-	    bus_space_map(sc->sc_iot, ia->ia_iobase, ia->ia_iosize, 
+	if (!sbfind(parent, sc, ia) ||
+	    bus_space_map(sc->sc_iot, ia->ia_iobase, ia->ia_iosize,
 			  0, &sc->sc_ioh)) {
 		printf("%s: sbfind failed\n", sc->sc_dev.dv_xname);
 		return;

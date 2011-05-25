@@ -37,7 +37,7 @@
 .Sh 3 "Text, data, and stack
 .PP
 Each process begins execution with three logical areas of memory
-called text, data, and stack.  
+called text, data, and stack.
 The text area is read-only and shared,
 while the data and stack areas are writable and private to the process.
 Both the data and stack areas may be extended and contracted on program

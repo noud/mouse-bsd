@@ -52,7 +52,7 @@
  *	CAVEAT: This source code is provided "as-is" by BCDL Labs, and any
  *	 warranties of ANY kind are disclaimed.  We don't even claim that it
  *	 won't crash your hard disk.  Basically, we want a little credit if
- *	 it works, but we don't want to get mail-bombed if it doesn't. 
+ *	 it works, but we don't want to get mail-bombed if it doesn't.
  */
 
 /*

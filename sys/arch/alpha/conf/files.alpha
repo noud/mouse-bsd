@@ -164,7 +164,7 @@ device	scc: tty
 attach	scc at ioasic
 file	arch/alpha/tc/scc.c		scc		needs-count
 
-# 8530 UARTs using the MI 8530 driver   
+# 8530 UARTs using the MI 8530 driver
 device	zsc { channel = -1 }
 attach	zsc at ioasic with zsc_ioasic
 file	arch/alpha/tc/zs_ioasic.c	zsc_ioasic

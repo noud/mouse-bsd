@@ -59,7 +59,7 @@ struct cfattach cs_isa_ca = {
 	sizeof(struct cs_softc), cs_isa_probe, cs_isa_attach
 };
 
-int 
+int
 cs_isa_probe(parent, cf, aux)
 	struct device *parent;
 	struct cfdata *cf;
@@ -176,7 +176,7 @@ cs_isa_probe(parent, cf, aux)
 	return (rv);
 }
 
-void 
+void
 cs_isa_attach(parent, self, aux)
 	struct device *parent, *self;
 	void *aux;

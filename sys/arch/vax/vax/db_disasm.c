@@ -16,7 +16,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *	This product includes software developed at Ludd, University of 
+ *	This product includes software developed at Ludd, University of
  *	Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -69,7 +69,7 @@
  * - if jump/branch calculate (and display) the target-address
  */
 
-/* 
+/*
 #define BROKEN_DB_REGS
 */
 #ifdef	BROKEN_DB_REGS
@@ -547,7 +547,7 @@ add_off(ib, loc)
 
 	if (!loc)
 		return;
-	  
+
 	diff = INT_MAX;
 	symname = NULL;
 	sym = db_search_symbol(loc, DB_STGY_ANY, &diff);

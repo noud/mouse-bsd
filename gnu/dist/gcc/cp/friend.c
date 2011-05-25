@@ -72,7 +72,7 @@ is_friend (type, supplicant)
 
 		  if (TREE_CODE (TREE_VALUE (friends)) == TEMPLATE_DECL)
 		    {
-		      if (is_specialization_of (supplicant, 
+		      if (is_specialization_of (supplicant,
 						TREE_VALUE (friends)))
 			return 1;
 
@@ -96,18 +96,18 @@ is_friend (type, supplicant)
     {
       if (type == supplicant)
 	return 1;
-      
+
       list = CLASSTYPE_FRIEND_CLASSES (TREE_TYPE (TYPE_MAIN_DECL (type)));
       for (; list ; list = TREE_CHAIN (list))
 	{
 	  tree t = TREE_VALUE (list);
 
-	  if (TREE_CODE (t) == TEMPLATE_DECL ? 
+	  if (TREE_CODE (t) == TEMPLATE_DECL ?
 	      is_specialization_of (TYPE_MAIN_DECL (supplicant), t) :
 	      comptypes (supplicant, t, 1))
 	    return 1;
 	}
-    }      
+    }
 
   if (declp && DECL_FUNCTION_MEMBER_P (supplicant))
     context = DECL_CLASS_CONTEXT (supplicant);
@@ -273,13 +273,13 @@ make_friend_class (type, friend_type)
     friend_type = CLASSTYPE_TI_TEMPLATE (friend_type);
 
   classes = CLASSTYPE_FRIEND_CLASSES (type);
-  while (classes 
+  while (classes
 	 /* Stop if we find the same type on the list.  */
 	 && !(TREE_CODE (TREE_VALUE (classes)) == TEMPLATE_DECL ?
 	      friend_type == TREE_VALUE (classes) :
 	      comptypes (TREE_VALUE (classes), friend_type, 1)))
     classes = TREE_CHAIN (classes);
-  if (classes) 
+  if (classes)
     cp_warning ("`%T' is already a friend of `%T'",
 		TREE_VALUE (classes), type);
   else
@@ -420,7 +420,7 @@ do_friend (ctype, declarator, decl, parmdecls, flags, quals, funcdef_flag)
 	     FUNCTION_DECL is not needed for other purposes.  Don't do this
 	     for a template instantiation.  */
 	  if (!is_friend_template)
-	    {  
+	    {
 	      /* However, we don't call pushdecl() for a friend
 		 function of a template class, since in general,
 		 such a declaration depends on template
@@ -429,8 +429,8 @@ do_friend (ctype, declarator, decl, parmdecls, flags, quals, funcdef_flag)
 	      if (template_class_depth (current_class_type) == 0)
 		decl = pushdecl (decl);
 	    }
-	  else 
-	    decl = push_template_decl (decl); 
+	  else
+	    decl = push_template_decl (decl);
 
 	  if (! funcdef_flag && ! flag_guiding_decls && ! is_friend_template
 	      && current_template_parms && uses_template_parms (decl))
@@ -449,7 +449,7 @@ do_friend (ctype, declarator, decl, parmdecls, flags, quals, funcdef_flag)
 	}
 
       make_decl_rtl (decl, NULL_PTR, 1);
-      add_friend (current_class_type, 
+      add_friend (current_class_type,
 		  is_friend_template ? DECL_TI_TEMPLATE (decl) : decl);
       DECL_FRIEND_P (decl) = 1;
     }

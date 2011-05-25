@@ -47,11 +47,11 @@ print_operand (lookup, format, args)
 
   while (*format)
     {
-      switch ( c = *format++) 
+      switch ( c = *format++)
 	{
 	case '$':
 	  val = args[(*format++) - '0'];
-	  if (lookup) 
+	  if (lookup)
 	    {
 #if 0
 	      name = findname(val);
@@ -59,7 +59,7 @@ print_operand (lookup, format, args)
 		fpr(stream, "%s", name);
 	      else
 #endif
-		local_info->print_address_func (val, local_info);  
+		local_info->print_address_func (val, local_info);
 	    }
 	  else
 	    fpr (stream, "0x%x", val);
@@ -71,7 +71,7 @@ print_operand (lookup, format, args)
 	}
     }
 }
-int 
+int
 print_insn_w65(memaddr, info)
      bfd_vma memaddr;
      struct disassemble_info *info;
@@ -88,17 +88,17 @@ print_insn_w65(memaddr, info)
 stream = info->stream;
   fpr = info->fprintf_func;
 local_info =    info;
-  for (i = 0; i <4 && status == 0; i++) 
+  for (i = 0; i <4 && status == 0; i++)
     {
     status = info->read_memory_func(memaddr+i, insn + i, 1, info);
   }
 
 
-  for (op = optable; op->val != insn[0]; op++) 
+  for (op = optable; op->val != insn[0]; op++)
     ;
 
   fpr(stream,"%s", op->name);
-  
+
   /* Prepare all the posible operand values */
   {
     int size = 1;

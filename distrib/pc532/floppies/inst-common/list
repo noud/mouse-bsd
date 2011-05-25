@@ -105,5 +105,5 @@ SYMLINK /instbin		usr/local/bin/download
 COPY	${TOPDIR}/inst-common/dot.commonutils	.commonutils
 COPY	${TOPDIR}/inst-common/termcap.vt100	usr/share/misc/termcap
 
-#the lists of obsolete files used by sysinst  
+#the lists of obsolete files used by sysinst
 SPECIAL sh ${CURDIR}/../../../../distrib/sets/makeobsolete -b -s ${CURDIR}/../../../../distrib/sets -t ./dist

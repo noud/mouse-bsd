@@ -262,7 +262,7 @@ iteinit(ip)
 
 	if (ip->flags & ITE_INITED)
 		return;
-	
+
 	ip->curx = 0;
 	ip->cury = 0;
 	ip->cursorx = 0;
@@ -540,7 +540,7 @@ itefilter(stat, c)
 	case KBD_EXT_RIGHT_DOWN:
 		metamode = 1;
 		return;
-		
+
 	case KBD_EXT_LEFT_UP:
 	case KBD_EXT_RIGHT_UP:
 		metamode = 0;
@@ -564,8 +564,8 @@ itefilter(stat, c)
 	case KBD_CTRL:
 		code = kbd_ctrlmap[(int)c];
 		break;
-		
-	case KBD_CTRLSHIFT:	
+
+	case KBD_CTRLSHIFT:
 		code = kbd_ctrlshiftmap[(int)c];
 		break;
         }
@@ -667,7 +667,7 @@ doesc:
 			case 1:
 				if (c == 'A') {
 					switch (ip->hold) {
-	
+
 					case '0':
 						clr_attr(ip, ATTR_KPAD);
 						break;
@@ -807,7 +807,7 @@ ignore:
 			ite_movecursor(ip, sp);
 		}
 		break;
-	
+
 	case '\b':
 		if (--ip->curx < 0)
 			ip->curx = 0;

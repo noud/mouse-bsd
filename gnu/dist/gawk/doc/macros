@@ -1,17 +1,17 @@
 .\" SSC Reference card macros
 .\"
 .\" Copyright (C) 1996, Specialized System Consultants Inc. (SSC)
-.\" 
+.\"
 .\" These macros are free software; you can redistribute them and/or modify
 .\" them under the terms of the GNU General Public License as published by
 .\" the Free Software Foundation; either version 2 of the License, or
 .\" (at your option) any later version.
-.\" 
+.\"
 .\" These macros are distributed in the hope that it will be useful,
 .\" but WITHOUT ANY WARRANTY; without even the implied warranty of
 .\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 .\" GNU General Public License for more details.
-.\" 
+.\"
 .\" You should have received a copy of the GNU General Public License
 .\" along with this program; if not, write to the Free Software
 .\" Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
@@ -21,7 +21,7 @@
 .\"     Last update: 4-25-91 ph
 .\"     attempting to get margins in the boxes Aug  3 09:43:48 PDT 1994
 .ll 3i		\" length of text line
-.lt 3.2i	\" length of title line 
+.lt 3.2i	\" length of title line
 .de BT	\" bottom of page trap
 .sp |8.2i		\" go to where we put footer
 .ie \\n(CL=1 \{\
@@ -41,7 +41,7 @@
 .de TP	\" top of page
 .\" .sp |.2i
 .sp |0
-.\" put page header stuff here 
+.\" put page header stuff here
 .\" for example: .tl ''WOW!''
 .\".sp
 ..
@@ -53,47 +53,47 @@
 .vs 9			\" line spacing
 .ps 8			\" point size
 .de ST	\" set tabs to normal places
-.ta .2i .78i 1.2i 1.7i	\" set tabs 
+.ta .2i .78i 1.2i 1.7i	\" set tabs
 ..
 .ig
     From: bryang@chinet.chi.il.us (Bryan Glennon)
     Box macro.  Do a .mk z where the box is to start, and a .eb
     where it is to end.  Optional argument is a title to be centered
     within the top box line.
-   
+
     Usage:
-   
+
      .mk z
      Text, etc to be boxed...
      .eb "Optional title goes here"
-    
+
      ~or~
-   
+
      .mk z
      Text, etc to be boxed...
-     .eb 
-   
-   
+     .eb
+
+
     Some explanation:
      The macro name is eb <.de eb>.  First thing we do is to go up on line
      <.sp -1> and turn off fill mode <.nf>.  Now it gets interesting: the
     .ie is the if/else construct.  We check the number of arguments provided
     to the macro <\\n(.$> and if it is greater than 0 (meaning we have a title),
     we do the rest of the .ie line, as follows:
-   
+
                          \h'-.5n'     - move left one-half of an n
-                         \L'|\\nzu-1' - draw a vertical line <\L> to the 
+                         \L'|\\nzu-1' - draw a vertical line <\L> to the
                                         absolute position (|) given by \\nzu-1,
-                                        which is the position set with the .mk 
-                                        command into register z <\\nz> in base 
+                                        which is the position set with the .mk
+                                        command into register z <\\nz> in base
                                         units <u> minus 1.
     \l'(\\n(.lu+1n-\w'\\$1'u/2u)\(ul' - Draw a horizontal line <\l> with length
-                                        equal to the current line length 
-                                        <\\n(.l> in base units <u> plus the 
-                                        space required for an 'n' <1n>, minus 
-                                        the width <\w> of the title string 
-                                        <\\$1> in base units <u> divided by 2 
-                                        <in base units <u>>.  Draw the line 
+                                        equal to the current line length
+                                        <\\n(.l> in base units <u> plus the
+                                        space required for an 'n' <1n>, minus
+                                        the width <\w> of the title string
+                                        <\\$1> in base units <u> divided by 2
+                                        <in base units <u>>.  Draw the line
                                         using the underline character, <\(ul>.
              \v'.3m'\|\\$1\|\v'-.3m' -  Move down the page 3/10 of an m,
                                         <\v'.3m'>, output a 1/6 of an m space
@@ -104,15 +104,15 @@
                                         like the corresponding left half done
                                         before.
                        \L'-|\\nzu+1' -  Draw a verticle line <\L> going down
-                                        the absolute distance <-|> from where 
-                                        the macro was given to where the start 
+                                        the absolute distance <-|> from where
+                                        the macro was given to where the start
                                         point was marked <\\nz> in base units
                                         <u> plus one line <+1>
                      \l'|0u-.5n\(ul' -  Draw a horizontal line to the absolute
-                                        position (|0) when the macro was 
+                                        position (|0) when the macro was
                                         invoked, minus half an n <-.5n> using
                                         the underline character <\(ul>.
-   
+
        The .el beings the else part, which is identical to the above, except
        the string dosen't get printed.  This makes the printing of the top
        line much easier: just draw a line <\l> with width equal to the
@@ -197,7 +197,7 @@
 .\" bold with gray for function name
 .ns
 .br
-\ 
+\ \&
 .ns
 .br
 \!! gsave ( ) stringwidth neg 0 rmoveto

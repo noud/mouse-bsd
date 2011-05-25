@@ -55,7 +55,7 @@ void	mcclock_isa_attach __P((struct device *, struct device *, void *));
 
 struct cfattach mcclock_isa_ca = {
 	sizeof (struct mcclock_isa_softc), mcclock_isa_match,
-	    mcclock_isa_attach, 
+	    mcclock_isa_attach,
 };
 
 void	mcclock_isa_write __P((struct mcclock_softc *, u_int, u_int));

@@ -92,7 +92,7 @@ main(argc, argv)
 		if (*utmp.ut_name) {
 			if (ncnt >= nmax) {
 				nmax += 32;
-				names = realloc(names, 
+				names = realloc(names,
 					sizeof (*names) * nmax);
 
 				if (!names) {

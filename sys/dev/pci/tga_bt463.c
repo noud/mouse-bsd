@@ -141,12 +141,12 @@ inline u_int8_t tga_bt463_rd_d __P((bus_space_tag_t, bus_space_handle_t,
 inline void tga_bt463_wraddr __P((bus_space_tag_t, bus_space_handle_t,
 		u_int16_t));
 
-void	tga_bt463_update __P((bus_space_tag_t, bus_space_handle_t, 
+void	tga_bt463_update __P((bus_space_tag_t, bus_space_handle_t,
 		struct bt463data *));
 
 #define	tga_bt463_sched_update(tag,regs)					\
 	bus_space_write_4((tag), (regs), (TGA_REG_SISR*4), (0x00010000))
- 
+
 /*****************************************************************************/
 
 /*
@@ -168,14 +168,14 @@ tga_bt463_init(dc, alloc)
 	 */
 
 	tag = dc->dc_memt;
-	bus_space_subregion(tag, dc->dc_vaddr, TGA_MEM_CREGS, 512, 
+	bus_space_subregion(tag, dc->dc_vaddr, TGA_MEM_CREGS, 512,
 						&regs);
 	/*
 	 * Setup:
 	 * reg 0: 4:1 multiplexing, 25/75 blink.
-	 * reg 1: Overlay mapping: mapped to common palette, 
+	 * reg 1: Overlay mapping: mapped to common palette,
 	 *        14 window type entries, 24-plane configuration mode,
-	 *        4 overlay planes, underlays disabled, no cursor. 
+	 *        4 overlay planes, underlays disabled, no cursor.
 	 * reg 2: sync-on-green disabled, pedestal enabled.
 	 */
 	tga_bt463_wraddr(tag, regs, BT463_IREG_COMMAND_0);
@@ -240,11 +240,11 @@ tga_bt463_init(dc, alloc)
 
 
 	/* Initialize the window type table:
-	 * Entry 0: 8-plane pseudocolor in the bottom 8 bits, 
-	 *          overlays disabled, colormap starting at 0. 
+	 * Entry 0: 8-plane pseudocolor in the bottom 8 bits,
+	 *          overlays disabled, colormap starting at 0.
 	 *
 	 *  Lookup table bypass:       no (    0 << 23 & 0x800000)       0
-	 *  Colormap address:       0x000 (0x000 << 17 & 0x7e0000)       0 
+	 *  Colormap address:       0x000 (0x000 << 17 & 0x7e0000)       0
 	 *  Overlay mask:             0x0 (    0 << 13 & 0x01e000)       0
 	 *  Overlay location:    P<27:24> (    0 << 12 & 0x001000)       0
 	 *  Display mode:     Pseudocolor (    1 <<  9 & 0x000e00)   0x200
@@ -252,16 +252,16 @@ tga_bt463_init(dc, alloc)
 	 *  Plane shift:               16 (   16 <<  0 & 0x00001f)      10
 	 *                                                        --------
 	 *                                                           0x310
-	 */	  
+	 */
 	data->window_type[0] = 0x310;
-	/* The colormap interface to the world only supports one colormap, 
-	 * so having an entry for the 'alternate' colormap in the bt463 
+	/* The colormap interface to the world only supports one colormap,
+	 * so having an entry for the 'alternate' colormap in the bt463
 	 * probably isn't useful.
 	 */
 	/* Entry 1: 24-plane truecolor, overlays disabled. */
 	data->window_type[1] = 0x200;
 
-	/* Fill the remaining table entries with clones of entry 0 until we 
+	/* Fill the remaining table entries with clones of entry 0 until we
 	 * figure out a better use for them.
 	 */
 
@@ -270,10 +270,10 @@ tga_bt463_init(dc, alloc)
 	}
 
 	/* The Bt463 won't accept window type table data
-	 * except during a blanking interval. Normally we would 
-	 * do this by scheduling an interrupt, but this is run 
-	 * during autoconfiguration, when interrupts are disabled. 
-	 * So we spin on the end-of-frame interrupt bit. 
+	 * except during a blanking interval. Normally we would
+	 * do this by scheduling an interrupt, but this is run
+	 * during autoconfiguration, when interrupts are disabled.
+	 * So we spin on the end-of-frame interrupt bit.
 	 */
 
 	bus_space_write_4(tag, regs, TGA_REG_SISR*4, 0x00010001);
@@ -299,9 +299,9 @@ tga_bt463_set_cmap(dc, cmapp)
 	bus_space_handle_t regs;
 	int count, index, s;
 
-	bus_space_subregion(tag, dc->dc_vaddr, TGA_MEM_CREGS, 512, 
+	bus_space_subregion(tag, dc->dc_vaddr, TGA_MEM_CREGS, 512,
 						&regs);
-	
+
 
 	if ((u_int)cmapp->index >= BT463_NCMAP_ENTRIES ||
 	    ((u_int)cmapp->index + (u_int)cmapp->count) > BT463_NCMAP_ENTRIES)
@@ -363,7 +363,7 @@ tga_bt463_check_curcmap(dc, cursorp)
 	    ((u_int)cursorp->cmap.index +
 	     (u_int)cursorp->cmap.count) > 2)
 		return (EINVAL);
-	count = cursorp->cmap.count; 
+	count = cursorp->cmap.count;
 	if (!uvm_useracc(cursorp->cmap.red, count, B_READ) ||
 	    !uvm_useracc(cursorp->cmap.green, count, B_READ) ||
 	    !uvm_useracc(cursorp->cmap.blue, count, B_READ))
@@ -381,7 +381,7 @@ tga_bt463_set_curcmap(dc, cursorp)
 	bus_space_tag_t tag = dc->dc_memt;
 	bus_space_handle_t regs;
 
-	bus_space_subregion(tag, dc->dc_vaddr, TGA_MEM_CREGS, 512, 
+	bus_space_subregion(tag, dc->dc_vaddr, TGA_MEM_CREGS, 512,
 						&regs);
 
 	/* can't fail; parameters have already been checked. */
@@ -430,10 +430,10 @@ tga_bt463_intr(v)
 	bus_space_tag_t tag = dc->dc_memt;
 	bus_space_handle_t regs;
 
-	bus_space_subregion(tag, dc->dc_vaddr, TGA_MEM_CREGS, 512, 
+	bus_space_subregion(tag, dc->dc_vaddr, TGA_MEM_CREGS, 512,
 						&regs);
 
-	if ( (bus_space_read_4(tag, regs, TGA_REG_SISR*4) & 0x00010001) != 
+	if ( (bus_space_read_4(tag, regs, TGA_REG_SISR*4) & 0x00010001) !=
 		 0x00010001) {
 		printf("Spurious interrupt");
 		return 0;
@@ -463,16 +463,16 @@ tga_bt463_wr_d(tag, regs, btreg, val)
 	if (btreg > BT463_REG_MAX)
 		panic("tga_bt463_wr_d: reg %d out of range\n", btreg);
 
-	/* 
+	/*
 	 * In spite of the 21030 documentation, to set the MPU bus bits for
 	 * a write, you set them in the upper bits of EPDR, not EPSR.
 	 */
-	
-	/* 
+
+	/*
 	 * Strobe CE# (high->low->high) since status and data are latched on
 	 * the falling and rising edges of this active-low signal.
 	 */
-	   
+
 	bus_space_barrier(tag, regs, TGA_REG_EPDR*4, 4, BUS_SPACE_BARRIER_WRITE);
 	bus_space_write_4(tag, regs, TGA_REG_EPDR*4, (btreg << 10 ) | 0x100 | val);
 	bus_space_barrier(tag, regs, TGA_REG_EPDR*4, 4, BUS_SPACE_BARRIER_WRITE);
@@ -492,8 +492,8 @@ tga_bt463_rd_d(tag, regs, btreg)
 	if (btreg > BT463_REG_MAX)
 		panic("tga_bt463_rd_d: reg %d out of range\n", btreg);
 
-	/* 
-	 * Strobe CE# (high->low->high) since status and data are latched on 
+	/*
+	 * Strobe CE# (high->low->high) since status and data are latched on
 	 * the falling and rising edges of this active-low signal.
 	 */
 
@@ -532,29 +532,29 @@ tga_bt463_update(tag, regs, data)
 	v = data->changed;
 
 	/* The Bt463 won't accept window type data except during a blanking
-	 * interval. So we (1) do this early in the interrupt, in case it 
+	 * interval. So we (1) do this early in the interrupt, in case it
 	 * takes a long time, and (2) blank the screen while doing so, in case
-	 * we run out normal vertical blanking. 
+	 * we run out normal vertical blanking.
 	 */
 	if (v & DATA_WTYPE_CHANGED) {
 		valid = bus_space_read_4(tag, regs, TGA_REG_VVVR*4);
 		blanked = valid | VVR_BLANK;
 		bus_space_write_4(tag, regs, TGA_REG_VVVR*4, blanked);
-		bus_space_barrier(tag, regs, TGA_REG_VVVR*4, 4, 
+		bus_space_barrier(tag, regs, TGA_REG_VVVR*4, 4,
 			BUS_SPACE_BARRIER_WRITE);
 		/* spit out the window type data */
 		for (i = 0; i < BT463_NWTYPE_ENTRIES; i++) {
 			tga_bt463_wraddr(tag, regs, BT463_IREG_WINDOW_TYPE_TABLE + i);
-			tga_bt463_wr_d(tag, regs, BT463_REG_IREG_DATA, 
+			tga_bt463_wr_d(tag, regs, BT463_REG_IREG_DATA,
 				(data->window_type[i]) & 0xff);         /* B0-7   */
-			tga_bt463_wr_d(tag, regs, BT463_REG_IREG_DATA, 
+			tga_bt463_wr_d(tag, regs, BT463_REG_IREG_DATA,
 				(data->window_type[i] >> 8) & 0xff);    /* B8-15  */
-			tga_bt463_wr_d(tag, regs, BT463_REG_IREG_DATA, 
+			tga_bt463_wr_d(tag, regs, BT463_REG_IREG_DATA,
 				(data->window_type[i] >> 16) & 0xff);   /* B16-23 */
 
 		}
 		bus_space_write_4(tag, regs, TGA_REG_VVVR*4, valid);
-		bus_space_barrier(tag, regs, TGA_REG_VVVR*4, 4, 
+		bus_space_barrier(tag, regs, TGA_REG_VVVR*4, 4,
 			BUS_SPACE_BARRIER_WRITE);
 	}
 

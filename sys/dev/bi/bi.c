@@ -13,7 +13,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -123,7 +123,7 @@ bi_attach(sc)
 	for (nodenr = 0; nodenr < NNODEBI; nodenr++) {
 		if (bus_space_map(sc->sc_iot, sc->sc_addr + BI_NODE(nodenr),
 		    NODESIZE, 0, &ba.ba_ioh)) {
-			printf("bi_attach: bus_space_map failed, node %d\n", 
+			printf("bi_attach: bus_space_map failed, node %d\n",
 			    nodenr);
 			return;
 		}

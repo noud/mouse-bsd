@@ -233,10 +233,10 @@ tun*)
 md*)
 	unit=${i#md}; blk=5; chr=61;
 	rm -f md${unit}? rmd${unit}?
-	mknod md${unit}a  b $blk $(($unit * 8 + 0)) 
-	mknod md${unit}c  b $blk $(($unit * 8 + 2)) 
-#	mknod rmd${unit}a c $chr $(($unit * 8 + 0)) 
-#	mknod rmd${unit}c c $chr $(($unit * 8 + 2)) 
+	mknod md${unit}a  b $blk $(($unit * 8 + 0))
+	mknod md${unit}c  b $blk $(($unit * 8 + 2))
+#	mknod rmd${unit}a c $chr $(($unit * 8 + 0))
+#	mknod rmd${unit}c c $chr $(($unit * 8 + 2))
 	chgrp operator md${unit}? #rmd${unit}?
 	chmod 640 md${unit}? #rmd${unit}?
 	;;
@@ -286,7 +286,7 @@ st*)
 	st*) name=st; unit=${i#st}; blk=11; chr=18;;
 	esac
 	rm -f $name$unit n$name$unit e$name$unit en$name$unit \
-		r$name$unit nr$name$unit er$name$unit enr$name$unit 
+		r$name$unit nr$name$unit er$name$unit enr$name$unit
 	mknod ${name}${unit}	b $blk $(($unit * 16 + 0))
 	mknod n${name}${unit}	b $blk $(($unit * 16 + 1))
 	mknod e${name}${unit}	b $blk $(($unit * 16 + 2))
@@ -298,11 +298,11 @@ st*)
 	chgrp operator ${name}${unit} n${name}${unit} \
 		e$name$unit en$name$unit \
 		r${name}${unit} nr${name}${unit} \
-		er${name}${unit} enr${name}${unit} 
+		er${name}${unit} enr${name}${unit}
 	chmod 660 ${name}${unit} n${name}${unit} \
 		e$name$unit en$name$unit \
 		r${name}${unit} nr${name}${unit} \
-		er${name}${unit} enr${name}${unit} 
+		er${name}${unit} enr${name}${unit}
 	;;
 
 ss*)
@@ -424,7 +424,7 @@ magma*)
 	;;
 
 scsibus*)
-	unit=${i#scsibus}; 
+	unit=${i#scsibus};
 	rm -f scsibus$unit
 	mknod scsibus$unit c 120 $unit
 	chown root:wheel scsibus$unit

@@ -133,7 +133,7 @@ cflrw(dev, uio, flag)
 	register int s;
 	int error;
 
-	if (uio->uio_resid == 0) 
+	if (uio->uio_resid == 0)
 		return (0);
 	s = spl4();
 	while (cfltab.cfl_state == BUSY)
@@ -156,10 +156,10 @@ cflrw(dev, uio, flag)
 				break;
 		}
 		bp->b_flags = uio->uio_rw == UIO_WRITE ? B_WRITE : B_READ;
-		s = spl4(); 
+		s = spl4();
 		cflstart();
 		while ((bp->b_flags & B_DONE) == 0)
-			sleep((caddr_t)bp, PRIBIO);	
+			sleep((caddr_t)bp, PRIBIO);
 		splx(s);
 		if (bp->b_flags & B_ERROR) {
 			error = EIO;

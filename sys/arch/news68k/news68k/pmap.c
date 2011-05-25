@@ -36,7 +36,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* 
+/*
  * Copyright (c) 1991, 1993
  *	The Regents of the University of California.  All rights reserved.
  *
@@ -350,11 +350,11 @@ pmap_virtual_space(vstartp, vendp)
 
 /*
  * pmap_procwr:			[ INTERFACE ]
- * 
+ *
  *	Synchronize caches corresponding to [addr, addr+len) in p.
  *
  *	Note: no locking is necessary in this function.
- */   
+ */
 void
 pmap_procwr(p, va, len)
 	struct proc *p;
@@ -2533,7 +2533,7 @@ pmap_enter_ptpage(pmap, va)
 		if (*ste == SG_NV) {
 			int ix;
 			caddr_t addr;
-			
+
 			ix = bmtol2(pmap->pm_stfree);
 			if (ix == -1)
 				panic("enter: out of address space"); /* XXX */

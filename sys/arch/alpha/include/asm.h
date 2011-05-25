@@ -1,26 +1,26 @@
 /* $NetBSD: asm.h,v 1.22 1998/12/02 00:58:42 thorpej Exp $ */
 
-/* 
+/*
  * Copyright (c) 1991,1990,1989,1994,1995,1996 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
+ *
  * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
  * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND FOR
  * ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
- * 
+ *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
  *  School of Computer Science
  *  Carnegie Mellon University
  *  Pittsburgh PA 15213-3890
- * 
+ *
  * any improvements or extensions that they make and grant Carnegie Mellon
  * the rights to redistribute these changes.
  */
@@ -214,7 +214,7 @@
  *		.reguse	i_mask, f_mask
  *
  * where the register masks are built as above or-ing M_xx defines.
- *	
+ *
  *
  * All symbols are internal unless EXPORTed.  Symbols that are IMPORTed
  * must be appropriately described to the debugger.
@@ -472,7 +472,7 @@ _name_	=	_value_
 	.ent	_name_ 0;					\
 _name_:;							\
 	.mask	_i_mask_|IM_EXC,0;				\
-	.frame	sp,MSS_SIZE,ra;				
+	.frame	sp,MSS_SIZE,ra;
 /*	.livereg _i_mask_|IM_EXC,0	*/
 /* should have been
 	.proc	_name_,1;					\

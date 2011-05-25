@@ -92,7 +92,7 @@ tx39uart_search(parent, cf, aux)
 {
 	struct tx39uart_softc *sc = (void*)parent;
 	struct tx39uart_attach_args ua;
-	
+
 	ua.ua_tc	= sc->sc_tc;
 	ua.ua_slot	= cf->cf_loc[TXCOMIFCF_SLOT];
 
@@ -100,7 +100,7 @@ tx39uart_search(parent, cf, aux)
 		printf("tx39uart_search: wildcarded slot, skipping\n");
 		return 0;
 	}
-	
+
 	if (!(sc->sc_enabled & (1 << ua.ua_slot)) && /* not attached slot */
 	    (*cf->cf_attach->ca_match)(parent, cf, &ua)) {
 		config_attach(parent, cf, &ua, tx39uart_print);
@@ -116,7 +116,7 @@ tx39uart_print(aux, pnp)
 	const char *pnp;
 {
 	struct tx39uart_attach_args *ua = aux;
-	
+
 	printf(" slot %d", ua->ua_slot);
 
 	return QUIET;

@@ -106,12 +106,12 @@ and
 file-systems.
 .It Sy critfs_require_network
 YES or NO.
-Set the 
+Set the
 .Sy critfs_require_network
 variable to YES if the network must be configured before critical filesystems
 can be mounted.   This should be set to NO if you are using the DHCP client,
 because the DHCP client needs to store its lease database in the
-.Pa /var/db 
+.Pa /var/db
 directory.
 .It Sy no_swap
 Set the
@@ -245,7 +245,7 @@ YES or NO.
 Set to YES to configure some or all network interfaces using
 the DHCP client.   If you set
 .Sy dhclient
-to YES, you must either set 
+to YES, you must either set
 .Sy critfs_require_network
 to NO or direct the DHCP client to store the leases file on the root
 filesystem by modifying the

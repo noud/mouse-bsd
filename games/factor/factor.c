@@ -82,7 +82,7 @@ __RCSID("$NetBSD: factor.c,v 1.9 1999/09/08 21:17:48 jsm Exp $");
 /*
  * prime[i] is the (i-1)th prime.
  *
- * We are able to sieve 2^32-1 because this byte table yields all primes 
+ * We are able to sieve 2^32-1 because this byte table yields all primes
  * up to 65537 and 65537^2 > 2^32-1.
  */
 extern const ubig prime[];

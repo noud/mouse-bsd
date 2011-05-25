@@ -67,7 +67,7 @@ int tp_driver   __P((struct tp_pcb *, struct tp_event *));
 int tp_emit __P((int, struct tp_pcb *, SeqNum, u_int, struct mbuf *));
 int tp_error_emit __P((int, u_long, struct sockaddr_iso *,
 		       struct sockaddr_iso *, struct mbuf *, int,
-		       struct tp_pcb *, caddr_t, 
+		       struct tp_pcb *, caddr_t,
 		       int (*) (struct mbuf *, ...)));
 
 /* tp_inet.c */

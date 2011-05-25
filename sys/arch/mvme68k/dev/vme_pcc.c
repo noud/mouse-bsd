@@ -165,7 +165,7 @@ vmechip_pcc_translate_addr(start, len, bustype, atype, addrp)
 			panic("vmechip_pcc_translate_addr");
 		}
 
-		printf("vmechip: can't map %s atype %d addr 0x%lx len 0x%x\n", 
+		printf("vmechip: can't map %s atype %d addr 0x%lx len 0x%x\n",
 		    vmes_cd.cd_name, atype, start, len);
 		break;
 
@@ -197,7 +197,7 @@ vmechip_pcc_translate_addr(start, len, bustype, atype, addrp)
 			panic("vmechip_pcc_translate_addr");
 		}
 
-		printf("vmechip: can't map %s atype %d addr 0x%lx len 0x%x\n", 
+		printf("vmechip: can't map %s atype %d addr 0x%lx len 0x%x\n",
 		    vmel_cd.cd_name, atype, start, len);
 		break;
 

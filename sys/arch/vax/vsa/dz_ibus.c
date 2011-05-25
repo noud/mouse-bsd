@@ -13,7 +13,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -125,7 +125,7 @@ dz_vsbus_attach(parent, self, aux)
 	struct  dz_softc *sc = (void *)self;
 	struct vsbus_attach_args *va = aux;
 
-	/* 
+	/*
 	 * XXX - This is evil and ugly, but...
 	 * due to the nature of how bus_space_* works on VAX, this will
 	 * be perfectly good until everything is converted.
@@ -158,7 +158,7 @@ dz_vsbus_attach(parent, self, aux)
 }
 
 int
-dzcngetc(dev) 
+dzcngetc(dev)
 	dev_t dev;
 {
 	int c = 0;
@@ -259,7 +259,7 @@ dzcnputc(dev,ch)
 	dz->tcr = tcr;
 }
 
-void 
+void
 dzcnpollc(dev, pollflag)
 	dev_t dev;
 	int pollflag;
@@ -288,14 +288,14 @@ lkccninit(cndev)
 }
 
 int
-lkccngetc(dev) 
+lkccngetc(dev)
 	dev_t dev;
 {
 	int lkc_decode(int);
 	int c;
 //	u_char mask;
 
-	
+
 //	mask = vsbus_setmask(0);	/* save old state */
 
 loop:

@@ -25,7 +25,7 @@
 #include "gdb_string.h"
 #include "gdbcore.h"
 
-/* 
+/*
    The data cache could lead to incorrect results because it doesn't know
    about volatile variables, thus making it impossible to debug
    functions which use memory mapped I/O devices.
@@ -42,11 +42,11 @@
    Reducing the overhead to an eighth of what it was.  This is very
    obvious when displaying a large amount of data,
 
-   eg, x/200x 0 
+   eg, x/200x 0
 
-   caching     |   no    yes 
-   ---------------------------- 
-   first time  |   4 sec  2 sec improvement due to chunking 
+   caching     |   no    yes
+   ----------------------------
+   first time  |   4 sec  2 sec improvement due to chunking
    second time |   4 sec  0 sec improvement due to caching
 
    The cache structure is unusual, we keep a number of cache blocks
@@ -86,19 +86,19 @@
    line, and reduce memory requirements, but increase the risk
    of a line not being in memory */
 
-#define DCACHE_SIZE 64 
+#define DCACHE_SIZE 64
 
 /* This value regulates the size of a cache line.  Smaller values
    reduce the time taken to read a single byte, but reduce overall
    throughput.  */
 
-#define LINE_SIZE_POWER (5) 
+#define LINE_SIZE_POWER (5)
 #define LINE_SIZE (1 << LINE_SIZE_POWER)
 
 /* Each cache block holds LINE_SIZE bytes of data
    starting at a multiple-of-LINE_SIZE address.  */
 
-#define LINE_SIZE_MASK  ((LINE_SIZE - 1))	
+#define LINE_SIZE_MASK  ((LINE_SIZE - 1))
 #define XFORM(x) 	((x) & LINE_SIZE_MASK)
 #define MASK(x)         ((x) & ~LINE_SIZE_MASK)
 
@@ -115,15 +115,15 @@ struct dcache_block
   char data[LINE_SIZE];		/* bytes at given address */
   unsigned char state[LINE_SIZE]; /* what state the data is in */
 
-  /* whether anything in state is dirty - used to speed up the 
+  /* whether anything in state is dirty - used to speed up the
      dirty scan. */
-  int anydirty;			
+  int anydirty;
 
   int refs;
 };
 
 
-struct dcache_struct 
+struct dcache_struct
 {
   /* Function to actually read the target memory. */
   memxferfunc read_memory;
@@ -315,7 +315,7 @@ dcache_alloc (dcache)
 }
 
 /* Using the data cache DCACHE return the contents of the byte at
-   address ADDR in the remote machine.  
+   address ADDR in the remote machine.
 
    Returns 0 on error. */
 
@@ -339,7 +339,7 @@ dcache_peek_byte (dcache, addr, ptr)
       db = dcache_alloc (dcache);
       immediate_quit++;
       db->addr = MASK (addr);
-      while (done < LINE_SIZE) 
+      while (done < LINE_SIZE)
 	{
 	  int try =
 	    (*dcache->read_memory)
@@ -351,7 +351,7 @@ dcache_peek_byte (dcache, addr, ptr)
 	  done += try;
 	}
       immediate_quit--;
-     
+
       memset (db->state, ENTRY_OK, sizeof (db->data));
       db->anydirty = 0;
     }
@@ -419,7 +419,7 @@ dcache_poke_byte (dcache, addr, ptr)
   return 1;
 }
 
-/* Write the word at ADDR both in the data cache and in the remote machine.  
+/* Write the word at ADDR both in the data cache and in the remote machine.
    Return zero on write error.
  */
 
@@ -460,9 +460,9 @@ dcache_init (reading, writing)
 
 /* Read or write LEN bytes from inferior memory at MEMADDR, transferring
    to or from debugger address MYADDR.  Write to inferior if SHOULD_WRITE is
-   nonzero. 
+   nonzero.
 
-   Returns length of data written or read; 0 for error.  
+   Returns length of data written or read; 0 for error.
 
    This routine is indended to be called by remote_xfer_ functions. */
 
@@ -476,7 +476,7 @@ dcache_xfer_memory (dcache, memaddr, myaddr, len, should_write)
 {
   int i;
 
-  if (remote_dcache) 
+  if (remote_dcache)
     {
       int (*xfunc) PARAMS ((DCACHE *dcache, CORE_ADDR addr, char *ptr));
       xfunc = should_write ? dcache_poke_byte : dcache_peek_byte;
@@ -489,7 +489,7 @@ dcache_xfer_memory (dcache, memaddr, myaddr, len, should_write)
       dcache->cache_has_stuff = 1;
       dcache_writeback (dcache);
     }
-  else 
+  else
     {
       memxferfunc xfunc;
       xfunc = should_write ? dcache->write_memory : dcache->read_memory;
@@ -502,7 +502,7 @@ dcache_xfer_memory (dcache, memaddr, myaddr, len, should_write)
   return len;
 }
 
-static void 
+static void
 dcache_info (exp, tty)
      char *exp;
      int tty;

@@ -50,7 +50,7 @@ main()
 	char *cp, *file;
 	int ask = 0, howto, sboot = 0;
 
-	printf(">> BSD MVME%x netboot (via %s) [%s]\n", bugargs.cputyp, 
+	printf(">> BSD MVME%x netboot (via %s) [%s]\n", bugargs.cputyp,
 		bugargs.arg_start, version);
 	if (bcmp("sboot", bugargs.arg_start, 5) == 0)
 		sboot = 1;
@@ -68,7 +68,7 @@ main()
 			if (line[0]) {
 				bugargs.arg_start = line;
 				cp = line;
-				while (cp < (line + sizeof(line) - 1) && *cp) 
+				while (cp < (line + sizeof(line) - 1) && *cp)
 					cp++;
 				bugargs.arg_end = cp;
 				parse_args(&file, &howto);

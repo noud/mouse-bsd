@@ -104,7 +104,7 @@ install_coproc_handler(coproc, handler)
 		return(EINVAL);
 	if (handler == (undef_handler_t)0)
 		handler = default_undefined_handler;
-      
+
 	undefined_handlers[coproc] = handler;
 	return(0);
 }
@@ -164,7 +164,7 @@ undefinedinstruction(frame)
 		coprocessor = (fault_instruction >> 8) & 0x0f;
 	else
 		coprocessor = 0;
-		
+
 	/* Get the current proc structure or proc0 if there is none */
 
 	if ((p = curproc) == 0)
@@ -172,7 +172,7 @@ undefinedinstruction(frame)
 
 	if ((frame->tf_spsr & PSR_MODE) == PSR_USR32_MODE) {
 		sticks = p->p_sticks;
-                  
+
 	/* Modify the fault_code to reflect the USR/SVC state at time of fault */
 
 		fault_code = FAULT_USER;
@@ -216,7 +216,7 @@ undefinedinstruction(frame)
 
 		(void)splx(s);
 #endif
-        
+
 		if ((fault_code & FAULT_USER) == 0) {
 			printf("Undefined instruction in kernel: Heavy man !\n");
 #ifdef DDB
@@ -257,7 +257,7 @@ undefinedinstruction(frame)
 			 * before we switch()'ed, we might not be on the queue
 			 * indicated by our priority
 			 */
-	
+
 		        s = splstatclock();
 			setrunqueue(p);
 			p->p_stats->p_ru.ru_nivcsw++;

@@ -31,7 +31,7 @@ Breakpoints should not be inserted and deleted all the time.  Only the
 one(s) there should be removed when we have to step over one.  Support
 breakpoints that don't have to be removed to step over them.
 
-Update gdbint.texinfo to include doc on the directory structure and 
+Update gdbint.texinfo to include doc on the directory structure and
 the various tricks of building gdb.
 
 Do a tutorial in gdb.texinfo on how to do simple things in gdb.
@@ -151,7 +151,7 @@ and the must-be-zeroes bits leave some fields unexamined, and the format
 string leaves them unprinted, then point this out.  If multiple
 non-alias patterns match, point this out too.  Finally, there should
 be a sparc-optest.s file that tries each pattern out.  This file
-should end up coming back the same (modulo transformation comments) 
+should end up coming back the same (modulo transformation comments)
 if fed to "gas" then the .o is fed to gdb for disassembly.
 
 Eliminate all the core_file_command's in all the xdep files.
@@ -196,7 +196,7 @@ Remove all references to:
 now that we have BFD.  All remaining are in machine dependent files.
 
 When quitting with a running program, if a core file was previously
-examined, you get "Couldn't read float regs from core file"...if 
+examined, you get "Couldn't read float regs from core file"...if
 indeed it can't.  generic_mourn_inferior...
 
 Have remote targets give a warning on a signal argument to
@@ -412,7 +412,7 @@ PAGE_SIZE redefined warnings on AIX.  Probably should be using
 BFD_PAGE_SIZE throughout BFD.
 
 Rewrite proceed, wait_for_inferior, and normal_stop to clean them up.
-Suggestions: 
+Suggestions:
 
 	1) Make each test in wait_for_inferior a seperate subroutine
 	   call.
@@ -453,9 +453,9 @@ Modify the handling of symbols grouped through BINCL/EINCL stabs to
 allocate a partial symtab for each BINCL/EINCL grouping.  This will
 seriously decrease the size of inter-psymtab dependencies and hence
 lessen the amount that needs to be read in when a new source file is
-accessed. 
+accessed.
 
-Do an "x/i $pc" after each stepi or nexti.  
+Do an "x/i $pc" after each stepi or nexti.
 
 Modify all of the disassemblers to use printf_filtered to get correct
 more filtering.

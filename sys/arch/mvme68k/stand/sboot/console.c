@@ -81,7 +81,7 @@ consinit()
  * putchar: put char to console
  */
 
-void putchar(char c) 
+void putchar(char c)
 {
   if (c == '\n') putchar('\r');  /* avoid the need for \r\n in printf */
   zs->ctl = 0;
@@ -96,7 +96,7 @@ void putchar(char c)
  * cngetc: get 1 char from console
  */
 
-char cngetc () 
+char cngetc ()
 {
   zs->ctl = 0;
   while ((zs->ctl & 0x1) == 0) {
@@ -119,7 +119,7 @@ void puts ( char * str )
 }
 
 /*
- * ngets: get string from console 
+ * ngets: get string from console
  */
 
 char *ngets ( char * str, int size )

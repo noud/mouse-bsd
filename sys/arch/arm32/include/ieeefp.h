@@ -1,6 +1,6 @@
 /*	$NetBSD: ieeefp.h,v 1.3 1997/10/14 09:20:17 mark Exp $	*/
 
-/* 
+/*
  * Based on ieeefp.h written by J.T. Conklin, Apr 28, 1995
  * Public domain.
  */

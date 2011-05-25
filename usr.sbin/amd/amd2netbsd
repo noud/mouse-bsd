@@ -35,7 +35,7 @@ $version = "6.0.1s11";
 
 
 @libamuf = ("hasmntopt.c", "misc_rpc.c", "mount_fs.c", "mtab.c",
-	   "nfs_prot_xdr.c", "util.c", "wire.c", "xdr_func.c", 
+	   "nfs_prot_xdr.c", "util.c", "wire.c", "xdr_func.c",
 	   "xutil.c");
 
 @libamudf = ("amu.h");
@@ -118,7 +118,7 @@ $version = "6.0.1s11";
 @wiretestef = ();
 
 
-@docf = ("am-utils.texi", "hlfsd.ps", "version.texi", "am-utils.ps", 
+@docf = ("am-utils.texi", "hlfsd.ps", "version.texi", "am-utils.ps",
 	 "am-utils.info", "am-utils.info-1", "am-utils.info-2",
 	 "am-utils.info-3", "am-utils.info-4", "am-utils.info-5",
 	 "am-utils.info-6", "am-utils.info-7");
@@ -274,7 +274,7 @@ sub dumpsrcs {
 
 #
 # Main progarm.
-# 
+#
 
 $srcdir = $ENV{'SRCDIR'};
 $targetdir = $ENV{'TARGETDIR'};
@@ -282,9 +282,9 @@ $incdirs = "-I. -I$srcdir/config -I$srcdir";
 
 if (!$srcdir | !targetdir) {
     die "You must define the environment variables SRCDIR and TARGETDIR.\n"
-} 
+}
 print "Making the NetBSD directory tree.\n";
-foreach $f (@subdirs) { 
+foreach $f (@subdirs) {
     print "   -->$f\n";
     makedir ("$targetdir/$f");
 }
@@ -320,7 +320,7 @@ print "Populating the usr.sbin/amd/pawd directory.\n";
 &copyfiles ("$srcdir/amq", "$targetdir/usr.sbin/amd/pawd", @pawdf, @pawddf);
 
 print "Populating the usr.sbin/amd/fixmount directory.\n";
-&copyfiles ("$srcdir/fixmount", "$targetdir/usr.sbin/amd/fixmount", @fixmountf, 
+&copyfiles ("$srcdir/fixmount", "$targetdir/usr.sbin/amd/fixmount", @fixmountf,
 	    @fixmountdf);
 &copyfile("$srcdir/conf/checkmount/checkmount_bsd44.c",
 	  "$targetdir/usr.sbin/amd/fixmount/check_mount.c");
@@ -403,7 +403,7 @@ while ($line = <DATA>) {
 	}
 	print ODATA "$line\n";
     }
-}    
+}
 close (ODATA);
 
 #
@@ -536,7 +536,7 @@ LIB= amu
 %% srcs libamu
 
 NOPROFILE=
- 
+
 config_local.h: mkconf
 	@rm -f ${.TARGET}
 	sh ${.ALLSRC} > ${.TARGET}
@@ -544,9 +544,9 @@ config_local.h: mkconf
 CLEANFILES+=config_local.h
 
 install: __libinstall
- 
+
 .include <bsd.lib.mk>
- 
+
 .if !defined(NOPIC)
 __libinstall: ${DESTDIR}${LIBDIR}/lib${LIB}.so.${SHLIB_MAJOR}.${SHLIB_MINOR}
 .else
@@ -567,7 +567,7 @@ minor=0
 cat << __EOF
 
 /* Automatically generated file, do not edit! */
- 
+
 /* Define name and version of host machine (eg. solaris2.5.1) */
 #define HOST_OS "`uname -s | tr '[A-Z]' '[a-z]'``uname -r`"
 

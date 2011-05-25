@@ -1,12 +1,12 @@
 /*	$NetBSD: llc_output.c,v 1.4 1998/09/13 16:21:18 christos Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1990, 1991, 1992
- *		Dirk Husemann, Computer Science Department IV, 
+ *		Dirk Husemann, Computer Science Department IV,
  * 		University of Erlangen-Nuremberg, Germany.
  * Copyright (c) 1992, 1993
  *	The Regents of the University of California.  All rights reserved.
- * 
+ *
  * This code is derived from software contributed to Berkeley by
  * Dirk Husemann and the Computer Science Department (IV) of
  * the University of Erlangen-Nuremberg, Germany.

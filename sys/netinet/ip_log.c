@@ -189,7 +189,7 @@ mb_t *m;
 			struct	icmp	*icmp;
 
 			icmp = (struct icmp *)((char *)ip + hlen);
-	 
+
 			/*
 			 * For ICMP, if the packet is an error packet, also
 			 * include the information about the packet which
@@ -283,7 +283,7 @@ int *types, cnt;
 	iplog_t *ipl;
 	size_t len;
 	int i;
- 
+
 	/*
 	 * Check to see if this log record has a CRC which matches the last
 	 * record logged.  If it does, just up the count on the previous one
@@ -398,7 +398,7 @@ struct uio *uio;
 	if ((uio->uio_resid < sizeof(iplog_t)) ||
 	    (uio->uio_resid > IPLLOGSIZE))
 		return EINVAL;
- 
+
 	/*
 	 * Lock the log so we can snapshot the variables.  Wait for a signal
 	 * if the log is empty.

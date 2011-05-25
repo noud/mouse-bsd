@@ -245,7 +245,7 @@ int main(argc, argv)
 }
 -------------
 
-This needs to link against chap_ms.o, md4.o, and the DES library.  When 
+This needs to link against chap_ms.o, md4.o, and the DES library.  When
 you run it with the command line:
 
  $ testchap 00000000000000000000000000000000 hello
@@ -261,8 +261,8 @@ it should output the following:
  78 C4 21 48 9D B7 A8 B4
  01
 
-if not, then either the DES library is not working, the MD4 code isn't 
-working, or there are some problems with the port of the code in 
+if not, then either the DES library is not working, the MD4 code isn't
+working, or there are some problems with the port of the code in
 chap_ms.c.
 
 

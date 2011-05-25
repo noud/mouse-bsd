@@ -1,6 +1,6 @@
 /*	$NetBSD: memcmp.S,v 1.1 1998/08/04 03:35:59 perry Exp $	*/
 
-/* 
+/*
  * Written by Matthias Pfaller, 1996
  * Public domain.
  */

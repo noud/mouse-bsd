@@ -124,7 +124,7 @@ struct dummy_frame
 /* Use the alternate method of avoiding running up off the end of the frame
    chain or following frames back into the startup code.  See the comments
    in objfiles.h. */
-   
+
 #define FRAME_CHAIN_VALID(chain, thisframe)	\
   ((chain) != 0					\
    && !inside_main_func ((thisframe) -> pc)	\
@@ -209,17 +209,17 @@ extern struct frame_info *find_frame_addr_in_frame_chain PARAMS ((CORE_ADDR));
 
 extern CORE_ADDR sigtramp_saved_pc PARAMS ((struct frame_info *));
 
-extern int       generic_frame_chain_valid   PARAMS ((CORE_ADDR, 
+extern int       generic_frame_chain_valid   PARAMS ((CORE_ADDR,
 						      struct frame_info *));
-extern CORE_ADDR generic_read_register_dummy PARAMS ((CORE_ADDR pc, 
-						      CORE_ADDR fp, 
+extern CORE_ADDR generic_read_register_dummy PARAMS ((CORE_ADDR pc,
+						      CORE_ADDR fp,
 						      int));
 extern void      generic_push_dummy_frame    PARAMS ((void));
 extern void      generic_pop_dummy_frame     PARAMS ((void));
 
-extern int       generic_pc_in_call_dummy    PARAMS ((CORE_ADDR pc, 
+extern int       generic_pc_in_call_dummy    PARAMS ((CORE_ADDR pc,
 						      CORE_ADDR fp));
-extern char *    generic_find_dummy_frame    PARAMS ((CORE_ADDR pc, 
+extern char *    generic_find_dummy_frame    PARAMS ((CORE_ADDR pc,
 						      CORE_ADDR fp));
 
 #ifdef __GNUC__

@@ -113,7 +113,7 @@ eisa_attach_hook(parent, self, eba)
 	struct device *parent, *self;
 	struct eisabus_attach_args *eba;
 {
-	extern int eisa_has_been_seen; 
+	extern int eisa_has_been_seen;
 
 	/*
 	 * Notify others that might need to know that the EISA bus
@@ -168,7 +168,7 @@ eisa_intr_string(ec, ih)
 
 	sprintf(irqstr, "irq %d", ih);
 	return (irqstr);
-	
+
 }
 
 void *

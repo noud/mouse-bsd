@@ -33,10 +33,10 @@
 #include "rf_alloclist.h"
 
 int     rf_RewriteParity(RF_Raid_t * raidPtr);
-int 
+int
 rf_VerifyParityBasic(RF_Raid_t * raidPtr, RF_RaidAddr_t raidAddr,
     RF_PhysDiskAddr_t * parityPDA, int correct_it, RF_RaidAccessFlags_t flags);
-int 
+int
 rf_VerifyParity(RF_Raid_t * raidPtr, RF_AccessStripeMap_t * stripeMap,
     int correct_it, RF_RaidAccessFlags_t flags);
 int     rf_TryToRedirectPDA(RF_Raid_t * raidPtr, RF_PhysDiskAddr_t * pda, int parity);

@@ -402,7 +402,7 @@ smtp(nullserver, e)
 			}
 
 			gothello = TRUE;
-			
+
 			/* print HELO response message */
 			if (c->cmdcode != CMDEHLO || nullserver != NULL)
 			{
@@ -592,7 +592,7 @@ smtp(nullserver, e)
 					MaxMessageSize);
 				goto undo_subproc_no_pm;
 			}
-				
+
 			if (!enoughdiskspace(e->e_msgsize))
 			{
 				usrerr("452 Insufficient disk space; try again later");
@@ -955,7 +955,7 @@ smtp(nullserver, e)
 				id++;
 			else
 				*--id = '@';
-				  
+
 			if ((new = (QUEUE_CHAR *)malloc(sizeof(QUEUE_CHAR))) == NULL)
 			{
 				syserr("500 ETRN out of memory");
@@ -1481,7 +1481,7 @@ help(topic)
 
 	if (DontLockReadFiles)
 		sff |= SFF_NOLOCK;
-	if (!bitset(DBS_HELPFILEINUNSAFEDIRPATH, DontBlameSendmail))    
+	if (!bitset(DBS_HELPFILEINUNSAFEDIRPATH, DontBlameSendmail))
 		sff |= SFF_SAFEDIRPATH;
 
 	if (HelpFile == NULL ||

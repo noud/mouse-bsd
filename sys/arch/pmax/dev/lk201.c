@@ -260,7 +260,7 @@ lk_mapchar(cc, len)
 	static int lastLen;
 	char *cp;
 	int i;
-	
+
 	cp = NULL;
 
 	switch (cc) {
@@ -390,8 +390,8 @@ lk_divert(getfn, in_dev)
 }
 
 /*
- * Get an ASCII character off of the keyboard; simply pass the getc request 
- * onto the underlying serial driver, and map the resulting LK-201 keycode to 
+ * Get an ASCII character off of the keyboard; simply pass the getc request
+ * onto the underlying serial driver, and map the resulting LK-201 keycode to
  * ASCII.
  */
 int
@@ -448,25 +448,25 @@ lk_mouseinit(mdev, putc, getc)
 		return;
 	}
 	if (id_byte1 < 0) {
-		printf("lk_mouseinit: Timeout on %s byte of self-test report\n", 
+		printf("lk_mouseinit: Timeout on %s byte of self-test report\n",
 		    "1st");
 		return;
 	}
 	id_byte2 = (*getc)(mdev);
 	if (id_byte2 < 0) {
-		printf("lk_mouseinit: Timeout on %s byte of self-test report\n", 
+		printf("lk_mouseinit: Timeout on %s byte of self-test report\n",
 		    "2nd");
 		return;
 	}
 	id_byte3 = (*getc)(mdev);
 	if (id_byte3 < 0) {
-		printf("lk_mouseinit: Timeout on %s byte of self-test report\n", 
+		printf("lk_mouseinit: Timeout on %s byte of self-test report\n",
 		    "3rd");
 		return;
 	}
 	id_byte4 = (*getc)(mdev);
 	if (id_byte4 < 0) {
-		printf("lk_mouseinit: Timeout on %s byte of self-test report\n", 
+		printf("lk_mouseinit: Timeout on %s byte of self-test report\n",
 		    "4th");
 		return;
 	}

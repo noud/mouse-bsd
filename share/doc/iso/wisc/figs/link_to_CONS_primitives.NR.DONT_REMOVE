@@ -3,7 +3,7 @@
 .(b
 .TS
 tab(+) center expand box;
-c c 
+c c
 a | a .
 service primitive & arguments+provided by
 =
@@ -31,7 +31,7 @@ NS-user data+not implemented
 _
 N_CONNECT.confirm+not implemented
 =
-N_DATA.request+cons_output(... m, ...) 
+N_DATA.request+cons_output(... m, ...)
 +and cosns_output(... m, ...)
 confirmation+not implemented
 data+mbuf chain m
@@ -58,7 +58,7 @@ N_RESET.response+not implemented
 N_RESET.confirm+not implemented
 =
 N_DISCONNECT.request+cons_netcmd( CONN_CLOSE )
-reason+uses E_CO_HLI_DISCN (normal 
+reason+uses E_CO_HLI_DISCN (normal
 +disconnect from higher layer)
 responding address+not implemented
 NS_user data+not implemented

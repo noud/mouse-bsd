@@ -24,7 +24,7 @@ Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
 preserved on all copies.
 
-@ignore 
+@ignore
 Permission is granted to process this file through TeX and print the
 results, provided the printed document carries a copying permission
 notice identical to this one except for the removal of this paragraph
@@ -1892,7 +1892,7 @@ Only execute requests originating from the specified system.
 @item -x type
 @itemx --debug type
 @itemx -I file
-@itemx --config 
+@itemx --config
 @itemx -v
 @itemx --version
 @itemx --help
@@ -2740,7 +2740,7 @@ A lock file for a system, where @var{sys} is the system name.  As noted
 above, these lock files are kept in the lock directory, which may not be
 the spool directory.  These lock files are created by @code{uucico}
 while talking to a remote system, and are used to prevent multiple
-simultaneous conversations with a system.  
+simultaneous conversations with a system.
 
 On systems which limit file names to 14 characters, only the first eight
 characters of the system name are used in the lock file name.  This
@@ -2895,7 +2895,7 @@ to the end of the line is ignored unless the @kbd{#} is preceded by a
 @kbd{\} (backslash); if the @kbd{#} is preceeded by a @kbd{\}, the
 @kbd{\} is removed but the @kbd{#} remains in the line.  This can be
 useful for a phone number containing a @kbd{#}.  To enter the sequence
-@samp{\#}, use @samp{\\#}.  
+@samp{\#}, use @samp{\\#}.
 
 The backslash character may be used to continue lines.  If the last
 character in a line is a backslash, the backslash is removed and the
@@ -3276,7 +3276,7 @@ weekday, or @samp{Any} for any day.
 Following the day may be a range of hours separated with a hyphen using
 24 hour time.  The range of hours may cross 0; for example
 @samp{2300-0700} means any time except 7 AM to 11 PM.  If no time is
-given, calls may be made at any time on the specified day(s).  
+given, calls may be made at any time on the specified day(s).
 
 The time string may also be the single word @samp{Never}, which does not
 match any time.  The time string may also be a single word with a name
@@ -3926,7 +3926,7 @@ to refer to the source code for additional information in some cases.
 @section The System Configuration File
 @cindex sys file
 @cindex system configuration file
-@cindex configuration file (sys) 
+@cindex configuration file (sys)
 
 By default there is a single system configuration, named @file{sys} in
 the directory @var{newconfigdir}.  This may be overridden by the
@@ -4369,7 +4369,7 @@ The first @var{string} specifies the login name that the system must use
 when calling in.  If it is @samp{ANY} (e.g., @samp{called-login ANY}) any
 login name may be used; this is useful to override a file-wide default
 and to indicate that future alternates may have different login names.
-Case is significant.  The default value is @samp{ANY}.  
+Case is significant.  The default value is @samp{ANY}.
 
 Different alternates (@pxref{Defaults and Alternates}) may use different
 @code{called-login} commands, in which case the login name will be used
@@ -4408,7 +4408,7 @@ The default is false.
 @findex called-chat-seven-bit
 @item called-chat-program @var{strings}
 @findex called-chat-program
-  
+
 These commands may be used to define a chat script (@pxref{Chat
 Scripts}) that is run whenever the local system is called by the system
 being defined.  The chat script defined by the @code{chat} command
@@ -5103,7 +5103,7 @@ baud.
 @item carrier @var{boolean} [ modem and direct only ]
 @findex carrier in port file
 
-The argument indicates whether the port supports carrier.  
+The argument indicates whether the port supports carrier.
 
 If a modem port does not support carrier, the carrier detect signal will
 never be required on this port, regardless of what the modem chat script
@@ -6123,7 +6123,7 @@ This command means that instead of mailing a message, the message should
 be copied to the named file on the system named by the @samp{U} command.
 
 @item # comment
-This command is ignored, as is any other unrecognized command.  
+This command is ignored, as is any other unrecognized command.
 @end table
 
 Here is an example.  Given the following command executed on system
@@ -6192,7 +6192,7 @@ instead of a null byte; the examples below assume a null byte is being
 used.
 
 Some options below are supported by QFT, which stands for Queued File
-Transfer, and is (or was) an internal Bell Labs version of UUCP.  
+Transfer, and is (or was) an internal Bell Labs version of UUCP.
 
 Taylor UUCP size negotiation was introduced by Taylor UUCP, and is
 also supported by DOS based UUPlus and Amiga based wUUCP and
@@ -6717,7 +6717,7 @@ In either case, the master will then send another command.
 @item master: @samp{E @var{from} @var{to} @var{user} -@var{options} @var{temp} @var{mode} @var{notify} @var{size} @var{command}}
 The @samp{E} command is only supported by Taylor UUCP 1.04 and up.  It
 is used to make an execution request without requiring a separate
-@file{X.*} file.  
+@file{X.*} file.
 @ifclear faq
 @xref{Execution File Format}.
 @end ifclear
@@ -6861,7 +6861,7 @@ window size to be 3.
 
 This discussion of the @samp{g} protocol explains how it works, but does
 not discuss useful error handling techniques.  Some discussion of this
-can be found in Jamie E. Hanrahan's paper, cited 
+can be found in Jamie E. Hanrahan's paper, cited
 @ifclear faq
 above (@pxref{UUCP Protocol Sources}).
 @end ifclear
@@ -6995,7 +6995,7 @@ window size to use.
 
 @item 6 @samp{INITB}
 Second initialization packet.  The @var{yyy} field contains the
-packet size to use.  It requests a size of 
+packet size to use.  It requests a size of
 @ifinfo
 2 ** (@var{yyy} + 5).
 @end ifinfo

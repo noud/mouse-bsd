@@ -46,7 +46,7 @@ struct scsi_args {
 #else
 #define Inline
 #endif
- 
+
 extern void fatal(), warn();
 extern long ulimit(int, long);
 extern int brk(char *);

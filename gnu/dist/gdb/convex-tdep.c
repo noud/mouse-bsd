@@ -74,7 +74,7 @@ exec_file_command (filename, from_tty)
     {
       filename = tilde_expand (filename);
       make_cleanup (free, filename);
-      
+
       execchan = openp (getenv ("PATH"), 1, filename, O_RDONLY, 0,
 			&execfile);
       if (execchan < 0)
@@ -119,7 +119,7 @@ exec_file_command (filename, from_tty)
 
       fstat (execchan, &st_exec);
       exec_mtime = st_exec.st_mtime;
-      
+
       validate_files ();
     }
   else if (from_tty)
@@ -183,7 +183,7 @@ xfer_core_file (memaddr, myaddr, len)
  	    i = core_map[n].mem_addr - memaddr;
         }
 
-      if (!xferfile) 
+      if (!xferfile)
 	for (n = 0; n < n_exec; n++)
 	  {
 	    if (memaddr >= exec_map[n].mem_addr
@@ -247,7 +247,7 @@ print_maps ()
 
   static char *idstr[] =
     {
-      "0", "text", "data", "tdata", "bss", "tbss", 
+      "0", "text", "data", "tdata", "bss", "tbss",
       "common", "ttext", "ctx", "tctx", "10", "11", "12",
     };
 
@@ -295,7 +295,7 @@ static ptr_cmp (a, b)
    A trapped i.v. calls a hook here every time it is dereferenced,
    to provide a new value for the variable, and it calls a hook here
    when a new value is assigned, to do something with the value.
-   
+
    The vector registers are $vl, $vs, $vm, $vN, $VN (N in 0..7).
    The communication registers are $cN, $CN (N in 0..63).
    They not handled as regular registers because it's expensive to
@@ -318,7 +318,7 @@ is_trapped_internalvar (name)
   if ((name[0] == 'v' || name[0] == 'V')
       && (((name[1] & -8) == '0' && name[2] == '\0')
 	  || STREQ (name, "vl")
-	  || STREQ (name, "vs") 
+	  || STREQ (name, "vs")
 	  || STREQ (name, "vm")))
     return 1;
   else return 0;
@@ -358,7 +358,7 @@ value_of_trapped_internalvar (var)
 	create_array_type ((struct type *) NULL, builtin_type_int, range_type);
       val = allocate_value (type);
       p = (long *) VALUE_CONTENTS (val);
-      for (i = 0; i < len; i++) 
+      for (i = 0; i < len; i++)
 	*p++ = !! (vm[3 - (i >> 5)] & (1 << (i & 037)));
     }
   else if (name[0] == 'V')
@@ -406,11 +406,11 @@ set_trapped_internalvar (var, val, bitpos, bitsize, offset)
      struct internalvar *var;
      value val;
      int bitpos, bitsize, offset;
-{ 
+{
   char *name = var->name;
   long long newval = value_as_long (val);
 
-  if (STREQ (name, "vl")) 
+  if (STREQ (name, "vl"))
     write_vector_register (VL_REGNUM, 0, newval);
   else if (STREQ (name, "vs"))
     write_vector_register (VS_REGNUM, 0, newval);
@@ -477,7 +477,7 @@ set_base_command (arg)
   else
     {
       new_radix = atoi (arg);
-      if (new_radix != 10 && new_radix != 16 && new_radix != 8) 
+      if (new_radix != 10 && new_radix != 16 && new_radix != 8)
 	error ("base must be 8, 10 or 16, or null");
       else output_radix = new_radix;
     }
@@ -512,7 +512,7 @@ set_parallel_command (arg)
   int prevparallel = parallel;
 
   if (!strncmp (arg, "fixed", strlen (arg)))
-    parallel = 2;  
+    parallel = 2;
   else if (STREQ (arg, "on"))
     parallel = 1;
   else if (STREQ (arg, "off"))
@@ -534,7 +534,7 @@ set_parallel_command (arg)
 
 /* Add a new name for an existing command.  */
 
-static void 
+static void
 alias_command (arg)
     char *arg;
 {
@@ -544,12 +544,12 @@ alias_command (arg)
 
     if (!arg)
       error_no_arg ("newname oldname");
-	
+
     new = lookup_cmd (&arg, cmdlist, "", -1);
     if (new && !strncmp (newname, new->name, strlen (new->name)))
       {
 	newname = new->name;
-	if (!(*arg == '-' 
+	if (!(*arg == '-'
 	      || (*arg >= 'a' && *arg <= 'z')
 	      || (*arg >= 'A' && *arg <= 'Z')
 	      || (*arg >= '0' && *arg <= '9')))
@@ -558,7 +558,7 @@ alias_command (arg)
     else
       {
 	arg = newname;
-	while (*arg == '-' 
+	while (*arg == '-'
 	       || (*arg >= 'a' && *arg <= 'z')
 	       || (*arg >= 'A' && *arg <= 'Z')
 	       || (*arg >= '0' && *arg <= '9'))
@@ -611,12 +611,12 @@ thread_info ()
   printf_filtered ("Current thread %d stopped with signal %d.%d (%s).\n",
 		   inferior_thread, stop_signal, stop_sigcode,
 		   subsig_name (stop_signal, stop_sigcode));
-  
+
   for (p = signal_stack; p->pid; p--)
     printf_filtered ("Thread %d stopped with signal %d.%d (%s).\n",
 		     p->thread, p->signo, p->subsig,
 		     subsig_name (p->signo, p->subsig));
-		
+
   if (iscrlbit (comm_registers.crctl.lbits.cc, 64+13))
     printf_filtered ("New thread start pc %#x\n",
 		     (long) (comm_registers.crreg.pcpsw >> 32));
@@ -654,7 +654,7 @@ subsig_name (signo, subcode)
     "i/o access denied", "levt pte invalid",
     0};
 
-  static char **subsig_list[] = 
+  static char **subsig_list[] =
     {0, 0, 0, 0, subsig4, subsig5, 0, 0, subsig8, 0, subsig10, subsig11, 0};
 
   int i;
@@ -793,7 +793,7 @@ comm_registers_info (arg)
 
 /* Print the psw */
 
-static void 
+static void
 psw_info (arg)
     char *arg;
 {
@@ -806,29 +806,29 @@ psw_info (arg)
 
   static struct pswbit pswbit[] =
     {
-      { 0x80000000, -1, "A carry" }, 
-      { 0x40000000, -1, "A integer overflow" }, 
-      { 0x20000000, -1, "A zero divide" }, 
-      { 0x10000000, -1, "Integer overflow enable" }, 
-      { 0x08000000, -1, "Trace" }, 
-      { 0x06000000, 25, "Frame length" }, 
-      { 0x01000000, -1, "Sequential" }, 
-      { 0x00800000, -1, "S carry" }, 
-      { 0x00400000, -1, "S integer overflow" }, 
-      { 0x00200000, -1, "S zero divide" }, 
-      { 0x00100000, -1, "Zero divide enable" }, 
-      { 0x00080000, -1, "Floating underflow" }, 
-      { 0x00040000, -1, "Floating overflow" }, 
-      { 0x00020000, -1, "Floating reserved operand" }, 
-      { 0x00010000, -1, "Floating zero divide" }, 
-      { 0x00008000, -1, "Floating error enable" }, 
-      { 0x00004000, -1, "Floating underflow enable" }, 
-      { 0x00002000, -1, "IEEE" }, 
-      { 0x00001000, -1, "Sequential stores" }, 
-      { 0x00000800, -1, "Intrinsic error" }, 
-      { 0x00000400, -1, "Intrinsic error enable" }, 
-      { 0x00000200, -1, "Trace thread creates" }, 
-      { 0x00000100, -1, "Thread init trap" }, 
+      { 0x80000000, -1, "A carry" },
+      { 0x40000000, -1, "A integer overflow" },
+      { 0x20000000, -1, "A zero divide" },
+      { 0x10000000, -1, "Integer overflow enable" },
+      { 0x08000000, -1, "Trace" },
+      { 0x06000000, 25, "Frame length" },
+      { 0x01000000, -1, "Sequential" },
+      { 0x00800000, -1, "S carry" },
+      { 0x00400000, -1, "S integer overflow" },
+      { 0x00200000, -1, "S zero divide" },
+      { 0x00100000, -1, "Zero divide enable" },
+      { 0x00080000, -1, "Floating underflow" },
+      { 0x00040000, -1, "Floating overflow" },
+      { 0x00020000, -1, "Floating reserved operand" },
+      { 0x00010000, -1, "Floating zero divide" },
+      { 0x00008000, -1, "Floating error enable" },
+      { 0x00004000, -1, "Floating underflow enable" },
+      { 0x00002000, -1, "IEEE" },
+      { 0x00001000, -1, "Sequential stores" },
+      { 0x00000800, -1, "Intrinsic error" },
+      { 0x00000400, -1, "Intrinsic error enable" },
+      { 0x00000200, -1, "Trace thread creates" },
+      { 0x00000100, -1, "Thread init trap" },
       { 0x000000e0,  5, "Reserved" },
       { 0x0000001f,  0, "Intrinsic error code" },
       {0, 0, 0},
@@ -956,7 +956,7 @@ convex_print_insn (memaddr, stream)
   read_memory (memaddr, &inst, sizeof inst);
 
   /* Remove and note prefix, if present */
-    
+
   pfx = inst.half[0];
   if ((pfx & 0xfff0) == 0x7ef0)
     {
@@ -1129,7 +1129,7 @@ int print_effa (inst, stream)
       n = inst.signed_half[1];
       l = 4;
     }
-	
+
   if (inst.f1.indir)
     printf ("@");
 
@@ -1189,7 +1189,7 @@ A communication register name as argument means describe only that register.\n\
 An address as argument means describe the resource structure at that address.\n\
 `Locked' means that the register has been sent to but not yet received from.");
 
-  add_info ("psw", psw_info, 
+  add_info ("psw", psw_info,
 	    "Display $ps, the processor status word, bit by bit.\n\
 An argument means display that value's interpretation as a psw.");
 

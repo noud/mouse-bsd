@@ -72,7 +72,7 @@
 /*
  * Copyright (C) 1997 and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -84,7 +84,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -198,7 +198,7 @@ hookup(host, port)
 	static char hostnamebuf[MAXHOSTNAMELEN];
 	char *cause = "unknown";
 	int family;
-	
+
 #if defined(NI_NUMERICHOST) && defined(INET6)
 	memset((char *)&hisctladdr, 0, sizeof (hisctladdr));
 	memset(&hints, 0, sizeof(hints));
@@ -219,7 +219,7 @@ hookup(host, port)
 	else
 		(void)strlcpy(hostnamebuf, host, sizeof(hostnamebuf));
 	hostname = hostnamebuf;
-	
+
 	for (res = res0; res; res = res->ai_next) {
 #if 0	/*old behavior*/
 		if (res != res0)	/* not on the first address */
@@ -657,7 +657,7 @@ empty(cin, din, sec)
 			nfd = fileno(din);
 		FD_SET(fileno(din), &rmask);
 	}
-		
+
 	t.tv_sec = (long) sec;
 	t.tv_usec = 0;
 	if ((nr = select(nfd, &rmask, NULL, NULL, &t)) <= 0)
@@ -1781,7 +1781,7 @@ noport:
 		if (!connected)
 			return (1);
 	skip_port:
-		
+
 		if (result == ERROR && sendport == -1) {
 			sendport = 0;
 			tmpno = 1;
@@ -2128,7 +2128,7 @@ gunique(local)
 	}
 	len = strlcpy(new, local, sizeof(new));
 	cp = &new[len];
-	*cp++ = '.';    
+	*cp++ = '.';
 	while (!d) {
 		if (++count == 100) {
 			fputs("runique: can't find unique file name.\n",

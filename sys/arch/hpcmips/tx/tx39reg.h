@@ -27,7 +27,7 @@
  */
 
 /*
- *	TOSHIBA TMPR3912 Single-chip integrated digital ASSP for PDA. 
+ *	TOSHIBA TMPR3912 Single-chip integrated digital ASSP for PDA.
  *	http://www.toshiba.com/taec/components/Generic/TMPR3905-12.pdf
  */
 
@@ -38,6 +38,6 @@
 #define TMPR3922		0x30
 
 /*
- * TX3922 Revision register 
+ * TX3922 Revision register
  */
 #define TX3922_REVISION_REG	0x208

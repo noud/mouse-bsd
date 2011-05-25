@@ -58,7 +58,7 @@ struct __false_type {
 };
 
 template <class type>
-struct __type_traits { 
+struct __type_traits {
    typedef __true_type     this_dummy_member_must_be_first;
                    /* Do not remove this member. It informs a compiler which
                       automatically specializes __type_traits that this
@@ -67,7 +67,7 @@ struct __type_traits {
                       called __type_traits for something unrelated. */
 
    /* The following restrictions should be observed for the sake of
-      compilers which automatically produce type specific specializations 
+      compilers which automatically produce type specific specializations
       of this class:
           - You may reorder the members below if you wish
           - You may remove any of the members below if you wish
@@ -75,7 +75,7 @@ struct __type_traits {
             name change in the compiler
           - Members you add will be treated like regular members unless
             you add the appropriate support in the compiler. */
- 
+
 
    typedef __false_type    has_trivial_default_constructor;
    typedef __false_type    has_trivial_copy_constructor;

@@ -95,7 +95,7 @@ makeinfo_SOURCES = makeinfo.c makeinfo.h multi.c
 EXTRA_DIST = README
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 PROGRAMS =  $(bin_PROGRAMS)
 
 
@@ -106,7 +106,7 @@ LIBS = @LIBS@
 makeinfo_OBJECTS =  makeinfo.o multi.o
 makeinfo_LDADD = $(LDADD)
 makeinfo_DEPENDENCIES =  ../lib/libtxi.a
-makeinfo_LDFLAGS = 
+makeinfo_LDFLAGS =
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
 LINK = $(CC) $(CFLAGS) $(LDFLAGS) -o $@
@@ -124,7 +124,7 @@ default: all
 
 .SUFFIXES:
 .SUFFIXES: .S .c .o .s
-$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps makeinfo/Makefile
 
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
@@ -228,7 +228,7 @@ installcheck:
 install-exec: install-binPROGRAMS
 	@$(NORMAL_INSTALL)
 
-install-data: 
+install-data:
 	@$(NORMAL_INSTALL)
 
 install: install-exec install-data all

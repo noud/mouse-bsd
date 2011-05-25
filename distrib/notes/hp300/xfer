@@ -1,4 +1,4 @@
-.\"	$NetBSD: xfer,v 1.8 1999/01/13 07:30:05 ross Exp $	
+.\"	$NetBSD: xfer,v 1.8 1999/01/13 07:30:05 ross Exp $
 Installation is supported from several media types, including:
 .Pp
 .Bl -bullet -compact
@@ -47,7 +47,7 @@ system where the tapes are created for more details.
 .Ss2 To prepare for installing via NFS:
 SYS_INST currently requires an NFS server from which to
 copy the miniroot.
-.Bl -bullet 
+.Bl -bullet
 .It
 This filesystem must be exported with root permissions,
 but may be exported read-only.

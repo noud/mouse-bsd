@@ -6,7 +6,7 @@ SRCS=		gcc.c prefix.c version.c choose-temp.c pexecute.c mkstemp.c \
 		obstack.c
 BINDIR=		/usr/bin
 
-LINKS+=		${BINDIR}/gcc ${BINDIR}/cc 
+LINKS+=		${BINDIR}/gcc ${BINDIR}/cc
 
 MAN=		gcc.1
 MLINKS=		gcc.1 cc.1

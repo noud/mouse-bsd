@@ -35,7 +35,7 @@ jjc@jclark.com
 + #endif /* GROFF */
   	}
   
-  	/* 
+  	/*
 *** troff.c.~1~	Thu Feb 14 16:09:48 1991
 --- troff.c	Mon Mar  4 12:48:46 1991
 ***************

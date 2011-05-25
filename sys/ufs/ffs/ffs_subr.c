@@ -99,7 +99,7 @@ ffs_blkatoff(v)
 #endif
 
 /*
- * Update the frsum fields to reflect addition or deletion 
+ * Update the frsum fields to reflect addition or deletion
  * of some frags.
  */
 void

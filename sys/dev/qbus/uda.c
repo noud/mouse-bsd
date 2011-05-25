@@ -162,11 +162,11 @@ again:
 	if (mscp_waitstep(&mi, MP_STEP1, MP_STEP1) == 0)
 		return 0; /* Nothing here... */
 
-	bus_space_write_2(mi.mi_iot, mi.mi_sah, 0, 
+	bus_space_write_2(mi.mi_iot, mi.mi_sah, 0,
 	    MP_ERR | (NCMDL2 << 11) | (NRSPL2 << 8) | MP_IE | (ivec_no >> 2));
 
 	if (mscp_waitstep(&mi, MP_STEP2, MP_STEP2) == 0) {
-		printf("udaprobe: init step2 no change. sa=%x\n", 
+		printf("udaprobe: init step2 no change. sa=%x\n",
 		    bus_space_read_2(mi.mi_iot, mi.mi_sah, 0));
 		goto bad;
 	}
@@ -240,7 +240,7 @@ err2:		bus_dmamem_unmap(sc->sc_dmat, (caddr_t)&sc->sc_uda,
 		    sizeof(struct mscp_pack));
 		goto err;
 	}
-	if ((error = bus_dmamap_load(sc->sc_dmat, sc->sc_cmap, 
+	if ((error = bus_dmamap_load(sc->sc_dmat, sc->sc_cmap,
 	    &sc->sc_uda, sizeof(struct mscp_pack), 0, BUS_DMA_NOWAIT))) {
 		printf("Load ctrl map %d\n", error);
 		bus_dmamap_destroy(sc->sc_dmat, sc->sc_cmap);
@@ -314,7 +314,7 @@ udago(usc, mxi)
 
 /*
  * Called if we have been blocked for resources, and resources
- * have been freed again. Return 1 if we could start all 
+ * have been freed again. Return 1 if we could start all
  * transfers again, 0 if we still are waiting.
  * Called from uba resource free routines.
  */

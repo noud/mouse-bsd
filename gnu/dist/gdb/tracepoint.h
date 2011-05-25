@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 enum enable { disabled, enabled };
 #endif
 /* The data structure for an action: */
-struct action_line 
+struct action_line
 {
   struct action_line *next;
   char *action;
@@ -57,13 +57,13 @@ struct tracepoint
   /* Source file name of this address.  Only matters if address is non-NULL. */
   char *source_file;
 
-  /* Number of times this tracepoint should single-step 
+  /* Number of times this tracepoint should single-step
      and collect additional data */
   long step_count;
 
   /* Number of times this tracepoint should be hit before disabling/ending. */
   int pass_count;
-  
+
   /* Chain of action lines to execute when this tracepoint is hit. */
   struct action_line *actions;
 
@@ -86,7 +86,7 @@ struct tracepoint
      aborting, so you can back up to just before the abort.  */
   int hit_count;
 
-  /* Thread number for thread-specific breakpoint, or -1 if don't care */ 
+  /* Thread number for thread-specific breakpoint, or -1 if don't care */
   int thread;
 };
 

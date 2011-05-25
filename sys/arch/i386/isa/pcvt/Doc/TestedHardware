@@ -1,6 +1,6 @@
 Tested Hardware List                  last edit-date: [Sat Jun 24 14:50:46 1995]
 
-This is by no means a complete list of hardware pcvt runs on, it is just 
+This is by no means a complete list of hardware pcvt runs on, it is just
 compiled from reports people sent in and from hardware owned/loaned !
 
 
@@ -70,7 +70,7 @@ Kyocera				MF II			German
 
 There is absolutely NO support for the ancient PC-keyboards (they had 83 keys).
 
-There is only limited support for AT-keyboards (they have 84 keys, and a 
+There is only limited support for AT-keyboards (they have 84 keys, and a
 separate numeric keypad, they don't have F9-F12 keys) because the emulator
 needs F9-F12 for control functions, and due to the current design of the
 keyboard driver there is no (full) support for national keyboards because

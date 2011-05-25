@@ -47,7 +47,7 @@ $NetBSD: pcidevs,v 1.192 2000/02/16 04:29:20 soren Exp $
  * List of known PCI vendors
  */
 
-vendor MARTINMARIETTA	0x003d	Martin-Marietta Corporation 
+vendor MARTINMARIETTA	0x003d	Martin-Marietta Corporation
 vendor COMPAQ		0x0e11	Compaq
 vendor SYMBIOS		0x1000	Symbios Logic
 vendor ATI		0x1002	ATI Technologies
@@ -1277,7 +1277,7 @@ product SMC 83C175	0x0006	83C175 (\"EPIC/100\") Fast Ethernet
 /* Solidum Systems Corporation */
 product SOLIDUM AMD971		0x2000 SNP8023: AMD 971
 product SOLIDUM CLASS802	0x8023 SNP8023: Classifier Engine
-  
+
 /* Sony products */
 product	SONY	CXD1947A	0x8009	CXD1947A FireWire Host Controller
 
@@ -1389,7 +1389,7 @@ product V3 V960PBC	0x0960	V960PBC	i960 Host-PCI Bridge
 product V3 V96DPC	0xC960	V96DPC	i960 (Dual) Host-PCI Bridge
 
 /* VIA Technologies products, from http://www.via.com.tw/ */
-product VIATECH VT82C505	0x0505	VT82C505 (Pluto) 
+product VIATECH VT82C505	0x0505	VT82C505 (Pluto)
 product VIATECH VT82C561	0x0561	VT82C561
 product VIATECH VT82C586A_IDE	0x0571	VT82C586A IDE Controller
 product VIATECH VT82C576	0x0576	VT82C576 3V

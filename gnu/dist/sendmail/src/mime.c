@@ -685,7 +685,7 @@ mime_getchar(fp, boundaries, btp)
 		buflen--;
 		return *bp++;
 	}
-	else 
+	else
 		c = getc(fp);
 	bp = buf;
 	buflen = 0;

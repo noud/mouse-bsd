@@ -60,7 +60,7 @@ int rh_mondefok __P((struct MonDef *));
 u_short rh_CompFQ __P((u_int fq));
 int rh_load_mon __P((struct grf_softc *gp, struct MonDef *md));
 int rh_getvmode __P((struct grf_softc *gp, struct grfvideo_mode *vm));
-int rh_setvmode __P((struct grf_softc *gp, unsigned int mode, 
+int rh_setvmode __P((struct grf_softc *gp, unsigned int mode,
                      enum mode_type type));
 
 /* make it patchable, and settable by kernel config option */
@@ -463,7 +463,7 @@ RZ3BitBlit24 (gp, gbb)
         unsigned short mod;
 
 
-        { 
+        {
                 unsigned long * pt = (unsigned long *) (lm + PAT_MEM_OFF);
                 unsigned long tmp  = gbb->mask | ((unsigned long)gbb->mask << 16);
                 *pt++ = tmp;
@@ -473,22 +473,22 @@ RZ3BitBlit24 (gp, gbb)
                 *pt++ = tmp;
                 *pt   = tmp;
         }
-        
+
         {
-                
+
                 unsigned long tmp = optab[ gbb->op ] << 8;
                 *(acm + ACM_RASTEROP_ROTATION/4) = tmp;
         }
-        
+
         mod = 0xc0c2;
-        
+
         {
                 unsigned long pat = 8 * PAT_MEM_OFF;
                 unsigned long dst = 8 * 3 * (gbb->dst_x + gbb->dst_y * md->TX);
-                
+
                 if (optabs[gbb->op]) {
                         unsigned long src = 8 * 3 * (gbb->src_x + gbb->src_y * md->TX);
-                        
+
                         if (gbb->dst_x > gbb->src_x ) {
                                 mod &= ~0x8000;
                                 src += 8 * 3 * (gbb->w);
@@ -501,38 +501,38 @@ RZ3BitBlit24 (gp, gbb)
                                 dst += 8 * 3 * (gbb->h - 1) * md->TX;
                                 pat += 8 * 4 * 3;
                         }
-                        
+
                         M2I(src);
                         *(acm + ACM_SOURCE/4) = src;
                 }
-                
-                
+
+
                 M2I(pat);
                 *(acm + ACM_PATTERN/4) = pat;
-                
-                
+
+
                 M2I(dst);
                 *(acm + ACM_DESTINATION/4) = dst;
         }
         {
-                
+
                 unsigned long tmp = mod << 16;
                 *(acm + ACM_CONTROL/4) = tmp;
         }
         {
-                
+
                 unsigned long tmp  = gbb->w | (gbb->h << 16);
                 M2I(tmp);
                 *(acm + ACM_BITMAP_DIMENSION/4) = tmp;
         }
-        
-        
-        *(((volatile unsigned char *)acm) + ACM_START_STATUS) = 0x00; 
-        *(((volatile unsigned char *)acm) + ACM_START_STATUS) = 0x01; 
-        
-        while ( (*(((volatile unsigned char *)acm) 
+
+
+        *(((volatile unsigned char *)acm) + ACM_START_STATUS) = 0x00;
+        *(((volatile unsigned char *)acm) + ACM_START_STATUS) = 0x01;
+
+        while ( (*(((volatile unsigned char *)acm)
                    + (ACM_START_STATUS+ 2)) & 1) == 0 ) {};
-        
+
 }
 
 
@@ -616,9 +616,9 @@ RZ3SetPanning (gp, xoff, yoff)
 
 	if (md->DEP == 8)
 		off = ((yoff * md->TX)/ 4) + (xoff >> 2);
-        else if (md->DEP == 16) 
+        else if (md->DEP == 16)
 		off = ((yoff * md->TX * 2)/ 4) + (xoff >> 2);
-        else 
+        else
                 off = ((yoff * md->TX * 3)/ 4) + (xoff >> 2);
 	WCrt(ba, CRT_ID_START_ADDR_LOW, ((unsigned char)off));
 	off >>= 8;
@@ -879,7 +879,7 @@ rh_load_mon(gp, md)
 	}
         else if (md->DEP == 24) {
                 /* 24bit pixel, gfx byte path */
-                WSeq(ba, SEQ_ID_EXT_PIXEL_CNTL, 0x21);  
+                WSeq(ba, SEQ_ID_EXT_PIXEL_CNTL, 0x21);
         }
 	WSeq(ba, SEQ_ID_BUS_WIDTH_FEEDB, 0x04);
 	WSeq(ba, SEQ_ID_COLOR_EXP_WFG, 0x01);
@@ -953,15 +953,15 @@ rh_load_mon(gp, md)
 	WCrt(ba, CRT_ID_VER_DISP_ENA_END, VDE  & 0xff);
 
         if (md->DEP == 4) {
-                WCrt(ba, CRT_ID_OFFSET, (HDE / 2) & 0xff );       
+                WCrt(ba, CRT_ID_OFFSET, (HDE / 2) & 0xff );
         }
         /* all gfx-modes are in byte-mode, means values are multiplied by 8 */
         else if (md->DEP == 8) {
-                WCrt(ba, CRT_ID_OFFSET, (md->TX / 8) & 0xff );       
+                WCrt(ba, CRT_ID_OFFSET, (md->TX / 8) & 0xff );
         } else if (md->DEP == 16) {
-                WCrt(ba, CRT_ID_OFFSET, (md->TX / 4) & 0xff );       
+                WCrt(ba, CRT_ID_OFFSET, (md->TX / 4) & 0xff );
         } else {
-                WCrt(ba, CRT_ID_OFFSET, (md->TX * 3 / 8) & 0xff );       
+                WCrt(ba, CRT_ID_OFFSET, (md->TX * 3 / 8) & 0xff );
         }
 
 	WCrt(ba, CRT_ID_UNDERLINE_LOC, (md->FY-1) & 0x1f);
@@ -979,14 +979,14 @@ rh_load_mon(gp, md)
 		    ((md->HSS & 0x100) / 0x100 * 8));
 
         if (md->DEP == 4) {
-                WCrt(ba, CRT_ID_EXT_START_ADDR, (((HDE / 2) & 0x100)/0x100 * 16)); 
+                WCrt(ba, CRT_ID_EXT_START_ADDR, (((HDE / 2) & 0x100)/0x100 * 16));
         }
         else if (md->DEP == 8) {
-                WCrt(ba, CRT_ID_EXT_START_ADDR, (((md->TX / 8) & 0x100)/0x100 * 16)); 
+                WCrt(ba, CRT_ID_EXT_START_ADDR, (((md->TX / 8) & 0x100)/0x100 * 16));
         } else if (md->DEP == 16) {
-                WCrt(ba, CRT_ID_EXT_START_ADDR, (((md->TX / 4) & 0x100)/0x100 * 16)); 
+                WCrt(ba, CRT_ID_EXT_START_ADDR, (((md->TX / 4) & 0x100)/0x100 * 16));
         } else {
-                WCrt(ba, CRT_ID_EXT_START_ADDR, (((md->TX * 3 / 8) & 0x100)/0x100 * 16)); 
+                WCrt(ba, CRT_ID_EXT_START_ADDR, (((md->TX * 3 / 8) & 0x100)/0x100 * 16));
         }
 
 	WCrt(ba, CRT_ID_EXT_HOR_TIMING2,
@@ -1064,11 +1064,11 @@ rh_load_mon(gp, md)
         /* probably some PLL timing stuff here. The value
            for 24bit was found by trial&error :-) */
         if (md->DEP < 16) {
-                vgaw(ba, 0x83c6, ((0 & 7) << 5) ); 
+                vgaw(ba, 0x83c6, ((0 & 7) << 5) );
         }
         else if (md->DEP == 16) {
 	  	/* well... */
-                vgaw(ba, 0x83c6, ((3 & 7) << 5) ); 
+                vgaw(ba, 0x83c6, ((3 & 7) << 5) );
         }
         else if (md->DEP == 24) {
                 vgaw(ba, 0x83c6, 0xe0);
@@ -1159,7 +1159,7 @@ rh_load_mon(gp, md)
 
                 gi->gd_fbx = 0;
                 gi->gd_fby = 0;
-                
+
 		return(1);
 	} else if (md->DEP == 16) {
 		struct grf_bitblt bb = {
@@ -1175,7 +1175,7 @@ rh_load_mon(gp, md)
 
                 gi->gd_fbx = 0;
                 gi->gd_fby = 0;
-                
+
 		return(1);
         } else if (md->DEP == 24) {
                 struct grf_bitblt bb = {
@@ -1185,13 +1185,13 @@ rh_load_mon(gp, md)
                         md->TX, md->TY,
                         0x0000
                 };
-                WSeq(ba, SEQ_ID_MAP_MASK, 0x0f );  
-                
+                WSeq(ba, SEQ_ID_MAP_MASK, 0x0f );
+
                 RZ3BitBlit24(gp, &bb );
-                
+
                 gi->gd_fbx = 0;
                 gi->gd_fby = 0;
-                
+
                 return 1;
 	} else
 		return(0);
@@ -1471,8 +1471,8 @@ static struct MonDef monitor_defs[] = {
   {110000000,  0,  800, 600,  601,602,647,723,722, 601, 602, 612, 628, 628,
       24,           0,  800,  600,  7200,   FX,    FY, KERNEL_FONT,   32,  255},
 
-  /* 800 x 600, 24 Bit, 43824 Hz, 69 Hz */ 
-  {132000000,  0,  800, 600,  601,641,688,749,748, 601, 611, 621, 628, 628,  
+  /* 800 x 600, 24 Bit, 43824 Hz, 69 Hz */
+  {132000000,  0,  800, 600,  601,641,688,749,748, 601, 611, 621, 628, 628,
       24,           0,  800,  600,  7200,   FX,    FY, KERNEL_FONT,   32,  255},
 
   /*1024 x 768, 24 Bit, 32051 Hz, 79 Hz i */
@@ -1557,7 +1557,7 @@ grfrhmatch(pdp, cfp, auxp)
 		if (rhconunit != -1)
 #endif
 			return(0);
-	if (zap->manid != 18260 || 
+	if (zap->manid != 18260 ||
 			((zap->prodid != 16) && (zap->prodid != 19)))
 		return(0);
 #ifdef RETINACONSOLE
@@ -1650,32 +1650,32 @@ rh_getvmode(gp, vm)
         vm->disp_height  = (md->DEP == 4) ? md->MH : md->TY;
 	vm->depth        = md->DEP;
 
-	/* 
+	/*
 	 * From observation of the monitor definition table above, I guess
-	 * that the horizontal timings are in units of longwords. Hence, I 
+	 * that the horizontal timings are in units of longwords. Hence, I
 	 * get the pixels by multiplication with 32 and division by the depth.
-	 * The text modes, apparently marked by depth == 4, are even more 
-	 * wierd. According to a comment above, they are computed from a 
-	 * depth==8 mode thats for us: * 32 / 8) by applying another factor 
+	 * The text modes, apparently marked by depth == 4, are even more
+	 * wierd. According to a comment above, they are computed from a
+	 * depth==8 mode thats for us: * 32 / 8) by applying another factor
 	 * of 4 / font width.
-	 * Reverse applying the latter formula most of the constants cancel	
+	 * Reverse applying the latter formula most of the constants cancel
 	 * themselves and we are left with a nice (* font width).
-	 * That is, internal timings are in units of longwords for graphics 
+	 * That is, internal timings are in units of longwords for graphics
 	 * modes, or in units of characters widths for text modes.
 	 * We better don't WRITE modes until this has been real live checked.
 	 *                    - Ignatios Souvatzis
 	 */
-          
+
 	if (md->DEP != 4) {
 		vm->hblank_start = md->HBS * 32 / md->DEP;
-		vm->hsync_start  = md->HSS * 32 / md->DEP;    
+		vm->hsync_start  = md->HSS * 32 / md->DEP;
 		vm->hsync_stop   = md->HSE * 32 / md->DEP;
 		vm->htotal       = md->HT * 32 / md->DEP;
 	} else {
 		vm->hblank_start = md->HBS * md->FX;
 		vm->hsync_start  = md->HSS * md->FX;
 		vm->hsync_stop   = md->HSE * md->FX;
-		vm->htotal       = md->HT * md->FX;    
+		vm->htotal       = md->HT * md->FX;
 	}
 
 	/* XXX move vm->disp_flags and vmul to rh_load_mon
@@ -1750,7 +1750,7 @@ rh_mode(gp, cmd, arg, a2, a3)
 		return(rh_getvmode (gp, (struct grfvideo_mode *) arg));
 
 	    case GM_GRFSETVMODE:
-                return(rh_setvmode (gp, *(unsigned *) arg, 
+                return(rh_setvmode (gp, *(unsigned *) arg,
                                     (gp->g_flags & GF_GRFON) ? MT_GFXONLY : MT_TXTONLY));
 
 	    case GM_GRFGETNUMVM:

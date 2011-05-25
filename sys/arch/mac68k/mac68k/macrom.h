@@ -139,7 +139,7 @@ caddr_t	*mrg_GetIndResource __P((u_int16_t index, u_int32_t type));
 	/* Mac ROM Glue globals for BSD kernel */
 extern caddr_t mrg_romadbintr;
 extern caddr_t mrg_ADBIntrPtr;
-extern u_char mrg_GetResource[];	/* type is almost a lie; 
+extern u_char mrg_GetResource[];	/* type is almost a lie;
 					call it an array of bytes of code */
 extern u_char mrg_ResError[];
 

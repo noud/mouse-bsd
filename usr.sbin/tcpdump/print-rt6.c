@@ -81,7 +81,7 @@ rt6_print(register const u_char *bp, register const u_char *bp2)
         printf("%s > %s: ",
 	       ip6addr_string(&ip->ip6_src),
 	       ip6addr_string(&ip->ip6_dst));
-	
+
 	TCHECK(dp->ip6r0_slmap[2]);
 	printf("srcrt (len=%d, ", dp->ip6r0_len);
 	printf("type=%d, ", dp->ip6r0_type);
@@ -111,7 +111,7 @@ rt6_print(register const u_char *bp, register const u_char *bp2)
 				      sizeof(u_long) + (i<<4)));
 		if (i != len - 1)
 			printf(", ");
-		   
+
 	}
 	printf(")");
 	return((dp->ip6r0_len + 1) << 3);

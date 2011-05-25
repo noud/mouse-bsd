@@ -5,7 +5,7 @@ HAVE_GCC28!=	${CXX} --version | egrep "^(2\.8|egcs)" ; echo
 
 PROG=		cpp
 BINDIR=		/usr/libexec
-SRCS=		cccp.c cexp.y obstack.c prefix.c version.c 
+SRCS=		cccp.c cexp.y obstack.c prefix.c version.c
 CPPFLAGS+=	-DGCC_INCLUDE_DIR=\"\" \
 		-DGPLUSPLUS_INCLUDE_DIR=\"/usr/include/g++\" -DLINTCOMMENT
 .if empty(HAVE_GCC28)

@@ -501,7 +501,7 @@ comopen(dev, flag, mode, p)
 
 			/* Set 16550 compatibility mode */
 			outb(hayespbase + HAYESP_CMD1, HAYESP_SETMODE);
-			outb(hayespbase + HAYESP_CMD2, 
+			outb(hayespbase + HAYESP_CMD2,
 			     HAYESP_MODE_FIFO|HAYESP_MODE_RTS|
 			     HAYESP_MODE_SCALE);
 
@@ -512,7 +512,7 @@ comopen(dev, flag, mode, p)
 
 			/* Set flow control levels */
 			outb(hayespbase + HAYESP_CMD1, HAYESP_SETRXFLOW);
-			outb(hayespbase + HAYESP_CMD2, 
+			outb(hayespbase + HAYESP_CMD2,
 			     HAYESP_HIBYTE(HAYESP_RXHIWMARK));
 			outb(hayespbase + HAYESP_CMD2,
 			     HAYESP_LOBYTE(HAYESP_RXHIWMARK));
@@ -556,7 +556,7 @@ comopen(dev, flag, mode, p)
 
 	return error;
 }
- 
+
 int
 comclose(dev, flag, mode, p)
 	dev_t dev;
@@ -596,7 +596,7 @@ comclose(dev, flag, mode, p)
 #endif
 	return 0;
 }
- 
+
 int
 comread(dev, uio, flag)
 	dev_t dev;
@@ -605,10 +605,10 @@ comread(dev, uio, flag)
 {
 	struct com_softc *sc = xcom_cd.cd_devs[COMUNIT(dev)];
 	struct tty *tp = sc->sc_tty;
- 
+
 	return ((*linesw[tp->t_line].l_read)(tp, uio, flag));
 }
- 
+
 int
 comwrite(dev, uio, flag)
 	dev_t dev;
@@ -617,7 +617,7 @@ comwrite(dev, uio, flag)
 {
 	struct com_softc *sc = xcom_cd.cd_devs[COMUNIT(dev)];
 	struct tty *tp = sc->sc_tty;
- 
+
 	return ((*linesw[tp->t_line].l_write)(tp, uio, flag));
 }
 
@@ -630,7 +630,7 @@ comtty(dev)
 
 	return (tp);
 }
- 
+
 static u_char
 tiocm_xxx2mcr(data)
 	int data;
@@ -734,9 +734,9 @@ comioctl(dev, cmd, data, flag, p)
 	case TIOCSFLAGS: {
 		int userbits, driverbits = 0;
 
-		error = suser(p->p_ucred, &p->p_acflag); 
+		error = suser(p->p_ucred, &p->p_acflag);
 		if (error != 0)
-			return(EPERM); 
+			return(EPERM);
 
 		userbits = *(int *)data;
 		if (ISSET(userbits, TIOCFLAG_SOFTCAR) ||

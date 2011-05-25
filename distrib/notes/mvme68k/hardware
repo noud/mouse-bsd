@@ -1,4 +1,4 @@
-.\"	$NetBSD: hardware,v 1.4 1999/02/20 16:18:11 scw Exp $	
+.\"	$NetBSD: hardware,v 1.4 1999/02/20 16:18:11 scw Exp $
 .
 NetBSD/mvme68k \*V runs on Motorola
 .Tn MVME147 No and MVME167 No Single Board Computers.
@@ -33,7 +33,7 @@ built-in console, ttyZ1, ttyZ2 and ttyZ3
 On-board centronics style printer port
 .It Em Network interfaces:
 On-board Lance Ethernet (le)
-.It Em SCSI: 
+.It Em SCSI:
 (Most SCSI disks, tapes, CD-ROMs, etc.)
 On-board wd33c93 SCSI bus interface chip (async only for now).
 .It Em Miscellaneous:
@@ -50,7 +50,7 @@ built-in console, ttyC1, ttyC2 and ttyC3
 On-board centronics style printer port
 .It Em Network interfaces:
 On-board Ethernet (ie)
-.It Em SCSI: 
+.It Em SCSI:
 (Most SCSI disks, tapes, CD-ROMs, etc.)
 On-board ncr53c710 SCSI I/O Processor chip.
 .It Em Miscellaneous:

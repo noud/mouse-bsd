@@ -90,5 +90,5 @@ COPY	${CURDIR}/dot.profile			.profile
 # Minimize use of MFS
 SYMLINK	/tmp	var/tmp
 
-#the lists of obsolete files used by sysinst  
+#the lists of obsolete files used by sysinst
 SPECIAL sh ${CURDIR}/../../../../distrib/sets/makeobsolete -b -s ${CURDIR}/../../../../distrib/sets -t ./dist

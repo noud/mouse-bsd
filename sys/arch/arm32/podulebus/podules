@@ -135,7 +135,7 @@ podule	ANT		ETHERM		0x00d8	ether M dual interface NIC
 
 podule	CASTLE		SCSI16		0x00f6  8 or 16 bit SCSI2 interface
 podule	CASTLE		SCSI16SHARE	0x00f3  8 or 16 bit SCSI2Share interface
-podule	CASTLE		ETHERSCSI	0x00f5  8 or 16 bit SCSI2 interface, possibly with Ethernet 
+podule	CASTLE		ETHERSCSI	0x00f5  8 or 16 bit SCSI2 interface, possibly with Ethernet
 podule	CASTLE		ETHERSCSISHARE	0x00f4  8 or 16 bit SCSI2Share interface, possibly with Ethernet
 podule	CASTLE		SCSI32		0x012b  32 bit SCSI2 + DMA interface
 

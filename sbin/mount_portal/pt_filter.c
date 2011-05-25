@@ -121,7 +121,7 @@ portal_rfilter(pcr, key, v, kso, fdp)
 	}
 	/*
 	 * Format for rfilter in config file:
-	 * 
+	 *
 	 * matchkey rfilter stripkey cmd [arg1] [arg2] ...
 	 * any of arg1, arg2, etc. can have %s, in which case %s
 	 * will be replaced by the full path.  If arg1 is

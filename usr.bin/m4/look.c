@@ -73,7 +73,7 @@ hash(name)
 /*
  * find name in the hash table
  */
-ndptr 
+ndptr
 lookup(name)
 	char *name;
 {
@@ -89,7 +89,7 @@ lookup(name)
  * hash and create an entry in the hash table.
  * The new entry is added in front of a hash bucket.
  */
-ndptr 
+ndptr
 addent(name)
 	char *name;
 {

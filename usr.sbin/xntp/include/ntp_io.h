@@ -1,7 +1,7 @@
 /*	$NetBSD: ntp_io.h,v 1.2 1998/01/09 06:06:09 perry Exp $	*/
 
 /*
- * POSIX says use <fnct.h> to get O_* symbols and 
+ * POSIX says use <fnct.h> to get O_* symbols and
  * SEEK_SET symbol form <unistd.h>.
  */
 #ifdef HAVE_CONFIG_H

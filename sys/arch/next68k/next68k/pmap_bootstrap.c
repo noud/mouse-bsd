@@ -9,7 +9,7 @@
  */
 
 
-/* 
+/*
  * Copyright (c) 1991, 1993
  *	The Regents of the University of California.  All rights reserved.
  *
@@ -134,12 +134,12 @@ pmap_bootstrap(nextpa, firstpa)
 	 *			internal IO space
          *
          *      monopa          mono fb PT pages        MONOSIZE pages
-         *   
+         *
          *      emonopa         page following
          *                      mono fb pages
 	 *
          *      colorpa         color fb PT pages       COLORSIZE pages
-         *   
+         *
          *      ecolorpa        page following
          *                      color fb pages
          *
@@ -168,7 +168,7 @@ pmap_bootstrap(nextpa, firstpa)
 	nextpa += nptpages * NBPG;
 	eiiopa = nextpa;		/* just a reference for later */
 	iiopa = nextpa - IIOMAPSIZE * sizeof(pt_entry_t);
-	
+
 	emonopa = nextpa - IIOMAPSIZE * sizeof(pt_entry_t);
 	monopa = emonopa - MONOMAPSIZE * sizeof(pt_entry_t);
 
@@ -590,7 +590,7 @@ pmap_bootstrap(nextpa, firstpa)
 		 */
 		if (RELOC(mmutype, int) == MMU_68040) {
 			int num;
-			
+
 			kpm->pm_stfree = ~l2tobm(0);
 			num = roundup((nptpages + 1) * (NPTEPG / SG4_LEV3SIZE),
 				      SG4_LEV2SIZE) / SG4_LEV2SIZE;

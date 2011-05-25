@@ -1134,7 +1134,7 @@ graphic_object *object_spec::make_move(position *curpos, direction *dirp)
   for (segment *s = segment_list; s; s = s->next)
     if (s->is_absolute)
       endpos = s->pos;
-    else 
+    else
       endpos += s->pos;
   have_last_move = 1;
   last_move = endpos - startpos;
@@ -1242,7 +1242,7 @@ void line_object::move_by(const position &pos)
   for (int i = 0; i < n; i++)
     v[i] += pos;
 }
-  
+
 void spline_object::update_bounding_box(bounding_box *p)
 {
   p->encompass(strt);
@@ -1312,7 +1312,7 @@ linear_object *object_spec::make_line(position *curpos, direction *dirp)
     if ((flags & IS_SAME) && (type == LINE_OBJECT || type == ARROW_OBJECT)
 	&& have_last_line)
       segment_pos = last_line;
-    else 
+    else
       switch (dir) {
       case UP_DIRECTION:
 	segment_pos.y = segment_height;
@@ -1736,9 +1736,9 @@ string_list::~string_list()
 {
   a_delete str;
 }
-  
+
 /* A path is used to hold the argument to the with attribute. For example,
-`.nw' or `.A.s' or `.A'. The major operation on a path is to take a 
+`.nw' or `.A.s' or `.A'. The major operation on a path is to take a
 place and follow the path through the place to place within the place.
 Note that `.A.B.C.sw' will work. */
 

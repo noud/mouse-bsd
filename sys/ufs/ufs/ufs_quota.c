@@ -442,7 +442,7 @@ quotaoff(p, mp, type)
 	struct dquot *dq;
 	struct inode *ip;
 	int error;
-	
+
 	if ((qvp = ump->um_quotas[type]) == NULLVP)
 		return (0);
 	ump->um_qflags[type] |= QTF_CLOSING;

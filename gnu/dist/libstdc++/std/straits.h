@@ -53,7 +53,7 @@ struct string_char_traits {
   static char_type eos () { return char_type(); } // the null character
   static bool is_del(char_type a) { return 0; }
   // characteristic function for delimiters of charT
-  
+
   // speed-up functions
 
   static int compare (const char_type* s1, const char_type* s2, size_t n)
@@ -65,7 +65,7 @@ struct string_char_traits {
 
       return 0;
     }
-    
+
   static size_t length (const char_type* s)
     {
       size_t l = 0;

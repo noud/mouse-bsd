@@ -68,19 +68,19 @@ int	vax_sgmap_alloc __P((bus_dmamap_t, bus_size_t,
 	    struct vax_sgmap *, int));
 void	vax_sgmap_free __P((bus_dmamap_t, struct vax_sgmap *));
 
-int     vax_sgmap_load __P((bus_dma_tag_t, bus_dmamap_t, void *, 
+int     vax_sgmap_load __P((bus_dma_tag_t, bus_dmamap_t, void *,
 	    bus_size_t, struct proc *, int, struct vax_sgmap *));
 
 int	vax_sgmap_load_mbuf __P((bus_dma_tag_t, bus_dmamap_t,
 	    struct mbuf *, int, struct vax_sgmap *));
-   
+
 int     vax_sgmap_load_uio __P((bus_dma_tag_t, bus_dmamap_t,
 	    struct uio *, int, struct vax_sgmap *));
-         
+
 int	vax_sgmap_load_raw __P((bus_dma_tag_t, bus_dmamap_t,
 	    bus_dma_segment_t *, int, bus_size_t, int, struct vax_sgmap *));
 
-void	vax_sgmap_unload __P(( bus_dma_tag_t, bus_dmamap_t, 
+void	vax_sgmap_unload __P(( bus_dma_tag_t, bus_dmamap_t,
 	    struct vax_sgmap *));
 
 #endif	/* _ALPHA_COMMON_SGMAPVAR_H */

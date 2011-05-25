@@ -531,13 +531,13 @@ chu_receive(rbufp)
 		 * interrupt latency).  We then take the mean of the
 		 * remaining 4 offsets as our estimate.
 		 */
-		
+
 		/*
 		 * Set up the order array.
 		 */
 		for (i = 0; i < NCHUCHARS; i++)
 			ord[i] = (u_short)i;
-		
+
 		/*
 		 * Sort them into order.  Reuse variables with abandon.
 		 */
@@ -560,7 +560,7 @@ chu_receive(rbufp)
 		tmp = off[ord[4]].l_uf;
 		for (i = 5; i <= 7; i++)
 			M_ADD(date_ui, tmp, off[ord[i]].l_ui, off[ord[i]].l_uf);
-		
+
 		/*
 		 * Round properly, then right shift two bits for the
 		 * divide by four.
@@ -601,7 +601,7 @@ chu_receive(rbufp)
 		if (date_ui < 9 || date_ui > 0xfffffff7) {
 			register u_long prod_ui;
 			register u_long prod_uf;
-	
+
 			prod_ui = prod_uf = 0;
 			/*
 			 * This code knows the low order bit in 0.1 is zero
@@ -653,7 +653,7 @@ chu_receive(rbufp)
 			tmp = prod_ui;
 		}
 	}
-	
+
 	/*
 	 * At this point we have the mean offset, with the integral
 	 * part in date_ui and the fractional part in tmp.  Store
@@ -774,7 +774,7 @@ chu_process(up)
 	refclock_receive(peer, &up->offsets[imax], 0,
 	    dispersion, &up->rectimes[imax], &up->rectimes[imax],
 	    pp->leap);
-	
+
 	/*
 	 * Zero out unit for next code series
 	 */

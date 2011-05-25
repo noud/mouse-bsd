@@ -27,7 +27,7 @@ MTREE=		${.CURDIR}/mtree.conf
 
 all: ${IMAGE}
 
-${IMAGE}: ${CBIN} 
+${IMAGE}: ${CBIN}
 	dd if=/dev/zero of=${IMAGE} count=${CSIZE}
 	vnconfig -v -c ${VND} ${IMAGE}
 	disklabel -rw -f ${DISKTAB} ${VND} ${DISKTYPE}

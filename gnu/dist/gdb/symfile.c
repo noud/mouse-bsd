@@ -303,7 +303,7 @@ psymtab_to_symtab (pst)
 
   /* If it has not yet been read in, read it.  */
   if (!pst->readin)
-    { 
+    {
       struct cleanup *back_to = make_cleanup (decrement_reading_symtab, NULL);
       currently_reading_symtab++;
       (*pst->read_symtab) (pst);
@@ -349,8 +349,8 @@ entry_point_address()
   return symfile_objfile ? symfile_objfile->ei.entry_point : 0;
 }
 
-/* Remember the lowest-addressed loadable section we've seen.  
-   This function is called via bfd_map_over_sections. 
+/* Remember the lowest-addressed loadable section we've seen.
+   This function is called via bfd_map_over_sections.
 
    In case of equal vmas, the section with the largest size becomes the
    lowest-addressed loadable section.
@@ -379,7 +379,7 @@ find_lowest_section (abfd, sect, obj)
 }
 
 /* Parse the user's idea of an offset for dynamic linking, into our idea
-   of how to represent it for fast symbol reading.  This is the default 
+   of how to represent it for fast symbol reading.  This is the default
    version of the sym_fns.sym_offsets function for symbol readers that
    don't need to do anything special.  It allocates a section_offsets table
    for the objectfile OBJFILE and stuffs ADDR into all of the offsets.  */
@@ -398,7 +398,7 @@ default_symfile_offsets (objfile, addr)
 
   for (i = 0; i < SECT_OFF_MAX; i++)
     ANOFFSET (section_offsets, i) = addr;
-  
+
   return section_offsets;
 }
 
@@ -433,7 +433,7 @@ syms_from_objfile (objfile, addr, mainline, verbo)
      if an error occurs during symbol reading.  */
   old_chain = make_cleanup (free_objfile, objfile);
 
-  if (mainline) 
+  if (mainline)
     {
       /* We will modify the main symbol table, make sure that all its users
 	 will be cleaned up if an error occurs during symbol reading.  */
@@ -567,7 +567,7 @@ syms_from_objfile (objfile, addr, mainline, verbo)
 /* Perform required actions after either reading in the initial
    symbols for a new objfile, or mapping in the symbols from a reusable
    objfile. */
-   
+
 void
 new_symfile_objfile (objfile, mainline, verbo)
      struct objfile *objfile;
@@ -668,7 +668,7 @@ symbol_file_add (name, from_tty, addr, mainline, mapped, readnow)
         }
 	}
       syms_from_objfile (objfile, addr, mainline, from_tty);
-    }      
+    }
 
   /* We now have at least a partial symbol table.  Check to see if the
      user requested that all symbols be read on initial access via either
@@ -823,7 +823,7 @@ static void
 set_initial_language ()
 {
   struct partial_symtab *pst;
-  enum language lang = language_unknown;  	
+  enum language lang = language_unknown;
 
   pst = find_main_psymtab ();
   if (pst != NULL)
@@ -979,13 +979,13 @@ generic_load (filename, from_tty)
   bfd *loadfile_bfd;
   time_t start_time, end_time;	/* Start and end times of download */
   unsigned long data_count = 0;	/* Number of bytes transferred to memory */
-  int n; 
+  int n;
   unsigned long load_offset = 0; 	/* offset to add to vma for each section */
   char buf[128];
 
   /* enable user to specify address for downloading as 2nd arg to load */
   n = sscanf(filename, "%s 0x%lx", buf, &load_offset);
-  if (n > 1 ) 
+  if (n > 1 )
     filename = buf;
   else
     load_offset = 0;
@@ -1001,17 +1001,17 @@ generic_load (filename, from_tty)
      bfd).  */
   old_cleanups = make_cleanup (bfd_close, loadfile_bfd);
 
-  if (!bfd_check_format (loadfile_bfd, bfd_object)) 
+  if (!bfd_check_format (loadfile_bfd, bfd_object))
     {
       error ("\"%s\" is not an object file: %s", filename,
 	     bfd_errmsg (bfd_get_error ()));
     }
-  
+
   start_time = time (NULL);
 
-  for (s = loadfile_bfd->sections; s; s = s->next) 
+  for (s = loadfile_bfd->sections; s; s = s->next)
     {
-      if (s->flags & SEC_LOAD) 
+      if (s->flags & SEC_LOAD)
         {
           bfd_size_type size;
 
@@ -1026,7 +1026,7 @@ generic_load (filename, from_tty)
               char *sect;
               unsigned long sent;
               unsigned long len;
-	      
+
 	      l = l > 100 ? l : 100;
               data_count += size;
 
@@ -1049,7 +1049,7 @@ generic_load (filename, from_tty)
               sect = (char *) bfd_get_section_name (loadfile_bfd, s);
               sent = 0;
               do
-                {            
+                {
                   len = (size - sent) < l ? (size - sent) : l;
                   sent += len;
                   err = target_write_memory (lma, buffer, len);
@@ -1062,9 +1062,9 @@ generic_load (filename, from_tty)
               while (err == 0 && sent < size);
 
               if (err != 0)
-                error ("Memory access error while loading section %s.", 
+                error ("Memory access error while loading section %s.",
                        bfd_get_section_name (loadfile_bfd, s));
-                
+
               do_cleanups (old_chain);
             }
         }
@@ -1119,7 +1119,7 @@ add_symbol_file_command (args, from_tty)
   char *arg;
   int readnow = 0;
   int mapped = 0;
-  
+
   dont_repeat ();
 
   if (args == NULL)
@@ -1204,7 +1204,7 @@ add_shared_symbol_files_command  (args, from_tty)
   ADD_SHARED_SYMBOL_FILES (args, from_tty);
 #else
   error ("This command is not available in this configuration of GDB.");
-#endif  
+#endif
 }
 
 /* Re-read symbols if a symbol-file has changed.  */
@@ -1338,7 +1338,7 @@ reread_symbols ()
 				      xmalloc, free);
 	  if (build_objfile_section_table (objfile))
 	    {
-	      error ("Can't find the file sections in `%s': %s", 
+	      error ("Can't find the file sections in `%s': %s",
 		     objfile -> name, bfd_errmsg (bfd_get_error ()));
 	    }
 
@@ -1406,8 +1406,8 @@ deduce_language_from_filename (filename)
      char *filename;
 {
   char *c;
-  
-  if (0 == filename) 
+
+  if (0 == filename)
     ; /* Get default */
   else if (0 == (c = strrchr (filename, '.')))
     ; /* Get default. */
@@ -1513,9 +1513,9 @@ allocate_psymtab (filename, objfile)
     while ((*prev_pst) != NULL)
       prev_pst = &((*prev_pst) -> next);
     (*prev_pst) = psymtab;
-  }  
+  }
 #endif
-  
+
   return (psymtab);
 }
 
@@ -1569,7 +1569,7 @@ clear_symtab_users ()
 
    This function is run after symbol reading, or from a cleanup.
    If an old symbol table was obsoleted, the old symbol table
-   has been blown away, but the other GDB data structures that may 
+   has been blown away, but the other GDB data structures that may
    reference it have not yet been cleared or re-directed.  (The old
    symtab was zapped, and the cleanup queued, in free_named_symtab()
    below.)
@@ -1855,7 +1855,7 @@ init_psymbol_list (objfile, total_symbols)
      int total_symbols;
 {
   /* Free any previously allocated psymbol lists.  */
-  
+
   if (objfile -> global_psymbols.list)
     {
       mfree (objfile -> md, (PTR)objfile -> global_psymbols.list);
@@ -1864,11 +1864,11 @@ init_psymbol_list (objfile, total_symbols)
     {
       mfree (objfile -> md, (PTR)objfile -> static_psymbols.list);
     }
-  
+
   /* Current best guess is that approximately a twentieth
      of the total symbols (in a debugging file) are global or static
      oriented symbols */
-  
+
   objfile -> global_psymbols.size = total_symbols / 10;
   objfile -> static_psymbols.size = total_symbols / 10;
 
@@ -1896,10 +1896,10 @@ init_psymbol_list (objfile, total_symbols)
       same VMA, each with its own unique LMA (or load address).
    2) It is assumed that some runtime mechanism exists for mapping the
       sections, one by one, from the load address into the VMA address.
-   3) This code provides a mechanism for gdb to keep track of which 
+   3) This code provides a mechanism for gdb to keep track of which
       sections should be considered to be mapped from the VMA to the LMA.
       This information is used for symbol lookup, and memory read/write.
-      For instance, if a section has been mapped then its contents 
+      For instance, if a section has been mapped then its contents
       should be read from the VMA, otherwise from the LMA.
 
    Two levels of debugger support for overlays are available.  One is
@@ -1923,7 +1923,7 @@ init_psymbol_list (objfile, total_symbols)
      Functional interface:
        find_pc_mapped_section(pc):    if the pc is in the range of a mapped
 				      section, return that section.
-       find_pc_overlay(pc):	      find any overlay section that contains 
+       find_pc_overlay(pc):	      find any overlay section that contains
 				      the pc, either in its VMA or its LMA
        overlay_is_mapped(sect):       true if overlay is marked as mapped
        section_is_overlay(sect):      true if section's VMA != LMA
@@ -1943,11 +1943,11 @@ int overlay_cache_invalid = 0;	/* True if need to refresh mapped state */
 
 /* Target vector for refreshing overlay mapped state */
 static void simple_overlay_update PARAMS ((struct obj_section *));
-void (*target_overlay_update) PARAMS ((struct obj_section *)) 
+void (*target_overlay_update) PARAMS ((struct obj_section *))
      = simple_overlay_update;
 
 /* Function: section_is_overlay (SECTION)
-   Returns true if SECTION has VMA not equal to LMA, ie. 
+   Returns true if SECTION has VMA not equal to LMA, ie.
    SECTION is loaded at an address different from where it will "run".  */
 
 int
@@ -1977,7 +1977,7 @@ overlay_invalidate_all ()
 }
 
 /* Function: overlay_is_mapped (SECTION)
-   Returns true if section is an overlay, and is currently mapped. 
+   Returns true if section is an overlay, and is currently mapped.
    Private: public access is thru function section_is_mapped.
 
    Access to the ovly_mapped flag is restricted to this function, so
@@ -1986,19 +1986,19 @@ overlay_invalidate_all ()
    overlay_invalidate_all.  If the mapped state of the particular
    section is stale, then call TARGET_OVERLAY_UPDATE to refresh it.  */
 
-static int 
+static int
 overlay_is_mapped (osect)
      struct obj_section *osect;
 {
   if (osect == 0 || !section_is_overlay (osect->the_bfd_section))
     return 0;
 
-  switch (overlay_debugging) 
+  switch (overlay_debugging)
     {
     default:
     case 0:	return 0;	/* overlay debugging off */
     case -1:			/* overlay debugging automatic */
-      /* Unles there is a target_overlay_update function, 
+      /* Unles there is a target_overlay_update function,
 	 there's really nothing useful to do here (can't really go auto)  */
       if (target_overlay_update)
 	{
@@ -2110,11 +2110,11 @@ overlay_mapped_address (pc, section)
 }
 
 
-/* Function: symbol_overlayed_address 
+/* Function: symbol_overlayed_address
    Return one of two addresses (relative to the VMA or to the LMA),
    depending on whether the section is mapped or not.  */
 
-CORE_ADDR 
+CORE_ADDR
 symbol_overlayed_address (address, section)
      CORE_ADDR address;
      asection *section;
@@ -2139,7 +2139,7 @@ symbol_overlayed_address (address, section)
   return address;
 }
 
-/* Function: find_pc_overlay (PC) 
+/* Function: find_pc_overlay (PC)
    Return the best-match overlay section for PC:
    If PC matches a mapped overlay section's VMA, return that section.
    Else if PC matches an unmapped section's VMA, return that section.
@@ -2170,7 +2170,7 @@ find_pc_overlay (pc)
 }
 
 /* Function: find_pc_mapped_section (PC)
-   If PC falls into the VMA address range of an overlay section that is 
+   If PC falls into the VMA address range of an overlay section that is
    currently marked as MAPPED, return that section.  Else return NULL.  */
 
 asection *
@@ -2215,7 +2215,7 @@ list_overlays_command (args, from_tty)
 	  name = bfd_section_name (objfile->obfd, osect->the_bfd_section);
 	  printf_filtered ("Section %s, loaded at %08x - %08x, ",
 			   name, lma, lma + size);
-	  printf_filtered ("mapped at %08x - %08x\n", 
+	  printf_filtered ("mapped at %08x - %08x\n",
 			   vma, vma + size);
 	  nmapped ++;
 	}
@@ -2244,7 +2244,7 @@ map_overlay_command (args, from_tty)
   /* First, find a section matching the user supplied argument */
   ALL_OBJSECTIONS (objfile, sec)
     if (!strcmp (bfd_section_name (objfile->obfd, sec->the_bfd_section), args))
-      { 
+      {
 	/* Now, check to see if the section is an overlay. */
 	bfdsec = sec->the_bfd_section;
 	if (!section_is_overlay (bfdsec))
@@ -2264,7 +2264,7 @@ map_overlay_command (args, from_tty)
 	    {
 	      if (info_verbose)
 		printf_filtered ("Note: section %s unmapped by overlap\n",
-				 bfd_section_name (objfile->obfd, 
+				 bfd_section_name (objfile->obfd,
 						   sec2->the_bfd_section));
 	      sec2->ovly_mapped = 0;	/* sec2 overlaps sec: unmap sec2 */
 	    }
@@ -2274,7 +2274,7 @@ map_overlay_command (args, from_tty)
 }
 
 /* Function: unmap_overlay_command
-   Mark the overlay section as unmapped 
+   Mark the overlay section as unmapped
    (ie. resident in its LMA address range, rather than the VMA range).  */
 
 void
@@ -2359,7 +2359,7 @@ overlay_command (args, from_tty)
      char *args;
      int from_tty;
 {
-  printf_unfiltered 
+  printf_unfiltered
     ("\"overlay\" must be followed by the name of an overlay command.\n");
   help_list (overlaylist, "overlay ", -1, gdb_stdout);
 }
@@ -2367,10 +2367,10 @@ overlay_command (args, from_tty)
 
 /* Target Overlays for the "Simplest" overlay manager:
 
-   This is GDB's default target overlay layer.  It works with the 
-   minimal overlay manager supplied as an example by Cygnus.  The 
-   entry point is via a function pointer "target_overlay_update", 
-   so targets that use a different runtime overlay manager can 
+   This is GDB's default target overlay layer.  It works with the
+   minimal overlay manager supplied as an example by Cygnus.  The
+   entry point is via a function pointer "target_overlay_update",
+   so targets that use a different runtime overlay manager can
    substitute their own overlay_update function and take over the
    function pointer.
 
@@ -2452,13 +2452,13 @@ read_target_int_array (memaddr, myaddr, len)
 
   read_memory (memaddr, buf, len * TARGET_INT_BYTES);
   for (i = 0; i < len; i++)
-    myaddr[i] = extract_unsigned_integer (TARGET_INT_BYTES * i + buf, 
+    myaddr[i] = extract_unsigned_integer (TARGET_INT_BYTES * i + buf,
 					  TARGET_INT_BYTES);
 }
 
 /* Find and grab a copy of the target _ovly_table
    (and _novlys, which is needed for the table's size) */
-static int 
+static int
 simple_read_overlay_table ()
 {
   struct minimal_symbol *msym;
@@ -2467,7 +2467,7 @@ simple_read_overlay_table ()
   msym = lookup_minimal_symbol ("_novlys", 0, 0);
   if (msym != NULL)
     cache_novlys = read_memory_integer (SYMBOL_VALUE_ADDRESS (msym), 4);
-  else 
+  else
     return 0;	/* failure */
   cache_ovly_table = (void *) xmalloc (cache_novlys * sizeof(*cache_ovly_table));
   if (cache_ovly_table != NULL)
@@ -2476,14 +2476,14 @@ simple_read_overlay_table ()
       if (msym != NULL)
 	{
 	  cache_ovly_table_base = SYMBOL_VALUE_ADDRESS (msym);
-	  read_target_int_array (cache_ovly_table_base, 
-				 (int *) cache_ovly_table, 
+	  read_target_int_array (cache_ovly_table_base,
+				 (int *) cache_ovly_table,
 				 cache_novlys * 4);
 	}
-      else 
+      else
 	return 0;	/* failure */
     }
-  else 
+  else
     return 0;	/* failure */
   return 1;	/* SUCCESS */
 }
@@ -2491,7 +2491,7 @@ simple_read_overlay_table ()
 #if 0
 /* Find and grab a copy of the target _ovly_region_table
    (and _novly_regions, which is needed for the table's size) */
-static int 
+static int
 simple_read_overlay_region_table ()
 {
   struct minimal_symbol *msym;
@@ -2500,7 +2500,7 @@ simple_read_overlay_region_table ()
   msym = lookup_minimal_symbol ("_novly_regions", 0, 0);
   if (msym != NULL)
     cache_novly_regions = read_memory_integer (SYMBOL_VALUE_ADDRESS (msym), 4);
-  else 
+  else
     return 0;	/* failure */
   cache_ovly_region_table = (void *) xmalloc (cache_novly_regions * 12);
   if (cache_ovly_region_table != NULL)
@@ -2509,20 +2509,20 @@ simple_read_overlay_region_table ()
       if (msym != NULL)
 	{
 	  cache_ovly_region_table_base = SYMBOL_VALUE_ADDRESS (msym);
-	  read_target_int_array (cache_ovly_region_table_base, 
-				 (int *) cache_ovly_region_table, 
+	  read_target_int_array (cache_ovly_region_table_base,
+				 (int *) cache_ovly_region_table,
 				 cache_novly_regions * 3);
 	}
-      else 
+      else
 	return 0;	/* failure */
     }
-  else 
+  else
     return 0;	/* failure */
   return 1;	/* SUCCESS */
 }
 #endif
 
-/* Function: simple_overlay_update_1 
+/* Function: simple_overlay_update_1
    A helper function for simple_overlay_update.  Assuming a cached copy
    of _ovly_table exists, look through it to find an entry whose vma,
    lma and size match those of OSECT.  Re-read the entry and make sure
@@ -2558,11 +2558,11 @@ simple_overlay_update_1 (osect)
 }
 
 /* Function: simple_overlay_update
-   If OSECT is NULL, then update all sections' mapped state 
-   (after re-reading the entire target _ovly_table). 
-   If OSECT is non-NULL, then try to find a matching entry in the 
+   If OSECT is NULL, then update all sections' mapped state
+   (after re-reading the entire target _ovly_table).
+   If OSECT is non-NULL, then try to find a matching entry in the
    cached ovly_table and update only OSECT's mapped state.
-   If a cached entry can't be found or the cache isn't valid, then 
+   If a cached entry can't be found or the cache isn't valid, then
    re-read the entire cache, and go ahead and update all sections.  */
 
 static void
@@ -2576,7 +2576,7 @@ simple_overlay_update (osect)
     /* Have we got a cached copy of the target's overlay table? */
     if (cache_ovly_table != NULL)
       /* Does its cached location match what's currently in the symtab? */
-      if (cache_ovly_table_base == 
+      if (cache_ovly_table_base ==
 	  SYMBOL_VALUE_ADDRESS (lookup_minimal_symbol ("_ovly_table", 0, 0)))
 	/* Then go ahead and try to look up this single section in the cache */
 	if (simple_overlay_update_1 (osect))
@@ -2615,7 +2615,7 @@ void
 _initialize_symfile ()
 {
   struct cmd_list_element *c;
-  
+
   c = add_cmd ("symbol-file", class_files, symbol_file_command,
    "Load symbol table from executable file FILE.\n\
 The `file' command can also load symbol tables, as well as setting the file\n\
@@ -2648,28 +2648,28 @@ for access from GDB.", &cmdlist);
 		  &setlist),
      &showlist);
 
-  add_prefix_cmd ("overlay", class_support, overlay_command, 
-		  "Commands for debugging overlays.", &overlaylist, 
+  add_prefix_cmd ("overlay", class_support, overlay_command,
+		  "Commands for debugging overlays.", &overlaylist,
 		  "overlay ", 0, &cmdlist);
 
   add_com_alias ("ovly", "overlay", class_alias, 1);
   add_com_alias ("ov", "overlay", class_alias, 1);
 
-  add_cmd ("map-overlay", class_support, map_overlay_command, 
+  add_cmd ("map-overlay", class_support, map_overlay_command,
 	   "Assert that an overlay section is mapped.", &overlaylist);
 
-  add_cmd ("unmap-overlay", class_support, unmap_overlay_command, 
+  add_cmd ("unmap-overlay", class_support, unmap_overlay_command,
 	   "Assert that an overlay section is unmapped.", &overlaylist);
 
-  add_cmd ("list-overlays", class_support, list_overlays_command, 
+  add_cmd ("list-overlays", class_support, list_overlays_command,
 	   "List mappings of overlay sections.", &overlaylist);
 
-  add_cmd ("manual", class_support, overlay_manual_command, 
+  add_cmd ("manual", class_support, overlay_manual_command,
 	   "Enable overlay debugging.", &overlaylist);
-  add_cmd ("off", class_support, overlay_off_command, 
+  add_cmd ("off", class_support, overlay_off_command,
 	   "Disable overlay debugging.", &overlaylist);
-  add_cmd ("auto", class_support, overlay_auto_command, 
+  add_cmd ("auto", class_support, overlay_auto_command,
 	   "Enable automatic overlay debugging.", &overlaylist);
-  add_cmd ("load-target", class_support, overlay_load_command, 
+  add_cmd ("load-target", class_support, overlay_load_command,
 	   "Read the overlay mapping state from the target.", &overlaylist);
 }

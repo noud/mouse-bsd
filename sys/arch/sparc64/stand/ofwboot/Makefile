@@ -10,7 +10,7 @@ S=	${CURDIR}/../../../..
 WARNS=		0
 
 PROG=		ofwboot
-SRCS=		srt0.s Locore.c boot.c ofdev.c alloc.c net.c netif_of.c 
+SRCS=		srt0.s Locore.c boot.c ofdev.c alloc.c net.c netif_of.c
 .PATH:		${S}/arch/sparc64/sparc64
 
 .if CROSS

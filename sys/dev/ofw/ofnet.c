@@ -103,7 +103,7 @@ ofnet_match(parent, match, aux)
 	struct ofbus_attach_args *oba = aux;
 	char type[32];
 	int l;
-	
+
 #if NIPKDB_OFN > 0
 	if (!parent)
 		return ipkdbprobe(match, aux);
@@ -132,7 +132,7 @@ ofnet_attach(parent, self, aux)
 	char path[256];
 	int l;
 	u_int8_t myaddr[ETHER_ADDR_LEN];
-	
+
 	of->sc_phandle = oba->oba_phandle;
 #if NIPKDB_OFN > 0
 	if (kifp &&
@@ -151,7 +151,7 @@ ofnet_attach(parent, self, aux)
 	    sizeof myaddr) < 0)
 		panic("ofnet_attach: no mac-address");
 	printf(": address %s\n", ether_sprintf(myaddr));
-	
+
 	bcopy(of->sc_dev.dv_xname, ifp->if_xname, IFNAMSIZ);
 	ifp->if_softc = of;
 	ifp->if_start = ofnet_start;
@@ -182,7 +182,7 @@ ofnet_read(of)
 
 #if NIPKDB_OFN > 0
 	ipkdbrint(kifp, ifp);
-#endif	
+#endif
 	while (1) {
 		if ((len = OF_read(of->sc_ihandle, buf, sizeof buf)) < 0) {
 			if (len == -2 || len == 0)
@@ -195,7 +195,7 @@ ofnet_read(of)
 			continue;
 		}
 		bufp = buf;
-		
+
 		/* Allocate a header mbuf */
 		MGETHDR(m, M_DONTWAIT, MT_DATA);
 		if (m == 0) {
@@ -207,7 +207,7 @@ ofnet_read(of)
 		l = MHLEN;
 		head = 0;
 		mp = &head;
-		
+
 		while (len > 0) {
 			if (head) {
 				MGET(m, M_DONTWAIT, MT_DATA);
@@ -307,19 +307,19 @@ ofnet_start(ifp)
 	struct mbuf *m, *m0;
 	char *bufp;
 	int len;
-	
+
 	if (!(ifp->if_flags & IFF_RUNNING))
 		return;
 
 	for (;;) {
 		/* First try reading any packets */
 		ofnet_read(of);
-		
+
 		/* Now get the first packet on the queue */
 		IF_DEQUEUE(&ifp->if_snd, m0);
 		if (!m0)
 			return;
-		
+
 		if (!(m0->m_flags & M_PKTHDR))
 			panic("ofnet_start: no header mbuf");
 		len = m0->m_pkthdr.len;
@@ -358,11 +358,11 @@ ofnet_ioctl(ifp, cmd, data)
 	struct ifaddr *ifa = (struct ifaddr *)data;
 	struct ifreq *ifr = (struct ifreq *)data;
 	int error = 0;
-	
+
 	switch (cmd) {
 	case SIOCSIFADDR:
 		ifp->if_flags |= IFF_UP;
-		
+
 		switch (ifa->ifa_addr->sa_family) {
 #ifdef	INET
 		case AF_INET:
@@ -399,7 +399,7 @@ ofnet_watchdog(ifp)
 	struct ifnet *ifp;
 {
 	struct ofnet_softc *of = ifp->if_softc;
-	
+
 	log(LOG_ERR, "%s: device timeout\n", of->sc_dev.dv_xname);
 	ifp->if_oerrors++;
 	ofnet_stop(of);
@@ -412,7 +412,7 @@ ipkdbofstart(kip)
 	struct ipkdb_if *kip;
 {
 	int unit = kip->unit - 1;
-	
+
 	if (ipkdb_of)
 		ipkdbattach(kip, &ipkdb_of->sc_ethercom);
 }
@@ -430,7 +430,7 @@ ipkdbofrcv(kip, buf, poll)
 	int poll;
 {
 	int l;
-	
+
 	do {
 		l = OF_read(kip->port, buf, ETHERMTU);
 		if (l < 0)
@@ -457,7 +457,7 @@ ipkdbprobe(match, aux)
 	static char name[256];
 	int len;
 	int phandle;
-	
+
 	kip->unit = match->cf_unit + 1;
 
 	if (!(kip->port = OF_open("net")))
@@ -471,7 +471,7 @@ ipkdbprobe(match, aux)
 	if (OF_getprop(phandle, "mac-address", kip->myenetaddr,
 	    sizeof kip->myenetaddr) < 0)
 		return -1;
-	
+
 	kip->flags |= IPKDB_MYHW;
 	kip->name = name;
 	kip->start = ipkdbofstart;
@@ -480,7 +480,7 @@ ipkdbprobe(match, aux)
 	kip->send = ipkdbofsend;
 
 	kifp = kip;
-	
+
 	return 0;
 }
 #endif

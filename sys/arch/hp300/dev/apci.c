@@ -36,12 +36,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*      
+/*
  * Copyright (c) 1997 Michael Smith.  All rights reserved.
  * Copyright (c) 1982, 1986, 1990, 1993
  *	The Regents of the University of California.  All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without  
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
  * 1. Redistributions of source code must retain the above copyright
@@ -56,7 +56,7 @@
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- *      
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -102,8 +102,8 @@
 #include <sys/uio.h>
 #include <sys/kernel.h>
 #include <sys/syslog.h>
-#include <sys/device.h>       
-    
+#include <sys/device.h>
+
 #include <machine/autoconf.h>
 #include <machine/cpu.h>
 #include <machine/hp300spu.h>

@@ -42,18 +42,18 @@ static rtx find_base_value		PROTO((rtx));
 
 #define SIZE_FOR_MODE(X) (GET_MODE_SIZE (GET_MODE (X)))
 
-/* Perform a basic sanity check.  Namely, that there are	
-   no alias sets if we're not doing strict aliasing.  This helps     
+/* Perform a basic sanity check.  Namely, that there are
+   no alias sets if we're not doing strict aliasing.  This helps
    to catch bugs whereby someone uses PUT_CODE, but doesn't clear
    MEM_ALIAS_SET, or where a MEM is allocated in some way other
    than by the use of gen_rtx_MEM, and the MEM_ALIAS_SET is not
-   cleared.  */			
-#ifdef ENABLE_CHECKING	
+   cleared.  */
+#ifdef ENABLE_CHECKING
 #define CHECK_ALIAS_SETS_FOR_CONSISTENCY(MEM1, MEM2)	\
   (!flag_strict_aliasing				\
    && (MEM_ALIAS_SET (MEM1) || MEM_ALIAS_SET (MEM2))	\
    ? (abort (), 0) : 0)
-#else 
+#else
 #define CHECK_ALIAS_SETS_FOR_CONSISTENCY(MEM1, MEM2) ((void)0)
 #endif
 
@@ -69,7 +69,7 @@ static rtx find_base_value		PROTO((rtx));
 
    10 is a completely arbitrary choice.  */
 #define MAX_ALIAS_LOOP_PASSES 10
-   
+
 /* reg_base_value[N] gives an address to which register N is related.
    If all sets after the first add or subtract to the current value
    or otherwise modify it so it does not point to a different top level
@@ -214,7 +214,7 @@ find_base_value (src)
 	    || GET_CODE (src_1) == CONST)
 	  return find_base_value (src_1);
 
-	/* This might not be necessary anymore. 
+	/* This might not be necessary anymore.
 
 	   If either operand is a REG that is a known pointer, then it
 	   is the base.  */
@@ -628,7 +628,7 @@ base_alias_check (x, y)
   /* The base addresses of the read and write are different
      expressions.  If they are both symbols and they are not accessed
      via AND, there is no conflict.  */
-  /* XXX: We can bring knowledge of object alignment and offset into 
+  /* XXX: We can bring knowledge of object alignment and offset into
      play here.  For example, on alpha, "char a, b;" can alias one
      another, though "char a; long b;" cannot.  Similarly, offsets
      into strutures may be brought into play.  Given "char a, b[40];",
@@ -812,7 +812,7 @@ memrefs_conflict_p (xsize, x, ysize, y, c)
   if (GET_CODE (y) == AND && GET_CODE (XEXP (y, 1)) == CONST_INT)
     {
       /* XXX: If we are indexing far enough into the array/structure, we
-	 may yet be able to determine that we can not overlap.  But we 
+	 may yet be able to determine that we can not overlap.  But we
 	 also need to that we are far enough from the end not to overlap
 	 a following reference, so we do nothing for now.  */
       return memrefs_conflict_p (xsize, x, -1, XEXP (y, 0), c);
@@ -861,7 +861,7 @@ memrefs_conflict_p (xsize, x, ysize, y, c)
    If both memory references are volatile, then there must always be a
    dependence between the two references, since their order can not be
    changed.  A volatile and non-volatile reference can be interchanged
-   though. 
+   though.
 
    A MEM_IN_STRUCT reference at a non-QImode non-AND varying address can never
    conflict with a non-MEM_IN_STRUCT reference at a fixed address.   We must
@@ -1082,7 +1082,7 @@ init_alias_analysis ()
 					 reg_base_value_size * sizeof (rtx));
       bzero ((char *)alias_invariant, reg_base_value_size * sizeof (rtx));
     }
-    
+
 
   /* The basic idea is that each pass through this loop will use the
      "constant" information from the previous pass to propagate alias

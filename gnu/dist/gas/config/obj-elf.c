@@ -1530,14 +1530,14 @@ elf_frob_file_after_relocs ()
    SCO OpenServer 5 identifies it's ELF modules with a standard ELF
    .note section.
 
-   int_32 namesz  = 4 ;  Name size 
-   int_32 descsz  = 12 ; Descriptive information 
-   int_32 type    = 1 ;  
-   char   name[4] = "SCO" ; Originator name ALWAYS SCO + NULL 
+   int_32 namesz  = 4 ;  Name size
+   int_32 descsz  = 12 ; Descriptive information
+   int_32 type    = 1 ;
+   char   name[4] = "SCO" ; Originator name ALWAYS SCO + NULL
    int_32 version = (major ver # << 16)  | version of tools ;
    int_32 source  = (tool_id << 16 ) | 1 ;
    int_32 info    = 0 ;    These are set by the SCO tools, but we
-                           don't know enough about the source 
+                           don't know enough about the source
 			   environment to set them.  SCO ld currently
 			   ignores them, and recommends we set them
 			   to zero.  */
@@ -1569,7 +1569,7 @@ sco_id ()
 
   /* process the version string */
 
-  i_note.namesz = 4; 
+  i_note.namesz = 4;
   i_note.descsz = 12;		/* 12 descriptive bytes */
   i_note.type = NT_VERSION;	/* Contains a version string */
 
@@ -1583,7 +1583,7 @@ sco_id ()
   md_number_to_chars (p, (valueT) i_note.type, 4);
 
   p = frag_more (4);
-  strcpy (p, "SCO"); 
+  strcpy (p, "SCO");
 
   /* Note: this is the version number of the ELF we're representing */
   p = frag_more (4);
@@ -1600,7 +1600,7 @@ sco_id ()
      and just set them to zero.  */
   p = frag_more (4);
   md_number_to_chars (p, 0x0000, 4);
- 
+
   frag_align (2, 0, 0);
 
   /* We probably can't restore the current segment, for there likely

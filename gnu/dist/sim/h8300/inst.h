@@ -13,9 +13,9 @@ typedef enum
 {
   R0, R1, R2, R3, R4, R5, R6, R7,
   R_ZERO,
-  R_PC,				
+  R_PC,
   R_CCR,
-  R_HARD_0,			
+  R_HARD_0,
   R_LAST,
 } reg_type;
 
@@ -54,7 +54,7 @@ typedef struct
   unsigned  int regs[9];
   int pc;
   int ccr;
-  
+
 
   unsigned char *memory;
   unsigned short *cache_idx;
@@ -62,7 +62,7 @@ typedef struct
   int maximum;
   int csize;
   int mask;
-  
+
   decoded_inst *cache;
   int cycles;
   int insts;

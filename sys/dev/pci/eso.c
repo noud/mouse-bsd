@@ -251,7 +251,7 @@ eso_attach(parent, self, aux)
 		printf("%s: can't reset\n", sc->sc_dev.dv_xname);
 		return;
 	}
-	
+
 	/* Select the DMA/IRQ policy: DDMA, ISA IRQ emulation disabled. */
 	pci_conf_write(pa->pa_pc, pa->pa_tag, ESO_PCI_S1C,
 	    pci_conf_read(pa->pa_pc, pa->pa_tag, ESO_PCI_S1C) &
@@ -261,12 +261,12 @@ eso_attach(parent, self, aux)
 	bus_space_write_1(sc->sc_iot, sc->sc_ioh, ESO_IO_IRQCTL,
 	    ESO_IO_IRQCTL_A1IRQ | ESO_IO_IRQCTL_A2IRQ | ESO_IO_IRQCTL_HVIRQ |
 	    ESO_IO_IRQCTL_MPUIRQ);
-	
+
 	/* Set up A1's sample rate generator for new-style parameters. */
 	a2mode = eso_read_mixreg(sc, ESO_MIXREG_A2MODE);
 	a2mode |= ESO_MIXREG_A2MODE_NEWA1 | ESO_MIXREG_A2MODE_ASYNC;
 	eso_write_mixreg(sc, ESO_MIXREG_A2MODE, a2mode);
-	
+
 	/* Slave Master Volume to Hardware Volume Control Counter, unask IRQ. */
 	mvctl = eso_read_mixreg(sc, ESO_MIXREG_MVCTL);
 	mvctl &= ~ESO_MIXREG_MVCTL_SPLIT;
@@ -279,7 +279,7 @@ eso_attach(parent, self, aux)
 	sc->sc_recmon = sc->sc_spatializer = sc->sc_mvmute = 0;
 	for (idx = 0; idx < ESO_NGAINDEVS; idx++) {
 		int v;
-		
+
 		switch (idx) {
  		case ESO_MIC_PLAY_VOL:
 		case ESO_LINE_PLAY_VOL:
@@ -306,7 +306,7 @@ eso_attach(parent, self, aux)
 		eso_set_gain(sc, idx);
 	}
 	eso_set_recsrc(sc, ESO_MIXREG_ERS_MIC);
-	
+
 	/* Map and establish the interrupt. */
 	if (pci_intr_map(pa->pa_pc, pa->pa_intrtag, pa->pa_intrpin,
 	    pa->pa_intrline, &ih)) {
@@ -336,7 +336,7 @@ eso_attach(parent, self, aux)
 	 * in the VC BAR to be useless.  To work around this, we defer this
 	 * part until all autoconfiguration on our parent bus is completed
 	 * and then try to map it ourselves in fulfillment of the constraint.
-	 * 
+	 *
 	 * According to the register map we may write to the low 16 bits
 	 * only, but experimenting has shown we're safe.
 	 * -kjk
@@ -354,7 +354,7 @@ eso_attach(parent, self, aux)
 		sc->sc_pa = *pa;
 		config_defer(self, eso_defer);
 	}
-	
+
 	audio_attach_mi(&eso_hw_if, sc, &sc->sc_dev);
 
 	aa.type = AUDIODEV_TYPE_OPL;
@@ -406,7 +406,7 @@ eso_defer(self)
 
 		return;
 	}
-	
+
 	printf("can't map Audio 1 DMA into I/O space\n");
 }
 
@@ -441,7 +441,7 @@ eso_write_ctlreg(sc, reg, val)
 {
 
 	/* DPRINTF(("ctlreg 0x%02x = 0x%02x\n", reg, val)); */
-	
+
 	eso_write_cmd(sc, reg);
 	eso_write_cmd(sc, val);
 }
@@ -487,7 +487,7 @@ eso_write_mixreg(sc, reg, val)
 	int s;
 
 	/* DPRINTF(("mixreg 0x%02x = 0x%02x\n", reg, val)); */
-	
+
 	s = splaudio();
 	bus_space_write_1(sc->sc_sb_iot, sc->sc_sb_ioh, ESO_SB_MIXERADDR, reg);
 	bus_space_write_1(sc->sc_sb_iot, sc->sc_sb_ioh, ESO_SB_MIXERDATA, val);
@@ -506,7 +506,7 @@ eso_read_mixreg(sc, reg)
 	bus_space_write_1(sc->sc_sb_iot, sc->sc_sb_ioh, ESO_SB_MIXERADDR, reg);
 	val = bus_space_read_1(sc->sc_sb_iot, sc->sc_sb_ioh, ESO_SB_MIXERDATA);
 	splx(s);
-	
+
 	return (val);
 }
 
@@ -523,12 +523,12 @@ eso_intr(hdl)
 	if ((irqctl & (ESO_IO_IRQCTL_A1IRQ | ESO_IO_IRQCTL_A2IRQ |
 	    ESO_IO_IRQCTL_HVIRQ | ESO_IO_IRQCTL_MPUIRQ)) == 0)
 		return (0);
-	
+
 	if (irqctl & ESO_IO_IRQCTL_A1IRQ) {
 		/* Clear interrupt. */
 		(void)bus_space_read_1(sc->sc_sb_iot, sc->sc_sb_ioh,
 		    ESO_SB_RBSR);
-	
+
 		if (sc->sc_rintr)
 			sc->sc_rintr(sc->sc_rarg);
 		else
@@ -565,7 +565,7 @@ eso_intr(hdl)
 	if ((irqctl & ESO_IO_IRQCTL_MPUIRQ) && sc->sc_mpudev != NULL)
 		mpu_intr(sc->sc_mpudev);
 #endif
- 
+
 	return (1);
 }
 
@@ -601,7 +601,7 @@ eso_reset(sc)
 			delay(1000);
 		}
 	}
-	
+
 	printf("%s: reset timeout\n", sc->sc_dev.dv_xname);
 	return (-1);
 }
@@ -614,12 +614,12 @@ eso_open(hdl, flags)
 	int flags;
 {
 	struct eso_softc *sc = hdl;
-	
+
 	DPRINTF(("%s: open\n", sc->sc_dev.dv_xname));
 
 	sc->sc_pintr = NULL;
 	sc->sc_rintr = NULL;
-	
+
 	return (0);
 }
 
@@ -636,7 +636,7 @@ eso_query_encoding(hdl, fp)
 	void *hdl;
 	struct audio_encoding *fp;
 {
-	
+
 	switch (fp->index) {
 	case 0:
 		strcpy(fp->name, AudioEulinear);
@@ -703,8 +703,8 @@ eso_set_params(hdl, setmode, usemode, play, rec)
 	struct audio_params *p;
 	int mode, r[2], rd[2], clk;
 	unsigned int srg, fltdiv;
-	
-	for (mode = AUMODE_RECORD; mode != -1; 
+
+	for (mode = AUMODE_RECORD; mode != -1;
 	     mode = mode == AUMODE_RECORD ? AUMODE_PLAY : -1) {
 		if ((setmode & mode) == 0)
 			continue;
@@ -716,7 +716,7 @@ eso_set_params(hdl, setmode, usemode, play, rec)
 		    (p->precision != 8 && p->precision != 16) ||
 		    (p->channels != 1 && p->channels != 2))
 			return (EINVAL);
-		
+
 		p->factor = 1;
 		p->sw_code = NULL;
 		switch (p->encoding) {
@@ -768,7 +768,7 @@ eso_set_params(hdl, setmode, usemode, play, rec)
 
 		/* Update to reflect the possibly inexact rate. */
 		p->sample_rate = r[clk];
-	
+
 		if (mode == AUMODE_RECORD) {
 			/* Audio 1 */
 			DPRINTF(("A1 srg 0x%02x fdiv 0x%02x\n", srg, fltdiv));
@@ -802,7 +802,7 @@ eso_halt_output(hdl)
 {
 	struct eso_softc *sc = hdl;
 	int error, s;
-	
+
 	DPRINTF(("%s: halt_output\n", sc->sc_dev.dv_xname));
 
 	/*
@@ -825,11 +825,11 @@ eso_halt_output(hdl)
 	sc->sc_pintr = NULL;
 	error = tsleep(&sc->sc_pintr, PCATCH | PWAIT, "esoho", hz);
 	splx(s);
-	
+
 	/* Shut down DMA completely. */
 	eso_write_mixreg(sc, ESO_MIXREG_A2C1, 0);
 	bus_space_write_1(sc->sc_iot, sc->sc_ioh, ESO_IO_A2DMAM, 0);
-	
+
 	return (error == EWOULDBLOCK ? 0 : error);
 }
 
@@ -839,7 +839,7 @@ eso_halt_input(hdl)
 {
 	struct eso_softc *sc = hdl;
 	int error, s;
-	
+
 	DPRINTF(("%s: halt_input\n", sc->sc_dev.dv_xname));
 
 	/* Just like eso_halt_output(), but for Audio 1. */
@@ -879,7 +879,7 @@ eso_getdev(hdl, retp)
 		    sizeof (retp->config));
 	else
 		strncpy(retp->config, "unknown", sizeof (retp->config));
-	
+
 	return (0);
 }
 
@@ -891,7 +891,7 @@ eso_set_port(hdl, cp)
 	struct eso_softc *sc = hdl;
 	unsigned int lgain, rgain;
 	uint8_t tmp;
-	
+
 	switch (cp->dev) {
 	case ESO_DAC_PLAY_VOL:
 	case ESO_MIC_PLAY_VOL:
@@ -908,7 +908,7 @@ eso_set_port(hdl, cp)
 	case ESO_AUXB_REC_VOL:
 		if (cp->type != AUDIO_MIXER_VALUE)
 			return (EINVAL);
-		
+
 		/*
 		 * Stereo-capable mixer ports: if we get a single-channel
 		 * gain value passed in, then we duplicate it to both left
@@ -970,7 +970,7 @@ eso_set_port(hdl, cp)
 			cp->un.value.level[AUDIO_MIXER_LEVEL_MONO]);
 		eso_set_gain(sc, cp->dev);
 		break;
-		
+
 	case ESO_MONO_PLAY_VOL:
 	case ESO_MONO_REC_VOL:
 		if (cp->type != AUDIO_MIXER_VALUE ||
@@ -983,7 +983,7 @@ eso_set_port(hdl, cp)
 			cp->un.value.level[AUDIO_MIXER_LEVEL_MONO]);
 		eso_set_gain(sc, cp->dev);
 		break;
-		
+
 	case ESO_PCSPEAKER_VOL:
 		if (cp->type != AUDIO_MIXER_VALUE ||
 		    cp->un.value.num_channels != 1)
@@ -1024,7 +1024,7 @@ eso_set_port(hdl, cp)
 			eso_write_mixreg(sc, ESO_MIXREG_RMVM,
 			    eso_read_mixreg(sc, ESO_MIXREG_RMVM) |
 			    ESO_MIXREG_RMVM_MUTE);
-		} else { 
+		} else {
 			eso_write_mixreg(sc, ESO_MIXREG_LMVM,
 			    eso_read_mixreg(sc, ESO_MIXREG_LMVM) &
 			    ~ESO_MIXREG_LMVM_MUTE);
@@ -1033,19 +1033,19 @@ eso_set_port(hdl, cp)
 			    ~ESO_MIXREG_RMVM_MUTE);
 		}
 		break;
-		
+
 	case ESO_MONOOUT_SOURCE:
 		if (cp->type != AUDIO_MIXER_ENUM)
 			return (EINVAL);
 
 		return (eso_set_monooutsrc(sc, cp->un.ord));
-		
+
 	case ESO_RECORD_MONITOR:
 		if (cp->type != AUDIO_MIXER_ENUM)
 			return (EINVAL);
 
 		sc->sc_recmon = (cp->un.ord != 0);
-		
+
 		tmp = eso_read_ctlreg(sc, ESO_CTLREG_ACTL);
 		if (sc->sc_recmon)
 			tmp |= ESO_CTLREG_ACTL_RECMON;
@@ -1065,7 +1065,7 @@ eso_set_port(hdl, cp)
 			return (EINVAL);
 
 		sc->sc_preamp = (cp->un.ord != 0);
-		
+
 		tmp = eso_read_mixreg(sc, ESO_MIXREG_MPM);
 		tmp &= ~ESO_MIXREG_MPM_RESV0;
 		if (sc->sc_preamp)
@@ -1074,11 +1074,11 @@ eso_set_port(hdl, cp)
 			tmp &= ~ESO_MIXREG_MPM_PREAMP;
 		eso_write_mixreg(sc, ESO_MIXREG_MPM, tmp);
 		break;
-		
+
 	default:
 		return (EINVAL);
 	}
-	
+
 	return (0);
 }
 
@@ -1128,7 +1128,7 @@ eso_get_port(hdl, cp)
 			return (EINVAL);
 		}
 		break;
-		
+
 	case ESO_MONO_PLAY_VOL:
 	case ESO_PCSPEAKER_VOL:
 	case ESO_MONO_REC_VOL:
@@ -1142,7 +1142,7 @@ eso_get_port(hdl, cp)
 	case ESO_RECORD_MONITOR:
 		cp->un.ord = sc->sc_recmon;
 		break;
-		
+
 	case ESO_RECORD_SOURCE:
 		cp->un.ord = sc->sc_recsrc;
 		break;
@@ -1150,11 +1150,11 @@ eso_get_port(hdl, cp)
 	case ESO_MONOOUT_SOURCE:
 		cp->un.ord = sc->sc_monooutsrc;
 		break;
-		
+
 	case ESO_SPATIALIZER_ENABLE:
 		cp->un.ord = sc->sc_spatializer;
 		break;
-		
+
 	case ESO_MIC_PREAMP:
 		cp->un.ord = sc->sc_preamp;
 		break;
@@ -1172,7 +1172,7 @@ eso_get_port(hdl, cp)
 
 
 	return (0);
-	
+
 }
 
 static int
@@ -1256,14 +1256,14 @@ eso_query_devinfo(hdl, dip)
 		strcpy(dip->label.name, AudioNmicrophone);
 		dip->type = AUDIO_MIXER_CLASS;
 		break;
-		
+
 	case ESO_INPUT_CLASS:
 		dip->mixer_class = ESO_INPUT_CLASS;
 		dip->next = dip->prev = AUDIO_MIXER_LAST;
 		strcpy(dip->label.name, AudioCinputs);
 		dip->type = AUDIO_MIXER_CLASS;
 		break;
-		
+
 	case ESO_MASTER_VOL:
 		dip->mixer_class = ESO_OUTPUT_CLASS;
 		dip->prev = AUDIO_MIXER_LAST;
@@ -1328,7 +1328,7 @@ eso_query_devinfo(hdl, dip)
 		strcpy(dip->un.e.member[1].label.name, AudioNon);
 		dip->un.e.member[1].ord = 1;
 		break;
-	
+
 	case ESO_OUTPUT_CLASS:
 		dip->mixer_class = ESO_OUTPUT_CLASS;
 		dip->next = dip->prev = AUDIO_MIXER_LAST;
@@ -1438,7 +1438,7 @@ eso_query_devinfo(hdl, dip)
 		strcpy(dip->label.name, AudioCrecord);
 		dip->type = AUDIO_MIXER_CLASS;
 		break;
-		
+
 	default:
 		return (ENXIO);
 	}
@@ -1459,7 +1459,7 @@ eso_allocmem(sc, size, align, boundary, flags, ed)
 
 	wait = (flags & M_NOWAIT) ? BUS_DMA_NOWAIT : BUS_DMA_WAITOK;
 	ed->ed_size = size;
-	
+
 	error = bus_dmamem_alloc(ed->ed_dmat, ed->ed_size, align, boundary,
 	    ed->ed_segs, sizeof (ed->ed_segs) / sizeof (ed->ed_segs[0]),
 	    &ed->ed_nsegs, wait);
@@ -1503,7 +1503,7 @@ eso_freemem(ed)
 	bus_dmamem_unmap(ed->ed_dmat, ed->ed_addr, ed->ed_size);
 	bus_dmamem_free(ed->ed_dmat, ed->ed_segs, ed->ed_nsegs);
 }
-	
+
 static void *
 eso_allocm(hdl, direction, size, type, flags)
 	void *hdl;
@@ -1614,7 +1614,7 @@ eso_mappage(hdl, addr, offs, prot)
 		;
 	if (ed == NULL)
 		return (-1);
-	
+
 	return (bus_dmamem_mmap(ed->ed_dmat, ed->ed_segs, ed->ed_nsegs,
 	    offs, prot, BUS_DMA_WAITOK));
 }
@@ -1641,14 +1641,14 @@ eso_trigger_output(hdl, start, end, blksize, intr, arg, param)
 	struct eso_softc *sc = hdl;
 	struct eso_dma *ed;
 	uint8_t a2c1;
-	
+
 	DPRINTF((
 	    "%s: trigger_output: start %p, end %p, blksize %d, intr %p(%p)\n",
 	    sc->sc_dev.dv_xname, start, end, blksize, intr, arg));
 	DPRINTF(("%s: param: rate %lu, encoding %u, precision %u, channels %u, sw_code %p, factor %d\n",
 	    sc->sc_dev.dv_xname, param->sample_rate, param->encoding,
 	    param->precision, param->channels, param->sw_code, param->factor));
-	
+
 	/* Find DMA buffer. */
 	for (ed = sc->sc_dmas; ed != NULL && KVADDR(ed) != start;
 	     ed = ed->ed_next)
@@ -1658,7 +1658,7 @@ eso_trigger_output(hdl, start, end, blksize, intr, arg, param)
 		    sc->sc_dev.dv_xname, start);
 		return (EINVAL);
 	}
-	
+
 	sc->sc_pintr = intr;
 	sc->sc_parg = arg;
 
@@ -1685,7 +1685,7 @@ eso_trigger_output(hdl, start, end, blksize, intr, arg, param)
 	/* Unmask IRQ. */
 	sc->sc_a2c2 |= ESO_MIXREG_A2C2_IRQM;
 	eso_write_mixreg(sc, ESO_MIXREG_A2C2, sc->sc_a2c2);
-	
+
 	/* Set up DMA controller. */
 	bus_space_write_4(sc->sc_iot, sc->sc_ioh, ESO_IO_A2DMAA,
 	    DMAADDR(ed));
@@ -1693,14 +1693,14 @@ eso_trigger_output(hdl, start, end, blksize, intr, arg, param)
 	    (uint8_t *)end - (uint8_t *)start);
 	bus_space_write_1(sc->sc_iot, sc->sc_ioh, ESO_IO_A2DMAM,
 	    ESO_IO_A2DMAM_DMAENB | ESO_IO_A2DMAM_AUTO);
-	
+
 	/* Start DMA. */
 	a2c1 = eso_read_mixreg(sc, ESO_MIXREG_A2C1);
 	a2c1 &= ~ESO_MIXREG_A2C1_RESV0; /* Paranoia? XXX bit 5 */
 	a2c1 |= ESO_MIXREG_A2C1_FIFOENB | ESO_MIXREG_A2C1_DMAENB |
 	    ESO_MIXREG_A2C1_AUTO;
 	eso_write_mixreg(sc, ESO_MIXREG_A2C1, a2c1);
-	
+
 	return (0);
 }
 
@@ -1898,7 +1898,7 @@ eso_set_gain(sc, port)
 	case ESO_AUXB_PLAY_VOL:
 		mixreg = ESO_MIXREG_PVR_AUXB;
 		break;
-		    
+
 	case ESO_DAC_REC_VOL:
 		mixreg = ESO_MIXREG_RVR_A2;
 		break;
@@ -1923,7 +1923,7 @@ eso_set_gain(sc, port)
 	case ESO_MONO_REC_VOL:
 		mixreg = ESO_MIXREG_RVR_MONO;
 		break;
-		
+
 	case ESO_PCSPEAKER_VOL:
 		/* Special case - only 3-bit, mono, and reserved bits. */
 		tmp = eso_read_mixreg(sc, ESO_MIXREG_PCSVR);
@@ -1949,7 +1949,7 @@ eso_set_gain(sc, port)
 		eso_write_mixreg(sc, ESO_MIXREG_SPATLVL,
 		    sc->sc_gain[port][ESO_LEFT]);
 		return;
-		
+
 	case ESO_RECORD_VOL:
 		/* Very Special case, controller register. */
 		eso_write_ctlreg(sc, ESO_CTLREG_RECLVL,ESO_4BIT_GAIN_TO_STEREO(
@@ -1957,12 +1957,12 @@ eso_set_gain(sc, port)
 		return;
 
 	default:
-#ifdef DIAGNOSTIC		
+#ifdef DIAGNOSTIC
 		panic("eso_set_gain: bad port %u", port);
 		/* NOTREACHED */
 #else
 		return;
-#endif		
+#endif
 		}
 
 	eso_write_mixreg(sc, mixreg, ESO_4BIT_GAIN_TO_STEREO(

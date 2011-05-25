@@ -197,7 +197,7 @@ char *filename;
 	free((char *)i_womp);
 	return FALSE;
     }
-    
+
     /* now scan the buffer and build pointer array */
 
     iline = 1;
@@ -210,7 +210,7 @@ char *filename;
 
     /* now check for revision, if any */
 
-    if (revision != Nullch) { 
+    if (revision != Nullch) {
 	if (!rev_in_string(i_womp)) {
 	    if (force) {
 		if (verbose)
@@ -356,7 +356,7 @@ char *string;
     if (strnEQ(string,revision,patlen) && isspace((unsigned char)string[patlen]))
 	return TRUE;
     for (s = string; *s; s++) {
-	if (isspace((unsigned char)*s) && strnEQ(s+1, revision, patlen) && 
+	if (isspace((unsigned char)*s) && strnEQ(s+1, revision, patlen) &&
 		isspace((unsigned char)s[patlen+1] )) {
 	    return TRUE;
 	}

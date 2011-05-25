@@ -62,7 +62,7 @@ ENTRY(setjmp)
 	nop
 	mov.l	@r15+, r4
 	lds.l	@r15+, pr
-	
+
 	add	#4*11, r4
 	mov.l	r0, @-r4	# sigmask
 	mov	#1, r0
@@ -94,7 +94,7 @@ ENTRY(longjmp)
 	nop
 	mov.l	@r15+, r5
 	mov.l	@r15+, r4
-	
+
 	lds.l	@r4+, pr
 	mov.l	@r4+, r8
 	mov.l	@r4+, r9

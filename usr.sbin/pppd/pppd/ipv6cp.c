@@ -23,7 +23,7 @@
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  *
- * Id: ipv6cp.c,v 1.3 1999/08/24 05:31:09 paulus Exp 
+ * Id: ipv6cp.c,v 1.3 1999/08/24 05:31:09 paulus Exp
  *
  *
  * Original version by Inria (www.inria.fr)
@@ -40,7 +40,7 @@ __RCSID("$NetBSD: ipv6cp.c,v 1.4 2000/01/20 04:55:52 itojun Exp $");
 #endif
 
 /*
- * TODO: 
+ * TODO:
  *
  * Better defines for selecting the ordering of
  *   interface up / set address. (currently checks for __linux__,
@@ -221,11 +221,11 @@ setifaceid(arg)
 #define s6_addr32 __u6_addr.__u6_addr32 /* non-standard */
 #define VALIDID(a) ( (((a).s6_addr32[0] == 0) && ((a).s6_addr32[1] == 0)) && \
 			(((a).s6_addr32[2] != 0) || ((a).s6_addr32[3] != 0)) )
-    p = *arg; 
+    p = *arg;
     if ((comma = strchr(p, ',')) == NULL)
 	comma = p + strlen(p);
-    
-    /* 
+
+    /*
      * If comma first character, then no local identifier
      */
     if (comma != p) {
@@ -235,12 +235,12 @@ setifaceid(arg)
 	    option_error("Illegal interface identifier: %s", p);
 	    return 0;
 	}
-	
+
 	eui64_copy(addr.s6_addr32[2], wo->ourid);
 	wo->opt_local = 1;
 	*comma = ',';
     }
-    
+
     /*
      * If comma last character, the no remote identifier
      */
@@ -384,11 +384,11 @@ ipv6cp_resetci(f)
     ipv6cp_options *go = &ipv6cp_gotoptions[f->unit];
 
     wo->req_ifaceid = wo->neg_ifaceid && ipv6cp_allowoptions[f->unit].neg_ifaceid;
-    
+
     if (!wo->opt_local) {
 	eui64_magic_nz(wo->ourid);
     }
-    
+
     *go = *wo;
     eui64_zero(go->hisid);	/* last proposed interface identifier */
 }
@@ -584,7 +584,7 @@ ipv6cp_nakci(f, p, len)
      */
     NAKCIIFACEID(CI_IFACEID, neg_ifaceid,
 	      if (go->accept_local) {
-		  while (eui64_iszero(ifaceid) || 
+		  while (eui64_iszero(ifaceid) ||
 			 eui64_equals(ifaceid, go->hisid)) /* bad luck */
 		      eui64_magic(ifaceid);
 		  try.ourid = ifaceid;
@@ -636,7 +636,7 @@ ipv6cp_nakci(f, p, len)
 	    try.neg_ifaceid = 1;
 	    eui64_get(ifaceid, p);
 	    if (go->accept_local) {
-		while (eui64_iszero(ifaceid) || 
+		while (eui64_iszero(ifaceid) ||
 		       eui64_equals(ifaceid, go->hisid)) /* bad luck */
 		    eui64_magic(ifaceid);
 		try.ourid = ifaceid;
@@ -768,7 +768,7 @@ ipv6cp_reqci(f, inp, len, reject_if_disagree)
      * Reset all his options.
      */
     BZERO(ho, sizeof(*ho));
-    
+
     /*
      * Process all his options.
      */
@@ -801,7 +801,7 @@ ipv6cp_reqci(f, inp, len, reject_if_disagree)
 	    }
 
 	    /*
-	     * If he has no interface identifier, or if we both have same 
+	     * If he has no interface identifier, or if we both have same
 	     * identifier then NAK it with new idea.
 	     * In particular, if we don't know his identifier, but he does,
 	     * then accept it.
@@ -812,10 +812,10 @@ ipv6cp_reqci(f, inp, len, reject_if_disagree)
 		orc = CONFREJ;		/* Reject CI */
 		break;
 	    }
-	    if (!eui64_iszero(wo->hisid) && 
-		!eui64_equals(ifaceid, wo->hisid) && 
+	    if (!eui64_iszero(wo->hisid) &&
+		!eui64_equals(ifaceid, wo->hisid) &&
 		eui64_iszero(go->hisid)) {
-		    
+
 		orc = CONFNAK;
 		ifaceid = wo->hisid;
 		go->hisid = ifaceid;
@@ -826,7 +826,7 @@ ipv6cp_reqci(f, inp, len, reject_if_disagree)
 		orc = CONFNAK;
 		if (eui64_iszero(go->hisid))	/* first time, try option */
 		    ifaceid = wo->hisid;
-		while (eui64_iszero(ifaceid) || 
+		while (eui64_iszero(ifaceid) ||
 		       eui64_equals(ifaceid, go->ourid)) /* bad luck */
 		    eui64_magic(ifaceid);
 		go->hisid = ifaceid;
@@ -941,7 +941,7 @@ ipv6_check_options()
 	    if (!eui64_iszero(wo->ourid))
 		wo->opt_local = 1;
 	}
-	
+
 	while (eui64_iszero(wo->ourid))
 	    eui64_magic(wo->ourid);
     }
@@ -974,7 +974,7 @@ ipv6_demand_conf(u)
 #if defined(__linux__) || (defined(SVR4) && (defined(SNI) || defined(__USLC__)))
     if (!sifup(u))
 	return 0;
-#endif    
+#endif
     if (!sif6addr(u, wo->ourid, wo->hisid))
 	return 0;
 #if !defined(__linux__) && !(defined(SVR4) && (defined(SNI) || defined(__USLC__)))
@@ -1044,13 +1044,13 @@ ipv6cp_up(f)
      * interface to pass IPv6 packets.
      */
     if (demand) {
-	if (! eui64_equals(go->ourid, wo->ourid) || 
+	if (! eui64_equals(go->ourid, wo->ourid) ||
 	    ! eui64_equals(ho->hisid, wo->hisid)) {
 	    if (! eui64_equals(go->ourid, wo->ourid))
-		warn("Local LL address changed to %s", 
+		warn("Local LL address changed to %s",
 		     llv6_ntoa(go->ourid));
 	    if (! eui64_equals(ho->hisid, wo->hisid))
-		warn("Remote LL address changed to %s", 
+		warn("Remote LL address changed to %s",
 		     llv6_ntoa(ho->hisid));
 	    ipv6cp_clear_addrs(f->unit);
 

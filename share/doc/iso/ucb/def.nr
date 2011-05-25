@@ -3,11 +3,11 @@
 .NC "Definitions"
 .sh 1 "General Terms"
 .ip "Kernel" 5
-The source code or binary module for the Acis Operating System 
+The source code or binary module for the Acis Operating System
 (also know as AOS and IBM/4.3).
 .ip "User process" 5
-An instance of a program that is 
-running in unprivileged mode, in the unprivileged address space 
+An instance of a program that is
+running in unprivileged mode, in the unprivileged address space
 commonly know as "user address space", in other words, not
 part of the kernel.
 .ip "IPC" 5
@@ -21,18 +21,18 @@ keeps status information, addresses, and in some cases queues
 in a pcb for each connection or socket.
 .ip "Domain" 5
 In the Berkeley Unix environment, a domain is an abstract entity which
-comprises a network architecture, addressing scheme, address format, 
+comprises a network architecture, addressing scheme, address format,
 network protocols, and transport protocols.
 .sh 1 "Transport Layer Terms"
 .ip "ISO 8073"
 ISO Draft International Standard 8073, Transport Protocol Specification
-.ip "TP" 5 
+.ip "TP" 5
 The collection of transport
 classes that have been implemented in ARGO, classes 0 and 4.
-Also means the ARGO implementation of TP. 
-.ip "TP 0" 5 
+Also means the ARGO implementation of TP.
+.ip "TP 0" 5
 Transport class 0.
-.ip "TP 4" 5 
+.ip "TP 4" 5
 Transport class 4.
 .ip "Transport entity" 5
 Software or hardware that implements the elements of procedure
@@ -42,7 +42,7 @@ User process that make use of the services
 provided by a transport entity.
 .ip "Transport service interface" 5
 The syntax and semantics of the set of procedures, functions, and system calls
-that are invoked by a transport user, 
+that are invoked by a transport user,
 through which the services of the transport entity are delivered.
 .ip "TPDU" 5
 Transport protocol data unit, a packet that is
@@ -52,7 +52,7 @@ Transport service data unit, the logical unit of data that is
 passed from a transport entity to a transport user, or from
 a transport user to a transport entity.
 .ip "CR TPDU" 5
-Connection request TPDU. 
+Connection request TPDU.
 .ip "CC TPDU" 5
 Connection confirm TPDU.
 .ip "DR TPDU" 5
@@ -103,10 +103,10 @@ act as an end point for communication.
 Intermediate system. A system running the OSI layers 1, 2, and 3 which
 can act only a packet router.
 .ip "SNPA"
-The Subnetwork Point of Attachement is the point where a \fIreal\fR 
+The Subnetwork Point of Attachement is the point where a \fIreal\fR
 end or intermediate system is attached to a \fIreal\fR subnetwork.
 .ip "SNPA address"
-Information that a \fIreal\fR subnetwork need to identify a \fIreal\fR end 
+Information that a \fIreal\fR subnetwork need to identify a \fIreal\fR end
 or intermediate system. This is commonly referred to as the hardware address.
 .ip "NPDU"
 Network Protocol Data Unit. The unit of data which is exchanged between

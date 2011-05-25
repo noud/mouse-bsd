@@ -41,7 +41,7 @@ static void cond_destroyer(void *);
  * Shared stuff
  */
 
-static void 
+static void
 mutex_destroyer(arg)
 	void   *arg;
 {
@@ -53,7 +53,7 @@ mutex_destroyer(arg)
 	}
 }
 
-static void 
+static void
 cond_destroyer(arg)
 	void   *arg;
 {
@@ -65,7 +65,7 @@ cond_destroyer(arg)
 	}
 }
 
-int 
+int
 _rf_create_managed_mutex(listp, m, file, line)
 	RF_ShutdownList_t **listp;
 RF_DECLARE_MUTEX(*m)
@@ -88,7 +88,7 @@ RF_DECLARE_MUTEX(*m)
 	return (rc);
 }
 
-int 
+int
 _rf_create_managed_cond(listp, c, file, line)
 	RF_ShutdownList_t **listp;
 RF_DECLARE_COND(*c)
@@ -111,7 +111,7 @@ RF_DECLARE_COND(*c)
 	return (rc);
 }
 
-int 
+int
 _rf_init_managed_threadgroup(listp, g, file, line)
 	RF_ShutdownList_t **listp;
 	RF_ThreadGroup_t *g;
@@ -130,7 +130,7 @@ _rf_init_managed_threadgroup(listp, g, file, line)
 	return (0);
 }
 
-int 
+int
 _rf_destroy_threadgroup(g, file, line)
 	RF_ThreadGroup_t *g;
 	char   *file;
@@ -145,7 +145,7 @@ _rf_destroy_threadgroup(g, file, line)
 	return (rc2);
 }
 
-int 
+int
 _rf_init_threadgroup(g, file, line)
 	RF_ThreadGroup_t *g;
 	char   *file;
@@ -169,7 +169,7 @@ _rf_init_threadgroup(g, file, line)
 /*
  * Kernel
  */
-int 
+int
 rf_mutex_init(m)
 decl_simple_lock_data(, *m)
 {
@@ -177,14 +177,14 @@ decl_simple_lock_data(, *m)
 	return (0);
 }
 
-int 
+int
 rf_mutex_destroy(m)
 decl_simple_lock_data(, *m)
 {
 	return (0);
 }
 
-int 
+int
 rf_cond_init(c)
 RF_DECLARE_COND(*c)
 {
@@ -192,7 +192,7 @@ RF_DECLARE_COND(*c)
 	return (0);
 }
 
-int 
+int
 rf_cond_destroy(c)
 RF_DECLARE_COND(*c)
 {

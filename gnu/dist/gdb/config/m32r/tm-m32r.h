@@ -1,5 +1,5 @@
 /* Parameters for execution on a Mitsubishi m32r processor.
-   Copyright 1996, 1997 Free Software Foundation, Inc. 
+   Copyright 1996, 1997 Free Software Foundation, Inc.
 
 This file is part of GDB.
 
@@ -95,9 +95,9 @@ struct type;
 struct value;
 #endif
 
-/* Define other aspects of the stack frame. 
+/* Define other aspects of the stack frame.
    We keep the offsets of all saved registers, 'cause we need 'em a lot!
-   We also keep the current size of the stack frame, and whether 
+   We also keep the current size of the stack frame, and whether
    the frame pointer is valid (for frameless functions, and when we're
    still in the prologue of a function with a frame) */
 
@@ -114,8 +114,8 @@ extern void m32r_init_extra_frame_info PARAMS ((struct frame_info *fi));
 /* mvs_no_check  INIT_FRAME_PC */
 #define INIT_FRAME_PC		/* Not necessary */
 
-extern void 
-m32r_frame_find_saved_regs PARAMS ((struct frame_info *fi, 
+extern void
+m32r_frame_find_saved_regs PARAMS ((struct frame_info *fi,
 				    struct frame_saved_regs *regaddr));
 
 /* Put here the code to store, into a struct frame_saved_regs,
@@ -134,7 +134,7 @@ extern CORE_ADDR m32r_frame_chain PARAMS ((struct frame_info *fi));
 
 #define FRAME_CHAIN_VALID(fp, frame)	generic_frame_chain_valid (fp, frame)
 
-extern CORE_ADDR m32r_find_callers_reg PARAMS ((struct frame_info *fi, 
+extern CORE_ADDR m32r_find_callers_reg PARAMS ((struct frame_info *fi,
 						int regnum));
 extern CORE_ADDR m32r_frame_saved_pc PARAMS((struct frame_info *));
 /* mvs_check  FRAME_SAVED_PC */
@@ -206,8 +206,8 @@ extern struct frame_info *m32r_pop_frame PARAMS ((struct frame_info *frame));
 /* #define STACK_ALIGN(x) ((x + 3) & ~3) */
 
 extern CORE_ADDR m32r_push_return_address PARAMS ((CORE_ADDR, CORE_ADDR));
-extern CORE_ADDR m32r_push_arguments PARAMS ((int nargs, 
-					      struct value **args, 
+extern CORE_ADDR m32r_push_arguments PARAMS ((int nargs,
+					      struct value **args,
 					      CORE_ADDR sp,
 					      unsigned char struct_return,
 					      CORE_ADDR struct_addr));
@@ -220,7 +220,7 @@ extern CORE_ADDR m32r_push_arguments PARAMS ((int nargs,
 
 #define PUSH_RETURN_ADDRESS(PC, SP)      m32r_push_return_address (PC, SP)
 
-/* override the standard get_saved_register function with 
+/* override the standard get_saved_register function with
    one that takes account of generic CALL_DUMMY frames */
 #define GET_SAVED_REGISTER
 

@@ -63,7 +63,7 @@ processed per unit time by each system.
 The problems encountered with this indirect approach often
 have to do with the completeness and correctness of the parameterization
 of the context environment.
-For example, the 
+For example, the
 ``vax mix''
 model constructed for DECs tests uses a random distribution of seeks
 to the blocks read or written.
@@ -80,7 +80,7 @@ files as they would be by user's activities.
 The disk space allocation and disk cacheing mechanism built into
 UNIX is used to produce the actual device reads and writes as well
 as to determine their size and location on the disk.
-We measure and compare the rate at which these 
+We measure and compare the rate at which these
 .I
 user files
 .R

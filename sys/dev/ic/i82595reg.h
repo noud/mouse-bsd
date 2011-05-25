@@ -39,7 +39,7 @@
 /*
  * Intel 82595 Ethernet chip register, bit, and structure definitions.
  *
- * Written by is with reference to Intel's i82595FX data sheet, with some 
+ * Written by is with reference to Intel's i82595FX data sheet, with some
  * clarification coming from looking at the Clarkson Packet Driver code for this
  * chip written by Russ Nelson and others;
  *

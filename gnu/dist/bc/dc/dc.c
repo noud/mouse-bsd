@@ -1,4 +1,4 @@
-/* 
+/*
  * implement the "dc" Desk Calculator language.
  *
  * Copyright (C) 1994, 1997, 1998 Free Software Foundation, Inc.

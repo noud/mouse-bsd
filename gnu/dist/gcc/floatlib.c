@@ -638,7 +638,7 @@ __muldf3 (double a1, double a2)
  *    Purpose: To be used in conjunction with the -msoft-float
  *             option of gcc. You should be able to tack it to the
  *             end of floatlib.c included in the gcc distribution,
- *             and delete the __divdf3() already there which just 
+ *             and delete the __divdf3() already there which just
  *             calls the single precision function (or may just
  *             use the floating point processor with some configurations).
  *
@@ -651,7 +651,7 @@ __muldf3 (double a1, double a2)
 /*
  * Compare the mantissas of two doubles.
  * Each mantissa is in two longs.
- * 
+ *
  *   return      1   if x1's mantissa is greater than x2's
  *              -1   if x1's mantissa is less than x2's
  *               0   if the two mantissa's are equal.
@@ -766,7 +766,7 @@ __divdf3 (double a1, double a2)
 
          if (x2m2 > x1m2)
             x1m1--;
-         x1m2 -= x2m2; 
+         x1m2 -= x2m2;
          x1m1 -= x2m1;
       }
 
@@ -792,7 +792,7 @@ __divdf3 (double a1, double a2)
 
          if (x2m2 > x1m2)
             x1m1--;
-         x1m2 -= x2m2; 
+         x1m2 -= x2m2;
          x1m1 -= x2m1;
       }
       x1m1 <<= 1;               /*                          */

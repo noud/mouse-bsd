@@ -1,4 +1,4 @@
-/* 
+/*
  * interface dc to the bc numeric routines
  *
  * Copyright (C) 1994, 1997, 1998 Free Software Foundation, Inc.
@@ -556,7 +556,7 @@ rt_error (mesg, va_alist)
 #endif
   vsprintf (error_mesg, mesg, args);
   va_end (args);
-  
+
   fprintf (stderr, "Runtime error: %s\n", error_mesg);
 }
 

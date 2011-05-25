@@ -106,7 +106,7 @@ ASLOCAL(longscratch)
 ASLOCAL(longscratch2)
 	.long	0
 ASLOCAL(pte_tmp)			| for get_pte()
-	.long	0 
+	.long	0
 GLOBAL(macos_crp1)
 	.long	0
 GLOBAL(macos_crp2)
@@ -237,10 +237,10 @@ Lget040TC:
 #endif
 	.long	0x4e7a0003		| movc tc,d0
 	jra	LsaveTC
-LnotAV:	
+LnotAV:
 	movql	#0,d0			| otherwise,
 	.long	0x4e7b0003		| movc d0,tc ;Disable MMU
-LsaveTC:	
+LsaveTC:
 	movl	d0,a0@
 
 Lstart3:
@@ -254,7 +254,7 @@ Lstart3:
 	 */
 	movl	#_C_LABEL(vectab),d0	| set Vector Base Register
 	movc	d0,vbr
-	
+
 	movl	_C_LABEL(Sysseg),a1	| system segment table addr
 	addl	_C_LABEL(load_addr),a1	| Make it physical addr
 	cmpl	#MMU_68040,_C_LABEL(mmutype)
@@ -361,7 +361,7 @@ GLOBAL(proc_trampoline)
 
 /*
  * Trap/interrupt vector routines
- */ 
+ */
 #include <m68k/m68k/trap_subr.s>
 
 	.data
@@ -388,7 +388,7 @@ ENTRY_NOPROFILE(buserr60)
 	movl	a0,sp@(FR_SP)		|   in the savearea
 	movel	sp@(FR_HW+12),d0	| FSLW
 	btst	#2,d0			| branch prediction error?
-	jeq	Lnobpe			
+	jeq	Lnobpe
 	movc	cacr,d2
 	orl	#IC60_CABC,d2		| clear all branch cache entries
 	movc	d2,cacr
@@ -408,7 +408,7 @@ Lnobpe:
 Lberr3:
 	movl	d1,sp@-
 	movl	d0,sp@-			| code is FSLW now.
-	andw	#0x1f80,d0 
+	andw	#0x1f80,d0
 	jeq	Lberr60			| it is a bus error
 	movl	#T_MMUFLT,sp@-		| show that we are an MMU fault
 	jra	_ASM_LABEL(faultstkadj)	| and deal with it
@@ -840,7 +840,7 @@ ENTRY_NOPROFILE(lev7intr)
 	addql	#8,sp			| pop SSP and align word
 	jra	_ASM_LABEL(rei)
 
-/* 
+/*
  * We could tweak rtclock_intr and gain 12 cycles on the 020 and 030 by
  * saving the status register directly to the stack, but this would lose
  * badly on the 040.  Aligning the stack takes 10 more cycles than this
@@ -933,7 +933,7 @@ Lgotsir:
 	moveml	#0xFFFF,sp@-		| save all registers
 	movl	usp,a1			| including
 	movl	a1,sp@(FR_SP)		|    the users SP
-Lsir1:	
+Lsir1:
 	clrl	sp@-			| VA == none
 	clrl	sp@-			| code == none
 	movl	#T_SSIR,sp@-		| type == software interrupt
@@ -956,7 +956,7 @@ Ldorte:
 
 /*
  * Primitives
- */ 
+ */
 
 /*
  * Use common m68k support routines.

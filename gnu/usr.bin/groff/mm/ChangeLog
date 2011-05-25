@@ -159,7 +159,7 @@ Tue Dec 8 16:43:15 1992 Joergen Haegg (jh at efd.lth.se)
 Sat Nov 21 14:28:20 1992 Joergen Haegg (jh at efd.lth.se)
 
 	* version 1.08
-	* Escape-character disabled between 
+	* Escape-character disabled between
 	  VERBON/VERBOFF (turned on by an argument).
 	  Pointsize and fontchange also added as arguments.
 	* MULB, MULN and MULE added to get multicolumn output
@@ -202,7 +202,7 @@ Thu Aug 20 13:56:31 1992 Joergen Haegg (jh at efd.lth.se)
 Thu May 7 16:14:10 1992 Joergen Haegg (jh at efd.lth.se)
 
 	* version 1.03
-	* Typo and centering in DS/DE fixed. 
+	* Typo and centering in DS/DE fixed.
 	  Even and odd pageheaders were reversed.
 	* LI: pad and mark-indent was lost in some earlier versions. Now fixed.
 	* fixed bug in reference to .FG, .TB, ...
@@ -260,13 +260,13 @@ Thu Nov 28 22:00:59 1991 Joergen Haegg (jh at efd.lth.se)
 	* COVER had to have an argument.
 	* table of contents can now have multiline header.
 	* .HU now increments headingvariable H?
-	* added the inclusion of a locale file. 
+	* added the inclusion of a locale file.
 
 Sat Nov 23 14:40:17 1991 Joergen Haegg (jh at efd.lth.se)
 
 	* version 0.14
 	* bug when using -rO fixed.
-	* MT 1-4 added. 
+	* MT 1-4 added.
 	* default is now MT 1
 	* .EQ/.EN can be used outside of .DS/.DE without complaints. But
 	  I don't recommend it. Neither does the DWB books.
@@ -302,7 +302,7 @@ Sun Jan 1 00:00:00 1991 Joergen Haegg (jh at efd.lth.se)
 	* Forward/backward referencesystem added. Se .INITR in README.
 	* mgmsw changed name to mgmse.
 Sun Jan 1 00:00:00 1991 Joergen Haegg (jh at efd.lth.se)
-	* embarrassing bug in .P fixed 
+	* embarrassing bug in .P fixed
 	* .H did always eject page, now fixed.
 	* lost floating displays now found.
 	* accents added (from mgs)

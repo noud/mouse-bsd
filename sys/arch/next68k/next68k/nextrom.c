@@ -140,7 +140,7 @@ next68k_bootargs(args)
 
 
   /* Construct the segment list */
-  {        
+  {
 		u_int msize16;
 		u_int msize4;
 		u_int msize1;
@@ -177,31 +177,31 @@ next68k_bootargs(args)
 		RELOC(rom_machine_type, char) = MONRELOC(char, MG_machine_type);
 
     for (i=0;i<N_SIMM;i++) {
-			
+
 			ROM_PUTS("Memory bank 0x");
 			ROM_PUTX(i);
 			ROM_PUTS(" has value 0x");
 			ROM_PUTX(MONRELOC(char,MG_simm+i))
 			ROM_PUTS("\r\n");
-			
+
       if ((MONRELOC(char,MG_simm+i) & SIMM_SIZE) != SIMM_SIZE_EMPTY) {
-        RELOC(phys_seg_list[j].ps_start, vm_offset_t) 
+        RELOC(phys_seg_list[j].ps_start, vm_offset_t)
           = NEXT_RAMBASE+(i*msize16);
       }
       if ((MONRELOC(char,MG_simm+i) & SIMM_SIZE) == SIMM_SIZE_16MB) {
-        RELOC(phys_seg_list[j].ps_end, vm_offset_t) = 
+        RELOC(phys_seg_list[j].ps_end, vm_offset_t) =
           RELOC(phys_seg_list[j].ps_start, vm_offset_t) +
 						msize16;
         j++;
-      } 
+      }
       if ((MONRELOC(char,MG_simm+i) & SIMM_SIZE) == SIMM_SIZE_4MB) {
-        RELOC(phys_seg_list[j].ps_end, vm_offset_t) = 
+        RELOC(phys_seg_list[j].ps_end, vm_offset_t) =
           RELOC(phys_seg_list[j].ps_start, vm_offset_t) +
 						msize4;
         j++;
       }
       if ((MONRELOC(char,MG_simm+i) & SIMM_SIZE) == SIMM_SIZE_1MB) {
-        RELOC(phys_seg_list[j].ps_end, vm_offset_t) = 
+        RELOC(phys_seg_list[j].ps_end, vm_offset_t) =
           RELOC(phys_seg_list[j].ps_start, vm_offset_t) +
 						msize1;
         j++;

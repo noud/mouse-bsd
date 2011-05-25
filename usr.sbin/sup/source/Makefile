@@ -1,7 +1,7 @@
 #	$NetBSD: Makefile,v 1.16 1999/08/02 05:36:05 erh Exp $
 # Copyright (c) 1992,1991 Carnegie Mellon University
 # All Rights Reserved.
-# 
+#
 # Permission to use, copy, modify and distribute this software and its
 # documentation is hereby granted, provided that both the copyright
 # notice and this permission notice appear in all copies of the
@@ -86,10 +86,10 @@ OSF_LIBS		= -lbsd
 EXTRALIBS		= libextra.a
 sup_OFILES		= ${SUPCL} ${SUPS}
 supfilesrv_OFILES	= supfilesrv.o scan.o ${SUPS}
-supfilesrv_LIBS		= libextra.a 
+supfilesrv_LIBS		= libextra.a
 supscan_OFILES		= supscan.o stree.o scan.o
 SOLARIS_LIBS		= -lsocket -lnsl
-SUNOS_LIBS		= 
+SUNOS_LIBS		=
 
 .for i in ${SITE}
 DEFS			= -UCMUCS -UCMU  ${${i}_DEFINES}

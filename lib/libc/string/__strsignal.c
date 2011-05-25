@@ -75,14 +75,14 @@ __strsignal(num, buf, buflen)
 	if (signum < sys_nsig) {
 #ifdef NLS
 		(void)strncpy(buf, catgets(catd, 2, (int)signum,
-		    sys_siglist[signum]), NL_TEXTMAX); 
+		    sys_siglist[signum]), NL_TEXTMAX);
 		buf[NL_TEXTMAX - 1] = '\0';
 #else
 		return((char *)sys_siglist[signum]);
 #endif
 	} else {
 #ifdef NLS
-		(void)snprintf(buf, NL_TEXTMAX, 
+		(void)snprintf(buf, NL_TEXTMAX,
 	            catgets(catd, 1, 0xffff, UPREFIX), signum);
 #else
 		(void)snprintf(buf, buflen, UPREFIX, signum);

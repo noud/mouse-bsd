@@ -89,7 +89,7 @@
  * Archive drive:
  * can read both QIC-24 and QIC-II. But only writes
  * QIC-24.
- * 
+ *
  * Supports Archive Viper QIC-150 tape drive, but scsi.c reports selection
  * errors.
  *
@@ -101,13 +101,13 @@
  *
  *
  * Supports Archive VIPER (QIC-150).
- * Mostly Supports Archive PYTHON (DAT). 
- *     Hangs if write after spin down. 
+ * Mostly Supports Archive PYTHON (DAT).
+ *     Hangs if write after spin down.
  *     Need scsi.c that does connect/disconnect.
  */
 
 /*
- * support for the block device not implemented 
+ * support for the block device not implemented
  */
 
 #include <sys/param.h>
@@ -337,7 +337,7 @@ stattach(parent, self, aux)
 	}
 
 	sc->sc_filepos = 0;
-	
+
 	/* load xsense */
 	scsi_delay(-1);
 	stxsense(sc->sc_dev.dv_parent->dv_unit, sc->sc_target, sc->sc_lun, sc);
@@ -505,7 +505,7 @@ retryselect:
 	stat = scsi_immed_command(ctlr, slave, unit, &modsel,
 				  (u_char *)&msd, modlen, B_WRITE);
 	/*
-	 * First command after power cycle, bus reset or tape change 
+	 * First command after power cycle, bus reset or tape change
 	 * will error. Try command again
 	 */
 	if (stat == STS_CHECKCOND) {
@@ -538,7 +538,7 @@ retryselect:
 			uprintf("SCSI bus timeout\n");
 			return(EBUSY);
 		}
-		if ((error = tsleep((caddr_t)&lbolt, PZERO | PCATCH, 
+		if ((error = tsleep((caddr_t)&lbolt, PZERO | PCATCH,
 		    "st_scsiwait", 0)))
 			return (error);
 		goto retryselect;
@@ -562,7 +562,7 @@ retryselect:
 			} else if ((xsense->sc_xsense.key & XSK_UNTATTEN) &&
 				   xsense->exb_xsense.tnp)
 				uprintf("cartridge unloading\n");
-			else 
+			else
 				prtkey(sc);
 			break;
 		case MT_ISMFOUR:
@@ -573,7 +573,7 @@ retryselect:
 				stxsense(ctlr, slave, unit, sc);
 				if (xsense->sc_xsense.key)
 					prtkey(sc);
-			} else { 
+			} else {
 				sc->sc_filepos = 0; /* new tape */
 				stat = 0;
 			}
@@ -665,10 +665,10 @@ stclose(dev, flag, mode, p)
 		 * Cartridge tapes don't do double EOFs on EOT.
 		 * We assume that variable-block devices use double EOF.
 		 */
-		stcommand(dev, MTWEOF, 1); 
+		stcommand(dev, MTWEOF, 1);
 		if (sc->sc_blklen == 0) {
-			stcommand(dev, MTWEOF, 1); 
-			stcommand(dev, MTBSR, 1); 
+			stcommand(dev, MTWEOF, 1);
+			stcommand(dev, MTBSR, 1);
 		}
 		hit++;
 	}
@@ -680,7 +680,7 @@ stclose(dev, flag, mode, p)
 	/* wait until more stable before trying [XXX Needed ?] */
 	if (!hit && (sc->sc_flags & SFT_WMODE))
 		/* force out any any bufferd write data */
-		stcommand(dev, MTFSR, 0); 
+		stcommand(dev, MTFSR, 0);
 #endif
 	/* make stats available */
 	stxsense(sc->sc_dev.dv_parent->dv_unit, sc->sc_target, sc->sc_lun, sc);
@@ -774,7 +774,7 @@ stgo(arg)
 		 * or we are going to do odd length IO and are not
 		 * going to use DMA.
 		 */
-		pad = 0; 
+		pad = 0;
 	}
 
 #ifdef DEBUG
@@ -861,7 +861,7 @@ int
 stioctl(dev, cmd, data, flag, p)
 	dev_t dev;
 	u_long cmd;
-	caddr_t data; 
+	caddr_t data;
 	int flag;
 	struct proc *p;
 {
@@ -916,7 +916,7 @@ stioctl(dev, cmd, data, flag, p)
 				   (xp->sc_xsense.eom << 13) |
 				   (xp->sc_xsense.ili << 12) |
 				   (xp->sc_xsense.key << 8));
-		
+
 		if (sc->sc_tapeid == MT_ISEXABYTE) {
 			mtget->mt_dsreg = sc->sc_flags;
 			resid = (xp->exb_xsense.tplft2 << 16 |
@@ -925,7 +925,7 @@ stioctl(dev, cmd, data, flag, p)
 			mtget->mt_resid = resid / 1000;
 			mtget->mt_erreg |= (((xp->exb_xsense.rwerrcnt2 << 16 |
 					      xp->exb_xsense.rwerrcnt1 << 8 |
-					      xp->exb_xsense.rwerrcnt0) * 100) / 
+					      xp->exb_xsense.rwerrcnt0) * 100) /
 					    (sc->sc_numblks - resid)) & 0xff;
 		} else if (xp->sc_xsense.valid) {
 			resid = ((xp->sc_xsense.info1 << 24) |
@@ -1024,7 +1024,7 @@ stintr(arg, stat)
 				 */
 				if (!st_dmaoddretry) {
 					tprintf(sc->sc_ctty,
-						"%s: Odd length read %ld\n", 
+						"%s: Odd length read %ld\n",
 						sc->sc_dev.dv_xname,
 						bp->b_bcount - bp->b_resid);
 					bp->b_error = EIO;
@@ -1078,7 +1078,7 @@ stintr(arg, stat)
 	}
 #ifdef DEBUG
 	if ((st_debug & ST_BRESID) && bp->b_resid != 0)
-		printf("b_resid %ld b_flags 0x%lx b_error 0x%x\n", 
+		printf("b_resid %ld b_flags 0x%lx b_error 0x%x\n",
 		       bp->b_resid, bp->b_flags, bp->b_error);
 #endif
 	/* asked for more filemarks then on tape */
@@ -1185,7 +1185,7 @@ stcommand(dev, command, cnt)
 		sc->sc_filepos = 0;
 		break;
 	default:
-		printf("%s: stcommand bad command 0x%x\n", 
+		printf("%s: stcommand bad command 0x%x\n",
 		       sc->sc_dev.dv_xname, command);
 	}
 
@@ -1196,7 +1196,7 @@ stcommand(dev, command, cnt)
 again:
 #ifdef DEBUG
 	if (st_debug & ST_FMKS)
-		printf("%s: stcommand filepos %d cmdcnt %d cnt %d\n", 
+		printf("%s: stcommand filepos %d cmdcnt %d cnt %d\n",
 		       sc->sc_dev.dv_xname, sc->sc_filepos, cmdcnt, cnt);
 #endif
 	s = splbio();
@@ -1378,14 +1378,14 @@ dumpxsense(sensebuf)
 {
         struct st_xsense *xp = sensebuf;
 
-	printf("valid 0x%x errorclass 0x%x errorcode 0x%x\n", 
-	       xp->sc_xsense.valid, 
+	printf("valid 0x%x errorclass 0x%x errorcode 0x%x\n",
+	       xp->sc_xsense.valid,
 	       xp->sc_xsense.class, xp->sc_xsense.code);
 	printf("seg number 0x%x\n", xp->sc_xsense.segment);
-	printf("FMK 0x%x EOM 0x%x ILI 0x%x RSVD 0x%x sensekey 0x%x\n", 
-	       xp->sc_xsense.filemark, xp->sc_xsense.eom, xp->sc_xsense.ili, 
+	printf("FMK 0x%x EOM 0x%x ILI 0x%x RSVD 0x%x sensekey 0x%x\n",
+	       xp->sc_xsense.filemark, xp->sc_xsense.eom, xp->sc_xsense.ili,
 	       xp->sc_xsense.rsvd, xp->sc_xsense.key);
-	printf("info 0x%lx\n", 
+	printf("info 0x%lx\n",
 	       (u_long)((xp->sc_xsense.info1<<24)|(xp->sc_xsense.info2<<16)|
 			(xp->sc_xsense.info3<<8)|(xp->sc_xsense.info4)) );
 	printf("ASenseL 0x%x\n", xp->sc_xsense.len);
@@ -1395,21 +1395,21 @@ dumpxsense(sensebuf)
 
 	printf("ASenseC 0x%x\n", xp->exb_xsense.addsens);
 	printf("AsenseQ 0x%x\n", xp->exb_xsense.addsensq);
-	printf("R/W Errors 0x%lx\n", 
+	printf("R/W Errors 0x%lx\n",
 	       (u_long)((xp->exb_xsense.rwerrcnt2<<16)|
 			(xp->exb_xsense.rwerrcnt1<<8)|
 			(xp->exb_xsense.rwerrcnt1)) );
 	printf("PF   0x%x BPE  0x%x FPE 0x%x ME   0x%x ECO 0x%x TME 0x%x TNP 0x%x BOT 0x%x\n",
-	       xp->exb_xsense.pf, xp->exb_xsense.bpe, xp->exb_xsense.fpe, 
-	       xp->exb_xsense.me, xp->exb_xsense.eco, xp->exb_xsense.tme, 
+	       xp->exb_xsense.pf, xp->exb_xsense.bpe, xp->exb_xsense.fpe,
+	       xp->exb_xsense.me, xp->exb_xsense.eco, xp->exb_xsense.tme,
 	       xp->exb_xsense.tnp, xp->exb_xsense.bot);
 	printf("XFR  0x%x TMD  0x%x WP  0x%x FMKE 0x%x URE 0x%x WE1 0x%x SSE 0x%x FE  0x%x\n",
-	       xp->exb_xsense.xfr, xp->exb_xsense.tmd, xp->exb_xsense.wp, 
-	       xp->exb_xsense.fmke, xp->exb_xsense.ure, xp->exb_xsense.we1, 
+	       xp->exb_xsense.xfr, xp->exb_xsense.tmd, xp->exb_xsense.wp,
+	       xp->exb_xsense.fmke, xp->exb_xsense.ure, xp->exb_xsense.we1,
 	       xp->exb_xsense.sse, xp->exb_xsense.fe);
 	printf("WSEB 0x%x WSEO 0x%x\n",
 	       xp->exb_xsense.wseb, xp->exb_xsense.wseo);
-	printf("Remaining Tape 0x%lx\n", 
+	printf("Remaining Tape 0x%lx\n",
 	       (u_long)((xp->exb_xsense.tplft2<<16)|
 			(xp->exb_xsense.tplft1<<8)|
 			(xp->exb_xsense.tplft0)) );
@@ -1435,14 +1435,14 @@ prtmodstat(mode)
 {
 	printf("Mode Status\n");
 	printf("sdl 0x%x medtype 0x%x wp 0x%x bfmd 0x%x speed 0x%x bdl 0x%x\n",
-	       mode->md.sdl, mode->md.medtype, mode->md.wp, mode->md.bfmd, 
+	       mode->md.sdl, mode->md.medtype, mode->md.wp, mode->md.bfmd,
 	       mode->md.speed, mode->md.bdl);
 	printf("dencod 0x%x numblk 0x%x blklen 0x%x\n",
-	       mode->md.dencod, 
+	       mode->md.dencod,
 	       (mode->md.numblk2<<16)|(mode->md.numblk1<<8)|(mode->md.numblk0),
 	       (mode->md.blklen2<<16)|(mode->md.blklen1<<8)|(mode->md.blklen0) );
 	printf("ct 0x%x nd 0x%x nbe 0x%x edb 0x%x pe 0x%x nal 0x%x p5 0x%x\n",
-	       mode->ex.ct, mode->ex.nd, mode->ex.nbe, 
+	       mode->ex.ct, mode->ex.nd, mode->ex.nbe,
 	       mode->ex.ebd, mode->ex.pe, mode->ex.nal, mode->ex.p5);
 	printf("motionthres 0x%x reconthres 0x%x gapthres 0x%x\n",
 	       mode->ex.motionthres, mode->ex.reconthres,  mode->ex.gapthres);

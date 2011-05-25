@@ -140,7 +140,7 @@ static char *xstrdup PARAMS ((const char *));
 
 /* The entire file is just a list of commands.  */
 
-file:	
+file:
 	  commands
 	;
 
@@ -745,7 +745,7 @@ tail_recurse:
       BUF_FINISH ();
 
       ungetc (c, current.file);
-      
+
       nlmlex_file_push (lex_buf);
       goto tail_recurse;
     }
@@ -787,7 +787,7 @@ tail_recurse:
 		  return keyword_tokens[i].token;
 		}
 	    }
-	  
+
 	  nlmheader_identify ();
 	  fprintf (stderr, "%s:%d: unrecognized keyword: %s\n",
 		   current.name, current.lineno, lex_buf);

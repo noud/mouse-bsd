@@ -38,12 +38,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -70,7 +70,7 @@ grpentry_t     *grplist;
  * Local functions definition
  */
 static srcentry_t *create_srcentry 	__P((struct sockaddr_in6 *source));
-static int search_srclist 			__P((struct sockaddr_in6 *source ,	
+static int search_srclist 			__P((struct sockaddr_in6 *source ,
      								srcentry_t ** sourceEntry));
 
 static int search_srcmrtlink 		__P((srcentry_t * srcentry_ptr,
@@ -705,7 +705,7 @@ search_grplist(group, groupEntry)
 
 	if (inet6_lessthan(&g->group, group))
 	    continue;
-	if (inet6_equal(&g->group, group))	
+	if (inet6_equal(&g->group, group))
 	{
 	    *groupEntry = g;
 	    return (TRUE);
@@ -741,7 +741,7 @@ create_srcentry(source)
      * Free the memory if there is error getting the iif and the next hop
      * (upstream) router.
      */
-  
+
      if (set_incoming(srcentry_ptr, PIM_IIF_SOURCE) == FALSE)
     {
 	free((char *) srcentry_ptr);
@@ -835,7 +835,7 @@ search_srcmrtlink(srcentry_ptr, group, mrtPtr)
 	 * The entries are ordered with the smaller group address first. The
 	 * addresses are in network order.
 	 */
-	
+
 	if (inet6_lessthan(&mrtentry_ptr->group->group, group))
 	    continue;
 	if (inet6_equal(&mrtentry_ptr->group->group, group))
@@ -978,7 +978,7 @@ alloc_mrtentry(srcentry_ptr, grpentry_ptr)
     mrtentry_ptr->pmbr_addr.sin6_addr = in6addr_any;
     mrtentry_ptr->pmbr_addr.sin6_len = sizeof(struct sockaddr_in6);
     mrtentry_ptr->pmbr_addr.sin6_family = AF_INET6;
-	
+
 #ifdef RSRR
     mrtentry_ptr->rsrr_cache = (struct rsrr_cache *) NULL;
 #endif				/* RSRR */

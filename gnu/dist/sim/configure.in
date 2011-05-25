@@ -47,7 +47,7 @@ case "${target}" in
   h8300*-*-*)		sim_target=h8300 ;;
   h8500-*-*)		sim_target=h8500 ;;
   mips*-*-*)		sim_target=mips ;;
-  sh*-*-*)		sim_target=sh ;; 
+  sh*-*-*)		sim_target=sh ;;
   powerpc*-*-eabi*)	if test x"$powerpc_sim" = x"yes"; then sim_target=ppc; fi ;;
   w65-*-*)		sim_target=w65 ;;
   z8k*-*-*)		sim_target=z8k ;;

@@ -146,7 +146,7 @@ dma_intr(dp)
 #ifdef DMA_DEBUG
 	printf("dma_intr() status = 0x%02x\n", status);
 #endif
-	
+
 	if(!(dp->dc_flags & DMA_FL_ACTIVE)) {
 		/* interrupt whilst not active */
 		/* ie. last buffer programmed */
@@ -191,7 +191,7 @@ dma_intr(dp)
 #endif
 		break;
 	}
-		
+
 /*	return(0);*/
 /* XXX */
 #define	PHYS(x, y)	pmap_extract(kernel_pmap, (vaddr_t)x, (paddr_t *)(y))

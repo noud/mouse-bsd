@@ -496,7 +496,7 @@ pcic_event_thread(arg)
 				}
 			}
 			splx(s);
-				
+
 			DPRINTF(("%s: insertion event\n",
 			    h->ph_parent->dv_xname));
 			pcic_attach_card(h);
@@ -799,7 +799,7 @@ pcic_deactivate_card(h)
 	pcic_write(h, PCIC_INTR, 0);
 }
 
-int 
+int
 pcic_chip_mem_alloc(pch, size, pcmhp)
 	pcmcia_chipset_handle_t pch;
 	bus_size_t size;
@@ -846,7 +846,7 @@ pcic_chip_mem_alloc(pch, size, pcmhp)
 	return (1);
 }
 
-void 
+void
 pcic_chip_mem_free(pch, pcmhp)
 	pcmcia_chipset_handle_t pch;
 	struct pcmcia_mem_handle *pcmhp;
@@ -913,7 +913,7 @@ static struct mem_map_index_st {
 	},
 };
 
-void 
+void
 pcic_chip_do_mem_map(h, win)
 	struct pcic_handle *h;
 	int win;
@@ -974,7 +974,7 @@ pcic_chip_do_mem_map(h, win)
 #endif
 }
 
-int 
+int
 pcic_chip_mem_map(pch, kind, card_addr, size, pcmhp, offsetp, windowp)
 	pcmcia_chipset_handle_t pch;
 	int kind;
@@ -1044,7 +1044,7 @@ pcic_chip_mem_map(pch, kind, card_addr, size, pcmhp, offsetp, windowp)
 	return (0);
 }
 
-void 
+void
 pcic_chip_mem_unmap(pch, window)
 	pcmcia_chipset_handle_t pch;
 	int window;
@@ -1062,7 +1062,7 @@ pcic_chip_mem_unmap(pch, window)
 	h->memalloc &= ~(1 << window);
 }
 
-int 
+int
 pcic_chip_io_alloc(pch, start, size, align, pcihp)
 	pcmcia_chipset_handle_t pch;
 	bus_addr_t start;
@@ -1108,7 +1108,7 @@ pcic_chip_io_alloc(pch, start, size, align, pcihp)
 	return (0);
 }
 
-void 
+void
 pcic_chip_io_free(pch, pcihp)
 	pcmcia_chipset_handle_t pch;
 	struct pcmcia_io_handle *pcihp;
@@ -1167,7 +1167,7 @@ static struct io_map_index_st {
 	},
 };
 
-void 
+void
 pcic_chip_do_io_map(h, win)
 	struct pcic_handle *h;
 	int win;
@@ -1197,7 +1197,7 @@ pcic_chip_do_io_map(h, win)
 	pcic_write(h, PCIC_ADDRWIN_ENABLE, reg);
 }
 
-int 
+int
 pcic_chip_io_map(pch, width, offset, size, pcihp, windowp)
 	pcmcia_chipset_handle_t pch;
 	int width;
@@ -1253,7 +1253,7 @@ pcic_chip_io_map(pch, width, offset, size, pcihp, windowp)
 	return (0);
 }
 
-void 
+void
 pcic_chip_io_unmap(pch, window)
 	pcmcia_chipset_handle_t pch;
 	int window;
@@ -1302,7 +1302,7 @@ pcic_wait_ready(h)
 
 /*
  * Perform long (msec order) delay.
- */  
+ */
 static void
 pcic_delay(h, timo, wmesg)
 	struct pcic_handle *h;
@@ -1352,7 +1352,7 @@ pcic_chip_socket_enable(pch)
 	pwr = 0;
 	pcic_write(h, PCIC_PWRCTL, pwr);
 
-	/* 
+	/*
 	 * wait 300ms until power fails (Tpf).  Then, wait 100ms since
 	 * we are changing Vcc (Toff).
 	 */

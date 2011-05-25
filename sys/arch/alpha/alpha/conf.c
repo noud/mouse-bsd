@@ -185,7 +185,7 @@ cdev_decl(scsibus);
 cdev_decl(esh_fp);
 
 #include "usb.h"
-cdev_decl(usb); 
+cdev_decl(usb);
 #include "uhid.h"
 cdev_decl(uhid);
 #include "ugen.h"
@@ -229,7 +229,7 @@ cdev_decl(ucom);
 	dev_init(c,n,open), dev_init(c,n,close), dev_init(c,n,read), \
 	(dev_type_write((*))) enodev, dev_init(c,n,ioctl), \
 	(dev_type_stop((*))) enodev, 0, dev_init(c,n,poll), \
-	(dev_type_mmap((*))) enodev }	
+	(dev_type_mmap((*))) enodev }
 
 #include "i4b.h"
 #include "i4bctl.h"
@@ -322,7 +322,7 @@ struct cdevsw	cdevsw[] =
 	cdev_mouse_init(NWSMUX, wsmux),	/* 56: ws multiplexor */
 	cdev_tty_init(NUCOM, ucom),	/* 57: USB tty */
 	cdev_ses_init(NSES,ses),	/* 58: SCSI SES/SAF-TE */
-	
+
 };
 int	nchrdev = sizeof (cdevsw) / sizeof (cdevsw[0]);
 

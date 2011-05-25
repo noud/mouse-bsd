@@ -75,11 +75,11 @@ fetch_inferior_registers (regno)
       if (0 != ptrace (PTRACE_GETREGS, inferior_pid,
 		       (PTRACE_ARG3_TYPE) &inferior_registers, 0))
 	perror("ptrace_getregs");
-      
+
       registers[REGISTER_BYTE (0)] = 0;
       memcpy (&registers[REGISTER_BYTE (1)], &inferior_registers.r_g1,
 	      15 * REGISTER_RAW_SIZE (G0_REGNUM));
-      *(int *)&registers[REGISTER_BYTE (PS_REGNUM)] = inferior_registers.r_ps; 
+      *(int *)&registers[REGISTER_BYTE (PS_REGNUM)] = inferior_registers.r_ps;
       *(int *)&registers[REGISTER_BYTE (PC_REGNUM)] = inferior_registers.r_pc;
       *(int *)&registers[REGISTER_BYTE (NPC_REGNUM)] = inferior_registers.r_npc;
       *(int *)&registers[REGISTER_BYTE (Y_REGNUM)] = inferior_registers.r_y;
@@ -150,14 +150,14 @@ store_inferior_registers (regno)
   struct fp_status inferior_fp_registers;
   int wanna_store = INT_REGS + STACK_REGS + FP_REGS;
 
-  /* First decide which pieces of machine-state we need to modify.  
+  /* First decide which pieces of machine-state we need to modify.
      Default for regno == -1 case is all pieces.  */
   if (regno >= 0)
     if (FP0_REGNUM <= regno && regno < FP0_REGNUM + 32)
       {
 	wanna_store = FP_REGS;
       }
-    else 
+    else
       {
 	if (regno == SP_REGNUM)
 	  wanna_store = INT_REGS + STACK_REGS;
@@ -196,7 +196,7 @@ store_inferior_registers (regno)
       if (regno < 0 || regno == SP_REGNUM)
 	{
 	  if (!register_valid[L0_REGNUM+5]) abort();
-	  target_write_memory (sp, 
+	  target_write_memory (sp,
 			       &registers[REGISTER_BYTE (L0_REGNUM)],
 			       16*REGISTER_RAW_SIZE (L0_REGNUM));
 	}
@@ -207,7 +207,7 @@ store_inferior_registers (regno)
 			       &registers[REGISTER_BYTE (regno)],
 			       REGISTER_RAW_SIZE (regno));
 	}
-	
+
     }
 
   if (wanna_store & INT_REGS)
@@ -236,7 +236,7 @@ store_inferior_registers (regno)
       if (!register_valid[FP0_REGNUM+9]) abort();
       memcpy (&inferior_fp_registers, &registers[REGISTER_BYTE (FP0_REGNUM)],
 	      sizeof inferior_fp_registers.fpu_fr);
-      memcpy (&inferior_fp_registers.Fpu_fsr, 
+      memcpy (&inferior_fp_registers.Fpu_fsr,
 	      &registers[REGISTER_BYTE (FPS_REGNUM)], sizeof (FPU_FSR_TYPE));
       if (0 !=
 	 ptrace (PTRACE_SETFPREGS, inferior_pid,
@@ -263,7 +263,7 @@ fetch_core_registers (core_reg_sect, core_reg_size, which, ignore)
     *(int *)&registers[REGISTER_BYTE (0)] = 0;
 
     /* The globals and output registers.  */
-    memcpy (&registers[REGISTER_BYTE (G1_REGNUM)], &gregs->r_g1, 
+    memcpy (&registers[REGISTER_BYTE (G1_REGNUM)], &gregs->r_g1,
 	    15 * REGISTER_RAW_SIZE (G1_REGNUM));
     *(int *)&registers[REGISTER_BYTE (PS_REGNUM)] = gregs->r_ps;
     *(int *)&registers[REGISTER_BYTE (PC_REGNUM)] = gregs->r_pc;
@@ -279,7 +279,7 @@ fetch_core_registers (core_reg_sect, core_reg_size, which, ignore)
       int sp;
 
       sp = *(int *)&registers[REGISTER_BYTE (SP_REGNUM)];
-      if (0 != target_read_memory (sp, &registers[REGISTER_BYTE (L0_REGNUM)], 
+      if (0 != target_read_memory (sp, &registers[REGISTER_BYTE (L0_REGNUM)],
 			  16 * REGISTER_RAW_SIZE (L0_REGNUM)))
 	{
 	  /* fprintf_unfiltered so user can still use gdb */

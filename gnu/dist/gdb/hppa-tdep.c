@@ -111,10 +111,10 @@ static void pa_print_registers PARAMS ((char *, int, int));
 static void pa_print_fp_reg PARAMS ((int));
 
 
-/* Routines to extract various sized constants out of hppa 
+/* Routines to extract various sized constants out of hppa
    instructions. */
 
-/* This assumes that no garbage lies outside of the lower bits of 
+/* This assumes that no garbage lies outside of the lower bits of
    value. */
 
 static int
@@ -183,7 +183,7 @@ extract_5_store (word)
 }
 
 #endif	/* 0 */
-       
+
 /* extract the immediate field from a break instruction */
 
 static unsigned
@@ -323,7 +323,7 @@ extract_17 (word)
 }
 
 
-/* Compare the start address for two unwind entries returning 1 if 
+/* Compare the start address for two unwind entries returning 1 if
    the first address is larger than the second, -1 if the second is
    larger than the first, and zero if they are equal.  */
 
@@ -504,7 +504,7 @@ read_unwind_info (objfile)
 	  /* Clear out the next unwind entry.  */
 	  memset (&ui->table[index], 0, sizeof (struct unwind_table_entry));
 
-	  /* Convert offset & size into region_start and region_end.  
+	  /* Convert offset & size into region_start and region_end.
 	     Stuff away the stub type into "reserved" fields.  */
 	  ui->table[index].region_start = bfd_get_32 (objfile->obfd,
 						      (bfd_byte *) buf);
@@ -514,7 +514,7 @@ read_unwind_info (objfile)
 						  (bfd_byte *) buf);
 	  buf += 2;
 	  ui->table[index].region_end
-	    = ui->table[index].region_start + 4 * 
+	    = ui->table[index].region_start + 4 *
 	      (bfd_get_16 (objfile->obfd, (bfd_byte *) buf) - 1);
 	  buf += 2;
 	}
@@ -659,7 +659,7 @@ pc_in_linker_stub (pc)
       if (find_unwind_entry (pc + i * 4) != 0)
 	break;
 
-      /* Check for ldsid (rp),r1 which is the magic instruction for a 
+      /* Check for ldsid (rp),r1 which is the magic instruction for a
 	 return from a cross-space function call.  */
       if (read_memory_integer (pc + i * 4, 4) == 0x004010a1)
 	{
@@ -681,7 +681,7 @@ pc_in_linker_stub (pc)
       if (find_unwind_entry (pc - i * 4) != 0)
 	break;
 
-      /* Check for ldsid (rp),r1 which is the magic instruction for a 
+      /* Check for ldsid (rp),r1 which is the magic instruction for a
 	 return from a cross-space function call.  */
       if (read_memory_integer (pc - i * 4, 4) == 0x004010a1)
 	{
@@ -804,7 +804,7 @@ saved_pc_after_call (frame)
 
   ret_regnum = find_return_regnum (get_frame_pc (frame));
   pc = read_register (ret_regnum) & ~0x3;
-  
+
   /* If PC is in a linker stub, then we need to dig the address
      the stub will return to out of the stack.  */
   u = find_unwind_entry (pc);
@@ -848,7 +848,7 @@ hppa_frame_saved_pc (frame)
 	 handler caller, then we need to look in the saved
 	 register area to get the return pointer (the values
 	 in the registers may not correspond to anything useful).  */
-      if (frame->next 
+      if (frame->next
 	  && (frame->next->signal_handler_caller
 	      || pc_in_interrupt_handler (frame->next->pc)))
 	{
@@ -910,7 +910,7 @@ restart:
     }
 
   /* If PC is inside a linker stub, then dig out the address the stub
-     will return to. 
+     will return to.
 
      Don't do this for long branch stubs.  Why?  For some unknown reason
      _start is marked as a long branch stub in hpux10.  */
@@ -923,7 +923,7 @@ restart:
       /* If this is a dynamic executable, and we're in a signal handler,
 	 then the call chain will eventually point us into the stub for
 	 _sigreturn.  Unlike most cases, we'll be pointed to the branch
-	 to the real sigreturn rather than the code after the real branch!. 
+	 to the real sigreturn rather than the code after the real branch!.
 
 	 Else, try to dig the address the stub will return to in the normal
 	 fashion.  */
@@ -1023,7 +1023,7 @@ frame_chain (frame)
   else
     frame_base = frame->frame;
 
-  /* Get frame sizes for the current frame and the frame of the 
+  /* Get frame sizes for the current frame and the frame of the
      caller.  */
   my_framesize = find_proc_framesize (frame->pc);
   caller_framesize = find_proc_framesize (FRAME_SAVED_PC(frame));
@@ -1043,14 +1043,14 @@ frame_chain (frame)
      more difficult as GCC and HP C lay out locals and callee register save
      areas very differently.
 
-     The previous frame pointer could be in a register, or in one of 
+     The previous frame pointer could be in a register, or in one of
      several areas on the stack.
 
-     Walk from the current frame to the innermost frame examining 
+     Walk from the current frame to the innermost frame examining
      unwind descriptors to determine if %r3 ever gets saved into the
      stack.  If so return whatever value got saved into the stack.
      If it was never saved in the stack, then the value in %r3 is still
-     valid, so use it. 
+     valid, so use it.
 
      We use information from unwind descriptors to determine if %r3
      is saved into the stack (Entry_GR field has this information).  */
@@ -1089,7 +1089,7 @@ frame_chain (frame)
 	  && !pc_in_interrupt_handler (tmp_frame->pc))
 	return read_memory_integer (tmp_frame->frame, 4);
       /* %r3 was saved somewhere in the stack.  Dig it out.  */
-      else 
+      else
 	{
 	  struct frame_saved_regs saved_regs;
 
@@ -1101,7 +1101,7 @@ frame_chain (frame)
 	     is usually turned off if the process is being traced so
 	     that the debugger can get full register state for the
 	     process.
-	      
+
 	     This scheme works well except for two cases:
 
 	       * Attaching to a process when the process is in the
@@ -1135,7 +1135,7 @@ frame_chain (frame)
 	      else
 		return frame_base - (u->Total_frame_size << 3);
 	    }
-	
+
 	  return read_memory_integer (saved_regs.regs[FP_REGNUM], 4);
 	}
     }
@@ -1163,7 +1163,7 @@ frame_chain (frame)
 	   else
 	    return frame_base - (u->Total_frame_size << 3);
 	}
-	
+
       /* The value in %r3 was never saved into the stack (thus %r3 still
 	 holds the value of the previous frame pointer).  */
       return read_register (FP_REGNUM);
@@ -1388,7 +1388,7 @@ hppa_pop_frame ()
       write_register (PCOQ_TAIL_REGNUM, npc);
     }
   /* Else use the value in %rp to set the new PC.  */
-  else 
+  else
     {
       npc = read_register (RP_REGNUM);
       write_pc (npc);
@@ -1405,7 +1405,7 @@ hppa_pop_frame ()
      we want to restart the inferior and run it through the trampoline.
 
      Do this by setting a momentary breakpoint at the location the
-     trampoline returns to. 
+     trampoline returns to.
 
      Don't skip through the trampoline if we're popping a dummy frame.  */
   target_pc = SKIP_TRAMPOLINE_CODE (npc & ~0x3) & ~0x3;
@@ -1506,7 +1506,7 @@ hppa_push_arguments (nargs, args, sp, struct_return, struct_addr)
   int *offset = (int *)alloca(nargs * sizeof (int));
   int cum = 0;
   int i, alignment;
-  
+
   for (i = 0; i < nargs; i++)
     {
       cum += TYPE_LENGTH (VALUE_TYPE (args[i]));
@@ -1723,7 +1723,7 @@ hppa_fix_call_dummy (dummy, pc, fun, nargs, args, type, gcc_p)
      directly.  $$dyncall is not needed as the kernel sets up the
      space id registers properly based on the value in %r31.  In
      fact calling $$dyncall will not work because the value in %r22
-     will be clobbered on the syscall exit path. 
+     will be clobbered on the syscall exit path.
 
      Similarly if the current PC is in a shared library.  Note however,
      this scheme won't work if the shared library isn't mapped into
@@ -1769,7 +1769,7 @@ target_write_pc (v, pid)
 
   /* The following test does not belong here.  It is OS-specific, and belongs
      in native code.  */
-  /* If in a syscall, then set %r31.  Also make sure to get the 
+  /* If in a syscall, then set %r31.  Also make sure to get the
      privilege bits set correctly.  */
   /* Test SS_INSYSCALL */
   if (flags & 2)
@@ -1823,7 +1823,7 @@ pa_do_registers_info (regnum, fpregs)
 {
   char raw_regs [REGISTER_BYTES];
   int i;
-  
+
   for (i = 0; i < NUM_REGS; i++)
     read_relative_register_raw_bytes (i, raw_regs + REGISTER_BYTE (i));
   if (regnum == -1)
@@ -1854,7 +1854,7 @@ pa_print_registers (raw_regs, regnum, fpregs)
 	}
       printf_unfiltered ("\n");
     }
-  
+
   if (fpregs)
     for (i = 72; i < NUM_REGS; i++)
       pa_print_fp_reg (i);
@@ -2239,7 +2239,7 @@ skip_trampoline_code (pc, name)
 	     loaded several instructions before the be instruction.
 	     I guess we could check for the previous instruction being
 	     mtsp %r1,%sr0 if we want to do sanity checking.  */
-	  return (read_memory_integer 
+	  return (read_memory_integer
 		  (read_register (SP_REGNUM) - 24, 4)) & ~0x3;
 	}
 
@@ -2250,7 +2250,7 @@ skip_trampoline_code (pc, name)
 }
 
 /* For the given instruction (INST), return any adjustment it makes
-   to the stack pointer or zero for no adjustment. 
+   to the stack pointer or zero for no adjustment.
 
    This only handles instructions commonly found in prologues.  */
 
@@ -2337,7 +2337,7 @@ inst_saves_gr (inst)
      too.  */
   if ((inst >> 26) == 0x19 || (inst >> 26) == 0x18)
     return extract_5R_store (inst);
-      
+
   return 0;
 }
 
@@ -2359,7 +2359,7 @@ inst_saves_fr (inst)
 }
 
 /* Advance PC across any function entry prologue instructions
-   to reach some "real" code. 
+   to reach some "real" code.
 
    Use information in the unwind table to determine what exactly should
    be in the prologue.  */
@@ -2447,7 +2447,7 @@ restart:
 
       status = target_read_memory (pc, buf, 4);
       inst = extract_unsigned_integer (buf, 4);
-       
+
       /* Yow! */
       if (status != 0)
 	return pc;
@@ -2498,7 +2498,7 @@ restart:
 
       status = target_read_memory (pc + 4, buf, 4);
       next_inst = extract_unsigned_integer (buf, 4);
-       
+
       /* Yow! */
       if (status != 0)
 	return pc;
@@ -2559,7 +2559,7 @@ restart:
 	  && old_save_rp == save_rp && old_save_sp == save_sp
 	  && old_stack_remaining == stack_remaining)
 	break;
-      
+
       /* Bump the PC.  */
       pc += 4;
     }
@@ -2610,7 +2610,7 @@ hppa_frame_find_saved_regs (frame_info, frame_saved_regs)
   if ((frame_info->pc >= frame_info->frame
        && frame_info->pc <= (frame_info->frame + CALL_DUMMY_LENGTH
 			     + 32 * 4 +	 (NUM_REGS - FP0_REGNUM) * 8
-			     + 6 * 4)))	
+			     + 6 * 4)))
     find_dummy_frame_regs (frame_info, frame_saved_regs);
 
   /* Interrupt handlers are special too.  They lay out the register
@@ -2738,7 +2738,7 @@ hppa_frame_find_saved_regs (frame_info, frame_saved_regs)
 	}
 
 
-      /* GCC handles callee saved FP regs a little differently.  
+      /* GCC handles callee saved FP regs a little differently.
 
 	 It emits an instruction to put the value of the start of
 	 the FP store area into %r1.  It then uses fstds,ma with
@@ -2751,7 +2751,7 @@ hppa_frame_find_saved_regs (frame_info, frame_saved_regs)
       if ((inst & 0xffffc000) == 0x34610000
 	  || (inst & 0xffffc000) == 0x37c10000)
 	fp_loc = extract_14 (inst);
-	
+
       reg = inst_saves_fr (inst);
       if (reg >= 12 && reg <= 21)
 	{

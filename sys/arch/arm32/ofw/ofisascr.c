@@ -74,7 +74,7 @@ ofisascrprobe(parent, cf, aux)
 	    OF_getprop(oba->oba_phandle, "name", name, sizeof(name)) < 0 ||
 	    strcmp(name, "scr") != 0)
 		return 0;
-	
+
 	/* Match, we dont have models yet  */
 	return 2;
 }
@@ -87,7 +87,7 @@ ofisascrattach(parent, dev, aux)
 {
 	struct ofbus_attach_args *oba = aux;
 	struct isa_attach_args ia;
-    
+
 	printf("\n");
 
 	/* XXX - Hard-wire the ISA attach args for now. -JJK */
@@ -101,6 +101,6 @@ ofisascrattach(parent, dev, aux)
 	ia.ia_maddr = MADDRUNK;
 	ia.ia_msize = 0;
 	ia.ia_aux = (void *)oba->oba_phandle;
-    
+
 	config_found(dev, &ia, NULL);
 }

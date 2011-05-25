@@ -66,9 +66,9 @@
 #include <hp300/dev/kbdmap.h>
 
 char	us_keymap[] = {
-	NULL,	'`',	'\\',	ESC,	NULL,	DEL,	NULL,	NULL,  
-	'\n',	'\t',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,  
-	NULL,	'\n',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,  
+	NULL,	'`',	'\\',	ESC,	NULL,	DEL,	NULL,	NULL,
+	'\n',	'\t',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
+	NULL,	'\n',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
 	NULL,	'\t',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
 	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
 	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'\b',	NULL,
@@ -162,9 +162,9 @@ char	*us_stringmap[] = {
 
 #ifdef UK_KEYBOARD
 char	uk_keymap[] = {
-	NULL,	'`',	'<',	ESC,	NULL,	DEL,	NULL,	NULL,  
-	'\n',	'\t',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,  
-	NULL,	'\n',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,  
+	NULL,	'`',	'<',	ESC,	NULL,	DEL,	NULL,	NULL,
+	'\n',	'\t',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
+	NULL,	'\n',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
 	NULL,	'\t',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
 	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
 	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'\b',	NULL,
@@ -240,9 +240,9 @@ char	uk_ctrlshiftmap[] = {
 
 #ifdef SE_KEYBOARD
 char	se_keymap[] = {
-	NULL,	'<',	'\'',	ESC,	NULL,	DEL,	NULL,	NULL,  
-	'\n',	'\t',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,  
-	NULL,	'\n',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,  
+	NULL,	'<',	'\'',	ESC,	NULL,	DEL,	NULL,	NULL,
+	'\n',	'\t',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
+	NULL,	'\n',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
 	NULL,	'\t',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
 	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
 	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'\b',	NULL,

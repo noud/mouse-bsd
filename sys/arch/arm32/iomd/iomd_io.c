@@ -163,7 +163,7 @@ iomd_bs_unmap(t, bsh, size)
 	 */
 }
 
-void    
+void
 iomd_bs_free(t, bsh, size)
 	void *t;
 	bus_space_handle_t bsh;
@@ -194,6 +194,6 @@ iomd_bs_barrier(t, bsh, offset, len, flags)
 	bus_size_t offset, len;
 	int flags;
 {
-}	
+}
 
 /* End of iomd_io.c */

@@ -42,10 +42,10 @@
  */
 /*
  * advansys.c - Linux Host Driver for AdvanSys SCSI Adapters
- *     
+ *
  * Copyright (c) 1995-1996 Advanced System Products, Inc.
  * All Rights Reserved.
- *   
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that redistributions of source
  * code retain the above copyright notice and this comment without
@@ -90,7 +90,7 @@
 /*
  * EEPROM configuration format
  *
- * Field naming convention: 
+ * Field naming convention:
  *
  *  *_enable indicates the field enables or disables the feature. The
  *  value is never reset.
@@ -114,7 +114,7 @@
 #define ADV_EEPROM_CIS_LD              0x2000   /* EEPROM Bit 13 */
 
 typedef struct adw_eep_3550_config
-{                              
+{
 						/* Word Offset, Description */
 
 	u_int16_t	cfg_lsw;		/* 00 power up initialization */
@@ -181,7 +181,7 @@ typedef struct adw_eep_3550_config
 	u_int16_t	saved_adv_err_code;	/* 34 saved last uc and Adv Lib error code */
 	u_int16_t	saved_adv_err_addr;	/* 35 saved last uc error address	 */
 	u_int16_t	num_of_err;		/* 36 number of error */
-} ADW_EEP_3550_CONFIG; 
+} ADW_EEP_3550_CONFIG;
 
 typedef struct adw_eep_38C0800_config
 {
@@ -518,8 +518,8 @@ typedef struct adw_eep_38C0800_config
 #define ADW_SLEW_RATE       0x1000  /* SCSI output buffer slew rate */
 #define ADW_FILTER_SEL      0x0C00  /* Filter Period Selection */
 #define  ADW_FLTR_DISABLE    0x0000  /* Input Filtering Disabled */
-#define  ADW_FLTR_11_TO_20NS 0x0800  /* Input Filtering 11ns to 20ns */          
-#define  ADW_FLTR_21_TO_39NS 0x0C00  /* Input Filtering 21ns to 39ns */          
+#define  ADW_FLTR_11_TO_20NS 0x0800  /* Input Filtering 11ns to 20ns */
+#define  ADW_FLTR_21_TO_39NS 0x0C00  /* Input Filtering 21ns to 39ns */
 #define ADW_ACTIVE_DBL      0x0200  /* Disable Active Negation */
 #define ADW_DIFF_MODE       0x0100  /* SCSI differential Mode (Read-Only) */
 #define ADW_DIFF_SENSE      0x0080  /* 1: No SE cables, 0: SE cable (Read-Only) */
@@ -576,12 +576,12 @@ typedef struct adw_eep_38C0800_config
        1 1 1 1  | on  on | No devices are attached
        x 0 0 0  | on  on | Illegal (all 3 connectors are used)
        0 x 0 0  | on  on | Illegal (all 3 connectors are used)
-  
+
        x means don't-care (either '0' or '1')
-  
+
        If term_pol (bit 13) is '0' (active-low terminator enable), then:
            'on' is '0' and 'off' is '1'.
-  
+
        If term_pol bit is '1' (meaning active-hi terminator enable), then:
            'on' is '1' and 'off' is '0'.
  */
@@ -779,7 +779,7 @@ typedef struct adw_eep_38C0800_config
  * This structure can be discarded after initialization. Don't add
  * fields here needed after initialization.
  *
- * Field naming convention: 
+ * Field naming convention:
  *
  *  *_enable indicates the field enables or disables a feature. The
  *  value of the field is never reset.
@@ -799,7 +799,7 @@ typedef struct adw_dvc_cfg {
 	u_int16_t	serial1;	/* EEPROM serial number word 1 */
 	u_int16_t	serial2;	/* EEPROM serial number word 2 */
 	u_int16_t	serial3;	/* EEPROM serial number word 3 */
-} ADW_DVC_CFG; 
+} ADW_DVC_CFG;
 
 
 #define NO_OF_SG_PER_BLOCK              15
@@ -822,7 +822,7 @@ typedef struct adw_sg_block {
  *
  * One structure is required per host adapter.
  *
- * Field naming convention: 
+ * Field naming convention:
  *
  *  *_able indicates both whether a feature should be enabled or disabled
  *  and whether a device is capable of the feature. At initialization
@@ -891,7 +891,7 @@ typedef struct adw_softc {
   * driver may discard the buffer after initialization is done.
   */
   ADW_DVC_CFG cfg; /* temporary configuration structure  */
-} ADW_SOFTC; 
+} ADW_SOFTC;
 
 
 /*
@@ -1059,7 +1059,7 @@ do { \
 /*
  * Abort an SRB in the chip's RISC Memory. The 'srb_ptr' argument must
  * match the ASC_SCSI_REQ_Q 'srb_ptr' field.
- * 
+ *
  * If the request has not yet been sent to the device it will simply be
  * aborted from RISC memory. If the request is disconnected it will be
  * aborted on reselection by sending an Abort Message to the target ID.

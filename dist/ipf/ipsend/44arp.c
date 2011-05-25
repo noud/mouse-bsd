@@ -36,7 +36,7 @@
  * its IP address in address
  * (4 bytes)
  */
-int	resolve(host, address) 
+int	resolve(host, address)
 char	*host, *address;
 {
         struct	hostent	*hp;

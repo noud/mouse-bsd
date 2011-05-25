@@ -13,11 +13,11 @@ BUILD_KERNELS+= INSTALL
 # Add sparc installation directories
 MD_INSTALLATION_DIRS= \
 	installation/miniroot installation/netboot installation/bootfs
-INSTALLATION_DIRS+=$(MD_INSTALLATION_DIRS) 
+INSTALLATION_DIRS+=$(MD_INSTALLATION_DIRS)
 
 snap_pre_md:
 .ifndef UPDATE
-	cd $(TOP)/distrib && ${MAKE} clean 
+	cd $(TOP)/distrib && ${MAKE} clean
 .endif
 
 #

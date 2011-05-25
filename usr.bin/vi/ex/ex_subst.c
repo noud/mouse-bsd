@@ -160,7 +160,7 @@ subagain:	return (ex_subagain(sp, cmdp));
 		if (re_compile(sp,
 		    ptrn, &sp->subre, &sp->subre_len, &sp->subre_c, RE_C_SUBST))
 			return (1);
-		
+
 		flags = SUB_FIRST;
 		sp->searchdir = FORWARD;
 	}
@@ -300,7 +300,7 @@ ex_subtilde(sp, cmdp)
  * Do the substitution.  This stuff is *really* tricky.  There are lots of
  * special cases, and general nastiness.  Don't mess with it unless you're
  * pretty confident.
- * 
+ *
  * The nasty part of the substitution is what happens when the replacement
  * string contains newlines.  It's a bit tricky -- consider the information
  * that has to be retained for "s/f\(o\)o/^M\1^M\1/".  The solution here is
@@ -977,7 +977,7 @@ re_compile(sp, ptrn, ptrnp, lenp, rep, flags)
 
 	if (rval) {
 		if (!LF_ISSET(RE_C_SILENT))
-			re_error(sp, rval, rep); 
+			re_error(sp, rval, rep);
 		return (1);
 	}
 

@@ -140,7 +140,7 @@ ms_enable(dev)
 
 	ms = (struct ms_softc *)getsoftc(ms_cd, minor(dev));
 
-	/* 
+	/*
 	 * use this as flag to the "interrupt" to tell it when to
 	 * shut off (when it's reset to 0).
 	 */
@@ -171,7 +171,7 @@ ms_disable(dev)
 }
 
 
-/* 
+/*
  * we're emulating a mousesystems serial mouse here..
  */
 void
@@ -186,7 +186,7 @@ msintr(arg)
 	u_char pra, *horc, *verc;
 	u_short pot, count;
 	short dx, dy;
-	
+
 	unit = (int)arg;
 	ms = (struct ms_softc *)getsoftc(ms_cd, unit);
 
@@ -210,7 +210,7 @@ msintr(arg)
 		count = custom.joy0dat;
 	else
 		count = custom.joy1dat;
-  
+
 	/*
 	 * take care of wraparound
 	 */
@@ -234,13 +234,13 @@ msintr(arg)
 	ms->ms_dx = dx;
 	ms->ms_dy = dy;
 	ms->ms_mb = mb;
-  
+
 	if (dx || dy || ms->ms_ub != ms->ms_mb) {
 		/*
 		 * We have at least one event (mouse button, delta-X, or
 		 * delta-Y; possibly all three, and possibly three separate
 		 * button events).  Deliver these events until we are out of
-		 * changes or out of room.  As events get delivered, mark them 
+		 * changes or out of room.  As events get delivered, mark them
 		 * `unchanged'.
 		 */
 		any = 0;

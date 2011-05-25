@@ -231,7 +231,7 @@ users.
 .PD
 .B \-\^\-posix
 This turns on
-.I compatibility 
+.I compatibility
 mode, with the following additional restrictions:
 .RS
 .TP \w'\(bu'u+1n
@@ -299,7 +299,7 @@ is specified.
 Use
 .I program-text
 as AWK program source code.
-This option allows the easy intermixing of library functions (used via the 
+This option allows the easy intermixing of library functions (used via the
 .B \-f
 and
 .B \-\^\-file
@@ -373,7 +373,7 @@ functions with command line programs.
 The environment variable
 .B AWKPATH
 specifies a search path to use when finding source files named with
-the 
+the
 .B \-f
 option.  If this variable does not exist, the default path is
 \fB".:/usr/local/share/awk"\fR.
@@ -454,7 +454,7 @@ runs; these will be described as needed and summarized below.
 Normally, records are separated by newline characters. You can control how
 records are separated by assigning values to the built-in variable
 .BR RS .
-If 
+If
 .B RS
 is any single character, that character separates records.
 Otherwise,
@@ -546,7 +546,7 @@ is set to the total number of fields in the input record.
 References to non-existent fields (i.e. fields after
 .BR $NF )
 produce the null-string. However, assigning to a non-existent field
-(e.g., 
+(e.g.,
 .BR "$(NF+2) = 5" )
 will increase the value of
 .BR NF ,
@@ -648,7 +648,7 @@ The input field separator, a space by default.  See
 above.
 .TP
 .B IGNORECASE
-Controls the case-sensitivity of all regular expression 
+Controls the case-sensitivity of all regular expression
 and string operations. If
 .B IGNORECASE
 has a non-zero value, then string comparisons and
@@ -979,7 +979,7 @@ operator is like the same operator in C. If the first pattern is true
 then the pattern used for testing is the second pattern, otherwise it is
 the third. Only one of the second and third patterns is evaluated.
 .PP
-The 
+The
 .IB pattern1 ", " pattern2
 form of an expression is called a
 .IR "range pattern" .
@@ -1034,15 +1034,15 @@ and then
 .TP
 .IB r +
 matches one or more
-.IR r 's. 
+.IR r 's.
 .TP
 .IB r *
 matches zero or more
-.IR r 's. 
+.IR r 's.
 .TP
 .IB r ?
 matches zero or one
-.IR r 's. 
+.IR r 's.
 .TP
 .BI ( r )
 grouping: matches
@@ -1112,7 +1112,7 @@ are also legal in regular expressions.
 .I "Character classes"
 are a new feature introduced in the POSIX standard.
 A character class is a special notation for describing
-lists of characters that have a specific attribute, but where the 
+lists of characters that have a specific attribute, but where the
 actual characters themselves can vary from country to country and/or
 from character set to character set.  For example, the notion of what
 is an alphabetic character differs in the USA and in France.
@@ -1178,7 +1178,7 @@ the alphabetic and numeric characters in your character set.
 .PP
 Two additional special sequences can appear in character lists.
 These apply to non-ASCII character sets, which can have single symbols
-(called 
+(called
 .IR "collating elements" )
 that are represented with more than one
 character, as well as several characters that are equivalent for
@@ -1634,9 +1634,9 @@ For
 and
 .BR %X ,
 supply a leading
-.BR 0x 
+.BR 0x
 or
-.BR 0X 
+.BR 0X
 for
 a nonzero result.
 For
@@ -1673,7 +1673,7 @@ For the
 .BR %e ,
 .BR %E ,
 and
-.BR %f 
+.BR %f
 formats, this specifies the
 number of digits you want printed to the right of the decimal point.
 For the

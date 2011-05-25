@@ -62,7 +62,7 @@ extern void class_add_method_list(Class, MethodList_t);
 extern void __objc_register_instance_methods_to_class(Class);
 extern Method_t search_for_method_in_list(MethodList_t list, SEL op);
 
-/* True when class links has been resolved */     
+/* True when class links has been resolved */
 extern BOOL __objc_class_links_resolved;
 
 /* Number of selectors stored in each of the selector  tables */
@@ -78,10 +78,10 @@ extern int __objc_runtime_threads_alive;
 #define DEBUG_PRINTF(format, args...) printf (format, ## args)
 #else
 #define DEBUG_PRINTF(format, args...)
-#endif 
+#endif
 
 BOOL __objc_responds_to (id object, SEL sel); /* for internal use only! */
-SEL  __sel_register_typed_name (const char*, const char*, 
+SEL  __sel_register_typed_name (const char*, const char*,
 				struct objc_selector*, BOOL is_const);
 
 #endif /* not __objc_runtime_INCLUDE_GNU */

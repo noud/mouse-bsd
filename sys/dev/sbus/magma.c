@@ -479,7 +479,7 @@ magma_hard(arg)
 
 			mbpp = &sc->ms_mbpp->ms_port[port];
 			cd = mbpp->mp_cd1400;
- 
+
 			/* don't think we have to handle exceptions */
 			n_chars = cd1400_read_reg(cd, CD1400_RDCR);
 			while (n_chars--) {

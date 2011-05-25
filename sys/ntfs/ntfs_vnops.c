@@ -288,7 +288,7 @@ ntfs_reclaim(ap)
 
 	if ((error = ntfs_ntget(ip)) != 0)
 		return (error);
-	
+
 	/* Purge old data structures associated with the inode. */
 	cache_purge(vp);
 	if (ip->i_devvp) {
@@ -339,7 +339,7 @@ ntfs_strategy(ap)
 		(u_int32_t)bp->b_lblkno));
 #endif
 
-	dprintf(("strategy: bcount: %d flags: 0x%lx\n", 
+	dprintf(("strategy: bcount: %d flags: 0x%lx\n",
 		(u_int32_t)bp->b_bcount,bp->b_flags));
 
 	if (bp->b_flags & B_READ) {
@@ -380,7 +380,7 @@ ntfs_strategy(ap)
 			dprintf(("ntfs_strategy: towrite: %d, fsize: %d\n",
 				towrite,(u_int32_t)fp->f_size));
 
-			error = ntfs_writeattr_plain(ntmp, ip, fp->f_attrtype,	
+			error = ntfs_writeattr_plain(ntmp, ip, fp->f_attrtype,
 				fp->f_attrname, ntfs_cntob(bp->b_blkno),towrite,
 				bp->b_data, &tmp, NULL);
 
@@ -775,7 +775,7 @@ ntfs_lookup(ap)
 		dprintf(("ntfs_lookup: parentdir: %d\n",
 			 vap->va_a_name->n_pnumber));
 		error = VFS_VGET(ntmp->ntm_mountp,
-				 vap->va_a_name->n_pnumber,ap->a_vpp); 
+				 vap->va_a_name->n_pnumber,ap->a_vpp);
 		ntfs_ntvattrrele(vap);
 		if (error) {
 			if (VN_LOCK(dvp,LK_EXCLUSIVE|LK_RETRY,cnp->cn_proc)==0)
@@ -798,7 +798,7 @@ ntfs_lookup(ap)
 			return (error);
 		}
 
-		dprintf(("ntfs_lookup: found ino: %d\n", 
+		dprintf(("ntfs_lookup: found ino: %d\n",
 			VTONT(*ap->a_vpp)->i_number));
 
 		if(!lockparent || !(cnp->cn_flags & ISLASTCN))

@@ -715,7 +715,7 @@ zscninit(cn)
 		cs->cs_preg[12] = tconst;
 		cs->cs_preg[13] = tconst >> 8;
 		/* can't use zs_set_speed as we haven't set up the
-		 * signal sources, and it's not worth it for now 
+		 * signal sources, and it's not worth it for now
 		 */
 
 		cs->cs_preg[9] &= ~ZSWR9_MASTER_IE;

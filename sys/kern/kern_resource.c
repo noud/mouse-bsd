@@ -150,7 +150,7 @@ sys_setpriority(curp, v, retval)
 
 	case PRIO_PGRP: {
 		register struct pgrp *pg;
-		 
+
 		if (SCARG(uap, who) == 0)
 			pg = curp->p_pgrp;
 		else if ((pg = pgfind(SCARG(uap, who))) == NULL)
@@ -251,7 +251,7 @@ dosetrlimit(p, cred, which, limp)
 	    limp->rlim_max == alimp->rlim_max)
 		return 0;
 
-	if (limp->rlim_cur > alimp->rlim_max || 
+	if (limp->rlim_cur > alimp->rlim_max ||
 	    limp->rlim_max > alimp->rlim_max)
 		if ((error = suser(cred->pc_ucred, &p->p_acflag)) != 0)
 			return (error);

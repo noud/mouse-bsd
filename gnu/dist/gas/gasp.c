@@ -42,7 +42,7 @@ suitable for gas to consume.
     Macro arg parameters subsituted by name, don't need the &.
      String can start with ' too.
      Strings can be surrounded by <..>
-     A %<exp> in a string evaluates the expression 
+     A %<exp> in a string evaluates the expression
      Literal char in a string with !
 
 
@@ -186,7 +186,7 @@ typedef struct
   } hash_table;
 
 
-/* Structures used to store macros. 
+/* Structures used to store macros.
 
    Each macro knows its name and included text.  It gets built with a
    list of formal arguments, and also keeps a hash table which points
@@ -255,7 +255,7 @@ struct include_stack *sp;
 
 /* Include file list */
 
-typedef struct include_path 
+typedef struct include_path
 {
   struct include_path *next;
   sb path;
@@ -358,11 +358,11 @@ static void show_usage PARAMS ((FILE *, int));
 static void show_help PARAMS ((void));
 
 #define FATAL(x) \
-  do { include_print_where_line (stderr); fprintf x ; fatals++; quit(); } while(0) 
+  do { include_print_where_line (stderr); fprintf x ; fatals++; quit(); } while(0)
 #define ERROR(x) \
   do { include_print_where_line (stderr); fprintf x; errors++; } while(0)
 #define WARNING(x) \
-  do { include_print_where_line (stderr); fprintf x; warnings++;} while(0) 
+  do { include_print_where_line (stderr); fprintf x; warnings++;} while(0)
 
 
 
@@ -376,10 +376,10 @@ quit ()
   else
     exitcode = 0;
 
-  if (stats) 
+  if (stats)
     {
       int i;
-      for (i = 0; i < sb_max_power_two; i++) 
+      for (i = 0; i < sb_max_power_two; i++)
 	{
 	  fprintf (stderr, "strings size %8d : %d\n", 1<<i, string_count[i]);
 	}
@@ -480,7 +480,7 @@ hash_add_to_string_table (tab, key, name, again)
 
   ptr->type = hash_string;
   sb_reset (&ptr->value.s);
-  
+
   sb_add_sb (&ptr->value.s, name);
 }
 
@@ -499,7 +499,7 @@ hash_add_to_int_table (tab, key, name)
 
 /* lookup sb key in hash_table tab.  if found return hash_entry result,
    else 0. */
-   
+
 static
 hash_entry *
 hash_lookup (tab, key)
@@ -873,7 +873,7 @@ exp_string (exp, string)
 }
 
 
-/* parse the expression at offset idx into sb in, return the value in val.  
+/* parse the expression at offset idx into sb in, return the value in val.
    if the expression is not constant, give ERROR emsg.  returns the index
    of the first character past the end of the expression. */
 
@@ -960,7 +960,7 @@ include_buf (name, ptr, type, index)
 
 
 /* used in ERROR messages, print info on where the include stack is onto file. */
-static 
+static
 void
 include_print_where_line (file)
      FILE *file;
@@ -1083,9 +1083,9 @@ grab_label (in, out)
     {
       sb_add_char (out, in->ptr[i]);
       i++;
-      while ((ISNEXTCHAR (in->ptr[i]) 
+      while ((ISNEXTCHAR (in->ptr[i])
 	      || in->ptr[i] == '\\'
-	      || in->ptr[i] == '&') 
+	      || in->ptr[i] == '&')
 	     && i < in->len)
 	{
 	  sb_add_char (out, in->ptr[i]);
@@ -1304,13 +1304,13 @@ get_opsize (idx, in, size)
   return idx;
 }
 
-static 
+static
 int eol(idx, line)
      int idx;
      sb *line;
 {
   idx = sb_skip_white (idx, line);
-  if (idx < line->len 
+  if (idx < line->len
       && ISCOMMENTCHAR(line->ptr[idx]))
     return 1;
   if (idx >= line->len)
@@ -1318,7 +1318,7 @@ int eol(idx, line)
   return 0;
 }
 
-/* .data [.b|.w|.l] <data>* 
+/* .data [.b|.w|.l] <data>*
     or d[bwl] <data>* */
 
 static void
@@ -1332,7 +1332,7 @@ do_data (idx, in, size)
   sb acc;
   sb_new (&acc);
 
-  if (!size) 
+  if (!size)
     {
       idx = get_opsize (idx, in, &opsize);
     }
@@ -1357,8 +1357,8 @@ do_data (idx, in, size)
 
   idx =   sb_skip_white (idx, in);
 
-  if (alternate 
-      && idx < in->len 
+  if (alternate
+      && idx < in->len
       && in->ptr[idx] == '"')
     {
       int i;
@@ -1370,7 +1370,7 @@ do_data (idx, in, size)
 	  fprintf (outfile, "%d", acc.ptr[i]);
 	}
     }
-  else 
+  else
     {
       while (!eol (idx, in))
 	{
@@ -1603,7 +1603,7 @@ get_any_string (idx, in, out, expand, pretend_quoted)
 	    {
 	      /* Keep the quotes */
 	      sb_add_char (out,  '\"');
-		    
+
 	      idx =  getstring (idx, in, out);
 	      sb_add_char (out,  '\"');
 
@@ -1612,24 +1612,24 @@ get_any_string (idx, in, out, expand, pretend_quoted)
 	    idx = getstring (idx, in, out);
 	  }
 	}
-      else 
+      else
 	{
-	  while (idx < in->len 
+	  while (idx < in->len
 		 && (in->ptr[idx] == '"'
 		     || in->ptr[idx] == '\''
-		     || pretend_quoted 
+		     || pretend_quoted
 		     || !ISSEP (in->ptr[idx])))
 	    {
-	      if (in->ptr[idx] == '"' 
+	      if (in->ptr[idx] == '"'
 		  || in->ptr[idx] == '\'')
 		{
 		  char tchar = in->ptr[idx];
 		  sb_add_char (out, in->ptr[idx++]);
 		  while (idx < in->len
 			 && in->ptr[idx] != tchar)
-		    sb_add_char (out, in->ptr[idx++]);		    
+		    sb_add_char (out, in->ptr[idx++]);
 		  if (idx == in->len)
-		    return idx;	      
+		    return idx;
 		}
 	      sb_add_char (out, in->ptr[idx++]);
 	    }
@@ -1769,7 +1769,7 @@ dosubstr (idx, in, out)
     {
       sb_add_string (out, " ");
     }
-  else 
+  else
     {
       sb_add_char (out, '"');
       while (len > 0)
@@ -1921,7 +1921,7 @@ process_file ()
       else
 	{
 	  l = grab_label (&line, &label_in);
-	  sb_reset (&label);	  	  
+	  sb_reset (&label);
 
 	  if (line.ptr[l] == ':')
 	    l++;
@@ -2132,11 +2132,11 @@ condass_lookup_name (inbuf, idx, out, warn)
 
   if (!ptr)
     {
-      if (warn) 
+      if (warn)
 	{
 	  WARNING ((stderr, "Can't find preprocessor variable %s.\n", sb_name (&condass_acc)));
 	}
-      else 
+      else
 	{
 	  sb_add_string (out, "0");
 	}
@@ -2534,7 +2534,7 @@ do_aendw ()
 
 
 /* .EXITM
-   
+
    Pop things off the include stack until the type and index changes */
 
 static void
@@ -2651,7 +2651,7 @@ do_irp (idx, in, irpc)
 
 /* Parse off LOCAL n1, n2,... Invent a label name for it */
 static
-void 
+void
 do_local (idx, line)
      int idx;
      sb *line;
@@ -2713,8 +2713,8 @@ getstring (idx, in, acc)
   idx = sb_skip_white (idx, in);
 
   while (idx < in->len
-	 && (in->ptr[idx] == '"' 
-	     || in->ptr[idx] == '<' 
+	 && (in->ptr[idx] == '"'
+	     || in->ptr[idx] == '<'
 	     || (in->ptr[idx] == '\'' && alternate)))
     {
       if (in->ptr[idx] == '<')
@@ -2777,7 +2777,7 @@ getstring (idx, in, acc)
 	    }
 	}
     }
-  
+
   return idx;
 }
 
@@ -3047,7 +3047,7 @@ chartype_init ()
 	  || x == 'h' || x == 'H'
 	  || x == 'd' || x == 'D')
 	chartype [x] |= BASEBIT;
-	  
+
       if (x == ' ' || x == '\t')
 	chartype[x] |= WHITEBIT;
 
@@ -3478,7 +3478,7 @@ add_keyword (name, code)
   hash_add_to_int_table (&keyword_hash_table, &label, code);
 
   sb_kill (&label);
-}  
+}
 
 /* Build the keyword hash table - put each keyword in the table twice,
    once upper and once lower case.*/
@@ -3511,7 +3511,7 @@ do_define (string)
 
   while (*string)
     {
-      if (*string == '=') 
+      if (*string == '=')
 	{
 	  sb value;
 	  sb_new (&value);

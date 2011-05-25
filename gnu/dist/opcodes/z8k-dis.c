@@ -86,11 +86,11 @@ fetch_data (info, nibble)
   {
     int i;
     unsigned char *p = mybuf ;
-    
+
     for (i = 0; i < nibble;)
       {
 	priv->words[i] = (p[0] << 8) | p[1];
-	
+
 	priv->bytes[i] = *p;
 	priv->nibbles[i++] = *p >> 4;
 	priv->nibbles[i++] = *p &0xf;

@@ -48,7 +48,7 @@ struct stat {
 #define S_IXGRP   00010		/* group:  -----x--- */
 
 #define S_IRWXO   00007		/* others: ------rwx */
-#define S_IROTH   00004		/* others: ------r-- */ 
+#define S_IROTH   00004		/* others: ------r-- */
 #define S_IWOTH   00002		/* others: -------w- */
 #define S_IXOTH   00001		/* others: --------x */
 

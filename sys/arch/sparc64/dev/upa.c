@@ -353,8 +353,8 @@ upa_attach(sc, busname, busnode, specials)
 		delay(1000000); /* 1 s */
 	}
 #endif
-	
-	/* 
+
+	/*
 	 * All IOMMUs will share the same TSB which is allocated in pmap_bootstrap.
 	 *
 	 * This makes device management easier.
@@ -409,7 +409,7 @@ upa_attach(sc, busname, busnode, specials)
 		if( config_found(&sc->sc_dev, (void *)&oca, upa_print) != NULL )
 			for( i=0; i<oca.ca_ra.ra_ninterrupt; i++) {
 #ifdef IRQEN_DEBUG
-				printf("\nupa: intr[%d]%x: %x\n", i, oca.ca_ra.ra_interrupt[i], 
+				printf("\nupa: intr[%d]%x: %x\n", i, oca.ca_ra.ra_interrupt[i],
 				       intrlev[oca.ca_ra.ra_interrupt[i]]);
 #endif
 				if( intrlev[oca.ca_ra.ra_interrupt[i]] ) {
@@ -419,14 +419,14 @@ upa_attach(sc, busname, busnode, specials)
 #endif
 					for( intrptr=&sc->sc_sysio->scsi_int_map;
 					     intrptr < &sc->sc_sysio->reserved_int_map &&
-						     ((intrmap=*intrptr)&INTMAP_INR) 
-						     != oca.ca_ra.ra_interrupt[i]; 
+						     ((intrmap=*intrptr)&INTMAP_INR)
+						     != oca.ca_ra.ra_interrupt[i];
 					     intrptr++);
-					if((intrmap&INTMAP_INR) == 
+					if((intrmap&INTMAP_INR) ==
 					   oca.ca_ra.ra_interrupt[i]) {
 #ifdef IRQEN_DEBUG
-						printf("Found %x IRQ as %x:%x in slot\n", 
-						       oca.ca_ra.ra_interrupt[i], (int)(intrmap>>32), (int)intrmap, 
+						printf("Found %x IRQ as %x:%x in slot\n",
+						       oca.ca_ra.ra_interrupt[i], (int)(intrmap>>32), (int)intrmap,
 						       intrptr - &sc->sc_sysio->scsi_int_map);
 #endif
 						/* Enable the interrupt */
@@ -434,8 +434,8 @@ upa_attach(sc, busname, busnode, specials)
 						stxa(intrptr, ASI_NUCLEUS, intrmap);
 						/* Register the map and clear intr registers */
 						intrlev[oca.ca_ra.ra_interrupt[i]]->ih_map = intrptr;
-						intrlev[oca.ca_ra.ra_interrupt[i]]->ih_clr = 
-							&sc->sc_sysio->scsi_clr_int + 
+						intrlev[oca.ca_ra.ra_interrupt[i]]->ih_clr =
+							&sc->sc_sysio->scsi_clr_int +
 							(intrptr - &sc->sc_sysio->scsi_int_map);
 					}
 				}
@@ -622,7 +622,7 @@ upareset(upa)
 }
 
 /*
- * Here are the iommu control routines. 
+ * Here are the iommu control routines.
  */
 void
 upa_enter(va, pa)
@@ -644,7 +644,7 @@ upa_enter(va, pa)
 	/* Consistent */
 	tte = MAKEIOTTE(pa, 1, 1, 0);
 #endif
-	
+
 	sc->sc_tsb[IOTSBSLOT(va,sc->sc_tsbsize)] = tte;
 #if 0
 	sc->sc_sysio->sys_iommu.iommu_flush = va;
@@ -672,14 +672,14 @@ upa_remove(va, len)
 #endif
 
 	while (len > 0) {
-		static volatile int flushdone; 
+		static volatile int flushdone;
 		int flushtimeout;
 		extern u_int ksegv;
 		extern u_int64_t ksegp;
 
 		/*
 		 * Streaming buffer flushes:
-		 * 
+		 *
 		 *   1 Tell strbuf to flush by storing va to strbuf_pgflush
 		 * If we're not on a cache line boundary (64-bits):
 		 *   2 Store 0 in flag
@@ -698,8 +698,8 @@ upa_remove(va, len)
 			/*
 			 * KLUGE ALERT KLUGE ALERT
 			 *
-			 * In order not to bother with pmap_extract() to do the vtop 
-			 * translation, flushdone is a static variable that resides in 
+			 * In order not to bother with pmap_extract() to do the vtop
+			 * translation, flushdone is a static variable that resides in
 			 * the kernel's 4MB locked TTE.  This means that this routine
 			 * is NOT re-entrant.  Since we're single-threaded and poll
 			 * on this value, this is currently not a problem.

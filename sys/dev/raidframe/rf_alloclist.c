@@ -74,7 +74,7 @@ RF_DECLARE_STATIC_MUTEX(alist_mutex)
         */
 }
 
-int 
+int
 rf_ConfigureAllocList(listp)
 	RF_ShutdownList_t **listp;
 {
@@ -103,7 +103,7 @@ rf_ConfigureAllocList(listp)
  * to search for the end.  If you ever observe the lists growing longer,
  * increase POINTERS_PER_ALLOC_LIST_ELEMENT.
  */
-void 
+void
 rf_real_AddToAllocList(l, p, size, lockflag)
 	RF_AllocListElem_t *l;
 	void   *p;
@@ -135,7 +135,7 @@ rf_real_AddToAllocList(l, p, size, lockflag)
  * as the lock around the al_free_list.  Note that we can't call Free with the
  * debug_mem_mutex locked.
  */
-void 
+void
 rf_FreeAllocList(l)
 	RF_AllocListElem_t *l;
 {

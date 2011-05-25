@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright (C) 1995 Advanced RISC Machines Limited. All rights reserved.
- * 
+ *
  * This software may be freely used, copied, modified, and distributed
  * provided that the above copyright notice is preserved in all copies of the
  * software.
@@ -35,14 +35,14 @@
 #define E_MASK          (0x1 << 2) /* mask for the Escaper state */
 
 #define F_HEAD          (0x0 << 3) /* 4th and 5th bits for F_ */
-#define F_DATA          (0x1 << 3) 
+#define F_DATA          (0x1 << 3)
 #define F_CRC           (0x1 << 4)
 #define F_MASK          (0x3 << 3) /* mask for the Escaper state */
 
 static unsigned char escape(unsigned char ch_in, struct te_state *txstate);
 
 void Angel_TxEngineInit(const struct re_config *txconfig,
-                        const struct data_packet *packet, 
+                        const struct data_packet *packet,
                         struct te_state *txstate){
   IGNORE(packet);
   txstate->tx_state = N_STX | E_PLAIN | F_HEAD;
@@ -101,7 +101,7 @@ te_status Angel_TxEngine(const struct data_packet *packet,
         /* move on to the next state */
         txstate->tx_state = (txstate->tx_state & ~F_MASK) | F_CRC;
         txstate->field_c = 4;
-      }      
+      }
       return TS_IN_PKT;
     case F_CRC:
 #ifdef DO_TRACE
@@ -117,7 +117,7 @@ te_status Angel_TxEngine(const struct data_packet *packet,
         /* move on to the next state */
         txstate->tx_state = (txstate->tx_state & ~N_MASK) | N_ETX;
       }
-      return TS_IN_PKT;     
+      return TS_IN_PKT;
     }
   }
   case N_ETX:

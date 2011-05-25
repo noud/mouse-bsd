@@ -58,11 +58,11 @@
  *
  * This function is called only on timer ticks, passed on to the
  * kernel from the OFW tick handler.
- * 
+ *
  * For now, I am trying to re-use as much of the code from the
  * IOMD interrupt-handler as possible.  In time, I will strip this
  * down to something OFW-specific.
- * 
+ *
  * Here's the original, IOMD-specific description:
  * This function reads the irq request bits in the IOMD registers
  * IRQRQA, IRQRQB and DMARQ
@@ -77,7 +77,7 @@
 Ldisabled_mask:
 	.word	_C_LABEL(disabled_mask)
 
-Lcurrent_spl_level:	
+Lcurrent_spl_level:
 	.word	_C_LABEL(current_spl_level)
 
 Lcurrent_intr_depth:
@@ -108,21 +108,21 @@ Lofwirqstk:			/* hack */
 ASENTRY_NP(irq_entry)
 	/*
 	 *  We come here following an OFW-handled timer tick.
-	 *  
+	 *
  	 *  We are in the SVC frame, and interrupts are disabled.
  	 *  The state of the interrupted context is partially in
  	 *  the registers and partially in the global storage area
  	 *  labeled ofw_ticktmp.  ofw_ticktmp is filled-in by the
  	 *  tick callback that is invoked by OFW on the way out of
  	 *  its interrupt handler.  ofw_ticktmp contains the following:
- 	 *  
+ 	 *
  	 *      pc			// interrupted instruction
  	 *      lr_usr
  	 *      sp_usr
  	 *      r1			// makes r1 available for scratch
  	 *      r0			// makes r0 available for scratch
  	 *      spsr_svc		// cpsr of interrupted context
- 	 *  
+ 	 *
  	 *  The prologue of this routine must re-construct the
  	 *  machine state that existed at the time OFW's interrupt-
  	 *  handler fielded the interrupt.  That allows us to use
@@ -179,7 +179,7 @@ ASENTRY_NP(irq_entry)
 	PULLFRAMEFROMSVCANDEXIT
 	movs	pc, lr			/* Exit */
 
- 	/*  
+ 	/*
  	 *  Stuff a bit-mask into r8 indicating which interrupts
  	 *  are pending.  In our case, that is just the timer0
  	 *  interrupt:  (1 << TIMER0).  The existing code will take
@@ -236,7 +236,7 @@ Lfind_highest_ipl:
 	mvn	r2, r2
 	orr	r0, r0, r2
 
-	str	r0, [r1]	
+	str	r0, [r1]
 
 	ldr	r0, Lcurrent_spl_level
 	ldr	r1, [r0]
@@ -384,7 +384,7 @@ irqast:
 	PULLFRAMEFROMSVCANDEXIT
 
 	movs	pc, lr			/* Exit */
-	
+
 
 Lspl_mask:
 	.word	_C_LABEL(spl_mask)	/* irq's allowed at current spl level */
@@ -414,7 +414,7 @@ Lastpending:
 	.text
 	.global	_C_LABEL(dotickgrovelling)
 
-/* 
+/*
  *  Do magic to cause OFW to call our irq_entry
  *  routine when it returns from its tick-handling.
  *
@@ -428,16 +428,16 @@ Lastpending:
  *
  *  r0 - base of saved OFW interrupt frame, which
  *       has the following format:
- *  
+ *
  *         pc			// interrupted instruction
  *         lr			// lr of interrupted context
  *         sp			// sp of interrupted context
  *         r12
  *         ...		// non-banked register values
- *         ...		//   of interrupted context        
+ *         ...		//   of interrupted context
  *         r0
  *         spsr		// psr of interrupted context
- *  
+ *
  */
 
 _C_LABEL(dotickgrovelling):
@@ -529,7 +529,7 @@ _C_LABEL(dotickgrovelling):
 
 	ldmfd	sp!, {r1-r5}
 	mov	pc, lr
-	
+
 
 	.bss
 	.align 0

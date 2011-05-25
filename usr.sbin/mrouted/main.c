@@ -151,7 +151,7 @@ main(argc, argv)
     }
 
     if (argc > 0) {
-usage:	fprintf(stderr, 
+usage:	fprintf(stderr,
 		"usage: mrouted [-p] [-c configfile] [-d [debug_level]]\n");
 	exit(1);
     }
@@ -185,7 +185,7 @@ usage:	fprintf(stderr,
 #endif
 
     /*
-     * Get generation id 
+     * Get generation id
      */
     gettimeofday(&tv, 0);
     dvmrp_genid = tv.tv_sec;
@@ -318,9 +318,9 @@ usage:	fprintf(stderr,
 	snmp_select_info(&nfds, &rfds, tvp, &block);
 	if (block == 1)
 		tvp = NULL; /* block without timeout */
-	if ((n = select(nfds, &rfds, NULL, NULL, tvp)) < 0) 
+	if ((n = select(nfds, &rfds, NULL, NULL, tvp)) < 0)
 #else
-	if ((n = select(nfds, &rfds, NULL, NULL, NULL)) < 0) 
+	if ((n = select(nfds, &rfds, NULL, NULL, NULL)) < 0)
 #endif
    {
             if (errno != EINTR) /* SIGALRM is expected */
@@ -358,7 +358,7 @@ usage:	fprintf(stderr,
 	}
 
 #ifdef SNMP
-	snmp_read(&rfds); 
+	snmp_read(&rfds);
 	snmp_timeout(); /* poll */
 #endif
     }
@@ -407,7 +407,7 @@ fasttimer(i)
 	timer();
 
     age_callout_queue();/* Advance the timer for the callout queue
-				for groups */	
+				for groups */
     alarm(1);
 }
 
@@ -555,7 +555,7 @@ cdump(i)
 
     fp = fopen(cachefilename, "w");
     if (fp != NULL) {
-	dump_cache(fp); 
+	dump_cache(fp);
 	(void) fclose(fp);
     }
 }

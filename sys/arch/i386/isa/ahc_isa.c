@@ -340,8 +340,8 @@ int
 ahc_isa_probe(parent, match, aux)
         struct device *parent;
         struct cfdata *match;
-	void *aux; 
-{       
+	void *aux;
+{
 	struct isa_attach_args *ia = aux;
 	struct ahc_isa_slot *as;
 
@@ -444,7 +444,7 @@ ahc_isa_attach(parent, self, aux)
 #endif
 
 	/*
-	 * Now that we know we own the resources we need, do the 
+	 * Now that we know we own the resources we need, do the
 	 * card initialization.
 	 *
 	 * First, the aic7770 card specific setup.
@@ -461,14 +461,14 @@ ahc_isa_attach(parent, self, aux)
 	 * save a lot of users the grief of failed installs.
 	 */
 
-	/*      
+	/*
 	 * See if we have a Rev E or higher aic7770. Anything below a
 	 * Rev E will have a R/O autoflush disable configuration bit.
 	 * It's still not clear exactly what is differenent about the Rev E.
 	 * We think it allows 8 bit entries in the QOUTFIFO to support
 	 * "paging" SCBs so you can have more than 4 commands active at
 	 * once.
-	 */     
+	 */
 	{
 		char *id_string;
 		u_char sblkctl;

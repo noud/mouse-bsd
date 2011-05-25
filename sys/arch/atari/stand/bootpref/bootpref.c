@@ -841,7 +841,7 @@ checkDateSep (val, str)
 		*val = str[0];
 	}
 }
-	
+
 static int
 checkColours (val, str)
 	u_char *val;

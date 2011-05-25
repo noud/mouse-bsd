@@ -149,7 +149,7 @@ unsigned char * arm_breakpoint_from_pc PARAMS ((CORE_ADDR * pcptr, int * lenptr)
   "f4", "f5", "f6", "f7", /* 20 21 22 23 */ \
   "fps","ps" }            /* 24 25       */
 
-/* These names are the ones which gcc emits, and 
+/* These names are the ones which gcc emits, and
    I find them less confusing.  Toggle between them
    using the `othernames' command. */
 
@@ -248,7 +248,7 @@ unsigned char * arm_breakpoint_from_pc PARAMS ((CORE_ADDR * pcptr, int * lenptr)
 
 /* Largest value REGISTER_RAW_SIZE can have.  */
 
-#define MAX_REGISTER_RAW_SIZE 12 
+#define MAX_REGISTER_RAW_SIZE 12
 
 /* Largest value REGISTER_VIRTUAL_SIZE can have.  */
 
@@ -325,7 +325,7 @@ unsigned char * arm_breakpoint_from_pc PARAMS ((CORE_ADDR * pcptr, int * lenptr)
 #define VARIABLES_INSIDE_BLOCK(desc, gcc_p) (!(gcc_p))
 
 
-/* Define other aspects of the stack frame. 
+/* Define other aspects of the stack frame.
    We keep the offsets of all saved registers, 'cause we need 'em a lot!
    We also keep the current size of the stack frame, and the offset of
    the frame pointer from the stack pointer (for frameless functions, and

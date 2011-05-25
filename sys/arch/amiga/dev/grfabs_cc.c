@@ -159,7 +159,7 @@ monitor_t *
 cc_init_monitor()
 {
 	cop_t  *cp;
-	
+
 	if (m_this)
 		return(m_this);
 
@@ -305,7 +305,7 @@ alloc_bitmap(width, height, depth, flags)
 
 	/* Sigh, it seems for mapping to work we need the bitplane data to 1:
 	 * be aligned on a page boundry. 2: be n pages large.
-	 * 
+	 *
 	 * why? becuase the user gets a page aligned address, if this is before
 	 * your allocation, too bad.  Also it seems that the mapping routines
 	 * do not watch to closely to the allowable length. so if you go over
@@ -350,7 +350,7 @@ void
 free_bitmap(bm)
 	bmap_t *bm;
 {
-	if (bm) 
+	if (bm)
 		free_chipmem(bm);
 }
 /* load a new mode into the current display, if NULL shut display off. */
@@ -1859,9 +1859,9 @@ cc_init_ntsc_aga()
 								 * shres. */
 #ifdef GRF_AGA_VGA
 		aga_this_data->std_start_x = 0x40 /*STANDARD_VIEW_X*/;
-#else 
+#else
 		aga_this_data->std_start_x = 0x4f /*STANDARD_VIEW_X*/;
-#endif 
+#endif
 		aga_this_data->std_start_y = 0x2b /*STANDARD_VIEW_Y*/;
 		aga_this_data->vbl_handler = (vbl_handler_func *) cc_mode_vbl_handler;
 		aga_this_data->beamcon0 = SPECIAL_BEAMCON ^ VSYNCTRUE;
@@ -1880,13 +1880,13 @@ int	AGA_hsstrt = 0xc;
 int	AGA_hsstop = 0x16;
 int	AGA_hbstrt = 0x5;
 int	AGA_vtotal = 0x1c1;
-#else 
+#else
 int	AGA_htotal = 0x79;
 int	AGA_hsstrt = 0xe;
 int	AGA_hsstop = 0x1c;
 int	AGA_hbstrt = 0x8;
 int	AGA_vtotal = 0x1ec;
-#endif 
+#endif
 int	AGA_hbstop = 0x1e;
 int	AGA_vsstrt = 0x3;
 int	AGA_vsstop = 0x6;
@@ -2300,25 +2300,25 @@ display_super72_view(v)
 		tmp = find_copper_inst(cp, CI_MOVE(R_FMODE));
 		tmp->cp.inst.operand = 0x8003;
 		tmp = find_copper_inst(cp, CI_MOVE(R_HTOTAL));
-		tmp->cp.inst.operand = super72_htotal; 
+		tmp->cp.inst.operand = super72_htotal;
 		tmp = find_copper_inst(cp, CI_MOVE(R_HBSTRT));
-		tmp->cp.inst.operand = super72_hbstrt; 
+		tmp->cp.inst.operand = super72_hbstrt;
 		tmp = find_copper_inst(cp, CI_MOVE(R_HSSTRT));
-		tmp->cp.inst.operand = super72_hsstrt; 
+		tmp->cp.inst.operand = super72_hsstrt;
 		tmp = find_copper_inst(cp, CI_MOVE(R_HSSTOP));
-		tmp->cp.inst.operand = super72_hsstop; 
+		tmp->cp.inst.operand = super72_hsstop;
 		tmp = find_copper_inst(cp, CI_MOVE(R_HBSTOP));
-		tmp->cp.inst.operand = super72_hbstop; 
+		tmp->cp.inst.operand = super72_hbstop;
 		tmp = find_copper_inst(cp, CI_MOVE(R_HCENTER));
 		tmp->cp.inst.operand = super72_hcenter;
 		tmp = find_copper_inst(cp, CI_MOVE(R_VBSTRT));
-		tmp->cp.inst.operand = super72_vbstrt; 
+		tmp->cp.inst.operand = super72_vbstrt;
 		tmp = find_copper_inst(cp, CI_MOVE(R_VSSTRT));
-		tmp->cp.inst.operand = super72_vsstrt; 
+		tmp->cp.inst.operand = super72_vsstrt;
 		tmp = find_copper_inst(cp, CI_MOVE(R_VSSTOP));
-		tmp->cp.inst.operand = super72_vsstop; 
+		tmp->cp.inst.operand = super72_vsstop;
 		tmp = find_copper_inst(cp, CI_MOVE(R_VBSTOP));
-		tmp->cp.inst.operand = super72_vbstop; 
+		tmp->cp.inst.operand = super72_vbstop;
 		tmp = find_copper_inst(cp, CI_MOVE(R_VTOTAL));
 		tmp->cp.inst.operand = super72_vtotal;
 

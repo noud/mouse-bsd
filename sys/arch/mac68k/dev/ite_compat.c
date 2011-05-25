@@ -139,7 +139,7 @@ itetty(dev)
 }
 
 /*ARGSUSED*/
-void 
+void
 itestop(struct tty *tp, int flag)
 {
 }

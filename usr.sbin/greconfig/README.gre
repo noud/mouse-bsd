@@ -7,7 +7,7 @@ $Id: README.gre,v 1.4 1999/01/26 21:32:39 hwr Exp $
 
 This is a very alpha implementation of GRE packet encapsulation.
 Generic Route Encapsulation (GRE) is described in RFC 1701 and 1702.
-The interface also supports MOBILE (protocol 55) as of RFC 2004  but 
+The interface also supports MOBILE (protocol 55) as of RFC 2004  but
 default is GRE mode.
 
 Basically GRE allows to tunnel not only IP over IP, but also provides
@@ -26,7 +26,7 @@ The files:
    netinet/ip_gre.[ch]: input part, deencapsulates packets. Is IP only
                         at the moment and only supports GRE without options.
    netinet/in.h       : Addition of IPPROTO_GRE
-   netinet/in_proto.c : Addition of protocol switch for GRE 
+   netinet/in_proto.c : Addition of protocol switch for GRE
    conf/files         : mention new files for GRE
    greconfig.c        : Utility to set/display tunnel endpoints / mode.
    greconfig.8        : Manpage for greconfig.
@@ -34,11 +34,11 @@ The files:
 
 
 Installation:
- 
+
    On NetBSD: add "pseudo-device gre <n>"
    to your kernel config file with <n> being the number of tunnel interfaces
    you want. Then recompile and install the new kernel.
- 
+
    Also compile greconfig.c:  cc -o greconfig greconfig.c
    Grectl is used to set/display tunnel endpoints. In case when IP is
    encapsulated, this is not needed, but e.g. in the AppleTalk over IP
@@ -59,7 +59,7 @@ Todos/Bugs:
 
   Traceroute does not work yet over the tunnel :(
 
-  BPF does probably not yet work (it might, but last time I looked, 
+  BPF does probably not yet work (it might, but last time I looked,
   it bombed, so I #if 0'd it out). And also only in outgoing
   direction.
 

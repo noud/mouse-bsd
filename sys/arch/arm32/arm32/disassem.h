@@ -38,7 +38,7 @@
 
 typedef struct {
 	u_int	(*di_readword) __P((u_int));
-	void	(*di_printaddr) __P((u_int));	
+	void	(*di_printaddr) __P((u_int));
 	void	(*di_printf) __P((const char *, ...));
 } disasm_interface_t;
 

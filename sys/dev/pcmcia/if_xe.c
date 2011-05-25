@@ -193,7 +193,7 @@ struct cfattach xe_pcmcia_ca = {
 #ifdef __NetBSD__
 	NULL,
 #else
-	xe_pcmcia_detach, 
+	xe_pcmcia_detach,
 #endif
 	xe_pcmcia_activate
 };
@@ -245,7 +245,7 @@ xe_pcmcia_match(parent, match, aux)
 	void *aux;
 {
 	struct pcmcia_attach_args *pa = aux;
-	
+
 	if (pa->pf->function != PCMCIA_FUNCTION_NETWORK)
 		return (0);
 
@@ -464,7 +464,7 @@ xe_pcmcia_attach(parent, self, aux)
 #endif
 		);
 #if NBPFILTER > 0
-	bpfattach(&SC2IFNET(sc)->if_bpf, ifp, DLT_EN10MB, 
+	bpfattach(&SC2IFNET(sc)->if_bpf, ifp, DLT_EN10MB,
 		  sizeof(struct ether_header));
 #endif	/* NBPFILTER > 0 */
 
@@ -714,7 +714,7 @@ xe_intr(arg)
 	esr = bus_space_read_1(sc->sc_bst, sc->sc_bsh, sc->sc_offset + ESR);
 	isr = bus_space_read_1(sc->sc_bst, sc->sc_bsh, sc->sc_offset + ISR0);
 	rsr = bus_space_read_1(sc->sc_bst, sc->sc_bsh, sc->sc_offset + RSR);
-				
+
 	/* Check to see if card has been ejected. */
 	if (isr == 0xff) {
 		printf("%s: interrupt for dead card\n", sc->sc_dev.dv_xname);
@@ -755,7 +755,7 @@ xe_intr(arg)
 		rsr = bus_space_read_1(sc->sc_bst, sc->sc_bsh,
 		    sc->sc_offset + RSR);
 	}
-	
+
 	/* Packet too long? */
 	if (rsr & RSR_TOO_LONG) {
 		ifp->if_ierrors++;
@@ -783,7 +783,7 @@ xe_intr(arg)
 		    CLR_RX_OVERRUN);
 		DPRINTF(XED_INTR, ("overrun cleared\n"));
 	}
-			
+
 	/* Try to start more packets transmitting. */
 	if (ifp->if_snd.ifq_head)
 		xe_start(ifp);
@@ -796,7 +796,7 @@ xe_intr(arg)
 		    RESTART_TX);
 		ifp->if_oerrors++;
 	}
-	
+
 	if ((tx_status & TX_ABORT) && ifp->if_opackets > 0)
 		ifp->if_oerrors++;
 
@@ -819,7 +819,7 @@ xe_get(sc)
 	u_int16_t pktlen, len, recvcount = 0;
 	u_int8_t *data;
 	struct ether_header *eh;
-	
+
 	PAGE(sc, 0);
 	rsr = bus_space_read_1(sc->sc_bst, sc->sc_bsh, sc->sc_offset + RSR);
 
@@ -843,7 +843,7 @@ xe_get(sc)
 	len = MHLEN;
 	top = 0;
 	mp = &top;
-	
+
 	while (pktlen > 0) {
 		if (top) {
 			MGET(m, M_DONTWAIT, MT_DATA);
@@ -888,16 +888,16 @@ xe_get(sc)
 	/* Skip Rx packet. */
 	bus_space_write_2(sc->sc_bst, sc->sc_bsh, sc->sc_offset + DO0,
 	    DO_SKIP_RX_PKT);
-	
+
 	ifp->if_ipackets++;
-	
+
 	eh = mtod(top, struct ether_header *);
-	
+
 #if NBPFILTER > 0
 	if (ifp->if_bpf)
 		bpf_mtap(ifp->if_bpf, top);
 #endif
-	
+
 #ifdef __NetBSD__
 	(*ifp->if_input)(ifp, top);
 #else
@@ -1117,12 +1117,12 @@ xe_stop(sc)
 
 	PAGE(sc, 1);
 	bus_space_write_1(sc->sc_bst, sc->sc_bsh, sc->sc_offset + IMR0, 0);
-	
+
 	/* Power down, wait. */
 	PAGE(sc, 4);
 	bus_space_write_1(sc->sc_bst, sc->sc_bsh, sc->sc_offset + GP1, 0);
 	DELAY(40000);
-	
+
 	/* Cancel watchdog timer. */
 	SC2IFNET(sc)->if_timer = 0;
 }
@@ -1303,7 +1303,7 @@ xe_ioctl(ifp, command, data)
 
 	case SIOCSIFFLAGS:
 		sc->sc_all_mcasts = (ifp->if_flags & IFF_ALLMULTI) ? 1 : 0;
-				
+
 		PAGE(sc, 0x42);
 		if ((ifp->if_flags & IFF_PROMISC) ||
 		    (ifp->if_flags & IFF_ALLMULTI))
@@ -1397,7 +1397,7 @@ xe_set_address(sc)
 		    SC2ENADDR(sc)[(sc->sc_flags & XEF_MOHAWK) ?
 		    5 - i : i]);
 	}
-		
+
 	if (arp->ac_multicnt > 0) {
 		if (arp->ac_multicnt > 9) {
 			PAGE(sc, 0x42);
@@ -1558,7 +1558,7 @@ xe_full_reset (sc)
 		DELAY(20000);
 	} else {
 		PAGE(sc, 0);
-				
+
 		/* XXX Do we need to do this? */
 		PAGE(sc, 0x42);
 		bus_space_write_1(bst, bsh, offset + SWC1, SWC1_AUTO_MEDIA);

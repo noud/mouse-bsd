@@ -143,7 +143,7 @@ getmountpoint(diskdev)
 	return (dotempmount(bdiskdev));
 }
 
-void 
+void
 cleanupmount(dir)
 	char *dir;
 {

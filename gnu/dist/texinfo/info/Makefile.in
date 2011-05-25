@@ -123,7 +123,7 @@ cmd_sources = $(srcdir)/session.c $(srcdir)/echo-area.c $(srcdir)/infodoc.c \
   $(srcdir)/footnotes.c $(srcdir)/variables.c
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 PROGRAMS =  $(bin_PROGRAMS) $(noinst_PROGRAMS)
 
 CPPFLAGS = @CPPFLAGS@
@@ -135,11 +135,11 @@ m-x.o man.o nodemenu.o nodes.o search.o session.o signals.o terminal.o \
 tilde.o variables.o window.o
 ginfo_LDADD = $(LDADD)
 ginfo_DEPENDENCIES =  ../lib/libtxi.a
-ginfo_LDFLAGS = 
+ginfo_LDFLAGS =
 makedoc_OBJECTS =  makedoc.o
 makedoc_LDADD = $(LDADD)
 makedoc_DEPENDENCIES =  ../lib/libtxi.a
-makedoc_LDFLAGS = 
+makedoc_LDFLAGS =
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
 LINK = $(CC) $(CFLAGS) $(LDFLAGS) -o $@
@@ -157,7 +157,7 @@ default: all
 
 .SUFFIXES:
 .SUFFIXES: .S .c .o .s
-$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps info/Makefile
 
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
@@ -366,7 +366,7 @@ installcheck:
 install-exec: install-binPROGRAMS
 	@$(NORMAL_INSTALL)
 
-install-data: 
+install-data:
 	@$(NORMAL_INSTALL)
 
 install: install-exec install-data all

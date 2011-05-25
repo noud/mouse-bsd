@@ -179,7 +179,7 @@ statustoa(type, st)
 		(void)strcat(cb, ", ");
 		(void)strcat(cb, getcode(CTL_SYS_EVENT(st), sys_codes));
 		break;
-	
+
 	case TYPE_PEER:
 		/*
 		 * Handcraft the bits
@@ -215,7 +215,7 @@ statustoa(type, st)
 			    peer_codes));
 		}
 		break;
-	
+
 	case TYPE_CLOCK:
 		(void)strcpy(cb, getcode(((st)>>8) & 0xff, clock_codes));
 		(void)strcat(cb, ", last_");

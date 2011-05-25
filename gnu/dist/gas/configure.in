@@ -376,17 +376,17 @@ changequote([,])dnl
 	;;
 
       mips)
-	echo ${extra_objects} | grep -s "itbl-parse.o" 
+	echo ${extra_objects} | grep -s "itbl-parse.o"
 	if test $? -ne 0 ; then
 	  extra_objects="$extra_objects itbl-parse.o"
 	fi
 
-	echo ${extra_objects} | grep -s "itbl-lex.o" 
+	echo ${extra_objects} | grep -s "itbl-lex.o"
 	if test $? -ne 0 ; then
 	  extra_objects="$extra_objects itbl-lex.o"
 	fi
 
-	echo ${extra_objects} | grep -s "itbl-ops.o" 
+	echo ${extra_objects} | grep -s "itbl-ops.o"
 	if test $? -ne 0 ; then
 	  extra_objects="$extra_objects itbl-ops.o"
 	fi

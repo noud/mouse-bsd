@@ -175,7 +175,7 @@ main()
 		printf("Booting %s\n", kernel);
 		if ((io = loadfile(kernel, marks, LOAD_KERNEL)) != -1)
 			break;
-			
+
 		/*
 		 * if we have are not in askname mode, and we aren't using the
 		 * prom bootfile, try the next one (if it exits).  otherwise,

@@ -37,15 +37,15 @@ int __objc_is_multi_threaded = 0;
 objc_thread_callback _objc_became_multi_threaded = NULL;
 
 /*
-  Use this to set the hook function that will be called when the 
+  Use this to set the hook function that will be called when the
   runtime initially becomes multi threaded.
-  The hook function is only called once, meaning only when the 
+  The hook function is only called once, meaning only when the
   2nd thread is spawned, not for each and every thread.
 
   It returns the previous hook function or NULL if there is none.
 
   A program outside of the runtime could set this to some function so
-  it can be informed; for example, the GNUstep Base Library sets it 
+  it can be informed; for example, the GNUstep Base Library sets it
   so it can implement the NSBecomingMultiThreaded notification.
   */
 objc_thread_callback objc_set_thread_callback(objc_thread_callback func)
@@ -222,7 +222,7 @@ objc_thread_id(void)
 }
 
 /*
-  Sets the thread's local storage pointer. 
+  Sets the thread's local storage pointer.
   Returns 0 if successful or -1 if failed.
   */
 int
@@ -303,7 +303,7 @@ objc_mutex_deallocate(objc_mutex_t mutex)
 
 /*
   Grab a lock on a mutex.  If this thread already has a lock on this mutex
-  then we increment the lock count.  If another thread has a lock on the 
+  then we increment the lock count.  If another thread has a lock on the
   mutex we block and wait for the thread to release the lock.
   Returns the lock count on the mutex held by this thread.
   */
@@ -349,11 +349,11 @@ objc_mutex_trylock(objc_mutex_t mutex)
   if (!mutex)
     return -1;
 
-  /* If we already own the lock then increment depth */ 
+  /* If we already own the lock then increment depth */
   thread_id = objc_thread_id();
   if (mutex->owner == thread_id)
     return ++mutex->depth;
-    
+
   /* Call the backend to try to lock the mutex */
   status = __objc_mutex_trylock(mutex);
 
@@ -366,12 +366,12 @@ objc_mutex_trylock(objc_mutex_t mutex)
   return mutex->depth = 1;
 }
 
-/* 
+/*
   Unlocks the mutex by one level.
   Decrements the lock count on this mutex by one.
   If the lock count reaches zero, release the lock on the mutex.
   Returns the lock count on the mutex.
-  It is an error to attempt to unlock a mutex which this thread 
+  It is an error to attempt to unlock a mutex which this thread
   doesn't hold in which case return -1 and the mutex is unaffected.
   */
 int
@@ -413,13 +413,13 @@ objc_mutex_unlock(objc_mutex_t mutex)
   Allocate a condition.  Return the condition pointer if successful or NULL
   if the allocation failed for any reason.
   */
-objc_condition_t 
+objc_condition_t
 objc_condition_allocate(void)
 {
   objc_condition_t condition;
-    
+
   /* Allocate the condition mutex structure */
-  if (!(condition = 
+  if (!(condition =
 	(objc_condition_t)objc_malloc(sizeof(struct objc_condition))))
     return NULL;
 
@@ -436,7 +436,7 @@ objc_condition_allocate(void)
 }
 
 /*
-  Deallocate a condition. Note that this includes an implicit 
+  Deallocate a condition. Note that this includes an implicit
   condition_broadcast to insure that waiting threads have the opportunity
   to wake.  It is legal to dealloc a condition only if no other
   thread is/will be using it. Here we do NOT check for other threads
@@ -500,7 +500,7 @@ objc_condition_wait(objc_condition_t condition, objc_mutex_t mutex)
 }
 
 /*
-  Wake up all threads waiting on this condition. It is recommended that 
+  Wake up all threads waiting on this condition. It is recommended that
   the called would lock the same mutex as the threads in objc_condition_wait
   before changing the "condition predicate" and make this call and unlock it
   right away after this call.
@@ -516,7 +516,7 @@ objc_condition_broadcast(objc_condition_t condition)
 }
 
 /*
-  Wake up one thread waiting on this condition. It is recommended that 
+  Wake up one thread waiting on this condition. It is recommended that
   the called would lock the same mutex as the threads in objc_condition_wait
   before changing the "condition predicate" and make this call and unlock it
   right away after this call.

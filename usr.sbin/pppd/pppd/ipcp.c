@@ -1030,7 +1030,7 @@ ipcp_reqci(f, inp, len, reject_if_disagree)
      * Reset all his options.
      */
     BZERO(ho, sizeof(*ho));
-    
+
     /*
      * Process all his options.
      */
@@ -1141,7 +1141,7 @@ ipcp_reqci(f, inp, len, reject_if_disagree)
 		wo->req_addr = 0;	/* don't NAK with 0.0.0.0 later */
 		break;
 	    }
-	
+
 	    ho->neg_addr = 1;
 	    ho->hisaddr = ciaddr1;
 	    break;
@@ -1185,7 +1185,7 @@ ipcp_reqci(f, inp, len, reject_if_disagree)
 		orc = CONFNAK;
             }
             break;
-	
+
 	case CI_COMPRESSTYPE:
 	    if (!ao->neg_vj ||
 		(cilen != CILEN_VJ && cilen != CILEN_COMPRESS)) {
@@ -1204,7 +1204,7 @@ ipcp_reqci(f, inp, len, reject_if_disagree)
 	    ho->vj_protocol = cishort;
 	    if (cilen == CILEN_VJ) {
 		GETCHAR(maxslotindex, p);
-		if (maxslotindex > ao->maxslotindex) { 
+		if (maxslotindex > ao->maxslotindex) {
 		    orc = CONFNAK;
 		    if (!reject_if_disagree){
 			DECPTR(1, p);
@@ -1449,7 +1449,7 @@ ipcp_up(f)
 	    }
 
 	    /* assign a default route through the interface if required */
-	    if (ipcp_wantoptions[f->unit].default_route) 
+	    if (ipcp_wantoptions[f->unit].default_route)
 		if (sifdefaultroute(f->unit, go->ouraddr, ho->hisaddr))
 		    default_route_set[f->unit] = 1;
 
@@ -1496,7 +1496,7 @@ ipcp_up(f)
 	sifnpmode(f->unit, PPP_IP, NPMODE_PASS);
 
 	/* assign a default route through the interface if required */
-	if (ipcp_wantoptions[f->unit].default_route) 
+	if (ipcp_wantoptions[f->unit].default_route)
 	    if (sifdefaultroute(f->unit, go->ouraddr, ho->hisaddr))
 		default_route_set[f->unit] = 1;
 

@@ -1,4 +1,4 @@
-.\" $NetBSD: upgrade,v 1.4 1999/05/07 00:15:17 ragge Exp $	
+.\" $NetBSD: upgrade,v 1.4 1999/05/07 00:15:17 ragge Exp $
 .\"
 .\" Copyright (c) 1999 The NetBSD Foundation, Inc.
 .\" All rights reserved.
@@ -32,7 +32,7 @@
 .\" POSSIBILITY OF SUCH DAMAGE.
 .\"
 .
-There is no upgrade program for NetBSD/vax; you will have to 
+There is no upgrade program for NetBSD/vax; you will have to
 upgrade your system by hand. Here are some hints about
 how to do it:
 .Bl -bullet -offset indent

@@ -52,7 +52,7 @@
  * 2) segment descriptors must be byte-granular with limit 64k-1, def32 = 0,
  * (i.e. 16-bit data accesses and/or 80286 instructions)
  * CS must be executable; DS,ES,FS,GS should be writable
- * 
+ *
  * 3) disable interrupts, load IDTR with original value (base 0, limit 1023)
  *
  * 4) clear PE in CR0, execute FAR jump to load CS.
@@ -91,7 +91,7 @@
 	.set EDI_REGADDR,(ESI_REGADDR-4)
 	.set EFLAGS_REGADDR,(EDI_REGADDR-4)
 	.set ENDREGADDR,(EFLAGS_REGADDR-4)
-	
+
 	.set REALSTACK,ENDREGADDR-16		# leave a red zone?
 
 #define COPY_FLAGS (PSL_C|PSL_PF|PSL_AF|PSL_Z|PSL_N|PSL_D|PSL_V)
@@ -106,7 +106,7 @@ ENTRY(do_bios_call)
 	pushl	%esi
 	pushl	%edi
 	pushl	%ebx
-	pushl	%ds		
+	pushl	%ds
 	pushl	%es
 	pushl	%fs
 	pushl	%gs
@@ -135,13 +135,13 @@ ENTRY(do_bios_call)
 	andl $COPY_FLAGS,%ecx
 	orl %ecx,%eax
 	movl %eax,EFLAGS_REGADDR
-	
+
 	# save flags, disable interrupts, do real mode stuff
 	pushfl
-	
+
 	# save GDT
 	sgdt GDTR_SAVE_ADDR
-	
+
 	# copy the GDT to local area
 	movl GDTR_SAVE_ADDR+2,%esi
 	movl $GDT_COPY_ADDR,%edi
@@ -151,15 +151,15 @@ ENTRY(do_bios_call)
 	movsb
 	movw $(NGDT*8)-1,GDTR_LOCAL_ADDR
 	movl $GDT_COPY_ADDR,GDTR_LOCAL_ADDR+2
-	
+
 	# install GDT copy
 	lgdt GDTR_LOCAL_ADDR
-	
+
 	cli
 
 	# save IDT
 	sidt IDTR_SAVE_ADDR
-		
+
 	# set up new stack: save old ones, create new segs
 	movl %esp,STACK_PTR_ADDR
 	movl %ebp,BASE_PTR_ADDR
@@ -169,16 +169,16 @@ ENTRY(do_bios_call)
 	# save CR3
 	movl %cr3,%eax
 	movl %eax,CR3_ADDR
-	
+
 	# turn off paging
 	movl %cr0,%eax
 	andl $~(CR0_PG),%eax
 	movl %eax,%cr0
-	
+
 	# flush TLB, drop PDBR
 	xorl %eax,%eax
 	movl %eax,%cr3
-	
+
 	## load 16-bit segment descriptors
 	movw $GSEL(GBIOSDATA_SEL,SEL_KPL),%bx
 	movw %bx,%ds
@@ -187,18 +187,18 @@ ENTRY(do_bios_call)
 	movw %bx,%gs
 
 	ljmp $GSEL(GBIOSCODE_SEL,SEL_KPL),$x16+MYBASE
-	
-x16:	
+
+x16:
 	# turn off protected mode--yikes!
 	mov	%cr0,%eax
 	data32
 	and	$~CR0_PE,%eax
 	mov	%eax,%cr0
-	
+
 	# need inter-segment jump to reload real-mode CS
 	data32
 	ljmp $(MYBASE>>4),$xreal
-		
+
 xreal:	# really in real mode now
 	# set up segment selectors.  Note: everything is now relative
 	# to zero-base in this file, except %ss.
@@ -211,7 +211,7 @@ xreal:	# really in real mode now
 	movw %ax,%fs
 	movw %ax,%gs
 	movw %ax,%ds
-	
+
 	## load IDT, now that we are here.
 	addr32
 	lidt IDT_bios
@@ -242,8 +242,8 @@ flushit:
 	popfl
 	addr32
 	movw EAX_REGADDR-MYBASE,%eax
-	
-intaddr: 
+
+intaddr:
 	int $0xff
 
 	# save results
@@ -271,11 +271,11 @@ intaddr:
 	data32
 	or $CR0_PE,%eax
 	mov %eax,%cr0
-	
+
 	# long jump to 32-bit code segment
 	data32
 	ljmp $GSEL(GCODE_SEL,SEL_KPL),$x32+MYBASE
-x32:	
+x32:
 	#back in 32-bit mode/protected mode (but not paging yet).
 	# Reload the segment registers & IDT
 
@@ -283,24 +283,24 @@ x32:
 	movw %bx,%ds
 	movw %bx,%ss
 	movw %bx,%es
-	
+
 	# reload PDBR
 	movl CR3_ADDR,%eax
 	movl %eax,%cr3
 	movl %cr0,%eax
 	orl $CR0_PG,%eax
 	movl %eax,%cr0
-	
+
 	# reload system copy of GDT
 	lgdt GDTR_SAVE_ADDR
 
 	# restore protected-mode stack
 	movl STACK_PTR_ADDR,%esp
 	movl BASE_PTR_ADDR,%ebp
-	
+
 	#restore protected-mode IDT
 	lidt IDTR_SAVE_ADDR
-	
+
 	# copy back arguments from holding pen
 
 	movl 12(%ebp),%ebx
@@ -318,7 +318,7 @@ x32:
 	movl %eax,BIOSCALLREG_EDI(%ebx)
 	movl EFLAGS_REGADDR,%eax
 	movl %eax,BIOSCALLREG_EFLAGS(%ebx)
-	
+
 	# finish up, restore registers, and return
 	popfl
 	popl	%gs

@@ -3,7 +3,7 @@
 PROG	= rawwrite.ttp
 
 OBJS	= rawwrite.o
-HEADERS	= 
+HEADERS	=
 
 include ../Makefile.inc
 

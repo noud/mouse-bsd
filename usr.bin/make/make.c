@@ -82,7 +82,7 @@ __RCSID("$NetBSD: make.c,v 1.26 2000/02/15 04:41:45 sjg Exp $");
  *	Make_HandleUse	    	See if a child is a .USE node for a parent
  *				and perform the .USE actions if so.
  *
- *	Make_ExpandUse	    	Expand .USE nodes and return the new list of 
+ *	Make_ExpandUse	    	Expand .USE nodes and return the new list of
  *				targets.
  */
 
@@ -263,7 +263,7 @@ Make_OODate (gn)
 	}
 	oodate = TRUE;
     } else {
-	/* 
+	/*
 	 * When a non-existing child with no sources
 	 * (such as a typically used FORCE source) has been made and
 	 * the target of the child (usually a directory) has the same
@@ -941,7 +941,7 @@ Make_ExpandUse (targs)
 	    Lst_Concat (new, examine, LST_CONCLINK);
 	    examine = new;
 	}
-	    
+
 	if ((gn->flags & REMAKE) == 0) {
 	    gn->flags |= REMAKE;
 	    numNodes++;
@@ -982,7 +982,7 @@ Make_ExpandUse (targs)
     }
 
     Lst_Destroy (examine, NOFREE);
-    return ntargs; 
+    return ntargs;
 }
 
 /*-

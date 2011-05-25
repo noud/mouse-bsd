@@ -68,10 +68,10 @@ ess_isa_probe(parent, match, aux)
 	struct cfdata *match;
 	void *aux;
 {
-  	int ret;   
+  	int ret;
 	struct isa_attach_args *ia = aux;
 	struct ess_softc probesc, *sc= &probesc;
-	
+
 	memset(sc, 0, sizeof *sc);
 
 	sc->sc_ic = ia->ia_ic;
@@ -90,7 +90,7 @@ ess_isa_probe(parent, match, aux)
 	sc->sc_audio2.drq = ia->ia_drq2;
 
 	ret = essmatch(sc);
-		
+
 	bus_space_unmap(sc->sc_iot, sc->sc_ioh, ESS_NPORT);
 
 	if (ret) {
@@ -98,7 +98,7 @@ ess_isa_probe(parent, match, aux)
 		ia->ia_iosize = ESS_NPORT;
 	} else
 		DPRINTF(("ess_isa_probe failed\n"));
-		
+
 	return ret;
 }
 

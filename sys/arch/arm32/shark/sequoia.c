@@ -59,8 +59,8 @@
 
 
 /*
-** 
-** MACROS 
+**
+** MACROS
 **
 */
 #define SET(t, f)       (t) |= (f)
@@ -69,7 +69,7 @@
 #define ISCLR(t, f)     ( ((t) & (f)) == 0)
 
 /* define regisers on sequoia used by pins  */
-#define SEQUOIA_1GPIO       PMC_GPCR_REG         /* reg 0x007 gpio 0-3 */      
+#define SEQUOIA_1GPIO       PMC_GPCR_REG         /* reg 0x007 gpio 0-3 */
 #define SEQUOIA_2GPIO       SEQ2_OGPIOCR_REG     /* reg 0x304 gpio 4.8 */
 
 /* define pins on sequoia that talk to smart card reader */
@@ -98,7 +98,7 @@
 #define SCR_BUGB_DIR        OGPIOCR_M_GPIODIR7
 #define SCR_BUGB            OGPIOCR_M_GPIODATA7
 
-                                 
+
 
 /* define pins on sequoia that talk to leds */
 #define LED_BILED_YELLOW_BIT    FOMPCR_M_PCON5
@@ -114,12 +114,12 @@
 #define  LED_BILED_YELLOW   2
 #define  LED_BILED_RED      3
 
-    
+
 #define LED_TIMEOUT    HZ / 20                       /* 20 times a second */
 #define LED_NET_ACTIVE (1000000/HZ) * LED_TIMEOUT   /* delay in us for net activity */
-      
-    
-    
+
+
+
 
 /*
 **
@@ -130,7 +130,7 @@ static bus_space_handle_t sequoia_ioh;
 
 static struct timeval ledLastActive;      /* last time we get net activity */
 static int      ledColor;           /* present color of led */
-static int      ledBlockCount;;     /* reference count of block calles */                            
+static int      ledBlockCount;;     /* reference count of block calles */
 int sequoia_index_cache = -1;       /* set to silly value so that we dont cache on init */
 
 
@@ -143,7 +143,7 @@ static void ledSetBiled(int color);
 static void ledTimeout(void * arg);
 
 /*
-** 
+**
 ** FUNCITONS
 **
 */
@@ -169,34 +169,34 @@ void sequoiaInit(void)
     /*
     ** setup the pins associated with the led
     */
-    sequoiaRead(SEQR_SEQPSR1_REG,&seqReg); 
+    sequoiaRead(SEQR_SEQPSR1_REG,&seqReg);
     SET(seqReg,SEQPSR1_M_TAGDEN);           /* enable pc[4:9] */
-    sequoiaWrite(SEQR_SEQPSR1_REG,seqReg); 
+    sequoiaWrite(SEQR_SEQPSR1_REG,seqReg);
 
-    
-    sequoiaRead(SEQR_SEQPSR3_REG,&seqReg); 
+
+    sequoiaRead(SEQR_SEQPSR3_REG,&seqReg);
     CLR(seqReg,SEQPSR3_M_PC5PINEN);      /* enable pc5, biled */
     CLR(seqReg,SEQPSR3_M_PC6PINEN);      /* enable pc6, biled */
     CLR(seqReg,SEQPSR3_M_PC7PINEN);      /* enable pc7, debug led yellow */
     CLR(seqReg,SEQPSR3_M_PC8PINEN);      /* enable pc8, debug led green  */
-    sequoiaWrite(SEQR_SEQPSR3_REG,seqReg); 
-    
+    sequoiaWrite(SEQR_SEQPSR3_REG,seqReg);
+
     sequoiaRead (PMC_FOMPCR_REG, &seqReg);
-    CLR(seqReg,LED_BILED_YELLOW_BIT); 
+    CLR(seqReg,LED_BILED_YELLOW_BIT);
     CLR(seqReg,LED_BILED_GREEN_BIT);
     SET(seqReg,LED_DEBUG_YELLOW_BIT);
     CLR(seqReg,LED_DEBUG_GREEN_BIT);
     sequoiaWrite(PMC_FOMPCR_REG, seqReg);
 
-    
+
     /* setup the biled info */
     ledColor = LED_BILED_GREEN;
     ledLastActive.tv_usec = 0;
     ledLastActive.tv_sec = 0;
     ledBlockCount = 0;
     timeout(ledTimeout,NULL,LED_TIMEOUT);
-    /* 
-    ** 
+    /*
+    **
     ** setup the pins associated with the smart card reader *
     **
     */
@@ -214,7 +214,7 @@ void sequoiaInit(void)
     sequoiaWrite(SEQUOIA_1GPIO,seqReg);
 
 
-    
+
 
     /* sequoia 2 pin enables */
     sequoiaRead(SEQ2_SEQ2PSR_REG,&seqReg);
@@ -242,8 +242,8 @@ void sequoiaInit(void)
      /* setup the wak0 pin to be detect */
     sequoiaRead(SEQR_SEQPSR2_REG,&seqReg);
 
-    SET(seqReg,SEQPSR2_M_DIRTYPINEN); 
-    SET(seqReg,SEQPSR2_M_GPIOB0PINEN); 
+    SET(seqReg,SEQPSR2_M_DIRTYPINEN);
+    SET(seqReg,SEQPSR2_M_GPIOB0PINEN);
 
     sequoiaWrite(SEQR_SEQPSR2_REG,seqReg);
 
@@ -269,8 +269,8 @@ void sequoiaInit(void)
 void consXTvOn(void)
 {
     u_int16_t savedPSR3;
-    u_int16_t savedFMPCR;  
-    /* 
+    u_int16_t savedFMPCR;
+    /*
     ** Switch on TV output on the Sequoia, data indicates mode,
     ** but we are currently hardwired to NTSC, so ignore it.
     */
@@ -286,9 +286,9 @@ void consXTvOn(void)
 void consXTvOff(void)
 {
     u_int16_t savedPSR3;
-    u_int16_t savedFMPCR;  
-    /* 
-    ** Switch off TV output on the Seqoia 
+    u_int16_t savedFMPCR;
+    /*
+    ** Switch off TV output on the Seqoia
     */
     sequoiaRead (SEQR_SEQPSR3_REG, &savedPSR3);
     sequoiaWrite(SEQR_SEQPSR3_REG, (savedPSR3 & ~SEQPSR3_M_PC3PINEN));
@@ -329,7 +329,7 @@ void scrSetPower (int value)
 #ifdef SHARK
     u_int savedints;
 
-    savedints = disable_interrupts(I32_bit | F32_bit);    
+    savedints = disable_interrupts(I32_bit | F32_bit);
 #endif
 
     sequoiaRead(SEQUOIA_1GPIO,&seqReg);
@@ -354,7 +354,7 @@ void scrSetClock (int value)
 #ifdef SHARK
     u_int savedints;
 
-    savedints = disable_interrupts(I32_bit | F32_bit);    
+    savedints = disable_interrupts(I32_bit | F32_bit);
 #endif
 
     sequoiaRead(SEQUOIA_2GPIO,&seqReg);
@@ -378,12 +378,12 @@ void scrSetReset (int value)
 #ifdef SHARK
     u_int savedints;
 
-    savedints = disable_interrupts(I32_bit | F32_bit);    
+    savedints = disable_interrupts(I32_bit | F32_bit);
 #endif
 
     sequoiaRead(SEQUOIA_1GPIO,&seqReg);
 
-    if (value)                         
+    if (value)
     {
         SET(seqReg,SCR_RESET);
     } else
@@ -404,7 +404,7 @@ void scrSetDataHighZ (void)
 #ifdef SHARK
     u_int savedints;
 
-    savedints = disable_interrupts(I32_bit | F32_bit);    
+    savedints = disable_interrupts(I32_bit | F32_bit);
 #endif
 
     sequoiaRead(SEQUOIA_2GPIO,&seqReg);
@@ -418,13 +418,13 @@ void scrSetDataHighZ (void)
 #endif
 }
 
-void scrSetData (int value) 
+void scrSetData (int value)
 {
     u_int16_t  seqReg;
 #ifdef SHARK
     u_int savedints;
 
-    savedints = disable_interrupts(I32_bit | F32_bit);    
+    savedints = disable_interrupts(I32_bit | F32_bit);
 #endif
 
     sequoiaRead(SEQUOIA_2GPIO,&seqReg);
@@ -490,12 +490,12 @@ void ledPanic       (void)
 static void   ledTimeout(void * arg)
 {
     int timeSpan;   /* in usec */
-    
+
     if(time.tv_sec == ledLastActive.tv_sec)
     {
         timeSpan = time.tv_usec -  ledLastActive.tv_usec;
     }
-    
+
     else if (time.tv_sec - 10  < ledLastActive.tv_sec) /* stop rollover problems */
     {
         timeSpan = (1000000 + time.tv_usec) -  ledLastActive.tv_usec;
@@ -505,9 +505,9 @@ static void   ledTimeout(void * arg)
     {
         timeSpan =  LED_NET_ACTIVE * 2; /* ie big number */
     }
-    
-        
-    
+
+
+
     /* check if we are blocked */
     if(ledBlockCount)
     {
@@ -535,7 +535,7 @@ static void   ledTimeout(void * arg)
         }
     }
 
-    /* normal operating mode */        
+    /* normal operating mode */
     else
     {
         if(ledColor != LED_BILED_GREEN)
@@ -556,10 +556,10 @@ static void ledSetBiled(int color)
 #ifdef SHARK
     u_int savedints;
 
-    savedints = disable_interrupts(I32_bit | F32_bit);    
+    savedints = disable_interrupts(I32_bit | F32_bit);
 #endif
-    ledColor = color;    
-    
+    ledColor = color;
+
 
     sequoiaRead (PMC_FOMPCR_REG, &seqReg);
     switch(color)
@@ -568,22 +568,22 @@ static void ledSetBiled(int color)
             SET(seqReg,LED_BILED_YELLOW_BIT);
             SET(seqReg,LED_BILED_GREEN_BIT);
             break;
-    
+
         case LED_BILED_YELLOW:
             CLR(seqReg,LED_BILED_YELLOW_BIT);
             SET(seqReg,LED_BILED_GREEN_BIT);
             break;
-    
+
         case LED_BILED_GREEN:
             SET(seqReg,LED_BILED_YELLOW_BIT);
             CLR(seqReg,LED_BILED_GREEN_BIT);
             break;
-    
+
         case LED_BILED_RED:
             CLR(seqReg,LED_BILED_YELLOW_BIT);
             CLR(seqReg,LED_BILED_GREEN_BIT);
             break;
-    
+
         default:
             panic("invalid color %x\n",color);
             break;
@@ -600,7 +600,7 @@ int hwGetRev(void)
     u_int16_t  seqReg;
 
     sequoiaRead(SR_POR_REG,&seqReg);
-    
+
     seqReg = seqReg >> POR_V_MISCCF0;
     seqReg = seqReg & 0x7;
 
@@ -612,12 +612,12 @@ int hwGetRev(void)
 
 
 /* routines to read/write to sequoia registers */
-void sequoiaWrite(int reg,u_int16_t  seqReg)     
-{   
+void sequoiaWrite(int reg,u_int16_t  seqReg)
+{
 #ifdef SHARK
     u_int savedints;
 
-    savedints = disable_interrupts(I32_bit | F32_bit);    
+    savedints = disable_interrupts(I32_bit | F32_bit);
 #endif
 
     /*
@@ -648,19 +648,19 @@ void sequoiaWrite(int reg,u_int16_t  seqReg)
 #endif
 }
 
-void sequoiaRead (int reg,u_int16_t * seqReg_ptr)     
+void sequoiaRead (int reg,u_int16_t * seqReg_ptr)
 {
 #ifdef SHARK
     u_int savedints;
 
-    savedints = disable_interrupts(I32_bit | F32_bit);    
+    savedints = disable_interrupts(I32_bit | F32_bit);
 #endif
     if(sequoia_index_cache != reg)
     {
         sequoia_index_cache = reg;
-        bus_space_write_2(&isa_io_bs_tag,sequoia_ioh,SEQUOIA_INDEX_OFFSET,reg);    
+        bus_space_write_2(&isa_io_bs_tag,sequoia_ioh,SEQUOIA_INDEX_OFFSET,reg);
     }
-    *seqReg_ptr = bus_space_read_2(&isa_io_bs_tag,sequoia_ioh,SEQUOIA_DATA_OFFSET);  
+    *seqReg_ptr = bus_space_read_2(&isa_io_bs_tag,sequoia_ioh,SEQUOIA_DATA_OFFSET);
 #ifdef SHARK
     restore_interrupts(savedints);
 #endif
@@ -673,14 +673,14 @@ void ledSetDebug(int command)
 #ifdef SHARK
     u_int savedints;
 
-    savedints = disable_interrupts(I32_bit | F32_bit);    
+    savedints = disable_interrupts(I32_bit | F32_bit);
 #endif
     sequoiaRead (PMC_FOMPCR_REG, &seqReg);
 
 
-    switch (command) 
+    switch (command)
     {
-        case LED_DEBUG_STATE_0:    
+        case LED_DEBUG_STATE_0:
             CLR(seqReg,LED_DEBUG_YELLOW_BIT);
             CLR(seqReg,LED_DEBUG_GREEN_BIT);
             break;
@@ -727,16 +727,16 @@ void ledSetDebug(int command)
 }
 
 
-#ifdef USEFULL_DEBUG  
+#ifdef USEFULL_DEBUG
 void sequoiaOneAccess(void)
 {
 u_int16_t reg;
 #ifdef SHARK
     u_int savedints;
 
-    savedints = disable_interrupts(I32_bit | F32_bit);    
+    savedints = disable_interrupts(I32_bit | F32_bit);
 #endif
-    reg = bus_space_read_2(&isa_io_bs_tag,sequoia_ioh,SEQUOIA_DATA_OFFSET);  
+    reg = bus_space_read_2(&isa_io_bs_tag,sequoia_ioh,SEQUOIA_DATA_OFFSET);
 #ifdef SHARK
     restore_interrupts(savedints);
 #endif
@@ -750,7 +750,7 @@ void scrToggleTestPin (void)
 #ifdef SHARK
     u_int savedints;
 
-    savedints = disable_interrupts(I32_bit | F32_bit);    
+    savedints = disable_interrupts(I32_bit | F32_bit);
 #endif
 
     sequoiaRead(SEQUOIA_2GPIO,&seqReg);
@@ -759,7 +759,7 @@ void scrToggleTestPin (void)
     {
         testPin = 0;
         CLR(seqReg,SCR_BUGA);
-    } 
+    }
     else
     {
         SET(seqReg,SCR_BUGA);

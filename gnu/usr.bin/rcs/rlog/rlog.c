@@ -104,37 +104,37 @@ Report problems and direct all questions to:
  *
  * Revision 4.7  89/05/01  15:13:48  narten
  * changed copyright header to reflect current distribution rules
- * 
+ *
  * Revision 4.6  88/08/09  19:13:28  eggert
  * Check for memory exhaustion; don't access freed storage.
  * Shrink stdio code size; remove lint.
- * 
+ *
  * Revision 4.5  87/12/18  11:46:38  narten
  * more lint cleanups (Guy Harris)
- * 
+ *
  * Revision 4.4  87/10/18  10:41:12  narten
  * Updating version numbers
  * Changes relative to 1.1 actually relative to 4.2
- * 
+ *
  * Revision 1.3  87/09/24  14:01:10  narten
- * Sources now pass through lint (if you ignore printf/sprintf/fprintf 
+ * Sources now pass through lint (if you ignore printf/sprintf/fprintf
  * warnings)
- * 
+ *
  * Revision 1.2  87/03/27  14:22:45  jenkins
  * Port to suns
- * 
+ *
  * Revision 4.2  83/12/05  09:18:09  wft
  * changed rewriteflag to external.
- * 
+ *
  * Revision 4.1  83/05/11  16:16:55  wft
  * Added -b, updated getnumericrev() accordingly.
  * Replaced getpwuid() with getcaller().
- * 
+ *
  * Revision 3.7  83/05/11  14:24:13  wft
  * Added options -L and -R;
  * Fixed selection bug with -l on multiple files.
  * Fixed error on dates of the form -d'>date' (rewrote getdatepair()).
- * 
+ *
  * Revision 3.6  82/12/24  15:57:53  wft
  * shortened output format.
  *

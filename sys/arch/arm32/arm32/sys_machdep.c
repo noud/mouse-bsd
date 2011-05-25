@@ -96,11 +96,11 @@ sys_sysarch(p, v, retval)
 	int error = 0;
 
 	switch(SCARG(uap, op)) {
-	case ARM32_SYNC_ICACHE : 
+	case ARM32_SYNC_ICACHE :
 		error = arm32_sync_icache(p, SCARG(uap, parms), retval);
 		break;
 
-	case ARM32_DRAIN_WRITEBUF : 
+	case ARM32_DRAIN_WRITEBUF :
 		error = arm32_drain_writebuf(p, SCARG(uap, parms), retval);
 		break;
 
@@ -110,5 +110,5 @@ sys_sysarch(p, v, retval)
 	}
 	return (error);
 }
-  
+
 /* End of sys_machdep.c */

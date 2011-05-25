@@ -60,7 +60,7 @@ java_value_print (val, stream, format, pretty)
       long length;
       unsigned int things_printed = 0;
       int i = 0;
-      int reps; 
+      int reps;
       read_memory (address + JAVA_OBJECT_SIZE, buf4, 4);
       length = (long) extract_signed_integer (buf4, 4);
       fprintf_filtered (stream, "{length: %ld", length);
@@ -188,7 +188,7 @@ java_print_value_fields (type, valaddr, address, stream,
 	  struct type *baseclass = check_typedef (TYPE_BASECLASS (type, i));
 	  char *basename = TYPE_NAME (baseclass);
 	  char *base_valaddr;
-	  
+
 	  if (BASETYPE_VIA_VIRTUAL (type, i))
 	    continue;
 
@@ -213,7 +213,7 @@ java_print_value_fields (type, valaddr, address, stream,
 	  java_print_value_fields (baseclass, base_valaddr, address + boffset,
 				   stream, format, recurse+1, pretty);
 	  fputs_filtered (", ", stream);
-	  
+
 	flush_it:
 	  ;
 	}
@@ -258,7 +258,7 @@ java_print_value_fields (type, valaddr, address, stream,
 	      fprintf_filtered (stream, "\n");
 	      print_spaces_filtered (2 + 2 * recurse, stream);
 	    }
-	  else 
+	  else
 	    {
 	      wrap_here (n_spaces (2 + 2 * recurse));
 	    }
@@ -335,7 +335,7 @@ java_print_value_fields (type, valaddr, address, stream,
 		}
 	      else
 		{
-	           val_print (TYPE_FIELD_TYPE (type, i), 
+	           val_print (TYPE_FIELD_TYPE (type, i),
 			      valaddr + TYPE_FIELD_BITPOS (type, i) / 8,
 			      address + TYPE_FIELD_BITPOS (type, i) / 8,
 			      stream, format, 0, recurse + 1, pretty);

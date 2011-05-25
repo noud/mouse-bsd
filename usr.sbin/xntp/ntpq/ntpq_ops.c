@@ -373,7 +373,7 @@ makequerydata(vlist, datalen, data)
 		totallen = namelen + valuelen + (valuelen != 0) + (cp != data);
 		if (cp + totallen > cpend)
 			break;
-		
+
 		if (cp != data)
 			*cp++ = ',';
 		memmove(cp, vl->name, namelen);
@@ -844,15 +844,15 @@ dogetassoc(fp)
 
 	res = doquery(CTL_OP_READSTAT, 0, 0, 0, (char *)0, &rstatus,
 	    &dsize, (char **)&datap);
-	
+
 	if (res != 0)
 		return 0;
-	
+
 	if (dsize == 0) {
 		(void) fprintf(fp, "No association ID's returned\n");
 		return 0;
 	}
-	
+
 	if (dsize & 0x3) {
 		(void) fprintf(stderr,
 	    "***Server returned %d octets, should be multiple of 4\n",
@@ -975,7 +975,7 @@ printassoc(showall, fp)
 					condition = "sys.peer";
 			       	 	break;
 				}
-			
+
 		} else {
 			reach = "no";
 			auth = condition = "";
@@ -1174,7 +1174,7 @@ when(ts, rec, reftime)
 		lasttime = reftime;
 	else
 		return 0;
-	
+
 	return (ts->l_ui - lasttime->l_ui);
 }
 
@@ -1213,7 +1213,7 @@ prettyinterval(buf, diff)
 	diff = (diff + 11) / 24;
 	(void) sprintf(buf, "%ldd", (long int)diff);
 	return buf;
-}	
+}
 
 
 /*
@@ -1256,7 +1256,7 @@ struct varlist peervarlist[] = {
 #define	HAVE_REFID	1
 #define	HAVE_STRATUM	2
 #define	HAVE_HPOLL	3
-#define	HAVE_PPOLL 	4	
+#define	HAVE_PPOLL 	4
 #define	HAVE_REACH	5
 #define	HAVE_DELAY	6
 #define	HAVE_OFFSET	7
@@ -1306,7 +1306,7 @@ doprintpeers(pvl, associd, rstatus, datalen, data, fp)
 
 	memset((char *)havevar, 0, sizeof(havevar));
 	get_systime(&ts);
-	
+
 	while (nextvar(&datalen, &data, &name, &value)) {
 		u_int32 dummy;
 
@@ -1426,7 +1426,7 @@ doprintpeers(pvl, associd, rstatus, datalen, data, fp)
 			    pvl[i].name, associd);
 			return 0;
 		}
-	
+
 
 	/*
 	 * Got everything, format the line
@@ -1461,7 +1461,7 @@ doprintpeers(pvl, associd, rstatus, datalen, data, fp)
 #undef	HAVE_REC
 #undef	HAVE_SRCPORT
 #undef	HAVE_REFTIME
-#undef	MAXHAVE	
+#undef	MAXHAVE
 
 
 /*
@@ -1500,7 +1500,7 @@ dogetpeers(pvl, associd, fp)
 		return 0;
 	}
 
-	
+
 	return doprintpeers(pvl, associd, (int)rstatus, dsize, datap, fp);
 }
 

@@ -375,7 +375,7 @@ mcdopen(dev, flag, fmt, p)
 	    sc->disksize, sc->blksize, 0);
 
 	part = MCDPART(dev);
-	
+
 	/* Check that the partition exists. */
 	if (part != RAW_PART &&
 	    (part >= sc->sc_dk.dk_label->d_npartitions ||
@@ -423,7 +423,7 @@ mcdclose(dev, flag, fmt, p)
 	struct mcd_softc *sc = mcd_cd.cd_devs[MCDUNIT(dev)];
 	int part = MCDPART(dev);
 	int error;
-	
+
 	MCD_TRACE("close: partition=%d\n", part, 0, 0, 0);
 
 	if ((error = mcdlock(sc)) != 0)
@@ -460,7 +460,7 @@ mcdstrategy(bp)
 	struct disklabel *lp = sc->sc_dk.dk_label;
 	daddr_t blkno;
 	int s;
-	
+
 	/* Test validity. */
 	MCD_TRACE("strategy: buf=0x%lx blkno=%ld bcount=%ld\n", bp,
 	    bp->b_blkno, bp->b_bcount, 0);
@@ -482,7 +482,7 @@ mcdstrategy(bp)
 	/* No data to read. */
 	if (bp->b_bcount == 0)
 		goto done;
-	
+
 	/*
 	 * Do bounds checking, adjust transfer. if error, process.
 	 * If end of partition, just return.
@@ -500,7 +500,7 @@ mcdstrategy(bp)
 	if (MCDPART(bp->b_dev) != RAW_PART)
 		blkno += lp->d_partitions[MCDPART(bp->b_dev)].p_offset;
 
-	bp->b_rawblkno = blkno; 
+	bp->b_rawblkno = blkno;
 
 	/* Queue it. */
 	s = splbio();
@@ -523,7 +523,7 @@ mcdstart(sc)
 {
 	struct buf *bp;
 	int s;
-	
+
 loop:
 	s = splbio();
 
@@ -600,7 +600,7 @@ mcdioctl(dev, cmd, addr, flag, p)
 	struct mcd_softc *sc = mcd_cd.cd_devs[MCDUNIT(dev)];
 	int error;
 	int part;
-	
+
 	MCD_TRACE("ioctl: cmd=0x%x\n", cmd, 0, 0, 0);
 
 	if ((sc->flags & MCDF_LOADED) == 0)
@@ -764,7 +764,7 @@ mcdgetdisklabel(sc)
 	struct mcd_softc *sc;
 {
 	struct disklabel *lp = sc->sc_dk.dk_label;
-	
+
 	bzero(sc->sc_dk.dk_cpulabel, sizeof(struct cpu_disklabel));
 
 	mcdgetdefaultlabel(sc, lp);
@@ -1061,7 +1061,7 @@ mcd_send(sc, mbx, diskin)
 	int retry, i, error;
 	bus_space_tag_t iot = sc->sc_iot;
 	bus_space_handle_t ioh = sc->sc_ioh;
-	
+
 	if (sc->debug) {
 		printf("%s: mcd_send: %d %02x", sc->sc_dev.dv_xname,
 		    mbx->cmd.length, (u_int)mbx->cmd.opcode);
@@ -1335,7 +1335,7 @@ mcd_hard_reset(sc)
 	mbx.res.length = 0;
 	return mcd_send(sc, &mbx, 0);
 }
-	
+
 int
 mcd_setmode(sc, mode)
 	struct mcd_softc *sc;
@@ -1613,7 +1613,7 @@ mcd_read_subchannel(sc, ch)
 	case CD_MEDIA_CATALOG:
 		data.what.media_catalog.mc_valid = 1;
 #if 0
-		data.what.media_catalog.mc_number = 
+		data.what.media_catalog.mc_number =
 #endif
 		break;
 
@@ -1825,7 +1825,7 @@ mcd_setlock(sc, mode)
 	int mode;
 {
 	struct mcd_mbox mbx;
-	
+
 	mbx.cmd.opcode = MCD_CMDSETLOCK;
 	mbx.cmd.length = sizeof(mbx.cmd.data.lockmode);
 	mbx.cmd.data.lockmode.mode = mode;

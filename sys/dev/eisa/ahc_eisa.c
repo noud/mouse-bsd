@@ -115,7 +115,7 @@ int
 ahc_eisa_match(parent, match, aux)
 	struct device *parent;
         struct cfdata *match;
-        void *aux; 
+        void *aux;
 {
 	struct eisa_attach_args *ea = aux;
 	bus_space_tag_t iot = ea->ea_iot;
@@ -202,7 +202,7 @@ ahc_eisa_attach(parent, self, aux)
 	}
 
 	/*
-	 * Now that we know we own the resources we need, do the 
+	 * Now that we know we own the resources we need, do the
 	 * card initialization.
 	 *
 	 * First, the aic7770 card specific setup.
@@ -237,14 +237,14 @@ ahc_eisa_attach(parent, self, aux)
 		break;
 	}
 
-	/*      
+	/*
 	 * See if we have a Rev E or higher aic7770. Anything below a
 	 * Rev E will have a R/O autoflush disable configuration bit.
 	 * It's still not clear exactly what is differenent about the Rev E.
 	 * We think it allows 8 bit entries in the QOUTFIFO to support
 	 * "paging" SCBs so you can have more than 4 commands active at
 	 * once.
-	 */     
+	 */
 	{
 		char *id_string;
 		u_char sblkctl;

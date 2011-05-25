@@ -63,7 +63,7 @@ abort()
 	sigdelset(&mask, SIGABRT);
 	(void)sigprocmask(SIG_SETMASK, &mask, (sigset_t *)NULL);
 
-	/* 
+	/*
 	 * POSIX.1 requires that stdio buffers be flushed on abort.
 	 * We ensure the cleanup routines are only called once in
 	 * case the user calls abort() in a SIGABRT handler.

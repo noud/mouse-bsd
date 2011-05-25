@@ -81,7 +81,7 @@ ah_print(register const u_char *bp, register const u_char *bp2)
 	if (bp + sizeof(struct ah) + sumlen > ep)
 		fputs("[truncated]", stdout);
 	fputs("): ", stdout);
-	
+
 	return sizeof(struct ah) + sumlen;
  trunc:
 	fputs("[|AH]", stdout);

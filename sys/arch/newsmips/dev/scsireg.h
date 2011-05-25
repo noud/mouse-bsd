@@ -262,8 +262,8 @@ struct sc_softc {
 	int scsi_1185AQ;
 	int pad_start;
 
-	int	wbc;	/* # of channel that is waiting for scsi bus free */	
-	int	wrc;	/* # of channel that is waiting for reselection */	
+	int	wbc;	/* # of channel that is waiting for scsi bus free */
+	int	wrc;	/* # of channel that is waiting for reselection */
 	struct sc_chan_stat *ip;
 			/* In progress channel. Same as ISTAT.IP */
 	int	ipc;		/* number of in progress channel. */

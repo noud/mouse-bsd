@@ -203,7 +203,7 @@ wsemul_dumb_output(cookie, data, count, kernel)
 			    edp->nrows - n, n, edp->defattr);
 			edp->crow -= n - 1;
 			break;
-		}	
+		}
 	}
 	/* XXX */
 	(*edp->emulops->cursor)(edp->emulcookie, 1, edp->crow, edp->ccol);

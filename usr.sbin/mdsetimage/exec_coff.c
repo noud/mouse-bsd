@@ -94,7 +94,7 @@ findoff_coff(mappedfile, mappedsize, vmaddr, fileoffp)
 	    vmaddr < (exechdrp->a.a_tstart + exechdrp->a.a_tsize))
 		*fileoffp = vmaddr - exechdrp->a.a_tstart +
 		    COFF_TXTOFF(&exechdrp->f, &(exechdrp->a));
-	else if (exechdrp->a.a_dstart <= vmaddr && 
+	else if (exechdrp->a.a_dstart <= vmaddr &&
             vmaddr < (exechdrp->a.a_dstart + exechdrp->a.a_dsize))
 		*fileoffp = vmaddr - exechdrp->a.a_dstart +
 		    COFF_DATOFF_XXX(&exechdrp->f, &(exechdrp->a));

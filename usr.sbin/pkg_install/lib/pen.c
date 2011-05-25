@@ -67,7 +67,7 @@ restore_dirs(char *c, char *p)
 	strcpy(Current, c);
 	CurrentSet = 1;		/* rm -fr Current is safe now */
 	free(c);
-	
+
 	strcpy(Previous, p);
 	free(p);
 }
@@ -159,7 +159,7 @@ make_playpen(char *pen, size_t pensize, size_t sz)
 		errx(2, "can't chdir to '%s'", pen);
 	}
 	strcpy(Current, pen); CurrentSet = 1;
-	
+
 	return Previous;
 }
 

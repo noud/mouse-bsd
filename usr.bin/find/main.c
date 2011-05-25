@@ -123,7 +123,7 @@ main(argc, argv)
 			break;
 		}
 
-	argc -= optind;	
+	argc -= optind;
 	argv += optind;
 
 	/*

@@ -33,9 +33,9 @@
 
 #include <stand.h>
 #include <ufs.h>
- 
+
 struct fs_ops file_system[] = {
 	{ ufs_open, ufs_close, ufs_read, ufs_write, ufs_seek, ufs_stat },
 };
- 
+
 int nfsys = sizeof(file_system)/sizeof(struct fs_ops);

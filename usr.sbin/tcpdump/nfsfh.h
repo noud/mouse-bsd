@@ -1,7 +1,7 @@
 /*	$NetBSD: nfsfh.h,v 1.4 1997/10/03 19:54:45 christos Exp $	*/
 
 /*
- * Header: nfsfh.h,v 1.6 96/12/16 03:40:31 leres Exp 
+ * Header: nfsfh.h,v 1.6 96/12/16 03:40:31 leres Exp
  *
  * nfsfh.h - NFS file handle definitions (for portable use)
  *

@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "gdb_string.h"
 #include "value.h"
 #include "inferior.h"
-#include "dis-asm.h"  
+#include "dis-asm.h"
 #include "symfile.h"
 #include "objfiles.h"
 
@@ -59,7 +59,7 @@ d10v_pop_frame ()
   /* fill out fsr with the address of where each */
   /* register was stored in the frame */
   get_frame_saved_regs (frame, &fsr);
-  
+
   /* now update the current registers with the old values */
   for (regnum = A0_REGNUM; regnum < A0_REGNUM+2 ; regnum++)
     {
@@ -87,7 +87,7 @@ d10v_pop_frame ()
   flush_cached_frames ();
 }
 
-static int 
+static int
 check_prologue (op)
      unsigned short op;
 {
@@ -139,7 +139,7 @@ d10v_skip_prologue (pc)
       if ( sal.end && sal.end < func_end)
 	return sal.end;
     }
-  
+
   if (target_read_memory (pc, (char *)&op, 4))
     return pc;			/* Can't access it -- assume no prologue. */
 
@@ -161,8 +161,8 @@ d10v_skip_prologue (pc)
 	    {
 	      op2 = (op & 0x3FFF8000) >> 15;
 	      op1 = op & 0x7FFF;
-	    } 
-	  else 
+	    }
+	  else
 	    {
 	      op1 = (op & 0x3FFF8000) >> 15;
 	      op2 = op & 0x7FFF;
@@ -206,7 +206,7 @@ d10v_frame_chain (frame)
     {
       if (!fsr.regs[SP_REGNUM] || fsr.regs[SP_REGNUM] == STACK_START)
 	return (CORE_ADDR)0;
-      
+
       return fsr.regs[SP_REGNUM];
     }
 
@@ -214,11 +214,11 @@ d10v_frame_chain (frame)
     return (CORE_ADDR)0;
 
   return read_memory_unsigned_integer(fsr.regs[FP_REGNUM],2)| DMEM_START;
-}  
+}
 
 static int next_addr, uses_frame;
 
-static int 
+static int
 prologue_find_regs (op, fsr, addr)
      unsigned short op;
      struct frame_saved_regs *fsr;
@@ -345,8 +345,8 @@ d10v_frame_find_saved_regs (fi, fsr)
 	    {
 	      op2 = (op & 0x3FFF8000) >> 15;
 	      op1 = op & 0x7FFF;
-	    } 
-	  else 
+	    }
+	  else
 	    {
 	      op1 = (op & 0x3FFF8000) >> 15;
 	      op2 = op & 0x7FFF;
@@ -356,7 +356,7 @@ d10v_frame_find_saved_regs (fi, fsr)
 	}
       pc += 4;
     }
-  
+
   fi->size = -next_addr;
 
   if (!(fp & 0xffff))
@@ -365,14 +365,14 @@ d10v_frame_find_saved_regs (fi, fsr)
   for (i=0; i<NUM_REGS-1; i++)
     if (fsr->regs[i])
       {
-	fsr->regs[i] = fp - (next_addr - fsr->regs[i]); 
+	fsr->regs[i] = fp - (next_addr - fsr->regs[i]);
       }
 
   if (fsr->regs[LR_REGNUM])
     fi->return_pc = (read_memory_unsigned_integer(fsr->regs[LR_REGNUM],2) << 2) | IMEM_START;
   else
     fi->return_pc = (read_register(LR_REGNUM) << 2) | IMEM_START;
-  
+
   /* th SP is not normally (ever?) saved, but check anyway */
   if (!fsr->regs[SP_REGNUM])
     {
@@ -420,7 +420,7 @@ show_regs (args, from_tty)
                    read_register (6),
                    read_register (7));
   printf_filtered ("R8-R15 %04x %04x %04x %04x %04x %04x %04x %04x\n",
-                   read_register (8), 
+                   read_register (8),
                    read_register (9),
                    read_register (10),
                    read_register (11),
@@ -530,9 +530,9 @@ d10v_fix_call_dummy (dummyname, start_sp, fun, nargs, args, type, gcc_p)
       store_address (buffer, REGISTER_RAW_SIZE(regnum), read_register(regnum));
       write_memory (sp, buffer, REGISTER_RAW_SIZE(regnum));
     }
-  write_register (SP_REGNUM, (LONGEST)(sp & 0xffff)); 
+  write_register (SP_REGNUM, (LONGEST)(sp & 0xffff));
   /* now we need to load LR with the return address */
-  write_register (LR_REGNUM, (LONGEST)(d10v_call_dummy_address() & 0xffff) >> 2);  
+  write_register (LR_REGNUM, (LONGEST)(d10v_call_dummy_address() & 0xffff) >> 2);
   return sp;
 }
 
@@ -621,7 +621,7 @@ d10v_push_arguments (nargs, args, sp, struct_return, struct_addr)
 		  len = 2;
 		}
 	    }
-	  
+
 	  if (regnum < 6 )
 	    {
 	      if (len == 4)
@@ -665,7 +665,7 @@ d10v_call_dummy_address ()
     return SYMBOL_VALUE_ADDRESS (sym);
 }
 
-/* Given a return value in `regbuf' with a type `valtype', 
+/* Given a return value in `regbuf' with a type `valtype',
    extract and copy its value into `valbuf'.  */
 
 void
@@ -953,7 +953,7 @@ display_trace (low, high)
   for (i = low; i < high; ++i)
     {
       next_address = trace_data.addrs[i];
-      count = trace_data.counts[i]; 
+      count = trace_data.counts[i];
       while (count-- > 0)
 	{
 	  QUIT;
@@ -1027,4 +1027,4 @@ as reported by info trace (NOT addresses!).");
 				  "Set display of source code with trace.\n", &setlist),
 		     &showlist);
 
-} 
+}

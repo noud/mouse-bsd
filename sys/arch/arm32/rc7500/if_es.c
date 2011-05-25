@@ -328,7 +328,7 @@ esinit(sc)
 #endif
 	/* Attempt to start output, if any. */
 	esstart(ifp);
- 
+
 	(void)splx(s);
 }
 

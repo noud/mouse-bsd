@@ -172,7 +172,7 @@ ns_control(so, cmd, data, ifp, p)
 
 	case SIOCSIFADDR:
 		return (ns_ifinit(ifp, ia, satosns(&ifr->ifr_addr), 1));
-	
+
 	case SIOCAIFADDR:
 		dstIsNew = 0;
 		hostIsNew = 1;
@@ -246,7 +246,7 @@ ns_purgeif(ifp)
 void
 ns_ifscrub(ifp, ia)
 	register struct ifnet *ifp;
-	register struct ns_ifaddr *ia; 
+	register struct ns_ifaddr *ia;
 {
 
 	if ((ia->ia_flags & IFA_ROUTE) == 0)

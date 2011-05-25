@@ -219,7 +219,7 @@ again:
 	 */
 	if (p->p_flag & P_PROFIL) {
 		extern int psratio;
-		
+
 		addupc_task(p, fp->f_pc,
 		    (int)(p->p_sticks - oticks) * psratio);
 	}
@@ -355,7 +355,7 @@ copyfault:
 		i = SIGILL;
 		break;
 	/*
-	 * divde by zero, CHK/TRAPV inst 
+	 * divde by zero, CHK/TRAPV inst
 	 */
 	case T_ZERODIV|T_USER:		/* Divide by zero trap */
 	case T_CHKINST|T_USER:		/* CHK instruction trap */
@@ -364,15 +364,15 @@ copyfault:
 		i = SIGFPE;
 		break;
 
-	/* 
+	/*
 	 * User coprocessor violation
 	 */
 	case T_COPERR|T_USER:
 		ucode = 0;
 		i = SIGFPE;	/* XXX What is a proper response here? */
 		break;
-	/* 
-	 * 6888x exceptions 
+	/*
+	 * 6888x exceptions
 	 */
 	case T_FPERR|T_USER:
 		/*
@@ -656,7 +656,7 @@ copyfault:
 	if ((type & T_USER) == 0)
 		return;
 out:
-	userret(p, &frame, sticks, v, 1); 
+	userret(p, &frame, sticks, v, 1);
 }
 
 #if defined(M68040)
@@ -1009,7 +1009,7 @@ syscall(code, frame)
 		if (code != SUNOS_SYS_sigreturn) {
 			frame.f_regs[SP] += sizeof (int);
 			/*
-			 * remember that we adjusted the SP, 
+			 * remember that we adjusted the SP,
 			 * might have to undo this if the system call
 			 * returns ERESTART.
 			 */
@@ -1135,7 +1135,7 @@ syscall(code, frame)
 			error = p->p_emul->e_errno[error];
 		frame.f_regs[D0] = error;
 		frame.f_sr |= PSL_C;	/* carry bit */
-		break;	
+		break;
 	}
 
 #ifdef SYSCALL_DEBUG

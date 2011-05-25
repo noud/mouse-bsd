@@ -44,7 +44,7 @@
  */
 
 /*
- *	screg_1185.h	ver 0.0		
+ *	screg_1185.h	ver 0.0
  *		for SCSI I/F Chip CXD1185Q
  */
 

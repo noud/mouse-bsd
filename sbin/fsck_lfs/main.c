@@ -350,7 +350,7 @@ checkfilesys(filesys, mntpt, auxdata, child)
 		sbdirty();
 	}
 	if (cvtlevel && sblk.b_dirty) {
-		/* 
+		/*
 		 * Write out the duplicate super blocks
 		 */
 		for (cylno = 0; cylno < sblock.lfs_ncg; cylno++)

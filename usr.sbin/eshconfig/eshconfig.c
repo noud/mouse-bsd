@@ -5,7 +5,7 @@
  * All rights reserved.
  *
  * This code contributed to The NetBSD Foundation by Kevin M. Lahey
- * of the Numerical Aerospace Simulation Facility, NASA Ames Research 
+ * of the Numerical Aerospace Simulation Facility, NASA Ames Research
  * Center.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -133,7 +133,7 @@ u_int32_t runcode[RR_EE_SIZE];
 struct ifdrv ifd;
 
 /* drvspec_ioctl
- * 
+ *
  * We defined a driver-specific socket ioctl to allow us to tweak
  * the characteristics of network devices.  This routine will
  * provide a shortcut to calling this routine, which would otherwise
@@ -147,7 +147,7 @@ drvspec_ioctl(char *name, int fd, int cmd, int len, caddr_t data)
 	ifd.ifd_cmd = cmd;
 	ifd.ifd_len = len;
 	ifd.ifd_data = data;
-    
+
 	return ioctl(fd, SIOCSDRVSPEC, (caddr_t) &ifd);
 }
 
@@ -194,7 +194,7 @@ do_map(int value, struct map_dma *map)
  *
  * Reverse the mapping.
  */
- 
+
 static int
 do_map_dma(int value, struct map_dma *map)
 {
@@ -315,7 +315,7 @@ main(argc, argv)
 		esh_tuning_stats();
 	}
 
-	if (eeprom_write || dma_thresh_read != -1 || 
+	if (eeprom_write || dma_thresh_read != -1 ||
 	    dma_thresh_write != -1 ||
 	    dma_min_grab != -1 ||
 	    dma_max_read != -1 ||
@@ -353,7 +353,7 @@ esh_tune()
 		    != dma_min_grab)
 			usage();
 		rr_tune.rt_pci_state &= ~RR_PS_MIN_DMA_MASK;
-		rr_tune.rt_pci_state |= 
+		rr_tune.rt_pci_state |=
 			(dma_min_grab << RR_PS_MIN_DMA_SHIFT);
 	}
 
@@ -361,7 +361,7 @@ esh_tune()
 		if (dma_thresh_write < 1 || dma_thresh_write > RR_DW_THRESHOLD_MAX)
 			usage();
 		rr_tune.rt_dma_write_state &= ~RR_DW_THRESHOLD_MASK;
-		rr_tune.rt_dma_write_state |= 
+		rr_tune.rt_dma_write_state |=
 			dma_thresh_write << RR_DW_THRESHOLD_SHIFT;
 	}
 
@@ -369,7 +369,7 @@ esh_tune()
 		if (dma_thresh_read < 1 || dma_thresh_read > RR_DR_THRESHOLD_MAX)
 			usage();
 		rr_tune.rt_dma_read_state &= ~RR_DR_THRESHOLD_MASK;
-		rr_tune.rt_dma_read_state |= 
+		rr_tune.rt_dma_read_state |=
 			dma_thresh_read << RR_DR_THRESHOLD_SHIFT;
 	}
 
@@ -400,21 +400,21 @@ esh_tune_eeprom()
 	rr_eeprom.ifr_length = sizeof(tuning_data);
 	rr_eeprom.ifr_offset = 0;
 
-	if (drvspec_ioctl(name, s, EIOCGEEPROM, sizeof(struct rr_eeprom), 
+	if (drvspec_ioctl(name, s, EIOCGEEPROM, sizeof(struct rr_eeprom),
 			  (caddr_t) &rr_eeprom) == -1)
 		err(6, "ioctl to retrieve tuning information from EEPROM");
 
 	tuning_data[RR_EE_PCI_STATE / RR_EE_WORD_LEN] =
 		rr_tune.rt_pci_state;
-	tuning_data[RR_EE_DMA_WRITE_STATE / RR_EE_WORD_LEN] = 
+	tuning_data[RR_EE_DMA_WRITE_STATE / RR_EE_WORD_LEN] =
 		rr_tune.rt_dma_write_state;
-	tuning_data[RR_EE_DMA_READ_STATE / RR_EE_WORD_LEN] = 
+	tuning_data[RR_EE_DMA_READ_STATE / RR_EE_WORD_LEN] =
 		rr_tune.rt_dma_read_state;
 	tuning_data[RR_EE_INTERRUPT_TIMER / RR_EE_WORD_LEN] = rr_tune.rt_interrupt_timer;
-	tuning_data[RR_EE_STATS_TIMER / RR_EE_WORD_LEN] = 
+	tuning_data[RR_EE_STATS_TIMER / RR_EE_WORD_LEN] =
 		ESH_STATS_TIMER_DEFAULT;
 
-	tuning_data[RR_EE_HEADER_CHECKSUM / RR_EE_WORD_LEN] = 
+	tuning_data[RR_EE_HEADER_CHECKSUM / RR_EE_WORD_LEN] =
 		rr_checksum(&tuning_data[FIRST], LAST - FIRST);
 
 	rr_eeprom.ifr_buffer = tuning_data;
@@ -453,7 +453,7 @@ eeprom_upload(const char *filename)
 }
 
 /* eeprom_download
- * 
+ *
  * Download into eeprom the contents of a file.  The file is made up
  * of ASCII text;  the first three characters can be ignored, the next
  * four hex characters define an address, the next two characters can
@@ -496,7 +496,7 @@ eeprom_download(const char *filename)
 			  (caddr_t) &rr_eeprom) == -1)
 		err(5, "ioctl to retrieve EEPROM");
 
-	/* 
+	/*
 	 * Open the input file and proceed to read the data file, storing
 	 * the data and counting the number of segments.
 	 */
@@ -512,7 +512,7 @@ eeprom_download(const char *filename)
 		if (!strncmp(buffer + 7, "01", 2)) { /* check for EOF marker... */
 			eof = 1;
 		} else {
-			sscanf(buffer, "%3s%4x%2s%8x%2s", 
+			sscanf(buffer, "%3s%4x%2s%8x%2s",
 			       id, &address, pad, &value, pad);
 			if (strcmp(id, ":04") != 0)
 				errx(3, "bad initial id on line %d", line);
@@ -545,7 +545,7 @@ eeprom_download(const char *filename)
 			continue;
 		last_address = address;
 
-		/* 
+		/*
 		 * If we haven't started a segment yet, do so now.
 		 * Store away the address at which this code should be placed
 		 * in memory and the address of the code in the EEPROM.
@@ -566,7 +566,7 @@ eeprom_download(const char *filename)
 
 		if (in_segment && value == 0)
 			zero_count++;
-		else 
+		else
 			zero_count = 0;
 
 		/* Store away the actual data */
@@ -584,21 +584,21 @@ eeprom_download(const char *filename)
 	phase2_start = eeprom[RR_EE_PHASE2_EE_START / RR_EE_WORD_LEN];
 	phase2_start = (phase2_start - RR_EE_OFFSET) / RR_EE_WORD_LEN;
 
-	printf("segment table start = %x, segments = %d\n", 
+	printf("segment table start = %x, segments = %d\n",
 	       seg_table_start, eeprom[seg_count_offset]);
 
 	/* We'll fill in anything after the segment count, so clear it */
 
-	bzero(eeprom + seg_count_offset, 
+	bzero(eeprom + seg_count_offset,
 	      sizeof(eeprom) - seg_count_offset * sizeof(eeprom[0]));
 
 	eeprom[seg_count_offset] = segment;
 
 	for (i = 0; i < segment; i++)
-		segd[i].ee_addr = RR_EE_OFFSET + 
+		segd[i].ee_addr = RR_EE_OFFSET +
 			(segd[i].ee_addr + phase2_checksum + 1) * RR_EE_WORD_LEN;
 
-	bcopy(segd, &eeprom[seg_table_start], 
+	bcopy(segd, &eeprom[seg_table_start],
 	      sizeof(struct rr_seg_descr) * segment);
 
 	bcopy(runcode, &eeprom[phase2_checksum + 1],
@@ -607,11 +607,11 @@ eeprom_download(const char *filename)
 	eeprom[phase2_checksum] = rr_checksum(&eeprom[phase2_start],
 					      phase2_checksum - phase2_start);
 
-	eeprom[segment_start + phase2_checksum + 1] = 
+	eeprom[segment_start + phase2_checksum + 1] =
 		rr_checksum(&eeprom[phase2_checksum + 1], segment_start);
 
 	printf("phase2 checksum %x, runcode checksum %x\n",
-	       eeprom[phase2_checksum], 
+	       eeprom[phase2_checksum],
 	       eeprom[segment_start + phase2_checksum + 1]);
 
 	rr_eeprom.ifr_buffer = eeprom;
@@ -737,28 +737,28 @@ esh_stats(int get_stats)
 static void
 esh_tuning_stats()
 {
-	printf("rt_mode_and_status = %x\n", 
+	printf("rt_mode_and_status = %x\n",
 	       rr_tune.rt_mode_and_status);
-	printf("rt_conn_retry_count = %x\n", 
+	printf("rt_conn_retry_count = %x\n",
 	       rr_tune.rt_conn_retry_count);
-	printf("rt_conn_retry_timer = %x\n", 
+	printf("rt_conn_retry_timer = %x\n",
 	       rr_tune.rt_conn_retry_timer);
 	printf("rt_conn_timeout = %x\n", rr_tune.rt_conn_timeout);
 	printf("rt_stats_timer = %x\n", rr_tune.rt_stats_timer);
-	printf("rt_interrupt_timer = %x\n", 
+	printf("rt_interrupt_timer = %x\n",
 	       rr_tune.rt_interrupt_timer);
 	printf("rt_tx_timeout = %x\n", rr_tune.rt_tx_timeout);
 	printf("rt_rx_timeout = %x\n", rr_tune.rt_rx_timeout);
 	printf("rt_pci_state = %x"
-	       "     min dma %x  read max %x write max %x\n", 
+	       "     min dma %x  read max %x write max %x\n",
 	       rr_tune.rt_pci_state,
-	       (rr_tune.rt_pci_state & RR_PS_MIN_DMA_MASK) 
+	       (rr_tune.rt_pci_state & RR_PS_MIN_DMA_MASK)
 	       >> RR_PS_MIN_DMA_SHIFT,
 	       do_map_dma(rr_tune.rt_pci_state & RR_PS_READ_MASK,
 			  read_dma_map),
 	       do_map_dma(rr_tune.rt_pci_state & RR_PS_WRITE_MASK,
 			  write_dma_map));
-	printf("rt_dma_write_state = %x\n", 
+	printf("rt_dma_write_state = %x\n",
 	       rr_tune.rt_dma_write_state);
 	printf("rt_dma_read_state = %x\n", rr_tune.rt_dma_read_state);
 	printf("rt_driver_param = %x\n", rr_tune.rt_driver_param);

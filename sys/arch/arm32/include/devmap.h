@@ -65,7 +65,7 @@ struct map_info {
 	} map_info_ioctl;          /* used for ioctl method */
 	struct {
 	    off_t map_offset;      /* offset to be given to mmap, page aligned */
-	    size_t map_size;       /* size to be given to mmap, page aligned */ 
+	    size_t map_size;       /* size to be given to mmap, page aligned */
 	    off_t internal_offset; /* internal offset in mapped rgn to data */
 	    size_t internal_size;  /* actual size of accessible region */
 	} map_info_mmap;           /* used for mmap'd methods */

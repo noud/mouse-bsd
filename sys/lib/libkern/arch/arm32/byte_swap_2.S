@@ -46,4 +46,4 @@ _END_ENTRY
 	and		r1, r0, #0xFF00
 	mov		r0, r0, lsl #8
 	orr		r0, r0, r1, lsr #8
-	mov		pc, lr  
+	mov		pc, lr

@@ -1,4 +1,4 @@
-@c This is the usage section for send-pr.  It is called as 
+@c This is the usage section for send-pr.  It is called as
 @c chapter (Invoking send-pr) by send-pr.texi, and also as
 @c section (Submitting Problem Reports) by gnats.texi (chapter/section
 @c identifiers are adjusted accordingly)
@@ -86,10 +86,10 @@ The template begins with a comment section:
 @group
 SEND-PR: -*- send-pr  -*-
 SEND-PR: Lines starting with `SEND-PR' will be removed
-SEND-PR: automatically as well as all comments (the text 
+SEND-PR: automatically as well as all comments (the text
 SEND-PR: below enclosed in `<' and `>').
-SEND-PR: 
-SEND-PR: Please consult the document `Reporting Problems 
+SEND-PR:
+SEND-PR: Please consult the document `Reporting Problems
 SEND-PR: Using send-pr' if you are not sure how to fill out
 SEND-PR: a problem report.
 SEND-PR:
@@ -165,7 +165,7 @@ pre-configured information:
 >How-To-Repeat:
        <code/input/activities to reproduce (multiple lines)>
 >Fix:
-       <how to correct or work around the problem, if known 
+       <how to correct or work around the problem, if known
         (multiple lines)>
 @end group
 @end smallexample
@@ -224,7 +224,7 @@ automatically appended to the Problem Report in the @samp{>Audit-Trail:}
 field in the order received.
 
 @c ---------------------------------------------------------------
-@node send-pr in Emacs 
+@node send-pr in Emacs
 @section Using @code{send-pr} from within Emacs
 @cindex using @code{send-pr} from within Emacs
 @cindex @code{send-pr} within Emacs
@@ -282,7 +282,7 @@ in the template with
 @end smallexample
 
 @noindent
-and moves on to another field.  
+and moves on to another field.
 
 @cindex completion in Emacs
 @cindex name completion in Emacs
@@ -468,16 +468,16 @@ mistakes to avoid.
 
 In general, common sense (assuming such an animal exists) dictates the
 kind of information that would be most helpful in tracking down and
-resolving problems in software.  
+resolving problems in software.
 @itemize @bullet
-@item 
+@item
 Include anything @emph{you} would want to know if you were looking at
 the report from the other end.  There's no need to include every minute
 detail about your environment, although anything that might be different
 from someone else's environment should be included (your path, for
 instance).
 
-@item 
+@item
 Narratives are often useful, given a certain degree of restraint.  If a
 person responsible for a bug can see that A was executed, and then B and
 then C, knowing that sequence of events might trigger the realization of
@@ -488,7 +488,7 @@ cup of coffee (Columbian, cream but no sugar), talked to Sheila on the
 phone, and then THIS happened@dots{}'') but be sure to include anything
 relevant.
 
-@item 
+@item
 Richard Stallman writes, ``The fundamental principle of reporting bugs
 usefully is this: @strong{report all the facts}.  If you are not sure
 whether to state a fact or leave it out, state it!''  This holds true

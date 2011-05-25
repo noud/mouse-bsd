@@ -327,7 +327,7 @@ sfb_intr(sc)
 
 	fi = (struct fbinfo *)sc;
 	slot_addr = (((char *)fi->fi_base) - SFB_ASIC_OFFSET);
-	
+
 	/* reset vertical-retrace interrupt by writing a dont-care */
 	*(int*) (slot_addr + SFB_CLEAR) = 0;
 

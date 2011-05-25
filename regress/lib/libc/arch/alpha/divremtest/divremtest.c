@@ -116,7 +116,7 @@ testfile()
 			}
 			encoded |= posval << ((5 - i) * 4);
 		}
-			
+
 		for (i = 1; i < 6; i += 2) {
 			int posval;
 

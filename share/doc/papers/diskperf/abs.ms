@@ -82,7 +82,7 @@ Many of the results of the tests were initially counter-intuitive
 and revealed several important aspects of the VAX implementations
 which were surprising to us.
 .PP
-The hardware used included two  Fujitsu 2351A 
+The hardware used included two  Fujitsu 2351A
 ``Eagle''
 disk drives on each of two foreign-vendor disk controllers
 and two DEC RA-81 disk drives on a DEC UDA-50 disk controller.

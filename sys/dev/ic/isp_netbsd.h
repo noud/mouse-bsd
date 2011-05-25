@@ -36,11 +36,11 @@
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/kernel.h>
-#include <sys/errno.h>  
+#include <sys/errno.h>
 #include <sys/ioctl.h>
 #include <sys/device.h>
 #include <sys/malloc.h>
-#include <sys/buf.h> 
+#include <sys/buf.h>
 #include <sys/proc.h>
 #include <sys/user.h>
 
@@ -74,7 +74,7 @@ struct isposinfo {
 	} un;
 #define	seed		un._seed
 #define	discovered	un._discovered
-	TAILQ_HEAD(, scsipi_xfer) waitq; 
+	TAILQ_HEAD(, scsipi_xfer) waitq;
 };
 
 #define	MAXISPREQUEST	256

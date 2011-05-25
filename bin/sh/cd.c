@@ -320,7 +320,7 @@ getpwd()
 	 * /bin/pwd.
 	 */
 #if defined(__NetBSD__) || defined(__SVR4)
-		
+
 	if (getcwd(buf, sizeof(buf)) == NULL) {
 		char *pwd = getenv("PWD");
 		struct stat stdot, stpwd;

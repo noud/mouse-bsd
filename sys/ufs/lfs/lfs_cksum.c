@@ -97,7 +97,7 @@ cksum(str, len)
 	register size_t len;
 {
 	register u_long sum;
-	
+
 	len &= ~(sizeof(u_short) - 1);
 	for (sum = 0; len; len -= sizeof(u_short)) {
 		sum ^= *(u_short *)str;
@@ -106,12 +106,12 @@ cksum(str, len)
 	return (sum);
 }
 
-u_long	
+u_long
 lfs_sb_cksum(fs)
 	struct dlfs *fs;
 {
-	size_t size;  
-	
+	size_t size;
+
 	size = (size_t)offsetof(struct dlfs, dlfs_cksum);
 	return cksum(fs,size);
 }

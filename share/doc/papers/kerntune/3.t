@@ -35,7 +35,7 @@
 .\"	@(#)3.t	1.2 (Berkeley) 11/8/90
 .\"
 .ds RH Techniques for Improving Performance
-.NH 1 
+.NH 1
 Techniques for Improving Performance
 .PP
 This section gives several hints on general optimization techniques.
@@ -48,7 +48,7 @@ The profiler is a useful tool for improving
 a set of routines that implement an abstraction.
 It can be helpful in identifying poorly coded routines,
 and in evaluating the new algorithms and code that replace them.
-Taking full advantage of the profiler 
+Taking full advantage of the profiler
 requires a careful examination of the call graph profile,
 and a thorough knowledge of the abstractions underlying
 the kernel.
@@ -61,7 +61,7 @@ is to expand a small frequently called routine inline.
 The drawback to inline expansion is that the data abstractions
 in the kernel may become less parameterized,
 hence less clearly defined.
-The profiling will also become less useful since the loss of 
+The profiling will also become less useful since the loss of
 routines will make its output more granular.
 .PP
 Further potential for optimization lies in routines that
@@ -83,7 +83,7 @@ that begins to dominate execution time.
 A completely different use of the profiler is to analyze the control
 flow of an unfamiliar section of the kernel.
 By running an example that exercises the unfamiliar section of the kernel,
-and then using \fIgprof\fR, you can get a view of the 
+and then using \fIgprof\fR, you can get a view of the
 control structure of the unfamiliar section.
 .NH 2
 An Example of Tuning
@@ -112,7 +112,7 @@ long term measurements of general timesharing.
 We have numerous examples where a benchmark program
 suggests vast improvements while the change
 in the long term system performance is negligible,
-and conversely examples in which the benchmark program run more slowly, 
+and conversely examples in which the benchmark program run more slowly,
 but the long term system performance improves significantly.
 .PP
 An investigation of our long term profiling showed that
@@ -152,8 +152,8 @@ The outer loop is traversed once per pathname component.
 The inner loop performs a linear search through a directory looking
 for a particular pathname component.
 .PP
-Our first idea was to observe that many programs 
-step through a directory performing an operation on 
+Our first idea was to observe that many programs
+step through a directory performing an operation on
 each entry in turn.
 This caused us to modify \fInamei\fP to cache
 the directory offset of the last pathname
@@ -167,7 +167,7 @@ $N$ files, search time decreases from $O ( N sup 2 )$
 to $O(N)$.
 .PP
 The cost of the cache is about 20 lines of code
-(about 0.2 kilobytes) 
+(about 0.2 kilobytes)
 and 16 bytes per process, with the cached data
 stored in a process's \fIuser\fP vector.
 .PP
@@ -235,7 +235,7 @@ reducing the directory search time.
 The two cacheing schemes complement each other well.
 .PP
 The cost of the name cache is about 200 lines of code
-(about 1.2 kilobytes) 
+(about 1.2 kilobytes)
 and 44 bytes per cache entry.
 Depending on the size of the system,
 about 200 to 1000 entries will normally be configured,

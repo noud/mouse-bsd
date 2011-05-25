@@ -1,4 +1,4 @@
-/* 
+/*
  * evaluate the dc language, from a FILE* or a string
  *
  * Copyright (C) 1994, 1997, 1998 Free Software Foundation, Inc.
@@ -45,7 +45,7 @@ typedef enum {
 	DC_EATONE,		/* caller needs to eat the lookahead char */
 	DC_QUIT,		/* quit out of unwind_depth levels of evaluation */
 
-	/* with the following return values, the caller does not have to 
+	/* with the following return values, the caller does not have to
 	 * fret about stdin_lookahead's value
 	 */
 	DC_INT,			/* caller needs to parse a dc_num from input stream */

@@ -45,14 +45,14 @@ S!=	cd ../../../..; pwd
 BEBOX=	$S/arch/bebox
 POWERPC= $S/arch/powerpc
 
-HAVE_GCC28!=	${CC} --version | egrep "^(2\.8|egcs)" ; echo 
+HAVE_GCC28!=	${CC} --version | egrep "^(2\.8|egcs)" ; echo
 INCLUDES=	-I. -I$S/arch -I$S -nostdinc
 CPPFLAGS=	${INCLUDES} ${IDENT} ${PARAM} -D_KERNEL -Dbebox
 CWARNFLAGS?=	-Werror -Wreturn-type -Wpointer-arith
 .if (${HAVE_GCC28} != "")
 CWARNFLAGS+=	-Wno-main
 .endif
-CFLAGS=		${DEBUG} ${COPTS} ${CWARNFLAGS} -msoft-float 
+CFLAGS=		${DEBUG} ${COPTS} ${CWARNFLAGS} -msoft-float
 AFLAGS=		-x assembler-with-cpp -traditional-cpp -D_LOCORE
 LINKFLAGS=	-N -Ttext 0x3100 -e __start
 STRIPFLAGS=	--strip-debug
@@ -181,14 +181,14 @@ dependall: depend all
 
 # depend on root or device configuration
 autoconf.o conf.o: Makefile
- 
-# depend on network or filesystem configuration 
-uipc_proto.o vfs_conf.o: Makefile 
+
+# depend on network or filesystem configuration
+uipc_proto.o vfs_conf.o: Makefile
 
 # depend on maxusers
 machdep.o: Makefile
 
-# depend on CPU configuration 
+# depend on CPU configuration
 locore.o machdep.o: Makefile
 
 

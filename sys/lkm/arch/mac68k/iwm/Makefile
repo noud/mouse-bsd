@@ -26,6 +26,6 @@ CFLAGS= 	-g -O -m68020-40
 AFLAGS=		-x assembler-with-cpp -traditional-cpp -D_LOCORE -I$S/arch
 
 
-.include <bsd.kmod.mk> 
+.include <bsd.kmod.mk>
 
 

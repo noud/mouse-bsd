@@ -614,7 +614,7 @@ aout2hux(fn1, fn2, loadadr1, loadadr2, fnx)
 	datasize = inf1.data_size;
 	execoff = inf1.entry_addr - loadadr1;
 
-	DPRINTF(("text: %u, data: %u, pad: %u, bss: %u, exec: %u\n", 
+	DPRINTF(("text: %u, data: %u, pad: %u, bss: %u, exec: %u\n",
 		textsize, datasize, paddingsize, inf1.bss_size, execoff));
 
 	if (textsize & 1) {

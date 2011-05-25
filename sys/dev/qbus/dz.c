@@ -255,7 +255,7 @@ dzxint(arg)
 			ch = getc(cl);
 			DZ_WRITE_BYTE(dr_tbuf, ch);
 			continue;
-		} 
+		}
 		/* Nothing to send; clear the scan bit */
 		/* Clear xmit scanner bit; dzstart may set it again */
 		tcr = DZ_READ_WORD(dr_tcrw);
@@ -345,7 +345,7 @@ dzclose(dev, flag, mode, p)
 	register struct tty *tp;
 	register int unit, line;
 
-	
+
 	unit = DZ_I2C(minor(dev));
 	line = DZ_PORT(minor(dev));
 	sc = dz_cd.cd_devs[unit];
@@ -679,13 +679,13 @@ dzscan(arg)
 
 			tp = sc->sc_dz[port].dz_tty;
 			bit = (1 << port);
-	
+
 			if ((DZ_READ_BYTE(dr_dcd) | sc->sc_dsr) & bit) {
 				if (!(tp->t_state & TS_CARR_ON))
 					(*linesw[tp->t_line].l_modem) (tp, 1);
 			} else if ((tp->t_state & TS_CARR_ON) &&
 			    (*linesw[tp->t_line].l_modem)(tp, 0) == 0) {
-				DZ_WRITE_BYTE(dr_tcr, 
+				DZ_WRITE_BYTE(dr_tcr,
 				    (DZ_READ_WORD(dr_tcrw) & 255) & ~bit);
 			}
 	    	}

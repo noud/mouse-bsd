@@ -792,18 +792,18 @@ _bfd_xcoff_get_dynamic_reloc_upper_bound (abfd)
 /* The typical dynamic reloc.  */
 
 static reloc_howto_type xcoff_dynamic_reloc =
-  HOWTO (0,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 32,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 32,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_POS",               /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffffffff,            /* src_mask */                             
-	 0xffffffff,            /* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_POS",               /* name */
+	 true,	                /* partial_inplace */
+	 0xffffffff,            /* src_mask */
+	 0xffffffff,            /* dst_mask */
 	 false);                /* pcrel_offset */
 
 /* Get the dynamic relocs.  */
@@ -3145,7 +3145,7 @@ bfd_xcoff_link_count_reloc (output_bfd, info, name)
 
   h->flags |= XCOFF_REF_REGULAR | XCOFF_LDREL;
   ++xcoff_hash_table (info)->ldrel_count;
-  
+
   /* Mark the symbol to avoid garbage collection.  */
   if (! xcoff_mark_symbol (info, h))
     return false;
@@ -6329,7 +6329,7 @@ _bfd_ppc_xcoff_relocate_section (output_bfd, info, input_bfd,
 	  addend = 0;
 	}
       else
-	{    
+	{
 	  h = obj_xcoff_sym_hashes (input_bfd)[symndx];
 	  sym = syms + symndx;
 	  addend = - sym->n_value;

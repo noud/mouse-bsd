@@ -364,7 +364,7 @@ prtstat(sfsp, maxwidth)
 		used = inodes - sfsp->f_ffree;
 		(void)printf(" %7ld %7ld %6s ", used, sfsp->f_ffree,
 		   inodes == 0 ? full : strpct((u_long)used, (u_long)inodes, 0));
-	} else 
+	} else
 		(void)printf("  ");
 	(void)printf("  %s\n", sfsp->f_mntonname);
 }

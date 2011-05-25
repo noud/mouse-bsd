@@ -113,7 +113,7 @@ out:
 	return (allok ? statbuf.st_ino : (ino_t) - 1);
 }
 
-void 
+void
 cleanupfileondev(diskdev, bootblkname, recover)
 	char *diskdev, *bootblkname;
 	int recover;

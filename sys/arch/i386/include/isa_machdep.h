@@ -249,7 +249,7 @@ struct intrhand {
 	int	ih_irq;
 };
 
- 
+
 /*
  * ISA DMA bounce buffers.
  * XXX should be made partially machine- and bus-mapping-independent.

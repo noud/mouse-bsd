@@ -38,7 +38,7 @@
 .NH 1
 Introduction
 .PP
-The purpose of this paper is to describe the tools and techniques 
+The purpose of this paper is to describe the tools and techniques
 that are available for improving the performance of the the kernel.
 The primary tool used to measure the kernel is the hierarchical
 profiler \fIgprof\fP.

@@ -1,4 +1,4 @@
-.\"	$NetBSD: install,v 1.4 1999/01/13 07:30:03 ross Exp $	
+.\"	$NetBSD: install,v 1.4 1999/01/13 07:30:03 ross Exp $
 .\"
 .\" Copyright (c) 1999 The NetBSD Foundation, Inc.
 .\" All rights reserved.
@@ -198,7 +198,7 @@ as a separate partition. That can be done with these installation
 tools, but is not covered here.) The install program will
 tell you how much space there is left to be allocated in the
 NetBSD area of the disk, and, if you only want one more
-partition 
+partition
 .Pq Pa /usr ,
 you should enter it at the prompt when the
 installer asks you how large the next partition should be.
@@ -288,7 +288,7 @@ extract one distribution set at a time. To do this,
 load only the floppies which contain the files for the
 first distribution set, extract them, and then change
 to the temporary directory and remove them with the
-command 
+command
 .Ic rm set_name.??
 .tag)
 
@@ -458,7 +458,7 @@ Once this is done, extract the required sets as
 described in the "To install from floppy" section, but
 ensure that you set the temporary directory to the
 location of the sets on the CDROM (usually
-.Pa /cdrom/distrib , 
+.Pa /cdrom/distrib ,
 but check the release notes that came with the CD).
 
 .Ss2 Completing\ your\ installation

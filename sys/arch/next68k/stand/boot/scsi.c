@@ -73,7 +73,7 @@ scsi_init(void)
     dma = (struct dma_dev *)P_SCSI_CSR;
 
     dma_buffer = DMA_ALIGN(char *, the_dma_buffer);
-    
+
     P_FLOPPY[FLP_CTRL] &= ~FLC_82077_SEL;	/* select SCSI chip */
 
     /* first reset dma */
@@ -92,7 +92,7 @@ scsi_init(void)
     /* now reset the SCSI bus */
     sr[ESP_CMD]        = ESPCMD_RSTSCSI;
     DELAY(18000000);	/* XXX should be about 2-3 seconds at least */
-    
+
     /* then reset the SCSI chip again and initialize it properly */
     sr[ESP_CMD]        = ESPCMD_RSTCHIP;
     sr[ESP_CMD]        = ESPCMD_NOP;
@@ -121,7 +121,7 @@ scsierror(char *error)
 short
 scsi_getbyte(volatile caddr_t sr)
 {
-    if ((sr[ESP_FFLAG] & ESPFIFO_FF) == 0) 
+    if ((sr[ESP_FFLAG] & ESPFIFO_FF) == 0)
     {
 	printf("getbyte: no data!\n");
 	return -1;
@@ -181,7 +181,7 @@ scsiicmd(char target, char lun,
 	sr[ESP_FIFO] = cbuf[i];
     sr[ESP_CMD]   = ESPCMD_SELATN;
     sc->sc_state  = SCSI_SELECTING;
-    
+
     while(sc->sc_state != SCSI_DONE) {
 	if (scsi_wait_for_intr()) /* maybe we'd better use real intrs ? */
 	    return EIO;
@@ -199,12 +199,12 @@ scsiicmd(char target, char lun,
 	    DPRINTF(("scsiicmd: regs[intr=%x, stat=%x, step=%x]\n",
 		     sc->sc_intrstatus, sc->sc_status, sc->sc_seqstep));
 	}
-	
+
 	if (sc->sc_intrstatus & ESPINTR_SBR) {
 	    scsierror("scsi bus reset");
 	    return EIO;
 	}
-	
+
 	if ((sc->sc_status & ESPSTAT_GE)
 	    || (sc->sc_intrstatus & ESPINTR_ILL)) {
 	    scsierror("software error");
@@ -219,12 +219,12 @@ scsiicmd(char target, char lun,
 	switch(sc->sc_state)
 	{
 	  case SCSI_SELECTING:
-	      if (sc->sc_intrstatus & ESPINTR_DIS) 
+	      if (sc->sc_intrstatus & ESPINTR_DIS)
 	      {
 		  sc->sc_state = SCSI_IDLE;
 		  return EUNIT;	/* device not present */
 	      }
-	      
+
 #define ESPINTR_DONE (ESPINTR_BS | ESPINTR_FC)
 	      if ((sc->sc_intrstatus & ESPINTR_DONE) != ESPINTR_DONE)
 	      {
@@ -291,7 +291,7 @@ scsiicmd(char target, char lun,
     sc->sc_state = SCSI_IDLE;
     return -sc->sc_result;
 }
-    
+
 int
 scsi_msgin(void)
 {
@@ -321,11 +321,11 @@ dma_start(char *addr, int len)
 {
     volatile caddr_t sr;
     struct dma_dev *dma;
-    
-    
+
+
     sr = P_SCSI;
     dma = (struct dma_dev *)P_SCSI_CSR;
-    
+
     if (len > MAX_DMASIZE)
     {
 	scsierror("dma too long");
@@ -346,15 +346,15 @@ dma_start(char *addr, int len)
 	return -1;
 #endif
     }
-    
+
     DPRINTF(("dma start: %lx, %d byte.\n", (long)addr, len));
 
-    DPRINTF(("dma_bufffer: start: 0x%lx end: 0x%lx \n", 
+    DPRINTF(("dma_bufffer: start: 0x%lx end: 0x%lx \n",
 				(long)dma_buffer,(long)DMA_ENDALIGN(char *, dma_buffer+len)));
 
     sc->dma_addr = addr;
     sc->dma_len = len;
-    
+
     sr[ESP_TCL]  = len & 0xff;
     sr[ESP_TCM]  = len >> 8;
     sr[ESP_CMD]  = ESPCMD_DMA | ESPCMD_NOP;
@@ -385,7 +385,7 @@ dma_done(void)
     volatile caddr_t sr;
     struct dma_dev *dma;
     int count, state;
-    
+
     sr = P_SCSI;
     dma = (struct dma_dev *)P_SCSI_CSR;
 
@@ -394,8 +394,8 @@ dma_done(void)
 
     count = sr[ESP_TCM]<<8 | sr[ESP_TCL];
     DPRINTF(("dma state = 0x%x, remain = %d.\n", state, count));
-    
-    if (state & DMACSR_ENABLE) 
+
+    if (state & DMACSR_ENABLE)
     {
 
 			DPRINTF(("dma still enabled, flushing DCTL.\n"));
@@ -437,6 +437,6 @@ dma_done(void)
 	return -1;
     }
     scsierror("dma not completed\n");
-    
+
     return -1;
 }

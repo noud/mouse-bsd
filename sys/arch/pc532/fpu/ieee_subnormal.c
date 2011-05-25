@@ -1,21 +1,21 @@
 /*	$NetBSD: ieee_subnormal.c,v 1.1 1996/04/04 06:36:30 phil Exp $	*/
 
-/* 
+/*
  * IEEE floating point support for NS32081 and NS32381 fpus.
  * Copyright (c) 1995 Ian Dall
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
+ *
  * IAN DALL ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" CONDITION.
  * IAN DALL DISCLAIMS ANY LIABILITY OF ANY KIND FOR ANY DAMAGES
  * WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
  */
-/* 
+/*
  *	File:	ieee_subnormal.c
  *	Author:	Ian Dall
  *	Date:	November 1995
@@ -109,7 +109,7 @@ int ieee_normalize(union t_conv *data)
 }
 
 /* Divide by 2**n producing a denormalized no if necessary */
-static void denormalize(union t_conv *data, int n)  
+static void denormalize(union t_conv *data, int n)
 {
   int exp = data->d_bits.exp;
   if(exp > n)

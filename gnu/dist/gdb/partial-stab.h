@@ -105,7 +105,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 		  END_PSYMTAB (pst, psymtab_include_list, includes_used,
 			       symnum * symbol_size,
 			       CUR_SYMBOL_VALUE > pst->texthigh
-				 ? CUR_SYMBOL_VALUE : pst->texthigh, 
+				 ? CUR_SYMBOL_VALUE : pst->texthigh,
 			       dependency_list, dependencies_used, textlow_not_set);
 		  pst = (struct partial_symtab *) 0;
 		  includes_used = 0;
@@ -312,11 +312,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 	  {
 	    enum language tmp_language;
 	    /* Mark down an include file in the current psymtab */
-	    
+
 	    SET_NAMESTRING();
-  
+
 	    tmp_language = deduce_language_from_filename (namestring);
-  
+
 	    /* Only change the psymtab's language if we've learned
 	       something useful (eg. tmp_language is not language_unknown).
 	       In addition, to match what start_subfile does, never change
@@ -325,13 +325,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 		&& (tmp_language != language_c
 		    || psymtab_language != language_cplus))
 	      psymtab_language = tmp_language;
-	    
+
 	    /* In C++, one may expect the same filename to come round many
 	       times, when code is coming alternately from the main file
 	       and from inline functions in other files. So I check to see
 	       if this is a file we've seen before -- either the main
 	       source file, or a previously included file.
-	       
+
 	       This seems to be a lot of time to be spending on N_SOL, but
 	       things like "break c-exp.y:435" need to work (I
 	       suppose the psymtab_include_list could be hashed or put
@@ -343,22 +343,22 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 	      for (i = 0; i < includes_used; i++)
 		if (STREQ (namestring, psymtab_include_list[i]))
 		  {
-		    i = -1; 
+		    i = -1;
 		    break;
 		  }
 	      if (i == -1)
 		continue;
 	    }
-	    
+
 #ifdef DBXREAD_ONLY
 	  record_include_file:
 #endif
-	    
+
 	    psymtab_include_list[includes_used++] = namestring;
 	    if (includes_used >= includes_allocated)
 	      {
 		char **orig = psymtab_include_list;
-		
+
 		psymtab_include_list = (char **)
 		  alloca ((includes_allocated *= 2) *
 			  sizeof (char *));

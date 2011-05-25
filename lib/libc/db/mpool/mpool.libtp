@@ -3,13 +3,13 @@
 VERSION $NetBSD: mpool.libtp,v 1.4 1997/08/25 19:31:43 kleink Exp $
 PACKAGE: 	User Level Shared Memory Manager
 
-DESCRIPTION: 	
+DESCRIPTION:
 	This package provides a buffer pool interface implemented as
 	a collection of file pages mapped into shared memory.
 
 	Based on Mark's buffer manager
 
-ROUTINES: 
+ROUTINES:
     External
 	buf_alloc
 	buf_flags
@@ -25,7 +25,7 @@ ROUTINES:
 	bf_fid_to_fd
 	bf_newbuf
 	bf_put_page
-	
+
 
 ******************************************************************************/
 #include	<sys/types.h>
@@ -42,7 +42,7 @@ ROUTINES:
 #include	"error.h"
 
 /*
-    we need to translate between some type of file id that the user 
+    we need to translate between some type of file id that the user
     process passes and a file descriptor.  For now, it's a nop.
 */
 #define GET_MASTER      get_sem ( buf_spinlock )
@@ -155,7 +155,7 @@ buf_init ( )
 		return(1);
 	}
 	error_log0 ( "Initialized buffer region\n" );
-    } 
+    }
     return (0);
 }
 
@@ -190,8 +190,8 @@ bf_newbuf()
     BUFHDR_T	*bhp;
 
     lruid = LRUID;
-    for ( bhp = LRUP; 
-	  bhp->flags & (BUF_PINNED|BUF_IO_IN_PROGRESS); 
+    for ( bhp = LRUP;
+	  bhp->flags & (BUF_PINNED|BUF_IO_IN_PROGRESS);
 	  bhp = LISTP_NEXTP (bufhdr_table, lru, bhp ) ) {
 
 	if ( bhp->lru.next == lruid ) {
@@ -204,7 +204,7 @@ bf_newbuf()
     /* BHP can be used */
     if ( bhp->flags & BUF_DIRTY ) {
 	do_statistics = 1;
-	/* 
+	/*
 	    MIS  Check for log flushed appropriately
 	*/
 	fd = bf_fid_to_fd(bhp->id.file_id);
@@ -226,7 +226,7 @@ bf_newbuf()
 		buf_hash_table[ndx] = NUM_BUFS;
 	}
     }
-    INIT_BUF(bhp); 
+    INIT_BUF(bhp);
 
     return(bhp);
 }
@@ -282,7 +282,7 @@ int	*new_pageno;
 	Buffer Flags
 	BF_DIRTY		Mark page as dirty
 	BF_EMPTY		Don't initialize page, just get buffer
-	BF_PIN			Retrieve with pin 
+	BF_PIN			Retrieve with pin
 
 MIS
 Might want to add a flag that sets an LSN for this buffer is the
@@ -304,7 +304,7 @@ int	*len;		/* Number of bytes read into buffer */
 	int		ndx;
 	int		next_bufid;
 	int		stat;
-	OBJ_T		fobj;	
+	OBJ_T		fobj;
 
 	ndx = BUF_HASH ( file_id, page_id );
 	fobj.file_id = (long) file_id;
@@ -315,11 +315,11 @@ int	*len;		/* Number of bytes read into buffer */
 	/*
 		This could be a for loop, but we lose speed
 		by making all the cases general purpose so we
-		optimize for the no-collision case. 
+		optimize for the no-collision case.
 	*/
-	bufid = buf_hash_table[ndx]; 
+	bufid = buf_hash_table[ndx];
 	if ( bufid < NUM_BUFS ) {
-	    for ( bhp = bufhdr_table+bufid; 
+	    for ( bhp = bufhdr_table+bufid;
 		  !OBJ_EQ (bhp->id, fobj) || !(bhp->flags & BUF_VALID);
 		  bhp = LISTP_NEXTP ( bufhdr_table, hash, bhp ) ) {
 
@@ -332,7 +332,7 @@ int	*len;		/* Number of bytes read into buffer */
 		    bhp->flags |= BUF_PINNED;
 		    bhp->refcount++;
 #ifdef PIN_DEBUG
-	fprintf(stderr, "buf_get: %X PINNED (%d)\n", 
+	fprintf(stderr, "buf_get: %X PINNED (%d)\n",
 			buf_table + (bhp-bufhdr_table), bhp->refcount);
 #endif
 	    }
@@ -436,18 +436,18 @@ u_long	unset_flags;
 
 #ifdef PIN_DEBUG
 	fprintf(stderr, "buf_flags: %X setting %s%s%s%s%s releasing %s%s%s%s%s\n",
-	    addr, 
-	    set_flags&BUF_DIRTY ? "DIRTY " : "", 
-	    set_flags&BUF_VALID ? "VALID " : "", 
-	    set_flags&BUF_PINNED ? "PINNED " : "", 
-	    set_flags&BUF_IO_ERROR ? "IO_ERROR " : "", 
-	    set_flags&BUF_IO_IN_PROGRESS ? "IO_IN_PROG " : "", 
-	    set_flags&BUF_NEWPAGE ? "NEWPAGE " : "", 
-	    unset_flags&BUF_DIRTY ? "DIRTY " : "", 
-	    unset_flags&BUF_VALID ? "VALID " : "", 
-	    unset_flags&BUF_PINNED ? "PINNED " : "", 
-	    unset_flags&BUF_IO_ERROR ? "IO_ERROR " : "", 
-	    unset_flags&BUF_IO_IN_PROGRESS ? "IO_IN_PROG " : "", 
+	    addr,
+	    set_flags&BUF_DIRTY ? "DIRTY " : "",
+	    set_flags&BUF_VALID ? "VALID " : "",
+	    set_flags&BUF_PINNED ? "PINNED " : "",
+	    set_flags&BUF_IO_ERROR ? "IO_ERROR " : "",
+	    set_flags&BUF_IO_IN_PROGRESS ? "IO_IN_PROG " : "",
+	    set_flags&BUF_NEWPAGE ? "NEWPAGE " : "",
+	    unset_flags&BUF_DIRTY ? "DIRTY " : "",
+	    unset_flags&BUF_VALID ? "VALID " : "",
+	    unset_flags&BUF_PINNED ? "PINNED " : "",
+	    unset_flags&BUF_IO_ERROR ? "IO_ERROR " : "",
+	    unset_flags&BUF_IO_IN_PROGRESS ? "IO_IN_PROG " : "",
 	    unset_flags&BUF_NEWPAGE ? "NEWPAGE " : "" );
 #endif
     if (!ADDR_OK(addr)) {
@@ -537,7 +537,7 @@ char	*fname;
 }
 
 static	int
-bf_fid_to_fd ( fid ) 
+bf_fid_to_fd ( fid )
 int	fid;
 {
 	struct stat sbuf;
@@ -547,20 +547,20 @@ int	fid;
 	    return(fds[fid]);
 
 	}
-	fds[fid] = open ( buf_strings+buf_fids[fid].offset, O_RDWR|O_CREAT, 
+	fds[fid] = open ( buf_strings+buf_fids[fid].offset, O_RDWR|O_CREAT,
 			  0666 );
 	if ( fds[fid] < 0 ) {
-	    error_log3 ( "Error Opening File %s FID: %d FD: %d.  Errno = %d\n", 
-			    buf_strings+buf_fids[fid].offset, fid, fds[fid], 
+	    error_log3 ( "Error Opening File %s FID: %d FD: %d.  Errno = %d\n",
+			    buf_strings+buf_fids[fid].offset, fid, fds[fid],
 			    errno );
 	    return(-1);
 	}
-	error_log3 ( "Opening File %s FID: %d FD: %d\n", 
+	error_log3 ( "Opening File %s FID: %d FD: %d\n",
 			buf_strings+buf_fids[fid].offset, fid, fds[fid] );
 	if ( buf_fids[fid].npages == -1 ) {
 		/* Initialize the npages field */
 		if ( fstat ( fds[fid], &sbuf ) ) {
-		    error_log3 ( "Error Fstating %s FID: %d.  Errno = %d\n", 
+		    error_log3 ( "Error Fstating %s FID: %d.  Errno = %d\n",
 				buf_strings+buf_fids[fid].offset, fid, errno );
 		} else {
 		    buf_fids[fid].npages = ( sbuf.st_size / BUFSIZE );
@@ -571,7 +571,7 @@ int	fid;
 }
 
 static int
-bf_put_page ( fd, bhp ) 
+bf_put_page ( fd, bhp )
 int	fd;
 BUFHDR_T	*bhp;
 {
@@ -626,7 +626,7 @@ int	*len;		/* Number of bytes read */
 	bhp->flags |= BUF_PINNED;
 	bhp->refcount++;
 #ifdef PIN_DEBUG
-	fprintf(stderr, "bf_assign_buf: %X PINNED (%d)\n", 
+	fprintf(stderr, "bf_assign_buf: %X PINNED (%d)\n",
 		buf_table + (bhp-bufhdr_table), bhp->refcount);
 #endif
     }
@@ -660,7 +660,7 @@ int	*len;		/* Number of bytes read */
 	    bhp->flags &= ~BUF_IO_IN_PROGRESS;
 	    bhp->flags |= ~BUF_IO_ERROR;
 	    return(NULL);
-	} 
+	}
 	if (GET_MASTER) {
 		return(NULL);
 	}
@@ -668,7 +668,7 @@ int	*len;		/* Number of bytes read */
 	if ( bhp->wait_proc != -1 ) {
 	    /* wake up waiter and anyone waiting on it */
 #ifdef DEBUG
-	    printf("Waking transaction %d due to completed I/O\n", 
+	    printf("Waking transaction %d due to completed I/O\n",
 		bhp->wait_proc);
 #endif
 	    proc_wake_id ( bhp->wait_proc );
@@ -699,7 +699,7 @@ int	fid;
 	    /* initialize npages field */
 	    (void) bf_fid_to_fd ( fid );
 	}
-	val = buf_fids[fid].npages;	
+	val = buf_fids[fid].npages;
 	if ( val ) {
 		val--;			/* Convert to page number */
 	}

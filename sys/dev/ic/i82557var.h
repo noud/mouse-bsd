@@ -37,16 +37,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*                  
+/*
  * Copyright (c) 1995, David Greenman
  * All rights reserved.
- *              
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
- * are met:             
+ * are met:
  * 1. Redistributions of source code must retain the above copyright
  *    notice unmodified, this list of conditions, and the following
- *    disclaimer.  
+ *    disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
@@ -211,7 +211,7 @@ struct fxp_softc {
 #if NRND > 0
 	rndsource_element_t rnd_source;	/* random source */
 #endif
-	
+
 };
 
 #define	FXP_RXMAP_GET(sc)	((sc)->sc_rxmaps[(sc)->sc_rxfree++])

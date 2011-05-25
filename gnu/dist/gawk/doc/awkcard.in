@@ -1,21 +1,21 @@
 .\" AWK Reference Card --- Arnold Robbins, arnold@gnu.ai.mit.edu
 .\"
 .\" Copyright (C) 1996, 97 Free Software Foundation, Inc.
-.\" 
+.\"
 .\" Permission is granted to make and distribute verbatim copies of
 .\" this reference card provided the copyright notice and this permission
 .\" notice are preserved on all copies.
-.\" 
+.\"
 .\" Permission is granted to process this file through troff and print the
 .\" results, provided the printed document carries copying permission
 .\" notice identical to this one except for the removal of this paragraph
 .\" (this paragraph not being relevant to the printed reference card).
-.\" 
+.\"
 .\" Permission is granted to copy and distribute modified versions of this
 .\" reference card under the conditions for verbatim copying, provided that
 .\" the entire resulting derived work is distributed under the terms of a
 .\" permission notice identical to this one.
-.\" 
+.\"
 .\" Permission is granted to copy and distribute translations of this
 .\" reference card into another language, under the above conditions for
 .\" modified versions, except that this permission notice may be stated in
@@ -590,7 +590,7 @@ Decreasing the value of \*(FCNF\fP causes the trailing fields to be lost
 .nf
 	\*(FCBEGIN
 	END
-	\*(FIexpression	
+	\*(FIexpression
 	pat1\*(FC,\*(FIpat2\*(FR
 .sp .5
 .fi
@@ -1522,7 +1522,7 @@ Michael Brennan's \*(MK. There may be a newer version.\*(CX
 .ES
 .fi
 \*(CDCopyright \(co 1996, 1997 Free Software Foundation, Inc.
-.sp .5   
+.sp .5
 Permission is granted to make and distribute verbatim copies of this
 reference card provided the copyright notice and this permission notice
 are preserved on all copies.

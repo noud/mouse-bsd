@@ -8,7 +8,7 @@ static const char rcsid[] = "Id: ns_resp.c,v 8.133 1999/11/05 04:40:57 vixie Exp
 /*
  * Copyright (c) 1986, 1988, 1990
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -24,7 +24,7 @@ static const char rcsid[] = "Id: ns_resp.c,v 8.133 1999/11/05 04:40:57 vixie Exp
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -40,14 +40,14 @@ static const char rcsid[] = "Id: ns_resp.c,v 8.133 1999/11/05 04:40:57 vixie Exp
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -166,7 +166,7 @@ struct flush_set {
 	struct db_list *fs_last;
 };
 
-static void		rrsetadd(struct flush_set *, const char *, 
+static void		rrsetadd(struct flush_set *, const char *,
 				 struct databuf *),
 			rrsetupdate(struct flush_set *, int flags,
 				    struct sockaddr_in, int),
@@ -202,7 +202,7 @@ learntFrom(struct qinfo *qp, struct sockaddr_in *server) {
 	char *a, *ns, *na;
 	struct databuf *db;
 	int i;
-	
+
 	a = ns = na = "<Not Available>";
 
 	for (i = 0; (u_int)i < qp->q_naddr; i++) {
@@ -246,7 +246,7 @@ learntFrom(struct qinfo *qp, struct sockaddr_in *server) {
 
 	if (a == ns && ns == na)	/* all "UNKNOWN" */
 		return (NULL);
-	
+
 	if (*a == '\0')
 		a = "\".\"";
 	if (*ns == '\0')
@@ -491,7 +491,7 @@ ns_resp(u_char *msg, int msglen, struct sockaddr_in from, struct qstream *qsp)
 					"Response from unexpected source (%s)",
 					sin_ntoa(from));
 			}
-			/* 
+			/*
 			 * We don't know who this response came from so it
 			 * gets dropped on the floor.
 			 */
@@ -525,7 +525,7 @@ ns_resp(u_char *msg, int msglen, struct sockaddr_in from, struct qstream *qsp)
 			rtrip = ((tt.tv_sec - stp->tv_sec) * 1000 +
 				 (tt.tv_usec - stp->tv_usec) / 1000);
 		}
-		
+
 		if (ns_wouldlog(ns_log_default,3)) {
 			ns_debug(ns_log_default, 3,
 				 "stime %lu/%lu  now %lu/%lu rtt %ld",
@@ -581,7 +581,7 @@ ns_resp(u_char *msg, int msglen, struct sockaddr_in from, struct qstream *qsp)
 		 * Watch out for records that may have timed out
 		 * and are no longer the correct type.			XXX
 		 */
-		
+
 		for (n = 0, qs = qp->q_addr;
 		     (u_int)n < qp->q_naddr;
 		     n++, qs++) {
@@ -622,7 +622,7 @@ ns_resp(u_char *msg, int msglen, struct sockaddr_in from, struct qstream *qsp)
 	if (hp->opcode == NS_NOTIFY_OP) {
 		ns_info(ns_log_notify,
 			"Received NOTIFY answer from %s for \"%s %s %s\"",
-			inet_ntoa(from.sin_addr), 
+			inet_ntoa(from.sin_addr),
 			*(qp->q_name) ? qp->q_name : ".",
 			p_class(qp->q_class), p_type(qp->q_type));
 		qremove(qp);
@@ -764,7 +764,7 @@ ns_resp(u_char *msg, int msglen, struct sockaddr_in from, struct qstream *qsp)
 
 				ns_info(ns_log_lame_servers,
 					"Lame server on '%s' (in '%s'?): %s%s",
-					qname, qp->q_domain, 
+					qname, qp->q_domain,
 					sin_ntoa(from),
 					(learnt_from == NULL) ? "" :
 					learnt_from);
@@ -937,7 +937,7 @@ tcp_retry:
 				if (!externalcname)
 					ns_info(ns_log_resp_checks,
 						"wrong ans. name (%s != %s)",
-						name[0] ? name : ".", 
+						name[0] ? name : ".",
 						aname[0] ? aname : ".");
 				else
 					ns_debug(ns_log_resp_checks, 3,
@@ -1160,7 +1160,7 @@ tcp_retry:
 	 * a definitive answer.
 	 */
 	if ((hp->rcode == NXDOMAIN && cname == ancount) ||
-	    (hp->rcode == NOERROR && ancount == 0 && 
+	    (hp->rcode == NOERROR && ancount == 0 &&
 	     (nscount == 0 || soacount != 0)
 	     )
 	    )
@@ -1274,7 +1274,7 @@ tcp_retry:
 			count = 0;
 #endif
 			hp->rcode = NXDOMAIN;
-			/* 
+			/*
 			 * XXX forcing AA all the time isn't right, but
 			 * we have to work that way by default
 			 * for compatibility with older servers.
@@ -1577,7 +1577,7 @@ tcp_retry:
 
 	if (!hp->aa)
 		nameserIncr(qp->q_from.sin_addr, nssSentNaAns);
-	if (hp->rcode == NXDOMAIN) 
+	if (hp->rcode == NXDOMAIN)
 		nameserIncr(qp->q_from.sin_addr, nssSentNXD);
 	n = doaddinfo(hp, cp, buflen);
 	cp += n;
@@ -1604,7 +1604,7 @@ tcp_retry:
 	qremove(qp);
 	free_nsp(nsp);
 	return;
-	
+
  servfail:
 	nameserIncr(qp->q_from.sin_addr, nssSentFail);
 	hp = (HEADER *)(qp->q_cmsglen ? qp->q_cmsg : qp->q_msg);
@@ -1693,7 +1693,7 @@ rrextract(u_char *msg, int msglen, u_char *rrp, struct databuf **dpp,
 	 *   CP points to the RDATA section of the wire-format RR.
 	 *   DLEN is its length.
 	 *   The memory area at DATA is available for processing.
-	 * 
+	 *
 	 * On exit from the switch:
 	 *   CP has been incremented past the RR.
 	 *   CP1 points to the RDATA section of the database-format RR.
@@ -1970,7 +1970,7 @@ rrextract(u_char *msg, int msglen, u_char *rrp, struct databuf **dpp,
 				 p_secstodate (signtime));
 			return ((cp - rrp) + dlen);
 		}
-		
+
 		/* Ignore received SIG RR's that are already expired.  */
 		if (exptime <= now) {
 			ns_debug(ns_log_default, 3,
@@ -2037,7 +2037,7 @@ rrextract(u_char *msg, int msglen, u_char *rrp, struct databuf **dpp,
 		memcpy(cp1, cp, n);
 		cp += n;
 		cp1 += n;
-		
+
 		/* compute size of data */
 		n = cp1 - (u_char *)data;
 		cp1 = (u_char *)data;
@@ -2100,7 +2100,7 @@ rrextract(u_char *msg, int msglen, u_char *rrp, struct databuf **dpp,
 		n = cp1 - (u_char *)data;
 		cp1 = (u_char *)data;
 		break;
-	
+
 	default:
 		ns_debug(ns_log_default, 3, "unknown type %d", type);
 		return ((cp - rrp) + dlen);
@@ -2144,7 +2144,7 @@ send_msg(u_char *msg, int msglen, struct qinfo *qp) {
 		msglen = trunc_adjust(msg, msglen, PACKETSZ);
 	if (ns_wouldlog(ns_log_default, 1)) {
 		ns_debug(ns_log_default, 1, "send_msg -> %s (%s %d) id=%d",
-			 sin_ntoa(qp->q_from), 
+			 sin_ntoa(qp->q_from),
 			 qp->q_stream == NULL ? "UDP" : "TCP",
 			 qp->q_stream == NULL ? qp->q_dfd : qp->q_stream->s_rfd,
 			 ntohs(qp->q_id));
@@ -2180,7 +2180,7 @@ send_msg(u_char *msg, int msglen, struct qinfo *qp) {
 		msgsize = msglen + TSIG_BUF_SIZE;
 		msg = memget(msgsize);
 		memcpy(msg, oldmsg, oldlen);
- 
+
 		ret = ns_sign(msg, &msglen, msgsize, NOERROR, qp->q_tsig->key,
 			      qp->q_tsig->sig, qp->q_tsig->siglen,
 			      sig, &siglen, 0);
@@ -2189,7 +2189,7 @@ send_msg(u_char *msg, int msglen, struct qinfo *qp) {
 			INSIST(0);
 		}
 	}
-	
+
 	if (qp->q_stream == NULL) {
 		/*
 		 * Don't send FORMERR to these well known ports
@@ -2223,7 +2223,7 @@ send_msg(u_char *msg, int msglen, struct qinfo *qp) {
 	} else
 		writestream(qp->q_stream, (u_char*)msg, msglen);
 
-	if (qp->q_tsig != NULL) 
+	if (qp->q_tsig != NULL)
 		memput(msg, oldlen + TSIG_BUF_SIZE);
 
 	return (0);
@@ -2443,7 +2443,7 @@ sysquery(const char *dname, int class, int type,
 
 	ns_debug(ns_log_default, 1,
 		 "sysquery: send -> %s dfd=%d nsid=%d id=%d retry=%ld",
-		 sin_ntoa(*nsa), qp->q_dfd, 
+		 sin_ntoa(*nsa), qp->q_dfd,
 		 ntohs(qp->q_nsid), ntohs(qp->q_id),
 		 (long)qp->q_time);
 #ifdef DEBUG
@@ -2563,7 +2563,7 @@ check_root() {
 	}
 }
 
-/* 
+/*
  * Check the root to make sure that for each NS record we have a A RR
  */
 static int
@@ -2621,7 +2621,7 @@ check_ns() {
 					continue;
 				if ((tdp->d_zone == DB_Z_CACHE) &&
 				    (tdp->d_ttl < (u_int32_t)curtime)) {
-					ns_debug(ns_log_default, 3, 
+					ns_debug(ns_log_default, 3,
 						 "check_ns: stale entry '%s'",
 						 NAME(*tnp));
 					found_arr = 0;
@@ -2672,7 +2672,7 @@ findns(struct namebuf **npp, int class,
 	struct databuf *dp;
 	struct	databuf **nspp;
 	struct hashbuf *htp;
-	
+
 	nsp[0] = NULL;
 
 	if (priming && (np == NULL || NAME(*np)[0] == '\0'))
@@ -2829,7 +2829,7 @@ finddata(struct namebuf *np, int class, int type,
 	}
 
 	buflen = *lenp;
-	
+
 #ifdef DEBUG
 	if (buflen > PACKETSZ)
 		ns_debug(ns_log_default, 1, "finddata(): buflen=%d", buflen);
@@ -2897,7 +2897,7 @@ finddata(struct namebuf *np, int class, int type,
 				continue;
 			}
 			hp->rcode = NXDOMAIN;
-			if (dp->d_size == 0) { /* !RETURNSOA */	
+			if (dp->d_size == 0) { /* !RETURNSOA */
 				ret = 1;
 				goto done;
 			}
@@ -2924,7 +2924,7 @@ finddata(struct namebuf *np, int class, int type,
 			cp += n;
 			buflen -= n;
 			count++;
-		
+
 			if (dp->d_type == T_CNAME) {
 				foundcname = 1;
 #define FOLLOWCNAME(type) \
@@ -3011,7 +3011,7 @@ finddata(struct namebuf *np, int class, int type,
 		non_sig_count = jdx;
 		sig_count = found_count - jdx;
 		first_sig = jdx ;
-		
+
 		/* now shift the SIG records down to the end of the array
 		 *  and copy in the non-SIG records
 		 */
@@ -3159,7 +3159,7 @@ finddata(struct namebuf *np, int class, int type,
 						i = first_sig;
 				} while (i != choice);
 			}
-			
+
 			break;
 
 		default:
@@ -3168,7 +3168,7 @@ finddata(struct namebuf *np, int class, int type,
 			break;
 		}
 	}
-	
+
 	if (new_dnamep != NULL)
 		*dnamep = new_dnamep;
 
@@ -3474,7 +3474,7 @@ rrsetcmp(char * name, struct db_list * dbl, struct hashbuf * table) {
 			if (!match(dp, class, type))
 				continue;
 			exists = 1;
-			if (!db_cmp(dp, dbp->db_dp) 
+			if (!db_cmp(dp, dbp->db_dp)
 #ifdef NOADDITIONAL
 			&& ((dp->d_cred == dbp->db_dp->d_cred) ||
 				 (dp->d_cred != DB_C_ADDITIONAL))
@@ -3632,7 +3632,7 @@ rrsetupdate(struct flush_set * flushset, int flags, struct sockaddr_in from,
 				odbp = dbp;
 				dbp = dbp->db_next;
 				memput(odbp, sizeof *odbp);
-			}    
+			}
 			ns_debug(ns_log_default, 3,
 				 "rrsetupdate: %s %d",
 				 fs->fs_name[0] ? fs->fs_name : ".", n);
@@ -3665,7 +3665,7 @@ flushrrset(struct flush_set * fs, struct sockaddr_in from) {
 	dp = savedata(fs->fs_class, fs->fs_type, 0, NULL, 0);
 	dp->d_zone = DB_Z_CACHE;
 	dp->d_cred = fs->fs_cred;
-	dp->d_clev = 0;	
+	dp->d_clev = 0;
 	do {
 		n = db_update(fs->fs_name, dp, NULL, NULL, DB_DELETE, hashtab,
 			      from);
@@ -3718,7 +3718,7 @@ delete_all(struct namebuf *np, int class, int type) {
  * side effects:
  *	delete_all() can be called, freeing memory and relinking chains.
  */
-int 
+int
 delete_stale(np)
 	struct namebuf *np;
 {
@@ -3834,7 +3834,7 @@ mark_lame(struct qinfo *qp, struct sockaddr_in from) {
 		    qp->q_addr[i].ns != NULL) {
 			qp->q_addr[i].ns->d_flags |= DB_F_LAME;
 			db_lame_add(qp->q_domain,
-				    (char*)qp->q_addr[i].ns->d_data, 
+				    (char*)qp->q_addr[i].ns->d_data,
 				    tt.tv_sec + server_options->lame_ttl);
 		}
 }
@@ -3900,10 +3900,10 @@ static enum ordering
 match_order(const struct namebuf *np, int class, int type) {
 	rrset_order_list orders = server_options->ordering;
 	rrset_order_element roe;
-	
+
 	if (orders == NULL)
 		return (DEFAULT_ORDERING);
-	
+
 	for (roe = orders->first ; roe != NULL ; roe = roe->next) {
 		if (roe->class != C_ANY && roe->class != class)
 			continue;
@@ -3930,7 +3930,7 @@ static int
 match_name(const struct namebuf *np, const char *name, size_t namelen)
 {
 	int matched ;
-	
+
 	if (name[0] == '*' && name[1] == '\0')
 		return 0;
 
@@ -3939,17 +3939,17 @@ match_name(const struct namebuf *np, const char *name, size_t namelen)
 	} else {
 		matched = namelen;
 	}
-	
+
 	if (matched > 0) {
 		int labellen = NAMELEN(*np);
 		char pch;
 		const char *start;
-		
+
 		if (labellen > matched) {
 			return -1;
 		} else if (labellen < matched) {
 			/* string is longer than this namebuf's data, so
-			   make sure there's a period before the end of the 
+			   make sure there's a period before the end of the
 			   match so we don't just match a suffix. */
 			start = name + (matched - labellen);
 			pch = start[-1];
@@ -3965,7 +3965,7 @@ match_name(const struct namebuf *np, const char *name, size_t namelen)
 			   the tail of string has been matched */
 			if (start == name)
 				return (0) ;
-			else 
+			else
 				return (start - name - 1); /* matched '.' too */
 		} else {
 			return (-1);

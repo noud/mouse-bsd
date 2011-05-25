@@ -41,7 +41,7 @@ fetch_inferior_registers (ignored)
   inferior_fp_registers.size = sizeof(inferior_fp_registers);
 
   registers_fetched ();
-  
+
   ptrace (PTRACE_GETREGS, inferior_pid,
 	  (PTRACE_ARG3_TYPE) &inferior_registers,
 	  ptrace_$data_set,

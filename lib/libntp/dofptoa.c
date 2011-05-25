@@ -74,7 +74,7 @@ dofptoa(fpv, neg, ndec, msec)
 
 	if (dec > 6)
 		dec = 6;
-	
+
 	if (dec > 0) {
 		do {
 			val &= 0xffff;
@@ -101,14 +101,14 @@ dofptoa(fpv, neg, ndec, msec)
 	 */
 	while (cp < (cpdec -1) && *cp == 0)
 		cp++;
-	
+
 	/*
 	 * Copy it into the buffer, asciizing as we go.
 	 */
 	bp = buf;
 	if (neg)
 		*bp++ = '-';
-	
+
 	while (cp < cpend) {
 		if (cp == cpdec)
 			*bp++ = '.';

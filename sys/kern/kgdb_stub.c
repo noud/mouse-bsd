@@ -130,10 +130,10 @@ digit2i(c)
 	if (c >= '0' && c <= '9')
 		return (c - '0');
 	else if (c >= 'a' && c <= 'f')
-		return (c - 'a' + 10);	
+		return (c - 'a' + 10);
 	else if (c >= 'A' && c <= 'F')
 
-		return (c - 'A' + 10);	
+		return (c - 'A' + 10);
 	else
 		return (-1);
 }
@@ -198,7 +198,7 @@ hex2mem(vdst, src, maxlen)
  * Convert an hex string into an integer.
  * This returns a pointer to the character following
  * the last valid hex digit.
- */ 
+ */
 static vaddr_t
 hex2i(srcp)
 	u_char **srcp;

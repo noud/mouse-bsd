@@ -147,8 +147,8 @@ main(argc, argv)
 #ifdef COMPAT
 		case 'T':
 			disktype = optarg;
-			break;  
-#endif 
+			break;
+#endif
 		case 'b':	/* used for LFS */
 			if ((bsize = atoi(optarg)) < LFS_MINBLOCKSIZE)
 				fatal("%s: bad block size", optarg);

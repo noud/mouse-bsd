@@ -91,8 +91,8 @@ extern int initialise_fpe	__P((cpu_t *cpu));
  *
  * Probe for the main cpu. Currently all this does is return 1 to
  * indicate that the cpu was found.
- */ 
- 
+ */
+
 int
 cpumatch(parent, cf, aux)
 	struct device *parent;
@@ -108,7 +108,7 @@ cpumatch(parent, cf, aux)
  *
  * Attach the main cpu
  */
-  
+
 void
 cpuattach(parent, self, aux)
 	struct device *parent;
@@ -160,7 +160,7 @@ fpa_handler(address, instruction, frame, fault_code)
 	int fault_code;
 {
 	u_int fpsr;
-    
+
 	__asm __volatile("stmfd sp!, {r0}; .word 0xee300110; mov %0, r0; ldmfd sp!, {r0}" : "=r" (fpsr));
 
 	printf("FPA exception: fpsr = %08x\n", fpsr);
@@ -173,7 +173,7 @@ fpa_handler(address, instruction, frame, fault_code)
  * Identify the master (boot) CPU
  * This also probes for an FPU and will install an FPE if necessary
  */
- 
+
 void
 identify_master_cpu(cpu_number, dev_name)
 	int cpu_number;
@@ -237,7 +237,7 @@ identify_master_cpu(cpu_number, dev_name)
 	 * We then remove our test handler and look at the
 	 * FP status register for identification.
 	 */
- 
+
 	install_coproc_handler(FP_COPROC, fpa_test);
 
 	undefined_test = 0;
@@ -278,7 +278,7 @@ identify_master_cpu(cpu_number, dev_name)
 #ifdef ARMFPE
         if (boot_args) {
         	char *ptr;
-       
+
 		ptr = strstr(boot_args, "noarmfpe");
 		if (!ptr) {
 			if (initialise_arm_fpe(&cpus[cpu_number]) != 0) {
@@ -481,7 +481,7 @@ cpuopen(dev, flag, mode, p)
 	struct cpu_softc *sc;
 	int unit;
 	int s;
-    
+
     	unit = minor(dev);
 	if (unit >= cpu_cd.cd_ndevs)
 		return(ENXIO);
@@ -495,7 +495,7 @@ cpuopen(dev, flag, mode, p)
 		return(EBUSY);
 	}
 
-	++sc->sc_open;   
+	++sc->sc_open;
 	(void)splx(s);
 
 	return(0);
@@ -517,11 +517,11 @@ cpuclose(dev, flag, mode, p)
 	sc = cpu_cd.cd_devs[unit];
 
 	if (sc->sc_open == 0) return(ENXIO);
-    
+
 	s = splhigh();
 	--sc->sc_open;
 	(void)splx(s);
-      
+
 	return(0);
 }
 
@@ -544,7 +544,7 @@ cpuioctl(dev, cmd, data, flag, p)
 	default:
 		return(ENXIO);
 		break;
-	}   
+	}
 
 	return(0);
 }

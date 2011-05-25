@@ -30,7 +30,7 @@ $1 == "="	{ }
 $1 == "!"	{ }
 
 
-END		{ for (x in allocated) 
+END		{ for (x in allocated)
 		    if (allocated[x] != "")
 		      print "+", x, allocated[x];
 		}

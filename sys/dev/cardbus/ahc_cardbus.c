@@ -51,10 +51,10 @@
 #include <sys/queue.h>
 #include <sys/device.h>
 
-#include <machine/bus.h> 
+#include <machine/bus.h>
 #include <machine/intr.h>
 
-#include <dev/scsipi/scsi_all.h> 
+#include <dev/scsipi/scsi_all.h>
 #include <dev/scsipi/scsipi_all.h>
 #include <dev/scsipi/scsiconf.h>
 

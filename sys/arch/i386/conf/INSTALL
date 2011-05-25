@@ -365,7 +365,7 @@ pciide* at pci ? dev ? function ? flags 0x0000
 wdc*	at isapnp?
 
 # PCMCIA IDE controllers
-wdc*    at pcmcia? function ?   
+wdc*    at pcmcia? function ?
 
 # ISA ST506, ESDI, and IDE controllers
 # Use flags 0x01 if you want to try to use 32bits data I/O (the driver will
@@ -570,7 +570,7 @@ ukphy*	at mii? phy ?			# generic unknown PHYs
 #opl*	at ess?
 #opl*	at sb?
 #opl*	at sv?
- 
+
 # Audio support
 #audio*	at aria?
 #audio*	at eap?

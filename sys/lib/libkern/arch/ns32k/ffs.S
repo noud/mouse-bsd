@@ -1,6 +1,6 @@
 /*	$NetBSD: ffs.S,v 1.2 1998/04/03 22:59:29 matthias Exp $	*/
 
-/* 
+/*
  * Written by Matthias Pfaller, 1996
  * Public domain.
  */

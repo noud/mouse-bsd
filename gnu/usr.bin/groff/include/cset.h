@@ -24,7 +24,7 @@ Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
 #ifndef UCHAR_MAX
 #define UCHAR_MAX 255
 #endif
-#endif /* not HAVE_CC_LIMITS_H */ 
+#endif /* not HAVE_CC_LIMITS_H */
 
 enum cset_builtin { CSET_BUILTIN };
 

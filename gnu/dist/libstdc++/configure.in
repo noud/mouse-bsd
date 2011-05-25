@@ -68,7 +68,7 @@ case "${target}" in
   alpha*-*-linux-gnulibc1)	frags="${frags} linux.mt" ;;
   powerpc*-*-linux-gnulibc1)	frags="${frags} linux.mt" ;;
   *-*-linux-gnu)		frags="${frags} linux.mt" ;;
-  *-*-openbsd*)		
+  *-*-openbsd*)
   	case "x${enable_threads}" in
 		xyes|xposix)	frags="${frags} openbsd.mt" ;;
 	esac;;

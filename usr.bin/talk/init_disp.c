@@ -54,7 +54,7 @@ __RCSID("$NetBSD: init_disp.c,v 1.8 1998/12/19 22:36:11 christos Exp $");
 #include <termios.h>
 #include <unistd.h>
 
-/* 
+/*
  * Set up curses, catch the appropriate signals,
  * and build the various windows.
  */
@@ -107,7 +107,7 @@ set_edit_chars()
 	char buf[3];
 	int cc;
 	struct termios tty;
-	
+
 	tcgetattr(0, &tty);
 	my_win.cerase = tty.c_cc[VERASE];
 	my_win.kill = tty.c_cc[VKILL];

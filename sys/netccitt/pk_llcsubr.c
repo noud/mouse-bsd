@@ -1,12 +1,12 @@
 /*	$NetBSD: pk_llcsubr.c,v 1.9 2000/02/01 00:02:01 thorpej Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1990, 1991, 1992
- *		Dirk Husemann, Computer Science Department IV, 
+ *		Dirk Husemann, Computer Science Department IV,
  * 		University of Erlangen-Nuremberg, Germany.
  * Copyright (c) 1992, 1993
  *	The Regents of the University of California.  All rights reserved.
- * 
+ *
  * This code is derived from software contributed to Berkeley by
  * Dirk Husemann and the Computer Science Department (IV) of
  * the University of Erlangen-Nuremberg, Germany.
@@ -131,7 +131,7 @@
 static int cons_rtrequest_internal __P((int, struct rtentry *,
     struct sockaddr *));
 
-/* 
+/*
  * ifa_rtrequest currently does not check the error from the rtrequest call
  * so we use a void version of the cons_rtrequest routine.
  */
@@ -186,16 +186,16 @@ cons_rtrequest_internal(cmd, rt, dst)
 		 * We differentiate between dealing with a many-to-one (HDLC:
 		 * DTE-DCE) and a one-to-one (LLC2: DTE-DTE) relationship (by
 		 * looking at the if type).
-		 * 
+		 *
 		 * Only in case of the many-to-one relationship (HDLC) we set
 		 * the ia->ia_pkcb pointer to the pkcb allocated via
 		 * pk_newlink() as we will use just that one pkcb for future
 		 * route additions (the rtentry->rt_llinfo pointer points to
 		 * the pkcb allocated for that route).
-		 * 
+		 *
 		 * In case of the one-to-one relationship (LLC2) we create a new
 		 * pkcb (via pk_newlink()) for each new rtentry.
-		 * 
+		 *
 		 * NOTE: Only in case of HDLC does ia->ia_pkcb point to a pkcb,
 		 * in the LLC2 case it doesn't (as we don't need it here)!
 		 */

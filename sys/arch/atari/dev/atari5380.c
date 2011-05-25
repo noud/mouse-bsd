@@ -205,7 +205,7 @@ static struct ncr_softc	*cur_softc;
 #if defined(TT_SCSI)
 
 /*
- * Prototype functions defined below 
+ * Prototype functions defined below
  */
 #ifdef NO_TTRAM_DMA
 static int tt_wrong_dma_range __P((SC_REQ *, struct dma_chain *));
@@ -628,7 +628,7 @@ extern	int			*nofault;
 	PID("end drq");
 	if (!poll)
 		single_inst_bset_b(MFP2->mf_imra, IA_SCSI);
-	
+
 	return;
 }
 
@@ -659,7 +659,7 @@ extern	int			*nofault;
 #if defined(FALCON_SCSI)
 
 /*
- * Prototype functions defined below 
+ * Prototype functions defined below
  */
 static void	scsi_falcon_init __P((struct ncr_softc *));
 static u_char	get_falcon_5380_reg __P((u_short));

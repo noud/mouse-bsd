@@ -102,7 +102,7 @@ ktrgetheader(type)
 	struct ktr_header *kth;
 	struct proc *p = curproc;	/* XXX */
 
-	MALLOC(kth, struct ktr_header *, sizeof(struct ktr_header), 
+	MALLOC(kth, struct ktr_header *, sizeof(struct ktr_header),
 		M_TEMP, M_WAITOK);
 	kth->ktr_type = type;
 	microtime(&kth->ktr_time);
@@ -217,7 +217,7 @@ ktrgenio(v, fd, rw, iov, len, error)
 	caddr_t cp;
 	int resid = len, cnt;
 	struct proc *p = curproc;	/* XXX */
-	
+
 	if (error)
 		return;
 	p->p_traceflag |= KTRFAC_ACTIVE;
@@ -354,7 +354,7 @@ sys_fktrace(curp, v, retval)
 		error = EINVAL;
 		goto done;
 	}
-	/* 
+	/*
 	 * do it
 	 */
 	if (SCARG(uap, pid) < 0) {
@@ -369,9 +369,9 @@ sys_fktrace(curp, v, retval)
 		for (p = pg->pg_members.lh_first; p != 0; p = p->p_pglist.le_next)
 			if (descend)
 				ret |= ktrsetchildren(curp, p, ops, facs, fp);
-			else 
+			else
 				ret |= ktrops(curp, p, ops, facs, fp);
-					
+
 	} else {
 		/*
 		 * by pid
@@ -458,7 +458,7 @@ sys_ktrace(curp, v, retval)
 		error = EINVAL;
 		goto done;
 	}
-	/* 
+	/*
 	 * do it
 	 */
 	if (SCARG(uap, pid) < 0) {
@@ -473,9 +473,9 @@ sys_ktrace(curp, v, retval)
 		for (p = pg->pg_members.lh_first; p != 0; p = p->p_pglist.le_next)
 			if (descend)
 				ret |= ktrsetchildren(curp, p, ops, facs, vp);
-			else 
+			else
 				ret |= ktrops(curp, p, ops, facs, vp);
-					
+
 	} else {
 		/*
 		 * by pid
@@ -509,7 +509,7 @@ ktrops(curp, p, ops, facs, v)
 	if (!ktrcanset(curp, p))
 		return (0);
 	if (KTROP(ops) == KTROP_SET) {
-		if (p->p_tracep != v) { 
+		if (p->p_tracep != v) {
 			/*
 			 * if trace file already in use, relinquish
 			 */
@@ -522,7 +522,7 @@ ktrops(curp, p, ops, facs, v)
 		p->p_traceflag |= facs;
 		if (curp->p_ucred->cr_uid == 0)
 			p->p_traceflag |= KTRFAC_ROOT;
-	} else {	
+	} else {
 		/* KTROP_CLEAR */
 		if (((p->p_traceflag &= ~facs) & KTRFAC_MASK) == 0) {
 			/* no more tracing */
@@ -532,7 +532,7 @@ ktrops(curp, p, ops, facs, v)
 
 	/*
 	 * Emit an emulation record, every time there is a ktrace
-	 * change/attach request. 
+	 * change/attach request.
 	 */
 	if (KTRPOINT(p, KTR_EMUL))
 		ktremul(p->p_tracep, p, p->p_emul->e_name);
@@ -636,7 +636,7 @@ ktrwrite(p, v, kth)
  * Return true if caller has permission to set the ktracing state
  * of target.  Essentially, the target can't possess any
  * more permissions than the caller.  KTRFAC_ROOT signifies that
- * root previously set the tracing status on the target process, and 
+ * root previously set the tracing status on the target process, and
  * so, only root may further change it.
  *
  * TODO: check groups.  use caller effective gid.

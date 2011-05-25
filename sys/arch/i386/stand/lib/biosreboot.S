@@ -31,7 +31,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-	
+
 
 #include <machine/asm.h>
 
@@ -53,7 +53,7 @@ ENTRY(reboot)
 	int	$0x19
 
 	/* NOTE: We should never even get past this point. */
-	
+
 	data32
 	call	_C_LABEL(real_to_prot)
 

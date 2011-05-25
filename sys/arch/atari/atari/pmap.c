@@ -36,7 +36,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* 
+/*
  * Copyright (c) 1991 Regents of the University of California.
  * All rights reserved.
  *
@@ -309,7 +309,7 @@ static void		pmap_release __P((pmap_t));
 static void		pmap_remove_mapping __P((pmap_t, vaddr_t, pt_entry_t *,
 							int));
 static void		atari_protection_init __P((void));
-static void		pmap_collect1 __P((pmap_t, paddr_t, paddr_t));  
+static void		pmap_collect1 __P((pmap_t, paddr_t, paddr_t));
 
 /* pmap_remove_mapping flags */
 #define	PRM_TFLUSH	0x01
@@ -550,7 +550,7 @@ pmap_init()
 
 	/*
 	 * Allocate physical memory for kernel PT pages and their management.
-	 * we need enough pages to map the page tables for each process 
+	 * we need enough pages to map the page tables for each process
 	 * plus some slop.
 	 */
 	npg = howmany(((maxproc + 16) * ATARI_UPTSIZE / NPTEPG), NBPG);
@@ -1274,19 +1274,19 @@ validate:
 	 */
 #if defined(M68040) || defined(M68060)
 #if DEBUG
-	if (pmapdebug & 0x10000 && mmutype == MMU_68040 && 
+	if (pmapdebug & 0x10000 && mmutype == MMU_68040 &&
 	    pmap == pmap_kernel()) {
 		char *s;
-		if (va >= ATARI_UPTBASE && 
+		if (va >= ATARI_UPTBASE &&
 		    va < (ATARI_UPTBASE + ATARI_UPTMAXSIZE))
 			s = "UPT";
-		else if (va >= (u_int)Sysmap && 
+		else if (va >= (u_int)Sysmap &&
 		    va < ((u_int)Sysmap + ATARI_KPTSIZE))
 			s = "KPT";
-		else if (va >= (u_int)pmap->pm_stab && 
+		else if (va >= (u_int)pmap->pm_stab &&
 		    va < ((u_int)pmap->pm_stab + ATARI_STSIZE))
 			s = "KST";
-		else if (curproc && 
+		else if (curproc &&
 		    va >= (u_int)curproc->p_vmspace->vm_map.pmap->pm_stab &&
 		    va < ((u_int)curproc->p_vmspace->vm_map.pmap->pm_stab +
 		    ATARI_STSIZE))
@@ -2371,7 +2371,7 @@ pmap_enter_ptpage(pmap, va)
 #if defined(M68060)
 			stpa = (u_int)pmap->pm_stpa;
 			if (cputype == CPU_68060) {
-				while (stpa < (u_int)pmap->pm_stpa + 
+				while (stpa < (u_int)pmap->pm_stpa +
 				    ATARI_STSIZE) {
 					pmap_changebit(stpa, PG_CCB, 0);
 					pmap_changebit(stpa, PG_CI, 1);

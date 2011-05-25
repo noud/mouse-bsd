@@ -121,7 +121,7 @@ nextword(fp, buffer, clen, rlen)
 		return (NULL);
 
 	p = buf + (*clen = pcount);
- 
+
 	while ((ch = getc(fp)) != EOF && ch >= 'a')
 			*p++ = ch;
 		lastch = ch;

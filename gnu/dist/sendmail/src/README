@@ -815,7 +815,7 @@ Digital UNIX (formerly DEC OSF/1)
 	-L/usr/shlib (otherwise it core dumps on startup).  You may also
 	need -mld to get the nlist() function, although some versions
 	apparently don't need this.
-	
+
 	Also, the enclosed makefile removed /usr/sbin/smtpd; if you need
 	it, just create the link to the sendmail binary.
 
@@ -926,7 +926,7 @@ BSDI (BSD/386) 1.0, NetBSD 0.9, FreeBSD 1.0
 	recently posted in comp.os.386bsd.bugs (and maybe others).
 	NetBSD-current includes the PD-M4 (as stated in the NetBSD file
 	CHANGES).
-	
+
 	FreeBSD 1.0 RELEASE has uname(2) now. Use -DUSEUNAME in order to
 	use it (look into BuildTools/OS/FreeBSD). NetBSD-current may have
 	it too but it has not been verified.
@@ -994,7 +994,7 @@ SCO Unix
 	/etc/named.boot.
 		- sigh -
 
-	According to SCO, the m4 which ships with UnixWare 2.1.2 is broken.	
+	According to SCO, the m4 which ships with UnixWare 2.1.2 is broken.
 	We recommend installing GNU m4 before attempting to build sendmail.
 
 DG/UX
@@ -1113,7 +1113,7 @@ AIX 2.2.1
 	Date: Mon Dec  4 14:14:56 CST 1995
 	From: Mark Whetzel <markw@antimatr.houston.tx.us>
 	Subject: Porting sendmail 8.7.2 to AIX V2 on the RT.
-	
+
 	This version of sendmail does not support MB, MG, and MR resource
 	records, which are supported by AIX sendmail.
 
@@ -1147,7 +1147,7 @@ AIX 2.2.1
 	about the location of the 'getloadavg' routine if you use
 	the LA_SUBR define.
 
-	
+
 	Manual pages will format correctly if given the mandoc macros
 	and used with nroff.  I have not tried groff.
 
@@ -1234,11 +1234,11 @@ UnixWare
 	According to Larry Rosenman <ler@lerami.lerctr.org>:
 
 		UnixWare 2.1.[23]'s m4 chokes (not obviously) when
-		processing the 8.9.0 cf files. 
- 
+		processing the 8.9.0 cf files.
+
 		I had a LOCAL_RULE_0 that wound up AFTER the
 		SBasic_check_rcpt rules using the SCO supplied M4.
-		GNU M4 works fine. 
+		GNU M4 works fine.
 
 UNICOS 8.0.3.4
 	Some people have reported that the -O flag on UNICOS can cause
@@ -1347,16 +1347,16 @@ Regular Expressions (MAP_REGEX)
 
 	or sendmail gives an error about a regular expression with:
 
-		pattern-compile-error: : Operation not applicable 
+		pattern-compile-error: : Operation not applicable
 
 	Your libc does not include a running version of POSIX-regex. Use
-	librx or regex.o from the GNU Free Software Foundation,  
-	ftp://ftp.gnu.org/pub/gnu/rx-?.?.tar.gz or 
-	ftp://ftp.gnu.org/pub/gnu/regex-?.?.tar.gz. 
-	You can also use the regex-lib by Henry Spencer, 
-	ftp://ftp.funet.fi/pub/languages/C/spencer/regex.shar.gz  
-	Make sure, your compiler reads regex.h from the distribution,  
-	not from /usr/include, otherwise sendmail will dump a core. 
+	librx or regex.o from the GNU Free Software Foundation,
+	ftp://ftp.gnu.org/pub/gnu/rx-?.?.tar.gz or
+	ftp://ftp.gnu.org/pub/gnu/regex-?.?.tar.gz.
+	You can also use the regex-lib by Henry Spencer,
+	ftp://ftp.funet.fi/pub/languages/C/spencer/regex.shar.gz
+	Make sure, your compiler reads regex.h from the distribution,
+	not from /usr/include, otherwise sendmail will dump a core.
 
 
 +--------------+

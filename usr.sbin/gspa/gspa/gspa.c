@@ -134,7 +134,7 @@ main(int argc, char **argv)
 		in_name[PATH_MAX] = 0;
 		if ((infile = fopen(in_name, "r")) == NULL)
 			err(1, "fopen");
-	} else 
+	} else
 		usage();
 
 	/* Pass 1 */

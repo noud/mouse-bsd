@@ -5,9 +5,9 @@
 .\"# LICENSED MATERIALS - PROPERTY OF IBM
 .\"# REFER TO COPYRIGHT INSTRUCTIONS FORM NUMBER G120-2083
 .\"#
-.\"# WISC: Header:if.4n_ca 1.5$ 
-.\"# WISC: ACIS:if.4n_ca 1.5$ 
-.\"# WISC: Source: /ibm/acis/usr/man/man4/RCS/if.4n_ca,v $ 
+.\"# WISC: Header:if.4n_ca 1.5$
+.\"# WISC: ACIS:if.4n_ca 1.5$
+.\"# WISC: Source: /ibm/acis/usr/man/man4/RCS/if.4n_ca,v $
 .\" @(#)if.4n	1.2 87/08/23 3.2/4.3NFSSRC
 .\" @(#)if.4n	1.2 87/02/10 NFSSRC
 .\" @(#)if.4n 1.1 86/09/25 SMI;
@@ -39,7 +39,7 @@ dynamic network-link layer address mapping facilities (for example,
 .IR arp (4P),),
 the entire address specified in the ioctl is used.
 .LP
-The following 
+The following
 .I ioctl
 calls may be used to manipulate network interfaces.  Unless
 specified otherwise, the request takes an
@@ -107,10 +107,10 @@ Get interface flags.
 .IX  "network interface ioctls"  SIOCGIFCONF  "network interface \fLioctl\fP's" "\fLSIOCGIFCONF\fP \(em get ifnet list"
 Get interface configuration list.  This request takes an
 .I ifconf
-structure (see below) as a value-result parameter.  The 
+structure (see below) as a value-result parameter.  The
 .I ifc_len
 field should be initially set to the size of the buffer
-pointed to by 
+pointed to by
 .IR ifc_buf .
 On return it will contain the length, in bytes, of the
 configuration list.

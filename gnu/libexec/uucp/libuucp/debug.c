@@ -137,7 +137,7 @@ cdebug_char (z, ichar)
   *z++ = b;
   *z = '\0';
   return 2;
-}      
+}
 
 #if DEBUG > 1
 

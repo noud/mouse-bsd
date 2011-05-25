@@ -272,9 +272,9 @@ extern char *warning_pre_print;		/* From utils.c */
    we may want to test for the presence of some attributes in the DIE,
    such as AT_low_pc, without restricting the values of the field,
    we need someway to note that we found such an attribute.
-   
+
  */
-   
+
 typedef char BLOCK;
 
 struct dieinfo {
@@ -341,7 +341,7 @@ static int dbsize;	/* Size of dwarf info in bytes */
 static int dbroff;	/* Relative offset from start of .debug section */
 static char *lnbase;	/* Base pointer to line section */
 
-/* This value is added to each symbol value.  FIXME:  Generalize to 
+/* This value is added to each symbol value.  FIXME:  Generalize to
    the section_offsets structure used by dbxread (once this is done,
    pass the appropriate section number to end_symtab).  */
 static CORE_ADDR baseaddr;	/* Add to each symbol value */
@@ -437,7 +437,7 @@ static struct type *ftypes[FT_NUM_MEMBERS];  /* Fundamental types */
    and we need it while processing the DIE's for that compilation unit.
    It is eventually saved in the symtab structure, but we don't finalize
    the symtab struct until we have processed all the DIE's for the
-   compilation unit.  We also need to get and save a pointer to the 
+   compilation unit.  We also need to get and save a pointer to the
    language struct for this language, so we can call the language
    dependent routines for doing things such as creating fundamental
    types. */
@@ -738,7 +738,7 @@ dwarf_build_psymtabs (objfile, section_offsets, mainline, dbfoff, dbfsize,
 {
   bfd *abfd = objfile->obfd;
   struct cleanup *back_to;
-  
+
   current_objfile = objfile;
   dbsize = dbfsize;
   dbbase = xmalloc (dbsize);
@@ -750,17 +750,17 @@ dwarf_build_psymtabs (objfile, section_offsets, mainline, dbfoff, dbfsize,
       error ("can't read DWARF data from '%s'", bfd_get_filename (abfd));
     }
   back_to = make_cleanup (free, dbbase);
-  
+
   /* If we are reinitializing, or if we have never loaded syms yet, init.
      Since we have no idea how many DIES we are looking at, we just guess
      some arbitrary value. */
-  
+
   if (mainline || objfile -> global_psymbols.size == 0 ||
       objfile -> static_psymbols.size == 0)
     {
       init_psymbol_list (objfile, 1024);
     }
-  
+
   /* Save the relocation factor where everybody can see it.  */
 
   base_section_offsets = section_offsets;
@@ -769,9 +769,9 @@ dwarf_build_psymtabs (objfile, section_offsets, mainline, dbfoff, dbfsize,
   /* Follow the compilation unit sibling chain, building a partial symbol
      table entry for each one.  Save enough information about each compilation
      unit to locate the full DWARF information later. */
-  
+
   scan_compilation_units (dbbase, dbbase + dbsize, dbfoff, lnoffset, objfile);
-  
+
   do_cleanups (back_to);
   current_objfile = NULL;
 }
@@ -839,7 +839,7 @@ lookup_utype (die_ref)
 {
   struct type *type = NULL;
   int utypeidx;
-  
+
   utypeidx = (die_ref - dbroff) / 4;
   if ((utypeidx < 0) || (utypeidx >= numutypes))
     {
@@ -881,7 +881,7 @@ alloc_utype (die_ref, utypep)
 {
   struct type **typep;
   int utypeidx;
-  
+
   utypeidx = (die_ref - dbroff) / 4;
   typep = utypes + utypeidx;
   if ((utypeidx < 0) || (utypeidx >= numutypes))
@@ -954,7 +954,7 @@ decode_die_type (dip)
      struct dieinfo *dip;
 {
   struct type *type = NULL;
-  
+
   if (dip -> at_fund_type != 0)
     {
       type = decode_fund_type (dip -> at_fund_type);
@@ -1020,7 +1020,7 @@ struct_type (dip, thisdie, enddie, objfile)
   struct dieinfo mbr;
   char *nextdie;
   int anonymous_size;
-  
+
   if ((type = lookup_utype (dip -> die_ref)) == NULL)
     {
       /* No forward references created an empty type, so install one now */
@@ -1057,7 +1057,7 @@ struct_type (dip, thisdie, enddie, objfile)
   /* Use whatever size is known.  Zero is a valid size.  We might however
      wish to check has_at_byte_size to make sure that some byte size was
      given explicitly, but DWARF doesn't specify that explicit sizes of
-     zero have to present, so complaining about missing sizes should 
+     zero have to present, so complaining about missing sizes should
      probably not be the default. */
   TYPE_LENGTH (type) = dip -> at_byte_size;
   thisdie += dip -> die_length;
@@ -1159,7 +1159,7 @@ struct_type (dip, thisdie, enddie, objfile)
       for (n = nfields; list; list = list -> next)
 	{
 	  TYPE_FIELD (type, --n) = list -> field;
-	}	
+	}
     }
   return (type);
 }
@@ -1195,7 +1195,7 @@ NOTES
 	it is complete, we just call new_symbol, which does it's own
 	checking about whether the struct/union is anonymous or not (and
 	suppresses creating a symbol table entry itself).
-	
+
  */
 
 static void
@@ -1207,7 +1207,7 @@ read_structure_scope (dip, thisdie, enddie, objfile)
 {
   struct type *type;
   struct symbol *sym;
-  
+
   type = struct_type (dip, thisdie, enddie, objfile);
   if (!(TYPE_FLAGS (type) & TYPE_FLAG_STUB))
     {
@@ -1251,7 +1251,7 @@ decode_array_element_type (scan)
   unsigned short attribute;
   unsigned short fundtype;
   int nbytes;
-  
+
   attribute = target_to_host (scan, SIZEOF_ATTRIBUTE, GET_UNSIGNED,
 			      current_objfile);
   scan += SIZEOF_ATTRIBUTE;
@@ -1351,7 +1351,7 @@ decode_subscript_data_item (scan, end)
   unsigned long lowbound;
   unsigned long highbound;
   int nbytes;
-  
+
   format = target_to_host (scan, SIZEOF_FORMAT_SPECIFIER, GET_UNSIGNED,
 			   current_objfile);
   scan += SIZEOF_FORMAT_SPECIFIER;
@@ -1429,7 +1429,7 @@ dwarf_read_array_type (dip)
   char *subend;
   unsigned short blocksz;
   int nbytes;
-  
+
   if (dip -> at_ordering != ORD_row_major)
     {
       /* FIXME:  Can gdb even handle column major arrays? */
@@ -1490,7 +1490,7 @@ read_tag_pointer_type (dip)
 {
   struct type *type;
   struct type *utype;
-  
+
   type = decode_die_type (dip);
   if ((utype = lookup_utype (dip -> die_ref)) == NULL)
     {
@@ -1505,7 +1505,7 @@ read_tag_pointer_type (dip)
       /* We assume the machine has only one representation for pointers!  */
       /* FIXME:  This confuses host<->target data representations, and is a
 	 poor assumption besides. */
-      
+
       TYPE_LENGTH (utype) = sizeof (char *);
       TYPE_CODE (utype) = TYPE_CODE_PTR;
     }
@@ -1552,7 +1552,7 @@ read_tag_string_type (dip)
   indextype = dwarf_fundamental_type (current_objfile, FT_INTEGER);
   rangetype = create_range_type ((struct type *) NULL, indextype, lowbound,
 				 highbound);
-      
+
   utype = lookup_utype (dip -> die_ref);
   if (utype == NULL)
     {
@@ -1609,7 +1609,7 @@ read_subroutine_type (dip, thisdie, enddie)
 {
   struct type *type;		/* Type that this function returns */
   struct type *ftype;		/* Function that returns above type */
-  
+
   /* Decode the type that this subroutine returns */
 
   type = decode_die_type (dip);
@@ -1670,7 +1670,7 @@ read_enumeration (dip, thisdie, enddie, objfile)
 {
   struct type *type;
   struct symbol *sym;
-  
+
   type = enum_type (dip, objfile);
   sym = new_symbol (dip, objfile);
   if (sym != NULL)
@@ -1734,7 +1734,7 @@ enum_type (dip, objfile)
   struct symbol *sym;
   int nbytes;
   int unsigned_enum = 1;
-  
+
   if ((type = lookup_utype (dip -> die_ref)) == NULL)
     {
       /* No forward references created an empty type, so install one now */
@@ -1814,7 +1814,7 @@ enum_type (dip, objfile)
 	  for (n = 0; (n < nfields) && (list != NULL); list = list -> next)
 	    {
 	      TYPE_FIELD (type, n++) = list -> field;
-	    }	
+	    }
 	}
     }
   return (type);
@@ -1849,7 +1849,7 @@ read_func_scope (dip, thisdie, enddie, objfile)
      struct objfile *objfile;
 {
   register struct context_stack *new;
-  
+
   /* AT_name is absent if the function is described with an
      AT_abstract_origin tag.
      Ignore the function description for now to avoid GDB core dumps.
@@ -1959,7 +1959,7 @@ read_file_scope (dip, thisdie, enddie, objfile)
 {
   struct cleanup *back_to;
   struct symtab *symtab;
-  
+
   if (objfile -> ei.entry_point >= dip -> at_low_pc &&
       objfile -> ei.entry_point <  dip -> at_high_pc)
     {
@@ -1985,7 +1985,7 @@ read_file_scope (dip, thisdie, enddie, objfile)
   if (symtab != NULL)
     {
       symtab -> language = cu_language;
-    }      
+    }
   do_cleanups (back_to);
 }
 
@@ -2014,7 +2014,7 @@ process_dies (thisdie, enddie, objfile)
 {
   char *nextdie;
   struct dieinfo di;
-  
+
   while (thisdie < enddie)
     {
       basicdieinfo (&di, thisdie, objfile);
@@ -2162,7 +2162,7 @@ decode_line_numbers (linetable)
   unsigned long base;
   unsigned long line;
   unsigned long pc;
-  
+
   if (linetable != NULL)
     {
       tblscan = tblend = linetable;
@@ -2213,7 +2213,7 @@ DESCRIPTION
 	the value zero is used, which results in a value relative to the frame
 	pointer, rather than the absolute value.  This is what GDB wants
 	anyway.
-    
+
 	When the result is a register number, the isreg flag is set, otherwise
 	it is cleared.  This is a kludge until we figure out a better
 	way to handle the problem.  Gdb's design does not mesh well with the
@@ -2238,7 +2238,7 @@ locval (dip)
   char *end;
   int loc_atom_code;
   int loc_value_size;
-  
+
   loc = dip -> at_location;
   nbytes = attribute_size (AT_location);
   locsize = target_to_host (loc, nbytes, GET_UNSIGNED, current_objfile);
@@ -2361,7 +2361,7 @@ read_ofile_symtab (pst)
 
   /* If there is a line number table associated with this compilation unit
      then read the size of this fragment in bytes, from the fragment itself.
-     Allocate a buffer for the fragment and read it in for future 
+     Allocate a buffer for the fragment and read it in for future
      processing. */
 
   lnbase = NULL;
@@ -2414,7 +2414,7 @@ psymtab_to_symtab_1 (pst)
 {
   int i;
   struct cleanup *old_chain;
-  
+
   if (pst != NULL)
     {
       if (pst->readin)
@@ -2443,7 +2443,7 @@ psymtab_to_symtab_1 (pst)
 		    }
 		  psymtab_to_symtab_1 (pst -> dependencies[i]);
 		}
-	    }	  
+	    }
 	  if (DBLENGTH (pst))		/* Otherwise it's a dummy */
 	    {
 	      buildsym_init ();
@@ -2505,9 +2505,9 @@ dwarf_psymtab_to_symtab (pst)
 				   pst -> filename);
 		  gdb_flush (gdb_stdout);
 		}
-	      
+
 	      psymtab_to_symtab_1 (pst);
-	      
+
 #if 0	      /* FIXME:  Check to see what dbxread is doing here and see if
 		 we need to do an equivalent or is this something peculiar to
 		 stabs/a.out format.
@@ -2516,7 +2516,7 @@ dwarf_psymtab_to_symtab (pst)
 		 */
 	      scan_file_globals (pst -> objfile);
 #endif
-	      
+
 	      /* Finish up the verbose info message.  */
 	      if (info_verbose)
 		{
@@ -2550,7 +2550,7 @@ add_enum_psymbol (dip, objfile)
   char *listend;
   unsigned short blocksz;
   int nbytes;
-  
+
   if ((scan = dip -> at_element_list) != NULL)
     {
       if (dip -> short_element_list)
@@ -2675,14 +2675,14 @@ NOTES
 		main () { int j; }
 
 	for which the relevant DWARF segment has the structure:
-	
+
 		0x51:
 		0x23   global subrtn   sibling     0x9b
 		                       name        main
 		                       fund_type   FT_integer
 		                       low_pc      0x800004cc
 		                       high_pc     0x800004d4
-		                            
+
 		0x74:
 		0x23   local var       sibling     0x97
 		                       name        j
@@ -2691,16 +2691,16 @@ NOTES
 		                                   OP_CONST 0xfffffffc
 		                                   OP_ADD
 		0x97:
-		0x4         
-		
+		0x4
+
 		0x9b:
 		0x1d   local var       sibling     0xb8
 		                       name        i
 		                       fund_type   FT_integer
 		                       location    OP_ADDR 0x800025dc
-		                            
+
 		0xb8:
-		0x4         
+		0x4
 
 	We want to include the symbol 'i' in the partial symbol table, but
 	not the symbol 'j'.  In essence, we want to skip all the dies within
@@ -2725,7 +2725,7 @@ scan_partial_symbols (thisdie, enddie, objfile)
   char *nextdie;
   char *temp;
   struct dieinfo di;
-  
+
   while (thisdie < enddie)
     {
       basicdieinfo (&di, thisdie, objfile);
@@ -2748,7 +2748,7 @@ scan_partial_symbols (thisdie, enddie, objfile)
 		  add_partial_symbol (&di, objfile);
 		  /* If there is a sibling attribute, adjust the nextdie
 		     pointer to skip the entire scope of the subroutine.
-		     Apply some sanity checking to make sure we don't 
+		     Apply some sanity checking to make sure we don't
 		     overrun or underrun the range of remaining DIE's */
 		  if (di.at_sibling != 0)
 		    {
@@ -2811,7 +2811,7 @@ DESCRIPTION
 	It scans from the beginning of the DWARF table looking for the first
 	TAG_compile_unit DIE, and then follows the sibling chain to locate
 	each additional TAG_compile_unit DIE.
-   
+
 	For each TAG_compile_unit DIE it creates a partial symtab structure,
 	calls a subordinate routine to collect all the compilation unit's
 	global DIE's, file scope DIEs, typedef DIEs, etc, and then links the
@@ -2905,7 +2905,7 @@ scan_compilation_units (thisdie, enddie, dbfoff, lnoffset, objfile)
 
 	  pst -> n_global_syms = objfile -> global_psymbols.next -
 	    (objfile -> global_psymbols.list + pst -> globals_offset);
-	  pst -> n_static_syms = objfile -> static_psymbols.next - 
+	  pst -> n_static_syms = objfile -> static_psymbols.next -
 	    (objfile -> static_psymbols.list + pst -> statics_offset);
 	  sort_pst_symbols (pst);
 	  /* If there is already a psymtab or symtab for a file of this name,
@@ -2913,7 +2913,7 @@ scan_compilation_units (thisdie, enddie, dbfoff, lnoffset, objfile)
 	     happen.)  This happens in VxWorks.  */
 	  free_named_symtabs (pst -> filename);
 	}
-      thisdie = nextdie;      
+      thisdie = nextdie;
     }
 }
 
@@ -2941,7 +2941,7 @@ new_symbol (dip, objfile)
      struct objfile *objfile;
 {
   struct symbol *sym = NULL;
-  
+
   if (dip -> at_name != NULL)
     {
       sym = (struct symbol *) obstack_alloc (&objfile -> symbol_obstack,
@@ -3104,7 +3104,7 @@ synthesize_typedef (dip, objfile, type)
      struct type *type;
 {
   struct symbol *sym = NULL;
-  
+
   if (dip -> at_name != NULL)
     {
       sym = (struct symbol *)
@@ -3151,7 +3151,7 @@ decode_mod_fund_type (typedata)
   struct type *typep = NULL;
   unsigned short modcount;
   int nbytes;
-  
+
   /* Get the total size of the block, exclusive of the size itself */
 
   nbytes = attribute_size (AT_mod_fund_type);
@@ -3198,7 +3198,7 @@ decode_mod_u_d_type (typedata)
   struct type *typep = NULL;
   unsigned short modcount;
   int nbytes;
-  
+
   /* Get the total size of the block, exclusive of the size itself */
 
   nbytes = attribute_size (AT_mod_u_d_type);
@@ -3266,7 +3266,7 @@ decode_modified_type (modifiers, modcount, mtype)
   DIE_REF die_ref;
   char modifier;
   int nbytes;
-  
+
   if (modcount == 0)
     {
       switch (mtype)
@@ -3349,14 +3349,14 @@ decode_fund_type (fundtype)
      unsigned int fundtype;
 {
   struct type *typep = NULL;
-  
+
   switch (fundtype)
     {
 
     case FT_void:
       typep = dwarf_fundamental_type (current_objfile, FT_VOID);
       break;
-    
+
     case FT_boolean:		/* Was FT_set in AT&T version */
       typep = dwarf_fundamental_type (current_objfile, FT_BOOLEAN);
       break;
@@ -3365,11 +3365,11 @@ decode_fund_type (fundtype)
       typep = dwarf_fundamental_type (current_objfile, FT_VOID);
       typep = lookup_pointer_type (typep);
       break;
-    
+
     case FT_char:
       typep = dwarf_fundamental_type (current_objfile, FT_CHAR);
       break;
-    
+
     case FT_signed_char:
       typep = dwarf_fundamental_type (current_objfile, FT_SIGNED_CHAR);
       break;
@@ -3377,7 +3377,7 @@ decode_fund_type (fundtype)
     case FT_unsigned_char:
       typep = dwarf_fundamental_type (current_objfile, FT_UNSIGNED_CHAR);
       break;
-    
+
     case FT_short:
       typep = dwarf_fundamental_type (current_objfile, FT_SHORT);
       break;
@@ -3385,11 +3385,11 @@ decode_fund_type (fundtype)
     case FT_signed_short:
       typep = dwarf_fundamental_type (current_objfile, FT_SIGNED_SHORT);
       break;
-    
+
     case FT_unsigned_short:
       typep = dwarf_fundamental_type (current_objfile, FT_UNSIGNED_SHORT);
       break;
-    
+
     case FT_integer:
       typep = dwarf_fundamental_type (current_objfile, FT_INTEGER);
       break;
@@ -3397,11 +3397,11 @@ decode_fund_type (fundtype)
     case FT_signed_integer:
       typep = dwarf_fundamental_type (current_objfile, FT_SIGNED_INTEGER);
       break;
-    
+
     case FT_unsigned_integer:
       typep = dwarf_fundamental_type (current_objfile, FT_UNSIGNED_INTEGER);
       break;
-    
+
     case FT_long:
       typep = dwarf_fundamental_type (current_objfile, FT_LONG);
       break;
@@ -3409,11 +3409,11 @@ decode_fund_type (fundtype)
     case FT_signed_long:
       typep = dwarf_fundamental_type (current_objfile, FT_SIGNED_LONG);
       break;
-    
+
     case FT_unsigned_long:
       typep = dwarf_fundamental_type (current_objfile, FT_UNSIGNED_LONG);
       break;
-    
+
     case FT_long_long:
       typep = dwarf_fundamental_type (current_objfile, FT_LONG_LONG);
       break;
@@ -3429,27 +3429,27 @@ decode_fund_type (fundtype)
     case FT_float:
       typep = dwarf_fundamental_type (current_objfile, FT_FLOAT);
       break;
-    
+
     case FT_dbl_prec_float:
       typep = dwarf_fundamental_type (current_objfile, FT_DBL_PREC_FLOAT);
       break;
-    
+
     case FT_ext_prec_float:
       typep = dwarf_fundamental_type (current_objfile, FT_EXT_PREC_FLOAT);
       break;
-    
+
     case FT_complex:
       typep = dwarf_fundamental_type (current_objfile, FT_COMPLEX);
       break;
-    
+
     case FT_dbl_prec_complex:
       typep = dwarf_fundamental_type (current_objfile, FT_DBL_PREC_COMPLEX);
       break;
-    
+
     case FT_ext_prec_complex:
       typep = dwarf_fundamental_type (current_objfile, FT_EXT_PREC_COMPLEX);
       break;
-    
+
     }
 
   if (typep == NULL)
@@ -3460,7 +3460,7 @@ decode_fund_type (fundtype)
 	  complain (&unexpected_fund_type, DIE_ID, DIE_NAME, fundtype);
 	}
     }
-    
+
   return (typep);
 }
 
@@ -3590,7 +3590,7 @@ DESCRIPTION
 	Given a pointer to an already partially initialized die info structure,
 	scan the raw DIE data and finish filling in the die info structure
 	from the various attributes found.
-   
+
 	Note that since there is no guarantee that the data is properly
 	aligned in memory for the type of access required (indirection
 	through anything other than a char pointer), and there is no
@@ -3617,7 +3617,7 @@ completedieinfo (dip, objfile)
   unsigned short attr;		/* Current attribute being scanned */
   unsigned short form;		/* Form of the attribute */
   int nbytes;			/* Size of next field to read */
-  
+
   diecount++;
   diep = dip -> die;
   end = diep + dip -> die_length;

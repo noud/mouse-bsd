@@ -234,7 +234,7 @@ void do_picture(FILE *fp)
 	c = getc(fp);
       } while (c != EOF && c != '\n');
     }
-    if (c == '\n') 
+    if (c == '\n')
       current_lineno++;
     if (filename.length() == 0)
       error("missing filename after `<'");
@@ -490,7 +490,7 @@ static char *fix_program_name(char *arg, char *dflt)
       prog++;
       break;
     }
-  }	
+  }
   char *ext = strchr(prog, '.');
   if (ext)
     *ext = '\0';

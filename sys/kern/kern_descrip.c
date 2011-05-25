@@ -1173,7 +1173,7 @@ filedescopen(dev, mode, type, p)
 
 	/*
 	 * XXX Kludge: set curproc->p_dupfd to contain the value of the
-	 * the file descriptor being sought for duplication. The error 
+	 * the file descriptor being sought for duplication. The error
 	 * return ensures that the vnode for this device will be released
 	 * by vn_open. Open will detect this special error and take the
 	 * actions in dupfdopen below. Other callers of vn_open or VOP_OPEN

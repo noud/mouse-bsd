@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
    I.E. it describes the in-memory representation of ELF.  It requires
    the elf-common.h file which contains the portions that are common to
    both the internal and external representations. */
-   
+
 
 /* NOTE that these structures are not kept in the same order as they appear
    in the object file.  In some cases they've been reordered for more optimal
@@ -206,7 +206,7 @@ typedef struct elf_internal_verdaux {
   const char *vda_nodename;			/* vda_name as pointer.  */
   struct elf_internal_verdaux *vda_nextptr;	/* vda_next as pointer.  */
 } Elf_Internal_Verdaux;
- 
+
 /* This structure appears in a SHT_GNU_verneed section.  */
 
 typedef struct elf_internal_verneed {

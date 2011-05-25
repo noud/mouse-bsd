@@ -82,7 +82,7 @@ main()
 	char	*addr;
 	int n, error;
 
-	printf("Boot: bug device: ctrl=%d, dev=%d\n", 
+	printf("Boot: bug device: ctrl=%d, dev=%d\n",
 		bugargs.ctrl_lun, bugargs.dev_lun);
 	printf("\nbootxx: first level bootstrap program [%s]\n\n", version);
 

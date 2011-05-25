@@ -21,7 +21,7 @@ LISTS=		list
 CRUNCHCONF=	${CBIN}.conf
 MTREE=		mtree.conf
 
-all: ${CBIN} 
+all: ${CBIN}
 	dd if=/dev/zero of=${IMAGE} count=9000
 	vnconfig -v -c ${VND_CDEV} ${IMAGE}
 #	disklabel -rw ${VND_CDEV} ${DISKTYPE}

@@ -81,7 +81,7 @@ typedef _BSD_VA_LIST_	va_list;
  */
 
 #ifdef __lint__
-# define va_arg(ap, type)	(*(type *)(void *)(ap)) 
+# define va_arg(ap, type)	(*(type *)(void *)(ap))
 #else /* !__lint__ */
 # if __GNUC__ < 2
 #  define __extension__
@@ -114,6 +114,6 @@ typedef _BSD_VA_LIST_	va_list;
 	((dest) = (src))
 #endif
 
-#define va_end(ap)	
+#define va_end(ap)
 
 #endif /* !_SPARC_STDARG_H_ */

@@ -11,7 +11,7 @@ file	dev/scsipi/scsipiconf.c		scsi | atapibus
 file	dev/scsipi/scsipi_base.c	scsi | atapibus
 file	dev/scsipi/scsipi_ioctl.c	scsi | atapibus
 file	dev/scsipi/scsipi_verbose.c	(scsi | atapibus) & scsiverbose
-file	dev/scsipi/scsi_base.c		scsi 
+file	dev/scsipi/scsi_base.c		scsi
 file	dev/scsipi/atapi_base.c		atapibus
 file	dev/scsipi/atapi_wdc.c		atapibus & wdc_base
 

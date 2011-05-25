@@ -199,7 +199,7 @@ orcmd_af(ahost, rport, locuser, remuser, cmd, fd2p, af)
 		hbuf[sizeof(hbuf) - 1] = '\0';
 		*ahost = hbuf;
 	}
-	
+
 	error = resrcmd(res, ahost, rport, locuser, remuser, cmd, fd2p);
 	freeaddrinfo(res);
 	return (error);
@@ -427,7 +427,7 @@ rshrcmd(ahost, rport, locuser, remuser, cmd, fd2p, rshcmd)
 		}
 		*fd2p = ep[0];
 	}
-	
+
 	pid = fork();
 	if (pid < 0) {
 		warn("rshrcmd: fork");

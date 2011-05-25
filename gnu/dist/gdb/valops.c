@@ -207,7 +207,7 @@ value_cast (type, arg2)
   if (code1 == TYPE_CODE_COMPLEX)
     return cast_into_complex (type, arg2);
   if (code1 == TYPE_CODE_BOOL || code1 == TYPE_CODE_CHAR)
-    code1 = TYPE_CODE_INT; 
+    code1 = TYPE_CODE_INT;
   if (code2 == TYPE_CODE_BOOL || code2 == TYPE_CODE_CHAR)
     code2 = TYPE_CODE_INT;
 
@@ -358,13 +358,13 @@ value_zero (type, lv)
   return val;
 }
 
-/* Return a value with type TYPE located at ADDR.  
+/* Return a value with type TYPE located at ADDR.
 
    Call value_at only if the data needs to be fetched immediately;
    if we can be 'lazy' and defer the fetch, perhaps indefinately, call
    value_at_lazy instead.  value_at_lazy simply records the address of
-   the data and sets the lazy-evaluation-required flag.  The lazy flag 
-   is tested in the VALUE_CONTENTS macro, which is used if and when 
+   the data and sets the lazy-evaluation-required flag.  The lazy flag
+   is tested in the VALUE_CONTENTS macro, which is used if and when
    the contents are actually required.  */
 
 value_ptr
@@ -459,7 +459,7 @@ value_fetch_lazy (val)
       short snum;
       snum = read_memory_integer (addr, 2);
       num = D10V_MAKE_DADDR(snum);
-      store_address ( VALUE_CONTENTS_RAW (val), 4, num); 
+      store_address ( VALUE_CONTENTS_RAW (val), 4, num);
     }
   else
 #endif
@@ -674,7 +674,7 @@ Can't handle bitfield which doesn't fit in a single register.");
 	    /* Just find out where to put it.  */
 	    get_saved_register ((char *)NULL,
 			        &optim, &addr, frame, regno, &lval);
-	    
+
 	    if (optim)
 	      error ("Attempt to assign to a value that was optimized out.");
 	    if (lval == lval_memory)
@@ -686,7 +686,7 @@ Can't handle bitfield which doesn't fit in a single register.");
 	  }
       }
       break;
-	
+
 
     default:
       error ("Left operand of assignment is not an lvalue.");
@@ -711,7 +711,7 @@ Can't handle bitfield which doesn't fit in a single register.");
   memcpy (VALUE_CONTENTS_RAW (val), VALUE_CONTENTS (fromval),
 	  TYPE_LENGTH (type));
   VALUE_TYPE (val) = type;
-  
+
   return val;
 }
 
@@ -821,7 +821,7 @@ value_coerce_function (arg1)
 			       (LONGEST) (VALUE_ADDRESS (arg1) + VALUE_OFFSET (arg1)));
   VALUE_BFD_SECTION (retval) = VALUE_BFD_SECTION (arg1);
   return retval;
-}  
+}
 
 /* Return a pointer value for the object for which ARG1 is the contents.  */
 
@@ -1017,7 +1017,7 @@ value_arg_coerce (arg, param_type)
   return value_cast (type, arg);
 }
 
-/* Determine a function's address and its return type from its value. 
+/* Determine a function's address and its return type from its value.
    Calls error() if the function is not valid for calling.  */
 
 static CORE_ADDR
@@ -1224,7 +1224,7 @@ call_function_by_hand (function, nargs, args)
       if (i >= TYPE_NFIELDS (ftype))
 	args[i] = value_arg_coerce (args[i], 0);
 
-      else 
+      else
 	{
 	  struct type *param_type = TYPE_FIELD_TYPE (ftype, i);
 
@@ -1343,7 +1343,7 @@ call_function_by_hand (function, nargs, args)
      function.  Since this doesn't actually involve executing a JSR/BSR
      instruction, the return address must be set up by hand, either by
      pushing onto the stack or copying into a return-address register
-     as appropriate.  Formerly this has been done in PUSH_ARGUMENTS, 
+     as appropriate.  Formerly this has been done in PUSH_ARGUMENTS,
      but that's overloading its functionality a bit, so I'm making it
      explicit to do it here.  */
   sp = PUSH_RETURN_ADDRESS(real_pc, sp);
@@ -1377,7 +1377,7 @@ call_function_by_hand (function, nargs, args)
      it doesn't cost us anything but space and if the function is pcc
      it will ignore this value, we will make that assumption.
 
-     Also note that on some machines (like the sparc) pcc uses a 
+     Also note that on some machines (like the sparc) pcc uses a
      convention like gcc's.  */
 
   if (struct_return)
@@ -1511,7 +1511,7 @@ value_array (lowbound, highbound, elemvec)
 
   rangetype = create_range_type ((struct type *) NULL, builtin_type_int,
 				 lowbound, highbound);
-  arraytype = create_array_type ((struct type *) NULL, 
+  arraytype = create_array_type ((struct type *) NULL,
 				 VALUE_TYPE (elemvec[0]), rangetype);
 
   if (!current_language->c_style_arrays)
@@ -1653,7 +1653,7 @@ typecmp (staticp, t1, t2)
 	  && (   TYPE_CODE (tt2) == TYPE_CODE_ARRAY
 	      || TYPE_CODE (tt2) == TYPE_CODE_PTR))
 	{
-	   tt1 = check_typedef (TYPE_TARGET_TYPE(tt1)); 
+	   tt1 = check_typedef (TYPE_TARGET_TYPE(tt1));
 	   tt2 = check_typedef (TYPE_TARGET_TYPE(tt2));
 	}
       if (TYPE_CODE(tt1) == TYPE_CODE(tt2)) continue;
@@ -1724,7 +1724,7 @@ search_struct_field (name, arg1, offset, type, looking_for_baseclass)
 		   each member of the union represents a <variant alternative>.
 		   Each <variant alternative> is represented as a struct,
 		   with a member for each <variant field>.  */
-		   
+
 		value_ptr v;
 		int new_offset = offset;
 
@@ -1777,7 +1777,7 @@ search_struct_field (name, arg1, offset, type, looking_for_baseclass)
 	  if (boffset < 0 || boffset >= TYPE_LENGTH (type))
 	    {
 	      CORE_ADDR base_addr;
-	
+
 	      base_addr = VALUE_ADDRESS (arg1) + VALUE_OFFSET (arg1) + boffset;
 	      if (target_read_memory (base_addr, VALUE_CONTENTS_RAW (v2),
 				      TYPE_LENGTH (basetype)) != 0)
@@ -1844,13 +1844,13 @@ search_struct_method (name, arg1p, args, offset, static_memfuncp, type)
 	  if (cplus_demangle_opname(t_field_name, dem_opname, DMGL_ANSI))
 	    t_field_name = dem_opname;
 	  else if (cplus_demangle_opname(t_field_name, dem_opname, 0))
-	    t_field_name = dem_opname; 
+	    t_field_name = dem_opname;
 	}
       if (t_field_name && STREQ (t_field_name, name))
 	{
 	  int j = TYPE_FN_FIELDLIST_LENGTH (type, i) - 1;
 	  struct fn_field *f = TYPE_FN_FIELDLIST1 (type, i);
- 	  name_matched = 1; 
+ 	  name_matched = 1;
 
 	  if (j > 0 && args == 0)
 	    error ("cannot resolve overloaded method `%s'", name);
@@ -2116,7 +2116,7 @@ check_field_in (type, name)
   for (i = TYPE_N_BASECLASSES (type) - 1; i >= 0; i--)
     if (check_field_in (TYPE_BASECLASS (type, i), name))
       return 1;
-      
+
   return 0;
 }
 
@@ -2180,7 +2180,7 @@ value_struct_elt_for_reference (domain, offset, curtype, name, intype)
   for (i = TYPE_NFIELDS (t) - 1; i >= TYPE_N_BASECLASSES (t); i--)
     {
       char *t_field_name = TYPE_FIELD_NAME (t, i);
-      
+
       if (t_field_name && STREQ (t_field_name, name))
 	{
 	  if (TYPE_FIELD_STATIC (t, i))
@@ -2193,7 +2193,7 @@ value_struct_elt_for_reference (domain, offset, curtype, name, intype)
 	    }
 	  if (TYPE_FIELD_PACKED (t, i))
 	    error ("pointers to bitfield members not allowed");
-	  
+
 	  return value_from_longest
 	    (lookup_reference_type (lookup_member_type (TYPE_FIELD_TYPE (t, i),
 							domain)),
@@ -2226,13 +2226,13 @@ value_struct_elt_for_reference (domain, offset, curtype, name, intype)
 	  if (cplus_demangle_opname(t_field_name, dem_opname, DMGL_ANSI))
 	    t_field_name = dem_opname;
 	  else if (cplus_demangle_opname(t_field_name, dem_opname, 0))
-	    t_field_name = dem_opname; 
+	    t_field_name = dem_opname;
 	}
       if (t_field_name && STREQ (t_field_name, name))
 	{
 	  int j = TYPE_FN_FIELDLIST_LENGTH (t, i);
 	  struct fn_field *f = TYPE_FN_FIELDLIST1 (t, i);
-	  
+
 	  if (intype == 0 && j > 1)
 	    error ("non-unique member `%s' requires type instantiation", name);
 	  if (intype)
@@ -2245,7 +2245,7 @@ value_struct_elt_for_reference (domain, offset, curtype, name, intype)
 	    }
 	  else
 	    j = 0;
-	  
+
 	  if (TYPE_FN_FIELD_STUB (f, j))
 	    check_stub_method (t, i, j);
 	  if (TYPE_FN_FIELD_VIRTUAL_P (f, j))
@@ -2444,11 +2444,11 @@ varying_to_slice (varray)
   return value_slice (value_primitive_field (varray, 0, 1, vtype), 0, length);
 }
 
-/* Create a value for a FORTRAN complex number.  Currently most of 
-   the time values are coerced to COMPLEX*16 (i.e. a complex number 
-   composed of 2 doubles.  This really should be a smarter routine 
-   that figures out precision inteligently as opposed to assuming 
-   doubles. FIXME: fmb */ 
+/* Create a value for a FORTRAN complex number.  Currently most of
+   the time values are coerced to COMPLEX*16 (i.e. a complex number
+   composed of 2 doubles.  This really should be a smarter routine
+   that figures out precision inteligently as opposed to assuming
+   doubles. FIXME: fmb */
 
 value_ptr
 value_literal_complex (arg1, arg2, type)

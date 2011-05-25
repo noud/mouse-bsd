@@ -126,7 +126,7 @@
 #define	FDEFER		0x00002000	/* defer for next gc pass */
 #define	FHASLOCK	0x00004000	/* descriptor holds advisory lock */
 /*
- * Note: The below is not a flag that can be used in the struct file. 
+ * Note: The below is not a flag that can be used in the struct file.
  * It's an option that can be passed to vn_open to make sure it doesn't
  * follow a symlink on the last lookup
  */

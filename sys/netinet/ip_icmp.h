@@ -70,7 +70,7 @@ struct icmp {
 
 		/* ICMP_UNREACH_NEEDFRAG -- Path MTU Discovery (RFC1191) */
 		struct ih_pmtu {
-			  n_short ipm_void;    
+			  n_short ipm_void;
 			  n_short ipm_nextmtu;
 		} ih_pmtu __attribute__((__packed__));
 		struct ih_rtradv {

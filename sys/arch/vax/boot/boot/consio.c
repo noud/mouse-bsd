@@ -30,7 +30,7 @@
  */
 
  /* All bugs are subject to removal without further notice */
-		
+
 
 
 #include "sys/param.h"
@@ -77,7 +77,7 @@ static int rom_getc;		/* ROM-address of get-routine */
 #define KA630_MINCOL    0x51
 #define KA630_MAXCOL	0x52
 /* Pointer to KA630 console page, initialized by ka630_consinit */
-unsigned char  *ka630_conspage; 
+unsigned char  *ka630_conspage;
 /* Function that initializes things for KA630 ROM console I/O */
 void ka630_consinit __P((void));
 /* Functions that use KA630 ROM for console I/O */
@@ -93,7 +93,7 @@ putchar(c)
 		(*put_fp)(13);		/* CR/LF */
 }
 
-getchar() 
+getchar()
 {
 	int c;
 
@@ -114,7 +114,7 @@ testkey()
  * setup() is called out of the startup files (start.s, srt0.s) and
  * initializes data which are globally used and is called before main().
  */
-void 
+void
 consinit()
 {
 	put_fp = pr_putchar; /* Default */
@@ -126,7 +126,7 @@ consinit()
 	/*
 	 * According to the vax_boardtype (vax_cputype is not specific
 	 * enough to do that) we decide which method/routines to use
-	 * for console I/O. 
+	 * for console I/O.
 	 * mtpr/mfpr are restricted to serial consoles, ROM-based routines
 	 * support both serial and graphical consoles.
 	 * We default to mtpr routines; so that we don't crash if
@@ -144,7 +144,7 @@ consinit()
 		break;
 
 	case VAX_BTYP_43:
-	case VAX_BTYP_410:	  
+	case VAX_BTYP_410:
 	case VAX_BTYP_420:
 		put_fp = rom_putchar;
 		get_fp = rom_getchar;
@@ -263,7 +263,7 @@ void ka630_consinit()
 
         /* Find the console page */
         NVR = (short *) NVR_ADRS;
-   
+
         i = *NVR++ & 0xFF;
         i |= (*NVR++ & 0xFF) << 8;
         i |= (*NVR++ & 0xFF) << 16;
@@ -280,7 +280,7 @@ void ka630_consinit()
 	get_fp = ka630_rom_getchar;
 	test_fp = ka630_rom_testchar;
 }
-   	
+
 
 /*
  * int ka630_rom_getchar (void)	==> getchar() using ROM-routines on KA630

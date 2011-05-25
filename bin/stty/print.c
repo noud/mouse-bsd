@@ -74,19 +74,19 @@ print(tp, wp, ldisc, fmt)
 #ifdef TTYDISC
 	if (ldisc != TTYDISC) {
 		switch(ldisc) {
-		case TABLDISC:	
+		case TABLDISC:
 			cnt += printf("tablet disc; ");
 			break;
-		case SLIPDISC:	
+		case SLIPDISC:
 			cnt += printf("slip disc; ");
 			break;
-		case PPPDISC:	
+		case PPPDISC:
 			cnt += printf("ppp disc; ");
 			break;
-		case STRIPDISC:	
+		case STRIPDISC:
 			cnt += printf("strip disc; ");
 			break;
-		default:	
+		default:
 			cnt += printf("#%d disc; ", ldisc);
 			break;
 		}

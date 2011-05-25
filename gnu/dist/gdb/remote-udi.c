@@ -18,9 +18,9 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-/* This is like remote.c but uses the Universal Debug Interface (UDI) to 
+/* This is like remote.c but uses the Universal Debug Interface (UDI) to
    talk to the target hardware (or simulator).  UDI is a TCP/IP based
-   protocol; for hardware that doesn't run TCP, an interface adapter 
+   protocol; for hardware that doesn't run TCP, an interface adapter
    daemon talks UDI on one side, and talks to the hardware (typically
    over a serial port) on the other side.
 
@@ -30,7 +30,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 	with termio, only with sgtty.
  - Daniel Mann at AMD took the 3.95 adaptions above and replaced
    	MiniMON interface with UDI-p interface.	  */
- 
+
 #include "defs.h"
 #include "frame.h"
 #include "inferior.h"
@@ -323,10 +323,10 @@ udi_close (quitting)	/*FIXME: how is quitting used */
   inferior_pid = 0;
 
   printf_filtered ("  Ending remote debugging\n");
-} 
+}
 
 /**************************************************************** UDI_ATACH */
-/* Attach to a program that is already loaded and running 
+/* Attach to a program that is already loaded and running
  * Upon exiting the process's execution is stopped.
  */
 static void
@@ -347,7 +347,7 @@ udi_attach (args, from_tty)
 
   if (udi_session_id < 0)
       error ("UDI connection not opened yet, use the 'target udi' command.\n");
-	
+
   if (from_tty)
       printf_unfiltered ("Attaching to remote program %s...\n", prog_name);
 
@@ -493,7 +493,7 @@ udi_wait (pid, status)
     {
     case UDITrapped:
       printf_unfiltered("Am290*0 received vector number %d\n", StopReason >> 24);
-	  
+
       switch ((StopReason >> 8 ) & 0xff)
 	{
 	case 0:			/* Illegal opcode */
@@ -646,10 +646,10 @@ udi_pc()
 #endif
 
 /********************************************************** UDI_FETCH_REGISTERS
- * Read a remote register 'regno'. 
+ * Read a remote register 'regno'.
  * If regno==-1 then read all the registers.
  */
-static void 
+static void
 udi_fetch_registers (regno)
 int	regno;
 {
@@ -680,7 +680,7 @@ int	regno;
 
 #if defined(GR64_REGNUM)	/* Read gr64-127 */
 
-/* Global Registers gr64-gr95 */ 
+/* Global Registers gr64-gr95 */
 
   From.Space = UDI29KGlobalRegs;
   From.Offset = 64;
@@ -694,7 +694,7 @@ int	regno;
 
 #endif	/*  GR64_REGNUM */
 
-/* Global Registers gr96-gr127 */ 
+/* Global Registers gr96-gr127 */
 
   From.Space = UDI29KGlobalRegs;
   From.Offset = 96;
@@ -768,7 +768,7 @@ int	regno;
 
 
 /********************************************************* UDI_STORE_REGISTERS
-** Store register regno into the target.  
+** Store register regno into the target.
  * If regno==-1 then store all the registers.
  */
 
@@ -782,7 +782,7 @@ int regno;
   UDISizeT	Size = 4;
   UDICount	CountDone;
   UDIBool	HostEndian = 0;
-  
+
   if (regno >= 0)
     {
       store_register(regno);
@@ -851,9 +851,9 @@ int regno;
   From = (UDIUInt32 *)&registers[4 * SR_REGNUM(10)];
   To.Space = UDI29KSpecialRegs;
   Count = 3;
-  if (USE_SHADOW_PC) 
+  if (USE_SHADOW_PC)
     To.Offset = 20;				/* SPC0 */
-  else 
+  else
     To.Offset = 10;				/* PC0 */
   if(UDIWrite(From, To, Count, Size, &CountDone, HostEndian))
     error("UDIWrite() failed in udi_store_regisetrs");
@@ -876,7 +876,7 @@ int regno;
   if(UDIWrite(From, To, Count, Size, &CountDone, HostEndian))
     error("UDIWrite() failed in udi_store_regisetrs");
 
-/* Unprotected Special Registers */ 
+/* Unprotected Special Registers */
 
   From = (UDIUInt32 *)&registers[4 * SR_REGNUM(128)];
   To.Space = UDI29KSpecialRegs;
@@ -969,7 +969,7 @@ udi_insert_breakpoint (addr, contents_cache)
   bkpt_table[cnt].Addr.Space  = UDI29KIRAMSpace;
   bkpt_table[cnt].PassCount = 1;
   bkpt_table[cnt].Type = UDIBreakFlagExecute;
-  
+
   err = UDISetBreakpoint(bkpt_table[cnt].Addr,
 			 bkpt_table[cnt].PassCount,
 			 bkpt_table[cnt].Type,
@@ -1043,7 +1043,7 @@ just invoke udi_close, which seems to get things right.
   inferior_pid = 0;
 }
 
-/* 
+/*
    Load a program into the target.  Args are: `program {options}'.  The options
    are used to control loading of the program, and are NOT passed onto the
    loaded code as arguments.  (You need to use the `run' command to do that.)
@@ -1138,11 +1138,11 @@ download(load_arg_string, from_tty)
 
   pbfd = bfd_openr (filename, gnutarget);
 
-  if (!pbfd) 
+  if (!pbfd)
     /* FIXME: should be using bfd_errmsg, not assuming it was
        bfd_error_system_call.  */
     perror_with_name (filename);
-  
+
   /* FIXME: should be checking for errors from bfd_close (for one thing,
      on error it does not free all the storage associated with the
      bfd).  */
@@ -1151,10 +1151,10 @@ download(load_arg_string, from_tty)
   QUIT;
   immediate_quit++;
 
-  if (!bfd_check_format (pbfd, bfd_object)) 
+  if (!bfd_check_format (pbfd, bfd_object))
     error ("It doesn't seem to be an object file");
-  
-  for (section = pbfd->sections; section; section = section->next) 
+
+  for (section = pbfd->sections; section; section = section->next)
     {
       if (bfd_get_section_flags (pbfd, section) & SEC_ALLOC)
 	{
@@ -1283,7 +1283,7 @@ download(load_arg_string, from_tty)
 
   entry.Space = UDI29KIRAMSpace;
   entry.Offset = bfd_get_start_address (pbfd);
-  
+
   immediate_quit--;
 }
 
@@ -1322,7 +1322,7 @@ udi_write_inferior_memory (memaddr, myaddr, len)
   UDISizeT	Size = 1;
   UDICount	CountDone = 0;
   UDIBool	HostEndian = 0;
-  
+
   To.Space = udi_memory_space(memaddr);
   From = (UDIUInt32*)myaddr;
 
@@ -1332,7 +1332,7 @@ udi_write_inferior_memory (memaddr, myaddr, len)
   	To.Offset = memaddr + nwritten;
         if(UDIWrite(From, To, Count, Size, &CountDone, HostEndian))
     	{  error("UDIWrite() failed in udi_write_inferior_memory");
-	   break;	
+	   break;
 	}
 	else
   	{  nwritten += CountDone;
@@ -1359,8 +1359,8 @@ udi_read_inferior_memory(memaddr, myaddr, len)
   UDICount	CountDone = 0;
   UDIBool	HostEndian = 0;
   UDIError	err;
-  
-  From.Space = udi_memory_space(memaddr);	
+
+  From.Space = udi_memory_space(memaddr);
   To = (UDIUInt32*)myaddr;
 
   while (nread < len)
@@ -1369,7 +1369,7 @@ udi_read_inferior_memory(memaddr, myaddr, len)
   	From.Offset = memaddr + nread;
         if(err = UDIRead(From, To, Count, Size, &CountDone, HostEndian))
     	{  error("UDIRead() failed in udi_read_inferior_memory");
-	   break;	
+	   break;
 	}
 	else
   	{  nread += CountDone;
@@ -1388,9 +1388,9 @@ int	num;
 }
 
 
-/*****************************************************************************/ 
-/* Fetch a single register indicatated by 'regno'. 
- * Returns 0/-1 on success/failure.  
+/*****************************************************************************/
+/* Fetch a single register indicatated by 'regno'.
+ * Returns 0/-1 on success/failure.
  */
 static void
 fetch_register (regno)
@@ -1431,17 +1431,17 @@ fetch_register (regno)
       From.Space = UDI29KLocalRegs;
       From.Offset = (regno - LR0_REGNUM);
     }
-  else if (regno>=FPE_REGNUM && regno<=EXO_REGNUM)  
+  else if (regno>=FPE_REGNUM && regno<=EXO_REGNUM)
     {
       int val = -1;
       /*supply_register(160 + (regno - FPE_REGNUM),(char *) &val);*/
       supply_register(regno, (char *) &val);
       return;		/* Pretend Success */
     }
-  else 
+  else
     {
       From.Space = UDI29KSpecialRegs;
-      From.Offset = regnum_to_srnum(regno); 
+      From.Offset = regnum_to_srnum(regno);
     }
 
   if (err = UDIRead(From, &To, Count, Size, &CountDone, HostEndian))
@@ -1452,9 +1452,9 @@ fetch_register (regno)
   if (remote_debug)
     printf_unfiltered("Fetching register %s = 0x%x\n", reg_names[regno], To);
 }
-/*****************************************************************************/ 
-/* Store a single register indicated by 'regno'. 
- * Returns 0/-1 on success/failure.  
+/*****************************************************************************/
+/* Store a single register indicated by 'regno'.
+ * Returns 0/-1 on success/failure.
  */
 static int
 store_register (regno)
@@ -1478,11 +1478,11 @@ store_register (regno)
       To.Space = UDI29KGlobalRegs;
       To.Offset = 1;
       result = UDIWrite(&From, To, Count, Size, &CountDone, HostEndian);
-      /* Setting GR1 changes the numbers of all the locals, so invalidate the 
-       * register cache.  Do this *after* calling read_register, because we want 
-       * read_register to return the value that write_register has just stuffed 
-       * into the registers array, not the value of the register fetched from 
-       * the inferior.  
+      /* Setting GR1 changes the numbers of all the locals, so invalidate the
+       * register cache.  Do this *after* calling read_register, because we want
+       * read_register to return the value that write_register has just stuffed
+       * into the registers array, not the value of the register fetched from
+       * the inferior.
        */
       registers_changed ();
     }
@@ -1506,10 +1506,10 @@ store_register (regno)
       To.Offset = (regno - LR0_REGNUM);
       result = UDIWrite(&From, To, Count, Size, &CountDone, HostEndian);
     }
-  else if (regno >= FPE_REGNUM && regno <= EXO_REGNUM)  
+  else if (regno >= FPE_REGNUM && regno <= EXO_REGNUM)
     return 0;		/* Pretend Success */
   else if (regno == PC_REGNUM)
-    {    
+    {
       /* PC1 via UDI29KPC */
 
       To.Space = UDI29KPC;
@@ -1524,7 +1524,7 @@ store_register (regno)
   else 	/* An unprotected or protected special register */
     {
       To.Space = UDI29KSpecialRegs;
-      To.Offset = regnum_to_srnum(regno); 
+      To.Offset = regnum_to_srnum(regno);
       result = UDIWrite(&From, To, Count, Size, &CountDone, HostEndian);
     }
 
@@ -1534,7 +1534,7 @@ store_register (regno)
   return 0;
 }
 /********************************************************** REGNUM_TO_SRNUM */
-/* 
+/*
  * Convert a gdb special register number to a 29000 special register number.
  */
 static int
@@ -1542,41 +1542,41 @@ regnum_to_srnum(regno)
 int	regno;
 {
 	switch(regno) {
-		case VAB_REGNUM: return(0); 
-		case OPS_REGNUM: return(1); 
-		case CPS_REGNUM: return(2); 
-		case CFG_REGNUM: return(3); 
-		case CHA_REGNUM: return(4); 
-		case CHD_REGNUM: return(5); 
-		case CHC_REGNUM: return(6); 
-		case RBP_REGNUM: return(7); 
-		case TMC_REGNUM: return(8); 
-		case TMR_REGNUM: return(9); 
+		case VAB_REGNUM: return(0);
+		case OPS_REGNUM: return(1);
+		case CPS_REGNUM: return(2);
+		case CFG_REGNUM: return(3);
+		case CHA_REGNUM: return(4);
+		case CHD_REGNUM: return(5);
+		case CHC_REGNUM: return(6);
+		case RBP_REGNUM: return(7);
+		case TMC_REGNUM: return(8);
+		case TMR_REGNUM: return(9);
 		case NPC_REGNUM: return(USE_SHADOW_PC ? (20) : (10));
 		case PC_REGNUM:  return(USE_SHADOW_PC ? (21) : (11));
 		case PC2_REGNUM: return(USE_SHADOW_PC ? (22) : (12));
-		case MMU_REGNUM: return(13); 
-		case LRU_REGNUM: return(14); 
-		case IPC_REGNUM: return(128); 
-		case IPA_REGNUM: return(129); 
-		case IPB_REGNUM: return(130); 
-		case Q_REGNUM:   return(131); 
-		case ALU_REGNUM: return(132); 
-		case BP_REGNUM:  return(133); 
-		case FC_REGNUM:  return(134); 
-		case CR_REGNUM:  return(135); 
-		case FPE_REGNUM: return(160); 
-		case INTE_REGNUM: return(161); 
-		case FPS_REGNUM: return(162); 
-		case EXO_REGNUM:return(164); 
+		case MMU_REGNUM: return(13);
+		case LRU_REGNUM: return(14);
+		case IPC_REGNUM: return(128);
+		case IPA_REGNUM: return(129);
+		case IPB_REGNUM: return(130);
+		case Q_REGNUM:   return(131);
+		case ALU_REGNUM: return(132);
+		case BP_REGNUM:  return(133);
+		case FC_REGNUM:  return(134);
+		case CR_REGNUM:  return(135);
+		case FPE_REGNUM: return(160);
+		case INTE_REGNUM: return(161);
+		case FPS_REGNUM: return(162);
+		case EXO_REGNUM:return(164);
 		default:
 			return(255);	/* Failure ? */
 	}
 }
 /****************************************************************************/
 /*
- * Determine the Target memory space qualifier based on the addr. 
- * FIXME: Can't distinguis I_ROM/D_ROM.  
+ * Determine the Target memory space qualifier based on the addr.
+ * FIXME: Can't distinguis I_ROM/D_ROM.
  * FIXME: Doesn't know anything about I_CACHE/D_CACHE.
  */
 static CPUSpace
@@ -1584,15 +1584,15 @@ udi_memory_space(addr)
 CORE_ADDR	addr;
 {
 	UDIUInt32 tstart = IMemStart;
-	UDIUInt32 tend   = tstart + IMemSize;  
+	UDIUInt32 tend   = tstart + IMemSize;
 	UDIUInt32 dstart = DMemStart;
-	UDIUInt32 dend   = tstart + DMemSize;  
+	UDIUInt32 dend   = tstart + DMemSize;
 	UDIUInt32 rstart = RMemStart;
-	UDIUInt32 rend   = tstart + RMemSize;  
+	UDIUInt32 rend   = tstart + RMemSize;
 
-	if (((UDIUInt32)addr >= tstart) && ((UDIUInt32)addr < tend)) { 
+	if (((UDIUInt32)addr >= tstart) && ((UDIUInt32)addr < tend)) {
 		return UDI29KIRAMSpace;
-	} else if (((UDIUInt32)addr >= dstart) && ((UDIUInt32)addr < dend)) { 
+	} else if (((UDIUInt32)addr >= dstart) && ((UDIUInt32)addr < dend)) {
 		return UDI29KDRAMSpace;
 	} else if (((UDIUInt32)addr >= rstart) && ((UDIUInt32)addr < rend)) {
 		/* FIXME: how do we determine between D_ROM and I_ROM */

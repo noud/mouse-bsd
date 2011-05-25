@@ -450,7 +450,7 @@ DEFDOC (BTEST, "Test bit.", "\
 Returns @code{.TRUE.} if bit @var{@2@} in @var{@1@} is
 1, @code{.FALSE.} otherwise.
 
-(Bit 0 is the low-order (rightmost) bit, adding the value 
+(Bit 0 is the low-order (rightmost) bit, adding the value
 @ifinfo
 2**0,
 @end ifinfo
@@ -461,7 +461,7 @@ $2^0$,
 @end iftex
 or 1,
 to the number if set to 1;
-bit 1 is the next-higher-order bit, adding 
+bit 1 is the next-higher-order bit, adding
 @ifinfo
 2**1,
 @end ifinfo
@@ -471,7 +471,7 @@ $2^1$,
 @end tex
 @end iftex
 or 2;
-bit 2 adds 
+bit 2 adds
 @ifinfo
 2**2,
 @end ifinfo
@@ -2040,15 +2040,15 @@ message corresponding to the last system error.
 This is prefixed by @var{@1@}, a colon and a space.
 See @code{perror(3)}.
 ")
- 
+
 DEFDOC (GETGID, "Get process group id.", "\
 Returns the group id for the current process.
 ")
- 
+
 DEFDOC (GETUID, "Get process user id.", "\
 Returns the user id for the current process.
 ")
- 
+
 DEFDOC (GETPID, "Get process id.", "\
 Returns the process id for the current process.
 ")
@@ -2455,14 +2455,14 @@ Zeros are shifted in from the opposite end.
 DEFDOC (ISHFTC, "Circular bit shift.", "\
 The rightmost @var{@3@} bits of the argument @var{@1@}
 are shifted circularly @var{@2@}
-places, i.e.@: the bits shifted out of one end are shifted into 
+places, i.e.@: the bits shifted out of one end are shifted into
 the opposite end.
 No bits are lost.
 The unshifted bits of the result are the same as
 the unshifted bits of @var{@1@}.
 The  absolute value of the argument @var{@2@}
-must be less than or equal to @var{@3@}.  
-The value of @var{@3@} must be greater than or equal to one and less than 
+must be less than or equal to @var{@3@}.
+The value of @var{@3@} must be greater than or equal to one and less than
 or equal to @samp{BIT_SIZE(@var{@1@})}.
 
 @xref{IShft Intrinsic}, for the logical shift equivalent.

@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -229,7 +229,7 @@ SINMAIN:
 
 *--HIDE THE NEXT THREE INSTRUCTIONS
 	LEA		PITBL+$200,A1 ...TABLE OF N*PI/2, N = -32,...,32
-	
+
 
 *--FP1 IS NOW READY
 	FMOVE.L		FP1,N(a6)		...CONVERT TO INTEGER
@@ -298,7 +298,7 @@ SINPOLY:
 	FADD.X		FP2,FP1	...[A1+T(A3+T(A5+TA7))]+[S(A2+T(A4+TA6))]
 *--FP3 RELEASED, RESTORE NOW AND TAKE SOME ADVANTAGE OF HIDING
 *--FP2 RELEASED, RESTORE NOW AND TAKE FULL ADVANTAGE OF HIDING
-	
+
 
 	FMUL.X		FP1,FP0		...SIN(R')-R'
 *--FP1 RELEASED.
@@ -360,7 +360,7 @@ COSPOLY:
 	FMUL.X		FP2,FP0	...S(B2+T(B4+T(B6+TB8)))
 *--FP3 RELEASED, RESTORE NOW AND TAKE SOME ADVANTAGE OF HIDING
 *--FP2 RELEASED.
-	
+
 
 	FADD.X		FP1,FP0
 *--FP1 RELEASED
@@ -377,7 +377,7 @@ SINBORS:
 *--IF |X| < 2**(-40), RETURN X OR 1.
 	CMPI.L		#$3FFF8000,D0
 	BGT.B		REDUCEX
-        
+
 
 SINSM:
 	MOVE.L		ADJN(a6),D0
@@ -491,7 +491,7 @@ WORK:
         MOVE.W		D2,FP_SCR2(a6)
 	CLR.W           FP_SCR2+2(a6)
 	MOVE.L		#$C90FDAA2,FP_SCR2+4(a6)
-	CLR.L		FP_SCR2+8(a6)		...FP_SCR2 is  2**(L) * Piby2_1	
+	CLR.L		FP_SCR2+8(a6)		...FP_SCR2 is  2**(L) * Piby2_1
 
 *--FP2 IS READY
 	FSUB.S		TWOTO63(a6),FP2		...FP2 is N
@@ -539,7 +539,7 @@ RESTORE:
 	MOVE.L		(A7)+,D2
 	FMOVEM.X	(A7)+,FP2-FP5
 
-	
+
 	MOVE.L		ADJN(a6),D0
 	CMPI.L		#4,D0
 
@@ -584,7 +584,7 @@ SCMAIN:
 
 *--HIDE THE NEXT THREE INSTRUCTIONS
 	LEA		PITBL+$200,A1 ...TABLE OF N*PI/2, N = -32,...,32
-	
+
 
 *--FP1 IS NOW READY
 	FMOVE.L		FP1,N(a6)		...CONVERT TO INTEGER
@@ -602,7 +602,7 @@ SCCONT:
 *--HIDE THE NEXT TWO
 	MOVE.L		N(a6),D0
 	ROR.L		#1,D0
-	
+
 	TST.L		D0		...D0 < 0 IFF N IS ODD
 	BGE.W		NEVEN
 
@@ -666,7 +666,7 @@ NODD:
 	FMUL.X		FP0,FP1	 ...S(A1+...)
 	FMUL.X		FP2,FP0	 ...S(B2+...)
 
-	
+
 
 	FMUL.X		RPRIME(a6),FP1	...R'S(A1+...)
 	FADD.S		COSB1,FP0	...B1+S(B2...)
@@ -734,7 +734,7 @@ NEVEN:
 	FMUL.X		FP0,FP1	 ...S(B2+...)
 	fmul.x		fp2,fp0	 ...s(a1+...)
 
-	
+
 
 	FADD.S		COSB1,FP1	...B1+S(B2...)
 	FMUL.X		RPRIME(a6),FP0	...R'S(A1+...)
@@ -753,7 +753,7 @@ NEVEN:
 SCBORS:
 	CMPI.L		#$3FFF8000,D0
 	BGT.W		REDUCEX
-        
+
 
 SCSM:
 	CLR.W		XDCARE(a6)

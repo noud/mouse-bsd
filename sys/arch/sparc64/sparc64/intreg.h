@@ -51,7 +51,7 @@
  * consist of up to six (three on spitfires) quads.  The first one
  * contains the interrupt number.  This is either the device ID
  * or a pointer to the handler routine.
- * 
+ *
  * Device IDs are split into two parts: a 5-bit interrupt group number
  * and a 5-bit interrupt number.  We ignore this distinction.
  *

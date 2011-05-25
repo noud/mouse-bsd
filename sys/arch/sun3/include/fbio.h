@@ -154,7 +154,7 @@ struct fbcurpos {
 	short x;
 	short y;
 };
- 
+
 #define FB_CUR_SETCUR   0x01
 #define FB_CUR_SETPOS   0x02
 #define FB_CUR_SETHOT   0x04
@@ -172,14 +172,14 @@ struct fbcursor {
 	char *image;		/* cursor's image bits */
 	char *mask;		/* cursor's mask bits */
 };
- 
+
 /* set/get cursor attributes/shape */
 #define FBIOSCURSOR	_IOW('F', 24, struct fbcursor)
 #define FBIOGCURSOR	_IOWR('F', 25, struct fbcursor)
- 
+
 /* set/get cursor position */
 #define FBIOSCURPOS	_IOW('F', 26, struct fbcurpos)
 #define FBIOGCURPOS	_IOW('F', 27, struct fbcurpos)
- 
+
 /* get max cursor size */
 #define FBIOGCURMAX	_IOR('F', 28, struct fbcurpos)

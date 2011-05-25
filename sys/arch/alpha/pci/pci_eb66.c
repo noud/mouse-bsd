@@ -42,17 +42,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -137,7 +137,7 @@ pci_eb66_pickintr(lcp)
 	    &eb66_intrgate_ioh) != 0)
 		panic("pci_eb66_pickintr: couldn't map interrupt PLD");
 	for (i = 0; i < EB66_MAX_IRQ; i++)
-		eb66_intr_disable(i);	
+		eb66_intr_disable(i);
 
 	eb66_pci_intr = alpha_shared_intr_alloc(EB66_MAX_IRQ);
 	for (i = 0; i < EB66_MAX_IRQ; i++)
@@ -151,10 +151,10 @@ pci_eb66_pickintr(lcp)
 	set_iointr(eb66_iointr);
 }
 
-int     
+int
 dec_eb66_intr_map(lcv, bustag, buspin, line, ihp)
         void *lcv;
-        pcitag_t bustag; 
+        pcitag_t bustag;
         int buspin, line;
         pci_intr_handle_t *ihp;
 {
@@ -231,7 +231,7 @@ dec_eb66_intr_disestablish(lcv, cookie)
 	struct alpha_shared_intrhand *ih = cookie;
 	unsigned int irq = ih->ih_num;
 	int s;
- 
+
 	s = splhigh();
 
 	alpha_shared_intr_disestablish(eb66_pci_intr, cookie,
@@ -241,7 +241,7 @@ dec_eb66_intr_disestablish(lcv, cookie)
 		alpha_shared_intr_set_dfltsharetype(eb66_pci_intr, irq,
 		    IST_NONE);
 	}
- 
+
 	splx(s);
 }
 
@@ -250,7 +250,7 @@ eb66_iointr(framep, vec)
 	void *framep;
 	unsigned long vec;
 {
-	int irq; 
+	int irq;
 
 	if (vec >= 0x900) {
 		if (vec >= 0x900 + (EB66_MAX_IRQ << 4))

@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with GAS; see the file COPYING.  If not, write to
 the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
-   
+
 /* $Id: i386.h,v 1.7 1997/09/05 22:20:35 chuck Exp $ */
 
 static const template i386_optab[] = {
@@ -501,7 +501,7 @@ static const template i386_optab[] = {
 /* comparison (without pop) */
 {"fcom", 1, 0xd8d0, _, ShortForm, FloatReg, 0, 0},
 {"fcoms", 1, 0xd8, 2, Modrm, Mem, 0, 0}, /* compare %st0, mem float  */
-{"ficoml", 1, 0xda, 2, Modrm, Mem, 0, 0}, /* compare %st0, mem word  */ 
+{"ficoml", 1, 0xda, 2, Modrm, Mem, 0, 0}, /* compare %st0, mem word  */
 {"fcoml", 1, 0xdc, 2, Modrm, Mem, 0, 0}, /* compare %st0, mem double  */
 {"fcoml", 1, 0xd8d0, _, ShortForm, FloatReg, 0, 0},
 {"ficoms", 1, 0xde, 2, Modrm, Mem, 0, 0}, /* compare %st0, mem dword */
@@ -509,7 +509,7 @@ static const template i386_optab[] = {
 /* comparison (with pop) */
 {"fcomp", 1, 0xd8d8, _, ShortForm, FloatReg, 0, 0},
 {"fcomps", 1, 0xd8, 3, Modrm, Mem, 0, 0}, /* compare %st0, mem float  */
-{"ficompl", 1, 0xda, 3, Modrm, Mem, 0, 0}, /* compare %st0, mem word  */ 
+{"ficompl", 1, 0xda, 3, Modrm, Mem, 0, 0}, /* compare %st0, mem word  */
 {"fcompl", 1, 0xdc, 3, Modrm, Mem, 0, 0}, /* compare %st0, mem double  */
 {"fcompl", 1, 0xd8d8, _, ShortForm, FloatReg, 0, 0},
 {"ficomps", 1, 0xde, 3, Modrm, Mem, 0, 0}, /* compare %st0, mem dword */
@@ -734,10 +734,10 @@ static const template i386_optab[] = {
 
 /* Pentium extensions */
 {"wrmsr", 0, 0x0f30, _, NoModrm, 0, 0, 0},
-{"rdtsc", 0, 0x0f31, _, NoModrm, 0, 0, 0}, 
-{"rdmsr", 0, 0x0f32, _, NoModrm, 0, 0, 0}, 
+{"rdtsc", 0, 0x0f31, _, NoModrm, 0, 0, 0},
+{"rdmsr", 0, 0x0f32, _, NoModrm, 0, 0, 0},
 {"cmpxchg8b", 1, 0x0fc7, 1, Modrm, Mem, 0, 0},
-  
+
 /* Pentium Pro extensions */
 {"rdpmc", 0, 0x0f33, _, NoModrm, 0, 0, 0},
 
@@ -776,7 +776,7 @@ static const template i386_optab[] = {
 };
 #undef _
 
-static const template *i386_optab_end 
+static const template *i386_optab_end
   = i386_optab + sizeof (i386_optab)/sizeof(i386_optab[0]);
 
 /* 386 register table */
@@ -808,8 +808,8 @@ static const reg_entry i386_regtab[] = {
   /* float registers */
   {"st(0)", FloatReg|FloatAcc, 0},
   {"st", FloatReg|FloatAcc, 0},
-  {"st(1)", FloatReg, 1}, {"st(2)", FloatReg, 2}, 
-  {"st(3)", FloatReg, 3}, {"st(4)", FloatReg, 4}, {"st(5)", FloatReg, 5}, 
+  {"st(1)", FloatReg, 1}, {"st(2)", FloatReg, 2},
+  {"st(3)", FloatReg, 3}, {"st(4)", FloatReg, 4}, {"st(5)", FloatReg, 5},
   {"st(6)", FloatReg, 6}, {"st(7)", FloatReg, 7}
 };
 

@@ -112,7 +112,7 @@ prom2boot(dev)
 	char *dev;
 {
 	char *cp;
-	
+
 	for (cp = dev; *cp != '\0'; cp++)
 		if (*cp == ':') {
 			*cp = '\0';
@@ -137,7 +137,7 @@ parseargs(str, howtop)
 			break;
 	if (!*cp)
 		return;
-	
+
 	*cp++ = 0;
 	while (*cp) {
 		switch (*cp++) {
@@ -405,7 +405,7 @@ elf_exec(fd, elf, entryp, esymp)
 			continue;
 		if (shp->sh_type != SHT_SYMTAB
 		    && shp->sh_type != SHT_STRTAB) {
-			shp->sh_offset = 0; 
+			shp->sh_offset = 0;
 			shp->sh_type = SHT_NOBITS;
 			continue;
 		}
@@ -471,7 +471,7 @@ main()
 	char bootline[512];		/* Should check size? */
 	char *cp;
 	int fd;
-	
+
 	printf(">> %s, Revision %s\n", bootprog_name, bootprog_rev);
 	printf(">> (%s, %s)\n", bootprog_maker, bootprog_date);
 

@@ -95,7 +95,7 @@ libtxi_a_DEPENDENCIES = $(libtxi_a_LIBADD)
 EXTRA_DIST = README
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 LIBRARIES =  $(noinst_LIBRARIES)
 
 
@@ -123,7 +123,7 @@ default: all
 
 .SUFFIXES:
 .SUFFIXES: .S .c .o .s
-$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps lib/Makefile
 
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
@@ -210,16 +210,16 @@ dvi:
 check: all
 	$(MAKE)
 installcheck:
-install-exec: 
+install-exec:
 	@$(NORMAL_INSTALL)
 
-install-data: 
+install-data:
 	@$(NORMAL_INSTALL)
 
 install: install-exec install-data all
 	@:
 
-uninstall: 
+uninstall:
 
 all: Makefile $(LIBRARIES)
 

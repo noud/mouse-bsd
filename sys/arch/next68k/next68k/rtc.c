@@ -1,7 +1,7 @@
 /*      $NetBSD: rtc.c,v 1.3 1999/01/31 07:02:34 dbj Exp $        */
 /*
  * Copyright (c) 1998 Darrin Jewell
- * Copyright (c) 1997 Rolf Grossmann 
+ * Copyright (c) 1997 Rolf Grossmann
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,7 +65,7 @@ void
 rtc_init(void)
 {
 	u_char val;
-	
+
 	scr2 = (u_int *)IIOV(NEXT_P_SCR2);
 	val = rtc_read(RTC_STATUS);
 	new_clock = (val & RTC_NEW_CLOCK) ? 1 : 0;
@@ -146,7 +146,7 @@ rtc_read(u_char reg)
 	val = 0;			/* should be anyway */
 	for (i=0; i<8; i++) {
 		val <<= 1;
-	
+
 		tmp = *scr2 & ~(SCR2_RTDATA | SCR2_RTCLK);
 
 		*scr2 = tmp | SCR2_RTCLK;
@@ -236,7 +236,7 @@ poweroff(void)
 	}
 
 	rtc_write(reg, rtc_read(reg)|(RTC_PDOWN));
-	
+
 	printf("....................."); /* @@@ work around some sort of bug. */
 
 	panic("Failed to poweroff!\n");
@@ -247,7 +247,7 @@ time_t
 getsecs(void)
 {
 	u_int secs = 0;
-	
+
 	if (new_clock) {
 		secs = rtc_read(RTC_CNTR3) << 24 |
 				rtc_read(RTC_CNTR2) << 16 |

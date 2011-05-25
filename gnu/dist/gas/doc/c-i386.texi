@@ -413,7 +413,7 @@ operand size prefix to the instruction to force it to be a 32-bit return.)
 This means, for one thing, that you can use @sc{gnu} @sc{cc} to write code to be run
 in real mode or 16-bit protected mode.  Just insert the statement
 @samp{asm(".code16");} at the beginning of your C source file, and while
-@sc{gnu} @sc{cc} will still be generating 32-bit code, GAS will automatically add 
+@sc{gnu} @sc{cc} will still be generating 32-bit code, GAS will automatically add
 all the necessary size prefixes to make that code run in 16-bit mode.  Of
 course, since @sc{gnu} @sc{cc} only writes small-model code (it doesn't know how to
 attach segment selectors to pointers like native x86 compilers do), any

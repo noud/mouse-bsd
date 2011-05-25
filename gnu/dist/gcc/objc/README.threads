@@ -40,11 +40,11 @@ Changes from prior releases (in revered chronological order):
 ------------------------------------------------------------------------------
 
 * Renamed thread-winnt.c to thread-win32.c to better reflect support
-  for the API on both Windows NT and Windows 95 platforms.  
+  for the API on both Windows NT and Windows 95 platforms.
   (Who knows, maybe even Win32s :-).
 
 * Fixed bugs in Win32 support as per report from Scott Christley.
 
 * Fixed bug in sarray_get as per report from Scott Christley.
 
-	
+

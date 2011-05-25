@@ -31,7 +31,7 @@
 #include <sys/systm.h>
 #include <sys/device.h>
 
-#include <sys/tty.h> 
+#include <sys/tty.h>
 
 #include <machine/bus.h>
 #include <machine/intr.h>
@@ -147,7 +147,7 @@ skbd_attach(parent, self, aux)
 	if (skbd_keymap_lookup(sk)) {
 		printf(": no keymap.");
 	}
-	
+
 	printf("\n");
 
 	/*
@@ -224,11 +224,11 @@ __skbd_input(arg, flag, scancode)
 #ifdef TX39XX
 		tx_sound_click(tx_conf_get_tag());
 #endif
-		type = WSCONS_EVENT_KEY_DOWN; 
+		type = WSCONS_EVENT_KEY_DOWN;
 	} else {
 		type = WSCONS_EVENT_KEY_UP;
 	}
-	
+
 	if ((key = sk->sk_keymap[scancode]) == UNK) {
 		printf("skbd: unknown scan code %#x\n", scancode);
 
@@ -242,16 +242,16 @@ __skbd_input(arg, flag, scancode)
 	if (key == SPL) {
 		if (!flag)
 			return 0;
-		
+
 		if (scancode == sk->sk_special[KEY_SPECIAL_OFF])
 			printf("off button\n");
 		else if (scancode == sk->sk_special[KEY_SPECIAL_LIGHT])
 			config_hook_call(CONFIG_HOOK_BUTTONEVENT,
-					 CONFIG_HOOK_BUTTONEVENT_LIGHT, 
+					 CONFIG_HOOK_BUTTONEVENT_LIGHT,
 					 0);
-		else 
+		else
 			printf("unknown special key %d\n", scancode);
-		
+
 		return 0;
 	}
 
@@ -276,7 +276,7 @@ skbd_cnattach(ic)
 	struct skbd_chip *sk = &skbd_consdata;
 
 	sk->sk_console = 1;
-	
+
 	skbd_keymap_lookup(sk);
 
 	/* attach controller */
@@ -285,7 +285,7 @@ skbd_cnattach(ic)
 	skbdif_establish(sk->sk_ic, __skbd_input, __skbd_input_hook, sk);
 
 	wskbd_cnattach(&skbd_consops, sk, &skbd_keymapdata);
-	
+
 	return 0;
 }
 

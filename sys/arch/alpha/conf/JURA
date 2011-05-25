@@ -13,7 +13,7 @@ makeoptions	DEBUG="-g"
 # CPU Support
 options         DEC_2000_300    # "Jensen":     2000/300 (DECpc AXP 150)
 
-options 	BOOTKEY			# ask for keyhit before halt/reboot 
+options 	BOOTKEY			# ask for keyhit before halt/reboot
 
 # Standard system options
 options 	KTRACE			# System call tracing support

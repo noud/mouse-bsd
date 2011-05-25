@@ -5,17 +5,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -180,7 +180,7 @@ sfb_getdevconfig(dense_addr, dc)
 	dc->dc_videobase = dc->dc_vaddr + SFB_FB_OFFSET +
 	    ((*(volatile u_int32_t *)(regp + SFB_ASIC_VIDEO_BASE)) *
 	     4096 * (dc->dc_depth / 8));
-	
+
 	(*(volatile u_int32_t *)(regp + SFB_ASIC_MODE)) = 0;
 	tc_wmb();
 	(*(volatile u_int32_t *)(regp + SFB_ASIC_VIDEO_VALID)) = 1;
@@ -213,7 +213,7 @@ sfb_getdevconfig(dense_addr, dc)
 		tc_wmb();
 	}
 	/* end XXX XXX XXX */
-	
+
 	/* clear the screen */
 	for (i = 0; i < dc->dc_ht * dc->dc_rowbytes; i += sizeof(u_int32_t))
 		*(u_int32_t *)(dc->dc_videobase + i) = 0x00000000;
@@ -231,7 +231,7 @@ sfb_getdevconfig(dense_addr, dc)
 	/* initialize the cursor position  */
 	dc->dc_curpos_x = 368;
 	dc->dc_curpos_y = 34;
-	(*(volatile u_int32_t *)(ramdacregp + SFB_RAMDAC_ADDRLOW)) = 
+	(*(volatile u_int32_t *)(ramdacregp + SFB_RAMDAC_ADDRLOW)) =
 	    BT459_REG_CXLO;
 	(*(volatile u_int32_t *)(ramdacregp + SFB_RAMDAC_ADDRHIGH)) =
 	    BT459_REG_CXLO >> 8;
@@ -528,7 +528,7 @@ sfb_unblank(dc)
 	struct sfb_devconfig *dc;
 {
 	char *regp = (char *)dc->dc_vaddr + SFB_ASIC_OFFSET;
-	
+
 	if (dc->dc_blanked) {
 		dc->dc_blanked = 0;
 	    	*(volatile u_int32_t *)(regp + SFB_ASIC_VIDEO_VALID) = 1;
@@ -544,7 +544,7 @@ sfb_put_cmap(dc, cmap)
 	char *ramdacregp;
 	int i;
 	int max_i;
-  
+
 	ramdacregp = (char *)dc->dc_vaddr + SFB_RAMDAC_OFFSET;
 
 	if (cmap->index > 255) {
@@ -578,7 +578,7 @@ sfb_put_cmap(dc, cmap)
 	}
 }
 
-void 
+void
 sfb_get_cmap(dc, cmap)
 	struct sfb_devconfig *dc;
 	struct fbcmap  *cmap;
@@ -601,7 +601,7 @@ sfb_get_cmap(dc, cmap)
 	}
 }
 
-int 
+int
 sfb_set_curpos(dc, curpos)
 	struct sfb_devconfig *dc;
 	struct fbcurpos *curpos;
@@ -635,7 +635,7 @@ sfb_set_curpos(dc, curpos)
 	return 0;
 }
 
-int 
+int
 sfb_get_curpos(dc, curpos)
 	struct sfb_devconfig *dc;
 	struct fbcurpos *curpos;
@@ -646,7 +646,7 @@ sfb_get_curpos(dc, curpos)
 	return 0;
 }
 
-int 
+int
 sfb_get_curmax(dc, curpos)
 	struct sfb_devconfig *dc;
 	struct fbcurpos *curpos;
@@ -657,7 +657,7 @@ sfb_get_curmax(dc, curpos)
 	return 0;
 }
 
-int 
+int
 sfb_set_cursor(dc, cursor)
 	struct sfb_devconfig *dc;
 	struct fbcursor *cursor;
@@ -797,7 +797,7 @@ sfb_set_cursor(dc, cursor)
 	return result;
 }
 
-int 
+int
 sfb_get_cursor(dc, cursor)
 	struct sfb_devconfig *dc;
 	struct fbcursor *cursor;

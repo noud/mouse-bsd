@@ -11,11 +11,11 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
- 
+
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
+
     */
 
 
@@ -148,12 +148,12 @@ psim_usage(int verbose)
   printf_filtered("\n");
 
   printf_filtered("\t-c <count>      Limit the simulation to <count> iterations\n");
-  if (verbose) { 
+  if (verbose) {
   printf_filtered("\n");
   }
 
   printf_filtered("\t-i or -i2       Print instruction counting statistics\n");
-  if (verbose) { 
+  if (verbose) {
   printf_filtered("\t                Specify -i2 for a more detailed display\n");
   printf_filtered("\n");
   }
@@ -721,7 +721,7 @@ psim_read_register(psim *system,
   case reg_spr:
     *(spreg*)cooked_buf = cpu_registers(processor)->spr[description.index];
     break;
-    
+
   case reg_sr:
     *(sreg*)cooked_buf = cpu_registers(processor)->sr[description.index];
     break;
@@ -772,7 +772,7 @@ psim_read_register(psim *system,
   if (mode == raw_transfer) {
     /* FIXME - assumes that all registers are simple integers */
     switch (description.size) {
-    case 1: 
+    case 1:
       *(unsigned_1*)buf = H2T_1(*(unsigned_1*)cooked_buf);
       break;
     case 2:
@@ -833,7 +833,7 @@ psim_write_register(psim *system,
      into host order before putting it into PSIM's internal structures */
   if (mode == raw_transfer) {
     switch (description.size) {
-    case 1: 
+    case 1:
       *(unsigned_1*)cooked_buf = T2H_1(*(unsigned_1*)buf);
       break;
     case 2:

@@ -123,7 +123,7 @@ vmem_sub(int opr, void* xxx, caddr_t addr, int nbytes, int *byte_count)
 	}
 	return (0);
 }
-      
+
 
 static int
 scanfile(int fd, caddr_t *start, caddr_t *end, caddr_t *entry, int load)

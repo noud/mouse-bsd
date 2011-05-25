@@ -8,7 +8,7 @@ static const char rcsid[] = "Id: ns_forw.c,v 8.68 1999/10/13 16:39:07 vixie Exp"
 /*
  * Copyright (c) 1986
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -24,7 +24,7 @@ static const char rcsid[] = "Id: ns_forw.c,v 8.68 1999/10/13 16:39:07 vixie Exp"
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -40,14 +40,14 @@ static const char rcsid[] = "Id: ns_forw.c,v 8.68 1999/10/13 16:39:07 vixie Exp"
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -116,7 +116,7 @@ static int retry_timer_set = 0;
 /*
  * Forward the query to get the answer since its not in the database.
  * Returns FW_OK if a request struct is allocated and the query sent.
- * Returns FW_DUP if this is a duplicate of a pending request. 
+ * Returns FW_DUP if this is a duplicate of a pending request.
  * Returns FW_NOSERVER if there were no addresses for the nameservers.
  * Returns FW_SERVFAIL on memory allocation error or if asked to do something
  *	dangerous, such as fwd to ourselves or fwd to the host that asked us.
@@ -417,7 +417,7 @@ nslookupComplain(const char *sysloginfo, const char *queryname,
 			}
 		}
 		if (a != NULL || ns != NULL)
-			ns_info(ns_log_default, 
+			ns_info(ns_log_default,
 			       "%s: query(%s) %s (%s:%s) learnt (%s=%s:NS=%s)",
 				sysloginfo, queryname,
 				complaint, dname,
@@ -554,7 +554,7 @@ nslookup(struct databuf *nsp[], struct qinfo *qp,
 #endif
 #ifdef INADDR_BROADCAST
 			if (ina_hlong(ina_get(dp->d_data))==INADDR_BROADCAST){
-				static const char *complaint = 
+				static const char *complaint =
 					"Bogus BROADCAST A RR";
 				nslookupComplain(sysloginfo, syslogdname,
 						 complaint, dname, dp, nsdp);
@@ -663,7 +663,7 @@ nslookup(struct databuf *nsp[], struct qinfo *qp,
 			if (ip_match_address(bogus_nameservers, nsa) > 0)
 				goto skipserver;
 #endif
-			if (server_options->blackhole_acl != NULL && 
+			if (server_options->blackhole_acl != NULL &&
 			    ip_match_address(server_options->blackhole_acl,
 					     nsa) == 1)
 				continue;
@@ -1122,7 +1122,7 @@ qflush() {
 void
 qremove(struct qinfo *qp) {
 	ns_debug(ns_log_default, 3, "qremove(%#lx)", (u_long)qp);
-	
+
 	if ((qp->q_flags & Q_ZSERIAL) != 0)
 		qserial_answer(qp);
 	unsched(qp);

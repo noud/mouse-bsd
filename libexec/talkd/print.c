@@ -78,7 +78,7 @@ print_request(cp, mp)
 	CTL_MSG *mp;
 {
 	char tbuf[80], *tp;
-	
+
 	if (mp->type > NTYPES) {
 		(void)snprintf(tbuf, sizeof tbuf, "type %d", mp->type);
 		tp = tbuf;
@@ -95,7 +95,7 @@ print_response(cp, rp)
 	CTL_RESPONSE *rp;
 {
 	char tbuf[80], *tp, abuf[80], *ap;
-	
+
 	if (rp->type > NTYPES) {
 		(void)snprintf(tbuf, sizeof tbuf, "type %d", rp->type);
 		tp = tbuf;

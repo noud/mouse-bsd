@@ -376,7 +376,7 @@ tzcommand(dev, command, code, count, data)
 			}
 			sc->sc_flags &= ~TZF_SEENEOF;
 			break;
-			
+
 		case SCSI_WRITE_EOF:
 			if (sc->sc_blkno != -1) {
 				sc->sc_fileno += count;
@@ -694,7 +694,7 @@ tzmount(dev)
 
 		/* check for tape density changes */
 		densmode = (minor(dev) & TZ_HIDENSITY) ? 1 : 0;
-		if ((sc->sc_quirks != NULL) && 
+		if ((sc->sc_quirks != NULL) &&
 		    (sc->sc_quirks->modes[densmode].quirks & TZ_Q_DENSITY))
 			sc->sc_mode.density = sc->sc_quirks->modes[densmode].density;
 		else {
@@ -705,7 +705,7 @@ tzmount(dev)
 		/* set the current mode settings */
 		error = tzcommand(dev, SCSI_MODE_SELECT, 0,
 			sc->sc_modelen, (caddr_t)&sc->sc_mode);
-		
+
 		if (error == 0) {
 			sc->sc_flags |= TZF_MOUNTED;
 			sc->sc_fileno = 0;

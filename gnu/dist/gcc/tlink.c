@@ -278,7 +278,7 @@ tlink_execute (prog, argv, redir)
 {
   collect_execute (prog, argv, redir);
   return collect_wait (prog);
-} 
+}
 
 static char *
 frob_extension (s, ext)
@@ -529,7 +529,7 @@ scan_linker_output (fname)
       char *p = line, *q;
       symbol *sym;
       int end;
-      
+
       while (*p && ISSPACE (*p))
 	++p;
 
@@ -585,7 +585,7 @@ scan_linker_output (fname)
 	  sym->tweaking = 1;
 	  file_push (sym->file);
 	}
-	
+
       obstack_free (&temporary_obstack, temporary_firstobj);
     }
 

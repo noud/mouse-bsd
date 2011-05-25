@@ -61,7 +61,7 @@ MOD_VFS("portal", -1, &portal_vfsops);
  */
 int
 portal_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

@@ -880,7 +880,7 @@ check_passwd(unit, auser, userlen, apasswd, passwdlen, msg, msglen)
 
 #ifdef USE_PAM
 /* Static variables used to communicate between the conversation function
- * and the server_login function 
+ * and the server_login function
  */
 static char *PAM_username;
 static char *PAM_password;
@@ -922,14 +922,14 @@ static int PAM_conv (int num_msg, const struct pam_message **msg,
                 reply[replies].resp_retcode = PAM_SUCCESS;
                 reply[replies].resp = NULL;
                 break;
-            default:       
+            default:
                 /* Must be an error of some sort... */
                 free (reply);
                 PAM_error = 1;
                 return PAM_CONV_ERR;
         }
     }
-    *resp = reply;     
+    *resp = reply;
     return PAM_SUCCESS;
 }
 
@@ -970,7 +970,7 @@ plogin(user, passwd, msg, msglen)
     /*
      * Define the fields for the credential validation
      */
-     
+
     PAM_username = user;
     PAM_password = passwd;
     PAM_error = 0;
@@ -980,7 +980,7 @@ plogin(user, passwd, msg, msglen)
      * Validate the user
      */
     pam_error = pam_authenticate (pamh, PAM_SILENT);
-    if (pam_error == PAM_SUCCESS && !PAM_error) {    
+    if (pam_error == PAM_SUCCESS && !PAM_error) {
         pam_error = pam_acct_mgmt (pamh, PAM_SILENT);
         if (pam_error == PAM_SUCCESS)
 	    pam_open_session (pamh, PAM_SILENT);
@@ -1086,7 +1086,7 @@ plogout()
     }
     /* Apparently the pam stuff does closelog(). */
     reopen_log();
-#else /* ! USE_PAM */   
+#else /* ! USE_PAM */
     char *tty;
 
     tty = devnam;

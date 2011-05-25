@@ -8,7 +8,7 @@ static const char rcsid[] = "Id: db_update.c,v 8.39 1999/10/15 19:48:59 vixie Ex
 /*
  * Copyright (c) 1986, 1990
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -24,7 +24,7 @@ static const char rcsid[] = "Id: db_update.c,v 8.39 1999/10/15 19:48:59 vixie Ex
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -40,14 +40,14 @@ static const char rcsid[] = "Id: db_update.c,v 8.39 1999/10/15 19:48:59 vixie Ex
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -218,7 +218,7 @@ findMyZone(struct namebuf *np, int class) {
  */
 int
 db_update(const char *name,
-	  struct databuf *odp, struct databuf *newdp, 
+	  struct databuf *odp, struct databuf *newdp,
 	  struct databuf **savedpp,
 	  int flags, struct hashbuf *htp, struct sockaddr_in from)
 {
@@ -239,7 +239,7 @@ db_update(const char *name,
 	np = nlookup(name, &htp, &fname, newdp != NULL);
 	if (np == NULL || fname != name)
 		return (NONAME);
-	
+
 	if (newdp && zones[newdp->d_zone].z_type == Z_PRIMARY)
 		check_ttl = 1;
 
@@ -376,11 +376,11 @@ db_update(const char *name,
 				if (!newdp || newdp->d_class != dp->d_class)
 					goto skip;
 
-				/* if the new data is authorative 
+				/* if the new data is authorative
 				 * remove any data for this domain with
 				 * the same class that isn't as credable
 				 */
-				if (newdp->d_cred == DB_C_ZONE && 
+				if (newdp->d_cred == DB_C_ZONE &&
 				    newdp->d_cred > dp->d_cred)
 					/* better credibility and the old datum
 					 * was not from a zone file.  remove
@@ -400,13 +400,13 @@ db_update(const char *name,
 				/* if the new data is authoritative
 				 * but isn't as credible, reject it.
 				 */
-				if (newdp->d_cred == DB_C_ZONE && 
+				if (newdp->d_cred == DB_C_ZONE &&
 				    dp->d_cred == DB_C_ZONE) {
 					/* Both records are from a zone file.
 					 * If their credibility levels differ,
 					 * we're dealing with a zone cut.  The
 					 * record with lower clev is from the
-					 * upper zone's file and is therefore 
+					 * upper zone's file and is therefore
 					 * glue.
 					 */
 
@@ -501,7 +501,7 @@ db_update(const char *name,
 					 * If their credibility levels differ,
 					 * we're dealing with a zone cut.  The
 					 * record with lower clev is from the
-					 * upper zone's file and is therefore 
+					 * upper zone's file and is therefore
 					 * glue.
 					 */
 
@@ -574,7 +574,7 @@ db_update(const char *name,
 					ndp_cp = findsoaserial(newdp->d_data);
 					GETLONG(dp_ser, dp_cp);
 					GETLONG(ndp_ser, ndp_cp);
-					
+
 					if (SEQ_GT(ndp_ser, dp_ser))
 					        goto delete;
 					else
@@ -603,7 +603,7 @@ db_update(const char *name,
 /* BEW - this _seriously_ breaks DNSSEC.  Is it necessary for dynamic update? */
 #ifdef BIND_UPDATE
                                 if (dp->d_type == T_SIG)
-                                        /* 
+                                        /*
 					 * Type covered has already been
 					 * checked.
 					 */
@@ -624,17 +624,17 @@ db_update(const char *name,
 						goto delete;
 				}
 				if (check_ttl) {
-					if (newdp->d_ttl != dp->d_ttl) 
+					if (newdp->d_ttl != dp->d_ttl)
 					ns_warning(ns_log_db,
 					"%s %s %s differing ttls: corrected",
-						name[0]?name:".", 
+						name[0]?name:".",
 						p_class(dp->d_class),
 						p_type(dp->d_type));
 					if (newdp->d_ttl > dp->d_ttl) {
 						newdp->d_ttl = dp->d_ttl;
 					} else {
 						dp->d_ttl = newdp->d_ttl;
-					} 
+					}
 				}
 			}
 			if ((flags & DB_NODATA) && !db_cmp(dp, odp)) {
@@ -690,7 +690,7 @@ db_update(const char *name,
 				   the other code in this section.  Do we
 				   really need to look at dp->d_type here?
 				   We're in the "match" section... */
-				if ((odp->d_type == T_SOA) && 
+				if ((odp->d_type == T_SOA) &&
 				    (dp->d_type == T_SOA))
 					goto skip;
 				/* do not delete the last NS record
@@ -716,7 +716,7 @@ db_update(const char *name,
 
 			foundRR = 1;
 			if (flags & DB_DELETE) {
- delete:		       
+ delete:
 #ifdef BIND_UPDATE
 			/*
 			 * XXX	assume here that savedpp!=NULL iff. db_update
@@ -782,7 +782,7 @@ db_update(const char *name,
 	DRCNTINC(newdp);
 	if (newdp->d_flags & DB_F_ACTIVE)
 		panic("db_update: DB_F_ACTIVE set", NULL);
-	newdp->d_flags |= DB_F_ACTIVE;	
+	newdp->d_flags |= DB_F_ACTIVE;
 	dp->d_next = newdp;
 	return (OK);
 }
@@ -809,7 +809,7 @@ db_cmp(const struct databuf *dp1, const struct databuf *dp2) {
 	const u_char *cp1, *cp2;
 	int len, len2;
 
- 	/* XXXDYNUP- should be changed to 
+ 	/* XXXDYNUP- should be changed to
 	   if (!match(dp1, dp2->d_type, dp2->d_class) */
 	if (dp1->d_type != dp2->d_type || dp1->d_class != dp2->d_class)
 		return (1);
@@ -907,7 +907,7 @@ db_cmp(const struct databuf *dp1, const struct databuf *dp2) {
 		cp1 += strlen((char *)cp1) + 1;
 		cp2 += strlen((char *)cp2) + 1;
 		return (memcmp(cp1, cp2, INT32SZ * 5));
-	
+
 	case T_NAPTR: {
 		int t1,t2;
 
@@ -917,11 +917,11 @@ db_cmp(const struct databuf *dp1, const struct databuf *dp2) {
 		cp2 = dp2->d_data;
 
 		/* Order */
-		if (*cp1++ != *cp2++ || *cp1++ != *cp2++)	
+		if (*cp1++ != *cp2++ || *cp1++ != *cp2++)
 			return (1);
 
 		/* Preference */
-		if (*cp1++ != *cp2++ || *cp1++ != *cp2++)	
+		if (*cp1++ != *cp2++ || *cp1++ != *cp2++)
 			return (1);
 
 		/* Flags */
@@ -982,7 +982,7 @@ db_cmp(const struct databuf *dp1, const struct databuf *dp2) {
 		if (ns_samename((char *)cp1, (char *)cp2) != 1)
 			return (1);
 		return (0);
-	
+
 	case T_TXT:
 	case T_X25:
 		if (dp1->d_size != dp2->d_size)

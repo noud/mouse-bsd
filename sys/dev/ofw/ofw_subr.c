@@ -138,7 +138,7 @@ out:
 	if (allocated)
 		free(buf, M_TEMP);
 	return (rv);
-	
+
 }
 
 /*

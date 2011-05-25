@@ -270,7 +270,7 @@
 .ps \n(g4
 .GE
 .ce
-\fB Figure \n+(FG\fR: Control flow (solid) and data flow (broken) 
+\fB Figure \n+(FG\fR: Control flow (solid) and data flow (broken)
 .ce
-among the parts of the transport implementation. 
+among the parts of the transport implementation.
 .)z

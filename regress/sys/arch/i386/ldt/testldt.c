@@ -90,12 +90,12 @@ print_ldt(union descriptor *dp)
 	unsigned long base_addr, limit, offset, selector, stack_copy;
 	int type, dpl, i;
 	unsigned long *lp = (unsigned long *)dp;
-    
+
 	/* First 32 bits of descriptor */
 	selector = base_addr = (*lp >> 16) & 0x0000FFFF;
 	offset = limit = *lp & 0x0000FFFF;
 	lp++;
-	
+
 	/* First 32 bits of descriptor */
 	base_addr |= (*lp & 0xFF000000) | ((*lp << 16) & 0x00FF0000);
 	limit |= (*lp & 0x000F0000);
@@ -103,7 +103,7 @@ print_ldt(union descriptor *dp)
 	dpl = dp->sd.sd_dpl;
 	stack_copy = dp->gd.gd_stkcpy;
 	offset |= (*lp >> 16) & 0x0000FFFF;
-    
+
 	if (type == SDT_SYS386CGT || type == SDT_SYS286CGT)
 		printf("LDT: Gate Off %08.8x, Sel   %05.5x, Stkcpy %d DPL %d, Type %d\n",
 			offset, selector, stack_copy, dpl, type);
@@ -154,7 +154,7 @@ main(int argc, char *argv[])
 	char *data;
 	struct segment_descriptor *sd;
 	struct gate_descriptor *gd;
-	
+
 	segv_act.sa_handler = (sig_t) busfault;
 	if (sigaction(SIGBUS, &segv_act, NULL) < 0) {
 		perror("sigaction");
@@ -189,7 +189,7 @@ main(int argc, char *argv[])
 		print_ldt(&ldt[n]);
 	    }
 	}
-	
+
 	/*
 	 * mmap a data area and assign an LDT to it
 	 */
@@ -226,7 +226,7 @@ main(int argc, char *argv[])
 		fprintf(stderr, "ERROR: descriptor check failed: (should be 0x97): 0x%x\n", check_desc(num));
 		exit(1);
 	}
-	
+
 	/*
 	 * Test a Call Gate
 	 */

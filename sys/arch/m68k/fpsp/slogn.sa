@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -45,11 +45,11 @@
 *
 *	Accuracy and Monotonicity: The returned result is within 2 ulps in
 *		64 significant bit, i.e. within 0.5001 ulp to 53 bits if the
-*		result is subsequently rounded to double precision. The 
+*		result is subsequently rounded to double precision. The
 *		result is provably monotonic in double precision.
 *
-*	Speed: The program slogn takes approximately 190 cycles for input 
-*		argument X such that |X-1| >= 1/16, which is the the usual 
+*	Speed: The program slogn takes approximately 190 cycles for input
+*		argument X such that |X-1| >= 1/16, which is the the usual
 *		situation. For those arguments, slognp1 takes approximately
 *		 210 cycles. For the less common arguments, the program will
 *		 run no worse than 10% slower.
@@ -77,20 +77,20 @@
 *	Step 2: Let 1+X = 2**k * Y, where 1 <= Y < 2. Define F as done in Step 2
 *		of the algorithm for LOGN and compute log(1+X) as
 *		k*log(2) + log(F) + poly where poly approximates log(1+u),
-*		u = (Y-F)/F. 
+*		u = (Y-F)/F.
 *
 *	Implementation Notes:
 *	Note 1. There are 64 different possible values for F, thus 64 log(F)'s
-*		need to be tabulated. Moreover, the values of 1/F are also 
+*		need to be tabulated. Moreover, the values of 1/F are also
 *		tabulated so that the division in (Y-F)/F can be performed by a
 *		multiplication.
 *
 *	Note 2. In Step 2 of lognp1, in order to preserved accuracy, the value
-*		Y-F has to be calculated carefully when 1/2 <= X < 3/2. 
+*		Y-F has to be calculated carefully when 1/2 <= X < 3/2.
 *
 *	Note 3. To fully exploit the pipeline, polynomials are usually separated
 *		into two parts evaluated independently before being added up.
-*	
+*
 
 slogn	IDNT	2,1 Motorola 040 Floating Point Software Package
 
@@ -287,7 +287,7 @@ slognd:
 *----the value TWOTO100 is no longer needed.
 *----Note that this code assumes the denormalized input is NON-ZERO.
 
-     MoveM.L	D2-D7,-(A7)		...save some registers 
+     MoveM.L	D2-D7,-(A7)		...save some registers
      Clr.L	D3			...D3 is exponent of smallest norm. #
      Move.L	4(A0),D4
      Move.L	8(A0),D5		...(D4,D5) is (Hi_X,Lo_X)
@@ -372,7 +372,7 @@ LOGMAIN:
 *--NOTE THAT U = (Y-F)/F IS VERY SMALL AND THUS APPROXIMATING
 *--LOG(1+U) CAN BE VERY EFFICIENT.
 *--ALSO NOTE THAT THE VALUE 1/F IS STORED IN A TABLE SO THAT NO
-*--DIVISION IS NEEDED TO CALCULATE (Y-F)/F. 
+*--DIVISION IS NEEDED TO CALCULATE (Y-F)/F.
 
 *--GET K, Y, F, AND ADDRESS OF 1/F.
 	ASR.L	#8,D0
@@ -388,7 +388,7 @@ LOGMAIN:
 	ANDI.L	#$FE000000,FFRAC(a6) ...FIRST 7 BITS OF Y
 	ORI.L	#$01000000,FFRAC(a6) ...GET F: ATTACH A 1 AT THE EIGHTH BIT
 	MOVE.L	FFRAC(a6),D0	...READY TO GET ADDRESS OF 1/F
-	ANDI.L	#$7E000000,D0	
+	ANDI.L	#$7E000000,D0
 	ASR.L	#8,D0
 	ASR.L	#8,D0
 	ASR.L	#4,D0		...SHIFTED 20, D0 IS THE DISPLACEMENT
@@ -415,7 +415,7 @@ LP1CONT1:
 *--[U + V*(A1+V*(A3+V*A5))]  +  [U*V*(A2+V*(A4+V*A6))]
 
 	FMOVE.X	FP2,FP3
-	FMOVE.X	FP2,FP1	
+	FMOVE.X	FP2,FP1
 
 	FMUL.D	LOGA6,FP1	...V*A6
 	FMUL.D	LOGA5,FP2	...V*A5
@@ -465,7 +465,7 @@ LP1CONT2:
 	FMOVE.X	FP1,FP0
 	FMUL.X	FP0,FP0	...FP0 IS V
 	FMOVE.X	FP1,SAVEU(a6) ...STORE U IN MEMORY, FREE FP1
-	FMOVE.X	FP0,FP1	
+	FMOVE.X	FP0,FP1
 	FMUL.X	FP1,FP1	...FP1 IS W
 
 	FMOVE.D	LOGB5,FP3
@@ -490,7 +490,7 @@ LP1CONT2:
 	FMUL.X	FP1,FP0	...U*V*( [B1+W*(B3+W*B5)] + [V*(B2+W*B4)] )
 
 	fmove.l	d1,fpcr
-	FADD.X	SAVEU(a6),FP0		
+	FADD.X	SAVEU(a6),FP0
 	bra	t_frcinx
 	rts
 
@@ -574,7 +574,7 @@ KISNEG1:
 	ASR.L	#8,D0
 	ASR.L	#4,D0		...D0 CONTAINS DISPLACEMENT FOR 1/F
 	FADD.X	FP1,FP1		...GET 2Z
-	FMOVEm.X FP2/fp3,-(sp)	...SAVE FP2 
+	FMOVEm.X FP2/fp3,-(sp)	...SAVE FP2
 	FADD.X	FP1,FP0		...FP0 IS Y-F = (2-F)+2Z
 	LEA	LOGTBL,A0	...A0 IS ADDRESS OF 1/F
 	ADDA.L	D0,A0

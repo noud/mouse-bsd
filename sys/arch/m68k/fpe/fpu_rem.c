@@ -41,7 +41,7 @@
  *       ALGORITHM
  *
  *       Step 1.  Save and strip signs of X and Y: signX := sign(X),
- *                signY := sign(Y), X := *X*, Y := *Y*, 
+ *                signY := sign(Y), X := *X*, Y := *Y*,
  *                signQ := signX EOR signY. Record whether MOD or REM
  *                is requested.
  *
@@ -61,7 +61,7 @@
  *
  *       Step 4.  At this point, R = X - QY = MOD(X,Y). Set
  *                Last_Subtract := false (used in Step 7 below). If
- *                MOD is requested, go to Step 6. 
+ *                MOD is requested, go to Step 6.
  *
  *       Step 5.  R = MOD(X,Y), but REM(X,Y) is requested.
  *            5.1 If R < Y/2, then R = MOD(X,Y) = REM(X,Y). Go to
@@ -80,7 +80,7 @@
  *       Step 9.  At this point, R = 2^(-j)*X - Q Y = Y. Thus,
  *                X = 2^(j)*(Q+1)Y. set Q := 2^(j)*(Q+1),
  *                R := 0. Return signQ, last 7 bits of Q, and R.
- */                
+ */
 
 static struct fpn * __fpu_modrem __P((struct fpemu *fe, int modrem));
 

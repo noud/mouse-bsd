@@ -1,8 +1,8 @@
 /*	$NetBSD: uvm_pdaemon.c,v 1.19 1999/11/04 21:51:42 thorpej Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1997 Charles D. Cranor and Washington University.
- * Copyright (c) 1991, 1993, The Regents of the University of California.  
+ * Copyright (c) 1991, 1993, The Regents of the University of California.
  *
  * All rights reserved.
  *
@@ -20,7 +20,7 @@
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
  *	This product includes software developed by Charles D. Cranor,
- *      Washington University, the University of California, Berkeley and 
+ *      Washington University, the University of California, Berkeley and
  *      its contributors.
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
@@ -44,17 +44,17 @@
  *
  * Copyright (c) 1987, 1990 Carnegie-Mellon University.
  * All rights reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -197,7 +197,7 @@ uvm_pageout()
 	int s;
 	struct uvm_aiodesc *aio, *nextaio;
 	UVMHIST_FUNC("uvm_pageout"); UVMHIST_CALLED(pdhist);
-	 
+
 	UVMHIST_LOG(pdhist,"<starting uvm pagedaemon>", 0, 0, 0, 0);
 
 	/*
@@ -251,7 +251,7 @@ uvm_pageout()
 
 		simple_unlock(&uvm.pagedaemon_lock);	/* unlock */
 		splx(s);				/* drop splbio */
- 
+
 		/*
 		 * first clear out any pending aios (to free space in case we
 		 * want to pageout more stuff).
@@ -349,7 +349,7 @@ uvmpd_scan_inactive(pglst)
 
 	/*
 	 * swslot is non-zero if we are building a swap cluster.  we want
-	 * to stay in the loop while we have a page to scan or we have 
+	 * to stay in the loop while we have a page to scan or we have
 	 * a swap-cluster to build.
 	 */
 	swslot = 0;
@@ -408,7 +408,7 @@ uvmpd_scan_inactive(pglst)
 				uvmexp.pdreact++;
 				continue;
 			}
-			
+
 			/*
 			 * first we attempt to lock the object that this page
 			 * belongs to.  if our attempt fails we skip on to
@@ -424,7 +424,7 @@ uvmpd_scan_inactive(pglst)
 			 * case, the anon can "take over" the loaned page
 			 * and make it its own.
 			 */
-		
+
 			/* is page part of an anon or ownerless ? */
 			if ((p->pqflags & PQ_ANON) || p->uobject == NULL) {
 
@@ -472,13 +472,13 @@ uvmpd_scan_inactive(pglst)
 
 				if (!simple_lock_try(&uobj->vmobjlock))
 					/* lock failed, skip this page */
-					continue;	
+					continue;
 
 				if (p->flags & PG_BUSY) {
 					simple_unlock(&uobj->vmobjlock);
 					uvmexp.pdbusy++;
 					/* someone else owns page, skip it */
-					continue;	
+					continue;
 				}
 
 				uvmexp.pdobscan++;
@@ -502,7 +502,7 @@ uvmpd_scan_inactive(pglst)
 				pmap_page_protect(p, VM_PROT_NONE);
 				uvm_pagefree(p);
 				uvmexp.pdfreed++;
-			
+
 				if (anon) {
 #ifdef DIAGNOSTIC
 					/*
@@ -592,7 +592,7 @@ uvmpd_scan_inactive(pglst)
 			 * of the page so that no one touches it while it is
 			 * in I/O.
 			 */
-		
+
 			swap_backed = ((p->pqflags & PQ_SWAPBACKED) != 0);
 			p->flags |= PG_BUSY;		/* now we own it */
 			UVM_PAGE_OWN(p, "scan_inactive");
@@ -659,7 +659,7 @@ uvmpd_scan_inactive(pglst)
 				/* done (swap-backed) */
 			}
 
-			/* end: if (p) ["if we have new page to consider"] */ 
+			/* end: if (p) ["if we have new page to consider"] */
 		} else {
 
 			/* if p == NULL we must be doing a last swap i/o */
@@ -667,10 +667,10 @@ uvmpd_scan_inactive(pglst)
 		}
 
 		/*
-		 * now consider doing the pageout.   
+		 * now consider doing the pageout.
 		 *
-		 * for swap-backed pages, we do the pageout if we have either 
-		 * filled the cluster (in which case (swnpages == swcpages) or 
+		 * for swap-backed pages, we do the pageout if we have either
+		 * filled the cluster (in which case (swnpages == swcpages) or
 		 * run out of pages (p == NULL).
 		 *
 		 * for object pages, we always do the pageout.
@@ -699,8 +699,8 @@ uvmpd_scan_inactive(pglst)
 			if (swcpages < swnpages) {
 				uvm_swap_free(swslot + swcpages,
 				    (swnpages - swcpages));
-			} 
-	
+			}
+
 		} else {
 
 			/* normal object pageout */
@@ -713,7 +713,7 @@ uvmpd_scan_inactive(pglst)
 
 		/*
 		 * now do the pageout.
-		 * 
+		 *
 		 * for swap_backed pages we have already built the cluster.
 		 * for !swap_backed pages, uvm_pager_put will call the object's
 		 * "make put cluster" function to build a cluster on our behalf.
@@ -849,7 +849,7 @@ uvmpd_scan_inactive(pglst)
 						   "pgo_releasepg function");
 #endif
 
-					/* 
+					/*
 					 * pgo_releasepg nukes the page and
 					 * gets "nextpg" for us.  it returns
 					 * with the page queues locked (when
@@ -892,7 +892,7 @@ uvmpd_scan_inactive(pglst)
 
 				}
 			}
-			
+
 			/*
 			 * drop object lock (if there is an object left).   do
 			 * a safety check of nextpg to make sure it is on the
@@ -911,7 +911,7 @@ uvmpd_scan_inactive(pglst)
 			/* if p is null in this loop, make sure it stays null
 			 * in next loop */
 			nextpg = NULL;
-			
+
 			/*
 			 * lock page queues here just so they're always locked
 			 * at the end of the loop.
@@ -1016,10 +1016,10 @@ uvmpd_scan()
 	    pages_freed == 0) {
 		swap_shortage = uvmexp.freetarg - uvmexp.free;
 	}
- 
+
 	UVMHIST_LOG(pdhist, "  loop 2: inactive_shortage=%d swap_shortage=%d",
 		    inactive_shortage, swap_shortage,0,0);
-	for (p = TAILQ_FIRST(&uvm.page_active); 
+	for (p = TAILQ_FIRST(&uvm.page_active);
 	     p != NULL && (inactive_shortage > 0 || swap_shortage > 0);
 	     p = nextpg) {
 		nextpg = p->pageq.tqe_next;
@@ -1064,7 +1064,7 @@ uvmpd_scan()
 				simple_unlock(&p->uobject->vmobjlock);
 			continue;
 		}
- 
+
 		/*
 		 * if there's a shortage of swap, free any swap allocated
 		 * to this page so that other pages can be paged out.
@@ -1086,7 +1086,7 @@ uvmpd_scan()
 				}
 			}
 		}
- 
+
 		/*
 		 * deactivate this page if there's a shortage of
 		 * inactive pages.

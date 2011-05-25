@@ -122,7 +122,7 @@ txioman_match(parent, cf, aux)
 {
 	platid_mask_t mask;
 
-	if (cf->cf_loc[TXIOMANIFCF_PLATFORM] == 
+	if (cf->cf_loc[TXIOMANIFCF_PLATFORM] ==
 	    TXIOMANIFCF_PLATFORM_DEFAULT) {
 		return 1;
 	}
@@ -159,7 +159,7 @@ txioman_attach(parent, self, aux)
 	 * register backlight config_hook if any.
 	 */
 	config_hook(CONFIG_HOOK_BUTTONEVENT,
-		    CONFIG_HOOK_BUTTONEVENT_LIGHT, 
+		    CONFIG_HOOK_BUTTONEVENT_LIGHT,
 		    CONFIG_HOOK_SHARE, /* btnmgr */
 		    __config_hook_backlight, sc->sc_tc);
 
@@ -170,16 +170,16 @@ txioman_tag_lookup()
 {
 	const struct txioman_platform_table *tab;
 	platid_mask_t mask;
-	
-	for (tab = txioman_platform_table; 
+
+	for (tab = txioman_platform_table;
 	     tab->tp_tag != &txioman_null_tag; tab++) {
-		
+
 		mask = PLATID_DEREF(&tab->tp_platform);
-		
+
 		if (platid_match(&platid, &mask))
 			goto out;
 	}
-out:	
+out:
 	printf(": %s\n", tab->tp_name);
 
 	return tab->tp_tag;
@@ -188,27 +188,27 @@ out:
 /*
  * default functions.
  */
-void	
+void
 __txioman_led(ti, type, onoff)
 	txioman_tag_t ti;
 	int type, onoff;
 {
 }
 
-void	
+void
 __txioman_backlight(ti, onoff)
 	txioman_tag_t ti;
 	int onoff;
 {
 }
 
-void	
+void
 __txioman_uart_init(ti)
 	txioman_tag_t ti;
 {
 }
 
-void	
+void
 __txioman_uarta_init(ti, cookie)
 	txioman_tag_t ti;
 	void *cookie;
@@ -218,7 +218,7 @@ __txioman_uarta_init(ti, cookie)
 /*
  * Compaq-C functions.
  */
-void	
+void
 __compaq_led(ti, type, onoff)
 	txioman_tag_t ti;
 	int type, onoff;
@@ -226,14 +226,14 @@ __compaq_led(ti, type, onoff)
 	struct txioman_softc *sc = (void*)ti;
 
 	/* Green LED */
-	tx39io_portout(sc->sc_tc, TXPORT(TXMFIO, 3), 
+	tx39io_portout(sc->sc_tc, TXPORT(TXMFIO, 3),
 		       onoff ? TXOFF : TXON);
 }
 
 extern int	__compaq_uart_dcd	__P((void*));
 extern int	__mobilon_uart_dcd	__P((void*));
 
-void	
+void
 __compaq_uarta_init(ti, cookie)
 	txioman_tag_t ti;
 	void *cookie;
@@ -242,11 +242,11 @@ __compaq_uarta_init(ti, cookie)
 	tx_chipset_tag_t tc = sc->sc_tc;
 
 	tx_intr_establish(tc, MAKEINTR(3, (1<<30)), IST_EDGE, IPL_TTY,
-			  __compaq_uart_dcd, cookie);	
+			  __compaq_uart_dcd, cookie);
 	tx_intr_establish(tc, MAKEINTR(4, (1<<30)), IST_EDGE, IPL_TTY,
-			  __compaq_uart_dcd, cookie);	
+			  __compaq_uart_dcd, cookie);
 	tx_intr_establish(tc, MAKEINTR(3, (1<<5)), IST_EDGE, IPL_TTY,
-			  __compaq_uart_dcd, cookie);	
+			  __compaq_uart_dcd, cookie);
 	tx_intr_establish(tc, MAKEINTR(4, (1<<5)), IST_EDGE, IPL_TTY,
 			  __compaq_uart_dcd, cookie);
 }
@@ -254,28 +254,28 @@ __compaq_uarta_init(ti, cookie)
 /*
  * Mobilon HC functions
  */
-void	
+void
 __mobilon_backlight(ti, onoff)
 	txioman_tag_t ti;
 	int onoff;
 {
 	struct txioman_softc *sc = (void*)ti;
 
-	tx39io_portout(sc->sc_tc, TXPORT(TXMFIO, 14), 
+	tx39io_portout(sc->sc_tc, TXPORT(TXMFIO, 14),
 		       onoff ? TXON : TXOFF);
 }
 
-void	
+void
 __mobilon_uart_init(ti)
 	txioman_tag_t ti;
 {
 	struct txioman_softc *sc = (void*)ti;
-	
+
 	tx39io_portout(sc->sc_tc, TXPORT(TXIO, 5), TXON);
 	tx39io_portout(sc->sc_tc, TXPORT(TXMFIO, 15), TXON);
 }
 
-void	
+void
 __mobilon_uarta_init(ti, cookie)
 	txioman_tag_t ti;
 	void *cookie;
@@ -285,11 +285,11 @@ __mobilon_uarta_init(ti, cookie)
 	tx_chipset_tag_t tc = sc->sc_tc;
 
 	tx_intr_establish(tc, MAKEINTR(5, (1<<4)), IST_EDGE, IPL_TTY,
-			  __mobilon_uart_dcd, cookie);	
+			  __mobilon_uart_dcd, cookie);
 	tx_intr_establish(tc, MAKEINTR(5, (1<<11)), IST_EDGE, IPL_TTY,
-			  __mobilon_uart_dcd, cookie);	
+			  __mobilon_uart_dcd, cookie);
 	tx_intr_establish(tc, MAKEINTR(5, (1<<6)), IST_EDGE, IPL_TTY,
-			  __mobilon_uart_dcd, cookie);	
+			  __mobilon_uart_dcd, cookie);
 	tx_intr_establish(tc, MAKEINTR(5, (1<<13)), IST_EDGE, IPL_TTY,
 			  __mobilon_uart_dcd, cookie);
 #endif
@@ -307,7 +307,7 @@ __config_hook_backlight(arg, type, id, msg)
 {
 	static int onoff; /* XXX */
 	tx_chipset_tag_t tc = arg;
-	
+
 	onoff ^= 1;
 
 	txioman_backlight(tc, onoff);

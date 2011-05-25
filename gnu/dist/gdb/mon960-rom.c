@@ -38,7 +38,7 @@ static void mon960_open PARAMS ((char *args, int from_tty));
 #ifdef USE_GENERIC_LOAD
 
 static void
-mon960_load_gen (filename, from_tty) 
+mon960_load_gen (filename, from_tty)
     char *filename;
     int from_tty;
 {
@@ -106,7 +106,7 @@ mon960_load (desc, file, hashmark)
 	monitor_expect_prompt (NULL, 0);
 	putchar_unfiltered ('\n');
       }				/* Loadable sections */
-  if (hashmark) 
+  if (hashmark)
     putchar_unfiltered ('\n');
 }
 
@@ -118,7 +118,7 @@ mon960_load (desc, file, hashmark)
    either. So, typing "info reg sp" becomes a "r30".  */
 
 /* these correspond to the offsets from tm-* files from config directories */
-/* g0-g14, fp, pfp, sp, rip,r3-15, pc, ac, tc, fp0-3 */ 
+/* g0-g14, fp, pfp, sp, rip,r3-15, pc, ac, tc, fp0-3 */
 /* NOTE: "ip" is documented as "ir" in the Mon960 UG. */
 /* NOTE: "ir" can't be accessed... but there's an ip and rip. */
 static char *full_regnames[NUM_REGS] = {
@@ -176,7 +176,7 @@ static struct monitor_ops mon960_cmds =
   },
   {
     /* since the parsing of multiple bytes is difficult due to
-       interspersed addresses, we'll only read 1 value at a time, 
+       interspersed addresses, we'll only read 1 value at a time,
        even tho these can handle a count */
     "db %x\n\r",		/* getmem.cmdb (addr, #bytes) */
     "ds %x\n\r",		/* getmem.cmdw (addr, #swords) */
@@ -230,7 +230,7 @@ mon960_open (args, from_tty)
 
   /* Attempt to fetch the value of the first floating point register (fp0).
      If the monitor returns a string containing the word "Bad" we'll assume
-     this processor has no floating point registers, and nullify the 
+     this processor has no floating point registers, and nullify the
      regnames entries that refer to FP registers.  */
 
   monitor_printf (mon960_cmds.getreg.cmd, full_regnames[FP0_REGNUM]); /* di fp0 */
@@ -257,10 +257,10 @@ _initialize_mon960 ()
   mon960_ops.to_load = mon960_load_gen; /* FIXME - should go back and try "do" */
 #endif
   /* use SW breaks; target only supports 2 HW breakpoints */
-  mon960_ops.to_insert_breakpoint = memory_insert_breakpoint; 
-  mon960_ops.to_remove_breakpoint = memory_remove_breakpoint; 
+  mon960_ops.to_insert_breakpoint = memory_insert_breakpoint;
+  mon960_ops.to_remove_breakpoint = memory_remove_breakpoint;
 
-  mon960_ops.to_doc = 
+  mon960_ops.to_doc =
     "Use an Intel 960 board running the MON960 debug monitor.\n\
 Specify the serial device it is connected to (e.g. /dev/ttya).";
 

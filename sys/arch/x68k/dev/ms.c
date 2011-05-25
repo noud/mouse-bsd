@@ -149,7 +149,7 @@ extern struct cfdriver ms_cd;
 /*
  * ms_match: how is this zs channel configured?
  */
-int 
+int
 ms_match(parent, cf, aux)
 	struct device *parent;
 	struct cfdata *cf;
@@ -169,7 +169,7 @@ ms_match(parent, cf, aux)
 	return 2;
 }
 
-void 
+void
 ms_attach(parent, self, aux)
 	struct device *parent, *self;
 	void   *aux;

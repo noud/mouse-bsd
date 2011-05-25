@@ -79,7 +79,7 @@ ucb*		at	tx39sib? slot 0
 ucbsnd*		at	ucb?
 
 #
-# SHARP Telios keyboard driver 
+# SHARP Telios keyboard driver
 # chip select: CS1, IRQ: 3:12/4:12
 tc5165buf*	at	txcsbus1 iocs 1 iocsbase 0 iocssize 0x100 iocswidth 16
 skbd*		at	tc5165buf?
@@ -91,8 +91,8 @@ m38813c*	at	txcsbus2 iocs 8 iocswidth 16 iocsbase 0 iocssize 8
 skbd*		at	m38813c?
 
 #
-# TC6358TB(Plum2) 
-#  register space: CS3,	 
+# TC6358TB(Plum2)
+#  register space: CS3,
 #  I/O space: MCS0 & MCS1,  IRQ: 8:21 (IO[5] positive)
 #
 plum*		at	txcsbus? regcs 3 regcswidth 32 iocs 4 iocswidth 32 memcs 5 memcswidth 32 irq1 277

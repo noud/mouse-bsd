@@ -1,6 +1,6 @@
 /*	$NetBSD: jmpbuf.h,v 1.3 1994/10/26 08:24:30 cgd Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1993 Philip A. Nelson.
  * All rights reserved.
  *

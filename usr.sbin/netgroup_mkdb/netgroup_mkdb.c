@@ -239,7 +239,7 @@ ng_load(fname)
 				key.size = strlen(head->n_name) + 1;
 				data.data = (u_char *) & head;
 				data.size = sizeof(head);
-				switch ((db->put)(db, &key, &data, 
+				switch ((db->put)(db, &key, &data,
 						  R_NOOVERWRITE)) {
 				case 0:
 					break;
@@ -293,7 +293,7 @@ ng_load(fname)
 			case _NG_ERROR:
 				errx(1, "Fatal error at `%s'", p);
 				break;
-				
+
 			default:
 				abort();
 				break;

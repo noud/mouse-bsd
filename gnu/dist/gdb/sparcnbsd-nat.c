@@ -163,14 +163,14 @@ store_inferior_registers (regno)
   int wanna_store = INT_REGS + STACK_REGS + FP_REGS;
   int save_g0;
 
-  /* First decide which pieces of machine-state we need to modify.  
+  /* First decide which pieces of machine-state we need to modify.
      Default for regno == -1 case is all pieces.  */
   if (regno >= 0)
     if (FP0_REGNUM <= regno && regno < FP0_REGNUM + 32)
       {
 	wanna_store = FP_REGS;
       }
-    else 
+    else
       {
 	if (regno == SP_REGNUM)
 	  wanna_store = INT_REGS + STACK_REGS;
@@ -209,7 +209,7 @@ store_inferior_registers (regno)
       if (regno < 0 || regno == SP_REGNUM)
 	{
 	  if (!register_valid[L0_REGNUM+5]) abort();
-	  target_write_memory (sp, 
+	  target_write_memory (sp,
 			       &registers[REGISTER_BYTE (L0_REGNUM)],
 			       16*REGISTER_RAW_SIZE (L0_REGNUM));
 	}
@@ -221,7 +221,7 @@ store_inferior_registers (regno)
 			       &registers[REGISTER_BYTE (regno)],
 			       REGISTER_RAW_SIZE (regno));
 	}
-	
+
     }
 
   if (wanna_store & INT_REGS)
@@ -258,7 +258,7 @@ store_inferior_registers (regno)
       memcpy (&inferior_fp_registers.fr_regs[0],
 	      &registers[REGISTER_BYTE (FP0_REGNUM)],
 	      sizeof(inferior_fp_registers.fr_regs));
-      memcpy (&inferior_fp_registers.fr_fsr, 
+      memcpy (&inferior_fp_registers.fr_fsr,
 	      &registers[REGISTER_BYTE (FPS_REGNUM)],
 	      sizeof(inferior_fp_registers.fr_fsr));
       if (0 !=
@@ -315,7 +315,7 @@ fetch_core_registers (core_reg_sect, core_reg_size, which, reg_addr)
     int sp;
 
     sp = *(int *)&registers[REGISTER_BYTE (SP_REGNUM)];
-    if (0 != target_read_memory (sp, &registers[REGISTER_BYTE (L0_REGNUM)], 
+    if (0 != target_read_memory (sp, &registers[REGISTER_BYTE (L0_REGNUM)],
 				 16 * REGISTER_RAW_SIZE (L0_REGNUM)))
       {
 	/* fprintf_unfiltered so user can still use gdb */
@@ -393,7 +393,7 @@ fetch_kcore_registers (pcb)
   sp += 92 + 12; /* XXX - MINFRAME + R_Y */
   for (i = 1; i < 14; ++i) {
     u_long val;
-    
+
     if (target_read_memory(sp + i*4, (char *)&val, sizeof val) == 0)
       supply_register(i, (char *)&val);
   }

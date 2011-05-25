@@ -86,8 +86,8 @@
 #define KBCR_AUXTEST_OK  0x00   /* Test on Aux device successful */
 #define KBCR_KBDTEST_OK  0x00   /* Test on keyboard device successful */
 #define KBCR_SELFTEST_OK 0x55   /* Controller self test success  */
- 
-/* Data input and output registers 
+
+/* Data input and output registers
 */
 #define KBDATAP         0x60    /* kbd data port (I) */
 #define KBDATAPO        0x00    /* kbd data port offset(I) */
@@ -110,7 +110,7 @@
 #define NOAUX_CMDBYTE   (KC8_TRANS|KC8_MDISABLE|KC8_CPU|KC8_KENABLE)
 
 /************************************************************************
-** Macros for controlling the 8042 microprocessor 
+** Macros for controlling the 8042 microprocessor
 *************************************************************************/
 
 #define I8042_NPORTS     8
@@ -140,7 +140,7 @@
 ** Forward routine declarations
 */
 extern void i8042_flush       __P((bus_space_tag_t,
-                                   bus_space_handle_t)); 
+                                   bus_space_handle_t));
 extern int  i8042_cmd         __P((bus_space_tag_t,
                                    bus_space_handle_t,
                                    u_char,
@@ -157,22 +157,22 @@ extern int  i8042_wait_input  __P((bus_space_tag_t,
 ** Returns 0 on success.
 */
 #define I8042_MAP(iot, iobase, ioh) \
-    (bus_space_map((iot), (iobase), I8042_NPORTS, 0, &(ioh))) 
+    (bus_space_map((iot), (iobase), I8042_NPORTS, 0, &(ioh)))
 
 /* Macro to unmap bus space for the 8042 device.
 */
 #define I8042_UNMAP(iot, ioh) \
     (bus_space_unmap((iot), (ioh), I8042_NPORTS))
 
-/* Macro to wait and retreive data from the Auxiliary device.  
-** NOTE: 
+/* Macro to wait and retreive data from the Auxiliary device.
+** NOTE:
 **   We always check the status before reading the data port because some 8042
 **   firmware seems to update the status and data AFTER the interrupt has
-**   been generated.  It is nasty because of the number of ISA access it 
-**   requires but then the alternative is failed interrupts. Also very 
+**   been generated.  It is nasty because of the number of ISA access it
+**   requires but then the alternative is failed interrupts. Also very
 **   important is that there needs to be a delay after reading the data
 **   since this causes the interrupt line to get cleared but because the 8042
-**   is a slow processor we could return out of our interrupt handler and 
+**   is a slow processor we could return out of our interrupt handler and
 **   bounce straight back in again with no data to read.
 */
 #define I8042_GETAUX_DATA(iot, ioh, status, value) \
@@ -184,15 +184,15 @@ extern int  i8042_wait_input  __P((bus_space_tag_t,
    } \
 }
 
-/* Macro to wait and retreive data from the Keyboard device.  
-** NOTE: 
+/* Macro to wait and retreive data from the Keyboard device.
+** NOTE:
 **   We always check the status before reading the data port because some 8042
 **   firmware seems to update the status and data AFTER the interrupt has
-**   been generated.  It is nasty because of the number of ISA access it 
-**   requires but then the alternative is failed interrupts. Also very 
+**   been generated.  It is nasty because of the number of ISA access it
+**   requires but then the alternative is failed interrupts. Also very
 **   important is that there needs to be a delay after reading the data
 **   since this causes the interrupt line to get cleared but because the 8042
-**   is a slow processor we could return out of our interrupt handler and 
+**   is a slow processor we could return out of our interrupt handler and
 **   bounce straight back in again with no data to read.
 */
 #define I8042_GETKBD_DATA(iot, ioh, status, value) \
@@ -208,7 +208,7 @@ extern int  i8042_wait_input  __P((bus_space_tag_t,
 ** the system bit in the status register.
 */
 #define I8042_WARM(iot, ioh)   \
-        ( bus_space_read_1((iot), (ioh), KBSTATPO ) & KBS_WARM )  
+        ( bus_space_read_1((iot), (ioh), KBSTATPO ) & KBS_WARM )
 
 /* Macro to run self test on the 8042 controller and indicate success or
 ** failure.
@@ -248,7 +248,7 @@ extern int  i8042_wait_input  __P((bus_space_tag_t,
              (value) = bus_space_read_1((iot), (ioh), KBDATAPO); \
         } \
     } \
-}      
+}
 
 /* Macro to disable the Auxiliary devices clock line
 */
@@ -282,7 +282,7 @@ extern int  i8042_wait_input  __P((bus_space_tag_t,
              } \
         } \
    } \
-} 
+}
 
 #endif
 

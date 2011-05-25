@@ -175,10 +175,10 @@ dec_3max_cons_init()
 {
  	int kbd, crt, screen;
  	extern int tcfb_cnattach __P((int));		/* XXX */
- 
+
  	kbd = crt = screen = 0;
  	prom_findcons(&kbd, &crt, &screen);
- 
+
  	if (screen > 0) {
 #if NRASTERCONSOLE > 0
  		if (kbd == 7 && tcfb_cnattach(crt) > 0) {
@@ -196,7 +196,7 @@ dec_3max_cons_init()
  	 * character time = (1000000 / (defaultrate / 10))
  	 */
  	DELAY(160000000 / 9600);	/* XXX */
- 
+
  	dc_cnattach(KN02_SYS_DZ, kbd);
 }
 
@@ -226,7 +226,7 @@ dec_3max_intr_establish(dev, cookie, level, handler, arg)
 #if 0
 	printf("3MAX enable_intr: %sabling slot %d, sc %p\n",
 	    (on? "en" : "dis"), slotno, sc);
-#endif 
+#endif
 	if (slotno > MAX_INTR_COOKIES)
 		panic("dec_3max_intr_establish: bogus slot %d\n", slotno);
 

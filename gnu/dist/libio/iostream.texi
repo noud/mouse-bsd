@@ -1,7 +1,7 @@
 \input texinfo                                 @c -*-Texinfo-*-
 @c Copyright (c) 1993 Free Software Foundation, Inc.
 
-@c %**start of header 
+@c %**start of header
 @setfilename iostream.info
 @settitle The GNU C++ Iostream Library
 @setchapternewpage odd
@@ -187,7 +187,7 @@ textbook: @code{<<} for output, and @code{>>} for input.  (Think of data
 flowing in the direction of the ``arrows''.)
 
 These operators are often used in conjunction with three streams that
-are open by default: 
+are open by default:
 
 @deftypevar ostream cout
 The standard output stream, analogous to the C @code{stdout}.
@@ -1674,13 +1674,13 @@ int my_scan(streambuf* sb)
         && strncmp(buffer, "hounddog", 8) == 0)
       return 3;
     // No, no "hounddog":  Back up to 'fence'
-    sb->seekmark(fence); // 
+    sb->seekmark(fence); //
     // ... and try reading "dog":
     if (sb->sgetn(buffer, 3) == 3
         && strncmp(buffer, "dog", 3) == 0)
       return 1;
     // No, no "dog" either:  Back up to 'fence'
-    sb->seekmark(fence); // 
+    sb->seekmark(fence); //
     // ... and try reading "hound":
     if (sb->sgetn(buffer, 5) == 5
         && strncmp(buffer, "hound", 5) == 0)

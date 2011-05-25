@@ -42,7 +42,7 @@ __KERNEL_RCSID(0, "$NetBSD: tc_3min.c,v 1.4 1999/12/01 08:55:09 nisimura Exp $ "
 
 /*
  * 3MIN has 4 TC option slot address space starting at 0x1000.0000.
- * TC slot size is 64MB.  Three option slots are available.  IOASIC, 
+ * TC slot size is 64MB.  Three option slots are available.  IOASIC,
  * which governs various baseboard devices like keyboard/mouse, RTC,
  * DMA assisted ASC SCSI, LANCE Ether, forms a system base.  IOASIC
  * is designed as a TC device and sits in slot #3 space.
@@ -65,5 +65,5 @@ struct tcbus_attach_args kmin_tc_desc =
 	KMIN_TC_NSLOTS, tc_kmin_slots,
 	1, tc_kn02ba_builtins,
 	NULL, NULL,
-	NULL, 
+	NULL,
 };

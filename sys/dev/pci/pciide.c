@@ -366,7 +366,7 @@ struct cfattach pciide_ca = {
 int	pciide_chipen __P((struct pciide_softc *, struct pci_attach_args *));
 int	pciide_mapregs_compat __P(( struct pci_attach_args *,
 	    struct pciide_channel *, int, bus_size_t *, bus_size_t*));
-int	pciide_mapregs_native __P((struct pci_attach_args *, 
+int	pciide_mapregs_native __P((struct pci_attach_args *,
 	    struct pciide_channel *, bus_size_t *, bus_size_t *,
 	    int (*pci_intr) __P((void *))));
 void	pciide_mapreg_dma __P((struct pciide_softc *,
@@ -400,7 +400,7 @@ pciide_lookup_product(id)
 	for (; pp->ide_name != NULL; pp++)
 		if (PCI_PRODUCT(id) == pp->ide_product)
 			break;
-    
+
 	if (pp->ide_name == NULL)
 		return NULL;
 	return pp;
@@ -550,7 +550,7 @@ pciide_mapregs_native(pa, cp, cmdsizep, ctlsizep, pci_intr)
 			printf("%s: couldn't map native-PCI interrupt\n",
 			    sc->sc_wdcdev.sc_dev.dv_xname);
 			return 0;
-		}	
+		}
 		intrstr = pci_intr_string(pa->pa_pc, intrhandle);
 		sc->sc_pci_ih = pci_intr_establish(pa->pa_pc,
 		    intrhandle, IPL_BIO, pci_intr, sc);
@@ -964,7 +964,7 @@ pciide_mapchan(pa, cp, interface, cmdsizep, ctlsizep, pci_intr)
 	if (interface & PCIIDE_INTERFACE_PCI(wdc_cp->channel))
 		cp->hw_ok = pciide_mapregs_native(pa, cp, cmdsizep, ctlsizep,
 		    pci_intr);
-	else 
+	else
 		cp->hw_ok = pciide_mapregs_compat(pa, cp,
 		    wdc_cp->channel, cmdsizep, ctlsizep);
 
@@ -1385,7 +1385,7 @@ ok:	/* The modes are setup */
 	if (mode[0] >= 2)
 		idetim |= piix_setup_idetim_timings(
 		    mode[0], 0, chp->channel);
-	else 
+	else
 		idetim |= piix_setup_idetim_timings(
 		    mode[1], 0, chp->channel);
 end:	/*
@@ -1485,7 +1485,7 @@ piix3_4_setup_channel(chp)
 			}
 		}
 		idedma_ctl |= IDEDMA_CTL_DRV_DMA(drive);
-	
+
 pio:		/* use PIO mode */
 		idetim |= piix_setup_idetim_drvs(drvp);
 		if (drive == 0) {
@@ -1519,15 +1519,15 @@ piix_setup_idetim_timings(mode, dma, channel)
 	u_int8_t dma;
 	u_int8_t channel;
 {
-	
+
 	if (dma)
 		return PIIX_IDETIM_SET(0,
-		    PIIX_IDETIM_ISP_SET(piix_isp_dma[mode]) | 
+		    PIIX_IDETIM_ISP_SET(piix_isp_dma[mode]) |
 		    PIIX_IDETIM_RTC_SET(piix_rtc_dma[mode]),
 		    channel);
-	else 
+	else
 		return PIIX_IDETIM_SET(0,
-		    PIIX_IDETIM_ISP_SET(piix_isp_pio[mode]) | 
+		    PIIX_IDETIM_ISP_SET(piix_isp_pio[mode]) |
 		    PIIX_IDETIM_RTC_SET(piix_rtc_pio[mode]),
 		    channel);
 }
@@ -1598,7 +1598,7 @@ piix_setup_sidetim_timings(mode, dma, channel)
 	if (dma)
 		return PIIX_SIDETIM_ISP_SET(piix_isp_dma[mode], channel) |
 		    PIIX_SIDETIM_RTC_SET(piix_rtc_dma[mode], channel);
-	else 
+	else
 		return PIIX_SIDETIM_ISP_SET(piix_isp_pio[mode], channel) |
 		    PIIX_SIDETIM_RTC_SET(piix_rtc_pio[mode], channel);
 }
@@ -1821,7 +1821,7 @@ cmd_pci_intr(arg)
 	struct pciide_softc *sc = arg;
 	struct pciide_channel *cp;
 	struct channel_softc *wdc_cp;
-	int i, rv, crv; 
+	int i, rv, crv;
 	u_int32_t priirq, secirq;
 
 	rv = 0;
@@ -1885,7 +1885,7 @@ void
 cmd0643_6_chip_map(sc, pa)
 	struct pciide_softc *sc;
 	struct pci_attach_args *pa;
-{	 
+{
 	struct pciide_channel *cp;
 	int channel;
 
@@ -1988,7 +1988,7 @@ void
 cy693_chip_map(sc, pa)
 	struct pciide_softc *sc;
 	struct pci_attach_args *pa;
-{	 
+{
 	struct pciide_channel *cp;
 	pcireg_t interface = PCI_INTERFACE(pci_conf_read(sc->sc_pc,
 				    sc->sc_tag, PCI_CLASS_REG));
@@ -2049,7 +2049,7 @@ cy693_chip_map(sc, pa)
 		return;
 	}
 	printf("%s: primary channel %s to ",
-	    sc->sc_wdcdev.sc_dev.dv_xname, 
+	    sc->sc_wdcdev.sc_dev.dv_xname,
 	    (interface & PCIIDE_INTERFACE_SETTABLE(0)) ?
 	    "configured" : "wired");
 	if (interface & PCIIDE_INTERFACE_PCI(0)) {
@@ -2210,7 +2210,7 @@ sis_setup_channel(chp)
 	struct pciide_softc *sc = (struct pciide_softc *)cp->wdc_channel.wdc;
 
 	WDCDEBUG_PRINT(("sis_setup_channel: old timings reg for "
-	    "channel %d 0x%x\n", chp->channel, 
+	    "channel %d 0x%x\n", chp->channel,
 	    pci_conf_read(sc->sc_pc, sc->sc_tag, SIS_TIM(chp->channel))),
 	    DEBUG_PROBE);
 	sis_tim = 0;
@@ -2231,7 +2231,7 @@ sis_setup_channel(chp)
 		if (drvp->drive_flags & DRIVE_UDMA) {
 			/* use Ultra/DMA */
 			drvp->drive_flags &= ~DRIVE_DMA;
-			sis_tim |= sis_udma_tim[drvp->UDMA_mode] << 
+			sis_tim |= sis_udma_tim[drvp->UDMA_mode] <<
 			    SIS_TIM_UDMA_TIME_OFF(drive);
 			sis_tim |= SIS_TIM_UDMA_EN(drive);
 		} else {
@@ -2286,7 +2286,7 @@ acer_chip_map(sc, pa)
 
 	sc->sc_wdcdev.cap |= WDC_CAPABILITY_DATA16 | WDC_CAPABILITY_DATA32 |
 	    WDC_CAPABILITY_MODE;
-	    
+
 	sc->sc_wdcdev.PIO_cap = 4;
 	sc->sc_wdcdev.DMA_cap = 2;
 	sc->sc_wdcdev.UDMA_cap = 2;
@@ -2350,7 +2350,7 @@ acer_setup_channel(chp)
 
 	idedma_ctl = 0;
 	acer_fifo_udma = pci_conf_read(sc->sc_pc, sc->sc_tag, ACER_FTH_UDMA);
-	WDCDEBUG_PRINT(("acer_setup_channel: old fifo/udma reg 0x%x\n", 
+	WDCDEBUG_PRINT(("acer_setup_channel: old fifo/udma reg 0x%x\n",
 	    acer_fifo_udma), DEBUG_PROBE);
 	/* setup DMA if needed */
 	pciide_channel_dma_setup(cp);
@@ -2382,7 +2382,7 @@ acer_setup_channel(chp)
 			/* use Ultra/DMA */
 			drvp->drive_flags &= ~DRIVE_DMA;
 			acer_fifo_udma |= ACER_UDMA_EN(chp->channel, drive);
-			acer_fifo_udma |= 
+			acer_fifo_udma |=
 			    ACER_UDMA_TIM(chp->channel, drive,
 				acer_udma[drvp->UDMA_mode]);
 		} else {
@@ -2422,7 +2422,7 @@ acer_pci_intr(arg)
 	struct pciide_softc *sc = arg;
 	struct pciide_channel *cp;
 	struct channel_softc *wdc_cp;
-	int i, rv, crv; 
+	int i, rv, crv;
 	u_int32_t chids;
 
 	rv = 0;
@@ -2662,7 +2662,7 @@ pdc202xx_setup_channel(chp)
 		}
 		WDCDEBUG_PRINT(("pdc202xx_setup_channel: %s:%d:%d "
 		    "timings 0x%x\n",
-		    sc->sc_wdcdev.sc_dev.dv_xname, 
+		    sc->sc_wdcdev.sc_dev.dv_xname,
 		    chp->channel, drive, mode), DEBUG_PROBE);
 		pci_conf_write(sc->sc_pc, sc->sc_tag,
 		    PDC2xx_TIM(chp->channel, drive), mode);
@@ -2682,7 +2682,7 @@ pdc202xx_pci_intr(arg)
 	struct pciide_softc *sc = arg;
 	struct pciide_channel *cp;
 	struct channel_softc *wdc_cp;
-	int i, rv, crv; 
+	int i, rv, crv;
 	u_int32_t scr;
 
 	rv = 0;

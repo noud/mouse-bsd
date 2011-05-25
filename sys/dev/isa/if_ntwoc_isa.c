@@ -1,10 +1,10 @@
 /*	$NetBSD: if_ntwoc_isa.c,v 1.1 2000/01/04 06:29:21 chopps Exp $	*/
-/* 
+/*
  * Copyright (c) 1999 Christian E. Hopps
  * Copyright (c) 1996 John Hay.
  * Copyright (c) 1996 SDL Communications, Inc.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -460,7 +460,7 @@ ntwoc_isa_attach(struct device *parent, struct device *self, void *aux)
 	/* reset mcr */
 	bus_space_write_1(sca->sc_iot, sca->sc_ioh, NTWOC_MCR,
 	    NTWOC_MCR_DTR0 | NTWOC_MCR_DTR1 | NTWOC_MCR_TE0 | NTWOC_MCR_TE1);
-		
+
 
 	/* allow for address above 1M and 16 bit i/o */
 #if 0
@@ -486,7 +486,7 @@ ntwoc_isa_attach(struct device *parent, struct device *self, void *aux)
 
 	/*
 	 * write a magic value into each possible page of memory
-	 * incrementing by our window size 
+	 * incrementing by our window size
 	 */
 	addr = 0;
 	for (i = 0; i <= NTWOC_PSR_PG_SEL; addr += sca->scu_pagesize, i++) {

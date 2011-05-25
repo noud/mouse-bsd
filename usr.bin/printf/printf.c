@@ -71,10 +71,10 @@ static int	 getint __P((void));
 static long	 getlong __P((void));
 static unsigned long getulong __P ((void));
 static char	*getstr __P((void));
-static char	*mklong __P((const char *, int)); 
+static char	*mklong __P((const char *, int));
 static void      check_conversion __P((const char *, const char *));
-static void	 usage __P((void)); 
-     
+static void	 usage __P((void));
+
 static int	rval;
 static char  **gargv;
 
@@ -100,7 +100,7 @@ int main __P((int, char **));
 
 static void warnx __P((const char *fmt, ...));
 
-static void 
+static void
 #ifdef __STDC__
 warnx(const char *fmt, ...)
 #else
@@ -109,7 +109,7 @@ warnx(fmt, va_alist)
 	va_dcl
 #endif
 {
-	
+
 	char buf[64];
 	va_list ap;
 
@@ -181,9 +181,9 @@ main(argc, argv)
 		/*
 		 * Basic algorithm is to scan the format string for conversion
 		 * specifications -- once one is found, find out if the field
-		 * width or precision is a '*'; if it is, gather up value. 
+		 * width or precision is a '*'; if it is, gather up value.
 		 * Note, format strings are reused as necessary to use up the
-		 * provided arguments, arguments of zero/null string are 
+		 * provided arguments, arguments of zero/null string are
 		 * provided to use up the format string.
 		 */
 
@@ -282,7 +282,7 @@ main(argc, argv)
 
 
 /*
- * Print SysV echo(1) style escape string 
+ * Print SysV echo(1) style escape string
  *	Halts processing string and returns 1 if a \c escape is encountered.
  */
 static int
@@ -295,10 +295,10 @@ print_escape_str(str)
 	while (*str) {
 		if (*str == '\\') {
 			str++;
-			/* 
+			/*
 			 * %b string octal constants are not like those in C.
-			 * They start with a \0, and are followed by 0, 1, 2, 
-			 * or 3 octal digits. 
+			 * They start with a \0, and are followed by 0, 1, 2,
+			 * or 3 octal digits.
 			 */
 			if (*str == '0') {
 				str++;
@@ -311,7 +311,7 @@ print_escape_str(str)
 			} else if (*str == 'c') {
 				return 1;
 			} else {
-				str--;			
+				str--;
 				str += print_escape(str);
 			}
 		} else {
@@ -324,7 +324,7 @@ print_escape_str(str)
 }
 
 /*
- * Print "standard" escape characters 
+ * Print "standard" escape characters
  */
 static size_t
 print_escape(str)
@@ -429,14 +429,14 @@ mklong(str, ch)
 	char ch;
 {
 	static char copy[64];
-	size_t len;	
+	size_t len;
 
 	len = strlen(str) + 2;
 	(void)memmove(copy, str, len - 3);
 	copy[len - 3] = 'l';
 	copy[len - 2] = ch;
 	copy[len - 1] = '\0';
-	return (copy);	
+	return (copy);
 }
 
 static int

@@ -24,7 +24,7 @@
    int addend;
  };
 
- struct coff_section 
+ struct coff_section
  {
    char *name;
    int code;
@@ -63,7 +63,7 @@ struct coff_sfile
 
   /* Vector which maps where in each output section
      the input file has it's data */
-  struct coff_isection *section; 
+  struct coff_isection *section;
 
 };
 
@@ -78,7 +78,7 @@ struct coff_sfile
       } type;
   union
     {
-      struct 
+      struct
 	{
 	int address;
 	int size;
@@ -128,7 +128,7 @@ struct coff_sfile
 };
 
 
- struct coff_line 
+ struct coff_line
  {
    int nlines;
    int *lines;
@@ -169,7 +169,7 @@ struct coff_sfile
 	 coff_vis_tag,
 	 coff_vis_member_of_struct,
 	 coff_vis_member_of_enum,
-	 coff_vis_autoparam,	
+	 coff_vis_autoparam,
 	 coff_vis_regparam,
        } type;
    };

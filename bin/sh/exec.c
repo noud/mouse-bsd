@@ -914,10 +914,10 @@ typecmd(argc, argv)
 			int j = entry.u.index;
 			const char *path = pathval();
 			char *name;
-			if (j == -1) 
+			if (j == -1)
 				name = argv[i];
 			else {
-				do { 
+				do {
 					name = padvance(&path, argv[i]);
 					stunalloc(name);
 				} while (--j >= 0);

@@ -39,7 +39,7 @@
  * Created      : 02/02/97
  */
 
-/* 
+/*
  * softc structure for the qms device
  */
 

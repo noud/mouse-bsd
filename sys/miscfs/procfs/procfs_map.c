@@ -86,7 +86,7 @@ procfs_domap(curp, p, pfs, uio)
 
 	if (uio->uio_offset != 0)
 		return (0);
-	
+
 	error = 0;
 	if (map != &curproc->p_vmspace->vm_map)
 		vm_map_lock_read(map);

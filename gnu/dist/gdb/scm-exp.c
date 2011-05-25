@@ -180,7 +180,7 @@ scm_read_token (c, weird)
     }
 }
 
-static int 
+static int
 scm_skip_ws ()
 {
   register int c;

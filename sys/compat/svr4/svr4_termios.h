@@ -60,7 +60,7 @@ struct svr4_termio {
 	u_short		c_oflag;
 	u_short		c_cflag;
 	u_short		c_lflag;
-	char		c_line;	
+	char		c_line;
 	u_char		c_cc[SVR4_NCC];
 };
 

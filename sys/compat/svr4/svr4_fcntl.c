@@ -450,10 +450,10 @@ svr4_sys_llseek(p, v, retval)
 	SCARG(&ap, fd) = SCARG(uap, fd);
 
 #if BYTE_ORDER == BIG_ENDIAN
-	SCARG(&ap, offset) = (((long long) SCARG(uap, offset1)) << 32) | 
+	SCARG(&ap, offset) = (((long long) SCARG(uap, offset1)) << 32) |
 		SCARG(uap, offset2);
 #else
-	SCARG(&ap, offset) = (((long long) SCARG(uap, offset2)) << 32) | 
+	SCARG(&ap, offset) = (((long long) SCARG(uap, offset2)) << 32) |
 		SCARG(uap, offset1);
 #endif
 	SCARG(&ap, whence) = SCARG(uap, whence);
@@ -505,7 +505,7 @@ svr4_sys_pread(p, v, retval)
 int
 svr4_sys_pread64(p, v, retval)
 	register struct proc *p;
-	void *v; 
+	void *v;
 	register_t *retval;
 {
 
@@ -550,7 +550,7 @@ svr4_sys_pwrite(p, v, retval)
 int
 svr4_sys_pwrite64(p, v, retval)
 	register struct proc *p;
-	void *v; 
+	void *v;
 	register_t *retval;
 {
 	struct svr4_sys_pwrite64_args *uap = v;

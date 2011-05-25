@@ -734,7 +734,7 @@ readtoken() {
 			for (pp = parsekwd; *pp; pp++) {
 				if (**pp == *wordtext && equal(*pp, wordtext))
 				{
-					lasttoken = t = pp - 
+					lasttoken = t = pp -
 					    parsekwd + KWDOFFSET;
 					TRACE(("keyword %s recognized\n", tokname[t]));
 					goto out;

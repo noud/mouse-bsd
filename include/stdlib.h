@@ -195,10 +195,10 @@ void	*valloc __P((size_t));		/* obsoleted by malloc() */
  */
 #if !defined(_POSIX_C_SOURCE) && !defined(_XOPEN_SOURCE)
 #if defined(alloca) && (alloca == __builtin_alloca) && (__GNUC__ < 2)
-void	*alloca __P((int));     /* built-in for gcc */ 
-#else 
-void	*alloca __P((size_t)); 
-#endif /* __GNUC__ */ 
+void	*alloca __P((int));     /* built-in for gcc */
+#else
+void	*alloca __P((size_t));
+#endif /* __GNUC__ */
 
 char	*getbsize __P((int *, long *));
 char	*cgetcap __P((char *, const char *, int));

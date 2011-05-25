@@ -2,9 +2,9 @@
 
 /*
  * Copyright (c) 1998 The NetBSD Foundation, Inc. All rights reserved.
- * 
+ *
  * Author: Baldassare Dante Profeta <dante@mclink.it>
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -44,9 +44,9 @@
  *
  *   Single Channel Products:
  *	ABP542 - Bus-Master ISA with floppy (240 CDB)
- *	ABP842 - Bus-Master VL (240 CDB) 
+ *	ABP842 - Bus-Master VL (240 CDB)
  *
- *   Dual Channel Products:  
+ *   Dual Channel Products:
  *	ABP852 - Dual Channel Bus-Master VL (240 CDB Per Channel)
  *
  *   Footnotes:
@@ -139,7 +139,7 @@ adv_isa_probe(parent, match, aux)
 				rv = AscFindSignature(iot, ioh);
 
 				bus_space_unmap(iot, ioh, ASC_IOADR_GAP);
-				
+
 				if (rv) {
 					ia->ia_iobase = iobase;
 					break;

@@ -14,7 +14,7 @@
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
  * 3. The author's name or those of the contributors may be used to
- *    endorse or promote products derived from this software without 
+ *    endorse or promote products derived from this software without
  *    specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR(S) AND CONTRIBUTORS
@@ -42,11 +42,11 @@ enum {
 	SV_GAME_PORTBASE_SLOT = 0x20
 };
 
-/* 
+/*
  * Enhanced CODEC registers
  *     These are offset from the base specified in the PCI configuration area
  */
-enum { 
+enum {
 	SV_CODEC_CONTROL = 0,
 	SV_CODEC_INTMASK = 1,
 	SV_CODEC_STATUS = 2,
@@ -55,7 +55,7 @@ enum {
 };
 
 /*
- * DMA Configuration register 
+ * DMA Configuration register
  */
 
 enum {
@@ -125,7 +125,7 @@ enum {
 	SV_INTSTATUS_MIDI = 0x80
 };
 
-enum { 
+enum {
 	SV_IADDR_MASK = 0x3f,
 	SV_IADDR_MCE = 0x40,
 	/* TRD = DMA Transfer request disable */

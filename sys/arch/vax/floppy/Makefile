@@ -2,7 +2,7 @@
 #	@(#)Makefile	7.2 (Berkeley) 5/9/91
 
 # Make a 780 rx01 floppy
-# 
+#
 BOOTS=	boot
 STDBOO=	defboo.cmd anyboo.cmd restar.cmd
 DEFBOO=	defboo.hk defboo.hp defboo.ra defboo.up

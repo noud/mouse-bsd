@@ -5,7 +5,7 @@
 SRCS+=	cmpdi2.c divdi3.c fixdfdi.c fixsfdi.c fixunsdfdi.c \
 	fixunssfdi.c floatdidf.c floatdisf.c floatunsdidf.c \
 	moddi3.c muldi3.c negdi2.c qdivrem.c \
-	ucmpdi2.c udivdi3.c umoddi3.c 
+	ucmpdi2.c udivdi3.c umoddi3.c
 
 .if   (${MACHINE_ARCH} == "m68k")
 SRCS+=	ashldi3.S ashrdi3.S lshrdi3.S

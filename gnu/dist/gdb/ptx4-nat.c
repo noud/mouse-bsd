@@ -68,7 +68,7 @@ fill_gregset (gregsetp, regno)
     (fpregset_t *), unpack the register contents and supply them as gdb's
     idea of the current floating point register values. */
 
-void 
+void
 supply_fpregset (fpregsetp)
      fpregset_t *fpregsetp;
 {

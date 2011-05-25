@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -68,7 +68,7 @@
 #endif
 
 /*
- * local prototypes 
+ * local prototypes
  */
 char* va_prog_cmdstr __P((const char *cmd, va_list ap));
 int launch_subwin __P((WINDOW *actionwin, char **args, struct winsize win, int display));
@@ -82,7 +82,7 @@ char log_text[2][30] = {"Logging: Off", "Scripting: Off"};
 menu_ent logmenu [2] = {
 	{ log_text[0], OPT_NOMENU, 0, log_flip},
 	{ log_text[1], OPT_NOMENU, 0, script_flip} };
-	
+
 
 void
 do_logging(void)
@@ -120,7 +120,7 @@ log_flip(void)
 			sprintf(log_text[0], "Logging: On");
 			logging = 1;
 			fprintf(log, "Log started at: %s\n", asctime(localtime(&tloc)));
-			fflush(log);		
+			fflush(log);
 		} else {
 			msg_display(MSG_openfail, "log file", strerror(errno));
 		}
@@ -148,7 +148,7 @@ script_flip(void)
 			fprintf(script, "#!/bin/sh\n");
 			fprintf(script, "# Script started at: %s\n",
 			    asctime(localtime(&tloc)));
-			fflush(script);		
+			fflush(script);
 		} else {
 			msg_display(MSG_openfail, "script file", strerror(errno));
 		}
@@ -197,10 +197,10 @@ collect(int kind, char **buffer, const char *name, ...)
 
 	if (fbytes == 0)
 		fbytes = BUFSIZE;
-	
+
 	/* Allocate the buffer size. */
 	*buffer = (char *)malloc(fbytes + 1);
-	if (!*buffer) 
+	if (!*buffer)
 		return -1;
 
 	/* Read the buffer. */
@@ -291,7 +291,7 @@ launch_subwin(actionwin, args, win, display)
 	if (openpty(&master, &slave, NULL, &tt, &win) == -1)
 		return(1);
 	rtt = tt;
-	rtt.c_lflag &= ~ECHO; 
+	rtt.c_lflag &= ~ECHO;
 	(void)tcsetattr(STDIN_FILENO, TCSAFLUSH, &rtt);
 
 	/* ignore tty signals until we're done with subprocess setup */

@@ -102,7 +102,7 @@ write_program(def)
 
 /* sample addargname = "clnt"; sample addargtype = "CLIENT * " */
 
-void 
+void
 printarglist(proc, addargname, addargtype)
 	proc_list *proc;
 	char   *addargname, *addargtype;

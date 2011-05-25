@@ -151,7 +151,7 @@ struct ne2000dev {
 
     /*
      * You have to add new entries which contains
-     * PCMCIA_VENDOR_INVALID and/or PCMCIA_PRODUCT_INVALID 
+     * PCMCIA_VENDOR_INVALID and/or PCMCIA_PRODUCT_INVALID
      * in front of this comment.
      *
      * There are cards which use a generic vendor and product id but needs
@@ -165,9 +165,9 @@ struct ne2000dev {
       PCMCIA_CIS_IBM_INFOMOVER,
       0, 0x0ff0, { 0x08, 0x00, 0x5a } },
 
-    { PCMCIA_STR_LINKSYS_ECARD_1, 
+    { PCMCIA_STR_LINKSYS_ECARD_1,
       PCMCIA_VENDOR_LINKSYS, PCMCIA_PRODUCT_LINKSYS_ECARD_1,
-      PCMCIA_CIS_LINKSYS_ECARD_1, 
+      PCMCIA_CIS_LINKSYS_ECARD_1,
       0, -1, { 0x00, 0x80, 0xc8 } },
 
     { PCMCIA_STR_PLANEX_FNW3600T,
@@ -185,9 +185,9 @@ struct ne2000dev {
      * match with this.  FNW-3700T won't match above entries due to
      * MAC address check.
      */
-    { PCMCIA_STR_PLANEX_FNW3700T, 
+    { PCMCIA_STR_PLANEX_FNW3700T,
       PCMCIA_VENDOR_LINKSYS, PCMCIA_PRODUCT_LINKSYS_COMBO_ECARD,
-      PCMCIA_CIS_PLANEX_FNW3700T, 
+      PCMCIA_CIS_PLANEX_FNW3700T,
       0, -1, { 0x00, 0x90, 0xcc }, NE2000DVF_AX88190 },
 
     { PCMCIA_STR_LINKSYS_ETHERFAST,
@@ -195,9 +195,9 @@ struct ne2000dev {
       PCMCIA_CIS_LINKSYS_ETHERFAST,
       0, -1, { 0x00, 0x80, 0xc8 }, NE2000DVF_DL10019 },
 
-    { PCMCIA_STR_LINKSYS_COMBO_ECARD, 
+    { PCMCIA_STR_LINKSYS_COMBO_ECARD,
       PCMCIA_VENDOR_LINKSYS, PCMCIA_PRODUCT_LINKSYS_COMBO_ECARD,
-      PCMCIA_CIS_LINKSYS_COMBO_ECARD, 
+      PCMCIA_CIS_LINKSYS_COMBO_ECARD,
       0, -1, { 0x00, 0x80, 0xc8 } },
 
     { PCMCIA_STR_LINKSYS_TRUST_COMBO_ECARD,
@@ -209,7 +209,7 @@ struct ne2000dev {
        above this list, we need to keep this one below the ECARD_1, or else
        both will match the same more-generic entry rather than the more
        specific one above with proper vendor and product IDs. */
-    { PCMCIA_STR_LINKSYS_ECARD_2, 
+    { PCMCIA_STR_LINKSYS_ECARD_2,
       PCMCIA_VENDOR_INVALID, PCMCIA_PRODUCT_INVALID,
       PCMCIA_CIS_LINKSYS_ECARD_2,
       0, -1, { 0x00, 0x80, 0xc8 } },
@@ -304,9 +304,9 @@ struct ne2000dev {
       PCMCIA_CIS_XIRCOM_CFE_10,
       0, -1, { 0x00, 0x10, 0xa4 } },
 
-    { PCMCIA_STR_MELCO_LPC3_TX, 
+    { PCMCIA_STR_MELCO_LPC3_TX,
       PCMCIA_VENDOR_MELCO, PCMCIA_PRODUCT_MELCO_LPC3_TX,
-      PCMCIA_CIS_MELCO_LPC3_TX, 
+      PCMCIA_CIS_MELCO_LPC3_TX,
       0, -1, { 0x00, 0x40, 0x26 }, NE2000DVF_AX88190 },
 
 #if 0
@@ -552,7 +552,7 @@ again:
 		ne_dev = ne2000_match(pa->card, pa->pf->number, i);
 		if (ne_dev != NULL) {
 			if (ne_dev->enet_maddr >= 0) {
-				enaddr = ne_pcmcia_get_enaddr(psc, 
+				enaddr = ne_pcmcia_get_enaddr(psc,
 				    ne_dev->enet_maddr, myea);
 				if (enaddr == NULL)
 					continue;

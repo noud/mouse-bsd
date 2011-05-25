@@ -47,18 +47,18 @@ struct exec
   unsigned long a_info;
   unsigned long a_spare1;
   unsigned long a_spare2;
-  unsigned long a_text;      
-  unsigned long a_data;     
-  unsigned long a_bss;     
-  unsigned long a_trsize; 
+  unsigned long a_text;
+  unsigned long a_data;
+  unsigned long a_bss;
+  unsigned long a_trsize;
   unsigned long a_drsize;
   unsigned long a_spare3;
   unsigned long a_spare4;
   unsigned long a_spare5;
-  unsigned long a_entry; 
+  unsigned long a_entry;
   unsigned long a_spare6;
   unsigned long a_spare7;
-  unsigned long a_syms;  
+  unsigned long a_syms;
   unsigned long a_spare8;
 };
 
@@ -66,6 +66,6 @@ struct exec
 #define AOUT_VERSION	0x02
 #define AOUT_MACHTYPE	0x0c
 #define OMAGIC		0x106
-    
+
 #define obj_header_append	hp300_header_append
 #include "config/obj-aout.h"

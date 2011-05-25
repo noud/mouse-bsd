@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -188,7 +188,7 @@ struct icmp6_ifstat {
 	u_quad_t ifs6_in_mlddone;
 
 	/*
-	 * Output statistics. We should solve unresolved routing problem...  
+	 * Output statistics. We should solve unresolved routing problem...
 	 */
 	/* ipv6IfIcmpOutMsgs, total # of output messages */
 	u_quad_t ifs6_out_msg;
@@ -465,7 +465,7 @@ struct	in6_multi {
 	LIST_ENTRY(in6_multi) in6m_entry; /* list glue */
 	struct	in6_addr in6m_addr;	/* IP6 multicast address */
 	struct	ifnet *in6m_ifp;	/* back pointer to ifnet */
-	struct	in6_ifaddr *in6m_ia;    /* back pointer to in6_ifaddr */ 
+	struct	in6_ifaddr *in6m_ia;    /* back pointer to in6_ifaddr */
 	u_int	in6m_refcount;		/* # membership claims by sockets */
 	u_int	in6m_state;		/* state of the membership */
 	u_int	in6m_timer;		/* MLD6 listener report timer */

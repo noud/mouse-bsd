@@ -147,7 +147,7 @@ ns32k_get_enter_addr (pc)
 
   enter_addr = get_pc_function_start (pc);
 
-  if (pc == enter_addr) 
+  if (pc == enter_addr)
     return 1;		/* before enter */
 
   op = read_memory_integer (enter_addr, 1);

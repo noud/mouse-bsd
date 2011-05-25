@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: mntfs.c,v 1.2 1999/01/10 21:53:47 ezk Exp 
+ * Id: mntfs.c,v 1.2 1999/01/10 21:53:47 ezk Exp
  *
  */
 

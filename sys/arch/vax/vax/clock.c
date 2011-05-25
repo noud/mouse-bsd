@@ -109,7 +109,7 @@ microtime(tvp)
  */
 
 void
-inittodr(fs_time) 
+inittodr(fs_time)
 	time_t fs_time;
 {
 	int rv;
@@ -142,7 +142,7 @@ inittodr(fs_time)
 		printf(" - CHECK AND RESET THE DATE.\n");
 }
 
-/*   
+/*
  * Resettodr restores the time of day hardware after a time change.
  */
 
@@ -178,7 +178,7 @@ cpu_initclocks()
  * There are two types of real-time battery-backed up clocks on
  * VAX computers, one with a register that counts up every 1/100 second,
  * one with a clock chip that delivers time. For the register clock
- * we have a generic version, and for the chip clock there are 
+ * we have a generic version, and for the chip clock there are
  * support routines for time conversion.
  */
 /*
@@ -195,7 +195,7 @@ yeartonum(y)
 	return n;
 }
 
-/* 
+/*
  * Converts tick number to a year 70 ->
  */
 int

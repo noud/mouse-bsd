@@ -28,7 +28,7 @@ SRCS+=	sysv_ipc_14.c sysv_msg_14.c sysv_shm_14.c sysv_sem_14.c
 
 # really, all machines where sizeof(int) != sizeof(long) (LP64)
 .if (${MACHINE_ARCH} != "alpha")
-SRCS+=	kern_ipc_10.c 
+SRCS+=	kern_ipc_10.c
 .endif
 
 # only needed during build

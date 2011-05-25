@@ -7,7 +7,7 @@ static const char rcsid[] = "Id: dig.c,v 8.36 1999/11/05 05:05:14 vixie Exp";
 /*
  * Copyright (c) 1989
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -23,7 +23,7 @@ static const char rcsid[] = "Id: dig.c,v 8.36 1999/11/05 05:05:14 vixie Exp";
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -39,14 +39,14 @@ static const char rcsid[] = "Id: dig.c,v 8.36 1999/11/05 05:05:14 vixie Exp";
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -169,7 +169,7 @@ static const char rcsid[] = "Id: dig.c,v 8.36 1999/11/05 05:05:14 vixie Exp";
 
 #include <isc/dst.h>
 
-#include <ctype.h> 
+#include <ctype.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <netdb.h>
@@ -266,7 +266,7 @@ main(int argc, char **argv) {
 	char *srv;
 	int anyflag = 0;
 	int sticky = 0;
-	int tmp; 
+	int tmp;
 	int qtypeSet;
 	int addrflag = 0;
 	ns_type xfr = ns_t_invalid;
@@ -356,8 +356,8 @@ main(int argc, char **argv) {
  *               while !EOF if batch mode
  */
 	*fileq = '\0';
-	while ((dofile && fgets(fileq, sizeof fileq, qfp) != NULL) || 
-	       (!dofile && once--)) 
+	while ((dofile && fgets(fileq, sizeof fileq, qfp) != NULL) ||
+	       (!dofile && once--))
 	{
 		if (*fileq == '\n' || *fileq == '#' || *fileq==';')
 			continue;	/* ignore blank lines & comments */
@@ -390,7 +390,7 @@ main(int argc, char **argv) {
  * More cmd-line options than anyone should ever have to
  * deal with ....
  */
-		while (*(++argv) != NULL && **argv != '\0') { 
+		while (*(++argv) != NULL && **argv != '\0') {
 			strcat(cmd, *argv);
 			strcat(cmd, " ");
 			if (**argv == '@') {
@@ -422,11 +422,11 @@ main(int argc, char **argv) {
 			}
 
 			if (**argv == '-') {
-				switch (argv[0][1]) { 
+				switch (argv[0][1]) {
 				case 'T':
 					wait = atoi(*++argv);
 					break;
-				case 'c': 
+				case 'c':
 					if ((tmp = atoi(*++argv))
 					    || *argv[0]=='0') {
 						queryClass = tmp;
@@ -440,7 +440,7 @@ main(int argc, char **argv) {
 						       );
 					}
 					break;
-				case 't': 
+				case 't':
 					if ((tmp = atoi(*++argv))
 					    || *argv[0]=='0') {
 						queryType = tmp;
@@ -517,7 +517,7 @@ main(int argc, char **argv) {
 				  }
 				case 'k':
 					/* -k keydir:keyname */
-					
+
 					if (argv[0][2] != '\0')
 						keyfile = argv[0]+2;
 					else
@@ -535,10 +535,10 @@ main(int argc, char **argv) {
 				continue;
 			} /* if '-'   */
 
-			if ((tmp = StringToType(*argv, -1, NULL)) != -1) { 
-				if ((T_ANY == tmp) && anyflag++) {  
-					queryClass = C_ANY; 	
-					continue; 
+			if ((tmp = StringToType(*argv, -1, NULL)) != -1) {
+				if ((T_ANY == tmp) && anyflag++) {
+					queryClass = C_ANY;
+					continue;
 				}
 				if (ns_t_xfr_p(tmp) &&
 				    (tmp == ns_t_axfr ||
@@ -547,12 +547,12 @@ main(int argc, char **argv) {
 					res.pfcode = PRF_ZONE;
 					xfr = (ns_type)tmp;
 				} else {
-					queryType = tmp; 
+					queryType = tmp;
 					qtypeSet++;
 				}
 			} else if ((tmp = StringToClass(*argv, -1, NULL))
-				   != -1) { 
-				queryClass = tmp; 
+				   != -1) {
+				queryClass = tmp;
 			} else {
 				memset(domain, 0, sizeof domain);
 				sprintf(domain,"%s",*argv);
@@ -579,9 +579,9 @@ main(int argc, char **argv) {
 	                	exit(1);
 	        	}
 			fclose(fp);
-	
+
 			p = buf;
-	
+
 			n=strlen(p);		/* get length of strings */
 			n1=strlen("Private-key-format: v");
 			if (n1 > n ||
@@ -593,7 +593,7 @@ main(int argc, char **argv) {
 			sscanf((char *)p, "%d.%d", &file_major, &file_minor);
 			/* should do some error checking with these someday */
 			while (*p++!='\n');	/* skip to end of line */
-	
+
 	        	n=strlen(p);		/* get length of strings */
 	        	n1=strlen("Algorithm: ");
 	        	if (n1 > n || strncmp(p, "Algorithm: ", n1)) {
@@ -606,7 +606,7 @@ main(int argc, char **argv) {
 				exit(1);
 			}
 			while (*p++!='\n');	/* skip to end of line */
-	
+
 	        	n=strlen(p);		/* get length of strings */
 	        	n1=strlen("Key: ");
 	        	if (n1 > n || strncmp(p, "Key: ", n1)) {
@@ -618,15 +618,15 @@ main(int argc, char **argv) {
 			while (*pp++!='\n');	/* skip to end of line,
 						 * terminate it */
 			*--pp='\0';
-	
+
 			key.data=malloc(1024*sizeof(char));
 			key.len=b64_pton(p, key.data, 1024);
-	
+
 			strcpy(key.name, keyname);
 			strcpy(key.alg, "HMAC-MD5.SIG-ALG.REG.INT");
 #else
 			/* use the dst* routines to parse the key files
-			 * 
+			 *
 			 * This requires that both the .key and the .private
 			 * files exist in your cwd, so the keyfile parmeter
 			 * here is assumed to be a path in which the
@@ -634,7 +634,7 @@ main(int argc, char **argv) {
 			 */
 			DST_KEY *dst_key;
 			char cwd[PATH_MAX+1];
-	
+
 			if (getcwd(cwd, PATH_MAX)==NULL) {
 				perror("unable to get current directory");
 				exit(1);
@@ -645,7 +645,7 @@ main(int argc, char **argv) {
 					strerror(errno));
 				exit(1);
 			}
-	
+
 			dst_init();
 			dst_key = dst_read_key(keyname,
 					       0 /* not used for priv keys */,
@@ -658,10 +658,10 @@ main(int argc, char **argv) {
 			key.data=malloc(1024*sizeof(char));
 			dst_key_to_buffer(dst_key, key.data, 1024);
 			key.len=dst_key->dk_key_size;
-	
+
 			strcpy(key.name, keyname);
 			strcpy(key.alg, "HMAC-MD5.SIG-ALG.REG.INT");
-	
+
 			if (chdir(cwd)<0) {
 				fprintf(stderr, "unable to chdir to %s: %s\n",
 					cwd, strerror(errno));
@@ -673,7 +673,7 @@ main(int argc, char **argv) {
 		if (res.pfcode & 0x80000)
 			printf("; pfcode: %08lx, options: %08lx\n",
 			       res.pfcode, res.options);
-	  
+
 /*
  * Current env. (after this parse) is to become the
  * new "working" environmnet. Used in conj. with sticky.
@@ -711,7 +711,7 @@ main(int argc, char **argv) {
 
 /*
  * Find address of server to query. If not dot-notation, then
- * try to resolve domain-name (if so, save and turn off print 
+ * try to resolve domain-name (if so, save and turn off print
  * options, this domain-query is not the one we want. Restore
  * user options when done.
  * Things get a bit wierd since we need to use resolver to be
@@ -810,7 +810,7 @@ main(int argc, char **argv) {
 			queryType = T_A;
 			qtypeSet++;
 		}
-		
+
 		bytes_out = n = res_nmkquery(&res, QUERY, domain,
 					     queryClass, queryType,
 					     NULL, 0, NULL,
@@ -841,7 +841,7 @@ main(int argc, char **argv) {
 			PUTLONG(0xABCD, cpp); /* Expire */
 			PUTLONG(0x1776, cpp); /* Min TTL */
 			bytes_out = n = cpp - packet;
-		};	
+		};
 
 		eecode = 0;
 		if (res.pfcode & RES_PRF_HEAD1)
@@ -886,7 +886,7 @@ main(int argc, char **argv) {
 			printf(";; MSG SIZE  sent: %d  rcvd: %d\n",
 			       bytes_out, bytes_in);
 		}
-	  
+
 		fflush(stdout);
 /*
  *   Argh ... not particularly elegant. Should put in *real* ping code.
@@ -965,8 +965,8 @@ SetOption(const char *string) {
 		   properly with an error return value would require a major
 		   cleanup. */
 		exit(9);
-	} 
-   
+	}
+
 	if (strncmp(option, "aa", 2) == 0) {	/* aaonly */
 		res.options |= RES_AAONLY;
 	} else if (strncmp(option, "noaa", 4) == 0) {
@@ -1048,47 +1048,47 @@ SetOption(const char *string) {
 		res.pfcode &= ~RES_PRF_ANS;
 	} else if (strncmp(option, "qu", 2) == 0) {  /* question section */
 		res.pfcode |= RES_PRF_QUES;
-	} else if (strncmp(option, "noqu", 4) == 0) {  
+	} else if (strncmp(option, "noqu", 4) == 0) {
 		res.pfcode &= ~RES_PRF_QUES;
 	} else if (strncmp(option, "au", 2) == 0) {  /* authority section */
 		res.pfcode |= RES_PRF_AUTH;
-	} else if (strncmp(option, "noau", 4) == 0) {  
+	} else if (strncmp(option, "noau", 4) == 0) {
 		res.pfcode &= ~RES_PRF_AUTH;
 	} else if (strncmp(option, "ad", 2) == 0) {  /* addition section */
 		res.pfcode |= RES_PRF_ADD;
-	} else if (strncmp(option, "noad", 4) == 0) {  
+	} else if (strncmp(option, "noad", 4) == 0) {
 		res.pfcode &= ~RES_PRF_ADD;
 	} else if (strncmp(option, "tt", 2) == 0) {  /* TTL & ID */
 		res.pfcode |= RES_PRF_TTLID;
-	} else if (strncmp(option, "nott", 4) == 0) {  
+	} else if (strncmp(option, "nott", 4) == 0) {
 		res.pfcode &= ~RES_PRF_TTLID;
 	} else if (strncmp(option, "he", 2) == 0) {  /* head flags stats */
 		res.pfcode |= RES_PRF_HEAD2;
-	} else if (strncmp(option, "nohe", 4) == 0) {  
+	} else if (strncmp(option, "nohe", 4) == 0) {
 		res.pfcode &= ~RES_PRF_HEAD2;
 	} else if (strncmp(option, "H", 1) == 0) {  /* header all */
 		res.pfcode |= RES_PRF_HEADX;
-	} else if (strncmp(option, "noH", 3) == 0) {  
+	} else if (strncmp(option, "noH", 3) == 0) {
 		res.pfcode &= ~(RES_PRF_HEADX);
 	} else if (strncmp(option, "qr", 2) == 0) {  /* query */
 		res.pfcode |= RES_PRF_QUERY;
-	} else if (strncmp(option, "noqr", 4) == 0) {  
+	} else if (strncmp(option, "noqr", 4) == 0) {
 		res.pfcode &= ~RES_PRF_QUERY;
 	} else if (strncmp(option, "rep", 3) == 0) {  /* reply */
 		res.pfcode |= RES_PRF_REPLY;
-	} else if (strncmp(option, "norep", 5) == 0) {  
+	} else if (strncmp(option, "norep", 5) == 0) {
 		res.pfcode &= ~RES_PRF_REPLY;
 	} else if (strncmp(option, "cm", 2) == 0) {  /* command line */
 		res.pfcode |= RES_PRF_CMD;
-	} else if (strncmp(option, "nocm", 4) == 0) {  
+	} else if (strncmp(option, "nocm", 4) == 0) {
 		res.pfcode &= ~RES_PRF_CMD;
 	} else if (strncmp(option, "cl", 2) == 0) {  /* class mnemonic */
 		res.pfcode |= RES_PRF_CLASS;
-	} else if (strncmp(option, "nocl", 4) == 0) {  
+	} else if (strncmp(option, "nocl", 4) == 0) {
 		res.pfcode &= ~RES_PRF_CLASS;
 	} else if (strncmp(option, "st", 2) == 0) {  /* stats*/
 		res.pfcode |= RES_PRF_STATS;
-	} else if (strncmp(option, "nost", 4) == 0) {  
+	} else if (strncmp(option, "nost", 4) == 0) {
 		res.pfcode &= ~RES_PRF_STATS;
 	} else {
 		fprintf(stderr, "; *** Invalid option: %s\n",  option);
@@ -1222,12 +1222,12 @@ printZone(ns_type xfr, const char *zone, const struct sockaddr_in *sin,
 		int bufsize, siglen;
 		u_char sig[64];
 		int ret;
-		
+
 		/* ns_sign() also calls dst_init(), but there is no harm
 		 * doing it twice
 		 */
 		dst_init();
-		
+
 		bufsize = msglen + 1024;
 		newmsg = (u_char *) malloc(bufsize);
 		if (newmsg == NULL) {
@@ -1236,7 +1236,7 @@ printZone(ns_type xfr, const char *zone, const struct sockaddr_in *sin,
 		}
 		memcpy(newmsg, (u_char *)&buf, msglen);
 		newmsglen = msglen;
-		
+
 		if (strcmp(key->alg, NS_TSIG_ALG_HMAC_MD5) != 0)
 			dstkey = NULL;
 		else
@@ -1250,7 +1250,7 @@ printZone(ns_type xfr, const char *zone, const struct sockaddr_in *sin,
 				free(newmsg);
 			return (-1);
 		}
-		
+
 		siglen = sizeof(sig);
 /* newmsglen++; */
 		ret = ns_sign(newmsg, &newmsglen, bufsize, NOERROR, dstkey, NULL, 0,
@@ -1428,7 +1428,7 @@ printZone(ns_type xfr, const char *zone, const struct sockaddr_in *sin,
 		/* Header. */
 		cp = answer + HFIXEDSZ;
 		/* Question. */
-		for (count = ntohs(((HEADER *)answer)->qdcount);	
+		for (count = ntohs(((HEADER *)answer)->qdcount);
 		     count > 0;
 		     count--) {
 			n = dn_skipname(cp, answer + len);

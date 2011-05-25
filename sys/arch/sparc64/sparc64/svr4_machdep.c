@@ -552,7 +552,7 @@ svr4_sendsig(catcher, sig, mask, code)
 		psp->ps_sigstk.ss_flags |= SS_ONSTACK;
 #ifdef DEBUG
 	if ((sigdebug & SDB_KSTACK) && p->p_pid == sigpid) {
-		printf("svr4_sendsig: about to return to catcher %p thru %p\n", 
+		printf("svr4_sendsig: about to return to catcher %p thru %p\n",
 		       catcher, addr);
 		if (sigdebug & SDB_DDB) Debugger();
 	}

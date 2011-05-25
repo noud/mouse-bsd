@@ -8,6 +8,6 @@ INCS=	pglist.h pmap.h vm.h vm_conf.h \
 	vm_pageout.h vm_pager.h vm_param.h vm_prot.h
 
 # XXX remove after NetBSD 1.4 (or earlier if you want :)
-INCS+=	vm_swap.h 
+INCS+=	vm_swap.h
 
 .include <bsd.kinc.mk>

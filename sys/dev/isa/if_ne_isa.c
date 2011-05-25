@@ -84,7 +84,7 @@
 #include <dev/ic/ne2000var.h>
 
 #include <dev/ic/rtl80x9reg.h>
-#include <dev/ic/rtl80x9var.h>          
+#include <dev/ic/rtl80x9var.h>
 
 #include <dev/isa/isavar.h>
 

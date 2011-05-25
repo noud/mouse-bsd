@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -139,10 +139,10 @@ gif_output(ifp, m, dst, rt)
 		goto end;
 	}
 
-	ifp->if_lastchange = time;	
+	ifp->if_lastchange = time;
 	m->m_flags &= ~(M_BCAST|M_MCAST);
 	if (!(ifp->if_flags & IFF_UP) ||
-#if 0	    
+#if 0
 	    sc->gif_flags & GIFF_INUSE ||
 #endif
 	    sc->gif_psrc == NULL || sc->gif_pdst == NULL) {
@@ -166,11 +166,11 @@ gif_output(ifp, m, dst, rt)
 		m0.m_next = m;
 		m0.m_len = 4;
 		m0.m_data = (char *)&af;
-		
+
 		bpf_mtap(ifp->if_bpf, &m0);
 	}
 #endif
-	ifp->if_opackets++;	
+	ifp->if_opackets++;
 	ifp->if_obytes += m->m_pkthdr.len;
 #if 0
 	s = splnet();
@@ -189,7 +189,7 @@ gif_output(ifp, m, dst, rt)
 		break;
 #endif
 	default:
-		m_freem(m);		
+		m_freem(m);
 		error = ENETDOWN;
 	}
 #if 0
@@ -220,7 +220,7 @@ gif_input(m, af, gifp)
 
 	if (m->m_pkthdr.rcvif)
 		m->m_pkthdr.rcvif = gifp;
-	
+
 #if NBPFILTER > 0
 	if (gifp->if_bpf) {
 		/*
@@ -232,11 +232,11 @@ gif_input(m, af, gifp)
 		 */
 		struct mbuf m0;
 		u_int af = AF_INET6;
-		
+
 		m0.m_next = m;
 		m0.m_len = 4;
 		m0.m_data = (char *)&af;
-		
+
 		bpf_mtap(gifp->if_bpf, &m0);
 	}
 #endif /*NBPFILTER > 0*/
@@ -287,7 +287,7 @@ gif_input(m, af, gifp)
 
 	return;
 }
-	
+
 
 int
 gif_ioctl(ifp, cmd, data)
@@ -299,11 +299,11 @@ gif_ioctl(ifp, cmd, data)
 	struct ifreq     *ifr = (struct ifreq*)data;
 	int error = 0, size;
 	struct sockaddr *sa, *dst, *src;
-		
+
 	switch (cmd) {
 	case SIOCSIFADDR:
 		break;
-		
+
 	case SIOCSIFDSTADDR:
 		break;
 
@@ -413,17 +413,17 @@ gif_ioctl(ifp, cmd, data)
 		bzero((caddr_t)sa, size);
 		bcopy((caddr_t)src, (caddr_t)sa, size);
 		sc->gif_psrc = sa;
-		
+
 		sa = (struct sockaddr *)malloc(size, M_IFADDR, M_WAITOK);
 		bzero((caddr_t)sa, size);
 		bcopy((caddr_t)dst, (caddr_t)sa, size);
 		sc->gif_pdst = sa;
-		
+
 		ifp->if_flags |= IFF_UP;
 		if_up(ifp);		/* send up RTM_IFINFO */
 
 		break;
-			
+
 	case SIOCGIFPSRCADDR:
 #ifdef INET6
 	case SIOCGIFPSRCADDR_IN6:
@@ -453,7 +453,7 @@ gif_ioctl(ifp, cmd, data)
 		}
 		bcopy((caddr_t)src, (caddr_t)dst, size);
 		break;
-			
+
 	case SIOCGIFPDSTADDR:
 #ifdef INET6
 	case SIOCGIFPDSTADDR_IN6:

@@ -109,7 +109,7 @@ pci_attach_hook(parent, self, pba)
 		pr = NULL;
 		ip = ap = NULL;
 
-		/* 
+		/*
 		 * ok, for each child we get the "interrupts" property,
 		 * which contains a value to match against later.
 		 * XXX deal with multiple "interrupts" values XXX.
@@ -157,7 +157,7 @@ pci_attach_hook(parent, self, pba)
 		if (getprop(node, "interrupts", sizeof(int), &n, (void **)&ip))
 			continue;
 		DPRINTF(SPDB_INTFIX, (" got interrupts"));
-		
+
 		/* and if there isn't an "assigned-addresses" we can't find b/d/f */
 		if (getprop(node, "assigned-addresses", sizeof(int), &n,
 		    (void **)&ap))
@@ -199,7 +199,7 @@ pci_attach_hook(parent, self, pba)
 			    pp->pp_intmap[i].intr != intr)
 				continue;
 			DPRINTF(SPDB_INTFIX, ("... BINGO! ..."));
-			
+
 			/*
 			 * OK!  we found match.  pull out the old interrupt
 			 * register, patch in the new value, and put it back.
@@ -274,7 +274,7 @@ confaddr_ok(sc, tag)
 		/*
 		 * bus 0 is only ok for dev 0 fn 0, dev 1 fn 0 and dev fn 1.
 		 */
-		if (bus == 0 && 
+		if (bus == 0 &&
 		    ((dev == 0 && fn > 0) ||
 		     (dev == 1 && fn > 1) ||
 		     (dev > 1))) {
@@ -348,7 +348,7 @@ pci_conf_write(pc, tag, reg, data)
 
 	if (confaddr_ok(sc, tag) == 0)
 		panic("pci_conf_write: bad addr");
-		
+
 #if 0
 	probeset(sc->sc_configaddr + tag + reg,
 		 bus_type_asi[sc->sc_configtag->type],
@@ -375,7 +375,7 @@ pci_intr_map(pc, tag, pin, line, ihp)
 	int rv;
 
 	DPRINTF(SPDB_INTR, ("pci_intr_map: tag %x; pin %d; line %d", (u_int)tag, pin, line));
-	
+
 	if (line == 255 || pin == 0) {
 		*ihp = -1;
 		rv = 1;

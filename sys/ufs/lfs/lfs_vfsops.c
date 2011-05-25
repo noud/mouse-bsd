@@ -145,7 +145,7 @@ void
 lfs_init()
 {
 	ufs_init();
-	
+
 	/*
 	 * XXX Same structure as FFS inodes?  Should we share a common pool?
 	 */
@@ -164,7 +164,7 @@ lfs_mountroot()
 	struct mount *mp;
 	struct proc *p = curproc;	/* XXX */
 	int error;
-	
+
 	if (root_device->dv_class != DV_DISK)
 		return (ENODEV);
 
@@ -455,12 +455,12 @@ lfs_mountfs(devvp, mp, p)
 	vput(vp);
 
 	/*
-	 * Mark the current segment as ACTIVE, since we're going to 
+	 * Mark the current segment as ACTIVE, since we're going to
 	 * be writing to it.
 	 */
-        LFS_SEGENTRY(sup, fs, datosn(fs, fs->lfs_offset), bp); 
+        LFS_SEGENTRY(sup, fs, datosn(fs, fs->lfs_offset), bp);
         sup->su_flags |= SEGUSE_DIRTY | SEGUSE_ACTIVE;
-        (void) VOP_BWRITE(bp); 
+        (void) VOP_BWRITE(bp);
 
 	return (0);
 out:

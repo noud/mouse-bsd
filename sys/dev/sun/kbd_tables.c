@@ -924,5 +924,5 @@ struct keyboard * keyboards[] = {
 	&kbd_type3,
 	&kbd_type4,
 	&kbd_type5,
-};		
+};
 int kbd_max_type = 5;

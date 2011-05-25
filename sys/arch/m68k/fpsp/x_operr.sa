@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -45,8 +45,8 @@
 * the dest format is integer (b, w, l) and the operr is caused by
 * integer overflow, or the source op is inf, then the result stored is
 * garbage.
-* There are three cases in which operr is incorrectly signaled on the 
-* 040.  This occurs for move_out of format b, w, or l for the largest 
+* There are three cases in which operr is incorrectly signaled on the
+* 040.  This occurs for move_out of format b, w, or l for the largest
 * negative integer (-2^7 for b, -2^15 for w, -2^31 for l).
 *
 *	  On opclass = 011 fmove.(b,w,l) that causes a conversion
@@ -68,7 +68,7 @@
 * Note 2: For trap enabled 040 does the following:
 * If the inst is move_out, then same as Note 1.
 * If the inst is not move_out, the dest is not modified.
-* The exceptional operand is not defined for integer overflow 
+* The exceptional operand is not defined for integer overflow
 * during a move_out.
 *
 
@@ -102,7 +102,7 @@ fpsp_operr:
 	beq.b	operr_end
 
 *
-* If the destination size is B,W,or L, the operr must be 
+* If the destination size is B,W,or L, the operr must be
 * handled here.
 *
 	move.l	CMDREG1B(a6),d0
@@ -115,9 +115,9 @@ fpsp_operr:
 	beq.w	operr_byte
 
 *
-* The size is not B,W,or L, so the operr is handled by the 
+* The size is not B,W,or L, so the operr is handled by the
 * kernel handler.  Set the operr bits and clean up, leaving
-* only the integer exception frame on the stack, and the 
+* only the integer exception frame on the stack, and the
 * fpu in the original exceptional state.
 *
 operr_end:
@@ -136,7 +136,7 @@ operr_long:
 	move.b	STAG(a6),d0	;test stag for nan
 	andi.b	#$e0,d0		;clr all but tag
 	cmpi.b	#$60,d0		;check for nan
-	beq	operr_nan	
+	beq	operr_nan
 	cmpi.l	#$80000000,FPTEMP_LO(a6) ;test if ls lword is special
 	bne.b	chklerr		;if not equal, check for incorrect operr
 	bsr	check_upper	;check if exp and ms mant are special
@@ -183,7 +183,7 @@ operr_word:
 	move.b	STAG(a6),d0	;test stag for nan
 	andi.b	#$e0,d0		;clr all but tag
 	cmpi.b	#$60,d0		;check for nan
-	beq.w	operr_nan	
+	beq.w	operr_nan
 	cmpi.l	#$ffff8000,FPTEMP_LO(a6) ;test if ls lword is special
 	bne.b	chkwerr		;if not equal, check for incorrect operr
 	bsr	check_upper	;check if exp and ms mant are special
@@ -210,7 +210,7 @@ operr_byte:
 	move.b	STAG(a6),d0	;test stag for nan
 	andi.b	#$e0,d0		;clr all but tag
 	cmpi.b	#$60,d0		;check for nan
-	beq.b	operr_nan	
+	beq.b	operr_nan
 	cmpi.l	#$ffffff80,FPTEMP_LO(a6) ;test if ls lword is special
 	bne.b	chkberr		;if not equal, check for incorrect operr
 	bsr	check_upper	;check if exp and ms mant are special
@@ -254,7 +254,7 @@ store_max:
 	bclr.b	#inex2_bit,FPSR_EXCEPT(a6)
 	bclr.b	#ainex_bit,FPSR_AEXCEPT(a6)
 	fmove.l	#0,FPSR
-	
+
 	tst.w	FPTEMP_EX(a6)	;check sign
 	blt.b	load_neg
 	move.l	#$7fffffff,d0
@@ -305,7 +305,7 @@ dest_mem:
 	bsr.l	mem_write
 	rts
 *
-* Check the exponent for $c000 and the upper 32 bits of the 
+* Check the exponent for $c000 and the upper 32 bits of the
 * mantissa for $ffffffff.  If both are true, return d0 clr
 * and store the lower n bits of the least lword of FPTEMP
 * to d0 for write out.  If not, it is a real operr, and set d0.

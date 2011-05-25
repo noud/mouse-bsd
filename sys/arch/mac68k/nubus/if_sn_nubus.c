@@ -183,9 +183,9 @@ sn_nubus_attach(parent, self, aux)
 		offset = 0;
 		success = 1;
 		break;
-	
+
 	case SN_VENDOR_APPLE16:
-		sc->snr_dcr = DCR_ASYNC | DCR_WAIT0 | DCR_EXBUS | 
+		sc->snr_dcr = DCR_ASYNC | DCR_WAIT0 | DCR_EXBUS |
 		    DCR_DMABLOCK | DCR_PO1 | DCR_RFT16 | DCR_TFT16;
 		sc->snr_dcr2 = 0;
 		sc->bitmode = 0; /* 16 bit card */

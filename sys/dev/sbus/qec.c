@@ -262,10 +262,10 @@ qec_bus_map(t, btype, offset, size, flags, vaddr, hp)
 void *
 qec_intr_establish(t, level, flags, handler, arg)
 	bus_space_tag_t t;
-	int level;      
+	int level;
 	int flags;
-	int (*handler) __P((void *)); 
-	void *arg;      
+	int (*handler) __P((void *));
+	void *arg;
 {
 	struct qec_softc *sc = t->cookie;
 

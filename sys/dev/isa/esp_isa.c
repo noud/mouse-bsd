@@ -132,8 +132,8 @@
 
 #include <dev/isa/espvar.h>
 
-int	esp_isa_match __P((struct device *, struct cfdata *, void *)); 
-void	esp_isa_attach __P((struct device *, struct device *, void *));  
+int	esp_isa_match __P((struct device *, struct cfdata *, void *));
+void	esp_isa_attach __P((struct device *, struct device *, void *));
 
 struct cfattach esp_isa_ca = {
 	sizeof(struct esp_softc), esp_isa_match, esp_isa_attach

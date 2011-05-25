@@ -90,7 +90,7 @@ void	tx_device_register __P((struct device *, void *));
 void    tx_fb_init __P((caddr_t*));
 int     tx_mem_init __P((caddr_t));
 void	tx_reboot __P((int howto, char *bootstr));
-int	tx_intr __P((u_int32_t mask, u_int32_t pc, u_int32_t statusReg, 
+int	tx_intr __P((u_int32_t mask, u_int32_t pc, u_int32_t statusReg,
 		     u_int32_t causeReg));
 
 void
@@ -99,7 +99,7 @@ tx_init()
 	tx_chipset_tag_t tc;
 	int model, rev;
 	int cpuclock;
-	
+
 	tc = tx_conf_get_tag();
 	/*
 	 * Platform Specific Function Hooks
@@ -117,7 +117,7 @@ tx_init()
 	switch (model) {
 	default:
 		 /* Unknown TOSHIBA TX39-series */
-		sprintf(cpu_name, "Unknown TOSHIBA TX39-series %x.%x", 
+		sprintf(cpu_name, "Unknown TOSHIBA TX39-series %x.%x",
 			cpu_id.cpu.cp_majrev, cpu_id.cpu.cp_minrev);
 		break;
 	case TMPR3912:
@@ -131,7 +131,7 @@ tx_init()
 		rev = tx_conf_read(tc, TX3922_REVISION_REG);
 
 		sprintf(cpu_name, "TOSHIBA TMPR3922 rev. %x.%x "
-			"%d.%02d MHz", (rev >> 4) & 0xf, rev & 0xf, 
+			"%d.%02d MHz", (rev >> 4) & 0xf, rev & 0xf,
 			cpuclock / 1000000, (cpuclock % 1000000) / 10000);
 		break;
 	}
@@ -151,7 +151,7 @@ tx_os_init()
 	splvec.splimp = MIPS_SPL_2_4;
 	splvec.splclock = MIPS_SPL_2_4;
 	splvec.splstatclock = MIPS_SPL_2_4;
-	
+
 	/* no high resolution timer circuit; possibly never called */
 	clkread = nullclkread;
 }
@@ -169,7 +169,7 @@ tx_fb_init(kernend)
 
 	fb_start = MIPS_KSEG0_TO_PHYS(*kernend);
 	tx3912video_init(tc, fb_start, bootinfo->fb_width,
-			bootinfo->fb_height, &fb_addr, &fb_size, 
+			bootinfo->fb_height, &fb_addr, &fb_size,
 			&fb_line_bytes);
 
 	/* Setup bootinfo */
@@ -179,8 +179,8 @@ tx_fb_init(kernend)
 	/* Skip V-RAM area */
 	*kernend += fb_size;
 #endif /* TX391X */
-#ifdef TX392X 
-	/* 
+#ifdef TX392X
+	/*
 	 *  Plum V-RAM isn't accessible until pmap_bootstrap,
 	 * at this time, frame buffer device is disabled.
 	 */
@@ -204,29 +204,29 @@ tx_mem_init(kernend)
 	/* D-RAM bank0 */
 	npage = tx39_find_dram(startaddr, endaddr);
 
-	printf("DRAM bank0: %d pages (%dMByte) reserved %d pages\n", 
+	printf("DRAM bank0: %d pages (%dMByte) reserved %d pages\n",
 	       npage + 1, ((npage  + 1) * NBPG) / 0x100000, kpage + 1);
 	npage -= kpage; /* exclude kernel area */
 
 	/* Clear DRAM area */
 	memset((void*)startaddr, 0, npage * NBPG);
-	
+
 	/* D-RAM bank1 XXX find only. not usable yet */
 	startaddr = MIPS_PHYS_TO_KSEG1(TX39_SYSADDR_DRAMBANK1CS1);
 	endaddr = MIPS_PHYS_TO_KSEG1(TX39_SYSADDR_DRAMBANK1CS1 +
 				     TX39_SYSADDR_DRAMBANK_LEN);
 	xpage = tx39_find_dram(startaddr, endaddr);
-	printf("DRAM bank1: %d pages (%dMByte) ...but not usable yet\n", 
+	printf("DRAM bank1: %d pages (%dMByte) ...but not usable yet\n",
 	       xpage + 1, ((xpage + 1) * NBPG) / 0x100000);
 
-	/* 
-	 *  Clear currently unused D-RAM area 
+	/*
+	 *  Clear currently unused D-RAM area
 	 *  (For reboot Windows CE clearly)
 	 */
 	memset((void*)startaddr, 0, npage * NBPG);
-	memset((void*)(KERNBASE + 0x400), 0, 
-	       KERNTEXTOFF - KERNBASE - 0x800); 
-	
+	memset((void*)(KERNBASE + 0x400), 0,
+	       KERNTEXTOFF - KERNBASE - 0x800);
+
 	return npage; /* Return bank0's memory only */
 }
 
@@ -282,7 +282,7 @@ tx_cons_init()
 #endif
 	if (bootinfo->bi_cnuse & BI_CNUSE_SERIAL) {
 		if(txcom_cnattach(slot, CONSPEED,
-				  (TTYDEF_CFLAG & ~(CSIZE | PARENB)) | 
+				  (TTYDEF_CFLAG & ~(CSIZE | PARENB)) |
 				  CS8)) {
 			panic("tx_cons_init: can't attach serial console.");
 		}
@@ -303,14 +303,14 @@ tx_cons_init()
 		   tc5165buf_cnattach(TX39_SYSADDR_CS1)) {
 			goto panic;
 		}
-		
+
 		if(CONSPLATIDMATCH(SHARP_MOBILON) &&
 		   tc5165buf_cnattach(TX39_SYSADDR_MCS0)) {
 			goto panic;
 		}
 #endif
 	}
-	
+
 	return;
  panic:
 	panic("tx_cons_init: can't init console");

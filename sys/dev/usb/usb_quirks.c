@@ -40,7 +40,7 @@
 
 #include <sys/param.h>
 #include <sys/systm.h>
- 
+
 #include <dev/usb/usb.h>
 
 #include <dev/usb/usbdevs.h>
@@ -57,7 +57,7 @@ static struct usbd_quirk_entry {
 	struct usbd_quirks quirks;
 } usb_quirks[] = {
  { USB_VENDOR_KYE, USB_PRODUCT_KYE_NICHE,	    0x100, { UQ_NO_SET_PROTO}},
- { USB_VENDOR_INSIDEOUT,USB_PRODUCT_INSIDEOUT_EDGEPORT4, 
+ { USB_VENDOR_INSIDEOUT,USB_PRODUCT_INSIDEOUT_EDGEPORT4,
    						    0x094, { UQ_SWAP_UNICODE}},
  { USB_VENDOR_BTC, USB_PRODUCT_BTC_BTC7932,	    0x100, { UQ_NO_STRINGS }},
  { USB_VENDOR_ADS, USB_PRODUCT_ADS_UBS10BT,	    0x002, { UQ_NO_STRINGS }},
@@ -84,7 +84,7 @@ usbd_find_quirk(d)
 	}
 #ifdef USB_DEBUG
 	if (usbdebug && t->quirks.uq_flags)
-		logprintf("usbd_find_quirk 0x%04x/0x%04x/%x: %d\n", 
+		logprintf("usbd_find_quirk 0x%04x/0x%04x/%x: %d\n",
 			  UGETW(d->idVendor), UGETW(d->idProduct),
 			  UGETW(d->bcdDevice), t->quirks.uq_flags);
 #endif

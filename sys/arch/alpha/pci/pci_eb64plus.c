@@ -42,17 +42,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -142,7 +142,7 @@ pci_eb64plus_pickintr(acp)
 	    &eb64plus_intrgate_ioh) != 0)
 		panic("pci_eb64plus_pickintr: couldn't map interrupt PLD");
 	for (i = 0; i < EB64PLUS_MAX_IRQ; i++)
-		eb64plus_intr_disable(i);	
+		eb64plus_intr_disable(i);
 
 	eb64plus_pci_intr = alpha_shared_intr_alloc(EB64PLUS_MAX_IRQ);
 	for (i = 0; i < EB64PLUS_MAX_IRQ; i++)
@@ -156,10 +156,10 @@ pci_eb64plus_pickintr(acp)
 	set_iointr(eb64plus_iointr);
 }
 
-int     
+int
 dec_eb64plus_intr_map(acv, bustag, buspin, line, ihp)
         void *acv;
-        pcitag_t bustag; 
+        pcitag_t bustag;
         int buspin, line;
         pci_intr_handle_t *ihp;
 {
@@ -237,7 +237,7 @@ dec_eb64plus_intr_disestablish(acv, cookie)
 	struct alpha_shared_intrhand *ih = cookie;
 	unsigned int irq = ih->ih_num;
 	int s;
- 
+
 	s = splhigh();
 
 	alpha_shared_intr_disestablish(eb64plus_pci_intr, cookie,
@@ -247,7 +247,7 @@ dec_eb64plus_intr_disestablish(acv, cookie)
 		alpha_shared_intr_set_dfltsharetype(eb64plus_pci_intr, irq,
 		    IST_NONE);
 	}
- 
+
 	splx(s);
 }
 
@@ -256,7 +256,7 @@ eb64plus_iointr(framep, vec)
 	void *framep;
 	unsigned long vec;
 {
-	int irq; 
+	int irq;
 
 	if (vec >= 0x900) {
 		if (vec >= 0x900 + (EB64PLUS_MAX_IRQ << 4))

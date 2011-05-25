@@ -1,4 +1,4 @@
-.\"	$NetBSD: xfer,v 1.6 1999/05/04 03:42:20 simonb Exp $	
+.\"	$NetBSD: xfer,v 1.6 1999/05/04 03:42:20 simonb Exp $
 .
 First-time installation on a bare machine is not supported, because most
 DECstations do not have any suitable load device. Some versions of

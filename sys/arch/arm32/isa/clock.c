@@ -71,28 +71,28 @@
  *
  *	@(#)clock.c	7.2 (Berkeley) 5/12/91
  */
-/* 
+/*
  * Mach Operating System
  * Copyright (c) 1991,1990,1989 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
+ *
  * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
  * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND FOR
  * ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
- * 
+ *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
  *  School of Computer Science
  *  Carnegie Mellon University
  *  Pittsburgh PA 15213-3890
- * 
+ *
  * any improvements or extensions that they make and grant Carnegie Mellon
  * the rights to redistribute these changes.
  */
@@ -191,7 +191,7 @@ unsigned int count1024usec; /* calibrated loop variable (1024 microseconds) */
 
 /*
  * microtime() makes use of the following globals.
- * timer_msb_table[] and timer_lsb_table[] are used to compute the 
+ * timer_msb_table[] and timer_lsb_table[] are used to compute the
  * microsecond increment.
  *
  * time.tv_usec += isa_timer_msb_table[cnt_msb] + isa_timer_lsb_table[cnt_lsb];
@@ -246,7 +246,7 @@ startrtclock()
 	findcpuspeed();		/* use the clock (while it's free)
 					to find the cpu speed */
 
-	init_isa_timer_tables(); 
+	init_isa_timer_tables();
 
 	timer0count.lo = 0;
 	timer0count.hi = 0;
@@ -276,25 +276,25 @@ init_isa_timer_tables()
 	        /* LSB table is easy, just divide and round */
 		t = ((u_long) s * 1000000 * 2) / TIMER_FREQ;
 		isa_timer_lsb_table[s] = (u_short) ((t / 2) + (t & 0x1));
-		
+
 		msbmillion = s * 1000000;
 		quotient = msbmillion / TIMER_FREQ;
 		remainder = msbmillion % TIMER_FREQ;
 		t = (remainder * 256 * 2) / TIMER_FREQ;
-		isa_timer_msb_table[s] = 
+		isa_timer_msb_table[s] =
 		  (u_short)((t / 2) + (t & 1) + (quotient * 256));
 
 #ifdef DIAGNOSTIC
 		if ((s > 0) &&
-		    (isa_timer_msb_table[s] < 
+		    (isa_timer_msb_table[s] <
 		     (isa_timer_msb_table[s - 1] + isa_timer_lsb_table[0xFF])))
 		  panic ("time tables not monotonic %d: %d < (%d + %d) = %d\n",
 			 s, isa_timer_msb_table[s],
-			 isa_timer_msb_table[s - 1], 
+			 isa_timer_msb_table[s - 1],
 			 isa_timer_lsb_table[0xFF],
-			 isa_timer_msb_table[s - 1] + 
+			 isa_timer_msb_table[s - 1] +
 			 isa_timer_lsb_table[0xFF]);
-#endif	
+#endif
 	} /* END for */
 }
 
@@ -360,7 +360,7 @@ clockintr(arg)
 	/* check to see if the high-availability timer needs to be unwedged */
 	if (++hatUnwedgeCtr >= (hz / HAT_MIN_FREQ)) {
 	  hatUnwedgeCtr = 0;
-	  hatUnwedge(); 
+	  hatUnwedge();
 	}
 #endif
 
@@ -454,7 +454,7 @@ delay(n)
 	        /* a Musec = 2^20 usec */
 		int Musec = n >> 20,
 		    usec = n & ((1 << 20) - 1);
-		nticks 
+		nticks
 		  = (Musec * TIMER_MUSECFREQ) +
 		    (usec * (TIMER_MUSECFREQ >> 20)) +
 		    ((usec * ((TIMER_MUSECFREQ & ((1 <<20) - 1)) >>10)) >>10) +
@@ -529,7 +529,7 @@ cpu_initclocks()
 	printf("clock: hz=%d stathz = %d profhz = %d\n", hz, stathz, profhz);
 
 	/* install RTC interrupt handler */
-	(void)isa_intr_establish(NULL, IRQ_RTC, IST_LEVEL, IPL_CLOCK, 
+	(void)isa_intr_establish(NULL, IRQ_RTC, IST_LEVEL, IPL_CLOCK,
 				 clockintr, 0);
 
 	/* code for values of hz that don't divide 1000000 exactly */
@@ -561,7 +561,7 @@ cpu_initclocks()
 	default:
 		panic("cannot configure hz = %d\n", hz);
         }
-	
+
 	rtcinit(); /* make sure basics are done by now */
 
 	/* blast values to set up clock interrupt */
@@ -642,7 +642,7 @@ microtime(tvp)
 	  /* microtime will be less accurate if the RTC is < 36 Hz */
 	  ticks -= 0xffff;
 	}
-	
+
 	tvp->tv_sec = time.tv_sec;
 	if (tm >= 1000000) {
 	  tvp->tv_sec += 1;
@@ -661,9 +661,9 @@ microtime(tvp)
 			++tvp->tv_sec;
 		}
 	}
-	    
+
 	oldtv = *tvp;
-	(void)splx(s);		
+	(void)splx(s);
 }
 
 void

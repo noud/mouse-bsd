@@ -63,7 +63,7 @@ struct objfile *rt_common_objfile;	/* For runtime common symbols */
 
 int mapped_symbol_files;		/* Try to use mapped symbol files */
 
-/* Locate all mappable sections of a BFD file. 
+/* Locate all mappable sections of a BFD file.
    objfile_p_char is a char * to get it through
    bfd_map_over_sections; we cast it back to its proper type.  */
 
@@ -264,7 +264,7 @@ allocate_objfile (abfd, mapped)
 
       if (build_objfile_section_table (objfile))
 	{
-	  error ("Can't find the file sections in `%s': %s", 
+	  error ("Can't find the file sections in `%s': %s",
 		 objfile -> name, bfd_errmsg (bfd_get_error ()));
 	}
     }
@@ -326,7 +326,7 @@ unlink_objfile (objfile)
 
   for (objpp = &object_files; *objpp != NULL; objpp = &((*objpp) -> next))
     {
-      if (*objpp == objfile) 
+      if (*objpp == objfile)
 	{
 	  *objpp = (*objpp) -> next;
 	  objfile -> next = NULL;
@@ -395,7 +395,7 @@ free_objfile (objfile)
      symbol table was blown away.  How much still needs to be done
      is unknown, but we play it safe for now and keep each action until
      it is shown to be no longer needed. */
-     
+
 #if defined (CLEAR_SOLIB)
   CLEAR_SOLIB ();
   /* CLEAR_SOLIB closes the bfd's for any shared libraries.  But
@@ -477,7 +477,7 @@ objfile_relocate (objfile, new_offsets)
      struct objfile *objfile;
      struct section_offsets *new_offsets;
 {
-  struct section_offsets *delta = (struct section_offsets *) 
+  struct section_offsets *delta = (struct section_offsets *)
     alloca (sizeof (struct section_offsets)
 	    + objfile->num_sections * sizeof (delta->offsets));
 
@@ -504,7 +504,7 @@ objfile_relocate (objfile, new_offsets)
 	struct linetable *l;
 	struct blockvector *bv;
 	int i;
-	
+
 	/* First the line table.  */
 	l = LINETABLE (s);
 	if (l)
@@ -522,7 +522,7 @@ objfile_relocate (objfile, new_offsets)
 	  {
 	    struct block *b;
 	    int j;
-	    
+
 	    b = BLOCKVECTOR_BLOCK (bv, i);
 	    BLOCK_START (b) += ANOFFSET (delta, s->block_line_section);
 	    BLOCK_END (b)   += ANOFFSET (delta, s->block_line_section);
@@ -538,7 +538,7 @@ objfile_relocate (objfile, new_offsets)
 		     || SYMBOL_CLASS (sym) == LOC_STATIC)
 		    && SYMBOL_SECTION (sym) >= 0)
 		  {
-		    SYMBOL_VALUE_ADDRESS (sym) += 
+		    SYMBOL_VALUE_ADDRESS (sym) +=
 		      ANOFFSET (delta, SYMBOL_SECTION (sym));
 		  }
 #ifdef MIPS_EFI_SYMBOL_NAME
@@ -548,7 +548,7 @@ objfile_relocate (objfile, new_offsets)
 		  if (SYMBOL_CLASS (sym) == LOC_CONST
 		      && SYMBOL_NAMESPACE (sym) == LABEL_NAMESPACE
 		      && STRCMP (SYMBOL_NAME (sym), MIPS_EFI_SYMBOL_NAME) == 0)
-		ecoff_relocate_efi (sym, ANOFFSET (delta, 
+		ecoff_relocate_efi (sym, ANOFFSET (delta,
 						   s->block_line_section));
 #endif
 	      }
@@ -573,13 +573,13 @@ objfile_relocate (objfile, new_offsets)
 	 psym < objfile->global_psymbols.next;
 	 psym++)
       if (SYMBOL_SECTION (*psym) >= 0)
-	SYMBOL_VALUE_ADDRESS (*psym) += ANOFFSET (delta, 
+	SYMBOL_VALUE_ADDRESS (*psym) += ANOFFSET (delta,
 						  SYMBOL_SECTION (*psym));
     for (psym = objfile->static_psymbols.list;
 	 psym < objfile->static_psymbols.next;
 	 psym++)
       if (SYMBOL_SECTION (*psym) >= 0)
-	SYMBOL_VALUE_ADDRESS (*psym) += ANOFFSET (delta, 
+	SYMBOL_VALUE_ADDRESS (*psym) += ANOFFSET (delta,
 						  SYMBOL_SECTION (*psym));
   }
 
@@ -864,7 +864,7 @@ map_to_file (fd)
 	  mapto = (CORE_ADDR) mmalloc_findbase (20 * 1024 * 1024);
 	  if (mapto != 0)
 	    {
-	      /* To avoid reusing the freshly created mapping file, at the 
+	      /* To avoid reusing the freshly created mapping file, at the
 		 address selected by mmap, we must truncate it before trying
 		 to do an attach at the address we want. */
 	      ftruncate (fd, 0);
@@ -881,8 +881,8 @@ map_to_file (fd)
 
 #endif	/* defined(USE_MMALLOC) && defined(HAVE_MMAP) */
 
-/* Returns a section whose range includes PC and SECTION, 
-   or NULL if none found.  Note the distinction between the return type, 
+/* Returns a section whose range includes PC and SECTION,
+   or NULL if none found.  Note the distinction between the return type,
    struct obj_section (which is defined in gdb), and the input type
    struct sec (which is a bfd-defined data type).  The obj_section
    contains a pointer to the bfd struct sec section.  */
@@ -894,17 +894,17 @@ find_pc_sect_section (pc, section)
 {
   struct obj_section *s;
   struct objfile *objfile;
-  
+
   ALL_OBJFILES (objfile)
     for (s = objfile->sections; s < objfile->sections_end; ++s)
-      if ((section == 0 || section == s->the_bfd_section) && 
+      if ((section == 0 || section == s->the_bfd_section) &&
 	  s->addr <= pc && pc < s->endaddr)
 	return(s);
 
   return(NULL);
 }
 
-/* Returns a section whose range includes PC or NULL if none found. 
+/* Returns a section whose range includes PC or NULL if none found.
    Backward compatibility, no section.  */
 
 struct obj_section *
@@ -913,9 +913,9 @@ find_pc_section(pc)
 {
   return find_pc_sect_section (pc, find_pc_mapped_section (pc));
 }
-  
 
-/* In SVR4, we recognize a trampoline by it's section name. 
+
+/* In SVR4, we recognize a trampoline by it's section name.
    That is, if the pc is in a section named ".plt" then we are in
    a trampoline.  */
 
@@ -926,9 +926,9 @@ in_plt_section(pc, name)
 {
   struct obj_section *s;
   int retval = 0;
-  
+
   s = find_pc_section(pc);
-  
+
   retval = (s != NULL
 	    && s->the_bfd_section->name != NULL
 	    && STREQ (s->the_bfd_section->name, ".plt"));

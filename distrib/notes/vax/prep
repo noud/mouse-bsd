@@ -1,4 +1,4 @@
-.\" $NetBSD: prep,v 1.4 1999/05/07 00:15:16 ragge Exp $	
+.\" $NetBSD: prep,v 1.4 1999/05/07 00:15:16 ragge Exp $
 .
 VAX machines usually need little or no preparation before installing
 NetBSD, other than the usual, well advised precaution of BACKING UP

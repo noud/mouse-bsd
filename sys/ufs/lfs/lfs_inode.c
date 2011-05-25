@@ -106,11 +106,11 @@ lfs_ifind(fs, ino, bp)
 	register int cnt;
 	register struct dinode *dip = (struct dinode *)bp->b_data;
 	register struct dinode *ldip;
-	
+
 	for (cnt = INOPB(fs), ldip = dip + (cnt - 1); cnt--; --ldip)
 		if (ldip->di_inumber == ino)
 			return (ldip);
-	
+
 	printf("offset is %d (seg %d)\n", fs->lfs_offset, datosn(fs,fs->lfs_offset));
 	printf("block is %d (seg %d)\n", bp->b_blkno, datosn(fs,bp->b_blkno));
 	panic("lfs_ifind: dinode %u not found", ino);
@@ -132,7 +132,7 @@ lfs_update(v)
 	int mod, oflag;
 	struct timespec ts;
 	struct lfs *fs = VFSTOUFS(vp->v_mount)->um_lfs;
-	
+
 	if (vp->v_mount->mnt_flag & MNT_RDONLY)
 		return (0);
 	ip = VTOI(vp);
@@ -161,7 +161,7 @@ lfs_update(v)
 	if ((ip->i_flag & (IN_MODIFIED|IN_CLEANING)) == 0) {
 		return (0);
 	}
-	
+
 	/* If sync, push back the vnode and any dirty blocks it may have. */
 	if(ap->a_waitfor & LFS_SYNC) {
 		/* Avoid flushing VDIROP. */
@@ -240,7 +240,7 @@ lfs_truncate(v)
 	ufs_daddr_t oldsize_lastblock, oldsize_newlast, newsize;
 	long off, a_released, fragsreleased, i_released;
 	int e1, e2, depth, lastseg, num, offset, seg, freesize, s;
-	
+
 	ip = VTOI(vp);
 
 	if (vp->v_type == VLNK && vp->v_mount->mnt_maxsymlinklen > 0) {
@@ -254,10 +254,10 @@ lfs_truncate(v)
 		return (VOP_UPDATE(vp, NULL, NULL, 0));
 	}
 	uvm_vnp_setsize(vp, length);
-	
+
 	fs = ip->i_lfs;
 	lfs_imtime(fs);
-	
+
 	/* If length is larger than the file, just update the times. */
 	if (ip->i_ffs_size <= length) {
 		ip->i_flag |= IN_CHANGE | IN_UPDATE;
@@ -275,7 +275,7 @@ lfs_truncate(v)
 	while(fs->lfs_seglock && fs->lfs_lockpid != ap->a_p->p_pid) {
 		tsleep(&fs->lfs_seglock, (PRIBIO+1), "lfs_truncate", 0);
 	}
-	
+
 	/*
 	 * Calculate index into inode's block list of last direct and indirect
 	 * blocks (if any) which we want to keep.  Lastblock is 0 when the
@@ -304,7 +304,7 @@ lfs_truncate(v)
 #ifdef QUOTA
 		if ((e1 = getinoquota(ip)) != 0)
 			return (e1);
-#endif	
+#endif
 		if ((e1 = bread(vp, lbn, oldsize_newlast, NOCRED, &bp)) != 0) {
 			printf("lfs_truncate: bread: %d\n",e1);
 			brelse(bp);
@@ -342,7 +342,7 @@ lfs_truncate(v)
 			for (i = NIADDR + 2; i--;)
 				a_end[i] = a[i];
 			freesize = oldsize_lastblock;
-		} else 
+		} else
 			freesize = fs->lfs_bsize;
 		switch (depth) {
 		case 0:		/* Direct block. */
@@ -380,7 +380,7 @@ lfs_truncate(v)
 					brelse (bp);
 				else {
 					bzero((ufs_daddr_t *)bp->b_data +
-					      inp->in_off, fs->lfs_bsize - 
+					      inp->in_off, fs->lfs_bsize -
 					      inp->in_off * sizeof(ufs_daddr_t));
 					if ((e1 = VOP_BWRITE(bp)) != 0) {
 						printf("lfs_truncate: indir bwrite: %d\n",e1);
@@ -404,7 +404,7 @@ lfs_truncate(v)
 		}
 	}
 	UPDATE_SEGUSE;
-	
+
 	/* If truncating the file to 0, update the version number. */
 	if (length == 0) {
 		LFS_IENTRY(ifp, fs, ip->i_number, bp);
@@ -479,7 +479,7 @@ lfs_truncate(v)
 	if(length>0)
 		e1 = lfs_vinvalbuf(vp, ap->a_cred, ap->a_p, lastblock-1);
 	else
-		e1 = vinvalbuf(vp, 0, ap->a_cred, ap->a_p, 0, 0); 
+		e1 = vinvalbuf(vp, 0, ap->a_cred, ap->a_p, 0, 0);
 	e2 = VOP_UPDATE(vp, NULL, NULL, 0);
 	if(e1)
 		printf("lfs_truncate: vinvalbuf: %d\n",e1);

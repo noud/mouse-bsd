@@ -80,7 +80,7 @@ int	mpu_reset(struct mpu_softc *);
 static	__inline int mpu_waitready(struct mpu_softc *);
 void	mpu_readinput(struct mpu_softc *);
 
-int	mpu_open __P((void *, int, 
+int	mpu_open __P((void *, int,
 			 void (*iintr)__P((void *, int)),
 			 void (*ointr)__P((void *)), void *arg));
 void	mpu_close __P((void *));

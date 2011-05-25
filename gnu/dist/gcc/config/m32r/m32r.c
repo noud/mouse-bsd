@@ -151,7 +151,7 @@ init_reg_tables ()
 	    m32r_mode_class[i] = 1 << (int) T_MODE;
 	  else if (GET_MODE_SIZE (i) == 32)
 	    m32r_mode_class[i] = 1 << (int) O_MODE;
-	  else 
+	  else
 	    m32r_mode_class[i] = 0;
 	  break;
 	case MODE_FLOAT:
@@ -164,7 +164,7 @@ init_reg_tables ()
 	    m32r_mode_class[i] = 1 << (int) TF_MODE;
 	  else if (GET_MODE_SIZE (i) == 32)
 	    m32r_mode_class[i] = 1 << (int) OF_MODE;
-	  else 
+	  else
 	    m32r_mode_class[i] = 0;
 	  break;
 	case MODE_CC:
@@ -425,7 +425,7 @@ call_address_operand (op, int_mode)
   return symbolic_operand (op, int_mode);
 
 /* Constants and values in registers are not OK, because
-   the m32r BL instruction can only support PC relative branching.  */ 
+   the m32r BL instruction can only support PC relative branching.  */
 }
 
 int
@@ -943,8 +943,8 @@ gen_compare (int_code, x, y, need_compare)
 	      && CMP_INT16_P (INTVAL (y))		/* reg equal to small const.  */
 	      && y != const0_rtx)
 	    {
-	      rtx tmp = gen_reg_rtx (SImode);		
-	      
+	      rtx tmp = gen_reg_rtx (SImode);
+
 	      emit_insn (gen_cmp_ne_small_const_insn (tmp, x, y));
 	      x = tmp;
 	      y = const0_rtx;
@@ -959,17 +959,17 @@ gen_compare (int_code, x, y, need_compare)
 	      || y == const0_rtx) 	   		/* req equal to zero. */
 	    {
 		emit_insn (gen_cmp_eqsi_insn (x, y));
-		
+
 	      return gen_rtx (code, mode, cc_reg, const0_rtx);
 	    }
 	  break;
-      
+
 	case LT:
 	  if (register_operand (y, SImode)
 	      || (GET_CODE (y) == CONST_INT && CMP_INT16_P (INTVAL (y))))
 	    {
 	      rtx tmp = gen_reg_rtx (SImode);	      /* reg compared to reg. */
-	      
+
 	      switch (code)
 		{
 		case LT:
@@ -999,17 +999,17 @@ gen_compare (int_code, x, y, need_compare)
 		default:
 		  abort();
 		}
-	      
+
 	      return gen_rtx (code, mode, cc_reg, const0_rtx);
 	    }
 	  break;
-	  
+
 	case LTU:
 	  if (register_operand (y, SImode)
 	      || (GET_CODE (y) == CONST_INT && CMP_INT16_P (INTVAL (y))))
 	    {
 	      rtx tmp = gen_reg_rtx (SImode);	      /* reg (unsigned) compared to reg. */
-	      
+
 	      switch (code)
 		{
 		case LTU:
@@ -1039,7 +1039,7 @@ gen_compare (int_code, x, y, need_compare)
 		default:
 		  abort();
 		}
-	      
+
 	      return gen_rtx (code, mode, cc_reg, const0_rtx);
 	    }
 	  break;
@@ -1055,12 +1055,12 @@ gen_compare (int_code, x, y, need_compare)
       if (compare_code == EQ
 	  && register_operand (y, SImode))
 	return gen_rtx (code, mode, x, y);
-      
+
       /* reg/zero signed comparison */
       if ((compare_code == EQ || compare_code == LT)
 	  && y == const0_rtx)
 	return gen_rtx (code, mode, x, y);
-      
+
       /* reg/smallconst equal comparison */
       if (compare_code == EQ
 	  && GET_CODE (y) == CONST_INT
@@ -1070,7 +1070,7 @@ gen_compare (int_code, x, y, need_compare)
 	  emit_insn (gen_cmp_ne_small_const_insn (tmp, x, y));
 	  return gen_rtx (code, mode, tmp, const0_rtx);
 	}
-      
+
       /* reg/const equal comparison */
       if (compare_code == EQ
 	  && CONSTANT_P (y))
@@ -1090,7 +1090,7 @@ gen_compare (int_code, x, y, need_compare)
 	    (code == LTU || code == LEU || code == GTU || code == GEU)
 	    ? uint16_operand (y, GET_MODE (y))
 	    : reg_or_cmp_int16_operand (y, GET_MODE (y));
-	  
+
 	  if (! ok_const)
 	    y = force_reg (GET_MODE (x), y);
 	}
@@ -1368,30 +1368,30 @@ m32r_compute_function_type (decl)
         |                       |       |                       |
   SP+0->+-----------------------+       +-----------------------+
                                         |  reg parm save area,  |
-                                        |  only created for     |    
-                                        |  variable argument    |    
-                                        |  functions            |    
+                                        |  only created for     |
+                                        |  variable argument    |
+                                        |  functions            |
 					+-----------------------+
                                         |   previous frame ptr  |
-                                        +-----------------------+    
-                                        |                       |    
-                                        |  register save area   |    
-                                        |                       |    
+                                        +-----------------------+
+                                        |                       |
+                                        |  register save area   |
+                                        |                       |
 					+-----------------------+
-                                        |    return address     |    
-                                        +-----------------------+    
-                                        |                       |    
-                                        |  local variables      |    
-                                        |                       |    
-                                        +-----------------------+    
-                                        |                       |    
-                                        |  alloca allocations   |    
-                                        |                       |    
-                                        +-----------------------+    
-                                        |                       |    
-   low                                  |  arguments on stack   |    
-   memory                               |                       |    
-                                  SP+0->+-----------------------+    
+                                        |    return address     |
+                                        +-----------------------+
+                                        |                       |
+                                        |  local variables      |
+                                        |                       |
+                                        +-----------------------+
+                                        |                       |
+                                        |  alloca allocations   |
+                                        |                       |
+                                        +-----------------------+
+                                        |                       |
+   low                                  |  arguments on stack   |
+   memory                               |                       |
+                                  SP+0->+-----------------------+
 
 Notes:
 1) The "reg parm save area" does not exist for non variable argument fns.
@@ -1717,7 +1717,7 @@ m32r_output_function_epilogue (file, size)
       if (current_frame_info.pretend_size != 0)
 	fprintf (file, "\taddi %s,%s%d\n",
 		 sp_str, IMMEDIATE_PREFIX, current_frame_info.pretend_size);
-	
+
       /* Emit the return instruction.  */
       if (M32R_INTERRUPT_P (fn_type))
 	fprintf (file, "\trte\n");
@@ -2181,7 +2181,7 @@ emit_cond_move (operands, insn)
   static char buffer [100];
 
   buffer [0] = 0;
-  
+
   /* Destination must be a register.  */
   if (GET_CODE (operands [0]) != REG)
     abort();
@@ -2189,7 +2189,7 @@ emit_cond_move (operands, insn)
     abort();
   if (! conditional_move_operand (operands [3], SImode))
     abort();
-      
+
 
   /* Check to see if the test is reversed.  */
   if (GET_CODE (operands [1]) == NE)
@@ -2205,14 +2205,14 @@ emit_cond_move (operands, insn)
   if (zero_and_one (operands [2], operands [3]))
     {
       char * dest = reg_names [REGNO (operands [0])];
-      
+
       sprintf (buffer, "mvfc %s, cbr", dest);
 
       /* If the true value was '0' then we need to invert the results of the move.  */
       if (INTVAL (operands [2]) == 0)
 	sprintf (buffer + strlen (buffer), "\n\txor3 %s, %s, #1",
 		 dest, dest);
-      
+
       return buffer;
     }
 

@@ -869,19 +869,19 @@ used by the author of @code{g77} on his own system:
 @c these quick-start instructions, because of problems their
 @c systems have coping with straightforward installation of
 @c @code{g77}:
-@c 
+@c
 @c @itemize @bullet
 @c @item
 @c SunOS4
 @c @end itemize
-@c 
+@c
 @c Instead, see @ref{Complete Installation}, for detailed information
 @c on how to configure, build, and install @code{g77} for your
 @c particular system.
 @c Also, see @ref{Trouble,,Known Causes of Trouble with GNU Fortran},
 @c for information on bugs and other problems known to afflict the
 @c installation process, and how to report newly discovered ones.
-@c 
+@c
 @c If your system is @emph{not} on the above list, and @emph{is}
 @c a UNIX system or one of its variants, you should be able to
 @c follow the instructions below.

@@ -392,7 +392,7 @@ rdident(parent, sc, ha)
 	hpibsend(ctlr, slave, C_CMD, cmd, sizeof(cmd));
 	hpibrecv(ctlr, slave, C_EXEC, desc, 37);
 	hpibrecv(ctlr, slave, C_QSTAT, &stat, sizeof(stat));
-	bzero(name, sizeof(name)); 
+	bzero(name, sizeof(name));
 	if (stat == 0) {
 		n = desc->d_name;
 		for (i = 5; i >= 0; i--) {

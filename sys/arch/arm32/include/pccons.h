@@ -8,7 +8,7 @@
 #define _PCCONS_H_
 
 #include <sys/ioctl.h>
-	
+
 #define CONSOLE_X_MODE_ON		_IO('t',121)
 #define CONSOLE_X_MODE_OFF		_IO('t',122)
 #define CONSOLE_X_BELL			_IOW('t',123,int[2])

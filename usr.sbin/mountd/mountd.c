@@ -717,7 +717,7 @@ parse_host_netgroup(line, lineno, ep, tgrp, cp, has_host, grp)
 bad:
 	endnetgrent();
 	return 0;
-	
+
 }
 
 static int
@@ -1447,7 +1447,7 @@ do_opt(line, lineno, cpp, endcpp, ep, grp, has_hostp, exflagsp, cr)
 			opt_flags |= OP_ISO;
 #endif /* ISO */
 		} else {
-			syslog(LOG_ERR, 
+			syslog(LOG_ERR,
 			    "\"%s\", line %ld: Bad opt %s",
 			    line, (unsigned long)lineno, cpopt);
 			return (1);
@@ -1789,7 +1789,7 @@ do_mount(line, lineno, ep, grp, exflags, anoncrp, dirp, dirplen, fsb)
 			if (cp == dirp) {
 				if (debug)
 					(void)fprintf(stderr, "mnt unsucc\n");
-				syslog(LOG_ERR, 
+				syslog(LOG_ERR,
 				    "\"%s\", line %ld: Can't export %s",
 				    line, (unsigned long)lineno, dirp);
 				return (1);

@@ -83,7 +83,7 @@ options 	INET		# Internet protocols
 # Special options
 options 	PCCONS_FORCE_WORD	# Max out at 16bit accesses to the
 					# VGA memory
-			
+
 # Kernel root file system and dump configuration.
 options 	NFS_BOOT_BOOTP,NFS_BOOT_BOOTPARAM
 config		netbsd root on ? type ?

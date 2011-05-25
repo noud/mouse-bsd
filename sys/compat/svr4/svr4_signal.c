@@ -306,7 +306,7 @@ svr4_sys_sigaction(p, v, retval)
 	return (0);
 }
 
-int 
+int
 svr4_sys_sigaltstack(p, v, retval)
 	register struct proc *p;
 	void *v;
@@ -602,7 +602,7 @@ svr4_setcontext(p, uc)
 	return EJUSTRETURN;
 }
 
-int 
+int
 svr4_sys_context(p, v, retval)
 	register struct proc *p;
 	void *v;
@@ -622,7 +622,7 @@ svr4_sys_context(p, v, retval)
 		svr4_getcontext(p, &uc, &p->p_sigmask);
 		return copyout(&uc, SCARG(uap, uc), sizeof(uc));
 
-	case SVR4_SETCONTEXT: 
+	case SVR4_SETCONTEXT:
 		DPRINTF(("setcontext(%p)\n", SCARG(uap, uc)));
 		if (SCARG(uap, uc) == NULL)
 			exit1(p, W_EXITCODE(0, 0));

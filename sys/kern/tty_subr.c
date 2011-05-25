@@ -46,7 +46,7 @@
  * defined we allocate an array of bits -- 1/8th as much memory but
  * setbit(), clrbit(), and isset() take more cpu. If QBITS is
  * undefined, we just use an array of bytes.
- * 
+ *
  * If TTY_QUOTE functionality isn't required by a line discipline,
  * it can free c_cq and set it to NULL. This speeds things up,
  * and also does not use any extra memory. This is useful for (say)
@@ -303,7 +303,7 @@ out:
 	if (clp->c_cq) {
 #ifdef QBITS
 		if (c & TTY_QUOTE)
-			setbit(clp->c_cq, i); 
+			setbit(clp->c_cq, i);
 		else
 			clrbit(clp->c_cq, i);
 #else

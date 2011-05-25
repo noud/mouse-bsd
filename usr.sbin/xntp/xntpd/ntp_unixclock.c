@@ -440,7 +440,7 @@ clock_parms(ptickadj, ptick)
       {
 	msyslog(LOG_ERR, "nlist(%s) failed: %m", kernelname);
 	exit(3);
-      }  
+      }
 #     else /* not HAVE_GETBOOTFILE */
     for (i = 0; kernelnames[i] != NULL; i++)
       {

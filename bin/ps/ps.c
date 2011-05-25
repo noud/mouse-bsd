@@ -344,7 +344,7 @@ main(argc, argv)
 		 *  change will require too much work to be put
 		 *  into 1.4.  For now, enable this experimental
 		 *  /proc-based support instead (if /proc is
-		 *  mounted) to grab as much information as we can.  
+		 *  mounted) to grab as much information as we can.
 		 *  The guts of emulating kvm_getprocs() is in
 		 *  the file procfs_ops.c.  */
 		if (kd)

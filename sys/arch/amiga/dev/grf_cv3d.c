@@ -2,7 +2,7 @@
 
 /*
  * Copyright (c) 1995 Michael Teske
- * All rights reserved. 
+ * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -366,9 +366,9 @@ grfcv3dattach(pdp, dp, auxp)
 
 	printf("\n");
 
-	/* 
+	/*
 	 * This function is called twice, once on console init (dp == NULL)
-	 * and once on "normal" grf7 init. 
+	 * and once on "normal" grf7 init.
 	 */
 
 	if (dp == NULL) /* console init */
@@ -557,7 +557,7 @@ cv3d_boardinit(gp)
 
 	WSeq(ba, SEQ_ID_MEMORY_MODE, 0x02);	/* Complete mem access */
 	WSeq(ba, SEQ_ID_MMIO_SELECT, 0x00);
-	
+
 	test = RSeq(ba, SEQ_ID_BUS_REQ_CNTL);	/* Bus Request */
 
 	/* enable 4MB fast Page Mode */

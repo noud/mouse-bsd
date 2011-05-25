@@ -6,7 +6,7 @@ BINDIR=		$(sbindir)
 BINOWN=		$(owner)
 
 PROG=		uuconv
-SRCS=		uuconv.c 
+SRCS=		uuconv.c
 LDADD+=		$(LIBUNIX) $(LIBUUCONF) $(LIBUUCP)
 DPADD+=		$(LIBUNIX) $(LIBUUCONF) $(LIBUUCP)
 CPPFLAGS+=	-I$(.CURDIR)/../common_sources\

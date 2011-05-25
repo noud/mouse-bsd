@@ -39,7 +39,7 @@ struct {
 	struct	lereg2 *sc_r2;	/* RAM */
 	int next_rmd;
 	int next_tmd;
-} le_softc; 
+} le_softc;
 
 void le_error(str, ler1)
      char *str;
@@ -56,11 +56,11 @@ void le_error(str, ler1)
     if (ler1->ler1_rdp & LE_C0_MISS) {
 	ler1->ler1_rdp = LE_C0_MISS;
     }
-    if (ler1->ler1_rdp & LE_C0_MERR) { 
+    if (ler1->ler1_rdp & LE_C0_MERR) {
 	printf("le0: memory error in '%s'\n", str);
 	callrom();
     }
-    
+
 }
 
 void le_reset(myea)
@@ -90,7 +90,7 @@ void le_reset(myea)
 
     a = (u_int)ler2->ler2_rmd;
     ler2->ler2_rlen =  LE_RLEN | (a >> 16);
-    ler2->ler2_rdra = a & LE_ADDR_LOW_MASK; 
+    ler2->ler2_rdra = a & LE_ADDR_LOW_MASK;
 
     a = (u_int)ler2->ler2_tmd;
     ler2->ler2_tlen = LE_TLEN | (a >> 16);
@@ -131,7 +131,7 @@ void le_reset(myea)
 	}
 	stat = ler1->ler1_rdp;
     } while ((stat & LE_C0_IDON) == 0);
-    
+
     ler1->ler1_rdp = LE_C0_IDON;
     le_softc.next_rmd = 0;
     le_softc.next_tmd = 0;
@@ -180,7 +180,7 @@ int le_poll(pkt, len)
     if (length > 0)
 	bcopy((char *)&ler2->ler2_rbuf[le_softc.next_rmd], pkt, length);
 
- cleanup: 
+ cleanup:
     a = (u_int)&ler2->ler2_rbuf[le_softc.next_rmd];
     rmd->rmd0 = a & LE_ADDR_LOW_MASK;
     rmd->rmd1_hadr = a >> 16;
@@ -209,9 +209,9 @@ int le_put(pkt, len)
 	printf("le0: output buffer busy\n");
     }
     bcopy(pkt, (char *)ler2->ler2_tbuf[le_softc.next_tmd], len);
-    if (len < 64) 
+    if (len < 64)
 	tmd->tmd2 = -64;
-    else 
+    else
 	tmd->tmd2 = -len;
     tmd->tmd3 = 0;
     if (ler1->ler1_rdp & LE_C0_ERR)
@@ -243,7 +243,7 @@ int le_put(pkt, len)
     le_softc.next_tmd = 0;
 /*	(le_softc.next_tmd == (LETBUF - 1)) ? 0 : le_softc.next_tmd + 1;*/
     if (tmd->tmd1_bits & LE_T1_ERR) {
-	printf("le0: transmit error, error = 0x%x\n", 
+	printf("le0: transmit error, error = 0x%x\n",
 	       tmd->tmd3);
 	return -1;
     }
@@ -269,8 +269,8 @@ int le_get(pkt, len, timeout)
 #endif
           then = now;
         }
-        if (cc && (pkt[0] != myea[0] || pkt[1] != myea[1] || 
-                   pkt[2] != myea[2] || pkt[3] != myea[3] || 
+        if (cc && (pkt[0] != myea[0] || pkt[1] != myea[1] ||
+                   pkt[2] != myea[2] || pkt[3] != myea[3] ||
                    pkt[4] != myea[4] || pkt[5] != myea[5])) {
           cc = 0; /* ignore broadcast / multicast */
 #ifdef LE_DEBUG
@@ -290,7 +290,7 @@ void le_init()
     int *ea = (int *) LANCE_ADDR;
     u_long *eram = (u_long *) ERAM_ADDR;
     u_long e = *ea;
-    if (( e & 0x2fffff00 ) == 0x2fffff00) { 
+    if (( e & 0x2fffff00 ) == 0x2fffff00) {
       printf("ERROR: ethernet address not set!  Use LSAD.\n");
       callrom();
     }

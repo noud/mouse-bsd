@@ -107,7 +107,7 @@ prom2boot(dev)
 	char *dev;
 {
 	char *cp;
-	
+
 	cp = dev + strlen(dev) - 1;
 	for (; *cp; cp--) {
 		if (*cp == ':') {
@@ -307,7 +307,7 @@ main()
 	entry = marks[MARK_ENTRY];
 	ssym = (void *)marks[MARK_SYM];
 	esym = (void *)marks[MARK_END];
-	
+
 	printf(" start=0x%x\n", entry);
 	__syncicache((void *)entry, (u_int)ssym - (u_int)entry);
 	chain((void *)entry, bootline, ssym, esym);

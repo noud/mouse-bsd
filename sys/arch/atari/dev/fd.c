@@ -180,7 +180,7 @@ struct fd_types {
 
 /*
  * This is set only once at attach time. The value is determined by reading
- * the configuration switches and is one of the FLP_TYPE_*'s. 
+ * the configuration switches and is one of the FLP_TYPE_*'s.
  * This is simular to the way Atari handles the _FLP cookie.
  */
 static short	def_type = 0;		/* Reflects config-switches	*/
@@ -340,7 +340,7 @@ const char	*pnp;
 {
 	if (pnp != NULL)
 		printf("fd%d at %s:", (int)auxp, pnp);
-	
+
 	return(UNCONF);
 }
 

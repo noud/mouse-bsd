@@ -609,7 +609,7 @@ Fixed all reported bugs:
 
 	Renamed all files with names longer than 14 characters.
 
-	Escaped characters in regular expressions were being lost when 
+	Escaped characters in regular expressions were being lost when
 	  IGNORECASE was used.
 
 	Long source lines were not being handled properly.
@@ -801,7 +801,7 @@ Try to diagnose use of array as scalar and vice versa -- to be improved in
 
 Fix for last bug fix for Cray division code--sigh.
 
-More changes to test suite to explicitly use sh.  Also get rid of 
+More changes to test suite to explicitly use sh.  Also get rid of
   a few generated files.
 
 Fixed off-by-one bug in string concatenation code.
@@ -1011,7 +1011,7 @@ Changes from 2.12.28 to 2.12.29
 Minor cleanup in awk.y
 
 Minor VMS update.
- 
+
 Minor atari update.
 
 Changes from 2.12.27 to 2.12.28
@@ -1034,7 +1034,7 @@ Tuned get_field() -- it was unnecessarily parsing the whole record on reference
 
 Tuned interpret() a bit in the rule_node loop.
 
-In r_force_number(), worked around bug in Uglix strtod() and got rid of 
+In r_force_number(), worked around bug in Uglix strtod() and got rid of
   ugly do{}while(0) at Michal's urging.
 
 Replaced do_deref() and deref with unref(node) -- much cleaner and a bit faster.
@@ -1127,7 +1127,7 @@ Added to config stuff the ability to choose YACC rather than bison.
 
 Fixed CHAR_UNSIGNED in config.h-dist.
 
-Second arg. of strtod() is char ** rather than const char **. 
+Second arg. of strtod() is char ** rather than const char **.
 
 stackb is now initially malloc()'ed since it may be realloc()'ed.
 
@@ -1262,7 +1262,7 @@ Changed config/* to a condensed form that can be used with mkconf to generate
   any problems.  vms.h remains separate since the stuff at the bottom
   didn't quite fit the mkconf model -- hopefully cleared up later.
 
-Fixed bug in grammar -- didn't allow function definition to be separated from 
+Fixed bug in grammar -- didn't allow function definition to be separated from
   other rules by a semi-colon.
 
 VMS fix to #includes in missing.c -- should we just be including awk.h?
@@ -1448,7 +1448,7 @@ Treat IGNORECASE specially, simplifying a lot of code, and allowing
 checking against strict conformance only on setting it, rather than on each
 pattern match.
 
-Fixed regexp matching when IGNORECASE is non-zero (broken when dfa.c was 
+Fixed regexp matching when IGNORECASE is non-zero (broken when dfa.c was
 added).
 
 Fixed bug where $0 was not being marked as valid, even after it was rebuilt.
@@ -1522,7 +1522,7 @@ eval.c
 
 Node_var, Node_var_array and Node_param_list handled from macro rather
   than in r_tree_eval().
-Changed cmp_nodes() to not do a force_number() -- this, combined with a 
+Changed cmp_nodes() to not do a force_number() -- this, combined with a
     force_number() on ARGV[] and ENVIRON[] brings it into line with other awks
 Greatly simplified cmp_nodes().
 Separated out Node_NF, Node_FS, Node_RS, Node_NR and Node_FNR in get_lhs().
@@ -1648,7 +1648,7 @@ Most of them were horribly out-of-date, anyway.
 Renamed source files to reflect (for the most part) their contents.
 
 More and improved error messages.  Cleanup and fixes to yyerror().
-String constants are not altered in input buffer, so error messages come out 
+String constants are not altered in input buffer, so error messages come out
 better.  Fixed usage message.  Make use of ANSI C strerror() function
 (provided).
 

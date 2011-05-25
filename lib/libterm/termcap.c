@@ -103,7 +103,7 @@ t_getent(bp, name)
 	_DIAGASSERT(name != NULL);
 
 	if ((*bp = malloc(sizeof(struct tinfo))) == NULL) return 0;
-	
+
 	fname = pathvec;
 	p = pathbuf;
 	cp = getenv("TERMCAP");
@@ -161,7 +161,7 @@ t_getent(bp, name)
 	 * normally read.
 	 */
  	(*bp)->info = NULL;
- 	i = cgetent(&((*bp)->info), pathvec, name);      
+ 	i = cgetent(&((*bp)->info), pathvec, name);
 
 	/* no tc reference loop return code in libterm XXX */
 	if (i == -3)
@@ -179,9 +179,9 @@ tgetent(bp, name)
 {
 	int i, plen, elen, c;
         char *ptrbuf = NULL;
-	
+
 	i = t_getent(&fbuf, name);
-	
+
 	if (i == 1) {
 		  /* stash the full buffer pointer as the ZZ capability
 		     in the termcap buffer passed.
@@ -204,7 +204,7 @@ tgetent(bp, name)
 				}
 			}
 		}
-		
+
 		strcat(bp, ptrbuf);
                 tbuf = bp;
 	}
@@ -302,25 +302,25 @@ t_getstr(info, id, area, limit)
 		errno = ENOENT;
 		return NULL;
 	}
-	
+
 	if (area != NULL) {
 		  /* check if there is room for the new entry to be put into area */
 		if (limit != NULL && (*limit < i)) {
 			errno = E2BIG;
 			return NULL;
 		}
-  	
+
 		strcpy(*area, s);
 		*area += i + 1;
 		if (limit != NULL) *limit -= i;
-  	
+
 		return (s);
 	} else {
 		*limit = i;
 		return NULL;
 	}
 }
- 
+
 /*
  * Get a string valued option.
  * These are given as

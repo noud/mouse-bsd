@@ -99,19 +99,19 @@ fetch_inferior_registers (regno)
     /* read 32 general purpose registers. */
 
     for (ii=0; ii < 32; ++ii)
-      *(int*)&registers[REGISTER_BYTE (ii)] = 
+      *(int*)&registers[REGISTER_BYTE (ii)] =
 	ptrace (PT_READ_GPR, inferior_pid, (PTRACE_ARG3_TYPE) ii, 0, 0);
 
     /* read general purpose floating point registers. */
 
     for (ii=0; ii < 32; ++ii)
-      ptrace (PT_READ_FPR, inferior_pid, 
+      ptrace (PT_READ_FPR, inferior_pid,
 	      (PTRACE_ARG3_TYPE) &registers [REGISTER_BYTE (FP0_REGNUM+ii)],
 	      FPR0+ii, 0);
 
     /* read special registers. */
     for (ii=0; ii <= LAST_SP_REGNUM-FIRST_SP_REGNUM; ++ii)
-      *(int*)&registers[REGISTER_BYTE (FIRST_SP_REGNUM+ii)] = 
+      *(int*)&registers[REGISTER_BYTE (FIRST_SP_REGNUM+ii)] =
 	ptrace (PT_READ_GPR, inferior_pid, (PTRACE_ARG3_TYPE) special_regs[ii],
 		0, 0);
 
@@ -170,7 +170,7 @@ store_inferior_registers (regno)
 	  ptrace (PT_WRITE_GPR, inferior_pid, (PTRACE_ARG3_TYPE) ii,
 		  *(int*)&registers[REGISTER_BYTE (ii)], 0);
 	  if (errno)
-	    { 
+	    {
 	      perror ("ptrace write_gpr");
 	      errno = 0;
 	    }
@@ -179,7 +179,7 @@ store_inferior_registers (regno)
       /* write floating point registers now. */
       for ( ii=0; ii < 32; ++ii)
 	{
-	  ptrace (PT_WRITE_FPR, inferior_pid, 
+	  ptrace (PT_WRITE_FPR, inferior_pid,
 		  (PTRACE_ARG3_TYPE) &registers[REGISTER_BYTE (FP0_REGNUM+ii)],
 		  FPR0+ii, 0);
 	  if (errno)
@@ -213,7 +213,7 @@ store_inferior_registers (regno)
 
   else if (regno <= FPLAST_REGNUM)		/* a FPR */
     {
-      ptrace (PT_WRITE_FPR, inferior_pid, 
+      ptrace (PT_WRITE_FPR, inferior_pid,
 	      (PTRACE_ARG3_TYPE) &registers[REGISTER_BYTE (regno)],
 	      regno - FP0_REGNUM + FPR0, 0);
     }
@@ -270,7 +270,7 @@ exec_one_dummy_insn ()
   do {
     pid = wait (&status);
   } while (pid != inferior_pid);
-    
+
   write_pc (prev_pc);
   target_remove_breakpoint (DUMMY_INSN_ADDR, shadow_contents);
 }
@@ -294,7 +294,7 @@ fetch_core_registers (core_reg_sect, core_reg_size, which, reg_addr)
       /* then comes special registes. They are supposed to be in the same
 	 order in gdb template and bfd `.reg' section. */
       core_reg_sect += (32 * 4);
-      memcpy (&registers [REGISTER_BYTE (FIRST_SP_REGNUM)], core_reg_sect, 
+      memcpy (&registers [REGISTER_BYTE (FIRST_SP_REGNUM)], core_reg_sect,
 	      (LAST_SP_REGNUM - FIRST_SP_REGNUM + 1) * 4);
     }
 
@@ -315,7 +315,7 @@ vmap_symtab (vp)
   register struct objfile *objfile;
   struct section_offsets *new_offsets;
   int i;
-  
+
   objfile = vp->objfile;
   if (objfile == NULL)
     {
@@ -333,7 +333,7 @@ vmap_symtab (vp)
 
   for (i = 0; i < objfile->num_sections; ++i)
     ANOFFSET (new_offsets, i) = ANOFFSET (objfile->section_offsets, i);
-  
+
   /* The symbols in the object file are linked to the VMA of the section,
      relocate them VMA relative.  */
   ANOFFSET (new_offsets, SECT_OFF_TEXT) = vp->tstart - vp->tvma;
@@ -365,15 +365,15 @@ objfile_symbol_add (arg)
 
 static struct vmap *
 add_vmap (ldi)
-     register struct ld_info *ldi; 
+     register struct ld_info *ldi;
 {
   bfd *abfd, *last;
   register char *mem, *objname;
   struct objfile *obj;
   struct vmap *vp;
 
-  /* This ldi structure was allocated using alloca() in 
-     xcoff_relocate_symtab(). Now we need to have persistent object 
+  /* This ldi structure was allocated using alloca() in
+     xcoff_relocate_symtab(). Now we need to have persistent object
      and member names, so we should save them. */
 
   mem = ldi->ldinfo_filename + strlen (ldi->ldinfo_filename) + 1;
@@ -656,13 +656,13 @@ xcoff_relocate_core (target)
   int buffer_size = LDINFO_SIZE;
   char *buffer = xmalloc (buffer_size);
   struct cleanup *old = make_cleanup (free_current_contents, &buffer);
-    
+
   /* FIXME, this restriction should not exist.  For now, though I'll
      avoid coredumps with error() pending a real fix.  */
   if (vmap == NULL)
     error
       ("Can't debug a core file without an executable file (on the RS/6000)");
-  
+
   ldinfo_sec = bfd_get_section_by_name (core_bfd, ".ldinfo");
   if (ldinfo_sec == NULL)
     {
@@ -702,7 +702,7 @@ xcoff_relocate_core (target)
 
       /* Can't use a file descriptor from the core file; need to open it.  */
       ldip->ldinfo_fd = -1;
-      
+
       /* The first ldinfo is for the exec file, allocated elsewhere.  */
       if (offset == 0)
 	vp = vmap;
@@ -734,7 +734,7 @@ xcoff_relocate_core (target)
 	  /* We must update the to_sections field in the core_ops structure
 	     now to avoid dangling pointer dereferences.  */
 	  update_coreops = core_ops.to_sections == target->to_sections;
-	  
+
 	  count = target->to_sections_end - target->to_sections;
 	  count += 2;
 	  target->to_sections = (struct section_table *)
@@ -756,7 +756,7 @@ xcoff_relocate_core (target)
 	  stp->addr = vp->tstart;
 	  stp->endaddr = vp->tend;
 	  stp++;
-	  
+
 	  stp->bfd = vp->bfd;
 	  stp->the_bfd_section = bfd_get_section_by_name (stp->bfd, ".data");
 	  stp->addr = vp->dstart;

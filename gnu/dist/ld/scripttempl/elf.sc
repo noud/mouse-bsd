@@ -21,7 +21,7 @@
 #		.bss section besides __bss_start.
 #	DATA_PLT - .plt should be in data segment, not text segment.
 #	TEXT_DYNAMIC - .dynamic in text segment, not data segment.
-#	EMBEDDED - whether this is for an embedded system. 
+#	EMBEDDED - whether this is for an embedded system.
 #	SHLIB_TEXT_START_ADDR - if set, add to SIZEOF_HEADERS to set
 #		start address of shared library.
 #

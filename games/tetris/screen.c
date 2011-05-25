@@ -171,7 +171,7 @@ scr_init()
 		{"sg", &sgnum},
 		{ {0}, NULL}
 	};
-	
+
 	if ((term = getenv("TERM")) == NULL)
 		stop("you must set the TERM environment variable");
 	if (tgetent(tbuf, term) <= 0)
@@ -398,10 +398,10 @@ scr_update()
 	if (showpreview && (nextshape != lastshape)) {
 		int i;
 		static int r=5, c=2;
-		int tr, tc, t; 
+		int tr, tc, t;
 
 		lastshape = nextshape;
-		
+
 		/* clean */
 		putpad(SEstr);
 		moveto(r-1, c-1); putstr("          ");
@@ -411,7 +411,7 @@ scr_update()
 
 		moveto(r-3, c-2);
 		putstr("Next shape:");
-						
+
 		/* draw */
 		putpad(SOstr);
 		moveto(r, 2*c);
@@ -428,7 +428,7 @@ scr_update()
 		}
 		putpad(SEstr);
 	}
-	
+
 	bp = &board[D_FIRST * B_COLS];
 	sp = &curscreen[D_FIRST * B_COLS];
 	for (j = D_FIRST; j < D_LAST; j++) {
@@ -487,7 +487,7 @@ scr_msg(s, set)
 	register char *s;
 	int set;
 {
-	
+
 	if (set || CEstr == NULL) {
 		register int l = strlen(s);
 

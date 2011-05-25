@@ -64,7 +64,7 @@ const int md_reloc_size = 8;	/* Size of relocation record */
 
 /* Are we trying to generate PIC code?  If so, absolute references
    ought to be made into linkage table references or pc-relative
-   references.  Not implemented.  For ELF there are other means 
+   references.  Not implemented.  For ELF there are other means
    to denote pic relocations.  */
 int flag_want_pic;
 
@@ -190,7 +190,7 @@ static const enum m68k_register m68060_control_regs[] = {
   0
 };
 static const enum m68k_register mcf5200_control_regs[] = {
-  CACR, TC, ITT0, ITT1, DTT0, DTT1, VBR, ROMBAR, 
+  CACR, TC, ITT0, ITT1, DTT0, DTT1, VBR, ROMBAR,
   RAMBAR0, RAMBAR1, MBAR,
   0
 };
@@ -2066,9 +2066,9 @@ m68k_ip (instring)
 			  && m68k_index_width_default == SIZE_LONG))
 		    nextword |= 0x800;
 
-		  if ((opP->index.scale != 1 
+		  if ((opP->index.scale != 1
 		       && cpu_of_arch (current_architecture) < m68020)
-		      || (opP->index.scale == 8 
+		      || (opP->index.scale == 8
 			  && current_architecture == mcf5200))
 		    {
 		      opP->error =
@@ -5715,7 +5715,7 @@ build_mri_control_operand (qual, cc, leftstart, leftstop, rightstart,
       cc = reverse_mri_condition (cc);
       truelab = falselab;
     }
-      
+
   if (leftstart != NULL)
     {
       buf = (char *) xmalloc (20
@@ -5737,7 +5737,7 @@ build_mri_control_operand (qual, cc, leftstart, leftstop, rightstart,
       md_assemble (buf);
       free (buf);
     }
-      
+
   buf = (char *) xmalloc (20 + strlen (truelab));
   s = buf;
   *s++ = 'b';

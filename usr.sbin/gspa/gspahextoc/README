@@ -5,7 +5,7 @@ Input format:
 
 :hex -> start address
 @hex -> new load address
-hex -> load @load address & autoincrement 
+hex -> load @load address & autoincrement
 
 Output format:
 

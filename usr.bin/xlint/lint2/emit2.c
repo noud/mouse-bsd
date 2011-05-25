@@ -273,7 +273,7 @@ addoutfile(num)
 	while (ofl != NULL) {
 		if (ofl->ofl_num == num)
 			break;
-	
+
 		pofl = &ofl->ofl_next;
 		ofl = ofl->ofl_next;
 		i++;
@@ -294,7 +294,7 @@ outfiles()
 	int i;
 
 	for (ofl = outflist, i = 1; ofl != NULL; ofl = ofl->ofl_next, i++) {
-		/* reset output buffer */ 
+		/* reset output buffer */
 		outclr();
 
 		outint(i);

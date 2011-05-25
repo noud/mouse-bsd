@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: rpc_fwd.c,v 1.2 1999/01/10 21:53:52 ezk Exp 
+ * Id: rpc_fwd.c,v 1.2 1999/01/10 21:53:52 ezk Exp
  *
  */
 

@@ -100,7 +100,7 @@ main(argc, argv)
 		}
 		if (which == PRIO_USER) {
 			struct passwd *pwd = getpwnam(*argv);
-			
+
 			if (pwd == NULL) {
 				warnx("%s: unknown user", *argv);
 				continue;

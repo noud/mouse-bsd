@@ -76,9 +76,9 @@ split_address(address, len, user, host)
 	int  i = 0;
 
 	if ((strchr(address, '@')) != NULL) {
-		
+
 		s = user;
-		
+
 		for(c = address; i < len; i++) {
 			if (*c == '@') {
 				*s = '\0';
@@ -89,11 +89,11 @@ split_address(address, len, user, host)
 		}
 		*s = '\0';
 	}
-		
+
 	if ((r = strrchr(address, '!')) != NULL) {
-		
+
 		s = host;
-		
+
 		for(c = address; i < len; i++) {
 			if (c == r) {
 				*s = '\0';
@@ -145,7 +145,7 @@ capitalize(name, len)
 		if (*c == '.') last = '.';
 		c++;
 	}
-	
+
 	i = 0;
 	if (last == '.') {
 		for(c = name; i < len; i++) {
@@ -182,7 +182,7 @@ main(argc, argv)
 	char	user[4096], host[4096]; /* XXX: DB bsize = 4096 in ypdb.c */
 	char	datestr[11];
 	char	myname[MAXHOSTNAMELEN];
-	
+
 	while ((ch = getopt(argc, argv, "Edensuv")) != -1) {
 		switch(ch) {
 		case 'd':
@@ -227,7 +227,7 @@ main(argc, argv)
 		output = argv[optind++];
 	if (optind < argc)
 		usage();
-	
+
 	db = ypdb_open(input, O_RDONLY, 0444);
 	if (db == NULL)
 		err(1, "Unable to open input database `%s'", input);
@@ -239,23 +239,23 @@ main(argc, argv)
 			 "%s%s", output, YPDB_SUFFIX);
 
 		slash = strrchr(output, '/');
-		if (slash != NULL) 
+		if (slash != NULL)
 			slash[1] = 0; 			/* truncate to dir */
 		else
 			*output = 0;			/* elminate */
-	
+
 		/* note: output is now directory where map goes ! */
-	
+
 		if (strlen(output) + strlen(mapname)
 		    + strlen(YPDB_SUFFIX) > MAXPATHLEN)
 			errx(1, "Directory name `%s' too long", output);
-	
+
 		snprintf(db_tempname, sizeof(db_tempname), "%s%s", output,
 			mapname);
 		mktemp(db_tempname);	/* OK */
 		snprintf(db_mapname, sizeof(db_mapname), "%s%s", db_tempname,
 			YPDB_SUFFIX);
-	
+
 		new_db = ypdb_open(db_tempname, O_RDWR|O_CREAT, 0444);
 		if (new_db == NULL)
 			err(1, "Unable to open output database `%s'",
@@ -265,7 +265,7 @@ main(argc, argv)
 	for (key = ypdb_firstkey(db);
 	     key.dptr != NULL;
 	     key = ypdb_nextkey(db)) {
-		
+
 	        val = ypdb_fetch(db, key);
 
 		if (val.dptr == NULL)
@@ -347,7 +347,7 @@ main(argc, argv)
 			err(1, "rename `%s' to `%s' failed", db_mapname,
 				db_outfile);
 	}
-	
+
 	exit(0);
 }
 

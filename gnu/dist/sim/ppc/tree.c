@@ -11,11 +11,11 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
- 
+
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
+
     */
 
 
@@ -557,7 +557,7 @@ parse_ranges_property(device *current,
   int range_nr;
   range_property_spec *ranges;
   const char *chp;
-  
+
   /* determine the number of ranges specified */
   nr_ranges = count_entries(current, property_name, property_value, 3);
 
@@ -995,7 +995,7 @@ print_properties(device *me)
     printf_filtered("%s/%s", device_path(me), property->name);
     if (property->original != NULL) {
       printf_filtered(" !");
-      printf_filtered("%s/%s", 
+      printf_filtered("%s/%s",
 		      device_path(property->original->owner),
 		      property->original->name);
     }

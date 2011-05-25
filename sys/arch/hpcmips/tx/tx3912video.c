@@ -48,10 +48,10 @@
 
 #undef TX3912VIDEO_DEBUG
 
-void tx3912video_framebuffer_init __P((tx_chipset_tag_t, u_int32_t, 
+void tx3912video_framebuffer_init __P((tx_chipset_tag_t, u_int32_t,
 				       u_int32_t));
-int  tx3912video_framebuffer_alloc __P((tx_chipset_tag_t, u_int32_t, 
-					int, int, int, u_int32_t*, 
+int  tx3912video_framebuffer_alloc __P((tx_chipset_tag_t, u_int32_t,
+					int, int, int, u_int32_t*,
 					u_int32_t*));
 void tx3912video_reset __P((tx_chipset_tag_t));
 void tx3912video_resolution_init __P((tx_chipset_tag_t, int, int));
@@ -83,7 +83,7 @@ struct fb_attach_args {
 };
 
 struct cfattach tx3912video_ca = {
-	sizeof(struct tx3912video_softc), tx3912video_match, 
+	sizeof(struct tx3912video_softc), tx3912video_match,
 	tx3912video_attach
 };
 
@@ -117,9 +117,9 @@ tx3912video_attach(parent, self, aux)
 
 	printf(": ");
 	tx3912video_fbdepth(tc, 1);
-	printf(", frame buffer 0x%08x-0x%08x", sc->sc_chip->vc_fbaddr, 
+	printf(", frame buffer 0x%08x-0x%08x", sc->sc_chip->vc_fbaddr,
 	       sc->sc_chip->vc_fbaddr + sc->sc_chip->vc_fbsize);
-	
+
 	printf("\n");
 
 #ifndef TX3912VIDEO_DEBUG
@@ -156,7 +156,7 @@ tx3912video_print(aux, pnp)
 }
 
 int
-tx3912video_init(tc, fb_start, fb_width, fb_height, fb_addr, fb_size, 
+tx3912video_init(tc, fb_start, fb_width, fb_height, fb_addr, fb_size,
 		fb_line_bytes)
 	tx_chipset_tag_t tc;
 	u_int32_t fb_start; /* Physical address */
@@ -167,7 +167,7 @@ tx3912video_init(tc, fb_start, fb_width, fb_height, fb_addr, fb_size,
  	u_int32_t addr, size;
 	int fb_depth;
 	txreg_t reg;
-	
+
 	/* Inquire bit depth */
 	fb_depth = tx3912video_fbdepth(tc, 0);
 
@@ -179,7 +179,7 @@ tx3912video_init(tc, fb_start, fb_width, fb_height, fb_addr, fb_size,
 		/* XXX should implement rasops4.c */
 		fb_depth = 2;
 		bootinfo->fb_type = BIFB_D2_M2L_0;
-		reg = tx_conf_read(tc, TX3912_VIDEOCTRL1_REG);	
+		reg = tx_conf_read(tc, TX3912_VIDEOCTRL1_REG);
 		TX3912_VIDEOCTRL1_BITSEL_CLR(reg);
 		reg = TX3912_VIDEOCTRL1_BITSEL_SET(
 			reg, TX3912_VIDEOCTRL1_BITSEL_2BITGREYSCALE);
@@ -194,20 +194,20 @@ tx3912video_init(tc, fb_start, fb_width, fb_height, fb_addr, fb_size,
 	tx3912video_chip.vc_fbwidth = fb_width;
 	tx3912video_chip.vc_fbheight= fb_height;
 
-	
+
 	/* Allocate framebuffer area */
 	if (tx3912video_framebuffer_alloc(tc, fb_start, fb_width, fb_height,
 					 fb_depth, &addr, &size)) {
 		return 1;
 	}
-#if notyet 
+#if notyet
 	tx3912video_resolution_init(tc, fb_width, fb_height);
 #else
 	/* Use Windows CE setting. */
 #endif
 	/* Set DMA transfer address to VID module */
 	tx3912video_framebuffer_init(tc, addr, size);
-	
+
 	/* Syncronize framebuffer addr to frame signal */
 	tx3912video_reset(tc);
 
@@ -232,15 +232,15 @@ tx3912video_framebuffer_alloc(tc, start, h, v, depth, fb_addr, fb_size)
 
 	/* Calcurate frame buffer size */
 	size = (h * v * depth) / 8;
-	
+
 	/* Allocate V-RAM area */
-	if (!(ex = extent_create("Frame buffer address", start, 
-				 start + TX3912_FRAMEBUFFER_MAX, 
+	if (!(ex = extent_create("Frame buffer address", start,
+				 start + TX3912_FRAMEBUFFER_MAX,
 				 0, (caddr_t)ex_fixed, sizeof ex_fixed,
  				 EX_NOWAIT))) {
 		return 1;
 	}
-	if((err = extent_alloc_subregion(ex, start, start + size, size, 
+	if((err = extent_alloc_subregion(ex, start, start + size, size,
 					 TX3912_FRAMEBUFFER_ALIGNMENT,
 					 TX3912_FRAMEBUFFER_BOUNDARY,
 					 EX_FAST|EX_NOWAIT, &addr))) {
@@ -248,7 +248,7 @@ tx3912video_framebuffer_alloc(tc, start, h, v, depth, fb_addr, fb_size)
 	}
 	tx3912video_chip.vc_fbaddr = addr;
 	tx3912video_chip.vc_fbsize = size;
-	
+
 	*fb_addr = addr;
 	*fb_size = size;
 
@@ -265,7 +265,7 @@ tx3912video_framebuffer_init(tc, fb_addr, fb_size)
 	/*  XXX currently I don't set DFVAL, so force DF signal toggled on
          *  XXX each frame. */
 	reg = tx_conf_read(tc, TX3912_VIDEOCTRL1_REG);
-	reg &= ~TX3912_VIDEOCTRL1_DFMODE; 
+	reg &= ~TX3912_VIDEOCTRL1_DFMODE;
 	tx_conf_write(tc, TX3912_VIDEOCTRL1_REG, reg);
 
 	/* Set DMA transfer start and end address */
@@ -285,7 +285,7 @@ tx3912video_framebuffer_init(tc, fb_addr, fb_size)
 	reg = TX3912_VIDEOCTRL4_DFVAL_SET(reg, 0); /* XXX not yet*/
 
 	/* Set VIDDONE signal delay after FRAME signal */
-	/* XXX not yet*/	
+	/* XXX not yet*/
 	tx_conf_write(tc, TX3912_VIDEOCTRL4_REG, reg);
 
 	/* Clear frame buffer */
@@ -304,29 +304,29 @@ tx3912video_resolution_init(tc, h, v)
 
 	reg = tx_conf_read(tc, TX3912_VIDEOCTRL1_REG);
 	split = reg & TX3912_VIDEOCTRL1_DISPSPLIT;
-	bit8  = (TX3912_VIDEOCTRL1_BITSEL(reg) == 
+	bit8  = (TX3912_VIDEOCTRL1_BITSEL(reg) ==
 		 TX3912_VIDEOCTRL1_BITSEL_8BITCOLOR);
 	val = TX3912_VIDEOCTRL1_BITSEL(reg);
 
 	if ((val == TX3912_VIDEOCTRL1_BITSEL_8BITCOLOR) &&
 	    !split) {
 		/* (LCD horizontal pixels / 8bit) * RGB - 1 */
-		horzval = (h / 8) * 3 - 1; 
+		horzval = (h / 8) * 3 - 1;
 	} else {
 		horzval = h / 4 - 1;
 	}
 	lineval = (split ? v / 2 : v) - 1;
 
 	/* Video rate */
-	/* XXX 
-	 *  probably This value should be determined from DFINT and LCDINT 
+	/* XXX
+	 *  probably This value should be determined from DFINT and LCDINT
 	 */
 	reg = TX3912_VIDEOCTRL2_VIDRATE_SET(0, horzval + 1);
 	/* Horizontal size of LCD */
 	reg = TX3912_VIDEOCTRL2_HORZVAL_SET(reg, horzval);
 	/* # of lines for the LCD */
 	reg = TX3912_VIDEOCTRL2_LINEVAL_SET(reg, lineval);
-	
+
 	tx_conf_write(tc, TX3912_VIDEOCTRL2_REG, reg);
 }
 
@@ -337,7 +337,7 @@ tx3912video_fbdepth(tc, verbose)
 {
 	u_int32_t reg, val;
 
-	reg = tx_conf_read(tc, TX3912_VIDEOCTRL1_REG);	
+	reg = tx_conf_read(tc, TX3912_VIDEOCTRL1_REG);
 	val = TX3912_VIDEOCTRL1_BITSEL(reg);
 	switch (val) {
 	case TX3912_VIDEOCTRL1_BITSEL_8BITCOLOR:
@@ -365,11 +365,11 @@ tx3912video_reset(tc)
 	tx_chipset_tag_t tc;
 {
 	u_int32_t reg;
-	
-	reg = tx_conf_read(tc, TX3912_VIDEOCTRL1_REG);	
+
+	reg = tx_conf_read(tc, TX3912_VIDEOCTRL1_REG);
 
 	/* Disable video logic at end of this frame */
-	reg |= TX3912_VIDEOCTRL1_ENFREEZEFRAME; 
+	reg |= TX3912_VIDEOCTRL1_ENFREEZEFRAME;
 	tx_conf_write(tc, TX3912_VIDEOCTRL1_REG, reg);
 
 	/* Wait for end of frame */
@@ -377,12 +377,12 @@ tx3912video_reset(tc)
 
 	/* Make sure to disable video logic */
 	reg &= ~TX3912_VIDEOCTRL1_ENVID;
-	tx_conf_write(tc, TX3912_VIDEOCTRL1_REG, reg);	
+	tx_conf_write(tc, TX3912_VIDEOCTRL1_REG, reg);
 
 	delay(1000);
 
 	/* Enable video logic again */
-	reg &= ~TX3912_VIDEOCTRL1_ENFREEZEFRAME; 
+	reg &= ~TX3912_VIDEOCTRL1_ENFREEZEFRAME;
 	reg |= TX3912_VIDEOCTRL1_ENVID;
 	tx_conf_write(tc, TX3912_VIDEOCTRL1_REG, reg);
 
@@ -515,13 +515,13 @@ dotbpp##b##(x, y) \
 
 static void linebpp_unimpl __P((int, int, int, int));
 static void dotbpp_unimpl __P((int, int));
-static 
+static
 void linebpp_unimpl(x0, y0, x1, y1)
 	int x0, y0, x1, y1;
 {
 	return;
 }
-static 
+static
 void dotbpp_unimpl(x, y)
 	int x, y;
 {

@@ -242,7 +242,7 @@ u_char *src, *dst;
     for (;;) {
         if (!isxdigit (*src))
 	    break;
-	
+
 	for (indx = 0; indx < 5; ++indx) {
 	    dst[indx] <<= 4;
 	    dst[indx] |= (dst[indx + 1] >> 4) & 0x0F;
@@ -792,7 +792,7 @@ ipxcp_nakci(f, p, len)
 
     if (try.router != 0)
         try.neg_router = 1;
-    
+
     /*
      * OK, the Nak is good.  Now we can update state.
      * If there are any options left, we ignore them.
@@ -942,7 +942,7 @@ ipxcp_reqci(f, inp, len, reject_if_disagree)
      * Reset all his options.
      */
     BZERO(ho, sizeof(*ho));
-    
+
     /*
      * Process all his options.
      */
@@ -973,7 +973,7 @@ ipxcp_reqci(f, inp, len, reject_if_disagree)
 	       then reject the option */
 	    if ( !ao->neg_nn || cilen != CILEN_NETN ) {
 		orc = CONFREJ;
-		break;		
+		break;
 	    }
 	    GETLONG(cinetwork, p);
 
@@ -1079,7 +1079,7 @@ ipxcp_reqci(f, inp, len, reject_if_disagree)
 	case IPX_ROUTER_PROTOCOL:
 	    if ( !ao->neg_router || cilen < CILEN_PROTOCOL ) {
 		orc = CONFREJ;
-		break;		
+		break;
 	    }
 
 	    GETSHORT (cishort, p);

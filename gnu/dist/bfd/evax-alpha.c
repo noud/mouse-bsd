@@ -359,7 +359,7 @@ evax_object_p (abfd)
       if (_bfd_evax_next_record (abfd) < 0)
 	{
 #if EVAX_DEBUG
-	  evax_debug (2, "next_record failed\n");      
+	  evax_debug (2, "next_record failed\n");
 #endif
 	  bfd_set_error (bfd_error_wrong_format);
 	  return 0;
@@ -414,7 +414,7 @@ evax_object_p (abfd)
   while (prev_type != EOBJ_S_C_EEOM);
 
   /* set arch_info to alpha  */
- 
+
   {
     const bfd_arch_info_type *arch = bfd_scan_arch ("alpha");
     if (arch == 0)
@@ -731,7 +731,7 @@ evax_bfd_copy_private_section_data (srcbfd, srcsec, dstbfd, dstsec)
 /* Called to copy BFD private symbol data from one object file
    to another.  */
 
-static boolean 
+static boolean
 evax_bfd_copy_private_symbol_data (ibfd, isym, obfd, osym)
      bfd *ibfd;
      asymbol *isym;

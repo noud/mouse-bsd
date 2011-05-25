@@ -228,11 +228,11 @@ setup(dev)
 	if (typemap == NULL) {
 		printf("cannot alloc %u bytes for typemap\n",
 		    (unsigned)(maxino + 1));
-		goto badsblabel; 
+		goto badsblabel;
 	}
 	lncntp = (int16_t *)calloc((unsigned)(maxino + 1), sizeof(int16_t));
 	if (lncntp == NULL) {
-		printf("cannot alloc %u bytes for lncntp\n", 
+		printf("cannot alloc %u bytes for lncntp\n",
 			(unsigned)((maxino + 1) * sizeof(int16_t)));
 		goto badsblabel;
 	}
@@ -246,7 +246,7 @@ setup(dev)
 	inphead = (struct inoinfo **)calloc((unsigned)numdirs,
 		sizeof(struct inoinfo *));
 	if (inpsort == NULL || inphead == NULL) {
-		printf("cannot alloc %u bytes for inphead\n", 
+		printf("cannot alloc %u bytes for inphead\n",
 			(unsigned)(numdirs * sizeof(struct inoinfo *)));
 		goto badsblabel;
 	}
@@ -274,7 +274,7 @@ readsb(listerr)
 
 	/* Copy the superblock in memory */
 	e2fs_sbload(sblk.b_un.b_fs, &sblock.e2fs);
-	
+
 	/*
 	 * run a few consistency checks of the super block
 	 */

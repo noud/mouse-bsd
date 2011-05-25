@@ -129,10 +129,10 @@ trap(fp)
 	printf("Got unexpected trap: format=%x vector=%x ps=%x pc=%x\n",
 		  (fp->frame>>12)&0xF, fp->frame&0xFFF, fp->sr, fp->pc);
 	printf("dregs: %x %x %x %x %x %x %x %x\n",
-	       fp->dregs[0], fp->dregs[1], fp->dregs[2], fp->dregs[3], 
+	       fp->dregs[0], fp->dregs[1], fp->dregs[2], fp->dregs[3],
 	       fp->dregs[4], fp->dregs[5], fp->dregs[6], fp->dregs[7]);
 	printf("aregs: %x %x %x %x %x %x %x %x\n",
-	       fp->aregs[0], fp->aregs[1], fp->aregs[2], fp->aregs[3], 
+	       fp->aregs[0], fp->aregs[1], fp->aregs[2], fp->aregs[3],
 	       fp->aregs[4], fp->aregs[5], fp->aregs[6], fp->aregs[7]);
 
 #if 0
@@ -186,9 +186,9 @@ romputchar(c)
 void
 machdep_start(entry, howto, loadaddr, ssym, esym)
 	char *entry;
-	int howto; 
+	int howto;
 	char *loadaddr;
-	char *ssym, *esym; 
+	char *ssym, *esym;
 {
 
 	/* Adjust entry point. */

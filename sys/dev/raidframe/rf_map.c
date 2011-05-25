@@ -41,7 +41,7 @@
 #include "rf_shutdown.h"
 
 static void rf_FreePDAList(RF_PhysDiskAddr_t * start, RF_PhysDiskAddr_t * end, int count);
-static void 
+static void
 rf_FreeASMList(RF_AccessStripeMap_t * start, RF_AccessStripeMap_t * end,
     int count);
 
@@ -252,7 +252,7 @@ rf_MapAccess(raidPtr, raidAddress, numBlocks, buffer, remap)
  * on the rest of the code to do the right thing with this.
  ****************************************************************************************/
 
-void 
+void
 rf_MarkFailuresInASMList(raidPtr, asm_h)
 	RF_Raid_t *raidPtr;
 	RF_AccessStripeMapHeader_t *asm_h;
@@ -383,7 +383,7 @@ static RF_FreeList_t *rf_pda_freelist;
 
 /* called at shutdown time.  So far, all that is necessary is to release all the free lists */
 static void rf_ShutdownMapModule(void *);
-static void 
+static void
 rf_ShutdownMapModule(ignored)
 	void   *ignored;
 {
@@ -392,7 +392,7 @@ rf_ShutdownMapModule(ignored)
 	RF_FREELIST_DESTROY(rf_asm_freelist, next, (RF_AccessStripeMap_t *));
 }
 
-int 
+int
 rf_ConfigureMapModule(listp)
 	RF_ShutdownList_t **listp;
 {
@@ -445,7 +445,7 @@ rf_AllocAccessStripeMapHeader()
 }
 
 
-void 
+void
 rf_FreeAccessStripeMapHeader(p)
 	RF_AccessStripeMapHeader_t *p;
 {
@@ -477,14 +477,14 @@ rf_AllocPDAList(count)
 	return (p);
 }
 
-void 
+void
 rf_FreePhysDiskAddr(p)
 	RF_PhysDiskAddr_t *p;
 {
 	RF_FREELIST_FREE(rf_pda_freelist, p, next);
 }
 
-static void 
+static void
 rf_FreePDAList(l_start, l_end, count)
 	RF_PhysDiskAddr_t *l_start, *l_end;	/* pointers to start and end
 						 * of list */
@@ -518,14 +518,14 @@ rf_AllocASMList(count)
 	return (p);
 }
 
-void 
+void
 rf_FreeAccessStripeMapComponent(p)
 	RF_AccessStripeMap_t *p;
 {
 	RF_FREELIST_FREE(rf_asm_freelist, p, next);
 }
 
-static void 
+static void
 rf_FreeASMList(l_start, l_end, count)
 	RF_AccessStripeMap_t *l_start, *l_end;
 	int     count;
@@ -533,7 +533,7 @@ rf_FreeASMList(l_start, l_end, count)
 	RF_FREELIST_FREE_N(rf_asm_freelist, l_start, next, (RF_AccessStripeMap_t *), count);
 }
 
-void 
+void
 rf_FreeAccessStripeMap(hdr)
 	RF_AccessStripeMapHeader_t *hdr;
 {
@@ -604,7 +604,7 @@ rf_FreeAccessStripeMap(hdr)
  *
  * ASSUMES AT MOST ONE FAILURE IN THE STRIPE.
  */
-int 
+int
 rf_CheckStripeForFailures(raidPtr, asmap)
 	RF_Raid_t *raidPtr;
 	RF_AccessStripeMap_t *asmap;
@@ -656,7 +656,7 @@ rf_CheckStripeForFailures(raidPtr, asmap)
    return the number of failed data units in the stripe.
 */
 
-int 
+int
 rf_NumFailedDataUnitsInStripe(raidPtr, asmap)
 	RF_Raid_t *raidPtr;
 	RF_AccessStripeMap_t *asmap;
@@ -694,14 +694,14 @@ rf_NumFailedDataUnitsInStripe(raidPtr, asmap)
  *
  ****************************************************************************************/
 
-void 
+void
 rf_PrintAccessStripeMap(asm_h)
 	RF_AccessStripeMapHeader_t *asm_h;
 {
 	rf_PrintFullAccessStripeMap(asm_h, 0);
 }
 
-void 
+void
 rf_PrintFullAccessStripeMap(asm_h, prbuf)
 	RF_AccessStripeMapHeader_t *asm_h;
 	int     prbuf;		/* flag to print buffer pointers */
@@ -757,7 +757,7 @@ rf_PrintFullAccessStripeMap(asm_h, prbuf)
 	}
 }
 
-void 
+void
 rf_PrintRaidAddressInfo(raidPtr, raidAddr, numBlocks)
 	RF_Raid_t *raidPtr;
 	RF_RaidAddr_t raidAddr;
@@ -779,7 +779,7 @@ rf_PrintRaidAddressInfo(raidPtr, raidAddr, numBlocks)
    given a parity descriptor and the starting address within a stripe,
    range restrict the parity descriptor to touch only the correct stuff.
 */
-void 
+void
 rf_ASMParityAdjust(
     RF_PhysDiskAddr_t * toAdjust,
     RF_StripeNum_t startAddrWithinStripe,
@@ -795,7 +795,7 @@ rf_ASMParityAdjust(
 	 * boundary and is less than a stripe unit in size, it uses two
 	 * disjoint regions of the parity unit.  When an access spans more
 	 * than one stripe unit boundary, it uses all of the parity unit.
-	 * 
+	 *
 	 * To better handle the case where stripe units are small, we may
 	 * eventually want to change the 2nd case so that if the SU size is
 	 * below some threshold, we just read/write the whole thing instead of
@@ -838,7 +838,7 @@ rf_ASMParityAdjust(
    If it has been failed, record it in the asm pointer.
    Fourth arg is whether data or parity.
 */
-void 
+void
 rf_ASMCheckStatus(
     RF_Raid_t * raidPtr,
     RF_PhysDiskAddr_t * pda_p,

@@ -1,6 +1,6 @@
 /*	$NetBSD: pmap.h,v 1.20 1999/02/25 22:47:18 is Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1987 Carnegie-Mellon University
  * Copyright (c) 1991 Regents of the University of California.
  * All rights reserved.
@@ -136,7 +136,7 @@ struct pv_page {
 /*
  * Memory segment descriptors.
  *  - boot_segs
- *	describes the segments obtainted from the bootcode. 
+ *	describes the segments obtainted from the bootcode.
  *  - usable_segs
  *	describes the segments available after system requirements are
  *	substracted (reserved pages, etc...).

@@ -206,7 +206,7 @@ le_pcc_attach(parent, self, aux)
 	am7990_config(&lesc->sc_am7990);
 
 	/* Are we the boot device? */
-	if (PCC_PADDR(pa->pa_offset) == bootaddr) 
+	if (PCC_PADDR(pa->pa_offset) == bootaddr)
 		booted_device = self;
 
 	pccintr_establish(PCCV_LE, am7990_intr, pa->pa_ipl, sc);

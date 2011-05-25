@@ -121,10 +121,10 @@ pci_kn8ae_pickintr(ccp, first)
 	set_iointr(kn8ae_iointr);
 }
 
-int     
+int
 dec_kn8ae_intr_map(ccv, bustag, buspin, line, ihp)
         void *ccv;
-        pcitag_t bustag; 
+        pcitag_t bustag;
         int buspin, line;
         pci_intr_handle_t *ihp;
 {
@@ -172,7 +172,7 @@ dec_kn8ae_intr_establish(ccv, ih, level, func, arg)
         int level;
         int (*func) __P((void *));
 	void *arg;
-{           
+{
 	struct dwlpx_config *ccp = ccv;
 	void *cookie = NULL;
 	int ionode, hose, device, s;
@@ -208,7 +208,7 @@ dec_kn8ae_intr_establish(ccv, ih, level, func, arg)
 	return (cookie);
 }
 
-void    
+void
 dec_kn8ae_intr_disestablish(ccv, cookie)
         void *ccv, *cookie;
 {

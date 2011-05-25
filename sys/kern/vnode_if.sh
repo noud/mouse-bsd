@@ -142,7 +142,7 @@ warning="\
  * by the script:
  *	${SCRIPT_ID}
  */
-" 
+"
 
 # This is to satisfy McKusick (get rid of evil spaces 8^)
 anal_retentive='s:\([^/]\*\) :\1:g'

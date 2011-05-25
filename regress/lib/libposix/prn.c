@@ -66,6 +66,6 @@ int main(void)
 		fprintf(stderr, "No error renaming no/such/file/or/dir\n");
 		errors++;
 	}
-	
+
 	exit(errors ? 1 : 0);
 }

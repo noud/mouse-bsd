@@ -238,10 +238,10 @@ retry:
 			 * config table entry, which we want to avoid on the
 			 * first pass and use exclusively on the second pass.
 			 */
-			if ((cfe->iomask != 3) && 
+			if ((cfe->iomask != 3) &&
 			    (cfe->iospace[0].start != 0)) {
 				if (!pcmcia_io_alloc(pa->pf,
-				    cfe->iospace[0].start, 
+				    cfe->iospace[0].start,
 				    cfe->iospace[0].length, 0,
 				    &psc->sc_pcioh)) {
 					goto found;

@@ -74,7 +74,7 @@ int strstreambuf::underflow()
 
 void strstreambuf::init_dynamic(_IO_alloc_type alloc, _IO_free_type free,
 				int initial_size)
-				
+
 {
     _s._allocate_buffer = alloc ? alloc : default_alloc;
     _s._free_buffer = free ? free : default_free;

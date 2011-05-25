@@ -110,7 +110,7 @@ struct arm32_bus_dma_tag isa_bus_dma_tag = {
 	_bus_dmamem_free,
 	_bus_dmamem_map,
 	_bus_dmamem_unmap,
-	_bus_dmamem_mmap, 
+	_bus_dmamem_mmap,
 };
 
 /*
@@ -262,7 +262,7 @@ _isa_bus_dmamap_destroy(t, map)
 int
 _isa_bus_dmamap_load(t, map, buf, buflen, p, flags)
 	bus_dma_tag_t t;
-	bus_dmamap_t map; 
+	bus_dmamap_t map;
 	void *buf;
 	bus_size_t buflen;
 	struct proc *p;
@@ -331,7 +331,7 @@ _isa_bus_dmamap_load(t, map, buf, buflen, p, flags)
  * Like _isa_bus_dmamap_load(), but for mbufs.
  */
 int
-_isa_bus_dmamap_load_mbuf(t, map, m0, flags)  
+_isa_bus_dmamap_load_mbuf(t, map, m0, flags)
 	bus_dma_tag_t t;
 	bus_dmamap_t map;
 	struct mbuf *m0;
@@ -575,7 +575,7 @@ _isa_bus_dmamap_sync(t, map, offset, len, ops)
 		 */
 		break;
 	    }
-	
+
 	case ID_BUFTYPE_UIO:
 		panic("_isa_bus_dmamap_sync: ID_BUFTYPE_UIO");
 		break;

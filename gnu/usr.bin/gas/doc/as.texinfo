@@ -3,7 +3,7 @@ _dnl__ Copyright (c) 1991 1992 Free Software Foundation, Inc.
 _dnl__ $Id: as.texinfo,v 1.1 1993/10/02 21:00:15 pk Exp $
 \input texinfo @c                               -*-Texinfo-*-
 @c  Copyright (c) 1991 1992 Free Software Foundation, Inc.
-@c %**start of header 
+@c %**start of header
 @setfilename _AS__.info
 _if__(_GENERIC__)
 @settitle Using _AS__
@@ -22,7 +22,7 @@ _fi__(!_GENERIC__)
 _if__(0)
 
 NOTE: this manual is marked up for preprocessing with a collection
-of m4 macros called "pretex.m4".  
+of m4 macros called "pretex.m4".
 
 THIS IS THE FULL SOURCE.  The full source needs to be run through m4
 before either tex- or info- formatting: for example,
@@ -162,7 +162,7 @@ Here is a brief summary of how to invoke @code{_AS__}.  For details,
 @c We don't use deffn and friends for the following because they seem
 @c to be limited to one line for the header.
 @smallexample
-  _AS__ [ -a | -al | -as ] [ -D ] [ -f ] 
+  _AS__ [ -a | -al | -as ] [ -D ] [ -f ]
    [ -I @var{path} ] [ -k ] [ -L ]
    [ -o @var{objfile} ] [ -R ] [ -v ] [ -w ]
 _if__(_A29K__)
@@ -223,20 +223,20 @@ Suppress warning messages
 _if__(_I960__)
 @item -ACA | -ACA_A | -ACB | -ACC | -AKA | -AKB | -AKC | -AMC
 _if__(_GENERIC__)
-(When configured for Intel 960). 
-_fi__(_GENERIC__) 
+(When configured for Intel 960).
+_fi__(_GENERIC__)
 Specify which variant of the 960 architecture is the target.
 
 @item -b
 _if__(_GENERIC__)
-(When configured for Intel 960). 
-_fi__(_GENERIC__) 
+(When configured for Intel 960).
+_fi__(_GENERIC__)
 Add code to collect statistics about branches taken.
 
 @item -norelax
 _if__(_GENERIC__)
-(When configured for Intel 960). 
-_fi__(_GENERIC__) 
+(When configured for Intel 960).
+_fi__(_GENERIC__)
 Do not alter compare-and-branch instructions for long displacements;
 error if necessary.
 _fi__(_I960__)
@@ -244,13 +244,13 @@ _fi__(_I960__)
 _if__(_M680X0__)
 @item -l
 _if__(_GENERIC__)
-(When configured for Motorola 68000).  
+(When configured for Motorola 68000).
 _fi__(_GENERIC__)
 Shorten references to undefined symbols, to one word instead of two
 
 @item -mc68000 | -mc68010 | -mc68020
 _if__(_GENERIC__)
-(When configured for Motorola 68000).  
+(When configured for Motorola 68000).
 _fi__(_GENERIC__)
 Specify what processor in the 68000 family is the target (default 68020)
 _fi__(_M680X0__)
@@ -299,7 +299,7 @@ to programming in assembly language---let alone programming in general!
 In a similar vein, we make no attempt to introduce the machine
 architecture; we do @emph{not} describe the instruction set, standard
 mnemonics, registers or addressing modes that are standard to a
-particular architecture.  
+particular architecture.
 _if__(_GENERIC__)
 You may want to consult the manufacturer's
 machine architecture manual for this information.
@@ -337,7 +337,7 @@ computer-readable series of instructions.  Different versions of
 @node GNU Assembler, Object Formats, Manual, Overview
 @section _AS__, the GNU Assembler
 
-GNU @code{as} is really a family of assemblers.  
+GNU @code{as} is really a family of assemblers.
 _if__(!_GENERIC__)
 This manual describes @code{_AS__}, a member of that family which is
 configured for the _HOST__ architectures.
@@ -481,7 +481,7 @@ to @code{_AS__}.
 directives; they bear no relation to physical files.  Logical file names
 help error messages reflect the original source file, when @code{_AS__}
 source is itself synthesized from other files.
-@xref{App-File,,@code{.app-file}}. 
+@xref{App-File,,@code{.app-file}}.
 
 @node Object, Errors, Input Files, Overview
 @section Output (Object) File
@@ -578,7 +578,7 @@ _fi__(_GENERIC__)
 These options enable listing output from the assembler.  @samp{-a} by
 itself requests all listing output; @samp{-al} requests only the
 output-program listing, and @samp{-as} requests only a symbol table
-listing.  
+listing.
 
 Once you have specified one of these options, you can further control
 listing output and its appearance using the directives @code{.list},
@@ -603,7 +603,7 @@ likely that scripts written for other assemblers will also work with
 @samp{-f} should only be used when assembling programs written by a
 (trusted) compiler.  @samp{-f} stops the assembler from pre-processing
 the input file(s) before assembling them.  @xref{Pre-processing,
-,Pre-processing}. 
+,Pre-processing}.
 
 @quotation
 @emph{Warning:} if the files actually need to be pre-processed (if they
@@ -693,9 +693,9 @@ data section).  We refrain from doing this simply for compatibility with
 older versions of @code{_AS__}.  In future, @code{-R} may work this way.
 
 _if__(_COFF__)
-When @code{_AS__} is configured for COFF output, 
+When @code{_AS__} is configured for COFF output,
 this option is only useful if you use sections named @samp{.text} and
-@samp{.data}.  
+@samp{.data}.
 _fi__(_COFF__)
 
 @section Announce Version: @code{-v}
@@ -866,7 +866,7 @@ of @code{_AS__}.
 @cindex symbols
 @cindex characters used in symbols
 A @dfn{symbol} is one or more characters chosen from the set of all
-letters (both upper and lower case), digits and 
+letters (both upper and lower case), digits and
 _if__(!_H8__)
 the three characters @samp{_.$}
 _fi__(!_H8__)
@@ -874,7 +874,7 @@ _if__(_H8__)
 the two characters @samp{_.}
 _if__(_GENERIC__)
 On most machines, you can also use @code{$} in symbol names; exceptions
-are noted in @ref{_MACH_DEP__}.  
+are noted in @ref{_MACH_DEP__}.
 _fi__(_GENERIC__)
 _fi__(_H8__)
 No symbol may begin with a digit.  Case is significant.
@@ -947,7 +947,7 @@ symbol determines the syntax of the rest of the statement.  If the
 symbol begins with a dot @samp{.} then the statement is an assembler
 directive: typically valid for any computer.  If the symbol begins with
 a letter the statement is an assembly language @dfn{instruction}: it
-will assemble into a machine language instruction.  
+will assemble into a machine language instruction.
 _if__(_GENERIC__)
 Different versions of @code{_AS__} for different computers will
 recognize different instructions.  In fact, the same symbol may
@@ -1213,7 +1213,7 @@ A flonum is written by writing (in order)
 @item
 The digit @samp{0}.
 @item
-A letter, to tell @code{_AS__} the rest of the number is a flonum.  
+A letter, to tell @code{_AS__} the rest of the number is a flonum.
 _if__(_GENERIC__)
 @kbd{e} is recommended.  Case is not important.
 @ignore
@@ -1341,11 +1341,11 @@ _fi__(_H8__)
 @cindex standard @code{_AS__} sections
 An object file written by @code{_AS__} has at least three sections, any
 of which may be empty.  These are named @dfn{text}, @dfn{data} and
-@dfn{bss} sections.  
+@dfn{bss} sections.
 
 _if__(_COFF__)
 _if__(_GENERIC__)
-When it generates COFF output, 
+When it generates COFF output,
 _fi__(_GENERIC__)
 @code{_AS__} can also generate whatever other named sections you specify
 using the @samp{.section} directive (@pxref{Section,,@code{.section}}).
@@ -1437,7 +1437,7 @@ _if__(_AOUT__||_BOUT__)
 _fi__(_AOUT__||_BOUT__)
 These sections hold your program.  @code{_AS__} and @code{_LD__} treat them as
 separate but equal sections.  Anything you can say of one section is
-true another.  
+true another.
 _if__(_AOUT__||_BOUT__)
 When the program is running, however, it is
 customary for the text section to be unalterable.  The
@@ -1471,10 +1471,10 @@ the preceding sections.
 @end table
 
 @cindex relocation example
-An idealized example of three relocatable sections follows.  
-_if__(_COFF__) 
+An idealized example of three relocatable sections follows.
+_if__(_COFF__)
 The example uses the traditional section names @samp{.text} and @samp{.data}.
-_fi__(_COFF__) 
+_fi__(_COFF__)
 Memory addresses are on the horizontal axis.
 
 @c TEXI2ROFF-KILL
@@ -1605,14 +1605,14 @@ Assembled bytes
 _if__(_COFF__)
 conventionally
 _fi__(_COFF__)
-fall into two sections: text and data.  
+fall into two sections: text and data.
 _fi__(_AOUT__||_BOUT__)
 You may have separate groups of
 _if__(_COFF__||_GENERIC__)
 data in named sections
 _fi__(_COFF__||_GENERIC__)
 _if__((_AOUT__||_BOUT__)&&!_GENERIC__)
-text or data 
+text or data
 _fi__((_AOUT__||_BOUT__)&&!_GENERIC__)
 that you want to end up near to each other in the object
 file, even though they are not contiguous in the assembler source.
@@ -1665,7 +1665,7 @@ into, use a numeric argument to specify it, in a @samp{.text
 @var{expression}} or a @samp{.data @var{expression}} statement.
 _if__(_COFF__)
 _if__(_GENERIC__)
-When generating COFF output, you 
+When generating COFF output, you
 _fi__(_GENERIC__)
 _if__(!_GENERIC__)
 You
@@ -1764,7 +1764,7 @@ directive.  @xref{Set,,@code{.set}}.
 
 @cindex symbol names
 @cindex names, symbol
-Symbol names begin with a letter or with one of 
+Symbol names begin with a letter or with one of
 _if__(!_H8__)
 @samp{_.$}
 _fi__(!_H8__)
@@ -1777,11 +1777,11 @@ _fi__(_GENERIC__)
 _fi__(_H8__)
 That character may be followed by any string of digits, letters,
 _if__(!_H8__)
-underscores and dollar signs.  
+underscores and dollar signs.
 _fi__(!_H8__)
 _if__(_H8__)
 _if__(_GENERIC__)
-dollar signs (unless otherwise noted in @ref{_MACH_DEP__}), 
+dollar signs (unless otherwise noted in @ref{_MACH_DEP__}),
 _fi__(_GENERIC__)
 and underscores.
 _fi__(_H8__)
@@ -1881,7 +1881,7 @@ _fi__(_A29K__)
 @cindex attributes, symbol
 Every symbol has, as well as its name, the attributes ``Value'' and
 ``Type''.  Depending on output format, symbols can also have auxiliary
-attributes. 
+attributes.
 _if__(_INTERNALS__)
 The detailed definitions are in _0__<a.out.h>_1__.
 _fi__(_INTERNALS__)
@@ -2001,7 +2001,7 @@ _fi__(_AOUT__||_BOUT__)
 
 The COFF format supports a multitude of auxiliary symbol attributes;
 like the primary symbol attributes, they are set between @code{.def} and
-@code{.endef} directives.  
+@code{.endef} directives.
 
 @subsubsection Primary Attributes
 
@@ -2221,7 +2221,7 @@ All assembler directives have names that begin with a period (@samp{.}).
 The rest of the name is letters, usually in lower case.
 
 This chapter discusses directives present regardless of the target
-machine configuration for the GNU assembler.  
+machine configuration for the GNU assembler.
 _if__(!_H8__)
 @xref{_MACH_DEP__} for additional directives.
 _fi__(!_H8__)
@@ -2583,7 +2583,7 @@ _if__(_COFF__||_BOUT__)
 
 @cindex @code{endef} directive
 This directive flags the end of a symbol definition begun with
-@code{.def}. 
+@code{.def}.
 _if__(_BOUT__)
 
 @samp{.endef} is only meaningful when generating COFF format output; if
@@ -2810,7 +2810,7 @@ _fi__(_GENERIC__||!_H8__)
 Expect zero or more @var{expressions}, of any section, separated by
 commas.  For each expression, emit a
 _if__(_GENERIC__||!_H8__)
-32-bit 
+32-bit
 _fi__(_GENERIC__||!_H8__)
 _if__(_H8__&&!_GENERIC__)
 16-bit
@@ -2884,7 +2884,7 @@ for compatibility with existing assembler programs. @refill
 _if__(_GENERIC__ && _A29K__)
 @emph{Warning:} In the AMD29K configuration of _AS__, this command is
 only available with the name @code{.ln}, rather than as either
-@code{.line} or @code{.ln}.  
+@code{.line} or @code{.ln}.
 _fi__(_GENERIC__ && _A29K__)
 _fi__(_AOUT__||_BOUT__)
 _if__(_COFF__)
@@ -2893,7 +2893,7 @@ Even though this is a directive associated with the @code{a.out} or
 @code{b.out} object-code formats, @code{_AS__} will still recognize it
 when producing COFF output, and will treat @samp{.line} as though it
 were the COFF @samp{.ln} @emph{if} it is found outside a
-@code{.def}/@code{.endef} pair.  
+@code{.def}/@code{.endef} pair.
 
 Inside a @code{.def}, @samp{.line} is, instead, one of the directives
 used by compilers to generate auxiliary symbol information for
@@ -3029,7 +3029,7 @@ absolute expression.  If the comma and @var{fill} are omitted,
 @cindex listing control: paper size
 @cindex paper size, for listings
 Use this directive to declare the number of lines---and, optionally, the
-number of columns---to use for each page, when generating listings.  
+number of columns---to use for each page, when generating listings.
 
 If you don't use @code{.psize}, listings will use a default line-count
 of 60.  You may omit the comma and @var{columns} specification; the
@@ -3037,7 +3037,7 @@ default width is 200 columns.
 
 @code{_AS__} will generate formfeeds whenever the specified number of
 lines is exceeded (or whenever you explicitly request one, using
-@code{.eject}).  
+@code{.eject}).
 
 If you specify @var{lines} as @code{0}, no formfeeds are generated save
 those explicitly specified with @code{.eject}.
@@ -3061,7 +3061,7 @@ _fi__(_GENERIC__||(!_I960__))
 _if__(_I960__&&(!_GENERIC__))
 a 16-byte integer.  If the bignum won't fit in 16 bytes, it prints a
 warning message; and just takes the lowest order 16 bytes of the
-bignum.@refill 
+bignum.@refill
 @cindex sixteen-byte integer
 @cindex integer, 16-byte
 _fi__(_I960__&&(!_GENERIC__))
@@ -3078,7 +3078,7 @@ _fi__(!(_COFF__||_BOUT__))
 @cindex subtitles for listings
 @cindex listing control: subtitle
 Use @var{subheading} as the title (third line, immediately after the
-title line) when generating assembly listings. 
+title line) when generating assembly listings.
 
 This directive affects subsequent pages, as well as the current page if
 it appears within ten lines of the top of a page.
@@ -3219,7 +3219,7 @@ This directive emits @var{size} bytes, each of value @var{fill}.  Both
 and @var{fill} are omitted, @var{fill} is assumed to be zero.
 _fi__(_GENERIC__ || !_A29K__)
 
-_if__(_A29K__) 
+_if__(_A29K__)
 @section @code{.space}
 
 @cindex @code{space} directive
@@ -3348,7 +3348,7 @@ _fi__(!(_COFF__||_BOUT__))
 @cindex @code{title} directive
 @cindex listing control: title line
 Use @var{heading} as the title (second line, immediately after the
-source file name and pagenumber) when generating assembly listings. 
+source file name and pagenumber) when generating assembly listings.
 
 This directive affects subsequent pages, as well as the current page if
 it appears within ten lines of the top of a page.
@@ -3405,7 +3405,7 @@ _if__((!_GENERIC__) && _W16__)
 For each expression, @code{_AS__} emits a 16-bit number.
 _fi__((!_GENERIC__) && _W16__)
 
-_if__(_GENERIC__) 
+_if__(_GENERIC__)
 The size of the number emitted, and its byte order,
 depends on what kind of computer will run the program.
 _fi__(_GENERIC__)
@@ -3721,9 +3721,9 @@ Unconditional branch.
 @kbd{@var{OPCODE} @dots{}}
 @item (long displacement)
 @example
-@var{OPCODE} @dots{}, foo ; 
-brb bar ; 
-foo: jmp @dots{} ; 
+@var{OPCODE} @dots{}, foo ;
+brb bar ;
+foo: jmp @dots{} ;
 bar:
 @end example
 @end table
@@ -3736,17 +3736,17 @@ bar:
 @kbd{@var{OPCODE} @dots{}}
 @item (word displacement)
 @example
-@var{OPCODE} @dots{}, foo ; 
-brb bar ; 
-foo: brw @var{destination} ; 
+@var{OPCODE} @dots{}, foo ;
+brb bar ;
+foo: brw @var{destination} ;
 bar:
 @end example
 @item (long displacement)
 @example
-@var{OPCODE} @dots{}, foo ; 
-brb bar ; 
-foo: jmp @var{destination} ; 
-bar: 
+@var{OPCODE} @dots{}, foo ;
+brb bar ;
+foo: jmp @var{destination} ;
+bar:
 @end example
 @end table
 @item aobleq
@@ -3758,16 +3758,16 @@ bar:
 @kbd{@var{OPCODE} @dots{}}
 @item (word displacement)
 @example
-@var{OPCODE} @dots{}, foo ; 
-brb bar ; 
-foo: brw @var{destination} ; 
+@var{OPCODE} @dots{}, foo ;
+brb bar ;
+foo: brw @var{destination} ;
 bar:
 @end example
 @item (long displacement)
 @example
-@var{OPCODE} @dots{}, foo ; 
-brb bar ; 
-foo: jmp @var{destination} ; 
+@var{OPCODE} @dots{}, foo ;
+brb bar ;
+foo: jmp @var{destination} ;
 bar:
 @end example
 @end table
@@ -3860,7 +3860,7 @@ _CHAPSEC__(2+_GENERIC__) Special Characters
 @samp{;} is the line comment character.
 
 @cindex line separator, AMD 29K
-@cindex AMD 29K line separator 
+@cindex AMD 29K line separator
 @cindex statement separator, AMD 29K
 @cindex AMD 29K statement separator
 @samp{@@} can be used instead of a newline to separate statements.
@@ -4011,7 +4011,7 @@ _CHAPSEC__(1+_GENERIC__) Options
 
 @cindex H8/300 options (none)
 @cindex options, H8/300 (none)
-@code{_AS__} has no additional command-line options for the Hitachi 
+@code{_AS__} has no additional command-line options for the Hitachi
 H8/300 family.
 
 @node H8/300 Syntax, H8/300 Floating Point, H8/300 Options, H8/300-Dependent
@@ -4033,7 +4033,7 @@ _CHAPSEC__(2+_GENERIC__) Special Characters
 @cindex statement separator, H8/300
 @cindex H8/300 line separator
 @samp{$} can be used instead of a newline to separate statements.
-Therefore @emph{you may not use @samp{$} in symbol names} on the H8/300. 
+Therefore @emph{you may not use @samp{$} in symbol names} on the H8/300.
 
 @node H8/300-Regs, H8/300-Addressing, H8/300-Chars, H8/300 Syntax
 _CHAPSEC__(2+_GENERIC__) Register Names
@@ -4044,11 +4044,11 @@ You can use predefined symbols of the form @samp{r@var{n}h} and
 @samp{r@var{n}l} to refer to the H8/300 registers as sixteen 8-bit
 general-purpose registers.  @var{n} is a digit from @samp{0} to
 @samp{7}); for instance, both @samp{r0h} and @samp{r7l} are valid
-register names. 
+register names.
 
 You can also use the eight predefined symbols @samp{r@var{n}} to refer
 to the H8/300 registers as 16-bit registers (you must use this form for
-addressing). 
+addressing).
 
 The two control registers are called @code{pc} (program counter; a
 16-bit register) and @code{ccr} (condition code register; an 8-bit
@@ -4129,98 +4129,98 @@ For detailed information on the H8/300 machine instruction set, see
 @cite{H8/300 Series Programming Manual} (Hitachi ADE--602--025).
 
 @code{_AS__} implements all the standard H8/300 opcodes.  No additional
-pseudo-instructions are needed on this family.  
+pseudo-instructions are needed on this family.
 
 The following table summarizes the opcodes and their arguments:
 @c kluge due to lack of group outside example
 @page
 @smallexample
 @group
-            Rs   @r{source register}     
+            Rs   @r{source register}
             Rd   @r{destination register}
-            imm  @r{immediate data}      
+            imm  @r{immediate data}
             x:3  @r{a bit (as a number between 0 and 7)}
             d:8  @r{eight bit displacement from @code{pc}}
             d:16 @r{sixteen bit displacement from @code{Rs}}
 
-add.b   Rs,Rd                  biand   #x:3,Rd        
-add.b   #imm:8,Rd              biand   #x:3,@@Rd      
-add.w   Rs,Rd                  biand   #x:3,@@aa:8    
-adds    #1,Rd                  bild    #x:3,Rd        
-adds    #2,Rd                  bild    #x:3,@@Rd      
-addx    #imm:8,Rd              bild    #x:3,@@aa:8    
-addx    Rs,Rd                  bior    #x:3,Rd        
-and     #imm:8,Rd              bior    #x:3,@@Rd      
-and     Rs,Rd                  bior    #x:3,@@aa:8    
-andc    #imm:8,ccr             bist    #x:3,Rd        
-band    #x:3,Rd                bist    #x:3,@@Rd      
-band    #x:3,@@Rd               bist    #x:3,@@aa:8   
-bra     d:8                    bixor   #x:3,Rd        
-bt      d:8                    bixor   #x:3,@@Rd      
-brn     d:8                    bixor   #x:3,@@aa:8    
-bf      d:8                    bld     #x:3,Rd        
-bhi     d:8                    bld     #x:3,@@Rd      
-bls     d:8                    bld     #x:3,@@aa:8    
-bcc     d:8                    bnot    #x:3,Rd        
-bhs     d:8                    bnot    #x:3,@@Rd      
-bcs     d:8                    bnot    #x:3,@@aa:8    
-blo     d:8                    bnot    Rs,Rd          
-bne     d:8                    bnot    Rs,@@Rd        
-beq     d:8                    bnot    Rs,@@aa:8      
-bvc     d:8                    bor     #x:3,Rd        
-bvs     d:8                    bor     #x:3,@@Rd      
-bpl     d:8                    bor     #x:3,@@aa:8    
-bmi     d:8                    bset    #x:3,@@Rd      
-bge     d:8                    bset    #x:3,@@aa:8    
-blt     d:8                    bset    Rs,Rd          
-bgt     d:8                    bset    Rs,@@Rd        
-ble     d:8                    bset    Rs,@@aa:8      
-bclr    #x:3,Rd                bsr     d:8            
-bclr    #x:3,@@Rd               bst     #x:3,Rd       
-bclr    #x:3,@@aa:8             bst     #x:3,@@Rd     
-bclr    Rs,Rd                  bst     #x:3,@@aa:8    
-bclr    Rs,@@Rd                 btst    #x:3,Rd       
+add.b   Rs,Rd                  biand   #x:3,Rd
+add.b   #imm:8,Rd              biand   #x:3,@@Rd
+add.w   Rs,Rd                  biand   #x:3,@@aa:8
+adds    #1,Rd                  bild    #x:3,Rd
+adds    #2,Rd                  bild    #x:3,@@Rd
+addx    #imm:8,Rd              bild    #x:3,@@aa:8
+addx    Rs,Rd                  bior    #x:3,Rd
+and     #imm:8,Rd              bior    #x:3,@@Rd
+and     Rs,Rd                  bior    #x:3,@@aa:8
+andc    #imm:8,ccr             bist    #x:3,Rd
+band    #x:3,Rd                bist    #x:3,@@Rd
+band    #x:3,@@Rd               bist    #x:3,@@aa:8
+bra     d:8                    bixor   #x:3,Rd
+bt      d:8                    bixor   #x:3,@@Rd
+brn     d:8                    bixor   #x:3,@@aa:8
+bf      d:8                    bld     #x:3,Rd
+bhi     d:8                    bld     #x:3,@@Rd
+bls     d:8                    bld     #x:3,@@aa:8
+bcc     d:8                    bnot    #x:3,Rd
+bhs     d:8                    bnot    #x:3,@@Rd
+bcs     d:8                    bnot    #x:3,@@aa:8
+blo     d:8                    bnot    Rs,Rd
+bne     d:8                    bnot    Rs,@@Rd
+beq     d:8                    bnot    Rs,@@aa:8
+bvc     d:8                    bor     #x:3,Rd
+bvs     d:8                    bor     #x:3,@@Rd
+bpl     d:8                    bor     #x:3,@@aa:8
+bmi     d:8                    bset    #x:3,@@Rd
+bge     d:8                    bset    #x:3,@@aa:8
+blt     d:8                    bset    Rs,Rd
+bgt     d:8                    bset    Rs,@@Rd
+ble     d:8                    bset    Rs,@@aa:8
+bclr    #x:3,Rd                bsr     d:8
+bclr    #x:3,@@Rd               bst     #x:3,Rd
+bclr    #x:3,@@aa:8             bst     #x:3,@@Rd
+bclr    Rs,Rd                  bst     #x:3,@@aa:8
+bclr    Rs,@@Rd                 btst    #x:3,Rd
 @end group
 @group
-btst    #x:3,@@Rd               mov.w   @@(d:16, Rs),Rd       
-btst    #x:3,@@aa:8             mov.w   @@Rs+,Rd              
-btst    Rs,Rd                  mov.w   @@aa:16,Rd             
-btst    Rs,@@Rd                 mov.w   Rs,@@Rd               
-btst    Rs,@@aa:8               mov.w   Rs,@@(d:16, Rd)       
-bxor    #x:3,Rd                mov.w   Rs,@@-Rd               
-bxor    #x:3,@@Rd               mov.w   Rs,@@aa:16            
-bxor    #x:3,@@aa:8             movfpe  @@aa:16,Rd            
-cmp.b   #imm:8,Rd              movtpe  Rs,@@aa:16             
-cmp.b   Rs,Rd                  mulxu   Rs,Rd                  
-cmp.w   Rs,Rd                  neg     Rs                     
-daa     Rs                     nop                            
-das     Rs                     not     Rs                     
-dec     Rs                     or      #imm:8,Rd              
-divxu   Rs,Rd                  or      Rs,Rd                  
-eepmov                         orc     #imm:8,ccr             
-inc     Rs                     pop     Rs                     
-jmp     @@Rs                    push    Rs                    
-jmp     @@aa:16                 rotl    Rs                    
-jmp     @@@@aa                   rotr    Rs                   
-jsr     @@Rs                    rotxl   Rs                    
-jsr     @@aa:16                 rotxr   Rs                    
-jsr     @@@@aa:8                 rte                          
-ldc     #imm:8,ccr             rts                            
-ldc     Rs,ccr                 shal    Rs                     
-mov.b   Rs,Rd                  shar    Rs                     
-mov.b   #imm:8,Rd              shll    Rs                     
-mov.b   @@Rs,Rd                 shlr    Rs                    
-mov.b   @@(d:16, Rs),Rd         sleep                         
-mov.b   @@Rs+,Rd                stc     ccr,Rd                
-mov.b   @@aa:16,Rd              sub.b   Rs,Rd                 
-mov.b   @@aa:8,Rd               sub.w   Rs,Rd                 
-mov.b   Rs,@@Rd                 subs    #1,Rd                 
-mov.b   Rs,@@(d:16, Rd)         subs    #2,Rd                 
-mov.b   Rs,@@-Rd                subx    #imm:8,Rd             
-mov.b   Rs,@@aa:16              subx    Rs,Rd                 
-mov.b   Rs,@@aa:8               xor     #imm:8,Rd             
-mov.w   Rs,Rd                  xor     Rs,Rd                  
-mov.w   #imm:16,Rd             xorc    #imm:8,ccr             
+btst    #x:3,@@Rd               mov.w   @@(d:16, Rs),Rd
+btst    #x:3,@@aa:8             mov.w   @@Rs+,Rd
+btst    Rs,Rd                  mov.w   @@aa:16,Rd
+btst    Rs,@@Rd                 mov.w   Rs,@@Rd
+btst    Rs,@@aa:8               mov.w   Rs,@@(d:16, Rd)
+bxor    #x:3,Rd                mov.w   Rs,@@-Rd
+bxor    #x:3,@@Rd               mov.w   Rs,@@aa:16
+bxor    #x:3,@@aa:8             movfpe  @@aa:16,Rd
+cmp.b   #imm:8,Rd              movtpe  Rs,@@aa:16
+cmp.b   Rs,Rd                  mulxu   Rs,Rd
+cmp.w   Rs,Rd                  neg     Rs
+daa     Rs                     nop
+das     Rs                     not     Rs
+dec     Rs                     or      #imm:8,Rd
+divxu   Rs,Rd                  or      Rs,Rd
+eepmov                         orc     #imm:8,ccr
+inc     Rs                     pop     Rs
+jmp     @@Rs                    push    Rs
+jmp     @@aa:16                 rotl    Rs
+jmp     @@@@aa                   rotr    Rs
+jsr     @@Rs                    rotxl   Rs
+jsr     @@aa:16                 rotxr   Rs
+jsr     @@@@aa:8                 rte
+ldc     #imm:8,ccr             rts
+ldc     Rs,ccr                 shal    Rs
+mov.b   Rs,Rd                  shar    Rs
+mov.b   #imm:8,Rd              shll    Rs
+mov.b   @@Rs,Rd                 shlr    Rs
+mov.b   @@(d:16, Rs),Rd         sleep
+mov.b   @@Rs+,Rd                stc     ccr,Rd
+mov.b   @@aa:16,Rd              sub.b   Rs,Rd
+mov.b   @@aa:8,Rd               sub.w   Rs,Rd
+mov.b   Rs,@@Rd                 subs    #1,Rd
+mov.b   Rs,@@(d:16, Rd)         subs    #2,Rd
+mov.b   Rs,@@-Rd                subx    #imm:8,Rd
+mov.b   Rs,@@aa:16              subx    Rs,Rd
+mov.b   Rs,@@aa:8               xor     #imm:8,Rd
+mov.w   Rs,Rd                  xor     Rs,Rd
+mov.w   #imm:16,Rd             xorc    #imm:8,ccr
 mov.w   @@Rs,Rd
 @end group
 @end smallexample
@@ -4233,7 +4233,7 @@ Four H8/300 instructions (@code{add}, @code{cmp}, @code{mov},
 supports these suffixes, but does not require them; since one of the
 operands is always a register, @code{_AS__} can deduce the correct size.
 
-For example, since @code{r0} refers to a 16-bit register, 
+For example, since @code{r0} refers to a 16-bit register,
 @example
 mov    r0,@@foo
 @exdent is equivalent to
@@ -6677,7 +6677,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program; if not, write to the 
+along with this program; if not, write to the
 Free Software Foundation, Inc., 675 Mass Ave,
 Cambridge, MA 02139, USA.
 @end smallexample
@@ -6691,7 +6691,7 @@ when it starts in an interactive mode:
 Gnomovision version 69, Copyright (C) 19@var{yy} @var{name of author}
 Gnomovision comes with ABSOLUTELY NO WARRANTY; for details
 type `show w'.  This is free software, and you are welcome
-to redistribute it under certain conditions; type `show c' 
+to redistribute it under certain conditions; type `show c'
 for details.
 @end smallexample
 

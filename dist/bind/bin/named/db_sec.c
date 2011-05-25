@@ -8,7 +8,7 @@ static const char rcsid[] = "Id: db_sec.c,v 8.30 1999/10/15 21:06:49 vixie Exp";
 /*
  * Copyright (c) 1986, 1990
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -24,7 +24,7 @@ static const char rcsid[] = "Id: db_sec.c,v 8.30 1999/10/15 21:06:49 vixie Exp";
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -40,14 +40,14 @@ static const char rcsid[] = "Id: db_sec.c,v 8.30 1999/10/15 21:06:49 vixie Exp";
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -115,7 +115,7 @@ typedef struct zpubkey *zpubkey_list;
 static int nxt_match_rrset(struct databuf *dp, struct db_rrset *rrset);
 
 /*
- * A converted databuf is a stripped down databuf after converting the 
+ * A converted databuf is a stripped down databuf after converting the
  * data to wire format.
  */
 struct converted_databuf {
@@ -549,7 +549,7 @@ verify_set(struct db_rrset *rrset) {
 			trustedkey = 0;
 			key = find_public_key(signer, sigdata->sig_keyid_n);
 		}
-		else    
+		else
 			trustedkey = 1;
 
 		/* if we don't have the key, either
@@ -847,7 +847,7 @@ rrset_db_update(struct db_rrset *rrset, int flags, struct hashbuf **htpp,
 	 * don't cache them unless we already have the corresponding data.
 	 * If we do cache unattached SIGs, we run into problems later if we
 	 * have a SIG X and get a query for type X.
-	 */ 
+	 */
 	if (rrset->rr_list == NULL) {
 		if (attach_data(rrset) == 0) {
 			rrset_free(rrset, 1);

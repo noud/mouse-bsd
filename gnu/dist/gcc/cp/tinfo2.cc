@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with GNU CC; see the file COPYING.  If not, write to
 // the Free Software Foundation, 59 Temple Place - Suite 330,
-// Boston, MA 02111-1307, USA. 
+// Boston, MA 02111-1307, USA.
 
 // As a special exception, if you link this library with other files,
 // some of which are compiled with GCC, to produce an executable,
@@ -99,10 +99,10 @@ __throw_type_match_rtti (const void *catch_type_r, const void *throw_type_r,
 {
   const type_info &catch_type = *(const type_info *)catch_type_r;
   const type_info &throw_type = *(const type_info *)throw_type_r;
-  
+
   if (catch_type == throw_type)
     return objptr;
-  
+
 #if 0
   printf ("We want to match a %s against a %s!\n",
 	  throw_type.name (), catch_type.name ());
@@ -136,7 +136,7 @@ __throw_type_match_rtti (const void *catch_type_r, const void *throw_type_r,
 	}
       else
 	cvfrom = __attr_type_info::NONE;
-      
+
       if (const __attr_type_info *at
 	  = dynamic_cast <const __attr_type_info *> (subto))
 	{
@@ -173,7 +173,7 @@ __throw_type_match_rtti (const void *catch_type_r, const void *throw_type_r,
 
 	  if (! pto)
 	    goto fail;
-	    
+
 	  bool constp = (cvto & __attr_type_info::CONST);
 	  for (subto = &pto->type, subfr = &pfr->type; ;
 	       subto = &pto->type, subfr = &pfr->type)
@@ -186,7 +186,7 @@ __throw_type_match_rtti (const void *catch_type_r, const void *throw_type_r,
 		}
 	      else
 		cvfrom = __attr_type_info::NONE;
-      
+
 	      if (const __attr_type_info *at
 		  = dynamic_cast <const __attr_type_info *> (subto))
 		{
@@ -218,7 +218,7 @@ __throw_type_match_rtti (const void *catch_type_r, const void *throw_type_r,
 	      pto = dynamic_cast <const __pointer_type_info *> (subto);
 	      pfr = dynamic_cast <const __pointer_type_info *> (subfr);
 	      if (! pto || ! pfr)
-		goto fail;		
+		goto fail;
 
 	      if (! (cvto & __attr_type_info::CONST))
 		constp = false;

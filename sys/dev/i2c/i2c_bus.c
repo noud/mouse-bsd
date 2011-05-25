@@ -1,5 +1,5 @@
 /*  $NetBSD: i2c_bus.c,v 1.1 1997/10/17 17:21:14 bouyer Exp $   */
- 
+
 /*
  * Copyright (c) 1997 Manuel Bouyer.  All rights reserved.
  *

@@ -61,7 +61,7 @@ MOD_VFS("adosfs", -1, &adosfs_vfsops);
  */
 int
 adosfs_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

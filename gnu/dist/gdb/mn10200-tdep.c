@@ -72,7 +72,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
     * fsr -- Addresses of registers saved in the stack by this frame.
 
     * status -- A (relatively) generic status indicator.  It's a bitmask
-    with the following bits: 
+    with the following bits:
 
       MY_FRAME_IN_SP: The base of the current frame is actually in
       the stack pointer.  This can happen for frame pointerless
@@ -95,7 +95,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define MY_FRAME_IN_FP 0x2
 #define CALLER_A2_IN_A0 0x4
 #define NO_MORE_FRAMES 0x8
- 
+
 static CORE_ADDR
 mn10200_analyze_prologue (fi, pc)
     struct frame_info *fi;
@@ -190,7 +190,7 @@ mn10200_analyze_prologue (fi, pc)
     }
 
   /* Now see if we have a frame pointer.
-       
+
      Search for mov a2,a0 (0xf278)
         then	mov a3,a2 (0xf27e).  */
 
@@ -239,11 +239,11 @@ mn10200_analyze_prologue (fi, pc)
     }
 
   /* Next we should allocate the local frame.
-       
+
      Search for add imm8,a3 (0xd3XX)
         or	add imm16,a3 (0xf70bXXXX)
         or	add imm24,a3 (0xf467XXXXXX).
-       
+
      If none of the above was found, then this prologue has
      no stack, and therefore can't have any register saves,
      so quit now.  */
@@ -325,7 +325,7 @@ mn10200_analyze_prologue (fi, pc)
     	    fi->frame = read_sp ();
 	  return addr;
 	}
-      
+
       /* Get the PC this instruction will branch to.  */
       temp = (extract_signed_integer (buf, 2) + addr) & 0xffffff;
 
@@ -366,7 +366,7 @@ mn10200_analyze_prologue (fi, pc)
     	    fi->frame = read_sp ();
 	  return addr;
 	}
-      
+
       /* Get the PC this instruction will branch to.  */
       temp = (extract_signed_integer (buf, 3) + addr) & 0xffffff;
 
@@ -417,7 +417,7 @@ mn10200_analyze_prologue (fi, pc)
 	 Search for add imm8,a3 (0xd3XX)
 	    or	add imm16,a3 (0xf70bXXXX)
 	    or	add imm24,a3 (0xf467XXXXXX).  */
-       
+
       status = target_read_memory (addr, buf, 2);
       if (status != 0)
 	{
@@ -505,7 +505,7 @@ mn10200_analyze_prologue (fi, pc)
      and thus the number of different instructions we need to
      check is greatly reduced because we know the displacements
      will be small.
-       
+
      Search for movx d2,(X,a3) (0xf55eXX)
         then	movx d3,(X,a3) (0xf55fXX)
         then	mov  a1,(X,a3) (0x5dXX)	   No frame pointer case
@@ -584,7 +584,7 @@ mn10200_analyze_prologue (fi, pc)
     }
   return addr;
 }
-  
+
 /* Function: frame_chain
    Figure out and return the caller's frame pointer given current
    frame_info struct.
@@ -622,7 +622,7 @@ mn10200_frame_chain (fi)
 
        If our caller does not have a frame pointer, then his
        frame base is fi->frame + -caller's stack size + 4.  */
-       
+
   /* The easiest way to get that info is to analyze our caller's frame.
 
      So we set up a dummy frame and call mn10200_analyze_prologue to
@@ -742,7 +742,7 @@ mn10200_push_arguments (nargs, args, sp, struct_return, struct_addr)
       /* We know we've got some arg register space left.  If this argument
 	 will fit entirely in regs, then put it there.  */
       else if (arg_length <= 2
-	       || TYPE_CODE (VALUE_TYPE (args[argnum])) == TYPE_CODE_PTR) 
+	       || TYPE_CODE (VALUE_TYPE (args[argnum])) == TYPE_CODE_PTR)
 	{
 	  regsused++;
 	}
@@ -815,7 +815,7 @@ mn10200_push_arguments (nargs, args, sp, struct_return, struct_addr)
 /* Function: push_return_address (pc)
    Set up the return address for the inferior function call.
    Needed for targets where we don't actually execute a JSR/BSR instruction */
- 
+
 CORE_ADDR
 mn10200_push_return_address (pc, sp)
      CORE_ADDR pc;
@@ -831,7 +831,7 @@ mn10200_push_return_address (pc, sp)
 /* Function: store_struct_return (addr,sp)
    Store the structure value return address for an inferior function
    call.  */
- 
+
 CORE_ADDR
 mn10200_store_struct_return (addr, sp)
      CORE_ADDR addr;
@@ -841,8 +841,8 @@ mn10200_store_struct_return (addr, sp)
   write_register (0, addr);
   return sp;
 }
- 
-/* Function: frame_saved_pc 
+
+/* Function: frame_saved_pc
    Find the caller of this frame.  We do this by seeing if RP_REGNUM
    is saved in the stack anywhere, otherwise we get it from the
    registers.  If the inner frame is a dummy frame, return its PC
@@ -866,7 +866,7 @@ get_saved_register (raw_buffer, optimized, addrp, frame, regnum, lval)
      int regnum;
      enum lval_type *lval;
 {
-  generic_get_saved_register (raw_buffer, optimized, addrp, 
+  generic_get_saved_register (raw_buffer, optimized, addrp,
 			      frame, regnum, lval);
 }
 

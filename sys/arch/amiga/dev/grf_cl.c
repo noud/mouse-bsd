@@ -292,7 +292,7 @@ grfclmatch(pdp, cfp, auxp)
 			cl_fbaddr = zap->va;
 			cl_fbautosize = zap->size;
 			break;
-		    case 22: 
+		    case 22:
 			cl_fbautosize += zap->size;
 			break;
 		    case 23:
@@ -328,7 +328,7 @@ grfclmatch(pdp, cfp, auxp)
 			cfdata = cfp;
 		}
 #endif
-	
+
 	return (1);
 }
 
@@ -608,7 +608,7 @@ cl_getvmode(gp, vm)
 		bcopy(&clconsole_mode, vm, sizeof(struct grfvideo_mode));
 		/* XXX so grfconfig can tell us the correct text dimensions. */
 		vm->depth = clconsole_mode.fy;
-	} else 
+	} else
 #endif
         {
                 if (vm->mode_num == 0)
@@ -628,7 +628,7 @@ cl_getvmode(gp, vm)
         vm->hsync_start *= 8;
         vm->hsync_stop *= 8;
         vm->htotal *= 8;
-        
+
 	return (0);
 }
 
@@ -673,7 +673,7 @@ cl_blank(gp, on)
         WSeq(gp->g_regkva, SEQ_ID_CLOCKING_MODE, *on > 0 ? 0x01 : 0x21);
         return(0);
 }
-        
+
 /*
  * Change the mode of the display.
  * Return a UNIX error number or 0 for success.
@@ -910,8 +910,8 @@ cl_setspriteinfo(gp, data)
                 unsigned long ssi[128], ssm[128];
                 struct grf_position gpos;
 
-               
-                /* check for a too large sprite (no clipping!) */ 
+
+                /* check for a too large sprite (no clipping!) */
                 dsy = data->size.y;
                 dsx = data->size.x;
                 if (dsy > 64 || dsx > 64)
@@ -998,7 +998,7 @@ cl_setspriteinfo(gp, data)
 			vgaw(ba, VDAC_DATA, (u_char) (green[1] >> 2));
 			vgaw(ba, VDAC_DATA, (u_char) (red[1] >> 2));
 		}
-                
+
                 /* turn on/off sprite */
 		if (cl_cursprite.enable) {
 			WSeq(ba, SEQ_ID_CURSOR_ATTR, 0x05);
@@ -1026,7 +1026,7 @@ cl_setspriteinfo(gp, data)
 
                 /* do it */
                 cl_setmousepos(gp, &data->pos);
-                
+
 	}
 	return (0);
 }
@@ -1251,7 +1251,7 @@ cl_CompFQ(fq, num, denom, clkdoub)
 	unsigned long err, minerr;
 
 /*
-numer = 0x00 - 0x7f 
+numer = 0x00 - 0x7f
 denom = 0x00 - 0x1f (1) 0x20 - 0x3e (even)
 */
 
@@ -1307,7 +1307,7 @@ cl_mondefok(gv)
 	struct grfvideo_mode *gv;
 {
         unsigned long maxpix;
-        
+
 	if (gv->mode_num < 1 || gv->mode_num > monitor_def_max)
                 if (gv->mode_num != 255 || gv->depth != 4)
                         return(0);
@@ -1623,7 +1623,7 @@ cl_load_mon(gp, md)
 		HDE = gv->disp_width / 16;
 		break;
 	    case 8:
-		if (clkdoub) 
+		if (clkdoub)
 			vgaw(ba, VDAC_MASK, 0x4a); /* Clockdouble Magic */
 		else
 			vgaw(ba, VDAC_MASK, 0);

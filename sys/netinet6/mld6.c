@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -251,7 +251,7 @@ mld6_input(m, off)
 			timer = 1;
 		mld6_all_nodes_linklocal.s6_addr16[1] =
 			htons(ifp->if_index); /* XXX */
-		
+
 		for (in6m = ia->ia6_multiaddrs.lh_first;
 		     in6m;
 		     in6m = in6m->in6m_entry.le_next)
@@ -392,7 +392,7 @@ mld6_sendpkt(in6m, type, dst)
 
 #ifdef IPSEC
 	mh->m_pkthdr.rcvif = NULL;
-#endif 
+#endif
 	mh->m_pkthdr.len = sizeof(struct ip6_hdr) + sizeof(struct mld6_hdr);
 	mh->m_len = sizeof(struct ip6_hdr);
 	MH_ALIGN(mh, sizeof(struct ip6_hdr));

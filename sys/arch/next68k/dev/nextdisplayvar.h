@@ -67,6 +67,6 @@ struct nextdisplay_softc {
 	struct device sc_dev;
 
 	struct nextdisplay_config *sc_dc;
-				
+
 	int nscreens;
 };

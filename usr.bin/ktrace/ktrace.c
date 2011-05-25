@@ -198,7 +198,7 @@ main(argc, argv)
 		(void)close(fd);
 	}
 
-	if (*argv) { 
+	if (*argv) {
 #ifdef KTRUSS
 		if (do_ktrace(outfile, ops, trpoints, getpid()) == 1) {
 			execvp(argv[0], &argv[0]);

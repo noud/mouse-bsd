@@ -102,19 +102,19 @@ we_params()
 	we_type = inb(WD_BASEREG + WE_CARD_ID);
 	switch (we_type) {
 #ifdef SUPPORT_WD80X3
-	case WE_TYPE_WD8003S: 
-		typestr = "WD8003S"; 
+	case WE_TYPE_WD8003S:
+		typestr = "WD8003S";
 		break;
 	case WE_TYPE_WD8003E:
 		typestr = "WD8003E";
 		break;
-	case WE_TYPE_WD8003EB: 
+	case WE_TYPE_WD8003EB:
 		typestr = "WD8003EB";
 		break;
 	case WE_TYPE_WD8003W:
 		typestr = "WD8003W";
 		break;
-	case WE_TYPE_WD8013EBT: 
+	case WE_TYPE_WD8013EBT:
 		typestr = "WD8013EBT";
 		dp8390_memsize = 16384;
 		we_is16bit = 1;

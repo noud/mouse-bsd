@@ -78,7 +78,7 @@
  * IDE bus frequency (1 byte)
  * This should be setup by the BIOS - can we rely on this ?
  */
-#define ACER_IDE_CLK	0x78 
+#define ACER_IDE_CLK	0x78
 
 static int8_t acer_udma[] = {0x4, 0x3, 0x2};
 static int8_t acer_pio[] = {0x0c, 0x58, 0x44, 0x33, 0x31};

@@ -4,7 +4,7 @@
  * THIS FILE AUTOMATICALLY GENERATED.  DO NOT EDIT.
  *
  * generated from:
- *	NetBSD: pcmciadevs,v 1.79 2000/02/09 13:32:23 enami Exp 
+ *	NetBSD: pcmciadevs,v 1.79 2000/02/09 13:32:23 enami Exp
  */
 
 /*-

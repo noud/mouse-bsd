@@ -138,7 +138,7 @@ lpt_ofisa_attach(parent, self, aux)
 
 	printf("\n");
 
-	lpt_attach_subr(sc);	
+	lpt_attach_subr(sc);
 
 #if 0
 	printf("%s: registers: ", sc->sc_dev.dv_xname);

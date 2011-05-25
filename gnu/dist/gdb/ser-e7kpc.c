@@ -58,19 +58,19 @@ static int e7000pc_set_tty_state PARAMS ((serial_t scb, serial_ttystate state));
 #define OFF_READY  	0x300c
 #define OFF_PON    	0x300e
 
-#define IDLE       0x0000           
-#define CMD_CI     0x4349           
-#define CMD_CO     0x434f           
-#define CMD_LO     0x4c4f           
-#define CMD_LS     0x4c53           
-#define CMD_SV     0x5356           
-#define CMD_SS     0x5353           
-#define CMD_OK     0x4f4b           
-#define CMD_ER     0x4552           
-#define CMD_NF     0x4e46           
-#define CMD_AB     0x4142           
-#define CMD_ED     0x4544           
-#define CMD_CE     0x4345           
+#define IDLE       0x0000
+#define CMD_CI     0x4349
+#define CMD_CO     0x434f
+#define CMD_LO     0x4c4f
+#define CMD_LS     0x4c53
+#define CMD_SV     0x5356
+#define CMD_SS     0x5353
+#define CMD_OK     0x4f4b
+#define CMD_ER     0x4552
+#define CMD_NF     0x4e46
+#define CMD_AB     0x4142
+#define CMD_ED     0x4544
+#define CMD_CE     0x4345
 
 static unsigned long fa;
 static unsigned long irqtod;
@@ -102,7 +102,7 @@ static unsigned short sb;
 #define dosmemput(FROM, LEN, TO) memcpy ((void *)(TO), (void *)(FROM), (LEN))
 #endif
 
-static struct sw 
+static struct sw
 {
   int sw;
   int addr;
@@ -142,14 +142,14 @@ get_ds_base (void)
 }
 #else /* !_MSC_VER */
 #define get_ds_base() 0
-#endif /* _MSC_VER */ 
+#endif /* _MSC_VER */
 
 static int
 e7000pc_init ()
 {
   int try;
   unsigned long dsbase;
-  
+
   dsbase = get_ds_base ();
 
   /* Look around in memory for the board's signature */
@@ -163,10 +163,10 @@ e7000pc_init ()
       cpd = board_at + OFF_CPD;
       cdp = board_at + OFF_CDP;
       ready =board_at + OFF_READY;
-      pon = board_at + OFF_PON;	      
+      pon = board_at + OFF_PON;
       irqtop = board_at + OFF_IRQTOP;
       irqtod = board_at + OFF_IRQTOD;
-      
+
       val = GET_WORD (ready);
 
       if (val == (0xaaa0  | sigs[try].sw))
@@ -178,9 +178,9 @@ e7000pc_init ()
 
 	      SET_WORD (irqtop, 1); /* Disable interrupts from e7000 */
 	      SET_WORD (ready, 1);
-	      printf_filtered ("\nConnected to the E7000PC at address 0x%x\n", 
+	      printf_filtered ("\nConnected to the E7000PC at address 0x%x\n",
 			       sigs[try].addr);
-	      return 1;	      
+	      return 1;
 	    }
 	  error ("The E7000 PC board is working, but the E7000 is turned off.\n");
 	  return 0;
@@ -201,14 +201,14 @@ static int pbuf_index;
 
 /* Return next byte from cdp.  If no more, then return -1.  */
 
-static int 
+static int
 e7000_get (void)
 {
   static char pbuf[1000];
   char tmp[1000];
   int x;
 
-  if (pbuf_index < pbuf_size) 
+  if (pbuf_index < pbuf_size)
     {
       x = pbuf[pbuf_index++];
     }
@@ -220,17 +220,17 @@ e7000_get (void)
       dosmemget (cdp + 8, pbuf_size + 1, tmp);
 
       /* Tell the E7000 we've eaten */
-      SET_WORD (fb, 0);	
+      SET_WORD (fb, 0);
       /* Swap it around */
-      for (i = 0; i < pbuf_size; i++) 
+      for (i = 0; i < pbuf_size; i++)
 	{
 	  pbuf[i] = tmp[i^1];
 	}
       pbuf_index = 0;
       x =  pbuf[pbuf_index++];
     }
-  else 
-    { 
+  else
+    {
       x = -1;
     }
   return x;
@@ -257,10 +257,10 @@ dosasync_read (fd, buf, len, timeout)
   while (i < len)
     {
       int ch = e7000_get();
-      
+
       /* While there's room in the buffer, and we've already
 	 read the stuff in, suck it over */
-      if (ch != -1) 
+      if (ch != -1)
 	{
 	  buf[i++] = ch;
 	  while (i < len && pbuf_index < pbuf_size )
@@ -292,14 +292,14 @@ dosasync_write (fd, buf, len)
      int len;
 {
   int i;
-  char dummy[1000];  
-  
+  char dummy[1000];
+
   /* Construct copy locally */
   ((short *)dummy)[0] = CMD_CI;
   ((short *)dummy)[1] = len;
   ((short *)dummy)[2] = 0;
   ((short *)dummy)[3] = 0;
-  for (i = 0; i < len ; i++) 
+  for (i = 0; i < len ; i++)
     {
       dummy[8 + i ^ 1] = buf[i];
     }

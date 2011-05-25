@@ -28,7 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 extern int kernel_u_size PARAMS ((void));
 
 /* Linux is svr4ish but not that much */
-#undef USE_PROC_FS      
+#undef USE_PROC_FS
 
 #define PT_ATTACH PTRACE_SUNATTACH
 #define PT_DETACH PTRACE_SUNDETACH

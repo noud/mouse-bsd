@@ -74,7 +74,7 @@ parsebootfile(fname, fsname, devname, unit, partition, file)
 	return (EINVAL);
 }
 
-int 
+int
 biosdisk_gettype(f)
 	struct open_file *f;
 {
@@ -82,7 +82,7 @@ biosdisk_gettype(f)
 }
 #endif
 
-int 
+int
 bootit(filename, howto)
 	const char     *filename;
 	int             howto;

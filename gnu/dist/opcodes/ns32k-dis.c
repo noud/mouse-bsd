@@ -459,7 +459,7 @@ print_insn_ns32k (memaddr, info)
 
       /* 0 for operand A, 1 for operand B, greater for other args.  */
       int whicharg = 0;
-      
+
       (*dis_info->fprintf_func)(dis_info->stream, "\t");
 
       maxarg = 0;
@@ -735,7 +735,7 @@ print_insn_arg (d, ioffset, aoffsetp, buffer, addr, result, index_offset)
        * it's a `b' or `w' or `d' instruction; and for both
        * cmpm and movm it's stored at the same place so we
        * just grab two bits of the opcode and look at it...
-       * 
+       *
        */
       size = bit_extract(buffer, ioffset-6, 2);
       if (size == 0)		/* 00 => b */

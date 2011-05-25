@@ -3,7 +3,7 @@
 #define TRUE 1
 #define FALSE 0
 #define LINELEN 2350
-	/* approx limit on token size for C compiler 
+	/* approx limit on token size for C compiler
 	 * which matters for the purpose of debugging (astring.c...)
 	 */
 

@@ -30,7 +30,7 @@
  * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
  * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.   
+ * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include "opt_amigacons.h"
@@ -196,7 +196,7 @@ cl_clear(ip, sy, sx, h, w)
 		return;
 
     	dst = ip->grf->g_fbkva + (sy * ip->cols) + sx;
-    	src = dst + (ip->rows*ip->cols); 
+    	src = dst + (ip->rows*ip->cols);
     	len = w*h;
 
     	SetTextPlane(ba, 0x00);
@@ -224,7 +224,7 @@ cl_scroll(ip, sy, sx, count, dir)
 
     	switch (dir) {
     	case SCROLL_UP:
-    	    	bcopy(fb, fb - (count * ip->cols), 
+    	    	bcopy(fb, fb - (count * ip->cols),
     	    	    (ip->bottom_margin + 1 - sy) * ip->cols);
     	    	break;
     	case SCROLL_DOWN:
@@ -243,7 +243,7 @@ cl_scroll(ip, sy, sx, count, dir)
 
     	switch (dir) {
     	case SCROLL_UP:
-    	    	bcopy(fb, fb - (count * ip->cols), 
+    	    	bcopy(fb, fb - (count * ip->cols),
     	    	    (ip->bottom_margin + 1 - sy) * ip->cols);
     	    	break;
     	case SCROLL_DOWN:

@@ -113,5 +113,5 @@ COPY dist/xserver_obsolete dist/xserver_obsolete
 # and the installation tools
 COPY	${OBJDIR}/dot.profile			.profile
 
-#the lists of obsolete files used by sysinst  
+#the lists of obsolete files used by sysinst
 SPECIAL sh ${CURDIR}/../../sets/makeobsolete -b -s ${CURDIR}/../../sets -t ./dist

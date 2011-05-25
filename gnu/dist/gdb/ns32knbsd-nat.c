@@ -245,7 +245,7 @@ clear_regs()
 {
   double zero = 0.0;
   int null = 0;
-  
+
   /* Integer registers */
   RF(R0_REGNUM + 0, null);
   RF(R0_REGNUM + 1, null);
@@ -304,7 +304,7 @@ struct frame_info *fi;
 		 *   adjsp[bwd] -n	- to remove n bytes from the stack
 		 * Gcc sometimes delays emitting these instructions and
 		 * may even throw a branch between our feet.
-		 */		 
+		 */
 		inst = read_memory_integer(argp    , 4);
 		args = read_memory_integer(argp + 2, 4);
 		if ((inst & 0xff) == 0xea) {		/* br */

@@ -269,7 +269,7 @@ hpux_sys_fcntl(p, v, retval)
 			*pop |= HPUX_UF_FNDELAY_ON;
 		else
 			*pop &= ~HPUX_UF_FNDELAY_ON;
-		
+
 		if (*pop & (HPUX_UF_NONBLOCK_ON|HPUX_UF_FNDELAY_ON|HPUX_UF_FIONBIO_ON))
 			arg |= FNONBLOCK;
 		else
@@ -440,7 +440,7 @@ hpux_sys_fstat(p, v, retval)
  */
 int
 hpux_sys_stat(p, v, retval)
-	struct proc *p; 
+	struct proc *p;
 	void *v;
 	register_t *retval;
 {
@@ -745,7 +745,7 @@ hpux_sys_chmod(p, v, retval)
 {
 	struct hpux_sys_chmod_args /* {
 		syscallarg(const char *) path;
-		syscallarg(int) mode; 
+		syscallarg(int) mode;
 	} */ *uap = v;
 	caddr_t sg = stackgap_init(p->p_emul);
 

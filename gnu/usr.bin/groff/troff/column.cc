@@ -95,7 +95,7 @@ public:
   position_output_line(vunits);
   vunits distance();
 };
-  
+
 class node_output_line : public position_output_line {
   node *nd;
   hunits page_offset;
@@ -310,7 +310,7 @@ void column::begin_page(int pageno, vunits page_length)
   }
   else
     out->begin_page(pageno, page_length);
-    
+
 }
 
 void column::flush()
@@ -540,7 +540,7 @@ void justification_spec::justify(output_line *col, vunits *bottomp) const
   assert(total == V0);
   *bottomp = height - gap;
 }
-  
+
 void column::justify(const justification_spec &js)
 {
   check_bottom();

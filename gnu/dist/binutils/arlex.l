@@ -67,14 +67,14 @@ int linenumber;
 "("             { return '('; }
 ")"             { return ')'; }
 ","             { return ','; }
-[A-Za-z0-9/$:.\-\_]+  { 	
+[A-Za-z0-9/$:.\-\_]+  {
 		yylval.name =  xstrdup (yytext);
 		return FILENAME;
 		}
 "*".* 		{ }
 ";".* 		{ }
 " "		{ }
-"\n"	 	 { linenumber ++; return NEWLINE; }	
+"\n"	 	 { linenumber ++; return NEWLINE; }
 
 %%
 #ifndef yywrap

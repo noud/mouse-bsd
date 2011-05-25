@@ -58,7 +58,7 @@
  * to write a routine to allow 'reading' of the vidc registers.
  */
 
-struct vidc_state vidc_lookup = {	
+struct vidc_state vidc_lookup = {
 	{ 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,
           0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,
           0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,
@@ -97,7 +97,7 @@ struct vidc_state vidc_lookup = {
 };
 
 struct vidc_state vidc_current[1];
- 
+
 int
 vidc_write(reg, value)
 	u_int reg;
@@ -109,7 +109,7 @@ vidc_write(reg, value)
 	int *tab;
 
 	tab 	= (int *)&vidc_lookup;
-	current = (int *)vidc_current; 
+	current = (int *)vidc_current;
 
 	/* End higly doddgy code */
 
@@ -195,7 +195,7 @@ vidc_setstate(vidc)
 /*
  * Right, dunno what to set these to yet, but let's keep RiscOS's
  * ones for now, until the time is right to finish this code
- */	
+ */
 
 /*	vidc_write ( VIDC_EREG,		vidc->ereg	);	*/
 /*	vidc_write ( VIDC_FSYNREG,	vidc->fsynreg	);	*/

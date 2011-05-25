@@ -39,7 +39,7 @@ post_menu(menu)
 	MENU *menu;
 {
 	int maxx, maxy, i;
-	
+
 	if (menu == NULL)
 		return E_BAD_ARGUMENT;
 	if (menu->posted == 1)
@@ -64,7 +64,7 @@ post_menu(menu)
 		menu->plen = 0;
 		menu->match_len = 0;
 	}
-	
+
 	if (menu->menu_init != NULL)
 		menu->menu_init(menu);
 	if (menu->item_init != NULL)
@@ -92,7 +92,7 @@ post_menu(menu)
 
 	menu->posted = 1;
 	return _menui_draw_menu(menu);
-	
+
 }
 
 /*
@@ -129,4 +129,4 @@ unpost_menu(menu)
 	return E_OK;
 }
 
-	
+

@@ -63,7 +63,7 @@ __asm("
 	.long	7
 	.long	4
 	.long	" __S(ELF_NOTE_NETBSD_TYPE_OSVERSION) "
-	.ascii \"NetBSD\\0\\0\"	
+	.ascii \"NetBSD\\0\\0\"
 	.long	" __S(NetBSD) "
 
 	.long	7

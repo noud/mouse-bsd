@@ -201,7 +201,7 @@ main(argc, argv)
 			continue;
 		if (wd.wd_type != WHODTYPE_STATUS)
 			continue;
-		/* 
+		/*
 		 * Ensure null termination of the name within the packet.
 		 * Otherwise we might overflow or read past the end.
 		 */

@@ -182,7 +182,7 @@ portal_unmount(mp, mntflags, p)
 	 * moment, but who knows...
 	 */
 #ifdef notyet
-	mntflushbuf(mp, 0); 
+	mntflushbuf(mp, 0);
 	if (mntinvalbuf(mp, 1))
 		return (EBUSY);
 #endif

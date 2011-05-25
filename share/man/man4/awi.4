@@ -4,8 +4,8 @@
 .\"	$Id: awi.4,v 1.5 2000/01/16 12:22:56 abs Exp $
 .\"
 .Dd October 31, 1999
-.Dt AWI 4 
-.Os 
+.Dt AWI 4
+.Os
 .Sh NAME
 .Nm awi
 .Nd
@@ -26,9 +26,9 @@ speed is fixed at 1Mbps.
 The driver currently only works in infrastructure mode, communicating
 with an Access Point which serves as a link-layer bridge between an
 Ethernet and the wireless network.
-.Pp 
+.Pp
 This card seems to take between 5 and 20 seconds after it has been brought up
-to synchronize with an AP.  When using 
+to synchronize with an AP.  When using
 .Xr dhclient 8
 to automatically configure an address on this card, it may be
 advisable to delay the invocation of dhclient for about 10 seconds
@@ -49,10 +49,10 @@ BayStack 650 1Mbps IEEE 802.11 Frequency Hopping PCCARD adapter
 BayStack 660 2Mbps IEEE 802.11 Frequency Hopping PCCARD adapter
 .It
 Netwave AirSurfer
-.Dq Plus 
+.Dq Plus
 .El
 .Pp
-The original Xircom Netwave AirSurfer is supported by the 
+The original Xircom Netwave AirSurfer is supported by the
 .Xr cnw 4
 driver.
 .Sh DIAGNOSTICS
@@ -100,7 +100,7 @@ Doesn't support ad-hoc mode or WEP.
 Doesn't yet support the BayStack 660 Direct Sequence cards.
 .Sh SEE ALSO
 .Xr arp 4 ,
-.Xr netintro 4 , 
+.Xr netintro 4 ,
 .Xr pcmcia 4 ,
 .Xr wi 4 ,
 .Xr cnw 4 ,

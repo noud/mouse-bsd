@@ -123,7 +123,7 @@ susystem(s)
 	switch (pid) {
 	case -1:
 		return (127);
-	
+
 	case 0:
 		execl(_PATH_BSHELL, "sh", "-c", s, NULL);
 		_exit(127);

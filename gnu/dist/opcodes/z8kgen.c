@@ -805,7 +805,7 @@ chewname (name)
   return nargs;
 }
 
-static 
+static
 void
 sub (x, c)
      char *x;
@@ -944,7 +944,7 @@ internal ()
   }
 }
 
-static 
+static
 void
 gas ()
 {

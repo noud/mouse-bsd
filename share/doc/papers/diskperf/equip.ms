@@ -40,10 +40,10 @@ Equipment
 Various combinations of the three manufacturers disk controllers,
 and two pairs of Winchester disk drives were tested on both
 VAX 11/780 and VAX 11/750 CPUs. The Emulex and Systems Industries
-disk controllers were interfaced to Fujitsu 2351A 
+disk controllers were interfaced to Fujitsu 2351A
 ``Eagle''
 404 Megabyte disk drives.
-The DEC UDA50 disk controller was interfaced to two DEC RA81 
+The DEC UDA50 disk controller was interfaced to two DEC RA81
 456 Megabyte Winchester disk drives.
 All three controllers were tested on the VAX 780 although
 only the Emulex and DEC controllers were benchmarked on the VAX 11/750.
@@ -69,7 +69,7 @@ The UDA50 handles all error correction.
 It also deals with most of the physical storage parameters.
 Typically, system software requests a logical block or
 sequence of blocks.
-The physical locations of these blocks, 
+The physical locations of these blocks,
 their head, track, and cylinder indices,
 are determined by the controller.
 The UDA50 also orders disk requests to maximize throughput
@@ -108,7 +108,7 @@ recently, both are stable products with no bugs known to us.
 .NH 2
 System Industries 9900 disk controller
 .PP
-This controller is an evolution of the S.I. 9400 first introduced 
+This controller is an evolution of the S.I. 9400 first introduced
 as a UNIBUS SMD interface.
 The 9900 has been enhanced to include an interface to the VAX 11/780 native
 bus, the SBI.

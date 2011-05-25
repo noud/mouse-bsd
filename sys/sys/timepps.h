@@ -136,7 +136,7 @@ typedef struct {
 
 static __inline int time_pps_create __P((int filedes, pps_handle_t *handle));
 static __inline int time_pps_destroy __P((pps_handle_t handle));
-static __inline int time_pps_setparams __P((pps_handle_t handle, 
+static __inline int time_pps_setparams __P((pps_handle_t handle,
 	const pps_params_t *ppsparams));
 static __inline int time_pps_getparams __P((pps_handle_t handle,
 	pps_params_t *ppsparams));
@@ -182,7 +182,7 @@ time_pps_getparams(handle, ppsparams)
 	return (ioctl(handle, PPS_IOC_GETPARAMS, ppsparams));
 }
 
-static __inline int 
+static __inline int
 time_pps_getcap(handle, mode)
 	pps_handle_t handle;
 	int *mode;

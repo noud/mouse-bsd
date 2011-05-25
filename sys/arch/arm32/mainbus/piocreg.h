@@ -35,7 +35,7 @@
  */
 
 /*
- * 
+ *
  */
 
 #define PIOC_SIZE		(0x1000 + 0x2000)	/* XXX */

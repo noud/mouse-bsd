@@ -88,7 +88,7 @@ iop_init(fullinit)
 		mac68k_iops[ISM_IOP].iop = (IOPHW *)
 						 ((u_char *)IOBase + 0x12000);
 		break;
-	}       
+	}
 
 	ioph = mac68k_iops[SCC_IOP].iop;
 	ioph->control_status = 0x82;		/* Reset */

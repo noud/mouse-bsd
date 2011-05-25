@@ -167,7 +167,7 @@ cscattach(pdp, dp, auxp)
 	sc->sc_softc.sc_adapter.scsipi_cmd = csc_scsicmd;
 	sc->sc_softc.sc_adapter.scsipi_minphys = sfas_minphys;
 
-	sc->sc_softc.sc_link.scsipi_scsi.channel = SCSI_CHANNEL_ONLY_ONE;	
+	sc->sc_softc.sc_link.scsipi_scsi.channel = SCSI_CHANNEL_ONLY_ONE;
 	sc->sc_softc.sc_link.adapter_softc  = sc;
 	sc->sc_softc.sc_link.scsipi_scsi.adapter_target = sc->sc_softc.sc_host_id;
 	sc->sc_softc.sc_link.adapter	    = &sc->sc_softc.sc_adapter;
@@ -220,13 +220,13 @@ csc_intr(arg)
 	int		      quickints;
 
 	rp = (csc_regmap_p)dev->sc_fas;
-	
+
 	if (*rp->FAS216.sfas_status & SFAS_STAT_INTERRUPT_PENDING) {
 		quickints = 16;
 		do {
 			dev->sc_status = *rp->FAS216.sfas_status;
 			dev->sc_interrupt = *rp->FAS216.sfas_interrupt;
-	  
+
 			if (dev->sc_interrupt & SFAS_INT_RESELECTED) {
 				dev->sc_resel[0] = *rp->FAS216.sfas_fifo;
 				dev->sc_resel[1] = *rp->FAS216.sfas_fifo;
@@ -292,7 +292,7 @@ csc_need_bump(sc, ptr, len)
 
 	if (p) {
 		p = 4-p;
-	    
+
 		if (len < 256)
 			p = len;
 	}

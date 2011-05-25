@@ -1,4 +1,4 @@
-.\" $NetBSD: xfer,v 1.5 1999/04/03 14:15:00 minoura Exp $	
+.\" $NetBSD: xfer,v 1.5 1999/04/03 14:15:00 minoura Exp $
 .
 Installation is supported from several media types, including:
 .Bl -bullet -compact -offset indent
@@ -16,7 +16,7 @@ You'll need to have a install floppy disk. On the first, you'll put
 the install floppy image.
 .Pp
 If you are using a UN*X-like system to write the floppy images to
-disks, you should use the 
+disks, you should use the
 .Pa dd
 command to copy the file system images (.fs files) directly to the raw
 floppy disks. It is suggested that you read the dd(1) manual page or

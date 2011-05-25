@@ -134,7 +134,7 @@ static struct protoent *
 pr_byname(struct irs_pr *this, const char *name) {
 	struct pvt *pvt = (struct pvt *)this->private;
 	int r;
-	
+
 	nisfree(pvt, do_val);
 	r = yp_match(pvt->nis_domain, protocols_byname, (char *)name,
 		     strlen(name), &pvt->curval_data, &pvt->curval_len);
@@ -150,7 +150,7 @@ pr_bynumber(struct irs_pr *this, int num) {
 	struct pvt *pvt = (struct pvt *)this->private;
 	char tmp[sizeof "-4294967295"];
 	int r;
-	
+
 	nisfree(pvt, do_val);
 	(void) sprintf(tmp, "%d", num);
 	r = yp_match(pvt->nis_domain, protocols_bynumber, tmp, strlen(tmp),
@@ -268,7 +268,7 @@ makeprotoent(struct irs_pr *this) {
 		goto cleanup;
 	pvt->proto.p_aliases[n] = NULL;
 	return (&pvt->proto);
-	
+
  cleanup:
 	if (pvt->proto.p_aliases) {
 		free(pvt->proto.p_aliases);

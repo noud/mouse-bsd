@@ -1,6 +1,6 @@
 *** Changes in EGCS 1.1:
 
-* Namespaces are fully supported.  The library has not yet been converted 
+* Namespaces are fully supported.  The library has not yet been converted
   to use namespace std, however, and the old std-faking code is still on by
   default.  To turn it off, you can use -fhonor-std.
 
@@ -77,7 +77,7 @@
 
             http://www.cygnus.com/misc/wp/dec96pub/template.html#temp.res
 
-     + Guiding declarations are no longer supported.  Function declarations, 
+     + Guiding declarations are no longer supported.  Function declarations,
        including friend declarations, do not refer to template instantiations.
        You can restore the old behavior with -fguiding-decls until you fix
        your code.
@@ -140,7 +140,7 @@
        converting from a bound member function pointer to function
        pointer).
 
-     + A flag -Weffc++ has been added for violations of some of the style 
+     + A flag -Weffc++ has been added for violations of some of the style
        guidelines in Scott Meyers' _Effective C++_ books.
 
      + -Woverloaded-virtual now warns if a virtual function in a base
@@ -161,13 +161,13 @@
 
 * __FUNCTION__ and __PRETTY_FUNCTION__ are now treated as variables by the
   parser; previously they were treated as string constants.  So code like
-  `printf (__FUNCTION__ ": foo")' must be rewritten to 
+  `printf (__FUNCTION__ ": foo")' must be rewritten to
   `printf ("%s: foo", __FUNCTION__)'.  This is necessary for templates.
 
 * local static variables in extern inline functions will be shared between
   translation units.
 
-* -fvtable-thunks is supported for all targets, and is the default for 
+* -fvtable-thunks is supported for all targets, and is the default for
   Linux with glibc 2.x (also called libc 6.x).
 
 * bool is now always the same size as another built-in type. Previously,
@@ -220,7 +220,7 @@
 * Joe Buck <jbuck@synopsys.com>, the maintainer of the g++ FAQ.
 * Brendan Kehoe <brendan@cygnus.com>, who coordinates testing of g++.
 * Jason Merrill <jason@cygnus.com>, the g++ maintainer.
-* Mark Mitchell <mmitchell@usa.net>, who implemented member function 
+* Mark Mitchell <mmitchell@usa.net>, who implemented member function
   templates and explicit qualification of function templates.
 * Mike Stump <mrs@wrs.com>, the previous g++ maintainer, who did most of
   the exception handling work.

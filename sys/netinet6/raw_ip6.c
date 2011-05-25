@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -304,7 +304,7 @@ rip6_output(m, va_alist)
 	 * If the scope of the destination is link-local, embed the interface
 	 * index in the address.
 	 *
-	 * XXX advanced-api value overrides sin6_scope_id 
+	 * XXX advanced-api value overrides sin6_scope_id
 	 */
 	if (IN6_IS_ADDR_LINKLOCAL(&ip6->ip6_dst) ||
 	    IN6_IS_ADDR_MC_LINKLOCAL(&ip6->ip6_dst)) {
@@ -325,7 +325,7 @@ rip6_output(m, va_alist)
 			ip6->ip6_dst.s6_addr16[1] = htons(oifp->if_index);
 		} else if (dstsock->sin6_scope_id) {
 			/* boundary check */
-			if (dstsock->sin6_scope_id < 0 
+			if (dstsock->sin6_scope_id < 0
 			 || if_index < dstsock->sin6_scope_id) {
 				error = ENXIO;  /* XXX EINVAL? */
 				goto bad;
@@ -398,7 +398,7 @@ rip6_output(m, va_alist)
 #ifdef IPSEC
 	m->m_pkthdr.rcvif = (struct ifnet *)so;
 #endif /*IPSEC*/
-	
+
 	error = ip6_output(m, optp, &in6p->in6p_route, 0, in6p->in6p_moptions,
 			   &oifp);
 	if (so->so_proto->pr_protocol == IPPROTO_ICMPV6) {
@@ -525,7 +525,7 @@ rip6_usrreq(so, req, m, nam, control, p)
 			break;
 		}
 #endif /*IPSEC*/
-		
+
 		MALLOC(in6p->in6p_icmp6filt, struct icmp6_filter *,
 			sizeof(struct icmp6_filter), M_PCB, M_NOWAIT);
 		if (in6p->in6p_icmp6filt == NULL) {
@@ -587,7 +587,7 @@ rip6_usrreq(so, req, m, nam, control, p)
 		in6p->in6p_laddr = addr->sin6_addr;
 		break;
 	    }
-		
+
 	case PRU_CONNECT:
 	    {
 		struct sockaddr_in6 *addr = mtod(nam, struct sockaddr_in6 *);

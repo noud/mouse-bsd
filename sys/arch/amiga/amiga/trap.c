@@ -247,7 +247,7 @@ userret(p, pc, oticks)
 	 */
 	if (p->p_flag & P_PROFIL) {
 		extern int psratio;
-		
+
 		addupc_task(p, pc, (int)(p->p_sticks - oticks) * psratio);
 	}
 	curpriority = p->p_priority;
@@ -295,7 +295,7 @@ trapcpfault(p, fp)
 
 int donomore = 0;
 
-void 
+void
 trapmmufault(type, code, v, fp, p, sticks)
 	int type;
 	u_int code, v;
@@ -337,13 +337,13 @@ trapmmufault(type, code, v, fp, p, sticks)
 			if (--donomore == 0 || mmudebug & 1) {
 				char bits[64];
 				printf ("68060 access error: pc %x, code %s,"
-				     " ea %x\n", fp->f_pc, 
+				     " ea %x\n", fp->f_pc,
 				     bitmask_snprintf(code, FSLW_STRING,
 				     bits, sizeof(bits)), v);
 			}
 			if (p == oldp && v == oldv && code == oldcode)
 				panic("Identical fault backtoback!");
-			if (donomore == 0) 
+			if (donomore == 0)
 				panic("Tired of faulting.");
 			oldp = p;
 			oldv = v;
@@ -354,7 +354,7 @@ trapmmufault(type, code, v, fp, p, sticks)
 		    " ea %x, fa %x\n", fp->f_pc, code, fp->f_fmt7.f_ea, v);
 		if (curpcb)
 			printf(" curpcb %p\n", curpcb);
-				
+
 
 #ifdef DDB						/* XXX PAGE0 */
 		if (v < NBPG)				/* XXX PAGE0 */
@@ -369,7 +369,7 @@ trapmmufault(type, code, v, fp, p, sticks)
 	if (p)
 		vm = p->p_vmspace;
 
-	if (type == T_MMUFLT && 
+	if (type == T_MMUFLT &&
 	    (!p || !p->p_addr || p->p_addr->u_pcb.pcb_onfault == 0 || (
 #ifdef M68060
 	     machineid & AMIGA_68060 ? code & FSLW_TM_SV :
@@ -432,7 +432,7 @@ trapmmufault(type, code, v, fp, p, sticks)
 			goto nogo;
 		}
 
-		/*	
+		/*
 		 * The 68040 doesn't re-run instructions that cause
 		 * write page faults (unless due to a move16 isntruction).
 		 * So once the page is repaired, we have to write the
@@ -442,10 +442,10 @@ trapmmufault(type, code, v, fp, p, sticks)
 		 * address to see if they are in the same page or not.
 		 * If not, then we need to make sure the second page
 		 * is valid, and bring it into memory if it's not.
-		 * 	
+		 *
 		 * This whole process needs to be repeated for WB3 as well.
 		 * <sigh>
-		 */	
+		 */
 
 		/* Check WB1 */
 		if (fp->f_fmt7.f_wb1s & WBS_VALID) {
@@ -455,15 +455,15 @@ trapmmufault(type, code, v, fp, p, sticks)
 
 		/*
 		 * Check WB2
-		 * skip if it's for a move16 instruction 
+		 * skip if it's for a move16 instruction
 		 */
 		if(fp->f_fmt7.f_wb2s & WBS_VALID &&
 		   ((fp->f_fmt7.f_wb2s & WBS_TTMASK)==WBS_TT_MOVE16) == 0) {
-			if (_write_back(2, fp->f_fmt7.f_wb2s, 
+			if (_write_back(2, fp->f_fmt7.f_wb2s,
 			    fp->f_fmt7.f_wb2d, fp->f_fmt7.f_wb2a, map)
 			    != KERN_SUCCESS)
 				goto nogo;
-			if ((fp->f_fmt7.f_wb2s & WBS_TMMASK) 
+			if ((fp->f_fmt7.f_wb2s & WBS_TMMASK)
 			    != (code & SSW_TMMASK))
 				panictrap(type, code, v, fp);
 		}
@@ -476,7 +476,7 @@ trapmmufault(type, code, v, fp, p, sticks)
 				wb3_map = kernel_map;
 			else
 				wb3_map = &vm->vm_map;
-			if (_write_back(3, fp->f_fmt7.f_wb3s, 
+			if (_write_back(3, fp->f_fmt7.f_wb3s,
 			    fp->f_fmt7.f_wb3d, fp->f_fmt7.f_wb3a, wb3_map)
 			    != KERN_SUCCESS)
 				goto nogo;
@@ -503,7 +503,7 @@ trapmmufault(type, code, v, fp, p, sticks)
 	if (rv == KERN_SUCCESS) {
 		if (type == T_MMUFLT)
 			return;
-		userret(p, fp->f_pc, sticks); 
+		userret(p, fp->f_pc, sticks);
 		return;
 	}
 #else /* use hacky 386bsd_code */
@@ -515,7 +515,7 @@ trapmmufault(type, code, v, fp, p, sticks)
 			vm->vm_ssize = nss;
 		if (type == T_MMUFLT)
 			return;
-		userret(p, fp->f_pc, sticks); 
+		userret(p, fp->f_pc, sticks);
 		return;
 	}
 nogo:
@@ -536,12 +536,12 @@ nogo:
 		       p->p_pid, p->p_comm,
 		       p->p_cred && p->p_ucred ? p->p_ucred->cr_uid : -1);
 		trapsignal(p, SIGKILL, v);
-	} else { 
+	} else {
 		trapsignal(p, SIGSEGV, v);
 	}
 	if ((type & T_USER) == 0)
 		return;
-	userret(p, fp->f_pc, sticks); 
+	userret(p, fp->f_pc, sticks);
 }
 /*
  * Trap is called from locore to handle most types of processor traps,
@@ -609,7 +609,7 @@ trap(type, code, v, frame)
 		i = SIGILL;
 		break;
 	/*
-	 * divde by zero, CHK/TRAPV inst 
+	 * divde by zero, CHK/TRAPV inst
 	 */
 	case T_ZERODIV|T_USER:
 	case T_CHKINST|T_USER:
@@ -617,7 +617,7 @@ trap(type, code, v, frame)
 		ucode = frame.f_format;
 		i = SIGFPE;
 		break;
-  
+
 	case T_FPEMULI|T_USER:
 	case T_FPEMULD|T_USER:
 #ifdef FPU_EMULATE
@@ -630,15 +630,15 @@ trap(type, code, v, frame)
 		break;
 
 #ifdef FPCOPROC
-	/* 
+	/*
 	 * User coprocessor violation
 	 */
 	case T_COPERR|T_USER:
 		ucode = 0;
 		i = SIGFPE;	/* XXX What is a proper response here? */
 		break;
-	/* 
-	 * 6888x exceptions 
+	/*
+	 * 6888x exceptions
 	 */
 	case T_FPERR|T_USER:
 		/*
@@ -654,7 +654,7 @@ trap(type, code, v, frame)
 		ucode = code;
 		i = SIGFPE;
 		break;
-	/* 
+	/*
 	 * Kernel coprocessor violation
 	 */
 	case T_COPERR:
@@ -712,7 +712,7 @@ trap(type, code, v, frame)
 		frame.f_sr &= ~PSL_T;
 		i = SIGTRAP;
 		break;
-	/* 
+	/*
 	 * Kernel AST (should not happen)
 	 */
 	case T_ASTFLT:
@@ -727,7 +727,7 @@ trap(type, code, v, frame)
 			p->p_flag &= ~P_OWEUPC;
 			ADDUPROF(p);
 		}
-		userret(p, frame.f_pc, sticks); 
+		userret(p, frame.f_pc, sticks);
 		return;
 	/*
 	 * Kernel/User page fault
@@ -754,7 +754,7 @@ trap(type, code, v, frame)
 		trapsignal(p, i, ucode);
 	if ((type & T_USER) == 0)
 		return;
-	userret(p, frame.f_pc, sticks); 
+	userret(p, frame.f_pc, sticks);
 }
 
 /*
@@ -804,7 +804,7 @@ syscall(code, frame)
 		if (code != SUNOS_SYS_sigreturn) {
 			frame.f_regs[SP] += sizeof (int);
 			/*
-			 * remember that we adjusted the SP, 
+			 * remember that we adjusted the SP,
 			 * might have to undo this if the system call
 			 * returns ERESTART.
 			 */
@@ -933,7 +933,7 @@ syscall(code, frame)
 	bad:
 		frame.f_regs[D0] = error;
 		frame.f_sr |= PSL_C;	/* carry bit */
-		break;	
+		break;
 	}
 
 #ifdef SYSCALL_DEBUG
@@ -1019,8 +1019,8 @@ _write_back (wb, wb_sts, wb_data, wb_addr, wb_map)
 			if (mmudebug)
 				printf("wb3: need to bring in first page\n");
 #endif
-			wb_rc = uvm_fault(wb_map, 
-			    trunc_page((vm_offset_t)wb_addr), 
+			wb_rc = uvm_fault(wb_map,
+			    trunc_page((vm_offset_t)wb_addr),
 			    0, VM_PROT_READ | VM_PROT_WRITE);
 
 			if(wb_rc != KERN_SUCCESS)
@@ -1041,7 +1041,7 @@ _write_back (wb, wb_sts, wb_data, wb_addr, wb_map)
 #ifdef DEBUG
 		if (mmudebug)
 			printf("wb%d: probeva %x %x = %x\n",
-			    wb, wb_addr + wb_extra_page, 
+			    wb, wb_addr + wb_extra_page,
 			    wb_sts & WBS_TMMASK,mmusr);
 #endif
 
@@ -1052,7 +1052,7 @@ _write_back (wb, wb_sts, wb_data, wb_addr, wb_map)
 				    "  Bringing in extra page.\n",wb);
 #endif
 
-			wb_rc = uvm_fault(wb_map, 
+			wb_rc = uvm_fault(wb_map,
 			    trunc_page((vm_offset_t)wb_addr + wb_extra_page),
 			    0, VM_PROT_READ | VM_PROT_WRITE);
 

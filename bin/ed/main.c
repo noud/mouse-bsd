@@ -47,7 +47,7 @@ __RCSID("$NetBSD: main.c,v 1.10 1998/11/04 13:45:57 christos Exp $");
  * CREDITS
  *
  *	This program is based on the editor algorithm described in
- *	Brian W. Kernighan and P. J. Plauger's book "Software Tools 
+ *	Brian W. Kernighan and P. J. Plauger's book "Software Tools
  *	in Pascal," Addison-Wesley, 1981.
  *
  *	The buffering algorithm is attributed to Rodney Ruddock of
@@ -205,7 +205,7 @@ top:
 				fputs("?\n", stderr);
 				sprintf(errmsg, "warning: file modified");
 				if (!isatty(0)) {
-					fprintf(stderr, garrulous ? 
+					fprintf(stderr, garrulous ?
 					    "script, line %d: %s\n" :
 					    "", lineno, errmsg);
 					quit(2);
@@ -238,16 +238,16 @@ top:
 			fputs("?\n", stderr);		/* give warning */
 			sprintf(errmsg, "warning: file modified");
 			if (!isatty(0)) {
-				fprintf(stderr, garrulous ? 
-				    "script, line %d: %s\n" : 
+				fprintf(stderr, garrulous ?
+				    "script, line %d: %s\n" :
 				    "", lineno, errmsg);
 				quit(2);
 			}
 			break;
 		case FATAL:
 			if (!isatty(0))
-				fprintf(stderr, garrulous ? 
-				    "script, line %d: %s\n" : "", 
+				fprintf(stderr, garrulous ?
+				    "script, line %d: %s\n" : "",
 				    lineno, errmsg);
 			else
 				fprintf(stderr, garrulous ? "%s\n" : "",
@@ -256,7 +256,7 @@ top:
 		default:
 			fputs("?\n", stderr);
 			if (!isatty(0)) {
-				fprintf(stderr, garrulous ? 
+				fprintf(stderr, garrulous ?
 				    "script, line %d: %s\n" : "",
 				    lineno, errmsg);
 				quit(2);
@@ -269,7 +269,7 @@ top:
 
 long first_addr, second_addr, addr_cnt;
 
-/* extract_addr_range: get line addresses from the command buffer until an 
+/* extract_addr_range: get line addresses from the command buffer until an
    illegal address is seen; return status */
 int
 extract_addr_range()
@@ -562,7 +562,7 @@ exec_command()
 			GET_COMMAND_SUFFIX();
 		isglobal++;
 		if (exec_global(n, gflag) < 0)
-			return ERR; 
+			return ERR;
 		break;
 	case 'h':
 		if (addr_cnt > 0) {
@@ -705,7 +705,7 @@ exec_command()
 				sflags |= SGR;
 				ibufp++;
 				break;
-			case '0': case '1': case '2': case '3': case '4': 
+			case '0': case '1': case '2': case '3': case '4':
 			case '5': case '6': case '7': case '8': case '9':
 				STRTOL(sgnum, ibufp);
 				sflags |= SGF;
@@ -816,7 +816,7 @@ exec_command()
 			return ERR;
 		}
 #endif
-		if ((addr = write_file(*fnp ? fnp : old_filename, 
+		if ((addr = write_file(*fnp ? fnp : old_filename,
 		    (c == 'W') ? "a" : "w", first_addr, second_addr)) < 0)
 			return ERR;
 		else if (addr == addr_last)
@@ -902,7 +902,7 @@ check_addr_range(n, m)
 }
 
 
-/* get_matching_node_addr: return the address of the next line matching a 
+/* get_matching_node_addr: return the address of the next line matching a
    pattern in a given direction.  wrap around begin/end of editor buffer if
    necessary */
 long
@@ -1163,7 +1163,7 @@ move_lines(addr)
 		REQUE(b2, b1->q_forw);
 		REQUE(a1->q_back, a2);
 		REQUE(b1, a1);
-		current_addr = addr + ((addr < first_addr) ? 
+		current_addr = addr + ((addr < first_addr) ?
 		    second_addr - first_addr + 1 : 0);
 	}
 	if (isglobal)

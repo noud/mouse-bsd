@@ -90,7 +90,7 @@ cnopen(dev, flag, mode, p)
 	}
 	return ((*cdevsw[major(dev)].d_open)(dev, flag, mode, p));
 }
- 
+
 int
 cnclose(dev, flag, mode, p)
 	dev_t dev;
@@ -117,7 +117,7 @@ cnclose(dev, flag, mode, p)
 		return (0);
 	return ((*cdevsw[major(dev)].d_close)(dev, flag, mode, p));
 }
- 
+
 int
 cnread(dev, uio, flag)
 	dev_t dev;
@@ -140,7 +140,7 @@ cnread(dev, uio, flag)
 	dev = cn_tab->cn_dev;
 	return ((*cdevsw[major(dev)].d_read)(dev, uio, flag));
 }
- 
+
 int
 cnwrite(dev, uio, flag)
 	dev_t dev;
@@ -168,7 +168,7 @@ cnstop(tp, flag)
 {
 
 }
- 
+
 int
 cnioctl(dev, cmd, data, flag, p)
 	dev_t dev;
@@ -243,7 +243,7 @@ cnputc(c)
 {
 
 	if (cn_tab == NULL)
-		return;			
+		return;
 
 	if (c) {
 		(*cn_tab->cn_putc)(cn_tab->cn_dev, c);

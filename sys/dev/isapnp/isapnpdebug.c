@@ -199,7 +199,7 @@ isapnp_print_dep_start(str, pref)
 	case ISAPNP_DEP_PREFERRED:
 		printf("preferred\n");
 		break;
-	
+
 	case ISAPNP_DEP_ACCEPTABLE:
 		printf("acceptable\n");
 		break;

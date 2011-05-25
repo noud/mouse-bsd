@@ -49,7 +49,7 @@ MIPS {
   }
   TX {
     3900 {
-      3911 3912 
+      3911 3912
     }
     3920 {
       3922
@@ -120,7 +120,7 @@ Sharp {
     }
   }
   Mobilon {
-    HC {	
+    HC {
       CPU=MIPS_TX_3912 HC4100
       CPU=MIPS_TX_3912 HC1200
     }

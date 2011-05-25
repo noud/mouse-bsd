@@ -42,7 +42,7 @@ r l r l.
 	man section 1 (commands)	1	The Unix Time \- Sharing System
 	man section 6 (games)	2	Unix Implementation
 	man section 7 (miscellaneous)	3	The Unix I/O System
-		4	Unix Programming \- Second Edition 
+		4	Unix Programming \- Second Edition
 \fBUSD	User Supplementary Documents\fP	5	4.4BSD Software Architecture Manual
 1	Unix for Beginners	6	C Language \- Reference Manual
 2	Learn \- Computer \- Aided Instruction	7	Berkeley Pascal User\'s Manual
@@ -60,7 +60,7 @@ r l r l.
 14	Jove Manual for UNIX Users	19	The curses library
 15	SED \- A Non-interactive Text Editor	20	Introductory 4.4BSD IPC
 16	AWK \- Pattern Scanning and Processing	21	Advanced 4.4BSD IPC
-17	Using the \-ms Macros		
+17	Using the \-ms Macros
 18	Revised Version of \-ms	\fBSMM	System Managers Manual\fP
 19	Writing Papers using \-me		man section 8 (system administration)
 20	The \-me Reference Manual	1	Installing and Operating 4.4BSD

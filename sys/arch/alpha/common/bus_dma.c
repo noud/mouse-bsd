@@ -452,12 +452,12 @@ _bus_dmamap_sync(t, map, offset, len, ops)
  */
 int
 _bus_dmamem_alloc(t, size, alignment, boundary, segs, nsegs, rsegs, flags)
-	bus_dma_tag_t t; 
+	bus_dma_tag_t t;
 	bus_size_t size, alignment, boundary;
 	bus_dma_segment_t *segs;
 	int nsegs;
 	int *rsegs;
-	int flags; 
+	int flags;
 {
 
 	return (_bus_dmamem_alloc_range(t, size, alignment, boundary,
@@ -471,17 +471,17 @@ _bus_dmamem_alloc(t, size, alignment, boundary, segs, nsegs, rsegs, flags)
 int
 _bus_dmamem_alloc_range(t, size, alignment, boundary, segs, nsegs, rsegs,
     flags, low, high)
-	bus_dma_tag_t t; 
+	bus_dma_tag_t t;
 	bus_size_t size, alignment, boundary;
 	bus_dma_segment_t *segs;
 	int nsegs;
 	int *rsegs;
-	int flags; 
+	int flags;
 	paddr_t low;
 	paddr_t high;
 {
 	paddr_t curaddr, lastaddr;
-	vm_page_t m;    
+	vm_page_t m;
 	struct pglist mlist;
 	int curseg, error;
 
@@ -574,7 +574,7 @@ _bus_dmamem_map(t, segs, nsegs, size, kvap, flags)
 	bus_dma_segment_t *segs;
 	int nsegs;
 	size_t size;
-	caddr_t *kvap;  
+	caddr_t *kvap;
 	int flags;
 {
 	vaddr_t va;

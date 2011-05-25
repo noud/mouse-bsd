@@ -97,12 +97,12 @@ labelicmp(void)
 
 	mvwprintw(wnd, 8, 0,  "---------- Input histogram ----------");
 	mvwprintw(wnd, 8, 38, "---------- Output histogram -----------");
-	
+
 	LHD(3, "with bad code");
 	LHD(4, "with bad length");
 	LHD(5, "with bad checksum");
 	LHD(6, "with insufficient data");
-	
+
 	RHD(3, "errors generated");
 	RHD(4, "suppressed - original too short");
 	RHD(5, "suppressed - original was ICMP");
@@ -115,7 +115,7 @@ labelicmp(void)
 	BD(12, "redirect");
 	BD(13, "time-to-live exceeded");
 	BD(14, "parameter problem");
-	LHD(15, "router advertisement");	
+	LHD(15, "router advertisement");
 	RHD(15, "router solicitation");
 }
 
@@ -130,7 +130,7 @@ showicmp(void)
 		tout += stats.icps_outhist[i];
 	}
 
-	tin += stats.icps_badcode + stats.icps_badlen + stats.icps_checksum + 
+	tin += stats.icps_badcode + stats.icps_badlen + stats.icps_checksum +
 	    stats.icps_tooshort;
 	mvwprintw(wnd, 2, 0, "%9lu", tin);
 	mvwprintw(wnd, 2, 35, "%9lu", tout);
@@ -168,7 +168,7 @@ initicmp(void)
 			return(0);
 		}
 	}
-	
+
 	return (1);
 }
 

@@ -47,7 +47,7 @@
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/kernel.h>
-#include <sys/device.h> 
+#include <sys/device.h>
 
 #include <dev/ic/tms320av110reg.h>
 #include <dev/ic/tms320av110var.h>
@@ -79,7 +79,7 @@ melody_match(parent, cfp, aux)
 	void *aux;
 {
 	struct zbus_args *zap;
-	
+
 	zap = aux;
 	if (zap->manid != 2145)
 		return (0);
@@ -128,7 +128,7 @@ melody_attach(parent, self, aux)
 	 */
 
 	/* attach our audio driver */
-	
+
 	printf(" #%d", zap->serno);
 	tms320av110_attach_mi(&sc->sc_tav);
 	sc->sc_isr.isr_ipl = 6;
@@ -144,5 +144,5 @@ melody_intack(p)
 	struct melody_softc *sc;
 
 	sc = (struct melody_softc *)p;
-	*sc->sc_intack = 0;  
+	*sc->sc_intack = 0;
 }

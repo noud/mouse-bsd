@@ -298,7 +298,7 @@ at_pcbsetaddr(ddp, addr, p)
 	} else {
 		for (ddpp = ddp_ports[sat->sat_port - 1]; ddpp;
 		     ddpp = ddpp->ddp_pnext) {
-			if (ddpp->ddp_lsat.sat_addr.s_net == 
+			if (ddpp->ddp_lsat.sat_addr.s_net ==
 			    sat->sat_addr.s_net &&
 			    ddpp->ddp_lsat.sat_addr.s_node ==
 			    sat->sat_addr.s_node)

@@ -548,7 +548,7 @@ cmd
 				UNIMPLEMENTED for NBBY != 8
 #endif /* NBBY == 8 */
 			}
-			
+
 			}
 		}
 
@@ -605,7 +605,7 @@ cmd
 			if ($4 != NULL)
 				free($4);
 		}
-		
+
 	| APPE check_upload SP pathname CRLF
 		{
 			if ($2 && $4 != NULL)
@@ -679,7 +679,7 @@ cmd
 	| LIST check_login CRLF
 		{
 			char *argv[] = { INTERNAL_LS, "-lgA", NULL };
-			
+
 			if ($2)
 				retrieve(argv, "");
 		}
@@ -864,7 +864,7 @@ cmd
 			if ($4 != NULL)
 				free($4);
 		}
-		
+
 	| STAT CRLF
 		{
 			statcmd();
@@ -959,7 +959,7 @@ cmd
 
 	| OPTS SP STRING CRLF
 		{
-			
+
 			opts($3);
 			free($3);
 		}

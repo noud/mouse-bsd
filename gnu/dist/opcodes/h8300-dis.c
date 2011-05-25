@@ -74,13 +74,13 @@ bfd_h8_disassemble (addr, info, mode)
     {
       "r0h", "r1h", "r2h", "r3h", "r4h", "r5h", "r6h", "r7h",
       "r0l", "r1l", "r2l", "r3l", "r4l", "r5l", "r6l", "r7l"};
-  
+
   static CONST char *wregnames[] =
     {
       "r0", "r1", "r2", "r3", "r4", "r5", "r6", "r7",
       "e0", "e1", "e2", "e3", "e4", "e5", "e6", "e7"
       };
-  
+
   static CONST char *lregnames[] =
     {
       "er0", "er1", "er2", "er3", "er4", "er5", "er6", "er7",
@@ -99,8 +99,8 @@ bfd_h8_disassemble (addr, info, mode)
   char CONST **pregnames = mode != 0 ? lregnames : wregnames;
   int status;
   int l;
-  
-  unsigned char data[20];  
+
+  unsigned char data[20];
   void *stream = info->stream;
   fprintf_ftype fprintf = info->fprintf_func;
 
@@ -111,7 +111,7 @@ bfd_h8_disassemble (addr, info, mode)
     }
 
   status = info->read_memory_func(addr, data, 2, info);
-  if (status != 0) 
+  if (status != 0)
     {
       info->memory_error_func(status, addr, info);
       return -1;
@@ -120,8 +120,8 @@ bfd_h8_disassemble (addr, info, mode)
     {
       status = info->read_memory_func(addr+l, data+l, 2, info);
     }
-  
-  
+
+
 
   /* Find the exact opcode/arg combo */
   while (q->name)
@@ -130,33 +130,33 @@ bfd_h8_disassemble (addr, info, mode)
       unsigned int len = 0;
 
       nib = q->data.nib;
-      
+
       while (1)
 	{
 	  op_type looking_for = *nib;
 	  int thisnib = data[len >> 1];
-	  
+
 	  thisnib = (len & 1) ? (thisnib & 0xf) : ((thisnib >> 4) & 0xf);
-	  
-	  if (looking_for < 16 && looking_for >=0) 
+
+	  if (looking_for < 16 && looking_for >=0)
 	    {
-	      
-	      if (looking_for != thisnib) 
+
+	      if (looking_for != thisnib)
 		goto fail;
 	    }
-	  
-	  else 
+
+	  else
 	    {
-	      
+
 	      if ((int) looking_for & (int) B31)
 		{
-		  if (! (((int) thisnib & 0x8) != 0)) 
+		  if (! (((int) thisnib & 0x8) != 0))
 		    goto fail;
 		  looking_for = (op_type) ((int) looking_for & ~(int) B31);
 		}
 	      if ((int) looking_for & (int) B30)
 		{
-		  if (!(((int) thisnib & 0x8) == 0)) 
+		  if (!(((int) thisnib & 0x8) == 0))
 		    goto fail;
 		  looking_for = (op_type) ((int) looking_for & ~(int) B30);
 		}
@@ -165,8 +165,8 @@ bfd_h8_disassemble (addr, info, mode)
 		{
 		  if ((looking_for & 5) != (thisnib &5)) goto fail;
 		  abs = (thisnib & 0x8) ? 2 : 1;
-		}		  
-	      
+		}
+
 	      else  if (looking_for & (REG | IND|INC|DEC))
 		{
 		  if (looking_for & SRC)
@@ -182,7 +182,7 @@ bfd_h8_disassemble (addr, info, mode)
 		{
 		  abs = (data[len >> 1]) * 256 + data[(len + 2) >> 1];
 		  plen = 16;
-	      
+
 		}
 	      else if(looking_for & ABSJMP)
 		{
@@ -204,7 +204,7 @@ bfd_h8_disassemble (addr, info, mode)
 			| (data[i+ 3]);
 
 		  plen =32;
-	      
+
 		}
 	      else if (looking_for & L_24)
 		{
@@ -215,7 +215,7 @@ bfd_h8_disassemble (addr, info, mode)
 		}
 	      else if (looking_for & IGNORE)
 		{
-		  
+
 		}
 	      else if (looking_for & DISPREG)
 		{
@@ -223,7 +223,7 @@ bfd_h8_disassemble (addr, info, mode)
 		}
 	      else if (looking_for & KBIT)
 		{
-		  switch (thisnib) 
+		  switch (thisnib)
 		    {
 		    case 9:
 		      abs = 4;
@@ -240,7 +240,7 @@ bfd_h8_disassemble (addr, info, mode)
 		}
 	      else if (looking_for & L_8)
 		{
-		  plen = 8;		  
+		  plen = 8;
 		  abs = data[len >> 1];
 		}
 	      else if (looking_for & L_3)
@@ -336,7 +336,7 @@ bfd_h8_disassemble (addr, info, mode)
 			      case L_32:
 				fprintf (stream, "%s", lregnames[rn]);
 				break;
-		    
+
 			      }
 			  }
 			else if (x & MACREG)
@@ -375,7 +375,7 @@ bfd_h8_disassemble (addr, info, mode)
 
 			else if (x & PCREL)
 			  {
-			    if (x & L_16) 
+			    if (x & L_16)
 			      {
 				abs  +=2;
 				fprintf (stream, ".%s%d (%x)", (short) abs > 0 ? "+" : "", (short) abs,
@@ -409,17 +409,17 @@ bfd_h8_disassemble (addr, info, mode)
 		  return q->length;
 		}
 
-      
+
 	      else
 		{
 		  fprintf (stream, "Dont understand %x \n", looking_for);
 		}
 	    }
-	  
+
 	  len++;
 	  nib++;
 	}
-      
+
     fail:
       q++;
     }
@@ -431,15 +431,15 @@ bfd_h8_disassemble (addr, info, mode)
   return 2;
 }
 
-int 
+int
 print_insn_h8300 (addr, info)
-bfd_vma addr; 
+bfd_vma addr;
 disassemble_info *info;
 {
   return bfd_h8_disassemble (addr, info , 0);
 }
 
-int 
+int
 print_insn_h8300h (addr, info)
 bfd_vma addr;
 disassemble_info *info;
@@ -447,7 +447,7 @@ disassemble_info *info;
   return bfd_h8_disassemble (addr, info , 1);
 }
 
-int 
+int
 print_insn_h8300s (addr, info)
 bfd_vma addr;
 disassemble_info *info;

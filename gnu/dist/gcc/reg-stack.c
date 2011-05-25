@@ -320,7 +320,7 @@ straighten_stack (insn, regstack)
 
   for (top = temp_stack.top = regstack->top; top >= 0; top--)
      temp_stack.reg[top] = FIRST_STACK_REG + temp_stack.top - top;
-  
+
   change_stack (insn, regstack, &temp_stack, emit_insn_after);
 }
 
@@ -923,7 +923,7 @@ record_asm_reg_life (insn, regstack, operands, constraints,
 
   int *operand_matches = (int *) alloca (n_operands * sizeof (int *));
 
-  enum reg_class *operand_class 
+  enum reg_class *operand_class
     = (enum reg_class *) alloca (n_operands * sizeof (enum reg_class *));
 
   int reg_used_as_output[FIRST_PSEUDO_REGISTER];
@@ -2006,7 +2006,7 @@ compare_for_stack_reg (insn, regstack, pat)
   rtx *src1, *src2;
   rtx src1_note, src2_note;
   rtx cc0_user;
-  int have_cmove; 
+  int have_cmove;
 
   src1 = get_true_reg (&XEXP (SET_SRC (pat), 0));
   src2 = get_true_reg (&XEXP (SET_SRC (pat), 1));
@@ -2021,14 +2021,14 @@ compare_for_stack_reg (insn, regstack, pat)
 	  == MODE_FLOAT))
     {
       rtx *dest;
-      
+
       dest = get_true_reg (&SET_DEST (PATTERN (cc0_user)));
 
       have_cmove = 1;
       if (get_hard_regnum (regstack, *dest) >= FIRST_STACK_REG
 	  && REGNO (*dest) != regstack->reg[regstack->top])
 	{
-	  emit_swap_insn (insn, regstack, *dest);	
+	  emit_swap_insn (insn, regstack, *dest);
 	}
     }
   else
@@ -2362,7 +2362,7 @@ subst_stack_regs_pat (insn, regstack, pat)
 	   have to handle it here. */
 	if (get_hard_regnum (regstack, *dest) >= FIRST_STACK_REG
 	    && REGNO (*dest) != regstack->reg[regstack->top])
-	  emit_swap_insn (insn, regstack, *dest);	
+	  emit_swap_insn (insn, regstack, *dest);
 
 	src1 = get_true_reg (&XEXP (SET_SRC (pat), 1));
 	src2 = get_true_reg (&XEXP (SET_SRC (pat), 2));
@@ -2446,7 +2446,7 @@ subst_asm_stack_regs (insn, regstack, operands, operands_loc, constraints,
   rtx body = PATTERN (insn);
 
   int *operand_matches = (int *) alloca (n_operands * sizeof (int *));
-  enum reg_class *operand_class 
+  enum reg_class *operand_class
     = (enum reg_class *) alloca (n_operands * sizeof (enum reg_class *));
 
   rtx *note_reg;		/* Array of note contents */
@@ -3086,7 +3086,7 @@ convert_regs ()
 	    subst_stack_regs (insn, &regstack);
 
 	} while (insn != block_end[block]);
-      
+
       /* For all further actions, INSN needs to be the last insn in
          this basic block.  If subst_stack_regs inserted additional
          instructions after INSN, it is no longer the last one at

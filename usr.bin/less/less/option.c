@@ -10,19 +10,19 @@
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice in the documentation and/or other materials provided with 
+ *    notice in the documentation and/or other materials provided with
  *    the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
- * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN 
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -32,7 +32,7 @@
  *
  * Each option is a single letter which controls a program variable.
  * The options have defaults which may be changed via
- * the command line option, toggled via the "-" command, 
+ * the command line option, toggled via the "-" command,
  * or queried via the "_" command.
  */
 
@@ -50,8 +50,8 @@ static char *optstring __P((char *, int));
 extern int screen_trashed;
 extern char *every_first_cmd;
 
-/* 
- * Scan an argument (either from the command line or from the 
+/*
+ * Scan an argument (either from the command line or from the
  * LESS environment variable) and process it.
  */
 	public void
@@ -96,7 +96,7 @@ scan_option(s)
 		case '-':
 			/*
 			 * "-+" means set these options back to their defaults.
-			 * (They may have been set otherwise by previous 
+			 * (They may have been set otherwise by previous
 			 * options.)
 			 */
 			set_default = (*s == '+');
@@ -105,8 +105,8 @@ scan_option(s)
 			continue;
 		case '+':
 			/*
-			 * An option prefixed by a "+" is ungotten, so 
-			 * that it is interpreted as less commands 
+			 * An option prefixed by a "+" is ungotten, so
+			 * that it is interpreted as less commands
 			 * processed at the start of the first input file.
 			 * "++" means process the commands at the start of
 			 * EVERY input file.
@@ -122,7 +122,7 @@ scan_option(s)
 		case '5':  case '6':  case '7':  case '8':  case '9':
 			/*
 			 * Special "more" compatibility form "-<number>"
-			 * instead of -z<number> to set the scrolling 
+			 * instead of -z<number> to set the scrolling
 			 * window size.
 			 */
 			s--;
@@ -177,7 +177,7 @@ scan_option(s)
 			}
 			/*
 			 * Don't do anything here.
-			 * All processing of STRING options is done by 
+			 * All processing of STRING options is done by
 			 * the handling function.
 			 */
 			str = s;
@@ -231,14 +231,14 @@ toggle_option(c, s, how_toggle)
 		parg.p_string = propt(c);
 		error("Cannot change the %s option", &parg);
 		return;
-	} 
+	}
 
 	if (how_toggle == OPT_NO_TOGGLE && (o->otype & NO_QUERY))
 	{
 		parg.p_string = propt(c);
 		error("Cannot query the %s option", &parg);
 		return;
-	} 
+	}
 
 	/*
 	 * Check for something which appears to be a do_toggle
@@ -287,7 +287,7 @@ toggle_option(c, s, how_toggle)
 		case TRIPLE:
 			/*
 			 * Triple:
-			 *	If user gave the lower case letter, then switch 
+			 *	If user gave the lower case letter, then switch
 			 *	to 1 unless already 1, in which case make it 0.
 			 *	If user gave the upper case letter, then switch
 			 *	to 2 unless already 2, in which case make it 0.
@@ -295,7 +295,7 @@ toggle_option(c, s, how_toggle)
 			switch (how_toggle)
 			{
 			case OPT_TOGGLE:
-				*(o->ovar) = flip_triple(*(o->ovar), 
+				*(o->ovar) = flip_triple(*(o->ovar),
 						o->oletter == c);
 				break;
 			case OPT_UNSET:
@@ -345,7 +345,7 @@ toggle_option(c, s, how_toggle)
 	}
 
 	/*
-	 * Call the handling function for any special action 
+	 * Call the handling function for any special action
 	 * specific to this option.
 	 */
 	if (o->ofunc != NULL)
@@ -370,7 +370,7 @@ toggle_option(c, s, how_toggle)
 		break;
 	case NUMBER:
 		/*
-		 * The message is in odesc[1] and has a %d for 
+		 * The message is in odesc[1] and has a %d for
 		 * the value of the variable.
 		 */
 		parg.p_int = *(o->ovar);
@@ -449,7 +449,7 @@ opt_prompt(c)
 
 /*
  * Return whether or not there is a string option pending;
- * that is, if the previous option was a string-valued option letter 
+ * that is, if the previous option was a string-valued option letter
  * (like -P) without a following string.
  * In that case, the current option is taken to be the string for
  * the previous option.

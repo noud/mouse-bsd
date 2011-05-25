@@ -284,7 +284,7 @@ chrtoblk(dev)
 	dev_t dev;
 {
 	int major;
-	
+
 	if ((major = major(dev)) >= nchrdev)
 		return NODEV;
 	if ((major = chrtoblktbl[major]) == NODEV)

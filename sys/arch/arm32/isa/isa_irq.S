@@ -106,7 +106,7 @@
 Ldisabled_mask:
 	.word	_C_LABEL(disabled_mask)
 
-Lcurrent_spl_level:	
+Lcurrent_spl_level:
 	.word	_C_LABEL(current_spl_level)
 
 Lcurrent_intr_depth:
@@ -141,7 +141,7 @@ ASENTRY_NP(irq_entry)
 	ldr	r0, Lvam_io_data
 	ldr	r0, [r0]
 	ldrb	r8, [r0, #IO_ICU1]                /* ocw3 = irr */
-	
+
 	/* clear the IRR bits that are currently masked. */
 	ldr	r2, Li8259_mask
 	ldr	r2, [r2]
@@ -205,7 +205,7 @@ Lfind_highest_ipl:
 	mvn	r2, r2
 	orr	r0, r0, r2
 
-	str	r0, [r1]	
+	str	r0, [r1]
 
 	ldr	r0, Lcurrent_spl_level
 	ldr	r1, [r0]
@@ -352,7 +352,7 @@ irqast:
 
 	/* NOT REACHED */
 	b	. - 8
-	
+
 
 Lspl_mask:
 	.word	_C_LABEL(spl_mask)	/* irq's allowed at current spl level */

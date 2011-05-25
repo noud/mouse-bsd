@@ -75,7 +75,7 @@ main()
 	int currname = 0;
 
 	printf("\n");
-	printf(">> %s, Revision %s\n", bootprog_name, bootprog_rev);  
+	printf(">> %s, Revision %s\n", bootprog_name, bootprog_rev);
 	printf(">> (%s, %s)\n", bootprog_maker, bootprog_date);
 	printf(">> HP 9000/%s SPU\n", getmachineid());
 	printf(">> Enter \"reset\" to reset system.\n");

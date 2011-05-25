@@ -20,10 +20,10 @@
 
 /* Derived from objdump.c and nm.c by Ulrich.Lauther@zfe.siemens.de
 
-   Usage: 
+   Usage:
    addr2line [options] addr addr ...
    or
-   addr2line [options] 
+   addr2line [options]
 
    both forms write results to stdout, the second form reads addresses
    to be converted from stdin.  */

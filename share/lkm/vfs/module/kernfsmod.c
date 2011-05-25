@@ -90,7 +90,7 @@ MOD_VFS("kernfs", -1, &kernfs_vfsops)
  * case it should return an errno from errno.h).
  */
 kernfsmod(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

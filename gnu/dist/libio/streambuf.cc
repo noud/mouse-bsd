@@ -260,7 +260,7 @@ void streambuf::collumn(int c)
 
 int streambuf::get_column()
 {
-    if (_cur_column) 
+    if (_cur_column)
 	return _IO_adjust_column(_cur_column - 1, pbase(), pptr() - pbase());
     return -1;
 }
@@ -359,6 +359,6 @@ int ios::is_open() { return rdbuf()
 #else
 struct __io_defs {
     ~__io_defs() { _IO_cleanup (); }
-};   
+};
 __io_defs io_defs__;
 #endif

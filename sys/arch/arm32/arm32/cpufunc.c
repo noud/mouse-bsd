@@ -57,7 +57,7 @@
 #ifdef CPU_ARM6
 struct cpu_functions arm6_cpufuncs = {
 	/* CPU functions */
-	
+
 	cpufunc_id,			/* id			 */
 
 	/* MMU functions */
@@ -127,7 +127,7 @@ struct cpu_functions arm6_cpufuncs = {
 #ifdef CPU_ARM7
 struct cpu_functions arm7_cpufuncs = {
 	/* CPU functions */
-	
+
 	cpufunc_id,			/* id			 */
 
 	/* MMU functions */
@@ -197,7 +197,7 @@ struct cpu_functions arm7_cpufuncs = {
 #ifdef CPU_ARM8
 struct cpu_functions arm8_cpufuncs = {
 	/* CPU functions */
-	
+
 	cpufunc_id,			/* id			 */
 
 	/* MMU functions */
@@ -260,13 +260,13 @@ struct cpu_functions arm8_cpufuncs = {
 	arm8_context_switch,		/* context_switch	*/
 
 	arm8_setup			/* cpu setup		*/
-};          
+};
 #endif	/* CPU_ARM8 */
 
 #ifdef CPU_SA110
 struct cpu_functions sa110_cpufuncs = {
 	/* CPU functions */
-	
+
 	cpufunc_id,			/* id			 */
 
 	/* MMU functions */
@@ -329,7 +329,7 @@ struct cpu_functions sa110_cpufuncs = {
 	sa110_context_switch,		/* context_switch	*/
 
 	sa110_setup			/* cpu setup		*/
-};          
+};
 #endif	/* CPU_SA110 */
 
 struct cpu_functions cpufuncs;
@@ -471,7 +471,7 @@ arm6_dataabt_fixup(arg)
 		if (pmap_debug_level >= 0)
 			disassemble(fault_pc);
 #endif	/* DEBUG_FAULT_CORRECTION */
-		
+
 #ifdef ARM6_LATE_ABORT
 
 /* This is for late abort only */
@@ -492,7 +492,7 @@ arm6_dataabt_fixup(arg)
 			printf("late abt fix: r%d=%08x ", base, registers[base]);
 #endif	/* DEBUG_FAULT_CORRECTION */
 		if ((fault_instruction & (1 << 25)) == 0) {
-			/* Immediate offset - easy */                  
+			/* Immediate offset - easy */
 			offset = fault_instruction & 0xfff;
 			if ((fault_instruction & (1 << 23)))
 				offset = -offset;
@@ -509,7 +509,7 @@ arm6_dataabt_fixup(arg)
 				disassemble(fault_pc);
 				panic("Abort handler cannot fix this :-(\n");
 			}
-                
+
 /* Register offset - hard we have to cope with shifts ! */
 			offset = registers[offset];
 
@@ -556,7 +556,7 @@ arm6_dataabt_fixup(arg)
 #ifdef DEBUG_FAULT_CORRECTION
 			if (pmap_debug_level >=0)
 				printf("abt: fixed LDR/STR with register offset\n");
-#endif	/* DEBUG_FAULT_CORRECTION */               
+#endif	/* DEBUG_FAULT_CORRECTION */
 			if ((fault_instruction & (1 << 23)))
 				offset = -offset;
 #ifdef DEBUG_FAULT_CORRECTION
@@ -576,7 +576,7 @@ arm6_dataabt_fixup(arg)
 		int loop;
 		int count;
 		int *registers = &frame->tf_r0;
-        
+
 #ifdef DEBUG_FAULT_CORRECTION
 		if (pmap_debug_level >= 0) {
 			printf("LDM/STM\n");
@@ -623,7 +623,7 @@ arm6_dataabt_fixup(arg)
 		int base;
 		int offset;
 		int *registers = &frame->tf_r0;
-	
+
 /* REGISTER CORRECTION IS REQUIRED FOR THESE INSTRUCTIONS */
 
 #ifdef DEBUG_FAULT_CORRECTION
@@ -772,7 +772,7 @@ arm7_dataabt_fixup(arg)
 		if (pmap_debug_level >= 0)
 			disassemble(fault_pc);
 #endif	/* DEBUG_FAULT_CORRECTION */
-		
+
 	/* This is for late abort only */
 
 	if ((fault_instruction & (1 << 24)) == 0
@@ -791,7 +791,7 @@ arm7_dataabt_fixup(arg)
 			printf("late abt fix: r%d=%08x ", base, registers[base]);
 #endif	/* DEBUG_FAULT_CORRECTION */
 		if ((fault_instruction & (1 << 25)) == 0) {
-			/* Immediate offset - easy */                  
+			/* Immediate offset - easy */
 			offset = fault_instruction & 0xfff;
 			if ((fault_instruction & (1 << 23)))
 				offset = -offset;
@@ -808,7 +808,7 @@ arm7_dataabt_fixup(arg)
 				disassemble(fault_pc);
 				panic("Abort handler cannot fix this :-(\n");
 			}
-                
+
 /* Register offset - hard we have to cope with shifts ! */
 			offset = registers[offset];
 
@@ -855,7 +855,7 @@ arm7_dataabt_fixup(arg)
 #ifdef DEBUG_FAULT_CORRECTION
 			if (pmap_debug_level >=0)
 				printf("abt: fixed LDR/STR with register offset\n");
-#endif	/* DEBUG_FAULT_CORRECTION */               
+#endif	/* DEBUG_FAULT_CORRECTION */
 			if ((fault_instruction & (1 << 23)))
 				offset = -offset;
 #ifdef DEBUG_FAULT_CORRECTION
@@ -874,7 +874,7 @@ arm7_dataabt_fixup(arg)
 		int loop;
 		int count;
 		int *registers = &frame->tf_r0;
-        
+
 #ifdef DEBUG_FAULT_CORRECTION
 		if (pmap_debug_level >= 0) {
 			printf("LDM/STM\n");
@@ -921,7 +921,7 @@ arm7_dataabt_fixup(arg)
 		int base;
 		int offset;
 		int *registers = &frame->tf_r0;
-	
+
 /* REGISTER CORRECTION IS REQUIRED FOR THESE INSTRUCTIONS */
 
 #ifdef DEBUG_FAULT_CORRECTION
@@ -1076,8 +1076,8 @@ struct cpu_option {
 static u_int
 parse_cpu_options(args, optlist, cpuctrl)
 	char *args;
-	struct cpu_option *optlist;    
-	u_int cpuctrl; 
+	struct cpu_option *optlist;
+	u_int cpuctrl;
 {
 	int integer;
 
@@ -1151,7 +1151,7 @@ arm6_setup(args)
 	/* Clear out the cache */
 	cpu_cache_purgeID();
 
-	/* Set the control register */    
+	/* Set the control register */
 	cpu_control(0xffffffff, cpuctrl);
 }
 #endif	/* CPU_ARM6 */
@@ -1191,7 +1191,7 @@ arm7_setup(args)
 	/* Clear out the cache */
 	cpu_cache_purgeID();
 
-	/* Set the control register */    
+	/* Set the control register */
 	cpu_control(0xffffffff, cpuctrl);
 }
 #endif	/* CPU_ARM7 */
@@ -1261,14 +1261,14 @@ arm8_setup(args)
 		clocktest |= (integer & 7) << 5;
 		setclock = 1;
 	}
-	
+
 	/* Clear out the cache */
 	cpu_cache_purgeID();
 
-	/* Set the control register */    
+	/* Set the control register */
 	cpu_control(0xffffffff, cpuctrl);
 
-	/* Set the clock/test register */    
+	/* Set the clock/test register */
 	if (setclock)
 		arm8_clock_config(0x7f, clocktest);
 }
@@ -1314,7 +1314,7 @@ sa110_setup(args)
 	/* Clear out the cache */
 	cpu_cache_purgeID();
 
-	/* Set the control register */    
+	/* Set the control register */
 /*	cpu_control(cpuctrlmask, cpuctrl);*/
 	cpu_control(0xffffffff, cpuctrl);
 }

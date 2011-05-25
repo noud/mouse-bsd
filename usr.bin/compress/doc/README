@@ -56,9 +56,9 @@ The default is BITS=16.
 The maximum bits can be overrulled by specifying "-DBITS=bits" at
 compilation time.
 
-WARNING: files compressed on a large machine with more bits than allowed by 
+WARNING: files compressed on a large machine with more bits than allowed by
 a version of compress on a smaller machine cannot be decompressed!  Use the
-"-b12" flag to generate a file on a large machine that can be uncompressed 
+"-b12" flag to generate a file on a large machine that can be uncompressed
 on a 16-bit machine.
 
 The output of compress 4.0 is fully compatible with that of compress 3.0.
@@ -105,8 +105,8 @@ To compile compress:
 
 	cc -O -DUSERMEM=usermem -o compress compress.c
 
-Where "usermem" is the amount of physical user memory available (in bytes).  
-If any physical memory is to be reserved for other processes, put in 
+Where "usermem" is the amount of physical user memory available (in bytes).
+If any physical memory is to be reserved for other processes, put in
 "-DSACREDMEM sacredmem", where "sacredmem" is the amount to be reserved.
 
 The difference "usermem-sacredmem" determines the maximum BITS that can be
@@ -130,12 +130,12 @@ large+fast table.
 The maximum bits can be overruled by specifying "-DBITS=bits" at
 compilation time.
 
-If your machine doesn't support unsigned characters, define "NO_UCHAR" 
+If your machine doesn't support unsigned characters, define "NO_UCHAR"
 when compiling.
 
 If your machine has "int" as 16-bits, define "SHORT_INT" when compiling.
 
-After compilation, move "compress" to a standard executable location, such 
+After compilation, move "compress" to a standard executable location, such
 as /usr/local.  Then:
 	cd /usr/local
 	ln compress uncompress
@@ -186,7 +186,7 @@ Here is the README file from the previous version of compress (2.0):
 >
 >		This version is NOT compatible with the original vax posting
 >		unless the '-DCOMPATIBLE' option is specified to the C
->		compiler.  The original posting has a bug which I fixed, 
+>		compiler.  The original posting has a bug which I fixed,
 >		causing incompatible files.  I recommend you NOT to use this
 >		option unless you already have a lot of packed files from
 >		the original posting by thomas.
@@ -210,7 +210,7 @@ Here is the README file from the previous version of compress (2.0):
 >4.	Added "-f" flag to force overwrite of output file.
 >5.	Added "-c" flag and "zcat" program.  'ln compress zcat' after you
 >	compile.
->6.	The 'uncompress' script has been deleted; simply 
+>6.	The 'uncompress' script has been deleted; simply
 >	'ln compress uncompress' after you compile and it will work.
 >7.	Removed extra bit masking for machines that support unsigned
 >	characters.  If your machine doesn't support unsigned characters,
@@ -246,7 +246,7 @@ Here is the README file from the previous version of compress (2.0):
 >>machine, due to the size of the arrays.
 >>
 >>Here is the README file from the original author:
->> 
+>>
 >>>Well, with all this discussion about file compression (for news batching
 >>>in particular) going around, I decided to implement the text compression
 >>>algorithm described in the June Computer magazine.  The author claimed

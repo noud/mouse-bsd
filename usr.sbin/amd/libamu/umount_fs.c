@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: umount_bsd44.c,v 1.2 1999/01/10 21:54:22 ezk Exp 
+ * Id: umount_bsd44.c,v 1.2 1999/01/10 21:54:22 ezk Exp
  *
  */
 

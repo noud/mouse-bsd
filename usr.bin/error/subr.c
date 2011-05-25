@@ -211,7 +211,7 @@ persperdexplode(string, r_perd, r_pers)
 			*r_pers = strsave(string);
 			*cp = '(';
 			return(TRUE);
-		} 
+		}
 	}
 	return(FALSE);
 }
@@ -244,7 +244,7 @@ qpersperdexplode(string, r_perd, r_pers)
 			*r_pers = strsave(string + 1);
 			*(cp - 1) = '"';
 			return(TRUE);
-		} 
+		}
 	}
 	return(FALSE);
 }
@@ -393,7 +393,7 @@ wordvcmp(wordv1, wordc, wordv2)
 	}
 	return(0);	/* they are equal */
 }
-		
+
 /*
  *	splice a 0 basedword vector onto the tail of a
  *	new wordv, allowing the first emptyhead slots to be empty

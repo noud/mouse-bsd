@@ -58,7 +58,7 @@
 #include "opt_inet.h"
 #include "opt_ns.h"
 #include "bpfilter.h"
-#include "rnd.h" 
+#include "rnd.h"
 
 #include <sys/param.h>
 #include <sys/systm.h>
@@ -77,10 +77,10 @@
 #ifdef INET
 #include <netinet/in.h>
 #include <netinet/in_systm.h>
-#include <netinet/in_var.h> 
+#include <netinet/in_var.h>
 #include <netinet/ip.h>
-#include <netinet/if_inarp.h> 
-#endif 
+#include <netinet/if_inarp.h>
+#endif
 
 #ifdef NS
 #include <netns/ns.h>
@@ -874,19 +874,19 @@ we_params(asict, asich, typep, memsizep, is16bitp, is790p)
 
 	type = bus_space_read_1(asict, asich, WE_CARD_ID);
 	switch (type) {
-	case WE_TYPE_WD8003S: 
-		typestr = "WD8003S"; 
+	case WE_TYPE_WD8003S:
+		typestr = "WD8003S";
 		break;
 	case WE_TYPE_WD8003E:
 		typestr = "WD8003E";
 		break;
-	case WE_TYPE_WD8003EB: 
+	case WE_TYPE_WD8003EB:
 		typestr = "WD8003EB";
 		break;
 	case WE_TYPE_WD8003W:
 		typestr = "WD8003W";
 		break;
-	case WE_TYPE_WD8013EBT: 
+	case WE_TYPE_WD8013EBT:
 		typestr = "WD8013EBT";
 		memsize = 16384;
 		is16bit = 1;

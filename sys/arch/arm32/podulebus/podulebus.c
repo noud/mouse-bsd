@@ -84,7 +84,7 @@ int poduleirqhandler __P((void *arg));
  * Probe for the podule bus. Currently all this does is return 1 to
  * indicate that the podule bus was found.
  */
- 
+
 int
 podulebusmatch(parent, cf, aux)
 	struct device *parent;
@@ -190,7 +190,7 @@ podulechunkdirectory(podule)
 	int loop;
 	int done_f5;
 
-	done_f5 = 0;	
+	done_f5 = 0;
 	address = 0x40;
 
 	do {
@@ -354,7 +354,7 @@ podulescan(dev)
 
 		if (loop == 4) offset += PODULE_GAP;
 		address = ((u_char *)SYNC_PODULE_BASE) + offset;
-        
+
 		if ((address[0] & 0x02) == 0x00) {
 			podule->fast_base = FAST_PODULE_BASE + offset;
 			podule->medium_base = MEDIUM_PODULE_BASE + offset;
@@ -500,7 +500,7 @@ netslotscan(dev)
  * After identifing all the podules, all the children of the podulebus
  * are probed and attached.
  */
-  
+
 void
 podulebusattach(parent, self, aux)
 	struct device *parent;
@@ -539,7 +539,7 @@ podulebusattach(parent, self, aux)
 
 	for (loop = 0; loop < MAX_PODULES; ++loop) {
 		int loop1;
-        
+
 		for (loop1 = loop * EASI_SIZE; loop1 < ((loop + 1) * EASI_SIZE);
 		    loop1 += L1_SEC_SIZE)
 		map_section((vm_offset_t)kernel_pmap->pm_pdir, EASI_BASE + loop1,
@@ -566,7 +566,7 @@ podulebusattach(parent, self, aux)
 
 	/* Find out what hardware is bolted on */
 
-	podulescan(self); 
+	podulescan(self);
 	netslotscan(self);
 
 	/* Look for drivers to attach */
@@ -609,7 +609,7 @@ podulebusattach(parent, self, aux)
 				continue;
 			}
 		}
-		
+
 		if (podules[loop].slottype != SLOT_NONE) {
 			pa.pa_podule_number = loop;
 			pa.pa_podule = &podules[loop];
@@ -649,14 +649,14 @@ poduleirqhandler(arg)
 
 		if (actual_mask & (1 << loop)) {
 			handler = irqhandlers[loop];
-        
+
 			if (handler && handler->ih_maskaddr) {
 				if (ReadByte(handler->ih_maskaddr) & handler->ih_maskbits)
 					handler->ih_func(handler->ih_arg);
 			}
 		}
 	}
-	return(1);      
+	return(1);
 }
 
 struct cfattach podulebus_ca = {

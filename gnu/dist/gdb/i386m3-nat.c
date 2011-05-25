@@ -70,7 +70,7 @@ extern void print_387_status_word ();
  * location where the gdb registers[i] is stored.
  */
 
-static int reg_offset[] = 
+static int reg_offset[] =
 {
   REG_OFFSET(eax),  REG_OFFSET(ecx), REG_OFFSET(edx), REG_OFFSET(ebx),
   REG_OFFSET(uesp), REG_OFFSET(ebp), REG_OFFSET(esi), REG_OFFSET(edi),
@@ -107,7 +107,7 @@ fetch_inferior_registers (regno)
   thread_state_data_t state;
   unsigned int stateCnt = i386_THREAD_STATE_COUNT;
   int index;
-  
+
   if (! MACH_PORT_VALID (current_thread))
     error ("fetch inferior registers: Invalid thread");
 
@@ -131,7 +131,7 @@ fetch_inferior_registers (regno)
 #endif
   else
     {
-      for (index = 0; index < NUM_REGS; index++) 
+      for (index = 0; index < NUM_REGS; index++)
 	supply_register (index, (char *)state+reg_offset[index]);
     }
 
@@ -166,7 +166,7 @@ store_inferior_registers (regno)
 			  state,
 			  &stateCnt);
 
-   if (ret != KERN_SUCCESS) 
+   if (ret != KERN_SUCCESS)
     {
       warning ("store_inferior_registers (get): %s",
 	       mach_error_string (ret));
@@ -187,17 +187,17 @@ store_inferior_registers (regno)
   else
 #endif
     {
-      for (index = 0; index < NUM_REGS; index++) 
+      for (index = 0; index < NUM_REGS; index++)
 	STORE_REGS (state, index, 1);
     }
-  
+
   /* Write gdb's current view of register to the thread
    */
   ret = thread_set_state (current_thread,
 			  i386_THREAD_STATE,
 			  state,
 			  i386_THREAD_STATE_COUNT);
-  
+
   if (ret != KERN_SUCCESS)
     warning ("store_inferior_registers (set): %s",
 	     mach_error_string (ret));
@@ -215,7 +215,7 @@ store_inferior_registers (regno)
  * Currently our UX server dumps the whole thread state to the
  * core file. If your UX does something else, adapt the routine
  * below to return the offset to the given register.
- * 
+ *
  * Called by core-aout.c(fetch_core_registers)
  */
 
@@ -240,7 +240,7 @@ register_addr (regno, blockend)
  *
  * i387 status dumper. See also i387-tdep.c
  */
-struct env387 
+struct env387
 {
   unsigned short control;
   unsigned short r0;
@@ -269,22 +269,22 @@ print_387_status (status, ep)
   int top;
   int fpreg;
   unsigned char *p;
-  
+
   bothstatus = ((status != 0) && (ep->status != 0));
-  if (status != 0) 
+  if (status != 0)
     {
       if (bothstatus)
 	printf_unfiltered ("u: ");
       print_387_status_word (status);
     }
-  
-  if (ep->status != 0) 
+
+  if (ep->status != 0)
     {
       if (bothstatus)
 	printf_unfiltered ("e: ");
       print_387_status_word (ep->status);
     }
-  
+
   print_387_control_word (ep->control);
   printf_unfiltered ("last exception: ");
   printf_unfiltered ("opcode %s; ", local_hex_string(ep->opcode));
@@ -292,17 +292,17 @@ print_387_status (status, ep)
   printf_unfiltered ("%s; ", local_hex_string(ep->eip));
   printf_unfiltered ("operand %s", local_hex_string(ep->operand_seg));
   printf_unfiltered (":%s\n", local_hex_string(ep->operand));
-  
+
   top = (ep->status >> 11) & 7;
-  
+
   printf_unfiltered ("regno  tag  msb              lsb  value\n");
-  for (fpreg = 7; fpreg >= 0; fpreg--) 
+  for (fpreg = 7; fpreg >= 0; fpreg--)
     {
       double val;
-      
+
       printf_unfiltered ("%s %d: ", fpreg == top ? "=>" : "  ", fpreg);
-      
-      switch ((ep->tag >> (fpreg * 2)) & 3) 
+
+      switch ((ep->tag >> (fpreg * 2)) & 3)
 	{
 	case 0: printf_unfiltered ("valid "); break;
 	case 1: printf_unfiltered ("zero  "); break;
@@ -311,7 +311,7 @@ print_387_status (status, ep)
 	}
       for (i = 9; i >= 0; i--)
 	printf_unfiltered ("%02x", ep->regs[fpreg][i]);
-      
+
       floatformat_to_double (&floatformat_i387_ext, (char *)ep->regs[fpreg],
 			       &val);
       printf_unfiltered ("  %g\n", val);
@@ -325,7 +325,7 @@ print_387_status (status, ep)
   if (ep->r3)
     printf_unfiltered ("warning: reserved3 is %s\n", local_hex_string(ep->r3));
 }
-	
+
 /*
  * values that go into fp_kind (from <i386/fpreg.h>)
  */
@@ -354,7 +354,7 @@ get_i387_state (fstate)
   thread_state_data_t state;
   unsigned int fsCnt = i386_FLOAT_STATE_COUNT;
   struct i386_float_state *fsp;
-  
+
   ret = thread_get_state (current_thread,
 			  i386_FLOAT_STATE,
 			  state,
@@ -401,20 +401,20 @@ i386_mach3_float_info()
   char buf [sizeof (struct fpstate) + 2 * sizeof (int)];
   boolean_t valid = FALSE;
   fpstate_t fps;
-  
+
   if (target_has_execution)
     valid = get_i387_state (buf);
-#if 0  
+#if 0
   else if (WE HAVE CORE FILE)  /* @@@@ Core files not supported */
     valid = get_i387_core_state (buf);
-#endif    
+#endif
 
-  if (!valid) 
+  if (!valid)
     {
       warning ("no floating point status saved");
       return;
     }
-  
+
   fps = (fpstate_t) buf;
 
   print_387_status (fps->status, (struct env387 *)fps->state);

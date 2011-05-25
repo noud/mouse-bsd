@@ -90,7 +90,7 @@
  * Special compilation symbols
  * PMAP_DEBUG		- Build in pmap_debug_level code
  */
-    
+
 /* Include header files */
 
 #include "opt_pmap_debug.h"
@@ -116,7 +116,7 @@
 #include <machine/pcb.h>
 #include <machine/param.h>
 #include <machine/katelib.h>
-       
+
 #ifdef HYDRA
 #include "hydrabus.h"
 #endif	/* HYDRA */
@@ -171,7 +171,7 @@ extern pv_addr_t hydrascratch;
 #define ALLOC_PAGE_HOOK(x, s) \
 	x.va = virtual_start; \
 	x.pte = (pt_entry_t *)pmap_pte(kernel_pmap, virtual_start); \
-	virtual_start += s; 
+	virtual_start += s;
 
 /* Variables used by the L1 page table queue code */
 SIMPLEQ_HEAD(l1pt_queue, l1pt);
@@ -185,7 +185,7 @@ int l1pt_reuse_count;			/* stat - L1's reused count */
 
 /* Local function prototypes (not used outside this file) */
 pt_entry_t *pmap_pte __P((pmap_t pmap, vm_offset_t va));
-int pmap_page_index __P((vm_offset_t pa)); 
+int pmap_page_index __P((vm_offset_t pa));
 void map_pagetable __P((vm_offset_t pagetable, vm_offset_t va,
     vm_offset_t pa, unsigned int flags));
 void pmap_copy_on_write __P((vm_offset_t pa));
@@ -486,7 +486,7 @@ pmap_remove_pv(pmap, va, pv)
 	struct pv_entry *npv;
 	u_int s;
 	u_int flags = 0;
-    
+
 #ifdef DIAGNOSTIC
 	if (!pmap_initialized)
 		panic("pmap_remove_pv: !pmap_initialized");
@@ -738,7 +738,7 @@ pmap_bootstrap(kernel_l1pt, kernel_ptpt)
 			    atop(istart + isize), atop(istart),
 			    atop(istart + isize), VM_FREELIST_ISADMA);
 			npages += atop(istart + isize) - atop(istart);
-			
+
 			/*
 			 * Load the pieces that come before
 			 * the intersection into the default
@@ -837,7 +837,7 @@ void
 pmap_init()
 {
 	int lcv;
-    
+
 #ifdef MYCROFT_HACK
 	printf("physmem = %d\n", physmem);
 #endif
@@ -873,7 +873,7 @@ pmap_init()
 	/* Now it is safe to enable pv_entry recording. */
 	pmap_initialized = TRUE;
 #endif
-    
+
 	/* Initialise our L1 page table queues and counters */
 	SIMPLEQ_INIT(&l1pt_static_queue);
 	l1pt_static_queue_count = 0;
@@ -1417,7 +1417,7 @@ pmap_find_pv(phys)
 
 /*
  * pmap_zero_page()
- * 
+ *
  * Zero a given physical page by mapping it at a page hook point.
  * In doing the zero page op, the page we zero is mapped cachable, as with
  * StrongARM accesses to non-cached pages are non-burst making writing
@@ -1456,7 +1456,7 @@ pmap_copy_page(src, dest)
 	vm_offset_t dest;
 {
 	struct pv_entry *src_pv, *dest_pv;
-	
+
 	/* Get PV entries for the pages, and clean them if needed. */
 	src_pv = pmap_find_pv(src);
 	dest_pv = pmap_find_pv(dest);
@@ -1483,11 +1483,11 @@ pmap_copy_page(src, dest)
  * Allocate another physical page returning true or false depending
  * on whether a page could be allocated.
  */
- 
+
 vm_offset_t
 pmap_next_phys_page(addr)
 	vm_offset_t addr;
-	
+
 {
 	int loop;
 
@@ -1504,7 +1504,7 @@ pmap_next_phys_page(addr)
 		return(0);
 
 	addr += NBPG;
-	
+
 	if (addr >= (bootconfig.dram[loop].address + bootconfig.dram[loop].pages * NBPG)) {
 		if (bootconfig.dram[loop + 1].address == 0)
 			return(0);
@@ -1974,7 +1974,7 @@ next:
 /*
  * void pmap_enter(pmap_t pmap, vm_offset_t va, vm_offset_t pa, vm_prot_t prot,
  * int flags)
- *  
+ *
  *      Insert the given physical page (p) at
  *      the specified virtual address (v) in the
  *      target physical map with the protection requested.
@@ -2034,13 +2034,13 @@ pmap_enter(pmap, va, pa, prot, flags)
 	if (!pte) {
 		vm_offset_t l2pa;
 		struct vm_page *m;
-	
+
 		/* Allocate a page table */
 		for (;;) {
 			m = uvm_pagealloc(NULL, 0, NULL, UVM_PGA_USERESERVE);
 			if (m != NULL)
 				break;
-			
+
 			/*
 			 * No page available.  If we're the kernel
 			 * pmap, we die, since we might not have
@@ -2330,7 +2330,7 @@ pmap_pte(pmap, va)
 	if (!pmap_pde_v(pmap_pde(pmap, va))) {
 		PDEBUG(0, printf("pmap_pte: failed - pde = %p\n",
 		    pmap_pde(pmap, va)));
-		return(NULL); 
+		return(NULL);
 	}
 
 	PDEBUG(10, printf("pmap pagetable = P%08lx current = P%08x\n",
@@ -2417,7 +2417,7 @@ pmap_extract(pmap, va, pap)
 	 * Get the pte for this virtual address. If there is no pte
 	 * then there is no page table etc.
 	 */
-  
+
 	pte = pmap_pte(pmap, va);
 	if (!pte)
 		return(FALSE);
@@ -2629,7 +2629,7 @@ pmap_is_modified(pg)
 {
 	paddr_t pa = VM_PAGE_TO_PHYS(pg);
 	boolean_t result;
-    
+
 	result = pmap_testbit(pa, PT_M);
 	PDEBUG(0, printf("pmap_is_modified pa=%08lx %x\n", pa, result));
 	return (result);
@@ -2642,7 +2642,7 @@ pmap_is_referenced(pg)
 {
 	paddr_t pa = VM_PAGE_TO_PHYS(pg);
 	boolean_t result;
-	
+
 	result = pmap_testbit(pa, PT_H);
 	PDEBUG(0, printf("pmap_is_referenced pa=%08lx %x\n", pa, result));
 	return (result);

@@ -844,7 +844,7 @@ SuffRebuildGraph(transformp, sp)
 static int
 SuffScanTargets(targetp, gsp)
     ClientData  targetp;
-    ClientData  gsp;	    
+    ClientData  gsp;
 {
     GNode   	*target = (GNode *) targetp;
     GNodeSuff	*gs = (GNodeSuff *) gsp;

@@ -338,11 +338,11 @@ int
 cia_bus_dmamap_create_sgmap(t, size, nsegments, maxsegsz, boundary,
     flags, dmamp)
 	bus_dma_tag_t t;
-	bus_size_t size;  
+	bus_size_t size;
 	int nsegments;
 	bus_size_t maxsegsz;
 	bus_size_t boundary;
-	int flags; 
+	int flags;
 	bus_dmamap_t *dmamp;
 {
 	bus_dmamap_t map;

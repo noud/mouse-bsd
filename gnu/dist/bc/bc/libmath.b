@@ -23,7 +23,7 @@
                 Computer Science Department, 9062
                 Western Washington University
                 Bellingham, WA 98226-9062
-       
+
 *************************************************************************/
 
 
@@ -51,7 +51,7 @@ define e(x) {
   if (x<0) {
     m = 1
     x = -x
-  } 
+  }
 
   /* Precondition x. */
   z = scale;
@@ -129,7 +129,7 @@ define s(x) {
   auto  e, i, m, n, s, v, z
 
   /* precondition x. */
-  z = scale 
+  z = scale
   scale = 1.1*z + 2;
   v = a(1)
   if (x < 0) {
@@ -210,12 +210,12 @@ define a(x) {
   z = scale;
 
   /* Note: a and f are known to be zero due to being auto vars. */
-  /* Calculate atan of a known number. */ 
+  /* Calculate atan of a known number. */
   if (x > .2)  {
     scale = z+5;
     a = a(.2);
   }
-   
+
   /* Precondition x. */
   scale = z+3;
   while (x > .2) {
@@ -240,7 +240,7 @@ define a(x) {
 
 
 /* Bessel function of integer order.  Uses the following:
-   j(-n,x) = (-1)^n*j(n,x) 
+   j(-n,x) = (-1)^n*j(n,x)
    j(n,x) = x^n/(2^n*n!) * (1 - x^2/(2^2*1!*(n+1)) + x^4/(2^4*2!*(n+1)*(n+2))
             - x^6/(2^6*3!*(n+1)*(n+2)*(n+3)) .... )
 */

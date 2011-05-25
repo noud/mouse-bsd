@@ -56,7 +56,7 @@ __RCSID("$NetBSD: muldi3.c,v 1.6 1998/03/27 01:30:05 cgd Exp $");
  *
  *	u = 2^n u1  *  u0	(n = number of bits in `u_long', usu. 32)
  *
- * and 
+ * and
  *
  *	v = 2^n v1  *  v0
  *

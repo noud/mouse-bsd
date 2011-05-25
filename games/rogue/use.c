@@ -601,7 +601,7 @@ get_ench_color()
 		return(id_potions[get_rand(0, POTIONS-1)].title);
 	} else if (con_mon) {
 		return("red ");
-	} 
+	}
 	return("blue ");
 }
 

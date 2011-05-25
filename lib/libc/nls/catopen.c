@@ -72,7 +72,7 @@ _catopen(name, oflag)
 	char *s, *t;
 	const char *u;
 	nl_catd catd;
-		
+
 	if (name == NULL || *name == '\0')
 		return (nl_catd)-1;
 
@@ -91,7 +91,7 @@ _catopen(name, oflag)
 		lang = NLS_DEFAULT_LANG;
 
 	s = nlspath;
-	t = tmppath;	
+	t = tmppath;
 	do {
 		while (*s && *s != ':') {
 			if (*s == '%') {

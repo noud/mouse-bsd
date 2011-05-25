@@ -61,7 +61,7 @@ Lzero:	.asciz "DOS"			| "DOS type"
 Chksum:	.long RELVER_RELATIVE_BYTES_FORWARD
 Filesz:	.long 8192			| dummy
 
-/* 
+/*
  * Entry point from Kickstart.
  * A1 points to an IOrequest, A6 points to ExecBase, we have a stack.
  * _must_ be at offset 12.
@@ -139,14 +139,14 @@ Lioerr:
  * followed by an absolute word offset. If this is zero, too, table
  * end is reached.
  */
- 
+
 Lrelocate:
 	lea	pc@(Lzero),a0
 	movl	a0,d1
 	movw	pc@(Lreltab),a2
 	addl	d1,a2
 	jra	Loopend
-	
+
 Loopw:
 	clrw	a2@+
 	movl	d1,a0	| for a variant with relative words, erase this line

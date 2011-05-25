@@ -7,7 +7,7 @@
  *
  * Copyright (c) 1993,1994,1995,1996 by Frank Kardel
  * Friedrich-Alexander Universität Erlangen-Nürnberg, Germany
- *                                    
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

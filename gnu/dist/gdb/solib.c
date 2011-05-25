@@ -1,7 +1,7 @@
 /* Handle SunOS and SVR4 shared libraries for GDB, the GNU Debugger.
    Copyright 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1998
    Free Software Foundation, Inc.
-   
+
 This file is part of GDB.
 
 This program is free software; you can redistribute it and/or modify
@@ -34,7 +34,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #ifndef SVR4_SHARED_LIBS
  /* SunOS shared libs need the nlist structure.  */
-#include <a.out.h> 
+#include <a.out.h>
 #else
 #include "elf/external.h"
 #include "elf/common.h"
@@ -258,9 +258,9 @@ solib_map_sections (so)
   struct section_table *p;
   struct cleanup *old_chain;
   bfd *abfd;
-  
+
   filename = tilde_expand (so -> so_name);
-  
+
   if (solib_absolute_prefix && ROOTED_P (filename))
     /* Prefix shared libraries with absolute filenames with
        SOLIB_ABSOLUTE_PREFIX.  */
@@ -290,12 +290,12 @@ solib_map_sections (so)
     scratch_chan = openp (solib_search_path,
 			  1, filename, O_RDONLY, 0, &scratch_pathname);
   if (scratch_chan < 0)
-    scratch_chan = openp (get_in_environ (inferior_environ, "PATH"), 
+    scratch_chan = openp (get_in_environ (inferior_environ, "PATH"),
 			  1, filename, O_RDONLY, 0, &scratch_pathname);
   if (scratch_chan < 0)
     {
-      scratch_chan = openp (get_in_environ 
-			    (inferior_environ, "LD_LIBRARY_PATH"), 
+      scratch_chan = openp (get_in_environ
+			    (inferior_environ, "LD_LIBRARY_PATH"),
 			    1, filename, O_RDONLY, 0, &scratch_pathname);
     }
   if (scratch_chan < 0)
@@ -328,7 +328,7 @@ solib_map_sections (so)
     }
   if (build_section_table (abfd, &so -> sections, &so -> sections_end))
     {
-      error ("Can't find the file sections in `%s': %s", 
+      error ("Can't find the file sections in `%s': %s",
 	     bfd_get_filename (abfd), bfd_errmsg (bfd_get_error ()));
     }
 
@@ -497,15 +497,15 @@ bfd_lookup_symbol (abfd, symname)
   unsigned int i;
   struct cleanup *back_to;
   CORE_ADDR symaddr = 0;
-  
+
   storage_needed = bfd_get_symtab_upper_bound (abfd);
 
   if (storage_needed > 0)
     {
       symbol_table = (asymbol **) xmalloc (storage_needed);
       back_to = make_cleanup (free, (PTR)symbol_table);
-      number_of_symbols = bfd_canonicalize_symtab (abfd, symbol_table); 
-  
+      number_of_symbols = bfd_canonicalize_symtab (abfd, symbol_table);
+
       for (i = 0; i < number_of_symbols; i++)
 	{
 	  sym = *symbol_table++;
@@ -918,7 +918,7 @@ find_solib (so_list_ptr)
   struct so_list *so_list_next = NULL;
   struct link_map *lm = NULL;
   struct so_list *new;
-  
+
   if (so_list_ptr == NULL)
     {
       /* We are setting up for a new scan through the loaded images. */
@@ -979,8 +979,8 @@ find_solib (so_list_ptr)
 	      make_run_cleanup (do_clear_solib);
 	      solib_cleanup_queued = 1;
 	    }
-	  
-	}      
+
+	}
       so_list_next = new;
       read_memory ((CORE_ADDR) lm, (char *) &(new -> lm),
 		   sizeof (struct link_map));
@@ -1002,7 +1002,7 @@ find_solib (so_list_ptr)
 	  new -> so_name[MAX_PATH_SIZE - 1] = '\0';
 	  free (buffer);
 	  solib_map_sections (new);
-	}      
+	}
     }
   return (so_list_next);
 }
@@ -1033,7 +1033,7 @@ symbol_add_stub (arg)
 	text_addr = bfd_section_vma (so -> abfd, lowest_sect)
 		    + (CORE_ADDR) LM_ADDR (so);
     }
-  
+
   ALL_OBJFILES (so -> objfile)
     {
       if (strcmp (so -> objfile -> name, so -> so_name) == 0)
@@ -1083,7 +1083,7 @@ solib_add (arg_string, from_tty, target)
      char *arg_string;
      int from_tty;
      struct target_ops *target;
-{	
+{
   register struct so_list *so = NULL;   	/* link map state variable */
 
   /* Last shared library that we read.  */
@@ -1092,12 +1092,12 @@ solib_add (arg_string, from_tty, target)
   char *re_err;
   int count;
   int old;
-  
+
   if ((re_err = re_comp (arg_string ? arg_string : ".")) != NULL)
     {
       error ("Invalid regexp: %s", re_err);
     }
-  
+
   /* Add the shared library sections to the section table of the
      specified target, if any.  */
   if (target)
@@ -1112,7 +1112,7 @@ solib_add (arg_string, from_tty, target)
 	      count += so -> sections_end - so -> sections;
 	    }
 	}
-      
+
       if (count)
 	{
 	  int update_coreops;
@@ -1121,7 +1121,7 @@ solib_add (arg_string, from_tty, target)
 	     here, otherwise we dereference a potential dangling pointer
 	     for each call to target_read/write_memory within this routine.  */
 	  update_coreops = core_ops.to_sections == target->to_sections;
-	     
+
 	  /* Reallocate the target's section table including the new size.  */
 	  if (target -> to_sections)
 	    {
@@ -1137,7 +1137,7 @@ solib_add (arg_string, from_tty, target)
 		xmalloc ((sizeof (struct section_table)) * count);
 	    }
 	  target -> to_sections_end = target -> to_sections + (count + old);
-	  
+
 	  /* Update the to_sections field in the core_ops structure
 	     if needed.  */
 	  if (update_coreops)
@@ -1153,18 +1153,18 @@ solib_add (arg_string, from_tty, target)
 		{
 		  count = so -> sections_end - so -> sections;
 		  memcpy ((char *) (target -> to_sections + old),
-			  so -> sections, 
+			  so -> sections,
 			  (sizeof (struct section_table)) * count);
 		  old += count;
 		}
 	    }
 	}
     }
-  
+
   /* Now add the symbol files.  */
   while ((so = find_solib (so)) != NULL)
     {
-      if (so -> so_name[0] && re_exec (so -> so_name) && 
+      if (so -> so_name[0] && re_exec (so -> so_name) &&
       !match_main (so -> so_name))
 	{
 	  so -> from_tty = from_tty;
@@ -1259,7 +1259,7 @@ info_sharedlibrary_command (ignore, from_tty)
     }
   if (so_list_head == NULL)
     {
-      printf_unfiltered ("No shared libraries loaded at this time.\n");	
+      printf_unfiltered ("No shared libraries loaded at this time.\n");
     }
 }
 
@@ -1292,7 +1292,7 @@ solib_address (address)
      CORE_ADDR address;
 {
   register struct so_list *so = 0;   	/* link map state variable */
-  
+
   while ((so = find_solib (so)) != NULL)
     {
       if (so -> so_name[0])
@@ -1307,12 +1307,12 @@ solib_address (address)
 
 /* Called by free_all_symtabs */
 
-void 
+void
 clear_solib()
 {
   struct so_list *next;
   char *bfd_filename;
-  
+
   while (so_list_head)
     {
       if (so_list_head -> sections)
@@ -1329,7 +1329,7 @@ clear_solib()
       else
 	/* This happens for the executable on SVR4.  */
 	bfd_filename = NULL;
-      
+
       next = so_list_head -> next;
       if (bfd_filename)
 	free ((PTR)bfd_filename);
@@ -1394,7 +1394,7 @@ disable_break ()
 #ifndef SVR4_SHARED_LIBS
 
   int in_debugger = 0;
-  
+
   /* Read the debugger structure from the inferior to retrieve the
      address of the breakpoint and the original contents of the
      breakpoint address.  Remove the breakpoint by writing the original
@@ -1641,19 +1641,19 @@ bkpt_at_symbol:
 
   return (success);
 }
-  
+
 /*
-  
+
 GLOBAL FUNCTION
-  
+
 	solib_create_inferior_hook -- shared library startup support
-  
+
 SYNOPSIS
-  
+
 	void solib_create_inferior_hook()
-  
+
 DESCRIPTION
-  
+
 	When gdb starts up the inferior, it nurses it along (through the
 	shell) until it is ready to execute it's first instruction.  At this
 	point, this function gets called via expansion of the macro
@@ -1694,7 +1694,7 @@ FIXME
 	Also, what if child has exit()ed?  Must exit loop somehow.
   */
 
-void 
+void
 solib_create_inferior_hook()
 {
   /* If we are using the BKPT_AT_SYMBOL code, then we don't need the base
@@ -1777,7 +1777,7 @@ SYNOPSIS
 DESCRIPTION
 
 	Once the symbols from a shared object have been loaded in the usual
-	way, we are called to do any system specific symbol handling that 
+	way, we are called to do any system specific symbol handling that
 	is needed.
 
 	For SunOS4, this consists of grunging around in the dynamic
@@ -1864,7 +1864,7 @@ _initialize_solib()
 
   add_com ("sharedlibrary", class_files, sharedlibrary_command,
 	   "Load shared object library symbols for files matching REGEXP.");
-  add_info ("sharedlibrary", info_sharedlibrary_command, 
+  add_info ("sharedlibrary", info_sharedlibrary_command,
 	    "Status of loaded shared object libraries.");
 
   add_show_from_set

@@ -18,7 +18,7 @@ which observed that gawk was doing the comparison  $1 == "000"
 numerically.  I think that we can agree that intuitively, this should
 be done as a string comparison.  Version 2.13.2 of gawk follows the
 current POSIX draft.  Following is how I (now) think this
-stuff should be done. 
+stuff should be done.
 
 1.  A numeric literal or the result of a numeric operation has the NUMERIC
     attribute.

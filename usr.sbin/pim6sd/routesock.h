@@ -34,12 +34,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -52,6 +52,6 @@
 int init_routesock __P((void));
 extern int pid;
 extern int    k_req_incoming         __P((struct sockaddr_in6 *source,
-                      struct rpfctl *rpfp)); 
+                      struct rpfctl *rpfp));
 
 #endif

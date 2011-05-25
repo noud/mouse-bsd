@@ -69,7 +69,7 @@ enum {
 
 static int      pnpdataport;
 
-static int 
+static int
 getiobase(nr)
 	int             nr;
 {
@@ -86,7 +86,7 @@ getiobase(nr)
 	return (iobase);
 }
 
-static int 
+static int
 getdmachan(nr)
 	int             nr;
 {
@@ -110,7 +110,7 @@ struct cardid {
 /*
  do isolation, call pnpscanresc() in board config state
  */
-static int 
+static int
 pnpisol(csn)
 	int             csn;
 {
@@ -163,7 +163,7 @@ pnpisol(csn)
 		| (id->eisaid[2] << 8) | (id->eisaid[3]));
 }
 
-static void 
+static void
 pnpisolreset()
 {
 	outb(PNPADDR, WAKE);
@@ -173,7 +173,7 @@ pnpisolreset()
 /*
  send initiation sequence (app. B.1)
  */
-static void 
+static void
 pnpinit()
 {
 	int             i;
@@ -189,7 +189,7 @@ pnpinit()
 	}
 }
 
-int 
+int
 isapnp_finddev(id, iobase, dmachan)
 	int             id;
 	int            *iobase, *dmachan;

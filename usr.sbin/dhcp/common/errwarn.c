@@ -216,7 +216,7 @@ int parse_warn (ANSI_DECL (char *) fmt, VA_DOTDOTDOT)
 {
 	va_list list;
 	static char spaces [] = "                                                                                ";
-	
+
 	do_percentm (mbuf, fmt);
 #ifndef NO_SNPRINTF
 	snprintf (fbuf, sizeof fbuf, "%s line %d: %s",
@@ -225,7 +225,7 @@ int parse_warn (ANSI_DECL (char *) fmt, VA_DOTDOTDOT)
 	sprintf (fbuf, "%s line %d: %s",
 		 tlname, lexline, mbuf);
 #endif
-	
+
 	VA_start (list, fmt);
 	vsnprintf (mbuf, sizeof mbuf, fbuf, list);
 	va_end (list);

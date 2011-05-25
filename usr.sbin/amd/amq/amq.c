@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: amq.c,v 1.5 1999/08/24 21:31:07 ezk Exp 
+ * Id: amq.c,v 1.5 1999/08/24 21:31:07 ezk Exp
  *
  */
 

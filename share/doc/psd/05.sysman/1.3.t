@@ -100,7 +100,7 @@ A process can request notification via a SIGIO signal
 when input or output is possible
 on a descriptor, or when a \fInon-blocking\fP operation completes.
 A process may request to receive a SIGURG signal when an
-urgent condition arises. 
+urgent condition arises.
 .PP
 A process may be \fIstopped\fP by a signal sent to it or the members
 of its process group.  The SIGSTOP signal is a powerful stop

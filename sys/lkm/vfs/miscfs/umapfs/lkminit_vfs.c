@@ -61,7 +61,7 @@ MOD_VFS("umapfs", -1, &umapfs_vfsops);
  */
 int
 umapfs_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

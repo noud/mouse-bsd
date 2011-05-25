@@ -1,7 +1,7 @@
 /* Parameters for NYU Ultracomputer 29000 target, for GDB, the GNU debugger.
    Copyright 1990, 1991 Free Software Foundation, Inc.
-   Contributed by David Wood @ New York University (wood@nyu.edu). 
-   
+   Contributed by David Wood @ New York University (wood@nyu.edu).
+
 This file is part of GDB.
 
 This program is free software; you can redistribute it and/or modify
@@ -28,7 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /* Initializer for an array of names of registers.
    There should be NUM_REGS strings in this initializer.
  */
-#define NUM_REGS   (EXO_REGNUM + 1)	
+#define NUM_REGS   (EXO_REGNUM + 1)
 
 #define REGISTER_NAMES { 						 \
  "gr1",									 \
@@ -63,13 +63,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #ifdef KERNEL_DEBUGGING
 # define	PADDR_U_REGNUM	22		/* gr86 */
-# define	RETURN_REGNUM	GR64_REGNUM	
+# define	RETURN_REGNUM	GR64_REGNUM
 #else
-# define	RETURN_REGNUM	GR96_REGNUM	
+# define	RETURN_REGNUM	GR96_REGNUM
 #endif	/* KERNEL_DEBUGGING */
 
 
-/* Should rename all GR96_REGNUM to RETURN_REGNUM */ 
+/* Should rename all GR96_REGNUM to RETURN_REGNUM */
 #define GR1_REGNUM 	(0)
 #define GR64_REGNUM	1
 #define GR96_REGNUM 	(GR64_REGNUM + 32)
@@ -90,19 +90,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define RFB_REGNUM (127 - 96 + RETURN_REGNUM)
 /* Register Stack Pointer.  */
 #define RSP_REGNUM GR1_REGNUM
-#define LR0_REGNUM ( 32 +  GR96_REGNUM) 
+#define LR0_REGNUM ( 32 +  GR96_REGNUM)
 
 /* Protected Special registers */
 #define VAB_REGNUM (LR0_REGNUM +  128)
-#define OPS_REGNUM (VAB_REGNUM + 1)  
-#define CPS_REGNUM (VAB_REGNUM + 2)  
-#define CFG_REGNUM (VAB_REGNUM + 3)  
-#define CHA_REGNUM (VAB_REGNUM + 4)  
-#define CHD_REGNUM (VAB_REGNUM + 5)  
-#define CHC_REGNUM (VAB_REGNUM + 6)  
-#define RBP_REGNUM (VAB_REGNUM + 7)  
-#define TMC_REGNUM (VAB_REGNUM + 8)  
-#define TMR_REGNUM (VAB_REGNUM + 9)  
+#define OPS_REGNUM (VAB_REGNUM + 1)
+#define CPS_REGNUM (VAB_REGNUM + 2)
+#define CFG_REGNUM (VAB_REGNUM + 3)
+#define CHA_REGNUM (VAB_REGNUM + 4)
+#define CHD_REGNUM (VAB_REGNUM + 5)
+#define CHC_REGNUM (VAB_REGNUM + 6)
+#define RBP_REGNUM (VAB_REGNUM + 7)
+#define TMC_REGNUM (VAB_REGNUM + 8)
+#define TMR_REGNUM (VAB_REGNUM + 9)
 #define NPC_REGNUM (VAB_REGNUM + 10)	/* pc0 */
 #define PC_REGNUM  (VAB_REGNUM + 11)  	/* pc1 */
 #define PC2_REGNUM (VAB_REGNUM + 12)  	/* pc2 */
@@ -110,21 +110,21 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define LRU_REGNUM (VAB_REGNUM + 14)
 	/* Register sequence gap */
 /* Unprotected Special registers */
-#define IPC_REGNUM (LRU_REGNUM + 1) 
-#define IPA_REGNUM (IPC_REGNUM + 1) 
-#define IPB_REGNUM (IPC_REGNUM + 2) 
-#define Q_REGNUM   (IPC_REGNUM + 3) 
-#define ALU_REGNUM (IPC_REGNUM + 4) 
+#define IPC_REGNUM (LRU_REGNUM + 1)
+#define IPA_REGNUM (IPC_REGNUM + 1)
+#define IPB_REGNUM (IPC_REGNUM + 2)
+#define Q_REGNUM   (IPC_REGNUM + 3)
+#define ALU_REGNUM (IPC_REGNUM + 4)
 #define PS_REGNUM  ALU_REGNUM
-#define BP_REGNUM  (IPC_REGNUM + 5) 
-#define FC_REGNUM  (IPC_REGNUM + 6) 
-#define CR_REGNUM  (IPC_REGNUM + 7) 
+#define BP_REGNUM  (IPC_REGNUM + 5)
+#define FC_REGNUM  (IPC_REGNUM + 6)
+#define CR_REGNUM  (IPC_REGNUM + 7)
 	/* Register sequence gap */
-#define FPE_REGNUM (CR_REGNUM  + 1) 
-#define INT_REGNUM (FPE_REGNUM + 1) 
-#define FPS_REGNUM (FPE_REGNUM + 2) 
+#define FPE_REGNUM (CR_REGNUM  + 1)
+#define INT_REGNUM (FPE_REGNUM + 1)
+#define FPS_REGNUM (FPE_REGNUM + 2)
 	/* Register sequence gap */
-#define EXO_REGNUM (FPS_REGNUM + 1) 
+#define EXO_REGNUM (FPS_REGNUM + 1)
 
 /* Special register #x.  */
 #define SR_REGNUM(x) \
@@ -137,10 +137,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #ifndef KERNEL_DEBUGGING
 /*
  * This macro defines the register numbers (from REGISTER_NAMES) that
- * are effectively unavailable to the user through ptrace().  It allows 
- * us to include the whole register set in REGISTER_NAMES (inorder to 
- * better support remote debugging).  If it is used in 
- * fetch/store_inferior_registers() gdb will not complain about I/O errors 
+ * are effectively unavailable to the user through ptrace().  It allows
+ * us to include the whole register set in REGISTER_NAMES (inorder to
+ * better support remote debugging).  If it is used in
+ * fetch/store_inferior_registers() gdb will not complain about I/O errors
  * on fetching these registers.  If all registers in REGISTER_NAMES
  * are available, then return false (0).
  */
@@ -168,7 +168,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #ifdef KERNEL_DEBUGGING
   /* ublock virtual address as defined in our sys/param.h */
   /* FIXME: Should get this from sys/param.h */
-# define UVADDR	((32*0x100000)-8192)    
+# define UVADDR	((32*0x100000)-8192)
 #endif
 
 /*

@@ -660,7 +660,7 @@ receive(rbufp)
 		    if (!(peer->reach && peer->keyid != hiskeyid)) {
 			peer->keyid = hiskeyid;
 			peer->flags |= FLAG_AUTHENABLE;
-		    } 
+		    }
 		} else {
 			peer->keyid = 0;
 			peer->flags &= ~FLAG_AUTHENABLE;
@@ -693,7 +693,7 @@ receive(rbufp)
 		trustable = 0;
 	else
 		trustable = 1;
-	
+
 	if (sys_authenticate && trustable) {
 		if (!(peer->flags & FLAG_CONFIG) ||
 		    (peer->flags & FLAG_AUTHENABLE)) {
@@ -767,7 +767,7 @@ receive(rbufp)
 		}
 		break;
 
-	
+
 	case MODE_BCLIENT:
 		/*
 		 * Broadcast client pseudo-mode. We accept both server
@@ -805,10 +805,10 @@ receive(rbufp)
 				 */
 				unpeer(peer);
 			break;
-		
+
 		case MODE_PASSIVE:
 			break;
-		
+
 		case MODE_SERVER:
 		case MODE_BROADCAST:
 			process_packet(peer, pkt, &rbufp->recv_time,
@@ -909,7 +909,7 @@ process_packet(peer, pkt, recv_ts, has_mac, trustable)
 	}
 	peer->org = p_xmt;	/* reuse byte-swapped pkt->xmt */
 	peer->ppoll = pkt->ppoll;
-		
+
 	/*
 	 * Call poll_update(). This will either start us, if the
 	 * association is new, or drop the polling interval if the
@@ -1138,7 +1138,7 @@ process_packet(peer, pkt, recv_ts, has_mac, trustable)
 	     * relative to average, since average may be wrong */
 	    if ( peer->was_sane && peer->correct )
 	      {
-		sprintf(logstr, 
+		sprintf(logstr,
 			"observation: time %lu %s off %s delay %s error %s rsadj %s",
 			sys_clock,
 			ntoa(&peer->srcadr),
@@ -1151,7 +1151,7 @@ process_packet(peer, pkt, recv_ts, has_mac, trustable)
 	      }
 	    else
 	      {
-		sprintf(logstr, 
+		sprintf(logstr,
 			"incorrect_obs: time %lu %s off %s delay %s error %s rsadj %s",
 			sys_clock,
 			ntoa(&peer->srcadr),
@@ -1263,7 +1263,7 @@ clock_update(peer)
 		 */
 		L_CLR(&sys_refskew);
 		break;
-		
+
 	case 1:
 
 		/*
@@ -1380,7 +1380,7 @@ clear_all()
 	if (sys_peer)
 	  NLOG(NLOG_SYNCSTATUS)
 	    msyslog(LOG_INFO, "synchronisation lost");
-	
+
 	sys_peer = 0;
 	sys_stratum = STRATUM_UNSPEC;
 }
@@ -1472,7 +1472,7 @@ clock_filter(peer, sample_offset, sample_delay, sample_error)
 	  {
 	    char logstr[1024];
 
-	    sprintf(logstr, 
+	    sprintf(logstr,
 		    "observation: time %lu %s off %s delay %s error %s rsadj %s",
 		    sys_clock,
 		    ntoa(&peer->srcadr),
@@ -1481,7 +1481,7 @@ clock_filter(peer, sample_offset, sample_delay, sample_error)
 		    ufptoa(sample_error, 6),
 		    lfptoa(&gdt_rsadj, 6)
 		    );
-	    
+
 	    msyslog(LOG_DEBUG, "%s", logstr);
 	  }
 #endif /* GDT_SURVEYING */
@@ -1516,11 +1516,11 @@ clock_filter(peer, sample_offset, sample_delay, sample_error)
 			}
 		}
 		skewmax += (1 << peer->hpoll);
-	} 
+	}
 	peer->filter_nextpt++;
 	if (peer->filter_nextpt >= NTP_SHIFT)
 		peer->filter_nextpt = 0;
-	
+
 	/*
 	 * We compute the dispersion as per the spec. Note that, to make
 	 * things simple, both the l_fp and s_fp offsets are retained
@@ -1903,7 +1903,7 @@ clock_select()
 		}
 		nlist--;
 	}
-	
+
 #ifdef DEBUG
 	if (debug > 1) {
 		for (i = 0; i < nlist; i++)
@@ -2028,7 +2028,7 @@ clock_select()
  *
  * Note: this routine uses only those peers at the lowest stratum.
  * Strictly speaking, this is at variance with the spec.
- */  
+ */
 void
 clock_combine(peers, npeers)
 	struct peer **peers;
@@ -2257,7 +2257,7 @@ fast_xmit(rbufp, rmode, authentic)
  * In order to guard against spurious values, which could occur if we
  * happen to hit a fat interrupt, we do this for MINLOOPS times and
  * keep the minimum value obtained.
- */  
+ */
 static int default_get_precision()
 {
 	struct timeval tp;
@@ -2328,7 +2328,7 @@ static int default_get_precision()
 		msyslog(LOG_INFO, "est: %d %d", oldest[j], est[j]);
 	}
 #endif
-	
+
 	if (usec >= HUSECS)
 		val = MINSTEP;	/* val <= MINSTEP; fast machine */
 	diff = HUSECS;
@@ -2452,7 +2452,7 @@ proto_config(item, value)
 		sys_bclient = 1;
 		io_multicast_del(value);
 		break;
-	
+
 	case PROTO_BROADDELAY:
 		/*
 		 * Set default broadcast delay (s_fp)
@@ -2462,7 +2462,7 @@ proto_config(item, value)
 		else
 			sys_bdelay = value >> 16;
 		break;
-	
+
 	case PROTO_AUTHENTICATE:
 		/*
 		 * Specify the use of authenticated data

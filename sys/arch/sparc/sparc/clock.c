@@ -286,8 +286,8 @@ oclockattach(parent, self, aux)
 	h |= idp->id_hostid[2];
 	hostid = h;
 
-	/* 
-	 * calibrate delay() 
+	/*
+	 * calibrate delay()
 	 */
 	ienab_bic(IE_L14 | IE_L10);	/* disable all clock intrs */
 	for (timerblurb = 1; ; timerblurb++) {

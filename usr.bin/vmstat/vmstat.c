@@ -807,7 +807,7 @@ domem()
 			first = 0;
 		}
 		size = 1 << i;
-		(void)printf("%8d %8ld %6ld %10ld %7ld %10ld\n", size, 
+		(void)printf("%8d %8ld %6ld %10ld %7ld %10ld\n", size,
 			kp->kb_total - kp->kb_totalfree,
 			kp->kb_totalfree, kp->kb_calls,
 			kp->kb_highwat, kp->kb_couldfree);
@@ -943,7 +943,7 @@ dopool()
 			sprintf(maxp, "%6u", pp->pr_maxpages);
 		(void)printf(
 		    "%-11s%5u%9lu%5lu%9lu%6lu%6lu%6d%6d%6d%6s%5lu\n",
-			name, 
+			name,
 			pp->pr_size,
 			pp->pr_nget,
 			pp->pr_nfail,
@@ -1143,7 +1143,7 @@ hist_dodump(histp)
 			fn[fnlen] = '\0';
 
 			printf("%06ld.%06ld ", e->tv.tv_sec, e->tv.tv_usec);
-			printf("%s#%ld: ", fn, e->call); 
+			printf("%s#%ld: ", fn, e->call);
 			printf(fmt, e->v[0], e->v[1], e->v[2], e->v[3]);
 			printf("\n");
 		}

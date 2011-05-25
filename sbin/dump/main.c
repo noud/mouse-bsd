@@ -103,7 +103,7 @@ main(argc, argv)
 	char *argv[];
 {
 	ino_t ino;
-	int dirty; 
+	int dirty;
 	struct dinode *dp;
 	struct	fstab *dt;
 	char *map;
@@ -196,7 +196,7 @@ main(argc, argv)
 		case 'r':		/* read cache size */
 			readcache = numarg("read cache size", 0, 512);
 			break;
-		
+
 		case 's':		/* tape size, feet */
 			tsize = numarg("tape size", 1L, 0L) * 12 * 10;
 			break;
@@ -428,7 +428,7 @@ main(argc, argv)
 	nonodump = iswap32(spcl.c_level) < honorlevel;
 
 	initcache(readcache, readblksize);
-	
+
 	(void)signal(SIGINFO, statussig);
 
 	msg("mapping (Pass I) [regular files]\n");
@@ -453,7 +453,7 @@ main(argc, argv)
 			   the end of each block written, and not in mid-block.
 			   Assume no erroneous blocks; this can be compensated
 			   for with an artificially low tape size. */
-			fetapes = 
+			fetapes =
 			(	  tapesize	/* blocks */
 				* TP_BSIZE	/* bytes/block */
 				* (1.0/density)	/* 0.1" / byte */

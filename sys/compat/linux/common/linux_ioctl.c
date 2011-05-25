@@ -108,7 +108,7 @@ linux_sys_ioctl(p, v, retval)
 		struct filedesc *fdp;
 		struct vnode *vp;
 		struct vattr va;
-		extern int sequencerioctl 
+		extern int sequencerioctl
 			__P((dev_t, u_long, caddr_t, int, struct proc *));
 
 		fdp = p->p_fd;

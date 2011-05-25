@@ -67,7 +67,7 @@ char *from, *to;
 	dev_t to_device = filestat.st_dev;
 	ino_t to_inode  = filestat.st_ino;
 	char *simplename = bakname;
-	
+
 	for (s=bakname; *s; s++) {
 	    if (*s == '/')
 		simplename = s+1;
@@ -119,7 +119,7 @@ char *from, *to;
 #endif
     if (link(from, to) < 0) {		/* different file system? */
 	Reg4 int tofd;
-	
+
 	tofd = creat(to, 0666);
 	if (tofd < 0) {
 	    say4("Can't create %s, output is in %s: %s\n",
@@ -148,7 +148,7 @@ char *from, *to;
     Reg3 int tofd;
     Reg2 int fromfd;
     Reg1 int i;
-    
+
     tofd = creat(to, 0666);
     if (tofd < 0)
 	pfatal2("can't create %s", to);
@@ -221,7 +221,7 @@ say(va_alist)
     va_start(ap);
     pat = va_arg(ap, const char *);
 #endif
-	
+
     vfprintf(stderr, pat, ap);
     va_end(ap);
     Fflush(stderr);
@@ -246,7 +246,7 @@ fatal(va_alist)
     va_start(ap);
     pat = va_arg(ap, const char *);
 #endif
-	
+
     fprintf(stderr, "patch: **** ");
     vfprintf(stderr, pat, ap);
     va_end(ap);
@@ -273,7 +273,7 @@ pfatal(va_alist)
     va_start(ap);
     pat = va_arg(ap, const char *);
 #endif
-	
+
     fprintf(stderr, "patch: **** ");
     vfprintf(stderr, pat, ap);
     fprintf(stderr, ": %s\n", strerror(errnum));

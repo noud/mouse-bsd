@@ -2,7 +2,7 @@ typedef enum
 {
   GR0,GR1,GR2,GR3,GR4,GR5,GR6,GR7,
   GPR0, GPR1, GPR2, GPR3, GPR4, GPR5, GPR6, GPR7,
-  GCCR, GPC, 
+  GCCR, GPC,
   GSEGC, GSEGD, GSEGE, GSEGT,GLAST
 } gdbreg_type;
 #define O_XORC 1
@@ -124,7 +124,7 @@ typedef enum
 #define RS	39
 #define SP	40
 typedef enum { AC_BAD, AC_EI, AC_RI, AC_D, AC_,AC_ERR, AC_X,AC_B, AC_EE,AC_RR,AC_IE,
- AC_RE,AC_E, AC_I, AC_ER,AC_IRR, AC_IR, AC_RER, AC_ERE,AC_EIE } addr_class_type; 
+ AC_RE,AC_E, AC_I, AC_ER,AC_IRR, AC_IR, AC_RER, AC_ERE,AC_EIE } addr_class_type;
 typedef struct {
 	short int idx;
 	char flags,src1,src2,dst;
@@ -2391,7 +2391,7 @@ h8500_opcode_info h8500_table[]
 {170,'-','B','!','!',O_BLT|O_WORD,"blt.w",1,{PCREL16,0},3,	{{0x3d,0xff, },{0x00,0x00,PCREL16 },{0x00,0x00, }}},
 {188,'-','B','!','!',O_BGT|O_WORD,"bgt.w",1,{PCREL16,0},3,	{{0x3e,0xff, },{0x00,0x00,PCREL16 },{0x00,0x00, }}},
 {179,'-','B','!','!',O_BLE|O_WORD,"ble.w",1,{PCREL16,0},3,	{{0x3f,0xff, },{0x00,0x00,PCREL16 },{0x00,0x00, }}},
-/* 
+/*
 RN,RD  'm','E','D','D'
 CRB,RN  's','C','!','E'
 RN,RD  'm','E','D','D'
@@ -3829,7 +3829,7 @@ QIM,RNIND_D16  'a','I','E','E'
 IMM16,RD  'a','E','D','D'
 QIM,ABS16  'a','I','E','E'
 RNIND_D16,RD  'a','E','D','D'
-*/ 
+*/
 {0,0,0}}
 #endif
 ;

@@ -87,7 +87,7 @@ lmc_av9110_freq(u_int32_t target, lmc_av9110_t *av)
 						f = iFvco / (x * r);
 						if (f >= target)
 							if ((av->f == 0) || (f - target < av->f - target)) {
-						
+
 							av->n = n;
 							av->m = m;
 							if (v == 1)

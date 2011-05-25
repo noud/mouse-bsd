@@ -235,9 +235,9 @@
 #  define NO_MEMORY_H
 #  define NO_UTIME_H
 #  define NO_UTIME
-#  define NO_CHOWN 
-#  define NO_STDIN_FSTAT 
-#  define NO_SIZE_CHECK 
+#  define NO_CHOWN
+#  define NO_STDIN_FSTAT
+#  define NO_SIZE_CHECK
 #  define NO_SYMLINK
 #  define RECORD_IO  1
 #  define casemap(c)  tolow(c) /* Force file names to lower case */

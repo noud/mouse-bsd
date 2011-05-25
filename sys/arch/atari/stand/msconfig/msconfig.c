@@ -92,7 +92,7 @@ main(int argc, char **argv)
 	printf("State of 3 button emulation: ON\n");
     else
 	printf("State of 3 button emulation: OFF\n");
-    
+
     close(fd);
     exit(0);
 }

@@ -1,6 +1,6 @@
 /*	$NetBSD: pmap.h,v 1.14 1999/05/13 14:24:27 minoura Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1987 Carnegie-Mellon University
  * Copyright (c) 1991, 1993
  *	The Regents of the University of California.  All rights reserved.

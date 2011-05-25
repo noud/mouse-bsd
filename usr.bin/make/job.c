@@ -292,7 +292,7 @@ STATIC Lst	stoppedJobs;	/* Lst of Job structures describing
 #endif
 #ifndef W_EXITCODE
 #define W_EXITCODE(ret, sig) ((ret << 8) | (sig))
-#endif 
+#endif
 
 static int JobCondPassSig __P((ClientData, ClientData));
 static void JobPassSig __P((int));

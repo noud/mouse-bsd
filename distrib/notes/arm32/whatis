@@ -1,4 +1,4 @@
-.\"	$NetBSD: whatis,v 1.4 1999/03/26 09:10:48 mark Exp $	
+.\"	$NetBSD: whatis,v 1.4 1999/03/26 09:10:48 mark Exp $
 NetBSD/arm32 \*V has a number of improvements over the last release.
 .Pp
 Support has been added for the following hardware platforms:

@@ -86,5 +86,5 @@ void    ioasic_intr_disestablish __P((struct device *, void *));
  */
 int	ioasicprint __P((void *, const char *));
 int	ioasic_submatch __P((struct cfdata *, struct ioasicdev_attach_args *));
-void	ioasic_attach_devs __P((struct ioasic_softc *sc, 
+void	ioasic_attach_devs __P((struct ioasic_softc *sc,
 	    struct ioasic_dev *ioasic_devs, int ioasic_ndevs));

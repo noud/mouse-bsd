@@ -128,7 +128,7 @@ open_score_file()
 	if (fcntl(score_fd, F_SETFD, flags) == -1)
 		err(1, "fcntl F_SETFD");
 	/*
-	 * This is done to take advantage of stdio, while still 
+	 * This is done to take advantage of stdio, while still
 	 * allowing a O_CREAT during the open(2) of the log file.
 	 */
 	score_fp = fdopen(score_fd, "r+");
@@ -166,10 +166,10 @@ log_score(list_em)
 	}
 	for (;;) {
 		good = fscanf(score_fp, SCORE_SCANF_FMT,
-			score[num_scores].name, 
-			score[num_scores].host, 
+			score[num_scores].name,
+			score[num_scores].host,
 			score[num_scores].game,
-			&score[num_scores].planes, 
+			&score[num_scores].planes,
 			&score[num_scores].time,
 			&score[num_scores].real_time);
 		if (good != 6 || ++num_scores >= NUM_SCORES)
@@ -177,7 +177,7 @@ log_score(list_em)
 	}
 	if (!test_mode && !list_em) {
 		if ((pw = (struct passwd *) getpwuid(getuid())) == NULL) {
-			fprintf(stderr, 
+			fprintf(stderr,
 				"getpwuid failed for uid %d.  Who are you?\n",
 				(int)getuid());
 			return (-1);
@@ -245,7 +245,7 @@ log_score(list_em)
 			rewind(score_fp);
 			for (i = 0; i < num_scores; i++)
 				fprintf(score_fp, "%s %s %s %d %d %d\n",
-					score[i].name, score[i].host, 
+					score[i].name, score[i].host,
 					score[i].game, score[i].planes,
 					score[i].time, score[i].real_time);
 			fflush(score_fp);
@@ -274,7 +274,7 @@ log_score(list_em)
 	/* lock will evaporate upon close */
 #endif
 	fclose(score_fp);
-	printf("%2s:  %-8s  %-8s  %-18s  %4s  %9s  %4s\n", "#", "name", "host", 
+	printf("%2s:  %-8s  %-8s  %-18s  %4s  %9s  %4s\n", "#", "name", "host",
 		"game", "time", "real time", "planes safe");
 	puts("-------------------------------------------------------------------------------");
 	for (i = 0; i < num_scores; i++) {

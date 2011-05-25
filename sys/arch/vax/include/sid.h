@@ -53,7 +53,7 @@
 #define VAX_TYP_750	2	/* VAX-11/750 */
 #define VAX_TYP_730	3	/* VAX-11/730, 725 */
 #define VAX_TYP_790	4	/* VAX 8600, 8650 */
- 
+
 #define VAX_BTYP_780	0x01000000	/* generic 11/780 */
 #define VAX_BTYP_750	0x02000000	/* generic 11/750 */
 #define VAX_BTYP_730	0x03000000	/* generic 11/730 */
@@ -64,9 +64,9 @@
  */
 #define VAX_TYP_8SS	5	/* VAX 8200, 8300, 8250, 8350, VS 8000 */
 #define VAX_TYP_8NN	6	/* VAX 8530, 8550, 8700, 8800 */
- 
+
 #define VAX_BTYP_8000	0x05000000	/* generic VAX 8000 */
- 
+
 #define VAX_BTYP_8800	0x06000000	/* generic Nautilus */
 #define VAX_BTYP_8700	0x06000001
 #define VAX_BTYP_8550	0x06000006
@@ -77,25 +77,25 @@
  */
 #define VAX_TYP_UV1	7	/* MicroVAX I, VAXstation I */
      /* VAX_TYP_610	7 */
- 
+
 #define VAX_BTYP_610	0x07000000	/* generic MicroVAX-I */
- 
+
 /*
  * MicroVAX II series (1985)
  */
 #define VAX_TYP_UV2	8
      /* VAX_TYP_78032	8 */
- 
+
 #define VAX_BTYP_630	0x08000001	/* MicroVAX II, VAXstation II */
 #define VAX_BTYP_410	0x08000004	/* MicroVAX 2000, VAXstation 2000 */
- 
+
 /*
  * CVAX chip series (1987)
  */
 #define VAX_TYP_CVAX	10
      /* VAX_TYP_650	10 */
 
- 
+
 #define VAX_BTYP_650	0x0A000001	/* MicroVAX 3500, 3600 */
      /* VAX_BTYP_65D	0x0A000001	   VAXstation 3200, 3500 XXX */
      /* VAX_BTYP_640	0x0A000001	   MicroVAX 3300, 3400 XXX */
@@ -113,48 +113,48 @@
 #define	VAX_SIE_KA640	0x2		/* KA640 MicroVAX 3300, 3400 */
 #define	VAX_SIE_KA650	0x1		/* KA650 MicroVAX 3500, 3600 */
 #define	VAX_SIE_KA655	0x3		/* KA655 MicroVAX 3800, 3900 */
- 
+
 /*
  * Rigel chip series (1990)
  */
 #define VAX_TYP_RIGEL	11
      /* VAX_TYP_9RR	11 */
- 
+
 #define VAX_BTYP_670	0x0B000001	/* VAX 4000 model 300 */
 #define VAX_BTYP_9RR	0x0B000002	/* VAX 6000 model 410-460 */
 #define VAX_BTYP_43	0x0B000004	/* VAXstation 3100 model 76 */
- 
+
 /*
  * Aquarius series (1990)
  */
 #define VAX_TYP_9000	14
- 
+
 #define VAX_BTYP_9AR	0x0E00000?	/* VAX 9000 models 210, 410-440 */
 #define VAX_BTYP_9AQ	0x0E00000?	/* VAX 9000 models 400-800 */
- 
+
 /*
  * Polarstar series (1988)
  */
 #define VAX_TYP_8PS	17
- 
+
 #define VAX_BTYP_8PS	0x11000000	/* VAX 8810 to 8840 */
- 
+
 /*
  * Mariah chip series (1991)
  */
 #define VAX_TYP_MARIAH	18
 #define VAX_TYP_V12	18
- 
+
 #define VAX_BTYP_690	0x12000001	/* VAX 4000 model 400 */
 #define VAX_BTYP_1202	0x12000002	/* VAX 6000 model 510-560 */
 #define VAX_BTYP_46	0x12000004	/* VAXstation 4000/60, 3100/80 */
- 
+
 /*
  * NVAX chip series (1991)
  */
 #define VAX_TYP_NVAX	19
 #define VAX_TYP_V13	19
- 
+
 #define VAX_BTYP_69D	0x13000001	/* VAX 4000 model 500 */
 #define VAX_BTYP_1301	0x13000001	/* VAX 4000 model 100 */
 #define VAX_BTYP_1302	0x13000002
@@ -166,19 +166,19 @@
  */
 #define VAX_TYP_SOC	20
 #define VAX_TYP_V14	20
- 
+
 #define VAX_BTYP_660	0x14000001	/* VAX 4000 model 200 */
 #define VAX_BTYP_48	0x14000004	/* VAXstation 4000 VLC */
 #define VAX_BTYP_550	0x14000007	/* VAXft model 410, 610 */
- 
+
 /*
  * NVAX+ chip series (1991)
  */
 #define VAX_TYP_NVPLUS	23
 #define VAX_TYP_V17	23
- 
+
 #define VAX_BTYP_1701	0x17000001
- 
+
 /*
  * Highest Number supported by NetBSD/VAX
  */
@@ -187,7 +187,7 @@
 /*
  * compatibility with old names:
  */
- 
+
 #define VAX_780		VAX_TYP_780
 #define VAX_750		VAX_TYP_750
 #define VAX_730		VAX_TYP_730
@@ -197,7 +197,7 @@
 #define VAX_610		VAX_TYP_UV1
 #define VAX_78032	VAX_TYP_UV2
 #define VAX_650		VAX_TYP_CVAX
- 
+
 /*
  * Some common-used external variables.
  */

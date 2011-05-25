@@ -90,7 +90,7 @@ struct pcmcia_chip_functions {
 	void	(*socket_disable) __P((pcmcia_chipset_handle_t));
 
 	/* card detection */
-	int (*card_detect) __P((pcmcia_chipset_handle_t));  
+	int (*card_detect) __P((pcmcia_chipset_handle_t));
 };
 
 /* Memory space functions. */

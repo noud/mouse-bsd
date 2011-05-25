@@ -4,28 +4,28 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 # M68000 Hi-Performance Microprocessor Division
-# M68060 Software Package Production Release 
-# 
+# M68060 Software Package Production Release
+#
 # M68060 Software Package Copyright (C) 1993, 1994, 1995, 1996 Motorola Inc.
 # All rights reserved.
-# 
+#
 # THE SOFTWARE is provided on an "AS IS" basis and without warranty.
 # To the maximum extent permitted by applicable law,
 # MOTOROLA DISCLAIMS ALL WARRANTIES WHETHER EXPRESS OR IMPLIED,
 # INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS
 # FOR A PARTICULAR PURPOSE and any warranty against infringement with
 # regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-# and any accompanying written materials. 
-# 
+# and any accompanying written materials.
+#
 # To the maximum extent permitted by applicable law,
 # IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
 # (INCLUDING WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS,
 # BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR OTHER PECUNIARY LOSS)
 # ARISING OF THE USE OR INABILITY TO USE THE SOFTWARE.
-# 
+#
 # Motorola assumes no responsibility for the maintenance and support
-# of the SOFTWARE.  
-# 
+# of the SOFTWARE.
+#
 # You are hereby granted a copyright license to use, modify, and distribute the
 # SOFTWARE so long as this entire notice is retained without alteration
 # in any modified and/or redistributed versions, and that such modified
@@ -33,7 +33,7 @@
 # No licenses are granted by implication, estoppel or otherwise under any
 # patents or trademarks of Motorola, Inc.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Derived from: 
+# Derived from:
 # iskeleton.s
 #
 # This file contains:
@@ -60,7 +60,7 @@
 # _060_isp_done():
 #
 # This is and example main exit point for the Unimplemented Integer
-# Instruction exception handler. For a normal exit, the 
+# Instruction exception handler. For a normal exit, the
 # _isp_unimp() branches to here so that the operating system
 # can do any clean-up desired. The stack frame is the
 # Unimplemented Integer Instruction stack frame with
@@ -109,9 +109,9 @@ real_chk_end:
 #
 # _060_real_divbyzero:
 #
-# This is an alternate exit point for the Unimplemented Integer 
+# This is an alternate exit point for the Unimplemented Integer
 # Instruction exception handler isp_unimp(). If the instruction is a 64-bit
-# integer divide where the source operand is a zero, then the _isp_unimp() 
+# integer divide where the source operand is a zero, then the _isp_unimp()
 # creates a Divide-by-zero exception stack frame from the Unimplemented
 # Integer Instruction stack frame and branches to this routine.
 #
@@ -119,7 +119,7 @@ real_chk_end:
 # no action associated with the "chk" exception. If tracing is enabled,
 # then it create a Trace exception stack frame from the "chk" exception
 # stack frame and branches to the _real_trace() entry point.
-# 
+#
 	.global	_060_real_divbyzero
 _060_real_divbyzero:
 	tstb	sp@			|# is tracing enabled?
@@ -174,7 +174,7 @@ _060_real_cas2:
 # Entry point for the operating system's routine to "lock" a page
 # from being paged out. This routine is needed by the cas/cas2
 # algorithms so that no page faults occur within the "core" code
-# region. Note: the routine must lock two pages if the operand 
+# region. Note: the routine must lock two pages if the operand
 # spans two pages.
 # NOTE: THE ROUTINE SHOULD RETURN AN FSLW VALUE IN D0 ON FAILURE
 # SO THAT THE 060SP CAN CREATE A PROPER ACCESS ERROR FRAME.

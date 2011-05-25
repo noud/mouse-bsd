@@ -3,7 +3,7 @@
 
 /*
  * Copyright (c) 1997 Per Fogelstrom
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:

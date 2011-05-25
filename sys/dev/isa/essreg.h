@@ -53,7 +53,7 @@
 **	Blair Fidler	Software Engineering Australia
 **			Gold Coast, Australia.
 **
-**  CREATION DATE:  
+**  CREATION DATE:
 **
 **	March 10, 1997.
 **
@@ -66,7 +66,7 @@
  * DSP commands.  This unit handles MIDI and audio capabilities.
  * The DSP can be reset, data/commands can be read or written to it,
  * and it can generate interrupts.  Interrupts are generated for MIDI
- * input or DMA completion.  They seem to have neglected the fact 
+ * input or DMA completion.  They seem to have neglected the fact
  * that it would be nice to have a MIDI transmission complete interrupt.
  * Worse, the DMA engine is half-duplex.  This means you need to do
  * (timed) programmed I/O to be able to record and play simulataneously.
@@ -126,8 +126,8 @@
 #define   ESS_DRQ_CTRL_EXT	0x40
 #define ESS_XCMD_VOLIN_CTRL	0xB4	/* stereo input volume control */
 #define ESS_1788_XCMD_AUDIO_CTRL0	0xB6
-#define   ESS_CTRL0_SIGNED	0x00  
-#define   ESS_CTRL0_UNSIGNED	0x80	
+#define   ESS_CTRL0_SIGNED	0x00
+#define   ESS_CTRL0_UNSIGNED	0x80
 #define ESS_XCMD_AUDIO1_CTRL1	0xB7	/* */
 #define	  ESS_AUDIO1_CTRL1_FIFO_CONNECT	0x80	/* 1=connected */
 #define	  ESS_AUDIO1_CTRL1_FIFO_MONO    0x40    /* 0=stereo/1=mono */

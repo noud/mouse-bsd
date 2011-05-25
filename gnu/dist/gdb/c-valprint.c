@@ -86,7 +86,7 @@ c_val_print (type, valaddr, address, stream, format, deref_ref, recurse,
 	      if (stop_print_at_null)
 		{
 		  int temp_len;
-		  
+
 		  /* Look for a NULL char. */
 		  for (temp_len = 0;
 		       valaddr[temp_len]
@@ -94,7 +94,7 @@ c_val_print (type, valaddr, address, stream, format, deref_ref, recurse,
 		       temp_len++);
 		  len = temp_len;
 		}
-	      
+
 	      LA_PRINT_STRING (stream, valaddr, len, 0);
 	      i = len;
 	    }
@@ -200,9 +200,9 @@ c_val_print (type, valaddr, address, stream, format, deref_ref, recurse,
 		  int is_this_fld;
 
 		  if (msymbol != NULL)
-              	    wsym = lookup_symbol (SYMBOL_NAME(msymbol), block, 
+              	    wsym = lookup_symbol (SYMBOL_NAME(msymbol), block,
 				VAR_NAMESPACE, &is_this_fld, &s);
- 
+
 		  if (wsym)
 		    {
 	              wtype = SYMBOL_TYPE(wsym);

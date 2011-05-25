@@ -426,7 +426,7 @@ tcp_trace(act, ostate, atp, tp, family, packet, req)
 				(void *)&ip->ip_src,
 #else
 				family == AF_INET ? (void *)&ip->ip_src
-						  : (void *)&ip6->ip6_src, 
+						  : (void *)&ip6->ip6_src,
 #endif
 				hbuf, sizeof(hbuf));
 			printf("(src=%s,%u, ",
@@ -436,7 +436,7 @@ tcp_trace(act, ostate, atp, tp, family, packet, req)
 				(void *)&ip->ip_dst,
 #else
 				family == AF_INET ? (void *)&ip->ip_dst
-						  : (void *)&ip6->ip6_dst, 
+						  : (void *)&ip6->ip6_dst,
 #endif
 				hbuf, sizeof(hbuf));
 			printf("dst=%s,%u)",

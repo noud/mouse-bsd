@@ -105,7 +105,7 @@ RF_DECLARE_STATIC_MUTEX(chunkmutex)
 	rf_mutex_destroy(&chunkmutex);
 }
 
-int 
+int
 rf_ConfigureMemChunk(listp)
 	RF_ShutdownList_t **listp;
 {
@@ -182,7 +182,7 @@ rf_GetMemChunk(size)
 	return (p);
 }
 
-void 
+void
 rf_ReleaseMemChunk(chunk)
 	RF_ChunkDesc_t *chunk;
 {

@@ -461,7 +461,7 @@ loop:
 		/*
 		 * otherwise lock the vp list while we call getnewvnode
 		 * since that can block.
-		 */ 
+		 */
 		hash = UNION_HASH(uppervp, lowervp);
 
 		if (union_list_lock(hash))

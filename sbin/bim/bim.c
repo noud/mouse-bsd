@@ -95,7 +95,7 @@ int     secsize;
 /* Utility routines... */
 /***********************/
 
-void 
+void
 usage()
 {
 	printf("usage: %s [-y] [-c command [-c command ...]] [device]\n",
@@ -104,7 +104,7 @@ usage()
 	exit(1);
 }
 
-void 
+void
 getlf(inchar)
 	char	inchar;
 {
@@ -112,7 +112,7 @@ getlf(inchar)
 		inchar = getchar();
 }
 
-void 
+void
 getstr(str, size)
 	char	*str;
 	int	size;
@@ -145,7 +145,7 @@ dkcksum(lp)
 	return sum;
 }
 
-void 
+void
 save_images()
 {
 	int     count;
@@ -160,7 +160,7 @@ save_images()
 }
 
 /* This function will initialize the image information . */
-void 
+void
 init_images(badmagic)
 	char    badmagic;
 {
@@ -195,7 +195,7 @@ init_images(badmagic)
 }
 
 /* Print out the header and other information about the disk. */
-int 
+int
 display_part(num, args, syntax)
 	int     num;
 	char  **args;
@@ -225,7 +225,7 @@ display_part(num, args, syntax)
 	return FALSE;
 }
 
-int 
+int
 display_image(num, args, syntax)
 	int     num;
 	char  **args;
@@ -254,7 +254,7 @@ display_image(num, args, syntax)
 	return FALSE;
 }
 
-int 
+int
 display_head(num, args, syntax)
 	int     num;
 	char  **args;
@@ -273,7 +273,7 @@ display_head(num, args, syntax)
  * Utility routine for moving boot images.  These are byte addresses
  *  relative to the start of the files.
  */
-int 
+int
 copy_bytes(from_fd, from_adr, to_fd, to_adr, number)
 	int     from_fd, from_adr, to_fd, to_adr, number;
 {
@@ -396,7 +396,7 @@ add_image(num, args, syntax)
 		    im_load_adr, im_run_adr);
 	}
 	/* Check the sizes.  */
-	boot_start = 
+	boot_start =
 	    dk_label->d_partitions[im_table->ii_boot_partition].p_offset
 	    * secsize;
 	part_size = dk_label->d_partitions[im_table->ii_boot_partition].p_size
@@ -553,7 +553,7 @@ initialize(num, args, syntax)
 }
 
 /* Write the disk header and exit. */
-int 
+int
 write_exit(num, args, syntax)
 	int     num;
 	char  **args;

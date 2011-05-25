@@ -170,10 +170,10 @@
 *
 **********************************************************************
 * most of the event queue definitions are found in "qevent.h".  But a
-* few things not found there are here.  */ 	
+* few things not found there are here.  */
 
 /* The event queue header */
-	
+
 struct qdinput {
 
 	    struct _vs_eventqueue header;  /* event queue ring handling */
@@ -185,7 +185,7 @@ struct qdinput {
 	    struct _vs_box curs_box;	/* cursor reporting box */
 
 	};
-	
+
 /* vse_key field.  definitions for mouse buttons */
 
 #define VSE_LEFT_BUTTON		0
@@ -214,11 +214,11 @@ struct qdinput {
 * with.  As seen below, the xxxBEGIN and xxxEND macros maintain the event
 * queue access mechanism.
 *
-* First, the macros to be used by the event queue reader 
+* First, the macros to be used by the event queue reader
 */
 
 #define ISEMPTY(eq)	  ((eq)->header.head == (eq)->header.tail)
-#define GETBEGIN(eq)	  (&(eq)->header.events[(eq)->header.head]) 
+#define GETBEGIN(eq)	  (&(eq)->header.events[(eq)->header.head])
 
 #define GET_X(event)	  ((event)->vse_x)  	     /* get x position */
 #define GET_Y(event)	  ((event)->vse_y)  	     /* get y position */
@@ -253,7 +253,7 @@ struct qdinput {
 #define PUT_DEVICE(event, value) ((event)->vse_device = value)   /* put dev */
 
 #define PUTEND(eq)     (++(eq)->header.tail >= (eq)->header.size ?  \
-			(eq)->header.tail = 0 : 0) 
+			(eq)->header.tail = 0 : 0)
 
 /******************************************************************
 *

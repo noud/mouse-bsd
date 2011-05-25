@@ -40,28 +40,28 @@
  *	@(#)asc.c	8.3 (Berkeley) 7/3/94
  */
 
-/* 
+/*
  * Mach Operating System
  * Copyright (c) 1991,1990,1989 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
+ *
  * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
  * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND FOR
  * ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
- * 
+ *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
  *  School of Computer Science
  *  Carnegie Mellon University
  *  Pittsburgh PA 15213-3890
- * 
+ *
  * any improvements or extensions that they make and grant Carnegie the
  * rights to redistribute these changes.
  */
@@ -72,18 +72,18 @@
  * Revision 2.5  91/02/05  17:45:07  mrt
  * 	Added author notices
  * 	[91/02/04  11:18:43  mrt]
- * 
+ *
  * 	Changed to use new Mach copyright
  * 	[91/02/02  12:17:20  mrt]
- * 
+ *
  * Revision 2.4  91/01/08  15:48:24  rpd
  * 	Added continuation argument to thread_block.
  * 	[90/12/27            rpd]
- * 
+ *
  * Revision 2.3  90/12/05  23:34:48  af
  * 	Recovered from pmax merge.. and from the destruction of a disk.
  * 	[90/12/03  23:40:40  af]
- * 
+ *
  * Revision 2.1.1.1  90/11/01  03:39:09  af
  * 	Created, from the DEC specs:
  * 	"PMAZ-AA TURBOchannel SCSI Module Functional Specification"
@@ -842,7 +842,7 @@ asc_startcmd(asc, target)
 	}
 	len = state->cmdlen;
 	state->dmalen = len;
-	
+
 #ifdef DEBUG
 	if (asc_debug > 1) {
 		printf("asc_startcmd: %s target %d cmd %x len %d\n",
@@ -1060,7 +1060,7 @@ printf("asc_intr: fifo flush %d len %d fifo %x\n", fifo, len, regs->asc_fifo);
 			readback(regs->asc_cmd);
 			DELAY(2);
 		}
-		else if (fifo && state->flags & DMA_IN_PROGRESS) {	
+		else if (fifo && state->flags & DMA_IN_PROGRESS) {
 			if (state->flags & DMA_OUT) {
 				len += fifo; /* Bytes dma'ed but not sent */
 			}
@@ -1134,12 +1134,12 @@ printf("asc_intr: fifo flush %d len %d fifo %x\n", fifo, len, regs->asc_fifo);
 				printf("asc_intr: 2: len %d (fifo %d)\n", len,
 					fifo); /* XXX */
 /* XXX THEO */
-#if 1 
+#if 1
 				regs->asc_cmd = ASC_CMD_FLUSH;
 				readback(regs->asc_cmd);
 				DELAY(2);
 				len = 0;
-#else                                   
+#else
 				goto abort;
 #endif
 			}

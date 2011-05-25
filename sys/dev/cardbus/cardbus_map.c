@@ -157,7 +157,7 @@ cardbus_mem_find(cc, cf, tag, reg, type, basep, sizep, flagsp)
 	cardbusreg_t address, mask;
 	int s;
 
-	if (reg != CARDBUS_ROM_REG && 
+	if (reg != CARDBUS_ROM_REG &&
 	    (reg < PCI_MAPREG_START || reg >= PCI_MAPREG_END || (reg & 3))) {
 		panic("cardbus_mem_find: bad request");
 	}
@@ -221,7 +221,7 @@ cardbus_mem_find(cc, cf, tag, reg, type, basep, sizep, flagsp)
 		*flagsp = PCI_MAPREG_MEM_PREFETCHABLE(address) ?
 		    BUS_SPACE_MAP_PREFETCHABLE : 0;
 	}
-	
+
 	return 0;
 }
 

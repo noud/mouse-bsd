@@ -148,7 +148,7 @@ struct	hpux_stat {
 	long		hst_blksize;
 	long		hst_blocks;
 	u_int		hst_remote;
-	long		hst_netdev;  	
+	long		hst_netdev;
 	u_long		hst_netino;
 	u_short		hst_cnode;
 	u_short		hst_rcnode;
@@ -339,4 +339,4 @@ struct hpux_sigaction {
  */
 #define	HPUX_UF_NONBLOCK_ON	0x10
 #define	HPUX_UF_FNDELAY_ON	0x20
-#define	HPUX_UF_FIONBIO_ON	0x40 
+#define	HPUX_UF_FIONBIO_ON	0x40

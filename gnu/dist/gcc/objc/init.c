@@ -1,4 +1,4 @@
-/* GNU Objective C Runtime initialization 
+/* GNU Objective C Runtime initialization
    Copyright (C) 1993, 1995, 1996, 1997 Free Software Foundation, Inc.
    Contributed by Kresten Krab Thorup
    +load support contributed by Ovidiu Predescu <ovidiu@net-community.com>
@@ -26,7 +26,7 @@ Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #include "runtime.h"
 
-/* The version number of this runtime.  This must match the number 
+/* The version number of this runtime.  This must match the number
    defined in gcc (objc-act.c) */
 #define OBJC_VERSION 8
 #define PROTOCOL_VERSION 2
@@ -65,7 +65,7 @@ void (*_objc_load_callback)(Class class, Category* category); /* !T:SAFE */
 BOOL __objc_dangling_categories = NO;           /* !T:UNUSED */
 
 extern SEL
-__sel_register_typed_name (const char *name, const char *types, 
+__sel_register_typed_name (const char *name, const char *types,
 			   struct objc_selector *orig, BOOL is_const);
 
 /* Sends +load to all classes and categories in certain situations. */
@@ -109,7 +109,7 @@ create_tree_of_subclasses_inherited_from (Class bottom_class, Class upper)
   Class superclass = bottom_class->super_class ?
 			objc_lookup_class ((char*)bottom_class->super_class)
 		      : Nil;
-					
+
   objc_class_tree *tree, *prev;
 
   DEBUG_PRINTF ("create_tree_of_subclasses_inherited_from:");
@@ -464,7 +464,7 @@ __objc_exec_class (Module_t module)
   struct objc_list** cell;
 
   /* The table of selector references for this module */
-  SEL selectors = symtab->refs; 
+  SEL selectors = symtab->refs;
 
   /* dummy counter */
   int i;
@@ -505,7 +505,7 @@ __objc_exec_class (Module_t module)
 	  type = (char*)selectors[i].sel_types;
 	  /* Constructors are constant static data so we can safely store
 	     pointers to them in the runtime structures. is_const == YES */
-	  __sel_register_typed_name (name, type, 
+	  __sel_register_typed_name (name, type,
 				     (struct objc_selector*)&(selectors[i]),
 				     YES);
 	}
@@ -556,7 +556,7 @@ __objc_exec_class (Module_t module)
     {
       Category_t category = symtab->defs[i + symtab->cls_def_cnt];
       Class class = objc_lookup_class (category->class_name);
-      
+
       /* If the class for the category exists then append its methods.  */
       if (class)
 	{
@@ -571,7 +571,7 @@ __objc_exec_class (Module_t module)
 
 	  /* Do class methods.  */
 	  if (category->class_methods)
-	    class_add_method_list ((Class) class->class_pointer, 
+	    class_add_method_list ((Class) class->class_pointer,
 				   category->class_methods);
 
 	  if (category->protocols)
@@ -605,17 +605,17 @@ __objc_exec_class (Module_t module)
     {
       Category_t category = (*cell)->head;
       Class class = objc_lookup_class (category->class_name);
-      
+
       if (class)
 	{
 	  DEBUG_PRINTF ("attaching stored categories to object: %s\n",
 			class->name);
-	  
+
 	  list_remove_head (cell);
-	  
+
 	  if (category->instance_methods)
 	    class_add_method_list (class, category->instance_methods);
-	  
+
 	  if (category->class_methods)
 	    class_add_method_list ((Class) class->class_pointer,
 				   category->class_methods);
@@ -631,7 +631,7 @@ __objc_exec_class (Module_t module)
           __objc_register_instance_methods_to_class(class);
 	}
     }
-  
+
   if (unclaimed_proto_list && objc_lookup_class ("Protocol"))
     {
       list_mapcar (unclaimed_proto_list,(void(*)(void*))__objc_init_protocols);
@@ -648,7 +648,7 @@ static void objc_send_load (void)
 {
   if (!__objc_module_list)
     return;
- 
+
   /* Try to find out if all the classes loaded so far also have their
      superclasses known to the runtime. We suppose that the objects that are
      allocated in the +load method are in general of a class declared in the
@@ -748,7 +748,7 @@ __objc_call_callback (Module_t module)
     {
       Category_t category = symtab->defs[i + symtab->cls_def_cnt];
       Class class = objc_lookup_class (category->class_name);
-      
+
       if (_objc_load_callback)
 	_objc_load_callback(class, category);
     }

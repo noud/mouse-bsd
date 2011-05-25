@@ -78,7 +78,7 @@ lpt_pnpbios_attach(parent, self, aux)
 	struct lpt_softc *sc = &psc->sc_lpt;
 	struct pnpbiosdev_attach_args *aa = aux;
 
-	if (pnpbios_io_map(aa->pbt, aa->resc, 0, &sc->sc_iot, &sc->sc_ioh)) { 	
+	if (pnpbios_io_map(aa->pbt, aa->resc, 0, &sc->sc_iot, &sc->sc_ioh)) {
 		printf(": can't map i/o space\n");
 		return;
 	}

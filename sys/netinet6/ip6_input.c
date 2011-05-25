@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -200,7 +200,7 @@ ip6_init2(dummy)
 
 	/*
 	 * to route local address of p2p link to loopback,
-	 * assign loopback address first. 
+	 * assign loopback address first.
 	 */
 	in6_ifattach(&loif[0], IN6_IFT_LOOP, NULL, 0);
 
@@ -648,7 +648,7 @@ ip6_input(m)
 	else if (!ours) {
 		ip6_forward(m, 0);
 		return;
-	}	
+	}
 
 	/*
 	 * Tell launch routine the next header

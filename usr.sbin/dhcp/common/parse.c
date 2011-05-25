@@ -59,7 +59,7 @@ static char copyright[] =
 	statement foo bar { }
 	statement foo bar { statement { } }
 	statement}
- 
+
 	...et cetera. */
 
 void skip_to_semi (cfile)
@@ -145,7 +145,7 @@ char *parse_host_name (cfile)
 	char *s;
 	char *t;
 	pair c = (pair)0;
-	
+
 	/* Read a dotted hostname... */
 	do {
 		/* Read a token, which should be an identifier. */
@@ -197,7 +197,7 @@ int parse_ip_addr (cfile, addr)
 				     &addr -> len, DOT, 10, 8))
 		return 1;
 	return 0;
-}	
+}
 
 /* hardware-parameter :== HARDWARE ETHERNET csns SEMI
    csns :== NUMBER | csns COLON NUMBER */
@@ -252,7 +252,7 @@ void parse_hardware_param (cfile, hardware)
 				(sizeof hardware -> haddr) - hlen);
 		free (t);
 	}
-	
+
 	token = next_token (&val, cfile);
 	if (token != SEMI) {
 		parse_warn ("expecting semicolon.");
@@ -484,7 +484,7 @@ void convert_num (buf, str, base, size)
 	}
 }
 
-/* date :== NUMBER NUMBER SLASH NUMBER SLASH NUMBER 
+/* date :== NUMBER NUMBER SLASH NUMBER SLASH NUMBER
    		NUMBER COLON NUMBER COLON NUMBER SEMI
 
    Dates are always in GMT; first number is day of week; next is

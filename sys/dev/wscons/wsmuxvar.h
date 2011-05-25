@@ -55,9 +55,9 @@ struct wsmux_softc {
 struct wsmuxops {
 	int (*dopen) __P((dev_t, int, int, struct proc *));
 	int (*dclose) __P((struct device *, int, int, struct proc *));
-	int (*dioctl) __P((struct device *, u_long, caddr_t, int, 
+	int (*dioctl) __P((struct device *, u_long, caddr_t, int,
 			   struct proc *));
-	int (*ddispioctl) __P((struct device *, u_long, caddr_t, int, 
+	int (*ddispioctl) __P((struct device *, u_long, caddr_t, int,
 			       struct proc *));
 	int (*dsetdisplay) __P((struct device *, struct wsmux_softc *));
 };

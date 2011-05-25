@@ -26,7 +26,7 @@
  * THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
  * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS 
+ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
  * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
@@ -108,7 +108,7 @@ power_status(int fd, int force, struct apm_power_info *pinfo)
 	   enough since last report, or asked to force a print */
 	if (bstate.ac_state == APM_AC_ON)
 	    acon = 1;
-	if (force || 
+	if (force ||
 	    bstate.ac_state != last.ac_state ||
 	    bstate.battery_state != last.battery_state ||
 	    (bstate.minutes_left && bstate.minutes_left < 15) ||
@@ -208,7 +208,7 @@ handle_client(int sock_fd, int ctl_fd)
     case STANDBY:
 	reply.newstate = STANDING_BY;
 	break;
-    }	
+    }
     reply.vno = APMD_VNO;
     if (send(cli_fd, &reply, sizeof(reply), 0) != sizeof(reply)) {
 	syslog(LOG_INFO, "client reply botch");
@@ -384,7 +384,7 @@ main(int argc, char *argv[])
     argv += optind;
     if ((ctl_fd = open(fname, O_RDWR)) == -1) {
 	(void)err(1, "cannot open device file `%s'", fname);
-    } 
+    }
     if (debug) {
 	openlog(__progname, LOG_CONS, LOG_LOCAL1);
     } else {
@@ -415,8 +415,8 @@ main(int argc, char *argv[])
     FD_SET(sock_fd, &devfds);
 
 
-    
-    for (selcopy = devfds, errno = 0, stv = tv; 
+
+    for (selcopy = devfds, errno = 0, stv = tv;
 	 (ready = select(MAX(ctl_fd,sock_fd)+1, &selcopy, 0, 0, &stv)) >= 0 ||
 	     errno == EINTR;
 	 selcopy = devfds, errno = 0, stv = tv) {

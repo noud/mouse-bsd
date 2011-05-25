@@ -52,7 +52,7 @@
 struct cpu_functions {
 
 	/* CPU functions */
-	
+
 	u_int	(*cf_id)		__P((void));
 
 	/* MMU functions */
@@ -65,31 +65,31 @@ struct cpu_functions {
 
 	/* TLB functions */
 
-	void	(*cf_tlb_flushID)	__P((void));	
-	void	(*cf_tlb_flushID_SE)	__P((u_int va));	
+	void	(*cf_tlb_flushID)	__P((void));
+	void	(*cf_tlb_flushID_SE)	__P((u_int va));
 	void	(*cf_tlb_flushI)	__P((void));
-	void	(*cf_tlb_flushI_SE)	__P((u_int va));	
+	void	(*cf_tlb_flushI_SE)	__P((u_int va));
 	void	(*cf_tlb_flushD)	__P((void));
-	void	(*cf_tlb_flushD_SE)	__P((u_int va));	
+	void	(*cf_tlb_flushD_SE)	__P((u_int va));
 
 	/* Cache functions */
 
-	void	(*cf_cache_flushID)	__P((void));	
-	void	(*cf_cache_flushID_SE)	__P((u_int va));	
-	void	(*cf_cache_flushI)	__P((void));	
-	void	(*cf_cache_flushI_SE)	__P((u_int va));	
-	void	(*cf_cache_flushD)	__P((void));	
-	void	(*cf_cache_flushD_SE)	__P((u_int va));	
+	void	(*cf_cache_flushID)	__P((void));
+	void	(*cf_cache_flushID_SE)	__P((u_int va));
+	void	(*cf_cache_flushI)	__P((void));
+	void	(*cf_cache_flushI_SE)	__P((u_int va));
+	void	(*cf_cache_flushD)	__P((void));
+	void	(*cf_cache_flushD_SE)	__P((u_int va));
 
-	void	(*cf_cache_cleanID)	__P((void));	
-	void	(*cf_cache_cleanID_E)	__P((u_int imp));	
-	void	(*cf_cache_cleanD)	__P((void));	
-	void	(*cf_cache_cleanD_E)	__P((u_int imp));	
+	void	(*cf_cache_cleanID)	__P((void));
+	void	(*cf_cache_cleanID_E)	__P((u_int imp));
+	void	(*cf_cache_cleanD)	__P((void));
+	void	(*cf_cache_cleanD_E)	__P((u_int imp));
 
-	void	(*cf_cache_purgeID)	__P((void));	
-	void	(*cf_cache_purgeID_E)	__P((u_int imp));	
-	void	(*cf_cache_purgeD)	__P((void));	
-	void	(*cf_cache_purgeD_E)	__P((u_int imp));	
+	void	(*cf_cache_purgeID)	__P((void));
+	void	(*cf_cache_purgeID_E)	__P((u_int imp));
+	void	(*cf_cache_purgeD)	__P((void));
+	void	(*cf_cache_purgeD_E)	__P((u_int imp));
 
 	/* Other functions */
 

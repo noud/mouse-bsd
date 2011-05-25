@@ -569,7 +569,7 @@ cgfourteenmmap(dev, off, prot)
 		return ((int)bh);
 	}
 #endif
-	
+
 	if ((u_int)off >= NOOVERLAY)
 		off -= NOOVERLAY;
 #ifdef CG14_CG8
@@ -806,7 +806,7 @@ cg14_load_hwcmap(sc, start, ncolors)
 	int start, ncolors;
 {
 	/* XXX switch to auto-increment, and on retrace intr */
-	
+
 	/* Setup pointers to source and dest */
 	u_int32_t *colp = &sc->sc_cmap.cm_chip[start];
 	volatile u_int32_t *lutp = &sc->sc_clut1->clut_lut[start];

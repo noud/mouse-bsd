@@ -404,7 +404,7 @@ print_subexp (exp, pos, stream, prec)
       print_subexp(exp,pos,stream,PREC_PREFIX);
       fprintf_unfiltered(stream,")");
       return;
-      
+
     case BINOP_INCL:
     case BINOP_EXCL:
       error("print_subexp:  Not implemented.");

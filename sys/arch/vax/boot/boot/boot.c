@@ -145,7 +145,7 @@ Xmain()
 			(*v->func)(d);
 		else
 			printf("Unknown command: %s\n", c);
-			
+
 	}
 }
 

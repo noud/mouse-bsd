@@ -78,7 +78,7 @@ ctl_transact(target, msg, type, rp)
 		if (retries <= 0)
 			break;
 		/*
-		 * Keep reading while there are queued messages 
+		 * Keep reading while there are queued messages
 		 * (this is not necessary, it just saves extra
 		 * request/acknowledgements being sent)
 		 */

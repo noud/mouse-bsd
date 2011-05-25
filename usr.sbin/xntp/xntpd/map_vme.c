@@ -21,9 +21,9 @@
 #include <fcntl.h>
 #include <sys/file.h>
 #include <sys/ioctl.h>
-#include <sys/types.h> 
-#include <sys/stat.h> 
-#include <sys/sysmacros.h> 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/sysmacros.h>
 #include <sys/rtprio.h> /* for rtprio */
 #include <sys/lock.h> /* for plock */
 #include "/etc/conf/machine/vme2.h"
@@ -36,12 +36,12 @@ unsigned short  *greg[NREGS];
 struct vme2_map_addr ma;           /* memory mapped structure */
 int fd;                            /* file descriptor for VME */
 
-void unmap_vme (); 
+void unmap_vme ();
 
 caddr_t map_vme (filename)
 char *filename;
 {
-        int ret; 
+        int ret;
         caddr_t base;
         struct vme2_io_testx tx;
         caddr_t cp;
@@ -49,7 +49,7 @@ char *filename;
 #define VME_START_ADDR  0x00000   /* Starting address in A16N VME Space */
 #define VMESIZE 0xFF      /* 256 bytes of A16N space length */
 
-/* 
+/*
  To create the HP9000/700 series device file, /dev/vme2:
  mknod /dev/vme2 c 44 0x0; chmod 600 /dev/vme2
 
@@ -95,13 +95,13 @@ char *filename;
                 exit(ENOMEM);
         }
         base = ma.user_addr;
-        return(base);   
+        return(base);
 }
 
 
 void unmap_vme()
 {
-        if(ioctl(fd, VME2_UNMAP_ADDR, &ma)) 
+        if(ioctl(fd, VME2_UNMAP_ADDR, &ma))
                 printf("ioctl to unmap VME space failed. Errno: %d\n",
                         errno);
         close(fd);
@@ -125,7 +125,7 @@ int init_vme()
         greg[5] = (unsigned short  *)gps_base + GREG1D;
         greg[6] = (unsigned short  *)gps_base + GREG1E;
 
-        return (0); 
+        return (0);
 }
 
 #else /* not (REFCLOCK && GPSVME) */

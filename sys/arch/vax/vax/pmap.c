@@ -65,12 +65,12 @@ void	qdearly(void);
 
 #define ISTACK_SIZE NBPG
 vaddr_t	istack;
-/* 
- * This code uses bitfield operators for most page table entries.  
+/*
+ * This code uses bitfield operators for most page table entries.
  */
 #define PROTSHIFT	27
 #define PROT_KW		(PG_KW >> PROTSHIFT)
-#define PROT_KR		(PG_KR >> PROTSHIFT) 
+#define PROT_KR		(PG_KR >> PROTSHIFT)
 #define PROT_RW		(PG_RW >> PROTSHIFT)
 #define PROT_RO		(PG_RO >> PROTSHIFT)
 #define PROT_URKW	(PG_URKW >> PROTSHIFT)
@@ -163,7 +163,7 @@ pmap_bootstrap()
 	/*
 	 * Virtual_* and avail_* is used for mapping of system page table.
 	 * The need for kernel virtual memory is linear dependent of the
-	 * amount of physical memory also, therefore sysptsize is 
+	 * amount of physical memory also, therefore sysptsize is
 	 * a variable here that is changed dependent of the physical
 	 * memory size.
 	 */
@@ -291,7 +291,7 @@ pmap_steal_memory(size, vstartp, vendp)
 	int npgs;
 
 #ifdef PMAPDEBUG
-	if (startpmapdebug) 
+	if (startpmapdebug)
 		printf("pmap_steal_memory: size 0x%lx start %p end %p\n",
 		    size, vstartp, vendp);
 #endif
@@ -322,8 +322,8 @@ pmap_steal_memory(size, vstartp, vendp)
  * is enabled. It is meant to do machine-specific allocations.
  * Here is the resource map for the user page tables inited.
  */
-void 
-pmap_init() 
+void
+pmap_init()
 {
         /*
          * Create the extent map used to manage the page table space.
@@ -378,7 +378,7 @@ pmap_decpteref(pmap, pte)
  * pmap_create() creates a pmap for a new task.
  * If not already allocated, malloc space for one.
  */
-struct pmap * 
+struct pmap *
 pmap_create()
 {
 	struct pmap *pmap;
@@ -446,7 +446,7 @@ if(startpmapdebug)printf("pmap_release: pmap %p\n",pmap);
 #ifdef DEBUG
 	for (i = 0; i < NPTEPGS; i++)
 		if (pmap->pm_refcnt[i])
-			panic("pmap_release: refcnt %d index %d", 
+			panic("pmap_release: refcnt %d index %d",
 			    pmap->pm_refcnt[i], i);
 
 	saddr = (vaddr_t)pmap->pm_p0br;
@@ -461,7 +461,7 @@ if(startpmapdebug)printf("pmap_release: pmap %p\n",pmap);
 }
 
 /*
- * pmap_destroy(pmap): Remove a reference from the pmap. 
+ * pmap_destroy(pmap): Remove a reference from the pmap.
  * If the pmap is NULL then just return else decrese pm_count.
  * If this was the last reference we call's pmap_relaese to release this pmap.
  * OBS! remember to set pm_lock
@@ -472,7 +472,7 @@ pmap_destroy(pmap)
 	pmap_t pmap;
 {
 	int count;
-  
+
 #ifdef PMAPDEBUG
 if(startpmapdebug)printf("pmap_destroy: pmap %p\n",pmap);
 #endif
@@ -482,7 +482,7 @@ if(startpmapdebug)printf("pmap_destroy: pmap %p\n",pmap);
 	simple_lock(&pmap->pm_lock);
 	count = --pmap->ref_count;
 	simple_unlock(&pmap->pm_lock);
-  
+
 	if (count == 0) {
 		pmap_release(pmap);
 		FREE((caddr_t)pmap, M_VMPMAP);
@@ -579,7 +579,7 @@ if(startpmapdebug)
 #endif
 
 	/*
-	 * Unfortunately we must check if any page may be on the pv list. 
+	 * Unfortunately we must check if any page may be on the pv list.
 	 */
 	pte = kvtopte(va);
 	len >>= PGSHIFT;
@@ -610,7 +610,7 @@ if(startpmapdebug)
 #endif
 
 	/*
-	 * May this routine affect page tables? 
+	 * May this routine affect page tables?
 	 * We assume that, and uses TBIA.
 	 */
 	ptp = (int *)kvtopte(va);
@@ -834,7 +834,7 @@ if(startpmapdebug)
 }
 
 #if 0
-boolean_t 
+boolean_t
 pmap_extract(pmap, va, pap)
 	pmap_t pmap;
 	vaddr_t va;
@@ -979,7 +979,7 @@ pmap_simulref(int bits, int addr)
 	paddr_t	pa;
 
 #ifdef PMAPDEBUG
-if (startpmapdebug) 
+if (startpmapdebug)
 	printf("pmap_simulref: bits %x addr %x\n", bits, addr);
 #endif
 #ifdef DEBUG
@@ -999,7 +999,7 @@ if (startpmapdebug)
 			pte = (u_int *)TRUNC_PAGE(pte);
 			pte = (u_int *)kvtopte(pte);
 			if (pte[0] == 0) /* Check for CVAX bug */
-				return 1;	
+				return 1;
 			pa = (u_int)pte & ~KERNBASE;
 		} else
 			pa = Sysmap[PG_PFNUM(pte)].pg_pfn << VAX_PGSHIFT;
@@ -1064,15 +1064,15 @@ pmap_clear_reference(pg)
 
 	RECURSESTART;
 	if (pv->pv_pte)
-		pv->pv_pte[0].pg_v = pv->pv_pte[1].pg_v = 
-		    pv->pv_pte[2].pg_v = pv->pv_pte[3].pg_v = 
-		    pv->pv_pte[4].pg_v = pv->pv_pte[5].pg_v = 
+		pv->pv_pte[0].pg_v = pv->pv_pte[1].pg_v =
+		    pv->pv_pte[2].pg_v = pv->pv_pte[3].pg_v =
+		    pv->pv_pte[4].pg_v = pv->pv_pte[5].pg_v =
 		    pv->pv_pte[6].pg_v = pv->pv_pte[7].pg_v = 0;
 
 	while ((pv = pv->pv_next))
 		pv->pv_pte[0].pg_v = pv->pv_pte[1].pg_v =
-		    pv->pv_pte[2].pg_v = pv->pv_pte[3].pg_v = 
-		    pv->pv_pte[4].pg_v = pv->pv_pte[5].pg_v = 
+		    pv->pv_pte[2].pg_v = pv->pv_pte[3].pg_v =
+		    pv->pv_pte[4].pg_v = pv->pv_pte[5].pg_v =
 		    pv->pv_pte[6].pg_v = pv->pv_pte[7].pg_v = 0;
 	RECURSEEND;
 	return TRUE; /* XXX */
@@ -1150,14 +1150,14 @@ pmap_clear_modify(pg)
 
 	if (pv->pv_pte)
 		pv->pv_pte[0].pg_m = pv->pv_pte[1].pg_m =
-		    pv->pv_pte[2].pg_m = pv->pv_pte[3].pg_m = 
-		    pv->pv_pte[4].pg_m = pv->pv_pte[5].pg_m = 
+		    pv->pv_pte[2].pg_m = pv->pv_pte[3].pg_m =
+		    pv->pv_pte[4].pg_m = pv->pv_pte[5].pg_m =
 		    pv->pv_pte[6].pg_m = pv->pv_pte[7].pg_m = 0;
 
 	while ((pv = pv->pv_next))
 		pv->pv_pte[0].pg_m = pv->pv_pte[1].pg_m =
-		    pv->pv_pte[2].pg_m = pv->pv_pte[3].pg_m = 
-		    pv->pv_pte[4].pg_m = pv->pv_pte[5].pg_m = 
+		    pv->pv_pte[2].pg_m = pv->pv_pte[3].pg_m =
+		    pv->pv_pte[4].pg_m = pv->pv_pte[5].pg_m =
 		    pv->pv_pte[6].pg_m = pv->pv_pte[7].pg_m = 0;
 	return TRUE; /* XXX */
 }
@@ -1197,7 +1197,7 @@ if(startpmapdebug) printf("pa %lx\n",pa);
 		g = (int *)pv->pv_pte;
 		if (g) {
 			if ((pv->pv_attr & (PG_V|PG_M)) != (PG_V|PG_M))
-				pv->pv_attr |= 
+				pv->pv_attr |=
 				    g[0]|g[1]|g[2]|g[3]|g[4]|g[5]|g[6]|g[7];
 			bzero(g, sizeof(struct pte) * LTOHPN);
 			pv->pv_pmap->pm_stats.resident_count--;
@@ -1218,18 +1218,18 @@ if(startpmapdebug) printf("pa %lx\n",pa);
 			opv = pl;
 			pl = pl->pv_next;
 			free_pventry(opv);
-		} 
+		}
 		splx(s);
 	} else { /* read-only */
 		do {
 			pt = pv->pv_pte;
 			if (pt == 0)
 				continue;
-			pt[0].pg_prot = pt[1].pg_prot = 
-			    pt[2].pg_prot = pt[3].pg_prot = 
-			    pt[4].pg_prot = pt[5].pg_prot = 
-			    pt[6].pg_prot = pt[7].pg_prot = 
-			    ((vaddr_t)pv->pv_pte < ptemapstart ? 
+			pt[0].pg_prot = pt[1].pg_prot =
+			    pt[2].pg_prot = pt[3].pg_prot =
+			    pt[4].pg_prot = pt[5].pg_prot =
+			    pt[6].pg_prot = pt[7].pg_prot =
+			    ((vaddr_t)pv->pv_pte < ptemapstart ?
 			    PROT_KR : PROT_RO);
 		} while ((pv = pv->pv_next));
 	}

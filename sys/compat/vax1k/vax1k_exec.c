@@ -34,7 +34,7 @@
  * Exec glue to provide compatibility with older NetBSD vax1k exectuables.
  *
  * Because NetBSD/vax now uses 4k page size, older binaries (that started
- * on an 1k boundary) cannot be mmap'ed. Therefore they are read in 
+ * on an 1k boundary) cannot be mmap'ed. Therefore they are read in
  * (via vn_rdwr) as OMAGIC binaries and executed. This will use a little
  * bit more memory, but otherwise won't affect the execution speed.
  */

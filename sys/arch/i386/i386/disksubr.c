@@ -63,7 +63,7 @@ dk_establish(dk, dev)
 	/* Nothing to do. */
 }
 
-/* 
+/*
  * Scan MBR for  NetBSD partittion.  Return NO_MBR_SIGNATURE if no MBR found
  * Otherwise, copy valid MBR partition-table into dp, and if a NetBSD
  * partition is found, return a pointer to it; else return  NULL.
@@ -224,7 +224,7 @@ readdisklabel(dev, strat, lp, osdep)
 				/* update disklabel with details */
 				lp->d_partitions[2].p_size =
 				    dp->mbrp_size;
-				lp->d_partitions[2].p_offset = 
+				lp->d_partitions[2].p_offset =
 				    dp->mbrp_start;
 #if 0
 				if (lp->d_ntracks != dp->mbrp_ehd + 1 ||
@@ -432,7 +432,7 @@ nombrpart:
 	/* disklabel in appropriate location? */
 	if (lp->d_partitions[2].p_offset != 0
 		&& lp->d_partitions[2].p_offset != dospartoff) {
-		error = EXDEV;		
+		error = EXDEV;
 		goto done;
 	}
 #endif

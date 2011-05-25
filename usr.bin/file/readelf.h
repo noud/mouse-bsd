@@ -1,8 +1,8 @@
 /*	$NetBSD: readelf.h,v 1.5 1999/11/01 17:39:27 christos Exp $	*/
 
 /*
- * readelf.h 
- * @(#)Id: readelf.h,v 1.7 1999/02/14 17:16:11 christos Exp 
+ * readelf.h
+ * @(#)Id: readelf.h,v 1.7 1999/02/14 17:16:11 christos Exp
  *
  * Provide elf data structures for non-elf machines, allowing file
  * non-elf hosts to determine if an elf binary is stripped.

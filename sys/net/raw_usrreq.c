@@ -86,7 +86,7 @@ raw_input(m0, va_alist)
 	va_list ap;
 	register struct sockproto *proto;
 	struct sockaddr *src, *dst;
-	
+
 	va_start(ap, m0);
 	proto = va_arg(ap, struct sockproto *);
 	src = va_arg(ap, struct sockaddr *);
@@ -228,7 +228,7 @@ raw_usrreq(so, req, m, nam, control, p)
 	 * If a socket isn't bound to a single address,
 	 * the raw input routine will hand it anything
 	 * within that protocol family (assuming there's
-	 * nothing else around it should go to). 
+	 * nothing else around it should go to).
 	 */
 	case PRU_BIND:
 	case PRU_LISTEN:

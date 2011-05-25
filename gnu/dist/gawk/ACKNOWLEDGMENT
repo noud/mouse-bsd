@@ -27,7 +27,7 @@ Michal, Scott and Darrel go out of their way to make sure that gawk
 works on non-32 bit systems, and keep me on track where portability is
 concerned.  Indeed, all of these folks are incredibly helpful; gawk would
 not be the fine program it is now without them.
-  
+
 Last, but far from least, we would like to thank Brian Kernighan who
 has helped to clear up many dark corners of the language and provided a
 restraining touch when we have been overly tempted by "feeping

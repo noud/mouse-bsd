@@ -76,7 +76,7 @@ static void sparclite_download PARAMS ((char *filename, int from_tty));
 #define DDA1_SUP_ASI		0xb0000
 
 #define DDA2_ASI_MASK 		0xff000000
-#define DDA1_ASI_MASK 		0xff0000 
+#define DDA1_ASI_MASK 		0xff0000
 #define DIA2_SUP_MODE 		0x8000
 #define DIA1_SUP_MODE 		0x4000
 #define DDA2_ENABLE 		0x100
@@ -112,7 +112,7 @@ sparclite_insert_watchpoint (addr, len, type)
 	  write_register (DDV1_REGNUM, 0);
 	  write_register (DDV2_REGNUM, 0xffffffff);
 	  dcr |= (DDV_TYPE_LOAD & (~DDV_COND & ~DDV_MASK));
-	}   
+	}
       else if (type == 0)
 	{
 	  write_register (DDV1_REGNUM, 0);
@@ -156,7 +156,7 @@ sparclite_insert_watchpoint (addr, len, type)
     return -1;
 
   return 0;
-} 
+}
 
 int
 sparclite_remove_watchpoint (addr, len, type)
@@ -188,7 +188,7 @@ sparclite_insert_hw_breakpoint (addr, len)
   CORE_ADDR dcr;
 
   dcr = read_register (DCR_REGNUM);
-  
+
   if (!(dcr & DIA1_ENABLE))
     {
       write_register (DIA1_REGNUM, addr);
@@ -215,7 +215,7 @@ sparclite_remove_hw_breakpoint (addr, shadow)
   dcr = read_register (DCR_REGNUM);
   dia1 = read_register (DIA1_REGNUM);
   dia2 = read_register (DIA2_REGNUM);
-  
+
   if ((dcr & DIA1_ENABLE) && addr == dia1)
     write_register (DCR_REGNUM, (dcr & ~DIA1_ENABLE));
   else if ((dcr & DIA2_ENABLE) && addr == dia2)
@@ -584,11 +584,11 @@ download (target_name, args, from_tty, write_routine, start_routine)
     }
   old_chain = make_cleanup (bfd_close, pbfd);
 
-  if (!bfd_check_format (pbfd, bfd_object)) 
+  if (!bfd_check_format (pbfd, bfd_object))
     error ("\"%s\" is not an object file: %s", filename,
 	   bfd_errmsg (bfd_get_error ()));
 
-  for (section = pbfd->sections; section; section = section->next) 
+  for (section = pbfd->sections; section; section = section->next)
     {
       if (bfd_get_section_flags (pbfd, section) & SEC_LOAD)
 	{

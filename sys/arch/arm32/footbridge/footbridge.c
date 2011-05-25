@@ -126,8 +126,8 @@ footbridge_print(aux, pnp)
  * int footbridge_match(struct device *parent, struct cfdata *cf, void *aux)
  *
  * Just return ok for this if it is device 0
- */ 
- 
+ */
+
 static int
 footbridge_match(parent, cf, aux)
 	struct device *parent;
@@ -144,7 +144,7 @@ footbridge_match(parent, cf, aux)
  * void footbridge_attach(struct device *parent, struct device *dev, void *aux)
  *
  */
-  
+
 static void
 footbridge_attach(parent, self, aux)
 	struct device *parent;
@@ -218,7 +218,7 @@ footbridge_attach(parent, self, aux)
 	fba.fba_tca.ta_rtc_write = NULL;
 	fba.fba_tca.ta_rtc_read = NULL;
 	fba.fba_tca.ta_flags = TODCLOCK_FLAG_FAKE;
-	config_found(self, &fba.fba_tca, footbridge_print); 
+	config_found(self, &fba.fba_tca, footbridge_print);
 
 	/* Attach uart device */
 	fba.fba_fca.fca_name = "fcom";
@@ -226,7 +226,7 @@ footbridge_attach(parent, self, aux)
 	fba.fba_fca.fca_ioh = sc->sc_ioh;
 	fba.fba_fca.fca_rx_irq = IRQ_SERIAL_RX;
 	fba.fba_fca.fca_tx_irq = IRQ_SERIAL_TX;
-	config_found(self, &fba.fba_fca, footbridge_print); 
+	config_found(self, &fba.fba_fca, footbridge_print);
 
 	/* Setup fast SA110 cache clean area */
 #ifdef CPU_SA110

@@ -23,7 +23,7 @@
  * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */ 
+ */
 
 #ifdef	ISP_COMPILE_FW
 #define	ISP_COMPILE_1020_FW	1
@@ -24689,7 +24689,7 @@ static const u_int16_t isp_2100_risc_code[] = {
 #if	!defined(ISP2100_SCCLUN)
 /************************************************************************
  * 	 --- ISP2200 Initiator/Target Firmware ---               	*
- *		with Fabric (Public Loop) and Point-point support	* 
+ *		with Fabric (Public Loop) and Point-point support	*
  ************************************************************************/
 /*
  *	Firmware Version 2.01.00 (16:54 Oct 14, 1999)

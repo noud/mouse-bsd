@@ -72,7 +72,7 @@
 /*
  * Copyright (C) 1997 and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -84,7 +84,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -407,7 +407,7 @@ main(argc, argv)
 #endif
 	data_source.su_port = htons(ntohs(ctrl_addr.su_port) - 1);
 
-	/* if the hostname hasn't been given, attempt to determine it */ 
+	/* if the hostname hasn't been given, attempt to determine it */
 	if (hostname[0] == '\0') {
 		if (getnameinfo((struct sockaddr *)&ctrl_addr, ctrl_addr.su_len,
 		    hostname, sizeof(hostname), NULL, 0, 0) != 0)
@@ -2360,7 +2360,7 @@ long_passive(char *cmd, int pf)
 			return;
 		}
 	}
- 
+
 	if (pdata >= 0)
 		close(pdata);
 	pdata = socket(ctrl_addr.su_family, SOCK_STREAM, 0);

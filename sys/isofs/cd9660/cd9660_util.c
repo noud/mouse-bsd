@@ -168,7 +168,7 @@ isofntrans(infn, infnlen, outfn, outfnlen, original, assoc, joliet_level)
 {
 	int fnidx = 0;
 	u_char *infnend = infn + infnlen;
-	
+
 	if (assoc) {
 		*outfn++ = ASSOCCHAR;
 		fnidx++;

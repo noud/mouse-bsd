@@ -988,7 +988,7 @@ cninit()
 		node = OF_parent(node);
 		bzero(type, sizeof(type));
 		l = OF_getprop(node, "name", type, sizeof(type));
-		if (l == -1 || l >= sizeof(type) - 1) { 
+		if (l == -1 || l >= sizeof(type) - 1) {
 			printf("WARNING: bad `name' property keyboard "
 			    "parent\n");
 			return;

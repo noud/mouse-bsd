@@ -212,7 +212,7 @@ kgdb_port_init()
 	if(!strcmp(kgdb_devname, "com")) {
 		bus_space_tag_t tag = I386_BUS_SPACE_IO;
 
-		com_kgdb_attach(tag, comkgdbaddr, comkgdbrate, COM_FREQ, 
+		com_kgdb_attach(tag, comkgdbaddr, comkgdbrate, COM_FREQ,
 		    comkgdbmode);
 	}
 #endif

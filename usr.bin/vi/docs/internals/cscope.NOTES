@@ -19,7 +19,7 @@ queue has one or more "tag locations".
   	     +----+	+----+
   	     | Q3 | <-- | T1 |
   	     +----+ --> +----+
-  
+
 In the above diagram, each "Q" is a "tag queue", and each "T" is a
 tag location.  Generally, the commands:
 
@@ -59,7 +59,7 @@ More specifically:
 	the query returned at least one result.
 
 :cs[cope] h[elp] [command]
-	
+
 	List the cscope commands, or usage help on one command.
 
 :display c[onnections]

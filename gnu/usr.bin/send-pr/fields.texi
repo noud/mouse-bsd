@@ -55,7 +55,7 @@ for explanations of each field in detail.  The following fields are
 Text of any length may occur in this field.  @sc{MultiText} may span
 multiple lines and may also include blank lines.  A @sc{MultiText} field
 ends only when another keyword appears.  See the descriptions of fields
-below for explanations of each field in detail.  
+below for explanations of each field in detail.
 
 The following fields are @sc{MultiText} format:
 
@@ -105,7 +105,7 @@ Subject:     @var{subject}
 >Priority:     high, medium @emph{or} low
 >Responsible:  @var{responsible}
 >State:        open, analyzed, suspended, feedback, @emph{or} closed
->Class:        sw-bug, doc-bug, change-request, support, 
+>Class:        sw-bug, doc-bug, change-request, support,
 @ifset SENDPR
 @emph{or} duplicate
 @end ifset
@@ -223,7 +223,7 @@ originator's environment variable @code{NAME}.
 @item >Organization:
 @cindex @code{>Organization:}
 @cindex @code{Organization} field
-(@sc{MultiText}) The originator's organization.  The default value is 
+(@sc{MultiText}) The originator's organization.  The default value is
 set with the variable @w{@code{DEFAULT_ORGANIZATION}} in the
 @ifclear SENDPR
 @file{config} file (@pxref{config,,The @code{config} file}).
@@ -264,7 +264,7 @@ Report.
 
 @table @code
 @cindex @emph{critical} severity problems
-@item critical  
+@item critical
 The product, component or concept is completely non-operational or some
 essential functionality is missing.  No workaround is known.
 
@@ -312,7 +312,7 @@ The default value is @samp{medium}.
 @cindex @code{>Category:}
 (@sc{Text}) The name of the product, component or concept where
 the problem lies.  The values for this field are defined by the Support
-Site. 
+Site.
 @ifclear SENDPR
 @xref{categories,,The @code{categories} file}, for details.
 @end ifclear
@@ -345,7 +345,7 @@ Duplicate PR.  @var{pr-number} should be the number of the original PR.
 
 @ifclear SENDPR
 @cindex @emph{mistaken} class
-@item mistaken  
+@item mistaken
 No problem, user error or misunderstanding.  This value is valid only at
 the Support Site.
 @end ifclear

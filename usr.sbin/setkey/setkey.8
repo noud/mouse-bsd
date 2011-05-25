@@ -1,6 +1,6 @@
 .\" Copyright (C) 1995, 1996, 1997, 1998, and 1999 WIDE Project.
 .\" All rights reserved.
-.\" 
+.\"
 .\" Redistribution and use in source and binary forms, with or without
 .\" modification, are permitted provided that the following conditions
 .\" are met:
@@ -12,7 +12,7 @@
 .\" 3. Neither the name of the project nor the names of its contributors
 .\"    may be used to endorse or promote products derived from this software
 .\"    without specific prior written permission.
-.\" 
+.\"
 .\" THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
 .\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 .\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -31,11 +31,11 @@
 .Dd May 17, 1998
 .Dt SETKEY 8
 .Os KAME
-.\" 
+.\"
 .Sh NAME
 .Nm setkey
 .Nd manually manipulate the SA/SP database.
-.\" 
+.\"
 .Sh SYNOPSIS
 .Nm setkey
 .Op Fl dv
@@ -52,7 +52,7 @@
 .Nm setkey
 .Op Fl h
 .Fl x
-.\" 
+.\"
 .Sh DESCRIPTION
 .Nm
 updates, or lists the content of, Security Association Database (SAD) entries
@@ -226,7 +226,7 @@ attached
 .Pp
 .It Ar extensions
 takes some of the following:
-.Bl -tag -width Fl -compact 
+.Bl -tag -width Fl -compact
 .\"
 .It Fl m Ar mode
 Specify an security protocol mode for use.  By default,
@@ -265,7 +265,7 @@ Specify hard/soft lifetime.
 .\"
 .Pp
 .It Ar algorithm
-.Bl -tag -width Fl -compact 
+.Bl -tag -width Fl -compact
 .It Fl E Ar ealgo Ar key
 Specify encryption algorithm.
 .It Fl A Ar ealgo Ar key
@@ -519,7 +519,7 @@ algorithm	comment
 deflate		rfc2394
 lzs		rfc2395
 .Ed
-.\" 
+.\"
 .Sh EXAMPLES
 .Bd -literal -offset
 add	3ffe:501:4819::1 3ffe:501:481d::1 esp 123457
@@ -542,14 +542,14 @@ spdadd	10.0.11.41/32[21] 10.0.11.33/32[any] any
 		-P out ipsec esp/tunnel/192.168.0.1-192.168.1.2/require ;
 
 .Ed
-.\" 
+.\"
 .Sh RETURN VALUES
 The command exits with 0 on success, and non-zero on errors.
-.\" 
+.\"
 .Sh SEE ALSO
 .Xr ipsec_set_policy 3 ,
 .Xr sysctl 8
-.\" 
+.\"
 .Sh HISTORY
 The
 .Nm

@@ -20,7 +20,7 @@ MTREE=		mtree.conf
 SIZE=		2048k
 DISKTYPE=	floppyinstfs
 
-all: ${CBIN} 
+all: ${CBIN}
 	dd if=/dev/zero of=${IMAGE} bs=${SIZE} count=1
 	vnconfig -t ${DISKTYPE} -v -c ${VND} ${IMAGE}
 	disklabel -f ${.CURDIR}/disktab -rw ${VND} ${DISKTYPE}

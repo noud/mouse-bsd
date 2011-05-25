@@ -165,7 +165,7 @@
 #define DMAC_FC_CPU		0x07
 
 /*
- * An element of the array used in DMAC scatter-gather transfer 
+ * An element of the array used in DMAC scatter-gather transfer
  * (array chaining mode)
  */
 struct dmac_sg_array {

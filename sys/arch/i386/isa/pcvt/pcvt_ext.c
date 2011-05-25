@@ -2481,7 +2481,7 @@ vgapage(int new_screen)
 }
 
 /*---------------------------------------------------------------------------*
- *	VT_USL ioctl handling 
+ *	VT_USL ioctl handling
  *---------------------------------------------------------------------------*/
 int
 usl_vt_ioctl(Dev_t dev, int cmd, caddr_t data, int flag, struct proc *p)
@@ -2489,7 +2489,7 @@ usl_vt_ioctl(Dev_t dev, int cmd, caddr_t data, int flag, struct proc *p)
 	int i, j, error, opri, mode;
 	struct vt_mode newmode;
 	struct video_state *vsx = &vs[minor(dev)];
-	
+
 	switch(cmd)
 	{
 
@@ -2703,7 +2703,7 @@ usl_vt_ioctl(Dev_t dev, int cmd, caddr_t data, int flag, struct proc *p)
 
 	case KDENABIO:
 		/*
-		 * grant the process IO access; only allowed if euid == 0 
+		 * grant the process IO access; only allowed if euid == 0
 		 * and securelevel <= 1.  XXX -- this is a fairly serious
 		 * hole, but if closed at securelevel 1, would require
 		 * options INSECURE in order to use X at all.
@@ -2778,7 +2778,7 @@ usl_vt_ioctl(Dev_t dev, int cmd, caddr_t data, int flag, struct proc *p)
 	case KDGKBMODE:
 		*(int *)data = vsx->kbd_state;
 		return 0;
-		
+
 	case KDSKBMODE:
 		mode = *(int *)data;
 		switch(mode)

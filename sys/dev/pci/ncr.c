@@ -363,7 +363,7 @@
 #else /* !__NetBSD__ */
 
 #ifdef NCR_IOMAPPED
- 
+
 #define	INB(r) inb (np->port + offsetof(struct ncr_reg, r))
 #define	INB_OFF(o) inb (np->port + (o))
 #define	INW(r) inw (np->port + offsetof(struct ncr_reg, r))
@@ -397,7 +397,7 @@
 #endif /* __NetBSD__ */
 
 /*
-**	Set bit field ON, OFF 
+**	Set bit field ON, OFF
 */
 
 #define OUTONB(r, m)	OUTB(r, INB(r) | (m))
@@ -657,7 +657,7 @@ struct tcb {
 
 	/*
 	**	pointer to ccb used for negotiating.
-	**	Avoid to start a nego for all queued commands 
+	**	Avoid to start a nego for all queued commands
 	**	when tagged command queuing is enabled.
 	*/
 
@@ -936,7 +936,7 @@ struct dsb {
 
 struct ccb {
 	/*
-	**	This filler ensures that the global header is 
+	**	This filler ensures that the global header is
 	**	cache line size aligned.
 	*/
 	ncrcmd	filler[4];
@@ -1287,7 +1287,7 @@ struct ncb {
 	**	It's used only during the configuration phase.
 	**	A target control block will be created
 	**	after the first successful transfer.
-	**	It is allocated separately in order to insure 
+	**	It is allocated separately in order to insure
 	**	cache line size alignment.
 	*/
 	struct ccb      *ccb;
@@ -1335,7 +1335,7 @@ struct ncb {
 */
 
 /*
-**	Script fragments which are loaded into the on-board RAM 
+**	Script fragments which are loaded into the on-board RAM
 **	of 825A, 875 and 895 chips.
 */
 struct script {
@@ -1425,7 +1425,7 @@ struct tekram_eeprom_dev {
 };
 
 struct tekram_eeprom {
-  struct tekram_eeprom_dev 
+  struct tekram_eeprom_dev
 		dev[16];
   u_char	adaptid;
   u_char	adaptmode;
@@ -1466,7 +1466,7 @@ static	int	ncr_intr	(void *vnp);
 #else
 static	void	ncr_intr	(void *vnp);
 static  U_INT32 ncr_info	(int unit);
-#endif	/* !__NetBSD__ */	
+#endif	/* !__NetBSD__ */
 static	void	ncr_int_ma	(ncb_p np, u_char dstat);
 static	void	ncr_int_sir	(ncb_p np);
 static  void    ncr_int_sto     (ncb_p np);
@@ -3367,7 +3367,7 @@ static void ncr_script_copy_and_bind (ncb_p np, ncrcmd *src, ncrcmd *dst, int le
 				DELAY (1000000);
 			}
 			/*
-			**	If PREFETCH feature not enabled, remove 
+			**	If PREFETCH feature not enabled, remove
 			**	the NO FLUSH bit if present.
 			*/
 			if ((opcode & SCR_NO_FLUSH) && !(np->features&FE_PFEN))
@@ -3510,7 +3510,7 @@ U_INT32 ncr_info (int unit)
 /*----------------------------------------------------------
 **
 **	NCR chip devices table and chip look up function.
-**	Features bit are defined in ncrreg.h. Is it the 
+**	Features bit are defined in ncrreg.h. Is it the
 **	right place?
 **
 **----------------------------------------------------------
@@ -3569,13 +3569,13 @@ static ncr_chip ncr_chip_table[] = {
 static int ncr_chip_lookup(u_long device_id, u_char revision_id)
 {
 	int i, found;
-	
+
 	found = -1;
 	for (i = 0; i < sizeof(ncr_chip_table)/sizeof(ncr_chip_table[0]); i++) {
 		if (device_id	== ncr_chip_table[i].device_id &&
 		    ncr_chip_table[i].minrevid <= revision_id) {
-			if (found < 0 || 
-			    ncr_chip_table[found].minrevid 
+			if (found < 0 ||
+			    ncr_chip_table[found].minrevid
 			      < ncr_chip_table[i].minrevid) {
 				found = i;
 			}
@@ -3634,7 +3634,7 @@ static	char* ncr_probe (pcici_t tag, pcidi_t type)
 /*==========================================================
 **
 **	NCR chip clock divisor table.
-**	Divisors are multiplied by 10,000,000 in order to make 
+**	Divisors are multiplied by 10,000,000 in order to make
 **	calculations more simple.
 **
 **==========================================================
@@ -3646,9 +3646,9 @@ static u_long div_10M[] =
 
 /*===============================================================
 **
-**	NCR chips allow burst lengths of 2, 4, 8, 16, 32, 64, 128 
+**	NCR chips allow burst lengths of 2, 4, 8, 16, 32, 64, 128
 **	transfers. 32,64,128 are only supported by 875 and 895 chips.
-**	We use log base 2 (burst length) as internal code, with 
+**	We use log base 2 (burst length) as internal code, with
 **	value 0 meaning "burst disabled".
 **
 **===============================================================
@@ -4054,7 +4054,7 @@ static void ncr_attach (pcici_t config_id, int unit)
 			np->rv_dcntl	|= PFEN;  /* Prefetch Enable */
 		if (np->features & FE_DFS)
 			np->rv_ctest5	|= DFS;	  /* Dma Fifo Size */
-		if (np->features & FE_DIFF)	
+		if (np->features & FE_DIFF)
 			np->rv_stest2	|= 0x20;  /* Differential mode */
 		ncr_init_burst(np, np->maxburst); /* Max dwords burst length */
 	} else {
@@ -4097,8 +4097,8 @@ static void ncr_attach (pcici_t config_id, int unit)
 #endif
 	/* if */ {
 #ifdef __FreeBSD__
-		np->script  = (struct script*) vm_page_alloc_contig 
-			(round_page(sizeof (struct script)), 
+		np->script  = (struct script*) vm_page_alloc_contig
+			(round_page(sizeof (struct script)),
 			 0x100000, 0xffffffff, PAGE_SIZE);
 #else
 		np->script = NULL;
@@ -4151,8 +4151,8 @@ static void ncr_attach (pcici_t config_id, int unit)
 
 #ifdef __FreeBSD__
 	if (sizeof (struct scripth) > PAGE_SIZE) {
-		np->scripth = (struct scripth*) vm_page_alloc_contig 
-			(round_page(sizeof (struct scripth)), 
+		np->scripth = (struct scripth*) vm_page_alloc_contig
+			(round_page(sizeof (struct scripth)),
 			 0x100000, 0xffffffff, PAGE_SIZE);
 	} else {
 		np->scripth = (struct scripth *)
@@ -4196,7 +4196,7 @@ static void ncr_attach (pcici_t config_id, int unit)
 
 #ifdef SCSI_NCR_PCI_CONFIG_FIXUP
 	/*
-	**	If cache line size is enabled, check PCI config space and 
+	**	If cache line size is enabled, check PCI config space and
 	**	try to fix it up if necessary.
 	*/
 #ifdef PCIR_CACHELNSZ	/* To be sure that new PCI stuff is present */
@@ -4240,7 +4240,7 @@ static void ncr_attach (pcici_t config_id, int unit)
 			np->rv_stest2 & 0x20 ? "differential" : "single-ended",
 			np->rv_dcntl & IRQM ? "totem pole" : "open drain",
 			ISSCRIPTRAMMAPPED(np) ? ", using on-chip SRAM" : "");
-			
+
 	/*
 	**	Patch scripts to physical addresses
 	*/
@@ -4405,7 +4405,7 @@ static void ncr_attach (pcici_t config_id, int unit)
 			printf ("%s%d..%d ", txt_and, myaddr +1, t_to);
 		printf ("(V%d " NCR_DATE ")\n", NCR_VERSION);
 	}
-		
+
 	scsi_attachdevs (scbus);
 	scbus = NULL;   /* Upper-level SCSI code owns this now */
 #else
@@ -4569,7 +4569,7 @@ static INT32 ncr_start (struct scsipi_xfer * xp)
 
 	if ((unsigned)xp->datalen > 128*1024*1024) {
 		PRINT_ADDR(xp);
-		printf ("trying to transfer %8x bytes, mem addr = %p\n", 
+		printf ("trying to transfer %8x bytes, mem addr = %p\n",
 			xp->datalen, xp->data);
 		{
 			int i;
@@ -4583,7 +4583,7 @@ static INT32 ncr_start (struct scsipi_xfer * xp)
 
 	if (DEBUG_FLAGS & DEBUG_TINY) {
 		PRINT_ADDR(xp);
-		printf ("CMD=%x F=%x A=%p L=%x ", 
+		printf ("CMD=%x F=%x A=%p L=%x ",
 			cmd->opcode, (unsigned)xp->xs_control, xp->data,
 			(unsigned)xp->datalen);
 	}
@@ -4693,7 +4693,7 @@ static INT32 ncr_start (struct scsipi_xfer * xp)
 		*/
 
 		if (!nego && !tp->period) {
-			if (SCSI_NCR_DFLT_SYNC 
+			if (SCSI_NCR_DFLT_SYNC
 #ifdef NCR_CDROM_ASYNC
 			    && ((tp->inqdata[0] & 0x1f) != 5)
 #endif /* NCR_CDROM_ASYNC */
@@ -4709,7 +4709,7 @@ static INT32 ncr_start (struct scsipi_xfer * xp)
 
 		/*
 		**	remember nego is pending for the target.
-		**	Avoid to start a nego for all queued commands 
+		**	Avoid to start a nego for all queued commands
 		**	when tagged command queuing is enabled.
 		*/
 
@@ -4965,7 +4965,7 @@ static INT32 ncr_start (struct scsipi_xfer * xp)
 	if(DEBUG_FLAGS & DEBUG_QUEUE)
 		printf ("%s: queuepos=%d tryoffset=%d.\n", ncr_name (np),
 		np->squeueput,
-		(unsigned)(READSCRIPT(startpos[0])- 
+		(unsigned)(READSCRIPT(startpos[0])-
 			   (NCB_SCRIPTH_PHYS (np, tryloop))));
 
 	/*
@@ -5107,8 +5107,8 @@ void ncr_complete (ncb_p np, ccb_p cp)
 	lp = tp->lp[xp->sc_link->scsipi_scsi.lun];
 
 	/*
-	**	We donnot queue more than 1 ccb per target 
-	**	with negotiation at any time. If this ccb was 
+	**	We donnot queue more than 1 ccb per target
+	**	with negotiation at any time. If this ccb was
 	**	used for negotiation, clear this info in the tcb.
 	*/
 
@@ -5154,12 +5154,12 @@ void ncr_complete (ncb_p np, ccb_p cp)
 	**	Check the status.
 	*/
 #ifdef __NetBSD__
-	if (xp->error != XS_NOERROR) { 
-                                
-                /*              
+	if (xp->error != XS_NOERROR) {
+
+                /*
                 **      Don't override the error value.
                 */
-	} else                        
+	} else
 #endif /* __NetBSD__ */
 	if (   (cp->host_status == HS_COMPLETE)
 		&& (cp->scsi_status == S_GOOD)) {
@@ -5561,9 +5561,9 @@ static void ncr_negotiate (struct ncb* np, struct tcb* tp)
 
 /*==========================================================
 **
-**	Get clock factor and sync divisor for a given 
+**	Get clock factor and sync divisor for a given
 **	synchronous factor period.
-**	Returns the clock factor (in sxfer) and scntl3 
+**	Returns the clock factor (in sxfer) and scntl3
 **	synchronous divisor field.
 **
 **==========================================================
@@ -5586,7 +5586,7 @@ static void ncr_getsync(ncb_p np, u_char sfac, u_char *fakp, u_char *scntl3p)
 	else			per = 40 * sfac;
 
 	/*
-	**	Look for the greatest clock divisor that allows an 
+	**	Look for the greatest clock divisor that allows an
 	**	input speed faster than the period.
 	*/
 	kpc = per * clk;
@@ -5594,7 +5594,7 @@ static void ncr_getsync(ncb_p np, u_char sfac, u_char *fakp, u_char *scntl3p)
 		if (kpc >= (div_10M[div] * 4)) break;
 
 	/*
-	**	Calculate the lowest clock factor that allows an output 
+	**	Calculate the lowest clock factor that allows an output
 	**	speed not faster than the period.
 	*/
 	fak = (kpc - 1) / div_10M[div] + 1;
@@ -5604,7 +5604,7 @@ static void ncr_getsync(ncb_p np, u_char sfac, u_char *fakp, u_char *scntl3p)
 	per = (fak * div_10M[div]) / clk;
 
 	/*
-	**	Why not to try the immediate lower divisor and to choose 
+	**	Why not to try the immediate lower divisor and to choose
 	**	the one that allows the fastest output speed ?
 	**	We dont want input speed too much greater than output speed.
 	*/
@@ -5713,8 +5713,8 @@ static void ncr_setsync (ncb_p np, ccb_p cp, u_char scntl3, u_char sxfer)
 /*==========================================================
 **
 **	Switch wide mode for current job and it's target
-**	SCSI specs say: a SCSI device that accepts a WDTR 
-**	message shall reset the synchronous agreement to 
+**	SCSI specs say: a SCSI device that accepts a WDTR
+**	message shall reset the synchronous agreement to
 **	asynchronous mode.
 **
 **==========================================================
@@ -6091,14 +6091,14 @@ static void ncr_log_hard_error(ncb_p np, u_short sist, u_char dstat)
 
 	dsp	= INL (nc_dsp);
 
-	if (np->p_script < dsp && 
+	if (np->p_script < dsp &&
 	    dsp <= np->p_script + sizeof(struct script)) {
 		script_ofs	= dsp - np->p_script;
 		script_size	= sizeof(struct script);
 		script_base	= (u_char *) np->script;
 		script_name	= "script";
 	}
-	else if (np->p_scripth < dsp && 
+	else if (np->p_scripth < dsp &&
 		 dsp <= np->p_scripth + sizeof(struct scripth)) {
 		script_ofs	= dsp - np->p_scripth;
 		script_size	= sizeof(struct scripth);
@@ -6259,7 +6259,7 @@ void ncr_exception (ncb_p np)
 	*/
 
 #ifdef __NetBSD__
-	if (mono_time.tv_sec - np->regtime.tv_sec>10) 
+	if (mono_time.tv_sec - np->regtime.tv_sec>10)
 #else
 	if (time.tv_sec - np->regtime.tv_sec>10)
 #endif
@@ -6370,7 +6370,7 @@ void ncr_exception (ncb_p np)
 **	@RECOVER@ HTH, SGE, ABRT.
 **
 **	We should try to recover from these interrupts.
-**	They may occur if there are problems with synch transfers, or 
+**	They may occur if there are problems with synch transfers, or
 **	if targets are switched on or off while the driver is running.
 */
 
@@ -6555,12 +6555,12 @@ static void ncr_int_ma (ncb_p np, u_char dstat)
 		cp = cp->link_ccb;
 
 	if (!cp) {
-	    printf ("%s: SCSI phase error fixup: CCB already dequeued (%p)\n", 
+	    printf ("%s: SCSI phase error fixup: CCB already dequeued (%p)\n",
 		    ncr_name (np), np->ncb_dma->header.cp);
 	    return;
 	}
 	if (cp != np->ncb_dma->header.cp) {
-	    printf ("%s: SCSI phase error fixup: CCB address mismatch (0x%08lx != 0x%08lx) np->ccb = %p\n", 
+	    printf ("%s: SCSI phase error fixup: CCB address mismatch (0x%08lx != 0x%08lx) np->ccb = %p\n",
 		    ncr_name (np), (u_long) cp, (u_long) np->ncb_dma->header.cp, np->ccb);
 /*	    return;*/
 	}
@@ -6635,7 +6635,7 @@ static void ncr_int_ma (ncb_p np, u_char dstat)
 		printf ("internal error: cmd=%02x != %02x=(vdsp[0] >> 24)\n",
 			(unsigned)cmd,
 			(unsigned)READSCRIPT_OFF(vdsp_base, vdsp_off) >> 24);
-		
+
 		return;
 	}
 	if (cmd & 0x06) {
@@ -6847,14 +6847,14 @@ void ncr_int_sir (ncb_p np)
 **
 **	If we receive a negotiation message while not in HS_NEGOTIATE
 **	state, it's a target initiated negotiation. We prepare a
-**	(hopefully) valid answer, set our parameters, and send back 
+**	(hopefully) valid answer, set our parameters, and send back
 **	this answer to the target.
 **
 **	If the target doesn't fetch the answer (no message out phase),
 **	we assume the negotiation has failed, and fall back to default
 **	settings.
 **
-**	When we set the values, we adjust them in all ccbs belonging 
+**	When we set the values, we adjust them in all ccbs belonging
 **	to this target, in the controller's register, and in the "phys"
 **	field of the controller's struct ncb.
 **
@@ -7866,7 +7866,7 @@ static int ncr_snooptest (struct ncb* np)
 	*/
 	if (pc != NCB_SCRIPTH_PHYS (np, snoopend)+8) {
 		printf ("CACHE TEST FAILED: script execution failed.\n");
-		printf ("start=%08lx, pc=%08lx, end=%08lx\n", 
+		printf ("start=%08lx, pc=%08lx, end=%08lx\n",
 			(u_long) NCB_SCRIPTH_PHYS (np, snooptest), (u_long) pc,
 			(u_long) NCB_SCRIPTH_PHYS (np, snoopend) +8);
 		return (0x40);
@@ -8032,12 +8032,12 @@ static u_long ncr_lookup(char * id)
 **	THERE IS NO SAVE DEFAULT VALUE.
 **
 **	Most NCR/SYMBIOS boards are delivered with a 40 Mhz clock.
-**	53C860 and 53C875 rev. 1 support fast20 transfers but 
-**	do not have a clock doubler and so are provided with a 
-**	80 MHz clock. All other fast20 boards incorporate a doubler 
+**	53C860 and 53C875 rev. 1 support fast20 transfers but
+**	do not have a clock doubler and so are provided with a
+**	80 MHz clock. All other fast20 boards incorporate a doubler
 **	and so should be delivered with a 40 MHz clock.
-**	The future fast40 chips (895/895) use a 40 Mhz base clock 
-**	and provide a clock quadrupler (160 Mhz). The code below 
+**	The future fast40 chips (895/895) use a 40 Mhz base clock
+**	and provide a clock quadrupler (160 Mhz). The code below
 **	tries to deal as cleverly as possible with all this stuff.
 **
 **----------------------------------------------------------
@@ -8079,18 +8079,18 @@ ncrgetfreq (ncb_p np, int gen)
 {
 	int ms = 0;
 	/*
-	 * Measure GEN timer delay in order 
+	 * Measure GEN timer delay in order
 	 * to calculate SCSI clock frequency
 	 *
 	 * This code will never execute too
-	 * many loop iterations (if DELAY is 
+	 * many loop iterations (if DELAY is
 	 * reasonably correct). It could get
 	 * too low a delay (too high a freq.)
-	 * if the CPU is slow executing the 
+	 * if the CPU is slow executing the
 	 * loop for some reason (an NMI, for
 	 * example). For this reason we will
-	 * if multiple measurements are to be 
-	 * performed trust the higher delay 
+	 * if multiple measurements are to be
+	 * performed trust the higher delay
 	 * (lower frequency returned).
 	 */
 	OUTB (nc_stest1, 0);	/* make sure clock doubler is OFF	    */
@@ -8115,7 +8115,7 @@ ncrgetfreq (ncb_p np, int gen)
 	if (bootverbose >= 2)
 	  	printf ("\tDelay (GEN=%d): %u msec\n", gen, ms);
 	/*
-	 * adjust for prescaler, and convert into KHz 
+	 * adjust for prescaler, and convert into KHz
 	 */
 	return ms ? ((1 << gen) * 4440) / ms : 0;
 }
@@ -8126,7 +8126,7 @@ static void ncr_getclock (ncb_p np, u_char multiplier)
 	unsigned char stest1;
 	scntl3 = INB(nc_scntl3);
 	stest1 = INB(nc_stest1);
-	  
+
 	np->multiplier = 1;
 	/* always false, except for 875 with clock doubler selected */
 	if ((stest1 & (DBLEN+DBLSEL)) == DBLEN+DBLSEL) {
@@ -8207,7 +8207,7 @@ read_tekram_eeprom_reg (ncb_p np, int reg)
 	return result;
 }
 
-static int 
+static int
 read_tekram_eeprom(ncb_p np, struct tekram_eeprom *buffer)
 {
 	u_short *p = (u_short *) buffer;

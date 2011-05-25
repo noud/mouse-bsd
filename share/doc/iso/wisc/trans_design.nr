@@ -5,8 +5,8 @@
 .pp
 The design of the AOS kernel IPC support to some
 extent mandates the
-design of protocols. 
-Each protocol must provide the following 
+design of protocols.
+Each protocol must provide the following
 protocol hooks, which are procedures called through a
 protocol switch table
 (an array of type \fIprotosw\fR as described in
@@ -31,9 +31,9 @@ Used for exchanging information between
 protocols, such as notifying a transport protocol of changes
 in routing or configuration information.
 .ip "pr_ctloutput()" 5
-Supports the protocol-dependent 
+Supports the protocol-dependent
 \fIgetsockopt()\fR
-and 
+and
 \fIsetsockopt()\fR
 options.
 .ip "pr_usrreq()" 5
@@ -45,7 +45,7 @@ The functions served by the \fIpr_usrreq()\fR routine are:
 Creates a protocol control block and attaches it to a given socket.
 Called as a result of a \fIsocket()\fR system call.
 .ip "     PRU_DISCONNECT" 10
-Called as a result of a 
+Called as a result of a
 \fIclose()\fR system call.
 Initiates disconnection.
 .ip "     PRU_DETACH" 10
@@ -53,7 +53,7 @@ Disassociates a protocol control block from a socket and recycles
 the buffer space used for the protocol control block.
 Called after PRU_DISCONNECT.
 .ip "     PRU_SHUTDOWN" 10
-Called as a result of a 
+Called as a result of a
 \fIshutdown()\fR system call.
 If the protocol supports the notion of half-open connections,
 this closes the connection in one direction or both directions,
@@ -61,23 +61,23 @@ depending on the arguments passed to
 \fIshutdown\fR.
 .ip "     PRU_BIND" 10
 Gives an address to a socket.
-Called as a result of a 
+Called as a result of a
 \fIbind()\fR system call, also
-when 
+when
 socket without a bound address is used.
 In the latter case, an unused transport suffix is located and
 bound to the socket.
 .ip "     PRU_LISTEN" 10
-Called as a result of a 
+Called as a result of a
 \fIlisten()\fR system call.
 Marks the socket as willing to queue incoming connection
 requests.
 .ip "     PRU_CONNECT" 10
-Called as a result of a 
+Called as a result of a
 \fIconnect()\fR system call.
 Initiates a connection request.
 .ip "     PRU_ACCEPT" 10
-Called as a result of an 
+Called as a result of an
 \fIaccept()\fR system call.
 Dequeues a pending connection request, or blocks waiting for
 a connection request to arrive.
@@ -88,7 +88,7 @@ The protocol module is expected to have put incoming data
 into the socket's receive buffer, \fIso_rcv\fR.
 When a receive primitive is used
 (\fIrecv(), recvmsg(), recvfrom(),
-read(), readv(), \fRand 
+read(), readv(), \fRand
 \fIrecvv()\fR system calls)
 the socket code module copies data from the
 \fIso_rcv\fR to the user's
@@ -98,17 +98,17 @@ does this, in which case the socket code calls \fIpr_usrreq\fR(PRU_RCVD)
 after the data were copied to the user.
 .ip "     PRU_SEND" 10
 This performs the protocol-dependent part of a send primitive
-(\fIsend(), sendmsg(), sendto(), write(), writev(), 
+(\fIsend(), sendmsg(), sendto(), write(), writev(),
 \fRand \fIsendv()\fR system calls).
-The socket code 
+The socket code
 (procedures \fIsendit() and \fIsosend()\fR)
 moves outgoing data from the user's
 address space into a chain of \fImbufs\fR.
 The socket code takes as much data from the user as it
-determines will fit into the outgoing socket buffer, so_snd. 
+determines will fit into the outgoing socket buffer, so_snd.
 It passes this much data in the form of an mbuf chain to the protocol
 via \fIpr_usrreq\fR(PRU_SEND).
-If there are more data than 
+If there are more data than
 the so_snd can accommodate,
 the socket code, which is running on behalf of a user process,
 puts the user process to sleep.
@@ -121,15 +121,15 @@ queued pending
 connection requests or
 partially open connections.
 .ip "     PRU_CONTROL" 10
-Called as a result of an 
+Called as a result of an
 \fIioctl()\fR system call.
 .ip "     PRU_SENSE" 10
-Called as a result of an 
+Called as a result of an
 \fIfstat()\fR system call.
 .ip "     PRU_RCVOOB" 10
 Performs the work of receiving \*(lqout-of-band\*(rq data.
 The socket module has already allocated an mbuf into which
-the protocol module is expected to put the incoming 
+the protocol module is expected to put the incoming
 \*(lqout-of-band\*(rq data.
 The socket code will then move the data from this mbuf
 to the user's address space.
@@ -166,14 +166,14 @@ or the ISO connectionless network layer,
 or it may run over a multi-purpose layer such as the service
 provided by X.25.
 X.25 is viewed as a network layer when
-TP runs over X.25, and as a 
-subnetwork layer 
+TP runs over X.25, and as a
+subnetwork layer
 when IP is running over X.25.
 The software interface between data link and network layers differs
 considerably from the software interface between transport and network
 layers in AOS.
 For this reason some modification of the transport-to-lower-layer
-interface is necessary to support the suite of protocols included in 
+interface is necessary to support the suite of protocols included in
 ARGO.
 .pp
 In AOS it is assumed that the transport layer will run over one
@@ -196,7 +196,7 @@ under one transport layer, all transport-dependent control
 information was put into a transport-specific protocol control block.
 A new field, \fIso_tpcb\fR,
 was added to the \fIsocket\fR structure to hold a pointer to
-the transport-layer protocol control block. 
+the transport-layer protocol control block.
 The existing
 field \fCso_pcb\fR is used for the network layer pcb.
 .pp
@@ -227,8 +227,8 @@ l l l l.
 +int+(*nlp_pcballoc)();+/* allocate a pcb */
 +int+(*nlp_output)();+/* emit packet */
 +int+(*nlp_dgoutput)();+/* emit datagram */
-+caddr_t+nlp_pcblist;+/* list of pcbs 
-+++for management 
++caddr_t+nlp_pcblist;+/* list of pcbs
++++for management
 +++of connections */
 };
 .TE
@@ -249,7 +249,7 @@ about the environment.
 For these reasons, linking the address family to the network
 layer protocol is seen as the least of the evils.
 The transport suffixes are kept in the network layer's pcb
-as well as in the transport layer because 
+as well as in the transport layer because
 full transport address pairs are used to identify a connection
 in the Internet domain.
 .sh 1 "The Architecture of the Transport Protocol Entity"
@@ -262,7 +262,7 @@ The protocol code can be entered in one of the following ways:
 .ip "1) " 5
 at boot time, when autoconfiguration
 initializes each protocol through
-the 
+the
 \fIpr_init()\fR
 hook,
 .ip "2) " 5
@@ -285,7 +285,7 @@ or the
 The protocol code can be divided into
 the following modules, which are described in more detail below.
 .CF
-shows the flow of data and control 
+shows the flow of data and control
 among these modules.
 .in +5
 .ip "Timers and References:" 5
@@ -295,12 +295,12 @@ The fast timeout is not used by TP.
 This is the finite state machine for TP.
 .ip "Input:     " 5
 This is the module that decodes incoming packets,
-identifies or creates the pcb for which 
+identifies or creates the pcb for which
 the packet is destined, and creates an "event" to
 pass to the driver.
 .ip "Output:" 5
 This is the module that creates a packet header of a given type
-with fields containing 
+with fields containing
 values that are appropriate to the connection
 on which the packet is being sent, appends data if necessary,
 and hands a packet
@@ -327,11 +327,11 @@ is discarded.
 An array of \fIreference blocks\fR is maintained by TP.
 The reference number of a reference block is its
 offset in the array.
-When a reference block is in use it contains 
+When a reference block is in use it contains
 a pointer to the pcb for the socket to which the
 reference applies.
 .pp
-The system clock calls the \fIpr_slowtimo()\fR and 
+The system clock calls the \fIpr_slowtimo()\fR and
 \fIpr_fasttimo()\fR hooks for each protocol in the protocol switch table
 every 500 and 200 microseconds, respectively.
 Each protocol handles its own timers its own way.
@@ -344,7 +344,7 @@ The former may not.
 The two are implemented slightly
 differently for the sake of performance.
 .pp
-The timers that normally expire 
+The timers that normally expire
 are kept in a queue, their values all relative
 to the value of preceding timer.
 Thus all timer values are decremented by a single
@@ -371,14 +371,14 @@ l l l l.
 .lp
 When an Ecallout structure migrates to the head
 of the E timer list, and its \fIc_time\fR
-field is decremented to zero, 
+field is decremented to zero,
 the function stored in \fIc_func\fR is
 called, with \fIc_arg1, c_arg2\fR, and \fIc_arg3\fR
 as arguments.
 Setting and cancelling these timers
 are accomplished by a linear search and one
 insertion or deletion from the timer queue.
-This queue is linked to the 
+This queue is linked to the
 reference block associated with a communication endpoint.
 This form used for the reference timer
 and for the retransmission timers for data TPDUs.
@@ -420,7 +420,7 @@ finite state machine driver to be called.
 The driver takes two arguments - the pcb for the connection
 and an event structure.
 The event structure contains a field that discriminates
-the different types of events, and a union of 
+the different types of events, and a union of
 structures that are specific to the event types.
 The driver evaluates a set of predicates based on the current
 state of the finite state machine (which is kept in the pcb) and the event type.
@@ -435,7 +435,7 @@ specified as a \fIxebec transition file\fR.
 of a finite state machine
 and produces a set of tables and C source code for the driver.
 The driver procedure is called \fItp_driver()\fR.
-It is located in a file generated by xebec, 
+It is located in a file generated by xebec,
 \fCtp_driver.c\fR.
 For more details about xebec, see the manual page \fIxebec(1)\fR.
 .pp
@@ -445,7 +445,7 @@ source code.
 .sh 1 "Input"
 .pp
 This is the module that decodes an incoming packet,
-locates or creates the pcb for which 
+locates or creates the pcb for which
 the packet is destined, and creates an event to
 pass to the driver.
 The network layer passes a packet up to the appropriate
@@ -467,12 +467,12 @@ decodes a TPDU.
 The multitude of options, the variable-length
 nature of the options, the semantics of the
 options, and the possible combinations of concatenated
-TPDUs make this a 
+TPDUs make this a
 complex procedure.
-It is sensitive to changes, and from 
+It is sensitive to changes, and from
 the point of view of a software maintenance, it is a
 potential hazard.
-Because it is in the 
+Because it is in the
 critical path of TP however, some compromise
 was made between maintainability and efficiency.
 Multiple copies of sections of code were avoided as much as
@@ -510,10 +510,10 @@ For the Internet domain, this output routine is
 \fItpip_output()\fR, which takes
 as arguments the mbuf chain representing the TPDU,
 and a network level pcb.
-Some protocol errors cannot be associated with 
-a connection 
+Some protocol errors cannot be associated with
+a connection
 but require that TP issue
-an ER TPDU or a DR TPDU. 
+an ER TPDU or a DR TPDU.
 When these errors occur the routine
 \fItp_error_emit()\fR is called.
 This procedure creates the appropriate type of TPDU
@@ -535,7 +535,7 @@ The major routine in this module is \fItp_send()\fR, which
 takes a range of sequence numbers as arguments.
 For each sequence number in the range,
 it packetizes the an appropriate amount
-of outbound data, and places the resulting TPDU on 
+of outbound data, and places the resulting TPDU on
 a retransmission control queue subject to the
 constraints imposed by the rules of expedited data,
 maximum packet sizes, and end-of-TSDU markers.
@@ -544,16 +544,16 @@ The most complicating factor is that of managing
 expedited data.
 A normal datum may not be sent (for its first time) before the
 acknowledgment of any expedited datum
-that was received from the user after the 
-normal datum was received. 
+that was received from the user after the
+normal datum was received.
 In order to enforce this rule,
 each TPDU must be marked in some way
 so that it will be known which expedited datum
 must be delivered and acknowledged by the peer before this TPDU may be transmitted
 for the first time.
-Markers are placed in \fIso_snd\fR 
+Markers are placed in \fIso_snd\fR
 when an
-outgoing expedited datum arrives from the user. 
+outgoing expedited datum arrives from the user.
 A marker is an mbuf structure with an \fIm_len\fR
 of zero, but with the data area nevertheless containing
 the sequence number of an expedited data TPDU.
@@ -585,7 +585,7 @@ Once the maximum amount of data per TPDU is determined,
 \fItp_send()\fR can pull this amount off the \fIso_snd\fR queue to form
 a TPDU,
 assign a TPDU sequence number,
-and place the new TPDU on the 
+and place the new TPDU on the
 retransmission control queue.
 The retransmission control queue is a list of mbuf chains.
 Each mbuf chain represents one TPDU, preceded by an
@@ -605,15 +605,15 @@ l l l l.
 +struct mbuf+*tprt_data;+/* ptr to the octets of data */
 .\"/* Performance measurment info: */
 .\"int	tprt_window;	/* in which call to tp_send() was
-.\"			  * this TPDU formed? 
+.\"			  * this TPDU formed?
 .\"			  */
-.\"struct timeval	tprt_sess_time;	/* time session received the 
+.\"struct timeval	tprt_sess_time;	/* time session received the
 .\"			* majority of the data for this packet on send;
-.\"			* on recv, this is the time it's given to session 
+.\"			* on recv, this is the time it's given to session
 .\"			*/
 .\"struct timeval	tprt_net_time;	/* time first copy was given to net layer
 .\"			* on send; on receive it's the time received from
-.\"			* the network 
+.\"			* the network
 .\"			*/
 };
 .TE
@@ -637,7 +637,7 @@ or expedited data.
 If this AK acknowledges something heretofore unacknowledged,
 \fItp_goodack()\fR drops the appropriate TPDU(s) from the retransmission
 control list, computes the smoothed average round trip time
-and standard deviation of the round trip time, 
+and standard deviation of the round trip time,
 and updates
 the retransmission timer based on these statistics.
 It sets a flag in the pcb if the TP entity is obliged to
@@ -656,7 +656,7 @@ expedited data buffer.
 By its definition in the TP specification,
 the expedited data stream has a window
 of size 1,
-that is, 
+that is,
 only one expedited datum (packet) can be buffered
 at a time.
 \fITp_goodXack()\fR returns true if the XAK acknowledged
@@ -670,24 +670,24 @@ and it returns false if the acknowledgment caused no action to be taken.
 This module reorders incoming TPDUs if necessary,
 depacketizes data, passes it to the socket code module,
 and determines when acknowledgments should be sent.
-The function 
+The function
 \fItp_stash()\fR
 takes an DT TPDU as an argument, and if the TPDU is not in
 sequence, it saves the TPDU in a \fItp_rtc\fR structure in
 a list, with the TPDUs
 kept in order.
 When the next expected TPDU arrives, the
-list of out-of-order TPDUs is scanned for 
+list of out-of-order TPDUs is scanned for
 more TPDUs in sequence, updating
 a field in the pcb, \fItp_rcvnxt\fR which
 always contains the sequence
-number of 
+number of
 the next expected TPDU.
 If an acknowledgment is to be generated
 at any time, the value of tp_rcvnxt goes into the
 \fIYR-TU-NR\fR\** field of the acknowledgment TPDU.
 .(f
-\** 
+\**
 This is the name used in ISO 8073 for the field
 which indicates the sequence number of the next expected DT TPDU.
 .)f
@@ -701,10 +701,10 @@ listed below.
 for which an acknowledgment is generated, and a counter for TPDUs
 that are not acknowledged immediately.
 .ip "ACK_STRAT_EACH" 5
-The acknowledgment strategy in use calls for acknowledging each 
+The acknowledgment strategy in use calls for acknowledging each
 data packet with an AK TPDU.
 .ip "ACK_STRAT_FULLWIN" 5
-The acknowledgment strategy in use calls for acknowledging 
+The acknowledgment strategy in use calls for acknowledging
 upon receiving the DT TPDU that represents the upper window
 edge of the last advertised window.
 .ip "ACK_DUP" 5
@@ -715,7 +715,7 @@ A DT TPDU arrived in the window but out of order.
 A DT TPDU arrived, and it had the end-of-TSDU flag set.
 .pp
 Upon receipt of a DT TPDU that is in order, and upon reordering
-DT TPDUs, 
+DT TPDUs,
 \fItp_stash()\fR
 places the TSDUs into the socket's receive
 socket buffer, \fIso->so_rcv\fR in mbuf chains, with
@@ -734,7 +734,7 @@ to be 1.
 This means the data structures are straightforward;
 there is no need to distinguish between separate TSDUs in this socket buffer.
 .pp
-Credit is determined 
+Credit is determined
 by dividing the total amount of available
 space in the receive buffer
 by the negotiated maximum TPDU size.
@@ -750,7 +750,7 @@ of the TP entity.
 .sh 1 "Major Data Structures and Types"
 .pp
 In addition to the types commonly used in the kernel,
-such as 
+such as
 .(b
 \fC
 .TS
@@ -787,7 +787,7 @@ to be consistent with the rest of the kernel.
 .pp
 The following structures are fundamental
 types used throughout TP,
-in addition to those already described in the 
+in addition to those already described in the
 section,
 "The Design of the Transport Entity".
 .(b
@@ -821,7 +821,7 @@ REF_FREE (free to reallocate).
 .pp
 The TP protocol control block is too large to fit into
 one mbuf structure so it comprises two structures
-linked together, the 
+linked together, the
 \fItp_pcb\fR structure and the.
 \fItp_pcb_aux\fR structure.
 The \fItp_pcb_aux\fR structure contains
@@ -843,7 +843,7 @@ l l l s.
 +++retrans timer value */
 +SeqNum+tpa_Xsndnxt;+/* seq # of
 +++next XPD to send */
-+SeqNum+tpa_Xuna;+/* seq # of 
++SeqNum+tpa_Xuna;+/* seq # of
 +++unacked XPD */
 +SeqNum+tpa_Xrcvnxt;+/* next XPD seq #
 +++expect to recv */
@@ -873,25 +873,25 @@ The major portion of the protocol control block is in the
 tab(%);
 l s s s.
 struct tp_pcb {
-.\" *************************************** 
+.\" ***************************************
 .T&
 l l l l.
 .\" The next line sets the spacing for the table: 1+3 17+3 17+3 13+3
  %                 %                 %
 .\"456789 123456789- 123456789 123456-789 123456789 1234567890
 .\"
- %struct tp_ref%*tp_refp;%    
+ %struct tp_ref%*tp_refp;%
 .T&
 l l l s.
 %%/* reference structure */%
-.\" *************************************** 
+.\" ***************************************
 .T&
 l l l l.
- %struct tp_pcb_aux%*tp_aux;% 
+ %struct tp_pcb_aux%*tp_aux;%
 .T&
 l l l s.
  %%/*rest of tpcb (auxiliary struct)*/%
-.\" *************************************** 
+.\" ***************************************
 .T&
 l l l l.
  %caddr_t%tp_npcb;%/* to ll pcb */
@@ -899,25 +899,25 @@ l l l l.
 .T&
 l l l s.
  % %/* domain-dependent routines */%
-.\" *************************************** 
+.\" ***************************************
 .T&
 l l l l.
  %struct socket%*tp_sock;%/* back ptr */
-.\" *************************************** 
+.\" ***************************************
 .T&
 l s s s.
 
 /* local and foreign reference numbers: */
 .T&
 l l l l.
- %RefNum%tp_lref;% 
+ %RefNum%tp_lref;%
 %RefNum%tp_fref;%
-.\" *************************************** 
+.\" ***************************************
 .T&
 l s s s.
 .\"456789 123456789 123456789 123456789 123456789 1234567890
 
-/* Stuff for sequence space arithmetic: 
+/* Stuff for sequence space arithmetic:
  * Maintaining 2 sequence spaces is a pain so we set these
  * values once at connection establishment time. Sequence
  * number arithmetic is a set of macros which uses these.
@@ -933,25 +933,25 @@ l l l l.
 %u_int%tp_seqmask;%/* mask */
 %u_int%tp_seqbit;%/* wraparound */
 %u_int%tp_seqhalf;%/* half space */
-.\" *************************************** 
+.\" ***************************************
 .T&
 l s s s.
 
 /* flags:  values are defined in tp_user.h.
- * Here we keep such info as which options 
+ * Here we keep such info as which options
  * are in use: checksum, extended format,
  * flow control in class 2, etc.
  * See tp(4p) man page.
  */
-.\" *************************************** 
+.\" ***************************************
 .T&
 l l l l.
  %u_short%tp_state;%/* fsm */
 %short%tp_retrans;%
 .T&
 l l l s.
- % % /* # times to retransmit */% 
-.\" *************************************** 
+ % % /* # times to retransmit */%
+.\" ***************************************
 .T&
 l s s s.
 
@@ -962,89 +962,89 @@ l l l s.
  % %/* remote real window */%
  %u_short%tp_cong_win;%
  % %/* remote congestion window */%
-.\" *************************************** 
+.\" ***************************************
 %SeqNum%tp_snduna;%
 .T&
 l l l s.
- % %/* seq # of lowest unacked DT */% 
-.\" *************************************** 
+ % %/* seq # of lowest unacked DT */%
+.\" ***************************************
 .T&
 l l l l.
- %struct tp_rtc    %*tp_snduna_rtc;% 
+ %struct tp_rtc    %*tp_snduna_rtc;%
 .T&
 l l l s.
- % %/* ptr to mbufs containing lowest% 
+ % %/* ptr to mbufs containing lowest%
 %% * unacked TPDUs sent so far%
 %% */%
-.\" *************************************** 
+.\" ***************************************
 .T&
 l l l l.
- %SeqNum%tp_sndhiwat;% 
+ %SeqNum%tp_sndhiwat;%
 .T&
 l l l s.
- % %/* highest DT sent yet */% 
-.\" *************************************** 
+ % %/* highest DT sent yet */%
+.\" ***************************************
 .T&
 l l l l.
- %struct tp_rtc%*tp_sndhiwat_rtc;% 
+ %struct tp_rtc%*tp_sndhiwat_rtc;%
 .T&
 l l l s.
- % %/* ptr to mbufs containing the last% 
+ % %/* ptr to mbufs containing the last%
 %% * DT sent - this is the last item %
 %% * on the list that starts%
 %% * at tp_snduna_rtc%
 %% */%
-.\" *************************************** 
+.\" ***************************************
 .T&
 l l l l.
  %int %tp_Nwindow;%/* for perf. measmt */
-.\" *************************************** 
+.\" ***************************************
 .T&
 l s s s.
 
 /* credit & sequencing info for RECEIVING: */
-.\" *************************************** 
+.\" ***************************************
 .T&
 l l l s.
  %SeqNum%tp_sent_lcdt;%
  %%/* cdt according to last AK sent */%
- %SeqNum%tp_sent_uwe;% 
- % %/* upper window edge, according to% 
+ %SeqNum%tp_sent_uwe;%
+ % %/* upper window edge, according to%
 %% * the last AK sent %
 %% */*
- %SeqNum%tp_sent_rcvnxt;% 
- % %/* rcvnxt, according to% 
+ %SeqNum%tp_sent_rcvnxt;%
+ % %/* rcvnxt, according to%
 %% * the last AK sent%
 %% */*
-.\" *************************************** 
+.\" ***************************************
 .T&
 l l l l.
  %short%tp_lcredit;%/* local */
-.\" *************************************** 
+.\" ***************************************
 .T&
 l l l l.
- %SeqNum%tp_rcvnxt;% 
+ %SeqNum%tp_rcvnxt;%
 .T&
 l l l s.
- % %/* next DT seq# we expect to recv */% 
-.\" *************************************** 
+ % %/* next DT seq# we expect to recv */%
+.\" ***************************************
 .T&
 l l l l.
- %struct tp_rtc%*tp_rcvnxt_rtc;% 
+ %struct tp_rtc%*tp_rcvnxt_rtc;%
 .T&
 l l l s.
- % %/* ptr to mbufs containing unacked % 
+ % %/* ptr to mbufs containing unacked %
 %% * DTs received out of order, and %
 %% * which we haven't acknowledged%
 %% */%
-.\" *************************************** 
+.\" ***************************************
 .TE
 .TS
 tab(%);
 l s s s.
 /* Items kept in the aux structure: */
 
-.\" *************************************** 
+.\" ***************************************
 .T&
 l s s l.
 #define  tp_vers%tp_aux->tpa_vers
@@ -1061,17 +1061,17 @@ l s s l.
 #define  tp_lsuffix%tp_aux->tpa_lsuffix
 #define  tp_s_subseq%tp_aux->tpa_s_subseq
 #define  tp_r_subseq%tp_aux->tpa_r_subseq
-.\" *************************************** 
+.\" ***************************************
 .T&
 l s s s.
- % % % 
+ % % %
 /* parameters per-connection controllable by user: */
-.\" *************************************** 
+.\" ***************************************
 .T&
 l l l l.
- %struct%tp_conn_param%_tp_param; 
+ %struct%tp_conn_param%_tp_param;
  % % %
-.\" *************************************** 
+.\" ***************************************
 .T&
 l s s l.
 #define  tp_Nretrans%_tp_param.p_Nretrans
@@ -1095,11 +1095,11 @@ l s s l.
 #define  tp_netservice%_tp_param.p_netservice
 #define  tp_no_disc_indications%_tp_param.p_no_disc_indications
 #define  tp_dont_change_params%_tp_param.p_dont_change_params
-.\" *************************************** 
+.\" ***************************************
 .TE
-.\" *************************************** 
-.\" *************************************** 
-.\" *************************************** 
+.\" ***************************************
+.\" ***************************************
+.\" ***************************************
 .TS
 tab(%);
 l l l l.
@@ -1108,40 +1108,40 @@ l l l l.
 .\"
 .T&
 l l l s.
- %%/* log2(the negotiated max size) */% 
+ %%/* log2(the negotiated max size) */%
 .T&
 l l l l.
  %int%tp_l_tpdusize;%/* # bytes */
-.\" *************************************** 
- %struct timeval%tp_rtt;% 
+.\" ***************************************
+ %struct timeval%tp_rtt;%
 .T&
 l l l s.
- % %/* smoothed avg round-trip time */% 
- %struct timeval%tp_rtv;% 
- % %/* std deviation of round-trip time */% 
+ % %/* smoothed avg round-trip time */%
+ %struct timeval%tp_rtv;%
+ % %/* std deviation of round-trip time */%
 %struct timeval%tp_rttemit[ TP_RTT_NUM + 1 ];%
 %%/* times that the last TP_RTT_NUM %
 %% * DT_TPDUs were transmitted %
 %% */%
-.\" *************************************** 
- %unsigned % % 
+.\" ***************************************
+ %unsigned % %
 %  tp_sendfcc:1,%/* shall next ack %
 % %include flow control conf. param? */%
-.\" *************************************** 
+.\" ***************************************
 .T&
 l l l s.
- %  tp_trace:1,%/* is this pcb being traced?% 
+ %  tp_trace:1,%/* is this pcb being traced?%
 %% * (not used yet) %
 %% */%
-.\" *************************************** 
-%  tp_perf_on:1,%/* statistics being kept? */% 
-.\" *************************************** 
+.\" ***************************************
+%  tp_perf_on:1,%/* statistics being kept? */%
+.\" ***************************************
 %  tp_reneged:1,%/* have we reneged on credit%
 %% * since the last AK TPDU was sent? %
 %% */%
 %  tp_decbit:4,%/* congestion experienced? */%
 %  tp_flags:8,%/* see #defines below */%
-.\" *************************************** 
+.\" ***************************************
 %  tp_unused:16;%%
 .T&
 l s s l.
@@ -1149,16 +1149,16 @@ l s s l.
 #define  TPF_NLQOS_PDN%TPFLAG_NLQOS_PDN
 #define  TPF_PEER_ON_SAMENET%TPFLAG_PEER_ON_SAMENET
 %%%
-.\" *************************************** 
+.\" ***************************************
 .T&
 l l l l.
- %struct tp_pmeas%*tp_p_meas;% 
+ %struct tp_pmeas%*tp_p_meas;%
 .T&
 l l l s.
- % %/* ptr to mbuf to hold the perf.% 
+ % %/* ptr to mbuf to hold the perf.%
 %% * statistics structure %
 %% */%
-.\" *************************************** 
+.\" ***************************************
 };
 .TE
 \fR
@@ -1169,7 +1169,7 @@ l l l s.
 .fi
 .sh 1 "Sequence Number Arithmetic"
 .pp
-Sequence numbers in TP can be either 7 bits 
+Sequence numbers in TP can be either 7 bits
 (\*(lqnormal format\*(rq)
 or 31 bits
 (\*(lqextended format\*(rq).
@@ -1189,23 +1189,23 @@ l l l l.
 \fR
 .)b
 .lp
-\fITp_seqmask\fR 
-is a bit mask indicating which bits are legitimate 
+\fITp_seqmask\fR
+is a bit mask indicating which bits are legitimate
 for a sequence number of either format.
 It takes the value 0x7f if 7-bit sequence numbers are in use,
 and 0x7fffffff if 31-bit sequence numbers are in use.
-\fITp_seqbit\fR 
+\fITp_seqbit\fR
 is the bit that becomes set when a sequence number wraps around
 while being incremented.
 Its value is 0x80 for normal format, 0x80000000 for extended format.
-\fITp_seqhalf\fR 
+\fITp_seqhalf\fR
 takes the value which is in the middle of the sequence space,
 0x40 for normal format,
 and
 0x40000000 for extended format.
 .(b
 .nf
-The macro 
+The macro
 .fi
 \fC
 .TS
@@ -1273,9 +1273,9 @@ various strategies are under the control of options via the
 \fIgetsockopt()\fR and
 \fIsetsockopt()\fR system calls (see the manual pages
 \fIgetsockopt(2)\fR,
-\fIsetsockopt(2)\fR  
+\fIsetsockopt(2)\fR
 and
-\fItp(4p)\fR  
+\fItp(4p)\fR
 for details).
 In some cases the preferred strategies differ for the different
 subnetworks, so the strategies chosen will be determined
@@ -1290,7 +1290,7 @@ using a maximum TPDU size of 1024 reduces
 the possible throughput by approximately 30%.
 TP negotiates a maximum TPDU size of 2048 and
 generates TPDUs of size around 1500.
-Obviously this works well only when the peer is known to be 
+Obviously this works well only when the peer is known to be
 using the same scheme (so that the peer
 doesn't send TPDUs of size 2048 and cause its
 network layer to fragment the TPDUs).
@@ -1310,9 +1310,9 @@ unit.
 .sh 2 "Congestion Window Strategy"
 .pp
 The congestion window strategy from the
-DoD Internet 
+DoD Internet
 was adapted for use with TP.
-The strategy is intended to minimize the 
+The strategy is intended to minimize the
 adverse effect
 of transport's retransmission on an
 already congested network.
@@ -1326,7 +1326,7 @@ The congestion window starts small, which keeps a
 new connection from overloading the network with a sudden
 burst of packets
 immediately after connection establishement.
-This is called \fIslow start\fR. 
+This is called \fIslow start\fR.
 For each successful acknowledgment received, the congestion
 window grows by one, until eventually the real window
 is the one in use.
@@ -1348,21 +1348,21 @@ sent in one send operation (call to \fItp_send()\fR).
 This set of packets is called the \fIsend window\fR for the purpose
 of this discusssion.
 .pp
-The number of TPDUs 
+The number of TPDUs
 in a send window
 depends on the remote credit and the amount of data
 in the local send buffers.
 When a retransmission timer goes off, the lower
-window edge 
+window edge
 is reevaluated but the upper window edge is not reevaluated.
 .pp
 There are several retransmission strategies implemented in
 ARGO TP.
-The choice of strategies is the user's, and is made with the 
+The choice of strategies is the user's, and is made with the
 \fIsetsockopt()\fR system call.
 The strategies are summarized here:
 .ip "Retransmit LWE TPDU only:" 5
-Only the TPDU representing the new lower window edge 
+Only the TPDU representing the new lower window edge
 is retransmitted.
 This is the default retransmission strategy.
 .ip "Retransmit whole send window:" 5
@@ -1373,11 +1373,11 @@ The value of the data retransmission timer
 adapts to the average round trip time and the standard deviation of
 the round trip time.
 A round trip time is the time that passes between
-the moment of a packet's first transmission and 
+the moment of a packet's first transmission and
 the moment it is first acknowledged.
 The average round trip time
 is kept by the sending side of TP, using
-a formula for 
+a formula for
 smoothing the average:
 .(b
 \fC
@@ -1394,7 +1394,7 @@ l l l l.
 .)b
 .lp
 The times included in the average are chosen as follows.
-The time of 
+The time of
 each packet's initial transmission is kept (for the last
 \fIN\fR packets, where \fIN\fR is a defined constant).
 When an AK TPDU arrives, ARGO TP subtracts the initial transmission
@@ -1403,7 +1403,7 @@ acknowledged by this AK TPDU from the current time,
 and apply the resulting time to the average.
 Hence, not all packets are included in this average,
 which is as it should be since
-the purpose of this measurement is 
+the purpose of this measurement is
 to find a good value for the retransmission timer.
 .pp
 Each time part of a window is retransmitted,
@@ -1433,29 +1433,29 @@ consume the last advertised credit.
 .pp
 The latter strategy
 requires a timer to trigger an acknowledgment
-in case the peer doesn't send the entire window 
+in case the peer doesn't send the entire window
 quickly.
 This timer is called the
 \fIsendack timer\fR.
-The upper bound on the value of this timer 
+The upper bound on the value of this timer
 is called the \fIlocal acknowledgment time\fR.
-The local acknowledgment time may be "advertised" to the 
+The local acknowledgment time may be "advertised" to the
 peer during connection establishment, and the
 peer may choose to use this value to
 adjust its retransmission timers.
 The ARGO TP entity advertises its local acknowledgment time
-on a CR TPDU, but it is not 
-constrained by 
-the remote acknowledge time, should the peer 
+on a CR TPDU, but it is not
+constrained by
+the remote acknowledge time, should the peer
 advertise it.
 Instead,
 ARGO TP adapts its sendack timer
 to the behavior of the connection.
 .pp
 Under the assumption that the round trip time is
-often 
+often
 symmetric,
-and lacking 
+and lacking
 a method to measure
 the round trip time in the other direction,
 ARGO TP uses the measured average round trip time

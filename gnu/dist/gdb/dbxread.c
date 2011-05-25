@@ -19,7 +19,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* This module provides three functions: dbx_symfile_init,
-   which initializes to read a symbol file; dbx_new_init, which 
+   which initializes to read a symbol file; dbx_new_init, which
    discards existing cached information when all symbols are being
    discarded; and dbx_symfile_read, which reads a symbol table
    from a file.
@@ -172,7 +172,7 @@ static int has_line_numbers;
 
 /* Complaints about the symbols we have encountered.  */
 
-struct complaint lbrac_complaint = 
+struct complaint lbrac_complaint =
   {"bad block start address patched", 0, 0};
 
 struct complaint string_table_offset_complaint =
@@ -218,7 +218,7 @@ static int bincls_allocated;
 
 /* Local function prototypes */
 
-static void 
+static void
 process_now PARAMS ((struct objfile *));
 
 static void
@@ -481,7 +481,7 @@ record_minimal_symbol (name, address, type, objfile)
     case N_DATA:
       ms_type = mst_file_data;
 
-      /* Check for __DYNAMIC, which is used by Sun shared libraries. 
+      /* Check for __DYNAMIC, which is used by Sun shared libraries.
 	 Record it as global even if it's local, not global, so
 	 lookup_minimal_symbol can find it.  We don't check symbol_leading_char
 	 because for SunOS4 it always is '_'.  */
@@ -520,7 +520,7 @@ record_minimal_symbol (name, address, type, objfile)
 }
 
 /* Scan and build partial symbols for a symbol file.
-   We have been initialized by a call to dbx_symfile_init, which 
+   We have been initialized by a call to dbx_symfile_init, which
    put all the relevant info into a "struct dbx_symfile_info",
    hung off the objfile structure.
 
@@ -622,7 +622,7 @@ dbx_new_init (ignore)
 
    Since BFD doesn't know how to read debug symbols in a format-independent
    way (and may never do so...), we have to do it ourselves.  We will never
-   be called unless this is an a.out (or very similar) file. 
+   be called unless this is an a.out (or very similar) file.
    FIXME, there should be a cleaner peephole into the BFD environment here.  */
 
 #define DBX_STRINGTAB_SIZE_SIZE sizeof(long)   /* FIXME */
@@ -653,7 +653,7 @@ dbx_symfile_init (objfile)
   /* FIXME POKING INSIDE BFD DATA STRUCTURES */
 
   DBX_SYMFILE_INFO (objfile)->stab_section_info = NULL;
-  
+
   text_sect = bfd_get_section_by_name (sym_bfd, ".text");
   if (!text_sect)
     error ("Can't find .text section in symbol file");
@@ -691,7 +691,7 @@ dbx_symfile_init (objfile)
       val = bfd_seek (sym_bfd, STRING_TABLE_OFFSET, SEEK_SET);
       if (val < 0)
 	perror_with_name (name);
-      
+
       memset ((PTR) size_temp, 0, sizeof (size_temp));
       val = bfd_read ((PTR) size_temp, sizeof (size_temp), 1, sym_bfd);
       if (val < 0)
@@ -716,19 +716,19 @@ dbx_symfile_init (objfile)
 	     bfd can't tell us there is no string table, the sanity checks may
 	     or may not catch this. */
 	  DBX_STRINGTAB_SIZE (objfile) = bfd_h_get_32 (sym_bfd, size_temp);
-	  
+
 	  if (DBX_STRINGTAB_SIZE (objfile) < sizeof (size_temp)
 	      || DBX_STRINGTAB_SIZE (objfile) > bfd_get_size (sym_bfd))
 	    error ("ridiculous string table size (%d bytes).",
 		   DBX_STRINGTAB_SIZE (objfile));
-	  
+
 	  DBX_STRINGTAB (objfile) =
 	    (char *) obstack_alloc (&objfile -> psymbol_obstack,
 				    DBX_STRINGTAB_SIZE (objfile));
 	  OBJSTAT (objfile, sz_strtab += DBX_STRINGTAB_SIZE (objfile));
-	  
+
 	  /* Now read in the string table in one big gulp.  */
-	  
+
 	  val = bfd_seek (sym_bfd, STRING_TABLE_OFFSET, SEEK_SET);
 	  if (val < 0)
 	    perror_with_name (name);
@@ -775,9 +775,9 @@ static int symbuf_idx;
 static int symbuf_end;
 
 /* cont_elem is used for continuing information in cfront.
-   It saves information about which types need to be fixed up and 
+   It saves information about which types need to be fixed up and
    completed after all the stabs are read.  */
-struct cont_elem 
+struct cont_elem
   {
     /* sym and stabsstring for continuing information in cfront */
     struct symbol * sym;
@@ -801,7 +801,7 @@ static int cont_count = 0;
 
 /* Arrange for function F to be called with arguments SYM and P later
    in the stabs reading process.  */
-void 
+void
 process_later (sym, p, f)
   struct symbol *sym;
   char *p;
@@ -814,7 +814,7 @@ process_later (sym, p, f)
       cont_limit += 32;	/* chunk size */
 
       cont_list
-	= (struct cont_elem *) xrealloc (cont_list, 
+	= (struct cont_elem *) xrealloc (cont_list,
 					  (cont_limit
 					   * sizeof (struct cont_elem)));
       if (!cont_list)
@@ -833,8 +833,8 @@ process_later (sym, p, f)
 
 /* Call deferred funtions in CONT_LIST.  */
 
-static void 
-process_now (objfile) 
+static void
+process_now (objfile)
   struct objfile *objfile;
 {
   int i;
@@ -857,8 +857,8 @@ process_now (objfile)
     {
       /* Restore the state for this deferred stab.  */
       symbuf_idx = cont_list[i].sym_idx;
-      symbuf_end = cont_list[i].sym_end;  
-      symnum = cont_list[i].symnum;  
+      symbuf_end = cont_list[i].sym_end;
+      symnum = cont_list[i].symnum;
       sym = cont_list[i].sym;
       stabs = cont_list[i].stabs;
       func = cont_list[i].func;
@@ -1148,7 +1148,7 @@ read_dbx_dynamic_symtab (section_offsets, objfile)
       do_cleanups (back_to);
       return;
     }
-  
+
   dynrels = (arelent **) xmalloc (dynrel_size);
   make_cleanup (free, dynrels);
 
@@ -1238,7 +1238,7 @@ read_dbx_symtab (section_offsets, objfile, text_addr, text_size)
   next_file_string_table_offset = 0;
 
   stringtab_global = DBX_STRINGTAB (objfile);
-  
+
   pst = (struct partial_symtab *) 0;
 
   includes_allocated = 30;
@@ -1298,8 +1298,8 @@ read_dbx_symtab (section_offsets, objfile, text_addr, text_size)
 	    symbol lists.  This last is a large section of code, so
 	    I've imbedded it in the following macro.
 	 */
-      
-/* Set namestring based on nlist.  If the string table index is invalid, 
+
+/* Set namestring based on nlist.  If the string table index is invalid,
    give a fake name, and print a single error message per symbol file read,
    rather than abort the symbol reading or flood the user with messages.  */
 
@@ -1394,7 +1394,7 @@ start_psymtab (objfile, section_offsets,
   return result;
 }
 
-/* Close off the current usage of PST.  
+/* Close off the current usage of PST.
    Returns PST or NULL if the partial symtab was empty and thrown away.
 
    FIXME:  List variables and peculiarities of same.  */
@@ -1447,7 +1447,7 @@ end_psymtab (pst, include_list, num_includes, capping_symbol_offset,
       p = alloca (n + 1);
       strncpy (p, last_function_name, n);
       p[n] = 0;
-    
+
       minsym = lookup_minimal_symbol (p, pst->filename, objfile);
 
       if (minsym)
@@ -1568,7 +1568,7 @@ dbx_psymtab_to_symtab_1 (pst)
 {
   struct cleanup *old_chain;
   int i;
-  
+
   if (!pst)
     return;
 
@@ -1663,7 +1663,7 @@ dbx_psymtab_to_symtab (pst)
 }
 
 /* Read in a defined section of a specific object file's symbols. */
-  
+
 static void
 read_ofile_symtab (pst)
      struct partial_symtab *pst;
@@ -1828,9 +1828,9 @@ read_ofile_symtab (pst)
 
   pst->symtab = end_symtab (text_offset + text_size, objfile, SECT_OFF_TEXT);
 
-  /* Process items which we had to "process_later" due to dependancies 
+  /* Process items which we had to "process_later" due to dependancies
      on other stabs.  */
-  process_now (objfile);	
+  process_now (objfile);
 
   end_stabs ();
 }
@@ -2056,7 +2056,7 @@ process_one_symbol (type, desc, valu, name, section_offsets, objfile)
 	  /* Check if previous symbol was also an N_SO (with some
 	     sanity checks).  If so, that one was actually the directory
 	     name, and the current one is the real file name.
-	     Patch things up. */	   
+	     Patch things up. */
 	  if (previous_stab_code == (unsigned char) N_SO)
 	    {
 	      patch_subfile_names (current_subfile, name);
@@ -2318,7 +2318,7 @@ process_one_symbol (type, desc, valu, name, section_offsets, objfile)
 		   Solaris 2.0, these addresses are just absolute, or
 		   relative to the N_SO, depending on
 		   BLOCK_ADDRESS_ABSOLUTE.  */
-		function_start_offset = valu;	
+		function_start_offset = valu;
 
 	      within_function = 1;
 	      if (context_stack_depth > 0)
@@ -2381,11 +2381,11 @@ process_one_symbol (type, desc, valu, name, section_offsets, objfile)
      related symbol.
 
      Generally this is used so that an alias can refer to its main
-     symbol.  */  
+     symbol.  */
   if (name[0] == '#')
     {
-      /* Initialize symbol reference names and determine if this is 
-         a definition.  If symbol reference is being defined, go 
+      /* Initialize symbol reference names and determine if this is
+         a definition.  If symbol reference is being defined, go
          ahead and add it.  Otherwise, just return sym. */
 
       char *s = name;
@@ -2433,7 +2433,7 @@ process_one_symbol (type, desc, valu, name, section_offsets, objfile)
    adjusted for coff details. */
 
 void
-coffstab_build_psymtabs (objfile, section_offsets, mainline, 
+coffstab_build_psymtabs (objfile, section_offsets, mainline,
 			       textaddr, textsize, stabsects,
 			       stabstroffset, stabstrsize)
       struct objfile *objfile;
@@ -2461,7 +2461,7 @@ coffstab_build_psymtabs (objfile, section_offsets, mainline,
 #define	COFF_STABS_SYMBOL_SIZE	12	/* XXX FIXME XXX */
   DBX_SYMBOL_SIZE    (objfile) = COFF_STABS_SYMBOL_SIZE;
   DBX_STRINGTAB_SIZE (objfile) = stabstrsize;
-  
+
   if (stabstrsize > bfd_get_size (sym_bfd))
     error ("ridiculous string table size: %d bytes", stabstrsize);
   DBX_STRINGTAB (objfile) = (char *)
@@ -2535,7 +2535,7 @@ coffstab_build_psymtabs (objfile, section_offsets, mainline,
    adjusted for elf details. */
 
 void
-elfstab_build_psymtabs (objfile, section_offsets, mainline, 
+elfstab_build_psymtabs (objfile, section_offsets, mainline,
 			       staboffset, stabsize,
 			       stabstroffset, stabstrsize)
       struct objfile *objfile;
@@ -2567,7 +2567,7 @@ elfstab_build_psymtabs (objfile, section_offsets, mainline,
   DBX_SYMCOUNT       (objfile) = stabsize / DBX_SYMBOL_SIZE (objfile);
   DBX_STRINGTAB_SIZE (objfile) = stabstrsize;
   DBX_SYMTAB_OFFSET  (objfile) = staboffset;
-  
+
   if (stabstrsize > bfd_get_size (sym_bfd))
     error ("ridiculous string table size: %d bytes", stabstrsize);
   DBX_STRINGTAB (objfile) = (char *)
@@ -2656,7 +2656,7 @@ stabsect_build_psymtabs (objfile, section_offsets, mainline, stab_name,
     / DBX_SYMBOL_SIZE (objfile);
   DBX_STRINGTAB_SIZE (objfile) = bfd_section_size (sym_bfd, stabstrsect);
   DBX_SYMTAB_OFFSET  (objfile) = stabsect->filepos; /* XXX - FIXME: POKING INSIDE BFD DATA STRUCTURES */
-  
+
   if (DBX_STRINGTAB_SIZE (objfile) > bfd_get_size (sym_bfd))
     error ("ridiculous string table size: %d bytes", DBX_STRINGTAB_SIZE (objfile));
   DBX_STRINGTAB (objfile) = (char *)

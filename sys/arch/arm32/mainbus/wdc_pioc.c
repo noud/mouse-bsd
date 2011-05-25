@@ -139,7 +139,7 @@ wdc_pioc_attach(parent, self, aux)
 	if (bus_space_map(sc->wdc_channel.cmd_iot, iobase,
 	    WDC_PIOC_REG_NPORTS, 0, &sc->wdc_channel.cmd_ioh))
 		panic("%s: couldn't map drive registers\n", self->dv_xname);
-	    
+
 	if (bus_space_map(sc->wdc_channel.ctl_iot,
 	    iobase + WDC_PIOC_AUXREG_OFFSET, WDC_PIOC_AUXREG_NPORTS, 0,
 	    &sc->wdc_channel.ctl_ioh))

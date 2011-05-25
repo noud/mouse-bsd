@@ -137,7 +137,7 @@ print_operand (file, x, code)
 	else
 	  print_operand (file, x, 0);
 	break;
-     
+
       /* These are the least significant word in a 64bit value.  */
       case 'L':
 	switch (GET_CODE (x))
@@ -228,7 +228,7 @@ print_operand (file, x, code)
 		      abort ();
 		    case VOIDmode:
 		    case DImode:
-		      print_operand_address (file, 
+		      print_operand_address (file,
 					     GEN_INT (CONST_DOUBLE_HIGH (x)));
 		      break;
 		  }
@@ -381,7 +381,7 @@ can_use_return_insn ()
 
 /* Count the number of tst insns which compare a data or address
    register with zero.  */
-static void 
+static void
 count_tst_insns (dreg_countp, areg_countp)
      int *dreg_countp;
      int *areg_countp;
@@ -416,7 +416,7 @@ count_tst_insns (dreg_countp, areg_countp)
 	{
 	  if (REGNO_REG_CLASS (REGNO (SET_SRC (pat))) == DATA_REGS)
 	    (*dreg_countp)++;
-    
+
 	  if (REGNO_REG_CLASS (REGNO (SET_SRC (pat))) == ADDRESS_REGS)
 	    (*areg_countp)++;
 	}
@@ -559,7 +559,7 @@ expand_epilogue ()
 
      If the stack size + register save area is more than 255 bytes,
      then the stack must be cut back here since the size + register
-     save size is too big for a ret/retf instruction. 
+     save size is too big for a ret/retf instruction.
 
      Else leave it alone, it will be cut back as part of the
      ret/retf instruction, or there wasn't any stack to begin with.
@@ -677,7 +677,7 @@ call_address_operand (op, mode)
 }
 
 /* What (if any) secondary registers are needed to move IN with mode
-   MODE into a register from in register class CLASS. 
+   MODE into a register from in register class CLASS.
 
    We might be able to simplify this.  */
 enum reg_class
@@ -715,7 +715,7 @@ secondary_reload_class (class, mode, in)
     {
       return DATA_REGS;
     }
- 
+
   /* Otherwise assume no secondary reloads are needed.  */
   return NO_REGS;
 }
@@ -746,11 +746,11 @@ initial_offset (from, to)
 	  || frame_pointer_needed)
 	return (get_frame_size () + REG_SAVE_BYTES
 		+ (current_function_outgoing_args_size
-		   ? current_function_outgoing_args_size + 4 : 0)); 
+		   ? current_function_outgoing_args_size + 4 : 0));
       else
 	return (get_frame_size ()
 		+ (current_function_outgoing_args_size
-		   ? current_function_outgoing_args_size + 4 : 0)); 
+		   ? current_function_outgoing_args_size + 4 : 0));
     }
 
   /* The difference between the frame pointer and stack pointer is the sum
@@ -759,7 +759,7 @@ initial_offset (from, to)
   if (from == FRAME_POINTER_REGNUM && to == STACK_POINTER_REGNUM)
     return (get_frame_size ()
 	    + (current_function_outgoing_args_size
-	       ? current_function_outgoing_args_size + 4 : 0)); 
+	       ? current_function_outgoing_args_size + 4 : 0));
 
   abort ();
 }
@@ -953,7 +953,7 @@ output_tst (operand, insn)
 	}
 
       /* Are we setting a data register to zero (this does not win for
-	 address registers)? 
+	 address registers)?
 
 	 If it's a call clobbered register, have we past a call?
 
@@ -968,7 +968,7 @@ output_tst (operand, insn)
 	  && (REGNO_REG_CLASS (REGNO (SET_DEST (set)))
 	      == REGNO_REG_CLASS (REGNO (operand)))
 	  && REGNO (SET_DEST (set)) != REGNO (operand)
-	  && (!past_call 
+	  && (!past_call
 	      || !call_used_regs[REGNO (SET_DEST (set))]))
 	{
 	  rtx xoperands[2];
@@ -990,7 +990,7 @@ impossible_plus_operand (op, mode)
 {
   extern rtx *reg_equiv_mem;
   rtx reg1, reg2;
-  
+
   if (GET_CODE (op) != PLUS)
     return 0;
 

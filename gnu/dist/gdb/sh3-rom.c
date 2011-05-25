@@ -121,13 +121,13 @@ sh3_load (desc, file, hashmark)
      char *file;
      int hashmark;
 {
-  if (parallel_in_use) 
+  if (parallel_in_use)
     {
       monitor_printf("pl;s\r");
       load_srec (parallel, file, 0, 80, SREC_ALL, hashmark, NULL);
       monitor_expect_prompt (NULL, 0);
     }
-  else 
+  else
     {
       monitor_printf ("il;s:x\r");
       monitor_expect ("\005", NULL, 0); /* Look for ENQ */
@@ -254,7 +254,7 @@ sh3_open (args, from_tty)
   char *serial_port_name = args;
   char *parallel_port_name = 0;
 
-  if (args) 
+  if (args)
     {
       char *cursor = serial_port_name = strsave (args);
 
@@ -296,7 +296,7 @@ sh3e_open (args, from_tty)
   char *serial_port_name = args;
   char *parallel_port_name = 0;
 
-  if (args) 
+  if (args)
     {
       char *cursor = serial_port_name = strsave (args);
 
@@ -355,7 +355,7 @@ _initialize_sh3_rom ()
   sh3_ops.to_shortname = "sh3";
   sh3_ops.to_longname = "Hitachi SH-3 rom monitor";
 
-  sh3_ops.to_doc = 
+  sh3_ops.to_doc =
 #ifdef _WINDOWS
   /* On windows we can talk through the parallel port too. */
     "Debug on a Hitachi eval board running the SH-3 rom monitor.\n"
@@ -379,7 +379,7 @@ Specify the serial device it is connected to (e.g. /dev/ttya).";
   sh3e_ops.to_shortname = "sh3e";
   sh3e_ops.to_longname = "Hitachi SH-3E rom monitor";
 
-  sh3e_ops.to_doc = 
+  sh3e_ops.to_doc =
 #ifdef _WINDOWS
   /* On windows we can talk through the parallel port too. */
     "Debug on a Hitachi eval board running the SH-3E rom monitor.\n"

@@ -41,7 +41,7 @@
 /*
  * Setup the system to run on the current machine.
  *
- * Configure() is called at boot time and initializes the vba 
+ * Configure() is called at boot time and initializes the vba
  * device tables and the memory controller monitoring.  Available
  * devices are determined (from possibilities mentioned in ioconf.c),
  * and the drivers are initialized.

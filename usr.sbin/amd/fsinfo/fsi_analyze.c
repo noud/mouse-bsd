@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: fsi_analyze.c,v 1.2 1999/01/10 21:54:27 ezk Exp 
+ * Id: fsi_analyze.c,v 1.2 1999/01/10 21:54:27 ezk Exp
  *
  */
 

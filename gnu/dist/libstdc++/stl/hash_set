@@ -29,7 +29,7 @@
 
 #ifndef __SGI_STL_INTERNAL_HASHTABLE_H
 #include <stl_hashtable.h>
-#endif 
+#endif
 
 #include <stl_hash_set.h>
 

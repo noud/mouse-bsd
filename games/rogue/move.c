@@ -302,7 +302,7 @@ next_to_something(drow, dcol)
 }
 
 boolean
-can_move(row1, col1, row2, col2) 
+can_move(row1, col1, row2, col2)
 	int row1, col1, row2, col2;
 {
 	if (!is_passable(row2, col2)) {

@@ -604,7 +604,7 @@ main(int argc, char **argv)
 			break;
 		    }
 		    case 'o':
-		        
+
 			if ((ofile = fopen(optarg, "w")) == NULL) {
 				perror(optarg);
 				exit(EXIT_FAILURE);
@@ -631,7 +631,7 @@ main(int argc, char **argv)
 	}
 	filename = argv[optind];
 
-	
+
 	if ((ifile = open(filename, O_RDONLY)) < 0) {
 		perror(filename);
 		exit(EXIT_FAILURE);

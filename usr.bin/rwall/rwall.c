@@ -108,7 +108,7 @@ main(argc, argv)
 
 	if (clnt_call(cl, WALLPROC_WALL, xdr_wrapstring, (caddr_t)&mbuf, xdr_void, &res, timeout) != RPC_SUCCESS) {
 		/*
-		 * An error occurred while calling the server. 
+		 * An error occurred while calling the server.
 		 * Print error message and die.
 		 */
 		clnt_perror(cl, wallhost);

@@ -106,7 +106,7 @@ core_close (quitting)
 /* Stub function for catch_errors around shared library hacking.  FROM_TTYP
    is really an int * which points to from_tty.  */
 
-static int 
+static int
 solib_add_stub (from_ttyp)
      char *from_ttyp;
 {
@@ -160,7 +160,7 @@ core_open (filename, from_tty)
   target_preopen (from_tty);
   if (!filename)
     {
-      error (core_bfd ? 
+      error (core_bfd ?
        "No core file specified.  (Use `detach' to stop debugging a core file.)"
      : "No core file specified.");
     }
@@ -348,7 +348,7 @@ cant:
 	}
       else
 	{
-	  fprintf_filtered (gdb_stderr, 
+	  fprintf_filtered (gdb_stderr,
 			    "Couldn't fetch register set 2 from core file: %s\n",
 			    bfd_errmsg (bfd_get_error ()));
 	}

@@ -226,7 +226,7 @@ found:
 
 	intrtab[(int)cookie].ih_func = func;
 	intrtab[(int)cookie].ih_arg = arg;
-	
+
 	intrbits = ioasic_devs[i].iad_intrbits;
 	i = bus_space_read_4(sc->sc_bst, sc->sc_bsh, IOASIC_IMSK);
 	i |= intrbits;

@@ -78,7 +78,7 @@ FILE *			log_get_stream(log_channel);
 char *			log_get_filename(log_channel);
 int			log_check_channel(log_context, int, log_channel);
 int			log_check(log_context, int, int);
-void			log_vwrite(log_context, int, int, const char *, 
+void			log_vwrite(log_context, int, int, const char *,
 				   va_list args);
 void			log_write(log_context, int, int, const char *, ...);
 int			log_new_context(int, char **, log_context *);

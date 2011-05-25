@@ -44,7 +44,7 @@ there is a good reason not to, but I reserve the right to redo it differently.
 It is probably easiest to make local termcap changes in separate
 files, eg /usr/local/etc/termcap, and encourage people to put
 
-	setenv TERMPATH ~/.termcap:/usr/local/etc/termcap:/etc/termcap 
+	setenv TERMPATH ~/.termcap:/usr/local/etc/termcap:/etc/termcap
 
 in their shell startup files.  This way local system-wide changes can be
 isolated in /usr/local/etc/termcap and user changes in ~/.termcap, all

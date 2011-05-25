@@ -104,12 +104,12 @@ get_shuffle(t)
 {
 	size_t *shuffle;
 	size_t i, j, k, temp;
-	
+
 	shuffle = emalloc(t * sizeof(size_t));
 
 	for (i = 0; i < t; i++)
 		shuffle[i] = i;
-	
+
 	/*
 	 * This algorithm taken from Knuth, Seminumerical Algorithms,
 	 * page 139.
@@ -212,7 +212,7 @@ main(argc, argv)
 	struct timeval tv;
 	char **lines = NULL;
 	size_t nlines = 0, pick = 0;
-	
+
 	while ((ch = getopt(argc, argv, "f:n:p:")) != -1) {
 		switch(ch) {
 		case 'f':

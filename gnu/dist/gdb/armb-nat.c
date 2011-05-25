@@ -84,7 +84,7 @@ fetch_core_registers (core_reg_sect, core_reg_size, which, ignore)
   /* integer registers */
   memcpy(&registers[REGISTER_BYTE(0)], &core_reg->intreg, 4*16);
   memcpy(&registers[REGISTER_BYTE(PS_REGNUM)], &core_reg->intreg.r_cpsr, 4);
-  
+
   /* floating point registers */
   memcpy(&registers[REGISTER_BYTE(F0_REGNUM)], &core_reg->freg.fpr[0], 12*8);
   memcpy(&registers[REGISTER_BYTE(FPS_REGNUM)], &core_reg->freg.fpr_fpsr, 4);
@@ -151,7 +151,7 @@ single_step (ignore)
 
       arm_pc = read_register(PC_REGNUM);
       next_pc = arm_get_next_pc(arm_pc);
-      
+
       target_insert_breakpoint(next_pc, breakpoint_shadow);
 /*      printf_unfiltered("pc=%x: set break at %x\n", arm_pc, next_pc);*/
 

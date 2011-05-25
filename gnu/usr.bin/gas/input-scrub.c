@@ -348,7 +348,7 @@ bump_line_counters ()
  * do_scrub_next_char).
  * If the fname is NULL, we don't change the current logical file name.
  */
-void 
+void
 new_logical_line (fname, line_number)
      char *fname;		/* DON'T destroy it! We point to it! */
      int line_number;
@@ -371,7 +371,7 @@ new_logical_line (fname, line_number)
  * namep should be char * const *, but there are compilers which screw
  * up declarations like that, and it's easier to avoid it.
  */
-void 
+void
 as_where (namep, linep)
      char **namep;
      unsigned int *linep;
@@ -426,7 +426,7 @@ as_howmuch (stream)
     }
 }
 
-static void 
+static void
 as_1_char (c, stream)
      unsigned int c;
      FILE *stream;

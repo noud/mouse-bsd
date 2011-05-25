@@ -83,18 +83,18 @@ void    safewrite(int outfile, void *buf, off_t len, const char *msg);
 void    copy(int, int, off_t, off_t);
 void    combine(struct sect * base, struct sect * new, int paddable);
 void    translate_syms(struct elf_syms *, struct ecoff_syms *);
-void 
+void
 elf_symbol_table_to_ecoff(int out, int in,
     struct ecoff_exechdr * ep,
     off_t symoff, off_t symsize,
     off_t stroff, off_t strsize);
 
 
-int 
+int
 make_ecoff_section_hdrs(struct ecoff_exechdr * ep,
     struct ecoff_scnhdr * esecs);
 
-void 
+void
 write_ecoff_symhdr(int outfile, struct ecoff_exechdr * ep,
     struct ecoff_symhdr * symhdrp,
     long nesyms, long extsymoff, long extstroff,

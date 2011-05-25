@@ -1583,7 +1583,7 @@ postident:
 		{
 			switch (*o)
 			{
-			  case IPOPT_EOL: 
+			  case IPOPT_EOL:
 				o = NULL;
 				break;
 
@@ -1630,7 +1630,7 @@ postident:
 					i = strlen(p);
 					p += i;
 					l -= i + 1;
-					q += sizeof(struct in_addr); 
+					q += sizeof(struct in_addr);
 				}
 				o += o[1];
 				break;

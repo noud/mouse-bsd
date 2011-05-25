@@ -14,7 +14,7 @@ Thu Mar 25 13:32:40 1993  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 Thu Mar 25 11:55:15 1993  Noah Friedman  (friedman@nutrimat.gnu.ai.mit.edu)
 
         * level-0, level-1 (TAR_PART1): Use `--block-size', not just
-          `--block', which is now ambiguous. 
+          `--block', which is now ambiguous.
 
 Wed Mar 24 22:12:51 1993  Noah Friedman  (friedman@nutrimat.gnu.ai.mit.edu)
 
@@ -26,15 +26,15 @@ Wed Mar 24 22:12:51 1993  Noah Friedman  (friedman@nutrimat.gnu.ai.mit.edu)
 Sat Mar 20 00:20:05 1993  Noah Friedman  (friedman@nutrimat.gnu.ai.mit.edu)
 
         * backup-specs (SLEEP_MESSAGE): put backslashes in front of nested
-          double quotes. 
+          double quotes.
 
-        * level-0, level-1 (BACKUP_DIRS): Don't put in quotes. 
-          (LOGFILE): Use sed to construct name, not awk. 
+        * level-0, level-1 (BACKUP_DIRS): Don't put in quotes.
+          (LOGFILE): Use sed to construct name, not awk.
 
         * dump-remind (recipients): Replaced inefficient pipeline with a
-          single, simple sed script. 
+          single, simple sed script.
           (volno): Deal with the possibility that VOLNO_FILE may not be
-          created yet. 
+          created yet.
 
 Fri Mar 19 15:05:15 1993  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 
@@ -89,7 +89,7 @@ Thu Mar 18 20:11:54 1993  Noah Friedman  (friedman@nutrimat.gnu.ai.mit.edu)
 Wed Mar 17 10:30:58 1993  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 
 	* tar.c (describe, long_options): Changed --compress-block to
-	--block-compress.  
+	--block-compress.
 	(options): Fixed f_compress_block sanity check error message
 	to give the correct name of the option.
 
@@ -98,14 +98,14 @@ Tue Mar 16 14:52:40 1993  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 	* extract.c (extract_archive): case LF_DIR: Do chown when
 	necessary.  Don't bother jumping to set_filestat for
 	f_modified; repeat the chmod code here.  Replace `break',
-	deleted on 2 September 1992.  
+	deleted on 2 September 1992.
 
 	* tar.c (describe, long_options, options): Added gzip options
-	and use-compress-program option.  
+	and use-compress-program option.
 	* tar.h: Added new compression options.
 	* buffer.c (child_open, open_archive): Use new compression options.
 
-	* create.c (start_header): Only mask off high bits when 
+	* create.c (start_header): Only mask off high bits when
 	creating old-style archives.
 	* list.c (decode_header): Mask off potentially misleading
 	high bits from the mode when reading headers.
@@ -131,7 +131,7 @@ Mon Mar 15 11:34:34 1993  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 
 	* extract.c (extract_archive): LF_DUMPDIR case; misplaced paren.
 
-	* extract.c (extract_archive): extract_file case, first if, 
+	* extract.c (extract_archive): extract_file case, first if,
 	include space for null in namelen computation.
 
 	* extract.c (extract_sparse_file): Use value returned by write
@@ -192,7 +192,7 @@ Fri Oct  2 00:28:01 1992  David J. MacKenzie  (djm@goldman.gnu.ai.mit.edu)
 
 	* extract.c (extract_archive, restore_saved_dir_info),
 	buffer.c (child_open), list.c (decode_header, print_header):
-	Delete unused vars.  
+	Delete unused vars.
 
 	* port.c [__MSDOS__]: Have strstr, rename, and mkdir.  Don't
 	define ck_pipe.
@@ -213,11 +213,11 @@ Tue Sep 22 14:15:48 1992  Michael I Bushnell  (mib@wookumz.gnu.ai.mit.edu)
 
 Tue Sep 22 08:33:16 1992  Noah Friedman  (friedman@nutrimat.gnu.ai.mit.edu)
 
-        * create.c, port.h: indented #pragma directives with 1 space. 
+        * create.c, port.h: indented #pragma directives with 1 space.
 
 Fri Sep 18 14:15:17 1992  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 
-	* All source files: re indented using GNU indent.  
+	* All source files: re indented using GNU indent.
 
 	* rtapelib.c (__rmt_read): Only read the amount left in the
 	buffer; otherwise a broken rmt server (which puts too much
@@ -270,7 +270,7 @@ Mon Sep 14 16:23:15 1992  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 	* list.c (read_header): Compute both signed and normal
 	checksums.
 
-	* configure.in: Define BSD in the presence of /sdmach or 
+	* configure.in: Define BSD in the presence of /sdmach or
 	/../../mach.
 
 	* diffarch.c, buffer.c: Declare valloc as void* rather than
@@ -288,7 +288,7 @@ Mon Sep 14 16:23:15 1992  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 
 	* names.c: Add include of <stdio.h>,
 
-	* create.c (start_header): Set current_file_name so that 
+	* create.c (start_header): Set current_file_name so that
 	print_header (used for verbose create) works properly.
 	(dump_file): Set current_link_name when setting up symlink
 	and hardlink records.
@@ -362,7 +362,7 @@ Thu Sep  3 12:41:08 1992  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 	new write_long function instead of mangling when the link
 	target is too long.
 	(start_header): Use write_long instead of mangling for long
-	names. 
+	names.
 	* extract.c (saverec): Recognize LF_LONGNAME and LF_LONGLINK.
 	(saverec): Throughout, use longname and longlink if they are set.
 
@@ -371,7 +371,7 @@ Wed Sep  2 14:41:13 1992  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 	* mangle.c: This is now deprecated; retain extract_mangle for
 	backward compatability.
 
-	* list.c (print_header): patch from Chris Arthur to prevent 
+	* list.c (print_header): patch from Chris Arthur to prevent
 	printing 0 when the gid or uid is null.
 
 	* list.c (decode_header): patch from Chris Arthur to use the
@@ -389,10 +389,10 @@ Wed Sep  2 14:41:13 1992  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 Mon Aug 31 15:39:55 1992  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 
 	* create.c (create_archive): If there are no names specified,
-	write nothing on the archive instead of dumping ".".  
+	write nothing on the archive instead of dumping ".".
 
 	* buffer.c (open_archive): Useful error message.
- 
+
  	* tar.c, tar.h: Recognize f_atime_preserve.
 	* create.c (dump_file): Implement f_atime_preserve.
 
@@ -420,7 +420,7 @@ Mon Aug 31 15:39:55 1992  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 
 Fri Aug 28 17:42:13 1992  Michael I Bushnell  (mib@wookumz.gnu.ai.mit.edu)
 
-	* list.c (decode_header), create.c (start_header), tar.h (TMAGIC): 
+	* list.c (decode_header), create.c (start_header), tar.h (TMAGIC):
 	Undo djm's changes below; tar does not support the final
 	Posix.1 format; it's bad to make it look like it does.
 
@@ -490,10 +490,10 @@ Thu Apr 30 03:09:16 1992  Noah Friedman  (friedman@nutrimat.gnu.ai.mit.edu)
 
         * level-1: Added `$' before VOLNO_FILE in definition of TAR_PART1.
         Added line to remove $VOLNO_FILE from any previous dump before
-        starting. 
-          
+        starting.
+
         * level-0, level-1: Change long options to use `--' instead of `+'
-        (support for `+' will go away soon) 
+        (support for `+' will go away soon)
 
 Wed Apr 29 14:23:10 1992  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 
@@ -509,7 +509,7 @@ Wed Apr 29 14:23:10 1992  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 	course.
 
 	* tar.c, tar.h: Added new option +show-omitted-dirs, from
-	Karl Berry.  
+	Karl Berry.
 	list.c (read_and): Implemented show-omitted-dirs.
 
 	* tar.c, tar.h: Added new option +checkpoint.
@@ -517,7 +517,7 @@ Wed Apr 29 14:23:10 1992  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 
 	* create.c (dump_file): Added toplevel argument; some devices
 	can be negative, so the old method was bogus.  All callers
-	changed. 
+	changed.
 
 	* tar.c, tar.h: Added new option +ignore-failed-read.
 	create.c (dump_file): Implemented +ignore-failed-read.
@@ -812,7 +812,7 @@ Mon Jul  8 12:56:35 1991  Michael I Bushnell  (mib at churchy.gnu.ai.mit.edu)
 Mon Jul  8 03:40:28 1991  David J. MacKenzie  (djm at geech.gnu.ai.mit.edu)
 
 	* create.c, extract.c, gnu.c, diffarch.c, tar.c: Comment out
-	unused variables. 
+	unused variables.
 
 	* tar.c (options): Cast get_date arg to VOIDSTAR instead of
 	`struct timeb *', since on some non-BSD systems the latter is
@@ -828,7 +828,7 @@ Sat Jul  6 04:53:14 1991  David J. MacKenzie  (djm at geech.gnu.ai.mit.edu)
 Wed Jul  3 18:10:52 1991  Michael I Bushnell  (mib at geech.gnu.ai.mit.edu)
 
 	* testpad.c (main): Avoid warning from some compilers on array
-	address. 
+	address.
 
 	* rtape_server.c (sys_errlist): Should be declared extern.
 
@@ -866,7 +866,7 @@ Wed Jun 12 12:43:58 1991  Michael I Bushnell  (mib at geech.gnu.ai.mit.edu)
 Wed Jun  5 14:57:11 1991  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
 
 	* tar.c (name_match, addname): Ugly hack to handle -C without
-	any files specified.  
+	any files specified.
 	tar.h (struct name): New field for ugly hack.
 
 Mon Jun  3 14:46:46 1991  Michael I Bushnell  (mib@geech.gnu.ai.mit.edu)
@@ -940,7 +940,7 @@ Sun May 19 18:39:48 1991  David J. MacKenzie  (djm at churchy.gnu.ai.mit.edu)
 Fri May 10 02:58:17 1991  Noah Friedman  (friedman at nutrimat)
 
         * tar.c:  added "\n\" to the end of some documentation strings
-          where they were left off.  
+          where they were left off.
 
 Thu May  9 17:28:54 1991  Michael I Bushnell  (mib at geech.gnu.ai.mit.edu)
 
@@ -960,9 +960,9 @@ Mon Apr  1 17:49:28 1991  Noah Friedman  (friedman at wookumz.gnu.ai.mit.edu)
         (This ought to be temporary until things are fixed properly. )
 
         * tar.c: (struct option long_options):  flag for "sparse" zero if
-          compiling under hpux. 
+          compiling under hpux.
           tar.c: (functon options): case 'S' is a no-op if compiling under
-          hpux. 
+          hpux.
 
 Sat Mar 30 12:20:41 1991  Michael I Bushnell  (mib at geech.gnu.ai.mit.edu)
 
@@ -983,8 +983,8 @@ Sat Mar 30 12:20:41 1991  Michael I Bushnell  (mib at geech.gnu.ai.mit.edu)
 
 Thu Mar 28 04:05:05 1991  Noah Friedman  (friedman at goldman)
 
-        * regex.c, regex.o: New links. 
-        * tar.c: include regex.h. 
+        * regex.c, regex.o: New links.
+        * tar.c: include regex.h.
         * Makefile (OBJ2): Add regex.o.
         (regex.o, tar.o): Depend on regex.h
         (SRC2, AUX): Add the new files.
@@ -994,7 +994,7 @@ Sat Mar 23 15:39:42 1991  Noah Friedman  (friedman at wookumz.gnu.ai.mit.edu)
         * Makefile: added default flags and options for compiling under
           hpux.
 
-        * Added files alloca.c and xmalloc.c 
+        * Added files alloca.c and xmalloc.c
 
 Sat Mar 23 14:35:31 1991  Michael I Bushnell  (mib at geech.gnu.ai.mit.edu)
 
@@ -1501,7 +1501,7 @@ Fri Dec  1 19:26:47 1989  David J. MacKenzie  (djm at trix)
 	* port.c: Remove copy of getopt.c, as it is now linked in
 	separately to always get the current version.
 
-	* tar.c: Rename +cat-tars option to +catenate or +concatenate, 
+	* tar.c: Rename +cat-tars option to +catenate or +concatenate,
 	and +local-filesystem to +one-file-system (preferred by rms
 	and used in GNU cp for the same purpose).
 	(describe): Reflect changes.
@@ -1545,7 +1545,7 @@ Sat Nov 25 04:25:23 1989  David J. MacKenzie  (djm at hobbes.ai.mit.edu)
 	easier to change the long options.
 
 	(describe): Make usage message more internally consistent
-	stylistically. 
+	stylistically.
 
 Mon Nov 20 14:55:39 EST 1989	hack@ai.mit.edu
 
@@ -1615,11 +1615,11 @@ Thu Aug 24 10:09:38 EDT 1989		Joy Kendall (jak at spiff)
 	sparse, then there's a discrepancy, because I added another
 	field to the header which should be able to deal with the
 	sizes)   If the file is sparse, call the added routine
-	"diff_sparse_files" to compare.  Also added routine 
+	"diff_sparse_files" to compare.  Also added routine
 	"fill_in_sparse_array".
 
 	* extract.c: extract_archive: added the switch LF_SPARSE
-	to the case statement as needed, and code to treat the 
+	to the case statement as needed, and code to treat the
 	sparse file.  At label "again_file", modified opening the
 	file to see if we should have O_APPEND be one of the modes.
 	Added code at label "extract_file" to call the new routine
@@ -1628,9 +1628,9 @@ Thu Aug 24 10:09:38 EDT 1989		Joy Kendall (jak at spiff)
 	Note: really should erase the commented-out code in there,
 	because it's confusing.
 
-	* update.c: made sure that if a file needed to be "skipped" 
+	* update.c: made sure that if a file needed to be "skipped"
 	over, it would check to see if the linkflag was sparse, and
-	if so, would then make sure to skip over any "extended 
+	if so, would then make sure to skip over any "extended
 	headers" that might come after the header itself.  Do so by
 	calling "skip_extended_headers".
 
@@ -1640,10 +1640,10 @@ Thu Aug 24 10:09:38 EDT 1989		Joy Kendall (jak at spiff)
 	that, is atrocious).  Call the new routine "finish_sparse_file"
 	if the linkflag is LF_SPARSE to write the info to the tape.
 	Also added routines "init_sparsearray", "deal_with_sparse",
-	"clear_buffer", "where_is_data", "zero_record", and 
+	"clear_buffer", "where_is_data", "zero_record", and
 	"find_new_file_size".
 
-	* tar.h:  Added the #define's SPARSE_EXT_HDR and 
+	* tar.h:  Added the #define's SPARSE_EXT_HDR and
 	SPARSE_IN_HDR.  Added the struct sparse and the struct
 	sp_array.  Added the linkflag LF_SPARSE. Changed the tar
  	header in several ways:

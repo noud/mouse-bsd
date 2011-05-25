@@ -16,7 +16,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -34,7 +34,7 @@
  */
 
  /* All bugs are subject to removal without further notice */
-		
+
 
 
 #include "../include/asm.h"
@@ -54,7 +54,7 @@ ENTRY(read750, 0xFFE)
 	movl	$0, 4(sp)
 	movl    fp, 0xf0000	# ragge ???
 	jsb	(r6)
-	movl    0xf0000, fp	
+	movl    0xf0000, fp
 	ret
 
 /*
@@ -66,11 +66,11 @@ ENTRY(romread_uvax, 0xFFE)
 	movl    52(r11), r7     # load iovec/bqo into r7
 	addl3   (r7), r7, r6	# load qio into r6
 	pushl	r11			# base of rpb
-	pushl	$0			# virtual-flag 
+	pushl	$0			# virtual-flag
 	pushl	$33			# read-logical-block
 	pushl	4(ap)			# lbn to start reading
 	pushl	8(ap)			# number of bytes to read
-	pushl	12(ap)			# buffer-address 
+	pushl	12(ap)			# buffer-address
 	calls	$6, (r6)	# call the qio-routine
 	ret			# r0 holds the result
 
@@ -83,11 +83,11 @@ ENTRY(romwrite_uvax, 0xFFE)
 	movl    52(r11), r7     # load iovec/bqo into r7
 	addl3   (r7), r7, r6    # load qio into r6
 	pushl   r11                     # base of rpb
-	pushl   $0                      # virtual-flag 
+	pushl   $0                      # virtual-flag
 	pushl   $32                     # write-logical-block
 	pushl   4(ap)                   # lbn to start reading
 	pushl   8(ap)                   # number of bytes to read
-	pushl   12(ap)                  # buffer-address 
+	pushl   12(ap)                  # buffer-address
 	calls   $6, (r6)        # call the qio-routine
 	ret                     # r0 holds the result
 

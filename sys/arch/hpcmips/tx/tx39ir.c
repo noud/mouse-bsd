@@ -118,7 +118,7 @@ tx39ir_attach(parent, self, aux)
 
 #ifdef TX39IRDEBUG
 	tx39ir_dump(sc);
-#endif	
+#endif
 }
 
 #define ISSETPRINT(r, m) __is_set_print((u_int32_t)(r), \

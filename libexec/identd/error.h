@@ -4,7 +4,7 @@
 ** error.h                                               Error handling macros
 **
 ** This program is in the public domain and may be used freely by anyone
-** who wants to. 
+** who wants to.
 **
 ** Last update: 19 Aug 1992
 **

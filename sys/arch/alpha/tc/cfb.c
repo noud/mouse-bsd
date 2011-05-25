@@ -5,17 +5,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -151,7 +151,7 @@ cfb_getdevconfig(dense_addr, dc)
 	dc->dc_rowbytes = dc->dc_wid * (dc->dc_depth / 8);
 
 	dc->dc_videobase = dc->dc_vaddr + CFB_FB_OFFSET;
-	
+
 	/* Initialize the RAMDAC/colormap */
 	/* start XXX XXX XXX */
 	(*(volatile u_int32_t *)(ramdacregp + CFB_RAMDAC_ADDRLOW)) = 0;
@@ -169,7 +169,7 @@ cfb_getdevconfig(dense_addr, dc)
 		tc_wmb();
 	}
 	/* end XXX XXX XXX */
-	
+
 	/* clear the screen */
 	for (i = 0; i < dc->dc_ht * dc->dc_rowbytes; i += sizeof(u_int32_t))
 		*(u_int32_t *)(dc->dc_videobase + i) = 0x00000000;

@@ -52,7 +52,7 @@ __destroy_aux(ForwardIterator first, ForwardIterator last, __false_type) {
     destroy(&*first);
 }
 
-template <class ForwardIterator> 
+template <class ForwardIterator>
 inline void __destroy_aux(ForwardIterator, ForwardIterator, __true_type) {}
 
 template <class ForwardIterator, class T>

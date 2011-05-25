@@ -52,7 +52,7 @@
  * The PCC space is permanently mapped by pmap_bootstrap().  This
  * macro translates PCC offsets into the corresponding KVA.
  */
-#define PCC_VADDR(off)	((void *)IIOV(PCC_BASE + (off))) 
+#define PCC_VADDR(off)	((void *)IIOV(PCC_BASE + (off)))
 
 struct pcc {
   volatile u_long dma_taddr;		/* dma table address */

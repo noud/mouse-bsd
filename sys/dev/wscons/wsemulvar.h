@@ -69,8 +69,8 @@ extern const struct wsemul_ops wsemul_vt100_ops;
 
 const struct wsemul_ops *wsemul_pick __P((const char *));
 
-/* 
+/*
  * Callbacks from the emulation code to the display interface driver.
- */     
+ */
 void	wsdisplay_emulbell __P((void *v));
 void	wsdisplay_emulinput __P((void *v, const u_char *, u_int));

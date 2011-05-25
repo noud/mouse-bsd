@@ -40,7 +40,7 @@
 #define	_SVR4_ACL_H_
 
 typedef struct svr4_aclent {
-	int		a_type;	
+	int		a_type;
 	svr4_uid_t	a_id;
 	svr4_o_mode_t	a_perm;
 } svr4_aclent_t;

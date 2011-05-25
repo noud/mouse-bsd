@@ -340,7 +340,7 @@ wwvb_receive(rbufp)
 		    {
 			int             month,day;
 			int             matched;
-	
+
 			qualchar = ' ';
 			matched =
 			    sscanf(pp->a_lastcode,"0003%c %4d%2d%2d %2d%2d%2d%*c%c",

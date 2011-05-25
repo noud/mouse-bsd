@@ -13,7 +13,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -42,7 +42,7 @@
 struct	disklabel dlabel;
 char	bootblock[8192];
 
-void 
+void
 showlabel()
 {
 	struct	disklabel *lp;
@@ -139,7 +139,7 @@ editlabel()
 
 int bootdev;
 
-void 
+void
 Xmain()
 {
 	register bdev  asm("r10");

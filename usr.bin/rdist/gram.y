@@ -212,7 +212,7 @@ yylex()
 	int c;
 	char *cp1, *cp2;
 	static char quotechars[] = "[]{}*?$";
-	
+
 again:
 	switch (c = getc(fin)) {
 	case EOF:  /* end of file */

@@ -155,7 +155,7 @@ int depca_intredge __P((void *));
 #endif
 
 hide void depca_wrcsr __P((struct lance_softc *, u_int16_t, u_int16_t));
-hide u_int16_t depca_rdcsr __P((struct lance_softc *, u_int16_t));  
+hide u_int16_t depca_rdcsr __P((struct lance_softc *, u_int16_t));
 
 void	depca_copytobuf __P((struct lance_softc *, void *, int, int));
 void	depca_copyfrombuf __P((struct lance_softc *, void *, int, int));
@@ -181,11 +181,11 @@ depca_rdcsr(sc, port)
 {
 	struct depca_softc *lesc = (struct depca_softc *)sc;
 	bus_space_tag_t iot = lesc->sc_iot;
-	bus_space_handle_t ioh = lesc->sc_ioh; 
+	bus_space_handle_t ioh = lesc->sc_ioh;
 	u_int16_t val;
 
 	bus_space_write_2(iot, ioh, DEPCA_RAP, port);
-	val = bus_space_read_2(iot, ioh, DEPCA_RDP); 
+	val = bus_space_read_2(iot, ioh, DEPCA_RDP);
 	return (val);
 }
 
@@ -448,7 +448,7 @@ depca_copytobuf(sc, from, boff, len)
 
 void
 depca_copyfrombuf(sc, to, boff, len)
-	struct lance_softc *sc;  
+	struct lance_softc *sc;
 	void *to;
 	int boff, len;
 {

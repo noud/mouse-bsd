@@ -24,7 +24,7 @@ nl_langinfo(item)
 	switch (item) {
 	case D_T_FMT:
 		s = _CurrentTimeLocale->d_t_fmt;
-		break;	
+		break;
 	case D_FMT:
 		s = _CurrentTimeLocale->d_fmt;
 		break;

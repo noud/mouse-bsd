@@ -148,7 +148,7 @@ linux_ioctl_cdrom(p, uap, retval)
 			       sizeof l_tocentry);
 		if (error)
 			return error;
-	    
+
 		sg = stackgap_init(p->p_emul);
 		entry = stackgap_alloc(&sg, sizeof *entry);
 		t_toc_entry.address_format = l_tocentry.cdte_format;
@@ -164,7 +164,7 @@ linux_ioctl_cdrom(p, uap, retval)
 		error = copyin(entry, &t_entry, sizeof t_entry);
 		if (error)
 			return error;
-	    
+
 		l_tocentry.cdte_adr = t_entry.addr_type;
 		l_tocentry.cdte_ctrl = t_entry.control;
 		switch (t_toc_entry.address_format) {
@@ -183,10 +183,10 @@ linux_ioctl_cdrom(p, uap, retval)
 			printf("linux_ioctl: unknown format msf/lba\n");
 			return EINVAL;
 		}
-		
+
 		return copyout(&l_tocentry, SCARG(uap, data),
 			       sizeof l_tocentry);
-		
+
 	case LINUX_CDROMVOLCTRL:
 		error = copyin(SCARG(uap, data), &l_volctrl, sizeof l_volctrl);
 		if (error)
@@ -215,7 +215,7 @@ linux_ioctl_cdrom(p, uap, retval)
 		error = copyin(SCARG(uap, data), &l_subchnl, sizeof l_subchnl);
 		if (error)
 			return error;
-	    
+
 		sg = stackgap_init(p->p_emul);
 		info = stackgap_alloc(&sg, sizeof *info);
 		t_subchannel.address_format = l_subchnl.cdsc_format;
@@ -234,12 +234,12 @@ linux_ioctl_cdrom(p, uap, retval)
 		error = copyin(info, &t_info, sizeof t_info);
 		if (error)
 			return error;
-	    
+
 	    l_subchnl.cdsc_audiostatus = t_info.header.audio_status;
 	    l_subchnl.cdsc_adr = t_info.what.position.addr_type;
 	    l_subchnl.cdsc_ctrl = t_info.what.position.control;
 	    l_subchnl.cdsc_ind = t_info.what.position.index_number;
-	    
+
 	    DPRINTF(("linux_ioctl: CDIOCREADSUBCHANNEL %d %d %d\n",
 		     t_info.header.audio_status,
 		     t_info.header.data_len[0],

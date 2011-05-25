@@ -79,23 +79,23 @@ static struct audio_hw_if guspnp_hw_if = {
 	gus_isapnp_open,
 	iwclose,
 	NULL,
-	
+
 	iw_query_encoding,
 	iw_set_params,
-	
+
 	iw_round_blocksize,
-	
+
 	iw_commit_settings,
-	
+
 	iw_init_output,
 	iw_init_input,
 	iw_start_output,
 	iw_start_input,
 	iw_halt_output,
 	iw_halt_input,
-	
+
 	iw_speaker_ctl,
-	
+
 	iw_getdev,
 	iw_setfd,
 	iw_set_port,
@@ -164,7 +164,7 @@ gus_isapnp_attach(parent, self, aux)
 	gus_0 = 0;
 
 	if (isapnp_config(ipa->ipa_iot, ipa->ipa_memt, ipa)) {
-		printf("%s: error in region allocation\n", 
+		printf("%s: error in region allocation\n",
 		       sc->sc_dev.dv_xname);
 		return;
 	}
@@ -226,7 +226,7 @@ gus_isapnp_attach(parent, self, aux)
 }
 
 static
-int 
+int
 gus_isapnp_open(addr, flags)
      void *addr;
      int flags;

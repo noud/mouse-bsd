@@ -1,6 +1,6 @@
 /* Handle COFF SVR3 shared libraries for GDB, the GNU Debugger.
    Copyright 1993 Free Software Foundation, Inc.
-   
+
 This file is part of GDB.
 
 This program is free software; you can redistribute it and/or modify
@@ -51,7 +51,7 @@ coff_solib_add (arg_string, from_tty, target)
      char *arg_string;
      int from_tty;
      struct target_ops *target;
-{	
+{
   asection *libsect;
 
   libsect = bfd_get_section_by_name (exec_bfd, ".lib");
@@ -106,17 +106,17 @@ coff_solib_add (arg_string, from_tty, target)
 }
 
 /*
-  
+
 GLOBAL FUNCTION
-  
+
 	coff_solib_create_inferior_hook -- shared library startup support
-  
+
 SYNOPSIS
-  
+
 	void coff_solib_create_inferior_hook()
-  
+
 DESCRIPTION
-  
+
 	When gdb starts up the inferior, the kernel maps in the shared
 	libraries.  We get here with the target stopped at it's first
 	instruction, and the libraries already mapped.  At this	point, this
@@ -124,7 +124,7 @@ DESCRIPTION
 	SOLIB_CREATE_INFERIOR_HOOK.
   */
 
-void 
+void
 coff_solib_create_inferior_hook()
 {
   coff_solib_add ((char *) 0, 0, (struct target_ops *) 0);

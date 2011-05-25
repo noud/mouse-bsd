@@ -78,7 +78,7 @@
 #define CMD_DMA			0x00
 #define CMD_DMA_MULTIPLE	0x01
 #define CMD_DMA_LINE		0x10
-		
+
 
 /*
  * timings values for the 0643 and 0x646

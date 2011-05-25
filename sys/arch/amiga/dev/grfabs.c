@@ -49,7 +49,7 @@ monitor_t *cc_init_monitor (void);
 
 /* and here. */
 monitor_t *(*init_monitor[])(void) = {
-    cc_init_monitor, 
+    cc_init_monitor,
     NULL
 };
 
@@ -74,7 +74,7 @@ grf_vbl_function(data)
 		return;
 
 	for (m = monitors->lh_first; m != NULL; m = m->link.le_next) {
-		if (m->vbl_handler) 
+		if (m->vbl_handler)
 			m->vbl_handler(m);
 	}
 }
@@ -88,13 +88,13 @@ int
 grfcc_probe()
 {
 	int i = 0;
-	
+
 	grf_vbl_node.function = grf_vbl_function;
-    
+
 	if (NULL == monitors) {
 		LIST_INIT(&instance_monitors);
 		monitors = &instance_monitors;
-    
+
 		while (init_monitor[i]) {
 			init_monitor[i] ();
 			i++;
@@ -117,7 +117,7 @@ get_best_display_mode(width, height, depth)
 	dmode_t *d, *save;
 	dimen_t dim;
 	long dx, dy, ct, dt = 0;
- 
+
 	save = NULL;
 	for (m = monitors->lh_first; m != NULL; m = m->link.le_next) {
 		dim.width = width;
@@ -132,7 +132,7 @@ get_best_display_mode(width, height, depth)
 				save = d;
 				dt = ct;
 			}
-		}	
+		}
 	}
 	return(save);
 }
@@ -219,7 +219,7 @@ grf_alloc_view(d, dim, depth)
 {
 	if (!d)
 		d = get_best_display_mode(dim->width, dim->height, depth);
-	if (d) 
+	if (d)
 		return(d->alloc_view(d, dim, depth));
 	return(NULL);
 }

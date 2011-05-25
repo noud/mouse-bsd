@@ -25,7 +25,7 @@ DEFUN (cg_tally, (from_pc, self_pc, count),
      line number in the calling routing, but the child should always
      point to a function entry point, so we back up in the symbol
      table until we find it.
-   
+
      For normal profiling, is_func will be set on all symbols, so this
      code will do nothing.  */
 

@@ -23,7 +23,7 @@ fpsetround(rnd_dir)
 	sfsr(old);
 
 	new = old;
-	new &= ~(0x03 << 7); 
+	new &= ~(0x03 << 7);
 	new |= ((rnd_dir & 0x03) << 7);
 
 	lfsr(new);

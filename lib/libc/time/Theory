@@ -36,7 +36,7 @@ POSIX.1 has the following properties and limitations.
 		stdoffset[dst[offset],date[/time],date[/time]]
 
 	where:
-	
+
 	std and dst
 		are 3 or more characters specifying the standard
 		and daylight saving time (DST) zone names.
@@ -370,8 +370,8 @@ Newsgroups: soc.genealogy.german
 Date: Tue, 9 Feb 1999 02:32:48 -800
 Message-ID: <199902091032.CAA09644@netcom10.netcom.com>
 
-The following is a(n incomplete) listing, arranged chronologically, of 
-European states, with the date they converted from the Julian to the 
+The following is a(n incomplete) listing, arranged chronologically, of
+European states, with the date they converted from the Julian to the
 Gregorian calendar:
 
 04/15 Oct 1582 - Italy (with exceptions), Spain, Portugal, Poland (Roman
@@ -448,9 +448,9 @@ Gregorian calendar:
 
 1760-1812      - Graub"unden
 
-The Russian empire (including Finland and the Baltic states) did not 
+The Russian empire (including Finland and the Baltic states) did not
 convert to the Gregorian calendar until the Soviet revolution of 1917.
 
-Source:  H. Grotefend, _Taschenbuch der Zeitrechnung des deutschen 
-Mittelalters und der Neuzeit_, herausgegeben von Dr. O. Grotefend 
+Source:  H. Grotefend, _Taschenbuch der Zeitrechnung des deutschen
+Mittelalters und der Neuzeit_, herausgegeben von Dr. O. Grotefend
 (Hannover:  Hahnsche Buchhandlung, 1941), pp. 26-28.

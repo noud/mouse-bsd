@@ -206,7 +206,7 @@ undefine_symbol(symbol_table st, char *key, int type) {
  */
 
 int
-unit_to_ulong(char *in, u_long *out) {	
+unit_to_ulong(char *in, u_long *out) {
 	int c, units_done = 0;
 	u_long result = 0L;
 

@@ -12,14 +12,14 @@
 #define PRECISION 500
 
 const struct test {
-	char *name; 
+	char *name;
 	void (*func)__P((int));
 	char *comment;
 } testlist[] = {
 	{"Illegal", illegal, "(test: unimplemented)"},
 	{"mulsl Da,Db", mul32sreg, "(test: should be native)"},
 	{"mulsl sp@(8),Da", mul32smem, "(test: should be native)\n"},
-	
+
 	{"mulsl Dn,Da:Db", mul64sreg, "emulated on 68060"},
 	{"mulul Dn,Da:Db", mul64ureg, "\t\""},
 	{"mulsl sp@(8),Da:Db", mul64smem, "\t\""},
@@ -60,7 +60,7 @@ main(argc, argv)
 			printf("%12s    %s\n", "[unimplemented]", t->comment);
 			continue;
 		}
-			
+
 		count = 1000;
 		do {
 			count *= 2;

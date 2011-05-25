@@ -54,11 +54,11 @@ _C_LABEL(romp):	.xword	0		/* openfirmware entry point */
 	_C_LABEL(kernel_text) = _start
 _start:
 	nop			! For some reason this is needed to fixup the text section
-	
+
 	/*
 	 * Step 1: Save rom entry pointer  -- NOTE this probably needs to change
 	 */
-	
+
 	mov	%o4, %g7	! save prom vector pointer
 	set	_C_LABEL(romp), %g1
 	stx	%o4, [%g1]	! It's initialized data, I hope
@@ -89,9 +89,9 @@ _start:
 	andn	%g1, 0x7, %g1
 	save	%g1, %g0, %sp
 #endif
-	
+
 !	mov	%i0, %i4		! Apparenty we get our CIF in i0
-	
+
 	/*
 	 * Set the psr into a known state:
 	 * Set supervisor mode, interrupt level >= 13, traps enabled
@@ -102,13 +102,13 @@ _start:
 	clr	%g4		! Point %g4 to start of data segment
 				! only problem is that apparently the
 				! start of the data segment is 0
-	
+
 	/*
 	 * XXXXXXXX Need to determine what params are passed
 	 */
 	call	_C_LABEL(setup)
 	 nop
-	mov	%i1, %o1		
+	mov	%i1, %o1
 	call	_C_LABEL(main)
 	 mov	%i2, %o0
 	call	_C_LABEL(exit)
@@ -130,12 +130,12 @@ _C_LABEL(syncicache):
 	 inc	4, %o0
 	retl
 	 nop
-	
+
 /*
  * openfirmware(cell* param);
  *
- * OpenFirmware entry point 
- * 
+ * OpenFirmware entry point
+ *
  * If we're running in 32-bit mode we need to convert to a 64-bit stack
  * and 64-bit cells.  The cells we'll allocate off the stack for simplicity.
  */
@@ -147,7 +147,7 @@ _C_LABEL(openfirmware):
 	andcc	%sp, 1, %g0
 	bz,pt	%icc, 1f
 	 sethi	%hi(_C_LABEL(romp)), %o1
-	
+
 	ldx	[%o1+%lo(_C_LABEL(romp))], %o4		! v9 stack, just load the addr and callit
 	save	%sp, -CC64FSZ, %sp
 	mov	%i0, %o0				! Copy over our parameter
@@ -203,7 +203,7 @@ _C_LABEL(openfirmware):
 #if 0
 	.data
 	.align 8
-bootstack:	
+bootstack:
 #define STACK_SIZE	0x14000
 	.skip	STACK_SIZE
 ebootstack:			! end (top) of boot stack

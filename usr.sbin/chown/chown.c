@@ -84,12 +84,12 @@ main(argc, argv)
 	int Hflag, Lflag, ch, fts_options, hflag, rval;
 	char *cp;
 	int (*change_owner) __P((const char *, uid_t, gid_t));
-	
+
 	(void)setlocale(LC_ALL, "");
 
 	myname = (cp = strrchr(*argv, '/')) ? cp + 1 : *argv;
 	ischown = (myname[2] == 'o');
-	
+
 	Hflag = Lflag = hflag = 0;
 	while ((ch = getopt(argc, argv, "HLPRfh")) != -1)
 		switch (ch) {
@@ -158,9 +158,9 @@ main(argc, argv)
 		if ((cp = strchr(*argv, ':')) != NULL) {
 			*cp++ = '\0';
 			a_gid(cp);
-		} 
+		}
 		a_uid(*argv);
-	} else 
+	} else
 		a_gid(*argv);
 
 	if ((ftsp = fts_open(++argv, fts_options, NULL)) == NULL)

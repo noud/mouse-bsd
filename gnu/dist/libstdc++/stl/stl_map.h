@@ -52,7 +52,7 @@ public:
   typedef T mapped_type;
   typedef pair<const Key, T> value_type;
   typedef Compare key_compare;
-    
+
   class value_compare
     : public binary_function<value_type, value_type, bool> {
   friend class map<Key, T, Compare, Alloc>;
@@ -66,7 +66,7 @@ public:
   };
 
 private:
-  typedef rb_tree<key_type, value_type, 
+  typedef rb_tree<key_type, value_type,
                   select1st<value_type>, key_compare, Alloc> rep_type;
   rep_type t;  // red-black tree representing map
 public:
@@ -110,7 +110,7 @@ public:
   map<Key, T, Compare, Alloc>& operator=(const map<Key, T, Compare, Alloc>& x)
   {
     t = x.t;
-    return *this; 
+    return *this;
   }
 
   // accessors:
@@ -165,13 +165,13 @@ public:
   size_type count(const key_type& x) const { return t.count(x); }
   iterator lower_bound(const key_type& x) {return t.lower_bound(x); }
   const_iterator lower_bound(const key_type& x) const {
-    return t.lower_bound(x); 
+    return t.lower_bound(x);
   }
   iterator upper_bound(const key_type& x) {return t.upper_bound(x); }
   const_iterator upper_bound(const key_type& x) const {
-    return t.upper_bound(x); 
+    return t.upper_bound(x);
   }
-  
+
   pair<iterator,iterator> equal_range(const key_type& x) {
     return t.equal_range(x);
   }
@@ -183,13 +183,13 @@ public:
 };
 
 template <class Key, class T, class Compare, class Alloc>
-inline bool operator==(const map<Key, T, Compare, Alloc>& x, 
+inline bool operator==(const map<Key, T, Compare, Alloc>& x,
                        const map<Key, T, Compare, Alloc>& y) {
   return x.t == y.t;
 }
 
 template <class Key, class T, class Compare, class Alloc>
-inline bool operator<(const map<Key, T, Compare, Alloc>& x, 
+inline bool operator<(const map<Key, T, Compare, Alloc>& x,
                       const map<Key, T, Compare, Alloc>& y) {
   return x.t < y.t;
 }
@@ -197,7 +197,7 @@ inline bool operator<(const map<Key, T, Compare, Alloc>& x,
 #ifdef __STL_FUNCTION_TMPL_PARTIAL_ORDER
 
 template <class Key, class T, class Compare, class Alloc>
-inline void swap(map<Key, T, Compare, Alloc>& x, 
+inline void swap(map<Key, T, Compare, Alloc>& x,
                  map<Key, T, Compare, Alloc>& y) {
   x.swap(y);
 }

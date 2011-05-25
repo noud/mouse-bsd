@@ -136,7 +136,7 @@ struct	pkcb {
 #define	PQEMPTY		(pkcb_q.q_forw == &pkcb_q)
 
 /*
- *	Interface address, x25 version. Exactly one of these structures is 
+ *	Interface address, x25 version. Exactly one of these structures is
  *	allocated for each interface with an x25 address.
  *
  *	The ifaddr structure conatins the protocol-independent part

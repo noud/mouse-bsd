@@ -45,7 +45,7 @@ __RCSID("$NetBSD: table.c,v 1.5 1998/07/04 19:31:05 mrg Exp $");
 /*
  * Routines to handle insertion, deletion, etc on the table
  * of requests kept by the daemon. Nothing fancy here, linear
- * search on a double-linked list. A time is kept with each 
+ * search on a double-linked list. A time is kept with each
  * entry so that overly old invitations can be eliminated.
  *
  * Consider this a mis-guided attempt at modularity
@@ -117,7 +117,7 @@ find_match(request)
 
 /*
  * Look for an identical request, as opposed to a complimentary
- * one as find_match does 
+ * one as find_match does
  */
 CTL_MSG *
 find_request(request)

@@ -14,7 +14,7 @@ PUSHDIVERT(1)
 # ABI=-64 requires subsystem compiler_dev.sw64.lib, but this runs
 #	only with IRIX64 (ie. 64 bit kernels)
 #
-# NOTE: Do not set `confABI' in a site configuration file!  The ABI MUST 
+# NOTE: Do not set `confABI' in a site configuration file!  The ABI MUST
 #	be given on the Build command line using the -E parameter, e.g.:
 #
 #		Build -E ABI=-n32

@@ -147,7 +147,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
     ((N) >= LP0_REGNUM ?	\
      builtin_type_double	\
      : builtin_type_float)	\
-   : builtin_type_int)	
+   : builtin_type_int)
 
 /* Store the address of the place in which to copy the structure the
    subroutine will return.  This is called from call_function.

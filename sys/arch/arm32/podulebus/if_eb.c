@@ -200,7 +200,7 @@ eb_dump_buffer(sc, offset)
 	int size;
 	int ctrl;
 	int ptr;
-	
+
 	addr = offset;
 
 	do {
@@ -244,7 +244,7 @@ ebprobe(parent, cf, aux)
 {
 	struct podule_attach_args *pa = (void *)aux;
 	u_int iobase;
-	
+
 /*	dprintf(("Probing for SEEQ 8004... \n"));*/
 
 /* Look for a network slot interface */
@@ -295,13 +295,13 @@ ebattach(parent, self, aux)
 	podules[sc->sc_podule_number].attached = 1;
 
 /* Set the address of the controller for easy access */
-	
+
 	sc->sc_iobase = sc->sc_podule->mod_base + EB_8004_BASE;
 
 /* Read the station address - the receiver must be off */
 
 	WriteShort(sc->sc_iobase + EB_8004_CONFIG1, EB_BUFCODE_STATION_ADDR);
-	
+
 	for (sum = 0, loop = 0; loop < ETHER_ADDR_LEN; ++loop) {
 		myaddr[loop] =
 		    ReadByte(sc->sc_iobase + EB_8004_BUFWIN);
@@ -324,7 +324,7 @@ ebattach(parent, self, aux)
 		netslot_ea(myaddr);
 
 	/* Get the product ID */
-	
+
 	WriteShort(sc->sc_iobase + EB_8004_CONFIG1, EB_BUFCODE_PRODUCTID);
 	id = ReadByte(sc->sc_iobase + EB_8004_BUFWIN);
 
@@ -381,7 +381,7 @@ ebattach(parent, self, aux)
 	/* Should test the RAM */
 
 	eb_ramtest(sc);
-	
+
 /*	dprintf(("ebattach() finished.\n"));*/
 }
 
@@ -420,7 +420,7 @@ eb_ramtest(sc)
 		WriteShort(iobase + EB_8004_BUFWIN, loop);
 
 	/* Set the read start address and verify the pattern */
-	
+
 	eb_readbuf(sc, NULL, 0x0000, 0);
 
 	for (loop = 0; loop < EB_BUFFER_SIZE; loop += 2)
@@ -667,7 +667,7 @@ eb_stop(sc)
 	WriteShort(iobase + EB_8004_BUFWIN, EB_CFG3_SLEEP);
 
 	/* Cancel any watchdog timer */
-	
+
 	sc->sc_ethercom.ec_if.if_timer = 0;
 }
 
@@ -902,7 +902,7 @@ eb_init(sc)
 /* Place a NULL header at the beginning of the transmit area */
 
 	eb_writebuf(sc, NULL, 0x0000, 0);
-		
+
 	WriteShort(iobase + EB_8004_BUFWIN, 0x0000);
 	WriteShort(iobase + EB_8004_BUFWIN, 0x0000);
 
@@ -919,7 +919,7 @@ eb_init(sc)
 /* Place a NULL header at the beginning of the receive area */
 
 	eb_writebuf(sc, NULL, sc->sc_rx_ptr, 0);
-		
+
 	WriteShort(iobase + EB_8004_BUFWIN, 0x0000);
 	WriteShort(iobase + EB_8004_BUFWIN, 0x0000);
 
@@ -966,7 +966,7 @@ eb_start(ifp)
 		return;
 
 	/* Mark interface as output active */
-	
+
 	ifp->if_flags |= IFF_OACTIVE;
 
 	/* tx packets */
@@ -981,7 +981,7 @@ eb_start(ifp)
  *
  * Called at splnet()
  */
- 
+
 void
 ebtxpacket(sc)
 	struct eb_softc *sc;
@@ -1040,7 +1040,7 @@ ebtxpacket(sc)
 		++len;
 
 	len = max(len, ETHER_MIN_LEN);
-	
+
 	if (len > (ETHER_MAX_LEN - ETHER_CRC_LEN))
 		log(LOG_WARNING, "ea: oversize packet = %d bytes\n", len);
 
@@ -1114,7 +1114,7 @@ ebintr(arg)
 /* Get the controller status */
 
 	status = ReadShort(iobase + EB_8004_STATUS);
-        dprintf(("st=%04x ", status));	
+        dprintf(("st=%04x ", status));
 
 /* Tx interrupt ? */
 
@@ -1128,7 +1128,7 @@ ebintr(arg)
 
 		eb_readbuf(sc, (u_char *)&txstatus, 0x0000, 4);
 
-#ifdef EB_TX_DEBUG		
+#ifdef EB_TX_DEBUG
 		dprintf(("txstatus=%08x\n", txstatus));
 #endif
 		txstatus = (txstatus >> 24) & 0xff;
@@ -1231,7 +1231,7 @@ ebgetpackets(sc)
 /* Read rx header */
 
 		eb_readbuf(sc, (u_char *)&rxstatus, addr, 4);
-		
+
 /* Split the packet header */
 
 		ptr = ((rxstatus & 0xff) << 8) | ((rxstatus >> 8) & 0xff);
@@ -1247,7 +1247,7 @@ ebgetpackets(sc)
 		if (ptr == 0) break;
 
 /* Get packet length */
-	
+
 		len = (ptr - addr) - 4;
 
 		if (len < 0) {

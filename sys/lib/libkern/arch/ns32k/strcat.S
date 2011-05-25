@@ -1,6 +1,6 @@
 /*	$NetBSD: strcat.S,v 1.3 1999/11/16 18:16:53 matthias Exp $	*/
 
-/* 
+/*
  * Written by Matthias Pfaller, 1996
  * Public domain.
  */

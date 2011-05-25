@@ -267,7 +267,7 @@ Basic Utilities
 .IP
 .tl 'An Introduction to the UNIX Shell''tabbed 3'
 .QP
-Steve Bourne's introduction to the capabilities of 
+Steve Bourne's introduction to the capabilities of
 .I sh,
 a command interpreter especially popular for writing shell scripts.
 .sp
@@ -276,7 +276,7 @@ a command interpreter especially popular for writing shell scripts.
 .QP
 This introduction to
 .I csh,
-(a command interpreter popular for interactive work) describes many 
+(a command interpreter popular for interactive work) describes many
 commonly used UNIX commands, assumes little prior knowledge of UNIX,
 and has a glossary useful for beginners.
 .sp
@@ -288,7 +288,7 @@ A super HP calculator, if you do not need floating point.
 .IP
 .tl 'BC \- An Arbitrary Precision Desk-Calculator Language''tabbed 6'
 .QP
-A front end for DC that provides infix notation, control flow, and 
+A front end for DC that provides infix notation, control flow, and
 built\-in functions.
 .sp
 .SH
@@ -302,7 +302,7 @@ Complete details on one of the programs for sending and reading your mail.
 .IP
 .tl 'The Rand MH Message Handling System''tabbed 8'
 .QP
-This system for managing your computer mail uses lots of small programs, 
+This system for managing your computer mail uses lots of small programs,
 instead of one large one.
 .sp
 .SH
@@ -311,7 +311,7 @@ Text Editing
 .IP
 .tl 'A Tutorial Introduction to the Unix Text Editor''tabbed 9'
 .QP
-An easy way to get started with the line editor, 
+An easy way to get started with the line editor,
 .I ed.
 .sp
 .IP
@@ -338,13 +338,13 @@ The definitive reference for the \fInvi\fR editor.
 .tl 'Jove Manual for UNIX Users''tabbed 14'
 .QP
 Jove is a small, self-documenting, customizable display editor, based on EMACS.
-A plausible alternative to 
+A plausible alternative to
 .I vi.
 .sp
 .IP
 .tl 'SED \- A Non-interactive Text Editor''tabbed 15'
 .QP
-Describes a one-pass variant of 
+Describes a one-pass variant of
 .I ed
 useful as a filter for processing large files.
 .sp
@@ -359,8 +359,8 @@ Document Preparation
 .IP
 .tl 'Typing Documents on UNIX: Using the \-ms Macros with Troff and Nroff''tabbed 17'
 .QP
-Describes and gives examples of the basic use of the typesetting tools and 
-``-ms'', a frequently used package of formatting requests that make it easier 
+Describes and gives examples of the basic use of the typesetting tools and
+``-ms'', a frequently used package of formatting requests that make it easier
 to lay out most documents.
 .sp
 .ne 1i
@@ -390,21 +390,21 @@ Extremely detailed information about these document formatting programs.
 .tl 'A TROFF Tutorial''tabbed 22'
 .QP
 An introduction to the most basic uses of
-.I troff 
-for those who really want to know such things, or want to write their 
+.I troff
+for those who really want to know such things, or want to write their
 own macros.
 .sp
 .IP
 .tl 'A System for Typesetting Mathematics''tabbed 23'
 .QP
-Describes 
-.I eqn, 
+Describes
+.I eqn,
 an easy-to-learn language for high-quality mathematical typesetting.
 .sp
 .IP
 .tl 'Typesetting Mathematics \- User\'s Guide (Second Edition)''tabbed 24'
 .QP
-More details about how to use 
+More details about how to use
 .I eqn.
 .sp
 .IP
@@ -416,16 +416,16 @@ A program for easily typesetting tabular material.
 .tl 'Refer \- A Bibliography System''tabbed 26'
 .QP
 An introduction to one set of tools used to maintain bibliographic databases.
-The major program, 
+The major program,
 .I refer,
-is used to automatically retrieve and format the references 
+is used to automatically retrieve and format the references
 based on document citations.
 .sp
 .IP
 .tl 'Some Applications of Inverted Indexes on the UNIX System''tabbed 27'
 .QP
 Mike Lesk's paper describes the
-.I refer 
+.I refer
 programs in a somewhat larger context.
 .sp
 .IP
@@ -438,10 +438,10 @@ for expanding citations in documents.
 .IP
 .tl 'Writing Tools \- The STYLE and DICTION Programs''tabbed 29'
 .QP
-These are programs which can help you understand and improve your 
+These are programs which can help you understand and improve your
 writing style.
 .sp
-.SH 
+.SH
 Amusements
 .sp
 .IP
@@ -580,7 +580,7 @@ to keep them from contaminating
 the more staid information of URM section 1.
 .LP
 Miscellaneous collection of information necessary for
-writing in various specialized languages such as character codes, 
+writing in various specialized languages such as character codes,
 macro packages for typesetting, etc is contained in URM section 7.
 .LP
 System calls are entries into the BSD kernel.
@@ -621,7 +621,7 @@ The name of the entry is in the upper corners of its pages,
 together with the section number.
 Entries within each section are alphabetized.
 The page numbers of each entry start at 1;
-it is infeasible to number consecutively the pages of 
+it is infeasible to number consecutively the pages of
 a document like this that is republished in many variant forms.
 .LP
 All entries are based on a common format;

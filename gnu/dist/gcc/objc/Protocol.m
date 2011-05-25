@@ -1,7 +1,7 @@
 /* This file contains the implementation of class Protocol.
    Copyright (C) 1993 Free Software Foundation, Inc.
 
-This file is part of GNU CC. 
+This file is part of GNU CC.
 
 GNU CC is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with GNU CC; see the file COPYING.  If not, write to
 the Free Software Foundation, 59 Temple Place - Suite 330,
 Boston, MA 02111-1307, USA.  */
- 
+
 /* As a special exception, if you link this library with files
    compiled with GCC to produce an executable, this does not cause
    the resulting executable to be covered by the GNU General Public License.
@@ -39,7 +39,7 @@ struct objc_method_description_list {
 @private
         char *protocol_name;
         struct objc_protocol_list *protocol_list;
-        struct objc_method_description_list *instance_methods, *class_methods; 
+        struct objc_method_description_list *instance_methods, *class_methods;
 }
 
 /* Obtaining attributes intrinsic to the protocol */

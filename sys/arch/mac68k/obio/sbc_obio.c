@@ -118,7 +118,7 @@ sbc_obio_attach(parent, self, args)
 	char bits[64];
 	extern vaddr_t SCSIBase;
 
-	/* Pull in the options flags. */ 
+	/* Pull in the options flags. */
 	sc->sc_options = ((ncr_sc->sc_dev.dv_cfdata->cf_flags | sbc_options)
 	    & SBC_OPTIONS_MASK);
 

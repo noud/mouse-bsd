@@ -70,16 +70,16 @@
  * own, take a look at RZ3_monitors.cc for more information.
  */
 struct MonDef {
-	
+
 	/* first the general monitor characteristics */
-	
+
 	unsigned long  FQ;
 	unsigned char  FLG;
-	
+
 	unsigned short MW;  /* physical screen width in pixels    */
 	                    /* has to be at least a multiple of 8 */
 	unsigned short MH;  /* physical screen height in pixels   */
-	
+
 	unsigned short HBS;
 	unsigned short HSS;
 	unsigned short HSE;
@@ -90,54 +90,54 @@ struct MonDef {
 	unsigned short VSE;
 	unsigned short VBE;
 	unsigned short VT;
-	
+
 	unsigned short DEP;  /* Color-depth, 4 enables text-mode  */
 	                     /* 8 enables 256-color graphics-mode, */
 	                     /* 16 and 24bit gfx not supported yet */
-	
+
 	unsigned char * PAL; /* points to 16*3 byte RGB-palette data   */
 	                     /* use LoadPalette() to set colors 0..255 */
 	                     /* in 256-color-gfx mode */
-	
+
 	/*
 	 * all following entries are font-specific in
 	 * text-mode. Make sure your monitor
 	 * parameters are calculated for the
 	 * appropriate font width and height!
 	 */
-	
+
 	unsigned short  TX;     /* Text-mode (DEP=4):          */
 	                        /* screen-width  in characters */
-	                        
+
 	                        /* Gfx-mode (DEP > 4)          */
 	                        /* "logical" screen-width,     */
 	                        /* use values > MW to allow    */
 	                        /* hardware-panning            */
-	                        
+
 	unsigned short  TY;     /* Text-mode:                  */
 	                        /* screen-height in characters */
-	
+
 	                        /* Gfx-mode: "logical" screen  */
 	                        /* height for panning          */
-	
+
 	/* the following values are currently unused for gfx-mode */
-	
+
 	unsigned short  XY;     /* TX*TY (speeds up some calcs.) */
-	
+
 	unsigned short  FX;     /* font-width (valid values: 4,7-16) */
 	unsigned short  FY;     /* font-height (valid range: 1-32) */
 	unsigned char * FData;  /* pointer to the font-data */
-	
+
 	/*
 	 * The font data is simply an array of bytes defining
 	 * the chars in ascending order, line by line. If your
 	 * font is wider than 8 pixel, FData has to be an
 	 * array of words.
 	 */
-	
+
 	unsigned short  FLo;    /* lowest character defined */
-	unsigned short  FHi;    /* highest char. defined */ 
-	
+	unsigned short  FHi;    /* highest char. defined */
+
 };
 
 
@@ -179,35 +179,35 @@ struct MonDef {
 /*
  * This routine initialises the Retina Z3 hardware, opens a
  * text- or gfx-mode screen, depending on the the value of
- * MonDef.DEP, and sets the cursor to position 0. 
+ * MonDef.DEP, and sets the cursor to position 0.
  * It takes as arguments a pointer to the hardware-base
  * address as it is denoted in the DevConf structure
  * of the AmigaDOS, and a pointer to a struct MonDef
  * which describes the screen-mode parameters.
- * 
+ *
  * The routine returns 0 if it was unable to open the screen,
  * or an unsigned char * to the display memory when it
  * succeeded.
  *
  * The organisation of the display memory in text-mode is a
  * little strange (Intel-typically...) :
- * 
+ *
  * Byte  00    01    02    03    04     05    06   etc.
  *     Char0  Attr0  --    --   Char1 Attr1   --   etc.
- *     
+ *
  * You may set a character and its associated attribute byte
  * with a single word-access, or you may perform to byte writes
  * for the char and attribute. Each 2. word has no meaning,
  * and writes to theese locations are ignored.
- * 
+ *
  * The attribute byte for each character has the following
  * structure:
- * 
+ *
  * Bit  7     6     5     4     3     2     1     0
  *    BLINK BACK2 BACK1 BACK0 FORE3 FORE2 FORE1 FORE0
- *    
+ *
  * Were FORE is the foreground-color index (0-15) and
- * BACK is the background color index (0-7). BLINK 
+ * BACK is the background color index (0-7). BLINK
  * enables blinking for the associated character.
  * The higher 8 colors in the standard palette are
  * lighter than the lower 8, so you may see FORE3 as
@@ -223,18 +223,18 @@ struct MonDef {
  * (assumed the value returned by RZ3Init was stored
  *  into "DispMem", the actual MonDef struct * is hold
  *  in "MDef")
- * 
+ *
  * void SetChar(unsigned char chr, unsigned char attr,
  *              unsigned short x, unsigned short y) {
- *    
+ *
  *    unsigned struct MonDef * md = MDef;
  *    unsigned char * c = DispMem + x*4 + y*md->TX*4;
- *    
+ *
  *    *c++ = chr;
  *    *c   = attr;
- *    
+ *
  * }
- * 
+ *
  * In gfx-mode, the memory organisation is rather simple,
  * 1 byte per pixel in 256-color mode, one pixel after
  * each other, line by line.
@@ -248,11 +248,11 @@ struct MonDef {
  * Please note that the memory layout in gfx-mode depends
  * on the logical screen-size, panning does only affect
  * the appearance of the physical screen.
- * 
+ *
  * Currently, RZ3Init() disables the Retina Z3 VBLANK IRQ,
  * but beware: When running the Retina WB-Emu under
  * AmigaDOS, the VBLANK IRQ is ENABLED...
- * 
+ *
  */
 
 	void RZ3LoadPalette(unsigned char * pal, unsigned char firstcol, unsigned char colors);
@@ -312,7 +312,7 @@ struct MonDef {
  * All coordinates are in characters. RZ3AlphaCopy does not
  * check for boundaries - you've got to make sure that the
  * parameters have sensible values. Text-mode only!
- * 
+ *
  * Since the blitter is unable to use a mask-pattern and a
  * certain fill-value at the same time, this routine uses
  * a simple trick: RZ3Init() clears a memory area twice as
@@ -328,15 +328,15 @@ struct MonDef {
  * available logical operations on the display memory,
  * among them ordinary fill- and copy operations.
  * The only parameter is a pointer to a struct grf_bitblt:
- * 
+ *
  * struct grf_bitblt {
  *   unsigned short op;              see above definitions of GRFBBOPxxx
  *   unsigned short src_x, src_y;    upper left corner of source-region
  *   unsigned short dst_x, dst_y;    upper left corner of dest-region
- *   unsigned short w, h;            width, height of region 
+ *   unsigned short w, h;            width, height of region
  *   unsigned short mask;            bitmask to apply
  * };
- * 
+ *
  * All coordinates are in pixels. RZ3BitBlit does not
  * check for boundaries - you've got to make sure that the
  * parameters have sensible values. 8 bit gfx-mode only!
@@ -390,7 +390,7 @@ struct MonDef {
  *     0         1            col1
  *     1         0          transparent
  *     1         1     background-color XOR 0xff
- *     
+ *
  * The size of the data has to be 64*64*2/8 = 1024 byte,
  * obviously, the size of the sprite is 64x64 pixels.
  */
@@ -409,7 +409,7 @@ struct MonDef {
  * of the hardware-cursor sprite, all necessary panning is
  * done automatically - you can treat the display without
  * even knowing about the physical screen size that is
- * displayed. 
+ * displayed.
  */
 
 #endif
@@ -438,7 +438,7 @@ struct MonDef {
 #define GREG_STATUS0_R		0x03C2
 #define GREG_STATUS1_R		0x03DA
 #define GREG_MISC_OUTPUT_R	0x03CC
-#define GREG_MISC_OUTPUT_W	0x03C2	
+#define GREG_MISC_OUTPUT_W	0x03C2
 #define GREG_FEATURE_CONTROL_R	0x03CA
 #define GREG_FEATURE_CONTROL_W	0x03DA
 #define GREG_POS		0x0102

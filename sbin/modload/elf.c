@@ -1,7 +1,7 @@
 /*	$NetBSD: elf.c,v 1.3 1999/10/25 13:58:04 kleink Exp $	*/
 
 /*
- * Copyright (c) 1998 Johan Danielsson <joda@pdc.kth.se> 
+ * Copyright (c) 1998 Johan Danielsson <joda@pdc.kth.se>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -166,7 +166,7 @@ read_elf_header(int fd, Elf_Ehdr *ehdr)
 	    ehdr->e_ident[EI_CLASS] != ELFCLASS)
 		errx(4, "not in ELF%u format", ELFSIZE);
 	if (ehdr->e_ehsize != ELF_HDR_SIZE)
-		errx(4, "file has ELF%u identity, but wrong header size", 
+		errx(4, "file has ELF%u identity, but wrong header size",
 		    ELFSIZE);
 
 	return 0;
@@ -190,7 +190,7 @@ elf_mod_sizes(fd, modsize, strtablen, resrvp, sp)
 	size_t data_hole = 0;
 	char *strtab;
 	struct elf_section *head, *s;
-	
+
 	if (read_elf_header(fd, &ehdr) < 0)
 		return -1;
 	strtab = read_string_table(fd, &ehdr);
@@ -198,16 +198,16 @@ elf_mod_sizes(fd, modsize, strtablen, resrvp, sp)
 
 	for (s = head; s; s = s->next) {
 		if (debug)
-			fprintf(stderr, 
-			    "%s: addr = %p size = %#lx align = %#lx\n", 
+			fprintf(stderr,
+			    "%s: addr = %p size = %#lx align = %#lx\n",
 			    s->name, s->addr, (u_long)s->size, (u_long)s->align);
 		/* XXX try to get rid of the hole before the data
                    section that GNU-ld likes to put there */
 		if (strcmp(s->name, ".data") == 0 && s->addr > (void*)off) {
 			if (debug)
 				fprintf(stderr, ".data section forced to "
-				    "offset %p (was %p)\n", 
-				    (void*)off, 
+				    "offset %p (was %p)\n",
+				    (void*)off,
 				    s->addr);
 			data_offset = off;
 			/* later remove size of compressed hole from off */
@@ -216,7 +216,7 @@ elf_mod_sizes(fd, modsize, strtablen, resrvp, sp)
 		off = (ssize_t)s->addr + s->size;
 	}
 	off -= data_hole;
-	
+
 	/* cleanup */
 	free_sections(head);
 	free(strtab);
@@ -240,7 +240,7 @@ elf_mod_sizes(fd, modsize, strtablen, resrvp, sp)
  * -R		executable to link against
  * -e		entry point
  * -o		output file
- * -Ttext	address to link text segment to in hex (assumes it's 
+ * -Ttext	address to link text segment to in hex (assumes it's
  *		a page boundry)
  * -Tdata	address to link data segment to in hex
  * <target>	object file */
@@ -253,20 +253,20 @@ elf_mod_sizes(fd, modsize, strtablen, resrvp, sp)
 void
 elf_linkcmd(char *buf,
 	    size_t len,
-	    const char *kernel, 
-	    const char *entry, 
-	    const char *outfile, 
-	    const void *address, 
+	    const char *kernel,
+	    const char *entry,
+	    const char *outfile,
+	    const void *address,
 	    const char *object)
 {
 	ssize_t n;
 
 	if (data_offset == NULL)
-		n = snprintf(buf, len, LINKCMD, kernel, entry, 
+		n = snprintf(buf, len, LINKCMD, kernel, entry,
 			     outfile, address, object);
 	else
-		n = snprintf(buf, len, LINKCMD2, kernel, entry, 
-			     outfile, address, 
+		n = snprintf(buf, len, LINKCMD2, kernel, entry,
+			     outfile, address,
 			     (const char*)address + data_offset, object);
 	if (n >= len)
 		errx(1, "link command longer than %lu bytes", (u_long)len);
@@ -284,17 +284,17 @@ elf_mod_load(int fd)
 	struct elf_section *head, *s;
 	char buf[10 * BUFSIZ];
 	void *addr = NULL;
-		
+
 	if (read_elf_header(fd, &ehdr) < 0)
 		return NULL;
 
 	strtab = read_string_table(fd, &ehdr);
 	read_sections(fd, &ehdr, strtab, &head);
-	
+
 	for (s = head; s; s = s->next) {
 		if (debug)
 			fprintf(stderr, "loading `%s': addr = %p, "
-				"size = %#lx\n", 
+				"size = %#lx\n",
 				s->name, s->addr, (u_long)s->size);
 		if (s->type == SHT_NOBITS)
 			/* skip some space */
@@ -327,7 +327,7 @@ elf_mod_load(int fd)
 	}
 	if (zero_size)
 		loadspace(zero_size);
-	
+
 	free_sections(head);
 	free(strtab);
 	return (void*)ehdr.e_entry;

@@ -160,7 +160,7 @@ st*)
 	st*) name=st;	unit=${i#st} blk=5; chr=20;;
 	esac
 	rm -f $name$unit n$name$unit e$name$unit en$name$unit \
-		r$name$unit nr$name$unit er$name$unit enr$name$unit 
+		r$name$unit nr$name$unit er$name$unit enr$name$unit
 	case $unit in
 	[0-6])
 		mknod $name$unit	b $blk $(($unit * 16 + 0))
@@ -174,7 +174,7 @@ st*)
 		chgrp operator $name$unit n$name$unit \
 			e$name$unit en$name$unit \
 			r$name$unit nr$name$unit \
-			er$name$unit enr$name$unit 
+			er$name$unit enr$name$unit
 		chmod 660 $name$unit n$name$unit \
 			e$name$unit en$name$unit \
 			r$name$unit nr$name$unit \
@@ -274,10 +274,10 @@ cd*)
 md*)
 	unit=${i#md}; blk=8; chr=7;
 	rm -f md${unit}? rmd${unit}?
-	mknod md${unit}a  b $blk $(($unit * 8 + 0)) 
-	mknod md${unit}c  b $blk $(($unit * 8 + 2)) 
-#	mknod rmd${unit}a c $chr $(($unit * 8 + 0)) 
-#	mknod rmd${unit}c c $chr $(($unit * 8 + 2)) 
+	mknod md${unit}a  b $blk $(($unit * 8 + 0))
+	mknod md${unit}c  b $blk $(($unit * 8 + 2))
+#	mknod rmd${unit}a c $chr $(($unit * 8 + 0))
+#	mknod rmd${unit}c c $chr $(($unit * 8 + 2))
 	chgrp operator md${unit}? #rmd${unit}?
 	chmod 640 md${unit}? #rmd${unit}?
 	;;
@@ -363,7 +363,7 @@ mouse*)
 	0|1)
 		mknod mouse${unit} c 15 ${unit}; chmod 600 mouse${unit}
 		if [ $unit = 0 ]
-		then 
+		then
 			rm -f mouse; ln -s mouse${unit} mouse
 		fi
 		;;
@@ -473,7 +473,7 @@ pow*)
 	0|1)
 		mknod pow${unit} c 32 ${unit}; chmod 644 pow${unit}
 		if [ $unit = 0 ]
-		then 
+		then
 			rm -f pow; ln -s pow${unit} pow
 		fi
 		;;
@@ -486,7 +486,7 @@ pow*)
 bell*)
 	rm -f bell
 	mknod bell c 33 0
-	chown root:wheel bell 
+	chown root:wheel bell
 	chmod 666 bell
 	;;
 
@@ -500,7 +500,7 @@ random)
 	;;
 
 scsibus*)
-	unit=${i#scsibus}; 
+	unit=${i#scsibus};
 	rm -f scsibus$unit
 	mknod scsibus$unit c 40 $unit
 	chown root:wheel scsibus$unit

@@ -174,7 +174,7 @@ wdsc_pcc_attach(pdp, dp, auxp)
      * (see dk_establish).
      */
     tmp = bootpart;
-    if (PCC_PADDR(pa->pa_offset) != bootaddr) 
+    if (PCC_PADDR(pa->pa_offset) != bootaddr)
 	bootpart = -1;		/* invalid flag to dk_establish */
     (void)config_found(dp, &sc->sc_link, scsiprint);
     bootpart = tmp;		/* restore old value */
@@ -250,7 +250,7 @@ wdsc_dmanext(dev)
 
     dev->sc_tcnt = dev->sc_cur->dc_count << 1;
 
-    /* 
+    /*
      * Load the next DMA address
      */
     pc->dma_csr   = 0;

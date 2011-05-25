@@ -708,7 +708,7 @@ the following:
         file \&"my_security_file\&";
         severity info;
     };
-    category security { my_security_channel; 
+    category security { my_security_channel;
                         default_syslog; default_debug; };
 .Ed
 
@@ -885,12 +885,12 @@ an options block with each option set to its default will be used.
 .Bl -tag -width 1
 
 .It Ic version
-The version the server should report via the ndc command or via a query of 
-name 
-.Pa version.bind 
-in class chaos. The default is the real version number of ths server, 
+The version the server should report via the ndc command or via a query of
+name
+.Pa version.bind
+in class chaos. The default is the real version number of ths server,
 but some server operators prefer the string (
-.Ic surely you must be joking 
+.Ic surely you must be joking
 ).
 
 .It Ic directory
@@ -909,7 +909,7 @@ server was started.  The directory specified should be an absolute path.
 The pathname to the named-xfer program that the server uses for
 inbound zone transfers.  If not specified, the default is
 system dependent (e.g.
-.Pa /usr/sbin/named-xfer 
+.Pa /usr/sbin/named-xfer
 ).
 
 .It Ic dump-file
@@ -917,7 +917,7 @@ The pathname of the file the server dumps the database to when it
 receives
 .Dv SIGINT
 signal (as sent by
-.Ic ndc dumpdb 
+.Ic ndc dumpdb
 ). If not specified, the default is
 .Pa named_dump.db .
 
@@ -1047,19 +1047,19 @@ becoming corrupted (at the cost of requiring more work from the client).
 .It Ic has-old-clients
 Setting the option to
 .Li yes ,
-is equivalent to setting the following three options: 
+is equivalent to setting the following three options:
 .Ic auth-nxdomain yes ;,
 .Ic maintain-ixfr-base yes ;,
-and 
+and
 .Ic rfc2308-type1 no ;
-. The use of 
+. The use of
 .Ic has-old-clients
 with
-.Ic auth-nxdomain , 
+.Ic auth-nxdomain ,
 .Ic maintain-ixfr-base ,
-and 
-.Ic rfc2308-type1 
-is order dependant. 
+and
+.Ic rfc2308-type1
+is order dependant.
 
 .It Ic host-statistics
 If
@@ -1078,7 +1078,7 @@ If
 statistics are kept for every host that the nameserver interacts with.  The default is
 .Li no .
 .Em Note:
-turning on 
+turning on
 .Li host-statistics
 can consume huge amounts of memory.
 
@@ -1123,28 +1123,28 @@ above.
 
 .It Ic rfc2308-type1
 If
-.Li yes, 
-the server will send NS records along with the SOA record for negative 
-answers.  You need to set this to no if you have an old BIND server using 
-you as a forwarder that does not understand negative answers which contain 
-both SOA and NS records or you have an old version of sendmail.  The correct 
-fix is to upgrade the broken server or sendmail.  The default is 
+.Li yes,
+the server will send NS records along with the SOA record for negative
+answers.  You need to set this to no if you have an old BIND server using
+you as a forwarder that does not understand negative answers which contain
+both SOA and NS records or you have an old version of sendmail.  The correct
+fix is to upgrade the broken server or sendmail.  The default is
 .Li no .
 
 .It Ic use-id-pool
 If
 .Li yes,
 the server will keep track of its own outstanding query ID's to avoid duplication
-and increase randomness.  This will result in 128KB more memory being consumed 
+and increase randomness.  This will result in 128KB more memory being consumed
 by the server.  The default is
 .Li no .
 
 .It Ic treat-cr-as-space
-If 
-.Li yes, 
+If
+.Li yes,
 the server will treat CR characters the same way it treats a space
 or tab.  This may be necessary when loading zone files on a UNIX system
-that were generated on an NT or DOS machine.  The default is 
+that were generated on an NT or DOS machine.  The default is
 .Li no .
 
 
@@ -1154,23 +1154,23 @@ that were generated on an NT or DOS machine.  The default is
 
 .Ic also-notify
 
-Defines a global list of IP addresses that also get sent NOTIFY messages 
-whenever a fresh copy of the zone is loaded. This helps to ensure that copies of 
-the zones will quickly converge on ``stealth'' servers.  If an 
-.Ic also-notify 
-list is given in a 
-.Ic zone 
-statement, it will override the 
-.Ic options also-notify 
-statement. When a 
-.Ic zone notify 
-statement is set to 
-.Ic no ,
-the IP addresses in 
-the global 
+Defines a global list of IP addresses that also get sent NOTIFY messages
+whenever a fresh copy of the zone is loaded. This helps to ensure that copies of
+the zones will quickly converge on ``stealth'' servers.  If an
 .Ic also-notify
-list will not get sent NOTIFY messages for that zone. 
-The default is the empty list (no global notification list). 
+list is given in a
+.Ic zone
+statement, it will override the
+.Ic options also-notify
+statement. When a
+.Ic zone notify
+statement is set to
+.Ic no ,
+the IP addresses in
+the global
+.Ic also-notify
+list will not get sent NOTIFY messages for that zone.
+The default is the empty list (no global notification list).
 
 .Ss Forwarding
 
@@ -1285,15 +1285,15 @@ statement, in which case it overrides the
 .Ic options allow-query
 statement.  If not specified, the default is
 
-.Bl -tag -width 1 
+.Bl -tag -width 1
 .It Ic allow-recursion
 Specifies which hosts are allowed to ask recursive questions.
 .Ic allow-recursion
 may also be specified in the
 .Ic zone
 statement, in which case it overrides the
-.Ic options allow-recursion 
-statement.  If not specified, the default is to allow recursive queries 
+.Ic options allow-recursion
+statement.  If not specified, the default is to allow recursive queries
 from all hosts.
 
 .It Ic allow-transfer
@@ -1432,11 +1432,11 @@ statement.
 .Nm transfer-source
 determines which local address will be bound to the TCP connection used to fetch all zones
 transferred inbound by the server.  If not set, it defaults to a system controlled value which will usually be the address of the interface ``closest to`` the remote end.  This
-address must appear in the remote end's 
+address must appear in the remote end's
 .Nm allow-transfer
 option for the zones being transferred, if one is specified.  This statement sets the
 .Nm transfer-source
-for all zones, but can be overriden on a per-zone basis by includinga 
+for all zones, but can be overriden on a per-zone basis by includinga
 .Nm transfer-source
 statement within the zone block in the configuration file.
 .El
@@ -1504,7 +1504,7 @@ to specify the limit explicitly.
 
 .It Ic max-ixfr-log-size
 The
-.Li max-ixfr-log-size 
+.Li max-ixfr-log-size
 will be used in a future release of the server to limit the size of the transaction
 log kept for Incremental Zone Transfer.
 
@@ -1582,8 +1582,8 @@ The default topology is
 .Dl topology { localhost; localnets; };
 
 .Ss Resource Record sorting
-  
-.Pp 
+
+.Pp
 When returning multiple RRs, the nameserver will normally return them in
 .Ic Round Robin ,
 i.e. after each request, the first RR is put to the end of the list.
@@ -1591,23 +1591,23 @@ As the order of RRs is not defined, this should not cause any problems.
 
 The client resolver code should re-arrange the RRs as appropriate, i.e. using
 any addresses on the local net in preference to other addresses. However, not all
-resolvers can do this, or are not correctly configured. 
+resolvers can do this, or are not correctly configured.
 
 When a client is using a local server, the sorting can be performed in the server,
 based on the client's address. This only requires configuring the nameservers,
-not all the clients. 
+not all the clients.
 
-The 
+The
 .Ic sortlist
 statement takes an address match list and interprets it even more
-specially than the 
-.Ictopology 
-statement does. 
+specially than the
+.Ictopology
+statement does.
 
 Each top level statement in the sortlist must itself be an explicit address match
 list with one or two elements. The first element (which may be an IP address,
 an IP prefix, an ACL name or nested address match list) of each top level list is
-checked against the source address of the query until a match is found. 
+checked against the source address of the query until a match is found.
 
 Once the source address of the query has been matched, if the top level
 statement contains only one element, the actual primitive element that
@@ -1625,7 +1625,7 @@ preference shown between these two networks. Queries received from a host on
 the 192.168.1/24 network will prefer other addresses on that network to the
 192.168.2/24 and 192.168.3/24 networks. Queries received from a host on the
 192.168.4/24 or the 192.168.5/24 network will only prefer other addresses on
-their directly connected networks. 
+their directly connected networks.
 
 .Bd -literal
 sortlist {
@@ -1670,37 +1670,37 @@ a zone might be configured to always be returned in the order they are defined
 in the zone file. Or perhaps a random shuffle of the records as they are
 returned is wanted. The rrset-order statement permits configuration of the
 ordering made of the records in a multiple record response. The default, if no
-ordering is defined, is a cyclic ordering (round robin). 
+ordering is defined, is a cyclic ordering (round robin).
 
-An 
+An
 .Ic order_spec
-is defined as follows: 
+is defined as follows:
 
 .Bd -literal
   [ \fIclass class_name\fR ][ \fItype type_name\fR ][ \fIname\fR "FQDN" ] \fIorder\fR ordering
 .Ed
 
-If no class is specified, the default is 
+If no class is specified, the default is
 .Ic ANY .
-If no 
-.Li Ictype 
+If no
+.Li Ictype
 is specified, the default is
-.Ic ANY . 
-If no name is specified, the default is "*". 
+.Ic ANY .
+If no name is specified, the default is "*".
 
-The legal values for 
-.Ic ordering 
-are: 
+The legal values for
+.Ic ordering
+are:
 
 .Bd -literal
-.Ic fixed 
-     Records are returned in the order they are defined in the zone file. 
-.Ic random 
-     Records are returned in some random order. 
-.Ic cyclic 
-     Records are returned in a round-robin order. 
+.Ic fixed
+     Records are returned in the order they are defined in the zone file.
+.Ic random
+     Records are returned in some random order.
+.Ic cyclic
+     Records are returned in a round-robin order.
 
-For example: 
+For example:
 
     rrset-order {
         class IN type A name "rc.vix.com" order random;
@@ -1710,21 +1710,21 @@ For example:
 
 will cause any responses for type A records in class IN that have "rc.vix.com" as
 a suffix, to always be returned in random order. All other records are returned
-in cyclic order. 
+in cyclic order.
 
-If multiple 
+If multiple
 .Ic rrset-order
-statements appear, they are not combined--the last one applies. 
+statements appear, they are not combined--the last one applies.
 
-If no 
+If no
 .Ic rrset-order
-statement is specified, a default one of: 
+statement is specified, a default one of:
 
 .Bd -literal
     rrset-order { class ANY type ANY name "*" order cyclic ; };
 .Ed
 
-is used. 
+is used.
 
 .Ss Tuning
 
@@ -2168,7 +2168,7 @@ checked for syntax but is otherwise ignored.
 .Pp
 The
 .Ic keys
-clause is used to identify a 
+clause is used to identify a
 .Va key_id
 defined by the
 .Ic key

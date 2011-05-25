@@ -136,7 +136,7 @@ restart:
 					cur[lcv] = -1;
 				goto restart;
 			}
-				
+
 			/*
 			 * if the time hasn't been set yet, or this entry is
 			 * earlier than the current tv, set the time and history
@@ -159,7 +159,7 @@ restart:
 		if (cur[hi] == hists[hi]->f)
 			cur[hi] = -1;
 	}
-	
+
 	/* done! */
 	splx(s);
 }
@@ -203,7 +203,7 @@ uvmcnt_dump()
 /*
  * uvm_dump: ddb hook to dump interesting uvm counters
  */
-void 
+void
 uvm_dump()
 {
 

@@ -42,7 +42,7 @@ ALEAF(ovbcopy)
 	 * 	aligned,unaligned -> unaligned	(almost never)
 	 *
 	 *	Note that we could add another case that checks if
-	 *	the destination and source are unaligned but the 
+	 *	the destination and source are unaligned but the
 	 *	copy is alignable.  eg if src and dest are both
 	 *	on a halfword boundary.
 	 */
@@ -146,14 +146,14 @@ backcopy:
 	addu	t0,a0,a2	# end of source
 	addu	t1,a1,a2	# end of destination
 4:
-	lb	v0,-1(t0)	
+	lb	v0,-1(t0)
 	subu	t0,1
 	sb	v0,-1(t1)
 	bne	t0,a0,4b
 	subu	t1,1
 	j	ra
 	nop
-	
+
 	.set	at
 END(memcpy)
 .set	pop

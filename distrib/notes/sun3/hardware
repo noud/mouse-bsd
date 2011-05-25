@@ -1,4 +1,4 @@
-.\"	$NetBSD: hardware,v 1.6 1999/05/19 05:49:06 gwr Exp $	
+.\"	$NetBSD: hardware,v 1.6 1999/05/19 05:49:06 gwr Exp $
 .
 NetBSD/sun3 \*V runs on most Sun3 machines, including:
 .Bl -column -offset indent 3/260 3/280 3/160

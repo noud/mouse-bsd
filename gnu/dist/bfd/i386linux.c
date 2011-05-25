@@ -475,7 +475,7 @@ linux_tally_symbols (h, data)
 				    + sizeof PLT_REF_PREFIX - 1),
 				   false, false, true);
       /* h2 does not follow indirect symbols. */
-      h2 = linux_link_hash_lookup (linux_hash_table (info), 
+      h2 = linux_link_hash_lookup (linux_hash_table (info),
 				   (h->root.root.root.string
 				    + sizeof PLT_REF_PREFIX - 1),
 				   false, false, false);
@@ -623,7 +623,7 @@ linux_finish_dynamic_link (output_bfd, info)
   fixups_written = 0;
 
 #ifdef LINUX_LINK_DEBUG
-  printf ("Fixup table file offset: %x  VMA: %x\n", 
+  printf ("Fixup table file offset: %x  VMA: %x\n",
 	  os->filepos + s->output_offset,
 	  os->vma + s->output_offset);
 #endif
@@ -659,7 +659,7 @@ linux_finish_dynamic_link (output_bfd, info)
       if (f->jump)
 	{
 	  /* Relative address */
-	  new_addr = new_addr - (f->value + 5); 
+	  new_addr = new_addr - (f->value + 5);
 	  bfd_put_32 (output_bfd, new_addr, fixup_table);
 	  fixup_table += 4;
 	  bfd_put_32 (output_bfd, f->value + 1, fixup_table);
@@ -727,7 +727,7 @@ linux_finish_dynamic_link (output_bfd, info)
 	}
     }
 
-  h = linux_link_hash_lookup (linux_hash_table (info), 
+  h = linux_link_hash_lookup (linux_hash_table (info),
 			      "__BUILTIN_FIXUPS__",
 			      false, false, false);
 

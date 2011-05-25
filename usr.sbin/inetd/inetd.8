@@ -2,11 +2,11 @@
 .\"
 .\" Copyright (c) 1998 The NetBSD Foundation, Inc.
 .\" All rights reserved.
-.\" 
+.\"
 .\" This code is derived from software contributed to The NetBSD Foundation
 .\" by Jason R. Thorpe of the Numerical Aerospace Simulation Facility,
 .\" NASA Ames Research Center.
-.\" 
+.\"
 .\" Redistribution and use in source and binary forms, with or without
 .\" modification, are permitted provided that the following conditions
 .\" are met:
@@ -22,7 +22,7 @@
 .\" 4. Neither the name of The NetBSD Foundation nor the names of its
 .\"    contributors may be used to endorse or promote products derived
 .\"    from this software without specific prior written permission.
-.\" 
+.\"
 .\" THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
 .\" ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
 .\" TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -292,7 +292,7 @@ suffix (separated from
 .Dq wait
 or
 .Dq nowait
-by a dot or a colon) specifies the maximum number of server instances that may 
+by a dot or a colon) specifies the maximum number of server instances that may
 be spawned from
 .Nm
 within an interval of 60 seconds. When omitted,
@@ -310,7 +310,7 @@ out and exit when no more connections are active.
 .Nm
 will continue to
 listen on the master socket for connections, so the server should not close
-it when it exits. 
+it when it exits.
 .Xr identd 8
 is usually the only stream server marked as wait.
 .Pp
@@ -410,7 +410,7 @@ properly on the
 lines.
 For safety reasons the author recommends you to run
 two separate process for the same server program,
-specified as two separate lines on 
+specified as two separate lines on
 .Pa inetd.conf ,
 for
 .Dq tcp6
@@ -418,7 +418,7 @@ and
 .Dq tcp4 .
 For detailed description please read on.
 .Pp
-The behavior of 
+The behavior of
 .Dv AF_INET6
 socket is documented in RFC2553.
 Basically, it says as follows:
@@ -541,8 +541,8 @@ IPv6 support and IPsec hack was made by KAME project, in 1999.
 Enabling the
 .Dq echo ,
 .Dq discard ,
-and 
+and
 .Dq chargen
 built-in trivial services is not recommended because remote
-users may abuse these to cause a denial of network service to 
+users may abuse these to cause a denial of network service to
 or from the local host.

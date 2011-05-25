@@ -93,7 +93,7 @@ int	uhcidebug;
 #ifdef OHCI_DEBUG
 int	ohcidebug;
 #endif
-/* 
+/*
  * 0  - do usual exploration
  * 1  - do not use timeout exploration
  * >1 - do no exploration
@@ -122,7 +122,7 @@ struct usb_softc {
 #if defined(__NetBSD__) || defined(__OpenBSD__)
 cdev_decl(usb);
 #elif defined(__FreeBSD__)
-d_open_t  usbopen; 
+d_open_t  usbopen;
 d_close_t usbclose;
 d_read_t usbread;
 d_ioctl_t usbioctl;
@@ -155,7 +155,7 @@ struct usb_event_q {
 	struct usb_event ue;
 	SIMPLEQ_ENTRY(usb_event_q) next;
 };
-static SIMPLEQ_HEAD(, usb_event_q) usb_events = 
+static SIMPLEQ_HEAD(, usb_event_q) usb_events =
 	SIMPLEQ_HEAD_INITIALIZER(usb_events);
 static int usb_nevents = 0;
 static struct selinfo usb_selevent;
@@ -192,7 +192,7 @@ USB_ATTACH(usb)
 	usbd_status err;
 	int usbrev;
 	struct usb_event ue;
-	
+
 #if defined(__FreeBSD__)
 	printf("%s", USBDEVNAME(sc->sc_dev));
 	sc->sc_dev = self;
@@ -226,13 +226,13 @@ USB_ATTACH(usb)
 		dev = sc->sc_port.device;
 		if (dev->hub == NULL) {
 			sc->sc_dying = 1;
-			printf("%s: root device is not a hub\n", 
+			printf("%s: root device is not a hub\n",
 			       USBDEVNAME(sc->sc_dev));
 			USB_ATTACH_ERROR_RETURN;
 		}
 		sc->sc_bus->root_hub = dev;
 #if 1
-		/* 
+		/*
 		 * Turning this code off will delay attachment of USB devices
 		 * until the USB event thread is running, which means that
 		 * the keyboard will not work until after cold boot.
@@ -241,8 +241,8 @@ USB_ATTACH(usb)
 			dev->hub->explore(sc->sc_bus->root_hub);
 #endif
 	} else {
-		printf("%s: root hub problem, error=%d\n", 
-		       USBDEVNAME(sc->sc_dev), err); 
+		printf("%s: root hub problem, error=%d\n",
+		       USBDEVNAME(sc->sc_dev), err);
 		sc->sc_dying = 1;
 	}
 	if (cold)
@@ -415,7 +415,7 @@ usbioctl(devt, cmd, data, flag, p)
 		case FIONBIO:
 			/* All handled in the upper FS layer. */
 			return (0);
-			
+
 		case FIOASYNC:
 			if (*(int *)data)
 				usb_async_proc = p;
@@ -434,7 +434,7 @@ usbioctl(devt, cmd, data, flag, p)
 		return (EIO);
 
 	switch (cmd) {
-#if defined(__FreeBSD__) 
+#if defined(__FreeBSD__)
 	/* This part should be deleted when kthreads is available */
   	case USB_DISCOVER:
   		usb_discover(sc);
@@ -465,7 +465,7 @@ usbioctl(devt, cmd, data, flag, p)
 		DPRINTF(("usbioctl: USB_REQUEST addr=%d len=%d\n", addr, len));
 		if (len < 0 || len > 32768)
 			return (EINVAL);
-		if (addr < 0 || addr >= USB_MAX_DEVICES || 
+		if (addr < 0 || addr >= USB_MAX_DEVICES ||
 		    sc->sc_bus->devices[addr] == 0)
 			return (EINVAL);
 		if (len != 0) {
@@ -477,7 +477,7 @@ usbioctl(devt, cmd, data, flag, p)
 			uio.uio_offset = 0;
 			uio.uio_segflg = UIO_USERSPACE;
 			uio.uio_rw =
-				ur->request.bmRequestType & UT_READ ? 
+				ur->request.bmRequestType & UT_READ ?
 				UIO_READ : UIO_WRITE;
 			uio.uio_procp = p;
 			ptr = malloc(len, M_TEMP, M_WAITOK);
@@ -542,14 +542,14 @@ usbpoll(dev, events, p)
 	if (minor(dev) == USB_DEV_MINOR) {
 		revents = 0;
 		mask = POLLIN | POLLRDNORM;
-		
+
 		s = splusb();
 		if (events & mask && usb_nevents > 0)
 			revents |= events & mask;
 		if (revents == 0 && events & mask)
 			selrecord(p, &usb_selevent);
 		splx(s);
-		
+
 		return (revents);
 	} else {
 #if defined(__FreeBSD__)
@@ -586,7 +586,7 @@ usb_discover(sc)
 	int s;
 #endif
 
-	/* 
+	/*
 	 * We need mutual exclusion while traversing the device tree,
 	 * but this is guaranteed since this function is only called
 	 * from the event thread for the controller.
@@ -660,7 +660,7 @@ usbd_add_drv_event(type, udev, dev)
 	struct usb_event ue;
 
 	ue.u.ue_driver.ue_cookie = udev->cookie;
-	strncpy(ue.u.ue_driver.ue_devname, USBDEVPTRNAME(dev), 
+	strncpy(ue.u.ue_driver.ue_devname, USBDEVPTRNAME(dev),
 	    sizeof ue.u.ue_driver.ue_devname);
 	usb_add_event(type, &ue);
 }

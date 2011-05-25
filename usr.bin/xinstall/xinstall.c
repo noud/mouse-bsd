@@ -332,7 +332,7 @@ makelink(from_name, to_name)
 	}
 
 	/*
-	 * If absolute or relative was not specified, 
+	 * If absolute or relative was not specified,
 	 * try the names the user provided
 	 */
 	if (symlink(from_name, to_name) == -1)
@@ -610,24 +610,24 @@ backup(to_name)
 	const char *to_name;
 {
 	char backup[FILENAME_MAX];
-	
+
 	if (numberedbackup) {
 		/* Do numbered backup */
 		int cnt;
 		char suffix_expanded[FILENAME_MAX];
-		
+
 		cnt=0;
 		do {
 			(void)snprintf(suffix_expanded, FILENAME_MAX, suffix, cnt);
 			(void)snprintf(backup, FILENAME_MAX, "%s%s",
 				       to_name, suffix_expanded);
 			cnt++;
-		} while (access(backup, F_OK)==0); 
+		} while (access(backup, F_OK)==0);
 	} else {
 		/* Do simple backup */
 		(void)snprintf(backup, FILENAME_MAX, "%s%s", to_name, suffix);
 	}
-	
+
 	(void)rename(to_name, backup);
 }
 

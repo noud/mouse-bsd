@@ -182,31 +182,31 @@ ppp_bsdos_if_print(u_char *user, const struct pcap_pkthdr *h,
 	hdrlength = 0;
 
 	if (p[0] == PPP_ADDRESS && p[1] == PPP_CONTROL) {
-		if (eflag) 
+		if (eflag)
 			printf("%02x %02x ", p[0], p[1]);
 		p += 2;
 		hdrlength = 2;
 	}
 
-	if (eflag) 
+	if (eflag)
 		printf("%d ", length);
 	/* Retrieve the protocol type */
 	if (*p & 01) {
 		/* Compressed protocol field */
 		ptype = *p;
-		if (eflag) 
+		if (eflag)
 			printf("%02x ", ptype);
 		p++;
 		hdrlength += 1;
 	} else {
 		/* Un-compressed protocol field */
 		ptype = ntohs(*(u_short *)p);
-		if (eflag) 
+		if (eflag)
 			printf("%04x ", ptype);
 		p += 2;
 		hdrlength += 2;
 	}
-  
+
 	length -= hdrlength;
 
 	if (ptype == PPP_IP)

@@ -71,7 +71,7 @@
 #include <compat/svr4/svr4_socket.h>
 
 #ifdef sparc
-/* 
+/*
  * Solaris-2.4 on the sparc has the old stat call using the new
  * stat data structure...
  */

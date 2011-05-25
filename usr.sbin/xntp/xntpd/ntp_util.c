@@ -83,7 +83,7 @@ extern int errno;
 
 /*
  * This controls whether stats are written to the fileset. Provided
- * so that xntpdc can turn off stats when the file system fills up. 
+ * so that xntpdc can turn off stats when the file system fills up.
  */
 int stats_control;
 
@@ -113,7 +113,7 @@ init_util()
 	peerstats.type     = FILEGEN_DAY;
 	peerstats.flag     = FGEN_FLAG_LINK; /* not yet enabled !!*/
 	filegen_register("peerstats", &peerstats);
-	
+
 	loopstats.fp       = NULL;
 	loopstats.prefix   = &statsdir[0];
 	loopstats.basename = emalloc(strlen(LOOPNAME)+1);
@@ -219,7 +219,7 @@ hourly_stats()
 	  msyslog(LOG_INFO, "offset %s sec freq %s ppm poll %d",
 		 lfptoa(&last_offset, 6), fptoa(drift_comp, 3),
 		 sys_poll);
-	
+
 	if (stats_drift_file != 0) {
 		if ((fp = fopen(stats_temp_file, "w")) == NULL) {
 			msyslog(LOG_ERR, "can't open %s: %m",
@@ -298,17 +298,17 @@ stats_config(item, invalue)
 
 	    msyslog(LOG_ERR, "ExpandEnvironmentStrings(%s) failed: %m\n", parameter);
 	}
-	else 
+	else
 	{
 		value = newvalue;
 	}
 
-#else    
+#else
 	value = invalue;
 #endif /* SYS_WINNT */
 
-	
-	
+
+
 	switch(item) {
 	case STATS_FREQ_FILE:
 		if (stats_drift_file != 0) {
@@ -357,7 +357,7 @@ stats_config(item, invalue)
 		}
 		(void) fclose(fp);
 		if (!atolfp(buf, &old_drift)) {
-			msyslog(LOG_ERR, "drift value '%s' from %s invalid", 
+			msyslog(LOG_ERR, "drift value '%s' from %s invalid",
 				buf, stats_drift_file);
 			loop_config(LOOP_DRIFTCOMP, &old_drift);
 			break;
@@ -371,7 +371,7 @@ stats_config(item, invalue)
 		msyslog(LOG_INFO, "read drift of %s from %s", buf, stats_drift_file);
 		loop_config(LOOP_DRIFTCOMP, &old_drift);
 		break;
-	
+
 	case STATS_STATSDIR:
 		if (strlen(value) >= sizeof(statsdir)) {
 			msyslog(LOG_ERR,
@@ -612,7 +612,7 @@ getauthkeys(keyfile)
 	len = strlen(keyfile);
 	if (len == 0)
 		return;
-	
+
 	if (key_file_name != 0) {
 		if (len > (int)strlen(key_file_name)) {
 			(void) free(key_file_name);
@@ -629,7 +629,7 @@ getauthkeys(keyfile)
 #else
 			(MAXPATHLEN));
 	}
-    if (!ExpandEnvironmentStrings(keyfile, key_file_name, MAXPATHLEN)) 
+    if (!ExpandEnvironmentStrings(keyfile, key_file_name, MAXPATHLEN))
     {
 		msyslog(LOG_ERR, "ExpandEnvironmentStrings(KEY_FILE) failed: %m\n");
 	}

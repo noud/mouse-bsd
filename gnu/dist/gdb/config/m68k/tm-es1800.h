@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #include "m68k/tm-m68k.h"
 
-/* Longjmp stuff borrowed from sun3 configuration.  Don't know if correct. 
+/* Longjmp stuff borrowed from sun3 configuration.  Don't know if correct.
    FIXME.  */
 /* Offsets (in target ints) into jmp_buf.  Not defined by Sun, but at least
    documented in a comment in <machine/setjmp.h>! */

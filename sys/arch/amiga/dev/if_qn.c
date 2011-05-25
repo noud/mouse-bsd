@@ -170,7 +170,7 @@ static	void qn_rint __P((struct qn_softc *, u_short));
 static	void qn_flush __P((struct qn_softc *));
 static	void inline word_copy_from_card __P((u_short volatile *, u_short *, u_short));
 static	void inline word_copy_to_card __P((u_short *, u_short volatile *, register u_short));
-static	void qn_get_packet __P((struct qn_softc *, u_short)); 
+static	void qn_get_packet __P((struct qn_softc *, u_short));
 #ifdef QN_DEBUG1
 static	void qn_dump __P((struct qn_softc *));
 #endif
@@ -748,7 +748,7 @@ qn_rint(sc, rstat)
 			log(LOG_WARNING,
 			    "%s: received a short packet? (%u bytes)\n",
 			    sc->sc_dev.dv_xname, len);
-#endif 
+#endif
 
 		/* Read the packet. */
 		qn_get_packet(sc, len);

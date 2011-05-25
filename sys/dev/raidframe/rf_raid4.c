@@ -50,7 +50,7 @@ typedef struct RF_Raid4ConfigInfo_s {
 
 
 
-int 
+int
 rf_ConfigureRAID4(
     RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr,
@@ -86,19 +86,19 @@ rf_ConfigureRAID4(
 	return (0);
 }
 
-int 
+int
 rf_GetDefaultNumFloatingReconBuffersRAID4(RF_Raid_t * raidPtr)
 {
 	return (20);
 }
 
-RF_HeadSepLimit_t 
+RF_HeadSepLimit_t
 rf_GetDefaultHeadSepLimitRAID4(RF_Raid_t * raidPtr)
 {
 	return (20);
 }
 
-void 
+void
 rf_MapSectorRAID4(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -114,7 +114,7 @@ rf_MapSectorRAID4(
 	    (raidSector % raidPtr->Layout.sectorsPerStripeUnit);
 }
 
-void 
+void
 rf_MapParityRAID4(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -131,7 +131,7 @@ rf_MapParityRAID4(
 	    (raidSector % raidPtr->Layout.sectorsPerStripeUnit);
 }
 
-void 
+void
 rf_IdentifyStripeRAID4(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t addr,
@@ -144,7 +144,7 @@ rf_IdentifyStripeRAID4(
 	*diskids = info->stripeIdentifier;
 }
 
-void 
+void
 rf_MapSIDToPSIDRAID4(
     RF_RaidLayout_t * layoutPtr,
     RF_StripeNum_t stripeID,

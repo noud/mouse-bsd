@@ -160,7 +160,7 @@ main(argc, argv)
 	}
 	if (verbose)
 		fprintf(stderr, "done copying image\n");
-	
+
 	close(fsfd);
 
 	munmap(mappedkfile, ksb.st_size);

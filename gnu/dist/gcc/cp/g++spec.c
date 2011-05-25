@@ -49,7 +49,7 @@ lang_specific_driver (fn, in_argc, in_argv, in_added_libraries)
 {
   int i, j;
 
-  /* If non-zero, the user gave us the `-v' flag.  */ 
+  /* If non-zero, the user gave us the `-v' flag.  */
   int saw_verbose_flag = 0;
 
   /* This will be 0 if we encounter a situation where we should not
@@ -144,7 +144,7 @@ lang_specific_driver (fn, in_argc, in_argv, in_added_libraries)
 	      if (argc == 2)
 		{
 		  /* If they only gave us `-v', don't try to link
-		     in libg++.  */ 
+		     in libg++.  */
 		  library = 0;
 		}
 	    }
@@ -169,7 +169,7 @@ lang_specific_driver (fn, in_argc, in_argv, in_added_libraries)
 	}
       else
 	{
-	  int len; 
+	  int len;
 
 	  if (saw_speclang)
 	    {

@@ -6,10 +6,10 @@
  * However it does work...
  */
 
-/* 
+/*
  * a simple malloc
  * it might be brain-damaged but for the purposes of xebec
- * it's a whole lot faster than the c library malloc 
+ * it's a whole lot faster than the c library malloc
  */
 
 #include <stdio.h>
@@ -72,7 +72,7 @@ int x;
 		if(((unsigned)(hiwat) & 0x3)) {
 			bytesmalloced = 4 - (int) ((unsigned)(hiwat) & 0x3);
 			hiwat = sbrk( bytesmalloced );
-		} else 
+		} else
 			bytesmalloced = 0;
 		firsttime = 0;
 		highend = hiwat;

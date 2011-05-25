@@ -13,7 +13,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -31,7 +31,7 @@
  */
 
 /*
- * Standalone routine for MicroVAX LANCE chip. 
+ * Standalone routine for MicroVAX LANCE chip.
  */
 
 #include <sys/param.h>
@@ -135,7 +135,7 @@ int	next_rdesc, next_tdesc;
 
 #define	LERDCSR(port) \
 	(nireg->ni_rap = port, nireg->ni_rdp)
- 
+
 int
 le_match(nif, machdep_hint)
 	struct netif *nif;
@@ -287,7 +287,7 @@ retry:
 	rdesc[next_rdesc].bd_mcnt = 0;
 	rdesc[next_rdesc].bd_adrflg |= BR_OWN;
 	if (kopiera)
-		copyout(&rdesc[next_rdesc], (int)&rdesc[next_rdesc] - 
+		copyout(&rdesc[next_rdesc], (int)&rdesc[next_rdesc] -
 		    (int)initblock, sizeof(struct buffdesc));
 	if (++next_rdesc >= NRBUF)
 		next_rdesc = 0;
@@ -330,7 +330,7 @@ retry:
 	tdesc[next_tdesc].bd_mcnt = 0;
 	tdesc[next_tdesc].bd_adrflg |= BT_OWN | BT_STP | BT_ENP;
 	if (kopiera)
-		copyout(&tdesc[next_tdesc], (int)&tdesc[next_tdesc] - 
+		copyout(&tdesc[next_tdesc], (int)&tdesc[next_tdesc] -
 		    (int)initblock, sizeof(struct buffdesc));
 
 	LEWRCSR(LE_CSR0, LE_C0_TDMD);

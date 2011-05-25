@@ -196,7 +196,7 @@ complete_type_p (expr)
 	  expr = TREE_OPERAND (expr, 0);
 	  continue;
 
-	case CALL_EXPR: 
+	case CALL_EXPR:
 	  if (! TREE_HAS_CONSTRUCTOR (expr))
 	    break;
 	  /* fall through...  */
@@ -462,7 +462,7 @@ build_vtable_entry (delta, pfn)
 	  else
 	    sorry ("object size exceeds normal limit for virtual function table implementation, recompile all source and use -fhuge-objects");
 	}
-      
+
       TREE_CONSTANT (entry) = 1;
       TREE_STATIC (entry) = 1;
       TREE_READONLY (entry) = 1;
@@ -561,7 +561,7 @@ build_vfn_ref (ptr_to_instptr, instance, idx)
   if (ptr_to_instptr)
     {
       /* Save the intermediate result in a SAVE_EXPR so we don't have to
-	 compute each component of the virtual function pointer twice.  */ 
+	 compute each component of the virtual function pointer twice.  */
       if (TREE_CODE (aref) == INDIRECT_REF)
 	TREE_OPERAND (aref, 0) = save_expr (TREE_OPERAND (aref, 0));
 
@@ -866,7 +866,7 @@ prepare_fresh_vtable (binfo, for_type)
 
   if (TREE_VIA_VIRTUAL (binfo))
     {
-      tree binfo1 = binfo_member (BINFO_TYPE (binfo), 
+      tree binfo1 = binfo_member (BINFO_TYPE (binfo),
 				  CLASSTYPE_VBASECLASSES (for_type));
 
       /* XXX - This should never happen, if it does, the caller should
@@ -1343,13 +1343,13 @@ handle_using_decl (using_decl, t, method_vec, fields)
   binfo = binfo_or_else (ctype, t);
   if (! binfo)
     return;
-  
+
   if (name == constructor_name (ctype)
       || name == constructor_name_full (ctype))
     cp_error_at ("using-declaration for constructor", using_decl);
-  
+
   fdecl = lookup_member (binfo, name, 0, 0);
-  
+
   if (!fdecl)
     {
       cp_error_at ("no members matching `%D' in `%#T'", using_decl, ctype);
@@ -1369,7 +1369,7 @@ handle_using_decl (using_decl, t, method_vec, fields)
       flist = fdecl;
       fdecl = OVL_FUNCTION (flist);
     }
-  
+
   name = DECL_NAME (fdecl);
   n_methods = method_vec ? TREE_VEC_LENGTH (method_vec) : 0;
   for (i = 2; i < n_methods; i++)
@@ -1385,7 +1385,7 @@ handle_using_decl (using_decl, t, method_vec, fields)
   if (! DECL_LANG_SPECIFIC (fdecl))
     /* We don't currently handle DECL_ACCESS for TYPE_DECLs; just return.  */
     return;
-  
+
   for (tmp = fields; tmp; tmp = TREE_CHAIN (tmp))
     if (DECL_NAME (tmp) == name)
       {
@@ -1393,13 +1393,13 @@ handle_using_decl (using_decl, t, method_vec, fields)
 	cp_error_at ("  because of local field `%#D' with same name", tmp);
 	return;
       }
-  
+
   /* Make type T see field decl FDECL with access ACCESS.*/
   if (flist)
     {
       while (flist)
 	{
-	  if (alter_access (t, binfo, OVL_FUNCTION (flist), 
+	  if (alter_access (t, binfo, OVL_FUNCTION (flist),
 			    access) == 0)
 	    return;
 	  flist = OVL_CHAIN (flist);
@@ -1793,7 +1793,7 @@ finish_base_struct (t, b)
 			  basetype, t);
 	  }
       }
-  }    
+  }
 
   {
     tree vfields;
@@ -2006,7 +2006,7 @@ finish_struct_methods (t, fn_fields, nonprivate_method)
  	{
  	  tree parmtypes = FUNCTION_ARG_CHAIN (fn_fields);
  	  tree parmtype = parmtypes ? TREE_VALUE (parmtypes) : void_type_node;
-	  
+
  	  if (TREE_CODE (parmtype) == REFERENCE_TYPE
  	      && TYPE_MAIN_VARIANT (TREE_TYPE (parmtype)) == t)
  	    {
@@ -2021,15 +2021,15 @@ finish_struct_methods (t, fn_fields, nonprivate_method)
  		}
  	    }
 	  if (DESTRUCTOR_NAME_P (DECL_ASSEMBLER_NAME (fn_fields)))
-	    {	    
+	    {
 	      /* Destructors go in slot 1.  */
-	      TREE_VEC_ELT (method_vec, 1) = 
+	      TREE_VEC_ELT (method_vec, 1) =
 		build_overload (fn_fields, TREE_VEC_ELT (method_vec, 1));
 	    }
 	  else
 	    {
 	      /* Constructors go in slot 0.  */
-	      TREE_VEC_ELT (method_vec, 0) = 
+	      TREE_VEC_ELT (method_vec, 0) =
 		build_overload (fn_fields, TREE_VEC_ELT (method_vec, 0));
 	    }
  	}
@@ -2078,7 +2078,7 @@ finish_struct_methods (t, fn_fields, nonprivate_method)
 	    nonprivate_method = 1;
 	    break;
 	  }
-      if (nonprivate_method == 0 
+      if (nonprivate_method == 0
 	  && warn_ctor_dtor_privacy)
 	cp_warning ("all member functions in class `%T' are private", t);
     }
@@ -2114,7 +2114,7 @@ finish_struct_methods (t, fn_fields, nonprivate_method)
       for (i = 2; i < len; i++)
 	{
 	  TREE_VEC_ELT (baselink_vec, i)
-	    = get_baselinks (baselink_binfo, t, 
+	    = get_baselinks (baselink_binfo, t,
 			     DECL_NAME (OVL_CURRENT (TREE_VEC_ELT (method_vec, i))));
 	  if (TREE_VEC_ELT (baselink_vec, i) != 0)
 	    any_links = 1;
@@ -2147,14 +2147,14 @@ duplicate_tag_error (t)
   /* This used to be in finish_struct, but it turns out that the
      TREE_CHAIN is used by dbxout_type_methods and perhaps some other
      things...  */
-  if (CLASSTYPE_METHOD_VEC (t)) 
+  if (CLASSTYPE_METHOD_VEC (t))
     {
       tree method_vec = CLASSTYPE_METHOD_VEC (t);
       int i, len  = TREE_VEC_LENGTH (method_vec);
       for (i = 0; i < len; i++)
 	{
 	  tree unchain = TREE_VEC_ELT (method_vec, i);
-	  while (unchain != NULL_TREE) 
+	  while (unchain != NULL_TREE)
 	    {
 	      TREE_CHAIN (OVL_CURRENT (unchain)) = NULL_TREE;
 	      unchain = OVL_NEXT (unchain);
@@ -2298,7 +2298,7 @@ get_class_offset_1 (parent, binfo, context, t, fndecl)
 	    }
 	  rval = nrval;
 	}
-	
+
       if (rval && BINFO_TYPE (binfo) == context)
 	{
 	  my_friendly_assert (rval == error_mark_node
@@ -2375,7 +2375,7 @@ modify_one_vtable (binfo, t, fndecl, pfn)
 {
   tree virtuals = BINFO_VIRTUALS (binfo);
   unsigned HOST_WIDE_INT n;
-  
+
   /* update rtti entry */
   if (flag_rtti)
     {
@@ -2490,7 +2490,7 @@ fixup_vtable_deltas1 (binfo, t)
 {
   tree virtuals = BINFO_VIRTUALS (binfo);
   unsigned HOST_WIDE_INT n;
-  
+
   n = skip_rtti_stuff (&virtuals);
 
   while (virtuals)
@@ -2629,7 +2629,7 @@ modify_all_vtables (t, fndecl, vfn)
 /* Here, we already know that they match in every respect.
    All we have to check is where they had their declarations.  */
 
-static int 
+static int
 strictly_overrides (fndecl1, fndecl2)
      tree fndecl1, fndecl2;
 {
@@ -2716,7 +2716,7 @@ override_one_vtable (binfo, old, t)
 	  else if (choose == NEITHER)
 	    {
 	      TREE_VALUE (virtuals) = TREE_VALUE (old_virtuals);
-	    }  
+	    }
 	}
       else
 	{
@@ -2743,7 +2743,7 @@ override_one_vtable (binfo, old, t)
 
 	    vfn = build1 (ADDR_EXPR, vfunc_ptr_type_node, fndecl);
 	    TREE_CONSTANT (vfn) = 1;
-	    
+
 	    /* We can use integer_zero_node, as we will core dump
 	       if this is used anyway.  */
 	    TREE_VALUE (virtuals) = build_vtable_entry (integer_zero_node, vfn);
@@ -2968,7 +2968,7 @@ warn_hidden (t)
 	while (fndecl)
 	  {
 	    mark_overriders (fndecl, base_fndecls);
-	    
+
 	    fns = OVL_NEXT (fns);
 	    if (fns)
 	      fndecl = OVL_CURRENT (fns);
@@ -3291,7 +3291,7 @@ finish_struct_1 (t, warn_anon)
 	    TREE_CHAIN (last_x) = TREE_CHAIN (x);
 	  else
 	    fields = TREE_CHAIN (x);
-	  
+
 	  access_decls = scratch_tree_cons (NULL_TREE, x, access_decls);
 	  continue;
 	}
@@ -3337,7 +3337,7 @@ finish_struct_1 (t, warn_anon)
 
       if (TREE_TYPE (x) == error_mark_node)
 	continue;
-	  
+
       DECL_SAVED_INSNS (x) = NULL_RTX;
       DECL_FIELD_SIZE (x) = 0;
 
@@ -3352,7 +3352,7 @@ finish_struct_1 (t, warn_anon)
 	  if (TREE_CODE (t) == UNION_TYPE)
 	    /* Unions cannot have static members.  */
 	    cp_error_at ("field `%D' declared static in union", x);
-	      
+
 	  continue;
 	}
 
@@ -3536,11 +3536,11 @@ finish_struct_1 (t, warn_anon)
 		 make it through without complaint.  */
 	      if (CLASSTYPE_ABSTRACT_VIRTUALS (type))
 		abstract_virtuals_error (x, type);
-		      
+
 	      /* Don't let signatures make it through either.  */
 	      if (IS_SIGNATURE (type))
 		signature_error (x, type);
-		      
+
 	      if (code == UNION_TYPE)
 		{
 		  char *fie = NULL;
@@ -3640,7 +3640,7 @@ finish_struct_1 (t, warn_anon)
       && ! (TYPE_HAS_INIT_REF (t) && TYPE_HAS_ASSIGN_REF (t)))
     {
       cp_warning ("`%#T' has pointer data members", t);
-      
+
       if (! TYPE_HAS_INIT_REF (t))
 	{
 	  cp_warning ("  but does not override `%T(const %T&)'", t, t);
@@ -3737,7 +3737,7 @@ finish_struct_1 (t, warn_anon)
 
   for (access_decls = nreverse (access_decls); access_decls;
        access_decls = TREE_CHAIN (access_decls))
-    handle_using_decl (TREE_VALUE (access_decls), t, method_vec, fields); 
+    handle_using_decl (TREE_VALUE (access_decls), t, method_vec, fields);
 
   if (vfield == NULL_TREE && has_virtual)
     {
@@ -3934,7 +3934,7 @@ finish_struct_1 (t, warn_anon)
 	= size_binop (PLUS_EXPR, offset, DECL_FIELD_BITPOS (vfield));
       CLASSTYPE_VFIELD (t) = vfield;
     }
-    
+
 #ifdef NOTQUITE
   cp_warning ("Doing hard virtuals for %T...", t);
 #endif
@@ -3954,7 +3954,7 @@ finish_struct_1 (t, warn_anon)
 			  TREE_VALUE (pending_hard_virtuals));
       pending_hard_virtuals = TREE_CHAIN (pending_hard_virtuals);
     }
-  
+
   if (TYPE_USES_VIRTUAL_BASECLASSES (t))
     {
       tree vbases;
@@ -4251,7 +4251,7 @@ finish_struct (t, list_of_fieldlists, attributes, warn_anon)
   if (TREE_CODE (name) == TYPE_DECL)
     {
       extern int lineno;
-	  
+
       DECL_SOURCE_FILE (name) = input_filename;
       /* For TYPE_DECL that are not typedefs (those marked with a line
 	 number of zero, we don't want to mark them as real typedefs.
@@ -4343,7 +4343,7 @@ finish_struct (t, list_of_fieldlists, attributes, warn_anon)
 		}
 	    }
 
-	  if (TREE_CODE (x) == FUNCTION_DECL 
+	  if (TREE_CODE (x) == FUNCTION_DECL
 	      || DECL_FUNCTION_TEMPLATE_P (x))
 	    {
 	      DECL_CLASS_CONTEXT (x) = t;
@@ -4446,7 +4446,7 @@ finish_struct (t, list_of_fieldlists, attributes, warn_anon)
       CLASSTYPE_METHOD_VEC (t)
 	= finish_struct_methods (t, TYPE_METHODS (t), 1);
       TYPE_SIZE (t) = integer_zero_node;
-    }      
+    }
   else
     t = finish_struct_1 (t, warn_anon);
 
@@ -4476,14 +4476,14 @@ finish_struct (t, list_of_fieldlists, attributes, warn_anon)
       /* We want the specialization arguments, which will be the
 	 innermost ones.  */
       if (DECL_TI_ARGS (fn) && TREE_CODE (DECL_TI_ARGS (fn)) == TREE_VEC)
-	spec_args 
+	spec_args
 	  = TREE_VEC_ELT (DECL_TI_ARGS (fn), 0);
       else
 	spec_args = DECL_TI_ARGS (fn);
-      
-      pending_specialization 
+
+      pending_specialization
 	= TI_PENDING_SPECIALIZATION_FLAG (DECL_TEMPLATE_INFO (fn));
-      check_explicit_specialization 
+      check_explicit_specialization
 	(lookup_template_function (DECL_NAME (fn), spec_args),
 	 fn, 0, 1 | (8 * pending_specialization));
       TI_PENDING_SPECIALIZATION_FLAG (DECL_TEMPLATE_INFO (fn)) = 0;
@@ -4773,7 +4773,7 @@ pushclass (type, modify)
       current_function_decl = this_fndecl;
     }
 }
- 
+
 /* Get out of the current class scope. If we were in a class scope
    previously, that is the one popped to.  The flag MODIFY tells whether
    the current scope declarations needs to be modified as a result of
@@ -4870,7 +4870,7 @@ push_nested_class (type, modify)
       || TREE_CODE (type) == TEMPLATE_TYPE_PARM
       || TREE_CODE (type) == TEMPLATE_TEMPLATE_PARM)
     return;
-  
+
   context = DECL_CONTEXT (TYPE_MAIN_DECL (type));
 
   if (context && TREE_CODE (context) == RECORD_TYPE)
@@ -4921,7 +4921,7 @@ push_lang_context (name)
   else
     error ("language string `\"%s\"' not recognized", IDENTIFIER_POINTER (name));
 }
-  
+
 /* Get out of the current language scope.  */
 
 void
@@ -5111,7 +5111,7 @@ instantiate_type (lhstype, rhs, complain)
 	 member template.  */
       rhs = TREE_OPERAND (rhs, 1);
       my_friendly_assert (TREE_CODE (rhs) == TEMPLATE_ID_EXPR, 0);
-	
+
       /* Fall through.  */
 
     case TEMPLATE_ID_EXPR:
@@ -5136,12 +5136,12 @@ instantiate_type (lhstype, rhs, complain)
 	    && TREE_CODE (lhstype) != METHOD_TYPE)
 	  {
 	    if (complain)
-	      cp_error("cannot resolve overloaded function `%D' " 
-		       "based on non-function type", 
+	      cp_error("cannot resolve overloaded function `%D' "
+		       "based on non-function type",
 		       DECL_NAME (OVL_FUNCTION (rhs)));
 	    return error_mark_node;
 	  }
-	
+
 	/* Look for an exact match, by searching through the
 	   overloaded functions.  */
 	if (template_only)
@@ -5213,7 +5213,7 @@ instantiate_type (lhstype, rhs, complain)
 	    if (elems)
 	      {
 		tree save_elem = elem;
-		for (elems = OVL_CHAIN (elems); elems; 
+		for (elems = OVL_CHAIN (elems); elems;
 		     elems = OVL_CHAIN (elems))
 		  {
 		    elem = OVL_FUNCTION (elems);
@@ -5224,10 +5224,10 @@ instantiate_type (lhstype, rhs, complain)
 		  {
 		    if (complain)
 		      {
-			cp_error 
+			cp_error
 			  ("cannot resolve overload to target type `%#T'",
 			   lhstype);
-			cp_error_at ("  ambiguity between `%#D'", save_elem); 
+			cp_error_at ("  ambiguity between `%#D'", save_elem);
 			cp_error_at ("  and `%#D', at least", elem);
 		      }
 		    return error_mark_node;
@@ -5241,7 +5241,7 @@ instantiate_type (lhstype, rhs, complain)
 	if (complain)
 	  {
 	    cp_error ("cannot resolve overload to target type `%#T'", lhstype);
-	    cp_error 
+	    cp_error
 	      ("  because no suitable overload of function `%D' exists",
 	       DECL_NAME (OVL_FUNCTION (rhs)));
 	  }
@@ -5298,14 +5298,14 @@ instantiate_type (lhstype, rhs, complain)
 	  {
 	    elem = TREE_VALUE (baselink);
 	    for (; elem; elem = OVL_NEXT (elem))
-	      if (comp_target_types (lhstype, 
+	      if (comp_target_types (lhstype,
 				     TREE_TYPE (OVL_CURRENT (elem)), 1) > 0)
 		break;
 	    if (elem)
 	      {
 		tree save_elem = OVL_CURRENT (elem);
 		for (elem = OVL_NEXT (elem); elem; elem = OVL_NEXT (elem))
-		  if (comp_target_types (lhstype, 
+		  if (comp_target_types (lhstype,
 					 TREE_TYPE (OVL_CURRENT (elem)), 0) > 0)
 		    break;
 		if (elem)
@@ -5440,7 +5440,7 @@ instantiate_type (lhstype, rhs, complain)
 
       TREE_TYPE (rhs) = lhstype;
       return rhs;
-      
+
     case ADDR_EXPR:
       if (TYPE_PTRMEMFUNC_P (lhstype))
 	lhstype = TYPE_PTRMEMFUNC_FN_TYPE (lhstype);

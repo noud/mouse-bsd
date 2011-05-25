@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1999 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -518,7 +518,7 @@ bgp_update_print(const u_char *dat, int length)
 			newline = 1;
 
 			/* ( */
-			printf(")");	
+			printf(")");
 
 			i += aoff + alen;
 		}
@@ -591,8 +591,8 @@ bgp_print(const u_char *dat, int length)
 	const u_char *ep;
 	const u_char *start;
 	const u_char marker[] = {
-		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 
-		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
 	};
 	struct bgp bgp;
 	u_int16_t hlen;

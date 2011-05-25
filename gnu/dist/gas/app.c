@@ -76,7 +76,7 @@ static int process_escape PARAMS ((int));
    built statically at compile time rather than dynamically
    each and every time the assembler is run.  xoxorich. */
 
-void 
+void
 do_scrub_begin (m68k_mri)
      int m68k_mri;
 {
@@ -213,7 +213,7 @@ app_push ()
   return (char *) saved;
 }
 
-void 
+void
 app_pop (arg)
      char *arg;
 {
@@ -236,7 +236,7 @@ app_pop (arg)
 
 /* @@ This assumes that \n &c are the same on host and target.  This is not
    necessarily true.  */
-static int 
+static int
 process_escape (ch)
      int ch;
 {
@@ -936,7 +936,7 @@ do_scrub_chars (get, tostart, tolen)
 	  state = 0;
 	  PUT ('\n');
 	  break;
-#endif	    
+#endif
 #ifdef TC_M32R
 	case LEX_IS_DOUBLEBAR_1ST:
 	  ch2 = GET();
@@ -951,7 +951,7 @@ do_scrub_chars (get, tostart, tolen)
 	  PUT ('|');
 	  PUT ('|');
 	  break;
-#endif	    
+#endif
 	case LEX_IS_LINE_COMMENT_START:
 	  /* FIXME-someday: The two character comment stuff was badly
 	     thought out.  On i386, we want '/' as line comment start
@@ -1113,7 +1113,7 @@ do_scrub_chars (get, tostart, tolen)
 			case 2: *to++ = *from++;
 			case 1: *to++ = *from++;
 			}
-		    } 
+		    }
 		  ch = GET ();
 		}
 	    }

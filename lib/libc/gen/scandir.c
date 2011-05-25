@@ -97,7 +97,7 @@ scandir(dirname, namelist, select, dcomp)
 
 	/*
 	 * estimate the array size by taking the size of the directory file
-	 * and dividing it by a multiple of the minimum size entry. 
+	 * and dividing it by a multiple of the minimum size entry.
 	 */
 	arraysz = (size_t)(stb.st_size / 24);
 	names = malloc(arraysz * sizeof(struct dirent *));

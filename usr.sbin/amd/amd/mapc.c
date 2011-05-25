@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: mapc.c,v 1.4 1999/08/09 06:09:44 ezk Exp 
+ * Id: mapc.c,v 1.4 1999/08/09 06:09:44 ezk Exp
  *
  */
 

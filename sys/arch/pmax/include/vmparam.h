@@ -4,10 +4,10 @@
 #define _PMAX_VMPARAM_H_
 
 #include <mips/vmparam.h>
- 
+
 /*
  * We have two freelists. The first 8M of RAM goes onto a lower-priority
- * free list, since some TC boards (e.g. PixelStamp boards) are only able 
+ * free list, since some TC boards (e.g. PixelStamp boards) are only able
  * to DMA into this region, and we want them to have a fighting chance of
  * allocating their DMA memory during autoconfiguration.
  */

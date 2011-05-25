@@ -595,7 +595,7 @@ GLOBAL(proc_trampoline)
 
 /*
  * Trap/interrupt vector routines
- */ 
+ */
 #include <m68k/m68k/trap_subr.s>
 
 	.data
@@ -622,7 +622,7 @@ ENTRY_NOPROFILE(buserr60)
 	movl	a0,sp@(FR_SP)		|   in the savearea
 	movel	sp@(FR_HW+12),d0	| FSLW
 	btst	#2,d0			| branch prediction error?
-	jeq	Lnobpe			
+	jeq	Lnobpe
 	movc	cacr,d2
 	orl	#IC60_CABC,d2		| clear all branch cache entries
 	movc	d2,cacr
@@ -642,7 +642,7 @@ Lnobpe:
 Lberr3:
 	movl	d1,sp@-
 	movl	d0,sp@-			| code is FSLW now.
-	andw	#0x1f80,d0 
+	andw	#0x1f80,d0
 	jeq	Lberr60			| it is a bus error
 	movl	#T_MMUFLT,sp@-		| show that we are an MMU fault
 	jra	_ASM_LABEL(faultstkadj)	| and deal with it
@@ -1161,7 +1161,7 @@ Ldorte:
 
 /*
  * Primitives
- */ 
+ */
 
 /*
  * Use common m68k support routines.
@@ -1288,21 +1288,21 @@ Lsw2:
 #if defined(M68020) || defined(M68030) || defined(M68040)
 #if defined(M68060)
 	cmpl	#FPU_68060,_fputype
-	jeq	Lsavfp60                
-#endif  
+	jeq	Lsavfp60
+#endif
 	tstb	a2@			| null state frame?
 	jeq	Lswnofpsave		| yes, all done
 	fmovem	fp0-fp7,a2@(216)	| save FP general registers
 	fmovem	fpcr/fpsr/fpi,a2@(312)	| save FP control registers
 #if defined(M68060)
-	jra	Lswnofpsave 
+	jra	Lswnofpsave
 Lsavfp60:
-#endif  
-#endif  
+#endif
+#endif
 #if defined(M68060)
 	tstb	a2@(2)			| null state frame?
-	jeq	Lswnofpsave		| yes, all done 
-	fmovem	fp0-fp7,a2@(216)	| save FP general registers 
+	jeq	Lswnofpsave		| yes, all done
+	fmovem	fp0-fp7,a2@(216)	| save FP general registers
 	fmovem	fpcr,a2@(312)		| save FP control registers
 	fmovem	fpsr,a2@(316)
 	fmovem	fpi,a2@(320)
@@ -1346,7 +1346,7 @@ Lswnofpsave:
 #if defined(M68060)
 	cmpl	#FPU_68060,_C_LABEL(fputype)
 	jeq	Lresfp60rest1
-#endif  
+#endif
 #if defined(M68040)
 	cmpl	#FPU_68040,_C_LABEL(fputype) | 68040?
 	jne	Lresnot040		| no, skip
@@ -1359,8 +1359,8 @@ Lresnot040:
 #if defined(M68060)
 	jra     Lresfprest
 Lresfp60rest1:
-#endif  
-#endif  
+#endif
+#endif
 #if defined(M68060)
 	fmovem	a0@(312),fpcr		| restore FP control registers
 	fmovem	a0@(316),fpsr
@@ -1393,22 +1393,22 @@ ENTRY(savectx)
 	jeq	Lsvnofpsave		| yes, all done
 #if defined(M68020) || defined(M68030) || defined(M68040)
 #if defined(M68060)
-	cmpl	#FPU_68060,_fputype     
+	cmpl	#FPU_68060,_fputype
 	jeq	Lsvsavfp60
-#endif  
+#endif
 	fmovem	fp0-fp7,a0@(216)	| save FP general registers
 	fmovem	fpcr/fpsr/fpi,a0@(312)	| save FP control registers
 #if defined(M68060)
 	jra	Lsvnofpsave
 Lsvsavfp60:
 #endif
-#endif  
+#endif
 #if defined(M68060)
 	fmovem	fp0-fp7,a0@(216)	| save FP general registers
 	fmovem	fpcr,a0@(312)		| save FP control registers
 	fmovem	fpsr,a0@(316)
 	fmovem	fpi,a0@(320)
-#endif  
+#endif
 Lsvnofpsave:
 	moveq	#0,d0			| return 0
 	rts
@@ -1565,7 +1565,7 @@ ENTRY(m68881_save)
 	cmpl	#FPU_68060,_C_LABEL(fputype)
 	jeq	Lm68060fpsave
 #endif
-Lm68881fpsave:  
+Lm68881fpsave:
 	tstb	a0@			| null state frame?
 	jeq	Lm68881sdone		| yes, all done
 	fmovem	fp0-fp7,a0@(216)	| save FP general registers
@@ -1579,11 +1579,11 @@ Lm68060fpsave:
 	jeq	Lm68060sdone		| yes, all done
 	fmovem	fp0-fp7,a0@(216)	| save FP general registers
 	fmovem	fpcr,a0@(312)		| save FP control registers
-	fmovem	fpsr,a0@(316)           
+	fmovem	fpsr,a0@(316)
 	fmovem	fpi,a0@(320)
-Lm68060sdone:   
+Lm68060sdone:
         rts
-#endif  
+#endif
 
 ENTRY(m68881_restore)
 	movl	sp@(4),a0		| save area pointer
@@ -1648,7 +1648,7 @@ LmotommuF:
 Lbootcommon:
 	movc	d3,vbr			| Restore Bug's VBR
 	andl	#RB_SBOOT, d0		| mask off
-	tstl	d0			| 
+	tstl	d0			|
 	bne	Lsboot			| sboot?
 	/* NOT sboot */
 	tstl	d2			| autoboot?

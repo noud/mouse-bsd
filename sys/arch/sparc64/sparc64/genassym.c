@@ -166,7 +166,7 @@ main()
 	/* PCB fields */
 	off("PCB_NSAVED", struct pcb, pcb_nsaved);
 	off("PCB_ONFAULT", struct pcb, pcb_onfault);
-	off("PCB_PSTATE", struct pcb, pcb_pstate); 
+	off("PCB_PSTATE", struct pcb, pcb_pstate);
 	off("PCB_CWP", struct pcb, pcb_cwp);
 	off("PCB_PIL", struct pcb, pcb_pil);
 	off("PCB_RW", struct pcb, pcb_rw);
@@ -215,7 +215,7 @@ main()
 	off("IH_MAP", struct intrhand, ih_map);
 	off("IH_CLR", struct intrhand, ih_clr);
 	siz("IH_SIZE", struct intrhand);
-	
+
 #ifdef notyet
 	/* ZSCC interrupt fields */
 	off("ZSC_A", struct zs_softc, sc_a);

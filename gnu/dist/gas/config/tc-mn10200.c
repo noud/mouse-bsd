@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "as.h"
-#include "subsegs.h"     
+#include "subsegs.h"
 #include "opcode/mn10200.h"
 
 /* Structure to hold information about predefined registers.  */
@@ -40,15 +40,15 @@ const char comment_chars[] = "#";
 /* Characters which start a comment at the beginning of a line.  */
 const char line_comment_chars[] = ";#";
 
-/* Characters which may be used to separate multiple commands on a 
+/* Characters which may be used to separate multiple commands on a
    single line.  */
 const char line_separator_chars[] = ";";
 
-/* Characters which are used to indicate an exponent in a floating 
+/* Characters which are used to indicate an exponent in a floating
    point number.  */
 const char EXP_CHARS[] = "eE";
 
-/* Characters which mean that a number is a floating point constant, 
+/* Characters which mean that a number is a floating point constant,
    as in 0d1.0.  */
 const char FLT_CHARS[] = "dD";
 
@@ -100,7 +100,7 @@ const char *md_shortopts = "";
 struct option md_longopts[] = {
   {NULL, no_argument, NULL, 0}
 };
-size_t md_longopts_size = sizeof(md_longopts); 
+size_t md_longopts_size = sizeof(md_longopts);
 
 /* The target specific pseudo-ops which we support.  */
 const pseudo_typeS md_pseudo_table[] =
@@ -161,7 +161,7 @@ reg_name_search (regs, regcount, name)
 	high = middle - 1;
       else if (cmp > 0)
 	low = middle + 1;
-      else 
+      else
 	  return regs[middle].value;
     }
   while (low <= high);
@@ -195,7 +195,7 @@ data_register_name (expressionP)
   reg_number = reg_name_search (data_registers, DATA_REG_NAME_CNT, name);
 
   /* look to see if it's in the register table */
-  if (reg_number >= 0) 
+  if (reg_number >= 0)
     {
       expressionP->X_op = O_register;
       expressionP->X_add_number = reg_number;
@@ -241,7 +241,7 @@ address_register_name (expressionP)
   reg_number = reg_name_search (address_registers, ADDRESS_REG_NAME_CNT, name);
 
   /* look to see if it's in the register table */
-  if (reg_number >= 0) 
+  if (reg_number >= 0)
     {
       expressionP->X_op = O_register;
       expressionP->X_add_number = reg_number;
@@ -287,7 +287,7 @@ other_register_name (expressionP)
   reg_number = reg_name_search (other_registers, OTHER_REG_NAME_CNT, name);
 
   /* look to see if it's in the register table */
-  if (reg_number >= 0) 
+  if (reg_number >= 0)
     {
       expressionP->X_op = O_register;
       expressionP->X_add_number = reg_number;
@@ -313,7 +313,7 @@ md_show_usage (stream)
 {
   fprintf(stream, "MN10200 options:\n\
 none yet\n");
-} 
+}
 
 int
 md_parse_option (c, arg)
@@ -355,7 +355,7 @@ md_atof (type, litp, sizep)
       *sizep = 0;
       return "bad call to md_atof";
     }
-  
+
   t = atof_ieee (input_line_pointer, type, words);
   if (t)
     input_line_pointer = t;
@@ -748,7 +748,7 @@ md_begin ()
   op = mn10200_opcodes;
   while (op->name)
     {
-      if (strcmp (prev_name, op->name)) 
+      if (strcmp (prev_name, op->name))
 	{
 	  prev_name = (char *) op->name;
 	  hash_insert (mn10200_hash, op->name, (char *) op);
@@ -763,7 +763,7 @@ md_begin ()
 }
 
 void
-md_assemble (str) 
+md_assemble (str)
      char *str;
 {
   char *s;
@@ -927,7 +927,7 @@ md_assemble (str)
 	      expression (&ex);
 	    }
 
-	  switch (ex.X_op) 
+	  switch (ex.X_op)
 	    {
 	    case O_illegal:
 	      errmsg = "illegal operand";
@@ -943,7 +943,7 @@ md_assemble (str)
 		  str = hold;
 		  goto error;
 		}
-		
+
 	      if (opcode->format == FMT_2 || opcode->format == FMT_5)
 		extra_shift = 8;
 	      else if (opcode->format == FMT_3 || opcode->format == FMT_6
@@ -951,7 +951,7 @@ md_assemble (str)
 		extra_shift = 16;
 	      else
 		extra_shift = 0;
-	      
+
 	      mn10200_insert_operand (&insn, &extension, operand,
 				      ex.X_add_number, (char *) NULL,
 				      0, extra_shift);
@@ -1018,13 +1018,13 @@ keep_going:
 	      opcode = next_opcode;
 	      continue;
 	    }
-	  
+
 	  as_bad ("%s", errmsg);
 	  return;
         }
       break;
     }
-      
+
   while (isspace (*str))
     ++str;
 
@@ -1045,7 +1045,7 @@ keep_going:
     size = 5;
   else
     abort ();
-         
+
   /* Write out the instruction.  */
 
   if (relaxable && fc > 0)
@@ -1123,7 +1123,7 @@ keep_going:
 
 	      if (!reloc_howto)
 		abort();
-	  
+
 	      size = bfd_get_reloc_size (reloc_howto);
 
 	      if (size < 1 || size > 4)
@@ -1132,7 +1132,7 @@ keep_going:
 	      offset = 4 - size;
 	      fixP = fix_new_exp (frag_now, f - frag_now->fr_literal + offset,
 				  size,
-				  &fixups[i].exp, 
+				  &fixups[i].exp,
 				  reloc_howto->pc_relative,
 				  fixups[i].reloc);
 
@@ -1206,7 +1206,7 @@ keep_going:
 
 /* if while processing a fixup, a reloc really needs to be created */
 /* then it is done here */
-                 
+
 arelent *
 tc_gen_reloc (seg, fixp)
      asection *seg;
@@ -1231,7 +1231,7 @@ tc_gen_reloc (seg, fixp)
       reloc->addend = (S_GET_VALUE (fixp->fx_addsy)
 		       - S_GET_VALUE (fixp->fx_subsy) + fixp->fx_offset);
     }
-  else 
+  else
     {
       reloc->sym_ptr_ptr = &fixp->fx_addsy->bsym;
       reloc->addend = fixp->fx_offset;
@@ -1267,7 +1267,7 @@ md_estimate_size_before_relax (fragp, seg)
 	}
       return 2;
     }
-} 
+}
 
 long
 md_pcrel_from (fixp)

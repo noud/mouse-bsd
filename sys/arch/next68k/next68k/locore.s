@@ -61,7 +61,7 @@
 #if (!defined(M68040))
 #error "M68040 is not defined! (check that the generated assym.h is not empty)"
 #endif
-        
+
 /*
  * This is for kvm_mkdb, and should be the address of the beginning
  * of the kernel text segment (not necessarily the same as kernbase).
@@ -71,7 +71,7 @@ GLOBAL(kernel_text)
 
  /*
   * Leave page zero empty so it can be unmapped
-  */     
+  */
         .space	NBPG
 
 /*
@@ -206,7 +206,7 @@ Lnot68030:
 	RELOC(machineid, %a0)
 	movl	#40,%a0@			| @@@ useless
 	jra	Lstart1
-	
+
 	/*
 	 * End of 68040 section
 	 */
@@ -319,7 +319,7 @@ Lmotommu1:
 	movl	%d1,%a0@(4)		| + segtable address
 	pmove	%a0@,%srp			| load the supervisor root pointer
 	movl	#0x80000002,%a0@		| reinit upper half for CRP loads
-        
+
 #if defined(ENABLE_HP_CODE)
 	jra	Lstploaddone		| done
 Lhpmmu2:
@@ -459,7 +459,7 @@ Lenab2:
 Lnocache0:
 
        	jbsr	_C_LABEL(next68k_init)
-        
+
 /* Final setup for call to main(). */
 /*
  * Create a fake exception frame so that cpu_fork() can copy it.
@@ -495,7 +495,7 @@ GLOBAL(proc_trampoline)
 
 /*
  * Trap/interrupt vector routines
- */ 
+ */
 #include <m68k/m68k/trap_subr.s>
 
 	.data
@@ -522,7 +522,7 @@ ENTRY_NOPROFILE(buserr60)
 	movl	%a0,%sp@(FR_SP)		|   in the savearea
 	movel	%sp@(FR_HW+12),%d0	| FSLW
 	btst	#2,%d0			| branch prediction error?
-	jeq	Lnobpe			
+	jeq	Lnobpe
 	movc	%cacr,%d2
 	orl	#IC60_CABC,%d2		| clear all branch cache entries
 	movc	%d2,%cacr
@@ -542,7 +542,7 @@ Lnobpe:
 Lberr3:
 	movl	%d1,%sp@-
 	movl	%d0,%sp@-			| code is FSLW now.
-	andw	#0x1f80,%d0 
+	andw	#0x1f80,%d0
 	jeq	Lberr60			| it is a bus error
 	movl	#T_MMUFLT,%sp@-		| show that we are an MMU fault
 	jra	_ASM_LABEL(faultstkadj)	| and deal with it
@@ -796,7 +796,7 @@ ENTRY_NOPROFILE(trap0)
 	movw	#SPL1,%sr
 	tstb	_C_LABEL(ssir)
 	jne	Lsir1
-Ltrap1:	
+Ltrap1:
 	movl	%sp@(FR_SP),%a0		| grab and restore
 	movl	%a0,%usp			|   user SP
 	moveml	%sp@+,#0x7FFF		| restore most registers
@@ -923,7 +923,7 @@ Lbrkpt3:
 
 /* Use common m68k sigreturn */
 #include <m68k/m68k/sigreturn.s>
-        
+
 /*
  * Interrupt handlers.
  *
@@ -1056,7 +1056,7 @@ Lgotsir:
 	moveml	#0xFFFF,%sp@-		| save all registers
 	movl	%usp,%a1			| including
 	movl	%a1,%sp@(FR_SP)		|    the users SP
-Lsir1:	
+Lsir1:
 	clrl	%sp@-			| VA == none
 	clrl	%sp@-			| code == none
 	movl	#T_SSIR,%sp@-		| type == software interrupt
@@ -1079,7 +1079,7 @@ Ldorte:
 
 /*
  * Primitives
- */ 
+ */
 
 /*
  * Use common m68k support routines.
@@ -1801,11 +1801,11 @@ ENTRY_NOPROFILE(doboot)
 	movel	%sp,%a0@-
 	moveal  %a0,%sp
 	moveal  #0,%a6
-        
+
         ASRELOC(Ldoboot1, %a0)
         jmp     %a0@                     | jump into physical address space.
 Ldoboot1:
-        
+
         ASRELOC(save_vbr, %a0)
         movl    %a0@,%d0
         movc    %d0,vbr
@@ -1822,7 +1822,7 @@ Ldoboot1:
         movel %a0,%d0                     | "-h" halts instead of reboot.
         trap #13
 
-hloop:  
+hloop:
         bra hloop                       | This shouldn't be reached.
 /*
  * Misc. global variables.
@@ -1880,7 +1880,7 @@ GLOBAL(colorlimit)
 
 ASLOCAL(save_vbr)               | VBR from ROM
         .long 0xdeadbeef
-        
+
 GLOBAL(monbootflag)
         .long 0
 
@@ -1893,7 +1893,7 @@ GLOBAL(CLKbase)
 
 GLOBAL(MMUbase)
 	.long	0		| KVA of base of HP MMU registers
-        
+
 GLOBAL(pagezero)
 	.long	0		| PA of first page of kernel text
 #endif

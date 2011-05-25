@@ -5,9 +5,9 @@
 include		"arch/pmax/conf/std.pmax"
 
 # Pull in config fragments for kernel crypto.  This is required for
-# options IPSEC etc. to work. If you want to run with IPSEC, uncomment  
+# options IPSEC etc. to work. If you want to run with IPSEC, uncomment
 # one of these, based on whether you use crypto-us or crypto-intl, and
-# adjust the prefixes as necessary.     
+# adjust the prefixes as necessary.
 
 prefix ../crypto-us/sys
 cinclude "conf/files.crypto-us"

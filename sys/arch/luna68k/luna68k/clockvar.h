@@ -38,9 +38,9 @@
 
 struct clock_ymdhms;
 
-/* 
+/*
  * clockfns structure:
- * 
+ *
  * function switch used by chip-independent clock code, to access
  * chip-dependent routines.
  */
@@ -48,6 +48,6 @@ struct clockfns {
 	void	(*cf_init) __P((struct device *));
 	void	(*cf_get) __P((struct device *, time_t, struct clock_ymdhms *));
 	void	(*cf_set) __P((struct device *, struct clock_ymdhms *));
-};	
+};
 
 void clockattach __P((struct device *, struct clockfns *));

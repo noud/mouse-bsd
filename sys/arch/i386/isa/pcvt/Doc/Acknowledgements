@@ -19,7 +19,7 @@ Thank You,					    (in the order of appearance)
 		in the directory vttest.
 
 
-	John Birchfield	
+	John Birchfield
 
 		for the ncsa telnet package, which contains a vt100 emulation
 		and which was very helpful in studying some concepts.
@@ -66,7 +66,7 @@ Thank You,					    (in the order of appearance)
 
 		for contributing code to change the winsize structure, many
 		discussions on the keyboard code and fine-tuning the driver
-		
+
 
 	Gordon L. Burditt	(gordon@sneaky.lonestar.org)
 
@@ -101,7 +101,7 @@ Thank You,					    (in the order of appearance)
 
 	Charles Hannum		(mycroft@gnu.ai.mit.edu)
 
-		for getting bored by a slow-scrolling video driver and 
+		for getting bored by a slow-scrolling video driver and
 		for leaving me some bugs to fix ;-)
 
 
@@ -114,7 +114,7 @@ Thank You,					    (in the order of appearance)
 	J.T. Conklin
 
 		for forwarding the pcvt-related NetBSD PR's to me !
-	
+
 
 	John Kohl
 

@@ -70,7 +70,7 @@ struct	evcnt clock_statcnt;
 /*
  * Statistics clock interval and variance, in usec.  Variance must be a
  * power of two.  Since this gives us an even number, not an odd number,
- * we discard one case and compensate.  That is, a variance of 1024 would 
+ * we discard one case and compensate.  That is, a variance of 1024 would
  * give us offsets in [0..1023].  Instead, we take offsets in [1..1023].
  * This is symmetric about the point 512, or statvar/2, and thus averages
  * to that value (assuming uniform random numbers).
@@ -151,7 +151,7 @@ cpu_initclocks()
 		printf("cannot get %d Hz statclock; using 100 Hz\n", stathz);
 		stathz = 100;
 	}
-	profhz = stathz;	/* always */ 
+	profhz = stathz;	/* always */
 
 	statint = 1000000 / stathz;
 	minint = statint / 2 + 100;

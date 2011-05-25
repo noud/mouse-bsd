@@ -36,7 +36,7 @@
 /* Params needed by the controller to perform an ATA bio */
 struct ata_bio {
     volatile u_int16_t flags; /* cmd flags */
-#define ATA_NOSLEEP 0x0001 /* Can't sleep */   
+#define ATA_NOSLEEP 0x0001 /* Can't sleep */
 #define ATA_POLL    0x0002 /* poll for completion */
 #define ATA_ITSDONE 0x0004 /* the transfer is as done as it gets */
 #define ATA_SINGLE  0x0008 /* transfer has to be done in single-sector mode */
@@ -75,6 +75,6 @@ struct ata_bio {
 #define MULTIMODE_WAIT 9
 #define READY          10
 
-int wdc_ata_bio __P((struct ata_drive_datas*, struct ata_bio*)); 
+int wdc_ata_bio __P((struct ata_drive_datas*, struct ata_bio*));
 
 void wddone __P((void *));

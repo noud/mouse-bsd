@@ -120,7 +120,7 @@ be requested in a read without losing information.
 .PP
 When the terminal is in canonical mode, editing of an input line
 is performed.  Editing facilities allow deletion of the previous
-character or word, or deletion of the current input line. 
+character or word, or deletion of the current input line.
 In addition,
 a special character may be used to reprint the current input line.
 Certain other characters are also interpreted specially.

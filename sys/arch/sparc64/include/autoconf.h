@@ -103,8 +103,8 @@ extern struct intrmap intrmap[];
  * peripheral buses and things like FHC bus systems.
  */
 
-/* 
- * Attach arguments presented by mainbus_attach() 
+/*
+ * Attach arguments presented by mainbus_attach()
  *
  * Large fields first followed by smaller ones to minimize stack space used.
  */

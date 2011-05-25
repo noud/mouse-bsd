@@ -718,7 +718,7 @@ kbd_input_raw(k, c)
 	}
 
 	/*
-	 * If /dev/kbd is not connected in event mode, 
+	 * If /dev/kbd is not connected in event mode,
 	 * translate and send upstream (to console).
 	 */
 	if (!k->k_evmode) {

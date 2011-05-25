@@ -22,7 +22,7 @@ to print a single or double precision value.
 Vector registers are handled similarly, with @samp{$V0} denoting the whole
 64-bit register and @kbd{$v0} denoting the 32-bit low half; @samp{p/f $v0}
 or @samp{p/f $V0} can be used to examine the register in floating point.
-The length of the vector registers is taken from @samp{$vl}.  
+The length of the vector registers is taken from @samp{$vl}.
 
 Individual elements of a vector register are denoted in the obvious way;
 @samp{print $v3[9]} prints the tenth element of register @kbd{v3}, and
@@ -75,8 +75,8 @@ The @samp{set pipe} command will disable this.
 
 @table @code
 @item set pipeline off
-Forces serial execution of instructions; no vector chaining and no 
-scalar instruction overlap.  With this, exceptions are detected with 
+Forces serial execution of instructions; no vector chaining and no
+scalar instruction overlap.  With this, exceptions are detected with
 the PC pointing to the instruction after the one in error.
 
 @item set pipeline on

@@ -77,7 +77,7 @@ PRIVATE U8		msg_buf[MSG_LEN];
 PRIVATE struct scsi_args scsi_args;
 
 /*===========================================================================*
- *				sc_rdwt					     * 
+ *				sc_rdwt					     *
  *===========================================================================*/
 /* Carry out a read or write request for the SCSI disk. */
 PRIVATE int
@@ -154,7 +154,7 @@ struct drive *dp;
 }
 
 /*===========================================================================*
- *				exec_scsi_hi				     * 
+ *				exec_scsi_hi				     *
  *===========================================================================*/
 /* Execute a "high-level" SCSI command.  This means execute a low level
  * command and, if it fails, execute a request sense to find out why.
@@ -192,7 +192,7 @@ struct drive *dp;
 }
 
 /*===========================================================================*
- *				get_sense				     * 
+ *				get_sense				     *
  *===========================================================================*/
 /* Execute a "request sense" SCSI command and check results.  When a SCSI
  * command returns CHECK_CONDITION, a request-sense command must be executed.

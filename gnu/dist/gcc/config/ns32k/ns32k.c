@@ -65,7 +65,7 @@ trace (s, s1, s2)
 }
 
 
-/* Value is 1 if hard register REGNO can hold a value of machine-mode MODE. */ 
+/* Value is 1 if hard register REGNO can hold a value of machine-mode MODE. */
 int
 hard_regno_mode_ok (regno, mode)
      int regno;
@@ -131,7 +131,7 @@ int secondary_memory_needed(CLASS1, CLASS2, M)
   return ret;
 }
 #endif
-    
+
 
 /* ADDRESS_COST calls this.  This function is not optimal
    for the 32032 & 32332, but it probably is better than
@@ -143,7 +143,7 @@ calc_address_cost (operand)
 {
   int i;
   int cost = 0;
-  
+
   if (GET_CODE (operand) == MEM)
     cost += 3;
   if (GET_CODE (operand) == MULT)
@@ -493,7 +493,7 @@ expand_block_move (operands)
 	    rtx src, dest;
 	    dest = copy_addr_to_reg (XEXP(operands[0], 0));
 	    src = copy_addr_to_reg (XEXP(operands[1], 0));
-	    
+
 	    emit_insn(gen_movstrsi2(dest, src, GEN_INT(words)));
 	  }
       move_tail(operands, bytes & 3, bytes & ~3);
@@ -575,7 +575,7 @@ expand_block_move (operands)
 
       /* insns to copy rest */
       emit_insn (gen_andsi3 (count_reg, bytes_reg, GEN_INT(3)));
-      emit_insn(gen_movstrsi1 (const1_rtx));    
+      emit_insn(gen_movstrsi1 (const1_rtx));
     }
 }
 
@@ -636,7 +636,7 @@ global_symbolic_reference_mentioned_p (op, f)
 	    if (global_symbolic_reference_mentioned_p (XVECEXP (op, i, j), 0))
 	      return 1;
 	}
-      else if (fmt[i] == 'e' 
+      else if (fmt[i] == 'e'
 	       && global_symbolic_reference_mentioned_p (XEXP (op, i), 0))
 	return 1;
     }
@@ -806,7 +806,7 @@ print_operand (file, x, code)
   else if (GET_CODE (x) == CONST_DOUBLE && GET_MODE (x) != VOIDmode)
     {
       if (GET_MODE (x) == DFmode)
-	{ 
+	{
 	  union { double d; int i[2]; } u;
 	  u.i[0] = CONST_DOUBLE_LOW (x); u.i[1] = CONST_DOUBLE_HIGH (x);
 	  PUT_IMMEDIATE_PREFIX(file);
@@ -815,14 +815,14 @@ print_operand (file, x, code)
 	  fprintf (file, "0Dx%08x%08x", u.i[1], u.i[0]);
 #else
 #ifdef ENCORE_ASM
-	  fprintf (file, "0f%.20e", u.d); 
+	  fprintf (file, "0f%.20e", u.d);
 #else
-	  fprintf (file, "0d%.20e", u.d); 
+	  fprintf (file, "0d%.20e", u.d);
 #endif
 #endif
 	}
       else
-	{ 
+	{
 	  union { double d; int i[2]; } u;
 	  u.i[0] = CONST_DOUBLE_LOW (x); u.i[1] = CONST_DOUBLE_HIGH (x);
 	  PUT_IMMEDIATE_PREFIX (file);
@@ -838,7 +838,7 @@ print_operand (file, x, code)
 	    fprintf (file, "0Fx%08x", uu.l);
 	  }
 #else
-	  fprintf (file, "0f%.20e", u.d); 
+	  fprintf (file, "0f%.20e", u.d);
 #endif
 	}
     }
@@ -1027,7 +1027,7 @@ print_operand_address (file, addr)
   if (base
 #ifndef INDEX_RATHER_THAN_BASE
       && (flag_pic || TARGET_HIMEM)
-      && GET_CODE (base) != SYMBOL_REF 
+      && GET_CODE (base) != SYMBOL_REF
       && GET_CODE (offset) != CONST_INT
 #else
   /* This is a re-implementation of the SEQUENT_ADDRESS_BUG fix.  */
@@ -1190,7 +1190,7 @@ output_shift_insn (operands)
 	      }
 	    if (operands[2] == const1_rtx)
 	      return "movd %1,%0\n\taddd %0,%0";
-	    
+
 	    operands[1] = gen_indexed_expr (const0_rtx, operands[1], operands[2]);
 	    return "addr %a1,%0";
 	  }
@@ -1207,7 +1207,7 @@ output_shift_insn (operands)
 	     && rtx_equal_p (operands [0], operands[1]))
       {
 	rtx temp = XEXP (operands[1], 0);
-	
+
 	if (GET_CODE (temp) == REG
 	    || (GET_CODE (temp) == PLUS
 		&& GET_CODE (XEXP (temp, 0)) == REG

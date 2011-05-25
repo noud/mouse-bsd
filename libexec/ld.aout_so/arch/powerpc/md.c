@@ -104,7 +104,7 @@ md_relocate(rp, relocation, addr, relocatable_output)
 {
 	register unsigned long mask;
 	int ha_adj = 0;
-	
+
 	if (relocatable_output) {
 		/*
 		 * Store relocation where the next link-edit run
@@ -117,7 +117,7 @@ md_relocate(rp, relocation, addr, relocatable_output)
 	    || rp->r_type == RELOC_GOT16_HA
 	    || rp->r_type == RELOC_PLT16_HA)
 		relocation += (relocation & 0x8000) << 1;
-	
+
 	relocation >>= RELOC_VALUE_RIGHTSHIFT(rp);
 
 	/* Unshifted mask for relocation */

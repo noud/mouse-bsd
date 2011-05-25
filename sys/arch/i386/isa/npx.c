@@ -168,7 +168,7 @@ npxprobe1(ia)
 		/*
 		 * Good, now check for a proper control word.
 		 */
-		control = 0x5a5a;	
+		control = 0x5a5a;
 		fnstcw(&control);
 		if ((control & 0x1f3f) == 0x033f) {
 			/*

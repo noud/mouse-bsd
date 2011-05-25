@@ -319,7 +319,7 @@ $(srcdir)/f/NEWS: f/news0.texi f/news.texi
 	  --no-validate -o NEWS news0.texi
 
 f77.rebuilt: f/g77.info $(srcdir)/f/BUGS $(srcdir)/f/INSTALL \
-  $(srcdir)/f/NEWS 
+  $(srcdir)/f/NEWS
 
 #
 # Install hooks:
@@ -422,7 +422,7 @@ f77.mostlyclean:
 	-rm -f f/fini f/stamp-str f/str-*.h f/str-*.j
 	-rm -f f/intdoc f/ansify f/intdoc.h0
 	-rm -f g77.aux g77.cps g77.ky g77.toc g77.vr g77.fn g77.kys \
-	       g77.pg g77.tp g77.vrs g77.cp g77.fns g77.log g77.pgs g77.tps 
+	       g77.pg g77.tp g77.vrs g77.cp g77.fns g77.log g77.pgs g77.tps
 f77.clean:
 	-rm -f g77.c g77.o g77spec.o g77version.o
 f77.distclean:

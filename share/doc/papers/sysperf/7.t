@@ -47,7 +47,7 @@ system in a general timesharing environment.
 Changes made to the system since the 4.2BSD distribution have
 eliminated most of the
 added system overhead by replacing old algorithms
-or introducing additional cacheing schemes.  
+or introducing additional cacheing schemes.
 The combined caches added to the name translation process
 reduce the average cost of translating a pathname to an inode by more than 50%.
 These changes reduce the percentage of time spent running
@@ -64,13 +64,13 @@ responsive in a general timesharing environment.
 The 4.3BSD Berkeley UNIX system now appears
 capable of supporting loads at least as large as those supported under
 4.1BSD while providing all the new interprocess communication, networking,
-and file system facilities.  
+and file system facilities.
 .nr H2 1
 .ds RH Acknowledgements
 .SH
 \s+2Acknowledgements\s0
 .PP
-We would like to thank Robert Elz for sharing his ideas and 
+We would like to thank Robert Elz for sharing his ideas and
 his code for cacheing system wide names and searching the process table.
 We thank Alan Smith for initially suggesting the use of a
 capability based cache.
@@ -111,7 +111,7 @@ April 1985.
 .IP [Joy80] 20
 Joy, William,
 ``Comments on the performance of UNIX on the VAX'',
-Computer System Research Group, U.C. Berkeley. 
+Computer System Research Group, U.C. Berkeley.
 April 1980.
 .IP [Kashtan80] 20
 Kashtan, David L.,
@@ -146,7 +146,7 @@ Mosher, David,
 ``UNIX Performance, an Introspection'',
 Presented at the Boulder, Colorado Usenix Conference, January 1980.
 Copies of the paper are available from
-Computer System Research Group, U.C. Berkeley. 
+Computer System Research Group, U.C. Berkeley.
 .IP [Nagle84] 20
 John Nagle, ``Congestion Control in IP/TCP Internetworks,'' RFC-896,
 Network Information Center, SRI International,

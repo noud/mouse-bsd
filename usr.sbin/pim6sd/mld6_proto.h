@@ -34,12 +34,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -52,7 +52,7 @@
 #include "vif.h"
 
 extern void     query_groups            __P((struct uvif *v));
-extern int      check_grp_membership    __P((struct uvif *v, 
+extern int      check_grp_membership    __P((struct uvif *v,
                                              struct sockaddr_in6 *group));
 extern void     accept_listener_query   __P((struct sockaddr_in6 *src,
                                              struct in6_addr *dst,

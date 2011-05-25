@@ -57,7 +57,7 @@ int macfb_match __P((struct device *, struct cfdata *, void *));
 void macfb_attach __P((struct device *, struct device *, void *));
 
 struct cfattach macfb_ca = {
-	sizeof(struct macfb_softc), 
+	sizeof(struct macfb_softc),
 	macfb_match,
 	macfb_attach,
 };

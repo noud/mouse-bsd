@@ -436,7 +436,7 @@ i386_bufinit()
 	bufinit();
 }
 
-/*  
+/*
  * Info for CTL_HW
  */
 char	cpu_model[120];
@@ -484,7 +484,7 @@ struct cpu_cpuid_nameclass i386_cpuid_cpus[] = {
 		"Intel",
 		/* Family 4 */
 		{ {
-			CPUCLASS_486, 
+			CPUCLASS_486,
 			{
 				"486DX", "486DX", "486SX", "486DX2", "486SL",
 				"486SX2", 0, "486DX2 W/B Enhanced",
@@ -498,7 +498,7 @@ struct cpu_cpuid_nameclass i386_cpuid_cpus[] = {
 			CPUCLASS_586,
 			{
 				"Pentium (P5 A-step)", "Pentium (P5)",
-				"Pentium (P54C)", "Pentium (P24T)", 
+				"Pentium (P54C)", "Pentium (P24T)",
 				"Pentium/MMX", "Pentium", 0,
 				"Pentium (P54C)", "Pentium/MMX (Tillamook)",
 				0, 0, 0, 0, 0, 0, 0,
@@ -527,7 +527,7 @@ struct cpu_cpuid_nameclass i386_cpuid_cpus[] = {
 		"AMD",
 		/* Family 4 */
 		{ {
-			CPUCLASS_486, 
+			CPUCLASS_486,
 			{
 				0, 0, 0, "Am486DX2 W/T",
 				0, 0, 0, "Am486DX2 W/B",
@@ -602,7 +602,7 @@ struct cpu_cpuid_nameclass i386_cpuid_cpus[] = {
 		"IDT",
 		/* Family 4, IDT never had any of these */
 		{ {
-			CPUCLASS_486, 
+			CPUCLASS_486,
 			{
 				0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -800,9 +800,9 @@ identifycpu()
 #endif
 }
 
-/*  
+/*
  * machine dependent system variables.
- */ 
+ */
 int
 cpu_sysctl(name, namelen, oldp, oldlenp, newp, newlen, p)
 	int *name;
@@ -1854,7 +1854,7 @@ cpu_reset()
 	 * invalid and causing a fault.
 	 */
 	memset((caddr_t)idt, 0, NIDT * sizeof(idt[0]));
-	__asm __volatile("divl %0,%1" : : "q" (0), "a" (0)); 
+	__asm __volatile("divl %0,%1" : : "q" (0), "a" (0));
 
 #if 0
 	/*
@@ -1862,7 +1862,7 @@ cpu_reset()
 	 * entire address space and doing a TLB flush.
 	 */
 	memset((caddr_t)PTD, 0, NBPG);
-	pmap_update(); 
+	pmap_update();
 #endif
 
 	for (;;);

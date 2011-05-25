@@ -19,8 +19,8 @@ at NIST and should not be redistributed further.
 As such, there are philosophical
 statements that Berkeley fundamentally disagrees with, which
 we do not presently have the time to rip out.
-Collectively, this work is called the Wisconsin ARGO kernel. 
-The ARGO kernel supports the 
+Collectively, this work is called the Wisconsin ARGO kernel.
+The ARGO kernel supports the
 the connection-oriented ISO transport service (COTS), the
 ISO connectionless network service (CLNS)
 and a
@@ -57,7 +57,7 @@ Chapter Four describes the network service interface, and the interface
 above and below the network layer.
 Chapter Five explains the format of an OSI address.
 Chapter Six describes the
-the architecture of the interprocess communication support in the 
+the architecture of the interprocess communication support in the
 kernel, which to a large degree mandates
 the design of a protocol implementation for a 4.3 Unix kernel.
 .\" Appendix A is a list of the applicable ISO standards.

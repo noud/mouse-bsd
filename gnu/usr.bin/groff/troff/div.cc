@@ -47,7 +47,7 @@ static int vertical_position_traps_flag = 1;
 static vunits truncated_space;
 static vunits needed_space;
 
-diversion::diversion(symbol s) 
+diversion::diversion(symbol s)
 : nm(s), prev(0), vertical_position(V0), marked_place(V0), high_water_mark(V0)
 {
 }
@@ -118,7 +118,7 @@ void divert_append()
 {
   do_divert(1);
 }
-  
+
 void diversion::need(vunits n)
 {
   vunits d = distance_to_next_trap();
@@ -139,7 +139,7 @@ macro_diversion::macro_diversion(symbol s, int append)
       .da a
       .a
       .di
-      
+
       This causes an infinite loop in troff anyway.
       This is because the user could do
 
@@ -160,7 +160,7 @@ macro_diversion::macro_diversion(symbol s, int append)
 
        will work and will make `a' contain two copies of what it contained
        before; in troff, `a' would contain nothing. */
-    request_or_macro *rm 
+    request_or_macro *rm
       = (request_or_macro *)request_dictionary.remove(s);
     if (!rm || (mac = rm->to_macro()) == 0)
       mac = new macro;
@@ -173,7 +173,7 @@ macro_diversion::macro_diversion(symbol s, int append)
   // stored in the macro. When we detect this, we copy the contents.
   mac = new macro;
   if (append) {
-    request_or_macro *rm 
+    request_or_macro *rm
       = (request_or_macro *)request_dictionary.lookup(s);
     if (rm) {
       macro *m = rm->to_macro();
@@ -284,8 +284,8 @@ void macro_diversion::copy_file(const char *filename)
 }
 
 top_level_diversion::top_level_diversion()
-: page_count(0), have_next_page_number(0), page_length(units_per_inch*11), 
-  page_offset(units_per_inch), prev_page_offset(units_per_inch), 
+: page_count(0), have_next_page_number(0), page_length(units_per_inch*11),
+  page_offset(units_per_inch), prev_page_offset(units_per_inch),
   ejecting_page(0), page_trap_list(0), before_first_page(1), no_space_mode(0),
   page_number(0), last_page_count(-1)
 {
@@ -299,7 +299,7 @@ trap *top_level_diversion::find_next_trap(vunits *next_trap_pos)
   for (trap *pt = page_trap_list; pt != 0; pt = pt->next)
     if (!pt->nm.is_null()) {
       if (pt->position >= V0) {
-	if (pt->position > vertical_position 
+	if (pt->position > vertical_position
 	    && pt->position < page_length
 	    && (next_trap == 0 || pt->position < *next_trap_pos)) {
 	      next_trap = pt;
@@ -333,7 +333,7 @@ void top_level_diversion::output(node *nd, int retain_size,
   no_space_mode = 0;
   vunits next_trap_pos;
   trap *next_trap = find_next_trap(&next_trap_pos);
-  if (before_first_page && begin_page()) 
+  if (before_first_page && begin_page())
     fatal("sorry, I didn't manage to begin the first page in time: use an explicit .br request");
   vertical_size v(vs, post_vs);
   for (node *tem = nd; tem != 0; tem = tem->next)
@@ -461,7 +461,7 @@ void top_level_diversion::add_trap(symbol nm, vunits pos)
   }
   else
     *p = new trap(nm, pos, 0);
-}  
+}
 
 void top_level_diversion::remove_trap(symbol nm)
 {
@@ -480,7 +480,7 @@ void top_level_diversion::remove_trap_at(vunits pos)
       return;
     }
 }
-      
+
 void top_level_diversion::change_trap(symbol nm, vunits pos)
 {
   for (trap *p = page_trap_list; p; p = p->next)
@@ -905,7 +905,7 @@ public:
   int get_value(units *);
   const char *get_string();
 };
-  
+
 int page_offset_reg::get_value(units *res)
 {
   *res = topdiv->get_page_offset().to_units();
@@ -922,7 +922,7 @@ public:
   int get_value(units *);
   const char *get_string();
 };
-  
+
 int page_length_reg::get_value(units *res)
 {
   *res = topdiv->get_page_length().to_units();
@@ -939,7 +939,7 @@ public:
   int get_value(units *);
   const char *get_string();
 };
-  
+
 int vertical_position_reg::get_value(units *res)
 {
   if (curdiv == topdiv && topdiv->before_first_page)
@@ -962,7 +962,7 @@ public:
   int get_value(units *);
   const char *get_string();
 };
-  
+
 int high_water_mark_reg::get_value(units *res)
 {
   *res = curdiv->get_high_water_mark().to_units();
@@ -979,7 +979,7 @@ public:
   int get_value(units *);
   const char *get_string();
 };
-  
+
 int distance_to_next_trap_reg::get_value(units *res)
 {
   *res = curdiv->distance_to_next_trap().to_units();
@@ -1116,7 +1116,7 @@ void init_div_requests()
   number_reg_dictionary.define("dl", new variable_reg(&dl_reg_contents));
   number_reg_dictionary.define("dn", new variable_reg(&dn_reg_contents));
   number_reg_dictionary.define("nl", new nl_reg);
-  number_reg_dictionary.define(".vpt", 
+  number_reg_dictionary.define(".vpt",
 		       new constant_int_reg(&vertical_position_traps_flag));
   number_reg_dictionary.define("%", new page_number_reg);
   number_reg_dictionary.define(".pn", new next_page_number_reg);

@@ -269,7 +269,7 @@ match_rtx (x, path, fail_label)
     case ADDRESS:
       match_rtx (XEXP (x, 0), path, fail_label);
       return;
-      
+
     default:
       break;
     }

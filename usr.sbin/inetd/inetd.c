@@ -767,7 +767,7 @@ reapchild(signo)
 		if (pid <= 0)
 			break;
 		if (debug)
-			fprintf(stderr, "%d reaped, status %#x\n", 
+			fprintf(stderr, "%d reaped, status %#x\n",
 			    pid, status);
 		for (sep = servtab; sep; sep = sep->se_next)
 			if (sep->se_wait == pid) {
@@ -1047,7 +1047,7 @@ setup(sep)
 
 	if ((sep->se_fd = socket(sep->se_family, sep->se_socktype, 0)) < 0) {
 		if (debug)
-			fprintf(stderr, "socket failed on %s/%s: %s\n", 
+			fprintf(stderr, "socket failed on %s/%s: %s\n",
 			    sep->se_service, sep->se_proto, strerror(errno));
 		syslog(LOG_ERR, "%s/%s: socket: %m",
 		    sep->se_service, sep->se_proto);
@@ -1549,13 +1549,13 @@ do { \
 		sep->se_wait = 0;
 
 		if (strncmp(sep->se_proto, "tcp", 3)) {
-			syslog(LOG_ERR, 
+			syslog(LOG_ERR,
 			    "%s: bad protocol for tcpmux service %s",
 			    CONFIG, sep->se_service);
 			goto more;
 		}
 		if (sep->se_socktype != SOCK_STREAM) {
-			syslog(LOG_ERR, 
+			syslog(LOG_ERR,
 			    "%s: bad socket type for tcpmux service %s",
 			    CONFIG, sep->se_service);
 			goto more;

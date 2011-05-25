@@ -581,12 +581,12 @@ getdol()
 		int delimcnt = 2;
 		int delim = getC(0);
 		*np++ = delim;
-		
+
 		if (!delim || letter(delim)
 		    || Isdigit(delim) || any(" \t\n", delim)) {
 		    seterror(ERR_BADSUBST);
 		    break;
-		}	
+		}
 		while ((c = getC(0)) != (-1)) {
 		    *np++ = c;
 		    if(c == delim) delimcnt--;
@@ -882,7 +882,7 @@ dosub(sc, en, global)
 
     wdp = hp;
     while (--i >= 0) {
-	struct wordent *new = 
+	struct wordent *new =
 		(struct wordent *) xcalloc(1, sizeof *wdp);
 
 	new->word = 0;

@@ -49,11 +49,11 @@ Department of Electrical Engineering and Computer Science
 University of California, Berkeley
 Berkeley, California  94720
 .AB
-This paper describes how the \fIgprof\fP profiler 
+This paper describes how the \fIgprof\fP profiler
 accounts for the running time of called routines
 in the running time of the routines that call them.
 It then explains how to configure a profiling kernel on
-the 4.2 Berkeley Software Distribution of 
+the 4.2 Berkeley Software Distribution of
 .UX
 for the VAX\(dd
 .FS

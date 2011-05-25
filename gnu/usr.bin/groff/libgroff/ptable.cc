@@ -36,15 +36,15 @@ unsigned long hash_string(const char *s)
   return h;
 }
 
-static const unsigned table_sizes[] = { 
+static const unsigned table_sizes[] = {
 101, 503, 1009, 2003, 3001, 4001, 5003, 10007, 20011, 40009,
 80021, 160001, 500009, 1000003, 2000003, 4000037, 8000009,
-16000057, 32000011, 64000031, 128000003, 0 
+16000057, 32000011, 64000031, 128000003, 0
 };
 
 unsigned next_ptable_size(unsigned n)
 {
-  const unsigned *p;  
+  const unsigned *p;
   for (p = table_sizes; *p <= n; p++)
     if (*p == 0)
       fatal("cannot expand table");

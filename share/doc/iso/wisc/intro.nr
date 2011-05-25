@@ -11,8 +11,8 @@ the IBM ACIS port of Berkeley 4.3 Unix\**
 .)f
 for the IBM RT PC,
 hereafter called AOS.
-Collectively, this work is called the Wisconsin ARGO kernel. 
-The ARGO kernel supports the 
+Collectively, this work is called the Wisconsin ARGO kernel.
+The ARGO kernel supports the
 the connection-oriented ISO transport service (COTS), the
 ISO connectionless network service (CLNS)
 and a
@@ -55,7 +55,7 @@ Chapter Four describes the network service interface, and the interface
 above and below the network layer.
 Chapter Five explains the format of an OSI address.
 Chapter Six describes the
-the architecture of the interprocess communication support in the 
+the architecture of the interprocess communication support in the
 kernel, which to a large degree mandates
 the design of a protocol implementation for a 4.3 Unix kernel.
 Chapter Seven describes the design of this transport

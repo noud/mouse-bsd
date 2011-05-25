@@ -247,7 +247,7 @@ glob_match(const char *pattern, const char *pkg)
 }
 
 /*
- * Perform simple match on "pkg" against "pattern". 
+ * Perform simple match on "pkg" against "pattern".
  * Return 1 on match, 0 otherwise
  */
 static int
@@ -274,7 +274,7 @@ pmatch(const char *pattern, const char *pkg)
 		/* glob match */
 		return glob_match(pattern, pkg);
 	}
-	
+
 	/* no alternate, dewey or glob match -> simple compare */
 	return simple_match(pattern, pkg);
 }
@@ -302,7 +302,7 @@ findmatchingname(const char *dir, const char *pattern, matchfn match, char *data
 			continue;
 
 		(void) snprintf(tmp, sizeof(tmp), "%s/%s", dir, dp->d_name);
-		
+
 		if (pmatch(pattern, dp->d_name)) {
 			if (match) {
 				match(dp->d_name, data);
@@ -316,7 +316,7 @@ findmatchingname(const char *dir, const char *pattern, matchfn match, char *data
 }
 
 /*
- * Does the pkgname contain any of the special chars ("{[]?*<>")? 
+ * Does the pkgname contain any of the special chars ("{[]?*<>")?
  * If so, return 1, else 0
  */
 int
@@ -345,7 +345,7 @@ findbestmatchingname_fn(const char *pkg, char *data)
 
 /*
  * Find best matching filename, i.e. the pkg with the highest
- * matching(!) version. 
+ * matching(!) version.
  * Returns pointer to pkg name (which can be free(3)ed),
  * or NULL if no match is available.
  */

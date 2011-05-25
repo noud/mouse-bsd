@@ -392,7 +392,7 @@ portal_open(v)
 		error = so->so_error;
 		goto bad;
 	}
-		
+
 	/*
 	 * Set miscellaneous flags
 	 */
@@ -498,7 +498,7 @@ portal_open(v)
 	}
 
 	/*
-	 * Check that the mode the file is being opened for is a subset 
+	 * Check that the mode the file is being opened for is a subset
 	 * of the mode of the existing descriptor.
 	 */
  	fp = p->p_fd->fd_ofiles[fd];
@@ -520,7 +520,7 @@ bad:;
 	/*
 	 * And discard the control message.
 	 */
-	if (cm) { 
+	if (cm) {
 		m_freem(cm);
 	}
 
@@ -700,15 +700,15 @@ portal_print(v)
 }
 
 int
-portal_link(v) 
+portal_link(v)
 	void *v;
 {
 	struct vop_link_args /* {
 		struct vnode *a_dvp;
-		struct vnode *a_vp;  
+		struct vnode *a_vp;
 		struct componentname *a_cnp;
 	} */ *ap = v;
- 
+
 	VOP_ABORTOP(ap->a_dvp, ap->a_cnp);
 	vput(ap->a_dvp);
 	return (EROFS);
@@ -725,7 +725,7 @@ portal_symlink(v)
 		struct vattr *a_vap;
 		char *a_target;
 	} */ *ap = v;
-  
+
 	VOP_ABORTOP(ap->a_dvp, ap->a_cnp);
 	vput(ap->a_dvp);
 	return (EROFS);

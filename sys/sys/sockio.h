@@ -73,7 +73,7 @@
 #define	SIOCDIFADDR	 _IOW('i', 25, struct ifreq)	/* delete IF addr */
 #define	SIOCAIFADDR	 _IOW('i', 26, struct ifaliasreq)/* add/chg IF alias */
 #define SIOCGIFALIAS	_IOWR('i', 27, struct ifaliasreq)/* get IF alias */
-  
+
 #define SIOCALIFADDR	 _IOW('i', 28, struct if_laddrreq) /* add IF addr */
 #define SIOCGLIFADDR	_IOWR('i', 29, struct if_laddrreq) /* get IF addr */
 #define SIOCDLIFADDR	 _IOW('i', 30, struct if_laddrreq) /* delete IF addr */

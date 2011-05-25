@@ -720,7 +720,7 @@ raster_op_noclip( dst, dx, dy, w, h, rop, src, sx, sy )
 	    dstlin1 = RAS_ADDR( dst, dx, dy );
 	    srclin = srclin1;
 	    dstlin = dstlin1;
-            
+
 	    while ( srclin != srclin2 )
 		{
 		srclong = srclin;
@@ -792,7 +792,7 @@ raster_op_noclip( dst, dx, dy, w, h, rop, src, sx, sy )
 	    dstlin1 = RAS_ADDR( dst, dx, dy );
 	    srclin = srclin1;
 	    dstlin = dstlin1;
-            
+
 	    while ( srclin != srclin2 )
 		{
 		srclong = srclin;
@@ -978,7 +978,7 @@ raster_op_noclip( dst, dx, dy, w, h, rop, src, sx, sy )
 #endif /* RCONS_16BPP */
 	}
 #ifdef RCONS_2BPP
-    else if ( src->depth == 2 ) 
+    else if ( src->depth == 2 )
       {
         /* Two to two blit. */
 	    u_int32_t* srclin1;
@@ -1002,7 +1002,7 @@ raster_op_noclip( dst, dx, dy, w, h, rop, src, sx, sy )
 	    }
 #endif /* RCONS_2BPP */
 #ifdef RCONS_4BPP
-    else if ( src->depth == 4 ) 
+    else if ( src->depth == 4 )
       {
         /* Four to four blit. */
 	    u_int32_t* srclin1;
@@ -1196,7 +1196,7 @@ raster_op_nosrc_noclip( dst, dx, dy, w, h, rop )
 	}
 
 #ifdef RCONS_2BPP
-    else if ( dst->depth == 2 ) 
+    else if ( dst->depth == 2 )
 	{
 	/* Two-bit no-src blit. */
 	register u_int32_t color;
@@ -1229,7 +1229,7 @@ raster_op_nosrc_noclip( dst, dx, dy, w, h, rop )
                   | ( color << 18 ) | ( color << 16 ) | ( color << 14 )
                   | ( color << 12 ) | ( color << 10 ) | ( color << 8 )
                   | ( color << 6 ) | ( color << 4 ) | ( color << 2 ));
-        
+
 	dstleftignore = ( dx & 15 ) * 2;
 	dstlongs = ( dstleftignore + w * 2 + 31 ) >> 5;
 	dstrightignore = ( dstlongs * 32 - w * 2 - dstleftignore ) & 31;
@@ -1303,7 +1303,7 @@ raster_op_nosrc_noclip( dst, dx, dy, w, h, rop )
 	}
 #endif /* RCONS_2BPP */
 #ifdef RCONS_4BPP
-    else if ( dst->depth == 4 ) 
+    else if ( dst->depth == 4 )
 	{
 	/* Two-bit no-src blit. */
 	register u_int32_t color;
@@ -1335,7 +1335,7 @@ raster_op_nosrc_noclip( dst, dx, dy, w, h, rop )
 		  | ( color << 20 ) | ( color << 16 )
 		  | ( color << 12 ) | ( color << 8 )
 		  | ( color << 4 ));
-       
+
 	dstleftignore = ( dx & 7 ) * 4;
 	dstlongs = ( dstleftignore + w * 4 + 31 ) >> 5;
 	dstrightignore = ( dstlongs * 32 - w * 4 - dstleftignore ) & 31;
@@ -1513,7 +1513,7 @@ raster_op_nosrc_noclip( dst, dx, dy, w, h, rop )
 	    }
 	}
 #ifdef RCONS_16BPP
-    else 
+    else
 	{
 	/* Sixteen-bit no-src blit. */
 	register u_int32_t color;

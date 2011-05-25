@@ -70,7 +70,7 @@ aout_sys_open(p, v, retval)
 #if 0
 	if (SCARG(uap, flags) & O_CREAT)
 		AOUT_CHECK_ALT_CREAT(p, &sg, SCARG(uap, path));
-	else 
+	else
 #endif
 		AOUT_CHECK_ALT_EXIST(p, &sg, SCARG(uap, path));
 

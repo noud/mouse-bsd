@@ -1,11 +1,11 @@
 /* Perform the semantic phase of parsing, i.e., the process of
    building tree structure, checking semantic consistency, and
    building RTL.  These routines are used both during actual parsing
-   and during the instantiation of template functions. 
+   and during the instantiation of template functions.
 
    Copyright (C) 1998 Free Software Foundation, Inc.
    Written by Mark Mitchell (mmitchell@usa.net) based on code found
-   formerly in parse.y and pt.c.  
+   formerly in parse.y and pt.c.
 
    This file is part of GNU CC.
 
@@ -13,12 +13,12 @@
    under the terms of the GNU General Public License as published by
    the Free Software Foundation; either version 2, or (at your option)
    any later version.
-   
+
    GNU CC is distributed in the hope that it will be useful, but
    WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with GNU CC; see the file COPYING.  If not, write to the Free
    Software Foundation, 59 Temple Place - Suite 330, Boston, MA
@@ -62,7 +62,7 @@
 
 /* Finish an expression-statement, whose EXPRESSION is as indicated.  */
 
-void 
+void
 finish_expr_stmt (expr)
      tree expr;
 {
@@ -78,7 +78,7 @@ finish_expr_stmt (expr)
 	      || TREE_CODE (TREE_TYPE (expr)) == FUNCTION_TYPE)
 	    expr = default_conversion (expr);
 	}
-      
+
       cplus_expand_expr_stmt (expr);
       clear_momentary ();
     }
@@ -110,7 +110,7 @@ begin_if_stmt ()
 /* Process the COND of an if-statement, which may be given by
    IF_STMT.  */
 
-void 
+void
 finish_if_stmt_cond (cond, if_stmt)
      tree cond;
      tree if_stmt;
@@ -138,7 +138,7 @@ finish_then_clause (if_stmt)
 {
   if (processing_template_decl)
     {
-      RECHAIN_STMTS_FROM_CHAIN (if_stmt, 
+      RECHAIN_STMTS_FROM_CHAIN (if_stmt,
 				THEN_CLAUSE (if_stmt));
       last_tree = if_stmt;
       return if_stmt;
@@ -149,7 +149,7 @@ finish_then_clause (if_stmt)
 
 /* Begin the else-clause of an if-statement.  */
 
-void 
+void
 begin_else_clause ()
 {
   if (!processing_template_decl)
@@ -169,7 +169,7 @@ finish_else_clause (if_stmt)
 
 /* Finsh an if-statement.  */
 
-void 
+void
 finish_if_stmt ()
 {
   if (!processing_template_decl)
@@ -196,7 +196,7 @@ begin_while_stmt ()
     {
       emit_nop ();
       emit_line_note (input_filename, lineno);
-      expand_start_loop (1); 
+      expand_start_loop (1);
       r = NULL_TREE;
     }
 
@@ -208,7 +208,7 @@ begin_while_stmt ()
 /* Process the COND of an if-statement, which may be given by
    WHILE_STMT.  */
 
-void 
+void
 finish_while_stmt_cond (cond, while_stmt)
      tree cond;
      tree while_stmt;
@@ -216,8 +216,8 @@ finish_while_stmt_cond (cond, while_stmt)
   if (processing_template_decl)
     {
       if (last_tree != while_stmt)
-	RECHAIN_STMTS_FROM_LAST (while_stmt, 
-				      WHILE_COND (while_stmt)); 
+	RECHAIN_STMTS_FROM_LAST (while_stmt,
+				      WHILE_COND (while_stmt));
       else
 	TREE_OPERAND (while_stmt, 0) = cond;
     }
@@ -239,7 +239,7 @@ finish_while_stmt_cond (cond, while_stmt)
 
 /* Finish a while-statement, which may be given by WHILE_STMT.  */
 
-void 
+void
 finish_while_stmt (while_stmt)
      tree while_stmt;
 {
@@ -327,7 +327,7 @@ begin_for_stmt ()
 
   if (processing_template_decl)
     {
-      r = build_min_nt (FOR_STMT, NULL_TREE, NULL_TREE, 
+      r = build_min_nt (FOR_STMT, NULL_TREE, NULL_TREE,
 			NULL_TREE, NULL_TREE);
       add_tree (r);
     }
@@ -359,7 +359,7 @@ finish_for_init_stmt (for_stmt)
     {
       emit_nop ();
       emit_line_note (input_filename, lineno);
-      expand_start_loop_continue_elsewhere (1); 
+      expand_start_loop_continue_elsewhere (1);
     }
 
   do_pushlevel ();
@@ -386,7 +386,7 @@ finish_for_cond (cond, for_stmt)
       if (cond)
 	expand_exit_loop_if_false (0, condition_conversion (cond));
     }
-  
+
   /* If the cond wasn't a declaration, clear out the
      block we made for it and start a new one here so the
      optimization in expand_end_loop will work.  */
@@ -394,7 +394,7 @@ finish_for_cond (cond, for_stmt)
     {
       do_poplevel ();
       do_pushlevel ();
-    }  
+    }
 }
 
 /* Finish the increment-EXPRESSION in a for-statement, which may be
@@ -431,7 +431,7 @@ finish_for_stmt (expr, for_stmt)
     {
       emit_line_note (input_filename, lineno);
       expand_loop_continue_here ();
-      if (expr) 
+      if (expr)
 	cplus_expand_expr_stmt (expr);
       expand_end_loop ();
     }
@@ -441,7 +441,7 @@ finish_for_stmt (expr, for_stmt)
   if (flag_new_for_scope > 0)
     do_poplevel ();
 
-  finish_stmt (); 
+  finish_stmt ();
 }
 
 /* Finish a break-statement.  */
@@ -465,7 +465,7 @@ finish_continue_stmt ()
   if (processing_template_decl)
     add_tree (build_min_nt (CONTINUE_STMT));
   else if (! expand_continue_loop (0))
-    cp_error ("continue statement not within a loop");   
+    cp_error ("continue statement not within a loop");
 }
 
 /* Begin a switch-statement.  */
@@ -477,7 +477,7 @@ begin_switch_stmt ()
 }
 
 /* Finish the cond of a switch-statement.  Returns a new
-   SWITCH_STMT if appropriate.  */ 
+   SWITCH_STMT if appropriate.  */
 
 tree
 finish_switch_cond (cond)
@@ -518,14 +518,14 @@ finish_switch_stmt (cond, switch_stmt)
   else
     expand_end_case (cond);
   pop_momentary ();
-  pop_switch (); 
+  pop_switch ();
   do_poplevel ();
   finish_stmt ();
 }
 
 /* Finish a case-label.  */
 
-void 
+void
 finish_case_label (low_value, high_value)
      tree low_value;
      tree high_value;
@@ -550,7 +550,7 @@ finish_goto_stmt (destination)
 	{
 	  tree decl = lookup_label (destination);
 	  TREE_USED (decl) = 1;
-	  expand_goto (decl); 
+	  expand_goto (decl);
 	}
       else
 	expand_computed_goto (destination);
@@ -588,7 +588,7 @@ finish_try_block (try_block)
     RECHAIN_STMTS_FROM_LAST (try_block, TRY_STMTS (try_block));
   else
     {
-      expand_start_all_catch ();  
+      expand_start_all_catch ();
     }
 }
 
@@ -660,7 +660,7 @@ tree
 begin_compound_stmt (has_no_scope)
      int has_no_scope;
 {
-  tree r; 
+  tree r;
 
   if (processing_template_decl)
     {
@@ -696,7 +696,7 @@ finish_compound_stmt (has_no_scope, compound_stmt)
     r = NULL_TREE;
 
   if (processing_template_decl)
-    RECHAIN_STMTS_FROM_CHAIN (compound_stmt, 
+    RECHAIN_STMTS_FROM_CHAIN (compound_stmt,
 			      COMPOUND_BODY (compound_stmt));
 
   finish_stmt ();
@@ -737,11 +737,11 @@ finish_asm_stmt (cv_qualifier, string, output_operands,
 	      && cv_qualifier != ridpointers[(int) RID_VOLATILE])
 	    cp_warning ("%s qualifier ignored on asm",
 			IDENTIFIER_POINTER (cv_qualifier));
-	    
+
 	  c_expand_asm_operands (string, output_operands,
-				 input_operands, 
+				 input_operands,
 				 clobbers,
-				 cv_qualifier 
+				 cv_qualifier
 				 == ridpointers[(int) RID_VOLATILE],
 				 input_filename, lineno);
 	}
@@ -765,7 +765,7 @@ finish_parenthesized_expr (expr)
 {
   if (IS_EXPR_CODE_CLASS (TREE_CODE_CLASS (TREE_CODE (expr))))
     /* This inhibits warnings in truthvalue_conversion.  */
-    C_SET_EXP_ORIGINAL_CODE (expr, ERROR_MARK); 
+    C_SET_EXP_ORIGINAL_CODE (expr, ERROR_MARK);
 
   return expr;
 }
@@ -773,7 +773,7 @@ finish_parenthesized_expr (expr)
 /* Begin a statement-expression.  The value returned must be passed to
    finish_stmt_expr.  */
 
-tree 
+tree
 begin_stmt_expr ()
 {
   keep_next_level ();
@@ -781,7 +781,7 @@ begin_stmt_expr ()
      statement will be chained onto the tree structure, starting at
      last_tree.  We return last_tree so that we can later unhook the
      compound statement.  */
-  return processing_template_decl ? last_tree : expand_start_stmt_expr(); 
+  return processing_template_decl ? last_tree : expand_start_stmt_expr();
 }
 
 /* Finish a statement-expression.  RTL_EXPR should be the value
@@ -789,7 +789,7 @@ begin_stmt_expr ()
    statement-expression.  Returns an expression representing the
    statement-expression.  */
 
-tree 
+tree
 finish_stmt_expr (rtl_expr, expr)
      tree rtl_expr;
      tree expr;
@@ -812,7 +812,7 @@ finish_stmt_expr (rtl_expr, expr)
       else
 	result = build (BIND_EXPR, TREE_TYPE (rtl_expr),
 			NULL_TREE, rtl_expr, expr);
-      
+
       /* Remove the block from the tree at this point.
 	 It gets put back at the proper place
 	 when the BIND_EXPR is expanded.  */
@@ -828,14 +828,14 @@ finish_stmt_expr (rtl_expr, expr)
       last_tree = rtl_expr;
       TREE_CHAIN (last_tree) = NULL_TREE;
     }
-  
+
   return result;
 }
 
 /* Finish a call to FN with ARGS.  Returns a representation of the
    call.  */
 
-tree 
+tree
 finish_call_expr (fn, args, koenig)
      tree fn;
      tree args;
@@ -863,7 +863,7 @@ finish_call_expr (fn, args, koenig)
    is indicated by CODE, which should be POSTINCREMENT_EXPR or
    POSTDECREMENT_EXPR.)  */
 
-tree 
+tree
 finish_increment_expr (expr, code)
      tree expr;
      enum tree_code code;
@@ -875,12 +875,12 @@ finish_increment_expr (expr, code)
 
   if (TREE_CODE (expr) == OFFSET_REF)
     expr = resolve_offset_ref (expr);
-  return build_x_unary_op (code, expr);  
+  return build_x_unary_op (code, expr);
 }
 
 /* Finish a use of `this'.  Returns an expression for `this'.  */
 
-tree 
+tree
 finish_this_expr ()
 {
   tree result;
@@ -913,7 +913,7 @@ finish_this_expr ()
 /* Finish a member function call using OBJECT and ARGS as arguments to
    FN.  Returns an expression for the call.  */
 
-tree 
+tree
 finish_object_call_expr (fn, object, args)
      tree fn;
      tree object;
@@ -935,7 +935,7 @@ finish_object_call_expr (fn, object, args)
 	   class X;
 	   template <class T> void f(T t) {
 	     t.X();
-	   }  
+	   }
 
 	   We just grab the underlying IDENTIFIER.  */
 	fn = DECL_NAME (fn);
@@ -953,7 +953,7 @@ finish_object_call_expr (fn, object, args)
 /* Finish a qualified member function call using OBJECT and ARGS as
    arguments to FN.  Returns an expressino for the call.  */
 
-tree 
+tree
 finish_qualified_object_call_expr (fn, object, args)
      tree fn;
      tree object;
@@ -973,14 +973,14 @@ finish_qualified_object_call_expr (fn, object, args)
    being the scope, if any, of DESTRUCTOR.  Returns an expression for
    the call.  */
 
-tree 
+tree
 finish_pseudo_destructor_call_expr (object, scope, destructor)
      tree object;
      tree scope;
      tree destructor;
 {
   if (scope && scope != destructor)
-    cp_error ("destructor specifier `%T::~%T()' must have matching names", 
+    cp_error ("destructor specifier `%T::~%T()' must have matching names",
 	      scope, destructor);
 
   if ((scope == NULL_TREE || IDENTIFIER_GLOBAL_VALUE (destructor))
@@ -994,7 +994,7 @@ finish_pseudo_destructor_call_expr (object, scope, destructor)
 /* Finish a call to a globally qualified member function FN using
    ARGS.  Returns an expression for the call.  */
 
-tree 
+tree
 finish_globally_qualified_member_call_expr (fn, args)
      tree fn;
      tree args;
@@ -1011,7 +1011,7 @@ finish_globally_qualified_member_call_expr (fn, args)
 /* Finish an expression taking the address of LABEL.  Returns an
    expression for the address.  */
 
-tree 
+tree
 finish_label_address_expr (label)
      tree label;
 {
@@ -1096,7 +1096,7 @@ begin_function_definition (decl_specs, declarator)
   split_specs_attrs (decl_specs, &specs, &attrs);
   if (!start_function (specs, declarator, attrs, 0))
     return 0;
-  
+
   reinit_parse_for_function ();
   return 1;
 }
@@ -1104,7 +1104,7 @@ begin_function_definition (decl_specs, declarator)
 /* Begin a constructor declarator of the form `SCOPE::NAME'.  Returns
    a SCOPE_REF.  */
 
-tree 
+tree
 begin_constructor_declarator (scope, name)
      tree scope;
      tree name;
@@ -1132,12 +1132,12 @@ finish_declarator (declarator, declspecs, attributes,
      int initialized;
 {
   return start_decl (declarator, declspecs, initialized, attributes,
-		     prefix_attributes); 
+		     prefix_attributes);
 }
 
 /* Finish a translation unit.  */
 
-void 
+void
 finish_translation_unit ()
 {
   /* In case there were missing closebraces,
@@ -1152,7 +1152,7 @@ finish_translation_unit ()
 /* Finish a template type parameter, specified as AGGR IDENTIFIER.
    Returns the parameter.  */
 
-tree 
+tree
 finish_template_type_parm (aggr, identifier)
      tree aggr;
      tree identifier;
@@ -1171,7 +1171,7 @@ finish_template_type_parm (aggr, identifier)
 /* Finish a template template parameter, specified as AGGR IDENTIFIER.
    Returns the parameter.  */
 
-tree 
+tree
 finish_template_template_parm (aggr, identifier)
      tree aggr;
      tree identifier;
@@ -1214,7 +1214,7 @@ begin_class_definition (t)
 
   push_obstacks_nochange ();
   end_temporary_allocation ();
-  
+
   if (t == error_mark_node
       || ! IS_AGGR_TYPE (t))
     {
@@ -1256,14 +1256,14 @@ begin_class_definition (t)
       extern tree pending_vtables;
       int needs_writing;
       tree name = TYPE_IDENTIFIER (t);
-      
+
       if (! ANON_AGGRNAME_P (name))
 	{
 	  CLASSTYPE_INTERFACE_ONLY (t) = interface_only;
 	  SET_CLASSTYPE_INTERFACE_UNKNOWN_X
 	    (t, interface_unknown);
 	}
-      
+
       /* Record how to set the access of this class's
 	 virtual functions.  If write_virtuals == 2 or 3, then
 	 inline virtuals are ``extern inline''.  */
@@ -1291,7 +1291,7 @@ begin_class_definition (t)
     overload_template_name (t, 1);
 #endif
   reset_specialization();
-  
+
   /* In case this is a local class within a template
      function, we save the current tree structure so
      that we can get it back later.  */
@@ -1332,14 +1332,14 @@ finish_class_definition (t, components, attributes, semi)
   else
     {
       t = finish_struct (t, components, attributes, semi);
-      if (semi) 
+      if (semi)
 	note_got_semicolon (t);
     }
 
   pop_obstacks ();
 
   if (! semi)
-    check_for_missing_semicolon (t); 
+    check_for_missing_semicolon (t);
   if (current_scope () == current_function_decl)
     do_pending_defargs ();
 
@@ -1352,7 +1352,7 @@ finish_class_definition (t, components, attributes, semi)
 void
 finish_default_args ()
 {
-  if (pending_inlines 
+  if (pending_inlines
       && current_scope () == current_function_decl)
     do_pending_inlines ();
 }
@@ -1364,8 +1364,8 @@ void
 begin_inline_definitions ()
 {
   if (current_class_type == NULL_TREE)
-    clear_inline_text_obstack (); 
-  
+    clear_inline_text_obstack ();
+
   /* Undo the begin_tree in begin_class_definition.  */
   end_tree ();
 }
@@ -1379,7 +1379,7 @@ finish_member_class_template (parms, types)
      tree types;
 {
   note_list_got_semicolon (types);
-  grok_x_components (types, NULL_TREE); 
+  grok_x_components (types, NULL_TREE);
   if (TYPE_CONTEXT (TREE_VALUE (types)) != current_class_type)
     /* The component was in fact a friend declaration.  We avoid
        finish_member_template_decl performing certain checks by

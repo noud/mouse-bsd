@@ -41,7 +41,7 @@ if a PTE contains 0xFF880019, the physical memory location mapped starts at
 Kernel address space:
 
 The kernel resides in its own virtual address space independent of all user
-processes.  When the processor is in supervisor mode (i.e. interrupt or 
+processes.  When the processor is in supervisor mode (i.e. interrupt or
 exception handling) it uses the kernel virtual mapping.  The kernel segment
 table is called Sysseg and is allocated statically in hp300/locore.s.  The
 kernel page table is called Systab is also allocated statically in

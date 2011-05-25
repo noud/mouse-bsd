@@ -49,7 +49,7 @@ __RCSID("$NetBSD: rmail.c,v 1.13 1999/01/11 22:40:00 kleink Exp $");
  *
  * This program reads the >From ... remote from ... lines that UUCP is so
  * fond of and turns them into something reasonable.  It then execs sendmail
- * with various options built from these lines. 
+ * with various options built from these lines.
  *
  * The expected syntax is:
  *
@@ -275,7 +275,7 @@ main(argc, argv)
 			sprintf (args [i++], "<%s>", *argv);
 		}
 		argv++;
-	} 
+	}
 	args[i] = 0;
 
 	if (debug) {

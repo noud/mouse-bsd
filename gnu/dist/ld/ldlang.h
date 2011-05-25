@@ -1,18 +1,18 @@
 /* ldlang.h - linker command language support
    Copyright 1991, 92, 93, 94, 95, 96, 1997 Free Software Foundation, Inc.
-   
+
    This file is part of GLD, the Gnu Linker.
-   
+
    GLD is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; either version 1, or (at your option)
    any later version.
-   
+
    GLD is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with GLD; see the file COPYING.  If not, write to the Free
    Software Foundation, 59 Temple Place - Suite 330, Boston, MA
@@ -52,7 +52,7 @@ typedef struct memory_region_struct
   boolean had_full_message;
 } lang_memory_region_type ;
 
-typedef struct lang_statement_header_struct 
+typedef struct lang_statement_header_struct
 {
   union  lang_statement_union  *next;
   enum statement_enum
@@ -78,7 +78,7 @@ typedef struct lang_statement_header_struct
 } lang_statement_header_type;
 
 
-typedef struct 
+typedef struct
 {
   lang_statement_header_type header;
   union etree_union *exp;
@@ -120,7 +120,7 @@ struct lang_output_section_phdr_list
   boolean used;
 };
 
-typedef struct lang_output_section_statement_struct 
+typedef struct lang_output_section_statement_struct
 {
   lang_statement_header_type header;
   union etree_union *addr_tree;
@@ -130,7 +130,7 @@ typedef struct lang_output_section_statement_struct
   const char *name;
 
   boolean processed;
-    
+
   asection *bfd_section;
   flagword flags;		/* Or together of all input sections */
   enum section_type sectype;
@@ -217,32 +217,32 @@ typedef struct lang_input_statement_struct
   /* Usually the same as filename, but for a file spec'd with -l
      this is the -l switch itself rather than the filename.  */
   const char *local_sym_name;
-    
+
   bfd *the_bfd;
-    
+
   boolean closed;
   file_ptr passive_position;
-    
+
   /* Symbol table of the file.  */
   asymbol **asymbols;
   unsigned int symbol_count;
-    
+
   /* Point to the next file - whatever it is, wanders up and down
      archives */
-    
+
   union lang_statement_union  *next;
   /* Point to the next file, but skips archive contents */
   union  lang_statement_union  *next_real_file;
-    
+
   boolean is_archive;
-    
+
   /* 1 means search a set of directories for this file.  */
   boolean search_dirs_flag;
-    
+
   /* 1 means this is base file of incremental load.
      Do not load this file's text or data.
      Also default text_start to after this file's bss. */
-    
+
   boolean just_syms_flag;
 
   /* Whether to search for this entry as a dynamic archive.  */
@@ -252,7 +252,7 @@ typedef struct lang_input_statement_struct
   boolean whole_archive;
 
   boolean loaded;
-    
+
   /*    unsigned int globals_in_this_file;*/
   const char *target;
   boolean real;
@@ -263,7 +263,7 @@ typedef struct
   lang_statement_header_type header;
   asection *section;
   lang_input_statement_type *ifile;
-  
+
 } lang_input_section_type;
 
 
@@ -309,7 +309,7 @@ typedef struct
   lang_statement_list_type children;
 } lang_group_statement_type;
 
-typedef union lang_statement_union 
+typedef union lang_statement_union
 {
   lang_statement_header_type header;
   union lang_statement_union *next;
@@ -425,7 +425,7 @@ extern bfd_vma lang_do_assignments
   for (statement = (lang_input_statement_type *)file_chain.head;\
        statement != (lang_input_statement_type *)NULL;		\
        statement = (lang_input_statement_type *)statement->next)\
-  
+
 extern void lang_process PARAMS ((void));
 extern void ldlang_add_file PARAMS ((lang_input_statement_type *));
 extern lang_output_section_statement_type *lang_output_section_find

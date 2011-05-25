@@ -40,7 +40,7 @@ __KERNEL_RCSID(0, "$NetBSD: mips_mcclock.c,v 1.8 1999/12/03 02:56:37 nisimura Ex
 #include <sys/systm.h>
 #include <sys/device.h>
 
-#include <dev/ic/mc146818reg.h>	
+#include <dev/ic/mc146818reg.h>
 #include <dev/dec/mcclockvar.h>
 #include <dev/dec/mcclock_pad32.h>
 

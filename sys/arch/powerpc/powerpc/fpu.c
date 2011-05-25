@@ -44,7 +44,7 @@ enable_fpu(p)
 	int msr, scratch;
 	struct pcb *pcb = &p->p_addr->u_pcb;
 	struct trapframe *tf = trapframe(p);
-	
+
 	tf->srr1 |= PSL_FP;
 	if (!(pcb->pcb_flags & PCB_FPU)) {
 		bzero(&pcb->pcb_fpu, sizeof pcb->pcb_fpu);
@@ -94,7 +94,7 @@ save_fpu(p)
 {
 	int msr, scratch;
 	struct pcb *pcb = &p->p_addr->u_pcb;
-	
+
 	asm volatile ("mfmsr %0; ori %1,%0,%2; mtmsr %1; isync"
 		      : "=r"(msr), "=r"(scratch) : "K"(PSL_FP));
 	asm ("stfd 0,0(%0);"

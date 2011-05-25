@@ -88,12 +88,12 @@ trap(frame)
 			vaddr_t va;
 			int ftype;
 			faultbuf *fb;
-			
+
 			map = kernel_map;
 			va = frame->dar;
 			if ((va >> ADDR_SR_SHFT) == USER_SR) {
 				sr_t user_sr;
-				
+
 				asm ("mfsr %0, %1"
 				     : "=r"(user_sr) : "K"(USER_SR));
 				va &= ADDR_PIDX | ADDR_POFF;
@@ -122,7 +122,7 @@ trap(frame)
 	case EXC_DSI|EXC_USER:
 		{
 			int ftype, rv;
-			
+
 			if (frame->dsisr & DSISR_STORE)
 				ftype = VM_PROT_READ | VM_PROT_WRITE;
 			else
@@ -146,7 +146,7 @@ trap(frame)
 	case EXC_ISI|EXC_USER:
 		{
 			int ftype;
-			
+
 			ftype = VM_PROT_READ | VM_PROT_EXECUTE;
 			if (uvm_fault(&p->p_vmspace->vm_map,
 				     trunc_page(frame->srr0), 0, ftype)
@@ -163,15 +163,15 @@ trap(frame)
 			register_t *params, rval[2];
 			int nsys, n;
 			register_t args[10];
-			
+
 			uvmexp.syscalls++;
-			
+
 			nsys = p->p_emul->e_nsysent;
 			callp = p->p_emul->e_sysent;
-			
+
 			code = frame->fixreg[0];
 			params = frame->fixreg + FIRSTARG;
-			
+
 			switch (code) {
 			case SYS_syscall:
 				/*
@@ -221,7 +221,7 @@ trap(frame)
 #endif
 			rval[0] = 0;
 			rval[1] = frame->fixreg[FIRSTARG + 1];
-			
+
 			switch (error = (*callp->sy_call)(p, params, rval)) {
 			case 0:
 				frame->fixreg[FIRSTARG] = rval[0];

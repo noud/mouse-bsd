@@ -1067,7 +1067,7 @@ fcudo_cmd (puuconf, qconn, bcmd)
 	  case '|': t = SHELL_STDIN_FROM_PORT; break;
 	  case '+': t = SHELL_STDIO_ON_PORT; break;
 	  }
-	  
+
 	(void) fsysdep_shell (qconn, zline, t);
       }
       if (! fsysdep_cu_copy (TRUE)
@@ -1118,7 +1118,7 @@ fcudo_cmd (puuconf, qconn, bcmd)
 	ucuabort ();
       fCurestore_terminal = TRUE;
       return TRUE;
-      
+
     case 's':
       fret = fcuset_var (puuconf, zline);
       ubuffree (zline);
@@ -1903,7 +1903,7 @@ icutake (puuconf, argc, argv, pvar, pinfo)
 	     the future.  */
 	  afSignal[INDEXSIG_SIGINT] = FALSE;
 	  break;
-	}	
+	}
 
       b = breceive_char (qconn, cCuvar_timeout, TRUE);
       if (b == -2)
@@ -2085,7 +2085,7 @@ fcusend_buf (qconn, zbufarg, cbufarg)
 	      *zput++ = *zget;
 	    }
 	}
-		
+
       zbuf += csend;
       cbuf -= csend;
 

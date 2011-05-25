@@ -136,7 +136,7 @@ com_vrip_cnattach(iot, iobase, rate, frequency, cflag)
 	/* Platform dependent setting */
 	__vrcmu_supply(CMUMSKSSIU | CMUMSKSIU, 1);
 	if (find_comenableport_from_cfdata(&port) == 0)
-		__vrgiu_out(port, 1);	
+		__vrgiu_out(port, 1);
 
 	if (!com_vrip_common_probe(iot, iobase))
 		return (EIO);	/* I can't find appropriate error number. */
@@ -169,7 +169,7 @@ com_vrip_probe(parent, cf, aux)
 	struct vrip_attach_args *va = aux;
 	bus_space_tag_t iot = va->va_iot;
 	int rv;
-	
+
 	DPRINTF(("==com_vrip_probe"));
 
 	if (va->va_addr == VRIPCF_ADDR_DEFAULT ||

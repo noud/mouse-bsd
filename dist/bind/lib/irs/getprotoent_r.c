@@ -34,7 +34,7 @@ static const char rcsid[] = "Id: getprotoent_r.c,v 8.4 1999/01/18 07:46:52 vixie
 
 #ifdef PROTO_R_RETURN
 
-static PROTO_R_RETURN 
+static PROTO_R_RETURN
 copy_protoent(struct protoent *, struct protoent *, PROTO_R_COPY_ARGS);
 
 PROTO_R_RETURN
@@ -114,7 +114,7 @@ copy_protoent(struct protoent *pe, struct protoent *pptr, PROTO_R_COPY_ARGS) {
 	}
 	len += strlen(pe->p_name) + 1;
 	len += numptr * sizeof(char*);
-	
+
 	if (len > buflen) {
 		errno = ERANGE;
 		return (PROTO_R_BAD);

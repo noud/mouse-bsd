@@ -380,7 +380,7 @@ tctrl_setup_bitport_nop(void)
 	struct tctrl_softc *sc;
 	struct tctrl_req req;
 	int s;
-	
+
 	sc = (struct tctrl_softc *) tctrl_cd.cd_devs[TCTRL_STD_DEV];
 	req.cmdbuf[0] = TS102_OP_CTL_BITPORT;
 	req.cmdbuf[1] = 0xff;
@@ -400,7 +400,7 @@ tctrl_setup_bitport(void)
 	struct tctrl_softc *sc;
 	struct tctrl_req req;
 	int s;
-	
+
 	sc = (struct tctrl_softc *) tctrl_cd.cd_devs[TCTRL_STD_DEV];
 	s = splts102();
 	if ((sc->sc_ext_status & TS102_EXT_STATUS_LID_DOWN)
@@ -426,7 +426,7 @@ tctrl_read_ext_status(void)
 	struct tctrl_softc *sc;
 	struct tctrl_req req;
 	int s;
-	
+
 	sc = (struct tctrl_softc *) tctrl_cd.cd_devs[TCTRL_STD_DEV];
 	req.cmdbuf[0] = TS102_OP_RD_EXT_STATUS;
 	req.cmdlen = 1;
@@ -477,7 +477,7 @@ tctrl_read_event_status(arg)
 	struct tctrl_req req;
 	int s;
 	unsigned int v;
-	
+
 	sc = (struct tctrl_softc *) tctrl_cd.cd_devs[TCTRL_STD_DEV];
 	req.cmdbuf[0] = TS102_OP_RD_EVENT_STATUS;
 	req.cmdlen = 1;
@@ -589,7 +589,7 @@ void
 tadpole_powerdown(void)
 {
 	struct tctrl_req req;
-	
+
 	req.cmdbuf[0] = TS102_OP_ADMIN_POWER_OFF;
 	req.cmdlen = 1;
 	req.rsplen = 1;
@@ -701,7 +701,7 @@ tctrlopen(dev, flags, mode, p)
 	sc = tctrl_cd.cd_devs[TCTRL_STD_DEV];
 	if (!sc)
 		return(ENXIO);
-	
+
 	switch (ctl) {
 	case TCTRL_STD_DEV:
 		break;
@@ -914,7 +914,7 @@ tctrlioctl(dev, cmd, data, flags, p)
 			req.p = p;
 			tadpole_request(&req, 0);
 			envdata->cur.data_s = (int32_t)req.rspbuf[0]*1000/11;
-			break;			
+			break;
 		}
 		break;
 

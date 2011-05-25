@@ -118,13 +118,13 @@ struct sbdsp_softc {
 #define SB_LEFT 0
 #define SB_RIGHT 1
 #define SB_LR 0
-	
+
 	u_int	in_mask;		/* input ports */
 	u_int	in_port;		/* XXX needed for MI interface */
 	u_int	in_filter;		/* one of SB_TREBLE_EQ, SB_BASS_EQ, 0 */
 
 	u_int	spkr_state;		/* non-null is on */
-	
+
 	struct sbdsp_state {
 		u_int	rate;		/* Sample rate */
 		u_char	tc;		/* Time constant */
@@ -245,7 +245,7 @@ int	sb_mappage __P((void *, void *, int, int));
 int	sbdsp_get_props __P((void *));
 
 
-int	sbdsp_midi_open __P((void *, int, 
+int	sbdsp_midi_open __P((void *, int,
 			     void (*iintr)__P((void *, int)),
 			     void (*ointr)__P((void *)), void *arg));
 void	sbdsp_midi_close __P((void *));

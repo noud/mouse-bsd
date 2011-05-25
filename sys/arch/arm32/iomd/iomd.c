@@ -115,8 +115,8 @@ iomdprint(aux, name)
  * int iomdmatch(struct device *parent, struct cfdata *cf, void *aux)
  *
  * Just return ok for this if it is device 0
- */ 
- 
+ */
+
 static int
 iomdmatch(parent, cf, aux)
 	struct device *parent;
@@ -135,7 +135,7 @@ iomdmatch(parent, cf, aux)
  * Map the IOMD and identify it.
  * Then configure the child devices based on the IOMD ID.
  */
-  
+
 static void
 iomdattach(parent, self, aux)
 	struct device *parent;
@@ -190,7 +190,7 @@ iomdattach(parent, self, aux)
 		refresh = -1;
 		break;
 	}
-	
+
 	printf("\n");
 
 	/* Report the DRAM refresh rate */

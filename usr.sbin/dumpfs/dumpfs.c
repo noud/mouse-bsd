@@ -421,7 +421,7 @@ swap_cg(cg)
 		}
 		for (i=0; i< afs.fs_cpg; i++)
 			n32[i] = bswap32(n32[i]);
-		
+
 		for (i=0; i < afs.fs_cpg * afs.fs_nrpos; i++)
 			n16[i] = bswap16(n16[i]);
 

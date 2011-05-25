@@ -1,4 +1,4 @@
-/* 
+/*
  * definitions for dc's "register" declarations
  *
  * Copyright (C) 1994 Free Software Foundation, Inc.

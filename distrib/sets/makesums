@@ -13,7 +13,7 @@ tars=$RELEASEDIR
 # handle args
 while : ; do
 	case $1 in
-	-t*)	
+	-t*)
 		tars=$2; shift
 		;;
 	-*)

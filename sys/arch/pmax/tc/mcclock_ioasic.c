@@ -36,7 +36,7 @@ __KERNEL_RCSID(0, "$NetBSD: mcclock_ioasic.c,v 1.14 2000/01/10 03:24:41 simonb E
 #include <dev/dec/mcclockvar.h>
 #include <dev/dec/mcclock_pad32.h>
 
-#include <dev/tc/tcvar.h> 
+#include <dev/tc/tcvar.h>
 #include <dev/tc/ioasicvar.h>
 
 static int	mcclock_ioasic_match __P((struct device *, struct cfdata *,
@@ -46,7 +46,7 @@ static void	mcclock_ioasic_attach __P((struct device *, struct device *,
 
 struct cfattach mcclock_ioasic_ca = {
 	sizeof (struct mcclock_pad32_softc),
-	mcclock_ioasic_match, mcclock_ioasic_attach, 
+	mcclock_ioasic_match, mcclock_ioasic_attach,
 };
 extern struct cfdriver ioasic_cd;
 

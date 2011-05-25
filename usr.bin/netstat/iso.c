@@ -277,7 +277,7 @@ iso_protopr1(kern_addr, istp)
 		first = 0;
 	}
 	if (Aflag)
-		printf("%8lx ", 
+		printf("%8lx ",
 		    (u_long) (sockb.so_pcb ? (void *)sockb.so_pcb :
 		    (void *)kern_addr));
 	printf("%-5.5s %6ld %6ld ", "tp",
@@ -703,7 +703,7 @@ tprintstat(s, indent)
 	}
 	fprintf(stdout,
 "\n%*sTpdus RECVD [%ld valid, %3.6f %% of total (%ld); %ld dropped]\n",indent," ",
-		s->ts_tpdu_rcvd, 
+		s->ts_tpdu_rcvd,
 		((s->ts_pkt_rcvd > 0) ?
 			((100 * (float)s->ts_tpdu_rcvd)/(float)s->ts_pkt_rcvd)
 			: 0),

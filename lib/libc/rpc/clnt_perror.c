@@ -7,23 +7,23 @@
  * may copy or modify Sun RPC without charge, but are not authorized
  * to license or distribute it to anyone else except as part of a product or
  * program developed by the user.
- * 
+ *
  * SUN RPC IS PROVIDED AS IS WITH NO WARRANTIES OF ANY KIND INCLUDING THE
  * WARRANTIES OF DESIGN, MERCHANTIBILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE, OR ARISING FROM A COURSE OF DEALING, USAGE OR TRADE PRACTICE.
- * 
+ *
  * Sun RPC is provided with no support and without any obligation on the
  * part of Sun Microsystems, Inc. to assist in its use, correction,
  * modification or enhancement.
- * 
+ *
  * SUN MICROSYSTEMS, INC. SHALL HAVE NO LIABILITY WITH RESPECT TO THE
  * INFRINGEMENT OF COPYRIGHTS, TRADE SECRETS OR ANY PATENTS BY SUN RPC
  * OR ANY PART THEREOF.
- * 
+ *
  * In no event will Sun Microsystems, Inc. be liable for any lost revenue
  * or profits or other special, indirect and consequential damages, even if
  * Sun has been advised of the possibility of such damages.
- * 
+ *
  * Sun Microsystems, Inc.
  * 2550 Garcia Avenue
  * Mountain View, California  94043
@@ -106,7 +106,7 @@ clnt_sperror(rpch, s)
 	strstart = str;
 	CLNT_GETERR(rpch, &e);
 
-	i = snprintf(str, len, "%s: ", s);  
+	i = snprintf(str, len, "%s: ", s);
 	str += i;
 	len -= i;
 
@@ -119,7 +119,7 @@ clnt_sperror(rpch, s)
 	case RPC_SUCCESS:
 	case RPC_CANTENCODEARGS:
 	case RPC_CANTDECODERES:
-	case RPC_TIMEDOUT:     
+	case RPC_TIMEDOUT:
 	case RPC_PROGUNAVAIL:
 	case RPC_PROCUNAVAIL:
 	case RPC_CANTDECODEARGS:
@@ -133,13 +133,13 @@ clnt_sperror(rpch, s)
 
 	case RPC_CANTSEND:
 	case RPC_CANTRECV:
-		i = snprintf(str, len, "; errno = %s", strerror(e.re_errno)); 
+		i = snprintf(str, len, "; errno = %s", strerror(e.re_errno));
 		str += i;
 		len -= i;
 		break;
 
 	case RPC_VERSMISMATCH:
-		i = snprintf(str, len, "; low version = %u, high version = %u", 
+		i = snprintf(str, len, "; low version = %u, high version = %u",
 			e.re_vers.low, e.re_vers.high);
 		str += i;
 		len -= i;
@@ -162,14 +162,14 @@ clnt_sperror(rpch, s)
 		break;
 
 	case RPC_PROGVERSMISMATCH:
-		i = snprintf(str, len, "; low version = %u, high version = %u", 
+		i = snprintf(str, len, "; low version = %u, high version = %u",
 			e.re_vers.low, e.re_vers.high);
 		str += i;
 		len -= i;
 		break;
 
 	default:	/* unknown */
-		i = snprintf(str, len, "; s1 = %u, s2 = %u", 
+		i = snprintf(str, len, "; s1 = %u, s2 = %u",
 			e.re_lb.s1, e.re_lb.s2);
 		str += i;
 		len -= i;

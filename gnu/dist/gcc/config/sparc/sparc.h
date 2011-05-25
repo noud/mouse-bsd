@@ -449,14 +449,14 @@ extern int target_flags;
 #define TARGET_FPU_SET (target_flags & MASK_FPU_SET)
 
 /* Use the UltraSPARC Visual Instruction Set extensions.  */
-#define MASK_VIS 0x1000000          
+#define MASK_VIS 0x1000000
 #define TARGET_VIS (target_flags & MASK_VIS)
 
 /* Compile for Solaris V8+.  32 bit Solaris preserves the high bits of
    the current out and global registers.  Linux saves the high bits on
    context switches but not signals.  */
-#define MASK_V8PLUS 0x2000000                 
-#define TARGET_V8PLUS (target_flags & MASK_V8PLUS)                            
+#define MASK_V8PLUS 0x2000000
+#define TARGET_V8PLUS (target_flags & MASK_V8PLUS)
 
 /* TARGET_HARD_MUL: Use hardware multiply instructions but not %y.
    TARGET_HARD_MUL32: Use hardware multiply instructions with rd %y
@@ -470,7 +470,7 @@ extern int target_flags;
 
 #define TARGET_HARD_MUL					\
   (TARGET_V8 || TARGET_SPARCLITE || TARGET_SPARCLET	\
-   || TARGET_DEPRECATED_V8_INSNS || TARGET_V8PLUS)                        
+   || TARGET_DEPRECATED_V8_INSNS || TARGET_V8PLUS)
 
 
 /* Macro to define tables used to set the flags.
@@ -555,7 +555,7 @@ extern enum processor_type sparc_cpu;
    initializer with a subgrouping for each command option.
 
    Each subgrouping contains a string constant, that defines the
-   fixed part of the option name, and the address of a variable. 
+   fixed part of the option name, and the address of a variable.
    The variable, type `char *', is set to the variable part of the
    given option if the fixed part matches.  The actual option name
    is made by appending `-m' to the specified name.
@@ -1208,8 +1208,8 @@ extern enum reg_class sparc_regno_reg_class[];
 
 #define REGNO_REG_CLASS(REGNO) sparc_regno_reg_class[(REGNO)]
 
-/* This is the order in which to allocate registers normally.  
-   
+/* This is the order in which to allocate registers normally.
+
    We put %f0/%f1 last among the float registers, so as to make it more
    likely that a pseudo-register which dies in the float return register
    will get allocated to the float return register, thus saving a move
@@ -1380,7 +1380,7 @@ extern char leaf_reg_remap[];
 	|| ((GET_CODE (IN) == REG || GET_CODE (IN) == SUBREG)	\
 	    && true_regnum (IN) == -1))) ? GENERAL_REGS : NO_REGS)
 
-/* On SPARC it is not possible to directly move data between 
+/* On SPARC it is not possible to directly move data between
    GENERAL_REGS and FP_REGS.  */
 #define SECONDARY_MEMORY_NEEDED(CLASS1, CLASS2, MODE) \
   (FP_REG_CLASS_P (CLASS1) != FP_REG_CLASS_P (CLASS2))
@@ -1759,7 +1759,7 @@ extern int leaf_function;
 
    profile_block_flag == 2, -ax option used.
 
-      Generate code to allow several different profiling modes at run time. 
+      Generate code to allow several different profiling modes at run time.
       Available modes are:
              Produce a trace of all basic blocks.
              Count frequency of jump instructions executed.
@@ -1784,7 +1784,7 @@ extern int leaf_function;
 	of the function.
 
 	The name of the block is a local symbol made with this statement:
-	
+
 	    ASM_GENERATE_INTERNAL_LABEL (BUFFER, "LPBX", 0);
 
 	Of course, since you are writing the definition of
@@ -1857,12 +1857,12 @@ while (0)
 
 	`__bb' consists of two words. In the first word the number
 	of the basic block has to be stored. In the second word
-	the address of a block allocated in the object module 
+	the address of a block allocated in the object module
 	has to be stored.
 
 	The basic block number is given by BLOCKNO.
 
-	The address of the block is given by the label created with 
+	The address of the block is given by the label created with
 
 	    ASM_GENERATE_INTERNAL_LABEL (BUFFER, "LPBX", 0);
 
@@ -1886,7 +1886,7 @@ while (0)
 	either in this macro or in the macros MACHINE_STATE_SAVE
 	and MACHINE_STATE_RESTORE. The last two macros will be
 	used in the function `__bb_trace_func', so you must make
-	sure that the function prologue does not change any 
+	sure that the function prologue does not change any
 	register prior to saving it with MACHINE_STATE_SAVE.
 
    else if profile_block_flag != 0
@@ -1894,7 +1894,7 @@ while (0)
 	Output code to increment the counter directly.
 	Basic blocks are numbered separately from zero within each
 	compiled object module. The count associated with block number
-	BLOCKNO is at index BLOCKNO in an array of words; the name of 
+	BLOCKNO is at index BLOCKNO in an array of words; the name of
 	this array is a local symbol made with this statement:
 
 	    ASM_GENERATE_INTERNAL_LABEL (BUFFER, "LPBX", 2);
@@ -1902,7 +1902,7 @@ while (0)
 	Of course, since you are writing the definition of
 	`ASM_GENERATE_INTERNAL_LABEL' as well as that of this macro, you
 	can take a short cut in the definition of this macro and use the
-	name that you know will result. 
+	name that you know will result.
 
 	If described in a virtual assembler language, the code to be
 	output looks like:
@@ -1943,7 +1943,7 @@ while(0)
 	either in this macro or in the macros MACHINE_STATE_SAVE_RET
 	and MACHINE_STATE_RESTORE_RET. The last two macros will be
 	used in the function `__bb_trace_ret', so you must make
-	sure that the function prologue does not change any 
+	sure that the function prologue does not change any
 	register prior to saving it with MACHINE_STATE_SAVE_RET.
 
    else if profiling_block_flag != 0:
@@ -2303,7 +2303,7 @@ extern struct rtx_def *sparc_builtin_saveregs ();
    : (! TARGET_ARCH64 && (C) == 'U')			\
    ? (register_ok_for_ldd (OP))				\
    : 0)
- 
+
 #else
 
 /* Nonzero if X is a hard reg that can be used as an index.  */
@@ -3276,7 +3276,7 @@ extern char *sparc_v8plus_shift ();
 
 #ifdef __STDC__
 /* Function used for V8+ code generation.  Returns 1 if the high
-   32 bits of REG are 0 before INSN.  */   
+   32 bits of REG are 0 before INSN.  */
 extern int sparc_check_64 (struct rtx_def *, struct rtx_def *);
 extern int sparc_return_peephole_ok (struct rtx_def *, struct rtx_def *);
 extern int compute_frame_size (int, int);

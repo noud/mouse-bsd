@@ -204,7 +204,7 @@ define	TF_I		offsetof(struct trapframe64, tf_in)
 define	TF_SIZE		sizeof(struct trapframe64)
 
 ifdef notyet
-# clockframe fields 
+# clockframe fields
 define	CF_TSTATE	offsetof(struct clockframe, tstate)
 define	CF_PC		offsetof(struct clockframe, pc)
 define	CF_NPC		offsetof(struct clockframe, npc)
@@ -221,7 +221,7 @@ define	IH_PIL		offsetof(struct intrhand, ih_pil)
 define	IH_NEXT		offsetof(struct intrhand, ih_next)
 define	IH_MAP		offsetof(struct intrhand, ih_map)
 define	IH_CLR		offsetof(struct intrhand, ih_clr)
-	
+
 
 ifdef notyet
 # ZSCC interrupt fields

@@ -44,7 +44,7 @@ static package_t Plist;
 static char *Home;
 
 /*
- * Called to see if pkg is already installed as some other version, 
+ * Called to see if pkg is already installed as some other version,
  * note found version in "note".
  */
 static int
@@ -105,7 +105,7 @@ pkg_do(char *pkg)
 			    dbdir);
 		}
 	}
-	
+
 	/* Are we coming in for a second pass, everything already extracted?
 	 * (Slave mode) */
 	if (!pkg) {
@@ -140,21 +140,21 @@ pkg_do(char *pkg)
 				strcpy(buf, s);
 				tmppkg = buf;
 			}
-			
+
 			if (!(Home = fileGetURL(NULL, tmppkg))) {
 				warnx("unable to fetch `%s' by URL", tmppkg);
 				if (ispkgpattern(pkg))
 					return 1;
 
 				if (strstr(pkg, ".tgz") != NULL) {
-					/* There already is a ".tgz" - give up 
+					/* There already is a ".tgz" - give up
 					 * (We don't want to pretend to be exceedingly
 					 *  clever - the user should give something sane!)
 					 */
 					return 1;
 			}
-			
-				
+
+
 				/* Second chance - maybe just a package name was given,
 				 * without even a wildcard as a version. Tack on
 				 * the same pattern as we do for local packages: "-[0-9]*",
@@ -164,7 +164,7 @@ pkg_do(char *pkg)
 				{
 					char *s;
 					char buf2[FILENAME_MAX];
-					
+
 					snprintf(buf2, sizeof(buf2), "%s-[0-9]*.tgz", tmppkg);
 					s=fileFindByPath(NULL, buf2);
 					if (s == NULL) {
@@ -451,7 +451,7 @@ pkg_do(char *pkg)
 						if (!Force)
 							code++;
 					}
-					
+
 					restore_dirs(saved_Current, saved_Previous);
 				}
 			} else {
@@ -482,7 +482,7 @@ pkg_do(char *pkg)
 			}
 		}
 	}
-	
+
 	/* If we're really installing, and have an installation file, run it */
 	if (!NoInstall && fexists(INSTALL_FNAME)) {
 		vsystem("%s +x %s", CHMOD, INSTALL_FNAME);	/* make sure */
@@ -694,8 +694,8 @@ pkg_perform(lpkg_head_t *pkgs)
 			free_lpkg(lpp);
 		}
 	}
-	
+
 	ftp_stop();
-	
+
 	return err_cnt;
 }

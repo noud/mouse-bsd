@@ -9,7 +9,7 @@
 
    For NetBSD, the usages are:
 
-       download file 
+       download file
               - open "file" and ship it out standard output with the
 	        format expected by the pc532 ROM monitor download
 		command.
@@ -27,8 +27,8 @@ To: pc532@daver.bungi.com
 Subject: Re:  ROM Debugger -- download command..
 
 John L. Connin <johnc%manatee%uunet@daver> writes:
-> Dave, what data format / protocol does the ROM debugger 'download' command 
-> expect ??   
+> Dave, what data format / protocol does the ROM debugger 'download' command
+> expect ??
 
 Here is the download program which I run at the other end of the
 serial line -- in my case, on an AT clone.  The download protocol
@@ -42,7 +42,7 @@ Bruce Culbertson
 /* MS-DOS Program for downloading to the NSC32000 Monitor.  Use this as a
  * template for writing downloaders for other OS's.  Compile the MS-DOS
  * version with the Microsoft C compiler.
- * 
+ *
  * Bruce Culbertson  18 February 1990
  */
 
@@ -127,7 +127,7 @@ long write_data(), write_header();
 
 void putch ();
 
-void 
+void
 usage(name)
      char *name;
 {
@@ -244,7 +244,7 @@ putch (c)
 int c;
 {
   int stat;
-  
+
   for (;;) {
     stat = inp (port + COM_STAT);
     if (stat & COM_TX_RDY) break;
@@ -509,7 +509,7 @@ main (argc, argv)
 
   if (argc-1 != optind)
     usage(argv[0]);
- 
+
   if (do_receive) {
     upload (argv[2]);
     exit (0);

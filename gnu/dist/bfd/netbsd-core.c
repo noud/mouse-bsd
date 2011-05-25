@@ -239,7 +239,7 @@ const bfd_target netbsd_core_vec =
      bfd_false, bfd_false,
      bfd_false, bfd_false
     },
-    
+
        BFD_JUMP_TABLE_GENERIC (_bfd_generic),
        BFD_JUMP_TABLE_COPY (_bfd_generic),
        BFD_JUMP_TABLE_CORE (netbsd),

@@ -42,7 +42,7 @@
 
 #include <sys/param.h>
 #include <sys/systm.h>
-#include <sys/malloc.h> 
+#include <sys/malloc.h>
 #include <sys/device.h>
 
 #include <machine/autoconf.h>
@@ -66,7 +66,7 @@ grfdev_attach(sc, init, regs, sw)
 
 	isconsole = (sc->sc_scode == conscode);
 
-	if (isconsole) 
+	if (isconsole)
 		sc->sc_data = gp = &grf_cn;
 	else {
 		sc->sc_data = gp =

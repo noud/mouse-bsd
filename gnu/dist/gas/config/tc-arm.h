@@ -124,7 +124,7 @@ char *arm_canonicalize_symbol_name PARAMS ((char *));
 	    punt = 1;			\
 	    sym->sy_used_in_reloc = 0;	\
 	  }}
-#endif 
+#endif
 
 /* Finish processing the entire symbol table:  */
 #define tc_adjust_symtab() arm_adjust_symtab ()

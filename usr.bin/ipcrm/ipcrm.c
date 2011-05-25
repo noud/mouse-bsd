@@ -57,7 +57,7 @@ int	semrm __P((key_t, int));
 void	not_configured __P((void));
 int	main __P((int, char *[]));
 
-void 
+void
 usage()
 {
 	fprintf(stderr, "usage: ipcrm [ [-q msqid] [-m shmid] [-s semid]\n");
@@ -65,7 +65,7 @@ usage()
 	exit(1);
 }
 
-int 
+int
 msgrm(key, id)
 	key_t   key;
 	int     id;
@@ -78,7 +78,7 @@ msgrm(key, id)
 	return msgctl(id, IPC_RMID, NULL);
 }
 
-int 
+int
 shmrm(key, id)
 	key_t   key;
 	int     id;
@@ -91,7 +91,7 @@ shmrm(key, id)
 	return shmctl(id, IPC_RMID, NULL);
 }
 
-int 
+int
 semrm(key, id)
 	key_t   key;
 	int     id;
@@ -105,13 +105,13 @@ semrm(key, id)
 	return semctl(id, 0, IPC_RMID, NULL);
 }
 
-void 
+void
 not_configured()
 {
 	signaled++;
 }
 
-int 
+int
 main(argc, argv)
 	int     argc;
 	char   *argv[];

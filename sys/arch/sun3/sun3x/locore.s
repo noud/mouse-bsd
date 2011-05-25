@@ -157,7 +157,7 @@ L_high_code:
 	clrl	sp@-			| tf_stackadj
 	lea	sp@(-64),sp		| tf_regs[16]
 	movl	sp,a1			| a1=trapframe
-	lea	_C_LABEL(proc0),a0	| proc0.p_md.md_regs = 
+	lea	_C_LABEL(proc0),a0	| proc0.p_md.md_regs =
 	movl	a1,a0@(P_MDREGS)	|   trapframe
 	movl	a2,a1@(FR_SP)		| a2 == usp (from above)
 	pea	a1@			| push &trapframe

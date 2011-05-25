@@ -21,7 +21,7 @@
  *  ABOUT THE SUITABILITY OF THIS SOFTWARE FOR ANY PURPOSE.  THIS SOFTWARE IS
  *  PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES,
  *  INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
- *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND 
+ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND
  *  NON-INFRINGEMENT.
  *
  *  IN NO EVENT SHALL USC, OR ANY OTHER CONTRIBUTOR BE LIABLE FOR ANY
@@ -33,7 +33,7 @@
  *  noted when applicable.
  */
 /*
- *  Questions concerning this software should be directed to 
+ *  Questions concerning this software should be directed to
  *  Pavlin Ivanov Radoslavov (pavlin@catarina.usc.edu)
  *
  *  KAME Id: debug.c,v 1.4 1999/09/20 14:28:08 jinmei Exp
@@ -161,7 +161,7 @@ log_level(proto, type, code)
 	default:
 	    return LOG_WARNING;
 	}
-	
+
     case IPPROTO_PIM:
 	/* PIM v2 */
 	switch (type) {
@@ -179,18 +179,18 @@ log_level(proto, type, code)
  * Dump internal data structures to stderr.
  */
 /* TODO: currently not used
-void 
+void
 dump(int i)
 {
     dump_vifs(stderr);
     dump_pim_mrt(stderr);
-}	
+}
 */
 
 /*
  * Dump internal data structures to a file.
  */
-void 
+void
 fdump(i)
     int i;
 {
@@ -213,11 +213,11 @@ cdump(i)
     int i;
 {
     FILE *fp;
-    
+
     fp = fopen(cachefilename, "w");
     if (fp != NULL) {
       /* TODO: implement it:
-	 dump_cache(fp); 
+	 dump_cache(fp);
 	 */
 	(void) fclose(fp);
     }
@@ -226,7 +226,7 @@ cdump(i)
 void
 dump_vifs(fp)
     FILE *fp;
-{	
+{
     vifi_t vifi;
     register struct uvif *v;
     pim_nbr_entry_t *n;
@@ -237,7 +237,7 @@ dump_vifs(fp)
     fprintf(fp, "\nMulticast Interface Table\n %-4s %-6s %-50s %-14s %s",
 	    "Mif", " PhyIF", "Local-Address/Prefixlen", "Flags",
 	    "Neighbors\n");
-    
+
     for (vifi = 0, v = uvifs; vifi < numvifs; ++vifi, ++v) {
 	    int firstaddr = 1;
 	    for (pa = v->uv_addrs; pa; pa = pa->pa_next) {
@@ -281,7 +281,7 @@ dump_vifs(fp)
 			    fprintf(fp, " DVMRP");
 			    width += 6;
 		    }
-#endif 
+#endif
 		    if (v->uv_flags & VIFF_NONBRS) {
 			    fprintf(fp, " %-12s", "NO-NBR");
 			    width += 6;
@@ -296,7 +296,7 @@ dump_vifs(fp)
 			    for (n = n->next; n != NULL; n = n->next)
 				    fprintf(fp, "%64s %-15s\n", "",
 					    inet6_fmt(&n->address.sin6_addr));
-	    
+
 		    }
 		    else
 			    fprintf(fp, "\n");
@@ -320,7 +320,7 @@ log(int severity, int syserr, char *format, ...)
     char *msg;
     struct timeval now;
     struct tm *thyme;
-    
+
     va_start(ap, format);
 #else
 /*VARARGS3*/
@@ -336,13 +336,13 @@ log(severity, syserr, format, va_alist)
     char tbuf[20];
     struct timeval now;
     struct tm *thyme;
-    
+
     va_start(ap);
 #endif
     vsprintf(&fmt[10], format, ap);
     va_end(ap);
     msg = (severity == LOG_WARNING) ? fmt : &fmt[10];
-    
+
     /*
      * Log to stderr if we haven't forked yet and it's a warning or worse,
      * or if we're debugging.
@@ -363,7 +363,7 @@ log(severity, syserr, format, va_alist)
 	else
 	    fprintf(stderr, ": errno %d\n", syserr);
     }
-    
+
     /*
      * Always log things that are worse than warnings, no matter what
      * the log_nmsgs rate limiter says.
@@ -381,12 +381,12 @@ log(severity, syserr, format, va_alist)
 	} else
 	    syslog(severity, "%s", msg);
     }
-    
+
     if (severity <= LOG_ERR) exit(-1);
 }
 
 /* TODO: format the output for better readability */
-void 
+void
 dump_pim_mrt(fp)
     FILE *fp;
 {
@@ -400,8 +400,8 @@ dump_pim_mrt(fp)
     char leaves_oifs[(sizeof(if_set)<<3)+1];
     char filter_oifs[(sizeof(if_set)<<3)+1];
     char incoming_iif[(sizeof(if_set)<<3)+1];
-    
-    fprintf(fp, "Multicast Routing Table\n%s", 
+
+    fprintf(fp, "Multicast Routing Table\n%s",
 	    " Source          Group           Flags\n");
 
     /* TODO: remove the dummy 0:: group (first in the chain) */
@@ -447,7 +447,7 @@ dump_pim_mrt(fp)
 	    if (r->flags & MRTF_SG)            fprintf(fp, " SG");
 	    if (r->flags & MRTF_PMBR)          fprintf(fp, " PMBR");
 	    fprintf(fp, "\n");
-	    
+
 	    fprintf(fp, "Pruned   oifs: %-20s\n", pruned_oifs);
 	    fprintf(fp, "Asserted oifs: %-20s\n", pruned_oifs);
 	    fprintf(fp, "Filtered oifs: %-20s\n", filter_oifs);
@@ -455,7 +455,7 @@ dump_pim_mrt(fp)
 	    fprintf(fp, "Outgoing oifs: %-20s\n", oifs);
 	    fprintf(fp, "Incoming     : %-20s\n", incoming_iif);
 
-	    fprintf(fp, "Upstream nbr: %s\n", 
+	    fprintf(fp, "Upstream nbr: %s\n",
 		    r->upstream ? inet6_fmt(&r->upstream->address.sin6_addr) : "NONE");
 	    fprintf(fp, "\nTIMERS:  Entry   Prune VIFS:");
 	    for (vifi = 0; vifi < numvifs; vifi++)

@@ -31,13 +31,13 @@
 
 void perror __P((const char *));
 void errexit __P((const char *, ...))
-    __attribute__((__noreturn__,__format__(__printf__,1,2)));  
+    __attribute__((__noreturn__,__format__(__printf__,1,2)));
 void pfatal __P((const char *, ...))
-    __attribute__((__format__(__printf__,1,2)));  
+    __attribute__((__format__(__printf__,1,2)));
 void pwarn __P((const char *, ...))
-    __attribute__((__format__(__printf__,1,2)));  
+    __attribute__((__format__(__printf__,1,2)));
 void panic __P((const char *, ...))
-    __attribute__((__noreturn__,__format__(__printf__,1,2)));  
+    __attribute__((__noreturn__,__format__(__printf__,1,2)));
 const char *rawname __P((const char *));
 const char *unrawname __P((const char *));
 const char *blockcheck __P((const char *));
@@ -53,5 +53,5 @@ char *estrdup __P((const char *));
 #define	CHECK_DEBUG	4
 
 struct fstab;
-int checkfstab __P((int, int, void *(*)(struct fstab *), 
+int checkfstab __P((int, int, void *(*)(struct fstab *),
     int (*) (const char *, const char *, const char *, void *, pid_t *)));

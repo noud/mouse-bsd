@@ -138,10 +138,10 @@ pacct_add(ci)
 		memset(&newci, 0, sizeof(newci));
 		memcpy(newci.ci_comm, key.data, key.size);
 	}
-	
+
 	add_ci(ci, &newci);
 
-	data.data = &newci; 
+	data.data = &newci;
 	data.size = sizeof(newci);
 	rv = DB_PUT(pacct_db, &key, &data, 0);
 	if (rv < 0) {

@@ -34,12 +34,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -69,7 +69,7 @@ int register_input_handler __P((int fd,ihfunc_t func));
 #define RANDOM()	random()
 
 #define PRINTF printf
-#define ALL_MCAST_GROUPS_LENGTH 8 
+#define ALL_MCAST_GROUPS_LENGTH 8
 
 
 typedef u_int		u_int32;

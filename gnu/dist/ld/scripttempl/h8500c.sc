@@ -4,11 +4,11 @@ OUTPUT_ARCH(${ARCH})
 
 /* Compact model - code < 64k, data > 64k */
 
-SECTIONS 				
-{ 					
+SECTIONS
+{
 .text 0x10000 :
-	{ 					
-	  *(.text) 				
+	{
+	  *(.text)
 	  *(.strings)
    	 ${RELOCATING+ _etext = . ; }
 	} ${RELOCATING+ > ram}
@@ -21,7 +21,7 @@ SECTIONS
 	} ${RELOCATING+ > ram}
 
 .rdata 0x30000  : {
-	*(.rdata); 
+	*(.rdata);
 	___ctors = . ;
 	*(.ctors)
 	___ctors_end = . ;
@@ -43,7 +43,7 @@ SECTIONS
 	*(.stack)
 	} ${RELOCATING+ > topram}
 
-  .stab  0 ${RELOCATING+(NOLOAD)} : 
+  .stab  0 ${RELOCATING+(NOLOAD)} :
   {
     [ .stab ]
   }

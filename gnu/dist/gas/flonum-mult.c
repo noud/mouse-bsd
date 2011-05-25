@@ -22,25 +22,25 @@
 #include "flonum.h"
 
 /*	plan for a . b => p(roduct)
-	
-	
+
+
 	+-------+-------+-/   /-+-------+-------+
 	| a	| a	|  ...	| a	| a	|
 	|  A	|  A-1	|	|  1	|  0	|
 	+-------+-------+-/   /-+-------+-------+
-	
-	
+
+
 	+-------+-------+-/   /-+-------+-------+
 	| b	| b	|  ...	| b	| b	|
 	|  B	|  B-1	|	|  1	|  0	|
 	+-------+-------+-/   /-+-------+-------+
-	
-	
+
+
 	+-------+-------+-/   /-+-------+-/   /-+-------+-------+
 	| p	| p	|  ...	| p	|  ...	| p	| p	|
 	|  A+B+1|  A+B	|	|  N	|	|  1	|  0	|
 	+-------+-------+-/   /-+-------+-/   /-+-------+-------+
-	
+
 	/^\
 	(carry) a .b	   ...	    |	   ...	 a .b	 a .b
 	A  B 		    |		  0  1	  0  0
@@ -56,24 +56,24 @@
 	|		  \
 	+-----  P  =   >  a .b
 	N	  /__  i  j
-	
+
 	N = 0 ... A+B
-	
+
 	for all i,j where i+j=N
 	[i,j integers > 0]
-	
+
 	a[], b[], p[] may not intersect.
 	Zero length factors signify 0 significant bits: treat as 0.0.
 	0.0 factors do the right thing.
 	Zero length product OK.
-	
+
 	I chose the ForTran accent "foo[bar]" instead of the C accent "*garply"
 	because I felt the ForTran way was more intuitive. The C way would
 	probably yield better code on most C compilers. Dean Elsner.
 	(C style also gives deeper insight [to me] ... oh well ...)
 	*/
 
-void 
+void
 flonum_multip (a, b, product)
      const FLONUM_TYPE *a;
      const FLONUM_TYPE *b;

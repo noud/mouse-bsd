@@ -24,7 +24,7 @@ PROG=		gxditview
 CPPFLAGS+=	-I$(XINCDIR) -DFONTPATH=\"/usr/share/groff_font\"
 SRCS+=		xditview.c Dvi.c draw.c font.c lex.c page.c parse.c \
 		XFontName.c DviChar.c device.c
-LDADD+=		-L$(XLIBDIR) -lXaw -lXmu -lXt -lXext -lX11 -lm 
+LDADD+=		-L$(XLIBDIR) -lXaw -lXmu -lXt -lXext -lX11 -lm
 DPADD+=		$(LIBM)
 
 afterinstall:

@@ -166,7 +166,7 @@ ncrsc_pcctwo_attach(parent, self, args)
 	 */
 	tmp = bootpart;
 
-	if (PCCTWO_PADDR(pa->pa_offset) != bootaddr) 
+	if (PCCTWO_PADDR(pa->pa_offset) != bootaddr)
 		bootpart = -1;		/* Invalid flag to dk_establish */
 
 	(void)config_found(self, &sc->sc_link, scsiprint);

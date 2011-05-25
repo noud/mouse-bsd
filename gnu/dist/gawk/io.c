@@ -2,22 +2,22 @@
  * io.c --- routines for dealing with input and output and records
  */
 
-/* 
+/*
  * Copyright (C) 1986, 1988, 1989, 1991-1997 the Free Software Foundation, Inc.
- * 
+ *
  * This file is part of GAWK, the GNU implementation of the
  * AWK Programming Language.
- * 
+ *
  * GAWK is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * GAWK is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
@@ -294,7 +294,7 @@ IOBUF *iop;
 			if ((fields_arr[0]->stptr >= iop->buf)
 			    && (fields_arr[0]->stptr < (iop->buf + iop->secsiz + iop->size))) {
 				NODE *t;
-	
+
 				t = make_string(fields_arr[0]->stptr,
 						fields_arr[0]->stlen);
 				unref(fields_arr[0]);
@@ -559,7 +559,7 @@ close_one()
 		}
 	if (rp == NULL)
 		/* surely this is the only reason ??? */
-		fatal("too many pipes or input files open"); 
+		fatal("too many pipes or input files open");
 }
 
 /* do_close --- completely close an open file or pipe */
@@ -631,7 +631,7 @@ int exitwarn;
 
 	what = ((rp->flag & RED_PIPE) != 0) ? "pipe" : "file";
 
-	if (exitwarn) 
+	if (exitwarn)
 		warning("no explicit close of %s `%s' provided",
 			what, rp->value);
 
@@ -793,7 +793,7 @@ const char *name, *mode;
 
 	if (STREQN(name, "/dev/", 5) && stat((char *) name, &buf) == -1) {
 		cp = name + 5;
-		
+
 		if (STREQ(cp, "stdin") && (flag & O_ACCMODE) == O_RDONLY)
 			openfd = fileno(stdin);
 		else if (STREQ(cp, "stdout") && (flag & O_ACCMODE) == O_WRONLY)
@@ -811,7 +811,7 @@ const char *name, *mode;
 strictopen:
 	if (openfd == INVALID_HANDLE)
 		openfd = open(name, flag, 0666);
-	if (openfd != INVALID_HANDLE && fstat(openfd, &buf) > 0) 
+	if (openfd != INVALID_HANDLE && fstat(openfd, &buf) > 0)
 		if (S_ISDIR(buf.st_mode))
 			fatal("file `%s' is a directory", name);
 	return openfd;
@@ -1007,7 +1007,7 @@ IOBUF *iop;
 strictopen:
 	if (openfd == INVALID_HANDLE)
 		openfd = open(name, flag, 0666);
-	if (openfd != INVALID_HANDLE && fstat(openfd, &buf) > 0) 
+	if (openfd != INVALID_HANDLE && fstat(openfd, &buf) > 0)
 		if ((buf.st_mode & S_IFMT) == S_IFDIR)
 			fatal("file `%s' is a directory", name);
 	return iop_alloc(openfd, name, iop);

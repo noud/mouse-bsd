@@ -168,7 +168,7 @@ words, to the end of the next word.
 
 @item M-DEL
 Kill from the cursor to the start of the previous word, or if between
-words, to the start of the previous word. 
+words, to the start of the previous word.
 
 @item C-w
 Kill from the cursor to the previous whitespace.  This is different than
@@ -176,7 +176,7 @@ Kill from the cursor to the previous whitespace.  This is different than
 
 @end table
 
-And, here is how to @dfn{yank} the text back into the line.  
+And, here is how to @dfn{yank} the text back into the line.
 
 @table @key
 @item C-y
@@ -464,12 +464,12 @@ words, to the end of the next word.
 Kill the word behind the cursor.
 
 @item unix-line-discard (@key{C-u})
-Kill the whole line the way @key{C-u} used to in Unix line input.  
+Kill the whole line the way @key{C-u} used to in Unix line input.
 The killed text is saved on the kill-ring.
 
 @item unix-word-rubout (@key{C-w})
-Kill the word the way @key{C-w} used to in Unix line input.  
-The killed text is saved on the kill-ring.  This is different than 
+Kill the word the way @key{C-w} used to in Unix line input.
+The killed text is saved on the kill-ring.  This is different than
 backward-kill-word because the word boundaries differ.
 
 @item yank (@key{C-y})
@@ -555,7 +555,7 @@ command enough times to get back to the beginning.
 While the Readline library does not have a full set of @code{vi} editing
 functions, it does contain enough to allow simple editing of the line.
 
-In order to switch interactively between @sc{gnu} Emacs and @code{vi} 
+In order to switch interactively between @sc{gnu} Emacs and @code{vi}
 editing modes, use the command @key{M-C-j} (toggle-editing-mode).
 
 When you enter a line in @code{vi} mode, you are already placed in `insertion'

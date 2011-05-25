@@ -4,19 +4,19 @@
  * Copyright (c) 1999 The NetBSD Foundation, Inc.
  * All rights reserved.
  *
- * This code is derived from software contributed to 
+ * This code is derived from software contributed to
  * The NetBSD Foundation by Johan Danielsson.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions 
- * are met: 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
  *
- * 1. Redistributions of source code must retain the above copyright 
- *    notice, this list of conditions and the following disclaimer. 
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
  *
- * 2. Redistributions in binary form must reproduce the above copyright 
- *    notice, this list of conditions and the following disclaimer in the 
- *    documentation and/or other materials provided with the distribution. 
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
  *
  * 3. Neither the name of The NetBSD Foundation nor the names of its
  *    contributors may be used to endorse or promote products derived
@@ -76,8 +76,8 @@
  *  0x16	   2	reserved
  *
  */
-   
-/* 
+
+/*
  *  Scan through a PCI expansion ROM, and create subregions for each
  *  ROM image. This function assumes that the ROM is mapped at
  *  (tag,handle), and that the expansion ROM address decoder is
@@ -97,7 +97,7 @@ cardbus_read_exrom(romt, romh, head)
     size_t addr = 0; /* offset of current rom image */
     size_t dataptr;
     unsigned int rom_image = 0;
-    
+
     SIMPLEQ_INIT(head);
     do {
 	size_t image_size;
@@ -106,15 +106,15 @@ cardbus_read_exrom(romt, romh, head)
 
 	val = READ_INT16(romt, romh, addr + CARDBUS_EXROM_SIGNATURE);
 	if(val != 0xaa55) {
-	    printf("%s: bad header signature in ROM image %u: 0x%04x\n", 
+	    printf("%s: bad header signature in ROM image %u: 0x%04x\n",
 		   __func__, rom_image, val);
 	    return 1;
 	}
 	dataptr = addr + READ_INT16(romt, romh, addr + CARDBUS_EXROM_DATA_PTR);
 	/* get the ROM image size, in blocks */
-	image_size = READ_INT16(romt, romh, 
+	image_size = READ_INT16(romt, romh,
 		         dataptr + CARDBUS_EXROM_DATA_IMAGE_LENGTH);
-	if(image_size == 0) 
+	if(image_size == 0)
 	    /* XXX some ROMs seem to have this as zero, can we assume
                this means 1 block? */
 	    image_size = 1;
@@ -127,7 +127,7 @@ cardbus_read_exrom(romt, romh, head)
 	image->rom_image = rom_image;
 	image->image_size = image_size;
 	image->romt = romt;
-	if(bus_space_subregion(romt, romh, addr, 
+	if(bus_space_subregion(romt, romh, addr,
 			       image_size, &image->romh)) {
 	    printf("%s: bus_space_subregion failed", __func__);
 	    free(image, M_DEVBUF);
@@ -136,7 +136,7 @@ cardbus_read_exrom(romt, romh, head)
 	SIMPLEQ_INSERT_TAIL(head, image, next);
 	addr += image_size;
 	rom_image++;
-    } while ((bus_space_read_1(romt, romh, 
+    } while ((bus_space_read_1(romt, romh,
                   dataptr + CARDBUS_EXROM_DATA_INDICATOR) & 0x80) == 0);
     return 0;
 }
@@ -175,7 +175,7 @@ pci_exrom_parse_data_structure(bus_space_tag_t tag,
     header->code_type = hdr[PCI_EXROM_DATA_CODE_TYPE];
     header->indicator = hdr[PCI_EXROM_DATA_INDICATOR];
     length = min(length, header->image_length - 0x18 - offset);
-    bus_space_read_region_1(tag, handle, dataptr + 0x18 + offset, 
+    bus_space_read_region_1(tag, handle, dataptr + 0x18 + offset,
 			    buf, length);
     ret = length;
 }

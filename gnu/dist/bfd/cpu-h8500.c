@@ -24,11 +24,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #if 0
 
-/* 
+/*
 Relocations for the Z8K
 
 */
-static bfd_reloc_status_type 
+static bfd_reloc_status_type
 howto16_callback (abfd, reloc_entry, symbol_in, data,
 		  ignore_input_section, ignore_bfd)
      bfd *abfd;
@@ -51,7 +51,7 @@ howto16_callback (abfd, reloc_entry, symbol_in, data,
 }
 
 
-static bfd_reloc_status_type 
+static bfd_reloc_status_type
 howto8_callback (abfd, reloc_entry, symbol_in, data,
 		 ignore_input_section, ignore_bfd)
      bfd *abfd;
@@ -74,7 +74,7 @@ howto8_callback (abfd, reloc_entry, symbol_in, data,
 }
 
 
-static bfd_reloc_status_type 
+static bfd_reloc_status_type
 howto8_FFnn_callback (abfd, reloc_entry, symbol_in, data,
 		      ignore_input_section, ignore_bfd)
      bfd *abfd;
@@ -97,7 +97,7 @@ howto8_FFnn_callback (abfd, reloc_entry, symbol_in, data,
   return bfd_reloc_ok;
 }
 
-static bfd_reloc_status_type 
+static bfd_reloc_status_type
 howto8_pcrel_callback (abfd, reloc_entry, symbol_in, data,
 		       ignore_input_section, ignore_bfd)
      bfd *abfd;
@@ -154,7 +154,7 @@ local_bfd_reloc_type_lookup (arch, code)
 
 int bfd_default_scan_num_mach();
 
-static boolean 
+static boolean
 scan_mach (info, string)
      const struct bfd_arch_info *info;
      const char *string;

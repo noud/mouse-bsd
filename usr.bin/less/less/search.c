@@ -10,19 +10,19 @@
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice in the documentation and/or other materials provided with 
+ *    notice in the documentation and/or other materials provided with
  *    the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
- * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN 
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -106,7 +106,7 @@ static struct hilite hilite_anchor = { NULL, NULL_POSITION, NULL_POSITION };
 
 /*
  * These are the static variables that represent the "remembered"
- * search pattern.  
+ * search pattern.
  */
 #if HAVE_POSIX_REGCOMP
 static regex_t *regpattern = NULL;
@@ -149,7 +149,7 @@ cvt_text(odst, osrc, ops)
 		else if ((ops & CVT_BS) && *src == '\b' && dst > odst)
 			/* Delete BS and preceding char. */
 			dst -= 2;
-		else 
+		else
 			/* Just copy. */
 			*dst = *src;
 	}
@@ -236,7 +236,7 @@ repaint_hilite(on)
 			continue;
 		epos = position(slinenum+1);
 		/*
-		 * If any character in the line is highlighted, 
+		 * If any character in the line is highlighted,
 		 * repaint the line.
 		 */
 		if (is_hilited(pos, epos, 1))
@@ -356,7 +356,7 @@ compile_pattern(pattern, search_type)
 		if ((s = regcomp(pattern)) == NULL)
 		{
 			/*
-			 * regcomp has already printed an error message 
+			 * regcomp has already printed an error message
 			 * via regerror().
 			 */
 			return (-1);
@@ -501,7 +501,7 @@ is_hilited(pos, epos, nohide)
 		 */
 		return (0);
 
-	if (start_attnpos != NULL_POSITION && 
+	if (start_attnpos != NULL_POSITION &&
 	    pos < end_attnpos &&
 	     (epos == NULL_POSITION || epos > start_attnpos))
 		/*
@@ -576,7 +576,7 @@ adj_hilite(anchor, linepos)
 
 	/*
 	 * The line was already scanned and hilites were added (in hilite_line).
-	 * But it was assumed that each char position in the line 
+	 * But it was assumed that each char position in the line
 	 * correponds to one char position in the file.
 	 * This may not be true if there are backspaces in the line.
 	 * Get the raw line again.  Look at each character.
@@ -588,10 +588,10 @@ adj_hilite(anchor, linepos)
 	while (hl != NULL)
 	{
 		/*
-		 * See if we need to adjust the current hl_startpos or 
+		 * See if we need to adjust the current hl_startpos or
 		 * hl_endpos.  After adjusting startpos[i], move to endpos[i].
 		 * After adjusting endpos[i], move to startpos[i+1].
-		 * The hilite list must be sorted thus: 
+		 * The hilite list must be sorted thus:
 		 * startpos[0] < endpos[0] <= startpos[1] < endpos[1] <= etc.
 		 */
 		if (checkstart && hl->hl_startpos == opos)
@@ -625,7 +625,7 @@ adj_hilite(anchor, linepos)
 }
 
 /*
- * Make a hilite for each string in a physical line which matches 
+ * Make a hilite for each string in a physical line which matches
  * the current pattern.
  * sp,ep delimit the first match already found.
  */
@@ -681,7 +681,7 @@ hilite_line(linepos, line, sp, ep)
 			break;
 	} while (match_pattern(searchp, &sp, &ep, 1));
 
-	if (bs_mode == BS_SPECIAL) 
+	if (bs_mode == BS_SPECIAL)
 	{
 		/*
 		 * If there were backspaces in the original line, they
@@ -702,7 +702,7 @@ hilite_line(linepos, line, sp, ep)
 #endif
 
 /*
- * Change the caseless-ness of searches.  
+ * Change the caseless-ness of searches.
  * Updates the internal search state to reflect a change in the -i flag.
  */
 	public void
@@ -772,7 +772,7 @@ search_pos(search_type)
 	{
 		/*
 		 * Start at the beginning (or end) of the file.
-		 * The empty_screen() case is mainly for 
+		 * The empty_screen() case is mainly for
 		 * command line initiated searches;
 		 * for example, "+/xyz" on the command line.
 		 * Also for multi-file (SRCH_PAST_EOF) searches.
@@ -841,7 +841,7 @@ search_range(pos, endpos, search_type, matches, maxlines, plinepos, pendpos)
 	{
 		/*
 		 * Get lines until we find a matching one or until
-		 * we hit end-of-file (or beginning-of-file if we're 
+		 * we hit end-of-file (or beginning-of-file if we're
 		 * going backwards), or until we hit the end position.
 		 */
 		if (ABORT_SIGS())
@@ -867,7 +867,7 @@ search_range(pos, endpos, search_type, matches, maxlines, plinepos, pendpos)
 		if (search_type & SRCH_FORW)
 		{
 			/*
-			 * Read the next line, and save the 
+			 * Read the next line, and save the
 			 * starting position of that line in linepos.
 			 */
 			linepos = pos;
@@ -915,7 +915,7 @@ search_range(pos, endpos, search_type, matches, maxlines, plinepos, pendpos)
 		if (is_caseless || bs_mode == BS_SPECIAL)
 		{
 			int ops = 0;
-			if (is_caseless) 
+			if (is_caseless)
 				ops |= CVT_TO_LC;
 			if (bs_mode == BS_SPECIAL)
 				ops |= CVT_BS;
@@ -940,7 +940,7 @@ search_range(pos, endpos, search_type, matches, maxlines, plinepos, pendpos)
 #if HILITE_SEARCH
 			/*
 			 * We are supposed to find all matches in the range.
-			 * Just add the matches in this line to the 
+			 * Just add the matches in this line to the
 			 * hilite list and keep searching.
 			 */
 			if (line_match)
@@ -972,12 +972,12 @@ search_range(pos, endpos, search_type, matches, maxlines, plinepos, pendpos)
 }
 
 /*
- * Search for the n-th occurrence of a specified pattern, 
+ * Search for the n-th occurrence of a specified pattern,
  * either forward or backward.
  * Return the number of matches not yet found in this file
  * (that is, n minus the number of matches found).
  * Return -1 if the search should be aborted.
- * Caller may continue the search in another file 
+ * Caller may continue the search in another file
  * if less than n matches are found in this file.
  */
 	public int
@@ -999,7 +999,7 @@ search(search_type, pattern, n)
 			error("No previous regular expression", NULL_PARG);
 			return (-1);
 		}
-		if ((search_type & SRCH_NO_REGEX) != 
+		if ((search_type & SRCH_NO_REGEX) !=
 		    (last_search_type & SRCH_NO_REGEX))
 		{
 			error("Please re-enter search pattern", NULL_PARG);
@@ -1196,7 +1196,7 @@ prep_hilite(spos, epos, maxlines)
 		{
 			/*
 			 * New range starts before old prep region.
-			 * Extend old prep region backwards to start at 
+			 * Extend old prep region backwards to start at
 			 * start of new range.
 			 */
 			if (spos < SEARCH_MORE)
@@ -1259,12 +1259,12 @@ match(pattern, buf, pfound, pend)
 
 #if HAVE_V8_REGCOMP
 /*
- * This function is called by the V8 regcomp to report 
+ * This function is called by the V8 regcomp to report
  * errors in regular expressions.
  */
-	void 
-regerror(s) 
-	char *s; 
+	void
+regerror(s)
+	char *s;
 {
 	PARG parg;
 

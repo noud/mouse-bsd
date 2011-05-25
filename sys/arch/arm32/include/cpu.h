@@ -74,12 +74,12 @@
 #endif /* CPU_ARM7500 */
 
 #define COPY_SIGCODE    /* copy sigcode above user stack in exec */
- 
+
 /*
  * ARM Process Status Register
  *
  * The picture in the ARM manuals looks like this:
- *       3 3 2 2 2                              
+ *       3 3 2 2 2
  *       1 0 9 8 7                                     8 7 6 5 4       0
  *      +-------+---------------------------------------+-+-+-+---------+
  *      | flags |                  reserved             |I|F| |M M M M M|
@@ -111,7 +111,7 @@
 /*
  * ARM Instructions
  *
- *       3 3 2 2 2                              
+ *       3 3 2 2 2
  *       1 0 9 8 7                                                     0
  *      +-------+-------------------------------------------------------+
  *      | cond  |              instruction dependant                    |
@@ -166,8 +166,8 @@
 #define FAULT_BUSERR_1  0x06
 #define FAULT_BUSERR_2  0x08
 #define FAULT_BUSERR_3  0x0a
-#define FAULT_ALIGN_0   0x01 
-#define FAULT_ALIGN_1   0x03 
+#define FAULT_ALIGN_0   0x01
+#define FAULT_ALIGN_1   0x03
 #define FAULT_BUSTRNL1  0x0c
 #define FAULT_BUSTRNL2  0x0e
 #define FAULT_TRANS_S   0x05
@@ -190,7 +190,7 @@
 	mrs	r0, cpsr_all ; \
 	bic	r0, r0, #(I32_bit) ; \
 	msr	cpsr_all, r0 ; \
-	ldmfd	sp!, {r0}		
+	ldmfd	sp!, {r0}
 
 #else
 #define IRQdisable SetCPSR(I32_bit, I32_bit);
@@ -201,7 +201,7 @@
  * Return TRUE/FALSE (1/0) depending on whether the frame came from USR
  * mode or not.
  */
- 
+
 #define CLKF_USERMODE(frame) ((frame->if_spsr & PSR_MODE) == PSR_USR32_MODE)
 
 /*
@@ -263,7 +263,7 @@ void child_return	__P((void *));
 
 #endif	/* _KERNEL && !_LOCORE */
 
-/* 
+/*
  * CTL_MACHDEP definitions.
  */
 #define	CPU_DEBUG		1	/* int: misc kernel debug control */
@@ -272,7 +272,7 @@ void child_return	__P((void *));
 #define	CTL_MACHDEP_NAMES { \
 	{ 0, 0 }, \
 	{ "debug", CTLTYPE_INT }, \
-}    
+}
 
 #endif /* !_ARM32_CPU_H_ */
 

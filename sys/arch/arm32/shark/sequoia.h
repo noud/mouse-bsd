@@ -37,7 +37,7 @@
 **
 **  MODULE DESCRIPTION:
 **
-**      National Sequoia-1 and Sequoia-2 Definitions 
+**      National Sequoia-1 and Sequoia-2 Definitions
 **
 **	Initial Register Write Values are identified by _INIT
 **
@@ -51,7 +51,7 @@
 **
 **  MODIFICATION HISTORY:
 **
-**	27-Jan-1997	Maddy		Added additional initial values.	
+**	27-Jan-1997	Maddy		Added additional initial values.
 **
 **	24-Jan-1997	Maddy		Initial Entry.
 */
@@ -64,10 +64,10 @@
 **		      	SEQUOIA                    **
 *****************************************************/
 #define SEQUOIA_BASE          0x24
-#define SEQUOIA_NPORTS        0x4                
+#define SEQUOIA_NPORTS        0x4
 
 #define SEQUOIA_INDEX         0x24
-#define SEQUOIA_INDEX_OFFSET  0x0  
+#define SEQUOIA_INDEX_OFFSET  0x0
 
 #define SEQUOIA_DATA          0x26
 #define SEQUOIA_DATA_OFFSET   0x2
@@ -82,7 +82,7 @@
 **
 */
 
-/* 
+/*
 **
 **  PMC Clock Control Register (CCR) - Index 0x000
 **
@@ -166,7 +166,7 @@
 #define SLCLKSEL_DIV64		(CCR_M_SLCLKSEL1 | CCR_M_SLCLKSEL2)
 #define SLCLKSEL_STOPPED	(CCR_M_SLCLKSEL0 | CCR_M_SLCLKSEL1 | CCR_M_SLCLKSEL2)
 
-/* 
+/*
 **
 **  Power Management Status Register (PMSR) - Index 0x001
 **
@@ -274,7 +274,7 @@
 #define PMMD_SUSPEND		(PMSR_M_PMMD0 | PMSR_M_PMMD2)
 
 
-/* 
+/*
 **
 **  Activity Source Register (ASR) - Index 0x002
 **
@@ -328,7 +328,7 @@
 #define ASR_V_EXT3ACTV		15
 #define ASR_M_EXT3ACTV		1 << ASR_V_EXT3ACTV
 
-/* 
+/*
 **
 **  Primary Activity Mask Register (PAMR) - Index 0x003
 **
@@ -344,9 +344,9 @@
 **        <7>     1     PAMSKPROG1	PAM Programmable Range 1
 **        <8>     1     PAMSKPROG2	PAM Programmable Range 2
 **        <9>     1     PAMSKPROG3	PAM Programmable Range 3
-**        <12>    1     PAMSKEACT0	PAM EXTACT0 
-**        <13>    1     PAMSKEACT1	PAM EXTACT1 
-**        <14>    1     PAMSKEACT2	PAM EXTACT2 
+**        <12>    1     PAMSKEACT0	PAM EXTACT0
+**        <13>    1     PAMSKEACT1	PAM EXTACT1
+**        <14>    1     PAMSKEACT2	PAM EXTACT2
 **        <15>    1     PAMSKEACT3	PAM EXTACT3
 **
 **	  <10:11> Reserved
@@ -379,10 +379,10 @@
 #define PAMR_M_PAMSKEACT1	1 << PAMR_V_PAMSKEACT1
 #define PAMR_V_PAMSKEACT2	14
 #define PAMR_M_PAMSKEACT2	1 << PAMR_V_PAMSKEACT2
-#define PAMR_V_PAMSKEACT3	15                  
+#define PAMR_V_PAMSKEACT3	15
 #define PAMR_M_PAMSKEACT3	1 << PAMR_V_PAMSKEACT3
 
-/* 
+/*
 **
 **  PMI Mask Register (PMIMR) - Index 0x004
 **
@@ -398,9 +398,9 @@
 **        <7>     1     IMSKPROG1	PMI Mask Programmable Range 1
 **        <8>     1     IMSKPROG2	PMI Mask Programmable Range 2
 **        <9>     1     IMSKPROG3	PMI Mask Programmable Range 3
-**        <12>    1     IMSKEACT0	PMI Mask EXTACT0 
-**        <13>    1     IMSKEACT1	PMI Mask EXTACT1 
-**        <14>    1     IMSKEACT2	PMI Mask EXTACT2 
+**        <12>    1     IMSKEACT0	PMI Mask EXTACT0
+**        <13>    1     IMSKEACT1	PMI Mask EXTACT1
+**        <14>    1     IMSKEACT2	PMI Mask EXTACT2
 **        <15>    1     IMSKEACT3	PMI Mask EXTACT3
 **
 **	  <10:11> Reserved
@@ -439,21 +439,21 @@
 #define PMIMR_M_IMSKEACT1	1 << PMIMR_V_IMSKEACT1
 #define PMIMR_V_IMSKEACT2	14
 #define PMIMR_M_IMSKEACT2	1 << PMIMR_V_IMSKEACT2
-#define PMIMR_V_IMSKEACT3	15                  
+#define PMIMR_V_IMSKEACT3	15
 #define PMIMR_M_IMSKEACT3	1 << PMIMR_V_IMSKEACT3
 
-/* 
+/*
 **
 **  Heat Regulator Control Register (HRCR) - Index 0x005
 **
 **        Loc   Size    Name    	Function
 **       -----  ----    ----    	---------------------------------
-**        <0>     1     HTRGDLY0	Heat Regulator Delay 0 
-**        <1>     1     HTRGDLY1	Heat Regulator Delay 1 
-**        <2>     1     HTRGDLY2	Heat Regulator Delay 2 
-**        <3>     1     HTRGRAT0	Heat Regulator Ratio 0 
+**        <0>     1     HTRGDLY0	Heat Regulator Delay 0
+**        <1>     1     HTRGDLY1	Heat Regulator Delay 1
+**        <2>     1     HTRGDLY2	Heat Regulator Delay 2
+**        <3>     1     HTRGRAT0	Heat Regulator Ratio 0
 **        <4>     1     HTRGRAT1	Heat Regulator Ratio 1
-**        <5>     1     HTRGRAT2	Heat Regulator Ratio 2 
+**        <5>     1     HTRGRAT2	Heat Regulator Ratio 2
 **        <6>     1     HTRGEN		Heat Regulator Enable
 **        <7>     1     HTRGLOCK	Heat Regulator Configuration Lock
 **        <14>    1     FRCSLWEN	Force SLOW Enable
@@ -501,12 +501,12 @@
 /*
 ** Heater Regulator Ratio  (Percent)
 */
-#define HTRGRAT_50		0x000  		  
-#define HTRGRAT_66		HRCR_M_HTRGRAT0	  
-#define HTRGRAT_80		HRCR_M_HTRGRAT1		
-#define HTRGRAT_90		(HRCR_M_HTRGRAT0 | HRCR_M_HTRGRAT1) 
+#define HTRGRAT_50		0x000
+#define HTRGRAT_66		HRCR_M_HTRGRAT0
+#define HTRGRAT_80		HRCR_M_HTRGRAT1
+#define HTRGRAT_90		(HRCR_M_HTRGRAT0 | HRCR_M_HTRGRAT1)
 
-/* 
+/*
 **
 **  PMI Mask and Control Register (PMIMCR) - Index 0x006
 **
@@ -563,7 +563,7 @@
 #define PMIMCR_V_IMSKGPTMR	13
 #define PMIMCR_M_IMSKGPTMR	1 << PMIMCR_V_IMSKGPTMR
 
-/* 
+/*
 **
 **  General Purpose Control Register (GPCR) - Index 0x007
 **
@@ -574,7 +574,7 @@
 **        <2>     1     REFRPRD0	Refresh Period 0
 **        <3>     1     REFRPRD1	Refresh Period 1
 **        <4>     1     REFRPRD2	Refresh Period 2
-**        <5>     1     SLFREFEN	Self Refresh Enable 
+**        <5>     1     SLFREFEN	Self Refresh Enable
 **        <6>     1     RINGS0		Modem RING Select 0
 **        <7>     1     RINGS1		Modem RING Select 1
 **        <8>     1     GPIODATA0	General Purpose I/O Data 0
@@ -630,13 +630,13 @@
 /*
 ** Refresh Period
 */
-#define REFRPRD_15US		0x000  		  
+#define REFRPRD_15US		0x000
 #define REFRPRD_30US		GPCR_M_REFRPRD0
 #define REFRPRD_120US		GPCR_M_REFRPRD1
 #define REFRPRD_STOPPED		GPCR_M_REFRPRD2
 #define REFRPRD_60US		(GPCR_M_REFRPRD1 | GPCR_M_REFRPRD2)
 
-/* 
+/*
 **
 **  Stop Clock Control Register (SCCR) - Index 0x008
 **
@@ -699,7 +699,7 @@
 /*
 ** STPCLK Release Delay
 */
-#define STPRELDLY_0S		0x000  		  
+#define STPRELDLY_0S		0x000
 #define STPRELDLY_1US		SCCR_M_STPRELDLY0
 #define STPRELDLY_45US		SCCR_M_STPRELDLY1
 #define STPRELDLY_1MS		(SCCR_M_STPRELDLY0 | SCCR_M_STPRELDLY1)
@@ -720,7 +720,7 @@
 #define PCSTGSEL_16US		SCCR_M_PCSTGSEL1
 #define PCSTGSEL_64MS		(SCCR_M_PCSTGSEL0 | SCCR_M_PCSTGSEL1)
 
-/* 
+/*
 **
 **  Fully-On Mode Power Control Register (FOMPCR) - Index 0x009
 **
@@ -748,7 +748,7 @@
 #define FOMPCR_M_PCON0		1 << FOMPCR_V_PCON0
 #define FOMPCR_V_PCON1		1
 #define FOMPCR_M_PCON1		1 << FOMPCR_V_PCON1
-#define FOMPCR_V_PCON2		2                 
+#define FOMPCR_V_PCON2		2
 #define FOMPCR_M_PCON2		1 << FOMPCR_V_PCON2
 #define FOMPCR_V_PCON3		3
 #define FOMPCR_M_PCON3		1 << FOMPCR_V_PCON3
@@ -767,7 +767,7 @@
 #define FOMPCR_V_GLBLPCEN	10
 #define FOMPCR_M_GLBLPCEN	1 << FOMPCR_V_GLBLPCEN
 
-/* 
+/*
 **
 **  Doze Mode Power Control Register (DZMPCR) - Index 0x00A
 **
@@ -797,7 +797,7 @@
 #define DZMPCR_M_PCDZ0		1 << DZMPCR_V_PCDZ0
 #define DZMPCR_V_PCDZ1		1
 #define DZMPCR_M_PCDZ1		1 << DZMPCR_V_PCDZ1
-#define DZMPCR_V_PCDZ2		2                 
+#define DZMPCR_V_PCDZ2		2
 #define DZMPCR_M_PCDZ2		1 << DZMPCR_V_PCDZ2
 #define DZMPCR_V_PCDZ3		3
 #define DZMPCR_M_PCDZ3		1 << DZMPCR_V_PCDZ3
@@ -818,7 +818,7 @@
 #define DZMPCR_V_STRTDLY	11
 #define DZMPCR_M_STRTDLY	1 << DZMPCR_V_STRTDLY
 
-/* 
+/*
 **
 **  Sleep Mode Power Control Register (SLPMPCR) - Index 0x00B
 **
@@ -852,7 +852,7 @@
 #define SLPMPCR_M_PCSLP0	1 << SLPMPCR_V_PCSLP0
 #define SLPMPCR_V_PCSLP1	1
 #define SLPMPCR_M_PCSLP1	1 << SLPMPCR_V_PCSLP1
-#define SLPMPCR_V_PCSLP2	2                 
+#define SLPMPCR_V_PCSLP2	2
 #define SLPMPCR_M_PCSLP2	1 << SLPMPCR_V_PCSLP2
 #define SLPMPCR_V_PCSLP3	3
 #define SLPMPCR_M_PCSLP3	1 << SLPMPCR_V_PCSLP3
@@ -902,7 +902,7 @@
 #define LBFLSHDUR_31PT25MS	(SLPMPCR_M_LBFLSHDUR0 | SLPMPCR_M_LBFLSHDUR1)
 
 
-/* 
+/*
 **
 **  Suspend Mode Power Control Register (SPNDMPCR) - Index 0x00C
 **
@@ -925,7 +925,7 @@
 **	  <14>	  1     SPFLSHDUR1	Suspend LED Flash Rate Duration 1
 **
 **	  <15> Reserved
-**	
+**
 */
 #define PMC_SPNDMPCR_REG	0x00c
 #define PMC_SPNDMPCR_INIT	( SPNDMPCR_M_PCSPND0 | SPNDMPCR_M_PCSPND1 | \
@@ -937,7 +937,7 @@
 #define SPNDMPCR_M_PCSPND0	1 << SPNDMPCR_V_PCSPND0
 #define SPNDMPCR_V_PCSPND1	1
 #define SPNDMPCR_M_PCSPND1	1 << SPNDMPCR_V_PCSPND1
-#define SPNDMPCR_V_PCSPND2	2                 
+#define SPNDMPCR_V_PCSPND2	2
 #define SPNDMPCR_M_PCSPND2	1 << SPNDMPCR_V_PCSPND2
 #define SPNDMPCR_V_PCSPND3	3
 #define SPNDMPCR_M_PCSPND3	1 << SPNDMPCR_V_PCSPND3
@@ -984,7 +984,7 @@
 #define SPFLSHDUR_62PT5MS	SPNDMPCR_M_SPFLSHDUR1
 #define SPFLSHDUR_31PT25MS	(SPNDMPCR_M_SPFLSHDUR0 | SPNDMPCR_M_SPFLSHDUR1)
 
-/* 
+/*
 **
 **  Timer Register (TIMERR) - Index 0x00D
 **
@@ -1006,7 +1006,7 @@
 **	  <15>	  1     GTRSTPADIS	Generic Timer Reset by PA Disable
 **
 **	  <13:14> Reserved
-**	
+**
 */
 #define PMC_TIMERR_REG		0x00D
 #define PMC_TIMERR_INIT		0x0000
@@ -1103,7 +1103,7 @@
 #define DZTMR_8S		(TIMERR_M_DZTMR1 | TIMERR_M_DZTMR2)
 #define DZTMR_16S		(TIMERR_M_DZTMR0 | TIMERR_M_DZTMR1 | TIMERR_M_DZTMR2)
 
-/* 
+/*
 **
 **  PMC Miscellaneous Control 1 Register (PMCMCR1) - Index 0x00E
 **
@@ -1124,7 +1124,7 @@
 **	  <15>	  1     PRDCTID3	Product Identification 3
 **
 **	  <0:1><10> Reserved
-**	
+**
 */
 #define PMC_PMCMCR1_REG		0x00E
 #define PMC_PMCMCR1_INIT	( PMCMCR1_M_WMSKVLBNAC | PMCMCR1_M_WAKE0MSK | \
@@ -1151,7 +1151,7 @@
 #define PMCMCR1_V_PRDCTID	12
 #define PMCMCR1_M_PRDCTID	0xF << PMCMCR1_V_PRDCTID
 
-/* 
+/*
 **
 **  GP Counter/Timer Register (GPCTR) - Index 0x010
 **
@@ -1173,12 +1173,12 @@
 **        <13>    1     GPCT13		General Purpose Counter/Timer 13
 **        <14>    1     GPCT14		General Purpose Counter/Timer 14
 **        <15>    1     GPCT15		General Purpose Counter/Timer 15
-**	
+**
 */
 #define PMC_GPCTR_REG		0x010
 #define GPCTR_M_GPCTR		0xFFFFFFFF
 
-/* 
+/*
 **
 **  GP Timer Compare Register (GPTMRCMPR) - Index 0x011
 **
@@ -1200,12 +1200,12 @@
 **        <13>    1     GPTMRCMP13	GP Counter/Timer Compare 13
 **        <14>    1     GPTMRCMP14	GP Counter/Timer Compare 14
 **        <15>    1     GPTMRCMP15	GP Counter/Timer Compare 15
-**	
+**
 */
 #define PMC_GPTMRCMPR_REG		0x010
 #define GPTMRCMPR_M_GPTMRCMPR		0xFFFFFFFF
 
-/* 
+/*
 **
 **  Debounce Control Register (DBCR) - Index 0x012
 **
@@ -1224,7 +1224,7 @@
 **	  <15>	  1     WAKE1DBTMDR	WAKE1 Debounce Time Duration
 **
 **	  <1><8:11> Reserved
-**	
+**
 */
 #define PMC_DBCR_REG		0x012
 #define PMC_DBCR_INIT		0x0000
@@ -1251,7 +1251,7 @@
 #define DBCR_V_WAKE1DBTMDR	15
 #define DBCR_M_WAKE1DBTMDR	1 << DBCR_V_WAKE1DBTMDR
 
-/* 
+/*
 **
 **  PMC Miscellaneous Control 2 Register (PMCMCR2) - Index 0x013
 **
@@ -1269,7 +1269,7 @@
 **	  <15>	  1     RSTCPUFLG	RSTCPU Flag
 **
 **	  <0><5:6><11:13> Reserved
-**	
+**
 */
 #define PMC_PMCMCR2_REG		0x013
 #define PMC_PMCMCR2_INIT	( PMCMCR2_M_PWRGDSTBYDIS | PMCMCR2_M_GLBLRSTEN | \
@@ -1296,7 +1296,7 @@
 #define PMCMCR2_V_RSTCPUFLG	15
 #define PMCMCR2_M_RSTCPUFLG	1 << PMCMCR2_V_RSTCPUFLG
 
-/* 
+/*
 **
 **  Optional GPIO Control Register 2 (GPIOCR2) - Index 0x014
 **
@@ -1316,7 +1316,7 @@
 **        <11>    1     GPIOCDIR1	General Purpose I/O C Direction 1
 **
 **	  <12:15> Reserved
-**	
+**
 */
 #define PMC_GPIOCR2_REG		0x014
 #define PMC_GPIOCR2_INIT	( GPIOCR2_M_GPIOADIR0 | GPIOCR2_M_GPIOADIR1  | \
@@ -1359,7 +1359,7 @@
 #define GPIOCR2_V_GPIOCDIR1	11
 #define GPIOCR2_M_GPIOCDIR1	1 << GPIOCR2_V_GPIOCDIR1
 
-/* 
+/*
 **
 **  Leakage Control Register (LKCR) - Index 0x015
 **
@@ -1379,7 +1379,7 @@
 **        <15>    1     LCDIS		Global Leakage Control
 **
 **	  <10:13> Reserved
-**	
+**
 */
 #define PMC_LKCR_REG		0x015
 #define PMC_LKCR_INIT		( LKCR_M_CPULCDIS     | LKCR_M_DRAMLCDIS | \
@@ -1413,7 +1413,7 @@
 #define LKCR_V_LCDIS		15
 #define LKCR_M_LCDIS		1 << LKCR_V_LCDIS
 
-/* 
+/*
 **
 **  SEQUOIA-1 Miscellaneous Register 1 (SEQMR1) - Index 0x016
 **
@@ -1425,7 +1425,7 @@
 **        <15>    1     SWTSTBYDIS	Disable Standby on SWTCH
 **
 **	  <0:10><13> Reserved
-**	
+**
 */
 #define PMC_SEQMR1_REG		0x016
 #define PMC_SEQMR1_INIT		0x0000
@@ -1438,18 +1438,18 @@
 #define SEQMR1_V_SWTSTBYDIS	15
 #define SEQMR1_M_SWTSTBYDIS	1 << SEQMR1_V_SWTSTBYDIS
 
-/* 
+/*
 **
 **  SEQUOIA-1 Miscellaneous Register 2 (SEQMR2) - Index 0x017
 **
 **        Loc   Size    Name    	Function
 **       -----  ----    ----    	---------------------------------
 **        <0>     1     DLYWCASEN	Delay Write CAS Enable
-**        <1>     1     SMMWTEN		SMM Write-Through Enable 
+**        <1>     1     SMMWTEN		SMM Write-Through Enable
 **        <2>     1     STATICSPNDEN	Static Suspend Enable
 **
 **	  <3:15> Reserved
-**	
+**
 */
 #define PMC_SEQMR2_REG		0x017
 #define PMC_SEQMR2_INIT		0x0000
@@ -1460,7 +1460,7 @@
 #define SEQMR2_V_STATICSPNDEN	2
 #define SEQMR2_M_STATICSPNDEN	1 << SEQMR2_V_STATICSPNDEN
 
-/* 
+/*
 **
 **  Secondary Activity Mask Register (SAMR) - Index 0x019
 **
@@ -1478,7 +1478,7 @@
 **        <15>    1     SAMSKEACT3	Secondary Activity Mask EXTACT3
 **
 **	  <1:2><4:5><10:11> Reserved
-**	
+**
 */
 #define PMC_SAMR_REG		0x019
 #define PMC_SAMR_INIT		( SAMR_M_SAMSKVID   | SAMR_M_SAMSKKBD   | \
@@ -1507,7 +1507,7 @@
 #define SAMR_V_SAMSKEACT3	15
 #define SAMR_M_SAMSKEACT3	1 << SAMR_V_SAMSKEACT3
 
-/* 
+/*
 **
 **  Additional Activity Source Register (AASR) - Index 0x01A
 **
@@ -1530,7 +1530,7 @@
 **        <15>    1     PRTOPMI3	Programmable Timer 3 PMI Flag
 **
 **	  <3> Reserved
-**	
+**
 */
 #define PMC_AASR_REG		0x01A
 #define PMC_AASR_INIT		0x0000
@@ -1565,13 +1565,13 @@
 #define AASR_V_PRTOPMI3		15
 #define AASR_M_PRTOPMI3		1 << AASR_V_PRTOPMI3
 
-/* 
+/*
 **
 **  Additional Primary Activity Mask Register (APAMR) - Index 0x01B
 **
 **        Loc   Size    Name    	Function
 **       -----  ----    ----    	---------------------------------
-**        <0>     1     PAMSKWAKE0	Primary Activity Mask WAKE0 
+**        <0>     1     PAMSKWAKE0	Primary Activity Mask WAKE0
 **        <1>     1     PAMSKWAKE1	Primary Activity Mask WAKE1
 **        <2>     1     PAMSKINTR	Primary Activity Mask INTR
 **        <3>     1     PAMSKPMI	Primary Activity Mask PMI
@@ -1584,7 +1584,7 @@
 **        <15>    1     LMTPACTV	Limited Primary Activity PMI
 **
 **	  <8:10><12:13> Reserved
-**	
+**
 */
 #define PMC_APAMR_REG		0x01B
 #define PMC_APAMR_INIT		( APAMR_M_PAMSKWAKE0 | APAMR_M_PAMSKWAKE1 | \
@@ -1615,13 +1615,13 @@
 #define APAMR_V_LMTPACTV	15
 #define APAMR_M_LMTPACTV	1 << APAMR_V_LMTPACTV
 
-/* 
+/*
 **
 **  Additional Secondary Control Register (ASCR) - Index 0x01C
 **
 **        Loc   Size    Name    	Function
 **       -----  ----    ----    	---------------------------------
-**        <0>     1     SAMSKWAKE0	Secondary Activity Mask WAKE0 
+**        <0>     1     SAMSKWAKE0	Secondary Activity Mask WAKE0
 **        <1>     1     SAMSKWAKE1	Secondary Activity Mask WAKE1
 **        <2>     1     SAMSKINTR	Secondary Activity Mask INTR
 **        <3>     1     SAMSKPMI	Secondary Activity Mask PMI
@@ -1634,7 +1634,7 @@
 **        <15>    1     LMTSACTV	Limited Secondary Activity PMI
 **
 **	  <5><8><12:14> Reserved
-**	
+**
 */
 #define PMC_ASCR_REG		0x01C
 #define PMC_ASCR_INIT		( ASCR_M_SAMSKWAKE0 | ASCR_M_SAMSKWAKE1 | \
@@ -1668,7 +1668,7 @@
 #define ASCR_M_LMTSACTV		1 << ASCR_V_LMTSACTV
 
 /*
-** Secondary Activity Timer 
+** Secondary Activity Timer
 */
 #define SACTVTMR_125US		0x000
 #define SACTVTMR_1MS		ASCR_M_SACTVTMR0
@@ -1679,7 +1679,7 @@
 #define SACTVTMR_32MS		(ASCR_M_SACTVTMR1 | ASCR_M_SACTVTMR2)
 #define SACTVTMR_64MS		(ASCR_M_SACTVTMR0 | ASCR_M_SACTVTMR1 | ASCR_M_SACTVTMR2)
 
-/* 
+/*
 **
 **  Additional PMI Mask Register (APMIMR) - Index 0x01D
 **
@@ -1697,7 +1697,7 @@
 **        <11>    1     IMSKPRTMR3TO	Mask Programmable Time 3 Time-out from PMI
 **
 **	  <2><7><12:15> Reserved
-**	
+**
 */
 #define PMC_APMIMR_REG		0x01D
 #define PMC_APMIMR_INIT		( APMIMR_M_IMSKWAKE0   | APMIMR_M_IMSKWAKE1   | \
@@ -1736,7 +1736,7 @@
 #define RESCHED_1MS		APMIMR_M_RESCHED1
 #define RESCHED_1S		(APMIMR_M_RESCHED0 | APMIMR_M_RESCHED1)
 
-/* 
+/*
 **
 **  Miscellaneous Control Register (MCR) - Index 0x01E
 **
@@ -1747,7 +1747,7 @@
 **        <2>     1     SAFLGEN		Secondary Activity Flag Enable
 **
 **	  <3:15> Reserved
-**	
+**
 */
 #define PMC_MCR_REG		0x01E
 #define PMC_MCR_INIT		0x0000
@@ -1758,7 +1758,7 @@
 #define MCR_V_SAFLGEN		2
 #define MCR_M_SAFLGEN		1 << MCR_V_SAFLGEN
 
-/* 
+/*
 **
 **  SEQUOIA-1 Identification Register (SEQIDR) - Index 0x01F
 **
@@ -1770,13 +1770,13 @@
 **        <3>     1     SQ1ID3		SEQUOIA-1 Revision Number ID 3
 **
 **	  <4:15> Reserved
-**	
+**
 */
 #define PMC_SEQIDR_REG		0x01F
 #define SEQIDR_V_SQ1ID		0
 #define SEQIDR_M_SQ1ID		0xF << SEQIDR_V_SQ1ID
 
-/* 
+/*
 **
 **  Programmable Range Address Register 0 (PRAR0) - Index 0x020
 **
@@ -1787,7 +1787,7 @@
 **        <15>    1     PROCS0EN	Programmable Chip Select 0 Enable
 **
 **	  <10:13> Reserved
-**	
+**
 */
 #define PMC_PRAR0_REG		0x020
 #define PMC_PRAR0_INIT		0x0000
@@ -1798,7 +1798,7 @@
 #define PRAR0_V_PROCS0EN	15
 #define PRAR0_M_PROCS0EN	1 << PRAR0_V_PROCS0EN
 
-/* 
+/*
 **
 **  Programmable Range Compare Register 0 (PRCR0) - Index 0x021
 **
@@ -1814,13 +1814,13 @@
 **        <7>     1     PRMCMPEN07	PRM 0 Compare Enable 7
 **        <8>     1     PRMCMPEN08	PRM 0 Compare Enable 8
 **        <9>     1     PRMCMPEN09	PRM 0 Compare Enable 9
-**        <10>    1     PRMWR0EN	PRM 0 Compare Write Enable 
-**        <11>    1     PRMRD0EN	PRM 0 Compare Read Enable 
-**        <12>    1     PRM0MIO		PRM 0 Memory or I/O Compare Enable 
-**        <13>    1     PRM0EN		PRM 0 Enable 
+**        <10>    1     PRMWR0EN	PRM 0 Compare Write Enable
+**        <11>    1     PRMRD0EN	PRM 0 Compare Read Enable
+**        <12>    1     PRM0MIO		PRM 0 Memory or I/O Compare Enable
+**        <13>    1     PRM0EN		PRM 0 Enable
 **
 **	  <14:15> Reserved
-**	
+**
 */
 #define PMC_PRCR0_REG		0x021
 #define PMC_PRCR0_INIT		0x0000
@@ -1855,7 +1855,7 @@
 #define PRCR0_V_PRM0EN		13
 #define PRCR0_M_PRM0EN		1 << PRCR0_V_PRM0EN
 
-/* 
+/*
 **
 **  Programmable Range Address Register 1 (PRAR1) - Index 0x022
 **
@@ -1866,7 +1866,7 @@
 **        <15>    1     PROCS1EN	Programmable Chip Select 1 Enable
 **
 **	  <10:13> Reserved
-**	
+**
 */
 #define PMC_PRAR1_REG		0x022
 #define PRAR1_V_PRMA		0
@@ -1876,7 +1876,7 @@
 #define PRAR1_V_PROCS1EN	15
 #define PRAR1_M_PROCS1EN	1 << PRAR1_V_PROCS1EN
 
-/* 
+/*
 **
 **  Programmable Range Compare Register 1 (PRCR1) - Index 0x023
 **
@@ -1892,13 +1892,13 @@
 **        <7>     1     PRMCMPEN17	PRM 1 Compare Enable 7
 **        <8>     1     PRMCMPEN18	PRM 1 Compare Enable 8
 **        <9>     1     PRMCMPEN19	PRM 1 Compare Enable 9
-**        <10>    1     PRMWR1EN	PRM 1 Compare Write Enable 
-**        <11>    1     PRMRD1EN	PRM 1 Compare Read Enable 
-**        <12>    1     PRM1MIO		PRM 1 Memory or I/O Compare Enable 
-**        <13>    1     PRM1EN		PRM 1 Enable 
+**        <10>    1     PRMWR1EN	PRM 1 Compare Write Enable
+**        <11>    1     PRMRD1EN	PRM 1 Compare Read Enable
+**        <12>    1     PRM1MIO		PRM 1 Memory or I/O Compare Enable
+**        <13>    1     PRM1EN		PRM 1 Enable
 **
 **	  <14:15> Reserved
-**	
+**
 */
 #define PMC_PRCR1_REG		0x023
 #define PMC_PRCR1_INIT		0x0000
@@ -1933,7 +1933,7 @@
 #define PRCR1_V_PRM1EN		13
 #define PRCR1_M_PRM1EN		1 << PRCR1_V_PRM1EN
 
-/* 
+/*
 **
 **  Programmable Range Address Register 2 (PRAR2) - Index 0x024
 **
@@ -1944,7 +1944,7 @@
 **        <15>    1     PROCS2EN	Programmable Chip Select 2 Enable
 **
 **	  <10:13> Reserved
-**	
+**
 */
 #define PMC_PRAR2_REG		0x024
 #define PRAR2_V_PRMA		0
@@ -1954,7 +1954,7 @@
 #define PRAR2_V_PROCS2EN	15
 #define PRAR2_M_PROCS2EN	1 << PRAR2_V_PROCS2EN
 
-/* 
+/*
 **
 **  Programmable Range Compare Register 2 (PRCR2) - Index 0x025
 **
@@ -1970,13 +1970,13 @@
 **        <7>     1     PRMCMPEN17	PRM 2 Compare Enable 7
 **        <8>     1     PRMCMPEN18	PRM 2 Compare Enable 8
 **        <9>     1     PRMCMPEN19	PRM 2 Compare Enable 9
-**        <10>    1     PRMWR2EN	PRM 2 Compare Write Enable 
-**        <11>    1     PRMRD2EN	PRM 2 Compare Read Enable 
-**        <12>    1     PRM2MIO		PRM 2 Memory or I/O Compare Enable 
-**        <13>    1     PRM2EN		PRM 2 Enable 
+**        <10>    1     PRMWR2EN	PRM 2 Compare Write Enable
+**        <11>    1     PRMRD2EN	PRM 2 Compare Read Enable
+**        <12>    1     PRM2MIO		PRM 2 Memory or I/O Compare Enable
+**        <13>    1     PRM2EN		PRM 2 Enable
 **
 **	  <14:15> Reserved
-**	
+**
 */
 #define PMC_PRCR2_REG		0x025
 #define PMC_PRCR2_INIT		0x0000
@@ -2011,7 +2011,7 @@
 #define PRCR2_V_PRM2EN		13
 #define PRCR2_M_PRM2EN		1 << PRCR2_V_PRM2EN
 
-/* 
+/*
 **
 **  Programmable Range Address Register 3 (PRAR3) - Index 0x026
 **
@@ -2022,7 +2022,7 @@
 **        <15>    1     PROCS3EN	Programmable Chip Select 3 Enable
 **
 **	  <10:13> Reserved
-**	
+**
 */
 #define PMC_PRAR3_REG		0x026
 #define PMC_PRAR3_INIT		0x0000
@@ -2033,7 +2033,7 @@
 #define PRAR3_V_PROCS3EN	15
 #define PRAR3_M_PROCS3EN	1 << PRAR3_V_PROCS3EN
 
-/* 
+/*
 **
 **  Programmable Range Compare Register 3 (PRCR3) - Index 0x027
 **
@@ -2049,13 +2049,13 @@
 **        <7>     1     PRMCMPEN17	PRM 3 Compare Enable 7
 **        <8>     1     PRMCMPEN18	PRM 3 Compare Enable 8
 **        <9>     1     PRMCMPEN19	PRM 3 Compare Enable 9
-**        <10>    1     PRMWR3EN	PRM 3 Compare Write Enable 
-**        <11>    1     PRMRD3EN	PRM 3 Compare Read Enable 
-**        <12>    1     PRM3MIO		PRM 3 Memory or I/O Compare Enable 
-**        <13>    1     PRM3EN		PRM 3 Enable 
+**        <10>    1     PRMWR3EN	PRM 3 Compare Write Enable
+**        <11>    1     PRMRD3EN	PRM 3 Compare Read Enable
+**        <12>    1     PRM3MIO		PRM 3 Memory or I/O Compare Enable
+**        <13>    1     PRM3EN		PRM 3 Enable
 **
 **	  <14:15> Reserved
-**	
+**
 */
 #define PMC_PRCR3_REG		0x027
 #define PMC_PRCR3_INIT		0x0000
@@ -2090,7 +2090,7 @@
 #define PRCR3_V_PRM3EN		13
 #define PRCR3_M_PRM3EN		1 << PRCR3_V_PRM3EN
 
-/* 
+/*
 **
 **  Programmable Time-out Timer Register 0 (PTOTR0) - Index 0x028
 **
@@ -2105,7 +2105,7 @@
 **        <15>    1     TMR0EN		Programmable Timer 0 Enable
 **
 **	  <4:6><8:13> Reserved
-**	
+**
 */
 #define PMC_PTOTR0_REG		0x028
 #define PMC_PTOTR0_INIT		0x0000
@@ -2127,7 +2127,7 @@
 #define PTOTR0_M_TMR0EN		1 << PTOTR0_V_TMR0EN
 
 /*
-** Progammable Time-out Timer 0 
+** Progammable Time-out Timer 0
 */
 #define PROGTMR0_2S		0x000
 #define PROGTMR0_5S		PTOTR0_M_PROGTMR00
@@ -2146,7 +2146,7 @@
 #define PROGTMR0_15MIN		(PTOTR0_M_PROGTMR01 | PTOTR0_M_PROGTMR02 | PTOTR0_M_PROGTMR03)
 #define PROGTMR0_20MIN		(PTOTR0_M_PROGTMR00 | PTOTR0_M_PROGTMR01 | PTOTR0_M_PROGTMR02 | PTOTR0_M_PROGTMR03)
 
-/* 
+/*
 **
 **  Programmable Time-out Timer Register 1 (PTOTR1) - Index 0x029
 **
@@ -2161,7 +2161,7 @@
 **        <15>    1     TMR1EN		Programmable Timer 1 Enable
 **
 **	  <4:6><8:13> Reserved
-**	
+**
 */
 #define PMC_PTOTR1_REG		0x029
 #define PMC_PTOTR1_INIT		0x0000
@@ -2183,7 +2183,7 @@
 #define PTOTR1_M_TMR1EN		1 << PTOTR1_V_TMR1EN
 
 /*
-** Progammable Time-out Timer 1 
+** Progammable Time-out Timer 1
 */
 #define PROGTMR1_2S		0x000
 #define PROGTMR1_5S		PTOTR1_M_PROGTMR10
@@ -2202,7 +2202,7 @@
 #define PROGTMR1_15MIN		(PTOTR1_M_PROGTMR11 | PTOTR1_M_PROGTMR12 | PTOTR1_M_PROGTMR13)
 #define PROGTMR1_20MIN		(PTOTR1_M_PROGTMR10 | PTOTR1_M_PROGTMR11 | PTOTR1_M_PROGTMR12 | PTOTR0_M_PROGTMR13)
 
-/* 
+/*
 **
 **  Programmable Time-out Timer Register 2 (PTOTR2) - Index 0x02A
 **
@@ -2217,7 +2217,7 @@
 **        <15>    1     TMR2EN		Programmable Timer 2 Enable
 **
 **	  <4:6><8:13> Reserved
-**	
+**
 */
 #define PMC_PTOTR2_REG		0x02A
 #define PMC_PTOTR2_INIT		0x0000
@@ -2258,7 +2258,7 @@
 #define PROGTMR2_15MIN		(PTOTR2_M_PROGTMR21 | PTOTR2_M_PROGTMR22 | PTOTR2_M_PROGTMR23)
 #define PROGTMR2_20MIN		(PTOTR2_M_PROGTMR20 | PTOTR2_M_PROGTMR21 | PTOTR2_M_PROGTMR22 | PTOTR0_M_PROGTMR23)
 
-/* 
+/*
 **
 **  Programmable Time-out Timer Register 3 (PTOTR3) - Index 0x02B
 **
@@ -2273,7 +2273,7 @@
 **        <15>    1     TMR3EN		Programmable Timer 3 Enable
 **
 **	  <4:6><8:13> Reserved
-**	
+**
 */
 #define PMC_PTOTR3_REG		0x02B
 #define PMC_PTOTR3_INIT		0x0000
@@ -2314,7 +2314,7 @@
 #define PROGTMR3_15MIN		(PTOTR3_M_PROGTMR31 | PTOTR3_M_PROGTMR32 | PTOTR3_M_PROGTMR33)
 #define PROGTMR3_20MIN		(PTOTR3_M_PROGTMR30 | PTOTR3_M_PROGTMR31 | PTOTR3_M_PROGTMR32 | PTOTR0_M_PROGTMR33)
 
-/* 
+/*
 **
 **  Programmable Time-out Timer Source Register 1 (PTOTSR1) - Index 0x02C
 **
@@ -2325,16 +2325,16 @@
 **        <3>     1     VDTMRSELEN	Video Activity Time-out Timer Select Enable
 **        <4>     1     HDTMRSEL0	Hard Drive Activity Time-out Timer Select 0
 **        <5>     1     HDTMRSEL1	Hard Drive Activity Time-out Timer Select 1
-**        <7>     1     HDTMRSELEN	Hard Drive Activity Time-out Timer Select Enable 
+**        <7>     1     HDTMRSELEN	Hard Drive Activity Time-out Timer Select Enable
 **        <8>     1     FDTMRSEL0	Floppy Drive Activity Time-out Timer Select 0
 **        <9>     1     FDTMRSEL1	Floppy Drive Activity Time-out Timer Select 1
-**        <11>    1     FDTMRSELEN	Floppy Drive Activity Time-out Timer Select Enable 
+**        <11>    1     FDTMRSELEN	Floppy Drive Activity Time-out Timer Select Enable
 **        <12>    1     KBTMRSEL0	Keyboard Activity Time-out Timer Select 0
 **        <13>    1     KBTMRSEL1	Keyboard Activity Time-out Timer Select 1
-**        <15>    1     KBTMRSELEN	Keyboard Activity Time-out Timer Select Enable 
+**        <15>    1     KBTMRSELEN	Keyboard Activity Time-out Timer Select Enable
 **
 **	  <2><6><10><14> Reserved
-**	
+**
 */
 #define PMC_PTOTSR1_REG		0x02C
 #define PMC_PTOTSR1_INIT	0x0000
@@ -2403,7 +2403,7 @@
 #define KBTMRSEL_2		PTOTSR1_M_KBTMRSEL1
 #define KBTMRSEL_3		(PTOTSR1_M_KBTMRSEL0 | PTOTSR1_M_KBTMRSEL1)
 
-/* 
+/*
 **
 **  Programmable Time-out Timer Source Register 2 (PTOTSR2) - Index 0x02D
 **
@@ -2414,16 +2414,16 @@
 **        <3>     1     SIOTMRSELEN	Serial Port Activity Time-out Timer Select Enable
 **        <4>     1     PIOTMRSEL0	Parallel Port Activity Time-out Timer Select 0
 **        <5>     1     PIOTMRSEL1	Parallel Port Activity Time-out Timer Select 1
-**        <7>     1     PIOTMRSELEN	Parallel Port Activity Time-out Timer Select Enable 
+**        <7>     1     PIOTMRSELEN	Parallel Port Activity Time-out Timer Select Enable
 **        <8>     1     PR0TMRSEL0	PRM 0 Activity Time-out Timer Select 0
 **        <9>     1     PR0TMRSEL1	PRM 0 Activity Time-out Timer Select 1
-**        <11>    1     PR0TMRSELEN	PRM 0 Activity Time-out Timer Select Enable 
+**        <11>    1     PR0TMRSELEN	PRM 0 Activity Time-out Timer Select Enable
 **        <12>    1     PR1TMRSEL0	PRM 1 Activity Time-out Timer Select 0
 **        <13>    1     PR1TMRSEL1	PRM 1 Activity Time-out Timer Select 1
-**        <15>    1     PR1TMRSELEN	PRM 1 Activity Time-out Timer Select Enable 
+**        <15>    1     PR1TMRSELEN	PRM 1 Activity Time-out Timer Select Enable
 **
 **	  <2><6><10><14> Reserved
-**	
+**
 */
 #define PMC_PTOTSR2_REG		0x02D
 #define PMC_PTOTSR2_INIT	0x0000
@@ -2492,7 +2492,7 @@
 #define PR1TMRSEL_2		PTOTSR2_M_PR1TMRSEL1
 #define PR1TMRSEL_3		(PTOTSR2_M_PR1TMRSEL0 | PTOTSR2_M_PR1TMRSEL1)
 
-/* 
+/*
 **
 **  Programmable Time-out Timer Source Register 3 (PTOTSR3) - Index 0x02E
 **
@@ -2503,10 +2503,10 @@
 **        <3>     1     PR2TMRSELEN	PRM 2 Activity Time-out Timer Select Enable
 **        <4>     1     PR3TMRSEL0	PRM 3 Activity Time-out Timer Select 0
 **        <5>     1     PR3TMRSEL1	PRM 3 Activity Time-out Timer Select 1
-**        <7>     1     PR3TMRSELEN	PRM 3 Activity Time-out Timer Select Enable 
+**        <7>     1     PR3TMRSELEN	PRM 3 Activity Time-out Timer Select Enable
 **
 **	  <2><6><8:15> Reserved
-**	
+**
 */
 #define PMC_PTOTSR3_REG		0x02E
 #define PMC_PTOTSR3_INIT	0x0000
@@ -2543,7 +2543,7 @@
 #define PR3TMRSEL_2		PTOTSR3_M_PR3TMRSEL1
 #define PR3TMRSEL_3		(PTOTSR3_M_PR3TMRSEL0 | PTOTSR3_M_PR3TMRSEL1)
 
-/* 
+/*
 **
 **  Programmable Time-out Timer Source Register 4 (PTOTSR4) - Index 0x02F
 **
@@ -2554,16 +2554,16 @@
 **        <3>     1     EXT0TMRSELEN	EXTACT0 Activity Time-out Timer Select Enable
 **        <4>     1     EXT1TMRSEL0	EXTACT1 Activity Time-out Timer Select 0
 **        <5>     1     EXT1TMRSEL1	EXTACT1 Activity Time-out Timer Select 1
-**        <7>     1     EXT1TMRSELEN	EXTACT1 Activity Time-out Timer Select Enable 
+**        <7>     1     EXT1TMRSELEN	EXTACT1 Activity Time-out Timer Select Enable
 **        <8>     1     EXT2TMRSEL0	EXTACT2 Activity Time-out Timer Select 0
 **        <9>     1     EXT2TMRSEL1	EXTACT2 Activity Time-out Timer Select 1
-**        <11>    1     EXT2TMRSELEN	EXTACT2 Activity Time-out Timer Select Enable 
+**        <11>    1     EXT2TMRSELEN	EXTACT2 Activity Time-out Timer Select Enable
 **        <12>    1     EXT3TMRSEL0	EXTACT3 Activity Time-out Timer Select 0
 **        <13>    1     EXT3TMRSEL1	EXTACT3 Activity Time-out Timer Select 1
-**        <15>    1     EXT3TMRSELEN	EXTACT3 Activity Time-out Timer Select Enable 
+**        <15>    1     EXT3TMRSELEN	EXTACT3 Activity Time-out Timer Select Enable
 **
 **	  <2><6><10><14> Reserved
-**	
+**
 */
 #define PMC_PTOTSR4_REG		0x02F
 #define PMC_PTOTSR4_INIT	0x0000
@@ -2633,19 +2633,19 @@
 #define EXT3TMRSEL_3		(PTOTSR4_M_EXT3TMRSEL0 | PTOTSR4_M_EXT3TMRSEL1)
 
 /*
-** System Registers 
+** System Registers
 **
 */
 
-/* 
+/*
 **
 **  Power-On Register (POR) - Index 0x100
 **
 **        Loc   Size    Name    	Function
 **       -----  ----    ----    	---------------------------------
-**        <0>     1     SEQUOIASEL	SEQUOIA Select 
+**        <0>     1     SEQUOIASEL	SEQUOIA Select
 **        <3>     1     DLYBDEN		Delay BD Bus Enable
-**        <4>     1     CPUMODESEL	CPU Mode Select 
+**        <4>     1     CPUMODESEL	CPU Mode Select
 **        <6>     1     DLYBDBUSEN	Delay BADS# & BDEV# Enable
 **	  <7>	  1     MISCCF0		Miscellaneous Configuration 0
 **	  <8>	  1     MISCCF1		Miscellaneous Configuration 1
@@ -2677,7 +2677,7 @@
 #define POR_V_1X2XCLKSEL	12
 #define POR_M_1X2XCLKSEL	1 << POR_V_1X2XCLKSEL
 
-/* 
+/*
 **
 **  Non-Cacheable Region 1 Register (NCR1R) - Index 0x101
 **
@@ -2710,7 +2710,7 @@
 #define NCR1BS_128K		NCR1R_M_NCR1BS1
 #define NCR1BS_256K		(NCR1R_M_NCR1BS0 | NCR1R_M_NCR1BS1)
 
-/* 
+/*
 **
 **  Non-Cacheable Region 2 Register (NCR2R) - Index 0x102
 **
@@ -2743,7 +2743,7 @@
 #define NCR2BS_128K		NCR2R_M_NCR2BS1
 #define NCR2BS_256K		(NCR2R_M_NCR2BS0 | NCR2R_M_NCR2BS1)
 
-/* 
+/*
 **
 **  SYS Miscellaneous Control Register 1 (SYSMCR1) - Index 0x103
 **
@@ -2751,7 +2751,7 @@
 **       -----  ----    ----    	---------------------------------
 **        <0>     1     LDSMIHLDER	Load SMI Handler into SMM Space
 **        <1>     1     MOVRLYEN	Memory Overlay Enable
-**        <2>     1     SMMMAPSEL	SMM Memory Map Select 
+**        <2>     1     SMMMAPSEL	SMM Memory Map Select
 **        <3>     1     SMMDETECT	SMM Detect
 **        <4>     1     FLUSHWSMI	Generate FLUSH# with SMI# Active
 **        <5>     1     SMIFLUSHIN	SMI Flush In
@@ -2800,7 +2800,7 @@
 #define SYSMCR1_V_SMISTRTSEL	15
 #define SYSMCR1_M_SMISTRTSEL	1 << SYSMCR1_V_SMISTRTSEL
 
-/* 
+/*
 **
 **  SYS Miscellaneous Control Register 2 (SYSMCR2) - Index 0x104
 **
@@ -2837,7 +2837,7 @@
 #define SYSMCR2_V_SHDWRLOCK	15
 #define SYSMCR2_M_SHDWRLOCK	1 << SYSMCR2_V_SHDWRLOCK
 
-/* 
+/*
 **
 **  Parity Address Register 1 (PARADR1) - Index 0x105
 **
@@ -2851,7 +2851,7 @@
 #define PARADR1_V_PARADR	2
 #define PARADR1_M_PARADR	0xFFFC << PARADR1_V_PARADR
 
-/* 
+/*
 **
 **  Parity Address Register 2 (PARADR2) - Index 0x106
 **
@@ -2883,7 +2883,7 @@
 **
 */
 
-/* 
+/*
 **
 **  SEQUOIA-1 Pin Select Register 1 (SEQPSR1) - Index 0x110
 **
@@ -2923,7 +2923,7 @@
 #define SEQPSR1_V_GPIOA0PINEN	11
 #define SEQPSR1_M_GPIOA0PINEN	1 << SEQPSR1_V_GPIOA0PINEN
 
-/* 
+/*
 **
 **  SEQUOIA-1 Pin Select Register 2 (SEQPSR2) - Index 0x111
 **
@@ -2982,7 +2982,7 @@
 #define SEQPSR2_V_GPIO3PINEN	15
 #define SEQPSR2_M_GPIO3PINEN	1 << SEQPSR2_V_GPIO3PINEN
 
-/* 
+/*
 **
 **  SEQUOIA-1 Pin Select Register 3 (SEQPSR3) - Index 0x112
 **
@@ -3030,7 +3030,7 @@
 #define SEQPSR3_V_EXTACT1PINEN	15
 #define SEQPSR3_M_EXTACT1PINEN	1 << SEQPSR3_V_EXTACT1PINEN
 
-/* 
+/*
 **
 **  Modular Clock Control Register (MODCLKCR) - Index 0x118
 **
@@ -3054,7 +3054,7 @@
 #define MODCLKCR_V_SLWATCKEN	11
 #define MODCLKCR_M_SLWWATCKEN	1 << MODCLKCR_V_SLWATCKEN
 
-/* 
+/*
 **
 **  Burst Bus Control Register (BBUSCR) - Index 0x180
 **
@@ -3079,7 +3079,7 @@
 **
 */
 
-/* 
+/*
 **
 **  Shadow RAM Read Enable Control Register (SRAMRDENCR) - Index 0x200
 **
@@ -3121,7 +3121,7 @@
 #define SRAMRDENCR_M_LMEMRDEN7	1 << SRAMRDENCR_V_LMEMRDEN7
 #define SRAMRDENCR_V_LMEMRDEN8	8
 #define SRAMRDENCR_M_LMEMRDEN8	1 << SRAMRDENCR_V_LMEMRDEN8
-#define SRAMRDENCR_V_LMEMRDEN9	9                       
+#define SRAMRDENCR_V_LMEMRDEN9	9
 #define SRAMRDENCR_M_LMEMRDEN9	1 << SRAMRDENCR_V_LMEMRDEN9
 #define SRAMRDENCR_V_LMEMRDEN10	10
 #define SRAMRDENCR_M_LMEMRDEN10	1 << SRAMRDENCR_V_LMEMRDEN10
@@ -3130,7 +3130,7 @@
 #define SRAMRDENCR_V_LMEMRDEN12	12
 #define SRAMRDENCR_M_LMEMRDEN12	1 << SRAMRDENCR_V_LMEMRDEN12
 
-/* 
+/*
 **
 **  Shadow RAM Write Enable Control Register (SRAMWRENCR) - Index 0x201
 **
@@ -3172,7 +3172,7 @@
 #define SRAMWRENCR_M_LMEMWREN7	1 << SRAMWRENCR_V_LMEMWREN7
 #define SRAMWRENCR_V_LMEMWREN8	8
 #define SRAMWRENCR_M_LMEMWREN8	1 << SRAMWRENCR_V_LMEMWREN8
-#define SRAMWRENCR_V_LMEMWREN9	9                       
+#define SRAMWRENCR_V_LMEMWREN9	9
 #define SRAMWRENCR_M_LMEMWREN9	1 << SRAMWRENCR_V_LMEMWREN9
 #define SRAMWRENCR_V_LMEMWREN10	10
 #define SRAMWRENCR_M_LMEMWREN10	1 << SRAMWRENCR_V_LMEMWREN10
@@ -3181,7 +3181,7 @@
 #define SRAMWRENCR_V_LMEMWREN12	12
 #define SRAMWRENCR_M_LMEMWREN12	1 << SRAMWRENCR_V_LMEMWREN12
 
-/* 
+/*
 **
 **  Bank 0 Control Register (BK0CR) - Index 0x202
 **
@@ -3234,7 +3234,7 @@
 #define B0S_16MB		(BK0CR_M_B0S1 | BK0CR_M_B0S2)
 
 /*
-** Bank 0 Column Address Bits 
+** Bank 0 Column Address Bits
 */
 #define COLADR0_8		0x000
 #define COLADR0_9		BK0CR_M_COLADR00
@@ -3242,7 +3242,7 @@
 #define COLADR0_11		(BK0CR_M_COLADR00 | BK0CR_M_COLADR01)
 #define COLADR0_12		BK0CR_M_COLADR02
 
-/* 
+/*
 **
 **  Bank 1 Control Register (BK1CR) - Index 0x203
 **
@@ -3295,7 +3295,7 @@
 #define B1S_16MB		(BK1CR_M_B1S1 | BK1CR_M_B1S2)
 
 /*
-** Bank 1 Column Address Bits 
+** Bank 1 Column Address Bits
 */
 #define COLADR1_8		0x000
 #define COLADR1_9		BK1CR_M_COLADR10
@@ -3303,7 +3303,7 @@
 #define COLADR1_11		(BK1CR_M_COLADR10 | BK1CR_M_COLADR11)
 #define COLADR1_12		BK1CR_M_COLADR12
 
-/* 
+/*
 **
 **  Bank 0/1 Timing Control Register (BK01TCR) - Index 0x204
 **
@@ -3368,14 +3368,14 @@
 #define BK01TCR_M_BNK01_ITL	1 << BK01TCR_V_BNK01_ITL
 
 /*
-** Bank 0/1 Write CAS Cycle Time 
+** Bank 0/1 Write CAS Cycle Time
 */
 #define B01WRCPW_1T		BK01TCR_M_B01WRCPW0
 #define B01WRCPW_2T		BK01TCR_M_B01WRCPW1
 #define B01WRCPW_3T		(BK01TCR_M_B01WRCPW0 | BK01TCR_M_B01WRCPW1)
 
 /*
-** Bank 0/1 Read CAS Cycle Time 
+** Bank 0/1 Read CAS Cycle Time
 */
 #define B01RDCPW_1T		0x000
 #define B01RDCPW_2T		BK01TCR_M_B01WRCPW0
@@ -3383,7 +3383,7 @@
 #define B01RDCPW_4T		(BK01TCR_M_B01WRCPW0 | BK01TCR_M_B01WRCPW1)
 
 /*
-** Bank 0/1 RAS Precharge Time 
+** Bank 0/1 RAS Precharge Time
 */
 #define B01RPRE_1PT5T		BK01TCR_M_B01RPRE1
 #define B01RPRE_2T		(BK01TCR_M_B01RPRE0 | BK01TCR_M_B01RPRE1)
@@ -3392,7 +3392,7 @@
 #define B01RPRE_3PT5T		(BK01TCR_M_B01RPRE1 | BK01TCR_M_B01RPRE2)
 #define B01RPRE_4T		(BK01TCR_M_B01RPRE0 | BK01TCR_M_B01RPRE1 | BK01TCR_M_B01RPRE2)
 
-/* 
+/*
 **
 **  Bank 2 Control Register (BK2CR) - Index 0x205
 **
@@ -3445,7 +3445,7 @@
 #define B2S_16MB		(BK2CR_M_B2S1 | BK2CR_M_B2S2)
 
 /*
-** Bank 2 Column Address Bits 
+** Bank 2 Column Address Bits
 */
 #define COLADR2_8		0x000
 #define COLADR2_9		BK2CR_M_COLADR20
@@ -3453,7 +3453,7 @@
 #define COLADR2_11		(BK2CR_M_COLADR20 | BK2CR_M_COLADR21)
 #define COLADR2_12		BK2CR_M_COLADR22
 
-/* 
+/*
 **
 **  Bank 3 Control Register (BK3CR) - Index 0x206
 **
@@ -3506,15 +3506,15 @@
 #define B3S_16MB		(BK3CR_M_B3S1 | BK3CR_M_B3S2)
 
 /*
-** Bank 3 Column Address Bits 
+** Bank 3 Column Address Bits
 */
 #define COLADR3_8		0x000
 #define COLADR3_9		BK3CR_M_COLADR30
 #define COLADR3_10		BK3CR_M_COLADR31
 #define COLADR3_11		(BK3CR_M_COLADR30 | BK3CR_M_COLADR31)
 #define COLADR3_12		BK3CR_M_COLADR32
-           
-/* 
+
+/*
 **
 **  Bank 2/3 Timing Control Register (BK23TCR) - Index 0x207
 **
@@ -3575,14 +3575,14 @@
 #define BK23TCR_M_BNK23_ITL	1 << BK23TCR_V_BNK23_ITL
 
 /*
-** Bank 2/3 Write CAS Cycle Time 
+** Bank 2/3 Write CAS Cycle Time
 */
 #define B23WRCPW_1T		BK23TCR_M_B23WRCPW0
 #define B23WRCPW_2T		BK23TCR_M_B23WRCPW1
 #define B23WRCPW_3T		(BK23TCR_M_B23WRCPW0 | BK23TCR_M_B23WRCPW1)
 
 /*
-** Bank 2/3 Read CAS Cycle Time 
+** Bank 2/3 Read CAS Cycle Time
 */
 #define B23RDCPW_1T		0x000
 #define B23RDCPW_2T		BK23TCR_M_B23RDCPW0
@@ -3590,7 +3590,7 @@
 #define B23RDCPW_4T		(BK23TCR_M_B23RDCPW0 | BK23TCR_M_B23RDCPW1)
 
 /*
-** Bank 2/3 RAS Precharge Time 
+** Bank 2/3 RAS Precharge Time
 */
 #define B23RPRE_1PT5T		BK23TCR_M_B23RPRE1
 #define B23RPRE_2T		(BK23TCR_M_B23RPRE0 | BK23TCR_M_B23RPRE1)
@@ -3599,7 +3599,7 @@
 #define B23RPRE_3PT5T		(BK23TCR_M_B23RPRE1 | BK23TCR_M_B23RPRE2)
 #define B23RPRE_4T		(BK23TCR_M_B23RPRE0 | BK23TCR_M_B23RPRE1 | BK23TCR_M_B23RPRE2)
 
-/* 
+/*
 **
 **  Bank 4 Control Register (BK4CR) - Index 0x208
 **
@@ -3652,7 +3652,7 @@
 #define B4S_16MB		(BK4CR_M_B4S1 | BK4CR_M_B4S2)
 
 /*
-** Bank 4 Column Address Bits 
+** Bank 4 Column Address Bits
 */
 #define COLADR4_8		0x000
 #define COLADR4_9		BK4CR_M_COLADR40
@@ -3660,7 +3660,7 @@
 #define COLADR4_11		(BK4CR_M_COLADR40 | BK4CR_M_COLADR41)
 #define COLADR4_12		BK4CR_M_COLADR42
 
-/* 
+/*
 **
 **  Bank 5 Control Register (BK5CR) - Index 0x209
 **
@@ -3713,7 +3713,7 @@
 #define B5S_16MB		(BK5CR_M_B5S1 | BK5CR_M_B5S2)
 
 /*
-** Bank 5 Column Address Bits 
+** Bank 5 Column Address Bits
 */
 #define COLADR5_8		0x000
 #define COLADR5_9		BK5CR_M_COLADR50
@@ -3721,7 +3721,7 @@
 #define COLADR5_11		(BK5CR_M_COLADR50 | BK5CR_M_COLADR51)
 #define COLADR5_12		BK5CR_M_COLADR52
 
-/* 
+/*
 **
 **  Bank 4/5 Timing Control Register (BK45TCR) - Index 0x20A
 **
@@ -3782,14 +3782,14 @@
 #define BK45TCR_M_BNK45_ITL	1 << BK45TCR_V_BNK45_ITL
 
 /*
-** Bank 4/5 Write CAS Cycle Time 
+** Bank 4/5 Write CAS Cycle Time
 */
 #define B45WRCPW_1T		BK45TCR_M_B45WRCPW0
 #define B45WRCPW_2T		BK45TCR_M_B45WRCPW1
 #define B45WRCPW_3T		(BK45TCR_M_B45WRCPW0 | BK45TCR_M_B45WRCPW1)
 
 /*
-** Bank 4/5 Read CAS Cycle Time 
+** Bank 4/5 Read CAS Cycle Time
 */
 #define B45RDCPW_1T		0x000
 #define B45RDCPW_2T		BK45TCR_M_B45RDCPW0
@@ -3797,7 +3797,7 @@
 #define B45RDCPW_4T		(BK45TCR_M_B45RDCPW0 | BK45TCR_M_B45RDCPW1)
 
 /*
-** Bank 4/5 RAS Precharge Time 
+** Bank 4/5 RAS Precharge Time
 */
 #define B45RPRE_1PT5T		BK45TCR_M_B45RPRE1
 #define B45RPRE_2T		(BK45TCR_M_B45RPRE0 | BK45TCR_M_B45RPRE1)
@@ -3806,19 +3806,19 @@
 #define B45RPRE_3PT5T		(BK45TCR_M_B45RPRE1 | BK45TCR_M_B45RPRE2)
 #define B45RPRE_4T		(BK45TCR_M_B45RPRE0 | BK45TCR_M_B45RPRE1 | BK45TCR_M_B45RPRE2)
 
-/* 
+/*
 **
 **  DRAM Configuration Register 1 (DRAMCR1) - Index 0x20B
 **
 **        Loc   Size    Name    	Function
 **       -----  ----    ----    	---------------------------------
-**        <0>     1     SIXRASEN	Six RAS# Control Line Enable 
+**        <0>     1     SIXRASEN	Six RAS# Control Line Enable
 **        <3>     1     BRSTWREN	Burst WRite Enable
 **        <4>     1     PS0		DRAM Page Size 0
 **        <5>     1     PS1		DRAM Page Size 1
 **        <6>     1     PS2		DRAM Page Size 2
-**        <7>     1     FSTPHDEC	Fast Page Hit Decode 
-**        <9>     1     RONLYRF		DRAM Refresh Scheme 
+**        <7>     1     FSTPHDEC	Fast Page Hit Decode
+**        <9>     1     RONLYRF		DRAM Refresh Scheme
 **        <10>    1     RFRPRE0		RAS Precharge Time for Refresh Cycles 0
 **        <11>    1     RFRPRE1		RAS Precharge Time for Refresh Cycles 1
 **        <12>    1     RFRPW0		RAS Pulse Width for Refresh Cycles 0
@@ -3889,13 +3889,13 @@
 #define RFRPW_3T		DRAMCR1_M_RFRPW1
 #define RFRPW_2T		(DRAMCR1_M_RFRPW0 | DRAMCR1_M_RFRPW1)
 
-/* 
+/*
 **
 **  DRAM Configuration Register 2 (DRAMCR2) - Index 0x20C
 **
 **        Loc   Size    Name    	Function
 **       -----  ----    ----    	---------------------------------
-**        <9>     1     ENPARADRL	Enable Parity Error Address Latch 
+**        <9>     1     ENPARADRL	Enable Parity Error Address Latch
 **        <10>    1     ENPARCK0	Enable Parity Check for Bank 0
 **        <11>    1     ENPARCK1	Enable Parity Check for Bank 1
 **        <12>    1     ENPARCK2	Enable Parity Check for Bank 2
@@ -3922,7 +3922,7 @@
 #define DRAMCR2_V_ENPARCK5	15
 #define DRAMCR2_M_ENPARCK5	1 << DRAMCR2_V_ENPARCK5
 
-/* 
+/*
 **
 **  DRAM Configuration Register 3 (DRAMCR3) - Index 0x20D
 **
@@ -4022,7 +4022,7 @@
 #define RAS3DRV_8MA		(DRAMCR3_M_RAS3DRV0 | DRAMCR3_M_RAS3DRV1)
 #define RAS3DRV_12MA		(DRAMCR3_M_RAS3DRV0 | DRAMCR3_M_RAS3DRV1 | DRAMCR3_M_RAS3DRV2
 
-/* 
+/*
 **
 **  DRAM Configuration Register 4 (DRAMCR4) - Index 0x20E
 **
@@ -4100,7 +4100,7 @@
 #define CASBDRV_8MA		(DRAMCR2_M_CASBDRV0 | DRAMCR2_M_CASBDRV1)
 #define CASBDRV_12MA		(DRAMCR2_M_CASBDRV0 | DRAMCR2_M_CASBDRV1 | DRAMCR2_M_CASBDRV2
 
-/* 
+/*
 **
 **  DRAM Configuration Register 5 (DRAMCR5) - Index 0x20F
 **
@@ -4138,7 +4138,7 @@
 **
 */
 
-/* 
+/*
 **
 **  Cache Control Register 1 (CCR1) - Index 0x400
 **
@@ -4153,7 +4153,7 @@
 **        <6>     1     CSIZE2		Level 2 Cache Data 2
 **        <7>     1     CSIZE3		Level 2 Cache Data 3
 **        <8>     1     L1WB		Enable Level 1 Write Back Support
-**        <9>     1     WPL2KEN		L2 Cache Write Protect 
+**        <9>     1     WPL2KEN		L2 Cache Write Protect
 **
 **	  <10:15> Reserved
 */
@@ -4184,7 +4184,7 @@
 #define CCR1_M_WPL2KEN	1 << CCR1_V_WPL2KEN
 
 /*
-** Level 2 Cache Status 
+** Level 2 Cache Status
 */
 #define L2CST_STNDBY		0x0000
 #define L2CST_INIT		CCR1_M_L2CST0
@@ -4204,7 +4204,7 @@
 #define CSIZE_1MB_2BNK		(CCR1_M_CSIZE0 | CCR1_M_CSIZE2)
 #define CSIZE_256KB_1BNK	(CCR1_M_CSIZE0 | CCR1_M_CSIZE1 | CCR1_M_CSIZE3)
 
-/* 
+/*
 **
 **  Cache Control Register 2 (CCR2) - Index 0x401
 **
@@ -4227,7 +4227,7 @@
 #define CCR2_V_EHITEN		7
 #define CCR2_M_EHITEN		1 << CCR2_V_EHITEN
 
-/* 
+/*
 **
 **  Cache Control Register 3 (CCR3) - Index 0x402
 **
@@ -4302,7 +4302,7 @@
 #define RDTEG_SYNCH		0x000
 #define RDTEG_EARLY		CCR3_M_RDTEG0
 
-/* 
+/*
 **
 **  Cache Control Register 4 (CCR4) - Index 0x403
 **
@@ -4344,7 +4344,7 @@
 #define DRTWETR_EARLYER		CCR4_M_DRTWETR1
 #define DRTWETR_SYNCH		(CCR4_M_DRTWETR0 | CCR4_M_DRTWETR1)
 
-/* 
+/*
 **
 **  Global Control Register 1 (GCR1) - Index 0x700
 **
@@ -4363,7 +4363,7 @@
 **		      	SEQUOIA-2                  **
 *****************************************************/
 
-/* 
+/*
 **
 **  AT Miscellaneous Control Register 1 (ATMCR1) - Index 0x300
 **
@@ -4435,7 +4435,7 @@
 #define B2BD_2			ATMCR1_M_B2BD1
 #define B2BD_3			(ATMCR1_M_B2BD0 | ATMCR1_M_B2BD1)
 
-/* 
+/*
 **
 **  AT Miscellaneous Control Register 2 (ATMCR2) - Index 0x301
 **
@@ -4511,7 +4511,7 @@
 #define IDEB2BDLY_8FS1XCLK	(ATMCR2_M_IDEB2BDLY1 | ATMCR2_M_IDEB2BDLY2)
 #define IDEB2BDLY_9FS1XCLK	(ATMCR2_M_IDEB2BDLY0 | ATMCR2_M_IDEB2BDLY1 | ATMCR2_M_IDEB2BDLY2)
 
-/* 
+/*
 **
 **  SEQUOIA-2 Pin Select Register  (SEQ2PSR) - Index 0x302
 **
@@ -4544,7 +4544,7 @@
 #define SEQ2PSR_V_SQ2TYPESEL	15
 #define SEQ2PSR_M_SQ2TYPESEL	1 << SEQ2PSR_V_SQ2TYPESEL
 
-/* 
+/*
 **
 **  Modular Clock Control Register  (MCLKCR) - Index 0x303
 **
@@ -4568,7 +4568,7 @@
 #define MCLKCR_V_SYSCLKDIS	5
 #define MCLKCR_M_SYSCLKDIS	1 << MCLKCR_V_SYSCLKDIS
 
-/* 
+/*
 **
 **  Optional GPIO Control Register  (OGPIOCR) - Index 0x304
 **
@@ -4602,7 +4602,7 @@
 #define OGPIOCR_V_GPIODIR7		15
 #define OGPIOCR_M_GPIODIR7		1 << OGPIOCR_V_GPIODIR7
 
-/* 
+/*
 **
 **  SEQUOIA-2 ID Register  (SEQ2IDR) - Index 0x310
 **
@@ -4616,7 +4616,7 @@
 #define SEQ2IDR_V_S2ID		0
 #define SEQ2IDR_M_S2ID		0xF << SEQ2IDR_V_S2ID
 
-/* 
+/*
 **
 **  Miscellaneous DMA Control Register 1 (MDMACR1) - Index 0x330
 **
@@ -4631,7 +4631,7 @@
 #define MDMACR1_V_ENCDDMA	8
 #define MDMACR1_M_ENCDDMA	1 << MDMACR1_V_ENCDDMA
 
-/* 
+/*
 **
 **  Miscellaneous DMA Control Register 2 (MDMACR2) - Index 0x331
 **
@@ -4712,7 +4712,7 @@
 #define DMA2CHSEL_6		(MDMACR2_M_DMA2CHSEL1 | MDMACR2_M_DMA2CHSEL2)
 #define DMA2CHSEL_7		(MDMACR2_M_DMA2CHSEL0 | MDMACR2_M_DMA2CHSEL1 | MDMACR2_M_DMA2CHSEL1)
 
-/* 
+/*
 **
 **  Burst Bus Interrupt Control Register (BBICR) - Index 0x340
 **
@@ -4733,26 +4733,26 @@
 #define BBICR_V_BINTLOCKDIS	2
 #define BBICR_M_BINTLOCKDIS	1 << BBICR_V_BINTLOCKDIS
 
-/* 
+/*
 **
 **  Primary Activities IRQ Mask Register (PAIMR) - Index 0x350
 **
 **        Loc   Size    Name    	Function
 **       -----  ----    ----    	---------------------------------
-**        <1>     1     PAMSKIRQ1	IRQ1 Primary Activity Mask Enable 
-**        <3>     1     PAMSKIRQ3	IRQ3 Primary Activity Mask Enable 
-**        <4>     1     PAMSKIRQ4	IRQ4 Primary Activity Mask Enable 
-**        <5>     1     PAMSKIRQ5	IRQ5 Primary Activity Mask Enable 
-**        <6>     1     PAMSKIRQ6	IRQ6 Primary Activity Mask Enable 
-**        <7>     1     PAMSKIRQ7	IRQ7 Primary Activity Mask Enable 
-**        <8>     1     PAMSKIRQ8	IRQ8 Primary Activity Mask Enable 
-**        <9>     1     PAMSKIRQ9	IRQ9 Primary Activity Mask Enable 
-**        <10>    1     PAMSKIRQ10	IRQ10 Primary Activity Mask Enable 
-**        <11>    1     PAMSKIRQ11	IRQ11 Primary Activity Mask Enable 
-**        <12>    1     PAMSKIRQ12	IRQ12 Primary Activity Mask Enable 
-**        <13>    1     PAMSKIRQ13	IRQ13 Primary Activity Mask Enable 
-**        <14>    1     PAMSKIRQ14	IRQ14 Primary Activity Mask Enable 
-**        <15>    1     PAMSKIRQ15	IRQ15 Primary Activity Mask Enable 
+**        <1>     1     PAMSKIRQ1	IRQ1 Primary Activity Mask Enable
+**        <3>     1     PAMSKIRQ3	IRQ3 Primary Activity Mask Enable
+**        <4>     1     PAMSKIRQ4	IRQ4 Primary Activity Mask Enable
+**        <5>     1     PAMSKIRQ5	IRQ5 Primary Activity Mask Enable
+**        <6>     1     PAMSKIRQ6	IRQ6 Primary Activity Mask Enable
+**        <7>     1     PAMSKIRQ7	IRQ7 Primary Activity Mask Enable
+**        <8>     1     PAMSKIRQ8	IRQ8 Primary Activity Mask Enable
+**        <9>     1     PAMSKIRQ9	IRQ9 Primary Activity Mask Enable
+**        <10>    1     PAMSKIRQ10	IRQ10 Primary Activity Mask Enable
+**        <11>    1     PAMSKIRQ11	IRQ11 Primary Activity Mask Enable
+**        <12>    1     PAMSKIRQ12	IRQ12 Primary Activity Mask Enable
+**        <13>    1     PAMSKIRQ13	IRQ13 Primary Activity Mask Enable
+**        <14>    1     PAMSKIRQ14	IRQ14 Primary Activity Mask Enable
+**        <15>    1     PAMSKIRQ15	IRQ15 Primary Activity Mask Enable
 **
 **	  <0><2> Reserved
 */
@@ -4778,7 +4778,7 @@
 #define PAIMR_M_PAMSKIRQ7	1 << PAIMR_V_PAMSKIRQ7
 #define PAIMR_V_PAMSKIRQ8	8
 #define PAIMR_M_PAMSKIRQ8	1 << PAIMR_V_PAMSKIRQ8
-#define PAIMR_V_PAMSKIRQ9	9                    
+#define PAIMR_V_PAMSKIRQ9	9
 #define PAIMR_M_PAMSKIRQ9	1 << PAIMR_V_PAMSKIRQ9
 #define PAIMR_V_PAMSKIRQ10	10
 #define PAIMR_M_PAMSKIRQ10	1 << PAIMR_V_PAMSKIRQ10
@@ -4793,7 +4793,7 @@
 #define PAIMR_V_PAMSKIRQ15	15
 #define PAIMR_M_PAMSKIRQ15	1 << PAIMR_V_PAMSKIRQ15
 
-/* 
+/*
 **
 **  PMI Trigger Source IRQ Active Register (PTSIAR) - Index 0x351
 **
@@ -4831,7 +4831,7 @@
 #define PTSIAR_M_PMIIRQ5ACTV	1 << PTSIAR_V_PMIIRQ5ACTV
 #define PTSIAR_V_PMIIRQ6ACTV	6
 #define PTSIAR_M_PMIIRQ6ACTV	1 << PTSIAR_V_PMIIRQ6ACTV
-#define PTSIAR_V_PMIIRQ7ACTV	7                  
+#define PTSIAR_V_PMIIRQ7ACTV	7
 #define PTSIAR_M_PMIIRQ7ACTV	1 << PTSIAR_V_PMIIRQ7ACTV
 #define PTSIAR_V_PMIIRQ8ACTV	8
 #define PTSIAR_M_PMIIRQ8ACTV	1 << PTSIAR_V_PMIIRQ8ACTV
@@ -4850,27 +4850,27 @@
 #define PTSIAR_V_PMIIRQ15ACTV	15
 #define PTSIAR_M_PMIIRQ15ACTV	1 << PTSIAR_V_PMIIRQ15ACTV
 
-/* 
+/*
 **
 **  PMI Trigger Source IRQ Mask Register (PTSIMR) - Index 0x352
 **
 **        Loc   Size    Name    	Function
 **       -----  ----    ----    	---------------------------------
-**        <0>     1     IMSKDETURBO	DeTurbo Switch Triggering PMI Mask Enable 
-**        <1>     1     IMSKIRQ1	IRQ1 Triggering PMI Mask Enable 
-**        <3>     1     IMSKIRQ3	IRQ3 Triggering PMI Mask Enable 
-**        <4>     1     IMSKIRQ4	IRQ4 Triggering PMI Mask Enable 
-**        <5>     1     IMSKIRQ5	IRQ5 Triggering PMI Mask Enable 
-**        <6>     1     IMSKIRQ6	IRQ6 Triggering PMI Mask Enable 
-**        <7>     1     IMSKIRQ7	IRQ7 Triggering PMI Mask Enable 
-**        <8>     1     IMSKIRQ8	IRQ8 Triggering PMI Mask Enable 
-**        <9>     1     IMSKIRQ9	IRQ9 Triggering PMI Mask Enable 
-**        <10>    1     IMSKIRQ10	IRQ10 Triggering PMI Mask Enable 
-**        <11>    1     IMSKIRQ11	IRQ11 Triggering PMI Mask Enable 
-**        <12>    1     IMSKIRQ12	IRQ12 Triggering PMI Mask Enable 
-**        <13>    1     IMSKIRQ13	IRQ13 Triggering PMI Mask Enable 
-**        <14>    1     IMSKIRQ14	IRQ14 Triggering PMI Mask Enable 
-**        <15>    1     IMSKIRQ15	IRQ15 Triggering PMI Mask Enable 
+**        <0>     1     IMSKDETURBO	DeTurbo Switch Triggering PMI Mask Enable
+**        <1>     1     IMSKIRQ1	IRQ1 Triggering PMI Mask Enable
+**        <3>     1     IMSKIRQ3	IRQ3 Triggering PMI Mask Enable
+**        <4>     1     IMSKIRQ4	IRQ4 Triggering PMI Mask Enable
+**        <5>     1     IMSKIRQ5	IRQ5 Triggering PMI Mask Enable
+**        <6>     1     IMSKIRQ6	IRQ6 Triggering PMI Mask Enable
+**        <7>     1     IMSKIRQ7	IRQ7 Triggering PMI Mask Enable
+**        <8>     1     IMSKIRQ8	IRQ8 Triggering PMI Mask Enable
+**        <9>     1     IMSKIRQ9	IRQ9 Triggering PMI Mask Enable
+**        <10>    1     IMSKIRQ10	IRQ10 Triggering PMI Mask Enable
+**        <11>    1     IMSKIRQ11	IRQ11 Triggering PMI Mask Enable
+**        <12>    1     IMSKIRQ12	IRQ12 Triggering PMI Mask Enable
+**        <13>    1     IMSKIRQ13	IRQ13 Triggering PMI Mask Enable
+**        <14>    1     IMSKIRQ14	IRQ14 Triggering PMI Mask Enable
+**        <15>    1     IMSKIRQ15	IRQ15 Triggering PMI Mask Enable
 **
 **	  <2> Reserved
 */
@@ -4899,7 +4899,7 @@
 #define PTSIMR_M_IMSKIRQ7	1 << PTSIMR_V_IMSKIRQ7
 #define PTSIMR_V_IMSKIRQ8	8
 #define PTSIMR_M_IMSKIRQ8	1 << PTSIMR_V_IMSKIRQ8
-#define PTSIMR_V_IMSKIRQ9	9                    
+#define PTSIMR_V_IMSKIRQ9	9
 #define PTSIMR_M_IMSKIRQ9	1 << PTSIMR_V_IMSKIRQ9
 #define PTSIMR_V_IMSKIRQ10	10
 #define PTSIMR_M_IMSKIRQ10	1 << PTSIMR_V_IMSKIRQ10
@@ -4914,7 +4914,7 @@
 #define PTSIMR_V_IMSKIRQ15	15
 #define PTSIMR_M_IMSKIRQ15	1 << PTSIMR_V_IMSKIRQ15
 
-/* 
+/*
 **
 **  IRQ Secondary Activity Enable Register (ISAER) - Index 0x353
 **
@@ -4936,7 +4936,7 @@
 
 #define SR_M_DATAMSK		0xF
 
-/* 
+/*
 ** 8254 Counter Registers
 */
 #define SRR_54CTR0_REG1		0x500
@@ -4949,7 +4949,7 @@
 #define SRR_54CTR2_REG2		0x505
 #define SRR_54CTR2_REG3		0x508
 
-/* 
+/*
 ** 8237 DMA Controller Registers
 */
 #define SRR_37CTRL0_REG1	0x510
@@ -4961,7 +4961,7 @@
 #define SRR_37CTRL2_REG7	0x516
 #define SRR_37CTRL2_REG8	0x517
 
-/* 
+/*
 ** 8259 Interrupt Controller Registers
 */
 #define SRR_59CTRL0_REG1	0x520
@@ -4982,7 +4982,7 @@
 **
 */
 
-/* 
+/*
 **
 **  Register 1 (REG1) - Access Address 0x061
 **
@@ -5017,14 +5017,14 @@
 #define REG1_V_PARERR		7
 #define REG1_M_PARERR		1 << REG1_V_PARERR
 
-/* 
+/*
 **
 **  Register 2 (REG2) - Access Address 0x070
 **
 **        Loc   Size    Name    	Function
 **       -----  ----    ----    	---------------------------------
 **        <0>     6     RTCINDX		Real Timer Clock Index
-**        <7>     1     NMIDIS		NMI Mask Disable 
+**        <7>     1     NMIDIS		NMI Mask Disable
 **
 */
 #define ATSR_REG2_REG		0x070
@@ -5034,7 +5034,7 @@
 #define REG2_V_NMIDIS		7
 #define REG2_M_NMIDIS		1 << REG2_V_NMIDIS
 
-/* 
+/*
 **
 **  Register 3 (REG3) - Access Address 0x092
 **
@@ -5064,8 +5064,8 @@
 #ifndef _LOCORE
 
 void sequoiaInit();
-void sequoiaWrite __P((int reg,u_int16_t value));     
-void sequoiaRead  __P((int reg,u_int16_t * value_ptr));     
+void sequoiaWrite __P((int reg,u_int16_t value));
+void sequoiaRead  __P((int reg,u_int16_t * value_ptr));
 
 /* x console functions */
 void    consXTvOn   __P((void));
@@ -5078,11 +5078,11 @@ void    scrSetPower              __P((int value));
 void    scrSetClock              __P((int value));
 void    scrSetReset              __P((int value));
 void    scrSetDataHighZ          __P((void));
-void    scrSetData               __P((int value));   
-int     scrGetData               __P((void));	
+void    scrSetData               __P((int value));
+int     scrGetData               __P((void));
 
 
-/* just used to debug scr - remove when done - ejg */		
+/* just used to debug scr - remove when done - ejg */
 void    scrToggleTestPin		   __P((void));
 void sequoiaOneAccess(void);
 

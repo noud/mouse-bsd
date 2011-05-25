@@ -2,7 +2,7 @@
 
 /*
  * file.h - definitions for file(1) program
- * @(#)Id: file.h,v 1.29 1999/02/14 17:16:06 christos Exp 
+ * @(#)Id: file.h,v 1.29 1999/02/14 17:16:06 christos Exp
  *
  * Copyright (c) Ian F. Darwin, 1987.
  * Written by Ian F. Darwin.
@@ -48,7 +48,7 @@ typedef unsigned int uint32;
 #define MAXstring 32		/* max leng of "string" types */
 
 struct magic {
-	short flag;		
+	short flag;
 #define INDIR	1		/* if '>(...)' appears,  */
 #define	UNSIGNED 2		/* comparison is unsigned */
 #define ADD	4		/* if '>&' appears,  */

@@ -165,7 +165,7 @@ main(argc, argv)
 	if (kill(1, SIGTSTP) == -1)
 		err(1, "SIGTSTP init");
 
-	/* 
+	/*
 	 * Ignore signals that we can get as a result of killing
 	 * parents, group leaders, etc.
 	 */

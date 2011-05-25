@@ -1,5 +1,5 @@
 /* sparc-dependent portions of the RPC protocol
-   used with a VxWorks target 
+   used with a VxWorks target
 
 Contributed by Wind River Systems.
 
@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include <stdio.h>
 #include "defs.h"
 
-#include "vx-share/regPacket.h"  
+#include "vx-share/regPacket.h"
 #include "frame.h"
 #include "inferior.h"
 #include "wait.h"
@@ -102,7 +102,7 @@ vx_read_register (regno)
      active frame automatically; it greatly simplifies debugging
      (FRAME_FIND_SAVED_REGS, in particular, depends on this).  */
 
-  sp = extract_address (&registers[REGISTER_BYTE (SP_REGNUM)], 
+  sp = extract_address (&registers[REGISTER_BYTE (SP_REGNUM)],
 	REGISTER_RAW_SIZE (CORE_ADDR));
   write_memory (sp, &registers[REGISTER_BYTE (L0_REGNUM)],
 		16 * REGISTER_RAW_SIZE (L0_REGNUM));
@@ -116,13 +116,13 @@ vx_read_register (regno)
     {
       net_read_registers (sparc_fpreg_packet, SPARC_FPREG_PLEN,
                           PTRACE_GETFPREGS);
-      bcopy (&sparc_fpreg_packet[SPARC_R_FP0], 
+      bcopy (&sparc_fpreg_packet[SPARC_R_FP0],
              &registers[REGISTER_BYTE (FP0_REGNUM)], 32 * SPARC_FPREG_SIZE);
       bcopy (&sparc_fpreg_packet[SPARC_R_FSR],
 	     &registers[REGISTER_BYTE (FPS_REGNUM)], 1 * SPARC_FPREG_SIZE);
     }
   else
-    { 
+    {
       bzero (&registers[REGISTER_BYTE (FP0_REGNUM)], 32 * SPARC_FPREG_SIZE);
       bzero (&registers[REGISTER_BYTE (FPS_REGNUM)], 1 * SPARC_FPREG_SIZE);
     }
@@ -174,7 +174,7 @@ vx_write_register (regno)
 
       if (regno < 0 || (L0_REGNUM <= regno && regno <= I7_REGNUM))
         {
-  	  sp = extract_address (&registers[REGISTER_BYTE (SP_REGNUM)], 
+  	  sp = extract_address (&registers[REGISTER_BYTE (SP_REGNUM)],
 		REGISTER_RAW_SIZE (CORE_ADDR));
 	  write_memory (sp, &registers[REGISTER_BYTE (L0_REGNUM)],
 			16 * REGISTER_RAW_SIZE (L0_REGNUM));
@@ -185,9 +185,9 @@ vx_write_register (regno)
 
   if (in_fp_regs && target_has_fp)
     {
-      bcopy (&registers[REGISTER_BYTE (FP0_REGNUM)], 
+      bcopy (&registers[REGISTER_BYTE (FP0_REGNUM)],
 	     &sparc_fpreg_packet[SPARC_R_FP0], 32 * SPARC_FPREG_SIZE);
-      bcopy (&registers[REGISTER_BYTE (FPS_REGNUM)], 
+      bcopy (&registers[REGISTER_BYTE (FPS_REGNUM)],
 	     &sparc_fpreg_packet[SPARC_R_FSR], 1 * SPARC_FPREG_SIZE);
 
       net_write_registers (sparc_fpreg_packet, SPARC_FPREG_PLEN,

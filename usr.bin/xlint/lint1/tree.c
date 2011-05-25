@@ -813,7 +813,7 @@ typeok(op, arg, ln, rn)
 		for (tn=rn; tn->tn_op==CVT && !tn->tn_cast; tn=tn->tn_left) ;
 		ort = tn->tn_type->t_tspec;
 	}
-		
+
 	switch (op) {
 	case POINT:
 		/*
@@ -1812,7 +1812,7 @@ iiconv(op, arg, nt, ot, tp, tn)
 			} else {
 				warning(132, tyname(tn->tn_type));
 			}
-		} 
+		}
 	}
 }
 
@@ -1883,7 +1883,7 @@ ppconv(op, tn, tp)
 		warning(229);
 		return;
 	}
-	
+
 	if (getbound(tp->t_subt) > getbound(tn->tn_type->t_subt)) {
 		if (hflag)
 			/* possible pointer alignment problem */
@@ -2015,7 +2015,7 @@ cvtcon(op, arg, tp, nv, v)
 		sz = tp->t_isfield ? tp->t_flen : size(nt);
 		nv->v_quad = xsign(nv->v_quad, nt, sz);
 	}
-	
+
 	if (rchk && op != CVT) {
 		osz = size(ot);
 		nsz = tp->t_isfield ? tp->t_flen : size(nt);
@@ -2384,7 +2384,7 @@ bldamper(tn, noign)
 {
 	tnode_t	*ntn;
 	tspec_t	t;
-	
+
 	if (!noign && ((t = tn->tn_type->t_tspec) == ARRAY || t == FUNC)) {
 		/* & before array or function: ignored */
 		if (tflag)
@@ -2398,7 +2398,7 @@ bldamper(tn, noign)
 	    tn->tn_left->tn_type->t_subt == tn->tn_type) {
 		return (tn->tn_left);
 	}
-	    
+
 	ntn = mktnode(AMPER, tincref(tn->tn_type, PTR), tn, NULL);
 
 	return (ntn);
@@ -3197,7 +3197,7 @@ chkfarg(ftp, args)
 		error(150, narg, narg > 1 ? "s" : "", npar);
 		asym = NULL;
 	}
-	
+
 	for (n = 1; n <= narg; n++) {
 
 		/*
@@ -3673,7 +3673,7 @@ chkaidx(tn, amper)
 		return;
 	if (ln->tn_left->tn_type->t_tspec != ARRAY)
 		return;
-	
+
 	/*
 	 * For incomplete array types, we can print a warning only if
 	 * the index is negative.

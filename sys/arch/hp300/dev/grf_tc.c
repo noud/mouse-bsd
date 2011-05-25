@@ -92,10 +92,10 @@
 #include <sys/tty.h>
 #include <sys/systm.h>
 #include <sys/device.h>
- 
+
 #include <machine/autoconf.h>
 #include <machine/cpu.h>
-  
+
 #include <dev/cons.h>
 
 #include <hp300/dev/diovar.h>
@@ -514,7 +514,7 @@ topcat_init(ip)
 
 	/*
 	 * Determine the number of planes by writing to the first frame
-	 * buffer display location, then reading it back. 
+	 * buffer display location, then reading it back.
 	 */
 	REGBASE->wen = ~0;
 	REGBASE->fben = ~0;
@@ -602,7 +602,7 @@ topcat_putc(ip, c, dy, dx, mode)
 	int c, dy, dx, mode;
 {
         int wmrr = ((mode == ATTR_INV) ? RR_COPYINVERTED : RR_COPY);
-	
+
 	topcat_windowmove(ip, charY(ip, c), charX(ip, c),
 			  dy * ip->ftheight, dx * ip->ftwidth,
 			  ip->ftheight, ip->ftwidth, wmrr);
@@ -629,7 +629,7 @@ topcat_clear(ip, sy, sx, h, w)
 	int sy, sx, h, w;
 {
 	topcat_windowmove(ip, sy * ip->ftheight, sx * ip->ftwidth,
-			  sy * ip->ftheight, sx * ip->ftwidth, 
+			  sy * ip->ftheight, sx * ip->ftwidth,
 			  h  * ip->ftheight, w  * ip->ftwidth,
 			  RR_CLEAR);
 }
@@ -661,7 +661,7 @@ topcat_scroll(ip, sy, sx, count, dir)
 		dy = sy;
 		dx = sx - count;
 		width = ip->cols - sx;
-	}		
+	}
 
 	topcat_windowmove(ip, sy * ip->ftheight, sx * ip->ftwidth,
 			  dy * ip->ftheight, dx * ip->ftwidth,
@@ -675,7 +675,7 @@ topcat_windowmove(ip, sy, sx, dy, dx, h, w, func)
 	int sy, sx, dy, dx, h, w, func;
 {
   	struct tcboxfb *rp = REGBASE;
-	
+
 	if (h == 0 || w == 0)
 		return;
 	tc_waitbusy(ip->regbase, ip->planemask);
@@ -701,8 +701,8 @@ topcat_console_scan(scode, va, arg)
 {
 	struct grfreg *grf = (struct grfreg *)va;
 	struct consdev *cp = arg;
-	u_char *dioiidev; 
-	int force = 0, pri; 
+	u_char *dioiidev;
+	int force = 0, pri;
 
 	if (grf->gr_id != GRFHWID)
 		return (0);

@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: ops_unionfs.c,v 1.2 1999/01/10 21:53:51 ezk Exp 
+ * Id: ops_unionfs.c,v 1.2 1999/01/10 21:53:51 ezk Exp
  *
  */
 

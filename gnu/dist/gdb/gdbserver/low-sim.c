@@ -42,9 +42,9 @@ generic_load (loadfile_bfd)
 {
   asection *s;
 
-  for (s = loadfile_bfd->sections; s; s = s->next) 
+  for (s = loadfile_bfd->sections; s; s = s->next)
     {
-      if (s->flags & SEC_LOAD) 
+      if (s->flags & SEC_LOAD)
 	{
 	  bfd_size_type size;
 
@@ -93,9 +93,9 @@ create_inferior (program, argv)
 #endif
 
   abfd = bfd_openr (program, 0);
-  if (!abfd) 
+  if (!abfd)
     {
-      fprintf (stderr, "gdbserver: can't open %s: %s\n", 
+      fprintf (stderr, "gdbserver: can't open %s: %s\n",
 	       program, bfd_errmsg (bfd_get_error ()));
       exit (1);
     }
@@ -176,7 +176,7 @@ void
 store_inferior_registers (regno)
      int regno;
 {
-  if (regno  == -1) 
+  if (regno  == -1)
     {
       for (regno = 0; regno < NUM_REGS; regno++)
 	store_inferior_registers (regno);

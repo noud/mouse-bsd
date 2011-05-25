@@ -169,7 +169,7 @@ main(argc, argv)
 				break;
 			case '?':
 	                default:
-				(void)fprintf(stderr,   
+				(void)fprintf(stderr,
 				    "usage: sa [-abcdDfijkKlmnqrstu] [-v cutoff] [file ...]\n");
 				exit(1);
 		}
@@ -223,7 +223,7 @@ main(argc, argv)
 				unmask = 0;
 				error = 1;
 			}
-			if (unmask && 
+			if (unmask &&
 			    (sigprocmask(SIG_BLOCK, &nmask, &omask) == -1)) {
 				warn("couldn't set signal mask ");
 				unmask = 0;

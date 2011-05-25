@@ -83,7 +83,7 @@ dev2major(devname, major)
 
 extern struct btinfo_console btinfo_console;
 
-int 
+int
 exec_netbsd(file, loadaddr, boothowto)
 	const char     *file;
 	physaddr_t      loadaddr;
@@ -130,7 +130,7 @@ exec_netbsd(file, loadaddr, boothowto)
 		 */
 		if (xmsmem > extmem)
 			extmem = xmsmem;
-		/* 
+		/*
 		 * Get the size of the kernel
 		 */
 		marks[MARK_START] = loadaddr;

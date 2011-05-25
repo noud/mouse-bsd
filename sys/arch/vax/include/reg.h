@@ -31,7 +31,7 @@
  */
 
  /* All bugs are subject to removal without further notice */
-		
+
 
 struct  reg {
 	int	r0;     /* General registers saved upon trap/syscall */

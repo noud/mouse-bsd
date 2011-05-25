@@ -4,7 +4,7 @@
  * THIS FILE AUTOMATICALLY GENERATED.  DO NOT EDIT.
  *
  * generated from:
- *	NetBSD: podules,v 1.10 1999/11/12 07:37:21 mark Exp 
+ *	NetBSD: podules,v 1.10 1999/11/12 07:37:21 mark Exp
  */
 
 /*

@@ -174,7 +174,7 @@ ns_xfr(struct qstream *qsp, struct namebuf *znp,
 	si = find_server(qsp->s_from.sin_addr);
 	if (si != NULL && si->transfer_format != axfr_use_default)
 		qsp->xfr.transfer_format = si->transfer_format;
-	else	
+	else
 		qsp->xfr.transfer_format = server_options->transfer_format;
 	if (in_tsig == NULL)
 		qsp->xfr.tsig_state = NULL;
@@ -202,11 +202,11 @@ ns_xfr(struct qstream *qsp, struct namebuf *znp,
 			sq_remove(qsp);
 			return;
 		}
-	if (type != ns_t_ixfr) 
+	if (type != ns_t_ixfr)
 		(void) sq_writeh(qsp, sx_sendsoa);
-	else 
+	else
 		(void) sq_writeh(qsp, sx_send_ixfr);
-	
+
 }
 
 /*
@@ -301,7 +301,7 @@ sx_flush(struct qstream *qsp) {
 			qsp->xfr.tsig_state = NULL;
 		}
 		qsp->xfr.cp = qsp->xfr.msg + msglen;
-	
+
 	}
 	ret = sq_write(qsp, qsp->xfr.msg, qsp->xfr.cp - qsp->xfr.msg);
 	if (ret >= 0) {
@@ -421,7 +421,7 @@ sx_soarr(struct qstream *qsp) {
  *	add the NS RR's at the current level's current np,
  *	to the assembly message
  *      This function also adds the SIG(NS), KEY, SIG(KEY), NXT, SIG(NXT)
- *      the reason for this these records are part of the delegation. 
+ *      the reason for this these records are part of the delegation.
  *
  * return:
  *	>1 = number of NS RRs added, note that there may be more
@@ -464,7 +464,7 @@ sx_nsrrs(struct qstream *qsp) {
 		if (dp->d_zone == DB_Z_CACHE)
 			continue;
 
-		if (dp->d_type != T_NS && dp->d_type != T_KEY && 
+		if (dp->d_type != T_NS && dp->d_type != T_KEY &&
 		    dp->d_type != T_NXT && dp->d_type != T_SIG)
 			continue;
 		if (dp->d_type == T_SIG && ((SIG_COVERS(dp) != T_NS) &&
@@ -540,7 +540,7 @@ sx_nsrrs(struct qstream *qsp) {
  * sx_allrrs(qsp)
  *	add the non-(SOA,NS) RR's at the current level's current np,
  *	to the assembly message
- *      do not add the DNSSEC types KEY and NXT as the delegation check 
+ *      do not add the DNSSEC types KEY and NXT as the delegation check
  *	wrote these types out.
  * return:
  *	>0 = number of RR's added, note that there may be more

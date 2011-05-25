@@ -64,7 +64,7 @@ static struct z_candidate * add_template_candidate
 static struct z_candidate * add_template_candidate_real
 	PROTO((struct z_candidate *, tree, tree, tree, tree, int,
 	       tree, unification_kind_t));
-static struct z_candidate * add_template_conv_candidate 
+static struct z_candidate * add_template_conv_candidate
         PROTO((struct z_candidate *, tree, tree, tree, tree));
 static struct z_candidate * add_builtin_candidates
 	PROTO((struct z_candidate *, enum tree_code, enum tree_code,
@@ -73,12 +73,12 @@ static struct z_candidate * add_builtin_candidate
 	PROTO((struct z_candidate *, enum tree_code, enum tree_code,
 	       tree, tree, tree, tree *, tree *, int));
 static int is_complete PROTO((tree));
-static struct z_candidate * build_builtin_candidate 
+static struct z_candidate * build_builtin_candidate
 	PROTO((struct z_candidate *, tree, tree, tree, tree *, tree *,
 	       int));
-static struct z_candidate * add_conv_candidate 
+static struct z_candidate * add_conv_candidate
 	PROTO((struct z_candidate *, tree, tree, tree));
-static struct z_candidate * add_function_candidate 
+static struct z_candidate * add_function_candidate
 	PROTO((struct z_candidate *, tree, tree, int));
 static tree implicit_conversion PROTO((tree, tree, tree, int));
 static tree standard_conversion PROTO((tree, tree, tree));
@@ -268,7 +268,7 @@ resolve_scope_to_name (outer_type, inner_stuff)
       /* We first try to look for a nesting in our current class context,
          then try any enclosing classes.  */
       tree type = current_class_type;
-      
+
       while (type && (TREE_CODE (type) == RECORD_TYPE
 		      || TREE_CODE (type) == UNION_TYPE))
         {
@@ -303,7 +303,7 @@ resolve_scope_to_name (outer_type, inner_stuff)
 					  inner_type);
 	  return inner_name;
 	}
-      
+
       x = lookup_name (inner_name, 0);
 
       if (x && TREE_CODE (x) == NAMESPACE_DECL)
@@ -382,7 +382,7 @@ build_scoped_method_call (exp, basetype, name, parms)
      a pointer to a base class to be `stolen',
      we need not protect the derived->base conversion
      that happens here.
-     
+
      @@ But we do have to check access privileges later.  */
   tree binfo, decl;
   tree type = TREE_TYPE (exp);
@@ -474,7 +474,7 @@ build_scoped_method_call (exp, basetype, name, parms)
 	{
 	  if (! TYPE_HAS_DESTRUCTOR (TREE_TYPE (decl)))
 	    return cp_convert (void_type_node, exp);
-	  
+
 	  return build_delete (TREE_TYPE (decl), decl, integer_two_node,
 			       LOOKUP_NORMAL|LOOKUP_NONVIRTUAL|LOOKUP_DESTRUCTOR,
 			       0);
@@ -571,7 +571,7 @@ build_call (function, result_type, parms)
   TREE_HAS_CONSTRUCTOR (function) = is_constructor;
   TREE_TYPE (function) = result_type;
   TREE_SIDE_EFFECTS (function) = 1;
-  
+
   return function;
 }
 
@@ -1304,7 +1304,7 @@ build_builtin_candidate (candidates, fnname, type1, type2,
 	TREE_VEC_ELT (convs, 0) = t;
       else
 	viable = 0;
-    }      
+    }
 
   return add_candidate (candidates, fnname, convs, viable);
 }
@@ -1952,14 +1952,14 @@ add_template_candidate_real (candidates, tmpl, explicit_targs,
 
 
 static struct z_candidate *
-add_template_candidate (candidates, tmpl, explicit_targs, 
+add_template_candidate (candidates, tmpl, explicit_targs,
 			arglist, return_type, flags, strict)
      struct z_candidate *candidates;
      tree tmpl, explicit_targs, arglist, return_type;
      int flags;
      unification_kind_t strict;
 {
-  return 
+  return
     add_template_candidate_real (candidates, tmpl, explicit_targs,
 				 arglist, return_type, flags,
 				 NULL_TREE, strict);
@@ -1971,7 +1971,7 @@ add_template_conv_candidate (candidates, tmpl, obj, arglist, return_type)
      struct z_candidate *candidates;
      tree tmpl, obj, arglist, return_type;
 {
-  return 
+  return
     add_template_candidate_real (candidates, tmpl, NULL_TREE, arglist,
 				 return_type, 0, obj, DEDUCE_CONV);
 }
@@ -2041,7 +2041,7 @@ print_z_candidates (candidates)
       else
 	cp_error_at ("%s %+D%s", str, candidates->fn,
 		     candidates->viable == -1 ? " <near match>" : "");
-      str = "               "; 
+      str = "               ";
     }
 }
 
@@ -2088,23 +2088,23 @@ build_user_type_conversion_1 (totype, expr, flags)
       if (DECL_NONCONVERTING_P (ctor))
 	continue;
 
-      if (TREE_CODE (ctor) == TEMPLATE_DECL) 
+      if (TREE_CODE (ctor) == TEMPLATE_DECL)
 	{
 	  templates = scratch_tree_cons (NULL_TREE, ctor, templates);
-	  candidates = 
+	  candidates =
 	    add_template_candidate (candidates, ctor,
 				    NULL_TREE, args, NULL_TREE, flags,
 				    DEDUCE_CALL);
-	} 
-      else 
+	}
+      else
 	candidates = add_function_candidate (candidates, ctor,
-					     args, flags); 
+					     args, flags);
 
-      if (candidates) 
+      if (candidates)
 	{
 	  candidates->second_conv = build1 (IDENTITY_CONV, totype, NULL_TREE);
 	  candidates->basetype_path = TYPE_BINFO (totype);
-	} 
+	}
     }
 
   if (convs)
@@ -2141,14 +2141,14 @@ build_user_type_conversion_1 (totype, expr, flags)
 	    if (TREE_CODE (fn) == TEMPLATE_DECL)
 	      {
 		templates = scratch_tree_cons (NULL_TREE, fn, templates);
-		candidates = 
+		candidates =
 		  add_template_candidate (candidates, fn, NULL_TREE,
 					  args, totype, flags,
 					  DEDUCE_CONV);
-	      } 
-	    else 
+	      }
+	    else
 	      candidates = add_function_candidate (candidates, fn,
-						   args, flags); 
+						   args, flags);
 
 	    if (candidates != old_candidates)
 	      {
@@ -2208,9 +2208,9 @@ build_user_type_conversion_1 (totype, expr, flags)
 
   /* Pedantically, normal function declarations are never considered
      to refer to template instantiations, so we only do this with
-     -fguiding-decls.  */ 
-  if (flag_guiding_decls && templates && ! cand->template 
-      && !DECL_INITIAL (cand->fn) 
+     -fguiding-decls.  */
+  if (flag_guiding_decls && templates && ! cand->template
+      && !DECL_INITIAL (cand->fn)
       && TREE_CODE (TREE_TYPE (cand->fn)) != METHOD_TYPE)
     add_maybe_template (cand->fn, templates);
 
@@ -2264,7 +2264,7 @@ resolve_args (args)
     }
   return args;
 }
-      
+
 tree
 build_new_function_call (fn, args)
      tree fn, args;
@@ -2298,7 +2298,7 @@ build_new_function_call (fn, args)
 	      templates = scratch_tree_cons (NULL_TREE, t, templates);
 	      candidates = add_template_candidate
 		(candidates, t, explicit_targs, args, NULL_TREE,
-		 LOOKUP_NORMAL, DEDUCE_CALL);  
+		 LOOKUP_NORMAL, DEDUCE_CALL);
 	    }
 	  else if (! template_only)
 	    candidates = add_function_candidate
@@ -2329,7 +2329,7 @@ build_new_function_call (fn, args)
       /* Pedantically, normal function declarations are never considered
 	 to refer to template instantiations, so we only do this with
 	 -fguiding-decls.  */
-      if (flag_guiding_decls && templates && ! cand->template 
+      if (flag_guiding_decls && templates && ! cand->template
 	  && ! DECL_INITIAL (cand->fn))
 	add_maybe_template (cand->fn, templates);
 
@@ -2380,9 +2380,9 @@ build_object_call (obj, args)
 	  if (TREE_CODE (fn) == TEMPLATE_DECL)
 	    {
 	      templates = scratch_tree_cons (NULL_TREE, fn, templates);
-	      candidates 
+	      candidates
 		= add_template_candidate (candidates, fn, NULL_TREE,
-					  mem_args, NULL_TREE, 
+					  mem_args, NULL_TREE,
 					  LOOKUP_NORMAL, DEDUCE_CALL);
 	    }
 	  else
@@ -2407,7 +2407,7 @@ build_object_call (obj, args)
 	for (; fns; fns = OVL_NEXT (fn))
 	  {
 	    fn = OVL_CURRENT (fn);
-	    if (TREE_CODE (fn) == TEMPLATE_DECL) 
+	    if (TREE_CODE (fn) == TEMPLATE_DECL)
 	      {
 		templates = scratch_tree_cons (NULL_TREE, fn, templates);
 		candidates = add_template_conv_candidate (candidates,
@@ -2552,7 +2552,7 @@ build_new_op (code, flags, arg1, arg2, arg3)
 	    arglist = build_scratch_list (NULL_TREE, arg1);
 	    return build_new_function_call
 	      (lookup_function_nonclass (fnname, arglist), arglist);
-	  }    
+	  }
 
 	arglist = scratch_tree_cons (NULL_TREE, arg1, build_scratch_list (NULL_TREE, arg2));
 
@@ -2562,7 +2562,7 @@ build_new_op (code, flags, arg1, arg2, arg3)
 	   X (*a)[10];
 	   a=new X[5][10];
 	   delete[] a; */
-	   
+
 	if (TREE_CODE (TREE_TYPE (arg1)) == ARRAY_TYPE)
 	  {
 	    /* Strip off the pointer and the array.  */
@@ -2637,10 +2637,10 @@ build_new_op (code, flags, arg1, arg2, arg3)
       if (TREE_CODE (fn) == TEMPLATE_DECL)
 	{
 	  templates = scratch_tree_cons (NULL_TREE, fn, templates);
-	  candidates 
+	  candidates
 	    = add_template_candidate (candidates, fn, NULL_TREE,
 				      arglist, TREE_TYPE (fnname),
-				      flags, DEDUCE_CALL); 
+				      flags, DEDUCE_CALL);
 	}
       else
 	candidates = add_function_candidate (candidates, fn, arglist, flags);
@@ -2673,16 +2673,16 @@ build_new_op (code, flags, arg1, arg2, arg3)
 	    {
 	      /* A member template. */
 	      templates = scratch_tree_cons (NULL_TREE, fn, templates);
-	      candidates 
+	      candidates
 		= add_template_candidate (candidates, fn, NULL_TREE,
 					  this_arglist,  TREE_TYPE (fnname),
-					  flags, DEDUCE_CALL); 
+					  flags, DEDUCE_CALL);
 	    }
 	  else
 	    candidates = add_function_candidate
 	      (candidates, fn, this_arglist, flags);
 
-	  if (candidates) 
+	  if (candidates)
 	    candidates->basetype_path = basetype;
 	}
     }
@@ -2725,9 +2725,9 @@ build_new_op (code, flags, arg1, arg2, arg3)
 	  if (code == POSTINCREMENT_EXPR)
 	    code = PREINCREMENT_EXPR;
 	  else
-	    code = PREDECREMENT_EXPR;	
+	    code = PREDECREMENT_EXPR;
 	  return build_new_op (code, flags, arg1, NULL_TREE, NULL_TREE);
-	  
+
 	  /* The caller will deal with these.  */
 	case ADDR_EXPR:
 	case COMPOUND_EXPR:
@@ -2776,8 +2776,8 @@ build_new_op (code, flags, arg1, arg2, arg3)
 
       /* Pedantically, normal function declarations are never considered
 	 to refer to template instantiations, so we only do this with
-	 -fguiding-decls.  */ 
-      if (flag_guiding_decls && templates && ! cand->template 
+	 -fguiding-decls.  */
+      if (flag_guiding_decls && templates && ! cand->template
 	  && ! DECL_INITIAL (cand->fn)
 	  && TREE_CODE (TREE_TYPE (cand->fn)) != METHOD_TYPE)
 	add_maybe_template (cand->fn, templates);
@@ -2798,13 +2798,13 @@ build_new_op (code, flags, arg1, arg2, arg3)
     case LE_EXPR:
     case EQ_EXPR:
     case NE_EXPR:
-      if (flag_int_enum_equivalence == 0 
-	  && TREE_CODE (TREE_TYPE (arg1)) == ENUMERAL_TYPE 
-	  && TREE_CODE (TREE_TYPE (arg2)) == ENUMERAL_TYPE 
+      if (flag_int_enum_equivalence == 0
+	  && TREE_CODE (TREE_TYPE (arg1)) == ENUMERAL_TYPE
+	  && TREE_CODE (TREE_TYPE (arg2)) == ENUMERAL_TYPE
 	  && (TYPE_MAIN_VARIANT (TREE_TYPE (arg1))
 	      != TYPE_MAIN_VARIANT (TREE_TYPE (arg2))))
 	{
-	  cp_warning ("comparison between `%#T' and `%#T'", 
+	  cp_warning ("comparison between `%#T' and `%#T'",
 		      TREE_TYPE (arg1), TREE_TYPE (arg2));
 	}
       break;
@@ -2912,7 +2912,7 @@ build_op_new_call (code, type, args, flags)
       return build_method_call (dummy, fnname, args, NULL_TREE, flags);
     }
   else
-    return build_new_function_call 
+    return build_new_function_call
       (lookup_function_nonclass (fnname, args), args);
 }
 
@@ -2949,7 +2949,7 @@ build_op_delete_call (code, addr, size, flags, placement)
        If the result of the lookup is ambiguous or inaccessible, or if
        the lookup selects a placement deallocation function, the
        program is ill-formed.
-  
+
        Therefore, we ask lookup_fnfields to complain ambout ambiguity.  */
     {
       fns = lookup_fnfields (TYPE_BINFO (type), fnname, 1);
@@ -3046,7 +3046,7 @@ enforce_access (basetype_path, decl)
 
   if (access == access_private_node)
     {
-      cp_error_at ("`%+#D' is %s", decl, 
+      cp_error_at ("`%+#D' is %s", decl,
 		   TREE_PRIVATE (decl) ? "private"
 		   : "from private base class");
       error ("within this context");
@@ -3070,7 +3070,7 @@ convert_like (convs, expr)
       && TREE_CODE (convs) != USER_CONV
       && TREE_CODE (convs) != AMBIG_CONV)
     {
-      tree t = convs; 
+      tree t = convs;
       for (; t; t = TREE_OPERAND (t, 0))
 	{
 	  if (TREE_CODE (t) == USER_CONV)
@@ -3147,7 +3147,7 @@ convert_like (convs, expr)
       {
 	tree cvt_expr = build_user_type_conversion
 	  (TREE_TYPE (convs), expr, LOOKUP_NORMAL);
-	if (!cvt_expr) 
+	if (!cvt_expr)
 	  {
 	    /* This can occur if, for example, the EXPR has incomplete
 	       type.  We can't check for that before attempting the
@@ -3283,7 +3283,7 @@ build_over_call (cand, args, flags)
 	  arg = TREE_CHAIN (arg);
 	  parm = TREE_CHAIN (parm);
 	}
-    }      
+    }
   /* Bypass access control for 'this' parameter.  */
   else if (TREE_CODE (TREE_TYPE (fn)) == METHOD_TYPE)
     {
@@ -3381,7 +3381,7 @@ build_over_call (cand, args, flags)
 
   /* Ellipsis */
   for (; arg; arg = TREE_CHAIN (arg))
-    converted_args 
+    converted_args
       = expr_tree_cons (NULL_TREE,
 			convert_arg_to_ellipsis (TREE_VALUE (arg)),
 			converted_args);
@@ -3653,10 +3653,10 @@ build_new_method_call (instance, name, args, basetype_path, flags)
 	    {
 	      /* A member template. */
 	      templates = scratch_tree_cons (NULL_TREE, t, templates);
-	      candidates = 
+	      candidates =
 		add_template_candidate (candidates, t, explicit_targs,
 					this_arglist,
-					TREE_TYPE (name), flags, DEDUCE_CALL); 
+					TREE_TYPE (name), flags, DEDUCE_CALL);
 	    }
 	  else if (! template_only)
 	    candidates = add_function_candidate (candidates, t,
@@ -3706,8 +3706,8 @@ build_new_method_call (instance, name, args, basetype_path, flags)
 
   /* Pedantically, normal function declarations are never considered
      to refer to template instantiations, so we only do this with
-     -fguiding-decls.  */ 
-  if (flag_guiding_decls && templates && ! cand->template 
+     -fguiding-decls.  */
+  if (flag_guiding_decls && templates && ! cand->template
       && ! DECL_INITIAL (cand->fn))
     add_maybe_template (cand->fn, templates);
 
@@ -3789,7 +3789,7 @@ maybe_handle_implicit_object (ics)
   if (ICS_THIS_FLAG (*ics))
     {
       /* [over.match.funcs]
-	 
+
 	 For non-static member functions, the type of the
 	 implicit object parameter is "reference to cv X"
 	 where X is the class of which the function is a
@@ -3801,8 +3801,8 @@ maybe_handle_implicit_object (ics)
       if (TREE_CODE (t) == PTR_CONV)
 	t = TREE_OPERAND (t, 0);
       t = build1 (IDENTITY_CONV, TREE_TYPE (TREE_TYPE (t)), NULL_TREE);
-      t = build_conv (REF_BIND, 
-		      build_reference_type (TREE_TYPE (TREE_TYPE (*ics))), 
+      t = build_conv (REF_BIND,
+		      build_reference_type (TREE_TYPE (TREE_TYPE (*ics))),
 		      t);
       ICS_STD_RANK (t) = ICS_STD_RANK (*ics);
       *ics = t;
@@ -3820,15 +3820,15 @@ maybe_handle_ref_bind (ics, target_type)
 {
   if (TREE_CODE (*ics) == REF_BIND)
     {
-      /* [over.ics.rank] 
-	 
+      /* [over.ics.rank]
+
 	 When a parameter of reference type binds directly
 	 (_dcl.init.ref_) to an argument expression, the implicit
 	 conversion sequence is the identity conversion, unless the
 	 argument expression has a type that is a derived class of the
 	 parameter type, in which case the implicit conversion
 	 sequence is a derived-to-base Conversion.
-	 
+
 	 If the parameter binds directly to the result of applying a
 	 conversion function to the argument expression, the implicit
 	 conversion sequence is a user-defined conversion sequence
@@ -3836,7 +3836,7 @@ maybe_handle_ref_bind (ics, target_type)
 	 sequence either an identity conversion or, if the conversion
 	 function returns an entity of a type that is a derived class
 	 of the parameter type, a derived-to-base Conversion.
-	 
+
 	 When a parameter of reference type is not bound directly to
 	 an argument expression, the conversion sequence is the one
 	 required to convert the argument expression to the underlying
@@ -3856,10 +3856,10 @@ maybe_handle_ref_bind (ics, target_type)
 	*ics = build_conv (BASE_CONV, *target_type, *ics);
       ICS_USER_FLAG (*ics) = ICS_USER_FLAG (old_ics);
       ICS_BAD_FLAG (*ics) = ICS_BAD_FLAG (old_ics);
-      
+
       return 1;
     }
-  
+
   return 0;
 }
 
@@ -3907,7 +3907,7 @@ compare_ics (ics1, ics2)
      --a standard conversion sequence (_over.ics.scs_) is a better
        conversion sequence than a user-defined conversion sequence
        or an ellipsis conversion sequence, and
-     
+
      --a user-defined conversion sequence (_over.ics.user_) is a
        better conversion sequence than an ellipsis conversion sequence
        (_over.ics.ellipsis_).  */
@@ -3961,24 +3961,24 @@ compare_ics (ics1, ics2)
     }
   else
     {
-      /* We're dealing with two standard conversion sequences. 
+      /* We're dealing with two standard conversion sequences.
 
 	 [over.ics.rank]
-	 
+
 	 Standard conversion sequence S1 is a better conversion
 	 sequence than standard conversion sequence S2 if
-     
+
 	 --S1 is a proper subsequence of S2 (comparing the conversion
 	   sequences in the canonical form defined by _over.ics.scs_,
 	   excluding any Lvalue Transformation; the identity
 	   conversion sequence is considered to be a subsequence of
 	   any non-identity conversion sequence */
-      
+
       from_type1 = ics1;
       while (TREE_CODE (from_type1) != IDENTITY_CONV)
 	from_type1 = TREE_OPERAND (from_type1, 0);
       from_type1 = TREE_TYPE (from_type1);
-      
+
       from_type2 = ics2;
       while (TREE_CODE (from_type2) != IDENTITY_CONV)
 	from_type2 = TREE_OPERAND (from_type2, 0);
@@ -4013,7 +4013,7 @@ compare_ics (ics1, ics2)
 
     --A conversion that is not a conversion of a pointer, or pointer
       to member, to bool is better than another conversion that is such
-      a conversion.  
+      a conversion.
 
     The ICS_STD_RANK automatically handles the pointer-to-bool rule,
     so that we do not have to check it explicitly.  */
@@ -4064,10 +4064,10 @@ compare_ics (ics1, ics2)
       && IS_AGGR_TYPE_CODE (TREE_CODE (deref_from_type1))
       && IS_AGGR_TYPE_CODE (TREE_CODE (deref_from_type2)))
     {
-      /* This was one of the pointer or pointer-like conversions.  
+      /* This was one of the pointer or pointer-like conversions.
 
 	 [over.ics.rank]
-	 
+
 	 --If class B is derived directly or indirectly from class A,
 	   conversion of B* to A* is better than conversion of B* to
 	   void*, and conversion of A* to void* is better than
@@ -4106,10 +4106,10 @@ compare_ics (ics1, ics2)
 
 	     --If class B is derived directly or indirectly from class A
 	       and class C is derived directly or indirectly from B,
-	     
+
 	     --conversion of C* to B* is better than conversion of C* to
-	       A*, 
-	     
+	       A*,
+
 	     --conversion of B* to A* is better than conversion of C* to
 	       A*  */
 	  if (comptypes (deref_from_type1, deref_from_type2, 1))
@@ -4136,7 +4136,7 @@ compare_ics (ics1, ics2)
 	   && comptypes (from_type1, from_type2, 1))
     {
       /* [over.ics.rank]
-	 
+
 	 --binding of an expression of type C to a reference of type
 	   B& is better than binding an expression of type C to a
 	   reference of type A&
@@ -4158,7 +4158,7 @@ compare_ics (ics1, ics2)
 
 	 --binding of an expression of type B to a reference of type
 	   A& is better than binding an expression of type C to a
-	   reference of type A&, 
+	   reference of type A&,
 
 	 --onversion of B to A is better than conversion of C to A  */
       if (is_properly_derived_from (from_type1, to_type1)
@@ -4177,19 +4177,19 @@ compare_ics (ics1, ics2)
        similar  types  T1 and T2 (_conv.qual_), respectively, and the cv-
        qualification signature of type T1 is a proper subset of  the  cv-
        qualification signature of type T2  */
-  if (TREE_CODE (ics1) == QUAL_CONV 
+  if (TREE_CODE (ics1) == QUAL_CONV
       && TREE_CODE (ics2) == QUAL_CONV
       && comptypes (from_type1, from_type2, 1))
     return comp_cv_qual_signature (to_type1, to_type2);
 
   /* [over.ics.rank]
-     
+
      --S1 and S2 are reference bindings (_dcl.init.ref_), and the
      types to which the references refer are the same type except for
      top-level cv-qualifiers, and the type to which the reference
      initialized by S2 refers is more cv-qualified than the type to
      which the reference initialized by S1 refers */
-      
+
   if (ref_binding1 && ref_binding2
       && comptypes (TYPE_MAIN_VARIANT (to_type1),
 		    TYPE_MAIN_VARIANT (to_type2), 1))
@@ -4486,8 +4486,8 @@ tourney (candidates)
   /* Make sure the champ is better than all the candidates it hasn't yet
      been compared to.  */
 
-  for (challenger = candidates; 
-       challenger != champ 
+  for (challenger = candidates;
+       challenger != champ
 	 && !(champ_compared_to_predecessor && challenger->next == champ);
        challenger = challenger->next)
     {

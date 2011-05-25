@@ -12,15 +12,15 @@
  *  documentation, and that any documentation, advertising materials,
  *  and other materials related to such distribution and use acknowledge
  *  that the software was developed by the University of Oregon.
- *  The name of the University of Oregon may not be used to endorse or 
- *  promote products derived from this software without specific prior 
+ *  The name of the University of Oregon may not be used to endorse or
+ *  promote products derived from this software without specific prior
  *  written permission.
  *
  *  THE UNIVERSITY OF OREGON DOES NOT MAKE ANY REPRESENTATIONS
  *  ABOUT THE SUITABILITY OF THIS SOFTWARE FOR ANY PURPOSE.  THIS SOFTWARE IS
  *  PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES,
  *  INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
- *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND 
+ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND
  *  NON-INFRINGEMENT.
  *
  *  IN NO EVENT SHALL UO, OR ANY OTHER CONTRIBUTOR BE LIABLE FOR ANY
@@ -32,7 +32,7 @@
  *  noted when applicable.
  */
 /*
- *  Questions concerning this software should be directed to 
+ *  Questions concerning this software should be directed to
  *  Kurt Windisch (kurtw@antc.uoregon.edu)
  *
  *  KAME Id: defs.h,v 1.5 1999/10/27 11:40:29 jinmei Exp
@@ -41,13 +41,13 @@
  * Part of this program has been derived from PIM sparse-mode pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
- *  
+ *
  * The pimd program is COPYRIGHT 1998 by University of Southern California.
  *
  * Part of this program has been derived from mrouted.
  * The mrouted program is covered by the license in the accompanying file
  * named "LICENSE.mrouted".
- * 
+ *
  * The mrouted program is COPYRIGHT 1989 by The Board of Trustees of
  * Leland Stanford Junior University.
  *
@@ -55,12 +55,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h> 
+#include <unistd.h>
 #include <ctype.h>
 #include <errno.h>
 #include <syslog.h>
-#include <signal.h> 
-#include <string.h> 
+#include <signal.h>
+#include <string.h>
 #include <sys/param.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -137,7 +137,7 @@ typedef void (*ihfunc_t) __P((int, fd_set *));
  * Various definitions to make it working for different platforms
  */
 /* The old style sockaddr definition doesn't have sa_len */
-#if (defined(BSD) && (BSD >= 199006)) /* sa_len was added with 4.3-Reno */ 
+#if (defined(BSD) && (BSD >= 199006)) /* sa_len was added with 4.3-Reno */
 #define HAVE_SA_LEN
 #endif
 
@@ -300,7 +300,7 @@ extern char *		sys_errlist[];
 #define NOT_TIMEOUT(value)    \
      (((value) >= TIMER_INTERVAL) && ((value) -= TIMER_INTERVAL))
 
-#define ELSE else           /* To make emacs cc-mode happy */      
+#define ELSE else           /* To make emacs cc-mode happy */
 
 
 /*
@@ -393,7 +393,7 @@ extern void     accept_group_report     __P((u_int32 src, u_int32 dst,
 					     u_int32 group, int r_type));
 extern void     accept_leave_message    __P((u_int32 src, u_int32 dst,
 					     u_int32 group));
-#endif 
+#endif
 
 #if 0
 /* inet.c */
@@ -489,7 +489,7 @@ extern int receive_pim6_join_prune    __P((struct sockaddr_in6 *src,
 					   char *pim_message, int datalen));
 extern int send_pim6_jp              __P((mrtentry_t *mrtentry_ptr, int action,
 					  mifi_t mifi,
-					  struct sockaddr_in6 *target_addr, 
+					  struct sockaddr_in6 *target_addr,
 					  u_int16 holdtime, int echo));
 
 extern int receive_pim6_assert        __P((struct sockaddr_in6 *src,
@@ -519,7 +519,7 @@ extern void delete_pim_nbr           __P((pim_nbr_entry_t *nbr_delete));
 extern int receive_pim_join_prune    __P((u_int32 src, u_int32 dst,
 					  char *pim_message, int datalen));
 extern int send_pim_jp               __P((mrtentry_t *mrtentry_ptr, int action,
-					  vifi_t vifi, u_int32 target_addr, 
+					  vifi_t vifi, u_int32 target_addr,
 					  u_int16 holdtime));
 extern int receive_pim_assert        __P((u_int32 src, u_int32 dst,
 					  char *pim_message, int datalen));
@@ -527,7 +527,7 @@ extern int send_pim_assert           __P((u_int32 source, u_int32 group,
 					  vifi_t vifi,
 					  mrtentry_t *mrtentry_ptr));
 extern void delete_pim_graft_entry   __P((mrtentry_t *mrtentry_ptr));
-extern int receive_pim_graft         __P((u_int32 src, u_int32 dst, 
+extern int receive_pim_graft         __P((u_int32 src, u_int32 dst,
 					  char *pim_message, int datalen,
 					  int pimtype));
 #endif

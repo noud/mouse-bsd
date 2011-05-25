@@ -159,7 +159,7 @@ char	*argv[];
 
 	eprintf("Note: >>> Both drive and partition numbers start "
 		"at 0! <<<\r\n");
-			
+
 	driveno = atoi(argv[0]);
 	partno  = atoi(argv[1]);
 	newname = argv[2];
@@ -212,7 +212,7 @@ char	*newname;
     bcopy(g_root->parts, g_local, NGEM_PARTS*sizeof(GEM_PART));
 
     for (i = 0; i < NGEM_PARTS; i++) {
-	if (!(g_local[i].p_flg & 1)) 
+	if (!(g_local[i].p_flg & 1))
 	    continue;
 	if (!strncmp(g_local[i].p_id, "XGM", 3)) {
 	    int	j;

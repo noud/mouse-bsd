@@ -45,7 +45,7 @@
 static int str2vc(char *str, int *vpi, int *vci);
 static void usage(void);
 
-static void 
+static void
 usage(void)
 {
 	fprintf(stderr, "usage: pvctxctl interface [vpi:]vci\n");
@@ -64,7 +64,7 @@ int getinfo = 1;
 int subinterface = 0;
 int verbose = 1;
 
-int 
+int
 main(int argc, char **argv)
 {
 	struct pvctxreq pvcreq;
@@ -78,7 +78,7 @@ main(int argc, char **argv)
 	if_name = argv[1];
 	if (argc > 2 && isdigit(argv[2][0]))
 		str2vc(argv[2], &vpi, &vci);
-    
+
 	optind = 3;
 	while ((ch = getopt(argc, argv, "p:b:j:snv")) != EOF) {
 		switch (ch) {
@@ -121,7 +121,7 @@ main(int argc, char **argv)
 	if (strncmp(if_name, "pvc", 3) == 0)
 		/* pvc subinterface */
 		subinterface = 1;
-	
+
 	ATM_PH_FLAGS(&pvcreq.pvc_aph) = ATM_PH_AAL5 | llcsnap;
 	ATM_PH_VPI(&pvcreq.pvc_aph) = vpi;
 	ATM_PH_SETVCI(&pvcreq.pvc_aph, vci);
@@ -129,7 +129,7 @@ main(int argc, char **argv)
 	ATM_PH_FLAGS(&pvcreq.pvc_joint) = 0;
 	ATM_PH_VPI(&pvcreq.pvc_joint) = joint_vpi;
 	ATM_PH_SETVCI(&pvcreq.pvc_joint, joint_vci);
-	
+
 	pvcreq.pvc_pcr = pcr;
 
 	if (getinfo) {
@@ -173,7 +173,7 @@ main(int argc, char **argv)
 		printf("pcr:%d(%dKbps)\n", pcr, pcr * 48 * 8 / 1000);
 	else
 		printf("pcr:%d(%dMbps)\n", pcr, pcr * 48 * 8 / 1000000);
-    
+
 	close(s);
 
 	if (getinfo && pcr < 0) {
@@ -184,7 +184,7 @@ main(int argc, char **argv)
 	return (0);
 }
 
-static int 
+static int
 str2vc(char *str, int *vpi, int *vci)
 {
 	char *c;

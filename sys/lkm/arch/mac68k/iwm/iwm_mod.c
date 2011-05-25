@@ -147,11 +147,11 @@ load_module (lkmtp, cmd)
 		/* replace with new */
 		memcpy(&bdevsw[21], &newBDevEntry, sizeof(struct bdevsw));
 		memcpy(&cdevsw[43], &newCDevEntry, sizeof(struct cdevsw));
-		/* 
-		 * If we wanted to allocate device nodes in /dev, 
-		 * we could export the numbers here. 
+		/*
+		 * If we wanted to allocate device nodes in /dev,
+		 * we could export the numbers here.
 		 * For the floppy devices, we assume they
-		 * have already been allocated by /dev/MAKEDEV. 
+		 * have already been allocated by /dev/MAKEDEV.
 		 */
 		args->lkm_offset = i;
 		err = fd_mod_init();
@@ -208,7 +208,7 @@ unload_module(lkmtp, cmd)
  */
 int
 iwmfd_lkmentry (lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;		  
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

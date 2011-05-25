@@ -68,7 +68,7 @@ extern char hostname[];
  */
 
 /*
- * See if the user is accepting messages. If so, announce that 
+ * See if the user is accepting messages. If so, announce that
  * a talk is requested.
  */
 int
@@ -91,7 +91,7 @@ announce(request, remote_machine)
 #define N_CHARS 256
 
 /*
- * Build a block of characters containing the message. 
+ * Build a block of characters containing the message.
  * It is sent blank filled and in a single block to
  * try to keep the message in one piece if the recipient
  * in in vi at the time
@@ -123,7 +123,7 @@ print_mesg(tty, request, remote_machine)
 	max_size = max(max_size, sizes[i]);
 	i++;
 
-	(void)snprintf(line_buf[i], N_CHARS, 
+	(void)snprintf(line_buf[i], N_CHARS,
 	    "Message from Talk_Daemon@%s at %d:%02d ...",
 	    hostname, localclock->tm_hour, localclock->tm_min );
 	sizes[i] = strlen(line_buf[i]);
@@ -131,7 +131,7 @@ print_mesg(tty, request, remote_machine)
 	i++;
 	vis_user = (char *)malloc(strlen(request->l_name) * 4 + 1);
 	strvis(vis_user, request->l_name, VIS_CSTYLE);
-	(void)snprintf(line_buf[i], N_CHARS, 
+	(void)snprintf(line_buf[i], N_CHARS,
 	    "talk: connection requested by %s@%s.", vis_user, remote_machine);
 	sizes[i] = strlen(line_buf[i]);
 	max_size = max(max_size, sizes[i]);

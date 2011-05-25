@@ -35,7 +35,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 %token <number> NUMBER
 %type  <number> opt_base opt_ordinal opt_NONAME opt_CONSTANT opt_DATA
 %type  <number> attr attr_list opt_number
-%type  <id> opt_name opt_equal_name 
+%type  <id> opt_name opt_equal_name
 
 %%
 
@@ -43,10 +43,10 @@ start: start command
 	| command
 	;
 
-command: 
+command:
 		NAME opt_name opt_base { def_name ($2, $3); }
 	|	LIBRARY opt_name opt_base { def_library ($2, $3); }
-	|	EXPORTS explist 
+	|	EXPORTS explist
 	|	DESCRIPTION ID { def_description ($2);}
 	|	STACKSIZE NUMBER opt_number { def_stacksize ($2, $3);}
 	|	HEAPSIZE NUMBER opt_number { def_heapsize ($2, $3);}
@@ -69,7 +69,7 @@ expline:
 		ID opt_equal_name opt_ordinal opt_NONAME opt_CONSTANT opt_DATA
 			{ def_exports ($1, $2, $3, $4, $5, $6);}
 	;
-implist:	
+implist:
 		implist impline
 	|	impline
 	;
@@ -94,15 +94,15 @@ attr_list:
 
 opt_comma:
 	','
-	| 
+	|
 	;
 opt_number: ',' NUMBER { $$=$2;}
 	|	   { $$=-1;}
 	;
-	
+
 attr:
 		READ { $$ = 1;}
-	|	WRITE { $$ = 2;}	
+	|	WRITE { $$ = 2;}
 	|	EXECUTE { $$=4;}
 	|	SHARED { $$=8;}
 	;
@@ -126,19 +126,19 @@ opt_name: ID		{ $$ =$1; }
 	|		{ $$=""; }
 	;
 
-opt_ordinal: 
+opt_ordinal:
 	  '@' NUMBER     { $$=$2;}
 	|                { $$=-1;}
 	;
 
 opt_equal_name:
           '=' ID	{ $$ = $2; }
-        | 		{ $$ =  0; }			 
+        | 		{ $$ =  0; }
 	;
 
 opt_base: BASE	'=' NUMBER	{ $$= $3;}
 	|	{ $$=-1;}
 	;
 
-	
+
 

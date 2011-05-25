@@ -119,7 +119,7 @@ pw_yp(pw, uid)
 	struct yppasswd yppasswd;
 	struct timeval tv;
 	CLIENT *client;
-	
+
 	/*
 	 * Get local domain
 	 */
@@ -175,7 +175,7 @@ pw_yp(pw, uid)
 	yppasswd.newpw.pw_gecos  = strdup(pw->pw_gecos);
 	yppasswd.newpw.pw_dir	 = strdup(pw->pw_dir);
 	yppasswd.newpw.pw_shell	 = strdup(pw->pw_shell);
-	
+
 	client = clnt_create(master, YPPASSWDPROG, YPPASSWDVERS, "udp");
 	if (client == NULL) {
 		warnx("cannot contact yppasswdd on %s:  Reason: %s",
@@ -226,7 +226,7 @@ interpret(pwent, line)
 	pwent->pw_change = 0;
 	pwent->pw_expire = 0;
 	pwent->pw_class = "";
-	
+
 	/* line without colon separators is no good, so ignore it */
 	if(!strchr(p,':'))
 		return(NULL);
@@ -258,7 +258,7 @@ ypgetpwnam(nam)
 	static char line[1024];
 	char *val;
 	int reason, vallen;
-	
+
 	/*
 	 * Get local domain
 	 */
@@ -290,7 +290,7 @@ ypgetpwuid(uid)
 	char *val;
 	int reason, vallen;
 	char namebuf[16];
-	
+
 	if (!domain && (reason = yp_get_default_domain(&domain)))
 		errx(1, "can't get local YP domain. Reason: %s\n",
 		    yperr_string(reason));

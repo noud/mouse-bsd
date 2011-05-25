@@ -7,7 +7,7 @@
 #
 #---------------------------------------------------------------------------
 #
-#	NOTE: 
+#	NOTE:
 #	assumptions:	- 8 screens configured
 #			- /dev/ttyv0 ... /dev/ttyv7 exist
 #

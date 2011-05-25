@@ -35,7 +35,7 @@
 .\"
 .Dd April 17, 1997
 .Dt NANOSLEEP 2
-.Os 
+.Os
 .Sh NAME
 .Nm nanosleep
 .Sh LIBRARY
@@ -46,26 +46,26 @@
 .Fn nanosleep "const struct timespec *rqtp" "struct timespec *rmtp"
 .\" .Sh DESCRIPTION
 .Sh RETURN VALUE
-If the 
+If the
 .Fn nanosleep
 function returns because the requested time has elapsed, the value
-returned will be zero.  
+returned will be zero.
 .Pp
-If the 
+If the
 .Fn nanosleep
 function returns due to the delivery of a signal, the value returned
 will be the -1, and the global variable
 .Va errno
 will be set to indicate the interruption.
-If 
+If
 .Fa rmtp
-is 
+is
 .Pf non- Dv NULL ,
 the timespec structure it references is updated to contain the
 unslept amount (the request time minus the time actually slept).
 .Sh ERRORS
 If any of the following conditions occur, the
-.Nm 
+.Nm
 function shall return -1 and set
 .Va errno
 to the corresponding value.
@@ -73,7 +73,7 @@ to the corresponding value.
 .It Bq Er EFAULT
 Either
 .Fa rqtp
-or 
+or
 .Fa rmtp
 points to memory that is not a valid part of the process
 address space.

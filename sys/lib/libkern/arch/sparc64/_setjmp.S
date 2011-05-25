@@ -63,13 +63,13 @@ ENTRY(_setjmp)
  	btst	1, %sp
 	bne,a,pt %xcc, 1f	! 32 or 64-bit stack?
 	 std	%sp, [%o0+0]	! 32-bit stack pointer & return pc
-	
+
 	stx	%sp, [%o0+0]	! 64-bit stack pointer
 	stx	%o7, [%o0+8]	! 64-bit return pc
 	stx	%fp, [%o0+16]	! 64-bit frame pointer
 	retl
 	 clr	%o0
-1:	
+1:
 	st	%fp, [%o0+8]	! 32-bit frame pointer
 	retl
 	 clr	%o0
@@ -81,7 +81,7 @@ ENTRY(_longjmp)
 	bne,pt	%xcc, 2f	! 64-bit
 	 mov	%o0, %g1	! save a in another global register
 	ld	[%g1+8], %g7	/* get caller's frame */
-	
+
 1:
 	cmp	%fp, %g7	! compare against desired frame
 	bl,a	1b		! if below,
@@ -112,6 +112,6 @@ Lbotch:
 	unimp	0
 				! otherwise, went too far; bomb out
 
-	
+
 
 

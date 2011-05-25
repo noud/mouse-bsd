@@ -1,5 +1,5 @@
 
-/* 
+/*
 Copyright (C) 1993 Free Software Foundation
 
 This file is part of the GNU IO Library.  This library is free

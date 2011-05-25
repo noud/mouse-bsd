@@ -68,7 +68,7 @@ void
 add_list(plr, head, op_sqr)
 	int plr;
 	OWN **head;
-	int op_sqr; 
+	int op_sqr;
 {
 	int val;
 	OWN *tp, *last_tp;

@@ -241,7 +241,7 @@ static const keysym_t nextkbd_keydesc_fr[] = {
     KC(13),  KS_equal,		KS_plus,	KS_braceright,
     KC(16),  KS_a,
     KC(17),  KS_z,
-    KC(26),  KS_dead_circumflex, KS_dead_diaeresis, 
+    KC(26),  KS_dead_circumflex, KS_dead_diaeresis,
     KC(27),  KS_dollar,		KS_sterling,	KS_currency,
     KC(30),  KS_q,
     KC(39),  KS_m,

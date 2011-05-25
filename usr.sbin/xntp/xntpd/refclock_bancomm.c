@@ -2,16 +2,16 @@
 
 /*
  * refclock_bancomm.c - clock driver for the  Datum/Bancomm
- * bc635VME Time and Frequency Processor. 
- * R. Schmidt, Time Service, US Naval Obs. May 94 
- * modelled after the TPRO NTP driver. 
- * 
+ * bc635VME Time and Frequency Processor.
+ * R. Schmidt, Time Service, US Naval Obs. May 94
+ * modelled after the TPRO NTP driver.
+ *
  * This requires the Datum HP-UX V9.01 kernel driver and the HP-UX vme2
- * driver subsystem. It has been tested on an HP9000/747i at HP-UX 9.03. 
- * There are no restrictions on release and use of the following code.  
- * The refclock type has been defined as  16. 
+ * driver subsystem. It has been tested on an HP9000/747i at HP-UX 9.03.
+ * There are no restrictions on release and use of the following code.
+ * The refclock type has been defined as  16.
  * Installation of the Datum/Bancomm HPUX driver creates  the device file
- * /dev/btfp0 
+ * /dev/btfp0
  *
  * These DEFS are included in the Makefile:
  *      DEFS= -DHAVE_TERMIOS -DSYS_HPUX=9
@@ -23,7 +23,7 @@
 #include <config.h>
 #endif
 
-#if defined(REFCLOCK) && defined(BANC) 
+#if defined(REFCLOCK) && defined(BANC)
 #include <stdio.h>
 #include <syslog.h>
 #include <ctype.h>
@@ -77,7 +77,7 @@ struct btfp_time                /* Structure for reading 5 time words   */
 #define BMAX  50        /* timecode buffer length */
 
 /*
- * VME interface parameters. 
+ * VME interface parameters.
  */
 #define VMEPRECISION    (-21)   /* precision assumed (1 us) */
 #define USNOREFID       "USNO"  /* or whatever */
@@ -333,7 +333,7 @@ vme_report_event(vme, code)
         int code;
 {
         struct peer *peer;
-        
+
         peer = vme->peer;
         if (vme->status != (u_short)code) {
                 vme->status = (u_short)code;
@@ -365,17 +365,17 @@ vme_poll(unit, peer)
         int unit;
         struct peer *peer;
 {
-        struct vmedate *tptr; 
+        struct vmedate *tptr;
         struct vmeunit *vme;
         l_fp tstmp;
         time_t tloc;
         struct tm *tadr;
 
-        
+
         vme = (struct vmeunit *)emalloc(sizeof(struct vmeunit *));
         tptr = (struct vmedate *)emalloc(sizeof(struct vmedate *));
 
- 
+
         if (unit >= MAXUNITS) {
                 msyslog(LOG_ERR, "vme_poll: unit %d invalid", unit);
                 return;
@@ -387,7 +387,7 @@ vme_poll(unit, peer)
         vme = vmeunits[unit];        /* Here is the structure */
         vme->polls++;
 
-        tptr = &vme->vmedata; 
+        tptr = &vme->vmedata;
         if ((tptr = get_datumtime()) == NULL ) {
                 vme_report_event(vme, CEVNT_BADREPLY);
                 return;
@@ -397,7 +397,7 @@ vme_poll(unit, peer)
         vme->lasttime = current_time;
 
         /*
-         * Get VME time and convert to timestamp format. 
+         * Get VME time and convert to timestamp format.
          * The year must come from the system clock.
          */
 /*
@@ -406,7 +406,7 @@ vme_poll(unit, peer)
         tptr->year = (unsigned short)(tadr->tm_year + 1900);
 */
 
-        sprintf(vme->a_lastcode, 
+        sprintf(vme->a_lastcode,
             "%3.3d %2.2d:%2.2d:%2.2d.%.6d %1d\0",
             tptr->doy, tptr->hr, tptr->mn,
             tptr->sec, tptr->frac, tptr->status);
@@ -583,15 +583,15 @@ struct vmedate *get_datumtime()
         if( ioctl(fd_vme, READTIME, &vts))
                 msyslog(LOG_ERR, "get_datumtime error: %m");
 
-/* if you want to actually check the validity of these registers, do a 
+/* if you want to actually check the validity of these registers, do a
  define of CHECK   above this.  I didn't find it necessary. - RES
 */
 
-#ifdef CHECK            
+#ifdef CHECK
 
 /* Get doy */
         sprintf(cbuf,"%3.3x\0", ((vts.btfp_time[ 0 ] & 0x000f) <<8) +
-                ((vts.btfp_time[ 1 ] & 0xff00) >> 8));  
+                ((vts.btfp_time[ 1 ] & 0xff00) >> 8));
 
         if (isdigit(cbuf[0]) && isdigit(cbuf[1]) && isdigit(cbuf[2]) )
                 time_vme->doy = (unsigned short)atoi(cbuf);
@@ -638,7 +638,7 @@ use the TVTOTSF function  later on...*/
 
 /* Get doy */
         sprintf(cbuf,"%3.3x\0", ((vts.btfp_time[ 0 ] & 0x000f) <<8) +
-                ((vts.btfp_time[ 1 ] & 0xff00) >> 8));  
+                ((vts.btfp_time[ 1 ] & 0xff00) >> 8));
         time_vme->doy = (unsigned short)atoi(cbuf);
 
 /* Get hour */

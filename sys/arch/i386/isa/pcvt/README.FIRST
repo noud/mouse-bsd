@@ -91,10 +91,10 @@ Release         Changes/Features
 
 2.20  (10/93)   never released (experimental internal release)
 
-3.00  (03/94)   Support for XFree86 >= 1.2, support for XFree86 2.0's 
+3.00  (03/94)   Support for XFree86 >= 1.2, support for XFree86 2.0's
                 syscons/USL model for multiple X servers and/or terminal
                 sessions from Joerg Wunsch (Thank You, Joerg !!!), fixed
-                bugs, (n)curses-based EGA/VGA font editor, memory mapped 
+                bugs, (n)curses-based EGA/VGA font editor, memory mapped
                 screens, full MDA/CGA virtual screen support, 132 columns
                 on some super VGA chipsets, support for NetBSD >= 0.9,
                 support for FreeBSD >= 1.0 and much more ....
@@ -131,7 +131,7 @@ The 'pcvt' VT220 emulator driver has:
         - (24), 25, 28, 40, or 50 lines for each virtual screen on VGA's
         - (24), 25, 35, or 43 lines for each virtual screen on EGA's
         - Fully remappable keyboard to support national keyboards
-        - All VT220 character sets plus ISO Latin-1 and DEC Technical supported 
+        - All VT220 character sets plus ISO Latin-1 and DEC Technical supported
         - VT220 downloadable character set supported when run on EGA/VGA
         - VT220 user defined keys for each virtual terminal
         - Optional function key label support a 'la Hewlett-Packard
@@ -174,7 +174,7 @@ The entire pcvt package consists of:
         - vttest: VT100 compatibility torture test program
         - some color- characterset- and attribute demos
         - vga and keyboard register-level debugging utilities
-        
+
 
 Tested Operating Systems
 --------------------------------------------------------------------------------
@@ -220,7 +220,7 @@ NOTE 2:
 
 NOTE 3:
 -------
-  The driver now (from 2.10 on) DEPENDS on the BIOS video display setting 
+  The driver now (from 2.10 on) DEPENDS on the BIOS video display setting
   stored in the RTC CMOS Ram - verify your configuration setting!
 
 NOTE 4:
@@ -231,7 +231,7 @@ NOTE 4:
   to properly support the alternate charcterset!).
 
   After doing that, you may need to generate a new termcap database for newer
-  FreeBSD (2.0 and up) and NetBSD (1.0 and up) Releases: 
+  FreeBSD (2.0 and up) and NetBSD (1.0 and up) Releases:
              cd to /usr/share/misc and execute 'cap_mkdb termcap'.
 
 NOTE 5:
@@ -269,7 +269,7 @@ hardware or simply don't get it up and running, get in contact with me!
      -----------------------------------------------------------
 
 The code is far from being perfect, YOU are very welcome to enhance it !
-Please mail bug reports/fixes, suggestions, enhancements & diffs to 
+Please mail bug reports/fixes, suggestions, enhancements & diffs to
 
                         hm@hcs.de              or
                         hm@altona.hamburg.com

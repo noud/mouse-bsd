@@ -1307,11 +1307,11 @@ LEAF(mips3_TLBFlush)
 	dmtc0	zero, MIPS_COP_0_TLB_LO0	# Zero out low entry0.
 	dmtc0	zero, MIPS_COP_0_TLB_LO1	# Zero out low entry1.
 #ifdef MIPS3_4100				/* VR4100 core */
-	lw	v0, _C_LABEL(default_pg_mask)	# default_pg_mask declared 
+	lw	v0, _C_LABEL(default_pg_mask)	# default_pg_mask declared
 	mtc0	v0, MIPS_COP_0_TLB_PG_MASK	#           in mips_machdep.c
 #else
 	mtc0	zero, MIPS_COP_0_TLB_PG_MASK	# Zero out mask entry.
-#endif	
+#endif
 /*
  * Align the starting value (t1) and the upper bound (a0).
  */
@@ -1441,11 +1441,11 @@ LEAF(mips3_TLBUpdate)
 	nop
 1:
 #ifdef MIPS3_4100				/* VR4100 core */
-	lw	v0, _C_LABEL(default_pg_mask)	# default_pg_mask declared 
+	lw	v0, _C_LABEL(default_pg_mask)	# default_pg_mask declared
 	mtc0	v0, MIPS_COP_0_TLB_PG_MASK	#           in mips_machdep.c
 #else
 	mtc0	zero, MIPS_COP_0_TLB_PG_MASK	# init mask.
-#endif	
+#endif
 	dmtc0	a0, MIPS_COP_0_TLB_HI		# init high reg.
 	dmtc0	a1, MIPS_COP_0_TLB_LO0		# init low reg0.
 	dmtc0	a2, MIPS_COP_0_TLB_LO1		# init low reg1.
@@ -1477,11 +1477,11 @@ LEAF(mips3_TLBUpdate)
 	nop
 3:
 #ifdef MIPS3_4100				/* VR4100 core */
-	lw	v0, _C_LABEL(default_pg_mask)	# default_pg_mask declared 
+	lw	v0, _C_LABEL(default_pg_mask)	# default_pg_mask declared
 	mtc0	v0, MIPS_COP_0_TLB_PG_MASK	#           in mips_machdep.c
 #else
 	mtc0	zero, MIPS_COP_0_TLB_PG_MASK	# init mask.
-#endif	
+#endif
 	dmtc0	a0, MIPS_COP_0_TLB_HI		# init high reg.
 	dmtc0	a2, MIPS_COP_0_TLB_LO0		# init low reg0.
 	dmtc0	a1, MIPS_COP_0_TLB_LO1		# init low reg1.

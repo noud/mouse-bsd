@@ -30,15 +30,15 @@ Boston, MA 02111-1307, USA.  */
 #include "rtl.h"
 
 
-struct rtx_definition 
+struct rtx_definition
 {
   const char *enumname, *name, *format;
 };
 
 #define DEF_RTL_EXPR(ENUM, NAME, FORMAT, CLASS) { STRINGIFY(ENUM), NAME, FORMAT },
 
-struct rtx_definition defs[] = 
-{  
+struct rtx_definition defs[] =
+{
 #include "rtl.def"		/* rtl expressions are documented here */
 };
 
@@ -161,7 +161,7 @@ gendecl (f, format)
 {
   const char *p;
   int i;
-  
+
   fprintf (f, "extern rtx gen_rtx_fmt_%s PROTO((RTX_CODE, enum machine_mode mode",
 	   format);
   for (p = format, i = 0; *p ; ++p)
@@ -170,7 +170,7 @@ gendecl (f, format)
   fprintf (f, "));\n");
 }
 
-static void 
+static void
 genmacro (f, idx)
      FILE *f;
      int idx;
@@ -200,7 +200,7 @@ gendef (f, format)
 {
   const char *p;
   int i, j;
-  
+
   fprintf (f, "rtx\ngen_rtx_fmt_%s (code, mode", format);
   for (p = format, i = 0; *p ; ++p)
     if (*p != '0')

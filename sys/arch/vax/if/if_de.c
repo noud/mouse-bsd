@@ -277,7 +277,7 @@ deinit(ds)
 	if ((ifp->if_flags & IFF_RUNNING) == 0) {
 		if (if_ubaminit(&ds->ds_deuba, (void *)ds->ds_dev.dv_parent,
 		    sizeof (struct ether_header), (int)vax_btoc(ETHERMTU),
-		    ds->ds_ifr, NRCV, ds->ds_ifw, NXMT) == 0) { 
+		    ds->ds_ifr, NRCV, ds->ds_ifw, NXMT) == 0) {
 			printf("%s: can't initialize\n", ds->ds_dev.dv_xname);
 			ds->ds_if.if_flags &= ~IFF_UP;
 			return;
@@ -498,7 +498,7 @@ deintr(unit)
 /*
  * Ethernet interface receiver interface.
  * If input error just drop packet.
- * Otherwise purge input buffered data path and examine 
+ * Otherwise purge input buffered data path and examine
  * packet to determine type.  If can't determine length
  * from type, then have to drop packet.	 Othewise decapsulate
  * packet based on type and pass to type specific higher-level
@@ -624,9 +624,9 @@ deioctl(ifp, cmd, data)
 		case AF_NS:
 		    {
 			register struct ns_addr *ina = &(IA_SNS(ifa)->sns_addr);
-			
+
 			if (ns_nullhost(*ina))
-				ina->x_host = 
+				ina->x_host =
 				    *(union ns_host *)LLADDR(ifp->if_sadl);
 			else
 				de_setaddr(ina->x_host.c_host, ds);
@@ -665,10 +665,10 @@ de_setaddr(physaddr, ds)
 	struct de_softc *ds;
 {
 	volatile struct dedevice *addr= ds->ds_vaddr;
-	
+
 	if (! (ds->ds_flags & DSF_RUNNING))
 		return;
-		
+
 	bcopy((caddr_t) physaddr, (caddr_t) &ds->ds_pcbb.pcbb2, 6);
 	ds->ds_pcbb.pcbb0 = FC_WTPHYAD;
 	addr->pclow = PCSR0_INTE|CMD_GETCMD;

@@ -159,20 +159,20 @@ le_ioasic_attach(parent, self, aux)
 
 void
 le_ioasic_copytobuf_gap2(sc, fromv, boff, len)
-	struct lance_softc *sc;  
+	struct lance_softc *sc;
 	void *fromv;
 	int boff;
 	register int len;
 {
 	volatile caddr_t buf = sc->sc_mem;
 	register caddr_t from = fromv;
-	register volatile u_int16_t *bptr;  
+	register volatile u_int16_t *bptr;
 
 	if (boff & 0x1) {
 		/* handle unaligned first byte */
 		bptr = ((volatile u_int16_t *)buf) + (boff - 1);
 		*bptr = (*from++ << 8) | (*bptr & 0xff);
-		bptr += 2;  
+		bptr += 2;
 		len--;
 	} else
 		bptr = ((volatile u_int16_t *)buf) + boff;
@@ -293,7 +293,7 @@ le_ioasic_copytobuf_gap16(sc, fromv, boff, len)
 		} while (len >= 16);
 		break;
 
-		default: 
+		default:
 		/* Does odd-aligned case ever happen? */
 		do {
 			bcopy(from, bptr, 16);
@@ -467,6 +467,6 @@ ioasic_lance_dma_setup(parent)
 char *
 ioasic_lance_ether_address()
 {
- 
+
         return (char *)(ioasic_base + IOASIC_SLOT_2_START);
 }

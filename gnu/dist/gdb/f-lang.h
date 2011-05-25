@@ -28,25 +28,25 @@ extern void f_print_type PARAMS ((struct type *, char *, FILE *, int, int));
 extern int f_val_print PARAMS ((struct type *, char *, CORE_ADDR, FILE *,
 				int, int, int, enum val_prettyprint));
 
-/* Language-specific data structures */ 
+/* Language-specific data structures */
 
 struct common_entry
 {
   struct symbol *symbol;                    /* The symbol node corresponding
-					       to this component */ 
-  struct common_entry *next;                /* The next component */ 
+					       to this component */
+  struct common_entry *next;                /* The next component */
 };
 
 struct saved_f77_common
 {
   char *name;                                /* Name of COMMON */
-  char *owning_function;                     /* Name of parent function */ 
-  int secnum;                                /* Section # of .bss */ 
-  CORE_ADDR offset;                          /* Offset from .bss for 
+  char *owning_function;                     /* Name of parent function */
+  int secnum;                                /* Section # of .bss */
+  CORE_ADDR offset;                          /* Offset from .bss for
 						this block */
   struct common_entry *entries;              /* List of block's components */
-  struct common_entry *end_of_entries;       /* ptr. to end of components */ 
-  struct saved_f77_common *next;              /* Next saved COMMON block */ 
+  struct common_entry *end_of_entries;       /* ptr. to end of components */
+  struct saved_f77_common *next;              /* Next saved COMMON block */
 };
 
 typedef struct saved_f77_common    SAVED_F77_COMMON, *SAVED_F77_COMMON_PTR;
@@ -59,7 +59,7 @@ extern SAVED_F77_COMMON_PTR current_common;     /* Ptr to current COMMON */
 
 extern SAVED_F77_COMMON_PTR find_common_for_function PARAMS ((char *, char *));
 
-#define UNINITIALIZED_SECNUM -1 
+#define UNINITIALIZED_SECNUM -1
 #define COMMON_NEEDS_PATCHING(blk) ((blk)->secnum == UNINITIALIZED_SECNUM)
 
 #define BLANK_COMMON_NAME_ORIGINAL "#BLNK_COM"  /* XLF assigned  */
@@ -69,22 +69,22 @@ extern SAVED_F77_COMMON_PTR find_common_for_function PARAMS ((char *, char *));
 #define BOUND_FETCH_OK 1
 #define BOUND_FETCH_ERROR -999
 
-/* When reasonable array bounds cannot be fetched, such as when 
-you ask to 'mt print symbols' and there is no stack frame and 
-therefore no way of knowing the bounds of stack-based arrays, 
-we have to assign default bounds, these are as good as any... */ 
+/* When reasonable array bounds cannot be fetched, such as when
+you ask to 'mt print symbols' and there is no stack frame and
+therefore no way of knowing the bounds of stack-based arrays,
+we have to assign default bounds, these are as good as any... */
 
 #define DEFAULT_UPPER_BOUND 999999
 #define DEFAULT_LOWER_BOUND -999999
 
-extern char *real_main_name;   /* Name of main function */ 
-extern int  real_main_c_value;   /* C_value field of main function */ 
+extern char *real_main_name;   /* Name of main function */
+extern int  real_main_c_value;   /* C_value field of main function */
 
 extern int f77_get_dynamic_upperbound PARAMS ((struct type *, int *));
 
 extern int f77_get_dynamic_lowerbound PARAMS ((struct type *, int *));
 
-extern void f77_get_dynamic_array_length PARAMS ((struct type *)); 
+extern void f77_get_dynamic_array_length PARAMS ((struct type *));
 
 extern int calc_f77_array_dims PARAMS ((struct type *));
 

@@ -30,7 +30,7 @@
  */
 
  /* All bugs are subject to removal without further notice */
-		
+
 
 #include <sys/param.h>
 #include <sys/reboot.h>

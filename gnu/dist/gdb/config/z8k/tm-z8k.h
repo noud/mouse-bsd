@@ -93,7 +93,7 @@ extern CORE_ADDR mz8k_skip_prologue PARAMS ((CORE_ADDR ip));
 /* Number of bytes of storage in the program's representation
    for register N.  */
 
-#define REGISTER_VIRTUAL_SIZE(N) REGISTER_RAW_SIZE(N) 
+#define REGISTER_VIRTUAL_SIZE(N) REGISTER_RAW_SIZE(N)
 
 /* Largest value REGISTER_RAW_SIZE can have.  */
 
@@ -222,7 +222,7 @@ extern CORE_ADDR mz8k_skip_prologue PARAMS ((CORE_ADDR ip));
 
 	/..* The arguments are pushed at this point by GDB;
 	no code is needed in the dummy for this.
-	The CALL_DUMMY_START_OFFSET gives the position of 
+	The CALL_DUMMY_START_OFFSET gives the position of
 	the following jsr instruction.  *../
 
 	jsr @#0x32323232			0x4eb9 0x3232 0x3232

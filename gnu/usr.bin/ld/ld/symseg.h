@@ -151,7 +151,7 @@ struct type
   /* Type that is a pointer to this type.
      Zero if no such pointer-to type is known yet.
      The debugger may add the address of such a type
-     if it has to construct one later.  */ 
+     if it has to construct one later.  */
   struct type *pointer_type;
   /* Type that is a function returning this type.
      Zero if no such function type is known here.
@@ -343,7 +343,7 @@ struct sourcevector
 };
 
 /* Line number and address of one line.  */
- 
+
 struct line
 {
   int linenum;

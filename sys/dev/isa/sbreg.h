@@ -180,7 +180,7 @@
  * DSP commands.  This unit handles MIDI and audio capabilities.
  * The DSP can be reset, data/commands can be read or written to it,
  * and it can generate interrupts.  Interrupts are generated for MIDI
- * input or DMA completion.  They seem to have neglected the fact 
+ * input or DMA completion.  They seem to have neglected the fact
  * that it would be nice to have a MIDI transmission complete interrupt.
  * Worse, the DMA engine is half-duplex.  This means you need to do
  * (timed) programmed I/O to be able to record and play simulataneously.
@@ -284,7 +284,7 @@
 #define SB_IRQ_VALID(irq)   ((irq) == 3 || (irq) == 5 || (irq) == 7 || (irq) == 9)
 
 #define SB16_DRQ_VALID(chan) ((chan) == 0 || (chan) == 1 || (chan) == 3 || \
-			      (chan) == 5 || (chan) == 6 || (chan) == 7) 
+			      (chan) == 5 || (chan) == 6 || (chan) == 7)
 #define SBP_DRQ_VALID(chan) ((chan) == 0 || (chan) == 1 || (chan) == 3)
 #define SB_DRQ_VALID(chan)  ((chan) == 1)
 

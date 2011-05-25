@@ -78,7 +78,7 @@ if ($#argv > 0) then
 	    shift
 	    goto top
 	endif
-			
+
     case -h:
 	if ($#argv < 2) then
 	    echo "vgrind: $1:q option must have argument"
@@ -89,7 +89,7 @@ if ($#argv > 0) then
 	    shift
 	    goto top
 	endif
-			
+
     case -*:
 	set options = "$options $1:q"
 	shift

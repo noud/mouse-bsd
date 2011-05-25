@@ -499,7 +499,7 @@ nopages:
 					break;
 				}
 			} while (space > 0 && atomic);
-			
+
 			s = splsoftnet();
 
 			if (so->so_state & SS_CANTSENDMORE)
@@ -846,7 +846,7 @@ dontblock:
 		splx(s);
 		goto restart;
 	}
-		
+
 	if (flagsp)
 		*flagsp |= flags;
 release:

@@ -391,13 +391,13 @@ linux_sigprocmask1(p, how, set, oset)
 	error = sigprocmask1(p, how,
 	    set ? &nbss : 0, oset ? &obss : 0);
 	if (error)
-		return (error); 
+		return (error);
 	if (oset) {
 		native_to_linux_old_sigset(&obss, &olss);
 		error = copyout(&olss, oset, sizeof(olss));
 		if (error)
 			return (error);
-	}       
+	}
 	return (error);
 }
 
@@ -448,13 +448,13 @@ linux_sys_rt_sigprocmask(p, v, retval)
 	error = sigprocmask1(p, how,
 	    set ? &nbss : 0, oset ? &obss : 0);
 	if (error)
-		return (error); 
+		return (error);
 	if (oset) {
 		native_to_linux_sigset(&obss, &olss);
 		error = copyout(&olss, oset, sizeof(olss));
 		if (error)
 			return (error);
-	}       
+	}
 	return (error);
 }
 

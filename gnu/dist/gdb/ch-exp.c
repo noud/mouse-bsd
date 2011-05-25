@@ -231,8 +231,8 @@ pushback_token (code, node)
   if (terminal_buffer[MAX_LOOK_AHEAD] != TOKEN_NOT_READ)
     fatal ("internal error - cannot pushback token");
   for (i = MAX_LOOK_AHEAD; i > 0; i--)
-    { 
-      terminal_buffer[i] = terminal_buffer[i - 1]; 
+    {
+      terminal_buffer[i] = terminal_buffer[i - 1];
       val_buffer[i] = val_buffer[i - 1];
   }
   terminal_buffer[0] = code;
@@ -394,7 +394,7 @@ parse_name ()
 	return convert_from_reference (decl);
       else
 	return decl;
-    } 
+    }
 }
 #endif
 
@@ -675,7 +675,7 @@ parse_primval ()
   char *op_name;
   switch (PEEK_TOKEN ())
     {
-    case INTEGER_LITERAL: 
+    case INTEGER_LITERAL:
     case CHARACTER_LITERAL:
       write_exp_elt_opcode (OP_LONG);
       write_exp_elt_type (PEEK_LVAL ().typed_val.type);
@@ -837,8 +837,8 @@ parse_primval ()
 	  error ("typename in invalid context");
 	}
       break;
-      
-    default: 
+
+    default:
       error ("invalid expression syntax at `%s'", lexptr);
     }
   for (;;)
@@ -1071,7 +1071,7 @@ parse_operand1 ()
 
 static void
 parse_operand0 ()
-{ 
+{
   enum exp_opcode op;
   parse_operand1();
   for (;;)
@@ -1266,7 +1266,7 @@ match_simple_name_string ()
    and are simply ignored.  Since we must find at least one valid digit,
    or reject this token as an integer literal, we keep track of how many
    digits we have encountered. */
-  
+
 static int
 decode_integer_value (base, tokptrptr, ivalptr)
   int base;
@@ -1312,11 +1312,11 @@ decode_integer_value (base, tokptrptr, ivalptr)
 	  break;
 	}
     }
-  
+
   /* If we didn't find any digits, then we don't have a valid integer
      value, so reject the entire token.  Otherwise, update the lexical
      scan pointer, and return non-zero for success. */
-  
+
   if (digits == 0)
     {
       return (0);
@@ -1337,9 +1337,9 @@ decode_integer_literal (valptr, tokptrptr)
   int base = 0;
   LONGEST ival = 0;
   int explicit_base = 0;
-  
+
   /* Look for an explicit base specifier, which is optional. */
-  
+
   switch (*tokptr)
     {
     case 'd':
@@ -1370,15 +1370,15 @@ decode_integer_literal (valptr, tokptrptr)
       base = 10;
       break;
     }
-  
+
   /* If we found an explicit base ensure that the character after the
      explicit base is a single quote. */
-  
+
   if (explicit_base && (*tokptr++ != '\''))
     {
       return (0);
     }
-  
+
   /* Attempt to decode whatever follows as an integer value in the
      indicated base, updating the token pointer in the process and
      computing the value into ival.  Also, if we have an explicit
@@ -1412,7 +1412,7 @@ decode_integer_literal (valptr, tokptrptr)
     need to keep track of where the last unconsumed character in the input
     buffer is, we have transfer only as many characters as may compose a
     legal floating point value. */
-    
+
 static enum ch_terminal
 match_float_literal ()
 {
@@ -1421,12 +1421,12 @@ match_float_literal ()
   char *copy;
   double dval;
   extern double strtod ();
-  
+
   /* Make local buffer in which to build the string to convert.  This is
      required because underscores are valid in chill floating point numbers
      but not in the string passed to strtod to convert.  The string will be
      no longer than our input string. */
-     
+
   copy = buf = (char *) alloca (strlen (tokptr) + 1);
 
   /* Transfer all leading digits to the conversion buffer, discarding any
@@ -1510,7 +1510,7 @@ match_float_literal ()
       *copy++ = *tokptr++;
     }
 
-  /* Now copy an exponent into the conversion buffer.  Note that at the 
+  /* Now copy an exponent into the conversion buffer.  Note that at the
      moment underscores are *not* allowed in exponents. */
 
   while (isdigit (*tokptr))
@@ -1630,7 +1630,7 @@ match_string_literal ()
 
    EX:  'a'  '^(7)'  '^(7,8)'
 
-   As a GNU chill extension, the syntax C'xx' is also recognized as a 
+   As a GNU chill extension, the syntax C'xx' is also recognized as a
    character literal, where xx is a hex value for the character.
 
    Note that more than a single character, enclosed in single quotes, is
@@ -1644,7 +1644,7 @@ match_character_literal ()
 {
   char *tokptr = lexptr;
   LONGEST ival = 0;
-  
+
   if ((*tokptr == 'c' || *tokptr == 'C') && (*(tokptr + 1) == '\''))
     {
       /* We have a GNU chill extension form, so skip the leading "C'",
@@ -1663,7 +1663,7 @@ match_character_literal ()
 
       /* Determine which form we have, either a control sequence or the
 	 single character form. */
-      
+
       if (*tokptr == '^')
 	{
 	  if (*(tokptr + 1) == '(')
@@ -1699,7 +1699,7 @@ match_character_literal ()
 
       /* The trailing quote has not yet been consumed.  If we don't find
 	 it, then we have no match. */
-      
+
       if (*tokptr++ != '\'')
 	{
 	  return (0);
@@ -1726,12 +1726,12 @@ match_integer_literal ()
 {
   char *tokptr = lexptr;
   LONGEST ival;
-  
+
   if (!decode_integer_literal (&ival, &tokptr))
     {
       return (0);
     }
-  else 
+  else
     {
       yylval.typed_val.val = ival;
 #if defined(CC_HAS_LONG_LONG) && defined(__STDC__)
@@ -1758,13 +1758,13 @@ match_bitstring_literal ()
   int bitcount = 0;
   int bits_per_char;
   int digit;
-  
+
   tempbufindex = 0;
   CHECKBUF (1);
   tempbuf[0] = 0;
 
   /* Look for the required explicit base specifier. */
-  
+
   switch (*tokptr++)
     {
     case 'b':
@@ -1785,12 +1785,12 @@ match_bitstring_literal ()
     }
 
   /* Ensure that the character after the explicit base is a single quote. */
-  
+
   if (*tokptr++ != '\'')
     {
       return (0);
     }
-  
+
   while (*tokptr != '\0' && *tokptr != '\'')
     {
       digit = *tokptr;
@@ -1844,7 +1844,7 @@ match_bitstring_literal ()
 	    }
 	}
     }
-  
+
   /* Verify that we consumed everything up to the trailing single quote,
      and that we found some bits (IE not just underbars). */
 
@@ -1852,7 +1852,7 @@ match_bitstring_literal ()
     {
       return (0);
     }
-  else 
+  else
     {
       yylval.sval.ptr = tempbuf;
       yylval.sval.length = bitcount;

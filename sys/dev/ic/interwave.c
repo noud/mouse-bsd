@@ -217,7 +217,7 @@ iwattach(sc)
 	audio_attach_mi(sc->iw_hw_if, sc, &sc->sc_dev);
  }
 
-int 
+int
 iwopen(sc, flags)
 	struct	iw_softc *sc;
 	int	flags;
@@ -265,7 +265,7 @@ iwopen(sc, flags)
 
 
 
-void 
+void
 iwclose(addr)
 	void	*addr;
 {
@@ -294,7 +294,7 @@ iwclose(addr)
 
 #define RAM_STEP          64*1024
 
-static void 
+static void
 iw_mempoke(sc, addy, val)
 	struct	iw_softc *sc;
 	u_long	addy;
@@ -307,7 +307,7 @@ iw_mempoke(sc, addy, val)
 	IW_WRITE_DIRECT_1(sc->p3xr + 7, sc->p3xr_h, val);
 }
 
-static u_char 
+static u_char
 iw_mempeek(sc, addy)
 	struct	iw_softc *sc;
 	u_long	addy;
@@ -358,7 +358,7 @@ iw_meminit(sc)
 	for (i = 0; i < 4; i++) {
 		iw_mempoke(sc, base, 0xAA);	/* mark start of bank */
 		iw_mempoke(sc, base + 1L, 0x55);
-		if (iw_mempeek(sc, base) == 0xAA  && 
+		if (iw_mempeek(sc, base) == 0xAA  &&
 		    iw_mempeek(sc, base + 1L) == 0x55)
 			ram = 1;
 		if (ram) {
@@ -388,14 +388,14 @@ iw_meminit(sc)
 	 * configurations that aren't really supported by Interwave...beware
 	 * of holes! Also, we don't use the memory for anything in this
 	 * version of the driver.
-	 * 
+	 *
 	 * we've configured for 4M-4M-4M-4M
 	 */
 }
 
 
 static
-void 
+void
 iwreset(sc, warm)
 	struct iw_softc *sc;
 	int             warm;
@@ -574,9 +574,9 @@ iw_set_speed(sc, freq, in)
 	 * FREQ_2 (16934400Hz) and x is the value to be written to either
 	 * CPVFI or CRVFI. To enable this option, bit 2 in CFIG3 needs to be
 	 * set high
-	 * 
+	 *
 	 * NOT IMPLEMENTED!
-	 * 
+	 *
 	 * Note that if you have a 'bad' XTAL_1 (higher than 18.5 MHz), 44.8KHz
 	 * and 38.4KHz modes will provide wrong frequencies to output.
 	 */
@@ -628,7 +628,7 @@ iw_set_speed(sc, freq, in)
 }
 
 /* Encoding. */
-int 
+int
 iw_query_encoding(addr, fp)
 	void	*addr;
 	struct	audio_encoding *fp;
@@ -743,7 +743,7 @@ iw_set_format(sc, precision, in)
 		/* This will zero the normal codec frequency,
 		 * iw_set_speed should always be called afterwards.
 		 */
-		IW_WRITE_CODEC_1(CRDFI | IW_MCE, data);	
+		IW_WRITE_CODEC_1(CRDFI | IW_MCE, data);
 	} else {
 		/* out */
 		sc->playfmtbits = data;
@@ -811,7 +811,7 @@ iw_set_params(addr, setmode, usemode, p, q)
 		p->factor = factor;
 		p->sw_code = swcode;
 		iw_set_format(sc, p->precision, 0);
-		q->sample_rate = p->sample_rate = sc->sc_orate = 
+		q->sample_rate = p->sample_rate = sc->sc_orate =
 			iw_set_speed(sc, p->sample_rate, 0);
 	} else {
 #if 0
@@ -826,7 +826,7 @@ iw_set_params(addr, setmode, usemode, p, q)
 		q->sw_code = swcode;
 
 		iw_set_format(sc, p->precision, 1);
-		q->sample_rate = sc->sc_irate = 
+		q->sample_rate = sc->sc_irate =
 			iw_set_speed(sc, q->sample_rate, 1);
 	}
 	return 0;

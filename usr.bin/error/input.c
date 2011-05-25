@@ -111,7 +111,7 @@ eaterrors(r_errorc, r_errorv)
 	else
 		errorclass = catchall();
 	if (wordc)
-		erroradd(wordc, wordv+1, errorclass, C_UNKNOWN);	
+		erroradd(wordc, wordv+1, errorclass, C_UNKNOWN);
     }
 #ifdef FULLDEBUG
     printf("%d errorentrys\n", nerrors);
@@ -187,7 +187,7 @@ onelong()
 		if (strcmp(wordv[1], "Assembler:") == 0){
 			/* assembler always alerts us to what happened*/
 			language = INAS; return(C_SYNC);
-		} else 
+		} else
 		if (strcmp(wordv[1], "Undefined:") == 0){
 			/* loader complains about unknown symbols*/
 			language = INLD; return(C_SYNC);
@@ -218,7 +218,7 @@ onelong()
 Errorclass
 cpp()
 {
-	/* 
+	/*
 	 *	Now attempt a cpp error message match
 	 *	Examples:
 	 *		./morse.h: 23: undefined control
@@ -313,7 +313,7 @@ lint0()
 	/*
 	 *	Attempt a match for the new lint style normal compiler
 	 *	error messages, of the form
-	 *	
+	 *
 	 *	printf("%s(%d): %s\n", filename, linenumber, message);
 	 */
 	if (wordc >= 2){
@@ -389,7 +389,7 @@ lint2()
 	 *
 	 *	bufp defined( "./metric.h"(10) ), but never used
 	 */
-	if (   (lastchar(wordv[2]) == '(' /* ')' */ )	
+	if (   (lastchar(wordv[2]) == '(' /* ')' */ )
 	    && (strcmp(wordv[4], "),") == 0) ){
 		language = INLINT;
 		if (persperdexplode(wordv[3], &line, &file)){
@@ -425,7 +425,7 @@ char	*F77_error[3] = {"Error", "on", "line"};
 char	*F77_warning[3] = {"Warning", "on", "line"};
 char    *F77_no_ass[3] = {"Error.","No","assembly."};
 
-Errorclass 
+Errorclass
 f77()
 {
 	char	**nwordv;
@@ -487,13 +487,13 @@ ri()
  *	Match an error message produced by ri; here is the
  *	procedure yanked from the distributed version of ri
  *	April 24, 1980.
- *	
+ *
  *	serror(str, x1, x2, x3)
  *		char str[];
  *		char *x1, *x2, *x3;
  *	{
  *		extern int yylineno;
- *		
+ *
  *		putc('"', stdout);
  *		fputs(srcfile, stdout);
  *		putc('"', stdout);

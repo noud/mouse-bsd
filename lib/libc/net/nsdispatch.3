@@ -56,7 +56,7 @@
 .Sh DESCRIPTION
 The
 .Fn nsdispatch
-function invokes the callback functions specified in 
+function invokes the callback functions specified in
 .Va dtab
 in the order given in
 .Pa /etc/nsswitch.conf
@@ -94,7 +94,7 @@ The last entry in
 should contain
 .Dv NULL
 values for
-.Va src , 
+.Va src ,
 .Va cb ,
 and
 .Va cb_data .
@@ -131,7 +131,7 @@ For each default source type, an entry with
 set to the name of the source, and
 .Va flags
 set to the relevant flags
-(usually 
+(usually
 .Dv NS_SUCCESS ;
 refer to
 .Sx Callback return values

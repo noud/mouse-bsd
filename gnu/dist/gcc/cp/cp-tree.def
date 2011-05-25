@@ -21,7 +21,7 @@ along with GNU CC; see the file COPYING.  If not, write to
 the Free Software Foundation, 59 Temple Place - Suite 330,
 Boston, MA 02111-1307, USA.  */
 
- 
+
 /* Reference to the contents of an offset
    (a value whose type is an OFFSET_TYPE).
    Operand 0 is the object within which the offset is taken.
@@ -92,14 +92,14 @@ DEFTREECODE (TEMPLATE_DECL, "template_decl", 'd', 0)
    gives the level (from 1) of the parameter.
 
    Here's an example:
-   
+
    template <class T> // Index 0, Level 1.
    struct S
    {
       template <class U, // Index 0, Level 2.
                 class V> // Index 1, Level 2.
       void f();
-   };  
+   };
 
    The DESCENDANTS will be a chain of TEMPLATE_PARM_INDEXs descended
    from this one.  The first descendant will have the same IDX, but
@@ -116,11 +116,11 @@ DEFTREECODE (TEMPLATE_DECL, "template_decl", 'd', 0)
                class V> // Index 1, Level 1, Orig Level 2
      void f();
    };
-  
+
    The LEVEL is the level of the parameter when we are worrying about
    the types of things; the ORIG_LEVEL is the level when we are
    worrying about instantiating things.  */
-DEFTREECODE (TEMPLATE_PARM_INDEX, "template_parm_index", 'x', 
+DEFTREECODE (TEMPLATE_PARM_INDEX, "template_parm_index", 'x',
 	     /* The addition of (sizeof(char*) - 1) in the next
 		expression is to ensure against the case where
 		sizeof(char*) does not evenly divide
@@ -151,15 +151,15 @@ DEFTREECODE (TYPENAME_TYPE, "typename_type", 't', 0)
    Other kinds of thunks may be defined later. */
 DEFTREECODE (THUNK_DECL, "thunk_decl", 'd', 0)
 
-/* A using declaration.  DECL_INITIAL contains the specified scope.  
+/* A using declaration.  DECL_INITIAL contains the specified scope.
    This is not an alias, but is later expanded into multiple aliases.  */
 DEFTREECODE (USING_DECL, "using_decl", 'd', 0)
 
 /* An un-parsed default argument.  Looks like an IDENTIFIER_NODE.  */
 DEFTREECODE (DEFAULT_ARG, "default_arg", 'c', 2)
 
-/* A template-id, like foo<int>.  The first operand is the template.  
-   The second is the list of explicitly specified arguments.  The 
+/* A template-id, like foo<int>.  The first operand is the template.
+   The second is the list of explicitly specified arguments.  The
    template will be a FUNCTION_DECL, TEMPLATE_DECL, or a list of
    overloaded functions and templates if the template-id refers to
    a global template.  If the template-id refers to a member template,
@@ -171,7 +171,7 @@ DEFTREECODE (TEMPLATE_ID_EXPR, "template_id_expr", 'e', 2)
    TREE_TYPE indicates the type bound to the name. */
 DEFTREECODE (CPLUS_BINDING, "binding", 'x', 2)
 
-/* A list-like node for chaining overloading candidates. TREE_TYPE is 
+/* A list-like node for chaining overloading candidates. TREE_TYPE is
    the original name, and the parameter is the FUNCTION_DECL.  */
 DEFTREECODE (OVERLOAD, "overload", 'x', 1)
 

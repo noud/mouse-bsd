@@ -369,8 +369,8 @@ espattach(esc, gluep)
 
 	/*
 	 * Alas, we must now modify the value a bit, because it's
-	 * only valid when can switch on FASTCLK and FASTSCSI bits  
-	 * in config register 3... 
+	 * only valid when can switch on FASTCLK and FASTSCSI bits
+	 * in config register 3...
 	 */
 	switch (sc->sc_rev) {
 	case NCR_VARIANT_ESP100:

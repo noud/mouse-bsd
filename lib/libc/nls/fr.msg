@@ -161,7 +161,7 @@ $ EAUTH
 80 Erreur lors de l'authentification
 $ ENEEDAUTH
 81 Authentication nécessaire
-$ EIDRM  
+$ EIDRM
 82 Identifiant supprimé
 $ ENOMSG
 83 Pas de message du type demandé

@@ -30,7 +30,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* If we longjmp out of the signal handler we never get another one.
    So disable immediate_quit inside request_quit */
-#define REQUEST_QUIT 
+#define REQUEST_QUIT
 
 /* Define this if source files use \r\n rather than just \n.  */
 #define CRLF_SOURCE_FILES

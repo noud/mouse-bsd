@@ -2,9 +2,9 @@
 
 /*
  * Copyright (c) 1998 The NetBSD Foundation, Inc. All rights reserved.
- * 
+ *
  * Author: Baldassare Dante Profeta <dante@mclink.it>
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -104,7 +104,7 @@ struct cfattach adv_pci_ca =
  * If we find one, note it's address (slot) and call
  * the actual probe routine to check it out.
  */
-int 
+int
 adv_pci_match(parent, match, aux)
 	struct device *parent;
 	struct cfdata *match;
@@ -124,7 +124,7 @@ adv_pci_match(parent, match, aux)
 }
 
 
-void 
+void
 adv_pci_attach(parent, self, aux)
 	struct device *parent, *self;
 	void *aux;

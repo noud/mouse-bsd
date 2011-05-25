@@ -178,15 +178,15 @@ enum exp_opcode
      making three exp_elements.  */
   OP_FUNCALL,
 
-  /* This is EXACTLY like OP_FUNCALL but is semantically different.  
+  /* This is EXACTLY like OP_FUNCALL but is semantically different.
      In F77, array subscript expressions, substring expressions
-     and function calls are  all exactly the same syntactically. They may 
-     only be dismabiguated at runtime.  Thus this operator, which 
-     indicates that we have found something of the form <name> ( <stuff> ) */ 
+     and function calls are  all exactly the same syntactically. They may
+     only be dismabiguated at runtime.  Thus this operator, which
+     indicates that we have found something of the form <name> ( <stuff> ) */
   OP_F77_UNDETERMINED_ARGLIST,
-  
+
   /* The following OP is a special one, it introduces a F77 complex
-     literal. It is followed by exactly two args that are doubles.  */ 
+     literal. It is followed by exactly two args that are doubles.  */
   OP_COMPLEX,
 
   /* OP_STRING represents a string constant.

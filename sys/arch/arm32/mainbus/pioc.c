@@ -1,4 +1,4 @@
-/*	$NetBSD: pioc.c,v 1.4 1998/09/22 00:33:51 mark Exp $	*/     
+/*	$NetBSD: pioc.c,v 1.4 1998/09/22 00:33:51 mark Exp $	*/
 
 /*
  * Copyright (c) 1997 Mark Brinicombe.
@@ -124,7 +124,7 @@ piocgetid(iot, ioh, config_entry, id, revision)
 	 */
 	bus_space_write_1(iot, ioh, PIOC_CM_SELECT_REG, config_entry);
 	bus_space_write_1(iot, ioh, PIOC_CM_SELECT_REG, config_entry);
-	
+
 	bus_space_write_1(iot, ioh, PIOC_CM_SELECT_REG, PIOC_CM_CRD);
 	*id = bus_space_read_1(iot, ioh, PIOC_CM_DATA_REG);
 	bus_space_write_1(iot, ioh, PIOC_CM_SELECT_REG, PIOC_CM_CRE);
@@ -140,8 +140,8 @@ piocgetid(iot, ioh, config_entry, id, revision)
  * we recognise it.
  *
  * XXX - INTRUSIVE PROBE
- */ 
- 
+ */
+
 static int
 piocmatch(parent, cf, aux)
 	struct device *parent;
@@ -236,7 +236,7 @@ piocsearch(parent, cf, aux)
 			pa.pa_offset = PIOCCF_OFFSET_DEFAULT;
 			pa.pa_drq = PIOCCF_DACK_DEFAULT;
 			pa.pa_irq = PIOCCF_IRQ_DEFAULT;
-		} else {    
+		} else {
 			pa.pa_offset = (cf->cf_loc[PIOCCF_OFFSET] << 2);
 			pa.pa_drq = cf->cf_loc[PIOCCF_DACK];
 			pa.pa_irq = cf->cf_loc[PIOCCF_IRQ];
@@ -284,7 +284,7 @@ piocsubmatch(parent, cf, aux)
 /*			tryagain = (cf->cf_fstate == FSTATE_STAR);*/
 		}
 	} while (tryagain);
-	
+
 	return (0);
 }
 
@@ -294,7 +294,7 @@ piocsubmatch(parent, cf, aux)
  * Identify the PIOC and read the config registers into the softc.
  * Search and configure all children
  */
-  
+
 static void
 piocattach(parent, self, aux)
 	struct device *parent;
@@ -319,7 +319,7 @@ piocattach(parent, self, aux)
 	piocgetid(iot, ioh, PIOC_CM_ENTER_665, &id, &rev);
 	if (id != PIOC_CM_ID_665)
 		piocgetid(iot, ioh, PIOC_CM_ENTER_666, &id, &rev);
-	
+
 	printf("\n%s: ", self->dv_xname);
 
 	/* Do we recognise it ? */
@@ -344,7 +344,7 @@ piocattach(parent, self, aux)
 		bus_space_write_1(iot, ioh, PIOC_CM_SELECT_REG, PIOC_CM_ENTER_665);
 		bus_space_write_1(iot, ioh, PIOC_CM_SELECT_REG, PIOC_CM_ENTER_665);
 		break;
-		
+
 	case PIOC_CM_ID_666:
 		bus_space_write_1(iot, ioh, PIOC_CM_SELECT_REG, PIOC_CM_ENTER_666);
 		bus_space_write_1(iot, ioh, PIOC_CM_SELECT_REG, PIOC_CM_ENTER_666);
@@ -385,7 +385,7 @@ piocattach(parent, self, aux)
 
 	/*
 	 * Start by configuring the IDE controller
-	 */	
+	 */
 
 	if (sc->sc_config[PIOC_CM_CR0] & PIOC_WDC_ENABLE) {
 		pa.pa_name = "wdc";
@@ -403,7 +403,7 @@ piocattach(parent, self, aux)
 
 	/*
 	 * Next configure the floppy controller
-	 */	
+	 */
 
 	if (sc->sc_config[PIOC_CM_CR0] & PIOC_FDC_ENABLE) {
 		pa.pa_name = "fdc";
@@ -481,7 +481,7 @@ piocattach(parent, self, aux)
 	/*
 	 * Next configure the printer port
 	 */
-	
+
 	if ((sc->sc_config[PIOC_CM_CR1] & PIOC_LPT_ADDR_MASK) != PIOC_LPT_ADDR_DISABLE) {
 		pa.pa_name = "lpt";
 		pa.pa_iobase = sc->sc_iobase;

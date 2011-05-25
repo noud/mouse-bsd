@@ -487,7 +487,7 @@ snreset(sc)
 	sninit(sc);
 }
 
-int 
+int
 sninit(sc)
 	struct sn_softc *sc;
 {
@@ -503,7 +503,7 @@ sninit(sc)
 	csr->s_cr = CR_RST;	/* s_dcr only accessable reset mode! */
 
 	/* config it */
-	csr->s_dcr = DCR_LBR | DCR_SYNC | DCR_WAIT0 | DCR_DW32 | 
+	csr->s_dcr = DCR_LBR | DCR_SYNC | DCR_WAIT0 | DCR_DW32 |
 	    DCR_RFT4 | DCR_TFT28; /*XXX RFT & TFT according to MIPS manual */
 	csr->s_rcr = RCR_BRD | RCR_LBNONE;
 	csr->s_imr = IMR_PRXEN | IMR_PTXEN | IMR_TXEREN | IMR_HBLEN | IMR_LCDEN;
@@ -551,7 +551,7 @@ sninit(sc)
  * Called on final close of device, or if sninit() fails
  * part way through.
  */
-int 
+int
 snstop(sc)
 	struct sn_softc *sc;
 {
@@ -609,7 +609,7 @@ snwatchdog(ifp)
 /*
  * stuff packet into sonic (at splnet)
 */
-int 
+int
 sonicput(sc, m0)
 	struct sn_softc *sc;
 	struct mbuf *m0;
@@ -732,7 +732,7 @@ sonicput(sc, m0)
  *  there by the boot when doing a loopback test. Thus we don't
  *  have to fetch it from nv ram.
  */
-int 
+int
 sngetaddr(sc, ap)
 	struct sn_softc *sc;
 	uchar *ap;
@@ -772,7 +772,7 @@ sngetaddr(sc, ap)
 	ap[3] = 0xa0;
 	ap[4] = 0x66;
 	ap[5] = 0x54;
-#endif	
+#endif
 	return (0);
 }
 
@@ -782,7 +782,7 @@ void sonicrxint __P((struct sn_softc *));
 int sonic_read __P((struct sn_softc *, struct RXpkt *));
 struct mbuf *sonic_get __P((struct sn_softc *, caddr_t, int));
 
-void 
+void
 mtd_free(mtd)
 	struct mtd *mtd;
 {
@@ -805,7 +805,7 @@ mtd_alloc()
 /*
  * CAM support
  */
-void 
+void
 caminitialise()
 {
 	int     i;
@@ -815,7 +815,7 @@ caminitialise()
 	SWR(p_cda->enable, 0);
 }
 
-void 
+void
 camentry(entry, ea)
 	int entry;
 	u_char *ea;
@@ -827,7 +827,7 @@ camentry(entry, ea)
 	SWR(p_cda->enable, SRD(p_cda->enable) | (1 << entry));
 }
 
-void 
+void
 camprogram(sc)
 	struct sn_softc *sc;
 {
@@ -858,7 +858,7 @@ camprogram(sc)
 }
 
 #if 0
-void 
+void
 camdump(sc)
 	struct sn_softc *sc;
 {
@@ -885,7 +885,7 @@ camdump(sc)
 }
 #endif
 
-void 
+void
 initialise_tda(sc)
 	struct sn_softc *sc;
 {
@@ -908,7 +908,7 @@ initialise_tda(sc)
 	csr->s_utda = UPPER(v_tda);
 }
 
-void 
+void
 initialise_rda(sc)
 	struct sn_softc *sc;
 {
@@ -935,7 +935,7 @@ initialise_rda(sc)
 	wbflush();
 }
 
-void 
+void
 initialise_rra(sc)
 	struct sn_softc *sc;
 {
@@ -963,7 +963,7 @@ initialise_rra(sc)
 	wbflush();
 }
 
-int 
+int
 snintr(sc)
 	struct sn_softc *sc;
 {
@@ -1023,7 +1023,7 @@ snintr(sc)
 /*
  * Transmit interrupt routine
  */
-void 
+void
 sonictxint(sc)
 	struct sn_softc *sc;
 {
@@ -1096,7 +1096,7 @@ sonictxint(sc)
 /*
  * Receive interrupt routine
  */
-void 
+void
 sonicrxint(sc)
 	struct sn_softc *sc;
 {
@@ -1124,7 +1124,7 @@ sonicrxint(sc)
 		/*
 		 * give receive buffer area back to chip XXX what buffer
 		 * did the sonic use for this descriptor answer look at
-		 * the rba sequence number !! 
+		 * the rba sequence number !!
 		 */
 		orra = RBASEQ(SRD(rxp->seq_no)) & RRAMASK;
 
@@ -1169,7 +1169,7 @@ printf("%lx,%lx\n",SRD(rxp->pkt_ptrlo),SRD(p_rra[orra].buff_ptrlo));
  * sonic_read -- pull packet off interface and forward to
  * appropriate protocol handler
  */
-int 
+int
 sonic_read(sc, rxp)
 	struct sn_softc *sc;
 	struct RXpkt *rxp;
@@ -1279,7 +1279,7 @@ sonic_get(sc, pkt, datalen)
 			caddr_t newdata = (caddr_t)
 			    ALIGN(m->m_data + sizeof(struct ether_header)) -
 			    sizeof(struct ether_header);
-			len -= newdata - m->m_data; 
+			len -= newdata - m->m_data;
 			m->m_data = newdata;
 		}
 

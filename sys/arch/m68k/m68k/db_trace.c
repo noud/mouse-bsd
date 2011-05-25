@@ -1,28 +1,28 @@
 /*	$NetBSD: db_trace.c,v 1.26 1999/09/25 21:11:55 is Exp $	*/
 
-/* 
+/*
  * Mach Operating System
  * Copyright (c) 1992 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
+ *
  * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
  * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND FOR
  * ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
- * 
+ *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
  *  School of Computer Science
  *  Carnegie Mellon University
  *  Pittsburgh PA 15213-3890
- * 
- * any improvements or extensions that they make and grant Carnegie Mellon 
+ *
+ * any improvements or extensions that they make and grant Carnegie Mellon
  * the rights to redistribute these changes.
  */
 
@@ -237,7 +237,7 @@ nextframe(sp, kerneltrace)
 		sp->k_pc = calladdr;
 		sp->k_fp = get(sp->k_fp + FR_SAVFP, DSP);
 
-		/* 
+		/*
 		 * Now that we have assumed the identity of our caller, find
 		 * how many longwords of argument WE were called with.
 		 */
@@ -262,8 +262,8 @@ nextframe(sp, kerneltrace)
 static void
 findentry(sp)
 	struct stackpos *sp;
-{ 
-	/* 
+{
+	/*
 	 * Set the k_nargs and k_entry fields in the stackpos structure.  This
 	 * is called from stacktop() and from nextframe().  Our caller will do
 	 * an addq or addl or addw to sp just after we return to pop off our
@@ -503,11 +503,11 @@ db_stack_trace_cmd(addr, have_addr, count, modif)
 		 */
 		pcb_t	t_pcb;
 		db_regs_t *user_regs;
-		
+
 		t_pcb = (pcb_t) get(&th->pcb, 0);
 		user_regs = (db_regs_t *)
 			get(&t_pcb->user_regs, 0);
-		
+
 		stacktop(user_regs, &pos);
 
 		/* foo*/

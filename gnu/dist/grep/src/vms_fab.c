@@ -2,7 +2,7 @@
         <vms_fab>
 
         This macro sets up the file access block and name block for VMS.
-        It also does the initial parsing of the input string (resolving 
+        It also does the initial parsing of the input string (resolving
         wildcards,
         if any) and finds all files matching the input pattern.
         The address of the first matching pattern is returned.
@@ -62,7 +62,7 @@ vms_fab (argp, argvp)
       strcpy (arr_ptr[optout], result_name);
 
       /*
-         If we don't tack on a null character at the end of the 
+         If we don't tack on a null character at the end of the
          filename,
          we can get partial data which is still there from the last
          sys$search command.

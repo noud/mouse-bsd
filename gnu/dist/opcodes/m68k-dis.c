@@ -317,7 +317,7 @@ print_insn_m68k (memaddr, info)
   /* Point at first word of argument data,
      and at descriptor for first argument.  */
   p = buffer + 2;
-  
+
   /* Figure out how long the fixed-size portion of the instruction is.
      The only place this is stored in the opcode table is
      in the arguments--look for arguments which specify fields in the 2nd
@@ -381,7 +381,7 @@ print_insn_m68k (memaddr, info)
     }
 
   FETCH_DATA (info, p);
-  
+
   d = best->args;
 
   /* We can the operands twice.  The first time we don't print anything,
@@ -675,7 +675,7 @@ print_insn_arg (d, buffer, p0, addr, info)
     case 'I':
       /* Get coprocessor ID... */
       val = fetch_arg (buffer, 'd', 3, info);
-      
+
       if (val != 1)				/* Unusual coprocessor ID? */
 	(*info->fprintf_func) (info->stream, "(cpid=%d) ", val);
       break;
@@ -1055,7 +1055,7 @@ fetch_arg (buffer, code, bits, info)
       val = (buffer[2] << 8) + buffer[3];
       val >>= 7;
       break;
-      
+
     case '8':
       FETCH_DATA (info, buffer + 3);
       val = (buffer[2] << 8) + buffer[3];

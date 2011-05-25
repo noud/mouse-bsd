@@ -305,7 +305,7 @@ cdunlock(cd)
 /*
  * open the device. Make sure the partition info is a up-to-date as can be.
  */
-int 
+int
 cdopen(dev, flag, fmt, p)
 	dev_t dev;
 	int flag, fmt;
@@ -372,7 +372,7 @@ cdopen(dev, flag, fmt, p)
 		SC_DEBUG(sc_link, SDEV_DB1,
 		    ("cdopen: scsipi_start, error=%d\n", error));
 		if (error) {
-			if (part != RAW_PART || fmt != S_IFCHR) 
+			if (part != RAW_PART || fmt != S_IFCHR)
 				goto bad3;
 			else
 				goto out;
@@ -450,7 +450,7 @@ bad4:
  * close the device.. only called if we are the LAST
  * occurence of an open device
  */
-int 
+int
 cdclose(dev, flag, fmt, p)
 	dev_t dev;
 	int flag, fmt;
@@ -598,7 +598,7 @@ done:
  * must be called at the correct (highish) spl level
  * cdstart() is called at splbio from cdstrategy and scsipi_done
  */
-void 
+void
 cdstart(v)
 	register void *v;
 {
@@ -607,7 +607,7 @@ cdstart(v)
 	struct disklabel *lp = cd->sc_dk.dk_label;
 	struct buf *bp = 0;
 	struct scsipi_rw_big cmd_big;
-#if NCD_SCSIBUS > 0 
+#if NCD_SCSIBUS > 0
 	struct scsi_rw cmd_small;
 #endif
 	struct scsipi_generic *cmdp;
@@ -701,7 +701,7 @@ cdstart(v)
 		    ((bp->b_flags & B_READ) ?
 		     XS_CTL_DATA_IN : XS_CTL_DATA_OUT));
 		if (error) {
-			disk_unbusy(&cd->sc_dk, 0); 
+			disk_unbusy(&cd->sc_dk, 0);
 			printf("%s: not queued, error %d\n",
 			    cd->sc_dev.dv_xname, error);
 		}
@@ -778,7 +778,7 @@ void
 lba2msf (lba, m, s, f)
 	u_long lba;
 	u_char *m, *s, *f;
-{   
+{
 	u_long tmp;
 
 	tmp = lba + CD_BLOCK_OFFSET;	/* offset of first logical frame */
@@ -1072,7 +1072,7 @@ cdioctl(dev, cmd, addr, flag, p)
 	case CDIOCSTOP:
 		return (scsipi_start(cd->sc_link, SSS_STOP, 0));
 	case CDIOCCLOSE:
-		return (scsipi_start(cd->sc_link, SSS_START|SSS_LOEJ, 
+		return (scsipi_start(cd->sc_link, SSS_START|SSS_LOEJ,
 		    XS_CTL_IGNORE_NOT_READY | XS_CTL_IGNORE_MEDIA_CHANGE));
 	case DIOCEJECT:
 		if (*(int *)addr == 0) {
@@ -1088,7 +1088,7 @@ cdioctl(dev, cmd, addr, flag, p)
 				if (error)
 					return (error);
 			} else {
-				return (EBUSY); 
+				return (EBUSY);
 			}
 		}
 		/* FALLTHROUGH */

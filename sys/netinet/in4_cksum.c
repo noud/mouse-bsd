@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1999 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -142,7 +142,7 @@ in4_cksum(m, nxt, off, len)
 			 * of a word spanning between this mbuf and the
 			 * last mbuf.
 			 *
-			 * s_util.c[0] is already saved when scanning previous 
+			 * s_util.c[0] is already saved when scanning previous
 			 * mbuf.
 			 */
 			s_util.c[1] = *(u_int8_t *)w;

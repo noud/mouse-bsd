@@ -119,7 +119,7 @@ numeric(cs, token, arg, line, lnum)
  *	Parse a cswidth line. This is of the form:
  *		cswidth: <n1>:<s1>,<n2>:<s2>,<n3>:<s3>
  *	Where:
- *		n1,n2,n3: byte widths of the supplementary codes 1,2,3 
+ *		n1,n2,n3: byte widths of the supplementary codes 1,2,3
  *		s1,s2,s3: screen widths " " "
  */
 static int
@@ -201,7 +201,7 @@ addattr(cs, token, arg, line, lnum)
 		case 1:
 			b = n;
 			continue;
-		case 2: 
+		case 2:
 			if (b > cs->maxchar) {
 				n = b;
 				goto oorange;
@@ -452,7 +452,7 @@ getline(fp, size, lineno)
 			return buf;
 		}
 		/* the newline may be missing at EOF */
-		if (ptr[s - 1] == '\n')	{ 
+		if (ptr[s - 1] == '\n')	{
 			s--;			/* forget newline */
 			*lineno += 1;
 		}
@@ -499,7 +499,7 @@ main(argc, argv)
 		usage();
 
 	ifname = argv[optind];
-		
+
 	if ((fp = fopen(ifname, "r")) == NULL)
 		err(1, "Cannot open `%s'", ifname);
 

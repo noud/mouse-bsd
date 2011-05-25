@@ -2,9 +2,9 @@
 
 /*
  *  Copyright (c) 1992, 1993, 1994 Hellmuth Michaelis and Joerg Wunsch
- *  
+ *
  *  All rights reserved.
- * 
+ *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
  *  are met:
@@ -19,7 +19,7 @@
  *	Hellmuth Michaelis and Joerg Wunsch
  *  4. The name authors may not be used to endorse or promote products
  *     derived from this software without specific prior written permission.
- * 
+ *
  *  THIS SOFTWARE IS PROVIDED BY THE AUTHORS ``AS IS'' AND ANY EXPRESS OR
  *  IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  *  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -36,7 +36,7 @@
  * Translated into compiler and human readable for for the Atari-TT port of
  * NetBSD by Leo Weppelman.
  *
- * Reorganized and edited some chars to fit the iso-8859-1 fontset by 
+ * Reorganized and edited some chars to fit the iso-8859-1 fontset by
  * Thomas Gerner
  */
 #include <atari/dev/font.h>

@@ -47,7 +47,7 @@ template <class Value, class HashFcn, class EqualKey, class Alloc = alloc>
 class hash_set
 {
 private:
-  typedef hashtable<Value, Value, HashFcn, identity<Value>, 
+  typedef hashtable<Value, Value, HashFcn, identity<Value>,
                     EqualKey, Alloc> ht;
   ht rep;
 
@@ -152,7 +152,7 @@ public:
   iterator find(const key_type& key) const { return rep.find(key); }
 
   size_type count(const key_type& key) const { return rep.count(key); }
-  
+
   pair<iterator, iterator> equal_range(const key_type& key) const
     { return rep.equal_range(key); }
 
@@ -197,7 +197,7 @@ template <class Value, class HashFcn, class EqualKey, class Alloc = alloc>
 class hash_multiset
 {
 private:
-  typedef hashtable<Value, Value, HashFcn, identity<Value>, 
+  typedef hashtable<Value, Value, HashFcn, identity<Value>,
                     EqualKey, Alloc> ht;
   ht rep;
 
@@ -290,12 +290,12 @@ public:
   void insert(const_iterator f, const_iterator l) { rep.insert_equal(f, l); }
 #endif /*__STL_MEMBER_TEMPLATES */
   iterator insert_noresize(const value_type& obj)
-    { return rep.insert_equal_noresize(obj); }    
+    { return rep.insert_equal_noresize(obj); }
 
   iterator find(const key_type& key) const { return rep.find(key); }
 
   size_type count(const key_type& key) const { return rep.count(key); }
-  
+
   pair<iterator, iterator> equal_range(const key_type& key) const
     { return rep.equal_range(key); }
 

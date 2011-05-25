@@ -397,7 +397,7 @@ el_gets(el, nread)
 		}
 		if (cp[-1] == '\r' || cp[-1] == '\n')
 			break;
-		
+
 	}
 	el->el_line.cursor = el->el_line.lastchar = cp;
 	*cp = '\0';
@@ -405,7 +405,7 @@ el_gets(el, nread)
 		*nread = el->el_line.cursor - el->el_line.buffer;
 	return el->el_line.buffer;
     }
-    
+
 
     for (num = OKCMD; num == OKCMD;) {	/* while still editing this line */
 #ifdef DEBUG_EDIT

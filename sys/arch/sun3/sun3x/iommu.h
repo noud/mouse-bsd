@@ -59,13 +59,13 @@
  * within the I/O Mapper.  This 2048 entry, page descriptor table is located
  * at physical address 0x60000000 in the sun3x architecture and can be
  * manipulated by the CPU with normal read and write cycles.
- * 
+ *
  * In addition to describing an address mapping, a page descriptor entry also
  * indicates whether the DVMA page is read-only, should be inhibited from
  * caching by system caches, and whether or not DMA write transfers to it will
  * be completed in 16 byte aligned blocks.  (This last item is used for cache
  * optimization in sun3x systems with special DMA caches.)
- * 
+ *
  * Since not every DMA device is capable of addressing all 24 bits of the
  * DVMA address space, each is wired so that the end of its address space is
  * always flush against the end of the DVMA address space.  That is, a device

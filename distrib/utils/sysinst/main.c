@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -107,7 +107,7 @@ main(argc, argv)
 		default:
 			usage();
 		}
-	
+
 
 	/* initialize message window */
 	if (menu_init()) {
@@ -138,11 +138,11 @@ main(argc, argv)
 
 	/* Menu processing */
 	process_menu(MENU_netbsd);
-	
+
 	exit_cleanly = 1;
 	exit(0);
 }
-	
+
 
 /* toplevel menu handler ... */
 void
@@ -152,7 +152,7 @@ toplevel()
 	/* Display banner message in (english, francais, deutche..) */
 	msg_display(MSG_hello);
 
-	/* 
+	/*
 	 * Undo any stateful side-effects of previous menu choices.
 	 * XXX must be idempotent, since we get run each time the main
 	 *     menu is displayed.
@@ -317,7 +317,7 @@ void process_f_flag (char *f_name)
   buffer = (char *) malloc ((size_t)statinfo.st_size+1);
   if (buffer == NULL) {
 	fprintf (stderr, msg_string(MSG_out_of_memory));
-  	exit (1); 
+  	exit (1);
   }
 
   /* open the file */

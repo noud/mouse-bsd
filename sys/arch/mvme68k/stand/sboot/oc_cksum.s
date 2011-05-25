@@ -73,14 +73,14 @@
 | that 16 was better than 8 for a count of 20.  It's not obvious to
 | me why.)  So, since 16 was good for both large and small counts,
 | the loop below is unrolled 16 times.
-| 
+|
 | The processors tested and their average time to checksum 1024 bytes
 | of random data were:
 | 	Sun 3/50 (15MHz)	190 us/KB
 | 	Sun 3/180 (16.6MHz)	175 us/KB
 | 	Sun 3/60 (20MHz)	134 us/KB
 | 	Sun 3/280 (25MHz)	 95 us/KB
-| 
+|
 | The cost of calling this routine was typically 10% of the per-
 | kilobyte cost.  E.g., checksumming zero bytes on a 3/60 cost 9us
 | and each additional byte cost 125ns.  With the high fixed cost,

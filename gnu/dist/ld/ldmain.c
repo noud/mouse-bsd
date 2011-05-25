@@ -145,7 +145,7 @@ struct bfd_link_info link_info;
 static void
 remove_output ()
 {
-  if (output_filename) 
+  if (output_filename)
     {
       if (output_bfd && output_bfd->iostream)
 	fclose((FILE *)(output_bfd->iostream));
@@ -210,7 +210,7 @@ main (argc, argv)
   link_info.notice_all = false;
   link_info.notice_hash = NULL;
   link_info.wrap_hash = NULL;
-  
+
   ldfile_add_arch ("");
 
   config.make_executable = true;
@@ -370,7 +370,7 @@ main (argc, argv)
       if (! link_info.relocateable && command_line.force_exe_suffix)
 	{
 	  int len = strlen (output_filename);
-	  if (len < 4 
+	  if (len < 4
 	      || (strcasecmp (output_filename + len - 4, ".exe") != 0
 		  && strcasecmp (output_filename + len - 4, ".dll") != 0))
 	    {
@@ -577,7 +577,7 @@ add_ysym (name)
 				   bfd_hash_newfunc,
 				   61))
 	einfo ("%P%F: bfd_hash_table_init failed: %E\n");
-    }      
+    }
 
   if (bfd_hash_lookup (link_info.notice_hash, name, true, true)
       == (struct bfd_hash_entry *) NULL)

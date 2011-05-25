@@ -8,7 +8,7 @@
 # /etc/rc will find them, or you will have no swap space.
 /dev/sd0b	none	swap	sw		0	0
 #	fast file system on /usr (NBU\7) next to lowest scsi disk unit
-/dev/sd0d	/usr	ffs	rw		1	2	
+/dev/sd0d	/usr	ffs	rw		1	2
 #	virtual mem file system on /tmp using swap (NBS\0) scsi id 0 size 5M
 #/dev/sd0b	/tmp	mfs	rw,-s10240
 #	amigados file system on /amiga (DOS/1)

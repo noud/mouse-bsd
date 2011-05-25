@@ -725,7 +725,7 @@ DEFUN (cmp_fun_nuses, (left, right), const PTR left AND const PTR right)
    Of course, profiling errors, machine limitations (PA long calls), and
    poor cutoff values for the placement algorithm may limit the usefullness
    of the resulting function order.  Improvements would be greatly appreciated.
-   
+
    Suggestions:
 
 	* Place the functions with many callers near the middle of the
@@ -760,7 +760,7 @@ DEFUN (cmp_fun_nuses, (left, right), const PTR left AND const PTR right)
 	ordering which shares the same arc placement algorithm with
 	the function ordering code (in fact it is a degenerate case
 	of function ordering).  */
-	
+
 void
 DEFUN_VOID (cg_print_function_ordering)
 {
@@ -867,7 +867,7 @@ DEFUN_VOID (cg_print_function_ordering)
 	 Unfortunately, we don't know all these functions
 	 until we're done.  So we keep track of all the arcs
 	 to the functions we care about, then prune out those
-	 which are uninteresting. 
+	 which are uninteresting.
 
 	 An interesting variation would be to quit when we found
 	 multi-call site functions which account for some percentage
@@ -1058,7 +1058,7 @@ order_and_dump_functions_by_arcs (arcs, numarcs, all,
 	      prev = prev->prev;
 	      prev_count++;
 	    }
-	  
+
 	  /* Choose the closest.  */
 	  child = next_count < prev_count ? next : prev;
       }
@@ -1271,5 +1271,5 @@ DEFUN_VOID (cg_print_file_ordering)
       if (index2 == symtab.len)
 	printf ("%s\n", symbol_map[index].file_name);
       last = symbol_map[index].file_name;
-    } 
+    }
 }

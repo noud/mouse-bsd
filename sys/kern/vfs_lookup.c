@@ -116,7 +116,7 @@ namei(ndp)
 
 	/*
 	 * POSIX.1 requirement: "" is not a valid file name.
-	 */      
+	 */
 	if (!error && ndp->ni_pathlen == 1)
 		error = ENOENT;
 
@@ -251,7 +251,7 @@ namei(ndp)
  * the target is returned locked, otherwise it is returned unlocked.
  * When creating or renaming and LOCKPARENT is specified, the target may not
  * be ".".  When deleting and LOCKPARENT is specified, the target may be ".".
- * 
+ *
  * Overall outline of lookup:
  *
  * dirloop:

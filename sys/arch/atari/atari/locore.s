@@ -87,7 +87,7 @@ _doadump:
 
 /*
  * Trap/interrupt vector routines
- */ 
+ */
 #include <m68k/m68k/trap_subr.s>
 
 	.globl	_trap, _nofault, _longjmp
@@ -114,7 +114,7 @@ _buserr60:
 	movl	a0,sp@(FR_SP)		|   in the savearea
 	movel	sp@(FR_HW+12),d0	| FSLW
 	btst	#2,d0			| branch prediction error?
-	jeq	Lnobpe			
+	jeq	Lnobpe
 	movc	cacr,d2
 	orl	#IC60_CABC,d2		| clear all branch cache entries
 	movc	d2,cacr
@@ -134,7 +134,7 @@ Lnobpe:
 Lberr3:
 	movl	d1,sp@-
 	movl	d0,sp@-			| code is FSLW now.
-	andw	#0x1f80,d0 
+	andw	#0x1f80,d0
 	jeq	Lisberr
 	movl	#T_MMUFLT,sp@-		| show that we are an MMU fault
 	jra	_ASM_LABEL(faultstkadj)	| and deal with it
@@ -565,7 +565,7 @@ mfp_tima:
 	jbsr	_hardclock		|  call generic clock int routine
 	addql	#4,sp			|  pop params
 	addql	#1,_intrcnt_user+52	|  add another system clock interrupt
-	moveml	sp@+,d0-d1/a0-a1	|  restore scratch regs	
+	moveml	sp@+,d0-d1/a0-a1	|  restore scratch regs
 	addql	#1,_C_LABEL(uvmexp)+UVMEXP_INTRS
 	jra	rei			|  all done
 
@@ -575,7 +575,7 @@ mfp_timc:
 	moveml	d0-d1/a0-a1,sp@-	|  save scratch registers
 	jbsr	_statintr		|  call statistics clock handler
 	addql	#1,_intrcnt+36		|  add another stat clock interrupt
-	moveml	sp@+,d0-d1/a0-a1	|  restore scratch regs	
+	moveml	sp@+,d0-d1/a0-a1	|  restore scratch regs
 	addql	#1,_C_LABEL(uvmexp)+UVMEXP_INTRS
 	jra	rei			|  all done
 #endif /* STATCLOCK */
@@ -702,7 +702,7 @@ Lrei1:
 	clrl	sp@-			|  VA == none
 	clrl	sp@-			|  code == none
 	movl	#T_ASTFLT,sp@-		|  type == async system trap
-	jbsr	_trap			|  go handle it	
+	jbsr	_trap			|  go handle it
 	lea	sp@(12),sp		|  pop value args
 	movl	sp@(FR_SP),a0		|  restore user SP
 	movl	a0,usp			|    from save area
@@ -743,15 +743,15 @@ Lgotsir:
 	movl	#T_SSIR,sp@-		|  type == software interrupt
 	jbsr	_trap			|  go handle it
 	lea	sp@(12),sp		|  pop value args
-	movl	sp@(FR_SP),a0		|  restore	
+	movl	sp@(FR_SP),a0		|  restore
 	movl	a0,usp			|    user SP
 	moveml	sp@+,#0x7FFF		|  and all remaining registers
-	addql	#8,sp			|  pop SP and stack adjust	
+	addql	#8,sp			|  pop SP and stack adjust
 	rte
 Lnosir:
 	movl	sp@+,d0			|  restore scratch register
 Ldorte:
-	rte				|  real return	
+	rte				|  real return
 
 	.data
 _esym:	.long	0
@@ -1222,11 +1222,11 @@ Lswnofpsave:
 	 * XXX only if it has changed.
 	 */
 	pea	a0@			| push proc
-	jbsr	_pmap_activate		| pmap_activate(p) 
+	jbsr	_pmap_activate		| pmap_activate(p)
 	addql	#4,sp
-	movl	_curpcb,a1		| restore p_addr 
+	movl	_curpcb,a1		| restore p_addr
 
-	lea	tmpstk,sp		| now goto a tmp stack for NMI 
+	lea	tmpstk,sp		| now goto a tmp stack for NMI
 
 	movl	a1@(PCB_CMAP2),_CMAP2	| reload tmp map
 	moveml	a1@(PCB_REGS),#0xFCFC	| and registers
@@ -1273,24 +1273,24 @@ Lresfp60rest2:
 ENTRY(savectx)
 	movl	sp@(4),a1
 	movw	sr,a1@(PCB_PS)
-	movl	usp,a0			| grab USP 
-	movl	a0,a1@(PCB_USP)		| and save it 
-	moveml	#0xFCFC,a1@(PCB_REGS)	| save non-scratch registers 
-	movl	_CMAP2,a1@(PCB_CMAP2)	| save temporary map PTE 
+	movl	usp,a0			| grab USP
+	movl	a0,a1@(PCB_USP)		| and save it
+	moveml	#0xFCFC,a1@(PCB_REGS)	| save non-scratch registers
+	movl	_CMAP2,a1@(PCB_CMAP2)	| save temporary map PTE
 	tstl	_fputype		| do we have an FPU?
 	jeq	Lsavedone		| no, don't attempt to save
-	lea	a1@(PCB_FPCTX),a0	| pointer to FP save area 
-	fsave	a0@			| save FP state 
+	lea	a1@(PCB_FPCTX),a0	| pointer to FP save area
+	fsave	a0@			| save FP state
 #ifdef M68060
 	cmpl	#CPU_68060,_cputype	| a 060?
 	jeq	Lsavctx60
 #endif
-	tstb	a0@			| null state frame? 
-	jeq	Lsavedone		| yes, all done 
-	fmovem	fp0-fp7,a0@(216)	| save FP general registers 
-	fmovem	fpcr/fpsr/fpi,a0@(312)	| save FP control registers 
+	tstb	a0@			| null state frame?
+	jeq	Lsavedone		| yes, all done
+	fmovem	fp0-fp7,a0@(216)	| save FP general registers
+	fmovem	fpcr/fpsr/fpi,a0@(312)	| save FP control registers
 Lsavedone:
-	moveq	#0,d0			| return 0 
+	moveq	#0,d0			| return 0
 	rts
 
 #ifdef M68060
@@ -1338,22 +1338,22 @@ Lsldone:
  * from user virtual address to physical address
  */
 ENTRY(copyseg)
-	movl	_curpcb,a1		|  current pcb 
-	movl	#Lcpydone,a1@(PCB_ONFAULT) |  where to return to on a fault 
-	movl	sp@(8),d0		|  destination page number 
+	movl	_curpcb,a1		|  current pcb
+	movl	#Lcpydone,a1@(PCB_ONFAULT) |  where to return to on a fault
+	movl	sp@(8),d0		|  destination page number
 	moveq	#PGSHIFT,d1
-	lsll	d1,d0			|  convert to address 
-	orl	#PG_CI+PG_RW+PG_V,d0	|  make sure valid and writable 
+	lsll	d1,d0			|  convert to address
+	orl	#PG_CI+PG_RW+PG_V,d0	|  make sure valid and writable
 	movl	_CMAP2,a0
-	movl	_CADDR2,sp@-		|  destination kernel VA 
-	movl	d0,a0@			|  load in page table 
-	jbsr	_TBIS			|  invalidate any old mapping 
+	movl	_CADDR2,sp@-		|  destination kernel VA
+	movl	d0,a0@			|  load in page table
+	jbsr	_TBIS			|  invalidate any old mapping
 	addql	#4,sp
-	movl	_CADDR2,a1		|  destination addr 
-	movl	sp@(4),a0		|  source addr 
-	movl	#NBPG/4-1,d0		|  count 
+	movl	_CADDR2,a1		|  destination addr
+	movl	sp@(4),a0		|  source addr
+	movl	#NBPG/4-1,d0		|  count
 Lcpyloop:
-	movsl	a0@+,d1			|  read longword 
+	movsl	a0@+,d1			|  read longword
 	movl	d1,a1@+			|  write longword
 	dbf	d0,Lcpyloop		|  continue until done
 Lcpydone:
@@ -1641,7 +1641,7 @@ Ldoboot0:
 Ldb1:
 	clrl	a0@+
 	dbra	d0,Ldb1
-	
+
 	lea	Ldoreboot,a1		| a1 = start of copy range
 	lea	Ldorebootend,a2		| a2 = end of copy range
 	movl	_page_zero,a0		| a0 = virtual base for page zero

@@ -20,7 +20,7 @@
 #define __SGI_STL_INTERNAL_SLIST_H
 
 
-__STL_BEGIN_NAMESPACE 
+__STL_BEGIN_NAMESPACE
 
 #if defined(__sgi) && !defined(__GNUC__) && (_MIPS_SIM != _MIPS_SIM_ABI32)
 #pragma set woff 1174
@@ -155,8 +155,8 @@ iterator_category(const __slist_iterator_base&)
   return forward_iterator_tag();
 }
 
-template <class T, class Ref, class Ptr> 
-inline T* 
+template <class T, class Ref, class Ptr>
+inline T*
 value_type(const __slist_iterator<T, Ref, Ptr>&) {
   return 0;
 }
@@ -201,7 +201,7 @@ private:
     __STL_UNWIND(list_node_allocator::deallocate(node));
     return node;
   }
-  
+
   static void destroy_node(list_node* node) {
     destroy(&node->data);
     list_node_allocator::deallocate(node);
@@ -213,7 +213,7 @@ private:
       _insert_after_fill(&head, n, x);
     }
     __STL_UNWIND(clear());
-  }    
+  }
 
 #ifdef __STL_MEMBER_TEMPLATES
   template <class InputIterator>
@@ -282,7 +282,7 @@ public:
   const_iterator end() const { return const_iterator(0); }
 
   size_type size() const { return __slist_size(head.next); }
-  
+
   size_type max_size() const { return size_type(-1); }
 
   bool empty() const { return head.next == 0; }
@@ -361,7 +361,7 @@ private:
     destroy_node(next);
     return next_next;
   }
-   
+
   list_node_base* erase_after(list_node_base* before_first,
                               list_node_base* last_node) {
     list_node* cur = (list_node*) (before_first->next);
@@ -421,14 +421,14 @@ public:
 
   void insert(iterator pos, size_type n, const value_type& x) {
     _insert_after_fill(__slist_previous(&head, pos.node), n, x);
-  } 
+  }
   void insert(iterator pos, int n, const value_type& x) {
     _insert_after_fill(__slist_previous(&head, pos.node), (size_type) n, x);
-  } 
+  }
   void insert(iterator pos, long n, const value_type& x) {
     _insert_after_fill(__slist_previous(&head, pos.node), (size_type) n, x);
-  } 
-    
+  }
+
 #ifdef __STL_MEMBER_TEMPLATES
   template <class InIter>
   void insert(iterator pos, InIter first, InIter last) {
@@ -467,10 +467,10 @@ public:
 public:
   // Moves the range [before_first + 1, before_last + 1) to *this,
   //  inserting it immediately after pos.  This is constant time.
-  void splice_after(iterator pos, 
+  void splice_after(iterator pos,
                     iterator before_first, iterator before_last)
   {
-    if (before_first != before_last) 
+    if (before_first != before_last)
       __slist_splice_after(pos.node, before_first.node, before_last.node);
   }
 
@@ -510,16 +510,16 @@ public:
 public:
   void reverse() { if (head.next) head.next = __slist_reverse(head.next); }
 
-  void remove(const T& val); 
-  void unique(); 
+  void remove(const T& val);
+  void unique();
   void merge(slist& L);
-  void sort();     
+  void sort();
 
 #ifdef __STL_MEMBER_TEMPLATES
   template <class Predicate> void remove_if(Predicate pred);
-  template <class BinaryPredicate> void unique(BinaryPredicate pred); 
-  template <class StrictWeakOrdering> void merge(slist&, StrictWeakOrdering); 
-  template <class StrictWeakOrdering> void sort(StrictWeakOrdering comp); 
+  template <class BinaryPredicate> void unique(BinaryPredicate pred);
+  template <class StrictWeakOrdering> void merge(slist&, StrictWeakOrdering);
+  template <class StrictWeakOrdering> void sort(StrictWeakOrdering comp);
 #endif /* __STL_MEMBER_TEMPLATES */
 };
 
@@ -543,7 +543,7 @@ slist<T, Alloc>& slist<T,Alloc>::operator=(const slist<T, Alloc>& L)
                           const_iterator((list_node*)n2), const_iterator(0));
   }
   return *this;
-} 
+}
 
 template <class T, class Alloc>
 bool operator==(const slist<T, Alloc>& L1, const slist<T, Alloc>& L2)
@@ -582,7 +582,7 @@ void slist<T, Alloc>::resize(size_type len, const T& x)
     --len;
     cur = cur->next;
   }
-  if (cur->next) 
+  if (cur->next)
     erase_after(cur, 0);
   else
     _insert_after_fill(cur, len, x);
@@ -600,7 +600,7 @@ void slist<T,Alloc>::remove(const T& val)
   }
 }
 
-template <class T, class Alloc> 
+template <class T, class Alloc>
 void slist<T,Alloc>::unique()
 {
   list_node_base* cur = head.next;
@@ -619,7 +619,7 @@ void slist<T,Alloc>::merge(slist<T,Alloc>& L)
 {
   list_node_base* n1 = &head;
   while (n1->next && L.head.next) {
-    if (((list_node*) L.head.next)->data < ((list_node*) n1->next)->data) 
+    if (((list_node*) L.head.next)->data < ((list_node*) n1->next)->data)
       __slist_splice_after(n1, &L.head, L.head.next);
     n1 = n1->next;
   }
@@ -657,7 +657,7 @@ void slist<T,Alloc>::sort()
 
 #ifdef __STL_MEMBER_TEMPLATES
 
-template <class T, class Alloc> 
+template <class T, class Alloc>
 template <class Predicate> void slist<T,Alloc>::remove_if(Predicate pred)
 {
   list_node_base* cur = &head;
@@ -669,7 +669,7 @@ template <class Predicate> void slist<T,Alloc>::remove_if(Predicate pred)
   }
 }
 
-template <class T, class Alloc> template <class BinaryPredicate> 
+template <class T, class Alloc> template <class BinaryPredicate>
 void slist<T,Alloc>::unique(BinaryPredicate pred)
 {
   list_node* cur = (list_node*) head.next;
@@ -699,7 +699,7 @@ void slist<T,Alloc>::merge(slist<T,Alloc>& L, StrictWeakOrdering comp)
   }
 }
 
-template <class T, class Alloc> template <class StrictWeakOrdering> 
+template <class T, class Alloc> template <class StrictWeakOrdering>
 void slist<T,Alloc>::sort(StrictWeakOrdering comp)
 {
   if (head.next && head.next->next) {
@@ -731,7 +731,7 @@ void slist<T,Alloc>::sort(StrictWeakOrdering comp)
 #pragma reset woff 1174
 #endif
 
-__STL_END_NAMESPACE 
+__STL_END_NAMESPACE
 
 #endif /* __SGI_STL_INTERNAL_SLIST_H */
 

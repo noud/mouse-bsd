@@ -64,7 +64,7 @@ struct trapframe32 {
 };
 
 /*
- * The v9 trapframe is a bit more complex.  Since we don't get a free 
+ * The v9 trapframe is a bit more complex.  Since we don't get a free
  * register window with each trap we need some way to keep track of
  * pending traps.  We use tf_fault to save the faulting address for
  * memory faults and tf_kstack to thread trapframes on the kernel
@@ -161,7 +161,7 @@ struct fpstate64 {
 	struct	fp_qentry fs_queue[FP_QSIZE];	/* queue contents */
 };
 
-/* 
+/*
  * For 32-bit emulations.
  */
 struct fpstate32 {

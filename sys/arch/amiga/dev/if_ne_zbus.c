@@ -60,7 +60,7 @@
 
 #include <dev/ic/ne2000reg.h>
 #include <dev/ic/ne2000var.h>
- 
+
 #include <dev/ic/rtl80x9reg.h>
 #include <dev/ic/rtl80x9var.h>
 
@@ -83,7 +83,7 @@ struct cfattach ne_zbus_ca = {
 };
 
 /*
- * The Amiga address are shifted by one bit to the ISA-Bus, but 
+ * The Amiga address are shifted by one bit to the ISA-Bus, but
  * this is handled by the bus_space functions.
  */
 #define	NE_ARIADNE_II_NPORTS	0x20
@@ -153,7 +153,7 @@ ne_zbus_attach(parent, self, aux)
 	if (bus_space_subregion(nict, nich, NE2000_ASIC_OFFSET, NE_ARIADNE_II_ASICSIZE,
 	    &asich)) {
 		printf("%s: can't map asic i/o space\n", dsc->sc_dev.dv_xname);
-		return; 
+		return;
 	}
 
 	dsc->sc_regt = nict;

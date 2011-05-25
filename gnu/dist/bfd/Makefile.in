@@ -523,8 +523,8 @@ DEFS = @DEFS@ -I. -I$(srcdir) -I.
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-libbfd_a_LIBADD = 
-libbfd_a_OBJECTS = 
+libbfd_a_LIBADD =
+libbfd_a_OBJECTS =
 LTLIBRARIES =  $(lib_LTLIBRARIES)
 
 libbfd_la_OBJECTS =  archive.lo archures.lo bfd.lo cache.lo coffgen.lo \
@@ -551,7 +551,7 @@ default: all
 
 .SUFFIXES:
 .SUFFIXES: .S .c .lo .o .s
-$(srcdir)/Makefile.in: @MAINT@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/Makefile.in: @MAINT@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --cygnus Makefile
 
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status

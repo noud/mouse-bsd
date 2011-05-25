@@ -605,7 +605,7 @@ extern void m88k_push_dummy_frame();
    	... can be made to return to a particular instruction by placing a
 	valid instruction address in the SNIP and the next sequential
 	instruction address in the SFIP (with V bits set and E bits clear).
-	The rte resumes execution at the instruction pointed to by the 
+	The rte resumes execution at the instruction pointed to by the
 	SNIP, then the SFIP.
 
    The E bit is the least significant bit (bit 0).  The V (valid) bit is
@@ -616,7 +616,7 @@ extern void m88k_push_dummy_frame();
 
    -- Kevin Buettner
 */
- 
+
 #define TARGET_WRITE_PC(val, pid) { \
   write_register_pid(SXIP_REGNUM, (long) val, pid); \
   write_register_pid(SNIP_REGNUM, (long) val | 2, pid); \

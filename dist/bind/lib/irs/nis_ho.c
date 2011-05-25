@@ -177,7 +177,7 @@ static struct hostent *
 ho_byname2(struct irs_ho *this, const char *name, int af) {
 	struct pvt *pvt = (struct pvt *)this->private;
 	int r;
-	
+
 	if (init(this) == -1)
 		return (NULL);
 
@@ -197,7 +197,7 @@ ho_byaddr(struct irs_ho *this, const void *addr, int len, int af) {
 	char tmp[sizeof "ffff:ffff:ffff:ffff:ffff:ffff:255.255.255.255"];
 	const u_char *uaddr = addr;
 	int r;
-	
+
 	if (init(this) == -1)
 		return (NULL);
 
@@ -381,7 +381,7 @@ nisfree(struct pvt *pvt, enum do_what do_what) {
 static int
 init(struct irs_ho *this) {
 	struct pvt *pvt = (struct pvt *)this->private;
-	
+
 	if (!pvt->res && !ho_res_get(this))
 		return (-1);
 	if (((pvt->res->options & RES_INIT) == 0) &&

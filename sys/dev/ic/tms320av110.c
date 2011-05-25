@@ -62,7 +62,7 @@ int tav_open __P((void*, int));
 void tav_close __P((void *));
 int tav_drain __P((void *));
 int tav_query_encoding __P((void *, struct audio_encoding *));
-int tav_set_params __P((void *, int, int, struct audio_params *, 
+int tav_set_params __P((void *, int, int, struct audio_params *,
     struct audio_params *));
 int tav_round_blocksize __P((void *, int));
 int tav_init_output __P((void *, void *, int));
@@ -239,7 +239,7 @@ tav_drain(hdl)
 		tav_write_short(iot, ioh, TAV_INTR_EN,
 		    mask & ~TAV_INTR_PCM_OUTPUT_UNDERFLOW);
 	}
-	
+
 	return 0;
 }
 
@@ -297,7 +297,7 @@ tav_start_output(hdl, block, bsize, intr, intrarg)
 	ioh = sc->sc_ioh;
 	ptr = block;
 	count = bsize;
-	
+
 	sc->sc_intr = intr;
 	sc->sc_intrarg = intrarg;
 
@@ -425,16 +425,16 @@ tav_set_params(hdl, setmode, usemode, p, r)
 
 	case AUDIO_ENCODING_SLINEAR_BE:
 
-		/* XXX: todo: add 8bit and mono using software */ 
+		/* XXX: todo: add 8bit and mono using software */
 		p->precision = 16;
 		p->channels = 2;
 
-		/* XXX: this might depend on the specific board. 
+		/* XXX: this might depend on the specific board.
 		   should be handled by the backend */
 
 		p->sample_rate = 44100;
 
-		bus_space_write_1(iot, ioh, TAV_STR_SEL, 
+		bus_space_write_1(iot, ioh, TAV_STR_SEL,
 		    TAV_STR_SEL_AUDIO_BYPASS);
 		break;
 

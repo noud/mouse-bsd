@@ -55,17 +55,17 @@ int     rf_GenericWakeupFunc(RF_DagNode_t * node, int status);
 int     rf_RegularXorFunc(RF_DagNode_t * node);
 int     rf_SimpleXorFunc(RF_DagNode_t * node);
 int     rf_RecoveryXorFunc(RF_DagNode_t * node);
-int 
+int
 rf_XorIntoBuffer(RF_Raid_t * raidPtr, RF_PhysDiskAddr_t * pda, char *srcbuf,
     char *targbuf, void *bp);
 int     rf_bxor(char *src, char *dest, int len, void *bp);
-int 
+int
 rf_longword_bxor(register unsigned long *src, register unsigned long *dest,
     int len, void *bp);
-int 
+int
 rf_longword_bxor3(register unsigned long *dest, register unsigned long *a,
     register unsigned long *b, register unsigned long *c, int len, void *bp);
-int 
+int
 rf_bxor3(unsigned char *dst, unsigned char *a, unsigned char *b,
     unsigned char *c, unsigned long len, void *bp);
 

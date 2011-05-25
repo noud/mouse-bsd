@@ -33,7 +33,7 @@
 #ifndef	_IBCS2_TIMEB_H
 #define	_IBCS2_TIMEB_H
 
-#pragma pack(2) 
+#pragma pack(2)
 struct xenix_timeb {
         ibcs2_time_t time;
 	unsigned short millitm;

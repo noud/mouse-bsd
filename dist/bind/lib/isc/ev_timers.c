@@ -388,7 +388,7 @@ idle_timeout(evContext opaqueCtx,
 	evContext_p *ctx = opaqueCtx.opaque;
 	idle_timer *this = uap;
 	struct timespec idle;
-	
+
 	idle = evSubTime(ctx->lastEventTime, this->lastTouched);
 	if (evCmpTime(idle, this->max_idle) >= 0) {
 		(this->func)(opaqueCtx, this->uap, this->timer->due,

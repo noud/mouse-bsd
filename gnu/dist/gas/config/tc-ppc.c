@@ -286,70 +286,70 @@ static const struct pd_reg pre_defined_registers[] =
   { "dsisr", 18 },  /* Data Storage Interrupt Status Register */
 
   { "f.0", 0 },     /* Floating point registers */
-  { "f.1", 1 }, 
-  { "f.10", 10 }, 
-  { "f.11", 11 }, 
-  { "f.12", 12 }, 
-  { "f.13", 13 }, 
-  { "f.14", 14 }, 
-  { "f.15", 15 }, 
-  { "f.16", 16 }, 
-  { "f.17", 17 }, 
-  { "f.18", 18 }, 
-  { "f.19", 19 }, 
-  { "f.2", 2 }, 
-  { "f.20", 20 }, 
-  { "f.21", 21 }, 
-  { "f.22", 22 }, 
-  { "f.23", 23 }, 
-  { "f.24", 24 }, 
-  { "f.25", 25 }, 
-  { "f.26", 26 }, 
-  { "f.27", 27 }, 
-  { "f.28", 28 }, 
-  { "f.29", 29 }, 
-  { "f.3", 3 }, 
+  { "f.1", 1 },
+  { "f.10", 10 },
+  { "f.11", 11 },
+  { "f.12", 12 },
+  { "f.13", 13 },
+  { "f.14", 14 },
+  { "f.15", 15 },
+  { "f.16", 16 },
+  { "f.17", 17 },
+  { "f.18", 18 },
+  { "f.19", 19 },
+  { "f.2", 2 },
+  { "f.20", 20 },
+  { "f.21", 21 },
+  { "f.22", 22 },
+  { "f.23", 23 },
+  { "f.24", 24 },
+  { "f.25", 25 },
+  { "f.26", 26 },
+  { "f.27", 27 },
+  { "f.28", 28 },
+  { "f.29", 29 },
+  { "f.3", 3 },
   { "f.30", 30 },
   { "f.31", 31 },
-  { "f.4", 4 }, 
-  { "f.5", 5 }, 
-  { "f.6", 6 }, 
-  { "f.7", 7 }, 
-  { "f.8", 8 }, 
-  { "f.9", 9 }, 
+  { "f.4", 4 },
+  { "f.5", 5 },
+  { "f.6", 6 },
+  { "f.7", 7 },
+  { "f.8", 8 },
+  { "f.9", 9 },
 
-  { "f0", 0 }, 
-  { "f1", 1 }, 
-  { "f10", 10 }, 
-  { "f11", 11 }, 
-  { "f12", 12 }, 
-  { "f13", 13 }, 
-  { "f14", 14 }, 
-  { "f15", 15 }, 
-  { "f16", 16 }, 
-  { "f17", 17 }, 
-  { "f18", 18 }, 
-  { "f19", 19 }, 
-  { "f2", 2 }, 
-  { "f20", 20 }, 
-  { "f21", 21 }, 
-  { "f22", 22 }, 
-  { "f23", 23 }, 
-  { "f24", 24 }, 
-  { "f25", 25 }, 
-  { "f26", 26 }, 
-  { "f27", 27 }, 
-  { "f28", 28 }, 
-  { "f29", 29 }, 
-  { "f3", 3 }, 
+  { "f0", 0 },
+  { "f1", 1 },
+  { "f10", 10 },
+  { "f11", 11 },
+  { "f12", 12 },
+  { "f13", 13 },
+  { "f14", 14 },
+  { "f15", 15 },
+  { "f16", 16 },
+  { "f17", 17 },
+  { "f18", 18 },
+  { "f19", 19 },
+  { "f2", 2 },
+  { "f20", 20 },
+  { "f21", 21 },
+  { "f22", 22 },
+  { "f23", 23 },
+  { "f24", 24 },
+  { "f25", 25 },
+  { "f26", 26 },
+  { "f27", 27 },
+  { "f28", 28 },
+  { "f29", 29 },
+  { "f3", 3 },
   { "f30", 30 },
   { "f31", 31 },
-  { "f4", 4 }, 
-  { "f5", 5 }, 
-  { "f6", 6 }, 
-  { "f7", 7 }, 
-  { "f8", 8 }, 
-  { "f9", 9 }, 
+  { "f4", 4 },
+  { "f5", 5 },
+  { "f6", 6 },
+  { "f7", 7 },
+  { "f8", 8 },
+  { "f9", 9 },
 
   { "fpscr", 0 },
 
@@ -509,11 +509,11 @@ register_name (expressionP)
   reg_number = reg_name_search (pre_defined_registers, REG_NAME_CNT, name);
 
   /* look to see if it's in the register table */
-  if (reg_number >= 0) 
+  if (reg_number >= 0)
     {
       expressionP->X_op = O_register;
       expressionP->X_add_number = reg_number;
-      
+
       /* make the rest nice */
       expressionP->X_add_symbol = NULL;
       expressionP->X_op_symbol = NULL;
@@ -1037,7 +1037,7 @@ md_begin ()
 #ifdef TE_PE
 
   ppc_current_section = text_section;
-  ppc_previous_section = 0;  
+  ppc_previous_section = 0;
 
 #endif
 }
@@ -1471,7 +1471,7 @@ ppc_elf_validate_fix (fixp, seg)
  *
  *      Anything else is an error of one kind or another.
  *
- * out:	
+ * out:
  *   return value: success or failure
  *   toc_kind:     kind of toc reference
  *   input_line_pointer:
@@ -1487,8 +1487,8 @@ ppc_elf_validate_fix (fixp, seg)
  *
  */
 
-enum toc_size_qualifier 
-{ 
+enum toc_size_qualifier
+{
   default_toc, /* The toc cell constructed should be the system default size */
   data_in_toc, /* This is a direct reference to a toc cell                   */
   must_be_32,  /* The toc cell constructed must be 32 bits wide              */
@@ -1510,24 +1510,24 @@ parse_toc_entry(toc_kind)
   /* skip over the '[' , and whitespace */
   ++input_line_pointer;
   SKIP_WHITESPACE ();
-  
+
   /* find the spelling of the operand */
   toc_spec = input_line_pointer;
   c = get_symbol_end ();
 
-  if (strcmp(toc_spec, "toc") == 0) 
+  if (strcmp(toc_spec, "toc") == 0)
     {
       t = default_toc;
     }
-  else if (strcmp(toc_spec, "tocv") == 0) 
+  else if (strcmp(toc_spec, "tocv") == 0)
     {
       t = data_in_toc;
     }
-  else if (strcmp(toc_spec, "toc32") == 0) 
+  else if (strcmp(toc_spec, "toc32") == 0)
     {
       t = must_be_32;
     }
-  else if (strcmp(toc_spec, "toc64") == 0) 
+  else if (strcmp(toc_spec, "toc64") == 0)
     {
       t = must_be_64;
     }
@@ -1716,13 +1716,13 @@ md_assemble (str)
       input_line_pointer = str;
 
 #ifdef TE_PE
-      if (*input_line_pointer == '[') 
+      if (*input_line_pointer == '[')
 	{
 	  /* We are expecting something like the second argument here:
 
 	        lwz r4,[toc].GS.0.static_int(rtoc)
                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-	     The argument following the `]' must be a symbol name, and the 
+	     The argument following the `]' must be a symbol name, and the
              register must be the toc register: 'rtoc' or '2'
 
 	     The effect is to 0 as the displacement field
@@ -1750,7 +1750,7 @@ md_assemble (str)
 	  /* go parse off the [tocXX] part */
 	  valid_toc = parse_toc_entry(&toc_kind);
 
-	  if (!valid_toc) 
+	  if (!valid_toc)
 	    {
 	      /* Note: message has already been issued.     */
 	      /* FIXME: what sort of recovery should we do? */
@@ -1776,8 +1776,8 @@ md_assemble (str)
 	      /* FIXME: It's a little confusing what the tocv qualifier can */
 	      /*        be used for. At the very least, I've seen three     */
 	      /*        uses, only one of which I'm sure I can explain.     */
-	      if (ex.X_op == O_symbol) 
-		{		  
+	      if (ex.X_op == O_symbol)
+		{
 		  assert (ex.X_add_symbol != NULL);
 		  if (ex.X_add_symbol->bsym->section != tocdata_section)
 		    {
@@ -1800,7 +1800,7 @@ md_assemble (str)
 	      as_bad ("Unimplemented toc64 expression modifier");
 	      break;
 	    default:
-	      fprintf(stderr, 
+	      fprintf(stderr,
 		      "Unexpected return value [%d] from parse_toc_entry!\n",
 		      toc_kind);
 	      abort();
@@ -2080,7 +2080,7 @@ ppc_macro (str, macro)
       if (s == (char *) NULL)
 	break;
       *s++ = '\0';
-    }  
+    }
 
   if (count != macro->operands)
     {
@@ -2127,7 +2127,7 @@ ppc_macro (str, macro)
 
   /* Assemble the constructed instruction.  */
   md_assemble (complete);
-}  
+}
 
 #ifdef OBJ_ELF
 /* For ELF, add support for SHF_EXCLUDE and SHT_ORDERED */
@@ -2316,7 +2316,7 @@ ppc_comm (lcomm)
 
       lcomm_name = input_line_pointer;
       lcomm_endc = get_symbol_end ();
-      
+
       lcomm_sym = symbol_find_or_make (lcomm_name);
 
       *input_line_pointer = lcomm_endc;
@@ -2333,9 +2333,9 @@ ppc_comm (lcomm)
       ignore_rest_of_line ();
       return;
     }
-    
+
   record_alignment (bss_section, align);
-	  
+
   if (! lcomm
       || ! S_IS_DEFINED (lcomm_sym))
     {
@@ -2357,7 +2357,7 @@ ppc_comm (lcomm)
 
       subseg_set (bss_section, 1);
       frag_align (align, 0, 0);
-  
+
       def_sym->sy_frag = frag_now;
       pfrag = frag_var (rs_org, 1, 1, (relax_substateT) 0, def_sym,
 			def_size, (char *) NULL);
@@ -2405,7 +2405,7 @@ ppc_csect (ignore)
 
   name = input_line_pointer;
   endc = get_symbol_end ();
-  
+
   sym = symbol_find_or_make (name);
 
   *input_line_pointer = endc;
@@ -2499,13 +2499,13 @@ ppc_change_csect (sym)
       sym->sy_tc.align = 2;
       sym->sy_tc.output = 1;
       sym->sy_tc.within = sym;
-	  
+
       for (list = *list_ptr;
 	   list->sy_tc.next != (symbolS *) NULL;
 	   list = list->sy_tc.next)
 	;
       list->sy_tc.next = sym;
-	  
+
       symbol_remove (sym, &symbol_rootP, &symbol_lastP);
       symbol_append (sym, list->sy_tc.within, &symbol_rootP, &symbol_lastP);
     }
@@ -2928,7 +2928,7 @@ ppc_biei (ei)
 
   S_SET_STORAGE_CLASS (sym, ei ? C_EINCL : C_BINCL);
   sym->sy_tc.output = 1;
-  
+
   for (look = last_biei ? last_biei : symbol_rootP;
        (look != (symbolS *) NULL
 	&& (S_GET_STORAGE_CLASS (look) == C_FILE
@@ -3117,7 +3117,7 @@ ppc_toc (ignore)
       subsegT subseg;
       symbolS *sym;
       symbolS *list;
-    
+
       subseg = ppc_data_subsegment;
       ++ppc_data_subsegment;
 
@@ -3133,7 +3133,7 @@ ppc_toc (ignore)
       sym->sy_tc.within = sym;
 
       ppc_toc_csect = sym;
-	  
+
       for (list = ppc_data_csects;
 	   list->sy_tc.next != (symbolS *) NULL;
 	   list = list->sy_tc.next)
@@ -3282,7 +3282,7 @@ ppc_previous(ignore)
 {
   symbolS *tmp;
 
-  if (ppc_previous_section == NULL) 
+  if (ppc_previous_section == NULL)
     {
       as_warn("No previous section to return to. Directive ignored.");
       return;
@@ -3313,14 +3313,14 @@ static void
 ppc_pdata(ignore)
      int ignore;
 {
-  if (pdata_section == 0) 
+  if (pdata_section == 0)
     {
       pdata_section = subseg_new (".pdata", 0);
-      
+
       bfd_set_section_flags (stdoutput, pdata_section,
 			     (SEC_ALLOC | SEC_LOAD | SEC_RELOC
 			      | SEC_READONLY | SEC_DATA ));
-      
+
       bfd_set_section_alignment (stdoutput, pdata_section, 2);
     }
   else
@@ -3348,7 +3348,7 @@ static void
 ppc_ydata(ignore)
      int ignore;
 {
-  if (ydata_section == 0) 
+  if (ydata_section == 0)
     {
       ydata_section = subseg_new (".ydata", 0);
       bfd_set_section_flags (stdoutput, ydata_section,
@@ -3390,7 +3390,7 @@ ppc_reldata(ignore)
       reldata_section = subseg_new (".reldata", 0);
 
       bfd_set_section_flags (stdoutput, reldata_section,
-			     ( SEC_ALLOC | SEC_LOAD | SEC_RELOC 
+			     ( SEC_ALLOC | SEC_LOAD | SEC_RELOC
 			      | SEC_DATA ));
 
       bfd_set_section_alignment (stdoutput, reldata_section, 2);
@@ -3433,7 +3433,7 @@ ppc_rdata(ignore)
 }
 
 /* pseudo-op: .ualong
-   behaviour: much like .int, with the exception that no alignment is 
+   behaviour: much like .int, with the exception that no alignment is
               performed.
 	      FIXME: test the alignment statement
    errors:    None
@@ -3504,10 +3504,10 @@ ppc_znop(ignore)
 
 }
 
-/* pseudo-op: 
-   behaviour: 
-   errors:    
-   warnings:  
+/* pseudo-op:
+   behaviour:
+   errors:
+   warnings:
 */
 static void
 ppc_pe_comm(lcomm)
@@ -3607,7 +3607,7 @@ ppc_pe_comm(lcomm)
  * additions/changes for the moto-pas assembler support. There are three
  * categories:
  *
- * FIXME: I just noticed this. This doesn't work at all really. It it 
+ * FIXME: I just noticed this. This doesn't work at all really. It it
  *        setting bits that bfd probably neither understands or uses. The
  *        correct approach (?) will have to incorporate extra fields attached
  *        to the section to hold the system specific stuff. (krk)
@@ -3706,7 +3706,7 @@ ppc_pe_section (ignore)
 		  as_bad ("Unsupported section attribute -- 'a'");
 		  break;
 		case 'c': /* code section */
-		  flags |= SEC_CODE; 
+		  flags |= SEC_CODE;
 		  break;
 		case 'd': /* section has initialized data */
 		  flags |= SEC_DATA;
@@ -3722,7 +3722,7 @@ ppc_pe_section (ignore)
 		  flags |= SEC_HAS_CONTENTS;
 		  break;
 		case 'n': /* section can be discarded */
-		  flags &=~ SEC_LOAD; 
+		  flags &=~ SEC_LOAD;
 		  break;
 		case 'R': /* Remove section at link time */
 		  flags |= SEC_NEVER_LOAD;
@@ -4224,7 +4224,7 @@ ppc_frob_symbol (sym)
 	    }
 	  a->x_csect.x_smtyp = XTY_LD;
 	}
-	
+
       a->x_csect.x_parmhash = 0;
       a->x_csect.x_snhash = 0;
       if (sym->sy_tc.class == -1)
@@ -4383,7 +4383,7 @@ md_atof (type, litp, sizep)
 	  litp += 2;
 	}
     }
-     
+
   return NULL;
 }
 
@@ -4906,7 +4906,7 @@ md_apply_fix3 (fixp, valuep, seg)
 	  {
 	    char *where;
 	    unsigned long insn;
-	    
+
 	    /* Fetch the instruction, insert the fully resolved operand
 	       value, and stuff the instruction back again.  */
 	    where = fixp->fx_frag->fr_literal + fixp->fx_where;

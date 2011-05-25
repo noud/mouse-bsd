@@ -22,7 +22,7 @@
  * drivers which need it (at the present only the coms) raise the variable to
  * their serial interrupt level.
  *
- * serialspl is statically initialized in machdep.c at the moment; should 
+ * serialspl is statically initialized in machdep.c at the moment; should
  * be some driver independent file.
  *
  * XXX should serialspl be volatile? I think not; it is intended to be set only

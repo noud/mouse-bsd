@@ -15,7 +15,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *	This product includes software developed at Ludd, University of 
+ *	This product includes software developed at Ludd, University of
  *	Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -64,13 +64,13 @@ static	void	ka410_clrf __P((void));
 static	caddr_t	l2cache;	/* mapped in address */
 static	long 	*cacr;		/* l2csche ctlr reg */
 
-/* 
+/*
  * Declaration of 410-specific calls.
  */
 struct	cpu_dep ka410_calls = {
 	0,
 	ka410_mchk,
-	ka410_memerr, 
+	ka410_memerr,
 	ka410_conf,
 	chip_clkread,
 	chip_clkwrite,

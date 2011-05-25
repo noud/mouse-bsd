@@ -114,8 +114,8 @@ make_pointer_type (type, typeptr)
 
   ntype = TYPE_POINTER_TYPE (type);
 
-  if (ntype) 
-    if (typeptr == 0)		
+  if (ntype)
+    if (typeptr == 0)
       return ntype;	/* Don't care about alloc, and have new type.  */
     else if (*typeptr == 0)
       {
@@ -147,7 +147,7 @@ make_pointer_type (type, typeptr)
 
   /* pointers are unsigned */
   TYPE_FLAGS (ntype) |= TYPE_FLAG_UNSIGNED;
-  
+
   if (!TYPE_POINTER_TYPE (type))	/* Remember it, if don't have one.  */
     TYPE_POINTER_TYPE (type) = ntype;
 
@@ -179,8 +179,8 @@ make_reference_type (type, typeptr)
 
   ntype = TYPE_REFERENCE_TYPE (type);
 
-  if (ntype) 
-    if (typeptr == 0)		
+  if (ntype)
+    if (typeptr == 0)
       return ntype;	/* Don't care about alloc, and have new type.  */
     else if (*typeptr == 0)
       {
@@ -210,7 +210,7 @@ make_reference_type (type, typeptr)
 
   TYPE_LENGTH (ntype) = TARGET_PTR_BIT / TARGET_CHAR_BIT;
   TYPE_CODE (ntype) = TYPE_CODE_REF;
-  
+
   if (!TYPE_REFERENCE_TYPE (type))	/* Remember it, if don't have one.  */
     TYPE_REFERENCE_TYPE (type) = ntype;
 
@@ -257,7 +257,7 @@ make_function_type (type, typeptr)
 
   TYPE_LENGTH (ntype) = 1;
   TYPE_CODE (ntype) = TYPE_CODE_FUNC;
-  
+
   return ntype;
 }
 
@@ -289,7 +289,7 @@ lookup_member_type (type, domain)
   return (mtype);
 }
 
-/* Allocate a stub method whose return type is TYPE.  
+/* Allocate a stub method whose return type is TYPE.
    This apparently happens for speed of symbol reading, since parsing
    out the arguments to the method is cpu-intensive, the way we are doing
    it.  So, we will fill in arguments later.
@@ -507,7 +507,7 @@ create_set_type (result_type, domain_type)
   return (result_type);
 }
 
-/* Smash TYPE to be a type of members of DOMAIN with type TO_TYPE. 
+/* Smash TYPE to be a type of members of DOMAIN with type TO_TYPE.
    A MEMBER is a wierd thing -- it amounts to a typed offset into
    a struct, e.g. "an int at offset 8".  A MEMBER TYPE doesn't
    include the offset (that's the value of the MEMBER itself), but does
@@ -578,7 +578,7 @@ type_name_no_tag (type)
   return TYPE_NAME (type);
 }
 
-/* Lookup a primitive type named NAME. 
+/* Lookup a primitive type named NAME.
    Return zero if NAME is not a primitive type.*/
 
 struct type *
@@ -594,7 +594,7 @@ lookup_primitive_typename (name)
 	   return (**p);
 	 }
      }
-   return (NULL); 
+   return (NULL);
 }
 
 /* Lookup a typedef or primitive type named NAME,
@@ -715,7 +715,7 @@ lookup_enum (name, block)
 {
   register struct symbol *sym;
 
-  sym = lookup_symbol (name, block, STRUCT_NAMESPACE, 0, 
+  sym = lookup_symbol (name, block, STRUCT_NAMESPACE, 0,
 		       (struct symtab **) NULL);
   if (sym == NULL)
     {
@@ -757,7 +757,7 @@ lookup_template_type (name, type, block)
   return (SYMBOL_TYPE (sym));
 }
 
-/* Given a type TYPE, lookup the type of the component of type named NAME.  
+/* Given a type TYPE, lookup the type of the component of type named NAME.
 
    TYPE can be either a struct or union, or a pointer or reference to a struct or
    union.  If it is a pointer or reference, its target type is automatically used.
@@ -834,7 +834,7 @@ lookup_struct_elt_type (type, name, noerr)
     {
       return NULL;
     }
-  
+
   target_terminal_ours ();
   gdb_flush (gdb_stdout);
   fprintf_unfiltered (gdb_stderr, "Type ");
@@ -918,7 +918,7 @@ get_destructor_fn_field (t, method_indexp, field_indexp)
    be a mistake, though--we might load in more symbols which contain a
    full definition for the type.
 
-   This used to be coded as a macro, but I don't think it is called 
+   This used to be coded as a macro, but I don't think it is called
    often enough to merit such treatment.  */
 
 struct complaint stub_noname_complaint =
@@ -951,7 +951,7 @@ check_typedef (type)
 	      complain (&stub_noname_complaint);
 	      return type;
 	    }
-	  sym = lookup_symbol (name, 0, STRUCT_NAMESPACE, 0, 
+	  sym = lookup_symbol (name, 0, STRUCT_NAMESPACE, 0,
 			       (struct symtab **) NULL);
 	  if (sym)
 	    TYPE_TARGET_TYPE (type) = SYMBOL_TYPE (sym);
@@ -974,7 +974,7 @@ check_typedef (type)
 	  complain (&stub_noname_complaint);
 	  return type;
 	}
-      sym = lookup_symbol (name, 0, STRUCT_NAMESPACE, 0, 
+      sym = lookup_symbol (name, 0, STRUCT_NAMESPACE, 0,
 			   (struct symtab **) NULL);
       if (sym)
 	{
@@ -1021,21 +1021,21 @@ check_typedef (type)
 #define INIT_EXTRA { pextras->len=0; pextras->str[0]='\0'; }
 #define ADD_EXTRA(c) { pextras->str[pextras->len++]=c; }
 
-static void 
-add_name(pextras,n) 
+static void
+add_name(pextras,n)
   struct extra * pextras;
-  char * n; 
+  char * n;
 {
   int nlen;
 
-  if ((nlen = (n ? strlen(n) : 0))==0) 
+  if ((nlen = (n ? strlen(n) : 0))==0)
     return;
   sprintf(pextras->str+pextras->len,"%d%s",nlen,n);
   pextras->len=strlen(pextras->str);
 }
 
-static void 
-add_mangled_type(pextras,t) 
+static void
+add_mangled_type(pextras,t)
   struct extra * pextras;
   struct type * t;
 {
@@ -1049,12 +1049,12 @@ add_mangled_type(pextras,t)
   tname = TYPE_NAME(t);
   /* args of "..." seem to get mangled as "e" */
 
-  switch (tcode) 
+  switch (tcode)
     {
-      case TYPE_CODE_INT: 
+      case TYPE_CODE_INT:
         if (tflags==1)
           ADD_EXTRA('U');
-        switch (tlen) 
+        switch (tlen)
           {
             case 1:
               ADD_EXTRA('c');
@@ -1062,7 +1062,7 @@ add_mangled_type(pextras,t)
             case 2:
               ADD_EXTRA('s');
               break;
-            case 4: 
+            case 4:
               {
               char* pname;
               if ((pname=strrchr(tname,'l'),pname) && !strcmp(pname,"long"))
@@ -1071,18 +1071,18 @@ add_mangled_type(pextras,t)
                 ADD_EXTRA('i')
               }
               break;
-            default: 
+            default:
               {
-          
+
                 static struct complaint msg = {"Bad int type code length x%x\n",0,0};
-          
+
                 complain (&msg, tlen);
-          
+
               }
           }
         break;
-      case TYPE_CODE_FLT: 
-          switch (tlen) 
+      case TYPE_CODE_FLT:
+          switch (tlen)
             {
               case 4:
                 ADD_EXTRA('f');
@@ -1093,7 +1093,7 @@ add_mangled_type(pextras,t)
               case 16:
                 ADD_EXTRA('r');
                 break;
-              default: 
+              default:
 	 	{
                   static struct complaint msg = {"Bad float type code length x%x\n",0,0};
           	  complain (&msg, tlen);
@@ -1108,7 +1108,7 @@ add_mangled_type(pextras,t)
         ADD_EXTRA('P');
         /* followed by what it's a ptr to */
         break;
-      case TYPE_CODE_TYPEDEF: 
+      case TYPE_CODE_TYPEDEF:
         {
           static struct complaint msg = {"Typedefs in overloaded functions not yet supported\n",0,0};
           complain (&msg);
@@ -1136,18 +1136,18 @@ add_mangled_type(pextras,t)
       break;
 
     /* errors possible types/not supported */
-    case TYPE_CODE_CHAR:              
+    case TYPE_CODE_CHAR:
     case TYPE_CODE_ARRAY:  /* Array type */
     case TYPE_CODE_MEMBER: /* Member type */
     case TYPE_CODE_BOOL:
     case TYPE_CODE_COMPLEX:            /* Complex float */
     case TYPE_CODE_UNDEF:
     case TYPE_CODE_SET:                /* Pascal sets */
-    case TYPE_CODE_RANGE:  
+    case TYPE_CODE_RANGE:
     case TYPE_CODE_STRING:
     case TYPE_CODE_BITSTRING:
     case TYPE_CODE_ERROR:
-    default: 
+    default:
       {
         static struct complaint msg = {"Unknown type code x%x\n",0,0};
         complain (&msg, tcode);
@@ -1169,9 +1169,9 @@ cfront_mangle_name(type, i, j)
 
    f = TYPE_FN_FIELDLIST1 (type, i);	/* moved from below */
 
-   /* kludge to support cfront methods - gdb expects to find "F" for 
+   /* kludge to support cfront methods - gdb expects to find "F" for
       ARM_mangled names, so when we mangle, we have to add it here */
-   if (ARM_DEMANGLING) 
+   if (ARM_DEMANGLING)
      {
 	int k;
 	char * arm_mangled_name;
@@ -1182,7 +1182,7 @@ cfront_mangle_name(type, i, j)
 
         struct type *ftype = TYPE_FN_FIELD_TYPE (f, j);
 	int nargs = TYPE_NFIELDS(ftype);	/* number of args */
-	struct extra extras, * pextras = &extras;	
+	struct extra extras, * pextras = &extras;
 	INIT_EXTRA
 
 	if (TYPE_FN_FIELD_STATIC_P (f, j))	/* j for sublist within this list */
@@ -1192,7 +1192,7 @@ cfront_mangle_name(type, i, j)
 	if (nargs <= 1)				/* no args besides this */
 		ADD_EXTRA('v')
 	else {
-	  for (k=1; k<nargs; k++) 
+	  for (k=1; k<nargs; k++)
 	    {
 	      struct type * t;
 	      t = TYPE_FIELD_TYPE(ftype,k);
@@ -1316,7 +1316,7 @@ check_stub_method (type, i, j)
 
   free (demangled_name);
 
-  f = TYPE_FN_FIELDLIST1 (type, i);	
+  f = TYPE_FN_FIELDLIST1 (type, i);
 
   TYPE_FN_FIELD_PHYSNAME (f, j) = mangled_name;
 
@@ -1418,7 +1418,7 @@ lookup_fundamental_type (objfile, typeid)
 
   /* If this is the first time we need a fundamental type for this objfile
      then we need to initialize the vector of type pointers. */
-  
+
   if (objfile -> fundamental_types == NULL)
     {
       nbytes = FT_NUM_MEMBERS * sizeof (struct type *);
@@ -1892,7 +1892,7 @@ _initialize_gdbtypes ()
     init_type (TYPE_CODE_INT, TARGET_LONG_LONG_BIT / TARGET_CHAR_BIT,
 	       0,
 	       "long long", (struct objfile *) NULL);
-  builtin_type_unsigned_long_long = 
+  builtin_type_unsigned_long_long =
     init_type (TYPE_CODE_INT, TARGET_LONG_LONG_BIT / TARGET_CHAR_BIT,
 	       TYPE_FLAG_UNSIGNED,
 	       "unsigned long long", (struct objfile *) NULL);

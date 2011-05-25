@@ -20,7 +20,7 @@ along with GLD; see the file COPYING.  If not, write to the Free
 Software Foundation, 59 Temple Place - Suite 330, Boston, MA
 02111-1307, USA.  */
 
-/* 
+/*
  * emulate the Intels port of  gld
  */
 
@@ -134,7 +134,7 @@ $s/$/n"/
 '
 
 cat >>e${EMULATION_NAME}.c <<EOF
-{			     
+{
   *isfile = 0;
 
   if (link_info.relocateable == true && config.build_constructors == true)
@@ -154,7 +154,7 @@ else
 # Scripts read from the filesystem.
 
 cat >>e${EMULATION_NAME}.c <<EOF
-{			     
+{
   *isfile = 1;
 
   if (link_info.relocateable == true && config.build_constructors == true)
@@ -174,7 +174,7 @@ fi
 
 cat >>e${EMULATION_NAME}.c <<EOF
 
-struct ld_emulation_xfer_struct ld_gld960coff_emulation = 
+struct ld_emulation_xfer_struct ld_gld960coff_emulation =
 {
   gld960_before_parse,
   syslib_default,

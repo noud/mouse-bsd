@@ -139,7 +139,7 @@ cdev_decl(lpt);
 	dev_init(c,n,write), dev_init(c,n,ioctl), (dev_type_stop((*)))enodev, \
 	0, seltrue, (dev_type_mmap((*))) enodev, 0}
 
-#include "ipfilter.h" 
+#include "ipfilter.h"
 #include "rnd.h"
 
 #include "scsibus.h"
@@ -275,7 +275,7 @@ chrtoblk(dev)
 {
 	int blkmaj;
 
-	if (major(dev) >= nchrdev 
+	if (major(dev) >= nchrdev
 	  || major(dev) >= (sizeof(chrtoblktbl) / sizeof(chrtoblktbl[0])))
 		return (NODEV);
 	blkmaj = chrtoblktbl[major(dev)];

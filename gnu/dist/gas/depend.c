@@ -118,7 +118,7 @@ quote_string_for_make (file, src)
 	    putc ('\\', file);
 	  i++;
 	  goto ordinary_char;
-	  
+
 	case '$':
 	  if (file)
 	    putc (c, file);

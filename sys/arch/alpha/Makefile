@@ -13,7 +13,7 @@ DALPHA=	tc include
 .include "../../kern/Make.tags.inc"
 
 tags:
-	-ctags -wdtf ${TALPHA} ${SALPHA} ${COMM} 
+	-ctags -wdtf ${TALPHA} ${SALPHA} ${COMM}
 	egrep "^ENTRY(.*)|^ALTENTRY(.*)" ${AALPHA} | \
 	    sed "s;\([^:]*\):\([^(]*\)(\([^, )]*\)\(.*\);\3 \1 /^\2(\3\4$$/;" \
 	    >> ${TALPHA}

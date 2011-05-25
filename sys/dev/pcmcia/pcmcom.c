@@ -52,7 +52,7 @@
 
 #include <sys/param.h>
 #include <sys/systm.h>
-#include <sys/device.h> 
+#include <sys/device.h>
 #include <sys/termios.h>
 #include <sys/malloc.h>
 
@@ -60,7 +60,7 @@
 #include <machine/intr.h>
 
 #include <dev/ic/comreg.h>
-#include <dev/ic/comvar.h> 
+#include <dev/ic/comvar.h>
 
 #include <dev/pcmcia/pcmciavar.h>
 #include <dev/pcmcia/pcmciareg.h>

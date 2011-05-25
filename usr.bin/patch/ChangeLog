@@ -240,7 +240,7 @@ Mon Jan  7 06:25:11 1991  David J. MacKenzie  (djm at geech.ai.mit.edu)
 Mon Dec  3 00:14:25 1990  David J. MacKenzie  (djm at albert.ai.mit.edu)
 
 	* patch.c (get_some_switches): Make the usage message more
-	informative. 
+	informative.
 
 Sun Dec  2 23:20:18 1990  David J. MacKenzie  (djm at albert.ai.mit.edu)
 

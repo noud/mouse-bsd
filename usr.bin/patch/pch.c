@@ -97,7 +97,7 @@ void
 grow_hunkmax()
 {
     hunkmax *= 2;
-    /* 
+    /*
      * Note that on most systems, only the p_line array ever gets fresh memory
      * since p_len can move into p_line's old space, and p_char can move into
      * p_len's old space.  Not on PDP-11's however.  But it doesn't matter.
@@ -235,10 +235,10 @@ intuit_diff_type()
 	    else
 		indent++;
 	}
-	for (t=s; isdigit((unsigned char)*t) || *t == ','; t++) ; 
+	for (t=s; isdigit((unsigned char)*t) || *t == ','; t++) ;
 	this_is_a_command = (isdigit((unsigned char)*s) &&
 	  (*t == 'd' || *t == 'c' || *t == 'a') );
-	if (first_command_line < 0L && this_is_a_command) { 
+	if (first_command_line < 0L && this_is_a_command) {
 	    first_command_line = this_line;
 	    fcl_line = p_input_line;
 	    p_indent = indent;		/* assume this for now */
@@ -294,7 +294,7 @@ intuit_diff_type()
 	    retval = (*(s-1) == '*' ? NEW_CONTEXT_DIFF : CONTEXT_DIFF);
 	    goto scan_exit;
 	}
-	if ((!diff_type || diff_type == NORMAL_DIFF) && 
+	if ((!diff_type || diff_type == NORMAL_DIFF) &&
 	  last_line_was_command &&
 	  (strnEQ(s, "< ", 2) || strnEQ(s, "> ", 2)) ) {
 	    p_start = previous_line;
@@ -668,19 +668,19 @@ another_hunk()
 	    else
 		p_len[p_end] = 0;
 	}
-	
+
     hunk_done:
 	if (p_end >=0 && !repl_beginning)
 	    fatal2("no --- found in patch at line %ld\n", pch_hunk_beg());
 
 	if (repl_missing) {
-	    
+
 	    /* reset state back to just after --- */
 	    p_input_line = repl_patch_line;
 	    for (p_end--; p_end > repl_beginning; p_end--)
 		free(p_line[p_end]);
 	    Fseek(pfp, repl_backtrack_position, 0);
-	    
+
 	    /* redundant 'new' context lines were omitted - set */
 	    /* up to fill them in from the old file context */
 	    if (!p_context && p_repl_lines == 1) {
@@ -719,7 +719,7 @@ another_hunk()
 "the new style...)");
 	    diff_type = NEW_CONTEXT_DIFF;
 	}
-	
+
 	/* if there were omitted context lines, fill them in now */
 	if (fillcnt) {
 	    p_bfake = filldst;		/* remember where not to free() */
@@ -1051,7 +1051,7 @@ pch_swap()
     i = p_first;
     p_first = p_newfirst;
     p_newfirst = i;
-    
+
     /* make a scratch copy */
 
     tp_line = p_line;

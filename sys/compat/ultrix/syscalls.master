@@ -269,7 +269,7 @@
 			    int len); }
 166	NOARGS		{ int compat_09_sys_setdomainname(char *domainname, \
 			    int len); }
-167	UNIMPL 
+167	UNIMPL
 168	STD		{ int ultrix_sys_quotactl(int cmd, char *special, \
 			    int uid, caddr_t addr); }
 169	STD		{ int ultrix_sys_exportfs(char *path, char *ex); }

@@ -85,7 +85,7 @@ static usbd_status	usb_block_allocmem __P((bus_dma_tag_t, size_t, size_t,
 						usb_dma_block_t **));
 static void		usb_block_freemem  __P((usb_dma_block_t *));
 
-static LIST_HEAD(, usb_dma_block) usb_blk_freelist = 
+static LIST_HEAD(, usb_dma_block) usb_blk_freelist =
 	LIST_HEAD_INITIALIZER(usb_blk_freelist);
 /* XXX should have different free list for different tags (for speed) */
 static LIST_HEAD(, usb_frag_dma) usb_frag_freelist =
@@ -102,7 +102,7 @@ usb_block_allocmem(tag, size, align, dmap)
         usb_dma_block_t *p;
 	int s;
 
-	DPRINTFN(5, ("usb_block_allocmem: size=%lu align=%lu\n", 
+	DPRINTFN(5, ("usb_block_allocmem: size=%lu align=%lu\n",
 		     (u_long)size, (u_long)align));
 
 #ifdef DIAGNOSTIC
@@ -148,7 +148,7 @@ usb_block_allocmem(tag, size, align, dmap)
 	if (error)
 		return (USBD_NOMEM);
 
-	error = bus_dmamem_map(tag, p->segs, p->nsegs, p->size, 
+	error = bus_dmamem_map(tag, p->segs, p->nsegs, p->size,
 			       &p->kaddr, BUS_DMA_NOWAIT|BUS_DMA_COHERENT);
 	if (error)
 		goto free;
@@ -158,7 +158,7 @@ usb_block_allocmem(tag, size, align, dmap)
 	if (error)
 		goto unmap;
 
-	error = bus_dmamap_load(tag, p->map, p->kaddr, p->size, NULL, 
+	error = bus_dmamap_load(tag, p->map, p->kaddr, p->size, NULL,
 				BUS_DMA_NOWAIT);
 	if (error)
 		goto destroy;
@@ -234,7 +234,7 @@ usb_allocmem(bus, size, align, p)
 		}
 		return (err);
 	}
-	
+
 	s = splusb();
 	/* Check for free fragments. */
 	for (f = LIST_FIRST(&usb_frag_freelist); f; f = LIST_NEXT(f, next))

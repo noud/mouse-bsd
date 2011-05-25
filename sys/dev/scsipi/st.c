@@ -247,7 +247,7 @@ struct st_quirk_inquiry_pattern st_quirk_patterns[] = {
 		{0, 0, 0}				/* minor 12-15 */
 	}}},
 	{{T_SEQUENTIAL, T_REMOV,
-	 "STK",      "9490",             ""},    
+	 "STK",      "9490",             ""},
 				{ST_Q_FORCE_BLKSIZE, 0, {
 		{0, 0, 0},				/* minor 0-3 */
 		{0, 0, 0},				/* minor 4-7 */
@@ -683,7 +683,7 @@ stopen(dev, flags, mode, p)
 		if (slpintr) {
 			goto bad;
 		}
-	} 
+	}
 
 
 	/*
@@ -807,7 +807,7 @@ stclose(dev, flags, mode, p)
 			 *	operation a write?
 			 *
 			 *	Are there supposed to be 2FM at EOD?
-			 *	
+			 *
 			 * If both statements are true, then we backspace
 			 * one filemark.
 			 */
@@ -1231,7 +1231,7 @@ ststart(v)
 		}
 		/*
 		 * If we are at EOM but have not reported it
-		 * yet then we should report it now. 
+		 * yet then we should report it now.
 		 */
 		if (st->flags & (ST_EOM_PENDING|ST_EIO_PENDING)) {
 			bp->b_resid = bp->b_bcount;
@@ -1802,7 +1802,7 @@ st_cmprss(st, onoff)
 again:
 	bzero(&scsi_pdata, scsi_dlen);
 	error = scsipi_command(sc_link,
-	    (struct scsipi_generic *)&scmd, sizeof(scmd), 
+	    (struct scsipi_generic *)&scmd, sizeof(scmd),
 	    (u_char *)&scsi_pdata, scsi_dlen,
 	    ST_RETRIES, ST_CTL_TIME, NULL, flags | XS_CTL_DATA_IN);
 
@@ -2442,7 +2442,7 @@ st_interpret_sense(xs)
 		xs->sc_link->sc_print_addr(xs->sc_link);
 		printf("Sense Key 0x%02x", key);
 		if ((sense->error_code & SSD_ERRCODE_VALID) != 0) {
-			switch (key) { 
+			switch (key) {
 			case SKEY_NOT_READY:
 			case SKEY_ILLEGAL_REQUEST:
 			case SKEY_UNIT_ATTENTION:
@@ -2450,7 +2450,7 @@ st_interpret_sense(xs)
 				break;
 			case SKEY_BLANK_CHECK:
 				printf(", requested size: %d (decimal)", info);
-				break; 
+				break;
 			case SKEY_ABORTED_COMMAND:
 				if (xs->retries)
 					printf(", retrying");
@@ -2460,13 +2460,13 @@ st_interpret_sense(xs)
 			default:
 				printf(", info = %d (decimal)", info);
 			}
-		} 
+		}
 		if (sense->extra_len != 0) {
-			int n; 
-			printf(", data ="); 
+			int n;
+			printf(", data =");
 			for (n = 0; n < sense->extra_len; n++)
 				printf(" %02x", sense->cmd_spec_info[n]);
-		} 
+		}
 		printf("\n");
 	}
 #endif

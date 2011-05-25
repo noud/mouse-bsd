@@ -74,7 +74,7 @@ load_user(crontab_fd, pw, name)
 	u->name = strdup(name);
 	u->crontab = NULL;
 
-	/* 
+	/*
 	 * init environment.  this will be copied/augmented for each entry.
 	 */
 	envp = env_init();

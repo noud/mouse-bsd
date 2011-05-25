@@ -43,17 +43,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -146,10 +146,10 @@ pci_1000_pickintr(core, iot, memt, pc)
 	set_iointr(dec_1000_iointr);
 }
 
-int     
+int
 dec_1000_intr_map(ccv, bustag, buspin, line, ihp)
         void *ccv;
-        pcitag_t bustag; 
+        pcitag_t bustag;
         int buspin, line;
         pci_intr_handle_t *ihp;
 {
@@ -200,7 +200,7 @@ dec_1000_intr_establish(ccv, ih, level, func, arg)
         pci_intr_handle_t ih;
         int level;
         int (*func) __P((void *));
-{           
+{
 	void *cookie;
 
         if (ih >= INTRCNT_DEC_1000_IRQ_LEN)
@@ -215,7 +215,7 @@ dec_1000_intr_establish(ccv, ih, level, func, arg)
 	return (cookie);
 }
 
-void    
+void
 dec_1000_intr_disestablish(ccv, cookie)
         void *ccv, *cookie;
 {
@@ -262,7 +262,7 @@ dec_1000_iointr(framep, vec)
 	if (vec >= 0x800) {
 		sio_iointr(framep, vec);
 		return;
-	} 
+	}
 #endif
 	panic("dec_1000_iointr: weird vec 0x%lx\n", vec);
 }

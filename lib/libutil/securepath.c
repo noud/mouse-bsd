@@ -33,7 +33,7 @@
  *
  *	BSDI login_cap.c,v 2.13 1998/02/07 03:17:05 prb Exp
  */
- 
+
 
 #include <sys/types.h>
 #include <sys/stat.h>

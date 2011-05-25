@@ -144,7 +144,7 @@ mbpr(mbaddr, msizeaddr, mclbaddr, mbpooladdr, mclpooladdr)
 	       ((u_long)mclpool.pr_npages * mclpool.pr_itemsperpage));
 	totmem = (mbpool.pr_npages << mbpool.pr_pageshift) +
 	    (mclpool.pr_npages << mclpool.pr_pageshift);
-	totused = (mbpool.pr_nget - mbpool.pr_nput) * mbpool.pr_size + 
+	totused = (mbpool.pr_nget - mbpool.pr_nput) * mbpool.pr_size +
 	    (mclpool.pr_nget - mclpool.pr_nput) * mclpool.pr_size;
 	totpct = (totmem == 0)? 0 : ((totused * 100)/totmem);
 	printf("%u Kbytes allocated to network (%d%% in use)\n",

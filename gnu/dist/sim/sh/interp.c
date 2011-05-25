@@ -70,7 +70,7 @@
 #define PC pc
 #define C cycles
 
-int 
+int
 fail ()
 {
   abort ();
@@ -174,7 +174,7 @@ typedef union
 } saved_state_type;
 saved_state_type saved_state;
 
-static void INLINE 
+static void INLINE
 wlat_little (memory, x, value, maskl)
      unsigned char *memory;
 {
@@ -187,7 +187,7 @@ wlat_little (memory, x, value, maskl)
   p[0] = v;
 }
 
-static void INLINE 
+static void INLINE
 wwat_little (memory, x, value, maskw)
      unsigned char *memory;
 {
@@ -200,7 +200,7 @@ wwat_little (memory, x, value, maskw)
 }
 
 
-static void INLINE 
+static void INLINE
 wbat_any (memory, x, value, maskb)
      unsigned char *memory;
 {
@@ -214,7 +214,7 @@ wbat_any (memory, x, value, maskb)
 
 
 
-static void INLINE 
+static void INLINE
 wlat_big (memory, x, value, maskl)
      unsigned char *memory;
 {
@@ -228,7 +228,7 @@ wlat_big (memory, x, value, maskl)
   p[3] = v;
 }
 
-static void INLINE 
+static void INLINE
 wwat_big (memory, x, value, maskw)
      unsigned char *memory;
 {
@@ -241,7 +241,7 @@ wwat_big (memory, x, value, maskw)
 }
 
 
-static void INLINE 
+static void INLINE
 wbat_big (memory, x, value, maskb)
      unsigned char *memory;
 {
@@ -256,7 +256,7 @@ wbat_big (memory, x, value, maskb)
 
 
 /* Read functions */
-static int INLINE 
+static int INLINE
 rlat_little (memory, x, maskl)
      unsigned char *memory;
 {
@@ -267,7 +267,7 @@ rlat_little (memory, x, maskl)
 
 }
 
-static int INLINE 
+static int INLINE
 rwat_little (memory, x, maskw)
      unsigned char *memory;
 {
@@ -277,7 +277,7 @@ rwat_little (memory, x, maskw)
   return (p[1] << 8) | p[0];
 }
 
-static int INLINE 
+static int INLINE
 rbat_any (memory, x, maskb)
      unsigned char *memory;
 {
@@ -287,7 +287,7 @@ rbat_any (memory, x, maskb)
   return p[0];
 }
 
-static int INLINE 
+static int INLINE
 rlat_big (memory, x, maskl)
      unsigned char *memory;
 {
@@ -298,7 +298,7 @@ rlat_big (memory, x, maskl)
 
 }
 
-static int INLINE 
+static int INLINE
 rwat_big (memory, x, maskw)
      unsigned char *memory;
 {
@@ -527,7 +527,7 @@ trap (i, regs, memory, maskl, maskw, little_endian)
 	    regs[0] = callback->open (callback,ptr (regs[5]), regs[6]);
 	    break;
 	  case SYS_exit:
-	    /* EXIT - caller can look in r5 to work out the 
+	    /* EXIT - caller can look in r5 to work out the
 	       reason */
 	    saved_state.asregs.exception = SIGQUIT;
 	    break;
@@ -731,7 +731,7 @@ dmul (sign, rm, rn)
   if (Res0 < temp0)
     Res2 += 1;
   Res2 += ((Res1 >> 16) & 0xffff) + temp3;
-  
+
   if (sign)
     {
       if (rn & 0x80000000)
@@ -974,8 +974,8 @@ sim_resume (step, siggnal)
 	  if (kbhit()) {
 	    int k = getkey();
 	    if (k == 1)
-	      saved_state.asregs.exception = SIGINT;	    
-	    
+	      saved_state.asregs.exception = SIGINT;
+
 	  }
 	}
 #endif
@@ -1132,8 +1132,8 @@ sim_info (verbose)
   double timetaken = (double) saved_state.asregs.ticks / (double) now_persec ();
   double virttime = saved_state.asregs.cycles / 36.0e6;
 
-  callback->printf_filtered (callback, 
-			      "\n\n# instructions executed  %10d\n", 
+  callback->printf_filtered (callback,
+			      "\n\n# instructions executed  %10d\n",
 			      saved_state.asregs.insts);
   callback->  printf_filtered (callback, "# cycles                 %10d\n", saved_state.asregs.cycles);
   callback->  printf_filtered (callback, "# pipeline stalls        %10d\n", saved_state.asregs.stalls);
@@ -1146,9 +1146,9 @@ sim_info (verbose)
 
   if (timetaken != 0)
     {
-      callback->printf_filtered (callback, "# cycles/second          %10d\n", 
+      callback->printf_filtered (callback, "# cycles/second          %10d\n",
 				 (int) (saved_state.asregs.cycles / timetaken));
-      callback->printf_filtered (callback, "# simulation ratio       %10.4f\n", 
+      callback->printf_filtered (callback, "# simulation ratio       %10.4f\n",
 				 virttime / timetaken);
     }
 }

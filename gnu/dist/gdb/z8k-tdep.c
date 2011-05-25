@@ -293,7 +293,7 @@ frame_find_saved_regs (fip, fsrp)
 int
 saved_pc_after_call ()
 {
-  return addr_bits_remove 
+  return addr_bits_remove
     (read_memory_integer (read_register (SP_REGNUM), PTR_SIZE));
 }
 

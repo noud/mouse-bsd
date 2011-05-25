@@ -10,19 +10,19 @@
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice in the documentation and/or other materials provided with 
+ *    notice in the documentation and/or other materials provided with
  *    the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
- * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN 
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -233,7 +233,7 @@ init_cmds()
 }
 
 /*
- * 
+ *
  */
 	static int
 add_cmd_table(tlist, buf, len)
@@ -246,10 +246,10 @@ add_cmd_table(tlist, buf, len)
 	if (len == 0)
 		return (0);
 	/*
-	 * Allocate a tablelist structure, initialize it, 
+	 * Allocate a tablelist structure, initialize it,
 	 * and link it into the list of tables.
 	 */
-	if ((t = (struct tablelist *) 
+	if ((t = (struct tablelist *)
 			calloc(1, sizeof(struct tablelist))) == NULL)
 	{
 		return (-1);
@@ -365,7 +365,7 @@ cmd_search(cmd, table, endtable, sp)
 			if (*p == '\0' && p[1] == A_END_LIST)
 			{
 				/*
-				 * A_END_LIST is a special marker that tells 
+				 * A_END_LIST is a special marker that tells
 				 * us to abort the cmd search.
 				 */
 				return (A_UINVALID);
@@ -450,7 +450,7 @@ lgetenv(var)
 #if USERFILE
 /*
  * Get an "integer" from a lesskey file.
- * Integers are stored in a funny format: 
+ * Integers are stored in a funny format:
  * two bytes, low order first, in radix KRADIX.
  */
 	static int
@@ -474,7 +474,7 @@ old_lesskey(buf, len)
 {
 	/*
 	 * Old-style lesskey file.
-	 * The file must end with either 
+	 * The file must end with either
 	 *     ...,cmd,0,action
 	 * or  ...,cmd,0,action|A_EXTRA,string,0
 	 * So the last byte or the second to last byte must be zero.
@@ -485,7 +485,7 @@ old_lesskey(buf, len)
 	return (0);
 }
 
-/* 
+/*
  * Process a new (post-v241) lesskey file.
  */
 	static int
@@ -642,7 +642,7 @@ editchar(c, flags)
 	int nch;
 	char *s;
 	char usercmd[MAX_CMDLEN+1];
-	
+
 	/*
 	 * An editing character could actually be a sequence of characters;
 	 * for example, an escape sequence sent by pressing the uparrow key.
@@ -654,7 +654,7 @@ editchar(c, flags)
 		return (EC_BACKSPACE);
 	if (c == kill_char)
 		return (EC_LINEKILL);
-		
+
 	/*
 	 * Collect characters in a buffer.
 	 * Start with the one we have, and get more if we need them.
@@ -668,9 +668,9 @@ editchar(c, flags)
 		nch++;
 		action = ecmd_decode(usercmd, &s);
 	} while (action == A_PREFIX);
-	
+
 #if CMD_HISTORY
-	if (flags & EC_NOHISTORY) 
+	if (flags & EC_NOHISTORY)
 	{
 		/*
 		 * The caller says there is no history list.
@@ -686,7 +686,7 @@ editchar(c, flags)
 	}
 #endif
 #if TAB_COMPLETE_FILENAME
-	if (flags & EC_NOCOMPLETE) 
+	if (flags & EC_NOCOMPLETE)
 	{
 		/*
 		 * The caller says we don't want any filename completion cmds.
@@ -707,10 +707,10 @@ editchar(c, flags)
 		/*
 		 * We're just peeking, or we didn't understand the command.
 		 * Unget all the characters we read in the loop above.
-		 * This does NOT include the original character that was 
+		 * This does NOT include the original character that was
 		 * passed in as a parameter.
 		 */
-		while (nch > 1) 
+		while (nch > 1)
 		{
 			ungetcc(usercmd[--nch]);
 		}

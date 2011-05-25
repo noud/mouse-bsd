@@ -1167,7 +1167,7 @@ pccnpollc(dev, on)
 		}
 	}
 #endif
-}	
+}
 
 /*
  * Set line parameters.
@@ -1292,7 +1292,7 @@ sput(cp, n)
 		switch (c) {
 		case 0x1B:
 			if (vs.state >= VSS_ESCAPE) {
-				wrtchar(c, vs.so_at); 
+				wrtchar(c, vs.so_at);
 				vs.state = 0;
 				goto maybe_scroll;
 			} else
@@ -1347,7 +1347,7 @@ sput(cp, n)
 					 */
 					for (;;) {
 #ifdef DISPLAY_ISO8859
-				               if (c & 0x80) 
+				               if (c & 0x80)
 						        c = iso2ibm437[c&0x7f];
 #endif
 						if (vs.so)
@@ -1376,7 +1376,7 @@ sput(cp, n)
 					vs.col = 0;
 					vs.state = 0;
 				} else { /* Invalid, clear state */
-					wrtchar(c, vs.so_at); 
+					wrtchar(c, vs.so_at);
 					vs.state = 0;
 					goto maybe_scroll;
 				}
@@ -1413,7 +1413,7 @@ sput(cp, n)
 						cx %= vs.nrow;
 					pos = crtat - Crtat;
 					pos += vs.ncol * cx;
-					if (pos >= vs.nchr) 
+					if (pos >= vs.nchr)
 						pos -= vs.nchr;
 					crtat = Crtat + pos;
 					vs.state = 0;
@@ -1461,7 +1461,7 @@ sput(cp, n)
 					switch (vs.cx) {
 					case 0:
 						/* ... to end of display */
-						fillw((vs.at << 8) | ' ', 
+						fillw((vs.at << 8) | ' ',
 						    crtat,
 						    Crtat + vs.nchr - crtat);
 						break;
@@ -1571,7 +1571,7 @@ sput(cp, n)
 						    crtAt,
 						    vs.ncol * (nrow - cx) *
 						    CHR);
-					fillw((vs.at << 8) | ' ', 
+					fillw((vs.at << 8) | ' ',
 					    crtAt, vs.ncol * cx);
 					vs.state = 0;
 					break;
@@ -1587,7 +1587,7 @@ sput(cp, n)
 						    Crtat,
 						    vs.ncol * (vs.nrow - cx) *
 						    CHR);
-					fillw((vs.at << 8) | ' ', 
+					fillw((vs.at << 8) | ' ',
 					    Crtat, vs.ncol * cx);
 #if 0
 					crtat += vs.ncol * cx; /* XXX */
@@ -1630,7 +1630,7 @@ sput(cp, n)
 					}
 					vs.state = 0;
 					break;
-					
+
 				default: /* Only numbers valid here */
 					if ((c >= '0') && (c <= '9')) {
 						if (vs.state >= VSS_EPARAM) {
@@ -2359,7 +2359,7 @@ static Scan_def	scan_codes[] = {
 	{ NONE,	"",		"",		"",	"" },	/* 126 */
 	{ NONE,	"",		"",		"",	"" },	/* 127 */
 };
-#endif 
+#endif
 
 /*
  * XXXX Add tables for other keyboards here
@@ -2501,10 +2501,10 @@ strans(dt)
 			break;
 		case ALT:
 #ifdef NONUS_KBD
-			if (extended) 
+			if (extended)
 			        shift_state &= ~ALTGR;
 			else
-#endif		     
+#endif
 			shift_state &= ~ALT;
 			break;
 		case CTL:
@@ -2559,7 +2559,7 @@ strans(dt)
 			break;
 		case ALT:
 #ifdef NONUS_KBD
-			if (extended)  
+			if (extended)
 			        shift_state |= ALTGR;
 			else
 #endif
@@ -2572,7 +2572,7 @@ strans(dt)
 #ifdef NONUS_KBD
 			if (shift_state & ALTGR) {
 			        capchar[0] = scan_codes[dt].altgr[0];
-				if (shift_state & CTL) 
+				if (shift_state & CTL)
 				        capchar[0] &= 0x1f;
 			} else
 #endif

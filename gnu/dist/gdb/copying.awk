@@ -26,7 +26,7 @@ NR == 1,/^[ 	]*NO WARRANTY[ 	]*$/	{
 	    {
 	      printf "  printf_filtered (\"\\n\");\n";
 	    }
-	  else if ($0 !~ /^[ 	]*NO WARRANTY[ 	]*$/) 
+	  else if ($0 !~ /^[ 	]*NO WARRANTY[ 	]*$/)
 	    {
 	      printf "  printf_filtered (\"";
 	      for (i = 1; i < NF; i++)
@@ -45,8 +45,8 @@ NR == 1,/^[ 	]*NO WARRANTY[ 	]*$/	{
 	  print "{";
 	  print "  immediate_quit++;";
 	}
-/^[ 	]*NO WARRANTY[ 	]*$/, /^[ 	]*END OF TERMS AND CONDITIONS[ 	]*$/{  
-	  if (! ($0 ~ /^[ 	]*END OF TERMS AND CONDITIONS[ 	]*$/)) 
+/^[ 	]*NO WARRANTY[ 	]*$/, /^[ 	]*END OF TERMS AND CONDITIONS[ 	]*$/{
+	  if (! ($0 ~ /^[ 	]*END OF TERMS AND CONDITIONS[ 	]*$/))
 	    {
 	      printf "  printf_filtered (\"";
 	      for (i = 1; i < NF; i++)

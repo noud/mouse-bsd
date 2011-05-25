@@ -113,14 +113,14 @@ struct tftphr {
 int last_ack;
 char buf[N];
 struct ether_header *eh = (struct ether_header *)buf;
-struct ether_arp *rarp = 
+struct ether_arp *rarp =
   (struct ether_arp *)(buf + sizeof(struct ether_header));
 struct ip *iph = (struct ip *)(buf + sizeof(struct ether_header));
-struct udp *udph = (struct udp *)(buf + sizeof(struct ether_header) + 
+struct udp *udph = (struct udp *)(buf + sizeof(struct ether_header) +
   sizeof(struct ip));
-char *tftp_r = buf + sizeof(struct ether_header) + sizeof(struct ip) + 
+char *tftp_r = buf + sizeof(struct ether_header) + sizeof(struct ip) +
   sizeof(struct udp);
-struct tftph *tftp_a = (struct tftph *)(buf + sizeof(struct ether_header) + 
+struct tftph *tftp_a = (struct tftph *)(buf + sizeof(struct ether_header) +
   sizeof(struct ip) + sizeof(struct udp));
-struct tftphr *tftp = (struct tftphr *)(buf + sizeof(struct ether_header) + 
+struct tftphr *tftp = (struct tftphr *)(buf + sizeof(struct ether_header) +
   sizeof(struct ip) + sizeof(struct udp));

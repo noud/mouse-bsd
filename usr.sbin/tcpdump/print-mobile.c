@@ -94,7 +94,7 @@ mobile_print(const u_char *bp, u_int length)
 		osp=1;
 		cp +=4 ;
 	}
-	
+
 	if (osp)  {
 		fputs("[S] ",stdout);
 		if (vflag)
@@ -115,21 +115,21 @@ mobile_print(const u_char *bp, u_int length)
 
 static u_int16_t mob_in_cksum(u_short *p, int len)
 {
-	u_int32_t sum = 0; 
+	u_int32_t sum = 0;
 	int nwords = len >> 1;
-  
+
 	while (nwords-- != 0)
 		sum += *p++;
-  
+
 	if (len & 1) {
 		union {
 			u_int16_t w;
-			u_int32_t c[2]; 
+			u_int32_t c[2];
 		} u;
 		u.c[0] = *(u_char *)p;
 		u.c[1] = 0;
 		sum += u.w;
-	} 
+	}
 
 	/* end-around-carry */
 	sum = (sum >> 16) + (sum & 0xffff);

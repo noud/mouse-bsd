@@ -63,7 +63,7 @@ This info file documents libgdb: an API for GDB, the GNU symbolic debugger.
                                 Command Interpreter .
 * I/O::                      How the Server's I/O Can be Used.
 * Invoking::                 Invoking the Interpreter, Executing
-                                Commands. 
+                                Commands.
 * Defining Commands::        How New Commands are Created.
 * Variables::                How Builtin Variables are Defined.
 * Asynchronous::             Scheduling Asynchronous Computations.
@@ -232,12 +232,12 @@ perform operations associated with these resources.
 
 @heading Breakpoint Commands
 
-Breakpoint commands are scripts of GDB operations associated with 
+Breakpoint commands are scripts of GDB operations associated with
 particular breakpoints.  When a breakpoint is reached, its associated
 commands are executed.
 
 Breakpoint commands are invoked by the libgdb function
-@code{gdb_finish_top_loop}.  
+@code{gdb_finish_top_loop}.
 
 Notice that if control returns to the top-level error handler, the
 execution of breakpoint commands is bypassed.  This can happen as a
@@ -309,7 +309,7 @@ that if a name is used twice, the most recent definition applies.
 
 @subheading Output
 
-An output vector is a structure with at least these fields: 
+An output vector is a structure with at least these fields:
 
 @example
 struct gdb_output_vector
@@ -329,7 +329,7 @@ messages (such as the notification printed when a breakpoint is hit),
 and the output specifically requested by a command (for example, the
 value printed by the ``print'' command).  At any given time, then,
 libgdb has three output vectors.  These are called the @dfn{error},
-@dfn{info}, @dfn{value} vector respectively.  
+@dfn{info}, @dfn{value} vector respectively.
 
 @subheading Input
 
@@ -405,7 +405,7 @@ It is explained in a later chapter how to redirect output temporarily.
 
 A libgdb application creates input and output vectors and assigns them names.
 Which input and output vectors are used by libgdb is established by
-executing these debugger commands: 
+executing these debugger commands:
 
 @defun {set input-vector} name
 @defunx {set error-output-vector} name
@@ -433,7 +433,7 @@ within the command definition in which it occurs.
 
 When libgdb is initialized, a set of default I/O vectors is put in
 place.  The default vectors are called @code{default-input-vector},
-@code{default-output-vector}, &c.  
+@code{default-output-vector}, &c.
 
 The default query function always returns `y'.  Other input functions
 always abort.  The default output functions discard output silently.
@@ -445,7 +445,7 @@ always abort.  The default output functions discard output silently.
 @cindex {invoking the interpreter}
 
 This section introduces the libgdb functions which invoke the command
-interpreter. 
+interpreter.
 
 @deftypefun void gdb_execute_command (@var{command})
 @example
@@ -459,7 +459,7 @@ It is possible to override the current I/O vectors for the duration of a
 single command:
 
 @deftypefun void gdb_execute_with_io (@var{command}, @var{vecs})
-@example 
+@example
 char * @var{command};
 struct gdb_io_vecs * @var{vecs};
 
@@ -500,7 +500,7 @@ struct gdb_str_output
 Execute @var{cmd}, collecting its output as strings.  If no error
 occurs, all three strings will be present in the structure, the
 empty-string rather than NULL standing for no output of a particular
-kind. 
+kind.
 
 If the command aborts with an error, then the @code{value} field will be
 NULL, though the other two strings will be present.
@@ -545,7 +545,7 @@ This form of execute_command is useful for commands like @code{define},
 
 Applications are, of course, free to take advantage of the existing GDB
 macro definition capability (the @code{define} and @code{document}
-functions).  
+functions).
 
 In addition, an application can add new primitives to the GDB command
 language.
@@ -639,7 +639,7 @@ and that control be returned to the top-level via an error.
 
 The quit is not immediate.  It will not occur until at least after the
 application's poll function returns.
-@end deftypefun 
+@end deftypefun
 
 @node Commands, Top, Asynchronous, Top
 @comment  node-name,  next,  previous,  up
@@ -763,7 +763,7 @@ By default, breakpoints are assigned a priority of zero.
 
 When GDB prints a the value of an expression, the printed representation
 contains information that can be usefully fed back into future commands
-and expressions.  For example, 
+and expressions.  For example,
 
 @example
 (gdb) print foo
@@ -821,7 +821,7 @@ source languages and other new capabilities, new property types may be
 added to the output of this command.  Future commands may offer
 applications some selectivity concerning which properties are reported.
 
-The initial set of properties defined includes: 
+The initial set of properties defined includes:
 
 @itemize @bullet
 @item @code{expression}
@@ -872,7 +872,7 @@ in an earlier example of this section.
      "@}\n"))
 @end example
 
-It is undefined how libgdb will indent these lines of output or 
+It is undefined how libgdb will indent these lines of output or
 where newlines will be included.
 
 @bye

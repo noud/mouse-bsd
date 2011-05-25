@@ -522,8 +522,8 @@ findbootdev()
 	if (scsiboot) {
 		findbootdev_slave(&dev_data_list_scsi, ctlr,
 		     slave, punit);
-		if (booted_device == NULL)  
-			return; 
+		if (booted_device == NULL)
+			return;
 
 		/*
 		 * Sanity check.
@@ -532,7 +532,7 @@ findbootdev()
 			printf("WARNING: boot device/type mismatch!\n");
 			printf("device = %s, type = %d\n",
 			    booted_device->dv_xname, type);
-			booted_device = NULL; 
+			booted_device = NULL;
 		}
 		goto out;
 	}
@@ -676,7 +676,7 @@ setbootdev()
 		 * "sd" -> "oscsi"
 		 */
 		for (cdd = dev_data_list_scsi.lh_first, ctlr = 0;
-		    cdd != NULL; cdd = cdd->dd_clist.le_next, ctlr++) { 
+		    cdd != NULL; cdd = cdd->dd_clist.le_next, ctlr++) {
 			if (cdd->dd_dev == root_device->dv_parent) {
 				/*
 				 * Found it!

@@ -72,14 +72,14 @@ const pseudo_typeS md_pseudo_table[] =
 {
 	/* Pseudo-ops which must be overridden.  */
 	{ "byte",	ppc_byte,	0 },
-	
+
 	{ "long",	ppc_cons,	4 },
 	{ "word",	ppc_cons,	2 },
 	{ "short",	ppc_cons,	2 },
-	
+
 	/* This pseudo-op is used even when not generating XCOFF output.  */
 	{ "tc",		ppc_tc,		0 },
-	
+
 	{ NULL,		NULL,		0 }
 };
 
@@ -118,7 +118,7 @@ md_parse_option(argp, cntp, vecp)
 	char ***vecp;
 {
 	char *arg;
-	
+
 	switch (**argp) {
 #ifdef	PIC
 	case 'k':
@@ -129,10 +129,10 @@ md_parse_option(argp, cntp, vecp)
 		/* -u means that any undefined symbols should be treated as
 		   external, which is the default for gas anyhow.  */
 		break;
-		
+
 	case 'm':
 		arg = *argp + 1;
-		
+
 		/* -mpwrx and -mpwr2 mean to assemble for the IBM POWER/2
 		   (RIOS2).  */
 		if (strcmp(arg, "pwrx") == 0 || strcmp(arg, "pwr2") == 0)
@@ -166,7 +166,7 @@ md_parse_option(argp, cntp, vecp)
 		/* -many means to assemble for any architecture (PWR/PWRX/PPC).  */
 		else if (strcmp(arg, "any") == 0)
 			ppc_cpu = PPC_OPCODE_ANY;
-		
+
 		/* -mlittle/-mbig set the endianess */
 		else if (strcmp(arg, "little") == 0 || strcmp(arg, "little-endian") == 0) {
 			target_big_endian = 0;
@@ -180,11 +180,11 @@ md_parse_option(argp, cntp, vecp)
 		}
 		**argp = 0;
 		break;
-		
+
 	default:
 		return 0;
 	}
-	
+
 	return 1;
 }
 
@@ -214,7 +214,7 @@ static void
 ppc_set_cpu()
 {
 	const char *default_cpu = TARGET_CPU;
-	
+
 	if (ppc_cpu == 0) {
 		if (strcmp(default_cpu, "rs6000") == 0)
 			ppc_cpu = PPC_OPCODE_POWER;
@@ -258,7 +258,7 @@ really_begin()
 		    && ((op->flags & (PPC_OPCODE_32 | PPC_OPCODE_64)) == 0
 			|| (op->flags & (PPC_OPCODE_32 | PPC_OPCODE_64)) == ppc_size)) {
 			const char *retval;
-			
+
 			retval = hash_insert(ppc_hash, op->name, op);
 			if (*retval) {
 				/* Ignore Power duplicates for -m601 */
@@ -424,7 +424,7 @@ ppc_suffix(str_p)
 		MAP ("plt@l",		RELOC_PLT16_LO),
 		MAP ("plt@h",		RELOC_PLT16_HI),
 		MAP ("plt@ha",		RELOC_PLT16_HA),
-		
+
 		{ (char *)0,	0,	RELOC_NONE }
 	};
 
@@ -467,7 +467,7 @@ ppc_cons(nbytes)
 
 	if (!begin_called)
 		really_begin();
-	
+
 	if (is_it_end_of_statement()) {
 		demand_empty_rest_of_line();
 		return;
@@ -504,7 +504,7 @@ ppc_cons(nbytes)
 				    && (reloc = ppc_suffix(&input_line_pointer)) != RELOC_NONE) {
 					int size = reloc_target_size[reloc];
 					int offset = nbytes - size;
-				
+
 					fix_new(frag_now,
 						p - frag_now->fr_literal + offset,
 						size,
@@ -565,7 +565,7 @@ md_assemble(str)
 
 	if (!begin_called)
 		really_begin();
-	
+
 	/* Get the opcode.  */
 	for (s = str; *s != '\0' && ! isspace (*s); s++)
 		;
@@ -627,7 +627,7 @@ md_assemble(str)
 			   operand.  */
 			if (opcount < strlen(opcode->operands))
 				skip_optional = 1;
-			
+
 			break;
 		}
 	}
@@ -888,7 +888,7 @@ ppc_macro(str, macro)
 
 	/* Assemble the constructed instruction.  */
 	md_assemble(complete);
-}  
+}
 
 /* Pseudo-op handling.  */
 
@@ -976,7 +976,7 @@ md_atof(type, litp, sizep)
 
 	if (!begin_called)
 		really_begin();
-	
+
 	switch (type) {
 	case 'f':
 		prec = 2;
@@ -1008,7 +1008,7 @@ md_atof(type, litp, sizep)
 			litp += 2;
 		}
 	}
-	
+
 	return "";
 }
 
@@ -1022,7 +1022,7 @@ md_number_to_chars(buf, val, n)
 {
 	if (!begin_called)
 		really_begin();
-	
+
 	if (target_big_endian)
 		buf += n;
 	while (--n >= 0) {
@@ -1082,7 +1082,7 @@ md_pcrel_from(fixp)
 {
 	return fixp->fx_frag->fr_address + fixp->fx_where;
 }
- 
+
 /* See whether a symbol is in the TOC section.  FIXME (ws) */
 static int
 ppc_is_toc_sym(sym)
@@ -1263,7 +1263,7 @@ tc_aout_fix_to_chars(where, fixp, segment_address)
 #endif
 
 	know(fixp->fx_addsy);
-	
+
 	if (!S_IS_DEFINED(fixp->fx_addsy)) {
 		r_extern = 1;
 		r_index = fixp->fx_addsy->sy_number;
@@ -1275,7 +1275,7 @@ tc_aout_fix_to_chars(where, fixp, segment_address)
 			as_bad("tc_aout_fix_to_chars for -k to be done");
 #endif
 	}
-	
+
 	md_number_to_chars(where,
 			   r_address = fixp->fx_frag->fr_address
 		       		       + fixp->fx_where
@@ -1287,10 +1287,10 @@ tc_aout_fix_to_chars(where, fixp, segment_address)
 	where[5] = r_index >> 8;
 	where[6] = r_index;
 	where[7] = ((r_extern << 7) & 0x80) | (fixp->fx_r_type & 0x1f);
-	
+
 	if (fixp->fx_addsy->sy_frag)
 		r_addend = fixp->fx_addsy->sy_frag->fr_address;
-	
+
 	if (fixp->fx_pcrel) {
 #ifdef	PIC
 		if (fixp->fx_gotsy) {
@@ -1307,6 +1307,6 @@ tc_aout_fix_to_chars(where, fixp, segment_address)
 #endif
 			r_addend = fixp->fx_addnumber;
 	}
-	
+
 	md_number_to_chars(&where[8], r_addend, 4);
 }

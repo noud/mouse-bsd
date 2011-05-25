@@ -56,7 +56,7 @@ static void fetch_core_registers PARAMS ((char *, unsigned, int, CORE_ADDR));
 
 /* this table must line up with REGISTER_NAMES in tm-i386v.h */
 /* symbols like 'EAX' come from <sys/reg.h> */
-static int regmap[] = 
+static int regmap[] =
 {
   EAX, ECX, EDX, EBX,
   USP, EBP, ESI, EDI,
@@ -78,25 +78,25 @@ i386_register_u_addr (blockend, regnum)
   /* for now, you can look at them with 'info float'
    * sys5 wont let you change them with ptrace anyway
    */
-  if (regnum >= FP0_REGNUM && regnum <= FP7_REGNUM) 
+  if (regnum >= FP0_REGNUM && regnum <= FP7_REGNUM)
     {
       int ubase, fpstate;
       struct user u;
       ubase = blockend + 4 * (SS + 1) - KSTKSZ;
       fpstate = ubase + ((char *)&u.u_fpstate - (char *)&u);
       return (fpstate + 0x1c + 10 * (regnum - FP0_REGNUM));
-    } 
+    }
   else
 #endif
     return (blockend + 4 * regmap[regnum]);
-  
+
 }
 
 /* The code below only work on the aix ps/2 (i386-ibm-aix) -
  * mtranle@paris - Sat Apr 11 10:34:12 1992
  */
 
-struct env387 
+struct env387
 {
   unsigned short control;
   unsigned short r0;
@@ -123,22 +123,22 @@ print_387_status (status, ep)
   int top;
   int fpreg;
   unsigned char *p;
-  
+
   bothstatus = ((status != 0) && (ep->status != 0));
-  if (status != 0) 
+  if (status != 0)
     {
       if (bothstatus)
 	printf_unfiltered ("u: ");
       print_387_status_word (status);
     }
-  
-  if (ep->status != 0) 
+
+  if (ep->status != 0)
     {
       if (bothstatus)
 	printf_unfiltered ("e: ");
       print_387_status_word (ep->status);
     }
-  
+
   print_387_control_word (ep->control);
   printf_unfiltered ("last exception: ");
   printf_unfiltered ("opcode %s; ", local_hex_string(ep->opcode));
@@ -150,13 +150,13 @@ print_387_status (status, ep)
   top = ((ep->status >> 11) & 7);
 
   printf_unfiltered ("regno  tag  msb              lsb  value\n");
-  for (fpreg = 7; fpreg >= 0; fpreg--) 
+  for (fpreg = 7; fpreg >= 0; fpreg--)
     {
       double val;
 
       printf_unfiltered ("%s %d: ", fpreg == top ? "=>" : "  ", fpreg);
 
-      switch ((ep->tag >> ((7 - fpreg) * 2)) & 3) 
+      switch ((ep->tag >> ((7 - fpreg) * 2)) & 3)
 	{
 	case 0: printf_unfiltered ("valid "); break;
 	case 1: printf_unfiltered ("zero  "); break;
@@ -165,7 +165,7 @@ print_387_status (status, ep)
 	}
       for (i = 9; i >= 0; i--)
 	printf_unfiltered ("%02x", ep->regs[fpreg][i]);
-      
+
       i387_to_double ((char *)ep->regs[fpreg], (char *)&val);
       printf_unfiltered ("  %#g\n", val);
     }
@@ -197,8 +197,8 @@ i386_float_info ()
       if ((fpsaved = core_env387.status) != 0)
 	memcpy(&fps, &core_env387, sizeof(fps));
     }
-  
-  if (fpsaved == 0) 
+
+  if (fpsaved == 0)
     {
       printf_unfiltered ("no floating point status saved\n");
       return;
@@ -214,7 +214,7 @@ i386_float_info ()
 	  memcpy ((char *)&fps.control + offset, buf,
 		  MIN(10, sizeof(fps) - offset));
 	}
-    } 
+    }
   fps_fixed = fps;
   for (i = 0; i < 8; ++i)
     memcpy (fps_fixed.regs[i], fps.regs[7 - i], 10);
@@ -303,10 +303,10 @@ store_inferior_registers (regno)
 #endif
 
 /*
- * The order here in core_regmap[] has to be the same as in 
+ * The order here in core_regmap[] has to be the same as in
  * regmap[] above.
  */
-static int core_regmap[] = 
+static int core_regmap[] =
 {
   CD_AX, CD_CX, CD_DX, CD_BX,
   CD_SP, CD_BP, CD_SI, CD_DI,

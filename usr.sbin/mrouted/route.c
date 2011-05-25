@@ -316,7 +316,7 @@ create_route(origin, mask)
     r->rt_prev = rtp;
     if (r->rt_next != NULL)
       (r->rt_next)->rt_prev = r;
-    else 
+    else
       rt_end = r;
     rtp = r;
     ++nroutes;
@@ -718,7 +718,7 @@ struct newrt {
 	u_int32_t origin;
 	int metric;
 	int pad;
-}; 
+};
 
 static int
 compare_rts(rt1, rt2)
@@ -782,7 +782,7 @@ accept_report(src, dst, p, datalen, level)
 
 	if (datalen < 3) {
 	    log(LOG_WARNING, 0,
-		"received truncated route report from %s", 
+		"received truncated route report from %s",
 		inet_fmt(src, s1));
 	    return;
 	}
@@ -801,7 +801,7 @@ accept_report(src, dst, p, datalen, level)
 	do {			/* Loop through (origin, metric) pairs */
 	    if (datalen < width + 1) {
 		log(LOG_WARNING, 0,
-		    "received truncated route report from %s", 
+		    "received truncated route report from %s",
 		    inet_fmt(src, s1));
 		return;
 	    }
@@ -834,7 +834,7 @@ accept_report(src, dst, p, datalen, level)
 		inet_fmt(src, s1), inet_fmts(rt[i].origin, rt[i].mask, s2));
 	    continue;
 	}
-	update_route(rt[i].origin, rt[i].mask, rt[i].metric, 
+	update_route(rt[i].origin, rt[i].mask, rt[i].metric,
 		     src, vifi);
     }
 
@@ -1154,7 +1154,7 @@ determine_route(src)
     struct rtentry *rt;
 
     for (rt = routing_table; rt != NULL; rt = rt->rt_next) {
-	if (rt->rt_origin == (src & rt->rt_originmask)) 
+	if (rt->rt_origin == (src & rt->rt_originmask))
 	    break;
     }
     return rt;

@@ -56,7 +56,7 @@ dbzsync, dbzsize, dbzincore, dbzcancel, dbzdebug \- database routines
 .SH DESCRIPTION
 These functions provide an indexing system for rapid random access to a
 text file (the
-.I base 
+.I base
 .IR file ).
 Subject to certain constraints, they are call-compatible with
 .IR dbm (3),

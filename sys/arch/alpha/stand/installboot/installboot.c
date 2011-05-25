@@ -218,7 +218,7 @@ clr_bootstrap(const char *disk)
 
 	if (verbose)
 		fprintf(stderr, "writing\n");
-	
+
 	rv = pwrite(diskfd, &bb, sizeof bb, BOOT_BLOCK_OFFSET);
 	if (rv == -1)
 		err(EXIT_FAILURE, "write %s", disk);
@@ -252,7 +252,7 @@ set_bootstrap(const char *disk, const char *bootstrap)
 	/*
 	 * Allocate a buffer, with space to round up the input file
 	 * to the next block size boundary, and with space for the boot
-	 * block. 
+	 * block.
 	 */
 	bootstrapsize = roundup(bootstrapsb.st_size, BOOT_BLOCK_BLOCKSIZE);
 

@@ -85,7 +85,7 @@ static lpkg_head_t lpfindq;
 static lpkg_head_t lpdelq;
 
 /*
- * Called to see if pkg is already installed as some other version, 
+ * Called to see if pkg is already installed as some other version,
  * note found version in "note".
  */
 static int
@@ -176,7 +176,7 @@ undepend(const char *deppkgname, char *pkg2delname)
 }
 
 /*
- * Delete from directory 'home' all packages on lpkg_list. 
+ * Delete from directory 'home' all packages on lpkg_list.
  * If tryall is set, ignore errors from pkg_delete(1).
  */
 int
@@ -271,7 +271,7 @@ require_delete(char *home, int tryall)
 }
 
 /*
- * Recursively find all packages "up" the tree (follow +REQUIRED_BY). 
+ * Recursively find all packages "up" the tree (follow +REQUIRED_BY).
  * Return 1 on errors
  */
 int
@@ -350,7 +350,7 @@ fail:
 }
 
 /*
- * Recursively find all packages "down" the tree (follow @pkgdep). 
+ * Recursively find all packages "down" the tree (follow @pkgdep).
  * Return 1 on errors
  */
 int
@@ -410,7 +410,7 @@ require_find_recursive_down(lpkg_t *thislpp, package_t *plist)
 			if (findmatchingname(".", lpp->lp_name, note_whats_installed, installed) != 1) {
 				warnx("cannot remove dependency for pkg-pattern %s", lpp->lp_name);
 				fail = 1;
-				goto fail; 
+				goto fail;
 			}
 			if (chdir(installed) == -1) {
 				warnx("can't chdir to %s", installed);
@@ -422,7 +422,7 @@ require_find_recursive_down(lpkg_t *thislpp, package_t *plist)
 			if (chdir(lpp->lp_name) == -1) {
 				warnx("cannot remove dependency from %s", lpp->lp_name);
 				fail = 1;
-				goto fail; 
+				goto fail;
 			}
 			sanity_check(lpp->lp_name);
 		}
@@ -470,7 +470,7 @@ fail:
 }
 
 /*
- * Start recursion in the one or other direction. 
+ * Start recursion in the one or other direction.
  */
 int
 require_find(char *pkg, rec_find_t updown)

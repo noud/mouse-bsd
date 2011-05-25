@@ -6,18 +6,18 @@
 
 /*
  * Copyright (c) Xerox Corporation 1992. All rights reserved.
- *  
+ *
  * License is granted to copy, to use, and to make and to use derivative
  * works for research and evaluation purposes, provided that Xerox is
  * acknowledged in all documentation pertaining to any such copy or derivative
  * work. Xerox grants no other licenses expressed or implied. The Xerox trade
  * name should not be used in any advertising without its written permission.
- *  
+ *
  * XEROX CORPORATION MAKES NO REPRESENTATIONS CONCERNING EITHER THE
  * MERCHANTABILITY OF THIS SOFTWARE OR THE SUITABILITY OF THIS SOFTWARE
  * FOR ANY PARTICULAR PURPOSE.  The software is provided "as is" without
  * express or implied warranty of any kind.
- *  
+ *
  * These notices must be retained in any copies of any part of this software.
  */
 
@@ -168,7 +168,7 @@ log(int severity, int syserr, char *format, ...)
 	va_start(ap, format);
 #else
 /*VARARGS3*/
-void 
+void
 log(severity, syserr, format, va_alist)
 	int     severity, syserr;
 	char   *format;
@@ -394,10 +394,10 @@ void accept_neighbors(src, dst, p, datalen, level)
 	    ifc_node->tries = -1;
 	    ifc_node->u.alias = node;
 	}
-	
+
 	ifc = find_interface(ifc_addr, node);
 	old_neighbors = ifc->neighbors;
-	
+
 	/* Add the neighbors for this interface */
 	while (ncount--) {
 	    u_int32_t 	neighbor;
@@ -537,10 +537,10 @@ void accept_neighbors2(src, dst, p, datalen, level)
 	    ifc_node->tries = -1;
 	    ifc_node->u.alias = node;
 	}
-	
+
 	ifc = find_interface(ifc_addr, node);
 	old_neighbors = ifc->neighbors;
-	
+
 	/* Add the neighbors for this interface */
 	while (ncount-- && datalen > 0) {
 	    u_int32_t 	neighbor;
@@ -633,7 +633,7 @@ void print_map(node)
 {
     if (node) {
 	char *name, *addr;
-	
+
 	print_map(node->left);
 
 	addr = inet_fmt(node->addr, s1);
@@ -841,7 +841,7 @@ int main(argc, argv)
     char *argv[];
 {
     int flood = FALSE, graph = FALSE;
-    
+
     setlinebuf(stderr);
 
     if (geteuid() != 0) {
@@ -880,7 +880,7 @@ int main(argc, argv)
     }
 
     if (argc > 1) {
-      usage:	
+      usage:
 	fprintf(stderr,
 		"Usage: map-mbone [-f] [-g] [-n] [-t timeout] %s\n\n",
 		"[-r retries] [-d [debug-level]] [router]");

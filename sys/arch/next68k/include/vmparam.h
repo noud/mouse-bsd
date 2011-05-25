@@ -4,7 +4,7 @@
  * This file was taken from from mvme68k/include/vmparam.h and
  * should probably be re-synced when needed.
  * Darrin B Jewell <jewell@mit.edu>  Fri Aug 28 03:22:07 1998
- * original cvs id: NetBSD: vmparam.h,v 1.9 1998/08/22 10:55:34 scw Exp 
+ * original cvs id: NetBSD: vmparam.h,v 1.9 1998/08/22 10:55:34 scw Exp
  */
 
 /*

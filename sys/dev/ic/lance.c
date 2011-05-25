@@ -84,7 +84,7 @@
 
 #include <sys/param.h>
 #include <sys/systm.h>
-#include <sys/mbuf.h> 
+#include <sys/mbuf.h>
 #include <sys/syslog.h>
 #include <sys/socket.h>
 #include <sys/device.h>
@@ -615,7 +615,7 @@ lance_ioctl(ifp, cmd, data)
 				bcopy(ina->x_host.c_host,
 				    LLADDR(ifp->if_sadl),
 				    sizeof(sc->sc_enaddr));
-			}	
+			}
 			/* Set new address. */
 			lance_init(sc);
 			break;

@@ -47,7 +47,7 @@
 
 /* configuration code */
 
-int 
+int
 rf_ConfigureDeclusteredPQ(
     RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr,
@@ -264,7 +264,7 @@ rf_ConfigureDeclusteredPQ(
 	return (0);
 }
 
-int 
+int
 rf_GetDefaultNumFloatingReconBuffersPQ(RF_Raid_t * raidPtr)
 {
 	int     def_decl;
@@ -273,7 +273,7 @@ rf_GetDefaultNumFloatingReconBuffersPQ(RF_Raid_t * raidPtr)
 	return (RF_MAX(3 * raidPtr->numCol, def_decl));
 }
 
-void 
+void
 rf_MapSectorDeclusteredPQ(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -345,7 +345,7 @@ rf_MapSectorDeclusteredPQ(
 }
 
 
-void 
+void
 rf_MapParityDeclusteredPQ(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -401,7 +401,7 @@ rf_MapParityDeclusteredPQ(
 	*diskSector = outSU * layoutPtr->sectorsPerStripeUnit + (raidSector % layoutPtr->sectorsPerStripeUnit);
 }
 
-void 
+void
 rf_MapQDeclusteredPQ(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -460,7 +460,7 @@ rf_MapQDeclusteredPQ(
 /* returns an array of ints identifying the disks that comprise the stripe containing the indicated address.
  * the caller must _never_ attempt to modify this array.
  */
-void 
+void
 rf_IdentifyStripeDeclusteredPQ(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t addr,

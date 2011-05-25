@@ -608,7 +608,7 @@ gld${EMULATION_NAME}_before_allocation ()
 	      if (is != NULL)
 		break;
 	    }
-	}	
+	}
 
       if (is == NULL)
 	einfo ("%P%F: can't find %s in output section\n",
@@ -987,7 +987,7 @@ then
 sc="-f ${srcdir}/emultempl/stringify.sed"
 
 cat >>e${EMULATION_NAME}.c <<EOF
-{			     
+{
   *isfile = 0;
 
   if (link_info.relocateable == true && config.build_constructors == true)
@@ -1008,7 +1008,7 @@ else
 # Scripts read from the filesystem.
 
 cat >>e${EMULATION_NAME}.c <<EOF
-{			     
+{
   *isfile = 1;
 
   if (link_info.relocateable == true && config.build_constructors == true)
@@ -1028,7 +1028,7 @@ fi
 
 cat >>e${EMULATION_NAME}.c <<EOF
 
-struct ld_emulation_xfer_struct ld_${EMULATION_NAME}_emulation = 
+struct ld_emulation_xfer_struct ld_${EMULATION_NAME}_emulation =
 {
   gld${EMULATION_NAME}_before_parse,
   syslib_default,

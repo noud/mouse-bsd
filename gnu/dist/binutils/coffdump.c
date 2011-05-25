@@ -101,7 +101,7 @@ dump_coff_lines (p)
   int online = 0;
   tab(1);
   printf("#lines %d ",p->nlines);
-  for (i = 0; i < p->nlines; i++) 
+  for (i = 0; i < p->nlines; i++)
     {
       printf("(%d 0x%x)", p->lines[i], p->addresses[i]);
       online++;
@@ -125,7 +125,7 @@ dump_coff_type (p)
   switch (p->type)
     {
     case coff_secdef_type:
-      printf ("section definition at %x size %x\n", 
+      printf ("section definition at %x size %x\n",
 	      p->u.asecdef.address,
 	      p->u.asecdef.size);
       nl();
@@ -415,13 +415,13 @@ struct coff_section *ptr;
 {
   int i;
   tab(1);
-  printf("section %s %d %d address %x size %x number %d nrelocs %d", 
+  printf("section %s %d %d address %x size %x number %d nrelocs %d",
 	 ptr->name, ptr->code, ptr->data, ptr->address,ptr->size, ptr->number, ptr->nrelocs);
   nl();
 
-  for (i = 0; i < ptr->nrelocs; i++) 
+  for (i = 0; i < ptr->nrelocs; i++)
     {
-      tab(0);    
+      tab(0);
       printf("(%x %s %x)",
 	     ptr->relocs[i].offset,
 	     ptr->relocs[i].symbol->name,

@@ -95,7 +95,7 @@ m68k_pop_frame ()
 
 
 /* Given an ip value corresponding to the start of a function,
-   return the ip of the first instruction after the function 
+   return the ip of the first instruction after the function
    prologue.  This is the generic m68k support.  Machines which
    require something different can override the SKIP_PROLOGUE
    macro to point elsewhere.
@@ -154,7 +154,7 @@ CORE_ADDR ip;
     {
       op = read_memory_integer (ip, 2);
       op &= 0xFFFF;
-      
+
       if (op == P_LINK_W)
 	{
 	  ip += 4;	/* Skip link.w */
@@ -188,9 +188,9 @@ m68k_find_saved_regs (frame_info, saved_regs)
      struct frame_info *frame_info;
      struct frame_saved_regs *saved_regs;
 {
-  register int regnum;							
-  register int regmask;							
-  register CORE_ADDR next_addr;						
+  register int regnum;
+  register int regmask;
+  register CORE_ADDR next_addr;
   register CORE_ADDR pc;
 
   /* First possible address for a pc in a call dummy for this frame.  */
@@ -211,9 +211,9 @@ m68k_find_saved_regs (frame_info, saved_regs)
       next_addr = (frame_info)->frame;
       pc = possible_call_dummy_start;
     }
-  else   								
+  else
     {
-      pc = get_pc_function_start ((frame_info)->pc); 			
+      pc = get_pc_function_start ((frame_info)->pc);
 
       if (0x4856 == read_memory_integer (pc, 2)
 	  && 0x2c4f == read_memory_integer (pc + 2, 2))
@@ -227,48 +227,48 @@ m68k_find_saved_regs (frame_info, saved_regs)
 	}
       else if (044016 == read_memory_integer (pc, 2))
 	/* link.l %fp */
-	/* Find the address above the saved   
+	/* Find the address above the saved
 	   regs using the amount of storage from the link instruction.  */
-	next_addr = (frame_info)->frame + read_memory_integer (pc += 2, 4), pc+=4; 
-      else if (047126 == read_memory_integer (pc, 2))			
+	next_addr = (frame_info)->frame + read_memory_integer (pc += 2, 4), pc+=4;
+      else if (047126 == read_memory_integer (pc, 2))
 	/* link.w %fp */
-	/* Find the address above the saved   
+	/* Find the address above the saved
 	   regs using the amount of storage from the link instruction.  */
-	next_addr = (frame_info)->frame + read_memory_integer (pc += 2, 2), pc+=2; 
+	next_addr = (frame_info)->frame + read_memory_integer (pc += 2, 2), pc+=2;
       else goto lose;
 
-      /* If have an addal #-n, sp next, adjust next_addr.  */		
-      if ((0177777 & read_memory_integer (pc, 2)) == 0157774)		
-	next_addr += read_memory_integer (pc += 2, 4), pc += 4;		
-    }									
-  regmask = read_memory_integer (pc + 2, 2);				
+      /* If have an addal #-n, sp next, adjust next_addr.  */
+      if ((0177777 & read_memory_integer (pc, 2)) == 0157774)
+	next_addr += read_memory_integer (pc += 2, 4), pc += 4;
+    }
+  regmask = read_memory_integer (pc + 2, 2);
 
-  /* Here can come an fmovem.  Check for it.  */		
-  nextinsn = 0xffff & read_memory_integer (pc, 2);			
-  if (0xf227 == nextinsn						
-      && (regmask & 0xff00) == 0xe000)					
-    { pc += 4; /* Regmask's low bit is for register fp7, the first pushed */ 
-      for (regnum = FP0_REGNUM + 7; regnum >= FP0_REGNUM; regnum--, regmask >>= 1)		
-	if (regmask & 1)						
-          saved_regs->regs[regnum] = (next_addr -= 12);		
+  /* Here can come an fmovem.  Check for it.  */
+  nextinsn = 0xffff & read_memory_integer (pc, 2);
+  if (0xf227 == nextinsn
+      && (regmask & 0xff00) == 0xe000)
+    { pc += 4; /* Regmask's low bit is for register fp7, the first pushed */
+      for (regnum = FP0_REGNUM + 7; regnum >= FP0_REGNUM; regnum--, regmask >>= 1)
+	if (regmask & 1)
+          saved_regs->regs[regnum] = (next_addr -= 12);
       regmask = read_memory_integer (pc + 2, 2); }
 
-  /* next should be a moveml to (sp) or -(sp) or a movl r,-(sp) */	
-  if (0044327 == read_memory_integer (pc, 2))				
-    { pc += 4; /* Regmask's low bit is for register 0, the first written */ 
-      for (regnum = 0; regnum < 16; regnum++, regmask >>= 1)		
-	if (regmask & 1)						
-          saved_regs->regs[regnum] = (next_addr += 4) - 4; }	
-  else if (0044347 == read_memory_integer (pc, 2))			
+  /* next should be a moveml to (sp) or -(sp) or a movl r,-(sp) */
+  if (0044327 == read_memory_integer (pc, 2))
+    { pc += 4; /* Regmask's low bit is for register 0, the first written */
+      for (regnum = 0; regnum < 16; regnum++, regmask >>= 1)
+	if (regmask & 1)
+          saved_regs->regs[regnum] = (next_addr += 4) - 4; }
+  else if (0044347 == read_memory_integer (pc, 2))
     {
-      pc += 4; /* Regmask's low bit is for register 15, the first pushed */ 
-      for (regnum = 15; regnum >= 0; regnum--, regmask >>= 1)		
-	if (regmask & 1)						
+      pc += 4; /* Regmask's low bit is for register 15, the first pushed */
+      for (regnum = 15; regnum >= 0; regnum--, regmask >>= 1)
+	if (regmask & 1)
           saved_regs->regs[regnum] = (next_addr -= 4);
     }
-  else if (0x2f00 == (0xfff0 & read_memory_integer (pc, 2)))		
+  else if (0x2f00 == (0xfff0 & read_memory_integer (pc, 2)))
     {
-      regnum = 0xf & read_memory_integer (pc, 2); pc += 2;		
+      regnum = 0xf & read_memory_integer (pc, 2); pc += 2;
       saved_regs->regs[regnum] = (next_addr -= 4);
       /* gcc, at least, may use a pair of movel instructions when saving
 	 exactly 2 registers.  */
@@ -280,24 +280,24 @@ m68k_find_saved_regs (frame_info, saved_regs)
 	}
     }
 
-  /* fmovemx to index of sp may follow.  */				
-  regmask = read_memory_integer (pc + 2, 2);				
-  nextinsn = 0xffff & read_memory_integer (pc, 2);			
-  if (0xf236 == nextinsn						
-      && (regmask & 0xff00) == 0xf000)					
-    { pc += 10; /* Regmask's low bit is for register fp0, the first written */ 
-      for (regnum = FP0_REGNUM + 7; regnum >= FP0_REGNUM; regnum--, regmask >>= 1)		
-	if (regmask & 1)						
-          saved_regs->regs[regnum] = (next_addr += 12) - 12;	
-      regmask = read_memory_integer (pc + 2, 2); }			
+  /* fmovemx to index of sp may follow.  */
+  regmask = read_memory_integer (pc + 2, 2);
+  nextinsn = 0xffff & read_memory_integer (pc, 2);
+  if (0xf236 == nextinsn
+      && (regmask & 0xff00) == 0xf000)
+    { pc += 10; /* Regmask's low bit is for register fp0, the first written */
+      for (regnum = FP0_REGNUM + 7; regnum >= FP0_REGNUM; regnum--, regmask >>= 1)
+	if (regmask & 1)
+          saved_regs->regs[regnum] = (next_addr += 12) - 12;
+      regmask = read_memory_integer (pc + 2, 2); }
 
-  /* clrw -(sp); movw ccr,-(sp) may follow.  */				
-  if (0x426742e7 == read_memory_integer (pc, 4))			
-    saved_regs->regs[PS_REGNUM] = (next_addr -= 4);		
-  lose: ;								
-  saved_regs->regs[SP_REGNUM] = (frame_info)->frame + 8;		
-  saved_regs->regs[FP_REGNUM] = (frame_info)->frame;		
-  saved_regs->regs[PC_REGNUM] = (frame_info)->frame + 4;		
+  /* clrw -(sp); movw ccr,-(sp) may follow.  */
+  if (0x426742e7 == read_memory_integer (pc, 4))
+    saved_regs->regs[PS_REGNUM] = (next_addr -= 4);
+  lose: ;
+  saved_regs->regs[SP_REGNUM] = (frame_info)->frame + 8;
+  saved_regs->regs[FP_REGNUM] = (frame_info)->frame;
+  saved_regs->regs[PC_REGNUM] = (frame_info)->frame + 4;
 #ifdef SIG_SP_FP_OFFSET
   /* Adjust saved SP_REGNUM for fake _sigtramp frames.  */
   if (frame_info->signal_handler_caller && frame_info->next)
@@ -397,13 +397,13 @@ int regno;
     (fpregset_t *), unpack the register contents and supply them as gdb's
     idea of the current floating point register values. */
 
-void 
+void
 supply_fpregset (fpregsetp)
 fpregset_t *fpregsetp;
 {
   register int regi;
   char *from;
-  
+
   for (regi = FP0_REGNUM ; regi < FPC_REGNUM ; regi++)
     {
       from = (char *) &(fpregsetp -> f_fpregs[regi-FP0_REGNUM][0]);

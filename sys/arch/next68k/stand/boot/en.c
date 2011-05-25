@@ -115,7 +115,7 @@ en_init(struct iodesc *desc, void *machdep_hint)
 	int i;
 
 	DPRINTF(("en_init\n"));
-	
+
 	er = (struct en_regs *)P_ENET;
 	bmap_chip = (u_int *)P_BMAP;
 
@@ -137,7 +137,7 @@ en_init(struct iodesc *desc, void *machdep_hint)
 	er->rxstat = 0xff;
 	for (i=0; i<6; i++)
 	  er->addr[i] = desc->myea[i] = MON(char *,MG_clientetheraddr)[i];
-          
+
 	DPRINTF(("ethernet addr (%x:%x:%x:%x:%x:%x)\n",
 			desc->myea[0],desc->myea[1],desc->myea[2],
 			desc->myea[3],desc->myea[4],desc->myea[5]));
@@ -175,7 +175,7 @@ en_put(struct iodesc *desc, void *pkt, size_t len)
 	volatile struct dma_dev *txdma;
 	int state, txs;
 	int retries;
-	
+
 	DPRINTF(("en_put: %d bytes at 0x%lx\n", len, (unsigned long)pkt));
 #if 0
 	dump_pkt(pkt,len);
@@ -190,7 +190,7 @@ en_put(struct iodesc *desc, void *pkt, size_t len)
 		errno = EINVAL;
 		return -1;
 	}
-	
+
 	while ((er->txstat & EN_TXS_READY) == 0)
 		printf("en: tx not ready\n");
 
@@ -204,13 +204,13 @@ en_put(struct iodesc *desc, void *pkt, size_t len)
 		txdma->dd_start = 0;
 		txdma->dd_stop = 0;
 		txdma->dd_csr = DMACSR_SETENABLE;
-	
+
 		while(1) {
 			if (en_wait_for_intr(ENETX_DMA_INTR)) {
 				errno = EIO;
 				return -1;
 			}
-		
+
 			state = txdma->dd_csr &
 				(DMACSR_BUSEXC | DMACSR_COMPLETE
 				 | DMACSR_SUPDATE | DMACSR_ENABLE);
@@ -222,7 +222,7 @@ en_put(struct iodesc *desc, void *pkt, size_t len)
 				txdma->dd_csr = DMACSR_RESET | DMACSR_CLRCOMPLETE;
 				break;
 		}
-	
+
 		txs = er->txstat;
 
 #if 0
@@ -238,7 +238,7 @@ en_put(struct iodesc *desc, void *pkt, size_t len)
 		if ((txs & EN_TXS_COLLERR) == 0)
 			return len;		/* success */
 	}
-	
+
 	errno = EIO;		/* too many retries */
 	return -1;
 }
@@ -251,14 +251,14 @@ en_get(struct iodesc *desc, void *pkt, size_t len, time_t timeout)
 	int state, rxs;
 	size_t rlen;
 	char *gotpkt;
-        
+
 	rxdma = (struct dma_dev *)P_ENETR_CSR;
 	er = (struct en_regs *)P_ENET;
 
 	er->rxstat = 0xff;
 
 	/* this is mouse's code now ... still doesn't work :( */
-	/* The previous comment is now a lie, this does work 
+	/* The previous comment is now a lie, this does work
 	 * Darrin B Jewell <jewell@mit.edu>  Sat Jan 24 21:44:56 1998
 	 */
 
@@ -285,7 +285,7 @@ en_get(struct iodesc *desc, void *pkt, size_t len, time_t timeout)
 			errno = EIO;
  			return -1;
 		}
-		
+
 		state = rxdma->dd_csr &
 			(DMACSR_BUSEXC | DMACSR_COMPLETE
 			 | DMACSR_SUPDATE | DMACSR_ENABLE);
@@ -334,7 +334,7 @@ dump_pkt(gotpkt, rlen < 255 ? rlen : 128);
 #endif
 
  DPRINTF(("en_get: done rxstat=%x.\n", rxs));
-	
+
 	if (rlen > len) {
 		DPRINTF(("en_get: buffer too small. want %d, got %d\n",
 			 len, rlen));
@@ -374,12 +374,12 @@ int
 enopen(struct open_file *f, char count, char lun, char part)
 {
 	int error;
-	
+
 	DPRINTF(("open: en(%d,%d,%d)\n", count, lun, part));
-	
+
 	if (count != 0 || lun != 0 || part != 0)
 		return EUNIT;	/* there can be exactly one ethernet */
-	
+
 	if (open_count == 0) {
 		/* Find network interface. */
 		if ((netdev_sock = netif_open(NULL)) < 0)
@@ -394,7 +394,7 @@ enopen(struct open_file *f, char count, char lun, char part)
 	f->f_devdata = NULL; /* ### nfs_root_node ?! */
 	return 0;
 }
-    
+
 int
 enclose(struct open_file *f)
 {
@@ -413,7 +413,7 @@ enstrategy(void *devdata, int rw, daddr_t dblk,
 }
 
 /* private function */
- 
+
 static int
 mountroot(int sock)
 {
@@ -423,16 +423,16 @@ mountroot(int sock)
 		0xc2793418
 	};
 	u_char *res;
-	
+
 	res = arpwhohas(socktodesc(sock), in);
 	panic("arpwhohas returned %s", res);
 #endif
 	/* 1. use bootp. This does most of the work for us. */
 	bootp(sock);
-    
+
 	if (myip.s_addr == 0 || rootip.s_addr == 0 || rootpath[0] == '\0')
 		return ETIMEDOUT;
-    
+
 	printf("Using IP address: %s\n", inet_ntoa(myip));
 	printf("root addr=%s path=%s\n", inet_ntoa(rootip), rootpath);
 

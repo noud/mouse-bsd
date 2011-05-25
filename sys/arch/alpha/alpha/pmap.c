@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* 
+/*
  * Copyright (c) 1991, 1993
  *	The Regents of the University of California.  All rights reserved.
  *
@@ -1499,7 +1499,7 @@ pmap_page_protect(pg, prot)
 			if (pmapdebug & PDB_PARANOIA) {
 				printf("%s wired mapping for %lx not removed\n",
 				       "pmap_page_protect:", pa);
-				printf("vm wire count %d\n", 
+				printf("vm wire count %d\n",
 					PHYS_TO_VM_PAGE(pa)->wire_count);
 			}
 		}
@@ -1914,7 +1914,7 @@ pmap_enter(pmap, va, pa, prot, flags)
 
 	PMAP_UNLOCK(pmap);
 	PMAP_MAP_TO_HEAD_UNLOCK();
-	
+
 	return (KERN_SUCCESS);
 }
 
@@ -2950,7 +2950,7 @@ pmap_pv_dump(pa)
 	simple_unlock(&pvh->pvh_slock);
 }
 #endif
- 
+
 /*
  * vtophys:
  *
@@ -3644,7 +3644,7 @@ pmap_ptpage_steal(pmap, usage, pap)
 					    pmap_pte_w(&lev3map[l3idx]))
 						break;
 				}
-				
+
 				/*
 				 * If we scanned all of the current L3 table
 				 * without finding a wired entry, we can
@@ -3916,7 +3916,7 @@ pmap_asn_alloc(pmap, cpu_id)
 		 * ASN is still in the current generation; keep on using it.
 		 */
 #ifdef DEBUG
-		if (pmapdebug & PDB_ASN) 
+		if (pmapdebug & PDB_ASN)
 			printf("pmap_asn_alloc: same generation, keeping %u\n",
 			    pmap->pm_asn[cpu_id]);
 #endif

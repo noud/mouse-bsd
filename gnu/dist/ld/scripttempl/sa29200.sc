@@ -3,7 +3,7 @@ OUTPUT_FORMAT("${OUTPUT_FORMAT}")
 ENTRY(start)
 
 SECTIONS {
-  .text ${RELOCATING+${TEXT_START_ADDR}} : 
+  .text ${RELOCATING+${TEXT_START_ADDR}} :
     {
 	*(.text);
 	*(.text1);
@@ -35,10 +35,10 @@ SECTIONS {
     }
 
   .bss  ALIGN(4) :
-    { 
-	*(COMMON) 	
+    {
+	*(COMMON)
 	*(.bss)
 	${RELOCATING+_end = .};
-    } 
+    }
 }
 EOF

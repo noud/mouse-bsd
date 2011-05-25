@@ -5,28 +5,28 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 # M68000 Hi-Performance Microprocessor Division
-# M68060 Software Package Production Release 
-# 
+# M68060 Software Package Production Release
+#
 # M68060 Software Package Copyright (C) 1993, 1994, 1995, 1996 Motorola Inc.
 # All rights reserved.
-# 
+#
 # THE SOFTWARE is provided on an "AS IS" basis and without warranty.
 # To the maximum extent permitted by applicable law,
 # MOTOROLA DISCLAIMS ALL WARRANTIES WHETHER EXPRESS OR IMPLIED,
 # INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS
 # FOR A PARTICULAR PURPOSE and any warranty against infringement with
 # regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-# and any accompanying written materials. 
-# 
+# and any accompanying written materials.
+#
 # To the maximum extent permitted by applicable law,
 # IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
 # (INCLUDING WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS,
 # BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR OTHER PECUNIARY LOSS)
 # ARISING OF THE USE OR INABILITY TO USE THE SOFTWARE.
-# 
+#
 # Motorola assumes no responsibility for the maintenance and support
-# of the SOFTWARE.  
-# 
+# of the SOFTWARE.
+#
 # You are hereby granted a copyright license to use, modify, and distribute the
 # SOFTWARE so long as this entire notice is retained without alteration
 # in any modified and/or redistributed versions, and that such modified
@@ -62,12 +62,12 @@
 # _060_real_access()		#
 #################################
 
-# 
+#
 # Each IO routine checks to see if the memory write/read is to/from user
 # or supervisor application space. The examples below use simple "move"
 # instructions for supervisor mode applications and call _copyin()/_copyout()
 # for user mode applications.
-# When installing the 060SP, the _copyin()/_copyout() equivalents for a 
+# When installing the 060SP, the _copyin()/_copyout() equivalents for a
 # given operating system should be substituted.
 #
 # The addresses within the 060SP are guaranteed to be on the stack.
@@ -81,9 +81,9 @@
 # Writes to data memory while in supervisor mode.
 #
 # INPUTS:
-#	a0 - supervisor source address	
+#	a0 - supervisor source address
 #	a1 - user destination address
-#	d0 - number of bytes to write	
+#	d0 - number of bytes to write
 # 	0x4(%a6),bit5 - 1 = supervisor mode, 0 = user mode
 # OUTPUTS:
 #	d1 - 0 = success, !0 = failure
@@ -143,7 +143,7 @@ user_read:
 
 #
 # _060_dmem_read_byte():
-# 
+#
 # Read a data byte from user memory.
 #
 # INPUTS:
@@ -173,7 +173,7 @@ dmrbs:	clr.l		%d0			# clear whole longword
 
 #
 # _060_dmem_read_word():
-# 
+#
 # Read a data word from user memory.
 #
 # INPUTS:
@@ -203,7 +203,7 @@ dmrws:	clr.l		%d0			# clear whole longword
 
 #
 # _060_dmem_read_long():
-# 
+#
 
 #
 # INPUTS:
@@ -316,7 +316,7 @@ dmwls:	mov.l		%d0,(%a0)		# store super longword
 
 #
 # _060_imem_read_word():
-# 
+#
 # Read an instruction word from user memory.
 #
 # INPUTS:
@@ -345,7 +345,7 @@ imrws:	mov.w		(%a0),%d0		# fetch super word
 
 #
 # _060_imem_read_long():
-# 
+#
 # Read an instruction longword from user memory.
 #
 # INPUTS:

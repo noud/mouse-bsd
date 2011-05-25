@@ -76,7 +76,7 @@
 #
 #
 12	belong	0x053162	Berkeley DB 2.X Btree/Big Endian
->16	belong	>0		(Version %d, 
+>16	belong	>0		(Version %d,
 >0	belong  x		Logical sequence number: file - %d,
 >4	belong  x		offset - %d,
 >20	belong	x		Page Size %d,

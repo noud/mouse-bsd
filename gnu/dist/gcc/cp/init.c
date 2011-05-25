@@ -330,7 +330,7 @@ sort_member_init (t)
 	 symmetrical.  */
       x = build_tree_list (NULL_TREE, NULL_TREE);
     got_it:
-      init_list = chainon (init_list, x); 
+      init_list = chainon (init_list, x);
     }
 
   /* Initializers for base members go at the end.  */
@@ -345,7 +345,7 @@ sort_member_init (t)
 			IDENTIFIER_CLASS_VALUE (name));
 	      continue;
 	    }
-	      
+
 	  init_list = chainon (init_list,
 			       build_tree_list (name, TREE_VALUE (x)));
 	  TREE_PURPOSE (x) = NULL_TREE;
@@ -545,7 +545,7 @@ emit_base_init (t, immediately)
       momentary = suspend_momentary ();
       expr = make_node (RTL_EXPR);
       resume_momentary (momentary);
-      start_sequence_for_rtl_expr (expr); 
+      start_sequence_for_rtl_expr (expr);
     }
 
   if (write_symbols == NO_DEBUG)
@@ -673,7 +673,7 @@ emit_base_init (t, immediately)
 	  if (warn_ecpp && init == NULL_TREE
 	      && !DECL_ARTIFICIAL (member)
 	      && TREE_CODE (TREE_TYPE (member)) != ARRAY_TYPE)
-	    cp_warning ("`%D' should be initialized in the member initialization list", member);	    
+	    cp_warning ("`%D' should be initialized in the member initialization list", member);
 	}
 
       perform_member_init (member, name, init, from_init_list);
@@ -857,7 +857,7 @@ initializing_context (field)
    is erroneous.  FIELD is the member we decided to initialize.
    TYPE is the type for which the initialization is being performed.
    FIELD must be a member of TYPE.
-   
+
    MEMBER_NAME is the name of the member.  */
 
 static int
@@ -1364,7 +1364,7 @@ get_type_value (name)
   else
     return NULL_TREE;
 }
-  
+
 
 /* This code could just as well go in `class.c', but is placed here for
    modularity.  */
@@ -1471,7 +1471,7 @@ build_member_call (type, name, parmlist)
       || method_name == constructor_name_full (type))
     return build_functional_cast (type, parmlist);
   if ((t = lookup_fnfields (basetype_path, method_name, 0)))
-    return build_method_call (decl, 
+    return build_method_call (decl,
 			      TREE_CODE (name) == TEMPLATE_ID_EXPR
 			      ? name : method_name,
 			      parmlist, basetype_path,
@@ -1642,11 +1642,11 @@ build_offset_ref (type, name)
 	    /* The code in instantiate_type which will process this
 	       expects to encounter OVERLOADs, not raw functions.  */
 	    t = ovl_cons (t, NULL_TREE);
-	  
-	  return build (OFFSET_REF, 
+
+	  return build (OFFSET_REF,
 			build_offset_type (type, unknown_type_node),
 			decl,
-			build (TEMPLATE_ID_EXPR, 
+			build (TEMPLATE_ID_EXPR,
 			       TREE_TYPE (t),
 			       t,
 			       TREE_OPERAND (orig_name, 1)));
@@ -1820,7 +1820,7 @@ resolve_offset_ref (exp)
 	basetype = DECL_CONTEXT (member);
 
       base = current_class_ptr;
-      
+
       if (get_base_distance (basetype, TREE_TYPE (TREE_TYPE (base)), 0, &basetype_path) < 0)
 	{
 	  error_not_base_type (basetype, TREE_TYPE (TREE_TYPE (base)));
@@ -1873,7 +1873,7 @@ resolve_offset_ref (exp)
       addr = convert_pointer_to (basetype, addr);
       member = cp_convert (ptrdiff_type_node,
 			   build_unary_op (ADDR_EXPR, member, 0));
-      
+
       /* Pointer to data members are offset by one, so that a null
 	 pointer with a real value of 0 is distinguishable from an
 	 offset of the first member of a structure.  */
@@ -2104,7 +2104,7 @@ build_new (placement, decl, init, use_global_new)
 			   NULL_TREE);
       else
 	t = type;
-	
+
       rval = build_min_nt (NEW_EXPR, placement, t, init);
       NEW_EXPR_USE_GLOBAL (rval) = use_global_new;
       return rval;
@@ -2234,7 +2234,7 @@ build_new_1 (exp)
 #else
   /* Get a little extra space to store a couple of things before the new'ed
      array, if this is either non-placement new or new (nothrow).  */
-  
+
   use_cookie = (has_array && TYPE_VEC_NEW_USES_COOKIE (true_type)
 		&& (! placement || nothrow));
 #endif
@@ -2255,7 +2255,7 @@ build_new_1 (exp)
     }
 
   /* Allocate the object.  */
-  
+
   if (! has_array && ! placement && flag_this_is_variable > 0
       && TYPE_NEEDS_CONSTRUCTING (true_type) && init != void_type_node)
     {

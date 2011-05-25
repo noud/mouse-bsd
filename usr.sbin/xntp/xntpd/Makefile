@@ -9,7 +9,7 @@ refclock_irig.c refclock_hpgps.c refclock_heath.c refclock_gpsvme.c refclock_dat
 refclock_chu.c refclock_bancomm.c refclock_atom.c refclock_as2201.c refclock_arbiter.c refclock_acts.c \
 ntpd.c ntp_util.c ntp_unixclock.c ntp_timer.c ntp_restrict.c ntp_request.c \
 ntp_refclock.c ntp_proto.c ntp_peer.c ntp_monitor.c ntp_loopfilter.c ntp_leap.c \
-ntp_io.c ntp_intres.c ntp_filegen.c ntp_control.c ntp_config.c map_vme.c 
+ntp_io.c ntp_intres.c ntp_filegen.c ntp_control.c ntp_config.c map_vme.c
 MAN+= xntpd.8
 
 .include <bsd.prog.mk>

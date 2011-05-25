@@ -120,7 +120,7 @@ enum emul_level {
 
 #define attrclr(ip, sy, sx, h, w) \
 	bzero(ip->attrbuf + ((sy) * ip->cols) + (sx), (h) * (w))
-  
+
 #define attrmov(ip, sy, sx, dy, dx, h, w) \
 	bcopy(ip->attrbuf + ((sy) * ip->cols) + (sx), \
 	      ip->attrbuf + ((dy) * ip->cols) + (dx), \
@@ -139,7 +139,7 @@ enum emul_level {
 #define attrset(ip, attr)
 #endif
 
-  
+
 /*
  * X and Y location of character 'c' in the framebuffer, in pixels.
  */
@@ -159,7 +159,7 @@ enum emul_level {
 
 /* Keyboard attributes */
 #define ATTR_KPAD	0x80		/* keypad transmit */
-  
+
 /* Replacement Rules */
 #define RR_CLEAR		0x0
 #define RR_COPY			0x3
@@ -204,10 +204,10 @@ enum emul_level {
 #define KBD_MOD_OPT1	(1<<8)
 #define KBD_MOD_OPT2	(1<<9)
 
-/* type for the second argument to itefilter(). Note that the 
+/* type for the second argument to itefilter(). Note that the
    driver doesn't support key-repeat for console-mode, since it can't use
    timeout() for polled I/O. */
-   
+
 enum tab_size { TABSIZE = 8 };
 #define TABEND(u) (ite_tty[u]->t_windsize.ws_col - TABSIZE) /* XXX */
 

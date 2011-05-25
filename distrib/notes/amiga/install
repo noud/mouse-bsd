@@ -1,4 +1,4 @@
-.\"	$NetBSD: install,v 1.21 2000/01/17 21:57:14 is Exp $	
+.\"	$NetBSD: install,v 1.21 2000/01/17 21:57:14 is Exp $
 .\"
 .\" Copyright (c) 1999 The NetBSD Foundation, Inc.
 .\" All rights reserved.
@@ -78,9 +78,9 @@ the dblNTSC mode, you may also include the
 .Fl A No option to
 enable the dblNTSC display mode.
 .Pp
-If your machine has a fragmented physical memory space, as, 
+If your machine has a fragmented physical memory space, as,
 e.g., DraCo machines, you should add the
-.Fl n2 No option to 
+.Fl n2 No option to
 enable the use of all memory segments.
 .Pp
 If you have a M680x0 + PPC board, make sure the PPC cpu is inactive
@@ -93,7 +93,7 @@ to learn about the exact procedure.]
 Using bootblocks may not work on some
 systems, and may require a mountable filesystem on others.
 .Pp
-Reboot your machine, holding down both mouse buttons if you 
+Reboot your machine, holding down both mouse buttons if you
 have a 2-button mouse, the outer mouse buttons if you have
 a 3-button mouse. On the DraCo, press the left mouse button
 instead, when the boot screen prompts you for it.
@@ -131,10 +131,10 @@ where
 .Ic sd0
 is the device which contains the swap
 partition you created during the hard disk preparation.
-When prompted for a dump device, answer 'none' for the install 
-(normally, you would tell it one of the swap devices). When 
-prompted for the root filesystem type, confirm 'generic', which 
-will auto-detect it. 
+When prompted for a dump device, answer 'none' for the install
+(normally, you would tell it one of the swap devices). When
+prompted for the root filesystem type, confirm 'generic', which
+will auto-detect it.
 .Pp
 If the system should hang after entering the root device, try
 again with
@@ -168,7 +168,7 @@ the next one sd1, etc.  Also, any Amiga internal IDE disk drives
 will be configured as "SCSI" drives, and will be configured
 before any 'real' SCSI drives (if any are present).
 .Pp
-The installer will offer you to look at the 
+The installer will offer you to look at the
 .Nx
 disk label of the disks at this point. You should do this, to find out
 what partition letters the
@@ -185,7 +185,7 @@ program.  Type Control-C NOW if you don't want this.
 At this time, you will need to tell the installer which partition
 will be associated with the different filesystems. Normally, you'll
 want to add a partition for /usr, at least.
-.(tag Em Caveat: 
+.(tag Em Caveat:
 Do not use the (r)sdNc partitions for anything! They are for access to
 the whole disk only and do
 .Em not
@@ -249,7 +249,7 @@ manual page about how to do this.
 .Pp
 Once the installer is done, halt the system with the
 .Ic halt No command
-(wait for 
+(wait for
 .Li halted
 to be displayed) and reboot.  Then again boot
 .Nx
@@ -274,7 +274,7 @@ or
 to edit the files. If you installed the man pages
 you can type
 .Ic man vi No or Ic man ed
-for instructions on how to use these somewhat non-intuitive editors.  
+for instructions on how to use these somewhat non-intuitive editors.
 .Pp
 Once you are done with the rest of configuration unmount your file
 systems and halt your system, then reboot:
@@ -290,5 +290,5 @@ functional:
 .Pp
 When it boots off of the hard drive, you will have a complete
 .Nx
-system!  
+system!
 .Em Congratulations! No (You really deserve them!!!)

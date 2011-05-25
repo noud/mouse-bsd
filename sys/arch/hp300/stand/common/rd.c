@@ -242,7 +242,7 @@ struct rdcompatinfo {
 	NRD2203ABPT*NRD2203ATRK, rdcyloff[13],
 };
 int	nrdcompatinfo = sizeof(rdcompatinfo) / sizeof(rdcompatinfo[0]);
-#endif					
+#endif
 
 char io_buf[MAXBSIZE];
 
@@ -269,7 +269,7 @@ rdgetinfo(rs)
 		printf("rdgetinfo: rdstrategy error %d\n", err);
 		return(0);
 	}
-	
+
 	msg = getdisklabel(io_buf, lp);
 	if (msg) {
 		printf("rd(%d,%d,%d): WARNING: %s, ",

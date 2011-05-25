@@ -212,7 +212,7 @@ igmp_print(register const u_char *bp, register u_int len,
 		u_int32_t sum = 0;
 		int count;
 		const u_short *sp = (u_short *)bp;
-		
+
 		for (count = len / 2; --count >= 0; )
 			sum += *sp++;
 		if (len & 1)

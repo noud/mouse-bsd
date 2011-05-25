@@ -37,7 +37,7 @@
 #
 
 #--------------------------------------------------------------------#
-# checkver - 
+# checkver -
 #	Check for libraries that appear to be newer than the
 #	one we're about to install.
 #

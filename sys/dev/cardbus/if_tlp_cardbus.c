@@ -51,8 +51,8 @@
 #include "bpfilter.h"
 
 #include <sys/param.h>
-#include <sys/systm.h> 
-#include <sys/mbuf.h>   
+#include <sys/systm.h>
+#include <sys/mbuf.h>
 #include <sys/malloc.h>
 #include <sys/kernel.h>
 #include <sys/socket.h>
@@ -61,18 +61,18 @@
 #include <sys/device.h>
 
 #include <machine/endian.h>
- 
+
 #include <net/if.h>
 #include <net/if_dl.h>
 #include <net/if_media.h>
 #include <net/if_ether.h>
 
-#if NBPFILTER > 0 
+#if NBPFILTER > 0
 #include <net/bpf.h>
-#endif 
+#endif
 
 #ifdef INET
-#include <netinet/in.h> 
+#include <netinet/in.h>
 #include <netinet/if_inarp.h>
 #endif
 
@@ -466,7 +466,7 @@ tlp_cardbus_detach(self, flags)
 			reg = TULIP_PCI_IOBA;
 		}
 
-		Cardbus_mapreg_unmap(ct, reg, sc->sc_st, sc->sc_sh, 
+		Cardbus_mapreg_unmap(ct, reg, sc->sc_st, sc->sc_sh,
 		    csc->sc_mapsize);
 	}
 	return (rv);

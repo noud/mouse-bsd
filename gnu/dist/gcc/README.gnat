@@ -51,7 +51,7 @@ diff -c ada/a-gtran3.c /home/brolley/comp/egcs/tmp/ada/a-gtran3.c
 + 	size = convert (sizetype, size);
 + 	orig_size = convert (sizetype, orig_size);
 +       }
-+  
++ 
     if (size != 0
         && (operand_equal_p (size, orig_size, 0)
   	  || (TREE_CODE (orig_size) == INTEGER_CST
@@ -90,7 +90,7 @@ diff -c ada/a-misc.c /home/brolley/comp/egcs/tmp/ada/a-misc.c
 +      int indent;
 + {
 + }
-+  
++ 
 + 
   /* integrate_decl_tree calls this function, but since we don't use the
      DECL_LANG_SPECIFIC field, this is a no-op.  */
@@ -162,7 +162,7 @@ diff -c ada/a-tree.def /home/brolley/comp/egcs/tmp/ada/a-tree.def
   
 ! DEFTREECODE (TRANSFORM_EXPR, "transform_expr", "e", 0)
   
-  /* Perform an unchecked conversion between the input and the output. 
+  /* Perform an unchecked conversion between the input and the output.
      if TREE_ADDRESSABLE is set, it means this is in an LHS; in that case,
      we can only use techniques, such as pointer punning, that leave the
      expression a "name".  */
@@ -202,7 +202,7 @@ diff -c ada/a-tree.def /home/brolley/comp/egcs/tmp/ada/a-tree.def
   
 ! DEFTREECODE (TRANSFORM_EXPR, "transform_expr", 'e', 0)
   
-  /* Perform an unchecked conversion between the input and the output. 
+  /* Perform an unchecked conversion between the input and the output.
      if TREE_ADDRESSABLE is set, it means this is in an LHS; in that case,
      we can only use techniques, such as pointer punning, that leave the
      expression a "name".  */
@@ -311,7 +311,7 @@ diff -c -r1.1.1.1 -r1.5
 --- Makefile.in	1998/02/19 14:16:34	1.5
 ***************
 *** 798,806 ****
-     #  3. copy 3xyyy.ad[sb] -->-- i-yyy.ad[sb] 
+     #  3. copy 3xyyy.ad[sb] -->-- i-yyy.ad[sb]
   
   ../stamp-gnatlib1: Makefile ../stamp-gnatlib2
 ! 	rm -rf rts
@@ -321,7 +321,7 @@ diff -c -r1.1.1.1 -r1.5
   	   case $(target) in \
   		sparc-sun-sunos4*) 	letter=u ;;\
 --- 800,806 ----
-     #  3. copy 3xyyy.ad[sb] -->-- i-yyy.ad[sb] 
+     #  3. copy 3xyyy.ad[sb] -->-- i-yyy.ad[sb]
   
   ../stamp-gnatlib1: Makefile ../stamp-gnatlib2
 ! 	if [ -d rts ]; then true; else mkdir rts; chmod u+w rts; fi

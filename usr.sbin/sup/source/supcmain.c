@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1992 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -185,15 +185,15 @@
  * 	on MACH, rather than CMUCS. Fixed some calls to sprintf to
  * 	return void.
  * 	[92/08/09            mrt]
- * 
+ *
  * Revision 1.5  92/02/08  19:01:18  mja
  * 	Correct oldsigsys type when ANSI C.
  * 	[92/02/08  18:59:47  mja]
- * 
+ *
  * Revision 1.4  92/02/08  18:24:01  mja
  * 	Added -k and -K switches.
  * 	[92/01/17            vdelvecc]
- * 
+ *
  * 27-Dec-87  Glenn Marcy (gm0w) at Carnegie-Mellon University
  *	Added crosspatch support (is currently ignored).
  *

@@ -148,11 +148,11 @@ pw_scan(bp, pw, flags)
 				break;
 			}
 			if (!strcmp(p, sh))
-				break;	
+				break;
 		}
 
 	if ((p = strsep(&bp, ":")) != NULL) {			/* too many */
-fmt:		
+fmt:
 		if (!(inflags & _PASSWORD_NOWARN))
 			warnx("corrupted entry");
 		return (0);

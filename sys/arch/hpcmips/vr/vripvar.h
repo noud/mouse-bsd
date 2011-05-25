@@ -58,8 +58,8 @@ struct vrip_softc {
 	u_int32_t sc_intrmask;
 };
 
-/* 
- * Vrip driver attach arguments. 
+/*
+ * Vrip driver attach arguments.
  */
 struct vrip_attach_args {
 	vrip_chipset_tag_t va_vc; /* Chipset tag */
@@ -93,10 +93,10 @@ void vrip_intr_resume(void);
  */
 void vrip_cmu_function_register __P((vrip_chipset_tag_t, vrcmu_function_tag_t, vrcmu_chipset_tag_t));
 void vrip_giu_function_register __P((vrip_chipset_tag_t, vrgiu_function_tag_t, vrgiu_chipset_tag_t));
-    
+
 /*
  * Debuggin utility
- */    
+ */
 void bitdisp16 __P((u_int16_t));
 void bitdisp32 __P((u_int32_t));
 void bitdisp64 __P((u_int32_t[2]));

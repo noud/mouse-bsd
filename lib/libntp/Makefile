@@ -14,7 +14,7 @@ emalloc.c dolfptoa.c dofptoa.c decodenetnum.c clocktypes.c clocktime.c \
 calyearstart.c caltontp.c calleapwhen.c caljulian.c buftvtots.c authusekey.c \
 authreadkeys.c authparity.c authkeys.c authencrypt.c authdes.c authdecrypt.c \
 auth12crypt.c atouint.c atolfp.c atoint.c adjtime.c a_md5encrypt.c \
-a_md5decrypt.c a_md512crypt.c 
+a_md5decrypt.c a_md512crypt.c
 SRCS += version.c
 
 CPPFLAGS+=-DHAVE_CONFIG_H -I${.CURDIR}/../../usr.sbin/xntp/include

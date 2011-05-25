@@ -34,12 +34,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -68,7 +68,7 @@ extern int  add_sg_oif      __P((mrtentry_t *mrtentry_ptr,
                          int update_holdtime));
 extern void add_leaf        __P((vifi_t vifi, struct sockaddr_in6 *source,
                          struct sockaddr_in6 *group));
-extern void delete_leaf     __P((vifi_t vifi, struct sockaddr_in6 *source, 
+extern void delete_leaf     __P((vifi_t vifi, struct sockaddr_in6 *source,
                          struct sockaddr_in6 *group));
 
 

@@ -56,7 +56,7 @@ static void *clockirq;
  * hardclock(). Eventually the irqhandler can call hardclock() directly
  * but for now we use this function so that we can debug IRQ's
  */
- 
+
 int
 clockhandler(frame)
 	struct clockframe *frame;
@@ -74,7 +74,7 @@ clockhandler(frame)
  * statclock(). Eventually the irqhandler can call statclock() directly
  * but for now we use this function so that we can debug IRQ's
  */
- 
+
 int
 statclockhandler(frame)
 	struct clockframe *frame;
@@ -110,7 +110,7 @@ setstatclockrate(hz)
  *
  * NOTE: Currently only timer 0 is setup and the IRQ handler is not installed
  */
- 
+
 void
 cpu_initclocks()
 {
@@ -153,7 +153,7 @@ microtime(tvp)
 
 	/* Fill in the timeval struct */
 
-	*tvp = time;    
+	*tvp = time;
 
 	/* Make sure the micro seconds don't overflow. */
 
@@ -172,10 +172,10 @@ microtime(tvp)
 			++tvp->tv_sec;
 		}
 	}
-	    
+
 
 	oldtv = *tvp;
-	(void)splx(s);		
+	(void)splx(s);
 }
 
 

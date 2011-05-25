@@ -106,7 +106,7 @@ inittodr(base)
       resettodr();
   } else {
     int deltat = time.tv_sec - base;
-    
+
     if (deltat < 0)
       deltat = -deltat;
     if (deltat < 2 * SECDAY)
@@ -182,7 +182,7 @@ setstatclockrate(newhz)
 	/* XXX should we do something here? XXX */
 }
 
-/* @@@ update this to use the usec timer 
+/* @@@ update this to use the usec timer
  * Darrin B Jewell <jewell@mit.edu>  Sun Feb  8 05:01:02 1998
  */
 

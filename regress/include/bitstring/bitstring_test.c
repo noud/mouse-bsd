@@ -16,7 +16,7 @@
  * in bitstring.h
  */
 #define _bitstr_size bitstr_size
- 
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -68,7 +68,7 @@ main(int argc, char *argv[])
 
   (void) printf("\ntest bit_set\n");
   for (i=0; i<TEST_LENGTH; i+=3) {
-    bit_set(bs, i); 
+    bit_set(bs, i);
     }
   (void) printf("be:   1   0 ");
   for (i=0; i < TEST_LENGTH; i++)
@@ -78,7 +78,7 @@ main(int argc, char *argv[])
 
   (void) printf("\ntest bit_clear\n");
   for (i=0; i<TEST_LENGTH; i+=6) {
-    bit_clear(bs, i); 
+    bit_clear(bs, i);
     }
   (void) printf("be:   0   3 ");
   for (i=0; i < TEST_LENGTH; i++)
@@ -193,7 +193,7 @@ clearbits(b, n)
   int n;
 {
   register int i = bitstr_size(n);
-  while(i--) 
+  while(i--)
     *(b + i) = 0;
 }
 void

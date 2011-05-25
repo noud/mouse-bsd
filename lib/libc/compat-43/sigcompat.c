@@ -68,7 +68,7 @@ sa2sv(sv, sa)
 	sv->sv_handler = sa->sa_handler;
 	sv->sv_flags = sa->sa_flags ^ SV_INTERRUPT; /* !SA_INTERRUPT */
 }
-	
+
 int
 sigvec(signo, nsv, osv)
 	int signo;

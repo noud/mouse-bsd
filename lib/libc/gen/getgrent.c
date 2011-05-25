@@ -371,7 +371,7 @@ _nis_grscan(rv, cb_data, ap)
 	}
 
 						/* ! search */
-	if (_gr_ypdone)		
+	if (_gr_ypdone)
 		return NS_NOTFOUND;
 	for (;;) {
 		data = NULL;

@@ -321,7 +321,7 @@ xycmatch(parent, cf, aux)
 /*
  * xycattach: attach controller
  */
-static void 
+static void
 xycattach(parent, self, aux)
 	struct device *parent, *self;
 	void   *aux;
@@ -459,7 +459,7 @@ xyc_print(aux, name)
  * call xyattach!).  Also, wire down the relationship between the
  * xy* and xyc* devices, to simplify boot device identification.
  */
-static int 
+static int
 xymatch(parent, cf, aux)
 	struct device *parent;
 	struct cfdata *cf;
@@ -479,7 +479,7 @@ xymatch(parent, cf, aux)
 /*
  * xyattach: attach a disk.
  */
-static void 
+static void
 xyattach(parent, self, aux)
 	struct device *parent, *self;
 	void   *aux;

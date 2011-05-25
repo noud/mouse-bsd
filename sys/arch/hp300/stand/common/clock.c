@@ -105,7 +105,7 @@ bbc_to_gmt(timbuf)
 
 	for (i = 1; i < month; i++)
 	  	tmp += days_in_month(i);
-	
+
 	tmp += (day - 1);
 	tmp = ((tmp * 24 + hour) * 60 + min) * 60 + sec;
 

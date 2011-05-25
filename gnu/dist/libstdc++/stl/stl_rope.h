@@ -56,7 +56,7 @@ inline void __cond_store_eos(charT&) {}
 
 inline void __cond_store_eos(char& c) { c = 0; }
 inline void __cond_store_eos(wchar_t& c) { c = 0; }
-	
+
 
 // rope<charT,Alloc> is a sequence of charT.
 // Ropes appear to be mutable, but update operations
@@ -315,13 +315,13 @@ struct __rope_RopeBase {
 		pthread_mutex_init(&refcount_lock, 0);
 	    }
 	    void incr_refcount ()
-            {   
+            {
 		pthread_mutex_lock(&refcount_lock);
                 ++refcount;
 		pthread_mutex_unlock(&refcount_lock);
             }
             size_t decr_refcount ()
-            {   
+            {
 		size_t result;
 		pthread_mutex_lock(&refcount_lock);
                 result = --refcount;
@@ -391,7 +391,7 @@ struct __rope_RopeBase {
     enum { alloc_granularity = 8 };
     static size_t rounded_up_size(size_t n) {
         size_t size_with_eos;
-	     
+
         if (__is_basic_char_type((charT *)0)) {
     	    size_with_eos = n + 1;
     	} else {
@@ -553,7 +553,7 @@ class __rope_charT_ref_proxy {
     __rope_charT_ref_proxy& operator= (charT c);
     __rope_charT_ptr_proxy<charT,Alloc> operator& () const;
     __rope_charT_ref_proxy& operator= (const __rope_charT_ref_proxy& c) {
-	return operator=((charT)c); 
+	return operator=((charT)c);
     }
 };
 
@@ -643,7 +643,7 @@ class __rope_iterator_base:
 			  // right. Assumes path_cache_len <= 9.
     charT tmp_buf[iterator_buf_len];
 			// Short buffer for surrounding chars.
-			// This is useful primarily for 
+			// This is useful primarily for
 			// RopeFunctions.  We put the buffer
 			// here to avoid locking in the
 			// multithreaded case.
@@ -1066,7 +1066,7 @@ class rope {
 		return rounded_up_size(n);
 	    }
 	}
-		
+
 	// s should really be an arbitrary input iterator.
 	// Adds a trailing NULL for basic char types.
 	static charT * alloc_copy(const charT *s, size_t size)
@@ -1097,7 +1097,7 @@ class rope {
             }
             __STL_UNWIND(RopeBase::free_string(buf, size))
 	}
-	    
+
 
 	// Concatenation of nonempty strings.
 	// Always builds a concatenation node.
@@ -1191,7 +1191,7 @@ class rope {
 	// Add all unbalanced subtrees to the forest of balanceed trees.
 	// Used only by balance.
 	static void add_to_forest(RopeBase *r, RopeBase **forest);
-	
+
 	// Add r to forest, assuming r is already balanced.
 	static void add_leaf_to_forest(RopeBase *r, RopeBase **forest);
 
@@ -1439,7 +1439,7 @@ class rope {
 	    return(const_iterator(tree_ptr, size()));
 	}
 
-	size_type size() const { 
+	size_type size() const {
 	    return(0 == tree_ptr? 0 : tree_ptr -> size);
 	}
 
@@ -1459,7 +1459,7 @@ class rope {
 #     else /* __STL_CLASS_PARTIAL_SPECIALIZATION */
 	typedef reverse_iterator<const_iterator, value_type, const_reference,
 				 difference_type>  const_reverse_iterator;
-#     endif /* __STL_CLASS_PARTIAL_SPECIALIZATION */ 
+#     endif /* __STL_CLASS_PARTIAL_SPECIALIZATION */
 
 	const_reverse_iterator rbegin() const {
 	    return const_reverse_iterator(end());
@@ -1480,15 +1480,15 @@ class rope {
 	friend rope<charT,Alloc>
         operator+ __STL_NULL_TMPL_ARGS (const rope<charT,Alloc> &left,
                                         const rope<charT,Alloc> &right);
-	
+
 	friend rope<charT,Alloc>
         operator+ __STL_NULL_TMPL_ARGS (const rope<charT,Alloc> &left,
                                         const charT* right);
-	
+
 	friend rope<charT,Alloc>
         operator+ __STL_NULL_TMPL_ARGS (const rope<charT,Alloc> &left,
                                         charT right);
-	
+
 	// The symmetric cases are intentionally omitted, since they're presumed
 	// to be less common, and we don't handle them as well.
 
@@ -1710,16 +1710,16 @@ class rope {
 	    erase(p, p + 1);
 	}
 
-	// Insert, iterator variants.  
+	// Insert, iterator variants.
 	iterator insert(const iterator& p, const rope& r)
 		{ insert(p.index(), r); return p; }
 	iterator insert(const iterator& p, size_t n, charT c)
 		{ insert(p.index(), n, c); return p; }
-	iterator insert(const iterator& p, charT c) 
+	iterator insert(const iterator& p, charT c)
 		{ insert(p.index(), c); return p; }
-	iterator insert(const iterator& p ) 
+	iterator insert(const iterator& p )
 		{ insert(p.index()); return p; }
-	iterator insert(const iterator& p, const charT *c_string) 
+	iterator insert(const iterator& p, const charT *c_string)
 		{ insert(p.index(), c_string); return p; }
 	iterator insert(const iterator& p, const charT *i, size_t n)
 		{ insert(p.index(), i, n); return p; }
@@ -1791,13 +1791,13 @@ class rope {
 	    return rope<charT,Alloc>(
 			substring(tree_ptr, start.index(), end.index()));
 	}
-	
+
 	rope substr(iterator start) const {
 	    size_t pos = start.index();
 	    return rope<charT,Alloc>(
 			substring(tree_ptr, pos, pos + 1));
 	}
-	
+
 	rope substr(const_iterator start, const_iterator end) const {
 	    // This might eventually take advantage of the cache in the
 	    // iterator.
@@ -1830,7 +1830,7 @@ class rope {
 #     else /* __STL_CLASS_PARTIAL_SPECIALIZATION */
 	typedef reverse_iterator<iterator, value_type, reference,
 				 difference_type>  reverse_iterator;
-#     endif /* __STL_CLASS_PARTIAL_SPECIALIZATION */ 
+#     endif /* __STL_CLASS_PARTIAL_SPECIALIZATION */
 
 	reverse_iterator mutable_rbegin() {
 	    return reverse_iterator(mutable_end());
@@ -1884,11 +1884,11 @@ class rope {
 	    const_iterator begin() { return const_begin(); }
 
 	    const_reverse_iterator rend() { return const_rend(); }
-  
+
 	    const_reverse_iterator rbegin() { return const_rbegin(); }
 
 #	endif
-	
+
 };
 
 template <class charT, class Alloc>
@@ -1998,7 +1998,7 @@ operator+ (const rope<charT,Alloc> &left,
 	   const charT* right) {
     size_t rlen = rope<charT,Alloc>::char_ptr_len(right);
     return rope<charT,Alloc>
-	   (rope<charT,Alloc>::concat_char_iter(left.tree_ptr, right, rlen)); 
+	   (rope<charT,Alloc>::concat_char_iter(left.tree_ptr, right, rlen));
 }
 
 template <class charT, class Alloc>
@@ -2031,7 +2031,7 @@ bool
 operator< (const rope<charT,Alloc> &left, const rope<charT,Alloc> &right) {
     return left.compare(right) < 0;
 }
-	
+
 template <class charT, class Alloc>
 bool
 operator== (const rope<charT,Alloc> &left, const rope<charT,Alloc> &right) {
@@ -2045,8 +2045,8 @@ inline bool operator== (const __rope_charT_ptr_proxy<charT,Alloc> & x,
 }
 
 template<class charT, class Alloc>
-ostream& operator<< (ostream& o, const rope<charT, Alloc>& r);        
-	
+ostream& operator<< (ostream& o, const rope<charT, Alloc>& r);
+
 typedef rope<char, __ALLOC> crope;
 typedef rope<wchar_t, __ALLOC> wrope;
 

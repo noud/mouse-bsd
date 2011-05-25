@@ -87,7 +87,7 @@ struct fnode {
 #ifdef __FreeBSD__
 	struct lock	f_lock;	/* fnode lock >Keep this first< */
 #endif
-	
+
 	LIST_ENTRY(fnode) f_fnlist;
 	struct vnode   *f_vp;		/* Associatied vnode */
 	struct ntnode  *f_ip;		/* Associated ntnode */

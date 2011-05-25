@@ -59,7 +59,7 @@
 static void nomem __P((void));
 static void vxerror __P((const char *, int, const char *, va_list));
 static void vxwarn __P((const char *, int, const char *, va_list));
-static void vxmsg __P((const char *fname, int line, const char *class, 
+static void vxmsg __P((const char *fname, int line, const char *class,
 		       const char *fmt, va_list));
 
 /*

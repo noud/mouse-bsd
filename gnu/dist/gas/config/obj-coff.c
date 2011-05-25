@@ -1397,7 +1397,7 @@ int function_lineoff = -1;	/* Offset in line#s where the last function
 /* structure used to keep the filenames which
    are too long around so that we can stick them
    into the string table */
-struct filename_list 
+struct filename_list
 {
   char *filename;
   struct filename_list *next;
@@ -3578,13 +3578,13 @@ c_dot_file_symbol (filename)
       SA_SET_FILE_FNAME_ZEROS (symbolP, 0);
       SA_SET_FILE_FNAME_OFFSET (symbolP, 1);
 
-      if (filename_list_tail) 
+      if (filename_list_tail)
 	filename_list_tail->next = f;
       else
 	filename_list_head = f;
-      filename_list_tail = f;      
+      filename_list_tail = f;
     }
-  else 
+  else
     {
       SA_SET_FILE_FNAME (symbolP, filename);
     }

@@ -76,7 +76,7 @@ struct ExecBase {
 	u_int8_t Dmy3[322-304];	/* 304 */
 	struct MemHead *MemLst;	/* 322 */
 	/*
-	 * XXX: actually, its a longer List base, but we only need to 
+	 * XXX: actually, its a longer List base, but we only need to
 	 * search it once.
 	 */
 	u_int8_t Dmy4[568-326];	/* 326 */

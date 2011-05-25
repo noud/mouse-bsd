@@ -39,13 +39,13 @@
 #include "rf_debugMem.h"
 #include "rf_freelist.h"
 
-static void 
+static void
 rf_FreeShutdownEnt(RF_ShutdownList_t * ent)
 {
 	FREE(ent, M_RAIDFRAME);
 }
 
-int 
+int
 _rf_ShutdownCreate(
     RF_ShutdownList_t ** listp,
     void (*cleanup) (void *arg),
@@ -59,9 +59,9 @@ _rf_ShutdownCreate(
          * Have to directly allocate memory here, since we start up before
          * and shutdown after RAIDframe internal allocation system.
          */
-	/* 	ent = (RF_ShutdownList_t *) malloc(sizeof(RF_ShutdownList_t), 
+	/* 	ent = (RF_ShutdownList_t *) malloc(sizeof(RF_ShutdownList_t),
 		M_RAIDFRAME, M_WAITOK); */
-	ent = (RF_ShutdownList_t *) malloc(sizeof(RF_ShutdownList_t), 
+	ent = (RF_ShutdownList_t *) malloc(sizeof(RF_ShutdownList_t),
 					   M_RAIDFRAME, M_NOWAIT);
 	if (ent == NULL)
 		return (ENOMEM);
@@ -74,7 +74,7 @@ _rf_ShutdownCreate(
 	return (0);
 }
 
-int 
+int
 rf_ShutdownList(RF_ShutdownList_t ** list)
 {
 	RF_ShutdownList_t *r, *next;

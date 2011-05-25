@@ -61,7 +61,7 @@ typedef struct {
 	uByte		bmAttributes;
 	uWord		wMaxPacketSize;
 	uByte		bInterval;
-	/* 
+	/*
 	 * The following two entries are only used by the Audio Class.
 	 * And according to the specs the Audio Class is the only one
 	 * allowed to extend the endpoint descriptor.

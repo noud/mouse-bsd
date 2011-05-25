@@ -51,7 +51,7 @@ main (ac, av)
   char *name = "";
 
   while ((i = getopt (ac, av, "c:tv")) != EOF)
-    switch (i) 
+    switch (i)
       {
       case 'c':
 	sim_csize (atoi (optarg));

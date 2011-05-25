@@ -74,7 +74,7 @@ fetch_core_registers (core_reg_sect, core_reg_size, which, ignore)
 
 /* this table must line up with REGISTER_NAMES in tm-i386.h */
 /* symbols like 'tEAX' come from <machine/reg.h> */
-static int tregmap[] = 
+static int tregmap[] =
 {
   tEAX, tECX, tEDX, tEBX,
   tESP, tEBP, tESI, tEDI,
@@ -82,7 +82,7 @@ static int tregmap[] =
 };
 
 #ifdef sEAX
-static int sregmap[] = 
+static int sregmap[] =
 {
   sEAX, sECX, sEDX, sEBX,
   sESP, sEBP, sESI, sEDI,
@@ -93,7 +93,7 @@ static int sregmap[] =
 /* FreeBSD has decided to collapse the s* and t* symbols.  So if the s*
    ones aren't around, use the t* ones for sregmap too.  */
 
-static int sregmap[] = 
+static int sregmap[] =
 {
   tEAX, tECX, tEDX, tEBX,
   tESP, tEBP, tESI, tEDI,
@@ -152,7 +152,7 @@ extern void print_387_status_word ();
 #define	fpstate		save87
 #define	U_FPSTATE(u)	u.u_pcb.pcb_savefpu
 
-struct env387 
+struct env387
 {
   unsigned short control;
   unsigned short r0;
@@ -178,22 +178,22 @@ print_387_status (status, ep)
   int bothstatus;
   int top;
   int fpreg;
-  
+
   bothstatus = ((status != 0) && (ep->status != 0));
-  if (status != 0) 
+  if (status != 0)
     {
       if (bothstatus)
 	printf_unfiltered ("u: ");
       print_387_status_word ((unsigned int)status);
     }
-  
-  if (ep->status != 0) 
+
+  if (ep->status != 0)
     {
       if (bothstatus)
 	printf_unfiltered ("e: ");
       print_387_status_word ((unsigned int)ep->status);
     }
-  
+
   print_387_control_word ((unsigned int)ep->control);
   printf_unfiltered ("last exception: ");
   printf_unfiltered ("opcode %s; ", local_hex_string(ep->opcode));
@@ -203,15 +203,15 @@ print_387_status (status, ep)
   printf_unfiltered (":%s\n", local_hex_string(ep->operand));
 
   top = (ep->status >> 11) & 7;
-  
+
   printf_unfiltered ("regno     tag  msb              lsb  value\n");
-  for (fpreg = 7; fpreg >= 0; fpreg--) 
+  for (fpreg = 7; fpreg >= 0; fpreg--)
     {
       double val;
-      
-      printf_unfiltered ("%s %d: ", fpreg == top ? "=>" : "  ", fpreg); 
 
-      switch ((ep->tag >> (fpreg * 2)) & 3) 
+      printf_unfiltered ("%s %d: ", fpreg == top ? "=>" : "  ", fpreg);
+
+      switch ((ep->tag >> (fpreg * 2)) & 3)
 	{
 	case 0: printf_unfiltered ("valid "); break;
 	case 1: printf_unfiltered ("zero  "); break;
@@ -220,8 +220,8 @@ print_387_status (status, ep)
 	}
       for (i = 9; i >= 0; i--)
 	printf_unfiltered ("%02x", ep->regs[fpreg][i]);
-      
-      floatformat_to_double(&floatformat_i387_ext, (char *) ep->regs[fpreg], 
+
+      floatformat_to_double(&floatformat_i387_ext, (char *) ep->regs[fpreg],
 			      &val);
       printf_unfiltered ("  %g\n", val);
     }
@@ -241,37 +241,37 @@ i386_float_info ()
   /*extern int corechan;*/
   int skip;
   extern int inferior_pid;
-  
+
   uaddr = (char *)&U_FPSTATE(u) - (char *)&u;
-  if (inferior_pid) 
+  if (inferior_pid)
     {
       int *ip;
-      
+
       rounded_addr = uaddr & -sizeof (int);
       rounded_size = (((uaddr + sizeof (struct fpstate)) - uaddr) +
 		      sizeof (int) - 1) / sizeof (int);
       skip = uaddr - rounded_addr;
-      
+
       ip = (int *)buf;
-      for (i = 0; i < rounded_size; i++) 
+      for (i = 0; i < rounded_size; i++)
 	{
 	  *ip++ = ptrace (PT_READ_U, inferior_pid, (caddr_t)rounded_addr, 0);
 	  rounded_addr += sizeof (int);
 	}
-    } 
-  else 
+    }
+  else
     {
       printf("float info: can't do a core file (yet)\n");
       return;
 #if 0
       if (lseek (corechan, uaddr, 0) < 0)
 	perror_with_name ("seek on core file");
-      if (myread (corechan, buf, sizeof (struct fpstate)) < 0) 
+      if (myread (corechan, buf, sizeof (struct fpstate)) < 0)
 	perror_with_name ("read from core file");
       skip = 0;
 #endif
     }
-  
+
   print_387_status (0, (struct env387 *)buf);
 }
 

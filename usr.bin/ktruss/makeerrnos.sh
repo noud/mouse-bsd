@@ -21,7 +21,7 @@ cat ${DESTDIR}/usr/include/sys/errno.h | cpp -dM |
 awk '
 /^#[ 	]*define[ 	]*E[A-Z0-9]*[ 	]*[0-9-][0-9]*[ 	]*.*/ {
 	for (i = 1; i <= NF; i++)
-		if ($i ~ /define/) 
+		if ($i ~ /define/)
 			break;
 	i++;
 	j = i + 1;
@@ -45,7 +45,7 @@ cat ${DESTDIR}/usr/include/sys/signal.h | cpp -dM |
 awk '
 /^#[ 	]*define[ 	]*S[A-Z0-9]*[ 	]*[0-9-][0-9]*[ 	]*.*/ {
 	for (i = 1; i <= NF; i++)
-		if ($i ~ /define/) 
+		if ($i ~ /define/)
 			break;
 	i++;
 	j = i + 1;

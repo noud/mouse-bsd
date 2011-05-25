@@ -110,7 +110,7 @@ nat_t *nat;
 		return 0;
 	portbuf[sizeof(portbuf) - 1] = '\0';
 	*newbuf = '\0';
-	if (!strncmp(portbuf, "PORT ", 5)) { 
+	if (!strncmp(portbuf, "PORT ", 5)) {
 		if (dlen < IPF_MINPORTLEN)
 			return 0;
 	} else

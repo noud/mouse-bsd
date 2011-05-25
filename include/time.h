@@ -128,7 +128,7 @@ int timer_create __P((clockid_t, struct sigevent *, timer_t *));
 int timer_delete __P((timer_t));
 int timer_getoverrun __P((timer_t));
 int timer_gettime __P((timer_t, struct itimerspec *));
-int timer_settime __P((timer_t, int, const struct itimerspec *, 
+int timer_settime __P((timer_t, int, const struct itimerspec *,
     struct itimerspec *));
 #endif /* (!_POSIX_C_SOURCE && !_XOPEN_SOURCE) || ... */
 

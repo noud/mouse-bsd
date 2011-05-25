@@ -10,19 +10,19 @@
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice in the documentation and/or other materials provided with 
+ *    notice in the documentation and/or other materials provided with
  *    the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
- * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN 
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -96,16 +96,16 @@ struct mlist
 /*
  * These are the various command histories that exist.
  */
-struct mlist mlist_search =  
+struct mlist mlist_search =
 	{ &mlist_search,  &mlist_search,  &mlist_search,  NULL };
 public void *ml_search = (void *) &mlist_search;
 
-struct mlist mlist_examine = 
+struct mlist mlist_examine =
 	{ &mlist_examine, &mlist_examine, &mlist_examine, NULL };
 public void *ml_examine = (void *) &mlist_examine;
 
 #if SHELL_ESCAPE || PIPEC
-struct mlist mlist_shell =   
+struct mlist mlist_shell =
 	{ &mlist_shell,   &mlist_shell,   &mlist_shell,   NULL };
 public void constant *ml_shell = (void *) &mlist_shell;
 #endif
@@ -279,10 +279,10 @@ cmd_rshift()
 cmd_right()
 {
 	char *p;
-	
+
 	if (*cp == '\0')
 	{
-		/* 
+		/*
 		 * Already at the end of the line.
 		 */
 		return (CC_OK);
@@ -305,7 +305,7 @@ cmd_right()
 cmd_left()
 {
 	char *p;
-	
+
 	if (cp <= cmdbuf)
 	{
 		/* Already at the beginning of the line */
@@ -329,7 +329,7 @@ cmd_ichar(c)
 	int c;
 {
 	char *s;
-	
+
 	if (strlen(cmdbuf) >= sizeof(cmdbuf)-2)
 	{
 		/*
@@ -338,7 +338,7 @@ cmd_ichar(c)
 		bell();
 		return (CC_ERROR);
 	}
-		
+
 	/*
 	 * Insert the character into the buffer.
 	 */
@@ -383,7 +383,7 @@ cmd_erase()
 	 * Repaint the buffer after the erased char.
 	 */
 	cmd_repaint(cp);
-	
+
 	/*
 	 * This is rather weird.
 	 * We say that erasing the entire command string causes us
@@ -516,7 +516,7 @@ cmd_updown(action)
 	int action;
 {
 	char *s;
-	
+
 	if (curr_mlist == NULL)
 	{
 		/*
@@ -560,14 +560,14 @@ cmd_addhist(mlist, cmd)
 {
 #if CMD_HISTORY
 	struct mlist *ml;
-	
+
 	/*
 	 * Don't save a trivial command.
 	 */
 	if (strlen(cmd) == 0)
 		return;
 	/*
-	 * Don't save if a duplicate of a command which is already 
+	 * Don't save if a duplicate of a command which is already
 	 * in the history.
 	 * But select the one already in the history to be current.
 	 */
@@ -634,7 +634,7 @@ cmd_edit(c)
 #else
 #define	not_in_completion()
 #endif
-	
+
 	/*
 	 * See if the char is indeed a line-editing command.
 	 */
@@ -740,7 +740,7 @@ cmd_istr(str)
 {
 	char *s;
 	int action;
-	
+
 	for (s = str;  *s != '\0';  s++)
 	{
 		action = cmd_ichar(*s);
@@ -767,7 +767,7 @@ delimit_word()
 	char *p;
 	int quoted;
 #endif
-	
+
 	/*
 	 * Move cursor to end of word.
 	 */
@@ -828,7 +828,7 @@ delimit_word()
 
 /*
  * Set things up to enter completion mode.
- * Expand the word under the cursor into a list of filenames 
+ * Expand the word under the cursor into a list of filenames
  * which start with that word, and set tk_text to that list.
  */
 	static void
@@ -836,7 +836,7 @@ init_compl()
 {
 	char *word;
 	char c;
-	
+
 	/*
 	 * Get rid of any previous tk_text.
 	 */
@@ -912,8 +912,8 @@ cmd_complete(action)
 	if (!in_completion || action == EC_EXPAND)
 	{
 		/*
-		 * Expand the word under the cursor and 
-		 * use the first word in the expansion 
+		 * Expand the word under the cursor and
+		 * use the first word in the expansion
 		 * (or the entire expansion if we're doing EC_EXPAND).
 		 */
 		init_compl();
@@ -945,13 +945,13 @@ cmd_complete(action)
 		 */
 		tk_trial = next_compl(action, tk_trial);
 	}
-	
+
   	/*
   	 * Remove the original word, or the previous trial completion.
   	 */
 	while (cp > tk_ipoint)
 		(void) cmd_erase();
-	
+
 	if (tk_trial == NULL)
 	{
 		/*
@@ -982,9 +982,9 @@ cmd_complete(action)
 				goto fail;
 		}
 	}
-	
+
 	return (CC_OK);
-	
+
 fail:
 	in_completion = 0;
 	bell();
@@ -1015,7 +1015,7 @@ cmd_char(c)
 		literal = 0;
 		return (cmd_ichar(c));
 	}
-		
+
 	/*
 	 * See if it is a special line-editing character.
 	 */
@@ -1031,7 +1031,7 @@ cmd_char(c)
 			break;
 		}
 	}
-	
+
 	/*
 	 * Insert the char into the command buffer.
 	 */

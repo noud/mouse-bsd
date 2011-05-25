@@ -487,7 +487,7 @@ unp_attach(so)
 	register struct unpcb *unp;
 	struct timeval tv;
 	int error;
-	
+
 	if (so->so_snd.sb_hiwat == 0 || so->so_rcv.sb_hiwat == 0) {
 		switch (so->so_type) {
 
@@ -520,7 +520,7 @@ void
 unp_detach(unp)
 	register struct unpcb *unp;
 {
-	
+
 	if (unp->unp_vnode) {
 		unp->unp_vnode->v_socket = 0;
 		vrele(unp->unp_vnode);
@@ -831,7 +831,7 @@ unp_externalize(rights)
 		}
 	}
 	rp = (struct file **)ALIGN(cm + 1);
-	
+
 	/* Make sure that the recipient has space */
 	if (error || (!fdavail(p, nfds))) {
 		for (i = 0; i < nfds; i++) {
@@ -845,7 +845,7 @@ unp_externalize(rights)
 		}
 		return (error ? error : EMSGSIZE);
 	}
-	
+
 	/*
 	 * Add file to the recipient's open file table, converting them
 	 * to integer file descriptors as we go.  Done in forward order
@@ -856,7 +856,7 @@ unp_externalize(rights)
 		fp = *rp++;
 		fp->f_msgcount--;
 		unp_rights--;
-		
+
 		if (fdalloc(p, 0, &f))
 			panic("unp_externalize");
 		p->p_fd->fd_ofiles[f] = fp;
@@ -1117,7 +1117,7 @@ unp_gc()
 					unp_scan(so1->so_rcv.sb_mb, unp_mark, 0);
 				}
 			}
-			
+
 		}
 	} while (unp_defer);
 	/*
@@ -1241,7 +1241,7 @@ unp_mark(fp)
 {
 	if (fp == NULL)
 		return;
-	
+
 	if (fp->f_flag & FMARK)
 		return;
 

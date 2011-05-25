@@ -152,7 +152,7 @@ beginning with a @samp{-}.
 @item  -f @var{file}
 @itemx --file=@var{file}
 @opindex  -f
-@opindex  --file 
+@opindex  --file
 @cindex pattern from file
 Obtain patterns from @var{file}, one  per  line.   The  empty
 file contains zero patterns, and therefore matches nothing.
@@ -280,7 +280,7 @@ used; see below.
 
 @item -d @var{action}
 @itemx --directories=@var{action}
-@opindex -d 
+@opindex -d
 @opindex --directories
 @cindex directory search
 If an input file is a directory, use @var{action} to  process it.
@@ -332,7 +332,7 @@ it as commands.
 @cindex matching whole words
 Select only those lines containing  matches  that  form
 whole  words.   The test is that the matching substring
-must either be at the beginning of the  line,  or  preceded 
+must either be at the beginning of the  line,  or  preceded
 by a non-word constituent character.  Similarly,
 it must be either at the end of the line or followed by
 a  non-word  constituent  character.   Word-constituent
@@ -464,7 +464,7 @@ are regular expressions  that  match themselves.  Any  metacharacter
 with special meaning may be quoted by preceding it with a backslash.
 A list of characters enclosed by @samp{[} and @samp{]} matches any
 single character in that list; if the first character of the list is the
-caret @samp{^}, then it 
+caret @samp{^}, then it
 matches any character @strong{not} in the list.  For example, the regular
 expression @samp{[0123456789]} matches any single digit.
 A range of @sc{ascii} characters  may be  specified  by  giving  the  first
@@ -477,7 +477,7 @@ and  they  are :
 @table @samp
 
 @item [:alnum:]
-@opindex alnum 
+@opindex alnum
 @cindex  alphanumeric characters
 Any of [:digit:] or [:alpha:]
 
@@ -580,7 +580,7 @@ The preceding item will be matched zero or more times.
 
 @item +
 @opindex +
-@cindex plus sign 
+@cindex plus sign
 The preceding item will be matched one or more times.
 
 @item @{@var{n}@}

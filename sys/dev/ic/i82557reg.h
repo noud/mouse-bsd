@@ -330,7 +330,7 @@ struct fxp_stats {
 };
 #define FXP_STATS_DUMP_COMPLETE	0xa005
 #define FXP_STATS_DR_COMPLETE	0xa007
-	
+
 /*
  * Serial EEPROM control register bits
  */

@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -40,7 +40,7 @@
 *	or when storing to memory, the contents of a floating-point
 *	data register are too large to be represented in the
 *	destination format.
-*		
+*
 * Trap disabled results
 *
 * If the instruction is move_out, then garbage is stored in the
@@ -97,7 +97,7 @@ fpsp_ovfl:
 *	if overflow traps not enabled check for inexact exception
 *
 	btst.b	#ovfl_bit,FPCR_ENABLE(a6)
-	beq.b	ck_inex	
+	beq.b	ck_inex
 *
 	btst.b		#E3,E_BYTE(a6)
 	beq.b		no_e3_1
@@ -144,7 +144,7 @@ no_e3_2:
 	frestore	(a7)+
 	unlk		a6
 	bra.l		real_inex
-	
+
 ovfl_exit:
 	bclr.b	#E3,E_BYTE(a6)	;test and clear E3 bit
 	beq.b	e1_set
@@ -176,7 +176,7 @@ e1_set:
 *
 ovf_adj:
 *
-* Have a0 point to the correct operand. 
+* Have a0 point to the correct operand.
 *
 	btst.b	#E3,E_BYTE(a6)	;test E3 bit
 	beq.b	ovf_e1
@@ -202,7 +202,7 @@ ovf_com:
  	bsr.l	ovf_r_x3	;returns a0 pointing to result
 	move.b	L_SCR1(a6),FPSR_CC(a6)
 	bra.l	store		;stores to memory or register
-	
+
 not_opc011:
 	bsr.l	ovf_r_x2	;returns a0 pointing to result
 	bra.l	store		;stores to memory or register

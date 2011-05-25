@@ -61,12 +61,12 @@ vax1k_map_readvn(p, cmd)
 
 	if (cmd->ev_len == 0)
 		return(KERN_SUCCESS); /* XXXCDC: should it happen? */
-	
+
 	oaddr = cmd->ev_addr;
 	cmd->ev_addr = trunc_page(cmd->ev_addr); /* required by uvm_map */
-	error = uvm_map(&p->p_vmspace->vm_map, &cmd->ev_addr, 
+	error = uvm_map(&p->p_vmspace->vm_map, &cmd->ev_addr,
 			round_page(cmd->ev_len + (oaddr - cmd->ev_addr)),
-			NULL, UVM_UNKNOWN_OFFSET, 
+			NULL, UVM_UNKNOWN_OFFSET,
 			UVM_MAPFLAG(UVM_PROT_ALL, UVM_PROT_ALL, UVM_INH_COPY,
 			UVM_ADV_NORMAL,
 			UVM_FLAG_FIXED|UVM_FLAG_OVERLAY|UVM_FLAG_COPYONW));
@@ -87,7 +87,7 @@ vax1k_map_readvn(p, cmd)
 		 * it mapped read-only, so now we are going to have to call
 		 * uvm_map_protect() to fix up the protection.  ICK.
 		 */
-		return(uvm_map_protect(&p->p_vmspace->vm_map, 
+		return(uvm_map_protect(&p->p_vmspace->vm_map,
 				trunc_page(cmd->ev_addr),
 				round_page(cmd->ev_addr + cmd->ev_len),
 				cmd->ev_prot, FALSE));

@@ -46,10 +46,10 @@
  *	ICubed EtherH network slot cards
  */
 
-/* 
+/*
  * TO DO List for this driver.
  *
- * EtherH - The driver currently relies on some part if the RISCOS driver 
+ * EtherH - The driver currently relies on some part if the RISCOS driver
  * initialisation code to work correctly. This dependancy needs to be
  * removed.
  *
@@ -91,7 +91,7 @@ struct ne_pbus_softc {
 	struct bus_space	sc_tag;			/* Patched tag */
 	void			*sc_ih;			/* Interrupt handler */
 	int			sc_mediatype;		/* Media Info */
-#define NE_MEDIA_AUTO		0 
+#define NE_MEDIA_AUTO		0
 #define	NE_MEDIA_10BASET	1
 #define NE_MEDIA_10BASE2	2
 };
@@ -426,12 +426,12 @@ eh600_postattach(sc)
 		printf("10Base2/BNC\n");
 }
 
-/* 
+/*
  * extracts the station address from the Podule description string.
- * The description has to be re-read here since the podule description 
+ * The description has to be re-read here since the podule description
  * string is not always long enough to contain the full address.
  *
- * If for any reason we cannot extract the address this routine will 
+ * If for any reason we cannot extract the address this routine will
  * use netslot_ea() to return the generic address for the network slot.
  */
 
@@ -496,13 +496,13 @@ eh600_ea(sc, buffer)
 							++addr_index;
 						}
 						else if (tmp == ')') {
-							/* we have read the whole address so we can stop scanning 
+							/* we have read the whole address so we can stop scanning
 							 * the podule description */
 							break;
 						}
 					}
 					/*
-					 * we have found the start of the ethernet address (decode begins 
+					 * we have found the start of the ethernet address (decode begins
 					 * on the next run round the loop. */
 					if (POD_READ((pod_addr + loop) * 4) == '(') {
 						found_ether = 1;

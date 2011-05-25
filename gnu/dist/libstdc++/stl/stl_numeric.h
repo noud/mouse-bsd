@@ -108,7 +108,7 @@ OutputIterator partial_sum(InputIterator first, InputIterator last,
 }
 
 template <class InputIterator, class OutputIterator, class T>
-OutputIterator __adjacent_difference(InputIterator first, InputIterator last, 
+OutputIterator __adjacent_difference(InputIterator first, InputIterator last,
                                      OutputIterator result, T*) {
   T value = *first;
   while (++first != last) {
@@ -120,16 +120,16 @@ OutputIterator __adjacent_difference(InputIterator first, InputIterator last,
 }
 
 template <class InputIterator, class OutputIterator>
-OutputIterator adjacent_difference(InputIterator first, InputIterator last, 
+OutputIterator adjacent_difference(InputIterator first, InputIterator last,
                                    OutputIterator result) {
   if (first == last) return result;
   *result = *first;
   return __adjacent_difference(first, last, result, value_type(first));
 }
 
-template <class InputIterator, class OutputIterator, class T, 
+template <class InputIterator, class OutputIterator, class T,
           class BinaryOperation>
-OutputIterator __adjacent_difference(InputIterator first, InputIterator last, 
+OutputIterator __adjacent_difference(InputIterator first, InputIterator last,
                                      OutputIterator result, T*,
                                      BinaryOperation binary_op) {
   T value = *first;
@@ -153,7 +153,7 @@ OutputIterator adjacent_difference(InputIterator first, InputIterator last,
 
 // Returns x ** n, where n >= 0.  Note that "multiplication"
 //  is required to be associative, but not necessarily commutative.
-    
+
 template <class T, class Integer, class MonoidOperation>
 T power(T x, Integer n, MonoidOperation op) {
   if (n == 0)

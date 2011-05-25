@@ -47,8 +47,8 @@
 #include "bpfilter.h"
 
 #include <sys/param.h>
-#include <sys/systm.h> 
-#include <sys/mbuf.h>   
+#include <sys/systm.h>
+#include <sys/mbuf.h>
 #include <sys/malloc.h>
 #include <sys/kernel.h>
 #include <sys/socket.h>
@@ -59,18 +59,18 @@
 #include <machine/endian.h>
 
 #include <vm/vm.h>		/* for PAGE_SIZE */
- 
+
 #include <net/if.h>
 #include <net/if_dl.h>
 #include <net/if_media.h>
 #include <net/if_ether.h>
 
-#if NBPFILTER > 0 
+#if NBPFILTER > 0
 #include <net/bpf.h>
-#endif 
+#endif
 
 #ifdef INET
-#include <netinet/in.h> 
+#include <netinet/in.h>
 #include <netinet/if_inarp.h>
 #endif
 
@@ -1445,7 +1445,7 @@ tlp_txintr(sc)
 
 		if (txstat & (TDSTAT_Tx_UF|TDSTAT_Tx_TO))
 			ifp->if_oerrors++;
-		
+
 		if (txstat & TDSTAT_Tx_EC)
 			ifp->if_collisions += 16;
 		else
@@ -2023,7 +2023,7 @@ tlp_read_srom(sc, word, wordcnt, data)
  *	Add a receive buffer to the indicated descriptor.
  */
 int
-tlp_add_rxbuf(sc, idx)	
+tlp_add_rxbuf(sc, idx)
 	struct tulip_softc *sc;
 	int idx;
 {
@@ -2393,7 +2393,7 @@ tlp_filter_setup(sc)
 		*sp++ = TULIP_SP_FIELD(enm->enm_addrlo, 2);
 		ETHER_NEXT_MULTI(step, enm);
 	}
-	
+
 	if (ifp->if_flags & IFF_BROADCAST) {
 		/* ...and the broadcast address. */
 		cnt++;
@@ -2627,7 +2627,7 @@ tlp_al981_filter_setup(sc)
 	struct tulip_softc *sc;
 {
 	struct ethercom *ec = &sc->sc_ethercom;
-	struct ifnet *ifp = &sc->sc_ethercom.ec_if; 
+	struct ifnet *ifp = &sc->sc_ethercom.ec_if;
 	struct ether_multi *enm;
 	struct ether_multistep step;
 	u_int32_t hash, mchash[2];
@@ -3324,7 +3324,7 @@ const struct tulip_srom_to_ifmedia tulip_srom_to_ifmedia_table[] = {
 	  { 0,
 	    0,
 	    0 },
-	  
+
 	  { 0,
 	    0,
 	    0 },
@@ -4211,7 +4211,7 @@ tlp_2114x_isv_tmsw_init(sc)
 				free(tm, M_DEVBUF);
 				break;
 			}
-			
+
 			/* Get defaults. */
 			tlp_srom_media_info(sc, tsti, tm);
 
@@ -4795,7 +4795,7 @@ tlp_pnic_tmsw_get(sc, ifmr)
 		mii->mii_media_active = IFM_NONE;
 		tlp_pnic_nway_service(sc, MII_POLLSTAT);
 		ifmr->ifm_status = sc->sc_mii.mii_media_status;
-		ifmr->ifm_active = sc->sc_mii.mii_media_active; 
+		ifmr->ifm_active = sc->sc_mii.mii_media_active;
 	}
 }
 

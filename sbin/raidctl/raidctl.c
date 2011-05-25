@@ -35,9 +35,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* 
+/*
 
-   This program is a re-write of the original rf_ctrl program 
+   This program is a re-write of the original rf_ctrl program
    distributed by CMU with RAIDframe 1.1.
 
    This program is the user-land interface to the RAIDframe kernel
@@ -120,7 +120,7 @@ main(argc,argv)
 	is_clean = 0;
 	force = 0;
 
-	while ((ch = getopt(argc, argv, "a:A:Bc:C:f:F:g:iI:l:r:R:sSpPuv")) 
+	while ((ch = getopt(argc, argv, "a:A:Bc:C:f:F:g:iI:l:r:R:sSpPuv"))
 	       != -1)
 		switch(ch) {
 		case 'a':
@@ -175,7 +175,7 @@ main(argc,argv)
 			serial_number = atoi(optarg);
 			num_options++;
 			break;
-		case 'l': 
+		case 'l':
 			action = RAIDFRAME_SET_COMPONENT_LABEL;
 			strncpy(component, optarg, PATH_MAX);
 			num_options++;
@@ -213,7 +213,7 @@ main(argc,argv)
 			break;
 		case 'v':
 			verbose = 1;
-			/* Don't bump num_options, as '-v' is not 
+			/* Don't bump num_options, as '-v' is not
 			   an option like the others */
 			/* num_options++; */
 			break;
@@ -223,7 +223,7 @@ main(argc,argv)
 	argc -= optind;
 	argv += optind;
 
-	if ((num_options > 1) || (argc == NULL)) 
+	if ((num_options > 1) || (argc == NULL))
 		usage();
 
 	strncpy(name,argv[0],PATH_MAX);
@@ -235,11 +235,11 @@ main(argc,argv)
 		if (isdigit(name[strlen(name)-1])) {
 			rawpart = getrawpartition();
 			snprintf(dev_name,PATH_MAX,"/dev/%s%c",name,
-				 'a'+rawpart);		
+				 'a'+rawpart);
 		} else {
 			snprintf(dev_name,PATH_MAX,"/dev/%s",name);
 		}
-	}	
+	}
 
 	if (stat(dev_name, &st) != 0) {
 		fprintf(stderr,"%s: stat failure on: %s\n",
@@ -259,7 +259,7 @@ main(argc,argv)
 			__progname, dev_name);
 		exit(1);
 	}
-	
+
 
 	switch(action) {
 	case RAIDFRAME_ADD_HOT_SPARE:
@@ -297,7 +297,7 @@ main(argc,argv)
 		break;
 	case RAIDFRAME_REWRITEPARITY:
 		printf("Initiating re-write of parity\n");
-		do_ioctl(fd, RAIDFRAME_REWRITEPARITY, NULL, 
+		do_ioctl(fd, RAIDFRAME_REWRITEPARITY, NULL,
 			 "RAIDFRAME_REWRITEPARITY");
 		if (verbose) {
 			sleep(3); /* XXX give it time to get started */
@@ -356,14 +356,14 @@ rf_configure(fd,config_file,force)
 			__progname, "configuration structure\n");
 		exit(1);
 	}
-	
+
 	cfg.force = force;
 
-	/* 
+	/*
 
 	   Note the extra level of redirection needed here, since
-	   what we really want to pass in is a pointer to the pointer to 
-	   the configuration structure. 
+	   what we really want to pass in is a pointer to the pointer to
+	   the configuration structure.
 
 	 */
 
@@ -421,14 +421,14 @@ rf_get_device_status(fd)
 
 	printf("Components:\n");
 	for(i=0; i < device_config.ndevs; i++) {
-		printf("%20s: %s\n", device_config.devs[i].devname, 
+		printf("%20s: %s\n", device_config.devs[i].devname,
 		       device_status(device_config.devs[i].status));
 	}
 	if (device_config.nspares > 0) {
 		printf("Spares:\n");
 		for(i=0; i < device_config.nspares; i++) {
 			printf("%20s: %s\n",
-			       device_config.spares[i].devname, 
+			       device_config.spares[i].devname,
 			       device_status(device_config.spares[i].status));
 		}
 	} else {
@@ -457,14 +457,14 @@ get_component_number(fd, component_name, component_number, num_columns)
 	int found;
 
 	*component_number = -1;
-		
+
 	/* Assuming a full path spec... */
 	cfg_ptr = &device_config;
-	do_ioctl(fd, RAIDFRAME_GET_INFO, &cfg_ptr, 
+	do_ioctl(fd, RAIDFRAME_GET_INFO, &cfg_ptr,
 		 "RAIDFRAME_GET_INFO");
 
 	*num_columns = device_config.cols;
-	
+
 	found = 0;
 	for(i=0; i < device_config.ndevs; i++) {
 		if (strncmp(component_name, device_config.devs[i].devname,
@@ -474,7 +474,7 @@ get_component_number(fd, component_name, component_number, num_columns)
 		}
 	}
 	if (!found) {
-		fprintf(stderr,"%s: %s is not a component %s", __progname, 
+		fprintf(stderr,"%s: %s is not a component %s", __progname,
 			component_name, "of this device\n");
 		exit(1);
 	}
@@ -499,7 +499,7 @@ rf_fail_disk(fd, component_to_fail, do_recon)
 	} else {
 		recon_request.flags = RF_FDFLAGS_NONE;
 	}
-	do_ioctl(fd, RAIDFRAME_FAIL_DISK, &recon_request, 
+	do_ioctl(fd, RAIDFRAME_FAIL_DISK, &recon_request,
 		 "RAIDFRAME_FAIL_DISK");
 	if (do_recon && verbose) {
 		printf("Reconstruction status:\n");
@@ -531,21 +531,21 @@ get_component_label(fd, component)
 	printf("Component label for %s:\n",component);
 
 	printf("   Row: %d Column: %d Num Rows: %d Num Columns: %d\n",
-	       component_label.row, component_label.column, 
+	       component_label.row, component_label.column,
 	       component_label.num_rows, component_label.num_columns);
 	printf("   Version: %d Serial Number: %d Mod Counter: %d\n",
 	       component_label.version, component_label.serial_number,
 	       component_label.mod_counter);
 	printf("   Clean: %s Status: %d\n",
-	       component_label.clean ? "Yes" : "No", 
+	       component_label.clean ? "Yes" : "No",
 	       component_label.status );
 	printf("   sectPerSU: %d SUsPerPU: %d SUsPerRU: %d\n",
-	       component_label.sectPerSU, component_label.SUsPerPU, 
+	       component_label.sectPerSU, component_label.SUsPerPU,
 	       component_label.SUsPerRU);
 	printf("   RAID Level: %c  blocksize: %d numBlocks: %d\n",
-	       (char) component_label.parityConfig, 
+	       (char) component_label.parityConfig,
 	       component_label.blockSize, component_label.numBlocks);
-	printf("   Autoconfig: %s\n", 
+	printf("   Autoconfig: %s\n",
 	       component_label.autoconfigure ? "Yes" : "No" );
 	printf("   Last configured as: raid%d\n", component_label.last_unit );
 	printf("   Config order: %d\n", component_label.config_order);
@@ -585,7 +585,7 @@ set_component_label(fd, component)
 	component_label.num_columns = 5;
 	component_label.clean = 0;
 	component_label.status = 1;
-	
+
 	do_ioctl( fd, RAIDFRAME_SET_COMPONENT_LABEL, &component_label,
 		  "RAIDFRAME_SET_COMPONENT_LABEL");
 }
@@ -607,7 +607,7 @@ init_component_labels(fd, serial_number)
 	component_label.num_columns = 0;
 	component_label.clean = 0;
 	component_label.status = 0;
-	
+
 	do_ioctl( fd, RAIDFRAME_INIT_LABELS, &component_label,
 		  "RAIDFRAME_SET_COMPONENT_LABEL");
 }
@@ -657,9 +657,9 @@ add_hot_spare(fd, component)
 
 	hot_spare.row = 0;
 	hot_spare.column = 0;
-	strncpy(hot_spare.component_name, component, 
+	strncpy(hot_spare.component_name, component,
 		sizeof(hot_spare.component_name));
-	
+
 	do_ioctl( fd, RAIDFRAME_ADD_HOT_SPARE, &hot_spare,
 		  "RAIDFRAME_ADD_HOT_SPARE");
 }
@@ -678,9 +678,9 @@ remove_hot_spare(fd, component)
 	hot_spare.row = component_num / num_cols;
 	hot_spare.column = component_num % num_cols;
 
-	strncpy(hot_spare.component_name, component, 
+	strncpy(hot_spare.component_name, component,
 		sizeof(hot_spare.component_name));
-	
+
 	do_ioctl( fd, RAIDFRAME_REMOVE_HOT_SPARE, &hot_spare,
 		  "RAIDFRAME_REMOVE_HOT_SPARE");
 }
@@ -699,7 +699,7 @@ rebuild_in_place( fd, component )
 	comp.row = 0;
 	comp.column = component_num;
 	strncpy(comp.component_name, component, sizeof(comp.component_name));
-	
+
 	do_ioctl( fd, RAIDFRAME_REBUILD_IN_PLACE, &comp,
 		  "RAIDFRAME_REBUILD_IN_PLACE");
 
@@ -731,7 +731,7 @@ check_parity( fd, do_rewrite, dev_name )
 		if (do_rewrite) {
 			printf("%s: Initiating re-write of parity\n",
 			       dev_name);
-			do_ioctl(fd, RAIDFRAME_REWRITEPARITY, NULL, 
+			do_ioctl(fd, RAIDFRAME_REWRITEPARITY, NULL,
 				 "RAIDFRAME_REWRITEPARITY");
 			sleep(3); /* XXX give it time to
 				     get started. */
@@ -740,13 +740,13 @@ check_parity( fd, do_rewrite, dev_name )
 				do_meter(fd,
 					 RAIDFRAME_CHECK_PARITYREWRITE_STATUS);
 			} else {
-				do_ioctl(fd, 
-					 RAIDFRAME_CHECK_PARITYREWRITE_STATUS, 
-					 &percent_done, 
+				do_ioctl(fd,
+					 RAIDFRAME_CHECK_PARITYREWRITE_STATUS,
+					 &percent_done,
 					 "RAIDFRAME_CHECK_PARITYREWRITE_STATUS"
 					 );
 				while( percent_done < 100 ) {
-					do_ioctl(fd, RAIDFRAME_CHECK_PARITYREWRITE_STATUS, 
+					do_ioctl(fd, RAIDFRAME_CHECK_PARITYREWRITE_STATUS,
 						 &percent_done, "RAIDFRAME_CHECK_PARITYREWRITE_STATUS");
 				}
 
@@ -770,14 +770,14 @@ check_status( fd )
 	int parity_percent_done = 0;
 	int copyback_percent_done = 0;
 
-	do_ioctl(fd, RAIDFRAME_CHECK_RECON_STATUS, &recon_percent_done, 
+	do_ioctl(fd, RAIDFRAME_CHECK_RECON_STATUS, &recon_percent_done,
 		 "RAIDFRAME_CHECK_RECON_STATUS");
 	printf("Reconstruction is %d%% complete.\n", recon_percent_done);
-	do_ioctl(fd, RAIDFRAME_CHECK_PARITYREWRITE_STATUS, 
-		 &parity_percent_done, 
+	do_ioctl(fd, RAIDFRAME_CHECK_PARITYREWRITE_STATUS,
+		 &parity_percent_done,
 		 "RAIDFRAME_CHECK_PARITYREWRITE_STATUS");
 	printf("Parity Re-write is %d%% complete.\n", parity_percent_done);
-	do_ioctl(fd, RAIDFRAME_CHECK_COPYBACK_STATUS, &copyback_percent_done, 
+	do_ioctl(fd, RAIDFRAME_CHECK_COPYBACK_STATUS, &copyback_percent_done,
 		 "RAIDFRAME_CHECK_COPYBACK_STATUS");
 	printf("Copyback is %d%% complete.\n", copyback_percent_done);
 
@@ -829,29 +829,29 @@ do_meter( fd, option )
 	start_percent = percent_done;
 	last_time = start_time;
 	current_time = start_time;
-	
+
 	wait_for_more_data = 0;
 	tbit_value = 0;
 
 	while(percent_done < 100) {
 
 		get_bar(bar_buffer, percent_done, 40);
-		
+
 		elapsed_sec = current_time.tv_sec - last_time.tv_sec;
-		
+
 		elapsed_usec = current_time.tv_usec - last_time.tv_usec;
-		
+
 		if (elapsed_usec < 0) {
 			elapsed_usec-=1000000;
 			elapsed_sec++;
 		}
-		
-		elapsed = (double) elapsed_sec + 
+
+		elapsed = (double) elapsed_sec +
 			(double) elapsed_usec / 1000000.0;
 		if (elapsed <= 0.0) {
 			elapsed = 0.0001; /* XXX */
 		}
-		
+
 		amount = percent_done - last_percent;
 		if (amount <= 0) { /* we don't do negatives (yet?) */
 			amount = 0;
@@ -867,7 +867,7 @@ do_meter( fd, option )
 		} else {
 			simple_eta = -1;
 		}
-		if (simple_eta <=0) { 
+		if (simple_eta <=0) {
 			simple_eta = last_eta;
 		} else {
 			last_eta = simple_eta;
@@ -889,7 +889,7 @@ do_meter( fd, option )
 			last_percent = percent_done;
 		}
 
-		if (++tbit_value>3) 
+		if (++tbit_value>3)
 			tbit_value = 0;
 
 		sleep(2);
@@ -901,7 +901,7 @@ do_meter( fd, option )
 		}
 
 		do_ioctl( fd, option, &percent_done, "");
-		
+
 
 	}
 	printf("\n");
@@ -931,7 +931,7 @@ get_bar(string,percent,max_strlen)
 	if (max_strlen > STAR_MIDPOINT) {
 		max_strlen = STAR_MIDPOINT;
 	}
-	offset = STAR_MIDPOINT - 
+	offset = STAR_MIDPOINT -
 		(int)((percent * max_strlen)/ 100);
 	if (offset < 0)
 		offset = 0;
@@ -954,13 +954,13 @@ get_time_string(string,simple_time)
 		seconds = ((int)simple_time - 60*minutes);
 		hours = minutes / 60;
 		minutes = minutes - 60*hours;
-		
+
 		if (hours > 0) {
 			snprintf(hours_buffer,5,"%02d:",hours);
 		} else {
 			snprintf(hours_buffer,5,"   ");
 		}
-		
+
 		snprintf(minutes_buffer,5,"%02d:",minutes);
 		snprintf(seconds_buffer,5,"%02d",seconds);
 		snprintf(string,1024,"%s%s%s",
@@ -968,7 +968,7 @@ get_time_string(string,simple_time)
 	} else {
 		snprintf(string,1024,"   --:--");
 	}
-	
+
 }
 
 static void
@@ -983,13 +983,13 @@ usage()
 	fprintf(stderr, "       %s [-v] -g component dev\n", __progname);
 	fprintf(stderr, "       %s [-v] -i dev\n", __progname);
 	fprintf(stderr, "       %s [-v] -I serial_number dev\n", __progname);
-	fprintf(stderr, "       %s [-v] -r component dev\n", __progname); 
+	fprintf(stderr, "       %s [-v] -r component dev\n", __progname);
 	fprintf(stderr, "       %s [-v] -R component dev\n", __progname);
 	fprintf(stderr, "       %s [-v] -s dev\n", __progname);
 	fprintf(stderr, "       %s [-v] -S dev\n", __progname);
 	fprintf(stderr, "       %s [-v] -u dev\n", __progname);
 #if 0
-	fprintf(stderr, "usage: %s %s\n", __progname, 
+	fprintf(stderr, "usage: %s %s\n", __progname,
 		"-a | -f | -F | -g | -r | -R component dev");
 	fprintf(stderr, "       %s -B | -i | -s | -S -u dev\n", __progname);
 	fprintf(stderr, "       %s -c | -C config_file dev\n", __progname);

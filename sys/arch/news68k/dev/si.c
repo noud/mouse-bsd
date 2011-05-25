@@ -40,7 +40,7 @@
  * This file contains the machine-dependent parts of the Sony CXD1180
  * controller. The machine-independent parts are in ncr5380sbc.c.
  * Written by Izumi Tsutsui.
- * 
+ *
  * This code is based on arch/vax/vsa/ncr.c and sun3/dev/si.c
  */
 

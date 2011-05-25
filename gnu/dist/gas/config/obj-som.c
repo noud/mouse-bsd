@@ -147,7 +147,7 @@ obj_som_init_stab_section (seg)
   space = bfd_make_section_old_way (stdoutput, "$GDB_DEBUG$");
 
   /* Set SOM specific attributes for the space.  In particular we set
-     the space "defined", "private", "sort_key", and "spnum" values. 
+     the space "defined", "private", "sort_key", and "spnum" values.
 
      Due to a bug in pxdb (called by hpux linker), the sort keys
      of the various stabs spaces/subspaces need to be "small".  We
@@ -164,7 +164,7 @@ obj_som_init_stab_section (seg)
 
   /* Make some space for the first special stab entry and zero the memory.
      It contains information about the length of this file's
-     stab string and the like.  Using it avoids the need to 
+     stab string and the like.  Using it avoids the need to
      relocate the stab strings.
 
      The $GDB_STRINGS$ space will be created as a side effect of

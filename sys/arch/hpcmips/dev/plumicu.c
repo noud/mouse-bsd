@@ -62,23 +62,23 @@ struct plum_intr_ctrl {
 	plumreg_t	ic_ienpat;	int	ic_ienreg;
 	plumreg_t	ic_senpat;	int	ic_senreg;
 } pi_ctrl[PLUM_INTR_MAX] = {
-	[PLUM_INT_C1IO]	= {PLUM_INT_INTSTA_PCCINT,	
+	[PLUM_INT_C1IO]	= {PLUM_INT_INTSTA_PCCINT,
 			   PLUM_INT_PCCINTS_C1IO,	PLUM_INT_PCCINTS_REG,
-			   PLUM_INT_PCCIEN_IENC1IO,	PLUM_INT_PCCIEN_REG,		
+			   PLUM_INT_PCCIEN_IENC1IO,	PLUM_INT_PCCIEN_REG,
 			   PLUM_INT_PCCIEN_SENC1IO,	PLUM_INT_PCCIEN_REG
 	},
-	[PLUM_INT_C1RI] = {PLUM_INT_INTSTA_PCCINT,	
+	[PLUM_INT_C1RI] = {PLUM_INT_INTSTA_PCCINT,
 			   PLUM_INT_PCCINTS_C1RI,	PLUM_INT_PCCINTS_REG,
 			   PLUM_INT_PCCIEN_IENC1RI,	PLUM_INT_PCCIEN_REG,
 			   PLUM_INT_PCCIEN_SENC1RI,	PLUM_INT_PCCIEN_REG
 	},
 	[PLUM_INT_C1SC] = {PLUM_INT_INTSTA_C1SCINT,	0, 0, 0, 0, 0, 0},
-	[PLUM_INT_C2IO] = {PLUM_INT_INTSTA_PCCINT,	
+	[PLUM_INT_C2IO] = {PLUM_INT_INTSTA_PCCINT,
 			   PLUM_INT_PCCINTS_C2IO,	PLUM_INT_PCCINTS_REG,
 			   PLUM_INT_PCCIEN_IENC2IO,	PLUM_INT_PCCIEN_REG,
 			   PLUM_INT_PCCIEN_SENC2IO,	PLUM_INT_PCCIEN_REG
 	},
-	[PLUM_INT_C2RI] = {PLUM_INT_INTSTA_PCCINT,	
+	[PLUM_INT_C2RI] = {PLUM_INT_INTSTA_PCCINT,
 			   PLUM_INT_PCCINTS_C2RI,	PLUM_INT_PCCINTS_REG,
 			   PLUM_INT_PCCIEN_IENC2RI,	PLUM_INT_PCCIEN_REG,
 			   PLUM_INT_PCCIEN_SENC2RI,	PLUM_INT_PCCIEN_REG
@@ -100,7 +100,7 @@ struct plum_intr_ctrl {
 			   PLUM_INT_SMIEN,		PLUM_INT_SMIEN_REG,
 			   0, 0
 	},
-	[PLUM_INT_EXT5IO0] = {PLUM_INT_INTSTA_EXTINT,	
+	[PLUM_INT_EXT5IO0] = {PLUM_INT_INTSTA_EXTINT,
 			   PLUM_INT_EXTINTS_IO5INT0,	PLUM_INT_EXTINTS_REG,
 			   PLUM_INT_EXTIEN_IENIO5INT0,	PLUM_INT_EXTIEN_REG,
 			   PLUM_INT_EXTIEN_SENIO5INT0,	PLUM_INT_EXTIEN_REG,
@@ -181,9 +181,9 @@ plumicu_attach(parent, self, aux)
 
 	sc->sc_pc	= pa->pa_pc;
 	sc->sc_regt	= pa->pa_regt;
-	
+
 	/* map plum2 interrupt controller register space */
-	if (bus_space_map(sc->sc_regt, PLUM_INT_REGBASE, 
+	if (bus_space_map(sc->sc_regt, PLUM_INT_REGBASE,
 			  PLUM_INT_REGSIZE, 0, &sc->sc_regh)) {
 		printf(":interrupt register map failed\n");
 		return;
@@ -205,14 +205,14 @@ plumicu_attach(parent, self, aux)
 			plum_conf_write(regt, regh, pic->ic_senreg, reg);
 		}
 	}
-	
+
 	for (i = 0; i < PLUM_INTR_MAX; i++) {
-		TAILQ_INIT(&sc->sc_pi_head[i]);		
+		TAILQ_INIT(&sc->sc_pi_head[i]);
 	}
 
 	/* register handle to plum_chipset_tag */
 	plum_conf_register_intr(sc->sc_pc, (void*)sc);
-	
+
 	/* disable interrupt redirect to TX39 core */
 	plum_conf_write(sc->sc_regt, sc->sc_regh, PLUM_INT_INTIEN_REG, 0);
 
@@ -244,7 +244,7 @@ plum_intr_establish(pc, line, mode, level, ih_fun, ih_arg)
 		panic("plum_intr_establish: bogus interrupt line");
 	}
 
-	if (!(pi = malloc(sizeof(struct plum_intr_entry), 
+	if (!(pi = malloc(sizeof(struct plum_intr_entry),
 			  M_DEVBUF, M_NOWAIT))) {
 		panic ("plum_intr_establish: no memory.");
 	}
@@ -255,7 +255,7 @@ plum_intr_establish(pc, line, mode, level, ih_fun, ih_arg)
 	pi->pi_arg  = ih_arg;
 	pi->pi_ctrl = &pi_ctrl[line];
 	TAILQ_INSERT_TAIL(&sc->sc_pi_head[line], pi, pi_link);
-	
+
 	/* Enable interrupt */
 	/* status enable */
 	if (pi->pi_ctrl->ic_senreg) {
@@ -297,7 +297,7 @@ plum_intr_disestablish(pc, arg)
 		TAILQ_FOREACH(pi, &sc->sc_pi_head[i], pi_link) {
 			if (pi->pi_fun == arg) {
 				TAILQ_REMOVE(&sc->sc_pi_head[i], pi, pi_link);
-				DPRINTF(("plum_intr_disestablish: %d (count=%d)\n",  
+				DPRINTF(("plum_intr_disestablish: %d (count=%d)\n",
 					 pi->pi_line, sc->sc_enable_count - 1));
 				goto found;
 			}
@@ -317,7 +317,7 @@ plum_intr_disestablish(pc, arg)
 		plum_conf_write(regt, regh, pi->pi_ctrl->ic_senreg, reg);
 	}
 	free(pi, M_DEVBUF);
-	
+
 	/* Disable redirect to TX39 core */
 	if (--sc->sc_enable_count == 0) {
 		/* Disable redirect to TX39 core */
@@ -335,32 +335,32 @@ plumicu_intr(arg)
 	bus_space_handle_t regh = sc->sc_regh;
 	plumreg_t reg1, reg2;
 	int i;
-	
+
 	reg1 = plum_conf_read(regt, regh, PLUM_INT_INTSTA_REG);
 
 	for (i = 0; i < PLUM_INTR_MAX; i++) {
 		struct plum_intr_ctrl *pic = &pi_ctrl[i];
 		if (pic->ic_ackpat1 & reg1) {
 			if (pic->ic_ackpat2) {
-				reg2 = plum_conf_read(regt, regh, 
+				reg2 = plum_conf_read(regt, regh,
 						      pic->ic_ackreg2);
 				if (pic->ic_ackpat2 & reg2) {
 					plum_conf_write(
 						regt, regh,
 						pic->ic_ackreg2,
 						pic->ic_ackpat2);
-					TAILQ_FOREACH(pi, 
-						      &sc->sc_pi_head[i], 
+					TAILQ_FOREACH(pi,
+						      &sc->sc_pi_head[i],
 						      pi_link) {
 						(*pi->pi_fun)(pi->pi_arg);
 					}
-				} 
+				}
 			} else {
-				TAILQ_FOREACH(pi, &sc->sc_pi_head[i], 
+				TAILQ_FOREACH(pi, &sc->sc_pi_head[i],
 					      pi_link) {
 					(*pi->pi_fun)(pi->pi_arg);
 					printf("INT(2) %d:", i);
-				} 
+				}
 			}
 		}
 	}
@@ -375,7 +375,7 @@ plumicu_dump(sc)
 	bus_space_tag_t regt = sc->sc_regt;
 	bus_space_handle_t regh = sc->sc_regh;
 	plumreg_t reg;
-	
+
 	printf("status:");
 	reg = plum_conf_read(regt, regh, PLUM_INT_INTSTA_REG);
 	bitdisp(reg);

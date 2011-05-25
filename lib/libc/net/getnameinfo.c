@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -78,7 +78,7 @@ struct sockinet {
 
 #ifdef INET6
 static char *ip6_sa2str __P((struct sockaddr_in6 *, char *, int));
-#endif 
+#endif
 
 #define ENI_NOSOCKET 	0
 #define ENI_NOSERVNAME	1
@@ -114,7 +114,7 @@ getnameinfo(sa, salen, host, hostlen, serv, servlen, flags)
 
 	if (sa->sa_len != salen)
 		return ENI_SALEN;
-	
+
 	family = sa->sa_family;
 	for (i = 0; afdl[i].a_af; i++)
 		if (afdl[i].a_af == family) {
@@ -122,11 +122,11 @@ getnameinfo(sa, salen, host, hostlen, serv, servlen, flags)
 			goto found;
 		}
 	return ENI_FAMILY;
-	
+
  found:
 	if (salen != afd->a_socklen)
 		return ENI_SALEN;
-	
+
 	port = ((struct sockinet *)sa)->si_port; /* network byte order */
 	addr = (char *)sa + afd->a_off;
 
@@ -164,7 +164,7 @@ getnameinfo(sa, salen, host, hostlen, serv, servlen, flags)
 			flags |= NI_NUMERICHOST;
 		v4a >>= IN_CLASSA_NSHIFT;
 		if (v4a == 0)
-			flags |= NI_NUMERICHOST;			
+			flags |= NI_NUMERICHOST;
 		break;
 #ifdef INET6
 	case AF_INET6:
@@ -303,7 +303,7 @@ ip6_sa2str(sa6, buf, flags)
 		return(buf);
 	}
 #endif
- 
+
 	if (IN6_IS_ADDR_LINKLOCAL(a6) || IN6_IS_ADDR_MC_LINKLOCAL(a6))
 		return(if_indextoname(ifindex, buf));
 
@@ -314,4 +314,4 @@ ip6_sa2str(sa6, buf, flags)
 
 	return(NULL);		/* XXX */
 }
-#endif 
+#endif

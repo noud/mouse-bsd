@@ -477,7 +477,7 @@ writelabel(f, boot, lp)
 		struct partition *pp = &lp->d_partitions[2];
 
 		/*
-		 * If NetBSD/i386 DOS partition is missing, or if 
+		 * If NetBSD/i386 DOS partition is missing, or if
 		 * the label to be written is not within partition,
 		 * prompt first. Need to allow this in case operator
 		 * wants to convert the drive for dedicated use.
@@ -621,7 +621,7 @@ readmbr(f)
 	if (lseek(f, (off_t)MBR_BBSECTOR * DEV_BSIZE, SEEK_SET) < 0 ||
 	    read(f, mbr, sizeof(mbr)) < sizeof(mbr))
 		err(4, "can't read master boot record");
-		
+
 #if !defined(__i386__)
 	/* avoid alignment error */
 	memcpy(mbr, &mbr[MBR_PARTOFF], NMBRPART * sizeof(*dp));
@@ -700,7 +700,7 @@ filecore_checksum(bootblock)
 	u_char byte0, accum_diff;
 	u_int sum;
 	int i;
-    
+
 	sum = 0;
 	accum_diff = 0;
 	byte0 = bootblock[0];
@@ -799,7 +799,7 @@ get_filecore_partition(f)
 	} else {
 		/*
 		 * Valid filecore boot block and no non-ADFS partition.
-		 * This means that the whole disc is allocated for ADFS 
+		 * This means that the whole disc is allocated for ADFS
 		 * so do not trash ! If the user really wants to put a
 		 * NetBSD disklabel on the disc then they should remove
 		 * the filecore boot block first with dd.
@@ -1090,7 +1090,7 @@ makedisktab(f, lp)
 			(void) fprintf(f, "o%c#%d:", c, pp->p_offset);
 			if (pp->p_fstype != FS_UNUSED) {
 				if ((unsigned) pp->p_fstype < FSMAXTYPES)
-					(void) fprintf(f, "t%c=%s:", c, 
+					(void) fprintf(f, "t%c=%s:", c,
 					    fstypenames[pp->p_fstype]);
 				else
 					(void) fprintf(f, "t%c=unknown%d:",
@@ -1242,7 +1242,7 @@ showpartitions(f, lp)
 				else
 				    putc(' ', f);
 				(void) fprintf(f, "- %d",
-				    (pp->p_offset + 
+				    (pp->p_offset +
 				    pp->p_size + lp->d_secpercyl - 1) /
 				    lp->d_secpercyl - 1);
 				if ((pp->p_offset + pp->p_size)
@@ -1636,7 +1636,7 @@ getasciilabel(f, lp)
 				pp->p_offset = v;
 			/* can't use word() here because of blanks
 			   in fstypenames[] */
-			cp = tp; 
+			cp = tp;
 			cpp = fstypenames;
 			for (; cpp < &fstypenames[FSMAXTYPES]; cpp++) {
 				s = *cpp;

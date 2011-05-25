@@ -7,7 +7,7 @@
  * Public Domain version written 26 Aug 1985 John Gilmore (ihnp4!hoptoad!gnu).
  *
  * @(#)list.c 1.18 9/23/86 Public Domain - gnu
- * Id: is_tar.c,v 1.12 1999/02/14 17:16:08 christos Exp 
+ * Id: is_tar.c,v 1.12 1999/02/14 17:16:08 christos Exp
  *
  * Comments changed and some code/comments reformatted
  * for file command by Ian Darwin.
@@ -34,8 +34,8 @@ __RCSID("$NetBSD: is_tar.c,v 1.11 1999/11/01 17:39:26 christos Exp $");
 static int from_oct __P((int, char *));	/* Decode octal number */
 
 /*
- * Return 
- *	0 if the checksum is bad (i.e., probably not a tar archive), 
+ * Return
+ *	0 if the checksum is bad (i.e., probably not a tar archive),
  *	1 for old UNIX tar file,
  *	2 for Unix Std (POSIX) tar file.
  */
@@ -67,12 +67,12 @@ int nbytes;
 	/* Adjust checksum to count the "chksum" field as blanks. */
 	for (i = sizeof(header->header.chksum); --i >= 0;)
 		sum -= 0xFF & header->header.chksum[i];
-	sum += ' '* sizeof header->header.chksum;	
+	sum += ' '* sizeof header->header.chksum;
 
 	if (sum != recsum)
 		return 0;	/* Not a tar archive */
-	
-	if (0==strcmp(header->header.magic, TMAGIC)) 
+
+	if (0==strcmp(header->header.magic, TMAGIC))
 		return 2;		/* Unix Standard tar archive */
 
 	return 1;			/* Old fashioned tar archive */

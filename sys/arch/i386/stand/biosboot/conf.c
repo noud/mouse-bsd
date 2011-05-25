@@ -49,7 +49,7 @@ int ndevs = sizeof(devsw) / sizeof(struct devsw);
 
 struct fs_ops file_system[] = {
 #ifdef SUPPORT_USTARFS
-	{ ustarfs_open, ustarfs_close, ustarfs_read, ustarfs_write, 
+	{ ustarfs_open, ustarfs_close, ustarfs_read, ustarfs_write,
 		ustarfs_seek, ustarfs_stat },
 #endif
 	{ ufs_open, ufs_close, ufs_read, ufs_write, ufs_seek, ufs_stat },

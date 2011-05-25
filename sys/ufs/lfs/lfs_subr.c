@@ -104,12 +104,12 @@ lfs_blkatoff(v)
 	struct buf *bp;
 	ufs_daddr_t lbn;
 	int bsize, error;
-	
+
 	ip = VTOI(ap->a_vp);
 	fs = ip->i_lfs;
 	lbn = lblkno(fs, ap->a_offset);
 	bsize = blksize(fs, ip, lbn);
-	
+
 	*ap->a_bpp = NULL;
 	if ((error = bread(ap->a_vp, lbn, bsize, NOCRED, &bp)) != 0) {
 		brelse(bp);
@@ -133,20 +133,20 @@ lfs_seglock(fs, flags)
 {
 	struct segment *sp;
 	int s;
-	
+
 	if (fs->lfs_seglock) {
 		if (fs->lfs_lockpid == curproc->p_pid) {
 			++fs->lfs_seglock;
 			fs->lfs_sp->seg_flags |= flags;
-			return;			
+			return;
 		} else while (fs->lfs_seglock)
 			(void)tsleep(&fs->lfs_seglock, PRIBIO + 1,
 				     "lfs seglock", 0);
 	}
-	
+
 	fs->lfs_seglock = 1;
 	fs->lfs_lockpid = curproc->p_pid;
-	
+
 	sp = fs->lfs_sp = malloc(sizeof(struct segment), M_SEGMENT, M_WAITOK);
 	sp->bpp = malloc(((LFS_SUMMARY_SIZE - sizeof(SEGSUM)) /
 			  sizeof(ufs_daddr_t) + 1) * sizeof(struct buf *),
@@ -154,7 +154,7 @@ lfs_seglock(fs, flags)
 	sp->seg_flags = flags;
 	sp->vp = NULL;
 	(void) lfs_initseg(fs);
-	
+
 	/*
 	 * Keep a cumulative count of the outstanding I/O operations.  If the
 	 * disk drive catches up with us it could go to zero before we finish,
@@ -180,7 +180,7 @@ lfs_segunlock(fs)
 	struct vnode *vp;
 	struct mount *mp;
 	extern int lfs_dirvcount;
-	
+
 	if (fs->lfs_seglock == 1) {
 
 		mp = fs->lfs_ivnode->v_mount;
@@ -195,7 +195,7 @@ lfs_segunlock(fs)
 #define	VN_OFFSET	(((caddr_t)&vp->v_mntvnodes.le_next) - (caddr_t)vp)
 #define	BACK_VP(VP)	((struct vnode *)(((caddr_t)VP->v_mntvnodes.le_prev) - VN_OFFSET))
 #define	BEG_OF_VLIST	((struct vnode *)(((caddr_t)&mp->mnt_vnodelist.lh_first) - VN_OFFSET))
-	
+
 		/* Find last vnode. */
 	loop:	for (vp = mp->mnt_vnodelist.lh_first;
 		     vp && vp->v_mntvnodes.le_next != NULL;

@@ -572,7 +572,7 @@ main(argc, argv)
 		err(1, "rpc socket");
 	if ((pingsock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
 		err(1, "ping socket");
-	
+
 	(void)fcntl(rpcsock, F_SETFL, fcntl(rpcsock, F_GETFL, 0) | FNDELAY);
 	(void)fcntl(pingsock, F_SETFL, fcntl(pingsock, F_GETFL, 0) | FNDELAY);
 
@@ -643,7 +643,7 @@ main(argc, argv)
 }
 
 /*
- * State transition is done like this: 
+ * State transition is done like this:
  *
  * STATE	EVENT		ACTION			NEWSTATE	TIMEOUT
  * no binding	timeout		broadcast 		no binding	5 sec
@@ -727,7 +727,7 @@ ping(ypdb)
 	AUTH_DESTROY(rpcua);
 
 	ypdb->dom_alive = 2;
-	if (sendto(pingsock, buf, outlen, 0, 
+	if (sendto(pingsock, buf, outlen, 0,
 		   (struct sockaddr *)&ypdb->dom_server_addr,
 		   sizeof ypdb->dom_server_addr) == -1)
 		yp_log(LOG_WARNING, "ping: sendto: %m");
@@ -884,7 +884,7 @@ broadcast(buf, outlen)
 		ifreq.ifr_flags &= (IFF_LOOPBACK | IFF_BROADCAST);
 		if (ifreq.ifr_flags == IFF_BROADCAST) {
 			if (ioctl(sock, SIOCGIFBRDADDR, &ifreq) < 0) {
-				yp_log(LOG_WARNING, 
+				yp_log(LOG_WARNING,
 				    "broadcast: ioctl(SIOCGIFBRDADDR): %m");
 				continue;
 			}
@@ -1159,7 +1159,7 @@ rpc_received(dom, raddrp, force)
 		return;
 
 	if (_yp_invalid_domain(dom))
-		return;	
+		return;
 
 		/* don't support insecure servers by default */
 	if (!insecure && ntohs(raddrp->sin_port) >= IPPORT_RESERVED)
@@ -1188,7 +1188,7 @@ rpc_received(dom, raddrp, force)
 		}
 		return;
 	}
-	
+
 	(void)memcpy(&ypdb->dom_server_addr, raddrp,
 	    sizeof ypdb->dom_server_addr);
 	/* recheck binding in 60 seconds */

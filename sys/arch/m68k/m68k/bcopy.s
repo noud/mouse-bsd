@@ -40,7 +40,7 @@
 /*
  * This is based on: src/lib/libc/arch/m68k/string/bcopy.S
  * identified as: @(#)bcopy.s        5.1 (Berkeley) 5/12/90
- */	
+ */
 
 #include <machine/asm.h>
 

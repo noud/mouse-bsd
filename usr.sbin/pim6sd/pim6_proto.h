@@ -37,12 +37,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -75,21 +75,21 @@ extern int  receive_pim6_register_stop __P((struct sockaddr_in6 *src, struct soc
 extern int  send_pim6_register   __P((char *pkt));
 extern int  receive_pim6_join_prune  __P((struct sockaddr_in6 *src, struct sockaddr_in6 *dst,
                          char *pim_message, int datalen));
-extern int  join_or_prune       __P((mrtentry_t *mrtentry_ptr,  
+extern int  join_or_prune       __P((mrtentry_t *mrtentry_ptr,
                          pim_nbr_entry_t *upstream_router));
 extern int  receive_pim6_assert  __P((struct sockaddr_in6 *src, struct sockaddr_in6 *dst,
                          char *pim_message, int datalen));
 extern int  send_pim6_assert     __P((struct sockaddr_in6 *source, struct sockaddr_in6 *group,
                          vifi_t vifi,
                          mrtentry_t *mrtentry_ptr));
-extern int  send_periodic_pim6_join_prune __P((vifi_t vifi, 
+extern int  send_periodic_pim6_join_prune __P((vifi_t vifi,
                           pim_nbr_entry_t *pim_nbr,
                           u_int16 holdtime));
 extern int  add_jp_entry        __P((pim_nbr_entry_t *pim_nbr,
                          u_int16 holdtime, struct sockaddr_in6 *group,
-                         u_int8 grp_msklen, struct sockaddr_in6 *source,  
+                         u_int8 grp_msklen, struct sockaddr_in6 *source,
                          u_int8 src_msklen,
-                         u_int16 addr_flags,  
+                         u_int16 addr_flags,
                          u_int8 join_prune));
 extern void pack_and_send_jp6_message __P((pim_nbr_entry_t *pim_nbr));
 extern int  receive_pim6_cand_rp_adv __P((struct sockaddr_in6 *src, struct sockaddr_in6 *dst,

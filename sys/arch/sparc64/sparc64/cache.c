@@ -77,7 +77,7 @@ int cachedebug = 0;
 void
 cache_enable()
 {
-	/* 
+	/*
 	 * No point in implementing this unless we have a cache_disable().
 	 * Anyway, sun4u ECC is generated in the E$, so we can't disable that
 	 * and expect to use any RAM.
@@ -88,7 +88,7 @@ cache_enable()
 /*
  * Flush the given virtual page from the cache.
  * (va is the actual address, and must be aligned on a page boundary.)
- * To get the E$ we read to each cache line.  
+ * To get the E$ we read to each cache line.
  */
 int
 cache_flush_page(va)

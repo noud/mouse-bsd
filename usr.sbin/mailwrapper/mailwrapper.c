@@ -139,7 +139,7 @@ main(argc, argv, envp)
 			goto parse_error;
 
 		if (strcmp(from, __progname) == 0) {
-			for (ap = strsep(&cp, WS); ap != NULL; 
+			for (ap = strsep(&cp, WS); ap != NULL;
 			    ap = strsep(&cp, WS))
 			    if (*ap)
 				    addarg(&al, ap, 0);

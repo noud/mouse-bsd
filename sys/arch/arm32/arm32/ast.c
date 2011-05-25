@@ -73,7 +73,7 @@ userret(p, pc, oticks)
 #ifdef DIAGNOSTIC
 	if (p == NULL)
 		panic("userret: p=0 curproc=%p", curproc);
-    
+
 	if ((GetCPSR() & PSR_MODE) != PSR_SVC32_MODE)
 		panic("userret called in non SVC mode !");
 
@@ -166,7 +166,7 @@ ast(frame)
 	}
 	if (&p->p_addr->u_pcb == 0)
 		panic("ast: nopcb!");
-#endif	
+#endif
 
 	if (p->p_flag & P_OWEUPC) {
 		p->p_flag &= ~P_OWEUPC;

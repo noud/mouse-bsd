@@ -261,7 +261,7 @@ apply_change_group ()
 		 {
 		   int j;
 
-		   newpat = gen_rtx_PARALLEL (VOIDmode, 
+		   newpat = gen_rtx_PARALLEL (VOIDmode,
 					      gen_rtvec (XVECLEN (pat, 0) - 1));
 		   for (j = 0; j < XVECLEN (newpat, 0); j++)
 		     XVECEXP (newpat, 0, j) = XVECEXP (pat, 0, j);
@@ -398,7 +398,7 @@ validate_replace_rtx_1 (loc, from, to, object)
 	  return;
 	}
       break;
-      
+
     case ZERO_EXTEND:
     case SIGN_EXTEND:
       /* In these cases, the operation to be performed depends on the mode
@@ -421,7 +421,7 @@ validate_replace_rtx_1 (loc, from, to, object)
 	  return;
 	}
       break;
-	
+
     case SUBREG:
       /* If we have a SUBREG of a register that we are replacing and we are
 	 replacing it with a MEM, make a new MEM and try replacing the
@@ -506,11 +506,11 @@ validate_replace_rtx_1 (loc, from, to, object)
 	}
 
       break;
-      
+
     default:
       break;
     }
-      
+
   /* For commutative or comparison operations we've already performed
      replacements.  Don't try to perform them again.  */
   if (GET_RTX_CLASS (code) != '<' && GET_RTX_CLASS (code) != 'c')
@@ -655,7 +655,7 @@ find_single_use_1 (dest, loc)
     case MEM:
     case SUBREG:
       return find_single_use_1 (dest, &XEXP (x, 0));
-      
+
     default:
       break;
     }
@@ -1099,7 +1099,7 @@ memory_address_p (mode, addr)
 {
   if (GET_CODE (addr) == ADDRESSOF)
     return 1;
-  
+
   GO_IF_LEGITIMATE_ADDRESS (mode, addr, win);
   return 0;
 
@@ -1349,7 +1349,7 @@ decode_asm_operands (body, operands, operand_locs, constraints, modes)
 	{
 	  if (GET_CODE (XVECEXP (body, 0, i)) == CLOBBER)
 	    break;		/* Past last SET */
-	  
+
 	  if (operands)
 	    operands[i] = SET_DEST (XVECEXP (body, 0, i));
 	  if (operand_locs)
@@ -1595,7 +1595,7 @@ adj_offsettable_operand (op, offset)
 {
   register enum rtx_code code = GET_CODE (op);
 
-  if (code == MEM) 
+  if (code == MEM)
     {
       register rtx y = XEXP (op, 0);
       register rtx new;

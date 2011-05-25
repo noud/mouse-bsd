@@ -116,7 +116,7 @@ main(argc, argv)
 		case 'u':
 			cmp = ucmp;
 			break;
-		default: 
+		default:
 			usage();
 		}
 	argc -= optind;

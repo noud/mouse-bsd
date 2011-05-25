@@ -161,7 +161,7 @@ USB_MATCH(uhid)
 {
 	USB_MATCH_START(uhid, uaa);
 	usb_interface_descriptor_t *id;
-	
+
 	if (uaa->iface == NULL)
 		return (UMATCH_NONE);
 	id = usbd_get_interface_descriptor(uaa->iface);
@@ -180,7 +180,7 @@ USB_ATTACH(uhid)
 	void *desc;
 	usbd_status err;
 	char devinfo[1024];
-	
+
 	sc->sc_udev = uaa->device;
 	sc->sc_iface = iface;
 	id = usbd_get_interface_descriptor(iface);
@@ -200,7 +200,7 @@ USB_ATTACH(uhid)
 	DPRINTFN(10,("uhid_attach: bLength=%d bDescriptorType=%d "
 		     "bEndpointAddress=%d-%s bmAttributes=%d wMaxPacketSize=%d"
 		     " bInterval=%d\n",
-		     ed->bLength, ed->bDescriptorType, 
+		     ed->bLength, ed->bDescriptorType,
 		     ed->bEndpointAddress & UE_ADDR,
 		     UE_GET_DIR(ed->bEndpointAddress)==UE_DIR_IN? "in" : "out",
 		     ed->bmAttributes & UE_XFERTYPE,
@@ -222,7 +222,7 @@ USB_ATTACH(uhid)
 		sc->sc_dying = 1;
 		USB_ATTACH_ERROR_RETURN;
 	}
-	
+
 	(void)usbd_set_idle(iface, 0, 0);
 
 	sc->sc_isize = hid_report_size(desc, size, hid_input,   &sc->sc_iid);
@@ -340,7 +340,7 @@ uhid_intr(xfer, addr, status)
 	}
 
 	(void) b_to_q(sc->sc_ibuf, sc->sc_isize, &sc->sc_q);
-		
+
 	if (sc->sc_state & UHID_ASLP) {
 		sc->sc_state &= ~UHID_ASLP;
 		DPRINTFN(5, ("uhid_intr: waking %p\n", sc));
@@ -379,8 +379,8 @@ uhidopen(dev, flag, mode, p)
 	sc->sc_obuf = malloc(sc->sc_osize, M_USBDEV, M_WAITOK);
 
 	/* Set up interrupt pipe. */
-	err = usbd_open_pipe_intr(sc->sc_iface, sc->sc_ep_addr, 
-		  USBD_SHORT_XFER_OK, &sc->sc_intrpipe, sc, sc->sc_ibuf, 
+	err = usbd_open_pipe_intr(sc->sc_iface, sc->sc_ep_addr,
+		  USBD_SHORT_XFER_OK, &sc->sc_intrpipe, sc, sc->sc_ibuf,
 		  sc->sc_isize, uhid_intr, USBD_DEFAULT_INTERVAL);
 	if (err) {
 		DPRINTF(("uhidopen: usbd_open_pipe_intr failed, "
@@ -439,7 +439,7 @@ uhid_do_read(sc, uio, flag)
 	DPRINTFN(1, ("uhidread\n"));
 	if (sc->sc_state & UHID_IMMED) {
 		DPRINTFN(1, ("uhidread immed\n"));
-		
+
 		err = usbd_get_report(sc->sc_iface, UHID_INPUT_REPORT,
 				    sc->sc_iid, buffer, sc->sc_isize);
 		if (err)
@@ -518,7 +518,7 @@ uhid_do_write(sc, uio, flag)
 	usbd_status err;
 
 	DPRINTFN(1, ("uhidwrite\n"));
-	
+
 	if (sc->sc_dying)
 		return (EIO);
 

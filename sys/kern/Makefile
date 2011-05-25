@@ -43,7 +43,7 @@ SYSDIR=/sys
 .ifmake links
 # Directories in which to place tags links (other than machine-dependent):
 # The invocation below returns every directory that contains sources, the idea
-# being, in the face of a constantly varying source tree, that this will be 
+# being, in the face of a constantly varying source tree, that this will be
 # easier to maintain than a fixed list.
 DGEN!=	find -H /sys ! -path "/sys/arch*" -name "*.[chs]" | \
 	    sed -e "s@/sys/@@" -e "s@/[^/]*\..*@@" | sort -t / -u

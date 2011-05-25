@@ -8,7 +8,7 @@ static const char rcsid[] = "Id: db_dump.c,v 8.40 1999/10/13 16:39:01 vixie Exp"
 /*
  * Copyright (c) 1986, 1988, 1990
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -24,7 +24,7 @@ static const char rcsid[] = "Id: db_dump.c,v 8.40 1999/10/13 16:39:01 vixie Exp"
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -40,14 +40,14 @@ static const char rcsid[] = "Id: db_dump.c,v 8.40 1999/10/13 16:39:01 vixie Exp"
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -455,7 +455,7 @@ db_dump(struct hashbuf *htp, FILE *fp, int zone, char *origin) {
 
 				NS_GET16(order, cp);
 				fprintf(fp, "%u", order);
- 
+
 				NS_GET16(preference, cp);
 				fprintf(fp, "%u", preference);
 
@@ -491,7 +491,7 @@ db_dump(struct hashbuf *htp, FILE *fp, int zone, char *origin) {
 				fputs(inet_ntoa(ina_get(cp)), fp);
 				cp += INADDRSZ;
 				proto = protocolname(*cp);
-				cp += sizeof(char); 
+				cp += sizeof(char);
 				fprintf(fp, " %s ", proto);
 				i = 0;
 				while(cp < (u_char *)dp->d_data + dp->d_size) {
@@ -502,7 +502,7 @@ db_dump(struct hashbuf *htp, FILE *fp, int zone, char *origin) {
 							servicename(i, proto));
 					    j <<= 1;
 					} while (++i & 07);
-				} 
+				}
 				break;
 
 			case T_MINFO:
@@ -521,7 +521,7 @@ db_dump(struct hashbuf *htp, FILE *fp, int zone, char *origin) {
 				fprintf(fp, "%3u ", *cp++);
 			/*>>> Algorithm id (8-bit decimal) */
 				fprintf(fp, "%3u ", *cp++);
-				
+
 			/*>>> Public-Key Data (multidigit BASE64) */
 			/*    containing ExponentLen, Exponent, and Modulus */
 				i = b64_ntop(cp, dp->d_size - (cp - savecp),
@@ -573,7 +573,7 @@ db_dump(struct hashbuf *htp, FILE *fp, int zone, char *origin) {
 				cp += n;
 				i = 8 * (dp->d_size - n);  /* How many bits? */
 				for (n = 0; n < (u_int32_t)i; n++) {
-					if (NS_NXT_BIT_ISSET(n, cp)) 
+					if (NS_NXT_BIT_ISSET(n, cp))
 						fprintf(fp," %s", p_type(n));
 				}
 				break;

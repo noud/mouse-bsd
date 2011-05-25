@@ -88,7 +88,7 @@ usracct_init()
 				warn("initializing user accounting stats");
 				error = -1;
 				break;
-			} 
+			}
 
 			serr = DB_SEQ(saved_usracct_db, &key, &data, R_NEXT);
 			if (serr < 0) {
@@ -155,7 +155,7 @@ usracct_add(ci)
 	newui.ui_mem += ci->ci_mem;
 	newui.ui_io += ci->ci_io;
 
-	data.data = &newui; 
+	data.data = &newui;
 	data.size = sizeof(newui);
 	rv = DB_PUT(usracct_db, &key, &data, 0);
 	if (rv < 0) {
@@ -280,7 +280,7 @@ uid_compare(k1, k2)
 
 	memcpy(&d1, k1->data, sizeof(d1));
 	memcpy(&d2, k2->data, sizeof(d2));
-	
+
 	if (d1 < d2)
 		return -1;
 	else if (d1 == d2)

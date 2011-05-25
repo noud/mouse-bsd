@@ -79,14 +79,14 @@ __strerror(num, buf, buflen)
 	if (errnum < sys_nerr) {
 #ifdef NLS
 		(void)strncpy(buf, catgets(catd, 1, (int)errnum,
-		    sys_errlist[errnum]), buflen); 
+		    sys_errlist[errnum]), buflen);
 		buf[buflen - 1] = '\0';
 #else
 		return(sys_errlist[errnum]);
 #endif
 	} else {
 #ifdef NLS
-		snprintf(buf, buflen, 
+		snprintf(buf, buflen,
 		    catgets(catd, 1, 0xffff, UPREFIX), errnum);
 #else
 		snprintf(buf, buflen, UPREFIX, errnum);

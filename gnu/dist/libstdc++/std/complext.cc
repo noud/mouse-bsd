@@ -268,6 +268,6 @@ sqrt (const complex<FLOAT>& x)
 	ni = - ni;
       nr = imag (x) / ni / 2;
     }
-  return complex<FLOAT> (nr, ni); 
+  return complex<FLOAT> (nr, ni);
 }
 } // extern "C++"

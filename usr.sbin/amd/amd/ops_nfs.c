@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: ops_nfs.c,v 1.5 1999/03/13 17:03:28 ezk Exp 
+ * Id: ops_nfs.c,v 1.5 1999/03/13 17:03:28 ezk Exp
  *
  */
 

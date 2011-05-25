@@ -1,5 +1,5 @@
 /* 68k-dependent portions of the RPC protocol
-   used with a VxWorks target 
+   used with a VxWorks target
 
 Contributed by Wind River Systems.
 
@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include <stdio.h>
 #include "defs.h"
 
-#include "vx-share/regPacket.h"  
+#include "vx-share/regPacket.h"
 #include "frame.h"
 #include "inferior.h"
 #include "wait.h"

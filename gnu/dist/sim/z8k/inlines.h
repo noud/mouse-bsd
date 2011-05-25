@@ -34,8 +34,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define NE 0xe
 #define GE 0x9
 
- static int is_cond_true PARAMS((sim_state_type *context, int c)); 
- static void makeflags PARAMS((sim_state_type *context, int mask)); 
+ static int is_cond_true PARAMS((sim_state_type *context, int c));
+ static void makeflags PARAMS((sim_state_type *context, int mask));
 
 static INLINE
 long
@@ -52,7 +52,7 @@ long ptr;
 }
 
 static INLINE
-void 
+void
 put_long_reg (context, reg, val)
      sim_state_type *context;
      int reg;
@@ -63,7 +63,7 @@ put_long_reg (context, reg, val)
 }
 
 static INLINE
-void 
+void
 put_quad_reg (context, reg, val1, val2)
      sim_state_type *context;
      int reg;
@@ -77,7 +77,7 @@ put_quad_reg (context, reg, val1, val2)
 }
 
 static INLINE
-void 
+void
 put_word_reg (context, reg, val)
      sim_state_type *context;
      int reg;
@@ -125,7 +125,7 @@ put_byte_mem_da (context, addr, value)
 }
 
 static INLINE
-void 
+void
 put_byte_reg (context, reg, val)
      sim_state_type *context;
      int reg;
@@ -140,11 +140,11 @@ put_byte_reg (context, reg, val)
     {
       old = old & 0x00ff | (val << 8);
     }
-  context->regs[reg & 0x7].word = old;      
+  context->regs[reg & 0x7].word = old;
 }
 
 static INLINE
-int 
+int
 get_byte_reg (context, reg)
      sim_state_type *context;
      int reg;
@@ -156,7 +156,7 @@ get_byte_reg (context, reg)
 }
 
 static INLINE
-void 
+void
 put_word_mem_da (context, addr, value)
      sim_state_type *context;
      int addr;
@@ -203,7 +203,7 @@ get_long_mem_da (context, addr)
 }
 
 static INLINE
-void 
+void
 put_long_mem_da (context, addr, value)
      sim_state_type *context;
      int addr;
@@ -214,7 +214,7 @@ put_long_mem_da (context, addr, value)
 }
 
 static INLINE
-int 
+int
 get_word_mem_ir (context, reg)
      sim_state_type *context;
      int reg;
@@ -223,7 +223,7 @@ get_word_mem_ir (context, reg)
 }
 
 static INLINE
-void 
+void
 put_word_mem_ir (context, reg, value)
      sim_state_type *context;
      int reg;
@@ -234,7 +234,7 @@ put_word_mem_ir (context, reg, value)
 }
 
 static INLINE
-int 
+int
 get_byte_mem_ir (context, reg)
      sim_state_type *context;
      int reg;
@@ -243,7 +243,7 @@ get_byte_mem_ir (context, reg)
 }
 
 static INLINE
-void 
+void
 put_byte_mem_ir (context, reg, value)
      sim_state_type *context;
      int reg;
@@ -253,7 +253,7 @@ put_byte_mem_ir (context, reg, value)
 }
 
 static INLINE
-int 
+int
 get_long_mem_ir (context, reg)
      sim_state_type *context;
      int reg;
@@ -262,7 +262,7 @@ get_long_mem_ir (context, reg)
 }
 
 static INLINE
-void 
+void
 put_long_mem_ir (context, reg, value)
      sim_state_type *context;
      int reg;
@@ -273,7 +273,7 @@ put_long_mem_ir (context, reg, value)
 }
 
 static INLINE
-void 
+void
 put_long_mem_x (context, base, reg, value)
      sim_state_type *context;
      int base;
@@ -284,7 +284,7 @@ put_long_mem_x (context, base, reg, value)
 }
 
 static INLINE
-void 
+void
 put_word_mem_x (context, base, reg, value)
      sim_state_type *context;
      int base;
@@ -295,7 +295,7 @@ put_word_mem_x (context, base, reg, value)
 }
 
 static INLINE
-void 
+void
 put_byte_mem_x (context, base, reg, value)
      sim_state_type *context;
      int base;
@@ -306,7 +306,7 @@ put_byte_mem_x (context, base, reg, value)
 }
 
 static INLINE
-int 
+int
 get_word_mem_x (context, base, reg)
      sim_state_type *context;
      int base;
@@ -316,7 +316,7 @@ get_word_mem_x (context, base, reg)
 }
 
 static INLINE
-int 
+int
 get_byte_mem_x (context, base, reg)
      sim_state_type *context;
      int base;
@@ -326,7 +326,7 @@ get_byte_mem_x (context, base, reg)
 }
 
 static INLINE
-int 
+int
 get_long_mem_x (context, base, reg)
      sim_state_type *context;
      int base;
@@ -403,10 +403,10 @@ makeflags (context, mask)
     else if (s == 16)                \
       normal_flags_16(c,d,sa,sb,sub); \
     else if (s == 32)                \
-      normal_flags_32(c,d,sa,sb,sub); 
+      normal_flags_32(c,d,sa,sb,sub);
 
 static INLINE
-void 
+void
 normal_flags (context, size, dst, srca, srcb)
      sim_state_type *context;
      int size;
@@ -422,7 +422,7 @@ normal_flags (context, size, dst, srca, srcb)
 }
 
 static INLINE
-void 
+void
 TEST_NORMAL_FLAGS (context, size, dst)
      sim_state_type *context;
      int size;
@@ -434,7 +434,7 @@ TEST_NORMAL_FLAGS (context, size, dst)
 }
 
 static INLINE
-void 
+void
 put_ptr_long_reg (context, reg, val)
      sim_state_type *context;
      int reg;
@@ -445,7 +445,7 @@ put_ptr_long_reg (context, reg, val)
 }
 
 static INLINE
-long 
+long
 get_ptr_long_reg (context, reg)
      sim_state_type *context;
      int reg;
@@ -457,7 +457,7 @@ get_ptr_long_reg (context, reg)
 }
 
 static INLINE
-long 
+long
 get_ptr_long_mem_ir (context, reg)
 sim_state_type *context;
 int reg;
@@ -466,19 +466,19 @@ int reg;
 }
 
 static INLINE
-long 
+long
 get_ptr_long_mem_da (context, addr)
 sim_state_type *context;
-long addr; 
+long addr;
 {
   return sitoptr (get_long_mem_da (context, addr));
 }
 
 static INLINE
-void 
+void
 put_ptr_long_mem_da (context, addr, ptr)
 sim_state_type *context;
-long addr; 
+long addr;
 long ptr;
 {
   put_long_mem_da (context, addr, ptrtosi (ptr));

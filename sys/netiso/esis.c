@@ -1065,7 +1065,7 @@ isis_input(m0, va_alist)
 			    (i < 5) ? ':' : ' ');
 		printf(" to:");
 		for (i = 0; i < 6; i++)
-			printf("%x%c", shp->snh_dhost[i] & 0xff, 
+			printf("%x%c", shp->snh_dhost[i] & 0xff,
 			    (i < 5) ? ':' : ' ');
 		printf("\n");
 	}

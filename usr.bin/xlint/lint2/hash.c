@@ -58,7 +58,7 @@ static	int	hash __P((const char *));
  */
 void
 _inithash(tablep)
-	hte_t ***tablep;	
+	hte_t ***tablep;
 {
 
 	if (tablep == NULL)

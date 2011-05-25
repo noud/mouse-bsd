@@ -142,7 +142,7 @@ struct midisyn_methods opl3_midi = {
 	oplsyn_pitchbend,
 	0
 };
-	
+
 void
 opl_attach(sc)
 	struct opl_softc *sc;
@@ -160,7 +160,7 @@ opl_attach(sc)
 	sc->syn.nvoice = sc->model == OPL_2 ? OPL2_NVOICE : OPL3_NVOICE;
 	sc->syn.flags =  MS_DOALLOC | MS_FREQXLATE;
 	midisyn_attach(&sc->mididev, &sc->syn);
-	
+
 	/* Set up voice table */
 	for (i = 0; i < OPL3_NVOICE; i++)
 		sc->voices[i] = voicetab[i];
@@ -178,7 +178,7 @@ opl_command(sc, offs, addr, data)
 	int offs;
 	int addr, data;
 {
-	DPRINTFN(4, ("opl_command: sc=%p, offs=%d addr=0x%02x data=0x%02x\n", 
+	DPRINTFN(4, ("opl_command: sc=%p, offs=%d addr=0x%02x data=0x%02x\n",
 		     sc, offs, addr, data));
 	offs += sc->offs;
 	bus_space_write_1(sc->iot, sc->ioh, OPL_ADDR+offs, addr);
@@ -203,7 +203,7 @@ opl_find(sc)
 	sc->model = OPL_2;	/* worst case assumtion */
 
 	/* Reset timers 1 and 2 */
-	opl_command(sc, OPL_L, OPL_TIMER_CONTROL, 
+	opl_command(sc, OPL_L, OPL_TIMER_CONTROL,
 		    OPL_TIMER1_MASK | OPL_TIMER2_MASK);
 	/* Reset the IRQ of the FM chip */
 	opl_command(sc, OPL_L, OPL_TIMER_CONTROL, OPL_IRQ_RESET);
@@ -219,7 +219,7 @@ opl_find(sc)
 	/* get status bits again */
 	status2 = bus_space_read_1(sc->iot,sc->ioh,OPL_STATUS+OPL_L+sc->offs);
 
-	opl_command(sc, OPL_L, OPL_TIMER_CONTROL, 
+	opl_command(sc, OPL_L, OPL_TIMER_CONTROL,
 		    OPL_TIMER1_MASK | OPL_TIMER2_MASK);
 	opl_command(sc, OPL_L, OPL_TIMER_CONTROL, OPL_IRQ_RESET);
 
@@ -241,12 +241,12 @@ opl_find(sc)
 		return (0);
 	}
 
-	DPRINTFN(2,("opl_find: OPL%d at 0x%x detected\n", 
+	DPRINTFN(2,("opl_find: OPL%d at 0x%x detected\n",
 		    sc->model, (int)sc->ioh));
 	return (1);
 }
 
-void 
+void
 opl_set_op_reg(sc, base, voice, op, value)
 	struct opl_softc *sc;
 	int base;
@@ -258,7 +258,7 @@ opl_set_op_reg(sc, base, voice, op, value)
 	opl_command(sc, v->iooffs, base + v->op[op], value);
 }
 
-void 
+void
 opl_set_ch_reg(sc, base, voice, value)
 	struct opl_softc *sc;
 	int base;
@@ -270,7 +270,7 @@ opl_set_ch_reg(sc, base, voice, value)
 }
 
 
-void 
+void
 opl_load_patch(sc, v)
 	struct opl_softc *sc;
 	int v;
@@ -375,7 +375,7 @@ oplsyn_getinfo(addr, sd)
 
 	sd->name = sc->model == OPL_2 ? "Yamaha OPL2" : "Yamaha OPL3";
 	sd->type = SYNTH_TYPE_FM;
-	sd->subtype = sc->model == OPL_2 ? SYNTH_SUB_FM_TYPE_ADLIB 
+	sd->subtype = sc->model == OPL_2 ? SYNTH_SUB_FM_TYPE_ADLIB
 		: SYNTH_SUB_FM_TYPE_OPL3;
 	sd->capabilities = 0;
 }
@@ -410,7 +410,7 @@ int8_t opl_volume_table[128] =
 
 int
 opl_calc_vol(regbyte, volume, mainvol)
-	int regbyte; 
+	int regbyte;
 	int volume;
 	int mainvol;
 {
@@ -447,7 +447,7 @@ oplsyn_noteon(ms, voice, freq, vel)
 	u_int8_t r20m, r20c, r40m, r40c, rA0, rB0;
 	u_int8_t vol0, vol1;
 
-	DPRINTFN(3, ("oplsyn_noteon: %p %d %d\n", sc, voice, 
+	DPRINTFN(3, ("oplsyn_noteon: %p %d %d\n", sc, voice,
 		     MIDISYN_FREQ_TO_HZ(freq)));
 
 #ifdef DIAGNOSTIC
@@ -462,7 +462,7 @@ oplsyn_noteon(ms, voice, freq, vel)
 	opl_set_ch_reg(sc, OPL_KEYON_BLOCK, voice,    0);
 
 	v = &sc->voices[voice];
-	
+
 	p = &opl2_instrs[MS_GETPGM(ms, voice)];
 	v->patch = p;
 	opl_load_patch(sc, voice);
@@ -531,7 +531,7 @@ oplsyn_noteoff(ms, voice, note, vel)
 	struct opl_softc *sc = ms->data;
 	struct opl_voice *v;
 
-	DPRINTFN(3, ("oplsyn_noteoff: %p %d %d\n", sc, voice, 
+	DPRINTFN(3, ("oplsyn_noteoff: %p %d %d\n", sc, voice,
 		     MIDISYN_FREQ_TO_HZ(note)));
 
 #ifdef DIAGNOSTIC

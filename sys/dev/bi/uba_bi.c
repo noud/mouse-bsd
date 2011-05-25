@@ -13,7 +13,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *	This product includes software developed at Ludd, University of 
+ *	This product includes software developed at Ludd, University of
  *	Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -174,7 +174,7 @@ uba_bi_attach(parent, self, aux)
 		}
 
 	BUA(sc->uh_uba)->bn_biic.bi_intrdes = ba->ba_intcpu;
-	BUA(sc->uh_uba)->bn_biic.bi_csr = 
+	BUA(sc->uh_uba)->bn_biic.bi_csr =
 	    (BUA(sc->uh_uba)->bn_biic.bi_csr&~BICSR_ARB_MASK) | BICSR_ARB_HIGH;
 	BUA(sc->uh_uba)->bn_vor = VAX_NBPG + (VAX_NBPG * allocvec++);
 

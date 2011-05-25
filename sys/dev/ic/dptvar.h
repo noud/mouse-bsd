@@ -36,7 +36,7 @@
 #define CCB_ALLOC	0x01	/* CCB allocated */
 #define CCB_ABORT	0x02	/* abort has been issued on this CCB */
 #define CCB_INTR	0x04	/* HBA interrupted for this CCB */
-#define CCB_PRIVATE	0x08	/* ours; don't talk to scsipi when done */ 
+#define CCB_PRIVATE	0x08	/* ours; don't talk to scsipi when done */
 
 struct dpt_ccb {
 	struct eata_cp	ccb_eata_cp;		/* EATA command packet */

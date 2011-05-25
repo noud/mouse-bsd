@@ -122,7 +122,7 @@ add_db(path)
 		(void)fprintf(stderr, "locate: no database file %s.\n", path);
 	}
 }
-     
+
 int
 main(argc, argv)
 	int argc;
@@ -133,9 +133,9 @@ main(argc, argv)
 	struct locate_db *dbp;
 	int c;
 	int found = 0;
-	
+
 	LIST_INIT(&db_list);
-	
+
 	while ((c = getopt(argc, argv, "d:")) != EOF) {
 		switch (c) {
 		case 'd':
@@ -178,9 +178,9 @@ fastfind(fp, pathpart)
 	int count, found, globflag, printed;
 	char *cutoff, *patend, *q;
 	char bigram1[NBG], bigram2[NBG], path[MAXPATHLEN];
-	
+
 	rewind(fp);
-	
+
 	for (c = 0, p = bigram1, s = bigram2; c < NBG; c++)
 		p[c] = getc(fp), s[c] = getc(fp);
 

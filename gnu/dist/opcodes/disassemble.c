@@ -96,7 +96,7 @@ disassembler (abfd)
 	disassemble = print_insn_h8300h;
       else if (bfd_get_mach(abfd) == bfd_mach_h8300s)
 	disassemble = print_insn_h8300s;
-      else 
+      else
 	disassemble = print_insn_h8300;
       break;
 #endif
@@ -208,7 +208,7 @@ disassembler (abfd)
     case bfd_arch_z8k:
       if (bfd_get_mach(abfd) == bfd_mach_z8001)
 	disassemble = print_insn_z8001;
-      else 
+      else
 	disassemble = print_insn_z8002;
       break;
 #endif

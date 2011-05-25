@@ -2,7 +2,7 @@
 
 BINDIR=	/usr/bin
 PROG=	pawd
-SRCS=	pawd.c 
+SRCS=	pawd.c
 SRCS+=	amq_clnt.c amq_xdr.c
 MAN+=	pawd.1
 CPPFLAGS+=-I${.CURDIR}/../amq

@@ -128,7 +128,7 @@ fifo_lookup(v)
 		struct vnode ** a_vpp;
 		struct componentname * a_cnp;
 	} */ *ap = v;
-	
+
 	*ap->a_vpp = NULL;
 	return (ENOTDIR);
 }

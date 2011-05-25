@@ -484,7 +484,7 @@ void troff_output::dot(const position &cent, const line_type &lt)
 	   "\\v'%.3fi+%.2fm'"
 	   ".\n.sp -1\n",
 	   c.x,
-	   c.y, 
+	   c.y,
 	   DOT_AXIS);
   }
 }

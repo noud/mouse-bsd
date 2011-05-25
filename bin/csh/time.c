@@ -188,7 +188,7 @@ prusage(r0, r1, e, b)
 		break;
 
 	    case 'X':		/* (average) shared text size */
-		(void) fprintf(cshout, "%ld", t == 0 ? 0L : 
+		(void) fprintf(cshout, "%ld", t == 0 ? 0L :
 			       (r1->ru_ixrss - r0->ru_ixrss) / t);
 		break;
 

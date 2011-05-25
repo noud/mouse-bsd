@@ -40,9 +40,9 @@
 #include <sys/protosw.h>
 #include <sys/domain.h>
 #include <sys/mbuf.h>
-#include <sys/un.h> 
+#include <sys/un.h>
 #include <sys/socketvar.h>
-                        
+
 #include <net/if.h>
 #include <net/raw_cb.h>
 

@@ -33,7 +33,7 @@ signal_no_reset(sig, func)
   while (1)
     {
       struct sigaction ovec;
-      
+
       n = sigaction(sig, &vec, &ovec);
       if (n == -1 && errno == EINTR) continue;
       if (ovec.sa_flags)
@@ -82,7 +82,7 @@ signal_no_reset(sig, func)
   }
 }
 
-#else 
+#else
 
 /* Beware!  This implementation resets the signal to SIG_DFL */
 void

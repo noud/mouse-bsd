@@ -115,8 +115,8 @@ const struct amiga_bus_space_methods amiga_interleaved_wordaccess_methods = {
 /*
  * Contiguous methods
  * Be sure to only create word accesses.
- * For busses that _need_ split byte accesses, use the interleaved functions. 
- */ 
+ * For busses that _need_ split byte accesses, use the interleaved functions.
+ */
 
 u_int16_t
 amiga_contiguous_read_2(t, h, o)

@@ -13,7 +13,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -390,7 +390,7 @@ hper1:
 	case -1:
 		hr->hp_er1 = 0;
 		goto hper2;
-		
+
 	case HPER1_DCK: /* Corrected? data read. Just notice. */
 		bc = mr->mba_bc;
 		byte = ~(bc >> 16);

@@ -96,47 +96,47 @@ plumiobus_attach(parent, self, aux)
 	sc->sc_regt	= pa->pa_regt;
 	sc->sc_iot	= pa->pa_iot;
 
-	if (bus_space_map(sc->sc_regt, PLUM_IOBUS_REGBASE, 
+	if (bus_space_map(sc->sc_regt, PLUM_IOBUS_REGBASE,
 			  PLUM_IOBUS_REGSIZE, 0, &sc->sc_regh)) {
 		printf(": register map failed.\n");
 		return;
 	}
 	printf("\n");
 	plum_power_establish(sc->sc_pc, PLUM_PWR_IO5);
-	
+
 	/* Address space <-> IRQ mapping */
 	pr = &sc->sc_isa[IO5CS0];
 	pr->pr_irq = PLUM_INT_EXT5IO0;
 	pr->pr_iot = __plumiobus_subregion(
-		sc->sc_iot, 
+		sc->sc_iot,
 		PLUM_IOBUS_IOBASE + PLUM_IOBUS_IO5CS0BASE,
 		PLUM_IOBUS_IO5SIZE);
 
 	pr = &sc->sc_isa[IO5CS1];
 	pr->pr_irq = PLUM_INT_EXT5IO1;
 	pr->pr_iot = __plumiobus_subregion(
-		sc->sc_iot, 
+		sc->sc_iot,
 		PLUM_IOBUS_IOBASE + PLUM_IOBUS_IO5CS1BASE,
 		PLUM_IOBUS_IO5SIZE);
 
 	pr = &sc->sc_isa[IO5CS2];
 	pr->pr_irq = PLUM_INT_EXT5IO2;
 	pr->pr_iot = __plumiobus_subregion(
-		sc->sc_iot, 
+		sc->sc_iot,
 		PLUM_IOBUS_IOBASE + PLUM_IOBUS_IO5CS2BASE,
 		PLUM_IOBUS_IO5SIZE);
 
 	pr = &sc->sc_isa[IO5CS3];
 	pr->pr_irq = PLUM_INT_EXT5IO3;
 	pr->pr_iot = __plumiobus_subregion(
-		sc->sc_iot, 
+		sc->sc_iot,
 		PLUM_IOBUS_IOBASE + PLUM_IOBUS_IO5CS3BASE,
 		PLUM_IOBUS_IO5SIZE);
 
 	pr = &sc->sc_isa[IO5CS4];
 	pr->pr_irq = PLUM_INT_EXT3IO0; /* XXX */
 	pr->pr_iot = __plumiobus_subregion(
-		sc->sc_iot, 
+		sc->sc_iot,
 		PLUM_IOBUS_IOBASE + PLUM_IOBUS_IO5CS4BASE,
 		PLUM_IOBUS_IO5SIZE);
 
@@ -144,7 +144,7 @@ plumiobus_attach(parent, self, aux)
 	pr = &sc->sc_isa[IO5NCS];
 	pr->pr_irq = PLUM_INT_EXT3IO1;
 	pr->pr_iot = __plumiobus_subregion(
-		sc->sc_iot, 
+		sc->sc_iot,
 		PLUM_IOBUS_IOBASE + PLUM_IOBUS_IO5CS5BASE,
 		PLUM_IOBUS_IO5SIZE);
 
@@ -162,15 +162,15 @@ __plumiobus_subregion(t, ofs, size)
 	bus_size_t size;
 {
 	struct hpcmips_bus_space *hbs;
-	
-	if (!(hbs = malloc(sizeof(struct hpcmips_bus_space), 
+
+	if (!(hbs = malloc(sizeof(struct hpcmips_bus_space),
 			   M_DEVBUF, M_NOWAIT))) {
 		panic ("__plumiobus_subregion: no memory.");
 	}
 	*hbs = *t;
 	hbs->t_base += ofs;
 	hbs->t_size = size;
-	
+
 	return hbs;
 }
 
@@ -183,7 +183,7 @@ plumiobus_search(parent, cf, aux)
 	struct plumiobus_softc *sc = (void*)parent;
 	struct plumiobus_attach_args pba;
 	int slot;
-	
+
 	/* Disallow wildcarded IO5CS slot */
 	if (cf->cf_loc[PLUMIOBUSIFCF_SLOT] == PLUMIOBUSIFCF_SLOT_DEFAULT) {
 		printf("plumiobus_search: wildcarded slot, skipping\n");
@@ -195,7 +195,7 @@ plumiobus_search(parent, cf, aux)
 	pba.pba_iot	= sc->sc_isa[slot].pr_iot;
 	pba.pba_irq	= sc->sc_isa[slot].pr_irq;
 	pba.pba_busname	= "plumisab";
-	
+
 	if (!(sc->sc_isa[slot].pr_enabled) && /* not attached slot */
 	    (*cf->cf_attach->ca_match)(parent, cf, &pba)) {
 		config_attach(parent, cf, &pba, plumiobus_print);
@@ -221,7 +221,7 @@ plumiobus_dump(sc)
 	bus_space_handle_t regh = sc->sc_regh;
 	plumreg_t reg;
 	int i, wait;
-	
+
 	reg = plum_conf_read(regt, regh, PLUM_IOBUS_IOXBSZ_REG);
 	printf("8bit port:");
 	for (i = 0; i < 6; i++) {
@@ -247,11 +247,11 @@ plumiobus_dump(sc)
 	reg = PLUM_IOBUS_IOXSCNT_MASK &
 		plum_conf_read(regt, regh, PLUM_IOBUS_IOXSCNT_REG);
 	printf(" # of wait during access by I/O bus : %d clock\n", reg + 1);
-	
+
 	reg = plum_conf_read(regt, regh, PLUM_IOBUS_IDEMODE_REG);
 	if (reg & PLUM_IOBUS_IDEMODE) {
 		printf("IO5CS3,4 IDE mode\n");
 	}
-	
+
 }
 

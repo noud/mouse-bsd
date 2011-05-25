@@ -122,15 +122,15 @@ readdisklabel(dev, strat, lp, osdep)
 	}
 
 	if (lp->d_partitions[RAW_PART].p_size == 0) {
-		lp->d_partitions[RAW_PART].p_fstype = FS_UNUSED; 
-		lp->d_partitions[RAW_PART].p_offset = 0; 
+		lp->d_partitions[RAW_PART].p_fstype = FS_UNUSED;
+		lp->d_partitions[RAW_PART].p_offset = 0;
 		lp->d_partitions[RAW_PART].p_size = 0x1fffffff;
 	}
 
 	/* obtain buffer to probe drive with */
-    
+
 	bp = geteblk((int)lp->d_secsize);
-	
+
 	/* request no partition relocation by driver on I/O operations */
 
 	bp->b_dev = dev;
@@ -160,7 +160,7 @@ readdisklabel(dev, strat, lp, osdep)
 	/* next, dig out disk label */
 
 /*	printf("Reading disklabel addr=%08x\n", netbsdpartoff * DEV_BSIZE);*/
-  
+
 	bp->b_blkno = netbsdpartoff + LABELSECTOR;
 	bp->b_cylinder = bp->b_blkno / lp->d_secpercyl;
 	bp->b_bcount = lp->d_secsize;
@@ -300,7 +300,7 @@ setdisklabel(olp, nlp, openmask, osdep)
 /*
  * Write disk label back to device after modification.
  */
- 
+
 int
 writedisklabel(dev, strat, lp, osdep)
 	dev_t dev;
@@ -339,7 +339,7 @@ writedisklabel(dev, strat, lp, osdep)
 			 */
 			KASSERT(netbsdpartoff == 0);
 			KASSERT(cyl == (LABELSECTOR / lp->d_secpercyl));
-		} 
+		}
 	}
 
 /* writelabel: */

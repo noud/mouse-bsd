@@ -27,7 +27,7 @@
    (please PARAMize them!) not exporting structures and data items which
    are used solely within tc-hppa.c, etc.
 
-   Also refrain from adding any more object file dependent code, there is 
+   Also refrain from adding any more object file dependent code, there is
    already far too much object file format dependent code in this file.
    In theory this file should contain only exported functions, structures
    and data declarations common to all PA assemblers.  */
@@ -66,7 +66,7 @@
 /* Labels are not required to have a colon for a suffix.  */
 #define LABELS_WITHOUT_COLONS
 
-/* FIXME.  This should be static and declared in tc-hppa.c, but 
+/* FIXME.  This should be static and declared in tc-hppa.c, but
    pa_define_label gets used outside of tc-hppa.c via tc_frob_label.
    Should also be PARAMized, but symbolS isn't available here.  */
 extern void pa_define_label ();
@@ -90,7 +90,7 @@ extern void pa_check_eof PARAMS ((void));
 #define RELOC_EXPANSION_POSSIBLE
 #define MAX_RELOC_EXPANSION 6
 
-/* FIXME.  More things which are both HPPA and ELF specific.  There is 
+/* FIXME.  More things which are both HPPA and ELF specific.  There is
    nowhere to put such things.  */
 #ifdef OBJ_ELF
 #define elf_tc_final_processing	elf_hppa_final_processing
@@ -133,7 +133,7 @@ void elf_hppa_final_processing PARAMS ((void));
 
 /* We need to be able to make relocations involving the difference of
    two symbols.  This includes the difference of two symbols when
-   one of them is undefined (this comes up in PIC code generation). 
+   one of them is undefined (this comes up in PIC code generation).
 
    We don't define DIFF_EXPR_OK because it does the wrong thing if
    the add symbol is undefined and the sub symbol is a symbol in

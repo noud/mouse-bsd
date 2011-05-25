@@ -174,20 +174,20 @@ struct RF_ReconCtrl_s {
 
 int     rf_ConfigureReconstruction(RF_ShutdownList_t ** listp);
 
-int 
+int
 rf_ReconstructFailedDisk(RF_Raid_t * raidPtr, RF_RowCol_t row,
     RF_RowCol_t col);
 
-int 
+int
 rf_ReconstructFailedDiskBasic(RF_Raid_t * raidPtr, RF_RowCol_t row,
     RF_RowCol_t col);
 
-int 
+int
 rf_ReconstructInPlace(RF_Raid_t * raidPtr, RF_RowCol_t row, RF_RowCol_t col);
 
 int     rf_ContinueReconstructFailedDisk(RF_RaidReconDesc_t * reconDesc);
 
-int 
+int
 rf_ForceOrBlockRecon(RF_Raid_t * raidPtr, RF_AccessStripeMap_t * asmap,
     void (*cbFunc) (RF_Raid_t *, void *), void *cbArg);
 

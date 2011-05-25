@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: srvr_nfs.c,v 1.4 1999/01/13 23:31:02 ezk Exp 
+ * Id: srvr_nfs.c,v 1.4 1999/01/13 23:31:02 ezk Exp
  *
  */
 
@@ -749,7 +749,7 @@ find_nfs_srvr(mntfs *mf)
       nfs_version = NFS_VERSION;
       nfs_proto = "udp";
     }
-   
+
 #else /* not HAVE_FS_NFS3 */
     nfs_version = NFS_VERSION;
 #endif /* not HAVE_FS_NFS3 */
@@ -759,11 +759,11 @@ find_nfs_srvr(mntfs *mf)
     nfs_proto = "udp";
 
   if (ip) {
-    /*    
-     * XXX RPC or SunOS 4.1.4 bug ? the last call to nfs_get_version() must  
-     * be done with the used version and proto  
-     */  
-    (void)get_nfs_version(host, ip, nfs_version, nfs_proto);  
+    /*
+     * XXX RPC or SunOS 4.1.4 bug ? the last call to nfs_get_version() must
+     * be done with the used version and proto
+     */
+    (void)get_nfs_version(host, ip, nfs_version, nfs_proto);
   }
 
   plog(XLOG_INFO, "Using NFS version %d, protocol %s on host %s",

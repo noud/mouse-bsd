@@ -10,19 +10,19 @@
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice in the documentation and/or other materials provided with 
+ *    notice in the documentation and/or other materials provided with
  *    the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
- * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN 
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -276,9 +276,9 @@ extern char *tgoto();
 
 /*
  * Change terminal to "raw mode", or restore to "normal" mode.
- * "Raw mode" means 
+ * "Raw mode" means
  *	1. An outstanding read will complete on receipt of a single keystroke.
- *	2. Input is not echoed.  
+ *	2. Input is not echoed.
  *	3. On output, \n is mapped to \r\n.
  *	4. \t is NOT expanded into spaces.
  *	5. Signal-causing characters such as ctrl-C (interrupt),
@@ -299,7 +299,7 @@ raw_mode(on)
 	static struct termios save_term;
 	static int saved_term = 0;
 
-	if (on) 
+	if (on)
 	{
 		/*
 		 * Get terminal modes.
@@ -447,7 +447,7 @@ raw_mode(on)
 #endif
 #if MUST_SET_LINE_DISCIPLINE
 		/*
-		 * System's termios is broken; need to explicitly 
+		 * System's termios is broken; need to explicitly
 		 * request TERMIODISC line discipline.
 		 */
 		s.c_line = TERMIODISC;
@@ -802,7 +802,7 @@ scrsize()
 get_clock()
 {
 	clock_t start;
-	
+
 	/*
 	 * Get synchronized at the start of a tick.
 	 */
@@ -838,7 +838,7 @@ delay(msec)
 	int msec;
 {
 	long i;
-	
+
 	while (msec-- > 0)
 	{
 		for (i = 0;  i < msec_loops;  i++)
@@ -946,7 +946,7 @@ static int sz_kfcmdtable = sizeof(kfcmdtable) - 1;
 		put_esc_ecmd(s, EC_W_RIGHT);
 		put_fcmd(s, A_RSHIFT);
 	}
-	
+
 	/* LEFT ARROW */
 	sp = tbuf;
 	if ((s = ltgetstr("kl", &sp)) != NULL)
@@ -955,18 +955,18 @@ static int sz_kfcmdtable = sizeof(kfcmdtable) - 1;
 		put_esc_ecmd(s, EC_W_LEFT);
 		put_fcmd(s, A_LSHIFT);
 	}
-	
+
 	/* UP ARROW */
 	sp = tbuf;
-	if ((s = ltgetstr("ku", &sp)) != NULL) 
+	if ((s = ltgetstr("ku", &sp)) != NULL)
 	{
 		put_ecmd(s, EC_UP);
 		put_fcmd(s, A_B_LINE);
 	}
-		
+
 	/* DOWN ARROW */
 	sp = tbuf;
-	if ((s = ltgetstr("kd", &sp)) != NULL) 
+	if ((s = ltgetstr("kd", &sp)) != NULL)
 	{
 		put_ecmd(s, EC_DOWN);
 		put_fcmd(s, A_F_LINE);
@@ -974,35 +974,35 @@ static int sz_kfcmdtable = sizeof(kfcmdtable) - 1;
 
 	/* PAGE UP */
 	sp = tbuf;
-	if ((s = ltgetstr("kP", &sp)) != NULL) 
+	if ((s = ltgetstr("kP", &sp)) != NULL)
 	{
 		put_fcmd(s, A_B_SCREEN);
 	}
 
 	/* PAGE DOWN */
 	sp = tbuf;
-	if ((s = ltgetstr("kN", &sp)) != NULL) 
+	if ((s = ltgetstr("kN", &sp)) != NULL)
 	{
 		put_fcmd(s, A_F_SCREEN);
 	}
-	
+
 	/* HOME */
 	sp = tbuf;
-	if ((s = ltgetstr("kh", &sp)) != NULL) 
+	if ((s = ltgetstr("kh", &sp)) != NULL)
 	{
 		put_ecmd(s, EC_HOME);
 	}
 
 	/* END */
 	sp = tbuf;
-	if ((s = ltgetstr("@7", &sp)) != NULL) 
+	if ((s = ltgetstr("@7", &sp)) != NULL)
 	{
 		put_ecmd(s, EC_END);
 	}
 
 	/* DELETE */
 	sp = tbuf;
-	if ((s = ltgetstr("kD", &sp)) == NULL) 
+	if ((s = ltgetstr("kD", &sp)) == NULL)
 	{
 		/* Use DEL (\177) if no "kD" termcap. */
 		tbuf[1] = '\177';
@@ -1011,7 +1011,7 @@ static int sz_kfcmdtable = sizeof(kfcmdtable) - 1;
 	}
 	put_ecmd(s, EC_DELETE);
 	put_esc_ecmd(s, EC_W_DELETE);
-		
+
 	/* BACKSPACE */
 	tbuf[0] = ESC;
 	tbuf[1] = erase_char;
@@ -1072,7 +1072,7 @@ get_term()
 	 */
 	SET_BINARY(0);
 	GetConsoleScreenBufferInfo(con_out, &scr);
-	ReadConsoleOutputAttribute(con_out, &curr_attr, 
+	ReadConsoleOutputAttribute(con_out, &curr_attr,
 					1, scr.dwCursorPosition, &nread);
 	sy_bg_color = (curr_attr & BG_COLORS) >> 4; /* normalize */
 	sy_fg_color = curr_attr & FG_COLORS;
@@ -1166,7 +1166,7 @@ get_term()
 		 * Disable highlighting by default on magic cookie terminals.
 		 * Turning on highlighting might change the displayed width
 		 * of a line, causing the display to get messed up.
-		 * The user can turn it back on with -g, 
+		 * The user can turn it back on with -g,
 		 * but she won't like the results.
 		 */
 		hilite_search = 0;
@@ -1189,7 +1189,7 @@ get_term()
 	sc_e_keypad = ltgetstr("ke", &sp);
 	if (sc_e_keypad == NULL)
 		sc_e_keypad = "";
-		
+
 	/*
 	 * This loses for terminals with termcap entries with ti/te strings
 	 * that switch to/from an alternate screen, and we're in quit_at_eof
@@ -1229,7 +1229,7 @@ get_term()
 	if (sc_move == NULL || *sc_move == '\0')
 	{
 		/*
-		 * This is not an error here, because we don't 
+		 * This is not an error here, because we don't
 		 * always need sc_move.
 		 * We need it only if we don't have home or lower-left.
 		 */
@@ -1349,7 +1349,7 @@ cost(t)
 
 /*
  * Return the "best" of the two given termcap strings.
- * The best, if both exist, is the one with the lower 
+ * The best, if both exist, is the one with the lower
  * cost (see cost() function).
  */
 	static char *
@@ -1403,7 +1403,7 @@ tmodes(incap, outcap, instr, outstr, def_instr, def_outstr, spp)
 
 
 /*
- * Below are the functions which perform all the 
+ * Below are the functions which perform all the
  * terminal-specific screen manipulation.
  */
 
@@ -1439,7 +1439,7 @@ initcolor()
 	char *blanks;
 	int row;
 	int col;
-	
+
 	/*
 	 * Create a complete, blank screen using "normal" colors.
 	 */
@@ -1636,8 +1636,8 @@ add_line()
 }
 
 /*
- * Remove the n topmost lines and scroll everything below it in the 
- * window upward.  This is needed to stop leaking the topmost line 
+ * Remove the n topmost lines and scroll everything below it in the
+ * window upward.  This is needed to stop leaking the topmost line
  * into the scrollback buffer when we go down-one-line (in WIN32).
  */
 	public void
@@ -1704,7 +1704,7 @@ lower_left()
 }
 
 /*
- * Check if the console size has changed and reset internals 
+ * Check if the console size has changed and reset internals
  * (in lieu of SIGWINCH for WIN32).
  */
 	public void
@@ -1716,7 +1716,7 @@ check_winch()
 
 	if (con_out == INVALID_HANDLE_VALUE)
 		return;
- 
+
         flush();
         GetConsoleScreenBufferInfo(con_out, &scr);
 	size.Y = scr.srWindow.Bottom - scr.srWindow.Top + 1;
@@ -1763,7 +1763,7 @@ create_flash()
 	struct videoconfig w;
 	char *blanks;
 	int row, col;
-	
+
 	_getvideoconfig(&w);
 	videopages = w.numvideopages;
 	if (videopages < 2)
@@ -1788,7 +1788,7 @@ create_flash()
 #if MSDOS_COMPILER==BORLANDC
 	register int n;
 
-	whitescreen = (unsigned short *) 
+	whitescreen = (unsigned short *)
 		malloc(sc_width * sc_height * sizeof(short));
 	if (whitescreen == NULL)
 		return;
@@ -1851,7 +1851,7 @@ vbell()
 		create_flash();
 	if (whitescreen == NULL)
 		return;
-	currscreen = (unsigned short *) 
+	currscreen = (unsigned short *)
 		malloc(sc_width * sc_height * sizeof(short));
 	if (currscreen == NULL) return;
 	gettext(1, 1, sc_width, sc_height, currscreen);
@@ -1960,7 +1960,7 @@ clear_eol()
 	short top, left;
 	short bot, right;
 	struct rccoord tpos;
-	
+
 	flush();
 	/*
 	 * Save current state.
@@ -2071,7 +2071,7 @@ so_exit()
 }
 
 /*
- * Begin "underline" (hopefully real underlining, 
+ * Begin "underline" (hopefully real underlining,
  * otherwise whatever the terminal provides).
  */
 	public void
@@ -2156,14 +2156,14 @@ bl_exit()
 }
 
 /*
- * Erase the character to the left of the cursor 
+ * Erase the character to the left of the cursor
  * and move the cursor left.
  */
 	public void
 backspace()
 {
 #if !MSDOS_COMPILER
-	/* 
+	/*
 	 * Erase the previous character by overstriking with a space.
 	 */
 	tputs(sc_backspace, 1, putchr);
@@ -2172,7 +2172,7 @@ backspace()
 #else
 #if MSDOS_COMPILER==MSOFTC
 	struct rccoord tpos;
-	
+
 	flush();
 	tpos = _gettextposition();
 	if (tpos.col <= 1)
@@ -2272,12 +2272,12 @@ win32_kbhit(tty)
 		ip.Event.KeyEvent.wVirtualKeyCode == VK_SHIFT ||
 		ip.Event.KeyEvent.wVirtualKeyCode == VK_CONTROL ||
 		ip.Event.KeyEvent.wVirtualKeyCode == VK_MENU);
-		
+
 	currentKey.ascii = ip.Event.KeyEvent.uChar.AsciiChar;
 	currentKey.scan = ip.Event.KeyEvent.wVirtualScanCode;
 	keyCount = ip.Event.KeyEvent.wRepeatCount;
 
-	if (ip.Event.KeyEvent.dwControlKeyState & 
+	if (ip.Event.KeyEvent.dwControlKeyState &
 		(LEFT_ALT_PRESSED | RIGHT_ALT_PRESSED))
 	{
 		switch (currentKey.scan)
@@ -2286,7 +2286,7 @@ win32_kbhit(tty)
 			currentKey.ascii = 0;
 			break;
 		}
-	} else if (ip.Event.KeyEvent.dwControlKeyState & 
+	} else if (ip.Event.KeyEvent.dwControlKeyState &
 		(LEFT_CTRL_PRESSED | RIGHT_CTRL_PRESSED))
 	{
 		switch (currentKey.scan)
@@ -2327,8 +2327,8 @@ WIN32getch(tty)
 	keyCount --;
 	ascii = currentKey.ascii;
 	/*
-	 * On PC's, the extended keys return a 2 byte sequence beginning 
-	 * with '00', so if the ascii code is 00, the next byte will be 
+	 * On PC's, the extended keys return a 2 byte sequence beginning
+	 * with '00', so if the ascii code is 00, the next byte will be
 	 * the lsb of the scan code.
 	 */
 	pending_scancode = (ascii == 0x00);

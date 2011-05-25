@@ -190,7 +190,7 @@ again:
  *	This routine initalizes the monopoly structures.
  */
 static void
-init_monops() 
+init_monops()
 {
 	MON *mp;
 	int i;

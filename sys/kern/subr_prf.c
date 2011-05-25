@@ -127,7 +127,7 @@ extern	int db_radix;		/* XXX: for non-standard '%r' format */
  * local prototypes
  */
 
-static int	 kprintf __P((const char *, int, void *, 
+static int	 kprintf __P((const char *, int, void *,
 				char *, va_list));
 static void	 putchar __P((int, int, struct tty *));
 static void	 klogpri __P((int));
@@ -171,7 +171,7 @@ tablefull(tab)
  * panic: handle an unresolvable fatal error
  *
  * prints "panic: <message>" and reboots.   if called twice (i.e. recursive
- * call) we avoid trying to sync the disk and just reboot (to avoid 
+ * call) we avoid trying to sync the disk and just reboot (to avoid
  * recursive panics).
  */
 
@@ -473,7 +473,7 @@ tprintf_close(sess)
 }
 
 /*
- * tprintf: given tprintf handle to a process [obtained with tprintf_open], 
+ * tprintf: given tprintf handle to a process [obtained with tprintf_open],
  * send a message to the controlling tty for that process.
  *
  * => also sends message to /dev/klog
@@ -848,7 +848,7 @@ out:
 /*
  * kprintf: scaled down version of printf(3).
  *
- * this version based on vfprintf() from libc which was derived from 
+ * this version based on vfprintf() from libc which was derived from
  * software contributed to Berkeley by Chris Torek.
  *
  * Two additional formats:
@@ -1000,10 +1000,10 @@ rflag:		ch = *fmt++;
 reswitch:	switch (ch) {
 		/* XXX: non-standard '%:' format */
 #ifndef __powerpc__
-		case ':': 
+		case ':':
 			if (oflags != TOBUFONLY) {
 				cp = va_arg(ap, char *);
-				kprintf(cp, oflags, vp, 
+				kprintf(cp, oflags, vp,
 					NULL, va_arg(ap, va_list));
 			}
 			continue;	/* no output */
@@ -1058,9 +1058,9 @@ reswitch:	switch (ch) {
 #ifdef DDB
 		/* XXX: non-standard '%r' format (print int in db_radix) */
 		case 'r':
-			if ((oflags & TODDB) == 0) 
+			if ((oflags & TODDB) == 0)
 				goto default_case;
-			
+
 			if (db_radix == 16)
 				goto case_z;	/* signed hex */
 			_uquad = SARG();
@@ -1075,7 +1075,7 @@ reswitch:	switch (ch) {
 		/* XXX: non-standard '%z' format ("signed hex", a "hex %i")*/
 		case 'z':
 		case_z:
-			if ((oflags & TODDB) == 0) 
+			if ((oflags & TODDB) == 0)
 				goto default_case;
 
 			xdigs = "0123456789abcdef";

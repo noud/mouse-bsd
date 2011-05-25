@@ -182,7 +182,7 @@ getchar()
 		}
 		WaitIO((struct AmigaIO *)tmior);
 		timelimit = 0;
-	} 
+	}
 	(void)WaitIO(cnior);
 	return c;
 }

@@ -176,7 +176,7 @@ ext2fs_bmaparray(vp, bn, bnp, ap, nump, runp)
 	}
 #endif
 	for (bp = NULL, ++xap; --num; ++xap) {
-		/* 
+		/*
 		 * Exit the loop if there is no disk address assigned yet and
 		 * the indirect block isn't in the cache, or if we were
 		 * looking for an indirect block and we've found it.

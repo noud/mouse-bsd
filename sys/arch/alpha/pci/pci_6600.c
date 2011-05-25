@@ -120,10 +120,10 @@ pci_6600_pickintr(pcp)
 	}
 }
 
-int     
+int
 dec_6600_intr_map(acv, bustag, buspin, line, ihp)
         void *acv;
-        pcitag_t bustag; 
+        pcitag_t bustag;
         int buspin, line;
         pci_intr_handle_t *ihp;
 {
@@ -206,7 +206,7 @@ dec_6600_intr_disestablish(acv, cookie)
 	struct alpha_shared_intrhand *ih = cookie;
 	unsigned int irq = ih->ih_num;
 	int s;
- 
+
 	s = splhigh();
 
 	alpha_shared_intr_disestablish(dec_6600_pci_intr, cookie, irqtype);
@@ -215,7 +215,7 @@ dec_6600_intr_disestablish(acv, cookie)
 		alpha_shared_intr_set_dfltsharetype(dec_6600_pci_intr, irq,
 		    IST_NONE);
 	}
- 
+
 	splx(s);
 }
 
@@ -224,7 +224,7 @@ dec_6600_iointr(framep, vec)
 	void *framep;
 	unsigned long vec;
 {
-	int irq; 
+	int irq;
 
 	if (vec >= 0x900) {
 		irq = (vec - 0x900) >> 4;

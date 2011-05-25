@@ -73,7 +73,7 @@ static int8_t cy_dma_rec[] =   {7, 1, 0};
 
 /*
  * The cypress is quite weird: it uses 8-bit ISA registers to control
- * DMA modes. 
+ * DMA modes.
  */
 
 #define CY_DMA_ADDR 0x22

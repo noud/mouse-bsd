@@ -1,23 +1,23 @@
 /*
- * builtin.c - Builtin functions and various utility procedures 
+ * builtin.c - Builtin functions and various utility procedures
  */
 
-/* 
+/*
  * Copyright (C) 1986, 1988, 1989, 1991-1997 the Free Software Foundation, Inc.
- * 
+ *
  * This file is part of GAWK, the GNU implementation of the
  * AWK Programming Language.
- * 
+ *
  * GAWK is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * GAWK is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
@@ -372,7 +372,7 @@ register NODE *carg;
 
 /*
  * Get the next arg to be formatted.  If we've run out of args,
- * return "" (Null string) 
+ * return "" (Null string)
  */
 #define parse_next_arg() { \
 	if (carg == NULL) { \
@@ -513,7 +513,7 @@ check_pos:
 		case ' ':		/* print ' ' or '-' */
 					/* 'space' flag is ignored */
 					/* if '+' already present  */
-			if (signchar != FALSE) 
+			if (signchar != FALSE)
 				goto check_pos;
 			/* FALL THROUGH */
 		case '+':		/* print '+' or '-' */
@@ -543,7 +543,7 @@ check_pos:
 				break;
 			else {
 				static int warned = FALSE;
-				
+
 				if (do_lint && ! warned) {
 					warning("`l' is meaningless in awk formats; ignored");
 					warned = TRUE;
@@ -558,7 +558,7 @@ check_pos:
 				break;
 			else {
 				static int warned = FALSE;
-				
+
 				if (do_lint && ! warned) {
 					warning("`L' is meaningless in awk formats; ignored");
 					warned = TRUE;
@@ -573,7 +573,7 @@ check_pos:
 				break;
 			else {
 				static int warned = FALSE;
-				
+
 				if (do_lint && ! warned) {
 					warning("`h' is meaningless in awk formats; ignored");
 					warned = TRUE;
@@ -591,7 +591,7 @@ check_pos:
 				(void) force_number(arg);
 			if (arg->flags & NUMBER) {
 #ifdef sun386
-				tmp_uval = arg->numbr; 
+				tmp_uval = arg->numbr;
 				uval = (unsigned long) tmp_uval;
 #else
 				uval = (unsigned long) arg->numbr;
@@ -972,7 +972,7 @@ NODE *tree;
 				return tmp_string("", 0);
 			}
 		}
-	
+
 		if (tree->rnode != NULL) {
 			t2 = tree_eval(tree->rnode->lnode);
 			fclock = (time_t) force_number(t2);
@@ -1047,7 +1047,7 @@ NODE *tree;
 		 * From: David Trueman <david@cs.dal.ca>
 		 * To: arnold@cc.gatech.edu (Arnold Robbins)
 		 * Date: Wed, 3 Nov 1993 12:49:41 -0400
-		 * 
+		 *
 		 * It may not be necessary to save the character, but
 		 * I'm not sure.  It would normally be the field
 		 * separator.  If the parse has not yet gone beyond
@@ -1073,7 +1073,7 @@ extern NODE **fmt_list;  /* declared in eval.c */
 
 /* do_print --- print items, separated by OFS, terminated with ORS */
 
-void 
+void
 do_print(tree)
 register NODE *tree;
 {
@@ -1310,9 +1310,9 @@ NODE *tree;
  * Gsub can be tricksy; particularly when handling the case of null strings.
  * The following awk code was useful in debugging problems.  It is too bad
  * that it does not readily translate directly into the C code, below.
- * 
+ *
  * #! /usr/local/bin/mawk -f
- * 
+ *
  * BEGIN {
  * 	TRUE = 1; FALSE = 0
  * 	print "--->", mygsub("abc", "b+", "FOO")
@@ -1322,7 +1322,7 @@ NODE *tree;
  * 	print "--->", mygsub("abc", "c+", "X")
  * 	print "--->", mygsub("abc", "x*$", "X")
  * }
- * 
+ *
  * function mygsub(str, regex, replace,	origstr, newstr, eosflag, nonzeroflag)
  * {
  * 	origstr = str;
@@ -1360,7 +1360,7 @@ NODE *tree;
  * 	}
  * 	if (length(str) > 0)
  * 		newstr = newstr str	# rest of string
- * 
+ *
  * 	return newstr
  * }
  */
@@ -1490,7 +1490,7 @@ int how_many, backdigs;
 
 		/*
 		 * create the result, copying in parts of the original
-		 * string 
+		 * string
 		 */
 		len = matchstart - text + repllen
 		      + ampersands * (matchend - matchstart);
@@ -1526,12 +1526,12 @@ int how_many, backdigs;
 						if (ISDIGIT(scan[1])) {
 							int dig = scan[1] - '0';
 							char *start, *end;
-		
+
 							start = t->stptr
 							      + SUBPATSTART(rp, t->stptr, dig);
 							end = t->stptr
 							      + SUBPATEND(rp, t->stptr, dig);
-		
+
 							for (cp = start; cp < end; cp++)
 								*bp++ = *cp;
 							scan++;

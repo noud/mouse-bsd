@@ -728,8 +728,8 @@ pgt_page_alloc(sz, flags, mtype)
 		kvm_uncache(p, sz/NBPG);
 	}
 	return (p);
-}       
-   
+}
+
 void
 pgt_page_free(v, sz, mtype)
 	void *v;
@@ -2694,7 +2694,7 @@ pv_table_map(base, mapit)
 	vaddr_t sva, va, eva;
 	paddr_t pa;
 
-	/* 
+	/*
 	 * Map pv_table[] as a `sparse' array. pv_table_map() is called
 	 * twice: the first time `mapit' is 0, and the number of
 	 * physical pages needed to map the used pieces of pv_table[]
@@ -2702,7 +2702,7 @@ pv_table_map(base, mapit)
 	 * actually map pv_table[].
 	 * In both cases, this function returns the amount of physical
 	 * memory needed.
-	 */ 
+	 */
 
 	if (!mapit)
 		/* Mark physical pages for pv_table[] */
@@ -6356,7 +6356,7 @@ pmap_clear_modify4_4c(pg)
 		(void) pv_syncflags4_4c(pv);
 		rv = pv->pv_flags & PV_MOD;
 		pv->pv_flags &= ~PV_MOD;
-		return rv;		
+		return rv;
 	}
 	return (0);
 }
@@ -6712,7 +6712,7 @@ kvm_uncache(va, npages)
 			}
 			pte &= ~SRMMU_PG_C;
 			setpte4m((vaddr_t) va, pte);
-		
+
 		}
 		setcontext4m(ctx);
 #endif
@@ -7040,7 +7040,7 @@ pmap_dumpsize()
 /*
  * Write the core dump headers and MD data to the dump device.
  * We dump the following items:
- * 
+ *
  *	kcore_seg_t		 MI header defined in <sys/kcore.h>)
  *	cpu_kcore_hdr_t		 MD header defined in <machine/kcore.h>)
  *	phys_ram_seg_t[npmemarr] physical memory segments
@@ -7101,7 +7101,7 @@ pmap_dumpmmu(dump, blkno)
 	kcpup->segmapoffset = segmapoffset =
 		memsegoffset + npmemarr * sizeof(phys_ram_seg_t);
 
-	kcpup->npmeg = (CPU_ISSUN4OR4C) ? seginval + 1 : 0; 
+	kcpup->npmeg = (CPU_ISSUN4OR4C) ? seginval + 1 : 0;
 	kcpup->pmegoffset = pmegoffset =
 		segmapoffset + kcpup->nsegmap * sizeof(struct segmap);
 

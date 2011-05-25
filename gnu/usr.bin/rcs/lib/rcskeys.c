@@ -55,18 +55,18 @@ Report problems and direct all questions to:
  *
  * Revision 4.3  89/05/01  15:13:02  narten
  * changed copyright header to reflect current distribution rules
- * 
+ *
  * Revision 4.2  87/10/18  10:36:33  narten
  * Updating version numbers. Changes relative to 1.1 actuallyt
  * relative to 4.1
- * 
+ *
  * Revision 1.2  87/09/24  14:00:10  narten
- * Sources now pass through lint (if you ignore printf/sprintf/fprintf 
+ * Sources now pass through lint (if you ignore printf/sprintf/fprintf
  * warnings)
- * 
+ *
  * Revision 4.1  83/05/04  10:06:53  wft
  * Initial revision.
- * 
+ *
  */
 
 

@@ -38,7 +38,7 @@ POSSIBILITY OF SUCH DAMAGE.
 Notes about the NetBSD integration
 ----------------------------------
 
-Preface and Acknowledgements: 
+Preface and Acknowledgements:
 
 A first try at integrating the M68060 Software Package was done by
 Yasushi Yamasaki of the NetBSD/x68k group, but only available as a
@@ -53,7 +53,7 @@ from user space) into a multi-labeled one
 
 - make the gas syntax files of the glue code the Master files
 
-- translate the gas syntax files of the Motorola code once, to avoid 
+- translate the gas syntax files of the Motorola code once, to avoid
 the translation time.
 
 - I call the access error handler (label _buserr) directly, instead of
@@ -82,7 +82,7 @@ errata, changes, files, readme: by Motorola.
 I choose .S as the file suffix which is feeded to our assembler
 directly or indirectly.
 
-We use:		To create: 
+We use:		To create:
 
 isp.sa		isp.S
 fpsp.sa		fpsp.S

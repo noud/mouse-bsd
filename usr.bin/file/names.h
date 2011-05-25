@@ -12,7 +12,7 @@
  *
  * See LEGAL.NOTICE
  *
- * Id: names.h,v 1.16 1999/01/13 15:44:08 christos Exp 
+ * Id: names.h,v 1.16 1999/01/13 15:44:08 christos Exp
  */
 
 /* these types are used to index the table 'types': keep em in sync! */

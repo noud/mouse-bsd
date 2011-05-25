@@ -343,7 +343,7 @@ number	: tUNUMBER {
 		    yyDay= (date_part)%100;
 		    yyMonth= (date_part/100)%100;
 		    yyYear = date_part/10000;
-		} 
+		}
 	        yyHaveTime++;
 		if ($1 < 100) {
 		    yyHour = $1;
@@ -747,7 +747,7 @@ LookupWord(buff)
 	    return tp->type;
 	}
 
-    if (strcmp(buff, "dst") == 0) 
+    if (strcmp(buff, "dst") == 0)
 	return tDST;
 
     for (tp = UnitsTable; tp->name; tp++)

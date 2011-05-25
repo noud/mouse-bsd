@@ -89,7 +89,7 @@ getnewpasswd(pw, min_pw_len)
 	int tries;
 	char *p, *t;
 	char buf[_PASSWORD_LEN+1], salt[9];
-	
+
 	(void)printf("Changing local password for %s.\n", pw->pw_name);
 
 	if (uid && pw->pw_passwd[0] &&
@@ -186,7 +186,7 @@ local_chpw(uname)
 #ifdef LOGIN_CAP
 	login_cap_t *lc;
 #endif
-	
+
 	if (!(pw = getpwnam(uname))) {
 		warnx("unknown user %s", uname);
 		return (1);
@@ -202,7 +202,7 @@ local_chpw(uname)
 	old_pw = *pw;
 
 	/*
-	 * Get class restrictions for this user, then get the new password. 
+	 * Get class restrictions for this user, then get the new password.
 	 */
 #ifdef LOGIN_CAP
 	if((lc = login_getclass(pw->pw_class))) {

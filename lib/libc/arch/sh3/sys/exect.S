@@ -57,7 +57,7 @@ ENTRY(exect)
 LSYS_execve:	.long	SYS_execve
 Lcerror:	.long	cerror
 
-#if 0	
+#if 0
 ENTRY(exect)
 	movl	$(SYS_execve),%eax
 	pushf

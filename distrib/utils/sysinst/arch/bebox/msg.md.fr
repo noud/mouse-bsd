@@ -65,8 +65,8 @@ message dlgeom
 {Votre disque a déjà un label BSD. Ce label montre une géométrie différente
 de la géométrie réelle du disque. Les deux géométrie sont :
 
-disklabel:	%d cylindres, %d têtes, %d secteurs 
-géom réelle:	%d cylindres, %d têtes, %d secteurs 
+disklabel:	%d cylindres, %d têtes, %d secteurs
+géom réelle:	%d cylindres, %d têtes, %d secteurs
 }
 
 message nobiosgeom

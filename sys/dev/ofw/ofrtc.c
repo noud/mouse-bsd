@@ -61,14 +61,14 @@ ofrtc_match(parent, match, aux)
 	struct ofbus_attach_args *oba = aux;
 	char type[8];
 	int l;
-	
+
 	if (strcmp(oba->oba_busname, "ofw"))
 		return (0);
 	if ((l = OF_getprop(oba->oba_phandle, "device_type", type,
 	    sizeof type - 1)) < 0 ||
 	    l >= sizeof type)
 		return 0;
-	
+
 	return !strcmp(type, "rtc");
 }
 
@@ -81,7 +81,7 @@ ofrtc_attach(parent, self, aux)
 	struct ofbus_attach_args *oba = aux;
 	char name[32];
 	int l;
-	
+
 	of->sc_phandle = oba->oba_phandle;
 	of->sc_ihandle = 0;
 	if ((l = OF_getprop(of->sc_phandle, "name", name,
@@ -103,7 +103,7 @@ ofrtc_open(dev, flags, fmt)
 	int unit = minor(dev);
 	char path[256];
 	int l;
-	
+
 	if (unit >= ofrtc_cd.cd_ndevs)
 		return ENXIO;
 	if (!(of = ofrtc_cd.cd_devs[unit]))
@@ -114,7 +114,7 @@ ofrtc_open(dev, flags, fmt)
 		    l >= sizeof path)
 			return ENXIO;
 		path[l] = 0;
-		
+
 		if (!(of->sc_ihandle = OF_open(path))) {
 			if (of->sc_ihandle) {
 				OF_close(of->sc_ihandle);
@@ -151,7 +151,7 @@ twodigits(bp)
 	char *bp;
 {
 	int i;
-	
+
 	i = *bp++ - '0';
 	return i * 10 + *bp++ - '0';
 }
@@ -166,10 +166,10 @@ ofrtc_read(dev, uio, flag)
 	int date[6];
 	char buf[14];
 	int xlen;
-	
+
 	if (uio->uio_offset >= sizeof buf)
 		return 0;
-	
+
 	if (OF_call_method("get-time", of->sc_ihandle, 0, 6,
 			   date, date + 1, date + 2,
 			   date + 3, date + 4, date + 5))
@@ -183,11 +183,11 @@ ofrtc_read(dev, uio, flag)
 	buf[10] = '.';
 	twodigit(buf + 11, date[0]);
 	buf[13] = '\n';
-	
+
 	xlen = sizeof(buf) - uio->uio_offset;
 	if (xlen > uio->uio_resid)
 		xlen = uio->uio_resid;
-	
+
 	return uiomove((caddr_t)buf, xlen, uio);
 }
 
@@ -200,20 +200,20 @@ ofrtc_write(dev, uio, flag)
 	struct ofrtc_softc *of = ofrtc_cd.cd_devs[minor(dev)];
 	char buf[14];
 	int cnt, year, error;
-	
+
 	/*
 	 * We require atomic updates!
 	 */
 	cnt = uio->uio_resid;
 	if (uio->uio_offset || (cnt != sizeof buf && cnt != sizeof buf - 1))
 		return EINVAL;
-	
+
 	if ((error = uiomove((caddr_t)buf, sizeof buf, uio)) != 0)
 		return error;
 
 	if (cnt == sizeof buf && buf[sizeof buf - 1] != '\n')
 		return EINVAL;
-	
+
 	year = twodigits(buf) + 1900;
 	if (year < 1970)
 		year += 100;

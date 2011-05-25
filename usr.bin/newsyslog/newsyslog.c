@@ -65,7 +65,7 @@ __RCSID("$NetBSD: newsyslog.c,v 1.21 1999/11/30 12:03:24 ad Exp $");
 #define kbytes(size)  (((size) + 1023) >> 10)
 #ifdef _IBMR2
 /* Calculates (db * DEV_BSIZE) */
-#define dbtob(db)  ((unsigned)(db) << UBSHIFT) 
+#define dbtob(db)  ((unsigned)(db) << UBSHIFT)
 #endif
 
 #define CE_COMPACT 1            /* Compact the achived log files */
@@ -73,7 +73,7 @@ __RCSID("$NetBSD: newsyslog.c,v 1.21 1999/11/30 12:03:24 ad Exp $");
                                 /* status messages */
 #define CE_NOSIGNAL 4           /* Don't send a signal when trimmed */
 #define NONE -1
-        
+
 struct conf_entry {
         char    *log;           /* Name of the log */
         int     uid;            /* Owner of log */
@@ -124,7 +124,7 @@ main(argc,argv)
         char **argv;
 {
         struct conf_entry *p, *q;
-        
+
         PRS(argc,argv);
         if (needroot && getuid() && geteuid()) {
                 fprintf(stderr,"%s: must have root privs\n",progname);
@@ -145,7 +145,7 @@ do_entry(ent)
         struct conf_entry       *ent;
 {
         int     size, modtime;
-        
+
         if (verbose) {
                 if (ent->flags & CE_COMPACT)
                         printf("%s <%dZ>: ",ent->log,ent->numlogs);
@@ -305,7 +305,7 @@ parse_file()
                             working->uid = atoi(q);
                     } else
                         working->uid = NONE;
-                    
+
                     q = group;
                     if (*q) {
                         if (!(isnumber(q))) {
@@ -320,11 +320,11 @@ parse_file()
                             working->gid = atoi(q);
                     } else
                         working->gid = NONE;
-                    
+
                     q = parse = missing_field(sob(++parse),errline);
                     *(parse = son(parse)) = '\0';
                 }
-                else 
+                else
                     working->uid = working->gid = NONE;
 
                 if (!sscanf(q,"%o",&working->permissions)) {
@@ -349,7 +349,7 @@ parse_file()
                         working->size = atoi(q);
                 else
                         working->size = -1;
-                
+
                 q = parse = missing_field(sob(++parse),errline);
                 *(parse = son(parse)) = '\0';
                 if (isdigit((unsigned char)*q))
@@ -377,7 +377,7 @@ parse_file()
                         q++;
                 }
 
-                if (prev != '\0' && (q = parse = sob(++parse)) != NULL && 
+                if (prev != '\0' && (q = parse = sob(++parse)) != NULL &&
                     q[0] == '/') {
                 	prev = *(parse = son(parse));
                 	*parse++ = '\0';
@@ -387,7 +387,7 @@ parse_file()
 			prev = *parse;
 		}
 
-                if (prev != '\0' && (q = parse = sob(parse)) != NULL && 
+                if (prev != '\0' && (q = parse = sob(parse)) != NULL &&
                     q[0] != '\0') {
                 	*(parse = son(parse)) = '\0';
                		if ((working->signum = getsig(q)) < 0) {
@@ -398,7 +398,7 @@ parse_file()
                         }
                	} else
                		working->signum = SIGHUP;
-                
+
                 free(errline);
         }
         if (working)
@@ -453,7 +453,7 @@ dotrim(log,numdays,flags,perm,owner_uid,group_gid,pidfile,signum)
                 	perror(conf);
                 	return;
                 }
-       		
+
        		if (fgets(line,BUFSIZ,f))
        	        	pid = atoi(line);
 		if (f)
@@ -517,7 +517,7 @@ dotrim(log,numdays,flags,perm,owner_uid,group_gid,pidfile,signum)
                 if (fd < 0) {
                         perror("can't start new log");
                         exit(1);
-                }               
+                }
                 if (fchown(fd, owner_uid, group_gid)) {
                         perror("can't chmod new log file");
                         exit(1);
@@ -545,7 +545,7 @@ dotrim(log,numdays,flags,perm,owner_uid,group_gid,pidfile,signum)
 			perror("warning - could not restart daemon");
 		}
 	}
-	
+
         if ((flags & CE_COMPACT) != 0) {
                 if (noaction)
                         printf("Compress %s.0\n",log);
@@ -578,7 +578,7 @@ compress_log(log)
 {
         int     pid;
         char    tmp[128];
-        
+
         pid = fork();
         (void) sprintf(tmp,"%s.0",log);
         if (pid < 0) {
@@ -639,7 +639,7 @@ son(p)
         return(p);
 }
 
-        
+
 /* Check if string is actually a number */
 
 int
@@ -658,7 +658,7 @@ getsig(sig)
 	char *sig;
 {
 	int n;
-	
+
 	if (isnumber(sig)) {
 		n = strtol(sig, &sig, 0);
 		if ((unsigned)n >= NSIG)

@@ -1070,7 +1070,7 @@ loop:
 		{int block;
 		 block = (fd->sc_cylin * type->heads + head) * type->sectrac + sec;
 		 if (block != fd->sc_blkno) {
-			 printf("fdcintr: block %d != blkno %d\n",	
+			 printf("fdcintr: block %d != blkno %d\n",
 				block, fd->sc_blkno);
 #ifdef DDB
 			 Debugger();
@@ -1590,7 +1590,7 @@ fdformat(dev, finfo, p)
 			break;
 	}
 	splx(s);
-       
+
 	if (rv == EWOULDBLOCK) {
 		/* timed out */
 		rv = EIO;
@@ -1631,7 +1631,7 @@ load_memory_disc_from_floppy(md, dev)
 	type = FDTYPE(dev) - 1;
 	if (type < 0) type = 0;
 	floppysize = fd_types[type].size << (fd_types[type].secsize + 7);
-        
+
 	if (md->md_size < floppysize) {
 		printf("Memory disc is not big enough for floppy image\n");
 		return(EINVAL);
@@ -1644,7 +1644,7 @@ load_memory_disc_from_floppy(md, dev)
 /* obtain a buffer */
 
 	bp = geteblk(fd_types[type].sectrac * DEV_BSIZE);
-    
+
 /* request no partition relocation by driver on I/O operations */
 
 	bp->b_dev = dev;
@@ -1652,7 +1652,7 @@ load_memory_disc_from_floppy(md, dev)
 	s = spl0();
 
 	if (fdopen(bp->b_dev, 0, 0, curproc) != 0) {
-		brelse(bp);		
+		brelse(bp);
 		printf("Cannot open floppy device\n");
 			return(EINVAL);
 	}
@@ -1671,14 +1671,14 @@ load_memory_disc_from_floppy(md, dev)
 
 		if (biowait(bp))
 			panic("Cannot load floppy image\n");
-                                                 
+
 		memcpy((caddr_t)md->md_addr + loop * fd_types[type].sectrac
 		    * DEV_BSIZE, (caddr_t)bp->b_data,
 		    fd_types[type].sectrac * DEV_BSIZE);
 	}
 	printf("\x08\x08\x08\x08\x08\x08%4dK done\n",
 	    loop * fd_types[type].sectrac * DEV_BSIZE / 1024);
-        
+
 	fdclose(bp->b_dev, 0, 0, curproc);
 
 	brelse(bp);

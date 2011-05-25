@@ -102,7 +102,7 @@ extern CORE_ADDR h8300_skip_prologue ();
 
 #define REGISTER_SIZE 4
 
-#define NUM_REGS 13  
+#define NUM_REGS 13
 
 #define REGISTER_BYTES (NUM_REGS * 4)
 
@@ -187,7 +187,7 @@ extern void h8300_store_return_value PARAMS((struct type *, char *));
 #define EXTRACT_STRUCT_VALUE_ADDRESS(REGBUF) \
      extract_address (REGBUF + REGISTER_BYTE (0), \
 		      REGISTER_RAW_SIZE (0))
-     
+
 /* Describe the pointer in each stack frame to the previous stack frame
    (its caller).  */
 
@@ -207,7 +207,7 @@ CORE_ADDR h8300_frame_chain PARAMS ((struct frame_info *));
    the frame chain or following frames back into the startup code.
    See the comments in objfile.h */
 
-#define FRAME_CHAIN_VALID_ALTERNATE   
+#define FRAME_CHAIN_VALID_ALTERNATE
 
 /* Define other aspects of the stack frame.  */
 
@@ -280,8 +280,8 @@ typedef unsigned short INSN_WORD;
 #define CALL_DUMMY_START_OFFSET		(0)
 #define CALL_DUMMY_BREAKPOINT_OFFSET	(0)
 
-extern CORE_ADDR h8300_push_arguments PARAMS ((int nargs, 
-					       struct value **args, 
+extern CORE_ADDR h8300_push_arguments PARAMS ((int nargs,
+					       struct value **args,
 					       CORE_ADDR sp,
 					       unsigned char struct_return,
 					       CORE_ADDR struct_addr));
@@ -297,7 +297,7 @@ extern CORE_ADDR h8300_push_return_address PARAMS ((CORE_ADDR, CORE_ADDR));
 #define POP_FRAME		h8300_pop_frame ()
 #define PUSH_RETURN_ADDRESS(PC, SP)	h8300_push_return_address (PC, SP)
 
-/* override the standard get_saved_register function with 
+/* override the standard get_saved_register function with
    one that takes account of generic CALL_DUMMY frames */
 #define GET_SAVED_REGISTER
 

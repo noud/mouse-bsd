@@ -83,7 +83,7 @@ should help track down the cause of the error.  The line numbers given
 in the backtrace may not always correct: troff's idea of line numbers
 gets confused by
 .B as
-or 
+or
 .B am
 requests.
 .TP
@@ -212,7 +212,7 @@ Only the features not in Unix troff are described here.
 .SS Long names
 The names of number registers, fonts, strings/macros/diversions,
 special characters can be of any length. In escape sequences, where
-you can use 
+you can use
 .BI ( xx
 for a two character name, you can use
 .BI [ xxx ]
@@ -245,7 +245,7 @@ file (1 by default.)
 There is a new scale indicator
 .B z
 which has the effect of multiplying by sizescale.
-Requests and escape sequences in troff 
+Requests and escape sequences in troff
 interpret arguments that represent a pointsize as being in units
 of scaled points, but they evaluate each such argument
 using a default scale indicator of
@@ -506,7 +506,7 @@ In a macro, the concatenation of all the arguments separated by spaces.
 .TP
 .B \e$@
 In a macro, the concatenation of all the arguments with each surrounded by
-double quotes, and separated by spaces. 
+double quotes, and separated by spaces.
 .TP
 .BI \e$( nn
 .TQ
@@ -804,7 +804,7 @@ words containing the character can be hyphenated
 correctly, if the
 .B hcode
 request is used to give the character a hyphenation code.
-There is a special anti-recursion feature: 
+There is a special anti-recursion feature:
 use of character within the character's definition
 will be handled like normal characters not defined with
 .BR char .
@@ -1070,7 +1070,7 @@ See also the
 and
 .B write
 requests.
-.TP 
+.TP
 .BI .opena\  stream\ filename
 Like
 .BR open ,
@@ -1692,7 +1692,7 @@ Thus in a macro, a more efficient way of doing
 .LP
 is
 .IP
-.BI \e\e*[ xx ]\e\e  
+.BI \e\e*[ xx ]\e\e
 .LP
 If the font description file contains pairwise kerning information,
 characters from that font will be kerned.
@@ -1700,7 +1700,7 @@ Kerning between two characters can be inhibited by placing a
 .B \e&
 between them.
 .LP
-In a string comparison in a condition, 
+In a string comparison in a condition,
 characters that appear at different input levels
 to the first delimiter character will not be recognised
 as the second or third delimiters.
@@ -1850,7 +1850,7 @@ the escape character is ignored.
 .TP
 .BR space \t65536
 Missing space between a request or macro and its argument.
-This warning will be given 
+This warning will be given
 when an undefined name longer than two characters is encountered,
 and the first two characters of the name make a defined name.
 The request or macro will not be invoked.
@@ -1929,7 +1929,7 @@ escape sequences in names.
 .LP
 Fractional pointsizes cause one noteworthy incompatibility.
 In Unix troff the
-.B ps 
+.B ps
 request ignores scale indicators and so
 .IP
 .B .ps\ 10u

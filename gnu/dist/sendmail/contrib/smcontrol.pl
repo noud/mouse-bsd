@@ -20,7 +20,7 @@ sub get_controlname
 {
 	my $cn = undef;
 	my $qd = undef;
- 
+
 	open(CF, "</etc/sendmail.cf") or return $cn;
 	while (<CF>)
 	{
@@ -46,7 +46,7 @@ sub get_controlname
 	if ($cn !~ /^\//o)
 	{
 		return undef if (not defined $qd);
-		
+
 		$cn = $qd . "/" . $cn;
 	}
 	return $cn;

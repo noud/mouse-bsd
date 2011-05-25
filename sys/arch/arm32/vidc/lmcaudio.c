@@ -66,7 +66,7 @@
 #include "lmcaudio.h"
 
 #include <arm32/vidc/lmc1982.h>
- 
+
 struct audio_general {
 	vm_offset_t silence;
 	vm_offset_t beep;
@@ -224,12 +224,12 @@ lmcaudio_attach(parent, self, aux)
 	 * consists of 16 bits sample on each channel.
 	 */
 	outl(VIDC_BASE, VIDC_SCR | 0x03);
- 
+
 	/*
 	 * Video LCD and Serial Sound Mux control.  - Japanese format.
 	 */
 	IOMD_WRITE_BYTE(IOMD_VIDMUX, 0x02);
- 
+
 	volume_ctl(VINPUTSEL, VIN1);
 	volume_ctl(VLOUD, 0);
 	volume_ctl(VBASS, VDBM0);
@@ -298,7 +298,7 @@ lmcaudio_open(addr, flags)
 
 	return 0;
 }
- 
+
 void
 lmcaudio_close(addr)
 	void *addr;
@@ -344,7 +344,7 @@ lmcaudio_drain(addr)
 	return(0);
 }
 
-/* ************************************************************************* * 
+/* ************************************************************************* *
  | Interface to the generic audio driver                                     |
  * ************************************************************************* */
 
@@ -444,7 +444,7 @@ lmcaudio_halt_output(addr)
 }
 
 int
-lmcaudio_halt_input(addr) 
+lmcaudio_halt_input(addr)
 	void *addr;
 {
 #ifdef DEBUG
@@ -570,7 +570,7 @@ lmcaudio_dma_program(cur, end, intr, arg)
 		ag.in_progress = 1;
 
 		ag.next_cur = ag.next_end = 0;
-		ag.next_intr = ag.next_arg = 0; 
+		ag.next_intr = ag.next_arg = 0;
 
 		ag.intr = intr;
 		ag.arg = arg;

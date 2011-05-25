@@ -1,29 +1,29 @@
 /*	$NetBSD: db_machdep.c,v 1.14 1999/10/05 12:34:32 tron Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1996 Mark Brinicombe
  *
  * Mach Operating System
  * Copyright (c) 1991,1990 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
+ *
  * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
  * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND FOR
  * ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
- * 
+ *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
  *  School of Computer Science
  *  Carnegie Mellon University
  *  Pittsburgh PA 15213-3890
- * 
+ *
  * any improvements or extensions that they make and grant Carnegie the
  * rights to redistribute these changes.
  */
@@ -49,7 +49,7 @@
  * Print out a description of a vnode.
  * Some parts borrowed from kern/vfs_subr.c
  */
- 
+
 static char *typename[] =
    { "VNON", "VREG", "VDIR", "VBLK", "VCHR", "VLNK", "VSOCK", "VFIFO", "VBAD" };
 
@@ -195,7 +195,7 @@ db_show_panic_cmd(addr, have_addr, count, modif)
 	char            *modif;
 {
 	int s;
-	
+
 	s = splhigh();
 
 	db_printf("Panic string: %s\n", panicstr);

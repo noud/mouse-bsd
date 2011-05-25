@@ -118,7 +118,7 @@ extern unsigned (*clkread) __P((void));
  * CPU interrupt dispatch table (HwInt[0:3])
  */
 int null_handler __P((void*, u_int32_t, u_int32_t));
-static int (*intr_handler[4]) __P((void*, u_int32_t, u_int32_t)) = 
+static int (*intr_handler[4]) __P((void*, u_int32_t, u_int32_t)) =
 {
 	null_handler,
 	null_handler,
@@ -146,7 +146,7 @@ vr_init()
 	platform.reboot = vr_reboot;
 
 #if NVRBCU > 0
-	sprintf(cpu_name, "NEC %s rev%d.%d %d.%03dMHz", 
+	sprintf(cpu_name, "NEC %s rev%d.%d %d.%03dMHz",
 		vrbcu_vrip_getcpuname(),
 		vrbcu_vrip_getcpumajor(),
 		vrbcu_vrip_getcpuminor(),
@@ -169,7 +169,7 @@ vr_mem_init(kernend)
 		(btoc((u_int32_t)kernend - MIPS_KSEG0_START)) << PGSHIFT);
 	endaddr = MIPS_PHYS_TO_KSEG1(VR41_SYSADDR_DRAMSTART +
 				     VR41_SYSADDR_DRAM_LEN);
-	for(page = startaddr, npage = 0; page < endaddr; 
+	for(page = startaddr, npage = 0; page < endaddr;
 	    page+= NBPG, npage++) {
 		if (badaddr((char*)page, 4))
 			break;
@@ -181,7 +181,7 @@ vr_mem_init(kernend)
 	}
 	/* Clear currently unused D-RAM area (For reboot Windows CE clearly)*/
 	memset((void*)startaddr, 0, npage * NBPG);
-	memset((void*)(KERNBASE + 0x400), 0, KERNTEXTOFF - KERNBASE - 0x800); 
+	memset((void*)(KERNBASE + 0x400), 0, KERNTEXTOFF - KERNBASE - 0x800);
 
 	return npage;
 }

@@ -81,7 +81,7 @@ options 	COMPAT_14
 
 # OSF/1 binary compatibility
 options 	COMPAT_OSF1
-  
+
 # System V-like message queues
 options 	SYSVMSG
 
@@ -230,7 +230,7 @@ audio*	at	sv?
 
 #opl*	at	eso?
 #opl*	at	sv?
-  
+
 #mpu*	at	eso?
 
 # MII/PHY support

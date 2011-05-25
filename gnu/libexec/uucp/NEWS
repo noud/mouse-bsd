@@ -82,7 +82,7 @@ Changes in version 1.05:
     fails.
 
     uustat accepts a -R argument to rejuvenate each listed job.
-    
+
     Mailer configuration was moved from configure checking to
     policy.h.
 

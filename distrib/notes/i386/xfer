@@ -1,4 +1,4 @@
-.\" $NetBSD: xfer,v 1.16 1999/02/01 16:16:09 he Exp $	
+.\" $NetBSD: xfer,v 1.16 1999/02/01 16:16:09 he Exp $
 .\"(
 .Pp
 Installation is supported from several media types, including:
@@ -76,7 +76,7 @@ number of 1.44M floppies. You should only use one size of
 floppy for the install or upgrade procedure; you can't use
 some 1.2M floppies and some 1.44M floppies.
 .It
-Format all of the floppies with 
+Format all of the floppies with
 .Tn DOS .
 .Em \&Do not
 make any of them bootable

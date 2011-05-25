@@ -36,7 +36,7 @@ char **av;
   int trace = 0;
   char *name = "";
 
-  while ((i = getopt (ac, av, "tv")) != EOF) 
+  while ((i = getopt (ac, av, "tv")) != EOF)
     switch (i)
       {
       case 't':
@@ -63,15 +63,15 @@ char **av;
   abfd = bfd_openr(name,"coff-z8k");
 
   if (abfd) {
-      
-    if (bfd_check_format(abfd, bfd_object)) 
+
+    if (bfd_check_format(abfd, bfd_object))
     {
       if (abfd->arch_info->mach == bfd_mach_z8001)
       {
 	extern int sim_z8001_mode;
 	sim_z8001_mode = 1;
       }
-      for (s = abfd->sections; s; s=s->next) 
+      for (s = abfd->sections; s; s=s->next)
       {
 	char *buffer = malloc(bfd_section_size(abfd,s));
 	bfd_get_section_contents(abfd, s, buffer, 0, bfd_section_size(abfd,s));
@@ -80,19 +80,19 @@ char **av;
 
       start_address = bfd_get_start_address(abfd);
       sim_create_inferior (start_address, NULL, NULL);
-      if (trace) 
+      if (trace)
       {
 	int done = 0;
-	while (!done) 
+	while (!done)
 	{
 	  done = sim_trace();
 	}
       }
-      else 
-      { 
+      else
+      {
 	sim_resume(0,0);
       }
-      if (verbose) 
+      if (verbose)
       {
 	sim_info(0);
       }

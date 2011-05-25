@@ -21,7 +21,7 @@
 .Dt DNSKEYGEN 1
 .Os BSD 4
 .Sh NAME
-.Nm dnskeygen 
+.Nm dnskeygen
 .Nd generate public, private, and shared secret keys for DNS Security
 .Sh SYNOPSIS
 .Nm dnskeygen
@@ -69,11 +69,11 @@ Use a large exponent for key generation.
 These flags define the type of key being generated: Zone (DNS validation) key,
 Host (host or service) key or User (e.g. email) key, respectively.
 Each key is only allowed to be one of these.
-.It Fl a 
+.It Fl a
 Indicates that the key
 .Ic CANNOT
 be used for authentication.
-.It Fl c 
+.It Fl c
 Indicates that the key
 .Ic CANNOT
 be used for encryption.
@@ -108,11 +108,11 @@ Sets the key's name to
 .Ic Dnskeygen
 stores each key in two files:
 .Pa K<name>+<alg>+<footprint>.private
-and 
+and
 .Pa K<name>+<alg>+<footprint>.key
-The file 
+The file
 .Pa K<name>+<alg>+<footprint>.private
-contains the private key in a portable format.  The file 
+contains the private key in a portable format.  The file
 .Pa K<name>+<alg>+<footprint>.key
 contains the public key in the DNS zone file format:
 .Pp

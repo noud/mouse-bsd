@@ -124,7 +124,7 @@ main(ac, av)
 					  case 't':
 						Teleport = TRUE;
 						break;
-					  
+
 					  default:
 						fprintf(stderr, "robots: unknown option: %c\n", *sp);
 						bad_arg = TRUE;

@@ -14,7 +14,7 @@ struct Object {
 	unsigned char obj_type; /* state or event */
 	char *obj_name;
 	char *obj_struc;
-	int obj_number; 
+	int obj_number;
 	struct Object *obj_members; /* must be null for kind==item */
 	/* for the tree */
 	struct Object *obj_left;

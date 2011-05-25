@@ -81,7 +81,7 @@ extern void fix_new_ns32k_exp PARAMS((fragS *frag,
 				   int im_disp,
 				   bit_fixS *bit_fixP,	/* really bit_fixS */
 				   int bsr,
-				   fragS *opcode_frag,	
+				   fragS *opcode_frag,
 				   unsigned int opcode_offset,
 				   unsigned int reloc_mode));
 

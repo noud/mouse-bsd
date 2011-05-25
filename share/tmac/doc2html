@@ -560,7 +560,7 @@ Unknown .Bl list type \\$1 (#\\n(.c)
 \\*[list-end-\\n[list-level]]
 .	pop-list-level
 ..
-.de Lb  
+.de Lb
 .if !\\n(.$==1 .tm Usage: .Lb [library name]
 .if "\\$1"libarm32" \&ARM32 Architecture Library (libarm32, -larm32)
 .if "\\$1"libi386" \&i386 Architecture Library (libi386, -li386)
@@ -579,8 +579,8 @@ Unknown .Bl list type \\$1 (#\\n(.c)
 .if "\\$1"libresolv" \&DNS Resolver Library (libresolv, -lresolv)
 .if "\\$1"libtermcap" \&Termcap Access Library (libtermcap, -ltermcap)
 .if "\\$1"libutil" \&System Utilities Library (libutil, -lutil)
-.if "\\$1"libz" \&Compression Library (libz, -lz) 
-.. 
+.if "\\$1"libz" \&Compression Library (libz, -lz)
+..
 .
 .
 .de doc-checkpunct
@@ -819,7 +819,7 @@ AT&T UNIX\\$*
 .	pc-fin
 ..
 .
-.de doc-start-quote 
+.de doc-start-quote
 .       if \\n[r-lvl]&\\n[doc-dosep] .as doc-pcresult \\*[sepstring]
 .       as doc-pcresult \\$1
 .       nr doc-dosep 0

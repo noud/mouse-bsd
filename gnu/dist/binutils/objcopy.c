@@ -422,7 +422,7 @@ find_section_list (name, add)
 
 /* Add a symbol to strip_specific_list.  */
 
-static void 
+static void
 add_specific_symbol (name, list)
      const char *name;
      struct symlist **list;
@@ -667,7 +667,7 @@ copy_object (ibfd, obfd)
 	  else
 	    {
 	      flagword flags;
-	      
+
 	      if (! bfd_set_section_size (obfd, padd->section, padd->size))
 		nonfatal (bfd_get_filename (obfd));
 
@@ -805,7 +805,7 @@ copy_object (ibfd, obfd)
       if (convert_debugging)
 	dhandle = read_debugging_info (ibfd, isympp, symcount);
 
-      if (strip_symbols == strip_debug 
+      if (strip_symbols == strip_debug
 	  || strip_symbols == strip_unneeded
 	  || discard_locals != locals_undef
 	  || strip_specific_list != NULL
@@ -1280,7 +1280,7 @@ copy_section (ibfd, isection, obfdarg)
 	  nonfatal (bfd_get_filename (ibfd));
 	}
 
-      if (copy_byte >= 0) 
+      if (copy_byte >= 0)
         {
 	  filter_bytes (memhunk, &size);
               /* The section has gotten smaller. */
@@ -2117,7 +2117,7 @@ copy_main (argc, argv)
 
       copy_file (input_filename, tmpname, input_target, output_target);
       if (status == 0)
-	{	
+	{
 	  if (preserve_dates)
 	    set_times (tmpname, &statbuf);
 	  smart_rename (tmpname, input_filename);

@@ -1,4 +1,4 @@
-.\"	$NetBSD: xfer,v 1.4 1999/01/13 07:30:08 ross Exp $	
+.\"	$NetBSD: xfer,v 1.4 1999/01/13 07:30:08 ross Exp $
 .
 The "standard" method of getting NetBSD/pc532 onto your pc532 is
 via the console terminal and using the downloading parts of the
@@ -12,7 +12,7 @@ sends data to the ROM monitor over the serial line.
 You may need to find and read the documentation about the ROM monitor
 download command and other low level comands.
 .Pp
-Other methods of getting NetBSD/pc532 on your pc532 may include 
+Other methods of getting NetBSD/pc532 on your pc532 may include
 SCSI tape or SCSI floppy disk or cloning a disk on a system
 already running NetBSD/pc532.
 .Pp

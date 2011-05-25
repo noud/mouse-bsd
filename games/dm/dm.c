@@ -259,7 +259,7 @@ load()
 int
 users()
 {
-	
+
 	int nusers, utmp;
 	struct utmp buf;
 

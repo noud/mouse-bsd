@@ -57,7 +57,7 @@ extern void	*tdelete __P((const void *, void **,
 			      int (*)(const void *, const void *)));
 extern void	*tfind __P((const void *, void **,
 			      int (*)(const void *, const void *)));
-extern void	*tsearch __P((const void *, void **, 
+extern void	*tsearch __P((const void *, void **,
 			      int (*)(const void *, const void *)));
 extern void      twalk __P((const void *, void (*)(const void *, VISIT, int)));
 __END_DECLS

@@ -191,13 +191,13 @@ coscattach(pdp, dp, auxp)
 		printf(" termpwr off");
 		sc->sc_iobase[COSC_TERMINATION_CONTROL] = COSC_TERMINATION_OFF;
 	}
-	
+
 	/* Don't know what this is for */
 
 	{
 		int byte;
 		int loop;
-		
+
 		byte = sc->sc_iobase[COSC_REGISTER_01];
 		byte = 0;
 		for (loop = 0; loop < 8; ++loop) {
@@ -234,7 +234,7 @@ coscattach(pdp, dp, auxp)
 #if COSC_POLL > 0
         if (boot_args) {
         	char *ptr;
-       
+
 		ptr = strstr(boot_args, "nocoscpoll");
 		if (ptr)
 			cosc_poll = 0;
@@ -280,7 +280,7 @@ coscattach(pdp, dp, auxp)
 #endif
 	if (irq_claim(sc->sc_podule->interrupt, &sc->sc_softc.sc_ih))
 		panic("%s: Cannot install IRQ handler\n", dp->dv_xname);
-	
+
 	printf("\n");
 
 	/* attach all scsi units on us */
@@ -326,7 +326,7 @@ cosc_intr(arg)
 		do {
 			dev->sc_status = *rp->esc.esc_status;
 			dev->sc_interrupt = *rp->esc.esc_interrupt;
-	  
+
 			if (dev->sc_interrupt & ESC_INT_RESELECTED) {
 				dev->sc_resel[0] = *rp->esc.esc_fifo;
 				dev->sc_resel[1] = *rp->esc.esc_fifo;
@@ -411,7 +411,7 @@ cosc_need_bump(sc, ptr, len)
 
 	if (p) {
 		p = 4-p;
-	    
+
 		if (len < 256)
 			p = len;
 	}

@@ -712,7 +712,7 @@ lf_print(tag, lock)
 	char *tag;
 	register struct lockf *lock;
 {
-	
+
 	printf("%s: lock %p for ", tag, lock);
 	if (lock->lf_flags & F_POSIX)
 		printf("proc %d", ((struct proc *)(lock->lf_id))->p_pid);

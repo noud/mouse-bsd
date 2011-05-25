@@ -178,11 +178,11 @@ sh_find_callers_reg (fi, regnum)
       /* When the caller requests PR from the dummy frame, we return PC because
 	 that's where the previous routine appears to have done a call from. */
       return generic_read_register_dummy (fi->pc, fi->frame, regnum);
-    else 
+    else
       {
 	FRAME_FIND_SAVED_REGS(fi, fsr);
 	if (fsr.regs[regnum] != 0)
-	  return read_memory_integer (fsr.regs[regnum], 
+	  return read_memory_integer (fsr.regs[regnum],
 				      REGISTER_RAW_SIZE(regnum));
       }
   return read_register (regnum);
@@ -212,7 +212,7 @@ sh_frame_find_saved_regs (fi, fsr)
   if (dummy_regs)
     {
       /* DANGER!  This is ONLY going to work if the char buffer format of
-	 the saved registers is byte-for-byte identical to the 
+	 the saved registers is byte-for-byte identical to the
 	 CORE_ADDR regs[NUM_REGS] format used by struct frame_saved_regs! */
       memcpy (&fsr->regs, dummy_regs, sizeof(fsr));
       return;
@@ -329,9 +329,9 @@ sh_init_extra_frame_info (fromleaf, fi)
     {
       /* We need to setup fi->frame here because run_stack_dummy gets it wrong
 	 by assuming it's always FP.  */
-      fi->frame     = generic_read_register_dummy (fi->pc, fi->frame, 
+      fi->frame     = generic_read_register_dummy (fi->pc, fi->frame,
 						   SP_REGNUM);
-      fi->return_pc = generic_read_register_dummy (fi->pc, fi->frame, 
+      fi->return_pc = generic_read_register_dummy (fi->pc, fi->frame,
 						   PC_REGNUM);
       fi->f_offset = -(CALL_DUMMY_LENGTH + 4);
       fi->leaf_function = 0;
@@ -382,38 +382,38 @@ sh_pop_frame ()
    The rest go on the stack.
 
    Arguments that are smaller than 4 bytes will still take up a whole
-   register or a whole 32-bit word on the stack, and will be 
+   register or a whole 32-bit word on the stack, and will be
    right-justified in the register or the stack word.  This includes
    chars, shorts, and small aggregate types.
 
-   Arguments that are larger than 4 bytes may be split between two or 
+   Arguments that are larger than 4 bytes may be split between two or
    more registers.  If there are not enough registers free, an argument
    may be passed partly in a register (or registers), and partly on the
-   stack.  This includes doubles, long longs, and larger aggregates. 
-   As far as I know, there is no upper limit to the size of aggregates 
-   that will be passed in this way; in other words, the convention of 
+   stack.  This includes doubles, long longs, and larger aggregates.
+   As far as I know, there is no upper limit to the size of aggregates
+   that will be passed in this way; in other words, the convention of
    passing a pointer to a large aggregate instead of a copy is not used.
 
    An exceptional case exists for struct arguments (and possibly other
-   aggregates such as arrays) if the size is larger than 4 bytes but 
-   not a multiple of 4 bytes.  In this case the argument is never split 
+   aggregates such as arrays) if the size is larger than 4 bytes but
+   not a multiple of 4 bytes.  In this case the argument is never split
    between the registers and the stack, but instead is copied in its
-   entirety onto the stack, AND also copied into as many registers as 
-   there is room for.  In other words, space in registers permitting, 
+   entirety onto the stack, AND also copied into as many registers as
+   there is room for.  In other words, space in registers permitting,
    two copies of the same argument are passed in.  As far as I can tell,
-   only the one on the stack is used, although that may be a function 
+   only the one on the stack is used, although that may be a function
    of the level of compiler optimization.  I suspect this is a compiler
-   bug.  Arguments of these odd sizes are left-justified within the 
-   word (as opposed to arguments smaller than 4 bytes, which are 
+   bug.  Arguments of these odd sizes are left-justified within the
+   word (as opposed to arguments smaller than 4 bytes, which are
    right-justified).
- 
 
-   If the function is to return an aggregate type such as a struct, it 
-   is either returned in the normal return value register R0 (if its 
+
+   If the function is to return an aggregate type such as a struct, it
+   is either returned in the normal return value register R0 (if its
    size is no greater than one byte), or else the caller must allocate
    space into which the callee will copy the return value (if the size
-   is greater than one byte).  In this case, a pointer to the return 
-   value location is passed into the callee in register R2, which does 
+   is greater than one byte).  In this case, a pointer to the return
+   value location is passed into the callee in register R2, which does
    not displace any of the other arguments passed in via registers R4
    to R7.   */
 
@@ -438,7 +438,7 @@ sh_push_arguments (nargs, args, sp, struct_return, struct_addr)
   /* first force sp to a 4-byte alignment */
   sp = sp & ~3;
 
-  /* The "struct return pointer" pseudo-argument has its own dedicated 
+  /* The "struct return pointer" pseudo-argument has its own dedicated
      register */
   if (struct_return)
       write_register (STRUCT_RETURN_REGNUM, struct_addr);
@@ -462,7 +462,7 @@ sh_push_arguments (nargs, args, sp, struct_return, struct_addr)
       memset(valbuf, 0, sizeof(valbuf));
       if (len < 4)
         { /* value gets right-justified in the register or stack word */
-          memcpy(valbuf + (4 - len), 
+          memcpy(valbuf + (4 - len),
 		 (char *) VALUE_CONTENTS (args[argnum]), len);
           val = valbuf;
         }
@@ -471,7 +471,7 @@ sh_push_arguments (nargs, args, sp, struct_return, struct_addr)
 
       if (len > 4 && (len & 3) != 0)
 	odd_sized_struct = 1;		/* such structs go entirely on stack */
-      else 
+      else
 	odd_sized_struct = 0;
       while (len > 0)
 	{
@@ -512,8 +512,8 @@ sh_push_return_address (pc, sp)
 }
 
 /* Function: fix_call_dummy
-   Poke the callee function's address into the destination part of 
-   the CALL_DUMMY.  The address is actually stored in a data word 
+   Poke the callee function's address into the destination part of
+   the CALL_DUMMY.  The address is actually stored in a data word
    following the actualy CALL_DUMMY instructions, which will load
    it into a register using PC-relative addressing.  This function
    expects the CALL_DUMMY to look like this:
@@ -552,7 +552,7 @@ get_saved_register (raw_buffer, optimized, addrp, frame, regnum, lval)
      int regnum;
      enum lval_type *lval;
 {
-  generic_get_saved_register (raw_buffer, optimized, addrp, 
+  generic_get_saved_register (raw_buffer, optimized, addrp,
 			      frame, regnum, lval);
 }
 

@@ -98,7 +98,7 @@ experiment, or for sites that desperately need the new features.
 
 - Test for lease before dereferencing it in dhcprequest.
 
-- Free the client parameter request list in dhcpnak if there is one. 
+- Free the client parameter request list in dhcpnak if there is one.
 
 	    CHANGES FROM VERSION 2.0 BETA 1 PATCHLEVEL 21
 
@@ -214,7 +214,7 @@ experiment, or for sites that desperately need the new features.
   selections in site.h work incorrectly.
 
 - Fix some major stupidity in the code that figures out where or not a
-  client owns a particular lease. 
+  client owns a particular lease.
 
 	    CHANGES FROM VERSION 2.0 BETA 1 PATCHLEVEL 15
 

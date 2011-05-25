@@ -181,7 +181,7 @@ usage()
 		fprintf(stderr, "\t%s %s\n", bus_commands[i].cmd_name,
 					    bus_commands[i].arg_names);
 	fprintf(stderr, "   Use `any' or `all' to wildcard target or lun\n");
-	
+
 	exit(1);
 }
 

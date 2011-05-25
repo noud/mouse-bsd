@@ -251,7 +251,7 @@ om_copyrows(cookie, srcrow, dstrow, nrows)
         caddr_t p, q;
 	int scanspan, offset, srcy, height, width, w;
         u_int32_t rmask;
-        
+
 	scanspan = rap->linelongs * 4;
 	height = rc->rc_font->height * nrows;
 	offset = (dstrow - srcrow) * scanspan * rc->rc_font->height;
@@ -308,7 +308,7 @@ om_copycols(cookie, startrow, srccol, dstcol, ncols)
 	align = dstx & ALIGNMASK;
 	lmask = ALL1BITS >> align;
 	rmask = ALL1BITS << (-(w + align) & ALIGNMASK);
-	shift = align - shift; 
+	shift = align - shift;
 	sp = basep + (srcx / 32) * 4;
 	dp = basep + (dstx / 32) * 4;
 

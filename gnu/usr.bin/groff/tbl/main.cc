@@ -703,7 +703,7 @@ void input_entry_format::debug_print()
   if (equal)
     putc('e', stderr);
   if (separation >= 0)
-    fprintf(stderr, "%d", separation); 
+    fprintf(stderr, "%d", separation);
   for (i = 0; i < vline; i++)
     putc('|', stderr);
   if (last_column)
@@ -1366,7 +1366,7 @@ table *process_data(table_input &in, format *f, options *opt)
 	  }
 	}
 	tbl->add_text_line(current_row, line, current_filename, ln);
-	if (line.length() >= 4 
+	if (line.length() >= 4
 	    && line[0] == '.' && line[1] == 'T' && line[2] == '&') {
 	  format *newf = process_format(in, opt, f);
 	  if (newf == 0)
@@ -1422,7 +1422,7 @@ void process_table(table_input &in)
   options *opt = 0;
   format *form = 0;
   table *tbl = 0;
-  if ((opt = process_options(in)) != 0 
+  if ((opt = process_options(in)) != 0
       && (form = process_format(in, opt)) != 0
       && (tbl = process_data(in, form, opt)) != 0) {
     tbl->print();
@@ -1476,7 +1476,7 @@ int main(int argc, char **argv)
 	 ".if !dTS .ds TS\n"
 	 ".if !dTE .ds TE\n");
   if (argc > optind) {
-    for (int i = optind; i < argc; i++) 
+    for (int i = optind; i < argc; i++)
       if (argv[i][0] == '-' && argv[i][1] == '\0') {
 	current_filename = "-";
 	current_lineno = 1;

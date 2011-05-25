@@ -321,7 +321,7 @@ An overview of the design, implementation, and use of NFS on 4.4BSD.
 .tl 'Line Printer Spooler Manual''tabbed 7'
 .QP
 This document describes the structure and installation procedure
-for the line printer spooling system.  
+for the line printer spooling system.
 .sp
 .IP
 .tl 'Sendmail Installation and Operation Guide''tabbed 8'
@@ -513,7 +513,7 @@ to keep them from contaminating
 the more staid information of URM section 1.
 .LP
 Miscellaneous collection of information necessary for
-writing in various specialized languages such as character codes, 
+writing in various specialized languages such as character codes,
 macro packages for typesetting, etc is contained in URM section 7.
 .LP
 System calls are entries into the BSD kernel.
@@ -554,7 +554,7 @@ The name of the entry is in the upper corners of its pages,
 together with the section number.
 Entries within each section are alphabetized.
 The page numbers of each entry start at 1;
-it is infeasible to number consecutively the pages of 
+it is infeasible to number consecutively the pages of
 a document like this that is republished in many variant forms.
 .LP
 All entries are based on a common format;

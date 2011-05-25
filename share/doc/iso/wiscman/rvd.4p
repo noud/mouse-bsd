@@ -34,13 +34,13 @@ If a disk pack is \*(lqspun up\*(rq in read-only mode,
 several clients may share the pack and read its information.  In
 exclusive mode, one client has exclusive use of the disk pack.
 .PP
-Packs are \*(lqspun up\*(rq and \*(lqspun down\*(rq with the 
+Packs are \*(lqspun up\*(rq and \*(lqspun down\*(rq with the
 .I up
 and
 .I down
 commands (see
 .IR up (1)).
-This can be done 
+This can be done
 at reboot time within
 .I /etc/rc.local
 (see
@@ -53,7 +53,7 @@ at login time within
 Once a pack is spun up, it behaves like a disk physically attached to
 the local machine (excepting network latency).
 The client can do anything desired with the pack;
-both MS-DOS and UNIX operating system file systems have 
+both MS-DOS and UNIX operating system file systems have
 been used on the same physical
 drive at the same time (on separate packs, of course).
 .PP
@@ -84,7 +84,7 @@ simultaneously, which are associated with the pseudo-devices below.
 up(1), rvddb(5), rvdtab(5),
 rvdflush(8), rvdchlog(8), rvddown(8),
 rvdexch(8), rvdflush(8), rvdlog(8), rvdsend(8), rvdshow(8),
-rvdshut(8), rvdsrv(8), savervd(8), 
+rvdshut(8), rvdsrv(8), savervd(8),
 spinup(8), vddb(8), vdstats(8)
 .br
 ``The Remote Virtual Disk System'' in Volume II, Supplementary Documents

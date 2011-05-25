@@ -172,7 +172,7 @@ itematch(pdp, cdp, auxp)
 #if 0
 	int maj;
 #endif
-	
+
 	gp = auxp;
 
 	/* ite0 should be at grf0 XXX */
@@ -181,7 +181,7 @@ itematch(pdp, cdp, auxp)
 
 #if 0
 	/*
-	 * all that our mask allows (more than enough no one 
+	 * all that our mask allows (more than enough no one
 	 * has > 32 monitors for text consoles on one machine)
 	 */
 	if (cdp->cf_unit >= sizeof(ite_confunits) * NBBY)
@@ -200,7 +200,7 @@ itematch(pdp, cdp, auxp)
 	return(1);
 }
 
-/* 
+/*
  * iteinit() is the standard entry point for initialization of
  * an ite device, it is also called from ite_cninit().
  */
@@ -233,7 +233,7 @@ iteattach(pdp, dp, auxp)
 			kbd_ite = ip;
 		printf("\n");
 	} else {
-		if (con_itesoftc.grf != NULL) 
+		if (con_itesoftc.grf != NULL)
 			return;
 		con_itesoftc.grf = gp;
 		con_itesoftc.tabs = cons_tabs;
@@ -668,7 +668,7 @@ ite_cnfilter(c)
 			mask = KBD_MOD_RMETA;
 			break;
 
-		case KBD_CAPS_LOCK:    
+		case KBD_CAPS_LOCK:
 			/*
 			 * capslock already behaves `right', don't need to
 			 * keep track of the state in here.
@@ -708,7 +708,7 @@ ite_cnfilter(c)
 	if (mod & KBD_MOD_SHIFT) {
 		if (mod & KBD_MOD_ALT)
 			key = kbdmap.alt_shift_keys[c];
-		else 
+		else
 			key = kbdmap.shift_keys[c];
 	} else if (mod & KBD_MOD_ALT)
 		key = kbdmap.alt_keys[c];
@@ -771,7 +771,7 @@ ite_filter(c)
 	up = c & 0x80 ? 1 : 0;
 	c &= 0x7f;
 	code = 0;
-  
+
 	mask = 0;
 	if (c >= KBD_LEFT_ALT &&
 	    !(c >= 0x63 && c <= 0x6c)) {	/* 0x63: F1, 0x6c:F10 */
@@ -783,11 +783,11 @@ ite_filter(c)
 		case KBD_LEFT_ALT:
 			mask = KBD_MOD_LALT;
 			break;
-    
+
 		case KBD_RIGHT_ALT:
 			mask = KBD_MOD_RALT;
 			break;
-      
+
 		case KBD_LEFT_META:
 			mask = KBD_MOD_LMETA;
 			break;
@@ -861,7 +861,7 @@ ite_filter(c)
 	if (mod & KBD_MOD_SHIFT) {
 		if (mod & KBD_MOD_ALT)
 			key = kbdmap.alt_shift_keys[c];
-		else 
+		else
 			key = kbdmap.shift_keys[c];
 	} else if (mod & KBD_MOD_ALT)
 		key = kbdmap.alt_keys[c];
@@ -874,14 +874,14 @@ ite_filter(c)
 			key = kbdmap.shift_keys[c];
 	}
 	code = key.code;
- 
+
 	/* handle dead keys */
 	if (key.mode & KBD_MODE_DEAD) {
 		splx (s);
 		return;
 	}
   	/* if not string, apply META and CTRL modifiers */
-	if (! (key.mode & KBD_MODE_STRING) 
+	if (! (key.mode & KBD_MODE_STRING)
 	    && (!(key.mode & KBD_MODE_KPAD) ||
 		(kbd_ite && !kbd_ite->keypad_appmode))) {
 		if ((mod & KBD_MOD_CTRL) &&
@@ -895,7 +895,7 @@ ite_filter(c)
 		static char *out = "pqrstuvwxymlnMPQRS";
 		char *cp = index (in, code);
 
-		/* 
+		/*
 		 * keypad-appmode sends SS3 followed by the above
 		 * translated character
 		 */
@@ -914,7 +914,7 @@ ite_filter(c)
 		  3, 27, 'O', 'D'};
 
 		str = kbdmap.strings + code;
-		/* 
+		/*
 		 * if this is a cursor key, AND it has the default
 		 * keymap setting, AND we're in app-cursor mode, switch
 		 * to the above table. This is *nasty* !
@@ -924,7 +924,7 @@ ite_filter(c)
 		    index("ABCD", str[3]))
 			str = app_cursor + 4 * (str[3] - 'A');
 
-		/* 
+		/*
 		 * using a length-byte instead of 0-termination allows
 		 * to embed \0 into strings, although this is not used
 		 * in the default keymap
@@ -1236,7 +1236,7 @@ ite_zargnum (ip)
 	*ip->ap = 0;	/* terminate string */
 	n = atoi (ip->argbuf);
 	*ip->ap = ch;
-  
+
 	return n;	/* don't "n ? n : 1" here, <CSI>0m != <CSI>1m ! */
 }
 
@@ -1276,7 +1276,7 @@ iteputchar(c, ip)
 		case ESC:
 			switch (c) {
 				/* first 7bit equivalents for the 8bit control characters */
-		  
+
 			case 'D':
 				c = IND;
 				ip->escape = 0;
@@ -1352,7 +1352,7 @@ iteputchar(c, ip)
 				break;
 
 
-			/* a lot of character set selections, not yet used... 
+			/* a lot of character set selections, not yet used...
 			   94-character sets: */
 			case '(':	/* G0 */
 			case ')':	/* G1 */
@@ -1654,7 +1654,7 @@ iteputchar(c, ip)
 					break;
 				case 6:
 					/* cursor position report */
-					sprintf (ip->argbuf, "\033[%d;%dR", 
+					sprintf (ip->argbuf, "\033[%d;%dR",
 						 ip->cury + 1, ip->curx + 1);
 					ite_sendstr (ip, ip->argbuf);
 					break;
@@ -1745,7 +1745,7 @@ iteputchar(c, ip)
 				return;
 
 			case 'G':
-				/* this one was *not* in my vt320 manual but in 
+				/* this one was *not* in my vt320 manual but in
 				   a vt320 termcap entry.. who is right?
 				   It's supposed to set the horizontal cursor position. */
 				*ip->ap = 0;
@@ -2195,7 +2195,7 @@ iteputchar(c, ip)
 	case VT:	/* VT is treated like LF */
 	case FF:	/* so is FF */
 	case LF:
-		/* cr->crlf distinction is done here, on output, 
+		/* cr->crlf distinction is done here, on output,
 		   not on input! */
 		if (ip->linefeed_newline)
 			ite_crlf (ip);
@@ -2211,7 +2211,7 @@ iteputchar(c, ip)
 	case SO:
 		ip->GL = &ip->G1;
 		break;
-		
+
 	case SI:
 		ip->GL = &ip->G0;
 		break;
@@ -2223,16 +2223,16 @@ iteputchar(c, ip)
 	case 0x14:	/* DC4 */
 	case 0x15:	/* NAK */
 	case 0x16:	/* SYN */
-	case 0x17:	/* ETB */		
+	case 0x17:	/* ETB */
 		break;
 
 	case CAN:
 		ip->escape = 0;	/* cancel any escape sequence in progress */
 		break;
-		
+
 	case 0x19:	/* EM */
 		break;
-					
+
 	case SUB:
 		ip->escape = 0;	/* dito, but see below */
 		/* should also display a reverse question mark!! */
@@ -2252,7 +2252,7 @@ iteputchar(c, ip)
 	case IND:	/* index: move cursor down, scroll */
 		ite_index (ip);
 		break;
-		
+
 	case NEL:	/* next line. next line, first pos. */
 		ite_crlf (ip);
 		break;
@@ -2261,7 +2261,7 @@ iteputchar(c, ip)
 		if (ip->curx < ip->cols)
 			ip->tabs[ip->curx] = 1;
 		break;
-		
+
 	case RI:	/* reverse index */
 		ite_rlf (ip);
 		break;
@@ -2270,26 +2270,26 @@ iteputchar(c, ip)
 		ip->save_GL = ip->GR;	/* GL XXX EUC */
 		ip->GR = &ip->G2;	/* GL XXX */
 		break;
-		
+
 	case SS3:	/* go into G3 for one character */
 		ip->save_GL = ip->GR;	/* GL XXX EUC */
 		ip->GR = &ip->G3;	/* GL XXX */
 		break;
-		
+
 	case DCS:	/* device control string introducer */
 		ip->escape = DCS;
 		ip->ap = ip->argbuf;
 		break;
-		
+
 	case CSI:	/* control sequence introducer */
 		ip->escape = CSI;
 		ip->ap = ip->argbuf;
 		break;
-		
+
 	case ST:	/* string terminator */
 		/* ignore, if not used as terminator */
 		break;
-		
+
 	case OSC:	/* introduces OS command. Ignore everything upto ST */
 		ip->escape = OSC;
 		break;
@@ -2297,7 +2297,7 @@ iteputchar(c, ip)
 	case PM:	/* privacy message, ignore everything upto ST */
 		ip->escape = PM;
 		break;
-		
+
 	case APC:	/* application program command, ignore everything upto ST */
 		ip->escape = APC;
 		break;
@@ -2411,7 +2411,7 @@ itecnprobe(cd)
 		if (cdevsw[maj].d_open == iteopen)
 			break;
 
-	/* 
+	/*
 	 * return priority of the best ite (already picked from attach)
 	 * or CN_DEAD.
 	 */
@@ -2484,7 +2484,7 @@ itecnputc(dev, c)
 #ifdef ITE_KERNEL_ATTR
 	short save_attribute;
 #endif
-	
+
 	if (panicstr && !paniced &&
 	    (ip->flags & (ITE_ACTIVE|ITE_INGRF)) != ITE_ACTIVE) {
 		(void) iteon(dev, 3);

@@ -501,7 +501,7 @@ optional parameter -- for example:
 	FEATURE(`mailertable', `dbm /usr/lib/mailertable')
 
 The default database map type for the table features can be set with
- 
+
 	define(`DATABASE_MAP_TYPE', `dbm')
 
 which would set it to use ndbm databases.  The default is the Berkeley DB
@@ -637,7 +637,7 @@ limited_masquerade
 		namespaces hosted on the same machine.
 
 masquerade_entire_domain
-		If masquerading is enabled (using MASQUERADE_AS) and 
+		If masquerading is enabled (using MASQUERADE_AS) and
 		MASQUERADE_DOMAIN (see below) is set, this feature will
 		cause addresses to be rewritten such that the masquerading
 		domains are actually entire domains to be hidden.  All
@@ -721,7 +721,7 @@ nullclient	This is a special case -- it creates a stripped down
 		forwarding all mail to a central hub via a local
 		SMTP-based network.  The argument is the name of that
 		hub.
-		
+
 		The only other feature that should be used in conjunction
 		with this one is "nocanonify" (this causes addresses to
 		be sent unqualified via the SMTP connection; normally
@@ -816,7 +816,7 @@ relay_local_from
 		from your domain (either directly or via a routed address),
 		and you will go ahead and relay it out to arbitrary hosts
 		on the Internet.
-		
+
 accept_unqualified_senders
 		Normally, MAIL FROM: commands in the SMTP session will be
 		refused if the connection is a network connection and the
@@ -824,7 +824,7 @@ accept_unqualified_senders
 		setup sends local mail unqualified (i.e. MAIL FROM: <joe>),
 		you will need to use this feature to accept unqualified
 		sender addresses.
-		
+
 accept_unresolvable_domains
 		Normally, MAIL FROM: commands in the SMTP session will be
 		refused if the host part of the argument to MAIL FROM: cannot
@@ -1401,15 +1401,15 @@ Local_check_mail, and Local_check_rcpt.  For example if you wanted to
 block senders with all numeric usernames (i.e. 2312343@bigisp.com),
 you would use Local_check_mail and the new regex map:
 
-	LOCAL_CONFIG 
-	Kallnumbers regex -a@MATCH ^[0-9]+$ 
- 
-	LOCAL_RULESETS 
-	SLocal_check_mail 
-	# check address against various regex checks 
+	LOCAL_CONFIG
+	Kallnumbers regex -a@MATCH ^[0-9]+$
+
+	LOCAL_RULESETS
+	SLocal_check_mail
+	# check address against various regex checks
 	R$*				$: $>Parse0 $>3 $1
-	R$+ < @ bigisp.com. > $*	$: $(allnumbers $1 $) 
-	R@MATCH				$#error $: 553 Header Error 
+	R$+ < @ bigisp.com. > $*	$: $(allnumbers $1 $)
+	R@MATCH				$#error $: 553 Header Error
 
 These rules are called with the original arguments of the corresponding
 check_* ruleset.  If the local ruleset returns $#OK, no further checking
@@ -1711,7 +1711,7 @@ confDOMAIN_NAME		$j macro	If defined, sets $j.  This should
 					domain name.
 confCF_VERSION		$Z macro	If defined, this is appended to the
 					configuration version name.
-confFROM_HEADER		From:		[$?x$x <$g>$|$g$.] The format of an 
+confFROM_HEADER		From:		[$?x$x <$g>$|$g$.] The format of an
 					internally generated From: address.
 confRECEIVED_HEADER	Received:
 		[$?sfrom $s $.$?_($?s$|from $.$_)

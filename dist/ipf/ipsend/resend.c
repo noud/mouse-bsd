@@ -93,7 +93,7 @@ char	*datain;
 		fd = (*r->r_open)(datain);
 	else
 		fd = (*r->r_open)("-");
- 
+
 	if (fd < 0)
 		exit(-1);
 

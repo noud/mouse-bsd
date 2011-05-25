@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: nfs_subr.c,v 1.3 1999/01/13 23:31:00 ezk Exp 
+ * Id: nfs_subr.c,v 1.3 1999/01/13 23:31:00 ezk Exp
  *
  */
 

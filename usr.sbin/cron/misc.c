@@ -654,7 +654,7 @@ arpadate(clock)
 
 	if (minutes < 0)
 		minutes = -minutes;
-	
+
 	(void)strftime(ret, sizeof(ret), "%a, %e %b %Y %T ????? (%Z)", &tm);
 	(void)snprintf(strchr(ret, '?'), "% .2d%.2d", hours, minutes);
 	ret[sizeof(ret) - 1] = '\0';

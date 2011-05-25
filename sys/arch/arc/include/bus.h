@@ -54,8 +54,8 @@ typedef u_int32_t bus_size_t;
 typedef u_int32_t bus_space_handle_t;
 typedef struct arc_bus_space *bus_space_tag_t;
 #if 1 /* XXX - <dev/isa/isavar.h> requires these types, not actually defined */
-typedef int bus_dma_tag_t; 
-typedef int bus_dmamap_t; 
+typedef int bus_dma_tag_t;
+typedef int bus_dmamap_t;
 #endif
 
 struct arc_bus_space {

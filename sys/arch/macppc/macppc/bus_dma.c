@@ -423,7 +423,7 @@ _bus_dmamem_alloc(t, size, alignment, boundary, segs, nsegs, rsegs, flags)
 {
 	paddr_t avail_start, avail_end;
 	paddr_t curaddr, lastaddr, high;
-	vm_page_t m;    
+	vm_page_t m;
 	struct pglist mlist;
 	int curseg, error;
 

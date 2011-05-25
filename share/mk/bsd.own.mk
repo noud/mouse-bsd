@@ -94,7 +94,7 @@ NOPIC=1
 NOLINT=1
 .endif
 
-# Data-driven table using make variables to control how 
+# Data-driven table using make variables to control how
 # toolchain-dependent targets and shared libraries are built
 # for different platforms and object formats.
 # OBJECT_FMT:		currently either "ELF" or "a.out".

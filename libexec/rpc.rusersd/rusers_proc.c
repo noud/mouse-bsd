@@ -3,7 +3,7 @@
 /*-
  *  Copyright (c) 1993 John Brezak
  *  All rights reserved.
- * 
+ *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
  *  are met:
@@ -14,7 +14,7 @@
  *     documentation and/or other materials provided with the distribution.
  *  3. The name of the author may not be used to endorse or promote products
  *     derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR `AS IS'' AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -168,7 +168,7 @@ getidle(tty, display)
 	char devname[PATH_MAX];
 	time_t now;
 	long idle;
-	
+
 	/*
 	 * If this is an X terminal or console, then try the
 	 * XIdle extension
@@ -210,7 +210,7 @@ getidle(tty, display)
 
 	return idle;
 }
-	
+
 static int *
 rusers_num_svc(arg, rqstp)
 	void *arg;
@@ -253,7 +253,7 @@ do_names_3(all)
 
 	memset(&ut, 0, sizeof(ut));
 	ut.utmp_array_val = &utmps[0];
-	
+
 	ufp = fopen(_PATH_UTMP, "r");
 	if (!ufp) {
 		syslog(LOG_ERR, "%m");
@@ -321,7 +321,7 @@ do_names_2(int all)
 	memset((char *)&ut, 0, sizeof(ut));
 	ut.uia_arr = utmp_idlep;
 	ut.uia_cnt = 0;
-	
+
 	ufp = fopen(_PATH_UTMP, "r");
 	if (!ufp) {
 		syslog(LOG_ERR, "%m");

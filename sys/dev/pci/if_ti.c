@@ -38,7 +38,7 @@
  * Alteon Networks Tigon PCI gigabit ethernet driver for FreeBSD.
  * Manuals, sample driver and firmware source kits are available
  * from http://www.alteon.com/support/openkits.
- * 
+ *
  * Written by Bill Paul <wpaul@ctr.columbia.edu>
  * Electrical Engineering Department
  * Columbia University, New York City
@@ -673,7 +673,7 @@ static int ti_alloc_jumbo_mem(sc)
 		sc->ti_cdata.ti_jslots[i].ti_buf = ptr;
 		sc->ti_cdata.ti_jslots[i].ti_inuse = 0;
 		ptr += (TI_JLEN - sizeof(u_int64_t));
-		entry = malloc(sizeof(struct ti_jpool_entry), 
+		entry = malloc(sizeof(struct ti_jpool_entry),
 			       M_DEVBUF, M_NOWAIT);
 		if (entry == NULL) {
 			free(sc->ti_cdata.ti_jumbo_buf, M_DEVBUF);
@@ -697,9 +697,9 @@ static void *ti_jalloc(sc)
 	struct ti_softc		*sc;
 {
 	struct ti_jpool_entry   *entry;
-	
+
 	entry = SIMPLEQ_FIRST(&sc->ti_jfree_listhead);
-	
+
 	if (entry == NULL) {
 		printf("%s: no free jumbo buffers\n", sc->sc_dev.dv_xname);
 		return(NULL);
@@ -737,7 +737,7 @@ static void ti_jref(buf, size)
 
 	/* calculate the slot this buffer belongs to */
 
-	i = ((caddr_t)aptr 
+	i = ((caddr_t)aptr
 	     - (caddr_t)sc->ti_cdata.ti_jumbo_buf) / TI_JLEN;
 
 	if ((i < 0) || (i >= TI_JSLOTS))
@@ -777,7 +777,7 @@ static void ti_jfree(buf, size, arg)
 
 	/* calculate the slot this buffer belongs to */
 
-	i = ((caddr_t)aptr 
+	i = ((caddr_t)aptr
 	     - (caddr_t)sc->ti_cdata.ti_jumbo_buf) / TI_JLEN;
 
 	if ((i < 0) || (i >= TI_JSLOTS))
@@ -791,9 +791,9 @@ static void ti_jfree(buf, size, arg)
 			if (entry == NULL)
 				panic("ti_jfree: buffer not in use!");
 			entry->slot = i;
-			SIMPLEQ_REMOVE_HEAD(&sc->ti_jinuse_listhead, 
+			SIMPLEQ_REMOVE_HEAD(&sc->ti_jinuse_listhead,
 					    entry, jpool_entries);
-			SIMPLEQ_INSERT_HEAD(&sc->ti_jfree_listhead, 
+			SIMPLEQ_INSERT_HEAD(&sc->ti_jfree_listhead,
 					     entry, jpool_entries);
 		}
 	}
@@ -1443,9 +1443,9 @@ static int ti_chipinit(sc)
 	/*
 	 * From the Alteon sample driver:
 	 * Must insure that we do not cross an 8K (bytes) boundary
-	 * for DMA reads.  Our highest limit is 1K bytes.  This is a 
-	 * restriction on some ALPHA platforms with early revision 
-	 * 21174 PCI chipsets, such as the AlphaPC 164lx 
+	 * for DMA reads.  Our highest limit is 1K bytes.  This is a
+	 * restriction on some ALPHA platforms with early revision
+	 * 21174 PCI chipsets, such as the AlphaPC 164lx
 	 */
 	TI_SETBIT(sc, TI_PCI_STATE, pci_writemax|TI_PCI_READMAX_1024);
 #else
@@ -2551,7 +2551,7 @@ static void ti_ifmedia_sts(ifp, ifmr)
 		if (media & TI_LNK_HALF_DUPLEX)
 			ifmr->ifm_active |= IFM_HDX;
 	}
-	
+
 	return;
 }
 

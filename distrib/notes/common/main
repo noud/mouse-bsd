@@ -94,7 +94,7 @@ version.
 .
 The
 .Nx
-Operating System is a fully functional 
+Operating System is a fully functional
 .Tn Open Source
 UN*X-like operating system derived from the Berkeley Networking
 Release 2 (Net/2), 4.4BSD-Lite, and 4.4BSD-Lite2 sources.
@@ -121,7 +121,7 @@ and numerous other tools, all accompanied by full source code.
 .Nx
 is a creation of the members of the Internet community.
 Without the unique cooperation and coordination the net makes
-possible, it's likely that 
+possible, it's likely that
 .Nx
 wouldn't exist.
 .Ss Changes Since The Last Release
@@ -227,7 +227,7 @@ is incremented and you may need a recompilation of your userland tools.
 The KAME IPv6 part includes result from unified-ipv6 effort.
 .El
 .Pp
-As has been noted, there have also been innumerable bug fixes.	
+As has been noted, there have also been innumerable bug fixes.
 .Pp
 Kernel interfaces have continued to be refined, and more subsystems
 and device drivers are shared among the different ports. You can look
@@ -260,7 +260,7 @@ by:
 .Bl -bullet
 .It
 providing better organization to keep track of development
-efforts, including co-ordination with groups working in 
+efforts, including co-ordination with groups working in
 related fields.
 .It
 providing a framework to receive donations of goods and
@@ -352,8 +352,8 @@ to determine whether or not it is legal for you to export these portions
 and to act accordingly.
 .Pp
 The source distribution sets can be found in subdirectories of the
-"source" subdirectory of the distribution tree. They contain the 
-complete sources to the system. The source distribution sets 
+"source" subdirectory of the distribution tree. They contain the
+complete sources to the system. The source distribution sets
 are as follows:
 .Bl -tag -width sharesrc.tgz...
 .It secrsrc.tgz:
@@ -550,7 +550,7 @@ This feature has not been disabled in
 .Nx 1.5 ,
 because there is a
 .Xr named.conf 5
-option to change the version string: 
+option to change the version string:
 .Bd -literal -offset indent
 	option {
 		version "newstring";
@@ -579,7 +579,7 @@ please be sure to update those.
 Documentation is available if you first install the manual
 distribution set. Traditionally, the
 .Dq man pages
-(documentation) are denoted by 
+(documentation) are denoted by
 .Dq Li name(section) .
 Some examples of this are
 .Pp
@@ -612,7 +612,7 @@ around the
 section should not be entered, but rather indicate that the section is
 optional. If you don't ask for a particular section, the topic with the
 lowest numbered section name will be displayed. For instance, after
-logging in, enter 
+logging in, enter
 .D1 Ic "man passwd
 to read the documentation for
 .Xr passwd 1 .
@@ -627,7 +627,7 @@ If you are unsure of what man page you are looking for, enter
 .Pp
 where
 .Ar subject-word
-is your topic of interest; a list of possibly 
+is your topic of interest; a list of possibly
 related man pages will be displayed.
 .
 .Ss Administrivia

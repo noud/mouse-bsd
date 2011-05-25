@@ -2,14 +2,14 @@
 
 /*
  * /src/NTP/REPOSITORY/v4/libparse/clk_meinberg.c,v 3.23 1997/01/19 12:44:38 kardel Exp
- *  
+ *
  * clk_meinberg.c,v 3.23 1997/01/19 12:44:38 kardel Exp
  *
  * Meinberg clock support
  *
  * Copyright (C) 1992,1993,1994,1995,1996 by Frank Kardel
  * Friedrich-Alexander Universität Erlangen-Nürnberg, Germany
- *                                    
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -34,7 +34,7 @@
 /*
  * The Meinberg receiver every second sends a datagram of the following form
  * (Standard Format)
- * 
+ *
  *     <STX>D:<dd>.<mm>.<yy>;T:<w>;U:<hh>:<mm>:<ss>;<S><F><D><A><ETX>
  * pos:  0  00 00 0 00 0 11 111 1 111 12 2 22 2 22 2 2  2  3  3   3
  *       1  23 45 6 78 9 01 234 5 678 90 1 23 4 56 7 8  9  0  1   2
@@ -94,7 +94,7 @@
  *        123456789012345678901234567890123456789012345678901234567890123456
  *     \x0209.07.93; 5; 08:48:26; +00:00; #*S!A L; 49.5736N  11.0280E  373m\x03
  *
- * 
+ *
  * <STX>           = '\002' ASCII start of text
  * <ETX>           = '\003' ASCII end of text
  * <dd>,<mm>,<yy>  = day, month, year(2 digits!!)
@@ -238,7 +238,7 @@ cvt_meinberg(buffer, size, vf, clock, vt)
       else
 	{
 	  char *f = &buffer[format->field_offsets[O_FLAGS].offset];
-	  
+
 	  clock->flags = 0;
 	  clock->usecond = 0;
 
@@ -271,22 +271,22 @@ cvt_meinberg(buffer, size, vf, clock, vt)
 		case ' ':
 		  clock->utcoffset = -1*60*60; /* MET */
 		  break;
-		  
+
 		case 'S':
 		  clock->utcoffset = -2*60*60; /* MED */
 		  break;
-		  
+
 		default:
 		  return CVT_FAIL|CVT_BADFMT;
 		}
 	    }
-	  
+
 	  /*
 	   * gather status flags
 	   */
 	  if (buffer[format->field_offsets[O_ZONE].offset] == 'S')
 	    clock->flags    |= PARSEB_DST;
-	  
+
 	  if (f[0] == '#')
 	    clock->flags |= PARSEB_POWERUP;
 
@@ -303,16 +303,16 @@ cvt_meinberg(buffer, size, vf, clock, vt)
 	   */
 	  if (f[3] == 'A')
 	    clock->flags |= PARSEB_LEAPADD;
-	  
+
 	  if (f[3] == 'a')
 	    clock->flags |= PARSEB_LEAPDEL;
 
-	  
+
 	  if (format->flags & MBG_EXTENDED)
 	    {
 	      clock->flags |= PARSEB_S_LEAP;
 	      clock->flags |= PARSEB_S_ANTENNA;
-	      
+
 	      /*
 	       * DCF77 does not encode the direction -
 	       * so we take the current default -
@@ -370,9 +370,9 @@ cvt_mgps(buffer, size, vf, clock, vt)
 	{
 	  long h;
 	  char *f = &buffer[format->field_offsets[O_FLAGS].offset];
-	  
+
 	  clock->flags = PARSEB_S_LEAP|PARSEB_S_POSITION;
-	      
+
 	  clock->usecond = 0;
 
 	  /*
@@ -399,22 +399,22 @@ cvt_mgps(buffer, size, vf, clock, vt)
 		  clock->utcoffset = -clock->utcoffset;
 		}
 	    }
-	  
+
 	  /*
 	   * gather status flags
 	   */
 	  if (buffer[format->field_offsets[O_ZONE].offset] == 'S')
 	    clock->flags    |= PARSEB_DST;
-	  
+
 	  if (clock->utcoffset == 0)
 	    clock->flags |= PARSEB_UTC;
-	  
+
 	  /*
 	   * no sv's seen - no time & position
 	   */
 	  if (f[0] == '#')
 	    clock->flags |= PARSEB_POWERUP;
-	  
+
 	  /*
 	   * at least one sv seen - time (for last position)
 	   */
@@ -423,13 +423,13 @@ cvt_mgps(buffer, size, vf, clock, vt)
 	  else
 	    if (!(clock->flags & PARSEB_POWERUP))
 	      clock->flags |= PARSEB_POSITION;
-	  
+
 	  /*
 	   * oncoming zone switch
 	   */
 	  if (f[3] == '!')
 	    clock->flags |= PARSEB_ANNOUNCE;
-	  
+
 	  /*
 	   * oncoming leap second
 	   * 'a' code not confirmed - earth is not
@@ -437,14 +437,14 @@ cvt_mgps(buffer, size, vf, clock, vt)
 	   */
 	  if (f[4] == 'A')
 	    clock->flags |= PARSEB_LEAPADD;
-	  
+
 	  if (f[4] == 'a')
 	    clock->flags |= PARSEB_LEAPDEL;
 
 	  /*
 	   * f[5] == ' '
 	   */
-	  
+
 	  /*
 	   * this is the leap second
 	   */

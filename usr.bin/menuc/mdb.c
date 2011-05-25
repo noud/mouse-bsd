@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -280,8 +280,8 @@ write_menu_file (char *initcode)
 					"{\t%s\n\treturn %s;\n}\n\n",
 					i, j, i, j, toptn->optact.code,
 					(toptn->doexit ? "1" : "0"));
-						
-				
+
+
 			}
 			j++;
 			toptn = toptn->next;
@@ -307,7 +307,7 @@ write_menu_file (char *initcode)
 				(toptn->issub ? OPT_SUB : 0)
 				+(toptn->doexit ? OPT_EXIT : 0)
 				+(toptn->optact.endwin ? OPT_ENDWIN : 0));
-			if (strlen(toptn->optact.code)) 
+			if (strlen(toptn->optact.code))
 				(void) fprintf (out_file, "opt_act_%d_%d}",
 					i, j);
 			else
@@ -370,7 +370,7 @@ write_menu_file (char *initcode)
 	(void) fprintf (out_file, "{NULL}};\n\n");
 
 	/* __menu_initerror: initscr failed. */
-	(void) fprintf (out_file, 
+	(void) fprintf (out_file,
 		"/* __menu_initerror: initscr failed. */\n"
 		"void __menu_initerror (void) {\n");
 	if (error_act.code == NULL) {
@@ -387,7 +387,7 @@ write_menu_file (char *initcode)
 
 	/* Copy menu_sys.def file. */
 	while ((ch = fgetc(sys_file)) != '\014')  /* Control-L */
-		fputc(ch, out_file);     	
+		fputc(ch, out_file);
 
 	if (do_dynamic) {
 		while ((ch = fgetc(sys_file)) != '\n')
@@ -395,7 +395,7 @@ write_menu_file (char *initcode)
 		while ((ch = fgetc(sys_file)) != EOF)
 			fputc(ch, out_file);
 	}
-		
+
 	fclose (out_file);
 	fclose (sys_file);
 }

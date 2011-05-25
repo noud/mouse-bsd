@@ -64,7 +64,7 @@ struct scsipi_device mlhsc_scsidev = {
 };
 
 #ifdef DEBUG
-extern int sci_debug;  
+extern int sci_debug;
 #define QPRINTF(a) if (sci_debug > 1) printf a
 #else
 #define QPRINTF(a)
@@ -110,7 +110,7 @@ mlhscattach(pdp, dp, auxp)
 	printf("\n");
 
 	zap = auxp;
-	
+
 	sc = (struct sci_softc *)dp;
 	rp = zap->va;
 	sc->sci_data = rp + 1;

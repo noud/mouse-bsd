@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #include "libcoff.h"
 
-static bfd_reloc_status_type coff_i860_reloc 
+static bfd_reloc_status_type coff_i860_reloc
   PARAMS ((bfd *, arelent *, asymbol *, PTR, asection *, bfd *, char **));
 static reloc_howto_type *coff_i860_rtype_to_howto
   PARAMS ((bfd *, asection *, struct internal_reloc *,
@@ -139,7 +139,7 @@ coff_i860_reloc (abfd, reloc_entry, symbol, data, input_section, output_bfd,
 #define PCRELOFFSET false
 #endif
 
-static reloc_howto_type howto_table[] = 
+static reloc_howto_type howto_table[] =
 {
   {0},
   {1},
@@ -147,32 +147,32 @@ static reloc_howto_type howto_table[] =
   {3},
   {4},
   {5},
-  HOWTO (R_DIR32,               /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 32,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (R_DIR32,               /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 32,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 coff_i860_reloc,       /* special_function */                     
-	 "dir32",               /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffffffff,            /* src_mask */                             
-	 0xffffffff,            /* dst_mask */                             
+	 coff_i860_reloc,       /* special_function */
+	 "dir32",               /* name */
+	 true,	                /* partial_inplace */
+	 0xffffffff,            /* src_mask */
+	 0xffffffff,            /* dst_mask */
 	 true),                /* pcrel_offset */
   /* {7}, */
-  HOWTO (R_IMAGEBASE,            /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 32,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (R_IMAGEBASE,            /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 32,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 coff_i860_reloc,       /* special_function */                     
-	 "rva32",	           /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffffffff,            /* src_mask */                             
-	 0xffffffff,            /* dst_mask */                             
+	 coff_i860_reloc,       /* special_function */
+	 "rva32",	           /* name */
+	 true,	                /* partial_inplace */
+	 0xffffffff,            /* src_mask */
+	 0xffffffff,            /* dst_mask */
 	 false),                /* pcrel_offset */
   {010},
   {011},
@@ -181,83 +181,83 @@ static reloc_howto_type howto_table[] =
   {014},
   {015},
   {016},
-  HOWTO (R_RELBYTE,		/* type */                                 
-	 0,			/* rightshift */                           
-	 0,			/* size (0 = byte, 1 = short, 2 = long) */ 
-	 8,			/* bitsize */                   
-	 false,			/* pc_relative */                          
-	 0,			/* bitpos */                               
+  HOWTO (R_RELBYTE,		/* type */
+	 0,			/* rightshift */
+	 0,			/* size (0 = byte, 1 = short, 2 = long) */
+	 8,			/* bitsize */
+	 false,			/* pc_relative */
+	 0,			/* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 coff_i860_reloc,	/* special_function */                     
-	 "8",			/* name */                                 
-	 true,			/* partial_inplace */                      
-	 0x000000ff,		/* src_mask */                             
-	 0x000000ff,		/* dst_mask */                             
+	 coff_i860_reloc,	/* special_function */
+	 "8",			/* name */
+	 true,			/* partial_inplace */
+	 0x000000ff,		/* src_mask */
+	 0x000000ff,		/* dst_mask */
 	 PCRELOFFSET),		/* pcrel_offset */
-  HOWTO (R_RELWORD,		/* type */                                 
-	 0,			/* rightshift */                           
-	 1,			/* size (0 = byte, 1 = short, 2 = long) */ 
-	 16,			/* bitsize */                   
-	 false,			/* pc_relative */                          
-	 0,			/* bitpos */                               
+  HOWTO (R_RELWORD,		/* type */
+	 0,			/* rightshift */
+	 1,			/* size (0 = byte, 1 = short, 2 = long) */
+	 16,			/* bitsize */
+	 false,			/* pc_relative */
+	 0,			/* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 coff_i860_reloc,	/* special_function */                     
-	 "16",			/* name */                                 
-	 true,			/* partial_inplace */                      
-	 0x0000ffff,		/* src_mask */                             
-	 0x0000ffff,		/* dst_mask */                             
+	 coff_i860_reloc,	/* special_function */
+	 "16",			/* name */
+	 true,			/* partial_inplace */
+	 0x0000ffff,		/* src_mask */
+	 0x0000ffff,		/* dst_mask */
 	 PCRELOFFSET),		/* pcrel_offset */
-  HOWTO (R_RELLONG,		/* type */                                 
-	 0,			/* rightshift */                           
-	 2,			/* size (0 = byte, 1 = short, 2 = long) */ 
-	 32,			/* bitsize */                   
-	 false,			/* pc_relative */                          
-	 0,			/* bitpos */                               
+  HOWTO (R_RELLONG,		/* type */
+	 0,			/* rightshift */
+	 2,			/* size (0 = byte, 1 = short, 2 = long) */
+	 32,			/* bitsize */
+	 false,			/* pc_relative */
+	 0,			/* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 coff_i860_reloc,	/* special_function */                     
-	 "32",			/* name */                                 
-	 true,			/* partial_inplace */                      
-	 0xffffffff,		/* src_mask */                             
-	 0xffffffff,		/* dst_mask */                             
+	 coff_i860_reloc,	/* special_function */
+	 "32",			/* name */
+	 true,			/* partial_inplace */
+	 0xffffffff,		/* src_mask */
+	 0xffffffff,		/* dst_mask */
 	 PCRELOFFSET),		/* pcrel_offset */
-  HOWTO (R_PCRBYTE,		/* type */                                 
-	 0,			/* rightshift */                           
-	 0,			/* size (0 = byte, 1 = short, 2 = long) */ 
-	 8,			/* bitsize */                   
-	 true,			/* pc_relative */                          
-	 0,			/* bitpos */                               
+  HOWTO (R_PCRBYTE,		/* type */
+	 0,			/* rightshift */
+	 0,			/* size (0 = byte, 1 = short, 2 = long) */
+	 8,			/* bitsize */
+	 true,			/* pc_relative */
+	 0,			/* bitpos */
 	 complain_overflow_signed, /* complain_on_overflow */
-	 coff_i860_reloc,	/* special_function */                     
-	 "DISP8",		/* name */                                 
-	 true,			/* partial_inplace */                      
-	 0x000000ff,		/* src_mask */                             
-	 0x000000ff,		/* dst_mask */                             
+	 coff_i860_reloc,	/* special_function */
+	 "DISP8",		/* name */
+	 true,			/* partial_inplace */
+	 0x000000ff,		/* src_mask */
+	 0x000000ff,		/* dst_mask */
 	 PCRELOFFSET),		/* pcrel_offset */
-  HOWTO (R_PCRWORD,		/* type */                                 
-	 0,			/* rightshift */                           
-	 1,			/* size (0 = byte, 1 = short, 2 = long) */ 
-	 16,			/* bitsize */                   
-	 true,			/* pc_relative */                          
-	 0,			/* bitpos */                               
+  HOWTO (R_PCRWORD,		/* type */
+	 0,			/* rightshift */
+	 1,			/* size (0 = byte, 1 = short, 2 = long) */
+	 16,			/* bitsize */
+	 true,			/* pc_relative */
+	 0,			/* bitpos */
 	 complain_overflow_signed, /* complain_on_overflow */
-	 coff_i860_reloc,	/* special_function */                     
-	 "DISP16",		/* name */                                 
-	 true,			/* partial_inplace */                      
-	 0x0000ffff,		/* src_mask */                             
-	 0x0000ffff,		/* dst_mask */                             
+	 coff_i860_reloc,	/* special_function */
+	 "DISP16",		/* name */
+	 true,			/* partial_inplace */
+	 0x0000ffff,		/* src_mask */
+	 0x0000ffff,		/* dst_mask */
 	 PCRELOFFSET),		/* pcrel_offset */
-  HOWTO (R_PCRLONG,		/* type */                                 
-	 0,			/* rightshift */                           
-	 2,			/* size (0 = byte, 1 = short, 2 = long) */ 
-	 32,			/* bitsize */                   
-	 true,			/* pc_relative */                          
-	 0,			/* bitpos */                               
+  HOWTO (R_PCRLONG,		/* type */
+	 0,			/* rightshift */
+	 2,			/* size (0 = byte, 1 = short, 2 = long) */
+	 32,			/* bitsize */
+	 true,			/* pc_relative */
+	 0,			/* bitpos */
 	 complain_overflow_signed, /* complain_on_overflow */
-	 coff_i860_reloc,	/* special_function */                     
-	 "DISP32",		/* name */                                 
-	 true,			/* partial_inplace */                      
-	 0xffffffff,		/* src_mask */                             
-	 0xffffffff,		/* dst_mask */                             
+	 coff_i860_reloc,	/* special_function */
+	 "DISP32",		/* name */
+	 true,			/* partial_inplace */
+	 0xffffffff,		/* src_mask */
+	 0xffffffff,		/* dst_mask */
 	 PCRELOFFSET)		/* pcrel_offset */
 };
 
@@ -335,14 +335,14 @@ coff_i860_rtype_to_howto (abfd, sec, rel, h, sym, addendp)
 	 function will be adding in the final value of the symbol.  We
 	 need to subtract out the current size in order to get the
 	 correct result.  */
- 
+
       BFD_ASSERT (h != NULL);
 
 
       /* I think we *do* want to bypass this.  If we don't, I have seen some data
 	 parameters get the wrong relcation address.  If I link two versions
 	 with and without this section bypassed and then do a binary comparison,
-	 the addresses which are different can be looked up in the map.  The 
+	 the addresses which are different can be looked up in the map.  The
 	 case in which this section has been bypassed has addresses which correspond
 	 to values I can find in the map */
       *addendp -= sym->n_value;
@@ -351,7 +351,7 @@ coff_i860_rtype_to_howto (abfd, sec, rel, h, sym, addendp)
   /* If the output symbol is common (in which case this must be a
      relocateable link), we need to add in the final size of the
      common symbol.  */
-  if (h != NULL && h->root.type == bfd_link_hash_common) 
+  if (h != NULL && h->root.type == bfd_link_hash_common)
     *addendp += h->root.u.c.size;
 
   return howto;

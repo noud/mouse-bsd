@@ -42,7 +42,7 @@ __COPYRIGHT("@(#) Copyright (c) 1980, 1993\n\
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)checknr.c	8.1 (Berkeley) 6/6/93";
-#else 
+#else
 __RCSID("$NetBSD: checknr.c,v 1.6 1998/11/06 22:57:55 christos Exp $");
 #endif
 #endif /* not lint */

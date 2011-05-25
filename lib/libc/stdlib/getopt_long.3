@@ -73,13 +73,13 @@ An option character is
 if it has been specified in the string of accepted option characters,
 .Fa optstring .
 .Pp
-The 
+The
 .Fn getopt_long
-function is similar to 
+function is similar to
 .Fn getopt
 but it accepts options in two forms: words and characters. The
 .Fn getopt_long
-function provides a superset of of the functionality of 
+function provides a superset of of the functionality of
 .Fn getopt
 The additional functionality is described in the section GETOPT_LONG.
 .Pp
@@ -163,18 +163,18 @@ returns \-1.
 can be used in two ways. In the first way, every long option understood
 by the program has a coresponding short option, and the option
 structure is only used to translate from long option to short
-options. When used in this fashion, 
+options. When used in this fashion,
 .Fn getopt_long
-behaves identically to 
+behaves identically to
 .Fn getopt.
 This is good way to add long option processing to an existing program
 with the minimum of rewriting.
 .Pp
-In the second mechanism, a long option set a flag in the 
+In the second mechanism, a long option set a flag in the
 .Fa option
 structure passed, or will store a pointer to the command line argument
-in the 
-.Fa option 
+in the
+.Fa option
 structure passed to it for options that take arguments. Additionally,
 the long option's argument may be specified as a single argument with
 an equal sign, e.g
@@ -182,10 +182,10 @@ an equal sign, e.g
 myprogram --myoption=somevalue
 .Ed
 .Pp
-When a long option is processed the call to 
+When a long option is processed the call to
 .Fn getopt_long
 will return 0. For this reason, long option processing without
-shortcuts are not backwards compatible with 
+shortcuts are not backwards compatible with
 .Fn getopt.
 .Pp
 It is possible to combine these methods, providing for long options
@@ -193,7 +193,7 @@ processing with short option equivalents for some options. Less
 frequently used options would be processed as long options only.
 .Sh USAGE OF GETOPT_LONG
 .Pp
-The 
+The
 .Fn getopt_long
 call requires a structure to be initialized describing the long
 options. The structure is:
@@ -206,11 +206,11 @@ struct option {
 };
 .Ed
 .Pp
-The 
+The
 .Fa name
 field should contain the option name without the leading double dash.
 .Pp
-The 
+The
 .Fa has_arg
 field should be one of
 .Bl -tag
@@ -224,14 +224,14 @@ an argument to the option may be presented.
 .Pp
 If
 .Fa flag
-is non-NULL, then the integer pointed to by it will set to the value 
-in the 
+is non-NULL, then the integer pointed to by it will set to the value
+in the
 .Fa val
-field. If the 
-.Fa flag 
-field is NULL, then the 
+field. If the
+.Fa flag
+field is NULL, then the
 .Fa val
-field will be returned. Setting 
+field will be returned. Setting
 .Fa flag
 to NULL and setting
 .Fa val
@@ -299,7 +299,7 @@ while ((ch = getopt(argc, argv, "bf:")) != -1)
 argc -= optind;
 argv += optind;
 .Ed
-.Sh LONG EXAMPLE 
+.Sh LONG EXAMPLE
 .Bd -literal -compact
 extern char *optarg;
 extern int optind;
@@ -346,7 +346,7 @@ The
 .Fn getopt
 function appeared
 .Bx 4.3 .
-The 
+The
 .Fn getopt_long
 function first appeared in GNU libiberty. This implementation was
 imported to NetBSD from a Kerberos distribution.
@@ -411,9 +411,9 @@ while ((c = getopt(argc, argv, "0123456789")) != -1)
 }
 .Ed
 .Pp
-The 
+The
 .Fa optional_argument
 always eats the following argument unless the argument is included via
-the 
-.Em --option=argument 
+the
+.Em --option=argument
 notation.

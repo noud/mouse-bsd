@@ -209,7 +209,7 @@ LEAF(ldexp)
 	j	ra
 8:
 	li	t1, 0x7ff00000		# result is infinity (MSW)
-	mtc1	t1, $f1	
+	mtc1	t1, $f1
 	mtc1	zero, $f0		# result is infinity (LSW)
 	bge	v1, zero, 1f		# should result be negative infinity?
 	neg.d	$f0, $f0		# result is negative infinity

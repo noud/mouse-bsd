@@ -107,7 +107,7 @@ com0	at isa? port 0x3f8 irq 4	# standard PC serial ports
 com1	at isa? port 0x2f8 irq 3
 #com2	at isa? port 0x380 irq 16
 #com3	at isa? port 0x388 irq 17
-  
+
 lpt0	at isa? port 0x378 irq 7	# standard PC parallel ports
 #lpt1	at isa? port 0x278
 #lpt2	at isa? port 0x3bc

@@ -259,7 +259,7 @@ doit(f, fromp)
 		(void)close(f);
 	if (setlogin(pwd->pw_name) < 0 ||
 	    initgroups(pwd->pw_name, pwd->pw_gid) < 0 ||
-	    setgid((gid_t)pwd->pw_gid) < 0 || 
+	    setgid((gid_t)pwd->pw_gid) < 0 ||
 	    setuid((uid_t)pwd->pw_uid) < 0) {
 		error("Try again.\n");
 		if (log)

@@ -2,8 +2,8 @@
    Copyright 1996, 1998 Free Software Foundation, Inc.
    Re-written by J. Kean Johnston <jkj@sco.com>
 
-   Originally by Robert Lipe <robertl@dgii.com>, 
-   based on work by Ian Lance Taylor <ian@cygnus.com> and 
+   Originally by Robert Lipe <robertl@dgii.com>,
+   based on work by Ian Lance Taylor <ian@cygnus.com> and
    Martin Walker <maw@netcom.com>.
 
 
@@ -32,7 +32,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
 #define ATTACH_DETACH
 
-/* SCO does not provide <sys/ptrace.h>.  infptrace.c does not 
+/* SCO does not provide <sys/ptrace.h>.  infptrace.c does not
    have defaults for these values.  */
 
 #define PTRACE_ATTACH 10

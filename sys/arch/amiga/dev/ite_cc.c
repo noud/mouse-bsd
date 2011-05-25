@@ -79,7 +79,7 @@
 #endif
 #endif
 
-extern u_char kernel_font_width, kernel_font_height, kernel_font_baseline; 
+extern u_char kernel_font_width, kernel_font_height, kernel_font_baseline;
 extern short  kernel_font_boldsmear;
 extern u_char kernel_font_lo, kernel_font_hi;
 extern u_char kernel_font[], kernel_cursor[];
@@ -175,7 +175,7 @@ grfcc_cnprobe()
 }
 
 /*
- * called from grf_cc to init ite portion of 
+ * called from grf_cc to init ite portion of
  * grf_softc struct
  */
 void
@@ -190,14 +190,14 @@ grfcc_iteinit(gp)
 	gp->g_itedeinit = view_deinit;
 }
 
-int 
+int
 ite_newsize(ip, winsz)
 	struct ite_softc *ip;
 	struct itewinsize *winsz;
 {
 	extern struct view_softc views[];
 	struct view_size vs;
-	ipriv_t *cci = ip->priv;    
+	ipriv_t *cci = ip->priv;
 	u_long i;
 	int error;
 
@@ -211,10 +211,10 @@ ite_newsize(ip, winsz)
 	/*
 	 * Reinitialize our structs
 	 */
-	cci->view = views[0].view; 
+	cci->view = views[0].view;
 
 	/* -1 for bold. */
-	ip->cols = (cci->view->display.width - 1) / ip->ftwidth; 
+	ip->cols = (cci->view->display.width - 1) / ip->ftwidth;
 	ip->rows = cci->view->display.height / ip->ftheight;
 
 	/*
@@ -227,41 +227,41 @@ ite_newsize(ip, winsz)
 	ite_default_y = cci->view->display.y;
 	ite_default_depth = cci->view->bitmap->depth;
 
-	if (cci->row_ptr) 
+	if (cci->row_ptr)
 		free_chipmem(cci->row_ptr);
 	if (cci->column_offset)
 		free_chipmem(cci->column_offset);
 
 	cci->row_ptr = alloc_chipmem(sizeof(u_char *) * ip->rows);
 	cci->column_offset = alloc_chipmem(sizeof(u_int) * ip->cols);
-    
+
 	if (cci->row_ptr == NULL || cci->column_offset == NULL)
 		panic("no chipmem for itecc data");
- 
+
 
 	cci->width = cci->view->bitmap->bytes_per_row << 3;
 	cci->underline = ip->ftbaseline + 1;
-	cci->row_offset = cci->view->bitmap->bytes_per_row 
+	cci->row_offset = cci->view->bitmap->bytes_per_row
 	    + cci->view->bitmap->row_mod;
 	cci->ft_x = ip->ftwidth;
 	cci->ft_y = ip->ftheight;
- 
+
 	cci->row_bytes = cci->row_offset * ip->ftheight;
 
 	cci->row_ptr[0] = VDISPLAY_LINE (cci->view, 0, 0);
-	for (i = 1; i < ip->rows; i++) 
+	for (i = 1; i < ip->rows; i++)
 		cci->row_ptr[i] = cci->row_ptr[i-1] + cci->row_bytes;
 
 	/* initialize the column offsets */
 	cci->column_offset[0] = 0;
-	for (i = 1; i < ip->cols; i++) 
+	for (i = 1; i < ip->cols; i++)
 		cci->column_offset[i] = cci->column_offset[i - 1] + cci->ft_x;
 
 	/* initialize the font cell pointers */
 	cci->font_cell[ip->font_lo] = ip->font;
 	for (i=ip->font_lo+1; i<=ip->font_hi; i++)
 		cci->font_cell[i] = cci->font_cell[i-1] + ip->ftheight;
-	    
+
 	return (error);
 }
 
@@ -345,8 +345,8 @@ ite_grf_ioctl (ip, cmd, addr, flag, p)
 			ws.ws_ypixel = cci->view->display.height;
 			ite_reset (ip);
 			/*
-			 * XXX tell tty about the change 
-			 * XXX this is messy, but works 
+			 * XXX tell tty about the change
+			 * XXX this is messy, but works
 			 */
 			iteioctl(0, TIOCSWINSZ, (caddr_t)&ws, 0, p);
 		}
@@ -404,15 +404,15 @@ cursor32(struct ite_softc *ip, int flag)
 		cci->cursor_opt++;
 		return;		  /* if we are already opted. */
 	}
-    
-	if (cci->cursor_opt) 
+
+	if (cci->cursor_opt)
 		return;		  /* if we are still nested. */
 				  /* else we draw the cursor. */
 	cstart = 0;
-	cend = ip->ftheight-1; 
+	cend = ip->ftheight-1;
 	pl = VDISPLAY_LINE(v, dr_plane, (ip->cursory * ip->ftheight + cstart));
 	ofs = (ip->cursorx * ip->ftwidth);
-    
+
 	if (flag != DRAW_CURSOR && flag != END_CURSOROPT) {
 		/*
 		 * erase the cursor
@@ -431,19 +431,19 @@ cursor32(struct ite_softc *ip, int flag)
 			}
 		}
 	}
-    
-	if (flag != DRAW_CURSOR && flag != MOVE_CURSOR && 
+
+	if (flag != DRAW_CURSOR && flag != MOVE_CURSOR &&
 	    flag != END_CURSOROPT)
 		return;
-	
-	/* 
+
+	/*
 	 * draw the cursor
 	 */
 
 	ip->cursorx = min(ip->curx, ip->cols-1);
 	ip->cursory = ip->cury;
 	cstart = 0;
-	cend = ip->ftheight-1; 
+	cend = ip->ftheight-1;
 	pl = VDISPLAY_LINE(v, dr_plane, ip->cursory * ip->ftheight + cstart);
 	ofs = ip->cursorx * ip->ftwidth;
 
@@ -484,8 +484,8 @@ int expbits (int data)
  *        the underline could be added when the loop is unrolled
  *
  *        It would look like hell but be very fast.*/
- 
-static void 
+
+static void
 putc_nm (cci,p,f,co,ro,fw,fh)
     register ipriv_t *cci;
     register u_char  *p;
@@ -501,7 +501,7 @@ putc_nm (cci,p,f,co,ro,fw,fh)
     }
 }
 
-static void 
+static void
 putc_in (cci,p,f,co,ro,fw,fh)
     register ipriv_t *cci;
     register u_char  *p;
@@ -518,7 +518,7 @@ putc_in (cci,p,f,co,ro,fw,fh)
 }
 
 
-static void 
+static void
 putc_ul (cci,p,f,co,ro,fw,fh)
     register ipriv_t *cci;
     register u_char  *p;
@@ -545,7 +545,7 @@ putc_ul (cci,p,f,co,ro,fw,fh)
 }
 
 
-static void 
+static void
 putc_ul_in (cci,p,f,co,ro,fw,fh)
     register ipriv_t *cci;
     register u_char  *p;
@@ -572,7 +572,7 @@ putc_ul_in (cci,p,f,co,ro,fw,fh)
 }
 
 /* bold */
-static void 
+static void
 putc_bd (cci,p,f,co,ro,fw,fh)
     register ipriv_t *cci;
     register u_char  *p;
@@ -583,7 +583,7 @@ putc_bd (cci,p,f,co,ro,fw,fh)
     register u_int    fh;
 {
     u_short ch;
-    
+
     while (fh--) {
 	ch = *f++;
 	ch |= ch << 1;
@@ -592,7 +592,7 @@ putc_bd (cci,p,f,co,ro,fw,fh)
     }
 }
 
-static void 
+static void
 putc_bd_in (cci,p,f,co,ro,fw,fh)
     register ipriv_t *cci;
     register u_char  *p;
@@ -603,7 +603,7 @@ putc_bd_in (cci,p,f,co,ro,fw,fh)
     register u_int    fh;
 {
     u_short ch;
-    
+
     while (fh--) {
 	ch = *f++;
 	ch |= ch << 1;
@@ -613,7 +613,7 @@ putc_bd_in (cci,p,f,co,ro,fw,fh)
 }
 
 
-static void 
+static void
 putc_bd_ul (cci,p,f,co,ro,fw,fh)
     register ipriv_t *cci;
     register u_char  *p;
@@ -648,7 +648,7 @@ putc_bd_ul (cci,p,f,co,ro,fw,fh)
 }
 
 
-static void 
+static void
 putc_bd_ul_in (cci,p,f,co,ro,fw,fh)
     register ipriv_t *cci;
     register u_char  *p;
@@ -660,7 +660,7 @@ putc_bd_ul_in (cci,p,f,co,ro,fw,fh)
 {
     int underline = cci->underline;
     u_short ch;
-    
+
     while (underline--) {
 	ch = *f++;
 	ch |= ch << 1;
@@ -739,7 +739,7 @@ clear8(struct ite_softc *ip, int sy, int sx, int h, int w)
       while (h--)
 	{
 	  int i;
-	  u_char *ptr = cci->row_ptr[sy]; 
+	  u_char *ptr = cci->row_ptr[sy];
 	  for (i=0; i < ip->ftheight; i++) {
             bzero(ptr, bm->bytes_per_row);
             ptr += bm->bytes_per_row + bm->row_mod;			/* don't get any smart
@@ -764,7 +764,7 @@ clear8(struct ite_softc *ip, int sy, int sx, int h, int w)
               for (j = ip->ftheight-1; j >= 0; j--)
 	        {
 		  BFCLR(ppl, ofs, ip->ftwidth);
-	          ppl += bm->row_mod + bm->bytes_per_row; 
+	          ppl += bm->row_mod + bm->bytes_per_row;
 	        }
 	      ofs += ip->ftwidth;
 	    }
@@ -783,7 +783,7 @@ scroll8(ip, sy, sx, count, dir)
   bmap_t *bm = ((ipriv_t *)ip->priv)->view->bitmap;
   u_char *pl = ((ipriv_t *)ip->priv)->row_ptr[sy];
 
-  if (dir == SCROLL_UP) 
+  if (dir == SCROLL_UP)
     {
       int dy = sy - count;
 
@@ -796,7 +796,7 @@ scroll8(ip, sy, sx, count, dir)
 	    ip->cursory -= count;
 	} */
     }
-  else if (dir == SCROLL_DOWN) 
+  else if (dir == SCROLL_DOWN)
     {
 
       /* FIX: add scroll bitmap call */
@@ -808,7 +808,7 @@ scroll8(ip, sy, sx, count, dir)
 	    ip->cursory += count;
 	} */
     }
-  else if (dir == SCROLL_RIGHT) 
+  else if (dir == SCROLL_RIGHT)
     {
       int sofs = (ip->cols - count) * ip->ftwidth;
       int dofs = (ip->cols) * ip->ftwidth;
@@ -826,7 +826,7 @@ scroll8(ip, sy, sx, count, dir)
 	      BFEXT(t, pl, sofs2, ip->ftwidth);
 	      BFINS(t, pl, dofs2, ip->ftwidth);
 	    }
-	  pl += bm->row_mod + bm->bytes_per_row; 
+	  pl += bm->row_mod + bm->bytes_per_row;
 	}
     }
   else /* SCROLL_LEFT */
@@ -850,19 +850,19 @@ scroll8(ip, sy, sx, count, dir)
 	      sofs2 += ip->ftwidth;
 	      dofs2 += ip->ftwidth;
 	    }
-	  pl += bm->row_mod + bm->bytes_per_row; 
+	  pl += bm->row_mod + bm->bytes_per_row;
 	}
-    }		
+    }
 }
 
-void 
+void
 scrollbmap (bmap_t *bm, u_short x, u_short y, u_short width, u_short height, short dx, short dy, u_char mask)
 {
-    u_short depth = bm->depth; 
+    u_short depth = bm->depth;
     u_short lwpr = bm->bytes_per_row >> 2;
     if (dx) {
     	/* FIX: */ panic ("delta x not supported in scroll bitmap yet.");
-    } 
+    }
     if (bm->flags & BMF_INTERLEAVED) {
 	height *= depth;
 	depth = 1;
@@ -881,13 +881,13 @@ scrollbmap (bmap_t *bm, u_short x, u_short y, u_short width, u_short height, sho
 		u_long *clr_y = src_y;
 		u_long clr_count = dest_y - src_y;
 		u_long bc, cbc;
-		
+
 		src_y += count - 1;
 		dest_y += count - 1;
 
 		bc = count >> 4;
 		count &= 0xf;
-		
+
 		while (bc--) {
 		    *dest_y-- = *src_y--; *dest_y-- = *src_y--;
 		    *dest_y-- = *src_y--; *dest_y-- = *src_y--;
@@ -922,7 +922,7 @@ scrollbmap (bmap_t *bm, u_short x, u_short y, u_short width, u_short height, sho
     	    if (0x1 & mask) {
     		u_long *pl = (u_long *)bm->plane[i];
     		u_long *src_y = pl + (lwpr*(y-dy));
-    		u_long *dest_y = pl + (lwpr*y); 
+    		u_long *dest_y = pl + (lwpr*y);
 		long count = lwpr*(height + dy);
 		u_long *clr_y = dest_y + count;
 		u_long clr_count = src_y - dest_y;
@@ -930,7 +930,7 @@ scrollbmap (bmap_t *bm, u_short x, u_short y, u_short width, u_short height, sho
 
 		bc = count >> 4;
 		count &= 0xf;
-		
+
 		while (bc--) {
 		    *dest_y++ = *src_y++; *dest_y++ = *src_y++;
 		    *dest_y++ = *src_y++; *dest_y++ = *src_y++;

@@ -3143,7 +3143,7 @@ type_tag (type)
       if (TREE_CODE (TYPE_NAME (type)) == IDENTIFIER_NODE)
 	t = TYPE_NAME (type);
 
-      /* The g++ front end makes the TYPE_NAME of *each* tagged type point to 
+      /* The g++ front end makes the TYPE_NAME of *each* tagged type point to
          a TYPE_DECL node, regardless of whether or not a `typedef' was
          involved.  */
       else if (TREE_CODE (TYPE_NAME (type)) == TYPE_DECL
@@ -3763,7 +3763,7 @@ output_inheritance_die (arg)
       ASM_OUTPUT_DWARF_ATTRIBUTE (asm_out_file, AT_protected);
       ASM_OUTPUT_DWARF_STRING (asm_out_file, "");
     }
-}  
+}
 
 static void
 output_structure_type_die (arg)
@@ -4309,7 +4309,7 @@ output_type (type, containing_scope)
 	end_sibling_chain ();
 	break;
 
-      case ARRAY_TYPE:	
+      case ARRAY_TYPE:
 	if (TYPE_STRING_FLAG (type) && TREE_CODE(TREE_TYPE(type)) == CHAR_TYPE)
 	  {
 	    output_type (TREE_TYPE (type), containing_scope);
@@ -4699,10 +4699,10 @@ output_decl (decl, containing_scope)
   if ((TREE_CODE (TREE_TYPE (decl)) == RECORD_TYPE
        || TREE_CODE (TREE_TYPE (decl)) == UNION_TYPE)
       && ((DECL_NAME (decl) == 0 && TYPE_NAME (TREE_TYPE (decl)) == 0)
-	  || (TYPE_FIELDS (TREE_TYPE (decl)) 
+	  || (TYPE_FIELDS (TREE_TYPE (decl))
 	      && (TREE_CODE (TYPE_FIELDS (TREE_TYPE (decl))) == ERROR_MARK))))
     return;
-  
+
   /* If this ..._DECL node is marked to be ignored, then ignore it.
      But don't ignore a function definition, since that would screw
      up our count of blocks, and that it turn will completely screw up the
@@ -5173,7 +5173,7 @@ dwarfout_file_scope_decl (decl, set_finalizing)
 	      ASM_OUTPUT_PUSH_SECTION (asm_out_file, ARANGES_SECTION);
 	      ASM_OUTPUT_DWARF_ADDR (asm_out_file,
 			      IDENTIFIER_POINTER (DECL_ASSEMBLER_NAME (decl)));
-	      ASM_OUTPUT_DWARF_DATA4 (asm_out_file, 
+	      ASM_OUTPUT_DWARF_DATA4 (asm_out_file,
 			(unsigned) int_size_in_bytes (TREE_TYPE (decl)));
 	      ASM_OUTPUT_POP_SECTION (asm_out_file);
 	    }
@@ -5723,7 +5723,7 @@ dwarfout_init (asm_out_file, main_input_filename)
 	  /* Output a starting label and an initial (compilation directory)
 	     entry for the .debug_sfnames section.  The starting label will be
 	     referenced by the initial entry in the .debug_srcinfo section.  */
-    
+
 	  fputc ('\n', asm_out_file);
 	  ASM_OUTPUT_PUSH_SECTION (asm_out_file, SFNAMES_SECTION);
 	  ASM_OUTPUT_LABEL (asm_out_file, SFNAMES_BEGIN_LABEL);
@@ -5737,7 +5737,7 @@ dwarfout_init (asm_out_file, main_input_filename)
 	      pfatal_with_name ("getpwd");
 	    len = strlen (pwd);
 	    dirname = (char *) xmalloc (len + 2);
-    
+
 	    strcpy (dirname, pwd);
 	    strcpy (dirname + len, "/");
 	    ASM_OUTPUT_DWARF_STRING (asm_out_file, dirname);
@@ -5745,14 +5745,14 @@ dwarfout_init (asm_out_file, main_input_filename)
 	  }
 	  ASM_OUTPUT_POP_SECTION (asm_out_file);
 	}
-    
+
       if (debug_info_level >= DINFO_LEVEL_VERBOSE
 	  && use_gnu_debug_info_extensions)
 	{
           /* Output a starting label for the .debug_macinfo section.  This
 	     label will be referenced by the AT_mac_info attribute in the
 	     TAG_compile_unit DIE.  */
-        
+
           fputc ('\n', asm_out_file);
           ASM_OUTPUT_PUSH_SECTION (asm_out_file, MACINFO_SECTION);
           ASM_OUTPUT_LABEL (asm_out_file, MACINFO_BEGIN_LABEL);
@@ -5760,14 +5760,14 @@ dwarfout_init (asm_out_file, main_input_filename)
 	}
 
       /* Generate the initial entry for the .line section.  */
-    
+
       fputc ('\n', asm_out_file);
       ASM_OUTPUT_PUSH_SECTION (asm_out_file, LINE_SECTION);
       ASM_OUTPUT_LABEL (asm_out_file, LINE_BEGIN_LABEL);
       ASM_OUTPUT_DWARF_DELTA4 (asm_out_file, LINE_END_LABEL, LINE_BEGIN_LABEL);
       ASM_OUTPUT_DWARF_ADDR (asm_out_file, TEXT_BEGIN_LABEL);
       ASM_OUTPUT_POP_SECTION (asm_out_file);
-    
+
       if (use_gnu_debug_info_extensions)
 	{
 	  /* Generate the initial entry for the .debug_srcinfo section.  */
@@ -5786,16 +5786,16 @@ dwarfout_init (asm_out_file, main_input_filename)
 #endif
 	  ASM_OUTPUT_POP_SECTION (asm_out_file);
 	}
-    
+
       /* Generate the initial entry for the .debug_pubnames section.  */
-    
+
       fputc ('\n', asm_out_file);
       ASM_OUTPUT_PUSH_SECTION (asm_out_file, PUBNAMES_SECTION);
       ASM_OUTPUT_DWARF_ADDR (asm_out_file, DEBUG_BEGIN_LABEL);
       ASM_OUTPUT_POP_SECTION (asm_out_file);
-    
+
       /* Generate the initial entry for the .debug_aranges section.  */
-    
+
       fputc ('\n', asm_out_file);
       ASM_OUTPUT_PUSH_SECTION (asm_out_file, ARANGES_SECTION);
       ASM_OUTPUT_DWARF_ADDR (asm_out_file, DEBUG_BEGIN_LABEL);
@@ -5913,7 +5913,7 @@ dwarfout_finish ()
   if (debug_info_level >= DINFO_LEVEL_NORMAL)
     {
       /* Output a terminating entry for the .line section.  */
-    
+
       fputc ('\n', asm_out_file);
       ASM_OUTPUT_PUSH_SECTION (asm_out_file, LINE_SECTION);
       ASM_OUTPUT_LABEL (asm_out_file, LINE_LAST_ENTRY_LABEL);
@@ -5922,7 +5922,7 @@ dwarfout_finish ()
       ASM_OUTPUT_DWARF_DELTA4 (asm_out_file, TEXT_END_LABEL, TEXT_BEGIN_LABEL);
       ASM_OUTPUT_LABEL (asm_out_file, LINE_END_LABEL);
       ASM_OUTPUT_POP_SECTION (asm_out_file);
-    
+
       if (use_gnu_debug_info_extensions)
 	{
 	  /* Output a terminating entry for the .debug_srcinfo section.  */
@@ -5938,7 +5938,7 @@ dwarfout_finish ()
       if (debug_info_level >= DINFO_LEVEL_VERBOSE)
 	{
 	  /* Output terminating entries for the .debug_macinfo section.  */
-	
+
 	  dwarfout_resume_previous_source_file (0);
 
 	  fputc ('\n', asm_out_file);
@@ -5947,15 +5947,15 @@ dwarfout_finish ()
 	  ASM_OUTPUT_DWARF_STRING (asm_out_file, "");
 	  ASM_OUTPUT_POP_SECTION (asm_out_file);
 	}
-    
+
       /* Generate the terminating entry for the .debug_pubnames section.  */
-    
+
       fputc ('\n', asm_out_file);
       ASM_OUTPUT_PUSH_SECTION (asm_out_file, PUBNAMES_SECTION);
       ASM_OUTPUT_DWARF_DATA4 (asm_out_file, 0);
       ASM_OUTPUT_DWARF_STRING (asm_out_file, "");
       ASM_OUTPUT_POP_SECTION (asm_out_file);
-    
+
       /* Generate the terminating entries for the .debug_aranges section.
 
 	 Note that we want to do this only *after* we have output the end
@@ -5969,7 +5969,7 @@ dwarfout_finish ()
 	 entries at this late point in the assembly output, we skirt the
 	 issue simply by avoiding forward-references.
       */
-    
+
       fputc ('\n', asm_out_file);
       ASM_OUTPUT_PUSH_SECTION (asm_out_file, ARANGES_SECTION);
 

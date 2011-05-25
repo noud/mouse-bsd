@@ -372,13 +372,13 @@ m32r_cgen_insert_operand (opindex, fields, buffer)
   return errmsg;
 }
 
-cgen_parse_fn * m32r_cgen_parse_handlers[] = 
+cgen_parse_fn * m32r_cgen_parse_handlers[] =
 {
   0, /* default */
   parse_insn_normal,
 };
 
-cgen_insert_fn * m32r_cgen_insert_handlers[] = 
+cgen_insert_fn * m32r_cgen_insert_handlers[] =
 {
   0, /* default */
   insert_insn_normal,

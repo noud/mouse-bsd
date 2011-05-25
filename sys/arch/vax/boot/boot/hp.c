@@ -30,7 +30,7 @@
  */
 
  /* All bugs are subject to removal without further notice */
-		
+
 
 
 #include "sys/param.h"
@@ -108,7 +108,7 @@ hpopen(f, adapt, ctlr, unit, part)
 	msg = getdisklabel(io_buf + LABELOFFSET, lp);
 	if (msg)
 		printf("getdisklabel: %s\n", msg);
-	
+
 	f->f_devdata = (void *)hs;
 	return 0;
 }
@@ -158,7 +158,7 @@ hpstrategy(hs, func, dblk, size, buf, rsize)
 
 	if (mr->mba_sr & MBACR_ABORT)
 		return 1;
-	
+
 	*rsize = size;
 
 	return 0;

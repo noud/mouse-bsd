@@ -46,7 +46,7 @@
    (e.g. hatFn)
 */
 
-/* hatClkOff(): turn off HAT clock.  
+/* hatClkOff(): turn off HAT clock.
 
    returns: 0 => success  -1 => error
 */
@@ -58,7 +58,7 @@ int hatClkOff(void);
    hatFn   = function to be called on every HAT FIQ.
    arg     = argument to pass to hatFn.
              if (arg == 0)
-              then the FIQ handler will pass the contents of 
+              then the FIQ handler will pass the contents of
                    sequoia register 001H, including the PMI source bits
               otherwise the FIQ handler will not load the register and
                         will pass arg directly
@@ -81,7 +81,7 @@ int hatClkOn(int count, void (*hatFn)(int), int arg,
 int hatClkAdjust(int count);
 
 /* hatUnwedge: call this function periodically (slower than the frequency
-               of the HAT) to unwedge the HAT, if necessary.  
+               of the HAT) to unwedge the HAT, if necessary.
 */
 void hatUnwedge();
 

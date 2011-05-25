@@ -187,7 +187,7 @@ struct sbuf
   int cend;
   char ab[BUFCHARS];
 };
-  
+
 /* Local functions.  */
 
 static void umake_file P((const char *zfile, int cextra));
@@ -311,7 +311,7 @@ main (argc, argv)
 	  {
 	    int om, os;
 	    FILE *e;
-  
+
 	    sprintf (zptyname, "/dev/pty%c%c", *zpty,
 		     "0123456789abcdef"[ipty]);
 	    om = open (zptyname, O_RDWR);
@@ -761,7 +761,7 @@ umake_file (z, c)
   FILE *e;
 
   e = xfopen (z, "w");
-	
+
   for (i = 0; i < 256; i++)
     {
       int i2;
@@ -1299,7 +1299,7 @@ cpshow (z, ichar)
       sprintf (z, "%03o", (unsigned int)(ichar & 0xff));
       return strlen (z) + 1;
     }
-}      
+}
 
 /* Pick one of two file descriptors which is ready for reading, or
    return in five seconds.  If the argument is ready for reading,
@@ -1351,7 +1351,7 @@ uchoose (po1, po2)
 
   if ((as[0].revents & POLLIN) == 0)
     *po1 = -1;
-  
+
   if ((as[1].revents & POLLIN) == 0)
     *po2 = -1;
 
@@ -1394,7 +1394,7 @@ cread (o, pqbuf)
 	  (*pqbuf)->cstart = 0;
 	  (*pqbuf)->cend = 0;
 	}
-      
+
       cgot = read (o, (*pqbuf)->ab + (*pqbuf)->cend,
 		   (sizeof (*pqbuf)->ab) - (*pqbuf)->cend);
       if (cgot < 0)
@@ -1521,7 +1521,7 @@ fsend (o, oslave, pqbuf)
 	      uchild (SIGCHLD);
 	    }
 	}
-      
+
       if (cwrote == 0)
 	break;
 

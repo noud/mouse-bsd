@@ -80,7 +80,7 @@ Changes 3.10 -> 3.20                                                   June 1995
 
 - patch to make pcvt work on NetBSD-current and a patch to fix a FreeBSD
 	bug; both from John Kohl, also a minor change from him:
-	
+
 	I changed the auto-detect code to set PCVT_NETBSD to 102 if on
 	-current; I figure people can use "options PCVT_NETBSD=101" in
 	their config file if they need to.
@@ -101,7 +101,7 @@ Changes 3.10 -> 3.20                                                   June 1995
 	My patch may not be the best possible solution, but it hits
 	the point quite nicely. With this patch attached e.g. Alps
 	Membrane will be correctly recognized as an MF-II keyboard.
-	
+
 - adding NetBSD-current patches from John Kohl
 
 - added ${DESTDIR} to some Makefiles (patch from Joerg)
@@ -122,7 +122,7 @@ Changes 3.10 -> 3.20                                                   June 1995
 	for integration into NetBSD later than this date one has to define
 	a version value greater than 101, i.e. "options PCVT_NETBSD=102"
 
-- patch from joerg: 
+- patch from joerg:
 	- if pcvt is acting as the systems console avoid panics going to
 	  the debugger while we are in process mode.
 	- before using svsp->vs_tty and svsp->vs_tty->t_pgrp check that
@@ -146,7 +146,7 @@ Changes 3.10 -> 3.20                                                   June 1995
 - release beta 24 --------------------------------------------------------------
 
 - bugfix from Thomas Eberhardt: the force 24 lines enable function key
-	label was not updated when changing force 24 lines mode with 
+	label was not updated when changing force 24 lines mode with
 	'scon -f on|off', this is now fixed.
 
 - bugfix from John Kohl fixing divide by zero problem in pcvt_ext.c when
@@ -187,9 +187,9 @@ Changes 3.10 -> 3.20                                                   June 1995
 
 - configuration fix: patch from Rafal Boni for pcvt_vtf.c, he writes:
 	This patch lets one compile pcvt on a system that is lacking XSERVER
-	and UCONSOLE [or either?] in the config file.  I found this while 
+	and UCONSOLE [or either?] in the config file.  I found this while
 	trying to build a minimal floppy-based test kernel. The problem is
-	that roll_up and roll_down assume that PCVT_USL_COMPAT is 
+	that roll_up and roll_down assume that PCVT_USL_COMPAT is
 	unconditionally set, and hence muck with parts of the video structure
 	that are only there if PCVT_USL_COMPAT is set.
 	(generalized the patch a bit so that fastscroll functionality is
@@ -218,7 +218,7 @@ Changes 3.10 -> 3.20                                                   June 1995
 - patch from John Kohl for usl_vt_ioctl() in file pcvt_ext.c, he writes:
 	This is probably a long standing bug.  tsleep() returns ERESTART
 	if it's	interrupted.  ERESTART is -1, which means that the
-	VT_WAITACTIVE call returns from usl_vt_ioctl() with -1, 
+	VT_WAITACTIVE call returns from usl_vt_ioctl() with -1,
 	meaning "not one of my ioctl's".
 
 - patch from Matthieu Herrb for NetBSD-current (post 1.0) support
@@ -259,7 +259,7 @@ Changes 3.10 -> 3.20                                                   June 1995
 
 	The patch I'm sending you re-enables the fast scroll code on
 	inactive (i.e. in kernel memory) screens, saving a few cpu
-	cycles. 
+	cycles.
 
 	4 -- This is a big one: running multiple X servers was not
 	really working.  The USL handshaking code was a mess (not very
@@ -379,7 +379,7 @@ Changes 3.10 -> 3.20                                                   June 1995
 	board, because i'm now able to program the clock to generate 40MHz
 	on clock output #2.
 
-- debugged winsize patch on FreeBSD 1.1, line discipline open init's the 
+- debugged winsize patch on FreeBSD 1.1, line discipline open init's the
 	queues, winsize initialization must happen after line disc. open!
 
 - got a bunch of NetBSD PR's from J.T. Conklin:
@@ -398,7 +398,7 @@ Changes 3.10 -> 3.20                                                   June 1995
 		 (put into "BugList" file, no solution yet .. -hm)
 
 	PR #488: pcvt can loose keyboard control if you start an xserver from
-		 an xterm 
+		 an xterm
 		 (already fixed by a patch from John Kohl, see below -hm)
 
 	PR #580: NetBSD i386/pcvt bugs/enhancements; fixes included
@@ -489,7 +489,7 @@ Changes 3.10 -> 3.20                                                   June 1995
 	for serial console coexistence
 
 - bugreport from Michael Havemester regarding PCVT_NOFASTSCROLL: it was
-	not enabled in pcvt_vtf.c, fixed. 
+	not enabled in pcvt_vtf.c, fixed.
 
 - renamed pcvt_disable_intr and pcvt_enable_intr to PCVT_DISABLE_INTR and
 	 PCVT_ENABLE_INTR (Joerg)
@@ -605,7 +605,7 @@ Changes 3.00 -> 3.10                                                   June 1994
 
 - removed paranoid delay()/DELAY() from vga_test()
 
-- added prototype ttrstrt() into pcvt_drv.c for NetBSD 0.9 
+- added prototype ttrstrt() into pcvt_drv.c for NetBSD 0.9
 
 - made INSTALLATION.NetBSD and INSTALLATION.NetBSD.bundled from mycrofts base
 
@@ -660,7 +660,7 @@ Changes 2.20 -> 3.00                                                  March 1994
 
 - PCVT_NETBSD can/must now be 1 or 09 for Release 0.9 and > 09 for current
 
-- applied patches from John Brezak and Szabolcs Szigeti for recent 
+- applied patches from John Brezak and Szabolcs Szigeti for recent
 	NetBSD-current changes (syscframe -> trapframe)
 
 - in Util, removed Makefile.inc. Make Makefile.inc.FreeBSD and
@@ -688,7 +688,7 @@ Changes 2.20 -> 3.00                                                  March 1994
 
 - fixed typo in pcvt_kbd.h in cfkey11() and cfkey12()
 
-- machine/pio.h must be included in pcvt_hdr.h for recent NetBSD-current 
+- machine/pio.h must be included in pcvt_hdr.h for recent NetBSD-current
 
 - protected every tsleep call with an "if(curproc)" otherwise there is
 	chance to panic the system (Joerg has an idea why ...)
@@ -788,7 +788,7 @@ Changes 2.20 -> 3.00                                                  March 1994
 - intro of file Doc/BugList
 
 - another powerpatch from Joerg:
-	- some vgaioctl's are now available if in X mode (i.e. to scon to 
+	- some vgaioctl's are now available if in X mode (i.e. to scon to
 		another screen from within an xterm)
 	- removed bug in keyboardhandling, numlock'ed numkeys did send an
 		additional null (0x00) char, this has been fixed now.
@@ -807,8 +807,8 @@ Changes 2.20 -> 3.00                                                  March 1994
 	- struct winsize set ok when switching between HP/VT
 	- struct winsize pixels reflect real values now
 	- ioctl for switching between 80 and 132 cols
-	- 132 columns for generic VGA's	
-	- updated scon to provide access to ioctl 80/132 col switching 
+	- 132 columns for generic VGA's
+	- updated scon to provide access to ioctl 80/132 col switching
 
 - removed pcconcoftc and kbdsoftc structures from header files, removed
 	pcconsintr variable and introduced kbd polling synchronization
@@ -833,7 +833,7 @@ Changes 2.20 -> 3.00                                                  March 1994
 
 - Doc dir split into Doc and Etc, Support renamed to Util
 
-- adding NetBSD-current support for new X server support (syscframe changed 
+- adding NetBSD-current support for new X server support (syscframe changed
 	to trapframe in NetBSD-current as of 11/11/93)
 
 - adding Joergs changes for XFree86 2.0 multiple X server and/or terminal
@@ -853,8 +853,8 @@ Changes 2.20 -> 3.00                                                  March 1994
 - fixed bug in scon which prevents it from showing the correct status of
 	132 column support of chipset
 
-- 132 column mode for Trident TVGA9000 works now, after 2 1/5 months of 
-	calling everybody i eventually got a tech ref manual from Trident .... 
+- 132 column mode for Trident TVGA9000 works now, after 2 1/5 months of
+	calling everybody i eventually got a tech ref manual from Trident ....
 
 - it is now possible to "force" pcvt into a 24 line mode when operating
 	in pure VT mode with 25 lines or in HP mode with 28 lines. This
@@ -967,7 +967,7 @@ Changes 2.10 -> 2.20                                                   June 1993
 Changes 2.00 -> 2.10                                                  March 1993
 --------------------------------------------------------------------------------
 
-- detecting the presence of video boards has been changed to ask the 
+- detecting the presence of video boards has been changed to ask the
   BIOS "equipment byte" in the RTC-CMOS ram what's installed. this caused
   many discussions but solved also many problems ....
 
@@ -1017,24 +1017,24 @@ Changes 2.00 -> 2.10                                                  March 1993
 
 	These fixes are mainly related to ddb.  sgetc has a weird interface that
 	has caused some bugs, and it was too easy for ddb to reenter itself.
-	
+
 	1. Don't use char for keypad2num, char might be unsigned.  Space is not
 	   important since the array is small.
-	
+
 	2. Don't use u_short for n.
-	
+
 	3. Change some 0's to NULLs.
-	
+
 	4. sgetc must not return NULL for the !noblock case.  Only callers with
 	   noblock set check for the null pointer.  When the kernel follows a
 	   null pointer, I think page 0 is sometimes mapped in so nothing bad
 	   happens.  The kernel panics if the page is not mapped in.
-	
+
 	5. Reentrancy fix. The debugger really ought to check for reentrancy
-	   itself, but the driver still needs to return early after the 
+	   itself, but the driver still needs to return early after the
 	   debugger returns, so that it doesn't return a junk ESC from
 	   ctrl-alt-ESC.
-	
+
 	6. xlatkey2ascii may return NULL too.
 
 --------------------------------------------------------------------------------

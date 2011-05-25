@@ -53,7 +53,7 @@
 	.comm	_C_LABEL(pgofset), 4
 	.comm	_C_LABEL(pgshift), 4
 
-	.text	
+	.text
 	.globl	start
 
 start:

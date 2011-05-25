@@ -426,7 +426,7 @@ static const struct cpu_type
 } cpu_types[] =
 {
   /* Ad hoc convention: cpu number gets palcode, process code doesn't.
-     This supports usage under DU 4.0b that does ".arch ev4", and 
+     This supports usage under DU 4.0b that does ".arch ev4", and
      usage in MILO that does -m21064.  Probably something more
      specific like -m21064-pal should be used, but oh well.  */
 
@@ -3387,7 +3387,7 @@ s_alpha_comm (ignore)
 
 #ifdef OBJ_EVAX
   if (bfd_section_size (stdoutput, new_seg) > 0)
-    { 
+    {
       if (bfd_section_size (stdoutput, new_seg) != temp)
 	as_bad ("Length of .comm \"%s\" is already %ld. Not changed to %ld.",
 		S_GET_NAME (symbolP),
@@ -3406,7 +3406,7 @@ s_alpha_comm (ignore)
 #endif
   else
     {
-#ifdef OBJ_EVAX 
+#ifdef OBJ_EVAX
       subseg_set (new_seg, 0);
       p = frag_more (temp);
       new_seg->flags |= SEC_IS_COMMON;
@@ -3489,9 +3489,9 @@ s_alpha_section (ignore)
 #endif
 
 #ifdef OBJ_EVAX
-  
+
 /* Handle the section specific pseudo-op.  */
-  
+
 static void
 s_alpha_section (secid)
      int secid;

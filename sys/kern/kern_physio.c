@@ -108,7 +108,7 @@ physio(strategy, bp, dev, flags, minphys, uio)
 
 		bp = getphysbuf();
 		/* bp was just malloc'd so can't already be busy */
-		bp->b_flags |= B_BUSY; 
+		bp->b_flags |= B_BUSY;
 
 	} else {
 

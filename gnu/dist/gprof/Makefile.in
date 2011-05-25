@@ -103,7 +103,7 @@ man_MANS = gprof.1
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/../mkinstalldirs
 CONFIG_HEADER = gconfig.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 bin_PROGRAMS =  gprof$(EXEEXT)
 PROGRAMS =  $(bin_PROGRAMS)
 
@@ -116,7 +116,7 @@ gprof_OBJECTS =  basic_blocks.o call_graph.o cg_arcs.o cg_dfn.o \
 cg_print.o core.o gmon_io.o gprof.o hertz.o hist.o source.o \
 search_list.o symtab.o sym_ids.o utils.o flat_bl.o bsd_callg_bl.o \
 fsf_callg_bl.o i386.o alpha.o vax.o tahoe.o sparc.o
-gprof_LDFLAGS = 
+gprof_LDFLAGS =
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
 LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
@@ -146,14 +146,14 @@ default: all
 
 .SUFFIXES:
 .SUFFIXES: .S .c .dvi .info .lo .m .o .ps .s .texi .texinfo
-$(srcdir)/Makefile.in: @MAINT@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/Makefile.in: @MAINT@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --cygnus Makefile
 
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	cd $(top_builddir) \
 	  && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
-$(ACLOCAL_M4): @MAINT@ configure.in 
+$(ACLOCAL_M4): @MAINT@ configure.in
 	cd $(srcdir) && $(ACLOCAL)
 
 config.status: $(srcdir)/configure

@@ -50,7 +50,7 @@
 #define	TX39_UARTCTRL1_REG(x) \
 	(((x) ? TX39_UARTB_REG_START : TX39_UARTA_REG_START))
 #define	TX39_UARTCTRL2_REG(x) \
-	(((x) ? TX39_UARTB_REG_START : TX39_UARTA_REG_START) + 4) 
+	(((x) ? TX39_UARTB_REG_START : TX39_UARTA_REG_START) + 4)
 #define	TX39_UARTDMACTRL1_REG(x) \
 	(((x) ? TX39_UARTB_REG_START : TX39_UARTA_REG_START) + 8)
 #define	TX39_UARTDMACTRL2_REG(x) \
@@ -92,7 +92,7 @@
  *	UART Control 2 Register
  */
 /* W */
-/* 
+/*
  *	BaudRate = UART Clock Hz / ((BAUDRATE + 1) * 16)
  */
 #define TX3922_UARTCLOCKHZ	9216000

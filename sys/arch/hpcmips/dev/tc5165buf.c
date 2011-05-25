@@ -27,7 +27,7 @@
  */
 
 /*
- * Device driver for TOSHIBA TC5165BFTS, PHILIPS 74ALVC16241/245 
+ * Device driver for TOSHIBA TC5165BFTS, PHILIPS 74ALVC16241/245
  * buffer chip
  */
 
@@ -62,7 +62,7 @@ struct tc5165buf_chip {
 	u_int16_t		scc_buf[TC5165_COLUMN_MAX];
 	int			scc_enabled;
 	int			scc_queued;
-	
+
 	struct skbd_controller	scc_controller;
 };
 
@@ -111,10 +111,10 @@ tc5165buf_attach(parent, self, aux)
 	printf(": ");
 	sc->sc_tc = ca->ca_tc;
 	sc->sc_chip = &tc5165buf_chip;
-	
+
 	sc->sc_chip->scc_cst = ca->ca_csio.cstag;
 
-	if (bus_space_map(sc->sc_chip->scc_cst, ca->ca_csio.csbase, 
+	if (bus_space_map(sc->sc_chip->scc_cst, ca->ca_csio.csbase,
 			  ca->ca_csio.cssize, 0, &sc->sc_chip->scc_csh)) {
 		printf("can't map i/o space\n");
 		return;
@@ -124,11 +124,11 @@ tc5165buf_attach(parent, self, aux)
 
 	if (ca->ca_irq1 != -1) {
 		sc->sc_ih = tx_intr_establish(sc->sc_tc, ca->ca_irq1,
-					      IST_EDGE, IPL_TTY, 
+					      IST_EDGE, IPL_TTY,
 					      tc5165buf_intr, sc);
 		printf("interrupt mode");
 	} else {
-		sc->sc_ih = tx39_poll_establish(sc->sc_tc, 1, IPL_TTY, 
+		sc->sc_ih = tx39_poll_establish(sc->sc_tc, 1, IPL_TTY,
 						tc5165buf_intr, sc);
 		printf("polling mode");
 	}
@@ -142,7 +142,7 @@ tc5165buf_attach(parent, self, aux)
 
 	/* setup upper interface */
 	tc5165buf_ifsetup(sc->sc_chip);
-	
+
 	saa.saa_ic = &sc->sc_chip->scc_controller;
 
 	config_found(self, &saa, skbd_print);
@@ -163,7 +163,7 @@ tc5165buf_cnattach(addr)
 	paddr_t addr;
 {
 	struct tc5165buf_chip *scc = &tc5165buf_chip;
-	
+
 	scc->scc_csh = MIPS_PHYS_TO_KSEG1(addr);
 
 	tc5165buf_ifsetup(scc);
@@ -188,7 +188,7 @@ tc5165buf_input_establish(ic, inputfunc, inputhookfunc, arg)
 
 	scc->scc_controller.sk_input = inputfunc;
 	scc->scc_controller.sk_input_hook = inputhookfunc;
-	
+
 	scc->scc_enabled = 1;
 
 	return 0;
@@ -203,10 +203,10 @@ tc5165buf_intr(arg)
 
 	if (!scc->scc_enabled || scc->scc_queued)
 		return 0;
-	
+
 	scc->scc_queued = 1;
 	timeout(tc5165buf_soft, scc, 1);
-	
+
 	return 0;
 }
 
@@ -250,7 +250,7 @@ tc5165buf_soft(arg)
 		delay(3);
 		if ((edge = (rpat ^ scc->scc_buf[i]))) {
 			scc->scc_buf[i] = rpat;
-			for (j = 0, mask = 1; j < TC5165_ROW_MAX; 
+			for (j = 0, mask = 1; j < TC5165_ROW_MAX;
 			     j++, mask <<= 1) {
 				if (mask & edge) {
 					type = mask & rpat ? 1 : 0;

@@ -232,7 +232,7 @@ main(argc, argv)
 
 	ALLOC_OFILES(256);	/* reserve space for file pointers */
 
-	if (fsflg && !checkfile) {	
+	if (fsflg && !checkfile) {
 		/* -f with no files means use wd */
 		if (getfname(".") == 0)
 			exit(1);
@@ -478,7 +478,7 @@ vtrans(vp, i, flag)
 	case VCHR: {
 		char *name;
 
-		if (nflg || ((name = devname(fst.rdev, vn.v_type == VCHR ? 
+		if (nflg || ((name = devname(fst.rdev, vn.v_type == VCHR ?
 		    S_IFCHR : S_IFBLK)) == NULL))
 			printf("  %2d,%-2d", major(fst.rdev), minor(fst.rdev));
 		else
@@ -714,7 +714,7 @@ socktrans(sock, i)
 	else
 		printf("* %s %s", dname, stypename[so.so_type]);
 
-	/* 
+	/*
 	 * protocol specific formatting
 	 *
 	 * Try to find interesting things to print.  For TCP, the interesting
@@ -785,7 +785,7 @@ socktrans(sock, i)
 			    xaddrbuf,
 			    ntohs(in6pcb.in6p_lport));
 			if (in6pcb.in6p_fport) {
-				sprintf(xaddrbuf, "[%s]", 
+				sprintf(xaddrbuf, "[%s]",
 				    inet6_addrstr(&in6pcb.in6p_faddr));
 				printf(" <-> %s:%d",
 			            IN6_IS_ADDR_UNSPECIFIED(&in6pcb.in6p_faddr) ? "*" :
@@ -801,14 +801,14 @@ socktrans(sock, i)
 				goto bad;
 			}
 			printf(" %lx", (long)so.so_pcb);
-			sprintf(xaddrbuf, "[%s]", 
+			sprintf(xaddrbuf, "[%s]",
 			    inet6_addrstr(&in6pcb.in6p_laddr));
 			printf(" %s:%d",
 		            IN6_IS_ADDR_UNSPECIFIED(&in6pcb.in6p_laddr) ? "*" :
 			    xaddrbuf,
 			    ntohs(in6pcb.in6p_lport));
 			if (in6pcb.in6p_fport) {
-				sprintf(xaddrbuf, "[%s]", 
+				sprintf(xaddrbuf, "[%s]",
 				    inet6_addrstr(&in6pcb.in6p_faddr));
 				printf(" <-> %s:%d",
 			            IN6_IS_ADDR_UNSPECIFIED(&in6pcb.in6p_faddr) ? "*" :

@@ -632,7 +632,7 @@ main (argc, argv)
 		     "%s: warning: symbol %s imported but not in import list\n",
 		     program_name, bfd_asymbol_name (sym));
 	}
-	
+
       /* See if it's one of the special named symbols.  */
       if ((sym->flags & BSF_DEBUGGING) == 0)
 	{
@@ -696,7 +696,7 @@ main (argc, argv)
     }
 
   bfd_set_symtab (outbfd, outsyms, symcount + newsymcount);
-    
+
   if (! gotstart)
     fprintf (stderr, "%s: warning: START procedure %s not defined\n",
 	     program_name, start_procedure);
@@ -1829,7 +1829,7 @@ powerpc_build_stubs (inbfd, outbfd, symbols_ptr, symcount_ptr)
 
       item->next = powerpc_stubs;
       powerpc_stubs = item;
-      
+
       ++stubcount;
     }
 
@@ -1912,7 +1912,7 @@ powerpc_resolve_stubs (inbfd, outbfd)
       reloc->address = l->toc_index + got_sec->output_offset;
       reloc->addend = 0;
       reloc->howto = bfd_reloc_type_lookup (inbfd, BFD_RELOC_32);
-				      
+
       *r++ = reloc;
     }
 

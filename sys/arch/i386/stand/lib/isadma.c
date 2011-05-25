@@ -28,7 +28,7 @@ isa_dmacascade(chan)
 
 #ifdef ISADMA_DEBUG
 	if (chan < 0 || chan > 7)
-		panic("isa_dmacascade: impossible request"); 
+		panic("isa_dmacascade: impossible request");
 #endif
 
 	/* set dma channel mode, and set dma channel mode */

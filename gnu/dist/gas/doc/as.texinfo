@@ -7,7 +7,7 @@
 @c   (2)   for platform-specific directives, examine md_pseudo_op
 @c         in config/tc-*.c
 @c   (3)   for object-format specific directives, examine obj_pseudo_op
-@c         in config/obj-*.c       
+@c         in config/obj-*.c
 @c   (4)   portable directives in potable[] in read.c
 @c %**start of header
 @setfilename as.info
@@ -55,17 +55,17 @@
 @c instructions.  Except in multi-column format, these tables look silly.
 @c Unfortunately, Texinfo doesn't have a general-purpose multi-col format, so
 @c the multi-col format is faked within @example sections.
-@c 
+@c
 @c Again unfortunately, the natural size that fits on a page, for these tables,
 @c is different depending on whether or not smallbook is turned on.
 @c This matters, because of order: text flow switches columns at each page
 @c break.
-@c 
+@c
 @c The format faked in this source works reasonably well for smallbook,
 @c not well for the default large-page format.  This manual expects that if you
 @c turn on @smallbook, you will also uncomment the "@set SMALL" to enable the
 @c tables in question.  You can turn on one without the other at your
-@c discretion, of course. 
+@c discretion, of course.
 @ifinfo
 @set SMALL
 @c the insn tables look just as silly in info files regardless of smallbook,
@@ -387,7 +387,7 @@ The following options are available when @value{AS} is configured for the ARM
 processor family.
 
 @table @code
-@item -m[arm]1 | -m[arm]2 | -m[arm]250 | -m[arm]3 | -m[arm]6 | -m[arm]7[t][[d]m] | -m[arm]v2 | -m[arm]v2a | -m[arm]v3 | -m[arm]v3m | -m[arm]v4 | -m[arm]v4t 
+@item -m[arm]1 | -m[arm]2 | -m[arm]250 | -m[arm]3 | -m[arm]6 | -m[arm]7[t][[d]m] | -m[arm]v2 | -m[arm]v2a | -m[arm]v3 | -m[arm]v3m | -m[arm]v4 | -m[arm]v4t
 Specify which variant of the ARM architecture is the target.
 @item -mthumb | -mall
 Enable or disable Thumb only instruction decoding.
@@ -811,7 +811,7 @@ is the object file.  Its default name is
 @end ifclear
 @ifset BOUT
 @ifset GENERIC
-@code{a.out}, or 
+@code{a.out}, or
 @end ifset
 @code{b.out} when @code{@value{AS}} is configured for the Intel 80960.
 @end ifset
@@ -1563,7 +1563,7 @@ preceding statement.  Newlines and at signs within character constants
 are an exception: they do not end statements.
 @end ifset
 @ifset HPPA
-A @dfn{statement} ends at a newline character (@samp{\n}) or an exclamation 
+A @dfn{statement} ends at a newline character (@samp{\n}) or an exclamation
 point (@samp{!}).  The newline or exclamation point is considered part of the
 preceding statement.  Newlines and exclamation points within character
 constants are an exception: they do not end statements.
@@ -1631,7 +1631,7 @@ Whitespace before a label or after a colon is permitted, but you may not
 have whitespace between a label's symbol and its colon. @xref{Labels}.
 
 @ifset HPPA
-For HPPA targets, labels need not be immediately followed by a colon, but 
+For HPPA targets, labels need not be immediately followed by a colon, but
 the definition of a label must begin in column zero.  This also implies that
 only one label may be defined on each line.
 @end ifset
@@ -2754,7 +2754,7 @@ information for COFF.
 The SOM format for the HPPA supports a multitude of symbol attributes set with
 the @code{.EXPORT} and @code{.IMPORT} directives.
 
-The attributes are described in @cite{HP9000 Series 800 Assembly 
+The attributes are described in @cite{HP9000 Series 800 Assembly
 Language Reference Manual} (HP 92432-90001) under the @code{IMPORT} and
 @code{EXPORT} assembler directive documentation.
 @end ifset
@@ -3409,7 +3409,7 @@ This directive sets the value of @var{symbol} to @var{expression}.
 It is synonymous with @samp{.set}; @pxref{Set,,@code{.set}}.
 
 @ifset HPPA
-The syntax for @code{equ} on the HPPA is 
+The syntax for @code{equ} on the HPPA is
 @samp{@var{symbol} .equ @var{expression}}.
 @end ifset
 
@@ -3419,7 +3419,7 @@ The syntax for @code{equ} on the HPPA is
 The @code{.equiv} directive is like @code{.equ} and @code{.set}, except that
 the assembler will signal an error if @var{symbol} is already defined.
 
-Except for the contents of the error message, this is roughly equivalent to 
+Except for the contents of the error message, this is roughly equivalent to
 @smallexample
 .ifdef SYM
 .err
@@ -4319,7 +4319,7 @@ ignores it.
 @section @code{.sleb128 @var{expressions}}
 
 @cindex @code{sleb128} directive
-@var{sleb128} stands for ``signed little endian base 128.''  This is a 
+@var{sleb128} stands for ``signed little endian base 128.''  This is a
 compact, variable length representation of numbers used by the DWARF
 symbolic debugging format.  @xref{Uleb128,@code{.uleb128}}.
 
@@ -4557,7 +4557,7 @@ configured for @code{b.out}, it accepts this directive but ignores it.
 @section @code{.uleb128 @var{expressions}}
 
 @cindex @code{uleb128} directive
-@var{uleb128} stands for ``unsigned little endian base 128.''  This is a 
+@var{uleb128} stands for ``unsigned little endian base 128.''  This is a
 compact, variable length representation of numbers used by the DWARF
 symbolic debugging format.  @xref{Sleb128,@code{.sleb128}}.
 
@@ -5093,8 +5093,8 @@ things without first using the debugger to find the facts.
 
 If you have contributed to @code{@value{AS}} and your name isn't listed here,
 it is not meant as a slight.  We just don't know about it.  Send mail to the
-maintainer, and we'll correct the situation.  Currently 
-@c (January 1994), 
+maintainer, and we'll correct the situation.  Currently
+@c (January 1994),
 the maintainer is Ken Raeburn (email address @code{raeburn@@cygnus.com}).
 
 Dean Elsner wrote the original @sc{gnu} assembler for the VAX.@footnote{Any

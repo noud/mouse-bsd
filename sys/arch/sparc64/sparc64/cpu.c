@@ -219,7 +219,7 @@ cpu_attach(parent, dev, aux)
 	cacheinfo.ic_totalsize = l *
 		getpropint(node, "icache-nlines", 64) *
 		getpropint(node, "icache-associativity", 1);
-	
+
 	cacheinfo.dc_linesize = l =
 		getpropint(node, "dcache-line-size",0);
 	for (i = 0; (1 << i) < l && l; i++)
@@ -230,7 +230,7 @@ cpu_attach(parent, dev, aux)
 	cacheinfo.dc_totalsize = l *
 		getpropint(node, "dcache-nlines", 128) *
 		getpropint(node, "dcache-associativity", 1);
-	
+
 	cacheinfo.ec_linesize = l =
 		getpropint(node, "ecache-line-size", 0);
 	for (i = 0; (1 << i) < l && l; i++)
@@ -241,7 +241,7 @@ cpu_attach(parent, dev, aux)
 	cacheinfo.ec_totalsize = l *
 		getpropint(node, "ecache-nlines", 32768) *
 		getpropint(node, "ecache-associativity", 1);
-	
+
 	/*
 	 * XXX - The following will have to do until
 	 * we have per-cpu cache handling.
@@ -258,7 +258,7 @@ cpu_attach(parent, dev, aux)
 
 	if (cacheinfo.c_totalsize == 0)
 		return;
-	
+
 	sep = " ";
 	printf("%s: physical", dev->dv_xname);
 	if (cacheinfo.ic_totalsize > 0) {

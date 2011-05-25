@@ -718,13 +718,13 @@ check_float_value (mode, d, overflow)
  (! (GET_CODE ((X)) == CONST						\
      && GET_CODE (XEXP ((X), 0)) == PLUS				\
      && GET_CODE (XEXP (XEXP ((X), 0), 0)) == SYMBOL_REF))
-   
+
 #define INDIRECTABLE_CONSTANT_ADDRESS_P(X) \
   (!(flag_pic /* || TARGET_HALFPIC*/) ? CONSTANT_ADDRESS_P(X)		\
    : (GET_CODE (X) == LABEL_REF						\
       || GET_CODE (X) == SYMBOL_REF					\
       || (GET_CODE (X) == CONST && INDIRECTABLE_CONSTANT_P (X))		\
-      || GET_CODE (X) == CONST_INT))  
+      || GET_CODE (X) == CONST_INT))
 
 /* Non-zero if X is an address which can be indirected.  */
 #define INDIRECTABLE_ADDRESS_P(X, STRICT) \
@@ -851,7 +851,7 @@ legitimate_address_p(mode, xbar, strict)
   GO_IF_LEGITIMATE_ADDRESS2(mode, xbar, win, strict);
   return 0;
  win:
-  if (GET_CODE (xbar) == PLUS 
+  if (GET_CODE (xbar) == PLUS
       && ((GET_CODE (XEXP (xbar, 1)) == SYMBOL_REF
 	   && GET_CODE (XEXP (xbar, 0)) == REG
 	   && mode != QImode)
@@ -869,7 +869,7 @@ legitimate_address_p(mode, xbar, strict)
     return 0;
   if (flag_pic || TARGET_HALFPIC)
     {
-      if (GET_CODE (xbar) == PLUS 
+      if (GET_CODE (xbar) == PLUS
 	  && ((GET_CODE (XEXP (xbar, 0)) == MEM
 	       && GET_CODE (XEXP (XEXP (xbar, 0), 0)) == SYMBOL_REF
 	       && GET_CODE (XEXP (xbar, 1)) == REG)
@@ -888,7 +888,7 @@ legitimate_address_p(mode, xbar, strict)
       && GET_CODE (xbar) != PRE_DEC
       && GET_CODE (xbar) != POST_INC
       && GET_CODE (xbar) != SYMBOL_REF
-      && !(GET_CODE (xbar) == PLUS 
+      && !(GET_CODE (xbar) == PLUS
 	   && ((GET_CODE (XEXP (xbar, 1)) == CONST_INT
 		&& (GET_CODE (XEXP (xbar, 0)) == REG
 		    || (GET_CODE (XEXP (xbar, 0)) == PLUS
@@ -927,11 +927,11 @@ vax_symbolic_operand (op, mode)
 /* Legitimize PIC addresses.  If the address is already
    position-independent, we return ORIG.  Newly generated
    position-independent addresses go to REG.  If we need more
-   than one register, we lose.  
+   than one register, we lose.
 
    An address is legitimized by making an indirect reference
    through the Global Offset Table with the name of the symbol
-   used as an offset.  
+   used as an offset.
 
    The assembler/loader are responsible for translating a symbol name
    into a PC-relative displacement.

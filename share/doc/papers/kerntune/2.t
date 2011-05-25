@@ -38,7 +38,7 @@
 .NH 1
 The \fIgprof\fP Profiler
 .PP
-The purpose of the \fIgprof\fP profiling tool is to 
+The purpose of the \fIgprof\fP profiling tool is to
 help the user evaluate alternative implementations
 of abstractions.
 The \fIgprof\fP design takes advantage of the fact that the kernel
@@ -57,10 +57,10 @@ The first presentation simply lists the routines
 without regard to the amount of time their descendants use.
 The second presentation incorporates the call graph of the
 kernel.
-.NH 3 
+.NH 3
 The Flat Profile
 .PP
-The flat profile consists of a list of all the routines 
+The flat profile consists of a list of all the routines
 that are called during execution of the kernel,
 with the count of the number of times they are called
 and the number of seconds of execution time for which they
@@ -75,11 +75,11 @@ and shows the routines that are themselves responsible
 for large fractions of the execution time.
 In practice,
 this profile usually shows that no single function
-is overwhelmingly responsible for 
+is overwhelmingly responsible for
 the total time of the kernel.
 Notice that for this profile,
 the individual times sum to the total execution time.
-.NH 3 
+.NH 3
 The Call Graph Profile
 .PP
 Ideally, we would like to print the call graph of the kernel,
@@ -122,12 +122,12 @@ Figure 1. Profile entry for \s-1EXAMPLE\s+1.
 .KE
 .PP
 The major entries of the call graph profile are the entries from the
-flat profile, augmented by the time propagated to each 
+flat profile, augmented by the time propagated to each
 routine from its descendants.
 This profile is sorted by the sum of the time for the routine
 itself plus the time inherited from its descendants.
-The profile shows which of the higher level routines 
-spend large portions of the total execution time 
+The profile shows which of the higher level routines
+spend large portions of the total execution time
 in the routines that they call.
 For each routine, we show the amount of time passed by each child
 to the routine, which includes time for the child itself
@@ -135,7 +135,7 @@ and for the descendants of the child
 (and thus the descendants of the routine).
 We also show the percentage these times represent of the total time
 accounted to the child.
-Similarly, the parents of each routine are listed, 
+Similarly, the parents of each routine are listed,
 along with time,
 and percentage of total routine time,
 propagated to each one.

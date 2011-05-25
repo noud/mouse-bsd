@@ -84,7 +84,7 @@ splraise(bits)
 	int bits;
 {
 	int old;
-	
+
 	old = cpl;
 	cpl |= bits;
 
@@ -100,9 +100,9 @@ soft_splx(new)
 
 	asm volatile ("mfmsr %0" : "=r"(emsr));
 	dmsr = emsr & ~PSL_EE;
-	
+
 	cpl = new;
-	
+
 	while (1) {
 		cpl = new;
 
@@ -142,7 +142,7 @@ soft_splx(new)
 			softnet();
 			continue;
 		}
-		
+
 		asm volatile ("mtmsr %0" :: "r"(emsr));
 		return old;
 	}
@@ -262,11 +262,11 @@ intr_return(frame, level)
 			continue;
 		}
 		if (softclockpending && !(cpl & SPLSOFTCLOCK)) {
-			
+
 			cpl |= SPLSOFTCLOCK;
 			softclockpending = 0;
 			asm volatile ("mtmsr %0" :: "r"(emsr));
-			
+
 			softclock();
 			continue;
 		}
@@ -290,7 +290,7 @@ soft_clock_return(frame, nticks)
 	int msr;
 
 	pri = cpl;
-	
+
 	if (pri & SPLCLOCK)
 		clockpending += nticks;
 	else {
@@ -301,7 +301,7 @@ soft_clock_return(frame, nticks)
 		 */
 		asm volatile ("mfmsr %0; ori %0,%0,%1; mtmsr %0"
 			      : "=r"(msr) : "K"((u_short)PSL_EE));
-		
+
 		/*
 		 * Do standard timer interrupt stuff.
 		 * Do softclock stuff only on the last iteration.

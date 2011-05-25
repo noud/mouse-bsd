@@ -142,7 +142,7 @@ USB_MATCH(umodem)
 	USB_MATCH_START(umodem, uaa);
 	usb_interface_descriptor_t *id;
 	int cm, acm;
-	
+
 	if (uaa->iface == NULL)
 		return (UMATCH_NONE);
 
@@ -152,7 +152,7 @@ USB_MATCH(umodem)
 	    id->bInterfaceSubClass != USUBCLASS_ABSTRACT_CONTROL_MODEL ||
 	    id->bInterfaceProtocol != UPROTO_CDC_AT)
 		return (UMATCH_NONE);
-	
+
 	umodem_get_caps(uaa->device, &cm, &acm);
 	if (!(cm & USB_CDC_CM_DOES_CM) ||
 	    !(cm & USB_CDC_CM_OVER_DATA) ||
@@ -217,8 +217,8 @@ USB_ATTACH(umodem)
 		goto bad;
 	}
 
-	/* 
-	 * Find the bulk endpoints. 
+	/*
+	 * Find the bulk endpoints.
 	 * Iterate over all endpoints in the data interface and take note.
 	 */
 	uca.bulkin = uca.bulkout = -1;
@@ -307,7 +307,7 @@ umodem_get_caps(dev, cm, acm)
 		return;
 	}
 	*acm = cad->bmCapabilities;
-} 
+}
 
 void
 umodem_get_status(addr, portno, lsr, msr)
@@ -384,7 +384,7 @@ umodem_ioctl(addr, portno, cmd, data, flag, p)
 
 	if (sc->sc_dying)
 		return (EIO);
- 
+
 	DPRINTF(("umodemioctl: cmd=0x%08lx\n", cmd));
 
 	switch (cmd) {
@@ -523,7 +523,7 @@ umodem_set_line_coding(sc, state)
 
 	err = usbd_do_request(sc->sc_udev, &req, state);
 	if (err) {
-		DPRINTF(("umodem_set_line_coding: failed, err=%s\n", 
+		DPRINTF(("umodem_set_line_coding: failed, err=%s\n",
 			 usbd_errstr(err)));
 		return (err);
 	}

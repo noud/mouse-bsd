@@ -109,8 +109,8 @@ hpcmips_init_bus_space_extent(t)
 {
 	u_int32_t pa, endpa;
 	vaddr_t va;
-	
-	/* 
+
+	/*
 	 * If request physical address is greater than 512MByte,
 	 * mapping it to kseg2.
 	 */
@@ -121,16 +121,16 @@ hpcmips_init_bus_space_extent(t)
 		if (!(va = uvm_km_valloc(kernel_map, endpa - pa))) {
 			panic("hpcmips_init_bus_space_extent: can't allocate kernel virtual");
 		}
-		DPRINTF(("pa:0x%08x -> kv:0x%08x+0x%08x", (unsigned int)t->t_base, 
+		DPRINTF(("pa:0x%08x -> kv:0x%08x+0x%08x", (unsigned int)t->t_base,
 		       (unsigned int)va, t->t_size));
 		t->t_base = va; /* kseg2 addr */
-				
+
 		for (; pa < endpa; pa += NBPG, va += NBPG) {
 			pmap_kenter_pa(va, pa, VM_PROT_READ | VM_PROT_WRITE);
 		}
 	}
 
-	t->t_extent = (void*)extent_create(t->t_name, t->t_base, 
+	t->t_extent = (void*)extent_create(t->t_name, t->t_base,
 					   t->t_base + t->t_size, M_DEVBUF,
 					   0, 0, EX_NOWAIT);
 	if (!t->t_extent) {
@@ -154,7 +154,7 @@ __hpcmips_cacheable(t, bpa, size, cacheable)
 		va = mips_trunc_page(bpa);
 		endva = mips_round_page(bpa + size);
 		npte = CPUISMIPS3 ? MIPS3_PG_UNCACHED : MIPS1_PG_N;
-		
+
 		for (; va < endva; va += NBPG) {
 			pte = kvtopte(va);
 			opte = pte->pt_entry;
@@ -192,7 +192,7 @@ bus_space_map(t, bpa, size, flags, bshp)
 		bpa += t->t_base;
 	} else {
 		bpa += t->t_base;
-		if ((err = extent_alloc_region(t->t_extent, bpa, size, 
+		if ((err = extent_alloc_region(t->t_extent, bpa, size,
 					       EX_NOWAIT|EX_MALLOCOK))) {
 			return err;
 		}
@@ -224,7 +224,7 @@ bus_space_alloc(t, rstart, rend, size, alignment, boundary, flags,
 	rstart += t->t_base;
 	rend += t->t_base;
 	if ((err = extent_alloc_subregion(t->t_extent, rstart, rend, size,
-					  alignment, boundary, 
+					  alignment, boundary,
 					  EX_FAST|EX_NOWAIT|EX_MALLOCOK, &bpa))) {
 		return err;
 	}

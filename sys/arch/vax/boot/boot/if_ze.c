@@ -137,7 +137,7 @@ ze_init(desc, machdep_hint)
 		addr->ze_nicsr5 |= ZE_NICSR5_ME;
 	/* reenable interrupts here */
 
-	/* Allocate space for descriptor lists and buffers, 
+	/* Allocate space for descriptor lists and buffers,
 		then initialize them. Set up both lists as a ring. */
 	ze_rdes_list = OW_ALLOC((NRCV+1) * sizeof(struct ze_rdes));
 	ze_tdes_list = OW_ALLOC((NXMT+1) * sizeof(struct ze_tdes));

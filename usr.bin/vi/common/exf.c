@@ -255,7 +255,7 @@ file_init(sp, frp, rcv_name, flags)
 		 * be read.  This isn't useful for single files from a command
 		 * line, but it's quite useful for "vi *.c", since you can skip
 		 * past files that you can't read.
-		 */ 
+		 */
 		open_err = 1;
 		goto oerr;
 	}
@@ -995,7 +995,7 @@ file_backup(sp, name, bname)
 		bp = NULL;
 		wfname = cmd.argv[0]->bp;
 	}
-	
+
 	/* Open the backup file, avoiding lurkers. */
 	if (stat(wfname, &sb) == 0) {
 		if (!S_ISREG(sb.st_mode)) {
@@ -1291,7 +1291,7 @@ file_lock(sp, name, fdp, fd, iswrite)
 {
 	if (!O_ISSET(sp, O_LOCKFILES))
 		return (LOCK_SUCCESS);
-	
+
 #ifdef HAVE_LOCK_FLOCK			/* Hurrah!  We've got flock(2). */
 	/*
 	 * !!!

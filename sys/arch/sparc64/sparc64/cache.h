@@ -95,14 +95,14 @@ extern enum vactype vactype;	/* XXX  move into cacheinfo struct */
  * bits that are one position higher.
  */
 
-/* 
- * The spitfire has a 16K two-way set associative level-1 I$ and a separate 
- * 16K level-1 D$.  The I$ can be invalidated using the FLUSH instructions, 
+/*
+ * The spitfire has a 16K two-way set associative level-1 I$ and a separate
+ * 16K level-1 D$.  The I$ can be invalidated using the FLUSH instructions,
  * so we don't really need to worry about it much.  The D$ is 16K write-through
- * direct mapped virtually addressed cache with two 16-byte sub-blocks per line.  
+ * direct mapped virtually addressed cache with two 16-byte sub-blocks per line.
  * The E$ is a 512KB-4MB direct mapped physically indexed physically tagged cache.
  * Since the level-1 caches are write-through, they don't need flushing and can be
- * invalidated directly.  
+ * invalidated directly.
  *
  * The spitfire sees virtual addresses as:
  *
@@ -115,7 +115,7 @@ extern enum vactype vactype;	/* XXX  move into cacheinfo struct */
  *
  * Since there is one bit of overlap between the page offset and the line index,
  * all we need to do is make sure that bit 14 of the va remains constant and we have
- * no aliasing problems.  
+ * no aliasing problems.
  *
  * Let me try again.  Page size is 8K, cache size is 16K so if (va1&0x3fff != va2&0x3fff)
  * we have a problem.  Bit 14 *must* be the same for all mappings of a page to be cacheable
@@ -123,7 +123,7 @@ extern enum vactype vactype;	/* XXX  move into cacheinfo struct */
  */
 
 /* Some more well-known values: */
-#define CACHE_ALIAS_MASK	0x7fff	
+#define CACHE_ALIAS_MASK	0x7fff
 #define CACHE_ALIAS_BITS	0x4000
 
 /*

@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -56,7 +56,7 @@
  *      xbase, xfont, xserver, xcontrib, xcomp.
  *
  * bebox has the  MD set kern first, because generic kernels are  too
- * big to fit on install floppies. bebox does not yet include the x sets. 
+ * big to fit on install floppies. bebox does not yet include the x sets.
  *
  * Third entry is the last extension name in the split sets for loading
  * from floppy.
@@ -97,7 +97,7 @@ EXTERN	char *disk_names[]
 
 
 /*
- * Legal start character for a disk for checking input. 
+ * Legal start character for a disk for checking input.
  * this must return 1 for a character that matches the first
  * characters of each member of disk_names.
  *
@@ -114,7 +114,7 @@ EXTERN	char *disk_names[]
  * If not defined, we assume the port does not support disklabels and
  * hand-edited disklabel will NOT be written by MI code.
  *
- * On bebox, do what the 1.2 install scripts did. 
+ * On bebox, do what the 1.2 install scripts did.
  */
 #define DISKLABEL_CMD "disklabel -w -r"
 

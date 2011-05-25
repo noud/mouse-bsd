@@ -544,7 +544,7 @@ tga_bt485_update(dc, data)
 		for (i = 0; i < count; i++)
 			tga_bt485_wr_d(dc->dc_regs, BT485_REG_CURSOR_RAM,
 			    data->curimage[i]);
-		
+
 		/*
 		 * Write the cursor mask data:
 		 *	set addr[9:8] to 2,

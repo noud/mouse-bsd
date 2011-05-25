@@ -48,7 +48,7 @@ solib_add (arg_string, from_tty, target)
      char *arg_string;
      int from_tty;
      struct target_ops *target;
-{	
+{
   char *val;
   struct vmap *vp = vmap;
   struct objfile *obj;
@@ -68,7 +68,7 @@ solib_add (arg_string, from_tty, target)
 
   /* save current symbol table and line number, in case they get changed
      in symbol loading process. */
- 
+
   saved_symtab = current_source_symtab;
   saved_line = current_source_line;
 
@@ -83,7 +83,7 @@ solib_add (arg_string, from_tty, target)
 
       /* if already loaded, continue with the next one. */
       if (vp->loaded) {
-	
+
 	printf_unfiltered ("%s%s%s%s: already loaded.\n",
 	  *vp->member ? "(" : "",
 	  vp->member,
@@ -171,7 +171,7 @@ solib_info (args, from_tty)
 
   if (vp == NULL || vp->nxt == NULL)
     {
-      printf_unfiltered ("No shared libraries loaded at this time.\n");	
+      printf_unfiltered ("No shared libraries loaded at this time.\n");
       return;
     }
 
@@ -215,6 +215,6 @@ _initialize_solib()
 {
   add_com ("sharedlibrary", class_files, sharedlibrary_command,
 	   "Load shared object library symbols for files matching REGEXP.");
-  add_info ("sharedlibrary", solib_info, 
+  add_info ("sharedlibrary", solib_info,
 	    "Status of loaded shared object libraries");
 }

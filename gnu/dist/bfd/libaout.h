@@ -178,11 +178,11 @@ struct aout_backend_data
   boolean (*finish_dynamic_link) PARAMS ((bfd *, struct bfd_link_info *));
 
   /* Translate an a.out symbol into a BFD symbol.  */
-  boolean (*translate_from_native_sym_flags) PARAMS ((bfd *, 
+  boolean (*translate_from_native_sym_flags) PARAMS ((bfd *,
                                                       aout_symbol_type *));
 
   /* Set the fields of the external_nlist according to the asybol.  */
-  boolean (*translate_to_native_sym_flags) PARAMS ((bfd *, 
+  boolean (*translate_to_native_sym_flags) PARAMS ((bfd *,
                                                     asymbol *,
                                                     struct external_nlist *));
 };
@@ -214,7 +214,7 @@ struct internal_exec
     char a_relaxable;           /* Enough info for linker relax */
 };
 
-/* Magic number is written 
+/* Magic number is written
 < MSB          >
 3130292827262524232221201918171615141312111009080706050403020100
 < FLAGS        >< MACHINE TYPE ><  MAGIC NUMBER                >
@@ -315,7 +315,7 @@ enum machine_type {
 struct aoutdata {
   struct internal_exec *hdr;		/* exec file header */
   aout_symbol_type *symbols;		/* symtab for input bfd */
-  
+
   /* For ease, we do this */
   asection *textsec;
   asection *datasec;
@@ -627,7 +627,7 @@ NAME(aout,bfd_free_cached_info) PARAMS ((bfd *));
 	  return false;						      	      \
 	if (!NAME(aout,squirt_out_relocs)(abfd, obj_datasec (abfd)))          \
 	  return false;						      	      \
-      }									      
+      }
 #endif
 
 #endif /* ! defined (LIBAOUT_H) */

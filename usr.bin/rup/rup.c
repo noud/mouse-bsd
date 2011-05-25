@@ -73,7 +73,7 @@ search_host(addr)
 	struct in_addr addr;
 {
 	struct host_list *hp;
-	
+
 	if (!hosts)
 		return(0);
 
@@ -109,7 +109,7 @@ struct rup_data *rup_data;
 int rup_data_idx = 0;
 int rup_data_max = 0;
 
-enum sort_type { 
+enum sort_type {
 	SORT_NONE,
 	SORT_HOST,
 	SORT_LDAV,
@@ -135,10 +135,10 @@ compare(d1, d2)
 	case SORT_HOST:
 		return strcmp(d1->host, d2->host);
 	case SORT_LDAV:
-		return d1->statstime.avenrun[0] 
+		return d1->statstime.avenrun[0]
 			- d2->statstime.avenrun[0];
 	case SORT_UPTIME:
-		return d1->statstime.boottime.tv_sec 
+		return d1->statstime.boottime.tv_sec
 			- d2->statstime.boottime.tv_sec;
 	default:
 		/* something's really wrong here */
@@ -153,14 +153,14 @@ remember_rup_data(host, st)
 {
         if (rup_data_idx >= rup_data_max) {
                 rup_data_max += 16;
-                rup_data = realloc (rup_data, 
+                rup_data = realloc (rup_data,
 				rup_data_max * sizeof(struct rup_data));
                 if (rup_data == NULL) {
                         err (1, "realloc");
 			/* NOTREACHED */
                 }
         }
-	
+
 	rup_data[rup_data_idx].host = strdup(host);
 	rup_data[rup_data_idx].statstime = *st;
 	rup_data_idx++;
@@ -264,7 +264,7 @@ onehost(host)
 	CLIENT *rstat_clnt;
 	statstime host_stat;
 	static struct timeval timeout = {25, 0};
-	
+
 	rstat_clnt = clnt_create(host, RSTATPROG, RSTATVERS_TIME, "udp");
 	if (rstat_clnt == NULL) {
 		warnx("%s", clnt_spcreateerror(host));
@@ -339,7 +339,7 @@ main(argc, argv)
 			usage();
 			/*NOTREACHED*/
 		}
-	
+
 	setlinebuf(stdout);
 
 	if (argc == optind)

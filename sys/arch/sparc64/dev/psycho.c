@@ -294,7 +294,7 @@ sabre_init(sc, pba)
 		}
 		/* link us in .. */
 		pp->pp_sc = sc;
-		
+
 		printf("; simba %c, PCI bus %d", who, simba_br[0]);
 
 		/* grab the simba registers, interrupt map and map mask */
@@ -351,7 +351,7 @@ psycho_init(sc, pba)
 {
 
 	/*
-	 * ok, we are a psycho. 
+	 * ok, we are a psycho.
 	 */
 	panic("can't do SUNW,psycho yet");
 }
@@ -370,7 +370,7 @@ psycho_alloc_chipset(pp, node, pc)
 	pci_chipset_tag_t pc;
 {
 	pci_chipset_tag_t npc;
-	
+
 	npc = malloc(sizeof *npc, M_DEVBUF, M_NOWAIT);
 	if (npc == NULL)
 		panic("could not allocate pci_chipset_tag_t");
@@ -449,7 +449,7 @@ psycho_get_intmapmask(node, immp)
 	DPRINTF(PDB_PROM, ("psycho debug: got `interrupt-map-mask' for node %08x\n", node));
 }
 
-/* 
+/*
  * IOMMU code
  */
 

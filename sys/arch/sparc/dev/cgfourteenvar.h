@@ -1,7 +1,7 @@
 /*	$NetBSD: cgfourteenvar.h,v 1.3 1998/07/29 18:36:08 pk Exp $ */
 
 /*
- * Copyright (c) 1996 
+ * Copyright (c) 1996
  *	The President and Fellows of Harvard College. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ struct cg14_cursor {		/* cg14 hardware cursor status */
 	union	cg14cursor_cmap cc_color; /* cursor colormap */
 };
 
-/* 
+/*
  * per-cg14 variables/state
  */
 struct cgfourteen_softc {

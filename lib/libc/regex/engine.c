@@ -397,7 +397,7 @@ sopno stopst;
 #ifdef NDEBUG
 				(void)
 #else
-				dp = 
+				dp =
 #endif
 				    dissect(m, sp, rest, ssub, esub);
 				assert(dp == rest);
@@ -1076,7 +1076,7 @@ FILE *d;
 	fprintf(d, "\n");
 }
 
-/* 
+/*
  - at - print current situation
  == #ifdef REDEBUG
  == static void at(struct match *m, char *title, char *start, char *stop, \

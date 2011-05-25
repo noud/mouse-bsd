@@ -35,7 +35,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
    When dumping core, the control stack is written to a core files as
    a third segment. The core-handling functions need to know to deal
-   with it. */ 
+   with it. */
 
 /* Tell corefile.c there is an extra segment.  */
 #define REG_STACK_SEGMENT
@@ -70,7 +70,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /* This seems to be right for the 90x comp.vuw.ac.nz.
    The correct value at any site may be a function of the configured
    maximum control stack depth.  If so, I don't know where the
-   control-stack depth is configured, so I can't #include it here. */ 
+   control-stack depth is configured, so I can't #include it here. */
 #define STACK_END_ADDR (0xc00cc000)
 
 /* Register window stack (Control stack) stack definitions
@@ -86,7 +86,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #define CONTROL_STACK_FRAME_SIZE (32*4)
 
-/* FIXME.  On a pyr, Data Stack grows downward; control stack goes upwards. 
+/* FIXME.  On a pyr, Data Stack grows downward; control stack goes upwards.
    Which direction should we use for INNER_THAN, PC_INNER_THAN ?? */
 
 #define INNER_THAN <
@@ -107,7 +107,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #define DECR_PC_AFTER_BREAK 0
 
-/* Nonzero if instruction at PC is a return instruction. 
+/* Nonzero if instruction at PC is a return instruction.
    On a pyr, this is either "ret" or "retd".
    It would be friendly to check that any "retd" always had an
    argument of 0, since anything else is invalid. */
@@ -319,7 +319,7 @@ do {								\
    Having the macros expand into functions makes them easier to debug.
    When the bug is finally located, the inline macro defintions can
    be un-#if 0ed, and frame_args_addr and frame_locals_address can
-   be deleted from pyr-dep.c */ 
+   be deleted from pyr-dep.c */
 
 /* If the argument is on the stack, it will be here.  */
 #define FRAME_ARGS_ADDRESS(fi) \
@@ -363,13 +363,13 @@ do {								\
    separate stack.  All window registers are always stored.
    The pc and psw (gr15 and gr14)  are also always saved: the call
    insn saves them in pr15 and pr14 of the new frame (tr15,tr14 of the
-   old frame).  
+   old frame).
    The data-stack frame pointer (CFP) is only saved in functions which
    allocate a (data)stack frame (with "adsf").  We detect them by
-   looking at the first insn of the procedure. 
+   looking at the first insn of the procedure.
 
    Other non-window registers (gr0-gr11) are never saved.  Pyramid's C
-   compiler and gcc currently ignore them, so it's not an issue.   */ 
+   compiler and gcc currently ignore them, so it's not an issue.   */
 
 #define FRAME_FIND_SAVED_REGS(fi_p, frame_saved_regs) \
 {  register int regnum;							\

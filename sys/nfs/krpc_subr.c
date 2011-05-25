@@ -167,7 +167,7 @@ krpc_portmap(sin,  prog, vers, proto, portp)
 	sin->sin_port = htons(PMAPPORT);
 	error = krpc_call(sin, PMAPPROG, PMAPVERS,
 					  PMAPPROC_GETPORT, &m, NULL);
-	if (error) 
+	if (error)
 		return error;
 
 	if (m->m_len < sizeof(*rdata)) {

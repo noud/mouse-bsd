@@ -24,7 +24,7 @@ SIZE=		2048k
 GEOM=		512/16/2/128
 DISKTYPE=	floppyinstfs
 
-all: ${CBIN} 
+all: ${CBIN}
 	dd if=/dev/zero of=${IMAGE} bs=${SIZE} count=1
 	vnconfig -t ${DISKTYPE} -v -c ${VND_CDEV} ${IMAGE}
 	disklabel -rw ${VND_CDEV} ${DISKTYPE}

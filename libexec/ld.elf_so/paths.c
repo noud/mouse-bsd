@@ -186,7 +186,7 @@ struct list *lists[] = {
 
 /*
  * Process library mappings of the form:
- *	<library_name>	<machdep_variable> <value,...:library_name,...> ... 
+ *	<library_name>	<machdep_variable> <value,...:library_name,...> ...
  */
 static void
 _rtld_process_mapping(lib_p, bp, ep, dodebug)
@@ -198,7 +198,7 @@ _rtld_process_mapping(lib_p, bp, ep, dodebug)
 	Library_Xform *hwptr = NULL;
 	char *ptr, *key, *lib, *l;
 	int i, j, k;
-	
+
 	if (bp == NULL || bp == ep || *bp == '\0')
 		return;
 
@@ -295,7 +295,7 @@ no_more:
 			if (i == RTLD_MAX_ENTRY)
 				goto no_more;
 			if (i != j)
-				(void)memcpy(hwptr->entry[i].library, 
+				(void)memcpy(hwptr->entry[i].library,
 				    hwptr->entry[j].library,
 				    sizeof(hwptr->entry[j].library));
 			hwptr->entry[i].value = xstrdup(l);

@@ -2087,7 +2087,7 @@ swcsp(struct video_state *svsp, u_short *ctp)
 		return;
 
         /* update GL or GR if the designated charset is currently displayed */
-        
+
 	switch(svsp->state)
 	{
 		case STATE_BROPN:	/* designate G0 */

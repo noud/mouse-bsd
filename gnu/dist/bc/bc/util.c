@@ -23,7 +23,7 @@
                 Computer Science Department, 9062
                 Western Washington University
                 Bellingham, WA 98226-9062
-       
+
 *************************************************************************/
 
 
@@ -64,7 +64,7 @@ nextarg (args, val, is_var)
   temp->av_name = val;
   temp->arg_is_var = is_var;
   temp->next = args;
- 
+
   return (temp);
 }
 
@@ -79,7 +79,7 @@ static char *arglist1 = NULL, *arglist2 = NULL;
 
 /* make_arg_str does the actual construction of the argument string.
    ARGS is the pointer to the list and LEN is the maximum number of
-   characters needed.  1 char is the minimum needed. 
+   characters needed.  1 char is the minimum needed.
  */
 
 _PROTOTYPE (static char *make_arg_str, (arg_list *args, int len));
@@ -104,12 +104,12 @@ make_arg_str (args, len)
 
   /* Add the current number to the end of the string. */
   if (args->arg_is_var)
-    if (len != 1) 
+    if (len != 1)
       sprintf (sval, "*%d,", args->av_name);
     else
       sprintf (sval, "*%d", args->av_name);
   else
-    if (len != 1) 
+    if (len != 1)
       sprintf (sval, "%d,", args->av_name);
     else
       sprintf (sval, "%d", args->av_name);
@@ -121,7 +121,7 @@ char *
 arg_str (args)
      arg_list *args;
 {
-  if (arglist2 != NULL) 
+  if (arglist2 != NULL)
     free (arglist2);
   arglist2 = arglist1;
   arglist1 = make_arg_str (args, 1);
@@ -135,8 +135,8 @@ call_str (args)
   arg_list *temp;
   int       arg_count;
   int       ix;
-  
-  if (arglist2 != NULL) 
+
+  if (arglist2 != NULL)
     free (arglist2);
   arglist2 = arglist1;
 
@@ -147,7 +147,7 @@ call_str (args)
   for (temp = args, ix=0; temp != NULL; temp = temp->next)
     arglist1[ix++] = ( temp->av_name ? '1' : '0');
   arglist1[ix] = 0;
-      
+
   return (arglist1);
 }
 
@@ -156,9 +156,9 @@ call_str (args)
 void
 free_args (args)
       arg_list *args;
-{ 
+{
   arg_list *temp;
- 
+
   temp = args;
   while (temp != NULL)
     {
@@ -188,7 +188,7 @@ check_params ( params, autos )
 	  tmp2 = tmp1->next;
 	  while (tmp2 != NULL)
 	    {
-	      if (tmp2->av_name == tmp1->av_name) 
+	      if (tmp2->av_name == tmp1->av_name)
 		yyerror ("duplicate parameter names");
 	      tmp2 = tmp2->next;
 	    }
@@ -207,7 +207,7 @@ check_params ( params, autos )
 	  tmp2 = tmp1->next;
 	  while (tmp2 != NULL)
 	    {
-	      if (tmp2->av_name == tmp1->av_name) 
+	      if (tmp2->av_name == tmp1->av_name)
 		yyerror ("duplicate auto variable names");
 	      tmp2 = tmp2->next;
 	    }
@@ -226,7 +226,7 @@ check_params ( params, autos )
 	  tmp2 = autos;
 	  while (tmp2 != NULL)
 	    {
-	      if (tmp2->av_name == tmp1->av_name) 
+	      if (tmp2->av_name == tmp1->av_name)
 		yyerror ("variable in both parameter and auto lists");
 	      tmp2 = tmp2->next;
 	    }
@@ -246,7 +246,7 @@ init_gen ()
   continue_label = 0;
   next_label  = 1;
   out_count = 2;
-  if (compile_only) 
+  if (compile_only)
     printf ("@i");
   else
     init_load ();
@@ -287,7 +287,7 @@ run_code()
     {
       if (compile_only)
 	{
-	  printf ("@r\n"); 
+	  printf ("@r\n");
 	  out_count = 0;
 	}
       else
@@ -370,7 +370,7 @@ find_id (tree, id)
      char   *id;
 {
   int cmp_result;
-  
+
   /* Check for an empty tree. */
   if (tree == NULL)
     return NULL;
@@ -382,7 +382,7 @@ find_id (tree, id)
   else if (cmp_result < 0)
     return find_id (tree->left, id);
   else
-    return find_id (tree->right, id);  
+    return find_id (tree->right, id);
 }
 
 
@@ -415,7 +415,7 @@ int insert_id_rec (root, new_id)
 	{
 	  /* The height increased. */
 	  (*root)->balance --;
-	  
+
       switch ((*root)->balance)
 	{
 	case  0:  /* no height increase. */
@@ -459,8 +459,8 @@ int insert_id_rec (root, new_id)
 		}
 	      (*root)->balance = 0;
 	    }
-	}     
-	} 
+	}
+	}
     }
   else
     {
@@ -512,10 +512,10 @@ int insert_id_rec (root, new_id)
 		    }
 		  (*root)->balance = 0;
 		}
-	    }     
-	} 
+	    }
+	}
     }
-  
+
   /* If we fall through to here, the tree did not grow in height. */
   return (FALSE);
 }
@@ -563,7 +563,7 @@ lookup (name, namekind)
   /* Return the correct value. */
   switch (namekind)
     {
-      
+
     case ARRAY:
       /* ARRAY variable numbers are returned as negative numbers. */
       if (id->a_name != 0)
@@ -587,7 +587,7 @@ lookup (name, namekind)
       if (id->f_name != 0)
 	{
 	  free(name);
-	  /* Check to see if we are redefining a math lib function. */ 
+	  /* Check to see if we are redefining a math lib function. */
 	  if (use_math && namekind == FUNCTDEF && id->f_name <= 6)
 	    id->f_name = next_func++;
 	  return (id->f_name);
@@ -625,7 +625,7 @@ lookup (name, namekind)
 
 /* Print the welcome banner. */
 
-void 
+void
 welcome()
 {
   printf ("This is free software with ABSOLUTELY NO WARRANTY.\n");
@@ -635,7 +635,7 @@ welcome()
 
 /* Print out the warranty information. */
 
-void 
+void
 warranty(prefix)
      char *prefix;
 {
@@ -669,7 +669,7 @@ limits()
   printf ("Number of vars  = %ld\n", (long) MAX_STORE);
 #ifdef OLD_EQ_OP
   printf ("Old assignment operatiors are valid. (=-, =+, ...)\n");
-#endif 
+#endif
 }
 
 /* bc_malloc will check the return value so all other places do not
@@ -722,7 +722,7 @@ yyerror (str, va_alist)
   char *name;
   va_list args;
 
-#ifndef VARARGS   
+#ifndef VARARGS
    va_start (args, str);
 #else
    va_start (args);
@@ -744,7 +744,7 @@ yyerror (str, va_alist)
 
 #ifndef VARARGS
 #ifdef __STDC__
-void 
+void
 warn (char *mesg, ...)
 #else
 void
@@ -760,7 +760,7 @@ warn (mesg, va_alist)
   char *name;
   va_list args;
 
-#ifndef VARARGS   
+#ifndef VARARGS
   va_start (args, mesg);
 #else
   va_start (args);
@@ -810,14 +810,14 @@ rt_error (mesg, va_alist)
   va_list args;
   char error_mesg [255];
 
-#ifndef VARARGS   
+#ifndef VARARGS
   va_start (args, mesg);
 #else
   va_start (args);
 #endif
   vsprintf (error_mesg, mesg, args);
   va_end (args);
-  
+
   fprintf (stderr, "Runtime error (func=%s, adr=%d): %s\n",
 	   f_names[pc.pc_func], pc.pc_addr, error_mesg);
   runtime_error = TRUE;
@@ -846,7 +846,7 @@ rt_warn (mesg, va_alist)
   va_list args;
   char error_mesg [255];
 
-#ifndef VARARGS   
+#ifndef VARARGS
   va_start (args, mesg);
 #else
   va_start (args);

@@ -57,19 +57,19 @@ __RCSID("$NetBSD: parse.c,v 1.10 1998/07/28 11:41:45 mycroft Exp $");
 static void	 asyntax __P((struct wordent *, struct wordent *));
 static void	 asyn0 __P((struct wordent *, struct wordent *));
 static void	 asyn3 __P((struct wordent *, struct wordent *));
-static struct wordent 
+static struct wordent
 		*freenod __P((struct wordent *, struct wordent *));
-static struct command 
+static struct command
 		*syn0 __P((struct wordent *, struct wordent *, int));
-static struct command 
+static struct command
 		*syn1 __P((struct wordent *, struct wordent *, int));
-static struct command 
+static struct command
 		*syn1a __P((struct wordent *, struct wordent *, int));
-static struct command 
+static struct command
 		*syn1b __P((struct wordent *, struct wordent *, int));
-static struct command 
+static struct command
 		*syn2 __P((struct wordent *, struct wordent *, int));
-static struct command 
+static struct command
 		*syn3 __P((struct wordent *, struct wordent *, int));
 
 #define ALEFT	21		/* max of 20 alias expansions	 */

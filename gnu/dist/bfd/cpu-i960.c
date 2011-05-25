@@ -98,17 +98,17 @@ compatible (a,b)
 {
 
   /* The i960 has distinct subspecies which may not interbreed:
-	CORE CA          
+	CORE CA
 	CORE KA KB MC XA
 	CORE HX JX
      Any architecture on the same line is compatible, the one on
-     the right is the least restrictive.  
-     
+     the right is the least restrictive.
+
      We represent this information in an array, each machine to a side */
 
 #define ERROR	0
-#define CORE	bfd_mach_i960_core  /*1*/  
-#define KA 	bfd_mach_i960_ka_sa /*2*/ 
+#define CORE	bfd_mach_i960_core  /*1*/
+#define KA 	bfd_mach_i960_ka_sa /*2*/
 #define KB 	bfd_mach_i960_kb_sb /*3*/
 #define MC 	bfd_mach_i960_mc    /*4*/
 #define XA 	bfd_mach_i960_xa    /*5*/
@@ -117,7 +117,7 @@ compatible (a,b)
 #define HX	bfd_mach_i960_hx    /*8*/
 #define MAX_ARCH ((int)HX)
 
-  static CONST unsigned long matrix[MAX_ARCH+1][MAX_ARCH+1] = 
+  static CONST unsigned long matrix[MAX_ARCH+1][MAX_ARCH+1] =
     {
       { ERROR,	CORE,	KA,	KB,	MC,	XA,	CA,	JX,	HX },
       { CORE,	CORE,	KA,	KB,	MC,	XA,	CA,	JX,	HX },
@@ -131,11 +131,11 @@ compatible (a,b)
     };
 
 
-  if (a->arch != b->arch || matrix[a->mach][b->mach] == ERROR) 
+  if (a->arch != b->arch || matrix[a->mach][b->mach] == ERROR)
     {
     return NULL;
     }
-  else 
+  else
     {
     return (a->mach  ==  matrix[a->mach][b->mach]) ?  a : b;
     }
@@ -147,8 +147,8 @@ int bfd_default_scan_num_mach();
 #define N(a,b,d,n) \
 { 32, 32, 8,bfd_arch_i960,a,"i960",b,3,d,compatible,scan_960_mach,n,}
 
-static const bfd_arch_info_type arch_info_struct[] = 
-{ 
+static const bfd_arch_info_type arch_info_struct[] =
+{
   N(bfd_mach_i960_ka_sa,"i960:ka_sa",false, &arch_info_struct[1]),
   N(bfd_mach_i960_kb_sb,"i960:kb_sb",false, &arch_info_struct[2]),
   N(bfd_mach_i960_mc,   "i960:mc",   false, &arch_info_struct[3]),

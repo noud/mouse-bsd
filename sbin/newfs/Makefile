@@ -10,7 +10,7 @@ DISKLABEL=${.CURDIR}/../disklabel
 CPPFLAGS+=-DMFS -I${.CURDIR} -I${MOUNT} -I${DISKLABEL}
 DPADD+= ${LIBUTIL}
 LDADD+= -lutil
-.PATH:	${MOUNT} ${DISKLABEL} ${.CURDIR}/../../sys/ufs/ffs 
+.PATH:	${MOUNT} ${DISKLABEL} ${.CURDIR}/../../sys/ufs/ffs
 
 LINKS=	${BINDIR}/newfs ${BINDIR}/mount_mfs
 MLINKS=	newfs.8 mount_mfs.8 newfs.8 mfs.8

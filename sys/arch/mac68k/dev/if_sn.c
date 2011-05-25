@@ -419,7 +419,7 @@ snreset(sc)
 	sninit(sc);
 }
 
-static int 
+static int
 sninit(sc)
 	struct sn_softc *sc;
 {
@@ -490,7 +490,7 @@ sninit(sc)
  * Called on final close of device, or if sninit() fails
  * part way through.
  */
-static int 
+static int
 snstop(sc)
 	struct sn_softc *sc;
 {
@@ -571,7 +571,7 @@ sonicput(sc, m0, mtd_next)
 	mtdp = &sc->mtda[sc->mtd_free];
 
 	buff = mtdp->mtd_buf;
-	
+
 	/* this packet goes to mtdnext fill in the TDA */
 	mtdp->mtd_mbuf = m0;
 	txp = mtdp->mtd_txp;
@@ -640,7 +640,7 @@ sonicput(sc, m0, mtd_next)
 /*
  * CAM support
  */
-static void 
+static void
 caminitialise(sc)
 	struct sn_softc *sc;
 {
@@ -659,7 +659,7 @@ caminitialise(sc)
 	SWO(bitmode, p_cda, CDA_ENABLE, 0);
 }
 
-static void 
+static void
 camentry(sc, entry, ea)
 	int entry;
 	u_char *ea;
@@ -673,11 +673,11 @@ camentry(sc, entry, ea)
 	SWO(bitmode, p_cda, camoffset + CDA_CAMAP2, (ea[5] << 8) | ea[4]);
 	SWO(bitmode, p_cda, camoffset + CDA_CAMAP1, (ea[3] << 8) | ea[2]);
 	SWO(bitmode, p_cda, camoffset + CDA_CAMAP0, (ea[1] << 8) | ea[0]);
-	SWO(bitmode, p_cda, CDA_ENABLE, 
+	SWO(bitmode, p_cda, CDA_ENABLE,
 	    (SRO(bitmode, p_cda, CDA_ENABLE) | (1 << entry)));
 }
 
-static void 
+static void
 camprogram(sc)
 	struct sn_softc *sc;
 {
@@ -750,7 +750,7 @@ camprogram(sc)
 }
 
 #ifdef SNDEBUG
-static void 
+static void
 camdump(sc)
 	struct sn_softc *sc;
 {
@@ -776,7 +776,7 @@ camdump(sc)
 }
 #endif
 
-static void 
+static void
 initialise_tda(sc)
 	struct sn_softc *sc;
 {
@@ -925,7 +925,7 @@ snintr(arg)
 /*
  * Transmit interrupt routine
  */
-static void 
+static void
 sonictxint(sc)
 	struct sn_softc *sc;
 {
@@ -981,7 +981,7 @@ sonictxint(sc)
 			ifp->if_oerrors++;
 			printf("%s: Tx packet status=0x%x\n",
 			    sc->sc_dev.dv_xname, txp_status);
-			
+
 			/* XXX - DG This looks bogus */
 			if (mtd_hw != sc->mtd_free) {
 				printf("resubmitting remaining packets\n");
@@ -1001,7 +1001,7 @@ sonictxint(sc)
 /*
  * Receive interrupt routine
  */
-static void 
+static void
 sonicrxint(sc)
 	struct sn_softc *sc;
 {
@@ -1091,7 +1091,7 @@ sonicrxint(sc)
  * sonic_read -- pull packet off interface and forward to
  * appropriate protocol handler
  */
-static __inline__ int 
+static __inline__ int
 sonic_read(sc, pkt, len)
 	struct sn_softc *sc;
 	caddr_t pkt;
@@ -1187,7 +1187,7 @@ sonic_get(sc, pkt, datalen)
 			caddr_t newdata = (caddr_t)
 			    ALIGN(m->m_data + sizeof(struct ether_header)) -
 			    sizeof(struct ether_header);
-			len -= newdata - m->m_data; 
+			len -= newdata - m->m_data;
 			m->m_data = newdata;
 		}
 

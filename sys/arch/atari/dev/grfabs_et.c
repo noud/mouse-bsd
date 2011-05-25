@@ -112,13 +112,13 @@ struct grfabs_sw et_vid_sw = {
 };
 
 static struct grfvideo_mode hw_modes[] = {
-    { 
+    {
 	0, "", 25175000,		/* num, descr, pix-clock	*/
 	640, 400, 4,			/* width, height, depth		*/
 	632/8, 672/8, 688/8, 808/8, 768/8,/* HBS, HBE, HSS, HSE, HT	*/
 	399, 450, 408, 413, 449		/* VBS, VBE, VSS, VSE, VT	*/
     },
-    { 
+    {
 	0, "", 25175000,		/* num, descr, pix-clock	*/
 	640, 480, 4,			/* width, height, depth		*/
 	632/8, 672/8, 688/8, 752/8, 752/8,/* HBS, HBE, HSS, HSE, HT	*/
@@ -359,7 +359,7 @@ u_char   depth;
 		et_loadmode(mode->data, &sa->sv_regs);
 	}
 	else v->save_area = NULL;
-	
+
 	v->colormap = alloc_colormap(mode);
 	if (v->colormap) {
 		INIT_BOX(&box,0,0,mode->size.width,mode->size.height);
@@ -617,12 +617,12 @@ et_sv_reg_t		*regs;
 	 */
 	tmp = regs->misc_output & 0x3f;
 #if 1 /* This is according to my BW monitor & Xfree... */
-	if (VDE < 400) 
+	if (VDE < 400)
 		tmp |= 0x40;	/* -hsync +vsync */
 	else if (VDE < 480)
 		tmp |= 0xc0;	/* -hsync -vsync */
 #else /* This is according to my color monitor.... */
-	if (VDE < 400) 
+	if (VDE < 400)
 		tmp |= 0x00;	/* +hsync +vsync */
 	else if (VDE < 480)
 		tmp |= 0x80;	/* +hsync -vsync */

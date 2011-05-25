@@ -20,6 +20,6 @@ update-domains:
 	perl -ane 'print lc(join(" ", $$F[$$#F-2], @F[0..$$#F-3])),"\n" if /^[A-Z]{2,}\s*.*\d{3}\s*$$/;' </tmp/domains.$$$$ \
 	) >domains ; \
 	rm /tmp/domains.$$$$
-	
+
 
 .include <bsd.prog.mk>

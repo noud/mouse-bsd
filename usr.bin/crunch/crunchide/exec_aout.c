@@ -29,7 +29,7 @@
 #ifndef lint
 __RCSID("$NetBSD: exec_aout.c,v 1.7 1999/01/11 22:40:00 kleink Exp $");
 #endif
- 
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,7 +37,7 @@ __RCSID("$NetBSD: exec_aout.c,v 1.7 1999/01/11 22:40:00 kleink Exp $");
 #include <errno.h>
 #include <a.out.h>
 #include <sys/types.h>
-#include <sys/stat.h> 
+#include <sys/stat.h>
 
 #include "extern.h"
 

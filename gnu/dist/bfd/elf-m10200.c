@@ -505,11 +505,11 @@ mn10200_elf_relocate_section (output_bfd, info, input_bfd, input_section,
 	abs24, imm24, d24 all look the same at the reloc level.  It
 	might make the code simpler if we had different relocs for
 	the various relaxable operand types.
-   
+
 	We don't handle imm16->imm8 or d16->d8 as they're very rare
 	and somewhat more difficult to support.  */
 
-static boolean 
+static boolean
 mn10200_elf_relax_section (abfd, sec, link_info, again)
      bfd *abfd;
      asection *sec;
@@ -814,7 +814,7 @@ mn10200_elf_relax_section (abfd, sec, link_info, again)
 	    continue;
 
 	  /* Now make sure we are a conditional branch.  This may not
-	     be necessary, but why take the chance. 
+	     be necessary, but why take the chance.
 
 	     Note these checks assume that R_MN10200_PCREL8 relocs
 	     only occur on bCC and bCCx insns.  If they occured
@@ -904,7 +904,7 @@ mn10200_elf_relax_section (abfd, sec, link_info, again)
 		break;
 	    }
 	  bfd_put_8 (abfd, code, contents + irel->r_offset - 1);
-	  
+
 	  /* Set the reloc type and symbol for the first branch
 	     from the second branch.  */
 	  irel->r_info = nrel->r_info;
@@ -929,7 +929,7 @@ mn10200_elf_relax_section (abfd, sec, link_info, again)
 	{
 	  bfd_vma value = symval;
 
-	  /* See if the value will fit in 16 bits. 
+	  /* See if the value will fit in 16 bits.
 	     We allow any 16bit match here.  We prune those we can't
 	     handle below.  */
 	  if ((long)value < 0x7fff && (long)value > -0x8000)
@@ -991,7 +991,7 @@ mn10200_elf_relax_section (abfd, sec, link_info, again)
 		  *again = true;
 		  break;
 
-		/* mov imm24,an -> mov imm16,an 
+		/* mov imm24,an -> mov imm16,an
 		   cmp imm24,an -> cmp imm16,an
 		   mov (abs24),dn -> mov (abs16),dn
 		   mov dn,(abs24) -> mov dn,(abs16)
@@ -1053,7 +1053,7 @@ mn10200_elf_relax_section (abfd, sec, link_info, again)
 		   add imm24,dn -> add imm16,dn
 		   add imm24,an -> add imm16,an
 		   sub imm24,dn -> sub imm16,dn
-		   sub imm24,an -> sub imm16,an 
+		   sub imm24,an -> sub imm16,an
 		   And all d24->d16 in memory ops.  */
 		case 0x78:
 		case 0xd0:

@@ -1,6 +1,6 @@
-.\"	$NetBSD: whatis,v 1.13 1999/05/07 03:30:44 ender Exp $	
+.\"	$NetBSD: whatis,v 1.13 1999/05/07 03:30:44 ender Exp $
 .Nx \*V
-is the fifth 
+is the fifth
 .Dq real
 release of
 .Nx

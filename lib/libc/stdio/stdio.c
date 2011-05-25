@@ -67,7 +67,7 @@ __sread(cookie, buf, n)
 {
 	FILE *fp = cookie;
 	int ret;
-	
+
 	_DIAGASSERT(fp != NULL);
 	_DIAGASSERT(buf != NULL);
 
@@ -107,7 +107,7 @@ __sseek(cookie, offset, whence)
 	off_t ret;
 
 	_DIAGASSERT(fp != NULL);
-	
+
 	ret = lseek(fp->_file, (off_t)offset, whence);
 	if (ret == -1L)
 		fp->_flags &= ~__SOFF;

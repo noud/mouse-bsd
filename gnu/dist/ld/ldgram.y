@@ -28,7 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "bfd.h"
 #include "sysdep.h"
 #include "bfdlink.h"
-#include "ld.h"    
+#include "ld.h"
 #include "ldexp.h"
 #include "ldver.h"
 #include "ldlang.h"
@@ -86,7 +86,7 @@ static int error_index;
 %type <etree> opt_exp_without_type
 %type <integer> fill_opt
 %type <name> memspec_opt casesymlist
-%token <integer> INT  
+%token <integer> INT
 %token <name> NAME LNAME
 %type <integer> length
 %type <phdr> phdr_qualifiers
@@ -94,7 +94,7 @@ static int error_index;
 %type <section_phdr> phdr_opt
 %type <integer> opt_nocrossrefs
 
-%right <token> PLUSEQ MINUSEQ MULTEQ DIVEQ  '=' LSHIFTEQ RSHIFTEQ   ANDEQ OREQ 
+%right <token> PLUSEQ MINUSEQ MULTEQ DIVEQ  '=' LSHIFTEQ RSHIFTEQ   ANDEQ OREQ
 %right <token> '?' ':'
 %left <token> OROR
 %left <token>  ANDAND
@@ -109,7 +109,7 @@ static int error_index;
 %left  <token> '*' '/' '%'
 
 %right UNARY
-%token END 
+%token END
 %left <token> '('
 %token <token> ALIGN_K BLOCK BIND QUAD SQUAD LONG SHORT BYTE
 %token SECTIONS PHDRS
@@ -139,7 +139,7 @@ static int error_index;
 
 %%
 
-file:	
+file:
 		INPUT_SCRIPT script_file
 	|	INPUT_MRI_SCRIPT mri_script_file
 	|	INPUT_VERSION_SCRIPT version_script_file
@@ -158,7 +158,7 @@ defsym_expr:
 		  lang_add_assignment(exp_assop($3,$2,$4));
 		}
 
-/* SYNTAX WITHIN AN MRI SCRIPT FILE */  
+/* SYNTAX WITHIN AN MRI SCRIPT FILE */
 mri_script_file:
 		{
 		  ldlex_mri_script ();
@@ -178,7 +178,7 @@ mri_script_lines:
 	;
 
 mri_script_command:
-		CHIP  exp 
+		CHIP  exp
 	|	CHIP  exp ',' exp
 	|	NAME 	{
 			einfo("%P%F: unrecognised keyword in MRI style script '%s'\n",$1);
@@ -187,12 +187,12 @@ mri_script_command:
 			config.map_filename = "-";
 			}
         |       ORDER ordernamelist
-	|       ENDWORD 
+	|       ENDWORD
         |       PUBLIC NAME '=' exp
  			{ mri_public($2, $4); }
         |       PUBLIC NAME ',' exp
  			{ mri_public($2, $4); }
-        |       PUBLIC NAME  exp 
+        |       PUBLIC NAME  exp
  			{ mri_public($2, $3); }
 	| 	FORMAT NAME
 			{ mri_format($2); }
@@ -212,8 +212,8 @@ mri_script_command:
 			{ mri_alignmod($2,$4); }
 	|	ABSOLUTE mri_abs_name_list
 	|	LOAD	 mri_load_name_list
-	|       NAMEWORD NAME 
-			{ mri_name($2); }   
+	|       NAMEWORD NAME
+			{ mri_name($2); }
 	|	ALIAS NAME ',' NAME
 			{ mri_alias($2,$4,0);}
 	|	ALIAS NAME ',' INT
@@ -314,7 +314,7 @@ ifile_p1:
 		  { lang_leave_group (); }
      	|	MAP '(' filename ')'
 		{ lang_add_map($3); }
-	|	INCLUDE filename 
+	|	INCLUDE filename
 		{ ldfile_open_command_file($2); } ifile_list END
 	|	NOCROSSREFS '(' nocrossref_list ')'
 		{
@@ -410,20 +410,20 @@ statement:
 	  	assignment end
 	|	CREATE_OBJECT_SYMBOLS
 		{
- 		lang_add_attribute(lang_object_symbols_statement_enum); 
+ 		lang_add_attribute(lang_object_symbols_statement_enum);
 	      	}
         |	';'
         |	CONSTRUCTORS
 		{
- 		
-		  lang_add_attribute(lang_constructors_statement_enum); 
+
+		  lang_add_attribute(lang_constructors_statement_enum);
 		}
 	| input_section_spec
         | length '(' mustbe_exp ')'
         	        {
 			lang_add_data((int) $1,$3);
 			}
-  
+
 	| FILL '(' mustbe_exp ')'
 			{
 			  lang_add_fill
@@ -438,7 +438,7 @@ statement_list:
 		statement_list statement
   	|  	statement
 	;
-  
+
 statement_list_opt:
 		/* empty */
 	|	statement_list
@@ -468,7 +468,7 @@ fill_opt:
 	| 	{ $$ = 0; }
 	;
 
-		
+
 
 assign_op:
 		PLUSEQ
@@ -549,7 +549,7 @@ length_spec:
 					       "length",
 					       lang_first_phase_enum);
 		}
-	
+
 
 attributes_opt:
 		  '(' NAME ')'
@@ -557,7 +557,7 @@ attributes_opt:
 			lang_set_flags(region, $2);
 			}
 	|
-  
+
 	;
 
 startup:
@@ -593,7 +593,7 @@ floating_point_support:
 	|	NOFLOAT
 			{ lang_float(false); }
 	;
-		
+
 nocrossref_list:
 		/* empty */
 		{
@@ -710,7 +710,7 @@ opt_at:
 	;
 
 section:	NAME 		{ ldlex_expression(); }
-		opt_exp_with_type 
+		opt_exp_with_type
 		opt_at   	{ ldlex_popstate (); ldlex_script (); }
 		'{'
 			{
@@ -718,7 +718,7 @@ section:	NAME 		{ ldlex_expression(); }
 							      sectype,
 							      0, 0, 0, $4);
 			}
-		statement_list_opt 	
+		statement_list_opt
  		'}' { ldlex_popstate (); ldlex_expression (); }
 		memspec_opt phdr_opt fill_opt
 		{
@@ -730,7 +730,7 @@ section:	NAME 		{ ldlex_expression(); }
 			{ ldlex_expression (); }
 		opt_exp_without_type opt_nocrossrefs opt_at
 			{ ldlex_popstate (); ldlex_script (); }
-		'{' 
+		'{'
 			{
 			  lang_enter_overlay ($3, $5, (int) $4);
 			}
@@ -1009,9 +1009,9 @@ vers_defns:
 
 %%
 void
-yyerror(arg) 
+yyerror(arg)
      const char *arg;
-{ 
+{
   if (ldfile_assumed_script)
     einfo ("%P:%s: file format not recognized; treating as linker script\n",
 	   ldfile_input_filename);

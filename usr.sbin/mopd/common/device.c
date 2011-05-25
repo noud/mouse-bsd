@@ -107,7 +107,7 @@ deviceOpen(ifname, proto, trans)
 
 	strcpy(tmp.if_name,ifname);
 	tmp.iopen   = pfInit;
-	
+
 	switch (proto) {
 	case MOP_K_PROTO_RC:
 		tmp.read = mopReadRC;
@@ -120,15 +120,15 @@ deviceOpen(ifname, proto, trans)
 	default:
 		break;
 	}
-	
+
 	if (tmp.fd != -1) {
-		
+
 		p = (struct if_info *)malloc(sizeof(*p));
 		if (p == 0) {
 		syslog(LOG_ERR, "deviceOpen: malloc: %m");
 		exit(1);
 		}
-	
+
 		p->next = iflist;
 		iflist = p;
 
@@ -149,7 +149,7 @@ deviceOpen(ifname, proto, trans)
 		p->eaddr[4]= tmp.eaddr[4];
 		p->eaddr[5]= tmp.eaddr[5];
 #endif	/* DEV_NEW_CONF */
-	
+
 	}
 }
 
@@ -163,7 +163,7 @@ deviceInitOne(ifname)
 #ifdef _AIX
 	char	dev[IFNAME_SIZE];
 	int	unit,j;
-	
+
 	unit = 0;
 	for (j = 0; j < strlen(ifname); j++) {
 		if (isalpha(ifname[j])) {
@@ -175,7 +175,7 @@ deviceInitOne(ifname)
 			}
 		}
 	}
-	
+
 	if ((strlen(dev) == 2) &&
 	    (dev[0] == 'e') &&
 	    ((dev[1] == 'n') || (dev[1] == 't'))) {
@@ -188,7 +188,7 @@ deviceInitOne(ifname)
 #endif /* _AIX */
 
 	/* Ok, init it just once */
-	
+
 	p = iflist;
 	for (p = iflist; p; p = p->next)  {
 		if (strcmp(p->if_name,interface) == 0) {
@@ -199,7 +199,7 @@ deviceInitOne(ifname)
 	syslog(LOG_INFO, "Initialized %s", interface);
 
 	/* Ok, get transport information */
-	
+
 	trans = pfTrans(interface);
 
 #ifndef NORC
@@ -319,7 +319,7 @@ deviceInitAll()
 			continue;
 		deviceInitOne(ifrp->ifr_name);
 	}
-	
+
 	(void) close(fd);
 #endif /* DEV_NEW_CONF */
 }

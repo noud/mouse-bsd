@@ -495,7 +495,7 @@ haspicked(pp)
 
 void
 account(card)
-	CARD	card; 
+	CARD	card;
 {
 	CARD	oppos;
 

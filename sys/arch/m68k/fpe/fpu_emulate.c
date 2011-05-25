@@ -426,7 +426,7 @@ fpu_emul_fmovmcr(fe, insn)
 	}
     }
     if (sig) { return sig; }
-  
+
     if (reglist & 1) {
 	/* fpiar - can be moved to/from An */
 	if (fpu_to_mem) {
@@ -725,15 +725,15 @@ fpu_emul_arith(fe, insn)
 
     /* An arithmetic instruction emulate function has a prototype of
      * struct fpn *fpu_op(struct fpemu *);
-     
+
      * 1) If the instruction is monadic, then fpu_op() must use
      * fe->fe_f2 as its operand, and return a pointer to the
      * result.
-     
+
      * 2) If the instruction is diadic, then fpu_op() must use
      * fe->fe_f1 and fe->fe_f2 as its two operands, and return a
      * pointer to the result.
-     
+
      */
     res = 0;
     switch (word1 & 0x3f) {

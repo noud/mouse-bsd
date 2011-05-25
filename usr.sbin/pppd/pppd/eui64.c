@@ -17,7 +17,7 @@
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  *
- * Id: eui64.c,v 1.2 1999/08/13 06:46:12 paulus Exp 
+ * Id: eui64.c,v 1.2 1999/08/13 06:46:12 paulus Exp
  */
 
 #include <sys/cdefs.h>
@@ -46,7 +46,7 @@ eui64_ntoa(e)
     static char buf[32];
 
     snprintf(buf, 32, "%02x%02x:%02x%02x:%02x%02x:%02x%02x",
-	     e.e8[0], e.e8[1], e.e8[2], e.e8[3], 
+	     e.e8[0], e.e8[1], e.e8[2], e.e8[3],
 	     e.e8[4], e.e8[5], e.e8[6], e.e8[7]);
     return buf;
 }

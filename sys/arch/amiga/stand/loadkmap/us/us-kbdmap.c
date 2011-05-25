@@ -2,7 +2,7 @@
 
 #include "../../../dev/kbdmap.h"
 
-/* define a default keymap. This can be changed by keyboard ioctl's 
+/* define a default keymap. This can be changed by keyboard ioctl's
    (later at least..) */
 
 /* mode shortcuts: */
@@ -67,7 +67,7 @@ struct kbdmap kbdmap = {
 	   K, '5',
 	   K, '6',
 	   0, 0,	/* 0x30 */
-	   C, 'z',	
+	   C, 'z',
 	   C, 'x',
 	   C, 'c',
 	   C, 'v',
@@ -166,7 +166,7 @@ struct kbdmap kbdmap = {
 	   K, '5',
 	   K, '6',
 	   0, 0,	/* 0x30 */
-	   C, 'Z',	
+	   C, 'Z',
 	   C, 'X',
 	   C, 'C',
 	   C, 'V',
@@ -266,7 +266,7 @@ struct kbdmap kbdmap = {
 	   K, '5',
 	   K, '6',
 	   0, 0,	/* 0x30 */
-	   0, '±',	
+	   0, '±',
 	   0, '×',
 	   C, 'ç',
 	   0, 'ª',
@@ -365,7 +365,7 @@ struct kbdmap kbdmap = {
 	   K, '5',
 	   K, '6',
 	   0, 0,	/* 0x30 */
-	   0, '±',	
+	   0, '±',
 	   0, '×',
 	   C, 'ç',
 	   0, 'ª',
@@ -413,14 +413,14 @@ struct kbdmap kbdmap = {
 	   S, 0x42,	/* HELP */
 	},
 
-	{	   
+	{
 	  /* string table. If there's a better way to get the offsets into the
 	     above table, please tell me..
-	     
+
 	     NOTE: save yourself and others a lot of grief by *not* using
 	           CSI == 0x9b, using the two-character sequence gives
 	           much less trouble, especially in GNU-Emacs.. */
-	  
+
 	  3, ESC, '[', 'A',		/* 0x00: CRSR UP */
 	  3, ESC, '[', 'B',		/* 0x04: CRSR DOWN */
 	  3, ESC, '[', 'C',		/* 0x08: CRSR RIGHT */
@@ -459,21 +459,21 @@ struct kbdmap kbdmap = {
 unsigned char acctable[KBD_NUM_ACC][64] = {
   {	"@ÀBCDÈFGHÌJKLMNÒPQRSTÙVWXYZ[\\]^_"
 	"`àbcdèfghìjklmnòpqrstùvwxyz{|}~\177"},	/* KBD_ACC_GRAVE */
-	
+
   {	"@ÁBCDÉFGHÍJKLMNÓPQRSTÚVWXYZ[\\]^_"
 	"`ábcdéfghíjklmnópqrstúvwxyz{|}~\177"},	/* KBD_ACC_ACUTE */
-	
+
   {	"@ÂBCDÊFGHÎJKLMNÔPQRSTÛVWXYZ[\\]^_"
 	"`âbcdêfghîjklmnôpqrstûvwxyz{|}~\177"},	/* KBD_ACC_CIRC */
 
   {	"@ÃBCDEFGHIJKLMÑÕPQRSTUVWXYZ[\\]^_"
 	"`ãbcdefghijklmñÕpqrstuvwxyz{|}~\177"},	/* KBD_ACC_TILDE */
-	
+
   {	"@ÄBCDËFGHÏJKLMNÖPQRSTÜVWXYZ[\\]^_"
 	"`äbcdëfghïjklmnöpqrstüvwxyz{|}~\177"},	/* KBD_ACC_DIER */
 };
 
-	
+
 
 main()
 {

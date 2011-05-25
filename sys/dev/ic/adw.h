@@ -3,7 +3,7 @@
 /*
  * Generic driver definitions and exported functions for the Advanced
  * Systems Inc. SCSI controllers
- * 
+ *
  * Copyright (c) 1998, 1999, 2000 The NetBSD Foundation, Inc.
  * All rights reserved.
  *
@@ -94,7 +94,7 @@ typedef struct adw_carrier ADW_CARRIER;
  */
 #define ADW_MAX_SG_LIST		255
 
-/* 
+/*
  * Scatter-Gather Definitions per request.
  */
 

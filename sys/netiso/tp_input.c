@@ -862,7 +862,7 @@ again:
 			);
 		}
 #endif
-		CHECK(((class_to_use == TP_CLASS_0) && 
+		CHECK(((class_to_use == TP_CLASS_0) &&
 		      (dgout_routine != tpcons_output)),
 			E_TP_NEGOT_FAILED, ts_negotfailed, clear_parent_tcb,
 		     (1 + 2 + (caddr_t) & hdr->_tpdufr.CRCC - (caddr_t) hdr)

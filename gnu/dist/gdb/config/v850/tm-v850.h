@@ -1,6 +1,6 @@
 /* Parameters for execution on an NEC V850 processor.
    Copyright 1996
-   Free Software Foundation, Inc. 
+   Free Software Foundation, Inc.
 
 This file is part of GDB.
 

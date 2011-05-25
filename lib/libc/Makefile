@@ -107,7 +107,7 @@ ${.OBJDIR}/tags: ${SRCS}
 	    >> ${.TARGET}; sort -o ${.TARGET} ${.TARGET}
 
 tags: ${.CURDIR}/tags
-${.CURDIR}/tags: 
+${.CURDIR}/tags:
 	@rm -f ${.TARGET}
 	ln -s /var/db/libc.tags ${.TARGET}
 

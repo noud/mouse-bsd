@@ -246,7 +246,7 @@ checkfilesys(filesys, mntpt, auxdata, child)
 	 * print out summary statistics
 	 */
 	n_bfree = sblock.e2fs.e2fs_fbcount;
-		
+
 	pwarn("%d files, %d used, %d free\n",
 	    n_files, n_blks, n_bfree);
 	if (debug &&

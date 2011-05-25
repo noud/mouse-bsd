@@ -122,7 +122,7 @@ main(argc, argv)
 			if (mntflags & MNT_UPDATE)
 				errcause =
 			    "specified device does not match mounted device";
-			else 
+			else
 				errcause = "incorrect super block";
 			break;
 		default:

@@ -156,37 +156,37 @@ Report problems and direct all questions to:
  *
  * Revision 4.9  89/05/01  15:10:54  narten
  * changed copyright header to reflect current distribution rules
- * 
+ *
  * Revision 4.8  88/11/08  13:38:23  narten
  * changes from root@seismo.CSS.GOV (Super User)
  * -d with no arguments uses the mod time of the file it is checking in
- * 
+ *
  * Revision 4.7  88/08/09  19:12:07  eggert
  * Make sure workfile is a regular file; use its mode if RCSfile doesn't have one.
  * Use execv(), not system(); allow cc -R; remove lint.
  * isatty(fileno(stdin)) -> ttystdin()
- * 
+ *
  * Revision 4.6  87/12/18  11:34:41  narten
  * lint cleanups (from Guy Harris)
- * 
+ *
  * Revision 4.5  87/10/18  10:18:48  narten
  * Updating version numbers. Changes relative to revision 1.1 are actually
  * relative to 4.3
- * 
+ *
  * Revision 1.3  87/09/24  13:57:19  narten
- * Sources now pass through lint (if you ignore printf/sprintf/fprintf 
+ * Sources now pass through lint (if you ignore printf/sprintf/fprintf
  * warnings)
- * 
+ *
  * Revision 1.2  87/03/27  14:21:33  jenkins
  * Port to suns
- * 
+ *
  * Revision 4.3  83/12/15  12:28:54  wft
  * ci -u and ci -l now set mode of working file properly.
- * 
+ *
  * Revision 4.2  83/12/05  13:40:54  wft
  * Merged with 3.9.1.1: added calls to clearerr(stdin).
  * made rewriteflag external.
- * 
+ *
  * Revision 4.1  83/05/10  17:03:06  wft
  * Added option -d and -w, and updated assingment of date, etc. to new delta.
  * Added handling of default branches.
@@ -197,13 +197,13 @@ Report problems and direct all questions to:
  * Removed calls to stat(); now done by pairfilenames().
  * Changed most calls to catchints() with restoreints().
  * Directed all interactive messages to stderr.
- * 
+ *
  * Revision 3.9.1.1  83/10/19  04:21:03  lepreau
  * Added clearerr(stdin) to getlogmsg() for re-reading stdin.
- * 
+ *
  * Revision 3.9  83/02/15  15:25:44  wft
  * 4.2 prerelease
- * 
+ *
  * Revision 3.9  83/02/15  15:25:44  wft
  * Added call to fastcopy() to copy remainder of RCS file.
  *
@@ -377,7 +377,7 @@ mainProg(ciId, "ci", "Id: ci.c,v 5.30 1995/06/16 06:19:24 eggert Exp")
 			checkssym(a);
 			addassoclst(false, a);
 		        break;
-		
+
 		case 'N':
 			if (!*a) {
                                 error("missing symbolic name after -N");
@@ -579,7 +579,7 @@ mainProg(ciId, "ci", "Id: ci.c,v 5.30 1995/06/16 06:19:24 eggert Exp")
 	if (!addsyms(newdelta.num))
 	    continue;
 
-    
+
 	putadmin();
         puttree(Head,frewrite);
 	putdesc(false,textfile);
@@ -784,7 +784,7 @@ mainProg(ciId, "ci", "Id: ci.c,v 5.30 1995/06/16 06:19:24 eggert Exp")
 		    Irewind(workptr);
 		    /* Expand keywords in file.  */
 		    locker_expansion = lockthis;
-		    workdelta->name = 
+		    workdelta->name =
 			namedrev(
 				assoclst ? assoclst->ssymbol
 				: keepflag && *prevname.string ? prevname.string
@@ -1314,7 +1314,7 @@ addassoclst(flag, sp)
 	char const *sp;
 {
         struct Symrev *pt;
-	
+
 	pt = talloc(struct Symrev);
 	pt->ssymbol = sp;
 	pt->override = flag;

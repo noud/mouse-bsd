@@ -393,7 +393,7 @@ ae_nubus_intr(arg)
 	void *arg;
 {
 	struct dp8390_softc *sc = (struct dp8390_softc *)arg;
-	
+
 	(void)dp8390_intr(sc);
 }
 

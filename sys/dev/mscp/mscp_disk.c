@@ -144,12 +144,12 @@ ramatch(parent, cf, aux)
 /*
  * The attach routine only checks and prints drive type.
  * Bringing the disk online is done when the disk is accessed
- * the first time. 
+ * the first time.
  */
 void
 raattach(parent, self, aux)
 	struct	device *parent, *self;
-	void	*aux; 
+	void	*aux;
 {
 	struct	ra_softc *ra = (void *)self;
 	struct	mscp_softc *mi = (void *)parent;
@@ -164,7 +164,7 @@ raattach(parent, self, aux)
 		booted_from = self;
 }
 
-/* 
+/*
  * (Try to) put the drive online. This is done the first time the
  * drive is opened, or if it har fallen offline.
  */
@@ -524,12 +524,12 @@ rxmatch(parent, cf, aux)
 /*
  * The attach routine only checks and prints drive type.
  * Bringing the disk online is done when the disk is accessed
- * the first time. 
+ * the first time.
  */
 void
 rxattach(parent, self, aux)
 	struct	device *parent, *self;
-	void	*aux; 
+	void	*aux;
 {
 	struct	rx_softc *rx = (void *)self;
 	struct	drive_attach_args *da = aux;
@@ -561,7 +561,7 @@ rxattach(parent, self, aux)
 #endif
 }
 
-/* 
+/*
  * (Try to) put the drive online. This is done the first time the
  * drive is opened, or if it har fallen offline.
  */
@@ -795,27 +795,27 @@ struct	mscp_device ra_device = {
 /*
  * Handle an error datagram.
  * This can come from an unconfigured drive as well.
- */	
-void	    
+ */
+void
 rrdgram(usc, mp, mi)
 	struct device *usc;
-	struct mscp *mp; 
+	struct mscp *mp;
 	struct mscp_softc *mi;
-{	 
+{
 	if (mscp_decodeerror(usc == NULL?"unconf disk" : usc->dv_xname, mp, mi))
-		return;	 
+		return;
 	/*
 	 * SDI status information bytes 10 and 11 are the microprocessor
 	 * error code and front panel code respectively.  These vary per
 	 * drive type and are printed purely for field service information.
 	 */
-	if (mp->mscp_format == M_FM_SDI) 
+	if (mp->mscp_format == M_FM_SDI)
 		printf("\tsdi uproc error code 0x%x, front panel code 0x%x\n",
 			mp->mscp_erd.erd_sdistat[10],
 			mp->mscp_erd.erd_sdistat[11]);
 }
 
-void	
+void
 rriodone(usc, bp)
 	struct device *usc;
 	struct buf *bp;
@@ -845,7 +845,7 @@ rronline(usc, mp)
 	}
 
 	rx->ra_state = DK_OPEN;
- 
+
 	dl = rx->ra_disk.dk_label;
 	dl->d_secperunit = (daddr_t)mp->mscp_onle.onle_unitsize;
 
@@ -897,14 +897,14 @@ rrmakelabel(dl, type)
 	dl->d_checksum = dkcksum(dl);
 }
 
-/*	
+/*
  * We got some (configured) unit's status.  Return DONE if it succeeded.
  */
 int
 rrgotstatus(usc, mp)
 	register struct device *usc;
 	register struct mscp *mp;
-{	
+{
 	if ((mp->mscp_status & M_ST_MASK) != M_ST_SUCCESS) {
 		printf("%s: attempt to get status failed: ", usc->dv_xname);
 		mscp_printevent(mp);
@@ -917,11 +917,11 @@ rrgotstatus(usc, mp)
 	return (MSCP_DONE);
 }
 
-/*	
+/*
  * A replace operation finished.
  */
 /*ARGSUSED*/
-void	
+void
 rrreplace(usc, mp)
 	struct device *usc;
 	struct mscp *mp;
@@ -935,7 +935,7 @@ rrreplace(usc, mp)
  * Need to write the bad block forwaring code first....
  */
 /*ARGSUSED*/
-int 
+int
 rrioerror(usc, mp, bp)
 	register struct device *usc;
 	register struct mscp *mp;

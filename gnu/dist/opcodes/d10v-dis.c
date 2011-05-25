@@ -19,19 +19,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include <stdio.h>
 
 #include "ansidecl.h"
-#include "opcode/d10v.h" 
+#include "opcode/d10v.h"
 #include "dis-asm.h"
 
 /* the PC wraps at 18 bits, except for the segment number */
 /* so use this mask to keep the parts we want */
 #define PC_MASK	0x0303FFFF
 
-static void dis_2_short PARAMS ((unsigned long insn, bfd_vma memaddr, 
+static void dis_2_short PARAMS ((unsigned long insn, bfd_vma memaddr,
 				 struct disassemble_info *info, int order));
-static void dis_long PARAMS ((unsigned long insn, bfd_vma memaddr, 
+static void dis_long PARAMS ((unsigned long insn, bfd_vma memaddr,
 			      struct disassemble_info *info));
 
-int 
+int
 print_insn_d10v (memaddr, info)
      bfd_vma memaddr;
      struct disassemble_info *info;
@@ -78,27 +78,27 @@ print_operand (oper, insn, op, memaddr, info)
 
   if (oper->flags == OPERAND_ATMINUS)
     {
-      (*info->fprintf_func) (info->stream, "@-");   
+      (*info->fprintf_func) (info->stream, "@-");
       return;
     }
   if (oper->flags == OPERAND_MINUS)
     {
-      (*info->fprintf_func) (info->stream, "-");   
+      (*info->fprintf_func) (info->stream, "-");
       return;
     }
   if (oper->flags == OPERAND_PLUS)
     {
-      (*info->fprintf_func) (info->stream, "+");   
+      (*info->fprintf_func) (info->stream, "+");
       return;
     }
   if (oper->flags == OPERAND_ATSIGN)
     {
-      (*info->fprintf_func) (info->stream, "@");   
+      (*info->fprintf_func) (info->stream, "@");
       return;
     }
   if (oper->flags == OPERAND_ATPAR)
     {
-      (*info->fprintf_func) (info->stream, "@(");   
+      (*info->fprintf_func) (info->stream, "@(");
       return;
     }
 
@@ -132,7 +132,7 @@ print_operand (oper, insn, op, memaddr, info)
 	}
       if (match == 0)
 	{
-	  /* this would only get executed if a register was not in the 
+	  /* this would only get executed if a register was not in the
 	     register table */
 	  if (oper->flags & (OPERAND_ACC0|OPERAND_ACC1))
 	    (*info->fprintf_func) (info->stream, "a");
@@ -202,7 +202,7 @@ dis_long (insn, memaddr, info)
 	  && ((op->mask & insn) == (unsigned long) op->opcode))
 	{
 	  match = 1;
-	  (*info->fprintf_func) (info->stream, "%s\t", op->name);   
+	  (*info->fprintf_func) (info->stream, "%s\t", op->name);
 	  for ( i=0; op->operands[i]; i++)
 	    {
 	      oper = (struct d10v_operand *)&d10v_operands[op->operands[i]];
@@ -212,7 +212,7 @@ dis_long (insn, memaddr, info)
 	      if (op->operands[i+1] && oper->bits &&
 		  d10v_operands[op->operands[i+1]].flags != OPERAND_PLUS &&
 		  d10v_operands[op->operands[i+1]].flags != OPERAND_MINUS)
-		(*info->fprintf_func) (info->stream, ", ");   
+		(*info->fprintf_func) (info->stream, ", ");
 	    }
 	  break;
 	}
@@ -220,10 +220,10 @@ dis_long (insn, memaddr, info)
     }
 
   if (!match)
-    (*info->fprintf_func) (info->stream, ".long\t0x%08x",insn);   
+    (*info->fprintf_func) (info->stream, ".long\t0x%08x",insn);
 
   if (need_paren)
-    (*info->fprintf_func) (info->stream, ")");   
+    (*info->fprintf_func) (info->stream, ")");
 }
 
 static void
@@ -252,17 +252,17 @@ dis_2_short (insn, memaddr, info, order)
 	  if ((op->format & SHORT_OPCODE)
 	      && ((op->mask & ins[j]) == (unsigned long) op->opcode))
 	    {
-	      (*info->fprintf_func) (info->stream, "%s\t",op->name);   
+	      (*info->fprintf_func) (info->stream, "%s\t",op->name);
 	      for (i=0; op->operands[i]; i++)
 		{
 		  oper = (struct d10v_operand *)&d10v_operands[op->operands[i]];
 		  if (oper->flags == OPERAND_ATPAR)
 		    need_paren = 1;
 		  print_operand (oper, ins[j], op, memaddr, info);
-		  if (op->operands[i+1] && oper->bits && 
+		  if (op->operands[i+1] && oper->bits &&
 		  d10v_operands[op->operands[i+1]].flags != OPERAND_PLUS &&
 		  d10v_operands[op->operands[i+1]].flags != OPERAND_MINUS)
-		    (*info->fprintf_func) (info->stream, ", ");   
+		    (*info->fprintf_func) (info->stream, ", ");
 		}
 	      match = 1;
 	      num_match++;
@@ -271,20 +271,20 @@ dis_2_short (insn, memaddr, info, order)
 	  op++;
 	}
       if (!match)
-	(*info->fprintf_func) (info->stream, "unknown");   
+	(*info->fprintf_func) (info->stream, "unknown");
 
       switch (order)
 	{
 	case 0:
-	  (*info->fprintf_func) (info->stream, "\t->\t");   
+	  (*info->fprintf_func) (info->stream, "\t->\t");
 	  order = -1;
 	  break;
 	case 1:
-	  (*info->fprintf_func) (info->stream, "\t<-\t");   
+	  (*info->fprintf_func) (info->stream, "\t<-\t");
 	  order = -1;
 	  break;
 	case 2:
-	  (*info->fprintf_func) (info->stream, "\t||\t");   
+	  (*info->fprintf_func) (info->stream, "\t||\t");
 	  order = -1;
 	  break;
 	default:
@@ -293,8 +293,8 @@ dis_2_short (insn, memaddr, info, order)
     }
 
   if (num_match == 0)
-    (*info->fprintf_func) (info->stream, ".long\t0x%08x",insn);   
+    (*info->fprintf_func) (info->stream, ".long\t0x%08x",insn);
 
   if (need_paren)
-    (*info->fprintf_func) (info->stream, ")");   
+    (*info->fprintf_func) (info->stream, ")");
 }

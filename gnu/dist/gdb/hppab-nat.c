@@ -156,7 +156,7 @@ store_inferior_registers (regno)
 }
 
 /* PT_PROT is specific to the PA BSD kernel and isn't documented
-   anywhere (except here).  
+   anywhere (except here).
 
    PT_PROT allows one to enable/disable the data memory break bit
    for pages of memory in an inferior process.  This bit is used
@@ -176,7 +176,7 @@ store_inferior_registers (regno)
         word 0 -- The start address to watch.  This should be a page-aligned
 	address.
 
-	word 1 -- The ending address to watch.  Again, this should be a 
+	word 1 -- The ending address to watch.  Again, this should be a
 	page aligned address.
 
 	word 2 -- Nonzero to enable the data memory break bit on the
@@ -186,7 +186,7 @@ store_inferior_registers (regno)
   This call may fail if the given addresses are not valid in the inferior
   process.  This most often happens when restarting a program which
   as watchpoints inserted on heap or stack memory.  */
-	
+
 #define PT_PROT 21
 
 int
@@ -199,16 +199,16 @@ hppa_set_watchpoint (addr, len, flag)
   pt_args[2] = flag;
 
   /* Mask off the lower 12 bits since we want to work on a page basis.  */
-  pt_args[0] >>= 12; 
-  pt_args[1] >>= 12; 
+  pt_args[0] >>= 12;
+  pt_args[1] >>= 12;
 
   /* Rounding adjustments.  */
-  pt_args[1] -= pt_args[0]; 
-  pt_args[1]++; 
+  pt_args[1] -= pt_args[0];
+  pt_args[1]++;
 
   /* Put the lower 12 bits back as zero.  */
-  pt_args[0] <<= 12; 
-  pt_args[1] <<= 12; 
+  pt_args[0] <<= 12;
+  pt_args[1] <<= 12;
 
   /* Do it.  */
   return ptrace (PT_PROT, inferior_pid, (PTRACE_ARG3_TYPE) pt_args, 0);

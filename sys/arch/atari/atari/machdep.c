@@ -97,7 +97,7 @@ static void netintr __P((void));
 void	straymfpint __P((int, u_short));
 void	straytrap __P((int, u_short));
 
-vm_map_t exec_map = NULL;  
+vm_map_t exec_map = NULL;
 vm_map_t mb_map = NULL;
 vm_map_t phys_map = NULL;
 
@@ -237,7 +237,7 @@ cpu_startup()
 
 		while (curbufsize) {
 			pg = uvm_pagealloc(NULL, 0, NULL, 0);
-			if (pg == NULL) 
+			if (pg == NULL)
 				panic("cpu_startup: not enough memory for "
 				    "buffer cache");
 			pmap_enter(kernel_map->pmap, curbuf,
@@ -318,7 +318,7 @@ setregs(p, pack, stack)
 	u_long stack;
 {
 	struct frame *frame = (struct frame *)p->p_md.md_regs;
-	
+
 	frame->f_sr = PSL_USERSET;
 	frame->f_pc = pack->ep_entry & ~1;
 	frame->f_regs[D0] = 0;
@@ -349,7 +349,7 @@ setregs(p, pack, stack)
  */
 char cpu_model[120];
 extern char version[];
- 
+
 static void
 identifycpu()
 {
@@ -375,7 +375,7 @@ identifycpu()
 	fpu     = fpu_describe(fputype);
 
 	switch (cputype) {
- 
+
 	    case CPU_68060:
 		{
 			u_int32_t	pcr;
@@ -871,7 +871,7 @@ netintr()
 /*
  * this is a handy package to have asynchronously executed
  * function calls executed at very low interrupt priority.
- * Example for use is keyboard repeat, where the repeat 
+ * Example for use is keyboard repeat, where the repeat
  * handler running at splclock() triggers such a (hardware
  * aided) software interrupt.
  * Note: the installed functions are currently called in a

@@ -208,15 +208,15 @@ extract_d8_6 (insn, invalid)
 const struct v850_operand v850_operands[] =
 {
 #define UNUSED	0
-  { 0, 0, NULL, NULL, 0 }, 
+  { 0, 0, NULL, NULL, 0 },
 
 /* The R1 field in a format 1, 6, 7, or 9 insn. */
 #define R1	(UNUSED + 1)
-  { 5, 0, NULL, NULL, V850_OPERAND_REG }, 
+  { 5, 0, NULL, NULL, V850_OPERAND_REG },
 
 /* As above, but register 0 is not allowed.  */
 #define R1_NOTR0 (R1 + 1)
-  { 5, 0, NULL, NULL, V850_OPERAND_REG | V850_NOT_R0 }, 
+  { 5, 0, NULL, NULL, V850_OPERAND_REG | V850_NOT_R0 },
 
 /* The R2 field in a format 1, 2, 4, 5, 6, 7, 9 insn. */
 #define R2	(R1_NOTR0 + 1)
@@ -228,7 +228,7 @@ const struct v850_operand v850_operands[] =
 
 /* The imm5 field in a format 2 insn. */
 #define I5	(R2_NOTR0 + 1)
-  { 5, 0, NULL, NULL, V850_OPERAND_SIGNED }, 
+  { 5, 0, NULL, NULL, V850_OPERAND_SIGNED },
 
 /* The unsigned imm5 field in a format 2 insn. */
 #define I5U	(I5 + 1)
@@ -236,7 +236,7 @@ const struct v850_operand v850_operands[] =
 
 /* The imm16 field in a format 6 insn. */
 #define I16	(I5U + 1)
-  { 16, 16, NULL, NULL, V850_OPERAND_SIGNED }, 
+  { 16, 16, NULL, NULL, V850_OPERAND_SIGNED },
 
 /* The signed disp7 field in a format 4 insn. */
 #define D7	(I16 + 1)
@@ -244,7 +244,7 @@ const struct v850_operand v850_operands[] =
 
 /* The disp16 field in a format 6 insn. */
 #define D16_15	(D7 + 1)
-  { 15, 17, insert_d16_15, extract_d16_15, V850_OPERAND_SIGNED }, 
+  { 15, 17, insert_d16_15, extract_d16_15, V850_OPERAND_SIGNED },
 
 /* The 3 bit immediate field in format 8 insn.  */
 #define B3	(D16_15 + 1)
@@ -272,7 +272,7 @@ const struct v850_operand v850_operands[] =
 
 /* The imm16 field (unsigned) in a format 6 insn. */
 #define I16U	(EP + 1)
-  { 16, 16, NULL, NULL, 0}, 
+  { 16, 16, NULL, NULL, 0},
 
 /* The R2 field as a system register.  */
 #define SR2	(I16U + 1)
@@ -280,7 +280,7 @@ const struct v850_operand v850_operands[] =
 
 /* The disp16 field in a format 8 insn. */
 #define D16	(SR2 + 1)
-  { 16, 16, NULL, NULL, V850_OPERAND_SIGNED }, 
+  { 16, 16, NULL, NULL, V850_OPERAND_SIGNED },
 
 /* The DISP9 field in a format 3 insn, relaxable. */
 #define D9_RELAX	(D16 + 1)
@@ -292,7 +292,7 @@ const struct v850_operand v850_operands[] =
 #define D22	(D9_RELAX + 1)
   { 22, 0, insert_d22, extract_d22, V850_OPERAND_SIGNED | V850_OPERAND_DISP },
 
-} ; 
+} ;
 
 
 /* reg-reg instruction format (Format I) */
@@ -325,7 +325,7 @@ const struct v850_operand v850_operands[] =
    OPERANDS is the list of operands.
    MEMOP specifies which operand (if any) is a memory operand.
    PROCESSORS specifies which CPU(s) support the opcode.
-   
+
    The disassembler reads the table in order and prints the first
    instruction which matches, so this table is sorted to put more
    specific instructions before more general instructions.  It is also
@@ -347,18 +347,18 @@ const struct v850_opcode v850_opcodes[] =
 { "breakpoint",	0xffff,			0xffff,		      	{UNUSED},   		0, PROCESSOR_ALL },
 
 { "jmp",	one (0x0060),		one (0xffe0),	      	{R1}, 			1, PROCESSOR_ALL },
-  
+
 /* load/store instructions */
 { "sld.b",	one (0x0300),		one (0x0780),	      	{D7,   EP,   R2},	1, PROCESSOR_V850 },
 
-  
+
 { "sld.h",	one (0x0400),		one (0x0780),	      	{D8_7, EP,   R2}, 	1, PROCESSOR_V850 },
 { "sld.w",	one (0x0500),		one (0x0781),	      	{D8_6, EP,   R2}, 	1, PROCESSOR_ALL },
 { "sst.b",	one (0x0380),		one (0x0780),	      	{R2,   D7,   EP}, 	2, PROCESSOR_ALL },
 { "sst.h",	one (0x0480),		one (0x0780),	      	{R2,   D8_7, EP}, 	2, PROCESSOR_ALL },
 { "sst.w",	one (0x0501),		one (0x0781),	      	{R2,   D8_6, EP}, 	2, PROCESSOR_ALL },
 
-  
+
 
 { "ld.b",	two (0x0700, 0x0000),	two (0x07e0, 0x0000), 	{D16, R1, R2}, 		1, PROCESSOR_ALL },
 { "ld.h",	two (0x0720, 0x0000),	two (0x07e0, 0x0001), 	{D16_15, R1, R2}, 	1, PROCESSOR_ALL },
@@ -371,8 +371,8 @@ const struct v850_opcode v850_opcodes[] =
 /* arithmetic operation instructions */
 { "setf",	two (0x07e0, 0x0000),	two (0x07f0, 0xffff), 	{CCCC, R2}, 		0, PROCESSOR_ALL },
 { "divh",	OP  (0x02),		OP_MASK,		{R1, R2_NOTR0},		0, PROCESSOR_ALL },
-  
-  
+
+
 { "nop",	one (0x00),		one (0xffff),		{0}, 			0, PROCESSOR_ALL },
 { "mov",	OP  (0x10),		OP_MASK,		{I5, R2_NOTR0},		0, PROCESSOR_ALL },
 { "mov",        OP  (0x00),		OP_MASK,		{R1, R2_NOTR0},		0, PROCESSOR_ALL },
@@ -388,7 +388,7 @@ const struct v850_opcode v850_opcodes[] =
 { "mulhi",	OP  (0x37),		OP_MASK,		{I16, R1, R2_NOTR0},	0, PROCESSOR_ALL },
 { "cmp",	OP  (0x0f),		OP_MASK,		IF1, 			0, PROCESSOR_ALL },
 { "cmp",	OP  (0x13),		OP_MASK,		IF2, 			0, PROCESSOR_ALL },
-  
+
 /* saturated operation instructions */
 { "satadd",	OP (0x11),		OP_MASK,		{I5, R2_NOTR0},		0, PROCESSOR_ALL },
 { "satadd",	OP (0x06),		OP_MASK,		{R1, R2_NOTR0},		0, PROCESSOR_ALL },
@@ -467,9 +467,9 @@ const struct v850_opcode v850_opcodes[] =
 { "jnz",	BOP (0xa),		BOP_MASK,		IF3, 			0, PROCESSOR_ALL },
 { "jsa",	BOP (0xd),		BOP_MASK,		IF3, 			0, PROCESSOR_ALL },
 { "jbr",	BOP (0x5),		BOP_MASK,		IF3, 			0, PROCESSOR_ALL },
-  
+
 { "jr",		one (0x0780),		two (0xffc0, 0x0001),	{D22}, 			0, PROCESSOR_ALL },
-{ "jarl",	one (0x0780),		two (0x07c0, 0x0001),	{D22, R2}, 		0, PROCESSOR_ALL}, 
+{ "jarl",	one (0x0780),		two (0x07c0, 0x0001),	{D22, R2}, 		0, PROCESSOR_ALL},
 
 /* bit manipulation instructions */
 { "set1",	two (0x07c0, 0x0000),	two (0xc7e0, 0x0000),	{B3, D16, R1}, 		2, PROCESSOR_ALL },

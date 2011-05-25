@@ -42,7 +42,7 @@ fetch_inferior_registers (regno)
   ptrace (PT_GETREGS, inferior_pid,
 	  (PTRACE_ARG3_TYPE) &inferior_registers, 0);
 
-  memcpy (&registers[REGISTER_BYTE (0)], 
+  memcpy (&registers[REGISTER_BYTE (0)],
 	  &inferior_registers, sizeof(inferior_registers));
 
   bzero(&inferior_fp_registers, sizeof(inferior_fp_registers));
@@ -62,7 +62,7 @@ store_inferior_registers (regno)
   struct reg inferior_registers;
   struct fpreg inferior_fp_registers;
 
-  memcpy (&inferior_registers, &registers[REGISTER_BYTE (0)], 
+  memcpy (&inferior_registers, &registers[REGISTER_BYTE (0)],
 	  sizeof(inferior_registers));
 
   ptrace (PT_SETREGS, inferior_pid,
@@ -139,7 +139,7 @@ fetch_core_registers (core_reg_sect, core_reg_size, which, ignore)
   /* Integer registers */
   memcpy(&registers[REGISTER_BYTE (0)],
 	 &core_reg->intreg, sizeof(struct reg));
-  
+
   /* Floating point registers */
   memcpy(&registers[REGISTER_BYTE (FP0_REGNUM)],
 	 &core_reg->freg, sizeof(struct fpreg));
@@ -148,7 +148,7 @@ fetch_core_registers (core_reg_sect, core_reg_size, which, ignore)
 }
 
 #ifdef	FETCH_KCORE_REGISTERS
-/* Get registers from a kernel crash dump. 
+/* Get registers from a kernel crash dump.
    FIXME: NetBSD 1.3 does not produce kernel crashdumps.  */
 void
 fetch_kcore_registers(pcb)

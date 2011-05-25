@@ -29,8 +29,8 @@ extern void fatal_error_exit();
 enum error_type { WARNING, ERROR, FATAL };
 
 static void do_error_with_file_and_line(const char *filename, int lineno,
-					error_type type, 
-					const char *format, 
+					error_type type,
+					const char *format,
 					const errarg &arg1,
 					const errarg &arg2,
 					const errarg &arg3)
@@ -66,10 +66,10 @@ static void do_error_with_file_and_line(const char *filename, int lineno,
   if (type == FATAL)
     fatal_error_exit();
 }
-      
 
-static void do_error(error_type type, 
-		     const char *format, 
+
+static void do_error(error_type type,
+		     const char *format,
 		     const errarg &arg1,
 		     const errarg &arg2,
 		     const errarg &arg3)
@@ -79,7 +79,7 @@ static void do_error(error_type type,
 }
 
 
-void error(const char *format, 
+void error(const char *format,
 	   const errarg &arg1,
 	   const errarg &arg2,
 	   const errarg &arg3)
@@ -87,7 +87,7 @@ void error(const char *format,
   do_error(ERROR, format, arg1, arg2, arg3);
 }
 
-void warning(const char *format, 
+void warning(const char *format,
 	     const errarg &arg1,
 	     const errarg &arg2,
 	     const errarg &arg3)
@@ -95,7 +95,7 @@ void warning(const char *format,
   do_error(WARNING, format, arg1, arg2, arg3);
 }
 
-void fatal(const char *format, 
+void fatal(const char *format,
 	   const errarg &arg1,
 	   const errarg &arg2,
 	   const errarg &arg3)
@@ -105,33 +105,33 @@ void fatal(const char *format,
 
 void error_with_file_and_line(const char *filename,
 			      int lineno,
-			      const char *format, 
+			      const char *format,
 			      const errarg &arg1,
 			      const errarg &arg2,
 			      const errarg &arg3)
 {
-  do_error_with_file_and_line(filename, lineno, 
+  do_error_with_file_and_line(filename, lineno,
 			      ERROR, format, arg1, arg2, arg3);
 }
 
 void warning_with_file_and_line(const char *filename,
 			      int lineno,
-			      const char *format, 
+			      const char *format,
 			      const errarg &arg1,
 			      const errarg &arg2,
 			      const errarg &arg3)
 {
-  do_error_with_file_and_line(filename, lineno, 
+  do_error_with_file_and_line(filename, lineno,
 			      WARNING, format, arg1, arg2, arg3);
 }
 
 void fatal_with_file_and_line(const char *filename,
 			      int lineno,
-			      const char *format, 
+			      const char *format,
 			      const errarg &arg1,
 			      const errarg &arg2,
 			      const errarg &arg3)
 {
-  do_error_with_file_and_line(filename, lineno, 
+  do_error_with_file_and_line(filename, lineno,
 			      FATAL, format, arg1, arg2, arg3);
 }

@@ -42,7 +42,7 @@ The second presentation incorporates the call graph of the
 program.
 .sh 2 "The Flat Profile
 .pp
-The flat profile consists of a list of all the routines 
+The flat profile consists of a list of all the routines
 that are called during execution of the program,
 with the count of the number of times they are called
 and the number of seconds of execution time for which they
@@ -57,7 +57,7 @@ and shows the routines that are themselves responsible
 for large fractions of the execution time.
 In practice,
 this profile usually shows that no single function
-is overwhelmingly responsible for 
+is overwhelmingly responsible for
 the total time of the program.
 Notice that for this profile,
 the individual times sum to the total execution time.
@@ -102,12 +102,12 @@ and should be available without searching
 through the output.
 .pp
 The major entries of the call graph profile are the entries from the
-flat profile, augmented by the time propagated to each 
+flat profile, augmented by the time propagated to each
 routine from its descendants.
 This profile is sorted by the sum of the time for the routine
 itself plus the time inherited from its descendants.
-The profile shows which of the higher level routines 
-spend large portions of the total execution time 
+The profile shows which of the higher level routines
+spend large portions of the total execution time
 in the routines that they call.
 For each routine, we show the amount of time passed by each child
 to the routine, which includes time for the child itself
@@ -115,7 +115,7 @@ and for the descendants of the child
 (and thus the descendants of the routine).
 We also show the percentage these times represent of the total time
 accounted to the child.
-Similarly, the parents of each routine are listed, 
+Similarly, the parents of each routine are listed,
 along with time,
 and percentage of total routine time,
 propagated to each one.
@@ -177,7 +177,7 @@ The profiler is a useful tool for improving
 a set of routines that implement an abstraction.
 It can be helpful in identifying poorly coded routines,
 and in evaluating the new algorithms and code that replace them.
-Taking full advantage of the profiler 
+Taking full advantage of the profiler
 requires a careful examination of the call graph profile,
 and a thorough knowledge of the abstractions underlying
 the program.
@@ -188,7 +188,7 @@ to a control construct or data structure that improves the
 running time of the program.
 An obvious starting point
 is a routine that is called many times.
-For example, suppose an output 
+For example, suppose an output
 routine is the only parent
 of a routine that formats the data.
 If this format routine is expanded inline in the
@@ -198,7 +198,7 @@ return can be saved for each datum that needs to be formatted.
 The drawback to inline expansion is that the data abstractions
 in the program may become less parameterized,
 hence less clearly defined.
-The profiling will also become less useful since the loss of 
+The profiling will also become less useful since the loss of
 routines will make its output more granular.
 For example,
 if the symbol table functions ``lookup'', ``insert'', and ``delete''
@@ -234,7 +234,7 @@ data files (hardly a target for optimization!)
 represents the dominating factor in its execution time.
 .pp
 Certain types of programs are not easily analyzed by \fBgprof\fR.
-They are typified by programs that exhibit a large degree of 
+They are typified by programs that exhibit a large degree of
 recursion, such as recursive descent compilers.
 The problem is that most of the major routines are grouped
 into a single monolithic cycle.
@@ -303,6 +303,6 @@ It adds only five to thirty percent execution overhead to the program
 being profiled,
 produces no additional output until after the program finishes,
 and allows the program to be measured in its actual environment.
-Finally, the profiler runs on a time-sharing system 
+Finally, the profiler runs on a time-sharing system
 using only the normal services provided by the operating system
 and compilers.

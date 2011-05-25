@@ -62,7 +62,7 @@ __RCSID("$NetBSD: dir.c,v 1.5 2000/01/28 16:01:46 bouyer Exp $");
 
 char	*lfname = "lost+found";
 int	lfmode = 01777;
-struct	ext2fs_dirtemplate emptydir = { 0, DIRBLKSIZ }; 
+struct	ext2fs_dirtemplate emptydir = { 0, DIRBLKSIZ };
 struct	ext2fs_dirtemplate dirhead = {
 	0, 12, 1, EXT2_FT_DIR, ".",
 	0, DIRBLKSIZ - 12, 2, EXT2_FT_DIR, ".."
@@ -509,7 +509,7 @@ makeentry(parent, ino, name)
 	struct ext2fs_dinode *dp;
 	struct inodesc idesc;
 	char pathbuf[MAXPATHLEN + 1];
-	
+
 	if ((parent < EXT2_FIRSTINO && parent != EXT2_ROOTINO)
 		|| parent >= maxino ||
 	    (ino < EXT2_FIRSTINO && ino < EXT2_ROOTINO) || ino >= maxino)

@@ -240,12 +240,12 @@ struct	friostat	*fp;
 	PRINTF(" input packets:\t\tblocked %lu passed %lu nomatch %lu",
 			fp->f_st[0].fr_block, fp->f_st[0].fr_pass,
 			fp->f_st[0].fr_nom);
-	PRINTF(" counted %lu short %lu\n", 
+	PRINTF(" counted %lu short %lu\n",
 			fp->f_st[0].fr_acct, fp->f_st[0].fr_short);
 	PRINTF("output packets:\t\tblocked %lu passed %lu nomatch %lu",
 			fp->f_st[1].fr_block, fp->f_st[1].fr_pass,
 			fp->f_st[1].fr_nom);
-	PRINTF(" counted %lu short %lu\n", 
+	PRINTF(" counted %lu short %lu\n",
 			fp->f_st[1].fr_acct, fp->f_st[1].fr_short);
 	PRINTF(" input packets logged:\tblocked %lu passed %lu\n",
 			fp->f_st[0].fr_bpkl, fp->f_st[0].fr_ppkl);

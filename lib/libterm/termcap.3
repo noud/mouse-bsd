@@ -261,7 +261,7 @@ The
 .Fn t_getent
 function operates in a similar manner to the
 .Fn tgetent
-function excepting that the 
+function excepting that the
 .Fa info
 argument is a pointer to a pointer of the opaque type
 .Va tinfo .
@@ -272,7 +272,7 @@ succeeds then the argument
 will be updated with the address of an object that contains the termcap
 entry.  This pointer can then be passed to calls of
 .Fn t_getnum ,
-.Fn t_getflag 
+.Fn t_getflag
 and
 .Fn t_getstr .
 When the information pointed to by
@@ -280,7 +280,7 @@ When the information pointed to by
 is no longer required any storage associated with the object can be
 released by calling
 .Fn t_freent .
-The functions 
+The functions
 .Fn t_getnum
 and
 .Fn t_getflag
@@ -291,27 +291,27 @@ and
 with the exception that the pointer to the termcap object is passed along
 with the id of the capability required.  The function
 .Fn t_getstr
-performs the same function as 
+performs the same function as
 .Fn tgetstr
 but has a
 .Fa limit
 parameter that gives the number of characters that can be inserted in to
 the array pointed to by
 .Fa area .
-The 
+The
 .Fa limit
-argument is updated by the 
+argument is updated by the
 .Fn t_getstr
 call to give the number of characters that remain available in
 .Fa area .
-If the t_getstr call fails then 
+If the t_getstr call fails then
 .Sy NULL
 will be returned and errno set to indicate the failure, ENOENT indicates
 there was no termcap entry for the given
 .Fa id ,
 E2BIG indicates the retrieved entry would have overflowed
 .Fa area .
-If t_getstr is called with 
+If t_getstr is called with
 .Fa area
 being NULL then the size required to hold the capability string will be
 returned in
@@ -340,7 +340,7 @@ If the expansion performed by
 .Fn t_goto
 would exceed the space in
 .Fa buffer
-then 
+then
 .Fn t_goto
 will return -1 and set errno to
 .Sy E2BIG .
@@ -348,7 +348,7 @@ The function
 .Fn t_puts
 is similar to the
 .Fn tputs
-function excepting that 
+function excepting that
 .Fa info
 holds a pointer to the termcap object that was returned by a previous
 .Fn t_getent
@@ -365,27 +365,27 @@ string.  The
 function will be called with two parameters.  The first is the character
 to be printed and the second is an optional argument that was passed to
 .Fn t_puts
-in the 
+in the
 .Fa args
 argument.  The interpretation of the contents of
 .Fa args
 is dependent soley on the implementation of
 .Fa outc.
 .Pp
-NOTE: A special capability of 
+NOTE: A special capability of
 .Fa ZZ
 is added to the end of the termcap entry retrieved.  The number that follows
 this entry is the address of the buffer allocated to hold the full termcap
-entry.  The caller may retrieve the pointer to the extended buffer by 
-performing a 
+entry.  The caller may retrieve the pointer to the extended buffer by
+performing a
 .Fn tgetstr
 to retrieve the
 .Fa ZZ
-capability, the string is the output of a 
+capability, the string is the output of a
 .Fn printf
 %p and may be converted back to a pointer using
 .Fn sscanf
-or similar.  The ZZ capability is only necessary if the caller wishes to 
+or similar.  The ZZ capability is only necessary if the caller wishes to
 directly manipulate the termcap entry, all the termcap function calls
 automatically use the extended buffer to retrieve terminal capabilities.
 .Sh FILES

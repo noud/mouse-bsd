@@ -68,7 +68,7 @@ static u_int mmuh = -1, memh = -1;
 static u_int get_mmu_handle __P((void));
 static u_int get_memory_handle __P((void));
 
-static u_int 
+static u_int
 get_mmu_handle()
 {
 	u_int chosen;
@@ -84,7 +84,7 @@ get_mmu_handle()
 	return mmuh;
 }
 
-static u_int 
+static u_int
 get_memory_handle()
 {
 	u_int chosen;
@@ -101,7 +101,7 @@ get_memory_handle()
 }
 
 
-/* 
+/*
  * Point prom to our trap table.  This stops the prom from mapping us.
  */
 int
@@ -122,7 +122,7 @@ prom_set_trap_table(tba)
 	return openfirmware(&args);
 }
 
-/* 
+/*
  * Have the prom convert from virtual to physical addresses.
  *
  * Only works while the prom is actively mapping us.
@@ -159,14 +159,14 @@ prom_vtop(vaddr)
 		return 0;
 #if 0
 	prom_printf("Called \"translate\", mmuh=%x, vaddr=%x, status=%x %x,\r\n retaddr=%x %x, mode=%x %x, phys_hi=%x %x, phys_lo=%x %x\r\n",
-		    mmuh, vaddr, (int)(args.status>>32), (int)args.status, (int)(args.retaddr>>32), (int)args.retaddr, 
+		    mmuh, vaddr, (int)(args.status>>32), (int)args.status, (int)(args.retaddr>>32), (int)args.retaddr,
 		    (int)(args.mode>>32), (int)args.mode, (int)(args.phys_hi>>32), (int)args.phys_hi,
 		    (int)(args.phys_lo>>32), (int)args.phys_lo);
 #endif
-	return (paddr_t)((((paddr_t)args.phys_hi)<<32)|(int)args.phys_lo); 
+	return (paddr_t)((((paddr_t)args.phys_hi)<<32)|(int)args.phys_lo);
 }
 
-/* 
+/*
  * Grab some address space from the prom
  *
  * Only works while the prom is actively mapping us.
@@ -206,7 +206,7 @@ prom_claim_virt(vaddr, len)
 	return (paddr_t)args.retaddr;
 }
 
-/* 
+/*
  * Request some address space from the prom
  *
  * Only works while the prom is actively mapping us.
@@ -246,7 +246,7 @@ prom_alloc_virt(len, align)
 	return retaddr; /* Kluge till we go 64-bit */
 }
 
-/* 
+/*
  * Release some address space to the prom
  *
  * Only works while the prom is actively mapping us.
@@ -281,7 +281,7 @@ prom_free_virt(vaddr, len)
 }
 
 
-/* 
+/*
  * Unmap some address space
  *
  * Only works while the prom is actively mapping us.
@@ -315,7 +315,7 @@ prom_unmap_virt(vaddr, len)
 	return openfirmware(&args);
 }
 
-/* 
+/*
  * Have prom map in some memory
  *
  * Only works while the prom is actively mapping us.
@@ -354,7 +354,7 @@ prom_map_phys(paddr, size, vaddr, mode)
 	args.mode = mode;
 	args.size = size;
 	args.vaddr = ADR2CELL(vaddr);
-	args.phys_hi = HDL2CELL(paddr>>32); 
+	args.phys_hi = HDL2CELL(paddr>>32);
 	args.phys_lo = HDL2CELL(paddr);
 
 	if (openfirmware(&args) == -1)
@@ -365,7 +365,7 @@ prom_map_phys(paddr, size, vaddr, mode)
 }
 
 
-/* 
+/*
  * Request some RAM from the prom
  *
  * Only works while the prom is actively mapping us.
@@ -404,7 +404,7 @@ prom_alloc_phys(len, align)
 	return (paddr_t)((((paddr_t)args.phys_hi)<<32)|(int)args.phys_lo);
 }
 
-/* 
+/*
  * Request some specific RAM from the prom
  *
  * Only works while the prom is actively mapping us.
@@ -447,7 +447,7 @@ prom_claim_phys(phys, len)
 	return (paddr_t)((((paddr_t)args.phys_hi)<<32)|(int)args.phys_lo);
 }
 
-/* 
+/*
  * Free some RAM to prom
  *
  * Only works while the prom is actively mapping us.
@@ -483,7 +483,7 @@ prom_free_phys(phys, len)
 	return openfirmware(&args);
 }
 
-/* 
+/*
  * Get the msgbuf from the prom.  Only works once.
  *
  * Only works while the prom is actively mapping us.
@@ -530,7 +530,7 @@ prom_get_msgbuf(len, align)
 	} else prom_printf("prom_get_msgbuf: test failed\r\n");
 	/* Allocate random memory -- page zero avail?*/
 	addr = prom_claim_phys(0x000, len);
-	prom_printf("prom_get_msgbuf: allocated new buf at %08x\r\n", (int)addr); 
+	prom_printf("prom_get_msgbuf: allocated new buf at %08x\r\n", (int)addr);
 	if (addr == -1) {
 		prom_printf("prom_get_msgbuf: cannot get allocate physmem\r\n");
 		return -1;
@@ -540,20 +540,20 @@ prom_get_msgbuf(len, align)
 	return addr; /* Kluge till we go 64-bit */
 }
 
-/* 
+/*
  * Low-level prom I/O routines.
  */
 
 static u_int stdin = NULL;
 static u_int stdout = NULL;
 
-int 
-OF_stdin() 
+int
+OF_stdin()
 {
 
 	if (stdin == NULL) {
 		u_int chosen;
-		
+
 		chosen = OF_finddevice("/chosen");
 		OF_getprop(chosen, "stdin", &stdin, sizeof(stdin));
 	}
@@ -566,7 +566,7 @@ OF_stdout()
 
 	if (stdout == NULL) {
 		u_int chosen;
-		
+
 		chosen = OF_finddevice("/chosen");
 		OF_getprop(chosen, "stdout", &stdout, sizeof(stdout));
 	}
@@ -575,7 +575,7 @@ OF_stdout()
 
 
 /*
- * print debug info to prom. 
+ * print debug info to prom.
  * This is not safe, but then what do you expect?
  */
 void

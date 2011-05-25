@@ -257,7 +257,7 @@ scanjet_trigger_scanner(ss)
 		uprintf("%s: trigger_scanner failed\n", ss->sc_dev.dv_xname);
 		return (error);
 	}
-	
+
 	return (0);
 }
 
@@ -306,7 +306,7 @@ scanjet_read(ss, bp)
 /*
  * Do a synchronous write.  Used to send control messages.
  */
-int 
+int
 scanjet_ctl_write(ss, buf, size)
 	struct ss_softc *ss;
 	char *buf;
@@ -370,7 +370,7 @@ static void show_es(char *es)
 }
 #endif
 
-/* 
+/*
  * simulate SCSI_SET_WINDOW for ScanJets
  */
 int
@@ -387,7 +387,7 @@ scanjet_set_window(ss)
 	p += sprintf(p, "\033*f%ldY", ss->sio.scan_y_origin / 4);
 	p += sprintf(p, "\033*a%dR", ss->sio.scan_x_resolution);
 	p += sprintf(p, "\033*a%dS", ss->sio.scan_y_resolution);
-     
+
 	switch (ss->sio.scan_image_mode) {
 	case SIM_BINARY_MONOCHROME:
 		ss->sio.scan_bits_per_pixel = 1;

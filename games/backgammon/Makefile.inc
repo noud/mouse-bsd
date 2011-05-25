@@ -5,7 +5,7 @@ LIBCOMMON != cd ${.CURDIR}/../common_source;\
 
 CPPFLAGS+=-DV7 -I${.CURDIR}/../common_source
 DPADD+= ${LIBCOMMON}/libcommon.a ${LIBTERMCAP}
-LDADD+=	-L${LIBCOMMON} -lcommon -ltermcap 
+LDADD+=	-L${LIBCOMMON} -lcommon -ltermcap
 
 HIDEGAME=hidegame
 

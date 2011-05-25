@@ -111,7 +111,7 @@ is_integer(vp, r)
 	}
 
 	/*
-	 * POSIX.2 defines an "integer" as an optional unary minus 
+	 * POSIX.2 defines an "integer" as an optional unary minus
 	 * followed by digits.
 	 */
 	s = vp->u.s;
@@ -285,7 +285,7 @@ eval5()
 			errx(2, "%s", errbuf);
 		}
 
-		/* compare string against pattern --  remember that patterns 
+		/* compare string against pattern --  remember that patterns
 		   are anchored to the beginning of the line */
 		if (regexec(&rp, l->u.s, 2, rm, 0) == 0 && rm[0].rm_so == 0) {
 			if (rm[1].rm_so >= 0) {
@@ -466,7 +466,7 @@ eval2()
 				abort();
 				break;
 			}
-		} 
+		}
 
 		free_value(l);
 		free_value(r);

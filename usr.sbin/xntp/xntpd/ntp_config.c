@@ -62,7 +62,7 @@
  * clientlimit [ n ]
  * clientperiod [ 3600 ]
  * trustedkey [ key ]
- * requestkey [ key] 
+ * requestkey [ key]
  * controlkey [ key ]
  * trap [ addr ]
  * fudge [ addr ] [ stratum ] [ refid ] ...
@@ -111,7 +111,7 @@
 #define CONFIG_ENABLE		27
 #define CONFIG_DISABLE		28
 #define CONFIG_PHONE		29
-#define CONFIG_LOGFILE		30	
+#define CONFIG_LOGFILE		30
 #define CONFIG_LOGCONFIG	31
 #define CONFIG_TICK		32
 #define CONFIG_TICKADJ		33
@@ -120,7 +120,7 @@
 #define	CONF_MOD_KEY		2
 #define	CONF_MOD_MINPOLL	3
 #define CONF_MOD_MAXPOLL	4
-#define CONF_MOD_PREFER		5	
+#define CONF_MOD_PREFER		5
 #define CONF_MOD_TTL		6
 #define CONF_MOD_MODE		7
 
@@ -183,7 +183,7 @@ static	struct keyword keywords[] = {
 	{ "trap",		CONFIG_TRAP },
 	{ "fudge",		CONFIG_FUDGE },
 	{ "statsdir",		CONFIG_STATSDIR },
-	{ "filegen",		CONFIG_FILEGEN },  
+	{ "filegen",		CONFIG_FILEGEN },
 	{ "statistics",		CONFIG_STATISTICS },
 	{ "pidfile",		CONFIG_PIDFILE },
 	{ "setvar",		CONFIG_SETVAR },
@@ -535,7 +535,7 @@ getstartup(argc, argv)
 		default:
 			break;
 		}
-	
+
 	if (errflg || ntp_optind != argc) {
 		(void) fprintf(stderr, "usage: %s [ -abdgmx ] [ -c config_file ] [ -e e_delay ]\n", progname);
 		(void) fprintf(stderr, "\t\t[ -f freq_file ] [ -k key_file ] [ -l log_file ]\n");
@@ -681,7 +681,7 @@ getconfig(argc, argv)
 			errflg++;
 #endif	/* DEBUG */
 			break;
-			
+
 		case 'f':
 			stats_config(STATS_FREQ_FILE, ntp_optarg);
 			break;
@@ -708,7 +708,7 @@ getconfig(argc, argv)
 		case 'r':
 			do {
 				l_fp tmp;
-				
+
 				if (!atolfp(ntp_optarg, &tmp)) {
 					msyslog(LOG_ERR,
 			"command line broadcast delay value %s undecodable",
@@ -722,15 +722,15 @@ getconfig(argc, argv)
 				}
 			} while (0);
 			break;
-			
+
 		case 's':
 			stats_config(STATS_STATSDIR, ntp_optarg);
 			break;
-			
+
 		case 't':
 			do {
 				u_int32 tkey;
-				
+
 				tkey = atol(ntp_optarg);
 				if (tkey <= 0 || tkey > NTP_MAXKEY) {
 					msyslog(LOG_ERR,
@@ -741,7 +741,7 @@ getconfig(argc, argv)
 				}
 			} while (0);
 			break;
-			
+
 		case 'v':
 		case 'V':
 			set_sys_var(ntp_optarg, strlen(ntp_optarg)+1,
@@ -751,13 +751,13 @@ getconfig(argc, argv)
 		case 'x':
 			allow_set_backward = FALSE;
 			break;
-			
+
 		default:
 			errflg++;
 			break;
 		}
 	}
-	
+
 	if (errflg || ntp_optind != argc) {
 		(void) fprintf(stderr, "usage: %s [ -abdgmx ] [ -c config_file ] [ -e e_delay ]\n", progname);
 		(void) fprintf(stderr, "\t\t[ -f freq_file ] [ -k key_file ] [ -l log_file ]\n");
@@ -767,14 +767,14 @@ getconfig(argc, argv)
 	}
 
 	if ((fp = fopen(FindConfig(config_file), "r")) == NULL)
-	  {	
+	  {
 	    fprintf(stderr, "getconfig: Couldn't open <%s>\n", FindConfig(config_file));
 	    msyslog(LOG_INFO, "getconfig: Couldn't open <%s>", FindConfig(config_file));
 #ifdef SYS_WINNT
 	    /* Under WinNT try alternate_config_file name, first NTP.CONF, then NTP.INI */
 
 	    if ((fp = fopen(FindConfig(alt_config_file), "r")) == NULL) {
-        
+
 	      /*
 	       * Broadcast clients can sometimes run without
 	       * a configuration file.
@@ -788,7 +788,7 @@ getconfig(argc, argv)
 	    return;
 #endif /* not SYS_WINNT */
 	  }
-	     
+
 	while ((tok = gettokens(fp, line, tokens, &ntokens))
 	       != CONFIG_UNKNOWN) {
 		switch(tok) {
@@ -801,19 +801,19 @@ getconfig(argc, argv)
 				hmode = MODE_CLIENT;
 			else
 				hmode = MODE_BROADCAST;
-			
+
 			if (ntokens < 2) {
 				msyslog(LOG_ERR,
 				   "No address for %s, line ignored",
 				    tokens[0]);
 				break;
 			}
-			
+
 			if (!getnetnum(tokens[1], &peeraddr, 0)) {
 				errflg = -1;
 			} else {
 				errflg = 0;
-				
+
 				if (
 #ifdef REFCLOCK
 				    !ISREFCLOCKADR(&peeraddr) &&
@@ -825,7 +825,7 @@ getconfig(argc, argv)
 					break;
 				}
 			}
-			
+
 			peerversion = NTP_VERSION;
 			minpoll = NTP_MINDPOLL;
 			maxpoll = NTP_MAXDPOLL;
@@ -850,7 +850,7 @@ getconfig(argc, argv)
 						errflg = 1;
 					}
 					break;
-					
+
 				case CONF_MOD_KEY:
 					if (i >= ntokens-1) {
 						msyslog(LOG_ERR,
@@ -921,7 +921,7 @@ getconfig(argc, argv)
 			}
 			if (errflg == 0) {
 				if (peer_config(&peeraddr,
-				    (struct interface *)0, hmode, peerversion, 
+				    (struct interface *)0, hmode, peerversion,
 				    minpoll, maxpoll, peerflags, ttl, peerkey)
 				    == 0) {
 					msyslog(LOG_ERR,
@@ -933,21 +933,21 @@ getconfig(argc, argv)
 				    minpoll, maxpoll, peerflags, ttl, peerkey);
 			}
 			break;
-			
+
 		case CONFIG_DRIFTFILE:
 			if (ntokens >= 2)
 				stats_config(STATS_FREQ_FILE, tokens[1]);
 			else
 				stats_config(STATS_FREQ_FILE, (char *)0);
 			break;
-	
+
 		case CONFIG_PIDFILE:
 			if (ntokens >= 2)
 				stats_config(STATS_PID_FILE, tokens[1]);
 			else
 				stats_config(STATS_PID_FILE, (char *)0);
 			break;
-				
+
 		case CONFIG_LOGFILE: {
 			extern int syslogit;
 			extern FILE *syslog_file;
@@ -999,7 +999,7 @@ getconfig(argc, argv)
 				}
 			      if (equals) {
 				ntp_syslogmask = get_logmask(s);
-			      } else {				
+			      } else {
 				if (add) {
 				  ntp_syslogmask |= get_logmask(s);
 				} else {
@@ -1017,7 +1017,7 @@ getconfig(argc, argv)
 		case CONFIG_BROADCASTCLIENT:
 			proto_config(PROTO_BROADCLIENT, 1);
 			break;
-			
+
 		case CONFIG_MULTICASTCLIENT:
 			if (ntokens > 1) {
 				for (i = 1; i < ntokens; i++) {
@@ -1041,12 +1041,12 @@ getconfig(argc, argv)
 			} else {
 				errflg++;
 			}
-			
+
 			if (errflg)
 				msyslog(LOG_ERR,
 				    "should be `authenticate yes|no'");
 			break;
-			
+
 		case CONFIG_KEYS:
 			if (ntokens >= 2) {
 				getauthkeys(tokens[1]);
@@ -1062,7 +1062,7 @@ getconfig(argc, argv)
 				peeraddr.sin_addr.s_addr = htonl(INADDR_ANY);
 			else if (!getnetnum(tokens[1], &peeraddr, 1))
 				break;
-			
+
 			/*
 			 * Use peerversion as flags, peerkey as mflags.  Ick.
 			 */
@@ -1083,47 +1083,47 @@ getconfig(argc, argv)
 					if (!getnetnum(tokens[i], &maskaddr, 1))
 						errflg++;
 					break;
-					
+
 				case CONF_RES_IGNORE:
 					peerversion |= RES_IGNORE;
 					break;
-				
+
 				case CONF_RES_NOSERVE:
 					peerversion |= RES_DONTSERVE;
 					break;
-				
+
 				case CONF_RES_NOTRUST:
 					peerversion |= RES_DONTTRUST;
 					break;
-				
+
 				case CONF_RES_NOQUERY:
 					peerversion |= RES_NOQUERY;
 					break;
-					
+
 				case CONF_RES_NOMODIFY:
 					peerversion |= RES_NOMODIFY;
 					break;
-					
+
 				case CONF_RES_NOPEER:
 					peerversion |= RES_NOPEER;
 					break;
-					
+
 				case CONF_RES_NOTRAP:
 					peerversion |= RES_NOTRAP;
 					break;
-					
+
 				case CONF_RES_LPTRAP:
 					peerversion |= RES_LPTRAP;
 					break;
-					
+
 				case CONF_RES_NTPPORT:
 					peerkey |= RESM_NTPONLY;
 					break;
-					
+
 				case CONF_RES_LIMITED:
 					peerversion |= RES_LIMITED;
 					break;
-					
+
 				case CONFIG_UNKNOWN:
 					errflg++;
 					break;
@@ -1135,11 +1135,11 @@ getconfig(argc, argv)
 				hack_restrict(RESTRICT_FLAGS, &peeraddr, &maskaddr,
 				    (int)peerkey, peerversion);
 			break;
-			
+
 		case CONFIG_BDELAY:
 			if (ntokens >= 2) {
 				l_fp tmp;
-				
+
 				if (!atolfp(tokens[1], &tmp)) {
 					msyslog(LOG_ERR,
 					    "broadcastdelay value %s undecodable",
@@ -1153,11 +1153,11 @@ getconfig(argc, argv)
 				}
 			}
 			break;
-			
+
 		case CONFIG_TRUSTEDKEY:
 			for (i = 1; i < ntokens; i++) {
 				u_int32 tkey;
-				
+
 				tkey = atol(tokens[i]);
 				if (tkey == 0) {
 					msyslog(LOG_ERR,
@@ -1168,11 +1168,11 @@ getconfig(argc, argv)
 				}
 			}
 			break;
-			
+
 		case CONFIG_REQUESTKEY:
 			if (ntokens >= 2) {
 				u_long rkey;
-				
+
 				if (!atouint(tokens[1], &rkey)) {
 					msyslog(LOG_ERR,
 					    "%s is undecodable as request key",
@@ -1191,12 +1191,12 @@ getconfig(argc, argv)
 				}
 			}
 			break;
-			
+
 		case CONFIG_CONTROLKEY:
 			if (ntokens >= 2) {
 				u_int32 ckey;
 				extern u_int32 ctl_auth_keyid;
-				
+
 				ckey = atol(tokens[1]);
 				if (ckey == 0) {
 					msyslog(LOG_ERR,
@@ -1207,7 +1207,7 @@ getconfig(argc, argv)
 				}
 			}
 			break;
-			
+
 		case CONFIG_TRAP:
 			if (ntokens < 2) {
 				msyslog(LOG_ERR,
@@ -1216,7 +1216,7 @@ getconfig(argc, argv)
 			}
 			if (!getnetnum(tokens[1], &peeraddr, 1))
 				break;
-			
+
 			/*
 			 * Use peerversion for port number.  Barf.
 			 */
@@ -1241,7 +1241,7 @@ getconfig(argc, argv)
 						errflg = 1;
 					}
 					break;
-					
+
 				case CONF_TRAP_INTERFACE:
 					if (i >= ntokens-1) {
 						msyslog(LOG_ERR,
@@ -1249,13 +1249,13 @@ getconfig(argc, argv)
 						errflg = 1;
 						break;
 					}
-					
+
 					if (!getnetnum(tokens[++i],
 					    &maskaddr, 1)) {
 						errflg = 1;
 						break;
 					}
-					
+
 					localaddr = findinterface(&maskaddr);
 					if (localaddr == NULL) {
 						msyslog(LOG_ERR,
@@ -1264,15 +1264,15 @@ getconfig(argc, argv)
 						errflg = 1;
 					}
 					break;
-					
+
 				case CONFIG_UNKNOWN:
 					errflg++;
 					break;
 				}
-			
+
 			if (!errflg) {
 				extern struct interface *any_interface;
-				
+
 				if (peerversion != 0)
 					peeraddr.sin_port = htons( (u_short) peerversion);
 				else
@@ -1286,7 +1286,7 @@ getconfig(argc, argv)
 					    ntoa(&peeraddr));
 			}
 			break;
-		
+
 		case CONFIG_FUDGE:
 			if (ntokens < 2) {
 				msyslog(LOG_ERR,
@@ -1295,14 +1295,14 @@ getconfig(argc, argv)
 			}
 			if (!getnetnum(tokens[1], &peeraddr, 1))
 				break;
-			
+
 			if (!ISREFCLOCKADR(&peeraddr)) {
 				msyslog(LOG_ERR,
 				    "%s is inappropriate address for the fudge command, line ignored",
 				    ntoa(&peeraddr));
 				break;
 			}
-			
+
 			memset((char *)&clock, 0, sizeof clock);
 			errflg = 0;
 			for (i = 2; i < ntokens-1; i++) {
@@ -1319,7 +1319,7 @@ getconfig(argc, argv)
 					}
 					clock.haveflags |= CLK_HAVETIME1;
 					break;
-					
+
 				case CONF_FDG_TIME2:
 					if (!atolfp(tokens[++i],
 					    &clock.fudgetime2)) {
@@ -1331,7 +1331,7 @@ getconfig(argc, argv)
 					}
 					clock.haveflags |= CLK_HAVETIME2;
 					break;
-					
+
 				case CONF_FDG_STRATUM:
 					if (!atoint(tokens[++i],
 					    (long *)&clock.fudgeval1)) {
@@ -1343,7 +1343,7 @@ getconfig(argc, argv)
 					}
 					clock.haveflags |= CLK_HAVEVAL1;
 					break;
-					
+
 				case CONF_FDG_REFID:
 					strncpy((char *)&clock.fudgeval2,
 					    tokens[++i], 4);
@@ -1387,13 +1387,13 @@ getconfig(argc, argv)
 					else
 						clock.flags |= c;
 					break;
-					
+
 				case CONFIG_UNKNOWN:
 					errflg = -1;
 					break;
 				}
 			}
-			
+
 #ifdef REFCLOCK
 			/*
 			 * If reference clock support isn't defined the
@@ -1412,7 +1412,7 @@ getconfig(argc, argv)
 				stats_config(STATS_STATSDIR,tokens[1]);
 			}
 			break;
-			
+
 		case CONFIG_STATISTICS:
 			for (i = 1; i < ntokens; i++) {
 				filegen = filegen_get(tokens[i]);
@@ -1431,14 +1431,14 @@ getconfig(argc, argv)
 				filegen->flag |= FGEN_FLAG_ENABLED;
 			}
 			break;
-			
+
 		case CONFIG_FILEGEN:
 			if (ntokens < 2) {
 				msyslog(LOG_ERR,
 				    "no id for filegen command, line ignored");
 				break;
 			}
-			
+
 			filegen = filegen_get(tokens[1]);
 			if (filegen == NULL) {
 				msyslog(LOG_ERR,
@@ -1455,12 +1455,12 @@ getconfig(argc, argv)
 			peerkey =     filegen->type;
 			peerflags =   filegen->flag;
 			errflg = 0;
-			
+
 			for (i = 2; i < ntokens; i++) {
 				switch (matchkey(tokens[i], filegen_keywords)) {
 				case CONF_FGEN_FILE:
 					if (i >= ntokens - 1) {
-						msyslog(LOG_ERR, 
+						msyslog(LOG_ERR,
 						    "filegen %s file requires argument",
 						    tokens[1]);
 						errflg = i;
@@ -1519,7 +1519,7 @@ getconfig(argc, argv)
 				    "default"))) ? DEF : 0));
 			}
 			break;
-			
+
 		case CONFIG_CLIENTLIMIT:
 			if (ntokens < 2) {
 				msyslog(LOG_ERR,
@@ -1641,7 +1641,7 @@ getconfig(argc, argv)
 				flag = matchkey(tokens[i], flags_keywords);
 				if (flag == CONFIG_UNKNOWN) {
 					msyslog(LOG_ERR,
-					    "disable unknown flag %s", 
+					    "disable unknown flag %s",
 					    tokens[i]);
 					errflg = 1;
 					break;
@@ -2036,7 +2036,7 @@ do_resolve_internal()
 		 * async io information causes it to process requests from
 		 * all file decriptor causing a race between the NTP daemon
 		 * and the resolver. which then eats data when it wins 8-(.
-		 * It is absolutly necessary to kill ane io associations 
+		 * It is absolutly necessary to kill ane io associations
 		 * shared with the NTP daemon. I currently don't want
 		 *
 		 * we also block SIGIO (currently no portes means to
@@ -2049,7 +2049,7 @@ do_resolve_internal()
 		 */
 
 		closelog();
-	        kill_asyncio(); 
+	        kill_asyncio();
 
 		(void) signal_no_reset(SIGCHLD, SIG_DFL);
 		ntp_intres();
@@ -2093,7 +2093,7 @@ do_resolve_internal()
 	}
 #endif /* SYS_WINNT */
 #else /* VMS  VXWORKS*/
-	msyslog(LOG_ERR, 
+	msyslog(LOG_ERR,
 	    "Name resolution not implemented for VMS - use numeric addresses");
 	abort_resolve();
 #endif /* VMS  VXWORKS*/

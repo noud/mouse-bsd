@@ -114,14 +114,14 @@ void
 disable_irq(irq)
 	int irq;
 {
-	int oldirqstate; 
+	int oldirqstate;
 
 	oldirqstate = disable_interrupts(I32_bit);
 	intr_claimed_mask &= ~(1 << irq);
 	intr_current_mask = intr_claimed_mask & ~intr_disabled_mask;
 	irq_setmasks();
 	restore_interrupts(oldirqstate);
-}  
+}
 
 
 /*
@@ -138,14 +138,14 @@ void
 enable_irq(irq)
 	int irq;
 {
-	u_int oldirqstate; 
+	u_int oldirqstate;
 
 	oldirqstate = disable_interrupts(I32_bit);
 	intr_claimed_mask |= (1 << irq);
 	intr_current_mask = intr_claimed_mask & ~intr_disabled_mask;
 	irq_setmasks();
 	restore_interrupts(oldirqstate);
-}  
+}
 
 /*
  * int irq_claim(int irq, irqhandler_t *handler)
@@ -175,7 +175,7 @@ irq_claim(irq, handler)
 	 */
 	if (irq == IRQ_INSTRUCT)
 		irq = handler->ih_num;
-    
+
 	/* Make sure the irq number is valid */
 	if (irq < 0 || irq >= NIRQS)
 		return(-1);
@@ -315,7 +315,7 @@ irq_release(irq, handler)
 	/* Locate the handler */
 	irqhand = irqhandlers[irq];
 	prehand = &irqhandlers[irq];
-    
+
 	while (irqhand && handler != irqhand) {
 		prehand = &irqhand->ih_next;
 		irqhand = irqhand->ih_next;
@@ -410,7 +410,7 @@ irq_release(irq, handler)
 		disable_irq(irq);
 
 	set_spl_masks();
-      
+
 	return(0);
 }
 

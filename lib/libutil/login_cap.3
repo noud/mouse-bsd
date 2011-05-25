@@ -33,7 +33,7 @@
 .\" BSDI login_cap.3,v 1.4 1997/11/07 16:22:27 jch Exp
 .\"
 .Dd "January 13, 2000"
-.Dt LOGIN_CAP 3 
+.Dt LOGIN_CAP 3
 .Os
 .Sh NAME
 .Nm login_getclass ,
@@ -126,7 +126,7 @@ if no capabilities were found for this class (typically meaning that
 the default class was used and the
 .Li /etc/login.conf
 file is missing).
-It returns a non-zero value if 
+It returns a non-zero value if
 .Ar cap ,
 with no value, was found,
 zero otherwise.
@@ -144,7 +144,7 @@ Only the
 .Nm LOGIN_SETRESOURCES ,
 and
 .Nm LOGIN_SETUMASK
-bits are used.  (See 
+bits are used.  (See
 .Fn setusercontext
 below).
 It returns 0 on success and -1 on failure.

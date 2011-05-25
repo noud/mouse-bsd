@@ -63,7 +63,7 @@ and the Defense Advance Research Projects Agency (DoD) under
 ARPA Order No. 4031 monitored by Naval Electronic System Command under
 Contract No. N00039-82-C-0235.
 .FE
-The 4.2 Berkeley Software Distribution of 
+The 4.2 Berkeley Software Distribution of
 .UX
 for the VAX\(dd
 .FS
@@ -78,7 +78,7 @@ Once potential problem areas had been identified
 benchmark programs were devised to highlight the bottlenecks.
 These benchmarks verified that the problems existed and provided
 a metric against which to validate proposed solutions.
-This paper examines 
+This paper examines
 the performance problems encountered and describes
 modifications that have been made
 to the system since the initial distribution.

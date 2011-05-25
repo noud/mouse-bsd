@@ -109,7 +109,7 @@ struct ite_softc {
 
 #define attrclr(ip, sy, sx, h, w) \
 	bzero(ip->attrbuf + ((sy) * ip->cols) + (sx), (h) * (w))
-  
+
 #define attrmov(ip, sy, sx, dy, dx, h, w) \
 	bcopy(ip->attrbuf + ((sy) * ip->cols) + (sx), \
 	      ip->attrbuf + ((dy) * ip->cols) + (dx), \
@@ -120,7 +120,7 @@ struct ite_softc {
 
 #define attrset(ip, attr) \
 	((* (u_char *) attrloc(ip, ip->cury, ip->curx)) = attr)
-  
+
 /*
  * X and Y location of character 'c' in the framebuffer, in pixels.
  */
@@ -155,7 +155,7 @@ struct ite_softc {
 
 /* Keyboard attributes */
 #define ATTR_KPAD	0x4		/* keypad transmit */
-  
+
 /* Replacement Rules */
 #define RR_CLEAR		0x0
 #define RR_COPY			0x3

@@ -1309,7 +1309,7 @@ sparc_ip (str, pinsn)
 		    {
 		      error_message = ": rd on write only ancillary state register";
 		      goto error;
-		    }		      
+		    }
 		  if (*args == '/')
 		    opcode |= (p->regnum << 14);
 		  else
@@ -2410,7 +2410,7 @@ md_atof (type, litP, sizeP)
 	  litP += sizeof (LITTLENUM_TYPE);
 	}
     }
-     
+
   return 0;
 }
 
@@ -2527,7 +2527,7 @@ md_apply_fix3 (fixP, value, segment)
 	insn = bfd_getb32 ((unsigned char *) buf);
       else
 	insn = bfd_getl32 ((unsigned char *) buf);
-    
+
       switch (fixP->fx_r_type)
 	{
 	case BFD_RELOC_32_PCREL_S2:
@@ -2862,7 +2862,7 @@ md_section_align (segment, size)
    On the sparc, they're relative to the address of the offset, plus
    its size.  This gets us to the following instruction.
    (??? Is this right?  FIXME-SOON) */
-long 
+long
 md_pcrel_from (fixP)
      fixS *fixP;
 {
@@ -3336,12 +3336,12 @@ sparc_handle_align (fragp)
   if (fragp->fr_type == rs_align_code && fragp->fr_subtype == 1024)
     {
       int count = fragp->fr_next->fr_address - fragp->fr_address - fragp->fr_fix;
-      
+
       if (count >= 4 && !(count & 3) && count <= 1024 && !((long)(fragp->fr_literal + fragp->fr_fix) & 3))
         {
           unsigned *p = (unsigned *)(fragp->fr_literal + fragp->fr_fix);
           int i;
-          
+
           for (i = 0; i < count; i += 4)
             *p++ = 0x01000000; /* nop */
           if (SPARC_OPCODE_ARCH_V9_P (max_architecture) && count > 8)

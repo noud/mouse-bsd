@@ -267,7 +267,7 @@ extern CORE_ADDR symbol_overlayed_address PARAMS((CORE_ADDR, asection *));
   (STREQ (SYMBOL_NAME (symbol), (name))					\
    || (SYMBOL_DEMANGLED_NAME (symbol) != NULL				\
        && strcmp_iw (SYMBOL_DEMANGLED_NAME (symbol), (name)) == 0))
-   
+
 /* Macro that tests a symbol for an re-match against the last compiled regular
    expression.  First test the unencoded name, then look for and test a C++
    encoded name if it exists.
@@ -277,7 +277,7 @@ extern CORE_ADDR symbol_overlayed_address PARAMS((CORE_ADDR, asection *));
   (re_exec (SYMBOL_NAME (symbol)) != 0					\
    || (SYMBOL_DEMANGLED_NAME (symbol) != NULL				\
        && re_exec (SYMBOL_DEMANGLED_NAME (symbol)) != 0))
-   
+
 /* Define a simple structure used to hold some very basic information about
    all defined global symbols (text, data, bss, abs, etc).  The only required
    information is the general_symbol_info.
@@ -458,8 +458,8 @@ struct block
 
 /* Different name spaces for symbols.  Looking up a symbol specifies a
    namespace and ignores symbol definitions in other name spaces. */
- 
-typedef enum 
+
+typedef enum
 {
   /* UNDEF_NAMESPACE is used when a namespace has not been discovered or
      none of the following apply.  This usually indicates an error either
@@ -605,11 +605,11 @@ enum address_class
 
 /* Linked list of symbol's live ranges. */
 
-struct range_list		
+struct range_list
 {
   CORE_ADDR start;
   CORE_ADDR end;
-  struct range_list *next;	
+  struct range_list *next;
 };
 
 /* Linked list of aliases for a particular main/primary symbol.  */
@@ -648,7 +648,7 @@ struct symbol
      machine generated programs? */
 
   unsigned short line;
-  
+
   /* Some symbols require an additional value to be recorded on a per-
      symbol basis.  Stash those values here. */
 
@@ -682,7 +682,7 @@ struct symbol
    symbols whose types we have not parsed yet.  For functions, it also
    contains their memory address, so we can find them from a PC value.
    Each partial_symbol sits in a partial_symtab, all of which are chained
-   on a  partial symtab list and which points to the corresponding 
+   on a  partial symtab list and which points to the corresponding
    normal symtab once the partial_symtab has been referenced.  */
 
 struct partial_symbol
@@ -776,13 +776,13 @@ struct section_offsets
 #define	ANOFFSET(secoff, whichone)	(secoff->offsets[whichone])
 
 /* The maximum possible size of a section_offsets table.  */
- 
+
 #define SIZEOF_SECTION_OFFSETS \
   (sizeof (struct section_offsets) \
    + sizeof (((struct section_offsets *) 0)->offsets) * (SECT_OFF_MAX-1))
 
 
-/* Each source file or header is represented by a struct symtab. 
+/* Each source file or header is represented by a struct symtab.
    These objects are chained through the `next' field.  */
 
 struct symtab
@@ -837,7 +837,7 @@ struct symtab
 
     /* Pointer to one block of storage to be freed, if nonzero.  */
     /* This is IN ADDITION to the action indicated by free_code.  */
-    
+
     char *free_ptr;
 
     /* Total number of lines found in source file.  */
@@ -914,7 +914,7 @@ struct partial_symtab
 
   struct objfile *objfile;
 
-  /* Set of relocation offsets to apply to each section.  */ 
+  /* Set of relocation offsets to apply to each section.  */
 
   struct section_offsets *section_offsets;
 
@@ -985,7 +985,7 @@ struct partial_symtab
 
 
 /* The virtual function table is now an array of structures which have the
-   form { int16 offset, delta; void *pfn; }. 
+   form { int16 offset, delta; void *pfn; }.
 
    In normal virtual function tables, OFFSET is unused.
    DELTA is the amount which is added to the apparent object's base
@@ -994,7 +994,7 @@ struct partial_symtab
    PFN is a pointer to the virtual function.
 
    Note that this macro is g++ specific (FIXME). */
-  
+
 #define VTBL_FNADDR_OFFSET 2
 
 /* Macro that yields non-zero value iff NAME is the prefix for C++ operator
@@ -1060,7 +1060,7 @@ lookup_symbol PARAMS ((const char *, const struct block *,
 		       const namespace_enum, int *, struct symtab **));
 
 /* lookup a symbol by name, within a specified block */
-  
+
 extern struct symbol *
 lookup_block_symbol PARAMS ((const struct block *, const char *,
  			     const namespace_enum));
@@ -1092,10 +1092,10 @@ find_pc_function PARAMS ((CORE_ADDR));
 
 extern struct symbol *
 find_pc_sect_function PARAMS ((CORE_ADDR, asection *));
-  
+
 /* lookup function from address, return name, start addr and end addr */
 
-extern int find_pc_partial_function PARAMS ((CORE_ADDR, char **, 
+extern int find_pc_partial_function PARAMS ((CORE_ADDR, char **,
 					     CORE_ADDR *, CORE_ADDR *));
 
 extern void
@@ -1263,7 +1263,7 @@ find_addr_symbol PARAMS ((CORE_ADDR, struct symtab **, CORE_ADDR *));
 extern CORE_ADDR
 find_line_pc PARAMS ((struct symtab *, int));
 
-extern int 
+extern int
 find_line_pc_range PARAMS ((struct symtab_and_line,
 			    CORE_ADDR *, CORE_ADDR *));
 
@@ -1350,7 +1350,7 @@ blockvector_for_pc PARAMS ((CORE_ADDR, int *));
 
 
 extern struct blockvector *
-blockvector_for_pc_sect PARAMS ((CORE_ADDR, asection *, int *, 
+blockvector_for_pc_sect PARAMS ((CORE_ADDR, asection *, int *,
 				 struct symtab *));
 /* symfile.c */
 

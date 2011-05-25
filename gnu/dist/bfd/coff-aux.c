@@ -41,8 +41,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "sysdep.h"
 
 static boolean coff_m68k_aux_link_add_one_symbol
-  PARAMS ((struct bfd_link_info *, bfd *, const char *, flagword, 
-           asection *, bfd_vma, const char *, boolean, boolean, 
+  PARAMS ((struct bfd_link_info *, bfd *, const char *, flagword,
+           asection *, bfd_vma, const char *, boolean, boolean,
            struct bfd_link_hash_entry **));
 
 #define coff_link_add_one_symbol coff_m68k_aux_link_add_one_symbol

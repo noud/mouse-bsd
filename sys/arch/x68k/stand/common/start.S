@@ -84,10 +84,10 @@
 #define __SETBLOCK	0xFF4A
 #define __EXIT2		0xFF4C
 
-|	
+|
 |	seed to estimate argument string/vector and environment vector size
 |	(max nohupair argv[0](92+4) + NULLs(8) + alignment(3))	<- donburi?
-|	
+|
 #define estimated_argsz	107
 #define estimated_com	92	/* estimated command name length (included) */
 

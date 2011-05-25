@@ -144,7 +144,7 @@ union tpdu_fixed_rest {
 
 	struct {
 		u_short         _tpdufr_sref,	/* source reference */
-#if BYTE_ORDER == BIG_ENDIAN 
+#if BYTE_ORDER == BIG_ENDIAN
 				_tpdufr_class:4, /* class [ISO 8073 13.3.3.e] */
 		                _tpdufr_opt:4, /* options [ISO 8073 13.3.3.e] */
 #endif

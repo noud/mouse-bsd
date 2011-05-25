@@ -126,7 +126,7 @@ main(argc, argv)
 				hostbuf, sizeof(hostbuf), NULL, 0, 0);
 		lp = hostbuf;
 	}
-	
+
 	if (!fgets(line, sizeof(line), stdin)) {
 		if (logging)
 			syslog(LOG_NOTICE, "query from %s", lp);

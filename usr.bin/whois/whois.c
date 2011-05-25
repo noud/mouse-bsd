@@ -7,11 +7,11 @@
  *					code is still messy, though.
  *
  * 1.15 94/09/07
- * 
+ *
  * 1.2  9705/02
  * "-v" option added; ambrose@ripe.net
  * "whois.ripe.net" replaced by "bsdbase.ripe.net";  ambrose@ripe.net
- * "bsdbase.ripe.net" replaced by "joshua.ripe.net"; marek@ripe.net 
+ * "bsdbase.ripe.net" replaced by "joshua.ripe.net"; marek@ripe.net
  * "joshua.ripe.net" replaced by "whois.ripe.net"; roman@ripe.net 981105
  *
  * Copyright (c) 1980 Regents of the University of California.
@@ -96,7 +96,7 @@ char sccsid[] =
 #ifdef __STDC__
 extern int	getopt(int argc, char * const *argv, const char *optstring);
 extern int	kill(pid_t pid, int sig);
-extern FILE	*fdopen(int fildes, const char *type); 
+extern FILE	*fdopen(int fildes, const char *type);
 extern int	gethostname(char *name, int namelen);
 #else /* !__STDC__ */
 extern int	gethostname();
@@ -202,7 +202,7 @@ void usage()
   (void)fprintf(stderr, "-S                         tell server to leave out 'syntactic sugar'\n");
   (void)fprintf(stderr, "-t type                    requests template for object of type 'type'\n");
   (void)fprintf(stderr, "-v type                    requests verbose template for object of type 'type'\n");
-  (void)fprintf(stderr, "-R                         force to show local copy of the domain object even if it contains referral\n"); 
+  (void)fprintf(stderr, "-R                         force to show local copy of the domain object even if it contains referral\n");
   (void)fprintf(stderr, "-T type[[,type] ... ]      only look for objects of type 'type'\n\n");
   (void)fprintf(stderr, "Please note that most of these flags are NOT understood by\n");
   (void)fprintf(stderr, "non RIPE whois servers\n");
@@ -215,7 +215,7 @@ void usage()
 
 int s;
 
-void closesocket(s, child) 
+void closesocket(s, child)
 int s, child;
 {
   /* printf("close connection child=%i\n", child);  */
@@ -236,7 +236,7 @@ void termhandler(sig)
 int sig;
 {
   closesocket(s,1);
-}   
+}
 
 
 #ifdef RIPE
@@ -247,7 +247,7 @@ int occurs(str, pat)
      char *str, *pat;
 {
   register char *point = str;
-  
+
   while ((point=index(point, *pat)))
     {
       if (strncmp(point, pat, strlen(pat)) == 0)
@@ -303,13 +303,13 @@ int main(argc, argv)
   char *myhost;
 #endif
 #endif
-  
+
 #ifdef TOPDOMAIN
   host = strcat(TOPDOMAIN, "-whois.ripe.net");
 #else
   host = NICHOST;
 #endif
-  
+
 #ifdef RIPE
 #ifdef NETWORKUPDATE
     while ((ch = getopt(argc, argv, "46h:p:")) != EOF)
@@ -333,7 +333,7 @@ int main(argc, argv)
       case 'p':
 	optport=optarg;
         optp =1;
-        break;	
+        break;
 #ifdef RIPE
 #ifndef NETWORKUPDATE
       case 'a':
@@ -374,7 +374,7 @@ int main(argc, argv)
 	}
 	optM=1;
 	break;
-      
+
       case 's':
 	source = optarg;
 	optsource=1;
@@ -400,8 +400,8 @@ int main(argc, argv)
 	objtype=optarg;
 	optobjtype=1;
 	break;
-      
-#endif	
+
+#endif
 #endif
       case '?':
       default:
@@ -424,7 +424,7 @@ int main(argc, argv)
 #endif
 
   if (!opthost) {
-    
+
 #ifdef CLEVER
     whoishost=(char *)calloc(MAXHOSTNAMELEN, sizeof(char));
     myhost =(char *)calloc(MAXHOSTNAMELEN, sizeof(char));
@@ -448,9 +448,9 @@ int main(argc, argv)
       fprintf(stderr,"No such host: %s\n", whoishost);
     if (error) {
 #endif
-    
+
       whoishost=NICHOST;
-    
+
       if (verb)
 	fprintf(stderr, "Default host: %s\n\n", whoishost);
       memset(&hints, 0, sizeof(hints));
@@ -463,7 +463,7 @@ int main(argc, argv)
 	fprintf(stderr,"No such host: %s\n", whoishost);
 	if (verb) fprintf(stderr, "Now I give up ...\n");
 	perror("Unknown host");
-	exit(1);	
+	exit(1);
       }
 
 #ifdef CLEVER
@@ -485,7 +485,7 @@ int main(argc, argv)
       exit(1);
     }
   }
-  
+
   for (/*nothing*/; dst; dst = dst->ai_next) {
     s = socket(dst->ai_family, dst->ai_socktype, dst->ai_protocol);
     if (s < 0)
@@ -514,13 +514,13 @@ int main(argc, argv)
   }
 #endif
 
-  signal(SIGTERM, termhandler);  
+  signal(SIGTERM, termhandler);
 
 #ifdef RIPE
 #ifdef NETWORKUPDATE
 
   if ((child=fork())==0) {
-     
+
      sfo = fdopen(s, "w");
      if (sfo == NULL) {
        perror("whois: fdopen");
@@ -536,14 +536,14 @@ int main(argc, argv)
      passwdentry=getpwuid(getuid());
 
      fprintf(sfo, "-Vnc2.0 -U %s %s\n", passwdentry->pw_name, domainname);
-     fflush(sfo);  
-     
+     fflush(sfo);
+
      prev='\0';
 
      while ((ch=getchar()) != EOF) {
-        
+
         fputc(ch, sfo);
-        
+
         if (ch=='\n') fflush(sfo);
         if (feof(sfo)) closesocket(s, child);
         if ((ch=='.') && (prev=='\n')) closesocket(s, child);
@@ -553,16 +553,16 @@ int main(argc, argv)
      closesocket(s, child);
 
   }
-  
+
   sfi = fdopen(s, "r");
   if (sfi == NULL) {
        perror("whois: fdopen");
        (void)close(s);
        exit(1);
-  } 
+  }
 
 #else
-  
+
   if (alldatabases)
     (void)fprintf(sfo, "-a ");
   if (optchanged)
@@ -570,7 +570,7 @@ int main(argc, argv)
   if (optfast)
     (void)fprintf(sfo, "-F ");
   if (optgetupdates)
-    (void)fprintf(sfo, "-g %s ", getupdates);  
+    (void)fprintf(sfo, "-g %s ", getupdates);
   if (optinverselookup)
     (void)fprintf(sfo, "-i %s ", inverselookup);
   if (optL)
@@ -585,7 +585,7 @@ int main(argc, argv)
     (void)fprintf(sfo, "-s %s ", source);
   if (optsugar)
     (void)fprintf(sfo, "-S ");
-  if (optnonreferral) 
+  if (optnonreferral)
     (void)fprintf(sfo, "-R ");
   if (opttempl)
     (void)fprintf(sfo, "-t %s ", templ);
@@ -594,17 +594,17 @@ int main(argc, argv)
   if (optobjtype)
     (void)fprintf(sfo, "-T %s ", objtype);
 
-  /* we can only send the -V when we are sure that we are dealing with 
+  /* we can only send the -V when we are sure that we are dealing with
      a RIPE whois server :-( */
-  
+
   whoishost=(char *)calloc(strlen(host)+1, sizeof(char));
   strcpy(whoishost, host);
   for (string=whoishost;(*string=(char)tolower(*string));string++);
-  
+
   if (strstr(whoishost, "ripe.net") ||
       strstr(whoishost, "ra.net") ||
       strstr(whoishost, "apnic.net") ||
-      strstr(whoishost, "mci.net") ||      
+      strstr(whoishost, "mci.net") ||
       strstr(whoishost, "isi.edu") ||
       strstr(whoishost, "garr.it") ||
       strstr(whoishost, "ans.net") ||
@@ -622,7 +622,7 @@ int main(argc, argv)
    (void)fputs("\r\n", sfo);
   (void)fflush(sfo);
 #endif
-  
+
   while ((ch = getc(sfi)) != EOF)
     putchar(ch);
 

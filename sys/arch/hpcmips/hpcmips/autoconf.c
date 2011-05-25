@@ -163,5 +163,5 @@ get_device(name, devpp, partp)
 				}
 			}
 		}
-	} 
+	}
 }

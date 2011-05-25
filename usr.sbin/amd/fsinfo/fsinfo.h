@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: fsinfo.h,v 1.3 1999/01/10 21:54:29 ezk Exp 
+ * Id: fsinfo.h,v 1.3 1999/01/10 21:54:29 ezk Exp
  *
  */
 

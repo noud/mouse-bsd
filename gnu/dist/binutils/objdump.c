@@ -464,7 +464,7 @@ remove_useless_symbols (symbols, count)
 
 /* Sort symbols into value order.  */
 
-static int 
+static int
 compare_symbols (ap, bp)
      const PTR ap;
      const PTR bp;
@@ -715,7 +715,7 @@ find_symbol_for_address (abfd, sec, vma, require_sec, place)
   /* If the file is relocateable, and the symbol could be from this
      section, prefer a symbol from this section over symbols from
      others, even if the other symbol's value might be closer.
-       
+
      Note that this may be wrong for some symbol references if the
      sections have overlapping memory ranges, but in that case there's
      no way to tell what's desired without looking at the relocation
@@ -944,7 +944,7 @@ skip_to_line (p, line, show)
       if (strchr (buf, '\n') != NULL)
 	++p->line;
     }
-}  
+}
 
 /* Show the line number, or the source line, in a dissassembly
    listing.  */
@@ -1618,7 +1618,7 @@ disassemble_data (abfd)
 	  asymbol *nextsym;
 	  long nextstop;
 	  boolean insns;
-	  
+
 	  if (sym != NULL && bfd_asymbol_value (sym) <= section->vma + i)
 	    {
 	      int x;
@@ -1643,7 +1643,7 @@ disassemble_data (abfd)
 					   false);
 	      printf (":\n");
 	    }
-	  
+
 	  if (sym != NULL && bfd_asymbol_value (sym) > section->vma + i)
 	    nextsym = sym;
 	  else if (sym == NULL)
@@ -1661,7 +1661,7 @@ disassemble_data (abfd)
 	      else
 		nextsym = sorted_syms[place];
 	    }
-	  
+
 	  if (sym != NULL && bfd_asymbol_value (sym) > section->vma + i)
 	    {
 	      nextstop = bfd_asymbol_value (sym) - section->vma;
@@ -1676,7 +1676,7 @@ disassemble_data (abfd)
 	      if (nextstop > stop)
 		nextstop = stop;
 	    }
-	  
+
 	  /* If a symbol is explicitly marked as being an object
 	     rather than a function, just dump the bytes without
 	     disassembling them.  */
@@ -1692,14 +1692,14 @@ disassemble_data (abfd)
 	    insns = true;
 	  else
 	    insns = false;
-	  
+
 	  disassemble_bytes (&disasm_info, disassemble_fn, insns, data, i,
 			     nextstop, &relpp, relppend);
-	  
+
 	  i = nextstop;
 	  sym = nextsym;
 	}
-      
+
       free (data);
       if (relbuf != NULL)
 	free (relbuf);
@@ -1761,13 +1761,13 @@ read_section_stabs (abfd, stabsect_name, strsect_name)
 	       bfd_get_filename (abfd), strsect_name);
       return false;
     }
- 
+
   stab_size    = bfd_section_size (abfd, stabsect);
   stabstr_size = bfd_section_size (abfd, stabstrsect);
 
   stabs  = (bfd_byte *) xmalloc (stab_size);
   strtab = (char *) xmalloc (stabstr_size);
-  
+
   if (! bfd_get_section_contents (abfd, stabsect, (PTR) stabs, 0, stab_size))
     {
       fprintf (stderr, "%s: Reading %s section of %s failed: %s\n",

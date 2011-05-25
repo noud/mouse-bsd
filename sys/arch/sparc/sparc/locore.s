@@ -2521,7 +2521,7 @@ sparc_interrupt_common:
 	tst	%o0			! if (cold) {
 	bnz,a	4f			!	splhigh();
 	 or	%l0, 0xf00, %l0		! } else
-	
+
 	call	_C_LABEL(strayintr)	!	strayintr(&intrframe)
 	 add	%sp, CCFSZ, %o0
 	/* all done: restore registers and go return */

@@ -9,13 +9,13 @@ How to install the pcvt driver on a NetBSD 1.0 machine          (pcvt rel. 3.20)
     both configurations are documented in the files Keyboard.HP and Keyboard.VT
     respectively.
 
-    decide which one to use and set the "#define" of PCVT_VT220KEYB to 
+    decide which one to use and set the "#define" of PCVT_VT220KEYB to
     compile the one you choosed.          (see also pcvt_hdr.h and pcvt_kbd.c)
 
 (2) add a line ''option   PCVT_NETBSD="100"'' into your kernel config file.
 
 (3) there are several other configuration "#define"-able options located at
-    the beginning of pcvt_conf.h. "user"-settable options all start with 
+    the beginning of pcvt_conf.h. "user"-settable options all start with
     "PCVT_". Please (!!!) read the comments for them in the header file !
 
 (4) edit your kernel configuration file and comment the following line out
@@ -57,7 +57,7 @@ How to install the pcvt driver on a NetBSD 1.0 machine          (pcvt rel. 3.20)
     and "BINDIR". Execute "make depend" and then "make".
     this makes all the utilities in their directories. when you are satisfied
     with the results, execute "make install". this installs all programs in
-    all subdirs in "BINDIR" and all manual pages in "MANDIR", all fonts in 
+    all subdirs in "BINDIR" and all manual pages in "MANDIR", all fonts in
     "FONTDIR" and the keycap database in "CAPDIR".
 
     change into the distribution subdirectory "Doc" and edit Makefile
@@ -76,8 +76,8 @@ How to install the pcvt driver on a NetBSD 1.0 machine          (pcvt rel. 3.20)
 	   (it was written to do that .... ;-)
 
      Don't forget to make a new compiled termcap database using cap_mkdb !
-	
-(12) to use the virtual terminals, one must "mknod" this devices, they have 
+
+(12) to use the virtual terminals, one must "mknod" this devices, they have
      major number 12 and minor numbers 0 to n:
 
 	mknod /dev/ttyv0 c 12 0
@@ -91,12 +91,12 @@ How to install the pcvt driver on a NetBSD 1.0 machine          (pcvt rel. 3.20)
 
 (13) edit /etc/ttys to enable login on the virtual consoles, mine looks like
      this:
-	
+
 	ttyv0	"/usr/libexec/getty console"	pcvt25h	on secure
 	ttyv1	"/usr/libexec/getty console"	pcvt25h	on secure
 	ttyv2	"/usr/libexec/getty console"	pcvt25h	on secure
 	ttyv3	"/usr/libexec/getty console"	pcvt25h	on secure
-	
+
 
 (14) because the driver is (mostly) 8-bit clean, the entry to be used with it
      in /etc/gettytab has to contain a ":np:" (no parity) entry, the "default"

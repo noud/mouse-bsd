@@ -2364,7 +2364,7 @@ elf_sort_sections (arg1, arg2)
     {
       if (TOEND (sec2))
 	return sec1->target_index - sec2->target_index;
-      else 
+      else
 	return 1;
     }
 
@@ -2526,7 +2526,7 @@ assign_file_positions_for_segments (abfd)
 		  bfd_set_error (bfd_error_bad_value);
 		  return false;
 		}
-	      
+
 	      p->p_vaddr -= off;
 	      if (! m->p_paddr_valid)
 		p->p_paddr -= off;
@@ -2833,7 +2833,7 @@ assign_file_positions_except_relocs (abfd)
 	      hdr->sh_offset = -1;
 	      continue;
 	    }
-	  
+
 	  off = _bfd_elf_assign_file_position_for_section (hdr, off, true);
 	}
     }
@@ -2880,7 +2880,7 @@ assign_file_positions_except_relocs (abfd)
 	    hdr->sh_offset = -1;
 	  else
 	    off = _bfd_elf_assign_file_position_for_section (hdr, off, true);
-	}		   
+	}
     }
 
   /* Place the section headers.  */
@@ -4114,7 +4114,7 @@ _bfd_elf_find_nearest_line (abfd,
   asymbol **p;
 
   if (_bfd_dwarf2_find_nearest_line (abfd, section, symbols, offset,
-				     filename_ptr, functionname_ptr, 
+				     filename_ptr, functionname_ptr,
 				     line_ptr))
     return true;
 
@@ -4237,11 +4237,11 @@ _bfd_elf_validate_reloc (abfd, areloc)
 {
   /* Check whether we really have an ELF howto. */
 
-  if ((*areloc->sym_ptr_ptr)->the_bfd->xvec != abfd->xvec) 
+  if ((*areloc->sym_ptr_ptr)->the_bfd->xvec != abfd->xvec)
     {
       bfd_reloc_code_real_type code;
       reloc_howto_type *howto;
-      
+
       /* Alien reloc: Try to determine its type to replace it with an
 	 equivalent ELF reloc. */
 
@@ -4250,22 +4250,22 @@ _bfd_elf_validate_reloc (abfd, areloc)
 	  switch (areloc->howto->bitsize)
 	    {
 	    case 8:
-	      code = BFD_RELOC_8_PCREL; 
+	      code = BFD_RELOC_8_PCREL;
 	      break;
 	    case 12:
-	      code = BFD_RELOC_12_PCREL; 
+	      code = BFD_RELOC_12_PCREL;
 	      break;
 	    case 16:
-	      code = BFD_RELOC_16_PCREL; 
+	      code = BFD_RELOC_16_PCREL;
 	      break;
 	    case 24:
-	      code = BFD_RELOC_24_PCREL; 
+	      code = BFD_RELOC_24_PCREL;
 	      break;
 	    case 32:
-	      code = BFD_RELOC_32_PCREL; 
+	      code = BFD_RELOC_32_PCREL;
 	      break;
 	    case 64:
-	      code = BFD_RELOC_64_PCREL; 
+	      code = BFD_RELOC_64_PCREL;
 	      break;
 	    default:
 	      goto fail;
@@ -4286,22 +4286,22 @@ _bfd_elf_validate_reloc (abfd, areloc)
 	  switch (areloc->howto->bitsize)
 	    {
 	    case 8:
-	      code = BFD_RELOC_8; 
+	      code = BFD_RELOC_8;
 	      break;
 	    case 14:
-	      code = BFD_RELOC_14; 
+	      code = BFD_RELOC_14;
 	      break;
 	    case 16:
-	      code = BFD_RELOC_16; 
+	      code = BFD_RELOC_16;
 	      break;
 	    case 26:
-	      code = BFD_RELOC_26; 
+	      code = BFD_RELOC_26;
 	      break;
 	    case 32:
-	      code = BFD_RELOC_32; 
+	      code = BFD_RELOC_32;
 	      break;
 	    case 64:
-	      code = BFD_RELOC_64; 
+	      code = BFD_RELOC_64;
 	      break;
 	    default:
 	      goto fail;

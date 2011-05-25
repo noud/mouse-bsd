@@ -144,7 +144,7 @@ static int reloc_target_bitmask[] = {
 	_BM(22), _BM(22),		/* HI22, _22 */
 	_BM(13), _BM(10),		/* RELOC_13, _LO10 */
 	_BM(10), _BM(13), _BM(22),	/* GOT10, GOT13, GOT22 */
-	_BM(10), _BM(22),		/* _PC10, _PC22 */  
+	_BM(10), _BM(22),		/* _PC10, _PC22 */
 	_BM(30), 0,			/* _WPLT30, _COPY */
 	-1, -1, -1,			/* _GLOB_DAT, JMP_SLOT, _RELATIVE */
 	_BM(32), _BM(32),		/* _UA32, PLT32 */
@@ -249,7 +249,7 @@ _rtld_relocate_nonplt_object(obj, rela, dodebug)
 	*where |= value;
 #ifdef RTLD_DEBUG_RELOC
 	if (RELOC_RESOLVE_SYMBOL(type)) {
-		rdbg(dodebug, ("%s %s in %s --> %p %s", 
+		rdbg(dodebug, ("%s %s in %s --> %p %s",
 		    reloc_names[type],
 		    defobj->strtab + def->st_name, obj->path,
 		    (void *)*where, defobj->path));
@@ -289,7 +289,7 @@ _rtld_relocate_plt_object(obj, rela, addrp, bind_now, dodebug)
 
 	value = (Elf_Addr) (defobj->relocbase + def->st_value);
 
-	rdbg(dodebug, ("bind now %d/fixup in %s --> old=%p new=%p", 
+	rdbg(dodebug, ("bind now %d/fixup in %s --> old=%p new=%p",
 	    (int)bind_now, defobj->strtab + def->st_name,
 	    (void *)*where, (void *)value));
 

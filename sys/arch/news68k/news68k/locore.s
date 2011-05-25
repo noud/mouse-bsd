@@ -332,7 +332,7 @@ Lstart2:
  */
 	movc	%vbr,%d0		| Preserve monitor's VBR address
 	movl	%d0,_ASM_LABEL(monitor_vbr)
-	
+
 	movl	#_C_LABEL(vectab),%d0	| get our VBR address
 	movc	%d0,%vbr
 
@@ -451,7 +451,7 @@ GLOBAL(proc_trampoline)
 
 /*
  * Trap/interrupt vector routines
- */ 
+ */
 #include <m68k/m68k/trap_subr.s>
 
 	.data
@@ -917,7 +917,7 @@ Ldorte:
 
 /*
  * Primitives
- */ 
+ */
 
 /*
  * Use common m68k support routines.
@@ -1329,7 +1329,7 @@ L_delay:
 ENTRY(m68881_save)
 	movl	%sp@(4),%a0		| save area pointer
 	fsave	%a0@			| save state
-Lm68881fpsave:  
+Lm68881fpsave:
 	tstb	%a0@			| null state frame?
 	jeq	Lm68881sdone		| yes, all done
 	fmovem	%fp0-%fp7,%a0@(216)	| save FP general registers
@@ -1371,7 +1371,7 @@ Lnocache5:
 	movl	#0,%a7@-		| value for pmove to TC (turn off MMU)
 	pmove	%a7@,%tc		| disable MMU
 	movc	%d3,%vbr		| Restore monitor's VBR
-	movl	%d2,%d0			| 
+	movl	%d2,%d0			|
 	andl	#0x800,%d0		| mask off
 	tstl	%d0			| power down?
 	beq	1f			|
@@ -1477,13 +1477,13 @@ GLOBAL(extiotop_phys)
 	.long	0		| PA of top of external I/O registers
 
 GLOBAL(ctrl_power)
-	.long	0		| PA of power control port 
+	.long	0		| PA of power control port
 
 GLOBAL(cache_ctl)
-	.long	0		| KVA of external cache control port 
+	.long	0		| KVA of external cache control port
 
 GLOBAL(cache_clr)
-	.long	0		| KVA of external cache clear port 
+	.long	0		| KVA of external cache clear port
 
 
 /* interrupt counters */

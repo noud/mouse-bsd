@@ -112,7 +112,7 @@ hd_timer()
 		case DM_SENT:
 			if (++hdp->hd_retxcnt == hd_n2) {
 				/* Notify the packet level. */
-				(void) pk_ctlinput(PRC_LINKDOWN, 
+				(void) pk_ctlinput(PRC_LINKDOWN,
 				       (struct sockaddr *) hdp->hd_pkp, NULL);
 				hdp->hd_retxcnt = 0;
 				hdp->hd_state = SABM_SENT;

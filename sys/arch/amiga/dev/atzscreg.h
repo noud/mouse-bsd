@@ -73,7 +73,7 @@ struct sdmac {
 	short		pad6;
 	vu_short FLUSH;		/* Flush FIFO RW-Strobe */
 };
-	
+
 /*
  * value to go into DAWR
  */

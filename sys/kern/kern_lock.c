@@ -40,7 +40,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* 
+/*
  * Copyright (c) 1995
  *	The Regents of the University of California.  All rights reserved.
  *
@@ -582,7 +582,7 @@ lockmgr(lkp, flags, interlkp)
 
 	case LK_DRAIN:
 		/*
-		 * Check that we do not already hold the lock, as it can 
+		 * Check that we do not already hold the lock, as it can
 		 * never drain if we do. Unfortunately, we have no way to
 		 * check for holding a shared lock, but at least we can
 		 * check for an exclusive one.

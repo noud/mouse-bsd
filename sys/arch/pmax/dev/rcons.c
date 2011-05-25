@@ -117,7 +117,7 @@ rcons_connect (info)
 
 	/* Choose 'Gallant' font if this is an 8-bit display */
 	if (ri.ri_depth == 8 && (cookie = wsfont_find("Gallant", 0, 0, 0)) > 0)
-		wsfont_lock(cookie, &ri.ri_font, WSDISPLAY_FONTORDER_L2R, 
+		wsfont_lock(cookie, &ri.ri_font, WSDISPLAY_FONTORDER_L2R,
 		    WSDISPLAY_FONTORDER_L2R);
 
 	/* Get operations set and set framebugger colormap */

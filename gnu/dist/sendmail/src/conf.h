@@ -315,7 +315,7 @@ typedef int		pid_t;
 **
 **	Use IRIX64 instead of IRIX for 64-bit IRIX (6.0).
 **	Use IRIX5 instead of IRIX for IRIX 5.x.
-** 
+**
 **	This version tries to be adaptive using _MIPS_SIM:
 **		_MIPS_SIM == _ABIO32 (= 1)    Abi: -32  on IRIX 6.2
 **		_MIPS_SIM == _ABIN32 (= 2)    Abi: -n32 on IRIX 6.2
@@ -628,7 +628,7 @@ extern long	dgux_inet_addr();
 # define SFS_TYPE	SFS_STATVFS	/* use <sys/statvfs.h> statfs() impl */
 # ifndef _PATH_VENDOR_CF
 #  define _PATH_VENDOR_CF	"/var/adm/sendmail/sendmail.cf"
-# endif  
+# endif
 # ifndef _PATH_SENDMAILPID
 #  define _PATH_SENDMAILPID	"/var/run/sendmail.pid"
 # endif
@@ -1563,7 +1563,7 @@ typedef int		pid_t;
 # endif
 #endif
 
-/* ###################################################################### */ 
+/* ###################################################################### */
 
 /*
 **  UnixWare 2.x
@@ -1864,7 +1864,7 @@ extern int	errno;
 # endif
 #endif
 
-  
+
 /*
 **  NEC EWS-UX/V 4.2 (with /usr/ucb/cc)
 **
@@ -1989,7 +1989,7 @@ typedef struct msgb		mblk_t;
 #endif
 
 /*
-**  Siemens Nixdorf Informationssysteme AG SINIX 
+**  Siemens Nixdorf Informationssysteme AG SINIX
 **
 **	Contributed by Gerald Rinske <Gerald.Rinske@mch.sni.de>
 **	of Siemens Business Services VAS.

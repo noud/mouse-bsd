@@ -1,17 +1,17 @@
 #!/bin/sh
 # Copyright (C) 1992, 1993, 1994 Free Software Foundation
-# 
+#
 # This file is part of the GNU IO Library.  This library is free
 # software; you can redistribute it and/or modify it under the
 # terms of the GNU General Public License as published by the
 # Free Software Foundation; either version 2, or (at your option)
 # any later version.
-# 
+#
 # This library is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this library; see the file COPYING.  If not, write to the Free
 # Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -60,7 +60,7 @@ CONFIG_NM=${CONFIG_NM-`if [ -f ${binutilsdir}/nm.new ] ; \
 	else echo nm ; fi`}
 
 cat <<!EOF!
-/* AUTOMATICALLY GENERATED; DO NOT EDIT! */ 
+/* AUTOMATICALLY GENERATED; DO NOT EDIT! */
 #ifndef ${macro_prefix}config_h
 #define ${macro_prefix}config_h
 !EOF!
@@ -115,7 +115,7 @@ if test -z "${NAMES_HAVE_UNDERSCORE}" -o -z "${DOLLAR_IN_LABEL}" \
       fi
       # First we look for a pattern that matches historical output from g++.
       # We surround the actual label name by <> to separate it from
-      # other nm junk. 
+      # other nm junk.
       ${SED} -n -e 's/_*vt[$_.]7*filebuf/<&>/p' <TMP >dummy.out
       # For paranoia's sake (e.g. if we're using some other C++ compiler)
       # we try a more general pattern, and append the result.
@@ -465,7 +465,7 @@ void bar (${macro_prefix}wchar_t w)
   foo (w);
 }
 !EOF!
-    if ${CXX} -c dummy.C >/dev/null 2>&1 ; then  
+    if ${CXX} -c dummy.C >/dev/null 2>&1 ; then
       wint_t="$TYPE /* default */"
       break
     fi

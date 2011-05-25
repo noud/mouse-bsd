@@ -219,8 +219,8 @@ dvma_mapin(kmem_va, len, canwait)
 	}
 	splx(s);
 
-	
-	/* 
+
+	/*
 	 * Tva is the starting page to which the data buffer will be double
 	 * mapped.  Dvma_addr is the starting address of the buffer within
 	 * that page and is the return value of the function.

@@ -66,7 +66,7 @@ void *netbsd32_copyargs __P((struct exec_package *, struct ps_strings *,
 	void *, void *));
 void *netbsd32_elf32_copyargs __P((struct exec_package *, struct ps_strings *,
 	void *, void *));
-int netbsd32_copyinargs __P((struct exec_package *, struct ps_strings *, 
+int netbsd32_copyinargs __P((struct exec_package *, struct ps_strings *,
 			     void *, size_t, const void *, const void *));
 
 static int netbsd32_exec_aout_prep_zmagic __P((struct proc *,
@@ -137,7 +137,7 @@ ELFNAME2(netbsd32,probe)(p, epp, eh, itp, pos)
 
 	if (itp[0]) {
 		if ((error = emul_find(p, NULL, netbsd32_emul_path,
-				       itp, &bp, 0)) && 
+				       itp, &bp, 0)) &&
 		    (error = emul_find(p, NULL, "", itp, &bp, 0)))
 			return error;
 		if ((error = copystr(bp, itp, MAXPATHLEN, &i)) != 0)
@@ -342,7 +342,7 @@ netbsd32_exec_aout_prep_omagic(p, epp)
 	 * computed (in execve(2)) by rounding *up* `ep_tsize' and `ep_dsize'
 	 * respectively to page boundaries.
 	 * Compensate `ep_dsize' for the amount of data covered by the last
-	 * text page. 
+	 * text page.
 	 */
 	dsize = epp->ep_dsize + execp->a_text - roundup(execp->a_text, NBPG);
 	epp->ep_dsize = (dsize > 0) ? dsize : 0;

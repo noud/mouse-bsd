@@ -318,7 +318,7 @@ main(argc, argv)
 	(void)sigaction(SIGURG, &sa, (struct sigaction *) 0);
 	sa.sa_handler = writeroob;
 	(void)sigaction(SIGUSR1, &sa, (struct sigaction *) 0);
-	
+
 	/* don't dump core */
 	rlim.rlim_cur = rlim.rlim_max = 0;
 	if (setrlimit(RLIMIT_CORE, &rlim) < 0)
@@ -353,7 +353,7 @@ try_connect:
 			}
 		}
 
-		rem = kcmd(&sock, &host, sp->s_port, name, user, 
+		rem = kcmd(&sock, &host, sp->s_port, name, user,
 			   term, 0, &ticket, "rcmd", dest_realm,
 			   &cred, schedule, &msg_data, &local, &foreign,
 			   authopts);

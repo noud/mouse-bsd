@@ -70,11 +70,11 @@ Promise PDC20246 (Ultra/33) and PDC20262 (Ultra/66) PCI IDE controllers
 Silicon Integrated System 5597/5598 IDE controller
 .It
 VIA Technologies VT82C586 and VT82C586A IDE Controllers
-.El 
+.El
 Some of these controllers are only available in multifunction PCI chips.
 .Pp
 The 0x0001 flag forces the
-.Nm 
+.Nm
 driver to use DMA when there is no explicit DMA mode setting support for
 the controller but DMA is present. If the BIOS didn't set up the controller
 properly, this can cause a machine hang.

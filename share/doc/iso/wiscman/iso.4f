@@ -13,12 +13,12 @@ iso \- ISO protocol family
 The ISO protocol family is a collection of protocols
 that uses the ISO address format.
 The ISO family provides protocol support for the
-SOCK_SEQPACKET abstraction through the TP protocol (ISO 8073), 
+SOCK_SEQPACKET abstraction through the TP protocol (ISO 8073),
 and for the SOCK_RAW abstraction
 by providing direct access (for debugging) to the
 CLNP (ISO 8473) network layer protocol.
 .SH ADDRESSING
-ISO addresses are based upon ISO 8348/AD2, 
+ISO addresses are based upon ISO 8348/AD2,
 "Addendum to the Network Service Definition Covering Network Layer Addressing."
 .PP
 Sockets bound to the OSI protocol family use
@@ -46,7 +46,7 @@ The transport part of the address, described below.
 The network part of the address, described below.
 .SS TRANSPORT ADDRESSING
 .PP
-The above structure describes a simple form of 
+The above structure describes a simple form of
 ISO \fItransport\fR addresses.
 An ISO transport address is similar to an Internet address in that
 it contains a network-address portion and a portion that the
@@ -54,7 +54,7 @@ transport layer uses to multiplex its services among clients.
 In the Internet domain, this portion of the address is called a \fIport\fR.
 In the ISO domain, this is called a \fItransport selector\fR
 (also known at one time as a \fItransport suffix\fR).
-While ports are always 16 bits, 
+While ports are always 16 bits,
 transport selectors may be
 of (almost) arbitrary size.
 ARGO supports two forms of transport selectors:
@@ -73,9 +73,9 @@ ISO network addresses can take any format.
 ARGO 1.0 supports three formats.
 See \fIisodir(3)\fR and \fIisodir(5)\fR.
 .SH PROTOCOLS
-The ARGO 1.0 implementation of the 
+The ARGO 1.0 implementation of the
 ISO protocol family comprises
-the Connectionless-Mode Network Protocol (CLNP), 
+the Connectionless-Mode Network Protocol (CLNP),
 and the Transport Protocol (TP), classes 4 and 0,
 and X.25.
 TP is used to support the SOCK_SEQPACKET

@@ -124,7 +124,7 @@ struct switchframe {
 	u_int	sf_r7;
 	u_int	sf_pc;
 };
- 
+
 /*
  * Stack frame. Used during stack traces (db_trace.c)
  */
@@ -184,7 +184,7 @@ void validate_trapframe __P((trapframe_t *, int));
  * This should only be used if the processor is not currently in SVC32
  * mode. The processor mode is switched to SVC mode and the trap frame is
  * stored. The SVC lr field is used to store the previous value of
- * lr in SVC mode.  
+ * lr in SVC mode.
  *
  * NOTE: r13 and r14 are stored separately as a work around for the
  * SA110 rev 2 STM^ bug
@@ -231,5 +231,5 @@ void validate_trapframe __P((trapframe_t *, int));
 #endif _LOCORE
 
 #endif /* _ARM32_FRAME_H_ */
-  
+
 /* End of frame.h */

@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -44,7 +44,7 @@
 *
 *	Accuracy and Monotonicity: The returned result is within 3 ulps in
 *		64 significant bit, i.e. within 0.5001 ulp to 53 bits if the
-*		result is subsequently rounded to double precision. The 
+*		result is subsequently rounded to double precision. The
 *		result is provably monotonic in double precision.
 *
 *	Speed: The program sASIN takes approximately 310 cycles.
@@ -122,7 +122,7 @@ asinbig:
 	ANDI.L		#$80000000,D0	...SIGN BIT OF X
 	ORI.L		#$3F800000,D0	...+-1 IN SGL FORMAT
 	MOVE.L		D0,-(sp)	...push SIGN(X) IN SGL-FMT
-	FMOVE.L		d1,FPCR		
+	FMOVE.L		d1,FPCR
 	FMUL.S		(sp)+,FP0
 	bra		t_frcinx
 

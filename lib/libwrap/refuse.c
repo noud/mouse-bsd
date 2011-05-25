@@ -5,7 +5,7 @@
   * case of a datagram-oriented service, the unread datagram is taken from
   * the input queue (or inetd would see the same datagram again and again);
   * the program is terminated.
-  * 
+  *
   * Author: Wietse Venema, Eindhoven University of Technology, The Netherlands.
   */
 

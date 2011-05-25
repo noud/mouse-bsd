@@ -6,7 +6,7 @@
   * cannot be run. Reason: in the case of a datagram-oriented service we must
   * discard the not-yet received data from the client. Otherwise, inetd will
   * see the same datagram again and again, and go into a loop.
-  * 
+  *
   * Author: Wietse Venema, Eindhoven University of Technology, The Netherlands.
   */
 

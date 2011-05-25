@@ -794,7 +794,7 @@ output_move_double (operands)
 
   if (GET_CODE (src) == MEM)
     return "ld.w %1,%0\n\tld.w %R1,%R0";
-  
+
   if (GET_CODE (dst) == MEM)
     return "st.w %1,%0\n\tst.w %R1,%R0";
 
@@ -989,7 +989,7 @@ not_power_of_two_operand (op, mode)
   else if (mode == HImode)
     mask = 0xffff;
   else if (mode == SImode)
-    mask = 0xffffffff; 
+    mask = 0xffffffff;
   else
     return 0;
 
@@ -1326,7 +1326,7 @@ compute_register_save_size (p_reg_saved)
   /* Count the return pointer if we need to save it.  */
   if (profile_flag && !call_p)
     regs_ever_live[31] = call_p = 1;
- 
+
   /* Count space for the register saves.  */
   if (interrupt_handler)
     {
@@ -1534,15 +1534,15 @@ expand_prologue ()
 	    init_stack_alloc = compute_register_save_size (NULL);
 	  else
 	    init_stack_alloc = actual_fsize;
-	      
+
 	  /* Save registers at the beginning of the stack frame */
 	  offset = init_stack_alloc - 4;
-	  
+
 	  if (init_stack_alloc)
 	    emit_insn (gen_addsi3 (stack_pointer_rtx,
 				   stack_pointer_rtx,
 				   GEN_INT (-init_stack_alloc)));
-	  
+
 	  /* Save the return pointer first.  */
 	  if (num_save > 0 && REGNO (save_regs[num_save-1]) == 31)
 	    {
@@ -1552,7 +1552,7 @@ expand_prologue ()
 			      save_regs[--num_save]);
 	      offset -= 4;
 	    }
-	  
+
 	  for (i = 0; i < num_save; i++)
 	    {
 	      emit_move_insn (gen_rtx (MEM, SImode,
@@ -1942,7 +1942,7 @@ pattern_is_ok_for_epilogue (op, mode)
 {
   int count = XVECLEN (op, 0);
   int i;
-  
+
   /* If there are no registers to restore then the function epilogue
      is not suitable.  */
   if (count <= 2)
@@ -1967,10 +1967,10 @@ pattern_is_ok_for_epilogue (op, mode)
       rtx dest;
       rtx src;
       rtx plus;
-      
+
       if (GET_CODE (vector_element) != SET)
 	return 0;
-      
+
       dest = SET_DEST (vector_element);
       src = SET_SRC (vector_element);
 
@@ -2010,7 +2010,7 @@ construct_restore_jr (op)
   unsigned long int last;
   int i;
   static char buff [100]; /* XXX */
-  
+
   if (count <= 2)
     {
       error ("Bogus JR construction: %d\n", count);
@@ -2025,7 +2025,7 @@ construct_restore_jr (op)
     abort ();
   if (GET_CODE (XEXP (SET_SRC (XVECEXP (op, 0, 1)), 1)) != CONST_INT)
     abort ();
-    
+
   stack_bytes = INTVAL (XEXP (SET_SRC (XVECEXP (op, 0, 1)), 1));
 
   /* Each pop will remove 4 bytes from the stack... */
@@ -2043,14 +2043,14 @@ construct_restore_jr (op)
   for (i = 2; i < count; i++)
     {
       rtx vector_element = XVECEXP (op, 0, i);
-      
+
       if (GET_CODE (vector_element) != SET)
 	abort ();
       if (GET_CODE (SET_DEST (vector_element)) != REG)
 	abort ();
       if (! register_is_ok_for_epilogue (SET_DEST (vector_element), SImode))
 	abort ();
-      
+
       mask |= 1 << REGNO (SET_DEST (vector_element));
     }
 
@@ -2069,7 +2069,7 @@ construct_restore_jr (op)
     {
       if (stack_bytes != 16)
 	abort ();
-      
+
       last = 31;
     }
   else
@@ -2078,7 +2078,7 @@ construct_restore_jr (op)
 	abort ();
       if ((mask & (1 << 29)) == 0)
 	abort ();
-      
+
       last = 29;
     }
 
@@ -2086,7 +2086,7 @@ construct_restore_jr (op)
      We ignore this here, and generate a JR anyway.  We will
      be popping more registers thatn is strictly necessary, but
      it does save code space.  */
-  
+
   if (first == last)
     sprintf (buff, "jr __return_%s", reg_names [first]);
   else
@@ -2104,9 +2104,9 @@ pattern_is_ok_for_prologue (op, mode)
      enum machine_mode mode;
 {
   int count = XVECLEN (op, 0);
-  int i; 
+  int i;
   rtx vector_element;
- 
+
   /* If there are no registers to save then the function prologue
      is not suitable.  */
   if (count <= 2)
@@ -2131,12 +2131,12 @@ pattern_is_ok_for_prologue (op, mode)
       rtx dest;
       rtx src;
       rtx plus;
-      
+
       vector_element = XVECEXP (op, 0, i);
-      
+
       if (GET_CODE (vector_element) != SET)
 	return 0;
-      
+
       dest = SET_DEST (vector_element);
       src = SET_SRC (vector_element);
 
@@ -2168,12 +2168,12 @@ pattern_is_ok_for_prologue (op, mode)
 
   /* Make sure that the last entry in the vector is a clobber.  */
   vector_element = XVECEXP (op, 0, i);
-  
+
   if (GET_CODE (vector_element) != CLOBBER
       || GET_CODE (XEXP (vector_element, 0)) != REG
       || REGNO (XEXP (vector_element, 0)) != 10)
     return 0;
-  
+
   return 1;
 }
 
@@ -2193,7 +2193,7 @@ construct_save_jarl (op)
   unsigned long int last;
   int i;
   static char buff [100]; /* XXX */
-  
+
   if (count <= 2)
     {
       error ("Bogus JARL construction: %d\n", count);
@@ -2209,7 +2209,7 @@ construct_save_jarl (op)
     abort ();
   if (GET_CODE (XEXP (SET_SRC (XVECEXP (op, 0, 0)), 1)) != CONST_INT)
     abort ();
-    
+
   /* Work out how many bytes to push onto the stack after storing the
      registers.  */
   stack_bytes = INTVAL (XEXP (SET_SRC (XVECEXP (op, 0, 0)), 1));
@@ -2229,18 +2229,18 @@ construct_save_jarl (op)
   for (i = 1; i < count - 1; i++)
     {
       rtx vector_element = XVECEXP (op, 0, i);
-      
+
       if (GET_CODE (vector_element) != SET)
 	abort ();
       if (GET_CODE (SET_SRC (vector_element)) != REG)
 	abort ();
       if (! register_is_ok_for_epilogue (SET_SRC (vector_element), SImode))
 	abort ();
-      
+
       mask |= 1 << REGNO (SET_SRC (vector_element));
     }
 
-  /* Scan for the first register to push.  */  
+  /* Scan for the first register to push.  */
   for (first = 0; first < 32; first++)
     {
       if (mask & (1 << first))
@@ -2255,7 +2255,7 @@ construct_save_jarl (op)
     {
       if (stack_bytes != -16)
 	abort ();
-      
+
       last = 31;
     }
   else
@@ -2264,7 +2264,7 @@ construct_save_jarl (op)
 	abort ();
       if ((mask & (1 << 29)) == 0)
 	abort ();
-      
+
       last = 29;
     }
 
@@ -2272,7 +2272,7 @@ construct_save_jarl (op)
      We ignore this here, and generate a JARL anyway.  We will
      be pushing more registers thatn is strictly necessary, but
      it does save code space.  */
-  
+
   if (first == last)
     sprintf (buff, "jarl __save_%s, r10", reg_names [first]);
   else

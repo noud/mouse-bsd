@@ -119,7 +119,7 @@
 
 /*
  * The m68k ALTENTRY macro is very different than the traditional
- * implementation used by other NetBSD ports.  Usually ALTENTRY 
+ * implementation used by other NetBSD ports.  Usually ALTENTRY
  * simply provides an alternate function entry point.  The m68k
  * definition takes a second argument and jumps inside the second
  * function when profiling is enabled.

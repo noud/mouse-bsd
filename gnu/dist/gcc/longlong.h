@@ -434,7 +434,7 @@ UDItype __umulsidi3 (USItype, USItype);
 	     : "=d" (__w)						\
 	     : "%dI" ((USItype) (u)),					\
 	       "dI" ((USItype) (v)));					\
-    __w; })  
+    __w; })
 #endif /* __i960__ */
 
 #if defined (__M32R__)

@@ -8,7 +8,7 @@ static const char rcsid[] = "Id: ns_main.c,v 8.117 1999/11/08 23:01:38 vixie Exp
 /*
  * Copyright (c) 1986, 1989, 1990
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -24,7 +24,7 @@ static const char rcsid[] = "Id: ns_main.c,v 8.117 1999/11/08 23:01:38 vixie Exp
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -40,14 +40,14 @@ static const char rcsid[] = "Id: ns_main.c,v 8.117 1999/11/08 23:01:38 vixie Exp
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -147,7 +147,7 @@ static	int			iflist_dont_rescan = 0;
 
 static	const int		drbufsize = 32 * 1024,	/* UDP rcv buf size */
 				dsbufsize = 48 * 1024,	/* UDP snd buf size */
-				sbufsize = 16 * 1024,	/* TCP snd buf size */ 
+				sbufsize = 16 * 1024,	/* TCP snd buf size */
 				nudptrans = 20,		/* #/udps per select */
 				listenmax = 50;
 
@@ -339,7 +339,7 @@ main(int argc, char *argv[], char *envp[]) {
 				user_id = pw->pw_uid;
 				if (group_name == NULL) {
 					char name[256];
-					
+
 					sprintf(name, "%lu",
 						(u_long)pw->pw_gid);
 					group_name = savestr(name, 1);
@@ -554,7 +554,7 @@ main(int argc, char *argv[], char *envp[]) {
 
 	/* Cleanup for system-dependent stuff */
 	custom_shutdown();
-	
+
 	return (0);
 }
 
@@ -625,7 +625,7 @@ stream_accept(evContext lev, void *uap, int rfd,
 				struct qstream *nextsp;
 				struct qstream *candidate = NULL;
 				time_t lasttime, maxctime = 0;
-				
+
 				for (sp = streamq; sp; sp = nextsp) {
 					nextsp = sp->s_next;
 					if (sp->s_refcnt)
@@ -743,7 +743,7 @@ int
 tcp_send(struct qinfo *qp) {
 	struct qstream *sp;
 	int on = 1;
-	
+
 	ns_debug(ns_log_default, 1, "tcp_send");
 	if ((sp = sq_add()) == NULL) {
 		return (SERVFAIL);
@@ -844,7 +844,7 @@ stream_getlen(evContext lev, void *uap, int fd, int bytes) {
 	sp->flags &= ~STREAM_READ_EV;
 	if (bytes != INT16SZ) {
 		/*
-		 * bytes == 0 is normal EOF; see if something unusual 
+		 * bytes == 0 is normal EOF; see if something unusual
 		 * happened.
 		 */
 		if (bytes < 0) {
@@ -1034,7 +1034,7 @@ dispatch_message(u_char *msg, int msglen, int buflen, struct qstream *qsp,
 		return;
 	}
 
-	if (server_options->blackhole_acl != NULL && 
+	if (server_options->blackhole_acl != NULL &&
 	    ip_match_address(server_options->blackhole_acl,
 			     from.sin_addr) == 1) {
 		ns_debug(ns_log_default, 1,
@@ -1141,7 +1141,7 @@ getnetconf(int periodic_scan) {
 			/*
 			 * Some OS's just return what will fit rather
 			 * than set EINVAL if the buffer is too small
-			 * to fit all the interfaces in.  If 
+			 * to fit all the interfaces in.  If
 			 * ifc.ifc_len is too near to the end of the
 			 * buffer we will grow it just in case and
 			 * retry.
@@ -1196,7 +1196,7 @@ getnetconf(int periodic_scan) {
 		}
 #endif
 		if (ifreq.ifr_addr.sa_family != AF_INET) {
-			ns_debug(ns_log_default, 2, 
+			ns_debug(ns_log_default, 2,
 				 "getnetconf: %s AF %d != INET",
 				 ifreq.ifr_name, ifreq.ifr_addr.sa_family);
 			continue;
@@ -1225,7 +1225,7 @@ getnetconf(int periodic_scan) {
 		     li = li->next) {
 			if (ip_match_address(li->list, ina) > 0) {
 				found++;
-				/* 
+				/*
 				 * Look for an already existing source
 				 * interface address/port pair.
 				 * This happens mostly when reinitializing.
@@ -1429,7 +1429,7 @@ opensocket_d(interface *ifp) {
 	if ((fd = fcntl(ifp->dfd, F_DUPFD, 20)) != -1) {
 		close(ifp->dfd);
 		ifp->dfd = fd;
-	} else 
+	} else
 		ns_notice(ns_log_default, "fcntl(dfd, F_DUPFD, 20): %s",
 			  strerror(errno));
 #endif
@@ -1514,7 +1514,7 @@ opensocket_s(interface *ifp) {
 	if ((fd = fcntl(ifp->sfd, F_DUPFD, 20)) != -1) {
 		close(ifp->sfd);
 		ifp->sfd = fd;
-	} else 
+	} else
 		ns_notice(ns_log_default, "fcntl(sfd, F_DUPFD, 20): %s",
 			  strerror(errno));
 #endif
@@ -1652,7 +1652,7 @@ static void
 setdebug(int new_debug) {
 #ifdef DEBUG
 	int old_debug;
-	
+
 	if (!new_debug)
 		ns_debug(ns_log_default, 1, "Debug off");
 	old_debug = debug;
@@ -1994,7 +1994,7 @@ dq_remove_all() {
 
 	for (this = HEAD(iflist); this != NULL; this = next) {
 		next = NEXT(this, link);
-		/* 
+		/*
 		 * Clear the forwarding flag so we don't panic the server.
 		 */
 		this->flags &= ~INTERFACE_FORWARDING;
@@ -2532,7 +2532,7 @@ deallocate_everything(void) {
 		(void)fclose(f);
 	}
 }
-	
+
 static void
 ns_exit(void) {
 	main_needs_exit++;

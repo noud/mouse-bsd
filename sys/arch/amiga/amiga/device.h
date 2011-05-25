@@ -32,9 +32,9 @@
 #ifndef _AMIGA_DEVICE_H_
 #define _AMIGA_DEVICE_H_
 
-/* 
+/*
  * devices that need to configure before console use this
- * *and know it* (i.e. everything is really tight certain params won't be 
+ * *and know it* (i.e. everything is really tight certain params won't be
  * passed in some cases and the devices will deal with it)
  */
 void config_console __P((void));

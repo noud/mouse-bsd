@@ -13,7 +13,7 @@
  *
  * This code is derived from software contributed to Berkeley by
  * Vern Paxson.
- * 
+ *
  * The United States Government has rights in this work pursuant
  * to contract no. DE-AC03-76SF00098 between the United States
  * Department of Energy and the University of California.
@@ -280,7 +280,7 @@ flexrule	:  '^' rule
 			{
 			if ( scon_stk_ptr > 0 )
 				build_eof_action();
-	
+
 			else
 				{
 				/* This EOF applies to all start conditions
@@ -410,7 +410,7 @@ rule		:  re2 re
 					num_rules | YY_TRAILING_HEAD_MASK );
 				variable_trail_rule = true;
 				}
-			
+
 			else
 				trailcnt = rulelen;
 
@@ -757,7 +757,7 @@ ccl_expr:	   CCE_ALNUM	{ CCL_EXPR(isalnum) }
 				}
 		|  CCE_XDIGIT	{ CCL_EXPR(isxdigit) }
 		;
-		
+
 string		:  string CHAR
 			{
 			if ( caseins && $2 >= 'A' && $2 <= 'Z' )

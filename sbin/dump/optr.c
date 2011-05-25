@@ -191,7 +191,7 @@ struct	group *gp;
 
 /*
  *	Get the names from the group entry "operator" to notify.
- */	
+ */
 void
 set_operators()
 {
@@ -321,7 +321,7 @@ timeest()
 	if (tnow >= tschedule) {
 		tschedule = tnow + 300;
 		if (blockswritten < 500)
-			return;	
+			return;
 		deltat = tstart_writing - tnow +
 			(1.0 * (tnow - tstart_writing))
 			/ blockswritten * tapesize;

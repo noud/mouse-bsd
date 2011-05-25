@@ -1,5 +1,5 @@
 /* Native support for HPPA-RISC machine running HPUX, for GDB.
-   Copyright 1991, 1992 Free Software Foundation, Inc. 
+   Copyright 1991, 1992 Free Software Foundation, Inc.
 
 This file is part of GDB.
 
@@ -69,7 +69,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* attach/detach works to some extent under BSD and HPUX.  So long
    as the process you're attaching to isn't blocked waiting on io,
-   blocked waiting on a signal, or in a system call things work 
+   blocked waiting on a signal, or in a system call things work
    fine.  (The problems in those cases are related to the fact that
    the kernel can't provide complete register information for the
    target process...  Which really pisses off GDB.)  */

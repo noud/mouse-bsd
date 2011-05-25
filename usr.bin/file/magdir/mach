@@ -4,7 +4,7 @@
 0	belong		0xcafebabe	Mach-O fat file
 >4	belong		1		with 1 architecture
 >4	belong		>1
->>4	belong		x		with %ld architectures		
+>>4	belong		x		with %ld architectures
 #
 0	belong		0xfeedface	Mach-O
 >12	belong		1		object

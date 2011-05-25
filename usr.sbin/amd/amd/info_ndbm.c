@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: info_ndbm.c,v 1.2 1999/01/10 21:53:46 ezk Exp 
+ * Id: info_ndbm.c,v 1.2 1999/01/10 21:53:46 ezk Exp
  *
  */
 

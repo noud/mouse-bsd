@@ -54,13 +54,13 @@ __RCSID("$NetBSD: hayes.c,v 1.8 1998/07/12 09:14:20 mrg Exp $");
  * before modem is hung up, removal of the DTR signal
  * has no effect (except that it prevents the modem from
  * recognizing commands).
- * (by Helge Skrivervik, Calma Company, Sunnyvale, CA. 1984) 
+ * (by Helge Skrivervik, Calma Company, Sunnyvale, CA. 1984)
  */
 /*
  * TODO:
  * It is probably not a good idea to switch the modem
  * state between 'verbose' and terse (status messages).
- * This should be kicked out and we should use verbose 
+ * This should be kicked out and we should use verbose
  * mode only. This would make it consistent with normal
  * interactive use thru the command 'tip dialer'.
  */
@@ -230,23 +230,23 @@ error_rep(c)
 	case '1':
 		printf("CONNECT");
 		break;
-	
+
 	case '2':
 		printf("RING");
 		break;
-	
+
 	case '3':
 		printf("NO CARRIER");
 		break;
-	
+
 	case '4':
 		printf("ERROR in input");
 		break;
-	
+
 	case '5':
 		printf("CONNECT 1200");
 		break;
-	
+
 	default:
 		printf("Unknown Modem error: %c (0x%x)", c, c);
 	}
@@ -313,7 +313,7 @@ hay_sync()
 		ioctl(FD, FIONREAD, &len);
 		if (len) {
 			len = read(FD, dumbuf, min(len, DUMBUFLEN));
-			if (strchr(dumbuf, '0') || 
+			if (strchr(dumbuf, '0') ||
 		   	(strchr(dumbuf, 'O') && strchr(dumbuf, 'K')))
 				return(1);
 #ifdef DEBUG

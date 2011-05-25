@@ -964,7 +964,7 @@ scanflike(hte, call, n, fmt, ap)
 			noasgn = 1;
 			fc = *fp++;
 		}
-		
+
 		if (isdigit(fc)) {
 			fwidth = 1;
 			do { fc = *fp++; } while (isdigit(fc));
@@ -1331,7 +1331,7 @@ eqtype(tp1, tp2, ignqual, promot, asgn, warn)
 			if (indir == 1 && (t == VOID || tp2->t_tspec == VOID))
 				return (1);
 		}
-		
+
 		if (t != tp2->t_tspec) {
 			/*
 			 * Give pointer to types which differ only in

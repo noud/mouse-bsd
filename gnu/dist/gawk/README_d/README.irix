@@ -7,10 +7,10 @@ Subject: Re:  new (and I sure hope final) test release of 3.0.1
 
 cc -c  -DGAWK -I. -I.. -DHAVE_CONFIG_H ../array.c
 accom: Error: ../protos.h, line 73: One declaration for is non-prototype style,)
-       extern int fprintf () ; 
+       extern int fprintf () ;
        ----------------------^
 accom: Error: ../protos.h, line 73: One declaration for fprintf is non-prototyp)
-       extern int fprintf () ; 
+       extern int fprintf () ;
        ----------------------^
 accom: Error: ../protos.h, line 78: redeclaration of fwrite
        extern int fwrite();

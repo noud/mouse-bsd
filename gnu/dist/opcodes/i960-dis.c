@@ -19,11 +19,11 @@ Free Software Foundation, 59 Temple Place - Suite 330, Boston, MA
 #include "dis-asm.h"
 
 static const char *const reg_names[] = {
-/*  0 */	"pfp", "sp",  "rip", "r3",  "r4",  "r5",  "r6",  "r7", 
+/*  0 */	"pfp", "sp",  "rip", "r3",  "r4",  "r5",  "r6",  "r7",
 /*  8 */	"r8",  "r9",  "r10", "r11", "r12", "r13", "r14", "r15",
-/* 16 */	"g0",  "g1",  "g2",  "g3",  "g4",  "g5",  "g6",  "g7", 
-/* 24 */	"g8",  "g9",  "g10", "g11", "g12", "g13", "g14", "fp", 
-/* 32 */	"pc",  "ac",  "ip",  "tc",  "fp0", "fp1", "fp2", "fp3" 
+/* 16 */	"g0",  "g1",  "g2",  "g3",  "g4",  "g5",  "g6",  "g7",
+/* 24 */	"g8",  "g9",  "g10", "g11", "g12", "g13", "g14", "fp",
+/* 32 */	"pc",  "ac",  "ip",  "tc",  "fp0", "fp1", "fp2", "fp3"
 };
 
 
@@ -148,7 +148,7 @@ pinsn( memaddr, word1, word2 )
 		instr_len = mem( memaddr, word1, word2, 0 );
 		break;
 	default:
-		/* invalid instruction, print as data word */ 
+		/* invalid instruction, print as data word */
 		invalid( word1 );
 		break;
 	}
@@ -871,7 +871,7 @@ invalid( word1 )
     int word1;
 {
 	(*info->fprintf_func)( stream, ".word\t0x%08x", (unsigned) word1 );
-}	
+}
 
 static void
 print_addr(a)

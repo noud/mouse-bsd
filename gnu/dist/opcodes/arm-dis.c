@@ -1,19 +1,19 @@
 /* Instruction printing code for the ARM
-   Copyright (C) 1994, 95, 96, 97, 1998 Free Software Foundation, Inc. 
+   Copyright (C) 1994, 95, 96, 97, 1998 Free Software Foundation, Inc.
    Contributed by Richard Earnshaw (rwe@pegasus.esprit.ec.org)
    Modification by James G. Smith (jsmith@cygnus.co.uk)
 
-This file is part of libopcodes. 
+This file is part of libopcodes.
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free
 Software Foundation; either version 2 of the License, or (at your option)
-any later version. 
+any later version.
 
 This program is distributed in the hope that it will be useful, but WITHOUT
 ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
 FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-more details. 
+more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
@@ -36,7 +36,7 @@ static char *arm_regnames[] =
 static char *arm_fp_const[] =
 {"0.0", "1.0", "2.0", "3.0", "4.0", "5.0", "0.5", "10.0"};
 
-static char *arm_shift[] = 
+static char *arm_shift[] =
 {"lsl", "lsr", "asr", "ror"};
 
 static int print_insn_arm PARAMS ((bfd_vma, struct disassemble_info *,
@@ -112,7 +112,7 @@ print_insn_arm (pc, info, given)
 			}
 		      else
 			{
-			  func (stream, "[%s", 
+			  func (stream, "[%s",
 				arm_regnames[(given >> 16) & 0xf]);
 			  if ((given & 0x01000000) != 0)
 			    {
@@ -132,7 +132,7 @@ print_insn_arm (pc, info, given)
 				  arm_decode_shift (given, func, stream);
 				}
 
-			      func (stream, "]%s", 
+			      func (stream, "]%s",
 				    ((given & 0x00200000) != 0) ? "!" : "");
 			    }
 			  else
@@ -144,13 +144,13 @@ print_insn_arm (pc, info, given)
 				    func (stream, "], %s#%d",
 					  (((given & 0x00800000) == 0)
 					   ? "-" : ""), offset);
-				  else 
+				  else
 				    func (stream, "]");
 				}
 			      else
 				{
 				  func (stream, "], %s",
-					(((given & 0x00800000) == 0) 
+					(((given & 0x00800000) == 0)
 					 ? "-" : ""));
 				  arm_decode_shift (given, func, stream);
 				}
@@ -170,7 +170,7 @@ print_insn_arm (pc, info, given)
 			}
 		      else
 			{
-			  func (stream, "[%s", 
+			  func (stream, "[%s",
 				arm_regnames[(given >> 16) & 0xf]);
 			  if ((given & 0x01000000) != 0)
 			    {
@@ -193,7 +193,7 @@ print_insn_arm (pc, info, given)
                                         arm_regnames[given & 0xf]);
 				}
 
-			      func (stream, "]%s", 
+			      func (stream, "]%s",
 				    ((given & 0x00200000) != 0) ? "!" : "");
 			    }
 			  else
@@ -207,7 +207,7 @@ print_insn_arm (pc, info, given)
 				    func (stream, "], %s#%d",
 					  (((given & 0x00800000) == 0)
 					   ? "-" : ""), offset);
-				  else 
+				  else
 				    func (stream, "]");
 				}
 			      else
@@ -221,7 +221,7 @@ print_insn_arm (pc, info, given)
 			    }
 			}
 		      break;
-			  
+
 		    case 'b':
 		      (*info->print_address_func)
 			(BDISP (given) * 4 + pc + 8, info);
@@ -336,7 +336,7 @@ print_insn_arm (pc, info, given)
 			  func (stream, "3");
 			}
 		      break;
-			
+
 		    case 'P':
 		      switch (given & 0x00080080)
 			{
@@ -388,7 +388,7 @@ print_insn_arm (pc, info, given)
 			}
 		      break;
 
-		    case '0': case '1': case '2': case '3': case '4': 
+		    case '0': case '1': case '2': case '3': case '4':
 		    case '5': case '6': case '7': case '8': case '9':
 		      {
 			int bitstart = *c++ - '0';
@@ -506,7 +506,7 @@ print_insn_thumb (pc, info, given)
             {
 	      info->bytes_per_chunk = 4;
 	      info->bytes_per_line  = 4;
-	      
+
               func (stream, "%04x\tbl\t", given & 0xffff);
               (*info->print_address_func)
                 (BDISP23 (given) * 2 + pc + 4, info);
@@ -516,7 +516,7 @@ print_insn_thumb (pc, info, given)
             {
 	      info->bytes_per_chunk = 2;
 	      info->bytes_per_line  = 4;
-	  	      
+
               given &= 0xffff;
               func (stream, "%04x\t", given);
               for (; *c; c++)
@@ -600,7 +600,7 @@ print_insn_thumb (pc, info, given)
                           break;
 
 
-                        case '0': case '1': case '2': case '3': case '4': 
+                        case '0': case '1': case '2': case '3': case '4':
                         case '5': case '6': case '7': case '8': case '9':
                           {
                             int bitstart = *c++ - '0';
@@ -715,7 +715,7 @@ print_insn_big_arm (pc, info)
   int                status;
   coff_symbol_type * cs;
   int                is_thumb;
-  
+
   cs = ((info->symbols == NULL
 	 || bfd_asymbol_flavour (*info->symbols) != bfd_target_coff_flavour)
 	? NULL
@@ -731,7 +731,7 @@ print_insn_big_arm (pc, info)
   info->display_endian = BFD_ENDIAN_BIG;
 
   /* Always fetch word aligned values.  */
-  
+
   status = (*info->read_memory_func) (pc & ~ 0x3, (bfd_byte *) &b[0], 4, info);
   if (status != 0)
     {
@@ -751,7 +751,7 @@ print_insn_big_arm (pc, info)
 	      info->memory_error_func (status, pc + 4, info);
 	      return -1;
 	    }
-	  
+
 	  given |= (b[0] << 24) | (b[1] << 16);
 	}
       else
@@ -786,7 +786,7 @@ print_insn_little_arm (pc, info)
   int                status;
   coff_symbol_type * cs;
   int                is_thumb;
-  
+
   cs = ((info->symbols == NULL
 	 || bfd_asymbol_flavour (*info->symbols) != bfd_target_coff_flavour)
 	? NULL

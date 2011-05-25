@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1992 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -32,12 +32,12 @@
  * 	Added release to FILEWHEN name.
  * 	Brad's changes: delinted and updated variable arguement usage.
  * 	[92/07/26            mrt]
- * 
+ *
  * Revision 1.3  89/08/15  15:31:28  bww
  * 	Updated to use v*printf() in place of _doprnt().
  * 	From "[89/04/19            mja]" at CMU.
  * 	[89/08/15            bww]
- * 
+ *
  * 27-Dec-87  Glenn Marcy (gm0w) at Carnegie-Mellon University
  *	Fixed bug in ugconvert() which left pw uninitialized.
  *
@@ -284,11 +284,11 @@ va_dcl
 		noteF = NULL;
 		return;
 	}
-	if ((thisC->Cflags&CFURELSUF) && thisC->Crelease) 
+	if ((thisC->Cflags&CFURELSUF) && thisC->Crelease)
 		(void) sprintf (collrelname,"%s-%s",collname,thisC->Crelease);
 	else
 		(void) strcpy (collrelname,collname);
-	
+
 	if (noteF == NULL) {
 		if ((thisC->Cflags&CFMAIL) && thisC->Cnotify) {
 			(void) sprintf (buf,"mail -s \"SUP Upgrade of %s\" %s >/dev/null",

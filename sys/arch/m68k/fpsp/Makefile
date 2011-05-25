@@ -2,7 +2,7 @@
 
 #	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 #	M68000 Hi-Performance Microprocessor Division
-#	M68040 Software Package 
+#	M68040 Software Package
 #
 #	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 #	All rights reserved.
@@ -13,7 +13,7 @@
 #	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 #	PARTICULAR PURPOSE and any warranty against infringement with
 #	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-#	and any accompanying written materials. 
+#	and any accompanying written materials.
 #
 #	To the maximum extent permitted by applicable law,
 #	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 #	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 #	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 #	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-#	and support of the SOFTWARE.  
+#	and support of the SOFTWARE.
 #
 #	You are hereby granted a copyright license to use, modify, and
 #	distribute the SOFTWARE so long as this entire notice is retained
@@ -250,7 +250,7 @@ l_entry.sa: L_ENTRY.AWK L_LIST MONADIC.$(SYS) DYADIC.$(SYS) l_fpsp.h
 # aren't needed in the library version.  Beware that changes in
 # the source code may cause this editing to break....
 #
-l_do_func.s: do_func.s 
+l_do_func.s: do_func.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 	echo '/global.*do_func/,/^	rts/d' >.SCRIPT
 	echo 'g/smovcr/d' >>.SCRIPT
@@ -260,7 +260,7 @@ l_do_func.s: do_func.s
 	ed - ${.TARGET} <.SCRIPT
 	rm .SCRIPT
 
-l_round.s: round.s 
+l_round.s: round.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 	echo '/^not_E3:/-6,/^not_E3:/d' >.SCRIPT
 	echo 'w' >>.SCRIPT
@@ -268,58 +268,58 @@ l_round.s: round.s
 	ed - ${.TARGET} <.SCRIPT
 	rm .SCRIPT
 
-l_copyright.s: copyright.s 
+l_copyright.s: copyright.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_sacos.s: sacos.s 
+l_sacos.s: sacos.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_sasin.s: sasin.s 
+l_sasin.s: sasin.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_satan.s: satan.s 
+l_satan.s: satan.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_satanh.s: satanh.s 
+l_satanh.s: satanh.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_scale.s: scale.s 
+l_scale.s: scale.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_scosh.s: scosh.s 
+l_scosh.s: scosh.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_setox.s: setox.s 
+l_setox.s: setox.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_sgetem.s: sgetem.s 
+l_sgetem.s: sgetem.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_sint.s: sint.s 
+l_sint.s: sint.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_slog2.s: slog2.s 
+l_slog2.s: slog2.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_slogn.s: slogn.s 
+l_slogn.s: slogn.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_srem_mod.s: srem_mod.s 
+l_srem_mod.s: srem_mod.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_ssin.s: ssin.s 
+l_ssin.s: ssin.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_ssinh.s: ssinh.s 
+l_ssinh.s: ssinh.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_stan.s: stan.s 
+l_stan.s: stan.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_stanh.s: stanh.s 
+l_stanh.s: stanh.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
-l_stwotox.s: stwotox.s 
+l_stwotox.s: stwotox.s
 	$(LIB_FILTER) ${.ALLSRC} >${.TARGET}
 
 #

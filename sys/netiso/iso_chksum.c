@@ -201,7 +201,7 @@ iso_gen_csum(m, n, l)
 
 #ifdef ARGO_DEBUG
 	if (argo_debug[D_CHKSUM]) {
-		printf("enter gen csum m %p n 0x%x l 0x%x\n", 
+		printf("enter gen csum m %p n 0x%x l 0x%x\n",
 		    m, n - 1, l);
 	}
 #endif

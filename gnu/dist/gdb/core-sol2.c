@@ -67,7 +67,7 @@ fetch_core_registers (core_reg_sect, core_reg_size, which, reg_addr)
 	  *(int *)&registers[REGISTER_BYTE (0)] = 0;
 
 	  /* The globals and output registers.  */
-	  memcpy (&registers[REGISTER_BYTE (G1_REGNUM)], &gregs->r_g1, 
+	  memcpy (&registers[REGISTER_BYTE (G1_REGNUM)], &gregs->r_g1,
 		  15 * REGISTER_RAW_SIZE (G1_REGNUM));
 	  *(int *)&registers[REGISTER_BYTE (PS_REGNUM)] = gregs->r_ps;
 	  *(int *)&registers[REGISTER_BYTE (PC_REGNUM)] = gregs->r_pc;
@@ -84,7 +84,7 @@ fetch_core_registers (core_reg_sect, core_reg_size, which, reg_addr)
 
 	    sp = *(int *)&registers[REGISTER_BYTE (SP_REGNUM)];
 	    if (0 != target_read_memory (sp,
-					 &registers[REGISTER_BYTE (L0_REGNUM)], 
+					 &registers[REGISTER_BYTE (L0_REGNUM)],
 					 16 * REGISTER_RAW_SIZE (L0_REGNUM)))
 	      {
 		warning ("couldn't read input and local registers from core file\n");

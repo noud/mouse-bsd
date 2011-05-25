@@ -315,7 +315,7 @@ pdq_os_addr_fill(
 
     /*
      * ADDR_FILTER_SET is always issued before FILTER_SET so
-     * we can play with PDQ_ALLMULTI and not worry about 
+     * we can play with PDQ_ALLMULTI and not worry about
      * queueing a FILTER_SET ourselves.
      */
 
@@ -568,7 +568,7 @@ pdq_ifattach(
 	ifmedia_set(&sc->sc_ifmedia, media);
     }
 #endif
-  
+
     if_attach(ifp);
 #if defined(__NetBSD__)
     fddi_ifattach(ifp, (caddr_t)&sc->sc_pdq->pdq_hwaddr);
@@ -580,7 +580,7 @@ pdq_ifattach(
 #endif
 }
 
-#if defined(PDQ_BUS_DMA) 
+#if defined(PDQ_BUS_DMA)
 int
 pdq_os_memalloc_contig(
     pdq_t *pdq)

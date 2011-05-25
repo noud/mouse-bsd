@@ -55,6 +55,6 @@ void	wsdisplay_unset_cons_kbd __P((void));
  * Calls to the keyboard interface from the glue code.
  */
 struct wsmux_softc;
-struct device *wskbd_set_console_display 
+struct device *wskbd_set_console_display
 		__P((struct device *, struct wsmux_softc *));
 int wskbd_pickfree __P((void));

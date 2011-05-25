@@ -90,7 +90,7 @@ sunos_sendsig(catcher, sig, mask, code)
 	register struct sigacts *psp = p->p_sigacts;
 	register struct sunos_sigframe *fp;
 	register struct trapframe64 *tf;
-	register int addr, onstack; 
+	register int addr, onstack;
 	struct rwindow32 *kwin, *oldsp, *newsp;
 	struct sunos_sigframe sf;
 
@@ -159,8 +159,8 @@ sunos_sendsig(catcher, sig, mask, code)
 		   fp, &(((struct rwindow32 *)newsp)->rw_in[6]), oldsp);
 #endif
 	kwin = (struct rwindow32 *)(((caddr_t)tf)-CCFSZ);
-	if (rwindow_save(p) || 
-	    copyout((caddr_t)&sf, (caddr_t)fp, sizeof sf) || 
+	if (rwindow_save(p) ||
+	    copyout((caddr_t)&sf, (caddr_t)fp, sizeof sf) ||
 	    suword(&(((struct rwindow32 *)newsp)->rw_in[6]), (u_long)oldsp)) {
 		/*
 		 * Process has trashed its stack; give it an illegal
@@ -192,7 +192,7 @@ sunos_sendsig(catcher, sig, mask, code)
 	tf->tf_out[6] = (u_int64_t)(u_int)(u_long)newsp;
 #ifdef DEBUG
 	if ((sigdebug & SDB_KSTACK) && p->p_pid == sigpid) {
-		printf("sunos_sendsig: about to return to catcher %p thru %p\n", 
+		printf("sunos_sendsig: about to return to catcher %p thru %p\n",
 		       catcher, addr);
 		if (sigdebug & SDB_DDB) Debugger();
 	}
@@ -205,7 +205,7 @@ sunos_sys_sigreturn(p, v, retval)
 	void *v;
 	register_t *retval;
 {
-	struct sunos_sys_sigreturn_args /* 
+	struct sunos_sys_sigreturn_args /*
 		syscallarg(struct sigcontext13 *) sigcntxp;
 	} */ *uap = v;
 	struct sunos_sigcontext sc, *scp;

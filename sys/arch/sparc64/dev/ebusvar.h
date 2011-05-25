@@ -39,7 +39,7 @@
 struct ebus_attach_args {
 	char			*ea_name;	/* PROM name */
 	int			ea_node;	/* PROM node */
-	
+
 	bus_space_tag_t		ea_bustag;
 	bus_dma_tag_t		ea_dmatag;
 

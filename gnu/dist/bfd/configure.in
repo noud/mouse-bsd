@@ -492,8 +492,8 @@ do
     pc532machaout_vec)		tb="$tb pc532-mach.lo aout-ns32k.lo" ;;
     pmac_xcoff_vec)		tb="$tb coff-pmac.lo xcofflink.lo" ;;
     rs6000coff_vec)		tb="$tb coff-rs6000.lo xcofflink.lo" ;;
-    bfd_powerpc_pe_vec)         tb="$tb pe-ppc.lo cofflink.lo" ;;  
-    bfd_powerpcle_pe_vec)       tb="$tb pe-ppc.lo cofflink.lo" ;;  
+    bfd_powerpc_pe_vec)         tb="$tb pe-ppc.lo cofflink.lo" ;;
+    bfd_powerpcle_pe_vec)       tb="$tb pe-ppc.lo cofflink.lo" ;;
     bfd_powerpc_pei_vec)        tb="$tb pei-ppc.lo cofflink.lo" ;;
     bfd_powerpcle_pei_vec)      tb="$tb pei-ppc.lo cofflink.lo" ;;
     ppcboot_vec)		tb="$tb ppcboot.lo" ;;

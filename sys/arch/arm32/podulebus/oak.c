@@ -154,7 +154,7 @@ oak_attach(parent, self, aux)
 	sc->sc_ncr5380.sci_r5 = iobase + 20;
 	sc->sc_ncr5380.sci_r6 = iobase + 24;
 	sc->sc_ncr5380.sci_r7 = iobase + 28;
-	
+
 	sc->sc_ncr5380.sc_pio_in = ncr5380_pio_in;
 	sc->sc_ncr5380.sc_pio_out = ncr5380_pio_out;
 

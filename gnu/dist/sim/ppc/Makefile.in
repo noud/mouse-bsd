@@ -234,7 +234,7 @@ BUILT_SRC_WO_CONFIG = \
 BUILT_SRC = \
 	$(BUILT_SRC_WO_CONFIG) \
 	config.h \
-	ppc-config.h 
+	ppc-config.h
 
 LIB_INLINE_SRC = \
 	psim.c \
@@ -343,7 +343,7 @@ emul_chirp.o: emul_chirp.c emul_chirp.h $(EMUL_GENERIC_H)
 emul_netbsd.o: emul_netbsd.c emul_netbsd.h $(EMUL_GENERIC_H)
 emul_unix.o: emul_unix.c emul_unix.h $(EMUL_GENERIC_H)
 
-registers.o: registers.c $(REGISTERS_H) $(BASICS_H) 
+registers.o: registers.c $(REGISTERS_H) $(BASICS_H)
 
 cpu.o: cpu.c $(CPU_H) $(IDECODE_H)
 
@@ -362,7 +362,7 @@ corefile.o: corefile.c corefile.h corefile-n.h $(BASICS_H) $(DEVICE_TABLE_H)
 
 model.o: model.c $(CPU_H)
 
-events.o: events.c events.h $(BASICS_H) 
+events.o: events.c events.h $(BASICS_H)
 
 sim_calls.o: sim_calls.c $(PSIM_H) itable.h ../../gdb/tm.h options.h
 
@@ -505,12 +505,12 @@ tmp-filter: filter.c misc.h misc.o
 
 ld-decode.o: ld-decode.c misc.h lf.h table.h ld-decode.h
 	$(CC_FOR_BUILD) $(BUILD_CFLAGS) -c $(srcdir)/ld-decode.c
-tmp-ld-decode: ld-decode.o misc.o lf.o table.o filter_host.o 
+tmp-ld-decode: ld-decode.o misc.o lf.o table.o filter_host.o
 	$(CC_FOR_BUILD) $(BUILD_CFLAGS) $(BUILD_LDFLAGS) -o tmp-ld-decode -DMAIN $(srcdir)/ld-decode.c misc.o lf.o table.o filter_host.o $(BUILD_LIBS)
 
 ld-cache.o: ld-cache.c misc.h lf.h table.h ld-cache.h
 	$(CC_FOR_BUILD) $(BUILD_CFLAGS) -c $(srcdir)/ld-cache.c
-tmp-ld-cache: ld-cache.o misc.o lf.o table.o filter_host.o 
+tmp-ld-cache: ld-cache.o misc.o lf.o table.o filter_host.o
 	$(CC_FOR_BUILD) $(BUILD_CFLAGS) $(BUILD_LDFLAGS) -o tmp-ld-cache -DMAIN $(srcdir)/ld-cache.c misc.o lf.o table.o filter_host.o $(BUILD_LIBS)
 
 ld-insn.o: ld-insn.c misc.h lf.h table.h ld-insn.h ld-decode.h igen.h
@@ -530,7 +530,7 @@ gen-icache.o: gen-icache.c misc.h lf.h table.h gen-icache.h ld-decode.h igen.h l
 gen-semantics.o: gen-semantics.c misc.h lf.h table.h gen-semantics.h ld-decode.h igen.h ld-insn.h
 	$(CC_FOR_BUILD) $(BUILD_CFLAGS) -c $(srcdir)/gen-semantics.c
 
-gen-idecode.o: gen-idecode.c misc.h lf.h table.h gen-idecode.h gen-icache.h gen-semantics.h ld-decode.h igen.h ld-insn.h 
+gen-idecode.o: gen-idecode.c misc.h lf.h table.h gen-idecode.h gen-icache.h gen-semantics.h ld-decode.h igen.h ld-insn.h
 	$(CC_FOR_BUILD) $(BUILD_CFLAGS) -c $(srcdir)/gen-idecode.c
 
 gen-support.o: gen-support.c misc.h lf.h table.h gen-support.h ld-decode.h igen.h ld-insn.h
@@ -539,7 +539,7 @@ gen-support.o: gen-support.c misc.h lf.h table.h gen-support.h ld-decode.h igen.
 dgen.o: dgen.c misc.h filter_filename.h lf.h table.h
 	$(CC_FOR_BUILD) $(BUILD_CFLAGS) -c $(srcdir)/dgen.c
 
-igen.o: igen.c misc.h filter_filename.h lf.h table.h ld-decode.h ld-cache.h ld-insn.h filter.h gen-model.h gen-itable.h gen-icache.h gen-idecode.h gen-semantics.h gen-support.h igen.h 
+igen.o: igen.c misc.h filter_filename.h lf.h table.h ld-decode.h ld-cache.h ld-insn.h filter.h gen-model.h gen-itable.h gen-icache.h gen-idecode.h gen-semantics.h gen-support.h igen.h
 	$(CC_FOR_BUILD) $(BUILD_CFLAGS) -c $(srcdir)/igen.c
 
 misc.o: misc.c misc.h filter_filename.h

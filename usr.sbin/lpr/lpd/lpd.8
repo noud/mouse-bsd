@@ -99,13 +99,13 @@ would not use the output filter for remote printers.
 .It Fl s
 The
 .Fl s
-flag selects ``secure'' mode, in which 
+flag selects ``secure'' mode, in which
 .Nm lpd
 does not listen on a TCP socket but only takes commands from a
 .Ux
 domain socket.
 This is valuable when the machine on which
-.Nm lpd 
+.Nm lpd
 runs is subject to attack over the network and it is desired that the
 machine be protected from attempts to remotely fill spools and similar
 attacks.
@@ -147,7 +147,7 @@ The daemon begins processing files
 after it has successfully set the lock for exclusive
 access (described a bit later),
 and scans the spool directory
-for files beginning with 
+for files beginning with
 .Em cf .
 Lines in each
 .Em cf

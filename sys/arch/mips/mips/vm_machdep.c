@@ -74,7 +74,7 @@ extern paddr_t kvtophys __P((vaddr_t));	/* XXX */
 /*
  * Finish a fork operation, with process p2 nearly set up.
  * Copy and update the pcb and trap frame, making the child ready to run.
- * 
+ *
  * Rig the child's kernel stack so that it will start out in
  * proc_trampoline() and call child_return() with p2 as an
  * argument. This causes the newly-created child process to go
@@ -315,7 +315,7 @@ extern vm_map_t phys_map;
 /*
  * Map a user I/O request into kernel virtual address space.
  * Note: the pages are already locked by uvm_vslock(), so we
- * do not need to pass an access_type to pmap_enter().   
+ * do not need to pass an access_type to pmap_enter().
  */
 void
 vmapbuf(bp, len)

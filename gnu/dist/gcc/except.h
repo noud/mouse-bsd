@@ -158,10 +158,10 @@ void set_exception_version_code                 PROTO((short));
    means This is a cleanup, and must always be called. A value of
    CATCH_ALL_TYPE works like a cleanup, but a call to the runtime matcher
    is still performed to avoid being caught by a different language
-   exception. NEXT is a pointer to the next handler for this region. 
+   exception. NEXT is a pointer to the next handler for this region.
    NULL means there are no more. */
 
-typedef struct handler_info 
+typedef struct handler_info
 {
   rtx  handler_label;
   void *type_info;
@@ -170,7 +170,7 @@ typedef struct handler_info
 
 
 /* Add a new eh_entry for this function, The parameter specifies what
-   exception region number NOTE insns use to delimit this range. 
+   exception region number NOTE insns use to delimit this range.
    The integer returned is uniquely identifies this exception range
    within an internal table. */
 

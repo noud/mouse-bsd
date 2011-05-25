@@ -35,7 +35,7 @@
 #include <lib/libsa/ufs.h>
 #include <netinet/in.h>
 #include <lib/libsa/nfs.h>
- 
+
 struct fs_ops file_system_ufs[] = {
 	{ ufs_open, ufs_close, ufs_read, ufs_write, ufs_seek, ufs_stat },
 };

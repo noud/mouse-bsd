@@ -36,13 +36,13 @@
  *
  * RiscBSD kernel project
  *
- * cpufunc.S 
+ * cpufunc.S
  *
  * Assembly functions for CPU / MMU / TLB specific operations
  *
  * Created      : 30/01/97
  */
- 
+
 #include <machine/cpu.h>
 #include <machine/asm.h>
 
@@ -87,13 +87,13 @@ ENTRY(cpufunc_faultaddress)
  * Generic functions to write the internal coprocessor registers
  *
  *
- * Currently these registers are 
+ * Currently these registers are
  *  c1 - CPU Control
  *  c3 - Domain Access Control
  *
  * All other registers are CPU architecture specific
  */
- 
+
 /*ENTRY(cpufunc_control)
 	mcr	15, 0, r0, c1, c0, 0
 	mov	pc, lr*/
@@ -106,12 +106,12 @@ ENTRY(cpufunc_domains)
  * Generic functions to read/modify/write the internal coprocessor registers
  *
  *
- * Currently these registers are 
+ * Currently these registers are
  *  c1 - CPU Control
  *
  * All other registers are CPU architecture specific
  */
- 
+
 ENTRY(cpufunc_control)
 	mrc	15, 0, r3, c1, c0, 0	/* Read the control register */
 	bic	r2, r3, r0		/* Clear bits */
@@ -527,7 +527,7 @@ Lsa110_cache_cleanD_loop:
 	str	ip, [r3]
 #endif
 
-	mov	pc, lr	
+	mov	pc, lr
 
 ENTRY(sa110_cache_purgeID)
 #ifdef CACHE_CLEAN_BLOCK_INTR
@@ -556,7 +556,7 @@ Lsa110_cache_purgeID_loop:
 #else
 	str	ip, [r3]
 #endif
-	mov	pc, lr	
+	mov	pc, lr
 
 ENTRY(sa110_cache_purgeD)
 #ifdef CACHE_CLEAN_BLOCK_INTR
@@ -584,7 +584,7 @@ Lsa110_cache_purgeD_loop:
 #else
 	str	ip, [r3]
 #endif
-	mov	pc, lr	
+	mov	pc, lr
 
 ENTRY(sa110_cache_purgeID_E)
 	mcr	15, 0, r0, c7, c10, 1		/* clean dcache entry */
@@ -640,7 +640,7 @@ Lsa110_cache_syncI_loop:
 #else
 	str	ip, [r3]
 #endif
-	mov	pc, lr	
+	mov	pc, lr
 
 ENTRY(sa110_cache_cleanID_rng)
 ENTRY(sa110_cache_cleanD_rng)
@@ -759,7 +759,7 @@ ENTRY(arm8_context_switch)
 	/* If we have updated the TTB we must flush the TLB */
 	mcr     15, 0, r0, c8, c7, 0		/* flush the i+d tlb */
 
-	/* For good measure we will flush the IDC as well */	
+	/* For good measure we will flush the IDC as well */
 /*	mcr     15, 0, r0, c7, c7, 0*/		/* flush the i+d cache */
 
 	/* Make sure that pipeline is emptied */

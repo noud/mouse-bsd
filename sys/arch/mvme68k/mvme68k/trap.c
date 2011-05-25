@@ -1037,7 +1037,7 @@ syscall(code, frame)
 		if (code != SUNOS_SYS_sigreturn) {
 			frame.f_regs[SP] += sizeof (int);
 			/*
-			 * remember that we adjusted the SP, 
+			 * remember that we adjusted the SP,
 			 * might have to undo this if the system call
 			 * returns ERESTART.
 			 */

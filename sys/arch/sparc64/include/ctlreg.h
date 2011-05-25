@@ -8,7 +8,7 @@
  * are met:
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
- *  
+ *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR  ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -29,9 +29,9 @@
  */
 
 /*
- * The Alternate address spaces. 
- * 
- * 0x00-0x7f are privileged 
+ * The Alternate address spaces.
+ *
+ * 0x00-0x7f are privileged
  * 0x80-0xff can be used by users
  */
 
@@ -164,7 +164,7 @@
 #define ASI_BLK_S			ASI_BLOCK_SECONDARY
 #define ASI_BLK_SL			ASI_BLOCK_SECONDARY_LITTLE
 
-/* 
+/*
  * The following are 4u control registers
  */
 
@@ -202,8 +202,8 @@
 #define ASI_DMMU_TLB_DATA	0x5d
 #define ASI_DMMU_TLB_TAG	0x5e
 
-/* 
- * The following are the control registers 
+/*
+ * The following are the control registers
  * They work on both MMUs unless noted.
  *
  * Register contents are defined later on individual registers.
@@ -278,15 +278,15 @@
         "b\30CP\0"      "b\27WP\0"      "b\26EDP\0"     "b\25UE\0" \
         "b\24CE\0"      "f\20\4ETS\0"   "f\0\20P_SYND\0"
 
-/*  
+/*
  * Here's the spitfire TSB control register bits.
- * 
+ *
  * Each TSB entry is 16-bytes wide.  The TSB must be size aligned
  */
-#define TSB_SIZE_512		0x0	/* 8kB, etc. */	
+#define TSB_SIZE_512		0x0	/* 8kB, etc. */
 #define TSB_SIZE_1K		0x01
-#define TSB_SIZE_2K		0x02	
-#define TSB_SIZE_4K		0x03	
+#define TSB_SIZE_2K		0x02
+#define TSB_SIZE_4K		0x03
 #define	TSB_SIZE_8K		0x04
 #define TSB_SIZE_16K		0x05
 #define TSB_SIZE_32K		0x06
@@ -303,12 +303,12 @@
  *
  * Use the address space to select between IMMU and DMMU.
  * The address of the register selects which context register
- * to read the ASI from.  
+ * to read the ASI from.
  *
  * The data stored in the register is interpreted as the VA to
  * use.  The DEMAP_CTX_<> registers ignore the address and demap the
  * entire ASI.
- * 
+ *
  */
 #define ASI_IMMU_DEMAP			0x57	/* [4u] IMMU TLB demap */
 #define ASI_DMMU_DEMAP			0x5f	/* [4u] IMMU TLB demap */
@@ -382,7 +382,7 @@
 #define IDDR_3L		0x78	/* unimplemented */
 
 /*
- * Error registers 
+ * Error registers
  */
 
 /* Since we won't try to fix async errs, we don't care about the bits in the regs */
@@ -876,9 +876,9 @@ __asm __volatile("wr %4,%%g0,%%asi; sllx %3,32,%0; " \
  */
 /* Make all stores complete before next store */
 #define membar_storestore() __asm __volatile("membar #StoreStore" : :)
-/* Make all loads complete before next store */ 
+/* Make all loads complete before next store */
 #define membar_loadstore() __asm __volatile("membar #LoadStore" : :)
-/* Make all stores complete before next load */ 
+/* Make all stores complete before next load */
 #define membar_storeload() __asm __volatile("membar #StoreLoad" : :)
 /* Make all loads complete before next load */
 #define membar_loadload() __asm __volatile("membar #LoadLoad" : :)

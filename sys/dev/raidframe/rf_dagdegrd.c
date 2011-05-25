@@ -70,7 +70,7 @@
  * the DAG creation routines to be replaced at this single point.
  */
 
-void 
+void
 rf_CreateRaidFiveDegradedReadDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -106,7 +106,7 @@ rf_CreateRaidFiveDegradedReadDAG(
  *              allocList - list of memory allocated in DAG creation
  *****************************************************************************/
 
-void 
+void
 rf_CreateRaidOneDegradedReadDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -245,7 +245,7 @@ rf_CreateRaidOneDegradedReadDAG(
  *
  *****************************************************************************/
 
-void 
+void
 rf_CreateDegradedReadDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -522,7 +522,7 @@ rf_CreateDegradedReadDAG(
  *              allocList - list of memory allocated in DAG creation
  *****************************************************************************/
 
-void 
+void
 rf_CreateRaidCDegradedReadDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -647,7 +647,7 @@ rf_CreateRaidCDegradedReadDAG(
 /*
  * XXX move this elsewhere?
  */
-void 
+void
 rf_DD_GenerateFailedAccessASMs(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -979,7 +979,7 @@ rf_InitNode(node, rf_wait, RF_FALSE, rf_DiskReadFunc, rf_DiskReadUndoFunc, rf_Ge
   (_node_).params[2].v = parityStripeID; \
   (_node_).params[3].v = RF_CREATE_PARAM3(RF_IO_NORMAL_PRIORITY, 0, 0, which_ru)
 
-void 
+void
 rf_DoubleDegRead(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,

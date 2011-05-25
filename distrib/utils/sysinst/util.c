@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -53,7 +53,7 @@
 #include "menu_defs.h"
 
 /*
- * local prototypes 
+ * local prototypes
  */
 struct  tarstats {
 	int nselected;
@@ -116,7 +116,7 @@ get_ramsize()
 {
 	long len = sizeof(long);
 	int mib[2] = {CTL_HW, HW_PHYSMEM};
-	
+
 	sysctl(mib, 2, (void *)&ramsize, (size_t *)&len, NULL, 0);
 
 	/* Find out how many Megs ... round up. */
@@ -196,7 +196,7 @@ get_via_floppy()
 			snprintf(fullname, STRSIZE, "/mnt2/%s", fname);
 			first = 1;
 			while (!mounted || stat(fullname, &sb)) {
- 				if (mounted) 
+ 				if (mounted)
 				  run_prog(0, 0, NULL, "/sbin/umount /mnt2");
 				if (first)
 					msg_display(MSG_fdmount, fname);
@@ -205,7 +205,7 @@ get_via_floppy()
 				process_menu(MENU_fdok);
 				if (!yesno)
 					return 0;
-				while (run_prog(0, 0, NULL, 
+				while (run_prog(0, 0, NULL,
 				    "/sbin/mount -r -t %s %s /mnt2",
 				    fdtype, fddev)) {
 					msg_display(MSG_fdremount, fname);
@@ -293,7 +293,7 @@ again:
 
 /*
  * Get from a pathname inside an unmounted local filesystem
- * (e.g., where sets were preloaded onto a local DOS partition) 
+ * (e.g., where sets were preloaded onto a local DOS partition)
  */
 int
 get_via_localfs()
@@ -310,7 +310,7 @@ again:
 	if (run_prog(0, 0, NULL, "/sbin/mount -rt %s /dev/%s /mnt2",
 	    localfs_fs, localfs_dev)) {
 
-		msg_display(MSG_localfsbadmount, localfs_dir, localfs_dev); 
+		msg_display(MSG_localfsbadmount, localfs_dir, localfs_dev);
 		process_menu(MENU_localfsbadmount);
 		if (!yesno)
 			return 0;
@@ -358,7 +358,7 @@ again:
 		if (!ignorerror)
 			goto again;
 	}
-	
+
 	/* Verify distribution files exist.  */
 	if (distribution_sets_exist_p(localfs_dir) == 0) {
 		msg_display(MSG_badsetdir, localfs_dir);
@@ -447,7 +447,7 @@ extract_file(path)
 {
 	char *owd;
 	int   tarexit, rv;
-	
+
 	owd = getcwd (NULL,0);
 
 	/* check tarfile exists */
@@ -459,9 +459,9 @@ extract_file(path)
 		return (yesno == 0);
 	}
 
-	tarstats.nfound++;	
+	tarstats.nfound++;
 	/* cd to the target root. */
-	target_chdir_or_die("/");	
+	target_chdir_or_die("/");
 
 	/* now extract set files files into "./". */
 	tarexit = run_prog(0, 1, NULL,
@@ -478,7 +478,7 @@ extract_file(path)
 		tarstats.nsuccess++;
 		rv = 0;
 	}
-	
+
 	chdir(owd);
 	free(owd);
 
@@ -489,7 +489,7 @@ extract_file(path)
 /*
  * Extract_dist **REQUIRES** an absolute path in ext_dir.  Any code
  * that sets up dist_dir for use by extract_dist needs to put in the
- * full path name to the directory. 
+ * full path name to the directory.
  */
 
 int
@@ -559,7 +559,7 @@ struct filelist {
 	mode_t type;
 };
 
-int 
+int
 cleanup_dist(name)
 	const char *name;
 {
@@ -691,7 +691,7 @@ cleanup_dist(name)
 			if (rename(current->name, file_path) != 0) {
 				saved_errno = errno;
 				if (logging)
-					fprintf(log, "mv %s %s failed: %s\n", 
+					fprintf(log, "mv %s %s failed: %s\n",
 					    current->name, file_path,
 					    strerror(saved_errno));
 				msg_display_add(MSG_rename_fail, current->name,
@@ -760,7 +760,7 @@ get_and_unpack_sets(success_msg, failure_msg)
 
 		/* Other configuration. */
 		mnt_net_config();
-		
+
 		/* Clean up dist dir (use absolute path name) */
 		if (clean_dist_dir)
 			run_prog(0, 0, NULL, "/bin/rm -rf %s", ext_dir);
@@ -811,7 +811,7 @@ struct check_table { const char *testarg; const char *path;} checks[] = {
   { "-f", "/foo/bar" },		/* bad entry to exercise warning */
 #endif
   { 0, 0 }
-  
+
 };
 
 /*
@@ -822,10 +822,10 @@ check_for(type, pathname)
 	const char *type;
 	const char *pathname;
 {
-	int found; 
+	int found;
 
 	found = (target_test(type, pathname) == 0);
-	if (found == 0) 
+	if (found == 0)
 		msg_display(MSG_rootmissing, pathname);
 	return found;
 }
@@ -844,7 +844,7 @@ sanity_check()
 		target_ok = target_ok && check_for(p->testarg, p->path);
 	}
 	if (target_ok)
-		return 0;	    
+		return 0;
 
 	/* Uh, oh. Something's missing. */
 	msg_display(MSG_badroot);
@@ -865,7 +865,7 @@ int askyesno(int reverse)
 	}
 	box(yesnowin, '*', '*');
 	wmove(yesnowin, 2,2);
-	
+
 	if (reverse)
 		waddstr(yesnowin, "Yes or No: [N]");
 	else

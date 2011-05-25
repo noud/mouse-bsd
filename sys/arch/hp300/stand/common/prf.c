@@ -56,7 +56,7 @@ tgetchar()
 
 	if ((c = cngetc()) == 0)
         	return(0);
-        
+
 	if (c == '\r')
 		c = '\n';
 	else if (c == ('c'&037)) {

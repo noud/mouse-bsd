@@ -43,7 +43,7 @@
  *
  *	@(#)sunos_misc.c	8.1 (Berkeley) 6/18/93
  *
- *	Header: sunos_misc.c,v 1.16 93/04/07 02:46:27 torek Exp 
+ *	Header: sunos_misc.c,v 1.16 93/04/07 02:46:27 torek Exp
  */
 
 /*
@@ -445,7 +445,7 @@ sunos_sys_sigpending(p, v, retval)
 	return (copyout((caddr_t)&mask, (caddr_t)SCARG(uap, mask), sizeof(int)));
 }
 
-int     
+int
 sunos_sys_sigsuspend(p, v, retval)
 	register struct proc *p;
 	void *v;
@@ -456,7 +456,7 @@ sunos_sys_sigsuspend(p, v, retval)
 	} */ *uap = v;
 	int mask;
 	sigset_t ss;
-        
+
 	mask = SCARG(uap, mask);
 	sunos_to_native_sigset(mask, &ss);
 	return (sigsuspend1(p, &ss));
@@ -798,7 +798,7 @@ sunos_sys_open(p, v, retval)
 	int l, r;
 	int noctty;
 	int ret;
-	
+
 	caddr_t sg = stackgap_init(p->p_emul);
 
 	/* convert mode into NetBSD mode */
@@ -937,7 +937,7 @@ sunstatfs(sp, buf)
 	ssfs.f_ffree = sp->f_ffree;
 	ssfs.f_fsid = sp->f_fsid;
 	return copyout((caddr_t)&ssfs, buf, sizeof ssfs);
-}	
+}
 
 int
 sunos_sys_statfs(p, v, retval)

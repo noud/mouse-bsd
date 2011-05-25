@@ -63,7 +63,7 @@ ttyslot()
 	char *name;
 
 	setttyent();
-	for (cnt = 0; cnt < 3; ++cnt) 
+	for (cnt = 0; cnt < 3; ++cnt)
 		if ((name = ttyname(cnt)) != NULL) {
 			if ((p = strrchr(name, '/')) != NULL)
 				++p;

@@ -289,7 +289,7 @@ fetch_inferior_registers (regno)
 		       0);
       if (errno)
 	perror_with_name ("ptrace(PTRACE_GETREGS)");
-  
+
       memset (buf, 0, REGISTER_RAW_SIZE (G0_REGNUM));
       supply_register (G0_REGNUM, buf);
       supply_register (TBR_REGNUM, (char *)&ec.tbr);
@@ -342,7 +342,7 @@ fetch_inferior_registers (regno)
 		       0);
       if (errno)
 	perror_with_name ("ptrace(PTRACE_GETFPREGS)");
-  
+
       memcpy (&registers[REGISTER_BYTE (FP0_REGNUM)], fc.f.fregs,
 	      32 * REGISTER_RAW_SIZE (FP0_REGNUM));
       for (i = FP0_REGNUM; i <= FP0_REGNUM + 31; i++)
@@ -446,7 +446,7 @@ store_inferior_registers (regno)
 		       0);
       if (errno)
 	perror_with_name ("ptrace(PTRACE_GETFPREGS)");
-  
+
       memcpy (fc.f.fregs, &registers[REGISTER_BYTE (FP0_REGNUM)],
 	      32 * REGISTER_RAW_SIZE (FP0_REGNUM));
 
@@ -528,7 +528,7 @@ fetch_inferior_registers (regno)
 			(PTRACE_ARG3_TYPE) (ecp + regmap[regno] + i), 0);
 	  if (errno)
 	    perror_with_name ("ptrace(PTRACE_PEEKUSP)");
-  
+
 	  *(int *)&buf[i] = reg;
 	}
       supply_register (regno, buf);

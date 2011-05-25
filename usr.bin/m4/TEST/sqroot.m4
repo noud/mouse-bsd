@@ -37,7 +37,7 @@
 #	@(#)sqroot.m4	8.1 (Berkeley) 6/6/93
 #
 
-define(square_root, 
+define(square_root,
 	`ifelse(eval($1<0),1,negative-square-root,
 			     `square_root_aux($1, 1, eval(($1+1)/2))')')
 define(square_root_aux,

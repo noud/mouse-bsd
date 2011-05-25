@@ -71,7 +71,7 @@ struct symbol
      are local and would otherwise not be.  */
   unsigned int sy_used_in_reloc : 1;
 
-  /* Whether the symbol is used as an operand or in an expression.  
+  /* Whether the symbol is used as an operand or in an expression.
      NOTE:  Not all the backends keep this information accurate;
      backends which use this bit are responsible for setting it when
      a symbol is used in backend routines.  */

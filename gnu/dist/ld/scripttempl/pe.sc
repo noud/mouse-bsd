@@ -40,16 +40,16 @@ ENTRY(_mainCRTStartup)
 
 SECTIONS
 {
-  .text ${RELOCATING+ __image_base__ + __section_alignment__ } : 
+  .text ${RELOCATING+ __image_base__ + __section_alignment__ } :
   {
     ${RELOCATING+ *(.init)}
     *(.text)
     ${R_TEXT}
     *(.glue_7t)
     *(.glue_7)
-    ${CONSTRUCTING+ ___CTOR_LIST__ = .; __CTOR_LIST__ = . ; 
+    ${CONSTRUCTING+ ___CTOR_LIST__ = .; __CTOR_LIST__ = . ;
 			LONG (-1); *(.ctors); *(.ctor); LONG (0); }
-    ${CONSTRUCTING+ ___DTOR_LIST__ = .; __DTOR_LIST__ = . ; 
+    ${CONSTRUCTING+ ___DTOR_LIST__ = .; __DTOR_LIST__ = . ;
 			LONG (-1); *(.dtors); *(.dtor);  LONG (0); }
     ${RELOCATING+ *(.fini)}
     /* ??? Why is .gcc_exc here?  */
@@ -64,7 +64,7 @@ SECTIONS
      breaks building the cygwin32 dll.  Instead, we name the section
      ".data_cygwin_nocopy" and explictly include it after __data_end__. */
 
-  .data ${RELOCATING+BLOCK(__section_alignment__)} : 
+  .data ${RELOCATING+BLOCK(__section_alignment__)} :
   {
     ${RELOCATING+__data_start__ = . ;}
     *(.data)
@@ -109,7 +109,7 @@ SECTIONS
     ${R_IDATA}
   }
   .CRT ${RELOCATING+BLOCK(__section_alignment__)} :
-  { 					
+  {
     ${R_CRT}
   }
 
@@ -121,12 +121,12 @@ SECTIONS
   }
 
   .reloc ${RELOCATING+BLOCK(__section_alignment__)} :
-  { 					
+  {
     *(.reloc)
   }
 
   .rsrc ${RELOCATING+BLOCK(__section_alignment__)} :
-  { 					
+  {
     *(.rsrc)
     ${R_RSRC}
   }

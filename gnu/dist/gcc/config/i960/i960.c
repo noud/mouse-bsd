@@ -801,7 +801,7 @@ i960_output_ldconst (dst, src)
 			   operands);
 	}
 
-      return ""; 
+      return "";
    }
   else if (mode == DFmode)
     {
@@ -920,7 +920,7 @@ i960_output_ldconst (dst, src)
 	  output_asm_insn ("subo\t%1,0,%0\t# ldconst %3,%0", operands);
 	  return "";
 	}
-      
+
       /* ldconst	-32		->	not	31,X  */
       if (rsrc1 == -32)
 	{
@@ -956,9 +956,9 @@ i960_output_ldconst (dst, src)
   /* Unimplemented cases:
      const is in range 0..31 but rotated around end of word:
      ror	31,3,g0	-> ldconst 0xe0000003,g0
-   
+
      and any 2 instruction cases that might be worthwhile  */
-  
+
   output_asm_insn ("ldconst	%1,%0", operands);
   return "";
 }
@@ -967,7 +967,7 @@ i960_output_ldconst (dst, src)
    Bypass succeeds on the 960K* if the destination of the previous
    instruction is the second operand of the current instruction.
    Bypass always succeeds on the C*.
- 
+
    Return 1 if the pattern should interchange the operands.
 
    CMPBR_FLAG is true if this is for a compare-and-branch insn.
@@ -1045,7 +1045,7 @@ i960_function_name_declare (file, name, fndecl)
       tail_call_ok = 0;
       leaf_proc_ok = 0;
     }
-      
+
   /* See if caller passes in an address to return value. */
 
   if (aggregate_value_p (DECL_RESULT (fndecl)))
@@ -1166,7 +1166,7 @@ i960_function_name_declare (file, name, fndecl)
   else
     {
       ASM_OUTPUT_LABEL (file, name);
-      i960_last_insn_type = I_TYPE_CTRL; 
+      i960_last_insn_type = I_TYPE_CTRL;
     }
 }
 
@@ -1459,7 +1459,7 @@ i960_function_epilogue (file, size)
   if (*epilogue_string == 0)
     {
       register rtx tmp;
-	
+
       /* Emit a return insn, but only if control can fall through to here.  */
 
       tmp = get_last_insn ();
@@ -1535,7 +1535,7 @@ i960_output_call_insn (target, argsize_rtx, arg_pointer, insn)
      bx to b if in range, and callx to calls/call/balx/bal as appropriate.  */
 
   /* Nexti could be zero if the called routine is volatile.  */
-  if (optimize && (*epilogue_string == 0) && argsize == 0 && tail_call_ok 
+  if (optimize && (*epilogue_string == 0) && argsize == 0 && tail_call_ok
       && (nexti == 0 || GET_CODE (PATTERN (nexti)) == RETURN))
     {
       /* Delete following return insn.  */
@@ -1565,7 +1565,7 @@ i960_output_ret_insn (insn)
      register rtx insn;
 {
   static char lbuf[20];
-  
+
   if (*epilogue_string != 0)
     {
       if (! TARGET_CODE_ALIGN && next_real_insn (insn) == 0)
@@ -1601,7 +1601,7 @@ i960_br_predict_opcode (lab_ref, insn)
   if (TARGET_BRANCH_PREDICT)
     {
       unsigned long label_uid;
-      
+
       if (GET_CODE (lab_ref) == CODE_LABEL)
 	label_uid = INSN_UID (lab_ref);
       else if (GET_CODE (lab_ref) == LABEL_REF)
@@ -1618,7 +1618,7 @@ i960_br_predict_opcode (lab_ref, insn)
 	return ".t";
       return ".f";
     }
-    
+
   return "";
 }
 #endif
@@ -1998,7 +1998,7 @@ legitimize_address (x, oldx, mode)
      register rtx x;
      register rtx oldx;
      enum machine_mode mode;
-{ 
+{
   if (GET_CODE (x) == SYMBOL_REF)
     {
       abort ();
@@ -2053,7 +2053,7 @@ legitimize_address (x, oldx, mode)
 #if 0
 /* Return the most stringent alignment that we are willing to consider
    objects of size SIZE and known alignment ALIGN as having. */
-   
+
 int
 i960_alignment (size, align)
      int size;
@@ -2249,7 +2249,7 @@ i960_si_di (base, offset)
 /* Return raw values of size and alignment (in words) for the data
    type being accessed.  These values will be rounded by the caller.  */
 
-static void 
+static void
 i960_arg_size_and_align (mode, type, size_out, align_out)
      enum machine_mode mode;
      tree type;
@@ -2392,7 +2392,7 @@ i960_output_double (file, value)
   fprintf (file, "\t.word\t0x%08lx\t\t# %s\n\t.word\t0x%08lx\n",
 	   value_long[0], dstr, value_long[1]);
 }
-  
+
 void
 i960_output_float (file, value)
      FILE *file;

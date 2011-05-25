@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1992 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -32,14 +32,14 @@
  * Revision 1.4  92/08/11  12:06:32  mrt
  * 	Added copyright. Delinted
  * 	[92/08/10            mrt]
- * 
- * 
+ *
+ *
  * Revision 1.3  89/08/15  15:30:57  bww
  * 	Changed code in Tlookup to Tsearch for each subpart of path.
  * 	Added indent formatting code to Tprint.
  * 	From "[89/06/24            gm0w]" at CMU.
  * 	[89/08/15            bww]
- * 
+ *
  * 20-May-87  Glenn Marcy (gm0w) at Carnegie-Mellon University
  *	Added code to please lint.
  *

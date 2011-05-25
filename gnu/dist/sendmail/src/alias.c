@@ -433,7 +433,7 @@ rebuildaliases(map, automatic)
 	FILE *af;
 	bool nolock = FALSE;
 	bool success = FALSE;
-	int sff = SFF_OPENASROOT|SFF_REGONLY|SFF_NOLOCK;	
+	int sff = SFF_OPENASROOT|SFF_REGONLY|SFF_NOLOCK;
 	sigfunc_t oldsigint, oldsigquit;
 #ifdef SIGTSTP
 	sigfunc_t oldsigtstp;

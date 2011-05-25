@@ -463,7 +463,7 @@ extern void mips_init_frame_pc_first PARAMS ((int, struct frame_info *));
 extern void ecoff_relocate_efi PARAMS ((struct symbol *, CORE_ADDR));
 
 /* Specific information about a procedure.
-   This overlays the MIPS's PDR records, 
+   This overlays the MIPS's PDR records,
    mipsread.c (ab)uses this to save memory */
 
 typedef struct mips_extra_func_info {
@@ -584,7 +584,7 @@ typedef unsigned long t_inst;	/* Integer big enough to hold an instruction */
   MSYMBOL_INFO (msym) = (char *) (((long) MSYMBOL_INFO (msym)) | 0x80000000); \
   SYMBOL_VALUE_ADDRESS (msym) |= 1; \
  }
-   
+
 #define MSYMBOL_IS_SPECIAL(msym) \
   (((long) MSYMBOL_INFO (msym) & 0x80000000) != 0)
 #define MSYMBOL_SIZE(msym) \

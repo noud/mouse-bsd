@@ -228,7 +228,7 @@ ex_config(sc)
 	 * map for them.
 	 */
 	if ((error = bus_dmamem_alloc(sc->sc_dmat,
-	    EX_NUPD * sizeof (struct ex_upd), NBPG, 0, &sc->sc_useg, 1, 
+	    EX_NUPD * sizeof (struct ex_upd), NBPG, 0, &sc->sc_useg, 1,
             &sc->sc_urseg, BUS_DMA_NOWAIT)) != 0) {
 		printf("%s: can't allocate upload descriptors, error = %d\n",
 		    sc->sc_dev.dv_xname, error);
@@ -273,7 +273,7 @@ ex_config(sc)
 	 * map for them.
 	 */
 	if ((error = bus_dmamem_alloc(sc->sc_dmat,
-	    EX_NDPD * sizeof (struct ex_dpd), NBPG, 0, &sc->sc_dseg, 1, 
+	    EX_NDPD * sizeof (struct ex_dpd), NBPG, 0, &sc->sc_dseg, 1,
 	    &sc->sc_drseg, BUS_DMA_NOWAIT)) != 0) {
 		printf("%s: can't allocate download descriptors, error = %d\n",
 		    sc->sc_dev.dv_xname, error);
@@ -404,7 +404,7 @@ ex_config(sc)
 		if (val & ELINK_MEDIACAP_100BASETX)
 			icfg |= ELINKMEDIA_AUTO << (CONFIG_XCVR_SEL_SHIFT + 16);
 		if (val & ELINK_MEDIACAP_100BASEFX)
-			icfg |= ELINKMEDIA_100BASE_FX 
+			icfg |= ELINKMEDIA_100BASE_FX
 				<< (CONFIG_XCVR_SEL_SHIFT + 16);
 		bus_space_write_4(iot, ioh, ELINK_W3_INTERNAL_CONFIG, icfg);
 
@@ -712,7 +712,7 @@ ex_set_mc(sc)
 
 	if (ifp->if_flags & IFF_PROMISC)
 		mask |= FIL_PROMISC;
-	
+
 	if (!(ifp->if_flags & IFF_MULTICAST))
 		goto out;
 
@@ -1051,7 +1051,7 @@ ex_start(ifp)
 			prevdpd->dpd_nextptr = htole32(DPD_DMADDR(sc, txp));
 			bus_dmamap_sync(sc->sc_dmat, sc->sc_dpd_dmamap,
 			    offset, sizeof (struct ex_dpd),
-			    BUS_DMASYNC_PREREAD|BUS_DMASYNC_PREWRITE); 
+			    BUS_DMASYNC_PREREAD|BUS_DMASYNC_PREWRITE);
 			sc->tx_tail->tx_next = txp;
 			sc->tx_tail = txp;
 		} else {
@@ -1193,7 +1193,7 @@ ex_intr(arg)
 			    rxmap->dm_mapsize,
 			    BUS_DMASYNC_POSTREAD|BUS_DMASYNC_POSTWRITE);
 			bus_dmamap_sync(sc->sc_dmat, sc->sc_upd_dmamap,
-			    ((caddr_t)upd - (caddr_t)sc->sc_upd), 
+			    ((caddr_t)upd - (caddr_t)sc->sc_upd),
 			    sizeof (struct ex_upd),
 			    BUS_DMASYNC_POSTREAD|BUS_DMASYNC_POSTWRITE);
 
@@ -1233,7 +1233,7 @@ ex_intr(arg)
 					if (ifp->if_bpf) {
 						bpf_tap(ifp->if_bpf,
 						    mtod(m, caddr_t),
-						    total_len); 
+						    total_len);
 						/*
 						 * Only pass this packet up
 						 * if it is for us.
@@ -1864,9 +1864,9 @@ ex_mii_statchg(v)
 	bus_space_tag_t iot = sc->sc_iot;
 	bus_space_handle_t ioh = sc->sc_ioh;
 	int mctl;
- 
+
 	/* XXX Update ifp->if_baudrate */
- 
+
 	GO_WINDOW(3);
 	mctl = bus_space_read_2(iot, ioh, ELINK_W3_MAC_CONTROL);
 	if (sc->ex_mii.mii_media_active & IFM_FDX)

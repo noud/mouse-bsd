@@ -36,10 +36,10 @@
  * SUCH DAMAGE.
  *
  *	from: @(#)signal.h	8.1 (Berkeley) 6/11/93
- *	from: Id: signal.h,v 1.4 1994/08/21 04:55:30 paul Exp 
+ *	from: Id: signal.h,v 1.4 1994/08/21 04:55:30 paul Exp
  *
  *	from: @(#)frame.h	5.2 (Berkeley) 1/18/91
- *	from: Id: frame.h,v 1.10 1995/03/16 18:11:42 bde Exp 
+ *	from: Id: frame.h,v 1.10 1995/03/16 18:11:42 bde Exp
  */
 #ifndef _FREEBSD_MACHDEP_H
 #define _FREEBSD_MACHDEP_H

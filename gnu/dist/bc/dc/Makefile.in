@@ -74,7 +74,7 @@ INCLUDES = -I$(srcdir)/.. -I$(srcdir)/../h
 LDADD = ../lib/libbc.a
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 PROGRAMS =  $(bin_PROGRAMS)
 
 
@@ -85,7 +85,7 @@ LIBS = @LIBS@
 dc_OBJECTS =  dc.o misc.o eval.o stack.o array.o numeric.o string.o
 dc_LDADD = $(LDADD)
 dc_DEPENDENCIES =  ../lib/libbc.a
-dc_LDFLAGS = 
+dc_LDFLAGS =
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
 LINK = $(CC) $(CFLAGS) $(LDFLAGS) -o $@
@@ -205,7 +205,7 @@ installcheck:
 install-exec: install-binPROGRAMS
 	@$(NORMAL_INSTALL)
 
-install-data: 
+install-data:
 	@$(NORMAL_INSTALL)
 
 install: install-exec install-data all

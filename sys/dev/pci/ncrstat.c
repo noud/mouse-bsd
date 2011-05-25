@@ -350,7 +350,7 @@ do_info(void)
 		set_lun_mask(tip);
 		if (!lun_mask) lun_mask=1;
 		fl=1;
-		
+
 		for (l=0; l<MAX_LUN; l++) {
 			if (!((lun_mask>>l)&1)) continue;
 
@@ -416,7 +416,7 @@ do_info(void)
 			printf (" --- no target.\n");
 			continue;
 		};
-		
+
 		if (verbose<1) continue;
 
 		for (i=0; i<8; i++) {
@@ -460,7 +460,7 @@ do_info(void)
 				if (d&0x80) printf (" AEN");
 				if (d&0x40) printf (" TERMINATE-I/O");
 				break;
-	
+
 			case 7:
 				if (d&0xfb) printf ("capabilities:");
 				if (d&0x80) printf (" relative");
@@ -509,7 +509,7 @@ do_profile(void)
 	int tra,line,t;
 
 	open_kvm(O_RDONLY);
-	
+
 	set_target_mask();
 
 	if (interval<1) interval=1;
@@ -542,9 +542,9 @@ do_profile(void)
 			printf (" t/s kb/s");
 		};
 
-		printf (" length   exp une fly brk"); 
+		printf (" length   exp une fly brk");
 
-		if (verbose>=1) printf ("  total  pre post  disc"); 
+		if (verbose>=1) printf ("  total  pre post  disc");
 
 		printf ("\n");
 
@@ -565,7 +565,7 @@ do_profile(void)
 			diff.ms_post	= new.ms_post - old.ms_post;
 			diff.num_disc	= new.num_disc - old.num_disc;
 			diff.num_break	= new.num_break - old.num_break;
-		
+
 			tra = diff.num_trans;
 			if (!tra) tra=1;
 
@@ -600,7 +600,7 @@ do_profile(void)
 				printf ("%7.1f",
 					(diff.ms_disc+diff.ms_data+diff.ms_setup+diff.ms_post)
 					* 1.0  / tra);
-	
+
 					printf ("%5.1f%5.1f%6.1f",
 					1.0 * diff.ms_setup / tra,
 					1.0 * diff.ms_post  / tra,
@@ -1064,7 +1064,7 @@ static void dump_reg(struct ncr_reg * rp)
 	printf ("        DSP  %08x %-20s  CMD %08x DSPS %08x %s\n",
 		l(0x2c),sn(l(0x2c)),l(0x24),l(0x30), sn(l(0x30)));
 	printf ("        TEMP %08x %-20s  DSA %08x\n",
-		l(0x1c),sn(l(0x1c)),l(0x10)); 
+		l(0x1c),sn(l(0x1c)),l(0x10));
 	printf ("\n");
 	printf ("        Busstatus: ");
 	if ((reg[0x0b]>>7)&1) printf (" Req");
@@ -1323,7 +1323,7 @@ static void dump_ncr (void)
 			fprintf (stderr, "%s: bad kvm read.\n", prog);
 			exit (1);
 		};
-		
+
 		printf ("\n");
 		dump_reg (&reg);
 	};
@@ -1360,7 +1360,7 @@ static void dump_ncr (void)
 			fprintf (stderr, "%s: bad kvm read.\n", prog);
 			exit (1);
 		};
-		
+
 		printf ("    startpos: %x\n", startpos);
 		printf ("        slot: %d\n", (startpos-
 			(ncr.p_script+offsetof(struct script, tryloop)))/20);

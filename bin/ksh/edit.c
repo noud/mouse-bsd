@@ -108,7 +108,7 @@ check_sigwinch ARGS((void))
 			if (ws.ws_col) {
 				x_cols = ws.ws_col < MIN_COLS ? MIN_COLS
 						: ws.ws_col;
-				
+
 				if ((vp = typeset("COLUMNS", 0, 0, 0, 0)))
 					setint(vp, (long) ws.ws_col);
 			}
@@ -211,7 +211,7 @@ x_mode(onoff)
 	if (onoff) {
 		TTY_state	cb;
 		X_chars		oldchars;
-		
+
 		oldchars = edchars;
 		cb = tty_state;
 
@@ -324,7 +324,7 @@ x_mode(onoff)
  *
  * DESCRIPTION:
  *      This function is based on a fix from guy@demon.co.uk
- *      It fixes a bug in that if PS1 contains '!', the length 
+ *      It fixes a bug in that if PS1 contains '!', the length
  *      given by strlen() is probably wrong.
  *
  * RETURN VALUE:
@@ -386,7 +386,7 @@ set_editmode(ed)
 		    };
 	char *rcp;
 	int i;
-  
+
 	if ((rcp = ksh_strrchr_dirsep(ed)))
 		ed = ++rcp;
 	for (i = 0; i < NELEM(edit_flags); i++)

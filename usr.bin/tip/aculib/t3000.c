@@ -310,7 +310,7 @@ if (len == 0) len = 1;
 			buf[len] = '\0';
 			printf("t3000_sync: (\"%s\")\n\r", buf);
 #endif
-			if (strchr(buf, '0') || 
+			if (strchr(buf, '0') ||
 		   	   (strchr(buf, 'O') && strchr(buf, 'K')))
 				return(1);
 		}
@@ -379,7 +379,7 @@ static int ringring;
 void
 t3000_nap()
 {
-	
+
 	struct itimerval itv, oitv;
 	struct itimerval *itp = &itv;
 	struct sigaction sa, osa;

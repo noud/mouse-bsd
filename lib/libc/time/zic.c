@@ -622,7 +622,7 @@ const char * const	tofile;
 			(void) exit(EXIT_FAILURE);
 
 		result = link(fromname, toname);
-#if (HAVE_SYMLINK - 0) 
+#if (HAVE_SYMLINK - 0)
 		if (result != 0) {
 		        const char *s = tofile;
 		        register char * symlinkcontents = NULL;
@@ -1572,7 +1572,7 @@ const int		isdst;
 	if (strchr(format, '/') == NULL) {
 		if (letters == NULL)
 			(void)strncpy(abbr, format, abbrlen - 1);
-		else	
+		else
 			(void)snprintf(abbr, abbrlen, format, letters);
 	} else if (isdst)
 		(void)strncpy(abbr, strchr(format, '/') + 1, abbrlen - 1);

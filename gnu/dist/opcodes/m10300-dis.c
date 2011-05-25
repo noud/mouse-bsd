@@ -19,13 +19,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include <stdio.h>
 
 #include "ansidecl.h"
-#include "opcode/mn10300.h" 
+#include "opcode/mn10300.h"
 #include "dis-asm.h"
 
 static void disassemble PARAMS ((bfd_vma, struct disassemble_info *,
 				 unsigned long insn, unsigned int));
 
-int 
+int
 print_insn_mn10300 (memaddr, info)
      bfd_vma memaddr;
      struct disassemble_info *info;
@@ -107,7 +107,7 @@ print_insn_mn10300 (memaddr, info)
 
   /* These are three byte insns.  */
   else if ((insn & 0xff) == 0xf8
-	   || (insn & 0xff) == 0xcc 
+	   || (insn & 0xff) == 0xcc
 	   || (insn & 0xff) == 0xf9
 	   || (insn & 0xf3) == 0x01
 	   || (insn & 0xf3) == 0x02
@@ -235,14 +235,14 @@ disassemble (memaddr, info, insn, size)
 	mysize = 6;
       else
 	mysize = 7;
-	
+
       if ((op->mask & insn) == op->opcode
 	  && size == (unsigned int) mysize)
 	{
 	  const unsigned char *opindex_ptr;
 	  unsigned int nocomma;
 	  int paren = 0;
-	  
+
 	  if (op->format == FMT_D1 || op->format == FMT_S1)
 	    extra_shift = 8;
 	  else if (op->format == FMT_D2 || op->format == FMT_D4
@@ -362,7 +362,7 @@ disassemble (memaddr, info, insn, size)
 	      insn &= 0xff000000;
 	      insn |= (temp >> 8) & 0xffffff;
 	      extension = (temp & 0xff) << 16;
-	      
+
 	      status = (*info->read_memory_func) (memaddr + 5, buffer, 2, info);
 	      if (status != 0)
 		{
@@ -385,7 +385,7 @@ disassemble (memaddr, info, insn, size)
 	      insn &= 0xffff0000;
 	      insn |= (temp >> 16) & 0xffff;
 	      extension = (temp & 0xffff) << 8;
-	      
+
 	      status = (*info->read_memory_func) (memaddr + 6, buffer, 1, info);
 	      if (status != 0)
 		{
@@ -437,7 +437,7 @@ disassemble (memaddr, info, insn, size)
 		(*info->fprintf_func) (info->stream, ",");
 
 	      nocomma = 0;
-		
+
 	      if ((operand->flags & MN10300_OPERAND_DREG) != 0)
 		{
 		  value = ((insn >> (operand->shift + extra_shift))
@@ -524,7 +524,7 @@ disassemble (memaddr, info, insn, size)
 		  (*info->fprintf_func) (info->stream, "]");
 		}
 
-	      else 
+	      else
 		(*info->fprintf_func) (info->stream, "%d", value);
 	    }
 	  /* All done. */

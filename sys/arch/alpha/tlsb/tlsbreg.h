@@ -379,18 +379,18 @@
  */
 struct tlsb_mchk_fatal {
 	u_int64_t	rsvdheader;
-	u_int32_t	tldev;             
+	u_int32_t	tldev;
 	u_int32_t	tlber;
-	u_int32_t	tlcnr;             
+	u_int32_t	tlcnr;
 	u_int32_t	tlvid;
-	u_int32_t	tlesr0;            
+	u_int32_t	tlesr0;
 	u_int32_t	tlesr1;
-	u_int32_t	tlesr2;            
+	u_int32_t	tlesr2;
 	u_int32_t	tlesr3;
 	u_int32_t	tlepaerr;
 	u_int32_t	tlmodconfig;
 	u_int32_t	tlepmerr;
-	u_int32_t	tlepderr; 
+	u_int32_t	tlepderr;
 	u_int32_t	tlintrmask0;
 	u_int32_t	tlintrmask1;
 	u_int32_t	tlintrsum0;
@@ -412,10 +412,10 @@ struct tlsb_mchk_fatal {
  */
 struct tlsb_mchk_soft {
 	u_int64_t	rsvdheader;
-	u_int32_t	tldev;             
+	u_int32_t	tldev;
 	u_int32_t	tlber;
-	u_int32_t	tlesr0;            
+	u_int32_t	tlesr0;
 	u_int32_t	tlesr1;
-	u_int32_t	tlesr2;            
+	u_int32_t	tlesr2;
 	u_int32_t	tlesr3;
 };

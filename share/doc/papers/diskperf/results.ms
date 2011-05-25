@@ -48,7 +48,7 @@ are for file systems with a four Kilobyte block size and a
 one Kilobyte fragment size.
 The values in parenthesis indicate the percentage of CPU
 time used by the test program.
-In the case of the two disk arm tests, 
+In the case of the two disk arm tests,
 the value in parenthesis indicates the sum of the percentage
 of the test programs that were run.
 Entries of ``n. m.'' indicate this value was not measured.
@@ -280,7 +280,7 @@ disk drives required
 increasing these constants.
 .PP
 The hardware change involved allowing for slightly longer
-delays in arbitrating for cycles on the SBI bus by 
+delays in arbitrating for cycles on the SBI bus by
 starting the bus arbitration cycle a little further ahead of
 when the data was ready for transfer.
 Finally we had to increase the rotational delay between consecutive
@@ -304,7 +304,7 @@ Logically Sequential Transfers
 from an \fB8K/1K\fR 4.2BSD File System (Kbytes/sec.)
 _
 Test	Inadequate Search Lead	OK Search Lead	OK Search Lead
-	Initial SBI Arbitration	Init SBI Arb.	Improved SBI Arb.	
+	Initial SBI Arbitration	Init SBI Arb.	Improved SBI Arb.
 
 	1 Drive	2 Drives	1 Drive	2 Drives	1 Drive	2 Drives
 _
@@ -325,7 +325,7 @@ Logically Sequential Transfers
 from an \fB4K/1K\fR 4.2BSD File System (Kbytes/sec.)
 _
 Test	Inadequate Search Lead	OK Search Lead	OK Search Lead
-	Initial SBI Arbitration	Init SBI Arb.	Improved SBI Arb.	
+	Initial SBI Arbitration	Init SBI Arb.	Improved SBI Arb.
 
 	1 Drive	2 Drives	1 Drive	2 Drives	1 Drive	2 Drives
 _

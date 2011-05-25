@@ -55,7 +55,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 static int n_threads;
 
 #define MAXTHREADS 8
-		
+
 /* Thread state.  The remaining data is valid only if this is PI_TALIVE.  */
 
 static int thread_state[MAXTHREADS];
@@ -64,7 +64,7 @@ static int thread_state[MAXTHREADS];
 
 static int thread_pc[MAXTHREADS];
 static int thread_signal[MAXTHREADS];
-static int thread_sigcode[MAXTHREADS];	
+static int thread_sigcode[MAXTHREADS];
 
 /* Thread registers.
    If thread is selected, the regs are in registers[] instead.  */
@@ -96,7 +96,7 @@ static SCNHDR scnhdr;
 /* Address maps constructed from section headers of exec and core files.
    Defines process address -> file address translation.  */
 
-struct pmap 
+struct pmap
 {
     long mem_addr;		/* process start address */
     long mem_end;		/* process end+1 address */
@@ -145,7 +145,7 @@ static int thread_switch_ok;
 
 /* Stack of signals recieved from threads but not yet delivered to gdb.  */
 
-struct threadpid 
+struct threadpid
 {
     int pid;
     int thread;
@@ -236,7 +236,7 @@ execle (name, argv)
 /* Stupid handler for stupid trace trap that otherwise causes
    startup to stupidly hang.  */
 
-static sig_noop () 
+static sig_noop ()
 {}
 
 /* Read registers from inferior into registers[] array.
@@ -258,7 +258,7 @@ store_inferior_registers (regno)
 }
 
 /* Copy LEN bytes from inferior's memory starting at MEMADDR
-   to debugger memory starting at MYADDR. 
+   to debugger memory starting at MYADDR.
    On failure (cannot read from inferior, usually because address is out
    of bounds) returns the value of errno. */
 
@@ -281,7 +281,7 @@ read_inferior_memory (memaddr, myaddr, len)
       myaddr += i;
       len -= i;
     }
-  if (errno) 
+  if (errno)
     memset (myaddr, '\0', len);
   return errno;
 }
@@ -419,7 +419,7 @@ read_vector_register (reg)
    fetched from the inferior or core file.  */
 
 static long *
-read_vector_register_1 (reg) 
+read_vector_register_1 (reg)
     int reg;
 {
   switch (reg)
@@ -466,7 +466,7 @@ write_vector_register (reg, element, val)
 	  vector_registers.vls =
 	    (val << 32) + (unsigned long) vector_registers.vls;
 	  break;
-	    
+
 	default:
 	  vector_registers.vr[reg].el[element] = val;
 	  break;
@@ -479,9 +479,9 @@ write_vector_register (reg, element, val)
     }
 }
 
-/* Return the contents of communication register NUM.  */ 
+/* Return the contents of communication register NUM.  */
 
-static ULONGEST 
+static ULONGEST
 read_comm_register (num)
      int num;
 {
@@ -496,7 +496,7 @@ read_comm_register (num)
   return comm_registers.crreg.r4[num];
 }
 
-/* Store a new value VAL into communication register NUM.  
+/* Store a new value VAL into communication register NUM.
    NB: Must use read-modify-write on the whole comm register set
    since pattach does not do offsetted writes correctly.  */
 
@@ -581,7 +581,7 @@ thread_continue (thread, step, signal)
 
 	if ((thread < 0 || n == thread) && ! thread_is_in_kernel[n])
 	  {
-	    /* Blam the trace bits in the stack's saved psws to match 
+	    /* Blam the trace bits in the stack's saved psws to match
 	       the desired step mode.  This is required so that
 	       single-stepping a return doesn't restore a psw with a
 	       clear trace bit and fly away, and conversely,
@@ -613,7 +613,7 @@ thread_continue (thread, step, signal)
     perror_with_name ("PIXRUN");
 }
 
-/* Replacement for system wait routine.  
+/* Replacement for system wait routine.
 
    The system wait returns with one or more threads stopped by
    signals.  Put stopped threads on a stack and return them one by
@@ -649,7 +649,7 @@ wait (w)
 
       if (ioctl (inferior_fd, PIXGETTHCOUNT, &ps) < 0)
 	perror_with_name ("PIXGETTHCOUNT");
-      
+
       n_threads = ps.pi_othdcnt;
       for (thread = 0; thread < n_threads; thread++)
 	{
@@ -679,7 +679,7 @@ wait (w)
 		 know what, but do I know this: the only thing you
 		 can do with such a thread is continue it.  */
 
-	      thread_is_in_kernel[thread] = 
+	      thread_is_in_kernel[thread] =
 		((read_register (PS_REGNUM) >> 25) & 3) == 0;
 
 	      /* Signals push an extended frame and then fault
@@ -694,7 +694,7 @@ wait (w)
 		    thread_pc[thread] = read_pc ();
 		  write_register (PC_REGNUM, thread_pc[thread]);
 		}
-	      
+
 	      if (ps.pi_osigno || ps.pi_osigcode)
 		{
 		  signal_stack++;
@@ -709,7 +709,7 @@ wait (w)
 		 the inferior's fixed scheduling mode is cleared when
 		 it execs the shell (since the shell is not a parallel
 		 program).  So, note the 5.4 trap we get when
-		 the shell does its exec, then catch the 5.0 trap 
+		 the shell does its exec, then catch the 5.0 trap
 		 that occurs when the debuggee starts, and set fixed
 		 scheduling mode properly.  */
 
@@ -717,7 +717,7 @@ wait (w)
 		exec_trap_timer = 1;
 	      else
 		exec_trap_timer--;
-	      
+
 	      if (ps.pi_osigno == 5 && exec_trap_timer == 0)
 		set_fixed_scheduling (pid, parallel == 2);
 	    }
@@ -757,7 +757,7 @@ select_thread (thread)
     ioctl (inferior_fd, PISETRWTID, &ps);
   memcpy (registers, thread_regs[thread], REGISTER_BYTES);
 }
-  
+
 /* Routine to set or clear a psw bit in the psw and also all psws
    saved on the stack.  Quits when we get to a frame in which the
    saved psw is correct. */
@@ -769,7 +769,7 @@ scan_stack (bit, val)
   long ps = read_register (PS_REGNUM);
   long fp;
   if (val ? !(ps & bit) : (ps & bit))
-    {    
+    {
       ps ^= bit;
       write_register (PS_REGNUM, ps);
 
@@ -828,7 +828,7 @@ core_file_command (filename, from_tty)
     {
       filename = tilde_expand (filename);
       make_cleanup (free, filename);
-      
+
       if (have_inferior_p ())
 	error ("To look at a core file, you must kill the program with \"kill\".");
       corechan = open (filename, O_RDONLY, 0);
@@ -870,13 +870,13 @@ core_file_command (filename, from_tty)
 	      else if (n_core == 0
 		       || core_map[n_core-1].mem_addr != scnhdr.s_vaddr)
 		core_map[n_core].thread = 0;
-	      else 
+	      else
 		core_map[n_core].thread = core_map[n_core-1].thread + 1;
 	      n_core++;
 	    }
 	  else if ((scnhdr.s_flags & S_TYPMASK) == S_CONTEXT)
 	    context_offset = scnhdr.s_scnptr;
-	  else if ((scnhdr.s_flags & S_TYPMASK) == S_TCONTEXT) 
+	  else if ((scnhdr.s_flags & S_TYPMASK) == S_TCONTEXT)
 	    tcontext_offset[n_threads++] = scnhdr.s_scnptr;
 	}
 

@@ -35,7 +35,7 @@
 #define TARGET_BYTES_BIG_ENDIAN 1
 
 /* call md_pcrel_from_section, not md_pcrel_from */
-#define MD_PCREL_FROM_SECTION(FIXP, SEC) md_pcrel_from_section(FIXP, SEC)   
+#define MD_PCREL_FROM_SECTION(FIXP, SEC) md_pcrel_from_section(FIXP, SEC)
 
 /* Permit temporary numeric labels.  */
 #define LOCAL_LABELS_FB 1
@@ -113,4 +113,4 @@ int m32r_fill_insn PARAMS ((int));
 
 #define md_cleanup                 m32r_elf_section_change_hook
 #define md_elf_section_change_hook m32r_elf_section_change_hook
-extern void m32r_elf_section_change_hook ();    
+extern void m32r_elf_section_change_hook ();

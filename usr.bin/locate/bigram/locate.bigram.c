@@ -51,7 +51,7 @@ __RCSID("$NetBSD: locate.bigram.c,v 1.6 1997/10/19 04:11:52 lukem Exp $");
 
 /*
  *  bigram < text > bigrams
- * 
+ *
  * List bigrams for 'updatedb' script.
  * Use 'code' to encode a file using this output.
  */
@@ -59,7 +59,7 @@ __RCSID("$NetBSD: locate.bigram.c,v 1.6 1997/10/19 04:11:52 lukem Exp $");
 #include <stdio.h>
 #include <sys/param.h>			/* for MAXPATHLEN */
 
-char buf1[MAXPATHLEN] = " ";	
+char buf1[MAXPATHLEN] = " ";
 char buf2[MAXPATHLEN];
 
 int	main __P((int, char **));

@@ -3,7 +3,7 @@
 
 /*
  * Copyright (c) 1996 Per Fogelstrom
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -132,7 +132,7 @@ static int ipxrtab[] = {
 	0xaaaaaa,	/* IPL_TTY */
 	0xffffff,	/* IPL_CLOCK */
 };
-	
+
 
 
 struct algor_dev *algor_cpu_devs[] = {

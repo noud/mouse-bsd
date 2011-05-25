@@ -33,7 +33,7 @@
 ###########################################################################
 #
 # Convert src/etc/etc.${ARCH}/MAKEDEV and
-# src/share/man/man8/man8.${ARCH}/MAKEDEV.8.template to  
+# src/share/man/man8/man8.${ARCH}/MAKEDEV.8.template to
 # src/share/man/man8/man8.${ARCH}/MAKEDEV.8, replacing
 #  - @@@SPECIAL@@@ with all targets in the first section (all, std, ...)
 #  - @@@DEVICES@@@ with the remaining targets
@@ -52,12 +52,12 @@ sub read1line
     } else {
 	$h = <MAKEDEV>;
     }
-    
-    # Skip empty lines 
+
+    # Skip empty lines
     while ($h =~ /^#\s*$/) {
 	   $h = <MAKEDEV>;
     }
-    
+
     if ($h =~ /^#\s/) {
 	if ($h =~ /^# /) {
 	    # Not a device/other target
@@ -95,7 +95,7 @@ sub do_special
     $l=read1line();
     while($l =~ /^#\t/) {
 	  $l =~ s/#\s+//;
-	  
+
 	  ($target, @line) = split(/\s+/, $l);
 	  $l = join(" ", @line);
 
@@ -104,11 +104,11 @@ sub do_special
           $l =~ s/^(.)/\u$1/; # uppercase first word
 	  print MANPAGE ".It Ar $target\n";
 	  print MANPAGE "$l\n";
-	  
+
 	  $l = read1line();
     }
     $_lastline = $l; # unread
-    
+
     print MANPAGE ".El\n";
 }
 
@@ -121,13 +121,13 @@ sub do_devices
     $l = read1line();
     do {
 	$l =~ s/#\s+//;
-	print MANPAGE ".It $l";     # Print section heading 
+	print MANPAGE ".It $l";     # Print section heading
 
 	$l = read1line();
 	print MANPAGE ". Bl -tag -width 0123456789 -compact\n";
 	while($l =~ /^#\t/) {
 	      $l =~ s/#\s+//;
-	      
+
 	      ($target, @line) = split(/\s+/, $l);
 	      $target =~ s/\*/#/;
 	      $l = join(" ", @line);
@@ -157,7 +157,7 @@ sub do_devices
 
 	      print MANPAGE ". It Ar $target\n";
 	      print MANPAGE "$l\n";
-	  
+
 	      $l = read1line();
         }
         print MANPAGE ". El\n";
@@ -199,7 +199,7 @@ sub doarch
     print MANPAGE ".\\\"\n";
 
     open(MAKEDEV, "../../../etc/etc.${arch}/MAKEDEV") or die;
-    
+
     open(TEMPLATE, "man8.${arch}/MAKEDEV.8.template")	or die;
     while(<TEMPLATE>) {
 	if (/^\@\@\@.*\@\@\@$/) {
@@ -235,12 +235,12 @@ sub doarch
 ###########################################################################
 ###
 ###   M   A   I   N
-### 
+###
 ###########################################################################
 ###########################################################################
 # cd /usr/src/share/man/man8
 chomp($pwd=`pwd`);
-die "Run this in .../src/share/man/man8 !\n" 
+die "Run this in .../src/share/man/man8 !\n"
     if ($pwd !~ m:share/man/man8: );
 
 if ($#ARGV >= 0) {
@@ -248,7 +248,7 @@ if ($#ARGV >= 0) {
 
 } else {
 
-    # Determine available archs by looking for man8.* 
+    # Determine available archs by looking for man8.*
     opendir(D, ".") || die;
     while ($d=readdir(D)) {
         if ($d =~ /man8\.(.*)$/) {

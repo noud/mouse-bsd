@@ -375,7 +375,7 @@ st*	at scsibus? target ? lun ?	# SCSI tape drives
 pciide* at pci ? dev ? function ? flags 0x0000
 
 # ISA Plug-and-Play IDE controllers
-wdc*	at isapnp? 
+wdc*	at isapnp?
 
 # PCMCIA IDE controllers
 #wdc*	at pcmcia? function ?

@@ -31,11 +31,11 @@
 //  (1)  Defines bool, true, and false if the compiler doesn't do so already.
 //  (2)  Defines __STL_NO_DRAND48 if the compiler's standard library does
 //       not support the drand48() function.
-//  (3)  Defines __STL_STATIC_TEMPLATE_MEMBER_BUG if the compiler can't 
+//  (3)  Defines __STL_STATIC_TEMPLATE_MEMBER_BUG if the compiler can't
 //       handle static members of template classes.
 //  (4)  Defines 'typename' as a null macro if the compiler does not support
 //       the typename keyword.
-//  (5)  Defines __STL_CLASS_PARTIAL_SPECIALIZATION if the compiler 
+//  (5)  Defines __STL_CLASS_PARTIAL_SPECIALIZATION if the compiler
 //       supports partial specialization of class templates.
 //  (6)  Defines __STL_FUNCTION_TMPL_PARTIAL_ORDER if the compiler supports
 //       partial ordering of function templates (a.k.a partial specialization
@@ -46,23 +46,23 @@
 //  (8)  Defines __STL_MEMBER_TEMPLATES if the compiler supports
 //       template members of classes.
 //  (9)  Defines 'explicit' as a null macro if the compiler does not support
-//       the explicit keyword.    
+//       the explicit keyword.
 //  (10) Defines __STL_LIMITED_DEFAULT_TEMPLATES if the compiler is
 //       unable to handle default template parameters that depend on
 //       previous template parameters.
-//  (11) Defines __STL_NON_TYPE_TMPL_PARAM_BUG if the compiler has 
+//  (11) Defines __STL_NON_TYPE_TMPL_PARAM_BUG if the compiler has
 //       trouble performing function template argument deduction for
 //       non-type template parameters.
 //  (12) Defines __SGI_STL_NO_ARROW_OPERATOR if the compiler is unable
 //       to support the -> operator for iterators.
 //  (13) Defines __STL_USE_EXCEPTIONS if the compiler (in the current
 //       compilation mode) supports exceptions.
-//  (14) Define __STL_USE_NAMESPACES if we're putting the STL into a 
-//       namespace.  
+//  (14) Define __STL_USE_NAMESPACES if we're putting the STL into a
+//       namespace.
 //  (15) Defines __STL_SGI_THREADS if this is being compiled on an SGI
 //       compiler, and if the user hasn't selected pthreads or no threads
 //       instead.
-//  (16) Defines __STL_WIN32THREADS if this is being compiled on a 
+//  (16) Defines __STL_WIN32THREADS if this is being compiled on a
 //       WIN32 compiler in multithreaded mode.
 //  (17) Define namespace-related macros (__STD, __STL_BEGIN_NAMESPACE, etc.)
 //       apropriately.
@@ -96,7 +96,7 @@
 #   endif
 #   if (_COMPILER_VERSION >= 721) && defined(_NAMESPACES)
 #     define __STL_USE_NAMESPACES
-#   endif 
+#   endif
 #   if !defined(_NOTHREADS) && !defined(__STL_PTHREADS)
 #     define __STL_SGI_THREADS
 #   endif
@@ -124,7 +124,7 @@
 #   endif
 # endif
 
-# if defined(__SUNPRO_CC) 
+# if defined(__SUNPRO_CC)
 #   define __STL_NEED_BOOL
 #   define __STL_NEED_TYPENAME
 #   define __STL_NEED_EXPLICIT
@@ -211,13 +211,13 @@
 #   define __STL_END_RELOPS_NAMESPACE }
 #   define __STD_RELOPS std
 # else
-#   define __STD 
-#   define __STL_BEGIN_NAMESPACE 
-#   define __STL_END_NAMESPACE 
+#   define __STD
+#   define __STL_BEGIN_NAMESPACE
+#   define __STL_END_NAMESPACE
 #   undef  __STL_USE_NAMESPACE_FOR_RELOPS
-#   define __STL_BEGIN_RELOPS_NAMESPACE 
-#   define __STL_END_RELOPS_NAMESPACE 
-#   define __STD_RELOPS 
+#   define __STL_BEGIN_RELOPS_NAMESPACE
+#   define __STL_END_RELOPS_NAMESPACE
+#   define __STD_RELOPS
 # endif
 
 # ifdef __STL_USE_EXCEPTIONS
@@ -227,11 +227,11 @@
 #   define __STL_NOTHROW throw()
 #   define __STL_UNWIND(action) catch(...) { action; throw; }
 # else
-#   define __STL_TRY 
+#   define __STL_TRY
 #   define __STL_CATCH_ALL if (false)
-#   define __STL_RETHROW 
-#   define __STL_NOTHROW 
-#   define __STL_UNWIND(action) 
+#   define __STL_RETHROW
+#   define __STL_NOTHROW
+#   define __STL_UNWIND(action)
 # endif
 
 #ifdef __STL_ASSERTIONS

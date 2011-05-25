@@ -3,7 +3,7 @@
 #
 # miniroot files from /sbin:
 # Extras not in ../../miniroot/list:
-#  disklabel dmesg edlabel mount_kernfs restore 
+#  disklabel dmesg edlabel mount_kernfs restore
 
 COPY	${DESTDIR}/sbin/dmesg		sbin
 COPY	${DESTDIR}/sbin/edlabel 	sbin

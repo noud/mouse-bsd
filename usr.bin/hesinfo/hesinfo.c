@@ -38,7 +38,7 @@ __RCSID("$NetBSD: hesinfo.c,v 1.1 1999/01/25 22:45:55 lukem Exp $");
 int	main __P((int, char **));
 extern char *__progname;
 
-int 
+int
 main(argc, argv)
 	int	argc;
 	char  **argv;

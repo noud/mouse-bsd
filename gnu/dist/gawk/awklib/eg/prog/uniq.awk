@@ -81,7 +81,7 @@ NR == 1 {
     last = $0
     next
 }
-    
+
 {
     equal = are_equal()
 

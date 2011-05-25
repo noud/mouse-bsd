@@ -142,7 +142,7 @@ static u_long forgemask __P((u_long));
 static void domask __P((char *, size_t, u_long, u_long));
 #ifdef INET6
 char *netname6 __P((struct sockaddr_in6 *, struct in6_addr *));
-#endif 
+#endif
 
 /*
  * Print routing tables.
@@ -201,7 +201,7 @@ pr_family(af)
 	case AF_INET6:
 		afname = "Internet6";
 		break;
-#endif 
+#endif
 	case AF_NS:
 		afname = "XNS";
 		break;
@@ -466,7 +466,7 @@ p_sockaddr(sa, mask, flags, width)
 			cp = netname6(sa6, NULL);
 		break;
 	    }
-#endif 
+#endif
 
 #ifndef SMALL
 	case AF_APPLETALK:
@@ -603,7 +603,7 @@ p_rtentry(rt)
 	p_flags(rt->rt_flags, "%-6.6s ");
 	printf("%6d %8lu ", rt->rt_refcnt, rt->rt_use);
 	if (rt->rt_rmx.rmx_mtu)
-		printf("%6lu", rt->rt_rmx.rmx_mtu); 
+		printf("%6lu", rt->rt_rmx.rmx_mtu);
 	else
 		printf("%6s", "-");
 	putchar((rt->rt_rmx.rmx_locks & RTV_MTU) ? 'L' : ' ');
@@ -619,7 +619,7 @@ p_rtentry(rt)
  	if (vflag) {
  		printf("\texpire   %10lu%c  recvpipe %10ld%c  "
 		       "sendpipe %10ld%c\n",
- 			rt->rt_rmx.rmx_expire, 
+ 			rt->rt_rmx.rmx_expire,
  			(rt->rt_rmx.rmx_locks & RTV_EXPIRE) ? 'L' : ' ',
  			rt->rt_rmx.rmx_recvpipe,
  			(rt->rt_rmx.rmx_locks & RTV_RPIPE) ? 'L' : ' ',
@@ -627,13 +627,13 @@ p_rtentry(rt)
  			(rt->rt_rmx.rmx_locks & RTV_SPIPE) ? 'L' : ' ');
  		printf("\tssthresh %10lu%c  rtt      %10ld%c  "
 		       "rttvar   %10ld%c\n",
- 			rt->rt_rmx.rmx_ssthresh, 
+ 			rt->rt_rmx.rmx_ssthresh,
  			(rt->rt_rmx.rmx_locks & RTV_SSTHRESH) ? 'L' : ' ',
- 			rt->rt_rmx.rmx_rtt, 
+ 			rt->rt_rmx.rmx_rtt,
  			(rt->rt_rmx.rmx_locks & RTV_RTT) ? 'L' : ' ',
- 			rt->rt_rmx.rmx_rttvar, 
+ 			rt->rt_rmx.rmx_rttvar,
 			(rt->rt_rmx.rmx_locks & RTV_RTTVAR) ? 'L' : ' ');
- 	}	
+ 	}
 
 }
 

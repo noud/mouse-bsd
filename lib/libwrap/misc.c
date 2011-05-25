@@ -2,7 +2,7 @@
 
  /*
   * Misc routines that are used by tcpd and by tcpdchk.
-  * 
+  *
   * Author: Wietse Venema, Eindhoven University of Technology, The Netherlands.
   */
 

@@ -110,7 +110,7 @@ compat_14_sys_msgctl(p, v, retval)
 
 	if (cmd == IPC_SET) {
 		error = copyin(SCARG(uap, buf), &omsqbuf, sizeof(omsqbuf));
-		if (error) 
+		if (error)
 			return (error);
 		msqid_ds14_to_native(&omsqbuf, &msqbuf);
 	}
@@ -119,7 +119,7 @@ compat_14_sys_msgctl(p, v, retval)
 	    (cmd == IPC_SET || cmd == IPC_STAT) ? &msqbuf : NULL);
 
 	if (error == 0 && cmd == IPC_STAT) {
-		native_to_msqid_ds14(&msqbuf, &omsqbuf);     
+		native_to_msqid_ds14(&msqbuf, &omsqbuf);
 		error = copyout(&omsqbuf, SCARG(uap, buf), sizeof(omsqbuf));
 	}
 

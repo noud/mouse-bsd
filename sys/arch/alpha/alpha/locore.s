@@ -523,7 +523,7 @@ LEAF(exception_restore_regs, 0)
 	ldiq	a3, ALPHA_KENTRY_IF
 	mov	sp, a4			; .loc 1 __LINE__
 	CALL(trap)
-	jmp	zero, exception_return	
+	jmp	zero, exception_return
 	END(XentIF)
 
 /**************************************************************************/

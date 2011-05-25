@@ -57,7 +57,7 @@ main:	lea	pc@(regsav),a0
 	bnes	exit
 	subql	#1,d0
 	movl	d0,a3			| autoboot flag
-	
+
 	movl	_membot:w,d3
 	lea	MAXBOT,a4
 	cmpl	a4,d3

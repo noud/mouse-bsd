@@ -157,7 +157,7 @@ done:
 	 * carry here.
 	 */
 	FOLD;
-	
+
 	if(sum==0xffff) sum = 0;
 	return (sum);
 }

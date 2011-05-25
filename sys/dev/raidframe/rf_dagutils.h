@@ -50,7 +50,7 @@ struct RF_RedFuncs_s {
 extern RF_RedFuncs_t rf_xorFuncs;
 extern RF_RedFuncs_t rf_xorRecoveryFuncs;
 
-void 
+void
 rf_InitNode(RF_DagNode_t * node, RF_NodeStatus_t initstatus,
     int commit,
     int (*doFunc) (RF_DagNode_t * node),

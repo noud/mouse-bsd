@@ -39,7 +39,7 @@ static FILE *fout = NULL;
 static char fname[128];
 static int file_cnt = 0;	/* count number of open files */
 
-void 
+void
 puts_dbg (data)
   const char *data;
 {
@@ -53,7 +53,7 @@ puts_dbg (data)
 }
 
 /* Can't easily get the message back to gdb... write to a log instead. */
-void 
+void
 fputs_dbg (data, fakestream)
   const char *data;
   FILE *fakestream;
@@ -85,11 +85,11 @@ fputs_dbg (data, fakestream)
 #endif /* REDIRECT */
 }
 
-void 
+void
 #ifdef ANSI_PROTOTYPES
 printf_dbg (const char *format,...)
 #else
-printf_dbg (va_alist) 
+printf_dbg (va_alist)
      va_dcl
 #endif
 {
@@ -101,7 +101,7 @@ printf_dbg (va_alist)
   char *format;
 
   va_start (args);
-  format = va_arg (args, char *); 
+  format = va_arg (args, char *);
 #endif
   vsprintf (buf, format, args);
   puts_dbg (buf);

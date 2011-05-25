@@ -67,7 +67,7 @@ dumpbuf()
 {
 	int i;
 
-	printf("\n\n\t%d, 0x%04x, 0x%04x, /* new block */", 
+	printf("\n\n\t%d, 0x%04x, 0x%04x, /* new block */",
 	    bufptr, (int)(binads >> 16), (int)(binads & 0xffff));
 	for (i=0; i<bufptr; ++i) {
 		if (i%8 == 0)
@@ -106,7 +106,7 @@ dumpstart(address)
 
 	printf("\n\t2, 0xFFFF, 0xFFE0, 0x%04x, 0x%04x,",
 	    startaddress & 0xFFFF, startaddress >> 16);
-		
+
 }
 
 int
@@ -135,6 +135,6 @@ main(argc, argv)
 	if (bufptr>0)
 		 dumpbuf();
 	printf("\n\t0\n};\n");
-	
+
 	exit(0);
 }

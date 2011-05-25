@@ -39,7 +39,7 @@
 
 ALLOCA =
 
-# Various ways of specifying flags for compilations:  
+# Various ways of specifying flags for compilations:
 # CFLAGS is for the user to override to, e.g., do a bootstrap with -O2.
 # BOOT_CFLAGS is the value of CFLAGS to pass
 # to the stage2 and stage3 compilations
@@ -66,7 +66,7 @@ MAKEINFO = makeinfo
 TEXI2DVI = texi2dvi
 
 # Define this as & to perform parallel make on a Sequent.
-# Note that this has some bugs, and it seems currently necessary 
+# Note that this has some bugs, and it seems currently necessary
 # to compile all the gen* files first by hand to avoid erroneous results.
 P =
 
@@ -292,7 +292,7 @@ repo.o : repo.c $(CONFIG_H) $(CXX_TREE_H) $(srcdir)/../system.h \
   $(srcdir)/../toplev.h
 semantics.o: semantics.c $(CONFIG_H) $(CXX_TREE_H) lex.h \
   $(srcdir)/../except.h $(srcdir)/../system.h $(srcdir)/../toplev.h
-  
+
 
 #
 # These exist for maintenance purposes.

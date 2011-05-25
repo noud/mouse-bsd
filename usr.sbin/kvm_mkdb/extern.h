@@ -44,7 +44,7 @@
 #  define	NLIST_ECOFF
 #  define	NLIST_ELF32
 #elif defined(__i386__) || defined(__m68k__) || defined(__powerpc__)
-#  define	NLIST_AOUT 
+#  define	NLIST_AOUT
 #  define	NLIST_ELF32
 #elif defined(__sparc__)
 #  define	NLIST_AOUT
@@ -53,10 +53,10 @@
 #elif defined(__sh3__)
 #  define	NLIST_COFF
 #  define	NLIST_ELF32
-#else 
+#else
 #  define	NLIST_AOUT
 /* #define	NLIST_ECOFF */
-/* #define	NLIST_ELF32 */ 
+/* #define	NLIST_ELF32 */
 /* #define	NLIST_ELF64 */
 #endif
 

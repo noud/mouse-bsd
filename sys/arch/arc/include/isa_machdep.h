@@ -43,7 +43,7 @@ typedef struct arc_isa_bus *isa_chipset_tag_t;
  */
 #define isa_outb(x,y)   outb(arc_bus_io.bus_base + (x), y)
 #define isa_inb(x)      inb(arc_bus_io.bus_base + (x))
- 
+
 struct arc_isa_bus {
         void    *ic_data;
 

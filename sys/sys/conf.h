@@ -486,7 +486,7 @@ cdev_decl(svr4_net);
 cdev_decl(tun);
 
 /*
- * [bc]dev_decl()s for miscellaneous 'fake' devices. 
+ * [bc]dev_decl()s for miscellaneous 'fake' devices.
  */
 cdev_decl(audio);
 cdev_decl(midi);

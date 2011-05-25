@@ -146,7 +146,7 @@ vax_sgmap_alloc(map, origlen, sgmap, flags)
 		map->_dm_flags |= DMAMAP_HAS_SGMAP;
 	else
 		map->_dm_flags &= ~DMAMAP_HAS_SGMAP;
-	
+
 	return (error);
 }
 

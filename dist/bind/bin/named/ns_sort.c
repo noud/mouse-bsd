@@ -8,7 +8,7 @@ static const char rcsid[] = "Id: ns_sort.c,v 8.5 1999/10/13 16:39:12 vixie Exp";
 /*
  * Copyright (c) 1986, 1990
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -24,7 +24,7 @@ static const char rcsid[] = "Id: ns_sort.c,v 8.5 1999/10/13 16:39:12 vixie Exp";
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -40,14 +40,14 @@ static const char rcsid[] = "Id: ns_sort.c,v 8.5 1999/10/13 16:39:12 vixie Exp";
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -101,7 +101,7 @@ static const char rcsid[] = "Id: ns_sort.c,v 8.5 1999/10/13 16:39:12 vixie Exp";
  * match list in a topology statement.  Each top level element is assigned
  * a distance and the address in the response with the minimum distance is
  * moved to the beginning of the response.
- * 
+ *
  * In the following example, any queries received from any of the addresses
  * of the host itself will get responses preferring addresses on any of
  * the locally connected networks.  Next most preferred are addresses on
@@ -148,7 +148,7 @@ static const char rcsid[] = "Id: ns_sort.c,v 8.5 1999/10/13 16:39:12 vixie Exp";
  *            };
  * };
  *
- * 
+ *
  * The following example will give reasonable behaviour for the local host
  * and hosts on directly connected networks.  It is similar to the behavior
  * of the address sort in BIND 4.9.x.  Responses sent to queries from the
@@ -254,7 +254,7 @@ sort_response(u_char *cp, u_char *eom, int ancount, struct sockaddr_in *from) {
 				if (imematch->flags & IP_MATCH_NEGATE)
 					/* Don't sort */
 					return;
-			} else 
+			} else
 				continue;
 		} else {
 			if (ina_onnet(address, imematch->u.direct.address,

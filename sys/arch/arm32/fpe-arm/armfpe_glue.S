@@ -319,7 +319,7 @@ Lwe_need_userret:
 /*
  * OK Question Time ...
  *
- * Do I need to save SVC r14 ? 
+ * Do I need to save SVC r14 ?
  * It only needs saving if this routine can interrupt something already
  * running in SVC mode. Since FP is only valid from USR32 mode this
  * should not happen.
@@ -406,7 +406,7 @@ ENTRY_NP(arm_fpe_exception_glue)
 /*
  * OK Question Time ...
  *
- * Do I need to save SVC r14 ? 
+ * Do I need to save SVC r14 ?
  * It only needs saving if this routine can interrupt something already
  * running in SVC mode. Since FP is only valid from USR32 mode this
  * should not happen.
@@ -467,7 +467,7 @@ ENTRY_NP(arm_fpe_set_exception_mask)
 	orr	r0, r1, r0, lsl #16	/* Merge */
 	wfs	r0			/* Set status */
 	mov	r0, r1, lsr #16		/* Return old mask */
-	mov	pc, lr			/* return */ 
+	mov	pc, lr			/* return */
 
 
 	.global _fpe_nexthandler

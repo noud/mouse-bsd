@@ -36,7 +36,7 @@ const bfd_arch_info_type bfd_m88k_arch =
     "m88k:88100",
     3,
     true, /* the one and only */
-    bfd_default_compatible, 
+    bfd_default_compatible,
     bfd_default_scan ,
     0,
   };

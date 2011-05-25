@@ -146,23 +146,23 @@ int	ariareset __P((bus_space_tag_t, bus_space_handle_t));
 int	aria_reset __P((struct aria_softc *));
 int	aria_getdev __P((void *, struct audio_device *));
 
-void	aria_do_kludge __P((bus_space_tag_t, bus_space_handle_t, 
-			    bus_space_handle_t, 
+void	aria_do_kludge __P((bus_space_tag_t, bus_space_handle_t,
+			    bus_space_handle_t,
 			    u_short, u_short, u_short, u_short));
-void	aria_prometheus_kludge __P((struct isa_attach_args *, 
+void	aria_prometheus_kludge __P((struct isa_attach_args *,
 				    bus_space_handle_t));
 
 int	aria_query_encoding __P((void *, struct audio_encoding *));
 int	aria_round_blocksize __P((void *, int));
 int	aria_speaker_ctl __P((void *, int));
 int	aria_commit_settings __P((void *));
-int	aria_set_params __P((void *, int, int, 
+int	aria_set_params __P((void *, int, int,
 			     struct audio_params *, struct audio_params *));
 int	aria_get_props __P((void *));
 
-int	aria_start_output __P((void *, void *, int, 
+int	aria_start_output __P((void *, void *, int,
 			       void (*) __P((void *)), void*));
-int	aria_start_input __P((void *, void *, int, 
+int	aria_start_input __P((void *, void *, int,
 			      void (*) __P((void *)), void*));
 
 int	aria_halt_input __P((void *));
@@ -254,7 +254,7 @@ ariaprobe(parent, cf, aux)
 		printf("aria: configured iobase %d invalid\n", ia->ia_iobase);
 		return 0;
 	}
-		
+
 	if (!ARIA_IRQ_VALID(ia->ia_irq)) {
 		printf("aria: configured irq %d invalid\n", ia->ia_irq);
 		return 0;
@@ -320,9 +320,9 @@ aria_prometheus_kludge(ia, ioh1)
         bus_space_write_2(iot, ioh, 0, 0x02);
         bus_space_write_1(iot, ioh, 1, ia->ia_iobase>>2);
 
-/* 
+/*
  * These next three lines set up the iobase
- * and the irq; and disable the drq.  
+ * and the irq; and disable the drq.
  */
 
 	aria_do_kludge(iot, ioh, ioh1, 0x111, ((ia->ia_iobase-0x280)>>2)+0xA0,
@@ -455,7 +455,7 @@ ariaattach(parent, self, aux)
 		printf(", SC18075 mixer");
 	printf("\n");
 
-	sprintf(aria_device.version, "%s", 
+	sprintf(aria_device.version, "%s",
 		ARIA_MODEL & sc->sc_hardware ? "SC18026" : "SC18025");
 
 	audio_attach_mi(&aria_hw_if, (void *)sc, &sc->sc_dev);
@@ -473,14 +473,14 @@ ariaopen(addr, flags)
 	struct aria_softc *sc = addr;
 
 	DPRINTF(("ariaopen() called\n"));
-    
+
 	if (!sc)
 		return ENXIO;
 	if ((flags&FREAD) && (sc->sc_open & ARIAR_OPEN_RECORD))
 		return ENXIO;
 	if ((flags&FWRITE) && (sc->sc_open & ARIAR_OPEN_PLAY))
 		return ENXIO;
-    
+
 	if (flags&FREAD)
 		sc->sc_open |= ARIAR_OPEN_RECORD;
 	if (flags&FWRITE)
@@ -682,7 +682,7 @@ aria_commit_settings(addr)
         struct aria_softc *sc = addr;
 	bus_space_tag_t iot = sc->sc_iot;
 	bus_space_handle_t ioh = sc->sc_ioh;
-	static u_char tones[16] = 
+	static u_char tones[16] =
 	    { 7, 6, 5, 4, 3, 2, 1, 0, 8, 9, 10, 11, 12, 13, 14, 15 };
 	u_short format;
 	u_short left, right;
@@ -705,7 +705,7 @@ aria_commit_settings(addr)
 		format |= (sc->sc_encoding==AUDIO_ENCODING_ULAW)?0x06:0x00;
 		format |= (sc->sc_encoding==AUDIO_ENCODING_ALAW)?0x08:0x00;
 	}
-		
+
 	format |= (sc->sc_precision==16)?0x02:0x00;
 	format |= (sc->sc_chans==2)?1:0;
 	samp |= bus_space_read_2(iot, ioh, ARIADSP_STATUS) & ~0x60;
@@ -716,33 +716,33 @@ aria_commit_settings(addr)
 	if (sc->sc_hardware&ARIA_MIXER) {
 		for (i = 0; i < 6; i++)
 			aria_set_mixer(sc, i);
- 
+
 		if (sc->sc_chans==2) {
-			aria_sendcmd(sc, ARIADSPC_CHAN_VOL, ARIAR_PLAY_CHAN, 
+			aria_sendcmd(sc, ARIADSPC_CHAN_VOL, ARIAR_PLAY_CHAN,
 				     ((sc->sc_gain[0]+sc->sc_gain[1])/2)<<7,
 				     -1);
-			aria_sendcmd(sc, ARIADSPC_CHAN_PAN, ARIAR_PLAY_CHAN, 
+			aria_sendcmd(sc, ARIADSPC_CHAN_PAN, ARIAR_PLAY_CHAN,
 				     (sc->sc_gain[0]-sc->sc_gain[1])/4+0x40,
 				     -1);
 		} else {
-			aria_sendcmd(sc, ARIADSPC_CHAN_VOL, ARIAR_PLAY_CHAN, 
+			aria_sendcmd(sc, ARIADSPC_CHAN_VOL, ARIAR_PLAY_CHAN,
 				     sc->sc_gain[0]<<7, -1);
-			aria_sendcmd(sc, ARIADSPC_CHAN_PAN, ARIAR_PLAY_CHAN, 
+			aria_sendcmd(sc, ARIADSPC_CHAN_PAN, ARIAR_PLAY_CHAN,
 				     0x40, -1);
 		}
 
-		aria_sendcmd(sc, ARIADSPC_MASMONMODE, 
+		aria_sendcmd(sc, ARIADSPC_MASMONMODE,
 			     sc->ariamix_master.num_channels != 2, -1, -1);
 
-		aria_sendcmd(sc, ARIADSPC_MIXERVOL, 0x0004, 
-			     sc->ariamix_master.level[0] << 7, 
+		aria_sendcmd(sc, ARIADSPC_MIXERVOL, 0x0004,
+			     sc->ariamix_master.level[0] << 7,
 			     sc->ariamix_master.level[1] << 7);
 
 		/* Convert treble/bass from byte to soundcard style */
 
-		left  = (tones[(sc->ariamix_master.treble[0]>>4)&0x0f]<<8) | 
+		left  = (tones[(sc->ariamix_master.treble[0]>>4)&0x0f]<<8) |
 			 tones[(sc->ariamix_master.bass[0]>>4)&0x0f];
-		right = (tones[(sc->ariamix_master.treble[1]>>4)&0x0f]<<8) | 
+		right = (tones[(sc->ariamix_master.treble[1]>>4)&0x0f]<<8) |
 			 tones[(sc->ariamix_master.bass[1]>>4)&0x0f];
 
 		aria_sendcmd(sc, ARIADSPC_TONE, left, right, -1);
@@ -766,7 +766,7 @@ aria_commit_settings(addr)
 
 void
 aria_set_mixer(sc, i)
-        struct aria_softc *sc;	
+        struct aria_softc *sc;
 	int i;
 {
 	u_char source;
@@ -779,27 +779,27 @@ aria_set_mixer(sc, i)
 	case ARIAMIX_DAC_LVL:     source = 0x0004; break;
 	default:                  source = 0x0000; break;
 	}
-	
+
 	if (source != 0x0000 && source != 0x0004) {
 		if (sc->aria_mix[i].mute == 1)
 			aria_sendcmd(sc, ARIADSPC_INPMONMODE, source, 3, -1);
 		else
-			aria_sendcmd(sc, ARIADSPC_INPMONMODE, source, 
-				     sc->aria_mix[i].num_channels != 2, -1); 
-		
-		aria_sendcmd(sc, ARIADSPC_INPMONMODE, 0x8000|source, 
+			aria_sendcmd(sc, ARIADSPC_INPMONMODE, source,
+				     sc->aria_mix[i].num_channels != 2, -1);
+
+		aria_sendcmd(sc, ARIADSPC_INPMONMODE, 0x8000|source,
 			     sc->aria_mix[i].num_channels != 2, -1);
-		aria_sendcmd(sc, ARIADSPC_MIXERVOL, source, 
-			     sc->aria_mix[i].level[0] << 7, 
+		aria_sendcmd(sc, ARIADSPC_MIXERVOL, source,
+			     sc->aria_mix[i].level[0] << 7,
 			     sc->aria_mix[i].level[1] << 7);
 	}
-	
+
 	if (sc->aria_mix_source == i) {
 		aria_sendcmd(sc, ARIADSPC_ADCSOURCE, source, -1, -1);
-		
+
 		if (sc->sc_open & ARIAR_OPEN_RECORD)
 			aria_sendcmd(sc, ARIADSPC_ADCCONTROL, 1, -1, -1);
-		else 
+		else
 			aria_sendcmd(sc, ARIADSPC_ADCCONTROL, 0, -1, -1);
 	}
 }
@@ -861,7 +861,7 @@ aria_reset(sc)
 	int fail=0;
 	int i;
 
-	bus_space_write_2(iot, ioh, ARIADSP_CONTROL, 
+	bus_space_write_2(iot, ioh, ARIADSP_CONTROL,
 			  ARIAR_ARIA_SYNTH | ARIAR_SR22K|ARIAR_DSPINTWR);
 	aria_putdspmem(sc, 0x6102, 0);
 
@@ -871,7 +871,7 @@ aria_reset(sc)
 		if (aria_getdspmem(sc, ARIAA_TASK_A) == 1)
 			break;
 
-	bus_space_write_2(iot, ioh, ARIADSP_CONTROL, 
+	bus_space_write_2(iot, ioh, ARIADSP_CONTROL,
 			  ARIAR_ARIA_SYNTH|ARIAR_SR22K | ARIAR_DSPINTWR |
 			  ARIAR_PCINTWR);
 	fail |= aria_sendcmd(sc, ARIADSPC_MODE, ARIAV_MODE_NO_SYNTH,-1,-1);
@@ -944,7 +944,7 @@ aria_sendcmd(sc, command, arg1, arg2, arg3)
 		ARIASEND(arg3, 8);
 	}
 	ARIASEND(ARIADSPC_TERM, 16);
-	
+
 	if (fail) {
 		sc->sc_sendcmd_err++;
 #ifdef AUDIO_DEBUG
@@ -1074,7 +1074,7 @@ aria_intr(arg)
 #if 0 /*  XXX --  BAD BAD BAD (That this is #define'd out */
 	DPRINTF(("Checking to see if this is our intr\n"));
 
-	if ((inw(iobase) & 1) != 0x1) 
+	if ((inw(iobase) & 1) != 0x1)
 		return 0;  /* not for us */
 #endif
 
@@ -1087,7 +1087,7 @@ aria_intr(arg)
 		address = 0x8000 - 2*(sc->sc_blocksize);
 		address+= aria_getdspmem(sc, ARIAA_PLAY_FIFO_A);
 		bus_space_write_2(iot, ioh, ARIADSP_DMAADDRESS, address);
-		bus_space_write_multi_2(iot, ioh, ARIADSP_DMADATA, pdata, 
+		bus_space_write_multi_2(iot, ioh, ARIADSP_DMADATA, pdata,
 					sc->sc_blocksize / 2);
 		if (sc->sc_pintr != NULL)
 			(*sc->sc_pintr)(sc->sc_parg);
@@ -1098,7 +1098,7 @@ aria_intr(arg)
 		address = 0x8000 - (sc->sc_blocksize);
 		address+= aria_getdspmem(sc, ARIAA_REC_FIFO_A);
 		bus_space_write_2(iot, ioh, ARIADSP_DMAADDRESS, address);
-		bus_space_read_multi_2(iot, ioh, ARIADSP_DMADATA, rdata, 
+		bus_space_read_multi_2(iot, ioh, ARIADSP_DMADATA, rdata,
 				       sc->sc_blocksize / 2);
 		if (sc->sc_rintr != NULL)
 			(*sc->sc_rintr)(sc->sc_rarg);
@@ -1128,57 +1128,57 @@ aria_mixer_set_port(addr, cp)
 		switch (cp->dev) {
 		case ARIAMIX_MIC_LVL:
 			if (mv->num_channels == 1 || mv->num_channels == 2) {
-				sc->aria_mix[ARIAMIX_MIC_LVL].num_channels = 
+				sc->aria_mix[ARIAMIX_MIC_LVL].num_channels =
 					mv->num_channels;
-				sc->aria_mix[ARIAMIX_MIC_LVL].level[0] = 
+				sc->aria_mix[ARIAMIX_MIC_LVL].level[0] =
 					mv->level[0];
-				sc->aria_mix[ARIAMIX_MIC_LVL].level[1] = 
+				sc->aria_mix[ARIAMIX_MIC_LVL].level[1] =
 					mv->level[1];
 				error = 0;
 			}
 			break;
-	
+
 		case ARIAMIX_LINE_IN_LVL:
 			if (mv->num_channels == 1 || mv->num_channels == 2) {
 				sc->aria_mix[ARIAMIX_LINE_IN_LVL].num_channels=
 					mv->num_channels;
-				sc->aria_mix[ARIAMIX_LINE_IN_LVL].level[0] = 
+				sc->aria_mix[ARIAMIX_LINE_IN_LVL].level[0] =
 					mv->level[0];
-				sc->aria_mix[ARIAMIX_LINE_IN_LVL].level[1] = 
+				sc->aria_mix[ARIAMIX_LINE_IN_LVL].level[1] =
 					mv->level[1];
 				error = 0;
 			}
 			break;
-	
+
 		case ARIAMIX_CD_LVL:
 			if (mv->num_channels == 1 || mv->num_channels == 2) {
-				sc->aria_mix[ARIAMIX_CD_LVL].num_channels = 
+				sc->aria_mix[ARIAMIX_CD_LVL].num_channels =
 					mv->num_channels;
-				sc->aria_mix[ARIAMIX_CD_LVL].level[0] = 
+				sc->aria_mix[ARIAMIX_CD_LVL].level[0] =
 					mv->level[0];
-				sc->aria_mix[ARIAMIX_CD_LVL].level[1] = 
+				sc->aria_mix[ARIAMIX_CD_LVL].level[1] =
 					mv->level[1];
 				error = 0;
 			}
 			break;
-	
+
 		case ARIAMIX_TEL_LVL:
 			if (mv->num_channels == 1) {
-				sc->aria_mix[ARIAMIX_TEL_LVL].num_channels = 
+				sc->aria_mix[ARIAMIX_TEL_LVL].num_channels =
 					mv->num_channels;
-				sc->aria_mix[ARIAMIX_TEL_LVL].level[0] = 
+				sc->aria_mix[ARIAMIX_TEL_LVL].level[0] =
 					mv->level[0];
 				error = 0;
 			}
 			break;
-	
+
 		case ARIAMIX_DAC_LVL:
 			if (mv->num_channels == 1 || mv->num_channels == 2) {
-				sc->aria_mix[ARIAMIX_DAC_LVL].num_channels = 
+				sc->aria_mix[ARIAMIX_DAC_LVL].num_channels =
 					mv->num_channels;
-				sc->aria_mix[ARIAMIX_DAC_LVL].level[0] = 
+				sc->aria_mix[ARIAMIX_DAC_LVL].level[0] =
 					mv->level[0];
-				sc->aria_mix[ARIAMIX_DAC_LVL].level[1] = 
+				sc->aria_mix[ARIAMIX_DAC_LVL].level[1] =
 					mv->level[1];
 				error = 0;
 			}
@@ -1186,40 +1186,40 @@ aria_mixer_set_port(addr, cp)
 
 		case ARIAMIX_AUX_LVL:
 			if (mv->num_channels == 1 || mv->num_channels == 2) {
-				sc->aria_mix[ARIAMIX_AUX_LVL].num_channels = 
+				sc->aria_mix[ARIAMIX_AUX_LVL].num_channels =
 					mv->num_channels;
-				sc->aria_mix[ARIAMIX_AUX_LVL].level[0] = 
+				sc->aria_mix[ARIAMIX_AUX_LVL].level[0] =
 					mv->level[0];
-				sc->aria_mix[ARIAMIX_AUX_LVL].level[1] = 
+				sc->aria_mix[ARIAMIX_AUX_LVL].level[1] =
 					mv->level[1];
 				error = 0;
 			}
 			break;
-	
+
 		case ARIAMIX_MASTER_LVL:
 			if (mv->num_channels == 1 || mv->num_channels == 2) {
-				sc->ariamix_master.num_channels = 
+				sc->ariamix_master.num_channels =
 					mv->num_channels;
 				sc->ariamix_master.level[0] = mv->level[0];
 				sc->ariamix_master.level[1] = mv->level[1];
 				error = 0;
 			}
 			break;
-	
+
 		case ARIAMIX_MASTER_TREBLE:
 			if (mv->num_channels == 2) {
-				sc->ariamix_master.treble[0] = 
+				sc->ariamix_master.treble[0] =
 					mv->level[0] == 0 ? 1 : mv->level[0];
-				sc->ariamix_master.treble[1] = 
+				sc->ariamix_master.treble[1] =
 					mv->level[1] == 0 ? 1 : mv->level[1];
 				error = 0;
 			}
 			break;
 		case ARIAMIX_MASTER_BASS:
 			if (mv->num_channels == 2) {
-				sc->ariamix_master.bass[0] = 
+				sc->ariamix_master.bass[0] =
 					mv->level[0] == 0 ? 1 : mv->level[0];
-				sc->ariamix_master.bass[1] = 
+				sc->ariamix_master.bass[1] =
 					mv->level[1] == 0 ? 1 : mv->level[1];
 				error = 0;
 			}
@@ -1253,7 +1253,7 @@ aria_mixer_set_port(addr, cp)
 
 		case ARIAMIX_LINE_IN_MUTE:
 			if (cp->un.ord == 0 || cp->un.ord == 1) {
-				sc->aria_mix[ARIAMIX_LINE_IN_LVL].mute = 
+				sc->aria_mix[ARIAMIX_LINE_IN_LVL].mute =
 					cp->un.ord;
 				error = 0;
 			}
@@ -1312,23 +1312,23 @@ aria_mixer_get_port(addr, cp)
 	switch (cp->dev) {
 	case ARIAMIX_MIC_LVL:
 		if (cp->type == AUDIO_MIXER_VALUE) {
-			cp->un.value.num_channels = 
+			cp->un.value.num_channels =
 				sc->aria_mix[ARIAMIX_MIC_LVL].num_channels;
-			cp->un.value.level[0] = 
+			cp->un.value.level[0] =
 				sc->aria_mix[ARIAMIX_MIC_LVL].level[0];
-			cp->un.value.level[1] = 
+			cp->un.value.level[1] =
 				sc->aria_mix[ARIAMIX_MIC_LVL].level[1];
 			error = 0;
 		}
 		break;
-			
+
 	case ARIAMIX_LINE_IN_LVL:
 		if (cp->type == AUDIO_MIXER_VALUE) {
-			cp->un.value.num_channels = 
+			cp->un.value.num_channels =
 				sc->aria_mix[ARIAMIX_LINE_IN_LVL].num_channels;
-			cp->un.value.level[0] = 
+			cp->un.value.level[0] =
 				sc->aria_mix[ARIAMIX_LINE_IN_LVL].level[0];
-			cp->un.value.level[1] = 
+			cp->un.value.level[1] =
 				sc->aria_mix[ARIAMIX_LINE_IN_LVL].level[1];
 			error = 0;
 		}
@@ -1336,11 +1336,11 @@ aria_mixer_get_port(addr, cp)
 
 	case ARIAMIX_CD_LVL:
 		if (cp->type == AUDIO_MIXER_VALUE) {
-			cp->un.value.num_channels = 
+			cp->un.value.num_channels =
 				sc->aria_mix[ARIAMIX_CD_LVL].num_channels;
-			cp->un.value.level[0] = 
+			cp->un.value.level[0] =
 				sc->aria_mix[ARIAMIX_CD_LVL].level[0];
-			cp->un.value.level[1] = 
+			cp->un.value.level[1] =
 				sc->aria_mix[ARIAMIX_CD_LVL].level[1];
 			error = 0;
 		}
@@ -1348,20 +1348,20 @@ aria_mixer_get_port(addr, cp)
 
 	case ARIAMIX_TEL_LVL:
 		if (cp->type == AUDIO_MIXER_VALUE) {
-			cp->un.value.num_channels = 
+			cp->un.value.num_channels =
 				sc->aria_mix[ARIAMIX_TEL_LVL].num_channels;
-			cp->un.value.level[0] = 
+			cp->un.value.level[0] =
 				sc->aria_mix[ARIAMIX_TEL_LVL].level[0];
 			error = 0;
 		}
 		break;
 	case ARIAMIX_DAC_LVL:
 		if (cp->type == AUDIO_MIXER_VALUE) {
-			cp->un.value.num_channels = 
+			cp->un.value.num_channels =
 				sc->aria_mix[ARIAMIX_DAC_LVL].num_channels;
-			cp->un.value.level[0] = 
+			cp->un.value.level[0] =
 				sc->aria_mix[ARIAMIX_DAC_LVL].level[0];
-			cp->un.value.level[1] = 
+			cp->un.value.level[1] =
 				sc->aria_mix[ARIAMIX_DAC_LVL].level[1];
 			error = 0;
 		}
@@ -1369,11 +1369,11 @@ aria_mixer_get_port(addr, cp)
 
 	case ARIAMIX_AUX_LVL:
 		if (cp->type == AUDIO_MIXER_VALUE) {
-			cp->un.value.num_channels = 
+			cp->un.value.num_channels =
 				sc->aria_mix[ARIAMIX_AUX_LVL].num_channels;
-			cp->un.value.level[0] = 
+			cp->un.value.level[0] =
 				sc->aria_mix[ARIAMIX_AUX_LVL].level[0];
-			cp->un.value.level[1] = 
+			cp->un.value.level[1] =
 				sc->aria_mix[ARIAMIX_AUX_LVL].level[1];
 			error = 0;
 		}
@@ -1423,7 +1423,7 @@ aria_mixer_get_port(addr, cp)
 
 	case ARIAMIX_MASTER_LVL:
 		if (cp->type == AUDIO_MIXER_VALUE) {
-			cp->un.value.num_channels = 
+			cp->un.value.num_channels =
 				sc->ariamix_master.num_channels;
 			cp->un.value.level[0] = sc->ariamix_master.level[0];
 			cp->un.value.level[1] = sc->ariamix_master.level[1];
@@ -1550,11 +1550,11 @@ aria_mixer_query_devinfo(addr, dip)
 	case ARIAMIX_LINE_IN_MUTE:
 		dip->prev = ARIAMIX_LINE_IN_LVL;
 		goto mute;
-	
+
 	case ARIAMIX_CD_MUTE:
 		dip->prev = ARIAMIX_CD_LVL;
 		goto mute;
-	
+
 	case ARIAMIX_DAC_MUTE:
 		dip->prev = ARIAMIX_DAC_LVL;
 		goto mute;

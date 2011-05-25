@@ -90,7 +90,7 @@ _strtouq(nptr, endptr, base)
 	if (c == '-') {
 		neg = 1;
 		c = *s++;
-	} else { 
+	} else {
 		neg = 0;
 		if (c == '+')
 			c = *s++;

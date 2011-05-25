@@ -48,7 +48,7 @@ void    adb_processevent __P((adb_event_t * event));
 
 extern void adb_jadbproc __P((void));
 
-void 
+void
 adb_complete(buffer, data_area, adb_command)
 	caddr_t buffer;
 	caddr_t data_area;
@@ -93,7 +93,7 @@ adb_complete(buffer, data_area, adb_command)
 	adb_processevent(&event);
 }
 
-void 
+void
 adb_msa3_complete(buffer, data_area, adb_command)
 	caddr_t buffer;
 	caddr_t data_area;
@@ -138,7 +138,7 @@ adb_msa3_complete(buffer, data_area, adb_command)
 	adb_processevent(&event);
 }
 
-void 
+void
 adb_mm_nonemp_complete(buffer, data_area, adb_command)
 	caddr_t buffer;
 	caddr_t data_area;
@@ -241,7 +241,7 @@ extdms_init(totaladbs)
 			 * buffer[4]'s locking mask enables a
 			 * click to toggle the button down state--sort of
 			 * like the "Easy Access" shift/control/etc. keys.
-			 * buffer[3]'s alternative speed mask enables using 
+			 * buffer[3]'s alternative speed mask enables using
 			 * different speed when the corr. button is down
 			 */
 			buffer[0] = 4;
@@ -304,7 +304,7 @@ extdms_init(totaladbs)
 			      (Ptr)&extdms_done, cmd);
 			while (!extdms_done)
 				/* busy wait until done */;
-				
+
 			if (buffer[2] != ADBMS_EXTENDED) {
 				/* Attempt to initialize as an A3 mouse */
 				buffer[2] = 0x03; /* make handler ID 3 */
@@ -314,7 +314,7 @@ extdms_init(totaladbs)
 				      (Ptr)&extdms_done, cmd);
 				while (!extdms_done)
 					/* busy wait until done */;
-		
+
 				/*
 				 * Check to see if successful, if not
 				 * try to initialize it as other types
@@ -326,7 +326,7 @@ extdms_init(totaladbs)
 				      (Ptr)&extdms_done, cmd);
 				while (!extdms_done)
 					/* busy wait until done */;
-					
+
 				if (buffer[2] == ADBMS_MSA3) {
 					/* Initialize as above */
 					cmd = ((adbaddr << 4) & 0xF0) | 0xA;

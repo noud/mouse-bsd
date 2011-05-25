@@ -273,7 +273,7 @@ get_hex_regs (n, regno)
   for (i = 0; i < n; i++)
     {
       int j;
-      
+
       val = 0;
       for (j = 0; j < 4; j++)
 	{
@@ -352,7 +352,7 @@ rombug_open(args, from_tty)
     struct hardware_ttystate { struct termios t;} *tty_s;
 
       tty_s =(struct hardware_ttystate  *)SERIAL_GET_TTY_STATE(monitor_desc);
-      if (tty_xon) tty_s->t.c_iflag |= IXON; 
+      if (tty_xon) tty_s->t.c_iflag |= IXON;
       if (tty_xoff) tty_s->t.c_iflag |= IXOFF;
       SERIAL_SET_TTY_STATE(monitor_desc, (serial_ttystate) tty_s);
     }
@@ -413,7 +413,7 @@ rombug_link(mod_name, text_reloc)
   unsigned long val;
   unsigned char b;
 
-  printf_monitor("l %s \r", mod_name); 
+  printf_monitor("l %s \r", mod_name);
   expect_prompt(1);
   printf_monitor(".r \r");
   expect(REG_DELIM, 1);
@@ -446,7 +446,7 @@ rombug_detach (from_tty)
   if (from_tty)
     printf ("Ending remote %s debugging\n", target_shortname);
 }
- 
+
 /*
  * Tell the remote machine to resume.
  */
@@ -519,7 +519,7 @@ rombug_wait (pid, status)
 	 alloca (sizeof (struct section_offsets)
 	 + (symfile_objfile->num_sections * sizeof (offs->offsets))));
       memcpy (offs, symfile_objfile->section_offsets,
-         (sizeof (struct section_offsets) + 
+         (sizeof (struct section_offsets) +
 	 (symfile_objfile->num_sections * sizeof (offs->offsets))));
       ANOFFSET (offs, SECT_OFF_DATA) = addr;
       ANOFFSET (offs, SECT_OFF_BSS) = addr;
@@ -815,7 +815,7 @@ rombug_read_inferior_memory(memaddr, myaddr, len)
       memcpy(myaddr, &readbuf[memaddr-bufaddr], len);
       return len;
     }
-  
+
   startaddr = memaddr;
   count = 0;
   while (count < len)
@@ -836,12 +836,12 @@ rombug_read_inferior_memory(memaddr, myaddr, len)
 	}
       bufaddr = startaddr;
       buflen = 16;
-      memcpy(&myaddr[count], readbuf, len_this_pass); 
+      memcpy(&myaddr[count], readbuf, len_this_pass);
       count += len_this_pass;
       startaddr += len_this_pass;
       expect(CMD_DELIM, 1);
     }
-  if (CMD_END) 
+  if (CMD_END)
       printf_monitor (CMD_END);
   is_trace_mode = 0;
   expect_prompt (1);
@@ -943,7 +943,7 @@ rombug_remove_breakpoint (addr, shadow)
   return 1;
 }
 
-/* Load a file. This is usually an srecord, which is ascii. No 
+/* Load a file. This is usually an srecord, which is ascii. No
    protocol, just sent line by line. */
 
 #define DOWNLOAD_LINE_SIZE 100
@@ -1003,8 +1003,8 @@ rombug_load (arg)
 #endif 0
 }
 
-/* Put a command string, in args, out to MONITOR.  
-   Output from MONITOR is placed on the users terminal until the prompt 
+/* Put a command string, in args, out to MONITOR.
+   Output from MONITOR is placed on the users terminal until the prompt
    is seen. */
 
 static void
@@ -1014,13 +1014,13 @@ rombug_command (args, fromtty)
 {
   if (monitor_desc == NULL)
     error("monitor target not open.");
-  
+
   if (monitor_log)
     fprintf (log_file, "\nIn command (args=%s)\n", args);
 
   if (!args)
     error("Missing command.");
-	
+
   printf_monitor("%s\r", args);
   expect_prompt(0);
 }
@@ -1051,10 +1051,10 @@ connect_command (args, fromtty)
 
   if (monitor_desc == NULL)
     error("monitor target not open.");
-  
+
   if (args)
     fprintf("This command takes no args.  They have been ignored.\n");
-	
+
   printf("[Entering connect mode.  Use ~. or ~^D to escape]\n");
 
   serial_raw(0, &ttystate);
@@ -1147,7 +1147,7 @@ struct target_ops rombug_ops = {
   "Use a remote computer running the ROMBUG debug monitor.\n\
 Specify the serial device it is connected to (e.g. /dev/ttya).",
   rombug_open,
-  rombug_close, 
+  rombug_close,
   0,
   rombug_detach,
   rombug_resume,
@@ -1224,7 +1224,7 @@ _initialize_remote_os9k ()
         &showlist);
 
   add_com ("rombug <command>", class_obscure, rombug_command,
-	   "Send a command to the debug monitor."); 
+	   "Send a command to the debug monitor.");
 #if 0
   add_com ("connect", class_obscure, connect_command,
    	   "Connect the terminal directly up to a serial based command monitor.\nUse <CR>~. or <CR>~^D to break out.");

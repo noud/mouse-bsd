@@ -326,7 +326,7 @@ data_def:
 	  }
 	| declspecs deftyp type_init_decls T_SEMI
 	| error T_SEMI {
-		globclup();		
+		globclup();
 	  }
 	| error T_RBRACE {
 		globclup();

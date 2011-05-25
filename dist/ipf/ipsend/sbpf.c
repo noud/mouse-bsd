@@ -131,7 +131,7 @@ int	sport, tout;
 int	sendip(fd, pkt, len)
 int	fd, len;
 char	*pkt;
-{			
+{
 	if (write(fd, pkt, len) == -1)
 	    {
 		perror("send");

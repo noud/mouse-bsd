@@ -319,7 +319,7 @@ espattach(parent, self, aux)
 	 * Now try to attach all the sub-devices
 	 */
 	sc->sc_adapter.scsipi_cmd = ncr53c9x_scsi_cmd;
-	sc->sc_adapter.scsipi_minphys = minphys; 
+	sc->sc_adapter.scsipi_minphys = minphys;
 	ncr53c9x_attach(sc, &esp_dev);
 }
 

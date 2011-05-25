@@ -51,8 +51,8 @@ typedef	int bpf_int32;
 typedef	u_int bpf_u_int32;
 
 /*
- * Alignment macros.  BPF_WORDALIGN rounds up to the next 
- * even multiple of BPF_ALIGNMENT. 
+ * Alignment macros.  BPF_WORDALIGN rounds up to the next
+ * even multiple of BPF_ALIGNMENT.
  */
 #define BPF_ALIGNMENT sizeof(long)
 #define BPF_WORDALIGN(x) (((x)+(BPF_ALIGNMENT-1))&~(BPF_ALIGNMENT-1))
@@ -68,7 +68,7 @@ struct bpf_program {
 	u_int bf_len;
 	struct bpf_insn *bf_insns;
 };
- 
+
 /*
  * Struct returned by BIOCGSTATS.
  */
@@ -78,7 +78,7 @@ struct bpf_stat {
 };
 
 /*
- * Struct return by BIOCVERSION.  This represents the version number of 
+ * Struct return by BIOCVERSION.  This represents the version number of
  * the filter language described by the instruction encodings below.
  * bpf understands a program iff kernel_major == filter_major &&
  * kernel_minor >= filter_minor, that is, if the value returned by the

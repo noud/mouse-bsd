@@ -876,7 +876,7 @@ void resource_manager::process_file(int rank, FILE *fp, const char *filename,
     "DocumentNeededFiles:",
     "DocumentSuppliedFiles:",
   };
-  
+
   const int NHEADER_COMMENTS = (sizeof(header_comment_table)
 				/ sizeof(header_comment_table[0]));
   struct comment_info {
@@ -902,7 +902,7 @@ void resource_manager::process_file(int rank, FILE *fp, const char *filename,
     { "BeginData:", &resource_manager::do_begin_data },
     { "BeginBinary:", &resource_manager::do_begin_binary },
   };
-  
+
   const int NCOMMENTS = sizeof(comment_table)/sizeof(comment_table[0]);
   char buf[PS_LINE_MAX + 2];
   int saved_lineno = current_lineno;

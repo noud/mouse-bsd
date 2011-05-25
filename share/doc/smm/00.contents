@@ -93,7 +93,7 @@ An overview of the design, implementation, and use of NFS on 4.4BSD.
 .tl 'Line Printer Spooler Manual''SMM:7'
 .QP
 This document describes the structure and installation procedure
-for the line printer spooling system.  
+for the line printer spooling system.
 
 .IP
 .tl 'Sendmail Installation and Operation Guide''SMM:8'

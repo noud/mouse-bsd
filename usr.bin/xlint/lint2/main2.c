@@ -136,7 +136,7 @@ main(argc, argv)
 			break;
 		case 'l':
 			for (i = 0; libs[i] != NULL; i++) ;
-			libs = xrealloc(libs, (i + 2) * sizeof (char *)); 
+			libs = xrealloc(libs, (i + 2) * sizeof (char *));
 			libs[i] = xstrdup(optarg);
 			libs[i + 1] = NULL;
 			break;
@@ -144,7 +144,7 @@ main(argc, argv)
 			usage();
 		}
 	}
-	
+
 	argc -= optind;
 	argv += optind;
 

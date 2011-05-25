@@ -40,7 +40,7 @@ S!=	cd ../../../..; pwd
 .endif
 ALPHA=	$S/arch/alpha
 
-HAVE_GCC28!=	${CC} --version | egrep "^(2\.8|egcs)" ; echo 
+HAVE_GCC28!=	${CC} --version | egrep "^(2\.8|egcs)" ; echo
 INCLUDES=	-I. -I$S/arch -I$S -nostdinc
 CPPFLAGS=	${INCLUDES} ${IDENT} ${PARAM} -D_KERNEL -Dalpha
 COPTS?=		-O2
@@ -185,14 +185,14 @@ dependall: depend all
 
 # depend on root or device configuration
 autoconf.o conf.o: Makefile
- 
-# depend on network or filesystem configuration 
-uipc_proto.o vfs_conf.o: Makefile 
+
+# depend on network or filesystem configuration
+uipc_proto.o vfs_conf.o: Makefile
 
 # depend on maxusers
 genassym.o machdep.o: Makefile
 
-# depend on CPU configuration 
+# depend on CPU configuration
 clock.o machdep.o apecs.o cia.o lca.o ioasic.o scc.o icasic.o: Makefile
 
 locore.o: ${ALPHA}/alpha/locore.s assym.h

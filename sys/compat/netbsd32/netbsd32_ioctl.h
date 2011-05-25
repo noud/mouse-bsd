@@ -74,7 +74,7 @@ struct netbsd32_opiocdesc {
 #define	OPIOCSET	_IOW('O', 2, struct opiocdesc) /* set openprom field */
 #define	OPIOCNEXTPROP	_IOWR('O', 3, struct opiocdesc) /* get next property */
 #endif
- 
+
 /* from <sys/audioio.h> */
 #if 0
 #define AUDIO_WSEEK	_IOR('A', 25, u_long)
@@ -281,7 +281,7 @@ struct  netbsd32_ifdrv {
 	unsigned long	ifd_cmd;
 	size_t		ifd_len;
 	void		*ifd_data;
-}; 
+};
 #if 0
 /* from <sys/sockio.h> */
 #define SIOCSDRVSPEC     _IOW('i', 123, struct ifdrv)   /* set driver-specific */

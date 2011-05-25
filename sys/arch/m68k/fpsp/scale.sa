@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -41,7 +41,7 @@
 *	The entry point sscale is called from do_func to emulate
 *	the fscale unimplemented instruction.
 *
-*	Input: Double-extended destination operand in FPTEMP, 
+*	Input: Double-extended destination operand in FPTEMP,
 *		double-extended source operand in ETEMP.
 *
 *	Output: The function returns scale(X,Y) to fp0.
@@ -49,7 +49,7 @@
 *	Modifies: fp0.
 *
 *	Algorithm:
-*		
+*
 
 SCALE    IDNT    2,1 Motorola 040 Floating Point Software Package
 
@@ -173,7 +173,7 @@ nden_exit:
 src_neg:
 	add.l		d0,d1		;add src to dest
 	beq.b		denorm		;if zero, result is denorm
-	blt.b		fix_dnrm	;if negative, result is 
+	blt.b		fix_dnrm	;if negative, result is
 *					;needing denormalization
 	tst.b		L_SCR1(a6)
 	beq.b		sneg_pos
@@ -187,7 +187,7 @@ sneg_pos:
 
 *
 * The result exponent is below denorm value.  Test for catastrophic
-* underflow and force zero if true.  If not, try to shift the 
+* underflow and force zero if true.  If not, try to shift the
 * mantissa right until a zero exponent exists.
 *
 fix_dnrm:
@@ -255,7 +255,7 @@ no_dir:
 	rts
 
 *
-* The rounding mode changed the zero to a smallest denorm. Call 
+* The rounding mode changed the zero to a smallest denorm. Call
 * t_resdnrm with exceptional operand in ETEMP.
 *
 sm_dnrm:
@@ -276,7 +276,7 @@ not_zero:
 fix_exit:
 	bra.b		sm_dnrm
 
-	
+
 *
 * The result has underflowed to zero. Return zero and set
 * unfl, aunfl, and ainex.
@@ -310,7 +310,7 @@ neg_zero:
 	clr.l		FP_SCR1(a6)	;clear the exceptional operand
 	clr.l		FP_SCR1+4(a6)	;for gen_except.
 	clr.l		FP_SCR1+8(a6)
-	fmove.s		#:80000000,fp0	
+	fmove.s		#:80000000,fp0
 	rts
 pos_zero:
 	clr.l		FP_SCR1(a6)	;clear the exceptional operand
@@ -325,7 +325,7 @@ pos_zero:
 * then adding the remainder of the source to the exponent.
 *
 dst_dnrm:
-	movem.l		d2/d3,-(a7)	
+	movem.l		d2/d3,-(a7)
 	move.w		FPTEMP_EX(a6),d1
 	move.l		FPTEMP_HI(a6),d2
 	move.l		FPTEMP_LO(a6),d3
@@ -339,7 +339,7 @@ dst_loop:
 	addx.l		d2,d2
 	bra.b		dst_loop
 *
-* Destination became normalized.  Simply add the remaining 
+* Destination became normalized.  Simply add the remaining
 * portion of the src to the exponent.
 *
 dst_norm:

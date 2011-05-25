@@ -10,14 +10,14 @@ MEMORY
 	ramblk1 : ORIGIN = 0x02027000, LENGTH = 0x1000
 }
 
-SECTIONS 				
-{ 					
+SECTIONS
+{
 .vectors 0x00000000 :
 {
 	*(vectors)
 }
 
-.text : 
+.text :
 {
 	*(.text)
 } > rom

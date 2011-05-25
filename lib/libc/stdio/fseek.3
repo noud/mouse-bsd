@@ -71,7 +71,7 @@ The new position, measured in bytes, is obtained by adding
 .Fa offset
 bytes to the position specified by
 .Fa whence .
-If 
+If
 .Fa whence
 is set to
 .Dv SEEK_SET ,
@@ -121,7 +121,7 @@ and
 (with whence set to
 .Dv SEEK_SET
 ), setting and storing the current value of
-the file offset into or from the object referenced by 
+the file offset into or from the object referenced by
 .Fa pos .
 On systems other than
 .Ux ,
@@ -142,13 +142,13 @@ return 0,
 and
 .Fn ftell
 returns the current offset.
-Otherwise, 
+Otherwise,
 .Fn fseek
 and
 .Fn ftell
 return \-1 and
 the others
-return a nonzero value and the global variable 
+return a nonzero value and the global variable
 .Va errno
 is set to indicate the error.
 .Sh ERRORS
@@ -161,7 +161,7 @@ is not a seekable stream.
 .It Bq Er EINVAL
 The
 .Fa whence
-argument to 
+argument to
 .Fn fseek
 was not
 .Dv SEEK_SET ,
@@ -174,7 +174,7 @@ The function
 .Fn fgetpos ,
 .Fn fseek ,
 .Fn fsetpos ,
-and 
+and
 .Fn ftell
 may also fail and set
 .Va errno
@@ -182,7 +182,7 @@ for any of the errors specified for the routines
 .Xr fflush 3 ,
 .Xr fstat 2 ,
 .Xr lseek 2 ,
-and 
+and
 .Xr malloc 3 .
 .Sh SEE ALSO
 .Xr lseek 2

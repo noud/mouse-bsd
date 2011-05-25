@@ -415,7 +415,7 @@ pool_init(pp, size, align, ioff, flags, wchan, pagesz, alloc, release, mtype)
 		/* If you specifiy one, must specify both. */
 		panic("pool_init: must specify alloc and release together");
 	}
-			
+
 	if (pagesz == 0)
 		pagesz = PAGE_SIZE;
 

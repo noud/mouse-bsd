@@ -58,7 +58,7 @@ rf_CscanCreate(RF_SectorCount_t sect_per_disk,
 void    rf_SstfEnqueue(void *qptr, RF_DiskQueueData_t * req, int priority);
 RF_DiskQueueData_t *rf_SstfDequeue(void *qptr);
 RF_DiskQueueData_t *rf_SstfPeek(void *qptr);
-int 
+int
 rf_SstfPromote(void *qptr, RF_StripeNum_t parityStripeID,
     RF_ReconUnitNum_t which_ru);
 RF_DiskQueueData_t *rf_ScanDequeue(void *qptr);

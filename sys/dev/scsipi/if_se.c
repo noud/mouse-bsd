@@ -136,7 +136,7 @@
 /* 10 full length packets appears to be the max ever returned. 16k is OK */
 #define RBUF_LEN	(16 * 1024)
 
-/* Tuning parameters: 
+/* Tuning parameters:
  * The EA41x only returns a maximum of 10 packets (regardless of size).
  * We will attempt to adapt to polling fast enough to get RDATA_GOAL packets
  * per read

@@ -4,7 +4,7 @@
 XM_FILE= xm-i386sco.h
 
 #
-# Not all configurations of SCO OpenServer 5 come with the TCP/IP 
+# Not all configurations of SCO OpenServer 5 come with the TCP/IP
 # runtime, but all come with the development system, so we always
 # have socket(), gethostbyname(), and friends.
 #

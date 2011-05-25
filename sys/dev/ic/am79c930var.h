@@ -39,7 +39,7 @@
 #define AM79C930_BUS_PCMCIA 1
 #define AM79C930_BUS_ISAPNP 2	/* not implemented */
 
-struct am79c930_softc 
+struct am79c930_softc
 {
 	bus_space_tag_t sc_iot;
 	bus_space_handle_t sc_ioh;
@@ -52,7 +52,7 @@ struct am79c930_softc
 	int sc_bustype;
 };
 
-struct am79c930_ops 
+struct am79c930_ops
 {
 	void (*write_1) __P((struct am79c930_softc *, u_int32_t, u_int8_t));
 	void (*write_2) __P((struct am79c930_softc *, u_int32_t, u_int16_t));

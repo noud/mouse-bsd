@@ -72,7 +72,7 @@ void 		setPramTime __P((unsigned long time));
 unsigned long	pram_readtime __P((void));
 void		pram_settime __P((unsigned long));
 
-#ifndef MRG_ADB	
+#ifndef MRG_ADB
 /*
  * These functions only when we are not using
  * the MRG method of accessing the ADB/PRAM/RTC.

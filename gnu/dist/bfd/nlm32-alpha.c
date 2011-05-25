@@ -651,7 +651,7 @@ nlm_alpha_read_import (abfd, sym)
   while (sym -> rcnt < rcount)
     {
       asection *section;
-      
+
       if (nlm_alpha_read_reloc (abfd, sym, &section,
 				&nlm_relocs -> reloc)
 	  == false)

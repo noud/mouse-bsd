@@ -1,25 +1,25 @@
 cat <<EOF
 SECTIONS
-{ 
-    .text : 
-    { 
+{
+    .text :
+    {
 	${GLD_STYLE+ CREATE_OBJECT_SYMBOLS}
-	*(.text) 
+	*(.text)
 	${RELOCATING+ _etext = .};
 	${CONSTRUCTING+${COFF_CTORS}}
-    }  
+    }
     .data :
-    { 
- 	*(.data) 
+    {
+ 	*(.data)
 	${CONSTRUCTING+CONSTRUCTORS}
 	${RELOCATING+ _edata = .};
-    }  
+    }
     .bss :
-    { 
+    {
 	${RELOCATING+ _bss_start = .};
-	*(.bss)	 
-	*(COMMON) 
+	*(.bss)
+	*(COMMON)
 	${RELOCATING+ _end = .};
-    } 
-} 
+    }
+}
 EOF

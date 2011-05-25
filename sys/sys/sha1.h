@@ -13,10 +13,10 @@
 
 typedef struct {
 	u_int32_t state[5];
-	u_int32_t count[2];  
+	u_int32_t count[2];
 	u_char buffer[64];
 } SHA1_CTX;
-  
+
 void	SHA1Transform __P((u_int32_t state[5], const u_char buffer[64]));
 void	SHA1Init __P((SHA1_CTX *context));
 void	SHA1Update __P((SHA1_CTX *context, const u_char *data, u_int len));

@@ -16,15 +16,15 @@
  * resets
  */
 
-/*-   
+/*-
  * Copyright (c) 1997, 1998 The NetBSD Foundation, Inc.
  * All rights reserved.
- * 
+ *
  * This code is derived from software contributed to The NetBSD Foundation
  * by Jason R. Thorpe of the Numerical Aerospace Simulation Facility,
  * NASA Ames Research Center.
- * 
- * Redistribution and use in source and binary forms, with or without  
+ *
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
  * 1. Redistributions of source code must retain the above copyright
@@ -1143,7 +1143,7 @@ wds_inquire_setup_information(sc)
 
 out:
 	printf("\n");
-	
+
 	/*
 	 * Free up the resources used by this scb.
 	 */

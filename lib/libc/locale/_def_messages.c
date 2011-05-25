@@ -8,7 +8,7 @@
 #include <sys/localedef.h>
 #include <locale.h>
 
-const _MessagesLocale _DefaultMessagesLocale = 
+const _MessagesLocale _DefaultMessagesLocale =
 {
 	"^[Yy]",
 	"^[Nn]",

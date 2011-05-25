@@ -503,9 +503,9 @@ typedef u_int32_t netbsd32_outsnamep_t;
  * random other stuff
  */
 #include <compat/common/compat_util.h>
- 
+
 extern const char netbsd32_emul_path[];
-  
+
 #define NETBSD32_CHECK_ALT_EXIST(p, sgp, path) \
     emul_find(p, sgp, netbsd32_emul_path, (const char *)path, \
 	(const char **)&path, 0)

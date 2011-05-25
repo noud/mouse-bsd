@@ -3,7 +3,7 @@
 # copy the kernel
 # We copy compressed kernel to "netbsd" rather than "netbsd.gz" for two reasons
 #	1) shaves two seconds off the boot as the bootblocks look for netbsd first.
-#	2) avoids possible moment of confusion when bootblocks 
+#	2) avoids possible moment of confusion when bootblocks
 #	print "no such file or directory" error before moving on to netbsd.gz
 
 COPY	${OBJDIR}/netbsd.ram.gz	netbsd

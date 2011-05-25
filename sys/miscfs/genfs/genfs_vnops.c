@@ -117,7 +117,7 @@ genfs_abortop(v)
 		struct vnode *a_dvp;
 		struct componentname *a_cnp;
 	} */ *ap = v;
- 
+
 	if ((ap->a_cnp->cn_flags & (HASBUF | SAVESTART)) == HASBUF)
 		FREE(ap->a_cnp->cn_pnbuf, M_NAMEI);
 	return (0);
@@ -188,7 +188,7 @@ genfs_eopnotsupp_rele(v)
 {
 	struct vop_generic_args /*
 		struct vnodeop_desc *a_desc;
-		/ * other random data follows, presumably * / 
+		/ * other random data follows, presumably * /
 	} */ *ap = v;
 	struct vnodeop_desc *desc = ap->a_desc;
 	struct vnode *vp;

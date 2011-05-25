@@ -72,7 +72,7 @@ EXTRA_DIST = bc.h fix-libmath_h libmath.b sbc.y
 noinst_HEADERS = libmath.h
 
 DISTCLEANFILES = sbc sbc.c sbc.h
-MAINTAINERCLEANFILES = libmath.h bc.c bc.h 
+MAINTAINERCLEANFILES = libmath.h bc.c bc.h
 
 datadir = $(prefix)/@DATADIRNAME@
 
@@ -86,7 +86,7 @@ fbcOBJ = main.o bc.o scan.o execute.o global.o load.o storage.o util.o
 sbcOBJ = main.o sbc.o scan.o execute.o global.o load.o storage.o util.o
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 PROGRAMS =  $(bin_PROGRAMS)
 
 
@@ -98,7 +98,7 @@ bc_OBJECTS =  main.o bc.o scan.o execute.o load.o storage.o util.o \
 global.o
 bc_LDADD = $(LDADD)
 bc_DEPENDENCIES =  ../lib/libbc.a
-bc_LDFLAGS = 
+bc_LDFLAGS =
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LEXLIB = @LEXLIB@
 CFLAGS = @CFLAGS@

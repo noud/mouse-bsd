@@ -31,25 +31,25 @@
 #ifndef _RF__RF_RAID5_H_
 #define _RF__RF_RAID5_H_
 
-int 
+int
 rf_ConfigureRAID5(RF_ShutdownList_t ** listp, RF_Raid_t * raidPtr,
     RF_Config_t * cfgPtr);
 int     rf_GetDefaultNumFloatingReconBuffersRAID5(RF_Raid_t * raidPtr);
 RF_HeadSepLimit_t rf_GetDefaultHeadSepLimitRAID5(RF_Raid_t * raidPtr);
-void 
+void
 rf_MapSectorRAID5(RF_Raid_t * raidPtr, RF_RaidAddr_t raidSector,
     RF_RowCol_t * row, RF_RowCol_t * col, RF_SectorNum_t * diskSector, int remap);
-void 
+void
 rf_MapParityRAID5(RF_Raid_t * raidPtr, RF_RaidAddr_t raidSector,
     RF_RowCol_t * row, RF_RowCol_t * col, RF_SectorNum_t * diskSector, int remap);
-void 
+void
 rf_IdentifyStripeRAID5(RF_Raid_t * raidPtr, RF_RaidAddr_t addr,
     RF_RowCol_t ** diskids, RF_RowCol_t * outRow);
-void 
+void
 rf_MapSIDToPSIDRAID5(RF_RaidLayout_t * layoutPtr,
     RF_StripeNum_t stripeID, RF_StripeNum_t * psID,
     RF_ReconUnitNum_t * which_ru);
-void 
+void
 rf_RaidFiveDagSelect(RF_Raid_t * raidPtr, RF_IoType_t type,
     RF_AccessStripeMap_t * asmap, RF_VoidFuncPtr * createFunc);
 

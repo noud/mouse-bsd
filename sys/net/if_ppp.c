@@ -981,12 +981,12 @@ ppp_dequeue(sc)
      * Grab a packet to send: first try the fast queue, then the
      * normal queue.
      */
-    s = splimp();    
+    s = splimp();
     IF_DEQUEUE(&sc->sc_fastq, m);
     if (m == NULL)
 	IF_DEQUEUE(&sc->sc_if.if_snd, m);
     splx(s);
-    
+
     if (m == NULL)
 	return NULL;
 

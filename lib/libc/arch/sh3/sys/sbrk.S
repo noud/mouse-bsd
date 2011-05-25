@@ -55,7 +55,7 @@ curbrk:	.long	_end
 ENTRY(sbrk)
 	mov	r4, r2
 	mov.l	Lcurbrk, r0
-	mov.l	@r0, r0	
+	mov.l	@r0, r0
 	add	r0, r4
 	mov.l	LSYS_break, r0
 	trapa	#0x80
@@ -69,7 +69,7 @@ ENTRY(sbrk)
 err:
 	mov.l	Lcerror, r1
 	jmp	@r1
-	nop			
+	nop
 
 	.align 2
 Lcurbrk:	.long	curbrk

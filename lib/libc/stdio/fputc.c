@@ -59,7 +59,7 @@ fputc(c, fp)
 
 	_DIAGASSERT(fp != NULL);
 
-	FLOCKFILE(fp); 
+	FLOCKFILE(fp);
 	r = __sputc(c, fp);
 	FUNLOCKFILE(fp);
 	return r;

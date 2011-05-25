@@ -65,7 +65,7 @@ main (ac, av)
   ac -= optind;
   av += optind;
 
-  if (ac != 1) 
+  if (ac != 1)
     usage();
 
   name = *av;
@@ -116,7 +116,7 @@ main (ac, av)
 	    sim_fetch_register(0, b);
 	    return b[3];
 	  }
-	  
+
 	}
     }
 

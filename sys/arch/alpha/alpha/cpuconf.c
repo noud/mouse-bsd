@@ -197,7 +197,7 @@ platform_not_configured()
 	    cputype);
 	printf("Please build a kernel with \"options %s\" and reboot.\n",
 	    cpuinit[cputype].option);
-	printf("\n");   
+	printf("\n");
 	panic("platform not configured\n");
 }
 

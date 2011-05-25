@@ -572,7 +572,7 @@ nfsm_reqh(vp, procid, hsiz, bposp)
 		MCLGET(mb, M_WAIT);
 	mb->m_len = 0;
 	bpos = mtod(mb, caddr_t);
-	
+
 	/*
 	 * For NQNFS, add lease request.
 	 */
@@ -925,7 +925,7 @@ nfsm_uiotombuf(uiop, mq, siz, bpos)
  * Get at least "siz" bytes of correctly aligned data.
  * When called the mbuf pointers are not necessarily correct,
  * dsosp points to what ought to be in m_data and left contains
- * what ought to be in m_len. 
+ * what ought to be in m_len.
  * This is used by the macros nfsm_dissect and nfsm_dissecton for tough
  * cases. (The macros use the vars. dpos and dpos2)
  */
@@ -945,7 +945,7 @@ nfsm_disct(mdp, dposp, siz, left, cp2)
 
 #ifdef DEBUG
 	if (left < 0)
-		panic("nfsm_disct: left < 0"); 
+		panic("nfsm_disct: left < 0");
 #endif
 	m1 = *mdp;
 	/*
@@ -987,7 +987,7 @@ nfsm_disct(mdp, dposp, siz, left, cp2)
 			 * If the first mbuf has a external data
 			 * and there is no previous empty mbuf
 			 * allocate a new mbuf and move the external
-			 * data to the new mbuf. Also make the first 
+			 * data to the new mbuf. Also make the first
 			 * mbuf look empty.
 			 */
 			m2 = m_get(M_WAIT, MT_DATA);
@@ -1008,7 +1008,7 @@ nfsm_disct(mdp, dposp, siz, left, cp2)
 		 */
 		if ((dst = m1->m_dat) != src)
 			memmove(dst, src, left);
-		dst += left; 
+		dst += left;
 		m1->m_len = left;
 		m2 = m1->m_next;
 	}
@@ -1351,7 +1351,7 @@ nfs_enterdircache(vp, off, blkoff, en, blkno)
 		FREE(first, M_NFSDIROFF);
 	} else
 		np->n_dircachesize++;
-		
+
 	LIST_INSERT_HEAD(ndhp, ndp, dc_hash);
 	TAILQ_INSERT_TAIL(&np->n_dirchain, ndp, dc_chain);
 	return ndp;
@@ -1552,7 +1552,7 @@ nfs_loadattrcache(vpp, fp, vaper)
 
 	/*
 	 * If v_type == VNON it is a new node, so fill in the v_type,
-	 * n_mtime fields. Check to see if it represents a special 
+	 * n_mtime fields. Check to see if it represents a special
 	 * device, and if so, check for a possible alias. Once the
 	 * correct vnode has been obtained, fill in the rest of the
 	 * information.

@@ -157,7 +157,7 @@ sub dumpsrcs {
 
 #
 # Main progarm.
-# 
+#
 
 $srcdir = $ENV{'SRCDIR'};
 $targetdir = $ENV{'TARGETDIR'};
@@ -165,9 +165,9 @@ $incdirs = "-I.";
 
 if (!$srcdir | !targetdir) {
     die "You must define the environment variables SRCDIR and TARGETDIR.\n"
-} 
+}
 print "Making the NetBSD directory tree.\n";
-foreach $f (@subdirs) { 
+foreach $f (@subdirs) {
     print "   -->$f\n";
     makedir ("$targetdir/$f");
 }
@@ -256,7 +256,7 @@ while ($line = <DATA>) {
 	}
 	print ODATA "$line\n";
     }
-}    
+}
 close (ODATA);
 
 #
@@ -386,7 +386,7 @@ DPADD+=	${LIBUTIL} ${LIBKVM}
 -	signal(SIGCHLD, (SIGRETURN_TYPE (*)()) child_handler);
 +	signal(SIGCHLD, child_handler);
  #endif
-     
+ 
  	/*
 %% end patch
 %% patch libexec/identd
@@ -442,7 +442,7 @@ diff -u pidentd-2.8.3/src/identd.h identd/identd.h
 @@ -86,6 +83,9 @@
  
  static struct inpcbtable tcbtable;
-   
+ 
 +static int getbuf __P((long, char *, int, char *));
 +static struct socket *getlist __P((struct inpcbtable *, struct inpcbtable *,
 +    struct in_addr *, int, struct in_addr *, int));
@@ -469,12 +469,12 @@ diff -u pidentd-2.8.3/src/identd.h identd/identd.h
  		    pcb.inp_laddr.s_addr == laddr->s_addr &&
 @@ -181,10 +181,10 @@
    struct ucred ucb;
-   
+ 
    /* -------------------- FILE DESCRIPTOR TABLE -------------------- */
 -  if (!getbuf(nl[N_NFILE].n_value, &nfile, sizeof(nfile), "nfile"))
 +  if (!getbuf(nl[N_NFILE].n_value, (char *)&nfile, sizeof(nfile), "nfile"))
      return -1;
-   
+ 
 -  if (!getbuf(nl[N_FILE].n_value, &addr, sizeof(addr), "&file"))
 +  if (!getbuf(nl[N_FILE].n_value, (char *)&addr, sizeof(addr), "&file"))
      return -1;
@@ -491,18 +491,18 @@ diff -u pidentd-2.8.3/src/identd.h identd/identd.h
        ERROR1("k_getuid: sysctl 2 (%d)", rv);
 @@ -210,11 +210,12 @@
    }
-   
+ 
    /* -------------------- TCP PCB LIST -------------------- */
 -  if (!getbuf(nl[N_TCBTABLE].n_value, &tcbtable, sizeof(tcbtable), "tcbtable"))
 +  if (!getbuf(nl[N_TCBTABLE].n_value, (char *)&tcbtable, sizeof(tcbtable),
 +			  "tcbtable"))
      return -1;
-   
+ 
 -  sockp = getlist(&tcbtable, nl[N_TCBTABLE].n_value, faddr, fport, laddr,
 -      lport);
 +  sockp = getlist(&tcbtable, (struct inpcbtable *)nl[N_TCBTABLE].n_value,
 +				  faddr, fport, laddr, lport);
-   
+ 
    if (!sockp)
      return -1;
 @@ -231,7 +232,7 @@

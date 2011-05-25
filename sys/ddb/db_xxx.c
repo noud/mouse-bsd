@@ -111,7 +111,7 @@ db_show_all_procs(addr, haddr, count, modif)
 	struct proc *p, *pp;
 	struct timeval tv[3];
 	const struct proclist_desc *pd;
-    
+
 	if (modif[0] == 0)
 		modif[0] = 'n';			/* default == normal mode */
 
@@ -123,7 +123,7 @@ db_show_all_procs(addr, haddr, count, modif)
 		db_printf("\t/w == show process wait/emul info\n");
 		return;
 	}
-	
+
 	switch (*mode) {
 
 	case 'a':
@@ -192,8 +192,8 @@ db_show_all_procs(addr, haddr, count, modif)
 
 void
 db_show_callout(addr, haddr, count, modif)
-	db_expr_t addr; 
-	int haddr; 
+	db_expr_t addr;
+	int haddr;
 	db_expr_t count;
 	char *modif;
 {

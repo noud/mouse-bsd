@@ -57,7 +57,7 @@ struct fb_devconfig {
 
 	int		dc_blanked;	/* currently had video disabled */
 };
-	
+
 struct fb_softc {
 	struct	device sc_dev;
 	struct	fb_devconfig *sc_dc;	/* device configuration */

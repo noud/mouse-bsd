@@ -150,7 +150,7 @@ void
 clock_intr(cf)
 	struct clockframe *cf;
 {
-#ifdef	LED_IDLE_CHECK 
+#ifdef	LED_IDLE_CHECK
 	extern char _Idle[];	/* locore.s */
 #endif
 

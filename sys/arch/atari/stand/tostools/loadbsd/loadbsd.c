@@ -87,7 +87,7 @@ char	**argv;
 	int		fd;
 	long		textsz, stringsz;
 	struct exec	ehdr;
-	
+
 	init_toslib(argv[0]);
 	Progname = argv[0];
 

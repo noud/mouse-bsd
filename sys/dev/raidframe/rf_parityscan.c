@@ -56,7 +56,7 @@
  *
  ****************************************************************************************/
 
-int 
+int
 rf_RewriteParity(raidPtr)
 	RF_Raid_t *raidPtr;
 {
@@ -73,9 +73,9 @@ rf_RewriteParity(raidPtr)
 	}
 	if (raidPtr->status[0] != rf_rs_optimal) {
 		/*
-		 * We're in degraded mode.  Don't try to verify parity now! 
-		 * XXX: this should be a "we don't want to", not a 
-		 * "we can't" error. 
+		 * We're in degraded mode.  Don't try to verify parity now!
+		 * XXX: this should be a "we don't want to", not a
+		 * "we can't" error.
 		 */
 		return (RF_PARITY_COULD_NOT_VERIFY);
 	}
@@ -86,13 +86,13 @@ rf_RewriteParity(raidPtr)
 	pda.numSector = raidPtr->Layout.sectorsPerStripeUnit;
 	rc = RF_PARITY_OKAY;
 
-	for (i = 0; i < raidPtr->totalSectors && 
-		     rc <= RF_PARITY_CORRECTED; 
+	for (i = 0; i < raidPtr->totalSectors &&
+		     rc <= RF_PARITY_CORRECTED;
 	     i += layoutPtr->dataSectorsPerStripe) {
-		asm_h = rf_MapAccess(raidPtr, i, 
-				     layoutPtr->dataSectorsPerStripe, 
+		asm_h = rf_MapAccess(raidPtr, i,
+				     layoutPtr->dataSectorsPerStripe,
 				     NULL, RF_DONT_REMAP);
-		raidPtr->parity_rewrite_stripes_done = 
+		raidPtr->parity_rewrite_stripes_done =
 			i / layoutPtr->dataSectorsPerStripe ;
 		rc = rf_VerifyParity(raidPtr, asm_h->stripeMap, 1, 0);
 
@@ -129,7 +129,7 @@ rf_RewriteParity(raidPtr)
  * region defined by the parityPDA.
  *
  ****************************************************************************************/
-int 
+int
 rf_VerifyParity(raidPtr, aasm, correct_it, flags)
 	RF_Raid_t *raidPtr;
 	RF_AccessStripeMap_t *aasm;
@@ -151,10 +151,10 @@ rf_VerifyParity(raidPtr, aasm, correct_it, flags)
 	rc = RF_PARITY_OKAY;
 	if (lp->VerifyParity) {
 		for (doasm = aasm; doasm; doasm = doasm->next) {
-			for (parityPDA = doasm->parityInfo; parityPDA; 
+			for (parityPDA = doasm->parityInfo; parityPDA;
 			     parityPDA = parityPDA->next) {
-				lrc = lp->VerifyParity(raidPtr, 
-						       doasm->raidAddress, 
+				lrc = lp->VerifyParity(raidPtr,
+						       doasm->raidAddress,
 						       parityPDA,
 						       correct_it, flags);
 				if (lrc > rc) {
@@ -170,7 +170,7 @@ rf_VerifyParity(raidPtr, aasm, correct_it, flags)
 	return (rc);
 }
 
-int 
+int
 rf_VerifyParityBasic(raidPtr, raidAddr, parityPDA, correct_it, flags)
 	RF_Raid_t *raidPtr;
 	RF_RaidAddr_t raidAddr;
@@ -193,8 +193,8 @@ rf_VerifyParityBasic(raidPtr, raidAddr, parityPDA, correct_it, flags)
 	char   *pbuf, *buf, *end_p, *p;
 	int     i, retcode;
 	RF_ReconUnitNum_t which_ru;
-	RF_StripeNum_t psID = rf_RaidAddressToParityStripeID(layoutPtr, 
-							     raidAddr, 
+	RF_StripeNum_t psID = rf_RaidAddressToParityStripeID(layoutPtr,
+							     raidAddr,
 							     &which_ru);
 	int     stripeWidth = layoutPtr->numDataCol + layoutPtr->numParityCol;
 	RF_AccTraceEntry_t tracerec;
@@ -312,7 +312,7 @@ out:
 	return (retcode);
 }
 
-int 
+int
 rf_TryToRedirectPDA(raidPtr, pda, parity)
 	RF_Raid_t *raidPtr;
 	RF_PhysDiskAddr_t *pda;
@@ -364,7 +364,7 @@ rf_TryToRedirectPDA(raidPtr, pda, parity)
  * course not the case for the new parity.
  *
  ****************************************************************************************/
-int 
+int
 rf_VerifyDegrModeWrite(raidPtr, asmh)
 	RF_Raid_t *raidPtr;
 	RF_AccessStripeMapHeader_t *asmh;

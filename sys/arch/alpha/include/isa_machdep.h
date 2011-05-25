@@ -106,7 +106,7 @@ struct alpha_isa_chipset {
 /*
  * alpha-specific ISA functions.
  * NOT TO BE USED DIRECTLY BY MACHINE INDEPENDENT CODE.
- */ 
+ */
 int isa_display_console __P((bus_space_tag_t, bus_space_tag_t));
 
 void isabeep __P((int, int));

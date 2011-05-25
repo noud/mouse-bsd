@@ -18,16 +18,16 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #include "powerpc/tm-ppc-eabi.h"
- 
+
 /* There are two different signal handler trampolines in Solaris2.  */
 #define IN_SIGTRAMP(pc, name) \
   ((name) \
    && (STREQ ("sigacthandler", name) || STREQ ("ucbsigvechandler", name)))
- 
+
 /* The signal handler gets a pointer to an ucontext as third argument
    if it is called from sigacthandler.  This is the offset to the saved
    PC within it.  sparc_frame_saved_pc knows how to deal with
-   ucbsigvechandler.  */  
+   ucbsigvechandler.  */
 #define SIGCONTEXT_PC_OFFSET 44
 
 #if 0	/* FIXME Setjmp/longjmp are not as well doc'd in SunOS 5.x yet */

@@ -384,8 +384,8 @@ read_kernel(fn)
 	arg->xk.d5 = IOCS_BOOTINF();	/* unused for now */
 #if 0
 	/* filled afterwards */
-	arg->xk.rootdev = 
-	arg->xk.boothowto = 
+	arg->xk.rootdev =
+	arg->xk.boothowto =
 #endif
 	arg->xk.entry_addr = hdr.a_entry;
 

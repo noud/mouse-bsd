@@ -97,7 +97,7 @@ static void insertionsort __P((u_char *, size_t, size_t,
 	do					\
 		*dst++ = *src++;		\
 	while (i -= 1)
-		
+
 /*
  * Find the next possible pointer head.  (Trickery for forcing an array
  * to do double duty as a linked list when objects do not align with word
@@ -187,7 +187,7 @@ EXPONENTIAL:	    		for (i = size; ; i <<= 1)
 	    				} else if ((*cmp)(q, p) <= sense) {
 	    					t = p;
 	    					if (i == size)
-	    						big = 0; 
+	    						big = 0;
 	    					goto FASTCASE;
 	    				} else
 	    					b = p;

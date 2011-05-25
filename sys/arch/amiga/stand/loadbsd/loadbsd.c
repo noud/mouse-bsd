@@ -267,7 +267,7 @@ main(argc, argv)
 	if (argc != 1)
 		usage();
 	kname = argv[0];
-	
+
 	if ((fd = open(kname, 0)) < 0)
 		err(20, "open");
 	if (read(fd, &e, sizeof(e)) != sizeof(e))
@@ -315,7 +315,7 @@ main(argc, argv)
 	if (kp == NULL)
 		err(20, "failed malloc %d\n", ksize);
 
-	if (read(fd, kp, e.a_text) != e.a_text 
+	if (read(fd, kp, e.a_text) != e.a_text
 	    || read(fd, kp + textsz, e.a_data) != e.a_data)
 		err(20, "unable to read kernel image\n");
 
@@ -370,7 +370,7 @@ main(argc, argv)
 	}
 	*nkcd = ncd;
 
-	kcd = (struct ConfigDev *)(nkcd + 1); 
+	kcd = (struct ConfigDev *)(nkcd + 1);
 	while(cd = FindConfigDev(cd, -1, -1)) {
 		*kcd = *cd;
 		if (((cpuid >> 24) == 0x7d) &&
@@ -429,11 +429,11 @@ main(argc, argv)
 	 */
 	if (t_flag) {
 		if (kp)
-			FreeMem(kp, ksize + ((char *)startit_end 
+			FreeMem(kp, ksize + ((char *)startit_end
 			    - (char *)startit) + 256);
 		exit(0);
 	}
-		
+
 	/*
 	 * XXX AGA startup - may need more
 	 */
@@ -472,25 +472,25 @@ get_mem_config(fmem, fmemsz, cmemsz)
 		seg = (u_int)CachePreDMA((APTR)nseg, (LONG *)&segsz, 0L);
 		nsegsz -= segsz, nseg += segsz;
 		for (;segsz;
-		    segsz = nsegsz, 
+		    segsz = nsegsz,
 		    seg = (u_int)CachePreDMA((APTR)nseg, (LONG *)&segsz, DMA_Continue),
 		    nsegsz -= segsz, nseg += segsz, ++nmem) {
 
 			if (t_flag)
 				printf("Translated %08x sz %08x to %08x sz %08x\n",
 				    nseg - segsz, nsegsz + segsz, seg, segsz);
-		
+
 			eseg = seg + segsz;
 
-	
+
 			if ((cpuid >> 24) == 0x7D) {
 				/* DraCo MMU table kludge */
-				
+
 				segsz = ((segsz -1) | 0xfffff) + 1;
 				seg = eseg - segsz;
 
-				/* 
-				 * Only use first SIMM to boot; we know it is VA==PA. 
+				/*
+				 * Only use first SIMM to boot; we know it is VA==PA.
 				 * Enter into table and continue. Yes,
 				 * this is ugly.
 				 */
@@ -500,7 +500,7 @@ get_mem_config(fmem, fmemsz, cmemsz)
 					memlist.m_seg[nmem].ms_size = segsz;
 					memlist.m_seg[nmem].ms_start = seg;
 					++nmem;
-					continue; 
+					continue;
 				}
 
 				memlist.m_seg[nmem].ms_attrib = mh->mh_Attributes;
@@ -510,18 +510,18 @@ get_mem_config(fmem, fmemsz, cmemsz)
 
 				++nmem;
 				seg += DRACOMMUMARGIN;
-				segsz -= DRACOMMUMARGIN;						
+				segsz -= DRACOMMUMARGIN;
 			}
 
 			memlist.m_seg[nmem].ms_attrib = mh->mh_Attributes;
 			memlist.m_seg[nmem].ms_pri = mh->mh_Node.ln_Pri;
 			memlist.m_seg[nmem].ms_size = segsz;
 			memlist.m_seg[nmem].ms_start = seg;
-		
+
 			if ((mh->mh_Attributes & (MEMF_CHIP|MEMF_FAST)) == MEMF_CHIP) {
-				/* 
-				 * there should hardly be more than one entry for 
-				 * chip mem, but handle it the same nevertheless 
+				/*
+				 * there should hardly be more than one entry for
+				 * chip mem, but handle it the same nevertheless
 				 * cmem always starts at 0, so include vector area
 				 */
 				memlist.m_seg[nmem].ms_start = seg = 0;
@@ -534,19 +534,19 @@ get_mem_config(fmem, fmemsz, cmemsz)
 					*cmemsz = segsz;
 				continue;
 			}
-			/* 
+			/*
 			 * some heuristics..
 			 */
 			seg &= -__LDPGSZ;
 			eseg = (eseg + __LDPGSZ - 1) & -__LDPGSZ;
-	
+
 			/*
-			 * get the mem back stolen by incore kickstart on 
+			 * get the mem back stolen by incore kickstart on
 			 * A3000 with V36 bootrom.
 			 */
 			if (eseg == 0x07f80000)
 				eseg = 0x08000000;
-	
+
 			/*
 			 * or by zkick on a A2000.
 			 */
@@ -557,14 +557,14 @@ get_mem_config(fmem, fmemsz, cmemsz)
 			 * or by Fusion Forty fastrom
 			 */
 			if ((seg & ~(1024*1024-1)) == 0x11000000) {
-				/* 
+				/*
 				 * XXX we should test the name.
 				 * Unfortunately, the memory is just called
 				 * "32 bit memory" which isn't very specific.
 				 */
 				seg = 0x11000000;
 			}
-	
+
 			segsz = eseg - seg;
 			memlist.m_seg[nmem].ms_start = seg;
 			memlist.m_seg[nmem].ms_size = segsz;
@@ -575,7 +575,7 @@ get_mem_config(fmem, fmemsz, cmemsz)
 			if (segsz < 2 * 1024 * 1024)
 				continue;
 			/*
-			 * if p_flag is set, select memory by priority 
+			 * if p_flag is set, select memory by priority
 			 * instead of size
 			 */
 			if ((!p_flag && segsz > *fmemsz) || (p_flag &&
@@ -814,7 +814,7 @@ ckend:
 	.word 0x4e7b,0xb005		| movec a3,itt1
 	.word 0x4e7b,0xb006		| movec a3,dtt0
 	.word 0x4e7b,0xb007		| movec a3,dtt1
-	
+
 noDraCo:
 	moveq	#0,d2			| zero out unused registers
 	moveq	#0,d6			| (might make future compatibility
@@ -917,7 +917,7 @@ _Vdomessage(doexit, eval, doerrno, fmt, args)
 	fprintf(stderr, "\n");
 	if (doexit) {
 		if (kp)
-			FreeMem(kp, ksize + ((char *)startit_end 
+			FreeMem(kp, ksize + ((char *)startit_end
 			    - (char *)startit) + 256);
 		exit(eval);
 	}

@@ -38,16 +38,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-usbd_status	usbd_get_desc __P((usbd_device_handle dev, int type, 
+usbd_status	usbd_get_desc __P((usbd_device_handle dev, int type,
 				   int index, int len, void *desc));
-usbd_status	usbd_get_config_desc __P((usbd_device_handle, int, 
+usbd_status	usbd_get_config_desc __P((usbd_device_handle, int,
 					  usb_config_descriptor_t *));
-usbd_status	usbd_get_config_desc_full __P((usbd_device_handle, int, 
+usbd_status	usbd_get_config_desc_full __P((usbd_device_handle, int,
 					       void *, int));
 usbd_status	usbd_get_device_desc __P((usbd_device_handle dev,
 					  usb_device_descriptor_t *d));
 usbd_status	usbd_set_address __P((usbd_device_handle dev, int addr));
-usbd_status	usbd_get_port_status __P((usbd_device_handle, 
+usbd_status	usbd_get_port_status __P((usbd_device_handle,
 				      int, usb_port_status_t *));
 usbd_status	usbd_set_hub_feature __P((usbd_device_handle dev, int));
 usbd_status	usbd_clear_hub_feature __P((usbd_device_handle, int));
@@ -59,15 +59,15 @@ usbd_status	usbd_get_hub_status __P((usbd_device_handle dev,
 usbd_status	usbd_set_protocol __P((usbd_interface_handle dev, int report));
 usbd_status	usbd_get_report_descriptor
 	__P((usbd_device_handle dev, int ifcno, int repid, int size, void *d));
-struct usb_hid_descriptor *usbd_get_hid_descriptor 
+struct usb_hid_descriptor *usbd_get_hid_descriptor
 	__P((usbd_interface_handle ifc));
-usbd_status	usbd_set_report 
+usbd_status	usbd_set_report
 	__P((usbd_interface_handle iface,int type,int id,void *data,int len));
 usbd_status	usbd_set_report_async
 	__P((usbd_interface_handle iface,int type,int id,void *data,int len));
-usbd_status	usbd_get_report 
+usbd_status	usbd_get_report
 	__P((usbd_interface_handle iface,int type,int id,void *data,int len));
-usbd_status	usbd_set_idle 
+usbd_status	usbd_set_idle
 	__P((usbd_interface_handle iface, int duration, int id));
 #if defined(__NetBSD__) || defined(__OpenBSD__)
 usbd_status	usbd_alloc_report_desc
@@ -79,7 +79,7 @@ usbd_status	usbd_alloc_report_desc
 usbd_status	usbd_get_config
 	__P((usbd_device_handle dev, u_int8_t *conf));
 usbd_status	usbd_get_string_desc
-	__P((usbd_device_handle dev, int sindex, int langid, 
+	__P((usbd_device_handle dev, int sindex, int langid,
 	     usb_string_descriptor_t *sdesc));
 void		usbd_delay_ms __P((usbd_device_handle, u_int));
 

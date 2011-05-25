@@ -68,7 +68,7 @@ struct frame {
 			u_int	f_fa;
 			u_int	f_fslw;
 			/* for 060FP type 4 FP disabled frames: */
-#define 		f_fea	f_fa	
+#define 		f_fea	f_fa
 #define 		f_pcfi	f_fslw
 		} F_fmt4;
 
@@ -210,8 +210,8 @@ struct switchframe {
 
 #define FSLW_SIZE	0x00600000
 /*
- * We better define the FSLW_SIZE values here, as the table given in the 
- * MC68060UM/AD rev. 0/1 p. 8-23 is wrong, and was corrected in the errata 
+ * We better define the FSLW_SIZE values here, as the table given in the
+ * MC68060UM/AD rev. 0/1 p. 8-23 is wrong, and was corrected in the errata
  * document.
  */
 #define FSLW_SIZE_LONG	0x00000000
@@ -282,8 +282,8 @@ struct fpframe {
 #define fpf_busy	FPF_u2.FPF_busy
 #define fpf_unimp	FPF_u2.FPF_unimp
 
-/* 
- * This is incompatible with the earlier one; expecially, an earlier frame 
+/*
+ * This is incompatible with the earlier one; expecially, an earlier frame
  * must not be FRESTOREd on a 060 or vv, because a frame error exception is
  * not guaranteed.
  */
@@ -315,6 +315,6 @@ struct fpframe060 {
  * exception frame and reenter the syscall.
  */
 void reenter_syscall __P((struct frame *, int)) __attribute__((__noreturn__));
-#endif         
+#endif
 
 #endif	/* _M68K_FRAME_H_ */

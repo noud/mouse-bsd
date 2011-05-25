@@ -1282,7 +1282,7 @@ rewrite(pvp, ruleset, reclevel, e)
 			continue;
 		bcopy((char *) npvp, (char *) pvp,
 		      (int) (avp - npvp) * sizeof *avp);
-		
+
 		if (tTd(21, 4))
 		{
 			printf("rewritten as:");
@@ -1341,7 +1341,7 @@ callsubr(pvp, reclevel, e)
 
 			if (tTd(21, 3))
 				printf("-----callsubr %s (%d)\n", avp[1], subr);
-				
+
 			/*
 			**  Take care of possible inner calls first.
 			**  use a full size temporary buffer to avoid
@@ -2208,7 +2208,7 @@ maplocaluser(a, sendq, aliaslevel, e)
 	define('h', a->q_host, e);
 	define('u', a->q_user, e);
 	define('z', a->q_home, e);
- 
+
 	if (rewrite(pvp, 5, 0, e) == EX_TEMPFAIL)
 	{
 		if (tTd(29, 9))
@@ -2492,7 +2492,7 @@ rscheck(rwset, p1, p2, e)
 		e->e_flags |= EF_DISCARD;
 		discard = TRUE;
 	}
-	else 
+	else
 	{
 		int savelogusrerrs = LogUsrErrs;
 		static bool logged = FALSE;
@@ -2510,7 +2510,7 @@ rscheck(rwset, p1, p2, e)
 			logged = TRUE;
 		}
 	}
-	
+
 	if (LogLevel >= 4)
 	{
 		char *relay;

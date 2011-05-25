@@ -27,7 +27,7 @@
  */
 struct mainbus_attach_args {
 	const char *ma_name;		/* device name */
-        bus_space_tag_t ma_iot;    
+        bus_space_tag_t ma_iot;
 };
 
 int	badaddr	__P((void *, u_int));

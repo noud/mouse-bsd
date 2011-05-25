@@ -199,7 +199,7 @@ void i386_bus_space_mallocok __P((void));
 
 #endif /* _KERNEL */
 
-/* 
+/*
  * CTL_MACHDEP definitions.
  */
 #define	CPU_CONSDEV		1	/* dev_t: console terminal device */

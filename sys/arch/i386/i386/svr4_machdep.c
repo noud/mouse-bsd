@@ -169,7 +169,7 @@ svr4_getmcontext(p, mc, flags)
 	*flags |= SVR4_UC_CPU;
 #ifdef DEBUG_SVR4
 	svr4_printmcontext("getmcontext", mc);
-#endif  
+#endif
 	return (void *) tf->tf_esp;
 
 }
@@ -177,7 +177,7 @@ svr4_getmcontext(p, mc, flags)
 
 /*
  * Set to mcontext specified.
- * has been taken. 
+ * has been taken.
  * Return to previous pc and psl as specified by
  * context left by sendsig. Check carefully to
  * make sure that the user has not modified the
@@ -195,7 +195,7 @@ svr4_setmcontext(p, mc, flags)
 
 #ifdef DEBUG_SVR4
 	svr4_printcontext("setmcontext", mc);
-#endif  
+#endif
 	/*
 	 * XXX: What to do with floating point stuff?
 	 */
@@ -378,7 +378,7 @@ svr4_sendsig(catcher, sig, mask, code)
 		fp = (struct svr4_sigframe *)tf->tf_esp;
 	fp--;
 
-	/* 
+	/*
 	 * Build the argument list for the signal handler.
 	 * Notes:
 	 * 	- we always build the whole argument list, even when we
@@ -397,7 +397,7 @@ svr4_sendsig(catcher, sig, mask, code)
 	frame.sf_handler = catcher;
 
 #ifdef DEBUG_SVR4
-	printf("sig = %d, sip %p, ucp = %p, handler = %p\n", 
+	printf("sig = %d, sip %p, ucp = %p, handler = %p\n",
 	       frame.sf_signum, frame.sf_sip, frame.sf_ucp, frame.sf_handler);
 #endif
 

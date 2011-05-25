@@ -38,7 +38,7 @@
  * This file defines rbus (pseudo) class
  *
  * What is rbus?
- * 
+ *
  *  Ths rbus is a recursive bus-space administrator.  This means a
  *  parent bus-space administrator, which usually belongs to a bus
  *  bridge, makes some child bus-space administorators and gives

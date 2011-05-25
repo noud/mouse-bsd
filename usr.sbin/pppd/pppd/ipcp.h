@@ -18,7 +18,7 @@
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  *
- * Id: ipcp.h,v 1.13 1999/03/02 05:35:09 paulus Exp 
+ * Id: ipcp.h,v 1.13 1999/03/02 05:35:09 paulus Exp
  */
 
 /*
@@ -42,7 +42,7 @@
 
 #define IPCP_VJ_COMP 0x002d	/* current value for VJ compression option*/
 #define IPCP_VJ_COMP_OLD 0x0037	/* "old" (i.e, broken) value for VJ */
-				/* compression option*/ 
+				/* compression option*/
 
 typedef struct ipcp_options {
     bool neg_addr;		/* Negotiate IP Address? */

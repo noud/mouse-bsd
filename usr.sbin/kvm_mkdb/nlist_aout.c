@@ -141,7 +141,7 @@ create_knlist_aout(name, db)
 		warn("%s", name);
 		punt();
 	}
-	
+
 	data.data = (u_char *)&nbuf;
 	data.size = sizeof(NLIST);
 

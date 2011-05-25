@@ -131,7 +131,7 @@ printf("reading phdr worked, type %lx flags %lx\n", (long)phdr.p_type, (long)phd
 			continue;
 		if (shp->sh_type != SHT_SYMTAB
 		    && shp->sh_type != SHT_STRTAB) {
-			shp->sh_offset = 0; 
+			shp->sh_offset = 0;
 			shp->sh_type = SHT_NOBITS;
 			continue;
 		}
@@ -153,7 +153,7 @@ printf("reading phdr worked, type %lx flags %lx\n", (long)phdr.p_type, (long)phd
 	elf->e_phentsize = 0;
 	elf->e_phnum = 0;
 	bcopy(elf, addr, sizeof(CAT3(Elf,ELFSIZE,_Ehdr)));
-	bcopy(shp, addr + sizeof(CAT3(Elf,ELFSIZE,_Ehdr)), 
+	bcopy(shp, addr + sizeof(CAT3(Elf,ELFSIZE,_Ehdr)),
 	      elf->e_shnum * sizeof(CAT3(Elf,ELFSIZE,_Shdr)));
 	free(shp, elf->e_shnum * sizeof(CAT3(Elf,ELFSIZE,_Shdr)));
 	*ssymp = addr;

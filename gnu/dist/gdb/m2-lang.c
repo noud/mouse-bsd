@@ -403,7 +403,7 @@ struct type *builtin_type_m2_card;
 struct type *builtin_type_m2_real;
 struct type *builtin_type_m2_bool;
 
-struct type ** CONST_PTR (m2_builtin_types[]) = 
+struct type ** CONST_PTR (m2_builtin_types[]) =
 {
   &builtin_type_m2_char,
   &builtin_type_m2_int,
@@ -435,7 +435,7 @@ const struct language_defn m2_language_defn = {
   m2_op_print_tab,		/* expression operators for printing */
   0,				/* arrays are first-class (not c-style) */
   0,				/* String lower bound */
-  &builtin_type_m2_char,	/* Type of string elements */ 
+  &builtin_type_m2_char,	/* Type of string elements */
   LANG_MAGIC
 };
 

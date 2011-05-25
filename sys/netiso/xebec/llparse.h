@@ -41,7 +41,7 @@
 	extern	struct	lltoken {
 		short		llterm;		/* token number */
 		short		llstate;	/* inserted deleted normal */
-		LLattrib	llattrib; 
+		LLattrib	llattrib;
 	} 	lltoken;
 	typedef	struct lltoken	LLtoken;
 

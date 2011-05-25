@@ -111,7 +111,7 @@ Boston, MA 02111-1307, USA.  */
    the current context of the throw needs to be placed in the global
    variable __eh_pc.
 
-   __throw attempts to find the appropriate exception handler for the 
+   __throw attempts to find the appropriate exception handler for the
    PC value stored in __eh_pc by calling __find_first_exception_table_match
    (which is defined in libgcc2.c). If __find_first_exception_table_match
    finds a relevant handler, __throw transfers control directly to it.
@@ -303,7 +303,7 @@ Boston, MA 02111-1307, USA.  */
    On some platforms it is possible that neither __unwind_function
    nor inlined unwinders are available. For these platforms it is not
    possible to throw through a function call, and abort will be
-   invoked instead of performing the throw. 
+   invoked instead of performing the throw.
 
    The reason the unwind data may be needed is that on some platforms
    the order and types of data stored on the stack can vary depending
@@ -435,7 +435,7 @@ rtx current_function_ehc;
    handling region.  As each exception region is started, an entry
    describing the region is pushed onto this stack.  The current
    region can be found by looking at the top of the stack, and as we
-   exit regions, the corresponding entries are popped. 
+   exit regions, the corresponding entries are popped.
 
    Entries cannot overlap; they can be nested. So there is only one
    entry at most that corresponds to the current instruction, and that
@@ -617,7 +617,7 @@ pop_eh_entry (stack)
 {
   struct eh_node *tempnode;
   struct eh_entry *tempentry;
-  
+
   tempnode = stack->top;
   tempentry = tempnode->entry;
   stack->top = stack->top->chain;
@@ -675,7 +675,7 @@ receive_exception_label (handler_label)
      rtx handler_label;
 {
   emit_label (handler_label);
-  
+
 #ifdef HAVE_exception_receiver
   if (! exceptions_via_longjmp)
     if (HAVE_exception_receiver)
@@ -690,7 +690,7 @@ receive_exception_label (handler_label)
 }
 
 
-struct func_eh_entry 
+struct func_eh_entry
 {
   int range_number;   /* EH region number from EH NOTE insn's */
   struct handler_info *handlers;
@@ -708,22 +708,22 @@ static int current_func_eh_entry = 0;
    in the EH_ENTRY parameter. A NULL parameter is invalid. The number
    returned is an number which uniquely identifies this exception range. */
 
-int 
-new_eh_region_entry (note_eh_region) 
+int
+new_eh_region_entry (note_eh_region)
      int note_eh_region;
 {
-  if (current_func_eh_entry == num_func_eh_entries) 
+  if (current_func_eh_entry == num_func_eh_entries)
     {
       if (num_func_eh_entries == 0)
         {
-          function_eh_regions = 
+          function_eh_regions =
                         (struct func_eh_entry *) malloc (SIZE_FUNC_EH (50));
           num_func_eh_entries = 50;
         }
       else
         {
           num_func_eh_entries  = num_func_eh_entries * 3 / 2;
-          function_eh_regions = (struct func_eh_entry *) 
+          function_eh_regions = (struct func_eh_entry *)
             realloc (function_eh_regions, SIZE_FUNC_EH (num_func_eh_entries));
         }
     }
@@ -740,7 +740,7 @@ new_eh_region_entry (note_eh_region)
    typeinfo entry. Regardless where it is positioned, a NULL_TREE entry
    is always output as the LAST handler in the exception table for a region. */
 
-void 
+void
 add_new_handler (region, newhandler)
      int region;
      struct handler_info *newhandler;
@@ -751,7 +751,7 @@ add_new_handler (region, newhandler)
   last = function_eh_regions[region].handlers;
   if (last == NULL)
     function_eh_regions[region].handlers = newhandler;
-  else 
+  else
     {
       for ( ; last->next != NULL; last = last->next)
         ;
@@ -787,11 +787,11 @@ void remove_handler (removing_label)
     }
 }
 
-/* This function will return a malloc'd pointer to an array of 
-   void pointer representing the runtime match values that 
+/* This function will return a malloc'd pointer to an array of
+   void pointer representing the runtime match values that
    currently exist in all regions. */
 
-int 
+int
 find_all_handler_type_matches (array)
   void ***array;
 {
@@ -832,7 +832,7 @@ find_all_handler_type_matches (array)
                 continue;
 
               /* Do we need to allocate more space? */
-              if (n_ptr >= max_ptr) 
+              if (n_ptr >= max_ptr)
                 {
                   max_ptr += max_ptr / 2;
                   ptr = (void **)realloc (ptr, max_ptr * sizeof (void *));
@@ -870,7 +870,7 @@ get_new_handler (handler, typeinfo)
 /* Find the index in function_eh_regions associated with a NOTE region. If
    the region cannot be found, a -1 is returned. This should never happen! */
 
-int 
+int
 find_func_region (insn_region)
      int insn_region;
 {
@@ -912,7 +912,7 @@ clear_function_eh_region ()
 /* Make a duplicate of an exception region by copying all the handlers
    for an exception region. Return the new handler index. */
 
-int 
+int
 duplicate_handlers (old_note_eh_region, new_note_eh_region)
      int old_note_eh_region, new_note_eh_region;
 {
@@ -929,7 +929,7 @@ duplicate_handlers (old_note_eh_region, new_note_eh_region)
   new_region = new_eh_region_entry (new_note_eh_region);
   ptr = function_eh_regions[region].handlers;
 
-  for ( ; ptr; ptr = ptr->next) 
+  for ( ; ptr; ptr = ptr->next)
     {
       new_ptr = get_new_handler (ptr->handler_label, ptr->type_info);
       add_new_handler (new_region, new_ptr);
@@ -941,7 +941,7 @@ duplicate_handlers (old_note_eh_region, new_note_eh_region)
 
 /* Routine to see if exception handling is turned on.
    DO_WARN is non-zero if we want to inform the user that exception
-   handling is turned off. 
+   handling is turned off.
 
    This is used to ensure that -fexceptions has been specified if the
    compiler tries to use any exception-specific functions.  */
@@ -1056,7 +1056,7 @@ get_eh_context ()
       rtx insn;
 
       current_function_ehc = gen_reg_rtx (Pmode);
-      
+
       insn = gen_rtx_USE (GET_MODE (current_function_ehc),
 			  current_function_ehc);
       insn = emit_insn_before (insn, get_first_nonparm_insn ());
@@ -1067,7 +1067,7 @@ get_eh_context ()
     }
   return current_function_ehc;
 }
-     
+
 /* Get a reference to the dynamic handler chain.  It points to the
    pointer to the next element in the dynamic handler chain.  It ends
    when there are no more elements in the dynamic handler chain, when
@@ -1289,7 +1289,7 @@ expand_eh_region_start_tree (decl, cleanup)
       /* Ignore any UNSAVE_EXPR.  */
       if (TREE_CODE (cleanup) == UNSAVE_EXPR)
 	cleanup = TREE_OPERAND (cleanup, 0);
-      
+
       /* Further, it only applies if the action is a call, if there
 	 are 2 arguments, and if the second argument is 2.  */
 
@@ -1478,17 +1478,17 @@ expand_fixup_region_end (cleanup)
   /* If the outer context label has not been issued yet, we don't want
      to issue it as a part of this region, unless this is the
      correct region for the outer context. If we did, then the label for
-     the outer context will be WITHIN the begin/end labels, 
+     the outer context will be WITHIN the begin/end labels,
      and we could get an infinte loop when it tried to rethrow, or just
      generally incorrect execution following a throw. */
 
-  dont_issue = ((INSN_UID (node->entry->outer_context) == 0) 
+  dont_issue = ((INSN_UID (node->entry->outer_context) == 0)
             && (ehstack.top->entry != node->entry));
 
   ehstack.top->entry->outer_context = node->entry->outer_context;
 
   /* Since we are rethrowing to the OUTER region, we know we don't need
-     a jump around sequence for this region, so we'll pretend the outer 
+     a jump around sequence for this region, so we'll pretend the outer
      context label has been issued by setting INSN_UID to 1, then clearing
      it again afterwards. */
 
@@ -1563,7 +1563,7 @@ expand_leftover_cleanups ()
 
       /* register a handler for this cleanup region */
       add_new_handler (
-        find_func_region (CODE_LABEL_NUMBER (entry->exception_handler_label)), 
+        find_func_region (CODE_LABEL_NUMBER (entry->exception_handler_label)),
         get_new_handler (entry->exception_handler_label, NULL));
 
       /* And now generate the insns for the handler.  */
@@ -1592,7 +1592,7 @@ expand_start_try_stmts ()
 
 /* Called to begin a catch clause. The parameter is the object which
    will be passed to the runtime type check routine. */
-void 
+void
 start_catch_handler (rtime)
      tree rtime;
 {
@@ -1618,7 +1618,7 @@ start_catch_handler (rtime)
   add_new_handler (eh_region_entry, get_new_handler (handler_label, rtime));
 }
 
-/* Generate RTL for the start of a group of catch clauses. 
+/* Generate RTL for the start of a group of catch clauses.
 
    It is responsible for starting a new instruction sequence for the
    instructions in the catch block, and expanding the handlers for the
@@ -1646,7 +1646,7 @@ expand_start_all_catch ()
   /* The label for the exception handling block that we will save.
      This is Lresume in the documentation.  */
   expand_label (label);
-  
+
   /* Push the label that points to where normal flow is resumed onto
      the top of the label stack.  */
   push_label_entry (&caught_return_label_stack, NULL_RTX, label);
@@ -1663,7 +1663,7 @@ expand_start_all_catch ()
       rtx prev;
 
       /* Emit the label for the cleanup handler for this region, and
-	 expand the code for the handler. 
+	 expand the code for the handler.
 
 	 Note that a catch region is handled as a side-effect here;
 	 for a try block, entry->finalization will contain
@@ -1671,12 +1671,12 @@ expand_start_all_catch ()
 	 expand_expr call below. But, the label for the handler will
 	 still be emitted, so any code emitted after this point will
 	 end up being the handler.  */
-      
+
       receive_exception_label (entry->exception_handler_label);
 
       /* register a handler for this cleanup region */
       add_new_handler (
-        find_func_region (CODE_LABEL_NUMBER (entry->exception_handler_label)), 
+        find_func_region (CODE_LABEL_NUMBER (entry->exception_handler_label)),
         get_new_handler (entry->exception_handler_label, NULL));
 
       /* And now generate the insns for the cleanup handler.  */
@@ -1755,7 +1755,7 @@ expand_end_all_catch ()
   /* Now we have the complete catch sequence.  */
   new_catch_clause = get_insns ();
   end_sequence ();
-  
+
   /* This level of catch blocks is done, so set up the successful
      catch jump label for the next layer of catch blocks.  */
   pop_label_entry (&caught_return_label_stack);
@@ -1766,7 +1766,7 @@ expand_end_all_catch ()
   emit_insns (new_catch_clause);
   catch_clauses = get_insns ();
   end_sequence ();
-  
+
   /* Here we fall through into the continuation code.  */
 }
 
@@ -1824,7 +1824,7 @@ protect_with_terminate (e)
 
       RTL_EXPR_SEQUENCE (handler) = get_insns ();
       end_sequence ();
-	
+
       result = build (TRY_CATCH_EXPR, TREE_TYPE (e), e, handler);
       TREE_SIDE_EFFECTS (result) = TREE_SIDE_EFFECTS (e);
       TREE_THIS_VOLATILE (result) = TREE_THIS_VOLATILE (e);
@@ -1840,7 +1840,7 @@ protect_with_terminate (e)
 
 /* The exception table that we build that is used for looking up and
    dispatching exceptions, the current number of entries, and its
-   maximum size before we have to extend it. 
+   maximum size before we have to extend it.
 
    The number in eh_table is the code label number of the exception
    handler for the region. This is added by add_eh_table_entry and
@@ -1901,7 +1901,7 @@ exception_table_p ()
 }
 
 /* Output the entry of the exception table corresponding to the
-   exception region numbered N to file FILE. 
+   exception region numbered N to file FILE.
 
    N is the code label number corresponding to the handler of the
    region.  */
@@ -1926,8 +1926,8 @@ output_exception_table_entry (file, n)
       ASM_GENERATE_INTERNAL_LABEL (buf, "LEHE", n);
       sym = gen_rtx_SYMBOL_REF (Pmode, buf);
       assemble_integer (sym, POINTER_SIZE / BITS_PER_UNIT, 1);
-      
-      assemble_integer (handler->handler_label, 
+
+      assemble_integer (handler->handler_label,
                                          POINTER_SIZE / BITS_PER_UNIT, 1);
 
       if (flag_new_exceptions)
@@ -1936,10 +1936,10 @@ output_exception_table_entry (file, n)
             assemble_integer (const0_rtx, POINTER_SIZE / BITS_PER_UNIT, 1);
           else
             if (handler->type_info == CATCH_ALL_TYPE)
-              assemble_integer (GEN_INT (CATCH_ALL_TYPE), 
+              assemble_integer (GEN_INT (CATCH_ALL_TYPE),
                                              POINTER_SIZE / BITS_PER_UNIT, 1);
             else
-              output_constant ((tree)(handler->type_info), 
+              output_constant ((tree)(handler->type_info),
                                                 POINTER_SIZE / BITS_PER_UNIT);
         }
       putc ('\n', file);		/* blank line */
@@ -1949,7 +1949,7 @@ output_exception_table_entry (file, n)
 /* Output the exception table if we have and need one.  */
 
 static short language_code = 0;
-static short version_code = 0; 
+static short version_code = 0;
 
 /* This routine will set the language code for exceptions. */
 void set_exception_lang_code (code)
@@ -1983,9 +1983,9 @@ output_exception_table ()
 
   if (flag_new_exceptions)
     {
-      assemble_integer (GEN_INT (NEW_EH_RUNTIME), 
+      assemble_integer (GEN_INT (NEW_EH_RUNTIME),
                                         POINTER_SIZE / BITS_PER_UNIT, 1);
-      assemble_integer (GEN_INT (language_code), 2 , 1); 
+      assemble_integer (GEN_INT (language_code), 2 , 1);
       assemble_integer (GEN_INT (version_code), 2 , 1);
 
       /* Add enough padding to make sure table aligns on a pointer boundry. */
@@ -2014,7 +2014,7 @@ output_exception_table ()
 }
 
 /* Emit code to get EH context.
-   
+
    We have to scan thru the code to find possible EH context registers.
    Inlined functions may use it too, and thus we'll have to be able
    to change them too.
@@ -2038,7 +2038,7 @@ emit_eh_context ()
 	if (reg)
 	  {
 	    rtx insns;
-	    
+
 	    start_sequence ();
 
 	    /* If this is the first use insn, emit the call here.  This
@@ -2084,7 +2084,7 @@ find_exception_handler_labels ()
 	  && NOTE_LINE_NUMBER (insn) == NOTE_INSN_EH_REGION_BEG)
 	{
           ptr = get_first_handler (NOTE_BLOCK_NUMBER (insn));
-          for ( ; ptr; ptr = ptr->next) 
+          for ( ; ptr; ptr = ptr->next)
             {
               /* make sure label isn't in the list already */
               rtx x;
@@ -2136,7 +2136,7 @@ check_exception_handler_labels ()
         if (XEXP (insn, 0) == XEXP (insn2, 0))
           count++;
       if (count != 1)
-       warning ("Counted %d copies of EH region %d in list.\n", count, 
+       warning ("Counted %d copies of EH region %d in list.\n", count,
                                         CODE_LABEL_NUMBER (insn));
     }
 
@@ -2148,7 +2148,7 @@ check_exception_handler_labels ()
    exception handling data structures for the start/end of a nested
    function.  */
 
-/* Toplevel initialization for EH things.  */ 
+/* Toplevel initialization for EH things.  */
 
 void
 init_eh ()
@@ -2171,7 +2171,7 @@ init_eh_for_function ()
 }
 
 /* Save some of the per-function EH info into the save area denoted by
-   P. 
+   P.
 
    This is currently called from save_stmt_status.  */
 
@@ -2194,7 +2194,7 @@ save_eh_status (p)
   init_eh_for_function ();
 }
 
-/* Restore the per-function EH info saved into the area denoted by P.  
+/* Restore the per-function EH info saved into the area denoted by P.
 
    This is currently called from restore_stmt_status.  */
 
@@ -2312,7 +2312,7 @@ scan_region (insn, n, delete_outer)
 
 /* We no longer removed labels here, since flow will now remove any
    handler which cannot be called any more. */
-   
+
 #if 0
       /* Only do this part if we have built the exception handler
          labels.  */
@@ -2501,7 +2501,7 @@ eh_regs (r1, r2, outgoing)
 /* Retrieve the register which contains the pointer to the eh_context
    structure set the __throw. */
 
-rtx 
+rtx
 get_reg_for_handler ()
 {
   rtx reg1;
@@ -2548,8 +2548,8 @@ expand_builtin_eh_stub ()
 
   adjust_stack (offset);
 
-  /* Handler is in fact a pointer to the _eh_context structure, we need 
-     to pick out the handler field (first element), and jump to there, 
+  /* Handler is in fact a pointer to the _eh_context structure, we need
+     to pick out the handler field (first element), and jump to there,
      leaving the pointer to _eh_conext in the same hardware register. */
 
   temp = gen_rtx_MEM (Pmode, handler);
@@ -2559,7 +2559,7 @@ expand_builtin_eh_stub ()
   emit_insn (gen_rtx_USE (Pmode, handler));
 
   emit_indirect_jump (offset);
-   
+
   emit_label (after_stub);
   return gen_rtx_LABEL_REF (Pmode, stub_start);
 }
@@ -2601,7 +2601,7 @@ set_insn_eh_region (first, region_num)
 
   for (insn = *first; insn; insn = NEXT_INSN (insn))
     {
-      if ((GET_CODE (insn) == NOTE) && 
+      if ((GET_CODE (insn) == NOTE) &&
                         (NOTE_LINE_NUMBER (insn) == NOTE_INSN_EH_REGION_BEG))
         {
           rnum = NOTE_BLOCK_NUMBER (insn);
@@ -2612,7 +2612,7 @@ set_insn_eh_region (first, region_num)
           continue;
         }
       insn_eh_region[INSN_UID (insn)] = region_num;
-      if ((GET_CODE (insn) == NOTE) && 
+      if ((GET_CODE (insn) == NOTE) &&
             (NOTE_LINE_NUMBER (insn) == NOTE_INSN_EH_REGION_END))
         break;
     }
@@ -2621,8 +2621,8 @@ set_insn_eh_region (first, region_num)
 
 /* Free the insn table, an make sure it cannot be used again. */
 
-void 
-free_insn_eh_region () 
+void
+free_insn_eh_region ()
 {
   if (!doing_eh (0))
     return;
@@ -2634,11 +2634,11 @@ free_insn_eh_region ()
     }
 }
 
-/* Initialize the table. max_uid must be calculated and handed into 
-   this routine. If it is unavailable, passing a value of 0 will 
+/* Initialize the table. max_uid must be calculated and handed into
+   this routine. If it is unavailable, passing a value of 0 will
    cause this routine to calculate it as well. */
 
-void 
+void
 init_insn_eh_region (first, max_uid)
      rtx first;
      int max_uid;
@@ -2651,7 +2651,7 @@ init_insn_eh_region (first, max_uid)
   if (insn_eh_region)
     free_insn_eh_region();
 
-  if (max_uid == 0) 
+  if (max_uid == 0)
     for (insn = first; insn; insn = NEXT_INSN (insn))
       if (INSN_UID (insn) > max_uid)       /* find largest UID */
         max_uid = INSN_UID (insn);
@@ -2665,8 +2665,8 @@ init_insn_eh_region (first, max_uid)
 
 /* Check whether 2 instructions are within the same region. */
 
-int 
-in_same_eh_region (insn1, insn2) 
+int
+in_same_eh_region (insn1, insn2)
      rtx insn1, insn2;
 {
   int ret, uid1, uid2;
@@ -2676,7 +2676,7 @@ in_same_eh_region (insn1, insn2)
     return 1;
 
   /* If the table isn't allocated, assume the worst. */
-  if (!insn_eh_region)  
+  if (!insn_eh_region)
     return 0;
 
   uid1 = INSN_UID (insn1);

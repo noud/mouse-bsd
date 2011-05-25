@@ -95,16 +95,16 @@ vfinfo (fp, fmt, arg)
 
   while (*fmt != '\0')
     {
-      while (*fmt != '%' && *fmt != '\0') 
+      while (*fmt != '%' && *fmt != '\0')
 	{
 	  putc (*fmt, fp);
 	  fmt++;
 	}
 
-      if (*fmt == '%') 
+      if (*fmt == '%')
 	{
 	  fmt ++;
-	  switch (*fmt++) 
+	  switch (*fmt++)
 	    {
 	    default:
 	      fprintf (fp,"%%%c", fmt[-1]);
@@ -188,7 +188,7 @@ vfinfo (fp, fmt, arg)
 
 	    case 'B':
 	      /* filename from a bfd */
-	      { 
+	      {
 		bfd *abfd = va_arg (arg, bfd *);
 		if (abfd->my_archive)
 		  fprintf (fp, "%s(%s)", abfd->my_archive->filename,
@@ -243,14 +243,14 @@ vfinfo (fp, fmt, arg)
 	      /* Print all that's interesting about a relent */
 	      {
 		arelent *relent = va_arg (arg, arelent *);
-	
+
 		lfinfo (fp, "%s+0x%v (type %s)",
 			(*(relent->sym_ptr_ptr))->name,
 			relent->addend,
 			relent->howto->name);
 	      }
 	      break;
-	
+
 	    case 'C':
 	    case 'D':
 	    case 'G':
@@ -352,7 +352,7 @@ vfinfo (fp, fmt, arg)
 			if (linenumber != 0)
 			  lfinfo (fp, ":%u", linenumber);
 		      }
-		    else if (linenumber != 0) 
+		    else if (linenumber != 0)
 		      lfinfo (fp, "%B:%s:%u", abfd, filename, linenumber);
 		    else
 		      lfinfo (fp, "%B(%s+0x%v):%s", abfd, section->name,
@@ -377,7 +377,7 @@ vfinfo (fp, fmt, arg)
 		  }
 	      }
 	      break;
-		
+
 	    case 's':
 	      /* arbitrary string, like printf */
 	      fprintf (fp, "%s", va_arg (arg, char *));
@@ -396,7 +396,7 @@ vfinfo (fp, fmt, arg)
 	}
     }
 
-  if (fatal == true) 
+  if (fatal == true)
     xexit(1);
 }
 
@@ -453,7 +453,7 @@ einfo (va_alist)
   va_end (arg);
 }
 
-void 
+void
 info_assert (file, line)
      const char *file;
      unsigned int line;
@@ -522,13 +522,13 @@ lfinfo (va_alist)
 
 /* Functions to print the link map.  */
 
-void 
+void
 print_space ()
 {
   fprintf (config.map_file, " ");
 }
 
-void 
+void
 print_nl ()
 {
   fprintf (config.map_file, "\n");

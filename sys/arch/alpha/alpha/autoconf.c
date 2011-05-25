@@ -91,7 +91,7 @@ cpu_configure()
 	(void)spl0();
 
 	/*
-	 * Note that bootstrapping is finished, and set the HWRPB up  
+	 * Note that bootstrapping is finished, and set the HWRPB up
 	 * to do restarts.
 	 */
 	hwrpb_restart_setup();

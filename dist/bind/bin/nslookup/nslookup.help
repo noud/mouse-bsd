@@ -9,7 +9,7 @@ set OPTION	- set an option
     all		- print options, current server and host
     [no]debug	- print debugging information
     [no]d2	- print exhaustive debugging information
-    [no]defname	- append domain name to each query 
+    [no]defname	- append domain name to each query
     [no]recurse	- ask for recursive answer to query
     [no]vc	- always use a virtual circuit
     domain=NAME	- set default domain name to NAME

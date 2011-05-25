@@ -251,7 +251,7 @@ sys_nanosleep(p, v, retval)
 	s = splclock();
 	timeradd(&atv,&time,&atv);
 	timo = hzto(&atv);
-	/* 
+	/*
 	 * Avoid inadvertantly sleeping forever
 	 */
 	if (timo == 0)
@@ -352,7 +352,7 @@ sys_settimeofday(p, v, retval)
 	 */
 	if (SCARG(uap, tzp))
 		log(LOG_WARNING, "pid %d attempted to set the "
-		    "(obsolete) kernel time zone\n", p->p_pid); 
+		    "(obsolete) kernel time zone\n", p->p_pid);
 	return (0);
 }
 
@@ -638,7 +638,7 @@ ratecheck(lasttime, mininterval)
 	struct timeval delta;
 	int s, rv = 0;
 
-	s = splclock(); 
+	s = splclock();
 	timersub(&mono_time, lasttime, &delta);
 
 	/*

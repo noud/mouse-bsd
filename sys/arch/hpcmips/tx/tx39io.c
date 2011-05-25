@@ -63,9 +63,9 @@ int	tx39io_intr __P((void*));
 int	tx39mfio_intr __P((void*));
 void	tx39io_dump __P((struct tx39io_softc*));
 void	tx39io_dump_and_attach_handler __P((struct tx39io_softc*, int));
-void	__dump_and_attach_handler __P((tx_chipset_tag_t, u_int32_t, 
-				       u_int32_t, u_int32_t, u_int32_t, 
-				       int, int, int (*) __P((void*)), 
+void	__dump_and_attach_handler __P((tx_chipset_tag_t, u_int32_t,
+				       u_int32_t, u_int32_t, u_int32_t,
+				       int, int, int (*) __P((void*)),
 				       void*, int));
 #endif /* TX39IODEBUG */
 
@@ -142,15 +142,15 @@ tx39io_attach(parent, self, aux)
 	struct txsim_attach_args *ta = aux;
 	struct tx39io_softc *sc = (void*)self;
 	struct txioman_attach_args tia;
-	
+
 	sc->sc_tc = ta->ta_tc;
 
 	printf("\n");
 #ifdef TX39IODEBUG
 	tx39io_dump(sc);
 #endif /* TX39IODEBUG */
-	
-	/* 
+
+	/*
 	 * attach platform dependent io manager
 	 */
 	tia.tia_tc = sc->sc_tc;
@@ -171,13 +171,13 @@ tx39io_portout(tc, port, onoff)
 	int port, onoff;
 {
 	txreg_t reg;
-	
+
 	/* XXX check port is output or not */
 
 	if (port >= TXIO) { /* XXX TX3922 case */
 #ifdef TX391X
 		txreg_t  iostat;
-		/* IO */ 
+		/* IO */
 		reg = tx_conf_read(tc, TX39_IOCTRL_REG);
 		iostat = TX39_IOCTRL_IODOUT(reg);
 		if (onoff)
@@ -206,7 +206,7 @@ int
 tx39io_intr(arg)
 	void *arg;
 {
-	printf("io (%d:%d)\n", (tx39intrvec >> 16) & 0xffff, 
+	printf("io (%d:%d)\n", (tx39intrvec >> 16) & 0xffff,
 	       tx39intrvec & 0xfff);
 
 	return 0;
@@ -216,7 +216,7 @@ int
 tx39mfio_intr(arg)
 	void *arg;
 {
-	printf("mfio (%d:%d)\n", (tx39intrvec >> 16) & 0xffff, 
+	printf("mfio (%d:%d)\n", (tx39intrvec >> 16) & 0xffff,
 	       tx39intrvec & 0xfff);
 
 	return 0;
@@ -260,15 +260,15 @@ tx39io_dump(sc)
 	/* keyboard */
 	tx_intr_establish(tc, MAKEINTR(5, (1<<13)), IST_EDGE, IPL_CLOCK, tx39io_intr, sc);
 	/* Back light: MFIO 14 on */
-#endif	
+#endif
 #ifdef VICTOR_INTERLINK_INTR /* for debug */
 	/* open panel */
-	tx_intr_establish(tc, MAKEINTR(8, (1<<20)), IST_EDGE, IPL_CLOCK, tx39io_intr, sc);	
+	tx_intr_establish(tc, MAKEINTR(8, (1<<20)), IST_EDGE, IPL_CLOCK, tx39io_intr, sc);
 	/* close panel */
-	tx_intr_establish(tc, MAKEINTR(8, (1<<4)), IST_EDGE, IPL_CLOCK, tx39io_intr, sc);	
+	tx_intr_establish(tc, MAKEINTR(8, (1<<4)), IST_EDGE, IPL_CLOCK, tx39io_intr, sc);
 	/* serial session */
-	tx_intr_establish(tc, MAKEINTR(4, (1<<29)), IST_EDGE, IPL_CLOCK, tx39mfio_intr, sc);	
-	tx_intr_establish(tc, MAKEINTR(4, (1<<30)), IST_EDGE, IPL_CLOCK, tx39mfio_intr, sc);	
+	tx_intr_establish(tc, MAKEINTR(4, (1<<29)), IST_EDGE, IPL_CLOCK, tx39mfio_intr, sc);
+	tx_intr_establish(tc, MAKEINTR(4, (1<<30)), IST_EDGE, IPL_CLOCK, tx39mfio_intr, sc);
 	/* REC button */
 	tx_intr_establish(tc, MAKEINTR(8, (1<<7)), IST_EDGE, IPL_CLOCK, tx39io_intr, sc);
 	/* kbd */
@@ -288,7 +288,7 @@ tx39io_dump_and_attach_handler(sc, dummy)
 	int i;
 	int (*iointr) __P((void*));
 	int (*mfiointr) __P((void*));
-	
+
 	tc = sc->sc_tc;
 	if (dummy) {
 		iointr =  tx39io_intr;
@@ -296,7 +296,7 @@ tx39io_dump_and_attach_handler(sc, dummy)
 	} else {
 		iointr = mfiointr = 0;
 	}
-	
+
 	printf("--------------------------------------------------------------\n");
 	printf("	 Debounce Direction DataOut DataIn PowerDown Select\n");
 	printf("--------------------------------------------------------------\n");
@@ -319,9 +319,9 @@ tx39io_dump_and_attach_handler(sc, dummy)
 		printf("IO   %2d:    ", i);
 		printf("%s", ISSET(reg_dir, i) ? "On " : "Off");
 		printf("      ");
-		__dump_and_attach_handler(tc, reg_dir, reg_out, reg_in, 
+		__dump_and_attach_handler(tc, reg_dir, reg_out, reg_in,
 					  reg_pwr, i, 1, iointr, sc, 1);
-		
+
 		printf("    -");
 		printf("\n");
 	}
@@ -334,19 +334,19 @@ tx39io_dump_and_attach_handler(sc, dummy)
 	reg_pwr = tx_conf_read(tc, TX39_IOMFIOPOWERDWN_REG);
 	for (i = TX39_IO_MFIO_MAX - 1; i >= 0 ; i--) {
 		printf("MFIO %2d:     -       ", i);
-		__dump_and_attach_handler(tc, reg_dir, reg_out, reg_in, 
+		__dump_and_attach_handler(tc, reg_dir, reg_out, reg_in,
 					  reg_pwr, i, 0, mfiointr, sc,
 					  ISSET(reg_sel, i));
 		printf("  ");
-		printf(ISSET(reg_sel, i) ? "MFIO(%s)" : "%s", 
+		printf(ISSET(reg_sel, i) ? "MFIO(%s)" : "%s",
 		       mfio_map[i].std_pin_name);
 		printf("\n");
 	}
 	printf("--------------------------------------------------------------\n");
 }
 
-void	
-__dump_and_attach_handler(tc, reg_dir, reg_out, reg_in, reg_pwr, 
+void
+__dump_and_attach_handler(tc, reg_dir, reg_out, reg_in, reg_pwr,
 			  i, io, func, arg, mf)
 	tx_chipset_tag_t tc;
 	u_int32_t reg_dir, reg_out, reg_in, reg_pwr;
@@ -373,7 +373,7 @@ __dump_and_attach_handler(tc, reg_dir, reg_out, reg_in, reg_pwr,
 		nset = 4;
 		pofs = nofs = i;
 	}
-	
+
 	if (ISSET(reg_dir, i)) {
 #if defined TX39IO_MFIOOUTPORT_ON || defined TX39IO_MFIOOUTPORT_OFF
 		txreg_t reg;
@@ -388,7 +388,7 @@ __dump_and_attach_handler(tc, reg_dir, reg_out, reg_in, reg_pwr,
 			printf("off.");
 #endif
 			tx_conf_write(tc, TX39_IODATAINOUT_REG, reg);
-		} else 
+		} else
 #endif /* TX392X */
 		{
 			reg = tx_conf_read(tc, TX39_IOMFIODATAOUT_REG);
@@ -408,11 +408,11 @@ __dump_and_attach_handler(tc, reg_dir, reg_out, reg_in, reg_pwr,
 		if (mf && func) {
 			/* Positive Edge */
 			tx_intr_establish(
-				tc, MAKEINTR(pset, (1 << pofs)), 
+				tc, MAKEINTR(pset, (1 << pofs)),
 				IST_EDGE, IPL_TTY, func, arg);
-			/* Negative Edge */	
+			/* Negative Edge */
 			tx_intr_establish(
-				tc, MAKEINTR(nset, (1 << nofs)), 
+				tc, MAKEINTR(nset, (1 << nofs)),
 				IST_EDGE, IPL_TTY, func, arg);
 		}
 	}

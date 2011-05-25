@@ -175,16 +175,16 @@ struct pool uvm_aobj_pool;
 
 static struct uao_swhash_elt	*uao_find_swhash_elt __P((struct uvm_aobj *,
 							  int, boolean_t));
-static int			 uao_find_swslot __P((struct uvm_aobj *, 
+static int			 uao_find_swslot __P((struct uvm_aobj *,
 						      int));
-static boolean_t		 uao_flush __P((struct uvm_object *, 
-						vaddr_t, vaddr_t, 
+static boolean_t		 uao_flush __P((struct uvm_object *,
+						vaddr_t, vaddr_t,
 						int));
 static void			 uao_free __P((struct uvm_aobj *));
 static int			 uao_get __P((struct uvm_object *, vaddr_t,
-					      vm_page_t *, int *, int, 
+					      vm_page_t *, int *, int,
 					      vm_prot_t, int, int));
-static boolean_t		 uao_releasepg __P((struct vm_page *, 
+static boolean_t		 uao_releasepg __P((struct vm_page *,
 						    struct vm_page **));
 static boolean_t		 uao_pagein __P((struct uvm_aobj *, int, int));
 static boolean_t		 uao_pagein_page __P((struct uvm_aobj *, int));
@@ -193,7 +193,7 @@ static boolean_t		 uao_pagein_page __P((struct uvm_aobj *, int));
 
 /*
  * aobj_pager
- * 
+ *
  * note that some functions (e.g. put) are handled elsewhere
  */
 
@@ -277,7 +277,7 @@ uao_find_swhash_elt(aobj, pageidx, create)
 /*
  * uao_find_swslot: find the swap slot number for an aobj/pageidx
  *
- * => object must be locked by caller 
+ * => object must be locked by caller
  */
 __inline static int
 uao_find_swslot(aobj, pageidx)
@@ -306,7 +306,7 @@ uao_find_swslot(aobj, pageidx)
 			return(NULL);
 	}
 
-	/* 
+	/*
 	 * otherwise, look in the array
 	 */
 	return(aobj->u_swslots[pageidx]);
@@ -385,7 +385,7 @@ uao_set_swslot(uobj, pageidx, slot)
 			}
 		}
 
-	} else { 
+	} else {
 		/* we are using an array */
 		oldslot = aobj->u_swslots[pageidx];
 		aobj->u_swslots[pageidx] = slot;
@@ -640,7 +640,7 @@ uao_reference_locked(uobj)
 		return;
 
 	uobj->uo_refs++;		/* bump! */
-	UVMHIST_LOG(maphist, "<- done (uobj=0x%x, ref = %d)", 
+	UVMHIST_LOG(maphist, "<- done (uobj=0x%x, ref = %d)",
 		    uobj, uobj->uo_refs,0,0);
 }
 
@@ -875,7 +875,7 @@ uao_flush(uobj, start, stop, flags)
 			if (pp == NULL)
 				continue;
 		}
-		
+
 		switch (flags & (PGO_CLEANIT|PGO_FREE|PGO_DEACTIVATE)) {
 		/*
 		 * XXX In these first 3 cases, we always just
@@ -981,7 +981,7 @@ uao_get(uobj, offset, pps, npagesp, centeridx, access_type, advice, flags)
 
 	UVMHIST_LOG(pdhist, "aobj=%p offset=%d, flags=%d",
 		    aobj, offset, flags,0);
-	
+
 	/*
  	 * get number of pages
  	 */
@@ -1034,7 +1034,7 @@ uao_get(uobj, offset, pps, npagesp, centeridx, access_type, advice, flags)
 				if (lcv == centeridx ||
 				    (flags & PGO_ALLPAGES) != 0)
 					/* need to do a wait or I/O! */
-					done = FALSE;	
+					done = FALSE;
 					continue;
 			}
 
@@ -1043,7 +1043,7 @@ uao_get(uobj, offset, pps, npagesp, centeridx, access_type, advice, flags)
 			 * result array
 			 */
 			/* caller must un-busy this page */
-			ptmp->flags |= PG_BUSY;	
+			ptmp->flags |= PG_BUSY;
 			UVM_PAGE_OWN(ptmp, "uao_get1");
 			pps[lcv] = ptmp;
 			gotpages++;
@@ -1060,7 +1060,7 @@ uao_get(uobj, offset, pps, npagesp, centeridx, access_type, advice, flags)
 		*npagesp = gotpages;
 		if (done)
 			/* bingo! */
-			return(VM_PAGER_OK);	
+			return(VM_PAGER_OK);
 		else
 			/* EEK!   Need to unlock and I/O */
 			return(VM_PAGER_UNLOCK);
@@ -1120,7 +1120,7 @@ uao_get(uobj, offset, pps, npagesp, centeridx, access_type, advice, flags)
 					uvm_wait("uao_getpage");
 					simple_lock(&uobj->vmobjlock);
 					/* goto top of pps while loop */
-					continue;	
+					continue;
 				}
 
 				/*
@@ -1129,7 +1129,7 @@ uao_get(uobj, offset, pps, npagesp, centeridx, access_type, advice, flags)
 				 */
 				ptmp->pqflags |= PQ_AOBJ;
 
-				/* 
+				/*
 				 * got new page ready for I/O.  break pps while
 				 * loop.  pps[lcv] is still NULL.
 				 */
@@ -1147,8 +1147,8 @@ uao_get(uobj, offset, pps, npagesp, centeridx, access_type, advice, flags)
 				simple_lock(&uobj->vmobjlock);
 				continue;	/* goto top of pps while loop */
 			}
-			
-			/* 
+
+			/*
  			 * if we get here then the page has become resident and
 			 * unbusy between steps 1 and 2.  we busy it now (so we
 			 * own it) and set pps[lcv] (so that we exit the while
@@ -1168,7 +1168,7 @@ uao_get(uobj, offset, pps, npagesp, centeridx, access_type, advice, flags)
 			continue;			/* next lcv */
 
 		/*
- 		 * we have a "fake/busy/clean" page that we just allocated.  
+ 		 * we have a "fake/busy/clean" page that we just allocated.
  		 * do the needed "i/o", either reading from swap or zeroing.
  		 */
 		swslot = uao_find_swslot(aobj, pageidx);
@@ -1225,10 +1225,10 @@ uao_get(uobj, offset, pps, npagesp, centeridx, access_type, advice, flags)
 			}
 		}
 
-		/* 
+		/*
  		 * we got the page!   clear the fake flag (indicates valid
 		 * data now in page) and plug into our result array.   note
-		 * that page is still busy.   
+		 * that page is still busy.
  		 *
  		 * it is the callers job to:
  		 * => check if the page is released
@@ -1253,7 +1253,7 @@ uao_get(uobj, offset, pps, npagesp, centeridx, access_type, advice, flags)
 
 /*
  * uao_releasepg: handle released page in an aobj
- * 
+ *
  * => "pg" is a PG_BUSY [caller owns it], PG_RELEASED page that we need
  *      to dispose of.
  * => caller must handle PG_WANTED case
@@ -1324,7 +1324,7 @@ uao_releasepg(pg, nextpgp)
 
 /*
  * uao_dropswap:  release any swap resources from this aobj page.
- * 
+ *
  * => aobj must be locked or have a reference count of 0.
  */
 
@@ -1344,7 +1344,7 @@ uao_dropswap(uobj, pageidx)
 
 /*
  * page in every page in every aobj that is paged-out to a range of swslots.
- * 
+ *
  * => nothing should be locked.
  * => returns TRUE if pagein was aborted due to lack of memory.
  */
@@ -1445,7 +1445,7 @@ restart:
 					/*
 					 * if the slot isn't in range, skip it.
 					 */
-					if (slot < startslot || 
+					if (slot < startslot ||
 					    slot >= endslot) {
 						continue;
 					}

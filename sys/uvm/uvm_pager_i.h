@@ -31,7 +31,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * from: Id: uvm_pager_i.h,v 1.1.2.2 1997/10/09 23:05:46 chuck Exp 
+ * from: Id: uvm_pager_i.h,v 1.1.2.2 1997/10/09 23:05:46 chuck Exp
  */
 
 #ifndef _UVM_UVM_PAGER_I_H_
@@ -57,11 +57,11 @@ uvm_pageratop(kva)
 	vaddr_t kva;
 {
 	paddr_t pa;
- 
+
 	if (pmap_extract(pmap_kernel(), kva, &pa) == FALSE)
 		panic("uvm_pageratop");
 	return (PHYS_TO_VM_PAGE(pa));
-} 
+}
 
 #endif /* defined(UVM_PAGER_INLINE) || defined(UVM_PAGER) */
 

@@ -409,7 +409,7 @@ ieee_read_optional_number (info, pp, pv, ppresent)
     }
 
   ieee_error (info, *pp - 1, "invalid number");
-  return false;  
+  return false;
 }
 
 /* Read a required string from an IEEE file.  */
@@ -562,7 +562,7 @@ ieee_read_expression (info, pp, pv)
 		ieee_error (info, start, "unknown section");
 		return false;
 	      }
-	    
+
 	    if (esp - expr_stack >= EXPR_STACK_SIZE)
 	      {
 		ieee_error (info, start, "expression stack overflow");
@@ -4486,7 +4486,7 @@ ieee_start_range (info, low)
   r->next = info->pending_ranges;
   info->pending_ranges = r;
   return true;
-}  
+}
 
 /* Finish a range started by ieee_start_range.  */
 
@@ -5822,7 +5822,7 @@ ieee_offset_type (p)
      which seems pretty important.  I'm going to punt this for now.  */
 
   return ieee_int_type (p, 4, true);
-}  
+}
 
 /* Make a method type.  */
 
@@ -7296,7 +7296,7 @@ ieee_function_parameter (p, name, kind, val)
     return false;
   ++info->fnargcount;
 
-  return true;  
+  return true;
 }
 
 /* Output pending function parameters.  */

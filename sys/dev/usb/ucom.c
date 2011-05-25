@@ -79,7 +79,7 @@ int ucomdebug = 0;
 #define	UCOMDIALOUT(x)		(minor(x) & UCOMDIALOUT_MASK)
 #define	UCOMCALLUNIT(x)		(minor(x) & UCOMCALLUNIT_MASK)
 
-/* 
+/*
  * These are the maximum number of bytes transferred per frame.
  * If some really high speed devices should use this driver they
  * may need to be increased, but this is good enough for modems.
@@ -130,9 +130,9 @@ static void	ucom_dtr	__P((struct ucom_softc *, int));
 static void	ucom_rts	__P((struct ucom_softc *, int));
 static void	ucom_break	__P((struct ucom_softc *, int));
 static usbd_status ucomstartread __P((struct ucom_softc *));
-static void	ucomreadcb	__P((usbd_xfer_handle, usbd_private_handle, 
+static void	ucomreadcb	__P((usbd_xfer_handle, usbd_private_handle,
 				     usbd_status status));
-static void	ucomwritecb	__P((usbd_xfer_handle, usbd_private_handle, 
+static void	ucomwritecb	__P((usbd_xfer_handle, usbd_private_handle,
 				     usbd_status status));
 static void	tiocm_to_ucom	__P((struct ucom_softc *, int, int));
 static int	ucom_to_tiocm	__P((struct ucom_softc *));
@@ -178,7 +178,7 @@ USB_DETACH(ucom)
 	struct ucom_softc *sc = (struct ucom_softc *)self;
 	int maj, mn;
 
-	DPRINTF(("ucom_detach: sc=%p flags=%d tp=%p\n", 
+	DPRINTF(("ucom_detach: sc=%p flags=%d tp=%p\n",
 		 sc, flags, sc->sc_tty));
 
 	sc->sc_dying = 1;
@@ -261,7 +261,7 @@ ucomopen(dev, flag, mode, p)
 	struct tty *tp;
 	int s;
 	int error;
- 
+
 	if (unit >= ucom_cd.cd_ndevs)
 		return (ENXIO);
 	sc = ucom_cd.cd_devs[unit];
@@ -291,7 +291,7 @@ ucomopen(dev, flag, mode, p)
 	while (sc->sc_opening)
 		tsleep(&sc->sc_opening, PRIBIO, "ucomop", 0);
 	sc->sc_opening = 1;
-	
+
 	if (!ISSET(tp->t_state, TS_ISOPEN) && tp->t_wopen == 0) {
 		struct termios t;
 
@@ -341,7 +341,7 @@ ucomopen(dev, flag, mode, p)
 				     &sc->sc_bulkin_pipe);
 		if (err) {
 			DPRINTF(("%s: open bulk out error (addr %d), err=%s\n",
-				 USBDEVNAME(sc->sc_dev), sc->sc_bulkin_no, 
+				 USBDEVNAME(sc->sc_dev), sc->sc_bulkin_no,
 				 usbd_errstr(err)));
 			return (EIO);
 		}
@@ -354,7 +354,7 @@ ucomopen(dev, flag, mode, p)
 			usbd_close_pipe(sc->sc_bulkin_pipe);
 			return (EIO);
 		}
-		
+
 		/* Allocate a request and an input buffer and start reading. */
 		sc->sc_ixfer = usbd_alloc_xfer(sc->sc_udev);
 		if (sc->sc_ixfer == NULL) {
@@ -450,7 +450,7 @@ ucomclose(dev, flag, mode, p)
 
 	return (0);
 }
- 
+
 int
 ucomread(dev, uio, flag)
 	dev_t dev;
@@ -462,10 +462,10 @@ ucomread(dev, uio, flag)
 
 	if (sc->sc_dying)
 		return (EIO);
- 
+
 	return ((*linesw[tp->t_line].l_read)(tp, uio, flag));
 }
- 
+
 int
 ucomwrite(dev, uio, flag)
 	dev_t dev;
@@ -477,7 +477,7 @@ ucomwrite(dev, uio, flag)
 
 	if (sc->sc_dying)
 		return (EIO);
- 
+
 	return ((*linesw[tp->t_line].l_write)(tp, uio, flag));
 }
 
@@ -506,7 +506,7 @@ ucomioctl(dev, cmd, data, flag, p)
 
 	if (sc->sc_dying)
 		return (EIO);
- 
+
 	DPRINTF(("ucomioctl: cmd=0x%08lx\n", cmd));
 
 	error = (*linesw[tp->t_line].l_ioctl)(tp, cmd, data, flag, p);
@@ -551,7 +551,7 @@ ucomioctl(dev, cmd, data, flag, p)
 		break;
 
 	case TIOCSFLAGS:
-		error = suser(p->p_ucred, &p->p_acflag); 
+		error = suser(p->p_ucred, &p->p_acflag);
 		if (error)
 			break;
 		sc->sc_swflags = *(int *)data;
@@ -589,7 +589,7 @@ tiocm_to_ucom(sc, how, ttybits)
 		SET(combits, UMCR_DTR);
 	if (ISSET(ttybits, TIOCM_RTS))
 		SET(combits, UMCR_RTS);
- 
+
 	switch (how) {
 	case TIOCMBIC:
 		CLR(sc->sc_mcr, combits);
@@ -661,7 +661,7 @@ ucom_dtr(sc, onoff)
 	DPRINTF(("ucom_dtr: onoff=%d\n", onoff));
 
 	if (sc->sc_methods->ucom_set != NULL)
-		sc->sc_methods->ucom_set(sc->sc_parent, sc->sc_portno, 
+		sc->sc_methods->ucom_set(sc->sc_parent, sc->sc_portno,
 		    UCOM_SET_DTR, onoff);
 }
 
@@ -673,7 +673,7 @@ ucom_rts(sc, onoff)
 	DPRINTF(("ucom_rts: onoff=%d\n", onoff));
 
 	if (sc->sc_methods->ucom_set != NULL)
-		sc->sc_methods->ucom_set(sc->sc_parent, sc->sc_portno, 
+		sc->sc_methods->ucom_set(sc->sc_parent, sc->sc_portno,
 		    UCOM_SET_RTS, onoff);
 }
 
@@ -835,7 +835,7 @@ ucomstart(tp)
 	memcpy(sc->sc_obuf, data, cnt);
 
 	DPRINTFN(4,("ucomstart: %d chars\n", cnt));
-	usbd_setup_xfer(sc->sc_oxfer, sc->sc_bulkout_pipe, 
+	usbd_setup_xfer(sc->sc_oxfer, sc->sc_bulkout_pipe,
 			(usbd_private_handle)sc, sc->sc_obuf, cnt,
 			USBD_NO_COPY, USBD_NO_TIMEOUT, ucomwritecb);
 	/* What can we do on error? */
@@ -911,8 +911,8 @@ ucomstartread(sc)
 	usbd_status err;
 
 	DPRINTFN(5,("ucomstartread: start\n"));
-	usbd_setup_xfer(sc->sc_ixfer, sc->sc_bulkin_pipe, 
-			(usbd_private_handle)sc, 
+	usbd_setup_xfer(sc->sc_ixfer, sc->sc_bulkin_pipe,
+			(usbd_private_handle)sc,
 			sc->sc_ibuf,  UCOMIBUFSIZE,
 			USBD_SHORT_XFER_OK | USBD_NO_COPY,
 			USBD_NO_TIMEOUT, ucomreadcb);
@@ -923,7 +923,7 @@ ucomstartread(sc)
 	}
 	return (USBD_NORMAL_COMPLETION);
 }
- 
+
 void
 ucomreadcb(xfer, p, status)
 	usbd_xfer_handle xfer;

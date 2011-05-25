@@ -201,7 +201,7 @@ fold(width)
 }
 
 /*
- * calculate the column position 
+ * calculate the column position
  */
 static int
 new_column_position (col, ch)

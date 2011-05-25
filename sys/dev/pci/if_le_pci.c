@@ -220,7 +220,7 @@ le_pci_mediachange(sc)
 				bus_space_write_2(iot, ioh, PCNET_PCI_BDP, reg);
 			}
 		}
-		
+
 	}
 
 	if ((IFM_OPTIONS(newmedia) ^ IFM_OPTIONS(lesc->sc_currentmedia))

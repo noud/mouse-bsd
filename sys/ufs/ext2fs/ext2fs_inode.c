@@ -70,7 +70,7 @@ static int ext2fs_indirtrunc __P((struct inode *, ufs_daddr_t, ufs_daddr_t,
 int
 ext2fs_inactive(v)
 	void *v;
-{   
+{
 	struct vop_inactive_args /* {
 		struct vnode *a_vp;
 		struct proc *a_p;
@@ -81,7 +81,7 @@ ext2fs_inactive(v)
 	struct timespec ts;
 	int error = 0;
 	extern int prtactive;
-	
+
 	if (prtactive && vp->v_usecount != 0)
 		vprint("ext2fs_inactive: pushing active", vp);
 	/* Get rid of inodes related to stale file handles. */
@@ -90,7 +90,7 @@ ext2fs_inactive(v)
 
 	error = 0;
 	if (ip->i_e2fs_nlink == 0 && (vp->v_mount->mnt_flag & MNT_RDONLY) == 0) {
-		error = VOP_TRUNCATE(vp, (off_t)0, 0, NOCRED, NULL); 
+		error = VOP_TRUNCATE(vp, (off_t)0, 0, NOCRED, NULL);
 		TIMEVAL_TO_TIMESPEC(&time, &ts);
 		ip->i_e2fs_dtime = ts.tv_sec;
 		ip->i_flag |= IN_CHANGE | IN_UPDATE;
@@ -107,7 +107,7 @@ out:
 	if (ip->i_e2fs_dtime != 0)
 		vrecycle(vp, (struct simplelock *)0, p);
 	return (error);
-}   
+}
 
 
 /*

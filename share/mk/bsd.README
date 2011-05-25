@@ -437,9 +437,9 @@ If foo has multiple source files, add the line:
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 The include file <bsd.subdir.mk> contains the default targets for building
-subdirectories.  It has the same eight targets as <bsd.prog.mk>: all, 
+subdirectories.  It has the same eight targets as <bsd.prog.mk>: all,
 clean, cleandir, depend, includes, install, lint, and tags.  For all of
-the directories listed in the variable SUBDIRS, the specified directory 
+the directories listed in the variable SUBDIRS, the specified directory
 will be visited and the target made.  There is also a default target which
 allows the command "make subdir" where subdir is any directory listed in
 the variable SUBDIRS.

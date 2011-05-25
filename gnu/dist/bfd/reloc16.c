@@ -19,9 +19,9 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-/* 
+/*
 Most of this hacked by  Steve Chamberlain,
-			sac@cygnus.com 
+			sac@cygnus.com
 */
 
 /* These routines are used by coff-h8300 and coff-z8k to do
@@ -86,16 +86,16 @@ bfd_coff_reloc16_get_value (reloc, link_info, input_section)
 	  value = 0;
 	}
     }
-  else 
+  else
     {
       value = symbol->value +
 	symbol->section->output_offset +
 	  symbol->section->output_section->vma;
     }
-  
+
   /* Add the value contained in the relocation */
   value += reloc->addend;
-  
+
   return value;
 }
 
@@ -113,10 +113,10 @@ bfd_perform_slip(abfd, slip, input_section, value)
 
   /* Find all symbols past this point, and make them know
      what's happened */
-  while (*s) 
+  while (*s)
     {
       asymbol *p = *s;
-      if (p->section == input_section) 
+      if (p->section == input_section)
 	{
 	  /* This was pointing into this section, so mangle it */
 	  if (p->value > value)
@@ -135,10 +135,10 @@ bfd_perform_slip(abfd, slip, input_section, value)
 	    }
 	}
       s++;
-    }    
+    }
 }
 
-boolean 
+boolean
 bfd_coff_reloc16_relax_section (abfd, i, link_info, again)
      bfd *abfd;
      asection *i;
@@ -189,7 +189,7 @@ bfd_coff_reloc16_relax_section (abfd, i, link_info, again)
      entire link, we could use the generic relaxing code in the linker
      and get better results, particularly for jsr->bsr and 24->16 bit
      memory reference relaxations.  */
-     
+
   if (reloc_count > 0)
     {
       int another_pass = 0;
@@ -206,7 +206,7 @@ bfd_coff_reloc16_relax_section (abfd, i, link_info, again)
 
 	another_pass = 0;
 
-	for (i = 0, parent = reloc_vector; *parent; parent++, i++) 
+	for (i = 0, parent = reloc_vector; *parent; parent++, i++)
 	  {
 	    /* Let the target/machine dependent code examine each reloc
 	       in this section and attempt to shrink it.  */
@@ -222,13 +222,13 @@ bfd_coff_reloc16_relax_section (abfd, i, link_info, again)
 		  shrinks[j] += shrink - shrinks[i];
 	      }
 	  }
-  
+
       } while (another_pass);
 
       free((char *)shrinks);
     }
 
-  input_section->_cooked_size -= shrink;  
+  input_section->_cooked_size -= shrink;
   free((char *)reloc_vector);
   return true;
 }
@@ -271,13 +271,13 @@ bfd_coff_reloc16_get_relocated_section_contents(in_abfd,
 				 0,
 				 input_section->_raw_size))
     return NULL;
-  
-  
+
+
   reloc_vector = (arelent **) bfd_malloc((size_t) reloc_size);
   if (!reloc_vector && reloc_size != 0)
     return NULL;
-  
-  reloc_count = bfd_canonicalize_reloc (input_bfd, 
+
+  reloc_count = bfd_canonicalize_reloc (input_bfd,
 					input_section,
 					reloc_vector,
 					symbols);
@@ -286,7 +286,7 @@ bfd_coff_reloc16_get_relocated_section_contents(in_abfd,
       free (reloc_vector);
       return NULL;
     }
-    
+
   if (reloc_count > 0)
     {
       arelent **parent = reloc_vector;
@@ -295,12 +295,12 @@ bfd_coff_reloc16_get_relocated_section_contents(in_abfd,
       unsigned int src_address = 0;
       unsigned int run;
       unsigned int idx;
-    
+
       /* Find how long a run we can do */
-      while (dst_address < link_order->size) 
+      while (dst_address < link_order->size)
 	{
 	  reloc = *parent;
-	  if (reloc) 
+	  if (reloc)
 	    {
 	      /* Note that the relaxing didn't tie up the addresses in the
 		 relocation, so we use the original address to work out the
@@ -308,7 +308,7 @@ bfd_coff_reloc16_get_relocated_section_contents(in_abfd,
 	      run = reloc->address - src_address;
 	      parent++;
 	    }
-	  else 
+	  else
 	    {
 	      run = link_order->size - dst_address;
 	    }
@@ -317,15 +317,15 @@ bfd_coff_reloc16_get_relocated_section_contents(in_abfd,
 	    {
 	      data[dst_address++] = data[src_address++];
 	    }
-    
+
 	  /* Now do the relocation */
-    
-	  if (reloc) 
+
+	  if (reloc)
 	    {
 	      bfd_coff_reloc16_extra_cases (input_bfd, link_info, link_order,
 					    reloc, data, &src_address,
 					    &dst_address);
-	    }    
+	    }
 	}
     }
   free((char *)reloc_vector);

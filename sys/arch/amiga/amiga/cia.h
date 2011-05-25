@@ -29,7 +29,7 @@
 /*
  * This is a rewrite (retype) of the Amiga's CIA chip register map, based
  * on the Hardware Reference Manual.  It is NOT based on the Amiga's
- *  hardware/cia.h.  
+ *  hardware/cia.h.
  */
 
 #ifndef _AMIGA_CIA_

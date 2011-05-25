@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1997 and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -219,7 +219,7 @@ main(int argc, char *argv[])
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = 0;
 	error = getaddrinfo(NULL, service, &hints, &res);
-	if (error) 
+	if (error)
 		exit_error("getaddrinfo: %s", gai_strerror(error));
 
 	s_wld = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
@@ -246,7 +246,7 @@ main(int argc, char *argv[])
 	error = setsockopt(s_wld, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
 	if (error == -1)
 		exit_error("setsockopt(SO_REUSEADDR): %s", ERRSTR);
-	
+
 	error = setsockopt(s_wld, SOL_SOCKET, SO_OOBINLINE, &on, sizeof(on));
 	if (error == -1)
 		exit_error("setsockopt(SO_OOBINLINE): %s", ERRSTR);
@@ -331,7 +331,7 @@ again:
 			exit_failure("socket: %s", ERRSTR);
 
 		child_pid = fork();
-		
+
 		if (child_pid == 0) {
 			/* child process */
 			close(s_wld);
@@ -352,7 +352,7 @@ again:
 static void
 play_child(int s_src, struct sockaddr *srcaddr)
 {
-	struct sockaddr_storage dstaddr6; 
+	struct sockaddr_storage dstaddr6;
 	struct sockaddr_storage dstaddr4;
 	char src[MAXHOSTNAMELEN];
 	char dst6[MAXHOSTNAMELEN];
@@ -361,7 +361,7 @@ play_child(int s_src, struct sockaddr *srcaddr)
 	int s_dst, error, hport, nresvport, on = 1;
 	struct timeval tv;
 	struct sockaddr *sa4;
-	
+
 	tv.tv_sec = 1;
 	tv.tv_usec = 0;
 
@@ -376,7 +376,7 @@ play_child(int s_src, struct sockaddr *srcaddr)
 	getnameinfo((struct sockaddr *)&dstaddr6, len,
 		dst6, sizeof(dst6), NULL, 0, NI_NUMERICHOST);
 	syslog(LOG_INFO, "the client is connecting to %s", dst6);
-	
+
 	if (!faith_prefix((struct sockaddr *)&dstaddr6)) {
 		if (serverpath) {
 			/*
@@ -620,7 +620,7 @@ sig_child(int sig)
 void
 sig_terminate(int sig)
 {
-	syslog(LOG_INFO, "Terminating faith daemon");	
+	syslog(LOG_INFO, "Terminating faith daemon");
 	exit(EXIT_SUCCESS);
 }
 

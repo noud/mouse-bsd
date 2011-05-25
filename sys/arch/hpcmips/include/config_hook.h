@@ -44,7 +44,7 @@ typedef void *config_hook_tag;
 
 void	config_hook_init __P((void));
 config_hook_tag	config_hook __P((int type, long id, enum config_hook_mode mode,
-				 int (*func) __P((void*, int, long, void*)), 
+				 int (*func) __P((void*, int, long, void*)),
 				 void *ctx));
 void	config_unhook __P((config_hook_tag));
 int	config_hook_call __P((int type, long id, void *msg));

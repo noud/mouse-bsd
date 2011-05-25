@@ -496,7 +496,7 @@ struct pcvtinfo {			/* compile time option values */
  * NB: Some of the definitions below apparently override the definitions
  * in the KBD section above. But, due to BSDs encoding of the IO direction
  * and transfer size, the resulting ioctl cmds differ, so we can take them
- * here. 
+ * here.
  */
 
 #define KDGKBMODE 	_IOR('K', 6, int)	/* get keyboard mode */

@@ -157,10 +157,10 @@ main(int argc, char **argv) {
 		if ((r = db->put(db, &key, &data, R_NOOVERWRITE)))
 			if (r < 0)
 				errx(1, "failed to write %d/%s",
-				     ntohs(sv->s_port), sv->s_proto); 
+				     ntohs(sv->s_port), sv->s_proto);
 			else
 				warnx("will not overwrite %d/%s",
-				      ntohs(sv->s_port), sv->s_proto); 
+				      ntohs(sv->s_port), sv->s_proto);
 	}
 	db->close(db);
 	if (rename(tmpdatabase, database))

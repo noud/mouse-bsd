@@ -130,7 +130,7 @@ _buserr60:
 	movl	a0,sp@(FR_SP)		|   in the savearea
 	movel	sp@(FR_HW+12),d0	| FSLW
 	btst	#2,d0			| branch prediction error?
-	jeq	Lnobpe			
+	jeq	Lnobpe
 	movc	cacr,d2
 	orl	#IC60_CABC,d2		| clear all branch cache entries
 	movc	d2,cacr
@@ -150,7 +150,7 @@ Lnobpe:
 Lberr3:
 	movl	d1,sp@-
 	movl	d0,sp@-			| code is FSLW now.
-	andw	#0x1f80,d0 
+	andw	#0x1f80,d0
 	jeq	Lisberr
 	movl	#T_MMUFLT,sp@-		| show that we are an MMU fault
 	jra	_ASM_LABEL(faultstkadj)	| and deal with it
@@ -294,7 +294,7 @@ _fpemuli:
 	movql	#T_FPEMULI,d0		| denote as FP emulation trap
 	jra	fault			| do it
 #endif
-	
+
 _fpunsupp:
 #if defined(M68040)
 	cmpl	#MMU_68040,_mmutype	| 68040?
@@ -334,7 +334,7 @@ _fpfault:
 	andb	#0x90,d0		| AMIGA_68060 | AMIGA_68040
 	jne	Lfptnull		| XXX
 #endif
-	tstb	a0@			| null state frame? 
+	tstb	a0@			| null state frame?
 	jeq	Lfptnull		| yes, safe
 	clrw	d0			| no, need to tweak BIU
 	movb	a0@(1),d0		| get frame size
@@ -488,14 +488,14 @@ _DraCoLev2intr:
 	jge     Ldrintrcommon		| CIAA IR not set, go through isr chain
 	movel	_draco_intpen,a0
 |	andib	#4,a0@
-|XXX this would better be 
+|XXX this would better be
 	bclr	#2,a0@
 	btst	#0,d0			| timerA interrupt?
 	jeq	Ldraciaend
 
 	lea	sp@(16),a1		| get pointer to PS
 	movl	a1,sp@-			| push pointer to PS, PC
-	
+
 	movw	#PSL_HIGHIPL,sr		| hardclock at high IPL
 	jbsr	_hardclock		| call generic clock int routine
 	addql	#4,sp			| pop params
@@ -557,7 +557,7 @@ Ldrintrcommon:
 	addql	#1,_C_LABEL(uvmexp)+UVMEXP_INTRS
 	jra	rei
 #endif
-	
+
 
 _lev1intr:
 _lev2intr:
@@ -804,7 +804,7 @@ start:
 	movl	d5,sp@-			| pass machine id
 
 	/*
-	 * initialize some hw addresses to their physical address 
+	 * initialize some hw addresses to their physical address
 	 * for early running
 	 */
 #ifdef DRACO
@@ -894,7 +894,7 @@ Lsetcpu040:
 	btst	#7,sp@(3)
 	jeq	Lstartnot040
 	movl	#CPU_68060,a0@		| and in the cputype
-	orl	#IC60_CABC,d0		| XXX and clear all 060 branch cache 
+	orl	#IC60_CABC,d0		| XXX and clear all 060 branch cache
 #else
 	movc	d0,cacr
 	bset	#30,d0			| not allocate data cache bit
@@ -904,10 +904,10 @@ Lsetcpu040:
 	jeq	Lstartnot040
 	bset	#7,sp@(3)		| note it is '60 family in machineid
 	movl	#CPU_68060,a0@		| and in the cputype
-	orl	#IC60_CABC,d0		| XXX and clear all 060 branch cache 
+	orl	#IC60_CABC,d0		| XXX and clear all 060 branch cache
 	.word	0x4e7a,0x1808		| movc	pcr,d1
 	swap	d1
-	cmpw	#0x430,d1		
+	cmpw	#0x430,d1
 	jne	Lstartnot040		| but no FPU
 	bset	#6,sp@(3)		| yes, we have FPU, note that
 	swap	d1
@@ -954,7 +954,7 @@ Lunshadow:
 #endif
 /* flush TLB and turn on caches */
 
-	
+
 	jbsr	__TBIA			| invalidate TLB
 	movl	#CACHE_ON,d0
 	tstl	d5
@@ -994,7 +994,7 @@ Lcacheon:
 	movl	sp,a0@(P_MD + MD_REGS)	| save frame for proc0
 	movl	usp,a1
 	movl	a1,sp@(FR_SP)		| save user stack pointer in frame
-	pea	sp@			| addr of space for D0 
+	pea	sp@			| addr of space for D0
 
 	jbsr	_main			| main(firstaddr, r0)
 	addql	#4,sp			| pop args
@@ -1570,7 +1570,7 @@ Lflustp060:
 	movc	d1,cacr
 	rts
 #endif
-	
+
 
 ENTRY(ploadw)
 	movl	sp@(4),a0			| address to load

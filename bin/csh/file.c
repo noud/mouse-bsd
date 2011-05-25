@@ -597,7 +597,7 @@ again:				/* search for matches */
 	return (numitems);
     }
     else {			/* LIST */
-	qsort((ptr_t) items, numitems, sizeof(items[0]), 
+	qsort((ptr_t) items, numitems, sizeof(items[0]),
 		(int (*) __P((const void *, const void *))) sortscmp);
 	print_by_column(looking_for_lognames ? NULL : tilded_dir,
 			items, numitems);

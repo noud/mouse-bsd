@@ -3,7 +3,7 @@ Major changes in version 2.3:
 
 * in newc and crc format archives, only store 1 copy of multiply linked files
 * handle multiply linked devices properly
-* handle multiply linked files with cpio -pl even when the source and 
+* handle multiply linked files with cpio -pl even when the source and
   destination are on different file systems
 * support HPUX Context Dependent Files
 * read and write HPUX cpio archives

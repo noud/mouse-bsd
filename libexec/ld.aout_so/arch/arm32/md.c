@@ -94,7 +94,7 @@ md_get_addend(rp, addr)
 	unsigned char		*addr;
 {
 	long rel;
-	
+
 	switch (rp->r_length) {
 	case 0:
 		rel = get_byte(addr);
@@ -153,7 +153,7 @@ struct relocation_info	*rp;
 
 	if (rp->r_neg)		/* Not sure, whether this works in all cases XXX */
 		relocation = -relocation;
-	
+
 	switch (rp->r_length) {
 	case 0:
 		put_byte(addr, relocation);
@@ -252,7 +252,7 @@ md_set_breakpoint(where, savep)
 	*(long *)where = TRAP;
 #ifdef RTLD
 	iflush((long *)where, sizeof(long));
-#endif	/* RTLD */	
+#endif	/* RTLD */
 }
 
 

@@ -68,7 +68,7 @@ struct uvm_vnode {
 #define UVM_VNODE_VALID		0x001	/* we are attached to the vnode */
 #define UVM_VNODE_CANPERSIST	0x002	/* we can persist after ref == 0 */
 #define UVM_VNODE_ALOCK		0x004	/* uvn_attach is locked out */
-#define UVM_VNODE_DYING		0x008	/* final detach/terminate in 
+#define UVM_VNODE_DYING		0x008	/* final detach/terminate in
 					   progress */
 #define UVM_VNODE_RELKILL	0x010	/* uvn should be killed by releasepg
 					   when final i/o is done */

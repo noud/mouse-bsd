@@ -83,7 +83,7 @@ asc_tc_attach(parent, self, aux)
 	int unit;
 
 	unit = asc->sc_dev.dv_unit;
-	
+
 	/*
 	 * Initialize hw descriptor, cache some pointers
 	 */

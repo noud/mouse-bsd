@@ -33,7 +33,7 @@ Boston, MA 02111-1307, USA.  */
 
 /*
  * This data structure is used to hold items
- *  stored in a hash table.  Each node holds 
+ *  stored in a hash table.  Each node holds
  *  a key/value pair.
  *
  * Items in the cache are really of type void *.
@@ -53,11 +53,11 @@ typedef struct cache_node
 /*
  * This data type is the function that computes a hash code given a key.
  * Therefore, the key can be a pointer to anything and the function specific
- * to the key type. 
+ * to the key type.
  *
  * Unfortunately there is a mutual data structure reference problem with this
  * typedef.  Therefore, to remove compiler warnings the functions passed to
- * hash_new will have to be casted to this type. 
+ * hash_new will have to be casted to this type.
  */
 typedef unsigned int (*hash_func_type)(void *, const void *);
 
@@ -65,7 +65,7 @@ typedef unsigned int (*hash_func_type)(void *, const void *);
  * This data type is the function that compares two hash keys and returns an
  * integer greater than, equal to, or less than 0, according as the first
  * parameter is lexicographically greater than, equal to, or less than the
- * second. 
+ * second.
  */
 
 typedef int (*compare_func_type)(const void *, const void *);
@@ -93,7 +93,7 @@ typedef struct cache
 
   unsigned int last_bucket; /* Tracks which entry in the array where
 			       the last value was returned.  */
-  /* Function used to compute a hash code given a key. 
+  /* Function used to compute a hash code given a key.
      This function is specified when the hash table is created.  */
   hash_func_type    hash_func;
   /* Function used to compare two hash keys to see if they are equal.  */
@@ -104,34 +104,34 @@ typedef struct cache
 /* Two important hash tables.  */
 extern cache_ptr module_hash_table, class_hash_table;
 
-/* Allocate and initialize a hash table.  */ 
+/* Allocate and initialize a hash table.  */
 
 cache_ptr hash_new (unsigned int size,
 		    hash_func_type hash_func,
 		    compare_func_type compare_func);
-                       
+
 /* Deallocate all of the hash nodes and the cache itself.  */
 
 void hash_delete (cache_ptr cache);
 
 /* Add the key/value pair to the hash table.  If the
-   hash table reaches a level of fullness then it will be resized. 
-                                                   
+   hash table reaches a level of fullness then it will be resized.
+
    assert if the key is already in the hash.  */
 
 void hash_add (cache_ptr *cachep, const void *key, void *value);
-     
-/* Remove the key/value pair from the hash table.  
+
+/* Remove the key/value pair from the hash table.
    assert if the key isn't in the table.  */
 
 void hash_remove (cache_ptr cache, const void *key);
 
 /* Used to index through the hash table.  Start with NULL
    to get the first entry.
-                                                  
+
    Successive calls pass the value returned previously.
-   ** Don't modify the hash during this operation *** 
-                                                  
+   ** Don't modify the hash during this operation ***
+
    Cache nodes are returned such that key or value can
    be extracted.  */
 
@@ -147,13 +147,13 @@ BOOL hash_is_key_in_hash (cache_ptr cache, const void *key);
 
 /************************************************
 
-        Useful hashing functions.  
-        
+        Useful hashing functions.
+
         Declared inline for your pleasure.
-        
+
 ************************************************/
 
-/* Calculate a hash code by performing some 
+/* Calculate a hash code by performing some
    manipulation of the key pointer.  (Use the lowest bits
    except for those likely to be 0 due to alignment.)  */
 
@@ -164,15 +164,15 @@ hash_ptr (cache_ptr cache, const void *key)
 }
 
 
-/* Calculate a hash code by iterating over a NULL 
+/* Calculate a hash code by iterating over a NULL
    terminate string.  */
-static inline unsigned int 
+static inline unsigned int
 hash_string (cache_ptr cache, const void *key)
 {
   unsigned int ret = 0;
   unsigned int ctr = 0;
-        
-        
+
+
   while (*(char*)key) {
     ret ^= *(char*)key++ << ctr;
     ctr = (ctr + 1) % sizeof (void *);
@@ -183,7 +183,7 @@ hash_string (cache_ptr cache, const void *key)
 
 
 /* Compare two pointers for equality.  */
-static inline int 
+static inline int
 compare_ptrs (const void *k1, const void *k2)
 {
   return !(k1 - k2);
@@ -191,7 +191,7 @@ compare_ptrs (const void *k1, const void *k2)
 
 
 /* Compare two strings.  */
-static inline int 
+static inline int
 compare_strings (const void *k1, const void *k2)
 {
   if (k1 == k2)

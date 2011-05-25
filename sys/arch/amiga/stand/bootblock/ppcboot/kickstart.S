@@ -92,7 +92,7 @@ Lb0:	add	4,4,8	/* add the rounded up length */
 Lb1:	lwzu	7,-4(5)
 	stwu	7,-4(4)
 	bdnz	Lb1
-	
+
 Lflush:
 #ifdef DEBUG
 	li	14,0xff0

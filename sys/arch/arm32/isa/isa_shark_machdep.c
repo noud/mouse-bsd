@@ -56,11 +56,11 @@ unsigned i8259_mask;
 
 /* Notes on the interaction of StrongARM and ISA.  A lot of the nastiness
    is caused by consciously prostituting shark to a low bill of materials.
-   
+
    It takes on the order of 700ns (about 150 instruction cycles at
    233 MHz) to access the ISA bus, so it is important to minimize the number
    of ISA accesses, in particular to the 8259 interrupt controllers.
-   
+
    To reduce the number of accesses, the 8259's are NOT run in the
    same mode as on a typical Intel (IBM AT) system, which requires
    an interrupt acknowledge sequence (INTA) for every interrupt.
@@ -68,26 +68,26 @@ unsigned i8259_mask;
    on the front.  The code in irq.S takes particular care to cache
    the state of the interrupt masks and only update them when absolutely
    necessary.
-   
+
    Unfortunately, resetting the 8259 edge detectors without a real
    INTA sequence is problematic at best.  To complicate matters further,
    (unlike EISA components) the 8259s on the Sequoia core logic do
    not allow configuration of edge vs. level on an IRQ-by-IRQ basis.
    Thus, all interrupts must be either edge-triggered or level-triggered.
-   To preserve the sanity of the system, this code chooses the 
+   To preserve the sanity of the system, this code chooses the
    level-triggered configuration.
-   
-   None of the possible operation modes of the 8254 interval timers can 
-   be used to generate a periodic, level-triggered, clearable clock 
-   interrupt.  This restriction means that TIMER0 -- hardwired to IRQ0 -- 
-   may not be used as the heartbeat timer, as it is on Intel-based PCs.  
-   Instead, the real-time clock (RTC) interrupt -- connected to 
+
+   None of the possible operation modes of the 8254 interval timers can
+   be used to generate a periodic, level-triggered, clearable clock
+   interrupt.  This restriction means that TIMER0 -- hardwired to IRQ0 --
+   may not be used as the heartbeat timer, as it is on Intel-based PCs.
+   Instead, the real-time clock (RTC) interrupt -- connected to
    IRQ8 -- has the right properties and is used for the heartbeat interrupt.
    TIMER0 may still be used to implement a microsecond timer.
    See clock.c for details.
-   
+
    As on most PC systems, 8254 TIMER1 is used for the ISA refresh signal.
-   
+
    Unlike most PC systems, 8254 TIMER2 is not used for cheap tone
    generation.  Instead, it is used to create a high-availability interrupt
    for bit-bashing functions (e.g. for SmartCard access).  TIMER2 output,
@@ -96,15 +96,15 @@ unsigned i8259_mask;
    which is then converted into the StrongARM FIQ (fast interrupt request).
    To clear this interrupt, the StrongARM clears the SMI.
    See .../shark/fiq.S for details.
-   
+
    One more complication: ISA devices can be rather nasty with respect
    to ISA bus usage.  For example, the CS8900 ethernet chip will occupy
    the bus for very long DMA streams.  It is possible to configure the
    chip so it relinquishes the ISA bus every 28 usec or so
    (about every 6500 instructions).  This causes problems when trying
    to run the TIMER2/SMI/FIQ at 50 kHz, which is required to detect the
-   baud rate of the SmartCard.  A modification to .../dev/isa/isadma.c 
-   allows the processor to freeze DMA during critial periods of time.  
+   baud rate of the SmartCard.  A modification to .../dev/isa/isadma.c
+   allows the processor to freeze DMA during critial periods of time.
    This is a working -- but not very satisfactory -- solution to the problem.
 */
 

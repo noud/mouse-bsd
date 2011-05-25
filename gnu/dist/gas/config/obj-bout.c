@@ -266,16 +266,16 @@ obj_crawl_symbol_chain (headers)
 
       /* OK, here is how we decide which symbols go out into the
 	 brave new symtab.  Symbols that do are:
-		
+
 	 * symbols with no name (stabd's?)
 	 * symbols with debug info in their N_TYPE
-		
+
 	 Symbols that don't are:
 	 * symbols that are registers
 	 * symbols with \1 as their 3rd character (numeric labels)
 	 * "local labels" as defined by S_LOCAL_NAME(name)
 	 if the -L switch was passed to gas.
-		
+
 	 All other symbols are output.  We complain if a deleted
 	 symbol was marked external. */
 

@@ -51,7 +51,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
    pea	_envp		; call execle
    clr.l	-(sp)
    pea	L32
-   
+
    */
 
 execle(name, args)

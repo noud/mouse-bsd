@@ -457,7 +457,7 @@ void read_char_table(File &f)
   uint32 i;
   for (i = 0; i < nchars; i++)
     char_table[i].msl = f.get_uint16();
-  
+
   require_tag(width_tag);
   f.seek(tag_info(width_tag).value);
   for (i = 0; i < nchars; i++)
@@ -572,7 +572,7 @@ void output_ligatures()
   static const char *ligature_chars[] = {
     "fi", "fl", "ff", "Fi", "Fl"
     };
-  
+
   unsigned ligature_mask = 0;
   int i;
   for (i = 0; i < nchars; i++) {
@@ -623,7 +623,7 @@ void read_and_output_kernpairs(File &f)
   }
 }
 
-static 
+static
 void output_charset()
 {
   require_tag(slant_tag);
@@ -652,7 +652,7 @@ void output_charset()
 	int left_italic_correction = 0;
 	int subscript_correction = 0;
 	if (italic_flag) {
-	  italic_correction = scale(char_table[i].right_extent 
+	  italic_correction = scale(char_table[i].right_extent
 				    - char_table[i].width
 				    + italic_sep);
 	  if (italic_correction < 0)

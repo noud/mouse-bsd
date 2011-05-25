@@ -1,6 +1,6 @@
 /*	$NetBSD: ieeefp.h,v 1.2 1996/04/04 06:36:45 phil Exp $	*/
 
-/* 
+/*
  * Written by J.T. Conklin, Apr 28, 1995
  * Public domain.
  */

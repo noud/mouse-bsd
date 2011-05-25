@@ -42,10 +42,10 @@ struct ata_drive_datas {
     u_int16_t drive_flags; /* bitmask for drives present/absent and cap */
 #define DRIVE_ATA	0x0001
 #define DRIVE_ATAPI	0x0002
-#define DRIVE_OLD	0x0004 
+#define DRIVE_OLD	0x0004
 #define DRIVE (DRIVE_ATA|DRIVE_ATAPI|DRIVE_OLD)
 #define DRIVE_CAP32	0x0008
-#define DRIVE_DMA	0x0010 
+#define DRIVE_DMA	0x0010
 #define DRIVE_UDMA	0x0020
 #define DRIVE_MODE	0x0040 /* the drive reported its mode */
 #define DRIVE_RESET	0x0080 /* reset the drive state at next xfer */
@@ -104,7 +104,7 @@ struct ata_atapi_attach {
 #define ATA_CONFIG_UDMA_OFF	8
 
 /*
- * ATA/ATAPI commands description 
+ * ATA/ATAPI commands description
  *
  * This structure defines the interface between the ATA/ATAPI device driver
  * and the controller for short commands. It contains the command's parameter,

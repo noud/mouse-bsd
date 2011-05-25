@@ -141,7 +141,7 @@ HEX	What
 
 HEX	What
 ---	-------------------------------------------------
-a0	the remaining positions 
+a0	the remaining positions
 .	are used for the vt220
 ff	downloadable characterset
 

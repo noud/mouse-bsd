@@ -198,7 +198,7 @@ pcvt47hw|dec vt220 with HP-fkey labels, 47 lines and 132 cols:\
 #	main entry, without "is" and "li" capabilities
 #
 #	NOTE: because the 386BSD "vi"/"elvis" seems to have a bug if
-#		both "ic" and "im" are specified (an original VT220 
+#		both "ic" and "im" are specified (an original VT220
 #		shows the same buggy behaviour!), "ic" has been taken
 #		out of this entry. for reference, it should be "ic=\E[@".
 #

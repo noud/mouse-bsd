@@ -53,7 +53,7 @@ typedef struct RF_ChaindeclusterConfigInfo_s {
 	RF_SectorNum_t mirrorStripeOffset;
 }       RF_ChaindeclusterConfigInfo_t;
 
-int 
+int
 rf_ConfigureChainDecluster(
     RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr,
@@ -106,7 +106,7 @@ rf_ConfigureChainDecluster(
 	return (0);
 }
 
-RF_ReconUnitCount_t 
+RF_ReconUnitCount_t
 rf_GetNumSpareRUsChainDecluster(raidPtr)
 	RF_Raid_t *raidPtr;
 {
@@ -121,7 +121,7 @@ rf_GetNumSpareRUsChainDecluster(raidPtr)
 
 
 /* Maps to the primary copy of the data, i.e. the first mirror pair */
-void 
+void
 rf_MapSectorChainDecluster(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -170,7 +170,7 @@ rf_MapSectorChainDecluster(
 /* Maps to the second copy of the mirror pair, which is chain declustered. The second copy is contained
    in the next disk (mod numCol) after the disk containing the primary copy.
    The offset into the disk is one-half disk down */
-void 
+void
 rf_MapParityChainDecluster(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -213,7 +213,7 @@ rf_MapParityChainDecluster(
 
 }
 
-void 
+void
 rf_IdentifyStripeChainDecluster(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t addr,
@@ -230,7 +230,7 @@ rf_IdentifyStripeChainDecluster(
 	*diskids = info->stripeIdentifier[col];
 }
 
-void 
+void
 rf_MapSIDToPSIDChainDecluster(
     RF_RaidLayout_t * layoutPtr,
     RF_StripeNum_t stripeID,
@@ -249,7 +249,7 @@ rf_MapSIDToPSIDChainDecluster(
  *              createFunc - function to use to create the graph (return value)
  *****************************************************************************/
 
-void 
+void
 rf_RAIDCDagSelect(
     RF_Raid_t * raidPtr,
     RF_IoType_t type,

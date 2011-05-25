@@ -214,7 +214,7 @@ sys_mount(p, v, retval)
 		if (vfs_busy(mp, LK_NOWAIT, 0)) {
 			vput(vp);
 			return (EPERM);
-		}                     
+		}
 		VOP_UNLOCK(vp, 0);
 		goto update;
 	} else {
@@ -259,7 +259,7 @@ sys_mount(p, v, retval)
 		 * If we get an integer for the filesystem type instead of a
 		 * string, we check to see if it matches one of the historic
 		 * filesystem types.
-		 */     
+		 */
 		u_long fsindex = (u_long)SCARG(uap, type);
 		if (fsindex >= nmountcompatnames ||
 		    mountcompatnames[fsindex] == NULL) {
@@ -573,7 +573,7 @@ sys_sync(p, v, retval)
 		simple_lock(&mountlist_slock);
 		nmp = mp->mnt_list.cqe_prev;
 		vfs_unbusy(mp);
-		
+
 	}
 	simple_unlock(&mountlist_slock);
 #ifdef DEBUG
@@ -801,7 +801,7 @@ sys_fchdir(p, v, retval)
 		error = EPERM;	/* operation not permitted */
 		goto out;
 	}
-	
+
 	vrele(cwdi->cwdi_cdir);
 	cwdi->cwdi_cdir = vp;
  out:
@@ -856,7 +856,7 @@ sys_fchroot(p, v, retval)
 		VREF(vp);
 		cwdi->cwdi_cdir = vp;
 	}
-	
+
 	if (cwdi->cwdi_rdir != NULL)
 		vrele(cwdi->cwdi_rdir);
 	cwdi->cwdi_rdir = vp;
@@ -936,7 +936,7 @@ sys_chroot(p, v, retval)
 		VREF(vp);
 		cwdi->cwdi_cdir = vp;
 	}
-	
+
 	return (0);
 }
 
@@ -958,7 +958,7 @@ change_dir(ndp, p)
 		error = ENOTDIR;
 	else
 		error = VOP_ACCESS(vp, VEXEC, p->p_ucred, p);
-	
+
 	if (error)
 		vput(vp);
 	else
@@ -2401,7 +2401,7 @@ sys___posix_lchown(p, v, retval)
 }
 
 /*
- * Common routine to set ownership given a vnode.  
+ * Common routine to set ownership given a vnode.
  */
 static int
 change_owner(vp, uid, gid, p, posix_semantics)
@@ -2445,14 +2445,14 @@ change_owner(vp, uid, gid, p, posix_semantics)
 	/* Update va_mode iff altered. */
 	if (vattr.va_mode == newmode)
 		newmode = VNOVAL;
-	
+
 	VATTR_NULL(&vattr);
 	vattr.va_uid = CHANGED(uid) ? uid : VNOVAL;
 	vattr.va_gid = CHANGED(gid) ? gid : VNOVAL;
 	vattr.va_mode = newmode;
 	error = VOP_SETATTR(vp, &vattr, p->p_ucred, p);
 #undef CHANGED
-	
+
 out:
 	VOP_UNLOCK(vp, 0);
 	return (error);

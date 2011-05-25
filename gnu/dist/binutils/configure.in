@@ -138,7 +138,7 @@ do
     else
 	case $targ in
 changequote(,)dnl
-	i[3456]86*-*-netware*) 
+	i[3456]86*-*-netware*)
 changequote([,])dnl
 	  BUILD_NLMCONV='$(NLMCONV_PROG)$(EXEEXT)'
 	  NLMCONV_DEFS="$NLMCONV_DEFS -DNLMCONV_I386"

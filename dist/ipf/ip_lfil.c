@@ -593,7 +593,7 @@ struct ifnet *ifp;
 	m->m_len = sizeof(tcpiphdr_t);
 	tcp = (tcphdr_t *)((char *)ip + sizeof(ip_t));
 	bzero((char *)ip, sizeof(tcpiphdr_t));
- 
+
 	ip->ip_v = IPVERSION;
 	ip->ip_hl = sizeof(ip_t) >> 2;
 	ip->ip_tos = ((ip_t *)ti)->ip_tos;
@@ -608,7 +608,7 @@ struct ifnet *ifp;
 	tcp->th_ack = htonl(ntohl(ti->ti_seq) + tlen);
 	tcp->th_off = sizeof(tcphdr_t) >> 2;
 	tcp->th_flags = TH_RST|TH_ACK;
- 
+
 	ip->ip_sum = 0;
 	ip->ip_sum = ipf_cksum((u_short *)ip, sizeof(ip_t));
 	tcp->th_sum = fr_tcpsum(m, ip, tcp);
@@ -771,7 +771,7 @@ sendorfree:
 		else
 			m_freem(m);
 	}
-    }	
+    }
 done:
 	if (!error)
 		ipl_frouteok[0]++;

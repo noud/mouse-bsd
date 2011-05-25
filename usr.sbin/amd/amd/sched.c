@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: sched.c,v 1.3 1999/01/13 23:31:01 ezk Exp 
+ * Id: sched.c,v 1.3 1999/01/13 23:31:01 ezk Exp
  *
  */
 

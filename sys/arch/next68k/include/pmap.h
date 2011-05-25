@@ -7,7 +7,7 @@
  * original cvs id: NetBSD: pmap.h,v 1.12 1998/08/22 10:55:34 scw Exp
  */
 
-/* 
+/*
  * Copyright (c) 1987 Carnegie-Mellon University
  * Copyright (c) 1991, 1993
  *	The Regents of the University of California.  All rights reserved.

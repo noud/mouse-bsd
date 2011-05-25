@@ -57,7 +57,7 @@
 #include "opt_inet.h"
 #include "opt_ns.h"
 #include "bpfilter.h"
-#include "rnd.h" 
+#include "rnd.h"
 
 #include <sys/param.h>
 #include <sys/systm.h>
@@ -76,10 +76,10 @@
 #ifdef INET
 #include <netinet/in.h>
 #include <netinet/in_systm.h>
-#include <netinet/in_var.h> 
+#include <netinet/in_var.h>
 #include <netinet/ip.h>
-#include <netinet/if_inarp.h> 
-#endif 
+#include <netinet/if_inarp.h>
+#endif
 
 #ifdef NS
 #include <netns/ns.h>
@@ -442,7 +442,7 @@ ec_attach(parent, self, aux)
 
 		sc->tx_page_start = ELINK2_TX_PAGE_OFFSET_16BIT;
 		sc->rec_page_start = ELINK2_RX_PAGE_OFFSET_16BIT;
-		sc->rec_page_stop = (memsize >> ED_PAGE_SHIFT) + 
+		sc->rec_page_stop = (memsize >> ED_PAGE_SHIFT) +
 		    sc->rec_page_start;
 		sc->mem_ring = sc->mem_start;
 	} else {
@@ -697,7 +697,7 @@ ec_write_mbuf(sc, m, buf)
 	if (esc->sc_16bitp)
 		bus_space_write_1(asict, asich, ELINK2_GACFR,
 		    ELINK2_GACFR_RSEL | ELINK2_GACFR_MBS0);
-	
+
 	return (savelen);
 }
 

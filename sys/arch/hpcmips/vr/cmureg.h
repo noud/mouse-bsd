@@ -36,7 +36,7 @@
 
 /*
  *	CMU (CLock MASK UNIT) Registers.
- *		start 0x0B000060 
+ *		start 0x0B000060
  */
 #define VRIP_CMU_ADDR 0x0b000060
 

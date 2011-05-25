@@ -114,7 +114,7 @@ devopen(f, fname, file)
         if ((error = parsebootfile(fname, &fsmode, &devname, &unit,
             &partition, (const char **) file)))
                 return (error);
-	
+
         if (!strcmp(fsmode, "win")) {
                 file_system[0] = winop;
                 f->f_flags |= F_NODEV;  /* handled by Windows */

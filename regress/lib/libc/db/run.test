@@ -21,7 +21,7 @@ main()
 		echo 'run.test: no dictionary'
 		exit 1
 	fi
-	
+
 	if [ $# -eq 0 ]; then
 		for t in 1 2 3 4 5 6 7 8 9 10 11 12 13 20; do
 			test$t
@@ -82,7 +82,7 @@ test1()
 	echo "Test 1: recno: small key, small data pairs"
 	rm -f $TMP2 $TMP3
 	sed 200q $DICT |
-	awk '{ 
+	awk '{
 		++i;
 		printf("p\nk%d\nd%s\ng\nk%d\n", i, $0, i);
 	}' > $TMP2
@@ -120,7 +120,7 @@ test2()
 	done
 	echo "Test 2: recno: small key, medium data pairs"
 	rm -f $TMP2 $TMP3
-	echo $mdata | 
+	echo $mdata |
 	awk '{  for (i = 1; i < 201; ++i)
 		printf("p\nk%d\nd%s\ng\nk%d\n", i, $0, i);
 	}' > $TMP2
@@ -176,7 +176,7 @@ test3()
 	done
 	echo "Test 3: recno: big data pairs"
 	rm -f $TMP2 $TMP3
-	find /bin -type f -print | 
+	find /bin -type f -print |
 	awk '{
 		++i;
 		printf("p\nk%d\nD%s\ng\nk%d\n", i, $0, i);
@@ -281,7 +281,7 @@ test5()
 			--i;
 		}
 		END {
-			for (i = 1500; i; --i) 
+			for (i = 1500; i; --i)
 				printf("g\nk%d\n", i);
 		}' > $TMP2
 	$PROG -o $TMP3 recno $TMP2
@@ -291,7 +291,7 @@ test5()
 		exit 1
 	fi
 }
-		
+
 # Do alternating order recno entries.
 test6()
 {
@@ -331,7 +331,7 @@ test6()
 			}
 		}
 		END {
-			for (i = 1; i < 1200; ++i) 
+			for (i = 1; i < 1200; ++i)
 				printf("g\nk%d\n", i);
 		}' > $TMP2
 	$PROG -o $TMP3 recno $TMP2
@@ -392,7 +392,7 @@ test8()
 {
 	echo "Test 8: btree, hash: repeated small key, big data pairs"
 	rm -f $TMP1
-	echo "" | 
+	echo "" |
 	awk 'BEGIN {
 		for (i = 1; i <= 10; ++i) {
 			printf("p\nkkey1\nD/bin/sh\n");
@@ -424,7 +424,7 @@ test9()
 	rm -f $TMP2 $TMP3
 
 	for type in btree; do
-		cat $TMP1 | 
+		cat $TMP1 |
 		awk '{
 			if (i++ % 2)
 				printf("p\nkduplicatekey\nd%s\n", $0);

@@ -137,7 +137,7 @@ vrgiu_attach(parent, self, aux)
 #endif /* VRGIUDEBUG */
 	vrgiu_regwrite_4(sc, GIUINTEN_REG, sc->sc_intr_mask);
 #endif
-    
+
 	for (i = 0; i < MAX_GPIO_INOUT; i++)
 		TAILQ_INIT(&sc->sc_intr_head[i]);
 	if (!(sc->sc_ih = vrip_intr_establish(va->va_vc, va->va_intr, IPL_BIO,
@@ -148,7 +148,7 @@ vrgiu_attach(parent, self, aux)
 	vrgiu_functions.gf_intr_establish = vrgiu_intr_establish;
 	vrgiu_functions.gf_intr_disestablish = vrgiu_intr_disestablish;
 	/*
-	 * Register functions to upper interface. 
+	 * Register functions to upper interface.
 	 */
 	vrip_giu_function_register(va->va_vc, &vrgiu_functions, self);
 #ifdef VRGIUDEBUG
@@ -166,8 +166,8 @@ vrgiu_attach(parent, self, aux)
 		bitdisp64(preg);
 	}
 #endif /* VRGIUDEBUG */
-	/* 
-	 *  General purpose bus 
+	/*
+	 *  General purpose bus
 	 */
 	gpa.gpa_busname = "gpbus";
 	gpa.gpa_gc = sc;
@@ -287,7 +287,7 @@ vrgiu_regwrite(vc, off, data)
 }
 
 /*
- * PORT 
+ * PORT
  */
 int
 vrgiu_port_read(vc, port)
@@ -307,7 +307,7 @@ vrgiu_port_read(vc, port)
 
 	return (on ? 1 : 0);
 }
-    
+
 int
 vrgiu_port_write(vc, port, onoff)
 	vrgiu_chipset_tag_t vc;
@@ -335,8 +335,8 @@ vrgiu_port_write(vc, port, onoff)
 
 	return 0;
 }
-/* 
- *  For before autoconfiguration.  
+/*
+ *  For before autoconfiguration.
  */
 void
 __vrgiu_out(port, data)
@@ -356,15 +356,15 @@ __vrgiu_out(port, data)
 		addr = MIPS_PHYS_TO_KSEG1((VRIP_GIU_ADDR + GIUPIOD_H_REG_W));
 		offs = port - 16;
 	} else if (port < 48) {
-		addr = MIPS_PHYS_TO_KSEG1((VRIP_GIU_ADDR + GIUPODAT_L_REG_W));	
+		addr = MIPS_PHYS_TO_KSEG1((VRIP_GIU_ADDR + GIUPODAT_L_REG_W));
 		offs = port - 32;
 	} else {
-		addr = MIPS_PHYS_TO_KSEG1((VRIP_GIU_ADDR + GIUPODAT_H_REG_W));	
+		addr = MIPS_PHYS_TO_KSEG1((VRIP_GIU_ADDR + GIUPODAT_H_REG_W));
 		offs = port - 48;
 		panic ("__vrgiu_out: not coded yet.");
 	}
 	printf ("__vrgiu_out: addr %08x bit %d\n", addr, offs);
-    
+
 	wbflush();
 	reg = *((volatile u_int16_t*)addr);
 	if (data) {
@@ -376,7 +376,7 @@ __vrgiu_out(port, data)
 	wbflush();
 }
 /*
- * Interrupt staff 
+ * Interrupt staff
  */
 void *
 vrgiu_intr_establish(ic, port, mode, level, ih_fun, ih_arg)

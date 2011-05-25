@@ -4,7 +4,7 @@
 ** identd.h                 Common variables for the Pidentd daemon
 **
 ** This program is in the public domain and may be used freely by anyone
-** who wants to. 
+** who wants to.
 **
 ** Last update: 6 Dec 1992
 **

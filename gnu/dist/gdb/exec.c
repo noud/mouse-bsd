@@ -1,4 +1,4 @@
-/* Work with executable files, for GDB. 
+/* Work with executable files, for GDB.
    Copyright 1988, 1989, 1991, 1992, 1993, 1994, 1997
              Free Software Foundation, Inc.
 
@@ -92,7 +92,7 @@ exec_close (quitting)
 {
   int need_symtab_cleanup = 0;
   struct vmap *vp, *nxt;
-  
+
   for (nxt = vmap; nxt != NULL; )
     {
       vp = nxt;
@@ -100,7 +100,7 @@ exec_close (quitting)
 
       /* if there is an objfile associated with this bfd,
 	 free_objfile() will do proper cleanup of objfile *and* bfd. */
-		   
+
       if (vp->objfile)
 	{
 	  free_objfile (vp->objfile);
@@ -167,7 +167,7 @@ exec_file_command (args, from_tty)
     {
       char *scratch_pathname;
       int scratch_chan;
-      
+
       /* Scan through the args and pick up the first non option arg
 	 as the filename.  */
 
@@ -183,8 +183,8 @@ exec_file_command (args, from_tty)
 
       filename = tilde_expand (*argv);
       make_cleanup (free, filename);
-      
-      scratch_chan = openp (getenv ("PATH"), 1, filename, 
+
+      scratch_chan = openp (getenv ("PATH"), 1, filename,
 			    write_files? O_RDWR|O_BINARY: O_RDONLY|O_BINARY, 0,
 			    &scratch_pathname);
 #if defined(__GO32__) || defined(_WIN32)
@@ -210,7 +210,7 @@ exec_file_command (args, from_tty)
 	 leave exec_bfd as the new owner of the original copy. */
       scratch_pathname = strdup (scratch_pathname);
       make_cleanup (free, scratch_pathname);
-      
+
       if (!bfd_check_format (exec_bfd, bfd_object))
 	{
 	  /* Make sure to close exec_bfd, or else "run" might try to use
@@ -242,7 +242,7 @@ exec_file_command (args, from_tty)
 	  /* Make sure to close exec_bfd, or else "run" might try to use
 	     it.  */
 	  exec_close (0);
-	  error ("\"%s\": can't find the file sections: %s", 
+	  error ("\"%s\": can't find the file sections: %s",
 		 scratch_pathname, bfd_errmsg (bfd_get_error ()));
 	}
 
@@ -266,7 +266,7 @@ exec_file_command (args, from_tty)
 	  if (bfd_get_section_flags (p->bfd, p->the_bfd_section)
 	      & (SEC_CODE | SEC_READONLY))
 	    {
-	      if (text_start > p->addr) 
+	      if (text_start > p->addr)
 		text_start = p->addr;
 	      if (text_end < p->endaddr)
 		text_end = p->endaddr;
@@ -289,7 +289,7 @@ exec_file_command (args, from_tty)
     printf_unfiltered ("No exec file now.\n");
 }
 
-/* Set both the exec file and the symbol file, in one command.  
+/* Set both the exec file and the symbol file, in one command.
    What a novelty.  Why did GDB go through four major releases before this
    command was added?  */
 
@@ -305,7 +305,7 @@ file_command (arg, from_tty)
 }
 
 
-/* Locate all mappable sections of a BFD file. 
+/* Locate all mappable sections of a BFD file.
    table_pp_char is a char * to get it through bfd_map_over_sections;
    we cast it back to its proper type.  */
 
@@ -353,7 +353,7 @@ build_section_table (some_bfd, start, end)
 }
 
 static void
-bfdsec_to_vmap(abfd, sect, arg3) 
+bfdsec_to_vmap(abfd, sect, arg3)
      bfd *abfd;
      sec_ptr sect;
      PTR arg3;
@@ -399,7 +399,7 @@ map_vmap (abfd, arch)
   vp->bfd = abfd;
   vp->name = bfd_get_filename (arch ? arch : abfd);
   vp->member = arch ? bfd_get_filename (abfd) : "";
-  
+
   vmap_bfd.pbfd = arch;
   vmap_bfd.pvmap = vp;
   bfd_map_over_sections (abfd, bfdsec_to_vmap, &vmap_bfd);
@@ -519,7 +519,7 @@ xfer_memory (memaddr, myaddr, len, write, target)
 	    /* This section ends before the transfer starts.  */
 	    continue;
 	  }
-	else 
+	else
 	  {
 	    /* This section overlaps the transfer.  Just do half.  */
 	    len = p->endaddr - memaddr;
@@ -640,7 +640,7 @@ set_section_command (args, from_tty)
 	exec_files_info(&exec_ops);
       return;
     }
-  } 
+  }
   if (seclen >= sizeof (secprint))
     seclen = sizeof (secprint) - 1;
   strncpy (secprint, secname, seclen);
@@ -736,6 +736,6 @@ file itself are wrong.  Each section must be changed separately.  The\n\
 		  "Set writing into executable and core files.",
 		  &setlist),
      &showlist);
-  
+
   add_target (&exec_ops);
 }

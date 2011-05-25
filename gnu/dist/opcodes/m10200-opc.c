@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 const struct mn10200_operand mn10200_operands[] = {
 #define UNUSED	0
-  {0, 0, 0}, 
+  {0, 0, 0},
 
 /* dn register in the first register operand position.  */
 #define DN0      (UNUSED+1)
@@ -127,7 +127,7 @@ const struct mn10200_operand mn10200_operands[] = {
 
 /* Either an open paren or close paren.  */
 #define PAREN	(SIMM16N+1)
-  {0, 0, MN10200_OPERAND_PAREN}, 
+  {0, 0, MN10200_OPERAND_PAREN},
 
 /* dn register that appears in the first and second register positions.  */
 #define DN01     (PAREN+1)
@@ -136,10 +136,10 @@ const struct mn10200_operand mn10200_operands[] = {
 /* an register that appears in the first and second register positions.  */
 #define AN01     (DN01+1)
   {2, 0, MN10200_OPERAND_AREG | MN10200_OPERAND_REPEATED},
-} ; 
+} ;
 
-#define MEM(ADDR) PAREN, ADDR, PAREN 
-#define MEM2(ADDR1,ADDR2) PAREN, ADDR1, ADDR2, PAREN 
+#define MEM(ADDR) PAREN, ADDR, PAREN
+#define MEM2(ADDR1,ADDR2) PAREN, ADDR1, ADDR2, PAREN
 
 /* The opcode table.
 

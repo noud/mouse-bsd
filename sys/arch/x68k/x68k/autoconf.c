@@ -69,7 +69,7 @@ void
 cpu_configure()
 {
 	extern int x68k_realconfig;
-	
+
 	x68k_realconfig = 1;
 
 	if (config_rootfound("mainbus", "mainbus") == NULL)
@@ -104,8 +104,8 @@ simple_devprint(auxp, pnp)
 
 /*
  * use config_search to find appropriate device, then call that device
- * directly with NULL device variable storage.  A device can then 
- * always tell the difference between the real and console init 
+ * directly with NULL device variable storage.  A device can then
+ * always tell the difference between the real and console init
  * by checking for NULL.
  */
 int
@@ -137,12 +137,12 @@ x68k_config_found(pcfp, pdp, auxp, pfn)
 
 /*
  * this function needs to get enough configured to do a console
- * basically this means start attaching the grfxx's that support 
+ * basically this means start attaching the grfxx's that support
  * the console. Kinda hacky but it works.
  */
 void
 config_console()
-{	
+{
 	struct cfdata *cf;
 
 	/*
@@ -309,8 +309,8 @@ find_dev_byname(name)
 	return dv;
 }
 
-/* 
- * mainbus driver 
+/*
+ * mainbus driver
  */
 struct cfattach mainbus_ca = {
 	sizeof(struct device), mbmatch, mbattach

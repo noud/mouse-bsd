@@ -5,28 +5,28 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 # M68000 Hi-Performance Microprocessor Division
-# M68060 Software Package Production Release 
-# 
+# M68060 Software Package Production Release
+#
 # M68060 Software Package Copyright (C) 1993, 1994, 1995, 1996 Motorola Inc.
 # All rights reserved.
-# 
+#
 # THE SOFTWARE is provided on an "AS IS" basis and without warranty.
 # To the maximum extent permitted by applicable law,
 # MOTOROLA DISCLAIMS ALL WARRANTIES WHETHER EXPRESS OR IMPLIED,
 # INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS
 # FOR A PARTICULAR PURPOSE and any warranty against infringement with
 # regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-# and any accompanying written materials. 
-# 
+# and any accompanying written materials.
+#
 # To the maximum extent permitted by applicable law,
 # IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
 # (INCLUDING WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS,
 # BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR OTHER PECUNIARY LOSS)
 # ARISING OF THE USE OR INABILITY TO USE THE SOFTWARE.
-# 
+#
 # Motorola assumes no responsibility for the maintenance and support
-# of the SOFTWARE.  
-# 
+# of the SOFTWARE.
+#
 # You are hereby granted a copyright license to use, modify, and distribute the
 # SOFTWARE so long as this entire notice is retained without alteration
 # in any modified and/or redistributed versions, and that such modified
@@ -385,7 +385,7 @@ set FTEMP_LO, 		8
 set FTEMP_GRS,		12
 
 set LOCAL,		0			# offsets within an
-set LOCAL_EX, 		0			# extended precision 
+set LOCAL_EX, 		0			# extended precision
 set LOCAL_SGN,		2			# value saved in memory.
 set LOCAL_HI, 		4
 set LOCAL_LO, 		8
@@ -6500,7 +6500,7 @@ satand:
 #	a0 = pointer to extended precision input			#
 #	d0 = round precision,mode					#
 #									#
-# OUTPUT **************************************************************	# 
+# OUTPUT **************************************************************	#
 #	fp0 = arcsin(X)							#
 #									#
 # ACCURACY and MONOTONICITY *******************************************	#
@@ -6540,7 +6540,7 @@ sasin:
 
 # This catch is added here for the '060 QSP. Originally, the call to
 # satan() would handle this case by causing the exception which would
-# not be caught until gen_except(). Now, with the exceptions being 
+# not be caught until gen_except(). Now, with the exceptions being
 # detected inside of satan(), the exception would have been handled there
 # instead of inside sasin() as expected.
 	cmp.l		%d1,&0x3FD78000
@@ -6689,7 +6689,7 @@ sacosd:
 
 #########################################################################
 # setox():    computes the exponential for a normalized input		#
-# setoxd():   computes the exponential for a denormalized input		# 
+# setoxd():   computes the exponential for a denormalized input		#
 # setoxm1():  computes the exponential minus 1 for a normalized input	#
 # setoxm1d(): computes the exponential minus 1 for a denormalized input	#
 #									#
@@ -8252,7 +8252,7 @@ LOGMAIN:
 #--NOTE THAT U = (Y-F)/F IS VERY SMALL AND THUS APPROXIMATING
 #--LOG(1+U) CAN BE VERY EFFICIENT.
 #--ALSO NOTE THAT THE VALUE 1/F IS STORED IN A TABLE SO THAT NO
-#--DIVISION IS NEEDED TO CALCULATE (Y-F)/F. 
+#--DIVISION IS NEEDED TO CALCULATE (Y-F)/F.
 
 #--GET K, Y, F, AND ADDRESS OF 1/F.
 	asr.l		&8,%d1
@@ -8470,7 +8470,7 @@ LP1REAL:
 	cmp.l		%d1,&0x3ffe8000 	# IS BOUNDS [1/2,3/2]?
 	blt.w		LOGMAIN
 	cmp.l		%d1,&0x3fffc000
-	bgt.w		LOGMAIN 
+	bgt.w		LOGMAIN
 #--IF 1+Z > 3/2 OR 1+Z < 1/2, THEN X, WHICH IS ROUNDING 1+Z,
 #--CONTAINS AT LEAST 63 BITS OF INFORMATION OF Z. IN THAT CASE,
 #--SIMPLY INVOKE LOG(X) FOR LOG(1+Z).
@@ -8571,7 +8571,7 @@ slognp1d:
 #	a0 = pointer to extended precision input			#
 #	d0 = round precision,mode					#
 #									#
-# OUTPUT **************************************************************	# 
+# OUTPUT **************************************************************	#
 #	fp0 = arctanh(X)						#
 #									#
 # ACCURACY and MONOTONICITY *******************************************	#
@@ -9274,7 +9274,7 @@ sok_dnrm:
 	bge.b		sok_norm2		# thank goodness no
 
 # the multiply factor that we're trying to create should be a denorm
-# for the multiply to work. therefore, we're going to actually do a 
+# for the multiply to work. therefore, we're going to actually do a
 # multiply with a denorm which will cause an unimplemented data type
 # exception to be put into the machine which will be caught and corrected
 # later. we don't do this with the DENORMs above because this method
@@ -9289,7 +9289,7 @@ sok_dnrm:
 	clr.l		-(%sp)			# insert zero low mantissa
 	mov.l		%d1,-(%sp)		# insert new high mantissa
 	clr.l		-(%sp)			# make zero exponent
-	bra.b		sok_norm_cont	
+	bra.b		sok_norm_cont
 sok_dnrm_32:
 	subi.b		&0x20,%d0		# get shift count
 	lsr.l		%d0,%d1			# make low mantissa longword
@@ -9297,7 +9297,7 @@ sok_dnrm_32:
 	clr.l		-(%sp)			# insert zero high mantissa
 	clr.l		-(%sp)			# make zero exponent
 	bra.b		sok_norm_cont
-	
+
 # the src will force the dst to a DENORM value or worse. so, let's
 # create an fp multiply that will create the result.
 sok_norm:
@@ -9710,8 +9710,8 @@ Restore:
 	mov.b		&FMUL_OP,%d1		# last inst is MUL
 	fmul.x		Scale(%pc),%fp0		# may cause underflow
 	bra		t_catch2
-# the '040 package did this apparently to see if the dst operand for the 
-# preceding fmul was a denorm. but, it better not have been since the 
+# the '040 package did this apparently to see if the dst operand for the
+# preceding fmul was a denorm. but, it better not have been since the
 # algorithm just got done playing with fp0 and expected no exceptions
 # as a result. trust me...
 #	bra		t_avoid_unsupp		# check for denorm as a
@@ -9725,7 +9725,7 @@ Finish:
 Rem_is_0:
 #..R = 2^(-j)X - Q Y = Y, thus R = 0 and quotient = 2^j (Q+1)
 	addq.l		&1,%d3
-	cmp.l		%d0,&8			# D0 is j 
+	cmp.l		%d0,&8			# D0 is j
 	bge.b		Q_Big
 
 	lsl.l		%d0,%d3
@@ -9936,7 +9936,7 @@ t_operr:
 # but use fp2 instead. return the dst operand unscathed in fp0.
 operr_ena:
 	fmovm.x		EXC_FP0(%a6),&0x80	# return fp0 unscathed
-	fmov.l		USER_FPCR(%a6),%fpcr	
+	fmov.l		USER_FPCR(%a6),%fpcr
 	fmovm.x		&0x04,-(%sp)		# save fp2
 	fmov.s		&0x7f800000,%fp2	# load +INF
 	fmul.s		&0x00000000,%fp2	# +INF x 0
@@ -10187,7 +10187,7 @@ t_minx2:
 inx2_work:
 	btst		&inex2_bit,FPCR_ENABLE(%a6) # is inexact enabled?
 	bne.b		inx2_work_ena		# yes
-	rts	
+	rts
 inx2_work_ena:
 	fmov.l		USER_FPCR(%a6),%fpcr	# insert user's exceptions
 	fmov.s		&0x3f800000,%fp1	# load +1
@@ -10863,7 +10863,7 @@ norm_hi:
 	mov.l		%d1, FTEMP_LO(%a0)	# store new lo(man)
 
 	mov.l		%d2, %d0		# return shift amount
-	
+
 	mov.l		(%sp)+, %d3		# restore temp regs
 	mov.l		(%sp)+, %d2
 
@@ -10878,7 +10878,7 @@ norm_lo:
 	clr.l		FTEMP_LO(%a0)		# lo(man) is now zero
 
 	mov.l		%d2, %d0		# return shift amount
-	
+
 	mov.l		(%sp)+, %d3		# restore temp regs
 	mov.l		(%sp)+, %d2
 

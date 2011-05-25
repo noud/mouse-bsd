@@ -191,7 +191,7 @@ bus_space_tag_t	storage;
 		return(NULL);
 	}
 	bzero(beb_t, sizeof(*beb_t));
-	
+
 	beb_t->abs_p_1   = beb_bus_space_peek_1;
 	beb_t->abs_p_2   = beb_bus_space_peek_2;
 	beb_t->abs_p_4   = beb_bus_space_peek_4;
@@ -276,7 +276,7 @@ beb_bus_space_peek_1(t, h, o)
     return(!badbaddr((caddr_t)(h + o), 1));
 }
 
-static int 
+static int
 beb_bus_space_peek_2(t, h, o)
     bus_space_tag_t	t;
     bus_space_handle_t	h;
@@ -285,7 +285,7 @@ beb_bus_space_peek_2(t, h, o)
     return(!badbaddr((caddr_t)(h + o), 2));
 }
 
-static int 
+static int
 beb_bus_space_peek_4(t, h, o)
     bus_space_tag_t	t;
     bus_space_handle_t	h;
@@ -294,7 +294,7 @@ beb_bus_space_peek_4(t, h, o)
     return(!badbaddr((caddr_t)(h + o), 4));
 }
 
-static int 
+static int
 beb_bus_space_peek_8(t, h, o)
     bus_space_tag_t	t;
     bus_space_handle_t	h;

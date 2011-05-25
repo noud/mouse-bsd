@@ -151,7 +151,7 @@ The compilation instructions are in uucp.texi.  Here is a summary.
 
     Examine config.h and Makefile to make sure they're right.
 
-    Edit policy.h for your local system.    
+    Edit policy.h for your local system.
 
     Type ``make''.
 

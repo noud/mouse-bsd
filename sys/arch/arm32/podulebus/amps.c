@@ -290,7 +290,7 @@ com_amps_probe(parent, cf, aux)
  * Map all the required I/O space for this port and attach the driver
  * The generic attach will probe and attach any device.
  * Install an interrupt handler and we are ready to rock.
- */    
+ */
 
 void
 com_amps_attach(parent, self, aux)

@@ -47,7 +47,7 @@ copyoutstr(kaddr, udaddr, len, done)
 	const u_char *kp = kaddr;
 	u_char *up = udaddr;
 	int l;
-	
+
 	for (l = 0; len-- > 0; l++) {
 		if (subyte(up++, *kp) < 0) {
 			*done = l;

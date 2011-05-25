@@ -190,7 +190,7 @@ static unsigned long inp_tsip(parseio, ch, ctime)
 
   return (parseio->parse_index == parseio->parse_dsize-1); /* buffer full - attempt to parse (likely to fail) */
 }
-     
+
 #define GPSORIGIN	2524953600U	/* NTP origin - GPS origin in seconds */
 #define SECSPERWEEK	604800	/* seconds per week - GPS tells us about weeks */
 #define L_UF_SCALE	4294967296.0	/* scale a float fraction to l_uf units */
@@ -261,7 +261,7 @@ cvt_trimtsip(buffer, size, vf, clock, vt)
   else
     {
       cmd = buffer[1];
-      
+
 #ifdef DEBUG
       if (debug > 1)
       switch(cmd)
@@ -359,7 +359,7 @@ cvt_trimtsip(buffer, size, vf, clock, vt)
 		{
 #ifdef DEBUG
 		  if (debug)
-		    printf("sv6+ seconds <= 0 (%e), setting POWERUP\n", secs); 
+		    printf("sv6+ seconds <= 0 (%e), setting POWERUP\n", secs);
 #endif
 		  clock->flags = PARSEB_POWERUP;
 		  return CVT_OK;
@@ -377,10 +377,10 @@ cvt_trimtsip(buffer, size, vf, clock, vt)
 
 		if (t->t_leap == ADDSECOND)
 		    clock->flags |= PARSEB_LEAPADD;
-		      
+
 		if (t->t_leap == DELSECOND)
 		    clock->flags |= PARSEB_LEAPDEL;
-	
+
 		if (t->t_operable)
 		    clock->flags &= ~(PARSEB_NOSYNC|PARSEB_POWERUP);
 		else

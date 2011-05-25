@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: nfs_prot_xdr.c,v 1.2 1999/01/10 21:54:38 ezk Exp 
+ * Id: nfs_prot_xdr.c,v 1.2 1999/01/10 21:54:38 ezk Exp
  *
  */
 

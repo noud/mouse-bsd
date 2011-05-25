@@ -56,7 +56,7 @@ Keith Bostic
 \fISummary\fP
 .ce 0
 .PP
-The release of 4.3BSD in April of 1986 addressed many of the 
+The release of 4.3BSD in April of 1986 addressed many of the
 performance problems and unfinished interfaces
 present in 4.2BSD [Leffler84] [McKusick85].
 The Computer Systems Research Group at Berkeley
@@ -76,7 +76,7 @@ much as multiple networking protocols are supported by 4.3BSD.
 The fifth is to evaluate alternate access control mechanisms and
 audit the existing security features of the system, particularly
 with respect to network services.
-Other areas of work include multi-architecture support, 
+Other areas of work include multi-architecture support,
 a general purpose kernel memory allocator, disk labels, and
 extensions to the 4.2BSD fast filesystem.
 .PP
@@ -97,7 +97,7 @@ in the recent 4.3BSD Tahoe release.
 .NH 2
 Multi-architecture support
 .PP
-Support has been added for the DEC VAX 8600/8650, VAX 8200/8250, 
+Support has been added for the DEC VAX 8600/8650, VAX 8200/8250,
 MicroVAXII and MicroVAXIII.
 .PP
 The largest change has been the incorporation of support for the first
@@ -122,7 +122,7 @@ memory allocator that can be used by all of the kernel subsystems.
 The design of this allocator takes advantage of known memory usage
 patterns in the UNIX kernel and a hybrid strategy that is time-efficient
 for small allocations and space-efficient for large allocations.
-This allocator replaces the multiple memory allocation interfaces 
+This allocator replaces the multiple memory allocation interfaces
 with a single easy-to-program interface,
 results in more efficient use of global memory by eliminating
 partitioned and specialized memory pools,
@@ -175,7 +175,7 @@ The network architecture of 4.2BSD was designed to accommodate
 multiple network protocol families and address formats,
 and an implementation of the ISO OSI network protocols
 should enter into this framework without much difficulty.
-We plan to 
+We plan to
 implement the OSI connectionless internet protocol (CLNP),
 and device drivers for X.25, 802.3, and possibly 802.5 interfaces, and
 to integrate these with an OSI transport class 4 (TP-4) implementation.
@@ -186,7 +186,7 @@ ISODE implements the session and presentation layers of the OSI protocol suite,
 and will include an implementation of the file transfer protocol (FTAM).
 It is also possible that an X.400 implementation now being done at
 University College, London and the University of Nottingham
-will be available for testing and distribution.  
+will be available for testing and distribution.
 .LP
 This implementation is comprised of four areas.
 .IP 1)
@@ -210,7 +210,7 @@ networks.
 These device drivers must be integrated
 into the kernel OSI protocol implementations.
 .IP 4)
-The existing OSINET interoperability test network is available so 
+The existing OSINET interoperability test network is available so
 that the interoperability of the ISODE and BSD kernel protocols
 can be established through tests with several vendors.
 Testing is crucial because an openly available version of GOSIP protocols
@@ -291,7 +291,7 @@ such as Satnet by nearly two orders of magnitude
 while improving throughput dramatically.
 .PP
 The current TCP implementation is now being readied
-for more widespread distribution via the network and as a 
+for more widespread distribution via the network and as a
 standard Berkeley distribution unencumbered by any commercial licensing.
 We are continuing to refine the TCP and IP implementations
 using the ARPANET, BARRNet, the NSF network
@@ -307,7 +307,7 @@ As with networking protocols,
 there is no single distributed file system
 that provides sufficient speed and functionality for all problems.
 It is frequently necessary to support several different remote
-file system protocols, just as it is necessary to run several 
+file system protocols, just as it is necessary to run several
 different network protocols.
 .PP
 As network or remote file systems have been implemented for UNIX,
@@ -342,7 +342,7 @@ and having selected a different set of file system primitive operations.
 Our effort in this area is aimed at providing a common framework to
 support these different distributed file systems simultaneously rather than to
 simply implement yet another protocol.
-This requires a detailed study of the existing protocols, 
+This requires a detailed study of the existing protocols,
 and discussion with their implementors to determine whether
 they could modify their implementation to fit within our proposed
 framework.  We have studied the various file system interfaces to determine
@@ -367,7 +367,7 @@ weaknesses in the system access mechanisms, rather than actively
 searching for possible weaknesses.
 When we are notified of a problem or loophole in a system utility
 by one of our users,
-we have a well defined procedure for fixing the problem and 
+we have a well defined procedure for fixing the problem and
 expeditiously disseminating the fix to the BSD mailing list.
 This procedure has proven itself to be effective in
 solving known problems as they arise

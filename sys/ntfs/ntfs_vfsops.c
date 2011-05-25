@@ -85,7 +85,7 @@ static int	ntfs_sync __P((struct mount *, int, struct ucred *,
 static int	ntfs_unmount __P((struct mount *, int, struct proc *));
 static int	ntfs_vget __P((struct mount *mp, ino_t ino,
 			       struct vnode **vpp));
-static int	ntfs_mountfs __P((register struct vnode *, struct mount *, 
+static int	ntfs_mountfs __P((register struct vnode *, struct mount *,
 				  struct ntfs_args *, struct proc *));
 static int	ntfs_vptofh __P((struct vnode *, struct fid *));
 
@@ -216,7 +216,7 @@ ntfs_init (
 #endif /* NetBSD */
 
 static int
-ntfs_mount ( 
+ntfs_mount (
 	struct mount *mp,
 #if defined(__FreeBSD__)
 	char *path,
@@ -243,7 +243,7 @@ ntfs_mount (
 		 * Mounting root file system
 		 ***
 		 */
-	
+
 		/* Get vnode for root device*/
 		if( bdevvp( rootdev, &rootvp))
 			panic("ffs_mountroot: can't setup bdevvp for root");
@@ -497,9 +497,9 @@ ntfs_mountfs(devvp, mp, argsp, p)
 		ntmp->ntm_uid, ntmp->ntm_gid, ntmp->ntm_mode));
 
 	/*
-	 * We read in some system nodes to do not allow 
+	 * We read in some system nodes to do not allow
 	 * reclaim them and to have everytime access to them.
-	 */ 
+	 */
 	{
 		int pi[3] = { NTFS_MFTINO, NTFS_ROOTINO, NTFS_BITMAPINO };
 		for (i=0; i<3; i++) {
@@ -526,7 +526,7 @@ ntfs_mountfs(devvp, mp, argsp, p)
 
 	/*
 	 * Read and translate to internal format attribute
-	 * definition file. 
+	 * definition file.
 	 */
 	{
 		int num,j;
@@ -534,7 +534,7 @@ ntfs_mountfs(devvp, mp, argsp, p)
 
 		/* Open $AttrDef */
 		error = VFS_VGET(mp, NTFS_ATTRDEFINO, &vp );
-		if(error) 
+		if(error)
 			goto out1;
 
 		/* Count valid entries */
@@ -607,7 +607,7 @@ out:
 #else
 	(void)VOP_CLOSE(devvp, ronly ? FREAD : FREAD|FWRITE, NOCRED, p);
 #endif
-	
+
 	return (error);
 }
 
@@ -621,7 +621,7 @@ ntfs_start (
 }
 
 static int
-ntfs_unmount( 
+ntfs_unmount(
 	struct mount *mp,
 	int mntflags,
 	struct proc *p)
@@ -645,7 +645,7 @@ ntfs_unmount(
 
 	/* Check if only system vnodes are rest */
 	for(i=0;i<NTFS_SYSNODESNUM;i++)
-		 if((ntmp->ntm_sysvn[i]) && 
+		 if((ntmp->ntm_sysvn[i]) &&
 		    (ntmp->ntm_sysvn[i]->v_usecount > 1)) return (EBUSY);
 
 	/* Dereference all system vnodes */
@@ -711,7 +711,7 @@ ntfs_root(
 }
 
 static int
-ntfs_quotactl ( 
+ntfs_quotactl (
 	struct mount *mp,
 	int cmds,
 	uid_t uid,
@@ -792,7 +792,7 @@ ntfs_statfs(
 #ifdef __NetBSD__
 	strncpy(sbp->f_fstypename, mp->mnt_op->vfs_name, MFSNAMELEN);
 #endif
-	
+
 	return (0);
 }
 
@@ -881,7 +881,7 @@ ntfs_vgetex(
 	u_long lkflags,
 	u_long flags,
 	struct proc *p,
-	struct vnode **vpp) 
+	struct vnode **vpp)
 {
 	int error;
 	register struct ntfsmount *ntmp;
@@ -930,9 +930,9 @@ ntfs_vgetex(
 			f_type = VNON;
 			fp->f_size = fp->f_allocated = 0;
 		} else {
-			f_type = VREG;	
+			f_type = VREG;
 
-			error = ntfs_filesize(ntmp, fp, 
+			error = ntfs_filesize(ntmp, fp,
 					      &fp->f_size, &fp->f_allocated);
 			if (error) {
 				ntfs_ntput(ip);
@@ -981,14 +981,14 @@ ntfs_vgetex(
 	VREF(ip->i_devvp);
 	*vpp = vp;
 	return (0);
-	
+
 }
 
 static int
 ntfs_vget(
 	struct mount *mp,
 	ino_t ino,
-	struct vnode **vpp) 
+	struct vnode **vpp)
 {
 	return ntfs_vgetex(mp, ino, NTFS_A_DATA, NULL,
 			LK_EXCLUSIVE | LK_RETRY, 0, curproc, vpp); /* XXX */

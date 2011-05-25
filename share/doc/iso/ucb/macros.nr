@@ -1,14 +1,14 @@
 .\"	$NetBSD: macros.nr,v 1.2 1998/01/09 06:34:32 perry Exp $
 .\"
-.\"	
+.\"
 .\" Macro to initialize chapter macros
-.\"	
+.\"
 .de IC
 .nr CN 0 1
 ..
-.\"	
+.\"
 .\" Macro to begin new chapter
-.\"	
+.\"
 .de NC
 .he 'ARGO user\'s Guide, Berkeley Hack Job''Chapter \\n+(CN'
 .bp
@@ -25,20 +25,20 @@ Chapter \\n(CN     \\$1
 .)x
 .sz -2
 ..
-.\"	
+.\"
 .\"	Figure conventions:
 .\"	1) do .so of figure source - figure reg incremented here
 .\"	2) make references to figure via CF
-.\"	
-.\"	
+.\"
+.\"
 .\"	Macro to initialize figure register
-.\"	
+.\"
 .de IF
 .nr FG 0 1
 ..
-.\"	
+.\"
 .\"	Macro for current figure number
-.\"	
+.\"
 .de CF
 Figure \\n(FG
 ..

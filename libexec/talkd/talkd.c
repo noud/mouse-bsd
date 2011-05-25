@@ -49,7 +49,7 @@ __RCSID("$NetBSD: talkd.c,v 1.10 1998/07/06 06:49:16 mrg Exp $");
 
 /*
  * The top level of the daemon, the format is heavily borrowed
- * from rwhod.c. Basically: find out who and where you are; 
+ * from rwhod.c. Basically: find out who and where you are;
  * disconnect all descriptors and ttys, and then endless
  * loop on waiting for and processing requests
  */

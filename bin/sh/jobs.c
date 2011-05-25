@@ -298,10 +298,10 @@ showjobs(change)
 		procno = jp->nprocs;
 		for (ps = jp->ps ; ; ps++) {	/* for each process */
 			if (ps == jp->ps)
-				fmtstr(s, 64, "[%d] %ld ", jobno, 
+				fmtstr(s, 64, "[%d] %ld ", jobno,
 				    (long)ps->pid);
 			else
-				fmtstr(s, 64, "    %ld ", 
+				fmtstr(s, 64, "    %ld ",
 				    (long)ps->pid);
 			out1str(s);
 			col = strlen(s);
@@ -309,11 +309,11 @@ showjobs(change)
 			if (ps->status == -1) {
 				/* don't print anything */
 			} else if (WIFEXITED(ps->status)) {
-				fmtstr(s, 64, "Exit %d", 
+				fmtstr(s, 64, "Exit %d",
 				       WEXITSTATUS(ps->status));
 			} else {
 #if JOBS
-				if (WIFSTOPPED(ps->status)) 
+				if (WIFSTOPPED(ps->status))
 					i = WSTOPSIG(ps->status);
 				else /* WIFSIGNALED(ps->status) */
 #endif
@@ -837,7 +837,7 @@ dowait(block, job)
 			out2c('\n');
 			flushout(&errout);
 		} else {
-			TRACE(("Not printing status: status=%d, sig=%d\n", 
+			TRACE(("Not printing status: status=%d, sig=%d\n",
 			       status, sig));
 		}
 	} else {

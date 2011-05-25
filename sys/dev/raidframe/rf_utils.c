@@ -59,7 +59,7 @@ rf_make_2d_array(b, k, allocList)
 	return (retval);
 }
 
-void 
+void
 rf_free_2d_array(a, b, k)
 	RF_RowCol_t **a;
 	int     b;
@@ -86,7 +86,7 @@ rf_make_1d_array(c, allocList)
 	return (retval);
 }
 
-void 
+void
 rf_free_1d_array(a, n)
 	RF_RowCol_t *a;
 	int     n;
@@ -96,7 +96,7 @@ rf_free_1d_array(a, n)
 /* Euclid's algorithm:  finds and returns the greatest common divisor
  * between a and b.     (MCH)
  */
-int 
+int
 rf_gcd(m, n)
 	int     m;
 	int     n;
@@ -120,7 +120,7 @@ rf_gcd(m, n)
 #define HC2INT(x)    ( ((x) >= 'a' && (x) <= 'f') ? (x) - 'a' + 10 :                    \
 		       ( ((x) >= 'A' && (x) <= 'F') ? (x) - 'A' + 10 : (x - '0') ) )
 
-int 
+int
 rf_atoi(p)
 	char   *p;
 {
@@ -135,7 +135,7 @@ rf_atoi(p)
 	return ((negate) ? -val : val);
 }
 
-int 
+int
 rf_htoi(p)
 	char   *p;
 {

@@ -61,7 +61,7 @@ extern struct target_ops child_ops;
 
 static void child_stop PARAMS ((void));
 
-/* The most recently read context. Inspect ContextFlags to see what 
+/* The most recently read context. Inspect ContextFlags to see what
    bits are valid. */
 
 static CONTEXT context;
@@ -86,9 +86,9 @@ static int debug_memory = 0;		/* show target memory accesses */
 static int debug_exceptions = 0;	/* show target exceptions */
 
 /* This vector maps GDB's idea of a register's number into an address
-   in the win32 exception context vector. 
+   in the win32 exception context vector.
 
-   It also contains the bit mask needed to load the register in question.  
+   It also contains the bit mask needed to load the register in question.
 
    One day we could read a reg, we could inspect the context we
    already have loaded, if it doesn't have the bit set that we need,
@@ -234,7 +234,7 @@ static const struct xlate_exception
   {EXCEPTION_SINGLE_STEP, TARGET_SIGNAL_TRAP},
   {-1, -1}};
 
-static void 
+static void
 check (BOOL ok, const char *file, int line)
 {
   if (!ok)
@@ -285,7 +285,7 @@ handle_load_dll (char *eventp)
 		     (char *) &dll_name_ptr,
 		     sizeof (dll_name_ptr), &done);
 
-  /* See if we could read the address of a string, and that the 
+  /* See if we could read the address of a string, and that the
      address isn't null. */
 
   if (done == sizeof (dll_name_ptr) && dll_name_ptr)
@@ -334,22 +334,22 @@ handle_load_dll (char *eventp)
       /* FIXME: Can we delete this call?  */
       cygwin32_conv_to_posix_path (dll_name, unix_dll_name);
 
-      /* FIXME!! It would be nice to define one symbol which pointed to the 
+      /* FIXME!! It would be nice to define one symbol which pointed to the
          front of the dll if we can't find any symbols. */
 
        if (!(dll_basename = strrchr(dll_name, '\\')))
  	dll_basename = strrchr(dll_name, '/');
- 
-       ALL_OBJFILES(objfile) 
+
+       ALL_OBJFILES(objfile)
  	{
  	  char *objfile_basename;
  	  if (!(objfile_basename = strrchr(objfile->name, '\\')))
  	    objfile_basename = strrchr(objfile->name, '/');
- 
+
  	  if (dll_basename && objfile_basename &&
  	      strcmp(dll_basename+1, objfile_basename+1) == 0)
  	    {
- 	      printf_unfiltered ("%s (symbols previously loaded)\n", 
+ 	      printf_unfiltered ("%s (symbols previously loaded)\n",
  				 dll_basename + 1);
  	      return 1;
  	    }
@@ -360,15 +360,15 @@ handle_load_dll (char *eventp)
 
       /* The symbols in a dll are offset by 0x1000, which is the
 	 the offset from 0 of the first byte in an image - because
-	 of the file header and the section alignment. 
-	 
+	 of the file header and the section alignment.
+
 	 FIXME: Is this the real reason that we need the 0x1000 ? */
 
 
       symbol_file_add (unix_dll_name, 0,
 		       (int) event->u.LoadDll.lpBaseOfDll + 0x1000, 0, 0, 0);
 
-      printf_unfiltered ("%x:%s\n", event->u.LoadDll.lpBaseOfDll, 
+      printf_unfiltered ("%x:%s\n", event->u.LoadDll.lpBaseOfDll,
 			 unix_dll_name);
     }
   return 1;
@@ -383,7 +383,7 @@ handle_exception (DEBUG_EVENT * event, struct target_waitstatus *ourstatus)
   ourstatus->kind = TARGET_WAITKIND_STOPPED;
 
 
-  switch (event->u.Exception.ExceptionRecord.ExceptionCode) 
+  switch (event->u.Exception.ExceptionRecord.ExceptionCode)
     {
     case EXCEPTION_ACCESS_VIOLATION:
       DEBUG_EXCEPT (("gdb: Target exception ACCESS_VIOLATION at 0x%08x\n",
@@ -455,7 +455,7 @@ child_wait (int pid, struct target_waitstatus *ourstatus)
       switch (event.dwDebugEventCode)
 	{
 	case CREATE_THREAD_DEBUG_EVENT:
-	  DEBUG_EVENTS (("gdb: kernel event for pid=%d tid=%d code=%s)\n", 
+	  DEBUG_EVENTS (("gdb: kernel event for pid=%d tid=%d code=%s)\n",
 			event.dwProcessId, event.dwThreadId,
 			"CREATE_THREAD_DEBUG_EVENT"));
 	  break;
@@ -510,7 +510,7 @@ child_wait (int pid, struct target_waitstatus *ourstatus)
 			event.dwProcessId, event.dwThreadId,
 			"OUTPUT_DEBUG_STRING_EVENT"));
 	  if (target_read_string
-	      ((CORE_ADDR) event.u.DebugString.lpDebugStringData, 
+	      ((CORE_ADDR) event.u.DebugString.lpDebugStringData,
 	       &p, 1024, 0) && p && *p)
 	    {
 	      warning(p);
@@ -643,7 +643,7 @@ child_create_inferior (exec_file, allargs, env)
 
   cygwin32_conv_to_win32_path (exec_file, real_path);
 
-  flags = DEBUG_ONLY_THIS_PROCESS; 
+  flags = DEBUG_ONLY_THIS_PROCESS;
 
   if (new_group)
     flags |= CREATE_NEW_PROCESS_GROUP;
@@ -702,7 +702,7 @@ child_create_inferior (exec_file, allargs, env)
     winenv = alloca (envlen + 1);
 
     /* Copy env strings into new buffer.  */
-    for (temp = winenv, i = 0; env[i] && *env[i]; i++) 
+    for (temp = winenv, i = 0; env[i] && *env[i]; i++)
       {
 	int j, len;
 
@@ -811,7 +811,7 @@ void
 child_kill_inferior (void)
 {
   CHECK (TerminateProcess (current_process, 0));
-  
+
   for (;;)
     {
       DEBUG_EVENT event;
@@ -835,7 +835,7 @@ child_kill_inferior (void)
 void
 child_resume (int pid, int step, enum target_signal signal)
 {
-  DEBUG_EXEC (("gdb: child_resume (pid=%d, step=%d, signal=%d);\n", 
+  DEBUG_EXEC (("gdb: child_resume (pid=%d, step=%d, signal=%d);\n",
 	       pid, step, signal));
 
   if (step)

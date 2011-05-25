@@ -1,5 +1,5 @@
 /*	$NetBSD: fraglist.S,v 1.2 1999/01/22 22:43:44 thorpej Exp $	*/
-	
+
 /*
  * Copyright (c) 1996
  *	Matthias Drochner.  All rights reserved.

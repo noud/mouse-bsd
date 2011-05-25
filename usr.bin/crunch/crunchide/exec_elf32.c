@@ -34,7 +34,7 @@
 #ifndef lint
 __RCSID("$NetBSD: exec_elf32.c,v 1.10 1999/11/04 02:00:18 erh Exp $");
 #endif
- 
+
 #ifndef ELFSIZE
 #define ELFSIZE         32
 #endif
@@ -296,7 +296,7 @@ ELFNAMEEND(hide)(int fd, const char *fn)
 			    "_$$hide$$ %s %s", fn, symname) + 1;
 		}
 		nstrtab_nextoff += newent_len;
-	}	
+	}
 	shdrp[strtabsnum].sh_size = nstrtab_nextoff;
 
 	/*

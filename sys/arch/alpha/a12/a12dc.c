@@ -38,21 +38,21 @@
 /*
  * The A12 uses what DEC calls a "detached console", i.e., some of the console
  * implementation is on a dedicated processor with its own RAM.
- * 
+ *
  * The A12 Detached Console interface uses two 16 bit registers (per CPU), one
  * going from the CPU to the a12ctrl processor and one going back the other
  * way. The first is polled, the second produces a GInt.
- * 
+ *
  * In the very early days we loaded program images through this interface.
- * 
+ *
  * Consequently, it developed an overly complicated (but sort of fast)
  * inverting sync/ack that isn't needed at all for its present application as
  * a text console device.
- * 
+ *
  * One possible solution: most of the channels are undefined, so a console
  * channel using a stateless ack could be defined, with corresponding changes
  * to the backplane 68360 code.
- * 
+ *
  * This file is complicated somewhat by its use in three different kernels:
  * NetBSD, the A12 CPU-resident console, and the a12ctrl backplane processor.
  * (The protocol is symmetrical.)
@@ -255,7 +255,7 @@ a12dcopen(dev, flag, mode, p)
 	int unit = minor(dev);
 	struct tty *tp;
 	int s;
- 
+
 	if (unit >= 1)
 		return ENXIO;
 
@@ -301,7 +301,7 @@ a12dcopen(dev, flag, mode, p)
 
 	return (*linesw[tp->t_line].l_open)(dev, tp);
 }
- 
+
 int
 a12dcclose(dev, flag, mode, p)
 	dev_t dev;
@@ -315,7 +315,7 @@ a12dcclose(dev, flag, mode, p)
 	ttyclose(tp);
 	return 0;
 }
- 
+
 int
 a12dcread(dev, uio, flag)
 	dev_t dev;
@@ -326,7 +326,7 @@ a12dcread(dev, uio, flag)
 
 	return ((*linesw[tp->t_line].l_read)(tp, uio, flag));
 }
- 
+
 int
 a12dcwrite(dev, uio, flag)
 	dev_t dev;
@@ -334,10 +334,10 @@ a12dcwrite(dev, uio, flag)
 	int flag;
 {
 	struct tty *tp = a12dc_tty[minor(dev)];
- 
+
 	return ((*linesw[tp->t_line].l_write)(tp, uio, flag));
 }
- 
+
 int
 a12dcioctl(dev, cmd, data, flag, p)
 	dev_t dev;
@@ -533,7 +533,7 @@ check_cdr()
                 SerialByteReceived(bpchar);
                 break;
             case CHANNEL_MONITOR:
-		if (bpchar == CPX_PANIC) 
+		if (bpchar == CPX_PANIC)
 			/* TJF - Could kill all processes and then panic? */
 			hrhpanic("Panic in cooperating CPU.",0);
 		else 	cpxchar(bpchar);

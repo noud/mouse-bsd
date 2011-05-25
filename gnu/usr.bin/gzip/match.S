@@ -8,7 +8,7 @@
  * Andreas Schwab <schwab@lamothe.informatik.uni-dortmund.de> and
  * Kristoffer Eriksson <ske@pkmab.se>
  */
- 
+
 /* $Id: match.S,v 1.7 1999/11/10 16:54:10 thorpej Exp $ */
 
 /* Preprocess with -DNO_UNDERLINE if your C compiler does not prefix

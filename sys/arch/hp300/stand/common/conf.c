@@ -187,7 +187,7 @@ int	nfsys = 1;		/* we always know which one we want */
 
 /*
  * Inititalize controllers
- * 
+ *
  * XXX this should be a table
  */
 void ctlrinit()

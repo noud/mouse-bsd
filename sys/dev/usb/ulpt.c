@@ -164,7 +164,7 @@ USB_MATCH(ulpt)
 {
 	USB_MATCH_START(ulpt, uaa);
 	usb_interface_descriptor_t *id;
-	
+
 	DPRINTFN(10,("ulpt_match\n"));
 	if (uaa->iface == NULL)
 		return (UMATCH_NONE);
@@ -187,7 +187,7 @@ USB_ATTACH(ulpt)
 	char devinfo[1024];
 	usb_endpoint_descriptor_t *ed;
 	usbd_status err;
-	
+
 	DPRINTFN(10,("ulpt_attach: sc=%p\n", sc));
 	usbd_devinfo(dev, 0, devinfo);
 	USB_ATTACH_SETUP;
@@ -513,7 +513,7 @@ ulpt_do_write(sc, uio, flags)
 		if (error)
 			break;
 		DPRINTFN(1, ("ulptwrite: transfer %d bytes\n", n));
-		err = usbd_bulk_transfer(xfer, sc->sc_bulkpipe, USBD_NO_COPY, 
+		err = usbd_bulk_transfer(xfer, sc->sc_bulkpipe, USBD_NO_COPY,
 			  USBD_NO_TIMEOUT, bufp, &n, "ulptwr");
 		if (err) {
 			DPRINTF(("ulptwrite: error=%d\n", err));

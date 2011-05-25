@@ -56,7 +56,7 @@ __RCSID("$NetBSD: mopd.c,v 1.6 1999/06/06 03:21:43 thorpej Exp $");
 #include <util.h>
 
 /*
- * The list of all interfaces that are being listened to. 
+ * The list of all interfaces that are being listened to.
  * "selects" on the descriptors in this list.
  */
 struct if_info *iflist;
@@ -109,7 +109,7 @@ main(argc, argv)
 				Usage();
 				/* NOTREACHED */
 		}
-	
+
 	if (VersionFlag) {
 		fprintf(stdout,"%s: version %s\n", __progname, version);
 		exit(0);
@@ -120,7 +120,7 @@ main(argc, argv)
 	if ((AllFlag && interface) ||
 	    (!AllFlag && interface == 0) ||
 	    (argc > optind) ||
-	    (Not3Flag && Not4Flag))  
+	    (Not3Flag && Not4Flag))
 		Usage();
 
 	/* All error reporting is done through syslogs. */
@@ -195,7 +195,7 @@ mopProcess(ii, pkt)
 	/*
 	 * Ignore our own transmissions
 	 *
-	 */	
+	 */
 	if (mopCmpEAddr(ii->eaddr,src) == 0)
 		return;
 

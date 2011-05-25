@@ -12,8 +12,8 @@ unsigned char kernel_font_baseline_8x8 = 6;
 unsigned char kernel_font_lo_8x8 = 32;
 unsigned char kernel_font_hi_8x8 = 255;
 
-unsigned char kernel_cursor_8x8[] = { 
-	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff 
+unsigned char kernel_cursor_8x8[] = {
+	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
 };
 
 unsigned char kernel_font_8x8[] = {

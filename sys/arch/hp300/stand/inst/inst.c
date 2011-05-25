@@ -53,7 +53,7 @@
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement: 
+ *    must display the following acknowledgement:
  *	This product includes software developed at Ludd, University of
  *	Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products

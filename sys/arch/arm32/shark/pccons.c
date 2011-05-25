@@ -75,15 +75,15 @@
 
 /*
 **++
-** 
+**
 **  FACILITY:
 **
 **    Driver for keyboard and display for PC-style console device.
 **
 **  ABSTRACT:
 **
-**    The driver has been cleaned up a little as part of the StrongARM 
-**    porting work.  The main modifications have been to change the 
+**    The driver has been cleaned up a little as part of the StrongARM
+**    porting work.  The main modifications have been to change the
 **    driver to use the bus_space_ macros, re-organise the sget and sput
 **    mechanisms and utilise a more robust set of i8042 keybord controller
 **    routines which are now external to this module and also used by the
@@ -91,7 +91,7 @@
 **
 **  AUTHORS:
 **
-**    Unknown.  Modified by Patrick Crilly & John Court, 
+**    Unknown.  Modified by Patrick Crilly & John Court,
 **    Digital Equipment Corporation.
 **
 **  CREATION DATE:
@@ -177,7 +177,7 @@ extern int msgbufmapped;
 
 #define PCBURST 128
 
-/* Macro to extract the minor device number from the device identifier 
+/* Macro to extract the minor device number from the device identifier
 */
 #define PCUNIT(x)       (minor(x))
 
@@ -213,12 +213,12 @@ extern int msgbufmapped;
 #define KP              0x0200  /* Keypad keys */
 #define NONE            0x0400  /* no function */
 #define BREAKBIT        0x80    /* This bit used in XT scancodes to       */
-                                /* indicate the release of key.           */ 
+                                /* indicate the release of key.           */
 
 /*
 ** Softc structure for the pc device
 */
-struct pc_softc 
+struct pc_softc
 {
     struct device      sc_dev;
 #define SC_ASYNC_SCHEDULED   0x01 /* An update of keyboard and screen is    */
@@ -238,8 +238,8 @@ struct pc_softc
 	u_char             sc_old_typematic_rate;
 	bus_space_tag_t    sc_iot;           /* Kbd IO ports tag        */
 	bus_space_handle_t sc_ioh;           /* Kbd IO ports handle     */
-    } kbd;     
-    struct  
+    } kbd;
+    struct
     {
 	int                cx, cy;           /* escape parameters       */
 	int                row, col;         /* current cursor position */
@@ -259,20 +259,20 @@ struct pc_softc
 /*
 ** Forward routine declarations
 */
-int                    pcprobe             __P((struct device *, 
-                                                struct cfdata *, 
+int                    pcprobe             __P((struct device *,
+                                                struct cfdata *,
                                                 void *));
 void                   pcattach            __P((struct device *,
-                                                struct device *, 
+                                                struct device *,
                                                 void *));
 int                    pcintr              __P((void *));
 char                   *sget               __P((struct pc_softc *));
 void                   sput                __P((struct pc_softc *,
-                                                u_char *, 
+                                                u_char *,
                                                 int,
                                                 u_char));
 void                   pcstart             __P((struct tty *));
-int                    pcparam             __P((struct tty *, 
+int                    pcparam             __P((struct tty *,
                                                 struct termios *));
 void                   set_cursor_shape    __P((struct pc_softc *));
 #ifdef XFREE86_BUG_COMPAT
@@ -337,14 +337,14 @@ static void            cga_save_restore    __P((int));
 #endif
 #endif
 
-/* 
-** Global variables 
+/*
+** Global variables
 */
 
 /*
 ** Data structures required by config
 */
-struct cfattach pc_ca = 
+struct cfattach pc_ca =
 {
     sizeof(struct pc_softc), pcprobe, pcattach
 };
@@ -353,13 +353,13 @@ extern struct cfdriver pc_cd;
 
 static unsigned int   addr_6845   = MONO_BASE;
 
-/* Define globals used when acting as console at boot time. 
+/* Define globals used when acting as console at boot time.
 */
 static struct pc_softc bootSoftc;
 static u_char          attachCompleted = FALSE;
 static u_char          actingConsole   = FALSE;
 
-/* Our default debug settings, when debug is compiled in via config option 
+/* Our default debug settings, when debug is compiled in via config option
 ** KERNEL_DEBUG that is.
 */
 int                    pcdebug         = KERN_DEBUG_ERROR | KERN_DEBUG_WARNING;
@@ -379,11 +379,11 @@ static u_short old_cursor_shape = 0xffff;
 **    If the keyboard controller hasn't been reset then self-test the
 **    controller (this gets the controller going) and self-test the keyboard.
 **    Enable and reset the keyboard and then set the scan table in the
-**    keyboard controller. 
+**    keyboard controller.
 **
 **  FORMAL PARAMETERS:
 **
-**     iot    I/O tag for the mapped register space  
+**     iot    I/O tag for the mapped register space
 **     ioh    I/O handle for the mapped register space
 **
 **  IMPLICIT INPUTS:
@@ -401,37 +401,37 @@ static u_short old_cursor_shape = 0xffff;
 **
 **--
 */
-static int 
-kbd_init(bus_space_tag_t     iot, 
+static int
+kbd_init(bus_space_tag_t     iot,
          bus_space_handle_t  ioh)
 {
     int status = 1;
     u_char value = 0;	/* XXX */
-    
-    /* Perfrom a controller reset if this is a cold reset happening 
+
+    /* Perfrom a controller reset if this is a cold reset happening
     */
     if (!I8042_WARM(iot, ioh))
     {
         /*
-        ** Perform an internal 8042 controller test. 
+        ** Perform an internal 8042 controller test.
         */
         if (I8042_SELFTEST(iot, ioh))
         {
             /*
             ** Perform a keyboard interface test.  This causes the controller
-            ** to test the keyboard clock and data lines.  
+            ** to test the keyboard clock and data lines.
             */
             if (!I8042_KBDTEST(iot, ioh))
             {
                 status = 0;
-                KERN_DEBUG( pcdebug, KERN_DEBUG_ERROR, 
+                KERN_DEBUG( pcdebug, KERN_DEBUG_ERROR,
                            ("kbd_int: keyboard failed self test\n"));
             }
         }
-        else    
+        else
         {
             status = 0;
-            KERN_DEBUG(pcdebug, KERN_DEBUG_ERROR, 
+            KERN_DEBUG(pcdebug, KERN_DEBUG_ERROR,
                        ("kbd_init: 8042 controller failed self test.\n"));
         }
     } /* End if we need to do cold start self tests */
@@ -439,10 +439,10 @@ kbd_init(bus_space_tag_t     iot,
     */
     if (status && I8042_WRITECCB(iot, ioh, NOAUX_CMDBYTE))
     {
-        /* Flush any garbage. 
+        /* Flush any garbage.
         */
         i8042_flush(iot, ioh);
-        /* Reset the keyboard. 
+        /* Reset the keyboard.
         */
         I8042_KBDRESET(iot, ioh, status);
         if (status)
@@ -453,52 +453,52 @@ kbd_init(bus_space_tag_t     iot,
             ** flushing the buffer.
             */
             i8042_flush(iot, ioh);
-            /* Send the keyboard physical device an enable command. 
+            /* Send the keyboard physical device an enable command.
             */
-            if (i8042_cmd(iot, ioh, I8042_KBD_CMD, 
+            if (i8042_cmd(iot, ioh, I8042_KBD_CMD,
                               I8042_CHECK_RESPONSE, KBR_ACK, KBC_ENABLE))
             {
                 /*
                 ** Some keyboard/8042 combinations do not seem to work if
-                ** the keyboard is set to table 1; in fact, it would appear 
-                ** that some keyboards just ignore the command altogether.  
-                ** So by default, we use the AT scan codes and have the 
-                ** 8042 translate them.  Unfortunately, this is known to not 
+                ** the keyboard is set to table 1; in fact, it would appear
+                ** that some keyboards just ignore the command altogether.
+                ** So by default, we use the AT scan codes and have the
+                ** 8042 translate them.  Unfortunately, this is known to not
                 ** work on some PS/2 machines.  We try desparately to deal
-                ** with this by checking the (lack of a) translate bit 
+                ** with this by checking the (lack of a) translate bit
                 ** in the 8042 and attempting to set the keyboard to XT mode.
                 ** If this all fails, well, tough luck.
                 **
-                ** XXX It would perhaps be a better choice to just use AT 
+                ** XXX It would perhaps be a better choice to just use AT
                 ** scan codes and not bother with this.
                 */
                 I8042_READCCB(iot, ioh, status, value);
                 if (status && (value & KC8_TRANS))
                 {
-                    /* The 8042 is translating for us; use AT codes. 
+                    /* The 8042 is translating for us; use AT codes.
                     */
-                    if (!i8042_cmd(iot, ioh, I8042_KBD_CMD, 
-                                       I8042_CHECK_RESPONSE, KBR_ACK, 
-                                       KBC_SETTABLE) 
-                        || !i8042_cmd(iot, ioh, I8042_KBD_CMD, 
-                                          I8042_CHECK_RESPONSE, KBR_ACK, 
-                                          2)) 
+                    if (!i8042_cmd(iot, ioh, I8042_KBD_CMD,
+                                       I8042_CHECK_RESPONSE, KBR_ACK,
+                                       KBC_SETTABLE)
+                        || !i8042_cmd(iot, ioh, I8042_KBD_CMD,
+                                          I8042_CHECK_RESPONSE, KBR_ACK,
+                                          2))
                     {
                         status = 0;
                         KERN_DEBUG( pcdebug, KERN_DEBUG_ERROR,
                                    ("kbdinit: failed to scan table\n"));
                     }
-                } 
-                else 
+                }
+                else
                 {
-                    /* Stupid 8042; set keyboard to XT codes. 
+                    /* Stupid 8042; set keyboard to XT codes.
                     */
                     if ( !i8042_cmd(iot, ioh, I8042_KBD_CMD,
-                                        I8042_CHECK_RESPONSE, KBR_ACK, 
-                                        KBC_SETTABLE) 
+                                        I8042_CHECK_RESPONSE, KBR_ACK,
+                                        KBC_SETTABLE)
                         || !i8042_cmd(iot, ioh, I8042_KBD_CMD,
                                           I8042_CHECK_RESPONSE, KBR_ACK,
-                                          1) ) 
+                                          1) )
                     {
                         status = 0;
                         KERN_DEBUG( pcdebug, KERN_DEBUG_ERROR,
@@ -521,7 +521,7 @@ kbd_init(bus_space_tag_t     iot,
     } /* End if able to write to CCB and cold self tests worked */
     else
     {
-        KERN_DEBUG( pcdebug, KERN_DEBUG_ERROR, 
+        KERN_DEBUG( pcdebug, KERN_DEBUG_ERROR,
                    ("kdb_init: keyboard failed enable or keyboard self "
                     " tests failed. Status = 0x%x\n", status));
         status = 0;
@@ -545,7 +545,7 @@ kbd_init(bus_space_tag_t     iot,
 **
 **  IMPLICIT INPUTS:
 **
-**     addr_6845    -  Base adddress of the video registers 
+**     addr_6845    -  Base adddress of the video registers
 **
 **  IMPLICIT OUTPUTS:
 **
@@ -554,7 +554,7 @@ kbd_init(bus_space_tag_t     iot,
 **  FUNCTION VALUE:
 **
 **     none
-** 
+**
 **
 **--
 */
@@ -563,11 +563,11 @@ set_cursor_shape(struct pc_softc *sc)
 {
     register int iobase = addr_6845;
 
-    /* Write to the start of cursor register */ 
+    /* Write to the start of cursor register */
     outb(iobase, 10);
     outb(iobase+1, cursor_shape >> 8);
 
-    /* Write to the end of cursor register */ 
+    /* Write to the end of cursor register */
     outb(iobase, 11);
     outb(iobase+1, cursor_shape);
 
@@ -593,7 +593,7 @@ set_cursor_shape(struct pc_softc *sc)
 **
 **  IMPLICIT INPUTS:
 **
-**     addr_6845    -  Base adddress of the video registers 
+**     addr_6845    -  Base adddress of the video registers
 **
 **  IMPLICIT OUTPUTS:
 **
@@ -609,15 +609,15 @@ void
 get_cursor_shape(struct pc_softc *sc)
 {
     register int iobase = addr_6845;
-    
-    /* Read from the start of cursor register */ 
+
+    /* Read from the start of cursor register */
     outb(iobase, 10);
     cursor_shape = inb(iobase+1) << 8;
 
-    /* Read from the end of cursor register */ 
+    /* Read from the end of cursor register */
     outb(iobase, 11);
     cursor_shape |= inb(iobase+1);
-    
+
     /*
      * real 6845's, as found on, MDA, Hercules or CGA cards, do
      * not support reading the cursor shape registers. the 6845
@@ -646,9 +646,9 @@ get_cursor_shape(struct pc_softc *sc)
 **     do_aysnc_update
 **
 **    This function is called to update "output" of the console device.
-**    If either the leds or the typematic rate of the keyboard have 
+**    If either the leds or the typematic rate of the keyboard have
 **    been modified they are updated.  If the cursor has moved
-**    its position on the screen it is updated.   
+**    its position on the screen it is updated.
 **
 **  FORMAL PARAMETERS:
 **
@@ -665,70 +665,70 @@ get_cursor_shape(struct pc_softc *sc)
 **  FUNCTION VALUE:
 **
 **   none.
-** 
+**
 **--
 */
 void
 do_async_update(void *arg)
 {
     struct pc_softc *sc = arg;
-    u_char poll         = (sc->sc_flags & SC_POLLING) ? 
+    u_char poll         = (sc->sc_flags & SC_POLLING) ?
                           I8042_CHECK_RESPONSE : I8042_NO_RESPONSE;
     int pos;
     static int old_pos = -1;
-    
+
     /* Turn off the async scheduled flag as we are it
     */
     sc->sc_flags &= ~SC_ASYNC_SCHEDULED;
-    /* Update the leds on the keyboard if they have changed. 
+    /* Update the leds on the keyboard if they have changed.
     */
-    if (sc->kbd.sc_new_lock_state != sc->kbd.sc_old_lock_state) 
+    if (sc->kbd.sc_new_lock_state != sc->kbd.sc_old_lock_state)
     {
         sc->kbd.sc_old_lock_state = sc->kbd.sc_new_lock_state;
         if (!i8042_cmd(sc->kbd.sc_iot, sc->kbd.sc_ioh, I8042_KBD_CMD, poll,
                            KBR_ACK, KBC_MODEIND) ||
             !i8042_cmd(sc->kbd.sc_iot, sc->kbd.sc_ioh, I8042_KBD_CMD, poll,
-                           KBR_ACK, sc->kbd.sc_new_lock_state) ) 
+                           KBR_ACK, sc->kbd.sc_new_lock_state) )
         {
             KERN_DEBUG( pcdebug, KERN_DEBUG_WARNING,
                        ("pc: timeout updating leds\n"));
-            (void) i8042_cmd(sc->kbd.sc_iot, sc->kbd.sc_ioh, I8042_KBD_CMD, 
+            (void) i8042_cmd(sc->kbd.sc_iot, sc->kbd.sc_ioh, I8042_KBD_CMD,
                                  poll, KBR_ACK, KBC_ENABLE);
         }
     }
     /* Update the keyboard typematic rate if it has changed.
     */
-    if (sc->kbd.sc_new_typematic_rate != sc->kbd.sc_old_typematic_rate) 
+    if (sc->kbd.sc_new_typematic_rate != sc->kbd.sc_old_typematic_rate)
     {
         sc->kbd.sc_old_typematic_rate = sc->kbd.sc_new_typematic_rate;
         if (!i8042_cmd(sc->kbd.sc_iot, sc->kbd.sc_ioh, I8042_KBD_CMD, poll,
                            KBR_ACK, KBC_TYPEMATIC) ||
             !i8042_cmd(sc->kbd.sc_iot, sc->kbd.sc_ioh, I8042_KBD_CMD, poll,
-                           KBR_ACK, sc->kbd.sc_new_typematic_rate) ) 
+                           KBR_ACK, sc->kbd.sc_new_typematic_rate) )
         {
             KERN_DEBUG(pcdebug, KERN_DEBUG_WARNING,
                        ("pc: timeout updating typematic rate\n"));
-            (void) i8042_cmd(sc->kbd.sc_iot, sc->kbd.sc_ioh, I8042_KBD_CMD, 
+            (void) i8042_cmd(sc->kbd.sc_iot, sc->kbd.sc_ioh, I8042_KBD_CMD,
                                  poll, KBR_ACK, KBC_ENABLE);
         }
     }
-    
+
     if ( (sc->sc_flags & SC_XMODE) == 0 )
     {
-        /* Update position of cursor on screen 
+        /* Update position of cursor on screen
         */
         pos = crtat - Crtat;
-        if (pos != old_pos) 
+        if (pos != old_pos)
         {
             register int iobase = addr_6845;
-            
+
             outb(iobase, 14);
             outb(iobase+1, pos >> 8);
             outb(iobase, 15);
             outb(iobase+1, pos);
             old_pos = pos;
         }
-        
+
         if (cursor_shape != old_cursor_shape)
         {
             set_cursor_shape(sc);
@@ -750,7 +750,7 @@ do_async_update(void *arg)
 **    the console device.  If we've been called by the kernel or
 **    operating in polling mode, dequeue any scheduled update and
 **    peform the update by calling do_aysnc_update; otherwise
-**    if no update is currently queued, schedule a timeout to 
+**    if no update is currently queued, schedule a timeout to
 **    perform one.
 **
 **  FORMAL PARAMETERS:
@@ -774,21 +774,21 @@ void
 async_update(struct pc_softc *sc,
              u_char          nowait)
 {
-    
-    if (nowait || (sc->sc_flags & SC_POLLING)) 
+
+    if (nowait || (sc->sc_flags & SC_POLLING))
     {
         /* Untimeout any update already scheduled and force an update
         ** right now.
-        */ 
+        */
         if (sc->sc_flags & SC_ASYNC_SCHEDULED)
         {
             untimeout(do_async_update, NULL);
         }
         do_async_update(sc);
-    } 
+    }
     else if ((sc->sc_flags & SC_ASYNC_SCHEDULED) == 0)
     {
-        /* Schedule an update 
+        /* Schedule an update
         */
         sc->sc_flags |= SC_ASYNC_SCHEDULED;
         timeout(do_async_update, sc, 1);
@@ -802,24 +802,24 @@ async_update(struct pc_softc *sc,
 /*
 **++
 **  FUNCTIONAL DESCRIPTION:
-**     
+**
 **     pcprobe
 **
 **     This is the probe routine for the console device.   If the
 **     console device hasn't already been set up then the register
 **     space for the keyboard controller is mapped and the
 **     controller initialised.  The isa_atach_args is filled
-**     in with the size of keyboard's register space.     
+**     in with the size of keyboard's register space.
 **
 **  FORMAL PARAMETERS:
 **
 **     parent  - pointer to the parent device.
 **     match   - not used
 **     aux     - pointer to an isa_attach_args structure.
-**     
+**
 **  IMPLICIT INPUTS:
 **
-**     actingConsole - indicates whether the pc device is being used as 
+**     actingConsole - indicates whether the pc device is being used as
 **                     the console device.
 **
 **  IMPLICIT OUTPUTS:
@@ -829,7 +829,7 @@ async_update(struct pc_softc *sc,
 **  FUNCTION VALUE:
 **
 **     0 - Probe failed to find the requested device.
-**     1 - Probe sucessfully talked to the device. 
+**     1 - Probe sucessfully talked to the device.
 **
 **  SIDE EFFECTS:
 **
@@ -837,8 +837,8 @@ async_update(struct pc_softc *sc,
 **--
 */
 int
-pcprobe(struct device *parent, 
-        struct cfdata *match, 
+pcprobe(struct device *parent,
+        struct cfdata *match,
         void          *aux)
 {
     struct isa_attach_args    *ia = aux;
@@ -852,12 +852,12 @@ pcprobe(struct device *parent,
         iobase = ia->ia_iobase;
         iot    = ia->ia_iot;
 
-        /* Map register space 
+        /* Map register space
         */
-        if ( I8042_MAP(iot, iobase, ioh) == 0 ) 
+        if ( I8042_MAP(iot, iobase, ioh) == 0 )
         {
             /*
-            ** Initalise keyboard controller.  We don't fail the 
+            ** Initalise keyboard controller.  We don't fail the
             ** probe even if the init failed.  This allows the
             ** console device to be used even if a keyboard
             ** isn't connected.
@@ -865,18 +865,18 @@ pcprobe(struct device *parent,
             if (!kbd_init(iot, ioh))
             {
                 KERN_DEBUG(pcdebug, KERN_DEBUG_ERROR,
-                           ("pcprobe: failed to initialise keyboard\n"));  
+                           ("pcprobe: failed to initialise keyboard\n"));
 		probeOk = 0;
             }
-            I8042_UNMAP(iot, ioh); 
-        } 
+            I8042_UNMAP(iot, ioh);
+        }
         else
         {
             probeOk = 0;
         }
     } /* end-if keyboard not initialised for console */
-    /* 
-    ** Fill in the isa structure with the number of 
+    /*
+    ** Fill in the isa structure with the number of
     ** ports used and mapped memory size.
     */
     ia->ia_iosize = I8042_NPORTS;
@@ -905,7 +905,7 @@ pcprobe(struct device *parent,
 **
 **  IMPLICIT INPUTS:
 **
-**     actingConsole - indicates whether the pc device is being used as 
+**     actingConsole - indicates whether the pc device is being used as
 **                     the console device.
 **
 **  IMPLICIT OUTPUTS:
@@ -922,15 +922,15 @@ pcprobe(struct device *parent,
 **--
 */
 void
-pcattach(struct device   *parent, 
-         struct device   *self, 
+pcattach(struct device   *parent,
+         struct device   *self,
          void            *aux)
 {
     struct pc_softc            *sc = (void *)self;
     struct isa_attach_args     *ia = aux;
     int                        iobase;
 
-    /* 
+    /*
     ** If the keyboard isn't being used as a console device,
     ** map the register space.
     */
@@ -987,7 +987,7 @@ pcattach(struct device   *parent,
         sc->kbd.sc_ioh                = bootSoftc.kbd.sc_ioh;
 	/* Copy across the video state as well.
 	*/
-	sc->vs.cx    = bootSoftc.vs.cx; 
+	sc->vs.cx    = bootSoftc.vs.cx;
 	sc->vs.cy    = bootSoftc.vs.cy;
 	sc->vs.row   = bootSoftc.vs.row;
         sc->vs.col   = bootSoftc.vs.col;
@@ -1001,23 +1001,23 @@ pcattach(struct device   *parent,
         sc->vs.so_at = bootSoftc.vs.so_at;
     }
 
-    /* At this point the softc is set up "enough" and want to swap console 
+    /* At this point the softc is set up "enough" and want to swap console
     ** functionality to use that standard interface.
     **
     ** THIS MUST BE DONE BEFORE ANY MORE OUTPUT IS DONE.
     */
     attachCompleted = TRUE;
 
-    /* Update screen 
+    /* Update screen
     */
     printf(": %s\n", sc->vs.color ? "color" : "mono");
 
     do_async_update(sc);
-    /* Set up keyboard controller interrupt 
+    /* Set up keyboard controller interrupt
     */
     sc->kbd.sc_ih = isa_intr_establish(ia->ia_ic, ia->ia_irq, IST_LEVEL,
 				       IPL_TTY, pcintr, sc);
-    /* 
+    /*
     ** Pass child devices our io handle so they can use
     ** the same io space as the keyboard.
     */
@@ -1029,7 +1029,7 @@ pcattach(struct device   *parent,
     /*
     ** Search for and configure any child devices.
     */
-    while (config_found(self, ia, NULL) != NULL)        
+    while (config_found(self, ia, NULL) != NULL)
         /* will break when no more children */ ;
 } /* End pcattach() */
 
@@ -1041,11 +1041,11 @@ pcattach(struct device   *parent,
 **
 **     pcopen
 **
-**     This routine is to open the console device.  It first makes 
-**     sure that the device unit specified is valid and not already 
+**     This routine is to open the console device.  It first makes
+**     sure that the device unit specified is valid and not already
 **     in use.  A tty structure is allocated if one hasn't been
 **     already.  It then sets up the tty flags and calls the line
-**     disciplines open routine. 
+**     disciplines open routine.
 **
 **  FORMAL PARAMETERS:
 **
@@ -1064,12 +1064,12 @@ pcattach(struct device   *parent,
 **
 **  FUNCTION VALUE:
 **
-**     Returns an errno value on error.  This is either the error 
+**     Returns an errno value on error.  This is either the error
 **     error returned by the line discipline or one of the
 **     following errnos.
 **
 **     ENXIO   - invalid device specified for open.
-**     EBUSY   - The unit is already opened for exclusive use and the 
+**     EBUSY   - The unit is already opened for exclusive use and the
 **               current requestor is NOT root.
 **
 **  SIDE EFFECTS:
@@ -1078,20 +1078,20 @@ pcattach(struct device   *parent,
 **--
 */
 int
-pcopen(dev_t       dev, 
-       int         flag, 
-       int         mode, 
+pcopen(dev_t       dev,
+       int         flag,
+       int         mode,
        struct proc *p)
 {
     struct pc_softc *sc;
     int unit = PCUNIT(dev);
     struct tty *tp;
-    
+
     KERN_DEBUG( pcdebug, KERN_DEBUG_INFO, ("pcopen by process %d\n",
                                            p->p_pid));
     /*
     ** Sanity check the minor device number we have been instructed
-    ** to open and set up our softc structure pointer. 
+    ** to open and set up our softc structure pointer.
     */
     if (unit >= pc_cd.cd_ndevs)
     {
@@ -1103,28 +1103,28 @@ pcopen(dev_t       dev,
         return ENXIO;
     }
     /*
-    ** Check if we have a tty structure already and create one if not 
+    ** Check if we have a tty structure already and create one if not
     */
-    if (!sc->sc_tty) 
+    if (!sc->sc_tty)
     {
         tp = sc->sc_tty = ttymalloc();
         tty_attach(tp);
-    } 
+    }
     else
     {
         tp = sc->sc_tty;
     }
-    /* 
+    /*
     ** Initialise the tty structure with a H/W output routine,
     ** H/W parameter modification routine and device identifier.
     */
     tp->t_oproc = pcstart;
     tp->t_param = pcparam;
     tp->t_dev   = dev;
-    
-    if ((tp->t_state & TS_ISOPEN) == 0) 
+
+    if ((tp->t_state & TS_ISOPEN) == 0)
     {
-        /* 
+        /*
         ** Initial open of the device so set up the tty with
         ** default flag settings
         */
@@ -1136,19 +1136,19 @@ pcopen(dev_t       dev,
         tp->t_ispeed = tp->t_ospeed = TTYDEF_SPEED;
         pcparam(tp, &tp->t_termios);
         ttsetwater(tp);
-    } 
+    }
     else if ( tp->t_state & TS_XCLUDE && p->p_ucred->cr_uid != 0 )
     {
         /*
-        ** Don't allow the open if the tty has been set up 
-        ** for exclusive use and this isn't root trying to 
-        ** open the device 
+        ** Don't allow the open if the tty has been set up
+        ** for exclusive use and this isn't root trying to
+        ** open the device
         */
         return EBUSY;
     }
     tp->t_state |= TS_CARR_ON;
-    /* 
-    ** Invoke the line discipline open routine 
+    /*
+    ** Invoke the line discipline open routine
     */
     return ((*linesw[tp->t_line].l_open)(dev, tp));
 } /* End pcopen() */
@@ -1162,7 +1162,7 @@ pcopen(dev_t       dev,
 **     pcclose
 **
 **     This function is called on the last close for a device unit.
-**     It calls the line discipline close to clean up any pending 
+**     It calls the line discipline close to clean up any pending
 **     output and to flush queues.  It then close the tty device.
 **
 **  FORMAL PARAMETERS:
@@ -1170,7 +1170,7 @@ pcopen(dev_t       dev,
 **     dev  - Device identifier consisting of major and minor numbers.
 **     flag - Not used.
 **     mode - Not used.
-**     p    - Not used. 
+**     p    - Not used.
 **
 **  IMPLICIT INPUTS:
 **
@@ -1190,15 +1190,15 @@ pcopen(dev_t       dev,
 **--
 */
 int
-pcclose(dev_t       dev, 
-        int         flag, 
-        int         mode, 
+pcclose(dev_t       dev,
+        int         flag,
+        int         mode,
         struct proc *p)
 {
-    /* 
+    /*
     ** Set up our pointers to the softc and tty structures.
     **
-    ** Note : This all assumes that the system wont call us with 
+    ** Note : This all assumes that the system wont call us with
     **        an invalid (ie. non-existant), device identifier.
     */
     struct pc_softc *sc = pc_cd.cd_devs[PCUNIT(dev)];
@@ -1224,7 +1224,7 @@ pcclose(dev_t       dev,
 **      and pass everything on to the line driver.
 **
 **  FORMAL PARAMETERS:
-**      
+**
 **      dev  - Device identifier consisting of major and minor numbers.
 **      uio  - Pointer to the user I/O information (ie. read buffer).
 **      flag - Information on how the I/O should be done (eg. blocking
@@ -1250,13 +1250,13 @@ pcclose(dev_t       dev,
 **--
 */
 int
-pcread(dev_t       dev, 
-       struct uio  *uio, 
+pcread(dev_t       dev,
+       struct uio  *uio,
        int         flag)
 {
     struct pc_softc *sc = pc_cd.cd_devs[PCUNIT(dev)];
     struct tty      *tp = sc->sc_tty;
-    
+
     return ((*linesw[tp->t_line].l_read)(tp, uio, flag));
 } /* End pcread() */
 
@@ -1271,7 +1271,7 @@ pcread(dev_t       dev,
 **      and pass everything on to the line driver.
 **
 **  FORMAL PARAMETERS:
-**      
+**
 **      dev  - Device identifier consisting of major and minor numbers.
 **      uio  - Pointer to the user I/O information (ie. read buffer).
 **      flag - Information on how the I/O should be done (eg. blocking
@@ -1297,13 +1297,13 @@ pcread(dev_t       dev,
 **--
 */
 int
-pcwrite(dev_t      dev, 
-        struct uio *uio, 
+pcwrite(dev_t      dev,
+        struct uio *uio,
         int        flag)
 {
     struct pc_softc *sc = pc_cd.cd_devs[PCUNIT(dev)];
     struct tty      *tp = sc->sc_tty;
-    
+
     return ((*linesw[tp->t_line].l_write)(tp, uio, flag));
 } /* End pcwrite() */
 
@@ -1313,10 +1313,10 @@ pcwrite(dev_t      dev,
 **++
 **  FUNCTIONAL DESCRIPTION:
 **
-**      Return the tty structure for the given device unit.     
+**      Return the tty structure for the given device unit.
 **
 **  FORMAL PARAMETERS:
-**      
+**
 **      dev  - Device identifier consisting of major and minor numbers.
 **
 **  IMPLICIT INPUTS:
@@ -1343,7 +1343,7 @@ pctty(dev_t dev)
 {
     struct pc_softc *sc = pc_cd.cd_devs[PCUNIT(dev)];
     struct tty      *tp = sc->sc_tty;
-    
+
     return (tp);
 } /* End pctty() */
 
@@ -1356,10 +1356,10 @@ pctty(dev_t dev)
 **     pcintr
 **
 **     This is the interrupt handler routine for the keyboard controller.
-**     If we're in polling mode then just return.  If not then call the 
+**     If we're in polling mode then just return.  If not then call the
 **     sget routine to read the and convert the character in the keyboard
-**     buffer.  The convereted character is then passed to the line 
-**     discipline's read interrupt routine. 
+**     buffer.  The convereted character is then passed to the line
+**     discipline's read interrupt routine.
 **
 **  FORMAL PARAMETERS:
 **
@@ -1374,7 +1374,7 @@ pctty(dev_t dev)
 **      none.
 **
 **  FUNCTION VALUE:
-** 
+**
 **      0 - Interrupt not handled by the driver.
 **      1 - Interrupt handled by the driver.
 **
@@ -1390,19 +1390,19 @@ pcintr(void *arg)
     register struct tty *tp = sc->sc_tty;
     u_char              *cp;
     int                 handledInt;
-    
+
     handledInt = 1;
 
     if (sc->sc_flags & SC_POLLING)
     {
-        KERN_DEBUG( pcdebug, KERN_DEBUG_WARNING, 
+        KERN_DEBUG( pcdebug, KERN_DEBUG_WARNING,
                    ("pcintr: received interrupt in polling mode\n"));
     }
     else
     {
         /*
         ** Get the character string for the keyboard event.
-        ** The scanned character string is passed to 
+        ** The scanned character string is passed to
         ** the line discipline's received character routine.
         */
         cp = sget(sc);
@@ -1415,7 +1415,7 @@ pcintr(void *arg)
             while (*cp);
         }
     } /* End else we aren't polling at the moment */
-    
+
     return (handledInt);
 } /* End pcintr() */
 
@@ -1425,38 +1425,38 @@ pcintr(void *arg)
 **++
 **  FUNCTIONAL DESCRIPTION:
 **
-**     This routine is responsible for performing I/O controls on the 
-**     console device. We first pass the command to our line discipline to 
+**     This routine is responsible for performing I/O controls on the
+**     console device. We first pass the command to our line discipline to
 **     see if it is one they are intended to handle.  If they "know nothing!!"
 **     we pass it on to the generic ttioctl() routine.  If they also deny
 **     responsibility, we then check if it's a ioctl we support.
-**     The ioctls we support are: 
-** 
-**     CONSOLE_X_MODE_ON          - X is using the console device 
+**     The ioctls we support are:
+**
+**     CONSOLE_X_MODE_ON          - X is using the console device
 **     CONSOLE_X_MODE_OFF         - X is releasing the console device
 **     CONSOLE_X_BELL             - ring the bell
 **     CONSOLE_SET_TYPEMATIC_RATE - set keyboard typematic rate
-**     
+**
 **  FORMAL PARAMETERS:
 **
 **     dev - Device identifier consisting of major and minor numbers.
-**     cmd - The requested IOCTL command to be performed. This is a 
+**     cmd - The requested IOCTL command to be performed. This is a
 **           composite integer with the following structure but
 **           refer to ttycom.h and ioccom.h for full details :
 **
 **           Bit Position      { 3322222222221111111111
-**                             { 10987654321098765432109876543210 
+**                             { 10987654321098765432109876543210
 **           Meaning           | DDDLLLLLLLLLLLLLGGGGGGGGCCCCCCCC
 **
 **           D - Command direction, in/out/both.
 **           L - Command arguement length.
 **           G - Command group, 't' used for tty.
 **           C - Actual command enumeration.
-** 
+**
 **     data - user data
 **     flag - Not used by us but passed to line discipline and ttioctl
 **     p    - pointer to proc structure of user.
-**     
+**
 **  IMPLICIT INPUTS:
 **
 **     none.
@@ -1467,52 +1467,52 @@ pcintr(void *arg)
 **
 **  FUNCTION VALUE:
 **
-**     We will return any errors returned by either the line discipline 
-**     routine or the ttioctl() routine.  In addition we may directly 
+**     We will return any errors returned by either the line discipline
+**     routine or the ttioctl() routine.  In addition we may directly
 **     generate the following errors :
 **
 **     EINVAL  - Invalid value for typematic rate specified.
-**     ENOTTY  - Unknown ioctl command attempted.    
+**     ENOTTY  - Unknown ioctl command attempted.
 **
 **  SIDE EFFECTS:
 **
-**     The softc sc_hwflags may be altered which will effect the behaviour of 
-**     several other routines when dealing with the hardware. 
+**     The softc sc_hwflags may be altered which will effect the behaviour of
+**     several other routines when dealing with the hardware.
 **--
 */
 int
-pcioctl(dev_t       dev, 
-        u_long      cmd, 
-        caddr_t     data, 
-        int         flag, 
+pcioctl(dev_t       dev,
+        u_long      cmd,
+        caddr_t     data,
+        int         flag,
         struct proc *p)
 {
     struct pc_softc *sc = pc_cd.cd_devs[PCUNIT(dev)];
     struct tty      *tp = sc->sc_tty;
     int             error;
-    
+
     /* Give the line discipline first crack at doing something with
     ** the requested operation.
     ** Error > 0 means that the operation requested was known by
     ** the line discipline but something went wrong. Error = 0 means the
     ** request was successfully handled by the line discipline so
     ** we don't need to to do anything. Error < 0 means the line
-    ** discipline doesn't handle this sort of operation. 
+    ** discipline doesn't handle this sort of operation.
     */
     error = (*linesw[tp->t_line].l_ioctl)(tp, cmd, data, flag, p);
     if (error < 0)
     {
         /* Try the common tty ioctl routine to see if it recognises the
-        ** request.  
+        ** request.
         */
         error = ttioctl(tp, cmd, data, flag, p);
         if (error < 0)
         {
-            /* Ok must be something specific to our device, 
+            /* Ok must be something specific to our device,
             ** lets start by assuming we will succeed.
             */
             error = 0;
-            switch (cmd) 
+            switch (cmd)
             {
 #ifdef XSERVER
                 case CONSOLE_X_MODE_ON:
@@ -1530,7 +1530,7 @@ pcioctl(dev_t       dev,
 		     */
 		    ttyflush(tp, FREAD);
                 break;
-                
+
                 case CONSOLE_X_MODE_OFF:
 #ifdef X_CGA_BUG
 		    if (sc->sc_flags & SC_XMODE)
@@ -1547,7 +1547,7 @@ pcioctl(dev_t       dev,
 		     */
 		    ttyflush(tp, FREAD);
                 break;
-                
+
                 case CONSOLE_X_BELL:
                     /*
                     ** If set, data is a pointer to a length 2 array of
@@ -1556,7 +1556,7 @@ pcioctl(dev_t       dev,
                     */
                     if (data)
                     {
-                        sysbeep(((int*)data)[0], 
+                        sysbeep(((int*)data)[0],
                                 (((int*)data)[1] * hz) / 1000);
                     }
                     else
@@ -1567,32 +1567,32 @@ pcioctl(dev_t       dev,
 
 #ifdef SHARK
 		case CONSOLE_X_TV_ON:
-		    /* 
+		    /*
 		    ** Switch on TV output, data indicates mode,
 		    ** but we are currently hardwired to NTSC, so ignore it.
-		    */  
+		    */
 		    consXTvOn();
 		break;
-		    
+
 		case CONSOLE_X_TV_OFF:
-		    /* 
+		    /*
 		     ** Switch off TV output.
-		     */  
+		     */
 		    consXTvOff();
 		break;
-		    
-#endif /* SHARK */		
+
+#endif /* SHARK */
 #endif /* XSERVER */
-    
-                case CONSOLE_SET_TYPEMATIC_RATE: 
+
+                case CONSOLE_SET_TYPEMATIC_RATE:
                 {
                     u_char      rate;
-                
+
                     if (data)
                     {
                         rate = *((u_char *)data);
                         /*
-                        ** Check that it isn't too big (which would cause 
+                        ** Check that it isn't too big (which would cause
                         ** it to be confused with a command).
                         */
                         if (rate & 0x80)
@@ -1604,7 +1604,7 @@ pcioctl(dev_t       dev,
                             /* Update rate in keyboard */
                             sc->kbd.sc_new_typematic_rate = rate;
                             async_update(sc, FALSE);
-                        }        
+                        }
                     }
                     else
                     {
@@ -1616,52 +1616,52 @@ pcioctl(dev_t       dev,
 	        case CONSOLE_GET_LINEAR_INFO:
 		    if(data)
 		    {
-			/* 
-			 * Warning: Relies on OFW setting up the console in 
-			 * linear mode 
-			 */			
-			vm_offset_t linearPhysAddr = displayInfo(paddr); 
+			/*
+			 * Warning: Relies on OFW setting up the console in
+			 * linear mode
+			 */
+			vm_offset_t linearPhysAddr = displayInfo(paddr);
 
 			/* Size unknown - X Server will probe chip later. */
 			((struct map_info *)data)->method = MAP_MMAP;
 			((struct map_info *)data)->size = MAP_INFO_UNKNOWN;
 
-			((struct map_info *)data)->u.map_info_mmap.map_offset 
+			((struct map_info *)data)->u.map_info_mmap.map_offset
 			    = linearPhysAddr & PG_FRAME;
-			((struct map_info *)data)->u.map_info_mmap.map_size 
+			((struct map_info *)data)->u.map_info_mmap.map_size
 			    = MAP_INFO_UNKNOWN;
-			((struct map_info *)data)->u.map_info_mmap.internal_offset 
+			((struct map_info *)data)->u.map_info_mmap.internal_offset
 			    = linearPhysAddr & ~PG_FRAME;
-			((struct map_info *)data)->u.map_info_mmap.internal_size 
+			((struct map_info *)data)->u.map_info_mmap.internal_size
 			    = MAP_INFO_UNKNOWN;
 		    }
 		    else
 		    {
 			error = EINVAL;
 		    }
-		break;  
+		break;
 
 		case CONSOLE_GET_IO_INFO:
 		    if(data)
 		    {
 			vm_offset_t ioPhysAddr = displayInfo(ioBase);
-			int ioLength = displayInfo(ioLen); 
+			int ioLength = displayInfo(ioLen);
 			vm_offset_t pam_io_data;
 
 			((struct map_info *)data)->method = MAP_MMAP;
-			((struct map_info *)data)->size 
+			((struct map_info *)data)->size
 			    = ioLength / sizeof(bus_size_t);
 
 			pam_io_data = vtophys(isa_io_data_vaddr());
 
-			((struct map_info *)data)->u.map_info_mmap.map_offset 
+			((struct map_info *)data)->u.map_info_mmap.map_offset
 			    = (pam_io_data + ioPhysAddr) & PG_FRAME;
-			((struct map_info *)data)->u.map_info_mmap.internal_offset 
+			((struct map_info *)data)->u.map_info_mmap.internal_offset
 			    = (pam_io_data + ioPhysAddr) & ~PG_FRAME;
-			((struct map_info *)data)->u.map_info_mmap.map_size 
-			    = (((struct map_info *)data)->u.map_info_mmap.internal_offset 
+			((struct map_info *)data)->u.map_info_mmap.map_size
+			    = (((struct map_info *)data)->u.map_info_mmap.internal_offset
 			       + ioLength + PT_SIZE - 1) & PG_FRAME;
-			((struct map_info *)data)->u.map_info_mmap.internal_size 
+			((struct map_info *)data)->u.map_info_mmap.internal_size
 			    = ioLength;
 		    }
 		    else
@@ -1669,28 +1669,28 @@ pcioctl(dev_t       dev,
 			error = EINVAL;
 		    }
 		break;
-		    
+
 	        case CONSOLE_GET_MEM_INFO:
 		    if(data)
 		    {
 		        vm_offset_t vam_mem_data = isa_mem_data_vaddr();
 
-			/* 
-			 * Address and size defined in shark.h and 
-			 * isa_machdep.h 
+			/*
+			 * Address and size defined in shark.h and
+			 * isa_machdep.h
 			 */
 			((struct map_info *)data)->method = MAP_MMAP;
-			((struct map_info *)data)->size 
+			((struct map_info *)data)->size
 			    = VGA_BUF_LEN / sizeof(bus_size_t);
 
-			((struct map_info *)data)->u.map_info_mmap.map_offset 
+			((struct map_info *)data)->u.map_info_mmap.map_offset
 			    = (vtophys(vam_mem_data) + VGA_BUF) & PG_FRAME;
-			((struct map_info *)data)->u.map_info_mmap.internal_offset 
+			((struct map_info *)data)->u.map_info_mmap.internal_offset
 			    = (vtophys(vam_mem_data) + VGA_BUF) & ~PG_FRAME;
-			((struct map_info *)data)->u.map_info_mmap.map_size 
-			    = (((struct map_info *)data)->u.map_info_mmap.internal_offset 
+			((struct map_info *)data)->u.map_info_mmap.map_size
+			    = (((struct map_info *)data)->u.map_info_mmap.internal_offset
 				+ VGA_BUF_LEN + PT_SIZE - 1) & PG_FRAME;
-			((struct map_info *)data)->u.map_info_mmap.internal_size 
+			((struct map_info *)data)->u.map_info_mmap.internal_size
 			    = VGA_BUF_LEN;
 		    }
 		    else
@@ -1698,15 +1698,15 @@ pcioctl(dev_t       dev,
 			error = EINVAL;
 		    }
 		break;
-	
+
 #endif /* SHARK */
-               
+
                 default:
                     error = ENOTTY;
                 break;
             } /* End switch on ioctl command */
         } /* End need to check if this is a device specific command */
-    } /* End need to check if this is a common tty command */ 
+    } /* End need to check if this is a common tty command */
 
     return (error);
 } /* End pcioctl() */
@@ -1718,12 +1718,12 @@ pcioctl(dev_t       dev,
 **     pcstart
 **
 **     This routine is responsible for outputing any data in the tty output
-**     queue.   If the tty is not already in the process of transmitting 
+**     queue.   If the tty is not already in the process of transmitting
 **     then we remove an amount of data from the output queue and copy it
 **     to the screen via the sput routine.  If data still remains to be
-**     transmitted we queue a timeout on the tty. If the amount of data 
+**     transmitted we queue a timeout on the tty. If the amount of data
 **     sent puts the output queue below the low water mark we wake up
-**     anyone sleeping.   
+**     anyone sleeping.
 **
 **  FORMAL PARAMETERS:
 **
@@ -1744,7 +1744,7 @@ pcioctl(dev_t       dev,
 **  SIDE EFFECTS:
 **
 **     none
-**     
+**
 **--
 */
 void
@@ -1754,7 +1754,7 @@ pcstart(struct tty *tp)
     int s, len;
     u_char buf[PCBURST];
     struct pc_softc *sc = pc_cd.cd_devs[PCUNIT(tp->t_dev)];
-    
+
     s = spltty();
     if (!(tp->t_state & (TS_TIMEOUT | TS_BUSY | TS_TTSTOP)))
     {
@@ -1765,38 +1765,38 @@ pcstart(struct tty *tp)
         ** expensive.
         */
         tp->t_state |= TS_BUSY;
-        
+
         splx(s);
         cl  = &tp->t_outq;
         len = q_to_b(cl, buf, PCBURST);
         sput(sc, buf, len, FALSE);
         s = spltty();
-        
+
         tp->t_state &= ~TS_BUSY;
         /*
         ** If there is still data to be output, queue a timeout
         ** on the tty.
         */
-        if (cl->c_cc) 
+        if (cl->c_cc)
         {
             tp->t_state |= TS_TIMEOUT;
             timeout(ttrstrt, tp, 1);
         }
-        /* 
+        /*
         ** Check if we are under the low water mark and
         ** need to wake any sleepers
         */
-        if (cl->c_cc <= tp->t_lowat) 
+        if (cl->c_cc <= tp->t_lowat)
         {
-            if (tp->t_state & TS_ASLEEP) 
+            if (tp->t_state & TS_ASLEEP)
             {
                 tp->t_state &= ~TS_ASLEEP;
                 wakeup(cl);
             }
             selwakeup(&tp->t_wsel);
         }
-    } /* End if not busy, timeout, or stopped */ 
-    
+    } /* End if not busy, timeout, or stopped */
+
     /* Restore spl */
     splx(s);
     return;
@@ -1836,7 +1836,7 @@ pcstart(struct tty *tp)
 **--
 */
 void
-pcstop(struct tty *tp, 
+pcstop(struct tty *tp,
        int        flag)
 {
     return;
@@ -1857,7 +1857,7 @@ pcstop(struct tty *tp,
 **
 **     pccnprobe
 **
-**     Probe for the generic console device.  
+**     Probe for the generic console device.
 **
 **  FORMAL PARAMETERS:
 **
@@ -1865,11 +1865,11 @@ pcstop(struct tty *tp,
 **
 **  IMPLICIT INPUTS:
 **
-**     The isa_io_bs_tag is used to identify which I/O space needs to be 
+**     The isa_io_bs_tag is used to identify which I/O space needs to be
 **     mapped to talk to the keyboard device.  The CONKBDADDR option
 **     is used to determine the base address of the keyboard controller.
-**     This file supplies a default value, in case it is not defined 
-**     in the config file 
+**     This file supplies a default value, in case it is not defined
+**     in the config file
 **
 **  IMPLICIT OUTPUTS:
 **
@@ -1891,8 +1891,8 @@ pccnprobe(struct consdev *cp)
 {
     int                   maj;
     int                   s;
-    
-    /* locate the major number 
+
+    /* locate the major number
     */
     for (maj = 0; maj < nchrdev; maj++)
     {
@@ -1901,7 +1901,7 @@ pccnprobe(struct consdev *cp)
             break;
         }
     }
-    /* initialize required fields 
+    /* initialize required fields
     */
     cp->cn_dev = makedev(maj, 0);
     cp->cn_pri = CN_DEAD;       /* assume can't configure keyboard */
@@ -1910,18 +1910,18 @@ pccnprobe(struct consdev *cp)
     */
     memset(&bootSoftc, 0, sizeof(bootSoftc));
     bootSoftc.kbd.sc_iot = &isa_io_bs_tag;
-    
+
     s = splhigh();
-    
+
     /* Setup base address of keyboard device on the SuperIO chip. Then
     ** map our register space within the bus.
     */
     if (i87307KbdConfig(bootSoftc.kbd.sc_iot, CONKBDADDR, IRQ_KEYBOARD))
     {
-        if (I8042_MAP(bootSoftc.kbd.sc_iot,CONKBDADDR,bootSoftc.kbd.sc_ioh) 
-	    == 0) 
+        if (I8042_MAP(bootSoftc.kbd.sc_iot,CONKBDADDR,bootSoftc.kbd.sc_ioh)
+	    == 0)
         {
-	    /*  
+	    /*
 	    ** Initalise the keyboard.  Look for another device if
             ** keyboard wont initialise but leave us as a backup display
 	    ** unit.
@@ -1934,7 +1934,7 @@ pccnprobe(struct consdev *cp)
         }
     }
     splx(s);
-    
+
     return;
 } /* End pccnprobe() */
 
@@ -1952,9 +1952,9 @@ pccnprobe(struct consdev *cp)
 **     even if no keyboard is plugged in.
 **
 **  FORMAL PARAMETERS:
-** 
+**
 **     cp - pointer to a console device structure.
-**      
+**
 **  IMPLICIT INPUTS:
 **
 **     none
@@ -1962,7 +1962,7 @@ pccnprobe(struct consdev *cp)
 **  IMPLICIT OUTPUTS:
 **
 **     actingConsole is set to one to indicate that the console device has
-**     been initialised.  
+**     been initialised.
 **
 **  FUNCTION VALUE:
 **
@@ -2006,7 +2006,7 @@ pccninit(struct consdev *cp)
      ** Get display information from ofw before leaving linear mode.
      */
     getDisplayInfo(&display);
-    
+
     /* Must force hardware into VGA mode before anything else
      ** otherwise we may hang trying to do console output.
      */
@@ -2014,7 +2014,7 @@ pccninit(struct consdev *cp)
 
     pccnputc(0, '\n');
 #endif
-    
+
     splx(s);
 
     return;
@@ -2027,7 +2027,7 @@ pccninit(struct consdev *cp)
 **
 **     pccnputc
 **
-**     This is a simple putc routine for the generic console device.  
+**     This is a simple putc routine for the generic console device.
 **     It simply calls sput to write the character to the screen.
 **
 **  FORMAL PARAMETERS:
@@ -2054,12 +2054,12 @@ pccninit(struct consdev *cp)
 **--
 */
 void
-pccnputc(dev_t  dev, 
+pccnputc(dev_t  dev,
          char   c)
 {
     struct pc_softc  *currentSC;
-    
-    /* Ok so we are a little bit complicated because I insist on using a 
+
+    /* Ok so we are a little bit complicated because I insist on using a
     ** decent approach to softc's.  Here we check whether the attach has
     ** been performed on the console device and if so get the REAL softc.
     ** otherwise we use the bootSoftc cause we are the console in boot
@@ -2073,7 +2073,7 @@ pccnputc(dev_t  dev,
     {
         currentSC = &bootSoftc;
     }
-    /* write the character to the screen 
+    /* write the character to the screen
     */
     if (c == '\n')
     {
@@ -2097,10 +2097,10 @@ pccnputc(dev_t  dev,
 **     This routine reads a character from the keyboard output buffer.
 **     It waits until there is a charcater available and then calls
 **     the sget routine to convert the character, before returning it.
-**      
+**
 **  FORMAL PARAMETERS:
 **
-**     dev - The identifier for our device. 
+**     dev - The identifier for our device.
 **
 **  IMPLICIT INPUTS:
 **
@@ -2115,7 +2115,7 @@ pccnputc(dev_t  dev,
 **     Returns the converted character read from the keyboard.
 **
 **  SIDE EFFECTS:
-**    
+**
 **     none
 **
 **--
@@ -2125,8 +2125,8 @@ pccngetc(dev_t dev)
 {
     register char    *cp = NULL;
     struct pc_softc  *currentSC;
-    
-    /* Ok so we are a little bit complicated because I insist on using a 
+
+    /* Ok so we are a little bit complicated because I insist on using a
     ** decent approach to softc's.  Here we check whether the attach has
     ** been performed on the console device and if so get the REAL softc.
     ** otherwise we use the bootSoftc cause we are the console in boot
@@ -2143,25 +2143,25 @@ pccngetc(dev_t dev)
 
     if ( (currentSC->sc_flags & SC_XMODE) == 0 )
     {
-        do 
+        do
         {
             /* wait for a keyboard byte from the 8042 controller.
             */
             for (;;)
             {
-                if ( !i8042_wait_input(currentSC->kbd.sc_iot, 
+                if ( !i8042_wait_input(currentSC->kbd.sc_iot,
                           currentSC->kbd.sc_ioh, I8042_KBD_DATA) )
                 {
-                    KERN_DEBUG( pcdebug, KERN_DEBUG_WARNING, 
-                         ("pccnget: in deep dodo got bad status\n")); 
+                    KERN_DEBUG( pcdebug, KERN_DEBUG_WARNING,
+                         ("pccnget: in deep dodo got bad status\n"));
                 }
                 break;
             } /* End do forever until we get a character */
-            /* Read and convert character in keyboard buffer 
+            /* Read and convert character in keyboard buffer
             */
             cp = sget(currentSC);
         } while (!cp);
-    
+
         if (*cp == '\r')
         {
             return '\n';
@@ -2181,7 +2181,7 @@ pccngetc(dev_t dev)
 **
 **     This routine is used to activate/deactivate the polling interface
 **     to the generic console device.  If polling is being turned off
-**     and the console device is in use, the interrupt routine is called 
+**     and the console device is in use, the interrupt routine is called
 **     to pass up any character that may still be in the keyboard output
 **     buffer.
 **
@@ -2209,12 +2209,12 @@ pccngetc(dev_t dev)
 **--
 */
 void
-pccnpollc(dev_t dev, 
+pccnpollc(dev_t dev,
           int   on)
 {
     struct pc_softc  *currentSC;
-    
-    /* Ok so we are a little bit complicated because I insist on using a 
+
+    /* Ok so we are a little bit complicated because I insist on using a
     ** decent approach to softc's.  Here we check whether the attach has
     ** been performed on the console device and if so get the REAL softc.
     ** otherwise we use the bootSoftc cause we are the console in boot
@@ -2231,12 +2231,12 @@ pccnpollc(dev_t dev,
 
     currentSC->sc_flags = on ? currentSC->sc_flags | SC_POLLING :
                                currentSC->sc_flags & ~SC_POLLING;
-    if (!on) 
+    if (!on)
     {
         int s;
-        
+
         /* Comming out of polling mode.  Make sure we try and process any
-        ** character that may be in the buffer at this time that we have 
+        ** character that may be in the buffer at this time that we have
         ** already ignored the interrupt for.
         */
         s = spltty();
@@ -2245,7 +2245,7 @@ pccnpollc(dev_t dev,
     } /* end-if not polling */
 
     return;
-} /* End pccnpollc() */ 
+} /* End pccnpollc() */
 
 
 
@@ -2255,16 +2255,16 @@ pccnpollc(dev_t dev,
 **
 **     pcparam
 **
-**     This routine is called by the tty to modify hardware settings on 
+**     This routine is called by the tty to modify hardware settings on
 **     the device as specified by the termios structured passed to it
-**     (.e.g. line speed).  As there is nothing we can set in the hardware, 
-**      we just update the fields in the tty structure and return success.  
+**     (.e.g. line speed).  As there is nothing we can set in the hardware,
+**      we just update the fields in the tty structure and return success.
 **
 **  FORMAL PARAMETERS:
 **
 **     tp - Pointer to a tty structure for our device.
 **     t  - Pointer to the termios structure containing new configuration
-**          parameters. 
+**          parameters.
 **
 **  IMPLICIT INPUTS:
 **
@@ -2277,17 +2277,17 @@ pccnpollc(dev_t dev,
 **  FUNCTION VALUE:
 **
 **     0 - Always succeeds.
-**  
+**
 **  SIDE EFFECTS:
 **
-**     none.     
+**     none.
 **--
 */
 int
-pcparam(struct tty     *tp, 
+pcparam(struct tty     *tp,
         struct termios *t)
 {
-    
+
     tp->t_ispeed = t->c_ispeed;
     tp->t_ospeed = t->c_ospeed;
     tp->t_cflag  = t->c_cflag;
@@ -2303,7 +2303,7 @@ pcparam(struct tty     *tp,
 ** Write a character to the screen.
 ** Load pointer with current cursor address.
 ** Write character and the character attributes
-** to to cursor address. Update cursor address 
+** to to cursor address. Update cursor address
 ** and column location.
 */
 #define wrtchar(sc, c, at) \
@@ -2333,9 +2333,9 @@ static char bgansitopc[] = {
 **  FUNCTIONAL DESCRIPTION:
 **
 **     sput
-**  
+**
 **     This routine is used to write to the screen using
-**     pc3 terminal emulation.   
+**     pc3 terminal emulation.
 **
 **  FORMAL PARAMETERS:
 **
@@ -2357,17 +2357,17 @@ static char bgansitopc[] = {
 */
 void
 sput(struct pc_softc   *sc,
-     u_char            *cp, 
+     u_char            *cp,
      int               n,
      u_char            nowait)
 {
     u_char c, scroll = 0;
-    
+
     if (sc->sc_flags & SC_XMODE)
         return;
 
     /* Initialise the display if not done already */
-    if (crtat == 0) 
+    if (crtat == 0)
     {
         u_short volatile *cp;
 #ifdef DOESNT_ALWAYS_DO_THE_RIGHT_THING
@@ -2375,8 +2375,8 @@ sput(struct pc_softc   *sc,
 #endif
         unsigned cursorat;
 	vm_offset_t vam_mem_data = isa_mem_data_vaddr();
-        
-        /* 
+
+        /*
         ** Check to see if we have color support
         ** by attempting to write and read from
         ** the colour buffer.  If successful then
@@ -2387,13 +2387,13 @@ sput(struct pc_softc   *sc,
 #ifdef DOESNT_ALWAYS_DO_THE_RIGHT_THING
         was = *cp;              /* save whatever is at CGA_BUF */
         *cp = (u_short) 0xA55A;
-        if (*cp != 0xA55A) 
+        if (*cp != 0xA55A)
         {
             cp = (void *)((u_long)(MONO_BUF) + vam_mem_data);
             addr_6845 = MONO_BASE;
             sc->vs.color = 0;
-        } 
-        else 
+        }
+        else
         {
             *cp = was;          /* restore previous contents of CGA_BUF */
             addr_6845 = CGA_BASE;
@@ -2403,25 +2403,25 @@ sput(struct pc_softc   *sc,
 	addr_6845 = CGA_BASE;
 	sc->vs.color = 1;
 #endif
-        
+
         /* Extract cursor location */
         outb(addr_6845, 14);
         cursorat = inb(addr_6845+1) << 8;
         outb(addr_6845, 15);
         cursorat |= inb(addr_6845+1);
-        
+
 #ifdef FAT_CURSOR
         cursor_shape = 0x0012;
 #endif
         /* Save cursor locations */
         Crtat = (u_short *)cp;
         crtat = (u_short *)(cp + cursorat);
-        
+
         /* Set up screen size and colours */
         sc->vs.ncol = COL;
         sc->vs.nrow = ROW;
         sc->vs.nchr = COL * ROW;
-        sc->vs.at = FG_LIGHTGREY | BG_BLACK;        
+        sc->vs.at = FG_LIGHTGREY | BG_BLACK;
         if (sc->vs.color == 0)
         {
             sc->vs.so_at = FG_BLACK | BG_LIGHTGREY;
@@ -2431,20 +2431,20 @@ sput(struct pc_softc   *sc,
             sc->vs.so_at = FG_YELLOW | BG_BLACK;
         }
         fillw((sc->vs.at << 8) | ' ', crtat, sc->vs.nchr - cursorat);
-    } /* end-if screen unitialised */ 
-    
-    /* Process supplied character string */ 
-    while (n--) 
+    } /* end-if screen unitialised */
+
+    /* Process supplied character string */
+    while (n--)
     {
         if (!(c = *cp++))
             continue;
-        
-        switch (c) 
+
+        switch (c)
         {
         case 0x1B:
-            if (sc->vs.state >= VSS_ESCAPE) 
+            if (sc->vs.state >= VSS_ESCAPE)
             {
-                wrtchar(sc, c, sc->vs.so_at); 
+                wrtchar(sc, c, sc->vs.so_at);
                 sc->vs.state = 0;
                 goto maybe_scroll;
             }
@@ -2453,21 +2453,21 @@ sput(struct pc_softc   *sc,
                 sc->vs.state = VSS_ESCAPE;
             }
             break;
-            
-        case '\t': 
+
+        case '\t':
         {
             int inccol = 8 - (sc->vs.col & 7);
             crtat += inccol;
             sc->vs.col += inccol;
         }
         maybe_scroll:
-            if (sc->vs.col >= COL) 
+            if (sc->vs.col >= COL)
             {
                 sc->vs.col -= COL;
                 scroll = 1;
             }
             break;
-            
+
         case '\010':
             if (crtat <= Crtat)
                 break;
@@ -2475,26 +2475,26 @@ sput(struct pc_softc   *sc,
             if (--sc->vs.col < 0)
                 sc->vs.col += COL;  /* non-destructive backspace */
             break;
-            
+
         case '\r':
             crtat -= sc->vs.col;
             sc->vs.col = 0;
             break;
-            
+
         case '\n':
             crtat += sc->vs.ncol;
             scroll = 1;
             break;
-            
+
         default:
-            switch (sc->vs.state) 
+            switch (sc->vs.state)
             {
             case 0:
                 if (c == '\a')
                 {
                     sysbeep(BEEP_FREQ, BEEP_TIME);
                 }
-                else 
+                else
                 {
                     /*
                      * If we're outputting multiple printed
@@ -2506,7 +2506,7 @@ sput(struct pc_softc   *sc,
                      * If we reach the end of the line, we
                      * break to do a scroll check.
                      */
-                    for (;;) 
+                    for (;;)
                     {
                         if (sc->vs.so)
                         {
@@ -2516,7 +2516,7 @@ sput(struct pc_softc   *sc,
                         {
                             wrtchar(sc, c, sc->vs.at);
                         }
-                        if (sc->vs.col >= sc->vs.ncol) 
+                        if (sc->vs.col >= sc->vs.ncol)
                         {
                             sc->vs.col = 0;
                             scroll = 1;
@@ -2530,28 +2530,28 @@ sput(struct pc_softc   *sc,
                 break;
 
             case VSS_ESCAPE:
-                if (c == '[') 
+                if (c == '[')
                 {       /* Start ESC [ sequence */
                     sc->vs.cx = sc->vs.cy = 0;
                     sc->vs.state = VSS_EBRACE;
-                } 
+                }
                 else if (c == 'c')  /* Clear screen & home */
-                { 
+                {
                     fillw((sc->vs.at << 8) | ' ',
                           Crtat, sc->vs.nchr);
                     crtat = Crtat;
                     sc->vs.col = 0;
                     sc->vs.state = 0;
                 } else /* Invalid, clear state */
-                { 
-                    wrtchar(sc, c, sc->vs.so_at); 
+                {
+                    wrtchar(sc, c, sc->vs.so_at);
                     sc->vs.state = 0;
                     goto maybe_scroll;
                 }
                 break;
-                
+
             default: /* VSS_EBRACE or VSS_EPARAM */
-                switch (c) 
+                switch (c)
                 {
                     int pos;
                 case 'm':
@@ -2583,7 +2583,7 @@ sput(struct pc_softc   *sc,
                         cx %= sc->vs.nrow;
                     pos = crtat - Crtat;
                     pos += sc->vs.ncol * cx;
-                    if (pos >= sc->vs.nchr) 
+                    if (pos >= sc->vs.nchr)
                         pos -= sc->vs.nchr;
                     crtat = Crtat + pos;
                     sc->vs.state = 0;
@@ -2631,7 +2631,7 @@ sput(struct pc_softc   *sc,
                     switch (sc->vs.cx) {
                     case 0:
                         /* ... to end of display */
-                        fillw((sc->vs.at << 8) | ' ', 
+                        fillw((sc->vs.at << 8) | ' ',
                               crtat,
                               Crtat + sc->vs.nchr - crtat);
                         break;
@@ -2739,7 +2739,7 @@ sput(struct pc_softc   *sc,
                               crtAt + sc->vs.ncol * cx,
                               sc->vs.ncol * (nrow - cx) *
                               CHR);
-                    fillw((sc->vs.at << 8) | ' ', 
+                    fillw((sc->vs.at << 8) | ' ',
                           crtAt, sc->vs.ncol * cx);
                     sc->vs.state = 0;
                     break;
@@ -2755,7 +2755,7 @@ sput(struct pc_softc   *sc,
                               Crtat + sc->vs.ncol * cx,
                               sc->vs.ncol * (sc->vs.nrow - cx) *
                               CHR);
-                    fillw((sc->vs.at << 8) | ' ', 
+                    fillw((sc->vs.at << 8) | ' ',
                           Crtat, sc->vs.ncol * cx);
 #if 0
                     crtat += sc->vs.ncol * cx; /* XXX */
@@ -2798,7 +2798,7 @@ sput(struct pc_softc   *sc,
                     }
                     sc->vs.state = 0;
                     break;
-                    
+
                 default: /* Only numbers valid here */
                     if ((c >= '0') && (c <= '9')) {
                         if (sc->vs.state >= VSS_EPARAM) {
@@ -2840,7 +2840,7 @@ sput(struct pc_softc   *sc,
 }
 
 #define CODE_SIZE       4               /* Use a max of 4 for now... */
-typedef struct 
+typedef struct
 {
     u_short     type;
     char        unshift[CODE_SIZE];
@@ -2996,7 +2996,7 @@ static Scan_def scan_codes[] = {
 **    xinterpret
 **
 **    This routine interprets a read scan code according to what
-**    Xserver requires. 
+**    Xserver requires.
 **
 **  FORMAL PARAMETERS:
 **
@@ -3012,7 +3012,7 @@ static Scan_def scan_codes[] = {
 **
 **  FUNCTION VALUE:
 **
-**     A pointer to the converted characters read from the keyboard   
+**     A pointer to the converted characters read from the keyboard
 **     NULL if no characters read
 **
 **  SIDE EFFECTS:
@@ -3021,13 +3021,13 @@ static Scan_def scan_codes[] = {
 **     SCROLL key has been depressed.
 **--
 */
-char * 
+char *
 xinterpret(struct pc_softc  *sc,
            u_char           dt)
 {
     u_char            dt_make;
     static u_char     capchar[2];
-    
+
 #if defined(DDB) && defined(XSERVER_DDB)
     /* F12 enters the debugger while in X mode */
     if (dt == 88)
@@ -3044,12 +3044,12 @@ xinterpret(struct pc_softc  *sc,
     ** keyboard has been remapped in X?
     */
     dt_make = dt & ~BREAKBIT;
-    switch (scan_codes[dt_make].type) 
+    switch (scan_codes[dt_make].type)
     {
         case NUM:
         case CAPS:
         case SCROLL:
-            if (dt & BREAKBIT) 
+            if (dt & BREAKBIT)
             {
                 /* This is the break code, reset kbd.sc_shift_state and
                 ** exit.
@@ -3058,7 +3058,7 @@ xinterpret(struct pc_softc  *sc,
             }
             else if ( (sc->kbd.sc_shift_state & scan_codes[dt_make].type) == 0 )
             {
-                /* This is NOT a repeat of an already recorded 
+                /* This is NOT a repeat of an already recorded
                 ** kbd.sc_shift_state, so record it now and update.
                 */
                 sc->kbd.sc_shift_state     |= scan_codes[dt_make].type;
@@ -3086,12 +3086,12 @@ xinterpret(struct pc_softc  *sc,
 **
 **     sget
 **
-**    This routine reads a character from the keyboard and 
-**    converts it using the above scan code tables.     
+**    This routine reads a character from the keyboard and
+**    converts it using the above scan code tables.
 **
 **  FORMAL PARAMETERS:
 **
-**     iot    I/O tag for the mapped register space  
+**     iot    I/O tag for the mapped register space
 **     ioh    I/O handle for the mapped register space
 **
 **  IMPLICIT INPUTS:
@@ -3105,7 +3105,7 @@ xinterpret(struct pc_softc  *sc,
 **
 **  FUNCTION VALUE:
 **
-**     A pointer to the converted characters read from the keyboard   
+**     A pointer to the converted characters read from the keyboard
 **     NULL if no characters read
 **
 **  SIDE EFFECTS:
@@ -3124,22 +3124,22 @@ sget(struct pc_softc *sc)
     bus_space_tag_t    iot = sc->kbd.sc_iot;
     bus_space_handle_t ioh = sc->kbd.sc_ioh;
     char               *returnValue;
-    
+
     returnValue = NULL;
 
     /* Grab the next byte of keyboard data.  There is no point in looping
-    ** here since the controller only puts one byte at a time in the 
+    ** here since the controller only puts one byte at a time in the
     ** output buffer and we are LONG gone before it has time to put the
     ** next byte in after our initial read (at least on a StrongARM we are).
     */
     I8042_GETKBD_DATA(iot, ioh, status, dt);
-    
+
     if (status)
-    {    
-        if (sc->sc_flags & SC_XMODE) 
+    {
+        if (sc->sc_flags & SC_XMODE)
         {
             returnValue = xinterpret(sc, dt);
-        }       
+        }
         else if (dt == KBR_EXTENDED)
         {
             extended = TRUE;
@@ -3150,27 +3150,27 @@ sget(struct pc_softc *sc)
             /*
             ** Check for cntl-alt-esc.
             */
-            if ((dt == 1) && 
-		(sc->kbd.sc_shift_state & (CTL | ALT)) == (CTL | ALT)) 
+            if ((dt == 1) &&
+		(sc->kbd.sc_shift_state & (CTL | ALT)) == (CTL | ALT))
             {
                 Debugger();
                 dt |= 0x80;     /* discard esc (ddb discarded ctl-alt) */
             }
 #endif
 #ifdef	SHARK
-	    if ((dt == 127) && 
-		(sc->kbd.sc_shift_state & (CTL | ALT)) == (CTL | ALT)) 
+	    if ((dt == 127) &&
+		(sc->kbd.sc_shift_state & (CTL | ALT)) == (CTL | ALT))
 	    {
 		cpu_reboot(0, NULL);
 	    }
 #endif
 
             /*
-            ** Record make sequence regardless of what dt is since the make 
+            ** Record make sequence regardless of what dt is since the make
             ** code is the key to the scan table.
             */
             dt_make = dt & ~BREAKBIT;
-            switch (scan_codes[dt_make].type) 
+            switch (scan_codes[dt_make].type)
             {
                 /*
                 ** locking keys
@@ -3178,7 +3178,7 @@ sget(struct pc_softc *sc)
                 case NUM:
                 case CAPS:
                 case SCROLL:
-                    if (dt & BREAKBIT) 
+                    if (dt & BREAKBIT)
                     {
                         /* This is the break code, reset kbd.sc_shift_state and
                         ** exit.
@@ -3211,7 +3211,7 @@ sget(struct pc_softc *sc)
                 case SHIFT:
                 case ALT:
                 case CTL:
-                    if (dt & BREAKBIT) 
+                    if (dt & BREAKBIT)
                     {
                         /* This is the break code, reset shift_state and
                         ** exit.
@@ -3226,7 +3226,7 @@ sget(struct pc_softc *sc)
                 case ASCII:
                     if ((dt & BREAKBIT) == 0)
                     {
-                        /* control has highest priority 
+                        /* control has highest priority
                         */
                         if (sc->kbd.sc_shift_state & CTL)
                         {
@@ -3240,8 +3240,8 @@ sget(struct pc_softc *sc)
                         {
                             capchar[0] = scan_codes[dt_make].unshift[0];
                         }
-                        if ((sc->kbd.sc_new_lock_state & CAPS) && 
-                            capchar[0] >= 'a' && capchar[0] <= 'z') 
+                        if ((sc->kbd.sc_new_lock_state & CAPS) &&
+                            capchar[0] >= 'a' && capchar[0] <= 'z')
                         {
                             capchar[0] -= ('a' - 'A');
                         }
@@ -3252,7 +3252,7 @@ sget(struct pc_softc *sc)
                 break;
                 case NONE:
                 break;
-                case FUNC: 
+                case FUNC:
                     if ((dt & BREAKBIT) == 0)
                     {
                         if (sc->kbd.sc_shift_state & SHIFT)
@@ -3270,7 +3270,7 @@ sget(struct pc_softc *sc)
                         extended = 0;
                     }
                 break;
-                case KP: 
+                case KP:
                     if ((dt & BREAKBIT) == 0)
                     {
                         if (sc->kbd.sc_shift_state & (SHIFT | CTL) ||
@@ -3289,7 +3289,7 @@ sget(struct pc_softc *sc)
             extended = 0;
         } /* End else not in Xmode and not an extended scan code indication */
     } /* End if keyboard data found */
-    
+
     return (returnValue);
 } /* End sget() */
 
@@ -3300,8 +3300,8 @@ sget(struct pc_softc *sc)
 **
 **     pcmmap
 **
-**    This function returns the page where a specified offset into the 
-**    video memory occurs. 
+**    This function returns the page where a specified offset into the
+**    video memory occurs.
 **
 **  FORMAL PARAMETERS:
 **
@@ -3311,7 +3311,7 @@ sget(struct pc_softc *sc)
 **
 **  IMPLICIT INPUTS:
 **
-**     0xa0000 - Base address of screeen buffer 
+**     0xa0000 - Base address of screeen buffer
 **
 **  IMPLICIT OUTPUTS:
 **
@@ -3325,8 +3325,8 @@ sget(struct pc_softc *sc)
 **--
 */
 int
-pcmmap(dev_t   dev, 
-       int     offset, 
+pcmmap(dev_t   dev,
+       int     offset,
        int     nprot)
 {
 #ifdef SHARK
@@ -3348,7 +3348,7 @@ pcmmap(dev_t   dev,
 
     if(offset >> 24 == pam_io_data >> 24)
     {
-	/* IO space - Should not allow addresses outside of the 
+	/* IO space - Should not allow addresses outside of the
 	   VGA registers */
 	if(offset >= ((pam_io_data + displayInfo(ioBase)) & PG_FRAME) &&
 	   offset <= pam_io_data + displayInfo(ioBase)
@@ -3356,7 +3356,7 @@ pcmmap(dev_t   dev,
 	{
 	    return arm_byte_to_page(offset);
 	}
-	
+
     }
     else if(offset >> 24 == vtophys(vam_mem_data) >> 24)
     {
@@ -3369,7 +3369,7 @@ pcmmap(dev_t   dev,
 	}
     }
     return -1;
-    
+
 #else /* not SHARK */
     if (offset > 0x20000)
     {
@@ -3405,7 +3405,7 @@ get_shark_screen_ihandle()
 	 * doesn't become Unhappy.  If not, just open it.
 	 */
 	if ((chosen_phandle = OF_finddevice("/chosen")) == -1 ||
-	    OF_getprop(chosen_phandle, "stdout", &stdout_ihandle, 
+	    OF_getprop(chosen_phandle, "stdout", &stdout_ihandle,
 		       sizeof(stdout_ihandle)) != sizeof(stdout_ihandle)) {
 		goto notstdout;
 	}
@@ -3501,14 +3501,14 @@ getDisplayInfo(struct display_info *displayInfP)
     u_int ioStart, ioEnd, memStart, memEnd, *startp, *endp;
     int ihandle, phandle;
     unsigned long tempval;
-    
+
     if ((ihandle = get_shark_screen_ihandle()) != -1
        && (phandle = OF_instance_to_package(ihandle)) != -1)
     {
 	displayInfP->init = TRUE;
-	
+
 	/* Linear frame buffer virtual and physical address */
-	if (OF_getprop(phandle, "address", &tempval, 
+	if (OF_getprop(phandle, "address", &tempval,
 		       sizeof(vm_offset_t)) > 0)
 	{
 	    vm_offset_t vaddr;
@@ -3568,14 +3568,14 @@ getDisplayInfo(struct display_info *displayInfP)
 	if ((displayInfP->charSetLen = OF_getproplen(phandle, "character-set")) > 0)
 	{
 	    displayInfP->charSet = (char *)malloc(displayInfP->charSetLen + 1, M_DEVBUF, M_NOWAIT);
-	    displayInfP->charSetLen = OF_getprop(phandle, "character-set", 
+	    displayInfP->charSetLen = OF_getprop(phandle, "character-set",
 					     displayInfP->charSet, displayInfP->charSetLen);
 	}
 	if (displayInfP->charSetLen <= 0)
 	{
 	    displayInfP->charSet = (char *)-1;
 	}
-	
+
 	/* Register values.
 	 * XXX Treated as a contiguous range for memory mapping
 	 * XXX this code is still horribly broken, but it's better
@@ -3648,7 +3648,7 @@ getDisplayInfo(struct display_info *displayInfP)
     }
     return;
 }
-    
+
 #ifdef X_CGA_BUG
 static void
 cga_save_restore(int mode)
@@ -3659,8 +3659,8 @@ cga_save_restore(int mode)
     static char GraphicsReg[9];
     static char SequencerReg[5];
     static char AttributeReg10;
-    
-    
+
+
     switch (mode)
     {
 	case CGA_SAVE:
@@ -3668,8 +3668,8 @@ cga_save_restore(int mode)
 	     * Copy text from screen.
 	     */
 	    textInfo = (char *)malloc(16384, M_DEVBUF, M_NOWAIT);
-	    bcopy(Crtat, textInfo, TEXT_LENGTH);			
-	    
+	    bcopy(Crtat, textInfo, TEXT_LENGTH);
+
 	    /*
 	     ** Save the registers before we change them
 	     */
@@ -3689,45 +3689,45 @@ cga_save_restore(int mode)
 		outb(SR_INDEX, i);
 		SequencerReg[i] = inb(SR_DATA);
 	    }
-	    
+
 	    /*
 	     ** Blank the screen
 	     */
 	    outb(SR_INDEX, 1);
 	    outb(SR_DATA, (inb(SR_DATA) | 0x20));
-	    
+
 	    /*
 	     ** Set up frame buffer to point to plane 2 where the
 	     ** font information is stored.
 	     */
 	    /* reset flip-flop */
-	    tmp = inb(CGA_BASE + 0x0A); 
+	    tmp = inb(CGA_BASE + 0x0A);
 	    /* graphics mode */
-	    outb(AR_INDEX,0x30); outb(AR_INDEX, 0x01); 
+	    outb(AR_INDEX,0x30); outb(AR_INDEX, 0x01);
 	    /* write to plane 2 */
-	    outb(SR_INDEX, 0x02); outb(SR_DATA, 0x04);    
+	    outb(SR_INDEX, 0x02); outb(SR_DATA, 0x04);
 	    /* enable plane graphics */
-	    outb(SR_INDEX, 0x04); outb(SR_DATA, 0x06);    
+	    outb(SR_INDEX, 0x04); outb(SR_DATA, 0x06);
 	    /* read plane 2 */
-	    outb(GR_INDEX, 0x04); outb(GR_DATA, 0x02);    
+	    outb(GR_INDEX, 0x04); outb(GR_DATA, 0x02);
 	    /* write mode 0, read mode 0 */
 	    outb(GR_INDEX, 0x05); outb(GR_DATA, 0x00);
 	    /* set graphics mode - Warning: CGA specific */
 	    outb(GR_INDEX, 0x06); outb(GR_DATA, 0x0d);
-	    
+
 	    /*
 	     * Copy font information
 	     */
-	    bcopy(Crtat, fontInfo, FONT_LENGTH);			
+	    bcopy(Crtat, fontInfo, FONT_LENGTH);
 	    /*
              * Restore registers in case the X Server wants to save
 	     * the text too.
 	     */
 	    tmp = inb(0x3D0 + 0x0A); /* reset flip-flop */
-	    outb(AR_INDEX,0x30); outb(AR_INDEX, AttributeReg10); 
+	    outb(AR_INDEX,0x30); outb(AR_INDEX, AttributeReg10);
 	    for (i = 0; i < 9; i ++)
 	    {
-		outb(GR_INDEX, i); 
+		outb(GR_INDEX, i);
 		outb(GR_DATA, GraphicsReg[i]);
 	    }
 	    for (i = 0; i < 5; i++)
@@ -3736,40 +3736,40 @@ cga_save_restore(int mode)
 		outb(SR_DATA, SequencerReg[i]);
 	    }
 	    break;
-		
+
         case CGA_RESTORE:
 	    /*
 	     ** Set up frame buffer to point to plane 2 where the
 	     ** font information is stored.
 	     */
 	    /* reset flip-flop */
-	    tmp = inb(CGA_BASE + 0x0A); 
+	    tmp = inb(CGA_BASE + 0x0A);
 	    /* graphics mode */
-	    outb(AR_INDEX,0x30); outb(AR_INDEX, 0x01); 
+	    outb(AR_INDEX,0x30); outb(AR_INDEX, 0x01);
 	    /* write to plane 2 */
-	    outb(SR_INDEX, 0x02); outb(SR_DATA, 0x04);    
+	    outb(SR_INDEX, 0x02); outb(SR_DATA, 0x04);
 	    /* enable plane graphics */
-	    outb(SR_INDEX, 0x04); outb(SR_DATA, 0x06);    
+	    outb(SR_INDEX, 0x04); outb(SR_DATA, 0x06);
 	    /* read plane 2 */
-	    outb(GR_INDEX, 0x04); outb(GR_DATA, 0x02);    
+	    outb(GR_INDEX, 0x04); outb(GR_DATA, 0x02);
 	    /* write mode 0, read mode 0 */
 	    outb(GR_INDEX, 0x05); outb(GR_DATA, 0x00);
 	    /* set graphics mode - Warning: CGA specific */
 	    outb(GR_INDEX, 0x06); outb(GR_DATA, 0x0d);
-	    
+
 	    /*
-	     ** Restore font information 
+	     ** Restore font information
 	     */
 	    bcopy(fontInfo, Crtat, FONT_LENGTH);
-	    
+
 	    /*
 	     ** Put registers back the way they were for text.
 	     */
 	    tmp = inb(0x3D0 + 0x0A); /* reset flip-flop */
-	    outb(AR_INDEX,0x30); outb(AR_INDEX, AttributeReg10); 
+	    outb(AR_INDEX,0x30); outb(AR_INDEX, AttributeReg10);
 	    for (i = 0; i < 9; i ++)
 	    {
-		outb(GR_INDEX, i); 
+		outb(GR_INDEX, i);
 		outb(GR_DATA, GraphicsReg[i]);
 	    }
 	    for (i = 0; i < 5; i++)
@@ -3782,12 +3782,12 @@ cga_save_restore(int mode)
 	     ** Restore text information
 	     */
 	    bcopy(textInfo, Crtat, TEXT_LENGTH);
-	   
+
 	    break;
-	
+
 	default:
 	    panic("unknown save/restore mode");
-	    break;    
+	    break;
 	}
 }
 #endif

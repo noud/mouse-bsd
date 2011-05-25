@@ -148,7 +148,7 @@ hp300_calibrate_delay()
 		/* Enable the timer */
 		clk->clk_cr2 = CLK_CR1;
 		clk->clk_cr1 = CLK_IENAB;
-		
+
 		delay(10000);
 
 		/* Timer1 interrupt flag high? */
@@ -385,7 +385,7 @@ inittodr(base)
 		timbuf = 6*SECYR + 186*SECDAY + SECDAY/2;
 		printf(" -- CHECK AND RESET THE DATE!\n");
 	}
-	
+
 	/* Battery clock does not store usec's, so forget about it. */
 	time.tv_sec = timbuf;
 }
@@ -440,7 +440,7 @@ gmt_to_bbc(tim)
 	for (i = STARTOFTIME - 1900; day >= days_in_year(i); i++)
 	  	day -= days_in_year(i);
 	rt.tm_year = i;
-	
+
 	/* Number of months in days left */
 	if (leapyear(rt.tm_year))
 		days_in_month(FEBRUARY) = 29;
@@ -450,8 +450,8 @@ gmt_to_bbc(tim)
 	rt.tm_mon = i;
 
 	/* Days are what is left over (+1) from all that. */
-	rt.tm_mday = day + 1;  
-	
+	rt.tm_mday = day + 1;
+
 	return(&rt);
 }
 
@@ -490,7 +490,7 @@ bbc_to_gmt(timbuf)
 
 	for (i = 1; i < month; i++)
 	  	tmp += days_in_month(i);
-	
+
 	tmp += (day - 1);
 	tmp = ((tmp * 24 + hour) * 60 + min) * 60 + sec;
 
@@ -542,4 +542,4 @@ write_bbc_reg(reg, data)
 		send_hil_cmd(bbcaddr, BBC_READ_REG, NULL, 0, &tmp);
 	}
 	return(tmp);
-}	
+}

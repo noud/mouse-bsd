@@ -282,7 +282,7 @@ union instr {
 		u_int	i_rs2:5;	/* source register 2 */
 	} i_opf;
 
-	/* 
+	/*
 	 * Format 4 instructions (movcc, fmovr, fmovcc, and tcc).  The
 	 * second-level decode almost always makes use of an `rd' and either
 	 * `rs1' or `cond'.
@@ -299,7 +299,7 @@ union instr {
 		u_int	i_rs1:5;	/* source register 1 */
 		u_int	i_low14:14;	/* varies */
 	} i_op4;
-	
+
 	/*
 	 * Move fp register on condition codes.
 	 */
@@ -444,7 +444,7 @@ union instr {
 /*
  * FPU data types.
  */
-#define FTYPE_LNG	-1	/* data = 64-bit signed long integer */		
+#define FTYPE_LNG	-1	/* data = 64-bit signed long integer */
 #define	FTYPE_INT	0	/* data = 32-bit signed integer */
 #define	FTYPE_SNG	1	/* data = 32-bit float */
 #define	FTYPE_DBL	2	/* data = 64-bit double */

@@ -300,7 +300,7 @@ wdc_pcmcia_attach(parent, self, aux)
 	    sc->sc_pioh.size, &sc->sc_pioh, &sc->sc_iowindow)) {
 		printf(": can't map first I/O space\n");
 		goto iomap_failed;
-	} 
+	}
 
 	if (cfe->num_iospace <= 1)
 		sc->sc_auxiowindow = -1;
@@ -312,7 +312,7 @@ wdc_pcmcia_attach(parent, self, aux)
 
 	if ((wpp != NULL) && (wpp->wpp_name != NULL))
 		printf(": %s", wpp->wpp_name);
-	
+
 	printf("\n");
 
 	sc->wdc_channel.cmd_iot = sc->sc_pioh.iot;

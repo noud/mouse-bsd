@@ -519,7 +519,7 @@ case $basic_machine in
 		os=-coff
 		;;
 	msdos)						# CYGNUS LOCAL
-		basic_machine=i386-unknown	
+		basic_machine=i386-unknown
 		os=-msdos
 		;;
 	ncr3000)

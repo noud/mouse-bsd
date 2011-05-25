@@ -105,7 +105,7 @@ gettable(name, buf)
 	for (np = gettynums; np->field; np++)
 		printf("cgetnum: %s=%d\n", np->field, np->value);
 	for (fp = gettyflags; fp->field; fp++)
-		printf("cgetflags: %s='%c' set='%c'\n", fp->field, 
+		printf("cgetflags: %s='%c' set='%c'\n", fp->field,
 		       fp->value + '0', fp->set + '0');
 	exit(1);
 #endif /* DEBUG */

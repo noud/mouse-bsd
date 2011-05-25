@@ -66,12 +66,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -122,7 +122,7 @@ static u_char   		rcvcmsgbuf[CMSG_SPACE(sizeof(struct in6_pktinfo)) +
 			   	CMSG_SPACE(sizeof(int))];
 #ifndef USE_RFC2292BIS
 u_int8_t raopt[IP6OPT_RTALERT_LEN];
-#endif 
+#endif
 static char *sndcmsgbuf;
 static int ctlbuflen = 0;
 static u_short rtalert_code;
@@ -191,7 +191,7 @@ init_mld6()
     if (setsockopt(mld6_socket, IPPROTO_IPV6, IPV6_PKTINFO, &on,
 		   sizeof(on)) < 0)
 	log(LOG_ERR, errno, "setsockopt(IPV6_PKTINFO)");
-#endif 
+#endif
 
     on = 1;
     /* specify to tell value of hoplimit field of received IP6 hdr */
@@ -203,7 +203,7 @@ init_mld6()
     if (setsockopt(mld6_socket, IPPROTO_IPV6, IPV6_HOPLIMIT, &on,
 		   sizeof(on)) < 0)
 	log(LOG_ERR, errno, "setsockopt(IPV6_HOPLIMIT)");
-#endif 
+#endif
 
     /* initialize msghdr for receiving packets */
     rcviov[0].iov_base = (caddr_t) mld6_recv_buf;
@@ -225,7 +225,7 @@ init_mld6()
     raopt[0] = IP6OPT_ROUTER_ALERT;
     raopt[1] = IP6OPT_RTALERT_LEN - 2;
     memcpy(&raopt[2], (caddr_t) & rtalert_code, sizeof(u_short));
-#endif 
+#endif
 
     /* register MLD message handler */
     if (register_input_handler(mld6_socket, mld6_read) < 0)
@@ -420,7 +420,7 @@ make_mld6_msg(type, code, src, dst, group, ifindex, delay, datalen, alert)
 	datalen = sizeof(struct mld6_hdr);
 	break;
     }
-   
+
     bzero(mhp, sizeof(*mhp));
     mhp->mld6_type = type;
     mhp->mld6_code = code;
@@ -508,7 +508,7 @@ make_mld6_msg(type, code, src, dst, group, ifindex, delay, datalen, alert)
 		    if (inet6_option_append(cmsgp, raopt, 4, 0))
 			    log(LOG_ERR, 0, /* assert */
 				"make_mld6_msg: inet6_option_append failed");
-#endif 
+#endif
 		    cmsgp = CMSG_NXTHDR(&sndmh, cmsgp);
 	    }
     }
@@ -528,7 +528,7 @@ send_mld6(type, code, src, dst, group, index, delay, datalen, alert)
 {
     int setloop = 0;
     struct sockaddr_in6 *dstp;
-	
+
     make_mld6_msg(type, code, src, dst, group, index, delay, datalen, alert);
     dstp = (struct sockaddr_in6 *)sndmh.msg_name;
     if (IN6_ARE_ADDR_EQUAL(&dstp->sin6_addr, &allnodes_group.sin6_addr)) {
@@ -549,7 +549,7 @@ send_mld6(type, code, src, dst, group, index, delay, datalen, alert)
 	    k_set_loop(mld6_socket, FALSE);
 	return;
     }
-    
+
     IF_DEBUG(DEBUG_PKT|debug_kind(IPPROTO_IGMP, type, 0))
 	log(LOG_DEBUG, 0, "SENT %s from %-15s to %s",
 	    packet_kind(IPPROTO_ICMPV6, type, 0),

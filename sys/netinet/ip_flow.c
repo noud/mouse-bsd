@@ -161,7 +161,7 @@ ipflow_fastforward(
 	 */
 	if ((m->m_flags & (M_BCAST|M_MCAST)) != 0)
 		return 0;
-	
+
 	/*
 	 * IP header with no option and valid version and length
 	 */
@@ -199,7 +199,7 @@ ipflow_fastforward(
 	/*
 	 * Everything checks out and so we can forward this packet.
 	 * Modify the TTL and incrementally change the checksum.
-	 * 
+	 *
 	 * This method of adding the checksum works on either endian CPU.
 	 * If htons() is inlined, all the arithmetic is folded; otherwise
 	 * the htons()s are combined by CSE due to the __const__ attribute.
@@ -211,7 +211,7 @@ ipflow_fastforward(
 		ip->ip_sum += htons(IPTTLDEC << 8);
 
 	/*
-	 * Trim the packet in case it's too long.. 
+	 * Trim the packet in case it's too long..
 	 */
 	if (m->m_pkthdr.len > iplen) {
 		if (m->m_len == m->m_pkthdr.len) {

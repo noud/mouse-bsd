@@ -150,7 +150,7 @@ serial_test()
 	unsigned char regs[REGSIZE], prev_regs[REGSIZE];
 	unsigned char* p = (char*)VirtualAlloc(0, 1024, MEM_RESERVE,
 				      PAGE_NOACCESS);
-	
+
 	for (i = 0; i < ARRAYSIZEOF(prev_regs); i++) {
 		prev_regs[i] = ~0;
 	}

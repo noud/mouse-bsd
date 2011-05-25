@@ -270,7 +270,7 @@ cpu_reboot(howto, bootstr)
 	/* Do a dump if requested. */
 	if ((howto & (RB_DUMP | RB_HALT)) == RB_DUMP)
 		dumpsys();
-	
+
 	/* Run any shutdown hooks */
 	doshutdownhooks();
 
@@ -413,7 +413,7 @@ initarm(bootinfo)
 	 * The initarm() has the responcibility for creating the kernel
 	 * page tables.
 	 * It must also set up various memory pointers that are used
-	 * by pmap etc. 
+	 * by pmap etc.
 	 */
 
 	/*
@@ -433,7 +433,7 @@ initarm(bootinfo)
 	physical_end = ebsabootinfo.bt_memend;
 	physical_freeend = physical_end;
 	free_pages = (physical_end - physical_start) / NBPG;
-    
+
 	physmem = (physical_end - physical_start) / NBPG;
 
 	/* Tell the user about the memory */
@@ -516,10 +516,10 @@ initarm(bootinfo)
 	valloc_pages(kernelstack, UPAGES);
 
 #ifdef VERBOSE_INIT_ARM
-	printf("IRQ stack: p0x%08lx v0x%08lx\n", irqstack.pv_pa, irqstack.pv_va); 
-	printf("ABT stack: p0x%08lx v0x%08lx\n", abtstack.pv_pa, abtstack.pv_va); 
-	printf("UND stack: p0x%08lx v0x%08lx\n", undstack.pv_pa, undstack.pv_va); 
-	printf("SVC stack: p0x%08lx v0x%08lx\n", kernelstack.pv_pa, kernelstack.pv_va); 
+	printf("IRQ stack: p0x%08lx v0x%08lx\n", irqstack.pv_pa, irqstack.pv_va);
+	printf("ABT stack: p0x%08lx v0x%08lx\n", abtstack.pv_pa, abtstack.pv_va);
+	printf("UND stack: p0x%08lx v0x%08lx\n", undstack.pv_pa, undstack.pv_va);
+	printf("SVC stack: p0x%08lx v0x%08lx\n", kernelstack.pv_pa, kernelstack.pv_va);
 #endif
 
 	alloc_pages(msgbufphys, round_page(MSGBUFSIZE) / NBPG);
@@ -809,16 +809,16 @@ arm32_cachectl(va, len, flags)
 		while (loop > 0) {
 			ptep = vtopte(addr & (~PGOFSET));
 			pte = *ptep;
-	
+
 			*ptep = (pte & ~(PT_C | PT_B)) | (flags & (PT_C | PT_B));
-	
+
 			loop -= NBPG;
 			addr += NBPG;
 		}
 		tlb_flush();
 	}
-	
-	cpu_cache_purgeD_rng(va, len);	
+
+	cpu_cache_purgeD_rng(va, len);
 }
 #endif
 

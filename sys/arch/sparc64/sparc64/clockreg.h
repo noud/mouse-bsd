@@ -63,7 +63,7 @@
  * the last 2K of it's 8K address space. We simply ignore the first 6K..
  *
  * The sun4u uses a Mostak MK48T59 that is supposed to be identical to a
- * MK48T08 with the addition of a battery low detection bit and a power 
+ * MK48T08 with the addition of a battery low detection bit and a power
  * supply wakeup alarm for power management.  It's at an offset of
  * 0x1ff0 from the addr of the eeprom.
  */

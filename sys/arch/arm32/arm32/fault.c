@@ -97,7 +97,7 @@ static const char *aborts[16] = {
 	"Bus error (section)",
 	"Domain error (section)",
 	"Bus error (page)",
-	"Domain error (page)", 
+	"Domain error (page)",
 	"Bus error trans (L1)",
 	"Permission error (section)",
 	"Bus error trans (L2)",
@@ -207,7 +207,7 @@ copyfault:
 		printf("Instruction @V%08x = %08x\n",
 		    fault_pc, fault_instruction);
 	}
-#endif               
+#endif
 
 	/* Call the cpu specific abort fixup routine */
 	error = cpu_dataabt_fixup(frame);
@@ -234,7 +234,7 @@ copyfault:
 	/* Were we in user mode when the abort occurred ? */
 	if ((frame->tf_spsr & PSR_MODE) == PSR_USR32_MODE) {
 		sticks = p->p_sticks;
-        
+
 		/*
 		 * Note that the fault was from USR mode.
 		 */
@@ -263,7 +263,7 @@ copyfault:
 		 */
 
 		/* FALLTHROUGH */
-          
+
 	case FAULT_BUSERR_0:              /* Bus Error LF Section */
 	case FAULT_BUSERR_1:              /* Bus Error Page */
 	case FAULT_BUSERR_2:              /* Bus Error Section */
@@ -272,7 +272,7 @@ copyfault:
 		/* Real bus errors are not a process problem but hardware */
 
 		/* FALLTHROUGH */
-          
+
 	case FAULT_DOMAIN_S:              /* Section Domain Error Fault */
 	case FAULT_DOMAIN_P:              /* Page Domain Error Fault*/
 		/*
@@ -313,7 +313,7 @@ copyfault:
 #else
 		panic("Unhandled trap (frame = %p)", frame);
 #endif	/* DDB */
-          
+
 	case FAULT_TRANS_P:              /* Page Translation Fault */
 	case FAULT_PERM_P:		 /* Page Permission Fault */
 	case FAULT_TRANS_S:              /* Section Translation Fault */
@@ -336,7 +336,7 @@ copyfault:
 		if (pmap_debug_level >= 0)
 			printf("page fault: addr=V%08lx ", va);
 #endif
-          
+
 		/*
 		 * It is only a kernel address space fault iff:
 		 *	1. user == 0  and
@@ -385,16 +385,16 @@ copyfault:
 		 */
 		/* STR instruction ? */
 		if ((fault_instruction & 0x0c100000) == 0x04000000)
-			ftype = VM_PROT_READ | VM_PROT_WRITE; 
+			ftype = VM_PROT_READ | VM_PROT_WRITE;
 		/* STM or CDT instruction ? */
 		else if ((fault_instruction & 0x0a100000) == 0x08000000)
-			ftype = VM_PROT_READ | VM_PROT_WRITE; 
+			ftype = VM_PROT_READ | VM_PROT_WRITE;
 		/* STRH, STRSH or STRSB instruction ? */
 		else if ((fault_instruction & 0x0e100090) == 0x00000090)
-			ftype = VM_PROT_READ | VM_PROT_WRITE; 
+			ftype = VM_PROT_READ | VM_PROT_WRITE;
 		/* SWP instruction ? */
 		else if ((fault_instruction & 0x0fb00ff0) == 0x01000090)
-			ftype = VM_PROT_READ | VM_PROT_WRITE; 
+			ftype = VM_PROT_READ | VM_PROT_WRITE;
 		else
 			ftype = VM_PROT_READ;
 
@@ -402,7 +402,7 @@ copyfault:
 		if (pmap_debug_level >= 0)
 			printf("fault protection = %d\n", ftype);
 #endif
-            
+
 		if ((ftype & VM_PROT_WRITE) ?
 		    pmap_modified_emulation(map->pmap, va) :
 		    pmap_handled_emulation(map->pmap, va))
@@ -443,9 +443,9 @@ copyfault:
 		} else
 			trapsignal(p, SIGSEGV, TRAP_CODE);
 		break;
-	}            
 	}
-          
+	}
+
 out:
 	/* Call userret() if it was a USR mode fault */
 	if (user)
@@ -580,7 +580,7 @@ prefetch_abort_handler(frame)
 			Debugger();
 #endif
 	}
-	
+
 	/* Ok read the fault address. This will fault the page in for us */
 	if (fetchuserword(fault_pc, &fault_instruction) != 0) {
 #ifdef DEBUG

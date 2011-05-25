@@ -497,7 +497,7 @@ get_operand (ptr, op, ispage)
 	  /* Disp */
 	  src++;
 
-	  src = skip_colonthing (exp_signed, src, 
+	  src = skip_colonthing (exp_signed, src,
 				 op, RNIND_D16, RNIND_D8, RNIND_D16, 0);
 
 	  if (*src != ',')
@@ -968,7 +968,7 @@ build_bytes (opcode, operand)
 	      break;
 	    case RD:
 	    case RDIND:
-	      
+
 	      output[index] |= rd;
 	      break;
 	    case RS:
@@ -990,17 +990,17 @@ build_bytes (opcode, operand)
 		case 'p':
 		  p = R_H8500_HIGH16;
 		  break;
-		case 'h':		
+		case 'h':
 		  p = R_H8500_HIGH16;
 		  break;
 		default:
 		  p = R_H8500_IMM16;
 		  break;
 		}
-		
+
 		insert (output, index, &immediate,p, 0);
 	      }
-		
+
 	      index++;
 	      break;
 	    case RLIST:
@@ -1426,7 +1426,7 @@ md_section_align (seg, size)
      segT seg ;
      valueT size;
 {
-  return ((size + (1 << section_alignment[(int) seg]) - 1) 
+  return ((size + (1 << section_alignment[(int) seg]) - 1)
 	  & (-1 << section_alignment[(int) seg]));
 
 }

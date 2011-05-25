@@ -271,7 +271,7 @@ apci*)
 		;;
 	esac
 	;;
-	
+
 ite*)
 	unit=${i#ite}
 	case $unit in
@@ -402,7 +402,7 @@ random)
 	;;
 
 scsibus*)
-	unit=${i#scsibus}; 
+	unit=${i#scsibus};
 	rm -f scsibus$unit
 	mknod scsibus$unit c 34 $unit
 	chown root:wheel scsibus$unit

@@ -52,7 +52,7 @@ ffs_sb_swap(o, n, ns)
 	int i;
 	u_int32_t *o32, *n32;
 	u_int16_t *o16, *n16;
-	
+
 	/* in order to avoid a lot of lines, as the first 52 fields of
 	 * the superblock are u_int32_t, we loop here to convert it.
 	 */
@@ -60,7 +60,7 @@ ffs_sb_swap(o, n, ns)
 	n32 = (u_int32_t *)n;
 	for (i=0; i< 52; i++)
 		n32[i] = bswap32(o32[i]);
-   
+
 	n->fs_cpc = bswap32(o->fs_cpc);
 	n->fs_fscktime = bswap32(o->fs_fscktime);
 	n->fs_contigsumsize = bswap32(o->fs_contigsumsize);
@@ -120,7 +120,7 @@ ffs_csum_swap(o, n, size)
 {
 	int i;
 	u_int32_t *oint, *nint;
-	
+
 	oint = (u_int32_t*)o;
 	nint = (u_int32_t*)n;
 

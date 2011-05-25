@@ -36,7 +36,7 @@
 #define	gettimeofday(tv, tz)	gettimeofday(tv)
 #endif
 
-/* 
+/*
  * XXX
  * If we don't have mmap, we fake it with read and write, but we'll
  * still need the header information.

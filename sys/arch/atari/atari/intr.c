@@ -184,7 +184,7 @@ intr_establish(vector, type, pri, ih_fun, ih_arg)
 			 */
 			*hard_vec = (u_long)intr_glue;
 		}
-			
+
 		splx(s);
 
 		return ih;

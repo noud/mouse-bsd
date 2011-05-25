@@ -106,7 +106,7 @@ sflag_print()
 		pn = tmp;
 
 		for (w = pn->whead; w != NULL; w = w->next) {
-			(void)printf("%-*.*s %-*.*s ", (int)UT_NAMESIZE, 
+			(void)printf("%-*.*s %-*.*s ", (int)UT_NAMESIZE,
 			    (int)UT_NAMESIZE,
 			    pn->name, MAXREALNAME, MAXREALNAME,
 			    pn->realname ? pn->realname : "");

@@ -270,7 +270,7 @@ rtld(version, crtp, dp)
 		n > 0;
 		n -= sizeof(struct relocation_info) ) nreloc++;
 
-	
+
 	/* Relocate ourselves */
 	for (	reloc = (struct relocation_info *)(LD_REL(dp) + crtp->crt_ba);
 		nreloc;
@@ -1116,7 +1116,7 @@ lookup(name, ref_map, src_map, strong)
 			continue;
 
 		if ((buckets = LD_BUCKETS(smp->som_dynamic)) == 0)
-			continue; 
+			continue;
 
 		if (LM_PRIVATE(smp)->spd_flags & _RTLD_RTLD)
 			continue;
@@ -1274,9 +1274,9 @@ __dladdr(addr, dli)
 			continue;
 
 		if ((buckets = LD_BUCKETS(smp->som_dynamic)) == 0)
-			continue; 
+			continue;
 
-		/* 
+		/*
 		 * Walk the entire symbol table of this object
 		 * in search for the nearest symbol.
 		 */

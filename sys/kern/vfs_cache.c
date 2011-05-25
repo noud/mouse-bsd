@@ -265,7 +265,7 @@ cache_revlookup (vp, dvpp, bpp, bufp)
 	struct namecache *ncp;
 	struct vnode *dvp;
 	struct ncvhashhead *nvcpp;
-	
+
 	if (!doingcache)
 		goto out;
 
@@ -279,7 +279,7 @@ cache_revlookup (vp, dvpp, bpp, bufp)
 		    (dvp->v_id == ncp->nc_dvpid))
 		{
 			char *bp;
-		  
+
 #ifdef DIAGNOSTIC
 			if ((ncp->nc_nlen == 1) &&
 			    (ncp->nc_name[0] == '.'))
@@ -302,7 +302,7 @@ cache_revlookup (vp, dvpp, bpp, bufp)
 				memcpy(bp, ncp->nc_name, ncp->nc_nlen);
 				*bpp = bp;
 			}
-			
+
 			/* XXX MP: how do we know dvp won't evaporate? */
 			*dvpp = dvp;
 			return 0;
@@ -374,7 +374,7 @@ cache_enter(dvp, vp, cnp)
 
 	ncp->nc_vhash.le_prev = 0;
 	ncp->nc_vhash.le_next = 0;
-	
+
 	/*
 	 * Create reverse-cache entries (used in getcwd) for directories.
 	 */
@@ -388,7 +388,7 @@ cache_enter(dvp, vp, cnp)
 		nvcpp = &ncvhashtbl[(vp->v_id & ncvhash)];
 		LIST_INSERT_HEAD(nvcpp, ncp, nc_vhash);
 	}
-	
+
 }
 
 /*
@@ -400,7 +400,7 @@ nchinit()
 
 	TAILQ_INIT(&nclruhead);
 	nchashtbl = hashinit(desiredvnodes, M_CACHE, M_WAITOK, &nchash);
-	ncvhashtbl = hashinit(desiredvnodes/8, M_CACHE, M_WAITOK, &ncvhash);	
+	ncvhashtbl = hashinit(desiredvnodes/8, M_CACHE, M_WAITOK, &ncvhash);
 	pool_init(&namecache_pool, sizeof(struct namecache), 0, 0, 0,
 	    "ncachepl", 0, pool_page_alloc_nointr, pool_page_free_nointr,
 	    M_CACHE);

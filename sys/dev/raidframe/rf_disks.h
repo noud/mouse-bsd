@@ -68,7 +68,7 @@ struct RF_RaidDisk_s {
 	RF_SectorCount_t numBlocks;	/* number of blocks, obtained via READ
 					 * CAPACITY */
 	int     blockSize;
-	RF_SectorCount_t partitionSize; /* The *actual* and *full* size of 
+	RF_SectorCount_t partitionSize; /* The *actual* and *full* size of
 					   the partition, from the disklabel */
 	dev_t   dev;
 };
@@ -85,13 +85,13 @@ typedef void RF_DiskOp_t;
 	((_dstat_) == rf_ds_dist_spared))
 
 #ifdef _KERNEL
-int 
+int
 rf_ConfigureDisks(RF_ShutdownList_t ** listp, RF_Raid_t * raidPtr,
 		  RF_Config_t * cfgPtr);
-int 
+int
 rf_ConfigureSpareDisks(RF_ShutdownList_t ** listp, RF_Raid_t * raidPtr,
 		       RF_Config_t * cfgPtr);
-int 
+int
 rf_ConfigureDisk(RF_Raid_t * raidPtr, char *buf, RF_RaidDisk_t * diskPtr,
 		 RF_RowCol_t row, RF_RowCol_t col);
 int

@@ -37,7 +37,7 @@
 .Sh 3 "Interprocess communication primitives
 .Sh 4 "Communication domains
 .PP
-The system provides access to an extensible set of 
+The system provides access to an extensible set of
 communication \fIdomains\fP.  A communication domain (or protocol family)
 is identified by a manifest constant defined in the
 file \fI<sys/socket.h>\fP.
@@ -408,7 +408,7 @@ condition at the remote end.
 .PP
 Sockets, and their underlying communication protocols, may
 support \fIoptions\fP.  These options may be used to manipulate
-implementation- or protocol-specific facilities. 
+implementation- or protocol-specific facilities.
 The
 .Fn getsockopt
 and

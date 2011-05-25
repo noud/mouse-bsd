@@ -279,7 +279,7 @@ zs_attach_obio(parent, self, aux)
 					  BUS_SPACE_MAP_LINEAR,
 					  0, &bh) != 0) {
 				printf(" cannot map zs registers\n");
-				return; 
+				return;
 			}
 			va = (void *)bh;
 		}
@@ -300,7 +300,7 @@ zs_attach_obio(parent, self, aux)
 				  BUS_SPACE_MAP_LINEAR | OBIO_BUS_MAP_USE_ROM,
 				  &bh) != 0) {
 			printf(" cannot map zs registers\n");
-			return; 
+			return;
 		}
 		zsc->zsc_bustag = oba->oba_bustag;
 		zsc->zsc_dmatag = oba->oba_dmatag;
@@ -976,7 +976,7 @@ consinit()
 		 *
 		 * Translate the STDIO package instance (`ihandle') -- that
 		 * the PROM has already opened for us -- to a device tree
-		 * node (i.e. a `phandle'). 
+		 * node (i.e. a `phandle').
 		 */
 
 		if ((node = prom_instance_to_package(prom_stdin())) == 0) {

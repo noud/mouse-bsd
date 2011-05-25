@@ -217,9 +217,9 @@ _rtld_load_by_name(name, obj, needed, dodebug)
 				(*needed)->next = ne;
 				*needed = ne;
 			}
-				
+
 		}
-		
+
 	}
 
 	if (got)

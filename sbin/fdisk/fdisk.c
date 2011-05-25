@@ -612,21 +612,21 @@ init_sector0(start, dopart)
 
 	memcpy(mboot.bootinst, bootcode, sizeof(mboot.bootinst));
 	putshort(&mboot.signature, MBR_MAGIC);
-	
+
 	if (dopart)
-		for (i=0; i<4; i++) 
+		for (i=0; i<4; i++)
 			memset(&mboot.parts[i], 0, sizeof(struct mbr_partition));
 
 }
 
 #ifdef __i386__
 
-void	    
+void
 get_diskname(fullname, diskname, size)
-	char *fullname; 
+	char *fullname;
 	char *diskname;
-	size_t size;    
-{	       
+	size_t size;
+{
 	char *p;
 	char *p2;
 	size_t len;
@@ -656,7 +656,7 @@ get_diskname(fullname, diskname, size)
 		return;
 	}
 	while (isdigit(*p2))
-		p2++; 
+		p2++;
 
 	len = p2 - p;
 	if (len > size) {
@@ -665,7 +665,7 @@ get_diskname(fullname, diskname, size)
 		diskname[size - 1] = '\0';
 		return;
 	}
- 
+
 	strncpy(diskname, p, len);
 	diskname[len] = 0;
 }
@@ -931,7 +931,7 @@ intuit_translated_geometry()
 				break;
 			}
 		}
-		if (heads != -1)	
+		if (heads != -1)
 			break;
 	}
 

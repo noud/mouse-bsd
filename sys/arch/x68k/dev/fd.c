@@ -1211,7 +1211,7 @@ loop:
 			 head, sec, nblks, fd->sc_skip));
 		DPRINTF(("C H R N: %d %d %d %d\n", fd->sc_cylin, head, sec,
 			 type->secsize));
-			 
+
 		if (fd->sc_part != SEC_P11)
 			goto docopy;
 

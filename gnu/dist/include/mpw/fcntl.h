@@ -33,10 +33,10 @@
 /*
  * more faccess() commands; for use only by MPW tools
  */
- 
+
 #define F_OPEN 			(('d'<<8)|0x00)		/* reserved for operating system use */
 					/* 'e' => "editor" ops */
-#define F_GTABINFO 		(('e'<<8)|0x00)		/* get tab offset for file */	
+#define F_GTABINFO 		(('e'<<8)|0x00)		/* get tab offset for file */
 #define F_STABINFO 		(('e'<<8)|0x01)		/* set 	"	"		"	"  */
 #define F_GFONTINFO		(('e'<<8)|0x02)		/* get font number and size for file */
 #define F_SFONTINFO		(('e'<<8)|0x03)		/* set 	"		"	"	"	"	" 	 */
@@ -56,7 +56,7 @@
 /*
  *	argument structures used by various faccess() commands
  */
- 
+
 struct MarkElement {
 	int				start;			/* start position of mark */
 	int				end;			/* end position */

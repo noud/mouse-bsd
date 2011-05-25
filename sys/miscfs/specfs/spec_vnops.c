@@ -714,7 +714,7 @@ spec_pathconf(v)
 	/* NOTREACHED */
 }
 
-/* 
+/*
  * Advisory record locking support.
  */
 int

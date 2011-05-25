@@ -64,7 +64,7 @@ programmer other than to request that augmented routine
 prologues be produced during compilation.
 .pp
 We are interested in gathering three pieces of information during
-program execution: call counts and execution times for 
+program execution: call counts and execution times for
 each profiled routine, and the arcs of the dynamic call graph
 traversed by this execution of the program.
 By post-processing of this data we can build the dynamic call
@@ -119,7 +119,7 @@ The monitoring routine also discovers the return address for that
 routine, thus identifying the call site, or source of the arc.
 The source of the arc is in the \fIcaller\fP, and the destination is in
 the \fIcallee\fP.
-For example, if a routine A calls a routine B, A is the caller, 
+For example, if a routine A calls a routine B, A is the caller,
 and B is the callee.
 The prologue of B will include a call to the monitoring routine
 that will note the arc from A to B and either initialize or
@@ -220,7 +220,7 @@ This assumption may disguise that some calls
 such that its execution is faster (or slower)
 than the average time for that routine.
 .pp
-When the profiled program terminates, 
+When the profiled program terminates,
 the arc table and the histogram of
 program counter samples is written to a file.
 The arc table is condensed to consist of the source and destination

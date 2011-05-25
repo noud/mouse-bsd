@@ -1,4 +1,4 @@
-.\"	$NetBSD: whatis,v 1.6 1999/05/04 03:41:46 simonb Exp $	
+.\"	$NetBSD: whatis,v 1.6 1999/05/04 03:41:46 simonb Exp $
 This is the fourth public major release of NetBSD for the DECstation
 and DECsystem family of computers.  Significantly, this is the first
 release for the pmax that builds completely from in-tree source code.

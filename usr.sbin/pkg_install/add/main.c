@@ -138,12 +138,12 @@ main(int argc, char **argv)
 					    if ((s = findbestmatchingname(dirname_of(*argv),
 					    basename_of(*argv))) != NULL) {
 						    char tmp[FILENAME_MAX];
-						    
+
 						    snprintf(tmp, sizeof(tmp), "%s/%s", dirname_of(*argv), s);
-						    
+
 						    if (Verbose)
 							    printf("Using %s for %s\n", tmp, *argv);
-						    
+
 						    if (!(cp = realpath(tmp, pkgname))) {
 							    lpp = NULL;
 							    warn("realpath failed for '%s'", tmp);
@@ -156,15 +156,15 @@ main(int argc, char **argv)
 				} else {
 					/* Maybe just a pkg name w/o pattern was given */
 					char tmp[FILENAME_MAX];
-						
+
 					snprintf(tmp, sizeof(tmp), "%s-[0-9]*.tgz", *argv);
 					s=findbestmatchingname(dirname_of(tmp),
 							       basename_of(tmp));
 					if (s) {
 						char tmp2[FILENAME_MAX];
-						
+
 						snprintf(tmp2, sizeof(tmp2), "%s/%s", dirname_of(tmp), s);
-						
+
 					if (Verbose)
 							printf("Using %s for %s\n", tmp2, *argv);
 

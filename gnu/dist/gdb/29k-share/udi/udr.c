@@ -14,14 +14,14 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 static char udr_c[]="@(#)udr.c	2.8  Daniel Mann";
 static char udr_c_AMD[]="@(#)udr.c	2.3, AMD";
-/* 
+/*
 *	All data is serialised into a character stream,
 *	and de-serialised back into the approproiate objects.
 ********************************************************************** HISTORY
@@ -401,7 +401,7 @@ int	size;
     	    {  fprintf(stderr,"ERROR, udr_readnow() too few bytes in stream\n");
 	       return -1;		/* return error code */
     	    }
-    	}		
+    	}
     }
     else
     {	udr_errno =  UDIErrorIPCInternal;
@@ -417,7 +417,7 @@ UDR*	udrs;
 int	size;
 {
     char*   align;
-    int	    offset;	
+    int	    offset;
 
     align = udr_getpos(udrs);
     offset = size - ((int)align & (size -1));

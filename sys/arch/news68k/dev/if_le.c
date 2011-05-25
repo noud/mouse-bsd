@@ -108,7 +108,7 @@ extern volatile u_char *lance_mem, *idrom_addr;
 #endif
 
 hide void lewrcsr __P((struct lance_softc *, u_int16_t, u_int16_t));
-hide u_int16_t lerdcsr __P((struct lance_softc *, u_int16_t));  
+hide u_int16_t lerdcsr __P((struct lance_softc *, u_int16_t));
 int leintr __P((int));
 
 hide void
@@ -133,7 +133,7 @@ lerdcsr(sc, port)
 	ler1->ler1_rap = port;
 	val = ler1->ler1_rdp;
 	return (val);
-} 
+}
 
 int
 le_match(parent, cf, aux)

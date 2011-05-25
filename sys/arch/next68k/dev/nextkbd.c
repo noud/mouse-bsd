@@ -146,7 +146,7 @@ nextkbd_attach(parent, self, aux)
 	if (isconsole) {
 		sc->id = &nextkbd_consdata;
 	} else {
-		sc->id = malloc(sizeof(struct nextkbd_internal), 
+		sc->id = malloc(sizeof(struct nextkbd_internal),
 				M_DEVBUF, M_WAITOK);
 
 		memset(sc->id, 0, sizeof(struct nextkbd_internal));
@@ -206,7 +206,7 @@ nextkbd_ioctl(v, cmd, data, flag, p)
 	struct proc *p;
 {
 	/* XXX struct nextkbd_softc *nc = v; */
-		 
+
 	switch (cmd) {
 	case WSKBDIO_GTYPE:
 		/* XXX */
@@ -270,7 +270,7 @@ nextkbd_cnattach(bst)
 	nextkbd_consdata.ioh = bsh;
 	nextkbd_consdata.isconsole = 1;
 
-	wskbd_cnattach(&nextkbd_consops, &nextkbd_consdata, 
+	wskbd_cnattach(&nextkbd_consops, &nextkbd_consdata,
 			&nextkbd_keymapdata);
 
 	return (0);
@@ -315,7 +315,7 @@ nextkbd_read_data(struct nextkbd_internal *id)
 {
 	unsigned char device;
 	struct mon_regs stat;
-				
+
 	bus_space_read_region_4(id->iot, id->ioh, 0, &stat, 3);
 	if ((stat.mon_csr & CSR_INT) && (stat.mon_csr & CSR_DATA)) {
 		stat.mon_csr &= ~CSR_INT;
@@ -391,7 +391,7 @@ nextkbd_decode(id, datain, type, dataout)
 			*type = WSCONS_EVENT_KEY_UP;
 		else
 			*type = WSCONS_EVENT_KEY_DOWN;
-								
+
 		*dataout = (datain & KD_KEYMASK);
 	} else {
 		*dataout = 0;

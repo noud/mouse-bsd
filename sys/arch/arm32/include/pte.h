@@ -56,7 +56,7 @@ typedef	int	pt_entry_t;		/* page table entry */
  * was allocated for a PT then the other 3KB would also get mapped
  * whenever the 1KB was mapped.
  */
- 
+
 #define PT_SIZE		0x1000
 #define PD_SIZE		0x4000
 

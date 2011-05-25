@@ -123,7 +123,7 @@ tseng_init(pc, tag, id, ba, fb)
 	for (i = 1; i < 8; i++)
 		WSeq(ba, i, seq_tab[i]);
 	WSeq(ba, SEQ_ID_RESET       ,     0x03);
-	
+
 	vgar(ba, VDAC_ADDRESS);	/* clear old state */
         vgar(ba, VDAC_MASK);
         vgar(ba, VDAC_MASK);
@@ -184,7 +184,7 @@ int		iter;
 	ba[0x47] = 0x10;
 	ba[0x58] = 0x00;	/* Video Control 1			*/
 	ba[0x59] = 0x04;	/* Video Control 2			*/
-	
+
 	/*
 	 * Setup a 'standard' CLKDAC
 	 */

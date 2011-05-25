@@ -57,11 +57,11 @@ static long dollar_label_instance PARAMS ((long));
 static long fb_label_instance PARAMS ((long));
 
 /* symbol_new()
-  
+
    Return a pointer to a new symbol.  Die if we can't make a new
    symbol.  Fill in the symbol's values.  Add symbol to end of symbol
    chain.
- 
+
    This function should be called in the general case of creating a
    symbol.  However, if the output file symbol table has already been
    set, and you are certain that this symbol won't be wanted in the
@@ -368,7 +368,7 @@ colon (sym_name)		/* just seen "x:" - rattle symbols & frags */
  *
  */
 
-void 
+void
 symbol_table_insert (symbolP)
      symbolS *symbolP;
 {
@@ -484,7 +484,7 @@ symbol_find_base (name, strip_underscore)
  */
 
 /* Link symbol ADDME after symbol TARGET in the chain. */
-void 
+void
 symbol_append (addme, target, rootPP, lastPP)
      symbolS *addme;
      symbolS *target;
@@ -527,7 +527,7 @@ symbol_append (addme, target, rootPP, lastPP)
 }
 
 /* Set the chain pointers of SYMBOL to null. */
-void 
+void
 symbol_clear_list_pointers (symbolP)
      symbolS *symbolP;
 {
@@ -539,7 +539,7 @@ symbol_clear_list_pointers (symbolP)
 
 #ifdef SYMBOLS_NEED_BACKPOINTERS
 /* Remove SYMBOLP from the list. */
-void 
+void
 symbol_remove (symbolP, rootPP, lastPP)
      symbolS *symbolP;
      symbolS **rootPP;
@@ -569,7 +569,7 @@ symbol_remove (symbolP, rootPP, lastPP)
 }
 
 /* Link symbol ADDME before symbol TARGET in the chain. */
-void 
+void
 symbol_insert (addme, target, rootPP, lastPP)
      symbolS *addme;
      symbolS *target;
@@ -595,7 +595,7 @@ symbol_insert (addme, target, rootPP, lastPP)
 
 #endif /* SYMBOLS_NEED_BACKPOINTERS */
 
-void 
+void
 verify_symbol_chain (rootP, lastP)
      symbolS *rootP;
      symbolS *lastP;
@@ -959,7 +959,7 @@ static char *dollar_label_defines;
 static unsigned long dollar_label_count;
 static unsigned long dollar_label_max;
 
-int 
+int
 dollar_label_defined (label)
      long label;
 {
@@ -992,7 +992,7 @@ dollar_label_instance (label)
   return 0;
 }
 
-void 
+void
 dollar_label_clear ()
 {
   memset (dollar_label_defines, '\0', (unsigned int) dollar_label_count);
@@ -1000,7 +1000,7 @@ dollar_label_clear ()
 
 #define DOLLAR_LABEL_BUMP_BY 10
 
-void 
+void
 define_dollar_label (label)
      long label;
 {
@@ -1126,14 +1126,14 @@ static long fb_label_max;
 /* this must be more than FB_LABEL_SPECIAL */
 #define FB_LABEL_BUMP_BY (FB_LABEL_SPECIAL + 6)
 
-static void 
+static void
 fb_label_init ()
 {
   memset ((void *) fb_low_counter, '\0', sizeof (fb_low_counter));
 }				/* fb_label_init() */
 
 /* add one to the instance number of this fb label */
-void 
+void
 fb_label_instance_inc (label)
      long label;
 {
@@ -1182,7 +1182,7 @@ fb_label_instance_inc (label)
   ++fb_label_count;
 }
 
-static long 
+static long
 fb_label_instance (label)
      long label;
 {

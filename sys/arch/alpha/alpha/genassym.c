@@ -178,7 +178,7 @@ struct nv assyms[] = {
 	off(PH_RLINK, struct prochd, ph_rlink),
 
 	/* offsets needed by cpu_switch() to switch mappings. */
-	off(VM_MAP_PMAP, struct vmspace, vm_map.pmap), 
+	off(VM_MAP_PMAP, struct vmspace, vm_map.pmap),
 
 	/* Important offsets into the user struct & associated constants */
 	def1(UPAGES),

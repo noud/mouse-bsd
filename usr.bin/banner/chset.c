@@ -3,17 +3,17 @@
 /*
  *	Changes for banner(1)
  *      @(#)Copyright (c) 1995, Simon J. Gerraty.
- *      
+ *
  *      This is free software.  It comes with NO WARRANTY.
- *      Permission to use, modify and distribute this source code 
+ *      Permission to use, modify and distribute this source code
  *      is granted subject to the following conditions.
- *      1/ that the above copyright notice and this notice 
- *      are preserved in all copies and that due credit be given 
- *      to the author.  
- *      2/ that any changes to this code are clearly commented 
- *      as such so that the author does not get blamed for bugs 
+ *      1/ that the above copyright notice and this notice
+ *      are preserved in all copies and that due credit be given
+ *      to the author.
+ *      2/ that any changes to this code are clearly commented
+ *      as such so that the author does not get blamed for bugs
  *      other than his own.
- *      
+ *
  *      Please send copies of changes and bug-fixes to:
  *      sjg@zen.void.oz.au
  */
@@ -259,7 +259,7 @@ char scnkey[][HEIGHT] =	/* this is relatively easy to modify */
  	  c_1___1_,
  	  c1___1_1,
  	  c_____1_ },			/* % */
- 
+
  	{ c_11____,
  	  c1__1___,
  	  c1___1__,
@@ -269,7 +269,7 @@ char scnkey[][HEIGHT] =	/* this is relatively easy to modify */
  	  c1___11_,
  	  c1___11_,
  	  c_111__1 },			/* & */
- 
+
  	{ c___11__,
  	  c___11__,
  	  c___1___,
@@ -279,7 +279,7 @@ char scnkey[][HEIGHT] =	/* this is relatively easy to modify */
  	  c_______,
  	  c_______,
  	  c_______ },			/* ' */
- 
+
  	{ c____1__,
  	  c___1___,
  	  c__1____,
@@ -289,7 +289,7 @@ char scnkey[][HEIGHT] =	/* this is relatively easy to modify */
  	  c__1____,
  	  c___1___,
  	  c____1__ },			/* ( */
- 
+
  	{ c__1____,
  	  c___1___,
  	  c____1__,
@@ -299,7 +299,7 @@ char scnkey[][HEIGHT] =	/* this is relatively easy to modify */
  	  c____1__,
  	  c___1___,
  	  c__1____ },			/* ) */
- 
+
  	{ c_______,
  	  c___1___,
  	  c1__1__1,
@@ -309,7 +309,7 @@ char scnkey[][HEIGHT] =	/* this is relatively easy to modify */
  	  c1__1__1,
  	  c___1___,
  	  c_______ },			/* * */
- 
+
  	{ c_______,
  	  c___1___,
  	  c___1___,
@@ -319,7 +319,7 @@ char scnkey[][HEIGHT] =	/* this is relatively easy to modify */
  	  c___1___,
  	  c___1___,
  	  c_______ },			/* + */
- 
+
  	{ c_______,
  	  c_______,
  	  c_______,
@@ -329,7 +329,7 @@ char scnkey[][HEIGHT] =	/* this is relatively easy to modify */
  	  c__1____,
  	  c_1_____,
  	  c_______ },			/* , */
- 
+
  	{ c_______,
  	  c_______,
  	  c_______,
@@ -339,7 +339,7 @@ char scnkey[][HEIGHT] =	/* this is relatively easy to modify */
  	  c_______,
  	  c_______,
  	  c_______ },			/* - */
- 
+
  	{ c_______,
 	  c_______,
 	  c_______,
@@ -1161,7 +1161,7 @@ char scnkey[][HEIGHT] =	/* this is relatively easy to modify */
 	  c__1__1_ }			/* rub-out */
 
 #else  /* LPD_CHSET */
-		
+
 	/* <sjg> this is the real banner char set */
 	{
 		c_______,

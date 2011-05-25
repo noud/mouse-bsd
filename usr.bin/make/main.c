@@ -903,7 +903,7 @@ ReadMakefile(p, q)
 			size_t plen = strlen(curdir) + strlen(fname) + 2;
 			if (len < plen)
 				path = erealloc(path, len = 2 * plen);
-			
+
 			(void)snprintf(path, len, "%s/%s", curdir, fname);
 			if ((stream = fopen(path, "r")) != NULL) {
 				fname = path;

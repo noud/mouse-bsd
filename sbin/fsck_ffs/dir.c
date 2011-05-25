@@ -200,7 +200,7 @@ dirscan(idesc)
 			dirty(bp);
 			sbdirty();
 		}
-		if (n & STOP) 
+		if (n & STOP)
 			return (n);
 	}
 	return (idesc->id_filesize > 0 ? KEEPON : STOP);
@@ -236,7 +236,7 @@ fsck_readdir(idesc)
 		dp->d_name[0] = '\0';
 		if (fix)
 			dirty(bp);
-		else 
+		else
 			markclean=  0;
 		idesc->id_loc += DIRBLKSIZ;
 		idesc->id_filesize -= DIRBLKSIZ;
@@ -265,7 +265,7 @@ dpok:
 		dp->d_reclen = iswap16(iswap16(dp->d_reclen) + size);
 		if (fix)
 			dirty(bp);
-		else 
+		else
 			markclean=  0;
 	}
 	return (dp);
@@ -380,7 +380,7 @@ adjust(idesc, lcnt)
 		if (preen || reply("ADJUST") == 1) {
 			dp->di_nlink = iswap16(iswap16(dp->di_nlink) - lcnt);
 			inodirty();
-		} else 
+		} else
 			markclean=  0;
 	}
 }
@@ -595,7 +595,7 @@ makeentry(parent, ino, name)
 	struct dinode *dp;
 	struct inodesc idesc;
 	char pathbuf[MAXPATHLEN + 1];
-	
+
 	if (parent < ROOTINO || parent >= maxino ||
 	    ino < ROOTINO || ino >= maxino)
 		return (0);

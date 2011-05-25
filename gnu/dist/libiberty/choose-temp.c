@@ -133,7 +133,7 @@ choose_temp_base ()
   /* Try /usr/tmp, then /tmp.  */
   base = try (usrtmp, base);
   base = try (tmp, base);
- 
+
   /* If all else fails, use the current directory!  */
   if (base == 0)
     base = ".";

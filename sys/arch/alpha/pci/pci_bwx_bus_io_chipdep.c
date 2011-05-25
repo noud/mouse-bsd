@@ -42,17 +42,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -230,37 +230,37 @@ __C(CHIP,_bus_io_init)(t, v)
 
 	/* barrier */
 	t->abs_barrier =	__C(CHIP,_io_barrier);
-	
+
 	/* read (single) */
 	t->abs_r_1 =		__C(CHIP,_io_read_1);
 	t->abs_r_2 =		__C(CHIP,_io_read_2);
 	t->abs_r_4 =		__C(CHIP,_io_read_4);
 	t->abs_r_8 =		__C(CHIP,_io_read_8);
-	
+
 	/* read multiple */
 	t->abs_rm_1 =		__C(CHIP,_io_read_multi_1);
 	t->abs_rm_2 =		__C(CHIP,_io_read_multi_2);
 	t->abs_rm_4 =		__C(CHIP,_io_read_multi_4);
 	t->abs_rm_8 =		__C(CHIP,_io_read_multi_8);
-	
+
 	/* read region */
 	t->abs_rr_1 =		__C(CHIP,_io_read_region_1);
 	t->abs_rr_2 =		__C(CHIP,_io_read_region_2);
 	t->abs_rr_4 =		__C(CHIP,_io_read_region_4);
 	t->abs_rr_8 =		__C(CHIP,_io_read_region_8);
-	
+
 	/* write (single) */
 	t->abs_w_1 =		__C(CHIP,_io_write_1);
 	t->abs_w_2 =		__C(CHIP,_io_write_2);
 	t->abs_w_4 =		__C(CHIP,_io_write_4);
 	t->abs_w_8 =		__C(CHIP,_io_write_8);
-	
+
 	/* write multiple */
 	t->abs_wm_1 =		__C(CHIP,_io_write_multi_1);
 	t->abs_wm_2 =		__C(CHIP,_io_write_multi_2);
 	t->abs_wm_4 =		__C(CHIP,_io_write_multi_4);
 	t->abs_wm_8 =		__C(CHIP,_io_write_multi_8);
-	
+
 	/* write region */
 	t->abs_wr_1 =		__C(CHIP,_io_write_region_1);
 	t->abs_wr_2 =		__C(CHIP,_io_write_region_2);
@@ -272,7 +272,7 @@ __C(CHIP,_bus_io_init)(t, v)
 	t->abs_sm_2 =		__C(CHIP,_io_set_multi_2);
 	t->abs_sm_4 =		__C(CHIP,_io_set_multi_4);
 	t->abs_sm_8 =		__C(CHIP,_io_set_multi_8);
-	
+
 	/* set region */
 	t->abs_sr_1 =		__C(CHIP,_io_set_region_1);
 	t->abs_sr_2 =		__C(CHIP,_io_set_region_2);
@@ -363,7 +363,7 @@ __C(CHIP,_io_unmap)(v, ioh, iosize, acct)
 #ifdef EXTENT_DEBUG
 		extent_print(CHIP_IO_EXTENT(v));
 #endif
-	}	
+	}
 }
 
 int
@@ -388,7 +388,7 @@ __C(CHIP,_io_alloc)(v, rstart, rend, size, align, boundary, flags,
 {
 	int linear = flags & BUS_SPACE_MAP_LINEAR;
 	bus_addr_t ioaddr;
-	int error; 
+	int error;
 
 	/*
 	 * Can't map i/o space linearly.

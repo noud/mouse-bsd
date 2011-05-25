@@ -8,7 +8,7 @@
  * are met:
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
- *  
+ *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR  ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -39,7 +39,7 @@
  * Sun4u S-bus definitions.  Here's where we deal w/the machine
  * dependencies of sysio.
  *
- * SYSIO implements or is the interface to several things:  
+ * SYSIO implements or is the interface to several things:
  *
  * o The SBUS interface itself
  * o The IOMMU
@@ -170,7 +170,7 @@ struct sysioreg {
 	u_int64_t	pad12[252];
 
 	u_int64_t	sys_svadiag;		/* SBUS virtual addr diag reg */	/* 1fe.0000.4400 */
-	
+
 	u_int64_t	pad13[31];
 
 	u_int64_t	iommu_queue_diag[16];	/* IOMMU LRU queue diag */		/* 1fe.0000.4500-457f */

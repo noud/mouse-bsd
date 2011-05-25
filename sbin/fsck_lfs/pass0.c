@@ -79,7 +79,7 @@ void pass0()
      * Run through the Ifile, to count and load the inodes into
      * a dynamic inode table.
      */
-    
+
     /*
      * Check the segments
      */
@@ -140,7 +140,7 @@ void check_segment(int fd, int segnum, daddr_t addr, struct lfs *fs, int flags, 
     /* printf("Seg at 0x%x\n",addr); */
     if((flags & CKSEG_VERBOSE) && segnum*db_ssize + fs->lfs_sboffs[0] != addr)
         pwarn("WARNING: segment begins at 0x%qx, should be 0x%qx\n",
-              (long long unsigned)addr, 
+              (long long unsigned)addr,
 			  (long long unsigned)(segnum*db_ssize + fs->lfs_sboffs[0]));
     sum_offset = ((off_t)addr << dbshift);
 
@@ -185,16 +185,16 @@ void check_segment(int fd, int segnum, daddr_t addr, struct lfs *fs, int flags, 
 		if(flags & CKSEG_VERBOSE) {
 			/* Corrupt partial segment */
 			pwarn("CORRUPT PARTIAL SEGMENT %d/%d OF SEGMENT %d AT BLK 0x%qx",
-			      psegnum, su.su_nsums, segnum, 
+			      psegnum, su.su_nsums, segnum,
 				  (unsigned long long)sum_offset>>dbshift);
 			if(db_ssize < (sum_offset>>dbshift) - addr)
 				pwarn(" (+0x%qx/0x%qx)",
-				      (unsigned long long)(((sum_offset>>dbshift) - addr) - 
+				      (unsigned long long)(((sum_offset>>dbshift) - addr) -
 										   db_ssize),
 				      (unsigned long long)db_ssize);
 			else
 				pwarn(" (-0x%qx/0x%qx)",
-				      (unsigned long long)(db_ssize - 
+				      (unsigned long long)(db_ssize -
 										   ((sum_offset>>dbshift) - addr)),
 				      (unsigned long long)db_ssize);
 			pwarn("\n");

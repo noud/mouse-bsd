@@ -85,8 +85,8 @@
 #include <dev/isa/ncavar.h>
 
 int	nca_find __P((bus_space_tag_t, bus_space_handle_t, bus_size_t, struct nca_probe_data*));
-int	nca_match __P((struct device *, struct cfdata *, void *)); 
-void	nca_attach __P((struct device *, struct device *, void *));  
+int	nca_match __P((struct device *, struct cfdata *, void *));
+void	nca_attach __P((struct device *, struct device *, void *));
 int	nca_test __P((bus_space_tag_t, bus_space_handle_t, bus_size_t));
 
 struct cfattach nca_ca = {
@@ -383,7 +383,7 @@ nca_attach(parent, self, aux)
 			printf("nca: couldn't establish interrupt\n");
 			return;
 		}
-	} else 
+	} else
 		sc->sc_flags |= NCR5380_FORCE_POLLING;
 
 
@@ -400,7 +400,7 @@ nca_attach(parent, self, aux)
 
 	sc->sc_no_disconnect =
 		(esc->sc_options & NCA_NO_DISCONNECT);
-	sc->sc_parity_disable = 
+	sc->sc_parity_disable =
 		(esc->sc_options & NCA_NO_PARITY_CHK) >> 8;
 	if (esc->sc_options & NCA_FORCE_POLLING)
 		sc->sc_flags |= NCR5380_FORCE_POLLING;

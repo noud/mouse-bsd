@@ -1,7 +1,7 @@
 /*	$NetBSD: libsa.h,v 1.2 1996/05/19 20:08:15 chuck Exp $	*/
 
 /*
- * libsa prototypes 
+ * libsa prototypes
  */
 
 #include "libbug.h"

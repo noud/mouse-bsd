@@ -86,7 +86,7 @@ dump_summary(lfsp, sp, flags, iaddrp, addr)
 	if(datap==NULL)
 		return(-1);
 
-	if (sp->ss_sumsum != (ck = cksum(&sp->ss_datasum, 
+	if (sp->ss_sumsum != (ck = cksum(&sp->ss_datasum,
 	    LFS_SUMMARY_SIZE - sizeof(sp->ss_sumsum)))) {
 		free(datap);
 		return(-1);

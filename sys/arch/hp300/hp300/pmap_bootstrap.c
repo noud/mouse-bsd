@@ -1,6 +1,6 @@
 /*	$NetBSD: pmap_bootstrap.c,v 1.17 1999/12/14 17:51:21 thorpej Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1991, 1993
  *	The Regents of the University of California.  All rights reserved.
  *
@@ -497,7 +497,7 @@ pmap_bootstrap(nextpa, firstpa)
 		 */
 		if (RELOC(mmutype, int) == MMU_68040) {
 			int num;
-			
+
 			kpm->pm_stfree = ~l2tobm(0);
 			num = roundup((nptpages + 1) * (NPTEPG / SG4_LEV3SIZE),
 				      SG4_LEV2SIZE) / SG4_LEV2SIZE;

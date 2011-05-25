@@ -70,7 +70,7 @@ main(char *boot_arg)
 
     strcpy(kernel, boot_arg);
     entry_point = NULL;
-    
+
     while (1) {
 	errno = 0;
 	exec(kernel, LOADADDR, 0);
@@ -82,7 +82,7 @@ main(char *boot_arg)
 #endif
           return entry_point;
         }
-	
+
 	printf("load of %s: %s\n", kernel, strerror(errno));
 	printf("boot: ");
 	gets(kernel);

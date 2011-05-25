@@ -134,7 +134,7 @@ REAL_VALUE_TYPE dconstm1;
 
    When to use frame_pointer_rtx and hard_frame_pointer_rtx is a little
    tricky: until register elimination has taken place hard_frame_pointer_rtx
-   should be used if it is being set, and frame_pointer_rtx otherwise.  After 
+   should be used if it is being set, and frame_pointer_rtx otherwise.  After
    register elimination hard_frame_pointer_rtx should always be used.
    On machines where the two registers are same (most) then these are the
    same.
@@ -160,7 +160,7 @@ struct rtx_def const_int_rtx[MAX_SAVED_CONST_INT * 2 + 1];
 
 /* The ends of the doubly-linked chain of rtl for the current function.
    Both are reset to null at the start of rtl generation for the function.
-   
+
    start_sequence saves both of these on `sequence_stack' along with
    `sequence_rtl_expr' and then starts a new, nested sequence of insns.  */
 
@@ -620,7 +620,7 @@ get_first_label_num ()
 
 /* Return a value representing some low-order bits of X, where the number
    of low-order bits is given by MODE.  Note that no conversion is done
-   between floating-point and fixed-point values, rather, the bit 
+   between floating-point and fixed-point values, rather, the bit
    representation is returned.
 
    This function handles the cases in common between gen_lowpart, below,
@@ -690,7 +690,7 @@ gen_lowpart_common (mode, x)
 		- HARD_REGNO_NREGS (REGNO (x), mode));
 
       /* If the register is not valid for MODE, return 0.  If we don't
-	 do this, there is no way to fix up the resulting REG later.  
+	 do this, there is no way to fix up the resulting REG later.
 	 But we do do this if the current REG is not valid for its
 	 mode.  This latter is a kludge, but is required due to the
 	 way that parameters are passed on some machines, most
@@ -762,7 +762,7 @@ gen_lowpart_common (mode, x)
   /* If X is an integral constant but we want it in floating-point, it
      must be the case that we have a union of an integer and a floating-point
      value.  If the machine-parameters allow it, simulate that union here
-     and return the result.  The two-word and single-word cases are 
+     and return the result.  The two-word and single-word cases are
      different.  */
 
   else if (((HOST_FLOAT_FORMAT == TARGET_FLOAT_FORMAT
@@ -989,7 +989,7 @@ gen_lowpart (mode, x)
     abort ();
 }
 
-/* Like `gen_lowpart', but refer to the most significant part. 
+/* Like `gen_lowpart', but refer to the most significant part.
    This is used to access the imaginary part of a complex number.  */
 
 rtx
@@ -1340,10 +1340,10 @@ operand_subword (op, i, validate_address, mode)
       return GEN_INT (u.i);
     }
 #endif /* no REAL_ARITHMETIC */
-      
+
   /* The only remaining cases that we can handle are integers.
      Convert to proper endianness now since these cases need it.
-     At this point, i == 0 means the low-order word.  
+     At this point, i == 0 means the low-order word.
 
      We do not want to handle the case when BITS_PER_WORD <= HOST_BITS_PER_INT
      in general.  However, if OP is (const_int 0), we can just return
@@ -1399,7 +1399,7 @@ operand_subword (op, i, validate_address, mode)
    the required subword, put OP into a register and try again.  If that fails,
    abort.  We always validate the address in this case.  It is not valid
    to call this function after reload; it is mostly meant for RTL
-   generation. 
+   generation.
 
    MODE is the mode of OP, in case it is CONST_INT.  */
 
@@ -1492,7 +1492,7 @@ change_address (memref, mode, addr)
     }
   else
     addr = memory_address (mode, addr);
-	
+
   if (rtx_equal_p (addr, XEXP (memref, 0)) && mode == GET_MODE (memref))
     return memref;
 
@@ -1836,7 +1836,7 @@ reset_used_flags (x)
     case BARRIER:
       /* The chain of insns is not being copied.  */
       return;
-      
+
     default:
       break;
     }
@@ -3149,7 +3149,7 @@ start_sequence ()
   last_insn = 0;
 }
 
-/* Similarly, but indicate that this sequence will be placed in 
+/* Similarly, but indicate that this sequence will be placed in
    T, an RTL_EXPR.  */
 
 void
@@ -3325,7 +3325,7 @@ init_emit ()
 
   regno_pointer_flag_length = LAST_VIRTUAL_REGISTER + 101;
 
-  regno_pointer_flag 
+  regno_pointer_flag
     = (char *) savealloc (regno_pointer_flag_length);
   bzero (regno_pointer_flag, regno_pointer_flag_length);
 
@@ -3333,7 +3333,7 @@ init_emit ()
     = (char *) savealloc (regno_pointer_flag_length);
   bzero (regno_pointer_align, regno_pointer_flag_length);
 
-  regno_reg_rtx 
+  regno_reg_rtx
     = (rtx *) savealloc (regno_pointer_flag_length * sizeof (rtx));
   bzero ((char *) regno_reg_rtx, regno_pointer_flag_length * sizeof (rtx));
 

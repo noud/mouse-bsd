@@ -169,14 +169,14 @@ fast_intxx(p, intrno)
 
 	u_long ss, sp;
 
-	/* 
+	/*
 	 * Note: u_vm86p points to user-space, we only compute offsets
 	 * and don't deref it. is_revectored() above does fubyte() to
 	 * get stuff from it
 	 */
 	u_vm86p = (struct vm86_struct *)p->p_addr->u_pcb.vm86_userp;
 
-	/* 
+	/*
 	 * If user requested special handling, return to user space with
 	 * indication of which INT was requested.
 	 */

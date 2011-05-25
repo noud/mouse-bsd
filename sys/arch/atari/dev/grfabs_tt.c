@@ -295,7 +295,7 @@ u_char   depth;
 	else v = malloc(sizeof(*v), M_DEVBUF, M_NOWAIT);
 	if(v == NULL)
 		return (NULL);
-	
+
 	bm = alloc_bitmap(mode->size.width, mode->size.height, mode->depth);
 	if (bm) {
 		box_t   box;
@@ -341,7 +341,7 @@ u_char	depth;
 	 * Sigh, it seems for mapping to work we need the bitplane data to
 	 *  1: be aligned on a page boundry.
 	 *  2: be n pages large.
-	 * 
+	 *
 	 * why? because the user gets a page aligned address, if this is before
 	 * your allocation, too bad.  Also it seems that the mapping routines
 	 * do not watch to closely to the allowable length. so if you go over

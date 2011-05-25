@@ -51,7 +51,7 @@ __RCSID("$NetBSD: memcmp.c,v 1.11 1999/09/20 04:39:45 lukem Exp $");
 #else
 #include <lib/libkern/libkern.h>
 #define _DIAGASSERT(x)	(void)0
-#endif 
+#endif
 
 /*
  * Compare memory regions.

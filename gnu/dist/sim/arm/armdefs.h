@@ -1,16 +1,16 @@
 /*  armdefs.h -- ARMulator common definitions:  ARM6 Instruction Emulator.
     Copyright (C) 1994 Advanced RISC Machines Ltd.
- 
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
- 
+
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
- 
+
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
@@ -133,27 +133,27 @@ struct ARMul_State {
 /***************************************************************************\
 *                        Types of ARM we know about                         *
 \***************************************************************************/
- 
+
 /* The bitflags */
 #define ARM_Fix26_Prop   0x01
 #define ARM_Nexec_Prop   0x02
 #define ARM_Debug_Prop   0x10
 #define ARM_Isync_Prop   ARM_Debug_Prop
 #define ARM_Lock_Prop    0x20
- 
+
 /* ARM2 family */
 #define ARM2    (ARM_Fix26_Prop)
 #define ARM2as  ARM2
 #define ARM61   ARM2
 #define ARM3    ARM2
- 
+
 /* ARM6 family */
 #define ARM6    (ARM_Lock_Prop)
 #define ARM60   ARM6
 #define ARM600  ARM6
 #define ARM610  ARM6
 #define ARM620  ARM6
- 
+
 
 /***************************************************************************\
 *                   Macros to extract instruction fields                    *

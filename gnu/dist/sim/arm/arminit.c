@@ -1,16 +1,16 @@
 /*  arminit.c -- ARMulator initialization:  ARM6 Instruction Emulator.
     Copyright (C) 1994 Advanced RISC Machines Ltd.
- 
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
- 
+
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
- 
+
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
@@ -55,7 +55,7 @@ void ARMul_EmulateInit(void)
 
   for (i = 0 ; i < 256 ; i++)
     ARMul_BitList[i] *= 4 ; /* you always need 4 times these values */
-    
+
 }
 
 /***************************************************************************\
@@ -120,7 +120,7 @@ ARMul_State *ARMul_NewState(void)
 /***************************************************************************\
 *       Call this routine to set ARMulator to model a certain processor     *
 \***************************************************************************/
- 
+
 void ARMul_SelectProcessor(ARMul_State *state, unsigned processor) {
   if (processor & ARM_Fix26_Prop) {
     state->prog32Sig = LOW;
@@ -129,7 +129,7 @@ void ARMul_SelectProcessor(ARMul_State *state, unsigned processor) {
     state->prog32Sig = HIGH;
     state->data32Sig = HIGH;
   }
- 
+
   state->lateabtSig = LOW;
 }
 
@@ -168,10 +168,10 @@ void ARMul_Reset(ARMul_State *state)
  state->NumIcycles = 0 ;
  state->NumCcycles = 0 ;
  state->NumFcycles = 0 ;
-#ifdef ASIM    
+#ifdef ASIM
   (void)ARMul_MemoryInit() ;
   ARMul_OSInit(state) ;
-#endif  
+#endif
 }
 
 

@@ -68,7 +68,7 @@ RF_DebugName_t rf_debugNames[] = {
 #define RF_DBG_OPTION(_option_,_defval_) rf_/**/_option_ = _defval_ ;
 #endif				/* __STDC__ */
 
-void 
+void
 rf_ResetDebugOptions()
 {
 #include "rf_optnames.h"

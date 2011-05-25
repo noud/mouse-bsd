@@ -84,7 +84,7 @@ readgpreg(tf, i, val)
 	return error;
 }
 
-		
+
 static __inline int
 writegpreg(tf, i, val)
 	struct trapframe64 *tf;
@@ -103,7 +103,7 @@ writegpreg(tf, i, val)
 
 	return error;
 }
-	
+
 
 static __inline int
 readfpreg(p, i, val)
@@ -115,7 +115,7 @@ readfpreg(p, i, val)
 	return 0;
 }
 
-		
+
 static __inline int
 writefpreg(p, i, val)
 	struct proc *p;

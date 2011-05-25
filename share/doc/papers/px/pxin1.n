@@ -36,7 +36,7 @@
 .if !\n(xx .so tmac.p
 .tr _\(ru
 .nr H1 0
-.NH 
+.NH
 Organization
 .PP
 Most of
@@ -77,7 +77,7 @@ commonly interpreted file, is called
 .I obj.
 In order that all persons using
 .I px
-share a common text image, this executable file is 
+share a common text image, this executable file is
 a small process that coordinates with the interpreter to start
 execution.
 The interpreter code is placed
@@ -91,7 +91,7 @@ creates another process by doing a
 .I fork ,
 and arranges that the resulting parent process becomes an instance of
 .I px .
-The child process then writes the interpreter code through 
+The child process then writes the interpreter code through
 the pipe that it has to the
 interpreter process parent.
 When this process is complete, the child exits.
@@ -155,7 +155,7 @@ the longer case being convenient because it is easy to test.
 Other instruction formats are used.
 The branching
 instructions take an offset in the following word,
-operators that load constants onto the stack 
+operators that load constants onto the stack
 take arbitrarily long inline constant values,
 and many operations deal exclusively with data on the
 interpreter stack, requiring no inline data.
@@ -320,7 +320,7 @@ operator.
 It is used in printing a post-mortem backtrace.
 The saved file name and buffer reference are necessary because of
 the input/output structure
-(this is discussed in detail in 
+(this is discussed in detail in
 sections 3.3 and 3.4).
 The top of stack reference gives the value the stack pointer should
 have when there are no expression temporaries on the stack.
@@ -428,7 +428,7 @@ END
 Here the
 .SM BEG
 operator takes 9 bytes of inline data.
-The first byte specifies the 
+The first byte specifies the
 length of the function name.
 The second longword specifies the
 amount of local variable storage, here none.
@@ -505,7 +505,7 @@ object code.
 .PP
 The address of the instruction at
 .I iloop
-is always contained in the register variable 
+is always contained in the register variable
 .I loop .
 Thus a return to the main interpreter is simply:
 .DS
@@ -523,7 +523,7 @@ Errors during interpretation fall into three classes:
 .DE
 .PP
 Interpreter detected errors include I/O errors and
-built-in function errors.  
+built-in function errors.
 These errors cause a subroutine call to an error routine
 with a single parameter indicating the cause of the error.
 Hardware errors such as range errors and overflows are
@@ -533,8 +533,8 @@ It then calls the error routine with an appropriate error
 parameter.
 External events include interrupts and system limits such
 as available memory.
-They generate a call to the error routine with an 
+They generate a call to the error routine with an
 appropriate error code.
-The error routine processes the error condition, 
+The error routine processes the error condition,
 printing an appropriate error message and usually
 a backtrace from the point of the error.

@@ -184,7 +184,7 @@ output_rule_data()
     int i;
     int j;
 
-  
+
     fprintf(output_file, "short %slhs[] = {%42d,", symbol_prefix,
 	    symbol_value[start_symbol]);
 

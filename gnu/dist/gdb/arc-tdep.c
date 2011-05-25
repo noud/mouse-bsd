@@ -81,7 +81,7 @@ static void codestream_read PARAMS ((unsigned int *, int));
 static void codestream_seek PARAMS ((CORE_ADDR));
 static unsigned int codestream_fill PARAMS ((int));
 
-#define CODESTREAM_BUFSIZ 16 
+#define CODESTREAM_BUFSIZ 16
 static CORE_ADDR codestream_next_addr;
 static CORE_ADDR codestream_addr;
 static unsigned int codestream_buf[CODESTREAM_BUFSIZ];
@@ -99,7 +99,7 @@ static int codestream_cnt;
    ? codestream_fill (0) \
    : codestream_buf[codestream_off++])
 
-static unsigned int 
+static unsigned int
 codestream_fill (peek_flag)
     int peek_flag;
 {
@@ -121,7 +121,7 @@ codestream_fill (peek_flag)
 	for (j = 0; j < n / 2; ++j)
 	  tmp = p[j], p[j] = p[n - 1 - j], p[n - 1 - j] = tmp;
     }
-  
+
   if (peek_flag)
     return codestream_peek ();
   else
@@ -171,7 +171,7 @@ setup_prologue_scan (pc)
 /*
  * Find & return amount a local space allocated, and advance codestream to
  * first register push (if any).
- * If entry sequence doesn't make sense, return -1, and leave 
+ * If entry sequence doesn't make sense, return -1, and leave
  * codestream pointer random.
  */
 
@@ -209,7 +209,7 @@ arc_get_frame_setup (pc)
 
   if ((insn & BUILD_INSN (-1, 0, -1, -1, -1))		/* st fp,[sp] */
       == BUILD_INSN (2, 0, SP_REGNUM, FP_REGNUM, 0))
-    {	
+    {
       insn = codestream_get ();
       if ((insn & BUILD_INSN (-1, -1, -1, -1, 0))
 	       != BUILD_INSN (12, FP_REGNUM, SP_REGNUM, SP_REGNUM, 0))
@@ -337,7 +337,7 @@ arc_frame_saved_pc (frame)
  * what registers were stored.
  *
  * The startup sequence can be at the start of the function.
- * 'st blink,[sp+4], st fp,[sp], mov fp,sp' 
+ * 'st blink,[sp+4], st fp,[sp], mov fp,sp'
  *
  * Local space is allocated just below by sub sp,sp,nnn.
  * Next, the registers used by this function are stored (as offsets from sp).
@@ -360,11 +360,11 @@ frame_find_saved_regs (fip, fsrp)
   dummy_bottom = fip->frame - 4 - REGISTER_BYTES - CALL_DUMMY_LENGTH;
 
   /* Check if the PC is in the stack, in a dummy frame.  */
-  if (dummy_bottom <= fip->pc && fip->pc <= fip->frame) 
+  if (dummy_bottom <= fip->pc && fip->pc <= fip->frame)
     {
       /* all regs were saved by push_call_dummy () */
       adr = fip->frame;
-      for (i = 0; i < NUM_REGS; i++) 
+      for (i = 0; i < NUM_REGS; i++)
 	{
 	  adr -= REGISTER_RAW_SIZE (i);
 	  fsrp->regs[i] = adr;
@@ -374,7 +374,7 @@ frame_find_saved_regs (fip, fsrp)
 
   locals = arc_get_frame_setup (get_pc_function_start (fip->pc));
 
-  if (locals >= 0) 
+  if (locals >= 0)
     {
       /* Set `adr' to the value of `sp'.  */
       adr = fip->frame - locals;
@@ -423,10 +423,10 @@ pop_frame ()
   int regnum;
   struct frame_saved_regs fsr;
   char regbuf[MAX_REGISTER_RAW_SIZE];
-  
+
   fp = FRAME_FP (frame);
   get_frame_saved_regs (frame, &fsr);
-  for (regnum = 0; regnum < NUM_REGS; regnum++) 
+  for (regnum = 0; regnum < NUM_REGS; regnum++)
     {
       CORE_ADDR adr;
       adr = fsr.regs[regnum];
@@ -653,7 +653,7 @@ arc_set_cpu_type_command (args, from_tty)
 
       return;
     }
-  
+
   if (!arc_set_cpu_type (tmp_arc_cpu_type))
     {
       error ("Unknown cpu type `%s'.", tmp_arc_cpu_type);

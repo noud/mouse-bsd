@@ -206,7 +206,7 @@ static inline void* sarray_get(struct sarray* array, sidx index)
   union sofftype x;
   x.idx = index;
 #ifdef OBJC_SPARSE3
-  return 
+  return
     array->
       indices[x.off.ioffset]->
 	buckets[x.off.boffset]->

@@ -122,7 +122,7 @@ int __ledf2(float64 a,float64 b) {
  * position in the registers of arguments, the double precision version can
  * go here too ;-)
  */
-#define SIGN_BIT_TWIDDLE	
+#define SIGN_BIT_TWIDDLE
 
 float32 __negsf2(float32 a) {
 	return (a ^ 0x80000000);

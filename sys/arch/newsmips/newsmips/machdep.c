@@ -331,7 +331,7 @@ mach_init(x_boothowto, x_bootdev, x_bootname, x_maxmem)
 	 * virtual address space.
 	 */
 	size = (vsize_t)allocsys(NULL, NULL);
-	v = (caddr_t)pmap_steal_memory(size, NULL, NULL); 
+	v = (caddr_t)pmap_steal_memory(size, NULL, NULL);
 	if ((allocsys(v, NULL) - v) != size)
 		panic("mach_init: table size inconsistency");
 

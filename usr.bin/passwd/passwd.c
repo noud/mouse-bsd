@@ -94,8 +94,8 @@ static struct pw_module_s {
 	/* terminator */
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 };
- 
-void	usage __P((void)); 
+
+void	usage __P((void));
 
 extern	char *__progname;		/* from crt0.o */
 
@@ -233,7 +233,7 @@ main(argc, argv)
 	username = getlogin();
 	if (username == NULL)
 		errx(1, "who are you ??");
-	
+
 	switch(argc) {
 	case 0:
 		break;

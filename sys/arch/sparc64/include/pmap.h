@@ -51,7 +51,7 @@
  * total:						32 bits
  *
  * In 64-bit mode the Spitfire and Blackbird CPUs support only
- * 44-bit virtual addresses.  All addresses between 
+ * 44-bit virtual addresses.  All addresses between
  * 0x0000 07ff ffff ffff and 0xffff f800 0000 0000 are in the
  * "VA hole" and trap, so we don't have to track them.  However,
  * we do need to keep them in mind during PT walking.  If they
@@ -110,15 +110,15 @@ extern struct page_size_map page_size_map[];
 struct pmap {
 	int pm_ctx;		/* Current context */
 	int pm_refs;		/* ref count */
-	/* 
-	 * This contains 64-bit pointers to pages that contain 
+	/*
+	 * This contains 64-bit pointers to pages that contain
 	 * 1024 64-bit pointers to page tables.  All addresses
-	 * are physical.  
+	 * are physical.
 	 *
 	 * !!! Only touch this through pseg_get() and pseg_set() !!!
 	 */
 	paddr_t pm_physaddr;	/* physical address of pm_segs */
-	int64_t *pm_segs;  
+	int64_t *pm_segs;
 };
 
 /*
@@ -140,12 +140,12 @@ struct prom_map {
 #define PMAP_4M		0x018
 #define PMAP_SZ_TO_TTE(x)	(((x)&0x018)<<58)
 /* If these bits are different in va's to the same PA then there is an aliasing in the d$ */
-#define VA_ALIAS_MASK   (1<<14)	
+#define VA_ALIAS_MASK   (1<<14)
 
 typedef	struct pmap *pmap_t;
 
-/* 
- * Encode IO space for pmap_enter() 
+/*
+ * Encode IO space for pmap_enter()
  *
  * Since sun4u machines don't have separate IO spaces, this is a noop.
  */

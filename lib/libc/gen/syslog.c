@@ -155,7 +155,7 @@ vsyslog(pri, fmt, ap)
 		pri |= LogFacility;
 
 	/* Build the message. */
-	
+
 	/*
  	 * Although it's tempting, we can't ignore the possibility of
 	 * overflowing the buffer when assembling the "fixed" portion
@@ -166,9 +166,9 @@ vsyslog(pri, fmt, ap)
 	 */
 	(void)time(&now);
 
-	p = tbuf;  
+	p = tbuf;
 	tbuf_left = TBUF_LEN;
-	
+
 #define	DEC()							\
 	do {							\
 		if (prlen >= tbuf_left)				\
@@ -207,8 +207,8 @@ vsyslog(pri, fmt, ap)
 		}
 	}
 
-	/* 
-	 * We wouldn't need this mess if printf handled %m, or if 
+	/*
+	 * We wouldn't need this mess if printf handled %m, or if
 	 * strerror() had been invented before syslog().
 	 */
 	for (t = fmt_cpy, fmt_left = FMT_LEN; (ch = *fmt) != '\0'; ++fmt) {
@@ -251,7 +251,7 @@ vsyslog(pri, fmt, ap)
 	if (send(LogFile, tbuf, cnt, 0) >= 0) {
 		mutex_unlock(&syslog_mutex);
 		return;
-	} 
+	}
 	mutex_unlock(&syslog_mutex);
 
 	/*
@@ -262,7 +262,7 @@ vsyslog(pri, fmt, ap)
 	if (LogStat & LOG_CONS &&
 	    (fd = open(_PATH_CONSOLE, O_WRONLY, 0)) >= 0) {
 		struct iovec iov[2];
-		
+
 		p = strchr(tbuf, '>') + 1;
 		iov[0].iov_base = p;
 		iov[0].iov_len = cnt - (p - tbuf);

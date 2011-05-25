@@ -136,7 +136,7 @@ strayintr(fp, vectored)
 	if ((fp->tf_pil == PIL_SER) /* && swallow_zsintrs */) return;
 
 	printf("stray interrupt ipl %u pc=%lx npc=%lx pstate=%lb vecttored=%d\n",
-		fp->tf_pil, fp->tf_pc, fp->tf_npc, 
+		fp->tf_pil, fp->tf_pc, fp->tf_npc,
 	       (unsigned long)(fp->tf_tstate>>TSTATE_PSTATE_SHIFT), PSTATE_BITS, vectored);
 	timesince = time.tv_sec - straytime;
 	if (timesince <= 10) {
@@ -287,7 +287,7 @@ intr_establish(level, ih)
 	}
 #endif
 	if (ih->ih_number < MAXINTNUM || ih->ih_number <= 0) {
-		if (intrlev[ih->ih_number]) 
+		if (intrlev[ih->ih_number])
 			panic("intr_establish: intr reused %d", ih->ih_number);
 		intrlev[ih->ih_number] = ih;
 #ifdef NOT_DEBUG

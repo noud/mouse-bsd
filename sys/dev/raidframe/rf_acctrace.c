@@ -68,7 +68,7 @@ RF_DECLARE_MUTEX(rf_tracing_mutex)
 	rf_mutex_destroy(&rf_tracing_mutex);
 }
 
-int 
+int
 rf_ConfigureAccessTrace(listp)
 	RF_ShutdownList_t **listp;
 {
@@ -100,7 +100,7 @@ rf_ConfigureAccessTrace(listp)
 /* install a trace record.  cause a flush to disk or to the trace collector daemon
  * if the trace buffer is at least 1/2 full.
  */
-void 
+void
 rf_LogTraceRec(raid, rec)
 	RF_Raid_t *raid;
 	RF_AccTraceEntry_t *rec;
@@ -159,7 +159,7 @@ rf_LogTraceRec(raid, rec)
  * from interrupt context, we don't do any copyouts here, but rather just wake trace
  * buffer collector thread.
  */
-void 
+void
 rf_FlushAccessTraceBuf()
 {
 	accessTraceBufCount = 0;

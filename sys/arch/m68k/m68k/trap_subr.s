@@ -78,11 +78,11 @@ _ASM_LABEL(faultstkadjnotrap):
 /* for new 68060 Branch Prediction Error handler */
 _ASM_LABEL(faultstkadjnotrap2):
 	movl	%sp@(FR_SP),%a0		| restore user SP
-	movl	%a0,%usp		|   from save area 
+	movl	%a0,%usp		|   from save area
 	movw	%sp@(FR_ADJ),%d0	| need to adjust stack?
-	jne	1f			| yes, go to it 
+	jne	1f			| yes, go to it
 	moveml	%sp@+,#0x7FFF		| no, restore most user regs
-	addql	#8,%sp			| toss SSP and stkadj 
+	addql	#8,%sp			| toss SSP and stkadj
 	jra	_ASM_LABEL(rei)		| all done
 1:
 	lea	%sp@(FR_HW),%a1		| pointer to HW frame

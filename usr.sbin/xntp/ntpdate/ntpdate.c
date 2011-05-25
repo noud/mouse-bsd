@@ -432,7 +432,7 @@ void ntpdatemain
       default:
 	break;
       }
-	
+
   sys_maxservers = argc - ntp_optind;
   if (errflg || sys_maxservers == 0) {
     (void) fprintf(stderr,
@@ -499,7 +499,7 @@ void ntpdatemain
     }
     if (!authhavekey(sys_authkey)) {
       char buf[10];
-      
+
       (void) sprintf(buf, "%lu", (unsigned long)sys_authkey);
       msyslog(LOG_ERR, "authentication key %s unknown", buf);
       exit(1);
@@ -630,7 +630,7 @@ void ntpdatemain
   WSACleanup();
 #endif
 
-#ifdef SYS_VXWORKS    
+#ifdef SYS_VXWORKS
   close (fd);
   timer_delete(ntpdate_timerid);
   clock_adjust();
@@ -774,7 +774,7 @@ receive(rbufp)
 	     PKT_MODE(rpkt->li_vn_mode), rpkt->stratum);
     return;
   }
-	
+
   /*
    * So far, so good.  See if this is from a server we know.
    */
@@ -795,7 +795,7 @@ receive(rbufp)
       printf("receive: pkt.org and peer.xmt differ\n");
     return;
   }
-	
+
   /*
    * Check out the authenticity if we're doing that.
    */
@@ -806,7 +806,7 @@ receive(rbufp)
 
     if (debug > 3)
       printf("receive: rpkt keyid=%ld sys_authkey=%ld decrypt=%ld\n",
-	     (long int)ntohl(rpkt->keyid), (long int)sys_authkey, 
+	     (long int)ntohl(rpkt->keyid), (long int)sys_authkey,
 	     (long int)authdecrypt(sys_authkey, (u_int32 *)rpkt,
 				   LEN_PKT_NOMAC));
 
@@ -820,7 +820,7 @@ receive(rbufp)
   server->trust <<= 1;
   if (!is_authentic)
     server->trust |= 1;
-	
+
   /*
    * Looks good.  Record info from the packet.
    */
@@ -927,7 +927,7 @@ clock_filter(server)
    */
   for (i = 0; i < sys_samples; i++)
     ord[i] = i;
-	
+
   for (i = 0; i < (sys_samples-1); i++) {
     for (j = i+1; j < sys_samples; j++) {
       if (server->filter_delay[ord[j]] == 0)
@@ -1108,7 +1108,7 @@ clock_select()
 	server_list[i] = server_list[j];
 	server_list[j] = server;
       }
-		
+
     /*
      * Calculate the fixed part of the dispersion limit
      */
@@ -1152,7 +1152,7 @@ clock_select()
 	if (n > server_list[j]->precision)
 	  n = server_list[j]->precision;
       }
-			
+
       /*
        * i is the index of the server with the worst
        * dispersion.  If his dispersion is less than
@@ -1207,7 +1207,7 @@ clock_adjust()
 	    "no server suitable for synchronization found");
     return(1);
   }
-	
+
   if (always_step) {
     dostep = 1;
   } else if (never_step) {
@@ -1233,11 +1233,11 @@ clock_adjust()
 	      lfptoa(&server->offset, 6));
     }
 #else
-    /* The NT SetSystemTimeAdjustment() call achieves slewing by 
+    /* The NT SetSystemTimeAdjustment() call achieves slewing by
      * changing the clock frequency. This means that we cannot specify
      * it to slew the clock by a definite amount and then stop like
      * the Unix adjtime() routine. We can technically adjust the clock
-     * frequency, have ntpdate sleep for a while, and then wake 
+     * frequency, have ntpdate sleep for a while, and then wake
      * up and reset the clock frequency, but this might cause some
      * grief if the user attempts to run xntpd immediately after
      * ntpdate and the socket is in use.
@@ -1368,7 +1368,7 @@ init_alarm()
 #ifndef SYS_WINNT
 #if defined(HAVE_TIMER_CREATE) && defined(HAVE_TIMER_SETTIME)
   alarm_flag = 0;
-  /* this code was put in as setitimer() is non existant this us the 
+  /* this code was put in as setitimer() is non existant this us the
    * POSIX "equivalents" setup - casey
    */
   /* ntpdate_timerid is global - so we can kill timer later */
@@ -1407,7 +1407,7 @@ init_alarm()
 #else	/* SYS_WINNT */
   _tzset();
 
-  /* 
+  /*
    * Get previleges needed for fiddling with the clock
    */
 
@@ -1426,7 +1426,7 @@ init_alarm()
   if (GetLastError() != ERROR_SUCCESS)
     msyslog(LOG_ERR, "AdjustTokenPrivileges failed: %m");
 
-  /* 
+  /*
    * Set up timer interrupts for every 2**EVENT_TIMEOUT seconds
    * Under Win/NT, expiry of timer interval leads to invocation
    * of a callback function (on a different thread) rather than
@@ -1657,7 +1657,7 @@ getrecvbufs()
   if (full_recvbufs == 0) {
     return (struct recvbuf *)0;	/* nothing has arrived */
   }
-	
+
   /*
    * Get the fulllist chain and mark it empty
    */
@@ -1876,12 +1876,12 @@ static int
 l_step_systime(ts)
      l_fp *ts;
 {
-#ifdef SLEWALWAYS 
+#ifdef SLEWALWAYS
 #ifdef STEP_SLEW
   l_fp ftmp;
   int isneg;
   int n;
-  
+
   if (debug) return 1;
   /*
    * Take the absolute value of the offset
@@ -1897,7 +1897,7 @@ l_step_systime(ts)
     n = step_systime_real(ts);
     if (!n)
       return n;
-    if (isneg) 
+    if (isneg)
       ts->l_ui = ~0;
     else
       ts->l_ui = ~0;
@@ -1970,7 +1970,7 @@ printserver(pp, fp)
 		 pp->leap & 0x2 ? '1' : '0',
 		 pp->leap & 0x1 ? '1' : '0',
 		 pp->trust);
-	
+
   if (pp->stratum == 1) {
     junk[4] = 0;
     memmove(junk, (char *)&pp->refid, 4);
@@ -1982,7 +1982,7 @@ printserver(pp, fp)
 		 "refid [%s], delay %s, dispersion %s\n",
 		 str, fptoa(pp->delay, 5),
 		 ufptoa(pp->dispersion, 5));
-  
+
   (void) fprintf(fp, "transmitted %d, in filter %d\n",
 		 pp->xmtcnt, pp->filter_nextpt);
 
@@ -1992,7 +1992,7 @@ printserver(pp, fp)
 		 prettydate(&pp->org));
   (void) fprintf(fp, "transmit timestamp:  %s\n",
 		 prettydate(&pp->xmt));
-	
+
   (void) fprintf(fp, "filter delay: ");
   for (i = 0; i < NTP_SHIFT; i++) {
     (void) fprintf(fp, " %-8.8s", fptoa(pp->filter_delay[i], 5));
@@ -2000,7 +2000,7 @@ printserver(pp, fp)
       (void) fprintf(fp, "\n		  ");
   }
   (void) fprintf(fp, "\n");
-  
+
   (void) fprintf(fp, "filter offset:");
   for (i = 0; i < PEER_SHIFT; i++) {
     (void) fprintf(fp, " %-8.8s", lfptoa(&pp->filter_offset[i], 6));
@@ -2008,10 +2008,10 @@ printserver(pp, fp)
       (void) fprintf(fp, "\n		  ");
   }
   (void) fprintf(fp, "\n");
-  
+
   (void) fprintf(fp, "delay %s, dispersion %s\n",
 		 fptoa(pp->delay, 5), ufptoa(pp->dispersion, 5));
-  
+
   (void) fprintf(fp, "offset %s\n\n",
 		 lfptoa(&pp->offset, 6));
 }

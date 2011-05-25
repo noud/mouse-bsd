@@ -30,7 +30,7 @@ LISTS=		${.CURDIR}/list ${ARCHDIR}/list
 CRUNCHCONF=	${CBIN}.conf
 MTREE=		${.CURDIR}/mtree.conf
 ICMD=		${INSTALL} ${RENAME} ${PRESERVE} ${COPY}	\
-			-o root -g wheel -m ${NONBINMODE} 
+			-o root -g wheel -m ${NONBINMODE}
 
 .ifndef DESTDIR
 all:

@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: pawd.c,v 1.4 1999/02/04 07:24:20 ezk Exp 
+ * Id: pawd.c,v 1.4 1999/02/04 07:24:20 ezk Exp
  *
  */
 

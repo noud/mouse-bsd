@@ -34,7 +34,7 @@
 
 /*
  *
- * i f _ e n _ s b u s . c  
+ * i f _ e n _ s b u s . c
  *
  * author: Chuck Cranor <chuck@ccrc.wustl.edu>
  * started: spring, 1996.

@@ -40,7 +40,7 @@
 
 struct bellparams{
 	int freq;	/* hertz frequency */
-	int len;	/* length in clock ticks */ 
+	int len;	/* length in clock ticks */
 	int vol;	/* percentage volume */
 };
 

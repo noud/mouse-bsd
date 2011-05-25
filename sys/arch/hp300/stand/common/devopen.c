@@ -39,7 +39,7 @@
 /*-
  *  Copyright (c) 1993 John Brezak
  *  All rights reserved.
- * 
+ *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
  *  are met:
@@ -50,7 +50,7 @@
  *     documentation and/or other materials provided with the distribution.
  *  3. The name of the author may not be used to endorse or promote products
  *     derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR `AS IS'' AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -96,7 +96,7 @@ devlookup(d, len)
 {
     struct devsw *dp = devsw;
     int i;
-    
+
     for (i = 0; i < ndevs; i++, dp++) {
 	if (dp->dv_name && strncmp(dp->dv_name, d, len) == 0) {
 	    /*
@@ -197,7 +197,7 @@ devparse(fname, dev, adapt, ctlr, unit, part, file)
 
 	/* isolate device */
 	for (s = (char *)fname; *s != ':' && !isdigit(*s); s++);
-	
+
 	/* lookup device and get index */
 	if ((*dev = devlookup(fname, s - fname)) < 0)
 	    goto baddev;
@@ -208,11 +208,11 @@ devparse(fname, dev, adapt, ctlr, unit, part, file)
 	*adapt = temp / 8;
 	*ctlr = temp % 8;
 	for (; isdigit(*s); s++);
-	
+
 	/* translate partition */
 	if (!ispart(*s))
 	    goto bad;
-	
+
 	*part = *s++ - 'a';
 	if (*s != ':')
 	    goto bad;
@@ -222,16 +222,16 @@ devparse(fname, dev, adapt, ctlr, unit, part, file)
     /* no device present */
     else
 	*file = (char *)fname;
-    
+
     /* return the remaining unparsed part as the file to boot */
     return(0);
-    
+
  bad:
     usage();
 
  baddev:
     return(-1);
-}    
+}
 
 
 devopen(f, fname, file)
@@ -263,7 +263,7 @@ devopen(f, fname, file)
 	case 2:		/* rd */
 	case 4:		/* sd */
 		bcopy(file_system_ufs, file_system, sizeof(struct fs_ops));
-		break; 
+		break;
 
 	case 6:		/* le */
 		bcopy(file_system_nfs, file_system, sizeof(struct fs_ops));
@@ -276,7 +276,7 @@ devopen(f, fname, file)
 	}
 
 	dp = &devsw[dev];
-	
+
 	if (!dp->dv_open)
 		return(ENODEV);
 

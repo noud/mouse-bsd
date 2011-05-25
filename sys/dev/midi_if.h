@@ -60,7 +60,7 @@ struct midi_hw_if {
 };
 
 void	midi_attach __P((struct midi_softc *, struct device *));
-struct device *midi_attach_mi __P((struct midi_hw_if *, void *, 
+struct device *midi_attach_mi __P((struct midi_hw_if *, void *,
 				   struct device *));
 
 int	midi_unit_count __P((void));

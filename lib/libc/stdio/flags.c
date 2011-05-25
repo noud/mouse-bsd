@@ -92,7 +92,7 @@ __sflags(mode, optr)
 	}
 
 	/*
-	 * [rwa]\+ or [rwa]b\+ means read and write 
+	 * [rwa]\+ or [rwa]b\+ means read and write
 	 * f means open only plain files.
 	 */
 	for (; *mode; mode++)

@@ -61,7 +61,7 @@ struct macfb_devconfig {
 
 struct macfb_softc {
 	struct device sc_dev;
-				
+
 	int nscreens;
 	struct macfb_devconfig *sc_dc;
 };

@@ -34,9 +34,9 @@
 #ifndef _ATARI_DEVICE_H_
 #define _ATARI_DEVICE_H_
 
-/* 
+/*
  * devices that need to configure before console use this
- * *and know it* (i.e. everything is really tight certain params won't be 
+ * *and know it* (i.e. everything is really tight certain params won't be
  * passed in some cases and the devices will deal with it)
  */
 int atari_config_found __P((struct cfdata *, struct device *,

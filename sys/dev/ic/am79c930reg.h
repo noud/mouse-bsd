@@ -94,8 +94,8 @@
 #define AM79C930_LMA_HI 3	/* Local Memory Address register (high byte) */
 
 				/* set this bit to turn off ISAPnP version */
-#define AM79C930_LMA_HI_ISAPWRDWN	0x80	
- 
+#define AM79C930_LMA_HI_ISAPWRDWN	0x80
+
 /*
  * mmm, inconsistancy in chip documentation:
  * According to page 79--80, all four of the following are equivalent

@@ -16,7 +16,7 @@ __warn_references(sys_nerr,
     "warning: reference to compatibility sys_nerr; include <errno.h> for correct reference")
 __warn_references(__sys_nerr,
     "warning: reference to deprecated __sys_nerr; include <errno.h> and use sys_nerr")
- 
+
 
 #ifdef __indr_reference
 __indr_reference(_sys_errlist, sys_errlist)

@@ -31,13 +31,13 @@ inappropriate time.
 
 Gordon Burditt <gordon@sneaky.lonestar.org> says:
 
->(4) Less important, because few people will have this problem, is a 
+>(4) Less important, because few people will have this problem, is a
 >port-specific dialcodes file.  Why?  Well, one system I had was connected
 >to 2 inside lines "dial 9 for outside line", and one outside line (which
 >doesn't want the 9).  A number of the systems called were "inside", so
->you didn't add the 9 on those lines dialing from inside, but you did add 
->"390" to the 4-digit number if you dialed it via "outside".  Also not 
->unheard of are systems with 2 outside lines that are local to different 
+>you didn't add the 9 on those lines dialing from inside, but you did add
+>"390" to the 4-digit number if you dialed it via "outside".  Also not
+>unheard of are systems with 2 outside lines that are local to different
 >area codes, or one local outside line and one WATS line (which MUST
 >have an area code).
 >Example:
@@ -50,9 +50,9 @@ Gordon Burditt <gordon@sneaky.lonestar.org> says:
 
 Ralf E. Stranzenbach <ralf@reswi.ruhr.de> says:
 
->It would be nice to also have the option of running a shell script each time  
->uucico connects/disconnects a systen. I do not mean shell scripts for dial/in.  
->I would like to do some accounting and batching when the connection  
+>It would be nice to also have the option of running a shell script each time
+>uucico connects/disconnects a systen. I do not mean shell scripts for dial/in.
+>I would like to do some accounting and batching when the connection
 >establishes.
 
 13.

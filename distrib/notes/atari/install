@@ -1,4 +1,4 @@
-.\"	$NetBSD: install,v 1.12 2000/01/21 12:32:56 tsutsui Exp $	
+.\"	$NetBSD: install,v 1.12 2000/01/21 12:32:56 tsutsui Exp $
 .\"
 .\" Copyright (c) 1999 The NetBSD Foundation, Inc.
 .\" All rights reserved.
@@ -102,7 +102,7 @@ but is blank or used by another non-AHDI system, start at item 4b.
 .Pp
 .Em You are now at the point of no return!
 The programs in section
-4 will modify your harddisk. Type Control-C 
+4 will modify your harddisk. Type Control-C
 .Em now
 if you don't
 want this.
@@ -122,11 +122,11 @@ at item 4b, your changes to the id's do have consequences to the
 partition order! They will show up as follows:
 .Pp
 .	Bl -tag -width d\ (and\ up)
-.	It a          
+.	It a
 \- the first NBD partition
-.	It b          
+.	It b
 \- the first NBS partition
-.	It d\ (and\ up) 
+.	It d\ (and\ up)
 \- the rest of the partitions in AHDI order
 .	El
 .It

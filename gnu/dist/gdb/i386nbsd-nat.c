@@ -186,7 +186,7 @@ fetch_kcore_registers (pcb)
 extern void print_387_control_word ();		/* i387-tdep.h */
 extern void print_387_status_word ();
 
-struct env387 
+struct env387
 {
   unsigned short control;
   unsigned short r0;
@@ -212,22 +212,22 @@ print_387_status (status, ep)
   int bothstatus;
   int top;
   int fpreg;
-  
+
   bothstatus = ((status != 0) && (ep->status != 0));
-  if (status != 0) 
+  if (status != 0)
     {
       if (bothstatus)
 	printf_unfiltered ("u: ");
       print_387_status_word ((unsigned int)status);
     }
-  
-  if (ep->status != 0) 
+
+  if (ep->status != 0)
     {
       if (bothstatus)
 	printf_unfiltered ("e: ");
       print_387_status_word ((unsigned int)ep->status);
     }
-  
+
   print_387_control_word ((unsigned int)ep->control);
   printf_unfiltered ("last exception: ");
   printf_unfiltered ("opcode %s; ", local_hex_string(ep->opcode));
@@ -237,15 +237,15 @@ print_387_status (status, ep)
   printf_unfiltered (":%s\n", local_hex_string(ep->operand));
 
   top = (ep->status >> 11) & 7;
-  
+
   printf_unfiltered ("regno     tag  msb              lsb  value\n");
-  for (fpreg = 7; fpreg >= 0; fpreg--) 
+  for (fpreg = 7; fpreg >= 0; fpreg--)
     {
       double val;
-      
-      printf_unfiltered ("%s %d: ", fpreg == top ? "=>" : "  ", fpreg); 
 
-      switch ((ep->tag >> (fpreg * 2)) & 3) 
+      printf_unfiltered ("%s %d: ", fpreg == top ? "=>" : "  ", fpreg);
+
+      switch ((ep->tag >> (fpreg * 2)) & 3)
 	{
 	case 0: printf_unfiltered ("valid "); break;
 	case 1: printf_unfiltered ("zero  "); break;
@@ -254,8 +254,8 @@ print_387_status (status, ep)
 	}
       for (i = 9; i >= 0; i--)
 	printf_unfiltered ("%02x", ep->regs[fpreg][i]);
-      
-      floatformat_to_double(&floatformat_i387_ext, (char *) ep->regs[fpreg], 
+
+      floatformat_to_double(&floatformat_i387_ext, (char *) ep->regs[fpreg],
 			      &val);
       printf_unfiltered ("  %g\n", val);
     }
@@ -264,17 +264,17 @@ print_387_status (status, ep)
 i386_float_info ()
 {
   extern int inferior_pid;
-  
-  if (inferior_pid) 
+
+  if (inferior_pid)
     {
       ptrace (PT_GETFPREGS, inferior_pid, (PTRACE_ARG3_TYPE) &i386_fp_registers,
 	      0);
-    } 
+    }
   else if (!i386_fp_read)
     {
       error ("The program has no floating point registers now.");
     }
-  
+
   print_387_status (0, (struct env387 *) &i386_fp_registers);
 }
 #endif

@@ -155,7 +155,7 @@
  * this or other null vnode stacks.
  *
  * New vnode stacks come into existance as a result of
- * an operation which returns a vnode.  
+ * an operation which returns a vnode.
  * The bypass routine stacks a null-node above the new
  * vnode before returning it to the caller.
  *
@@ -165,7 +165,7 @@
  * the root null-node (which was created when the null layer was mounted).
  * Now consider opening "sys".  A vop_lookup would be
  * done on the root null-node.  This operation would bypass through
- * to the lower layer which would return a vnode representing 
+ * to the lower layer which would return a vnode representing
  * the UFS "sys".  Null_bypass then builds a null-node
  * aliasing the UFS "sys" and returns this to the caller.
  * Later operations on the null-node "sys" will repeat this
@@ -179,13 +179,13 @@
  * then begin modifing the copy.  Sed can be used to easily rename
  * all variables.
  *
- * The umap layer is an example of a layer descended from the 
+ * The umap layer is an example of a layer descended from the
  * null layer.
  *
  *
  * INVOKING OPERATIONS ON LOWER LAYERS
  *
- * There are two techniques to invoke operations on a lower layer 
+ * There are two techniques to invoke operations on a lower layer
  * when the operation cannot be completely bypassed.  Each method
  * is appropriate in different situations.  In both cases,
  * it is the responsibility of the aliasing layer to make

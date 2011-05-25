@@ -38,7 +38,7 @@
  * SUCH DAMAGE.
  *
  * from: Utah $Hdr: autoconf.c 1.36 92/12/20$
- * 
+ *
  *	@(#)autoconf.c  8.2 (Berkeley) 1/12/94
  */
 

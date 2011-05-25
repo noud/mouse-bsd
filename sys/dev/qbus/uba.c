@@ -96,7 +96,7 @@ uba_done(uh)
 	struct uba_softc *uh;
 {
 	struct uba_unit *uu;
- 
+
 	while ((uu = SIMPLEQ_FIRST(&uh->uh_resq))) {
 		SIMPLEQ_REMOVE_HEAD(&uh->uh_resq, uu, uu_resq);
 		if ((*uu->uu_ready)(uu) == 0) {
@@ -197,7 +197,7 @@ ubasearch(parent, cf, aux)
 		goto fail;
 	if (vec == 0)
 		goto fail;
-		
+
 	if (ua.ua_reset) { /* device wants ubareset */
 		if (sc->uh_resno == 0) {
 #define	RESETSIXE	128

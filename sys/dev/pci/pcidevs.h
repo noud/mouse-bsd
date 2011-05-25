@@ -4,7 +4,7 @@
  * THIS FILE AUTOMATICALLY GENERATED.  DO NOT EDIT.
  *
  * generated from:
- *	NetBSD: pcidevs,v 1.192 2000/02/16 04:29:20 soren Exp 
+ *	NetBSD: pcidevs,v 1.192 2000/02/16 04:29:20 soren Exp
  */
 
 /*
@@ -661,8 +661,8 @@
 #define	PCI_PRODUCT_ADMTEK_AL981	0x0981		/* ADMtek AL981 10/100 Ethernet */
 
 /* Advanced System Products */
-#define	PCI_PRODUCT_ADVSYS_1200A	0x1100	
-#define	PCI_PRODUCT_ADVSYS_1200B	0x1200	
+#define	PCI_PRODUCT_ADVSYS_1200A	0x1100
+#define	PCI_PRODUCT_ADVSYS_1200B	0x1200
 #define	PCI_PRODUCT_ADVSYS_ULTRA	0x1300		/* ABP-930/40UA */
 #define	PCI_PRODUCT_ADVSYS_WIDE	0x2300		/* ABP-940UW */
 #define	PCI_PRODUCT_ADVSYS_U2W	0x2500		/* ASB-3940U2W */
@@ -1284,7 +1284,7 @@
 /* Solidum Systems Corporation */
 #define	PCI_PRODUCT_SOLIDUM_AMD971	0x2000		/* SNP8023: AMD 971 */
 #define	PCI_PRODUCT_SOLIDUM_CLASS802	0x8023		/* SNP8023: Classifier Engine */
-  
+
 /* Sony products */
 #define	PCI_PRODUCT_SONY_CXD1947A	0x8009		/* CXD1947A FireWire Host Controller */
 

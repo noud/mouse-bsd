@@ -23,21 +23,21 @@ static const char rcsid[] = "Id: ns_config.c,v 8.104 1999/11/08 23:09:42 vixie E
 
 /*
  * Portions Copyright (c) 1999 by Check Point Software Technologies, Inc.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
- * the name of Check Point Software Technologies Incorporated not be used 
- * in advertising or publicity pertaining to distribution of the document 
+ * the name of Check Point Software Technologies Incorporated not be used
+ * in advertising or publicity pertaining to distribution of the document
  * or software without specific, written prior permission.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS" AND CHECK POINT SOFTWARE TECHNOLOGIES 
- * INCORPORATED DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, 
- * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.   
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND CHECK POINT SOFTWARE TECHNOLOGIES
+ * INCORPORATED DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+ * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.
  * IN NO EVENT SHALL CHECK POINT SOFTWARE TECHNOLOGIES INCORPRATED
- * BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR 
+ * BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR
  * ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
- * IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT 
+ * IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT
  * OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
@@ -253,7 +253,7 @@ validate_zone(struct zoneinfo *zp) {
 	 * XXX  We should run filename through an OS-specific
 	 *      validator here.
 	 */
-	if (zp->z_source != NULL && 
+	if (zp->z_source != NULL &&
 	    strlen(zp->z_source) > MAXPATHLEN) {
 		ns_error(ns_log_config, "filename too long for zone '%s'",
 			 zp->z_origin);
@@ -437,7 +437,7 @@ begin_zone(char *name, int class) {
 	if (server_options->flags & OPTION_MAINTAIN_IXFR_BASE)
 		 zp->z_maintain_ixfr_base = 1;
 	else
-		 zp->z_maintain_ixfr_base = 0;	
+		 zp->z_maintain_ixfr_base = 0;
 	zp->z_max_log_size_ixfr = server_options->max_log_size_ixfr;
 	zh.opaque = zp;
 	return (zh);
@@ -503,7 +503,7 @@ update_zone_info(struct zoneinfo *zp, struct zoneinfo *new_zp) {
 	zp->z_max_transfer_time_in = new_zp->z_max_transfer_time_in;
 #ifdef BIND_NOTIFY
 	zp->z_notify = new_zp->z_notify;
-	if (zp->z_also_notify) 
+	if (zp->z_also_notify)
 		memput(zp->z_also_notify,
 		       zp->z_notify_count * sizeof *zp->z_also_notify);
 	zp->z_also_notify = new_zp->z_also_notify;
@@ -567,12 +567,12 @@ update_zone_info(struct zoneinfo *zp, struct zoneinfo *new_zp) {
 		if (zp->z_ixfr_base)
 			freestr(zp->z_ixfr_base);
 		zp->z_ixfr_base = new_zp->z_ixfr_base;
-		new_zp->z_ixfr_base = NULL;	
+		new_zp->z_ixfr_base = NULL;
 
 		if (zp->z_ixfr_tmp)
 			freestr(zp->z_ixfr_tmp);
 		zp->z_ixfr_tmp = new_zp->z_ixfr_tmp;
-		new_zp->z_ixfr_tmp = NULL;	
+		new_zp->z_ixfr_tmp = NULL;
 
 		ns_debug(ns_log_config, 1, "reloading hint zone");
 		(void) db_load(zp->z_source, zp->z_origin, zp, NULL,
@@ -689,7 +689,7 @@ update_zone_info(struct zoneinfo *zp, struct zoneinfo *new_zp) {
 		if ((zp->z_flags & Z_AUTH) == 0)
 			zoneinit(zp);
 		else {
-			/* 
+			/*
 			** Force secondary to try transfer soon
 			** after SIGHUP.
 			*/
@@ -1446,7 +1446,7 @@ write_open(char *filename) {
 			 filename);
 		return (NULL);
 	}
-		
+
 	(void)unlink(filename);
 	fd = open(filename, O_WRONLY|O_CREAT|O_EXCL,
 		  S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH);
@@ -1550,8 +1550,8 @@ set_interval_timer(int which_timer, int interval) {
 	}
 	if ((active_timers & which_timer) != 0) {
 		if (interval > 0) {
-			if (evResetTimer(ev, *tid, func, NULL, 
-					 evAddTime(evNowTime(), 
+			if (evResetTimer(ev, *tid, func, NULL,
+					 evAddTime(evNowTime(),
 						   evConsTime(interval, 0)),
 					 evConsTime(interval, 0)) < 0)
 				ns_error(ns_log_config,
@@ -1567,8 +1567,8 @@ set_interval_timer(int which_timer, int interval) {
 				active_timers &= ~which_timer;
 		}
 	} else if (interval > 0) {
-		if (evSetTimer(ev, func, NULL, 
-			       evAddTime(evNowTime(), 
+		if (evSetTimer(ev, func, NULL,
+			       evAddTime(evNowTime(),
 					 evConsTime(interval, 0)),
 			       evConsTime(interval, 0), tid) < 0)
 			ns_error(ns_log_config,
@@ -1648,7 +1648,7 @@ set_options(options op, int is_default) {
 		op->max_ncache_ttl = DEFAULT_MAX_NCACHE_TTL;
 	else if (op->max_ncache_ttl > max_cache_ttl)
 		op->max_ncache_ttl = max_cache_ttl;
-	
+
 	if (op->lame_ttl > (3 * NTTL))
 		op->lame_ttl = 3 * NTTL;
 
@@ -1679,9 +1679,9 @@ set_options(options op, int is_default) {
 	default_options_installed = is_default;
 }
 
-void 
+void
 use_default_options() {
-	set_options(new_options(), 1);	
+	set_options(new_options(), 1);
 }
 
 /*
@@ -1728,7 +1728,7 @@ new_rrset_order_list() {
 		panic("memget failed in new_rrset_order_list", NULL);
 	rol->first = NULL;
 	rol->last = NULL;
-	
+
 	return (rol);
 }
 
@@ -1786,7 +1786,7 @@ new_rrset_order_element(int class, int type, char *name, enum ordering order)
 {
 	rrset_order_element roe;
 	int i ;
-	
+
 	roe = (rrset_order_element)memget(sizeof (struct rrset_order_element));
 	if (roe == NULL)
 		panic("memget failed in new_rrset_order_element", NULL);
@@ -1802,11 +1802,11 @@ new_rrset_order_element(int class, int type, char *name, enum ordering order)
 		   the end. */
 		roe->name[i - 1] = '\0' ;
 	}
-	
+
 	return roe ;
 }
 
-	
+
 /*
  * IP Matching Lists
  */
@@ -1832,7 +1832,7 @@ free_ip_match_list(ip_match_list iml) {
 		memput(ime, sizeof *ime);
 	}
 	memput(iml, sizeof *iml);
-}	
+}
 
 ip_match_element
 new_ip_match_pattern(struct in_addr address, u_int mask_bits) {
@@ -1846,7 +1846,7 @@ new_ip_match_pattern(struct in_addr address, u_int mask_bits) {
 	ime->flags = 0;
 	ime->u.direct.address = address;
 	if (mask_bits == 0)
-		/* can't shift >= the size of a type in bits, so 
+		/* can't shift >= the size of a type in bits, so
 		   we deal with an empty mask here */
 		mask = 0;
 	else {
@@ -2241,7 +2241,7 @@ ip_match_is_none(ip_match_list iml) {
 	}
 	if (ime->type == ip_match_pattern) {
 		if ((ime->flags & IP_MATCH_NEGATE) &&
-		    ime->u.direct.address.s_addr == 0 && 
+		    ime->u.direct.address.s_addr == 0 &&
 		    ime->u.direct.mask.s_addr == 0)
 			return (1);
 	}
@@ -2252,7 +2252,7 @@ ip_match_is_none(ip_match_list iml) {
 /*
  * Forwarder glue
  *
- * XXX  This will go away when the rest of bind understands 
+ * XXX  This will go away when the rest of bind understands
  *      forward zones.
  */
 
@@ -2413,7 +2413,7 @@ free_forwarders(struct fwdinfo *fwdtab) {
 }
 
 /*
- * Servers 
+ * Servers
  */
 
 static server_info
@@ -2432,7 +2432,7 @@ new_server(struct in_addr address) {
 	if (server_options->flags & OPTION_MAINTAIN_IXFR_BASE)
 		si->flags |= SERVER_INFO_SUPPORT_IXFR;
 	else
-		si->flags &= ~SERVER_INFO_SUPPORT_IXFR;	
+		si->flags &= ~SERVER_INFO_SUPPORT_IXFR;
 	return (si);
 }
 
@@ -2478,7 +2478,7 @@ add_server(server_info si) {
 static void
 free_nameserver_info() {
 	server_info si_next, si;
-	
+
 	for (si = nameserver_info; si != NULL; si = si_next) {
 		si_next = si->next;
 		free_server(si);
@@ -2501,7 +2501,7 @@ free_secretkey_info() {
 server_config
 begin_server(struct in_addr address) {
 	server_config sc;
-	
+
 	sc.opaque = new_server(address);
 	return (sc);
 }
@@ -2513,7 +2513,7 @@ end_server(server_config sc, int should_install) {
 	si = sc.opaque;
 
 	INSIST(si != NULL);
-	
+
 	if (should_install)
 		add_server(si);
 	else
@@ -2730,7 +2730,7 @@ add_log_channel(log_config log_cfg, int category, log_channel chan) {
 	log_channel_type type;
 
 	INSIST(log_cfg != NULL);
-	
+
 	type = log_get_channel_type(chan);
 	if (category == ns_log_eventlib) {
 		if (type != log_file && type != log_null) {
@@ -2933,7 +2933,7 @@ shutdown_default_log_channels() {
 	log_free_channel(null_channel);
 }
 
-void 
+void
 init_logging() {
 	int size;
 	const struct ns_sym *s;
@@ -2954,7 +2954,7 @@ init_logging() {
 	use_default_logging();
 }
 
-void 
+void
 shutdown_logging() {
 	int size;
 	const struct ns_sym *s;
@@ -3040,7 +3040,7 @@ load_configuration(const char *filename) {
 	 * to lower these limits temporarily, because we might not survive
 	 * to the point where they get raised back again.  The logging case
 	 * has similar motivation -- we don't want to override the existing
-	 * logging scheme (perhaps causing log messages to go somewhere 
+	 * logging scheme (perhaps causing log messages to go somewhere
 	 * unexpected) when the user hasn't expressed a desire for a new
 	 * scheme.
 	 */

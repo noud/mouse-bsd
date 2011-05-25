@@ -96,7 +96,7 @@ extern reloc_howto_type m68kcoff_howto_table[];
 #ifdef STATIC_RELOCS
 static
 #endif
-reloc_howto_type m68kcoff_howto_table[] = 
+reloc_howto_type m68kcoff_howto_table[] =
 {
   HOWTO(R_RELBYTE,	       0,  0,  	8,  false, 0, complain_overflow_bitfield, RELOC_SPECIAL_FN, "8",	true, 0x000000ff,0x000000ff, false),
   HOWTO(R_RELWORD,	       0,  1, 	16, false, 0, complain_overflow_bitfield, RELOC_SPECIAL_FN, "16",	true, 0x0000ffff,0x0000ffff, false),
@@ -129,7 +129,7 @@ m68k_rtype2howto(internal, relocentry)
      arelent *internal;
      int relocentry;
 {
-  switch (relocentry) 
+  switch (relocentry)
   {
    case R_RELBYTE:	internal->howto = m68kcoff_howto_table + 0; break;
    case R_RELWORD:	internal->howto = m68kcoff_howto_table + 1; break;
@@ -144,29 +144,29 @@ m68k_rtype2howto(internal, relocentry)
 #ifdef STATIC_RELOCS
 static
 #endif
-int 
+int
 m68k_howto2rtype (internal)
      reloc_howto_type *internal;
 {
-  if (internal->pc_relative) 
+  if (internal->pc_relative)
   {
-    switch (internal->bitsize) 
+    switch (internal->bitsize)
     {
      case 32: return R_PCRLONG;
      case 16: return R_PCRWORD;
      case 8: return R_PCRBYTE;
     }
   }
-  else 
+  else
   {
-    switch (internal->bitsize) 
+    switch (internal->bitsize)
      {
       case 32: return R_RELLONG;
       case 16: return R_RELWORD;
       case 8: return R_RELBYTE;
      }
   }
-  return R_RELLONG;    
+  return R_RELLONG;
 }
 
 #ifdef STATIC_RELOCS

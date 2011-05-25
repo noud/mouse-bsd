@@ -1281,7 +1281,7 @@ sim_resume (step, siggnal)
 	  OBITOP (O_BNOT, 1, 1, ea ^= m);
 	  OBITOP (O_BTST, 1, 0, nz = ea & m);
 	  OBITOP (O_BCLR, 1, 1, ea &= ~m);
-	  OBITOP (O_BSET, 1, 1, ea |= m);	
+	  OBITOP (O_BSET, 1, 1, ea |= m);
 	  OBITOP (O_BLD, 1, 0, c = ea & m);
 	  OBITOP (O_BILD, 1, 0, c = !(ea & m));
 	  OBITOP (O_BST, 1, 1, ea &= ~m;
@@ -1567,7 +1567,7 @@ sim_resume (step, siggnal)
   cpu.ticks += get_now () - tick_start;
   cpu.cycles += cycles;
   cpu.insts += insts;
-  
+
   cpu.pc = pc;
   BUILDSR ();
   cpu.mask = oldmask;
@@ -1827,7 +1827,7 @@ sim_load (prog, from_tty)
      does this via a different mechanism (INIT_EXTRA_SYMTAB_INFO).  */
   if ((abfd = bfd_openr (prog, "coff-h8300")) != 0)
     {
-      if (bfd_check_format (abfd, bfd_object)) 
+      if (bfd_check_format (abfd, bfd_object))
 	set_h8300h (abfd->arch_info->mach == bfd_mach_h8300h);
       bfd_close (abfd);
     }

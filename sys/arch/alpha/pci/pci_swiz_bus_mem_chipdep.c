@@ -5,17 +5,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -221,37 +221,37 @@ __C(CHIP,_bus_mem_init)(t, v)
 
 	/* barrier */
 	t->abs_barrier =	__C(CHIP,_mem_barrier);
-	
+
 	/* read (single) */
 	t->abs_r_1 =		__C(CHIP,_mem_read_1);
 	t->abs_r_2 =		__C(CHIP,_mem_read_2);
 	t->abs_r_4 =		__C(CHIP,_mem_read_4);
 	t->abs_r_8 =		__C(CHIP,_mem_read_8);
-	
+
 	/* read multiple */
 	t->abs_rm_1 =		__C(CHIP,_mem_read_multi_1);
 	t->abs_rm_2 =		__C(CHIP,_mem_read_multi_2);
 	t->abs_rm_4 =		__C(CHIP,_mem_read_multi_4);
 	t->abs_rm_8 =		__C(CHIP,_mem_read_multi_8);
-	
+
 	/* read region */
 	t->abs_rr_1 =		__C(CHIP,_mem_read_region_1);
 	t->abs_rr_2 =		__C(CHIP,_mem_read_region_2);
 	t->abs_rr_4 =		__C(CHIP,_mem_read_region_4);
 	t->abs_rr_8 =		__C(CHIP,_mem_read_region_8);
-	
+
 	/* write (single) */
 	t->abs_w_1 =		__C(CHIP,_mem_write_1);
 	t->abs_w_2 =		__C(CHIP,_mem_write_2);
 	t->abs_w_4 =		__C(CHIP,_mem_write_4);
 	t->abs_w_8 =		__C(CHIP,_mem_write_8);
-	
+
 	/* write multiple */
 	t->abs_wm_1 =		__C(CHIP,_mem_write_multi_1);
 	t->abs_wm_2 =		__C(CHIP,_mem_write_multi_2);
 	t->abs_wm_4 =		__C(CHIP,_mem_write_multi_4);
 	t->abs_wm_8 =		__C(CHIP,_mem_write_multi_8);
-	
+
 	/* write region */
 	t->abs_wr_1 =		__C(CHIP,_mem_write_region_1);
 	t->abs_wr_2 =		__C(CHIP,_mem_write_region_2);
@@ -263,7 +263,7 @@ __C(CHIP,_bus_mem_init)(t, v)
 	t->abs_sm_2 =		__C(CHIP,_mem_set_multi_2);
 	t->abs_sm_4 =		__C(CHIP,_mem_set_multi_4);
 	t->abs_sm_8 =		__C(CHIP,_mem_set_multi_8);
-	
+
 	/* set region */
 	t->abs_sr_1 =		__C(CHIP,_mem_set_region_1);
 	t->abs_sr_2 =		__C(CHIP,_mem_set_region_2);
@@ -557,7 +557,7 @@ __C(CHIP,_mem_map)(v, memaddr, memsize, flags, memhp, acct)
 	    memaddr + memsize - 1);
 	printf("mem: %s dense, %s sparse\n", mustd ? "need" : "want",
 	    musts ? "need" : "want");
-#endif  
+#endif
 #ifdef CHIP_D_MEM_W1_SYS_START
 	errord = extent_alloc_region(CHIP_D_MEM_EXTENT(v), memaddr, memsize,
 	    EX_NOWAIT | (CHIP_EX_MALLOC_SAFE(v) ? EX_MALLOCOK : 0));

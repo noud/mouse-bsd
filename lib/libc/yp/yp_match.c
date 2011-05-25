@@ -232,7 +232,7 @@ again:
 
 	r = clnt_call(ysd->dom_client, YPPROC_MATCH,
 		      (xdrproc_t)xdr_ypreq_key, &yprk,
-		      (xdrproc_t)xdr_ypresp_val, &yprv, 
+		      (xdrproc_t)xdr_ypresp_val, &yprv,
 		      _yplib_timeout);
 	if (r != RPC_SUCCESS) {
 		if (++nerrs == _yplib_nerrs) {

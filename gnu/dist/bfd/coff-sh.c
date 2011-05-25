@@ -320,14 +320,14 @@ static reloc_howto_type sh_coff_howtos[] =
 /* Get the value of a symbol, when performing a relocation.  */
 
 static long
-get_symbol_value (symbol)       
+get_symbol_value (symbol)
      asymbol *symbol;
-{                                             
+{
   bfd_vma relocation;
 
   if (bfd_is_com_section (symbol->section))
-    relocation = 0;                           
-  else 
+    relocation = 0;
+  else
     relocation = (symbol->value +
 		  symbol->section->output_section->vma +
 		  symbol->section->output_offset);
@@ -524,7 +524,7 @@ sh_merge_private_data (ibfd, obfd)
    align load and store instructions on four byte boundaries if we
    can, by swapping them with one of the adjacent instructions.  */
 
-static boolean 
+static boolean
 sh_relax_section (abfd, sec, link_info, again)
      bfd *abfd;
      asection *sec;
@@ -1882,7 +1882,7 @@ sh_insn_info (insn)
 	  return op;
     }
 
-  return NULL;  
+  return NULL;
 }
 
 /* See whether an instruction uses a general purpose register.  */
@@ -2460,7 +2460,7 @@ sh_relocate_section (output_bfd, info, input_bfd, input_section, contents,
 	  sym = NULL;
 	}
       else
-	{    
+	{
 	  if (symndx < 0
 	      || (unsigned long) symndx >= obj_raw_syment_count (input_bfd))
 	    {
@@ -2754,7 +2754,7 @@ const bfd_target shlcoff_vec =
   bfd_getl16, bfd_getl_signed_16, bfd_putl16, /* hdrs */
 
   {_bfd_dummy_target, coff_object_p, /* bfd_check_format */
-     bfd_generic_archive_p, _bfd_dummy_target},   
+     bfd_generic_archive_p, _bfd_dummy_target},
   {bfd_false, coff_mkobject, _bfd_generic_mkarchive, /* bfd_set_format */
      bfd_false},
   {bfd_false, coff_write_object_contents, /* bfd_write_contents */
@@ -2924,7 +2924,7 @@ const bfd_target shlcoff_small_vec =
   bfd_getl16, bfd_getl_signed_16, bfd_putl16, /* hdrs */
 
   {_bfd_dummy_target, coff_small_object_p, /* bfd_check_format */
-     bfd_generic_archive_p, _bfd_dummy_target},   
+     bfd_generic_archive_p, _bfd_dummy_target},
   {bfd_false, coff_mkobject, _bfd_generic_mkarchive, /* bfd_set_format */
      bfd_false},
   {bfd_false, coff_write_object_contents, /* bfd_write_contents */

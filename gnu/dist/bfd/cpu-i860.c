@@ -34,7 +34,7 @@ const bfd_arch_info_type bfd_i860_arch =
     "i860",
     3,
     true, /* the one and only */
-    bfd_default_compatible, 
+    bfd_default_compatible,
     bfd_default_scan ,
     0,
   };

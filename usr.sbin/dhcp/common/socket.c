@@ -44,7 +44,7 @@
  * This sockopt allows a socket to be bound to a particular interface,
  * thus enabling the use of DHCPD on a multihomed host.
  * If SO_BINDTODEVICE is defined in your system header files, the use of
- * this sockopt will be automatically enabled. 
+ * this sockopt will be automatically enabled.
  * I have implemented it under Linux; other systems should be doable also.
  */
 

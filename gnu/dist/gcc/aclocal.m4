@@ -59,7 +59,7 @@ if test $ac_cv_func_vprintf != yes ; then
 fi
 AC_SUBST(vfprintf)
 AC_SUBST(doprint)
-])    
+])
 
 dnl See if the printf functions in libc support %p in format strings.
 AC_DEFUN(GCC_FUNC_PRINTF_PTR,

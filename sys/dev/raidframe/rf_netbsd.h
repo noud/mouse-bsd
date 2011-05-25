@@ -60,7 +60,7 @@ typedef struct RF_ComponentLabel_s {
 	int serial_number;    /* a user-specified serial number for this
 				 RAID set */
 	int mod_counter;      /* modification counter.  Changed (usually
-				 by incrementing) every time the label 
+				 by incrementing) every time the label
 				 is changed */
 	int row;              /* the row number of this component */
 	int column;           /* the column number of this component */
@@ -74,23 +74,23 @@ typedef struct RF_ComponentLabel_s {
 	int SUsPerRU;         /* Stripe Units per Reconstruction Units */
 	int parityConfig;     /* '0' == RAID0, '1' == RAID1, etc. */
 	int maxOutstanding;   /* maxOutstanding disk requests */
-	int blockSize;        /* size of component block. 
+	int blockSize;        /* size of component block.
 				 (disklabel->d_secsize) */
 	int numBlocks;        /* number of blocks on this component.  May
 			         be smaller than the partition size. */
-	int partitionSize;    /* number of blocks on this *partition*. 
+	int partitionSize;    /* number of blocks on this *partition*.
 				 Must exactly match the partition size
 				 from the disklabel. */
 	int future_use[33];   /* Future expansion */
-	int autoconfigure;    /* automatically configure this RAID set. 
+	int autoconfigure;    /* automatically configure this RAID set.
 				 0 == no, 1 == yes */
 	int root_partition;   /* Use this set as /
 				 0 == no, 1 == yes*/
-	int last_unit;        /* last unit number (e.g. 0 for /dev/raid0) 
+	int last_unit;        /* last unit number (e.g. 0 for /dev/raid0)
 				 of this component.  Used for autoconfigure
 				 only.  (Not currently used) */
 	int config_order;     /* 0 .. n.  The order in which the component
-				 should be auto-configured.  E.g. 0 is will 
+				 should be auto-configured.  E.g. 0 is will
 				 done first, (and would become raid0).
 				 This may be in conflict with last_unit!!?! */
 	                      /* Not currently used. */
@@ -101,7 +101,7 @@ typedef struct RF_SingleComponent_s {
 	int row;
 	int column;
 	char component_name[50]; /* name of the component */
-} RF_SingleComponent_t; 
+} RF_SingleComponent_t;
 
 #ifdef _KERNEL
 
@@ -125,7 +125,7 @@ struct raidcinfo {
 
 /* XXX probably belongs in a different .h file. */
 typedef struct RF_AutoConfig_s {
-	char devname[56]; 
+	char devname[56];
 	dev_t dev;
 	struct vnode *vp;
 	RF_ComponentLabel_t *clabel;

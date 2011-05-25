@@ -27,17 +27,17 @@ VERSION=xVERSIONx
 SUBMITTER=xSUBMITTERx
 
 # Where the GNATS directory lives, if at all.
-[ -z "$GNATS_ROOT" ] && 
+[ -z "$GNATS_ROOT" ] &&
 GNATS_ROOT=xGNATS_ROOTx
 
-# The default mail address for PR submissions. 
+# The default mail address for PR submissions.
 GNATS_ADDR=xGNATS_ADDRx
 
 # Where the gnats category tree lives.
 DATADIR=xDATADIRx
 
 # If we've been moved around, try using GCC_EXEC_PREFIX.
-[ ! -d $DATADIR/gnats -a -d "$GCC_EXEC_PREFIX" ] && 
+[ ! -d $DATADIR/gnats -a -d "$GCC_EXEC_PREFIX" ] &&
   DATADIR=${GCC_EXEC_PREFIX}../../../lib
 
 # The default release for this host.
@@ -148,7 +148,7 @@ ARCH=`[ -f /bin/arch ] && /bin/arch`
 MACHINE=`[ -f /bin/machine ] && /bin/machine`
 
 COMMAND=`echo $0 | sed -e 's,.*/,,'`
-USAGE="Usage: $COMMAND [-PVL] [-t address] [-f filename] [--request-id] 
+USAGE="Usage: $COMMAND [-PVL] [-t address] [-f filename] [--request-id]
 [--version]"
 REMOVE=
 BATCH=
@@ -206,7 +206,7 @@ You need to run
 where YOUR-SID is the identification code you received with `send-pr'.
 `send-pr' will automatically insert this value into the template field
 `>Submitter-Id'.  If you've downloaded `send-pr' from the Net, use `net'
-for this value.  If you do not know your id, run `send-pr --request-id' to 
+for this value.  If you do not know your id, run `send-pr --request-id' to
 get one from your support site.
 __EOF__
   exit 1
@@ -302,7 +302,7 @@ else
   fi
 
   if [ -n "$PR_FORM" -a -z "$PRINT_INTERN" ]; then
-    cp $PR_FORM $TEMP || 
+    cp $PR_FORM $TEMP ||
       ( echo "$COMMAND: could not copy $PR_FORM" ; xs=1; exit )
   else
     for file in $TEMP $REF ; do
@@ -310,7 +310,7 @@ else
 SEND-PR: -*- send-pr -*-
 SEND-PR: Lines starting with `SEND-PR' will be removed automatically, as
 SEND-PR: will all comments (text enclosed in `<' and `>').
-SEND-PR: 
+SEND-PR:
 SEND-PR: Please consult the send-pr man page `send-pr(1)' or the Texinfo
 SEND-PR: manual if you are not sure how to fill out a problem report.
 SEND-PR:
@@ -395,7 +395,7 @@ fi
 #
 #	Check the enumeration fields
 
-# This is a "sed-subroutine" with one keyword parameter 
+# This is a "sed-subroutine" with one keyword parameter
 # (with workaround for Sun sed bug)
 #
 SED_CMD='
@@ -449,7 +449,7 @@ while [ -z "$REQUEST_ID" ]; do
     if [ "$C" = "$CATEGORY" ]; then FOUND=true ; break ; fi
   done
   if [ -n "$FOUND" ]; then
-    CNT=`expr $CNT + 1`	
+    CNT=`expr $CNT + 1`
   else
     if [ -z "$CATEGORY" ]; then
       echo "$COMMAND: you must include a Category: field in your report."
@@ -477,7 +477,7 @@ while [ -z "$REQUEST_ID" ]; do
     CNT=`expr $CNT + 1`
   fi
 
-  [ $CNT -lt 6 -a -z "$BATCH" ] && 
+  [ $CNT -lt 6 -a -z "$BATCH" ] &&
     echo "Errors were found with the problem report."
 
   while true; do

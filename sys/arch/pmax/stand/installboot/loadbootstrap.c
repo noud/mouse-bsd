@@ -74,7 +74,7 @@ load_bootstrap(const char *bootstrap, char **data,
 	if ((memcmp(ehdr.e_ident, ELFMAG, SELFMAG) != 0) ||
 	    (ehdr.e_ident[EI_CLASS] != ELFCLASS32))
 		errx(EXIT_FAILURE, "no ELF header in %s", bootstrap);
-	
+
 	nsegs = highaddr = 0;
 	lowaddr = ULONG_MAX;
 

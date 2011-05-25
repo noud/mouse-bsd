@@ -110,7 +110,7 @@ showmbufs()
 	if (mb == 0)
 		return;
 	for (j = 0; j < getmaxy(wnd); j++) {
-		max = 0, index = -1; 
+		max = 0, index = -1;
 		for (i = 0; i < getmaxy(wnd); i++)
 			if (mb->m_mtypes[i] > max) {
 				max = mb->m_mtypes[i];

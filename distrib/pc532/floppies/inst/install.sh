@@ -229,7 +229,7 @@ units_left=`expr $partition - $part_used`
 echo	""
 
 swap=0
-while [ $swap -eq 0 ]; do 
+while [ $swap -eq 0 ]; do
 	echo	"$units_left $sizeunit remaining in NetBSD portion of disk."
 	echo -n	"Swap partition size (in $sizeunit)? "
 	getresp
@@ -250,7 +250,7 @@ units_left=`expr $partition - $part_used`
 echo	""
 
 boot=0
-while [ $boot -eq 0 ]; do 
+while [ $boot -eq 0 ]; do
 	echo	"$units_left $sizeunit remaining in NetBSD portion of disk."
 	echo -n	"Boot partition size (in $sizeunit)? "
 	getresp

@@ -1,27 +1,27 @@
 /*	$NetBSD: db_trace.c,v 1.25 1999/06/07 07:00:07 thorpej Exp $	*/
 
-/* 
+/*
  * Mach Operating System
  * Copyright (c) 1991,1990 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
+ *
  * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
  * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND FOR
  * ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
- * 
+ *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
  *  School of Computer Science
  *  Carnegie Mellon University
  *  Pittsburgh PA 15213-3890
- * 
+ *
  * any improvements or extensions that they make and grant Carnegie the
  * rights to redistribute these changes.
  */
@@ -29,7 +29,7 @@
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/proc.h>
-#include <sys/user.h> 
+#include <sys/user.h>
 
 #include <machine/db_machdep.h>
 
@@ -126,13 +126,13 @@ db_numargs(fp)
 	return (args);
 }
 
-/* 
- * Figure out the next frame up in the call stack.  
- * For trap(), we print the address of the faulting instruction and 
+/*
+ * Figure out the next frame up in the call stack.
+ * For trap(), we print the address of the faulting instruction and
  *   proceed with the calling frame.  We return the ip that faulted.
  *   If the trap was caused by jumping through a bogus pointer, then
- *   the next line in the backtrace will list some random function as 
- *   being called.  It should get the argument list correct, though.  
+ *   the next line in the backtrace will list some random function as
+ *   being called.  It should get the argument list correct, though.
  *   It might be possible to dig out from the next frame up the name
  *   of the function that faulted, but that could get hairy.
  */
@@ -221,7 +221,7 @@ db_stack_trace_cmd(addr, have_addr, count, modif)
 			if (p == NULL) {
 				db_printf("not found\n");
 				return;
-			}	
+			}
 			if (!(p->p_flag&P_INMEM)) {
 				db_printf("swapped out\n");
 				return;

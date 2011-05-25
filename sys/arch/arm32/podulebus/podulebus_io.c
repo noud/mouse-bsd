@@ -162,7 +162,7 @@ podulebus_bs_unmap(t, bsh, size)
 	 */
 }
 
-void    
+void
 podulebus_bs_free(t, bsh, size)
 	void *t;
 	bus_space_handle_t bsh;
@@ -193,4 +193,4 @@ podulebus_bs_barrier(t, bsh, offset, len, flags)
 	bus_size_t offset, len;
 	int flags;
 {
-}	
+}

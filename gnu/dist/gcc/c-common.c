@@ -679,7 +679,7 @@ decl_attributes (node, attributes, prefix_attributes)
 			 "argument format specified for non-function `%s'");
 		continue;
 	      }
-	
+
 	    if (TREE_CODE (format_type_id) != IDENTIFIER_NODE)
 	      {
 		error ("unrecognized format specifier");
@@ -688,7 +688,7 @@ decl_attributes (node, attributes, prefix_attributes)
 	    else
 	      {
 		char *p = IDENTIFIER_POINTER (format_type_id);
-		
+
 		if (!strcmp (p, "printf") || !strcmp (p, "__printf__"))
 		  format_type = printf_format_type;
 		else if (!strcmp (p, "scanf") || !strcmp (p, "__scanf__"))
@@ -1537,7 +1537,7 @@ check_format_info (info, params)
 		       * a string (the bit names), checked for in mainstream
 		       * code below (see `%b' entry in print_char_table[])
 		       */
-	  
+
 	       	      if (TREE_CODE (TYPE_MAIN_VARIANT (cur_type)) != INTEGER_TYPE)
 			warning ("bitfield is not an integer type (arg %d)", arg_num);
 		    }
@@ -3024,7 +3024,7 @@ c_get_alias_set (t)
        not permit taking the address of a union member and then
        storing through it.  Even the type-punning allowed here is a
        GCC extension, albeit a common and useful one; the C standard
-       says that such accesses have implementation-defined behavior.  */ 
+       says that such accesses have implementation-defined behavior.  */
     return 0;
   else if (TYPE_MAIN_VARIANT (type) != type)
     {

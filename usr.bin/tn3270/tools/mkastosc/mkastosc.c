@@ -138,7 +138,7 @@ char	*argv[];
 	}
 	printf(" */\n");
     }
-		
+
 
     for (attable = &table[0]; attable <= &table[highestof(table)]; attable++) {
 	for (this = *attable; this; this = this->next) {

@@ -743,7 +743,7 @@ mb86960_start(ifp)
 		 * We *could* do better job by peeking the send queue to
 		 * know the length of the next packet.  Current version just
 		 * tests against the worst case (i.e., longest packet).  FIXME.
-		 * 
+		 *
 		 * When adding the packet-peek feature, don't forget adding a
 		 * test on txb_count against QUEUEING_MAX.
 		 * There is a little chance the packet count exceeds
@@ -941,7 +941,7 @@ mb86960_tint(sc, tstat)
 	if (sc->txb_sched == 0) {
 		/*
 		 * The transmitter is no more active.
-		 * Reset output active flag and watchdog timer. 
+		 * Reset output active flag and watchdog timer.
 		 */
 		ifp->if_flags &= ~IFF_OACTIVE;
 		ifp->if_timer = 0;
@@ -1065,7 +1065,7 @@ mb86960_rint(sc, rstat)
 			    "%s: received a short packet? (%u bytes)\n",
 			    sc->sc_dev.dv_xname, len);
 		}
-#endif 
+#endif
 
 		/*
 		 * Go get a packet.
@@ -1406,7 +1406,7 @@ mb86960_get_packet(sc, len)
  *
  * If an mbuf chain is too long for an Ethernet frame, it is not sent.
  * Packets shorter than Ethernet minimum are legal, and we pad them
- * before sending out.  An exception is "partial" packets which are 
+ * before sending out.  An exception is "partial" packets which are
  * shorter than mandatory Ethernet header.
  *
  * I wrote a code for an experimental "delayed padding" technique.
@@ -1504,7 +1504,7 @@ mb86960_write_mbufs(sc, m)
 #endif
 
 	/*
-	 * Transfer the data from mbuf chain to the transmission buffer. 
+	 * Transfer the data from mbuf chain to the transmission buffer.
 	 * MB86960 seems to require that data be transferred as words, and
 	 * only words.  So that we require some extra code to patch
 	 * over odd-length mbufs.

@@ -243,7 +243,7 @@ kbm_getc(chan)
 #endif
 	int rdy = Kbm_port[chan].data_rdy;
 
-	if (*stat & rdy) 
+	if (*stat & rdy)
 		return (*port & 0xff);
 	else
 		return -1;

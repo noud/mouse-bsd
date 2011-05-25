@@ -118,7 +118,7 @@ one_command(cmdline)
 }
 
 /* prompt procedure....  Write out the prompt and then read a response. */
-void 
+void
 prompt(cmdline, linelen, promptstr)
 	char   *cmdline;
 	int     linelen;
@@ -148,7 +148,7 @@ prompt(cmdline, linelen, promptstr)
  * pointers to substrings in the original string.  It puts the string
  * terminator in the original line.
  */
-int 
+int
 parse(cmdline, args)
 	char   *cmdline;
 	char  **args;
@@ -254,7 +254,7 @@ help_cmds()
 }
 
 /* The default help routine.  This may be redefined by the user. */
-int 
+int
 help(num, args, syntax)
 	int     num;
 	char  **args;

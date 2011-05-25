@@ -106,7 +106,7 @@ Lvidcconsolemc_render_loop:
 	bne	Lvidcconsolemc_render_loop
 
 	ldmfd	sp!, {r0-r9, pc}
-	
+
 /*
  * On entry:
  *	r0 = start
@@ -116,7 +116,7 @@ Lvidcconsolemc_render_loop:
 
 ENTRY(vidcconsolemc_cls)
 	stmfd	sp!, {r0-r9, lr}
-	
+
 	mov	r3, r2
 	mov	r4, r2
 	mov	r5, r2
@@ -142,7 +142,7 @@ Lvidcconsolemc_cls_loop:
 	stmia	r0!, {r2-r9}
 	stmia	r0!, {r2-r9}
 	stmia	r0!, {r2-r9}
-	
+
 	cmp	r0, r1
 	ble	Lvidcconsolemc_cls_loop
 

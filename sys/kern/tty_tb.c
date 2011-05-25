@@ -104,7 +104,7 @@ struct tb {
 	char	cbuf[TBMAXREC];		/* input buffer */
 	int	tbinbuf;
 	char	*tbcp;
-	union	tbpos tbpos; 
+	union	tbpos tbpos;
 } tb[NTB];
 
 

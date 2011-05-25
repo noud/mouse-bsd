@@ -62,7 +62,7 @@ int regno;
   /* FIXME: Fetching the registers is a kludge to initialize all elements
      in the fpu and fpa status. This works for normal debugging, but
      might cause problems when calling functions in the inferior.
-     At least fpu_control and fpa_pcr (probably more) should be added 
+     At least fpu_control and fpa_pcr (probably more) should be added
      to the registers array to solve this properly.  */
   mptrace (XPT_RREGS, inferior_pid, (PTRACE_ARG3_TYPE) &regs, 0);
 
@@ -138,7 +138,7 @@ struct pt_regset ep;
     int top;
     int fpreg;
     unsigned char *p;
-    
+
     printf_unfiltered("80387:");
     if (ep.pr_fpu.fpu_ip == 0) {
 	printf_unfiltered(" not in use.\n");
@@ -154,17 +154,17 @@ struct pt_regset ep;
     printf_unfiltered ("opcode 0x%x; ", ep.pr_fpu.fpu_rsvd4);
     printf_unfiltered ("pc 0x%x:0x%x; ", ep.pr_fpu.fpu_cs, ep.pr_fpu.fpu_ip);
     printf_unfiltered ("operand 0x%x:0x%x\n", ep.pr_fpu.fpu_data_offset, ep.pr_fpu.fpu_op_sel);
-    
+
     top = (ep.pr_fpu.fpu_status >> 11) & 7;
-    
+
     printf_unfiltered ("regno  tag  msb              lsb  value\n");
-    for (fpreg = 7; fpreg >= 0; fpreg--) 
+    for (fpreg = 7; fpreg >= 0; fpreg--)
 	{
 	    double val;
-	    
+
 	    printf_unfiltered ("%s %d: ", fpreg == top ? "=>" : "  ", fpreg);
-	    
-	    switch ((ep.pr_fpu.fpu_tag >> (fpreg * 2)) & 3) 
+
+	    switch ((ep.pr_fpu.fpu_tag >> (fpreg * 2)) & 3)
 		{
 		case 0: printf_unfiltered ("valid "); break;
 		case 1: printf_unfiltered ("zero  "); break;
@@ -173,7 +173,7 @@ struct pt_regset ep;
 		}
 	    for (i = 9; i >= 0; i--)
 		printf_unfiltered ("%02x", ep.pr_fpu.fpu_stack[fpreg][i]);
-	    
+
 	    i387_to_double ((char *)ep.pr_fpu.fpu_stack[fpreg], (char *)&val);
 	    printf_unfiltered ("  %g\n", val);
 	}
@@ -256,7 +256,7 @@ unsigned int pcr;
       case 0:
 	printf_unfiltered(" (Greater than)");
 	break;
-      case FPA_PCR_CC_Z | 
+      case FPA_PCR_CC_Z |
 #ifdef FPA_PCR_CC_C1
 	FPA_PCR_CC_C1
 #else
@@ -413,7 +413,7 @@ child_wait(pid, status)
     while (got_sigchld == 0) {
 	    sigsuspend(&set);
     }
-    
+
     clear_sigint_trap();
 
     rv = mptrace(XPT_STOPSTAT, 0, (char *)&pt, 0);
@@ -566,8 +566,8 @@ child_wait (pid, ourstatus)
 
 
 
-/* This function simply calls ptrace with the given arguments.  
-   It exists so that all calls to ptrace are isolated in this 
+/* This function simply calls ptrace with the given arguments.
+   It exists so that all calls to ptrace are isolated in this
    machine-dependent file. */
 int
 call_ptrace (request, pid, addr, data)
@@ -698,7 +698,7 @@ detach (signo)
 /* Copy LEN bytes to or from inferior's memory starting at MEMADDR
    to debugger memory starting at MYADDR.   Copy to inferior if
    WRITE is nonzero.
-  
+
    Returns the length copied, which is either the LEN argument or zero.
    This xfer function does not do partial moves, since child_ops
    doesn't allow memory operations to cross below us in the target stack

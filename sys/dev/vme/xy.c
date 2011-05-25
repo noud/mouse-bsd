@@ -1723,7 +1723,7 @@ xyc_reset(xycsc, quiet, blastmode, error, xysc)
 					(iorq->buf->b_flags & B_READ)
 						? BUS_DMASYNC_POSTREAD
 						: BUS_DMASYNC_POSTWRITE);
-                
+
 			    bus_dmamap_unload(xycsc->dmatag, iorq->dmamap);
 
 			    BUFQ_REMOVE(&iorq->xy->xyq, iorq->buf);
@@ -1906,7 +1906,7 @@ xyc_remove_iorq(xycsc)
 					(iorq->buf->b_flags & B_READ)
 						? BUS_DMASYNC_POSTREAD
 						: BUS_DMASYNC_POSTWRITE);
-                
+
 			bus_dmamap_unload(xycsc->dmatag, iorq->dmamap);
 
 			BUFQ_REMOVE(&iorq->xy->xyq, bp);

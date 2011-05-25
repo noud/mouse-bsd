@@ -34,7 +34,7 @@
 #ifndef lint
 __RCSID("$NetBSD: exec_ecoff.c,v 1.3 1997/08/12 06:07:23 mikel Exp $");
 #endif
- 
+
 #include <sys/types.h>
 #include <sys/stat.h>
 

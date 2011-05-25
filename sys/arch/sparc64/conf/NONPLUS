@@ -12,7 +12,7 @@ options AUDIO_DEBUG=1
 # We currently support three architecture types; at least one is required.
 options		SUN4U		# sun4u - Ultra 140 and 170
 options		TRAPWIN		# use a new window for traps
-options		__ELF__		# we use elf 
+options		__ELF__		# we use elf
 #options		_LP64		# we're using a 64-bit compiler
 
 ## System options specific to the sparc machine type
@@ -229,7 +229,7 @@ ms0	at zs1 channel 1	# mouse
 #ms0	at su1			# mouse
 
 ## This is the SAB82532 DUART
-#se0	at ebus?		# 
+#se0	at ebus?		#
 
 
 #### Disk controllers and disks

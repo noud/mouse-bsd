@@ -69,8 +69,8 @@ struct	par_softc {
 #define getparsp(x)	(x > 0 ? NULL : par_softcp)
 
 /* sc_flags values */
-#define	PARF_ALIVE	0x01	
-#define	PARF_OPEN	0x02	
+#define	PARF_ALIVE	0x01
+#define	PARF_OPEN	0x02
 #define PARF_UIO	0x04
 #define PARF_TIMO	0x08
 #define PARF_DELAY	0x10
@@ -141,7 +141,7 @@ paropen(dev, flags, mode, p)
 {
 	int unit = UNIT(dev);
 	struct par_softc *sc = getparsp(unit);
-  
+
 	if (unit >= NPAR || (sc->sc_flags & PARF_ALIVE) == 0)
 		return(ENXIO);
 #ifdef DEBUG
@@ -157,7 +157,7 @@ paropen(dev, flags, mode, p)
 	/* can either read or write, but not both */
 	if ((flags & (FREAD|FWRITE)) == (FREAD|FWRITE))
 		return EINVAL;
-  
+
 	sc->sc_flags |= PARF_OPEN;
 
 	if (flags & FREAD)
@@ -288,16 +288,16 @@ parrw(dev, uio)
   buflen = min(sc->sc_burst, uio->uio_resid);
   buf = (char *)malloc(buflen, M_DEVBUF, M_WAITOK);
   sc->sc_flags |= PARF_UIO;
-  if (sc->sc_timo > 0) 
+  if (sc->sc_timo > 0)
     {
       sc->sc_flags |= PARF_TIMO;
       timeout(partimo, (void *)unit, sc->sc_timo);
     }
-  while (uio->uio_resid > 0) 
+  while (uio->uio_resid > 0)
     {
       len = min(buflen, uio->uio_resid);
       cp = buf;
-      if (uio->uio_rw == UIO_WRITE) 
+      if (uio->uio_rw == UIO_WRITE)
 	{
 	  error = uiomove(cp, len, uio);
 	  if (error)
@@ -313,14 +313,14 @@ again:
        * Check if we timed out during sleep or uiomove
        */
       (void) spllowersoftclock();
-      if ((sc->sc_flags & PARF_UIO) == 0) 
+      if ((sc->sc_flags & PARF_UIO) == 0)
 	{
 #ifdef DEBUG
 	  if (pardebug & PDB_IO)
 	    printf("parrw: uiomove/sleep timo, flags %x\n",
 		   sc->sc_flags);
 #endif
-	  if (sc->sc_flags & PARF_TIMO) 
+	  if (sc->sc_flags & PARF_TIMO)
 	    {
 	      untimeout(partimo, (void *)unit);
 	      sc->sc_flags &= ~PARF_TIMO;
@@ -336,13 +336,13 @@ again:
 	cnt = parsend (cp, len);
       else
 	cnt = parreceive (cp, len);
-      
+
       if (cnt < 0)
 	{
 	  error = -cnt;
 	  break;
 	}
-      
+
       s = splbio();
 #if 0
       hpibfree(&sc->sc_dq);
@@ -353,9 +353,9 @@ again:
 	       uio->uio_rw == UIO_READ ? "recv" : "send", cp, len, cnt);
 #endif
       splx(s);
-      if (uio->uio_rw == UIO_READ) 
+      if (uio->uio_rw == UIO_READ)
 	{
-	  if (cnt) 
+	  if (cnt)
 	    {
 	      error = uiomove(cp, cnt, uio);
 	      if (error)
@@ -373,7 +373,7 @@ again:
       /*
        * Operation timeout (or non-blocking), quit now.
        */
-      if ((sc->sc_flags & PARF_UIO) == 0) 
+      if ((sc->sc_flags & PARF_UIO) == 0)
 	{
 #ifdef DEBUG
 	  if (pardebug & PDB_IO)
@@ -385,12 +385,12 @@ again:
       /*
        * Implement inter-read delay
        */
-      if (sc->sc_delay > 0) 
+      if (sc->sc_delay > 0)
 	{
 	  sc->sc_flags |= PARF_DELAY;
 	  timeout(parstart, (void *)unit, sc->sc_delay);
 	  error = tsleep(sc, PCATCH | (PZERO - 1), "par-cdelay", 0);
-	  if (error) 
+	  if (error)
 	    {
 	      splx(s);
 	      break;
@@ -401,7 +401,7 @@ again:
        * Must not call uiomove again til we've used all data
        * that we already grabbed.
        */
-      if (uio->uio_rw == UIO_WRITE && cnt != len) 
+      if (uio->uio_rw == UIO_WRITE && cnt != len)
 	{
 	  cp += cnt;
 	  len -= cnt;
@@ -410,12 +410,12 @@ again:
 	}
     }
   s = splsoftclock();
-  if (sc->sc_flags & PARF_TIMO) 
+  if (sc->sc_flags & PARF_TIMO)
     {
       untimeout(partimo, (void *)unit);
       sc->sc_flags &= ~PARF_TIMO;
     }
-  if (sc->sc_flags & PARF_DELAY) 
+  if (sc->sc_flags & PARF_DELAY)
     {
       untimeout(parstart, (void *)unit);
       sc->sc_flags &= ~PARF_DELAY;
@@ -424,7 +424,7 @@ again:
   /*
    * Adjust for those chars that we uiomove'ed but never wrote
    */
-  if (uio->uio_rw == UIO_WRITE && cnt != len) 
+  if (uio->uio_rw == UIO_WRITE && cnt != len)
     {
       uio->uio_resid += (len - cnt);
 #ifdef DEBUG
@@ -453,7 +453,7 @@ parioctl(dev, cmd, data, flag, p)
   struct parparam *pp, *upp;
   int error = 0;
 
-  switch (cmd) 
+  switch (cmd)
     {
     case PARIOCGPARAM:
       pp = &sc->sc_param;
@@ -540,7 +540,7 @@ parintr(arg)
 
 	/* either way, there won't be a timeout pending any longer */
 	partimeout_pending = 0;
-  
+
 	wakeup(parintr);
 	splx(s);
 }
@@ -555,8 +555,8 @@ parsendch (ch)
   /* if either offline, busy or out of paper, wait for that
      condition to clear */
   s = splclock();
-  while (!error 
-	 && (parsend_pending 
+  while (!error
+	 && (parsend_pending
 	     || ((ciab.pra ^ CIAB_PRA_SEL)
 		 & (CIAB_PRA_SEL|CIAB_PRA_BUSY|CIAB_PRA_POUT))))
     {
@@ -620,7 +620,7 @@ parsend (buf, len)
   ciab.ddra &= ~(CIAB_PRA_SEL|CIAB_PRA_POUT|CIAB_PRA_BUSY);
   /* data lines to output */
   ciaa.ddrb = 0xff;
-  
+
   for (; len; len--, buf++)
     if ((err = parsendch (*buf)) != 0)
       return err < 0 ? -EINTR : -err;

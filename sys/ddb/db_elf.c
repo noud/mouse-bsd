@@ -39,7 +39,7 @@
 
 #include <sys/types.h>
 #include <sys/param.h>
-#include <sys/systm.h>  
+#include <sys/systm.h>
 #include <sys/proc.h>
 
 #include <machine/db_machdep.h>
@@ -169,13 +169,13 @@ db_elf_sym_init(symsize, symtab, esymtab, name)
 			strtab_end = (char *)symtab + shp[i].sh_offset +
 			    shp[i].sh_size;
 			break;
-		
+
 		case SHT_SYMTAB:
 			if (symtab_start != NULL)
 				goto multiple_symtab;
-			symtab_start = (Elf_Sym *)((char *)symtab + 
+			symtab_start = (Elf_Sym *)((char *)symtab +
 			    shp[i].sh_offset);
-			symtab_end = (Elf_Sym *)((char *)symtab + 
+			symtab_end = (Elf_Sym *)((char *)symtab +
 			    shp[i].sh_offset + shp[i].sh_size);
 			break;
 
@@ -202,7 +202,7 @@ db_elf_sym_init(symsize, symtab, esymtab, name)
 	if (db_add_symbol_table((char *)symtab_start,
 	    (char *)symtab_end, name, (char *)symtab) != -1) {
 		printf("[ preserving %lu bytes of %s ELF symbol table ]\n",
-		    (u_long)roundup(((char *)esymtab - (char *)symtab), 
+		    (u_long)roundup(((char *)esymtab - (char *)symtab),
 				    sizeof(u_long)), name);
 		return (TRUE);
 	}

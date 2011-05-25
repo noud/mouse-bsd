@@ -30,7 +30,7 @@
  */
 
  /* All bugs are subject to removal without further notice */
-		
+
 #define NRSP 0 /* Kludge */
 #define NCMD 0 /* Kludge */
 

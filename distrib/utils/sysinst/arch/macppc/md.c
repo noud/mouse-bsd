@@ -26,13 +26,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -92,7 +92,7 @@ md_get_info()
 
 	/*
 	 * Compute whole disk size. Take max of (dlcyl*dlhead*dlsec)
-	 * and secperunit,  just in case the disk is already labelled.  
+	 * and secperunit,  just in case the disk is already labelled.
 	 * (If our new label's RAW_PART size ends up smaller than the
 	 * in-core RAW_PART size  value, updating the label will fail.)
 	 */
@@ -194,7 +194,7 @@ md_make_bsd_partitions()
 	bsdlabel[C].pi_fstype = FS_UNUSED;
 	bsdlabel[C].pi_offset = 0;
 	bsdlabel[C].pi_size = dlsize;
-	
+
 	/* Standard fstypes */
 	bsdlabel[A].pi_fstype = FS_BSDFFS;
 	bsdlabel[B].pi_fstype = FS_SWAP;
@@ -259,7 +259,7 @@ md_make_bsd_partitions()
 		bsdlabel[A].pi_fsize = 1024;
 		strcpy (fsmount[A], "/");
 		partstart += partsize;
-		
+
 		/* swap */
 		remain = fsdsize - partstart;
 		i = NUMSEC(2 * (rammb < 32 ? 32 : rammb),
@@ -273,7 +273,7 @@ md_make_bsd_partitions()
 		bsdlabel[B].pi_offset = partstart;
 		bsdlabel[B].pi_size = partsize;
 		partstart += partsize;
-		
+
 		/* /usr */
 		remain = fsdsize - partstart;
 		if (remain > 0) {

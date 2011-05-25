@@ -54,7 +54,7 @@ typedef struct RF_Raid1ConfigInfo_s {
 	RF_RowCol_t **stripeIdentifier;
 }       RF_Raid1ConfigInfo_t;
 /* start of day code specific to RAID level 1 */
-int 
+int
 rf_ConfigureRAID1(
     RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr,
@@ -96,7 +96,7 @@ rf_ConfigureRAID1(
 
 
 /* returns the physical disk location of the primary copy in the mirror pair */
-void 
+void
 rf_MapSectorRAID1(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -119,7 +119,7 @@ rf_MapSectorRAID1(
  * returns the physical disk location of the secondary copy in the mirror
  * pair
  */
-void 
+void
 rf_MapParityRAID1(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -142,7 +142,7 @@ rf_MapParityRAID1(
  *
  * returns a list of disks for a given redundancy group
  */
-void 
+void
 rf_IdentifyStripeRAID1(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t addr,
@@ -163,7 +163,7 @@ rf_IdentifyStripeRAID1(
  *
  * maps a logical stripe to a stripe in the redundant array
  */
-void 
+void
 rf_MapSIDToPSIDRAID1(
     RF_RaidLayout_t * layoutPtr,
     RF_StripeNum_t stripeID,
@@ -185,7 +185,7 @@ rf_MapSIDToPSIDRAID1(
  *              createFunc - name of function to use to create the graph
  *****************************************************************************/
 
-void 
+void
 rf_RAID1DagSelect(
     RF_Raid_t * raidPtr,
     RF_IoType_t type,
@@ -251,8 +251,8 @@ rf_RAID1DagSelect(
 			}
 			if (rf_dagDebug || rf_mapDebug) {
 				printf("raid%d: Redirected type '%c' r %d c %d o %ld -> r %d c %d o %ld\n",
-				       raidPtr->raidid, type, or, oc, 
-				       (long) oo, failedPDA->row, 
+				       raidPtr->raidid, type, or, oc,
+				       (long) oo, failedPDA->row,
 				       failedPDA->col,
 				       (long) failedPDA->startSector);
 			}
@@ -269,7 +269,7 @@ rf_RAID1DagSelect(
 	}
 }
 
-int 
+int
 rf_VerifyParityRAID1(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidAddr,
@@ -319,7 +319,7 @@ rf_VerifyParityRAID1(
 		goto done;
 	if (rf_verifyParityDebug) {
 		printf("raid%d: RAID1 parity verify: buf=%lx bcount=%d (%lx - %lx)\n",
-		       raidPtr->raidid, (long) buf, bcount, (long) buf, 
+		       raidPtr->raidid, (long) buf, bcount, (long) buf,
 		       (long) buf + bcount);
 	}
 	/*
@@ -392,7 +392,7 @@ rf_VerifyParityRAID1(
 	rd_dag_h->tracerec = &tracerec;
 
 	if (rf_verifyParityDebug > 1) {
-		printf("raid%d: RAID1 parity verify read dag:\n", 
+		printf("raid%d: RAID1 parity verify read dag:\n",
 		       raidPtr->raidid);
 		rf_PrintDAGList(rd_dag_h);
 	}
@@ -432,7 +432,7 @@ rf_VerifyParityRAID1(
 	for (i = 0; i < layoutPtr->numDataCol; i++) {
 		if (rf_verifyParityDebug) {
 			printf("raid%d: RAID1 parity verify %d bytes: i=%d buf1=%lx buf2=%lx buf=%lx\n",
-			       raidPtr->raidid, nbytes, i, (long) buf1, 
+			       raidPtr->raidid, nbytes, i, (long) buf1,
 			       (long) buf2, (long) buf);
 		}
 		ret = bcmp(buf1, buf2, nbytes);
@@ -531,13 +531,13 @@ done:
 		rf_FreeMCPair(mcpair);
 	rf_FreeAllocList(allocList);
 	if (rf_verifyParityDebug) {
-		printf("raid%d: RAID1 parity verify, returning %d\n", 
+		printf("raid%d: RAID1 parity verify, returning %d\n",
 		       raidPtr->raidid, ret);
 	}
 	return (ret);
 }
 
-int 
+int
 rf_SubmitReconBufferRAID1(rbuf, keep_it, use_committed)
 	RF_ReconBuffer_t *rbuf;	/* the recon buffer to submit */
 	int     keep_it;	/* whether we can keep this buffer or we have
@@ -566,7 +566,7 @@ rf_SubmitReconBufferRAID1(rbuf, keep_it, use_committed)
 
 	if (rf_reconbufferDebug) {
 		printf("raid%d: RAID1 reconbuffer submission r%d c%d psid %ld ru%d (failed offset %ld)\n",
-		       raidPtr->raidid, rbuf->row, rbuf->col, 
+		       raidPtr->raidid, rbuf->row, rbuf->col,
 		       (long) rbuf->parityStripeID, rbuf->which_ru,
 		       (long) rbuf->failedDiskSectorOffset);
 	}
@@ -595,7 +595,7 @@ rf_SubmitReconBufferRAID1(rbuf, keep_it, use_committed)
 	t = NULL;
 	if (keep_it) {
 		if (rf_reconbufferDebug) {
-			printf("raid%d: RAID1 rbuf submission: keeping rbuf\n", 
+			printf("raid%d: RAID1 rbuf submission: keeping rbuf\n",
 			       raidPtr->raidid);
 		}
 		t = rbuf;
@@ -680,7 +680,7 @@ out:
 	RF_UNLOCK_PSS_MUTEX(raidPtr, rbuf->row, rbuf->parityStripeID);
 	RF_UNLOCK_MUTEX(reconCtrlPtr->rb_mutex);
 	if (rf_reconbufferDebug) {
-		printf("raid%d: RAID1 rbuf submission: returning %d\n", 
+		printf("raid%d: RAID1 rbuf submission: returning %d\n",
 		       raidPtr->raidid, retcode);
 	}
 	return (retcode);

@@ -26,7 +26,7 @@
  * THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
  * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS 
+ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
  * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
@@ -198,7 +198,7 @@ ee_screensize(ktent, arg)
 				break;
 		if (svp->sv_str == NULL)
 			BARF(ktent);
-		
+
 		scsize = svp->sv_val;
 		if (doio(ktent, &scsize, sizeof(scsize), IO_WRITE))
 			FAILEDWRITE(ktent);
@@ -397,7 +397,7 @@ ee_constype(ktent, arg)
 		}
 	}
 	printf("%s=%s\n", ktent->kt_keyword, svp->sv_str);
-		
+
 }
 
 void
@@ -607,7 +607,7 @@ ee_verifychecksums()
 	kt.kt_keyword = "eeprom writecount";
 	kt.kt_offset = EE_WC_LOC;
 	kt.kt_handler = ee_notsupp;
-	
+
 	if (doio(&kt, (u_char *)&owritecount, sizeof(owritecount), IO_READ)) {
 		cksumfail = 1;
 		FAILEDREAD(&kt);

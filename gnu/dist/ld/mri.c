@@ -28,7 +28,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA
 */
 
 #include "bfd.h"
-#include "sysdep.h" 
+#include "sysdep.h"
 #include "ld.h"
 #include "ldexp.h"
 #include "ldlang.h"
@@ -70,7 +70,7 @@ lookup (name, list)
 {
 
   struct section_name_struct **ptr = list;
-  while (*ptr) 
+  while (*ptr)
   {
     if (strcmp(name, (*ptr)->name) == 0) {
       /* If this is a match, delete it, we only keep the last instance
@@ -151,7 +151,7 @@ mri_draw_tree ()
 					   "length", lang_first_phase_enum);
  }
 #endif
-  
+
   /* Now build the statements for the ldlang machine */
 
 
@@ -166,15 +166,15 @@ mri_draw_tree ()
 
     for (alist = address;
 	 alist != (struct section_name_struct*)NULL;
-	 alist = alist->next) 
+	 alist = alist->next)
     {
       int done = 0;
       for (olist = order;
 	   done == 0 &&
 	   olist != (struct section_name_struct *)NULL;
-	   olist = olist->next) 
+	   olist = olist->next)
       {
-	if (strcmp(alist->name, olist->name) == 0) 
+	if (strcmp(alist->name, olist->name) == 0)
 	{
 	  olist->vma = alist->vma;
 	  done = 1;
@@ -192,18 +192,18 @@ mri_draw_tree ()
   /* If we're only supposed to load a subset of them in, then prune
      the list.  */
 
-  if (only_load != (struct section_name_struct *)NULL) 
+  if (only_load != (struct section_name_struct *)NULL)
   {
     struct section_name_struct *ptr1;
     struct section_name_struct *ptr2;
     if (order == (struct section_name_struct*)NULL)
      order = only_load;
-    
+
     /* See if this name is in the list, if it is then we can load it
      */
-    for (ptr1 = only_load; ptr1; ptr1 = ptr1->next) 
+    for (ptr1 = only_load; ptr1; ptr1 = ptr1->next)
     {
-      for (ptr2= order; ptr2; ptr2=ptr2->next) 
+      for (ptr2= order; ptr2; ptr2=ptr2->next)
       {
 	if (strcmp(ptr2->name, ptr1->name)==0) {
 	  ptr2->ok_to_load = 1;
@@ -211,7 +211,7 @@ mri_draw_tree ()
       }
     }
   }
-  else 
+  else
   {
     /* No only load list, so everything is ok to load */
     struct section_name_struct *ptr;
@@ -223,11 +223,11 @@ mri_draw_tree ()
 
 
   /* Create the order of sections to load */
-  if (order != (struct section_name_struct *)NULL) 
+  if (order != (struct section_name_struct *)NULL)
   {
     /* Been told to output the sections in a certain order */
     struct section_name_struct *p = order;
-    while (p) 
+    while (p)
     {
       struct section_name_struct *aptr;
       etree_type *align = 0;
@@ -294,7 +294,7 @@ mri_order (name)
   mri_add_to_list(&order, name, 0, 0,0,0);
 }
 
-void 
+void
 mri_alias (want, is, isn)
      CONST char *want;
      CONST char *is;
@@ -313,7 +313,7 @@ mri_alias (want, is, isn)
 }
 
 
-void 
+void
 mri_name (name)
      CONST char *name;
 {
@@ -352,7 +352,7 @@ mri_public (name, exp)
   lang_add_assignment(exp_assop('=', name, exp));
 }
 
-void 
+void
 mri_align (name, exp)
      CONST char *name;
      etree_type *exp;
@@ -360,7 +360,7 @@ mri_align (name, exp)
   mri_add_to_list(&alignment, name,0,0,exp,0);
 }
 
-void 
+void
 mri_alignmod (name, exp)
      CONST char *name;
      etree_type *exp;
@@ -369,7 +369,7 @@ mri_alignmod (name, exp)
 }
 
 
-void 
+void
 mri_truncate (exp)
      unsigned int exp;
 {

@@ -164,7 +164,7 @@ States for Tahoe address relaxing.
 	Always, 1 byte opcode, then displacement/absolute.
 	If word or longword, change opcode to brw or jmp.
 
-	
+
 2.	TAHOE_WIDTH_CONDITIONAL_JUMP (?)
 	J<cond> where <cond> is a simple flag test.
 	Format: "b?"
@@ -520,7 +520,7 @@ md_ri_to_chars (ri_p, ri)
    	bits 6 & 5 as length,
 	bit 4 as extern and the last nibble as 'undefined'. */
 
-void 
+void
 tc_aout_fix_to_chars (where, fixP, segment_address_in_file)
      char *where;
      fixS *fixP;
@@ -1999,7 +1999,7 @@ md_section_align (segment, size)
    On the sparc, they're relative to the address of the offset, plus
    its size.  This gets us to the following instruction.
    (??? Is this right?  FIXME-SOON) */
-long 
+long
 md_pcrel_from (fixP)
      fixS *fixP;
 {
@@ -2015,7 +2015,7 @@ md_pcrel_from (fixP)
 		 : 0))) + fixP->fx_where + fixP->fx_frag->fr_address);
 }				/* md_pcrel_from() */
 
-int 
+int
 tc_is_pcrel (fixP)
      fixS *fixP;
 {

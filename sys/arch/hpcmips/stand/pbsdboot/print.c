@@ -37,7 +37,7 @@
  */
 #include <pbsdboot.h>
 
-int 
+int
 debug_printf(LPWSTR lpszFmt, ...)
 {
 	int count;
@@ -53,7 +53,7 @@ debug_printf(LPWSTR lpszFmt, ...)
 	return count;
 }
 
-int 
+int
 msg_printf(UINT type, LPWSTR caption, LPWSTR lpszFmt, ...)
 {
 	int count;

@@ -375,7 +375,7 @@ static void rl_mii_send(sc, bits, cnt)
 static int rl_mii_readreg(sc, frame)
 	struct rl_softc		*sc;
 	struct rl_mii_frame	*frame;
-	
+
 {
 	int			i, ack, s;
 
@@ -388,7 +388,7 @@ static int rl_mii_readreg(sc, frame)
 	frame->mii_opcode = RL_MII_READOP;
 	frame->mii_turnaround = 0;
 	frame->mii_data = 0;
-	
+
 	CSR_WRITE_2(sc, RL_MII, 0);
 
 	/*
@@ -468,7 +468,7 @@ fail:
 static int rl_mii_writereg(sc, frame)
 	struct rl_softc		*sc;
 	struct rl_mii_frame	*frame;
-	
+
 {
 	int			s;
 
@@ -480,7 +480,7 @@ static int rl_mii_writereg(sc, frame)
 	frame->mii_stdelim = RL_MII_STARTDELIM;
 	frame->mii_opcode = RL_MII_WRITEOP;
 	frame->mii_turnaround = RL_MII_TURNAROUND;
-	
+
 	/*
  	 * Turn on data output.
 	 */
@@ -1047,7 +1047,7 @@ static void rl_rxeof(sc)
 		 */
 		if ((u_int16_t)(rxstat >> 16) == RL_RXSTAT_UNFINISHED)
 			break;
-	
+
 		if (!(rxstat & RL_RXSTAT_RXOK)) {
 			ifp->if_ierrors++;
 			if (rxstat & (RL_RXSTAT_BADSYM|RL_RXSTAT_RUNT|
@@ -1065,7 +1065,7 @@ static void rl_rxeof(sc)
 			break;
 		}
 
-		/* No errors; receive the packet. */	
+		/* No errors; receive the packet. */
 		total_len = rxstat >> 16;
 		rx_bytes += total_len + 4;
 
@@ -1312,7 +1312,7 @@ static int rl_encap(sc, m_head)
 
 	m_new = sc->sndbuf[sc->rl_cdata.cur_tx];
 
-	m_copydata(m_head, 0, m_head->m_pkthdr.len,	
+	m_copydata(m_head, 0, m_head->m_pkthdr.len,
 				mtod(m_new, caddr_t));
 	m_new->m_pkthdr.len = m_new->m_len = m_head->m_pkthdr.len;
 	m_freem(m_head);

@@ -13,7 +13,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *	This product includes software developed at Ludd, University of 
+ *	This product includes software developed at Ludd, University of
  *	Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -260,7 +260,7 @@ smg_putchar(id, row, col, c, attr)
 		unsigned char ch = QFONT(c, i);
 
 		SM_ADDR(row, col, i) = (attr & WSATTR_REVERSE ? ~ch : ch);
-		
+
 	}
 	if (attr & WSATTR_UNDERLINE)
 		SM_ADDR(row, col, 14) ^= SM_ADDR(row, col, 14);
@@ -394,7 +394,7 @@ smg_ioctl(v, cmd, data, flag, p)
 		fb.width = 1024;
 		return copyout(&fb, data, sizeof(struct wsdisplay_fbinfo));
 
-	
+
 	default:
 		return -1;
 	}

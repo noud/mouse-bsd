@@ -175,7 +175,7 @@ mb_alloc_bus_space_tag()
 	if ((mb_t = malloc(sizeof(*mb_t), M_TEMP, M_NOWAIT)) == NULL)
 		return(NULL);
 	bzero(mb_t, sizeof(*mb_t));
-	
+
 	mb_t->abs_p_1   = mb_bus_space_peek_1;
 	mb_t->abs_p_2   = mb_bus_space_peek_2;
 	mb_t->abs_p_4   = mb_bus_space_peek_4;
@@ -257,7 +257,7 @@ mb_bus_space_peek_1(t, h, o)
     return(!badbaddr((caddr_t)(calc_addr(h, o, t->stride, t->wo_1)), 1));
 }
 
-static int 
+static int
 mb_bus_space_peek_2(t, h, o)
     bus_space_tag_t	t;
     bus_space_handle_t	h;
@@ -266,7 +266,7 @@ mb_bus_space_peek_2(t, h, o)
     return(!badbaddr((caddr_t)(calc_addr(h, o, t->stride, t->wo_2)), 2));
 }
 
-static int 
+static int
 mb_bus_space_peek_4(t, h, o)
     bus_space_tag_t	t;
     bus_space_handle_t	h;
@@ -275,7 +275,7 @@ mb_bus_space_peek_4(t, h, o)
     return(!badbaddr((caddr_t)(calc_addr(h, o, t->stride, t->wo_4)), 4));
 }
 
-static int 
+static int
 mb_bus_space_peek_8(t, h, o)
     bus_space_tag_t	t;
     bus_space_handle_t	h;

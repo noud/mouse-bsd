@@ -63,7 +63,7 @@
  * run time using xntpdc. If true, the kernel modifications are active
  * as described above; if false, the kernel is bypassed entirely (except
  * for the PPS frequency update, if enabled) and the daemon PLL used
- * instead. 
+ * instead.
  */
 #define RSH_DRIFT_TO_ADJ (CLOCK_DSCALE - 16)
 #define RSH_FRAC_TO_FREQ (CLOCK_FREQ - RSH_DRIFT_TO_ADJ)
@@ -412,7 +412,7 @@ local_clock(fp_offset, peer, fastset)
 	 * new values of time and frequency. The bandwidth is controlled
 	 * by the time constant, which is adjusted in response to the
 	 * phase error and dispersion.
-	 */ 
+	 */
 	} else if (interval < CLOCK_MAXSEC
 		   || peer->maxpoll <= NTP_MAXDPOLL) {
 		long ltmp = interval;
@@ -523,7 +523,7 @@ local_clock(fp_offset, peer, fastset)
 #endif /* DEBUG */
 
 	(void) record_loop_stats(fp_offset, drift_comp, (unsigned)sys_poll);
-	
+
 	/*
 	 * Whew. I've had enough.
 	 */

@@ -541,7 +541,7 @@ tulip_21140_gpr_media_sense(
 	       mi->mi_actmask, mi->mi_actdata);
 #endif
 	/*
-	 * It does!  If this is the first media we detected, then 
+	 * It does!  If this is the first media we detected, then
 	 * remember this media.  If isn't the first, then there were
 	 * multiple matches which we equate to no match (since we don't
 	 * which to select (if any).
@@ -1214,7 +1214,7 @@ tulip_21041_media_poll(
 	    return;
 	}
 	/*
-	 * if no txprobe active  
+	 * if no txprobe active
 	 */
 	if ((sc->tulip_flags & TULIP_TXPROBE_ACTIVE) == 0
 		&& ((sc->tulip_flags & TULIP_WANTRXACT) == 0
@@ -1244,7 +1244,7 @@ tulip_21041_media_poll(
 	    }
 	}
     }
-    
+
     /*
      * Since this media failed to probe, try the other one.
      */
@@ -1320,7 +1320,7 @@ static const tulip_phy_attr_t tulip_mii_phy_attrlist[] = {
       },
 #if defined(TULIP_DEBUG)
       "ICS 1890"
-#endif 
+#endif
     },
     { 0 }
 };
@@ -1378,7 +1378,7 @@ tulip_mii_phy_readspecific(
 	data = tulip_mii_readreg(sc, sc->tulip_phyaddr, pm->pm_regno);
 	if ((data & pm->pm_mask) == pm->pm_value)
 	    idx = 1;
-    } 
+    }
     if (idx != 0 && attr->attr_modes[PHY_MODE_FULLDUPLEX].pm_regno) {
 	const tulip_phy_modedata_t * const pm = &attr->attr_modes[PHY_MODE_FULLDUPLEX];
 	data = tulip_mii_readreg(sc, sc->tulip_phyaddr, pm->pm_regno);
@@ -1548,7 +1548,7 @@ tulip_2114x_media_preset(
 	media = sc->tulip_media;
     else
 	media = sc->tulip_probe_media;
-    
+
     sc->tulip_cmdmode &= ~(TULIP_CMD_PORTSELECT|TULIP_CMD_NOHEARTBEAT
 		|TULIP_CMD_FULLDUPLEX|TULIP_CMD_TXTHRSHLDCTL);
     sc->tulip_flags &= ~(TULIP_SQETEST|TULIP_FULLDUPLEX);
@@ -1619,7 +1619,7 @@ tulip_2114x_media_preset(
 
 /*
  ********************************************************************
- *  Start of 21140/21140A support which does not use the MII interface 
+ *  Start of 21140/21140A support which does not use the MII interface
  */
 
 static void
@@ -1758,7 +1758,7 @@ tulip_21140_smc9332_media_probe(
 
     TULIP_CSR_WRITE(sc, csr_command, TULIP_CMD_PORTSELECT|TULIP_CMD_MUSTBEONE);
     TULIP_CSR_WRITE(sc, csr_busmode, TULIP_BUSMODE_SWRESET);
-    DELAY(10);	/* Wait 10 microseconds (actually 50 PCI cycles but at 
+    DELAY(10);	/* Wait 10 microseconds (actually 50 PCI cycles but at
 		   33MHz that comes to two microseconds but wait a
 		   bit longer anyways) */
     TULIP_CSR_WRITE(sc, csr_command, TULIP_CMD_PORTSELECT |
@@ -1796,7 +1796,7 @@ tulip_21140_smc9332_media_probe(
 			  TULIP_GP_SMC_9332_INIT,
 			  TULIP_CMD_TXTHRSHLDCTL|TULIP_CMD_FULLDUPLEX);
 }
- 
+
 static const tulip_boardsw_t tulip_21140_smc9332_boardsw = {
     TULIP_21140_SMC_9332,
     tulip_21140_smc9332_media_probe,
@@ -1948,9 +1948,9 @@ tulip_srom_idle(
     tulip_softc_t * const sc)
 {
     unsigned bit, csr;
-    
+
     csr  = SROMSEL ; EMIT;
-    csr  = SROMSEL | SROMRD; EMIT;  
+    csr  = SROMSEL | SROMRD; EMIT;
     csr ^= SROMCS; EMIT;
     csr ^= SROMCLKON; EMIT;
 
@@ -1966,12 +1966,12 @@ tulip_srom_idle(
     csr  = 0; EMIT;
 }
 
-     
+
 static void
 tulip_srom_read(
     tulip_softc_t * const sc)
-{   
-    unsigned idx; 
+{
+    unsigned idx;
     const unsigned bitwidth = SROM_BITWIDTH;
     const unsigned cmdmask = (SROMCMD_RD << bitwidth);
     const unsigned msb = 1 << (bitwidth + 3 - 1);
@@ -1985,7 +1985,7 @@ tulip_srom_read(
         csr  = SROMSEL | SROMRD;        EMIT;
         csr ^= SROMCSON;                EMIT;
         csr ^=            SROMCLKON;    EMIT;
-    
+
         lastbit = 0;
         for (bits = idx|cmdmask, bit = bitwidth + 3; bit > 0; bit--, bits <<= 1) {
             const unsigned thisbit = bits & msb;
@@ -2002,7 +2002,7 @@ tulip_srom_read(
 
         for (data = 0, bits = 0; bits < 16; bits++) {
             data <<= 1;
-            csr ^= SROMCLKON; EMIT;     /* clock high; data valid */ 
+            csr ^= SROMCLKON; EMIT;     /* clock high; data valid */
             data |= TULIP_CSR_READ(sc, csr_srom_mii) & SROMDIN ? 1 : 0;
             csr ^= SROMCLKOFF; EMIT;    /* clock low; data not valid */
         }
@@ -2241,7 +2241,7 @@ tulip_identify_znyx_nic(
 	} else {
 	    id = 0;
 	}
-    }		    
+    }
     if (id == 0) {
 	if ((sc->tulip_enaddr[3] & ~3) == 0xF0 && (sc->tulip_enaddr[5] & 3) == 0) {
 	    sc->tulip_boardid[9] = '4';
@@ -2507,7 +2507,7 @@ tulip_srom_decode(
     leaf_offset = saip->sai_leaf_offset_lowbyte
 	+ saip->sai_leaf_offset_highbyte * 256;
     dp = sc->tulip_rombuf + leaf_offset;
-	
+
     sc->tulip_conntype = (tulip_srom_connection_t) (dp[0] + dp[1] * 256); dp += 2;
 
     for (idx2 = 0;; idx2++) {
@@ -2564,7 +2564,7 @@ tulip_srom_decode(
 		    }
 		}
 	    }
-	    if (data & TULIP_SROM_21041_EXTENDED)	
+	    if (data & TULIP_SROM_21041_EXTENDED)
 		dp += 6;
 	}
 #ifdef notdef
@@ -3047,7 +3047,7 @@ tulip_read_macaddr(
     if (cksum >= 65535) cksum -= 65535;
 
     rom_cksum = *(u_int16_t *) &sc->tulip_rombuf[6];
-	
+
     if (cksum != rom_cksum)
 	return -1;
 
@@ -3163,7 +3163,7 @@ tulip_addr_filter(
     sc->tulip_flags |= TULIP_WANTSETUP|TULIP_WANTTXSTART;
     sc->tulip_cmdmode &= ~TULIP_CMD_RXRUN;
     sc->tulip_intrmask &= ~TULIP_STS_RXSTOPPED;
-#if defined(IFF_ALLMULTI)    
+#if defined(IFF_ALLMULTI)
     sc->tulip_if.if_flags &= ~IFF_ALLMULTI;
 #endif
     sc->tulip_if.if_start = tulip_ifstart;	/* so the setup packet gets queued */
@@ -3227,8 +3227,8 @@ tulip_addr_filter(
 		sp[40] = ((u_int16_t *) sc->tulip_enaddr)[1] << 16;
 		sp[41] = ((u_int16_t *) sc->tulip_enaddr)[2] << 16;
 #else
-		sp[39] = ((u_int16_t *) sc->tulip_enaddr)[0]; 
-		sp[40] = ((u_int16_t *) sc->tulip_enaddr)[1]; 
+		sp[39] = ((u_int16_t *) sc->tulip_enaddr)[0];
+		sp[40] = ((u_int16_t *) sc->tulip_enaddr)[1];
 		sp[41] = ((u_int16_t *) sc->tulip_enaddr)[2];
 #endif
 	    }
@@ -3249,8 +3249,8 @@ tulip_addr_filter(
 		    *sp++ = ((u_int16_t *) enm->enm_addrlo)[1] << 16;
 		    *sp++ = ((u_int16_t *) enm->enm_addrlo)[2] << 16;
 #else
-		    *sp++ = ((u_int16_t *) enm->enm_addrlo)[0]; 
-		    *sp++ = ((u_int16_t *) enm->enm_addrlo)[1]; 
+		    *sp++ = ((u_int16_t *) enm->enm_addrlo)[0];
+		    *sp++ = ((u_int16_t *) enm->enm_addrlo)[1];
 		    *sp++ = ((u_int16_t *) enm->enm_addrlo)[2];
 #endif
 		} else {
@@ -3282,8 +3282,8 @@ tulip_addr_filter(
 	    *sp++ = ((u_int16_t *) sc->tulip_enaddr)[1] << 16;
 	    *sp++ = ((u_int16_t *) sc->tulip_enaddr)[2] << 16;
 #else
-	    *sp++ = ((u_int16_t *) sc->tulip_enaddr)[0]; 
-	    *sp++ = ((u_int16_t *) sc->tulip_enaddr)[1]; 
+	    *sp++ = ((u_int16_t *) sc->tulip_enaddr)[0];
+	    *sp++ = ((u_int16_t *) sc->tulip_enaddr)[1];
 	    *sp++ = ((u_int16_t *) sc->tulip_enaddr)[2];
 #endif
 	}
@@ -3314,7 +3314,7 @@ tulip_reset(
 	(*sc->tulip_boardsw->bd_media_preset)(sc);
 
     TULIP_CSR_WRITE(sc, csr_busmode, TULIP_BUSMODE_SWRESET);
-    DELAY(10);	/* Wait 10 microseconds (actually 50 PCI cycles but at 
+    DELAY(10);	/* Wait 10 microseconds (actually 50 PCI cycles but at
 		   33MHz that comes to two microseconds but wait a
 		   bit longer anyways) */
 
@@ -3375,7 +3375,7 @@ tulip_reset(
 #endif
 
     /*
-     * We need to collect all the mbufs were on the 
+     * We need to collect all the mbufs were on the
      * receive ring before we reinit it either to put
      * them back on or to know if we have to allocate
      * more.
@@ -3537,7 +3537,7 @@ tulip_rx_intr(
 	    /*
 	     * It is possible (though improbable unless the BIG_PACKET support
 	     * is enabled or MCLBYTES < 1518) for a received packet to cross
-	     * more than one receive descriptor.  
+	     * more than one receive descriptor.
 	     */
 	    while ((((volatile tulip_desc_t *) eop)->d_status & TULIP_DSTS_RxLASTDESC) == 0) {
 		if (++eop == ri->ri_last)
@@ -3590,7 +3590,7 @@ tulip_rx_intr(
 	if ((sc->tulip_flags & TULIP_RXIGNORE) == 0
 		&& ((eop->d_status & TULIP_DSTS_ERRSUM) == 0
 #ifdef BIG_PACKET
-		     || (total_len <= sc->tulip_if.if_mtu + sizeof(struct ether_header) && 
+		     || (total_len <= sc->tulip_if.if_mtu + sizeof(struct ether_header) &&
 			 (eop->d_status & (TULIP_DSTS_RxBADLENGTH|TULIP_DSTS_RxRUNT|
 					  TULIP_DSTS_RxCOLLSEEN|TULIP_DSTS_RxBADCRC|
 					  TULIP_DSTS_RxOVERFLOW)) == 0)
@@ -3747,7 +3747,7 @@ tulip_rx_intr(
 	}
 	if (ms == NULL) {
 	    /*
-	     * Couldn't allocate a new buffer.  Don't bother 
+	     * Couldn't allocate a new buffer.  Don't bother
 	     * trying to replenish the receive queue.
 	     */
 	    fillok = 0;
@@ -3911,7 +3911,7 @@ tulip_tx_intr(
 			if (d_status & TULIP_DSTS_TxBABBLE)
 			    sc->tulip_dot3stats.dot3StatsInternalTransmitBabbles++;
 		    } else {
-			u_int32_t collisions = 
+			u_int32_t collisions =
 			    (d_status & TULIP_DSTS_TxCOLLMASK)
 				>> TULIP_DSTS_V_TxCOLLCNT;
 			sc->tulip_if.if_collisions += collisions;
@@ -4564,9 +4564,9 @@ tulip_txput(
     ri->ri_nextout->d_flag |= TULIP_DFLAG_TxFIRSTSEG;
 #if defined(TULIP_BUS_MAP) && !defined(TULIP_BUS_DMA_NOTX)
     if (eop < ri->ri_nextout) {
-	TULIP_TXDESC_PRESYNC(sc, ri->ri_nextout, 
+	TULIP_TXDESC_PRESYNC(sc, ri->ri_nextout,
 			     (caddr_t) ri->ri_last - (caddr_t) ri->ri_nextout);
-	TULIP_TXDESC_PRESYNC(sc, ri->ri_first, 
+	TULIP_TXDESC_PRESYNC(sc, ri->ri_first,
 			     (caddr_t) (eop + 1) - (caddr_t) ri->ri_first);
     } else {
 	TULIP_TXDESC_PRESYNC(sc, ri->ri_nextout,
@@ -4639,7 +4639,7 @@ tulip_txput_setup(
 {
     tulip_ringinfo_t * const ri = &sc->tulip_txinfo;
     tulip_desc_t *nextout;
-	
+
     /*
      * We will transmit, at most, one setup packet per call to ifstart.
      */
@@ -4724,7 +4724,7 @@ tulip_txput_setup(
 
 /*
  * This routine is entered at splnet() (splsoftnet() on NetBSD)
- * and thereby imposes no problems when TULIP_USE_SOFTINTR is 
+ * and thereby imposes no problems when TULIP_USE_SOFTINTR is
  * defined or not.
  */
 static int
@@ -4951,7 +4951,7 @@ tulip_ifstart_one(
 /*
  * Even though this routine runs at device spl, it does not break
  * our use of splnet (splsoftnet under NetBSD) for the majority
- * of this driver (if TULIP_USE_SOFTINTR defined) since 
+ * of this driver (if TULIP_USE_SOFTINTR defined) since
  * if_watcbog is called from if_watchdog which is called from
  * splsoftclock which is below spl[soft]net.
  */
@@ -5067,7 +5067,7 @@ tulip_attach(
 #if defined(__bsdi__) && _BSDI_VERSION < 199401
     ifp->if_mtu = ETHERMTU;
 #endif
-  
+
 #if defined(__bsdi__) && _BSDI_VERSION >= 199510
     aprint_naive(": DEC Ethernet");
     aprint_normal(": %s%s", sc->tulip_boardid,
@@ -5238,7 +5238,7 @@ tulip_busdma_init(
 		sc->tulip_txmaps[sc->tulip_txmaps_free++] = map;
 	}
 	if (error) {
-	    while (sc->tulip_txmaps_free > 0) 
+	    while (sc->tulip_txmaps_free > 0)
 		bus_dmamap_destroy(sc->tulip_dmatag,
 				   sc->tulip_txmaps[--sc->tulip_txmaps_free]);
 	}
@@ -5270,7 +5270,7 @@ tulip_busdma_init(
 		sc->tulip_rxmaps[sc->tulip_rxmaps_free++] = map;
 	}
 	if (error) {
-	    while (sc->tulip_rxmaps_free > 0) 
+	    while (sc->tulip_rxmaps_free > 0)
 		bus_dmamap_destroy(sc->tulip_dmatag,
 				   sc->tulip_rxmaps[--sc->tulip_rxmaps_free]);
 	}
@@ -5594,7 +5594,7 @@ tulip_shutdown(
 {
     tulip_softc_t * const sc = arg;
     TULIP_CSR_WRITE(sc, csr_busmode, TULIP_BUSMODE_SWRESET);
-    DELAY(10);	/* Wait 10 microseconds (actually 50 PCI cycles but at 
+    DELAY(10);	/* Wait 10 microseconds (actually 50 PCI cycles but at
 		   33MHz that comes to two microseconds but wait a
 		   bit longer anyways) */
 }
@@ -5842,7 +5842,7 @@ tulip_pci_attach(
      * Make sure there won't be any interrupts or such...
      */
     TULIP_CSR_WRITE(sc, csr_busmode, TULIP_BUSMODE_SWRESET);
-    DELAY(100);	/* Wait 10 microseconds (actually 50 PCI cycles but at 
+    DELAY(100);	/* Wait 10 microseconds (actually 50 PCI cycles but at
 		   33MHz that comes to two microseconds but wait a
 		   bit longer anyways) */
 

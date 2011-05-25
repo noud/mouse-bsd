@@ -134,7 +134,7 @@ main(argc, argv)
 	}
 	if (dp == NULL) {
 		closedir(dirp);
-		errx(1, "Cannot find dev 0%o corresponding to %s", 
+		errx(1, "Cannot find dev 0%o corresponding to %s",
 		    stbuf.st_rdev, argv[1]);
 	}
 

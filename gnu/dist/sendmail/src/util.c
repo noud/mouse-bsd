@@ -91,7 +91,7 @@ addquotes(s)
 		if (c == '\\' || c == '"')
 			len++;
 	}
-	
+
 	q = r = xalloc(len + 3);
 	p = s;
 
@@ -202,7 +202,7 @@ shorten_rfc822_string(string, length)
 	size_t slen;
 	int parencount = 0;
 	char *ptr = string;
-	
+
 	/*
 	**  If have to rebalance an already short enough string,
 	**  need to do it within allocated space.
@@ -231,7 +231,7 @@ shorten_rfc822_string(string, length)
 			if (--parencount < 0)
 				parencount = 0;
 		}
-		
+
 		/* Inside a comment, quotes don't matter */
 		if (parencount <= 0 && *ptr == '"')
 			quoted = !quoted;
@@ -304,7 +304,7 @@ find_character(string, character)
 	bool backslash = FALSE;
 	bool quoted = FALSE;
 	int parencount = 0;
-		
+
 	while (string != NULL && *string != '\0')
 	{
 		if (backslash)
@@ -320,25 +320,25 @@ find_character(string, character)
 		  case '\\':
 			backslash = TRUE;
 			break;
-			
+
 		  case '(':
 			if (!quoted)
 				parencount++;
 			break;
-			
+
 		  case ')':
 			if (--parencount < 0)
 				parencount = 0;
 			break;
 		}
-		
+
 		/* Inside a comment, nothing matters */
 		if (parencount > 0)
 		{
 			string++;
 			continue;
 		}
-		
+
 		if (*string == '"')
 			quoted = !quoted;
 		else if (*string == character && !quoted)
@@ -462,7 +462,7 @@ copyqueue(addr)
 		addr = addr->q_next;
 	}
 	*tail = NULL;
-	
+
 	return ret;
 }
 /*
@@ -1832,7 +1832,7 @@ get_column(line, col, delim, buf, buflen)
 	char *begin, *end;
 	int i;
 	char delimbuf[4];
-	
+
 	if (delim == '\0')
 		strcpy(delimbuf, "\n\t ");
 	else
@@ -1866,7 +1866,7 @@ get_column(line, col, delim, buf, buflen)
 				begin++;
 		}
 	}
-	
+
 	end = strpbrk(begin, delimbuf);
 	if (end == NULL)
 		i = strlen(begin);

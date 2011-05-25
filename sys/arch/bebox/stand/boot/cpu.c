@@ -42,7 +42,7 @@
  */
 
 #define	CPU1_HRESET	0x20000000
- 
+
 int
 whichCPU()
 {
@@ -58,7 +58,7 @@ whichCPU()
 /*
  * Force CPU #1 into Hard RESET state
  */
- 
+
 void
 resetCPU1()
 {

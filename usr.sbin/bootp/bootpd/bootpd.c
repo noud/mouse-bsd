@@ -852,7 +852,7 @@ HW addr type is IEEE 802.  convert to %s and check again\n",
 			report(LOG_INFO, "requested path length > BP_FILE_LEN  file = \"%s\", nul terminating", homedir);
 			homedir[BP_FILE_LEN - 1] = '\0';
 		}
-			
+
 		bootfile = strrchr(homedir, '/');
 		if (bootfile) {
 			if (homedir == bootfile)
@@ -1269,7 +1269,7 @@ dovend_rfc1048(bp, hp, bootsize)
 			byte *p, *ep;
 			byte tag, len;
 			short msgsz = 0;
-			
+
 			p = vp + 4;
 			ep = p + BP_VEND_LEN - 4;
 			while (p < ep) {

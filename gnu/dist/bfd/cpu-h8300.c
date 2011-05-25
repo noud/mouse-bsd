@@ -66,7 +66,7 @@ h8300_scan (info, string)
 }
 
 
-/* This routine is provided two arch_infos and works out the 
+/* This routine is provided two arch_infos and works out the
    machine which would be compatible with both and returns a pointer
    to its info structure */
 

@@ -23,8 +23,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
    on whether certain switches were set, but these switches pertain to the
    Linux system and that particular version of coff.  In the NT case, we
    only determine if the subsystem is console or windows in order to select
-   the correct entry point by default. */ 
-  
+   the correct entry point by default. */
+
 #include "bfd.h"
 #include "sysdep.h"
 #include "bfdlink.h"
@@ -98,8 +98,8 @@ static struct option longopts[] = {
     {"base-file", required_argument, NULL, OPTION_BASE_FILE},
     {"dll", no_argument, NULL, OPTION_DLL},
     {"file-alignment", required_argument, NULL, OPTION_FILE_ALIGNMENT},
-    {"heap", required_argument, NULL, OPTION_HEAP}, 
-    {"image-base", required_argument, NULL, OPTION_IMAGE_BASE}, 
+    {"heap", required_argument, NULL, OPTION_HEAP},
+    {"image-base", required_argument, NULL, OPTION_IMAGE_BASE},
     {"major-image-version", required_argument, NULL, OPTION_MAJOR_IMAGE_VERSION},
     {"major-os-version", required_argument, NULL, OPTION_MAJOR_OS_VERSION},
     {"major-subsystem-version", required_argument, NULL, OPTION_MAJOR_SUBSYSTEM_VERSION},
@@ -177,7 +177,7 @@ set_pe_subsystem ()
   const char *sver;
   int len;
   int i;
-  static const struct 
+  static const struct
     {
       const char *name;
       const int value;
@@ -250,7 +250,7 @@ set_pe_subsystem ()
 static void
 set_pe_value (name)
      char *name;
-     
+
 {
   char *end;
   set_pe_name (name,  strtoul (optarg, &end, 0));
@@ -321,10 +321,10 @@ gld_${EMULATION_NAME}_parse_args(argc, argv)
       break;
 
       /* PE options */
-    case OPTION_HEAP: 
+    case OPTION_HEAP:
       set_pe_stack_heap ("__size_of_heap_reserve__", "__size_of_heap_commit__");
       break;
-    case OPTION_STACK: 
+    case OPTION_STACK:
       set_pe_stack_heap ("__size_of_stack_reserve__", "__size_of_stack_commit__");
       break;
     case OPTION_SUBSYSTEM:
@@ -411,7 +411,7 @@ gld_${EMULATION_NAME}_set_symbols()
     }
   /* Restore the pointer. */
   stat_ptr = save;
-  
+
   if (pe.FileAlignment >
       pe.SectionAlignment)
     {
@@ -597,7 +597,7 @@ sort_sections (s)
       }
 }
 
-static void  
+static void
 gld_${EMULATION_NAME}_before_allocation()
 {
   extern lang_statement_list_type *stat_ptr;
@@ -740,7 +740,7 @@ EOF
 sc="-f ${srcdir}/emultempl/stringify.sed"
 
 cat >>e${EMULATION_NAME}.c <<EOF
-{			     
+{
   *isfile = 0;
 
   if (link_info.relocateable == true && config.build_constructors == true)
@@ -760,7 +760,7 @@ echo '; }'                                                 >> e${EMULATION_NAME}
 cat >>e${EMULATION_NAME}.c <<EOF
 
 
-struct ld_emulation_xfer_struct ld_${EMULATION_NAME}_emulation = 
+struct ld_emulation_xfer_struct ld_${EMULATION_NAME}_emulation =
 {
   gld_${EMULATION_NAME}_before_parse,
   syslib_default,

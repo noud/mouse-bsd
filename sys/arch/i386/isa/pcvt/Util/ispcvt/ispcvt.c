@@ -69,11 +69,11 @@ char *argv[];
 	extern char *optarg;
 
 	struct pcvtid pcvtid;
-	struct pcvtinfo pcvtinfo;	
+	struct pcvtinfo pcvtinfo;
 	int c;
 	char *p;
 	int verbose = 0;
-	int config = 0;	
+	int config = 0;
 	int dflag = 0;
 	int fd;
 	char *device;
@@ -85,16 +85,16 @@ char *argv[];
 			case 'v':
 				verbose = 1;
 				break;
-				
+
 			case 'c':
 				config = 1;
 				break;
-				
+
 			case 'd':
 				device = optarg;
 				dflag = 1;
 				break;
-				
+
 			case '?':
 			default:
 				usage();
@@ -175,24 +175,24 @@ char *argv[];
 			case CONF_NETBSD:
 				p = "PCVT_NETBSD";
 				break;
-				
+
 			case CONF_FREEBSD:
 				p = "PCVT_FREEBSD";
 				break;
-	
+
 			default:
 			case CONF_UNKNOWNOPSYS:
 				p = "UNKNOWN";
 				break;
-				
-		}			
+
+		}
 		fprintf(stderr,"Operating System     = %s\t", p);
 		fprintf(stderr,"OS Release Id        = %u\n", pcvtinfo.opsysrel);
 		fprintf(stderr,"PCVT_NSCREENS        = %u\t\t", pcvtinfo.nscreens);
 		fprintf(stderr,"PCVT_SYSBEEPF        = %u\n", pcvtinfo.sysbeepf);
 		fprintf(stderr,"PCVT_PCBURST         = %u\t\t", pcvtinfo.pcburst);
 		fprintf(stderr,"PCVT_KBD_FIFO_SZ     = %u\n\n", pcvtinfo.kbd_fifo_sz);
-	
+
 	/* config booleans */
 
 		fprintf(stderr,"PCVT_132GENERIC      = %s",

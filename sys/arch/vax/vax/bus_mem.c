@@ -15,7 +15,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *	This product includes software developed at Ludd, University of 
+ *	This product includes software developed at Ludd, University of
  *	Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -65,8 +65,8 @@ vax_mem_bus_space_map(
 
 	ioaccess(va, pa, size >> VAX_PGSHIFT);
 
-	return 0;   
-} 
+	return 0;
+}
 
 static int
 vax_mem_bus_space_subregion(
@@ -77,7 +77,7 @@ vax_mem_bus_space_subregion(
 	bus_space_handle_t *hp)
 {
 	*hp = h + o;
-	return (0);             
+	return (0);
 }
 
 static void
@@ -90,7 +90,7 @@ vax_mem_bus_space_unmap(
 	u_long va = trunc_page(h);
 	u_long endva = round_page(h + size);
 
-        /* 
+        /*
          * Free the kernel virtual mapping.
          */
 	iounaccess(va, size >> VAX_PGSHIFT);
@@ -117,10 +117,10 @@ vax_mem_bus_space_free(
 	void *t,
 	bus_space_handle_t h,
 	bus_size_t s)
-{    
+{
 	panic("vax_mem_bus_free not implemented");
 }
-	
+
 struct vax_bus_space vax_mem_bus_space = {
 	NULL,
 	vax_mem_bus_space_map,

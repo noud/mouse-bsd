@@ -21,7 +21,7 @@ KERN!=		cd ${.CURDIR}/../../../..; pwd
 
 CPPFLAGS+=	-nostdinc -I${KERN} -I${.CURDIR} -I.
 #CPPFLAGS+=	-I${.CURDIR}/../libiocs
-CPPFLAGS+=	-DTEXTADDR="0x${TEXT}" 
+CPPFLAGS+=	-DTEXTADDR="0x${TEXT}"
 CPPFLAGS+=	-DBOOT=\"${BOOT}\" -DBOOT_VERS=\"${VERSION}\"
 CFLAGS=		-Wno-main -Os -m68000
 

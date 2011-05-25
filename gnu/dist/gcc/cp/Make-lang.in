@@ -184,7 +184,7 @@ cplib2.txt: $(CXX_LIB2SRCS) $(CXX_EXTRA_HEADERS) cplib2.ready
 	*) \
 	  echo "" > cplib2.new;; \
 	esac
-	mv -f cplib2.new cplib2.txt 
+	mv -f cplib2.new cplib2.txt
 
 # Or if it would be different.
 cplib2.ready: $(GCC_PASSES) $(LANGUAGES) $(LIBGCC2_DEPS) stmp-int-hdrs

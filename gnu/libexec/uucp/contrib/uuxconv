@@ -8,13 +8,13 @@
 # This script is a one-shot to mass-requeue a site's spool.
 #
 # It doesn't go and do your whole spool, nor even all grades.
-# you need to go into each grade directory for each site and 
+# you need to go into each grade directory for each site and
 # execute this.
 #
 # i.e.:  You have a site named 'foo'
 # cd /var/spool/uucp/foo/Z
 # uuxconv foo
-# 
+#
 # it does delete the 'D' & 'X' after requeing them, but doesn't remove
 # the 'C' files.
 #

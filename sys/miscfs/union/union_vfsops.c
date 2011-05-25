@@ -139,7 +139,7 @@ union_mount(mp, path, data, ndp, p)
 		error = EINVAL;
 		goto bad;
 	}
-	
+
 	um = (struct union_mount *) malloc(sizeof(struct union_mount),
 				M_UFSMNT, M_WAITOK);	/* XXX */
 
@@ -335,7 +335,7 @@ union_unmount(mp, mntflags, p)
 
 	if (mntflags & MNT_FORCE)
 		vflush(mp, um_rootvp, FORCECLOSE);
-	
+
 
 	/* At this point the root vnode should have a single reference */
 	if (um_rootvp->v_usecount > 1) {
@@ -345,7 +345,7 @@ union_unmount(mp, mntflags, p)
 
 #ifdef UNION_DIAGNOSTIC
 	vprint("union root", um_rootvp);
-#endif	 
+#endif
 	/*
 	 * Discard references to upper and lower target vnodes.
 	 */
@@ -510,7 +510,7 @@ union_vget(mp, ino, vpp)
 	ino_t ino;
 	struct vnode **vpp;
 {
-	
+
 	return (EOPNOTSUPP);
 }
 

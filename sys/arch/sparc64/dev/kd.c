@@ -110,7 +110,7 @@ cnrint()
 }
 
 /*
- * This is called by kbd_attach() 
+ * This is called by kbd_attach()
  * XXX - Make this a proper child of kbd?
  */
 void
@@ -121,7 +121,7 @@ kd_init(unit)
 	struct tty *tp;
 	int i;
 	char *prop;
-	
+
 
 	if (unit != 0)
 		return;
@@ -189,7 +189,7 @@ kdopen(dev, flag, mode, p)
 	struct kd_softc *kd;
 	int error, s, unit;
 	struct tty *tp;
-	
+
 	unit = minor(dev);
 	if (unit != 0)
 		return ENXIO;
@@ -511,11 +511,11 @@ kdcngetc(dev)
 		code = (*cn_hw->cn_getc)(dev);
 		keysym = kbd_code_to_keysym(ks, code);
 		class = KEYSYM_CLASS(keysym);
-		
+
 		switch (class) {
 		case KEYSYM_ASCII:
 			goto out;
-			
+
 		case KEYSYM_CLRMOD:
 		case KEYSYM_SETMOD:
 			data = (keysym & 0x1F);
@@ -528,12 +528,12 @@ kdcngetc(dev)
 			else
 				ks->kbd_modbits &= ~data;
 			break;
-			
+
 		case KEYSYM_ALL_UP:
 			/* No toggle keys here. */
 			ks->kbd_modbits = 0;
 			break;
-			
+
 		default:	/* ignore all other keysyms */
 			break;
 		}

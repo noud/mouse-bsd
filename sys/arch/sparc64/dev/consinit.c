@@ -170,40 +170,40 @@ consinit()
 	char buffer[128];
 	extern int stdinnode, fbnode;
 	char *consname = "unknown";
-	
+
 	DBPRINT(("consinit()\r\n"));
 	if (cn_tab != &consdev_prom) return;
-	
+
 	DBPRINT(("setting up stdin\r\n"));
 	chosen = OF_finddevice("/chosen");
 	OF_getprop(chosen, "stdin",  &stdin, sizeof(stdin));
 	DBPRINT(("stdin instance = %x\r\n", stdin));
-	
+
 	if ((stdinnode = OF_instance_to_package(stdin)) == 0) {
 		printf("WARNING: no PROM stdin\n");
-	} 
-		
+	}
+
 	DBPRINT(("setting up stdout\r\n"));
 	OF_getprop(chosen, "stdout", &stdout, sizeof(stdout));
-	
+
 	DBPRINT(("stdout instance = %x\r\n", stdout));
-	
+
 	if ((fbnode = OF_instance_to_package(stdout)) == 0)
 		printf("WARNING: no PROM stdout\n");
-	
+
 	DBPRINT(("stdout package = %x\r\n", fbnode));
-	
+
 	if (stdinnode && (OF_getproplen(stdinnode,"keyboard") >= 0)) {
-#if NKBD > 0		
+#if NKBD > 0
 		printf("cninit: kdb/display not configured\n");
 #endif
 		consname = "keyboard/display";
-	} else if (fbnode && 
+	} else if (fbnode &&
 		   (OF_instance_to_path(stdinnode, buffer, sizeof(buffer) >= 0))) {
 		consname = buffer;
 	}
 	printf("console is %s\n", consname);
- 
+
 	/* Defer the rest to the device attach */
 }
 

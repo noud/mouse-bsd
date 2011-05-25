@@ -84,13 +84,13 @@ struct sunos_sigframe {
 	int	sf_code;		/* additional info for handler */
 	struct sunos_sigcontext *sf_scp;/* context pointer for handler */
 	u_int	sf_addr;		/* even more info for handler */
-	struct sunos_sigcontext sf_sc;	/* I don't know if that's what 
+	struct sunos_sigcontext sf_sc;	/* I don't know if that's what
 					   comes here */
 };
 /*
  * much simpler sendsig() for SunOS processes, as SunOS does the whole
  * context-saving in usermode. For now, no hardware information (ie.
- * frames for buserror etc) is saved. This could be fatal, so I take 
+ * frames for buserror etc) is saved. This could be fatal, so I take
  * SIG_DFL for "dangerous" signals.
  */
 void
@@ -118,7 +118,7 @@ sunos_sendsig(catcher, sig, mask, code)
 	/*
 	 * if this is a hardware fault (ft >= FMT9), sunos_sendsig
 	 * can't currently handle it. Reset signal actions and
-	 * have the process die unconditionally. 
+	 * have the process die unconditionally.
 	 */
 	if (ft >= FMT9) {
 		psp->ps_sigact[sig].sa_handler = SIG_DFL;
@@ -172,7 +172,7 @@ sunos_sendsig(catcher, sig, mask, code)
 		 * instruction to halt it in its tracks.
 		 */
 		sigexit(p, SIGILL);
-		/* NOTREACHED */ 
+		/* NOTREACHED */
 	}
 #ifdef DEBUG
 	if (sigdebug & SDB_FOLLOW)

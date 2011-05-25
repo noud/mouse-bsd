@@ -90,7 +90,7 @@ then the following rules must be obeyed:
 	-mthumb-interwork specified on the command line.  (If the file
 	is assembled by calling gcc it will automatically pass on the
 	-mthumb-interwork switch to the assembler, provided that it
-	was specified on the gcc command line in the first place.) 
+	was specified on the gcc command line in the first place.)
 
 
 3. Support for old, non-interworking aware code.
@@ -279,7 +279,7 @@ like this:
 _interwork_call_via_r0
 	bx 	pc
 	nop
-	
+
 	.code 32
 	tst	r0, #1
 	stmeqdb	r13!, {lr}
@@ -303,7 +303,7 @@ performs a BX instruction to call the function.
 The '_arm_return' code looks like this:
 
 	.code 32
-_arm_return:		
+_arm_return:
 	ldmia 	r13!, {r12}
 	bx 	r12
 	.code 16
@@ -352,7 +352,7 @@ if this function is now called from a Thumb mode piece of code
 outsside of the current file, the linker will generate a calling stub
 to switch from Thumb mode into ARM mode, and then this is immediately
 overridden by the function's header which switches back into Thumb
-mode. 
+mode.
 
 In addition the (interfacearm) attribute also forces the function to
 return by using the BX instruction, even if has not been compiled with

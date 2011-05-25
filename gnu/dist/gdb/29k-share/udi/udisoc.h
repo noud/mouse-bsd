@@ -13,7 +13,7 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
@@ -25,7 +25,7 @@ static char udisoc_h_AMD[]="@(#)udisoc.h	2.4, AMD";
 #define	company_c	1		/* AMD Company id */
 #define	product_c 	1		/* socket IPC id */
 
-/* Enumerate the UDI procedure services 
+/* Enumerate the UDI procedure services
 */
 #define	UDIConnect_c			0
 #define	UDIDisconnect_c			1
@@ -86,7 +86,7 @@ static char udisoc_h_AMD[]="@(#)udisoc.h	2.4, AMD";
 #define	udr_UDIStepType(udrs, obj)  udr_UDIInt32(udrs, obj)
 #define	udr_UDIBreakType(udrs, obj) udr_UDIInt32(udrs, obj)
 
- 
+
 #define	UDR_ENCODE 1
 #define	UDR_DECODE 2
 

@@ -25,7 +25,7 @@
                 Computer Science Department, 9062
                 Western Washington University
                 Bellingham, WA 98226-9062
-       
+
 *************************************************************************/
 
 #include "bcdefs.h"
@@ -83,7 +83,7 @@
 
 /* Types of all other things. */
 %type <i_value> expression return_expression named_expression opt_expression
-%type <c_value> '+' '-' '*' '/' '%' 
+%type <c_value> '+' '-' '*' '/' '%'
 %type <a_value> opt_parameter_list opt_auto_define_list define_list
 %type <a_value> opt_argument_list argument_list
 %type <i_value> program input_item semicolon_list statement_list
@@ -155,7 +155,7 @@ statement 		: Warranty
 				warn ("comparison in expression");
 			      if ($1 & 1)
 				generate ("W");
-			      else 
+			      else
 				generate ("p");
 			    }
 			| STRING
@@ -194,9 +194,9 @@ statement 		: Warranty
 			    { generate ("0R"); }
 			| Return '(' return_expression ')'
 			    { generate ("R"); }
-			| For 
+			| For
 			    {
-			      $1 = break_label; 
+			      $1 = break_label;
 			      break_label = next_label++;
 			    }
 			  '(' opt_expression ';'
@@ -239,7 +239,7 @@ statement 		: Warranty
 			      break_label = $1;
 			      continue_label = $<i_value>9;
 			    }
-			| If '(' expression ')' 
+			| If '(' expression ')'
 			    {
 			      $3 = if_label;
 			      if_label = next_label++;
@@ -248,19 +248,19 @@ statement 		: Warranty
 			    }
 			  opt_newline statement  opt_else
 			    {
-			      sprintf (genstr, "N%1d:", if_label); 
+			      sprintf (genstr, "N%1d:", if_label);
 			      generate (genstr);
 			      if_label = $3;
 			    }
-			| While 
+			| While
 			    {
 			      $1 = next_label++;
 			      sprintf (genstr, "N%1d:", $1);
 			      generate (genstr);
 			    }
-			'(' expression 
+			'(' expression
 			    {
-			      $4 = break_label; 
+			      $4 = break_label;
 			      break_label = next_label++;
 			      sprintf (genstr, "Z%1d:", break_label);
 			      generate (genstr);
@@ -290,22 +290,22 @@ print_element		: STRING
 			    { generate ("P"); }
  			;
 opt_else		: /* nothing */
-			| Else 
+			| Else
 			    {
 			      warn ("else clause in if statement");
 			      $1 = next_label++;
-			      sprintf (genstr, "J%d:N%1d:", $1, if_label); 
+			      sprintf (genstr, "J%d:N%1d:", $1, if_label);
 			      generate (genstr);
 			      if_label = $1;
 			    }
 			  opt_newline statement
 function 		: Define NAME '(' opt_parameter_list ')' opt_newline
-     			  '{' NEWLINE opt_auto_define_list 
+     			  '{' NEWLINE opt_auto_define_list
 			    {
 			      /* Check auto list against parameter list? */
 			      check_params ($4,$9);
 			      sprintf (genstr, "F%d,%s.%s[",
-				       lookup($2,FUNCTDEF), 
+				       lookup($2,FUNCTDEF),
 				       arg_str ($4), arg_str ($9));
 			      generate (genstr);
 			      free_args ($4);
@@ -319,16 +319,16 @@ function 		: Define NAME '(' opt_parameter_list ')' opt_newline
 			      next_label = $1;
 			    }
 			;
-opt_parameter_list	: /* empty */ 
+opt_parameter_list	: /* empty */
 			    { $$ = NULL; }
 			| define_list
 			;
-opt_auto_define_list 	: /* empty */ 
+opt_auto_define_list 	: /* empty */
 			    { $$ = NULL; }
 			| Auto define_list NEWLINE
-			    { $$ = $2; } 
+			    { $$ = $2; }
 			| Auto define_list ';'
-			    { $$ = $2; } 
+			    { $$ = $2; }
 			;
 define_list 		: NAME
 			    { $$ = nextarg (NULL, lookup ($1,SIMPLE), FALSE);}
@@ -388,7 +388,7 @@ return_expression	: /* empty */
 				warn ("comparison in return expresion");
 			    }
 			;
-expression		:  named_expression ASSIGN_OP 
+expression		:  named_expression ASSIGN_OP
 			    {
 			      if ($2 != '=')
 				{
@@ -415,7 +415,7 @@ expression		:  named_expression ASSIGN_OP
 			      $$ = 0;
 			    }
 			;
-			| expression AND 
+			| expression AND
 			    {
 			      warn("&& operator");
 			      $2 = next_label++;
@@ -544,7 +544,7 @@ expression		:  named_expression ASSIGN_OP
 			    {
 			      $$ = 1;
 			      if ($3 != NULL)
-				{ 
+				{
 				  sprintf (genstr, "C%d,%s:",
 					   lookup ($1,FUNCT),
 					   call_str ($3));
@@ -581,7 +581,7 @@ expression		:  named_expression ASSIGN_OP
 			      if ($1 < 0)
 				{
 				  sprintf (genstr, "DL%d:x", -$1);
-				  generate (genstr); 
+				  generate (genstr);
 				  if ($2 == '+')
 				    sprintf (genstr, "A%d:", -$1);
 				  else

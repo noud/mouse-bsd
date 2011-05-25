@@ -19,7 +19,7 @@ while (@a = getpwent) {
 
     $fullname =~ s/\.*[ _]+\.*/./g;
     $fullname =~ tr [едц≈ƒ÷й] [aaoAAOe];  # <hakan@af.lu.se> 1997-06-15
-    if ($fullname =~ /^[a-zA-Z][a-zA-Z-]+(\.[a-zA-Z][a-zA-Z-]+)+$/) {  
+    if ($fullname =~ /^[a-zA-Z][a-zA-Z-]+(\.[a-zA-Z][a-zA-Z-]+)+$/) {
 #   if ($fullname =~ /^[a-zA-Z]+(\.[a-zA-Z]+)+$/) {    # Kari E. Hurtta
 	print "$fullname: $name\n";
     } else {

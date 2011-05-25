@@ -62,12 +62,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -110,7 +110,7 @@ static u_char sndcmsgbufpim[CMSG_SPACE(sizeof(struct in6_pktinfo))];
 static u_char rcvcmsgbufpim[CMSG_SPACE(sizeof(struct in6_pktinfo))];
 
 
-/*    
+/*
  * Local function definitions.
  */
 static void pim6_read   __P((int f, fd_set *rfd));
@@ -162,7 +162,7 @@ void init_pim6()
 	if (setsockopt(pim6_socket, IPPROTO_IPV6, IPV6_PKTINFO, &on,
 		       sizeof(on)) < 0)
 		log(LOG_ERR, errno, "setsockopt(IPV6_PKTINFO)");
-#endif 
+#endif
 
 	/* initialize msghdr for receiving packets */
 	rcviovpim[0].iov_base = (caddr_t) pim6_recv_buf;
@@ -185,7 +185,7 @@ void init_pim6()
 	cmsgp->cmsg_level=IPPROTO_IPV6;
 	cmsgp->cmsg_type=IPV6_PKTINFO;
 
-	if ( register_input_handler(pim6_socket, pim6_read) <0) 
+	if ( register_input_handler(pim6_socket, pim6_read) <0)
 		log(LOG_ERR,0,"Registering pim6 socket");
 
 	/* Initialize the building Join/Prune messages working area */
@@ -238,12 +238,12 @@ pim6_read(f, rfd)
 static void
 accept_pim6(pimlen)
     int pimlen;
-{   
+{
     register struct pim *pim;
     struct sockaddr_in6 dst;
     struct in6_pktinfo *pi=NULL;
     struct sockaddr_in6 *src = (struct sockaddr_in6 *)rcvmhpim.msg_name;
-    struct cmsghdr *cm;	
+    struct cmsghdr *cm;
     int ifindex=0;
 
     /* sanity check */
@@ -273,15 +273,15 @@ accept_pim6(pimlen)
 		    else
 			    dst.sin6_scope_id = 0;
 	    }
-    }   
+    }
 
     if(pi==NULL)
 	    log(LOG_ERR,0,"pim6_socket : unable to get destination packet");
 
     if(ifindex==0)
 	    log(LOG_ERR,0,"pim6_socket : unable to get ifindex");
-		
-#define NOSUCHDEF 
+
+#define NOSUCHDEF
 #ifdef NOSUCHDEF   /* TODO: delete. Too noisy */
     IF_DEBUG(DEBUG_PIM_DETAIL) {
         IF_DEBUG(DEBUG_PIM) {
@@ -291,10 +291,10 @@ accept_pim6(pimlen)
         }
     }
 #endif /* NOSUCHDEF */
-    
+
 
     /* Check of PIM version is already done in the kernel */
- 
+
     /*
      * TODO: check the dest. is ALL_PIM_ROUTERS (if multicast address)
      *   is it necessary?
@@ -306,10 +306,10 @@ accept_pim6(pimlen)
          receive_pim6_hello(src, (char *)(pim), pimlen);
          break;
      case PIM_REGISTER:
-       	receive_pim6_register(src, &dst, (char *)(pim), pimlen);  
+       	receive_pim6_register(src, &dst, (char *)(pim), pimlen);
 		break;
      case PIM_REGISTER_STOP:
-       	 receive_pim6_register_stop(src, &dst, (char *)(pim), pimlen);  
+       	 receive_pim6_register_stop(src, &dst, (char *)(pim), pimlen);
          break;
      case PIM_JOIN_PRUNE:
          receive_pim6_join_prune(src, &dst, (char *)(pim), pimlen);
@@ -342,7 +342,7 @@ accept_pim6(pimlen)
              inet6_fmt(&src->sin6_addr));
          break;
     }
-}   
+}
 
 void
 send_pim6(char *buf, struct sockaddr_in6 *src,
@@ -370,7 +370,7 @@ send_pim6(char *buf, struct sockaddr_in6 *src,
 	if(pim->pim_type == PIM_REGISTER)
 	{
 		sendlen = sizeof(struct pim)+sizeof(pim_register_t);
-		
+
 	}
 
 	pim->pim_cksum = pim6_cksum((u_int16 *)pim,
@@ -424,7 +424,7 @@ send_pim6(char *buf, struct sockaddr_in6 *src,
 	if(setloop)
 		k_set_loop(pim6_socket, FALSE);
 
-	return;	
+	return;
 }
 
 /* ============================== */
@@ -438,35 +438,35 @@ send_pim6(char *buf, struct sockaddr_in6 *src,
 
 #define ADDCARRY(x)  (x > 65535 ? x -= 65535 : x)
 #define REDUCE {l_util.l = sum; sum = l_util.s[0] + l_util.s[1]; ADDCARRY(sum);}
-    
-static union { 
-    u_short phs[4]; 
+
+static union {
+    u_short phs[4];
     struct {
-        u_long  ph_len; 
+        u_long  ph_len;
         u_char  ph_zero[3];
-        u_char  ph_nxt; 
-    } ph;   
+        u_char  ph_nxt;
+    } ph;
 } uph;
-    
-/*  
+
+/*
  * Our algorithm is simple, using a 32 bit accumulator (sum), we add
- * sequential 16 bit words to it, and at the end, fold back all the 
+ * sequential 16 bit words to it, and at the end, fold back all the
  * carry bits from the top 16 bits into the lower 16 bits.
- */ 
+ */
 int pim6_cksum(u_short *addr, struct in6_addr *src ,struct in6_addr *dst , int len )
-{   
+{
     register int nleft = len;
     register u_short *w;
     register int sum = 0;
     u_short answer = 0;
-    
+
     /*
      * First create IP6 pseudo header and calculate a summary.
-     */      
+     */
     w = (u_short *)src;
     uph.ph.ph_len = htonl(len);
     uph.ph.ph_nxt = IPPROTO_PIM;
-    
+
     /* IPv6 source address */
     sum += w[0];
     /* XXX: necessary? */
@@ -485,7 +485,7 @@ int pim6_cksum(u_short *addr, struct in6_addr *src ,struct in6_addr *dst , int l
     /* Payload length and upper layer identifier */
     sum += uph.phs[0];  sum += uph.phs[1];
     sum += uph.phs[2];  sum += uph.phs[3];
-    
+
     /*
      * Secondly calculate a summary of the first mbuf excluding offset.
      */
@@ -494,16 +494,16 @@ int pim6_cksum(u_short *addr, struct in6_addr *src ,struct in6_addr *dst , int l
         sum += *w++;
         nleft -= 2;
     }
-    
+
     /* mop up an odd byte, if necessary */
     if (nleft == 1) {
         *(u_char *)(&answer) = *(u_char *)w ;
         sum += answer;
     }
-    
+
     /* add back carry outs from top 16 bits to low 16 bits */
     sum = (sum >> 16) + (sum & 0xffff); /* add hi 16 to low 16 */
     sum += (sum >> 16);         /* add carry */
     answer = ~sum;              /* truncate to 16 bits */
     return(answer);
-}   
+}

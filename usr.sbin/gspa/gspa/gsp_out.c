@@ -121,7 +121,7 @@ put1code(u_int16_t v)
 }
 
 void
-c_checkbuf() 
+c_checkbuf()
 {
 	if (c_bufptr > (sizeof(c_buf)/sizeof(*c_buf)))
 		c_dumpbuf();

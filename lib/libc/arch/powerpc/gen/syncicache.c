@@ -74,7 +74,7 @@ __syncicache(from, len)
 #if	!defined(_KERNEL) && !defined(_STANDALONE)
 	if (!_cachelinesize)
 		getcachelinesize();
-#endif	
+#endif
 	off = (u_int)from & (CACHELINESIZE - 1);
 	l = len += off;
 	p = (char *)from - off;

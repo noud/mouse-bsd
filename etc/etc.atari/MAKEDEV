@@ -119,7 +119,7 @@ all)
 	sh $0 std fd st0 ttye0 ttye1 ttye2 ttye3 ttye4 ttye5 grf0 grf1
 	sh $0 grf2 grf3 grf4 grf5 mouse0 mouse1 rtc random etvme leo0
 	sh $0 kbd sd0 sd1 sd2 sd3 sd4 sd5 sd6 sd7 sd8 sd9 vnd0 vnd1 vnd2
-	sh $0 vnd3 vnd4 view00 view01 view02 view03 view04 view05 pty0 
+	sh $0 vnd3 vnd4 view00 view01 view02 view03 view04 view05 pty0
 	sh $0 vnd5 vnd6 cd0 fd0 fd1 fd2 fd3 bpf0 bpf1 bpf2 bpf3 ipl
 	sh $0 ccd0 ccd1 ccd2 ccd3
 	sh $0 raid0 raid1 raid2 raid3
@@ -183,7 +183,7 @@ st*)
 		st*) name=st; unit=${i#st}; blk=5; chr=10;;
 	esac
 	rm -f $name$unit n$name$unit e$name$unit en$name$unit \
-		r$name$unit nr$name$unit er$name$unit enr$name$unit 
+		r$name$unit nr$name$unit er$name$unit enr$name$unit
 	case $unit in
 	0|1|2|3|4|5|6)
 		mknod ${name}${unit}	b $blk $(($unit * 16 + 0))
@@ -197,11 +197,11 @@ st*)
 		chgrp operator ${name}${unit} n${name}${unit} \
 			e$name$unit en$name$unit \
 			r${name}${unit} nr${name}${unit} \
-			er${name}${unit} enr${name}${unit} 
+			er${name}${unit} enr${name}${unit}
 		chmod 660 ${name}${unit} n${name}${unit} \
 			e$name$unit en$name$unit \
 			r${name}${unit} nr${name}${unit} \
-			er${name}${unit} enr${name}${unit} 
+			er${name}${unit} enr${name}${unit}
 		;;
 	*)
 		echo bad unit for tape in: $i
@@ -318,7 +318,7 @@ ch*|uk*)
 	chgrp operator ${name}${unit}
 	chmod 640 ${name}${unit}
 	;;
-	
+
 cd*)
 	case $i in
 	cd*) name=cd; unit=${i#cd}; blk=6; chr=9;;
@@ -372,7 +372,7 @@ mouse*)
 	0|1)
 		mknod mouse${unit} c 15 ${unit}; chmod 666 mouse${unit}
 		if [ $unit = 0 ]
-		then 
+		then
 			rm -f mouse; ln -s mouse${unit} mouse
 		fi
 		;;
@@ -513,7 +513,7 @@ leo*)
 	;;
 
 scsibus*)
-	unit=${i#scsibus}; 
+	unit=${i#scsibus};
 	rm -f scsibus$unit
 	mknod scsibus$unit c 49 $unit
 	chown root:wheel scsibus$unit

@@ -25,7 +25,7 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- * 
+ *
  * Matthew Jacob
  * Feral Software
  * mjacob@feral.com
@@ -116,7 +116,7 @@ typedef struct {
  * It is an error for the CDFH_SNSVALID bit to be set and CDFH_STSVALID not
  * to be set. It is an error for the CDFH_SNSVALID be set and the associated
  * SCSI status (cd_scsi_status) not be set to CHECK CONDITON.
- * 
+ *
  * The tag cd_data points to a data segment to either be filled or
  * read from depending on the direction of data movement. The tag
  * is undefined if no data direction is set. The MD layer and outer

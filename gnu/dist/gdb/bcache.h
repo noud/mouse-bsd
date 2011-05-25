@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define BCACHE_MAXLENGTH	128
 
 /* Note that the user data is stored in data[].  Since it can be any type,
-   it needs to have the same alignment  as the most strict alignment of 
+   it needs to have the same alignment  as the most strict alignment of
    any type on the host machine.  So do it the same way obstack does. */
 
 struct hashlink {

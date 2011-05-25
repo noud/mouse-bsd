@@ -50,7 +50,7 @@
 #include <sys/ioctl.h>
 #include <sys/errno.h>
 #include <sys/syslog.h>
-#include <sys/select.h> 
+#include <sys/select.h>
 #include <sys/device.h>
 
 #include <net/if.h>
@@ -215,7 +215,7 @@ ex_cardbus_attach(parent, self, aux)
 #else
 	sc->enable = NULL;
 	sc->disable = NULL;
-#endif  
+#endif
 	sc->enabled = 1;
 
 	sc->sc_dmat = ca->ca_dmat;
@@ -260,7 +260,7 @@ ex_cardbus_attach(parent, self, aux)
 
 	cardbus_conf_write(cc, cf, ca->ca_tag, CARDBUS_COMMAND_STATUS_REG,
 	    command);
-  
+
  	/*
 	 * set latency timmer
 	 */
@@ -318,7 +318,7 @@ ex_cardbus_attach(parent, self, aux)
 		    EX_CB_INTR, EX_CB_INTR_ACK);
 
 #if !defined EX_POWER_STATIC
-	cardbus_function_disable(psc->sc_ct);  
+	cardbus_function_disable(psc->sc_ct);
 	sc->enabled = 0;
 #endif
 }
@@ -399,7 +399,7 @@ ex_cardbus_disable(sc)
 	cardbus_chipset_tag_t cc = csc->sc_ct->ct_cc;
 
 	cardbus_save_bar(csc->sc_ct);
-  
+
  	Cardbus_function_disable(csc->sc_ct);
 
 	cardbus_intr_disestablish(cc, cf, sc->sc_ih);

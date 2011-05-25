@@ -68,8 +68,8 @@ static struct pid {
 	struct pid *next;
 	FILE *fp;
 	pid_t pid;
-} *pidlist; 
-	
+} *pidlist;
+
 FILE *
 popen(command, type)
 	const char *command, *type;
@@ -118,7 +118,7 @@ popen(command, type)
 		/* NOTREACHED */
 	case 0:				/* Child. */
 		/* POSIX.2 B.3.2.2 "popen() shall ensure that any streams
-		   from previous popen() calls that remain open in the 
+		   from previous popen() calls that remain open in the
 		   parent process are closed in the new child process. */
 		for (old = pidlist; old; old = old->next)
 			close(fileno(old->fp)); /* don't allow a flush */
@@ -196,6 +196,6 @@ pclose(iop)
 	else
 		last->next = cur->next;
 	free(cur);
-		
+
 	return (pid == -1 ? -1 : pstat);
 }

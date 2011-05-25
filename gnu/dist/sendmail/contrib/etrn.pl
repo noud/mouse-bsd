@@ -125,7 +125,7 @@ $0 = "$av0 - building local socket";
 $0 = "$av0 - gethostbyname($server)";
 
 ($name,$aliases,$type,$len,$thataddr) = gethostbyname($server);
-				
+
 # get a connection
 $0 = "$av0 - socket to $server";
 $that = pack($sockaddr, &AF_INET, $port, $thataddr);
@@ -163,7 +163,7 @@ while(<S>) {
 	&alarm("greeting with $server",'');
 }
 alarm(0);
-	
+
 # if this causes problems, remove it
 $0 = "$av0 - sending helo to $server";
 &alarm("sending ehlo to $server","");
@@ -245,13 +245,13 @@ sub read_response
 $flag_a;
 $flag_d;
 &handle_alarm;
-################### BEGIN PERL/TROFF TRANSITION 
-.00 ;	
+################### BEGIN PERL/TROFF TRANSITION
+.00 ;
 
 'di
 .nr nl 0-1
 .nr % 0
-.\\"'; __END__ 
+.\\"'; __END__
 .\" ############## END PERL/TROFF TRANSITION
 .TH ETRN 1 "January 25, 1997"
 .AT 3
@@ -285,15 +285,15 @@ The normal mode of operation for
 is to do all of its work silently.
 The following options make it more verbose.
 It is not necessary to make it verbose to see what it is
-doing because as it works, it changes its 
+doing because as it works, it changes its
 .BR argv [0]
 variable to reflect its current activity.
-The 
+The
 .IR -w ,
 watch, flag will cause
 .B etrn
 to show you its conversations with the mail daemons.
-The 
+The
 .IR -d ,
 debug, flag will expose many of the inner workings so that
 it is possible to eliminate bugs.
@@ -305,7 +305,7 @@ No enviroment variables are used.
 .BR sendmail (8),
 RFC 1985.
 .SH BUGS
-Not all mail daemons will implement 
+Not all mail daemons will implement
 .B etrn .
 .LP
 It is assumed that you are running domain names.
@@ -315,7 +315,7 @@ Christian von Roques added support for
 .IR args
 and fixed a couple of bugs.
 .SH AVAILABILITY
-The latest version of 
+The latest version of
 .B etrn
 is available in the contrib directory of the sendmail
 distribution through anonymous ftp at

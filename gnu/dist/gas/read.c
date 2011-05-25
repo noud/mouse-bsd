@@ -432,7 +432,7 @@ pop_insert (table)
 #define obj_pop_insert()	pop_insert(obj_pseudo_table)
 #endif
 
-static void 
+static void
 pobegin ()
 {
   po_hash = hash_new ();
@@ -484,7 +484,7 @@ scrub_from_string (from)
  * We read the file, putting things into a web that
  * represents what we have been reading.
  */
-void 
+void
 read_a_source_file (name)
      char *name;
 {
@@ -1133,7 +1133,7 @@ mri_comment_end (stop, stopc)
     ++input_line_pointer;
 }
 
-void 
+void
 s_abort (ignore)
      int ignore;
 {
@@ -1146,7 +1146,7 @@ s_abort (ignore)
    the maximum number of characters to skip when doing the alignment,
    or 0 if there is no maximum.  */
 
-static void 
+static void
 do_align (n, fill, len, max)
      int n;
      char *fill;
@@ -1320,7 +1320,7 @@ s_align (arg, bytes_p)
 /* Handle the .align pseudo-op on machines where ".align 4" means
    align to a 4 byte boundary.  */
 
-void 
+void
 s_align_bytes (arg)
      int arg;
 {
@@ -1330,14 +1330,14 @@ s_align_bytes (arg)
 /* Handle the .align pseudo-op on machines where ".align 4" means align
    to a 2**4 boundary.  */
 
-void 
+void
 s_align_ptwo (arg)
      int arg;
 {
   s_align (arg, 0);
 }
 
-void 
+void
 s_comm (ignore)
      int ignore;
 {
@@ -1547,7 +1547,7 @@ s_data (ignore)
    definition for .file; the APPFILE argument is 1 for .appfile, 0 for
    .file.  */
 
-void 
+void
 s_app_file (appfile)
      int appfile;
 {
@@ -1667,7 +1667,7 @@ s_fail (ignore)
   demand_empty_rest_of_line ();
 }
 
-void 
+void
 s_fill (ignore)
      int ignore;
 {
@@ -1764,7 +1764,7 @@ s_fill (ignore)
   demand_empty_rest_of_line ();
 }
 
-void 
+void
 s_globl (ignore)
      int ignore;
 {
@@ -1909,7 +1909,7 @@ s_linkonce (ignore)
   demand_empty_rest_of_line ();
 }
 
-static void 
+static void
 s_lcomm_internal (needs_align, bytes_p)
      /* 1 if this was a ".bss" directive, which may require a 3rd argument
 	(alignment); 0 if it was an ".lcomm" (2 args only)  */
@@ -2115,7 +2115,7 @@ void s_lcomm_bytes (needs_align)
   s_lcomm_internal (needs_align, 1);
 }
 
-void 
+void
 s_lsym (ignore)
      int ignore;
 {
@@ -2361,7 +2361,7 @@ do_org (segment, exp, fill)
     }
 }
 
-void 
+void
 s_org (ignore)
      int ignore;
 {
@@ -2424,7 +2424,7 @@ s_mri_sect (type)
   segT seg;
 
   SKIP_WHITESPACE ();
-  
+
   name = input_line_pointer;
   if (! isdigit ((unsigned char) *name))
     c = get_symbol_end ();
@@ -2564,7 +2564,7 @@ s_mri_sect (type)
 	}
     }
 
-  demand_empty_rest_of_line ();	  
+  demand_empty_rest_of_line ();
 
 #else /* ! TC_I960 */
   /* The MRI assembler seems to use different forms of .sect for
@@ -2652,7 +2652,7 @@ s_rept (ignore)
    this is .equiv, and it is an error if the symbol is already
    defined.  */
 
-void 
+void
 s_set (equiv)
      int equiv;
 {
@@ -2719,7 +2719,7 @@ s_set (equiv)
       else
 #endif
         symbolP = symbol_new (name, undefined_section, 0, &zero_address_frag);
-			    
+
 #ifdef OBJ_COFF
       /* "set" symbols are local unless otherwise specified. */
       SF_SET_LOCAL (symbolP);
@@ -2740,7 +2740,7 @@ s_set (equiv)
   demand_empty_rest_of_line ();
 }				/* s_set() */
 
-void 
+void
 s_space (mult)
      int mult;
 {
@@ -3019,7 +3019,7 @@ s_text (ignore)
 }				/* s_text() */
 
 
-void 
+void
 demand_empty_rest_of_line ()
 {
   SKIP_WHITESPACE ();
@@ -3186,7 +3186,7 @@ parse_mri_cons PARAMS ((expressionS *exp, unsigned int nbytes));
 #ifndef TC_PARSE_CONS_EXPRESSION
 #ifdef BITFIELD_CONS_EXPRESSIONS
 #define TC_PARSE_CONS_EXPRESSION(EXP, NBYTES) parse_bitfield_cons (EXP, NBYTES)
-static void 
+static void
 parse_bitfield_cons PARAMS ((expressionS *exp, unsigned int nbytes));
 #endif
 #ifdef REPEAT_CONS_EXPRESSIONS
@@ -3204,7 +3204,7 @@ parse_repeat_cons PARAMS ((expressionS *exp, unsigned int nbytes));
 /* worker to do .byte etc statements */
 /* clobbers input_line_pointer, checks */
 /* end-of-line. */
-static void 
+static void
 cons_worker (nbytes, rva)
      register int nbytes;	/* 1=.byte, 2=.word, 4=.long */
      int rva;
@@ -3275,7 +3275,7 @@ cons (size)
   cons_worker (size, 0);
 }
 
-void 
+void
 s_rva (size)
      int size;
 {
@@ -3647,7 +3647,7 @@ emit_expr (exp, nbytes)
    To use this function the tc-XXX.h file should define
    BITFIELD_CONS_EXPRESSIONS.  */
 
-static void 
+static void
 parse_bitfield_cons (exp, nbytes)
      expressionS *exp;
      unsigned int nbytes;
@@ -4344,7 +4344,7 @@ emit_leb128_expr(exp, sign)
     }
   else
     {
-      /* Otherwise, we have to create a variable sized fragment and 
+      /* Otherwise, we have to create a variable sized fragment and
 	 resolve things later.  */
 
       frag_var (rs_leb128, sizeof_uleb128 (~(valueT)0), 0, sign,
@@ -4378,7 +4378,7 @@ s_leb128 (sign)
  */
 
 
-void 
+void
 stringer (append_zero)		/* Worker to do .ascii etc statements. */
      /* Checks end-of-line. */
      register int append_zero;	/* 0: don't append '\0', else 1 */
@@ -4472,7 +4472,7 @@ stringer (append_zero)		/* Worker to do .ascii etc statements. */
     multibyte chars, wide chars, etc.  Also be careful about
     returning values bigger than 1 byte.  xoxorich. */
 
-unsigned int 
+unsigned int
 next_char_of_string ()
 {
   register unsigned int c;
@@ -4610,7 +4610,7 @@ get_segmented_expression (expP)
   return retval;
 }
 
-static segT 
+static segT
 get_known_segmented_expression (expP)
      register expressionS *expP;
 {
@@ -4737,14 +4737,14 @@ demand_copy_string (lenP)
  *
  * Out:	1 if input_line_pointer->end-of-line.
 */
-int 
+int
 is_it_end_of_statement ()
 {
   SKIP_WHITESPACE ();
   return (is_end_of_line[(unsigned char) *input_line_pointer]);
 }				/* is_it_end_of_statement() */
 
-void 
+void
 equals (sym_name, reassign)
      char *sym_name;
      int reassign;
@@ -4791,7 +4791,7 @@ equals (sym_name, reassign)
 /* .include -- include a file at this point. */
 
 /* ARGSUSED */
-void 
+void
 s_include (arg)
      int arg;
 {
@@ -4850,7 +4850,7 @@ gotit:
   buffer_limit = input_scrub_next_buffer (&input_line_pointer);
 }				/* s_include() */
 
-void 
+void
 add_include_dir (path)
      char *path;
 {
@@ -4876,7 +4876,7 @@ add_include_dir (path)
     include_dir_maxlen = i;
 }				/* add_include_dir() */
 
-void 
+void
 s_ignore (arg)
      int arg;
 {

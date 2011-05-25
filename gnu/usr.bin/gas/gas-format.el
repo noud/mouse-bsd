@@ -42,36 +42,36 @@
 ;;  There are six variables you can set to control the style that Emacs C
 ;;mode will use.
 ;;
-;;`c-indent-level'     
+;;`c-indent-level'
 ;;     Indentation of C statements within surrounding block.  The surrounding
 ;;     block's indentation is the indentation of the line on which the
 ;;     open-brace appears.
 
 (setq c-indent-level 8)
 
-;;`c-continued-statement-offset'     
+;;`c-continued-statement-offset'
 ;;     Extra indentation given to a substatement, such as the then-clause of
 ;;     an if or body of a while.
 
 (setq c-continued-statement-offset 4)
 
-;;`c-brace-offset'     
+;;`c-brace-offset'
 ;;     Extra indentation for line if it starts with an open brace.
 
 (setq c-brace-offset 0)
 
-;;`c-brace-imaginary-offset'     
+;;`c-brace-imaginary-offset'
 ;;     An open brace following other text is treated as if it were this far
 ;;     to the right of the start of its line.
 
 (setq c-brace-imaginary-offset 0)
 
-;;`c-argdecl-indent'     
+;;`c-argdecl-indent'
 ;;     Indentation level of declarations of C function arguments.
 
 (setq c-argdecl-indent 0)
 
-;;`c-label-offset'     
+;;`c-label-offset'
 ;;     Extra indentation for line that is a label, or case or default.
 
 (setq c-label-offset -8)

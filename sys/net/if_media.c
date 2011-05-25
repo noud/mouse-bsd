@@ -177,7 +177,7 @@ ifmedia_list_add(ifm, lp, count)
 }
 
 /*
- * Set the default active media. 
+ * Set the default active media.
  *
  * Called by device-specific code which is assumed to have already
  * selected the default media in hardware.  We do _not_ call the
@@ -185,7 +185,7 @@ ifmedia_list_add(ifm, lp, count)
  */
 void
 ifmedia_set(ifm, target)
-	struct ifmedia *ifm; 
+	struct ifmedia *ifm;
 	int target;
 
 {
@@ -243,7 +243,7 @@ ifmedia_ioctl(ifp, ifr, ifm, cmd)
 #ifdef IFMEDIA_DEBUG
 			if (ifmedia_debug) {
 				printf(
-				    "ifmedia_ioctl: no media found for 0x%x\n", 
+				    "ifmedia_ioctl: no media found for 0x%x\n",
 				    newmedia);
 			}
 #endif
@@ -288,7 +288,7 @@ ifmedia_ioctl(ifp, ifr, ifm, cmd)
 	/*
 	 * Get list of available media and current media on interface.
 	 */
-	case  SIOCGIFMEDIA: 
+	case  SIOCGIFMEDIA:
 	{
 		struct ifmedia_entry *ep;
 		int *kptr, count;
@@ -363,7 +363,7 @@ ifmedia_ioctl(ifp, ifr, ifm, cmd)
  */
 struct ifmedia_entry *
 ifmedia_match(ifm, target, mask)
-	struct ifmedia *ifm; 
+	struct ifmedia *ifm;
 	int target;
 	int mask;
 {

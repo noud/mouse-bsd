@@ -123,21 +123,21 @@ lfs_balloc(v)
 	int bb;		/* number of disk blocks in a block disk blocks */
 	int error, frags, i, nsize, osize, num;
 
-	vp = ap->a_vp;	
+	vp = ap->a_vp;
 	ip = VTOI(vp);
 	fs = ip->i_lfs;
 	offset = blkoff(fs, ap->a_startoffset);
 	iosize = ap->a_size;
 	lbn = lblkno(fs, ap->a_startoffset);
 	(void)lfs_check(vp, lbn, 0);
-	
+
 #ifdef DEBUG
 	if(!VOP_ISLOCKED(vp)) {
 		printf("lfs_balloc: warning: ino %d not locked\n",ip->i_number);
 	}
 #endif
-	
-	/* 
+
+	/*
 	 * Three cases: it's a block beyond the end of file, it's a block in
 	 * the file that may or may not have been assigned a disk address or
 	 * we're writing an entire block.  Note, if the daddr is unassigned,
@@ -149,12 +149,12 @@ lfs_balloc(v)
 	 * check if the old last block was a fragment.	If it was, we need
 	 * to rewrite it.
 	 */
-	
+
 	*ap->a_bpp = NULL;
 	error = ufs_bmaparray(vp, lbn, &daddr, &indirs[0], &num, NULL );
 	if (error)
 		return (error);
-	
+
 	/* Check for block beyond end of file and fragment extension needed. */
 	lastblock = lblkno(fs, ip->i_ffs_size);
 	if (lastblock < NDADDR && lastblock < lbn) {
@@ -169,7 +169,7 @@ lfs_balloc(v)
 			VOP_BWRITE(bp);
 		}
 	}
-	
+
 	bb = VFSTOUFS(vp->v_mount)->um_seqinc;
 	if (daddr == UNASSIGNED)
 		/* May need to allocate indirect blocks */
@@ -177,7 +177,7 @@ lfs_balloc(v)
 			if (!indirs[i].in_exists) {
 				ibp = getblk(vp, indirs[i].in_lbn, fs->lfs_bsize,
 					     0, 0);
-				if ((ibp->b_flags & (B_DONE | B_DELWRI))) 
+				if ((ibp->b_flags & (B_DONE | B_DELWRI)))
 					panic ("Indirect block should not exist");
 
 				if (!ISSPACE(fs, bb, curproc->p_ucred)){
@@ -192,7 +192,7 @@ lfs_balloc(v)
 						return(error);
 				}
 			}
-	
+
 	/*
 	 * If the block we are writing is a direct block, it's the last
 	 * block in the file, and offset + iosize is less than a full
@@ -232,8 +232,8 @@ lfs_balloc(v)
 		frags = dbtofrags(fs, bb);
 		*ap->a_bpp = bp = getblk(vp, lbn, blksize(fs, ip, lbn), 0, 0);
 	}
-	
-	/* 
+
+	/*
 	 * The block we are writing may be a brand new block
 	 * in which case we need to do accounting (i.e. check
 	 * for free space and update the inode number of blocks.
@@ -264,7 +264,7 @@ lfs_balloc(v)
 			return(biowait(bp));
 		}
 	}
-	
+
 	return (0);
 }
 
@@ -286,7 +286,7 @@ lfs_fragextend(vp, osize, nsize, lbn, bpp)
 
 	ip = VTOI(vp);
 	fs = ip->i_lfs;
-	
+
 	bb = (long)fragstodb(fs, numfrags(fs, nsize - osize));
  top:
 	if (!ISSPACE(fs, bb, curproc->p_ucred)) {
@@ -330,6 +330,6 @@ lfs_fragextend(vp, osize, nsize, lbn, bpp)
 		locked_queue_bytes += (nsize - osize);
 	allocbuf(*bpp, nsize);
 	bzero((char *)((*bpp)->b_data) + osize, (u_int)(nsize - osize));
-	
+
 	return(0);
 }

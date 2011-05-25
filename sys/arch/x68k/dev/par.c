@@ -80,8 +80,8 @@ struct	par_softc {
 } ;
 
 /* sc_flags values */
-#define	PARF_ALIVE	0x01	
-#define	PARF_OPEN	0x02	
+#define	PARF_ALIVE	0x01
+#define	PARF_OPEN	0x02
 #define PARF_UIO	0x04
 #define PARF_TIMO	0x08
 #define PARF_DELAY	0x10
@@ -134,7 +134,7 @@ parattach(pdp, dp, aux)
 	void *aux;
 {
 	register struct par_softc *sc = (struct par_softc *)dp;
-	
+
 	sc->sc_flags = PARF_ALIVE;
 	printf(": parallel port (write only, interrupt)\n");
 	ioctlr.intr &= (~PRTI_EN);
@@ -148,7 +148,7 @@ paropen(dev, flags, mode, p)
 {
 	register int unit = UNIT(dev);
 	register struct par_softc *sc = par_cd.cd_devs[unit];
-	
+
 	if (unit >= NPAR || !(sc->sc_flags & PARF_ALIVE))
 		return(ENXIO);
 	if (sc->sc_flags & PARF_OPEN)
@@ -156,11 +156,11 @@ paropen(dev, flags, mode, p)
 	/* X680x0 can't read */
 	if ((flags & FREAD) == FREAD)
 		return (EINVAL);
-	
+
 	sc->sc_flags |= PARF_OPEN;
-	
+
 	sc->sc_flags |= PARF_OWRITE;
-	
+
 	sc->sc_burst = PAR_BURST;
 	sc->sc_timo = parmstohz(PAR_TIMO);
 	sc->sc_delay = parmstohz(PAR_DELAY);
@@ -176,7 +176,7 @@ parclose(dev, flags, mode, p)
 	int unit = UNIT(dev);
 	int s;
 	struct par_softc *sc = par_cd.cd_devs[unit];
-	
+
 	sc->sc_flags &= ~(PARF_OPEN|PARF_OWRITE);
 
 	/* don't allow interrupts any longer */
@@ -221,7 +221,7 @@ parwrite(dev, uio, flag)
 	struct uio *uio;
 	int flag;
 {
-	
+
 #ifdef DEBUG
 	if (pardebug & PDB_FOLLOW)
 		printf("parwrite(%x, %p)\n", dev, uio);
@@ -241,13 +241,13 @@ parrw(dev, uio)
 	int error = 0;
 	int buflen;
 	char *buf;
-	
+
 	if (!!(sc->sc_flags & PARF_OREAD) ^ (uio->uio_rw == UIO_READ))
 		return EINVAL;
-	
+
 	if (uio->uio_resid == 0)
 		return(0);
-	
+
 	buflen = min(sc->sc_burst, uio->uio_resid);
 	buf = (char *)malloc(buflen, M_DEVBUF, M_WAITOK);
 	sc->sc_flags |= PARF_UIO;
@@ -291,7 +291,7 @@ parrw(dev, uio)
 			error = -cnt;
 			break;
 		}
-		
+
 		s = splsoftclock();
 		/*
 		 * Operation timeout (or non-blocking), quit now.
@@ -368,7 +368,7 @@ parioctl(dev, cmd, data, flag, p)
 	struct par_softc *sc = par_cd.cd_devs[UNIT(dev)];
 	struct parparam *pp, *upp;
 	int error = 0;
-	
+
 	switch (cmd) {
 	      case PARIOCGPARAM:
 		pp = &sc->sc_param;
@@ -377,7 +377,7 @@ parioctl(dev, cmd, data, flag, p)
 		upp->timo = parhztoms(pp->timo);
 		upp->delay = parhztoms(pp->delay);
 		break;
-		
+
 	      case PARIOCSPARAM:
 		pp = &sc->sc_param;
 		upp = (struct parparam *)data;
@@ -388,7 +388,7 @@ parioctl(dev, cmd, data, flag, p)
 		pp->timo = parmstohz(upp->timo);
 		pp->delay = parmstohz(upp->delay);
 		break;
-		
+
 	      default:
 		return(EINVAL);
 	}
@@ -401,7 +401,7 @@ parhztoms(h)
 {
 	extern int hz;
 	register int m = h;
-	
+
 	if (m > 0)
 		m = m * 1000 / hz;
 	return(m);
@@ -413,7 +413,7 @@ parmstohz(m)
 {
 	extern int hz;
 	register int h = m;
-	
+
 	if (h > 0) {
 		h = h * hz / 1000;
 		if (h == 0)
@@ -453,10 +453,10 @@ parintr(arg)
 		if (parsend_pending)
 			parsend_pending = 0;
 	}
-	
+
 	/* either way, there won't be a timeout pending any longer */
 	partimeout_pending = 0;
-	
+
 	wakeup(parintr);
 	splx (s);
 }
@@ -467,16 +467,16 @@ parsendch(ch)
 {
 	int error = 0;
 	int s;
-	
+
 	/* if either offline, busy or out of paper, wait for that
 	   condition to clear */
 	s = spl1();
-	while (!error 
-	       && (parsend_pending 
+	while (!error
+	       && (parsend_pending
 		   || !(ioctlr.intr & PRT_INT)))
 		{
 			extern int hz;
-			
+
 			/* wait a second, and try again */
 			timeout (parintr, 0, hz);
 			partimeout_pending = 1;
@@ -494,11 +494,11 @@ parsendch(ch)
 #endif
 				if (partimeout_pending)
 					untimeout (parintr, 0);
-				
+
 				partimeout_pending = 0;
 			}
 		}
-	
+
 	if (!error) {
 #ifdef DEBUG
 		if (pardebug & PDB_INTERRUPT)
@@ -512,9 +512,9 @@ parsendch(ch)
 		printer.strobe = 0x01;
 		parsend_pending = 1;
 	}
-	
+
 	splx (s);
-	
+
 	return error;
 }
 
@@ -525,11 +525,11 @@ parsend(buf, len)
 	int len;
 {
 	int err, orig_len = len;
-	
+
 	for (; len; len--, buf++)
 		if ((err = parsendch (*buf)))
 			return err < 0 ? -EINTR : -err;
-	
+
 	/* either all or nothing.. */
 	return orig_len;
 }

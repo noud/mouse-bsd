@@ -148,7 +148,7 @@ void discover_interfaces (state)
 		    (!(ifr.ifr_flags & IFF_UP) &&
 		     state != DISCOVER_UNCONFIGURED))
 			continue;
-		
+
 		/* See if we've seen an interface that matches this one. */
 		for (tmp = interfaces; tmp; tmp = tmp -> next)
 			if (!strcmp (tmp -> name, ifp -> ifr_name))
@@ -226,7 +226,7 @@ void discover_interfaces (state)
 					subnet -> interface = tmp;
 					subnet -> interface_address = addr;
 				} else if (subnet -> interface != tmp) {
-					warn ("Multiple %s %s: %s %s", 
+					warn ("Multiple %s %s: %s %s",
 					      "interfaces match the",
 					      "same subnet",
 					      subnet -> interface -> name,
@@ -245,7 +245,7 @@ void discover_interfaces (state)
 				if (!share -> interface) {
 					share -> interface = tmp;
 				} else if (share -> interface != tmp) {
-					warn ("Multiple %s %s: %s %s", 
+					warn ("Multiple %s %s: %s %s",
 					      "interfaces match the",
 					      "same shared network",
 					      share -> interface -> name,
@@ -335,7 +335,7 @@ void discover_interfaces (state)
 		struct ifreq ifr;
 		struct sockaddr sa;
 		int b, sk;
-		
+
 		if (!tmp -> ifp) {
 			/* Make up an ifreq structure. */
 			tif = (struct ifreq *)malloc (sizeof (struct ifreq));
@@ -350,9 +350,9 @@ void discover_interfaces (state)
 		ifr = *tmp -> ifp;
 		if (ioctl (sock, SIOCGIFHWADDR, &ifr) < 0)
 			continue;
-		
+
 		sa = *(struct sockaddr *)&ifr.ifr_hwaddr;
-		
+
 		switch (sa.sa_family) {
 #ifdef HAVE_ARPHRD_TUNNEL
 		      case ARPHRD_TUNNEL:

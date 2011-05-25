@@ -23,7 +23,7 @@ Boston, MA 02111-1307, USA.
 Written by Per Bothner 1994.  */
 
 /* Parse a C expression from text in a string  */
-   
+
 #include "config.h"
 #include "system.h"
 #include "gansidecl.h"
@@ -319,7 +319,7 @@ cpp_lex (pfile, skip_evaluation)
 	}
       cpp_pop_buffer (pfile);
       goto retry;
-    case CPP_HSPACE:   case CPP_COMMENT: 
+    case CPP_HSPACE:   case CPP_COMMENT:
       goto retry;
     case CPP_NUMBER:
       return parse_number (pfile, tok_start, tok_end - tok_start);
@@ -436,7 +436,7 @@ cpp_lex (pfile, skip_evaluation)
       /* This is always a signed type.  */
       op.unsignedp = 0;
       op.op = CHAR;
-    
+
       return op;
 
     case CPP_NAME:
@@ -459,7 +459,7 @@ cpp_lex (pfile, skip_evaluation)
 	      sprintf (buf, "`%s' not allowed in operand of `#if'", tok_start);
 	      cpp_error (pfile, buf);
 	    }
-	  op.op = toktab->token; 
+	  op.op = toktab->token;
 	  return op;
 	}
       /* fall through */
@@ -516,7 +516,7 @@ cpp_parse_escape (pfile, string_ptr)
     case 0:
       (*string_ptr)--;
       return 0;
-      
+
     case '0':
     case '1':
     case '2':
@@ -983,7 +983,7 @@ cpp_parse_expr (pfile)
 	  return top->value;
 	}
       top++;
-      
+
       /* Check for and handle stack overflow.  */
       if (top == limit)
 	{
@@ -1001,7 +1001,7 @@ cpp_parse_expr (pfile)
 	  top = (struct operation *) ((char *) new_stack + old_size);
 	  limit = (struct operation *) ((char *) new_stack + new_size);
 	}
-      
+
       top->flags = flags;
       top->rprio = rprio;
       top->op = op.op;

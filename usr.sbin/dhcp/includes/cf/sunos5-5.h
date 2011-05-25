@@ -43,8 +43,8 @@
 #define int32_t		long
 
 #define u_int8_t	unsigned char
-#define u_int16_t	unsigned short 
-#define u_int32_t	unsigned long 
+#define u_int16_t	unsigned short
+#define u_int32_t	unsigned long
 
 /* The jmp_buf type is an array on Solaris, so we can't dereference it
    and must declare it differently. */

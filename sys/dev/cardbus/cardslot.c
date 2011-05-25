@@ -150,7 +150,7 @@ cardslotattach(parent, self, aux)
   }
 
   if (pa != NULL) {
-    if (NULL != (psc = (void *)config_found_sm(self, pa, cardslot_16_print, 
+    if (NULL != (psc = (void *)config_found_sm(self, pa, cardslot_16_print,
 				       cardslot_16_submatch))) {
       /* pcmcia 16-bit bus found */
       DPRINTF(("cardslotattach: found 16-bit pcmcia bus\n"));

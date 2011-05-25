@@ -38,17 +38,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -202,7 +202,7 @@ fbmatch(parent, match, aux)
 	void *aux;
 {
 	struct mainbus_attach_args *ma = aux;
-    
+
 	if (strcmp(ma->ma_name, match->cf_driver->cd_name))
 		return 0;
 
@@ -460,7 +460,7 @@ fb_ioctl(v, cmd, data, flag, p)
 		wdf->depth = dc->dc_rinfo.ri_depth;
 		wdf->cmsize = 256;	/* XXXX */
 #endif /* USE_RASTERCONS */
-		return 0;		
+		return 0;
 
 	default:
 		if (IOCGROUP(cmd) != 't')

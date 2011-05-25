@@ -141,7 +141,7 @@ checkinode(inumber, idesc)
 	mode_t mode;
 
 	dp = getnextinode(inumber);
-	if (inumber < EXT2_FIRSTINO && inumber != EXT2_ROOTINO) 
+	if (inumber < EXT2_FIRSTINO && inumber != EXT2_ROOTINO)
 		return;
 
 	mode = fs2h16(dp->e2di_mode) & IFMT;

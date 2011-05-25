@@ -34,9 +34,9 @@
  */
 
 /*
- * Remote profiler structures used to communicate between the 
+ * Remote profiler structures used to communicate between the
  * target (SHARK) and the host (GUI'd) machine.
- * Also has stuff used to talk between the profiling driver and 
+ * Also has stuff used to talk between the profiling driver and
  * profiling server function.
  *
  */
@@ -46,13 +46,13 @@
 
 #include <sys/types.h>
 
-/* I have no idea what the 'P' group id means, 
+/* I have no idea what the 'P' group id means,
  * I presume it isn't used for much.??
  */
 #define PROFIOSTART	_IOWR('P', 0, struct profStartInfo) /* start profiling */
 #define PROFIOSTOP	_IO('P', 1)	/* stop profiling  */
 
-/* hash table stuff. 
+/* hash table stuff.
  */
 #define TABLE_ENTRY_SIZE (sizeof(struct hashEntry))
 #define REDUNDANT_BITS   0x02
@@ -67,7 +67,7 @@
 
 /* an actual entry
  */
-struct profHashEntry 
+struct profHashEntry
 {
     unsigned int pc;          /* the pc, minus any redundant bits. */
     unsigned int next;        /* the next pointer as an entry index */
@@ -109,7 +109,7 @@ struct profStartInfo
 };
 
 
-/* Communications Protocol stuff 
+/* Communications Protocol stuff
  * defines the messages that the host and
  * target will use to communicate.
  */
@@ -119,10 +119,10 @@ struct packetHeader
     int code;        /* this will either be a command or a
 				* data specifier.
 				*/
-    unsigned int size;         /* size of data to follow, 
-				* quantity depends on code. 
+    unsigned int size;         /* size of data to follow,
+				* quantity depends on code.
 				*/
-} 
+}
 __attribute__ ((packed));
 
 struct startSamplingCommand
@@ -131,7 +131,7 @@ struct startSamplingCommand
     unsigned int tableSize; /* the total table size in entries */
     unsigned int entries;   /* number of entries to hash */
     unsigned int mode;     /* if set profile kernel also. */
-} 
+}
 __attribute__ ((packed));
 
 struct startSamplingResponse
@@ -143,7 +143,7 @@ __attribute__ ((packed));
 
 struct stopSamplingCommand
 {
-    int alert;          /* if set then the daemon sends a SIGINT to 
+    int alert;          /* if set then the daemon sends a SIGINT to
 			 * the process.
 			 */
 }
@@ -153,7 +153,7 @@ struct disassemble
 {
     unsigned int offset; /* offset into file to begin disassembling */
     unsigned int length; /* length in arm words ie 32bits. */
-} 
+}
 __attribute__ ((packed));
 
 struct profStatus
@@ -163,7 +163,7 @@ struct profStatus
 __attribute__ ((packed));
 
 
-/* Command/Data Types 
+/* Command/Data Types
  * Only one bit may be set for any one command.
  * so these are not masks but distinct values.
  */

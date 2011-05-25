@@ -129,7 +129,7 @@ main(argc, argv)
 				if (rv == GLOB_NOMATCH)
 					continue;
 				else
-					err(1, "glob"); 
+					err(1, "glob");
 			}
 			if (pg.gl_pathc)
 				for (p = pg.gl_pathv; *p; p++)

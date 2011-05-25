@@ -153,7 +153,7 @@ _uservects:
 	.long	_badmfpint	|  72: Display enable counter
 	.long	_badmfpint	|  73: modem port 1 - XMIT error
 	.long	_badmfpint	|  74: modem port 1 - XMIT buffer empty
-	.long	_badmfpint	|  75: modem port 1 - RCV error	
+	.long	_badmfpint	|  75: modem port 1 - RCV error
 	.long	_badmfpint	|  76: modem port 1 - RCV buffer full
 	.long	mfp_tima	|  77: Timer A (System clock)
 	.long	_badmfpint	|  78: modem port 1 - RI

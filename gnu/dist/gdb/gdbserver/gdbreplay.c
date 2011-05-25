@@ -291,7 +291,7 @@ main (argc, argv)
   if (fp == NULL)
     {
       perror_with_name (argv[1]);
-    }      
+    }
   remote_open (argv[2]);
   while ((ch = logchar (fp)) != EOF)
     {

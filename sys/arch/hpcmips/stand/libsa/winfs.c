@@ -49,7 +49,7 @@ struct winfs {
 };
 
 
-int 
+int
 win_open(path, f)
 	char           *path;
 	struct open_file *f;
@@ -63,7 +63,7 @@ win_open(path, f)
 	}
 
 	win_printf(TEXT("open(%s)\n"), wpath);
-	fsdata->hDevice = CreateFile(wpath, GENERIC_READ, 0, NULL,    
+	fsdata->hDevice = CreateFile(wpath, GENERIC_READ, 0, NULL,
 				    OPEN_EXISTING, 0, NULL);
 	if (fsdata->hDevice == INVALID_HANDLE_VALUE) {
 		win_printf(TEXT("can't open %s.\n"), wpath);
@@ -77,7 +77,7 @@ win_open(path, f)
 }
 
 
-int 
+int
 win_close(f)
 	struct open_file *f;
 {
@@ -92,7 +92,7 @@ win_close(f)
 }
 
 
-int 
+int
 win_read(f, addr, size, resid)
 	struct open_file *f;
 	void           *addr;
@@ -108,7 +108,7 @@ win_read(f, addr, size, resid)
 			      &read_len, NULL)) {
 			win_printf(TEXT("ReadFile() failed.\n"));
 		}
-		
+
 		if (read_len == 0)
 			break;	/* EOF */
 
@@ -121,7 +121,7 @@ win_read(f, addr, size, resid)
 	return (0);
 }
 
-int 
+int
 win_write(f, start, size, resid)
 	struct open_file *f;
 	void           *start;
@@ -132,7 +132,7 @@ win_write(f, start, size, resid)
 }
 
 
-int 
+int
 win_stat(f, sb)
 	struct open_file *f;
 	struct stat    *sb;
@@ -145,7 +145,7 @@ win_stat(f, sb)
 	return (0);
 }
 
-off_t 
+off_t
 win_seek(f, offset, whence)
 	struct open_file *f;
 	off_t           offset;

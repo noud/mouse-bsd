@@ -102,28 +102,28 @@ Report problems and direct all questions to:
  *
  * Revision 4.7  89/05/01  15:11:41  narten
  * changed copyright header to reflect current distribution rules
- * 
+ *
  * Revision 4.6  88/08/09  19:12:15  eggert
  * Fix "co -d" core dump; rawdate wasn't always initialized.
  * Use execv(), not system(); fix putchar('\0') and diagnose() botches; remove lint
- * 
+ *
  * Revision 4.5  87/12/18  11:35:40  narten
  * lint cleanups (from Guy Harris)
- * 
+ *
  * Revision 4.4  87/10/18  10:20:53  narten
  * Updating version numbers changes relative to 1.1, are actually
  * relative to 4.2
- * 
+ *
  * Revision 1.3  87/09/24  13:58:30  narten
- * Sources now pass through lint (if you ignore printf/sprintf/fprintf 
+ * Sources now pass through lint (if you ignore printf/sprintf/fprintf
  * warnings)
- * 
+ *
  * Revision 1.2  87/03/27  14:21:38  jenkins
  * Port to suns
- * 
+ *
  * Revision 4.2  83/12/05  13:39:48  wft
  * made rewriteflag external.
- * 
+ *
  * Revision 4.1  83/05/10  16:52:55  wft
  * Added option -u and -f.
  * Added handling of default branch.
@@ -131,7 +131,7 @@ Report problems and direct all questions to:
  * Removed calls to stat(); now done by pairfilenames().
  * Changed and renamed rmoldfile() to rmworkfile().
  * Replaced catchints() calls with restoreints(), unlink()--link() with rename();
- * 
+ *
  * Revision 3.7  83/02/15  15:27:07  wft
  * Added call to fastcopy() to copy remainder of RCS file.
  *

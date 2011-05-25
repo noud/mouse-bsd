@@ -43,13 +43,13 @@ l64a_r (value, buffer, buflen)
 
 	_DIAGASSERT(buffer != NULL);
 
-	if (value == 0UL) 
+	if (value == 0UL)
 		goto out;
 
 	for (; v != 0 && buflen > 1; s++, buflen--) {
 		digit = (int)(v & 0x3f);
 
-		if (digit < 2) 
+		if (digit < 2)
 			*s = digit + '.';
 		else if (digit < 12)
 			*s = digit + '0' - 2;

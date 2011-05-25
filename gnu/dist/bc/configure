@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Guess values for system-dependent variables and create Makefiles.
-# Generated automatically using autoconf version 2.12 
+# Generated automatically using autoconf version 2.12
 # Copyright (C) 1992, 93, 94, 95, 96 Free Software Foundation, Inc.
 #
 # This configure script is free software; the Free Software Foundation
@@ -1416,7 +1416,7 @@ if eval "test \"`echo '$ac_cv_header_'$ac_safe`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_hdr 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -1492,7 +1492,7 @@ fi
 echo "$ac_t""$ac_cv_c_const" 1>&6
 if test $ac_cv_c_const = no; then
   cat >> confdefs.h <<\EOF
-#define const 
+#define const
 EOF
 
 fi
@@ -1822,7 +1822,7 @@ if eval "test \"`echo '$ac_cv_func_'$ac_func`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_func 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -1837,7 +1837,7 @@ cat > conftest.$ac_ext <<EOF
 #line 1838 "configure"
 #include "confdefs.h"
 
-char libmath[] = 
+char libmath[] =
 #include "bc/libmath.h"
 ;
 
@@ -1854,7 +1854,7 @@ else
   rm -rf conftest*
   echo "$ac_t""no" 1>&6
 echo "configure: warning: libmath.b will not be preloaded into the executable" 1>&2
-if test "${prefix}" = "NONE" ; then 
+if test "${prefix}" = "NONE" ; then
 cat >> confdefs.h <<EOF
 #define BC_MATH_FILE "/usr/local/lib/libmath.b"
 EOF
@@ -1874,7 +1874,7 @@ bcrl=nA
 # Check whether --with-readline or --without-readline was given.
 if test "${with_readline+set}" = set; then
   withval="$with_readline"
-  
+
    echo $ac_n "checking for tparm in -lncurses""... $ac_c" 1>&6
 echo "configure:1880: checking for tparm in -lncurses" >&5
 ac_lib_var=`echo ncurses'_'tparm | sed 'y%./+-%__p_%'`

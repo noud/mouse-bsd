@@ -46,7 +46,7 @@ struct prologue_info
   struct pifsr *pifsrs;
 };
 
-static CORE_ADDR v850_scan_prologue PARAMS ((CORE_ADDR pc, 
+static CORE_ADDR v850_scan_prologue PARAMS ((CORE_ADDR pc,
 					     struct prologue_info *fs));
 
 /* Function: scan_prologue
@@ -106,7 +106,7 @@ v850_scan_prologue (pc, pi)
 
   /* Now, search the prologue looking for instructions that setup fp, save
      rp, adjust sp and such.  We also record the frame offset of any saved
-     registers. */ 
+     registers. */
 
   pi->frameoffset = 0;
   pi->framereg = SP_REGNUM;
@@ -360,7 +360,7 @@ v850_find_callers_reg (fi, regnum)
     if (PC_IN_CALL_DUMMY (fi->pc, fi->frame, fi->frame))
       return generic_read_register_dummy (fi->pc, fi->frame, regnum);
     else if (fi->fsr.regs[regnum] != 0)
-      return read_memory_unsigned_integer (fi->fsr.regs[regnum], 
+      return read_memory_unsigned_integer (fi->fsr.regs[regnum],
 					   REGISTER_RAW_SIZE(regnum));
 
   return read_register (regnum);
@@ -518,7 +518,7 @@ v850_push_arguments (nargs, args, sp, struct_return, struct_addr)
 /* Function: push_return_address (pc)
    Set up the return address for the inferior function call.
    Needed for targets where we don't actually execute a JSR/BSR instruction */
- 
+
 CORE_ADDR
 v850_push_return_address (pc, sp)
      CORE_ADDR pc;
@@ -527,8 +527,8 @@ v850_push_return_address (pc, sp)
   write_register (RP_REGNUM, CALL_DUMMY_ADDRESS ());
   return sp;
 }
- 
-/* Function: frame_saved_pc 
+
+/* Function: frame_saved_pc
    Find the caller of this frame.  We do this by seeing if RP_REGNUM
    is saved in the stack anywhere, otherwise we get it from the
    registers.  If the inner frame is a dummy frame, return its PC
@@ -554,7 +554,7 @@ get_saved_register (raw_buffer, optimized, addrp, frame, regnum, lval)
      int regnum;
      enum lval_type *lval;
 {
-  generic_get_saved_register (raw_buffer, optimized, addrp, 
+  generic_get_saved_register (raw_buffer, optimized, addrp,
 			      frame, regnum, lval);
 }
 

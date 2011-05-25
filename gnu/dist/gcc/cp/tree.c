@@ -61,7 +61,7 @@ real_lvalue_p (ref)
 {
   if (! language_lvalue_valid (ref))
     return 0;
-  
+
   if (TREE_CODE (TREE_TYPE (ref)) == REFERENCE_TYPE)
     return 1;
 
@@ -139,7 +139,7 @@ lvalue_p (ref)
 {
   if (! language_lvalue_valid (ref))
     return 0;
-  
+
   if (TREE_CODE (TREE_TYPE (ref)) == REFERENCE_TYPE)
     return 1;
 
@@ -520,7 +520,7 @@ cp_build_type_variant (type, constp, volatilep)
 {
   if (type == error_mark_node)
     return type;
-  
+
   if (TREE_CODE (type) == ARRAY_TYPE)
     {
       tree real_main_variant = TYPE_MAIN_VARIANT (type);
@@ -1232,7 +1232,7 @@ make_binfo (offset, binfo, vtable, virtuals, chain)
   BINFO_VPTR_FIELD (new_binfo) = NULL_TREE;
 
   if (binfo && BINFO_BASETYPES (binfo) != NULL_TREE)
-    BINFO_BASETYPES (new_binfo) = copy_node (BINFO_BASETYPES (binfo));      
+    BINFO_BASETYPES (new_binfo) = copy_node (BINFO_BASETYPES (binfo));
   return new_binfo;
 }
 
@@ -1358,12 +1358,12 @@ is_overloaded_fn (x)
 int
 really_overloaded_fn (x)
      tree x;
-{     
+{
   /* A baselink is also considered an overloaded function.
      This might also be an ambiguous class member. */
   if (TREE_CODE (x) == TREE_LIST)
     x = TREE_VALUE (x);
-  return (TREE_CODE (x) == OVERLOAD 
+  return (TREE_CODE (x) == OVERLOAD
 	  && (TREE_CHAIN (x) != NULL_TREE
 	      || DECL_FUNCTION_TEMPLATE_P (OVL_FUNCTION (x))));
 }
@@ -1390,7 +1390,7 @@ ovl_cons (decl, chain)
   TREE_TYPE (result) = unknown_type_node;
   OVL_FUNCTION (result) = decl;
   TREE_CHAIN (result) = chain;
-  
+
   return result;
 }
 
@@ -1551,7 +1551,7 @@ build_exception_variant (type, raises)
   return v;
 }
 
-/* Given a TEMPLATE_TEMPLATE_PARM node T, create a new one together with its 
+/* Given a TEMPLATE_TEMPLATE_PARM node T, create a new one together with its
    lang_specific field and its corresponding TEMPLATE_DECL node */
 
 tree
@@ -1601,7 +1601,7 @@ mapcar (t, func)
       /* Rather than aborting, return error_mark_node.  This allows us
 	 to report a sensible error message on code like this:
 
-	 void g() { int i; f<i>(7); } 
+	 void g() { int i; f<i>(7); }
 
          In a case like:
 
@@ -1804,7 +1804,7 @@ mapcar (t, func)
 	return build_ptrmemfunc_type
 	  (mapcar (TYPE_PTRMEMFUNC_FN_TYPE (t), func));
       /* else fall through */
-      
+
       /*  This list is incomplete, but should suffice for now.
 	  It is very important that `sorry' not call
 	  `report_error_function'.  That could cause an infinite loop.  */
@@ -1959,7 +1959,7 @@ bot_manip (t)
 
   return NULL_TREE;
 }
-  
+
 /* Actually, we'll just clean out the target exprs for the moment.  */
 
 tree
@@ -2075,7 +2075,7 @@ get_type_decl (t)
     return t;
   if (TREE_CODE_CLASS (TREE_CODE (t)) == 't')
     return TYPE_STUB_DECL (t);
-  
+
   my_friendly_abort (42);
 
   /* Stop compiler from complaining control reaches end of non-void function.  */

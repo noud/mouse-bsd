@@ -34,16 +34,16 @@ __KERNEL_RCSID(0, "$NetBSD: mcclock_pad32.c,v 1.9 1998/04/19 07:50:25 jonathan E
 
 /*
  * mc1461818 (or compatible) clock chip driver,  for machines where each
- * byte-wide mcclock chip register is  mapped 
+ * byte-wide mcclock chip register is  mapped
  * into the low-order byte of a little-endian 32-bit word.
- * 
+ *
  *  DECstation 2100/3100
  *  DECstation 5100
  *  DECstation 5000/200 baseboard
  *  IOCTL asic machines (Alpha  3000 series, Decstation 5000 series)
  *
  * bus-specific frontends should just declare an attach and match
- * entry, and set up a initializea switch to call the functions below. 
+ * entry, and set up a initializea switch to call the functions below.
  */
 
 #include <sys/param.h>

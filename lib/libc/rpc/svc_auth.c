@@ -7,11 +7,11 @@
  * may copy or modify Sun RPC without charge, but are not authorized
  * to license or distribute it to anyone else except as part of a product or
  * program developed by the user.
- * 
+ *
  * SUN RPC IS PROVIDED AS IS WITH NO WARRANTIES OF ANY KIND INCLUDING THE
  * WARRANTIES OF DESIGN, MERCHANTIBILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE, OR ARISING FROM A COURSE OF DEALING, USAGE OR TRADE PRACTICE.
- * 
+ *
  * Sun RPC is provided with no support and without any obligation on the
  * part of Sun Microsystems, Inc. to assist in its use, correction,
  * modification or enhancement.
@@ -51,16 +51,16 @@ __RCSID("$NetBSD: svc_auth.c,v 1.10 1999/09/20 04:39:24 lukem Exp $");
 #include <rpc/rpc.h>
 
 /*
- * svcauthsw is the bdevsw of server side authentication. 
- * 
+ * svcauthsw is the bdevsw of server side authentication.
+ *
  * Server side authenticators are called from authenticate by
  * using the client auth struct flavor field to index into svcauthsw.
- * The server auth flavors must implement a routine that looks  
- * like: 
- * 
+ * The server auth flavors must implement a routine that looks
+ * like:
+ *
  *	enum auth_stat
  *	flavorx_auth(rqst, msg)
- *		struct svc_req *rqst; 
+ *		struct svc_req *rqst;
  *		struct rpc_msg *msg;
  *
  */

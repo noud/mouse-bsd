@@ -82,14 +82,14 @@
  * PCI spaces are non-cached and little endian
  */
 
-enum bus_type { 
+enum bus_type {
 	UPA_BUS_SPACE,
 	SBUS_BUS_SPACE,
 	PCI_CONFIG_BUS_SPACE,
 	PCI_IO_BUS_SPACE,
 	PCI_MEMORY_BUS_SPACE,
 	LAST_BUS_SPACE
-}; 
+};
 extern int bus_type_asi[];
 /* For backwards compatibility */
 #define SPARC_BUS_SPACE	UPA_BUS_SPACE
@@ -572,7 +572,7 @@ int bus_space_probe __P((
 #define	BUS_DMA_ALLOCNOW	0x02	/* perform resource allocation now */
 #define	BUS_DMA_COHERENT	0x04	/* hint: map memory DMA coherent */
 #define	BUS_DMA_NOWRITE		0x08	/* I suppose the following two should default on */
-#define	BUS_DMA_NOCACHE		0x10	
+#define	BUS_DMA_NOCACHE		0x10
 #define	BUS_DMA_BUS2		0x20
 #define	BUS_DMA_BUS3		0x40
 #define	BUS_DMA_BUS4		0x80
@@ -736,7 +736,7 @@ int	_bus_dmamem_alloc_range __P((bus_dma_tag_t tag, bus_size_t size,
 	    vaddr_t low, vaddr_t high));
 #endif /* _SPARC_BUS_DMA_PRIVATE */
 
-/* 
+/*
  * DVMA alloc/free until each bus gets its own map in 64-bit land.
  */
 bus_addr_t dvmamap_alloc __P((int, int));

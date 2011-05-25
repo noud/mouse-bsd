@@ -2,9 +2,9 @@
  * This file is te-pc532.h
  *
  * Written by Ian Dall <idall@eleceng.adelaide.edu.au>
- * 
+ *
  * 24-May-94
- * 
+ *
  */
 
 #define TARGET_FORMAT		"a.out-pc532-mach"

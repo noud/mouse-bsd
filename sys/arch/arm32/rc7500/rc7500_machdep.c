@@ -40,7 +40,7 @@
  *
  * Machine dependant functions for kernel setup
  *
- * This file needs a lot of work. 
+ * This file needs a lot of work.
  *
  * Created      : 17/09/94
  */
@@ -265,7 +265,7 @@ cpu_reboot(howto, bootstr)
 	/* Do a dump if requested. */
 	if ((howto & (RB_DUMP | RB_HALT)) == RB_DUMP)
 		dumpsys();
-	
+
 
 	/*
 	 * Auto reboot overload protection
@@ -486,7 +486,7 @@ initarm(prom_id)
 	 * The secondary bootstrap has the responcibility to sort locating the
 	 * kernel to the correct address and for creating the kernel page
 	 * tables. It must also set up various memory pointers that are used
-	 * by pmap etc.  
+	 * by pmap etc.
 	 */
 
 #ifdef PROM_DEBUG
@@ -503,7 +503,7 @@ initarm(prom_id)
 	    + bootconfig.dram[bootconfig.dramblocks - 1].pages * NBPG;
 	physical_freeend = physical_end;
 	free_pages = bootconfig.drampages - reserv_mem / NBPG;
-    
+
 	bootconfig.dram[0].address += reserv_mem;
 	bootconfig.dram[0].pages -= reserv_mem / NBPG;
 	for (loop = 0; loop < bootconfig.dramblocks; ++loop)
@@ -640,10 +640,10 @@ initarm(prom_id)
 	valloc_pages(kernelstack, UPAGES);
 
 #ifdef VERBOSE_INIT_ARM
-	printf("IRQ stack: p0x%08lx v0x%08lx\n", irqstack.pv_pa, irqstack.pv_va); 
-	printf("ABT stack: p0x%08lx v0x%08lx\n", abtstack.pv_pa, abtstack.pv_va); 
-	printf("UND stack: p0x%08lx v0x%08lx\n", undstack.pv_pa, undstack.pv_va); 
-	printf("SVC stack: p0x%08lx v0x%08lx\n", kernelstack.pv_pa, kernelstack.pv_va); 
+	printf("IRQ stack: p0x%08lx v0x%08lx\n", irqstack.pv_pa, irqstack.pv_va);
+	printf("ABT stack: p0x%08lx v0x%08lx\n", abtstack.pv_pa, abtstack.pv_va);
+	printf("UND stack: p0x%08lx v0x%08lx\n", undstack.pv_pa, undstack.pv_va);
+	printf("SVC stack: p0x%08lx v0x%08lx\n", kernelstack.pv_pa, kernelstack.pv_va);
 #endif
 
 #ifdef PROM_DEBUG

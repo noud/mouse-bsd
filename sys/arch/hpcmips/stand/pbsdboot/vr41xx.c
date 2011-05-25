@@ -67,7 +67,7 @@ vr41xx_asm_code_holder()
  *   register unsigned char *addr;
  *   register unsigned char *p;
  *   register int i;
- * 
+ *
  *   addr = map->base;
  *   i = 0;
  *   while (p = map->leaf[i / map->leafsize][i % map->leafsize]) {

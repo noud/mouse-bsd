@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Guess values for system-dependent variables and create Makefiles.
-# Generated automatically using autoconf version 2.13 
+# Generated automatically using autoconf version 2.13
 # Copyright (C) 1992, 93, 94, 95, 96 Free Software Foundation, Inc.
 #
 # This configure script is free software; the Free Software Foundation
@@ -664,7 +664,7 @@ if test "${enable_c_cpplib+set}" = set; then
 fi
 fi
 
-  
+
 # Enable Haifa scheduler.
 # Check whether --enable-haifa or --disable-haifa was given.
 if test "${enable_haifa+set}" = set; then
@@ -1669,7 +1669,7 @@ if eval "test \"`echo '$ac_cv_header_'$ac_safe`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_hdr 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -1869,7 +1869,7 @@ if eval "test \"`echo '$ac_cv_func_'$ac_func`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_func 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -2307,7 +2307,7 @@ for machine in $build $host $target; do
 
 	tm_file=${cpu_type}/${cpu_type}.h
 	xm_file=${cpu_type}/xm-${cpu_type}.h
-	
+
 	# Common parts for linux-gnu and openbsd systems
 	case $machine in
 	*-*-linux-gnu*)
@@ -2318,7 +2318,7 @@ for machine in $build $host $target; do
 		# On OpenBSD systems, the headers are okay
 		fixincludes=Makefile.in
 		tmake_file="t-libc-ok t-openbsd"
-		# avoid surprises, always provide an xm-openbsd file 
+		# avoid surprises, always provide an xm-openbsd file
 		xm_file=${cpu_type}/xm-openbsd.h
  		if test x$enable_threads = xyes; then
  			thread_file='posix'
@@ -2411,7 +2411,7 @@ for machine in $build $host $target; do
 		target_cpu_default="MASK_GAS"
 		xmake_file=none
 		;;
-		
+
 	alpha*-dec-osf*)
 		if [ x$stabs = xyes ]
 		then
@@ -2444,7 +2444,7 @@ for machine in $build $host $target; do
 		;;
  	alpha*-*-vxworks*)
 		tm_file="${tm_file} dbx.h alpha/vxworks.h"
-		if  x$gas != xyes 
+		if  x$gas != xyes
 		then
 			extra_passes="mips-tfile mips-tdump"
 		fi
@@ -2545,7 +2545,7 @@ for machine in $build $host $target; do
 		fixincludes=Makefile.in
 		;;
 	c38-convex-*)
-		target_cpu_default=16		
+		target_cpu_default=16
 		use_collect2=yes
 		fixincludes=Makefile.in
 		;;
@@ -2937,8 +2937,8 @@ for machine in $build $host $target; do
 	i[34567]86-*-linux-gnulibc1)	# Intel 80386's running GNU/Linux
 					# with ELF format using the
 					# GNU/Linux C library 5
-		xmake_file=x-linux	
-		tm_file=i386/linux.h	
+		xmake_file=x-linux
+		tm_file=i386/linux.h
 		tmake_file="t-linux t-linux-gnulibc1 i386/t-crtstuff"
 		extra_parts="crtbegin.o crtbeginS.o crtend.o crtendS.o"
 		fixincludes=Makefile.in #On Linux, the headers are ok already.
@@ -4952,7 +4952,7 @@ for machine in $build $host $target; do
 				target_cpu_default2="MASK_CPU_EV5"
 				;;
 		esac
-				
+
 		if [ x$gas = xyes ]
 		then
 			if [ "$target_cpu_default2" = "" ]
@@ -5217,7 +5217,7 @@ null_defines=
 host_xm_file="auto-host.h ${host_xm_file}"
 
 # If host=build, it is correct to have hconfig include auto-host.h
-# as well.  If host!=build, we are in error and need to do more 
+# as well.  If host!=build, we are in error and need to do more
 # work to find out the build config parameters.
 if [ x$host = x$build ]
 then
@@ -5226,7 +5226,7 @@ else
 	# We create a subdir, then run autoconf in the subdir.
 	# To prevent recursion we set host and build for the new
 	# invocation of configure to the build for this invocation
-	# of configure. 
+	# of configure.
 	tempdir=build.$$
 	rm -rf $tempdir
 	mkdir $tempdir
@@ -5677,7 +5677,7 @@ fi
 
 
 
-	
+
 # If this is using newlib, then define inhibit_libc in
 # LIBGCC2_CFLAGS.  This will cause __eprintf to be left out of
 # libgcc.a, but that's OK because newib should have its own version of

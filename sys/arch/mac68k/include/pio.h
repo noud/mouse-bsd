@@ -1,6 +1,6 @@
 /*	$NetBSD: pio.h,v 1.3 1994/10/26 08:46:38 cgd Exp $	*/
 
-/* 
+/*
  * Mach Operating System
  * Copyright (c) 1990 Carnegie-Mellon University
  * All rights reserved.  The CMU software License Agreement specifies

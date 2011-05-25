@@ -194,7 +194,7 @@ static u_int8_t io_read_1 (sc, off)
 	u_int32_t off;
 {
 	u_int8_t val;
-	
+
 	bus_space_write_1(sc->sc_iot, sc->sc_ioh, AM79C930_LMA_HI,
 	    ((off>>8)& 0x7f));
 	AM930_DELAY(1);
@@ -219,7 +219,7 @@ static u_int16_t io_read_2 (sc, off)
 	val = bus_space_read_1(sc->sc_iot, sc->sc_ioh, AM79C930_IODPA);
 	AM930_DELAY(1);
 	val |= bus_space_read_1(sc->sc_iot, sc->sc_ioh, AM79C930_IODPA) << 8;
-	AM930_DELAY(1);	
+	AM930_DELAY(1);
 	return val;
 }
 
@@ -237,11 +237,11 @@ static u_int32_t io_read_4 (sc, off)
 	val = bus_space_read_1(sc->sc_iot, sc->sc_ioh, AM79C930_IODPA);
 	AM930_DELAY(1);
 	val |= bus_space_read_1(sc->sc_iot, sc->sc_ioh, AM79C930_IODPA) << 8;
-	AM930_DELAY(1);	
+	AM930_DELAY(1);
 	val |= bus_space_read_1(sc->sc_iot, sc->sc_ioh, AM79C930_IODPA) << 16;
-	AM930_DELAY(1);	
+	AM930_DELAY(1);
 	val |= bus_space_read_1(sc->sc_iot, sc->sc_ioh, AM79C930_IODPA) << 24;
-	AM930_DELAY(1);	
+	AM930_DELAY(1);
 	return val;
 }
 
@@ -252,13 +252,13 @@ static void io_read_bytes (sc, off, ptr, len)
 	size_t len;
 {
 	int i;
-	
+
 	bus_space_write_1(sc->sc_iot, sc->sc_ioh, AM79C930_LMA_HI,
 	    ((off>>8)& 0x7f));
 	AM930_DELAY(1);
 	bus_space_write_1(sc->sc_iot, sc->sc_ioh, AM79C930_LMA_LO, (off&0xff));
 	AM930_DELAY(1);
-	for (i=0; i<len; i++) 
+	for (i=0; i<len; i++)
 		ptr[i] = bus_space_read_1(sc->sc_iot, sc->sc_ioh,
 		    AM79C930_IODPA);
 }
@@ -343,7 +343,7 @@ void am79c930_gcr_setbits (sc, bits)
 	u_int8_t gcr = bus_space_read_1 (sc->sc_iot, sc->sc_ioh, AM79C930_GCR);
 
 	gcr |= bits;
-	
+
 	bus_space_write_1(sc->sc_iot, sc->sc_ioh, AM79C930_GCR, gcr);
 }
 
@@ -358,7 +358,7 @@ void am79c930_gcr_clearbits (sc, bits)
 	u_int8_t gcr = bus_space_read_1 (sc->sc_iot, sc->sc_ioh, AM79C930_GCR);
 
 	gcr &= ~bits;
-	
+
 	bus_space_write_1(sc->sc_iot, sc->sc_ioh, AM79C930_GCR, gcr);
 }
 
@@ -368,8 +368,8 @@ u_int8_t am79c930_gcr_read (sc)
 	return bus_space_read_1 (sc->sc_iot, sc->sc_ioh, AM79C930_GCR);
 }
 
-#if 0 
-void am79c930_regdump (sc) 
+#if 0
+void am79c930_regdump (sc)
 	struct am79c930_softc *sc;
 {
 	u_int8_t buf[8];

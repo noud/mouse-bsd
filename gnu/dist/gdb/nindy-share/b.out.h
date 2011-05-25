@@ -122,7 +122,7 @@ struct nlist {
  *		'bal' entry point to the procedure (see following).  These
  *		entries come from '.leafproc' directives in which two different
  *		symbols are specified (the first one is represented here).
- *	
+ *
  *
  *	n_other == N_BALNAME
  *		the symbol is the 'bal' entry point to a leaf procedure.

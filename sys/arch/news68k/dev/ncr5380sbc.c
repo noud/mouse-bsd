@@ -1218,7 +1218,7 @@ ncr5380_reselect(sc)
 		goto abort;
 	}
 	lun = msg & 7;
-	
+
 	/* We now know target/LUN.  Do we have the request? */
 	sr = sc->sc_matrix[target][lun];
 	if (sr) {
@@ -1857,7 +1857,7 @@ nextmsg:
 			goto noop;
 		}
 		/*
-		 * The identify message we send determines whether 
+		 * The identify message we send determines whether
 		 * disconnect/reselect is allowed for this command.
 		 * 0xC0+LUN: allows it, 0x80+LUN disallows it.
 		 */

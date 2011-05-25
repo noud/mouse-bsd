@@ -57,7 +57,7 @@ __RCSID("$NetBSD: bad144.c,v 1.15 1998/10/20 01:48:14 matt Exp $");
  *
  * It is preferable to write the bad information with a standard formatter,
  * but this program will do.
- * 
+ *
  * RP06 sectors are marked as bad by inverting the format bit in the
  * header; on other drives the valid-sector bit is cleared.
  */
@@ -163,7 +163,7 @@ usage:
 	if (f < 0)
 		err(4, "opendisk `%s'", diskname);
 #ifdef was
-	if (read(f, label, sizeof(label)) < 0) 
+	if (read(f, label, sizeof(label)) < 0)
 		err(4, "read `%s'", diskname);
 	for (dp = (struct disklabel *)(label + LABELOFFSET);
 	    dp < (struct disklabel *)
@@ -193,7 +193,7 @@ usage:
 		size = dp->d_partitions[2].p_offset + dp->d_partitions[2].p_size;
 	} else
 #endif
-	size = dp->d_nsectors * dp->d_ntracks * dp->d_ncylinders; 
+	size = dp->d_nsectors * dp->d_ntracks * dp->d_ncylinders;
 	argc--;
 	argv++;
 	if (argc == 0) {

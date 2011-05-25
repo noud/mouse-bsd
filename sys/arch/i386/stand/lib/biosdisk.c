@@ -96,7 +96,7 @@ struct biosdisk {
 static struct btinfo_bootdisk bi_disk;
 #endif
 
-int 
+int
 biosdiskstrategy(devdata, flag, dblk, size, buf, rsize)
 	void           *devdata;
 	int             flag;
@@ -137,7 +137,7 @@ biosdiskstrategy(devdata, flag, dblk, size, buf, rsize)
 }
 
 #ifdef COMPAT_OLDBOOT
-int 
+int
 biosdisk_gettype(f)
 	struct open_file *f;
 {
@@ -146,7 +146,7 @@ biosdisk_gettype(f)
 }
 #endif
 
-int 
+int
 biosdiskopen(struct open_file *f, ...)
 /* file, biosdev, partition */
 {
@@ -286,7 +286,7 @@ out:
 }
 
 #ifndef LIBSA_NO_FS_CLOSE
-int 
+int
 biosdiskclose(f)
 	struct open_file *f;
 {
@@ -301,7 +301,7 @@ biosdiskclose(f)
 }
 #endif
 
-int 
+int
 biosdiskioctl(f, cmd, arg)
 	struct open_file *f;
 	u_long          cmd;

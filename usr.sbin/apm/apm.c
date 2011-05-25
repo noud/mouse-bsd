@@ -273,7 +273,7 @@ main(int argc, char *argv[])
     default:
 	usage();
     }
-    
+
     if ((rval = send_command(fd, &command, &reply)) == 0) {
 	switch (action) {
 	case GETSTATUS:

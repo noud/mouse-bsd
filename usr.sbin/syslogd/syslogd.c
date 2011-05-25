@@ -239,11 +239,11 @@ main(argc, argv)
 			MarkInterval = atoi(optarg) * 60;
 			break;
 		case 'p':		/* path */
-			logpath_add(&LogPaths, &funixsize, 
+			logpath_add(&LogPaths, &funixsize,
 			    &funixmaxsize, optarg);
 			break;
 		case 'P':		/* file of paths */
-			logpath_fileadd(&LogPaths, &funixsize, 
+			logpath_fileadd(&LogPaths, &funixsize,
 			    &funixmaxsize, optarg);
 			break;
 		case 's':		/* no network mode */
@@ -290,7 +290,7 @@ main(argc, argv)
 #define SUN_LEN(unp) (strlen((unp)->sun_path) + 2)
 #endif
 	if (funixsize == 0)
-		logpath_add(&LogPaths, &funixsize, 
+		logpath_add(&LogPaths, &funixsize,
 		    &funixmaxsize, _PATH_LOG);
 	funix = (int *)malloc(sizeof(int) * funixsize);
 	if (funix == NULL) {
@@ -792,17 +792,17 @@ fprintlog(f, flags, msg)
 		if (finet) {
 			for (r = f->f_un.f_forw.f_addr; r; r = r->ai_next) {
 				for (j = 0; j < *finet; j++) {
-#if 0 
+#if 0
 					/*
 					 * should we check AF first, or just
 					 * trial and error? FWD
 					 */
 					if (r->ai_family ==
-					    address_family_of(finet[j+1])) 
+					    address_family_of(finet[j+1]))
 #endif
 					lsent = sendto(finet[j+1], line, l, 0,
 					    r->ai_addr, r->ai_addrlen);
-					if (lsent == l) 
+					if (lsent == l)
 						break;
 				}
 			}

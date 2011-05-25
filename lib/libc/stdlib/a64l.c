@@ -36,7 +36,7 @@ a64l(s)
 		else if (*s <= 'Z')
 			digit = *s - 'A' + 12;
 		else
-			digit = *s - 'a' + 38; 
+			digit = *s - 'a' + 38;
 
 		value |= digit << shift;
 		shift += 6;

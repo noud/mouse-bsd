@@ -131,7 +131,7 @@ cron_pclose(iop)
 	if (pids == 0 || pids[fdes = fileno(iop)] == 0)
 		return(-1);
 	(void)fclose(iop);
-	
+
 	sigemptyset(&nset);
 	sigaddset(&nset, SIGINT);
 	sigaddset(&nset, SIGQUIT);

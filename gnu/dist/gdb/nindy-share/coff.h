@@ -38,7 +38,7 @@ struct filehdr {
 
 /*
  *	Intel 80960 (I960) processor flags.
- *	F_I960TYPE == mask for processor type field. 
+ *	F_I960TYPE == mask for processor type field.
  */
 #define	F_I960TYPE		0170000
 #define	F_I960CA		0010000
@@ -120,7 +120,7 @@ typedef	struct aouthdr {
 #define C_HIDDEN	106	/* ext symbol in dmert public lib */
 
 	/* New storage classes for 80960 */
- 
+
 #define C_SCALL		107	/* Procedure reachable via system call	*/
 #define C_LEAFPROC	108	/* Leaf procedure, "call" via BAL	*/
 
@@ -176,7 +176,7 @@ struct lineno{
 };
 
 #define	LINENO	struct lineno
-#define	LINESZ	sizeof(LINENO) 
+#define	LINESZ	sizeof(LINENO)
 
 
 /********************** SYMBOLS **********************/
@@ -307,7 +307,7 @@ union auxent {
 };
 
 #define	SYMENT	struct syment
-#define	SYMESZ	sizeof(SYMENT)	
+#define	SYMESZ	sizeof(SYMENT)
 #define	AUXENT	union auxent
 #define	AUXESZ	sizeof(AUXENT)
 

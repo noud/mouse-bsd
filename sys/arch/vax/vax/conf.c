@@ -376,7 +376,7 @@ cdev_decl(vnd);
 #include "bpfilter.h"
 cdev_decl(bpf);
 
-#include "tun.h" 
+#include "tun.h"
 cdev_decl(tun);
 cdev_decl(cd);
 #include "ch.h"

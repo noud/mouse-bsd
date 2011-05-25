@@ -254,7 +254,7 @@ cs4231_malloc(addr, direction, size, pool, flags)
 		return (NULL);
 	}
 
-	error = bus_dmamem_map(sc->sc_dmatag, p->segs, p->nsegs, p->size, 
+	error = bus_dmamem_map(sc->sc_dmatag, p->segs, p->nsegs, p->size,
 			       &p->addr, BUS_DMA_NOWAIT|BUS_DMA_COHERENT);
 	if (error) {
 		bus_dmamem_free(sc->sc_dmatag, p->segs, p->nsegs);
@@ -373,7 +373,7 @@ cs4231_getdev(addr, retp)
 
 static ad1848_devmap_t csmapping[] = {
 	{ CSAUDIO_DAC_LVL, AD1848_KIND_LVL, AD1848_AUX1_CHANNEL },
-	{ CSAUDIO_LINE_IN_LVL, AD1848_KIND_LVL, AD1848_LINE_CHANNEL }, 
+	{ CSAUDIO_LINE_IN_LVL, AD1848_KIND_LVL, AD1848_LINE_CHANNEL },
 	{ CSAUDIO_MONO_LVL, AD1848_KIND_LVL, AD1848_MONO_CHANNEL },
 	{ CSAUDIO_CD_LVL, AD1848_KIND_LVL, AD1848_AUX2_CHANNEL },
 	{ CSAUDIO_MONITOR_LVL, AD1848_KIND_LVL, AD1848_MONITOR_CHANNEL },
@@ -504,7 +504,7 @@ cs4231_query_devinfo(addr, dip)
 		dip->prev = CSAUDIO_LINE_IN_LVL;
 		dip->next = AUDIO_MIXER_LAST;
 		goto mute;
-		
+
 	case CSAUDIO_DAC_MUTE:
 		dip->mixer_class = CSAUDIO_INPUT_CLASS;
 		dip->type = AUDIO_MIXER_ENUM;
@@ -518,7 +518,7 @@ cs4231_query_devinfo(addr, dip)
 		dip->prev = CSAUDIO_CD_LVL;
 		dip->next = AUDIO_MIXER_LAST;
 		goto mute;
-		
+
 	case CSAUDIO_MONO_MUTE:
 		dip->mixer_class = CSAUDIO_INPUT_CLASS;
 		dip->type = AUDIO_MIXER_ENUM;
@@ -539,7 +539,7 @@ cs4231_query_devinfo(addr, dip)
 		strcpy(dip->un.e.member[1].label.name, AudioNon);
 		dip->un.e.member[1].ord = 1;
 		break;
-		
+
 	case CSAUDIO_REC_LVL:	/* record level */
 		dip->type = AUDIO_MIXER_VALUE;
 		dip->mixer_class = CSAUDIO_RECORD_CLASS;
@@ -587,7 +587,7 @@ cs4231_query_devinfo(addr, dip)
 		dip->next = dip->prev = AUDIO_MIXER_LAST;
 		strcpy(dip->label.name, AudioCmonitor);
 		break;
-		    
+
 	case CSAUDIO_RECORD_CLASS:		/* record source class */
 		dip->type = AUDIO_MIXER_CLASS;
 		dip->mixer_class = CSAUDIO_RECORD_CLASS;
@@ -652,7 +652,7 @@ cs4231_trigger_output(addr, start, end, blksize, intr, arg, param)
 
 	DPRINTF(("trigger_out: start %p, end %p, size %lu; "
 		 "dmaaddr 0x%lx, dmacnt %lu, segsize %lu\n",
-		 start, end, (u_long)sc->sc_playsegsz, 
+		 start, end, (u_long)sc->sc_playsegsz,
 		 (u_long)p->segs[0].ds_addr,
 		 (u_long)n, (u_long)p->size));
 

@@ -68,7 +68,7 @@ rcons_cnputc(c)
 {
 	char buf[1];
 	long attr;
-	
+
 	/* Swap in kernel attribute */
 	attr = mydevicep->rc_attr;
 	mydevicep->rc_attr = mydevicep->rc_kern_attr;
@@ -179,7 +179,7 @@ rcons_init(rc, clear)
 	struct winsize *ws;
 
 	mydevicep = rc;
-	
+
 	/* Let the system know how big the console is */
 	ws = &fbconstty->t_winsize;
 	ws->ws_row = rc->rc_maxrow;

@@ -121,8 +121,8 @@ cpu_initclocks()
 	 */
 	s = splhigh();
 	/*
-	 * XXX 
-	 * I guess it's necessary to program clock source with 
+	 * XXX
+	 * I guess it's necessary to program clock source with
 	 * approprivate mode/value.
 	 * XXX
 	 */

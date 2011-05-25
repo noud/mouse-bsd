@@ -100,7 +100,7 @@ void
 putchar(c)
 	int c;
 {
- 
+
 	if (c == '\n')
 		prom_putchar('\r');
 	prom_putchar(c);
@@ -296,7 +296,7 @@ oldmon_strategy(devdata, flag, dblk, size, buf, rsize)
 #endif
 
 	dmabuf = dvma_mapin(buf, size);
-	
+
 	si->si_bn = dblk;
 	si->si_ma = dmabuf;
 	si->si_cc = size;
@@ -679,7 +679,7 @@ static struct mapinfo {
 	{ MAP_MAINMEM,   PG_OBMEM | PG_COMMON, 0 },
 	{ MAP_OBIO,      PG_OBIO  | PG_COMMON, 0 },
 	{ MAP_MBMEM,     PG_VME16 | PG_COMMON, 0xFF000000 },
-	{ MAP_MBIO,      PG_VME16 | PG_COMMON, 0xFFFF0000 }, 
+	{ MAP_MBIO,      PG_VME16 | PG_COMMON, 0xFFFF0000 },
 	{ MAP_VME16A16D, PG_VME16 | PG_COMMON, 0xFFFF0000 },
 	{ MAP_VME16A32D, PG_VME32 | PG_COMMON, 0xFFFF0000 },
 	{ MAP_VME24A16D, PG_VME16 | PG_COMMON, 0xFF000000 },

@@ -56,7 +56,7 @@ struct rtclock2000 {
 	u_int  :28, year1:4;	/* upper digit */
 	u_int  :28, weekday:4;	/* weekday */
 	u_int  :28, control1:4;	/* control-byte 1 */
-	u_int  :28, control2:4;	/* control-byte 2 */  
+	u_int  :28, control2:4;	/* control-byte 2 */
 	u_int  :28, control3:4;	/* control-byte 3 */
 };
 
@@ -85,7 +85,7 @@ struct rtclock3000 {
 	u_int  :28, year2:4;	/* 0x2f  lower digit */
 	u_int  :28, year1:4;	/* 0x33  upper digit */
 	u_int  :28, control1:4;	/* 0x37  control-byte 1 */
-	u_int  :28, control2:4;	/* 0x3b  control-byte 2 */  
+	u_int  :28, control2:4;	/* 0x3b  control-byte 2 */
 	u_int  :28, control3:4;	/* 0x3f  control-byte 3 */
 };
 

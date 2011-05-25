@@ -185,7 +185,7 @@ w89k_load (desc, file, hashmark)
       printf_filtered ("File is not an object file\n");
       return;
     }
-  
+
   for (s = abfd->sections; s; s = s->next)
     if (s->flags & SEC_LOAD)
       {
@@ -227,8 +227,8 @@ w89k_load (desc, file, hashmark)
 
 	putchar_unfiltered ('\n');
       }				/* Loadable sections */
-  
-  if (hashmark) 
+
+  if (hashmark)
     putchar_unfiltered ('\n');
 }
 

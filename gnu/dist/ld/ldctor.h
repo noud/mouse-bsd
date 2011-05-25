@@ -1,6 +1,6 @@
 /* ldctor.h - linker constructor support
    Copyright 1991, 1992, 1993 Free Software Foundation, Inc.
-   
+
 This file is part of GLD, the Gnu Linker.
 
 GLD is free software; you can redistribute it and/or modify

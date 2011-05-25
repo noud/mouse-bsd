@@ -10,7 +10,7 @@ SRCS=	alloc.c c_ksh.c c_sh.c c_test.c c_ulimit.c edit.c emacs.c \
 DPSRCS=	emacs.out siglist.out ksh.1
 
 # needs tbl for the man page.
-USETBL= 
+USETBL=
 
 # two steps to prevent the creation of a bogus siglist.out
 siglist.out: config.h sh.h siglist.in siglist.sh

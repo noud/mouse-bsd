@@ -93,7 +93,7 @@ lmsprobe(parent, match, aux)
 	bus_space_tag_t iot = ia->ia_iot;
 	bus_space_handle_t ioh;
 	int rv;
-	
+
 	/* Map the i/o space. */
 	if (bus_space_map(iot, ia->ia_iobase, LMS_NPORTS, 0, &ioh))
 		return 0;

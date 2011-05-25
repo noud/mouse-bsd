@@ -526,7 +526,7 @@ save_bullet(bp)
 	  case BOOT_PAIR:
 		mark_boot(bp);
 # endif
-		
+
 	  default:
 		Maze[bp->b_y][bp->b_x] = bp->b_type;
 		break;

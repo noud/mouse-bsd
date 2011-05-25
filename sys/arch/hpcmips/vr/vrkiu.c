@@ -484,7 +484,7 @@ vrkiuattach(parent, self, aux)
 	}
 	sc->sc_chip->kc_sc = sc;
 
-	if (!(sc->sc_handler = 
+	if (!(sc->sc_handler =
 	      vrip_intr_establish(va->va_vc, va->va_intr, IPL_TTY,
 				  vrkiu_intr, sc))) {
 		printf (": can't map interrupt line.\n");
@@ -547,7 +547,7 @@ detect_key(chip)
 		for (j = 0; j < 16; j++, mask <<= 1) {
 			/* XXX: The order of keys can be a problem.
 			   If CTRL and normal key are pushed simultaneously,
-			   normal key can be entered in queue first. 
+			   normal key can be entered in queue first.
 			   Same problem would occur in key break. */
 			if (modified & mask) {
 				int key, type;
@@ -558,7 +558,7 @@ detect_key(chip)
 				} else if (keytrans[key] == IGN) {
 					continue;
 				}
-				type = (scandata[i] & mask) ? 
+				type = (scandata[i] & mask) ?
 					WSCONS_EVENT_KEY_DOWN :
 					WSCONS_EVENT_KEY_UP;
 				DPRINTF(("(%d,%d)=%s%d ", i, j,

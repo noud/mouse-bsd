@@ -48,8 +48,8 @@ ${IMAGE}:	${TREE} ${LISTS} ${CBIN}
 	vnconfig -u ${VND_CDEV}
 
 unconfig:
-	-umount -f ${MOUNT_POINT}     
-	-vnconfig -u ${VND_CDEV}      
+	-umount -f ${MOUNT_POINT}
+	-vnconfig -u ${VND_CDEV}
 	-/bin/rm -f ${IMAGE}
 
 # Do not delete this if I change my mind and kill make...

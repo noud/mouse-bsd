@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -182,7 +182,7 @@ in6_ifattach_getifid(ifp0)
 			case IFT_ARCNET:
 				/*
 				 * ARCnet interface token cannot be used as
-				 * globally unique identifier due to its 
+				 * globally unique identifier due to its
 				 * small bitwidth.
 				 */
 				break;
@@ -318,7 +318,7 @@ in6_ifattach(ifp, type, laddr, noloop)
 
 	/*
 	 * To prevent to assign link-local address to PnP network
-	 * cards multiple times. 
+	 * cards multiple times.
 	 * This is lengthy for P2P and LOOP but works.
 	 */
 	ifa = TAILQ_FIRST(&ifp->if_addrlist);
@@ -455,7 +455,7 @@ in6_ifattach(ifp, type, laddr, noloop)
 	/* add route to the interface. */
 	rtrequest(RTM_ADD,
 		  (struct sockaddr *)&ia->ia_addr,
-		  (struct sockaddr *)&ia->ia_addr, 
+		  (struct sockaddr *)&ia->ia_addr,
 		  (struct sockaddr *)&ia->ia_prefixmask,
 		  RTF_UP|rtflag,
 		  (struct rtentry **)0);
@@ -509,7 +509,7 @@ in6_ifattach(ifp, type, laddr, noloop)
 
 		rtrequest(RTM_ADD,
 			  (struct sockaddr *)&ib->ia_addr,
-			  (struct sockaddr *)&ib->ia_addr, 
+			  (struct sockaddr *)&ib->ia_addr,
 			  (struct sockaddr *)&ib->ia_prefixmask,
 			  RTF_UP|RTF_HOST,
 			  (struct rtentry **)0);
@@ -541,7 +541,7 @@ in6_ifattach(ifp, type, laddr, noloop)
 		mltaddr.sin6_addr.s6_addr16[1] = htons(ifp->if_index);
 		rtrequest(RTM_ADD,
 			  (struct sockaddr *)&mltaddr,
-			  (struct sockaddr *)&ia->ia_addr, 
+			  (struct sockaddr *)&ia->ia_addr,
 			  (struct sockaddr *)&mltmask,
 			  RTF_UP|RTF_CLONING,  /* xxx */
 			  (struct rtentry **)0);
@@ -554,7 +554,7 @@ in6_ifattach(ifp, type, laddr, noloop)
 			mltaddr.sin6_addr = in6addr_nodelocal_allnodes;
 			rtrequest(RTM_ADD,
 				  (struct sockaddr *)&mltaddr,
-				  (struct sockaddr *)&ib->ia_addr, 
+				  (struct sockaddr *)&ib->ia_addr,
 				  (struct sockaddr *)&mltmask,
 				  RTF_UP,
 				  (struct rtentry **)0);
@@ -650,7 +650,7 @@ in6_ifdetach(ifp)
 			rtfree(rt);
 			rtrequest(RTM_DELETE,
 				(struct sockaddr *)&ia->ia_addr,
-				(struct sockaddr *)&ia->ia_addr, 
+				(struct sockaddr *)&ia->ia_addr,
 				(struct sockaddr *)&ia->ia_prefixmask,
 				rtflags, (struct rtentry **)0);
 		}

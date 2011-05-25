@@ -5,7 +5,7 @@
 
 PROJECT_DIRS=libsa pbsdboot
 
-winfiles: 
+winfiles:
 	for dir in $(PROJECT_DIRS); do \
 	    $$dir/$$dir.config; \
 	done

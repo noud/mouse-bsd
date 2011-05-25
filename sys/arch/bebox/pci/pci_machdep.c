@@ -210,7 +210,7 @@ pci_intr_string(pc, ih)
 
 	sprintf(irqstr, "irq %d", ih);
 	return (irqstr);
-	
+
 }
 
 void *

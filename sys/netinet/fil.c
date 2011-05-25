@@ -476,7 +476,7 @@ void *m;
 #else
 		if (opts & (OPT_VERBOSE|OPT_DEBUG))
 			printf("\n");
-		FR_VERBOSE(("%c", (pass & FR_PASS) ? 'p' : 
+		FR_VERBOSE(("%c", (pass & FR_PASS) ? 'p' :
 				  (pass & FR_AUTH) ? 'a' : 'b'));
 		if (fr->fr_ifa && fr->fr_ifa != fin->fin_ifp)
 			continue;
@@ -698,7 +698,7 @@ int out;
 
 	if (fin->fin_fi.fi_fl & FI_SHORT)
 		ATOMIC_INC(frstats[out].fr_short);
-	
+
 	/*
 	 * Check auth now.  This, combined with the check below to see if apass
 	 * is 0 is to ensure that we don't count the packet twice, which can
@@ -1348,10 +1348,10 @@ minor_t which;
 int set;
 {
 	frgroup_t *fg, **fgp;
- 
+
 	if (!(fg = fr_findgroup(num, flags, which, set, &fgp)))
 		return;
- 
+
 	*fgp = fg->fg_next;
 	KFREE(fg);
 }
@@ -1383,7 +1383,7 @@ frentry_t **listp;
 
 		ATOMIC_DEC(fp->fr_ref);
 		if (fp->fr_grhead) {
-			fr_delgroup((u_int)fp->fr_grhead, fp->fr_flags, 
+			fr_delgroup((u_int)fp->fr_grhead, fp->fr_flags,
 				    unit, set);
 			fp->fr_grhead = NULL;
 		}
@@ -1616,4 +1616,4 @@ struct in_addr *inp;
 {
 	return 0;
 }
-#endif       
+#endif

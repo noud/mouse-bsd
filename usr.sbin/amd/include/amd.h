@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: amd.h,v 1.3 1999/02/04 07:24:14 ezk Exp 
+ * Id: amd.h,v 1.3 1999/02/04 07:24:14 ezk Exp
  *
  */
 

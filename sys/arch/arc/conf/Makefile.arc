@@ -50,7 +50,7 @@ S=	../../../..
 ARC=	$S/arch/arc
 MIPS=	$S/arch/mips
 
-HAVE_GCC28!=	${CC} --version | egrep "^(2\.8|egcs)" ; echo 
+HAVE_GCC28!=	${CC} --version | egrep "^(2\.8|egcs)" ; echo
 INCLUDES=	-I. -I$S/arch -I$S -nostdinc
 CPPFLAGS=	${INCLUDES} ${IDENT} ${PARAM} -D_KERNEL -Darc
 # XXX: -Werror
@@ -192,7 +192,7 @@ depend: .depend
 #	${MKDEP} ${AFLAGS} ${CPPFLAGS} ${ARC}/arc/locore.S ${ARC}/arc/fp.S
 .depend: ${SRCS} assym.h param.c
 	${MKDEP} ${AFLAGS} ${CPPFLAGS} ${MIPS}/mips/locore.S ${MIPS}/mips/fp.S
-	${MKDEP} -a ${AFLAGS} ${CPPFLAGS} ${ARC}/arc/locore_machdep.S 
+	${MKDEP} -a ${AFLAGS} ${CPPFLAGS} ${ARC}/arc/locore_machdep.S
 	${MKDEP} -a ${CFLAGS} ${CPPFLAGS} param.c ioconf.c ${CFILES}
 	[ "${SFILES}" = "" ] || \
 	${MKDEP} -a ${AFLAGS} ${CPPFLAGS} ${SFILES}

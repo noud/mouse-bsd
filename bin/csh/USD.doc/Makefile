@@ -6,5 +6,5 @@ SRCS=	tabs csh.1 csh.2 csh.3 csh.4 csh.a csh.g
 MACROS= -ms
 
 paper.ps: ${SRCS}
-	${SOELIM} -I${.CURDIR} ${.ALLSRC} | ${ROFF} > ${.TARGET}                  
+	${SOELIM} -I${.CURDIR} ${.ALLSRC} | ${ROFF} > ${.TARGET}
 .include <bsd.doc.mk>

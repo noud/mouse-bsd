@@ -35,17 +35,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -329,11 +329,11 @@ osf1_mount_nfs(p, osf_argp, bsd_argp)
 	}
 	if (leftovers & OSF1_NFSMNT_TCP) {
 		leftovers &= ~OSF1_NFSMNT_TCP;
-		bsd_na.sotype = SOCK_DGRAM; 
-		bsd_na.proto = 0; 
+		bsd_na.sotype = SOCK_DGRAM;
+		bsd_na.proto = 0;
 	} else {
-		bsd_na.sotype = SOCK_STREAM; 
-		bsd_na.proto = 0; 
+		bsd_na.sotype = SOCK_STREAM;
+		bsd_na.proto = 0;
 	}
         if (leftovers != 0)
                 return (EINVAL);

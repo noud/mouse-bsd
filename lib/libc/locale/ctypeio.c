@@ -59,7 +59,7 @@ __loadctype(name)
 	if (memcmp(id, _CTYPE_ID, sizeof(id)) != 0)
 		goto bad;
 
-	if (fread(&i, sizeof(u_int32_t), 1, fp) != 1) 
+	if (fread(&i, sizeof(u_int32_t), 1, fp) != 1)
 		goto bad;
 
 	if ((i = ntohl(i)) != _CTYPE_REV)
@@ -146,7 +146,7 @@ __savectype(name, new_ctype, new_toupper, new_tolower)
 		goto bad;
 
 	i = htonl(_CTYPE_REV);
-	if (fwrite(&i, sizeof(u_int32_t), 1, fp) != 1) 
+	if (fwrite(&i, sizeof(u_int32_t), 1, fp) != 1)
 		goto bad;
 
 	i = htonl(len);

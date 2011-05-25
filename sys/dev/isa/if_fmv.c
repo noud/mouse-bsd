@@ -76,7 +76,7 @@ struct fe_simple_probe_struct {
 	u_char bits;	/* Values to be compared against. */
 };
 
-static __inline__ int fe_simple_probe __P((bus_space_tag_t, 
+static __inline__ int fe_simple_probe __P((bus_space_tag_t,
     bus_space_handle_t, struct fe_simple_probe_struct const *));
 static int fmv_find __P((bus_space_tag_t, bus_space_handle_t, int *,
     int *));

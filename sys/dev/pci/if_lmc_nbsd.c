@@ -319,7 +319,7 @@ lmc_pci_attach(struct device * const parent,
 	LMC_CSR_WRITE(sc, csr_busmode, TULIP_BUSMODE_SWRESET);
 
 	/*
-	 * Wait 10 microseconds (actually 50 PCI cycles but at 
+	 * Wait 10 microseconds (actually 50 PCI cycles but at
 	 * 33MHz that comes to two microseconds but wait a
 	 * bit longer anyways)
 	 */

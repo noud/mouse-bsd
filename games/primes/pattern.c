@@ -52,8 +52,8 @@ __RCSID("$NetBSD: pattern.c,v 1.5 1999/09/08 21:17:55 jsm Exp $");
  *
  *   chongo <for a good prime call: 391581 * 2^216193 - 1> /\oo/\
  *
- * To avoid excessive sieves for small factors, we use the table below to 
- * setup our sieve blocks.  Each element represents a odd number starting 
+ * To avoid excessive sieves for small factors, we use the table below to
+ * setup our sieve blocks.  Each element represents a odd number starting
  * with 1.  All non-zero elements are factors of 3, 5, 7, 11 and 13.
  */
 

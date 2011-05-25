@@ -67,7 +67,7 @@ static char *sparclet_regnames[NUM_REGS] = REGISTER_NAMES;
    Just returns with no action.
    This function is required, because parse_register_dump (monitor.c)
    expects to be able to call it.  If we don't supply something, it will
-   call a null pointer and core-dump.  Since this function does not 
+   call a null pointer and core-dump.  Since this function does not
    actually do anything, GDB will request the registers individually.  */
 
 static void
@@ -96,7 +96,7 @@ sparclet_load (desc, file, hashmark)
   /* enable user to specify address for downloading as 2nd arg to load */
 
   i = sscanf(file, "%*s 0x%lx", &load_offset);
-  if (i >= 1 ) 
+  if (i >= 1 )
     {
       char *p;
 
@@ -119,7 +119,7 @@ sparclet_load (desc, file, hashmark)
       printf_filtered ("File is not an object file\n");
       return;
     }
-  
+
   start_time = time (NULL);
 
   for (s = abfd->sections; s; s = s->next)
@@ -175,7 +175,7 @@ sparclet_load (desc, file, hashmark)
 
   end_time = time (NULL);
 
-  if (hashmark) 
+  if (hashmark)
     putchar_unfiltered ('\n');
 
   report_transfer_performance (data_count, start_time, end_time);
@@ -224,7 +224,7 @@ static struct monitor_ops sparclet_cmds =
   },
   {
     /* since the parsing of multiple bytes is difficult due to
-       interspersed addresses, we'll only read 1 value at a time, 
+       interspersed addresses, we'll only read 1 value at a time,
        even tho these can handle a count */
     /* we can use -n to set count to read, but may have to parse? */
     "ex %x -n 1 -b\r",		/* getmem.cmdb (addr, #bytes) */
@@ -287,10 +287,10 @@ _initialize_sparclet ()
   sparclet_ops.to_shortname = "sparclet"; /* for the target command */
   sparclet_ops.to_longname = "SPARC Sparclet monitor";
   /* use SW breaks; target only supports 2 HW breakpoints */
-  sparclet_ops.to_insert_breakpoint = memory_insert_breakpoint; 
-  sparclet_ops.to_remove_breakpoint = memory_remove_breakpoint; 
+  sparclet_ops.to_insert_breakpoint = memory_insert_breakpoint;
+  sparclet_ops.to_remove_breakpoint = memory_remove_breakpoint;
 
-  sparclet_ops.to_doc = 
+  sparclet_ops.to_doc =
     "Use a board running the Sparclet debug monitor.\n\
 Specify the serial device it is connected to (e.g. /dev/ttya).";
 

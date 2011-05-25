@@ -221,9 +221,9 @@ void	TIMER_DEQUEUE(struct event *ev);
  		ReleaseMutex(m_hListMutex); \
  	}
 
-#endif /* SYS_WINNT */  
+#endif /* SYS_WINNT */
 
-#endif /* TIMERQUEUE_DEBUG */  
+#endif /* TIMERQUEUE_DEBUG */
 
 /*
  * The interface structure is used to hold the addresses and socket
@@ -552,7 +552,7 @@ struct pkt {
  *  the maximum length NTP packet is a full length NTP control message with
  *  the maximum length message authenticator.  I hate to hard-code 468 and 12,
  *  but only a few modules include ntp_control.h...
- */   
+ */
 #define	RX_BUFF_SIZE	(468+12+MAX_MAC_LEN)
 
 struct recvbuf {

@@ -7,23 +7,23 @@
  * may copy or modify Sun RPC without charge, but are not authorized
  * to license or distribute it to anyone else except as part of a product or
  * program developed by the user.
- * 
+ *
  * SUN RPC IS PROVIDED AS IS WITH NO WARRANTIES OF ANY KIND INCLUDING THE
  * WARRANTIES OF DESIGN, MERCHANTIBILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE, OR ARISING FROM A COURSE OF DEALING, USAGE OR TRADE PRACTICE.
- * 
+ *
  * Sun RPC is provided with no support and without any obligation on the
  * part of Sun Microsystems, Inc. to assist in its use, correction,
  * modification or enhancement.
- * 
+ *
  * SUN MICROSYSTEMS, INC. SHALL HAVE NO LIABILITY WITH RESPECT TO THE
  * INFRINGEMENT OF COPYRIGHTS, TRADE SECRETS OR ANY PATENTS BY SUN RPC
  * OR ANY PART THEREOF.
- * 
+ *
  * In no event will Sun Microsystems, Inc. be liable for any lost revenue
  * or profits or other special, indirect and consequential damages, even if
  * Sun has been advised of the possibility of such damages.
- * 
+ *
  * Sun Microsystems, Inc.
  * 2550 Garcia Avenue
  * Mountain View, California  94043
@@ -191,7 +191,7 @@ svcudp_stat(xprt)
 	SVCXPRT *xprt;
 {
 
-	return (XPRT_IDLE); 
+	return (XPRT_IDLE);
 }
 
 static bool_t
@@ -234,8 +234,8 @@ svcudp_recv(xprt, msg)
 
 static bool_t
 svcudp_reply(xprt, msg)
-	SVCXPRT *xprt; 
-	struct rpc_msg *msg; 
+	SVCXPRT *xprt;
+	struct rpc_msg *msg;
 {
 	struct svcudp_data *su = su_data(xprt);
 	XDR *xdrs = &(su->su_xdrs);
@@ -314,7 +314,7 @@ svcudp_destroy(xprt)
 	(type *) mem_alloc((unsigned) (sizeof(type) * (size)))
 
 #define BZERO(addr, type, size)	 \
-	memset(addr, 0, sizeof(type) * (int) (size)) 
+	memset(addr, 0, sizeof(type) * (int) (size))
 
 /*
  * An entry in the cache
@@ -337,7 +337,7 @@ struct cache_node {
 	/*
  	 * Next node on the list, if there is a collision
 	 */
-	cache_ptr cache_next;	
+	cache_ptr cache_next;
 };
 
 
@@ -362,11 +362,11 @@ struct udp_cache {
  */
 #define CACHE_LOC(transp, xid)	\
 	(xid % (u_int32_t)(SPARSENESS*((struct udp_cache *)\
-	    su_data(transp)->su_cache)->uc_size))	
+	    su_data(transp)->su_cache)->uc_size))
 
 
 /*
- * Enable use of the cache. 
+ * Enable use of the cache.
  * Note: there is no disable.
  */
 int
@@ -379,7 +379,7 @@ svcudp_enablecache(transp, size)
 
 	if (su->su_cache != NULL) {
 		CACHE_PERROR("enablecache: cache already enabled");
-		return(0);	
+		return(0);
 	}
 	uc = ALLOC(struct udp_cache, 1);
 	if (uc == NULL) {
@@ -411,9 +411,9 @@ svcudp_enablecache(transp, size)
 static void
 cache_set(xprt, replylen)
 	SVCXPRT *xprt;
-	u_long replylen;	
+	u_long replylen;
 {
-	cache_ptr victim;	
+	cache_ptr victim;
 	cache_ptr *vicp;
 	struct svcudp_data *su = su_data(xprt);
 	struct udp_cache *uc = (struct udp_cache *) su->su_cache;
@@ -427,9 +427,9 @@ cache_set(xprt, replylen)
 	victim = uc->uc_fifo[(size_t)uc->uc_nextvictim];
 	if (victim != NULL) {
 		loc = (u_int)CACHE_LOC(xprt, victim->cache_xid);
-		for (vicp = &uc->uc_entries[loc]; 
-		  *vicp != NULL && *vicp != victim; 
-		  vicp = &(*vicp)->cache_next) 
+		for (vicp = &uc->uc_entries[loc];
+		  *vicp != NULL && *vicp != victim;
+		  vicp = &(*vicp)->cache_next)
 				;
 		if (*vicp == NULL) {
 			CACHE_PERROR("cache_set: victim not found");
@@ -465,7 +465,7 @@ cache_set(xprt, replylen)
 	victim->cache_prog = uc->uc_prog;
 	victim->cache_addr = uc->uc_addr;
 	loc = (u_int)CACHE_LOC(xprt, victim->cache_xid);
-	victim->cache_next = uc->uc_entries[loc];	
+	victim->cache_next = uc->uc_entries[loc];
 	uc->uc_entries[loc] = victim;
 	uc->uc_fifo[(size_t)uc->uc_nextvictim++] = victim;
 	uc->uc_nextvictim %= uc->uc_size;

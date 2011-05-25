@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: amfs_toplvl.c,v 1.5 1999/02/04 07:24:14 ezk Exp 
+ * Id: amfs_toplvl.c,v 1.5 1999/02/04 07:24:14 ezk Exp
  *
  */
 

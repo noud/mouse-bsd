@@ -5,17 +5,17 @@
  * All rights reserved.
  *
  * Authors: Keith Bostic, Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -80,7 +80,7 @@ readdisklabel(dev, strat, lp, clp)
 	if (lp->d_secsize == 0)
 		lp->d_secsize = DEV_BSIZE;
 	if (lp->d_secperunit == 0)
-		lp->d_secperunit = 0x1fffffff; 
+		lp->d_secperunit = 0x1fffffff;
 	lp->d_npartitions = RAW_PART + 1;
 	if (lp->d_partitions[RAW_PART].p_size == 0)
 		lp->d_partitions[RAW_PART].p_size =
@@ -96,7 +96,7 @@ readdisklabel(dev, strat, lp, clp)
 	bp->b_cylinder = 0;
 	bp->b_bcount = lp->d_secsize;
 	bp->b_flags = B_BUSY | B_READ;
-	(*strat)(bp);  
+	(*strat)(bp);
 
 	/* if successful, locate disk label within block and validate */
 	if (biowait(bp)) {
@@ -176,7 +176,7 @@ setdisklabel(olp, nlp, openmask, clp)
 #ifdef notdef
 	/* XXX WHY WAS THIS HERE?! */
 	/* special case to allow disklabel to be invalidated */
-	if (nlp->d_magic == 0xffffffff) { 
+	if (nlp->d_magic == 0xffffffff) {
 		*olp = *nlp;
 		return (0);
 	}
@@ -209,12 +209,12 @@ setdisklabel(olp, nlp, openmask, clp)
 	nlp->d_checksum = 0;
 	nlp->d_checksum = dkcksum(nlp);
 	*olp = *nlp;
-	return (0);     
+	return (0);
 }
 
 /*
  * Write disk label back to device after modification.
- * this means write out the Rigid disk blocks to represent the 
+ * this means write out the Rigid disk blocks to represent the
  * label.  Hope the user was carefull.
  */
 int
@@ -224,7 +224,7 @@ writedisklabel(dev, strat, lp, clp)
 	struct disklabel *lp;
 	struct cpu_disklabel *clp;
 {
-	struct buf *bp; 
+	struct buf *bp;
 	struct disklabel *dlp;
 	int error = 0;
 
@@ -262,11 +262,11 @@ writedisklabel(dev, strat, lp, clp)
 
 done:
 	brelse(bp);
-	return (error); 
+	return (error);
 }
 
 
-/* 
+/*
  * Determine the size of the transfer, and make sure it is
  * within the boundaries of the partition. Adjust transfer
  * if needed, and signal errors or early completion.
@@ -285,14 +285,14 @@ bounds_check_with_label(bp, lp, wlabel)
 	int sz = (bp->b_bcount + DEV_BSIZE - 1) >> DEV_BSHIFT;
 
 	/* overwriting disk label ? */
-	/* XXX should also protect bootstrap in first 8K */ 
+	/* XXX should also protect bootstrap in first 8K */
 	if (bp->b_blkno + p->p_offset <= LABELSECTOR + labelsect &&
 	    (bp->b_flags & B_READ) == 0 && wlabel == 0) {
 		bp->b_error = EROFS;
 		goto bad;
 	}
 
-	/* beyond partition? */ 
+	/* beyond partition? */
 	if (bp->b_blkno < 0 || bp->b_blkno + sz > maxsz) {
 		/* if exactly at end of disk, return an EOF */
 		if (bp->b_blkno == maxsz) {
@@ -306,7 +306,7 @@ bounds_check_with_label(bp, lp, wlabel)
 			goto bad;
 		}
 		bp->b_bcount = sz << DEV_BSHIFT;
-	}               
+	}
 
 	/* calculate cylinder for disksort to order transfers with */
 	bp->b_resid = (bp->b_blkno + p->p_offset) / lp->d_secpercyl;

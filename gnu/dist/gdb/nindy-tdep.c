@@ -59,7 +59,7 @@ nindy_frame_chain_valid (chain, curframe)
 		return 0;
 	}
 
-	sym = lookup_symbol(sf, 0, VAR_NAMESPACE, (int *)NULL, 
+	sym = lookup_symbol(sf, 0, VAR_NAMESPACE, (int *)NULL,
 				  (struct symtab **)NULL);
 	if ( sym != 0 ){
 		a = SYMBOL_VALUE (sym);

@@ -53,7 +53,7 @@ __RCSID("$NetBSD: roll.c,v 1.6 1997/10/12 00:54:28 lukem Exp $");
 
 int
 roll(ndie, nsides)
-	int	ndie, nsides; 
+	int	ndie, nsides;
 {
 
 	int		tot;

@@ -32,8 +32,8 @@ BIND 8.2.2 patchlevel 5 Highlights
 
 BIND 8.2.2 Highlights
 
-	Interoperability with MS-Win2K has been improved.                     
-	Server-side IXFR is now known to work even under high load.                 
+	Interoperability with MS-Win2K has been improved.
+	Server-side IXFR is now known to work even under high load.
 	Support for Windows/NT (thanks to BayNetworks).
 	More fixes, especially to DNSSEC, TSIG, IXFR, and selective forwarding.
 	More portability improvements and lint removal (A/UX 3.1.1, SCO 5.0).
@@ -164,7 +164,7 @@ File and Directory Overview
 	INSTALL				how to build and install
 
 	README				this file
-						
+
 	TODO				features planned but not yet written
 
 	Version				the version number of this release
@@ -178,7 +178,7 @@ File and Directory Overview
 					support libraries
 
 	port/*				ports to various operating systems
-	
+
 
 Kits, Questions, Comments, and Bug Reports
 

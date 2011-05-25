@@ -226,7 +226,7 @@ loop:
 	/*
 	 * otherwise lock the array while we call getnewvnode
 	 * since that can block.
-	 */ 
+	 */
 	if (fdcache_lock & FDL_LOCKED) {
 		fdcache_lock |= FDL_WANT;
 		sleep((caddr_t) &fdcache_lock, PINOD);
@@ -431,7 +431,7 @@ fdesc_open(v)
 	case Fdesc:
 		/*
 		 * XXX Kludge: set p->p_dupfd to contain the value of the
-		 * the file descriptor being sought for duplication. The error 
+		 * the file descriptor being sought for duplication. The error
 		 * return ensures that the vnode for this device will be
 		 * released by vn_open. Open will detect this special error and
 		 * take the actions in dupfdopen.  Other callers of vn_open or
@@ -581,7 +581,7 @@ fdesc_getattr(v)
 
 	default:
 		panic("fdesc_getattr");
-		break;	
+		break;
 	}
 
 	if (error == 0)
@@ -768,7 +768,7 @@ fdesc_readdir(v)
 				d.d_name[i + 1] = '\0';
 				d.d_type = DT_DIR;
 				break;
-	
+
 			default:
 				if (fdp->fd_ofiles[i - 2] == NULL)
 					continue;
@@ -844,7 +844,7 @@ fdesc_read(v)
 		error = EOPNOTSUPP;
 		break;
 	}
-	
+
 	return (error);
 }
 
@@ -872,7 +872,7 @@ fdesc_write(v)
 		error = EOPNOTSUPP;
 		break;
 	}
-	
+
 	return (error);
 }
 
@@ -900,7 +900,7 @@ fdesc_ioctl(v)
 		error = EOPNOTSUPP;
 		break;
 	}
-	
+
 	return (error);
 }
 
@@ -1018,15 +1018,15 @@ fdesc_print(v)
 }
 
 int
-fdesc_link(v) 
+fdesc_link(v)
 	void *v;
 {
 	struct vop_link_args /* {
 		struct vnode *a_dvp;
-		struct vnode *a_vp;  
+		struct vnode *a_vp;
 		struct componentname *a_cnp;
 	} */ *ap = v;
- 
+
 	VOP_ABORTOP(ap->a_dvp, ap->a_cnp);
 	vput(ap->a_dvp);
 	return (EROFS);
@@ -1043,7 +1043,7 @@ fdesc_symlink(v)
 		struct vattr *a_vap;
 		char *a_target;
 	} */ *ap = v;
-  
+
 	VOP_ABORTOP(ap->a_dvp, ap->a_cnp);
 	vput(ap->a_dvp);
 	return (EROFS);

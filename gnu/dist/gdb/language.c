@@ -105,7 +105,7 @@ unk_lang_value_print PARAMS ((value_ptr, GDB_FILE *, int, enum val_prettyprint))
 /* Forward declaration */
 extern const struct language_defn unknown_language_defn;
 extern char *warning_pre_print;
-  
+
 /* The current (default at startup) state of type and range checking.
     (If the modes are set to "auto", though, these are changed based
     on the default language at startup, and then again based on the
@@ -228,7 +228,7 @@ set_language_command (ignore, from_tty)
     }
   }
 
-  /* Reset the language (esp. the global string "language") to the 
+  /* Reset the language (esp. the global string "language") to the
      correct values. */
   err_lang=savestring(language,strlen(language));
   make_cleanup (free, err_lang);	/* Free it after error */
@@ -1296,7 +1296,7 @@ const struct language_defn unknown_language_defn = {
   unk_op_print_tab,		/* expression operators for printing */
   1,				/* c-style arrays */
   0,				/* String lower bound */
-  &builtin_type_char,		/* Type of string elements */ 
+  &builtin_type_char,		/* Type of string elements */
   LANG_MAGIC
 };
 
@@ -1323,7 +1323,7 @@ const struct language_defn auto_language_defn = {
   unk_op_print_tab,		/* expression operators for printing */
   1,				/* c-style arrays */
   0,				/* String lower bound */
-  &builtin_type_char,		/* Type of string elements */ 
+  &builtin_type_char,		/* Type of string elements */
   LANG_MAGIC
 };
 
@@ -1349,7 +1349,7 @@ const struct language_defn local_language_defn = {
   unk_op_print_tab,		/* expression operators for printing */
   1,				/* c-style arrays */
   0,				/* String lower bound */
-  &builtin_type_char,		/* Type of string elements */ 
+  &builtin_type_char,		/* Type of string elements */
   LANG_MAGIC
 };
 

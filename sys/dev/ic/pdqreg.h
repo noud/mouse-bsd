@@ -1099,7 +1099,7 @@ typedef enum {
     PDQ_LINK_EVENT_ARGUMENT_REASON=0,		/* pdq_rireason_t */
     PDQ_LINK_EVENT_ARGUMENT_DATA_LINK_HEADER=1,	/* pdq_dlhdr_t */
     PDQ_LINK_EVENT_ARGUMENT_SOURCE=2,		/* pdq_lanaddr_t */
-    PDQ_LINK_EVENT_ARGUMENT_UPSTREAM_NEIGHBOR=3,/* pdq_lanaddr_t */	
+    PDQ_LINK_EVENT_ARGUMENT_UPSTREAM_NEIGHBOR=3,/* pdq_lanaddr_t */
     PDQ_LINK_EVENT_ARGUMENT_EOL=0xFF
 } pdq_link_event_argument_t;
 

@@ -46,7 +46,7 @@
  * Jens A. Nilsson.
  *
  * Credits:
- * 
+ *
  * This code is based on arch/sun3/dev/si*
  * Written by David Jones, Gordon Ross, and Adam Glass.
  */
@@ -170,7 +170,7 @@ si_attach(parent, self, aux)
 		if (va->va_paddr & 0x100) /* Magic */
 			sc->ncr_off = DMASIZE;
 		sc->ncr_addr = (caddr_t)uvm_km_valloc(kernel_map, DMASIZE);
-		
+
 		ioaccess((vaddr_t)sc->ncr_addr,
 		    0x202d0000 + sc->ncr_off, DMASIZE/VAX_NBPG);
 
@@ -210,7 +210,7 @@ si_attach(parent, self, aux)
 	ncr_sc->sc_link.adapter = &ncr_sc->sc_adapter;
 	ncr_sc->sc_link.device = &si_dev;
 	ncr_sc->sc_link.type = BUS_SCSI;
-	
+
 	/*
 	 * Initialize fields used by the MI code.
 	 */
@@ -396,7 +396,7 @@ si_dma_stop(ncr_sc)
 	struct si_dma_handle *dh = sr->sr_dma_hand;
 	int count, i;
 
-	if (ncr_sc->sc_state & NCR_DOINGDMA) 
+	if (ncr_sc->sc_state & NCR_DOINGDMA)
 		ncr_sc->sc_state &= ~NCR_DOINGDMA;
 
 	/*

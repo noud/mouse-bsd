@@ -1,4 +1,4 @@
-.\"	$NetBSD: prep,v 1.9 1999/05/31 06:54:31 ender Exp $	
+.\"	$NetBSD: prep,v 1.9 1999/05/31 06:54:31 ender Exp $
 Find your favorite disk partitioning utility. Any formatter capable of
 partitioning a SCSI disk should work. Some of the ones that have been
 tried and seem to work are:
@@ -34,7 +34,7 @@ remove drives to your SCSI chain in the future.
 .Em Be sure you have a reliable backup
 .Em of any data which you may want to
 .Em keep. Repartitioning your hard drive is an
-.Em excellent way to destroy important data. 
+.Em excellent way to destroy important data.
 .tag)
 .Pp
 Second, decide how you want to set up your partitions. At minimum, you
@@ -52,7 +52,7 @@ root partition can be fairly small while the
 .Pa /usr No partition should be
 fairly large. If you plan to use this machine as a server, you may also
 want a separate
-.Pa /var No partition. 
+.Pa /var No partition.
 .Pp
 Once you have decided how to lay out your partitions, you need to calculate
 how much space to allocate to each partition. A minimal install of

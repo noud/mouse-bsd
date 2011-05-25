@@ -267,7 +267,7 @@ sdattach(parent, self, aux)
 	 */
 	printf("%s: ", sc->sc_dev.dv_xname);
 	switch (sc->sc_type) {
-	case 4:	
+	case 4:
 		printf("WORM, ");
 		break;
 
@@ -977,7 +977,7 @@ sdintr(arg, stat)
 	struct sd_softc *sc = arg;
 	struct buf *bp = BUFQ_FIRST(&sc->sc_tab);
 	int cond;
-	
+
 	if (bp == NULL) {
 		printf("%s: bp == NULL\n", sc->sc_dev.dv_xname);
 		return;
@@ -1023,7 +1023,7 @@ sdread(dev, uio, flags)
 	if ((pid = sc->sc_format_pid) >= 0 &&
 	    pid != uio->uio_procp->p_pid)
 		return (EPERM);
-		
+
 	return (physio(sdstrategy, NULL, dev, B_READ, minphys, uio));
 }
 
@@ -1040,7 +1040,7 @@ sdwrite(dev, uio, flags)
 	if ((pid = sc->sc_format_pid) >= 0 &&
 	    pid != uio->uio_procp->p_pid)
 		return (EPERM);
-		
+
 	return (physio(sdstrategy, NULL, dev, B_WRITE, minphys, uio));
 }
 
@@ -1142,7 +1142,7 @@ sdioctl(dev, cmd, data, flag, p)
 		 */
 		bcopy(&sc->sc_sensestore, data, sizeof(sc->sc_sensestore));
 		return (0);
-		
+
 	}
 	/*NOTREACHED*/
 }

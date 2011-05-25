@@ -781,11 +781,11 @@ sscr_pty(amaster, aslave, name, termp, winp)
 					if (name)
 						strcpy(name, line);
 					if (termp)
-						(void) tcsetattr(slave, 
+						(void) tcsetattr(slave,
 							TCSAFLUSH, termp);
 #ifdef TIOCSWINSZ
 					if (winp)
-						(void) ioctl(slave, TIOCSWINSZ, 
+						(void) ioctl(slave, TIOCSWINSZ,
 							(char *)winp);
 #endif
 					return (0);

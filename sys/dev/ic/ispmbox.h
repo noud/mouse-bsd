@@ -367,7 +367,7 @@ typedef struct {
 	u_int8_t	req_sense_data[32];
 } ispstatusreq_t;
 
-/* 
+/*
  * For Qlogic 2100, the high order byte of SCSI status has
  * additional meaning.
  */
@@ -376,7 +376,7 @@ typedef struct {
 #define	RQCS_SV	0x200	/* Sense Length Valid */
 #define	RQCS_RV	0x100	/* Residual Valid */
 
-/* 
+/*
  * Completion Status Codes.
  */
 #define RQCS_COMPLETE			0x0000

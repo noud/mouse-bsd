@@ -525,7 +525,7 @@ _bus_dmamem_map(t, segs, nsegs, size, kvap, flags)
 			 * uncacheable.
 			 */
 			if (flags & BUS_DMA_COHERENT) {
-				cpu_cache_purgeD_rng(va, NBPG);	
+				cpu_cache_purgeD_rng(va, NBPG);
 				cpu_drain_writebuf();
 				ptep = vtopte(va);
 				*ptep = ((*ptep) & (~PT_C | PT_B));

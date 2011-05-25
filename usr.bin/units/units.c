@@ -99,14 +99,14 @@ dupstr(char *str)
 }
 
 
-void 
+void
 readerror(int linenum)
 {
 	warnx("Error in units file '%s' line %d", UNITSFILE, linenum);
 }
 
 
-void 
+void
 readunits(char *userfile)
 {
 	FILE *unitfile;
@@ -218,7 +218,7 @@ readunits(char *userfile)
 	fclose(unitfile);
 }
 
-void 
+void
 initializeunit(struct unittype * theunit)
 {
 	theunit->factor = 1.0;
@@ -226,7 +226,7 @@ initializeunit(struct unittype * theunit)
 }
 
 
-int 
+int
 addsubunit(char *product[], char *toadd)
 {
 	char **ptr;
@@ -243,7 +243,7 @@ addsubunit(char *product[], char *toadd)
 }
 
 
-void 
+void
 showunit(struct unittype * theunit)
 {
 	char **ptr;
@@ -289,7 +289,7 @@ showunit(struct unittype * theunit)
 }
 
 
-void 
+void
 zeroerror()
 {
 	warnx("Unit reduces to zero");
@@ -302,7 +302,7 @@ zeroerror()
    Returns 0 for successful addition, nonzero on error.
 */
 
-int 
+int
 addunit(struct unittype * theunit, char *toadd, int flip)
 {
 	char *scratch, *savescr;
@@ -387,14 +387,14 @@ addunit(struct unittype * theunit, char *toadd, int flip)
 }
 
 
-int 
+int
 compare(const void *item1, const void *item2)
 {
 	return strcmp(*(char **) item1, *(char **) item2);
 }
 
 
-void 
+void
 sortunit(struct unittype * theunit)
 {
 	char **ptr;
@@ -407,7 +407,7 @@ sortunit(struct unittype * theunit)
 }
 
 
-void 
+void
 cancelunit(struct unittype * theunit)
 {
 	char **den, **num;
@@ -517,7 +517,7 @@ lookupunit(char *unit)
 
 #define ERROR 4
 
-int 
+int
 reduceproduct(struct unittype * theunit, int flip)
 {
 
@@ -560,7 +560,7 @@ reduceproduct(struct unittype * theunit, int flip)
    Returns 0 on success, or 1 on unknown unit error.
 */
 
-int 
+int
 reduceunit(struct unittype * theunit)
 {
 	int ret;
@@ -575,7 +575,7 @@ reduceunit(struct unittype * theunit)
 }
 
 
-int 
+int
 compareproducts(char **one, char **two)
 {
 	while (*one || *two) {
@@ -598,7 +598,7 @@ compareproducts(char **one, char **two)
 
 /* Return zero if units are compatible, nonzero otherwise */
 
-int 
+int
 compareunits(struct unittype * first, struct unittype * second)
 {
 	return
@@ -607,7 +607,7 @@ compareunits(struct unittype * first, struct unittype * second)
 }
 
 
-int 
+int
 completereduce(struct unittype * unit)
 {
 	if (reduceunit(unit))
@@ -618,7 +618,7 @@ completereduce(struct unittype * unit)
 }
 
 
-void 
+void
 showanswer(struct unittype * have, struct unittype * want)
 {
 	if (compareunits(have, want)) {
@@ -632,7 +632,7 @@ showanswer(struct unittype * have, struct unittype * want)
 }
 
 
-void 
+void
 usage()
 {
 	fprintf(stderr,

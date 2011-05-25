@@ -103,7 +103,7 @@ ohci_cardbus_match(parent, match, aux)
 	    CARDBUS_SUBCLASS(ca->ca_class) == CARDBUS_SUBCLASS_SERIALBUS_USB &&
 	    CARDBUS_INTERFACE(ca->ca_class) == CARDBUS_INTERFACE_OHCI)
 		return (1);
- 
+
 	return (0);
 }
 
@@ -172,9 +172,9 @@ XXX	(ct->ct_cf->cardbus_mem_open)(cc, 0, iob, iob + 0x40);
 		strncpy(sc->sc.sc_vendor, vendor,
 			sizeof(sc->sc.sc_vendor) - 1);
 	else
-		sprintf(sc->sc.sc_vendor, "vendor 0x%04x", 
+		sprintf(sc->sc.sc_vendor, "vendor 0x%04x",
 			CARDBUS_VENDOR(ca->ca_id));
-	
+
 	r = ohci_init(&sc->sc);
 	if (r != USBD_NORMAL_COMPLETION) {
 		printf("%s: init failed, error=%d\n", devname, r);

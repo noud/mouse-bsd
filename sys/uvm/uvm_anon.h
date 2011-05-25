@@ -54,7 +54,7 @@ struct vm_anon {
 		struct vm_anon *an_nxt;	/* if on free list [afreelock] */
 		struct vm_page *an_page;/* if in RAM [an_lock] */
 	} u;
-	int an_swslot;		/* drum swap slot # (if != 0) 
+	int an_swslot;		/* drum swap slot # (if != 0)
 				   [an_lock.  also, it is ok to read
 				   an_swslot if we hold an_page PG_BUSY] */
 };
@@ -78,7 +78,7 @@ struct vm_anon {
  */
 
 /*
- * processes reference anonymous virtual memory maps with an anonymous 
+ * processes reference anonymous virtual memory maps with an anonymous
  * reference structure:
  */
 

@@ -280,13 +280,13 @@ vmem_init(caddr_t start, caddr_t end)
 	for (m = 0; (m < memblocks) && (nfounds < npages); m++) {
 		unsigned char* mem;
 		/* Map physical memory block */
-		mem = (unsigned char*)VirtualAlloc(0, MEM_BLOCK_SIZE, 
+		mem = (unsigned char*)VirtualAlloc(0, MEM_BLOCK_SIZE,
 						   MEM_RESERVE, PAGE_NOACCESS);
 		if(!VirtualCopy((LPVOID)mem, (LPVOID)
 				((system_info.si_dramstart + MEM_BLOCK_SIZE * m) >> 8),
-				MEM_BLOCK_SIZE,	
+				MEM_BLOCK_SIZE,
 				PAGE_READWRITE | PAGE_NOCACHE | PAGE_PHYSICAL)) {
-			VirtualFree(mem, 0, MEM_RELEASE);			
+			VirtualFree(mem, 0, MEM_RELEASE);
 			continue;
 		}
 		/* Find preliminary allocated pages */
@@ -320,8 +320,8 @@ vmem_init(caddr_t start, caddr_t end)
 
 	if (nfounds < npages) {
 		debug_printf(TEXT("lost %d pages\n"), npages - nfounds);
-		msg_printf(MSG_ERROR, whoami, 
-			   TEXT("lost %d pages (allocated %d pages)\n"), 
+		msg_printf(MSG_ERROR, whoami,
+			   TEXT("lost %d pages (allocated %d pages)\n"),
 			   npages - nfounds, npages);
 		goto error_cleanup;
 	}
@@ -399,6 +399,6 @@ vmem_dump_map()
 		paddr = vtophysaddr(page);
 		debug_printf(TEXT("%08X: vaddr=%08X paddr=%08X %s\n"),
 			     addr, page, paddr, addr == paddr ? TEXT("*") : TEXT("reloc"));
-    
+
 	}
 }

@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -39,7 +39,7 @@
 *
 *	Fixes for bugs: 1238
 *
-*	Bug: 1238 
+*	Bug: 1238
 *
 *
 *    /* The following dirty_bit clear should be left in
@@ -191,8 +191,8 @@ BUGFIX    IDNT    2,1 Motorola 040 Floating Point Software Package
 	xdef	b1238_fix
 b1238_fix:
 *
-* This code is entered only on completion of the handling of an 
-* nu-generated ovfl, unfl, or inex exception.  If the version 
+* This code is entered only on completion of the handling of an
+* nu-generated ovfl, unfl, or inex exception.  If the version
 * number of the fsave is not $40, this handler is not necessary.
 * Simply branch to fix_done and exit normally.
 *
@@ -208,7 +208,7 @@ b1238_fix:
 
 *
 * Test the register conflict aspect.  If opclass0, check for
-* cu src equal to xu dest or equal to nu dest.  If so, go to 
+* cu src equal to xu dest or equal to nu dest.  If so, go to
 * op0.  Else, or if opclass2, check for cu dest equal to
 * xu dest or equal to nu dest.  If so, go to tst_opcl.  Else,
 * exit, it is not the bug case.
@@ -220,17 +220,17 @@ b1238_fix:
 	bne	op2sgl			;not opclass 0, check op2
 *
 * Check for cu and nu register conflict.  If one exists, this takes
-* priority over a cu and xu conflict. 
+* priority over a cu and xu conflict.
 *
-	bfextu	CMDREG1B(a6){3:3},d0	;get 1st src 
+	bfextu	CMDREG1B(a6){3:3},d0	;get 1st src
 	bfextu	CMDREG3B(a6){6:3},d1	;get 3rd dest
 	cmp.b	d0,d1
 	beq.b	op0			;if equal, continue bugfix
 *
-* Check for cu dest equal to nu dest.  If so, go and fix the 
+* Check for cu dest equal to nu dest.  If so, go and fix the
 * bug condition.  Otherwise, exit.
 *
-	bfextu	CMDREG1B(a6){6:3},d0	;get 1st dest 
+	bfextu	CMDREG1B(a6){6:3},d0	;get 1st dest
 	cmp.b	d0,d1			;cmp 1st dest with 3rd dest
 	beq.b	op0			;if equal, continue bugfix
 *
@@ -239,7 +239,7 @@ b1238_fix:
 	bfextu	CMDREG2B(a6){6:3},d1	;get 2nd dest
 	cmp.b	d0,d1			;cmp 1st dest with 2nd dest
 	beq.b	op0_xu			;if equal, continue bugfix
-	bfextu	CMDREG1B(a6){3:3},d0	;get 1st src 
+	bfextu	CMDREG1B(a6){3:3},d0	;get 1st src
 	cmp.b	d0,d1			;cmp 1st src with 2nd dest
 	beq	op0_xu
 	bne	fix_done		;if the reg checks fail, exit
@@ -269,7 +269,7 @@ setete15:
 
 *
 * We have the case in which a conflict exists between the cu src or
-* dest and the dest of the xu.  We must clear the instruction in 
+* dest and the dest of the xu.  We must clear the instruction in
 * the cu and restore the state, allowing the instruction in the
 * xu to complete.  Remember, the instruction in the nu
 * was exceptional, and was completed by the appropriate handler.
@@ -279,7 +279,7 @@ setete15:
 * exceptional, we choose to kill the process.
 *
 *	Items saved from the stack:
-*	
+*
 *		$3c stag     - L_SCR1
 *		$40 cmdreg1b - L_SCR2
 *		$44 dtag     - L_SCR3
@@ -288,8 +288,8 @@ setete15:
 * fpu.
 *
 op0_xu:
-	move.l	STAG(a6),L_SCR1(a6)	
-	move.l	CMDREG1B(a6),L_SCR2(a6)	
+	move.l	STAG(a6),L_SCR1(a6)
+	move.l	CMDREG1B(a6),L_SCR2(a6)
 	move.l	DTAG(a6),L_SCR3(a6)
 	andi.l	#$e0000000,L_SCR3(a6)
 	clr.b	CU_SAVEPC(a6)
@@ -298,13 +298,13 @@ op0_xu:
 	fsave	-(a7)
 *
 * Check if the instruction which just completed was exceptional.
-* 
+*
 	cmp.w	#$4060,(a7)
 	beq	op0_xb
-* 
+*
 * It is necessary to isolate the result of the instruction in the
 * xu if it is to fp0 - fp3 and write that value to the USER_FPn
-* locations on the stack.  The correct destination register is in 
+* locations on the stack.  The correct destination register is in
 * cmdreg2b.
 *
 	bfextu	CMDREG2B(a6){6:3},d0	;get dest register no
@@ -363,7 +363,7 @@ op0_sete15:
 
 *
 * The frame returned is busy.  It is not possible to reconstruct
-* the code sequence to allow completion.  We will jump to 
+* the code sequence to allow completion.  We will jump to
 * fpsp_fmt_error and allow the kernel to kill the process.
 *
 op0_xb:
@@ -378,20 +378,20 @@ op2sgl:
 	cmpi.w	#$4400,d0		;test for opclass 2 and size=sgl
 	bne	fix_done		;if not, it is not bug 1238
 *
-* Check for cu dest equal to nu dest or equal to xu dest, with 
+* Check for cu dest equal to nu dest or equal to xu dest, with
 * a cu and nu conflict taking priority an nu conflict.  If either,
 * go and fix the bug condition.  Otherwise, exit.
 *
-	bfextu	CMDREG1B(a6){6:3},d0	;get 1st dest 
+	bfextu	CMDREG1B(a6){6:3},d0	;get 1st dest
 	bfextu	CMDREG3B(a6){6:3},d1	;get 3rd dest
 	cmp.b	d0,d1			;cmp 1st dest with 3rd dest
 	beq	op2_com			;if equal, continue bugfix
-	bfextu	CMDREG2B(a6){6:3},d1	;get 2nd dest 
+	bfextu	CMDREG2B(a6){6:3},d1	;get 2nd dest
 	cmp.b	d0,d1			;cmp 1st dest with 2nd dest
 	bne	fix_done		;if the reg checks fail, exit
 *
 * We have the case in which a conflict exists between the cu src or
-* dest and the dest of the xu.  We must clear the instruction in 
+* dest and the dest of the xu.  We must clear the instruction in
 * the cu and restore the state, allowing the instruction in the
 * xu to complete.  Remember, the instruction in the nu
 * was exceptional, and was completed by the appropriate handler.
@@ -401,7 +401,7 @@ op2sgl:
 * exceptional, we choose to kill the process.
 *
 *	Items saved from the stack:
-*	
+*
 *		$3c stag     - L_SCR1
 *		$40 cmdreg1b - L_SCR2
 *		$44 dtag     - L_SCR3
@@ -411,9 +411,9 @@ op2sgl:
 * fpu.
 *
 op2_xu:
-	move.l	STAG(a6),L_SCR1(a6)	
-	move.l	CMDREG1B(a6),L_SCR2(a6)	
-	move.l	DTAG(a6),L_SCR3(a6)	
+	move.l	STAG(a6),L_SCR1(a6)
+	move.l	CMDREG1B(a6),L_SCR2(a6)
+	move.l	DTAG(a6),L_SCR3(a6)
 	andi.l	#$e0000000,L_SCR3(a6)
 	clr.b	CU_SAVEPC(a6)
 	move.l	ETEMP(a6),FP_SCR2(a6)
@@ -424,13 +424,13 @@ op2_xu:
 	fsave	-(a7)
 *
 * Check if the instruction which just completed was exceptional.
-* 
+*
 	cmp.w	#$4060,(a7)
 	beq	op2_xb
-* 
+*
 * It is necessary to isolate the result of the instruction in the
 * xu if it is to fp0 - fp3 and write that value to the USER_FPn
-* locations on the stack.  The correct destination register is in 
+* locations on the stack.  The correct destination register is in
 * cmdreg2b.
 *
 	bfextu	CMDREG2B(a6){6:3},d0	;get dest register no
@@ -483,12 +483,12 @@ op2_com:
 	bne.b	case2
 	move.w	#$43FF,ETEMP_EX(a6)	;to double +max
 	bra	finish
-case2:	
+case2:
 	cmp.w	#$C07F,ETEMP_EX(a6)	;single -max
 	bne.b	case3
 	move.w	#$C3FF,ETEMP_EX(a6)	;to double -max
 	bra	finish
-case3:	
+case3:
 	cmp.w	#$3F80,ETEMP_EX(a6)	;single +min
 	bne.b	case4
 	move.w	#$3C00,ETEMP_EX(a6)	;to double +min
@@ -504,7 +504,7 @@ case4:
 * an fline illegal instruction to be executed.
 *
 * You should replace the jump to fpsp_fmt_error with a jump
-* to the entry point used to kill a process. 
+* to the entry point used to kill a process.
 *
 op2_xb:
 	jmp	fpsp_fmt_error

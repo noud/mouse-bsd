@@ -825,7 +825,7 @@ orderq(doall)
 	int wn = -1;
 	int wc;
 	QUEUE_CHAR *check;
-	
+
 	if (tTd(41, 1))
 	{
 		printf("orderq:\n");
@@ -1462,7 +1462,7 @@ dowork(id, forkflag, requeueflag, e)
 			**  the map.  Therefore, open a copy of the maps for
 			**  the delivery process.
 			*/
-		
+
 			initmaps(FALSE, e);
 		}
 	}

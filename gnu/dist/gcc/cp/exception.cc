@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with GNU CC; see the file COPYING.  If not, write to
 // the Free Software Foundation, 59 Temple Place - Suite 330,
-// Boston, MA 02111-1307, USA. 
+// Boston, MA 02111-1307, USA.
 
 // As a special exception, if you link this library with other files,
 // some of which are compiled with GCC, to produce an executable,
@@ -152,7 +152,7 @@ __eh_free (void *p)
 typedef void * (* rtimetype) (void);
 
 extern "C" void *
-__cplus_type_matcher (cp_eh_info *info, rtimetype match_info, 
+__cplus_type_matcher (cp_eh_info *info, rtimetype match_info,
                                  exception_descriptor *exception_table)
 {
   void *ret;
@@ -164,7 +164,7 @@ __cplus_type_matcher (cp_eh_info *info, rtimetype match_info,
     return info->value;
 
   /* we don't worry about version info yet, there is only one version! */
-  
+
   void *match_type = match_info ();
   ret = __throw_type_match_rtti (match_type, info->type, info->original_value);
   /* change value of exception */
@@ -255,7 +255,7 @@ __uncatch_exception (void)
    handler that just calls this function with a list of the allowed
    exception types, so we have an active exception that can be rethrown.
 
-   This function does not return.  */   
+   This function does not return.  */
 
 extern "C" void
 __check_eh_spec (int n, const void **spec)

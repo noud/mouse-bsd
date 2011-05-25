@@ -61,9 +61,9 @@ print_doc_line PARAMS ((GDB_FILE *, char *));
    It should start with ? for a command that is an abbreviation
    or with * for a command that most users don't need to know about.
 
-   Add this command to command list *LIST.  
+   Add this command to command list *LIST.
 
-   Returns a pointer to the added command (not necessarily the head 
+   Returns a pointer to the added command (not necessarily the head
    of *LIST). */
 
 struct cmd_list_element *
@@ -194,7 +194,7 @@ add_prefix_cmd (name, class, fun, doc, prefixlist, prefixname,
 }
 
 /* Like add_prefix_cmd but sets the abbrev_flag on the new command. */
-   
+
 struct cmd_list_element *
 add_abbrev_prefix_cmd (name, class, fun, doc, prefixlist, prefixname,
 		       allow_unknown, list)
@@ -288,7 +288,7 @@ add_set_enum_cmd (name, class, enumlist, var, doc, list)
 }
 
 /* Where SETCMD has already been added, add the corresponding show
-   command to LIST and return a pointer to the added command (not 
+   command to LIST and return a pointer to the added command (not
    necessarily the head of LIST).  */
 struct cmd_list_element *
 add_show_from_set (setcmd, list)
@@ -302,14 +302,14 @@ add_show_from_set (setcmd, list)
   memcpy (showcmd, setcmd, sizeof (struct cmd_list_element));
   delete_cmd (showcmd->name, list);
   showcmd->type = show_cmd;
-  
+
   /* Replace "set " at start of docstring with "show ".  */
   if (setcmd->doc[0] == 'S' && setcmd->doc[1] == 'e'
       && setcmd->doc[2] == 't' && setcmd->doc[3] == ' ')
     showcmd->doc = concat ("Show ", setcmd->doc + 4, NULL);
   else
     fprintf_unfiltered (gdb_stderr, "GDB internal error: Bad docstring for set command\n");
-  
+
     if (*list == NULL || STRCMP ((*list)->name, showcmd->name) >= 0)
     {
       showcmd->next = *list;
@@ -372,7 +372,7 @@ delete_cmd (name, list)
  * just "help".)
  *
  *   I am going to split this into two seperate comamnds, help_cmd and
- * help_list. 
+ * help_list.
  */
 
 void
@@ -397,10 +397,10 @@ help_cmd (command, stream)
   /* There are three cases here.
      If c->prefixlist is nonzero, we have a prefix command.
      Print its documentation, then list its subcommands.
-     
+
      If c->function is nonzero, we really have a command.
      Print its documentation and return.
-     
+
      If c->function is zero, we have a class name.
      Print its documentation (as if it were a command)
      and then set class to the number of this class
@@ -447,7 +447,7 @@ help_list (list, cmdtype, class, stream)
 {
   int len;
   char *cmdtype1, *cmdtype2;
-  
+
   /* If CMDTYPE is "foo ", CMDTYPE1 gets " foo" and CMDTYPE2 gets "foo sub"  */
   len = strlen (cmdtype);
   cmdtype1 = (char *) alloca (len + 1);
@@ -480,7 +480,7 @@ Type \"help%s\" followed by %scommand name for full documentation.\n\
 Command name abbreviations are allowed if unambiguous.\n",
 	   cmdtype1, cmdtype2);
 }
-     
+
 /* Print only the first line of STR on STREAM.  */
 static void
 print_doc_line (stream, str)
@@ -588,7 +588,7 @@ help_cmd_list (list, class, prefix, recurse, stream)
    affect the operation).
 
    This routine does *not* modify the text pointed to by TEXT.
-   
+
    If IGNORE_HELP_CLASSES is nonzero, ignore any command list elements which
    are actually help classes rather than commands (i.e. the function field of
    the struct cmd_list_element is NULL).  */
@@ -617,7 +617,7 @@ lookup_cmd_1 (text, clist, result_list, ignore_help_classes)
   /* If nothing but whitespace, return 0.  */
   if (p == *text)
     return 0;
-  
+
   len = p - *text;
 
   /* *text and p now bracket the first command word to lookup (and
@@ -657,7 +657,7 @@ lookup_cmd_1 (text, clist, result_list, ignore_help_classes)
       if (result_list != NULL)
 	/* Will be modified in calling routine
 	   if we know what the prefix command is.  */
-	*result_list = 0;		
+	*result_list = 0;
       return (struct cmd_list_element *) -1; /* Ambiguous.  */
     }
 
@@ -759,7 +759,7 @@ lookup_cmd (line, list, cmdtype, allow_unknown, ignore_help_classes)
     ptr--;
   *(ptr + 1) = '\0';
 #endif
-  
+
   if (!c)
     {
       if (!allow_unknown)
@@ -791,7 +791,7 @@ lookup_cmd (line, list, cmdtype, allow_unknown, ignore_help_classes)
       char *local_cmdtype = last_list ? last_list->prefixname : cmdtype;
       struct cmd_list_element *local_list =
 	(last_list ? *(last_list->prefixlist) : list);
-      
+
       if (local_allow_unknown < 0)
 	{
 	  if (last_list)
@@ -810,7 +810,7 @@ lookup_cmd (line, list, cmdtype, allow_unknown, ignore_help_classes)
 		&& (*line)[amb_len] != '\t');
 	       amb_len++)
 	    ;
-	  
+
 	  ambbuf[0] = 0;
 	  for (c = local_list; c; c = c->next)
 	    if (!strncmp (*line, c->name, amb_len))
@@ -847,7 +847,7 @@ lookup_cmd (line, list, cmdtype, allow_unknown, ignore_help_classes)
     }
   return 0;
 }
-	
+
 #if 0
 /* Look up the contents of *LINE as a command in the command list LIST.
    LIST is a chain of struct cmd_list_element's.
@@ -903,12 +903,12 @@ lookup_cmd (line, list, cmdtype, allow_unknown)
 	error ("Lack of needed %scommand", cmdtype);
       return 0;
     }
-  
+
   /* Copy over to a local buffer, converting to lowercase on the way.
      This is in case the command being parsed is a subcommand which
      doesn't match anything, and that's ok.  We want the original
      untouched for the routine of the original command.  */
-  
+
   processed_cmd = (char *) alloca (p - *line + 1);
   for (cmd_len = 0; cmd_len < p - *line; cmd_len++)
     {
@@ -987,7 +987,7 @@ lookup_cmd (line, list, cmdtype, allow_unknown)
 /* Helper function for SYMBOL_COMPLETION_FUNCTION.  */
 
 /* Return a vector of char pointers which point to the different
-   possible completions in LIST of TEXT.  
+   possible completions in LIST of TEXT.
 
    WORD points in the same buffer as TEXT, and completions should be
    returned relative to this position.  For example, suppose TEXT is "foo"
@@ -1024,7 +1024,7 @@ complete_on_cmdlist (list, text, word)
 					     * sizeof (char *)));
 	  }
 
-	matchlist[matches] = (char *) 
+	matchlist[matches] = (char *)
 	  xmalloc (strlen (word) + strlen (ptr->name) + 1);
 	if (word == text)
 	  strcpy (matchlist[matches], ptr->name);
@@ -1061,7 +1061,7 @@ complete_on_cmdlist (list, text, word)
 /* Helper function for SYMBOL_COMPLETION_FUNCTION.  */
 
 /* Return a vector of char pointers which point to the different
-   possible completions in CMD of TEXT.  
+   possible completions in CMD of TEXT.
 
    WORD points in the same buffer as TEXT, and completions should be
    returned relative to this position.  For example, suppose TEXT is "foo"
@@ -1096,7 +1096,7 @@ complete_on_enum (enumlist, text, word)
 					     * sizeof (char *)));
 	  }
 
-	matchlist[matches] = (char *) 
+	matchlist[matches] = (char *)
 	  xmalloc (strlen (word) + strlen (name) + 1);
 	if (word == text)
 	  strcpy (matchlist[matches], name);
@@ -1153,7 +1153,7 @@ parse_binary_operation (arg)
 	|| !strncmp (arg, "0", length)
 	|| !strncmp (arg, "no", length))
       return 0;
-    else 
+    else
       {
 	error ("\"on\" or \"off\" expected.");
 	return 0;
@@ -1180,7 +1180,7 @@ do_setshow_command (arg, from_tty, c)
 	    char *p;
 	    char *q;
 	    int ch;
-	    
+
 	    if (arg == NULL)
 	      arg = "";
 	    new = (char *) xmalloc (strlen (arg) + 2);
@@ -1301,7 +1301,7 @@ do_setshow_command (arg, from_tty, c)
     {
       /* Print doc minus "show" at start.  */
       print_doc_line (gdb_stdout, c->doc + 5);
-      
+
       fputs_filtered (" is ", gdb_stdout);
       wrap_here ("    ");
       switch (c->var_type)
@@ -1345,7 +1345,7 @@ do_setshow_command (arg, from_tty, c)
 	else
 	  fprintf_filtered (gdb_stdout, "%d", *(int *) c->var);
 	break;
-	    
+
       default:
 	error ("gdb internal error: bad var_type in do_setshow_command");
       }
@@ -1438,7 +1438,7 @@ make_command (arg, from_tty)
       strcpy (p, "make ");
       strcpy (p + sizeof("make ")-1, arg);
     }
-  
+
   shell_escape (p, from_tty);
 }
 
@@ -1498,7 +1498,7 @@ _initialize_command ()
 With no arguments, run an inferior shell.");
   add_com ("make", class_support, make_command,
 	   "Run the ``make'' program using the rest of the line as arguments.");
-  add_cmd ("user", no_class, show_user, 
+  add_cmd ("user", no_class, show_user,
 	   "Show definitions of user defined commands.\n\
 Argument is the name of the user defined command.\n\
 With no argument, show definitions of all user defined commands.", &showlist);

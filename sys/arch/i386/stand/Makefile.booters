@@ -61,7 +61,7 @@ cleanlibdir:
 .if ${OBJECT_FMT} == "ELF"
 LDFLAGS=-M -e start 	# -N does not work properly.
 .else
-LDFLAGS=-N -M -e _start 
+LDFLAGS=-N -M -e _start
 .endif
 
 LIBLIST=${LIBI386} ${LIBSA} ${LIBZ} ${LIBSA} ${LIBKERN} ${LIBI386} ${LIBSA}

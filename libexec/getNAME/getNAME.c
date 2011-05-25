@@ -184,7 +184,7 @@ oldman(pathname, name)
 			break;
 	}
 
-	for (s = &line[3]; s < &line[len] && 
+	for (s = &line[3]; s < &line[len] &&
 	    (isspace((unsigned char) *s) || *s == '"' || *s == '\''); s++)
 		continue;
 	if (s == &line[len]) {
@@ -236,11 +236,11 @@ oldman(pathname, name)
 		(void)memcpy(&linebuf[curlen], line, len);
 		curlen += len;
 		linebuf[curlen] = '\0';
-		
+
 		if(!tocrc && !intro) {
 			/* change the \- into (N) - */
 			if ((s = strstr(linebuf, "\\-")) != NULL) {
-				(void)memmove(s + extlen + 3, s + 1, 
+				(void)memmove(s + extlen + 3, s + 1,
 					      curlen - (s + 1 - linebuf));
 				curlen--;
 				if (extlen) {
@@ -365,7 +365,7 @@ newman(pathname, name)
 			/*
 			 * Skip over macro names.
 			 */
-			if (len <= 4) 
+			if (len <= 4)
 				continue;
 			(void)memcpy(&linebuf[curlen], &line[4], len - 4);
 			curlen += len - 4;

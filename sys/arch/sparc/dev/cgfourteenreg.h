@@ -1,7 +1,7 @@
 /*	$NetBSD: cgfourteenreg.h,v 1.1 1996/09/30 22:41:02 abrown Exp $ */
 
 /*
- * Copyright (c) 1996 
+ * Copyright (c) 1996
  *	The President and Fellows of Harvard College. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -51,7 +51,7 @@ struct cg14ctl {
 	volatile u_int8_t	ctl_mctl;	/* main control register */
 #define CG14_MCTL_ENABLEINTR	0x80		/* interrupts */
 #define CG14_MCTL_ENABLEVID	0x40		/* enable video */
-#define CG14_MCTL_PIXMODE_MASK	0x30		      
+#define CG14_MCTL_PIXMODE_MASK	0x30
 #define		CG14_MCTL_PIXMODE_8	0x00	/* data is 16 8-bit pixels */
 #define		CG14_MCTL_PIXMODE_16	0x20	/* data is 8 16-bit pixels */
 #define		CG14_MCTL_PIXMODE_32	0x30	/* data is 4 32-bit pixels */

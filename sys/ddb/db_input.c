@@ -1,27 +1,27 @@
 /*	$NetBSD: db_input.c,v 1.12 1999/04/12 20:38:21 pk Exp $	*/
 
-/* 
+/*
  * Mach Operating System
  * Copyright (c) 1991,1990 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
+ *
  * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
  * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND FOR
  * ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
- * 
+ *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
  *  School of Computer Science
  *  Carnegie Mellon University
  *  Pittsburgh PA 15213-3890
- * 
+ *
  * any improvements or extensions that they make and grant Carnegie the
  * rights to redistribute these changes.
  *
@@ -67,7 +67,7 @@ char *  db_history_curr = db_history;	/* start of current line */
 char *  db_history_last = db_history;	/* start of last line */
 char *  db_history_prev = (char *) 0;	/* start of previous line */
 #endif
-	
+
 
 #define	CTRL(c)		((c) & 0x1f)
 #define	isspace(c)	((c) == ' ' || (c) == '\t')
@@ -143,7 +143,7 @@ db_delete_line()
 		 db_history_size - 1; \
        } while (0)
 #endif
-		
+
 /* returns TRUE at end-of-line */
 int
 db_inputchar(c)

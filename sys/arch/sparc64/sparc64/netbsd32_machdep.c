@@ -83,7 +83,7 @@ netbsd32_setregs(p, pack, stack)
 	 *	%g1: address of PS_STRINGS (used by crt0)
 	 *	%tpc,%tnpc: entry point of program
 	 */
-	tstate = ((PSTATE_USER)<<TSTATE_PSTATE_SHIFT) 
+	tstate = ((PSTATE_USER)<<TSTATE_PSTATE_SHIFT)
 		| (tf->tf_tstate & TSTATE_CWP);
 	if ((fs = p->p_md.md_fpstate) != NULL) {
 		/*
@@ -137,7 +137,7 @@ netbsd32_sendsig(catcher, sig, mask, code)
 	register struct sigacts *psp = p->p_sigacts;
 	register struct sparc32_sigframe *fp;
 	register struct trapframe *tf;
-	register int addr, onstack; 
+	register int addr, onstack;
 	struct rwindow32 *kwin, *oldsp, *newsp;
 	struct sparc32_sigframe sf;
 	extern char netbsd32_sigcode[], netbsd32_esigcode[];
@@ -207,8 +207,8 @@ netbsd32_sendsig(catcher, sig, mask, code)
 		   fp, &(((struct rwindow32 *)newsp)->rw_in[6]), oldsp);
 #endif
 	kwin = (struct rwindow32 *)(((caddr_t)tf)-CCFSZ);
-	if (rwindow_save(p) || 
-	    copyout((caddr_t)&sf, (caddr_t)fp, sizeof sf) || 
+	if (rwindow_save(p) ||
+	    copyout((caddr_t)&sf, (caddr_t)fp, sizeof sf) ||
 	    suword(&(((struct rwindow32 *)newsp)->rw_in[6]), (u_long)oldsp)) {
 		/*
 		 * Process has trashed its stack; give it an illegal
@@ -246,7 +246,7 @@ netbsd32_sendsig(catcher, sig, mask, code)
 
 #ifdef DEBUG
 	if ((sigdebug & SDB_KSTACK) && p->p_pid == sigpid) {
-		printf("sendsig: about to return to catcher %p thru %p\n", 
+		printf("sendsig: about to return to catcher %p thru %p\n",
 		       catcher, addr);
 		if (sigdebug & SDB_DDB) Debugger();
 	}
@@ -449,7 +449,7 @@ netbsd32_process_read_regs(p, regs)
 	struct trapframe* tf = p->p_md.md_tf;
 	int i;
 
-	/* 
+	/*
 	 * Um, we should only do this conversion for 32-bit emulation
 	 * or when running 32-bit mode.  We really need to pass in a
 	 * 32-bit emulation flag!
@@ -569,16 +569,16 @@ cpu_coredump32(p, vp, cred, chdr)
 			savefpstate(p->p_md.md_fpstate);
 		/* Copy individual fields */
 		for (i=0; i<32; i++)
-			md_core.md_fpstate.fs_regs[i] = 
+			md_core.md_fpstate.fs_regs[i] =
 				p->p_md.md_fpstate->fs_regs[i];
 		md_core.md_fpstate.fs_fsr = p->p_md.md_fpstate->fs_fsr;
 		i = md_core.md_fpstate.fs_qsize = p->p_md.md_fpstate->fs_qsize;
 		/* Should always be zero */
 		while (i--)
-			md_core.md_fpstate.fs_queue[i] = 
+			md_core.md_fpstate.fs_queue[i] =
 				p->p_md.md_fpstate->fs_queue[i];
 	} else
-		bzero((caddr_t)&md_core.md_fpstate, 
+		bzero((caddr_t)&md_core.md_fpstate,
 		      sizeof(md_core.md_fpstate));
 
 	CORE_SETMAGIC(cseg, CORESEGMAGIC, MID_MACHINE, CORE_CPU);

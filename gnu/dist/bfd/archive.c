@@ -894,10 +894,10 @@ do_slurp_coff_armap (abfd)
 
     bfd_seek (abfd,   ardata->first_file_filepos, SEEK_SET);
     tmp = (struct areltdata *) _bfd_read_ar_hdr (abfd);
-    if (tmp != NULL) 
+    if (tmp != NULL)
       {
 	if (tmp->arch_header[0] == '/'
-	    && tmp->arch_header[1] == ' ') 
+	    && tmp->arch_header[1] == ' ')
 	  {
 	    ardata->first_file_filepos +=
 	      (tmp->parsed_size + sizeof(struct ar_hdr) + 1) & ~1;

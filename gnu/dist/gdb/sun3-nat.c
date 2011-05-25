@@ -38,26 +38,26 @@ fetch_inferior_registers (regno)
   extern char registers[];
 
   registers_fetched ();
-  
+
   ptrace (PTRACE_GETREGS, inferior_pid,
 	  (PTRACE_ARG3_TYPE) &inferior_registers);
 #ifdef FP0_REGNUM
   ptrace (PTRACE_GETFPREGS, inferior_pid,
 	  (PTRACE_ARG3_TYPE) &inferior_fp_registers);
-#endif 
-  
+#endif
+
   memcpy (registers, &inferior_registers, 16 * 4);
 #ifdef FP0_REGNUM
   memcpy (&registers[REGISTER_BYTE (FP0_REGNUM)], &inferior_fp_registers,
 	 sizeof inferior_fp_registers.fps_regs);
-#endif 
+#endif
   *(int *)&registers[REGISTER_BYTE (PS_REGNUM)] = inferior_registers.r_ps;
   *(int *)&registers[REGISTER_BYTE (PC_REGNUM)] = inferior_registers.r_pc;
 #ifdef FP0_REGNUM
   memcpy (&registers[REGISTER_BYTE (FPC_REGNUM)],
 	 &inferior_fp_registers.fps_control,
 	 sizeof inferior_fp_registers - sizeof inferior_fp_registers.fps_regs);
-#endif 
+#endif
 }
 
 /* Store our register values back into the inferior.
@@ -130,7 +130,7 @@ fetch_core_registers (core_reg_sect, core_reg_size, which, reg_addr)
 	      sizeof fpustruct->f_fpstatus.fps_regs);
 	memcpy (&registers[REGISTER_BYTE (FPC_REGNUM)],
 	      &fpustruct->f_fpstatus.fps_control,
-	      sizeof fpustruct->f_fpstatus - 
+	      sizeof fpustruct->f_fpstatus -
 		sizeof fpustruct->f_fpstatus.fps_regs);
 #endif
       }

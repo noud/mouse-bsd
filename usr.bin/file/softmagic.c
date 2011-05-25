@@ -53,7 +53,7 @@ static void mdebug	__P((int32, char *, int));
 static int mconvert	__P((union VALUETYPE *, struct magic *));
 
 /*
- * softmagic - lookup one file in database 
+ * softmagic - lookup one file in database
  * (already read from MAGIC by apprentice.c).
  * Passed the name and FILE * of one file to be typed.
  */
@@ -117,7 +117,7 @@ int nbytes;
 		/* if main entry matches, print it... */
 		if (!mget(&p, s, &magic[magindex], nbytes) ||
 		    !mcheck(&p, &magic[magindex])) {
-			    /* 
+			    /*
 			     * main entry didn't match,
 			     * flush its continuations
 			     */
@@ -139,7 +139,7 @@ int nbytes;
 			if ((tmpoff = (int32 *) realloc(tmpoff,
 						       tmplen += 20)) == NULL)
 				error("out of memory\n");
-		while (magic[magindex+1].cont_level != 0 && 
+		while (magic[magindex+1].cont_level != 0 &&
 		       ++magindex < nmagic) {
 			if (cont_level >= magic[magindex].cont_level) {
 				if (cont_level > magic[magindex].cont_level) {
@@ -180,7 +180,7 @@ int nbytes;
 					 * process them.
 					 */
 					if (++cont_level >= tmplen)
-						if ((tmpoff = 
+						if ((tmpoff =
 						    (int32 *) realloc(tmpoff,
 						    tmplen += 20)) == NULL)
 							error("out of memory\n");

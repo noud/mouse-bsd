@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: nfs_prot_netbsd1_3.h,v 1.3 1999/02/04 07:24:36 ezk Exp 
+ * Id: nfs_prot_netbsd1_3.h,v 1.3 1999/02/04 07:24:36 ezk Exp
  *
  */
 

@@ -114,7 +114,7 @@ atzscattach(pdp, dp, auxp)
 	struct zbus_args *zap;
 
 	zap = auxp;
-	
+
 	sc = (struct sbic_softc *)dp;
 	sc->sc_cregs = rp = zap->va;
 	/*
@@ -135,7 +135,7 @@ atzscattach(pdp, dp, auxp)
 	sc->sc_dmamask = ~0x00ffffff;
 #if 0
 	/*
-	 * If the users kva space is not ztwo try and allocate a bounce buffer. 
+	 * If the users kva space is not ztwo try and allocate a bounce buffer.
 	 * XXX this needs to change if we move to multiple memory segments.
 	 */
 	if (kvtop(sc) & sc->sc_dmamask) {
@@ -151,7 +151,7 @@ atzscattach(pdp, dp, auxp)
 	sc->sc_sbic.sbic_value_p = (volatile unsigned char *)rp + 0x93;
 
 	sc->sc_clkfreq = sbic_clock_override ? sbic_clock_override : 77;
-	
+
 	printf(": dmamask 0x%lx\n", ~sc->sc_dmamask);
 
 	sc->sc_adapter.scsipi_cmd = sbic_scsicmd;
@@ -244,7 +244,7 @@ atzsc_dmastop(dev)
 			while ((sdp->ISTR & ISTR_FE_FLG) == 0)
 				;
 		}
-		/* 
+		/*
 		 * clear possible interrupt and stop dma
 		 */
 		sdp->CINT = 1;
@@ -283,9 +283,9 @@ atzsc_dmaintr(arg)
 		found++;
 
 		sdp->CINT = 1;	/* clear possible interrupt */
-	
+
 		/*
-		 * check for SCSI ints in the same go and 
+		 * check for SCSI ints in the same go and
 		 * eventually save an interrupt
 		 */
 	}
@@ -311,7 +311,7 @@ atzsc_dmanext(dev)
 		return(0);
 	}
 	if ((dev->sc_dmacmd & (CNTR_TCEN | CNTR_DDIR)) == 0) {
-		  /* 
+		  /*
 		   * only FLUSH if terminal count not enabled,
 		   * and reading from peripheral
 		   */
@@ -319,7 +319,7 @@ atzsc_dmanext(dev)
 		while ((sdp->ISTR & ISTR_FE_FLG) == 0)
 			;
         }
-	/* 
+	/*
 	 * clear possible interrupt and stop dma
 	 */
 	sdp->CINT = 1;	/* clear possible interrupt */

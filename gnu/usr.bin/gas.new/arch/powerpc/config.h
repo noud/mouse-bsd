@@ -78,7 +78,7 @@
 /* Needed only for some configurations that can produce multiple output
    formats.  */
 #define DEFAULT_EMULATION ""
-#define EMULATIONS 
+#define EMULATIONS
 /* #undef USE_EMULATIONS */
 /* #undef OBJ_MAYBE_AOUT */
 /* #undef OBJ_MAYBE_BOUT */

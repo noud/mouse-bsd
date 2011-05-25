@@ -256,7 +256,7 @@ exec_m68k4k_prep_omagic(p, epp)
 	 * computed (in execve(2)) by rounding *up* `ep_tsize' and `ep_dsize'
 	 * respectively to page boundaries.
 	 * Compensate `ep_dsize' for the amount of data covered by the last
-	 * text page. 
+	 * text page.
 	 */
 	dsize = epp->ep_dsize + execp->a_text - roundup(execp->a_text, NBPG);
 	epp->ep_dsize = (dsize > 0) ? dsize : 0;

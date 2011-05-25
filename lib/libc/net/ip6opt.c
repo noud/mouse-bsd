@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -81,7 +81,7 @@ inet6_option_init(bp, cmsgp, type)
 	/* argument validation */
 	if (type != IPV6_HOPOPTS && type != IPV6_DSTOPTS)
 		return(-1);
-	
+
 	ch->cmsg_level = IPPROTO_IPV6;
 	ch->cmsg_type = type;
 	ch->cmsg_len = CMSG_LEN(0);
@@ -179,7 +179,7 @@ inet6_option_append(cmsg, typep, multx, plusy)
  * the ancillary data object while the current function returns a
  * pointer to the space in the data object where the option's TLV must
  * then be built by the caller.
- * 
+ *
  */
 u_int8_t *
 inet6_option_alloc(cmsg, datalen, multx, plusy)
@@ -338,7 +338,7 @@ inet6_option_find(cmsg, tptrp, type)
 	ip6e = (struct ip6_ext *)CMSG_DATA(cmsg);
 	hdrlen = (ip6e->ip6e_len + 1) << 3;
 	if (cmsg->cmsg_len < CMSG_SPACE(hdrlen))
-		return(-1);	
+		return(-1);
 
 	/*
 	 * If the caller does not specify the starting point,
@@ -410,7 +410,7 @@ inet6_insert_padopt(u_char *p, size_t len)
 		 return;
 	 default:
 		 p[0] = IP6OPT_PADN;
-		 p[1] = len - 2; 
+		 p[1] = len - 2;
 		 memset(&p[2], 0, len - 2);
 		 return;
 	}

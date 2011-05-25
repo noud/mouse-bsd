@@ -37,15 +37,15 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  *
 
 #define WR_d    INSN_WRITE_GPR_D
 #define WR_t    INSN_WRITE_GPR_T
-#define WR_31   INSN_WRITE_GPR_31       
-#define WR_D    INSN_WRITE_FPR_D        
+#define WR_31   INSN_WRITE_GPR_31
+#define WR_D    INSN_WRITE_FPR_D
 #define WR_T	INSN_WRITE_FPR_T
 #define WR_S	INSN_WRITE_FPR_S
-#define RD_s    INSN_READ_GPR_S         
-#define RD_b    INSN_READ_GPR_S         
-#define RD_t    INSN_READ_GPR_T         
-#define RD_S    INSN_READ_FPR_S         
-#define RD_T    INSN_READ_FPR_T         
+#define RD_s    INSN_READ_GPR_S
+#define RD_b    INSN_READ_GPR_S
+#define RD_t    INSN_READ_GPR_T
+#define RD_S    INSN_READ_FPR_S
+#define RD_T    INSN_READ_FPR_T
 #define RD_R	INSN_READ_FPR_R
 #define WR_CC	INSN_WRITE_COND_CODE
 #define RD_CC	INSN_READ_COND_CODE
@@ -638,7 +638,7 @@ const struct mips_opcode mips_builtin_opcodes[] = {
 {"standby", "",         0x42000021, 0xffffffff,	0,		V1	},
 {"sub",     "d,v,t",	0x00000022, 0xfc0007ff,	WR_d|RD_s|RD_t,	I1	},
 {"sub",     "d,v,I",	0,    (int) M_SUB_I,	INSN_MACRO,	I1	},
-{"sub.d",   "D,V,T",	0x46200001, 0xffe0003f,	WR_D|RD_S|RD_T|FP_D,	I1	},     
+{"sub.d",   "D,V,T",	0x46200001, 0xffe0003f,	WR_D|RD_S|RD_T|FP_D,	I1	},
 {"sub.s",   "D,V,T",	0x46000001, 0xffe0003f,	WR_D|RD_S|RD_T|FP_S,	I1	},
 {"subu",    "d,v,t",	0x00000023, 0xfc0007ff,	WR_d|RD_s|RD_t,	I1	},
 {"subu",    "d,v,I",	0,    (int) M_SUBU_I,	INSN_MACRO,	I1	},
@@ -750,7 +750,7 @@ const struct mips_opcode mips_builtin_opcodes[] = {
 	((sizeof mips_builtin_opcodes) / (sizeof (mips_builtin_opcodes[0])))
 const int bfd_mips_num_builtin_opcodes = MIPS_NUM_OPCODES;
 
-/* const removed from the following to allow for dynamic extensions to the 
+/* const removed from the following to allow for dynamic extensions to the
  * built-in instruction set. */
 struct mips_opcode *mips_opcodes =
   (struct mips_opcode *) mips_builtin_opcodes;

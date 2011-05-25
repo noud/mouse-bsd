@@ -19,7 +19,7 @@ The runtime is modeled after the NeXT Objective C runtime.  That is,
 most functions have semantics as it is known from the NeXT.  The
 names, however, have changed.  All runtime API functions have names
 of lowercase letters and underscores as opposed to the
-`traditional' mixed case names.  
+`traditional' mixed case names.
 	The runtime api functions are not documented as of now.
 Someone offered to write it, and did it, but we were not allowed to
 use it by his university (Very sad story).  We have started writing
@@ -39,7 +39,7 @@ adopts it -- it is not enough to inherit them.  The flag
 `-Wprotocols' is the default which requires them defined.
 
 
-+initialize 
++initialize
 ===========
 
 This method, if defined, is called before any other instance or class
@@ -60,7 +60,7 @@ Passivation/Activation/Typedstreams
 This is supported in the style of NeXT TypedStream's.  Consult the
 headerfile Typedstreams.h for api functions.  I (Kresten) have
 rewritten it in Objective C, but this implementation is not part of
-2.4, it is available from the GNU Objective C prerelease archive. 
+2.4, it is available from the GNU Objective C prerelease archive.
    There is one difference worth noting concerning objects stored with
 objc_write_object_reference (aka NXWriteObjectReference).  When these
 are read back in, their object is not guaranteed to be available until

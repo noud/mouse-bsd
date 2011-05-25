@@ -83,7 +83,7 @@ ofdisk_match(parent, match, aux)
 	struct ofbus_attach_args *oba = aux;
 	char type[8];
 	int l;
-	
+
 	if (strcmp(oba->oba_busname, "ofw"))
 		return (0);
 	if ((l = OF_getprop(oba->oba_phandle, "device_type", type,
@@ -138,7 +138,7 @@ ofdisk_open(dev, flags, fmt, p)
 	struct ofdisk_softc *of;
 	char path[256];
 	int l;
-	
+
 	if (unit >= ofdisk_cd.cd_ndevs)
 		return ENXIO;
 	if (!(of = ofdisk_cd.cd_devs[unit]))
@@ -190,7 +190,7 @@ ofdisk_open(dev, flags, fmt, p)
 	}
 	of->sc_dk.dk_openmask =
 	    of->sc_dk.dk_copenmask | of->sc_dk.dk_bopenmask;
-	
+
 	return 0;
 }
 
@@ -212,7 +212,7 @@ ofdisk_close(dev, flags, fmt, p)
 		break;
 	}
 	of->sc_dk.dk_openmask = of->sc_dk.dk_copenmask | of->sc_dk.dk_bopenmask;
-	
+
 #ifdef	FIRMWORKSBUGS
 	/*
 	 * This is a hack to get the firmware to flush its buffers.
@@ -241,7 +241,7 @@ ofdisk_strategy(bp)
 	bp->b_resid = 0;
 	if (bp->b_bcount == 0)
 		goto done;
-	
+
 	OF_io = bp->b_flags & B_READ ? OF_read : OF_write;
 
 	if (DISKPART(bp->b_dev) != RAW_PART) {
@@ -281,7 +281,7 @@ ofminphys(bp)
 	struct buf *bp;
 {
 	struct ofdisk_softc *of = ofdisk_cd.cd_devs[DISKUNIT(bp->b_dev)];
-	
+
 	if (bp->b_bcount > of->max_transfer)
 		bp->b_bcount = of->max_transfer;
 }
@@ -312,23 +312,23 @@ ofdisk_ioctl(dev, cmd, data, flag, p)
 {
 	struct ofdisk_softc *of = ofdisk_cd.cd_devs[DISKUNIT(dev)];
 	int error;
-	
+
 	switch (cmd) {
 	case DIOCGDINFO:
 		*(struct disklabel *)data = *of->sc_dk.dk_label;
 		return 0;
-		
+
 	case DIOCGPART:
 		((struct partinfo *)data)->disklab = of->sc_dk.dk_label;
 		((struct partinfo *)data)->part =
 			&of->sc_dk.dk_label->d_partitions[DISKPART(dev)];
 		return 0;
-		
+
 	case DIOCWDINFO:
 	case DIOCSDINFO:
 		if ((flag & FWRITE) == 0)
 			return EBADF;
-		
+
 		error = setdisklabel(of->sc_dk.dk_label,
 		    (struct disklabel *)data, /*of->sc_dk.dk_openmask */0,
 		    of->sc_dk.dk_cpulabel);

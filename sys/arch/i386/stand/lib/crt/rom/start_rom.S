@@ -1,5 +1,5 @@
 /*	$NetBSD: start_rom.S,v 1.8 1999/11/07 01:06:37 mycroft Exp $	*/
-	
+
 /*
  * ROM startup
  * mostly from freebsd:sys/arch/i396/boot/netboot/start2.S

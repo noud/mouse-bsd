@@ -4,7 +4,7 @@
  * THIS FILE AUTOMATICALLY GENERATED.  DO NOT EDIT.
  *
  * generated from:
- *	NetBSD: pcidevs,v 1.192 2000/02/16 04:29:20 soren Exp 
+ *	NetBSD: pcidevs,v 1.192 2000/02/16 04:29:20 soren Exp
  */
 
 /*

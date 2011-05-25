@@ -1182,7 +1182,7 @@ ffeintrin_basictype (ffeintrinSpec spec)
 
   if (ffe_is_f2c ())
     gfrt = ffeintrin_imps_[imp].gfrt_f2c;
-  else 
+  else
     gfrt = ffeintrin_imps_[imp].gfrt_gnu;
 
   assert (gfrt != FFECOM_gfrt);

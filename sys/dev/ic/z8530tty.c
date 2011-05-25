@@ -138,7 +138,7 @@ u_int zstty_rbuf_size = ZSTTY_RING_SIZE;
 u_int zstty_rbuf_hiwat = (ZSTTY_RING_SIZE * 1) / 4;
 u_int zstty_rbuf_lowat = (ZSTTY_RING_SIZE * 3) / 4;
 
-static int zsppscap = 
+static int zsppscap =
 	PPS_TSFMT_TSPEC |
 	PPS_CAPTUREASSERT |
 	PPS_CAPTURECLEAR |
@@ -240,7 +240,7 @@ static void zstty_softint __P((struct zs_chanstate *));
 /*
  * zstty_match: how is this zs channel configured?
  */
-int 
+int
 zstty_match(parent, cf, aux)
 	struct device *parent;
 	struct cfdata *cf;
@@ -259,7 +259,7 @@ zstty_match(parent, cf, aux)
 	return 0;
 }
 
-void 
+void
 zstty_attach(parent, self, aux)
 	struct device *parent, *self;
 	void   *aux;
@@ -893,7 +893,7 @@ zsstart(tp)
 
 		tba = tp->t_outq.c_cf;
 		tbc = ndqb(&tp->t_outq, 0);
-	
+
 		(void) splzs();
 
 		zst->zst_tba = tba;

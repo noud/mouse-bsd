@@ -105,7 +105,7 @@ void printer::draw(int, int *, int, const environment *)
 {
 }
 
-void printer::set_ascii_char(unsigned char c, const environment *env, 
+void printer::set_ascii_char(unsigned char c, const environment *env,
 			     int *widthp)
 {
   char buf[2];
@@ -173,7 +173,7 @@ void printer::set_numbered_char(int num, const environment *env, int *widthp)
 // This utility function adjusts the specified center of the
 // arc so that it is equidistant between the specified start
 // and end points. (p[0], p[1]) is a vector from the current
-// point to the center; (p[2], p[3]) is a vector from the 
+// point to the center; (p[2], p[3]) is a vector from the
 // center to the end point.  If the center can be adjusted,
 // a vector from the current point to the adjusted center is
 // stored in c[0], c[1] and 1 is returned.  Otherwise 0 is
@@ -237,5 +237,5 @@ int printer::adjust_arc_center(const int *p, double *c)
     else
       return 0;
   }
-}  
+}
 #endif

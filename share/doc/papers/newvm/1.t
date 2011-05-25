@@ -124,11 +124,11 @@ time sharing model to an environment in which users have a
 computer on their desk.
 This workstation is linked through a network to a centralized
 pool of machines that provide filing, computing, and spooling services.
-The workstations tend to have a large quantity of memory, 
+The workstations tend to have a large quantity of memory,
 but little or no disk space.
 Because users do not want to be bothered with backing up their disks,
 and because of the difficulty of having a centralized administration
-backing up hundreds of small disks, these local disks are typically 
+backing up hundreds of small disks, these local disks are typically
 used only for temporary storage and as swap space.
 Long term storage is managed by the central file server.
 .PP
@@ -143,7 +143,7 @@ The effect of this change is that the way in which a machine is used
 is beginning to change dramatically.
 As the amount of physical memory on machines increases and the number of
 users per machine decreases, the expected
-mode of operation is changing from that of supporting more active virtual 
+mode of operation is changing from that of supporting more active virtual
 memory than physical memory to that of having a surplus of memory that can
 be used for other purposes.
 .PP
@@ -197,10 +197,10 @@ Regions
 The virtual memory interface is designed to support both large,
 sparse address spaces as well as small, densely-used address spaces.
 In this context, ``small'' is an address space roughly the
-size of the physical memory on the machine, 
+size of the physical memory on the machine,
 while ``large'' may extend up to the maximum addressability of the machine.
 A process may divide its address space up into a number of regions.
-Initially a process begins with four regions; 
+Initially a process begins with four regions;
 a shared read-only fill-on-demand region with its text,
 a private fill-on-demand region for its initialized data,
 a private zero-fill-on-demand region for its uninitialized data and heap,
@@ -281,11 +281,11 @@ the processes must serialize their modifications to shared
 data structures if they are to avoid corrupting them.
 This serialization is typically done with semaphores.
 Unfortunately, most implementations of semaphores are
-done with system calls. 
+done with system calls.
 Thus processes are once again limited by the need to do two
 system calls per transaction, one to lock the semaphore, the
 second to release it.
-The net effect is that the shared memory model provides little if 
+The net effect is that the shared memory model provides little if
 any improvement in interprocess bandwidth.
 .PP
 To achieve a significant improvement in interprocess bandwidth
@@ -305,7 +305,7 @@ In the typical case, a process executes an atomic test-and-set instruction
 to acquire a lock, finds it free, and thus is able to get it.
 Only in the (rare) case where the lock is already set does the process
 need to do a system call to wait for the lock to clear.
-When a process is finished with a lock, 
+When a process is finished with a lock,
 it can clear the lock itself.
 Only if the ``WANT'' flag for the lock has been set is
 it necessary for the process to do a system call to cause the other
@@ -313,7 +313,7 @@ process(es) to be awakened.
 .PP
 Another issue that must be considered is portability.
 Some computers require access to special hardware to implement
-atomic interprocessor test-and-set. 
+atomic interprocessor test-and-set.
 For such machines the setting and clearing of locks would
 all have to be done with system calls;
 applications could still use the same interface without change,
@@ -374,6 +374,6 @@ Berkeley, CA 94720, USA, November 1979.
 .IP [Someren84] 20
 Someren, J. van,
 ``Paging in Berkeley UNIX'',
-Laboratorium voor schakeltechniek en techneik v.d. 
+Laboratorium voor schakeltechniek en techneik v.d.
 informatieverwerkende machines,
 Codenummer 051560-44(1984)01, February 1984.

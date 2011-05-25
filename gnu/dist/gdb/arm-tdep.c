@@ -37,7 +37,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
    a power of two. */
 #define ROUND_DOWN(n,a) 	((n) & ~((a) - 1))
 #define ROUND_UP(n,a) 		(((n) + (a) - 1) & ~((a) - 1))
-  
+
 /* Set to true if the 32-bit mode is in use. */
 
 int arm_apcs_32 = 1;
@@ -121,7 +121,7 @@ arm_saved_pc_after_call (frame)
         add     sp, sp, #-28
         add     r7, sp, #12
    Sometimes the latter instruction may be replaced by:
-        mov     r7, sp 
+        mov     r7, sp
 */
 
 static CORE_ADDR
@@ -247,7 +247,7 @@ arm_skip_prologue (pc)
      SP ->     -12  additional stack space (12 bytes)
    The frame size would thus be 36 bytes, and the frame offset would be
    12 bytes.  The frame register is R7.  */
-	
+
 static void
 thumb_scan_prologue (fi)
      struct frame_info * fi;
@@ -388,7 +388,7 @@ save_prologue_cache (fi)
   prologue_cache.framereg    = fi->framereg;
   prologue_cache.framesize   = fi->framesize;
   prologue_cache.frameoffset = fi->frameoffset;
-  
+
   for (i = 0; i <= NUM_REGS; i++)
     prologue_cache.fsr.regs[i] = fi->fsr.regs[i];
 }
@@ -514,7 +514,7 @@ arm_scan_prologue (fi)
      [new FP] - [new SP].  */
   fi->framesize = -sp_offset;
   fi->frameoffset = fp_offset - sp_offset;
-  
+
   save_prologue_cache (fi);
 }
 
@@ -532,14 +532,14 @@ arm_find_callers_reg (fi, regnum)
      int regnum;
 {
   for (; fi; fi = fi->next)
-    
+
 #if 0	/* FIXME: enable this code if we convert to new call dummy scheme.  */
     if (PC_IN_CALL_DUMMY (fi->pc, fi->frame, fi->frame))
       return generic_read_register_dummy (fi->pc, fi->frame, regnum);
     else
 #endif
       if (fi->fsr.regs[regnum] != 0)
-	return read_memory_integer (fi->fsr.regs[regnum], 
+	return read_memory_integer (fi->fsr.regs[regnum],
 				  REGISTER_RAW_SIZE(regnum));
   return read_register (regnum);
 }
@@ -575,7 +575,7 @@ arm_frame_chain (fi)
   /* is caller-of-this a dummy frame? */
   callers_pc = FRAME_SAVED_PC(fi);  /* find out who called us: */
   fp = arm_find_callers_reg (fi, FP_REGNUM);
-  if (PC_IN_CALL_DUMMY (callers_pc, fp, fp))	
+  if (PC_IN_CALL_DUMMY (callers_pc, fp, fp))
     return fp;		/* dummy frame's frame may bear no relation to ours */
 
   if (find_pc_partial_function (fi->pc, 0, &fn_start, 0))
@@ -644,7 +644,7 @@ arm_init_extra_frame_info (fi)
       fi->frameoffset = 0;
       return;
     }
-  else 
+  else
 #endif
     {
       arm_scan_prologue (fi);
@@ -738,10 +738,10 @@ arm_push_dummy_frame ()
   sp = push_word (sp, read_register (PC_REGNUM)); /* FIXME: was PS_REGNUM */
   sp = push_word (sp, old_sp);
   sp = push_word (sp, read_register (FP_REGNUM));
-  
+
   for (regnum = 10; regnum >= 0; regnum --)
     sp = push_word (sp, read_register (regnum));
-  
+
   write_register (FP_REGNUM, fp);
   write_register (THUMB_FP_REGNUM, fp);
   write_register (SP_REGNUM, sp);
@@ -922,7 +922,7 @@ arm_push_arguments(nargs, args, sp, struct_return, struct_addr)
 		  sp -= partial_len;
 		  write_memory (sp, val, partial_len);
 		}
-    
+
 	      len -= partial_len;
 	      val += partial_len;
 	    }
@@ -941,7 +941,7 @@ arm_pop_frame ()
 
   for (regnum = 0; regnum < NUM_REGS; regnum++)
     if (frame->fsr.regs[regnum] != 0)
-      write_register (regnum, 
+      write_register (regnum,
 		      read_memory_integer (frame->fsr.regs[regnum], 4));
 
   write_register (PC_REGNUM, FRAME_SAVED_PC (frame));
@@ -989,10 +989,10 @@ arm_othernames ()
   toggle = !toggle;
 }
 
-/* FIXME:  Fill in with the 'right thing', see asm 
+/* FIXME:  Fill in with the 'right thing', see asm
    template in arm-convert.s */
 #if 0
-void 
+void
 convert_from_extended (ptr, dbl)
      void * ptr;
      double * dbl;
@@ -1000,7 +1000,7 @@ convert_from_extended (ptr, dbl)
   *dbl = *(double*)ptr;
 }
 
-void 
+void
 convert_to_extended (dbl, ptr)
      void * ptr;
      double * dbl;
@@ -1072,7 +1072,7 @@ shifted_reg_val (inst, carry, pc_val, status_reg)
   unsigned long res, shift;
   int rm = bits (inst, 0, 3);
   unsigned long shifttype = bits (inst, 5, 6);
- 
+
   if (bit(inst, 4))
     {
       int rs = bits (inst, 8, 11);
@@ -1080,10 +1080,10 @@ shifted_reg_val (inst, carry, pc_val, status_reg)
     }
   else
     shift = bits (inst, 7, 11);
- 
-  res = (rm == 15 
+
+  res = (rm == 15
 	 ? ((pc_val | (ARM_PC_32 ? 0 : status_reg))
-	    + (bit (inst, 4) ? 12 : 8)) 
+	    + (bit (inst, 4) ? 12 : 8))
 	 : read_register (rm));
 
   switch (shifttype)
@@ -1091,7 +1091,7 @@ shifted_reg_val (inst, carry, pc_val, status_reg)
     case 0: /* LSL */
       res = shift >= 32 ? 0 : res << shift;
       break;
-      
+
     case 1: /* LSR */
       res = shift >= 32 ? 0 : res >> shift;
       break;
@@ -1152,7 +1152,7 @@ thumb_get_next_pc (pc)
   else if ((inst1 & 0xf000) == 0xd000)	/* conditional branch */
     {
       unsigned long status = read_register (PS_REGNUM);
-      unsigned long cond = bits (inst1, 8, 11); 
+      unsigned long cond = bits (inst1, 8, 11);
       if (cond != 0x0f && condition_true (cond, status))	/* 0x0f = SWI */
 	nextpc = pc_val + (sbits (inst1, 0, 7) << 1);
     }
@@ -1225,7 +1225,7 @@ arm_get_next_pc (pc)
 	    unsigned long operand1, operand2, result = 0;
 	    unsigned long rn;
 	    int c;
- 
+
 	    if (bits (this_instr, 12, 15) != 15)
 	      break;
 
@@ -1237,7 +1237,7 @@ arm_get_next_pc (pc)
 	    c = (status & FLAG_C) ? 1 : 0;
 	    rn = bits (this_instr, 16, 19);
 	    operand1 = (rn == 15) ? pc_val + 8 : read_register (rn);
- 
+
 	    if (bit (this_instr, 25))
 	      {
 		unsigned long immval = bits (this_instr, 0, 7);
@@ -1247,7 +1247,7 @@ arm_get_next_pc (pc)
 	      }
 	    else  /* operand 2 is a shifted register */
 	      operand2 = shifted_reg_val (this_instr, c, pc_val, status);
- 
+
 	    switch (bits (this_instr, 21, 24))
 	      {
 	      case 0x0: /*and*/
@@ -1309,7 +1309,7 @@ arm_get_next_pc (pc)
 	      error ("Infinite loop detected");
 	    break;
 	  }
- 
+
 	case 0x4: case 0x5: /* data transfer */
 	case 0x6: case 0x7:
 	  if (bit (this_instr, 20))
@@ -1320,7 +1320,7 @@ arm_get_next_pc (pc)
 		  /* rd == pc */
 		  unsigned long  rn;
 		  unsigned long base;
- 
+
 		  if (bit (this_instr, 22))
 		    error ("Illegal update to pc in instruction");
 
@@ -1341,9 +1341,9 @@ arm_get_next_pc (pc)
 		      else
 			base -= offset;
 		    }
-		  nextpc = (CORE_ADDR) read_memory_integer ((CORE_ADDR) base, 
+		  nextpc = (CORE_ADDR) read_memory_integer ((CORE_ADDR) base,
 							    4);
- 
+
 		  nextpc = ADDR_BITS_REMOVE (nextpc);
 
 		  if (nextpc == pc)
@@ -1351,7 +1351,7 @@ arm_get_next_pc (pc)
 		}
 	    }
 	  break;
- 
+
 	case 0x8: case 0x9: /* block transfer */
 	  if (bit (this_instr, 20))
 	    {
@@ -1371,9 +1371,9 @@ arm_get_next_pc (pc)
 		    }
 		  else if (bit (this_instr, 24))
 		    offset = -4;
- 
+
 		  {
-		    unsigned long rn_val = 
+		    unsigned long rn_val =
 		      read_register (bits (this_instr, 16, 19));
 		    nextpc =
 		      (CORE_ADDR) read_memory_integer ((CORE_ADDR) (rn_val
@@ -1386,7 +1386,7 @@ arm_get_next_pc (pc)
 		}
 	    }
 	  break;
- 
+
 	case 0xb:           /* branch & link */
 	case 0xa:           /* branch */
 	  {
@@ -1397,7 +1397,7 @@ arm_get_next_pc (pc)
 	      error ("Infinite loop detected");
 	    break;
 	  }
- 
+
 	case 0xc: case 0xd:
 	case 0xe:           /* coproc ops */
 	case 0xf:           /* SWI */
@@ -1447,18 +1447,18 @@ arm_breakpoint_from_pc (pcptr, lenptr)
   if (arm_pc_is_thumb (*pcptr) || arm_pc_is_thumb_dummy (*pcptr))
     {
       static char thumb_breakpoint[] = THUMB_BREAKPOINT;
-      
+
       *pcptr = UNMAKE_THUMB_ADDR (*pcptr);
       *lenptr = sizeof (thumb_breakpoint);
-      
+
       return thumb_breakpoint;
     }
   else
     {
       static char arm_breakpoint[] = ARM_BREAKPOINT;
-      
+
       *lenptr = sizeof (arm_breakpoint);
-      
+
       return arm_breakpoint;
     }
 }
@@ -1503,7 +1503,7 @@ arm_skip_stub (pc)
     {
       /* Use the name suffix to determine which register contains
          the target PC.  */
-      static char *table[15] = 
+      static char *table[15] =
 	{ "r0", "r1", "r2", "r3", "r4", "r5", "r6", "r7",
 	  "r8", "r9", "sl", "fp", "ip", "sp", "lr"
 	};

@@ -53,7 +53,7 @@ __KERNEL_RCSID(0, "$NetBSD: tfb.c,v 1.21 1999/12/06 19:26:01 drochner Exp $");
 
 #include <dev/tc/tcvar.h>
 #include <dev/ic/bt463reg.h>
-#include <dev/ic/bt431reg.h>	
+#include <dev/ic/bt431reg.h>
 
 #include <uvm/uvm_extern.h>
 
@@ -108,7 +108,7 @@ __KERNEL_RCSID(0, "$NetBSD: tfb.c,v 1.21 1999/12/06 19:26:01 drochner Exp $");
  * 	u_int32_t	bt_reg;
  * 	u_int32_t	bt_cmap;
  * };
- * 
+ *
  * struct bt431reg {
  * 	u_int32_t	bt_lo;
  * 	u_int32_t	bt_hi;
@@ -457,7 +457,7 @@ tfbioctl(v, cmd, data, flag, p)
 		turnoff = *(int *)data == WSDISPLAYIO_VIDEO_OFF;
 		if ((dc->dc_blanked == 0) ^ turnoff) {
 			dc->dc_blanked = turnoff;
-#if 0	/* XXX later XXX */		
+#if 0	/* XXX later XXX */
 	To turn off;
 	- clear the MSB of TX control register; &= ~0x80,
 	- assign Bt431 register #0 with value 0x4 to hide sprite cursor.
@@ -562,7 +562,7 @@ tfb_cnattach(addr)
         long defattr;
 
         tfb_getdevconfig(addr, dcp);
- 
+
         rcons_alloc_attr(&dcp->dc_rcons, 0, 0, 0, &defattr);
 
         wsdisplay_cnattach(&tfb_stdscreen, &dcp->dc_rcons,
@@ -579,7 +579,7 @@ tfbintr(arg)
 	caddr_t tfbbase = (caddr_t)sc->sc_dc->dc_vaddr;
 	void *vdac, *curs;
 	int v;
-	
+
 	*(u_int8_t *)(tfbbase + TX_CONTROL) &= ~0x40;
 	if (sc->sc_changed == 0)
 		goto done;

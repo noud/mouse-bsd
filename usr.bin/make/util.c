@@ -270,7 +270,7 @@ getwd(pathname)
 	    }
 	}
 	if (d == NULL) {
-	    (void) snprintf(pathname, sizeof(pathname), 
+	    (void) snprintf(pathname, sizeof(pathname),
 		"getwd: Cannot find \".\" in \"..\"");
 	    (void) closedir(dp);
 	    return (NULL);
@@ -442,7 +442,7 @@ strftime(buf, len, fmt, tm)
 	const struct tm *tm;
 {
 	static char months[][4] = {
-		"Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+		"Jan", "Feb", "Mar", "Apr", "May", "Jun",
 		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 	};
 

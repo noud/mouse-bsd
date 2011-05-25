@@ -50,7 +50,7 @@ We will later see what kinds of commands are usefully placed there.
 For now we need not have this file and the shell does not complain about
 its absence.
 .PP
-A 
+A
 .I "login shell" ,
 executed after you login to the system,
 will, after it reads commands from
@@ -132,7 +132,7 @@ processing my
 .I \&.login
 file and begin reading commands from the terminal, prompting for each with
 `% '.
-When I log off (by giving the 
+When I log off (by giving the
 .I logout
 command) the shell
 will print `logout' and execute commands from the file `.logout'
@@ -188,12 +188,12 @@ argv	()
 cwd	/usr/bill
 home	/usr/bill
 path	(. /usr/ucb /bin /usr/bin)
-prompt	%
+prompt	% \&
 shell	/bin/csh
 status	0
 term	c100rv4pna
 user	bill
-%
+% \&
 .so tabs
 .DE
 This output indicates that the variable path points to the current
@@ -329,11 +329,11 @@ main()
 	printf("hello);
 }
 % cc !$
-cc bug.c 
+cc bug.c
 "bug.c", line 4: newline in string or char constant
 "bug.c", line 5: syntax error
 % ed !$
-ed bug.c 
+ed bug.c
 29
 4s/);/"&/p
         printf("hello");
@@ -341,10 +341,10 @@ w
 30
 q
 % !c
-cc bug.c 
+cc bug.c
 % a.out
 hello% !e
-ed bug.c 
+ed bug.c
 30
 4s/lo/lo\e\en/p
         printf("hello\en");
@@ -357,7 +357,7 @@ cc bug.c \-o bug
 a.out: 2784+364+1028 = 4176b = 0x1050b
 bug: 2784+364+1028 = 4176b = 0x1050b
 % ls \-l !*
-ls \-l a.out bug 
+ls \-l a.out bug
 \(mirwxr\(mixr\(mix 1 bill       3932 Dec 19 09:41 a.out
 \(mirwxr\(mixr\(mix 1 bill       3932 Dec 19 09:42 bug
 % bug
@@ -365,14 +365,14 @@ hello
 % num bug.c | spp
 spp: Command not found.
 % ^spp^ssp
-num bug.c | ssp 
+num bug.c | ssp
     1	main()
     3	{
     4		printf("hello\en");
     5	}
 % !! | lpr
 num bug.c | ssp | lpr
-% 
+% \&
 .DE
 .KE
 In this example we have a very simple C program which has a bug (or two)
@@ -641,12 +641,12 @@ How do you know when a background job is finished?
 EOT
 .ta 1.75i
 [1] \- Done	du > usage
-%
+% \&
 .so tabs
 .DE
 If the job did not terminate normally the `Done' message might say
 something else like `Killed'.
-If you want the 
+If you want the
 terminations of background jobs to be reported at the time they occur
 (possibly interrupting the output of other foreground jobs), you can set
 the
@@ -683,7 +683,7 @@ before prompting you for another command. For example,
 .DS
 % ls \-s | sort \-n > usage &
 [2] 2034 2035
-%
+% \&
 .DE
 runs the `ls' program with the `\-s' options, pipes this output into
 the `sort' program with the `\-n' option which puts its output into the
@@ -709,7 +709,7 @@ For foreground jobs this looks like
 % du > usage
 ^Z
 Stopped
-%
+% \&
 .DE
 `Stopped' message is typed by the shell when it notices that the
 .I du
@@ -723,7 +723,7 @@ command, it is
 % stop %1
 .ta 1.75i
 [1] + Stopped (signal)	sort usage
-%
+% \&
 .so tabs
 .DE
 Suspending foreground jobs can be very useful when you need to temporarily
@@ -739,7 +739,7 @@ stop waiting for the foreground job to finish.  Thus
 Stopped
 % bg
 [1] du > usage &
-%
+% \&
 .DE
 starts `du' in the foreground, stops it before it finishes, then continues
 it in the background allowing more foreground commands to be executed.
@@ -770,7 +770,7 @@ job \- identified by a `\-' in the output of
 .I jobs.
 When the current job terminates, the previous job becomes the current job.
 When given, the argument is either `%\-' (indicating
-the previous job); `%#', where # is the job number; 
+the previous job); `%#', where # is the job number;
 `%pref' where pref is some unique prefix of the command name
 and arguments of one of the jobs; or `%?' followed by some string found
 in only one of the jobs.
@@ -834,7 +834,7 @@ command could have been terminated by the command
 % kill %1
 .ta 1.75i
 [1]  Terminated	du > usage
-%
+% \&
 .so tabs
 .DE
 .PP
@@ -859,7 +859,7 @@ text editor might take a long time.
 Stopped
 % bg
 [1] ed bigfile &
-% 
+% \&
  . . .  some foreground commands
 .ta 1.75i
 [1] Stopped (tty input)	ed bigfile
@@ -868,7 +868,7 @@ ed bigfile
 w
 120000
 q
-% 
+% \&
 .so tabs
 .DE
 So after the `s' command was issued, the `ed' job was stopped with ^Z
@@ -973,7 +973,7 @@ Thus in the example below:
 % chdir newpaper
 % pwd
 /usr/bill/newpaper
-%
+% \&
 .DE
 the user has created and moved to the
 directory
@@ -1034,7 +1034,7 @@ command
 ~/newpaper/references  ~
 % popd
 ~
-%
+% \&
 .DE
 The list is printed in a horizontal line, reading left to right,
 with a tilde (~) as
@@ -1113,7 +1113,7 @@ ed prog.c (wd: ~/myproject)
  . . . after some editing
 q
 (wd now: ~)
-%
+% \&
 .DE
 These messages are sometimes confusing if you use programs that change
 their own working directories, since the shell only remembers which
@@ -1236,7 +1236,7 @@ SHELL=/bin/csh
 PATH=:/usr/ucb:/bin:/usr/bin:/usr/local
 TERM=adm3a
 USER=bill
-%
+% \&
 .DE
 .PP
 The
@@ -1264,7 +1264,7 @@ Thus
      52    178   1347 /usr/bill/rc
     104    356   2694 total
 0.1u 0.1s 0:00 13% 3+3k 5+3io 7pf+0w
-%
+% \&
 .DE
 indicates that the
 .I cp

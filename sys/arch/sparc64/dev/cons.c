@@ -120,11 +120,11 @@ consinit()
 	tp->t_dev = makedev(0, 0);	/* /dev/console */
 	tp->t_ispeed = tp->t_ospeed = TTYDEF_SPEED;
 	tp->t_param = (int (*)(struct tty *, struct termios *))nullop;
-	
+
 	/* We need to probe the PROM device tree */
-	
+
 	in = out = -1;
-	
+
 	prom_printf("setting up stdin\r\n");
 	node = OF_instance_to_package(OF_stdin());
 	prom_printf("stdin package = %x\r\n", node);
@@ -629,7 +629,7 @@ void
 cnpollc(on)
 	int on;
 {
-	/* 
+	/*
 	 * Need to tell zs driver to acknowledge all interrupts or we get
 	 * annoying spurious interrupt messages.
 	 */

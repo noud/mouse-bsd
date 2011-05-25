@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1992 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -36,18 +36,18 @@
  * 	Moved PFI definition under __STDC__ conditional since it
  * 	is already defined in libc.h in this case.
  * 	[92/09/01            mrt]
- * 
+ *
  * Revision 2.3  92/08/11  12:08:12  mrt
  * 	Added copyright
  * 	[92/08/10            mrt]
- * 	Brad's changes: Delinted, Incorporated updated variable 
+ * 	Brad's changes: Delinted, Incorporated updated variable
  * 	argument list usage from old msgxfer.c
  * 	[92/07/24            mrt]
- * 
+ *
  * Revision 2.2  89/08/23  15:02:56  gm0w
  * 	Created from separate message modules.
  * 	[89/08/14            gm0w]
- * 
+ *
  **********************************************************************
  */
 #include <stdio.h>

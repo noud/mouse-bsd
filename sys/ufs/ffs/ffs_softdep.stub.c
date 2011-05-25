@@ -61,7 +61,7 @@ softdep_mount(devvp, mp, fs, cred)
 	return (0);
 }
 
-void 
+void
 softdep_initialize()
 {
 
@@ -88,7 +88,7 @@ softdep_setup_blkmapdep(bp, fs, newblkno)
 	panic("softdep_setup_blkmapdep called");
 }
 
-void 
+void
 softdep_setup_allocdirect(ip, lbn, newblkno, oldblkno, newsize, oldsize, bp)
 	struct inode *ip;
 	ufs_lbn_t lbn;
@@ -98,7 +98,7 @@ softdep_setup_allocdirect(ip, lbn, newblkno, oldblkno, newsize, oldsize, bp)
 	long oldsize;
 	struct buf *bp;
 {
-	
+
 	panic("softdep_setup_allocdirect called");
 }
 
@@ -133,7 +133,7 @@ softdep_setup_freeblocks(ip, length)
 	struct inode *ip;
 	off_t length;
 {
-	
+
 	panic("softdep_setup_freeblocks called");
 }
 
@@ -144,7 +144,7 @@ softdep_freefile(v)
 	panic("softdep_freefile called");
 }
 
-void 
+void
 softdep_setup_directory_add(bp, dp, diroffset, newinum, newdirbp)
 	struct buf *bp;
 	struct inode *dp;
@@ -156,7 +156,7 @@ softdep_setup_directory_add(bp, dp, diroffset, newinum, newdirbp)
 	panic("softdep_setup_directory_add called");
 }
 
-void 
+void
 softdep_change_directoryentry_offset(dp, base, oldloc, newloc, entrysize)
 	struct inode *dp;
 	caddr_t base;
@@ -168,18 +168,18 @@ softdep_change_directoryentry_offset(dp, base, oldloc, newloc, entrysize)
 	panic("softdep_change_directoryentry_offset called");
 }
 
-void 
+void
 softdep_setup_remove(bp, dp, ip, isrmdir)
 	struct buf *bp;
 	struct inode *dp;
 	struct inode *ip;
 	int isrmdir;
 {
-	
+
 	panic("softdep_setup_remove called");
 }
 
-void 
+void
 softdep_setup_directory_change(bp, dp, ip, newinum, isrmdir)
 	struct buf *bp;
 	struct inode *dp;
@@ -199,7 +199,7 @@ softdep_change_linkcnt(ip)
 	panic("softdep_change_linkcnt called");
 }
 
-void 
+void
 softdep_load_inodeblock(ip)
 	struct inode *ip;
 {
@@ -207,7 +207,7 @@ softdep_load_inodeblock(ip)
 	panic("softdep_load_inodeblock called");
 }
 
-void 
+void
 softdep_update_inodeblock(ip, bp, waitfor)
 	struct inode *ip;
 	struct buf *bp;

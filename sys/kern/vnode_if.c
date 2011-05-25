@@ -5,9 +5,9 @@
  * (Modifications made here may easily be lost!)
  *
  * Created from the file:
- *	NetBSD: vnode_if.src,v 1.23 1999/12/07 23:57:49 thorpej Exp 
+ *	NetBSD: vnode_if.src,v 1.23 1999/12/07 23:57:49 thorpej Exp
  * by the script:
- *	NetBSD: vnode_if.sh,v 1.19 1999/07/07 23:32:50 wrstuden Exp 
+ *	NetBSD: vnode_if.sh,v 1.19 1999/07/07 23:32:50 wrstuden Exp
  */
 
 /*

@@ -48,7 +48,7 @@
  *
  * TRW Financial Systems, in accordance with their agreement with Carnegie
  * Mellon University, makes this software available to CMU to distribute
- * or use in any manner that they see fit as long as this message is kept with 
+ * or use in any manner that they see fit as long as this message is kept with
  * the software. For this reason TFS also grants any other persons or
  * organisations permission to use or modify this software.
  *

@@ -88,7 +88,7 @@ sdmakedisklabel(unit, lp)
 	struct sd_softc *sc = sd_cd.cd_devs[unit];
 	struct partition *pi, *dpi;
 	int dcount;
-	
+
 	lp->d_secperunit = sc->sc_blks;
 	lp->d_rpm = 3600;
 	lp->d_interleave = 1;

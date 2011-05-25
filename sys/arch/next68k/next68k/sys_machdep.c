@@ -279,7 +279,7 @@ sys_sysarch(p, v, retval)
 	int *retval;
 {
 	struct sysarch_args /* {
-		syscallarg(int) op; 
+		syscallarg(int) op;
 		syscallarg(void *) parms;
 	} */ *uap = v;
 

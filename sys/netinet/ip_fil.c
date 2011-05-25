@@ -467,7 +467,7 @@ int mode;
 				error = ipl_enable();
 			else
 				error = ipl_disable();
-# else 
+# else
 				error = iplattach();
 			else
 				error = ipldetach();
@@ -1290,7 +1290,7 @@ sendorfree:
 		else
 			m_freem(m);
 	}
-    }	
+    }
 done:
 	if (!error)
 		ipl_frouteok[0]++;

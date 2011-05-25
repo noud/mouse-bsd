@@ -1,4 +1,4 @@
-.\"	$NetBSD: install,v 1.21 1999/05/31 06:38:16 ender Exp $	
+.\"	$NetBSD: install,v 1.21 1999/05/31 06:38:16 ender Exp $
 .\"
 .\" Copyright (c) 1999 The NetBSD Foundation, Inc.
 .\" All rights reserved.
@@ -156,7 +156,7 @@ after you have mounted all the filesystems.
 .It
 Select the
 .Ic Install
-menu item from the 
+menu item from the
 .Ic File
 menu and install
 .Pa base.tgz , etc.tgz , netbsd.tgz ,
@@ -173,7 +173,7 @@ while the installation takes place.
 .It
 At some point after installing the base set, select the
 .Ic Build Devices
-option from the 
+option from the
 .Ic File
 menu if you have not already done
 so. This will create a bunch of device nodes for you and will
@@ -205,7 +205,7 @@ Your system is in B\*&W mode (1-bit color or grayscale) as shown
 by the Monitors control panel. You may choose to have the
 Booter do this for you automatically by selecting the appropriate
 check box and radio button in the
-.Ic Monitors No dialog on the 
+.Ic Monitors No dialog on the
 .Ic Options No menu .
 .El
 .Pp
@@ -231,9 +231,9 @@ for more information.
 .tag)
 .Pp
 Double-click on the NetBSD/mac68k Booter icon to start the application.
-Select 
+Select
 .Ic Booting
-from the 
+from the
 .Ic Options
 menu. Check that all of the items in
 the resulting dialog look sane--especially the SCSI ID. If not, correct

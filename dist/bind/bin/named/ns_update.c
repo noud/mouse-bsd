@@ -23,21 +23,21 @@ static const char rcsid[] = "Id: ns_update.c,v 8.68 1999/11/05 04:40:58 vixie Ex
 
 /*
  * Portions Copyright (c) 1999 by Check Point Software Technologies, Inc.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
- * the name of Check Point Software Technologies Incorporated not be used 
- * in advertising or publicity pertaining to distribution of the document 
+ * the name of Check Point Software Technologies Incorporated not be used
+ * in advertising or publicity pertaining to distribution of the document
  * or software without specific, written prior permission.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS" AND CHECK POINT SOFTWARE TECHNOLOGIES 
- * INCORPORATED DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, 
- * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.   
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND CHECK POINT SOFTWARE TECHNOLOGIES
+ * INCORPORATED DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+ * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.
  * IN NO EVENT SHALL CHECK POINT SOFTWARE TECHNOLOGIES INCORPRATED
- * BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR 
+ * BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR
  * ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
- * IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT 
+ * IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT
  * OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
@@ -143,7 +143,7 @@ static int rdata_expand(const u_char *, const u_char *, const u_char *,
 static FILE *
 open_transaction_log(struct zoneinfo *zp) {
 	FILE *fp;
-	
+
 	fp = fopen(zp->z_updatelog, "a+");
 	if (fp == NULL) {
 		ns_error(ns_log_update, "can't open %s: %s", zp->z_updatelog,
@@ -159,7 +159,7 @@ open_transaction_log(struct zoneinfo *zp) {
 static FILE *
 open_ixfr_log(struct zoneinfo *zp) {
 	FILE *fp;
-	
+
 	fp = fopen(zp->z_ixfr_base, "a+");
 	if (fp == NULL) {
 		ns_error(ns_log_update, "can't open %s: %s", zp->z_ixfr_base,
@@ -313,7 +313,7 @@ printupdatelog(struct sockaddr_in srcaddr,
 			/*
 			 * Translate all deletes into explict actions by
 			 * looking at what was actually deleted from the
-			 * zone for the ixfr log. 
+			 * zone for the ixfr log.
 			 */
 			dp = rrecp->r_deldp;
 			while (dp != NULL) {
@@ -420,7 +420,7 @@ schedule_soa_update(struct zoneinfo *zp, int numupdated) {
 	(void) gettime(&tt);
 
 	zp->z_flags |= Z_NEED_SOAUPDATE;
-	
+
 	/*
 	 * Only z_deferupdcnt updates are allowed before we force
 	 * a serial update.
@@ -471,13 +471,13 @@ schedule_soa_update(struct zoneinfo *zp, int numupdated) {
  * Returns non-zero if the caller should call sched_zone_maint(zp).
  */
 int
-schedule_dump(struct zoneinfo *zp) { 
+schedule_dump(struct zoneinfo *zp) {
 	time_t half;
 
 	(void) gettime(&tt);
 
 	zp->z_flags |= Z_NEED_DUMP;
-	
+
 	if (zp->z_dumpintvl > 0) {
 		/* We want automatic dumping in this zone. */
 		if (zp->z_dumptime > 0) {
@@ -551,7 +551,7 @@ process_prereq(ns_updrec *ur, int *rcodep, u_int16_t zclass) {
 	htp = hashtab;
 	np = nlookup(dname, &htp, &fname, 0);
 	/*
-	 * Matching by wildcard not allowed here. 
+	 * Matching by wildcard not allowed here.
 	 * We need to post check for a wildcard match.
 	 */
 	if (fname != dname ||
@@ -962,13 +962,13 @@ class=%s, type=%s, ttl=%d, dp=0x%0x",
 			 p_section(section, ns_o_update), dname,
 			 p_class(class), p_type(type), ttl, rdp);
 
-		matches = findzone(dname, zclass, MAXDNAME, 
+		matches = findzone(dname, zclass, MAXDNAME,
 				   zonelist, MAXDNAME);
 		ur->r_zone = 0;
 		for (j = 0; j < matches && !ur->r_zone; j++)
 			if (zonelist[j] == zonenum)
 				ur->r_zone = zonelist[j];
-		if (!ur->r_zone || 
+		if (!ur->r_zone ||
 		    (section != S_ADDT && type == T_SOA &&
 		     ns_samename(dname, zp->z_origin) != 1)) {
 			ns_debug(ns_log_update, 1,
@@ -1022,7 +1022,7 @@ class=%s, type=%s, ttl=%d, dp=0x%0x",
 			dbflags |= DB_NODATA | DB_REPLACE;
 			n = db_update(dname, dp, dp, &savedp,
 				      dbflags, hashtab, from);
-			if (!((n == OK) || 
+			if (!((n == OK) ||
 			  ((zp->z_xferpid == XFER_ISIXFR) && (n == DATAEXISTS))))  {
 				ns_debug(ns_log_update, 3,
 			       "process_updates: failed to add databuf (%d)",
@@ -1085,7 +1085,7 @@ class=%s, type=%s, ttl=%d, dp=0x%0x",
 		return (0);
 
 	/*
-	 * schedule maintenance for dumps and SOA.serial# increment 
+	 * schedule maintenance for dumps and SOA.serial# increment
 	 * (this also sets Z_NEED_DUMP and Z_NEED_SOAUPDATE appropriately)
 	 */
 	schedmaint = 0;
@@ -1115,7 +1115,7 @@ class=%s, type=%s, ttl=%d, dp=0x%0x",
 }
 
 static enum req_action
-req_update_private(HEADER *hp, u_char *cp, u_char *eom, u_char *msg, 
+req_update_private(HEADER *hp, u_char *cp, u_char *eom, u_char *msg,
 		   struct qstream *qsp, int dfd, struct sockaddr_in from,
 		   struct tsig_record *in_tsig)
 {
@@ -1136,7 +1136,7 @@ req_update_private(HEADER *hp, u_char *cp, u_char *eom, u_char *msg,
 	u_int32_t old_serial;
 	int unapproved_ip = 0;
 	int tsig_len;
-	DST_KEY *in_key = (in_tsig != NULL) ? in_tsig->key : NULL; 
+	DST_KEY *in_key = (in_tsig != NULL) ? in_tsig->key : NULL;
 
 	nsp[0] = NULL;
 
@@ -1159,7 +1159,7 @@ req_update_private(HEADER *hp, u_char *cp, u_char *eom, u_char *msg,
 		ns_debug(ns_log_update, 1, "req_update: too short");
 		hp->rcode = FORMERR;
 		return (Finish);
-	}		
+	}
 	GETSHORT(type, cp);
 	GETSHORT(class, cp);
 	if (zocount != 1 || type != T_SOA) {
@@ -1216,7 +1216,7 @@ req_update_private(HEADER *hp, u_char *cp, u_char *eom, u_char *msg,
 		 */
 #if 1
 		return (Refuse);
-#else		
+#else
 		/* We are a slave for this zone, forward it to the master. */
 		for (cnt = 0; cnt < zp->z_addrcnt; cnt++)
 			*nspp++ = savedata(zp->z_class, T_A, USE_MINIMUM,
@@ -1308,7 +1308,7 @@ req_update_private(HEADER *hp, u_char *cp, u_char *eom, u_char *msg,
 			n = rdata_expand(msg, eom, cp, type, dlen,
 					 rdata, sizeof rdata);
 			if (n == 0 || n > MAXDATA) {
-				ns_debug(ns_log_update, 1, 
+				ns_debug(ns_log_update, 1,
 				     "req_update: failed to expand record");
 				hp->rcode = FORMERR;
 				return (Finish);
@@ -1405,8 +1405,8 @@ free_rrecp(ns_updque *updlist, int rcode, struct sockaddr_in from) {
 					ns_debug(ns_log_update, 3,
 				         "free_rrecp: deleted databuf 0x%0x",
 						 dp);
-					/* 
-					 * XXXRTH 
+					/*
+					 * XXXRTH
 					 *
 					 * We used to db_freedata() here,
 					 * but I removed it because 'dp' was
@@ -1462,7 +1462,7 @@ free_rrecp(ns_updque *updlist, int rcode, struct sockaddr_in from) {
 }
 
 enum req_action
-req_update(HEADER *hp, u_char *cp, u_char *eom, u_char *msg, 
+req_update(HEADER *hp, u_char *cp, u_char *eom, u_char *msg,
 	   struct qstream *qsp, int dfd, struct sockaddr_in from,
 	   struct tsig_record *in_tsig)
 {
@@ -1778,7 +1778,7 @@ rdata_dump(struct databuf *dp, FILE *fp) {
 					} else
 						(void) putc(*cp++, fp);
 			}
-			if (cp != end) 
+			if (cp != end)
 				fputs("\" \"", fp);
 		}
 		/* XXXVIX need to keep the segmentation (see 4.9.5). */
@@ -1791,11 +1791,11 @@ rdata_dump(struct databuf *dp, FILE *fp) {
 		(void) fputs(loc_ntoa(dp->d_data, NULL), fp);
 		break;
 	case T_WKS:
-		GETLONG(addr, cp);	
-		addr = htonl(addr);	
+		GETLONG(addr, cp);
+		addr = htonl(addr);
 		fputs(inet_ntoa(*(struct in_addr *)&addr), fp);
 		proto = protocolname((u_char)*cp);
-		cp += sizeof(char); 
+		cp += sizeof(char);
 		fprintf(fp, "%s ", proto);
 		i = 0;
 		while(cp < (u_char *)dp->d_data + dp->d_size) {
@@ -1806,7 +1806,7 @@ rdata_dump(struct databuf *dp, FILE *fp) {
 						servicename(i, proto));
 				j <<= 1;
 			} while (++i & 07);
-		} 
+		}
 		break;
 	case T_MINFO:
 	case T_RP:
@@ -1937,7 +1937,7 @@ zonelist=0x%x, maxzones=%d)",
 	 * from ns_samedomain().
 	 */
 	tmpdnamelen = strlen(tmpdname);
-	/* 
+	/*
 	 * Ignore a trailing label separator (i.e. an unescaped dot)
 	 * in 'tmpdname'.
 	 */
@@ -1967,8 +1967,8 @@ zonelist=0x%x, maxzones=%d)",
 				continue;
 			zonename = zones[zonenum].z_origin;
 			zonenamelen = strlen(zonename);
-			/* 
-			 * Ignore a trailing label separator 
+			/*
+			 * Ignore a trailing label separator
 			 * (i.e. an unescaped dot) in 'zonename'.
 			 */
 			if (zonenamelen && zonename[zonenamelen-1] == '.') {
@@ -1985,14 +1985,14 @@ zonelist=0x%x, maxzones=%d)",
 				if (!escaped)
 					zonenamelen--;
 			}
-			
+
 			if (tmpdnamelen != zonenamelen)
 				continue;
 			ns_debug(ns_log_update, 5,
 				 "about to strncasecmp('%s', '%s', %d)",
 				 tmpdname, zonename, tmpdnamelen);
 			/* XXXRTH I'm doing a special test for zonenamelen == 0
-			   because I worry that some implementations of 
+			   because I worry that some implementations of
 			   strncasecmp might not handle comparisions where
 			   n==0 correctly */
 			if (zonenamelen == 0 ||
@@ -2022,7 +2022,7 @@ zonelist=0x%x, maxzones=%d)",
 					 * us to exit the loop.
 					 */
 					found = 1;
-				
+
 				if (escaped)
 					escaped = 0;
 				else if (c == '\\')
@@ -2074,7 +2074,7 @@ merge_logs(struct zoneinfo *zp, char *logname) {
 	 * getword_str() was used in nsupdate.c for reasons described there
 	 * getword() is used here just to be consistent with db_load()
 	 */
-	
+
 	ns_debug(ns_log_update, 3, "merge_logs(%s)", logname);
 
 	/* If there is no log file, just return. */
@@ -2171,7 +2171,7 @@ merge_logs(struct zoneinfo *zp, char *logname) {
 			cp = fgets(buf, sizeof buf, fp);
 			if (cp != NULL)
 				lineno++;
-			if (cp == NULL || 
+			if (cp == NULL ||
 			    !sscanf((char *)cp, "from %u to %u",
 				    &old_serial, &new_serial)) {
 				ns_error(ns_log_update,
@@ -2276,7 +2276,7 @@ merge_logs(struct zoneinfo *zp, char *logname) {
 				        err++;
 					break;
 				}
-				matches = findzone(dname, class, 0, 
+				matches = findzone(dname, class, 0,
 						   zonelist, MAXDNAME);
 				if (matches)
 					zonenum = zonelist[0];
@@ -2336,7 +2336,7 @@ merge_logs(struct zoneinfo *zp, char *logname) {
 			if (buf[0] != '\0') {
 				int success;
 				int maybe_class;
-				
+
 				maybe_class = sym_ston(__p_class_syms,
 						       buf,
 						       &success);
@@ -2439,7 +2439,7 @@ merge_logs(struct zoneinfo *zp, char *logname) {
 					PUTLONG(n, cp);
 					for (i = 0; i < 4; i++) {
 						if (getttl(fp, logname, lineno,
-					   		&n, &multiline) <= 0) 
+					   		&n, &multiline) <= 0)
 						{
 							err++;
 							break;
@@ -2647,9 +2647,9 @@ merge_logs(struct zoneinfo *zp, char *logname) {
                      *       C_NONE is used, according to process_updates(),
                      *       the class is gotten from the zone's class.
                      *       This still isn't perfect, but it will at least
-                     *       work.  
-                     *       
-                     *       Question: What is so special about the class 
+                     *       work.
+                     *
+                     *       Question: What is so special about the class
                      *       of the update while we are deleting??
                      */
 					} else /* if (zp->z_xferpid != XFER_ISIXFR) */ {
@@ -2667,7 +2667,7 @@ merge_logs(struct zoneinfo *zp, char *logname) {
 		}
 		if (err) {
 			inside_next = 0;
-			ns_debug(ns_log_update, 1, 
+			ns_debug(ns_log_update, 1,
 		      "merge of update id %d failed due to error at line %d",
 				 id, lineno);
 			free_rrecp(&curupd, FORMERR, empty_from);
@@ -2693,7 +2693,7 @@ merge_logs(struct zoneinfo *zp, char *logname) {
 
 
 /*
- * Create a disk database to back up zones 
+ * Create a disk database to back up zones
  */
 int
 zonedump(struct zoneinfo *zp, int mode) {
@@ -2709,8 +2709,8 @@ zonedump(struct zoneinfo *zp, int mode) {
 	/*
 	 * We must check to see if Z_NEED_SOAUPDATE is set, and if so
 	 * we must do it.  This won't be the case normally
-	 * (when called from ns_maint()), but it is possible if we're 
-	 * exiting named. 
+	 * (when called from ns_maint()), but it is possible if we're
+	 * exiting named.
 	 */
 
 	if (zp->z_flags & Z_NEED_SOAUPDATE) {
@@ -2731,7 +2731,7 @@ zonedump(struct zoneinfo *zp, int mode) {
 			ns_error(ns_log_update,
 				 "filename %s too long in zonedump",
 				 zp->z_source);
-			/* 
+			/*
 			 * This problem won't ever get better, so we
 			 * clear the "need dump" flag.
 			 */
@@ -2755,7 +2755,7 @@ zonedump(struct zoneinfo *zp, int mode) {
 			if (db_dump(htp, fp, zp-zones, op) != OK) {
 				ns_error(ns_log_update,
 					 "error dumping zone file %s",
-					 zp->z_source); 
+					 zp->z_source);
 				(void)fclose(fp);
 				return (-1);
 			}
@@ -2925,7 +2925,7 @@ set_serial(struct zoneinfo *zp, u_int32_t serial) {
 /*
  * Increment serial number in zoneinfo structure and hash table SOA databuf
  */
- 
+
 int
 incr_serial(struct zoneinfo *zp) {
 	u_int32_t serial, old_serial;
@@ -2933,7 +2933,7 @@ incr_serial(struct zoneinfo *zp) {
 	time_t t;
 	struct databuf *dp, *olddp;
 	unsigned char *cp;
- 
+
 	old_serial = get_serial(zp);
         serial = old_serial + 1;
 	if (serial == 0)

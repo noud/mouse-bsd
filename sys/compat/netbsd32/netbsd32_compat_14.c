@@ -37,7 +37,7 @@
 #include <sys/mount.h>
 #include <sys/msg.h>
 #include <sys/sem.h>
-#include <sys/shm.h>  
+#include <sys/shm.h>
 
 #define	SYSVMSG
 #define	SYSVSEM
@@ -145,7 +145,7 @@ compat_14_netbsd32_msgctl(p, v, retval)
 
 	if (cmd == IPC_SET) {
 		error = copyin(SCARG(uap, buf), &omsqbuf, sizeof(omsqbuf));
-		if (error) 
+		if (error)
 			return (error);
 		netbsd32_msqid_ds14_to_native(&omsqbuf, &msqbuf);
 	}
@@ -154,7 +154,7 @@ compat_14_netbsd32_msgctl(p, v, retval)
 	    (cmd == IPC_SET || cmd == IPC_STAT) ? &msqbuf : NULL);
 
 	if (error == 0 && cmd == IPC_STAT) {
-		native_to_netbsd32_msqid_ds14(&msqbuf, &omsqbuf);     
+		native_to_netbsd32_msqid_ds14(&msqbuf, &omsqbuf);
 		error = copyout(&omsqbuf, SCARG(uap, buf), sizeof(omsqbuf));
 	}
 
@@ -213,7 +213,7 @@ compat_14_netbsd32___semctl(p, v, retval)
 	cmd = SCARG(uap, cmd);
 
 	switch (cmd) {
-	case IPC_SET:    
+	case IPC_SET:
 	case IPC_STAT:
 		pass_arg = &sembuf;
 		break;
@@ -228,10 +228,10 @@ compat_14_netbsd32___semctl(p, v, retval)
 	if (pass_arg != NULL) {
 		error = copyin(SCARG(uap, arg), &arg, sizeof(arg));
 		if (error)
-			return (error);  
-		if (cmd == IPC_SET) { 
+			return (error);
+		if (cmd == IPC_SET) {
 			error = copyin(arg.buf, &osembuf, sizeof(osembuf));
-			if (error)  
+			if (error)
 				return (error);
 			netbsd32_semid_ds14_to_native(&osembuf, &sembuf);
 		}
@@ -306,7 +306,7 @@ compat_14_netbsd32_shmctl(p, v, retval)
 
 	if (cmd == IPC_SET) {
 		error = copyin(SCARG(uap, buf), &oshmbuf, sizeof(oshmbuf));
-		if (error) 
+		if (error)
 			return (error);
 		netbsd32_shmid_ds14_to_native(&oshmbuf, &shmbuf);
 	}
@@ -315,7 +315,7 @@ compat_14_netbsd32_shmctl(p, v, retval)
 	    (cmd == IPC_SET || cmd == IPC_STAT) ? &shmbuf : NULL);
 
 	if (error == 0 && cmd == IPC_STAT) {
-		native_to_netbsd32_shmid_ds14(&shmbuf, &oshmbuf);     
+		native_to_netbsd32_shmid_ds14(&shmbuf, &oshmbuf);
 		error = copyout(&oshmbuf, SCARG(uap, buf), sizeof(oshmbuf));
 	}
 

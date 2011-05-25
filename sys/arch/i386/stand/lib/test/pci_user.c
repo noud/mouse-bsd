@@ -66,7 +66,7 @@ pcicheck()
 	return (mapio() ? -1 : 0);
 }
 
-int 
+int
 pcifinddev(vid, did, handle)
 	int             vid, did;
 	pcihdl_t       *handle;
@@ -85,7 +85,7 @@ pcifinddev(vid, did, handle)
 	return (-1);
 }
 
-int 
+int
 pcicfgread(handle, off, val)
 	pcihdl_t       *handle;
 	int             off;
@@ -100,7 +100,7 @@ pcicfgread(handle, off, val)
 	return (0);
 }
 
-int 
+int
 pcicfgwrite(handle, off, val)
 	pcihdl_t       *handle;
 	int             off;

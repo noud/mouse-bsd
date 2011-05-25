@@ -79,7 +79,7 @@ NR != (FNR + nr_offset) {
 
 END {
 	if (idx != 1) {
-		exit 1	
+		exit 1
 	}
 
 	printf("    0,\n") >> "c"

@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1999 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -56,7 +56,7 @@
 
 static char *gateway, *intface, *source, *group, *receiver, *destination;
 static int mldsoc, hops = 64, maxhops = 127, waittime = 3, querylen, opt_n;
-static struct sockaddr *gw_sock, *src_sock, *grp_sock, *dst_sock, *rcv_sock; 
+static struct sockaddr *gw_sock, *src_sock, *grp_sock, *dst_sock, *rcv_sock;
 static char *querypacket;
 static char frombuf[1024];	/* XXX: enough size? */
 
@@ -490,7 +490,7 @@ get_my_sockaddr(family, addrp)
   found:
 	memcpy((void *)addrp, (void *)&ifrp->ifr_addr, ifrp->ifr_addr.sa_len);
 	return(0);
-#undef IF_BUFSIZE	
+#undef IF_BUFSIZE
 }
 
 static void
@@ -523,7 +523,7 @@ set_join(s, ifname, group)
 {
 	struct ipv6_mreq mreq6;
 	u_int ifindex;
-	
+
 	switch(group->sa_family) {
 	case AF_INET6:
 		if ((ifindex = if_nametoindex(ifname)) == 0)
@@ -615,7 +615,7 @@ open_socket()
 #else
 			errx(1, "receive I/F is not specified for multicast"
 			     "response(%s)", receiver);
-#endif 
+#endif
 		}
 	}
 	else {

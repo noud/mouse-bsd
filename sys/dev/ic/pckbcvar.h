@@ -45,7 +45,7 @@ typedef int pckbc_slot_t;
  * external representation (pckbc_tag_t),
  * needed early for console operation
  */
-struct pckbc_internal { 
+struct pckbc_internal {
 	bus_space_tag_t t_iot;
 	bus_space_handle_t t_ioh_d, t_ioh_c; /* data port, cmd port */
 	bus_addr_t t_addr;

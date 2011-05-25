@@ -1,4 +1,4 @@
-.\" $NetBSD: prep,v 1.4 1999/01/13 07:30:10 ross Exp $	
+.\" $NetBSD: prep,v 1.4 1999/01/13 07:30:10 ross Exp $
 .
 .(Note
 Currently NetBSD/x68k requires a dedicated disk when you install

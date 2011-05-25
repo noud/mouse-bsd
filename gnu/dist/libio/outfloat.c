@@ -1,4 +1,4 @@
-/* 
+/*
 Copyright (C) 1993 Free Software Foundation
 
 This file is part of the GNU IO Library.  This library is free
@@ -133,7 +133,7 @@ _IO_outfloat (value, sb, type, width, precision, flags, sign_mode, fill)
       precision = 0;
       show_dot = 0;
     }
-  
+
   /* dtoa truncates trailing zeroes.  Set the variable trailing_zeroes to
      the number of 0's we have to add (after the decimal point). */
   if (skip_zeroes)
@@ -147,7 +147,7 @@ _IO_outfloat (value, sb, type, width, precision, flags, sign_mode, fill)
     trailing_zeroes = useful_digits <= decpt ? precision - decpt
       : precision-useful_digits;
   if (trailing_zeroes < 0) trailing_zeroes = 0;
-  
+
   if (trailing_zeroes != 0 || useful_digits > decpt)
     show_dot = 1;
   if (sign_mode == 0)
@@ -156,14 +156,14 @@ _IO_outfloat (value, sb, type, width, precision, flags, sign_mode, fill)
     print_sign = sign ? '-' : '+';
   else /* if (sign_mode == ' ') */
     print_sign = sign ? '-' : ' ';
-  
+
   /* Calculate the width (before padding). */
   unpadded_width =
     (print_sign != 0) + trailing_zeroes + exponent_size + show_dot
       + useful_digits
 	+ (decpt > useful_digits ? decpt - useful_digits
 	   : decpt > 0 ? 0 : 1 - decpt);
-  
+
   padding = width > unpadded_width ? width - unpadded_width : 0;
   if (padding > 0 && pad_kind != _IO_LEFT && pad_kind != _IO_INTERNAL)
     PADN(fill, padding); /* Default (right) adjust */

@@ -89,7 +89,7 @@ config_hook(type, id, mode, func, ctx)
 		if (hr->hr_id == id) {
 			if (hr->hr_mode != mode) {
 				panic("config_hook: incompatible mode on "
-				      "type=%d/id=%d != %d", 
+				      "type=%d/id=%d != %d",
 				      type, id, hr->hr_mode);
 			}
 			prev_hr = hr;

@@ -125,14 +125,14 @@ tx39clock_attach(parent, self, aux)
 	tx_conf_write(tc, TX39_TIMERCONTROL_REG, reg);
 
 	sc->sc_enabled = 0;
-	/* 
-	 * RTC and ALARM 
+	/*
+	 * RTC and ALARM
 	 *    RTCINT    ... INTR5 bit 31  (roll over)
 	 *    ALARMINT  ... INTR5 bit 30
 	 *    PERINT    ... INTR5 bit 29
 	 */
 
-	clockattach(self, &tx39clockfns);	
+	clockattach(self, &tx39clockfns);
 
 #ifdef TX39CLKDEBUG
 	tx39clock_dump(tc);
@@ -150,7 +150,7 @@ tx39clock_cpuspeed(cpuclock, cpuspeed)
 {
 	struct txtime t0, t1;
 	int elapsed;
-	
+
 	__tx39timer_rtcget(&t0);
 	__asm __volatile("
 		.set	noreorder;
@@ -180,7 +180,7 @@ void
 __tx39timer_rtcfreeze(tc)
 	tx_chipset_tag_t tc;
 {
-	txreg_t reg;	
+	txreg_t reg;
 
 	reg = tx_conf_read(tc, TX39_TIMERCONTROL_REG);
 
@@ -206,7 +206,7 @@ __inline void
 __tx39timer_rtcget(t)
 	struct txtime *t;
 {
-	tx_chipset_tag_t tc;	
+	tx_chipset_tag_t tc;
 	txreg_t reghi, reglo, oreghi, oreglo;
 	int retry;
 
@@ -232,10 +232,10 @@ __tx39timer_rtcget(t)
 
 void
 __tx39timer_rtcreset(tc)
- 	tx_chipset_tag_t tc;	
+ 	tx_chipset_tag_t tc;
 {
 	txreg_t reg;
-	
+
 	reg = tx_conf_read(tc, TX39_TIMERCONTROL_REG);
 
 	/* Reset counter and stop */
@@ -257,8 +257,8 @@ tx39clock_init(dev)
 	txreg_t reg;
 	int pcnt;
 
-	/* 
-	 * Setup periodic timer (interrupting hz times per second.) 
+	/*
+	 * Setup periodic timer (interrupting hz times per second.)
 	 */
 	pcnt = TX39_TIMERCLK / hz - 1;
 	reg = tx_conf_read(tc, TX39_TIMERPERIODIC_REG);
@@ -266,15 +266,15 @@ tx39clock_init(dev)
 	reg = TX39_TIMERPERIODIC_PERVAL_SET(reg, pcnt);
 	tx_conf_write(tc, TX39_TIMERPERIODIC_REG, reg);
 
-	/* 
-	 * Enable periodic timer 
+	/*
+	 * Enable periodic timer
 	 */
 	reg = tx_conf_read(tc, TX39_INTRENABLE6_REG);
-	reg |= TX39_INTRPRI13_TIMER_PERIODIC_BIT; 	
-	tx_conf_write(tc, TX39_INTRENABLE6_REG, reg); 
+	reg |= TX39_INTRPRI13_TIMER_PERIODIC_BIT;
+	tx_conf_write(tc, TX39_INTRENABLE6_REG, reg);
 
-	/* 
-	 * number of microseconds between interrupts 
+	/*
+	 * number of microseconds between interrupts
 	 */
 	tick = 1000000 / hz;
 }
@@ -290,11 +290,11 @@ tx39clock_get(dev, base, ct)
 	struct txtime tt;
 	time_t sec;
 
-	__tx39timer_rtcget(&tt);		
+	__tx39timer_rtcget(&tt);
 	sec = __tx39timer_rtc2sec(&tt);
 
 	if (!sc->sc_enabled) {
-		DPRINTF(("bootstrap: %d sec from previous reboot\n", 
+		DPRINTF(("bootstrap: %d sec from previous reboot\n",
 			 (int)sec));
 
 		sc->sc_enabled = 1;
@@ -311,7 +311,7 @@ tx39clock_get(dev, base, ct)
 	}
 
 	clock_secs_to_ymdhms(base, &dt);
-		
+
 	ct->year = dt.dt_year % 100;
 	ct->mon = dt.dt_mon;
 	ct->day = dt.dt_day;
@@ -355,8 +355,8 @@ tx39clock_alarm_refill(tc)
 	tx_chipset_tag_t tc;
 {
 	struct tx39clock_softc *sc = tc->tc_clockt;
-	struct txtime t;	
-	
+	struct txtime t;
+
 	__tx39timer_rtcget(&t);
 
 	tx_conf_write(tc, TX39_TIMERALARMHI_REG, t.t_hi); /* XXX */
@@ -379,7 +379,7 @@ tx39clock_dump(tc)
 	ISSETPRINT(reg, MBUS);
 #endif /* TX391X */
 #ifdef TX392X
-	ISSETPRINT(reg, IRDA);	
+	ISSETPRINT(reg, IRDA);
 #endif /* TX392X */
 	ISSETPRINT(reg, SPI);
 	ISSETPRINT(reg, TIMER);

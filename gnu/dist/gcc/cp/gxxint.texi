@@ -1,10 +1,10 @@
 \input texinfo  @c -*-texinfo-*-
-@c %**start of header 
+@c %**start of header
 @setfilename g++int.info
 @settitle G++ internals
 @setchapternewpage odd
 @c %**end of header
-     
+
 @node Top, Limitations of g++, (dir), (dir)
 @chapter Internal Architecture of the Compiler
 
@@ -12,22 +12,22 @@ This is meant to describe the C++ front-end for gcc in detail.
 Questions and comments to Benjamin Kosnik @code{<bkoz@@cygnus.com>}.
 
 @menu
-* Limitations of g++::          
-* Routines::                    
-* Implementation Specifics::    
-* Glossary::                    
-* Macros::                      
-* Typical Behavior::            
-* Coding Conventions::          
-* Templates::                   
-* Access Control::              
-* Error Reporting::             
-* Parser::                      
-* Copying Objects::             
-* Exception Handling::          
-* Free Store::                  
+* Limitations of g++::
+* Routines::
+* Implementation Specifics::
+* Glossary::
+* Macros::
+* Typical Behavior::
+* Coding Conventions::
+* Templates::
+* Access Control::
+* Error Reporting::
+* Parser::
+* Copying Objects::
+* Exception Handling::
+* Free Store::
 * Mangling::  Function name mangling for C++ and Java
-* Concept Index::               
+* Concept Index::
 @end menu
 
 @node Limitations of g++, Routines, Top, Top
@@ -406,7 +406,7 @@ TREE_CHAIN slot for anything.
 Has values of:
 
 	TREE_VECs
-	
+
 
 @item CLASSTYPE_VFIELD
 Seems to be in the process of being renamed TYPE_VFIELD.  Use on types
@@ -715,9 +715,9 @@ Has values of:
 
 @display
 0 for things that don't have names.
-should be IDENTIFIER_NODE for RECORD_TYPEs UNION_TYPEs and 
+should be IDENTIFIER_NODE for RECORD_TYPEs UNION_TYPEs and
         ENUM_TYPEs.
-TYPE_DECL for RECORD_TYPEs, UNION_TYPEs and ENUM_TYPEs, but 
+TYPE_DECL for RECORD_TYPEs, UNION_TYPEs and ENUM_TYPEs, but
         shouldn't be.
 TYPE_DECL for typedefs, unsure why.
 @end display
@@ -1122,7 +1122,7 @@ This issue is currently under discussion in the core reflector
 @node  Exception Handling, Free Store, Copying Objects, Top
 @section Exception Handling
 
-Note, exception handling in g++ is still under development.  
+Note, exception handling in g++ is still under development.
 
 This section describes the mapping of C++ exceptions in the C++
 front-end, into the back-end exception handling framework.
@@ -1314,7 +1314,7 @@ L1:     maybe throw routine
 Ldone:
         ret
 
-start_all_catch emits labels: Lresume, 
+start_all_catch emits labels: Lresume,
 
 @end example
 
@@ -1389,7 +1389,7 @@ directive, for use by the debugger and the OSF exception handling model
 @example
 lda $30,-32($30)
 .frame $15,32,$26,0
-@end example 
+@end example
 
 @noindent
 The 32 above is exactly the value we need.  With this, we can be sure
@@ -1552,7 +1552,7 @@ The linkage code in g++ is horribly twisted in order to meet two design goals:
 To meet the first goal, we defer emission of inlines and vtables until
 the end of the translation unit, where we can decide whether or not they
 are needed, and how to emit them if they are.
-        
+
 @node Mangling, Concept Index, Free Store, Top
 @section Function name mangling for C++ and Java
 
@@ -1573,7 +1573,7 @@ integration between C++ and Java.
 Note there is also a standard "Jave Native Interface" (JNI) which
 implements a different calling convention, and uses a different
 mangling scheme.  The JNI is a rather abstract ABI so Java can call methods
-written in C or C++; 
+written in C or C++;
 we are concerned here about a lower-level interface primarily
 intended for methods written in Java, but that can also be used for C++
 (and less easily C).
@@ -1594,8 +1594,8 @@ For example @code{Foo::bar(int, long) const} is mangled
 as @samp{bar__C3Fooil}.
 
 For a constructor, the method name is left out.
-That is @code{Foo::Foo(int, long) const}  is mangled 
-as @samp{__C3Fooil}. 
+That is @code{Foo::Foo(int, long) const}  is mangled
+as @samp{__C3Fooil}.
 
 GNU Java does the same.
 
@@ -1666,18 +1666,18 @@ as @samp{P} followed by the mangling of the class name.
 
 @subsection Squangled type compression
 
-Squangling (enabled with the @samp{-fsquangle} option), utilizes 
+Squangling (enabled with the @samp{-fsquangle} option), utilizes
 the @samp{B} code to indicate reuse of a previously
 seen type within an indentifier. Types are recognized in a left to
 right manner and given increasing values, which are
 appended to the code in the standard manner. Ie, multiple digit numbers
-are delimited by @samp{_} characters. A type is considered to be any 
+are delimited by @samp{_} characters. A type is considered to be any
 non primitive type, regardless of whether its a parameter, template
 parameter, or entire template. Certain codes are considered modifiers
 of a type, and are not included as part of the type. These are the
-@samp{C}, @samp{V}, @samp{P}, @samp{A}, @samp{R}, and @samp{U} codes, 
-denoting constant, volatile, pointer, array, reference, and unsigned. 
-These codes may precede a @samp{B} type in order to make the required 
+@samp{C}, @samp{V}, @samp{P}, @samp{A}, @samp{R}, and @samp{U} codes,
+denoting constant, volatile, pointer, array, reference, and unsigned.
+These codes may precede a @samp{B} type in order to make the required
 modifications to the type.
 
 For example:
@@ -1713,21 +1713,21 @@ Then follows each part of the qualified name, as described above.
 For example @code{Foo::\u0319::Bar} is encoded as
 @samp{Q33FooU5_03193Bar}.
 
-Squangling utilizes the the letter @samp{K} to indicate a 
+Squangling utilizes the the letter @samp{K} to indicate a
 remembered portion of a qualified name. As qualified names are processed
-for an identifier, the names are numbered and remembered in a 
-manner similar to the @samp{B} type compression code. 
+for an identifier, the names are numbered and remembered in a
+manner similar to the @samp{B} type compression code.
 Names are recognized left to right, and given increasing values, which are
 appended to the code in the standard manner. ie, multiple digit numbers
 are delimited by @samp{_} characters.
 
-For example 
+For example
 @example
-class Andrew 
+class Andrew
 @{
-  class WasHere 
+  class WasHere
   @{
-      class AndHereToo 
+      class AndHereToo
       @{
       @};
   @};
@@ -1739,12 +1739,12 @@ f(Andrew&r1, Andrew::WasHere& r2, Andrew::WasHere::AndHereToo& r3) @{ @}
    K1 ->  Andrew::WasHere
    K2 ->  Andrew::WasHere::AndHereToo
 @end example
-Function @samp{f()} would be mangled as : 
+Function @samp{f()} would be mangled as :
 @samp{f__FR6AndrewRQ2K07WasHereRQ2K110AndHereToo}
 
 There are some occasions when either a @samp{B} or @samp{K} code could
 be chosen, preference is always given to the @samp{B} code. Ie, the example
-in the section on @samp{B} mangling could have used a @samp{K} code 
+in the section on @samp{B} mangling could have used a @samp{K} code
 instead of @samp{B2}.
 
 @subsection Templates
@@ -1910,7 +1910,7 @@ Encodes a template type parameter, when part of a function type.
 Encodes a template constant parameter, when part of a function type.
 
 @item Z
-Used for template type parameters. 
+Used for template type parameters.
 
 @end table
 

@@ -79,7 +79,7 @@ typedef u_long	bus_space_handle_t;
  * Implementation specific structures.
  * XXX Don't use outside of bus_space definitions!
  * XXX maybe this should be encapsuled in a non-global .h file?
- */ 
+ */
 
 struct bus_space_tag {
 	bus_addr_t	base;
@@ -222,21 +222,21 @@ struct amiga_bus_space_methods {
 #define bus_space_write_multi_stream_4(t, h, o, p, c) \
 	panic("bus_space_write_multi_stream_4 not implemented")
 
-/* 
+/*
  * Bus read/write barrier methods.
- * 
+ *
  *      void bus_space_barrier __P((bus_space_tag_t tag,
  *          bus_space_handle_t bsh, bus_size_t offset,
  *          bus_size_t len, int flags));
- *    
+ *
  * Note: the 680x0 does not currently require barriers, but we must
  * provide the flags to MI code.
- */   
+ */
 #define bus_space_barrier(t, h, o, l, f)        \
         ((void)((void)(t), (void)(h), (void)(o), (void)(l), (void)(f)))
 #define BUS_SPACE_BARRIER_READ  0x01            /* force read barrier */
 #define BUS_SPACE_BARRIER_WRITE 0x02            /* force write barrier */
- 
+
 #define BUS_SPACE_ALIGNED_POINTER(p, t) ALIGNED_POINTER(p, t)
 
 #define __BUS_SPACE_HAS_STREAM_METHODS

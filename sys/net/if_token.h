@@ -65,7 +65,7 @@ struct token_rif {
 #define TOKEN_RCF_BROADCAST_MASK	0xe000
 #define	TOKEN_RCF_BROADCAST_ALL		0x8000  /* all routes broadcast */
 #define	TOKEN_RCF_BROADCAST_SINGLE	0xc000  /* single route broadcast */
-				
+
 /*
  * A Token-ring frame consists of
  * header +      rif      + llcinfo + fcs

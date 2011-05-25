@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -52,7 +52,7 @@
 #include "menu_defs.h"
 /* Maximum */
 #define MAX(i,j) ((i)>(j)?(i):(j))
-   
+
 
 int	md_get_info (void)
 {	struct disklabel disklabel;
@@ -223,7 +223,7 @@ int md_make_bsd_partitions (void)
 		bsdlabel[A].pi_fsize = 1024;
 		strcpy (fsmount[A], "/");
 		partstart += partsize;
-		
+
 		/* swap */
 		remain = fsdsize - partstart;
 		i = NUMSEC( 2 * (rammb < 16 ? 16 : rammb),
@@ -237,7 +237,7 @@ int md_make_bsd_partitions (void)
 		bsdlabel[B].pi_offset = partstart;
 		bsdlabel[B].pi_size = partsize;
 		partstart += partsize;
-		
+
 		/* /usr */
 		remain = fsdsize - partstart;
 		if (remain > 0) {
@@ -287,7 +287,7 @@ int md_make_bsd_partitions (void)
 			}
 			part++;
 		}
-		
+
 
 		/* Verify Partitions. */
 		process_menu(MENU_fspartok);
@@ -314,7 +314,7 @@ int md_make_bsd_partitions (void)
 }
 
 /* update support */
-int 
+int
 md_update(void)
 {
 	return 1;

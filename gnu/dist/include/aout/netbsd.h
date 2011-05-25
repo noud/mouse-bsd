@@ -159,7 +159,7 @@ struct internal_section_dispatch_table
      for.  If not, use the chain field (the second four bytes of the
      hash table entry) to move on to the next entry in this bucket.
      If the chain field is zero you have reached the end of the
-     bucket, and the symbol is not in the hash table.  */ 
+     bucket, and the symbol is not in the hash table.  */
   unsigned long sdt_hash;
 
   /* The address of the symbol table.  This is a list of

@@ -68,7 +68,7 @@ HOWTO (R_H8500_HIGH16, 0, 1, 8, false, 0,
 
 /* Turn a howto into a reloc number */
 
-static int 
+static int
 coff_h8500_select_reloc (howto)
      reloc_howto_type *howto;
 {
@@ -217,7 +217,7 @@ extra_case (in_abfd, link_info, link_order, reloc, data, src_ptr, dst_ptr)
       (*dst_ptr) += 2;
       (*src_ptr) += 2;
       break;
-      
+
     case R_H8500_HIGH16:
       bfd_put_16 (in_abfd,
 		  (bfd_coff_reloc16_get_value (reloc, link_info, input_section)

@@ -35,12 +35,12 @@ ldversion (noisy)
   fprintf (stdout, "GNU ld version %s (with BFD %s)\n",
 	   ld_program_version, BFD_VERSION);
 
-  if (noisy) 
+  if (noisy)
     {
       ld_emulation_xfer_type **ptr = ld_emulations;
-    
+
       printf ("  Supported emulations:\n");
-      while (*ptr) 
+      while (*ptr)
 	{
 	  printf ("   %s\n", (*ptr)->emulation_name);
 	  ptr++;

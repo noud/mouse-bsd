@@ -67,7 +67,7 @@ rasops32_init(ri)
 		ri->ri_bnum = 8;
 		ri->ri_bpos = 16;
 	}
-		
+
 	ri->ri_ops.putchar = rasops32_putchar;
 }
 
@@ -85,26 +85,26 @@ rasops32_putchar(cookie, row, col, uc, attr)
 	struct rasops_info *ri;
 	int32_t *dp, *rp;
 	u_char *fr;
-	
+
 	ri = (struct rasops_info *)cookie;
 
-#ifdef RASOPS_CLIPPING	
-	/* Catches 'row < 0' case too */ 
+#ifdef RASOPS_CLIPPING
+	/* Catches 'row < 0' case too */
 	if ((unsigned)row >= (unsigned)ri->ri_rows)
 		return;
 
 	if ((unsigned)col >= (unsigned)ri->ri_cols)
 		return;
 #endif
-	
+
 	rp = (int32_t *)(ri->ri_bits + row*ri->ri_yscale + col*ri->ri_xscale);
 
 	height = ri->ri_font->fontheight;
 	width = ri->ri_font->fontwidth;
 
-	clr[0] = ri->ri_devcmap[(attr >> 16) & 15];	
-	clr[1] = ri->ri_devcmap[(attr >> 24) & 15];	
-		
+	clr[0] = ri->ri_devcmap[(attr >> 16) & 15];
+	clr[1] = ri->ri_devcmap[(attr >> 24) & 15];
+
 	if (uc == ' ') {
 		while (height--) {
 			dp = rp;
@@ -120,17 +120,17 @@ rasops32_putchar(cookie, row, col, uc, attr)
 
 		while (height--) {
 			dp = rp;
-			fb = fr[3] | (fr[2] << 8) | (fr[1] << 16) | 
+			fb = fr[3] | (fr[2] << 8) | (fr[1] << 16) |
 			    (fr[0] << 24);
 			fr += fs;
 			DELTA(rp, ri->ri_stride, int32_t *);
-			
+
 			for (cnt = width; cnt; cnt--) {
 				*dp++ = clr[(fb >> 31) & 1];
 				fb <<= 1;
 			}
 		}
-	}	
+	}
 
 	/* Do underline */
 	if ((attr & 1) != 0) {
@@ -138,5 +138,5 @@ rasops32_putchar(cookie, row, col, uc, attr)
 
 		while (width--)
 			*rp++ = clr[1];
-	}	
+	}
 }

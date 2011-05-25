@@ -146,7 +146,7 @@ main(argc, argv, envp)
 	extern void resetlimits __P((void));
 #ifndef HASUNSETENV
 	extern void unsetenv __P((char *));
-#endif  
+#endif
 
 	/*
 	**  Check to see if we reentered.
@@ -192,10 +192,10 @@ main(argc, argv, envp)
 #if LOG
 # ifdef LOG_MAIL
 	openlog("sendmail", LOG_PID, LOG_MAIL);
-# else 
+# else
 	openlog("sendmail", LOG_PID);
 # endif
-#endif 
+#endif
 
 	if (MissingFds != 0)
 	{
@@ -651,7 +651,7 @@ main(argc, argv, envp)
 				ExitStat = EX_USAGE;
 			}
 			break;
-		
+
 		  case 'n':	/* don't alias */
 			NoAlias = TRUE;
 			break;
@@ -1054,7 +1054,7 @@ main(argc, argv, envp)
 		extern bool rfc822_string __P((char *));
 
 		/* full names can't have newlines */
-		if (strchr(FullName, '\n') != NULL) 
+		if (strchr(FullName, '\n') != NULL)
 		{
 			FullName = full = newstr(denlstring(FullName, TRUE, TRUE));
 		}
@@ -1094,7 +1094,7 @@ main(argc, argv, envp)
 			getvendor(VENDOR_CODE), getvendor(VendorCode));
 	}
 #endif
-	
+
 	/* check for out of date configuration level */
 	if (ConfigLevel < MAXCONFIGLEVEL)
 	{
@@ -1588,7 +1588,7 @@ main(argc, argv, envp)
 	if (GrabTo)
 	{
 		ADDRESS *q;
-		
+
 		for (q = CurEnv->e_sendqueue; q != NULL; q = q->q_next)
 			q->q_flags |= QDONTSEND;
 	}

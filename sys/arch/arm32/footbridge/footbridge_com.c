@@ -81,8 +81,8 @@ struct fcom_softc {
 #define HW_FLAG_CONSOLE	0x01
 	int			sc_swflags;
 	int			sc_l_ubrlcr;
-	int			sc_m_ubrlcr;	
-	int			sc_h_ubrlcr;	
+	int			sc_m_ubrlcr;
+	int			sc_h_ubrlcr;
 	char			*sc_rxbuffer[2];
 	char			*sc_rxbuf;
 	int			sc_rxpos;
@@ -309,7 +309,7 @@ fcomwrite(dev, uio, flag)
 {
 	struct fcom_softc *sc = fcom_cd.cd_devs[minor(dev)];
 	struct tty *tp = sc->sc_tty;
-	
+
 	return (*linesw[tp->t_line].l_write)(tp, uio, flag);
 }
 
@@ -324,7 +324,7 @@ fcomioctl(dev, cmd, data, flag, p)
 	struct fcom_softc *sc = fcom_cd.cd_devs[minor(dev)];
 	struct tty *tp = sc->sc_tty;
 	int error;
-	
+
 	if ((error = (*linesw[tp->t_line].l_ioctl)(tp, cmd, data, flag, p)) >= 0)
 		return error;
 	if ((error = ttioctl(tp, cmd, data, flag, p)) >= 0)
@@ -336,9 +336,9 @@ fcomioctl(dev, cmd, data, flag, p)
 		break;
 
 	case TIOCSFLAGS:
-		error = suser(p->p_ucred, &p->p_acflag); 
+		error = suser(p->p_ucred, &p->p_acflag);
 		if (error)
-			return (error); 
+			return (error);
 		sc->sc_swflags = *(int *)data;
 		break;
 	}
@@ -398,7 +398,7 @@ fcomstart(tp)
 	}
 
 	(void)splx(s);
-	
+
 	cl = &tp->t_outq;
 	len = q_to_b(cl, buf, 64);
 	for (loop = 0; loop < len; ++loop) {
@@ -558,7 +558,7 @@ fcom_txintr(arg)
 {
 /*	struct fcom_softc *sc = arg;*/
 
-	printf("fcom_txintr()\n");	
+	printf("fcom_txintr()\n");
 	return(0);
 }
 #endif

@@ -46,7 +46,7 @@ Boston, MA 02111-1307, USA.  */
 extern int __objc_thread_exit_status;      /* Global exit status.   */
 
 /********
- *  Thread safe implementation types and functions.  
+ *  Thread safe implementation types and functions.
  */
 
 /* Thread priorities */
@@ -98,15 +98,15 @@ int objc_thread_set_data(void *value);
 objc_thread_t objc_thread_id(void);
 
 /*
-  Use this to set the hook function that will be called when the 
+  Use this to set the hook function that will be called when the
   runtime initially becomes multi threaded.
-  The hook function is only called once, meaning only when the 
+  The hook function is only called once, meaning only when the
   2nd thread is spawned, not for each and every thread.
 
   It returns the previous hook function or NULL if there is none.
 
   A program outside of the runtime could set this to some function so
-  it can be informed; for example, the GNUstep Base Library sets it 
+  it can be informed; for example, the GNUstep Base Library sets it
   so it can implement the NSBecomingMultiThreaded notification.
   */
 typedef void (*objc_thread_callback)();

@@ -120,7 +120,7 @@ extern	char	*scriptname;
 extern	boolean	query;
 extern	boolean	terse;
 int	inquire __P((char *, ...));	/* inquire for yes/no */
-/* 
+/*
  *	codes for inquire() to return
  */
 #define	Q_NO	1			/* 'N' */
@@ -172,7 +172,7 @@ extern struct lang_desc lang_table[];
 #define	ERRORNAME	"/.errorrc"
 extern int	nignored;
 extern char	**names_ignored;
-/* 
+/*
  *	Structure definition for a full error
  */
 typedef struct edesc	Edesc;
@@ -194,7 +194,7 @@ struct edesc{
  */
 extern	int	nerrors;
 extern	Eptr	er_head;
-extern	Eptr	*errors;	
+extern	Eptr	*errors;
 /*
  *	Resources for each of the files mentioned
  */

@@ -31,20 +31,20 @@
 
 #include "rf_types.h"
 
-int 
+int
 rf_ConfigureDeclusteredPQ(RF_ShutdownList_t ** listp, RF_Raid_t * raidPtr,
     RF_Config_t * cfgPtr);
 int     rf_GetDefaultNumFloatingReconBuffersPQ(RF_Raid_t * raidPtr);
-void 
+void
 rf_MapSectorDeclusteredPQ(RF_Raid_t * raidPtr, RF_RaidAddr_t raidSector,
     RF_RowCol_t * row, RF_RowCol_t * col, RF_SectorNum_t * diskSector, int remap);
-void 
+void
 rf_MapParityDeclusteredPQ(RF_Raid_t * raidPtr, RF_RaidAddr_t raidSector,
     RF_RowCol_t * row, RF_RowCol_t * col, RF_SectorNum_t * diskSector, int remap);
-void 
+void
 rf_MapQDeclusteredPQ(RF_Raid_t * raidPtr, RF_RaidAddr_t raidSector,
     RF_RowCol_t * row, RF_RowCol_t * col, RF_SectorNum_t * diskSector, int remap);
-void 
+void
 rf_IdentifyStripeDeclusteredPQ(RF_Raid_t * raidPtr, RF_RaidAddr_t addr,
     RF_RowCol_t ** diskids, RF_RowCol_t * outRow);
 

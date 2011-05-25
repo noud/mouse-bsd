@@ -209,7 +209,7 @@ zs_init()
 		zs_conschan = zs_get_chan_addr(0, zs_consunit);
 		/* so recalc the console port */
 	}
-}	
+}
 
 
 /****************************************************************
@@ -546,7 +546,7 @@ zs_cn_check_speed(bps)
 	if (tc < 0)
 		return 0;
 	rate = TCONST_TO_BPS(PCLK / 16, tc);
-	if (ZS_TOLERANCE > abs(((rate - bps)*1000)/bps)) 
+	if (ZS_TOLERANCE > abs(((rate - bps)*1000)/bps))
 		return 1;
 	else
 		return 0;
@@ -691,7 +691,7 @@ zs_set_speed(cs, bps)
 	cs->cs_preg[12] = tc;
 	cs->cs_preg[13] = tc >> 8;
 	splx(s);
-	
+
 #ifdef ZSMACDEBUG
 	zsprintf("Rate is %7d, tc is %7d, source no. %2d, flags %4x\n", \
 	    bps, tc, src, sf);
@@ -913,7 +913,7 @@ zscnsetup()
 	cs->cs_preg[12] = tconst;
 	cs->cs_preg[13] = tconst >> 8;
 	/* can't use zs_set_speed as we haven't set up the
-	 * signal sources, and it's not worth it for now 
+	 * signal sources, and it's not worth it for now
 	 */
 
 	/*

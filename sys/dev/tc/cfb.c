@@ -52,7 +52,7 @@ __KERNEL_RCSID(0, "$NetBSD: cfb.c,v 1.17 1999/12/15 15:09:37 ad Exp $");
 #include <dev/wscons/wsdisplayvar.h>
 
 #include <dev/tc/tcvar.h>
-#include <dev/ic/bt459reg.h>	
+#include <dev/ic/bt459reg.h>
 
 #include <uvm/uvm_extern.h>
 
@@ -78,7 +78,7 @@ __KERNEL_RCSID(0, "$NetBSD: cfb.c,v 1.17 1999/12/15 15:09:37 ad Exp $");
  *			u_int8_t u0;
  *			u_int8_t u1;
  *			u_int8_t u2;
- *			unsigned :8; 
+ *			unsigned :8;
  *		} bt_lo;
  *		...
  * Although CX has single Bt459, 32bit R/W can be done w/o any trouble.
@@ -507,7 +507,7 @@ cfb_cnattach(addr)
         long defattr;
 
         cfb_getdevconfig(addr, dcp);
- 
+
         rcons_alloc_attr(&dcp->dc_rcons, 0, 0, 0, &defattr);
 
         wsdisplay_cnattach(&cfb_stdscreen, &dcp->dc_rcons,
@@ -525,7 +525,7 @@ cfbintr(arg)
 	caddr_t cfbbase = (caddr_t)sc->sc_dc->dc_vaddr;
 	struct bt459reg *vdac;
 	int v;
-	
+
 	*(u_int8_t *)(cfbbase + CX_OFFSET_IREQ) = 0;
 	if (sc->sc_changed == 0)
 		return (1);

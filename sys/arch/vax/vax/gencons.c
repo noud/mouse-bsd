@@ -179,7 +179,7 @@ gencnioctl(dev, cmd, data, flag, p)
         error = ttioctl(tp, cmd, data, flag, p);
         if (error >= 0)
 		return error;
- 
+
 	return ENOTTY;
 }
 
@@ -330,14 +330,14 @@ gencngetc(dev)
 	return i;
 }
 
-void 
+void
 gencnpollc(dev, pollflag)
         dev_t dev;
         int pollflag;
 {
         if (pollflag)  {
                 mtpr(0, PR_RXCS);
-	        mtpr(0, PR_TXCS); 
+	        mtpr(0, PR_TXCS);
 	} else if (consopened) {
 	        mtpr(GC_RIE, PR_RXCS);
 	        mtpr(GC_TIE, PR_TXCS);

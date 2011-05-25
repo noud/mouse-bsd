@@ -15,7 +15,7 @@ void	mvmeprom_outstr __P((char *, char *));
 void	mvmeprom_rtc_rd __P((struct mvmeprom_time *));
 
 /*
- * bugcrt stuff 
+ * bugcrt stuff
  */
 
 extern struct mvmeprom_args bugargs;

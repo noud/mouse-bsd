@@ -79,7 +79,7 @@ ENTRY(volume_ctl)
 	strb	r3,[r6]
 	mov	r0,r1
 	bl	_shift
-	
+
 	mov	r4,#10
 	bl	_waitabit		/* wait 10 usec */
 

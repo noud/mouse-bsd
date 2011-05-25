@@ -81,7 +81,7 @@ tx39power_attach(parent, self, aux)
 	struct tx39power_softc *sc = (void*)self;
 	tx_chipset_tag_t tc;
 	txreg_t reg;
-	
+
 	tc = sc->sc_tc = ta->ta_tc;
 	tx_conf_register_power(tc, self);
 
@@ -100,18 +100,18 @@ tx39power_attach(parent, self, aux)
 #endif /* TX391X */
 	ISSETPRINT(reg, ENSTPTIMER);
 	ISSETPRINT(reg, ENFORCESHUTDWN);
-	ISSETPRINT(reg, FORCESHUTDWN); 
+	ISSETPRINT(reg, FORCESHUTDWN);
 	ISSETPRINT(reg, FORCESHUTDWNOCC);
 	ISSETPRINT(reg, SELC2MS);
 #ifdef TX392X
 	ISSETPRINT(reg, WARMSTART);
 #endif /* TX392X */
-	ISSETPRINT(reg, BPDBVCC3);        
-	ISSETPRINT(reg, STOPCPU);       
+	ISSETPRINT(reg, BPDBVCC3);
+	ISSETPRINT(reg, STOPCPU);
 	ISSETPRINT(reg, DBNCONBUTN);
-	ISSETPRINT(reg, COLDSTART);     
-	ISSETPRINT(reg, PWRCS);      
-	ISSETPRINT(reg, VCCON);          
+	ISSETPRINT(reg, COLDSTART);
+	ISSETPRINT(reg, PWRCS);
+	ISSETPRINT(reg, VCCON);
 #ifdef TX391X
 	printf("VIDRF=%d ", TX39_POWERCTRL_VIDRF(reg));
 #endif /* TX391X */
@@ -119,8 +119,8 @@ tx39power_attach(parent, self, aux)
 	printf("\n");
 #endif /* TX39POWERDEBUG */
 #ifdef DISABLE_SPI_AND_DOZE /* XXX test XXX */
-	/* 
-	 *	Disable SPI module 
+	/*
+	 *	Disable SPI module
 	 */
 	reg = tx_conf_read(tc, TX39_SPICTRL_REG);
 	if (ISSET(reg, TX39_SPICTRL_ENSPI)) {
@@ -128,7 +128,7 @@ tx39power_attach(parent, self, aux)
 	}
 	printf("SPI module disabled\n");
 
-	/* 
+	/*
 	 *	Disable Stop timer (Doze CPU mode)
 	 */
 	reg = tx_conf_read(tc, TX39_POWERCTRL_REG);
@@ -150,16 +150,16 @@ tx39power_attach(parent, self, aux)
 	tx_conf_write(tc, TX39_POWERCTRL_REG, reg);
 
 	tx_intr_establish(tc, MAKEINTR(5, TX39_INTRSTATUS5_POSPWRINT),
-			    IST_EDGE, IPL_CLOCK, 
+			    IST_EDGE, IPL_CLOCK,
 			    tx39power_intr, sc);
 	tx_intr_establish(tc, MAKEINTR(5, TX39_INTRSTATUS5_NEGPWRINT),
-			    IST_EDGE, IPL_CLOCK,			    
+			    IST_EDGE, IPL_CLOCK,
 			    tx39power_intr, sc);
 	tx_intr_establish(tc, MAKEINTR(5, TX39_INTRSTATUS5_POSPWROKINT),
-			    IST_EDGE, IPL_CLOCK, 
+			    IST_EDGE, IPL_CLOCK,
 			    tx39power_ok_intr, sc);
 	tx_intr_establish(tc, MAKEINTR(5, TX39_INTRSTATUS5_NEGPWROKINT),
-			    IST_EDGE, IPL_CLOCK,			    
+			    IST_EDGE, IPL_CLOCK,
 			    tx39power_ok_intr, sc);
 #if 0
 	tx_intr_establish(tc, MAKEINTR(5, TX39_INTRSTATUS5_POSONBUTNINT),
@@ -167,7 +167,7 @@ tx39power_attach(parent, self, aux)
 			    tx39power_button_intr, sc);
 #endif
 	tx_intr_establish(tc, MAKEINTR(5, TX39_INTRSTATUS5_NEGONBUTNINT),
-			    IST_EDGE, IPL_CLOCK,			    
+			    IST_EDGE, IPL_CLOCK,
 			    tx39power_button_intr, sc);
 
 }
@@ -179,7 +179,7 @@ tx39power_button_intr(arg)
 	printf("power button\n");
 #if defined DDB && defined POWERBUTTON_IS_DEBUGGER
 	cpu_Debugger();
-#endif	
+#endif
 	return 0;
 }
 

@@ -65,25 +65,25 @@ struct saved_file
 
 /* These hooks accomodate most operating systems. */
 
-void 
+void
 input_file_begin ()
 {
   f_in = (FILE *) 0;
 }
 
-void 
+void
 input_file_end ()
 {
 }
 
 /* Return BUFFER_SIZE. */
-unsigned int 
+unsigned int
 input_file_buffer_size ()
 {
   return (BUFFER_SIZE);
 }
 
-int 
+int
 input_file_is_open ()
 {
   return f_in != (FILE *) 0;
@@ -178,7 +178,7 @@ input_file_open (filename, pre)
 }
 
 /* Close input file.  */
-void 
+void
 input_file_close ()
 {
   if (f_in != NULL)

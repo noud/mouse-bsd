@@ -80,7 +80,7 @@ process_set_pc(p, addr)
 	caddr_t addr;
 {
 	struct trapframe *tf = trapframe(p);
-	
+
 	tf->srr0 = (int)addr;
 	return 0;
 }
@@ -91,7 +91,7 @@ process_sstep(p, sstep)
 	int sstep;
 {
 	struct trapframe *tf = trapframe(p);
-	
+
 	if (sstep)
 		tf->srr1 |= PSL_SE;
 	else

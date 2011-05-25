@@ -179,11 +179,11 @@ do									\
     floatformat_from_doublest (&floatformat_m68881_ext, &dbl_tmp_val, (TO)); \
   } while (0)
 
-/* Return the GDB type object for the "standard" data type of data 
+/* Return the GDB type object for the "standard" data type of data
    in register N.  This should be int for D0-D7, double for FP0-FP7,
    and void pointer for all others (A0-A7, PC, SR, FPCONTROL etc).
-   Note, for registers which contain addresses return pointer to void, 
-   not pointer to char, because we don't want to attempt to print 
+   Note, for registers which contain addresses return pointer to void,
+   not pointer to char, because we don't want to attempt to print
    the string after printing the address.  */
 
 #define REGISTER_VIRTUAL_TYPE(N) \

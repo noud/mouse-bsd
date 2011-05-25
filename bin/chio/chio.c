@@ -51,7 +51,7 @@ __RCSID("$NetBSD: chio.c,v 1.14 1999/09/09 23:32:10 thorpej Exp $");
 
 #include <sys/param.h>
 #include <sys/ioctl.h>
-#include <sys/chio.h> 
+#include <sys/chio.h>
 #include <sys/cdio.h>	/* for ATAPI CD changer; too bad it uses a lame API */
 #include <ctype.h>
 #include <err.h>
@@ -855,7 +855,7 @@ usage()
 	int i;
 
 	(void) fprintf(stderr, "Usage: %s command arg1 arg2 ...\n", __progname);
-	
+
 	(void) fprintf(stderr, "Where command (and args) are:\n");
 	for (i = 0; commands[i].cc_name != NULL; i++)
 		(void) fprintf(stderr, "\t%s%s\n", commands[i].cc_name,

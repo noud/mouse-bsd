@@ -449,9 +449,9 @@ and
 .Dv VTIME
 mechanisms are
 activated by the receipt of the first byte, or a signal is received.
-If data is in the buffer at the time of the 
+If data is in the buffer at the time of the
 .Xr read 2 ,
-the result is as if data had been received immediately after the 
+the result is as if data had been received immediately after the
 .Xr read 2 .
 .Ss "Case B: VMIN > 0, VTIME = 0"
 In this case, since the value of
@@ -505,7 +505,7 @@ field (see the
 .Sx "Output Modes"
 section).
 The implementation may provide a buffering mechanism; as such, when
-a call to 
+a call to
 .Xr write 2
 completes, all of the bytes written have been scheduled for
 transmission to the device, but the transmission will not necessarily
@@ -731,7 +731,7 @@ character, except that
 the
 .Dv SIGTSTP
 signal is delivered when one of the processes
-in the foreground process group issues a 
+in the foreground process group issues a
 .Xr read 2
 to the controlling terminal.
 .It Dv LNEXT
@@ -796,7 +796,7 @@ signal is sent to the controlling
 process associated with the terminal.
 Unless other arrangements have
 been made, this causes the controlling process to terminate.
-Any subsequent call to the 
+Any subsequent call to the
 .Xr read 2
 function returns the value zero, indicating end of file.
 Thus, processes that read a terminal file and test for end-of-file
@@ -810,7 +810,7 @@ can terminate appropriately after a disconnect.
 .\" condition or the
 .\" .Pf [ Dv EIO
 .\" ] is returned.
-Any subsequent 
+Any subsequent
 .Xr write 2
 to the terminal device returns -1, with
 .Va errno
@@ -1058,7 +1058,7 @@ is set and the input queue is full, subsequent input shall cause an
 .Dv BEL
 character to be transmitted to the output queue.
 .Pp
-The initial input control value after 
+The initial input control value after
 .Xr open 2
 is implementation defined.
 .Ss Output Modes
@@ -1220,7 +1220,7 @@ If
 .Dv CLOCAL
 is clear, the modem status lines are monitored.
 .Pp
-Under normal circumstances, a call to the 
+Under normal circumstances, a call to the
 .Xr open 2
 function waits for the modem connection to complete.
 However, if the
@@ -1228,7 +1228,7 @@ However, if the
 flag is set
 or if
 .Dv CLOCAL
-has been set, the 
+has been set, the
 .Xr open 2
 function returns immediately without waiting for the connection.
 .Pp
@@ -1538,7 +1538,7 @@ entries of the
 array.
 .Pp
 The initial values of the flags and control characters
-after 
+after
 .Xr open 2
 is set according to the values in the header
 .Aq Pa sys/ttydefaults.h .

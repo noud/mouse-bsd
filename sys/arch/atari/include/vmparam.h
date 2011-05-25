@@ -57,7 +57,7 @@
  * beginning of the text and from the beginning of the P1 region to the
  * beginning of the stack respectively.
  *
- * These are a mixture of i386, sun3 and hp settings.. 
+ * These are a mixture of i386, sun3 and hp settings..
  */
 
 /* Sun settings. Still hope, that I might get sun3 binaries to work... */
@@ -143,13 +143,13 @@
 #define	VM_NFREELIST		1
 #define	VM_FREELIST_DEFAULT	0
 
-/* 
+/*
  * pmap-specific data stored in the vm_physmem[] array.
- */   
-struct pmap_physseg { 
+ */
+struct pmap_physseg {
 	struct pv_entry *pvent;         /* pv table for this seg */
 	char *attrs;                    /* page attributes for this seg */
-}; 
+};
 
 
 /*

@@ -5,17 +5,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -135,7 +135,7 @@ cia_conf_read(cpv, tag, offset)
 	 */
 	REGVAL(CIA_CSR_CIA_ERR) = CIA_ERR_RCVD_MAS_ABT|CIA_ERR_RCVD_TAR_ABT;
 	alpha_mb();
-	alpha_pal_draina();	
+	alpha_pal_draina();
 
 	/* secondary if bus # != 0 */
 	alpha_pci_decompose_tag(&ccp->cc_pc, tag, &secondary, 0, 0);
@@ -182,7 +182,7 @@ cia_conf_read(cpv, tag, offset)
 		splx(s);
 	}
 
-	alpha_pal_draina();	
+	alpha_pal_draina();
 	alpha_mb();
 	errbits = REGVAL(CIA_CSR_CIA_ERR);
 	if (errbits & (CIA_ERR_RCVD_MAS_ABT|CIA_ERR_RCVD_TAR_ABT)) {

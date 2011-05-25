@@ -984,15 +984,15 @@ sym_info (arg, from_tty)
 	  matches = 1;
 	  offset = sect_addr - SYMBOL_VALUE_ADDRESS (msymbol);
 	  if (offset)
-	    printf_filtered ("%s + %u in ", 
+	    printf_filtered ("%s + %u in ",
 			     SYMBOL_SOURCE_NAME (msymbol), offset);
 	  else
-	    printf_filtered ("%s in ", 
+	    printf_filtered ("%s in ",
 			     SYMBOL_SOURCE_NAME (msymbol));
 	  if (pc_in_unmapped_range (addr, sect))
 	    printf_filtered ("load address range of ");
 	  if (section_is_overlay (sect))
-	    printf_filtered ("%s overlay ", 
+	    printf_filtered ("%s overlay ",
 			     section_is_mapped (sect) ? "mapped" : "unmapped");
 	  printf_filtered ("section %s", sect->name);
 	  printf_filtered ("\n");
@@ -1020,7 +1020,7 @@ address_info (exp, from_tty)
   if (exp == 0)
     error ("Argument required.");
 
-  sym = lookup_symbol (exp, get_selected_block (), VAR_NAMESPACE, 
+  sym = lookup_symbol (exp, get_selected_block (), VAR_NAMESPACE,
 		       &is_a_field_of_this, (struct symtab **)NULL);
   if (sym == NULL)
     {
@@ -1077,7 +1077,7 @@ address_info (exp, from_tty)
 
     case LOC_LABEL:
       printf_filtered ("a label at address ");
-      print_address_numeric (load_addr = SYMBOL_VALUE_ADDRESS (sym), 
+      print_address_numeric (load_addr = SYMBOL_VALUE_ADDRESS (sym),
 			     1, gdb_stdout);
       if (section_is_overlay (section))
 	{
@@ -1094,7 +1094,7 @@ address_info (exp, from_tty)
 
     case LOC_STATIC:
       printf_filtered ("static storage at address ");
-      print_address_numeric (load_addr = SYMBOL_VALUE_ADDRESS (sym), 
+      print_address_numeric (load_addr = SYMBOL_VALUE_ADDRESS (sym),
 			     1, gdb_stdout);
       if (section_is_overlay (section))
 	{
@@ -1173,7 +1173,7 @@ address_info (exp, from_tty)
 	  {
 	    section = SYMBOL_BFD_SECTION (msym);
 	    printf_filtered ("static storage at address ");
-	    print_address_numeric (load_addr = SYMBOL_VALUE_ADDRESS (msym), 
+	    print_address_numeric (load_addr = SYMBOL_VALUE_ADDRESS (msym),
 				   1, gdb_stdout);
 	    if (section_is_overlay (section))
 	      {
@@ -1189,7 +1189,7 @@ address_info (exp, from_tty)
     case LOC_OPTIMIZED_OUT:
       printf_filtered ("optimized out");
       break;
-      
+
     default:
       printf_filtered ("of unknown (botched) type");
       break;
@@ -1259,7 +1259,7 @@ x_command (exp, from_tty)
 	       value_from_longest (
 		 lookup_pointer_type (VALUE_TYPE (last_examine_value)),
 				   (LONGEST) last_examine_address));
-      
+
       /* Make contents of last address examined available to the user as $__.*/
       set_internalvar (lookup_internalvar ("__"), last_examine_value);
     }
@@ -1413,7 +1413,7 @@ undisplay_command (args, from_tty)
   dont_repeat ();
 }
 
-/* Display a single auto-display.  
+/* Display a single auto-display.
    Do nothing if the display cannot be printed in the current context,
    or if the display is disabled. */
 
@@ -1463,7 +1463,7 @@ do_one_display (d)
 	printf_filtered ("\n");
       else
 	printf_filtered ("  ");
-      
+
       val = evaluate_expression (d->exp);
       addr = value_as_pointer (val);
       if (d->format.format == 'i')
@@ -1529,7 +1529,7 @@ disable_display (num)
       }
   printf_unfiltered ("No display number %d.\n", num);
 }
-  
+
 void
 disable_current_display ()
 {
@@ -1594,9 +1594,9 @@ enable_display (args, from_tty)
 	  p1++;
 	if (*p1 && *p1 != ' ' && *p1 != '\t')
 	  error ("Arguments must be display numbers.");
-	
+
 	num = atoi (p);
-	
+
 	for (d = display_chain; d; d = d->next)
 	  if (d->number == num)
 	    {
@@ -1634,7 +1634,7 @@ disable_display_command (args, from_tty)
 	  p1++;
 	if (*p1 && *p1 != ' ' && *p1 != '\t')
 	  error ("Arguments must be display numbers.");
-	
+
 	disable_display (atoi (p));
 
 	p = p1;
@@ -1707,7 +1707,7 @@ print_frame_args (func, fi, num, stream)
 	{
 	  long current_offset = SYMBOL_VALUE (sym);
 	  arg_size = TYPE_LENGTH (SYMBOL_TYPE (sym));
-	  
+
 	  /* Compute address of next argument by adding the size of
 	     this argument and rounding to an int boundary.  */
 	  current_offset
@@ -2015,7 +2015,7 @@ printf_command (arg, from_tty)
       if (*f++ == '%')
 	{
 	  lcount = 0;
-	  while (strchr ("0123456789.hlL-+ #", *f)) 
+	  while (strchr ("0123456789.hlL-+ #", *f))
 	    {
 	      if (*f == 'l' || *f == 'L')
 		lcount++;
@@ -2073,10 +2073,10 @@ printf_command (arg, from_tty)
 					     * sizeof (value_ptr));
 	s1 = s;
 	val_args[nargs] = parse_to_comma_and_eval (&s1);
- 
+
 	/* If format string wants a float, unchecked-convert the value to
 	   floating point of the same size */
- 
+
 	if (argclass[nargs] == double_arg)
 	  {
 	    struct type *type = VALUE_TYPE (val_args[nargs]);
@@ -2090,7 +2090,7 @@ printf_command (arg, from_tty)
 	if (*s == ',')
 	  s++;
       }
- 
+
     if (nargs != nargs_wanted)
       error ("Wrong number of arguments for specified format-string");
 
@@ -2295,7 +2295,7 @@ _initialize_printcmd ()
   add_info ("address", address_info,
 	   "Describe where symbol SYM is stored.");
 
-  add_info ("symbol", sym_info, 
+  add_info ("symbol", sym_info,
 	    "Describe what symbol is at location ADDR.\n\
 Only for symbols with fixed locations (global or static scope).");
 
@@ -2322,7 +2322,7 @@ Two arguments are taken as a range of memory to dump.");
   add_com ("whereis", class_vars, whereis_command,
 	   "Print line number and file of definition of variable.");
 #endif
-  
+
   add_info ("display", display_info,
 	    "Expressions to display when program stops, with code numbers.");
 
@@ -2344,19 +2344,19 @@ With no argument, display all currently requested auto-display expressions.\n\
 Use \"undisplay\" to cancel display requests previously made."
 );
 
-  add_cmd ("display", class_vars, enable_display, 
+  add_cmd ("display", class_vars, enable_display,
 	   "Enable some expressions to be displayed when program stops.\n\
 Arguments are the code numbers of the expressions to resume displaying.\n\
 No argument means enable all automatic-display expressions.\n\
 Do \"info display\" to see current list of code numbers.", &enablelist);
 
-  add_cmd ("display", class_vars, disable_display_command, 
+  add_cmd ("display", class_vars, disable_display_command,
 	   "Disable some expressions to be displayed when program stops.\n\
 Arguments are the code numbers of the expressions to stop displaying.\n\
 No argument means disable all automatic-display expressions.\n\
 Do \"info display\" to see current list of code numbers.", &disablelist);
 
-  add_cmd ("display", class_vars, undisplay_command, 
+  add_cmd ("display", class_vars, undisplay_command,
 	   "Cancel some expressions to be displayed when program stops.\n\
 Arguments are the code numbers of the expressions to stop displaying.\n\
 No argument means cancel all automatic-display expressions.\n\

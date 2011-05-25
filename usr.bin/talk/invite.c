@@ -52,13 +52,13 @@ __RCSID("$NetBSD: invite.c,v 1.4 1997/10/20 00:23:23 lukem Exp $");
 /*
  * There wasn't an invitation waiting, so send a request containing
  * our sockt address to the remote talk daemon so it can invite
- * him 
+ * him
  */
 
 /*
  * The msg.id's for the invitations
  * on the local and remote machines.
- * These are used to delete the 
+ * These are used to delete the
  * invitations.
  */
 int	local_id, remote_id;

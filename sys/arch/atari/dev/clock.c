@@ -141,7 +141,7 @@ void		*auxp;
 	     */
 	    MFP->mf_tbcr  = 0;		/* Stop timer			*/
 	    MFP->mf_iera &= ~IA_TIMB;	/* Disable timer interrupts	*/
-	    MFP->mf_tbdr  = 0;	
+	    MFP->mf_tbdr  = 0;
 	    MFP->mf_tbcr  = T_Q004;	/* Start timer			*/
 
 	    /*
@@ -302,7 +302,7 @@ int	n;
 		return;
 	{
 	    u_int	temp;
-		
+
 	    __asm __volatile ("mulul %2,%1:%0" : "=d" (n), "=d" (temp)
 					       : "d" (TIMB_FREQ));
 	    __asm __volatile ("divul %1,%2:%0" : "=d" (n)
@@ -537,7 +537,7 @@ rtcwrite(dev, uio, flags)
 	if (uio->uio_offset || (length != sizeof(buffer)
 	  && length != sizeof(buffer - 1)))
 		return(EINVAL);
-	
+
 	if ((error = uiomove((caddr_t)buffer, sizeof(buffer), uio)))
 		return(error);
 
@@ -554,7 +554,7 @@ rtcwrite(dev, uio, flags)
 	clkregs[MC_DOM]   = twodigits(buffer, 6);
 	clkregs[MC_MONTH] = twodigits(buffer, 4);
 	s = twodigits(buffer, 0) * 100 + twodigits(buffer, 2);
-	clkregs[MC_YEAR]  = s - GEMSTARTOFTIME; 
+	clkregs[MC_YEAR]  = s - GEMSTARTOFTIME;
 
 	s = splclock();
 	MC146818_PUTTOD(RTC, &clkregs);

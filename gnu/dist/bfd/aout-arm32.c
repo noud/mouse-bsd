@@ -164,13 +164,13 @@ FPRINTF((stderr, "%s:reloc_howto", __FILE__));
     }
   index = r_length + 4 * r_pcrel_done + 8 * r_neg + 16 * r_pic;
   if (index == 3)
-    *r_pcrel = 1;        
+    *r_pcrel = 1;
   if (index == 19)	/* jmpslot */
-    *r_pcrel = 1;        
+    *r_pcrel = 1;
 FPRINTF((stderr, " index=%d name=%s\n", index, (MY(howto_table) + index)->name));
   return MY(howto_table) + index;
 }
- 
+
 #define MY_reloc_howto(BFD, REL, IN, EX, PC) \
 	MY(reloc_howto) (BFD, REL, &IN, &EX, &PC)
 
@@ -227,7 +227,7 @@ FPRINTF((stderr, "%s:put_reloc\n", __FILE__));
 	 | (r_length <<  RELOC_STD_BITS_LENGTH_SH_LITTLE));
     }
 }
- 
+
 #define MY_put_reloc(BFD, EXT, IDX, VAL, HOWTO, RELOC) \
   MY(put_reloc)(BFD, EXT, IDX, VAL, HOWTO, RELOC)
 
@@ -327,7 +327,7 @@ FPRINTF((stderr, "doing relocation\n"));
   /* Now the ARM magic... Change the reloc type so that it is marked as done.
      Strictly this is only necessary if we are doing a partial relocation.  */
   reloc_entry->howto = &MY(howto_table)[7];
-  
+
   return flag;
 }
 
@@ -414,7 +414,7 @@ MY_swap_std_reloc_out (abfd, g, natptr)
       r_pcrel = 0;
     }
   else if (g->howto->type == 7)
-    { 
+    {
       r_length = 3;
       r_pcrel = 1;
     }

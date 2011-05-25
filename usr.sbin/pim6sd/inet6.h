@@ -34,12 +34,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -53,7 +53,7 @@
 extern int numerichost;
 
 extern int  inet6_equal __P((struct sockaddr_in6 *sa1,
-                     struct sockaddr_in6 *sa2)); 
+                     struct sockaddr_in6 *sa2));
 extern int  inet6_lessthan  __P((struct sockaddr_in6 *sa1,
                      struct sockaddr_in6 *sa2));
 extern int  inet6_localif_address __P((struct sockaddr_in6 *sa,
@@ -68,7 +68,7 @@ extern int  inet6_uvif2scopeid __P((struct sockaddr_in6 *sa, struct uvif *v));
 extern int  inet6_valid_host __P((struct sockaddr_in6 *addr));
 extern char *inet6_fmt  __P((struct in6_addr *addr));
 extern char *ifindex2str    __P((int ifindex));
-extern char *net6name   __P((struct in6_addr *prefix, 
+extern char *net6name   __P((struct in6_addr *prefix,
                      struct in6_addr *mask));
 
 

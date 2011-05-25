@@ -417,7 +417,7 @@ ppptioctl(tp, cmd, data, flag, p)
     case TIOCRCVFRAME:
     	ppprcvframe(sc,*((struct mbuf **)data));
 	break;
-	
+
     case PPPIOCSASYNCMAP:
 	if ((error = suser(p->p_ucred, &p->p_acflag)) != 0)
 	    break;
@@ -474,14 +474,14 @@ ppprcvframe(sc, m)
 	struct mbuf *n;
 	u_char hdr[4];
 	int hlen,count;
-		
+
 	for (n=m,len=0;n != NULL;n = n->m_next)
 		len += n->m_len;
 	if (len==0) {
 		m_freem(m);
 		return;
 	}
-	
+
 	/* extract PPP header from mbuf chain (1 to 4 bytes) */
 	for (n=m,hlen=0;n!=NULL && hlen<sizeof(hdr);n=n->m_next) {
 		count = (sizeof(hdr)-hlen) < n->m_len ?
@@ -489,9 +489,9 @@ ppprcvframe(sc, m)
 		bcopy(mtod(n,u_char*),&hdr[hlen],count);
 		hlen+=count;
 	}
-	
+
 	s = spltty();
-	
+
 	/* if AFCF compressed then prepend AFCF */
 	if (hdr[0] != PPP_ALLSTATIONS) {
 		if (sc->sc_flags & SC_REJ_COMP_AC) {
@@ -501,7 +501,7 @@ ppprcvframe(sc, m)
 				    sc->sc_if.if_xname, hdr[0]);
 				goto bail;
 			}
-		M_PREPEND(m,2,M_DONTWAIT);		
+		M_PREPEND(m,2,M_DONTWAIT);
 		if (m==NULL) {
 			splx(s);
 			return;
@@ -516,7 +516,7 @@ ppprcvframe(sc, m)
 	/* if protocol field compressed, add MSB of protocol field = 0 */
 	if (hdr[2] & 1) {
 		/* a compressed protocol */
-		M_PREPEND(m,1,M_DONTWAIT);		
+		M_PREPEND(m,1,M_DONTWAIT);
 		if (m==NULL) {
 			splx(s);
 			return;
@@ -524,8 +524,8 @@ ppprcvframe(sc, m)
 		hdr[3] = hdr[2];
 		hdr[2] = 0;
 		len++;
-	} 
-	
+	}
+
 	/* valid LSB of protocol field has bit0 set */
 	if (!(hdr[3] & 1)) {
 		if (sc->sc_flags & SC_DEBUG)
@@ -533,14 +533,14 @@ ppprcvframe(sc, m)
 				(hdr[2] << 8) + hdr[3]);
 			goto bail;
 	}
-	
+
 	/* packet beyond configured mru? */
 	if (len > sc->sc_mru + PPP_HDRLEN) {
 		if (sc->sc_flags & SC_DEBUG)
 			printf("%s: packet too big\n", sc->sc_if.if_xname);
 		goto bail;
 	}
-	
+
 	/* add expanded 4 byte header to mbuf chain */
 	for (n=m,hlen=0;n!=NULL && hlen<sizeof(hdr);n=n->m_next) {
 		count = (sizeof(hdr)-hlen) < n->m_len ?
@@ -548,7 +548,7 @@ ppprcvframe(sc, m)
 		bcopy(&hdr[hlen],mtod(n,u_char*),count);
 		hlen+=count;
 	}
-	
+
 	/* if_ppp.c requires the PPP header and IP header */
 	/* to be contiguous */
 	count = len < MHLEN ? len : MHLEN;
@@ -557,16 +557,16 @@ ppprcvframe(sc, m)
 		if (m==NULL)
 			goto bail;
 	}
-	
+
 	sc->sc_stats.ppp_ibytes += len;
-	
+
 	if (sc->sc_flags & SC_LOG_RAWIN)
 		pppdumpframe(sc,m,0);
-    
+
 	ppppktin(sc, m, 0);
 	splx(s);
 	return;
-bail:	
+bail:
 	m_freem(m);
 	splx(s);
 }
@@ -633,7 +633,7 @@ pppsyncstart(sc)
 	struct tty *tp = (struct tty *) sc->sc_devp;
 	struct mbuf *m, *n;
 	int len;
-    
+
 	for(m = sc->sc_outm;;) {
 		if (m == NULL) {
 			m = ppp_dequeue(sc);	/* get new packet */
@@ -645,7 +645,7 @@ pppsyncstart(sc)
 		microtime(&sc->sc_if.if_lastchange);
 		for(n=m,len=0;n!=NULL;n=n->m_next)
 			len += n->m_len;
-			
+
 		/* call device driver IOCTL to transmit a frame */
 		if ((*cdevsw[major(tp->t_dev)].d_ioctl)
 			(tp->t_dev, TIOCXMTFRAME, (caddr_t)&m, 0, 0)) {
@@ -678,7 +678,7 @@ pppasyncstart(sc)
 	pppsyncstart(sc);
 	return;
     }
-    
+
     idle = 0;
     while (CCOUNT(&tp->t_outq) < PPP_HIWAT) {
 	/*
@@ -1013,7 +1013,7 @@ pppinput(c, tp)
 	ilen = sc->sc_ilen;
 	sc->sc_ilen = 0;
 
-	if (sc->sc_rawin_count > 0) 
+	if (sc->sc_rawin_count > 0)
 	    ppplogchar(sc, -1);
 
 	/*
@@ -1244,10 +1244,10 @@ pppdumpframe(sc, m, xmit)
 	int i,lcount,copycount,count;
 	char lbuf[16];
 	char *data;
-	
+
 	if (m == NULL)
 		return;
-		
+
 	for(count=m->m_len,data=mtod(m,char*);m != NULL;) {
 		/* build a line of output */
 		for(lcount=0;lcount < sizeof(lbuf);lcount += copycount) {
@@ -1265,7 +1265,7 @@ pppdumpframe(sc, m, xmit)
 			count -= copycount;
 		}
 
-		/* output line (hex 1st, then ascii) */		
+		/* output line (hex 1st, then ascii) */
 		printf("%s %s:", sc->sc_if.if_xname,
 		    xmit ? "output" : "input ");
 		for(i=0;i<lcount;i++)
@@ -1273,7 +1273,7 @@ pppdumpframe(sc, m, xmit)
 		for(;i<sizeof(lbuf);i++)
 			printf("   ");
 		for(i=0;i<lcount;i++)
-			printf("%c",(lbuf[i] >= 040 && 
+			printf("%c",(lbuf[i] >= 040 &&
 			    lbuf[i] <= 0176) ? lbuf[i] : '.');
 		printf("\n");
 	}

@@ -103,7 +103,7 @@ __extension__ ({							\
   ((__builtin_classify_type(*(TYPE *)0) == 1) && (sizeof(TYPE) == 8))
 
 #ifdef __lint__
-#define va_arg(ap, type)	(*(type *)(void *)(ap)) 
+#define va_arg(ap, type)	(*(type *)(void *)(ap))
 #else
 #define va_arg(AP,TYPE)							\
 ((TYPE) __extension__ (*({						\

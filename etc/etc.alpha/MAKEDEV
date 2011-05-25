@@ -176,13 +176,13 @@ usb*)
 	unit=${i#usb}
 	usb=usb$unit
 	major=45
-	rm -f $usb 
+	rm -f $usb
 	mknod $usb c $major $unit
 	chown root.wheel $usb
 	chmod 600 $usb
 	;;
 
-uhid*)  
+uhid*)
 	unit=${i#uhid}
 	uhid=uhid$unit
 	major=46
@@ -252,7 +252,7 @@ md*)
 #	mknod rmd${unit}c c $chr $(($unit * 8 + 2))
 	chgrp operator md${unit}? #rmd${unit}?
 	chmod 640 md${unit}? #rmd${unit}?
-	;;      
+	;;
 
 ccd*|cd*|fd*|raid*|sd*|vnd*|wd*)
 	case $i in
@@ -477,7 +477,7 @@ lpt*|lpa*)
 	chown root.wheel $name$unit
 	;;
 
-ipl)    
+ipl)
 	rm -f ipl ipnat ipstate ipauth
 	mknod ipl c 35 0
 	mknod ipnat c 35 1
@@ -510,7 +510,7 @@ random)
 	;;
 
 scsibus*)
-	unit=${i#scsibus}; 
+	unit=${i#scsibus};
 	rm -f scsibus$unit
 	mknod scsibus$unit c 42 $unit
 	chown root:wheel scsibus$unit

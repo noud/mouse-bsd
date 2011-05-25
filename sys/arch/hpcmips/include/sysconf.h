@@ -54,7 +54,7 @@
  * Platform Specific Information and Function Hooks.
  *
  * The tags family and model information are strings describing the platform.
- * 
+ *
  * The tag iobus describes the primary iobus for the platform- primarily
  * to give a hint as to where to start configuring. The likely choices
  * are one of tcasic, lca, apecs, cia, or tlsb.

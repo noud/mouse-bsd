@@ -5,7 +5,7 @@ Author: Philip A. Nelson
 E-mail: phil@cs.wwu.edu
 OS: UNIX (BSD, System V, MINIX, POSIX)
 Copying: GNU GPL version 2
-Copyright holder: Free Software Foundation, Inc. 
+Copyright holder: Free Software Foundation, Inc.
 Version: bc version 1.01
 Required: vsprintf and vfprintf routines.
 Machines: It has been compiled and run on the following environments:

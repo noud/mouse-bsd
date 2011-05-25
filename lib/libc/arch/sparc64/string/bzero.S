@@ -92,7 +92,7 @@ Lbzero_internal:
 !	 cmp	%o1, 8			! Less than 8 bytes to go?
 !	ble,a,pn	%icc, Lbzero_small	! Do it byte at a time.
 !	 deccc	8, %o1			! pre-decrement
-	
+
 	 btst	7, %o0			! 64-bit aligned?  Optimization
 	bz,pt	%xcc, 2f
 	 btst	3, %o0			! 32-bit aligned?
@@ -100,7 +100,7 @@ Lbzero_internal:
 	 btst	1, %o0			! 16-bit aligned?
 	bz,pt	%xcc, 0f
 	 btst	3, %o0
-	
+
 	!! unaligned -- store 1 byte
 	stb	%o2, [%o0]
 	dec	1, %o1			! Record storing 1 byte
@@ -127,7 +127,7 @@ Lbzero_internal:
 	!! 32-bit aligned -- store word
 	stw	%o2, [%o0]
 	dec	4, %o1
-	inc	4, %o0	
+	inc	4, %o0
 	cmp	%o1, 8
 	bl,a,pn	%icc, Lbzero_cleanup	! Less than 8 left
 	 dec	8, %o1			! Fixup count -8
@@ -139,7 +139,7 @@ Lbzero_internal:
 Lbzero_longs:
 	bl,pn	%xcc, Lbzero_cleanup	! Less than 8 bytes left
 	 nop
-3:	
+3:
 	stx	%o2, [%o0]		! Do 1 longword at a time
 	deccc	8, %o1
 	bge,pt	%xcc, 3b
@@ -149,22 +149,22 @@ Lbzero_longs:
 	 * Len is in [-8..-1] where -8 => done, -7 => 1 byte to zero,
 	 * -6 => two bytes, etc.  Mop up this remainder, if any.
 	 */
-Lbzero_cleanup:	
+Lbzero_cleanup:
 	btst	4, %o1
 	bz,pt	%xcc, 6f		! if (len & 4) {
 	 btst	2, %o1
 	stw	%o2, [%o0]		!	*(int *)addr = 0;
 	inc	4, %o0			!	addr += 4;
-5:	
+5:
 	btst	2, %o1
 6:
 	bz,pt	%xcc, 8f		! if (len & 2) {
 	 btst	1, %o1
 	sth	%o2, [%o0]		!	*(short *)addr = 0;
 	inc	2, %o0			!	addr += 2;
-7:	
+7:
 	btst	1, %o1
-8:	
+8:
 	bnz,a	%icc, Lbzero_done	! if (len & 1)
 	 stb	%o2, [%o0]		!	*addr = 0;
 Lbzero_done:
@@ -179,14 +179,14 @@ Lbzero_done:
 Lbzero_small:
 	inccc	8, %o1
 	bz,pn	%icc, Lbzero_done
-1:	
+1:
 	 deccc	%o1
 	stb	%o2, [%o0]
 	bge,pt	%icc, 1b
 	 inc	%o0
 	ba,a,pt	%icc, Lbzero_done
 	 nop				! XXX spitfire bug?
-	
+
 Lbzero_block:
 /*
  * Userland:
@@ -198,7 +198,7 @@ Lbzero_block:
  *
  * See locore.s for the kernel version.
  *
- */	
+ */
 	save	%sp, -(CC64FSZ+32*8+BLOCK_SIZE), %sp	! Allocate an fpstate
 	add	%sp, (CC64FSZ+BLOCK_SIZE-1), %l0	! Calculate pointer to fpstate
 	andn	%l0, BLOCK_ALIGN, %l0			! And make it block aligned
@@ -215,7 +215,7 @@ Lbzero_block:
 	btst	63, %i0
 	bz,pt	%xcc, 2f
 	 nop
-1:	
+1:
 	stx	%i2, [%i0]
 	inc	8, %i0
 	btst	63, %i0
@@ -234,11 +234,11 @@ Lbzero_block:
 	ld	[%fp + 0x28], %f0
 	ba,pt	%icc, 4f
 	 fmovsa	%icc, %f0, %f1
-3:	
+3:
 	stx	%i2, [%fp + BIAS + 0x50]		! Flush this puppy to RAM
 	membar	#StoreLoad
 	ldd	[%fp + BIAS + 0x50], %f0
-4:	
+4:
 	fmovda	%icc, %f0, %f2				! Duplicate the pattern
 	fmovda	%icc, %f0, %f4
 	fmovda	%icc, %f0, %f6
@@ -254,7 +254,7 @@ Lbzero_block:
 	fmovda	%icc, %f0, %f26
 	fmovda	%icc, %f0, %f28
 	fmovda	%icc, %f0, %f30
-	
+
 	!! Remember: we were 8 bytes too far
 	dec	56, %i1			! Go one iteration too far
 5:

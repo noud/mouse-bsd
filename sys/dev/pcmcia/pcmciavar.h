@@ -217,7 +217,7 @@ const struct pcmcia_product
 	    const struct pcmcia_product *tab, size_t ent_size,
 	    pcmcia_product_match_fn matchfn));
 
-void	pcmcia_devinfo __P((struct pcmcia_card *card, int showhex, char *cp, 
+void	pcmcia_devinfo __P((struct pcmcia_card *card, int showhex, char *cp,
 	    int cplen));
 
 void	pcmcia_read_cis __P((struct pcmcia_softc *));

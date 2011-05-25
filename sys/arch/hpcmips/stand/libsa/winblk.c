@@ -75,7 +75,7 @@ struct winblk {
 
 static int rawread(struct winblk *ctx, int start, int nsecs, char *buf);
 
-int 
+int
 winblkstrategy(devdata, flag, dblk, size, buf, rsize)
 	void           *devdata;
 	int             flag;
@@ -111,7 +111,7 @@ winblkstrategy(devdata, flag, dblk, size, buf, rsize)
 }
 
 
-int 
+int
 winblkopen(struct open_file *f, ...)
 /* file, devname, unit, partition */
 {
@@ -156,7 +156,7 @@ winblkopen(struct open_file *f, ...)
 	DEBUG_PRINTF((TEXT("winblk.open: block device name is '%s'\n"),
 		      wdevname));
 
-	ctx->hDevice = CreateFile(wdevname, GENERIC_READ, 0, NULL,    
+	ctx->hDevice = CreateFile(wdevname, GENERIC_READ, 0, NULL,
 				  OPEN_EXISTING, 0, NULL);
 	if (ctx->hDevice == INVALID_HANDLE_VALUE) {
 		win_printf(TEXT("can't open %s.\n"), wdevname);
@@ -297,7 +297,7 @@ winblkopen(struct open_file *f, ...)
 	return (error);
 }
 
-int 
+int
 winblkclose(f)
 	struct open_file *f;
 {
@@ -309,7 +309,7 @@ winblkclose(f)
 	return (0);
 }
 
-int 
+int
 winblkioctl(f, cmd, arg)
 	struct open_file *f;
 	u_long          cmd;

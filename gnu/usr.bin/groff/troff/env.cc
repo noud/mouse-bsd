@@ -731,7 +731,7 @@ int environment::get_bold()
 hunits environment::get_digit_width()
 {
   return env_digit_width(this);
-} 
+}
 
 int environment::get_adjust_mode()
 {
@@ -1948,7 +1948,7 @@ void title()
 		       curenv->total_post_vertical_spacing(), title_length);
   curenv->hyphen_line_count = 0;
   tok.next();
-}  
+}
 
 void adjust()
 {
@@ -2059,7 +2059,7 @@ tab::tab(hunits x, tab_type t) : next(0), pos(x), type(t)
 {
 }
 
-tab_stops::tab_stops(hunits distance, tab_type type) 
+tab_stops::tab_stops(hunits distance, tab_type type)
      : initial_list(0)
 {
   repeated_list = new tab(distance, type);
@@ -2164,7 +2164,7 @@ tab_stops::tab_stops() : initial_list(0), repeated_list(0)
 {
 }
 
-tab_stops::tab_stops(const tab_stops &ts) 
+tab_stops::tab_stops(const tab_stops &ts)
      : initial_list(0), repeated_list(0)
 {
   tab **p = &initial_list;
@@ -2224,7 +2224,7 @@ void tab_stops::operator=(const tab_stops &ts)
     p = &(*p)->next;
   }
 }
-    
+
 void set_tabs()
 {
   hunits pos;
@@ -2415,8 +2415,8 @@ void environment::wrap_up_field()
     add_padding();
   hunits padding = field_distance - (get_text_length() - pre_field_width);
   if (current_tab && tab_field_spaces != 0) {
-    hunits tab_padding = scale(padding, 
-			       tab_field_spaces, 
+    hunits tab_padding = scale(padding,
+			       tab_field_spaces,
 			       field_spaces + tab_field_spaces);
     padding -= tab_padding;
     distribute_space(tab_contents, tab_field_spaces, tab_padding, 1);
@@ -2523,7 +2523,7 @@ const char *int_env_reg::get_string()
 {
   return itoa((curenv->*func)());
 }
- 
+
 vunits_env_reg::vunits_env_reg(VUNITS_FUNCP f) : func(f)
 {
 }
@@ -2710,7 +2710,7 @@ void init_env_requests()
 #if 0
   init_request("tas", tabs_save);
   init_request("tar", tabs_restore);
-#endif  
+#endif
   init_request("hys", hyphenation_space_request);
   init_request("hym", hyphenation_margin_request);
   init_request("pvs", post_vertical_spacing);
@@ -2871,7 +2871,7 @@ struct trie_node {
   trie_node(char, trie_node *);
 };
 
-trie_node::trie_node(char ch, trie_node *p) 
+trie_node::trie_node(char ch, trie_node *p)
 : c(ch), right(p), down(0), val(0)
 {
 }
@@ -2988,7 +2988,7 @@ void hyphen_trie::do_delete(void *v)
     delete tem;
   }
 }
-  
+
 void hyphen_trie::read_patterns_file(const char *name)
 {
   clear();

@@ -119,11 +119,11 @@ main(int argc, char **argv) {
 				size = (int) atoi(optarg);
 			else
 				usage("-H flag requires a size",0);
-			if (alg != 0) 
+			if (alg != 0)
 				usage("Only ONE alg can be specified", 1);
 			alg = KEY_HMAC_MD5;
-			if (!dst_check_algorithm(alg)) 
-				usage("Algorithm HMAC-MD5 not available", 
+			if (!dst_check_algorithm(alg))
+				usage("Algorithm HMAC-MD5 not available",
 				      PRINT_SUPPORTED);
 			break;
 		case 'R':
@@ -131,11 +131,11 @@ main(int argc, char **argv) {
 				size = (int) atoi(optarg);
 			else
 				usage("-R flag requires a size",0);
-			if (alg != 0) 
+			if (alg != 0)
 				usage("Only ONE alg can be specified", 1);
 			alg = NS_ALG_MD5RSA;
-			if (!dst_check_algorithm(alg)) 
-				usage("Algorithm RSA not available", 
+			if (!dst_check_algorithm(alg))
+				usage("Algorithm RSA not available",
 				      PRINT_SUPPORTED);
 			break;
 		case 'D':
@@ -143,10 +143,10 @@ main(int argc, char **argv) {
 				size = (int) atoi(optarg);
 			else
 				usage("-D flag requires a size", 0);
-			if (alg != 0) 
+			if (alg != 0)
 				usage("Only ONE alg can be specified", 1);
 			alg = NS_ALG_DSS;
-			if (dst_check_algorithm(alg) == 0) 
+			if (dst_check_algorithm(alg) == 0)
 				usage("Algorithm DSS not available",
 				      PRINT_SUPPORTED);
 			break;
@@ -235,7 +235,7 @@ main(int argc, char **argv) {
 		printf("Generating %d bit RSA Key for %s\n\n",size, name);
 	else if (alg == NS_ALG_DSS)
 		printf("Generating %d bit DSS Key for %s\n\n",size, name);
-	else if (alg == KEY_HMAC_MD5) 
+	else if (alg == KEY_HMAC_MD5)
 		printf("Generating %d bit HMAC-MD5 Key for %s\n\n",
 		       size, name);
 
@@ -253,7 +253,7 @@ main(int argc, char **argv) {
 	if (dst_write_key(pubkey, DST_PRIVATE) < 0) {
 		printf ("Failed to write private key for %s %d %d\n",
 			name, pubkey->dk_id, pubkey->dk_alg);
-		exit(12); 
+		exit(12);
 	}
 
 	if (dst_write_key(pubkey, DST_PUBLIC) <= 0) {
@@ -305,11 +305,11 @@ usage(char *str, int flag){
 
 	if (flag == PRINT_SUPPORTED) {
 		printf("Available algorithms are:");
-		if (dst_check_algorithm(NS_ALG_MD5RSA) == 1) 
+		if (dst_check_algorithm(NS_ALG_MD5RSA) == 1)
 			printf(" RSA");
-		if (dst_check_algorithm(NS_ALG_DSS) == 1) 
+		if (dst_check_algorithm(NS_ALG_DSS) == 1)
 			printf(" DSS");
-		if (dst_check_algorithm(KEY_HMAC_MD5) == 1) 
+		if (dst_check_algorithm(KEY_HMAC_MD5) == 1)
 			printf(" HMAC-MD5");
 		printf("\n");
 	}

@@ -82,7 +82,7 @@ struct cleaner_stats {
 	int	segs_error;
 } cleaner_stats;
 
-struct seglist { 
+struct seglist {
 	unsigned long sl_id;	/* segment number */
 	unsigned long sl_cost; 	/* cleaning cost */
 	unsigned long sl_bytes;	/* bytes in segment */
@@ -104,7 +104,7 @@ int	 lfs_markv __P((fsid_t *, BLOCK_INFO *, int));
 
 /* function prototypes */
 int	 bi_tossold __P((const void *, const void *, const void *));
-int	 choose_segments __P((FS_INFO *, struct seglist *, 
+int	 choose_segments __P((FS_INFO *, struct seglist *,
 	     unsigned long (*)(FS_INFO *, SEGUSE *)));
 void	 clean_fs __P((FS_INFO	*, unsigned long (*)(FS_INFO *, SEGUSE *), int, long));
 int	 clean_loop __P((FS_INFO *, int, long));
@@ -138,14 +138,14 @@ cost_benefit(fsp, su)
 
 	gettimeofday(&t, NULL);
 
-	live = su->su_nbytes;	
+	live = su->su_nbytes;
 	age = t.tv_sec < su->su_lastmod ? 0 : t.tv_sec - su->su_lastmod;
-	
+
 	lfsp = &fsp->fi_lfs;
 	if (live == 0) { /* No cost, only benefit. */
 		return lblkno(lfsp, seg_size(lfsp)) * t.tv_sec;
 	} else {
-		/* 
+		/*
 		 * from lfsSegUsage.c (Mendel's code).
 		 * priority calculation is done using INTEGER arithmetic.
 		 * sizes are in BLOCKS (that is why we use lblkno below).
@@ -323,8 +323,8 @@ clean_loop(fsp, nsegs, options)
 	 */
 	db_per_seg = fragstodb(&fsp->fi_lfs, fsp->fi_lfs.lfs_ssize);
 	max_free_segs = (fsp->fi_statfsp->f_bfree / fsp->fi_lfs.lfs_ssize) >> fsp->fi_lfs.lfs_fbshift;
-	
-	/* 
+
+	/*
 	 * We will clean if there are not enough free blocks or total clean
 	 * space is less than BUSY_LIM % of possible clean space.
 	 */
@@ -379,7 +379,7 @@ clean_loop(fsp, nsegs, options)
 		return (1);
 		}
 	} else {
-	        /* 
+	        /*
 		 * We will also clean if the system is reasonably idle and
 		 * the total clean space is less then IDLE_LIM % of possible
 		 * clean space.
@@ -734,7 +734,7 @@ clean_segment(fsp, slp)
 		}
 		num_blocks -= clean_blocks;
 	}
-		
+
 	free(block_array);
 	munmap_segment(fsp, seg_buf, do_mmap);
 	if (stat_report && cleaner_stats.segs_cleaned % stat_report == 0)

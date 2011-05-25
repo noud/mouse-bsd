@@ -56,7 +56,7 @@ rf_RecoveryXorFunc, "Recovery Xr"};
 
 static void rf_RecurPrintDAG(RF_DagNode_t *, int, int);
 static void rf_PrintDAG(RF_DagHeader_t *);
-static int 
+static int
 rf_ValidateBranch(RF_DagNode_t *, int *, int *,
     RF_DagNode_t **, int);
 static void rf_ValidateBranchVisitedBits(RF_DagNode_t *, int, int);
@@ -70,7 +70,7 @@ static void rf_ValidateVisitedBits(RF_DagHeader_t *);
  * successors array.
  *
  *****************************************************************************/
-void 
+void
 rf_InitNode(
     RF_DagNode_t * node,
     RF_NodeStatus_t initstatus,
@@ -149,7 +149,7 @@ rf_InitNode(
  *
  *****************************************************************************/
 
-void 
+void
 rf_FreeDAG(dag_h)
 	RF_DagHeader_t *dag_h;
 {
@@ -212,14 +212,14 @@ static RF_FreeList_t *rf_dagh_freelist;
 #define RF_DAGH_INITIAL   32
 
 static void rf_ShutdownDAGs(void *);
-static void 
+static void
 rf_ShutdownDAGs(ignored)
 	void   *ignored;
 {
 	RF_FREELIST_DESTROY(rf_dagh_freelist, next, (RF_DagHeader_t *));
 }
 
-int 
+int
 rf_ConfigureDAGs(listp)
 	RF_ShutdownList_t **listp;
 {
@@ -253,7 +253,7 @@ rf_AllocDAGHeader()
 	return (dh);
 }
 
-void 
+void
 rf_FreeDAGHeader(RF_DagHeader_t * dh)
 {
 	RF_FREELIST_FREE(rf_dagh_freelist, dh, next);
@@ -294,7 +294,7 @@ rf_NodeStatusString(RF_DagNode_t * node)
 	}
 }
 
-void 
+void
 rf_PrintNodeInfoString(RF_DagNode_t * node)
 {
 	RF_PhysDiskAddr_t *pda;
@@ -356,7 +356,7 @@ rf_PrintNodeInfoString(RF_DagNode_t * node)
 	printf("?\n");
 }
 
-static void 
+static void
 rf_RecurPrintDAG(node, depth, unvisited)
 	RF_DagNode_t *node;
 	int     depth;
@@ -403,7 +403,7 @@ rf_RecurPrintDAG(node, depth, unvisited)
 	}
 }
 
-static void 
+static void
 rf_PrintDAG(dag_h)
 	RF_DagHeader_t *dag_h;
 {
@@ -443,7 +443,7 @@ rf_PrintDAG(dag_h)
 	}
 }
 /* assigns node numbers */
-int 
+int
 rf_AssignNodeNums(RF_DagHeader_t * dag_h)
 {
 	int     unvisited, i, nnum;
@@ -462,7 +462,7 @@ rf_AssignNodeNums(RF_DagHeader_t * dag_h)
 	return (nnum);
 }
 
-int 
+int
 rf_RecurAssignNodeNums(node, num, unvisited)
 	RF_DagNode_t *node;
 	int     num;
@@ -481,7 +481,7 @@ rf_RecurAssignNodeNums(node, num, unvisited)
 	return (num);
 }
 /* set the header pointers in each node to "newptr" */
-void 
+void
 rf_ResetDAGHeaderPointers(dag_h, newptr)
 	RF_DagHeader_t *dag_h;
 	RF_DagHeader_t *newptr;
@@ -492,7 +492,7 @@ rf_ResetDAGHeaderPointers(dag_h, newptr)
 			rf_RecurResetDAGHeaderPointers(dag_h->succedents[i], newptr);
 }
 
-void 
+void
 rf_RecurResetDAGHeaderPointers(node, newptr)
 	RF_DagNode_t *node;
 	RF_DagHeader_t *newptr;
@@ -505,7 +505,7 @@ rf_RecurResetDAGHeaderPointers(node, newptr)
 }
 
 
-void 
+void
 rf_PrintDAGList(RF_DagHeader_t * dag_h)
 {
 	int     i = 0;
@@ -517,7 +517,7 @@ rf_PrintDAGList(RF_DagHeader_t * dag_h)
 	}
 }
 
-static int 
+static int
 rf_ValidateBranch(node, scount, acount, nodes, unvisited)
 	RF_DagNode_t *node;
 	int    *scount;
@@ -579,7 +579,7 @@ rf_ValidateBranch(node, scount, acount, nodes, unvisited)
 	return (retcode);
 }
 
-static void 
+static void
 rf_ValidateBranchVisitedBits(node, unvisited, rl)
 	RF_DagNode_t *node;
 	int     unvisited;
@@ -599,7 +599,7 @@ rf_ValidateBranchVisitedBits(node, unvisited, rl)
 /* NOTE:  never call this on a big dag, because it is exponential
  * in execution time
  */
-static void 
+static void
 rf_ValidateVisitedBits(dag)
 	RF_DagHeader_t *dag;
 {
@@ -631,7 +631,7 @@ rf_ValidateVisitedBits(dag)
  *      is equal to the succedent count on that node
  *   -- what else?
  */
-int 
+int
 rf_ValidateDAG(dag_h)
 	RF_DagHeader_t *dag_h;
 {
@@ -738,7 +738,7 @@ validate_dag_bad:
  *
  *****************************************************************************/
 
-void 
+void
 rf_redirect_asm(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap)
@@ -795,7 +795,7 @@ rf_redirect_asm(
  * contained within one stripe unit, so we RF_ASSERT against this case at the
  * start.
  */
-void 
+void
 rf_MapUnaccessedPortionOfStripe(
     RF_Raid_t * raidPtr,
     RF_RaidLayout_t * layoutPtr,/* in: layout information */
@@ -852,7 +852,7 @@ rf_MapUnaccessedPortionOfStripe(
 
 
 /* returns non-zero if the indicated ranges of stripe unit offsets overlap */
-int 
+int
 rf_PDAOverlap(
     RF_RaidLayout_t * layoutPtr,
     RF_PhysDiskAddr_t * src,
@@ -895,7 +895,7 @@ rf_PDAOverlap(
  /* out: new_asm_h - the two new ASMs */
  /* out: nXorBufs - the total number of xor bufs required */
  /* out: rpBufPtr - a buffer for the parity read */
-void 
+void
 rf_GenerateFailedAccessASMs(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -1046,7 +1046,7 @@ rf_GenerateFailedAccessASMs(
  * |           rrrrrrrrrrrrrrrr                          |
  *
  */
-void 
+void
 rf_RangeRestrictPDA(
     RF_Raid_t * raidPtr,
     RF_PhysDiskAddr_t * src,
@@ -1086,7 +1086,7 @@ static int lowprimes[NLOWPRIMES] = {2, 3, 5, 7, 11, 13, 17, 19};
  * return nonzero if access should shift to secondary, otherwise,
  * access is to primary
  *****************************************************************************/
-int 
+int
 rf_compute_workload_shift(
     RF_Raid_t * raidPtr,
     RF_PhysDiskAddr_t * pda)
@@ -1172,7 +1172,7 @@ rf_compute_workload_shift(
  * Both the disk I/Os queued in RAIDframe as well as those at the physical
  * disk are counted as members of the "queue"
  */
-void 
+void
 rf_SelectMirrorDiskIdle(RF_DagNode_t * node)
 {
 	RF_Raid_t *raidPtr = (RF_Raid_t *) node->dagHdr->raidPtr;
@@ -1247,7 +1247,7 @@ rf_SelectMirrorDiskIdle(RF_DagNode_t * node)
  * Do simple partitioning. This assumes that
  * the data and parity disks are laid out identically.
  */
-void 
+void
 rf_SelectMirrorDiskPartition(RF_DagNode_t * node)
 {
 	RF_Raid_t *raidPtr = (RF_Raid_t *) node->dagHdr->raidPtr;
@@ -1273,12 +1273,12 @@ rf_SelectMirrorDiskPartition(RF_DagNode_t * node)
 	} else
 		if (RF_DEAD_DISK(disks[rowData][colData].status)) {
 			usemirror = 1;
-		} else 
+		} else
 			if (raidPtr->parity_good == RF_RAID_DIRTY) {
 				/* Trust only the main disk */
 				usemirror = 0;
 			} else
-				if (data_pda->startSector < 
+				if (data_pda->startSector <
 				    (disks[rowData][colData].numBlocks / 2)) {
 					usemirror = 0;
 				} else {

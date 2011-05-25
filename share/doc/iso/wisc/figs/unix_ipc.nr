@@ -426,7 +426,7 @@
 .ft B
 .ps 12
 .nr g8 \n(.d
-.ds g9 "network 
+.ds g9 "network
 .sp 2629u
 \h'2629u'\&\*(g9
 .sp |\n(g8u

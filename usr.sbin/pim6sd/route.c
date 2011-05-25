@@ -38,12 +38,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -207,13 +207,13 @@ set_incoming(srcentry_ptr, srctype)
 
     /*
      * The upstream router must be a (PIM router) neighbor, otherwise we are
-     * in big trouble ;-). 
+     * in big trouble ;-).
      * Yes but the neighbors are link-local and the rp is global ipv6..
      */
 /* WARNING WARNING WARNING WARNING */
 /* If the router is directly connected to the RP and the RP is the BSR , the next hop is
  * the globally reachable addresse of the RP : NOT link local neighbor but
- * a ipv6 global neighbor... 
+ * a ipv6 global neighbor...
  * the upstream router is the globally reachable router...
  *
  */
@@ -846,7 +846,7 @@ delete_vif_from_mrt(vifi)
 }
 
 
-void 
+void
 process_kernel_call()
 {
     register struct mrt6msg *im;	/* igmpmsg control struct */
@@ -993,7 +993,7 @@ process_cache_miss(im)
 	    else
 		rp_addr = mrtentry_ptr->group->rpaddr;
 	    mfc_source = source;
-// TODO 
+// TODO
 #ifdef KERNEL_MFC_WC_G
 	    if (mrtentry_ptr->flags & (MRTF_WC | MRTF_PMBR))
 		if (!(mrtentry_ptr->flags & MRTF_MFC_CLONE_SG))

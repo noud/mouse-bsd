@@ -589,7 +589,7 @@ tpclnp_input(m, va_alist)
 				printf("tpclnp_input: FAKING %s\n",
 				       tp_stat.ts_pkt_rcvd & 0x1 ? "QUENCH" : "QUENCH2");
 				if (tp_stat.ts_pkt_rcvd & 0x1)
-					tpclnp_ctlinput(PRC_QUENCH, 
+					tpclnp_ctlinput(PRC_QUENCH,
 							(struct sockaddr *)
 							&src, NULL);
 				else

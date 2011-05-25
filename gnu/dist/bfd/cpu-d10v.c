@@ -22,19 +22,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "sysdep.h"
 #include "libbfd.h"
 
-const bfd_arch_info_type bfd_d10v_arch = 
-{					
-    16,	/* 16 bits in a word */		
-    16,	/* 16 bits in an address */	
-    8,	/* 8 bits in a byte */		
+const bfd_arch_info_type bfd_d10v_arch =
+{
+    16,	/* 16 bits in a word */
+    16,	/* 16 bits in an address */
+    8,	/* 8 bits in a byte */
     bfd_arch_d10v,
-    0,		
-    "d10v",				
-    "d10v",				
-    4, /* section alignment power */	
-    true,				
-    bfd_default_compatible, 		
-    bfd_default_scan,			
-    0,				
+    0,
+    "d10v",
+    "d10v",
+    4, /* section alignment power */
+    true,
+    bfd_default_compatible,
+    bfd_default_scan,
+    0,
 };
 

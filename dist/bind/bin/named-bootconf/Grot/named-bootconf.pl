@@ -48,9 +48,9 @@ while(<>) {
 	s/\\$/ /;
         $_ .= <>;
     }
-    
+
     chop;
-    
+
     # deal with lines ending in a coment
     if (s/\s*;+\s*(.*)$//) {
 	$comment = "// $1";
@@ -65,7 +65,7 @@ while(<>) {
 	$directive = $1;
 	$class = $2;
     }
-    
+
     if ($directive eq "primary") {
 	$zname = shift(@rest);
 	&maybe_print_comment("","\n");
@@ -143,7 +143,7 @@ while(<>) {
     } elsif ($directive eq "limit") {
 	&handle_limit(@rest);
     } elsif ($directive eq "include") {
-	$new_config .= 
+	$new_config .=
 	    "// make sure your include is still in the right place\n";
 	$comment = "\t" . $comment;
 	$new_config .= "include \"$rest[0]\";$comment\n\n";
@@ -317,7 +317,7 @@ sub print_maybe_masked {
 	    $mask_bits = 24;
 	}
     }
-	
+
     print "$prefix$address";
     if ($mask_bits != 32) {
 	print "/$mask_bits";

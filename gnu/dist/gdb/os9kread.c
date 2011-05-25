@@ -19,7 +19,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* This module provides three functions: os9k_symfile_init,
-   which initializes to read a symbol file; os9k_new_init, which 
+   which initializes to read a symbol file; os9k_new_init, which
    discards existing cached information when all symbols are being
    discarded; and os9k_symfile_read, which reads a symbol table
    from a file.
@@ -154,7 +154,7 @@ static void
 os9k_symfile_finish PARAMS ((struct objfile *));
 
 static void
-os9k_process_one_symbol PARAMS ((int, int, CORE_ADDR, char *, 
+os9k_process_one_symbol PARAMS ((int, int, CORE_ADDR, char *,
      struct section_offsets *, struct objfile *));
 
 static struct partial_symtab *
@@ -167,7 +167,7 @@ os9k_end_psymtab PARAMS ((struct partial_symtab *, char **, int, int, CORE_ADDR,
                      struct partial_symtab **, int));
 
 static void
-record_minimal_symbol PARAMS ((char *, CORE_ADDR, int, struct objfile *, 
+record_minimal_symbol PARAMS ((char *, CORE_ADDR, int, struct objfile *,
 	             struct section_offsets *));
 
 #define HANDLE_RBRAC(val) \
@@ -218,7 +218,7 @@ record_minimal_symbol (name, address, type, objfile, section_offsets)
     case N_RDATA:
 	  ms_type = mst_bss;
 	  break;
-    case N_IDATA:	
+    case N_IDATA:
 	  ms_type = mst_data;
 	  break;
     case N_ABS:
@@ -260,7 +260,7 @@ struct stbhdr hdr;
 struct stbsymbol sym;
 int ch, i, j, off;
 char buf[64], buf1[128];
-		
+
   fp = objfile->auxf1;
   if (fp == NULL) return;
   abfd = objfile->obfd;
@@ -280,8 +280,8 @@ char buf[64], buf1[128];
   fread(&hdr.crc, sizeof(hdr.crc), 1, fp);
   fread(&hdr.offset, sizeof(hdr.offset), 1, fp);
   fread(&hdr.nsym, sizeof(hdr.nsym), 1, fp);
-  SWAP_STBHDR(&hdr, abfd);      
-	
+  SWAP_STBHDR(&hdr, abfd);
+
   /* read symbols */
   init_minimal_symbol_collection();
   off = hdr.offset;
@@ -308,7 +308,7 @@ char buf[64], buf1[128];
 }
 
 /* Scan and build partial symbols for a symbol file.
-   We have been initialized by a call to os9k_symfile_init, which 
+   We have been initialized by a call to os9k_symfile_init, which
    put all the relevant info into a "struct os9k_symfile_info",
    hung off the objfile structure.
 
@@ -328,7 +328,7 @@ os9k_symfile_read (objfile, section_offsets, mainline)
 
   sym_bfd = objfile->obfd;
   /* If we are reinitializing, or if we have never loaded syms yet, init */
-  if (mainline || objfile->global_psymbols.size == 0 || 
+  if (mainline || objfile->global_psymbols.size == 0 ||
     objfile->static_psymbols.size == 0)
     init_psymbol_list (objfile, DBX_SYMCOUNT (objfile));
 
@@ -370,7 +370,7 @@ os9k_new_init (ignore)
 
    Since BFD doesn't know how to read debug symbols in a format-independent
    way (and may never do so...), we have to do it ourselves.  We will never
-   be called unless this is an a.out (or very similar) file. 
+   be called unless this is an a.out (or very similar) file.
    FIXME, there should be a cleaner peephole into the BFD environment here.  */
 
 static void
@@ -602,15 +602,15 @@ read_os9k_psymtab (section_offsets, objfile, text_addr, text_size)
 #endif
 
   abfd = objfile->obfd;
-  fp = objfile->auxf2; 
+  fp = objfile->auxf2;
   if (!fp) return;
-		
+
   fread(&dbghdr.sync, sizeof(dbghdr.sync), 1, fp);
   fread(&dbghdr.rev, sizeof(dbghdr.rev), 1, fp);
   fread(&dbghdr.crc, sizeof(dbghdr.crc), 1, fp);
   fread(&dbghdr.os, sizeof(dbghdr.os), 1, fp);
   fread(&dbghdr.cpu, sizeof(dbghdr.cpu), 1, fp);
-  SWAP_DBGHDR(&dbghdr, abfd);      
+  SWAP_DBGHDR(&dbghdr, abfd);
 
   symnum = 0;
   while(1)
@@ -674,7 +674,7 @@ read_os9k_psymtab (section_offsets, objfile, text_addr, text_size)
             	enum language tmp_language;
 		char *str, *p;
 		int n;
-		
+
 		valu = CUR_SYMBOL_VALUE;
 		if (valu)
 		  valu += ANOFFSET (section_offsets, SECT_OFF_TEXT);
@@ -710,7 +710,7 @@ read_os9k_psymtab (section_offsets, objfile, text_addr, text_size)
 		    for (i = 0; i < includes_used; i++)
 		      if (STREQ (str, psymtab_include_list[i]))
 			{
-			  i = -1; 
+			  i = -1;
 			  break;
 			}
 		    if (i == -1)
@@ -828,7 +828,7 @@ read_os9k_psymtab (section_offsets, objfile, text_addr, text_size)
 		      char *q;
 
 		      /* Check for and handle cretinous dbx symbol name
-			 continuation! 
+			 continuation!
 		      if (*p == '\\')
 			p = next_symbol_text (objfile);
 		      */
@@ -989,7 +989,7 @@ os9k_start_psymtab (objfile, section_offsets,
   return result;
 }
 
-/* Close off the current usage of PST.  
+/* Close off the current usage of PST.
    Returns PST or NULL if the partial symtab was empty and thrown away.
    FIXME:  List variables and peculiarities of same.  */
 
@@ -1017,7 +1017,7 @@ os9k_end_psymtab (pst, include_list, num_includes, capping_symbol_cnt,
      we have to do some tricks to fill in texthigh and textlow.
      The first trick is in partial-stab.h: if we see a static
      or global function, and the textlow for the current pst
-     is still 0, then we use that function's address for 
+     is still 0, then we use that function's address for
      the textlow of the pst.
 
      Now, to fill in texthigh, we remember the last function seen
@@ -1047,7 +1047,7 @@ os9k_end_psymtab (pst, include_list, num_includes, capping_symbol_cnt,
     p = alloca (n + 1);
     strncpy (p, last_function_name, n);
     p[n] = 0;
-    
+
     minsym = lookup_minimal_symbol (p, NULL, objfile);
 
     if (minsym) {
@@ -1057,7 +1057,7 @@ os9k_end_psymtab (pst, include_list, num_includes, capping_symbol_cnt,
 	 difficult to imagine how hard it would be to track down
 	 the elf symbol.  Luckily, most of the time no one will notice,
 	 since the next file will likely be compiled with -g, so
-	 the code below will copy the first fuction's start address 
+	 the code below will copy the first fuction's start address
 	 back to our texthigh variable.  (Also, if this file is the
 	 last one in a dynamically linked program, texthigh already
 	 has the right value.)  If the next file isn't compiled
@@ -1148,7 +1148,7 @@ os9k_end_psymtab (pst, include_list, num_includes, capping_symbol_cnt,
 
   sort_pst_symbols (pst);
 
-  /* If there is already a psymtab or symtab for a file of this name, 
+  /* If there is already a psymtab or symtab for a file of this name,
      remove it.
      (If there is a symtab, more drastic things also happen.)
      This happens in VxWorks.  */
@@ -1175,7 +1175,7 @@ os9k_psymtab_to_symtab_1 (pst)
 {
   struct cleanup *old_chain;
   int i;
-  
+
   if (!pst)
     return;
 
@@ -1347,7 +1347,7 @@ os9k_read_ofile_symtab (pst)
       bufp = symbuf;
       type = bufp->n_type;
 
-      os9k_process_one_symbol ((int)type, (int)bufp->n_desc, 
+      os9k_process_one_symbol ((int)type, (int)bufp->n_desc,
       (CORE_ADDR)bufp->n_value, bufp->n_strx, section_offsets, objfile);
 
       /* We skip checking for a new .o or -l file; that should never
@@ -1445,12 +1445,12 @@ os9k_process_one_symbol (type, desc, valu, name, section_offsets, objfile)
     case N_SYM_LBRAC:
       /* On most machines, the block addresses are relative to the
 	 N_SO, the linker did not relocate them (sigh).  */
-      valu += ANOFFSET (section_offsets, SECT_OFF_TEXT); 
+      valu += ANOFFSET (section_offsets, SECT_OFF_TEXT);
       new = push_context (desc, valu);
       break;
 
     case N_SYM_RBRAC:
-      valu += ANOFFSET (section_offsets, SECT_OFF_TEXT); 
+      valu += ANOFFSET (section_offsets, SECT_OFF_TEXT);
       new = pop_context();
 
 #if !defined (OS9K_VARIABLES_INSIDE_BLOCK)
@@ -1499,7 +1499,7 @@ os9k_process_one_symbol (type, desc, valu, name, section_offsets, objfile)
 		struct pending *p;
 
 	        p = new->locals;
-	        while (p->next) p = p->next; 
+	        while (p->next) p = p->next;
 	        p->next = local_symbols;
 	      }
 	    }
@@ -1516,7 +1516,7 @@ os9k_process_one_symbol (type, desc, valu, name, section_offsets, objfile)
 	 one line-number -- core-address correspondence.
 	 Enter it in the line list for this symbol table. */
       /* Relocate for dynamic loading and for ELF acc fn-relative syms.  */
-      valu += ANOFFSET (section_offsets, SECT_OFF_TEXT); 
+      valu += ANOFFSET (section_offsets, SECT_OFF_TEXT);
       record_line (current_subfile, (int)((long)name), valu);
       break;
 

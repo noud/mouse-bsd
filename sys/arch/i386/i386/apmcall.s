@@ -64,9 +64,9 @@ NENTRY(apmcall)
 	pushl	%esi
 	pushl	%edi
 	pushl	%ebx
-	
+
 #if defined(DEBUG) || defined(DIAGNOSTIC)
-	pushl	%ds		
+	pushl	%ds
 	pushl	%es
 	pushl	%fs
 	pushl	%gs
@@ -113,7 +113,7 @@ nocli:
 	cmpl	$0,apmstatus
 	jne	1f
 	xorl	%eax,%eax
-1:	
+1:
 	popl	%ebx
 	popl	%edi
 	popl	%esi

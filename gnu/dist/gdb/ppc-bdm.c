@@ -219,7 +219,7 @@ bdm_ppc_fetch_registers (regno)
 /*      printf("Asking for registers %d to %d\n", first_regno, last_regno); */
       beginregs = ocd_read_bdm_registers (first_bdm_regno,
 					FP0_REGNUM - 1, &beginreglen);
-      endregs = (strcat (midregs, 
+      endregs = (strcat (midregs,
 				ocd_read_bdm_registers (FPLAST_REGNUM + 1,
 					last_bdm_regno - 1, &endreglen)));
       almostregs = (strcat (beginregs, endregs));

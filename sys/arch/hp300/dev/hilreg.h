@@ -159,7 +159,7 @@ struct	hil_dev {
 /* HIL packet headers */
 #define	HIL_MOUSEDATA   0x2
 #define	HIL_KBDDATA     0x40
-  
+
 #define	HIL_MOUSEMOTION	0x02	/* mouse movement event */
 #define	HIL_KBDBUTTON	0x40	/* keyboard button event */
 #define	HIL_MOUSEBUTTON 0x40	/* mouse button event */

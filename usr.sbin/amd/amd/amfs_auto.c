@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: amfs_auto.c,v 1.4 1999/08/09 06:09:43 ezk Exp 
+ * Id: amfs_auto.c,v 1.4 1999/08/09 06:09:43 ezk Exp
  *
  */
 

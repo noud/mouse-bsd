@@ -359,7 +359,7 @@ ypdb_open_db(domain, map, status, map_info)
 	/*
 	 * not cached and non-existant, return
 	 */
-	if (*status != YP_TRUE)	
+	if (*status != YP_TRUE)
 		return (NULL);
 
 	/*
@@ -869,7 +869,7 @@ ypdb_secure(domain, map)
 	db = ypdb_open_db(domain, map, &status, &map_info);
 	if (db == NULL || status < 0)
 		return (secure);
-	if (map_info != NULL) 
+	if (map_info != NULL)
 		secure = map_info->secure;
 
 	ypdb_close_db(db);

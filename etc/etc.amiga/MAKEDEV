@@ -43,9 +43,9 @@
 #   AFTER CHANGING THIS FILE, AND COMMIT THE UPDATED MANPAGE!
 #
 ###########################################################################
-#       
+#
 # Device "make" file.  Valid arguments:
-#	all	makes all known devices, including local devices. 
+#	all	makes all known devices, including local devices.
 #		Tries to make the ``standard'' number of each.
 #	fd	makes fd/* for the fdescfs.
 #	floppy	devices needed for install floppies
@@ -102,7 +102,7 @@
 #	ss*	SCSI scanner
 #	uk*	SCSI unknown
 #	ch*	SCSI changer
-#	audio*	one unit of the audio device. On Amiga machines, 
+#	audio*	one unit of the audio device. On Amiga machines,
 #		Unit 0 is custom chip audio, if configured
 #
 
@@ -422,7 +422,7 @@ mouse*)
 		mknod mouse$unit c	$chr $unit
 		chmod 666 mouse$unit
 		if [ $unit = 0 ]
-		then 
+		then
 			rm -f mouse; ln -s mouse$unit mouse
 		fi
 		;;

@@ -5,7 +5,7 @@
 
 /*
  * Definitions for STRIP interface data structures
- * 
+ *
  */
 struct strip_softc {
 	struct	ifnet sc_if;		/* network-visible interface */

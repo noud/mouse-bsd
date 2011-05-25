@@ -112,7 +112,7 @@ int	flags;
 						(u_long)pa, size);
 		return 0;
 	}
-	
+
 	pg  = &bootm_ptep[btoc(rva - bootm_ex->ex_start)];
 	epg = &pg[btoc(size)];
 	va  = rva;

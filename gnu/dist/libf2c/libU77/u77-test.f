@@ -1,6 +1,6 @@
 ***   Some random stuff for testing libU77.  Should be done better.  It's
 *     hard to test things where you can't guarantee the result.  Have a
-*     good squint at what it prints, though detected errors will cause 
+*     good squint at what it prints, though detected errors will cause
 *     starred messages.
 
       implicit none
@@ -151,7 +151,7 @@ c now try to get times to change enough to see in etime/dtime
       open (3,file='foo',status='UNKNOWN')
       rewind 3
       call fputc(3, 'c',i)
-      call fputc(3, 'd',j)      
+      call fputc(3, 'd',j)
       if (i+j.ne.0) write(6,*) '***FPUTC: ', i
 C     why is it necessary to reopen?  (who wrote this?)
 C     the better to test with, my dear!  (-- burley)

@@ -116,7 +116,7 @@ int badbaddr __P((caddr_t));
 /* the following is used externally (sysctl_hw) */
 char	machine[] = MACHINE;	/* from <machine/param.h> */
 
-vm_map_t exec_map = NULL;  
+vm_map_t exec_map = NULL;
 vm_map_t mb_map = NULL;
 vm_map_t phys_map = NULL;
 
@@ -308,7 +308,7 @@ cpu_startup()
 
 		while (curbufsize) {
 			pg = uvm_pagealloc(NULL, 0, NULL, 0);
-			if (pg == NULL) 
+			if (pg == NULL)
 				panic("cpu_startup: not enough memory for "
 				    "buffer cache");
 			pmap_kenter_pa(curbuf, VM_PAGE_TO_PHYS(pg),
@@ -1092,7 +1092,7 @@ nmihand(frame)
 /*
  * cpu_exec_aout_makecmds():
  *	cpu-dependent a.out format hook for execve().
- * 
+ *
  * Determine of the given exec package refers to something which we
  * understand and, if so, set up the vmcmds for it.
  *
@@ -1215,7 +1215,7 @@ mem_exists(mem, basemax)
 	DPRINTF ((" Let's begin. mem=%p, base=%p, m=%p, b=%p\n",
 		  mem, base, m, b));
 
-	(void) *m; 
+	(void) *m;
 	/*
 	 * Can't check by writing if the corresponding
 	 * base address isn't memory.
@@ -1326,7 +1326,7 @@ setmemrange(void)
 					  VM_FREELIST_DEFAULT);
 			mem_size += h - (u_long) mlist[i].base;
 		}
-			
+
 	}
 
 	{	/* Re-enable the processor cache. */

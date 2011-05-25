@@ -52,7 +52,7 @@ __KERNEL_RCSID(0, "$NetBSD: mfb.c,v 1.20 1999/12/06 19:26:00 drochner Exp $");
 #include <dev/wscons/wsdisplayvar.h>
 
 #include <dev/tc/tcvar.h>
-#include <dev/ic/bt431reg.h>	
+#include <dev/ic/bt431reg.h>
 
 #include <uvm/uvm_extern.h>
 
@@ -479,7 +479,7 @@ mfb_cnattach(addr)
         long defattr;
 
         mfb_getdevconfig(addr, dcp);
- 
+
         rcons_alloc_attr(&dcp->dc_rcons, 0, 0, 0, &defattr);
 
         wsdisplay_cnattach(&mfb_stdscreen, &dcp->dc_rcons,
@@ -498,7 +498,7 @@ mfbintr(arg)
 	void *vdac, *curs;
 	int v;
 	volatile register int junk;
-	
+
 	junk = *(u_int8_t *)(mfbbase + MX_IREQ_OFFSET);
 #if 0
 	*(u_int8_t *)(mfbbase + MX_IREQ_OFFSET) = 0;
@@ -509,7 +509,7 @@ mfbintr(arg)
 	vdac = (void *)(mfbbase + MX_BT455_OFFSET);
 	curs = (void *)(mfbbase + MX_BT431_OFFSET);
 	v = sc->sc_changed;
-	sc->sc_changed = 0;	
+	sc->sc_changed = 0;
 	if (v & DATA_ENB_CHANGED) {
 		SELECT431(curs, BT431_REG_COMMAND);
 		HALF(curs, bt_ctl) = (sc->sc_curenb) ? 0x4444 : 0x0404;

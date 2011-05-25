@@ -61,7 +61,7 @@
  * CS/80 partitions.  We reserve the first cylinder for a LIF
  * style boot directory (the 8k allowed in the BSD filesystem
  * is just way too small).  This boot area is outside of all but
- * the C partition.  This implies that you cannot use the C 
+ * the C partition.  This implies that you cannot use the C
  * partition on a bootable disk since the filesystem would overlay
  * the boot area.  You must use the A partition.
  *
@@ -267,7 +267,7 @@ rdmakedisklabel(unit, lp)
 	struct rdidentinfo *ri = &rdidentinfo[rs->sc_type];
 	struct partition *pi;
 	int dcount;
-	
+
 	lp->d_nsectors = ri->ri_nbpt;
 	lp->d_ntracks = ri->ri_ntpc;
 	lp->d_ncylinders = ri->ri_ncyl;

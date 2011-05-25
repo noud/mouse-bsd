@@ -92,10 +92,10 @@ INCLUDES = -I$(top_srcdir)/lib -I../intl -DLOCALEDIR=\"$(localedir)\"
 LDADD = ../lib/libtxi.a @INTLLIBS@
 
 EXTRA_DIST = README deref.c fixfonts gen-dir-node tex3patch texi2dvi \
-             update-info 
+             update-info
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 PROGRAMS =  $(bin_PROGRAMS)
 
 
@@ -107,12 +107,12 @@ install_info_SOURCES = install-info.c
 install_info_OBJECTS =  install-info.o
 install_info_LDADD = $(LDADD)
 install_info_DEPENDENCIES =  ../lib/libtxi.a
-install_info_LDFLAGS = 
+install_info_LDFLAGS =
 texindex_SOURCES = texindex.c
 texindex_OBJECTS =  texindex.o
 texindex_LDADD = $(LDADD)
 texindex_DEPENDENCIES =  ../lib/libtxi.a
-texindex_LDFLAGS = 
+texindex_LDFLAGS =
 SCRIPTS =  $(bin_SCRIPTS)
 
 CFLAGS = @CFLAGS@
@@ -132,7 +132,7 @@ default: all
 
 .SUFFIXES:
 .SUFFIXES: .S .c .o .s
-$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps util/Makefile
 
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
@@ -259,7 +259,7 @@ installcheck:
 install-exec: install-binPROGRAMS install-binSCRIPTS
 	@$(NORMAL_INSTALL)
 
-install-data: 
+install-data:
 	@$(NORMAL_INSTALL)
 
 install: install-exec install-data all

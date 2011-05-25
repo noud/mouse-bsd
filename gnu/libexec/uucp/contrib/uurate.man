@@ -260,7 +260,7 @@ configuration file, so these are only approximations.
 Does not understand other than V2/TAYLOR logging formats. Anyone care to
 volunteer to add the not mentioned?
 .PP
-Scanning the arguments of logfile and statfile keywords 
+Scanning the arguments of logfile and statfile keywords
 in config should handle lines continued with the backslash as well.
 .PP
 The

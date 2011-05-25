@@ -12,13 +12,13 @@
 #	xchat login.LAT sysname username [ password [ LAT-password ] ]
 #
 # History:
-#  rbd Fri Aug 14 13:37:06 1992	
-#    Changes for Lantronix ETS-16. It says "type help at the Local> 
+#  rbd Fri Aug 14 13:37:06 1992
+#    Changes for Lantronix ETS-16. It says "type help at the Local>
 #    prompt..." then it gives the prompt for real! Prompt may need
-#    to be something other than "Local>". We match the real Local> 
+#    to be something other than "Local>". We match the real Local>
 #    prompt by matching	the leading newline!
 #
-#  rbd Tue Sep  1 13:04:32 1992 
+#  rbd Tue Sep  1 13:04:32 1992
 #    Remove absolute path name from log file. Now defaults per config.
 #
 start:

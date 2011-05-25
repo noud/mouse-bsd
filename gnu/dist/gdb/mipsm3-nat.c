@@ -49,7 +49,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
  *
  * -1 means mach does not save it anywhere.
  */
-static int reg_offset[] = 
+static int reg_offset[] =
 {
   /*  zero		at		  v0		    v1       */
       -1,           REG_OFFSET(r1),   REG_OFFSET(r2),   REG_OFFSET(r3),
@@ -99,7 +99,7 @@ static int reg_offset[] =
 };
 #else
 /* If the compiler does not grok the above defines */
-static int reg_offset[] = 
+static int reg_offset[] =
 {
 /* mach_thread_state offsets: */
   -1,  0,  4,  8,  12, 16, 20, 24,  28, 32, 36, 40,  44, 48, 52, 56,
@@ -143,7 +143,7 @@ void
 fetch_inferior_registers (regno)
      int regno;
 {
-  kern_return_t ret;  
+  kern_return_t ret;
 
   thread_state_data_t      state;
   struct mips_exc_state    exc_state;
@@ -154,7 +154,7 @@ fetch_inferior_registers (regno)
 
   if (! MACH_PORT_VALID (current_thread))
     error ("fetch inferior registers: Invalid thread");
-  
+
   if (regno < -1 || regno >= NUM_REGS)
     error ("invalid register %d supplied to fetch_inferior_registers", regno);
 
@@ -201,15 +201,15 @@ fetch_inferior_registers (regno)
 			     (char *)state+reg_offset[ regno ]);
 	  return;
 	}
-			   
+
       /* ZERO_REGNUM is always zero */
       *(int *) registers = 0;
-      
+
       /* Copy thread saved regs 1..31 to gdb's reg value array
        * Luckily, they are contiquous
        */
       FETCH_REGS (state, 1, 31);
-      
+
       /* Copy mdlo and mdhi */
       FETCH_REGS (state, LO_REGNUM, 2);
 
@@ -239,12 +239,12 @@ fetch_inferior_registers (regno)
       /* cproc_state: Which coprocessors the thread uses */
       supply_register (PS_REGNUM,
 		       (char *)&exc_state+reg_offset[ PS_REGNUM ]);
-      
+
       if (which_regs == REGS_EXC || which_regs == REGS_ALL)
 	{
 	  supply_register (BADVADDR_REGNUM,
 			   (char *)&exc_state+reg_offset[ BADVADDR_REGNUM ]);
-	  
+
 	  supply_register (CAUSE_REGNUM,
 			   (char *)&exc_state+reg_offset[ CAUSE_REGNUM ]);
 	  if (which_regs == REGS_EXC)
@@ -256,7 +256,7 @@ fetch_inferior_registers (regno)
   if (which_regs & REGS_COP1)
     {
       /* If the thread does not have saved COPROC1, set regs to zero */
-      
+
       if (! (exc_state.coproc_state & MIPS_STATUS_USE_COP1))
 	bzero (&registers[ REGISTER_BYTE (FP0_REGNUM) ],
 	       sizeof (struct mips_float_state));
@@ -268,18 +268,18 @@ fetch_inferior_registers (regno)
 				  state,
 				  &stateCnt);
 	  CHK ("fetch inferior regs (floats): thread_get_state", ret);
-	  
+
 	  if (regno != -1)
 	    {
 	      supply_register (regno,
 			       (char *)state+reg_offset[ regno ]);
 	      return;
 	    }
-	  
+
 	  FETCH_REGS (state, FP0_REGNUM, 34);
 	}
     }
-  
+
   /* All registers are valid, if not returned yet */
   registers_fetched ();
 }
@@ -300,10 +300,10 @@ store_inferior_registers (regno)
 {
   thread_state_data_t state;
   kern_return_t ret;
-  
+
   if (! MACH_PORT_VALID (current_thread))
     error ("store inferior registers: Invalid thread");
-  
+
   /* Check for read only regs.
    * @@ If some of these is can be changed, fix this
    */
@@ -325,7 +325,7 @@ store_inferior_registers (regno)
 
       /* ZERO_REGNUM */
       *(int *)registers = 0;
-      
+
       fetch_inferior_registers (PS_REGNUM);
       fetch_inferior_registers (BADVADDR_REGNUM);
       fetch_inferior_registers (CAUSE_REGNUM);
@@ -346,7 +346,7 @@ store_inferior_registers (regno)
 	      &registers[REGISTER_BYTE (FP_REGNUM)],
 	      REGISTER_RAW_SIZE (FP_REGNUM));
 #endif
-      
+
       /* Save gdb's regs 1..31 to thread saved regs 1..31
        * Luckily, they are contiquous
        */
@@ -364,7 +364,7 @@ store_inferior_registers (regno)
 			      MIPS_FLOAT_STATE_COUNT);
       CHK ("store inferior regs : thread_set_state", ret);
     }
-  
+
   if (regno == -1 || regno >= FP0_REGNUM)
     {
       /* If thread has floating state, save it */
@@ -372,7 +372,7 @@ store_inferior_registers (regno)
 	{
 	  /* Do NOT save FCRIR_REGNUM */
 	  STORE_REGS (state, FP0_REGNUM, 33);
-	
+
 	  ret = thread_set_state (current_thread,
 				  MIPS_FLOAT_STATE,
 				  state,

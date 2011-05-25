@@ -117,7 +117,7 @@ noinst_TEXINFOS = internals.texi
 DISTCLEANFILES = asconfig.texi
 mkinstalldirs = $(SHELL) $(top_srcdir)/../mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 TEXI2DVI = `if test -f $(top_srcdir)/../texinfo/util/texi2dvi; then echo $(top_srcdir)/../texinfo/util/texi2dvi; else echo texi2dvi; fi`
 TEXINFO_TEX = $(top_srcdir)/../texinfo/texinfo.tex
 INFO_DEPS = as.info gasp.info
@@ -137,7 +137,7 @@ default: all
 
 .SUFFIXES:
 .SUFFIXES: .dvi .info .ps .texi .texinfo
-$(srcdir)/Makefile.in: @MAINT@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/Makefile.in: @MAINT@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --cygnus doc/Makefile
 
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
@@ -282,7 +282,7 @@ check:
 	$(MAKE)
 installcheck:
 install-info: install-info-am
-install-exec: 
+install-exec:
 	@$(NORMAL_INSTALL)
 
 install-data: install-man

@@ -57,8 +57,8 @@ static void 	rasops8_putchar16 __P((void *, int, int, u_int, long attr));
 static void	rasops8_makestamp __P((struct rasops_info *ri, long));
 #endif
 
-/* 
- * 4x1 stamp for optimized character blitting 
+/*
+ * 4x1 stamp for optimized character blitting
  */
 static int32_t	stamp[16];
 static long	stamp_attr;
@@ -82,7 +82,7 @@ void
 rasops8_init(ri)
 	struct rasops_info *ri;
 {
-	
+
 	switch (ri->ri_font->fontwidth) {
 #ifndef RASOPS_SMALL
 	case 8:
@@ -114,11 +114,11 @@ rasops8_putchar(cookie, row, col, uc, attr)
 	int width, height, cnt, fs, fb;
 	u_char *dp, *rp, *fr, clr[2];
 	struct rasops_info *ri;
-	
+
 	ri = (struct rasops_info *)cookie;
 
-#ifdef RASOPS_CLIPPING	
-	/* Catches 'row < 0' case too */ 
+#ifdef RASOPS_CLIPPING
+	/* Catches 'row < 0' case too */
 	if ((unsigned)row >= (unsigned)ri->ri_rows)
 		return;
 
@@ -131,12 +131,12 @@ rasops8_putchar(cookie, row, col, uc, attr)
 	width = ri->ri_font->fontwidth;
 	clr[0] = (u_char)ri->ri_devcmap[(attr >> 16) & 15];
 	clr[1] = (u_char)ri->ri_devcmap[(attr >> 24) & 15];
-		
+
 	if (uc == ' ') {
 		while (height--) {
 			dp = rp;
 			rp += ri->ri_stride;
-			
+
 			for (cnt = width; cnt; cnt--)
 				*dp++ = clr[0];
 		}
@@ -150,13 +150,13 @@ rasops8_putchar(cookie, row, col, uc, attr)
 			fb = fr[3] | (fr[2] << 8) | (fr[1] << 16) | (fr[0] << 24);
 			fr += fs;
 			rp += ri->ri_stride;
-			
+
 			for (cnt = width; cnt; cnt--) {
 				*dp++ = clr[(fb >> 31) & 1];
 				fb <<= 1;
 			}
 		}
-	}	
+	}
 
 	/* Do underline */
 	if ((attr & 1) != 0) {
@@ -164,7 +164,7 @@ rasops8_putchar(cookie, row, col, uc, attr)
 
 		while (width--)
 			*rp++ = clr[1];
-	}	
+	}
 }
 
 #ifndef RASOPS_SMALL
@@ -182,7 +182,7 @@ rasops8_makestamp(ri, attr)
 	fg = ri->ri_devcmap[(attr >> 24) & 15] & 0xff;
 	bg = ri->ri_devcmap[(attr >> 16) & 15] & 0xff;
 	stamp_attr = attr;
-	
+
 	for (i = 0; i < 16; i++) {
 #if BYTE_ORDER == LITTLE_ENDIAN
 		stamp[i] = (i & 8 ? fg : bg);
@@ -212,7 +212,7 @@ rasops8_putchar8(cookie, row, col, uc, attr)
 	int height, fs;
 	int32_t *rp;
 	u_char *fr;
-	
+
 	/* Can't risk remaking the stamp if it's already in use */
 	if (stamp_mutex++) {
 		stamp_mutex--;
@@ -222,7 +222,7 @@ rasops8_putchar8(cookie, row, col, uc, attr)
 
 	ri = (struct rasops_info *)cookie;
 
-#ifdef RASOPS_CLIPPING	
+#ifdef RASOPS_CLIPPING
 	if ((unsigned)row >= (unsigned)ri->ri_rows) {
 		stamp_mutex--;
 		return;
@@ -237,38 +237,38 @@ rasops8_putchar8(cookie, row, col, uc, attr)
 	/* Recompute stamp? */
 	if (attr != stamp_attr)
 		rasops8_makestamp(ri, attr);
-	
+
 	rp = (int32_t *)(ri->ri_bits + row*ri->ri_yscale + col*ri->ri_xscale);
 	height = ri->ri_font->fontheight;
-	
+
 	if (uc == ' ') {
 		while (height--) {
 			rp[0] = stamp[0];
 			rp[1] = stamp[0];
 			DELTA(rp, ri->ri_stride, int32_t *);
-		}	
+		}
 	} else {
 		uc -= ri->ri_font->firstchar;
 		fr = (u_char *)ri->ri_font->data + uc * ri->ri_fontscale;
 		fs = ri->ri_font->stride;
-		
+
 		while (height--) {
 			rp[0] = STAMP_READ(STAMP_SHIFT(fr[0], 1) & STAMP_MASK);
 			rp[1] = STAMP_READ(STAMP_SHIFT(fr[0], 0) & STAMP_MASK);
 
 			fr += fs;
-			DELTA(rp, ri->ri_stride, int32_t *);	
+			DELTA(rp, ri->ri_stride, int32_t *);
 		}
 	}
 
 	/* Do underline */
 	if ((attr & 1) != 0) {
-		DELTA(rp, -(ri->ri_stride << 1), int32_t *);	
+		DELTA(rp, -(ri->ri_stride << 1), int32_t *);
 		rp[0] = stamp[15];
 		rp[1] = stamp[15];
-	}	
-	
-	stamp_mutex--;	
+	}
+
+	stamp_mutex--;
 }
 
 /*
@@ -285,7 +285,7 @@ rasops8_putchar12(cookie, row, col, uc, attr)
 	int height, fs;
 	int32_t *rp;
 	u_char *fr;
-	
+
 	/* Can't risk remaking the stamp if it's already in use */
 	if (stamp_mutex++) {
 		stamp_mutex--;
@@ -295,7 +295,7 @@ rasops8_putchar12(cookie, row, col, uc, attr)
 
 	ri = (struct rasops_info *)cookie;
 
-#ifdef RASOPS_CLIPPING	
+#ifdef RASOPS_CLIPPING
 	if ((unsigned)row >= (unsigned)ri->ri_rows) {
 		stamp_mutex--;
 		return;
@@ -310,40 +310,40 @@ rasops8_putchar12(cookie, row, col, uc, attr)
 	/* Recompute stamp? */
 	if (attr != stamp_attr)
 		rasops8_makestamp(ri, attr);
-	
+
 	rp = (int32_t *)(ri->ri_bits + row*ri->ri_yscale + col*ri->ri_xscale);
 	height = ri->ri_font->fontheight;
-	
+
 	if (uc == ' ') {
 		while (height--) {
 			rp[0] = stamp[0];
 			rp[1] = stamp[0];
 			rp[2] = stamp[0];
-			DELTA(rp, ri->ri_stride, int32_t *);	
-		}	
+			DELTA(rp, ri->ri_stride, int32_t *);
+		}
 	} else {
 		uc -= ri->ri_font->firstchar;
 		fr = (u_char *)ri->ri_font->data + uc * ri->ri_fontscale;
 		fs = ri->ri_font->stride;
-	
+
 		while (height--) {
 			rp[0] = STAMP_READ(STAMP_SHIFT(fr[0], 1) & STAMP_MASK);
 			rp[1] = STAMP_READ(STAMP_SHIFT(fr[0], 0) & STAMP_MASK);
 			rp[2] = STAMP_READ(STAMP_SHIFT(fr[1], 1) & STAMP_MASK);
-			
+
 			fr += fs;
-			DELTA(rp, ri->ri_stride, int32_t *);	
+			DELTA(rp, ri->ri_stride, int32_t *);
 		}
-	}	
+	}
 
 	/* Do underline */
 	if ((attr & 1) != 0) {
-		DELTA(rp, -(ri->ri_stride << 1), int32_t *);	
+		DELTA(rp, -(ri->ri_stride << 1), int32_t *);
 		rp[0] = stamp[15];
 		rp[1] = stamp[15];
 		rp[2] = stamp[15];
-	}	
-	
+	}
+
 	stamp_mutex--;
 }
 
@@ -371,7 +371,7 @@ rasops8_putchar16(cookie, row, col, uc, attr)
 
 	ri = (struct rasops_info *)cookie;
 
-#ifdef RASOPS_CLIPPING	
+#ifdef RASOPS_CLIPPING
 	if ((unsigned)row >= (unsigned)ri->ri_rows) {
 		stamp_mutex--;
 		return;
@@ -386,23 +386,23 @@ rasops8_putchar16(cookie, row, col, uc, attr)
 	/* Recompute stamp? */
 	if (attr != stamp_attr)
 		rasops8_makestamp(ri, attr);
-	
+
 	rp = (int32_t *)(ri->ri_bits + row*ri->ri_yscale + col*ri->ri_xscale);
 	height = ri->ri_font->fontheight;
-	
+
 	if (uc == ' ') {
 		while (height--) {
 			rp[0] = stamp[0];
 			rp[1] = stamp[0];
 			rp[2] = stamp[0];
 			rp[3] = stamp[0];
-			DELTA(rp, ri->ri_stride, int32_t *);	
-		}	
+			DELTA(rp, ri->ri_stride, int32_t *);
+		}
 	} else {
 		uc -= ri->ri_font->firstchar;
 		fr = (u_char *)ri->ri_font->data + uc * ri->ri_fontscale;
 		fs = ri->ri_font->stride;
-	
+
 		while (height--) {
 			rp[0] = STAMP_READ(STAMP_SHIFT(fr[0], 1) & STAMP_MASK);
 			rp[1] = STAMP_READ(STAMP_SHIFT(fr[0], 0) & STAMP_MASK);
@@ -410,19 +410,19 @@ rasops8_putchar16(cookie, row, col, uc, attr)
 			rp[3] = STAMP_READ(STAMP_SHIFT(fr[1], 0) & STAMP_MASK);
 
 			fr += fs;
-			DELTA(rp, ri->ri_stride, int32_t *);	
+			DELTA(rp, ri->ri_stride, int32_t *);
 		}
-	}	
+	}
 
 	/* Do underline */
 	if ((attr & 1) != 0) {
-		DELTA(rp, -(ri->ri_stride << 1), int32_t *);	
+		DELTA(rp, -(ri->ri_stride << 1), int32_t *);
 		rp[0] = stamp[15];
 		rp[1] = stamp[15];
 		rp[2] = stamp[15];
 		rp[3] = stamp[15];
-	}	
-	
+	}
+
 	stamp_mutex--;
 }
 

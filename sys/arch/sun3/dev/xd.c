@@ -396,7 +396,7 @@ xdcattach(parent, self, aux)
 	/* get addressing and intr level stuff from autoconfig and load it
 	 * into our xdc_softc. */
 
-	xdc->xdc = (struct xdc *) 
+	xdc->xdc = (struct xdc *)
 		bus_mapin(ca->ca_bustype, ca->ca_paddr, sizeof(struct xdc));
 	xdc->bustype = ca->ca_bustype;
 	xdc->ipl     = ca->ca_intpri;

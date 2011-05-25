@@ -61,7 +61,7 @@ MOD_VFS("nullfs", -1, &nullfs_vfsops);
  */
 int
 nullfs_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

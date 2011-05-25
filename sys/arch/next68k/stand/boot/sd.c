@@ -83,7 +83,7 @@ sdprobe(char target, char lun)
     retries = 0;
     do {
 	error = scsiicmd(target, lun, (u_char *)&cdb1, sizeof(cdb1), NULL, 0);
-	if (error == -SCSI_BUSY) { 
+	if (error == -SCSI_BUSY) {
 		register int N = 10000000; while (--N > 0);
 	}
     } while ((error == -SCSI_CHECK || error == -SCSI_BUSY)
@@ -100,12 +100,12 @@ sdprobe(char target, char lun)
     if (error != 0)
       return error<0 ? EHER : error;
 
-    if ((inq.device & SID_TYPE) != T_DIRECT 
+    if ((inq.device & SID_TYPE) != T_DIRECT
 	&& (inq.device & SID_TYPE) != T_CDROM)
       return EUNIT;	/* not a disk */
 
     DPRINTF(("booting disk %s.\n", inq.vendor));
-    
+
     return 0;
 }
 
@@ -165,7 +165,7 @@ sdgetinfo(struct sd_softc *ss)
 	else
 	    pi->offset[i] = -1;
     }
-    
+
     return 0;
 }
 
@@ -175,9 +175,9 @@ sdopen(struct open_file *f, char count, char lun, char part)
     register struct sd_softc *ss;
     char unit, cnt;
     int error;
-    
+
     DPRINTF(("open: sd(%d,%d,%d)\n", count, lun, part));
-    
+
     if (lun >= NSD)
 	return EUNIT;
 
@@ -198,7 +198,7 @@ sdopen(struct open_file *f, char count, char lun, char part)
 
     if (unit >= NSD)
 	return EUNIT;
-    
+
     ss = alloc(sizeof(struct sd_softc));
     ss->sc_unit = unit;
     ss->sc_lun = lun;
@@ -232,16 +232,16 @@ sdstrategy(struct sd_softc *ss, int rw, daddr_t dblk, size_t size,
     u_long nblks = howmany(size, ss->sc_dev_bsize);
     struct scsipi_rw_big cdb;
     int error;
-    
+
     if (size == 0)
 	return 0;
-    
+
     if (rw != F_READ)
     {
 	printf("sdstrategy: write not implemented.\n");
 	return EOPNOTSUPP;
     }
-    
+
     DPRINTF(("sdstrategy: read block %ld, %d bytes (%ld blks).\n",
 	     blk, size, nblks));
 

@@ -114,7 +114,7 @@ template:
 	mkdir ${TMPL}
 	@# Create a directory with a 10K file, with the file marked nodump.
 	mkdir ${TMPL}/nodumpfile
-	jot -r -c -s '' -n 10240 > ${TMPL}/nodumpfile/10k 
+	jot -r -c -s '' -n 10240 > ${TMPL}/nodumpfile/10k
 	chflags nodump ${TMPL}/nodumpfile/10k
 	@# And some ordinary 10k files.
 	mkdir ${TMPL}/dumpfile
@@ -132,7 +132,7 @@ template:
 	  for f in ${DIGITS}; do  \
 	      jot -r -c -s '' -n 10240 > $$TMPFS_1.$$f; \
 	  done
-	
+
 	@# Also create a large directory that uses more than one direct block
 	@# (so it has to be larger than 8K).
 	@# Make sure one entry is for a deleted file, also.

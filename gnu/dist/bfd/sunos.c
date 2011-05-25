@@ -78,7 +78,7 @@ static boolean sunos_finish_dynamic_link
 #define MY_write_dynamic_symbol sunos_write_dynamic_symbol
 #define MY_check_dynamic_reloc sunos_check_dynamic_reloc
 #define MY_finish_dynamic_link sunos_finish_dynamic_link
-  
+
 /* On SunOS, the entry point may be taken to be the start of the text
    section.  */
 #define MY_entry_is_text_address 1
@@ -507,7 +507,7 @@ sunos_canonicalize_dynamic_reloc (abfd, storage, syms)
 					    * sizeof (arelent))));
       if (info->canonical_dynrel == NULL && info->dynrel_count != 0)
 	return -1;
-      
+
       to = info->canonical_dynrel;
 
       if (obj_reloc_entry_size (abfd) == RELOC_EXT_SIZE)
@@ -1420,7 +1420,7 @@ bfd_sunos_size_dynamic_sections (output_bfd, info, sdynptr, sneedptr,
       s->contents = (bfd_byte *) bfd_alloc (output_bfd, s->_raw_size);
       if (s->contents == NULL && s->_raw_size != 0)
 	return false;
-      
+
       /* The number of buckets is just the number of symbols divided
 	 by four.  To compute the final size of the hash table, we
 	 must actually compute the hash table.  Normally we need
@@ -2907,7 +2907,7 @@ sunos_finish_dynamic_link (abfd, info)
       PUT_WORD (dynobj,
 		BFD_ALIGN (obj_textsec (abfd)->_raw_size, 0x2000),
 		esdl.ld_text);
-  
+
       if (! bfd_set_section_contents (abfd, sdyn->output_section, &esdl,
 				      (sdyn->output_offset
 				       + sizeof esd

@@ -153,7 +153,7 @@ struct som_copyable_section_data_struct
     int space_number;
 
     /* Add more stuff here as needed.  Good examples of information
-       we might want to pass would be initialization pointers, 
+       we might want to pass would be initialization pointers,
        and the many subspace flags we do not represent yet.  */
   };
 
@@ -161,7 +161,7 @@ struct som_copyable_section_data_struct
 
    reloc_size holds the size of the relocation stream, note this
    is very different from the number of relocations as SOM relocations
-   are variable length. 
+   are variable length.
 
    reloc_stream is the actual stream of relocation entries.  */
 
@@ -198,7 +198,7 @@ struct som_section_data_struct
 
    The idea is both SOM and ELF define these basic relocation
    types so they map into a SOM or ELF specific reloation as
-   appropriate.  This allows GAS to share much more code 
+   appropriate.  This allows GAS to share much more code
    between the two object formats.  */
 
 #define R_HPPA_NONE			R_NO_RELOCATION

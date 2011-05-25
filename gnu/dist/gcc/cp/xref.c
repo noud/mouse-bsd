@@ -577,7 +577,7 @@ GNU_xref_hier(cls, base, pub, virt, frnd)
   if (xf == NULL) return;
 
   fprintf(xref_file, "HIE %s %d %s %s %d %d %d\n",
-	  filename(xf), lineno, classname (cls), classname (base), 
+	  filename(xf), lineno, classname (cls), classname (base),
 	  pub, virt, frnd);
 }
 

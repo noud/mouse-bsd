@@ -706,7 +706,7 @@ vs_sm_up(sp, rp, count, scmd, smp)
 		if (echanged) {
 			rp->lno = smp->lno;
 			rp->cno = vs_colpos(sp, smp->lno,
-			    (O_ISSET(sp, O_LEFTRIGHT) ? 
+			    (O_ISSET(sp, O_LEFTRIGHT) ?
 			    smp->coff : (smp->soff - 1) * sp->cols) +
 			    sp->rcm % sp->cols);
 		}
@@ -942,7 +942,7 @@ vs_sm_down(sp, rp, count, scmd, smp)
 		if (ychanged) {
 			rp->lno = smp->lno;
 			rp->cno = vs_colpos(sp, smp->lno,
-			    (O_ISSET(sp, O_LEFTRIGHT) ? 
+			    (O_ISSET(sp, O_LEFTRIGHT) ?
 			    smp->coff : (smp->soff - 1) * sp->cols) +
 			    sp->rcm % sp->cols);
 		}

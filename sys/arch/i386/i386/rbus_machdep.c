@@ -136,7 +136,7 @@ rbus_pccbb_parent_mem(pa)
   bus_space_handle_t memh;	/* fake */
 
   start += pa->pa_function * size;
-  
+
   bus_space_map(pa->pa_memt, start, size, 0, &memh);
 
   return rbus_new_root_delegate(pa->pa_memt, start, size, 0);

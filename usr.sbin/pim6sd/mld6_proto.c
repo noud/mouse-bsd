@@ -66,12 +66,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -132,7 +132,7 @@ static void DelVif __P((void *arg));
 static int SetTimer __P((int mifi, struct listaddr * g));
 static int DeleteTimer __P((int id));
 static void SendQuery __P((void *arg));
-static int SetQueryTimer 
+static int SetQueryTimer
 __P((struct listaddr * g, int mifi, int to_expire,
      int q_time));
 
@@ -190,7 +190,7 @@ accept_listener_query(src, dst, group, tmo)
 		"accept_listener_query: can't find a mif");
 	return;
     }
-  
+
     IF_DEBUG(DEBUG_MLD)
 	log(LOG_DEBUG, 0,
 	    "accepting multicast listener query: "
@@ -371,7 +371,7 @@ accept_listener_report(src, dst, group)
     {
 	IF_DEBUG(DEBUG_MLD)
 	    log(LOG_DEBUG,0,
-	    "The group don't exist , trying to add it");	
+	    "The group don't exist , trying to add it");
 
 	g = (struct listaddr *) malloc(sizeof(struct listaddr));
 	if (g == NULL)
@@ -388,7 +388,7 @@ accept_listener_report(src, dst, group)
 	g->al_next = v->uv_groups;
 	v->uv_groups = g;
 	time(&g->al_ctime);
-	
+
 	add_leaf(mifi, NULL, &group_sa);
     }
 }
@@ -407,7 +407,7 @@ accept_listener_done(src, dst, group)
     struct sockaddr_in6 group_sa = {sizeof(group_sa), AF_INET6};
 
 	    /* Don't create routing entries for the LAN scoped addresses */
- 
+
     if (IN6_IS_ADDR_MC_NODELOCAL(group)) /* sanity? */
     {
     IF_DEBUG(DEBUG_MLD)
@@ -523,7 +523,7 @@ DelVif(arg)
 
     /* increment statistics */
     v->uv_listener_timo++;
-    
+
     anp = &(v->uv_groups);
     while ((a = *anp) != NULL)
     {

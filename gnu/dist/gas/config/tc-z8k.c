@@ -424,7 +424,7 @@ struct ctrl_names ctrl_table[] =
    0x7, "nsp",
    0, 0
 };
-   
+
 static void
 DEFUN (get_ctrl_operand, (ptr, mode, dst),
        char **ptr AND
@@ -1558,7 +1558,7 @@ tc_reloc_mangle (fix_ptr, intr, base)
   symbolS *symbol_ptr;
 
   if (fix_ptr->fx_addsy &&
-      fix_ptr->fx_subsy) 
+      fix_ptr->fx_subsy)
     {
       symbolS *add = fix_ptr->fx_addsy;
       symbolS *sub = fix_ptr->fx_subsy;

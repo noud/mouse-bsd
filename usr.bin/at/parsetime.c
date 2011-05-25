@@ -1,6 +1,6 @@
 /*	$NetBSD: parsetime.c,v 1.9 2000/01/06 00:44:09 tron Exp $	*/
 
-/* 
+/*
  * parsetime.c - parse time for at(1)
  * Copyright (C) 1993, 1994  Thomas Koenig
  *
@@ -278,7 +278,7 @@ plonk(tok)
 } /* plonk */
 
 
-/* 
+/*
  * expect() gets a token and dies most horribly if it's not the token we want
  */
 static void
@@ -463,7 +463,7 @@ assign_date(tm, mday, mon, year)
 } /* assign_date */
 
 
-/* 
+/*
  * month() picks apart a month specification
  *
  *  /[<month> NUMBER [NUMBER]]           \

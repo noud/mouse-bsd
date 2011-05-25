@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -99,7 +99,7 @@ menu editpart, title  "Changement";
 			   msg_display_add(MSG_newline);
 			};
 	option "du type de FS", sub menu chooseid;
-	option "du Début et de la taille", action 
+	option "du Début et de la taille", action
 		{	char buf[40]; int start, size;
 			msg_prompt_add (MSG_start, NULL, buf, 40);
 			start = NUMSEC(atoi(buf),sizemult,dlcylsize);
@@ -178,7 +178,7 @@ menu editfsparts, y=12, exit;
 	option "Changer g", action { editpart = G;}, sub menu edfspart;
 	option "Changer h", action { editpart = H;}, sub menu edfspart;
 	option "Changer d'unité", action { reask_sizemult(); };
- 
+
 
 menu md_distcustom, x=26, y=5, exit, title "Sélection des composants";
 	display action { show_cur_distsets (); };

@@ -557,7 +557,7 @@ int ps_printer::set_encoding_index(ps_font *f)
     if (p->p != f) {
       char *encoding = ((ps_font *)p->p)->encoding;
       int encoding_index = ((ps_font *)p->p)->encoding_index;
-      if (encoding != 0 && encoding_index >= 0 
+      if (encoding != 0 && encoding_index >= 0
 	  && strcmp(f->encoding, encoding) == 0) {
 	return f->encoding_index = encoding_index;
       }
@@ -1054,7 +1054,7 @@ void ps_printer::draw(int code, int *p, int np, const environment *env)
 	fill = FILL_MAX + 1;
       }
       break;
-    }      
+    }
   default:
     error("unrecognised drawing command `%1'", char(code));
     break;
@@ -1137,7 +1137,7 @@ ps_printer::~ps_printer()
 #endif
   out.begin_comment("Orientation:")
      .comment_arg(landscape_flag ? "Landscape" : "Portrait")
-     .end_comment(); 
+     .end_comment();
   if (ncopies != 1) {
     out.end_line();
     fprintf(out.get_file(), "%%%%Requirements: numcopies(%d)\n", ncopies);

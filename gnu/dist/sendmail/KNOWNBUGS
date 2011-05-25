@@ -6,7 +6,7 @@
 
 The following are bugs or deficiencies in sendmail that I am aware of
 but which have not been fixed in the current release.  You probably
-want to get the most up to date version of this from ftp.sendmail.org	
+want to get the most up to date version of this from ftp.sendmail.org
 in /pub/sendmail/KNOWNBUGS.  For descriptions of bugs that have been
 fixed, see the file RELEASE_NOTES (in the root directory of the sendmail
 distribution).
@@ -134,10 +134,10 @@ This list is not guaranteed to be complete.
 
 * MIME encoded full name phrases in the From: header
 
-  If a full name phrase includes characters from MustQuoteChars, sendmail  
-  will quote the entire full name phrase. If MustQuoteChars includes  
-  characters which are not special characters according to STD 11 (RFC  
-  822), this quotation can interfere with MIME encoded full name phrases. 
+  If a full name phrase includes characters from MustQuoteChars, sendmail
+  will quote the entire full name phrase. If MustQuoteChars includes
+  characters which are not special characters according to STD 11 (RFC
+  822), this quotation can interfere with MIME encoded full name phrases.
   By default, sendmail includes the single quote character (') in
   MustQuoteChars even though it is not listed as a special character in
   STD 11.
@@ -157,7 +157,7 @@ This list is not guaranteed to be complete.
   In the case where the sender is using su to act as root, the file
   safety checks prevent sendmail from saving the dead.letter file
   because the sender's uid and the current real uid do not match.
-  
+
 * Berkeley DB 2.X race condition with fcntl() locking
 
   There is a race condition for Berkeley DB 2.X databases on

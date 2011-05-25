@@ -74,7 +74,7 @@
 
 /* software controller
  */
-struct profiler_sc 
+struct profiler_sc
 {
     int state;
 #define PROF_OPEN 0x01
@@ -87,12 +87,12 @@ struct profiler_sc
 
 /* I need my own stack space for the hat */
 #define HATSTACKSIZE 1024       /* size of stack used during a FIQ */
-static unsigned char hatStack[HATSTACKSIZE]; /* actual stack used 
-					      * during a FIQ 
+static unsigned char hatStack[HATSTACKSIZE]; /* actual stack used
+					      * during a FIQ
 					      */
 /* Pointer to the list of hash tables.
  * A backup table is created for every table malloced, this
- * is used so that we don't miss samples while copying the 
+ * is used so that we don't miss samples while copying the
  * data out. Thus the actual number of tables in the array is twice
  * what nhashTables says.
  */
@@ -111,7 +111,7 @@ static void profEnter(struct profHashTable * , unsigned int);
 void displayTable(struct profHashTable * );
 
 
-void 
+void
 profilerattach(n)
     int n;
 {
@@ -120,9 +120,9 @@ profilerattach(n)
 }
 
 /*
- * Open the profiling devicee.  
- * Returns 
- *       ENXIO for illegal minor device 
+ * Open the profiling devicee.
+ * Returns
+ *       ENXIO for illegal minor device
  *             ie. if the minor device number is not 0.
  *       EBUSY if file is open by another process.
  *       EROFS if attempt to open in write mode.
@@ -153,7 +153,7 @@ profopen(dev, flag, mode, p)
 	return EROFS;
     }
     /* flag the device as open. */
-    prof_sc.state |= PROF_OPEN; 
+    prof_sc.state |= PROF_OPEN;
     nhashTables = 0;
     phashTables[0] = phashTables[1] = NULL;
     return 0;
@@ -161,7 +161,7 @@ profopen(dev, flag, mode, p)
 
 /*
  * Close the descriptor.
- * 
+ *
  */
 int
 profclose(dev, flag, mode, p)
@@ -170,7 +170,7 @@ profclose(dev, flag, mode, p)
     int mode;
     struct proc *p;
 {
-    /* clear the state, and stop profiling if 
+    /* clear the state, and stop profiling if
      * it is happening.
      */
     profStop();
@@ -186,7 +186,7 @@ profread(dev, uio, flags)
 {
     int error;
     int real, backup;
-    
+
     /* must be profiling to read */
     if (!(prof_sc.state & PROF_PROFILING))
     {
@@ -194,7 +194,7 @@ profread(dev, uio, flags)
     }
     else
     {
-	if (uio->uio_resid != sizeof(struct profHashHeader) + 
+	if (uio->uio_resid != sizeof(struct profHashHeader) +
 	    profTable->hdr.tableSize * sizeof(struct profHashEntry))
 	{
 	    printf("profile read size is incorrect!");
@@ -222,32 +222,32 @@ profread(dev, uio, flags)
 		}
 	    }
 	    /* now initialise the backup copy before switching over.
-	     */   
+	     */
 	    memset(phashTables[backup]->entries, 0,
 		  profTable->hdr.tableSize * sizeof(struct profHashEntry));
 
-	    
+
 	    /* now initialise the header */
 	    phashTables[backup]->hdr.tableSize = phashTables[real]->hdr.tableSize;
-	    phashTables[backup]->hdr.entries = phashTables[backup]->hdr.last 
+	    phashTables[backup]->hdr.entries = phashTables[backup]->hdr.last
 		= phashTables[real]->hdr.entries;
 	    phashTables[backup]->hdr.samples = 0;
 	    phashTables[backup]->hdr.missed = 0;
 	    phashTables[backup]->hdr.fiqs = 0;
 	    phashTables[backup]->hdr.pid = phashTables[real]->hdr.pid;
 	    phashTables[backup]->hdr.mode = phashTables[real]->hdr.mode;
-	    
-	    /* ok now swap over. 
+
+	    /* ok now swap over.
 	     * I don't worry about locking the fiq while I change
-	     * this, at this point it won't matter which table the 
+	     * this, at this point it won't matter which table the
 	     * fiq reads.
 	     */
 	    profTable = phashTables[backup];
-	    
+
 	    /* don't want to send the pointer,
 	     * make assumption that table follows the header.
 	     */
-	    if ( (error = uiomove(phashTables[real], 
+	    if ( (error = uiomove(phashTables[real],
 				  sizeof(struct profHashHeader), uio))
 		!= 0)
 	    {
@@ -255,8 +255,8 @@ profread(dev, uio, flags)
 	    }
 	    else
 	    {
-		if ( (error = uiomove(phashTables[real]->entries, 
-				      phashTables[real]->hdr.tableSize * 
+		if ( (error = uiomove(phashTables[real]->entries,
+				      phashTables[real]->hdr.tableSize *
 				      sizeof(struct profHashEntry), uio))
 		    != 0)
 		{
@@ -300,12 +300,12 @@ profioctl(dev, cmd, data, flag, p)
     return error;
 }
 
-/* start profiling, returning status information in the 
+/* start profiling, returning status information in the
  * profStartInfo structure.
- * 
+ *
  * presumes pid is running, does no checks here.
  */
-void 
+void
 profStart(struct profStartInfo *info)
 {
     unsigned int savedInts;
@@ -324,8 +324,8 @@ profStart(struct profStartInfo *info)
 	info->status = BAD_TABLE_SIZE;
 	return ;
     }
-    
-    /* now sanity check that we are sampling either the 
+
+    /* now sanity check that we are sampling either the
      * kernel or a pid or both.
      */
     if ( !(info->mode & SAMPLE_MODE_MASK) )
@@ -335,8 +335,8 @@ profStart(struct profStartInfo *info)
     }
 
     /* alloc two hash tables. */
-    buffer  = malloc(sizeof(struct profHashTable) + 
-		     info->tableSize * sizeof(struct profHashEntry), 
+    buffer  = malloc(sizeof(struct profHashTable) +
+		     info->tableSize * sizeof(struct profHashEntry),
 		     M_DEVBUF, M_NOWAIT);
     if ( (buffer == NULL) )
     {
@@ -344,11 +344,11 @@ profStart(struct profStartInfo *info)
 	return;
     }
     phashTables[0] = (struct profHashTable *) buffer;
-    phashTables[0]->entries = (struct profHashEntry *) 
+    phashTables[0]->entries = (struct profHashEntry *)
 	( buffer + sizeof(struct profHashTable));
 
-    buffer  = malloc(sizeof(struct profHashTable) + 
-		     info->tableSize * sizeof(struct profHashEntry), 
+    buffer  = malloc(sizeof(struct profHashTable) +
+		     info->tableSize * sizeof(struct profHashEntry),
 		     M_DEVBUF, M_NOWAIT);
     if ( (buffer == NULL) )
     {
@@ -357,7 +357,7 @@ profStart(struct profStartInfo *info)
 	return;
     }
     phashTables[1] = (struct profHashTable *) buffer;
-    phashTables[1]->entries = (struct profHashEntry *) 
+    phashTables[1]->entries = (struct profHashEntry *)
 	( buffer + sizeof(struct profHashTable));
 
     memset(phashTables[0]->entries, 0,
@@ -383,7 +383,7 @@ profStart(struct profStartInfo *info)
 	     (int)&prof_sc,
 	     hatStack + HATSTACKSIZE - sizeof(unsigned),
 	     profHatWedge);
-    restore_interrupts(savedInts); 
+    restore_interrupts(savedInts);
 }
 
 void
@@ -394,7 +394,7 @@ profStop(void)
 
     savedInts = disable_interrupts(I32_bit | F32_bit);
     hatClkOff();
-    restore_interrupts(savedInts); 
+    restore_interrupts(savedInts);
 
     spl = splbio();
     /* only free the buffer's if we were profiling,
@@ -411,7 +411,7 @@ profStop(void)
     splx(spl);
 
 }
-    
+
 /*
 **++
 **  FUNCTIONAL DESCRIPTION:
@@ -419,15 +419,15 @@ profStop(void)
 **      profFiq
 **
 **      This is what the HAT clock calls.   This call drives
-**      the timeout queues, which in turn drive the state machines 
-**      
+**      the timeout queues, which in turn drive the state machines
+**
 **      Be very carefully when calling a timeout as the function
-**      that is called may in turn do timeout/untimeout calls 
-**      before returning 
+**      that is called may in turn do timeout/untimeout calls
+**      before returning
 **
 **  FORMAL PARAMETERS:
 **
-**      int x       - not used 
+**      int x       - not used
 **
 **  IMPLICIT INPUTS:
 **
@@ -446,27 +446,27 @@ profStop(void)
 **      a timeout may be called if it is due
 **--
 */
-static void 
+static void
 profFiq(int  x)
 {
     int i;
     int *ip;           /* the fiq stack pointer */
-    unsigned int spsr, stacklr;   /* the link register, off the stack. */ 
+    unsigned int spsr, stacklr;   /* the link register, off the stack. */
 
-    
+
     /* get the link register and see where we came from.
      * We do this by getting the stack pointer using,
-     * an inline assembler instruction and then going 9 
+     * an inline assembler instruction and then going 9
      * words up to get the return address from the fiq.
-     * 
-     * NOTE: the stack will change if more local variables 
-     * are added so beware of modifications to this 
+     *
+     * NOTE: the stack will change if more local variables
+     * are added so beware of modifications to this
      * function.
-     * the fiq.S handler puts the following on the stack 
+     * the fiq.S handler puts the following on the stack
      *          stmfd	sp!, {r0-r3, lr}
      * then this function does
      *          mov     ip, sp
-     *          stmfd	sp!, {r4, fp, ip, lr, pc} 
+     *          stmfd	sp!, {r4, fp, ip, lr, pc}
      * or some variant of this.
      *
      * instead of using sp we can use ip, the saved stack pointer
@@ -485,24 +485,24 @@ profFiq(int  x)
      *         ip-prof
      *         fp-prof
      * sp-->   r4-prof
-     * the sp by the time we get to it will point to r4 at the 
+     * the sp by the time we get to it will point to r4 at the
      * bottom of the stack. So we go 9 up to get the lr we want.
      * or even better we have ip pointing to r0 and we can go 4 up
      * to get the saved link register.
      *
-     * We are safer this way because fiq.S is coded assembler, we are 
+     * We are safer this way because fiq.S is coded assembler, we are
      * at the mercy of the assembler for our stack.
      *
      */
     asm("mov %0, ip" : "=r" (ip) : );
     stacklr = *(ip+4);
-    
+
     /* get the spsr register
      */
     asm("mrs %0, spsr" : "=r" (spsr) : );
 
     /* now check whether we want this sample.
-     * NB. We place kernel and user level samples in the 
+     * NB. We place kernel and user level samples in the
      * same table.
      */
     if ( (profTable->hdr.mode & SAMPLE_PROC) &&
@@ -516,12 +516,12 @@ profFiq(int  x)
 
     if ( profTable->hdr.mode & SAMPLE_KERN )
     {
-	if ( ((spsr & STATUS_MODE_MASK) == SVC_MODE)/* || 
+	if ( ((spsr & STATUS_MODE_MASK) == SVC_MODE)/* ||
 	    ((spsr & STATUS_MODE_MASK) == IRQ_MODE)*/ )
 	{
 	    /* Note: the link register will be two instructions,
-	     * ahead of the "blamed" instruction. This is actually 
-	     * a most likely case and might not actually highlight the 
+	     * ahead of the "blamed" instruction. This is actually
+	     * a most likely case and might not actually highlight the
 	     * exact cause of problems, some post processing intelligence
 	     * will be required to make use of this data.
 	     */
@@ -563,25 +563,25 @@ profFiq(int  x)
 **      nill
 **--
 */
-static void 
+static void
 profHatWedge(int nFIQs)
 {
     #ifdef PROFILER_DEBUG
         printf("profHatWedge: nFIQ = %d\n",nFIQs);
-    #endif    
+    #endif
 }
 
 /* Enter the data in the table.
  *
  * To reduce the time taken to find samples with time
  * an eviction algorithm is implemented.
- * When a new entry in the overflow area is required 
+ * When a new entry in the overflow area is required
  * the first entry in the hash table is copied there
- * and the new entry placed as the hash table entry. The 
- * displaced entry will then be the first entry accessed in 
+ * and the new entry placed as the hash table entry. The
+ * displaced entry will then be the first entry accessed in
  * the table.
  */
-static void 
+static void
 profEnter(struct profHashTable *table, unsigned int lr)
 {
     unsigned int entries, hashShift, index, count;
@@ -601,9 +601,9 @@ profEnter(struct profHashTable *table, unsigned int lr)
 	entries = entries << 1;
 	hashShift ++;
     } while (!(entries & 0x80000000));
-    
+
     /* enter the pc in the table. */
-    /* remove redundant bits. 
+    /* remove redundant bits.
      * and save the count offset bits
      */
     lr = lr >> REDUNDANT_BITS;
@@ -612,13 +612,13 @@ profEnter(struct profHashTable *table, unsigned int lr)
 
     /* this is easier than working out how
      * many bits to or, based on the hashShift.
-     * maybe it would be better to work out at 
+     * maybe it would be better to work out at
      * the start and save time during the fiq.
      */
     index = (lr << hashShift) >> hashShift;
-    
+
     first = sample = &table->entries[index];
-    /* now loop until we either find the entry 
+    /* now loop until we either find the entry
      * or the next free space.
      */
     while ( (sample->pc != lr) && (table->hdr.last < table->hdr.tableSize) )
@@ -663,7 +663,7 @@ profEnter(struct profHashTable *table, unsigned int lr)
 	    }
 	}
     }
-	
+
     /* check if we need to do an eviction. */
     if (sample != first)
     {
@@ -680,7 +680,7 @@ profEnter(struct profHashTable *table, unsigned int lr)
 	 */
 	first->next = tmpIndex;
     }
-	
+
     /* must now check the lr
      * to see if the table is full.
      */
@@ -696,13 +696,13 @@ profEnter(struct profHashTable *table, unsigned int lr)
     }
 }
 
-void 
+void
 displayTable(struct profHashTable *table)
 {
     int i;
     struct profHashEntry *sample;
     char buff[100] = ".............................................\n";
-    
+
     for (i=0; i < table->hdr.tableSize; i++)
     {
 	sample = &table->entries[i];
@@ -712,7 +712,7 @@ displayTable(struct profHashTable *table)
 	    buff[0] = '\0';
 	}
 	printf("i = %d, pc = 0x%x, next = %d, counts %d %d %d %d\n",
-	       i, sample->pc, sample->next, sample->counts[0], 
+	       i, sample->pc, sample->next, sample->counts[0],
 	       sample->counts[1], sample->counts[2], sample->counts[3]);
     }
     return;

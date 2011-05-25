@@ -17,7 +17,7 @@ do
 	do
 		ln=`line < $file`
 		so=`echo $ln | sed "s/ .*//"`
-		if test "$so" = ".so" 
+		if test "$so" = ".so"
 		then
 			so=`echo $ln | sed -e "s/.so//" -e "s/^/ls/"`
 			echo $so >> $TMPDIR/tmp.$$

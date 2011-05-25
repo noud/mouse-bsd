@@ -57,8 +57,8 @@ attached.
 
 The following interrupts should always be passed on (return value of 0)
 
-IRQ_TIMER0	
-IRQ_TIMER1	
+IRQ_TIMER0
+IRQ_TIMER1
 IRQ_VSYNC
 IRQ_FLYBACK
 IRQ_PODULE

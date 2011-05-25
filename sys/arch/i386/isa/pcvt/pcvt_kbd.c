@@ -367,7 +367,7 @@ kbd_setmode(int mode)
 
 	kbc_8042cmd(CONTR_WRITE);
 	kbd_cmd(cmd);
-	
+
 #endif /* PCVT_SCANSET > 1 */
 
 	if(mode == K_RAW)

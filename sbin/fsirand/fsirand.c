@@ -77,7 +77,7 @@ usage()
 
 
 /* getsblock():
- *	Return the superblock 
+ *	Return the superblock
  */
 static void
 getsblock(fd, name, lab, fs)

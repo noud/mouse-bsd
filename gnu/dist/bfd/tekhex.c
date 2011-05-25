@@ -23,11 +23,11 @@ SUBSECTION
 	Tektronix Hex Format handling
 
 DESCRIPTION
-	
+
 	Tek Hex records can hold symbols and data, but not
 	relocations. Their main application is communication with
 	devices like PROM programmers and ICE equipment.
-	
+
 	It seems that the sections are descibed as being really big,
         the example I have says that the text section is 0..ffffffff.
 	BFD would barf with this, many apps would try to alloc 4GB to
@@ -52,7 +52,7 @@ DESCRIPTION
 	A TekHex record looks like:
 EXAMPLE
 	%<block length><type><checksum><stuff><cr>
-	
+
 DESCRIPTION
 	Where
 	o length
@@ -62,7 +62,7 @@ DESCRIPTION
 	3) symbol record
 	6) data record
 	8) termination record
-	
+
 
 The data can come out of order, and may be discontigous. This is a
 serial protocol, so big files are unlikely, so we keep a list of 8k chunks

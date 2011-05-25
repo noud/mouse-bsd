@@ -26,7 +26,7 @@ write many functions with the same name (providing each takes parameters
 of different types).  All C++ function names are encoded into a
 low-level assembly label (this process is known as
 .I mangling\c
-).  The 
+).  The
 .B @PROGRAM@
 program does the inverse mapping: it decodes (\fIdemangles\fR)
 low-level names into user-level names so that the linker can keep
@@ -55,9 +55,9 @@ output.
 .TP
 .B \-\-strip\-underscores
 On some systems, both the C and C++ compilers put an
-underscore in front of every name.  For example, the C name 
+underscore in front of every name.  For example, the C name
 .B foo
-gets the low-level name 
+gets the low-level name
 .BR _foo .
 This option removes the leading underscore.
 
@@ -86,11 +86,11 @@ Print the version number of
 and exit.
 
 .SH "SEE ALSO"
-.RB "`\|" binutils "\|'" 
-entry in 
+.RB "`\|" binutils "\|'"
+entry in
 .B
 info\c
-\&; 
+\&;
 .I
 The GNU Binary Utilities\c
 \&, Roland H. Pesch (June 1993).

@@ -165,7 +165,7 @@ lerdcsr(sc, port)
 
 	s = splhigh();
 	bus_space_write_2(lesc->sc_iot, lesc->sc_ioh, LER_RAP, port);
-	val = bus_space_read_2(lesc->sc_iot, lesc->sc_ioh, LER_RDP); 
+	val = bus_space_read_2(lesc->sc_iot, lesc->sc_ioh, LER_RDP);
 	splx(s);
 
 	return (val);
@@ -443,7 +443,7 @@ le_vme_attach(parent, self, aux)
 	/*
 	 * XXX: We always use uservector 64....
 	 */
-	if ((lesc->sc_intr = intr_establish(64, USER_VEC, 0, 
+	if ((lesc->sc_intr = intr_establish(64, USER_VEC, 0,
 				(hw_ifun_t)le_intr, lesc)) == NULL) {
 		printf("le_vme_attach: Can't establish interrupt\n");
 		return;
@@ -558,7 +558,7 @@ bvme410_probe(iot, ioh)
 	bus_space_write_2(iot, ioh, BVME410_IVEC, 0x0000);
 	if (bus_space_read_2(iot, ioh, BVME410_IVEC) != 0xff00)
 		return 0;
-	
+
 	bus_space_write_2(iot, ioh, BVME410_IVEC, 0xffff);
 	if (bus_space_read_2(iot, ioh, BVME410_IVEC) != 0xffff)
 		return 0;

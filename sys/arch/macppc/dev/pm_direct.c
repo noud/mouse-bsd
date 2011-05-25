@@ -416,7 +416,7 @@ pm_pmgrop_pm1(pmdata)
 	u_char via1_vIER, via1_vDirA;
 	int rval = 0;
 	int num_pm_data = 0;
-	u_char pm_cmd;	
+	u_char pm_cmd;
 	u_char pm_data;
 	u_char *pm_buf;
 
@@ -429,7 +429,7 @@ pm_pmgrop_pm1(pmdata)
 	switch (pmdata->command) {
 		default:
 			for (i = 0; i < 7; i++) {
-				via_reg(VIA2, vDirA) = 0x00;	
+				via_reg(VIA2, vDirA) = 0x00;
 
 				/* wait until PM is free */
 				if (pm_wait_free(ADBDelay) == 0) {	/* timeout */
@@ -530,7 +530,7 @@ pm_pmgrop_pm1(pmdata)
 			rval = 0;
 	}
 
-	via_reg(VIA2, vDirA) = 0x00;	
+	via_reg(VIA2, vDirA) = 0x00;
 
 	/* restore formar value */
 	via_reg(VIA1, vDirA) = via1_vDirA;
@@ -644,7 +644,7 @@ pm_receive_pm2(data)
 	via_reg_or(VIA1, vACR, 0x1c);
 
 	return rval;
-}	
+}
 
 
 
@@ -667,7 +667,7 @@ pm_send_pm2(data)
 
 		via_reg_or(VIA1, vACR, 0x1c);
 
-		return rval;		
+		return rval;
 	}
 
 	PM_SET_STATE_ACKON();
@@ -695,7 +695,7 @@ pm_pmgrop_pm2(pmdata)
 	u_char via1_vIER;
 	int rval = 0;
 	int num_pm_data = 0;
-	u_char pm_cmd;	
+	u_char pm_cmd;
 	short pm_num_rx_data;
 	u_char pm_data;
 	u_char *pm_buf;
@@ -717,7 +717,7 @@ pm_pmgrop_pm2(pmdata)
 			if (pm_wait_free(ADBDelay * 4) == 0)
 				break;			/* timeout */
 
-			if (HwCfgFlags3 & 0x00200000) {	
+			if (HwCfgFlags3 & 0x00200000) {
 				/* PB 160, PB 165(c), PB 180(c)? */
 				int delay = ADBDelay * 16;
 
@@ -747,7 +747,7 @@ pm_pmgrop_pm2(pmdata)
 			} else {				/* PB 1XX series ? */
 				if ((rval = pm_send_pm2((u_char)(num_pm_data & 0xff))) != 0)
 					break;			/* timeout */
-			}			
+			}
 			/* send PM data */
 			pm_buf = (u_char *)pmdata->s_buf;
 			for (i = 0 ; i < num_pm_data; i++)
@@ -1064,9 +1064,9 @@ pm_adb_op(buffer, compRout, data, command)
 		pmdata.num_data = 4;
 		pmdata.s_buf = pmdata.data;
 		pmdata.r_buf = pmdata.data;
-		pmdata.data[0] = 0x00;	
+		pmdata.data[0] = 0x00;
 		pmdata.data[1] = 0x86;	/* magic spell for awaking the PM */
-		pmdata.data[2] = 0x00;	
+		pmdata.data[2] = 0x00;
 		pmdata.data[3] = 0x0c;	/* each bit may express the existent ADB device */
 	} else {				/* PB 1XX series */
 		pmdata.command = 0x20;

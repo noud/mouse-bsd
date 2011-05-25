@@ -16,11 +16,11 @@ g++ \- GNU project C++ Compiler
 The C and C++ compilers are integrated;
 .B g++
 is a script to call
-.B gcc with options to recognize C++.  
+.B gcc with options to recognize C++.
 .B gcc
 processes input files
 through one or more of four stages: preprocessing, compilation,
-assembly, and linking.  This man page contains full descriptions for 
+assembly, and linking.  This man page contains full descriptions for
 .I only
 C++ specific aspects of the compiler, though it also contains
 summaries of some general-purpose options.  For a fuller explanation
@@ -43,28 +43,28 @@ C++ source files use one of the suffixes `\|\c
 .SH OPTIONS
 There are many command-line options, including options to control
 details of optimization, warnings, and code generation, which are
-common to both 
+common to both
 .B gcc
 and
 .B g++\c
-\&.  For full information on all options, see 
+\&.  For full information on all options, see
 .BR gcc ( 1 ).
 
 Options must be separate: `\|\c
 .B \-dr\c
 \&\|' is quite different from `\|\c
 .B \-d \-r
-\&\|'. 
+\&\|'.
 
 Most `\|\c
 .B \-f\c
 \&\|' and `\|\c
 .B \-W\c
-\&\|' options have two contrary forms: 
+\&\|' options have two contrary forms:
 .BI \-f name
 and
 .BI \-fno\- name\c
-\& (or 
+\& (or
 .BI \-W name
 and
 .BI \-Wno\- name\c
@@ -140,21 +140,21 @@ A\ y\ =\ foo\ ();\ \ \ //\ call\ to\ `foo\ ()'\ heads\ to\ temporary,
 Note the difference!  With this flag, GNU C++ initializes `\|\c
 .B y\c
 \&\|' directly
-from the call to 
+from the call to
 .B foo ()
 without going through a temporary.
 .TP
 .B \-fenum\-int\-equiv
-Normally GNU C++ allows conversion of 
+Normally GNU C++ allows conversion of
 .B enum
 to
 .B int\c
 \&, but not the other way around.  Use this option if you want GNU C++
 to allow conversion of
 .B int
-to 
+to
 .B enum
-as well.  
+as well.
 .TP
 .B \-fexternal\-templates
 Produce smaller code for template declarations, by generating only a
@@ -229,7 +229,7 @@ and so incurs its own overhead.  `\|\c
 the software cache.
 
 Because access privileges (visibility) to members and member functions
-may differ from one function context to the next, 
+may differ from one function context to the next,
 .B g++
 may need to flush the cache. With the `\|\c
 .B \-fmemoize\-lookups\c
@@ -239,7 +239,7 @@ function that is compiled.  The `\|\c
 \&\|' flag enables the same software cache, but when the compiler
 determines that the context of the last function compiled would yield
 the same access privileges of the next function to compile, it
-preserves the cache. 
+preserves the cache.
 This is most helpful when defining many member functions for the same
 class: with the exception of member functions which are friends of
 other classes, each member function has exactly the same access
@@ -418,7 +418,7 @@ The preprocessor does not predefine the macro \c
 .B \-traditional\c
 \&\|', but still predefines\c
 .B __GNUC__\c
-\& (since the GNU extensions indicated by 
+\& (since the GNU extensions indicated by
 .B __GNUC__\c
 \& are not affected by
 `\|\c
@@ -439,7 +439,7 @@ separately.
 
 For C++ programs only (not C), `\|\c
 .B \-traditional\c
-\&\|' has one additional effect: assignment to 
+\&\|' has one additional effect: assignment to
 .B this
 is permitted.  This is the same as the effect of `\|\c
 .B \-fthis\-is\-variable\c
@@ -453,7 +453,7 @@ Undefine macro \c
 .B \-Wall
 Issue warnings for conditions which pertain to usage that we recommend
 avoiding and that we believe is easy to avoid, even in conjunction
-with macros. 
+with macros.
 .TP
 .B \-Wenum\-clash
 Warn when converting between different enumeration types.
@@ -502,7 +502,7 @@ will not be generated (unless the main input source file itself uses
 `\|\c
 .B #pragma implementation\c
 \&\|').  Instead, the object files will contain references to be
-resolved at link time.  
+resolved at link time.
 .tr !"
 .TP
 .B #pragma implementation
@@ -512,7 +512,7 @@ Use this pragma in a main input file, when you want full output from
 included header files to be generated (and made globally visible).
 The included header file, in turn, should use `\|\c
 .B #pragma interface\c
-\&\|'.  
+\&\|'.
 Backup copies of inline member functions, debugging information, and
 the internal tables used to implement virtual functions are all
 generated in implementation files.
@@ -525,13 +525,13 @@ basename as your source file; for example, in `\|\c
 \&\|', `\|\c
 .B #pragma implementation\c
 \&\|' by itself is equivalent to `\|\c
-.B 
+.B
 #pragma implementation "allclass.h"\c
 \&\|'.  Use the string argument if you want a single implementation
-file to include code from multiple header files.  
+file to include code from multiple header files.
 
 There is no way to split up the contents of a single header file into
-multiple implementation files. 
+multiple implementation files.
 .SH FILES
 .ta \w'LIBDIR/g++\-include 'u
 file.h	C header (preprocessor) file
@@ -567,7 +567,7 @@ a.out	link edited output
 /lib/libc.a	standard C library, see
 .IR intro (3)
 .br
-/usr/include	standard directory for 
+/usr/include	standard directory for
 .B #include
 files
 .br
@@ -584,7 +584,7 @@ is usually
 .IR machine / version .
 .br
 .I TMPDIR
-comes from the environment variable 
+comes from the environment variable
 .B TMPDIR
 (default
 .B /var/tmp
@@ -594,21 +594,21 @@ if available, else
 .SH "SEE ALSO"
 gcc(1), cpp(1), as(1), ld(1), gdb(1), adb(1), dbx(1), sdb(1).
 .br
-.RB "`\|" gcc "\|', `\|" cpp \|', 
+.RB "`\|" gcc "\|', `\|" cpp \|',
 .RB `\| as \|', `\| ld \|',
-and 
+and
 .RB `\| gdb \|'
 entries in
 .B info\c
 \&.
 .br
-.I 
+.I
 Using and Porting GNU CC (for version 2.0)\c
-, Richard M. Stallman; 
+, Richard M. Stallman;
 .I
 The C Preprocessor\c
 , Richard M. Stallman;
-.I 
+.I
 Debugging with GDB: the GNU Source-Level Debugger\c
 , Richard M. Stallman and Roland H. Pesch;
 .I

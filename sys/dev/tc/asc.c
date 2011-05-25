@@ -38,28 +38,28 @@
  *	@(#)asc.c	8.3 (Berkeley) 7/3/94
  */
 
-/* 
+/*
  * Mach Operating System
  * Copyright (c) 1991,1990,1989 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
+ *
  * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
  * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND FOR
  * ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
- * 
+ *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
  *  School of Computer Science
  *  Carnegie Mellon University
  *  Pittsburgh PA 15213-3890
- * 
+ *
  * any improvements or extensions that they make and grant Carnegie the
  * rights to redistribute these changes.
  */
@@ -70,18 +70,18 @@
  * Revision 2.5  91/02/05  17:45:07  mrt
  * 	Added author notices
  * 	[91/02/04  11:18:43  mrt]
- * 
+ *
  * 	Changed to use new Mach copyright
  * 	[91/02/02  12:17:20  mrt]
- * 
+ *
  * Revision 2.4  91/01/08  15:48:24  rpd
  * 	Added continuation argument to thread_block.
  * 	[90/12/27            rpd]
- * 
+ *
  * Revision 2.3  90/12/05  23:34:48  af
  * 	Recovered from pmax merge.. and from the destruction of a disk.
  * 	[90/12/03  23:40:40  af]
- * 
+ *
  * Revision 2.1.1.1  90/11/01  03:39:09  af
  * 	Created, from the DEC specs:
  * 	"PMAZ-AA TURBOchannel SCSI Module Functional Specification"
@@ -236,9 +236,9 @@ void asc_DumpLog __P((char *str));
 struct asc_softc;
 typedef struct script {
 	int		condition;	/* expected state at interrupt time */
-		
+
 	int		(*action)	/* extra operations */
-		 __P((register struct asc_softc *asc, register int status, 
+		 __P((register struct asc_softc *asc, register int status,
 			 register int  ss, register int ir));
 	int		command;	/* command to the chip */
 	struct script	*next;		/* index into asc_scripts for next state */
@@ -256,7 +256,7 @@ typedef struct script {
  * A typedef for a script function, to use in forward declarations.
  */
 typedef int
-script_fn_t __P((register struct asc_softc *asc, register int status, 
+script_fn_t __P((register struct asc_softc *asc, register int status,
 		 register int  ss, register int ir));
 
 
@@ -446,7 +446,7 @@ ascattach(asc, bus_speed)
 	int unit;
 
 	unit = asc->sc_dev.dv_unit;
-	
+
 	/*
 	 * Set up machine dependencies.
 	 * (1) timing based on turbochannel frequency
@@ -977,13 +977,13 @@ again:
 			goto done;
 
 		default:
-			printf("asc_intr: target %d, unknown phase 0x%x\n", 
+			printf("asc_intr: target %d, unknown phase 0x%x\n",
 			  	asc->target, status);
 			goto abort;
 		}
 
 		if (state->script) {
-			printf("asc_intr: target %d, incomplete script %p\n", 
+			printf("asc_intr: target %d, incomplete script %p\n",
 			  	asc->target, state->script);
 			goto abort;
 		}
@@ -1224,7 +1224,7 @@ again:
 
 		fifo = regs->asc_flags & ASC_FLAGS_FIFO_CNT;
 		if (fifo < 2) {
-			printf("asc_intr: target %d, reselect, fifo %d too small for msg\n", 
+			printf("asc_intr: target %d, reselect, fifo %d too small for msg\n",
 			  	asc->target, fifo);
 
 			goto abort;

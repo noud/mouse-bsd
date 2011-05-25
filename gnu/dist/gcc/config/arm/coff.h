@@ -2,7 +2,7 @@
    for ARM with COFF obj format.
    Copyright (C) 1995, 1996, 1997 Free Software Foundation, Inc.
    Contributed by Doug Evans (dje@cygnus.com).
-   
+
 This file is part of GNU CC.
 
 GNU CC is free software; you can redistribute it and/or modify

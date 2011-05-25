@@ -13,12 +13,12 @@
  * Dated:  11/12/1993
  *
  * Added printing of some other useful data for future (and current) expansion.
- * -ch 
+ * -ch
  * Dated:  11/17/1993
  */
 
 /* Original code by Markus Wild */
-/* This is a *real* hack to dump the topaz80 kernel font. This one is 
+/* This is a *real* hack to dump the topaz80 kernel font. This one is
    ways nicer than the ugly Mach font, but we'll have to dump it from a
    running system to not run against Commodore copyrights. *NEVER* distribute
    the generated font with BSD, always regenerate! */
@@ -144,21 +144,21 @@ main(int argc, char *argv[])
     } else {
 	Text (&rp, str, 256 - 32);
     }
-  
+
     /* Dump them.. */
     printf ("/* Generated automatically by fontdumper.c. *DONT* distribute\n");
     printf ("   this file, it may contain information Copyright by Commodore!\n");
     printf ("\n");
     printf ("   Font: %s/%d\n", ta.ta_Name, tf->tf_YSize);
     printf (" */\n\n");
-    
+
     printf ("unsigned char kernel_font_width  = %d;\n", tf->tf_XSize);
     printf ("unsigned char kernel_font_height = %d;\n", tf->tf_YSize);
     printf ("unsigned char kernel_font_baseline = %d;\n", tf->tf_Baseline);
     printf ("short         kernel_font_boldsmear = %d;\n", tf->tf_BoldSmear);
     printf ("unsigned char kernel_font_lo = 32;\n");
     printf ("unsigned char kernel_font_hi = 255;\n\n");
-    
+
     printf ("unsigned char kernel_cursor[] = {\n");
     for (j = 0; j < (tf->tf_YSize -1); j++) {
 	printf ("0xff, ");
@@ -174,7 +174,7 @@ main(int argc, char *argv[])
 	printf ("\n");
     }
     printf ("};\n");
-    
+
     CloseFont (tf);
     FreeRaster (pp, 256 * NetBSDwidth, tf->tf_YSize);
     return (0);

@@ -33,8 +33,8 @@
 #define UDC_ADR_CMR_LOW		0x52	/* channel mode reg, low word */
 #define UDC_ADR_COUNT		0x32	/* number of words to transfer */
 
-/* 
- * For a dma transfer, the appropriate udc registers are loaded from a 
+/*
+ * For a dma transfer, the appropriate udc registers are loaded from a
  * table in memory pointed to by the chain address register.
  */
 struct udc_table {

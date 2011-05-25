@@ -113,7 +113,7 @@ struct zskbd_softc {
 
 	int sc_enabled;
 	int kbd_type;
-    
+
 	struct device *sc_wskbddev;
 };
 

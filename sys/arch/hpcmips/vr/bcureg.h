@@ -182,7 +182,7 @@
 #define			BCUCLKSPEED_DIVT4	0x4
 #define			BCUCLKSPEED_DIVT5	0x5
 #define			BCUCLKSPEED_DIVT6	0x6
-#define		BCUCLKSPEED_DIVTSHFT	(12)		
+#define		BCUCLKSPEED_DIVTSHFT	(12)
 
 #define		BCUCLKSPEED_DIVVTMASK	(0xf<<8)	/* (= vr4121) */
 #define			BCUCLKSPEED_DIVVT1	0x1
@@ -193,10 +193,10 @@
 #define			BCUCLKSPEED_DIVVT6	0x6
 #define			BCUCLKSPEED_DIVVT1_5	0x9
 #define			BCUCLKSPEED_DIVVT2_5	0xa
-#define		BCUCLKSPEED_DIVVTSHFT	(8)		
+#define		BCUCLKSPEED_DIVVTSHFT	(8)
 
 #define		BCUCLKSPEED_CLKSPMASK	(0x1f)		/* calculate for Clock */
-#define		BCUCLKSPEED_CLKSPSHFT	(0)		
+#define		BCUCLKSPEED_CLKSPSHFT	(0)
 
 #define	BCUCNT3_REG_W		0x016	/* BCU Control Register 3 (>= vr4111) */
 

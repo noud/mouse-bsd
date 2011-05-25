@@ -26,6 +26,6 @@ BINMODE=2555
 MAN=	dump.8
 MLINKS+=dump.8 rdump.8
 
-.PATH:  ${.CURDIR}/../../sys/ufs/ffs 
+.PATH:  ${.CURDIR}/../../sys/ufs/ffs
 
 .include <bsd.prog.mk>

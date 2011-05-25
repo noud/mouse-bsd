@@ -432,7 +432,7 @@ labelnetstat()
 	mvwaddstr(wnd, 0, PROTO, "Proto");
 	mvwaddstr(wnd, 0, RCVCC, "Recv-Q");
 	mvwaddstr(wnd, 0, SNDCC, "Send-Q");
-	mvwaddstr(wnd, 0, STATE, "(state)"); 
+	mvwaddstr(wnd, 0, STATE, "(state)");
 }
 
 void
@@ -596,7 +596,7 @@ inet6print(in6, port, proto)
 
 /*
  * Construct an Internet address representation.
- * If the nflag has been supplied, give 
+ * If the nflag has been supplied, give
  * numeric value, otherwise try for symbolic name.
  */
 static const char *
@@ -685,7 +685,7 @@ netstat_names (args)
 
 	if (nflag == 0)
 		return;
-	
+
 	p = netcb.ni_forw;
 	for (; p != (struct netinfo *)&netcb; p = p->ni_forw) {
 		if (p->ni_line == -1)
@@ -707,7 +707,7 @@ netstat_numbers (args)
 
 	if (nflag != 0)
 		return;
-	
+
 	p = netcb.ni_forw;
 	for (; p != (struct netinfo *)&netcb; p = p->ni_forw) {
 		if (p->ni_line == -1)

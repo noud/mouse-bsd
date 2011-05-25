@@ -581,7 +581,7 @@ refclock_receive(peer, offset, delay, dispersion, reftime, rectime, leap)
 	 * event handling. reporting events must be disabled for
 	 * these critters (namely parse)
 	 */
-	
+
 	refclock_own_states = leap & REFCLOCK_OWN_STATES;
 	leap &= ~REFCLOCK_OWN_STATES;
 
@@ -1026,9 +1026,9 @@ refclock_ioctl(fd, flags)
 #ifdef STREAM
 #ifdef TTYCLK
 	/*
-	 * The TTYCLK option provides timestamping at the driver level. 
+	 * The TTYCLK option provides timestamping at the driver level.
 	 * It requires the tty_clk streams module and System V STREAMS
-	 * support. 
+	 * support.
 	 */
 	if (flags & (LDISC_CLK | LDISC_CLKPPS | LDISC_ACTS))
 	  {
@@ -1311,15 +1311,15 @@ refclock_control(srcadr, in, out)
 		}
 		if (in->haveflags & CLK_HAVEFLAG2) {
 			pp->sloppyclockflag &= ~CLK_FLAG2;
-			pp->sloppyclockflag |= in->flags & CLK_FLAG2;          
+			pp->sloppyclockflag |= in->flags & CLK_FLAG2;
 		}
 		if (in->haveflags & CLK_HAVEFLAG3) {
 			pp->sloppyclockflag &= ~CLK_FLAG3;
-			pp->sloppyclockflag |= in->flags & CLK_FLAG3;          
+			pp->sloppyclockflag |= in->flags & CLK_FLAG3;
 		}
 		if (in->haveflags & CLK_HAVEFLAG4) {
 			pp->sloppyclockflag &= ~CLK_FLAG4;
-			pp->sloppyclockflag |= in->flags & CLK_FLAG4;          
+			pp->sloppyclockflag |= in->flags & CLK_FLAG4;
 		}
 		if (in->flags & CLK_FLAG3)
 			(void)refclock_ioctl(pp->io.fd, LDISC_PPS);

@@ -128,7 +128,7 @@
  * NCRx+0: A31-A24 of starting address
  * NCRx+1: A23-A16 of starting address
  * NCRx+2: A15-A12 of starting address | NCR_SIZE_xx.
- * 
+ *
  * The non-cacheable region's starting address must be aligned to the
  * size indicated by the NCR_SIZE_xx field.
  */

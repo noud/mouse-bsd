@@ -146,7 +146,7 @@ leinit()
 	struct le_sel *sels;
 	register int i, n;
 	char *cp;
-	
+
 	i = 0;
 
 	for (hw = sc_table; i < NLE && hw < &sc_table[MAXCTLRS]; hw++) {
@@ -176,7 +176,7 @@ leinit()
 			printf("le%d: DIO=%x regs=%x mem=%x\n",
 				i, sc->sc_r0, sc->sc_r1, sc->sc_mem);
 #endif
-		
+
 		/*
 		 * Read the ethernet address off the board, one nibble at a time.
 		 */
@@ -242,10 +242,10 @@ void le_mem_summary(unit)
 	struct lereg1 *ler1 = le_softc.sc_r1;
 	struct lereg2 *ler2 = le_softc.sc_r2;
 	register int i;
-	
+
 	printf("le%d: ler1 = %x\n", unit, ler1);
 	printf("le%d: ler2 = %x\n", unit, ler2);
-    
+
 #if 0
 	ler1->ler1_rap = LE_CSR0;
 	ler1->ler1_rdp = LE_STOP;
@@ -261,7 +261,7 @@ void le_mem_summary(unit)
 	printf("le%d: ladrf[1] = %x\n", unit, ler2->ler2_ladrf[1]);
 	printf("le%d: ler2_rdra = %x\n", unit, ler2->ler2_rdra);
 	printf("le%d: ler2_rlen = %x\n", unit, ler2->ler2_rlen);
-	printf("le%d: ler2_tdra = %x\n", unit, ler2->ler2_tdra);	
+	printf("le%d: ler2_tdra = %x\n", unit, ler2->ler2_tdra);
 	printf("le%d: ler2_tlen = %x\n", unit, ler2->ler2_tlen);
 
 	for (i = 0; i < LERBUF; i++) {
@@ -306,7 +306,7 @@ le_error(unit, str, stat)
 		le_stats[unit].collision_error++;
 	if (stat & LE_MISS)
 		le_stats[unit].missed++;
-	if (stat & LE_MERR) { 
+	if (stat & LE_MERR) {
 		printf("le%d: memory error in '%s'\n", unit, str);
 		le_mem_summary(unit);
 		panic("bye");
@@ -351,7 +351,7 @@ lememinit(sc)
 	sc->sc_init->tlen = ((a >> 16) & 0xff) | (TLEN << 13);
 	mem += NTBUF * sizeof(struct mds);
 
-	/* 
+	/*
 	 * Set up receive ring descriptors.
 	 */
 	sc->sc_rbuf = mem;
@@ -364,7 +364,7 @@ lememinit(sc)
 		mem += BUFSIZE;
 	}
 
-	/* 
+	/*
 	 * Set up transmit ring descriptors.
 	 */
 	sc->sc_tbuf = mem;
@@ -400,7 +400,7 @@ le_reset(unit, myea)
 	for (timo = 1000; timo; timo--);
 
 	sc->sc_next_rd = sc->sc_next_td = 0;
-	
+
 	/* Set up LANCE init block. */
 	lememinit(sc);
 
@@ -565,7 +565,7 @@ le_put(desc, pkt, len)
 	bcopy(pkt, sc->sc_tbuf + (BUFSIZE * sc->sc_next_td), len);
 	if (len < ETHER_MIN_LEN)
 		cdm->bcnt = -ETHER_MIN_LEN;
-	else 
+	else
 		cdm->bcnt = -len;
 	cdm->mcnt = 0;
 	cdm->flags |= LE_OWN | LE_STP | LE_ENP;

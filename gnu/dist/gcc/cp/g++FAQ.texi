@@ -53,7 +53,7 @@ Many FAQs, including this one, are available on the archive site
 @file{ftp://rtfm.mit.edu/pub/usenet/news.answers}.
 This FAQ may be found in the subdirectory g++-FAQ.
 
-@cindex Marshall Cline 
+@cindex Marshall Cline
 @cindex comp.lang.c++
 @cindex C++ FAQ
 This FAQ is intended to supplement, not replace, Marshall Cline's
@@ -81,14 +81,14 @@ The basics: what is g++?
 * latest versions::             What are the latest versions of g++ and libraries?
 * g++ for Unix::                How do I get g++ for Unix?
 * getting-egcs::                How do I get egcs?
-* g++ for HP::                  
-* g++ for Solaris 2.x::         
-* g++ for other platforms::     
-* 1.x vs 2.x versions::         
+* g++ for HP::
+* g++ for Solaris 2.x::
+* g++ for other platforms::
+* 1.x vs 2.x versions::
 
 The Next Generation(s) of g++
 
-* new-in-2.8.x::                What's new in gcc 2.8.x?    
+* new-in-2.8.x::                What's new in gcc 2.8.x?
 * egcs-intro::                  What is egcs?
 * egcs-whats-new::              What's new in egcs vs 2.7.2?
 * egcs-bug-fixes::              What was fixed in the latest egcs releases?
@@ -99,56 +99,56 @@ The Next Generation(s) of g++
 
 Installation Issues and Problems
 
-* gcc-2 + g++-1::               
-* what else do I need?::        
-* use GNU linker?::             
-* Use GNU assembler?::          
-* shared libraries::            
-* repository::                  
-* repo bugs::                   
-* Use GNU C library?::          
-* Global constructor problems::  
-* Strange assembler errors::    
-* Other problems building libg++::  
-* More size_t problems::        
-* Rebuild libg++?::             
-* co-existing versions::        
-* Installing on Linux::         
-* Linux Slackware 3.0::         
+* gcc-2 + g++-1::
+* what else do I need?::
+* use GNU linker?::
+* Use GNU assembler?::
+* shared libraries::
+* repository::
+* repo bugs::
+* Use GNU C library?::
+* Global constructor problems::
+* Strange assembler errors::
+* Other problems building libg++::
+* More size_t problems::
+* Rebuild libg++?::
+* co-existing versions::
+* Installing on Linux::
+* Linux Slackware 3.0::
 
 The Evolution of g++
 
 * version 2.7.x::               What's changed in 2.7.x from earlier versions
-* libstdc++::                   
+* libstdc++::
 
 User Problems
 
-* missing virtual table::       
-* for scope::                   
-* const constructor::           
-* unused parameter warnings::   
-* jump crosses initialization::  
-* Demangler::                   
-* static data members::         
-* internal compiler error::     
-* bug reports::                 
-* porting to g++::              
-* name mangling::               
-* problems linking with other libraries::  
-* documentation::               
-* templates::                   
-* undefined templates::         
-* redundant templates::         
-* Standard Template Library::   
-* STL and string::              
-* exceptions::                  
-* namespaces::                  
-* agreement with standards::    
-* compiling standard libraries::  
-* debugging on SVR4 systems::   
-* debugging problems on Solaris::  
-* X11 conflicts with libg++::   
-* assignment to streams::       
+* missing virtual table::
+* for scope::
+* const constructor::
+* unused parameter warnings::
+* jump crosses initialization::
+* Demangler::
+* static data members::
+* internal compiler error::
+* bug reports::
+* porting to g++::
+* name mangling::
+* problems linking with other libraries::
+* documentation::
+* templates::
+* undefined templates::
+* redundant templates::
+* Standard Template Library::
+* STL and string::
+* exceptions::
+* namespaces::
+* agreement with standards::
+* compiling standard libraries::
+* debugging on SVR4 systems::
+* debugging problems on Solaris::
+* X11 conflicts with libg++::
+* assignment to streams::
 @end menu
 
 @node basics, egcs and 2.8.x, Top, Top
@@ -174,8 +174,8 @@ or GPL (@pxref{legalities}).
 * getting-egcs::                How do I get egcs?
 * g++ for HP::                  Getting g++ for the HP precision architecture
 * g++ for Solaris 2.x::         Getting g++ for Solaris
-* g++ for other platforms::     
-* 1.x vs 2.x versions::         
+* g++ for other platforms::
+* 1.x vs 2.x versions::
 @end menu
 
 @node latest versions, g++ for Unix, basics, basics
@@ -201,7 +201,7 @@ libstdc++ 2.8.1.
 
 I would strongly recommend that anyone using a g++ version earlier
 than 2.7.2 should upgrade if at all possible (@pxref{version 2.7.x}).
-Folks who need modern C++ features should upgrade to 2.8.1 or egcs. 
+Folks who need modern C++ features should upgrade to 2.8.1 or egcs.
 
 For some non-Unix platforms, the latest port of gcc may be an earlier
 version (2.7.2, say).  You'll need to use a version of libg++ that
@@ -346,7 +346,7 @@ Australia/NZ (release only): @file{ftp://moshpit.cygnus.com/pub/egcs/}
 
 @cindex HP Precision Architecture
 @cindex Hewlett-Packard
-@cindex GNU GAS 
+@cindex GNU GAS
 @cindex GNU gdb
 
 If you use the HP Precision Architecture (HP-9000/7xx and HP-9000/8xx)
@@ -455,7 +455,7 @@ other GNU programs.  This version is usually the same as the latest FSF
 release.  See the ``Software FAQ'' for the Usenet group
 @file{comp.sys.atari.st} for more information.
 
-@cindex EMX port 
+@cindex EMX port
 @cindex OS/2 support
 
 EMX is a port of gcc to OS/2; it can also be used on MS-DOS.  In addition to
@@ -513,7 +513,7 @@ convention.  It means ``the C++ compiler included with gcc-2.x.y.''
 @chapter The Next Generation(s) of g++
 
 @menu
-* new-in-2.8.x::                What's new in gcc 2.8.x?    
+* new-in-2.8.x::                What's new in gcc 2.8.x?
 * egcs-intro::                  What is egcs?
 * egcs-whats-new::              What's new in egcs vs 2.7.2?
 * egcs-bug-fixes::              What was fixed in the latest egcs releases?
@@ -540,7 +540,7 @@ that have not yet made it into gcc-2.8.x, C++ users will find the
 two compilers to be almost the same at this stage, other than that 2.8.x
 users may get more bogus warnings with -Wall and optimization because
 some fixes to flow analysis in the presence of exceptions that egcs made
-are not yet present in gcc 2.8.x (as of 2.8.1).  
+are not yet present in gcc 2.8.x (as of 2.8.1).
 
 The flow analysis problem in 2.8.1 produces bad code in some cases, not
 just spurious errors.  It only affects code that actually throws an
@@ -646,7 +646,7 @@ in the egcs snapshots (which has not yet made it into a release).
 Add support for Red Hat 5.0 Linux and better support for Linux
 systems using glibc2.  (1.0.3 was specifically done to fix some
 remaining problems detected when building Red Hat 5.1).
- 
+
 @item
 Compatibility with both egcs-1.0 and gcc-2.8 libgcc exception handling
 interfaces (see below).
@@ -654,15 +654,15 @@ interfaces (see below).
 @item
 Various bugfixes in the x86, hppa, mips, and rs6000/ppc backends.
 
-@item 
+@item
 A few machine independent bugfixes, mostly to fix code generation bugs
 when building Linux kernels or glibc.
 
-@item 
+@item
 Fix a few critical exception handling and template bugs in the C++
 compiler.
 
-@item 
+@item
 Fix build problems on x86-solaris systems.
 @end itemize
 
@@ -724,22 +724,22 @@ most robust GNU C++ compiler ever produced.
 @chapter Installation Issues and Problems
 
 @menu
-* gcc-2 + g++-1::               
-* what else do I need?::        
-* use GNU linker?::             
-* Use GNU assembler?::          
-* shared libraries::            
-* repository::                  
-* repo bugs::                   
-* Use GNU C library?::          
-* Global constructor problems::  
-* Strange assembler errors::    
-* Other problems building libg++::  
-* More size_t problems::        
-* Rebuild libg++?::             
-* co-existing versions::        
-* Installing on Linux::         
-* Linux Slackware 3.0::         
+* gcc-2 + g++-1::
+* what else do I need?::
+* use GNU linker?::
+* Use GNU assembler?::
+* shared libraries::
+* repository::
+* repo bugs::
+* Use GNU C library?::
+* Global constructor problems::
+* Strange assembler errors::
+* Other problems building libg++::
+* More size_t problems::
+* Rebuild libg++?::
+* co-existing versions::
+* Installing on Linux::
+* Linux Slackware 3.0::
 @end menu
 
 @node gcc-2 + g++-1, what else do I need?, installation, installation
@@ -748,7 +748,7 @@ most robust GNU C++ compiler ever produced.
 ``I obtained gcc-2.x.y and g++ 1.x.y and I'm trying to build it, but
 I'm having major problems.  What's going on?''
 
-@cindex g++, building 
+@cindex g++, building
 If you wish to build g++-1.42, you must obtain gcc-1.42 first.  The
 installation instructions for g++ version 1 leave a lot to be desired,
 unfortunately, and I would recommend that, unless you have a special
@@ -769,7 +769,7 @@ away from the ANSI draft standard than g++-2.x is.
 First off, you'll want libg++ as you can do almost nothing without it
 (unless you replace it with some other class library).
 
-@cindex GNU GAS 
+@cindex GNU GAS
 @cindex GNU GAS [assembler]
 Second, depending on your platform, you may need "GAS", the GNU assembler,
 or the GNU linker (see next question).
@@ -1243,7 +1243,7 @@ in the future.
 
 @menu
 * version 2.7.x::               What's changed in 2.7.x from earlier versions
-* libstdc++::                   
+* libstdc++::
 @end menu
 
 @node version 2.7.x, libstdc++, evolution, evolution
@@ -1406,32 +1406,32 @@ will always be available, enhancements to it should not be expected.
 @chapter User Problems
 
 @menu
-* missing virtual table::       
-* for scope::                   
-* const constructor::           
-* unused parameter warnings::   
-* jump crosses initialization::  
-* Demangler::                   
-* static data members::         
-* internal compiler error::     
-* bug reports::                 
-* porting to g++::              
-* name mangling::               
-* problems linking with other libraries::  
-* documentation::               
-* templates::                   
-* undefined templates::         
-* redundant templates::         
-* Standard Template Library::   
-* STL and string::              
-* exceptions::                  
-* namespaces::                  
-* agreement with standards::    
-* compiling standard libraries::  
-* debugging on SVR4 systems::   
-* debugging problems on Solaris::  
-* X11 conflicts with libg++::   
-* assignment to streams::       
+* missing virtual table::
+* for scope::
+* const constructor::
+* unused parameter warnings::
+* jump crosses initialization::
+* Demangler::
+* static data members::
+* internal compiler error::
+* bug reports::
+* porting to g++::
+* name mangling::
+* problems linking with other libraries::
+* documentation::
+* templates::
+* undefined templates::
+* redundant templates::
+* Standard Template Library::
+* STL and string::
+* exceptions::
+* namespaces::
+* agreement with standards::
+* compiling standard libraries::
+* debugging on SVR4 systems::
+* debugging problems on Solaris::
+* X11 conflicts with libg++::
+* assignment to streams::
 @end menu
 
 @node missing virtual table, for scope, User Problems, User Problems
@@ -1553,7 +1553,7 @@ switch ( i ) @{
   case 2:
 	...
     break;
-@}    
+@}
 @end example
 
 The reason is that @code{obj} is also in scope in the rest of the switch
@@ -1967,7 +1967,7 @@ extern template int min (int, int);
 @end example
 
 before @code{f()}; this will force it to be instantiated (though not
-emitted). 
+emitted).
 
 @strong{Note:} this kind of ``guiding declaration'' is not standard and
 isn't supported by egcs or gcc-2.8.x, as the standard says that this
@@ -2315,7 +2315,7 @@ but this is not part of the draft standard for iostreams and generally
 isn't considered a good idea, so standard-conforming code shouldn't use
 this technique.
 
-The GNU implementation of iostream did not support assigning to 
+The GNU implementation of iostream did not support assigning to
 @code{cin}, @code{cout}, @code{cerr}, and @code{clog}
 for quite a while, but it now does, for backward
 compatibility with cfront iostream (versions 2.6.1 and later of libg++).

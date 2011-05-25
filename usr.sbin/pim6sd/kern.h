@@ -34,19 +34,19 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
  */
 
 
-#ifndef KERN_H 
+#ifndef KERN_H
 #define KERN_H
 #include "vif.h"
 #include "mrt.h"
@@ -64,7 +64,7 @@ extern void     k_stop_pim      __P((int));
 extern int      k_del_mfc       __P((int socket, struct sockaddr_in6 *source,
                      struct sockaddr_in6 *group));
 extern int      k_chg_mfc       __P((int socket, struct sockaddr_in6 *source,
-                     struct sockaddr_in6 *group, vifi_t iif, 
+                     struct sockaddr_in6 *group, vifi_t iif,
                      if_set *oifs, struct sockaddr_in6 *rp_addr));
 extern void     k_add_vif       __P((int socket, vifi_t vifi, struct uvif *v));
 extern void     k_del_vif       __P((int socket, vifi_t vifi));

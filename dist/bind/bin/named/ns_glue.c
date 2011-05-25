@@ -198,13 +198,13 @@ nlabels (const char *dname) {
 	int count, i, found, escaped;
 	const char *tmpdname, *end_tmpdname;
 	int tmpdnamelen, c;
-	
+
 	INSIST(dname != NULL);
-	
+
 	count = 0;
 	tmpdname = dname;
 	tmpdnamelen = strlen(tmpdname);
-	/* 
+	/*
 	 * Ignore a trailing label separator (i.e. an unescaped dot)
 	 * in 'tmpdname'.
 	 */
@@ -223,9 +223,9 @@ nlabels (const char *dname) {
 		if (!escaped)
 			tmpdnamelen--;
 	}
-	
+
 	end_tmpdname = tmpdname + tmpdnamelen;
-	
+
 	while(tmpdname != end_tmpdname) {
 		count++;
 		/*
@@ -238,14 +238,14 @@ nlabels (const char *dname) {
 			c = *tmpdname;
 			if (!escaped && (c == '.'))
 				found = 1;
-			
+
 			if (escaped)
 				escaped = 0;
 			else if (c == '\\')
 				escaped = 1;
 		}
 	}
-	
+
 	ns_debug(ns_log_default, 12, "nlabels of \"%s\" -> %d", dname,
 		 count);
 	return (count);

@@ -23,7 +23,7 @@ COBJS+=  ufs.o
 
 SOBJS = alloc.o ashrdi3.o bcopy.o muldi3.o printf.o startit.o
 SOBJS += strlen.o strcmp.o
-SOBJS += libstubs.o 
+SOBJS += libstubs.o
 
 OBJS=	$(SOBJS) $(COBJS)
 

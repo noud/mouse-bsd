@@ -220,8 +220,8 @@ bootstrap()
 #ifdef DDB
 	db_machine_init();
 	if ((bi_sym = lookup_bootinfo(BTINFO_SYMTAB)) != NULL) {
-	   	bi_sym->ssym += KERNBASE; 
-	   	bi_sym->esym += KERNBASE; 
+	   	bi_sym->ssym += KERNBASE;
+	   	bi_sym->esym += KERNBASE;
 		ddb_init(bi_sym->nsym, (int *)bi_sym->ssym,
 		    (int *)bi_sym->esym);
 	} else {
@@ -884,7 +884,7 @@ mainbus_match(parent, cf, aux)
 
 int autoconf_nzs = 0;	/* must be global so obio.c can see it */
 
-/* 
+/*
  * Helper routines to get some of the more common properties. These
  * only get the first item in case the property value is an array.
  * Drivers that "need to know it all" can call getprop() directly.

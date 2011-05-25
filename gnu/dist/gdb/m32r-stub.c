@@ -100,7 +100,7 @@ extern void exceptionHandler();	/* assign an exception handler   */
 
 /*****************************************************************************
  * BUFMAX defines the maximum number of characters in inbound/outbound buffers
- * at least NUMREGBYTES*2 are needed for register packets 
+ * at least NUMREGBYTES*2 are needed for register packets
  */
 #define BUFMAX 400
 
@@ -120,7 +120,7 @@ enum regnames { R0,  R1,  R2,  R3,  R4,  R5,  R6,   R7,
 		PSW, CBR, SPI, SPU, BPC, PC,  ACCL, ACCH };
 
 enum SYS_calls {
-  	SYS_null, 
+  	SYS_null,
 	SYS_exit,
 	SYS_open,
 	SYS_close,
@@ -196,7 +196,7 @@ static int   strlen (const char *);
  * This function does all command procesing for interfacing to gdb.
  */
 
-void 
+void
 handle_exception(int exceptionVector)
 {
   int    sigval;
@@ -221,30 +221,30 @@ handle_exception(int exceptionVector)
   sigval = computeSignal( exceptionVector );
 
   ptr = remcomOutBuffer;
- 
+
   *ptr++ = 'T';         /* notify gdb with signo, PC, FP and SP */
   *ptr++ = hexchars[sigval >> 4];
   *ptr++ = hexchars[sigval & 0xf];
- 
+
   *ptr++ = hexchars[PC >> 4];
   *ptr++ = hexchars[PC & 0xf];
   *ptr++ = ':';
   ptr = mem2hex((char *)&registers[PC], ptr, 4, 0);     /* PC */
   *ptr++ = ';';
- 
+
   *ptr++ = hexchars[R13 >> 4];
   *ptr++ = hexchars[R13 & 0xf];
   *ptr++ = ':';
   ptr = mem2hex((char *)&registers[R13], ptr, 4, 0);    /* FP */
   *ptr++ = ';';
- 
+
   *ptr++ = hexchars[R15 >> 4];
   *ptr++ = hexchars[R15 & 0xf];
   *ptr++ = ':';
   ptr = mem2hex((char *)&registers[R15], ptr, 4, 0);    /* SP */
   *ptr++ = ';';
   *ptr++ = 0;
- 
+
   if (exceptionVector == 0)     /* simulated SYS call stuff */
     {
       mem2hex((char *) &registers[PC], buf, 4, 0);
@@ -362,13 +362,13 @@ handle_exception(int exceptionVector)
 			remcomInBuffer);
 	  }
 	break;
-      case '?': 
+      case '?':
 	remcomOutBuffer[0] = 'S';
 	remcomOutBuffer[1] =  hexchars[sigval >> 4];
 	remcomOutBuffer[2] =  hexchars[sigval % 16];
 	remcomOutBuffer[3] = 0;
 	break;
-      case 'd': 
+      case 'd':
 	remote_debug = !(remote_debug);  /* toggle debug flag */
 	break;
       case 'g': /* return the value of the CPU registers */
@@ -430,7 +430,7 @@ handle_exception(int exceptionVector)
 	ptr = &remcomInBuffer[1];
 	if (hexToInt(&ptr,&addr))
 	  registers[ PC ] = addr;
-	
+
 	if (remcomInBuffer[0] == 's')	/* single-stepping */
 	  {
 	    if (!prepare_to_step(0))	/* set up for single-step */
@@ -461,14 +461,14 @@ handle_exception(int exceptionVector)
 		*ptr++ = ';';
 		*ptr++ = 0;
 
-		break;	
+		break;
 	      }
 	  }
 	else	/* continuing, not single-stepping */
 	  {
-	    /* OK, about to do a "continue".  First check to see if the 
-	       target pc is on an odd boundary (second instruction in the 
-	       word).  If so, we must do a single-step first, because 
+	    /* OK, about to do a "continue".  First check to see if the
+	       target pc is on an odd boundary (second instruction in the
+	       word).  If so, we must do a single-step first, because
 	       ya can't jump or return back to an odd boundary!  */
 	    if ((registers[PC] & 2) != 0)
 	      prepare_to_step(1);
@@ -476,7 +476,7 @@ handle_exception(int exceptionVector)
 	return;
 
       case 'D':	/* Detach */
-	/* I am interpreting this to mean, release the board from control 
+	/* I am interpreting this to mean, release the board from control
 	   by the remote stub.  To do this, I am restoring the original
 	   (or at least previous) exception vectors.
 	 */
@@ -494,7 +494,7 @@ handle_exception(int exceptionVector)
   }
 }
 
-static int 
+static int
 hex(ch)
      char ch;
 {
@@ -506,7 +506,7 @@ hex(ch)
 
 /* scan for the sequence $<data>#<checksum>     */
 
-static void 
+static void
 getpacket(buffer)
      char * buffer;
 {
@@ -545,7 +545,7 @@ getpacket(buffer)
 	  gdb_error("Bad checksum: my count = %s, ", buf);
 	  mem2hex((char *) &xmitcsum, buf, 4, 0);
 	  gdb_error("sent count = %s\n", buf);
-	  gdb_error(" -- Bad buffer: \"%s\"\n", buffer); 
+	  gdb_error(" -- Bad buffer: \"%s\"\n", buffer);
 	}
 
 	putDebugChar('-');  /* failed checksum */
@@ -566,7 +566,7 @@ getpacket(buffer)
 
 /* send the packet in buffer.  */
 
-static void 
+static void
 putpacket(buffer)
      char * buffer;
 {
@@ -687,7 +687,7 @@ mem2hex(mem, buf, count, may_fault)
 /* Convert the hex array pointed to by buf into binary to be placed in mem.
    Return a pointer to the character AFTER the last byte written. */
 
-static char* 
+static char*
 hex2mem(buf, mem, count, may_fault)
      char* buf;
      char* mem;
@@ -714,7 +714,7 @@ hex2mem(buf, mem, count, may_fault)
 /* this function takes the m32r exception vector and attempts to
    translate this number into a unix compatible signal value */
 
-static int 
+static int
 computeSignal(exceptionVector)
      int exceptionVector;
 {
@@ -747,7 +747,7 @@ computeSignal(exceptionVector)
 /* WHILE WE FIND NICE HEX CHARS, BUILD AN INT */
 /* RETURN NUMBER OF CHARS PROCESSED           */
 /**********************************************/
-static int 
+static int
 hexToInt(ptr, intValue)
      char **ptr;
      int *intValue;
@@ -773,7 +773,7 @@ hexToInt(ptr, intValue)
 
 /*
   Table of branch instructions:
-  
+
   10B6		RTE	return from trap or exception
   1FCr		JMP	jump
   1ECr		JL	jump and link
@@ -795,7 +795,7 @@ hexToInt(ptr, intValue)
   FCxxxxxx	BC	branch condition (long)
   */
 
-static int 
+static int
 isShortBranch(instr)
      unsigned char *instr;
 {
@@ -828,7 +828,7 @@ isLongBranch(instr)
 	  (instr[1] & 0xF0) == 0x10)
 	return 5;
       if (instr[0] == 0xB0)	/* BNEZ, BLTZ, BLEZ, BGTZ, BGEZ, BEQZ */
-	if ((instr[1] & 0xF0) == 0x80 || (instr[1] & 0xF0) == 0x90 || 
+	if ((instr[1] & 0xF0) == 0x80 || (instr[1] & 0xF0) == 0x90 ||
 	    (instr[1] & 0xF0) == 0xA0 || (instr[1] & 0xF0) == 0xB0 ||
 	    (instr[1] & 0xF0) == 0xC0 || (instr[1] & 0xF0) == 0xD0)
 	  return 6;
@@ -836,7 +836,7 @@ isLongBranch(instr)
   return 0;
 }
 
-/* if address is NOT on a 4-byte boundary, or high-bit of instr is zero, 
+/* if address is NOT on a 4-byte boundary, or high-bit of instr is zero,
    then it's a 2-byte instruction, else it's a 4-byte instruction.  */
 
 #define INSTRUCTION_SIZE(addr) \
@@ -856,14 +856,14 @@ static int
 willBranch(instr, branchCode)
      unsigned char *instr;
 {
-  switch (branchCode) 
+  switch (branchCode)
     {
     case 0:	return 0;	/* not a branch */
     case 1:	return 1;	/* RTE */
     case 2:	return 1;	/* JL or JMP    */
     case 3:			/* BC, BNC, BL, BRA (short) */
     case 4:			/* BC, BNC, BL, BRA (long) */
-      switch (instr[0] & 0x0F) 
+      switch (instr[0] & 0x0F)
 	{
 	case 0xC:		/* Branch if Condition Register */
 	  return (registers[CBR] != 0);
@@ -876,7 +876,7 @@ willBranch(instr, branchCode)
 	  return 0;
 	}
     case 5: 			/* BNE, BEQ */
-      switch (instr[1] & 0xF0) 
+      switch (instr[1] & 0xF0)
 	{
 	case 0x00:		/* Branch if r1 equal to r2 */
 	  return (registers[instr[0] & 0x0F] == registers[instr[1] & 0x0F]);
@@ -886,7 +886,7 @@ willBranch(instr, branchCode)
 	  return 0;
 	}
     case 6: 			/* BNEZ, BLTZ, BLEZ, BGTZ, BGEZ ,BEQZ */
-      switch (instr[1] & 0xF0) 
+      switch (instr[1] & 0xF0)
 	{
 	case 0x80:		/* Branch if reg equal to zero */
 	  return (registers[instr[1] & 0x0F] == 0);
@@ -908,26 +908,26 @@ willBranch(instr, branchCode)
     }
 }
 
-static int 
-branchDestination(instr, branchCode) 
+static int
+branchDestination(instr, branchCode)
      unsigned char *instr;
-{ 
-  switch (branchCode) { 
-  default: 
-  case 0:					/* not a branch */ 
+{
+  switch (branchCode) {
+  default:
+  case 0:					/* not a branch */
     return 0;
-  case 1:					/* RTE */ 
+  case 1:					/* RTE */
     return registers[BPC] & ~3; 		/* pop BPC into PC */
-  case 2: 					/* JL or JMP */ 
-    return registers[instr[1] & 0x0F] & ~3;	/* jump thru a register */ 
-  case 3: 		/* BC, BNC, BL, BRA (short, 8-bit relative offset) */ 
+  case 2: 					/* JL or JMP */
+    return registers[instr[1] & 0x0F] & ~3;	/* jump thru a register */
+  case 3: 		/* BC, BNC, BL, BRA (short, 8-bit relative offset) */
     return (((int) instr) & ~3) + ((char) instr[1] << 2);
-  case 4: 		/* BC, BNC, BL, BRA (long, 24-bit relative offset) */ 
-    return ((int) instr + 
-	    ((((char) instr[1] << 16) | (instr[2] << 8) | (instr[3])) << 2)); 
-  case 5: 		/* BNE, BEQ (16-bit relative offset) */ 
-  case 6: 		/* BNEZ, BLTZ, BLEZ, BGTZ, BGEZ ,BEQZ (ditto) */ 
-    return ((int) instr + ((((char) instr[2] << 8) | (instr[3])) << 2)); 
+  case 4: 		/* BC, BNC, BL, BRA (long, 24-bit relative offset) */
+    return ((int) instr +
+	    ((((char) instr[1] << 16) | (instr[2] << 8) | (instr[3])) << 2));
+  case 5: 		/* BNE, BEQ (16-bit relative offset) */
+  case 6: 		/* BNEZ, BLTZ, BLEZ, BGTZ, BGEZ ,BEQZ (ditto) */
+    return ((int) instr + ((((char) instr[2] << 8) | (instr[3])) << 2));
   }
 
   /* An explanatory note: in the last three return expressions, I have
@@ -975,13 +975,13 @@ static struct STEPPING_CONTEXT {
 
 /* Function: prepare_to_step
    Called from handle_exception to prepare the user program to single-step.
-   Places a trap instruction after the target instruction, with special 
-   extra handling for branch instructions and for instructions in the 
-   second half-word of a word.  
+   Places a trap instruction after the target instruction, with special
+   extra handling for branch instructions and for instructions in the
+   second half-word of a word.
 
-   Returns: True  if we should actually execute the instruction; 
+   Returns: True  if we should actually execute the instruction;
 	    False if we are going to emulate executing the instruction,
-	    in which case we simply report to GDB that the instruction 
+	    in which case we simply report to GDB that the instruction
 	    has already been executed.  */
 
 #define TRAP1  0x10f1;	/* trap #1 instruction */
@@ -998,7 +998,7 @@ prepare_to_step(continue_p)
   int branchCode   = isBranch((char *) pc);
   char *p;
 
-  /* zero out the stepping context 
+  /* zero out the stepping context
      (paranoia -- it should already be zeroed) */
   for (p = (char *) &stepping;
        p < ((char *) &stepping) + sizeof(stepping);
@@ -1028,11 +1028,11 @@ prepare_to_step(continue_p)
   else					/* "first-slot" instruction */
     {
       /* insert trap  after  pc */
-      stepping.trap1_addr = pc + INSTRUCTION_SIZE(pc);	
+      stepping.trap1_addr = pc + INSTRUCTION_SIZE(pc);
       stepping.trap1_save = *(unsigned short *) stepping.trap1_addr;
       *(unsigned short *) stepping.trap1_addr = trap1;
     }
-  /* "continue_p" means that we are actually doing a continue, and not 
+  /* "continue_p" means that we are actually doing a continue, and not
      being requested to single-step by GDB.  Sometimes we have to do
      one single-step before continuing, because the PC is on a half-word
      boundary.  There's no way to simply resume at such an address.  */
@@ -1042,13 +1042,13 @@ prepare_to_step(continue_p)
 }
 
 /* Function: finish_from_step
-   Called from handle_exception to finish up when the user program 
+   Called from handle_exception to finish up when the user program
    returns from a single-step.  Replaces the instructions that had
-   been overwritten by traps or no-ops, 
+   been overwritten by traps or no-ops,
 
    Returns: True  if we should notify GDB that the target stopped.
 	    False if we only single-stepped because we had to before we
-	    could continue (ie. we were trying to continue at a 
+	    could continue (ie. we were trying to continue at a
 	    half-word boundary).  In that case don't notify GDB:
 	    just "continue continuing".  */
 
@@ -1419,7 +1419,7 @@ _catchException17:
 
 /* this function is used to set up exception handlers for tracing and
    breakpoints */
-void 
+void
 set_debug_traps()
 {
   /*  extern void remcomHandler(); */
@@ -1464,7 +1464,7 @@ set_debug_traps()
 
 #define BREAKPOINT() asm volatile ("	trap #2");
 
-void 
+void
 breakpoint()
 {
   if (initialized)
@@ -1478,17 +1478,17 @@ breakpoint()
               gdb_write(char *str, int len)
               gdb_error(char *format, char *parm)
 	      */
- 
+
 /* Function: gdb_putchar(int)
    Make gdb write a char to stdout.
    Returns: the char */
- 
+
 static int
 gdb_putchar(ch)
      int ch;
 {
   char buf[4];
- 
+
   buf[0] = 'O';
   buf[1] = hexchars[ch >> 4];
   buf[2] = hexchars[ch & 0x0F];
@@ -1496,11 +1496,11 @@ gdb_putchar(ch)
   putpacket(buf);
   return ch;
 }
- 
+
 /* Function: gdb_write(char *, int)
    Make gdb write n bytes to stdout (not assumed to be null-terminated).
    Returns: number of bytes written */
- 
+
 static int
 gdb_write(data, len)
      char *data;
@@ -1508,14 +1508,14 @@ gdb_write(data, len)
 {
   char *buf, *cpy;
   int i;
- 
+
   buf = remcomOutBuffer;
   buf[0] = 'O';
   i = 0;
   while (i < len)
     {
-      for (cpy = buf+1; 
-	   i < len && cpy < buf + sizeof(remcomOutBuffer) - 3; 
+      for (cpy = buf+1;
+	   i < len && cpy < buf + sizeof(remcomOutBuffer) - 3;
 	   i++)
 	{
 	  *cpy++ = hexchars[data[i] >> 4];
@@ -1530,19 +1530,19 @@ gdb_write(data, len)
 /* Function: gdb_puts(char *)
    Make gdb write a null-terminated string to stdout.
    Returns: the length of the string */
- 
+
 static int
 gdb_puts(str)
      char *str;
 {
   return gdb_write(str, strlen(str));
 }
- 
+
 /* Function: gdb_error(char *, char *)
    Send an error message to gdb's stdout.
    First string may have 1 (one) optional "%s" in it, which
    will cause the optional second string to be inserted.  */
- 
+
 static void
 gdb_error(format, parm)
      char * format;
@@ -1550,7 +1550,7 @@ gdb_error(format, parm)
 {
   char buf[400], *cpy;
   int len;
- 
+
   if (remote_debug)
     {
       if (format && *format)
@@ -1560,7 +1560,7 @@ gdb_error(format, parm)
 
       if (parm && *parm)
 	len += strlen(parm);
- 
+
       for (cpy = buf; *format; )
 	{
 	  if (format[0] == '%' && format[1] == 's') /* include second string */
@@ -1576,7 +1576,7 @@ gdb_error(format, parm)
       gdb_puts(buf);
     }
 }
- 
+
 static char *
 strcpy (char *dest, const char *src)
 {

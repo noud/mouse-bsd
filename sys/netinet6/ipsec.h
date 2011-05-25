@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -176,7 +176,7 @@ struct ipsecstat {
 	u_quad_t in_ahhist[256];
 	u_quad_t in_comphist[256];
 	u_quad_t out_success; /* succeeded outbound process */
-	u_quad_t out_polvio; 
+	u_quad_t out_polvio;
 			/* security policy violation for outbound process */
 	u_quad_t out_nosa;    /* outbound SA is unavailable */
 	u_quad_t out_inval;   /* outbound process failed due to EINVAL */

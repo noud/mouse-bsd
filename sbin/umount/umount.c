@@ -137,7 +137,7 @@ main(argc, argv)
 	/* -h implies "-t nfs" if no -t flag. */
 	if ((nfshost != NULL) && (typelist == NULL))
 		typelist = makevfslist("nfs");
-		
+
 	errs = 0;
 	switch (all) {
 	case 2:

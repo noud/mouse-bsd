@@ -61,7 +61,7 @@ ENTRY(microtime)
 
 	# save state of IIR in ICU, and of ipending, for later perusal
 	movb	_C_LABEL(ipending) + IRQ_BYTE(0),%cl # %cl is interrupt pending
-	
+
 	# save the current value of _time
 	movl	_C_LABEL(time),%edi	# get time.tv_sec
 	movl	_C_LABEL(time)+4,%ebx	#  and time.tv_usec
@@ -102,7 +102,7 @@ ENTRY(microtime)
 	jb	3f
 	subl	$1000000,%ebx	# adjust usec
 	incl	%edi		# bump sec
-	
+
 3:	movl	12(%esp),%ecx	# load timeval pointer arg
 	movl	%edi,(%ecx)	# tvp->tv_sec = sec
 	movl	%ebx,4(%ecx)	# tvp->tv_usec = usec

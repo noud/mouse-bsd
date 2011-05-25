@@ -44,7 +44,7 @@
  * don't care about that aspect of the font. It returns a cookie which
  * we can use with the other functions. When more flexibility is required,
  * wsfont_enum() should be used. The last two parameters to wsfont_lock()
- * are the bit order and byte order required (WSDISPLAY_FONTORDER_L2R or 
+ * are the bit order and byte order required (WSDISPLAY_FONTORDER_L2R or
  * WSDISPLAY_FONTORDER_R2L).
  *
  * Example:

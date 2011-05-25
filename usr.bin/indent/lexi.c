@@ -128,7 +128,7 @@ int
 lexi()
 {
 	int     unary_delim;	/* this is set to 1 if the current token
-				 * 
+				 *
 				 * forces a following operator to be unary */
 	static int last_code;	/* the last token type returned */
 	static int l_struct;	/* set to 1 if the last token was 'struct' */
@@ -155,7 +155,7 @@ lexi()
 		 * we have a character or number
 		 */
 		char   *j;	/* used for searching thru list of
-				 * 
+				 *
 				 * reserved words */
 		struct templ *p;
 

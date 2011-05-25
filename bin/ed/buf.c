@@ -266,7 +266,7 @@ init_buffers()
 {
 	int i = 0;
 
-	/* Read stdin one character at a time to avoid i/o contention 
+	/* Read stdin one character at a time to avoid i/o contention
 	   with shell escapes invoked by nonterminal input, e.g.,
 	   ed - <<EOF
 	   !cat

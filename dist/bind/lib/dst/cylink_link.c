@@ -19,10 +19,10 @@ static const char rcsid[] = "$Header: /cvsroot/basesrc/dist/bind/lib/dst/cylink_
  * NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
  * WITH THE USE OR PERFORMANCE OF THE SOFTWARE.
  */
-/* 
- * This file contains two components 
- * 1. Interface to the CYLINK library to allow compilation of Bind 
- *    with TIS/DNSSEC when CYLINK is not available 
+/*
+ * This file contains two components
+ * 1. Interface to the CYLINK library to allow compilation of Bind
+ *    with TIS/DNSSEC when CYLINK is not available
  *    all calls to CYLINK are contained inside this file.
  * 2. The glue to connvert DSA KEYS to and from external formats
  */
@@ -82,8 +82,8 @@ static int dst_cylink_compare_keys(const DST_KEY *key1, const DST_KEY *key2);
 static void *memcpyend(void *dest, const void *src, size_t n, size_t size);
 
 /*
- * dst_cylink_init()  Function to answer set up function pointers for 
- *	    CYLINK related functions 
+ * dst_cylink_init()  Function to answer set up function pointers for
+ *	    CYLINK related functions
  */
 int
 dst_cylink_init()
@@ -110,7 +110,7 @@ dst_cylink_init()
 /*
  * dst_cylink_sign
  *     Call CYLINK signing functions to sign a block of data.
- *     There are three steps to signing, INIT (initialize structures), 
+ *     There are three steps to signing, INIT (initialize structures),
  *     UPDATE (hash (more) data), FINAL (generate a signature).  This
  *     routine performs one or more of these steps.
  * Parameters
@@ -122,7 +122,7 @@ dst_cylink_init()
  *     priv_key    key to use for signing.
  *     signature   location to store signature.
  *     sig_len     size in bytes of signature field.
- * returns 
+ * returns
  *	N  Success on SIG_MODE_FINAL = returns signature length in bytes
  *         N is 41 for DNS
  *	0  Success on SIG_MODE_INIT  and UPDATE
@@ -131,14 +131,14 @@ dst_cylink_init()
 
 static int
 dst_cylink_sign(const int mode, DST_KEY *dkey, void **context,
-		const u_char *data, const int len, 
+		const u_char *data, const int len,
 		u_char *signature, const int sig_len)
 {
 	int sign_len = 0;
 	int status;
 	SHA_context *ctx = NULL;
 
-	if (mode & SIG_MODE_INIT) 
+	if (mode & SIG_MODE_INIT)
 		ctx = (SHA_context *) malloc(sizeof(SHA_context));
 	else if (context)
 		ctx = (SHA_context *) *context;
@@ -183,7 +183,7 @@ dst_cylink_sign(const int mode, DST_KEY *dkey, void **context,
 		sign_len += SHA_LENGTH;
 	}
 	else {
-		if (context == NULL) 
+		if (context == NULL)
 			return (-1);
 		*context = (void *) ctx;
 	}
@@ -192,10 +192,10 @@ dst_cylink_sign(const int mode, DST_KEY *dkey, void **context,
 
 
 /*
- * Dst_cylink_verify 
- *     Calls CYLINK verification routines.  There are three steps to 
- *     verification, INIT (initialize structures), UPDATE (hash (more) data), 
- *     FINAL (generate a signature).  This routine performs one or more of 
+ * Dst_cylink_verify
+ *     Calls CYLINK verification routines.  There are three steps to
+ *     verification, INIT (initialize structures), UPDATE (hash (more) data),
+ *     FINAL (generate a signature).  This routine performs one or more of
  *     these steps.
  * Parameters
  *     mode	SIG_MODE_INIT, SIG_MODE_UPDATE and/or SIG_MODE_FINAL.
@@ -206,8 +206,8 @@ dst_cylink_sign(const int mode, DST_KEY *dkey, void **context,
  *     pub_key     key to use for verify.
  *     signature   signature.
  *     sig_len     length in bytes of signature.
- * returns 
- *     0  Success 
+ * returns
+ *     0  Success
  *    <0  Failure
  */
 
@@ -219,7 +219,7 @@ dst_cylink_verify(const int mode, DST_KEY *dkey, void **context,
 	int status;
 	SHA_context *ctx = NULL;
 
-	if (mode & SIG_MODE_INIT) 
+	if (mode & SIG_MODE_INIT)
 		ctx = (SHA_context *) malloc(sizeof(SHA_context));
 	else if (context)
 		ctx = (SHA_context *) *context;
@@ -262,7 +262,7 @@ dst_cylink_verify(const int mode, DST_KEY *dkey, void **context,
 			return (VERIFY_FINAL_FAILURE);
 	}
 	else {
-		if (context == NULL) 
+		if (context == NULL)
 			return (-1);
 		*context = (void *) ctx;
 	}
@@ -276,12 +276,12 @@ dst_cylink_verify(const int mode, DST_KEY *dkey, void **context,
  *     This function gets in a pointer to the public key and a work area
  *     to write the key into.
  * Parameters
- *     public    KEY structure 
- *     out_str   buffer to write encoded key into 
+ *     public    KEY structure
+ *     out_str   buffer to write encoded key into
  *     out_len   size of out_str
  * Return
- *	N >= 0 length of encoded key 
- *	n < 0  error 
+ *	N >= 0 length of encoded key
+ *	n < 0  error
  */
 
 static int
@@ -315,7 +315,7 @@ dst_cylink_to_dns_key(const DST_KEY *in_key, u_char *out_str,
 
 /*
  * dst_cylink_from_dns_key
- *     Converts from a DNS KEY RR format to an RSA KEY. 
+ *     Converts from a DNS KEY RR format to an RSA KEY.
  * Parameters
  *     len    Length in bytes of DNS key
  *     key    DNS key
@@ -339,7 +339,7 @@ dst_cylink_from_dns_key(DST_KEY *s_key, const u_char *key, const int len)
 	if (len == 0)  /* process null key */
 		return (1);
 
-	if (key_ptr == NULL)  
+	if (key_ptr == NULL)
 		return (0);
 	t = (int) *key_ptr++;	/* length of exponent in bytes */
 
@@ -375,19 +375,19 @@ dst_cylink_from_dns_key(DST_KEY *s_key, const u_char *key, const int len)
 	memcpy(d_key->dk_y, key_ptr, d_key->dk_p_bytes);
 	key_ptr += d_key->dk_p_bytes;
 
-	s_key->dk_id = dst_s_id_calc(key, len); 
+	s_key->dk_id = dst_s_id_calc(key, len);
 	s_key->dk_key_size = d_key->dk_p_bytes * 8;
 	return (1);
 }
 
 
-/************************************************************************** 
+/**************************************************************************
  *  dst_cylink_key_to_file_format
  *	Encodes an DSA Key into the portable file format.
- *  Parameters 
- *	key      DSA KEY structure 
+ *  Parameters
+ *	key      DSA KEY structure
  *	buff      output buffer
- *	buff_len  size of output buffer 
+ *	buff_len  size of output buffer
  *  Return
  *	0  Failure - null input rkey
  *     -1  Failure - not enough space in output area
@@ -455,16 +455,16 @@ dst_cylink_key_to_file_format(const DST_KEY *key, char *buff,
 }
 
 
-/************************************************************************** 
+/**************************************************************************
  * dst_cylink_key_from_file_format
- *     Converts contents of a private key file into a private DSA key. 
- * Parameters 
- *     DSA_Key    structure to put key into 
- *     buff       buffer containing the encoded key 
+ *     Converts contents of a private key file into a private DSA key.
+ * Parameters
+ *     DSA_Key    structure to put key into
+ *     buff       buffer containing the encoded key
  *     buff_len   the length of the buffer
  * Return
- *     n >= 0 Foot print of the key converted 
- *     n <  0 Error in conversion 
+ *     n >= 0 Foot print of the key converted
+ *     n <  0 Error in conversion
  */
 
 static int
@@ -543,7 +543,7 @@ dst_cylink_key_from_file_format(DST_KEY *d_key, const char *buff,
 }
 
 
-/************************************************************************** 
+/**************************************************************************
  * dst_cylink_free_key_structure
  *     Frees all dynamicly allocated structures in DSA_Key.
  */
@@ -565,14 +565,14 @@ dst_cylink_free_key_structure(void *key)
 }
 
 
-/************************************************************************** 
+/**************************************************************************
  *  dst_cylink_generate_keypair
  *	Generates unique keys that are hard to predict.
  *  Parameters
  *	key    generic Key structure
  *	exp    the public exponent
- *  Return 
- *	0 Failure 
+ *  Return
+ *	0 Failure
  *	1 Success
  */
 
@@ -640,7 +640,7 @@ dst_cylink_compare_keys(const DST_KEY *key1, const DST_KEY *key2)
 
 	if (dkey1 == NULL && dkey2 == NULL)
 		return (0);
-	else if (dkey1 == NULL) 
+	else if (dkey1 == NULL)
 		return (2);
 	else if (dkey2 == NULL)
 		return(1);
@@ -669,9 +669,9 @@ memcpyend(void *dest, const void *src, size_t n, size_t size) {
 	return dest;
 }
 
-#else 
+#else
 int
-dst_cylink_init() 
+dst_cylink_init()
 {
 	return (0);
 }

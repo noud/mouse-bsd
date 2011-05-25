@@ -35,36 +35,36 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* 
+/*
  * Notes.
- * 
+ *
  * Since the NetBSD build rules force the use of function prototypes, even on
  * functions that are defined before they are called, I've taken advantage of
  * the opportunity and organized this module in top down fashion, with
  * functions generally calling down the page rather than up. It's different.
  * I think I'm getting to like it this way.
- * 
+ *
  * The crossbar interface is not exactly a peripheral device, and it cannot
  * appear on anything other than an alpha-based Avalon A12.  The crossbar
  * controller is built into the core logic.
- * 
+ *
  * If this version of the driver supports MPS transport, it may have some
  * large static data declarations. Don't worry about it, as Avalon a12
  * support should not appear in a GENERIC or INSTALL kernel.
- * 
+ *
  * (Every A12 ever shipped had 512 MB per CPU except one site, which had 256
  * MB.  Partly has a result of this, it is unlikely that a kernel configured
  * for an A12 would be exactly the thing to use on most workstations, so we
  * don't really need to worry that we might be configured in a generic or
  * site-wide kernel image.)
- * 
+ *
  * This preliminary crossbar driver supports IP transport using PIO.  Although
  * it would be nice to have a DMA driver, do note that the crossbar register
  * port is 128 bits wide, so we have 128-bit PIO.  (The 21164 write buffer
  * will combine two 64-bit stores before they get off-chip.) Also, the rtmon
  * driver wasn't DMA either, so at least the NetBSD driver is as good as any
  * other that exists now.
- * 
+ *
  * We'll do DMA and specialized transport ops later. Given the high speed of
  * the PIO mode, no current applications require DMA bandwidth, but everyone
  * benefits from low latency. The PIO mode is actually lower in latency
@@ -242,7 +242,7 @@ xb_init_config(ccp, mallocsafe)
 	struct xb_config *ccp;
 	int mallocsafe;
 {
-	/* 
+	/*
 	 * The driver actually only needs about 64 bytes of buffer but with a
 	 * nice contiguous frame we can call m_devget()
 	 */
@@ -263,7 +263,7 @@ xb_init_config(ccp, mallocsafe)
  *
  *     31                                 0
  *      |                                 |
- *      10987654 32109876 54321098 76543210 
+ *      10987654 32109876 54321098 76543210
  *
  *      ........ ........ 0oiefaAr TR...... MCSR
  *
@@ -278,7 +278,7 @@ xb_init_config(ccp, mallocsafe)
  *      e      R       OMFE    Outgoing message fifo empty
  *      i      R       DMAin   Incoming DMA channel armed
  *      o      R       DMAout  Outgoing DMA channel armed
- *     
+ *
  *	     Interrupts Generated from MCSR
  *
  *     IMChInt <= (RBC or IMP) and not DMAin
@@ -292,7 +292,7 @@ xb_intr(p)
 {
 	int	n;
 	long	mcsrval;
-	/* 
+	/*
 	 * The actual conditions under which this interrupt is generated are
 	 * a bit complicated, and no status flag is available that reads out
 	 * the final values of the interrupt inputs. But, it doesn't really
@@ -311,7 +311,7 @@ xb_intr(p)
 	}
 	return 0;
 }
-/* 
+/*
  * The interface logic will shoot us down with MCE (Missing Close Error) or
  * ECE (Embedded Close Error) if we aren't in sync with the hardware w.r.t.
  * frame boundaries. As those are panic-level errors: Don't Get Them.
@@ -400,7 +400,7 @@ long	t1,t2;
 	b[1] = t2;
 }
 /*
- * Verify during debugging that we have not overflowed the FIFO 
+ * Verify during debugging that we have not overflowed the FIFO
  */
 static __inline void
 xb_onefree()
@@ -530,7 +530,7 @@ xb_output(ifp, m0, dst, rt0)
 	      ++ifp->if_noproto;
 		return EAFNOSUPPORT;
 	}
-	/* 
+	/*
 	 * The a12MppSwitch is a wormhole routed MSN consisting of a number
 	 * (usually n==1) of 14 channel crossbar switches.  Each route through
 	 * a switch requires a 128 bit address word that specifies the channel
@@ -737,7 +737,7 @@ Static void
 xb_mcrp_write(d, n, islast)
 	long *d;
 {
-	volatile long *xb_fifo = islast ? REGADDR(A12_FIFO_LWE) 
+	volatile long *xb_fifo = islast ? REGADDR(A12_FIFO_LWE)
 					: REGADDR(A12_FIFO);
 	int i;
 

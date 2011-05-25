@@ -4,7 +4,7 @@
    Using the following chars caused a compiler warning on HIUX (so I replaced
    them with octal escapes), and isn't useful without an understanding of what
    character set it is.
-   Written by Metin G. Ozisik, Mimi Ph\373\364ng-Th\345o V\365, 
+   Written by Metin G. Ozisik, Mimi Ph\373\364ng-Th\345o V\365,
      and John Gilmore.
    Archive support from Damon A. Permezel.
    Contributed by IBM Corporation and Cygnus Support.
@@ -154,344 +154,344 @@ xcoff_is_local_label_name (abfd, name)
 static reloc_howto_type xcoff_howto_table[] =
 {
   /* Standard 32 bit relocation.  */
-  HOWTO (0,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 32,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 32,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_POS",               /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffffffff,            /* src_mask */                             
-	 0xffffffff,            /* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_POS",               /* name */
+	 true,	                /* partial_inplace */
+	 0xffffffff,            /* src_mask */
+	 0xffffffff,            /* dst_mask */
 	 false),                /* pcrel_offset */
 
   /* 32 bit relocation, but store negative value.  */
-  HOWTO (1,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 -2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 32,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (1,	                /* type */
+	 0,	                /* rightshift */
+	 -2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 32,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_NEG",               /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffffffff,            /* src_mask */                             
-	 0xffffffff,            /* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_NEG",               /* name */
+	 true,	                /* partial_inplace */
+	 0xffffffff,            /* src_mask */
+	 0xffffffff,            /* dst_mask */
 	 false),                /* pcrel_offset */
 
   /* 32 bit PC relative relocation.  */
-  HOWTO (2,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 32,	                /* bitsize */                   
-	 true,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (2,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 32,	                /* bitsize */
+	 true,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_signed, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_REL",               /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffffffff,            /* src_mask */                             
-	 0xffffffff,            /* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_REL",               /* name */
+	 true,	                /* partial_inplace */
+	 0xffffffff,            /* src_mask */
+	 0xffffffff,            /* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   /* 16 bit TOC relative relocation.  */
-  HOWTO (3,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 1,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 16,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (3,	                /* type */
+	 0,	                /* rightshift */
+	 1,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 16,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_TOC",               /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffff,	        /* src_mask */                             
-	 0xffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_TOC",               /* name */
+	 true,	                /* partial_inplace */
+	 0xffff,	        /* src_mask */
+	 0xffff,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   /* I don't really know what this is.  */
-  HOWTO (4,	                /* type */                                 
-	 1,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 32,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (4,	                /* type */
+	 1,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 32,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_RTB",               /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffffffff,	        /* src_mask */                             
-	 0xffffffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_RTB",               /* name */
+	 true,	                /* partial_inplace */
+	 0xffffffff,	        /* src_mask */
+	 0xffffffff,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   /* External TOC relative symbol.  */
-  HOWTO (5,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 16,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (5,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 16,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_GL",                /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffff,	        /* src_mask */                             
-	 0xffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_GL",                /* name */
+	 true,	                /* partial_inplace */
+	 0xffff,	        /* src_mask */
+	 0xffff,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   /* Local TOC relative symbol.  */
-  HOWTO (6,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 16,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (6,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 16,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_TCL",               /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffff,	        /* src_mask */                             
-	 0xffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_TCL",               /* name */
+	 true,	                /* partial_inplace */
+	 0xffff,	        /* src_mask */
+	 0xffff,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   { 7 },
-  
+
   /* Non modifiable absolute branch.  */
-  HOWTO (8,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 26,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (8,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 26,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_BA",                /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0x3fffffc,	        /* src_mask */                             
-	 0x3fffffc,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_BA",                /* name */
+	 true,	                /* partial_inplace */
+	 0x3fffffc,	        /* src_mask */
+	 0x3fffffc,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   { 9 },
 
   /* Non modifiable relative branch.  */
-  HOWTO (0xa,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 26,	                /* bitsize */                   
-	 true,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0xa,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 26,	                /* bitsize */
+	 true,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_signed, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_BR",                /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0x3fffffc,	        /* src_mask */                             
-	 0x3fffffc,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_BR",                /* name */
+	 true,	                /* partial_inplace */
+	 0x3fffffc,	        /* src_mask */
+	 0x3fffffc,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   { 0xb },
 
   /* Indirect load.  */
-  HOWTO (0xc,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 16,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0xc,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 16,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_RL",                /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffff,	        /* src_mask */                             
-	 0xffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_RL",                /* name */
+	 true,	                /* partial_inplace */
+	 0xffff,	        /* src_mask */
+	 0xffff,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   /* Load address.  */
-  HOWTO (0xd,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 16,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0xd,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 16,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_RLA",               /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffff,	        /* src_mask */                             
-	 0xffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_RLA",               /* name */
+	 true,	                /* partial_inplace */
+	 0xffff,	        /* src_mask */
+	 0xffff,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   { 0xe },
-  
+
   /* Non-relocating reference.  */
-  HOWTO (0xf,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 32,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0xf,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 32,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_REF",               /* name */                                 
-	 false,	                /* partial_inplace */                      
-	 0,		        /* src_mask */                             
-	 0,     	   	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_REF",               /* name */
+	 false,	                /* partial_inplace */
+	 0,		        /* src_mask */
+	 0,     	   	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   { 0x10 },
   { 0x11 },
-  
+
   /* TOC relative indirect load.  */
-  HOWTO (0x12,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 16,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0x12,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 16,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_TRL",               /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffff,	        /* src_mask */                             
-	 0xffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_TRL",               /* name */
+	 true,	                /* partial_inplace */
+	 0xffff,	        /* src_mask */
+	 0xffff,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   /* TOC relative load address.  */
-  HOWTO (0x13,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 16,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0x13,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 16,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_TRLA",              /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffff,	        /* src_mask */                             
-	 0xffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_TRLA",              /* name */
+	 true,	                /* partial_inplace */
+	 0xffff,	        /* src_mask */
+	 0xffff,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   /* Modifiable relative branch.  */
-  HOWTO (0x14,	                /* type */                                 
-	 1,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 32,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0x14,	                /* type */
+	 1,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 32,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_RRTBI",             /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffffffff,	        /* src_mask */                             
-	 0xffffffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_RRTBI",             /* name */
+	 true,	                /* partial_inplace */
+	 0xffffffff,	        /* src_mask */
+	 0xffffffff,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   /* Modifiable absolute branch.  */
-  HOWTO (0x15,	                /* type */                                 
-	 1,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 32,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0x15,	                /* type */
+	 1,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 32,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_RRTBA",             /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffffffff,	        /* src_mask */                             
-	 0xffffffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_RRTBA",             /* name */
+	 true,	                /* partial_inplace */
+	 0xffffffff,	        /* src_mask */
+	 0xffffffff,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   /* Modifiable call absolute indirect.  */
-  HOWTO (0x16,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 16,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0x16,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 16,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_CAI",               /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffff,	        /* src_mask */                             
-	 0xffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_CAI",               /* name */
+	 true,	                /* partial_inplace */
+	 0xffff,	        /* src_mask */
+	 0xffff,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   /* Modifiable call relative.  */
-  HOWTO (0x17,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 16,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0x17,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 16,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_CREL",              /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffff,	        /* src_mask */                             
-	 0xffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_CREL",              /* name */
+	 true,	                /* partial_inplace */
+	 0xffff,	        /* src_mask */
+	 0xffff,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   /* Modifiable branch absolute.  */
-  HOWTO (0x18,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 16,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0x18,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 16,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_RBA",               /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffff,	        /* src_mask */                             
-	 0xffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_RBA",               /* name */
+	 true,	                /* partial_inplace */
+	 0xffff,	        /* src_mask */
+	 0xffff,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   /* Modifiable branch absolute.  */
-  HOWTO (0x19,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 16,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0x19,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 16,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_RBAC",              /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffff,	        /* src_mask */                             
-	 0xffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_RBAC",              /* name */
+	 true,	                /* partial_inplace */
+	 0xffff,	        /* src_mask */
+	 0xffff,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   /* Modifiable branch relative.  */
-  HOWTO (0x1a,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 26,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0x1a,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 26,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_signed, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_RBR",               /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffff,	        /* src_mask */                             
-	 0xffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_RBR",               /* name */
+	 true,	                /* partial_inplace */
+	 0xffff,	        /* src_mask */
+	 0xffff,        	/* dst_mask */
 	 false),                /* pcrel_offset */
-  
+
   /* Modifiable branch absolute.  */
-  HOWTO (0x1b,	                /* type */                                 
-	 0,	                /* rightshift */                           
-	 2,	                /* size (0 = byte, 1 = short, 2 = long) */ 
-	 16,	                /* bitsize */                   
-	 false,	                /* pc_relative */                          
-	 0,	                /* bitpos */                               
+  HOWTO (0x1b,	                /* type */
+	 0,	                /* rightshift */
+	 2,	                /* size (0 = byte, 1 = short, 2 = long) */
+	 16,	                /* bitsize */
+	 false,	                /* pc_relative */
+	 0,	                /* bitpos */
 	 complain_overflow_bitfield, /* complain_on_overflow */
-	 0,		        /* special_function */                     
-	 "R_RBRC",              /* name */                                 
-	 true,	                /* partial_inplace */                      
-	 0xffff,	        /* src_mask */                             
-	 0xffff,        	/* dst_mask */                             
+	 0,		        /* special_function */
+	 "R_RBRC",              /* name */
+	 true,	                /* partial_inplace */
+	 0xffff,	        /* src_mask */
+	 0xffff,        	/* dst_mask */
 	 false)                 /* pcrel_offset */
 };
 
@@ -986,7 +986,7 @@ xcoff_write_armap (abfd, elength, map, orl_count, stridx)
   if (bfd_write ((PTR) &hdr, SIZEOF_AR_HDR, 1, abfd) != SIZEOF_AR_HDR
       || bfd_write (XCOFFARFMAG, 1, SXCOFFARFMAG, abfd) != SXCOFFARFMAG)
     return false;
-  
+
   bfd_h_put_32 (abfd, orl_count, buf);
   if (bfd_write (buf, 1, 4, abfd) != 4)
     return false;
@@ -1376,7 +1376,7 @@ const bfd_target
 #else
   "aixcoff-rs6000",		/* name */
 #endif
-  bfd_target_coff_flavour,	
+  bfd_target_coff_flavour,
   BFD_ENDIAN_BIG,		/* data byte order is big */
   BFD_ENDIAN_BIG,		/* header byte order is big */
 

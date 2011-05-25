@@ -107,7 +107,7 @@ check_for_vga()
 	/*
 	 * Generic parts of the initialization...
 	 */
-	
+
 	/* B&W colors */
 	vgaw(regs, VDAC_ADDRESS_W, 0);
 	for (i = 0; i < 256; i++) {
@@ -128,7 +128,7 @@ check_for_vga()
 	}
 	for (i = 56; *nbd; i += 2)
 		fb[i] = *nbd++;
-	
+
 	return (1);
 }
 
@@ -157,7 +157,7 @@ loadfont(ba, fb)
 	WGfx(ba, GCT_ID_READ_MAP_SELECT, 0x02);
 	WGfx(ba, GCT_ID_GRAPHICS_MODE,	 0x00);
 	WGfx(ba, GCT_ID_MISC,		 0x04);
-	
+
 	/*
 	 * load text font into beginning of display memory. Each
 	 * character cell is 32 bytes long (enough for 4 planes)

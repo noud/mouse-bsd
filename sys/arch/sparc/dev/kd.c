@@ -111,7 +111,7 @@ cnrint()
 }
 
 /*
- * This is called by kbd_attach() 
+ * This is called by kbd_attach()
  * XXX - Make this a proper child of kbd?
  */
 void
@@ -203,7 +203,7 @@ kdopen(dev, flag, mode, p)
 	struct kd_softc *kd;
 	int error, s, unit;
 	struct tty *tp;
-	
+
 	unit = minor(dev);
 	if (unit != 0)
 		return ENXIO;

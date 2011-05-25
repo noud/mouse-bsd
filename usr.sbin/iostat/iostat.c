@@ -292,7 +292,7 @@ disk_stats(etime)
 			mbps = (cur.dk_bytes[dn] / (1024.0)) / cur.dk_xfer[dn];
 		else
 			mbps = 0.0;
-		(void)printf(" %5.2f", mbps); 
+		(void)printf(" %5.2f", mbps);
 
 					/* average transfers per second. */
 		(void)printf(" %3.0f", cur.dk_xfer[dn] / etime);
@@ -304,7 +304,7 @@ disk_stats(etime)
 					/* Megabytes per second. */
 		if (atime != 0.0)
 			mbps = cur.dk_bytes[dn] / (double)(1024 * 1024);
-		else 
+		else
 			mbps = 0;
 		(void)printf(" %4.2f ", mbps / etime);
 	}
@@ -355,7 +355,7 @@ disk_statsx(etime)
 			kbps = (cur.dk_bytes[dn] / (1024.0)) / cur.dk_xfer[dn];
 		else
 			kbps = 0.0;
-		(void)printf(" %8.2f", kbps); 
+		(void)printf(" %8.2f", kbps);
 
 					/* average transfers (per second) */
 		(void)printf(" %8.0f", cur.dk_xfer[dn] / etime);
@@ -421,7 +421,7 @@ display()
 
 	if (ISSET(todo, SHOW_TTY))
 		printf("%4.0f %4.0f", cur.tk_nin / etime, cur.tk_nout / etime);
-	
+
 	if (ISSET(todo, SHOW_STATS_1))
 		disk_stats(etime);
 

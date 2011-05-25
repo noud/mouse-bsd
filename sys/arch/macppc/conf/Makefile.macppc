@@ -45,7 +45,7 @@ S!=	cd ../../../..; pwd
 PPC=	$S/arch/macppc
 
 TEXTADDR?=	100000
-HAVE_GCC28!=	${CC} --version | egrep "^(2\.8|egcs)" ; echo 
+HAVE_GCC28!=	${CC} --version | egrep "^(2\.8|egcs)" ; echo
 INCLUDES=	-I. -I$S/arch -I$S -nostdinc
 CPPFLAGS=	${INCLUDES} ${IDENT} ${PARAM} -D_KERNEL -Dmacppc
 CWARNFLAGS?=	-Werror -Wreturn-type -Wpointer-arith

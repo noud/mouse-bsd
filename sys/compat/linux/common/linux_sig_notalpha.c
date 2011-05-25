@@ -154,7 +154,7 @@ linux_sys_sigprocmask(p, v, retval)
 		syscallarg(linux_old_sigset_t *) oset;
 	} */ *uap = v;
 
-	return(linux_sigprocmask1(p, SCARG(uap, how), 
+	return(linux_sigprocmask1(p, SCARG(uap, how),
 				SCARG(uap, set), SCARG(uap, oset)));
 }
 
@@ -165,9 +165,9 @@ linux_sys_sigprocmask(p, v, retval)
 int
 linux_sys_pause(p, v, retval)
 	register struct proc *p;
-	void *v;	
+	void *v;
 	register_t *retval;
-{	
+{
 
 	return (sigsuspend1(p, 0));
 }

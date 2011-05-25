@@ -153,7 +153,7 @@ op tab[] =
   {"n","n","rotcr <REG_N>", "0100nnnn00100101", "ult=R[n]&1;R[n]=(UR[n]>>1)|(T<<31);T=ult;"},
   {"n","n","rotl <REG_N>", "0100nnnn00000100", "T=R[n]<0;R[n]<<=1;R[n]|=T;"},
   {"n","n","rotr <REG_N>", "0100nnnn00000101", "T=R[n]&1;R[n] = UR[n]>> 1;R[n]|=(T<<31);"},
-  {"","","rte", "0000000000101011", 
+  {"","","rte", "0000000000101011",
     "{ int tmp = PC; PC=RLAT(R[15])+2;R[15]+=4;SET_SR(RLAT(R[15]) & 0x3f3);R[15]+=4;SL(tmp+2);}"},
   {"","","rts", "0000000000001011", "ult=PC;PC=PR-2;SL(ult+2);"},
   {"","","sets", "0000000001011000", "S=1;"},
@@ -196,7 +196,7 @@ op tab[] =
   {"n","nm","swap.b <REG_M>,<REG_N>", "0110nnnnmmmm1000", "R[n]=((R[m]<<8)&0xff00)|((R[m]>>8)&0x00ff);"},
   {"n","nm","swap.w <REG_M>,<REG_N>", "0110nnnnmmmm1001", "R[n]=((R[m]<<16)&0xffff0000)|((R[m]>>16)&0x00ffff);"},
   {"","n","tas.b @<REG_N>", "0100nnnn00011011", "ult=RBAT(R[n]);T=ult==0;WBAT(R[n],ult|0x80);"},
-  {"0","","trapa #<imm>", "11000011i8*1....", 
+  {"0","","trapa #<imm>", "11000011i8*1....",
      "{ long imm = 0xff & i; if (i==0xc3) PC-=2; if (i<20||i==34||i==0xc3) trap(i,R,memory,maskl,maskw,little_endian); else { R[15]-=4; WLAT(R[15],GET_SR()); R[15]-=4;WLAT(R[15],PC+2); PC=RLAT(VBR+(imm<<2))-2;}}"},
   {"","0","tst #<imm>,R0", "11001000i8*1....", "T=(R0&i)==0;"},
   {"","mn","tst <REG_M>,<REG_N>", "0010nnnnmmmm1000", "T=(R[n]&R[m])==0;"},
@@ -385,7 +385,7 @@ printonmatch (ptr, a, rep)
 }
 
 
-static 
+static
 void
 think (o)
      op *o;
@@ -661,7 +661,7 @@ gensim ()
       int sextbit = -1;
       int needm = 0;
       int needn = 0;
-      
+
       char *s = p->code;
 
       printf ("/* %s %s */\n", p->name, p->code);
@@ -728,7 +728,7 @@ gensim ()
 	  printf ("i = (i ^ (1<<%d))-(1<<%d);\n", sextbit - 1, sextbit - 1);
 	}
       if (needm && needn)
-	printf("TB(m,n);");  
+	printf("TB(m,n);");
       else if (needm)
 	printf("TL(m);");
       else if (needn)
@@ -741,22 +741,22 @@ gensim ()
 	    }
 	}
 
-      
+
       {
 	/* Do the defs and refs */
 	char *r;
 	for (r = p->refs; *r; r++) {
-	 if (*r == '0') printf("CREF(0);\n"); 
-	 if (*r == 'n') printf("CREF(n);\n"); 
-	 if (*r == 'm') printf("CREF(m);\n"); 
-	 
+	 if (*r == '0') printf("CREF(0);\n");
+	 if (*r == 'n') printf("CREF(n);\n");
+	 if (*r == 'm') printf("CREF(m);\n");
+
 	}
-	for (r = p->defs; *r; r++) 
+	for (r = p->defs; *r; r++)
 	  {
-	 if (*r == '0') printf("CDEF(0);\n"); 
-	 if (*r == 'n') printf("CDEF(n);\n"); 
-	 if (*r == 'm') printf("CDEF(m);\n"); 
-	 
+	 if (*r == '0') printf("CDEF(0);\n");
+	 if (*r == 'n') printf("CDEF(n);\n");
+	 if (*r == 'm') printf("CDEF(m);\n");
+
 	}
 
       }
@@ -778,7 +778,7 @@ gendefines ()
       char *s = p->name;
       printf ("#define OPC_");
       while (*s) {
-	if (isupper(*s)) 
+	if (isupper(*s))
 	  *s = tolower(*s);
 	if (isalpha(*s)) printf("%c", *s);
 	if (*s == ' ') printf("_");

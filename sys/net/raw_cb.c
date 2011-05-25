@@ -50,7 +50,7 @@
 #include <netinet/in.h>
 
 /*
- * Routines to manage the raw protocol control blocks. 
+ * Routines to manage the raw protocol control blocks.
  *
  * TODO:
  *	hash lookups by protocol family/protocol + address family

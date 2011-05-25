@@ -81,7 +81,7 @@ db_stack_trace_cmd(addr, have_addr, count, modif)
 				pc = f64->fr_pc;
 				if (!INKERNEL(pc))
 					break;
-			
+
 				/*
 				 * Switch to frame that contains arguments
 				 */
@@ -91,7 +91,7 @@ db_stack_trace_cmd(addr, have_addr, count, modif)
 				pc = f32->fr_pc;
 				if (!INKERNEL(pc))
 					break;
-			
+
 				/*
 				 * Switch to frame that contains arguments
 				 */
@@ -99,13 +99,13 @@ db_stack_trace_cmd(addr, have_addr, count, modif)
 			}
 			if (!INKERNEL(frame))
 				break;
-			
+
 			db_find_sym_and_offset(pc, &name, &offset);
 			if (name == NULL)
 				name = "?";
-			
+
 			db_printf("%s(", name);
-			
+
 			if (frame & 1) {
 				f64 = (struct frame64 *)(frame + BIAS);
 				/*
@@ -147,7 +147,7 @@ db_dump_window(addr, have_addr, count, modif)
 
 	/* Traverse window stack */
 	for (i=0; i<addr && frame; i++) {
-		if (frame & 1) 
+		if (frame & 1)
 			frame = (u_int64_t)((struct frame64 *)(frame + BIAS))->fr_fp;
 		else frame = (u_int64_t)((struct frame32 *)frame)->fr_fp;
 	}
@@ -156,14 +156,14 @@ db_dump_window(addr, have_addr, count, modif)
 	db_print_window(frame);
 }
 
-void 
+void
 db_print_window(frame)
 u_int64_t frame;
 {
 	if (frame & 1) {
 		struct frame64* f = (struct frame64*)(frame + BIAS);
 
-		db_printf("frame64 %x locals, ins:\n", f);		
+		db_printf("frame64 %x locals, ins:\n", f);
 		if (INKERNEL(f)) {
 			db_printf("%llx %llx %llx %llx ",
 				  f->fr_local[0], f->fr_local[1], f->fr_local[2], f->fr_local[3]);
@@ -191,7 +191,7 @@ u_int64_t frame;
 				  f->fr_arg[0], f->fr_arg[1], f->fr_arg[2], f->fr_arg[3]);
 			db_printf("%llx %llx %llxsp %llxpc=",
 				  f->fr_arg[4], f->fr_arg[5], f->fr_fp, f->fr_pc);
-			db_printf("\n");	 
+			db_printf("\n");
 		}
 	} else {
 		struct frame32* f = (struct frame32*)frame;
@@ -212,14 +212,14 @@ u_int64_t frame;
 			if (copyin(f, &fr, sizeof(fr))) return;
 			f = &fr;
 			db_printf("%8x %8x %8x %8x %8x %8x %8x %8x\n",
-				  f->fr_local[0], f->fr_local[1], 
+				  f->fr_local[0], f->fr_local[1],
 				  f->fr_local[2], f->fr_local[3],
-				  f->fr_local[4], f->fr_local[5], 
+				  f->fr_local[4], f->fr_local[5],
 				  f->fr_local[6], f->fr_local[7]);
 			db_printf("%8x %8x %8x %8x %8x %8x %8x=sp %8x=pc\n",
-				  f->fr_arg[0], f->fr_arg[1], 
+				  f->fr_arg[0], f->fr_arg[1],
 				  f->fr_arg[2], f->fr_arg[3],
-				  f->fr_arg[4], f->fr_arg[5], 
+				  f->fr_arg[4], f->fr_arg[5],
 				  f->fr_fp, f->fr_pc);
 		}
 	}
@@ -310,7 +310,7 @@ db_dump_trap(addr, have_addr, count, modif)
 
 	db_printf("Trapframe %p:\ttstate: %p\tpc: %p\tnpc: %p\n",
 		  tf, (long)tf->tf_tstate, (long)tf->tf_pc, (long)tf->tf_npc);
-	db_printf("y: %x\tpil: %d\toldpil: %d\tfault: %p\tkstack: %p\ttt: %x\tGlobals:\n", 
+	db_printf("y: %x\tpil: %d\toldpil: %d\tfault: %p\tkstack: %p\ttt: %x\tGlobals:\n",
 		  (int)tf->tf_y, (int)tf->tf_pil, (int)tf->tf_oldpil, (long)tf->tf_fault,
 		  (long)tf->tf_kstack, (int)tf->tf_tt);
 	db_printf("%016llx %016llx %016llx %016llx\n",

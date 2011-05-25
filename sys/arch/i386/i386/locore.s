@@ -249,7 +249,7 @@ _C_LABEL(biosextmem):	.long	0	# extended memory reported by BIOS
 #else
 _C_LABEL(biosextmem):	.long	REALEXTMEM
 #endif
-	
+
 	.space 512
 tmpstk:
 
@@ -515,7 +515,7 @@ try586:	/* Use the `cpuid' instruction. */
 /*
  * Virtual address space of kernel:
  *
- * text | data | bss | [syms] | page dir | proc0 kstack 
+ * text | data | bss | [syms] | page dir | proc0 kstack
  *			      0          1       2      3
  */
 #define	PROC0PDIR	((0)              * NBPG)
@@ -583,7 +583,7 @@ try586:	/* Use the `cpuid' instruction. */
 	/* Calculate end of text segment, rounded to a page. */
 	leal	(RELOC(etext)+PGOFSET),%edx
 	andl	$~PGOFSET,%edx
-	
+
 	/* Skip over the first 1MB. */
 	movl	$_RELOC(KERNTEXTOFF),%eax
 	movl	%eax,%ecx
@@ -754,7 +754,7 @@ NENTRY(svr4_sigcode)
 	movl	%cx,%fs
 	movl	%dx,%gs
 1:	pushl	%eax
-	pushl	$1			# setcontext(p) == syscontext(1, p) 
+	pushl	$1			# setcontext(p) == syscontext(1, p)
 	pushl	%eax			# junk to fake return address
 	movl	$SVR4_SYS_context,%eax
 	int	$0x80	 		# enter kernel with args on stack
@@ -851,7 +851,7 @@ NENTRY(ibcs2_sigcode)
 	.globl  _C_LABEL(ibcs2_esigcode)
 _C_LABEL(ibcs2_esigcode):
 #endif
-	
+
 /*****************************************************************************/
 
 /*
@@ -1078,7 +1078,7 @@ ENTRY(copyout)
 	pushl	%esi
 	pushl	%edi
 	pushl	$0
-	
+
 	movl	16(%esp),%esi
 	movl	20(%esp),%edi
 	movl	24(%esp),%eax
@@ -1126,14 +1126,14 @@ ENTRY(copyout)
 1:	/* Check PTE for each page. */
 	testb	$PG_RW,_C_LABEL(PTmap)(,%edi,4)
 	jz	2f
-	
+
 4:	incl	%edi
 	decl	%ecx
 	jns	1b
 
 	movl	20(%esp),%edi
 	jmp	3f
-	
+
 2:	/* Simulate a trap. */
 	pushl	%eax
 	pushl	%ecx
@@ -1179,7 +1179,7 @@ ENTRY(copyin)
 	movl	_C_LABEL(curpcb),%eax
 	pushl	$0
 	movl	$_C_LABEL(copy_fault),PCB_ONFAULT(%eax)
-	
+
 	movl	16(%esp),%esi
 	movl	20(%esp),%edi
 	movl	24(%esp),%eax
@@ -1388,7 +1388,7 @@ ENTRY(copyinstr)
 ENTRY(copystr_fault)
 	movl	$EFAULT,%eax
 
-copystr_return:	
+copystr_return:
 	/* Set *lencopied and return %eax. */
 	movl	_C_LABEL(curpcb),%ecx
 	movl	$0,PCB_ONFAULT(%ecx)
@@ -1459,7 +1459,7 @@ ENTRY(fuword)
 	movl	(%edx),%eax
 	movl	$0,PCB_ONFAULT(%ecx)
 	ret
-	
+
 /*
  * fusword(caddr_t uaddr);
  * Fetch a short from the user's address space.
@@ -1473,7 +1473,7 @@ ENTRY(fusword)
 	movzwl	(%edx),%eax
 	movl	$0,PCB_ONFAULT(%ecx)
 	ret
-	
+
 /*
  * fuswintr(caddr_t uaddr);
  * Fetch a short from the user's address space.  Can be called during an
@@ -1488,7 +1488,7 @@ ENTRY(fuswintr)
 	movzwl	(%edx),%eax
 	movl	$0,PCB_ONFAULT(%ecx)
 	ret
-	
+
 /*
  * fubyte(caddr_t uaddr);
  * Fetch a byte from the user's address space.
@@ -1572,7 +1572,7 @@ ENTRY(suword)
 	xorl	%eax,%eax
 	movl	%eax,PCB_ONFAULT(%ecx)
 	ret
-	
+
 /*
  * susword(caddr_t uaddr, short x);
  * Store a short in the user's address space.
@@ -2115,7 +2115,7 @@ ENTRY(switch_exit)
  */
 ENTRY(savectx)
 	movl	4(%esp),%edx		# edx = p->p_addr
-  
+
 	/* Save segment registers. */
 	movl	%fs,%ax
 	movl	%gs,%cx
@@ -2142,7 +2142,7 @@ ENTRY(savectx)
  *
  * XXX - debugger traps are now interrupt gates so at least bdb doesn't lose
  * control.  The sti's give the standard losing behaviour for ddb and kgdb.
- */ 
+ */
 
 /*
  * XXX traditional CPP's evaluation semantics make this necessary.

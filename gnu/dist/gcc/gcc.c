@@ -784,7 +784,7 @@ static int n_default_compilers
 #ifdef LINK_COMMAND_SPEC
 /* Provide option to override link_command_spec from machine specific
    configuration files.  */
-static char *link_command_spec = 
+static char *link_command_spec =
 	LINK_COMMAND_SPEC;
 #else
 #ifdef LINK_LIBGCC_SPECIAL
@@ -1929,7 +1929,7 @@ build_search_list (paths, prefix, check_dir_p)
 	{
 	  if (!first_time)
 	    obstack_1grow (&collect_obstack, PATH_SEPARATOR);
-	    
+
 	  first_time = FALSE;
 	  obstack_grow (&collect_obstack, pprefix->prefix, len);
 	  obstack_grow (&collect_obstack, machine_suffix, suffix_len);
@@ -1942,7 +1942,7 @@ build_search_list (paths, prefix, check_dir_p)
 	{
 	  if (! first_time)
 	    obstack_1grow (&collect_obstack, PATH_SEPARATOR);
-	    
+
 	  first_time = FALSE;
 	  obstack_grow (&collect_obstack, pprefix->prefix, len);
 	  obstack_grow (&collect_obstack, just_machine_suffix,
@@ -2252,7 +2252,7 @@ execute ()
       /* For help listings, put a blank line between sub-processes.  */
       if (print_help_list)
 	fputc ('\n', stderr);
-      
+
       /* Print each piped command as a separate line.  */
       for (i = 0; i < n_commands ; i++)
 	{
@@ -2499,60 +2499,60 @@ display_help ()
      sub-processes.  */
 }
 
-static void 								
-add_preprocessor_option (option, len)					
-     char * option;							
-     int    len;							
-{									
-  n_preprocessor_options++;							
-									
-  if (! preprocessor_options)						
-    preprocessor_options							
-      = (char **) xmalloc (n_preprocessor_options * sizeof (char **));	
-  else									
-    preprocessor_options							
-      = (char **) xrealloc (preprocessor_options,				
-			    n_preprocessor_options * sizeof (char **));	
-  									
-  preprocessor_options [n_preprocessor_options - 1] = save_string (option, len);  
+static void
+add_preprocessor_option (option, len)
+     char * option;
+     int    len;
+{
+  n_preprocessor_options++;
+
+  if (! preprocessor_options)
+    preprocessor_options
+      = (char **) xmalloc (n_preprocessor_options * sizeof (char **));
+  else
+    preprocessor_options
+      = (char **) xrealloc (preprocessor_options,
+			    n_preprocessor_options * sizeof (char **));
+
+  preprocessor_options [n_preprocessor_options - 1] = save_string (option, len);
 }
-     
-static void 								
-add_assembler_option (option, len)					
-     char * option;							
-     int    len;							
-{									
-  n_assembler_options++;							
-									
-  if (! assembler_options)						
-    assembler_options							
-      = (char **) xmalloc (n_assembler_options * sizeof (char **));	
-  else									
-    assembler_options							
-      = (char **) xrealloc (assembler_options,				
-			    n_assembler_options * sizeof (char **));	
-  									
-  assembler_options [n_assembler_options - 1] = save_string (option, len);  
+
+static void
+add_assembler_option (option, len)
+     char * option;
+     int    len;
+{
+  n_assembler_options++;
+
+  if (! assembler_options)
+    assembler_options
+      = (char **) xmalloc (n_assembler_options * sizeof (char **));
+  else
+    assembler_options
+      = (char **) xrealloc (assembler_options,
+			    n_assembler_options * sizeof (char **));
+
+  assembler_options [n_assembler_options - 1] = save_string (option, len);
 }
-     
-static void 								
-add_linker_option (option, len)					
-     char * option;							
-     int    len;							
-{									
-  n_linker_options++;							
-									
-  if (! linker_options)						
-    linker_options							
-      = (char **) xmalloc (n_linker_options * sizeof (char **));	
-  else									
-    linker_options							
-      = (char **) xrealloc (linker_options,				
-			    n_linker_options * sizeof (char **));	
-  									
-  linker_options [n_linker_options - 1] = save_string (option, len);  
+
+static void
+add_linker_option (option, len)
+     char * option;
+     int    len;
+{
+  n_linker_options++;
+
+  if (! linker_options)
+    linker_options
+      = (char **) xmalloc (n_linker_options * sizeof (char **));
+  else
+    linker_options
+      = (char **) xrealloc (linker_options,
+			    n_linker_options * sizeof (char **));
+
+  linker_options [n_linker_options - 1] = save_string (option, len);
 }
-     
+
 
 /* Create the vector `switches' and its contents.
    Store its length in `n_switches'.  */
@@ -2752,7 +2752,7 @@ process_command (argc, argv)
 	  /* We will be passing a dummy file on to the sub-processes.  */
 	  n_infiles++;
 	  n_switches++;
-	  
+
 	  add_preprocessor_option ("--help", 6);
 	  add_assembler_option ("--help", 6);
 	  add_linker_option ("--help", 6);
@@ -2782,7 +2782,7 @@ process_command (argc, argv)
 		add_assembler_option (argv[i] + prev, j - prev);
 		prev = j + 1;
 	      }
-	  
+
 	  /* Record the part after the last comma.  */
 	  add_assembler_option (argv[i] + prev, j - prev);
 	}
@@ -2799,7 +2799,7 @@ process_command (argc, argv)
 		add_preprocessor_option (argv[i] + prev, j - prev);
 		prev = j + 1;
 	      }
-	  
+
 	  /* Record the part after the last comma.  */
 	  add_preprocessor_option (argv[i] + prev, j - prev);
 	}
@@ -2990,7 +2990,7 @@ process_command (argc, argv)
 	      if (! have_c)
 		{
 		  int skip;
-		  
+
 		  /* Forward scan, just in case -S or -c is specified
 		     after -o.  */
 		  int j = i + 1;
@@ -3061,7 +3061,7 @@ process_command (argc, argv)
   add_prefix (&startfile_prefixes, standard_exec_prefix_1, "BINUTILS",
 	      0, 1, warn_std_ptr);
 
-  tooldir_prefix = concat (tooldir_base_prefix, spec_machine, 
+  tooldir_prefix = concat (tooldir_base_prefix, spec_machine,
 			   dir_separator_str, NULL_PTR);
 
   /* If tooldir is relative, base it on exec_prefixes.  A relative
@@ -3080,21 +3080,21 @@ process_command (argc, argv)
 		      spec_version, dir_separator_str, tooldir_prefix, NULL_PTR);
 
 	  add_prefix (&exec_prefixes,
-		      concat (gcc_exec_tooldir_prefix, "bin", 
+		      concat (gcc_exec_tooldir_prefix, "bin",
 			      dir_separator_str, NULL_PTR),
 		      NULL_PTR, 0, 0, NULL_PTR);
 	  add_prefix (&startfile_prefixes,
-		      concat (gcc_exec_tooldir_prefix, "lib", 
+		      concat (gcc_exec_tooldir_prefix, "lib",
 			      dir_separator_str, NULL_PTR),
 		      NULL_PTR, 0, 0, NULL_PTR);
 	}
 
       tooldir_prefix = concat (standard_exec_prefix, spec_machine,
-			       dir_separator_str, spec_version, 
+			       dir_separator_str, spec_version,
 			       dir_separator_str, tooldir_prefix, NULL_PTR);
     }
 
-  add_prefix (&exec_prefixes, 
+  add_prefix (&exec_prefixes,
               concat (tooldir_prefix, "bin", dir_separator_str, NULL_PTR),
 	      "BINUTILS", 0, 0, NULL_PTR);
   add_prefix (&startfile_prefixes,
@@ -3145,14 +3145,14 @@ process_command (argc, argv)
 		 the various sub-processes.  */
 	      infiles[n_infiles].language = "c";
 	      infiles[n_infiles++].name   = "help-dummy";
-	      
+
 	      /* Preserve the --help switch so that it can be caught by the
 		 cc1 spec string.  */
 	      switches[n_switches].part1     = "--help";
 	      switches[n_switches].args      = 0;
 	      switches[n_switches].live_cond = 0;
 	      switches[n_switches].valid     = 0;
-	      
+
 	      n_switches++;
 	    }
 	}
@@ -3254,7 +3254,7 @@ process_command (argc, argv)
 	      char *part1 = (char *) xmalloc (2);
 	      part1[0] = c;
 	      part1[1] = '\0';
-	      
+
 	      switches[n_switches].part1 = part1;
 	      switches[n_switches].args = (char **) xmalloc (2 * sizeof (char *));
 	      switches[n_switches].args[0] = xmalloc (strlen (p));
@@ -4264,7 +4264,7 @@ next_member:
 
 	  while (*q++ != ':') continue;
 	  body = q;
-	  
+
 	  while (count > 0)
 	    {
 	      if (*q == '{')
@@ -4595,11 +4595,11 @@ is_directory (path1, path2, linker)
   /* Exclude directories that the linker is known to search.  */
   if (linker
       && ((cp - path == 6
-	   && strcmp (path, concat (dir_separator_str, "lib", 
+	   && strcmp (path, concat (dir_separator_str, "lib",
 				    dir_separator_str, ".", NULL_PTR)) == 0)
 	  || (cp - path == 10
-	      && strcmp (path, concat (dir_separator_str, "usr", 
-				       dir_separator_str, "lib", 
+	      && strcmp (path, concat (dir_separator_str, "usr",
+				       dir_separator_str, "lib",
 				       dir_separator_str, ".", NULL_PTR)) == 0)))
     return 0;
 
@@ -4797,7 +4797,7 @@ main (argc, argv)
   strcat (specs_file, "specs");
   if (access (specs_file, R_OK) == 0)
     read_specs (specs_file, TRUE);
- 
+
   /* Process any user specified specs in the order given on the command
      line.  */
   for (uptr = user_specs_head; uptr; uptr = uptr->next)
@@ -4855,7 +4855,7 @@ main (argc, argv)
 			      machine_suffix,
 			      standard_startfile_prefix, NULL_PTR),
 		      NULL_PTR, 0, 0, NULL_PTR);
-	}		       
+	}
 
       add_prefix (&startfile_prefixes, standard_startfile_prefix_1,
 		  "BINUTILS", 0, 0, NULL_PTR);
@@ -4949,7 +4949,7 @@ main (argc, argv)
 	{
 	  printf ("\nReport bugs to egcs-bugs@egcs.cygnus.com.\n");
 	  printf ("Please see the file BUGS (included with the sources) first.\n");
-	  
+
 	  exit (0);
 	}
 
@@ -4957,7 +4957,7 @@ main (argc, argv)
 	 called 'help-dummy' which needs to be compiled, and we pass this
 	 on the the various sub-processes, along with the --help switch.  */
     }
-  
+
   if (verbose_flag)
     {
       int n;
@@ -5140,7 +5140,7 @@ main (argc, argv)
       printf ("\nReport bugs to egcs-bugs@egcs.cygnus.com.\n");
       printf ("Please see the file BUGS (included with the sources) first.\n");
     }
-  
+
   exit (error_count > 0 ? (signal_count ? 2 : 1) : 0);
   /* NOTREACHED */
   return 0;
@@ -5689,7 +5689,7 @@ set_multilib_dir ()
 	}
 
       ++p;
-    }      
+    }
 }
 
 /* Print out the multiple library subdirectory selection

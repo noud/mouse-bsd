@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright (C) 1995 Advanced RISC Machines Limited. All rights reserved.
- * 
+ *
  * This software may be freely used, copied, modified, and distributed
  * provided that the above copyright notice is preserved in all copies of the
  * software.
@@ -1205,7 +1205,7 @@ static int CallStoppedProcs(unsigned reason)
 {
   stoppedProcListElement *p = stopped_proc_list;
   int err=RDIError_NoError;
-  
+
   for (; p!=NULL ; p=p->next) {
     int local_err = p->fn(reason, p->arg);
     if (local_err != RDIError_NoError) err=local_err;
@@ -1338,7 +1338,7 @@ static void interrupt_target( void )
 #endif
 
 /* Core functionality for execute and step */
-static int angel_RDI_ExecuteOrStep(PointHandle *handle, word type, 
+static int angel_RDI_ExecuteOrStep(PointHandle *handle, word type,
                                    unsigned ninstr)
 {
   int err;
@@ -2119,7 +2119,7 @@ int angel_RDI_info(unsigned type, ARMword *arg1, ARMword *arg2) {
       angel_check_DCC_handler( &ccstate );
 #endif
 #ifdef _WIN32
-      
+
 #endif
 
       register_debug_message_handler();

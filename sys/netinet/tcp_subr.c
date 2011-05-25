@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -208,7 +208,7 @@ tcp_init()
 		max_protohdr = hlen;
 	if (max_linkhdr + hlen > MHLEN)
 		panic("tcp_init");
-	
+
 	/* Initialize the compressed state engine. */
 	syn_cache_init();
 }
@@ -308,7 +308,7 @@ tcp_template(tp)
 		ip6->ip6_flow = in6p->in6p_flowinfo & IPV6_FLOWINFO_MASK;
 		if (ip6_auto_flowlabel) {
 			ip6->ip6_flow &= ~IPV6_FLOWLABEL_MASK;
-			ip6->ip6_flow |= 
+			ip6->ip6_flow |=
 				(htonl(ip6_flow_seq++) & IPV6_FLOWLABEL_MASK);
 		}
 		ip6->ip6_vfc &= ~IPV6_VERSION_MASK;
@@ -545,7 +545,7 @@ tcp_respond(tp, template, m, th0, ack, seq, flags)
 			ip6->ip6_hlim = ip6_defhlim;
 		ip6->ip6_flow &= ~IPV6_FLOWINFO_MASK;
 		if (ip6_auto_flowlabel) {
-			ip6->ip6_flow |= 
+			ip6->ip6_flow |=
 				(htonl(ip6_flow_seq++) & IPV6_FLOWLABEL_MASK);
 		}
 		break;
@@ -834,7 +834,7 @@ tcp_close(tp)
 #ifdef RTV_RTT
 	/*
 	 * If we sent enough data to get some meaningful characteristics,
-	 * save them in the routing entry.  'Enough' is arbitrarily 
+	 * save them in the routing entry.  'Enough' is arbitrarily
 	 * defined as the sendpipesize (default 4K) * 16.  This would
 	 * give us 16 rtt samples assuming we only get one sample per
 	 * window (the usual case on a long haul net).  16 samples is
@@ -1013,7 +1013,7 @@ tcp_notify(inp, error)
 	} else if (TCPS_HAVEESTABLISHED(tp->t_state) == 0 &&
 	    tp->t_rxtshift > 3 && tp->t_softerror)
 		so->so_error = error;
-	else 
+	else
 		tp->t_softerror = error;
 	wakeup((caddr_t) &so->so_timeo);
 	sorwakeup(so);
@@ -1043,7 +1043,7 @@ tcp6_notify(in6p, error)
 	} else if (TCPS_HAVEESTABLISHED(tp->t_state) == 0 &&
 	    tp->t_rxtshift > 3 && tp->t_softerror)
 		so->so_error = error;
-	else 
+	else
 		tp->t_softerror = error;
 	wakeup((caddr_t) &so->so_timeo);
 	sorwakeup(so);
@@ -1265,7 +1265,7 @@ tcp_mtudisc(inp, errno)
 				    TCP_INITIAL_WINDOW(tcp_init_win,
 				    rt->rt_rmx.rmx_mtu);
 		}
-	    
+
 		/*
 		 * Resend unacknowledged packets.
 		 */
@@ -1321,7 +1321,7 @@ tcp6_mtudisc(in6p, errno)
  * Compute the MSS to advertise to the peer.  Called only during
  * the 3-way handshake.  If we are the server (peer initiated
  * connection), we are called with a pointer to the interface
- * on which the SYN packet arrived.  If we are the client (we 
+ * on which the SYN packet arrived.  If we are the client (we
  * initiated connection), we are called with a pointer to the
  * interface out which this connection should go.
  *
@@ -1425,7 +1425,7 @@ tcp_mss_from_peer(tp, offer)
 #endif
 
 	/*
-	 * As per RFC1122, use the default MSS value, unless they 
+	 * As per RFC1122, use the default MSS value, unless they
 	 * sent us an offer.  Do not accept offers less than 32 bytes.
 	 */
 	mss = tcp_mssdflt;
@@ -1697,7 +1697,7 @@ ipsec6_hdrsiz_tcp(tp)
 
 /*
  * Determine the length of the TCP options for this connection.
- * 
+ *
  * XXX:  What do we do for SACK, when we add that?  Just reserve
  *       all of the space?  Otherwise we can't exactly be incrementing
  *       cwnd by an amount that varies depending on the amount we last
@@ -1708,7 +1708,7 @@ u_int
 tcp_optlen(tp)
 	struct tcpcb *tp;
 {
-	if ((tp->t_flags & (TF_REQ_TSTMP|TF_RCVD_TSTMP|TF_NOOPT)) == 
+	if ((tp->t_flags & (TF_REQ_TSTMP|TF_RCVD_TSTMP|TF_NOOPT)) ==
 	    (TF_REQ_TSTMP | TF_RCVD_TSTMP))
 		return TCPOLEN_TSTAMP_APPA;
 	else

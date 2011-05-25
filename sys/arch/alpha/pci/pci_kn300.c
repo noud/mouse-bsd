@@ -126,10 +126,10 @@ pci_kn300_pickintr(ccp, first)
 	}
 }
 
-int     
+int
 dec_kn300_intr_map(ccv, bustag, buspin, line, ihp)
 	void *ccv;
-	pcitag_t bustag; 
+	pcitag_t bustag;
 	int buspin, line;
 	pci_intr_handle_t *ihp;
 {
@@ -200,7 +200,7 @@ dec_kn300_intr_establish(ccv, ih, level, func, arg)
         int level;
         int (*func) __P((void *));
         void *arg;
-{           
+{
 	struct mcpcia_config *ccp = ccv;
 	void *cookie;
 	int irq;
@@ -218,7 +218,7 @@ dec_kn300_intr_establish(ccv, ih, level, func, arg)
 	return (cookie);
 }
 
-void    
+void
 dec_kn300_intr_disestablish(ccv, cookie)
 	void *ccv, *cookie;
 {
@@ -247,7 +247,7 @@ kn300_iointr(framep, vec)
 			panic(plaint, vec);
 		}
 #endif
-	} 
+	}
 
 #ifdef	EVCNT_COUNTERS
 	kn300_intr_evcnt.ev_count++;

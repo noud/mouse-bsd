@@ -80,7 +80,7 @@ Key_table *key_table_addr = default_table;
 
 #ifdef CPU_SINGLE
 #include "ms.h"
-#include <sys/clist.h>	
+#include <sys/clist.h>
 #include <sys/ttydev.h>
 #include <sys/tty.h>
 #include <sys/time.h>
@@ -232,7 +232,7 @@ kbd_putcode(code)
 	kbd_put_raw(code);
 	kbd_encode(code);
 	while ((c = getc(&keyboard_buf)) != -1)
-		bmcnrint(c); 
+		bmcnrint(c);
 }
 
 int
@@ -276,7 +276,7 @@ kb_softint()
 #endif
 
 #ifdef NOTDEF /* KU:XXX */
-		if (!tty00_is_console) 
+		if (!tty00_is_console)
 #endif
 			rst_dimmer_cnt();
 #if NMS > 0
@@ -364,7 +364,7 @@ kbd_ctrl()
 			msg_recv(ports[select], NULL, &addr, &count, 0);
 			put(kbd_buf, addr, count);
 		} else {
-			msg_recv(ports[select], &from, &len, NULL, 0); 
+			msg_recv(ports[select], &from, &len, NULL, 0);
 			n = buffer_status(kbd_buf);
 			n = imin(n, *len);
 			n = get(kbd_buf, buf, imin(n, sizeof (buf)));

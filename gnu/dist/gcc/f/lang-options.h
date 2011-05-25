@@ -28,7 +28,7 @@ the Free Software Foundation, 59 Temple Place - Suite 330, Boston, MA
 		   overflowing some old compiler's tables, etc. */
 
 DEFINE_LANG_NAME ("Fortran")
-     
+
   { "-fversion", "Print g77-specific compiler version info, run internal tests" },
   { "-fnull-version", "" },
 /*"-fident",*/

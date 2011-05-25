@@ -13,7 +13,7 @@ do
 	for file in $FILLST
 	do
 		so=`line < $file | sed "s/ .*//"`
-		if test "$so" = ".so" 
+		if test "$so" = ".so"
 		then
 			continue
 		fi

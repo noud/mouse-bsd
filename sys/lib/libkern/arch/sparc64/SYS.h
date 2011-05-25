@@ -89,7 +89,7 @@
 	t ST_SYSCALL; ERROR()
 
 /*
- * SYSCALL_NOERROR is like SYSCALL, except it's used for syscalls 
+ * SYSCALL_NOERROR is like SYSCALL, except it's used for syscalls
  * that never fail.
  *
  * XXX - This should be optimized.
@@ -98,7 +98,7 @@
 	ENTRY(x); mov _CAT(SYS_,x),%g1; t ST_SYSCALL
 
 /*
- * RSYSCALL_NOERROR is like RSYSCALL, except it's used for syscalls 
+ * RSYSCALL_NOERROR is like RSYSCALL, except it's used for syscalls
  * that never fail.
  *
  * XXX - This should be optimized.

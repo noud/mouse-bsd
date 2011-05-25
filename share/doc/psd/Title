@@ -264,7 +264,7 @@ Documents of Historical Interest
 .IP
 .tl 'The Unix Time\-Sharing System''tabbed 1'
 .QP
-Dennis Ritchie and Ken Thompson's original paper about UNIX, reprinted 
+Dennis Ritchie and Ken Thompson's original paper about UNIX, reprinted
 from Communications of the ACM.
 .sp
 .IP
@@ -276,7 +276,7 @@ kernel and file system.
 .IP
 .tl 'The Unix I/O System''tabbed 3'
 .QP
-Dennis Ritchie's overview of the I/O System of Version 7; still helpful for 
+Dennis Ritchie's overview of the I/O System of Version 7; still helpful for
 those writing device drivers.
 .sp
 .IP
@@ -322,7 +322,7 @@ this version reflects the work done at Berkeley.
 .IP
 .tl 'Introduction to the f77 I/O Library''tabbed 9'
 .QP
-A description of the revised input/output library for Fortran 77, 
+A description of the revised input/output library for Fortran 77,
 reflecting work carried out at Berkeley.
 .sp
 .SH
@@ -343,7 +343,7 @@ How to debug programs using the assembly-language level \fIadb\fP debugger.
 .tl 'Make \- A Program for Maintaining Computer Programs''tabbed 12'
 .QP
 Indispensable tool for making sure large programs are properly
-compiled with minimal effort. 
+compiled with minimal effort.
 .sp
 .IP
 .tl 'An Introduction to the Revision Control System''tabbed 13'
@@ -405,7 +405,7 @@ of 4.4BSD.
 .IP
 .tl 'An Advanced 4.4BSD Interprocess Communication Tutorial''tabbed 21'
 .QP
-The reference document (with some examples) for the Interprocess Communication 
+The reference document (with some examples) for the Interprocess Communication
 Facilities of 4.4BSD.
 .sp
 .IP
@@ -532,7 +532,7 @@ to keep them from contaminating
 the more staid information of URM section 1.
 .LP
 Miscellaneous collection of information necessary for
-writing in various specialized languages such as character codes, 
+writing in various specialized languages such as character codes,
 macro packages for typesetting, etc is contained in URM section 7.
 .LP
 System calls are entries into the BSD kernel.
@@ -573,7 +573,7 @@ The name of the entry is in the upper corners of its pages,
 together with the section number.
 Entries within each section are alphabetized.
 The page numbers of each entry start at 1;
-it is infeasible to number consecutively the pages of 
+it is infeasible to number consecutively the pages of
 a document like this that is republished in many variant forms.
 .LP
 All entries are based on a common format;

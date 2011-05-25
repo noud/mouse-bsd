@@ -25,17 +25,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-	
+
 /*
  * iwm.s -- low level routines for Sony floppy disk access.
- * The present implementation supports the 800K GCR format on non-DMA 
+ * The present implementation supports the 800K GCR format on non-DMA
  * machines.
  *
  * The IWM and SWIM chips run in polled mode; they are not capable of
- * interrupting the CPU. That's why interrupts need only be blocked 
- * when there is simply no time for interrupt routine processing, 
+ * interrupting the CPU. That's why interrupts need only be blocked
+ * when there is simply no time for interrupt routine processing,
  * i.e. during data transfers.
- * 
+ *
  * o  The local routines do not block any interrupts.
  *
  * o  The iwmXXX() routines that set/get IWM or drive settings are not
@@ -46,7 +46,7 @@
  *    would be lost.
  *    The old status register content is stored on the stack.
  *
- * o  We run at spl4 to give the NMI switch a chance. All currently 
+ * o  We run at spl4 to give the NMI switch a chance. All currently
  *    supported machines have no interrupt sources > 4 (SSC) -- the
  *    Q700 interrupt levels can be shifted around in A/UX mode,
  *    but we're not there, yet.
@@ -57,9 +57,9 @@
  *    so interrupt handling is left to the caller.
  *
  * If we wanted to deal with incoming serial data / serial interrupts,
- * we would have to either call zshard(0) {mac68k/dev/zs.c} or 
- * zsc_intr_hard(0) {sys/dev/ic/z8530sc.c}. Or we would have to roll our 
- * own as both of the listed function calls look rather expensive compared 
+ * we would have to either call zshard(0) {mac68k/dev/zs.c} or
+ * zsc_intr_hard(0) {sys/dev/ic/z8530sc.c}. Or we would have to roll our
+ * own as both of the listed function calls look rather expensive compared
  * to a 'tst.b REGADDR ; bne NN'.
  */
 
@@ -69,20 +69,20 @@
 
 #define USE_DELAY	0	/* "1" bombs for unknown reasons */
 
-	
+
 /*
  * References to global name space
  */
 	.extern	_TimeDBRA		| in mac68k/macrom.c
 	.extern _VIA1Base		| in mac68k/machdep.c
 	.extern	_IWMBase		| in iwm_fd.c
-	
+
 
 	.data
-	
+
 diskTo:
 	/*
-	 * Translation table from 'disk bytes' to 6 bit 'nibbles', 
+	 * Translation table from 'disk bytes' to 6 bit 'nibbles',
 	 * taken from the .Sony driver.
 	 * This could be made a loadable table (via ioctls) to read
 	 * e.g. ProDOS disks (there is a hook for such a table in .Sony).
@@ -102,9 +102,9 @@ diskTo:
 	.byte	/* F0 */  0xFF, 0xFF, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38
 	.byte	/* F8 */  0xFF, 0x39, 0x3A, 0x3B, 0x3C, 0x3D, 0x3E, 0x3F
 
-hdrLeadIn:	
+hdrLeadIn:
 	.byte	0xD5, 0xAA, 0x96
-	
+
 hdrLeadOut:
 	.byte	0xDE, 0xAA, 0xFF
 
@@ -113,7 +113,7 @@ dataLeadIn:
 
 dataLeadOut:
 	.byte	0xDE, 0xAA, 0xFF, 0xFF
-	
+
 
 toDisk:
 	/*
@@ -140,11 +140,11 @@ syncPattern:
 	.byte	0xD5, 0xAA, 0xAD
 
 
-	
+
 	.text
 
 /*
- * Register conventions:	
+ * Register conventions:
  *	a0	IWM base address
  *	a1	VIA1 base address
  *
@@ -156,7 +156,7 @@ syncPattern:
  */
 
 
-	
+
 /**
  **	Export wrappers
  **/
@@ -181,19 +181,19 @@ ENTRY(iwmQueryDrvFlag)
 
 	bra	quDone			| Invalid drive #
 
-quDrv00:			
+quDrv00:
 	tstb	a0@(intDrive)		| SELECT; choose drive #0
 	bra	queryDrv
 
-quDrv01:		
+quDrv01:
 	tstb	a0@(extDrive)		| SELECT; choose drive #1
 
-queryDrv:	
+queryDrv:
 	movel	a6@(12),d0		| Get register #
 	bsr	driveStat
 
-quDone:	
-	moveml	sp@+,d1/a0-a1	
+quDone:
+	moveml	sp@+,d1/a0-a1
 	unlk	a6
 	rts
 
@@ -212,16 +212,16 @@ ENTRY(iwmReadSectHdr)
 	moveml	d1-d5/a0-a4,sp@-
 	movel	a6@(0x08),a4		| Get param block address
 	bsr	readSectHdr
-	moveml	sp@+,d1-d5/a0-a4	
+	moveml	sp@+,d1-d5/a0-a4
 	unlk	a6
 	rts
-	
+
 
 
 /**
  **	Exported functions
  **/
-	
+
 /*
  * iwmInit -- Initialize IWM chip.
  *
@@ -244,7 +244,7 @@ ENTRY(iwmInit)
 	tstb	a0@(mtrOff)		| ENABLE; make sure drive is off
 	tstb	a0@(intDrive)		| SELECT; choose drive 1
 	moveq	#0x1F,d0		| XXX was 0x17 -- WHY!?
-	
+
 	/*
 	 * First do it quick...
 	 */
@@ -275,10 +275,10 @@ initLp:
 	moveb	#iwmMode,a0@(q7H)	| Init IWM
 	tstb	a0@(q7L)
 	bra	initLp
-	
-initDone:	
+
+initDone:
 	tstb	a0@(q6L)		| Prepare IWM for data
-	moveq	#0,d0			| noErr	
+	moveq	#0,d0			| noErr
 
 initErr:
 	moveml	sp@+,d2/a0
@@ -296,7 +296,7 @@ initErr:
  *				 2 - 0 = Motor is running
  *				 3 - 0 = Disk is write protected
  *				 4 - 0 = Disk is DD
- *				31 - (-1) No drive / invalid drive #	
+ *				31 - (-1) No drive / invalid drive #
  */
 ENTRY(iwmCheckDrive)
 	link	a6,#0
@@ -313,13 +313,13 @@ ENTRY(iwmCheckDrive)
 
 	bra	chkDone			| invalid drive #
 
-chkDrv00:			
+chkDrv00:
 	tstb	a0@(intDrive)		| SELECT; choose drive #0
 	bra	chkDrive
 
-chkDrv01:		
+chkDrv01:
 	tstb	a0@(extDrive)		| SELECT; choose drive #1
-		
+
 chkDrive:
 	moveq	#-2,d1			| error code
 	moveq	#drvInstalled,d0	| Drive installed?
@@ -333,11 +333,11 @@ chkDrive:
 	bpl	chkHasDisk
 	/*
 	 * Drive is double-sided -- this is not really a surprise as the
-	 * old ss 400k drive needs disk speed control from the Macintosh 
+	 * old ss 400k drive needs disk speed control from the Macintosh
 	 * and we're not doing that here. Anyway - just in case...
 	 * I am not sure m680x0 Macintoshes (x>0) support 400K drives at all
 	 * due to their radically different sound support.
-	 */ 
+	 */
 	bset	#0,d1			| 1 = no.
 chkHasDisk:
 	moveq	#diskInserted,d0	| Disk inserted?
@@ -345,12 +345,12 @@ chkHasDisk:
 	bpl	chkMotorOn
 	bset	#1,d1			| 1 = No.
 	bra	chkDone
-chkMotorOn:		
+chkMotorOn:
 	moveq	#drvMotorState,d0	| Motor is running?
 	bsr	driveStat
 	bpl	chkWrtProt
 	bset	#2,d1			| 1 = No.
-chkWrtProt:	
+chkWrtProt:
 	moveq	#writeProtected,d0	| Disk is write protected?
 	bsr	driveStat
 	bpl	chkDD_HD
@@ -362,15 +362,15 @@ chkDD_HD:
 	bset	#4,d1			| 1 = No.
 chkDone:
 	movel	d1,d0
-	moveml	sp@+,d1/a0-a1	
+	moveml	sp@+,d1/a0-a1
 	unlk	a6
 	rts
-	
+
 
 /*
- * iwmDiskEject -- post EJECT command and toggle LSTRB line to give a 
+ * iwmDiskEject -- post EJECT command and toggle LSTRB line to give a
  * strobe signal.
- * IM III says pulse length = 500 ms, but we seem to get away with 
+ * IM III says pulse length = 500 ms, but we seem to get away with
  * less delay; after all, we spin lock the CPU with it.
  *
  * Parameters:	stack	l	drive number (0,1)
@@ -390,22 +390,22 @@ ENTRY(iwmDiskEject)
 
 	bra	ejDone			| Invalid drive #
 
-ejDrv00:			
+ejDrv00:
 	tstb	a0@(intDrive)		| SELECT; choose drive #0
 	bra	ejDisk
 
-ejDrv01:		
+ejDrv01:
 	tstb	a0@(extDrive)		| SELECT; choose drive #1
-ejDisk:		
+ejDisk:
 	tstb	a0@(mtrOn)		| ENABLE; activate drive
-	
+
 	moveq	#motorOffCmd,d0		| Motor off
  	bsr	driveCmd
 
 	moveq	#diskInserted,d0	| Disk inserted?
 	bsr	driveStat
 	bmi	ejDone
-	
+
 	moveq	#ejectDiskCmd,d0	| Eject it
 	bsr	selDriveReg
 
@@ -444,7 +444,7 @@ ENTRY(iwmSelectDrive)
 extDrv:
 	tstb	a0@(extDrive)
 sdDone:
-	moveml	sp@+,a0-a1	
+	moveml	sp@+,a0-a1
 	unlk	a6
 	rts
 
@@ -473,10 +473,10 @@ mtSwitch:
 	tstl	a6@(12)
 	bne	mtON
 	movel	#motorOffCmd,d0
-mtON:	
-	bsr	driveCmd	
+mtON:
+	bsr	driveCmd
 
-	moveml	sp@+,a0-a1	
+	moveml	sp@+,a0-a1
 	unlk	a6
 	rts
 
@@ -497,7 +497,7 @@ ENTRY(iwmSelectSide)
 
 	moveq	#0x0B,d0		| Drive ready for reading?
 	bsr	selDriveReg		| (undocumented)
-ss01:	
+ss01:
 	bsr	dstatus
 	bmi	ss01
 
@@ -508,7 +508,7 @@ ss01:
 ssSide0:
 	bsr	driveStat
 
-	moveml	sp@+,d1/a0-a1	
+	moveml	sp@+,d1/a0-a1
 	unlk	a6
 	rts
 
@@ -534,11 +534,11 @@ ENTRY(iwmTrack00)
 	bsr	driveCmd
 
 	movew	#100,d2			| Max. tries
-t0Retry:	
+t0Retry:
 	moveq	#atTrack00,d0		| Already at track 0?
 	bsr	driveStat
 	bpl	isTrack00		| Track 0 => Bit 7 = 0
-	
+
 	moveq	#doStepCmd,d0		| otherwise step
 	bsr	driveCmd
 	movew	#80,d4			| Retries
@@ -549,7 +549,7 @@ t0Still:
 
 	cmpiw	#-1,d4
 	bne	t002
-	
+
 	moveq	#cantStepErr,d0		| Not ready after many retries
 	bra	t0Done
 t002:
@@ -557,25 +557,25 @@ t002:
 #if USE_DELAY
 	movel	#15000,sp@-
 	jsr	_C_LABEL(delay)		| in mac68k/clock.c
-	addqw	#4,sp 
+	addqw	#4,sp
 #else
 	movew	#15,d0
 	bsr	iwmDelay
 #endif
-	
+
 	dbra	d2,t0Retry
-	
+
 	moveq	#tk0BadErr,d0		| Can't find track 00!!
 	bra	t0Done
-	
+
 isTrack00:
 	moveq	#0,d0
 t0Done:
 	moveml	sp@+,d1-d4/a0-a1
 	unlk	a6
-	rts	
+	rts
 
-	
+
 /*
  * iwmSeek -- do specified # of steps (positive - in, negative - out).
  *
@@ -595,7 +595,7 @@ ENTRY(iwmSeek)
 	movel	a6@(8),d2		| Get # of steps from stack
 	beq	stDone			| 0 steps? Nothing to do.
 	bpl	stepOut
-	
+
 	moveq	#stepOutCmd,d0		| Set step OUT
 	negl	d2			| Make # of steps positive
 stepOut:
@@ -612,7 +612,7 @@ st01:
 
 	cmpiw	#-1,d4
 	bne	st02
-	
+
 	moveq	#cantStepErr,d2		| Not ready after many retries
 	bra	stDone
 st02:
@@ -620,7 +620,7 @@ st02:
 #if USE_DELAY
 	movel	#30,sp@-
 	jsr	_C_LABEL(delay)		| in mac68k/clock.c
-	addqw	#4,sp 
+	addqw	#4,sp
 #else
 	movew	_TimeDBRA,d4		| dbra loops per ms
 	lsrw	#5,d4			| DIV 32
@@ -632,7 +632,7 @@ st03:	dbra	d4,st03			| makes ca. 30 us
 	moveq	#0,d2			| All is well
 stDone:
 	movel	d2,d0
-	moveml	sp@+,d1-d4/a0-a1	
+	moveml	sp@+,d1-d4/a0-a1
 	unlk	a6
 	rts
 
@@ -672,7 +672,7 @@ ENTRY(iwmReadSector)
 	movew	sr,a6@(-2)		| Save CPU status register
 	oriw	#0x0600,sr		| Block all interrupts
 
-rsNextSect:	
+rsNextSect:
 	movel	a6@(o_hdr),a4		| Addr of sector header struct
 	bsr	readSectHdr		| Get next available SECTOR header
 	bne	rsDone			| Return if error
@@ -692,14 +692,14 @@ rsNextSect:
 	moveb	a6@(-4),d1		| Get track# we want
 	cmpb	a4@(o_track),d1		| Compare to the header we've read
 	beq	rsGetSect
-	
-rsSeekErr:	
+
+rsSeekErr:
 	moveq	#seekErr,d0		| Wrong track or side found
-	bra	rsDone	
+	bra	rsDone
 
 	/*
 	 * Check for sector data lead-in 'D5 AA AD'
-	 * Registers:	
+	 * Registers:
 	 *	a0 points to data register of IWM as set up by readSectHdr
 	 *	a2 points to 'diskTo' translation table
 	 *	a4 points to tags buffer
@@ -708,10 +708,10 @@ rsGetSect:
 	moveb	a4@(2),a6@(-7)		| save sector number
 	lea	a4@(3),a4		| Beginning of tag buffer
 	moveq	#50,d3			| Max. retries for sector lookup
-rsLeadIn:	
+rsLeadIn:
 	lea	dataLeadIn,a3		| Sector data lead-in
 	moveq	#0x03,d4		| is 3 bytes long
-rsLI1:	
+rsLI1:
 	moveb	a0@,d2			| Get next byte
 	bpl	rsLI1
 	dbra	d3,rsLI2
@@ -739,7 +739,7 @@ rsTagNyb0:
 	moveq	#10,d4			| Loop counter
 	moveq	#0,d3			| Data scratch reg
 
-rsTags:	
+rsTags:
 rsTagNyb1:
 	moveb	a0@,d3			| Get 2 bit nibbles
 	bpl	rsTagNyb1
@@ -747,8 +747,8 @@ rsTagNyb1:
 	rolb	#2,d1
 	moveb	d1,d2
 	andib	#0xC0,d2		| Get top 2 bits for first byte
-rsTagNyb2:	
-	moveb	a0@,d3			| Get first 6 bit nibble	
+rsTagNyb2:
+	moveb	a0@,d3			| Get first 6 bit nibble
 	bpl	rsTagNyb2
 	orb	a2@(0,d3),d2		| Remap it and complete first byte
 
@@ -759,7 +759,7 @@ rsTagNyb2:
 	eorb	d7,d2
 	moveb	d2,a4@+			| Store tag byte
 	addxb	d2,d5			| See above
-	
+
 	rolb	#2,d1
 	moveb	d1,d2
 	andib	#0xC0,d2		| Get top 2 bits for second byte
@@ -780,7 +780,7 @@ rsTagNyb4:
 	eorb	d6,d1
 	moveb	d1,a4@+			| Store tag byte
 	addxb	d1,d7
-	
+
 	subqw	#3,d4			| Update byte counter (four 6&2 encoded
 	bpl	rsTags			| disk bytes make three data bytes).
 
@@ -788,7 +788,7 @@ rsTagNyb4:
 	 * Jetzt sind wir hier...
 	 * ...und Thomas D. hat noch was zu sagen...
 	 *
-	 * We begin to read in the actual sector data. 
+	 * We begin to read in the actual sector data.
 	 * Compare sector # to what we wanted: If it matches, read directly
 	 * to buffer, else read to track cache.
 	 */
@@ -812,8 +812,8 @@ rsDatNyb1:
 	rolb	#2,d1
 	moveb	d1,d2
 	andib	#0xC0,d2		| Get top 2 bits for first byte
-rsDatNyb2:	
-	moveb	a0@,d3			| Get first 6 bit nibble	
+rsDatNyb2:
+	moveb	a0@,d3			| Get first 6 bit nibble
 	bpl	rsDatNyb2
 	orb	a2@(0,d3),d2		| Remap it and complete first byte
 
@@ -824,7 +824,7 @@ rsDatNyb2:
 	eorb	d7,d2
 	moveb	d2,a4@+			| Store data byte
 	addxb	d2,d5			| See above
-	
+
 	rolb	#2,d1
 	moveb	d1,d2
 	andib	#0xC0,d2		| Get top 2 bits for second byte
@@ -864,7 +864,7 @@ rsCkS1:
 	rolb	#2,d1
 	moveb	d1,d2
 	andib	#0xC0,d2		| Get top 2 bits for first byte
-rsCkS2:	
+rsCkS2:
 	moveb	a0@,d3			| Get first 6 bit nibble
 	bpl	rsCkS2
 	moveb	a2@(0,d3),d3		| and remap it
@@ -872,11 +872,11 @@ rsCkS2:
 	orb	d3,d2			| Merge 6&2
 	cmpb	d2,d5			| Compare first checksum to D5
 	bne	rsBadCkSum		| Fault! (Checksum)
-	
+
 	rolb	#2,d1
 	moveb	d1,d2
 	andib	#0xC0,d2		| Get top 2 bits for second byte
-rsCkS3:	
+rsCkS3:
 	moveb	a0@,d3			| Get second 6 bit nibble
 	bpl	rsCkS3
 	moveb	a2@(0,d3),d3		| and remap it
@@ -887,7 +887,7 @@ rsCkS3:
 
 	rolb	#2,d1
 	andib	#0xC0,d1		| Get top 2 bits for second byte
-rsCkS4:	
+rsCkS4:
 	moveb	a0@,d3			| Get third 6 bit nibble
 	bpl	rsCkS4
 	moveb	a2@(0,d3),d3		| and remap it
@@ -895,13 +895,13 @@ rsCkS4:
 	orb	d3,d1			| Merge 6&2
 	cmpb	d1,d7			| Compare third checksum to D7
 	beq	rsLdOut			| Fault! (Checksum)
-	
+
 rsBadCkSum:
 	moveq	#badDCkSum,d0		| Bad data mark checksum
 	bra	rsDone
 
 rsBadDBtSlp:
-	moveq	#badDBtSlp,d0		| One of the data mark bit slip 
+	moveq	#badDBtSlp,d0		| One of the data mark bit slip
 	bra	rsDone			| nibbles was incorrect
 
 	/*
@@ -912,7 +912,7 @@ rsBadDBtSlp:
 	 */
 rsLdOut:
 	moveq	#1,d4			| Is two bytes long {1,0}
-rsLdOut1:	
+rsLdOut1:
 	moveb	a0@,d3			| Get token
 	bpl	rsLdOut1
 	cmpb	a3@+,d3
@@ -921,8 +921,8 @@ rsLdOut1:
 	moveq	#0,d0			| OK.
 
 	/*
-	 * See if we got the sector we wanted. If not, and no error 
-	 * occurred, mark buffer valid. Else ignore the sector. 
+	 * See if we got the sector we wanted. If not, and no error
+	 * occurred, mark buffer valid. Else ignore the sector.
 	 * Then, read on.
 	 */
 rsDone:
@@ -936,21 +936,21 @@ rsDone:
 	lslw	#3,d1			| sizeof cylCacheSlot_t is 8 bytes
 	movel	a6@(o_rslots),a4
 	clrl	a4@(o_valid,d1)		| Mark buffer content "invalid"
-	
+
 rsBufValid:
 	subqb	#1,a6@(-6)		| max. retries
 	bne	rsNextSect
 					| Sector not found, but
-	tstb	d0			| don't set error code if we 
+	tstb	d0			| don't set error code if we
 	bne	rsAllDone		| already have one.
 	moveq	#sectNFErr,d0
 rsAllDone:
 	movew	a6@(-2),sr		| Restore interrupt mask
-	moveml	sp@+,d1-d7/a0-a5	
+	moveml	sp@+,d1-d7/a0-a5
 	unlk	a6
-	rts	
-	
-	
+	rts
+
+
 /*
  * iwmWriteSector -- encode and write data to the specified sector.
  *
@@ -1002,52 +1002,52 @@ wsNextSect:
 	eorb	d1,d2			| Compare side bits
 	bne	wsSeekErr
 
-	moveb	a6@(-4),d1		| Get wanted track# 
+	moveb	a6@(-4),d1		| Get wanted track#
 	cmpb	a4@(o_track),d1		| Compare to the read header
 	beq	wsCompSect
 
-wsSeekErr:	
+wsSeekErr:
 	moveq	#seekErr,d0		| Wrong track or side
-	bra	wsAllDone		
-	
+	bra	wsAllDone
+
 	/*
 	 * Look up the current sector number in the cache.
-	 * If the buffer is dirty ("valid"), write it to disk. If not, 
+	 * If the buffer is dirty ("valid"), write it to disk. If not,
 	 * loop over all the slots and return if all of them are clean.
 	 *
 	 * Alternatively, we could decrement a "dirty sectors" counter here.
 	 */
-wsCompSect:	
+wsCompSect:
 	moveq	#0,d1			| Clear register
 	moveb	a4@(o_sector),d1	| get the # of header read
 	lslw	#3,d1			| sizeof cylCacheSlot_t is 8 bytes
 	movel	a6@(o_wslots),a4
 	tstl	a4@(o_valid,d1)		| Sector dirty?
 	bne	wsBufDirty
-	
+
 	moveq	#maxGCRSectors-1,d2	| Any dirty sectors left?
 wsChkDty:
 	movew	d2,d1
 	lslw	#3,d1			| sizeof cylCacheSlot_t is 8 bytes
 	tstl	a4@(o_valid,d1)
 	bne	wsNextSect		| Sector dirty?
-	dbra	d2,wsChkDty	
+	dbra	d2,wsChkDty
 
 	bra	wsAllDone		| We are through with this track.
 
-	
+
 	/*
-	 * Write sync pattern and sector data lead-in 'D5 AA'. The 
-	 * missing 'AD' is made up by piping 0x0B through the nibble 
+	 * Write sync pattern and sector data lead-in 'D5 AA'. The
+	 * missing 'AD' is made up by piping 0x0B through the nibble
 	 * table (toDisk).
 	 *
 	 * To set up IWM for writing:
 	 *
-	 * access q6H & write first byte to q7H. 
-	 * Then check bit 7 of q6L (status reg) for 'IWM ready' 
-	 * and write subsequent bytes to q6H.	
+	 * access q6H & write first byte to q7H.
+	 * Then check bit 7 of q6L (status reg) for 'IWM ready'
+	 * and write subsequent bytes to q6H.
 	 *
-	 * Registers:	
+	 * Registers:
 	 *	a0	IWM base address (later: data register)
 	 *	a1	Via1Base
 	 *	a2	IWM handshake register
@@ -1066,7 +1066,7 @@ wsBufDirty:
 	moveb	a4@+,a0@(q7H)		| Write first sync byte
 	lea	a0@(q6L),a2		| Point a2 to handshake register
 	lea	a0@(q6H),a0		| Point a0 to IWM data register
-	
+
 	moveq	#6,d0			| Loop counter for sync bytes
 	moveq	#0,d2
 	moveq	#0,d3
@@ -1075,18 +1075,18 @@ wsBufDirty:
 	/*
 	 * Write 5 sync bytes and first byte of sector data lead-in
 	 */
-wsLeadIn:	
+wsLeadIn:
 	moveb	a4@+,d1			| Get next sync byte
-wsLI1:	
+wsLI1:
 	tstb	a2@			| IWM ready?
 	bpl	wsLI1
 	moveb	d1,a0@			| Write it to disk
 	subqw	#1,d0
 	bne	wsLeadIn
-	
+
 	moveb	a4@+,d1			| Write 2nd byte of sector lead-in
 	lea	toDisk,a4		| Point a4 to nibble translation table
-wsLI2:	
+wsLI2:
 	tstb	a2@			| IWM ready?
 	bpl	wsLI2
 	moveb	d1,a0@			| Write it to disk
@@ -1101,12 +1101,12 @@ wsLI2:
 	bra	wsDataEntry
 
 	/*
-	 * The following loop reads the content of the tags buffer (12 bytes) 
-	 * and the data buffer (512 bytes). 
-	 * Each pass reads out three bytes and 
-	 * a) splits them 6&2 into three 6 bit nibbles and a fourth byte 
+	 * The following loop reads the content of the tags buffer (12 bytes)
+	 * and the data buffer (512 bytes).
+	 * Each pass reads out three bytes and
+	 * a) splits them 6&2 into three 6 bit nibbles and a fourth byte
 	 *    consisting of the three 2 bit nibbles
-	 * b) encodes the nibbles with a table to disk bytes (bit 7 set, no 
+	 * b) encodes the nibbles with a table to disk bytes (bit 7 set, no
 	 *    more than two consecutive zero bits) and writes them to disk as
 	 *
 	 *    00mmnnoo		fragment 2 bit nibbles
@@ -1125,7 +1125,7 @@ wsData:
 	eorb	d6,d2
 	moveb	d2,d3
 	lsrw	#6,d3			| Put 2 bit nibbles into place
-wsRDY01:	
+wsRDY01:
 	tstb	a2@			| IWM ready?
 	bpl	wsRDY01
 	moveb	a4@(0,d3),a0@		| Translate nibble and write
@@ -1143,7 +1143,7 @@ wsRDY02:
 	 * We enter with the last byte of the sector data lead-in
 	 * between our teeth (D1, that is).
 	 */
-wsDataEntry:	
+wsDataEntry:
 	moveb	a3@+,d0			| Get first byte
 	addxb	d0,d5
 	eorb	d7,d0
@@ -1175,14 +1175,14 @@ wsRDY04:
 	 */
 	tstl	d4			| Last loop cycle?
 	beq	wsSDDone		| Then get out while we can.
-	
+
 	moveb	a3@+,d2			| Get third byte
 	tstw	d4			| First write tag buffer,...
 	bne	wsData
-	
+
 	swap	d4			| ...then write data buffer
 	bne	wsSD1
-		
+
 	/*
 	 * Write nibbles for last 2 bytes, then
 	 * split checksum bytes in 6&2 and write them to disk
@@ -1204,13 +1204,13 @@ wsRDY06:
 	bpl	wsRDY06
 	moveb	a4@(0,d0),a0@		| Write 511th byte
 	andib	#0x3F,d1
-wsRDY07:	
+wsRDY07:
 	tstb	a2@			| IWM ready?
 	bpl	wsRDY07
 	moveb	a4@(0,d1),a0@		| write 512th byte
 	moveb	d7,d3
 	lsrw	#6,d3			| Get fragments ready
-wsRDY08:	
+wsRDY08:
 	tstb	a2@			| IWM ready?
 	bpl	wsRDY08
 	moveb	a4@(0,d3),a0@		| Write fragments
@@ -1247,32 +1247,32 @@ wsLeadOut:
 
 	moveq	#wrUnderRun,d0		| Could not write
 					| fast enough to keep up with IWM
-wsNoErr:	
+wsNoErr:
 	tstb	a0@(0x0200)		| q7L -- Write OFF
 
 wsDone:
 	tstb	d0			| Any error? Simply retry
 	bne	wsBufInvalid
-	
-	movel	a6@(-10),a4		| Else, get ptr to current slot 
+
+	movel	a6@(-10),a4		| Else, get ptr to current slot
 	clrl	a4@(o_valid)		| Mark current buffer "clean"
 	bra	wsNextSect
-	
+
 wsBufInvalid:
 	subqb	#1,a6@(-6)		| retries
 	bne	wsNextSect
 					| Sector not found, but
-	tstb	d0			| don't set error code if we 
+	tstb	d0			| don't set error code if we
 	bne	wsAllDone		| already have one.
 	moveq	#sectNFErr,d0
-	
+
 wsAllDone:
 	movew	a6@(-2),sr		| Restore interrupt mask
-	moveml	sp@+,d1-d7/a0-a5	
+	moveml	sp@+,d1-d7/a0-a5
 	unlk	a6
 	rts
 
-	
+
 
 /**
  **	Local functions
@@ -1283,9 +1283,9 @@ wsAllDone:
  *
  * In-kernel calls to delay() in mac68k/clock.c bomb
  *
- * Parameters:	d0	delay in milliseconds 
+ * Parameters:	d0	delay in milliseconds
  * Trashes:	d0, d1
- * Returns:	-		
+ * Returns:	-
  */
 iwmDelay:
 	/* TimeDBRA is ~8K for 040/33 machines, so we need nested loops */
@@ -1304,10 +1304,10 @@ id01:	dbra	d1,id01			|
  *		a1	VIA base address
  * Returns:	d0	register # (unchanged)
  */
-selDriveReg:	
+selDriveReg:
 	tstb	a0@(ph0H)		| default CA0 to 1 (says IM III)
 	tstb	a0@(ph1H)		| default CA1 to 1
-	
+
 	btst	#0,d0			| bit 0 set => CA2 on
 	beq	se00
 	tstb	a0@(ph2H)
@@ -1327,7 +1327,7 @@ se03:
 	btst	#2,d0			| bit 2 set => CA0 on
 	bne	se04
 	tstb	a0@(ph0L)
-	
+
 se04:
 	btst	#3,d0			| bit 3 set => CA1 on
 	bne	se05
@@ -1335,7 +1335,7 @@ se04:
 se05:
 	rts
 
-	
+
 
 /*
  * dstatus -- check drive status (bit 7 - N flag) wrt. a previously
@@ -1348,9 +1348,9 @@ se05:
 dstatus:
 	tstb	a0@(q6H)
 	moveb	a0@(q7L),d0
-	tstb	a0@(q6L)		| leave in "read data reg" 
+	tstb	a0@(q6L)		| leave in "read data reg"
 	tstb	d0			| state for safety
-	
+
 	rts
 
 
@@ -1363,13 +1363,13 @@ dstatus:
  * Returns:	d0	status (Bit 7)
  */
 driveStat:
-	tstb	a0@(mtrOn)		| ENABLE; turn drive on	
+	tstb	a0@(mtrOn)		| ENABLE; turn drive on
 	bsr	selDriveReg
 	bsr	dstatus
 
 	rts
 
-	
+
 /*
  * dtrigger -- toggle LSTRB line to give drive a strobe signal
  * IM III says pulse length = 1 us < t < 1 ms
@@ -1382,10 +1382,10 @@ dtrigger:
 	tstb	a0@(ph3H)		| LSTRB high
 	moveb	a1@(vBufA),a1@(vBufA)	| intelligent nop seen in q700 ROM
 	tstb	a0@(ph3L)		| LSTRB low
-	
+
 	rts
 
-	
+
 /*
  * driveCmd -- send command to drive.
  *
@@ -1400,7 +1400,7 @@ driveCmd:
 
 	rts
 
-	
+
 /*
  * readSectHdr -- read and decode the next available sector header.
  *
@@ -1410,7 +1410,7 @@ driveCmd:
  * Returns:	d0	result code
  * Uses:	d0-d4, a0, a2-a4
  */
-readSectHdr:	
+readSectHdr:
 	moveq	#3,d4			| Read 3 chars from IWM for sync
 	movew	#600,d3			| Retries to sync to disk
 	moveq	#0,d2			| Clear scratch regs
@@ -1423,7 +1423,7 @@ readSectHdr:
 shReadSy:
 	moveb	a0@,d2			| Read char
 	dbra	d3,shSeekSync
-	
+
 	moveq	#noNybErr,d0		| Disk is blank?
 	bra	shDone
 
@@ -1437,10 +1437,10 @@ shSeekSync:
 	 * Next look for sector header lead-in 'D5 AA 96'
 	 */
 	movew	#1500,d3		| Retries to seek header
-shLeadIn:	
+shLeadIn:
 	lea	hdrLeadIn,a3		| Sector header lead-in bytes
 	moveq	#0x03,d4		| is 3 bytes long
-shLI1:	
+shLI1:
 	moveb	a0@,d2			| Get next byte
 	bpl	shLI1			| No char at IWM, repeat read
 	dbra	d3,shLI2
@@ -1457,13 +1457,13 @@ shLI2:
 	 * Reg d4 holds the checksum.
 	 */
 	lea	diskTo-0x90,a2		| Translate disk bytes -> 6&2
-shHdr1:	
+shHdr1:
 	moveb	a0@,d0			| Get 1st char
 	bpl	shHdr1
 	moveb	a2@(0,d0),d1		| and remap it
 	moveb	d1,d4
 	rorw	#6,d1			| separate 2:6, drop hi bits
-shHdr2:	
+shHdr2:
 	moveb	a0@,d0			| Get 2nd char
 	bpl	shHdr2
 	moveb	a2@(0,d0),d2		| and remap it
@@ -1496,7 +1496,7 @@ shHdr5:
 	 * Next check for lead-out.
 	 */
 	moveq	#1,d4			| is 2 bytes long
-shHdr6:	
+shHdr6:
 	moveb	a0@,d0			| Get token
 	bpl	shHdr6
 	cmpb	a3@+,d0			| Check
@@ -1515,7 +1515,7 @@ shCsErr:
 	bra	shDone
 shLOErr:
 	moveq	#badBtSlpErr,d0		| Bad address mark (no lead-out)
-	
+
 shDone:
 	tstl	d0			| Set flags
 	rts

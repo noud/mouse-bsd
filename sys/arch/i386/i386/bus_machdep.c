@@ -308,7 +308,7 @@ i386_mem_add_mapping(bpa, size, cacheable, bshp)
 			pmap_update_pg(va);
 		}
 	}
- 
+
 	return 0;
 }
 
@@ -364,7 +364,7 @@ ok:
 	}
 }
 
-void    
+void
 i386_memio_free(t, bsh, size)
 	bus_space_tag_t t;
 	bus_space_handle_t bsh;

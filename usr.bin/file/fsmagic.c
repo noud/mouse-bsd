@@ -51,7 +51,7 @@
 #ifdef major			/* Might be defined in sys/types.h.  */
 # define HAVE_MAJOR
 #endif
-  
+
 #ifndef HAVE_MAJOR
 # define major(dev)  (((dev) >> 8) & 0xff)
 # define minor(dev)  ((dev) & 0xff)
@@ -102,14 +102,14 @@ struct stat *sb;
 #ifdef S_ISVTX
 	if (sb->st_mode & S_ISVTX) ckfputs("sticky ", stdout);
 #endif
-	
+
 	switch (sb->st_mode & S_IFMT) {
 	case S_IFDIR:
 		ckfputs("directory", stdout);
 		return 1;
 #ifdef S_IFCHR
 	case S_IFCHR:
-		/* 
+		/*
 		 * If -s has been specified, treat character special files
 		 * like ordinary files.  Otherwise, just report that they
 		 * are block special files and go on to the next file.
@@ -133,7 +133,7 @@ struct stat *sb;
 #endif
 #ifdef S_IFBLK
 	case S_IFBLK:
-		/* 
+		/*
 		 * If -s has been specified, treat block special files
 		 * like ordinary files.  Otherwise, just report that they
 		 * are block special files and go on to the next file.
@@ -174,7 +174,7 @@ struct stat *sb;
 			struct stat tstatbuf;
 
 			if ((nch = readlink(fn, buf, BUFSIZ-1)) <= 0) {
-				ckfprintf(stdout, "unreadable symlink (%s).", 
+				ckfprintf(stdout, "unreadable symlink (%s).",
 				      strerror(errno));
 				return 1;
 			}
@@ -237,7 +237,7 @@ struct stat *sb;
 	 * regular file, check next possibility
 	 *
 	 * If stat() tells us the file has zero length, report here that
-	 * the file is empty, so we can skip all the work of opening and 
+	 * the file is empty, so we can skip all the work of opening and
 	 * reading the file.
 	 * But if the -s option has been given, we skip this optimization,
 	 * since on some systems, stat() reports zero size for raw disk

@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1992 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -31,12 +31,12 @@
  * Revision 1.5  92/08/11  12:03:43  mrt
  * 	Brad's delinting and variable argument list usage
  * 	changes. Added copyright.
- * 
+ *
  * Revision 1.3  89/08/15  15:30:37  bww
  * 	Updated to use v*printf() in place of _doprnt().
  * 	From "[89/04/19            mja]" at CMU.
  * 	[89/08/15            bww]
- * 
+ *
  * 27-Dec-87  Glenn Marcy (gm0w) at Carnegie-Mellon University
  *	Added check to allow logopen() to be called multiple times.
  *
@@ -156,7 +156,7 @@ va_dcl
 }
 
 #ifdef LIBWRAP
-#include <tcpd.h>          
+#include <tcpd.h>
 #ifndef LIBWRAP_ALLOW_FACILITY
 # define LIBWRAP_ALLOW_FACILITY LOG_AUTH
 #endif
@@ -165,8 +165,8 @@ va_dcl
 #endif
 #ifndef LIBWRAP_DENY_FACILITY
 # define LIBWRAP_DENY_FACILITY LOG_AUTH
-#endif  
-#ifndef LIBWRAP_DENY_SEVERITY 
+#endif
+#ifndef LIBWRAP_DENY_SEVERITY
 # define LIBWRAP_DENY_SEVERITY LOG_WARNING
 #endif
 int allow_severity = LIBWRAP_ALLOW_FACILITY|LIBWRAP_ALLOW_SEVERITY;

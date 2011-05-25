@@ -234,7 +234,7 @@ switch (regno) { \
 
 /* Number of bytes of storage in the actual machine representation
  * for register N.  All registers are 4 bytes, except 387 st(0) - st(7),
- * which are 80 bits each. 
+ * which are 80 bits each.
  */
 
 #undef  REGISTER_RAW_SIZE

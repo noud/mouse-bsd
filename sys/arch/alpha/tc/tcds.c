@@ -42,17 +42,17 @@
  * All rights reserved.
  *
  * Author: Keith Bostic, Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -451,7 +451,7 @@ tcds_dma_enable(sc, on)
 	cir = bus_space_read_4(sc->sc_bst, sc->sc_bsh, TCDS_CIR);
 
 	/* XXX Clear/set IOSLOT/PBS bits. */
-	if (on) 
+	if (on)
 		TCDS_CIR_SET(cir, sc->sc_dmabits);
 	else
 		TCDS_CIR_CLR(cir, sc->sc_dmabits);
@@ -507,7 +507,7 @@ tcds_intr(arg)
 
 #ifdef __alpha__		/* XXX XXX XXX */
 #ifdef EVCNT_COUNTERS
-	/* No interrupt counting via evcnt counters */ 
+	/* No interrupt counting via evcnt counters */
 	XXX BREAK HERE XXX
 #else
 #define	INCRINTRCNT(slot)	intrcnt[INTRCNT_TCDS + slot]++
@@ -527,7 +527,7 @@ tcds_intr(arg)
 #undef CHECKINTR
 
 #ifdef DIAGNOSTIC
-	/* 
+	/*
 	 * Interrupts not currently handled, but would like to know if they
 	 * occur.
 	 *

@@ -33,13 +33,13 @@
  * SUCH DAMAGE.
  */
 
-extern int nproc;       
-extern struct p_times {       
+extern int nproc;
+extern struct p_times {
 	float pt_pctcpu;
 	struct kinfo_proc *pt_kp;
 } *pt;
- 
-extern long	stime[CPUSTATES];       
-extern int	fscale;       
-extern double	lccpu; 
+
+extern long	stime[CPUSTATES];
+extern int	fscale;
+extern double	lccpu;
 extern long	mempages;

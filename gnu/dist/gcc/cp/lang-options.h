@@ -19,7 +19,7 @@ the Free Software Foundation, 59 Temple Place - Suite 330,
 Boston, MA 02111-1307, USA.  */
 
 DEFINE_LANG_NAME ("C++")
-     
+
 /* This is the contribution to the `lang_options' array in gcc.c for
    g++.  */
 

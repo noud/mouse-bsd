@@ -133,7 +133,7 @@ extern int dovfsusermount;	/* 1 => permit any user to mount filesystems */
 #define	bufremvn(bp) {							\
 	LIST_REMOVE(bp, b_vnbufs);					\
 	(bp)->b_vnbufs.le_next = NOLIST;				\
-}  
+}
 /* TAILQ_HEAD(freelst, vnode) vnode_free_list =	vnode free list (in vnode.h) */
 struct freelst vnode_free_list = TAILQ_HEAD_INITIALIZER(vnode_free_list);
 struct freelst vnode_hold_list = TAILQ_HEAD_INITIALIZER(vnode_hold_list);
@@ -211,7 +211,7 @@ vfs_busy(mp, flags, interlkp)
 
 	while (mp->mnt_flag & MNT_UNMOUNT) {
 		int gone;
-		
+
 		if (flags & LK_NOWAIT)
 			return (ENOENT);
 		if ((flags & LK_RECURSEFAIL) && mp->mnt_unmounter != NULL
@@ -232,7 +232,7 @@ vfs_busy(mp, flags, interlkp)
 		tsleep((caddr_t)mp, PVFS, "vfs_busy", 0);
 		mp->mnt_wcnt--;
 		gone = mp->mnt_flag & MNT_GONE;
-		
+
 		if (mp->mnt_wcnt == 0)
 			wakeup(&mp->mnt_wcnt);
 		if (interlkp)
@@ -556,7 +556,7 @@ insmntque(vp, mp)
 		panic("insmntque into dying filesystem");
 	}
 #endif
-	
+
 	simple_lock(&mntvnode_slock);
 	/*
 	 * Delete from old mount point vnode list, if on one.
@@ -1439,11 +1439,11 @@ vclean(vp, flags, p)
  */
 int
 vrecycle(vp, inter_lkp, p)
-	struct vnode *vp; 
+	struct vnode *vp;
 	struct simplelock *inter_lkp;
 	struct proc *p;
-{             
-       
+{
+
 	simple_lock(&vp->v_interlock);
 	if (vp->v_usecount == 0) {
 		if (inter_lkp)
@@ -1968,7 +1968,7 @@ vfs_hang_addrlist(mp, nep, argp)
 				error = EPERM;
 				goto out;
 			}
-		} else 
+		} else
 			enp = (struct netcred *)rn;
 
 		if (enp->netc_exflags != argp->ex_flags ||
@@ -2181,7 +2181,7 @@ vaccess(type, file_mode, uid, gid, acc_mode, cred)
 	struct ucred *cred;
 {
 	mode_t mask;
-	
+
 	/*
 	 * Super-user always gets read/write access, but execute access depends
 	 * on at least one execute bit being set.
@@ -2192,9 +2192,9 @@ vaccess(type, file_mode, uid, gid, acc_mode, cred)
 			return (EACCES);
 		return (0);
 	}
-	
+
 	mask = 0;
-	
+
 	/* Otherwise, check the owner. */
 	if (cred->cr_uid == uid) {
 		if (acc_mode & VEXEC)
@@ -2205,7 +2205,7 @@ vaccess(type, file_mode, uid, gid, acc_mode, cred)
 			mask |= S_IWUSR;
 		return ((file_mode & mask) == mask ? 0 : EACCES);
 	}
-	
+
 	/* Otherwise, check the groups. */
 	if (cred->cr_gid == gid || groupmember(gid, cred)) {
 		if (acc_mode & VEXEC)
@@ -2216,7 +2216,7 @@ vaccess(type, file_mode, uid, gid, acc_mode, cred)
 			mask |= S_IWGRP;
 		return ((file_mode & mask) == mask ? 0 : EACCES);
 	}
-	
+
 	/* Otherwise, check everyone else. */
 	if (acc_mode & VEXEC)
 		mask |= S_IXOTH;

@@ -145,7 +145,7 @@ extern struct cfdriver cgeight_cd;
 #if defined(SUN4)
 /* frame buffer generic driver */
 static struct fbdriver cgeightfbdriver = {
-	cgeightunblank, cgeightopen, cgeightclose, cgeightioctl, 
+	cgeightunblank, cgeightopen, cgeightclose, cgeightioctl,
 	cgeightpoll, cgeightmmap
 };
 

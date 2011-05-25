@@ -40,7 +40,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -52,7 +52,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -301,7 +301,7 @@ rtredirect(dst, gateway, netmask, flags, src, rtp)
 		goto create;
 	/*
 	 * Don't listen to the redirect if it's
-	 * for a route to an interface. 
+	 * for a route to an interface.
 	 */
 	if (rt->rt_flags & RTF_GATEWAY) {
 		if (((rt->rt_flags & RTF_HOST) == 0) && (flags & RTF_HOST)) {
@@ -374,7 +374,7 @@ ifa_ifwithroute(flags, dst, gateway)
 		 * we can use the local address.
 		 */
 		ifa = 0;
-		if (flags & RTF_HOST) 
+		if (flags & RTF_HOST)
 			ifa = ifa_ifwithdstaddr(dst);
 		if (ifa == 0)
 			ifa = ifa_ifwithaddr(gateway);
@@ -663,14 +663,14 @@ static int rt_init_done = 0;
 	}							\
 }
 
-/* 
+/*
  * Some subtle order problems with domain initialization mean that
  * we cannot count on this being run from rt_init before various
  * protocol initializations are done.  Therefore, we make sure
  * that this is run when the first queue is added...
  */
 
-void	 
+void
 rt_timer_init()
 {
 	assert(rt_init_done == 0);
@@ -694,7 +694,7 @@ rt_timer_queue_create(timeout)
 
 	R_Malloc(rtq, struct rttimer_queue *, sizeof *rtq);
 	if (rtq == NULL)
-		return (NULL);		
+		return (NULL);
 
 	rtq->rtq_timeout = timeout;
 	TAILQ_INIT(&rtq->rtq_head);
@@ -735,7 +735,7 @@ rt_timer_queue_destroy(rtq, destroy)
 	 */
 }
 
-void     
+void
 rt_timer_remove_all(rt)
 	struct rtentry *rt;
 {
@@ -748,7 +748,7 @@ rt_timer_remove_all(rt)
 	}
 }
 
-int      
+int
 rt_timer_add(rt, func, queue)
 	struct rtentry *rt;
 	void(*func) __P((struct rtentry *, struct rttimer *));
@@ -786,7 +786,7 @@ rt_timer_add(rt, func, queue)
 	r->rtt_queue = queue;
 	LIST_INSERT_HEAD(&rt->rt_timer, r, rtt_link);
 	TAILQ_INSERT_TAIL(&queue->rtq_head, r, rtt_next);
-	
+
 	return (0);
 }
 
@@ -805,7 +805,7 @@ rt_timer_timer(arg)
 	splx(s);
 
 	s = splsoftnet();
-	for (rtq = LIST_FIRST(&rttimer_queue_head); rtq != NULL; 
+	for (rtq = LIST_FIRST(&rttimer_queue_head); rtq != NULL;
 	     rtq = LIST_NEXT(rtq, rtq_link)) {
 		while ((r = TAILQ_FIRST(&rtq->rtq_head)) != NULL &&
 		    (r->rtt_time + rtq->rtq_timeout) < current_time) {

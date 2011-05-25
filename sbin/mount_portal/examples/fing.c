@@ -1,7 +1,7 @@
 #include <err.h>
 #include <stdio.h>
 
-int 
+int
 main(argc, argv)
 	int     argc;
 	char  **argv;

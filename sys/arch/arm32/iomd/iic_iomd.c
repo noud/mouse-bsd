@@ -99,7 +99,7 @@ iic_iomd_attach(parent, self, aux)
 
 	sc->sc_iot = ia->ia_iot;
 	sc->sc_ioh = ia->ia_ioh;
-	
+
 	printf("\n");
 
 	config_search(iicsearch, self, NULL);

@@ -1,27 +1,27 @@
 /* $NetBSD: db_disasm.c,v 1.6 1999/05/09 19:40:00 cgd Exp $ */
 
-/* 
+/*
  * Mach Operating System
  * Copyright (c) 1991,1990,1989,1988,1987 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
+ *
  * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
  * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND FOR
  * ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
- * 
+ *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
  *  School of Computer Science
  *  Carnegie Mellon University
  *  Pittsburgh PA 15213-3890
- * 
+ *
  * any improvements or extensions that they make and grant Carnegie Mellon
  * the rights to redistribute these changes.
  */
@@ -57,7 +57,7 @@ __KERNEL_RCSID(0, "$NetBSD: db_disasm.c,v 1.6 1999/05/09 19:40:00 cgd Exp $");
 #include <alpha/alpha/db_instruction.h>
 
 #include <machine/pal.h>
- 
+
 #include <ddb/db_access.h>
 #include <ddb/db_sym.h>
 #include <ddb/db_output.h>
@@ -227,13 +227,13 @@ static const char *arit_c0[8] = {
 	"addl", 0, "addq", 0, "addl/v", 0, "addq/v",
 };
 static const char *arit_c2[8] = {
-	"s4addl", "s8addl", "s4addq", "s8addq", 
+	"s4addl", "s8addl", "s4addq", "s8addq",
 };
 static const char *arit_c9[8] = {
-	"subl", 0, "subq", 0, "subl/v", 0, "subq/v", 
+	"subl", 0, "subq", 0, "subl/v", 0, "subq/v",
 };
 static const char *arit_cB[8] = {
-	"s4subl", "s8subl", "s4subq", "s8subq", 
+	"s4subl", "s8subl", "s4subq", "s8subq",
 };
 static const char *arit_cD[8] = {
 	0, "cmpult", "cmpeq", "cmpule", "cmplt", 0, "cmple",

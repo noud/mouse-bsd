@@ -13,4 +13,4 @@
  * changed from 0xf00 to 0x2a00 as some routine running before ADBReInit
  * chooses to write to 0x1fb8.  With the trap table from 0x0 to 0x3ff,
  * this additional space of 0x2a00 should be sufficient  (WRU)
- */ 
+ */

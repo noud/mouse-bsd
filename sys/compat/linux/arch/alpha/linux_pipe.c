@@ -41,14 +41,14 @@
 #include <sys/kernel.h>
 #include <sys/malloc.h>
 #include <sys/mbuf.h>
-#include <sys/mman.h> 
-#include <sys/mount.h> 
-  
-#include <sys/syscallargs.h> 
- 
+#include <sys/mman.h>
+#include <sys/mount.h>
+
+#include <sys/syscallargs.h>
+
 #include <vm/vm.h>
-#include <vm/vm_param.h> 
- 
+#include <vm/vm_param.h>
+
 #include <compat/linux/common/linux_types.h>
 #include <compat/linux/common/linux_mmap.h>
 #include <compat/linux/common/linux_signal.h>

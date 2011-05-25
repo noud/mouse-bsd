@@ -32,7 +32,7 @@
 
 extern int pcic_isa_intr_alloc_mask;
 
-/* 
+/*
  * Establish/disestablish interrupts for PCMCIA functions.
  */
 

@@ -48,15 +48,15 @@
 .Ar directory
 .Sh DESCRIPTION
 When the
-.Nx 
-kernel encounters a fatal error, the 
+.Nx
+kernel encounters a fatal error, the
 .Xr panic 9
 routine arranges for a snapshot of the contents of physical memory to
-be written into a dump area, typically in the swap partition.  
+be written into a dump area, typically in the swap partition.
 .Pp
 Upon a subsequent reboot,
 .Nm
-is typically run out of 
+is typically run out of
 .Xr rc 8 ,
 before swapping is enabled, to copy the kernel and the saved memory image
 into
@@ -85,8 +85,8 @@ whatever (potentially confidential) information was in memory at the
 time of the crash, do
 .Em NOT
 include a copy of the crash dump file in the bug report; instead, save it
-somewhere in the event that a 
-.Nx 
+somewhere in the event that a
+.Nx
 developer wants to examine it.
 .Pp
 The options are as follows:
@@ -165,8 +165,8 @@ The minfree code does not consider the effect of compression.
 .Xr gdb 1 ,
 .Xr iostat 8 ,
 .Xr netstat 1 ,
-.Xr ps 1 , 
-.Xr pstat 8 , 
+.Xr ps 1 ,
+.Xr pstat 8 ,
 .Xr panic 9 ,
 .Xr rc 8 ,
 .Xr send-pr 1 ,

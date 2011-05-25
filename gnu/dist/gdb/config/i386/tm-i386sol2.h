@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define TM_I386SOL2_H 1
 
 #include "i386/tm-i386v4.h"
- 
+
 /* Signal handler frames under Solaris 2 are recognized by a return address
    of 0xFFFFFFFF, the third parameter on the signal handler stack is
    a pointer to an ucontext.  */

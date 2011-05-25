@@ -125,7 +125,7 @@ adb_config_interrupts(self)
 	adb_polling = 1;
 
 #ifdef MRG_ADB
-	/* 
+	/*
 	 * Even if serial console only, some models require the
 	 * ADB in order to get the date/time and do soft power.
 	 */

@@ -1,8 +1,8 @@
 /*	$NetBSD: if_ray.c,v 1.12 2000/02/07 09:36:27 augustss Exp $	*/
-/* 
+/*
  * Copyright (c) 2000 Christian E. Hopps
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -165,7 +165,7 @@ struct ray_softc {
 		struct ray_startup_params_tail_5	u_params_5;
 		struct ray_startup_params_tail_4	u_params_4;
 	} sc_u;
-	
+
 	u_int8_t	sc_ccsinuse[64];	/* ccs in use -- not for tx */
 	u_int		sc_txfree;	/* a free count for efficiency */
 
@@ -958,7 +958,7 @@ ray_ioctl(ifp, cmd, data)
 			if ((ifp->if_flags & IFF_RUNNING) == 0) {
 				if ((error = ray_enable(sc)))
 					break;
-			} else 
+			} else
 				ray_update_promisc(sc);
 		} else if (ifp->if_flags & IFF_RUNNING)
 			ray_disable(sc);
@@ -1233,7 +1233,7 @@ ray_intr_start(sc)
 
 		RAY_DPRINTF(("%s: bufp 0x%lx new pktlen %d\n",
 		    ifp->if_xname, (long)bufp, (int)pktlen));
-			
+
 		/* copy out mbuf */
 		for (m = m0; m; m = m->m_next) {
 			if ((len = m->m_len) == 0)
@@ -1248,7 +1248,7 @@ ray_intr_start(sc)
 			else {
 				panic("ray_intr_start");	/* XXX */
 				/* wrapping */
-				tmplen = ebufp - bufp; 
+				tmplen = ebufp - bufp;
 				len -= tmplen;
 				ray_write_region(sc, bufp, d, tmplen);
 				d += tmplen;
@@ -1417,7 +1417,7 @@ ray_recv(sc, ccs)
 		lenread += len;
 	}
 done:
-	
+
 	RAY_DPRINTF(("%s: recv frag count %d\n", sc->sc_xname, frag));
 
 	/* free the rcss */
@@ -1459,7 +1459,7 @@ done:
 		issnap = 1;
 	else {
 		/*
-		 * if user has link0 flag set we allow the weird 
+		 * if user has link0 flag set we allow the weird
 		 * Ethernet2 in 802.11 encapsulation produced by
 		 * the windows driver for the WebGear card
 		 */
@@ -2011,7 +2011,7 @@ ray_free_ccs(sc, ccs)
 }
 
 /*
- * returns 1 and in `ccb' the bus offset of the free ccb 
+ * returns 1 and in `ccb' the bus offset of the free ccb
  * or 0 if none are free
  *
  * If `track' is not zero, handles tracking this command
@@ -2207,7 +2207,7 @@ ray_issue_cmd(sc, ccs, track)
 	RAY_DPRINTF(("%s: ray_cmd_issue 0x%x\n", sc->sc_xname, track));
 
 	/*
-	 * XXX other drivers did this, but I think 
+	 * XXX other drivers did this, but I think
 	 * what we really want to do is just make sure we don't
 	 * get here or that spinning is ok
 	 */
@@ -2240,7 +2240,7 @@ ray_simple_cmd(sc, cmd, track)
 	return (ray_alloc_ccs(sc, &ccs, cmd, track) &&
 	    ray_issue_cmd(sc, ccs, track));
 }
-	
+
 /*
  * Functions based on CCS commands
  */
@@ -2367,15 +2367,15 @@ ray_download_params(sc)
 #if 1
 		/* linux/fbsd */
 		PUT2(sp->sp_dwell_time, 0x200);
-		PUT2(sp->sp_beacon_period, 1); 
+		PUT2(sp->sp_beacon_period, 1);
 #else
 		/* divined */
 		PUT2(sp->sp_dwell_time, 0x400);
-		PUT2(sp->sp_beacon_period, 0); 
+		PUT2(sp->sp_beacon_period, 0);
 #endif
 	} else {
 		PUT2(sp->sp_dwell_time, 128);
-		PUT2(sp->sp_beacon_period, 256); 
+		PUT2(sp->sp_beacon_period, 256);
 	}
 	sp->sp_dtim_interval = 1;
 #if 0
@@ -2385,13 +2385,13 @@ ray_download_params(sc)
 	sp->sp_sifs = 0x1c;
 #elif 1
 	/* these were scrounged from the linux driver */
-	sp->sp_max_retry = 0x07; 
+	sp->sp_max_retry = 0x07;
 
 	sp->sp_ack_timo = 0xa3;
 	sp->sp_sifs = 0x1d;
 #else
 	/* these were divined */
-	sp->sp_max_retry = 0x03; 
+	sp->sp_max_retry = 0x03;
 
 	sp->sp_ack_timo = 0xa3;
 	sp->sp_sifs = 0x1d;
@@ -2858,7 +2858,7 @@ ray_user_report_params(sc, pr)
 		pr->r_failcause = RAY_FAILCAUSE_EDEVSTOP;
 		return (EIO);
 	}
-	
+
 	/* wait to be able to issue the command */
 	rv = 0;
 	while (ray_cmd_is_running(sc, SCP_REPORTPARAMS)
@@ -3013,7 +3013,7 @@ void
 hexdump(const u_int8_t *d, int len, int br, int div, int fl)
 {
 	int i, j, offw, first, tlen, ni, nj, sp;
-	
+
 	sp = br / div;
 	offw = 0;
 	if (len && (fl & HEXDF_NOOFFSET) == 0) {

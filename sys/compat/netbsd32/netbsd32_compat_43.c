@@ -51,7 +51,7 @@ int compat_43_netbsd32_killpg __P((struct proc *, void *, register_t *retval));
 int compat_43_netbsd32_sigblock __P((struct proc *, void *, register_t *retval));
 int compat_43_netbsd32_sigblock __P((struct proc *, void *, register_t *retval));
 
-static void 
+static void
 netbsd32_from_stat43(sp43, sp32)
 	struct stat43 *sp43;
 	struct netbsd32_stat43 *sp32;

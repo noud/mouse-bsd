@@ -263,7 +263,7 @@ lmc_dec_reset(lmc_softc_t * const sc)
 
 	/*
 	 * Reset the chip with a software reset command.
-	 * Wait 10 microseconds (actually 50 PCI cycles but at 
+	 * Wait 10 microseconds (actually 50 PCI cycles but at
 	 * 33MHz that comes to two microseconds but wait a
 	 * bit longer anyways)
 	 */
@@ -352,7 +352,7 @@ lmc_dec_reset(lmc_softc_t * const sc)
 		di->d_status = 0;
 
 	/*
-	 * We need to collect all the mbufs were on the 
+	 * We need to collect all the mbufs were on the
 	 * receive ring before we reinit it either to put
 	 * them back on or to know if we have to allocate
 	 * more.

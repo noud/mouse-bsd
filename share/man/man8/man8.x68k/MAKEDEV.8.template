@@ -75,7 +75,7 @@ must be replaced by a unit number.
 The special file directory.
 .El
 .Sh SEE ALSO
-.Xr mknod 1 , 
+.Xr mknod 1 ,
 .Xr intro 4 ,
 .Xr config 8
 .\".Xr special 8

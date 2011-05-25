@@ -80,7 +80,7 @@ main(argc, argv)
 	char tflag = 0;
 	int ch;
 
-	escapec = ESCAPEC;	
+	escapec = ESCAPEC;
 	debug = strcmp(__progname, "a.out") == 0;
 	while ((ch = getopt(argc, argv, "fc:e:tdDx")) != -1) {
 		switch (ch) {

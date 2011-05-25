@@ -1036,7 +1036,7 @@ vr_start(ifp)
 		d->vr_ctl |=
 		    htole32(VR_TXCTL_TLINK|VR_TXCTL_FIRSTFRAG|
 		    VR_TXCTL_LASTFRAG);
-		
+
 		/*
 		 * If this is the first descriptor we're enqueuing,
 		 * don't give it to the Rhine yet.  That could cause

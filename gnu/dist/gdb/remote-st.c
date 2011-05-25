@@ -238,7 +238,7 @@ get_hex_regs (n, regno)
   for (i = 0; i < n; i++)
     {
       int j;
-      
+
       val = 0;
       for (j = 0; j < 8; j++)
 	val = (val << 4) + get_hex_digit (j == 0);
@@ -299,7 +299,7 @@ st2000_open(args, from_tty)
   char junk[100];
 
   target_preopen(from_tty);
-  
+
   n = sscanf(args, " %s %d %s", dev_name, &baudrate, junk);
 
   if (n != 2)
@@ -327,7 +327,7 @@ or target st2000 <host> <port>\n");
 
   /* Hello?  Are you there?  */
   printf_stdebug("\003");	/* ^C wakes up dbug */
-  
+
   expect_prompt(1);
 
   if (from_tty)
@@ -364,7 +364,7 @@ st2000_detach (from_tty)
   if (from_tty)
     printf ("Ending remote %s debugging\n", target_shortname);
 }
- 
+
 /* Tell the remote machine to resume.  */
 
 static void
@@ -564,7 +564,7 @@ st2000_read_inferior_memory(memaddr, myaddr, len)
     errno = EIO;
     return 0;
   }
-  
+
   startaddr = memaddr;
   count = 0;
   while (count < len)
@@ -684,10 +684,10 @@ st2000_command (args, fromtty)
 {
   if (!st2000_desc)
     error("st2000 target not open.");
-  
+
   if (!args)
     error("Missing command.");
-	
+
   printf_stdebug("%s\r", args);
   expect_prompt(0);
 }
@@ -721,10 +721,10 @@ connect_command (args, fromtty)
 
   if (st2000_desc < 0)
     error("st2000 target not open.");
-  
+
   if (args)
     fprintf("This command takes no args.  They have been ignored.\n");
-	
+
   printf("[Entering connect mode.  Use ~. or ~^D to escape]\n");
 
   serial_raw(0, &ttystate);
@@ -798,7 +798,7 @@ or a network connection.\n\
 Arguments are the name of the device for the serial line,\n\
 the speed to connect at in bits per second.",
   st2000_open,
-  st2000_close, 
+  st2000_close,
   0,
   st2000_detach,
   st2000_resume,

@@ -1,5 +1,5 @@
 $NetBSD: LEGAL.NOTICE,v 1.8 1999/11/01 17:39:26 christos Exp $
-Id: LEGAL.NOTICE,v 1.11 1999/01/14 16:30:12 christos Exp 
+Id: LEGAL.NOTICE,v 1.11 1999/01/14 16:30:12 christos Exp
 Copyright (c) Ian F. Darwin 1986, 1987, 1989, 1990, 1991, 1992, 1994, 1995.
 Software written by Ian F. Darwin and others;
 maintained 1994-1999 Christos Zoulas.
@@ -21,7 +21,7 @@ are met:
    This product includes software developed by Ian F. Darwin and others.
 4. The name of the author may not be used to endorse or promote products
    derived from this software without specific prior written permission.
- 
+
 THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE

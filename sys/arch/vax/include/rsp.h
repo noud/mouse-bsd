@@ -13,7 +13,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -34,8 +34,8 @@
 /*
  * The Radial Serial Protocol (RSP) that TU58 (DECtape II) uses
  * is a strange animal that is sent over serial lines.
- * Most packet types can match the struct rsp, but some can't (i.e. 
- * data packets). 
+ * Most packet types can match the struct rsp, but some can't (i.e.
+ * data packets).
  * More about RSP can be read in Digital Peripherals Handbook, p. 92.
  */
 

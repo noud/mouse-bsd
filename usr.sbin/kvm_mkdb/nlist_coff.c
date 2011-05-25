@@ -185,7 +185,7 @@ create_knlist_coff(name, db)
 		 * temporary buffer, and prepare the database key for
 		 * insertion.
 		 */
-		syment = (struct external_syment *)&mappedfile[symhdroff + 
+		syment = (struct external_syment *)&mappedfile[symhdroff +
 				       COFF_ES_SYMENTSZ*i];
 
 		if(syment->e_sclass[0] != 2){
@@ -194,7 +194,7 @@ create_knlist_coff(name, db)
 
 		if(syment->e.e.e_zeroes[0]){
 			if( syment->e.e_name[COFF_ES_SYMNMLEN-1] ){
-				memcpy( snamebuf, syment->e.e_name, 
+				memcpy( snamebuf, syment->e.e_name,
 				       COFF_ES_SYMNMLEN);
 				snamebuf[COFF_ES_SYMNMLEN] = '\0';
 				fsymname = snamebuf;
@@ -203,9 +203,9 @@ create_knlist_coff(name, db)
 				fsymname = syment->e.e_name ;
 			}
 			fsymnamesize = strlen(fsymname) + 1;
-			
+
 #ifdef DEBUG
-			printf("%s\n",fsymname ); 
+			printf("%s\n",fsymname );
 #endif
 		}
 		else{
@@ -214,10 +214,10 @@ create_knlist_coff(name, db)
 			fsymnamesize = strlen(fsymname) + 1;
 
 #ifdef DEBUG
-			printf("*%s\n",fsymname ); 
+			printf("*%s\n",fsymname );
 #endif
 		}
-		
+
 		while (symnamesize < fsymnamesize + 1) {
 			symnamesize *= 2;
 			if ((symname = realloc(symname, symnamesize)) == NULL){
@@ -226,7 +226,7 @@ create_knlist_coff(name, db)
 			}
 		}
 #if 0
-		strcpy(symname, "_"); 
+		strcpy(symname, "_");
 		strcat(symname, fsymname);
 #else
 		strcpy(symname, fsymname);

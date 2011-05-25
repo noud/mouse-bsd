@@ -114,7 +114,7 @@ com_multi_probe(parent, match, aux)
 	int iobase;
 	struct cfdata *cf = match;
 	struct commulti_attach_args *ca = aux;
- 
+
 	if (cf->cf_loc[COMMULTICF_SLAVE] != COMMULTICF_SLAVE_DEFAULT &&
 	    cf->cf_loc[COMMULTICF_SLAVE] != ca->ca_slave)
 		return (0);

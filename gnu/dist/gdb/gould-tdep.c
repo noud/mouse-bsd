@@ -210,10 +210,10 @@ findarg(frame)
 #endif
 
         return (-1);
-} 
+}
 
 /*
- * In the case of the NPL, the frame's norminal address is Br2 and the 
+ * In the case of the NPL, the frame's norminal address is Br2 and the
  * previous routines frame is up the stack X bytes.  Finding out what
  * 'X' is can be tricky.
  *
@@ -226,7 +226,7 @@ findframe(thisframe)
 {
     register CORE_ADDR pointer;
     CORE_ADDR framechain();
-#if 0    
+#if 0
     struct frame_info *frame;
 
     /* Setup toplevel frame structure */

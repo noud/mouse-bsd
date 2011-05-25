@@ -84,7 +84,7 @@ mmrw(dev, uio, flags)
 	struct iovec *iov;
 	int error = 0;
 	static caddr_t zeropage;
-	
+
 	while (uio->uio_resid > 0 && error == 0) {
 		iov = uio->uio_iov;
 		if (iov->iov_len == 0) {

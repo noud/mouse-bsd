@@ -191,7 +191,7 @@ getdatablk(blkno, size)
     return getddblk(fsbtodb(&sblock,blkno),size);
 }
 
-void 
+void
 getdblk(bp, blk, size)
 	register struct bufarea *bp;
 	daddr_t blk;
@@ -231,7 +231,7 @@ flush(fd, bp)
 	bwrite(fd, bp->b_un.b_buf, bp->b_bno, (long)bp->b_size);
 	if (bp != &sblk)
 		return;
-#if 0 /* XXX - FFS */        
+#if 0 /* XXX - FFS */
 	for (i = 0, j = 0; i < sblock.lfs_cssize; i += sblock.lfs_bsize, j++) {
 		bwrite(fswritefd, (char *)sblock.lfs_csp[j],
 		    fsbtodb(&sblock, sblock.lfs_csaddr + j * sblock.lfs_frag),

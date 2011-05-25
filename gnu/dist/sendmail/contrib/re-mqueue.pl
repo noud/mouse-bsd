@@ -10,7 +10,7 @@
 #  -d		enable debugging
 #  queueA	source directory
 #  queueB	destination directory
-#  seconds	select files older than this number of seconds 
+#  seconds	select files older than this number of seconds
 #
 # Example: re-mqueue /var/spool/mqueue /var/spool/mqueue2 2700
 #

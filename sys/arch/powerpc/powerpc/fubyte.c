@@ -39,7 +39,7 @@ fubyte(addr)
 char *addr;
 {
 	unsigned char c;
-	
+
 	if (copyin(addr,&c,sizeof(c)))
 		return -1;
 	return c;

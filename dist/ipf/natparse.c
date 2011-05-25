@@ -289,7 +289,7 @@ int linenum;
 	strncpy(ipn.in_ifname, s, sizeof(ipn.in_ifname) - 1);
 	ipn.in_ifname[sizeof(ipn.in_ifname) - 1] = '\0';
 	if (!(s = strtok(NULL, " \t"))) {
-		fprintf(stderr, "%d: missing fields (%s)\n", linenum, 
+		fprintf(stderr, "%d: missing fields (%s)\n", linenum,
 			ipn.in_redir ? "from source | destination" : "source");
 		return NULL;
 	}
@@ -486,7 +486,7 @@ int linenum;
 				linenum);
 			return NULL;
 		}
-	  
+
 		if (!(s = strtok(NULL, " \t"))) {
 			fprintf(stderr,
 				"%d: missing fields (destination port)\n",
@@ -494,7 +494,7 @@ int linenum;
 			return NULL;
 		}
 		tport = s;
-	} 
+	}
 	if (dnetm && *dnetm == '/')
 		*dnetm++ = '\0';
 	if (snetm && *snetm == '/')
@@ -640,7 +640,7 @@ int linenum;
 			return NULL;
 		}
 		return &ipn;
-		
+
 	}
 
 	if (strcasecmp(s, "portmap")) {

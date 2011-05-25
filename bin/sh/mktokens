@@ -87,7 +87,7 @@ sed -e 's/"/\\"/g' \
 echo '};
 '
 sed 's/"//g' /tmp/ka$$ | awk '
-/TIF/{print "#define KWDOFFSET " NR-1; print ""; 
+/TIF/{print "#define KWDOFFSET " NR-1; print "";
       print "const char *const parsekwd[] = {"}
 /TIF/,/neverfound/{print "	\"" $3 "\","}'
 echo '	0

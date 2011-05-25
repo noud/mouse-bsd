@@ -413,7 +413,7 @@ mkinit(tn)
 	tmem = tsave();
 	expr(tn, 1, 0);
 	trestor(tmem);
-	
+
 	if (isityp(lt) && ln->tn_type->t_isfield && !isityp(rt)) {
 		/*
 		 * Bit-fields can be initialized in trad. C only by integer

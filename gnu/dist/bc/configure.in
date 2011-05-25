@@ -26,13 +26,13 @@ SaveCFLAGS="$CFLAGS"
 CFLAGS="-g -O -I. -I$srcdir"
 AC_MSG_CHECKING(if long strings are accepted by the C compiler)
 AC_TRY_COMPILE([
-char libmath[] = 
+char libmath[] =
 #include "bc/libmath.h"
 ;
 ],[],AC_MSG_RESULT(yes),
 AC_MSG_RESULT(no)
 AC_MSG_WARN(libmath.b will not be preloaded into the executable)
-if test "${prefix}" = "NONE" ; then 
+if test "${prefix}" = "NONE" ; then
 AC_DEFINE_UNQUOTED(BC_MATH_FILE,"/usr/local/lib/libmath.b")
 else
 AC_DEFINE_UNQUOTED(BC_MATH_FILE,"${prefix}/lib/libmath.b")

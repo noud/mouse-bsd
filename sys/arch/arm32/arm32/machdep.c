@@ -325,7 +325,7 @@ map_entry_ro(pagetable, va, pa)
 /*
  * void cpu_startup(void)
  *
- * Machine dependant startup code. 
+ * Machine dependant startup code.
  *
  */
 
@@ -775,7 +775,7 @@ cpu_sysctl(name, namelen, oldp, oldlenp, newp, newlen, p)
 	/* NOTREACHED */
 }
 
-/* 
+/*
  * Function to identify and process different types of boot argument
  */
 
@@ -831,7 +831,7 @@ get_bootconf_option(opts, opt, type, result)
 					break;
 				case BOOTOPT_TYPE_STRING :
 					*((char **)result) = ptr;
-					break;			
+					break;
 				case BOOTOPT_TYPE_INT :
 					*((int *)result) = (u_int)strtoul(ptr, NULL, 10);
 					break;

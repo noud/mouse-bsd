@@ -89,7 +89,7 @@
 #include <machine/cpu.h>
 #include <machine/reg.h>
 
-#include <sys/syscallargs.h>    
+#include <sys/syscallargs.h>
 
 #include <compat/hpux/hpux.h>
 #include <compat/hpux/hpux_util.h>

@@ -3873,10 +3873,10 @@ set_pte_pmeg(int pmeg_num, int page_num, int pte)
 
 /*
  *	Routine:        pmap_procwr
- * 
+ *
  *	Function:
  *		Synchronize caches corresponding to [addr, addr+len) in p.
- */   
+ */
 void
 pmap_procwr(p, va, len)
 	struct proc	*p;

@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: info_hesiod.c,v 1.5 1999/02/04 07:24:15 ezk Exp 
+ * Id: info_hesiod.c,v 1.5 1999/02/04 07:24:15 ezk Exp
  *
  */
 

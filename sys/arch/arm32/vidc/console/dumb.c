@@ -109,7 +109,7 @@ do_render(c, vc)
 	}
 	return(0);
 }
-	
+
 int
 TERMTYPE_PUTSTRING(string, length, vc)
 	char *string;

@@ -51,7 +51,7 @@ cleandir distclean:	.NOTMAIN cleandirfpsp
 cleandirfpsp:	.NOTMAIN __always_make_fpsp
 # So we don't really need a cleandir target without a depend target.
 # On the other hand, were "make cleandir" in the kernel build
-# directory to fail to remove all the floating point objects, that   
+# directory to fail to remove all the floating point objects, that
 # would tend to violate the principle of least surprise!
 	@echo cleandiring the 68040 FPSP objects
 	@${FPSPMAKE} clean

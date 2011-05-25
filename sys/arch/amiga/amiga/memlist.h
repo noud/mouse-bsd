@@ -31,7 +31,7 @@
  */
 
 /*
- * memory list passed by loadbsd 
+ * memory list passed by loadbsd
  */
 
 struct boot_memlist {

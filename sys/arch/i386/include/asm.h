@@ -96,7 +96,7 @@
 # ifdef __ELF__
 #  define _PROF_PROLOGUE	\
 	pushl %ebp; movl %esp,%ebp; call PIC_PLT(__mcount); popl %ebp
-# else 
+# else
 #  define _PROF_PROLOGUE	\
 	pushl %ebp; movl %esp,%ebp; call PIC_PLT(mcount); popl %ebp
 # endif

@@ -32,7 +32,7 @@ the Free Software Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307
  * controled by the nullification bit, and conditional, which depends
  * on the direction of the branch and its success or failure.
  *
- * NONE is unfortunately #defined in the hiux system include files.  
+ * NONE is unfortunately #defined in the hiux system include files.
  * #undef it away.
  */
 #undef NONE
@@ -252,7 +252,7 @@ static const struct pa_opcode pa_opcodes[] =
 { "addibt",	0xa4000000, 0xfc000000, "!n5,b,w", pa10},
 { "addibf",	0xac000000, 0xfc000000, "!n5,b,w", pa10},
 { "bvb",	0xc0000000, 0xffe00000, "~nx,w", pa10},
-{ "bb",		0xc4000000, 0xfc000000, "~nx,Q,w", pa10}, 
+{ "bb",		0xc4000000, 0xfc000000, "~nx,Q,w", pa10},
 
 /* Computation Instructions */
 
@@ -378,7 +378,7 @@ static const struct pa_opcode pa_opcodes[] =
 { "gfr",	0x04001a80, 0xfc003fdf, "Zx(b)", pa11},
 
 /* Floating Point Coprocessor Instructions */
-  
+
 { "fldwx",      0x24000000, 0xfc001f80, "cx(s,b),v", pa10},
 { "fldwx",      0x24000000, 0xfc001f80, "cx(b),v", pa10},
 { "flddx",      0x2c000000, 0xfc001fc0, "cx(s,b),y", pa10},

@@ -1,4 +1,4 @@
-.\"	$NetBSD: prep,v 1.5 1999/04/10 16:16:11 scw Exp $	
+.\"	$NetBSD: prep,v 1.5 1999/04/10 16:16:11 scw Exp $
 .
 mvme68k machines usually need little or no preparation before installing
 .Nx "" ,
@@ -8,7 +8,7 @@ on any attached storage devices.
 .Pp
 The following instructions should make your machine "NetBSD Ready".
 .Pp
-Power-up your MVME147 board. You should have the 
+Power-up your MVME147 board. You should have the
 .Em bug No prompt:
 .Bdlit
 

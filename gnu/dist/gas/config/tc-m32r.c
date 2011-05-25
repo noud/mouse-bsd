@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "as.h"
-#include "subsegs.h"     
+#include "subsegs.h"
 #include "symcat.h"
 #include "cgen-opc.h"
 
@@ -121,7 +121,7 @@ md_parse_option (c, arg)
 {
   switch (c)
     {
-      
+
 #if 0 /* not supported yet */
     case OPTION_RELAX:
       m32r_relax = 1;
@@ -147,7 +147,7 @@ md_show_usage (stream)
   fprintf (stream, "\
 --cpu-desc		provide runtime cpu description file\n");
 #endif
-} 
+}
 
 static void fill_insn PARAMS ((int));
 static void m32r_scomm PARAMS ((int));
@@ -257,12 +257,12 @@ m32r_fill_insn (done)
       subsegT subseg = now_subseg;
 
       subseg_set (prev_seg, prev_subseg);
-      
+
       fill_insn (0);
-      
+
       subseg_set (seg, subseg);
     }
-  
+
   return 1;
 }
 
@@ -277,7 +277,7 @@ md_begin ()
 
   /* This is a callback from cgen to gas to parse operands.  */
   cgen_parse_operand_fn = cgen_parse_operand;
-  
+
   /* Set the machine number and endian.  */
   CGEN_SYM (init_asm) (0 /* mach number */,
 		       target_big_endian ?
@@ -302,11 +302,11 @@ md_begin ()
 
   /* The sbss section is for local .scomm symbols.  */
   sbss_section = subseg_new (".sbss", 0);
-  
+
   /* This is copied from perform_an_assembly_pass.  */
   applicable = bfd_applicable_section_flags (stdoutput);
   bfd_set_section_flags (stdoutput, sbss_section, applicable & SEC_ALLOC);
-  
+
 #if 0 /* What does this do? [see perform_an_assembly_pass]  */
   seg_info (bss_section)->bss = 1;
 #endif
@@ -339,7 +339,7 @@ md_assemble (str)
   /* Initialize GAS's cgen interface for a new instruction.  */
   cgen_asm_init_parse ();
 
-  
+
   insn.insn = CGEN_SYM (assemble_insn) (str, & insn.fields, insn.buffer, & errmsg);
   if (!insn.insn)
     {
@@ -347,7 +347,7 @@ md_assemble (str)
       return;
     }
 
-  
+
   if (CGEN_INSN_BITSIZE (insn.insn) == 32)
     {
       /* 32 bit insns must live on 32 bit boundaries.  */
@@ -357,16 +357,16 @@ md_assemble (str)
 	     pig, can we call assemble_nop instead of !seen_relaxable_p?  */
 	  fill_insn (0);
 	}
-      
+
       (void) cgen_asm_finish_insn (insn.insn, insn.buffer,
 				   CGEN_FIELDS_BITSIZE (& insn.fields));
     }
   else
     {
-      
+
       if (CGEN_INSN_BITSIZE (insn.insn) != 16)
 	abort();
-      
+
       /* Get the indices of the operands of the instruction.  */
       insn.insn = m32r_cgen_get_insn_operands (insn.insn,
 					       bfd_getb16 ((char *) insn.buffer),
@@ -379,7 +379,7 @@ md_assemble (str)
 	 prev_insn.insn is NULL when we're on a 32 bit boundary.  */
       if (prev_insn.insn)
 	{
-	  
+
 	  prev_insn.insn = NULL;
 	}
       else
@@ -392,7 +392,7 @@ md_assemble (str)
       insn.addr = cgen_asm_finish_insn (insn.insn, insn.buffer,
 				   CGEN_FIELDS_BITSIZE (& insn.fields));
 
-      
+
       /* If the insn needs the following one to be on a 32 bit boundary
 	 (e.g. subroutine calls), fill this insn's slot.  */
       if (prev_insn.insn != NULL
@@ -414,7 +414,7 @@ md_assemble (str)
 /* The syntax in the manual says constants begin with '#'.
    We just ignore it.  */
 
-void 
+void
 md_operand (expressionP)
      expressionS * expressionP;
 {
@@ -541,15 +541,15 @@ m32r_scomm (ignore)
 
       record_alignment (sbss_section, align2);
       subseg_set (sbss_section, 0);
-      
+
       if (align2)
 	frag_align (align2, 0, 0);
-      
+
       if (S_GET_SEGMENT (symbolP) == sbss_section)
 	symbolP->sy_frag->fr_symbol = 0;
-      
+
       symbolP->sy_frag = frag_now;
-      
+
       pfrag = frag_var (rs_org, 1, 1, (relax_substateT) 0, symbolP, size,
 			(char *) 0);
       * pfrag = 0;
@@ -672,7 +672,7 @@ md_estimate_size_before_relax (fragP, segment)
 	 all further handling to md_convert_frag.  */
       fragP->fr_subtype = 2;
 
-#if 0 /* Can't use this, but leave in for illustration.  */     
+#if 0 /* Can't use this, but leave in for illustration.  */
       /* Change 16 bit insn to 32 bit insn.  */
       opcode[0] |= 0x80;
 
@@ -716,7 +716,7 @@ md_estimate_size_before_relax (fragP, segment)
     }
 
   return (fragP->fr_var + fragP->fr_fix - old_fr_fix);
-} 
+}
 
 /* *fragP has been relaxed to its final size, and now needs to have
    the bytes inside it modified to conform to the new size.
@@ -877,7 +877,7 @@ m32r_record_hi16 (reloc_type, fixP, seg)
   hi_fixup->fixp = fixP;
   hi_fixup->seg  = now_seg;
   hi_fixup->next = m32r_hi_fixup_list;
-  
+
   m32r_hi_fixup_list = hi_fixup;
 }
 
@@ -1092,7 +1092,7 @@ md_atof (type, litP, sizeP)
 	  litP += sizeof (LITTLENUM_TYPE);
 	}
     }
-     
+
   return 0;
 }
 
@@ -1102,7 +1102,7 @@ m32r_elf_section_change_hook ()
   /* If we have reached the end of a section and we have just emitted a
      16 bit insn, then emit a nop to make sure that the section ends on
      a 32 bit boundary.  */
-  
+
   if (prev_insn.insn || seen_relaxable_p)
     (void) m32r_fill_insn (0);
 }

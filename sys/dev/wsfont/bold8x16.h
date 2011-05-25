@@ -42,7 +42,7 @@
  */
 extern u_char bold8x16_data[];
 
-struct wsdisplay_font bold8x16 = { 
+struct wsdisplay_font bold8x16 = {
 	"Boldface",			/* typeface name */
 	1,				/* firstchar */
 	254,				/* numchars */

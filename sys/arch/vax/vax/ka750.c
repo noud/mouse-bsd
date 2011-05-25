@@ -144,7 +144,7 @@ ka750_memenable(parent, self, aux)
 	struct	sbi_attach_args *sa = (struct sbi_attach_args *)aux;
 	struct mcr750 *mcr = (struct mcr750 *)sa->nexaddr;
 	int k, l, m, cardinfo;
-	
+
 	mcraddr[self->dv_unit] = (caddr_t)sa->nexaddr;
 
 	/* We will use this info for error reporting - later! */
@@ -235,7 +235,7 @@ ka750_mchk(cmcf)
 	int mcsr = mfpr(PR_MCSR);
 
 	printf("machine check %x: %s%s\n", type, mc750[type&0xf],
-	    (type&0xf0) ? " abort" : " fault"); 
+	    (type&0xf0) ? " abort" : " fault");
 	printf(
 "\tva %x errpc %x mdr %x smr %x rdtimo %x tbgpar %x cacherr %x\n",
 	    mcf->mc5_va, mcf->mc5_errpc, mcf->mc5_mdr, mcf->mc5_svmode,

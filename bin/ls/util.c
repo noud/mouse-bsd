@@ -73,7 +73,7 @@ prcopy(src, dest, len)
 void
 usage()
 {
-	(void)fprintf(stderr, 
+	(void)fprintf(stderr,
 	    "usage: ls [-1ACFLRSTWacdfgiklmnopqrstux] [file ...]\n");
 	exit(EXIT_FAILURE);
 	/* NOTREACHED */

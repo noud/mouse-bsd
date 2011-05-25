@@ -139,7 +139,7 @@ draw_char(int x, int y, int c)
 {
 	int i;
 	unsigned char* p;
-	
+
 	if (!fb_vram) {
 		return;
 	}
@@ -305,10 +305,10 @@ bicons_pollc(dev_t dev, int c)
 void
 bicons_init()
 {
-	int fb_index = -1; 
+	int fb_index = -1;
 	TRACE(1, 0);
 
-	if (bootinfo) { 
+	if (bootinfo) {
 		TRACE(1, 1);
 		for (fb_index = 0; fb_index < FB_TABLE_SIZE; fb_index++) {
 			if (fb_table[fb_index].type == bootinfo->fb_type) {
@@ -355,7 +355,7 @@ bicons_init()
 	curs_y = 0;
 
 	bicons_puts("builtin console type = ");
-	if (bootinfo) { 
+	if (bootinfo) {
 		bicons_puts(fb_table[fb_index].name);
 	} else {
 #ifdef HALF_FONT
@@ -374,7 +374,7 @@ void
 xmemset(volatile void *dst0, int c0, int length)
 {
 	volatile unsigned char *dst = dst0;
-  
+
 	while (length != 0) {
 		*dst++ = c0;
 		--length;

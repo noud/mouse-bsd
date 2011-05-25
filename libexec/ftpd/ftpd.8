@@ -125,7 +125,7 @@ Defaults to the hostname associated with the IP address that
 is listening on.
 This ability (with or without
 .Fl h ) ,
-in conjunction with 
+in conjunction with
 .Fl c Ar confdir ,
 is useful when configuring
 .Sq virtual
@@ -499,14 +499,14 @@ login, you can copy/link
 .Pa /sbin/nologin
 to
 .Pa /sbin/ftplogin ,
-and enter 
-.Pa /sbin/ftplogin 
+and enter
+.Pa /sbin/ftplogin
 to
 .Pa /etc/shells
 to allow logging-in via
 .Tn FTP
 into the accounts, which must have
-.Pa /sbin/ftplogin 
+.Pa /sbin/ftplogin
 as login shell.
 .Sh FILES
 .Bl -tag -width /etc/ftpwelcome -compact
@@ -535,11 +535,11 @@ If it exists, displayed and access is refused.
 .Xr syslogd 8
 .Sh STANDARDS
 .Nm
-recognizes all commands in 
-.Cm RFC 959 , 
-follows the guidelines in 
+recognizes all commands in
+.Cm RFC 959 ,
+follows the guidelines in
 .Cm RFC 1123 ,
-recognizes all commands in 
+recognizes all commands in
 .Cm RFC 2228
 (although they are not supported yet),
 and supports the extensions from

@@ -89,7 +89,7 @@ struct mscstatus {
 #define	MSC_MEMPAD1	\
     (0x0200 - NUMLINES * sizeof(struct mscstatus) - sizeof(struct msccommon))
 #define	MSC_MEMPAD2	(0x2000 - NUMLINES * IOBUFLEN - IOBUFLEN)
-	
+
 struct mscmemory {
 	struct mscstatus Status[NUMLINES];	/* 0x0000-0x006f status areas */
 	struct msccommon Common;		/* 0x0070-0x0077 common flags */

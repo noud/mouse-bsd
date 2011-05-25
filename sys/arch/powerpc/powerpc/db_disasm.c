@@ -81,7 +81,7 @@ op_class_func op_cl_x3e, op_cl_x3f;
 op_class_func *opcodes_base[] = {
 /*x00*/	op_ill,		op_ill,		op_base,	op_ill,
 /*x04*/	op_ill,		op_ill,		op_ill,		op_base,
-/*x08*/	op_base,	op_base,	op_ill,		op_base,	
+/*x08*/	op_base,	op_base,	op_ill,		op_base,
 /*x0C*/ op_base,	op_base,	op_base/*XXX*/,	op_base/*XXX*/,
 /*x10*/ op_base,	op_base,	op_base,	op_cl_x13,
 /*x14*/	op_base,	op_base,	op_ill,		op_base,
@@ -100,11 +100,11 @@ op_class_func *opcodes_base[] = {
 
 /* This table could be modified to make significant the "reserved" fields
  * of the opcodes, But I didn't feel like it when typing in the table,
- * I would recommend that this table be looked over for errors, 
+ * I would recommend that this table be looked over for errors,
  * This was derived from the table in Appendix A.2 of (Mot part # MPCFPE/AD)
  * PowerPC Microprocessor Family: The Programming Environments
  */
-	
+
 const struct opcode opcodes[] = {
 	{ "tdi",	0xfc000000, 0x08000000, Op_TO | Op_A | Op_SIMM },
 	{ "twi",	0xfc000000, 0x0c000000, Op_TO | Op_A | Op_SIMM },

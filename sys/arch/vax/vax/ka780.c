@@ -59,7 +59,7 @@ struct	cfattach mem_sbi_ca = {
 	sizeof(struct mem_softc), mem_sbi_match, mem_sbi_attach
 };
 
-int	
+int
 mem_sbi_match(parent, cf, aux)
 	struct	device	*parent;
 	struct cfdata *cf;
@@ -93,7 +93,7 @@ mem_sbi_match(parent, cf, aux)
 	case NEX_MEM256UI:
 		sa->nexinfo = M780EU;
 		break;
- 
+
 	default:
 		return 0;
 	}
@@ -329,7 +329,7 @@ ka780_mchk(cmcf)
 	register int sbifs;
 
 	printf("machine check %x: %s%s\n", type, mc780[type&0xf],
-	    (type&0xf0) ? " abort" : " fault"); 
+	    (type&0xf0) ? " abort" : " fault");
 	printf("\tcpues %x upc %x va/viba %x dreg %x tber %x %x\n",
 	   mcf->mc8_cpues, mcf->mc8_upc, mcf->mc8_vaviba,
 	   mcf->mc8_dreg, mcf->mc8_tber0, mcf->mc8_tber1);

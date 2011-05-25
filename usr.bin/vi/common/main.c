@@ -100,7 +100,7 @@ editor(gp, argc, argv)
 		if (!strcmp(gp->progname, "nview") ||
 		    !strcmp(gp->progname, "view"))
 			readonly = 1;
-		
+
 		/* Vi is the default. */
 		LF_INIT(SC_VI);
 	}
@@ -422,7 +422,7 @@ editor(gp, argc, argv)
 	 * we're not in raw mode.  We can't switch to raw mode because the
 	 * vi initialization will switch to xterm's alternate screen, causing
 	 * us to lose the messages we're pausing to make sure the user read.
-	 * So, wait for a complete line.  
+	 * So, wait for a complete line.
 	 */
 	if (F_ISSET(sp, SC_SCR_EX)) {
 		p = msg_cmsg(sp, CMSG_CONT_R, &len);

@@ -159,7 +159,7 @@ wsattach(parent, self, aux)
 	sc->sc_ctl = (struct sioreg *)scp->scp_ctl + 1;
 	bcopy(ch1_regs, sc->sc_wr, sizeof(ch1_regs));
 	scp->scp_intr[1] = wsintr;
-	
+
 	setsioreg(sc->sc_ctl, WR0, sc->sc_wr[WR0]);
 	setsioreg(sc->sc_ctl, WR4, sc->sc_wr[WR4]);
 	setsioreg(sc->sc_ctl, WR3, sc->sc_wr[WR3]);
@@ -182,7 +182,7 @@ wsattach(parent, self, aux)
 	{
 	struct wsmousedev_attach_args b;
 	b.accessops = &omms_accessops;
-	b.accesscookie = (void *)sc;	
+	b.accesscookie = (void *)sc;
 	sc->sc_wsmousedev = config_found_sm(self, &b, wsmousedevprint,
 					ws_submatch_mouse);
 	sc->sc_msreport = 0;
@@ -282,7 +282,7 @@ omkbd_input(v, data)
 	int key;
 
 	if (omkbd_decode(v, data, &type, &key))
-		wskbd_input(sc->sc_wskbddev, type, key);	
+		wskbd_input(sc->sc_wskbddev, type, key);
 }
 
 static int

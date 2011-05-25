@@ -30,18 +30,18 @@
 @c
 @c Name of GDB program.  Used also for (gdb) prompt string.
 @set GDBP gdb
-@c 
+@c
 @c Name of GDB product.  Used in running text.
 @set GDBN GDB
 @c
 @c Name of GDB initialization file.
 @set GDBINIT .gdbinit
-@c 
+@c
 @c Name of target.
 @set TARGET Hitachi Microprocessors
 @c
 @c Name of GCC product
 @set NGCC GCC
-@c 
+@c
 @c Name of GCC program
 @set GCC gcc

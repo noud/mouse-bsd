@@ -330,7 +330,7 @@ struct type *builtin_type_chill_long;
 struct type *builtin_type_chill_ulong;
 struct type *builtin_type_chill_real;
 
-struct type ** CONST_PTR (chill_builtin_types[]) = 
+struct type ** CONST_PTR (chill_builtin_types[]) =
 {
   &builtin_type_chill_bool,
   &builtin_type_chill_char,
@@ -639,7 +639,7 @@ const struct language_defn chill_language_defn = {
   chill_op_print_tab,		/* expression operators for printing */
   0,				/* arrays are first-class (not c-style) */
   0,				/* String lower bound */
-  &builtin_type_chill_char,	/* Type of string elements */ 
+  &builtin_type_chill_char,	/* Type of string elements */
   LANG_MAGIC
 };
 

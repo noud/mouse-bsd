@@ -220,7 +220,7 @@ ukphy_service(sc, mii, cmd)
 		 */
 		if (++sc->mii_ticks != 5)
 			return (0);
-		
+
 		sc->mii_ticks = 0;
 		mii_phy_reset(sc);
 		if (mii_phy_auto(sc, 0) == EJUSTRETURN)

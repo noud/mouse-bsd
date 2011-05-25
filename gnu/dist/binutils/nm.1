@@ -15,21 +15,21 @@ nm \- list symbols from object files.
 .na
 .TP
 .B nm
-.RB "[\|" \-a | \-\-debug\-syms "\|]" 
+.RB "[\|" \-a | \-\-debug\-syms "\|]"
 .RB "[\|" \-g | \-\-extern\-only "\|]"
-.RB "[\|" \-B "\|]"  
-.RB "[\|" \-C | \-\-demangle "\|]" 
-.RB "[\|" \-D | \-\-dynamic "\|]" 
-.RB "[\|" \-s | \-\-print\-armap "\|]" 
-.RB "[\|" \-o | \-\-print\-file\-name "\|]"  
-.RB "[\|" \-n | \-\-numeric\-sort "\|]" 
+.RB "[\|" \-B "\|]"
+.RB "[\|" \-C | \-\-demangle "\|]"
+.RB "[\|" \-D | \-\-dynamic "\|]"
+.RB "[\|" \-s | \-\-print\-armap "\|]"
+.RB "[\|" \-o | \-\-print\-file\-name "\|]"
+.RB "[\|" \-n | \-\-numeric\-sort "\|]"
 .RB "[\|" \-p | \-\-no\-sort "\|]"
-.RB "[\|" \-r | \-\-reverse\-sort "\|]" 
-.RB "[\|" \-\-size\-sort "\|]" 
-.RB "[\|" \-u | \-\-undefined\-only "\|]"  
+.RB "[\|" \-r | \-\-reverse\-sort "\|]"
+.RB "[\|" \-\-size\-sort "\|]"
+.RB "[\|" \-u | \-\-undefined\-only "\|]"
 .RB "[\|" \-l | \-\-line\-numbers "\|]"
-.RB "[\|" \-\-help "\|]"  
-.RB "[\|" \-\-version "\|]"  
+.RB "[\|" \-\-help "\|]"
+.RB "[\|" \-\-version "\|]"
 .RB "[\|" "\-t \fIradix" | \-\-radix=\fIradix "\|]"
 .RB "[\|" \-P | --portability "\|]"
 .RB "[\|" "\-f \fIformat" | \-\-format=\fIformat "\|]"
@@ -59,15 +59,15 @@ equivalent.
 .TP
 .B \-o
 .TP
-.B \-\-print\-file\-name 
+.B \-\-print\-file\-name
 Precede each symbol by the name of the input file where it was found,
 rather than identifying the input file once only before all of its
-symbols. 
+symbols.
 
 .TP
 .B \-a
 .TP
-.B \-\-debug\-syms 
+.B \-\-debug\-syms
 Display debugger-only symbols; normally these are not listed.
 
 .TP
@@ -102,7 +102,7 @@ either upper or lower case.
 .TP
 .B \-g
 .TP
-.B \-\-extern\-only 
+.B \-\-extern\-only
 Display only external symbols.
 
 .TP
@@ -110,14 +110,14 @@ Display only external symbols.
 .TP
 .B \-v
 .TP
-.B \-\-numeric\-sort 
+.B \-\-numeric\-sort
 Sort symbols numerically by their addresses, not alphabetically by their
-names. 
+names.
 
 .TP
 .B \-p
 .TP
-.B \-\-no\-sort 
+.B \-\-no\-sort
 Don't bother to sort the symbols in any order; just print them in the
 order encountered.
 
@@ -143,12 +143,12 @@ contain definitions for what names.
 .TP
 .B \-r
 .TP
-.B \-\-reverse\-sort 
+.B \-\-reverse\-sort
 Reverse the sense of the sort (whether numeric or alphabetic); let the
 last come first.
 
 .TP
-.B \-\-size\-sort 
+.B \-\-size\-sort
 Sort symbols by size.  The size is computed as the difference between
 the value of the symbol and the value of the symbol with the next higher
 value.  The size of the symbol is printed, rather than the value.
@@ -163,14 +163,14 @@ Use \fIradix\fP as the radix for printing the symbol values.  It must be
 .TP
 .BI "\-\-target=" "bfdname"
 Specify an object code format other than your system's default format.
-See 
+See
 .BR objdump ( 1 ),
 for information on listing available formats.
 
 .TP
 .B \-u
 .TP
-.B \-\-undefined\-only 
+.B \-\-undefined\-only
 Display only undefined symbols (those external to each object file).
 
 .TP
@@ -199,10 +199,10 @@ and exit.
 
 .SH "SEE ALSO"
 .RB "`\|" binutils "\|'"
-entry in 
+entry in
 .B
 info\c
-\&; 
+\&;
 .I
 The GNU Binary Utilities\c
 \&, Roland H. Pesch (October 1991);

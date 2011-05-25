@@ -82,8 +82,8 @@ struct cfattach clock_ca = {
  * int clockmatch(struct device *parent, void *match, void *aux)
  *
  * Just return ok for this if it is device 0
- */ 
- 
+ */
+
 static int
 clockmatch(parent, cf, aux)
 	struct device *parent;
@@ -104,7 +104,7 @@ clockmatch(parent, cf, aux)
  * Map the IOMD and identify it.
  * Then configure the child devices based on the IOMD ID.
  */
-  
+
 static void
 clockattach(parent, self, aux)
 	struct device *parent;
@@ -120,7 +120,7 @@ clockattach(parent, self, aux)
 	clock_sc = sc;
 
 	/* Cannot do anything until cpu_initclocks() has been called */
-	
+
 	printf("\n");
 }
 
@@ -132,7 +132,7 @@ clockattach(parent, self, aux)
  * hardclock(). Eventually the irqhandler can call hardclock() directly
  * but for now we use this function so that we can debug IRQ's
  */
- 
+
 int
 clockhandler(frame)
 	struct clockframe *frame;
@@ -159,7 +159,7 @@ clockhandler(frame)
  * statclock(). Eventually the irqhandler can call statclock() directly
  * but for now we use this function so that we can debug IRQ's
  */
- 
+
 int
 statclockhandler(frame)
 	struct clockframe *frame;
@@ -180,7 +180,7 @@ setstatclockrate(hz)
 	int hz;
 {
 	int count;
-    
+
 	count = TIMER_FREQUENCY / hz;
 
 	printf("Setting statclock to %dHz (%d ticks)\n", hz, count);
@@ -205,7 +205,7 @@ setstatclockrate(hz)
  *
  * NOTE: Currently only timer 0 is setup and the IRQ handler is not installed
  */
- 
+
 void
 cpu_initclocks()
 {
@@ -274,7 +274,7 @@ microtime(tvp)
 
 	bus_space_write_1(clock_sc->sc_iot, clock_sc->sc_ioh,
 	    IOMD_T0LATCH, 0);
- 
+
 	tm = bus_space_read_1(clock_sc->sc_iot, clock_sc->sc_ioh,
 	    IOMD_T0LOW);
 	tm += (bus_space_read_1(clock_sc->sc_iot, clock_sc->sc_ioh,
@@ -305,9 +305,9 @@ microtime(tvp)
 			++tvp->tv_sec;
 		}
 	}
-	    
+
 	oldtv = *tvp;
-	(void)splx(s);		
+	(void)splx(s);
 }
 
 

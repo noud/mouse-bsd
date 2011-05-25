@@ -344,7 +344,7 @@ vstring(s,v)
 {
 	value_t *p;
 
-	p = vlookup(s); 
+	p = vlookup(s);
 	if (p == 0)
 		return (1);
 	if (p->v_type&NUMBER)

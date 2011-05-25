@@ -95,7 +95,7 @@
  *	doesn't crash while in a dump which is done in physical mode.
  *
  * 10 Apr 85 -- jg
- *	Well, our theory about keyboard handling was wrong; most of the 
+ *	Well, our theory about keyboard handling was wrong; most of the
  *	keyboard is in autorepeat, down mode.  These changes are to make
  *	the qvss work the same as the Vs100, which is not necessarily
  *	completely correct, as some chord usage may fail.  But since we
@@ -234,7 +234,7 @@ static short qv_crt_parms[][16] = {
  */
 struct qv_info  *qv_scn;
 int maxqvmem = 254*1024 - sizeof(struct qv_info) - QVMAXEVQ*sizeof(vsEvent);
-	
+
 /*
  * Keyboard state
  */
@@ -247,8 +247,8 @@ struct qv_keyboard {
 
 short divdefaults[15] = { LK_DOWN,	/* 0 doesn't exist */
 	LK_AUTODOWN, LK_AUTODOWN, LK_AUTODOWN, LK_DOWN,
-	LK_UPDOWN,   LK_UPDOWN,   LK_AUTODOWN, LK_AUTODOWN, 
-	LK_AUTODOWN, LK_AUTODOWN, LK_AUTODOWN, LK_AUTODOWN, 
+	LK_UPDOWN,   LK_UPDOWN,   LK_AUTODOWN, LK_AUTODOWN,
+	LK_AUTODOWN, LK_AUTODOWN, LK_AUTODOWN, LK_AUTODOWN,
 	LK_DOWN, LK_AUTODOWN };
 
 short kbdinitstring[] = {		/* reset any random keyboard stuff */
@@ -400,7 +400,7 @@ qvopen(dev, flag)
 			tp->t_lflag = TTYDEF_LFLAG;
 			tp->t_cflag = TTYDEF_CFLAG;
 		}
-		/* XXX ?why?  else 
+		/* XXX ?why?  else
 			tp->t_flags = RAW;
 		*/
 	}
@@ -525,7 +525,7 @@ dev_t dev;
 	}
 	/*NOTREACHED*/
 }
-		
+
 /*
  * QVSS keyboard interrupt.
  */
@@ -571,7 +571,7 @@ qvkint(qv)
 			return;
 		case SHIFT:
 			qv_keyboard.shift ^= 0xffff;
-			return;	
+			return;
 		case CNTRL:
 			qv_keyboard.cntrl ^= 0xffff;
 			return;
@@ -594,7 +594,7 @@ qvkint(qv)
 				c = q_shift_key[ key ];
 				else
 				c = q_key[ key ];
-			break;	
+			break;
 		}
 
 		qv_keyboard.last = c;
@@ -617,7 +617,7 @@ qvkint(qv)
 		register struct qv_info *qp = qv_scn;
 		register vsEvent *vep;
 
-		if ((i = EVROUND(qp->itail+1)) == qp->ihead) 
+		if ((i = EVROUND(qp->itail+1)) == qp->ihead)
 			return;
 		vep = &qp->ibuff[qp->itail];
 		vep->vse_direction = VSE_KBTRAW;
@@ -649,7 +649,7 @@ qvioctl(dev, cmd, data, flag)
 	register struct qv_kpcmd *qk;
 	register unsigned char *cp;
 	int error;
- 
+
 	/*
 	 * Check for and process qvss specific ioctl's
 	 */
@@ -985,7 +985,7 @@ char c;
 }
 
 /*
- * Routine to display a character on the screen.  The model used is a 
+ * Routine to display a character on the screen.  The model used is a
  * glass tty.  It is assummed that the user will only use this emulation
  * during system boot and that the screen will be eventually controlled
  * by a window manager.
@@ -1055,7 +1055,7 @@ register char c;
 			else
 				i *= 15;
 			f_row = (char *)((int)q_font + i);
-		
+
 /*			for( i=0 ; i<15 ; i++ , b_row += 128, f_row++ )
 				*b_row = *f_row;*/
 			/* inline expansion for speed */
@@ -1128,7 +1128,7 @@ register int x,y;
 /*
  * Scroll the bitmap by moving the scanline map words. This could
  * be done by moving the bitmap but it's much too slow for a full screen.
- * The only drawback is that the scanline map must be reset when the user 
+ * The only drawback is that the scanline map must be reset when the user
  * wants to do graphics.
  */
 qvscroll()
@@ -1161,7 +1161,7 @@ qvscroll()
 	bzero( b_row, 1920 );
 
 	/*
-	 * Now move the scanlines down 
+	 * Now move the scanlines down
 	 */
 	bcopy((caddr_t)(qp->scanmap+15), (caddr_t)qp->scanmap,
 	      (qp->row * 15) * sizeof (short) );
@@ -1193,8 +1193,8 @@ qv_key_out(c)
 /*
  * Virtual console initialization. This routine sets up the qvss so that it can
  * be used as the system console. It is invoked before autoconfig and has to do
- * everything necessary to allow the device to serve as the system console. 
- * In this case it must map the q-bus and device areas and initialize the qvss 
+ * everything necessary to allow the device to serve as the system console.
+ * In this case it must map the q-bus and device areas and initialize the qvss
  * screen.
  */
 qvcons_init()

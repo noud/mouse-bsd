@@ -1,7 +1,7 @@
 /*	$NetBSD: cgfourteen.c,v 1.4 1999/05/23 02:45:19 eeh Exp $ */
 
 /*
- * Copyright (c) 1996 
+ * Copyright (c) 1996
  *	The President and Fellows of Harvard College. All rights reserved.
  * Copyright (c) 1992, 1993
  *	The Regents of the University of California.  All rights reserved.
@@ -61,16 +61,16 @@
  * XXX should defer colormap updates to vertical retrace interrupts
  */
 
-/* 
+/*
  * The following is for debugging only; it opens up a security hole
- * enabled by allowing any user to map the control registers for the 
+ * enabled by allowing any user to map the control registers for the
  * cg14 into their space.
  */
 #undef CG14_MAP_REGS
 
 /*
  * The following enables 24-bit operation: when opened, the framebuffer
- * will switch to 24-bit mode (actually 32-bit mode), and provide a 
+ * will switch to 24-bit mode (actually 32-bit mode), and provide a
  * simple cg8 emulation.
  *
  * XXX Note that the code enabled by this define is currently untested/broken.
@@ -117,7 +117,7 @@ struct cfdriver cgfourteen_cd = {
 
 /* frame buffer generic driver */
 static struct fbdriver cgfourteenfbdriver = {
-	cgfourteenunblank, cgfourteenopen, cgfourteenclose, cgfourteenioctl, 
+	cgfourteenunblank, cgfourteenopen, cgfourteenclose, cgfourteenioctl,
 	cgfourteenpoll, cgfourteenmmap
 };
 
@@ -218,10 +218,10 @@ cgfourteenattach(parent, self, args)
 #endif
 		ca->ca_ra.ra_len = 0x10000;
 	}
-	sc->sc_ctl = (struct cg14ctl *) mapiodev(ca->ca_ra.ra_reg, 0, 
+	sc->sc_ctl = (struct cg14ctl *) mapiodev(ca->ca_ra.ra_reg, 0,
 						 ca->ca_ra.ra_len);
 
-	sc->sc_hwc = (struct cg14curs *) ((u_int)sc->sc_ctl + 
+	sc->sc_hwc = (struct cg14curs *) ((u_int)sc->sc_ctl +
 					  CG14_OFFSET_CURS);
 	sc->sc_dac = (struct cg14dac *) ((u_int)sc->sc_ctl +
 					 CG14_OFFSET_DAC);
@@ -235,7 +235,7 @@ cgfourteenattach(parent, self, args)
 					    CG14_OFFSET_CLUT3);
 	sc->sc_clutincr = (u_int *) ((u_int)sc->sc_ctl +
 				     CG14_OFFSET_CLUTINCR);
-	
+
 	/*
 	 * Stash the physical address of the framebuffer for use by mmap
 	 */
@@ -309,7 +309,7 @@ cgfourteenattach(parent, self, args)
 }
 
 /*
- * Keep track of the number of opens made. In the 24-bit driver, we need to 
+ * Keep track of the number of opens made. In the 24-bit driver, we need to
  * switch to 24-bit mode on the first open, and switch back to 8-bit on
  * the last close. This kind of nonsense is needed to give screenblank
  * a fighting chance of working.
@@ -326,7 +326,7 @@ cgfourteenopen(dev, flags, mode, p)
 	int unit = minor(dev);
 	int s, oldopens;
 
-	if (unit >= cgfourteen_cd.cd_ndevs || 
+	if (unit >= cgfourteen_cd.cd_ndevs ||
 	    cgfourteen_cd.cd_devs[unit] == NULL)
 		return (ENXIO);
 
@@ -398,7 +398,7 @@ cgfourteenioctl(dev, cmd, data, flags, p)
 		break;
 
 	case FBIOGETCMAP:
-		return (cg14_get_cmap((struct fbcmap *)data, &sc->sc_cmap, 
+		return (cg14_get_cmap((struct fbcmap *)data, &sc->sc_cmap,
 				     CG14_CLUT_SIZE));
 
 	case FBIOPUTCMAP:
@@ -564,8 +564,8 @@ cgfourteenunblank(dev)
  * channel information. We hardwire the Xlut to all zeroes to insure
  * that, regardless of this value, direct 24-bit color access will be
  * used.
- * 
- * Alternatively, mapping the frame buffer at an offset of 16M seems to 
+ *
+ * Alternatively, mapping the frame buffer at an offset of 16M seems to
  * tell the chip to ignore the X channel. XXX where does it get the X value
  * to use?
  */
@@ -575,7 +575,7 @@ cgfourteenmmap(dev, off, prot)
 	int off, prot;
 {
 	register struct cgfourteen_softc *sc = cgfourteen_cd.cd_devs[minor(dev)];
-	
+
 #define CG3START		(128*1024 + 128*1024)
 #define CG8START		(256*1024)
 #define NOOVERLAY	(0x04000000)
@@ -588,7 +588,7 @@ cgfourteenmmap(dev, off, prot)
 
 #if defined(DEBUG) && defined(CG14_MAP_REGS) /* XXX: security hole */
 	/*
-	 * Map the control registers into user space. Should only be 
+	 * Map the control registers into user space. Should only be
 	 * used for debugging!
 	 */
 	if ((u_int)off >= 0x10000000 && (u_int)off < 0x10000000 + 16*4096) {
@@ -596,7 +596,7 @@ cgfourteenmmap(dev, off, prot)
 		return (REG2PHYS(&sc->sc_regphys, off, 0) | PMAP_NC);
 	}
 #endif
-	
+
 	if ((u_int)off >= NOOVERLAY)
 		off -= NOOVERLAY;
 #ifdef CG14_CG8
@@ -614,7 +614,7 @@ cgfourteenmmap(dev, off, prot)
 		sc->sc_fb.fb_type.fb_depth/8) {
 #ifdef DEBUG
 		printf("\nmmap request out of bounds: request 0x%x, "
-		    "bound 0x%x\n", (unsigned) off, 
+		    "bound 0x%x\n", (unsigned) off,
 		    (unsigned)sc->sc_fb.fb_type.fb_size);
 #endif
 		return (-1);
@@ -635,14 +635,14 @@ cgfourteenpoll(dev, events, p)
 {
 
 	return (seltrue(dev, events, p));
-} 
+}
 
 /*
- * Miscellaneous helper functions 
+ * Miscellaneous helper functions
  */
 
 /* Initialize the framebuffer, storing away useful state for later reset */
-static void 
+static void
 cg14_init(sc)
 	struct cgfourteen_softc *sc;
 {
@@ -675,7 +675,7 @@ cg14_init(sc)
 	sc->sc_ctl->ctl_mctl = CG14_MCTL_ENABLEVID | CG14_MCTL_PIXMODE_32 |
 		CG14_MCTL_POWERCTL;
 
-	/* 
+	/*
 	 * Zero the xlut to enable direct-color mode
 	 */
 	bzero(sc->sc_xlut, CG14_CLUT_SIZE);
@@ -727,7 +727,7 @@ cg14_set_video(sc, enable)
 	struct cgfourteen_softc *sc;
 	int enable;
 {
-	/* 
+	/*
 	 * We can only use DPMS to power down the display if the chip revision
 	 * is greater than 0.
 	 */
@@ -755,7 +755,7 @@ cg14_get_video(sc)
 }
 
 /* Read the software shadow colormap */
-static int 
+static int
 cg14_get_cmap(p, cm, cmsize)
 	register struct fbcmap *p;
 	union cg14cmap *cm;
@@ -763,7 +763,7 @@ cg14_get_cmap(p, cm, cmsize)
 {
         register u_int i, start, count;
         register u_char *cp;
- 
+
         start = fuword(&p->index);
         count = fuword(&p->count);
         if (start >= cmsize || start + count > cmsize)
@@ -784,7 +784,7 @@ cg14_get_cmap(p, cm, cmsize)
         for (cp = &cm->cm_map[start][0], i = 0; i < count; cp += 4, i++) {
                 if (subyte(&p->red[i], cp[3]) ||
 		    subyte(&p->green[i], cp[2]) ||
-		    subyte(&p->blue[i], cp[1])) 
+		    subyte(&p->blue[i], cp[1]))
 			return (EFAULT);
         }
         return (0);
@@ -799,7 +799,7 @@ cg14_put_cmap(p, cm, cmsize)
 {
         register u_int i, start, count;
         register u_char *cp;
- 
+
         start = fuword(&p->index);
         count = fuword(&p->count);
         if (start >= cmsize || start + count > cmsize)
@@ -832,7 +832,7 @@ cg14_load_hwcmap(sc, start, ncolors)
 	register int start, ncolors;
 {
 	/* XXX switch to auto-increment, and on retrace intr */
-	
+
 	/* Setup pointers to source and dest */
 	register u_int32_t *colp = &sc->sc_cmap.cm_chip[start];
 	volatile register u_int32_t *lutp = &sc->sc_clut1->clut_lut[start];

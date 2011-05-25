@@ -3,6 +3,6 @@
 
 SUBDIR=	common_source backgammon teachgammon
 
-all-backgammon all-teachgammon: all-common_source 
+all-backgammon all-teachgammon: all-common_source
 
 .include <bsd.subdir.mk>

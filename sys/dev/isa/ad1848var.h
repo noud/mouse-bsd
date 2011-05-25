@@ -17,10 +17,10 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *        This product includes software developed by the NetBSD 
+ *        This product includes software developed by the NetBSD
  *	  Foundation, Inc. and its contributors.
- * 4. Neither the name of The NetBSD Foundation nor the names of its 
- *    contributors may be used to endorse or promote products derived 
+ * 4. Neither the name of The NetBSD Foundation nor the names of its
+ *    contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
@@ -87,7 +87,7 @@ struct ad1848_isa_softc {
 	bus_size_t sc_play_maxsize;	/* playback DMA size */
 	int	sc_recdrq;		/* record/capture DMA */
 	bus_size_t sc_rec_maxsize;	/* record/capture DMA size */
-	
+
 	u_long	sc_interrupts;		/* number of interrupts taken */
 	void	(*sc_intr)(void *);	/* dma completion intr handler */
 	void	*sc_arg;		/* arg for sc_intr() */
@@ -109,7 +109,7 @@ void	ad1848_isa_attach __P((struct ad1848_isa_softc *));
 
 int	ad1848_isa_open __P((void *, int));
 void	ad1848_isa_close __P((void *));
- 
+
 int	ad1848_isa_trigger_output __P((void *, void *, void *, int,
 	    void (*)(void *), void *, struct audio_params *));
 int	ad1848_isa_trigger_input __P((void *, void *, void *, int,

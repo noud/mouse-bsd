@@ -267,6 +267,6 @@ cputobsdlabel(lp, clp)
 	bcopy(clp->vid_4, &(lp->d_partitions[0]),sizeof (struct partition) * 4);
 
 	/* CONSTCOND */
-	bcopy(clp->cfg_4, &(lp->d_partitions[4]), sizeof (struct partition) 
+	bcopy(clp->cfg_4, &(lp->d_partitions[4]), sizeof (struct partition)
 		* ((MAXPARTITIONS < 16) ? (MAXPARTITIONS - 4) : 12));
 }

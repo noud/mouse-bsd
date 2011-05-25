@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -50,14 +50,14 @@
 *	to handle the exception.
 *
 *	If the exception was completely handled by the package, then
-*	the return will be via a 'jmp fpsp_done'.  Unless there is 
+*	the return will be via a 'jmp fpsp_done'.  Unless there is
 *	OS specific work to be done (such as handling a context switch or
 *	interrupt) the user program can be resumed via 'rte'.
 *
 *	In the following skeleton code, some typical 'real_xxxx' handling
 *	code is shown.  This code may need to be moved to an appropriate
 *	place in the target system, or rewritten.
-*	
+*
 
 SKELETON	IDNT    2,1 Motorola 040 Floating Point Software Package
 
@@ -101,7 +101,7 @@ real_dz:
 *
 *	All inexact exceptions are real, but the 'real' handler
 *	will probably want to clear the pending exception.
-*	The provided code will clear the E3 exception (if pending), 
+*	The provided code will clear the E3 exception (if pending),
 *	otherwise clear the E1 exception.  The frestore is not really
 *	necessary for E1 exceptions.
 *
@@ -115,7 +115,7 @@ real_dz:
 * to the appropriate  handler for the exception in the fpsr.  Note
 * that this fix is only for d43b parts, and is skipped if the
 * version number is not $40.
-* 
+*
 *
 	xdef	real_inex
 	xdef	inex
@@ -137,7 +137,7 @@ inex:
 	bra		snan
 inex_ckofl:
 	btst.b		#ovfl_bit,2(sp) ;test for ovfl
-	beq		inex_ckufl 
+	beq		inex_ckufl
 	addq.l		#4,sp
 	frestore	(sp)+
 	unlk		a6
@@ -181,7 +181,7 @@ inex_done:
 	frestore	(sp)+
 	unlk		a6
 	jmp		_C_LABEL(fpfault)
-	
+
 *
 *	Overflow exception
 *
@@ -202,7 +202,7 @@ ovfl_done:
 	frestore	(sp)+
 	unlk		a6
 	jmp		_C_LABEL(fpfault)
-	
+
 *
 *	Underflow exception
 *
@@ -223,7 +223,7 @@ unfl_done:
 	frestore	(sp)+
 	unlk		a6
 	jmp		_C_LABEL(fpfault)
-	
+
 *
 *	Signalling NAN exception
 *
@@ -241,7 +241,7 @@ real_snan:
 	frestore	(sp)+
 	unlk		a6
 	jmp		_C_LABEL(fpfault)
-	
+
 *
 *	Operand Error exception
 *
@@ -259,7 +259,7 @@ real_operr:
 	frestore	(sp)+
 	unlk		a6
 	jmp		_C_LABEL(fpfault)
-	
+
 *
 *	BSUN exception
 *
@@ -286,7 +286,7 @@ real_bsun:
 *
 *	F-line exception
 *
-*	A 'real' F-line exception is one that the FPSP isn't supposed to 
+*	A 'real' F-line exception is one that the FPSP isn't supposed to
 *	handle. E.g. an instruction with a co-processor ID that is not 1.
 *
 *
@@ -337,7 +337,7 @@ real_trace:
 *	{4028, 4130} - unimp frame
 *	{4000, 4100} - idle frame
 *
-*	This entry point simply holds an f-line illegal value.  
+*	This entry point simply holds an f-line illegal value.
 *	Replace this with a call to your kernel panic code or
 *	code to handle future revisions of the fpu.
 *
@@ -420,7 +420,7 @@ user_write:
 *	a1 - supervisor destination address
 *	d0 - number of bytes to read (maximum count is 12)
 *
-* Like mem_write, mem_read always reads with a supervisor 
+* Like mem_write, mem_read always reads with a supervisor
 * destination address on the supervisor stack.  Also like mem_write,
 * the EXC_SR is checked and a simple memory copy is done if reading
 * from supervisor space is indicated.

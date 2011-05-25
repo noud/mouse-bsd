@@ -20,7 +20,7 @@ void    worker_thread	P((void *));
 
 /* mutex to prevent race condition among threads under Windows NT */
 extern HANDLE m_hListMutex;
-#define TARGET_RESOLUTION 1  /* Try for 1-millisecond accuracy. 
+#define TARGET_RESOLUTION 1  /* Try for 1-millisecond accuracy.
 							  * used in ntp_timer.c
 							  */
 extern long units_per_tick;

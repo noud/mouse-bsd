@@ -1,6 +1,6 @@
 /* Parameters for execution on any Hewlett-Packard PA-RISC machine.
    Copyright 1986, 1987, 1989, 1990, 1991, 1992, 1993, 1995
-   Free Software Foundation, Inc. 
+   Free Software Foundation, Inc.
 
    Contributed by the Center for Software Science at the
    University of Utah (pa-gdb-bugs@cs.utah.edu).
@@ -69,7 +69,7 @@ struct inferior_status;
    Zero on most machines.  */
 
 #define FUNCTION_START_OFFSET 0
-     
+
 /* Advance PC across any function entry prologue instructions
    to reach some "real" code.  */
 
@@ -267,7 +267,7 @@ extern void pa_do_registers_info PARAMS ((int, int));
 
 /* Extract from an array REGBUF containing the (raw) register state
    a function return value of type TYPE, and copy that, in virtual format,
-   into VALBUF. 
+   into VALBUF.
 
    FIXME: Not sure what to do for soft float here.  */
 
@@ -392,7 +392,7 @@ hppa_frame_find_saved_regs PARAMS ((struct frame_info *,
 #define PUSH_DUMMY_FRAME push_dummy_frame (&inf_status)
 extern void push_dummy_frame PARAMS ((struct inferior_status *));
 
-/* Discard from the stack the innermost frame, 
+/* Discard from the stack the innermost frame,
    restoring all saved registers.  */
 #define POP_FRAME  hppa_pop_frame ()
 extern void hppa_pop_frame PARAMS ((void));
@@ -406,7 +406,7 @@ extern void hppa_pop_frame PARAMS ((void));
 
 /* This sequence of words is the instructions
 
-; Call stack frame has already been built by gdb. Since we could be calling 
+; Call stack frame has already been built by gdb. Since we could be calling
 ; a varargs function, and we do not have the benefit of a stub to put things in
 ; the right place, we load the first 4 word of arguments into both the general
 ; and fp registers.
@@ -429,7 +429,7 @@ call_dummy
 	combt,=,n r4, r20, text_space	; If target is in data space, do a
 	ble 0(sr5, r22)			; "normal" procedure call
 	copy r31, r2
-	break 4, 8 
+	break 4, 8
 	mtsp r21, sr0
 	ble,n 0(sr0, r22)
 text_space				; Otherwise, go through _sr4export,
@@ -438,7 +438,7 @@ text_space				; Otherwise, go through _sr4export,
 	break 4, 8
 	mtsp r21, sr0
 	ble,n 0(sr0, r22)
-	nop				; To avoid kernel bugs 
+	nop				; To avoid kernel bugs
 	nop				; and keep the dummy 8 byte aligned
 
    The dummy decides if the target is in text space or data space. If
@@ -450,18 +450,18 @@ text_space				; Otherwise, go through _sr4export,
    know that the frame is associated with the call dummy and treat it
    specially.
 
-   The trailing NOPs are needed to avoid a bug in HPUX, BSD and OSF1 
+   The trailing NOPs are needed to avoid a bug in HPUX, BSD and OSF1
    kernels.   If the memory at the location pointed to by the PC is
    0xffffffff then a ptrace step call will fail (even if the instruction
    is nullified).
 
    The code to pop a dummy frame single steps three instructions
    starting with the last mtsp.  This includes the nullified "instruction"
-   following the ble (which is uninitialized junk).  If the 
+   following the ble (which is uninitialized junk).  If the
    "instruction" following the last BLE is 0xffffffff, then the ptrace
    will fail and the dummy frame is not correctly popped.
 
-   By placing a NOP in the delay slot of the BLE instruction we can be 
+   By placing a NOP in the delay slot of the BLE instruction we can be
    sure that we never try to execute a 0xffffffff instruction and
    avoid the kernel bug.  The second NOP is needed to keep the call
    dummy 8 byte aligned.  */
@@ -500,7 +500,7 @@ call_dummy
 	ldo 0(%r31), %r31		; FUNC_LDO_OFFSET must point here
 	ble 0(%sr0, %r31)
 	copy %r31, %r2
-	break 4, 8 
+	break 4, 8
 	nop				; restore_pc_queue expects these
 	bv,n 0(%r22)			; instructions to be here...
 	nop
@@ -600,7 +600,7 @@ struct unwind_table_entry {
 };
 
 /* HP linkers also generate unwinds for various linker-generated stubs.
-   GDB reads in the stubs from the $UNWIND_END$ subspace, then 
+   GDB reads in the stubs from the $UNWIND_END$ subspace, then
    "converts" them into normal unwind entries using some of the reserved
    fields to store the stub type.  */
 
@@ -633,7 +633,7 @@ enum unwind_stub_types
   IMPORT = 11,
 };
 
-	
+
 /* Info about the unwind table associated with an object file.  This is hung
    off of the objfile->obj_private pointer, and is allocated in the objfile's
    psymbol obstack.  This allows us to have unique unwind info for each

@@ -19,11 +19,11 @@
 
 #ifdef __STL_USE_NAMESPACES
 
-using __STD::char_producer; 
-using __STD::sequence_buffer; 
-using __STD::rope; 
-using __STD::crope; 
-using __STD::wrope; 
+using __STD::char_producer;
+using __STD::sequence_buffer;
+using __STD::rope;
+using __STD::crope;
+using __STD::wrope;
 
 #endif /* __STL_USE_NAMESPACES */
 

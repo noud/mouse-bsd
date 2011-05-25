@@ -1858,7 +1858,7 @@ mhaintr(arg)
 					if (sc->sc_dmasize == 0)
 						break;
 					bus_dmamap_sync(sc->sc_dmat,
-							sc->sc_dmamap, 
+							sc->sc_dmamap,
 							0, sc->sc_dmasize,
 							BUS_DMASYNC_POSTREAD);
 					memcpy(sc->sc_p, sc->sc_dmabuf,
@@ -1869,7 +1869,7 @@ mhaintr(arg)
 					if (sc->sc_dmasize == 0)
 						break;
 					bus_dmamap_sync(sc->sc_dmat,
-							sc->sc_dmamap, 
+							sc->sc_dmamap,
 							0, sc->sc_dmasize,
 							BUS_DMASYNC_POSTWRITE);
 					sc->sc_dmasize = 0;

@@ -63,7 +63,7 @@ rbox_init(ip)
 	struct ite_data *ip;
 {
 	int i;
-	
+
 	rb_waitbusy(ip->regbase);
 	DELAY(3000);
 
@@ -74,7 +74,7 @@ rbox_init(ip)
 	REGBASE->vdrive = 0x0;
 
 	ite_fontinfo(ip);
-	
+
 	REGBASE->opwen = 0xFF;
 
 	/*
@@ -82,7 +82,7 @@ rbox_init(ip)
 	 */
 	rbox_windowmove(ip, 0, 0, 0, 0, ip->fbheight, ip->fbwidth, RR_CLEAR);
 	rb_waitbusy(ip->regbase);
-	
+
 	for(i = 0; i < 16; i++) {
 		*(ip->regbase + 0x63c3 + i*4) = 0x0;
 		*(ip->regbase + 0x6403 + i*4) = 0x0;
@@ -95,7 +95,7 @@ rbox_init(ip)
 	}
 
 	REGBASE->rep_rule = 0x33;
-	
+
 	/*
 	 * I cannot figure out how to make the blink planes stop. So, we
 	 * must set both colormaps so that when the planes blink, and
@@ -118,7 +118,7 @@ rbox_init(ip)
  	REGBASE->blink = 0x00;
 	REGBASE->write_enable = 0x01;
 	REGBASE->opwen = 0x00;
-	
+
 	ite_fontinit(ip);
 
 	/*
@@ -161,7 +161,7 @@ rbox_clear(ip, sy, sx, h, w)
 	register int sy, sx, h, w;
 {
 	rbox_windowmove(ip, sy * ip->ftheight, sx * ip->ftwidth,
-			sy * ip->ftheight, sx * ip->ftwidth, 
+			sy * ip->ftheight, sx * ip->ftwidth,
 			h  * ip->ftheight, w  * ip->ftwidth,
 			RR_CLEAR);
 }
@@ -191,7 +191,7 @@ rbox_windowmove(ip, sy, sx, dy, dx, h, w, func)
 	register struct rboxfb *rp = REGBASE;
 	if (h == 0 || w == 0)
 		return;
-	
+
 	rb_waitbusy(ip->regbase);
 	rp->rep_rule = func << 4 | func;
 	rp->source_y = sy;

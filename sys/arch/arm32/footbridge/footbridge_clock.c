@@ -63,8 +63,8 @@ struct cfattach footbridge_clock_ca = {
  * int clockmatch(struct device *parent, void *match, void *aux)
  *
  * Just return ok for this if it is device 0
- */ 
- 
+ */
+
 static int
 clockmatch(parent, cf, aux)
 	struct device *parent;
@@ -83,7 +83,7 @@ clockmatch(parent, cf, aux)
  * void clockattach(struct device *parent, struct device *dev, void *aux)
  *
  */
-  
+
 static void
 clockattach(parent, self, aux)
 	struct device *parent;
@@ -99,7 +99,7 @@ clockattach(parent, self, aux)
 	clock_sc = sc;
 
 	/* Cannot do anything until cpu_initclocks() has been called */
-	
+
 	printf("\n");
 }
 #endif
@@ -128,7 +128,7 @@ clockhandler(frame)
  * Function called by timer 2 interrupts.
  * This just clears the interrupt condition and calls statclock().
  */
- 
+
 int
 statclockhandler(frame)
 	struct clockframe *frame;
@@ -189,7 +189,7 @@ setstatclockrate(hz)
  * Timer 1 is used for the main system clock (hardclock)
  * Timer 2 is used for the statistics clock (statclock)
  */
- 
+
 void
 cpu_initclocks()
 {
@@ -278,7 +278,7 @@ microtime(tvp)
 	}
 
 	oldtv = *tvp;
-	(void)splx(s);		
+	(void)splx(s);
 }
 
 

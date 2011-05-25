@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -111,7 +111,7 @@
 #endif
 
 #ifdef IPX
-#include <netipx/ipx.h> 
+#include <netipx/ipx.h>
 #include <netipx/ipx_if.h>
 #endif
 
@@ -189,7 +189,7 @@ extern struct ifqueue pkintrq;
 #endif
 
 static	int fddi_output __P((struct ifnet *, struct mbuf *,
-	    struct sockaddr *, struct rtentry *)); 
+	    struct sockaddr *, struct rtentry *));
 static	void fddi_input __P((struct ifnet *, struct mbuf *));
 
 /*
@@ -220,7 +220,7 @@ fddi_output(ifp, m0, dst, rt0)
 		if ((rt->rt_flags & RTF_UP) == 0) {
 			if ((rt0 = rt = RTALLOC1(dst, 1)) != NULL)
 				rt->rt_refcnt--;
-			else 
+			else
 				senderr(EHOSTUNREACH);
 		}
 		if (rt->rt_flags & RTF_GATEWAY) {
@@ -294,7 +294,7 @@ fddi_output(ifp, m0, dst, rt0)
 		else
 			bcopy((caddr_t)ar_tha(ah),
 				(caddr_t)edst, sizeof(edst));
-		
+
 		ah->ar_hrd = htons(ARPHRD_ETHER);
 
 		switch (ntohs(ah->ar_op)) {
@@ -337,7 +337,7 @@ fddi_output(ifp, m0, dst, rt0)
 		if ((aa = (struct at_ifaddr *)at_ifawithnet(
 		    (struct sockaddr_at *)dst, ifp)) == NULL)
 			goto bad;
-	    
+
 		/*
 		 * In the phase 2 case, we need to prepend an mbuf for the llc
 		 * header. Since we must preserve the value of m, which is
@@ -423,7 +423,7 @@ fddi_output(ifp, m0, dst, rt0)
 #ifdef	LLC
 /*	case AF_NSAP: */
 	case AF_CCITT: {
-		register struct sockaddr_dl *sdl = 
+		register struct sockaddr_dl *sdl =
 			(struct sockaddr_dl *) rt->rt_gateway;
 
 		if (sdl && sdl->sdl_family == AF_LINK
@@ -452,14 +452,14 @@ fddi_output(ifp, m0, dst, rt0)
 			printf("fddi_output: sending LLC2 pkt to: ");
 			for (i=0; i<6; i++)
 				printf("%x ", edst[i] & 0xff);
-			printf(" len 0x%x dsap 0x%x ssap 0x%x control 0x%x\n", 
+			printf(" len 0x%x dsap 0x%x ssap 0x%x control 0x%x\n",
 			       m->m_pkthdr.len, l->llc_dsap & 0xff, l->llc_ssap &0xff,
 			       l->llc_control & 0xff);
 
 		}
 #endif /* LLC_DEBUG */
 		} break;
-#endif /* LLC */	
+#endif /* LLC */
 
 	case pseudo_AF_HDRCMPLT:
 	{
@@ -688,12 +688,12 @@ fddi_input(ifp, m)
 			return;
 #endif
 #endif
-#ifdef IPX      
-		case ETHERTYPE_IPX: 
+#ifdef IPX
+		case ETHERTYPE_IPX:
 			schednetisr(NETISR_IPX);
 			inq = &ipxintrq;
-			break;  
-#endif   
+			break;
+#endif
 #ifdef NS
 		case ETHERTYPE_NS:
 			schednetisr(NETISR_NS);
@@ -713,7 +713,7 @@ fddi_input(ifp, m)
 			inq = &decnetintrq;
 			break;
 #endif
-#ifdef NETATALK 
+#ifdef NETATALK
 		case ETHERTYPE_ATALK:
 	                schednetisr(NETISR_ATALK);
 			inq = &atintrq1;
@@ -731,7 +731,7 @@ fddi_input(ifp, m)
 	}
 #endif /* INET || NS */
 #ifdef	ISO
-	case LLC_ISO_LSAP: 
+	case LLC_ISO_LSAP:
 		switch (l->llc_control) {
 		case LLC_UI:
 			/* LLC_UI_P forbidden in class 1 service */
@@ -755,7 +755,7 @@ fddi_input(ifp, m)
 				break;
 			}
 			goto dropanyway;
-			
+
 		case LLC_XID:
 		case LLC_XID_P:
 			if(m->m_len < 6)
@@ -802,7 +802,7 @@ fddi_input(ifp, m)
 		if (m == 0)
 			return;
 		if ( !sdl_sethdrif(ifp, fh->fddi_shost, LLC_X25_LSAP,
-				    fh->fddi_dhost, LLC_X25_LSAP, 6, 
+				    fh->fddi_dhost, LLC_X25_LSAP, 6,
 				    mtod(m, struct sdl_hdr *)))
 			panic("ETHER cons addr failure");
 		mtod(m, struct sdl_hdr *)->sdlhdr_len = m->m_pkthdr.len - sizeof(struct sdl_hdr);
@@ -814,7 +814,7 @@ fddi_input(ifp, m)
 		break;
 	}
 #endif /* LLC */
-		
+
 	default:
 		ifp->if_noproto++;
 	dropanyway:

@@ -348,7 +348,7 @@ clone_section (abfd, s, count)
 }
 
 #if TESTING
-static void 
+static void
 ds (s)
      asection *s;
 {
@@ -378,7 +378,7 @@ dump (s, a1, a2)
   ds (a2);
 }
 
-static void 
+static void
 sanity_check (abfd)
      bfd *abfd;
 {
@@ -402,7 +402,7 @@ sanity_check (abfd)
 #define dump(a, b, c)
 #endif
 
-static void 
+static void
 split_sections (abfd, info)
      bfd *abfd;
      struct bfd_link_info *info;

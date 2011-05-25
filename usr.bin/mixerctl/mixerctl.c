@@ -132,7 +132,7 @@ prfield(p, sep, prvalset)
 		if (m->un.value.num_channels == 1)
 			fprintf(out, "%d", m->un.value.level[0]);
 		else
-			fprintf(out, "%d,%d", m->un.value.level[0], 
+			fprintf(out, "%d,%d", m->un.value.level[0],
 			       m->un.value.level[1]);
 		if (prvalset)
 			fprintf(out, " %s", p->infp->un.v.units.name);
@@ -258,7 +258,7 @@ main(argc, argv)
 	}
 	argc -= optind;
 	argv += optind;
-    
+
 	fd = open(file, O_RDWR);
 #ifdef OLD_MIXER
         /* Allow the non-unit device to be used. */
@@ -311,7 +311,7 @@ main(argc, argv)
 			for(pos = infos[i].next; pos != AUDIO_MIXER_LAST;
 			    pos = infos[pos].next) {
 				fields[j] = rfields[pos];
-				fields[j].name = catstr(rfields[i].name, 
+				fields[j].name = catstr(rfields[i].name,
 							infos[pos].label.name);
 				infos[pos].type = -1;
 				j++;
@@ -322,7 +322,7 @@ main(argc, argv)
 	for(i = 0; i < j; i++) {
 		int cls = fields[i].infp->mixer_class;
 		if (cls >= 0 && cls < ndev)
-			fields[i].name = catstr(infos[cls].label.name, 
+			fields[i].name = catstr(infos[cls].label.name,
 						fields[i].name);
 	}
 

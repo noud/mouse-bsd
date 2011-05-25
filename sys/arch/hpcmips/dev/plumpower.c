@@ -79,7 +79,7 @@ plumpower_attach(parent, self, aux)
 	sc->sc_pc	= pa->pa_pc;
 	sc->sc_regt	= pa->pa_regt;
 
-	if (bus_space_map(sc->sc_regt, PLUM_POWER_REGBASE, 
+	if (bus_space_map(sc->sc_regt, PLUM_POWER_REGBASE,
 			  PLUM_POWER_REGSIZE, 0, &sc->sc_regh)) {
 		printf(": register map failed\n");
 		return;
@@ -89,9 +89,9 @@ plumpower_attach(parent, self, aux)
 	plumpower_dump(sc);
 
 	/* disable all power/clock */
-	plum_conf_write(sc->sc_regt, sc->sc_regh, 
+	plum_conf_write(sc->sc_regt, sc->sc_regh,
 			PLUM_POWER_PWRCONT_REG, 0);
-	plum_conf_write(sc->sc_regt, sc->sc_regh, 
+	plum_conf_write(sc->sc_regt, sc->sc_regh,
 			PLUM_POWER_CLKCONT_REG, 0);
 	delay(300 * 1000);
 
@@ -105,16 +105,16 @@ void
 plum_power_ioreset(pc)
 	plum_chipset_tag_t pc;
 {
-	struct plumpower_softc *sc = pc->pc_powert;	
+	struct plumpower_softc *sc = pc->pc_powert;
 	bus_space_tag_t regt = sc->sc_regt;
 	bus_space_handle_t regh = sc->sc_regh;
-	
+
 	plum_conf_write(regt, regh, PLUM_POWER_RESETC_REG,
 			PLUM_POWER_RESETC_IO5CL1 |
 			PLUM_POWER_RESETC_IO5CL1);
 	delay(100*1000);
 	plum_conf_write(regt, regh, PLUM_POWER_RESETC_REG, 0);
-	delay(100*1000);	
+	delay(100*1000);
 }
 
 void*
@@ -129,7 +129,7 @@ plum_power_establish(pc, src)
 
 	pwrreg = plum_conf_read(regt, regh, PLUM_POWER_PWRCONT_REG);
 	clkreg = plum_conf_read(regt, regh, PLUM_POWER_CLKCONT_REG);
-	
+
 	switch(src) {
 	default:
 		panic("plum_power_establish: unknown power source");
@@ -172,7 +172,7 @@ plum_power_establish(pc, src)
 		/* supply clock to the USB host controller */
 		clkreg |= PLUM_POWER_CLKCONT_USBCLK1;
 		/* clock supply is adaptively controlled by hardware */
-		clkreg &= ~PLUM_POWER_CLKCONT_USBCLK2; 
+		clkreg &= ~PLUM_POWER_CLKCONT_USBCLK2;
 		break;
 	case PLUM_PWR_SM:
 		clkreg |= PLUM_POWER_CLKCONT_SMCLK;
@@ -189,7 +189,7 @@ plum_power_establish(pc, src)
 	delay(300*1000);
 
 	plum_conf_write(regt, regh, PLUM_POWER_CLKCONT_REG, clkreg);
-	delay(300*1000);	
+	delay(300*1000);
 
 	plumpower_dump(sc);
 
@@ -209,7 +209,7 @@ plum_power_disestablish(pc, ph)
 
 	pwrreg = plum_conf_read(regt, regh, PLUM_POWER_PWRCONT_REG);
 	clkreg = plum_conf_read(regt, regh, PLUM_POWER_CLKCONT_REG);
-	
+
 	switch(src) {
 	default:
 		panic("plum_power_disestablish: unknown power source");

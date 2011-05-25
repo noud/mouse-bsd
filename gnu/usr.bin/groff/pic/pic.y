@@ -143,7 +143,7 @@ char *do_sprintf(const char *form, const double *v, int nv);
 %token AND
 %token HERE
 %token DOT_N
-%token DOT_E	
+%token DOT_E
 %token DOT_W
 %token DOT_S
 %token DOT_NE
@@ -222,7 +222,7 @@ parses properly. */
 %left CHOP DASHED DOTTED UP DOWN FILL
 %left LABEL
 
-%left VARIABLE NUMBER '(' SIN COS ATAN2 LOG EXP SQRT K_MAX K_MIN INT RAND LAST 
+%left VARIABLE NUMBER '(' SIN COS ATAN2 LOG EXP SQRT K_MAX K_MIN INT RAND LAST
 %left ORDINAL HERE '`'
 
 /* these need to be lower than '-' */
@@ -360,7 +360,7 @@ placeless_element:
 		}
 	| COPY TEXT THRU
 		{ delim_flag = 2; }
-	  DELIMITED 
+	  DELIMITED
 		{ delim_flag = 0; }
 	  until
 		{
@@ -390,7 +390,7 @@ placeless_element:
 		  delim_flag = 0;
 		  if (yychar < 0)
 		    do_lookahead();
-		  do_for($2, $4, $6, $7.is_multiplicative, $7.val, $10); 
+		  do_for($2, $4, $6, $7.is_multiplicative, $7.val, $10);
 		}
 	| simple_if
 		{
@@ -480,14 +480,14 @@ until:
 	| UNTIL TEXT
 		{ $$ = $2.str; }
 	;
-	
+
 any_expr:
 	expr
 		{ $$ = $1; }
 	| text_expr
 		{ $$ = $1; }
 	;
-	
+
 text_expr:
 	text EQUALEQUAL text
 		{
@@ -652,7 +652,7 @@ object_spec:
 					   $3.filename, $3.lineno);
 		  a_delete $3.str;
 		}
-	| '[' 
+	| '['
 		{
 		  saved_state *p = new saved_state;
 		  $<pstate>$ = p;
@@ -1291,7 +1291,7 @@ path:
 corner:
 	DOT_N
 		{ $$ = &object::north; }
-	| DOT_E	
+	| DOT_E
 		{ $$ = &object::east; }
 	| DOT_W
 		{ $$ = &object::west; }
@@ -1364,7 +1364,7 @@ expr:
 		    $$ = $1.obj->origin().x;
 		  else
 		    $$ = $1.x;
-		}			
+		}
 	| place DOT_Y
 		{
 		  if ($1.obj != 0)
@@ -1605,7 +1605,7 @@ void define_variable(const char *name, double val)
   if (strcmp(name, "scale") == 0) {
     // When the scale changes, reset all scaled pre-defined variables to
     // their default values.
-    for (int i = 0; i < sizeof(defaults_table)/sizeof(defaults_table[0]); i++) 
+    for (int i = 0; i < sizeof(defaults_table)/sizeof(defaults_table[0]); i++)
       if (defaults_table[i].scaled)
 	define_variable(defaults_table[i].name, val*defaults_table[i].val);
   }

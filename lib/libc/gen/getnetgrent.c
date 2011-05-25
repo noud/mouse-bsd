@@ -63,7 +63,7 @@ __RCSID("$NetBSD: getnetgrent.c,v 1.28 2000/01/22 22:40:58 mycroft Exp $");
 #else
 #include <varargs.h>
 #endif
- 
+
 #ifdef __weak_alias
 __weak_alias(endnetgrent,_endnetgrent)
 __weak_alias(getnetgrent,_getnetgrent)
@@ -340,7 +340,7 @@ lookup(name, line, bywhat)
  * _ng_parse(): Parse a line and return: _NG_ERROR: Syntax Error _NG_NONE:
  * line was empty or a comment _NG_GROUP: line had a netgroup definition,
  * returned in ng _NG_NAME:  line had a netgroup name, returned in name
- * 
+ *
  * Public since used by netgroup_mkdb
  */
 int
@@ -665,11 +665,11 @@ in_lookup(group, key, domain, map)
 		/* Domain specified; look in "group.domain" and "*.domain" */
 		if ((line = in_lookup1(key, domain, map)) == NULL)
 			line = in_lookup1(NULL, domain, map);
-	} else 
+	} else
 		line = NULL;
 
 	if (line == NULL) {
-		/* 
+		/*
 		 * domain not specified or domain lookup failed; look in
 		 * "group.*" and "*.*"
 		 */

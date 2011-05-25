@@ -6,7 +6,7 @@
  *
  * This code is derived from software contributed to Berkeley by
  * Vern Paxson.
- * 
+ *
  * The United States Government has rights in this work pursuant
  * to contract no. DE-AC03-76SF00098 between the United States
  * Department of Energy and the University of California.
@@ -628,7 +628,7 @@ int worry_about_NULs;
 
 	if ( fulltbl )
 		indent_put2s(
-			"yy_current_state = yy_nxt[yy_current_state][%s];", 
+			"yy_current_state = yy_nxt[yy_current_state][%s];",
 				char_map );
 
 	else if ( fullspd )

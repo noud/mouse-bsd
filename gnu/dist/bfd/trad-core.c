@@ -35,7 +35,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include TRAD_HEADER
 #endif
 
-  struct trad_core_struct 
+  struct trad_core_struct
     {
       asection *data_section;
       asection *stack_section;
@@ -74,7 +74,7 @@ trad_unix_core_file_p (abfd)
   if (bfd_seek (abfd, TRAD_CORE_USER_OFFSET, SEEK_SET) != 0)
     return 0;
 #endif
-    
+
   val = bfd_read ((void *)&u, 1, sizeof u, abfd);
   if (val != sizeof u)
     {
@@ -139,7 +139,7 @@ trad_unix_core_file_p (abfd)
 		bfd_zmalloc (sizeof (struct trad_core_struct));
   if (rawptr == NULL)
     return 0;
-  
+
   abfd->tdata.trad_core_data = rawptr;
 
   rawptr->u = u; /*Copy the uarea into the tdata part of the bfd */
@@ -194,7 +194,7 @@ trad_unix_core_file_p (abfd)
      from *u_ar0.  The other is that u_ar0 is sometimes an absolute address
      in kernel memory, and on other systems it is an offset from the beginning
      of the `struct user'.
-     
+
      As a practical matter, we don't know where the registers actually are,
      so we have to pass the whole area to GDB.  We encode the value of u_ar0
      by setting the .regs section up so that its virtual memory address
@@ -302,7 +302,7 @@ const bfd_target trad_core_vec =
      bfd_false, bfd_false,
      bfd_false, bfd_false
     },
-    
+
        BFD_JUMP_TABLE_GENERIC (_bfd_generic),
        BFD_JUMP_TABLE_COPY (_bfd_generic),
        BFD_JUMP_TABLE_CORE (trad_unix),

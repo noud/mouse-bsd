@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -194,7 +194,7 @@ static int menucmd (WINDOW *w)
 
 	while (TRUE) {
 		ch = mgetch(w);
-		
+
 		switch (ch) {
 		case '\n':
 			return REQ_EXECUTE;
@@ -217,8 +217,8 @@ static int menucmd (WINDOW *w)
 		case '?':
 			return REQ_HELP;
 		}
-		
-		if (isalpha(ch)) 
+
+		if (isalpha(ch))
 			return (ch);
 
 		mbeep();
@@ -298,7 +298,7 @@ static void init_menu (struct menudesc *m)
 		(void) fprintf (stderr,
 			"Could not create window for menu \"%s\"\n", m->title);
 		exit(1);
-	} 
+	}
 }
 
 static char opt_ch (int op_no)
@@ -307,7 +307,7 @@ static char opt_ch (int op_no)
 	if (op_no < 25) {
 		c = 'a' + op_no;
 		if (c >= 'x') c++;
-	} else 
+	} else
 		c = 'A' + op_no - 25;
 	return (char) c;
 }
@@ -318,7 +318,7 @@ static void post_menu (struct menudesc *m)
 	int hasbox, cury, maxy, selrow, lastopt;
 	int tadd;
 	char optstr[5];
-	
+
 	if (m->mopt & MC_NOBOX) {
 		cury = 0;
 		maxy = m->h;
@@ -417,9 +417,9 @@ static void process_help (struct menudesc *m, int num)
 				curoff++;
 			help++;
 		}
-	
+
 		wclear(stdscr);
-		mvwaddstr (stdscr, 0, 0, 
+		mvwaddstr (stdscr, 0, 0,
 			"Help: exit: x,  page up: u <, page down: d >");
 		mvwaddstr (stdscr, 2, 0, help);
 		wmove (stdscr, 1, 0);
@@ -464,7 +464,7 @@ static void process_help (struct menudesc *m, int num)
 		} while (again);
 	} while (winin != 'q');
 
-	/* Restore current menu */    
+	/* Restore current menu */
 	wclear(stdscr);
 	wrefresh(stdscr);
 	if (m->post_act)
@@ -486,7 +486,7 @@ static void process_req (struct menudesc *m, int num, int req)
 			m->cursel++;
 			scroll_sel = 1;
 			refresh = 1;
-			if (m->mopt & MC_SCROLL && 
+			if (m->mopt & MC_SCROLL &&
 			    m->cursel >= m->topline + m->h -1 )
 				m->topline += 1;
 		} else
@@ -670,9 +670,9 @@ void process_menu (int num)
 					num = m->opts[sel].opt_menu;
 			}
 
-                        if (m->opts[sel].opt_flags & OPT_EXIT) 
+                        if (m->opts[sel].opt_flags & OPT_EXIT)
                                 done = TRUE;
- 				
+
 		} else
 			done = TRUE;
 
@@ -719,7 +719,7 @@ static int double_menus (void)
 	return 1;
 }
 
-int new_menu (char * title, menu_ent * opts, int numopts, 
+int new_menu (char * title, menu_ent * opts, int numopts,
         int x, int y, int h, int w, int mopt,
         void (*post_act)(void), void (*exit_act), char * help)
 {

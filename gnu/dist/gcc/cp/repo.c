@@ -121,7 +121,7 @@ repo_template_used (t)
   id = repo_get_id (t);
   if (id == NULL_TREE)
     return;
-  
+
   if (TREE_CODE_CLASS (TREE_CODE (t)) == 't')
     {
       if (IDENTIFIER_REPO_CHOSEN (id))
@@ -260,7 +260,7 @@ get_base_filename (filename)
     }
 
   return file_name_nondirectory (filename);
-}        
+}
 
 static void
 open_repo_file (filename)
@@ -380,7 +380,7 @@ finish_repo ()
 
   /* Are there any old templates that aren't used any longer or that are
      newly chosen?  */
-  
+
   for (t = original_repo; t; t = TREE_CHAIN (t))
     {
       if (! IDENTIFIER_REPO_USED (TREE_VALUE (t))
@@ -393,7 +393,7 @@ finish_repo ()
     }
 
   /* Are there any templates that are newly used?  */
-  
+
   if (! repo_changed)
     for (t = pending_repo; t; t = TREE_CHAIN (t))
       {

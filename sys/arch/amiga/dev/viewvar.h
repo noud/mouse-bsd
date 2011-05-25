@@ -41,7 +41,7 @@ struct view_softc {
     struct  view_size size;
     view_t *view;
 
-    dmode_t   *mode;  
+    dmode_t   *mode;
     monitor_t *monitor;
 
     pid_t   lock_process;

@@ -39,7 +39,7 @@
 extern	int	iplattach(), iplopen(), iplclose(), iplioctl(), iplread();
 extern	int	nulldev(), iplidentify(), errno;
 
-struct	cdevsw	ipldevsw = 
+struct	cdevsw	ipldevsw =
 {
 	iplopen, iplclose, iplread, nulldev,
 	iplioctl, nulldev, nulldev, nulldev,
@@ -47,7 +47,7 @@ struct	cdevsw	ipldevsw =
 };
 
 
-struct	dev_ops	ipl_ops = 
+struct	dev_ops	ipl_ops =
 {
 	1,
 	iplidentify,
@@ -67,7 +67,7 @@ struct	dev_ops	ipl_ops =
 int	ipl_major = 0;
 
 #ifdef sun4m
-struct	vdldrv	vd = 
+struct	vdldrv	vd =
 {
 	VDMAGIC_PSEUDO,
 	"ipl",
@@ -129,7 +129,7 @@ struct	vdstat	*vds;
 		return ipl_attach(vdi);
 	case VDUNLOAD:
 		return unload(vdp, vdi);
-		
+
 	case VDSTAT:
 		return 0;
 

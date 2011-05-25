@@ -47,7 +47,7 @@ false value boot-debug?
 " /chosen" find-package 0=  if ." Cannot find /chosen" 0 then
 constant chosen-phandle
 
-" /openprom/client-services" find-package 0=  if 
+" /openprom/client-services" find-package 0=  if
 	." Cannot find client-services" cr abort
 then constant cif-phandle
 
@@ -61,7 +61,7 @@ defer cif-seek ( low high ihandle -- -1|0|1 )
 \ defer cif-getprop ( len adr cstr phandle -- )
 
 : find-cif-method ( method,len -- xf )
-   cif-phandle find-method drop 
+   cif-phandle find-method drop
 ;
 
 " claim" find-cif-method to cif-claim
@@ -99,7 +99,7 @@ defer cif-seek ( low high ihandle -- -1|0|1 )
 ;
 
 : cstr ( ptr -- str len )
-   dup 
+   dup
    begin dup c@ 0<>  while + repeat
    over -
 ;
@@ -116,7 +116,7 @@ dev_bsize value bsize
 
 : strategy ( addr size start -- nread )
    bsize * 0 " seek" boot-ihandle $call-method
-   -1 = if 
+   -1 = if
       ." strategy: Seek failed" cr
       abort
    then
@@ -128,7 +128,7 @@ dev_bsize value bsize
 \
 
 : cgbase ( cg fs -- cgbase ) fs_fpg l@ * ;
-: cgstart ( cg fs -- cgstart ) 
+: cgstart ( cg fs -- cgstart )
    2dup fs_cgmask l@ not and		( cg fs stuff -- )
    over fs_cgoffset l@ * -rot		( stuffcg fs -- )
    cgbase +
@@ -195,7 +195,7 @@ dev_bsize value bsize
 
 niaddr /w* constant narraysize
 
-struct 
+struct
    8		field	>f_ihandle	\ device handle
    8 		field 	>f_seekp	\ seek pointer
    8 		field 	>f_fs		\ pointer to super block
@@ -240,11 +240,11 @@ h# 2000 buffer: indir-block
       indir-block swap la+ l@ exit
    then
    dup sb-buf fs_nindir -		( fileblock'' )
-   \ Now try 2nd level indirect block -- just read twice 
+   \ Now try 2nd level indirect block -- just read twice
    dup sb-buf fs_nindir l@ dup * < if	( fileblock'' )
       cur-inode di_ib 1 la+ l@		( fileblock'' indir2-block )
       to indir-addr			( fileblock'' )
-      \ load 1st level indir block 
+      \ load 1st level indir block
       indir-block 			( fileblock'' indir-block )
       sb-buf dup fs_bsize l@		( fileblock'' indir-block fs fs_bsize )
       swap indir-addr swap		( fileblock'' indir-block fs_bsize indiraddr fs )
@@ -302,7 +302,7 @@ h# 2000 buffer: indir-block
 
 \
 \ Read inode into cur-inode -- uses cur-block
-\ 
+\
 
 : read-inode ( inode fs -- )
    twiddle				( inode fs -- inode fs )
@@ -341,7 +341,7 @@ h# 2000 buffer: indir-block
 
 \
 \ Hunt for directory entry:
-\ 
+\
 \ repeat
 \    load a buffer
 \    while entries do
@@ -366,7 +366,7 @@ h# 2000 buffer: indir-block
                comp 0= if		( bufend str len buf )
                   \ Found it -- return inode
                   d_ino l@ nip nip nip	( dino )
-                  boot-debug?  if ." Found it" cr then 
+                  boot-debug?  if ." Found it" cr then
                   exit 			( dino )
                then
             then			( bufend str len buf )
@@ -386,7 +386,7 @@ h# 2000 buffer: indir-block
       8 sb-buf fs_nrpos l!
    then
    sb-buf fs_inodefmt l@ fs_44inodefmt <  if
-      sb-buf fs_bsize l@ 
+      sb-buf fs_bsize l@
       dup ndaddr * 1- sb-buf fs_maxfilesize x!
       niaddr 0 ?do
 	sb-buf fs_nindir l@ * dup	( sizebp sizebp -- )
@@ -402,13 +402,13 @@ h# 2000 buffer: indir-block
 : ufs-open ( bootpath,len -- )
    boot-ihandle -1 =  if
       over cif-open dup 0=  if 		( boot-path len ihandle? )
-         ." Could not open device" space type cr 
+         ." Could not open device" space type cr
          abort
       then 				( boot-path len ihandle )
       to boot-ihandle			\ Save ihandle to boot device
    then 2drop
    sboff 0 " seek" boot-ihandle $call-method
-   -1 = if 
+   -1 = if
       ." Seek failed" cr
       abort
    then
@@ -418,7 +418,7 @@ h# 2000 buffer: indir-block
       ." requested" space sbsize .
       ." actual" space . cr
       abort
-   else 
+   else
       drop
    then
    sb-buf fs_magic l@ fs_magic_value <>  if
@@ -428,7 +428,7 @@ h# 2000 buffer: indir-block
    sb-buf fs_bsize l@ dup maxbsize >  if
       ." Superblock bsize" space . ." too large" cr
       abort
-   then 
+   then
    fs_SIZEOF <  if
       ." Superblock bsize < size of superblock" cr
       abort
@@ -437,9 +437,9 @@ h# 2000 buffer: indir-block
    boot-debug?  if ." ufs-open complete" cr then
 ;
 
-: ufs-close ( -- ) 
+: ufs-close ( -- )
    boot-ihandle dup -1 <>  if
-      cif-close -1 to boot-ihandle 
+      cif-close -1 to boot-ihandle
    then
 ;
 
@@ -471,7 +471,7 @@ h# 2000 buffer: indir-block
    -rot					( load-file len ino -- pino load-file len )
    \
    \ For each path component
-   \ 
+   \
    begin split-path dup 0<> while	( pino right len left len -- )
       cur-inode is-dir? not  if ." Inode not directory" cr abort then
       boot-debug?  if ." Looking for" space 2dup type space ." in directory..." cr then
@@ -537,7 +537,7 @@ h# 5000 constant loader-base
 ;
 
 : load-file-print-size ( size -- size )
-   ." Loading" space dup . space ." bytes of file..." cr 
+   ." Loading" space dup . space ." bytes of file..." cr
 ;
 
 : load-file ( load-file len boot-path len -- load-base )

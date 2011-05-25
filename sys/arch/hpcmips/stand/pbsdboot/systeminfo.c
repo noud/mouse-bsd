@@ -109,7 +109,7 @@ set_system_info(platid_t *platid)
 #endif
 
 	if (system_info.si_asmcodelen > (signed)system_info.si_pagesize) {
-		msg_printf(MSG_ERROR, whoami, 
+		msg_printf(MSG_ERROR, whoami,
 			   TEXT("asmcodelen=%d > pagesize=%d\n"),
 			   system_info.si_asmcodelen,
 			   system_info.si_pagesize);
@@ -124,9 +124,9 @@ dump_archinfo(SYSTEM_INFO *info)
 {
 	msg_printf(MSG_ERROR, whoami, TEXT("Unsupported CPU\n"));
 #if 0
-	msg_printf(MSG_ERROR, whoami, 
+	msg_printf(MSG_ERROR, whoami,
 		   TEXT("Unknown machine ARCHITECTURE %#x, LEVEL %#x REVISION %#x.\n LCD(%dx%d)\n"),
-		   info->wProcessorArchitecture, info->wProcessorLevel, 
+		   info->wProcessorArchitecture, info->wProcessorLevel,
 		   info->wProcessorRevision,
 		   GetSystemMetrics(SM_CXSCREEN),
 		   GetSystemMetrics(SM_CYSCREEN));

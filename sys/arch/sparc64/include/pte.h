@@ -8,7 +8,7 @@
  * are met:
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
- *  
+ *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR  ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -28,7 +28,7 @@
  *
  **
  * For sun4u:
- *	
+ *
  *	Take your pick; it's all S/W anyway.  We'll start by emulating a sun4.
  *	Oh, here's the sun4u TTE for reference:
  *
@@ -50,7 +50,7 @@
  *			data_priv:1,	(privileged page)
  *			data_w:1,	(writeable)
  *			data_g:1;	(same as tag_g)
- *	};	
+ *	};
  */
 
 /* virtual address to virtual page number */
@@ -66,11 +66,11 @@
 #define PG_SHIFT4U	13
 #define MMU_PAGE_ALIGN	8192
 
-/* If you know where a tte is in the tsb, how do you find its va? */	
+/* If you know where a tte is in the tsb, how do you find its va? */
 #define TSBVA(i)	((tsb[(i)].tag.f.tag_va<<22)|(((i)<<13)&0x3ff000))
 
 #ifndef _LOCORE
-/* 
+/*
  *  This is the spitfire TTE.
  *
  *  We could use bitmasks and shifts to construct this if
@@ -160,7 +160,7 @@ extern void tlb_flush_ctx __P((int ctx));
 #define TLB_W			0x0000000000000002LL
 #define TLB_G			0x0000000000000001LL
 
-/* 
+/*
  * The following bits are used by locore so they should
  * be duplicates of the above w/o the "long long"
  */

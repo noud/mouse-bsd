@@ -35,8 +35,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #define FRAME_CHAIN_VALID_ALTERNATE
 
-#undef NUM_REGS 
-#define NUM_REGS 80 
+#undef NUM_REGS
+#define NUM_REGS 80
 
 #undef REGISTER_BYTES
 #define REGISTER_BYTES (32*4+32*4+8*4+8*4)

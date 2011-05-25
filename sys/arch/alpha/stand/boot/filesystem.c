@@ -38,7 +38,7 @@
 #include <lib/libsa/ustarfs.h>
 #include <lib/libsa/cd9660.h>
 #include <lib/libsa/lfs.h>
- 
+
 struct fs_ops file_system[] = {
     { ustarfs_open, ustarfs_close, ustarfs_read, ustarfs_write, ustarfs_seek,
 	ustarfs_stat },	/* this one can work from tape, so put it first */
@@ -49,6 +49,6 @@ struct fs_ops file_system[] = {
     { lfs_open, lfs_close, lfs_read, lfs_write, lfs_seek,
 	lfs_stat },
 };
- 
+
 int nfsys = sizeof(file_system)/sizeof(struct fs_ops);
 

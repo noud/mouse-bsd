@@ -277,13 +277,13 @@ struct sunromvec {
  * putChar -- Write the given character to the output source.
  *
  *     void putChar(ch)
- *	   char ch;	
+ *	   char ch;
  *
  * mayGet -- Maybe get a character from the current input source.  Return -1
  *           if don't return a character.
  *
  * 	int mayGet()
- *	
+ *
  * mayPut -- Maybe put a character to the current output source.   Return -1
  *           if no character output.
  *
@@ -295,7 +295,7 @@ struct sunromvec {
  * 	     NOKEY (if no key has been hit).
  *
  *	int getKey()
- *	
+ *
  * initGetKey --  Initialize things for get key.
  *
  *	void initGetKey()

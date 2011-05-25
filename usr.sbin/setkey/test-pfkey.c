@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, 1998, and 1999 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -475,11 +475,11 @@ key_setsadbaddr(ext, af, str)
 	memset(abuf, 0, sizeof(abuf));
 	a->sa_len = _SALENBYAF(af);
 	a->sa_family = af;
-	_INPORTBYSA(a) = 
+	_INPORTBYSA(a) =
 		(ext == SADB_EXT_ADDRESS_PROXY ? 0 : htons(0x1234));
 	if (inet_pton(af, str, _INADDRBYSA(a)) != 1)
 		; /* XXX do something */
-	
+
 	len = sizeof(struct sadb_address) + PFKEY_ALIGN8(a->sa_len);
 	m_addr.sadb_address_len = PFKEY_UNIT64(len);
 	m_addr.sadb_address_exttype = ext;

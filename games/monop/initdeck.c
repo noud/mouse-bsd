@@ -174,7 +174,7 @@ getargs(ac, av)
  * count the cards
  */
 static void
-count() 
+count()
 {
 	bool newline;
 	DECK *in_deck;
@@ -198,7 +198,7 @@ count()
  *	put strings in the file
  */
 static void
-putem() 
+putem()
 {
 	bool newline;
 	DECK *in_deck;

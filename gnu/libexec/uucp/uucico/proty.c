@@ -250,7 +250,7 @@ fystart (qdaemon, pzlog)
 
 /* Shutdown the protocol.  */
 
-boolean 
+boolean
 fyshutdown (qdaemon)
      struct sdaemon *qdaemon;
 {
@@ -588,7 +588,7 @@ fywait_for_packet (qdaemon, pfexit)
     }
 
   if (pfexit != NULL
-      && ! fgot_data (qdaemon, abPrecbuf + iPrecstart, cfirst, 
+      && ! fgot_data (qdaemon, abPrecbuf + iPrecstart, cfirst,
 		      abPrecbuf, clen - cfirst,
 		      -1, -1, (long) -1, TRUE, pfexit))
     return FALSE;

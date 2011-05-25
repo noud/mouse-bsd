@@ -213,7 +213,7 @@ notnumber:
 		(void)uu_unlock(uucplock);
 		exit(1);
 	}
-		
+
 cucommon:
 	/*
 	 * From here down the code is shared with
@@ -229,7 +229,7 @@ cucommon:
 	term.c_cc[VTIME] = 0;
 	defchars = term;
 	term.c_cc[VINTR] = term.c_cc[VQUIT] = term.c_cc[VSUSP] =
-		term.c_cc[VDSUSP] = term.c_cc[VDISCARD] = 
+		term.c_cc[VDSUSP] = term.c_cc[VDISCARD] =
 	 	term.c_cc[VLNEXT] = _POSIX_VDISABLE;
 	raw();
 
@@ -405,7 +405,7 @@ tipin()
 		if ((gch == character(value(ESCAPE))) && bol) {
 			if (!(gch = escape()))
 				continue;
-		} else if (!cumode && 
+		} else if (!cumode &&
 		    gch && gch == character(value(RAISECHAR))) {
 			setboolean(value(RAISE), !boolean(value(RAISE)));
 			continue;

@@ -286,7 +286,7 @@ main()
 		    limit0.pl_rlimit[i].rlim_max = RLIM_INFINITY;
 
 	limit0.pl_rlimit[RLIMIT_NOFILE].rlim_max = maxfiles;
-	limit0.pl_rlimit[RLIMIT_NOFILE].rlim_cur = 
+	limit0.pl_rlimit[RLIMIT_NOFILE].rlim_cur =
 	    maxfiles < NOFILE ? maxfiles : NOFILE;
 
 	limit0.pl_rlimit[RLIMIT_NPROC].rlim_max = maxproc;
@@ -565,8 +565,8 @@ start_init(arg)
 	 * Need just enough stack to hold the faked-up "execve()" arguments.
 	 */
 	addr = USRSTACK - PAGE_SIZE;
-	if (uvm_map(&p->p_vmspace->vm_map, &addr, PAGE_SIZE, 
-                    NULL, UVM_UNKNOWN_OFFSET, 
+	if (uvm_map(&p->p_vmspace->vm_map, &addr, PAGE_SIZE,
+                    NULL, UVM_UNKNOWN_OFFSET,
                     UVM_MAPFLAG(UVM_PROT_ALL, UVM_PROT_ALL, UVM_INH_COPY,
 		    UVM_ADV_NORMAL,
                     UVM_FLAG_FIXED|UVM_FLAG_OVERLAY|UVM_FLAG_COPYONW))

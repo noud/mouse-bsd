@@ -67,7 +67,7 @@ static int do_read __P((struct biosdisk_ll *, int, int, char *));
 #define BIOSDISK_RETRIES 5
 #endif
 
-int 
+int
 set_geometry(d, ed)
 	struct biosdisk_ll *d;
 	struct biosdisk_ext13info *ed;
@@ -151,7 +151,7 @@ do_read(d, dblk, num, buf)
 	}
 }
 
-int 
+int
 readsects(d, dblk, num, buf, cold)	/* reads ahead if (!cold) */
 	struct biosdisk_ll *d;
 	int             dblk, num;

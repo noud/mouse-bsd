@@ -242,7 +242,7 @@ exit1(p, rv)
 	p->p_rlimit[RLIMIT_FSIZE].rlim_cur = RLIM_INFINITY;
 	(void)acct_process(p);
 #ifdef KTRACE
-	/* 
+	/*
 	 * release trace file
 	 */
 	ktrderef(p);

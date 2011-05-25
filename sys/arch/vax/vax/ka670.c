@@ -15,7 +15,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *	This product includes software developed at Ludd, University of 
+ *	This product includes software developed at Ludd, University of
  *	Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -145,7 +145,7 @@ ka670_mchk(addr)
 		panic("unrecoverable state in ka670_mchk.\n");
 		return (-1);
 	}
-	if ((mcf->mc670_code & KA670_MC_RESTART) || 
+	if ((mcf->mc670_code & KA670_MC_RESTART) ||
 	    (mcf->mc670_psl & KA670_PSL_FPDONE)) {
 		printf("ka670_mchk: recovering from machine-check.\n");
 		ka670_cache_init();	/* reset caches */

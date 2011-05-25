@@ -30,7 +30,7 @@ SECTIONS
   ${CONSTRUCTING+${RELOCATING-.ctor : { *(.ctor) }}}
   ${CONSTRUCTING+${RELOCATING-.dtor : { *(.dtor) }}}
   .bss ${RELOCATING+ SIZEOF(.data) + ADDR(.data)} :
-  { 					
+  {
     *(.bss)
     *(COMMON)
     ${RELOCATING+ end = . ; _end = .};

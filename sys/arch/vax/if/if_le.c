@@ -205,7 +205,7 @@ le_ibus_attach(parent, self, aux)
 	ioaccess((vaddr_t)sc->sc_am7990.lsc.sc_mem, 0x20120000,
 	    (128 * 1024) >> VAX_PGSHIFT);
 
-	
+
 	sc->sc_am7990.lsc.sc_addr = 0;
 	sc->sc_am7990.lsc.sc_memsize = (64 * 1024);
 

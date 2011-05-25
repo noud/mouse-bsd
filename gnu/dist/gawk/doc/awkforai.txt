@@ -100,7 +100,7 @@ needs to be rethought, and the code is sent to the junkheap the next day.
 
 AI programming requires high-level thinking.  There have always been a few
 gifted programmers who can write high-level programs in assembly language.
-Most however need the ambient abstraction to have a higher floor.  
+Most however need the ambient abstraction to have a higher floor.
 
 Now for the surprising philosophical answers.  First, AI has discovered
 that brute-force combinatorics, as an approach to generating intelligent
@@ -119,7 +119,7 @@ control over how to attempt it, will be the AI choice in the end.
 
 Second, inference is merely the expansion of notation.  No matter whether
 the logic that underlies an AI program is fuzzy, probabilistic, deontic,
-defeasible, or deductive, the logic merely defines how strings can be 
+defeasible, or deductive, the logic merely defines how strings can be
 transformed into other strings.  A language that provides the best
 support for string processing in the end provides the best support for
 logic, for the exploration of various logics, and for most forms of

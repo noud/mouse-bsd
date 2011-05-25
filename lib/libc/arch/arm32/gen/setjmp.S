@@ -94,7 +94,7 @@ ENTRY(longjmp)
 	mov	r0, r2
 	bl	_sigsetmask
 
-	ldmfd	r13!, {r0, r1, r14} 
+	ldmfd	r13!, {r0, r1, r14}
 
 	add	r0, r0, #4
 #ifdef SOFTFLOAT

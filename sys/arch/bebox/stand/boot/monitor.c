@@ -115,7 +115,7 @@ db_atob(p)
 	char *p;
 {
 	int b = 0, width, tmp, exp, x = 0;
-	
+
 	if (p[1] == 'x') {
 		p += 2;
 		x = 1;
@@ -205,7 +205,7 @@ db_cmd_dump(argc, argv)
 	printf("\n");
 	return;
 
-out:	
+out:
 	printf("dump [-b][-h][-w] address size\n");
 	return;
 }
@@ -260,7 +260,7 @@ db_cmd_get(argc, argv)
 	printf("\n");
 	return;
 
-out:	
+out:
 	printf("get [-b][-h][-w] address\n");
 	return;
 }
@@ -318,7 +318,7 @@ db_cmd_put(argc, argv)
 	printf("\n");
 	return;
 
-out:	
+out:
 	printf("put [-b][-h][-w] address data\n");
 	return;
 }

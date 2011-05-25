@@ -111,8 +111,8 @@ int
 ahc_pci_probe(parent, match, aux)
         struct device *parent;
         struct cfdata *match;
-        void *aux; 
-{       
+        void *aux;
+{
         struct pci_attach_args *pa = aux;
 
 	switch (pa->pa_id) {
@@ -134,7 +134,7 @@ ahc_pci_probe(parent, match, aux)
 	return 0;
 }
 
-void    
+void
 ahc_pci_attach(parent, self, aux)
         struct device *parent, *self;
         void *aux;
@@ -381,7 +381,7 @@ ahc_pci_attach(parent, self, aux)
 			if(!ultra_enb || (ahc->flags & AHC_USEDEFAULTS)) {
 				/*
 				 * If there wasn't a BIOS or the board
-				 * wasn't in this mode to begin with, 
+				 * wasn't in this mode to begin with,
 				 * turn off ultra.
 				 */
 				ahc->type &= ~AHC_ULTRA;

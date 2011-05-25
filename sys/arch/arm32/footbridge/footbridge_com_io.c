@@ -167,7 +167,7 @@ fcomcons_bs_unmap(t, bsh, size)
 	 */
 }
 
-void    
+void
 fcomcons_bs_free(t, bsh, size)
 	void *t;
 	bus_space_handle_t bsh;
@@ -198,6 +198,6 @@ fcomcons_bs_barrier(t, bsh, offset, len, flags)
 	bus_size_t offset, len;
 	int flags;
 {
-}	
+}
 
 /* End of footbridge_com_io.c */

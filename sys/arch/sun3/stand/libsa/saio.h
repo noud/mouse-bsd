@@ -68,7 +68,7 @@
  */
 struct boottab {
 	char	b_dev[2];		/* The name of the device */
-	int	(*b_probe)();		/* probe() --> -1 or found controller 
+	int	(*b_probe)();		/* probe() --> -1 or found controller
 					   number */
 	int	(*b_boot)();		/* boot(bp) --> -1 or start address */
 	int	(*b_open)();		/* open(iobp) --> -1 or 0 */
@@ -79,7 +79,7 @@ struct boottab {
 };
 
 /*
- * This table gives information about the resources needed by a device.  
+ * This table gives information about the resources needed by a device.
  */
 struct devinfo {
   unsigned int      d_devbytes;   /* Bytes occupied by device in IO space.  */

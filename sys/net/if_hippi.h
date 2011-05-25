@@ -5,7 +5,7 @@
  * All rights reserved.
  *
  * This code contributed to The NetBSD Foundation by Kevin M. Lahey
- * of the Numerical Aerospace Simulation Facility, NASA Ames Research 
+ * of the Numerical Aerospace Simulation Facility, NASA Ames Research
  * Center.
  *
  * Redistribution and use in source and binary forms, with or without

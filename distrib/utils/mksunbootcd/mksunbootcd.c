@@ -56,9 +56,9 @@
 
 /*
  * How we work:
- * 
+ *
  * a) get length of cd image
- * b) if there is already a disk image, complain (later: allow to add or 
+ * b) if there is already a disk image, complain (later: allow to add or
  *	overwrite old ufs images)
  * c) get length of miniroots
  * d) round all the lengthes to some convenient size, set that as cylinder
@@ -146,13 +146,13 @@ main(argc, argv)
 
 		psz[i] = (sbs[i].st_size + 512 * cylsz - 1) / (512 * cylsz);
 		psz[i] *= cylsz;
-		
+
 		Dprintf((" rounded to %5ds\n", psz[i]));
 	}
 
 	pstart[0] = 0;
 	Dprintf(("\n%-30s: start %10dc\n", argv[0], pstart[0]));
-	
+
 	for (i = 1; i < npart; i++) {
 		for (nothing = 1, j = 1; j < i; j++) {
 			if (sbs[i].st_ino == sbs[j].st_ino &&
@@ -185,7 +185,7 @@ main(argc, argv)
 	}
 
 	/* insert geometry */
-	
+
 	/* insert partition info */
 	/* compute checksum */
 	sp = (u_short *)&sdl;
@@ -204,7 +204,7 @@ main(argc, argv)
 
 		if (rc < 0)
 			err(2, "positioning cd image");
-		
+
 		while ((rc = read(pfd[i], buf, sizeof(buf))) > 0) {
 			rc2 = write(pfd[0], buf, rc);
 			if (rc2 < 0)
@@ -223,7 +223,7 @@ main(argc, argv)
 		err(2, "truncating cd image");
 
 	/*
-	 * Write label now. Partition data isn't valid before the partitions 
+	 * Write label now. Partition data isn't valid before the partitions
 	 * are written!
 	 */
 
@@ -242,7 +242,7 @@ main(argc, argv)
 }
 
 void
-usage() 
+usage()
 {
 
 	errx(1, "Usage: mksunbootcd [-v] [-c cylsize] cdimage part1 part2...");

@@ -43,7 +43,7 @@ template <class Key, class T, class HashFcn = hash<Key>,
           class EqualKey = equal_to<Key>,
           class Alloc = alloc>
 #else
-template <class Key, class T, class HashFcn, class EqualKey, 
+template <class Key, class T, class HashFcn, class EqualKey,
           class Alloc = alloc>
 #endif
 class hash_map
@@ -147,7 +147,7 @@ public:
   void insert(const_iterator f, const_iterator l) { rep.insert_unique(f, l); }
 #endif /*__STL_MEMBER_TEMPLATES */
   pair<iterator, bool> insert_noresize(const value_type& obj)
-    { return rep.insert_unique_noresize(obj); }    
+    { return rep.insert_unique_noresize(obj); }
 
   iterator find(const key_type& key) { return rep.find(key); }
   const_iterator find(const key_type& key) const { return rep.find(key); }
@@ -157,7 +157,7 @@ public:
   }
 
   size_type count(const key_type& key) const { return rep.count(key); }
-  
+
   pair<iterator, iterator> equal_range(const key_type& key)
     { return rep.equal_range(key); }
   pair<const_iterator, const_iterator> equal_range(const key_type& key) const
@@ -302,13 +302,13 @@ public:
   void insert(const_iterator f, const_iterator l) { rep.insert_equal(f, l); }
 #endif /*__STL_MEMBER_TEMPLATES */
   iterator insert_noresize(const value_type& obj)
-    { return rep.insert_equal_noresize(obj); }    
+    { return rep.insert_equal_noresize(obj); }
 
   iterator find(const key_type& key) { return rep.find(key); }
   const_iterator find(const key_type& key) const { return rep.find(key); }
 
   size_type count(const key_type& key) const { return rep.count(key); }
-  
+
   pair<iterator, iterator> equal_range(const key_type& key)
     { return rep.equal_range(key); }
   pair<const_iterator, const_iterator> equal_range(const key_type& key) const

@@ -47,10 +47,10 @@ mount_critical_filesystems() {
 					ismounted=yes
 				fi
 			done
-			if [ $ismounted = no ]; then 
+			if [ $ismounted = no ]; then
 				mount $fs >/dev/null 2>&1
 			fi
-		)  
+		)
 	done
 }
 

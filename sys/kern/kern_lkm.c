@@ -306,7 +306,7 @@ lkmioctl(dev, cmd, data, flag, p)
 		}
 
 		/* copy in buffer full of data */
-		error = copyin(loadbufp->data, 
+		error = copyin(loadbufp->data,
 			       (caddr_t)curp->area + curp->offset, i);
 		if (error)
 			break;
@@ -382,7 +382,7 @@ lkmioctl(dev, cmd, data, flag, p)
 			return ENXIO;
 		}
 
-		if (curp->size - curp->offset > 0) 
+		if (curp->size - curp->offset > 0)
 			/* The remainder must be bss, so we clear it */
 			memset((caddr_t)curp->area + curp->offset, 0,
 			       curp->size - curp->offset);
@@ -536,7 +536,7 @@ lkmioctl(dev, cmd, data, flag, p)
 		statp->size	= curp->size / PAGESIZE;
 		statp->private	= (unsigned long)curp->private.lkm_any;
 		statp->ver	= curp->private.lkm_any->lkm_ver;
-		copystr(curp->private.lkm_any->lkm_name, 
+		copystr(curp->private.lkm_any->lkm_name,
 			  statp->name,
 			  MAXLKMNAME - 2,
 			  (size_t *)0);
@@ -748,7 +748,7 @@ _lkm_dev(lkmtp, cmd)
 				 * Search the table looking for a slot...
 				 */
 				for (i = 0; i < nblkdev; i++)
-					if (bdevsw[i].d_open == 
+					if (bdevsw[i].d_open ==
 					    (dev_type_open((*))) lkmenodev)
 						break;		/* found it! */
 				/* out of allocable slots? */
@@ -950,7 +950,7 @@ _lkm_exec(lkmtp, cmd)
  */
 int
 lkmdispatch(lkmtp, cmd)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 {
 	int error = 0;		/* default = success */

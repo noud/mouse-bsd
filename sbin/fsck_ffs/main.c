@@ -117,7 +117,7 @@ main(argc, argv)
 			skipclean = 0;
 			cvtlevel = argtoi('c', "conversion level", optarg, 10);
 			break;
-		
+
 		case 'd':
 			debug++;
 			break;
@@ -316,7 +316,7 @@ checkfilesys(filesys, mntpt, auxdata, child)
 		sbdirty();
 	}
 	if ((cvtlevel && sblk.b_dirty) || doswap) {
-		/* 
+		/*
 		 * Write out the duplicate super blocks
 		 */
 		for (cylno = 0; cylno < sblock->fs_ncg; cylno++)

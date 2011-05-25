@@ -35,7 +35,7 @@ LINKS+=	${BINDIR}/zdiff ${BINDIR}/zcmp
 LINKS+=	${BINDIR}/zgrep ${BINDIR}/zegrep
 LINKS+=	${BINDIR}/zgrep ${BINDIR}/zfgrep
 
-FILES=zforce gzexe znew zmore zdiff zgrep 
+FILES=zforce gzexe znew zmore zdiff zgrep
 FILESMODE=${BINMODE}
 
 .if (${MACHINE_ARCH} == "m68k" || ${MACHINE_ARCH} == "i386")

@@ -773,7 +773,7 @@
 # Actually, that date saw the usual switch to summer time.
 # Standard time was not changed until 1968-10-27 (the clocks didn't change).
 #
-# Here is another incorrect claim by Shanks: 
+# Here is another incorrect claim by Shanks:
 #     * Jersey, Guernsey, and the Isle of Man did not switch from GMT
 #	to daylight saving time until 1921 Apr 3, when they began to
 #	conform with Great Britain.
@@ -1142,7 +1142,7 @@ Zone	Europe/Minsk	1:50:16 -	LMT	1880
 # Thanks to Pascal Delmoitie <pascal@belnet.be> for these references.
 # The 1918 rules are listed for completeness; they apply to unoccupied Belgium.
 # Assume Brussels switched to WET in 1918 when the armistice took effect.
-# 
+#
 # Rule	NAME	FROM	TO	TYPE	IN	ON	AT	SAVE	LETTER/S
 Rule	Belgium	1918	only	-	Mar	 9	 0:00s	1:00	S
 Rule	Belgium	1918	1919	-	Oct	Sat>=1	23:00s	0	-
@@ -1324,7 +1324,7 @@ Zone America/Thule	-4:35:08 -	LMT	1916 Jul 28 # Pituffik
 # But what this could mean for Estonia's chances of joining the European
 # Union are still unclear.  In 1994, the EU declared summer time compulsory
 # for all member states until 2001.  Brussels has yet to decide what to do
-# after that. 
+# after that.
 
 # Zone	NAME		GMTOFF	RULES	FORMAT	[UNTIL]
 Zone	Europe/Tallinn	1:39:00	-	LMT	1880
@@ -1750,7 +1750,7 @@ Zone	Europe/Vaduz	0:38:04 -	LMT	1894 Jun
 # as decided by the national government on Wednesday....
 # The Lithuanian government also announced plans to consider a
 # motion to give up shifting to summer time in spring, as it was
-# already done by Estonia. 
+# already done by Estonia.
 
 # Zone	NAME		GMTOFF	RULES	FORMAT	[UNTIL]
 Zone	Europe/Vilnius	1:41:16	-	LMT	1880

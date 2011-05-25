@@ -116,11 +116,11 @@ static __inline void netbsd32_to_semid_ds __P((struct  netbsd32_semid_ds *, stru
 static __inline void netbsd32_from_semid_ds __P((struct  semid_ds *, struct  netbsd32_semid_ds *));
 
 
-static int recvit32 __P((struct proc *, int, struct netbsd32_msghdr *, struct iovec *, caddr_t, 
+static int recvit32 __P((struct proc *, int, struct netbsd32_msghdr *, struct iovec *, caddr_t,
 			 register_t *));
-static int dofilereadv32 __P((struct proc *, int, struct file *, struct netbsd32_iovec *, 
+static int dofilereadv32 __P((struct proc *, int, struct file *, struct netbsd32_iovec *,
 			      int, off_t *, int, register_t *));
-static int dofilewritev32 __P((struct proc *, int, struct file *, struct netbsd32_iovec *, 
+static int dofilewritev32 __P((struct proc *, int, struct file *, struct netbsd32_iovec *,
 			       int,  off_t *, int, register_t *));
 static int change_utimes32 __P((struct vnode *, struct timeval *, struct proc *));
 
@@ -151,9 +151,9 @@ netbsd32_from_itimerval(itv, itv32)
 	struct netbsd32_itimerval *itv32;
 {
 
-	netbsd32_from_timeval(&itv->it_interval, 
+	netbsd32_from_timeval(&itv->it_interval,
 			     &itv32->it_interval);
-	netbsd32_from_timeval(&itv->it_value, 
+	netbsd32_from_timeval(&itv->it_value,
 			     &itv32->it_value);
 }
 
@@ -248,7 +248,7 @@ netbsd32_to_iovecin(iov32p, iovp, len)
 	int i, error=0;
 	u_int32_t iov_base;
 	u_int32_t iov_len;
-	/* 
+	/*
 	 * We could allocate an iov32p, do a copyin, and translate
 	 * each field and then free it all up, or we could copyin
 	 * each field separately.  I'm doing the latter to reduce
@@ -1097,7 +1097,7 @@ netbsd32_recvmsg(p, v, retval)
 	msg.msg_flags = SCARG(uap, flags);
 #endif
 	uiov = (struct iovec *)(u_long)msg.msg_iov;
-	error = netbsd32_to_iovecin((struct netbsd32_iovec *)uiov, 
+	error = netbsd32_to_iovecin((struct netbsd32_iovec *)uiov,
 				   iov, msg.msg_iovlen);
 	if (error)
 		goto done;
@@ -1129,7 +1129,7 @@ recvit32(p, s, mp, iov, namelenp, retsize)
 #ifdef KTRACE
 	struct iovec *ktriov = NULL;
 #endif
-	
+
 	/* getsock() will use the descriptor for us */
 	if ((error = getsock(p->p_fd, s, &fp)) != 0)
 		return (error);
@@ -1290,7 +1290,7 @@ netbsd32_sendmsg(p, v, retval)
 	struct iovec aiov[UIO_SMALLIOV], *iov;
 	int error;
 
-	error = copyin((caddr_t)(u_long)SCARG(uap, msg), 
+	error = copyin((caddr_t)(u_long)SCARG(uap, msg),
 		       (caddr_t)&msg32, sizeof(msg32));
 	if (error)
 		return (error);
@@ -1305,7 +1305,7 @@ netbsd32_sendmsg(p, v, retval)
 		iov = aiov;
 	else
 		return (EMSGSIZE);
-	error = netbsd32_to_iovecin((struct netbsd32_iovec *)msg.msg_iov, 
+	error = netbsd32_to_iovecin((struct netbsd32_iovec *)msg.msg_iov,
 				   iov, msg.msg_iovlen);
 	if (error)
 		goto done;
@@ -1602,10 +1602,10 @@ netbsd32_sigaction(p, v, retval)
 		nsa.sa_mask = sa32.sa_mask;
 		nsa.sa_flags = sa32.sa_flags;
 	}
-	error = sigaction1(p, SCARG(uap, signum), 
-			   SCARG(uap, nsa) ? &nsa : 0, 
+	error = sigaction1(p, SCARG(uap, signum),
+			   SCARG(uap, nsa) ? &nsa : 0,
 			   SCARG(uap, osa) ? &osa : 0);
- 
+
 	if (error)
 		return (error);
 
@@ -1728,7 +1728,7 @@ netbsd32_readlink(p, v, retval)
 	return (sys_readlink(p, &ua, retval));
 }
 
-/* 
+/*
  * Need to completly reimplement this syscall due to argument copying.
  */
 int
@@ -1849,7 +1849,7 @@ netbsd32_execve(p, v, retval)
 			goto bad;
 		if (!sp)
 			break;
-		if ((error = copyinstr((char *)(u_long)sp, dp, 
+		if ((error = copyinstr((char *)(u_long)sp, dp,
 				       len, &len)) != 0) {
 			if (error == ENAMETOOLONG)
 				error = E2BIG;
@@ -1869,7 +1869,7 @@ netbsd32_execve(p, v, retval)
 				goto bad;
 			if (!sp)
 				break;
-			if ((error = copyinstr((char *)(u_long)sp, 
+			if ((error = copyinstr((char *)(u_long)sp,
 					       dp, len, &len)) != 0) {
 				if (error == ENAMETOOLONG)
 					error = E2BIG;
@@ -2236,7 +2236,7 @@ netbsd32_getgroups(p, v, retval)
 	ngrp = pc->pc_ucred->cr_ngroups;
 	/* Should convert gid_t to netbsd32_gid_t, but they're the same */
 	error = copyout((caddr_t)pc->pc_ucred->cr_groups,
-			(caddr_t)(u_long)SCARG(uap, gidset), 
+			(caddr_t)(u_long)SCARG(uap, gidset),
 			ngrp * sizeof(gid_t));
 	if (error)
 		return (error);
@@ -2769,7 +2769,7 @@ netbsd32_settimeofday(p, v, retval)
 	 */
 	if (SCARG(uap, tzp))
 		printf("pid %d attempted to set the "
-		    "(obsolete) kernel time zone\n", p->p_pid); 
+		    "(obsolete) kernel time zone\n", p->p_pid);
 	return (0);
 }
 
@@ -2917,7 +2917,7 @@ netbsd32_readv(p, v, retval)
 	    (fp->f_flag & FREAD) == 0)
 		return (EBADF);
 
-	return (dofilereadv32(p, fd, fp, (struct netbsd32_iovec *)(u_long)SCARG(uap, iovp), 
+	return (dofilereadv32(p, fd, fp, (struct netbsd32_iovec *)(u_long)SCARG(uap, iovp),
 			      SCARG(uap, iovcnt), &fp->f_offset, FOF_UPDATE_OFFSET, retval));
 }
 
@@ -4168,8 +4168,8 @@ netbsd32___sysctl(p, v, retval)
 		}
 		oldlen = savelen;
 	}
-	error = (*fn)(name + 1, SCARG(uap, namelen) - 1, 
-		      (void *)(u_long)SCARG(uap, old), &oldlen, 
+	error = (*fn)(name + 1, SCARG(uap, namelen) - 1,
+		      (void *)(u_long)SCARG(uap, old), &oldlen,
 		      (void *)(u_long)SCARG(uap, new), SCARG(uap, newlen), p);
 	if (SCARG(uap, old) != NULL) {
 		if (dolock)
@@ -4256,7 +4256,7 @@ netbsd32_futimes(p, v, retval)
 	if ((error = getvnode(p->p_fd, SCARG(uap, fd), &fp)) != 0)
 		return (error);
 
-	error = change_utimes32((struct vnode *)fp->f_data, 
+	error = change_utimes32((struct vnode *)fp->f_data,
 				(struct timeval *)(u_long)SCARG(uap, tptr), p);
 	FILE_UNUSE(fp, p);
 	return (error);
@@ -4888,7 +4888,7 @@ netbsd32_nanosleep(p, v, retval)
 	s = splclock();
 	timeradd(&atv,&time,&atv);
 	timo = hzto(&atv);
-	/* 
+	/*
 	 * Avoid inadvertantly sleeping forever
 	 */
 	if (timo == 0)
@@ -5432,7 +5432,7 @@ netbsd32___sigaction14(p, v, retval)
 	int error;
 
 	if (SCARG(uap, nsa)) {
-		error = copyin((caddr_t)(u_long)SCARG(uap, nsa), 
+		error = copyin((caddr_t)(u_long)SCARG(uap, nsa),
 			       &sa32, sizeof(sa32));
 		if (error)
 			return (error);
@@ -5455,7 +5455,7 @@ netbsd32___sigaction14(p, v, retval)
 	return (0);
 }
 
-int netbsd32___sigpending14(p, v, retval) 
+int netbsd32___sigpending14(p, v, retval)
 	struct proc *p;
 	void   *v;
 	register_t *retval;
@@ -5469,7 +5469,7 @@ int netbsd32___sigpending14(p, v, retval)
 	return (sys___sigpending14(p, &ua, retval));
 }
 
-int netbsd32___sigprocmask14(p, v, retval) 
+int netbsd32___sigprocmask14(p, v, retval)
 	struct proc *p;
 	void   *v;
 	register_t *retval;
@@ -5487,7 +5487,7 @@ int netbsd32___sigprocmask14(p, v, retval)
 	return (sys___sigprocmask14(p, &ua, retval));
 }
 
-int netbsd32___sigsuspend14(p, v, retval) 
+int netbsd32___sigsuspend14(p, v, retval)
 	struct proc *p;
 	void   *v;
 	register_t *retval;
@@ -5512,7 +5512,7 @@ int
 getcwd_common __P((struct vnode *, struct vnode *,
 		   char **, char *, int, int, struct proc *));
 
-int netbsd32___getcwd(p, v, retval) 
+int netbsd32___getcwd(p, v, retval)
 	struct proc *p;
 	void   *v;
 	register_t *retval;
@@ -5571,7 +5571,7 @@ int netbsd32_fchroot(p, v, retval)
 		syscallarg(int) fd;
 	} */ *uap = v;
 	struct sys_fchroot_args ua;
-	
+
 	NETBSD32TO64_UAP(fd);
 	return (sys_fchroot(p, &ua, retval));
 }

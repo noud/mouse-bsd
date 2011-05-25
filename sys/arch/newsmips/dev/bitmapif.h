@@ -51,4 +51,4 @@ struct	csr_buf {
 	lPoint	csr_p;			/*  cursor point	*/
 	int	csr_sw;			/*  cursor activity	*/
 	int	csr_number;		/*  which cursor use	*/
-}; 
+};

@@ -783,7 +783,7 @@ retryagain:
 		case ADW_ERROR:
 			xs->error = XS_DRIVER_STUFFUP;
 			return (COMPLETE);
-			
+
 		}
 
 		/*

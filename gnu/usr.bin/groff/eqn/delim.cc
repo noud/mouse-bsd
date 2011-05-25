@@ -222,7 +222,7 @@ static void build_extensible(const char *ext, const char *top, const char *mid,
     printf("/2");
   printf(">?0+\\n[" EXT_HEIGHT_REG "]+\\n[" EXT_DEPTH_REG "]-1/(\\n["
 	 EXT_HEIGHT_REG "]+\\n[" EXT_DEPTH_REG "])\n");
-  
+
   printf(".nr " TOTAL_HEIGHT_REG " +(\\n[" EXT_HEIGHT_REG "]+\\n["
 	 EXT_DEPTH_REG "]*\\n[" TEMP_REG "]");
   if (mid)
@@ -246,7 +246,7 @@ static void build_extensible(const char *ext, const char *top, const char *mid,
 
   printf("." REPEAT_APPEND_STRING_MACRO " " DELIM_STRING " \\n[" TEMP_REG "] "
 	 "\\v'\\n[" EXT_HEIGHT_REG "]u'"
-	 "\\Z" DELIMITER_CHAR "%s" DELIMITER_CHAR 
+	 "\\Z" DELIMITER_CHAR "%s" DELIMITER_CHAR
 	 "\\v'\\n[" EXT_DEPTH_REG "]u'\n",
 	 ext);
 
@@ -255,7 +255,7 @@ static void build_extensible(const char *ext, const char *top, const char *mid,
 	   "\\Z" DELIMITER_CHAR "%s" DELIMITER_CHAR
 	   "\\v'\\n[" MID_DEPTH_REG "]u'\n",
 	   mid);
-    printf("." REPEAT_APPEND_STRING_MACRO " " DELIM_STRING 
+    printf("." REPEAT_APPEND_STRING_MACRO " " DELIM_STRING
 	   " \\n[" TEMP_REG "] "
 	   "\\v'\\n[" EXT_HEIGHT_REG "]u'"
 	   "\\Z" DELIMITER_CHAR "%s" DELIMITER_CHAR
@@ -278,7 +278,7 @@ static void define_extensible_string(char *delim, int uid,
   int delim_len = strlen(delim);
   int i;
   for (i = 0; i < DELIM_TABLE_SIZE; i++, d++)
-    if (strncmp(delim, d->name, delim_len) == 0 
+    if (strncmp(delim, d->name, delim_len) == 0
 	&& (left_or_right & d->flags) != 0)
       break;
   if (i >= DELIM_TABLE_SIZE) {
@@ -295,7 +295,7 @@ static void define_extensible_string(char *delim, int uid,
 	 "\\{",
 	 current_roman_font, d->small, axis_height,
 	 current_roman_font, d->small);
-	 
+
   char buf[256];
   sprintf(buf, d->chain_format, "\\\\n[" INDEX_REG "]");
   printf(".nr " INDEX_REG " 0\n"

@@ -886,7 +886,7 @@ adddev(name, at, loclist, flags)
 		 *
 		 * (1) If we're attached to an attribute, then we don't need
 		 *     look at the parent base device to see what attributes
-		 *     it has, and make sure that we can attach to them.    
+		 *     it has, and make sure that we can attach to them.
 		 *
 		 * (2) If we're attached to a real device (i.e. named in
 		 *     the config file), we want to remember that so that

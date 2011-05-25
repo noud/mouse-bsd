@@ -60,7 +60,7 @@
 
 /* from sys/sockio.h */
 #define GRESADDRS       _IOW('i', 101, struct ifreq)
-#define GRESADDRD       _IOW('i', 102, struct ifreq)   
+#define GRESADDRD       _IOW('i', 102, struct ifreq)
 #define GREGADDRS       _IOWR('i', 103, struct ifreq)
 #define GREGADDRD       _IOWR('i', 104, struct ifreq)
 #define GRESPROTO	_IOW('i' , 105, struct ifreq)
@@ -86,7 +86,7 @@ main(int argc, char **argv)
 	dst = src = inf = NULL;
 	verbose = 0;
 
-	while ((i = getopt(argc, argv, "d:i:p:s:v")) != -1) 
+	while ((i = getopt(argc, argv, "d:i:p:s:v")) != -1)
 		switch(i) {
 			case 'd':
 				dst = optarg;
@@ -106,7 +106,7 @@ main(int argc, char **argv)
 				break;
 			default:
 				usage();
-				exit(1); 
+				exit(1);
 		}
 
 	if (inf == NULL) {
@@ -165,7 +165,7 @@ main(int argc, char **argv)
 		err = ioctl(s, GREGADDRS, (caddr_t)&ifr);
 		if (err < 0)
 			perror("GREGADDRS");
-		else 
+		else
 			printf("%s -> ", sa2name(&ifr.ifr_addr));
 		strncpy(ifr.ifr_name, inf, sizeof(ifr.ifr_name));
 		err = ioctl(s, GREGADDRD, (caddr_t)&ifr);

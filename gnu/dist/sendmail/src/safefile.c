@@ -220,7 +220,7 @@ safefile(fn, uid, gid, uname, flags, mode, st)
 			  		  (gr = getgrgid(stbuf.st_gid)) != NULL))
 				{
 					register char **gp;
-		
+
 					for (gp = gr->gr_mem; *gp != NULL; gp++)
 						if (strcmp(*gp, uname) == 0)
 							break;
@@ -671,7 +671,7 @@ filechanged(fn, fd, stb)
 				(long) stb->st_dev, (long) sta.st_dev);
 			if (sizeof sta.st_ino > sizeof (long))
 			{
-				printf(" ino	= %s/", 
+				printf(" ino	= %s/",
 					quad_to_string(stb->st_ino));
 				printf("%s\n",
 					quad_to_string(sta.st_ino));

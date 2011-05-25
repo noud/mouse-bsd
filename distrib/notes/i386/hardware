@@ -1,4 +1,4 @@
-.\"	$NetBSD: hardware,v 1.64 2000/02/07 18:04:04 bouyer Exp $	
+.\"	$NetBSD: hardware,v 1.64 2000/02/07 18:04:04 bouyer Exp $
 .Nx \*V
 runs on ISA (AT-Bus), EISA, PCI, and VL-bus systems
 with 386-family processors, with or without math coprocessors. It
@@ -24,17 +24,17 @@ Supported devices include:
                 -  Contaq Microsystems/Cypress CY82C693 IDE Controller
                 -  Intel PIIX, PIIX3 and PIIX4 IDE Controllers
                 -  Intel 82801 (ICH/ICH0) IDE Controllers
-		-  Promise PDC20246 (Ultra/33) and PDC20262 (Ultra/66) 
+		-  Promise PDC20246 (Ultra/33) and PDC20262 (Ultra/66)
                 -  Silicon Integrated System 5597/5598 IDE controller
                 -  VIA Technologies VT82C586 and VT82C586A IDE Controllers
                 Most of these controllers are only available in
-		multifunction PCI chips. 
+		multifunction PCI chips.
 		Other PCI IDE controllers are supported, but
 		performances may not be optimal.
 		ISA, ISA plug and play and PCMCIA IDE controllers
 		are supported as well.
 	SCSI host adapters
-		Adaptec AHA-154xA, -B, -C, and -CF 
+		Adaptec AHA-154xA, -B, -C, and -CF
 		Adaptec AHA-174x
 		Adaptec AIC-6260 and AIC-6360 based boards, including
 			the Adaptec AHA-152x, Adaptec APA-1460 (PCMCIA),
@@ -92,8 +92,8 @@ Supported devices include:
 		8250/16450-based ports
 		16550/16650/16750-based ports
 		AST-style 4-port serial cards [*]
-		BOCA 8-port serial cards [*] 
-		BOCA 6-port (ioat) serial cards [*] 
+		BOCA 8-port serial cards [*]
+		BOCA 6-port (ioat) serial cards [*]
 		IBM PC-RT 4-port serial cards [*]
 		Single-port Hayes ESP serial cards [*]
 		Cyclades Cyclom-Y serial cards [*] [+]
@@ -194,7 +194,7 @@ Supported devices include:
 			compatible) tape drives [*] [+]
 	CD-ROM drives:
 		Non-IDE Mitsumi CD-ROM drives [*] [+]
-			[Note: The Mitsumi driver device probe is known 
+			[Note: The Mitsumi driver device probe is known
 			to cause trouble with several devices!]
 		Most SCSI CD-ROM drives
 		Most ATAPI CD-ROM drives.
@@ -239,15 +239,15 @@ Supported devices include:
 			Intel 82365 PCIC, rev 0 and rev 1
 			Cirrus PD6710
 			Cirrus PD672X
-		[ Note: will work with most laptops as well as 
-		  with ISA cards which provide PCMCIA 
+		[ Note: will work with most laptops as well as
+		  with ISA cards which provide PCMCIA
 		  slots for desktops ]
 .Ed
 .Pp
 Drivers for hardware marked with "[*]" are NOT present in kernels on the
 distribution floppies.  Except as noted above, all drivers are present
 on all disks.  Also, at the present time, the distributed kernels
-support only one SCSI host adapter per machine. 
+support only one SCSI host adapter per machine.
 .Nx
 normally
 allows more, though, so if you have more than one, you can use all of
@@ -389,7 +389,7 @@ Novell NE2100 Ethernet boards
 		ne2	0x320	9	7
 
 BICC IsoLan cards
-		ne3	0x320	10	7	
+		ne3	0x320	10	7
 
 SMC/WD 8003, 8013, Elite16, and Elite16 Ultra Ethernet boards
 		we0	0x280 	9		iomem 0xd0000
@@ -424,7 +424,7 @@ DC21x4x based Ethernet boards; see above for partial list
 		de0 	any  	any	[you must assign an interrupt in your
 		    	     	   	 PCI BIOS, or let it do so for you]
 
-Digital EtherWORKS III (DE203/DE204/DE205) LEMAC 
+Digital EtherWORKS III (DE203/DE204/DE205) LEMAC
 		lc0 	0x320	any
 
 Qlogic ISP [12]0x0 SCSI/FibreChannel boards

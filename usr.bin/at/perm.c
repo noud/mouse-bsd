@@ -1,6 +1,6 @@
 /*	$NetBSD: perm.c,v 1.1 1998/06/27 21:15:08 christos Exp $	*/
 
-/* 
+/*
  * perm.c - check user permission for at(1)
  * Copyright (C) 1994  Thomas Koenig
  *

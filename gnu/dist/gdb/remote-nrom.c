@@ -1,7 +1,7 @@
 /* Remote debugging with the XLNT Designs, Inc (XDI) NetROM.
    Copyright 1990, 1991, 1992, 1995 Free Software Foundation, Inc.
    Contributed by:
-	 Roger Moyers 
+	 Roger Moyers
 	 XLNT Designs, Inc.
 	 15050 Avenue of Science, Suite 106
 	 San Diego, CA  92128
@@ -149,11 +149,11 @@ nrom_load (args, fromtty)
     {
       make_cleanup (bfd_close, pbfd);
 
-      if (!bfd_check_format (pbfd, bfd_object)) 
+      if (!bfd_check_format (pbfd, bfd_object))
 	error ("\"%s\": not in executable format: %s",
 	       args, bfd_errmsg (bfd_get_error ()));
 
-      for (section = pbfd->sections; section; section = section->next) 
+      for (section = pbfd->sections; section; section = section->next)
 	{
 	  if (bfd_get_section_flags (pbfd, section) & SEC_ALLOC)
 	    {
@@ -179,7 +179,7 @@ nrom_load (args, fromtty)
 		    {
 		      char buffer[1024];
 		      int count;
-		      
+
 		      count = min (section_size, 1024);
 
 		      bfd_get_section_contents (pbfd, section, buffer, fptr,
@@ -260,8 +260,8 @@ nrom_passthru (args, fromtty)
 }
 
 static void
-nrom_mourn() 
-{ 
+nrom_mourn()
+{
   unpush_target (&nrom_ops);
   generic_mourn_inferior ();
 }

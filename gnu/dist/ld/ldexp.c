@@ -126,7 +126,7 @@ exp_print_token (code)
   fprintf(config.map_file, "%c",code);
 }
 
-static void 
+static void
 make_abs (ptr)
      etree_value_type *ptr;
 {
@@ -146,7 +146,7 @@ new_abs (value)
   return new;
 }
 
-static void 
+static void
 check (os, name, op)
      lang_output_section_statement_type *os;
      const char *name;
@@ -212,7 +212,7 @@ new_rel_from_section (value, section)
   return new;
 }
 
-static etree_value_type 
+static etree_value_type
 fold_binary (tree, current_section, allocation_done, dot, dotp)
      etree_type *tree;
      lang_output_section_statement_type *current_section;
@@ -263,7 +263,7 @@ fold_binary (tree, current_section, allocation_done, dot, dotp)
 	      make_abs(&other);
 	    }
 
-	  switch (tree->type.node_code) 
+	  switch (tree->type.node_code)
 	    {
 	    case '%':
 	      if (other.value == 0)
@@ -320,7 +320,7 @@ fold_binary (tree, current_section, allocation_done, dot, dotp)
   return result;
 }
 
-etree_value_type 
+etree_value_type
 invalid ()
 {
   etree_value_type new;
@@ -328,7 +328,7 @@ invalid ()
   return new;
 }
 
-static etree_value_type 
+static etree_value_type
 fold_name (tree, current_section, allocation_done, dot)
      etree_type *tree;
      lang_output_section_statement_type *current_section;
@@ -336,10 +336,10 @@ fold_name (tree, current_section, allocation_done, dot)
      bfd_vma dot;
 {
   etree_value_type result;
-  switch (tree->type.node_code) 
+  switch (tree->type.node_code)
       {
       case SIZEOF_HEADERS:
-	if (allocation_done != lang_first_phase_enum) 
+	if (allocation_done != lang_first_phase_enum)
 	  {
 	    result = new_abs ((bfd_vma)
 			      bfd_sizeof_headers (output_bfd,
@@ -472,7 +472,7 @@ fold_name (tree, current_section, allocation_done, dot)
 
   return result;
 }
-etree_value_type 
+etree_value_type
 exp_fold_tree (tree, current_section, allocation_done, dot, dotp)
      etree_type *tree;
      lang_output_section_statement_type *current_section;
@@ -488,7 +488,7 @@ exp_fold_tree (tree, current_section, allocation_done, dot, dotp)
       return result;
     }
 
-  switch (tree->type.node_class) 
+  switch (tree->type.node_class)
     {
     case etree_value:
       result = new_rel (tree->value.value, current_section);
@@ -510,7 +510,7 @@ exp_fold_tree (tree, current_section, allocation_done, dot, dotp)
 			      allocation_done, dot, dotp);
       if (result.valid)
 	{
-	  switch (tree->type.node_code) 
+	  switch (tree->type.node_code)
 	    {
 	    case ALIGN_K:
 	      if (allocation_done != lang_first_phase_enum)
@@ -526,7 +526,7 @@ exp_fold_tree (tree, current_section, allocation_done, dot, dotp)
 		  result.value += result.section->bfd_section->vma;
 		  result.section = abs_output_section;
 		}
-	      else 
+	      else
 		result.valid = false;
 	      break;
 
@@ -613,7 +613,7 @@ exp_fold_tree (tree, current_section, allocation_done, dot, dotp)
 				 dot, nextdot);
 			}
 		      else
-			*dotp = nextdot; 
+			*dotp = nextdot;
 		    }
 		}
 	    }
@@ -671,7 +671,7 @@ exp_fold_tree (tree, current_section, allocation_done, dot, dotp)
   return result;
 }
 
-static etree_value_type 
+static etree_value_type
 exp_fold_tree_no_dot (tree, current_section, allocation_done)
      etree_type *tree;
      lang_output_section_statement_type *current_section;
@@ -822,7 +822,7 @@ exp_provide (dst, src)
   return n;
 }
 
-void 
+void
 exp_print_tree (tree)
      etree_type *tree;
 {
@@ -870,14 +870,14 @@ exp_print_tree (tree)
     break;
   case etree_unary:
     exp_print_token(tree->unary.type.node_code);
-    if (tree->unary.child) 
+    if (tree->unary.child)
     {
-      
+
     fprintf(config.map_file,"(");
     exp_print_tree(tree->unary.child);
     fprintf(config.map_file,")");
   }
-    
+
     break;
   case etree_undef:
     fprintf(config.map_file,"????????");
@@ -918,7 +918,7 @@ exp_get_vma (tree, def, name, allocation_done)
     return def;
 }
 
-int 
+int
 exp_get_value_int (tree,def,name, allocation_done)
      etree_type *tree;
      int def;

@@ -1,20 +1,20 @@
 # Makefile for GNU Awk.
 #
 # Copyright (C) 1986, 1988-1997 the Free Software Foundation, Inc.
-# 
+#
 # This file is part of GAWK, the GNU implementation of the
 # AWK Programming Language.
-# 
+#
 # GAWK is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
-# 
+#
 # GAWK is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
@@ -84,7 +84,7 @@ COPIES = missing/system.c missing/tzset.c \
 	missing/memcmp.c missing/memcpy.c missing/memset.c \
 	missing/strncasecmp.c missing/strchr.c \
 	missing/strerror.c missing/strtod.c \
-	missing/strftime.c missing/strftime.3 
+	missing/strftime.c missing/strftime.3
 
 DOCS= doc/gawk.1 doc/gawk.texi doc/texinfo.tex
 

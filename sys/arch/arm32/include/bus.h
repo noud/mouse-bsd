@@ -136,7 +136,7 @@ struct bus_space {
 			    bus_size_t, u_int32_t *, bus_size_t));
 	void		(*bs_rm_8) __P((void *, bus_space_handle_t,
 			    bus_size_t, u_int64_t *, bus_size_t));
-					
+
 	/* read region */
 	void		(*bs_rr_1) __P((void *, bus_space_handle_t,
 			    bus_size_t, u_int8_t *, bus_size_t));
@@ -146,7 +146,7 @@ struct bus_space {
 			    bus_size_t, u_int32_t *, bus_size_t));
 	void		(*bs_rr_8) __P((void *, bus_space_handle_t,
 			    bus_size_t, u_int64_t *, bus_size_t));
-					
+
 	/* write (single) */
 	void		(*bs_w_1) __P((void *, bus_space_handle_t,
 			    bus_size_t, u_int8_t));
@@ -166,7 +166,7 @@ struct bus_space {
 			    bus_size_t, const u_int32_t *, bus_size_t));
 	void		(*bs_wm_8) __P((void *, bus_space_handle_t,
 			    bus_size_t, const u_int64_t *, bus_size_t));
-					
+
 	/* write region */
 	void		(*bs_wr_1) __P((void *, bus_space_handle_t,
 			    bus_size_t, const u_int8_t *, bus_size_t));
@@ -439,7 +439,7 @@ void	__bs_c(f,_bs_rm_2) __P((void *t, bus_space_handle_t bsh,	\
 
 #define	bs_rm_4_proto(f)						\
 void	__bs_c(f,_bs_rm_4) __P((void *t, bus_space_handle_t bsh,	\
-	    bus_size_t offset, u_int32_t *addr, bus_size_t count));		
+	    bus_size_t offset, u_int32_t *addr, bus_size_t count));
 
 #define	bs_rm_8_proto(f)						\
 void	__bs_c(f,_bs_rm_8) __P((void *t, bus_space_handle_t bsh,	\

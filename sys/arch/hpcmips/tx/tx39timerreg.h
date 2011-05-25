@@ -43,7 +43,7 @@
  */
 #define TX39_TIMERCLK		1152000
 #endif
-#ifdef TX392X 
+#ifdef TX392X
 /*
  * TX3922 base clock seems to be 32.25MHz (Telios)
  */

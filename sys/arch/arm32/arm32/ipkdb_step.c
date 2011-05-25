@@ -46,7 +46,7 @@ fetchinst(pc)
 	void *pc;
 {
 	int inst, byte, n;
-	
+
 	inst = 0;
 	pc += sizeof(int);
 	for (n = sizeof(int); --n >= 0;) {
@@ -66,7 +66,7 @@ execute(inst, args, regs)
 	int *regs;
 {
 	int *sp;
-	
+
 	/*
 	 * For now, no user level emulation
 	 */
@@ -99,7 +99,7 @@ immediate(inst)
 {
 	int imm = inst&0xff;
 	int rot = (inst >> 8)&0xf;
-	
+
 	rot *= 2;
 	return (imm >> rot)|(imm << (32 - rot));
 }
@@ -134,7 +134,7 @@ singlestep(regs)
 	int args[5];
 	int dst, idx;
 	int val;
-	
+
 	inst = fetchinst(regs[PC]);
 	switch (inst&0x0c000000) {
 	case 0x00000000:
@@ -329,7 +329,7 @@ singlestep(regs)
 				int cnt;
 				int val, is1;
 				int final;
-				
+
 				if (inst&0x00400000)
 					/* S-bit not yet supported */
 					return -1;

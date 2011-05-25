@@ -117,7 +117,7 @@ svr4_getmcontext(p, mc, flags)
 		mc->mc_pad.frame.vector = frame->f_vector;
 		(void)memcpy(&mc->mc_pad.frame.exframe, &frame->F_u,
 		    (size_t)exframesize[format]);
-		
+
 		frame->f_stackadj += exframesize[format];
 		frame->f_format = frame->f_vector = 0;
 	}
@@ -152,14 +152,14 @@ svr4_setmcontext(p, mc, flags)
 	unsigned int format = mc->mc_pad.frame.format;
 	svr4_greg_t *r = mc->gregs;
 	int sz;
-	
-	if ((flags & SVR4_UC_CPU) != 0) {	
+
+	if ((flags & SVR4_UC_CPU) != 0) {
 		/* Validate general register context. */
 		if ((r[SVR4_M68K_PS] & (PSL_MBZ|PSL_IPL|PSL_S)) != 0 ||
 		    format > 0xf || (sz = exframesize[format]) < 0) {
 			return (EINVAL);
 		}
-		
+
 		/* Restore exception frame information. */
 		if (format >= FMT4) {
 			if (frame->f_stackadj == 0) {
@@ -283,7 +283,7 @@ svr4_sendsig(catcher, sig, mask, code)
 #ifdef DEBUG_SVR4
 	printf("sig = %d, sip %p, ucp = %p, handler = %p\n",
 	    sf.sf_signum, sf.sf_sip, sf.sf_ucp, sf.sf_handler);
-#endif  
+#endif
 
 	if(copyout(&sf, sfp, sizeof (sf)) != 0) {
 		/*

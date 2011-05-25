@@ -163,19 +163,19 @@ static struct itbl_entry *entries[e_nprocs][e_ntypes] =
 static unsigned long build_opcode PARAMS ((struct itbl_entry *e));
 static e_type get_type PARAMS ((int yytype));
 static e_processor get_processor PARAMS ((int yyproc));
-static struct itbl_entry **get_entries PARAMS ((e_processor processor, 
+static struct itbl_entry **get_entries PARAMS ((e_processor processor,
 						e_type type));
-static struct itbl_entry *find_entry_byname PARAMS ((e_processor processor, 
+static struct itbl_entry *find_entry_byname PARAMS ((e_processor processor,
 					e_type type, char *name));
-static struct itbl_entry *find_entry_byval PARAMS ((e_processor processor, 
+static struct itbl_entry *find_entry_byval PARAMS ((e_processor processor,
 			e_type type, unsigned long val, struct itbl_range *r));
-static struct itbl_entry *alloc_entry PARAMS ((e_processor processor, 
+static struct itbl_entry *alloc_entry PARAMS ((e_processor processor,
 		e_type type, char *name, unsigned long value));
-static unsigned long apply_range PARAMS ((unsigned long value, 
+static unsigned long apply_range PARAMS ((unsigned long value,
 						struct itbl_range r));
-static unsigned long extract_range PARAMS ((unsigned long value, 
+static unsigned long extract_range PARAMS ((unsigned long value,
 						struct itbl_range r));
-static struct itbl_field *alloc_field PARAMS ((e_type type, int sbit, 
+static struct itbl_field *alloc_field PARAMS ((e_type type, int sbit,
 					int ebit, unsigned long flags));
 
 
@@ -186,7 +186,7 @@ static struct itbl_field *alloc_field PARAMS ((e_type type, int sbit,
 /* Open the table and use lex and yacc to parse the entries.
  * Return 1 for failure; 0 for success.  */
 
-int 
+int
 itbl_parse (char *insntbl)
 {
   extern FILE *yyin;
@@ -213,7 +213,7 @@ struct itbl_entry *
 itbl_add_reg (int yyprocessor, int yytype, char *regname,
 	      int regnum)
 {
-#if 0				
+#if 0
 #include "as.h"
 #include "symbols.h"
   /* Since register names don't have a prefix, we put them in the symbol table so
@@ -279,7 +279,7 @@ itbl_add_operand (struct itbl_entry *e, int yytype, int sbit,
 static void append_insns_as_macros (void);
 
 /* initialize for gas */
-void 
+void
 itbl_init (void)
 {
   struct itbl_entry *e, **es;
@@ -309,15 +309,15 @@ itbl_init (void)
 }
 
 
-/* Append insns to opcodes table and increase number of opcodes 
- * Structure of opcodes table: 
+/* Append insns to opcodes table and increase number of opcodes
+ * Structure of opcodes table:
  * struct itbl_opcode
  * {
  *   const char *name;
- *   const char *args; 		- string describing the arguments.  
- *   unsigned long match; 	- opcode, or ISA level if pinfo=INSN_MACRO 
- *   unsigned long mask; 	- opcode mask, or macro id if pinfo=INSN_MACRO 
- *   unsigned long pinfo; 	- insn flags, or INSN_MACRO 
+ *   const char *args; 		- string describing the arguments.
+ *   unsigned long match; 	- opcode, or ISA level if pinfo=INSN_MACRO
+ *   unsigned long mask; 	- opcode mask, or macro id if pinfo=INSN_MACRO
+ *   unsigned long pinfo; 	- insn flags, or INSN_MACRO
  * };
  * examples:
  *	{"li",      "t,i",  0x34000000, 0xffe00000, WR_t    },
@@ -325,7 +325,7 @@ itbl_init (void)
  */
 
 static char *form_args (struct itbl_entry *e);
-static void 
+static void
 append_insns_as_macros (void)
 {
   struct ITBL_OPCODE_STRUCT *new_opcodes, *o;
@@ -407,7 +407,7 @@ append_insns_as_macros (void)
 		Don't free name though, since name is being used by the new
 		opcodes table.
 
-		Eventually, we should also free the new opcodes table itself 
+		Eventually, we should also free the new opcodes table itself
 		on exit.
 	*/
 }
@@ -457,7 +457,7 @@ form_args (struct itbl_entry *e)
 
 /* Get processor's register name from val */
 
-unsigned long 
+unsigned long
 itbl_get_reg_val (char *name)
 {
   e_type t;
@@ -486,7 +486,7 @@ itbl_get_name (e_processor processor, e_type type, unsigned long val)
 
 /* Get processor's register value from name */
 
-unsigned long 
+unsigned long
 itbl_get_val (e_processor processor, e_type type, char *name)
 {
   struct itbl_entry *r;
@@ -504,7 +504,7 @@ itbl_get_val (e_processor processor, e_type type, char *name)
  * s - operands
  * returns - long word for assembled instruction */
 
-unsigned long 
+unsigned long
 itbl_assemble (char *name, char *s)
 {
   unsigned long opcode;
@@ -600,7 +600,7 @@ itbl_assemble (char *name, char *s)
  * returns - 1 if succeeded; 0 if failed
  */
 
-int 
+int
 itbl_disassemble (char *s, unsigned long insn)
 {
   e_processor processor;
@@ -667,7 +667,7 @@ itbl_disassemble (char *s, unsigned long insn)
 
 /* Calculate instruction's opcode and function values from entry */
 
-static unsigned long 
+static unsigned long
 build_opcode (struct itbl_entry *e)
 {
   unsigned long opcode;
@@ -688,7 +688,7 @@ build_opcode (struct itbl_entry *e)
  * mask: 0x01f00000.
  */
 
-static unsigned long 
+static unsigned long
 apply_range (unsigned long rval, struct itbl_range r)
 {
   unsigned long mask;
@@ -712,7 +712,7 @@ apply_range (unsigned long rval, struct itbl_range r)
 /* Calculate relative value given the absolute value and bit position range
  * within the instruction.  */
 
-static unsigned long 
+static unsigned long
 extract_range (unsigned long aval, struct itbl_range r)
 {
   unsigned long mask;
@@ -840,7 +840,7 @@ get_entries (e_processor processor, e_type type)
 
 /* Return an integral value for the processor passed from yyparse. */
 
-static e_processor 
+static e_processor
 get_processor (int yyproc)
 {
   /* translate from yacc's processor to enum */
@@ -851,7 +851,7 @@ get_processor (int yyproc)
 
 /* Return an integral value for the entry type passed from yyparse. */
 
-static e_type 
+static e_type
 get_type (int yytype)
 {
   switch (yytype)

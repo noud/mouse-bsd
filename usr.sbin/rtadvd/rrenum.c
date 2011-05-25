@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -80,7 +80,7 @@ rr_pco_check(int len, struct rr_pco_match *rpm)
 {
 	struct rr_pco_use *rpu, *rpulim;
 	int checklen;
-	
+
 	/* rpm->rpm_len must be (4N * 3) as router-renum-05.txt */
 	if ((rpm->rpm_len - 3) < 0 || /* must be at least 3 */
 	    (rpm->rpm_len - 3) & 0x3) { /* must be multiple of 4 */
@@ -239,7 +239,7 @@ do_pco(struct icmp6_router_renum *rr, int len, struct rr_pco_match *rpm)
 }
 
 /*
- * call do_pco() for each Prefix Control Operations(PCOs) in a received 
+ * call do_pco() for each Prefix Control Operations(PCOs) in a received
  * Router Renumbering Command packet.
  * return 0 on success, 1 on failure
  */
@@ -332,7 +332,7 @@ rr_command_check(int len, struct icmp6_router_renum *rr, struct in6_addr *from,
 	}
 
 	/* update seqnum */
-	if (rro.rro_seqnum != rr->rr_seqnum) { 
+	if (rro.rro_seqnum != rr->rr_seqnum) {
 		/* then must be "<" */
 
 		/* init rro_segnum_bits */

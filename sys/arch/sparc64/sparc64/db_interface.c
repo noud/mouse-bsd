@@ -192,7 +192,7 @@ kdb_trap(type, tf)
 	ddb_regs.ddb_tf = *tf;
 	/* We should do a proper copyin and xlate 64-bit stack frames, but... */
 /*	if (tf->tf_tstate & TSTATE_PRIV) { */
-	
+
 #if 0
 	/* make sure this is not causing ddb problems. */
 	if (tf->tf_out[6] & 1) {
@@ -202,7 +202,7 @@ kdb_trap(type, tf)
 			copyin((caddr_t)(tf->tf_out[6] + BIAS), &ddb_regs.ddb_fr, sizeof(struct frame64));
 	} else {
 		struct frame32 tfr;
-		
+
 		/* First get a local copy of the frame32 */
 		if ((unsigned)(tf->tf_out[6]) > (unsigned)KERNBASE)
 			tfr = *(struct frame32 *)tf->tf_out[6];
@@ -318,7 +318,7 @@ db_dump_dtlb(addr, have_addr, count, modif)
 		int64_t* p = (int64_t*)addr;
 		static int64_t buf[128];
 		extern void dump_dtlb(int64_t *);
-		
+
 		dump_dtlb(buf);
 		p = buf;
 		for (i=0; i<64;) {
@@ -377,7 +377,7 @@ struct pmap* pm;
 	long i, j, k, n;
 	paddr_t *pdir, *ptbl;
 	/* Almost the same as pmap_collect() */
-	
+
 	n = 0;
 	for (i=0; i<STSZ; i++) {
 		if((pdir = (paddr_t *)(u_long)ldxa(&pm->pm_segs[i], ASI_PHYS_CACHED))) {
@@ -424,10 +424,10 @@ db_pmap_kernel(addr, have_addr, count, modif)
 	}
 	if (have_addr) {
 		/* lookup an entry for this VA */
-		
+
 		if ((data = pseg_get(&kernel_pmap_, (vaddr_t)addr))) {
 			db_printf("pmap_kernel(%p)->pm_segs[%lx][%lx][%lx]=>%lx\n",
-				  (void *)addr, (u_long)va_to_seg(addr), 
+				  (void *)addr, (u_long)va_to_seg(addr),
 				  (u_long)va_to_dir(addr), (u_long)va_to_pte(addr),
 				  (u_long)data);
 		} else {
@@ -527,7 +527,7 @@ db_dump_dtsb(addr, have_addr, count, modif)
 
 	db_printf("TSB:\n");
 	for (i=0; i<TSBENTS; i++) {
-		db_printf("%4d:%4d:%08x %08x:%08x ", i, 
+		db_printf("%4d:%4d:%08x %08x:%08x ", i,
 			  (int)((tsb[i].tag.tag&TSB_TAG_G)?-1:TSB_TAG_CTX(tsb[i].tag.tag)),
 			  (int)((i<<13)|TSB_TAG_VA(tsb[i].tag.tag)),
 			  (int)(tsb[i].data.data>>32), (int)tsb[i].data.data);
@@ -551,7 +551,7 @@ db_proc_cmd(addr, have_addr, count, modif)
 	struct proc *p;
 
 	p = curproc;
-	if (have_addr) 
+	if (have_addr)
 		p = (struct proc*) addr;
 	if (p == NULL) {
 		db_printf("no current process\n");
@@ -559,13 +559,13 @@ db_proc_cmd(addr, have_addr, count, modif)
 	}
 	db_printf("process %p:", p);
 	db_printf("pid:%d vmspace:%p pmap:%p ctx:%x wchan:%p pri:%d upri:%d\n",
-		  p->p_pid, p->p_vmspace, p->p_vmspace->vm_map.pmap, 
+		  p->p_pid, p->p_vmspace, p->p_vmspace->vm_map.pmap,
 		  p->p_vmspace->vm_map.pmap->pm_ctx,
 		  p->p_wchan, p->p_priority, p->p_usrpri);
 	db_printf("thread @ %p = %p tf:%p ", &p->p_thread, p->p_thread,
 		  p->p_md.md_tf);
 	db_printf("maxsaddr:%p ssiz:%dpg or %pB\n",
-		  p->p_vmspace->vm_maxsaddr, p->p_vmspace->vm_ssize, 
+		  p->p_vmspace->vm_maxsaddr, p->p_vmspace->vm_ssize,
 		  ctob(p->p_vmspace->vm_ssize));
 	db_printf("profile timer: %ld sec %ld usec\n",
 		  p->p_stats->p_timer[ITIMER_PROF].it_value.tv_sec,
@@ -588,9 +588,9 @@ db_ctx_cmd(addr, have_addr, count, modif)
 		if (p->p_stat) {
 			db_printf("process %p:", p);
 			db_printf("pid:%d pmap:%p ctx:%x tf:%p lastcall:%s\n",
-				  p->p_pid, p->p_vmspace->vm_map.pmap, 
+				  p->p_pid, p->p_vmspace->vm_map.pmap,
 				  p->p_vmspace->vm_map.pmap->pm_ctx,
-				  p->p_md.md_tf, 
+				  p->p_md.md_tf,
 				  (p->p_addr->u_pcb.lastcall)?p->p_addr->u_pcb.lastcall:"Null");
 		}
 		p = p->p_list.le_next;
@@ -610,16 +610,16 @@ db_dump_pcb(addr, have_addr, count, modif)
 	int i;
 
 	pcb = cpcb;
-	if (have_addr) 
+	if (have_addr)
 		pcb = (struct pcb*) addr;
 
 	db_printf("pcb@%x sp:%p pc:%p cwp:%d pil:%d nsaved:%x onfault:%p\nlastcall:%s\nfull windows:\n",
 		  pcb, pcb->pcb_sp, pcb->pcb_pc, pcb->pcb_cwp,
 		  pcb->pcb_pil, pcb->pcb_nsaved, pcb->pcb_onfault,
 		  (pcb->lastcall)?pcb->lastcall:"Null");
-	
+
 	for (i=0; i<pcb->pcb_nsaved; i++) {
-		db_printf("win %d: at %p:%p local, in\n", i, 
+		db_printf("win %d: at %p:%p local, in\n", i,
 			  pcb->pcb_rw[i+1].rw_in[6]);
 		db_printf("%16lx %16lx %16lx %16lx\n",
 			  pcb->pcb_rw[i].rw_local[0],
@@ -660,7 +660,7 @@ db_setpcb(addr, have_addr, count, modif)
 		db_printf("What PID do you want to map in?\n");
 		return;
 	}
-    
+
 	p = allproc.lh_first;
 	while (p != 0) {
 		pp = p->p_pptr;
@@ -716,9 +716,9 @@ db_traptrace(addr, have_addr, count, modif)
 	}
 
 	for (i=start; &trap_trace[i] < end ; i++) {
-		db_printf("%d:%d p:%d tt:%x:%lx:%p %p:%p", i, 
-			  (int)trap_trace[i].tl, (int)trap_trace[i].pid, 
-			  (int)trap_trace[i].tt, (u_long)trap_trace[i].tstate, 
+		db_printf("%d:%d p:%d tt:%x:%lx:%p %p:%p", i,
+			  (int)trap_trace[i].tl, (int)trap_trace[i].pid,
+			  (int)trap_trace[i].tt, (u_long)trap_trace[i].tstate,
 			  (u_long)trap_trace[i].tfault, (u_long)trap_trace[i].tsp,
 			  (u_long)trap_trace[i].tpc);
 		db_printsym((u_long)trap_trace[i].tpc, DB_STGY_PROC);
@@ -732,7 +732,7 @@ db_traptrace(addr, have_addr, count, modif)
 
 }
 
-/* 
+/*
  * Use physical or virtual watchpoint registers -- ugh
  */
 void
@@ -761,7 +761,7 @@ db_watch(addr, have_addr, count, modif)
 	if (have_addr) {
 		/* turn on the watchpoint */
 		int64_t tmp = ldxa(0, ASI_MCCR);
-		
+
 		if (phys) {
 			tmp &= ~(WATCH_PM|WATCH_PR|WATCH_PW);
 			stxa(PHYSICAL_WATCHPOINT, ASI_DMMU, addr);

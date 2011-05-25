@@ -83,7 +83,7 @@ ENTRY(namn)			; \
 	.globl	_kernbase, _rpb, _kernel_text
 	.set	_kernel_text,KERNBASE
 _kernbase:
-_rpb:	
+_rpb:
 /*
  * First page in memory we have rpb; so that we know where
  * (must be on a 64k page boundary, easiest here). We use it
@@ -151,10 +151,10 @@ _rpb:
 	NOVEC;				# Unused, E4
 	NOVEC;				# Unused, E8
 	NOVEC;				# Unused, EC
-	NOVEC;		
-	NOVEC;		
-	NOVEC;		
-	NOVEC;		
+	NOVEC;
+	NOVEC;
+	NOVEC;
+	NOVEC;
 
 	/* space for adapter vectors */
 	.space 0x100
@@ -332,7 +332,7 @@ hardclock:	mtpr	$0xc1,$PR_ICCS		# Reset interrupt flag
 /*
  * Main routine for traps; all go through this.
  * Note that we put USP on the frame here, which sometimes should
- * be KSP to be correct, but because we only alters it when we are 
+ * be KSP to be correct, but because we only alters it when we are
  * called from user space it doesn't care.
  * _sret is used in cpu_set_kpc to jump out to user space first time.
  */

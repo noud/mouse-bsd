@@ -207,7 +207,7 @@
 #define	KEYB_R_OVERRUN1	0xff	/* keyboard buffer overflow */
 
 /* MF II Keyboard id-byte #1 */	/* Default keybd's id-byte #1 */
-#define KEYB_R_MF2ID1	0xab	
+#define KEYB_R_MF2ID1	0xab
 /* MF II Keyboard id-byte #2 */
 #define KEYB_R_MF2ID2	0x41	/* Default keybd's id-byte #2 */
 #define KEYB_R_MF2ID2TP	0x54	/* IBM ThinkPad 76X keybd's id-byte #2 */

@@ -217,7 +217,7 @@ int k_del_rg(origin, g)
     }
 
     return retval;
-}	
+}
 
 /*
  * Get the kernel's idea of what version of mrouted needs to run with it.

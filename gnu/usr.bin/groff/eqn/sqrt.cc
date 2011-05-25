@@ -100,7 +100,7 @@ int sqrt_box::compute_metrics(int style)
 	 "..\n"
 	 "." TEMP_MACRO "\n",
 	 uid, uid, default_rule_thickness);
-  
+
   printf(".\\}\\}\n");
 
   printf(".nr " SMALL_SIZE_FORMAT " \\n[.s]\n", uid);

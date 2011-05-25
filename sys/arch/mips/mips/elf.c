@@ -180,7 +180,7 @@ elf_copyargs(pack, arginfo, stack, argp)
 		a->a_v = ap->arg_phaddr;
 		a++;
 
-		a->a_type = AT_PHENT; 
+		a->a_type = AT_PHENT;
 		a->a_v = ap->arg_phentsize;
 		a++;
 

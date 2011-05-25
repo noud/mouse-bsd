@@ -149,7 +149,7 @@ pinsert(p0, q0)
 	}
 	ins_que(&p0->p_q, q0->q_back);
 	return (1);
-	
+
 }
 
 void

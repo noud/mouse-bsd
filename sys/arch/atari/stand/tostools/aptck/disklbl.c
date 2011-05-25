@@ -98,7 +98,7 @@ bsd_label(dd, offset)
 	bblk = disk_read(dd, offset, nsec);
 	if (bblk) {
 		u_int	*end, *p;
-		
+
 		end = (u_int *)&bblk[BBMINSIZE - sizeof(struct disklabel)];
 		rv  = 1;
 		for (p = (u_int *)bblk; p < end; ++p) {

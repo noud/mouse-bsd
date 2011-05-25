@@ -174,11 +174,11 @@ fetch_inferior_registers (ignored)
   if (ptrace (PTRACE_GETREGS, inferior_pid,
 	      (PTRACE_ARG3_TYPE) &inferior_registers, 0))
     perror("ptrace_getregs");
-      
+
   registers[REGISTER_BYTE (0)] = 0;
   memcpy (&registers[REGISTER_BYTE (1)], &inferior_registers.r_g1,
 	  15 * REGISTER_RAW_SIZE (G0_REGNUM));
-  *(int *)&registers[REGISTER_BYTE (PS_REGNUM)] = inferior_registers.r_ps; 
+  *(int *)&registers[REGISTER_BYTE (PS_REGNUM)] = inferior_registers.r_ps;
   *(int *)&registers[REGISTER_BYTE (PC_REGNUM)] = inferior_registers.r_pc;
   *(int *)&registers[REGISTER_BYTE (NPC_REGNUM)] = inferior_registers.r_npc;
   *(int *)&registers[REGISTER_BYTE (Y_REGNUM)] = inferior_registers.r_y;

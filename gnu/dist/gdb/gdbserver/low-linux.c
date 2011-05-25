@@ -167,7 +167,7 @@ myresume (step, signal)
 
 /* this table must line up with REGISTER_NAMES in tm-i386v.h */
 /* symbols like 'EAX' come from <sys/reg.h> */
-static int regmap[] = 
+static int regmap[] =
 {
   EAX, ECX, EDX, EBX,
   UESP, EBP, ESI, EDI,
@@ -185,18 +185,18 @@ i386_register_u_addr (blockend, regnum)
   /* for now, you can look at them with 'info float'
    * sys5 wont let you change them with ptrace anyway
    */
-  if (regnum >= FP0_REGNUM && regnum <= FP7_REGNUM) 
+  if (regnum >= FP0_REGNUM && regnum <= FP7_REGNUM)
     {
       int ubase, fpstate;
       struct user u;
       ubase = blockend + 4 * (SS + 1) - KSTKSZ;
       fpstate = ubase + ((char *)&u.u_fpstate - (char *)&u);
       return (fpstate + 0x1c + 10 * (regnum - FP0_REGNUM));
-    } 
+    }
   else
 #endif
     return (blockend + 4 * regmap[regnum]);
-  
+
 }
 
 CORE_ADDR

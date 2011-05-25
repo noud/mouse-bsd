@@ -105,6 +105,6 @@ clean:
 	rm -f ${OBJS} makemap makemap.${MAN8SRC}
 
 ################  Dependency scripts
-include(confBUILDTOOLSDIR/M4/depend/ifdef(`confDEPEND_TYPE', `confDEPEND_TYPE', 
+include(confBUILDTOOLSDIR/M4/depend/ifdef(`confDEPEND_TYPE', `confDEPEND_TYPE',
 `generic').m4)dnl
 ################  End of dependency scripts

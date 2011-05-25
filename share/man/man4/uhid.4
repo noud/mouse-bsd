@@ -56,7 +56,7 @@ calls:
 .Bl -tag -width indent -compact
 .It Dv USB_GET_REPORT_DESC (struct usb_ctl_report_desc)
 Get the HID report descriptor.  Using
-this descriptor the exact layout and meaning of data to/from 
+this descriptor the exact layout and meaning of data to/from
 the device can be found.  The report descriptor is delivered
 without any processing.
 .Bd -literal
@@ -76,7 +76,7 @@ interrupt pipe.  This call may fail if the device does not support
 this feature.
 .It Dv USB_GET_REPORT (struct usb_ctl_report)
 Get a report from the device without waiting for data on
-the interrupt pipe.  The 
+the interrupt pipe.  The
 .Dv report
 field indicates which report is requested.  It should be
 .Dv UHID_INPUT_REPORT ,

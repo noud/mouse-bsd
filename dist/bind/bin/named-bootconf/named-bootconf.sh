@@ -95,7 +95,7 @@ while read CMD ARGS; do
 			DIRECTORY=$1
 			export DIRECTORY
 		fi
-		;; 
+		;;
 	forwarders )
 		(cat $COMMENTFILE
 		echo "	forwarders {"

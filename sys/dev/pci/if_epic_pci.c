@@ -47,26 +47,26 @@
 #include "bpfilter.h"
 
 #include <sys/param.h>
-#include <sys/systm.h> 
-#include <sys/mbuf.h>   
+#include <sys/systm.h>
+#include <sys/mbuf.h>
 #include <sys/malloc.h>
 #include <sys/kernel.h>
 #include <sys/socket.h>
 #include <sys/ioctl.h>
 #include <sys/errno.h>
 #include <sys/device.h>
- 
+
 #include <net/if.h>
 #include <net/if_dl.h>
 #include <net/if_media.h>
 #include <net/if_ether.h>
 
-#if NBPFILTER > 0 
+#if NBPFILTER > 0
 #include <net/bpf.h>
-#endif 
+#endif
 
 #ifdef INET
-#include <netinet/in.h> 
+#include <netinet/in.h>
 #include <netinet/if_inarp.h>
 #endif
 
@@ -209,7 +209,7 @@ epic_pci_attach(parent, self, aux)
 		printf("%s: unable to map interrupt\n", sc->sc_dev.dv_xname);
 		return;
 	}
-	intrstr = pci_intr_string(pc, ih); 
+	intrstr = pci_intr_string(pc, ih);
 	psc->sc_ih = pci_intr_establish(pc, ih, IPL_NET, epic_intr, sc);
 	if (psc->sc_ih == NULL) {
 		printf("%s: unable to establish interrupt",

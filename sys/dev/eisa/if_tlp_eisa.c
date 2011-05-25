@@ -47,8 +47,8 @@
 #include "bpfilter.h"
 
 #include <sys/param.h>
-#include <sys/systm.h> 
-#include <sys/mbuf.h>   
+#include <sys/systm.h>
+#include <sys/mbuf.h>
 #include <sys/malloc.h>
 #include <sys/kernel.h>
 #include <sys/socket.h>
@@ -57,18 +57,18 @@
 #include <sys/device.h>
 
 #include <machine/endian.h>
- 
+
 #include <net/if.h>
 #include <net/if_dl.h>
 #include <net/if_media.h>
 #include <net/if_ether.h>
 
-#if NBPFILTER > 0 
+#if NBPFILTER > 0
 #include <net/bpf.h>
-#endif 
+#endif
 
 #ifdef INET
-#include <netinet/in.h> 
+#include <netinet/in.h>
 #include <netinet/if_inarp.h>
 #endif
 

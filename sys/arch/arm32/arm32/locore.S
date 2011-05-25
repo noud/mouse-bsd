@@ -76,7 +76,7 @@ L1:
 
 	PUSHFRAME
 
-	mov	r0, sp			/* parameter to main is trap frame */ 
+	mov	r0, sp			/* parameter to main is trap frame */
 
 	bl	_C_LABEL(main)		/* Lets light the flame and start her up */
 
@@ -167,8 +167,8 @@ Lfiqmsg:
 
 #ifndef OFW
 	/* OFW based systems will used OF_boot() */
-	
-Lcpufuncs:	
+
+Lcpufuncs:
 	.word	_C_LABEL(cpufuncs)
 
 ENTRY_NP(cpu_reset)

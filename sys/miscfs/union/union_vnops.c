@@ -437,7 +437,7 @@ union_lookup(v)
 	    (dvp->v_mount->mnt_flag & MNT_RDONLY) &&
 	    ((cnp->cn_nameiop == CREATE) || (cnp->cn_nameiop == RENAME)))
 		uerror = EROFS;
-	
+
 	/*
 	 * at this point, we have uerror and lerror indicating
 	 * possible errors with the lookups in the upper and lower
@@ -464,7 +464,7 @@ union_lookup(v)
 
 	*ap->a_vpp = NULLVP;
 
-	
+
 	/* case 1. */
 	if ((uerror != 0) && (lerror != 0)) {
 		return (uerror);
@@ -765,7 +765,7 @@ union_access(v)
 			break;
 		}
 	}
-	
+
 
 	if ((vp = un->un_uppervp) != NULLVP) {
 		FIXUP(un);
@@ -924,7 +924,7 @@ union_setattr(v)
 				return (EROFS);
 		}
 	}
-	
+
 	/*
 	 * Handle case of truncating lower object to zero size,
 	 * by creating a zero length upper object.  This is to
@@ -1142,10 +1142,10 @@ union_fsync(v)
 	 */
 	if (ap->a_flags & FSYNC_RECLAIM)
 		return 0;
-	
+
 	targetvp = OTHERVP(ap->a_vp);
 	p = ap->a_p;
-	
+
 	if (targetvp != NULLVP) {
 		int dolock = (targetvp == LOWERVP(ap->a_vp));
 
@@ -1715,7 +1715,7 @@ union_lock(v)
 			un->un_flags |= UN_DRAINED;
 	}
 #endif
-	
+
 	/*
 	 * Don't pass DRAIN through to sub-vnode lock; keep track of
 	 * DRAIN state at this level, and just get an exclusive lock
@@ -1804,7 +1804,7 @@ union_unlock(v)
 			curproc->p_pid > -1 && un->un_pid > -1)
 		panic("union: unlocking other process's union node");
 	if (un->un_flags & UN_DRAINED)
-		panic("union: %p: warning: unlocking decommissioned lock\n", ap->a_vp);			
+		panic("union: %p: warning: unlocking decommissioned lock\n", ap->a_vp);
 #endif
 
 	un->un_flags &= ~UN_LOCKED;

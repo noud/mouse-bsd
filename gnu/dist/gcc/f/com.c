@@ -852,7 +852,7 @@ ffecom_convert_to_complex_ (tree type, tree expr)
   assert (TREE_CODE (type) == RECORD_TYPE);
 
   subtype = TREE_TYPE (TYPE_FIELDS (type));
-  
+
   if (form == REAL_TYPE || form == INTEGER_TYPE || form == ENUMERAL_TYPE)
     {
       expr = convert (subtype, expr);
@@ -885,7 +885,7 @@ ffecom_convert_to_complex_ (tree type, tree expr)
     error ("pointer value used where a complex was expected");
   else
     error ("aggregate value used where a complex was expected");
-  
+
   return ffecom_2 (COMPLEX_EXPR, type,
 		   convert (subtype, integer_zero_node),
 		   convert (subtype, integer_zero_node));
@@ -3039,7 +3039,7 @@ ffecom_expr_ (ffebld expr, tree dest_tree, ffebld dest,
 
     case FFEBLD_opUMINUS:
       left = ffecom_expr_ (ffebld_left (expr), NULL, NULL, NULL, FALSE, widenp);
-      if (tree_type_x) 
+      if (tree_type_x)
 	{
 	  tree_type = tree_type_x;
 	  left = convert (tree_type, left);
@@ -3049,7 +3049,7 @@ ffecom_expr_ (ffebld expr, tree dest_tree, ffebld dest,
     case FFEBLD_opADD:
       left = ffecom_expr_ (ffebld_left (expr), NULL, NULL, NULL, FALSE, widenp);
       right = ffecom_expr_ (ffebld_right (expr), NULL, NULL, NULL, FALSE, widenp);
-      if (tree_type_x) 
+      if (tree_type_x)
 	{
 	  tree_type = tree_type_x;
 	  left = convert (tree_type, left);
@@ -3060,7 +3060,7 @@ ffecom_expr_ (ffebld expr, tree dest_tree, ffebld dest,
     case FFEBLD_opSUBTRACT:
       left = ffecom_expr_ (ffebld_left (expr), NULL, NULL, NULL, FALSE, widenp);
       right = ffecom_expr_ (ffebld_right (expr), NULL, NULL, NULL, FALSE, widenp);
-      if (tree_type_x) 
+      if (tree_type_x)
 	{
 	  tree_type = tree_type_x;
 	  left = convert (tree_type, left);
@@ -3071,7 +3071,7 @@ ffecom_expr_ (ffebld expr, tree dest_tree, ffebld dest,
     case FFEBLD_opMULTIPLY:
       left = ffecom_expr_ (ffebld_left (expr), NULL, NULL, NULL, FALSE, widenp);
       right = ffecom_expr_ (ffebld_right (expr), NULL, NULL, NULL, FALSE, widenp);
-      if (tree_type_x) 
+      if (tree_type_x)
 	{
 	  tree_type = tree_type_x;
 	  left = convert (tree_type, left);
@@ -3082,7 +3082,7 @@ ffecom_expr_ (ffebld expr, tree dest_tree, ffebld dest,
     case FFEBLD_opDIVIDE:
       left = ffecom_expr_ (ffebld_left (expr), NULL, NULL, NULL, FALSE, widenp);
       right = ffecom_expr_ (ffebld_right (expr), NULL, NULL, NULL, FALSE, widenp);
-      if (tree_type_x) 
+      if (tree_type_x)
 	{
 	  tree_type = tree_type_x;
 	  left = convert (tree_type, left);
@@ -5775,12 +5775,12 @@ typedef doublereal E_f; // real function with -R not specified //
     void pow_ci();
     double pow_dd();
     void pow_zz();
-    double acos(), r_imag(), r_int(), log(), r_lg10(), r_mod(), r_nint(), 
+    double acos(), r_imag(), r_int(), log(), r_lg10(), r_mod(), r_nint(),
             asin(), atan(), atan2(), c_abs();
     void c_cos(), c_exp(), c_log(), r_cnjg();
     double cos(), cosh();
     void c_sin(), c_sqrt();
-    double d_dim(), exp(), r_dim(), d_int(), d_lg10(), d_mod(), d_nint(), 
+    double d_dim(), exp(), r_dim(), d_int(), d_lg10(), d_mod(), d_nint(),
             d_sign(), sin(), sinh(), sqrt(), tan(), tanh();
     integer i_dim(), i_dnnt(), i_indx(), i_sign(), i_len();
     logical l_ge(), l_gt(), l_le(), l_lt();
@@ -5788,7 +5788,7 @@ typedef doublereal E_f; // real function with -R not specified //
     double r_sign();
 
     // Local variables //
-    extern // Subroutine // int fooa_(), fooc_(), food_(), fooi_(), foor_(), 
+    extern // Subroutine // int fooa_(), fooc_(), food_(), fooi_(), foor_(),
             fool_(), fooz_(), getem_();
     static char a1[10], a2[10];
     static complex c1, c2;

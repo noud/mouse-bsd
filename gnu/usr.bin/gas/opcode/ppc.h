@@ -641,7 +641,7 @@ const struct powerpc_operand powerpc_operands[] =
    same.  */
 
 /*ARGSUSED*/
-static unsigned long 
+static unsigned long
 insert_bat (insn, value, errmsg)
      unsigned long insn;
      long value;
@@ -1118,7 +1118,7 @@ insert_ras (insn, value, errmsg)
    extraction function just checks that the fields are the same.  */
 
 /*ARGSUSED*/
-static unsigned long 
+static unsigned long
 insert_rbs (insn, value, errmsg)
      unsigned long insn;
      long value;
@@ -2998,13 +2998,13 @@ const struct powerpc_opcode powerpc_opcodes[] = {
 
 { "fnabs",   XRC(63,136,0), XRA_MASK,	COM,		{ FRT, FRB } },
 { "fnabs.",  XRC(63,136,1), XRA_MASK,	COM,		{ FRT, FRB } },
-	
+
 { "fabs",    XRC(63,264,0), XRA_MASK,	COM,		{ FRT, FRB } },
 { "fabs.",   XRC(63,264,1), XRA_MASK,	COM,		{ FRT, FRB } },
-	
+
 { "mffs",    XRC(63,583,0), XRARB_MASK,	COM,		{ FRT } },
 { "mffs.",   XRC(63,583,1), XRARB_MASK,	COM,		{ FRT } },
-	
+
 { "mtfsf",   XFL(63,711,0), XFL_MASK,	COM,		{ FLM, FRB } },
 { "mtfsf.",  XFL(63,711,1), XFL_MASK,	COM,		{ FLM, FRB } },
 

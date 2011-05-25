@@ -1269,7 +1269,7 @@ parse_symbol (sh, ax, ext_sh, bigend, section_offsets)
 		  TYPE_NFIELDS (ftype) = nparams;
 		  TYPE_FIELDS (ftype) = (struct field *)
 		    TYPE_ALLOC (ftype, nparams * sizeof (struct field));
-						    
+
 		  for (i = iparams = 0; iparams < nparams; i++)
 		    {
 		      sym = BLOCK_SYM (b, i);
@@ -1763,7 +1763,7 @@ parse_type (fd, ax, aux_index, bs, bigend, sym_name)
   /* Complain for illegal continuations due to corrupt aux entries.  */
   if (t->continued)
     complain (&bad_continued_complaint, sym_name);
- 
+
   return tp;
 }
 
@@ -1924,7 +1924,7 @@ parse_procedure (pr, search_symtab, pst)
 	{
 	  /* external */
 	  EXTR she;
-	  
+
 	  (*debug_swap->swap_ext_in) (cur_bfd,
 				      ((char *) debug_info->external_ext
 				       + (pr->isym
@@ -2046,7 +2046,7 @@ parse_procedure (pr, search_symtab, pst)
      To work around these problems, the return value type of a TYPE_CODE_VOID
      function is adjusted accordingly if no debugging info was found in the
      compilation unit.  */
- 
+
   if (processing_gcc_compilation == 0
       && found_ecoff_debugging_info == 0
       && TYPE_CODE (TYPE_TARGET_TYPE (SYMBOL_TYPE (s))) == TYPE_CODE_VOID)
@@ -2063,7 +2063,7 @@ ecoff_relocate_efi (sym, delta)
   struct mips_extra_func_info *e;
 
   e = (struct mips_extra_func_info *) SYMBOL_VALUE (sym);
-  
+
   e->pdr.adr += delta;
 }
 
@@ -2589,7 +2589,7 @@ parse_partial_symbols (objfile, section_offsets)
 		    {
 		      CORE_ADDR procaddr;
 		      long isym;
-	
+
 		      sh.value += ANOFFSET (section_offsets, SECT_OFF_TEXT);
 		      if (sh.st == stStaticProc)
 			{
@@ -4388,7 +4388,7 @@ _initialize_mdebugread ()
     init_type (TYPE_CODE_INT, 8,
 	       0,
 	       "long long", (struct objfile *) NULL);
-  mdebug_type_unsigned_long_long_64 = 
+  mdebug_type_unsigned_long_long_64 =
     init_type (TYPE_CODE_INT, 8,
 	       TYPE_FLAG_UNSIGNED,
 	       "unsigned long long", (struct objfile *) NULL);

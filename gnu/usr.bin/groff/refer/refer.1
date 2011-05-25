@@ -282,7 +282,7 @@ field.
 The order is significant.
 It is a good idea always to supply an
 .B A
-field or a 
+field or a
 .B Q
 field.
 .TP
@@ -562,7 +562,7 @@ lines,
 nor anything between them
 is output.
 .LP
-Commands are separated by newlines or 
+Commands are separated by newlines or
 .BR ; s.
 .B #
 introduces a comment that extends to the end of the line
@@ -696,7 +696,7 @@ is also omitted it will default to
 Only one field can be an annotation.
 .RE
 .TP
-.BI articles\  string \fR\|.\|.\|. 
+.BI articles\  string \fR\|.\|.\|.
 .IR string \|.\|.\|.
 are definite or indefinite articles, and should be ignored at the beginning of
 .B T
@@ -706,7 +706,7 @@ Initially,
 .B a
 and
 .B an
-are recognized as articles. 
+are recognized as articles.
 .TP
 .BI bibliography\  filename \fR\|.\|.\|.
 Write out all the references contained in the bibliographic databases
@@ -953,7 +953,7 @@ should be a list of field names, each followed by a number,
 indicating how many fields with the name should be used for sorting.
 .B +
 can be used to indicate that all the fields with the name should be used.
-Also 
+Also
 .B .
 can be used to indicate the references should be sorted using the
 (tentative) label.
@@ -974,8 +974,8 @@ expression.
 This will have no effect unless references are being accumulated.
 .SS Label expressions
 .LP
-Label expressions can be evaluated both normally and tentatively. 
-The result of normal evaluation is used for output. 
+Label expressions can be evaluated both normally and tentatively.
+The result of normal evaluation is used for output.
 The result of tentative evaluation, called the
 .I
 tentative label,
@@ -992,9 +992,9 @@ of expression other than
 .BR * ,
 and
 .B %
-expressions. 
+expressions.
 The description below applies to normal evaluation,
-except where otherwise specified. 
+except where otherwise specified.
 .TP
 .I field
 .TQ
@@ -1002,15 +1002,15 @@ except where otherwise specified.
 The
 .IR n -th
 part of
-.IR field . 
+.IR field .
 If
 .I n
-is omitted, it defaults to 1. 
+is omitted, it defaults to 1.
 .TP
 .BI ' string '
 The characters in
 .I string
-literally. 
+literally.
 .TP
 .B @
 All the authors joined as specified by the
@@ -1065,7 +1065,7 @@ will have the same representation.
 .B %I
 The serial number of the reference formatted according to the character
 following the
-.BR % . 
+.BR % .
 The serial number of a reference is 1 plus the number of earlier references
 with same tentative label as this reference.
 These expressions tentatively evaluate to an empty string.
@@ -1094,15 +1094,15 @@ Accent strings are retained but do not count towards the total.
 .TP
 .IB expr .l
 .I expr
-converted to lowercase. 
+converted to lowercase.
 .TP
 .IB expr .u
 .I expr
-converted to uppercase. 
+converted to uppercase.
 .TP
 .IB expr .c
 .I expr
-converted to caps and small caps. 
+converted to caps and small caps.
 .TP
 .IB expr .r
 .I expr
@@ -1121,7 +1121,7 @@ but not in a reference.
 .TP
 .IB expr .y
 The year part of
-.IR expr . 
+.IR expr .
 .TP
 .IB expr .+y
 The part of
@@ -1139,7 +1139,7 @@ does not contain a year.
 .TP
 .IB expr .n
 The last name part of
-.IR expr . 
+.IR expr .
 .TP
 .IB expr1 \(ti expr2
 .I expr1
@@ -1148,13 +1148,13 @@ except that if the last character of
 is
 .B \-
 then it will be replaced by
-.IR expr2 . 
+.IR expr2 .
 .TP
 .I expr1\ expr2
 The concatenation of
 .I expr1
 and
-.IR expr2 . 
+.IR expr2 .
 .TP
 .IB expr1 | expr2
 If
@@ -1162,7 +1162,7 @@ If
 is non-empty then
 .I expr1
 otherwise
-.IR expr2 . 
+.IR expr2 .
 .TP
 .IB expr1 & expr2
 If
@@ -1179,7 +1179,7 @@ is non-empty
 then
 .I expr2
 otherwise
-.IR expr3 . 
+.IR expr3 .
 .TP
 .BI < expr >
 The label is in two parts, which are separated by

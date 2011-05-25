@@ -5,7 +5,7 @@
  * should probably be re-synced when needed.
  * Darrin B. Jewell <dbj@netbsd.org> 1999-12-14T06:05:22-0500
  * original cvs id:
- *	NetBSD: kgdb_machdep.c,v 1.4 1999/11/22 19:05:32 jdolecek Exp 
+ *	NetBSD: kgdb_machdep.c,v 1.4 1999/11/22 19:05:32 jdolecek Exp
  */
 
 /*

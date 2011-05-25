@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* 
+/*
  * Copyright (c) 1987 Carnegie-Mellon University
  * Copyright (c) 1991, 1993
  *	The Regents of the University of California.  All rights reserved.
@@ -192,7 +192,7 @@ void	pmap_tlb_shootdown __P((pmap_t, vaddr_t, pt_entry_t));
 void	pmap_do_tlb_shootdown __P((void));
 #endif /* MULTIPROCESSOR */
 #endif /* _LKM */
- 
+
 #define	pmap_resident_count(pmap)	((pmap)->pm_stats.resident_count)
 #define	pmap_wired_count(pmap)		((pmap)->pm_stats.wired_count)
 

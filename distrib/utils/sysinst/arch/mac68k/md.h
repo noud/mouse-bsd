@@ -10,7 +10,7 @@
  * modification, are permitted provided that the following conditions
  * are met:
  * 1. Redistributions of source code must retain the above copyright
- * 
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -45,22 +45,22 @@ EXTERN int part[4][5] INIT({{0}});
 EXTERN int bsdpart;			/* partition in use by NetBSD */
 EXTERN int usefull;			/* on install, clobber entire disk */
 
-/*  
+/*
  * Known partition types on a MacOS initialized disk
  *  Note: Setting the usable field on the last entry defines
  *        how unknown partition types will be handled.
- */ 
+ */
 typedef struct {
         int usable;             /* Use type: 0=>reserved */
         char *partype;
         char *fstyp;
 } PTYPES;
 
-/*    
- * Define the classes of partitions types we can handle 
- */   
+/*
+ * Define the classes of partitions types we can handle
+ */
 #define TYP_RSRVD 0             /* Unusable low-level part of disk */
-#define TYP_AVAIL 1             /* Anything not used by MacOS or NetBSD */ 
+#define TYP_AVAIL 1             /* Anything not used by MacOS or NetBSD */
 #define TYP_HFS   2             /* In use by MacOS */
 #define TYP_BSD   3             /* In use by NetBSD */
 
@@ -86,7 +86,7 @@ typedef struct {
 
 EXTERN MAP map;
 
-int	edit_diskmap __P((void));		
+int	edit_diskmap __P((void));
 void	disp_selected_part (int sel);
 int	part_type(int entry, char *fstyp, char *use, char *name);
 int	strnicmp(const char *c1, const char *c2, int n);
@@ -183,7 +183,7 @@ EXTERN	char *disk_names[]
  * miniroot scripts, though this may leave a bogus incore label.
  * Sun ports should probably use  DISKLABEL_CMD "/sbin/disklabel -w"
  * to get incore  to ondisk inode translation for the Sun proms.
- * If not defined, we assume the port does not support disklabels and  
+ * If not defined, we assume the port does not support disklabels and
  * hand-edited disklabel will NOT be written by MI code.
  *
  * The mac68k port doesn't support real disklabels so we don't define the

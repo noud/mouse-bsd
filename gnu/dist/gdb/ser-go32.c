@@ -3,10 +3,10 @@
 
    Contributed by Nigel Stephens, Algorithmics Ltd. (nigel@algor.co.uk).
 
-   This version uses DPMI interrupts to handle buffered i/o 
+   This version uses DPMI interrupts to handle buffered i/o
    without the separate "asynctsr" program.
 
-   This file is part of GDB.  
+   This file is part of GDB.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -157,16 +157,16 @@ static int	cnts[NCNT];
 static char	*cntnames[NCNT] = {
   /* h/w interrupt counts. */
   "mlsc",	"nopend",	"txrdy",	"?3",
-  "rxrdy",	"?5",		"rls", 		"?7", 
-  "?8", 	"?9", 		"?a", 		"?b", 
-  "rxtout", 	"?d", 		"?e",		"?f", 
+  "rxrdy",	"?5",		"rls", 		"?7",
+  "?8", 	"?9", 		"?a", 		"?b",
+  "rxtout", 	"?d", 		"?e",		"?f",
   /* s/w counts. */
   "rxcnt",	"txcnt",	"stray",	"swoflo"
 };
 
 #define COUNT(x) cnts[x]++
 #else
-#define COUNT(x) 
+#define COUNT(x)
 #endif
 
 /* Main interrupt controller port addresses. */
@@ -181,7 +181,7 @@ unsigned char	icu_oldmask;
 #define NINTR	8
 
 static struct intrupt
-{  
+{
   char			inuse;
   struct dos_ttystate	*port;
   _go32_dpmi_seginfo	old_rmhandler;
@@ -210,9 +210,9 @@ static struct dos_ttystate
   int		oflo;
   int		msr;
 } ports[4] = {
-  {COM1ADDR, 4}, 
-  {COM2ADDR, 3}, 
-  {COM3ADDR, 4}, 
+  {COM1ADDR, 4},
+  {COM2ADDR, 3},
+  {COM3ADDR, 4},
   {COM4ADDR, 3}
 };
 
@@ -248,9 +248,9 @@ dos_getc (port)
     enable ();
     return c;
 }
-    
 
-static int 
+
+static int
 dos_putc (c, port)
      int c;
      struct dos_ttystate *port;
@@ -278,7 +278,7 @@ dos_comisr (irq)
 #endif
 
   port = intrupts[irq].port;
-  if (!port) 
+  if (!port)
     {
       COUNT (CNT_STRAY);
       return;		/* not open */
@@ -287,19 +287,19 @@ dos_comisr (irq)
   while (1)
     {
       iir = inb (port, com_iir) & IIR_IMASK;
-      switch (iir) 
+      switch (iir)
 	{
-	  
+
 	case IIR_RLS:
 	  lsr = inb (port, com_lsr);
 	  goto rx;
-	  
+
 	case IIR_RXTOUT:
 	case IIR_RXRDY:
 	  lsr = 0;
-	  
+
       rx:
-	  do 
+	  do
 	    {
 	      c = inb (port, com_data);
 	      if (lsr & (LSR_BI | LSR_FE | LSR_PE | LSR_OE))
@@ -323,12 +323,12 @@ dos_comisr (irq)
 	    }
 	  while ((lsr = inb (port, com_lsr)) & LSR_RXRDY);
 	  break;
-	  
+
 	case IIR_MLSC:
 	  /* could be used to flowcontrol Tx */
 	  port->msr = inb (port, com_msr);
 	  break;
-	  
+
 	case IIR_TXRDY:
 	  port->txbusy = 0;
 	  break;
@@ -342,7 +342,7 @@ dos_comisr (irq)
 	  break;
 	}
       COUNT (iir);
-    } 
+    }
 }
 
 #ifdef __STDC__
@@ -378,7 +378,7 @@ dos_hookirq (irq)
   intr = &intrupts[irq];
   if (intr->inuse)
     return 0;
-  
+
   vec = 0x08 + irq;
   isr = isrs[irq];
 
@@ -397,7 +397,7 @@ dos_hookirq (irq)
     {
       return 0;
     }
-      
+
   /* setup protected mode handler */
   _go32_dpmi_get_protected_mode_interrupt_vector(vec, &intr->old_pmhandler);
 
@@ -439,7 +439,7 @@ dos_unhookirq (intr)
   /* remove real mode handler */
   _go32_dpmi_set_real_mode_interrupt_vector (vec, &intr->old_rmhandler);
   _go32_dpmi_free_real_mode_callback (&intr->new_rmhandler);
-      
+
   /* remove protected mode handler */
   _go32_dpmi_set_protected_mode_interrupt_vector (vec, &intr->old_pmhandler);
   _go32_dpmi_free_iret_wrapper (&intr->new_pmhandler);
@@ -522,7 +522,7 @@ ok:
   disable ();
 
   /* record port */
-  port->intrupt->port = port; 
+  port->intrupt->port = port;
   scb->fd = fd;
 
   /* clear rx buffer, tx busy flag and overflow count */
@@ -690,15 +690,15 @@ dos_baudconv (rate)
      int rate;
 {
   long x, err;
-  
-  if (rate <= 0) 
+
+  if (rate <= 0)
     return -1;
 
 #define divrnd(n, q)	(((n) * 2 / (q) + 1) / 2) /* divide and round off */
   x = divrnd(COMTICK, rate);
   if (x <= 0)
     return -1;
-  
+
   err = divrnd(1000 * COMTICK, x * rate) - 1000;
   if (err < 0)
     err = -err;
@@ -716,7 +716,7 @@ dos_setbaudrate (scb, rate)
 {
     struct dos_ttystate *port = &ports[scb->fd];
 
-    if (port->baudrate != rate) 
+    if (port->baudrate != rate)
       {
 	int x;
 	unsigned char cfcr;
@@ -783,7 +783,7 @@ dos_write (scb, str, len)
   long then;
   int cnt;
 
-   while (len > 0) 
+   while (len > 0)
      {
 	/* send the data, fifosize bytes at a time */
 	cnt = fifosize > len ? len : fifosize;
@@ -859,7 +859,7 @@ dos_info (arg, from_tty)
   struct dos_ttystate *port;
   int i;
 
-  for (port = ports; port < &ports[4]; port++) 
+  for (port = ports; port < &ports[4]; port++)
     {
       if (port->baudrate == 0)
 	continue;
@@ -868,7 +868,7 @@ dos_info (arg, from_tty)
       printf_filtered ("Addr:\t0x%03x (irq %d)\n", port->base, port->irq);
       printf_filtered ("16550:\t%s\n", port->fifo ? "yes" : "no");
       printf_filtered ("Speed:\t%d baud\n", port->baudrate);
-      printf_filtered ("Errs:\tframing %d parity %d overflow %d\n\n", 
+      printf_filtered ("Errs:\tframing %d parity %d overflow %d\n\n",
 		       port->ferr, port->perr, port->oflo);
     }
 
@@ -895,7 +895,7 @@ _initialize_ser_dos ()
   intrupts[0].inuse =		/* timer tick */
     intrupts[1].inuse =		/* keyboard */
       intrupts[2].inuse = 1;	/* slave icu */
-    
+
   add_show_from_set (
     add_set_cmd ("com1base", class_obscure, var_zinteger,
 		 (char *) &ports[0].base,

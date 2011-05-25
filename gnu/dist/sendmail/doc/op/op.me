@@ -608,7 +608,7 @@ for your system.
 .pp
 The
 .i hoststat
-command should just be a link to 
+command should just be a link to
 .i sendmail ,
 in a fashion similar to
 .i newaliases .
@@ -1069,13 +1069,13 @@ rmdir /var/spool/omqueue
 .pp
 .i Sendmail
 stores a large amount of information about each remote system it
-has connected to in memory. It is now possible to preserve some 
+has connected to in memory. It is now possible to preserve some
 of this information on disk as well, by using the
 .b HostStatusDirectory
 option, so that it may be shared between several invocations of
 .i sendmail .
 This allows mail to be queued immediately or skipped during a queue run if
-there has been a recent failure in connecting to a remote machine. 
+there has been a recent failure in connecting to a remote machine.
 .pp
 Additionally enabling
 .b SingleThreadDelivery
@@ -1098,7 +1098,7 @@ this way jobs that are skipped because another
 is talking to the same host will be tried again quickly
 rather than being delayed for a long time.
 .pp
-The disk based host information is stored in a subdirectory of the 
+The disk based host information is stored in a subdirectory of the
 .b mqueue
 directory called
 .b \&.hoststat \**.
@@ -1109,7 +1109,7 @@ option;
 it can, of course, go anywhere you like in your filesystem.
 .)f
 Removing this directory and its subdirectories has an effect similar to
-the 
+the
 .i purgestat
 command and is completely safe.
 The information in these directories can
@@ -1121,7 +1121,7 @@ An asterisk in the left most column indicates that a
 .i sendmail
 process currently has the host locked for mail delivery.
 .pp
-The disk based connection information is treated the same way as memory based 
+The disk based connection information is treated the same way as memory based
 connection information for the purpose of timeouts.
 By default, information about host failures is valid for 30 minutes.
 This can be adjusted with
@@ -1130,9 +1130,9 @@ the
 option.
 .pp
 The connection information stored on disk may be purged at any time
-with the 
+with the
 .i purgestat
-command or by invoking sendmail with the 
+command or by invoking sendmail with the
 .b \-bH
 switch.
 The connection information may be viewed with the
@@ -1925,7 +1925,7 @@ This information may be flushed with the command:
 sendmail \-bH
 .)b
 Flushing the information prevents new
-.i sendmail 
+.i sendmail
 processes from loading it,
 but does not prevent existing processes from using the status information
 that they already have.
@@ -2553,9 +2553,9 @@ In the descriptions that follow,
 means a directory that is writable by anyone other than the owner.
 The values are:
 .nr ii 0.5i
-.ip Safe 
+.ip Safe
 No special handling.
-.ip AssumeSafeChown 
+.ip AssumeSafeChown
 Assume that the
 .i chown
 system call is restricted to root.
@@ -2566,12 +2566,12 @@ often cannot assume that a given file was created by the owner,
 particularly when it is in a writable directory.
 You can set this flag if you know that file giveaway is restricted
 on your system.
-.ip ClassFileInUnsafeDirPath 
+.ip ClassFileInUnsafeDirPath
 When reading class files (using the
 .b F
 line in the configuration file),
 allow files that are in unsafe directories.
-.ip ErrorHeaderInUnsafeDirPath 
+.ip ErrorHeaderInUnsafeDirPath
 Allow the file named in the
 .b ErrorHeader
 option to be in an unsafe directory.
@@ -2580,7 +2580,7 @@ Change the definition of
 .q "unsafe directory"
 to consider group-writable directories to be safe.
 World-writable directories are always unsafe.
-.ip GroupWritableForwardFileSafe 
+.ip GroupWritableForwardFileSafe
 Accept group-writable
 .i \&.forward
 files.
@@ -2588,7 +2588,7 @@ files.
 Accept group-writable
 .i :include:
 files.
-.ip GroupWritableAliasFile 
+.ip GroupWritableAliasFile
 Allow group-writable alias files.
 .ip HelpFileInUnsafeDirPath
 Allow the file named in the
@@ -5017,7 +5017,7 @@ Set the default userid for mailers to
 .i user:group .
 If
 .i group
-is omitted and 
+is omitted and
 .i user
 is a user name
 (as opposed to a numeric user id)
@@ -6397,14 +6397,14 @@ must be compiled with
 defined.
 .ip ldapx
 LDAP X500 directory lookups.
-.i Sendmail 
+.i Sendmail
 must be compiled with
 .b LDAPMAP
 defined.
 The map supports most of the standard arguments
 and most of the command line arguments of the
 .i ldapsearch
-program. 
+program.
 .ip netinfo
 NeXT NetInfo lookups.
 .i Sendmail
@@ -6650,7 +6650,7 @@ The key column name (for NIS+) or number
 For LDAP maps this is a filter string
 passed to printf with a %s where the string to be
 .q "mapped"
-is inserted. 
+is inserted.
 .ip "\-v\fIvalcol\fP"
 The value column name (for NIS+) or number
 (for text lookups).
@@ -6978,7 +6978,7 @@ Compile in support for NetInfo (NeXT stations).
 .ip LDAPMAP
 Compile in support for LDAP X500 queries.
 Requires libldap and liblber
-from the Umich LDAP 3.2 or 3.3 release. 
+from the Umich LDAP 3.2 or 3.3 release.
 .ip HESIOD
 Compile in support for Hesiod.
 .ip _PATH_SENDMAILCF

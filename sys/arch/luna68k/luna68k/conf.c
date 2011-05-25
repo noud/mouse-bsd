@@ -257,7 +257,7 @@ chrtoblk(dev)
 {
 	int blkmaj;
 
-	if (major(dev) >= nchrdev 
+	if (major(dev) >= nchrdev
 	  || major(dev) >= (sizeof(chrtoblktbl) / sizeof(chrtoblktbl[0])))
 		return (NODEV);
 	blkmaj = chrtoblktbl[major(dev)];

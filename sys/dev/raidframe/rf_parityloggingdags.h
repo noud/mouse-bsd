@@ -36,7 +36,7 @@
 #define _RF__RF_PARITYLOGGINGDAGS_H_
 
 /* routines that create DAGs */
-void 
+void
 rf_CommonCreateParityLoggingLargeWriteDAG(RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap, RF_DagHeader_t * dag_h,
     void *bp, RF_RaidAccessFlags_t flags, RF_AllocListElem_t * allocList,

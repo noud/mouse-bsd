@@ -68,7 +68,7 @@ MENU _menui_default_menu = {
 };
 
 
-	
+
 /*
  * Set the menu mark character
  */
@@ -78,9 +78,9 @@ set_menu_mark(m, mark)
         char *mark;
 {
 	MENU *menu = m;
-	
+
 	if (m == NULL) menu = &_menui_default_menu;
-	
+
           /* if there was an old mark string, free it first */
         if (menu->mark.string != NULL) free(menu->mark.string);
 
@@ -119,7 +119,7 @@ set_menu_unmark(m, mark)
 	MENU *menu = m;
 
 	if (m == NULL) menu = &_menui_default_menu;
-	
+
           /* if there was an old mark string, free it first */
         if (menu->unmark.string != NULL) free(menu->unmark.string);
 
@@ -212,7 +212,7 @@ set_menu_format(param_menu, rows, cols)
         int cols;
 {
 	MENU *menu = (param_menu != NULL) ? param_menu : &_menui_default_menu;
-	
+
         menu->rows = rows;
         menu->cols = cols;
 
@@ -316,13 +316,13 @@ set_menu_opts(param_menu, opts)
 {
 	MENU *menu = (param_menu != NULL) ? param_menu : &_menui_default_menu;
 	OPTIONS old_opts = menu->opts;
-	
+
         menu->opts = opts;
 
  	if ((menu->opts & O_ROWMAJOR) != (old_opts &  O_ROWMAJOR))
 		  /* changed menu layout - need to recalc neighbours */
 		_menui_stitch_items(menu);
-	
+
         return E_OK;
 }
 
@@ -343,7 +343,7 @@ menu_opts_on(param_menu, opts)
 	    (menu->opts & O_ROWMAJOR) != (old_opts &  O_ROWMAJOR))
 		  /* changed menu layout - need to recalc neighbours */
 		_menui_stitch_items(menu);
-	
+
         return E_OK;
 }
 
@@ -359,12 +359,12 @@ menu_opts_off(param_menu, opts)
 	OPTIONS old_opts = menu->opts;
 
         menu->opts &= ~(opts);
-	
+
 	if ((menu->items != NULL ) &&
 	    (menu->opts & O_ROWMAJOR) != (old_opts &  O_ROWMAJOR))
 		  /* changed menu layout - need to recalc neighbours */
 		_menui_stitch_items(menu);
-	
+
         return E_OK;
 }
 
@@ -392,18 +392,18 @@ set_menu_pattern(param_menu, pat)
 {
 	MENU *menu = (param_menu != NULL) ? param_menu : &_menui_default_menu;
 	char *p = pat;
-	
+
 	  /* check pattern is all printable characters */
 	while (*p)
 		if (!isprint(*p++)) return E_BAD_ARGUMENT;
-	
+
         if ((menu->pattern = (char *) realloc(menu->pattern,
                                      sizeof(char) * strlen(pat))) == NULL)
                 return E_SYSTEM_ERROR;
 
         strcpy(menu->pattern, pat);
 	menu->plen = strlen(pat);
-	
+
           /* search item list for pat here */
 	return _menui_match_items(menu, MATCH_FORWARD, &menu->cur_item);
 }
@@ -416,7 +416,7 @@ new_menu(items)
         ITEM **items;
 {
         MENU *the_menu;
-        
+
         if ((the_menu = (MENU *)malloc(sizeof(MENU))) == NULL)
                 return NULL;
 
@@ -426,7 +426,7 @@ new_menu(items)
 	  /* set a default window if none already set. */
 	if (the_menu->menu_win == NULL)
 		the_menu->menu_win = stdscr;
-	
+
           /* now attach the items, if any */
         if (items != NULL) {
 		if(set_menu_items(the_menu, items) < 0) {
@@ -434,7 +434,7 @@ new_menu(items)
 			return NULL;
 		}
 	}
-	
+
 	return the_menu;
 }
 
@@ -449,10 +449,10 @@ free_menu(menu)
 
 	if (menu == NULL)
 		return E_BAD_ARGUMENT;
-	
+
 	if (menu->posted != 0)
 		return E_POSTED;
-	
+
 	if (menu->pattern != NULL)
 		free(menu->pattern);
 
@@ -465,7 +465,7 @@ free_menu(menu)
 			menu->items[i]->parent = NULL;
 		}
 	}
-	
+
 	free(menu);
 	return E_OK;
 }
@@ -480,7 +480,7 @@ scale_menu(param_menu, rows, cols)
 	int *cols;
 {
 	MENU *menu = (param_menu != NULL) ? param_menu : &_menui_default_menu;
-	
+
 	if (menu->items == NULL)
 		return E_BAD_ARGUMENT;
 
@@ -494,7 +494,7 @@ scale_menu(param_menu, rows, cols)
 	   * allow for spacing between columns...
 	   */
 	*cols += menu->cols - 1;
-	
+
 	return E_OK;
 }
 
@@ -508,7 +508,7 @@ set_menu_items(param_menu, items)
 {
 	MENU *menu = (param_menu != NULL) ? param_menu : &_menui_default_menu;
 	int i, new_count = 0;
-	
+
 	  /* don't change if menu is posted */
 	if (menu->posted == 1)
 		return E_POSTED;
@@ -520,7 +520,7 @@ set_menu_items(param_menu, items)
 			return E_CONNECTED;
 		new_count++;
 	}
-	
+
 
 	  /* if there were items connected then disconnect them. */
 	if (menu->items != NULL) {
@@ -546,9 +546,9 @@ set_menu_items(param_menu, items)
 		menu->plen = 0;
 		menu->match_len = 0;
 	}
-	
+
 	_menui_stitch_items(menu); /* recalculate the item neighbours */
-	
+
 	return E_OK;
 }
 
@@ -589,7 +589,7 @@ set_top_row(param_menu, row)
 {
 	MENU *menu = (param_menu != NULL) ? param_menu : &_menui_default_menu;
 	int i, cur_item, state = E_SYSTEM_ERROR;
-	
+
 	if (row > menu->item_rows)
 		return E_BAD_ARGUMENT;
 
@@ -610,7 +610,7 @@ set_top_row(param_menu, row)
 	}
 
 	menu->in_init = 1; /* just in case we call the init/term routines */
-	
+
 	if (menu->posted == 1) {
 		if (menu->menu_term != NULL)
 			menu->menu_term(menu);
@@ -629,7 +629,7 @@ set_top_row(param_menu, row)
 	}
 
 	menu->in_init = 0;
-		
+
 	  /* this should always be E_OK unless we are really screwed up */
 	return state;
 }
@@ -645,7 +645,7 @@ top_row(param_menu)
 
 	if (menu->items == NULL)
 		return E_NOT_CONNECTED;
-	
+
 	return menu->top_row;
 }
 
@@ -658,17 +658,17 @@ pos_menu_cursor(menu)
 	MENU *menu;
 {
 	int movx, maxmark;
-	
+
 	if (menu == NULL)
 		return E_BAD_ARGUMENT;
 
 	maxmark = max(menu->mark.length, menu->unmark.length);
 	movx = maxmark + (menu->items[menu->cur_item]->col
 		* (menu->col_width + 1));
-	
+
 	if (menu->match_len > 0)
 		movx += menu->match_len - 1;
-	
+
 	wmove(menu->menu_subwin,
 	      menu->items[menu->cur_item]->row - menu->top_row, movx);
 

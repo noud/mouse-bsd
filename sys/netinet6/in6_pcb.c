@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -182,7 +182,7 @@ in6_pcbbind(in6p, nam)
 					htons(in6p->in6p_moptions->im6o_multicast_ifp->if_index);
 			} else if (sin6->sin6_scope_id) {
 				/* boundary check */
-				if (sin6->sin6_scope_id < 0 
+				if (sin6->sin6_scope_id < 0
 				 || if_index < sin6->sin6_scope_id) {
 					return ENXIO;  /* XXX EINVAL? */
 				}
@@ -232,7 +232,7 @@ in6_pcbbind(in6p, nam)
 			 */
 			if (ia != NULL) {
 				struct in6_ifaddr *ia6 = (void *)ia;
-				
+
 				if (ia6->ia6_flags &
 				    (IN6_IFF_ANYCAST|IN6_IFF_NOTREADY|
 				     IN6_IFF_DETACHED|IN6_IFF_DEPRECATED))
@@ -414,7 +414,7 @@ in6_pcbconnect(in6p, nam)
 			ifp = ifindex2ifnet[in6p->in6p_moptions->im6o_multicast_ifp->if_index];
 		} else if (sin6->sin6_scope_id) {
 			/* boundary check */
-			if (sin6->sin6_scope_id < 0 
+			if (sin6->sin6_scope_id < 0
 			 || if_index < sin6->sin6_scope_id) {
 				return ENXIO;  /* XXX EINVAL? */
 			}
@@ -1114,7 +1114,7 @@ in6_pcblookup_bind(head, laddr6, lport_arg, faith)
 			} else
 				match = in6p;
 		}
-		else if (IN6_IS_ADDR_V4MAPPED(&in6p->in6p_laddr) && 
+		else if (IN6_IS_ADDR_V4MAPPED(&in6p->in6p_laddr) &&
 			 in6p->in6p_laddr.s6_addr32[3] == 0) {
 			if (IN6_IS_ADDR_V4MAPPED(laddr6)
 			 && laddr6->s6_addr32[3] != 0)

@@ -71,7 +71,7 @@ db_stack_trace_cmd(addr, have_addr, count, modif)
 			if (p == NULL) {
 				db_printf("not found\n");
 				return;
-			}	
+			}
 			if ((p->p_flag & P_INMEM) == 0) {
 				db_printf("swapped out\n");
 				return;

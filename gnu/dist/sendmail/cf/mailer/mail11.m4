@@ -13,7 +13,7 @@ PUSHDIVERT(-1)
 #
 # This mailer is only useful if you have DECNET and the
 # mail11 program - gatekeeper.dec.com:/pub/DEC/gwtools.
-# 
+#
 # For local delivery of DECNET style addresses to the local
 # DECNET node, you will need feature(use_cw_file) and put
 # your DECNET nodename in in the cw file.

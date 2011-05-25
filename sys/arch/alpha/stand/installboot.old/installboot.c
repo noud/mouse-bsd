@@ -172,7 +172,7 @@ main(argc, argv)
 		errx(1, "%s must be the raw partition", dev);
 
 	/* Extract and load block numbers */
-	if (stat(boot, &bootsb) == -1)	
+	if (stat(boot, &bootsb) == -1)
 		err(1, "stat: %s", boot);
 	/*
 	 * The error below doesn't matter in conblockmode, but leave it in
@@ -217,7 +217,7 @@ main(argc, argv)
 	if (lseek(devfd, 0, SEEK_SET) != 0)
 		err(1, "lseek label");
 
-	if (read(devfd, &bb, sizeof (bb)) != sizeof (bb)) 
+	if (read(devfd, &bb, sizeof (bb)) != sizeof (bb))
 		err(1, "read label");
 
         bb.bb_secsize = 15;
@@ -295,7 +295,7 @@ loadprotoblocks(fname, size)
 		return NULL;
 	}
 
-	bbinfop = (struct bbinfo *)(bp + bbinfolocp->end - bbinfolocp->start);	
+	bbinfop = (struct bbinfo *)(bp + bbinfolocp->end - bbinfolocp->start);
 	memset(bbinfop, 0, sz - (bbinfolocp->end - bbinfolocp->start));
 	max_block_count =
 	    ((char *)bbinfop->blocks - bp) / sizeof (bbinfop->blocks[0]);

@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: nfs_prot_svc.c,v 1.4 1999/08/22 21:12:30 ezk Exp 
+ * Id: nfs_prot_svc.c,v 1.4 1999/08/22 21:12:30 ezk Exp
  *
  */
 

@@ -205,7 +205,7 @@ db_delete(sp, lno)
 		ex_emsg(sp, NULL, EXM_NOFILEYET);
 		return (1);
 	}
-		
+
 	/* Update marks, @ and global commands. */
 	if (mark_insdel(sp, LINE_DELETE, lno))
 		return (1);
@@ -267,7 +267,7 @@ db_append(sp, update, lno, p, len)
 		ex_emsg(sp, NULL, EXM_NOFILEYET);
 		return (1);
 	}
-		
+
 	/* Update file. */
 	key.data = &lno;
 	key.size = sizeof(lno);
@@ -341,7 +341,7 @@ db_insert(sp, lno, p, len)
 		ex_emsg(sp, NULL, EXM_NOFILEYET);
 		return (1);
 	}
-		
+
 	/* Update file. */
 	key.data = &lno;
 	key.size = sizeof(lno);
@@ -406,7 +406,7 @@ db_set(sp, lno, p, len)
 		ex_emsg(sp, NULL, EXM_NOFILEYET);
 		return (1);
 	}
-		
+
 	/* Log before change. */
 	log_line(sp, lno, LOG_LINE_RESET_B);
 
@@ -460,7 +460,7 @@ db_exist(sp, lno)
 
 	if (lno == OOBLNO)
 		return (0);
-		
+
 	/*
 	 * Check the last-line number cache.  Adjust the cached line
 	 * number for the lines used by the text input buffers.
@@ -494,7 +494,7 @@ db_last(sp, lnop)
 		ex_emsg(sp, NULL, EXM_NOFILEYET);
 		return (1);
 	}
-		
+
 	/*
 	 * Check the last-line number cache.  Adjust the cached line
 	 * number for the lines used by the text input buffers.

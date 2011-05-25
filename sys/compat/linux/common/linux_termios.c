@@ -473,7 +473,7 @@ linux_ioctl_termios(p, uap, retval)
 
 	com = SCARG(uap, com);
 	retval[0] = 0;
-                
+
 	switch (com) {
 	case LINUX_TCGETS:
 		error = (*fp->f_ops->fo_ioctl)(fp, TIOCGETA, (caddr_t)&tmpbts, p);

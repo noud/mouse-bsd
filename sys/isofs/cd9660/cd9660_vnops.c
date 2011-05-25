@@ -680,7 +680,7 @@ cd9660_readlink(v)
 		symname = uio->uio_iov->iov_base;
 	else
 		MALLOC(symname, char *, MAXPATHLEN, M_NAMEI, M_WAITOK);
-	
+
 	/*
 	 * Ok, we just gathering a symbolic name in SL record.
 	 */
@@ -856,7 +856,7 @@ cd9660_setattr(v)
 	} */ *ap = v;
 	struct vattr *vap = ap->a_vap;
 	struct vnode *vp = ap->a_vp;
-	
+
 	/*
 	 * Only size is changeable.
 	 */
@@ -875,14 +875,14 @@ cd9660_setattr(v)
 	    || vap->va_mtime.tv_sec != VNOVAL
 	    || vap->va_mode != (mode_t)VNOVAL)
 		return EOPNOTSUPP;
-	
+
 	if (vap->va_size != VNOVAL
 	    && vp->v_type != VCHR
 	    && vp->v_type != VBLK
 	    && vp->v_type != VFIFO
 	    )
 		return EOPNOTSUPP;
-	
+
 	return VOP_TRUNCATE(vp, vap->va_size, 0, ap->a_cred, ap->a_p);
 }
 

@@ -349,7 +349,7 @@ showkre()
 	int psiz, inttotal;
 	int i, l, c;
 	static int failcnt = 0;
-	
+
 	if (state == TIME)
 		dkswap();
 	etime = 0;
@@ -399,7 +399,7 @@ showkre()
 	psiz = 0;
 	f2 = 0.0;
 
-	/* 
+	/*
 	 * Last CPU state not calculated yet.
 	 */
 	for (c = 0; c < CPUSTATES - 1; c++) {

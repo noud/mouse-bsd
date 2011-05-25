@@ -69,7 +69,7 @@ const char	*C_fmt = "%-18.18s",	/* format for printing cards	*/
 		"Flat Tire",
 		"Accident",
 		"Stop",
-		"Speed Limit", 
+		"Speed Limit",
 		"Gasoline",
 		"Spare Tire",
 		"Repairs",

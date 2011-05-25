@@ -169,7 +169,7 @@ print_needed(
 	    strcpy(&libnamebuf[cp - (libname + 3) + 2], cp + 3);
 	    libname = libnamebuf;
 	}
-	
+
 	if (needed->obj != NULL) {
 	    print_needed(needed->obj);
 	    if (!needed->obj->printed) {

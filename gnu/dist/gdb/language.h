@@ -37,7 +37,7 @@ struct expression;
 #define	_LANG_chill
 #define _LANG_fortran
 
-#define MAX_FORTRAN_DIMS  7   /* Maximum number of F77 array dims */ 
+#define MAX_FORTRAN_DIMS  7   /* Maximum number of F77 array dims */
 
 /* range_mode ==
    range_mode_auto:   range_check set automatically to default of language.
@@ -103,7 +103,7 @@ struct language_format_info
 struct language_defn
 {
   /* Name of the language */
-  
+
   char *la_name;
 
   /* its symtab language-enum (defs.h) */
@@ -126,7 +126,7 @@ struct language_defn
   enum type_check la_type_check;
 
   /* Parser function. */
-  
+
   int (*la_parser) PARAMS((void));
 
   /* Parser error function */
@@ -134,7 +134,7 @@ struct language_defn
   void (*la_error) PARAMS ((char *));
 
   /* Evaluate an expression. */
-  struct value * (*evaluate_exp) PARAMS ((struct type*, struct expression *, 
+  struct value * (*evaluate_exp) PARAMS ((struct type*, struct expression *,
 					  int *, enum noside));
 
   void (*la_printchar) PARAMS ((int, GDB_FILE *));
@@ -220,7 +220,7 @@ extern const struct language_defn *current_language;
 
 extern const struct language_defn *expected_language;
 
-/* language_mode == 
+/* language_mode ==
    language_mode_auto:   current_language automatically set upon selection
 			 of scope (e.g. stack frame)
    language_mode_manual: current_language set only by user.  */
@@ -228,7 +228,7 @@ extern const struct language_defn *expected_language;
 extern enum language_mode
   {language_mode_auto, language_mode_manual} language_mode;
 
-/* These macros define the behaviour of the expression 
+/* These macros define the behaviour of the expression
    evaluator.  */
 
 /* Should we strictly type check expressions? */

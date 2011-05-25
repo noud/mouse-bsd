@@ -125,31 +125,31 @@ Report problems and direct all questions to:
  *
  * Revision 4.6  89/05/01  15:13:07  narten
  * changed copyright header to reflect current distribution rules
- * 
+ *
  * Revision 4.5  88/08/28  15:01:12  eggert
  * Don't loop when writing error messages to a full filesystem.
  * Flush stderr/stdout when mixing output.
  * Yield exit status compatible with diff(1).
  * Shrink stdio code size; allow cc -R; remove lint.
- * 
+ *
  * Revision 4.4  87/12/18  11:44:47  narten
  * fixed to use "varargs" in "fprintf"; this is required if it is to
  * work on a SPARC machine such as a Sun-4
- * 
+ *
  * Revision 4.3  87/10/18  10:37:18  narten
  * Updating version numbers. Changes relative to 1.1 actually relative
  * to version 4.1
- * 
+ *
  * Revision 1.3  87/09/24  14:00:17  narten
- * Sources now pass through lint (if you ignore printf/sprintf/fprintf 
+ * Sources now pass through lint (if you ignore printf/sprintf/fprintf
  * warnings)
- * 
+ *
  * Revision 1.2  87/03/27  14:22:33  jenkins
  * Port to suns
- * 
+ *
  * Revision 4.1  83/03/25  18:12:51  wft
  * Only changed $Header to $Id.
- * 
+ *
  * Revision 3.3  82/12/10  16:22:37  wft
  * Improved error messages, changed exit status on error to 1.
  *
@@ -367,7 +367,7 @@ nextlex()
 				if (limit <= sp)
 					sp = bufenlarge(&tokbuf, &limit);
 				continue;
-			    
+
 			    default:
 				break;
 			}
@@ -820,7 +820,7 @@ checkidentifier(id, delimiter, dotok)
 				if (dotok)
 					continue;
 				break;
-			
+
 			default:
 				break;
 		}

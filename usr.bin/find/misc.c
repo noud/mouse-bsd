@@ -56,7 +56,7 @@ __RCSID("$NetBSD: misc.c,v 1.7 1998/02/02 14:02:25 mrg Exp $");
 #include <string.h>
 
 #include "find.h"
- 
+
 /*
  * brace_subst --
  *	Replace occurrences of {} in orig with path, and place it in a malloced
@@ -118,7 +118,7 @@ queryuser(argv)
 	}
         return (first == 'y');
 }
- 
+
 /*
  * emalloc --
  *	malloc with error checking.

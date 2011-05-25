@@ -344,7 +344,7 @@ aic_detach(self, flags)
 
 	if (sc->sc_child != NULL)
 		rv = config_detach(sc->sc_child, flags);
-	
+
 	return (rv);
 }
 

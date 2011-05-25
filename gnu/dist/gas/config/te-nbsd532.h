@@ -2,9 +2,9 @@
  * This file is te-netbsd532.h
  *
  * Written by Ian Dall <idall@eleceng.adelaide.edu.au>
- * 
+ *
  * 19-Jun-94
- * 
+ *
  */
 
 #define TARGET_FORMAT		"a.out-ns32k-netbsd"

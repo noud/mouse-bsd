@@ -97,7 +97,7 @@
 /* the following is used externally (sysctl_hw) */
 char	machine[] = MACHINE;	/* from <machine/param.h> */
 
-vm_map_t exec_map = NULL;  
+vm_map_t exec_map = NULL;
 vm_map_t mb_map = NULL;
 vm_map_t phys_map = NULL;
 
@@ -274,7 +274,7 @@ cpu_startup()
 
 		while (curbufsize) {
 			pg = uvm_pagealloc(NULL, 0, NULL, 0);
-			if (pg == NULL) 
+			if (pg == NULL)
 				panic("cpu_startup: not enough memory for "
 				    "buffer cache");
 			pmap_kenter_pa(curbuf, VM_PAGE_TO_PHYS(pg),
@@ -830,7 +830,7 @@ badbaddr(addr)
 /*
  * cpu_exec_aout_makecmds():
  *	cpu-dependent a.out format hook for execve().
- * 
+ *
  * Determine of the given exec package refers to something which we
  * understand and, if so, set up the vmcmds for it.
  *

@@ -51,7 +51,7 @@ struct atapi_cdrom_page {
 struct atapi_cap_page {
 	/* Capabilities page */
 	u_int8_t page_code;
-	u_int8_t param_len;  
+	u_int8_t param_len;
 	u_int8_t reserved1[2];
 
 	u_int8_t cap1;

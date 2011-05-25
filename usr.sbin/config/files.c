@@ -177,7 +177,7 @@ addobject(path, optx, flags)
 		error("duplicate file %s", path);
 		xerror(oi->oi_srcfile, oi->oi_srcline,
 		    "here is the original definition");
-	} 
+	}
 	oi->oi_next = NULL;
 	oi->oi_srcfile = yyfile;
 	oi->oi_srcline = currentline();
@@ -189,7 +189,7 @@ addobject(path, optx, flags)
 	*nextobject = oi;
 	nextobject = &oi->oi_next;
 	return;
-}     
+}
 
 /*
  * We have finished reading some "files" file, either ../../conf/files
@@ -292,17 +292,17 @@ fixfiles()
 	return (err);
 }
 
-/*    
+/*
  * We have finished reading everything.  Tack the objects down: calculate
  * selection.
- */   
-int    
+ */
+int
 fixobjects()
-{     
+{
 	struct objects *oi;
 	struct nvlist *flathead, **flatp;
-	int err, sel; 
- 
+	int err, sel;
+
 	err = 0;
 	for (oi = allobjects; oi != NULL; oi = oi->oi_next) {
 		/* Optional: see if it is to be included. */
@@ -318,10 +318,10 @@ fixobjects()
 				continue;
 		}
 
-		oi->oi_flags |= OI_SEL;  
+		oi->oi_flags |= OI_SEL;
 	}
 	return (err);
-}     
+}
 
 /*
  * Called when evaluating a needs-count expression.  Make sure the

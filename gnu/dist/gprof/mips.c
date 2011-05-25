@@ -49,7 +49,7 @@ __RCSID("$NetBSD: mips.c,v 1.2 1999/02/09 18:19:32 tv Exp $");
 #endif /* not lint */
 
 #include "gprof.h"
-#include "cg_arcs.h"   
+#include "cg_arcs.h"
 #include "core.h"
 #include "hist.h"
 #include "symtab.h"

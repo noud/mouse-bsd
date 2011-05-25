@@ -35,14 +35,14 @@
 
 /*
 **++
-** 
+**
 **  FACILITY:
 **
 **     ns87307.h
-**     
+**
 **  ABSTRACT:
 **
-**     
+**
 **
 **  AUTHORS:
 **
@@ -60,7 +60,7 @@
 
 /*
 ** Define TRUE/FALSE if not already defined.  It
-** annoys me that C doesn't do this in a standard 
+** annoys me that C doesn't do this in a standard
 ** header.
 */
 #ifndef TRUE
@@ -75,7 +75,7 @@
 #ifdef  NSIODEBUG
 #define nsioDebug(x) printf x
 #else
-#define nsioDebug(x)                  
+#define nsioDebug(x)
 #endif
 
 /*
@@ -103,7 +103,7 @@
 
 #define NSIO_CFG_LOGDEV         0x07   /* Select logical device        */
 #define NSIO_CFG_SID            0x20   /* Chip SID register            */
- 
+
 /*
 ** Logical Device Configuration Registers
 */
@@ -138,7 +138,7 @@
 */
 #define NSIO_IRQ_LEVEL           0x01	 /* Trigger, level = 1 edge = 0 */
 #define NSIO_IRQ_HIGH            0x02	 /* Int level, high = 1 low = 0 */
-#define NSIO_IRQ_LOW             0x00    
+#define NSIO_IRQ_LOW             0x00
 
 /*
 ** IO Range check bit masks
@@ -190,8 +190,8 @@
 
 /*
 ** As there are two devices which can be used for serial
-** communication, set up defines so it's easy to configure 
-** the logical devices used for serial communication. 
+** communication, set up defines so it's easy to configure
+** the logical devices used for serial communication.
 */
 #define NSIO_DEV_COM0           NSIO_DEV_UART
 #define NSIO_DEV_COM1           NSIO_DEV_USI
@@ -200,13 +200,13 @@
 /*	       Macros used to configure logical devices                      */
 /*---------------------------------------------------------------------------*/
 
-/* 
+/*
 ** NSIO_READ_REG
 **
 ** Read a configuration register.  Use the currently
-** selected logical device. 
+** selected logical device.
 **
-** sc       pointer to nsio devices softc 
+** sc       pointer to nsio devices softc
 ** reg      index of register to read
 ** value    value read from register
 */
@@ -216,13 +216,13 @@
     value = bus_space_read_1( iot, ioh, NSIO_OFFSET_DATA ); \
 }
 
-/* 
+/*
 ** NSIO_WRITE_REG
 **
 ** Write to a configuration register.  Use the currently
-** selected logical device. 
+** selected logical device.
 **
-** sc       pointer to nsio devices softc 
+** sc       pointer to nsio devices softc
 ** reg      index of register to read
 ** value    value read from register
 */
@@ -234,25 +234,25 @@
 
 /*
 ** NSIO_SELECT_DEV
-** 
+**
 ** Select logDev as the current the logical device
 **
-** sc       pointer to nsio devices softc 
+** sc       pointer to nsio devices softc
 ** reg      index of register to read
 ** logDev   logical device to select
 */
 #define NSIO_SELECT_DEV( iot, ioh, logDev ) \
     NSIO_WRITE_REG( iot, ioh, NSIO_CFG_LOGDEV, logDev )
 
-/* 
+/*
 ** NSIO_CONFIG_IRQ
 **
 ** Set the irq number and triggering for the currently
-** selected logical device.  If irqNum is unknown 
+** selected logical device.  If irqNum is unknown
 ** the number won't be set and the device will be left
-** with it's default value. 
+** with it's default value.
 **
-** sc        pointer to nsio devices softc 
+** sc        pointer to nsio devices softc
 ** irqNum    irq number to set
 ** irqType   trigger flags e.g. edge/level, high/low
 */
@@ -263,14 +263,14 @@
 	NSIO_WRITE_REG( iot, ioh, NSIO_CFG_IRQ, irqNum ); \
    } \
    NSIO_WRITE_REG( iot, ioh, NSIO_CFG_IRQTYPE, irqType ); \
-}	  
+}
 
 /*
 ** NSIO_CONFIG_KBCCMD
-** 
-** Set the io base for the currently selected logical device. 
 **
-** sc         pointer to nsio devices softc 
+** Set the io base for the currently selected logical device.
+**
+** sc         pointer to nsio devices softc
 ** ioBase     address to set io base to
 */
 #define NSIO_CONFIG_IOBASE( iot, ioh, ioBase ) \
@@ -283,11 +283,11 @@
 
 /*
 ** NSIO_CONFIG_KBCDATA
-** 
-** Set the data base for the keyboard.  The keyboard 
-** controller must be the currently selected logical device. 
 **
-** sc         pointer to nsio devices softc 
+** Set the data base for the keyboard.  The keyboard
+** controller must be the currently selected logical device.
+**
+** sc         pointer to nsio devices softc
 ** dataBase   address to set data base to
 */
 
@@ -301,11 +301,11 @@
 
 /*
 ** NSIO_CONFIG_KBCCMD
-** 
-** Set the command base for the keyboard.  The keyboard 
-** controller must be the currently selected logical device. 
 **
-** sc         pointer to nsio devices softc 
+** Set the command base for the keyboard.  The keyboard
+** controller must be the currently selected logical device.
+**
+** sc         pointer to nsio devices softc
 ** cmdBase    address to set command base to
 */
 
@@ -317,12 +317,12 @@
 		  (unsigned char)((cmdBase) & 0xff ) ); \
 }
 
-/* 
+/*
 ** NSIO_ACTIVATE_DEV
 **
-** Activate the currently selected logical device. 
+** Activate the currently selected logical device.
 **
-** sc    pointer to nsio devices softc 
+** sc    pointer to nsio devices softc
 */
 
 #define NSIO_ACTIVATE_DEV( iot, ioh ) \
@@ -330,12 +330,12 @@
    NSIO_WRITE_REG( iot, ioh, NSIO_CFG_ACTIVATE, (0x01) ); \
 }
 
-/* 
+/*
 ** NSIO_DEACTIVATE_DEV
 **
-** Deactivate the currently selected logical device. 
+** Deactivate the currently selected logical device.
 **
-** sc    pointer to nsio devices softc 
+** sc    pointer to nsio devices softc
 */
 
 #define NSIO_DEACTIVATE_DEV( iot, ioh ) \
@@ -343,8 +343,8 @@
    NSIO_WRITE_REG( iot, ioh, NSIO_CFG_ACTIVATE, (0x00) ); \
 }
 
-                                                                        
-/* 
+
+/*
 ** NSIO_CONFIG_DEBUG
 **
 ** Print out configuration information for the device
@@ -355,12 +355,12 @@
 #define NSIO_CONFIG_DEBUG( iot, ioh ) \
 { \
     /* nsioConfigPrint( iot, ioh ); */ \
-} 
+}
 #else
 #define NSIO_CONFIG_DEBUG( iot, ioh )
 #endif
 
-/* 
+/*
 ** NSIO_CONFIG_KBCDEBUG
 **
 ** Print out configuration information for the keyboard device
@@ -376,7 +376,7 @@
     NSIO_READ_REG( iot, ioh, NSIO_KBC_CMDH, cmdH ); \
     NSIO_READ_REG( iot, ioh, NSIO_KBC_CMDH, cmdL ); \
     printf("kbc command: %x\n", (((u_short)(cmdH)) << 8)| cmdL ); \
-} 
+}
 #else
 #define NSIO_CONFIG_KBCDEBUG( iot, ioh )
 #endif
@@ -384,12 +384,12 @@
 /* Functions to help configure the ns87307 logical devices.
 */
 int  i87307KbdConfig       __P((bus_space_tag_t  iot,
-				u_int            comBase, 
+				u_int            comBase,
 				u_int            irqNum ));
 int  i87307MouseConfig     __P((bus_space_tag_t iot,
 				u_int           irqNum ));
 
 
-void nsioConfigPrint(bus_space_tag_t nsioIot, bus_space_handle_t  nsioIoh );                        
+void nsioConfigPrint(bus_space_tag_t nsioIot, bus_space_handle_t  nsioIoh );
 
 #endif /* _NS87307REG_H */

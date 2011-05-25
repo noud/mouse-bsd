@@ -757,10 +757,10 @@ ipkdb_MD5Transform(ctx)
 {
 	int a, b, c, d, i;
 	int in[16];
-	
+
 	for (i = 0; i < 16; i++)
 		in[i] = getNl(ctx->in + 4 * i);
-	
+
 	a = ctx->buf[0];
 	b = ctx->buf[1];
 	c = ctx->buf[2];
@@ -852,7 +852,7 @@ ipkdb_MD5Init(ctx)
 	ctx->buf[1] = 0xefcdab89;
 	ctx->buf[2] = 0x98badcfe;
 	ctx->buf[3] = 0x10325476;
-	
+
 	ctx->bits[0] = 0;
 	ctx->bits[1] = 0;
 }
@@ -874,13 +874,13 @@ ipkdb_MD5Update(ctx, buf, len)
 	if ((ctx->bits[0] = (t + (len << 3)) & 0xffffffff) < t)
 		ctx->bits[1]++;	/* Carry form low to high */
 	ctx->bits[1] += (len >> 29) & 0xffffffff;
-	
+
 	t = (t >> 3) & 0x3f;	/* Bytes already in ctx->in */
-	
+
 	/* Handle any leading odd-sized chunks */
 	if (t) {
 		u_char *p = ctx->in + t;
-		
+
 		t = 64 - t;
 		if (len < t) {
 			ipkdbcopy(buf, p, len);
@@ -891,7 +891,7 @@ ipkdb_MD5Update(ctx, buf, len)
 		buf += t;
 		len -= t;
 	}
-	
+
 	/* Process data in 64-byte chunks */
 	while (len >= 64) {
 		ipkdbcopy(buf, ctx->in, 64);
@@ -899,7 +899,7 @@ ipkdb_MD5Update(ctx, buf, len)
 		buf += 64;
 		len -= 64;
 	}
-	
+
 	/* Handle any remaining bytes of data. */
 	ipkdbcopy(buf, ctx->in, len);
 }
@@ -915,34 +915,34 @@ ipkdb_MD5Final(ctx)
 	static u_char digest[16];
 	unsigned count;
 	u_char *p;
-	
+
 	/* Compute number of bytes mod 64 */
 	count = (ctx->bits[0] >> 3) & 0x3f;
-	
+
 	/* Set the first char of padding to 0x80.  This is safe since there is
 	   always at least one byte free */
 	p = ctx->in + count;
 	*p++ = 0x80;
-	
+
 	/* Bytes of padding needed to make 64 bytes */
 	count = 64 - 1 - count;
-	
+
 	/* Pad out to 56 mod 64 */
 	if (count < 8) {
 		/* Two lots of padding:  Pad the first block to 64 bytes */
 		ipkdbzero(p, count);
 		ipkdb_MD5Transform(ctx);
-		
+
 		/* Now fill the next block with 56 bytes */
 		ipkdbzero(ctx->in, 56);
 	} else
 		/* Pad block to 56 bytes */
 		ipkdbzero(p, count - 8);
-	
+
 	/* Append length in bits and transform */
 	setNl(ctx->in + 56, ctx->bits[0]);
 	setNl(ctx->in + 60, ctx->bits[1]);
-	
+
 	ipkdb_MD5Transform(ctx);
 	setNl(digest, ctx->buf[0]);
 	setNl(digest + 4, ctx->buf[1]);
@@ -1004,7 +1004,7 @@ hmac_init()
 		pad[i] ^= 0x36;
 	ipkdb_MD5Init(&icontext);
 	ipkdb_MD5Update(&icontext, pad, 64);
-	
+
 	ipkdbzero(pad, sizeof pad);
 	ipkdbcopy(key, pad, key_len);
 	for (i = 0; i < 64; i++)
@@ -1028,7 +1028,7 @@ chksum(buf, len)
 {
 	u_char *digest;
 	struct ipkdb_MD5Context context;
-	
+
 	/*
 	 * the HMAC_MD5 transform looks like:
 	 *
@@ -1068,7 +1068,7 @@ chksum(buf, l)
 	static char csum[1];
 	int sum;
 	char *cp = buf;
-	
+
 	for (sum = 0; --l >= 0; sum += *cp++);
 	csum[0] = sum;
 	return csum;

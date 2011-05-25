@@ -327,7 +327,7 @@ int	len;
 				*t++ = (isprint(*s) ? *s : '.');
 			s--;
 		}
-			
+
 		if ((j + 1) & 0xf)
 			*t++ = ' ';;
 	}
@@ -971,7 +971,7 @@ char *argv[];
 		logfile = argv[optind];
 		log = logfile ? fopen(logfile, "a") : stdout;
 		if (log == NULL) {
-			
+
 			(void) fprintf(stderr, "%s: fopen: %s\n", argv[optind],
 				STRERROR(errno));
 			exit(-1);

@@ -225,7 +225,7 @@ int
 acioctl(dev, cmd, data, flag, p)
 	dev_t dev;
 	u_long cmd;
-	caddr_t data; 
+	caddr_t data;
 	int flag;
 	struct proc *p;
 {

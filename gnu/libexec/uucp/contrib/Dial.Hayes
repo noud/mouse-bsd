@@ -7,7 +7,7 @@
 #	xchat dial.hayes telno
 #
 # where telno is the telephone number, subject to pause and wait
-# character modification. 
+# character modification.
 #
 # Uncomment the first two lines after "start:" to get debugging
 # in file "Dial.Log"
@@ -17,7 +17,7 @@
 #
 start:
 ###	dbgfile 		Dial.Log
-###	dbgset  		15 
+###	dbgset  		15
 	zero
 	flush
 	ifnstr	notelno		0
@@ -30,7 +30,7 @@ notelno:
 	logerr	No telephone number given
 	failed
 #
-# Reset the modem to nonvolatile profile. 
+# Reset the modem to nonvolatile profile.
 # Allow 3 sec. for response, as some modems are slow to reset.
 #
 initmodem:

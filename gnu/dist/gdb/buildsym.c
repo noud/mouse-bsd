@@ -85,7 +85,7 @@ struct complaint innerblock_complaint =
 struct complaint innerblock_anon_complaint =
   {"inner block (0x%lx-0x%lx) not inside outer block (0x%lx-0x%lx)", 0, 0};
 
-struct complaint blockvector_complaint = 
+struct complaint blockvector_complaint =
   {"block at 0x%lx out of order", 0, 0};
 
 
@@ -103,7 +103,7 @@ add_symbol_to_list (symbol, listhead)
   /* If this is an alias for another symbol, don't add it.  */
   if (symbol->ginfo.name && symbol->ginfo.name[0] == '#')
     return;
-      
+
   /* We keep PENDINGSIZE symbols in each link of the list.
      If we don't have a link with room in it, add a new link.  */
   if (*listhead == NULL || (*listhead)->nsyms == PENDINGSIZE)
@@ -301,7 +301,7 @@ finish_block (symbol, listhead, old_blocks, start, end, objfile)
 	      TYPE_NFIELDS (ftype) = nparams;
 	      TYPE_FIELDS (ftype) = (struct field *)
 		TYPE_ALLOC (ftype, nparams * sizeof (struct field));
-						
+
 	      for (i = iparams = 0; iparams < nparams; i++)
 		{
 		  sym = BLOCK_SYM (block, i);
@@ -379,7 +379,7 @@ finish_block (symbol, listhead, old_blocks, start, end, objfile)
       if (BLOCK_SUPERBLOCK (pblock->block) == NULL)
 	{
 #if 1
-	  /* Check to be sure the blocks are nested as we receive them. 
+	  /* Check to be sure the blocks are nested as we receive them.
 	     If the compiler/assembler/linker work, this just burns a small
 	     amount of time.  */
 	  if (BLOCK_START (pblock->block) < BLOCK_START (block) ||
@@ -486,7 +486,7 @@ make_blockvector (objfile)
 
 #if 1  /* FIXME, shut this off after a while to speed up symbol reading.  */
   /* Some compilers output blocks in the wrong order, but we depend
-     on their being in the right order so we can binary search. 
+     on their being in the right order so we can binary search.
      Check the order and moan about it.  FIXME.  */
   if (BLOCKVECTOR_NBLOCKS (blockvector) > 1)
     {
@@ -504,7 +504,7 @@ make_blockvector (objfile)
 		 * which causes sprintf rather than fprintf to be
 		 called.  */
 
-	      complain (&blockvector_complaint, 
+	      complain (&blockvector_complaint,
 			(unsigned long) BLOCK_START(BLOCKVECTOR_BLOCK (blockvector, i)));
 	    }
 	}
@@ -552,7 +552,7 @@ start_subfile (name, dirname)
   subfile->name = (name == NULL) ? NULL : savestring (name, strlen (name));
   subfile->dirname =
     (dirname == NULL) ? NULL : savestring (dirname, strlen (dirname));
-  
+
   /* Initialize line-number recording for this subfile.  */
   subfile->line_vector = NULL;
 
@@ -854,7 +854,7 @@ end_symtab (end_addr, objfile, section)
       do
 	{
 	  struct pending_block *pb, *pbnext;
-	  
+
 	  pb = pending_blocks;
 	  pbnext = pb->next;
 	  swapped = 0;
@@ -862,8 +862,8 @@ end_symtab (end_addr, objfile, section)
 	  while (pbnext)
 	    {
 	      /* swap blocks if unordered! */
-	  
-	      if (BLOCK_START(pb->block) < BLOCK_START(pbnext->block)) 
+
+	      if (BLOCK_START(pb->block) < BLOCK_START(pbnext->block))
 		{
 		  struct block *tmp = pb->block;
 		  pb->block = pbnext->block;
@@ -952,7 +952,7 @@ end_symtab (end_addr, objfile, section)
 	  if (subfile->line_vector)
 	    {
 	      /* Reallocate the line table on the symbol obstack */
-	      symtab->linetable = (struct linetable *) 
+	      symtab->linetable = (struct linetable *)
 		obstack_alloc (&objfile -> symbol_obstack, linetablesize);
 	      memcpy (symtab->linetable, subfile->line_vector, linetablesize);
 	    }

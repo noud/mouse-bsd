@@ -84,7 +84,7 @@ AllocParityLogCommonData(RF_Raid_t * raidPtr)
 	return (common);
 }
 
-static void 
+static void
 FreeParityLogCommonData(RF_CommonLogData_t * common)
 {
 	RF_Raid_t *raidPtr;
@@ -124,7 +124,7 @@ AllocParityLogData(RF_Raid_t * raidPtr)
 }
 
 
-static void 
+static void
 FreeParityLogData(RF_ParityLogData_t * data)
 {
 	RF_ParityLogData_t *nextItem;
@@ -146,7 +146,7 @@ FreeParityLogData(RF_ParityLogData_t * data)
 }
 
 
-static void 
+static void
 EnqueueParityLogData(
     RF_ParityLogData_t * data,
     RF_ParityLogData_t ** head,
@@ -224,7 +224,7 @@ DequeueParityLogData(
 }
 
 
-static void 
+static void
 RequeueParityLogData(
     RF_ParityLogData_t * data,
     RF_ParityLogData_t ** head,
@@ -276,7 +276,7 @@ rf_CreateParityLogData(
 
 	/* Return an initialized struct of info to be logged. Build one item
 	 * per physical disk address, one item per region.
-	 * 
+	 *
 	 * NON-BLOCKING */
 
 	diskAddress = pda;
@@ -346,7 +346,7 @@ rf_SearchAndDequeueParityLogData(
 
 	/* Remove and return an in-core parity log from a specified region
 	 * (regionID). If a matching log is not found, return NULL.
-	 * 
+	 *
 	 * NON-BLOCKING. */
 
 	/* walk backward through a list, looking for an entry with a matching
@@ -410,7 +410,7 @@ DequeueMatchingLogData(
 	/* Remove and return an in-core parity log from the tail of a disk
 	 * queue (*head, *tail).  Then remove all matching (identical
 	 * regionIDs) logData and return as a linked list.
-	 * 
+	 *
 	 * NON-BLOCKING */
 
 	logDataList = DequeueParityLogData(raidPtr, head, tail, RF_TRUE);
@@ -463,7 +463,7 @@ AcquireParityLog(
 	return (log);
 }
 
-void 
+void
 rf_ReleaseParityLogs(
     RF_Raid_t * raidPtr,
     RF_ParityLog_t * firstLog)
@@ -474,7 +474,7 @@ rf_ReleaseParityLogs(
 
 	/* Insert a linked list of parity logs (firstLog) to the free list
 	 * (parityLogPool.parityLogPool)
-	 * 
+	 *
 	 * NON-BLOCKING. */
 
 	RF_ASSERT(firstLog);
@@ -537,7 +537,7 @@ rf_ReleaseParityLogs(
 	RF_UNLOCK_MUTEX(raidPtr->parityLogDiskQueue.mutex);
 }
 
-static void 
+static void
 ReintLog(
     RF_Raid_t * raidPtr,
     int regionID,
@@ -565,7 +565,7 @@ ReintLog(
 	RF_SIGNAL_COND(raidPtr->parityLogDiskQueue.cond);
 }
 
-static void 
+static void
 FlushLog(
     RF_Raid_t * raidPtr,
     RF_ParityLog_t * log)
@@ -585,7 +585,7 @@ FlushLog(
 	RF_SIGNAL_COND(raidPtr->parityLogDiskQueue.cond);
 }
 
-static int 
+static int
 DumpParityLogToDisk(
     int finish,
     RF_ParityLogData_t * logData)
@@ -598,13 +598,13 @@ DumpParityLogToDisk(
 
 	/* Move a core log to disk.  If the log disk is full, initiate
 	 * reintegration.
-	 * 
+	 *
 	 * Return (0) if we can enqueue the dump immediately, otherwise return
 	 * (1) to indicate we are blocked on reintegration and control of the
 	 * thread should be relinquished.
-	 * 
+	 *
 	 * Caller must hold regionInfo[regionID].mutex
-	 * 
+	 *
 	 * NON-BLOCKING */
 
 	if (rf_parityLogDebug)
@@ -656,7 +656,7 @@ DumpParityLogToDisk(
 	return (0);
 }
 
-int 
+int
 rf_ParityLogAppend(
     RF_ParityLogData_t * logData,
     int finish,
@@ -675,16 +675,16 @@ rf_ParityLogAppend(
 	/* Add parity to the appropriate log, one sector at a time. This
 	 * routine is called is called by dag functions ParityLogUpdateFunc
 	 * and ParityLogOverwriteFunc and therefore MUST BE NONBLOCKING.
-	 * 
+	 *
 	 * Parity to be logged is contained in a linked-list (logData).  When
 	 * this routine returns, every sector in the list will be in one of
 	 * three places: 1) entered into the parity log 2) queued, waiting on
 	 * reintegration 3) queued, waiting on a core log
-	 * 
+	 *
 	 * Blocked work is passed to the ParityLoggingDiskManager for completion.
 	 * Later, as conditions which required the block are removed, the work
 	 * reenters this routine with the "finish" parameter set to "RF_TRUE."
-	 * 
+	 *
 	 * NON-BLOCKING */
 
 	raidPtr = logData->common->raidPtr;
@@ -852,7 +852,7 @@ rf_ParityLogAppend(
 }
 
 
-void 
+void
 rf_EnableParityLogging(RF_Raid_t * raidPtr)
 {
 	int     regionID;

@@ -68,7 +68,7 @@
 #define IMAGE_COMDAT_SELECT_ASSOCIATIVE	     (5) /* Base on other section.  */
 
 /* Magic values that are true for all dos/nt implementations */
-#define DOSMAGIC       0x5a4d  
+#define DOSMAGIC       0x5a4d
 #define NT_SIGNATURE   0x00004550
 
   /* NT allows long filenames, we want to accommodate this.  This may break
@@ -104,9 +104,9 @@ struct external_PE_filehdr
   char e_res2[10][2];		/* Reserved words, all 0x0 */
   char e_lfanew[4];		/* File address of new exe header, 0x80 */
   char dos_message[16][4];	/* other stuff, always follow DOS header */
-  char nt_signature[4];		/* required NT signature, 0x4550 */ 
+  char nt_signature[4];		/* required NT signature, 0x4550 */
 
-  /* From standard header */  
+  /* From standard header */
 
 
   char f_magic[2];		/* magic number			*/
@@ -126,7 +126,7 @@ struct external_PE_filehdr
 
 #endif
 
-typedef struct 
+typedef struct
 {
   AOUTHDR standard;
 

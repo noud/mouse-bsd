@@ -108,7 +108,7 @@ plumvideo_attach(parent, self, aux)
 	sc->sc_regt	= pa->pa_regt;
 	sc->sc_iot	= pa->pa_iot;
 
-	if (bus_space_map(sc->sc_regt, PLUM_VIDEO_REGBASE, 
+	if (bus_space_map(sc->sc_regt, PLUM_VIDEO_REGBASE,
 			  PLUM_VIDEO_REGSIZE, 0, &sc->sc_regh)) {
 		printf(": register map failed\n");
 		return;
@@ -134,7 +134,7 @@ plumvideo_attach(parent, self, aux)
 #if notrequired
 	/* supply power to RAMDAC */
 	plum_power_establish(sc->sc_pc, PLUM_PWR_EXTPW0);
-#endif	
+#endif
 
 	/* back-light on */
 	plum_power_establish(sc->sc_pc, PLUM_PWR_BKL);
@@ -143,8 +143,8 @@ plumvideo_attach(parent, self, aux)
 	plum_conf_write(sc->sc_regt, sc->sc_regh, PLUM_VIDEO_PLLUM_REG,
 			0x3);
 
-	/* 
-	 *  reinstall bootinfo 
+	/*
+	 *  reinstall bootinfo
 	 */
 	plumvideo_bootinforefil(sc);
 
@@ -188,7 +188,7 @@ plumvideo_bootinforefil(sc)
 		bootinfo->fb_line_bytes = bootinfo->fb_width * 16 / 8;
 		break;
 	}
-	
+
 	bootinfo->fb_addr = (unsigned char *)ioh;
 
 #if NBICONSDEV > 0

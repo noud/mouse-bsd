@@ -38,7 +38,7 @@
 #include <machine/mtpr.h>
 #include <machine/cpu.h>
 
-/* 
+/*
  * We set up some information about the machine we're
  * running on and thus initializes/uses vax_cputype and vax_boardtype.
  * There should be no need to change/reinitialize these variables
@@ -47,7 +47,7 @@
 int vax_cputype;	/* highest byte of SID register */
 int vax_bustype;	/* holds/defines all busses on this machine */
 int vax_boardtype;	/* machine dependend, combination of SID and SIE */
- 
+
 int vax_cpudata;	/* contents of the SID register */
 int vax_siedata;	/* contents of the SIE register */
 int vax_confdata;	/* machine dependend, configuration/setup data */

@@ -1,4 +1,4 @@
-.\"	$NetBSD: install,v 1.22 2000/01/10 15:17:31 pk Exp $	
+.\"	$NetBSD: install,v 1.22 2000/01/10 15:17:31 pk Exp $
 .\"
 .\" Copyright (c) 1999 The NetBSD Foundation, Inc.
 .\" All rights reserved.
@@ -84,7 +84,7 @@ SCSI disk, you can calculate the parameters as follows:
 .Bl -tag -width xcc
 .	It Ar c
 specifies the controller number
-.	It Ar u 
+.	It Ar u
 the hexadecimal number obtained from evaluating
 the expression `(8 * TARGET) + LUN'
 .	It Ar p
@@ -163,7 +163,7 @@ filesets. However, the easiest way is to put the
 files you want
 to install into the root directory for your client on the server.
 .Pp
-Next, unpack `base.tar.gz' and `etc.tar.gz' on the server in the root 
+Next, unpack `base.tar.gz' and `etc.tar.gz' on the server in the root
 directory for your machine. If you elect to use a separately NFS-mounted
 filesystem for `/usr' with your diskless setup, make sure the "./usr" base
 files in base.tar.gz end up in the correct location. One way to do this is
@@ -282,13 +282,13 @@ the editor), then try setting it to `8 partitions:'.
 .Bd -literal -offset indent
 netbsd# disklabel sd2
  # /dev/rsd2c:
-type: SCSI 
+type: SCSI
 disk: SCSI disk
 label: Hold Your Breath
 flags:
 bytes/sector: 512
 sectors/track: 64
-tracks/cylinder: 7  
+tracks/cylinder: 7
 sectors/cylinder: 448
 cylinders: 1429
 rpm: 3600
@@ -359,4 +359,4 @@ On version 2 OpenBOOT ROMs:
 .Dl ok Ic setenv boot-device /sbus/esp/sd@0,0
 .Pp
 .Em Congratulations ,
-you have successfully installed NetBSD \*V. 
+you have successfully installed NetBSD \*V.

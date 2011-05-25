@@ -119,7 +119,7 @@ getcwd_scandir(lvpp, uvpp, bpp, bufp, p)
 	ino_t   fileno;
 	struct vattr va;
 	struct vnode *uvp = NULL;
-	struct vnode *lvp = *lvpp;	
+	struct vnode *lvp = *lvpp;
 	struct componentname cn;
 	int len, reclen;
 	tries = 0;
@@ -151,7 +151,7 @@ getcwd_scandir(lvpp, uvpp, bpp, bufp, p)
 	cn.cn_namelen = 2;
 	cn.cn_hash = 0;
 	cn.cn_consume = 0;
-	
+
 	/*
 	 * At this point, lvp is locked and will be unlocked by the lookup.
 	 * On successful return, *uvpp will be locked
@@ -171,7 +171,7 @@ getcwd_scandir(lvpp, uvpp, bpp, bufp, p)
 		*lvpp = NULL;
 		return 0;
 	}
-	
+
 	fileno = va.va_fileid;
 
 	dirbuflen = DIRBLKSIZ;
@@ -217,11 +217,11 @@ unionread:
 		if (!error) {
 			char   *cpos;
 			struct dirent *dp;
-			
+
 			cpos = dirbuf;
 			tries = 0;
-				
-			/* scan directory page looking for matching vnode */ 
+
+			/* scan directory page looking for matching vnode */
 			for (len = (dirbuflen - uio.uio_resid); len > 0; len -= reclen) {
 				dp = (struct dirent *) cpos;
 				reclen = dp->d_reclen;
@@ -241,7 +241,7 @@ unionread:
 				    (dp->d_fileno == fileno)) {
 					char *bp = *bpp;
 					bp -= dp->d_namlen;
-					
+
 					if (bp <= bufp) {
 						error = ERANGE;
 						goto out;
@@ -275,9 +275,9 @@ unionread:
 		}
 		goto unionread;
 	}
-#endif	
+#endif
 	error = ENOENT;
-		
+
 out:
 	vrele(lvp);
 	*lvpp = NULL;
@@ -308,9 +308,9 @@ getcwd_getcache(lvpp, uvpp, bpp, bufp)
 	struct vnode *lvp, *uvp = NULL;
 	int error;
 	int vpid;
-	
+
 	lvp = *lvpp;
-	
+
 	/*
 	 * This returns 0 on a cache hit, -1 on a clean cache miss,
 	 * or an errno on other failure.
@@ -350,7 +350,7 @@ getcwd_getcache(lvpp, uvpp, bpp, bufp)
 		 */
 		if (!error) vput(uvp);
 		*uvpp = NULL;
-		
+
 		error = vn_lock(lvp, LK_EXCLUSIVE | LK_RETRY);
 
 		if (!error)
@@ -368,7 +368,7 @@ getcwd_getcache(lvpp, uvpp, bpp, bufp)
 
 #define GETCWD_CHECK_ACCESS 0x0001
 
-int 
+int
 getcwd_common (lvp, rvp, bpp, bufp, limit, flags, p)
 	struct vnode *lvp;
 	struct vnode *rvp;
@@ -389,7 +389,7 @@ getcwd_common (lvp, rvp, bpp, bufp, limit, flags, p)
 		if (rvp == NULL)
 			rvp = rootvnode;
 	}
-	
+
 	VREF(rvp);
 	VREF(lvp);
 
@@ -424,7 +424,7 @@ getcwd_common (lvp, rvp, bpp, bufp, limit, flags, p)
 			error = ENOTDIR;
 			goto out;
 		}
-		
+
 		/*
 		 * access check here is optional, depending on
 		 * whether or not caller cares.
@@ -435,7 +435,7 @@ getcwd_common (lvp, rvp, bpp, bufp, limit, flags, p)
 				goto out;
 			perms = VEXEC|VREAD;
 		}
-		
+
 		/*
 		 * step up if we're a covered vnode..
 		 */
@@ -444,7 +444,7 @@ getcwd_common (lvp, rvp, bpp, bufp, limit, flags, p)
 
 			if (lvp == rvp)
 				goto out;
-			
+
 			tvp = lvp;
 			lvp = lvp->v_mount->mnt_vnodecovered;
 			vput(tvp);
@@ -472,19 +472,19 @@ getcwd_common (lvp, rvp, bpp, bufp, limit, flags, p)
 			error = getcwd_scandir(&lvp, &uvp, &bp, bufp, p);
 		if (error)
 			goto out;
-#if DIAGNOSTIC		
+#if DIAGNOSTIC
 		if (lvp != NULL)
 			panic("getcwd: oops, forgot to null lvp");
 		if (bufp && (bp <= bufp)) {
 			panic("getcwd: oops, went back too far");
 		}
-#endif		
-		if (bp) 
+#endif
+		if (bp)
 			*(--bp) = '/';
 		lvp = uvp;
 		uvp = NULL;
 		limit--;
-	} while ((lvp != rvp) && (limit > 0)); 
+	} while ((lvp != rvp) && (limit > 0));
 
 out:
 	if (bpp)
@@ -551,7 +551,7 @@ proc_isunder (p1, p2)
  */
 
 int
-sys___getcwd(p, v, retval) 
+sys___getcwd(p, v, retval)
 	struct proc *p;
 	void   *v;
 	register_t *retval;

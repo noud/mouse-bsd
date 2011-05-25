@@ -202,7 +202,7 @@ public:
   unsigned char control_char;
   unsigned char no_break_control_char;
   charinfo *hyphen_indicator_char;
-  
+
   environment(symbol);
   environment(const environment *);	// for temporary environment
   ~environment();
@@ -236,7 +236,7 @@ public:
   hunits get_prev_char_skew();
   vunits get_prev_char_height();
   vunits get_prev_char_depth();
-  hunits get_text_length();	// .k 
+  hunits get_text_length();	// .k
   hunits get_prev_text_length(); // .n
   hunits get_space_width() { return env_space_width(this); }
   int get_space_size() { return space_size; }	// in ems/36
@@ -282,7 +282,7 @@ public:
   const char *get_point_size_string();
   const char *get_requested_point_size_string();
   void output_pending_lines();
-  
+
   friend void title_length();
   friend void space_size();
   friend void fill();
@@ -320,7 +320,7 @@ public:
   friend void widow_control_request();
 #endif /* WIDOW_CONTROL */
 };
-	
+
 extern environment *curenv;
 extern void pop_env();
 extern void push_env(int);

@@ -63,7 +63,7 @@ disk_open(name)
 	char	*name;
 {
 	disk_t	*dd;
-	
+
 	dd = xmalloc(sizeof *dd);
 	memset(dd, 0, sizeof *dd);
 

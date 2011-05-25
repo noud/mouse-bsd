@@ -428,7 +428,7 @@ cntodm(bits)
 	return(b);
 }
 #endif
- 
+
 /*
  * Set parameters from open or stty into the console hardware
  * registers.

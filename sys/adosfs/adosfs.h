@@ -55,7 +55,7 @@ struct datestamp {
 
 enum anode_type { AROOT, ADIR, AFILE, ALDIR, ALFILE, ASLINK };
 
-/* 
+/*
  * similar to inode's, we use to represent:
  * the root dir, reg dirs, reg files and extension blocks
  * note the ``tab'' is a hash table for r/d, and a data block
@@ -86,7 +86,7 @@ struct anode {
 	int adprot;		/* (d/f) amigados protection bits */
 	uid_t  uid;		/* (d/f) uid of directory/file */
 	gid_t  gid;		/* (d/f) gid of directory/file */
-	int flags;		/* misc flags */ 
+	int flags;		/* misc flags */
 	char *slinkto;		/* name of file or dir */
 };
 #define VTOA(vp)		((struct anode *)(vp)->v_data)
@@ -96,7 +96,7 @@ struct anode {
 #define ANODENDATBLKENT(ap)	((ap)->nwords - 56)
 
 /*
- * mount data 
+ * mount data
  */
 #define ANODEHASHSZ (512)
 

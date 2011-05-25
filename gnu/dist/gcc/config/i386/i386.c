@@ -1935,7 +1935,7 @@ asm_output_function_prefix (file, name)
 	 was changed to call ASM_OUTPUT_LABEL() instead. */
 
 
-      ASM_OUTPUT_LABEL (file, pic_label_name); 
+      ASM_OUTPUT_LABEL (file, pic_label_name);
       output_asm_insn ("movl (%1),%0", xops);
       output_asm_insn ("ret", xops);
     }

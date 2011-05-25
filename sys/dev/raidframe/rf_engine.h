@@ -35,7 +35,7 @@
 #ifndef _RF__RF_ENGINE_H_
 #define _RF__RF_ENGINE_H_
 
-int 
+int
 rf_ConfigureEngine(RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr, RF_Config_t * cfgPtr);
 

@@ -38,14 +38,14 @@
 
 #if ! defined (HIADDR)
 #define HIADDR(x) (u_short)((((unsigned long)(x))>>16)&0xffff)
-#endif 
+#endif
 #if ! defined (LOADDR)
 #define LOADDR(x) (u_short)(((unsigned long)(x))&0xffff)
 #endif
 
 
-/* 
- * Audio stuff 
+/*
+ * Audio stuff
  */
 struct audio_channel {
 	u_short play_count;
@@ -54,10 +54,10 @@ struct audio_channel {
 };
 
 #ifdef LEV6_DEFER
-#define AUCC_MAXINT 3 
+#define AUCC_MAXINT 3
 #define AUCC_ALLINTF (INTF_AUD0|INTF_AUD1|INTF_AUD2)
-#else 
-#define AUCC_MAXINT 4 
+#else
+#define AUCC_MAXINT 4
 #define AUCC_ALLINTF (INTF_AUD0|INTF_AUD1|INTF_AUD2|INTF_AUD3)
 #endif
 /*
@@ -86,7 +86,7 @@ enum vbl_node_bits {
 enum vlb_node_flags {
     VBLNF_OFF = 1 << VBLNB_OFF,
     VBLNF_TURNOFF = 1 << VBLNB_TURNOFF,
-};    
+};
 
 /*
  * Blitter stuff.
@@ -153,7 +153,7 @@ typedef struct copper_list {
  */
 
 struct mem_node {
-	CIRCLEQ_ENTRY(mem_node) link; 	
+	CIRCLEQ_ENTRY(mem_node) link;
 	CIRCLEQ_ENTRY(mem_node) free_link;
 	u_long size;		/* size of memory following node. */
 };

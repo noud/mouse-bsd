@@ -134,12 +134,12 @@ enum regnames { G0, G1, G2, G3, G4, G5, G6, G7,
 		Y, PSR, WIM, TBR, PC, NPC, FPSR, CPSR,
 		CCSR, CCPR, CCCRCR, CCOR, CCOBR, CCIBR, CCIR, UNUSED1,
 
-		ASR1, ASR15, ASR17, ASR18, ASR19, ASR20, ASR21, ASR22, 
+		ASR1, ASR15, ASR17, ASR18, ASR19, ASR20, ASR21, ASR22,
 		/* the following not actually implemented */
-		AWR0,  AWR1,  AWR2,  AWR3,  AWR4,  AWR5,  AWR6,  AWR7,  
-		AWR8,  AWR9,  AWR10, AWR11, AWR12, AWR13, AWR14, AWR15,  
-		AWR16, AWR17, AWR18, AWR19, AWR20, AWR21, AWR22, AWR23,  
-		AWR24, AWR25, AWR26, AWR27, AWR28, AWR29, AWR30, AWR31,  
+		AWR0,  AWR1,  AWR2,  AWR3,  AWR4,  AWR5,  AWR6,  AWR7,
+		AWR8,  AWR9,  AWR10, AWR11, AWR12, AWR13, AWR14, AWR15,
+		AWR16, AWR17, AWR18, AWR19, AWR20, AWR21, AWR22, AWR23,
+		AWR24, AWR25, AWR26, AWR27, AWR28, AWR29, AWR30, AWR31,
 		APSR
 };
 
@@ -465,7 +465,7 @@ getpacket(buffer)
   do
     {
       /* wait around for the start character, ignore all other characters */
-      while ((ch = (getDebugChar() & 0x7f)) != '$') 
+      while ((ch = (getDebugChar() & 0x7f)) != '$')
 	;
 
       checksum = 0;
@@ -722,7 +722,7 @@ get_in_break_mode()
   asm("
         sethi   %hi(0xff10), %l4
         or      %l4, %lo(0xff10), %l4
-	sta 	%g0, [%l4]0x1	
+	sta 	%g0, [%l4]0x1
 	nop
 	nop
 	nop
@@ -918,9 +918,9 @@ handle_exception (registers)
 		    8 * 4,
 		    0); /* ASR1,ASR15,ASR17,ASR18,ASR19,ASR20,ASR21,ASR22 */
 #if 0 /* not implemented */
-	    ptr = mem2hex((char *) &registers[AWR0], 
-		    ptr, 
-		    32 * 4, 
+	    ptr = mem2hex((char *) &registers[AWR0],
+		    ptr,
+		    32 * 4,
 		    0); /* Alternate Window Registers */
 #endif
 	  }
@@ -938,7 +938,7 @@ handle_exception (registers)
 	    if (remcomInBuffer[0] == 'P')	/* do a single register */
 	      {
 		int regno;
- 
+
                 if (hexToInt (&ptr, &regno)
                     && *ptr++ == '=')
                   if (regno >= L0 && regno <= I7)

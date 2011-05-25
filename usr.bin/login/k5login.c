@@ -230,7 +230,7 @@ klogin(pw, instance, localhost, password)
 	    strcat(principal, "/");		/* XXX strcat is safe */
 	    strcat(principal, instance);	/* XXX strcat is safe */
 	}
-	
+
 	if ((kerror = krb5_cc_resolve(kcontext, tkt_location, &ccache)) != 0) {
 	    syslog(LOG_NOTICE, "warning: %s while getting default ccache",
 		error_message(kerror));
@@ -242,7 +242,7 @@ klogin(pw, instance, localhost, password)
 		error_message(kerror), principal);
 	    return(1);
 	}
-    
+
 	if ((kerror = krb5_unparse_name(kcontext, me, &client_name)) != 0) {
 	    syslog(LOG_NOTICE, "warning: %s when unparsing name %s",
 		error_message(kerror), principal);
@@ -257,7 +257,7 @@ klogin(pw, instance, localhost, password)
 	}
 
 	memset((char *)&my_creds, 0, sizeof(my_creds));
-    
+
 	my_creds.client = me;
 
 	if ((kerror = krb5_build_principal_ext(kcontext,

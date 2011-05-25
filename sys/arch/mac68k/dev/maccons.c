@@ -115,12 +115,12 @@ maccnputc(dev_t dev, int c)
 
 #if NWSDISPLAY > 0
 	if (maccons_initted > 0)
-		wsdisplay_cnputc(dev,c);	
+		wsdisplay_cnputc(dev,c);
 #endif
 #if NZSC > 0
-        if (mac68k_machine.serial_boot_echo) 
+        if (mac68k_machine.serial_boot_echo)
                 zscnputc(mac68k_zsdev, c);
-#endif 
+#endif
 }
 
 void

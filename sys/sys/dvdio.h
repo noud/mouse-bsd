@@ -33,7 +33,7 @@ struct dvd_layer {
         u_int32_t end_sector;
         u_int32_t end_sector_l0;
 };
- 
+
 struct dvd_physical {
         u_int8_t type;
         u_int8_t layer_num;

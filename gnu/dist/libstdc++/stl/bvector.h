@@ -32,7 +32,7 @@
 #else
 #include <algobase.h>
 #include <alloc.h>
-#endif 
+#endif
 
 #include <stl_bvector.h>
 

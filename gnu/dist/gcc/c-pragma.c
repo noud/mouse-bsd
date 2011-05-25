@@ -89,8 +89,8 @@ handle_pragma_token (string, token)
 	      type = state = ps_done;
 
 	      /* Issue a warning message if we have been asked to do so.
-		 Ignoring unknown pragmas in system header file unless          
-		 an explcit -Wunknown-pragmas has been given. */                
+		 Ignoring unknown pragmas in system header file unless
+		 an explcit -Wunknown-pragmas has been given. */
 	      if (warn_unknown_pragmas > 1
 		  || (warn_unknown_pragmas && ! in_system_header))
 		warning ("ignoring pragma: %s", string);

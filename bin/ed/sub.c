@@ -1,6 +1,6 @@
 /*	$NetBSD: sub.c,v 1.5 1997/07/20 06:35:41 thorpej Exp $	*/
 
-/* sub.c: This file contains the substitution routines for the ed 
+/* sub.c: This file contains the substitution routines for the ed
    line editor */
 /*-
  * Copyright (c) 1993 Andrew Moore, Talke Studio.
@@ -193,7 +193,7 @@ substitute_matching_text(pat, lp, gflag, kth)
 
 	if ((txt = get_sbuf_line(lp)) == NULL)
 		return ERR;
-	if (isbinary) 
+	if (isbinary)
 		NUL_TO_NEWLINE(txt, lp->len);
 	eot = txt + lp->len;
 	if (!regexec(pat, txt, SE_MAX, rm, 0)) {

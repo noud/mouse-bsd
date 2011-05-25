@@ -758,7 +758,7 @@ get_literal()
     n = cinc;
     s = MALLOC(n);
     if (s == 0) no_space();
-    
+
     for (i = 0; i < n; ++i)
 	s[i] = cache[i];
 
@@ -1864,7 +1864,7 @@ print_grammar()
     FILE *f = verbose_file;
 
     spacing = 0;
-    
+
     if (!vflag) return;
 
     k = 1;

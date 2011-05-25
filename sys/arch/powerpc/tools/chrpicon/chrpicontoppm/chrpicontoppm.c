@@ -47,7 +47,7 @@
  * chrpicontoppm [chrpiconfile]
  *
  * This programs reads from either a single file given as an argument
- * or from stdin if no args are given. It expects a true color 
+ * or from stdin if no args are given. It expects a true color
  * PPM file as the input. The image should be 64x64, otherwise it
  * is cropped to that size.
  *
@@ -92,7 +92,7 @@ main(int argc, char *argv[])
 
     if (CHRPI_getheader(ifp, img))
 	pm_error("can't find <ICON...> header in boot icon file");
-    
+
     if (CHRPI_getbitmap(ifp, img))
 	pm_error("can't read <BITMAP...> section in boot icon file");
 
@@ -110,7 +110,7 @@ main(int argc, char *argv[])
         imgP = img->pixels[row];
 
         for (col = 0; col < img->width; col++) {
-            
+
             r = ((*imgP >> 5) & 7);
             g = ((*imgP >> 2) & 7);
             b = (*imgP & 3);
@@ -118,7 +118,7 @@ main(int argc, char *argv[])
             r = (r << 5) | (r << 2) | (r >> 1);
             g = (g << 5) | (g << 2) | (g >> 1);
             b = (b << 6) | (b << 4) | (b >> 4) | b;
-            
+
             PPM_ASSIGN(*pP, r, g, b);
 
             pP++;
@@ -159,10 +159,10 @@ CHRPI_getheader(FILE *fp, CHRPI_spec img)
             return 0;
         }
     }
-    
+
     return -1;
 }
-    
+
 
 int
 CHRPI_getbitmap(FILE *fp, CHRPI_spec img)
@@ -181,7 +181,7 @@ CHRPI_getbitmap(FILE *fp, CHRPI_spec img)
             break;
         }
     }
-        
+
     if (!foundtag)
         return -1;
 
@@ -203,7 +203,7 @@ CHRPI_getbitmap(FILE *fp, CHRPI_spec img)
         for (c = 0; c < img->width; c++) {
             hexstr[0] = *p++;
             hexstr[1] = *p++;
-            
+
             img->pixels[r][c] = (chrpi_pixel)(strtoul(hexstr, NULL, 16));
         }
     }

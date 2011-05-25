@@ -675,7 +675,7 @@ mci_load_persistent(mci)
 
 	if (IgnoreHostStatus || HostStatDir == NULL || mci->mci_host == NULL)
 		return TRUE;
-	
+
 	/* Already have the persistent information in memory */
 	if (SingleThreadDelivery && mci->mci_statfile != NULL)
 		return TRUE;
@@ -683,7 +683,7 @@ mci_load_persistent(mci)
 	if (tTd(56, 1))
 		printf("mci_load_persistent: Attempting to load persistent information for %s\n",
 		       mci->mci_host);
-		
+
 	if (mci_generate_persistent_path(mci->mci_host, fname, sizeof fname, FALSE) < 0)
 	{
 		/* Not much we can do if the file isn't there... */
@@ -990,7 +990,7 @@ mci_traverse_persistent(action, pathname)
 		char *scan;
 		char host[MAXHOSTNAMELEN];
 		char *hostptr = host;
-		
+
 		/*
 		**  Reconstruct the host name from the path to the
 		**  persistent information.
@@ -1161,7 +1161,7 @@ mci_purge_persistent(pathname, hostname)
 				printf("mci_purge_persistent: rmdir %s: %s\n",
 					pathname, errstring(errno));
 		}
-		
+
 	}
 
 	return 0;
@@ -1223,7 +1223,7 @@ mci_generate_persistent_path(host, path, pathlen, createflag)
 		return -1;
 	if (host[0] == '[')
 		strcpy(t_host, host + 1);
-	else	
+	else
 		strcpy(t_host, host);
 
 	/*

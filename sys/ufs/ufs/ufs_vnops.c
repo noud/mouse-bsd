@@ -417,7 +417,7 @@ ufs_setattr(v)
 			return (EROFS);
 		if (cred->cr_uid != ip->i_ffs_uid &&
 		    (error = suser(cred, &p->p_acflag)) &&
-		    ((vap->va_vaflags & VA_UTIMES_NULL) == 0 || 
+		    ((vap->va_vaflags & VA_UTIMES_NULL) == 0 ||
 		    (error = VOP_ACCESS(vp, VWRITE, cred, p))))
 			return (error);
 		if (vap->va_atime.tv_sec != VNOVAL)
@@ -927,7 +927,7 @@ abortit:
 	 * directory heirarchy above the target, as this would
 	 * orphan everything below the source directory. Also
 	 * the user must have write permission in the source so
-	 * as to be able to change "..". We must repeat the call 
+	 * as to be able to change "..". We must repeat the call
 	 * to namei, as the parent directory is unlocked by the
 	 * call to checkpath().
 	 */
@@ -955,7 +955,7 @@ abortit:
 	}
 	/*
 	 * 2) If target doesn't exist, link the target
-	 *    to the source and unlink the source. 
+	 *    to the source and unlink the source.
 	 *    Otherwise, rewrite the target directory
 	 *    entry to reference the source inode and
 	 *    expunge the original entry's existence.
@@ -978,7 +978,7 @@ abortit:
 			dp->i_flag |= IN_CHANGE;
 			if (DOINGSOFTDEP(tdvp))
 				softdep_change_linkcnt(dp);
-			if ((error = VOP_UPDATE(tdvp, NULL, NULL, 
+			if ((error = VOP_UPDATE(tdvp, NULL, NULL,
 			    !DOINGSOFTDEP(tdvp))) != 0) {
 				dp->i_ffs_effnlink--;
 				dp->i_ffs_nlink--;
@@ -1042,7 +1042,7 @@ abortit:
 			error = EISDIR;
 			goto bad;
 		}
-		if ((error = ufs_dirrewrite(dp, xp, ip->i_number, 
+		if ((error = ufs_dirrewrite(dp, xp, ip->i_number,
 		    IFTODT(ip->i_ffs_mode), doingdirectory && newparent ?
 		    newparent : doingdirectory)) != 0)
 			goto bad;
@@ -1461,7 +1461,7 @@ ufs_symlink(v)
 
 /*
  * Vnode op for reading directories.
- * 
+ *
  * The routine below assumes that the on-disk format of a directory
  * is the same as that defined by <sys/dirent.h>. If the on-disk
  * format changes, then it will be necessary to do a conversion
@@ -1579,7 +1579,7 @@ ufs_readdir(v)
 		for (off = offstart, dp = dpstart; off < uio->uio_offset; ) {
 			off += dp->d_reclen;
 			*(cookies++) = off;
-			dp = (struct dirent *)((caddr_t)dp + dp->d_reclen);	
+			dp = (struct dirent *)((caddr_t)dp + dp->d_reclen);
 		}
 	}
 	uio->uio_resid += lost;

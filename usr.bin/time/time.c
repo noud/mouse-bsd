@@ -128,7 +128,7 @@ main(argc, argv)
 		decpt = ".";
 
 	if (portableflag) {
-		fprintf (stderr, "real %9ld%s%02ld\n", 
+		fprintf (stderr, "real %9ld%s%02ld\n",
 			(long)after.tv_sec, decpt, (long)after.tv_usec/10000);
 		fprintf (stderr, "user %9ld%s%02ld\n",
 			(long)ru.ru_utime.tv_sec, decpt, (long)ru.ru_utime.tv_usec/10000);
@@ -136,7 +136,7 @@ main(argc, argv)
 			(long)ru.ru_stime.tv_sec, decpt, (long)ru.ru_stime.tv_usec/10000);
 	} else {
 
-		fprintf(stderr, "%9ld%s%02ld real ", 
+		fprintf(stderr, "%9ld%s%02ld real ",
 			(long)after.tv_sec, decpt, (long)after.tv_usec/10000);
 		fprintf(stderr, "%9ld%s%02ld user ",
 			(long)ru.ru_utime.tv_sec, decpt, (long)ru.ru_utime.tv_usec/10000);

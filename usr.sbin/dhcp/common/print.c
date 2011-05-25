@@ -78,26 +78,26 @@ void print_lease (lease)
 
 	debug ("      Lease %s",
 	       piaddr (lease -> ip_addr));
-	
+
 	t = gmtime (&lease -> starts);
 	strftime (tbuf, sizeof tbuf, "%Y/%m/%d %H:%M:%S", t);
 	debug ("        start %s", tbuf);
-	
+
 	t = gmtime (&lease -> ends);
 	strftime (tbuf, sizeof tbuf, "%Y/%m/%d %H:%M:%S", t);
 	debug ("        end %s", tbuf);
-	
+
 	t = gmtime (&lease -> timestamp);
 	strftime (tbuf, sizeof tbuf, "%Y/%m/%d %H:%M:%S", t);
 	debug ("        stamp %s", tbuf);
-	
+
 	debug ("        hardware addr = %s",
 	       print_hw_addr (lease -> hardware_addr.htype,
 			       lease -> hardware_addr.hlen,
 			       lease -> hardware_addr.haddr));
 	debug ("        host %s  ",
 	       lease -> host ? lease -> host -> name : "<none>");
-}	
+}
 
 void dump_packet (tp)
 	struct packet *tp;

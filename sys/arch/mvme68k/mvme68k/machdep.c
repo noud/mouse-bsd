@@ -124,7 +124,7 @@ extern	short exframesize[];
 extern struct emul emul_hpux;
 #endif
 
-/* prototypes for local functions */ 
+/* prototypes for local functions */
 void	identifycpu __P((void));
 void	initcpu __P((void));
 void	dumpsys __P((void));
@@ -374,7 +374,7 @@ cpu_startup()
 	identifycpu();
 	format_bytes(pbuf, sizeof(pbuf), ctob(physmem));
 	printf("total memory = %s\n", pbuf);
-	
+
 	for (vmememsize = 0, i = 1; i < mem_cluster_cnt; i++)
 		vmememsize += mem_clusters[i].size;
 	if (vmememsize != 0)
@@ -758,7 +758,7 @@ cpu_init_kcore_hdr()
 	int i;
 	extern char end[];
 
-	bzero(&cpu_kcore_hdr, sizeof(cpu_kcore_hdr)); 
+	bzero(&cpu_kcore_hdr, sizeof(cpu_kcore_hdr));
 
 	/*
 	 * Initialize the `dispatcher' portion of the header.
@@ -846,10 +846,10 @@ cpu_dump_mempagecnt()
  */
 int
 cpu_dump(dump, blknop)
-	int (*dump) __P((dev_t, daddr_t, caddr_t, size_t)); 
+	int (*dump) __P((dev_t, daddr_t, caddr_t, size_t));
 	daddr_t *blknop;
 {
-	int buf[dbtob(1) / sizeof(int)]; 
+	int buf[dbtob(1) / sizeof(int)];
 	cpu_kcore_hdr_t *chdr;
 	kcore_seg_t *kseg;
 	int error;
@@ -1141,7 +1141,7 @@ mvme68k_abort(cp)
 /*
  * cpu_exec_aout_makecmds():
  *	cpu-dependent a.out format hook for execve().
- * 
+ *
  * Determine of the given exec package refers to something which we
  * understand and, if so, set up the vmcmds for it.
  */

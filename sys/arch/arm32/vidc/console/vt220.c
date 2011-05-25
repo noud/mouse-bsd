@@ -188,7 +188,7 @@ do_scrolldown(vc)
 	if ( cdata->scrr_beg < 0 ) cdata->scrr_beg = 0;
 */
 	if ( cdata->scrr_end >= vc->ychars ) cdata->scrr_end=vc->ychars-1;
-	
+
 
 	if (vc==vconsole_current)
 		vc->SCROLLDOWN ( vc, cdata->scrr_beg, cdata->scrr_end );
@@ -197,7 +197,7 @@ do_scrolldown(vc)
 
 	if (((vc->flags)&(LOSSY)) == 0) {
 		int counter;
-		for (counter=((cdata->scrr_end+1)*(vc->xchars)) - 1; 
+		for (counter=((cdata->scrr_end+1)*(vc->xchars)) - 1;
 			counter >= (cdata->scrr_beg+1)*(vc->xchars) ; counter-- ) {
 			vc->charmap[counter] = vc->charmap[counter-vc->xchars];
 		}
@@ -225,11 +225,11 @@ do_scrollup(vc)
 	else
 		vc->ycur=cdata->scrr_end;
 
-	/* Do a cyclic buffer for this !!!!!!!!!!!!!! */	
+	/* Do a cyclic buffer for this !!!!!!!!!!!!!! */
 	if ( ((vc->flags)&(LOSSY)) == 0 ) {
 		/* bcopy was weird, do this for now */
 		int counter;
-		for ( counter=(cdata->scrr_beg+1)*vc->xchars; 
+		for ( counter=(cdata->scrr_beg+1)*vc->xchars;
 		    counter < ((cdata->scrr_end+1)*(vc->xchars)); counter++ ) {
 			vc->charmap[counter-vc->xchars] = vc->charmap[counter];
 		}
@@ -486,7 +486,7 @@ vt_sel(vc)
 		for (counter = x; counter < vc->xchars; counter++)
 			do_render_noscroll(' ', vc);
 		break;
-		
+
 	case 1:		/* Delete to the beginning of the line */
 		vc->xcur = 0;
 		for (counter = 0; counter < x; counter++)
@@ -908,7 +908,7 @@ vt_sgr(vc)
 {
 	struct vt220_info *cdata = (struct vt220_info *)vc->data;
 	int i=0;
-    
+
 	do {
 		vc->SGR ( vc, cdata->param[i] );
 		switch ( cdata->param[i++] ) {
@@ -949,7 +949,7 @@ vt_sgr(vc)
 			cdata->attribs&=~0x3F00;
 			cdata->attribs|=cdata->fgcol<<8 | cdata->bgcol<<11;
 			break;
-            	
+
 		default:
 			if ((cdata->param[i-1] > 29)
 			    && (cdata->param[i-1] < 38)) {
@@ -1218,7 +1218,7 @@ do_render(c, vc)
 		for ( ; vc->xcur < vc->xchars; )
 	            do_render_noscroll ( vc->charmap[vc->xcur+vc->ycur*vc->xchars], vc );
 		vc->xcur = ox; vc->ycur = oy;
-	
+
 	    }
 	}
  	else
@@ -1265,7 +1265,7 @@ TERMTYPE_PUTSTRING(string, length, vc)
 #endif
 
     while ( ((c=*(string++))!=0) && ((length--)>0) )
-    { 
+    {
 
     if ( cdata->state != STATE_INIT )
 	cdata->flags &= ~F_LASTCHAR;
@@ -1290,7 +1290,7 @@ TERMTYPE_PUTSTRING(string, length, vc)
 	}
 #endif
 	if (c <= 0x1f) {
-		if ( cdata->disable_function ) 
+		if ( cdata->disable_function )
 		{
 			if ( cdata->flags & F_LASTCHAR )
 			{
@@ -1359,7 +1359,7 @@ TERMTYPE_PUTSTRING(string, length, vc)
 					cdata->flags &= ~F_LASTCHAR;
 					vc->xcur=0;
 					break;
-		
+
 				case 0x10:	/* DLE */
 				case 0x11:	/* DC1/XON */
 				case 0x12:	/* DC2 */
@@ -1374,7 +1374,7 @@ TERMTYPE_PUTSTRING(string, length, vc)
 					cdata->state = STATE_INIT;
 					clr_params(cdata);
 					break;
-				
+
 				case 0x19:	/* EM */
 					break;
 
@@ -1393,7 +1393,7 @@ TERMTYPE_PUTSTRING(string, length, vc)
 				case 0x1e:	/* RS */
 				case 0x1f:	/* US */
 					break;
-			}	
+			}
 		}
 	}
       	else
@@ -1440,12 +1440,12 @@ TERMTYPE_PUTSTRING(string, length, vc)
 				case 'D':
 				    vt_ind ( vc );
 				    cdata->state = STATE_INIT;
-				    break;				
+				    break;
 
 				case 'E':
 				    vt_nel ( vc );
 				    cdata->state = STATE_INIT;
-				    break;				
+				    break;
 
 				case 'H':
 				    cdata->tab_stops[vc->xcur] = 1;
@@ -1455,19 +1455,19 @@ TERMTYPE_PUTSTRING(string, length, vc)
 				case 'M':
 				    vt_ri ( vc );
 				    cdata->state = STATE_INIT;
-				    break;				
+				    break;
 
 				case 'N':
 				    cdata->Gs = cdata->G2;
 				    cdata->ss = 1;
 				    cdata->state = STATE_INIT;
-				    break;				
+				    break;
 
 				case 'O':
 				    cdata->Gs = cdata->G3;
 				    cdata->ss = 1;
 				    cdata->state = STATE_INIT;
-				    break;				
+				    break;
 
 				case 'P':
 				    cdata->dcs_state = DCS_INIT;
@@ -1482,41 +1482,41 @@ TERMTYPE_PUTSTRING(string, length, vc)
 				case '~':
 				    cdata->GR = cdata->G1;
 				    cdata->state = STATE_INIT;
-				    break;				
+				    break;
 
 				case '[':
 				    clr_params ( cdata );
 				    cdata->state = STATE_CSI;
-				    break;				
+				    break;
 
 				case '\\':
 				    cdata->state = STATE_INIT;
-				    break;				
+				    break;
 
 				case 'c':
 				    vt_ris ( vc );
 				    cdata->state = STATE_CSI;
-				    break;				
+				    break;
 
 				case 'n':
 				    cdata->GL = cdata->G2;
 				    cdata->state = STATE_INIT;
-				    break;				
+				    break;
 
 				case 'o':
 				    cdata->GL = cdata->G3;
 				    cdata->state = STATE_INIT;
-				    break;				
+				    break;
 
 				case '}':
 				    cdata->GR = cdata->G2;
 				    cdata->state = STATE_INIT;
-				    break;				
+				    break;
 
 				case '|':
 				    cdata->GR = cdata->G3;
 				    cdata->state = STATE_INIT;
-				    break;				
+				    break;
 
 				default:
 				    do_render ( c, vc );
@@ -1627,18 +1627,18 @@ TERMTYPE_PUTSTRING(string, length, vc)
 				case '@':	/* insert char */
 				    vt_ic ( vc );
 				    cdata->state = STATE_INIT;
-				    break;	
+				    break;
 
 				/*
 				case '!':
 				    cdata->state = STATE_STR;
-				    break;	
+				    break;
 				*/
 
 				case 'A':	/* cursor up */
 			 	    vt_cuu ( vc );
 				    cdata->state = STATE_INIT;
-				    break;	
+				    break;
 
 				case 'B':	/* cursor down */
 				    vt_cud ( vc );
@@ -1659,7 +1659,7 @@ TERMTYPE_PUTSTRING(string, length, vc)
 				    vt_curadr ( vc );
 				    cdata->state = STATE_INIT;
 				    break;
-				
+
 				case 'J': 	/* erase screen */
 				    vt_clreos ( vc );
 				    cdata->state = STATE_INIT;
@@ -1753,7 +1753,7 @@ TERMTYPE_PUTSTRING(string, length, vc)
 				    do_render(c, vc);
 				    cdata->state = STATE_INIT;
 				    break;
-	   		     } 
+	   		     }
 			    break;
 
 			default:

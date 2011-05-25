@@ -42,7 +42,7 @@ extern "C" {
 }
 
 #if 0
-const 
+const
 #endif
 int minus_one = -1;
 
@@ -139,7 +139,7 @@ public:
   file_closer(int &fd) : fdp(&fd) { }
   ~file_closer() { close(*fdp); }
 };
- 
+
 // Tell the compiler that a variable is intentionally unused.
 inline void unused(void *) { }
 

@@ -76,7 +76,7 @@ mpu_isa_match(parent, match, aux)
 
 	memset(&sc, 0, sizeof sc);
 	sc.sc_mpu.iot = ia->ia_iot;
-	if (bus_space_map(sc.sc_mpu.iot, ia->ia_iobase, MPU401_NPORT, 0, 
+	if (bus_space_map(sc.sc_mpu.iot, ia->ia_iobase, MPU401_NPORT, 0,
 			  &sc.sc_mpu.ioh))
 		return (0);
 	r = mpu_find(&sc.sc_mpu);
@@ -98,8 +98,8 @@ mpu_isa_attach(parent, self, aux)
 	struct isa_attach_args *ia = aux;
 
 	printf("\n");
-	
-	if (bus_space_map(sc->sc_mpu.iot, ia->ia_iobase, MPU401_NPORT, 0, 
+
+	if (bus_space_map(sc->sc_mpu.iot, ia->ia_iobase, MPU401_NPORT, 0,
 			  &sc->sc_mpu.ioh)) {
 		printf("mpu_isa_attach: bus_space_map failed\n");
 		return;
@@ -107,7 +107,7 @@ mpu_isa_attach(parent, self, aux)
 
 	sc->sc_ih = isa_intr_establish(ia->ia_ic, ia->ia_irq, IST_EDGE, IPL_AUDIO,
 				       mpu_intr, sc);
-	
+
 	sc->sc_mpu.model = "Roland MPU-401 MIDI UART";
 	mpu_attach(&sc->sc_mpu);
 }

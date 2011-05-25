@@ -106,7 +106,7 @@ bootp(sock)
 #endif
 	if (!bot)
 		bot = getsecs();
-	
+
 	if (!(d = socktodesc(sock))) {
 		printf("bootp: bad socket. %d\n", sock);
 		return;
@@ -283,7 +283,7 @@ bootprecv(d, pkt, len, tleft)
 		goto bad;
 
 	bp = (struct bootp *)pkt;
-	
+
 #ifdef BOOTP_DEBUG
 	if (debug)
 		printf("bootprecv: checked.  bp = 0x%lx, n = %d\n",

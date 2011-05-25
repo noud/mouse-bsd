@@ -91,7 +91,7 @@ com_pnpbios_attach(parent, self, aux)
 	if (com_is_console(iot, iobase, &sc->sc_ioh))
 		sc->sc_iot = iot;
 	else if (pnpbios_io_map(aa->pbt, aa->resc, 0,
-				&sc->sc_iot, &sc->sc_ioh)) { 	
+				&sc->sc_iot, &sc->sc_ioh)) {
 		printf(": can't map i/o space\n");
 		return;
 	}

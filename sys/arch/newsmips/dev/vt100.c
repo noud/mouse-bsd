@@ -451,7 +451,7 @@ _putc(sp, c, kanji)
 {
 	if (sp->s_term_mode & IRM) {
 		vt_flush(&(sp->s_csr));
-		move_chars(sp->s_csr.csr_x, sp->s_csr.csr_y, 
+		move_chars(sp->s_csr.csr_x, sp->s_csr.csr_y,
 			   rit_m - sp->s_csr.csr_x - ((kanji)? 1: 0),
 			   sp->s_csr.csr_x + ((kanji) ? 2: 1));
 		copy_char(sp, c, kanji);
@@ -651,7 +651,7 @@ Putchar(c, eob)
 		case  0x18:	/*  cancel  */
 			sp->s_current_stat &= ~ESCAPE;
 			break;
-		case  0x1b:	/*  escape  */ 
+		case  0x1b:	/*  escape  */
 			/*	NOT REACHED	*/
 			recover(sp);
 			sp->s_current_stat |= ESCAPE;
@@ -666,7 +666,7 @@ Putchar(c, eob)
 		switch (tmode) {
 #ifdef KM_SJIS
 		case KM_SJIS:
-			if ((c >= JVR1S && c <= JVR1E) || 
+			if ((c >= JVR1S && c <= JVR1E) ||
 				(c >= JVR2S && c <= JVR2E)) {
 				sp->s_current_stat |= SKANJI;
 				first_code = c;

@@ -155,7 +155,7 @@ pfil_hook_get(flag, psw)
 	int flag;
 	struct protosw *psw;
 {
-	struct	pfil_head	*ph = &psw->pr_pfh;	
+	struct	pfil_head	*ph = &psw->pr_pfh;
 
 	if (ph->ph_init != 0)
 		switch (flag) {

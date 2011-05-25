@@ -46,7 +46,7 @@
 
 static char     buf[BUFSIZE];
 
-ssize_t 
+ssize_t
 pread(fd, dest, size)
 	int	fd;
 	void	*dest;

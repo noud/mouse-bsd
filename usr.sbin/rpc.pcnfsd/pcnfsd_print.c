@@ -1101,7 +1101,7 @@ get_pr_status(pn, avail, printing, qlen, needs_operator, status)
 ** The fly in the ointment: all of this can change if these
 ** messages are localized..... :-(
 */
-pcrstat 
+pcrstat
 pr_cancel(pr, user, id)
 	char   *pr;
 	char   *user;
@@ -1149,7 +1149,7 @@ pr_cancel(pr, user, id)
 /*
  * BSD way: lprm
  */
-pcrstat 
+pcrstat
 pr_cancel(pr, user, id)
 	char   *pr;
 	char   *user;
@@ -1262,7 +1262,7 @@ add_printer_alias(printer, alias_for, command)
 	}
 }
 
-pr_list 
+pr_list
 list_virtual_printers()
 {
 	pr_list first = NULL;

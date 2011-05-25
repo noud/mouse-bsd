@@ -61,7 +61,7 @@ MOD_VFS("msdosfs", -1, &msdosfs_vfsops);
  */
 int
 msdosfs_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

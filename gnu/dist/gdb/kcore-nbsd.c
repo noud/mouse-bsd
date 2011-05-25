@@ -233,7 +233,7 @@ kcore_open (filename, from_tty)
 
   /* print out the panic string if there is one */
   if (kvread(ksym_lookup("panicstr"), &addr) == 0 &&
-      addr != 0 && 
+      addr != 0 &&
       target_read_memory(addr, buf, sizeof(buf)) == 0) {
 
     for (cp = buf; cp < &buf[sizeof(buf)] && *cp; cp++)

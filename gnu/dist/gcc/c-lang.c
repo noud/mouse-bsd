@@ -30,7 +30,7 @@ Boston, MA 02111-1307, USA.  */
 
 /* Each of the functions defined here
    is an alternative to a function in objc-actions.c.  */
-   
+
 int
 lang_decode_option (argc, argv)
      int argc;

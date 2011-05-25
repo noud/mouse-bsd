@@ -120,7 +120,7 @@ done
 echo	""
 echo	"Root partition is on ${drivename}a."
 echo	"checking the file system on ${drivename}a..."
-	
+
 fsck_ffs -f /dev/r${drivename}a
 if [ $? != 0 ]; then
 	echo	"FATAL ERROR: FILE SYSTEM UPGRADE FAILED."

@@ -62,7 +62,7 @@
  * performs a SESIOC_GETOBJMAP to get the map that contains the
  * object identifiers for all objects (see ses_object below).
  * This information is static.
- * 
+ *
  * The application may perform SESIOC_GETOBJSTAT operations to retrieve
  * status on an object (see the ses_objstat structure below), SESIOC_SETOBJSTAT
  * operations to set status for an object.

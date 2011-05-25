@@ -682,7 +682,7 @@ sccopen(dev, flag, mode, p)
 	  	extern struct tty *fbconstty;
 		tp->t_winsize = fbconstty->t_winsize;
 	}
-#endif /* HAVE_RCONS */		
+#endif /* HAVE_RCONS */
 	return (error);
 }
 

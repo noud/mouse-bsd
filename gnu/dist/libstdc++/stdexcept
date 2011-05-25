@@ -95,7 +95,7 @@ public:
 #ifdef __HONOR_STD
 } // namespace std
 #endif
- 
+
 } // extern "C++"
 
 #endif

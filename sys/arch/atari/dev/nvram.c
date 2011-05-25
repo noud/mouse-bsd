@@ -90,7 +90,7 @@ void	*auxp;
 {
 	struct nvr_softc	*nvr_soft;
 	int			nreg;
-	
+
 	/*
 	 * Check the validity of the NVram contents
 	 */
@@ -183,7 +183,7 @@ nvram_csum()
 {
 	u_char	csum;
 	int	nreg;
-	
+
 	for (csum = 0, nreg = MC_NVRAM_START; nreg < MC_NVRAM_CSUM; nreg++)
 		csum += mc146818_read(RTC, nreg);
 	return(csum);

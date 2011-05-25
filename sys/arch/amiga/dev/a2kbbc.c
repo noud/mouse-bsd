@@ -61,7 +61,7 @@ void a2kbbc_attach __P((struct device *, struct device *, void *));
 
 struct cfattach a2kbbc_ca = {
         sizeof(struct device), a2kbbc_match, a2kbbc_attach
-};  
+};
 
 void *a2kclockaddr;
 int a2kugettod __P((struct timeval *));
@@ -79,7 +79,7 @@ a2kbbc_match(pdp, cfp, auxp)
 	if (cfp->cf_unit != 0)
 		return (0);	/* only one of us please */
 
-	if (/* is_a1200() || */ is_a3000() || is_a4000() 
+	if (/* is_a1200() || */ is_a3000() || is_a4000()
 #ifdef DRACO
 	    || is_draco()
 #endif
@@ -163,8 +163,8 @@ a2kugettod(tvp)
 			dt.dt_hour += 12;
 	}
 
-	/* 
-	 * release the clock 
+	/*
+	 * release the clock
 	 */
 	rt->control1 &= ~A2CONTROL1_HOLD;
 
@@ -173,11 +173,11 @@ a2kugettod(tvp)
 		dt.dt_year += 100;
 
 	if ((dt.dt_hour > 23) ||
-	    (dt.dt_day  > 31) || 
+	    (dt.dt_day  > 31) ||
 	    (dt.dt_mon  > 12) ||
 	    /* (dt.dt_year < STARTOFTIME) || */ (dt.dt_year > 2036))
 		return (0);
-  
+
 	secs = clock_ymdhms_to_secs(&dt);
 	if (tvp) {
 		tvp->tv_sec = secs;
@@ -197,7 +197,7 @@ a2kusettod(tvp)
 
 	secs = tvp->tv_sec;
 	rt = a2kclockaddr;
-	/* 
+	/*
 	 * there seem to be problems with the bitfield addressing
 	 * currently used..
 	 */
@@ -240,8 +240,8 @@ a2kusettod(tvp)
 	rt->year2   = dt.dt_year % 10;
 	rt->weekday = dt.dt_wday;
 
-	/* 
-	 * release the clock 
+	/*
+	 * release the clock
 	 */
 	rt->control2 &= ~A2CONTROL1_HOLD;
 

@@ -144,7 +144,7 @@ main(argc, argv)
 	exit(0);
 	/*NOTREACHED*/
 }
-	
+
 
 static void
 parse_args(argc, argv)
@@ -506,7 +506,7 @@ edit_cmd() {
  done:
 	log_it(RealUser, Pid, "END EDIT", User);
 }
-	
+
 
 /* returns	0	on success
  *		-1	on syntax error

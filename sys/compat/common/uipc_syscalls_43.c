@@ -287,7 +287,7 @@ compat_43_sys_sendmsg(p, v, retval)
 		if ((u_int)msg.msg_iovlen > IOV_MAX)
 			return (EMSGSIZE);
 		MALLOC(iov, struct iovec *,
-		      sizeof(struct iovec) * (u_int)msg.msg_iovlen, M_IOV, 
+		      sizeof(struct iovec) * (u_int)msg.msg_iovlen, M_IOV,
 		      M_WAITOK);
 	} else
 		iov = aiov;

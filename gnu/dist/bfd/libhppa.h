@@ -187,7 +187,7 @@ enum hppa_reloc_expr_type_alt
 
    The high order 10 bits contain parameter relocation information,
    the low order 22 bits contain the constant offset.  */
-   
+
 #define HPPA_R_ARG_RELOC(a)	(((a) >> 22) & 0x3FF)
 #define HPPA_R_CONSTANT(a)	((((int)(a)) << 10) >> 10)
 #define HPPA_R_ADDEND(r,c)	(((r) << 22) + ((c) & 0x3FFFFF))
@@ -459,7 +459,7 @@ hppa_field_adjust (value, constant_value, r_field)
 #define BLE	0x39
 #define BE	0x38
 
-  
+
 /* Given a machine instruction, return its format.
 
    FIXME:  opcodes which do not map to a known format
@@ -471,7 +471,7 @@ bfd_hppa_insn2fmt (insn)
 {
   char fmt = -1;
   unsigned char op = get_opcode (insn);
-  
+
   switch (op)
     {
     case ADDI:
@@ -523,7 +523,7 @@ bfd_hppa_insn2fmt (insn)
 
 /* Insert VALUE into INSN using R_FORMAT to determine exactly what
    bits to change.  */
-   
+
 static INLINE unsigned long
 hppa_rebuild_insn (abfd, insn, value, r_format)
      bfd *abfd;
@@ -559,7 +559,7 @@ hppa_rebuild_insn (abfd, insn, value, r_format)
     case 14:
       {
 	unsigned int ext;
-	
+
 	const_part = insn & 0xffffc000;
 	low_sign_unext (value, 14, &ext);
 	return const_part | ext;

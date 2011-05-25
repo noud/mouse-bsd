@@ -47,7 +47,7 @@ typedef int vme_swap_t; /* hardware swap capabilities,
 
 /* generic placeholder for any ressources needed for a mapping,
  overloaded by bus interface driver */
-typedef void *vme_mapresc_t; 
+typedef void *vme_mapresc_t;
 
 /* describes interrupt mapping, overloaded by bus interface driver */
 typedef void *vme_intr_handle_t;

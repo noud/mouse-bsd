@@ -104,7 +104,7 @@ bounds_check_with_label(bp, lp, wlabel)
 
 	if (bp->b_blkno < 0 || bp->b_blkno + sz > maxsz) {
 		if (bp->b_blkno == maxsz) {
-			/* 
+			/*
 			 * trying to get one block beyond return EOF.
 			 */
 			bp->b_resid = bp->b_bcount;
@@ -117,7 +117,7 @@ bounds_check_with_label(bp, lp, wlabel)
 		}
 		sz = maxsz - bp->b_blkno;
 
-		/* 
+		/*
 		 * adjust count down
 		 */
 		if (bp->b_flags & B_RAW)

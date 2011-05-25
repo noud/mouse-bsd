@@ -144,7 +144,7 @@ static timer_t xntpd_timerid;   /* should be global if we ever want to kill
     {
       fprintf (stderr, "timer create FAILED\n");
       exit (0);
-    } 
+    }
   (void) signal_no_reset(SIGALRM, alarming);
   itimer.it_interval.tv_sec = itimer.it_value.tv_sec = (1<<EVENT_TIMEOUT);
   itimer.it_interval.tv_nsec = itimer.it_value.tv_nsec = 0;
@@ -154,7 +154,7 @@ static timer_t xntpd_timerid;   /* should be global if we ever want to kill
   itimer.it_interval.tv_sec = itimer.it_value.tv_sec = (1<<EVENT_TIMEOUT);
   itimer.it_interval.tv_usec = itimer.it_value.tv_usec = 0;
   setitimer(ITIMER_REAL, &itimer, (struct itimerval *)0);
-#endif 
+#endif
 
 # else /* VMS */
   vmsinc[0] = 10000000;		/* 1 sec */
@@ -299,7 +299,7 @@ timer()
 
   /* Added mutex to prevent race condition among threads under Windows NT */
 #ifdef SYS_WINNT
-  WaitForSingleObject(m_hListMutex,INFINITE); 
+  WaitForSingleObject(m_hListMutex,INFINITE);
 #endif /* SYS_WINNT */
 
 #ifdef TIMERQUEUE_DEBUG

@@ -293,7 +293,7 @@ pmsopen(dev, flag, mode, p)
 
 	/* enable interrupts */
 	sc->sc_intenable(sc, 1);
-	
+
 	/* install watchdog timeout */
 	timeout(pmswatchdog, (void *) sc, 30 * hz);
 
@@ -317,7 +317,7 @@ pmsclose(dev, flag, mode, p)
 
 	/* disable interrupts */
 	sc->sc_intenable(sc, 0);
- 
+
  	/* clean up*/
 	sc->sc_proc = NULL;
 	sc->sc_state &= ~PMS_OPEN;

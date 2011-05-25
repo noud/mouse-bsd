@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Guess values for system-dependent variables and create Makefiles.
-# Generated automatically using autoconf version 2.12.1 
+# Generated automatically using autoconf version 2.12.1
 # Copyright (C) 1992, 93, 94, 95, 96 Free Software Foundation, Inc.
 #
 # This configure script is free software; the Free Software Foundation
@@ -959,7 +959,7 @@ fi
 
 echo "$ac_t""$g77_cv_header_posix" 1>&6
 
-# We can rely on the GNU library being posix-ish.  I guess checking the 
+# We can rely on the GNU library being posix-ish.  I guess checking the
 # header isn't actually like checking the functions, though...
 echo $ac_n "checking for GNU library""... $ac_c" 1>&6
 echo "configure:966: checking for GNU library" >&5

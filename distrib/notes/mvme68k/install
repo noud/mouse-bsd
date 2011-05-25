@@ -346,7 +346,7 @@ entitled "Getting the NetBSD System onto Useful Media" above.
 To get started on the MVME147, you need to download "sboot" into RAM
 (you will find
 .Ic sboot
-in the 
+in the
 .Pa install
 directory of the mvme68k distribution).
 You can either do that through the console line or through a 2nd serial
@@ -379,7 +379,7 @@ Now, if you want to do it through serial line 1, then connect serial
 line one to a machine. At the
 .Li 147-Bug\*> No prompt type Ic \&tm 1
 You should then login to the machine it is connected to.
-Then hit "^A" to escape to Bug. do 
+Then hit "^A" to escape to Bug. do
 .Ic lo 1;x=cat sboot Em ...
 then when that is done you can reconnect
 .Ic tm 1 No and logout.

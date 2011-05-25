@@ -68,11 +68,11 @@
 /* TS102 Card Interrupt Register defintions.
  *
  * There is one 16-bit interrupt register for each card.  Each register
- * contains interrupt status (read) and clear (write) bits and an 
+ * contains interrupt status (read) and clear (write) bits and an
  * interrupt mask for each of the four interrupt sources.
  *
  * The request bit is the logical AND of the status and the mask bit,
- * and indicated and an interrupt is being requested.  The mask bits 
+ * and indicated and an interrupt is being requested.  The mask bits
  * allow masking of individual interrupts.  An interrupt is enabled when
  * the mask is set to 1 and is clear by write a 1 to the associated
  * request bit.
@@ -158,7 +158,7 @@
 
 /* TS102 Microcontroller Status Register.
  *	read 1 if asserted
- *	write 1 to clear 
+ *	write 1 to clear
  */
 #define	TS102_UCTRL_STS_TXE_STA		0x01	/* transmit FIFO empty */
 #define	TS102_UCTRL_STS_TXNF_STA	0x02	/* transmit FIFO not full */
@@ -239,7 +239,7 @@ enum ts102_opcode {			/* Argument	Returned */
 #define	TS102_EEPROM_STATUS_CONSUMER_AREA_CHECKSUM_FAIL		0x02
 #define	TS102_EEPROM_STATUS_USER_AREA_CHECKSUM_FAIL		0x04
 #define	TS102_EEPROM_STATUS_VPD_AREA_CHECKSUM_FAIL		0x08
- 
+
     /* Read/Write/Modify Commands
      */
     TS102_OP_CTL_LCD=0x20,		/* mask		ack + 2 bytes */

@@ -107,7 +107,7 @@ static int timeout = 30;
    we round it up based on REGISTER_BYTES).  */
 #define PBUFSIZ 400
 
-/* 
+/*
  * Descriptor for I/O to remote machine.  Initialize it to NULL so that
  * array_open knows that we don't have a file open when the program starts.
  */
@@ -210,7 +210,7 @@ write_monitor(data, len)
 {
   if (SERIAL_WRITE(array_desc, data, len))
     fprintf(stderr, "SERIAL_WRITE failed: %s\n", safe_strerror(errno));
- 
+
   *(data + len+1) = '\0';
   debuglogs (1, "write_monitor(), Sending: \"%s\".", data);
 
@@ -218,7 +218,7 @@ write_monitor(data, len)
 
 /*
  * debuglogs -- deal with debugging info to multiple sources. This takes
- *	two real args, the first one is the level to be compared against 
+ *	two real args, the first one is the level to be compared against
  *	the sr_get_debug() value, the second arg is a printf buffer and args
  *	to be formatted and printed. A CR is added after each string is printed.
  */
@@ -250,9 +250,9 @@ debuglogs(va_alist)
     error ("Bad argument passed to debuglogs(), needs debug level");
     return;
   }
-      
+
   vsprintf(buf, pattern, args);			/* format the string */
-  
+
   /* convert some characters so it'll look right in the log */
   p = newbuf;
   for (i = 0 ; buf[i] != '\0'; i++) {
@@ -343,7 +343,7 @@ readchar(timeout)
   perror_with_name("readchar");
 }
 
-/* 
+/*
  * expect --  scan input from the remote system, until STRING is found.
  *	If DISCARD is non-zero, then discard non-matching input, else print
  *	it out. Let the user break out immediately.
@@ -424,7 +424,7 @@ junk(ch)
   }
 }
 
-/* 
+/*
  *  get_hex_digit -- Get a hex digit from the remote system & return its value.
  *		If ignore is nonzero, ignore spaces, newline & tabs.
  */
@@ -466,7 +466,7 @@ get_hex_digit(ignore)
   }
 }
 
-/* get_hex_byte -- Get a byte from monitor and put it in *BYT. 
+/* get_hex_byte -- Get a byte from monitor and put it in *BYT.
  *	Accept any number leading spaces.
  */
 static void
@@ -477,15 +477,15 @@ get_hex_byte (byt)
 
   val = get_hex_digit (1) << 4;
   debuglogs (4, "get_hex_byte() -- Read first nibble 0x%x", val);
- 
+
   val |= get_hex_digit (0);
   debuglogs (4, "get_hex_byte() -- Read second nibble 0x%x", val);
   *byt = val;
-  
+
   debuglogs (4, "get_hex_byte() -- Read a 0x%x", val);
 }
 
-/* 
+/*
  * get_hex_word --  Get N 32-bit words from remote, each preceded by a space,
  *	and put them in registers starting at REGNO.
  */
@@ -593,7 +593,7 @@ array_open(args, name, from_tty)
       perror_with_name (name);
     }
   }
-  
+
   SERIAL_RAW(array_desc);
 
 #if defined (LOG_FILE)
@@ -652,7 +652,7 @@ array_close (quitting)
 #endif
 }
 
-/* 
+/*
  * array_detach -- terminate the open connection to the remote
  *	debugger. Use this when you want to detach and do something
  *	else with your gdb.
@@ -679,14 +679,14 @@ array_attach (args, from_tty)
 {
   if (from_tty)
     printf ("Starting remote %s debugging\n", target_shortname);
- 
+
   debuglogs (1, "array_attach (args=%s)", args);
-  
+
   printf_monitor ("go %x\n");
   /* swallow the echo.  */
   expect ("go %x\n", 1);
 }
-  
+
 /*
  * array_resume -- Tell the remote machine to resume.
  */
@@ -722,12 +722,12 @@ array_wait (pid, status)
   serial_ttystate ttystate;
 
   debuglogs(1, "array_wait (), printing extraneous text.");
-  
+
   status->kind = TARGET_WAITKIND_EXITED;
   status->value.integer = 0;
 
   timeout = 0;		/* Don't time out -- user program is running. */
- 
+
 #if !defined(__GO32__) && !defined(__MSDOS__) && !defined(_WIN32)
   tty_desc = SERIAL_FDOPEN (0);
   ttystate = SERIAL_GET_TTY_STATE (tty_desc);
@@ -797,7 +797,7 @@ array_fetch_registers (ignored)
   if (array_send_packet (packet) == 0)
     error ("Couldn't transmit packet\n");
   if (array_get_packet (packet) == 0)
-    error ("Couldn't receive packet\n");  
+    error ("Couldn't receive packet\n");
   /* FIXME: read bytes from packet */
   debuglogs (4, "array_fetch_registers: Got a \"%s\" back\n", packet);
   for (regno = 0; regno <= PC_REGNUM+4; regno++) {
@@ -810,7 +810,7 @@ array_fetch_registers (ignored)
   }
 }
 
-/* 
+/*
  * This is unused by targets like this one that use a
  * protocol based on GDB's remote protocol.
  */
@@ -833,7 +833,7 @@ array_store_registers (ignored)
   char packet[PBUFSIZ];
   char buf[PBUFSIZ];
   char num[9];
-  
+
   debuglogs (1, "array_store_registers()");
 
   memset (packet, 0, PBUFSIZ);
@@ -854,12 +854,12 @@ array_store_registers (ignored)
   if (array_send_packet (packet) == 0)
     error ("Couldn't transmit packet\n");
   if (array_get_packet (packet) == 0)
-    error ("Couldn't receive packet\n");  
-  
+    error ("Couldn't receive packet\n");
+
   registers_changed ();
 }
 
-/* 
+/*
  * This is unused by targets like this one that use a
  * protocol based on GDB's remote protocol.
  */
@@ -905,7 +905,7 @@ array_write_inferior_memory (memaddr, myaddr, len)
   char buf[PBUFSIZ];
   char num[9];
   char *p;
-  
+
   debuglogs (1, "array_write_inferior_memory (memaddr=0x%x, myaddr=0x%x, len=%d)", memaddr, myaddr, len);
   memset (buf, '\0', PBUFSIZ);		/* this also sets the string terminator */
   p = buf;
@@ -925,12 +925,12 @@ array_write_inferior_memory (memaddr, myaddr, len)
     *p++ = tohex ((myaddr[j] >> 4) & 0xf);
     *p++ = tohex  (myaddr[j] & 0xf);
   }
-  
+
   make_gdb_packet (packet, buf);
   if (array_send_packet (packet) == 0)
     error ("Couldn't transmit packet\n");
   if (array_get_packet (packet) == 0)
-    error ("Couldn't receive packet\n");  
+    error ("Couldn't receive packet\n");
 
   return len;
 }
@@ -968,7 +968,7 @@ array_read_inferior_memory(memaddr, myaddr, len)
     errno = EIO;
     return 0;
   }
-  
+
   for (count = 0, startaddr = memaddr; count < len; startaddr += len_this_pass)
     {
       /* Try to align to 16 byte boundry (why?) */
@@ -993,7 +993,7 @@ array_read_inferior_memory(memaddr, myaddr, len)
 	}
       if (array_get_packet (packet) == 0)
 	{
-	  error ("Couldn't receive packet\n");  
+	  error ("Couldn't receive packet\n");
 	}
       if (*packet == 0)
 	{
@@ -1112,7 +1112,7 @@ array_stop ()
  expect_prompt(1);
 }
 
-/* 
+/*
  * array_command -- put a command string, in args, out to MONITOR.
  *	Output from MONITOR is placed on the users terminal until the
  *	expect_prompt is seen. FIXME
@@ -1129,7 +1129,7 @@ monitor_command (args, fromtty)
 
   if (!args)
     error("Missing command.");
-	
+
   printf_monitor ("%s\n", args);
   expect_prompt(0);
 }
@@ -1145,7 +1145,7 @@ monitor_command (args, fromtty)
  *       '$' or '#'.  If <data> starts with two characters followed by
  *       ':', then the existing stubs interpret this as a sequence number.
  *
- *       CSUM1 and CSUM2 are ascii hex representation of an 8-bit 
+ *       CSUM1 and CSUM2 are ascii hex representation of an 8-bit
  *       checksum of <data>, the most significant nibble is sent first.
  *       the hex digits 0-9,a-f are used.
  *
@@ -1176,7 +1176,7 @@ make_gdb_packet (buf, data)
 
   /* terminate the data with a '#' */
   *p++ = '#';
-  
+
   /* add the checksum as two ascii digits */
   *p++ = tohex ((csum >> 4) & 0xf);
   *p++ = tohex (csum & 0xf);
@@ -1220,7 +1220,7 @@ array_send_packet (packet)
       debuglogs (4, "array_send_packet(): Found a non-ascii digit \'%c\' in the packet.\n", packet[i]);
     }
   }
-#endif  
+#endif
 
   if (retries > 0)
     error ("Can't send packet, found %d non-ascii characters", retries);
@@ -1229,7 +1229,7 @@ array_send_packet (packet)
   retries = 0;
   while (retries++ <= 10) {
     printf_monitor ("%s", packet);
-    
+
     /* read until either a timeout occurs (-2) or '+' is read */
     while (retries <= 10) {
       c = readchar (-timeout);
@@ -1241,12 +1241,12 @@ array_send_packet (packet)
       case SERIAL_TIMEOUT:
 	debuglogs (3, "Timed out reading serial port\n");
 	printf_monitor("@");		/* resync with the monitor */
-       expect_prompt(1);		/* See if we get a expect_prompt */   
+       expect_prompt(1);		/* See if we get a expect_prompt */
 	break;            /* Retransmit buffer */
       case '-':
 	debuglogs (3, "Got NAK\n");
 	printf_monitor("@");		/* resync with the monitor */
-       expect_prompt(1);		/* See if we get a expect_prompt */   
+       expect_prompt(1);		/* See if we get a expect_prompt */
 	break;
       case '$':
 	/* it's probably an old response, or the echo of our command.
@@ -1304,7 +1304,7 @@ array_get_packet (packet)
       }
       debuglogs (3, "Waiting for a '$', got a %c\n", c);
     } while (c != '$');
-    
+
     retries = 0;
     while (retries <= 10) {
       c = readchar (timeout);
@@ -1316,7 +1316,7 @@ array_get_packet (packet)
       case '$':
 	debuglogs (3, "Saw new packet start in middle of old one\n");
 	return 0;             /* Start a new packet, count retries */
-      case '#':	
+      case '#':
 	*bp = '\0';
 	pktcsum = from_hex (readchar (timeout)) << 4;
 	pktcsum |= from_hex (readchar (timeout));
@@ -1336,7 +1336,7 @@ array_get_packet (packet)
 	c = readchar (timeout);
 	csum += c;
 	c = c - ' ' + 3;      /* Compute repeat count */
-	
+
 	if (c > 0 && c < 255 && bp + c - 1 < packet + PBUFSIZ - 1) {
 	  memset (bp, *(bp - 1), c);
 	  bp += c;
@@ -1345,7 +1345,7 @@ array_get_packet (packet)
 	*bp = '\0';
 	printf_filtered ("Repeat count %d too large for buffer.\n", c);
 	return 0;
-	
+
       default:
 	if ((!isxdigit(c)) && (!ispunct(c)))
 	  debuglogs (4, "Got a non-ascii digit \'%c\'.\\n", c);
@@ -1354,7 +1354,7 @@ array_get_packet (packet)
 	  csum += c;
 	  continue;
 	}
-	
+
 	*bp = '\0';
 	puts_filtered ("Remote packet too long.\n");
 	return 0;
@@ -1378,7 +1378,7 @@ ascii2hexword (mem)
   for (i = 0; i < 8; i++) {
     val <<= 4;
     if (mem[i] >= 'A' && mem[i] <= 'F')
-      val = val + mem[i] - 'A' + 10;      
+      val = val + mem[i] - 'A' + 10;
     if (mem[i] >= 'a' && mem[i] <= 'f')
       val = val + mem[i] - 'a' + 10;
     if (mem[i] >= '0' && mem[i] <= '9')
@@ -1401,9 +1401,9 @@ hexword2ascii (mem, num)
 {
   int i;
   unsigned char ch;
-  
+
   debuglogs (4, "hexword2ascii() converting %x ", num);
-  for (i = 7; i >= 0; i--) {    
+  for (i = 7; i >= 0; i--) {
     mem[i] = tohex ((num >> 4) & 0xf);
     mem[i] = tohex (num & 0xf);
     num = num >> 4;
@@ -1416,7 +1416,7 @@ hexword2ascii (mem, num)
 static int
 from_hex (a)
      int a;
-{  
+{
   if (a == 0)
     return 0;
 
@@ -1452,7 +1452,7 @@ _initialize_remote_monitors ()
 {
   /* generic monitor command */
   add_com ("monitor", class_obscure, monitor_command,
-	   "Send a command to the debug monitor."); 
+	   "Send a command to the debug monitor.");
 
 }
 

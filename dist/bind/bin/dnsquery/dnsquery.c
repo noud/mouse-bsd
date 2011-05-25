@@ -116,16 +116,16 @@ main(int argc, char *argv[]) {
 		case 'd' :	debug++;
 				break;
 
-		case 's' :	
+		case 's' :
 		case 'v' :	stream++;
 				break;
 
-		case 'n' :	
+		case 'n' :
 				/*
 				 *  If we set some nameservers here without
 				 *  using gethostbyname() first, then they will
 				 *  get overwritten when we do the first query.
-				 *  So, we must init the resolver before any 
+				 *  So, we must init the resolver before any
 				 *  of this.
 				 */
 				if (!(res.options & RES_INIT))
@@ -154,7 +154,7 @@ main(int argc, char *argv[]) {
 				nameservers++;
 				break;
 
-		default : 	fprintf(stderr, 
+		default : 	fprintf(stderr,
 				"\tUsage:  %s [-n ns] [-h host] [-t type] [-c class] [-r retry] [-p period] [-s] [-v] [-d] [-a]\n", argv[0]);
 				exit(-1);
 		}
@@ -170,11 +170,11 @@ main(int argc, char *argv[]) {
 			exit(-1);
 		}
 
-	/* 
+	/*
 	 * set these here so they aren't set for a possible call to
 	 * gethostbyname above
 	*/
-	if (debug) 
+	if (debug)
 		res.options |= RES_DEBUG;
 	if (stream)
 	 	res.options |= RES_USEVC;
@@ -197,13 +197,13 @@ main(int argc, char *argv[]) {
 	if (name[strlen(name) - 1] == '.') {
 		n = res_nquery(&res, name, class, type, answer, len);
 		if (n < 0) {
-			fprintf(stderr, "Query failed (h_errno = %d) : %s\n", 
+			fprintf(stderr, "Query failed (h_errno = %d) : %s\n",
 				h_errno, h_errlist[h_errno]);
 			exit(-1);
 		}
 	} else if ((n = res_nsearch(&res, name, class, type,
 				    answer, len)) < 0) {
-		fprintf(stderr, "Query failed (h_errno = %d) : %s\n", 
+		fprintf(stderr, "Query failed (h_errno = %d) : %s\n",
 			h_errno, h_errlist[h_errno]);
 		exit(-1);
 	}

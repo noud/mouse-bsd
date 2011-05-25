@@ -180,7 +180,7 @@ struct vnode;
 struct ucred;
 int	cpu_coredump __P((struct proc *, struct vnode *, struct ucred *,
 			  struct core *));
-int	cpu_coredump32 __P((struct proc *, struct vnode *, struct ucred *, 
+int	cpu_coredump32 __P((struct proc *, struct vnode *, struct ucred *,
 			       struct core32 *));
 
 /*

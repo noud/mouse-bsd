@@ -1013,10 +1013,10 @@ md_assemble (instruction_string)
 			       */
 			      p = frag_var (rs_machine_dependent, 5, 2,
 #ifndef OBJ_VMS
-			       (flag_want_pic && !at && (*(unsigned char *)opcode_low_byteP == 0xfa 
+			       (flag_want_pic && !at && (*(unsigned char *)opcode_low_byteP == 0xfa
 				       || *(unsigned char *)opcode_low_byteP == 0xfb))
 				 ? ENCODE_RELAX (STATE_PC_RELATIVE_CALL, STATE_UNDF) :
-			       ((flag_want_pic && !at && (*(unsigned char *)opcode_low_byteP == 0x16 
+			       ((flag_want_pic && !at && (*(unsigned char *)opcode_low_byteP == 0x16
 				       || *(unsigned char *)opcode_low_byteP == 0x17))
 				 ? ENCODE_RELAX (STATE_PC_RELATIVE_JMP, STATE_UNDF) :
 #endif
@@ -1560,7 +1560,7 @@ md_ri_to_chars (the_bytes, ri)
 
 #endif /* comment */
 
-void 
+void
 tc_aout_fix_to_chars (where, fixP, segment_address_in_file)
      char *where;
      fixS *fixP;
@@ -1595,7 +1595,7 @@ tc_aout_fix_to_chars (where, fixP, segment_address_in_file)
       && fixP->fx_addsy != PLT_symbol
       && flags_want_pic) ? 0x10 : 0);
 #endif
-	
+
   switch (fixP->fx_r_type) {
 	case NO_RELOC:
 		break;
@@ -1607,7 +1607,7 @@ tc_aout_fix_to_chars (where, fixP, segment_address_in_file)
 		break;
 	case RELOC_32:
 		if (flag_want_pic && S_IS_EXTERNAL(fixP->fx_addsy)) {
-			r_symbolnum = fixP->fx_addsy->sy_number;  
+			r_symbolnum = fixP->fx_addsy->sy_number;
 			r_flags |= 8;		/* set extern bit */
 		}
 		break;
@@ -2364,7 +2364,7 @@ vip_op_1 (bit, syms)
 }
 
 /* Can be called any time.  More arguments may appear in future.  */
-static void 
+static void
 vip_op_defaults (immediate, indirect, displen)
      const char *immediate;
      const char *indirect;
@@ -3338,7 +3338,7 @@ md_parse_option (c, arg)
 #endif
 
 #ifndef OBJ_VMS
-    case 'k':   
+    case 'k':
       flag_want_pic = 1;
       break;			/* -pic, Position Independent Code */
 #endif

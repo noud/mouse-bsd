@@ -126,7 +126,7 @@ loadfile(fname, marks, flags)
 #ifdef BOOT_AOUT
 		struct exec aout;
 #endif
-		
+
 	} hdr;
 	ssize_t nr;
 	int fd, rval;
@@ -456,7 +456,7 @@ aout_exec(fd, x, marks, flags)
 		sub = 0;
 	else
 		sub = sizeof(*x);
-	
+
 	minp = maxp = ALIGNENTRY(entry);
 
 	if (lseek(fd, sizeof(*x), SEEK_SET) == -1)  {

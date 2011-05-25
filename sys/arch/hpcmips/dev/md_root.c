@@ -36,7 +36,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* 
+/*
  * This is originally sys/arch/sun3/dev/md_root.c
  * This is custumized for HPC by takesi@is.titech.ac.jp
  */

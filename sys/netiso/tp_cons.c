@@ -359,7 +359,7 @@ tpcons_output_dg(m0, va_alist)
 	va_end(ap);
 
 	return tpcons_output(m0, datalen,
-			     ((struct pklcd *) chan)->lcd_upnext, 
+			     ((struct pklcd *) chan)->lcd_upnext,
 			     0);
 }
 #else

@@ -2,7 +2,7 @@
 /*
  * Copyright (c) 1991 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -65,8 +65,8 @@
  *	to '^x' except that the previous command interpreter name is
  *	remembered and after 'x' is executed, the previous command
  *	interpreter is reinvoked.  Users who plan to use this feature
- *	must save the name of the previous ci in global variable 
- *	'ciprev' after exit from the ci().  ie.  
+ *	must save the name of the previous ci in global variable
+ *	'ciprev' after exit from the ci().  ie.
  *		ci(.........);
  *		strcpy(ciprev,"ci-name");
  *	Added ci state CICMDNOINDENT to allow for no indentation of the
@@ -92,7 +92,7 @@
  *	names.  This way, if several directories are specified and there
  *	is are files with the same name in more than one directory, only
  *	the first of each file will be included in the help list.
- *	
+ *
  *	It would have been nice to do this after the qsort instead of
  *	before (in ci_help).  However, qsort does not ensure that
  *	"equivalent" entries are kept in the same relative
@@ -100,7 +100,7 @@
  *	file being used was the first such file found.
  *
  * 07-Jul-82  William Chiles (wpc) at Carnegie-Mellon University
- *	Modified so that "!" invokes shell commands from the type of 
+ *	Modified so that "!" invokes shell commands from the type of
  *      shell specified by the environment variable SHELL.  If SHELL
  *	is not defined the standard shell is used.
  *
@@ -214,7 +214,7 @@ char *cmdfpath;			/* search list for command files */
   FILE savestdout;		/* place to save normal std. output */
   FILE *outfile;		/* current output file */
   char *outname;		/* output file name */
-  
+
 
   /* force del() routine to be declared */
   if (0) del();
@@ -248,8 +248,8 @@ char *cmdfpath;			/* search list for command files */
   while (!ciexit) {
 
     if (*cinext) {		/* get line from ^ command */
-     	if (ciback) { 
-      	  sprintf(line,"%s;%s",cinext,ciprev);	
+     	if (ciback) {
+      	  sprintf(line,"%s;%s",cinext,ciprev);
     	  ciback = 0;
 	}
     	else {
@@ -277,12 +277,12 @@ char *cmdfpath;			/* search list for command files */
     	  }
     	  else {
     		ciexit = 1;
-    		if ((ciinput==stdin) || (ciinput==stderr) || 
+    		if ((ciinput==stdin) || (ciinput==stderr) ||
 		  (!(ciquiet&CICMDFECHO))) printf ("\n");
     	  }
     	}
     	else {
-    		if ((ciinput != stderr) && (ciinput != stdin) && 
+    		if ((ciinput != stderr) && (ciinput != stdin) &&
 		  (!(ciquiet&CICMDFECHO))) printf ("%s",line);
 
     		for (p=line; (*p) && (*p != '\n'); p++) ;
@@ -358,7 +358,7 @@ char *cmdfpath;			/* search list for command files */
     	    if (cmdfpath)  newfile = fopenp (cmdfpath,cmd,cfnam,"r");
     	    else	   newfile = fopen (cmd,"r");
 
-      	    if (newfile == 0) 
+      	    if (newfile == 0)
     	      printf ("ci: can't open command file %s\n",cmd);
     	    else {
     	      if (!(ciquiet&CICMDFECHO))  printf ("\n");
@@ -368,7 +368,7 @@ char *cmdfpath;			/* search list for command files */
     	    }
     	  }
     	  break;
-    	
+
     	case '^':		/* exit and do command */
 	case '@':
     	  if (cidepth > 1) {
@@ -412,7 +412,7 @@ char *cmdfpath;			/* search list for command files */
     	    printf ("\n");
     	    tnum = 0;
     	    for (i=0;name[i]; i++) {
-    	      if ((i==helpcmd || list[i].ci_etyp == ci_tcmd) && 
+    	      if ((i==helpcmd || list[i].ci_etyp == ci_tcmd) &&
 		stlmatch (name[i],cmd)) {
     	          tname[tnum++] = name[i];
     	      }
@@ -496,7 +496,7 @@ char *filspec;
   char dir[200];
 
   result = expand (filspec, _h_list + _h_found, MAXHELPS - _h_found);
-  if (result > 0) { 
+  if (result > 0) {
     for (i=0; i<result; ) {		/* elim duplicates */
       path (_h_list[i+_h_found],dir,_h_nlist[i+_h_found]);
       for (j=0;
@@ -511,7 +511,7 @@ char *filspec;
 
   _h_found += result;
   }
-  
+
   return (1);	/* keep searching */
 }
 
@@ -583,7 +583,7 @@ char *topic,*helppath;
   	    if (i < 0)  i = stabsearch (topic,nptr,0);
   	    if (i >= 0) {
   	      f = fopen (fnames[i],"r");
-  	      if (f == 0) 
+  	      if (f == 0)
   		printf ("Yikes!  Can't open help file %s\n",fnames[i]);
   	      else {
   	        printf ("\n");

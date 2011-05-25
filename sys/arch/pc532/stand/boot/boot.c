@@ -76,7 +76,7 @@ main()
 	int currname = 0;
 
 	printf("\n");
-	printf(">> %s, Revision %s\n", bootprog_name, bootprog_rev);  
+	printf(">> %s, Revision %s\n", bootprog_name, bootprog_rev);
 	printf(">> (%s, %s)\n", bootprog_maker, bootprog_date);
 
 	bdev   = B_TYPE(bootdev);

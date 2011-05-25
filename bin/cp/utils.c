@@ -86,7 +86,7 @@ copy_file(entp, dne)
 #ifdef VM_AND_BUFFER_CACHE_SYNCHRONIZED
 	char *p;
 #endif
-	
+
 	if ((from_fd = open(entp->fts_path, O_RDONLY, 0)) == -1) {
 		warn("%s", entp->fts_path);
 		return (1);
@@ -212,7 +212,7 @@ copy_file(entp, dne)
 		rval = 1;
 	}
 	/* set the mod/access times now after close of the fd */
-	if (pflag && set_utimes(to.p_path, fs)) { 
+	if (pflag && set_utimes(to.p_path, fs)) {
 	    rval = 1;
 	}
 	return (rval);

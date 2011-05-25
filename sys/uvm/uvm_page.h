@@ -1,8 +1,8 @@
 /*	$NetBSD: uvm_page.h,v 1.13 1999/06/21 17:25:12 thorpej Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1997 Charles D. Cranor and Washington University.
- * Copyright (c) 1991, 1993, The Regents of the University of California.  
+ * Copyright (c) 1991, 1993, The Regents of the University of California.
  *
  * All rights reserved.
  *
@@ -20,7 +20,7 @@
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
  *	This product includes software developed by Charles D. Cranor,
- *      Washington University, the University of California, Berkeley and 
+ *      Washington University, the University of California, Berkeley and
  *      its contributors.
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
@@ -44,17 +44,17 @@
  *
  * Copyright (c) 1987, 1990 Carnegie-Mellon University.
  * All rights reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -91,7 +91,7 @@
 
 #ifdef UVM_PAGE_INLINE
 #define PAGE_INLINE static __inline
-#else 
+#else
 #define PAGE_INLINE /* nothing */
 #endif /* UVM_PAGE_INLINE */
 
@@ -116,7 +116,7 @@ vaddr_t uvm_pageboot_alloc __P((vsize_t));
 PAGE_INLINE void uvm_pagecopy __P((struct vm_page *, struct vm_page *));
 PAGE_INLINE void uvm_pagedeactivate __P((struct vm_page *));
 void uvm_pagefree __P((struct vm_page *));
-PAGE_INLINE struct vm_page *uvm_pagelookup 
+PAGE_INLINE struct vm_page *uvm_pagelookup
 					__P((struct uvm_object *, vaddr_t));
 void uvm_pageremove __P((struct vm_page *));
 /* uvm_pagerename: not needed */

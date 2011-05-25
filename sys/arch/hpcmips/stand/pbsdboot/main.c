@@ -486,7 +486,7 @@ BOOL CALLBACK DlgProc2(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		 * If you modify this program and update pbsdboot.uu,
 		 * change version string which is coded in main.c
 		 * appropriately.
-		 * 
+		 *
 		 * The version string is in format:
 		 *
 		 *   Version A.B.C YYYY.MM.DD
@@ -583,7 +583,7 @@ UpdateFbDlg(HWND hWnd, struct fb_setting *fbs, int direction)
 		i = SendDlgItemMessage(hWnd, IDC_FB_TYPE, CB_FINDSTRINGEXACT,
 				       0, (LPARAM)fb_types[i].name);
 		SendDlgItemMessage(hWnd, IDC_FB_TYPE, CB_SETCURSEL, i, 0);
-		
+
 		wsprintf(tmpbuf, TEXT("%X"), fbs->addr);
 		SetDlgItemText(hWnd, IDC_FB_ADDR, tmpbuf);
 		wsprintf(tmpbuf, TEXT("%d"), fbs->width);
@@ -780,7 +780,7 @@ BOOL CheckCancel(int progress)
 	MSG msg;
 
 	if (0 <= progress) {
-		SendDlgItemMessage(hDlgLoad, IDC_PROGRESS, 
+		SendDlgItemMessage(hDlgLoad, IDC_PROGRESS,
 				   PBM_SETPOS, (WPARAM)progress, (LPARAM)NULL);
 	} else
 	if (pref.check_last_chance) {
@@ -889,11 +889,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 			}
 
 			if (GetDlgItemText(hWndMain, IDC_KERNEL, wkernel_name,
-					   sizeof(wkernel_name)) == 0) {      
+					   sizeof(wkernel_name)) == 0) {
 				MessageBox (NULL, TEXT("Kernel name required"),
 					    szAppName, MB_OK);
 				break;
-			}				
+			}
 			GetDlgItemText(hWndMain, IDC_OPTIONS,
 				       woptions, sizeof(woptions));
 			if (wcstombs(options, woptions, sizeof(options)) < 0 ||
@@ -901,7 +901,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 				     sizeof(kernel_name)) < 0) {
 				MessageBox (NULL, TEXT("invalid character"),
 					    szAppName, MB_OK);
-				break;				
+				break;
 			}
 
 			argc = 0;
@@ -911,14 +911,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 				while (*p == ' ' || *p == '\t') {
 					p++;
 				}
-				if (*p == '\0') 
+				if (*p == '\0')
 					break;
 				if (ARRAYSIZEOF(argv) <= argc) {
 					MessageBox (NULL,
 						    TEXT("too many options"),
 						    szAppName, MB_OK);
 					argc++;
-					break;				
+					break;
 				} else {
 					argv[argc++] = p;
 				}
@@ -1001,7 +1001,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 				if (pref.reverse_video) {
 					bi.fb_type = reverse_fb_type(bi.fb_type);
 				}
-				/* 
+				/*
 				 * Set system infomation
 				 */
 				platid.dw.dw0 = bi.platid_cpu;

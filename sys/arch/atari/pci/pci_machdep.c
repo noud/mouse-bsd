@@ -182,7 +182,7 @@ init_pci_bus()
 
 	tag   = 0;
 	id    = 0;
-	
+
 	maxndevs = pci_bus_maxdevs(pc, 0);
 
 	for (device = 0; device < maxndevs; device++) {
@@ -241,7 +241,7 @@ overlap_pci_areas(p, self, addr, size, what)
 
     if (p == NULL)
 	return 0;
-    
+
     q = p;
     while (q != NULL) {
 	if ((q != self) && (q->csr & what)) {
@@ -639,7 +639,7 @@ pci_intr_string(pc, ih)
 
 	sprintf(irqstr, "irq %d", ih);
 	return (irqstr);
-	
+
 }
 
 /*

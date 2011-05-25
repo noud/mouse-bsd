@@ -224,7 +224,7 @@ cmd:		USER SP username CRLF
 		}
 	|	NLST check_login SP STRING CRLF
 		= {
-			if ($2 && $4 != NULL) 
+			if ($2 && $4 != NULL)
 				send_file_list((char *) $4);
 			if ($4 != NULL)
 				free((char *) $4);
@@ -490,7 +490,7 @@ rcmd:		RNFR check_login SP pathname CRLF
 			}
 		}
 	;
-		
+
 username:	STRING
 	;
 
@@ -504,7 +504,7 @@ password:	/* empty */
 byte_size:	NUMBER
 	;
 
-host_port:	NUMBER COMMA NUMBER COMMA NUMBER COMMA NUMBER COMMA 
+host_port:	NUMBER COMMA NUMBER COMMA NUMBER COMMA NUMBER COMMA
 		NUMBER COMMA NUMBER
 		= {
 			register char *a, *p;

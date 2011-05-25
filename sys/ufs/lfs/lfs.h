@@ -92,7 +92,7 @@
 #ifndef LFS_ATIME_IFILE
 # define LFS_ITIMES(ip, acc, mod, cre) FFS_ITIMES((ip),(acc),(mod),(cre))
 #else
-# define LFS_ITIMES(ip, acc, mod, cre) {                                \ 
+# define LFS_ITIMES(ip, acc, mod, cre) {                                \
 	struct buf *ibp;						\
 	IFILE *ifp;							\
 									\
@@ -110,7 +110,7 @@
                         (ip)->i_modrev++;                               \
                 }                                                       \
                 if ((ip)->i_flag & IN_CHANGE) {                         \
-                        (ip)->i_ffs_ctime = (cre)->tv_sec;		\  
+                        (ip)->i_ffs_ctime = (cre)->tv_sec;		\
                         (ip)->i_ffs_ctimensec = (cre)->tv_nsec;         \
                 }                                                       \
                 (ip)->i_flag &= ~(IN_CHANGE | IN_UPDATE);   		\

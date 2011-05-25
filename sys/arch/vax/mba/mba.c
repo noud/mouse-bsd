@@ -13,7 +13,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -149,7 +149,7 @@ mbaattach(parent, self, aux)
 
 	for (i = 0; i < MAXMBADEV; i++) {
 		sc->sc_state = SC_AUTOCONF;
-		if ((mbar->mba_md[i].md_ds & MBADS_DPR) == 0) 
+		if ((mbar->mba_md[i].md_ds & MBADS_DPR) == 0)
 			continue;
 		/* We have a drive, ok. */
 		ma.unit = i;
@@ -215,7 +215,7 @@ mbaintr(mba)
 				sc->sc_last->md_back = md;
 				sc->sc_last = md;
 			}
-	
+
 			bp->b_resid = 0;
 			biodone(bp);
 			if (sc->sc_first)
@@ -260,7 +260,7 @@ mbaprint(aux, mbaname)
 
 /*
  * A device calls mbaqueue() when it wants to get on the adapter queue.
- * Called at splbio(). If the adapter is inactive, start it. 
+ * Called at splbio(). If the adapter is inactive, start it.
  */
 void
 mbaqueue(md)

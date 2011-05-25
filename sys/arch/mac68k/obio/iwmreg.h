@@ -131,7 +131,7 @@ typedef struct cylCacheSlot cylCacheSlot_t;
 /*
  * Parameter (a6) offsets from <mac68k/obio/iwm_fdvar.h>
  *
- * int iwmReadSector __P((sectorHdr_t *hdr, cylCacheSlot_t *r_slots, 
+ * int iwmReadSector __P((sectorHdr_t *hdr, cylCacheSlot_t *r_slots,
  *			  caddr_t buf))
  * int iwmWriteSector __P((sectorHdr_t *hdr, cylCacheSlot_t *w_slots))
  */
@@ -140,19 +140,19 @@ typedef struct cylCacheSlot cylCacheSlot_t;
 	.equ	o_wslots,	12
 	.equ	o_buf,		16
 
-	
+
 /*
  * I/O base addresses
  */
 	.global	_Via1Base		/* in machdep.c */
 	.global	_IOBase
 	.global	_IWMBase		/* in iwm_fd.c  */
-		
+
 /*
  * Offsets from IWM base address
  * Lines are set by any memory access to corresponding address (IM III-34/-44).
  * The SWIM has actual registers at these addresses, so writing to them
- * in IWM mode is a no-no. 
+ * in IWM mode is a no-no.
  */
 	.equ	ph0L,		0x0000	/* CA0 off (0) */
 	.equ	ph0H,		0x0200	/* CA0 on  (1) */
@@ -172,7 +172,7 @@ typedef struct cylCacheSlot cylCacheSlot_t;
 	.equ	q7H,		0x1E00	/* Q7 on */
 
 
-/* 
+/*
  * VIA Disk SEL line
  */
 	.equ	vBufA,		0x1E00	/* Offset from vBase to register A  */
@@ -182,9 +182,9 @@ typedef struct cylCacheSlot cylCacheSlot_t;
 
 
 /*
- * Disk registers	
+ * Disk registers
  *	bit 0 - CA2, bit 1 - SEL, bit 2 - CA0, bit 3 - CA1	   IM III name
- */	
+ */
 
 	/* Status */
 	.equ	stepDirection,	0x0000	/* Direction of next head step       */
@@ -221,7 +221,7 @@ typedef struct cylCacheSlot cylCacheSlot_t;
 	.equ	motorOnCmd,	0x0008	/* Switch drive motor on   (MOTORON) */
 	.equ	motorOffCmd,	0x0009	/* Switch drive motor off (MOTOROFF) */
 	.equ	ejectDiskCmd,	0x000D	/* Eject disk from drive     (EJECT) */
-	
+
 
 /*
  * Low level disk errors
@@ -261,7 +261,7 @@ typedef struct cylCacheSlot cylCacheSlot_t;
  */
 	.equ	iwmMode,	0x17	/* SWIM switch */
 	.equ	maxGCRSectors,	12	/* Max. sectors per track for GCR */
-	  
+
 
 #endif /* _LOCORE */
 

@@ -181,7 +181,7 @@ akbdattach(parent, self, aux)
 			adbinfo.siDataAreaAddr = (Ptr)0;
 		} else {
 			printf("extended keyboard\n");
-#ifdef notyet  
+#ifdef notyet
 			blinkleds(sc);
 #endif
 		}
@@ -262,7 +262,7 @@ akbdattach(parent, self, aux)
  * Handle putting the keyboard data received from the ADB into
  * an ADB event record.
  */
-void 
+void
 kbd_adbcomplete(buffer, data_area, adb_command)
 	caddr_t buffer;
 	caddr_t data_area;
@@ -303,7 +303,7 @@ kbd_adbcomplete(buffer, data_area, adb_command)
 }
 
 /*
- * Given a keyboard ADB event, record the keycodes and call the key 
+ * Given a keyboard ADB event, record the keycodes and call the key
  * repeat handler, optionally passing the event through the mouse
  * button emulation handler first.
  */
@@ -370,11 +370,11 @@ getleds(addr)
 
 /*
  * Set the keyboard LED's.
- * 
+ *
  * Automatically translates from ioctl/softc format to the
  * actual keyboard register format
  */
-static int 
+static int
 setleds(ksc, leds)
 	struct akbd_softc *ksc;
 	u_char	leds;
@@ -423,13 +423,13 @@ setleds(ksc, leds)
 	if ((buffer[2] & 0xf8) != leds)
 		return (EIO);
 	else
-		return (0); 
+		return (0);
 }
 
 /*
  * Toggle all of the LED's on and off, just for show.
  */
-static void 
+static void
 blinkleds(ksc)
 	struct akbd_softc *ksc;
 {
@@ -449,7 +449,7 @@ blinkleds(ksc)
 	i = 10;
 	do {
 		(void)setleds(ksc, (u_char)0x00);
-	} while (setleds(ksc, (u_char)0x00) && (i-- > 0)); 
+	} while (setleds(ksc, (u_char)0x00) && (i-- > 0));
 
 	return;
 }

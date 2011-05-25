@@ -2,7 +2,7 @@
 
 /*
  * Public domain, believed to be by Mike Price.
- * 
+ *
  * convert binary file to Srecord format
  * XXX srec generates improper checksums for 4-byte dumps
  */

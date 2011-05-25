@@ -1257,7 +1257,7 @@ awardtreasure()
 										 * l
 										 * a
 										 * r
-										 * 
+										 *
 										 * ri
 										 * n
 										 * g
@@ -1275,7 +1275,7 @@ awardtreasure()
 										/* b
 										 * a
 										 * d
-										 * 
+										 *
 										 * ri
 										 * n
 										 * g

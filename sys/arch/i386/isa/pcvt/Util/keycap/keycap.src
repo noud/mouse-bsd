@@ -15,7 +15,7 @@
 #    must display the following acknowledgement:
 #	This product includes software developed by Hellmuth Michaelis,
 #	Joerg Wunsch and Holger Veit.
-# 4. The names of the Authors may not be used to endorse or promote 
+# 4. The names of the Authors may not be used to endorse or promote
 #    products derived from this software without specific prior written
 #    permission.
 #
@@ -359,7 +359,7 @@ gb|greatbritain|British mapping for MF-2 keyboard:\
 
 # from codrv, untested
 # This entry has been corrected by Mike Trim (mtrim@crucible.demon.co.uk)
-# (hv's comment: For the keys # and ~ you might also check the following 
+# (hv's comment: For the keys # and ~ you might also check the following
 # line
 #	:K42=#:S42=~:\
 # Also I think I was wrong with the ALTGR key. If you need one, add this:
@@ -570,7 +570,7 @@ s2|sweden2|Swedish 8bit mapping ISO 8859-1:\
 #
 # tg: my idiosyncratic mappings (thomas@ghpc8.ihf.rwth-aachen.de)
 #
-#     the six function keys above the cursor keys are arranged 
+#     the six function keys above the cursor keys are arranged
 #     identical to a real VT220:
 #
 #     find	insert 	remove

@@ -82,7 +82,7 @@ struct bdevsw	bdevsw[] =
 int	nblkdev = sizeof(bdevsw) / sizeof(bdevsw[0]);
 
 /*
- * Swapdev is a fake block device implemented  in sw.c and only used 
+ * Swapdev is a fake block device implemented  in sw.c and only used
  * internally to get to swstrategy.  It cannot be provided to the
  * users, because the swstrategy routine munches the b_dev and b_blkno
  * entries before calling the appropriate driver.  This would horribly
@@ -155,7 +155,7 @@ cdev_decl(wsmouse);
 #if notyet
 /* USB */
 #include "usb.h"
-cdev_decl(usb); 
+cdev_decl(usb);
 #include "uhid.h"
 cdev_decl(uhid);
 #include "ugen.h"
@@ -215,8 +215,8 @@ struct cdevsw	cdevsw[] =
 	    wsmouse),			/* 32: mice */
 	cdev_rnd_init(NRND,rnd),	/* 33: random source pseudo-device */
 #if NBICONSDEV > 0
-	cdev_tty_init(1,biconsdev),	/* 34: bicons pseudo-dev */	
-#else 
+	cdev_tty_init(1,biconsdev),	/* 34: bicons pseudo-dev */
+#else
 	cdev_notdef(),
 #endif
 #if NTX39UART > 0

@@ -14,7 +14,7 @@ define(`confHFDIR', `/usr/ucblib')
 define(`confINSTALL', `${BUILDBIN}/install.sh')
 define(`confMANROOT', `/usr/local/man/man')
 PUSHDIVERT(3)
-netinet/ip_var.h: netinet /usr/include/netinet/ip_var.h 
+netinet/ip_var.h: netinet /usr/include/netinet/ip_var.h
 	sed '/ip_var_f.h/d' /usr/include/netinet/ip_var.h > netinet/ip_var.h
 
 netinet:

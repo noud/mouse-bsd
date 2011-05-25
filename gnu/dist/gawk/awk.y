@@ -2,22 +2,22 @@
  * awk.y --- yacc/bison parser
  */
 
-/* 
+/*
  * Copyright (C) 1986, 1988, 1989, 1991-1997 the Free Software Foundation, Inc.
- * 
+ *
  * This file is part of GAWK, the GNU implementation of the
  * AWK Programming Language.
- * 
+ *
  * GAWK is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * GAWK is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
@@ -98,12 +98,12 @@ extern NODE *end_block;
 %type <nodeval> function_prologue function_body
 %type <nodeval> rexp exp start program rule simp_exp
 %type <nodeval> non_post_simp_exp
-%type <nodeval> pattern 
+%type <nodeval> pattern
 %type <nodeval>	action variable param_list
 %type <nodeval>	rexpression_list opt_rexpression_list
 %type <nodeval>	expression_list opt_expression_list
-%type <nodeval>	statements statement if_statement opt_param_list 
-%type <nodeval> opt_exp opt_variable regexp 
+%type <nodeval>	statements statement if_statement opt_param_list
+%type <nodeval> opt_exp opt_variable regexp
 %type <nodeval> input_redir output_redir
 %type <nodetypeval> print
 %type <sval> func_name
@@ -156,7 +156,7 @@ start
 
 program
 	: rule
-		{ 
+		{
 			if ($1 != NULL)
 				$$ = $1;
 			else
@@ -272,9 +272,9 @@ lex_builtin
 	: LEX_BUILTIN
 	| LEX_LENGTH
 	;
-		
+
 function_prologue
-	: LEX_FUNCTION 
+	: LEX_FUNCTION
 		{
 			param_counter = 0;
 		}
@@ -523,7 +523,7 @@ print
 if_statement
 	: LEX_IF '(' exp r_paren opt_nls statement
 	  {
-		$$ = node($3, Node_K_if, 
+		$$ = node($3, Node_K_if,
 			node($6, Node_if_branches, (NODE *) NULL));
 	  }
 	| LEX_IF '(' exp r_paren opt_nls statement
@@ -642,7 +642,7 @@ expression_list
 	;
 
 /* Expressions, not including the comma operator.  */
-exp	: variable ASSIGNOP 
+exp	: variable ASSIGNOP
 		{ want_assign = FALSE; }
 	  exp
 		{
@@ -711,8 +711,8 @@ exp	: variable ASSIGNOP
 		{ $$ = node($1, Node_concat, $2); }
 	;
 
-rexp	
-	: variable ASSIGNOP 
+rexp
+	: variable ASSIGNOP
 		{ want_assign = FALSE; }
 	  rexp
 		{ $$ = node($1, $2, $4); }
@@ -727,7 +727,7 @@ rexp
 		  $$ = node($2, Node_K_getline, $3);
 		}
 	| regexp
-		{ $$ = $1; } 
+		{ $$ = $1; }
 	| '!' regexp %prec UNARY
 		{ $$ = node((NODE *) NULL, Node_nomatch, $2); }
 	| rexp MATCHOP rexp
@@ -1454,7 +1454,7 @@ retry:
 		/* fall through */
 	case ')':
 	case ']':
-	case '(':	
+	case '(':
 	case '[':
 	case ';':
 	case '{':
@@ -1963,7 +1963,7 @@ NODE *subn;
  * mkrangenode:
  * This allocates a Node_line_range node with defined condpair and
  * zeroes the trigger word to avoid the temptation of assuming that calling
- * 'node( foo, Node_line_range, 0)' will properly initialize 'triggered'. 
+ * 'node( foo, Node_line_range, 0)' will properly initialize 'triggered'.
  * Otherwise like node().
  */
 
@@ -2053,7 +2053,7 @@ NODE *func;
 /*
  * install:
  * Install a name in the symbol table, even if it is already there.
- * Caller must check against redefinition if that is desired. 
+ * Caller must check against redefinition if that is desired.
  */
 
 NODE *
@@ -2125,7 +2125,7 @@ NODE *list, *new;
  * func_install:
  * check if name is already installed;  if so, it had better have Null value,
  * in which case def is added as the value. Otherwise, install name with def
- * as value. 
+ * as value.
  */
 
 static void

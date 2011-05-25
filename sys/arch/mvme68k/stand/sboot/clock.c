@@ -47,7 +47,7 @@
  */
 
 /*
- * Clock driver.  
+ * Clock driver.
  */
 
 #include "sboot.h"

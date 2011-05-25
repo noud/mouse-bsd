@@ -737,7 +737,7 @@ control:
 	    $$ = $3;
 	  }
 	| USERBUTTON QUOTEDSTRING ',' numexpr ',' numexpr ',' numexpr ','
-	    numexpr ',' numexpr ',' 
+	    numexpr ',' numexpr ','
 	    { style = WS_CHILD | WS_VISIBLE; }
 	    styleexpr optcnumexpr
 	  {
@@ -1091,7 +1091,7 @@ rcdata_data:
 /* Stringtable resources.  */
 
 stringtable:
-	  STRINGTABLE suboptions BEG 
+	  STRINGTABLE suboptions BEG
 	    { sub_res_info = $2; }
 	    string_data END
 	;

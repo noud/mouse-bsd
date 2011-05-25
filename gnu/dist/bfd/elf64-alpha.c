@@ -704,7 +704,7 @@ static reloc_howto_type elf64_alpha_howto_table[] =
 	 false),		/* pcrel_offset */
 
   /* The high bits of a 32-bit displacement to the starting address of the
-     current section (the relocation target is ignored); the low bits are 
+     current section (the relocation target is ignored); the low bits are
      supplied in the subsequent R_ALPHA_IMMED_LO32 relocs.  */
   /* XXX: Not implemented.  */
   HOWTO (R_ALPHA_IMMED_SCN_HI32,
@@ -2412,9 +2412,9 @@ elf64_alpha_calc_dynrel_sizes (h, info)
     }
 
   /* If the symbol is dynamic, we'll need all the relocations in their
-     natural form.  If it has been forced local, we'll need the same 
+     natural form.  If it has been forced local, we'll need the same
      number of RELATIVE relocations.  */
-  if (alpha_elf_dynamic_symbol_p (&h->root, info) 
+  if (alpha_elf_dynamic_symbol_p (&h->root, info)
       || (info->shared && h->root.dynindx == -1))
     {
       struct alpha_elf_reloc_entry *relent;
@@ -3128,7 +3128,7 @@ elf64_alpha_finish_dynamic_symbol (output_bfd, info, h, sym)
 #ifdef __NetBSD__
 /* XXX. XXX. For NetBSD 1.3 compatibility - should be fixed better */
 	long hi, lo;
- 
+
 	/* decompose the reloc offset for the plt for ldah+lda */
 	hi = plt_index * sizeof(Elf64_External_Rela);
 	lo = ((hi & 0xffff) ^ 0x8000) - 0x8000;

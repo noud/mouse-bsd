@@ -72,7 +72,7 @@ ttoa(buf, len, tval)
 	else if (len > 0)
 		*buf = '\0';
 	return (buf);
-} 
+}
 
 int
 atot(p, store)

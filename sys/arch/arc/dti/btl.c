@@ -158,7 +158,7 @@ void bt_timeout __P((void *arg));
 void bt_free_buf __P((struct bt_softc *, struct bt_buf *));
 struct bt_buf * bt_get_buf __P((struct bt_softc *, int));
 
-/* XXX static buffer as a kludge.  DMA isn't cache coherent on the rpc44, so 
+/* XXX static buffer as a kludge.  DMA isn't cache coherent on the rpc44, so
  * we always use uncached buffers for DMA. */
 static char rpc44_buffer[ TYNE_S_BOUNCE ];
 
@@ -893,7 +893,7 @@ bt_done(sc, ccb)
 
 	if((datalen = xs->datalen) != 0) {
 		thiskv = (int)xs->data;
-		sg = ccb->scat_gath;       
+		sg = ccb->scat_gath;
 		seg = phystol(ccb->data_length) / sizeof(struct bt_scat_gath);
 
 		while (seg) {
@@ -963,7 +963,7 @@ bt_find(ia, sc)
 #ifndef notyet
 	/*
 	 * The BusLogic cards implement an Adaptec 1542 (aha)-compatible
-	 * interface. The native bha interface is not compatible with 
+	 * interface. The native bha interface is not compatible with
 	 * an aha. 1542. We need to ensure that we never match an
 	 * Adaptec 1542. We must also avoid sending Adaptec-compatible
 	 * commands to a real bha, lest it go into 1542 emulation mode.
@@ -1365,7 +1365,7 @@ bt_scsi_cmd(xs)
 	return COMPLETE;
 
 badbuf:
-	sg = ccb->scat_gath;       
+	sg = ccb->scat_gath;
 	while (seg) {
 		thisbounce = PHYSTOKV(phystol(sg->seg_addr));
 		bt_free_buf(sc, (struct bt_buf *)thisbounce);

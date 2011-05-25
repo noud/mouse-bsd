@@ -95,7 +95,7 @@ dh (ptr, size)
     {
       for (j = 0; j < span; j++)
 	{
-	  if (j + i < size) 
+	  if (j + i < size)
 	    printf ("%02x ", ptr[i + j]);
           else
             printf ("   ");
@@ -256,7 +256,7 @@ pbarray (y)
 
 #include "sysroff.c"
 
-/* 
+/*
  * FIXME: sysinfo, which generates sysroff.[ch] from sysroff.info, can't
  * hack the special case of the tr block, which has no contents.  So we
  * implement our own functions for reading in and printing out the tr

@@ -1,29 +1,29 @@
 /*	$NetBSD: db_machdep.c,v 1.17 1999/06/20 00:58:23 ragge Exp $	*/
 
-/* 
+/*
  * :set tabs=4
  *
  * Mach Operating System
  * Copyright (c) 1991,1990 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
+ *
  * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
  * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND FOR
  * ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
- * 
+ *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
  *  School of Computer Science
  *  Carnegie Mellon University
  *  Pittsburgh PA 15213-3890
- * 
+ *
  * any improvements or extensions that they make and grant Carnegie the
  * rights to redistribute these changes.
  *
@@ -255,7 +255,7 @@ db_dump_stack(VAX_CALLFRAME *fp, u_int stackbase) {
 		return;
 	}
 
-	while (((u_int)(fp->vax_fp) > stackbase) && 
+	while (((u_int)(fp->vax_fp) > stackbase) &&
 			((u_int)(fp->vax_fp) < (stackbase + USPACE))) {
 
 		diff = INT_MAX;
@@ -327,7 +327,7 @@ db_stack_trace_cmd(addr, have_addr, count, modif)
 	int		trace_proc;
 	pid_t	curpid;
 	char	*s;
- 
+
 	/* Check to see if we're tracing a process */
 	trace_proc = 0;
 	s = modif;
@@ -348,8 +348,8 @@ db_stack_trace_cmd(addr, have_addr, count, modif)
 		return;
 	}
 
-	/* 
-	 * If user typed an address its either a PID, or a Frame 
+	/*
+	 * If user typed an address its either a PID, or a Frame
 	 * if no address then either current proc or panic
 	 */
 	if (have_addr) {
@@ -409,28 +409,28 @@ db_stack_trace_cmd(addr, have_addr, count, modif)
 	db_printf("	ESP = 0x%x\n", (unsigned int)(uarea->u_pcb.ESP));
 	db_printf("	SSP = 0x%x\n", (unsigned int)(uarea->u_pcb.SSP));
 	db_printf("	USP = 0x%x\n", (unsigned int)(uarea->u_pcb.USP));
-	db_printf("	R[00] = 0x%08x    R[06] = 0x%08x\n", 
+	db_printf("	R[00] = 0x%08x    R[06] = 0x%08x\n",
 		(unsigned int)(uarea->u_pcb.R[0]), (unsigned int)(uarea->u_pcb.R[6]));
-	db_printf("	R[01] = 0x%08x    R[07] = 0x%08x\n", 
+	db_printf("	R[01] = 0x%08x    R[07] = 0x%08x\n",
 		(unsigned int)(uarea->u_pcb.R[1]), (unsigned int)(uarea->u_pcb.R[7]));
-	db_printf("	R[02] = 0x%08x    R[08] = 0x%08x\n", 
+	db_printf("	R[02] = 0x%08x    R[08] = 0x%08x\n",
 		(unsigned int)(uarea->u_pcb.R[2]), (unsigned int)(uarea->u_pcb.R[8]));
-	db_printf("	R[03] = 0x%08x    R[09] = 0x%08x\n", 
+	db_printf("	R[03] = 0x%08x    R[09] = 0x%08x\n",
 		(unsigned int)(uarea->u_pcb.R[3]), (unsigned int)(uarea->u_pcb.R[9]));
-	db_printf("	R[04] = 0x%08x    R[10] = 0x%08x\n", 
+	db_printf("	R[04] = 0x%08x    R[10] = 0x%08x\n",
 		(unsigned int)(uarea->u_pcb.R[4]), (unsigned int)(uarea->u_pcb.R[10]));
-	db_printf("	R[05] = 0x%08x    R[11] = 0x%08x\n", 
+	db_printf("	R[05] = 0x%08x    R[11] = 0x%08x\n",
 		(unsigned int)(uarea->u_pcb.R[5]), (unsigned int)(uarea->u_pcb.R[11]));
 	db_printf("	AP = 0x%x\n", (unsigned int)(uarea->u_pcb.AP));
 	db_printf("	FP = 0x%x\n", (unsigned int)(uarea->u_pcb.FP));
 	db_printf("	PC = 0x%x\n", (unsigned int)(uarea->u_pcb.PC));
 	db_printf("	PSL = 0x%x\n", (unsigned int)(uarea->u_pcb.PSL));
-	db_printf("	Trap frame pointer: 0x%x\n", 
+	db_printf("	Trap frame pointer: 0x%x\n",
 							(unsigned int)(uarea->u_pcb.framep));
 	db_dump_stack((VAX_CALLFRAME *)(uarea->u_pcb.FP), (u_int) uarea->u_pcb.KSP);
 	return;
 #if 0
-	while (((u_int)(cur_frame->vax_fp) > stackbase) && 
+	while (((u_int)(cur_frame->vax_fp) > stackbase) &&
 			((u_int)(cur_frame->vax_fp) < (stackbase + USPACE))) {
 		u_int nargs;
 		VAX_CALLFRAME *tmp_frame;
@@ -525,7 +525,7 @@ kdbrint(tkn)
 		ddbescape = 0;
 		return 2;
 	}
-	
+
 	ddbescape = 0;
 	return 0;
 }

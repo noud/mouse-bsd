@@ -116,7 +116,7 @@ OF_finddevice(name)
 		cell_t device;
 		cell_t phandle;
 	} args;
-	
+
 	args.name = ADR2CELL("finddevice");
 	args.nargs = 1;
 	args.nreturns = 1;
@@ -137,7 +137,7 @@ OF_instance_to_package(ihandle)
 		cell_t ihandle;
 		cell_t phandle;
 	} args;
-	
+
 	args.name = ADR2CELL("instance-to-package");
 	args.nargs = 1;
 	args.nreturns = 1;
@@ -164,7 +164,7 @@ OF_getprop(handle, prop, buf, buflen)
 		cell_t buflen;
 		cell_t size;
 	} args;
-	
+
 	args.name = ADR2CELL("getprop");
 	args.nargs = 4;
 	args.nreturns = 1;
@@ -195,7 +195,7 @@ OF_setprop(handle, prop, buf, len)
 		cell_t len;
 		cell_t size;
 	} args;
-	
+
 	args.name = ADR2CELL("setprop");
 	args.nargs = 4;
 	args.nreturns = 1;
@@ -220,7 +220,7 @@ OF_open(dname)
 		cell_t dname;
 		cell_t handle;
 	} args;
-	
+
 	args.name = ADR2CELL("open");
 	args.nargs = 1;
 	args.nreturns = 1;
@@ -241,7 +241,7 @@ OF_close(handle)
 		cell_t nreturns;
 		cell_t handle;
 	} args;
-	
+
 	args.name = ADR2CELL("close");
 	args.nargs = 1;
 	args.nreturns = 1;
@@ -318,7 +318,7 @@ OF_seek(handle, pos)
 		cell_t poslo;
 		cell_t status;
 	} args;
-	
+
 	args.name = ADR2CELL("seek");
 	args.nargs = 3;
 	args.nreturns = 1;
@@ -343,7 +343,7 @@ OF_release(virt, size)
 		cell_t virt;
 		cell_t size;
 	} args;
-	
+
 	args.name = ADR2CELL("release");
 	args.nargs = 2;
 	args.nreturns = 0;
@@ -361,7 +361,7 @@ OF_milliseconds()
 		cell_t nreturns;
 		cell_t ms;
 	} args;
-	
+
 	args.name = ADR2CELL("milliseconds");
 	args.nargs = 0;
 	args.nreturns = 1;
@@ -415,7 +415,7 @@ void
 setup()
 {
 	u_int chosen;
-	
+
 	if ((chosen = OF_finddevice("/chosen")) == -1)
 		_rtt();
 	if (OF_getprop(chosen, "stdin", &stdin, sizeof(stdin)) != sizeof(stdin)
@@ -429,7 +429,7 @@ setup()
  * The following need either the handle to memory or the handle to the MMU.
  */
 
-/* 
+/*
  * Grab some address space from the prom
  *
  * Only works while the prom is actively mapping us.
@@ -471,7 +471,7 @@ int len;
 	return args.retaddr; /* Kluge till we go 64-bit */
 }
 
-/* 
+/*
  * Request some address space from the prom
  *
  * Only works while the prom is actively mapping us.
@@ -513,7 +513,7 @@ int align;
 	return (vaddr_t)args.retaddr; /* Kluge till we go 64-bit */
 }
 
-/* 
+/*
  * Release some address space to the prom
  *
  * Only works while the prom is actively mapping us.
@@ -550,7 +550,7 @@ int len;
 }
 
 
-/* 
+/*
  * Unmap some address space
  *
  * Only works while the prom is actively mapping us.
@@ -586,7 +586,7 @@ int len;
 	return openfirmware(&args);
 }
 
-/* 
+/*
  * Have prom map in some memory
  *
  * Only works while the prom is actively mapping us.
@@ -638,7 +638,7 @@ int mode;
 }
 
 
-/* 
+/*
  * Request some RAM from the prom
  *
  * Only works while the prom is actively mapping us.
@@ -681,7 +681,7 @@ int align;
 	return paddr; /* Kluge till we go 64-bit */
 }
 
-/* 
+/*
  * Request some specific RAM from the prom
  *
  * Only works while the prom is actively mapping us.
@@ -729,7 +729,7 @@ int len;
 	return paddr;
 }
 
-/* 
+/*
  * Free some RAM to prom
  *
  * Only works while the prom is actively mapping us.

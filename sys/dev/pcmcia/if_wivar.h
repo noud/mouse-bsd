@@ -54,7 +54,7 @@ struct wi_softc	{
   	void *sc_sdhook;	/* saved shutdown hook for card */
 	void *sc_ih;
 	u_int8_t		sc_macaddr[6];
-	
+
 	struct ifmedia		ifmedia;
 	int			wi_tx_data_id;
 	int			wi_tx_mgmt_id;

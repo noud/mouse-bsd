@@ -5,28 +5,28 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 # M68000 Hi-Performance Microprocessor Division
-# M68060 Software Package Production Release 
-# 
+# M68060 Software Package Production Release
+#
 # M68060 Software Package Copyright (C) 1993, 1994, 1995, 1996 Motorola Inc.
 # All rights reserved.
-# 
+#
 # THE SOFTWARE is provided on an "AS IS" basis and without warranty.
 # To the maximum extent permitted by applicable law,
 # MOTOROLA DISCLAIMS ALL WARRANTIES WHETHER EXPRESS OR IMPLIED,
 # INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS
 # FOR A PARTICULAR PURPOSE and any warranty against infringement with
 # regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-# and any accompanying written materials. 
-# 
+# and any accompanying written materials.
+#
 # To the maximum extent permitted by applicable law,
 # IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
 # (INCLUDING WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS,
 # BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR OTHER PECUNIARY LOSS)
 # ARISING OF THE USE OR INABILITY TO USE THE SOFTWARE.
-# 
+#
 # Motorola assumes no responsibility for the maintenance and support
-# of the SOFTWARE.  
-# 
+# of the SOFTWARE.
+#
 # You are hereby granted a copyright license to use, modify, and distribute the
 # SOFTWARE so long as this entire notice is retained without alteration
 # in any modified and/or redistributed versions, and that such modified
@@ -438,7 +438,7 @@ uieh_cont:
 	bsr.l		_imem_read_long		# fetch opword & extword
 	mov.l		%d0,EXC_OPWORD(%a6)	# store extword on stack
 
-	
+
 #########################################################################
 # muls.l	0100 1100 00 |<ea>|	0*** 1100 0000 0*** 		#
 # mulu.l	0100 1100 00 |<ea>|	0*** 0100 0000 0***		#
@@ -524,7 +524,7 @@ uieh_div64_a7:
 	tst.b		EXC_ISR(%a6)		# no; is trace enabled?
 	bmi.w		uieh_trace_a7		# yes
 	bra.w		uieh_a7			# no
-	
+
 #
 # now, w/ group2, make movep's decode the fastest since it will
 # most likely be used the most.
@@ -606,7 +606,7 @@ uieh_finish:
 	bra.l		_isp_done
 
 #
-# The instruction that was just emulated was also being traced. The trace 
+# The instruction that was just emulated was also being traced. The trace
 # trap for this instruction will be lost unless we jump to the trace handler.
 # So, here we create a Trace Exception format number two exception stack
 # frame from the Unimplemented Integer Intruction Exception stack frame
@@ -688,9 +688,9 @@ uieh_chk_trap:
 #				*****************
 #				    (6 words)
 #
-# the divide instruction should take an integer divide by zero trap. so, here 
-# we must create a divbyzero stack frame from an unimplemented integer 
-# instruction exception frame and jump to the user supplied entry point 
+# the divide instruction should take an integer divide by zero trap. so, here
+# we must create a divbyzero stack frame from an unimplemented integer
+# instruction exception frame and jump to the user supplied entry point
 # "_real_divbyzero()".
 #
 uieh_divbyzero:
@@ -722,9 +722,9 @@ uieh_divbyzero:
 #	*****************	*****************
 #	    (4 words)		    (6 words)
 #
-# the divide instruction should take an integer divide by zero trap. so, here 
-# we must create a divbyzero stack frame from an unimplemented integer 
-# instruction exception frame and jump to the user supplied entry point 
+# the divide instruction should take an integer divide by zero trap. so, here
+# we must create a divbyzero stack frame from an unimplemented integer
+# instruction exception frame and jump to the user supplied entry point
 # "_real_divbyzero()".
 #
 # However, we must also deal with the fact that (a7)+ was used from supervisor
@@ -758,8 +758,8 @@ uieh_divbyzero_a7:
 #	*****************	*****************
 #	    (4 words)		    (6 words)
 #
-# 
-# The instruction that was just emulated was also being traced. The trace 
+#
+# The instruction that was just emulated was also being traced. The trace
 # trap for this instruction will be lost unless we jump to the trace handler.
 # So, here we create a Trace Exception format number two exception stack
 # frame from the Unimplemented Integer Intruction Exception stack frame
@@ -782,12 +782,12 @@ uieh_trace_a7:
 	bra.l		_real_trace
 
 #
-#				   UIEH FRAME	
+#				   UIEH FRAME
 #				*****************
 #				* 0x0 * 0x0f4	*
 #	   UIEH FRAME		*****************
 #	*****************	*     Next	*
-#	* 0x0 *  0x0f4	*	*      PC	*	
+#	* 0x0 *  0x0f4	*	*      PC	*
 #	*****************	*****************
 #	*    Current	*	*      SR	*
 #	*      PC	*	*****************
@@ -813,7 +813,7 @@ uieh_a7:
 # a0 = failing address
 # d0 = fslw
 isp_dacc:
-	mov.l		%a0,(%a6)		# save address	
+	mov.l		%a0,(%a6)		# save address
 	mov.l		%d0,-0x4(%a6)		# save partial fslw
 
 	lea		-64(%a6),%sp
@@ -850,7 +850,7 @@ isp_acc_exit:
 	beq.b		isp_acc_exit2		# user
 	bset		&0x2,0xd(%sp)		# set supervisor TM bit
 isp_acc_exit2:
-	bra.l		_real_access		
+	bra.l		_real_access
 
 # if the addressing mode was (an)+ or -(an), the address register must
 # be restored to it's pre-exception value before entering _real_access.
@@ -1051,7 +1051,7 @@ addr_ind_p_a0:
 	mov.l		EXC_A0(%a6),%a0		# load current value
 	add.l		%a0,%d0			# increment
 	mov.l		%d0,EXC_A0(%a6)		# save incremented value
-	
+
 	mov.l		%a0,EXC_SAVVAL(%a6)	# save in case of access error
 	mov.b		&0x0,EXC_SAVREG(%a6)	# save regno, too
 	mov.b		&restore_flg,SPCOND_FLG(%a6) # set flag
@@ -1349,7 +1349,7 @@ _addr_ind_ext:
 	mov.l		%a0,%d3			# put base in d3
 
 	bra.l		calc_mem_ind		# calc memory indirect
-	
+
 addr_ind_index_8bit:
 	mov.l		%d2,-(%sp)		# save old d2
 
@@ -1465,7 +1465,7 @@ pc_ind_ext:
 	mov.l		%a0,%d3			# put base in d3
 
 	bra.l		calc_mem_ind		# calc memory indirect
-	
+
 pc_ind_index_8bit:
  	mov.l		%d2,-(%sp)		# create a temp register
 
@@ -1529,7 +1529,7 @@ no_base_sup:
 	mov.l		EXC_EXTWPTR(%a6),%a0	# fetch instruction addr
 	addq.l		&0x4,EXC_EXTWPTR(%a6)	# incr instruction ptr
 	bsr.l		_imem_read_long
-	
+
 	tst.l		%d1			# ifetch error?
 	bne.l		isp_iacc		# yes
 
@@ -1543,7 +1543,7 @@ get_word_bd:
 	bne.l		isp_iacc		# yes
 
 	ext.l		%d0			# sign extend bd
-	
+
 chk_ind:
 	add.l		%d0,%d3			# base += bd
 no_bd:
@@ -1552,7 +1552,7 @@ no_bd:
 	cmpi.b	 	%d0,&0x2
 	blt.b		null_od
 	beq.b		word_od
-	
+
 	mov.l		EXC_EXTWPTR(%a6),%a0	# fetch instruction addr
 	addq.l		&0x4,EXC_EXTWPTR(%a6)	# incr instruction ptr
 	bsr.l		_imem_read_long
@@ -1803,11 +1803,11 @@ m2rltrans:
 	mov.b		EXC_OPWORD(%a6),%d1
 	lsr.b		&0x1,%d1
 	and.w		&0x7,%d1		# extract Dx from opcode word
-	
+
 	mov.l		%d2,(EXC_DREGS,%a6,%d1.w*4) # store dx
 
 	rts
-	
+
 # a0 = dst addr
 m2rwtrans:
 	mov.l		%a0,%a2			# store addr
@@ -1833,7 +1833,7 @@ m2rwtrans:
 	mov.b		EXC_OPWORD(%a6),%d1
 	lsr.b		&0x1,%d1
 	and.w		&0x7,%d1		# extract Dx from opcode word
-	
+
 	mov.w		%d2,(EXC_DREGS+2,%a6,%d1.w*4) # store dx
 
 	rts
@@ -2013,7 +2013,7 @@ chk2_cmp2_compare:
 # this code handles the only difference between chk2 and cmp2. chk2 would
 # have trapped out if the value was out of bounds. we check this by seeing
 # if the 'N' bit was set by the operation.
-chk2_finish:	
+chk2_finish:
 	btst		&0x0, %d4		# is 'N' bit set?
 	bne.b		chk2_trap		# yes;chk2 should trap
 	rts
@@ -2176,7 +2176,7 @@ divfinish:
 	beq.b		ddone			# divu has no processing!!!
 
 # it was a divs.l, so ccode setting is a little more complicated...
-	tst.b		NDIVIDEND(%a6)		# remainder has same sign 
+	tst.b		NDIVIDEND(%a6)		# remainder has same sign
 	beq.b		dcc			# as dividend.
 	neg.l		%d5			# sgn(rem) = sgn(dividend)
 dcc:
@@ -2204,7 +2204,7 @@ ddone:
 	mov.w		%cc, EXC_CC(%a6)
 
 	mov.w		NDRSAVE(%a6), %d0	# get Dr off stack
-	mov.w		NDQSAVE(%a6), %d1	# get Dq off stack	
+	mov.w		NDQSAVE(%a6), %d1	# get Dq off stack
 
 # if the register numbers are the same, only the quotient gets saved.
 # so, if we always save the quotient second, we save ourselves a cmp&beq
@@ -2252,7 +2252,7 @@ dclassical:
 # dividing the divisor word into each dividend word. In this case,
 # the first two quotient words must be zero, or overflow would occur.
 # Since we already checked this case above, we can treat the most significant
-# longword of the dividend as (0) remainder (see Knuth) and merely complete 
+# longword of the dividend as (0) remainder (see Knuth) and merely complete
 # the last two divisions to get a quotient longword and word remainder:
 
 	clr.l		%d1
@@ -2288,12 +2288,12 @@ ddknuth:
 	clr.b		DDSECOND(%a6)		# clear flag for quotient digits
 	clr.l		%d1			# %d1 will hold trial quotient
 ddnchk:
-	btst		&31, %d7		# must we normalize? first word of 
+	btst		&31, %d7		# must we normalize? first word of
 	bne.b		ddnormalized		# divisor (V1) must be >= 65536/2
 	addq.l		&0x1, DDNORMAL(%a6)	# count normalization shifts
 	lsl.l		&0x1, %d7		# shift the divisor
 	lsl.l		&0x1, %d6		# shift u4,u3 with overflow to u2
-	roxl.l		&0x1, %d5		# shift u1,u2 
+	roxl.l		&0x1, %d5		# shift u1,u2
 	bra.w		ddnchk
 ddnormalized:
 
@@ -2308,7 +2308,7 @@ ddnormalized:
 	mov.w		&0xffff, %d1		# use max trial quotient word
 	bra.b		ddadj0
 ddqcalc1:
-	mov.l		%d5, %d1		
+	mov.l		%d5, %d1
 
 	divu.w		%d3, %d1		# use quotient of mslw/msw
 
@@ -2376,7 +2376,7 @@ dd2nd:
 	tst.b		DDSECOND(%a6)		# both q words done?
 	bne.b		ddremain
 # first quotient digit now correct. store digit and shift the
-# (subtracted) dividend 
+# (subtracted) dividend
 	mov.w		%d1, DDQUOTIENT(%a6)
 	clr.l		%d1
 	swap		%d5
@@ -2431,7 +2431,7 @@ dmm2:
 	clr.w		%d2			# lsw of two mixed products used,
 	swap		%d5			# now use msws of longwords
 	swap		%d2
-	add.l		%d2, %d5				
+	add.l		%d2, %d5
 	add.l		%d3, %d5		# %d5 now ms 32 bits of final product
 	rts
 
@@ -2564,7 +2564,7 @@ mul64_multiplicand:
 # the result sign is the exclusive or of the operand sign bits.
 mul64_chk_md_sgn:
 	tst.l		%d4			# is multiplicand negative?
-	bge.b		mul64_alg		# no	
+	bge.b		mul64_alg		# no
 	neg.l		%d4			# make multiplicand positive
 	eori.b		&0x1, EXC_TEMP(%a6)	# calculate correct sign
 
@@ -2803,7 +2803,7 @@ _compandset2:
 	lsr.w		&0x6,%d1
 	andi.w		&0x7,%d1		# extract Du1
 	mov.l		(EXC_DREGS,%a6,%d1.w*4),%d4 # fetch Update1 Op
-	
+
 	andi.w		&0x7,%d0		# extract Dc1
 	mov.l		(EXC_DREGS,%a6,%d0.w*4),%d2 # fetch Compare1 Op
 	mov.w		%d0,DC1(%a6)
@@ -2837,7 +2837,7 @@ _compandset2:
 
 	bra.l		_real_cas2
 
-# if the 2nd lock attempt fails, then we must still unlock the 
+# if the 2nd lock attempt fails, then we must still unlock the
 # first page(s).
 cas_preterm:
 	mov.l		%d0,-(%sp)		# save FSLW
@@ -2879,7 +2879,7 @@ cas2_finish_w_done:
 	sf		%d1			# pass size
 	mov.l		ADDR1(%a6),%a0		# pass ADDR1
 	bsr.l		_real_unlock_page	# unlock page
-	
+
 	mov.l		%d2,%d0			# pass mode
 	sf		%d1			# pass size
 	mov.l		ADDR2(%a6),%a0		# pass ADDR2
@@ -2910,7 +2910,7 @@ cas2_finish_l_done:
 	st		%d1			# pass size
 	mov.l		ADDR1(%a6),%a0		# pass ADDR1
 	bsr.l		_real_unlock_page	# unlock page
-	
+
 	mov.l		%d2,%d0			# pass mode
 	st		%d1			# pass size
 	mov.l		ADDR2(%a6),%a0		# pass ADDR2
@@ -3013,18 +3013,18 @@ set ADDR,	EXC_TEMP+0x4
 	global		_compandset
 _compandset:
 	btst		&0x1,EXC_OPWORD(%a6)	# word or long operation?
-	bne.b		compandsetl		# long	
+	bne.b		compandsetl		# long
 
 compandsetw:
 	movq.l		&0x2,%d0		# size = 2 bytes
-	bsr.l		_calc_ea		# a0 = calculated <ea>	
+	bsr.l		_calc_ea		# a0 = calculated <ea>
 	mov.l		%a0,ADDR(%a6)		# save <ea> for possible restart
 	sf		%d7			# clear d7 for word size
 	bra.b		compandsetfetch
 
 compandsetl:
 	movq.l		&0x4,%d0		# size = 4 bytes
-	bsr.l		_calc_ea		# a0 = calculated <ea>	
+	bsr.l		_calc_ea		# a0 = calculated <ea>
 	mov.l		%a0,ADDR(%a6)		# save <ea> for possible restart
 	st		%d7			# set d7 for longword size
 
@@ -3050,7 +3050,7 @@ compandsetfetch:
 	tst.l		%d0			# did error occur?
 	bne.w		_cas_terminate2		# yes, clean up the mess
 	mov.l		%a2,%a0			# pass addr in a0
-	
+
 	bra.l		_real_cas
 
 ########
@@ -3102,7 +3102,7 @@ cas_finish_l_done:
 	rts
 
 ########
-	
+
 	global		_isp_cas_restart
 _isp_cas_restart:
 	mov.l		%d6,%sfc		# restore previous sfc
@@ -3114,7 +3114,7 @@ cr_cas:
 	mov.l		ADDR(%a6),%a0		# load <ea>
 	btst		&0x1,EXC_OPWORD(%a6)	# word or long operation?
 	sne		%d7			# set d7 accordingly
-	bra.w		compandsetfetch	
+	bra.w		compandsetfetch
 
 ########
 
@@ -3161,7 +3161,7 @@ _isp_cas_inrange:
 	cmp.l		%a0,%a1			# is PC in range?
 	blt.b		cin_no			# no
 	rts					# yes; return d0 = 0
-cin_no:	
+cin_no:
 	mov.l		&-0x1,%d0		# out of range; return d0 = -1
 	rts
 
@@ -3236,7 +3236,7 @@ cin_no:
 #########################################################################
 
 #################################################################
-# THIS IS THE STATE OF THE INTEGER REGISTER FILE UPON		# 
+# THIS IS THE STATE OF THE INTEGER REGISTER FILE UPON		#
 # ENTERING _isp_cas2().						#
 #								#
 # D0 = xxxxxxxx							#
@@ -3394,7 +3394,7 @@ CAS2L_FILLER:
 ####
 
 #################################################################
-# THIS MUST BE THE STATE OF THE INTEGER REGISTER FILE UPON	# 
+# THIS MUST BE THE STATE OF THE INTEGER REGISTER FILE UPON	#
 # ENTERING _isp_cas2().						#
 #								#
 # D0 = destination[31:0] operand 1				#
@@ -3541,7 +3541,7 @@ CAS2L3_UPDATE3:
 	nop
 	nop
 	bra.b		~+16
-	
+
 CAS2L3_NOUPDATE:
 	rol.l		&0x8,%d0		# get Dest1[31:24]
 	movs.b		%d0,(%a0)+		# Dest1[31:24] -> DEST1
@@ -3694,7 +3694,7 @@ CAS2W_FILLER:
 ####
 
 #################################################################
-# THIS MUST BE THE STATE OF THE INTEGER REGISTER FILE UPON	# 
+# THIS MUST BE THE STATE OF THE INTEGER REGISTER FILE UPON	#
 # ENTERING _isp_cas2().						#
 #								#
 # D0 = destination[15:0] operand 1				#
@@ -3799,7 +3799,7 @@ CAS2W2_FILLER:
 	bra.b		CAS2W2_START
 
 #       ######      ##      ######
-#       #	   #  #     #     
+#       #	   #  #     #
 #	#	  ######    ######
 #	#	  #    #         #
 #       ######    #    #    ######
@@ -4224,7 +4224,7 @@ casl2:
 	mov.l		&0xa0000000,%a2		# assert LOCKE* buscr value
 	mov.l		&0x00000000,%a3		# buscr unlock value
 
-# pre-load the instruction cache for the following algorithm. 
+# pre-load the instruction cache for the following algorithm.
 # this will minimize the number of cycles that LOCK* will be asserted.
 	bra.b		CASL2_ENTER		# start pre-loading icache
 

@@ -47,7 +47,7 @@
  *  |BT |FPP|DMA| 0 |VID|RES|FPA|DIA| 0 |CCH|IOC|LBK|DCH|  UNUSED   |
  *  +---+---+---+---+---+---+---+---+---+---+---+---+---+---.---.---+
  *
- * 
+ *
  * Bits in the Enable Register defined.
  */
 #define	ENA_DBGCACHE	0x0008	/* Debug mode for system cache              */

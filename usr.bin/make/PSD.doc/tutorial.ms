@@ -81,7 +81,7 @@
 .ne 0.5i
 .po -0.5i
 .br
-.mk 
+.mk
 .nr g3 \\n(.f
 .nr g4 \\n(.s
 .sp -1
@@ -106,7 +106,7 @@
 \D't 3u'\D's -1u'
 .br
 .po
-.rt 
+.rt
 .ft \\n(g3
 .ps \\n(g4
 ..
@@ -245,7 +245,7 @@ mutually exclusive. Their exact semantics are as follows:
 .Ix 0 def operator colon
 .Ix 0 def :
 If a colon is used, a target on the line is considered to be
-``out-of-date'' (and in need of creation) if 
+``out-of-date'' (and in need of creation) if
 .RS
 .IP \(bu 2
 any of the sources has been modified more recently than the target, or
@@ -349,29 +349,29 @@ following things:
 .IP \fB{}\fP
 These enclose a comma-separated list of options and cause the pattern
 to be expanded once for each element of the list. Each expansion
-contains a different element. For example, 
+contains a different element. For example,
 .CW src/{whiffle,beep,fish}.c
 expands to the three words
 .CW src/whiffle.c ,
 .CW src/beep.c ,
-and 
+and
 .CW src/fish.c .
 These braces may be nested and, unlike the other wildcard characters,
 the resulting words need not be actual files. All other wildcard
 characters are expanded using the files that exist when PMake is
 started.
 .IP \fB*\fP
-This matches zero or more characters of any sort. 
+This matches zero or more characters of any sort.
 .CW src/*.c
-will expand to the same three words as above as long as 
+will expand to the same three words as above as long as
 .CW src
-contains those three files (and no other files that end in 
+contains those three files (and no other files that end in
 .CW .c ).
 .IP \fB?\fP
 Matches any single character.
 .IP \fB[]\fP
 This is known as a character class and contains either a list of
-single characters, or a series of character ranges 
+single characters, or a series of character ranges
 .CW a-z , (
 for example means all characters between a and z), or both. It matches
 any single character contained in the list. E.g.
@@ -526,7 +526,7 @@ ci $(SRCS) < /dev/tty
 .DE
 This would force the program's input to come from the terminal. If you
 can't do this for some reason, your only other alternative is to use
-PMake in its fullest compatibility mode. See 
+PMake in its fullest compatibility mode. See
 .B Compatibility
 in chapter 4.
 .Ix 0 ref compatibility
@@ -580,7 +580,7 @@ VARIABLE != shell-command
 .DE
 .Ix 0 def variable assignment shell-output
 .Ix 0 def !=
-In this case, 
+In this case,
 .I shell-command
 has all its variables expanded (see below) and is passed off to a
 shell to execute. The output of the shell is then placed in the
@@ -619,7 +619,7 @@ Unlike Make, PMake will not expand a variable unless it knows
 the variable exists. E.g. if you have a
 .CW "${i}"
 in a shell command and you have not assigned a value to the variable
-.CW i 
+.CW i
 (the empty string is considered a value, by the way), where Make would have
 substituted the empty string, PMake will leave the
 .CW "${i}"
@@ -752,7 +752,7 @@ variable assignment as one of the arguments. For example,
 .DS
 pmake "CFLAGS = -I/sprite/src/lib/libc -O"
 .DE
-would make 
+would make
 .CW CFLAGS
 be a command-line variable with the given value. Any assignments to
 .CW CFLAGS
@@ -1384,7 +1384,7 @@ global variables.
 .Ix 0 ref MFLAGS
 .IP "\fB\-D\fP \fIvariable\fP"
 .Ix 0 def flags -D
-Allows you to define a variable to have 
+Allows you to define a variable to have
 .CW 1 '' ``
 as its value.  The variable is a global variable, not a command-line
 variable. This is useful mostly for people who are used to the C
@@ -1635,7 +1635,7 @@ above:
 .RS
 .IP 1)
 The
-.CW .IMPSRC 
+.CW .IMPSRC
 variable.
 .Ix 0 def variable local .IMPSRC
 .Ix 0 def .IMPSRC
@@ -1660,7 +1660,7 @@ variable to contain
 and PMake would take care of the rest.
 .RE
 .LP
-To give you a quick example, the makefile in 2.3.4 
+To give you a quick example, the makefile in 2.3.4
 .Rm 3 2.3.4
 could be changed to this:
 .DS
@@ -1887,7 +1887,7 @@ and searches for transformations accordingly.
 The suffix it chooses is the source for the
 .CW .NULL
 .Ix 0 ref .NULL
-target mentioned later. In the system makefile, 
+target mentioned later. In the system makefile,
 .CW .out
 is chosen as the ``null suffix''
 .Ix 0 def suffix null
@@ -2602,7 +2602,7 @@ unless the
 .CW g
 flag is given at the end, in which case all occurrences of the string
 are replaced. The substitution is performed on each word in the
-variable in turn. If 
+variable in turn. If
 .I search-string
 begins with a
 .CW ^ ,
@@ -2870,7 +2870,7 @@ specifies the file
 in the archive
 .CW libdix.a .
 You may also use wildcards to specify the members of the archive. Just
-remember that most the wildcard characters will only find 
+remember that most the wildcard characters will only find
 .I existing
 files.
 .LP
@@ -2932,7 +2932,7 @@ archived in
 a table of contents placed in the archive and the newly-archived
 object files to be removed.
 .LP
-All this is used in the 
+All this is used in the
 .CW makelib.mk
 system makefile to create a single library with ease. This makefile
 looks like this:
@@ -3321,7 +3321,7 @@ It tells PMake the following:
 The shell is located in the file
 .CW /bin/sh .
 It need not tell PMake that the name of the shell is
-.CW sh 
+.CW sh
 as PMake can figure that out for itself (it's the last component of
 the path).
 .Bp
@@ -3332,7 +3332,7 @@ The command to start echoing is
 .CW "set -x" .
 .Bp
 When the echo off command is executed, the shell will print
-.CW "+ set - " 
+.CW "+ set - "
 (The `+' comes from using the
 .CW \-x
 flag (rather than the
@@ -3524,14 +3524,14 @@ The most important thing to know about how PMake uses this graph is
 that the traversal is breadth-first and occurs in two passes.
 .LP
 After PMake has parsed the makefile, it begins with the nodes the user
-has told it to make (either on the command line, or via a 
+has told it to make (either on the command line, or via a
 .CW .MAIN
 target, or by the target being the first in the file not labeled with
 the
 .CW .NOTMAIN
 attribute) placed in a queue. It continues to take the node off the
 front of the queue, mark it as something that needs to be made, pass
-the node to 
+the node to
 .CW Suff_FindDeps
 (mentioned earlier) to find any implicit sources for the node, and
 place all the node's children that have yet to be marked at the end of
@@ -3595,7 +3595,7 @@ ec.objec.exe .obj.exe :
 .DE
 .IP (3.2)
 The trick to this one lies in the ``:='' variable-assignment operator
-and the ``:S'' variable-expansion modifier. 
+and the ``:S'' variable-expansion modifier.
 .Ix 0 ref variable assignment expanded
 .Ix 0 ref variable expansion modified
 .Ix 0 ref modifier substitute
@@ -3681,7 +3681,7 @@ and
 .CW .TARGET ,
 .CW .PREFIX ,
 .CW .ARCHIVE ,
-and 
+and
 .CW .MEMBER
 may be used on dependency lines to create ``dynamic sources.''
 .Gp "makefile"

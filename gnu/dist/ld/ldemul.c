@@ -63,13 +63,13 @@ ldemul_after_open ()
   ld_emulation->after_open ();
 }
 
-void 
+void
 ldemul_after_allocation()
 {
   ld_emulation->after_allocation();
 }
 
-void 
+void
 ldemul_before_allocation()
 {
   if (ld_emulation->before_allocation)
@@ -173,7 +173,7 @@ ldemul_default_target()
   return ld_emulation->target_name;
 }
 
-void 
+void
 after_parse_default()
 {
 

@@ -104,7 +104,7 @@ and saved in the bootblock.
 .Pp
 The flags
 .Fl a ,
-.Fl i 
+.Fl i
 or
 .Fl u
 are used to indicate that the partition data is to be updated.
@@ -124,7 +124,7 @@ If not,
 will initialize the boot code as well as the partition table.
 During this, all four partitions will be marked empty.
 .Pp
-If the 
+If the
 .Fl u
 flag is used, it displays each partition and asks if you want to edit it.
 If you reply affirmatively,
@@ -147,7 +147,7 @@ they will be calculated for you;
 you can specify them if you choose.
 .Pp
 After all the partitions are processed,
-if the 
+if the
 .Fl a
 flag was given, you are given the option to change the
 .Em active
@@ -170,8 +170,8 @@ The
 explicitly requests initialization of the master boot code
 (similar to what
 .Nm fdisk /mbr
-does under MSDOS), 
-even if the magic number in the first sector is ok. 
+does under MSDOS),
+even if the magic number in the first sector is ok.
 The partition table is left alone by this (but see above).
 .Pp
 You can use
@@ -191,7 +191,7 @@ platforms.
 The flags
 .Fl 0 ,
 .Fl 1 ,
-.Fl 2 
+.Fl 2
 and
 .Fl 3
 allow the user to selectively update or set to active a specific
@@ -215,7 +215,7 @@ The
 flag makes
 .Nm
 work in a non-interactive mode.  In this mode, you can only change the
-disk parameters by using the 
+disk parameters by using the
 .Fl b
 flag.  This is provided only so scripts or other programs may
 use fdisk as part of an automatic installation process.  Using the
@@ -225,13 +225,13 @@ flag with
 makes it impossible to specify the starting and ending
 .Em cylinder ,
 .Em head
-and 
+and
 .Em sector
 fields.  They will be automatically computed using the BIOS geometry.
 .Pp
 The
 .Fl S
-flag used with no other flags prints a series of 
+flag used with no other flags prints a series of
 .Nm /bin/sh
 commands for setting variables to the partition information.  This
 is used for the install script.

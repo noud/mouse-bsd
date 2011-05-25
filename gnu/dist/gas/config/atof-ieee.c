@@ -624,7 +624,7 @@ gen_to_words (words, precision, exponent_bits)
 	      words[1] = 0;
 	      lp++;
 #endif
-	      /* Put back the integer bit.  */ 
+	      /* Put back the integer bit.  */
 	      lp[1] |= 1 << (LITTLENUM_NUMBER_OF_BITS - 1);
 	    }
  	}

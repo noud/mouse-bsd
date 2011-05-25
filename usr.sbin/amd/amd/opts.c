@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: opts.c,v 1.5 1999/08/16 01:16:23 ezk Exp 
+ * Id: opts.c,v 1.5 1999/08/16 01:16:23 ezk Exp
  *
  */
 

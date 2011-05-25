@@ -1,5 +1,5 @@
 /* i80960-dependent portions of the RPC protocol
-   used with a VxWorks target 
+   used with a VxWorks target
 
 Contributed by Wind River Systems.
 
@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include <stdio.h>
 #include "defs.h"
 
-#include "vx-share/regPacket.h"  
+#include "vx-share/regPacket.h"
 #include "frame.h"
 #include "inferior.h"
 #include "wait.h"
@@ -107,7 +107,7 @@ vx_read_register (regno)
     {
       net_read_registers (i960_fpreg_packet, I960_FPREG_PLEN,
                           PTRACE_GETFPREGS);
-      bcopy (&i960_fpreg_packet[I960_R_FP0], 
+      bcopy (&i960_fpreg_packet[I960_R_FP0],
              &registers[REGISTER_BYTE (FP0_REGNUM)],
   	     REGISTER_RAW_SIZE (FP0_REGNUM) * 4);
     }
@@ -152,7 +152,7 @@ vx_write_register (regno)
 
   if (target_has_fp)
     {
-      bcopy (&registers[REGISTER_BYTE (FP0_REGNUM)], 
+      bcopy (&registers[REGISTER_BYTE (FP0_REGNUM)],
 	     &i960_fpreg_packet[I960_R_FP0],
 	     REGISTER_RAW_SIZE (FP0_REGNUM) * 4);
 

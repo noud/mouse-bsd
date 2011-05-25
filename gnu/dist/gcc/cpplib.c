@@ -488,7 +488,7 @@ quote_string (pfile, src)
 	CPP_PUTC_Q (pfile, '\\');
 	CPP_PUTC_Q (pfile, c);
 	break;
-      
+
       case '\0':
 	CPP_PUTC_Q (pfile, '\"');
 	CPP_NUL_TERMINATE_Q (pfile);
@@ -565,7 +565,7 @@ cpp_define (pfile, str)
     }
     *q = 0;
   }
-  
+
   do_define (pfile, NULL, buf, buf + strlen (buf));
 }
 
@@ -607,7 +607,7 @@ make_assertion (pfile, option, str)
     cpp_error (pfile, "malformed option `%s %s'", option, str);
     return;
   }
-  
+
   if (cpp_push_buffer (pfile, buf, strlen (buf)) != NULL)
     {
       do_assert (pfile, NULL, NULL, NULL);
@@ -882,7 +882,7 @@ skip_comment (pfile, linep)
     }
   else
     return '/';
-}     
+}
 
 /* Skip whitespace \-newline and comments.  Does not macro-expand.  */
 
@@ -1049,7 +1049,7 @@ handle_directive (pfile)
   for (kt = directive_table; ; kt++) {
     if (kt->length <= 0)
       goto not_a_directive;
-    if (kt->length == ident_length && !strncmp (kt->name, ident, ident_length)) 
+    if (kt->length == ident_length && !strncmp (kt->name, ident, ident_length))
       break;
   }
 
@@ -1161,7 +1161,7 @@ struct arglist {
    in that list, or -1 for a macro name that wants no argument list.
    MACRONAME is the macro name itself (so we can avoid recursive expansion)
    and NAMELEN is its length in characters.
-   
+
    Note that comments, backslash-newlines, and leading white space
    have already been deleted from the argument.  */
 
@@ -1435,7 +1435,7 @@ collect_expansion (pfile, buf, limit, nargs, arglist)
 }
 
 /*
- * special extension string that can be added to the last macro argument to 
+ * special extension string that can be added to the last macro argument to
  * allow it to absorb the "rest" of the arguments when expanded.  Ex:
  * 		#define wow(a, b...)		process (b, a, b)
  *		{ wow (1, 2, 3); }	->	{ process (2, 3, 1, 2, 3); }
@@ -1449,7 +1449,7 @@ collect_expansion (pfile, buf, limit, nargs, arglist)
 static char rest_extension[] = "...";
 #define REST_EXTENSION_LENGTH	(sizeof (rest_extension) - 1)
 
-/* Create a DEFINITION node from a #define directive.  Arguments are 
+/* Create a DEFINITION node from a #define directive.  Arguments are
    as for do_define.  */
 
 static MACRODEF
@@ -1507,7 +1507,7 @@ create_definition (buf, limit, pfile, predefinition)
 
       if (!is_idstart[*bp])
 	cpp_pedwarn (pfile, "invalid character in macro parameter name");
-      
+
       /* Find the end of the arg name.  */
       while (is_idchar[*bp]) {
 	bp++;
@@ -1817,7 +1817,7 @@ nope:
    `stringified_length' is the length the argument would have
    if stringified.
    `use_count' is the number of times this macro arg is substituted
-   into the macro.  If the actual use count exceeds 10, 
+   into the macro.  If the actual use count exceeds 10,
    the value stored is 10.  */
 
 /* raw and expanded are relative to ARG_BASE */
@@ -1858,7 +1858,7 @@ cpp_push_buffer (pfile, buffer, length)
   buf->underflow = null_underflow;
   buf->buf = buf->cur = buffer;
   buf->alimit = buf->rlimit = buffer + length;
-  
+
   return buf;
 }
 
@@ -2108,7 +2108,7 @@ output_line_command (pfile, conditional, file_change)
   sprintf ((char *) CPP_PWRITTEN (pfile), "%ld ", line);
   CPP_ADJUST_WRITTEN (pfile, strlen (CPP_PWRITTEN (pfile)));
 
-  quote_string (pfile, ip->nominal_fname); 
+  quote_string (pfile, ip->nominal_fname);
   if (file_change != same_file) {
     CPP_PUTC_Q (pfile, ' ');
     CPP_PUTC_Q (pfile, file_change == enter_file ? '1' : '2');
@@ -2273,7 +2273,7 @@ special_symbol (hp, pfile)
 	       "Predefined macro `%s' used inside `#if' during precompilation",
 	       hp->name);
 #endif
-    
+
   for (ip = CPP_BUFFER (pfile); ; ip = CPP_PREV_BUFFER (ip))
     {
       if (ip == CPP_NULL_BUFFER (pfile))
@@ -2615,7 +2615,7 @@ macroexpand (pfile, hp)
       for (i = 0; i < nargs; i++)
 	{
 	  args[i].raw = args[i].expanded = 0;
-	  args[i].raw_length = 0; 
+	  args[i].raw_length = 0;
 	  args[i].expand_length = args[i].stringified_length = -1;
 	  args[i].use_count = 0;
 	}
@@ -2972,11 +2972,11 @@ macroexpand (pfile, hp)
 
   /* Pop the space we've used in the token_buffer for argument expansion.  */
   CPP_SET_WRITTEN (pfile, old_written);
-    
+
   /* Recursive macro use sometimes works traditionally.
      #define foo(x,y) bar (x (y,0), y)
      foo (foo, baz)  */
-  
+
   if (!CPP_TRADITIONAL (pfile))
     hp->type = T_DISABLED;
 }
@@ -3406,7 +3406,7 @@ do_include (pfile, keyword, unused1, unused2)
       if (CPP_PRINT_DEPS (pfile)
 	  > (angle_brackets || (pfile->system_include_depth > 0)))
 	deps_output (pfile, fname, ' ');
-    }   
+    }
 
     /* Handle -H option.  */
     if (CPP_OPTIONS(pfile)->print_include_names)
@@ -3463,7 +3463,7 @@ do_include (pfile, keyword, unused1, unused2)
 	} while (pcf != -1 && !pcfbuf);
       }
 #endif
-    
+
     /* Actually process the file */
     if (cpp_push_buffer (pfile, NULL, 0) == NULL)
       return 0;
@@ -3919,7 +3919,7 @@ do_once (pfile, keyword, unused1, unused2)
 	break;
     }
 
-    
+
   new = (struct file_name_list *) xmalloc (sizeof (struct file_name_list));
   new->next = pfile->dont_repeat_files;
   pfile->dont_repeat_files = new;
@@ -3982,7 +3982,7 @@ do_pragma (pfile, keyword, buf, limit)
     fname = p + 1;
     p = (U_CHAR *) index (fname, '\"');
     fname_len = p != NULL ? p - fname : strlen (fname);
-    
+
     for (ptr = pfile->all_include_files; ptr; ptr = ptr->next) {
       inc_fname = (U_CHAR *) rindex (ptr->fname, '/');
       inc_fname = inc_fname ? inc_fname + 1 : (U_CHAR *) ptr->fname;
@@ -4514,7 +4514,7 @@ FIXME!
 #endif
 		{
 		  struct file_name_list *ifile = pfile->all_include_files;
-		  
+
 		  for ( ; ifile != NULL; ifile = ifile->next)
 		    {
 		      if (!strcmp (ifile->fname, CPP_BUFFER (pfile)->fname))
@@ -4551,7 +4551,7 @@ validate_else (pfile, directive)
 
 /* Get the next token, and add it to the text in pfile->token_buffer.
    Return the kind of token we got.  */
-  
+
 enum cpp_token
 cpp_get_token (pfile)
      cpp_reader *pfile;
@@ -4667,7 +4667,7 @@ cpp_get_token (pfile)
 	    U_CHAR *argbp;
 	    int cmdlen, arglen;
 	    char *lintcmd = get_lintcmd (ibp, limit, &argbp, &arglen, &cmdlen);
-	    
+
 	    if (lintcmd != NULL) {
 	      /* I believe it is always safe to emit this newline: */
 	      obp[-1] = '\n';
@@ -4777,7 +4777,7 @@ cpp_get_token (pfile)
 		  if (pfile->multiline_string_line == 0)
 		    pfile->multiline_string_line = start_line;
 		  break;
-		
+
 		case '\\':
 		  cc = GETC();
 		  if (cc == '\n')
@@ -5250,7 +5250,7 @@ parse_name (pfile, c)
 
 /* Hash a file name for import_hash_table.  */
 
-static int 
+static int
 import_hash (f)
      char *f;
 {
@@ -5449,7 +5449,7 @@ read_name_map (pfile, dirname)
 	      ptr->map_to[dirlen] = '/';
 	      strcpy (ptr->map_to + dirlen + 1, to);
 	      free (to);
-	    }	      
+	    }
 
 	  ptr->map_next = map_list_ptr->map_list_map;
 	  map_list_ptr->map_list_map = ptr;
@@ -5460,12 +5460,12 @@ read_name_map (pfile, dirname)
 	}
       fclose (f);
     }
-  
+
   map_list_ptr->map_list_next = CPP_OPTIONS (pfile)->map_list;
   CPP_OPTIONS (pfile)->map_list = map_list_ptr;
 
   return map_list_ptr->map_list_map;
-}  
+}
 
 /* Try to open include file FILENAME.  SEARCHPTR is the directory
    being tried from the include file search path.  This function maps
@@ -5742,7 +5742,7 @@ cpp_start_read (pfile, fname)
       char *q;
       while (*p == ' ' || *p == '\t')
 	p++;
-      /* Handle -D options.  */ 
+      /* Handle -D options.  */
       if (p[0] == '-' && p[1] == 'D') {
 	q = &p[2];
 	while (*p && *p != ' ' && *p != '\t')
@@ -5755,7 +5755,7 @@ cpp_start_read (pfile, fname)
 	while (*p == ' ' || *p == '\t')
 	  p++;
       } else if (p[0] == '-' && p[1] == 'A') {
-	/* Handle -A options (assertions).  */ 
+	/* Handle -A options (assertions).  */
 	char *assertion;
 	char *past_name;
 	char *value;
@@ -6211,7 +6211,7 @@ cpp_reader_init (pfile)
 static struct cpp_pending *
 nreverse_pending (list)
      struct cpp_pending *list;
-     
+
 {
   register struct cpp_pending *prev = 0, *next, *pend;
   for (pend = list;  pend;  pend = next)
@@ -6329,14 +6329,14 @@ cpp_handle_option (pfile, argc, argv)
       opts->in_fname = argv[i];
   } else {
     switch (argv[i][1]) {
-      
+
     missing_filename:
       cpp_fatal (pfile, "Filename missing after `%s' option", argv[i]);
       return argc;
     missing_dirname:
       cpp_fatal (pfile, "Directory name missing after `%s' option", argv[i]);
       return argc;
-      
+
     case 'i':
       if (!strcmp (argv[i], "-include")
 	  || !strcmp (argv[i], "-imacros")) {
@@ -6356,10 +6356,10 @@ cpp_handle_option (pfile, argc, argv)
       }
       if (!strcmp (argv[i], "-isystem")) {
 	struct file_name_list *dirtmp;
-	
+
 	if (i + 1 == argc)
 	  goto missing_filename;
-	
+
 	dirtmp = (struct file_name_list *)
 	  xmalloc (sizeof (struct file_name_list));
 	dirtmp->next = 0;
@@ -6368,7 +6368,7 @@ cpp_handle_option (pfile, argc, argv)
 	dirtmp->fname = (char *) xmalloc (strlen (argv[i+1]) + 1);
 	strcpy (dirtmp->fname, argv[++i]);
 	dirtmp->got_name_map = 0;
-	
+
 	if (opts->before_system == 0)
 	  opts->before_system = dirtmp;
 	else
@@ -6380,7 +6380,7 @@ cpp_handle_option (pfile, argc, argv)
       if (!strcmp (argv[i], "-iwithprefix")) {
 	struct file_name_list *dirtmp;
 	char *prefix;
-	
+
 	if (opts->include_prefix != 0)
 	  prefix = opts->include_prefix;
 	else {
@@ -6389,7 +6389,7 @@ cpp_handle_option (pfile, argc, argv)
 	  if (!strcmp (prefix + strlen (prefix) - 8, "/include"))
 	    prefix[strlen (prefix) - 7] = 0;
 	}
-	
+
 	dirtmp = (struct file_name_list *)
 	  xmalloc (sizeof (struct file_name_list));
 	dirtmp->next = 0;	/* New one goes on the end */
@@ -6397,13 +6397,13 @@ cpp_handle_option (pfile, argc, argv)
 	dirtmp->c_system_include_path = 0;
 	if (i + 1 == argc)
 	  goto missing_dirname;
-	
+
 	dirtmp->fname = (char *) xmalloc (strlen (argv[i+1])
 					  + strlen (prefix) + 1);
 	strcpy (dirtmp->fname, prefix);
 	strcat (dirtmp->fname, argv[++i]);
 	dirtmp->got_name_map = 0;
-	
+
 	if (opts->after_include == 0)
 	  opts->after_include = dirtmp;
 	else
@@ -6415,7 +6415,7 @@ cpp_handle_option (pfile, argc, argv)
       if (!strcmp (argv[i], "-iwithprefixbefore")) {
 	struct file_name_list *dirtmp;
 	char *prefix;
-	
+
 	if (opts->include_prefix != 0)
 	  prefix = opts->include_prefix;
 	else {
@@ -6424,7 +6424,7 @@ cpp_handle_option (pfile, argc, argv)
 	  if (!strcmp (prefix + strlen (prefix) - 8, "/include"))
 	    prefix[strlen (prefix) - 7] = 0;
 	}
-	
+
 	dirtmp = (struct file_name_list *)
 	  xmalloc (sizeof (struct file_name_list));
 	dirtmp->next = 0;	/* New one goes on the end */
@@ -6432,19 +6432,19 @@ cpp_handle_option (pfile, argc, argv)
 	dirtmp->c_system_include_path = 0;
 	if (i + 1 == argc)
 	  goto missing_dirname;
-	
+
 	dirtmp->fname = (char *) xmalloc (strlen (argv[i+1])
 					  + strlen (prefix) + 1);
 	strcpy (dirtmp->fname, prefix);
 	strcat (dirtmp->fname, argv[++i]);
 	dirtmp->got_name_map = 0;
-	
+
 	append_include_chain (pfile, dirtmp, dirtmp);
       }
       /* Add directory to end of path for includes.  */
       if (!strcmp (argv[i], "-idirafter")) {
 	struct file_name_list *dirtmp;
-	
+
 	dirtmp = (struct file_name_list *)
 	  xmalloc (sizeof (struct file_name_list));
 	dirtmp->next = 0;	/* New one goes on the end */
@@ -6455,7 +6455,7 @@ cpp_handle_option (pfile, argc, argv)
 	else
 	  dirtmp->fname = argv[++i];
 	dirtmp->got_name_map = 0;
-	
+
 	if (opts->after_include == 0)
 	  opts->after_include = dirtmp;
 	else
@@ -6463,7 +6463,7 @@ cpp_handle_option (pfile, argc, argv)
 	opts->last_after_include = dirtmp; /* Tail follows the last one */
       }
       break;
-      
+
     case 'o':
       if (opts->out_fname != NULL)
 	{
@@ -6476,7 +6476,7 @@ cpp_handle_option (pfile, argc, argv)
       if (!strcmp (opts->out_fname, "-"))
 	opts->out_fname = "";
       break;
-      
+
     case 'p':
       if (!strcmp (argv[i], "-pedantic"))
 	CPP_PEDANTIC (pfile) = 1;
@@ -6496,7 +6496,7 @@ cpp_handle_option (pfile, argc, argv)
       }
 #endif
       break;
-      
+
     case 't':
       if (!strcmp (argv[i], "-traditional")) {
 	opts->traditional = 1;
@@ -6506,7 +6506,7 @@ cpp_handle_option (pfile, argc, argv)
 	  opts->no_trigraphs = 0;
       }
       break;
-      
+
     case 'l':
       if (! strcmp (argv[i], "-lang-c"))
 	opts->cplusplus = 0, opts->cplusplus_comments = 1, opts->c89 = 0,
@@ -6531,15 +6531,15 @@ cpp_handle_option (pfile, argc, argv)
 	opts->objc = 0, opts->cplusplus = 0, opts->chill = 1,
 	  opts->traditional = 1, opts->no_trigraphs = 1;
       break;
-      
+
     case '+':
       opts->cplusplus = 1, opts->cplusplus_comments = 1;
       break;
-      
+
     case 'w':
       opts->inhibit_warnings = 1;
       break;
-      
+
     case 'W':
       if (!strcmp (argv[i], "-Wtrigraphs"))
 	opts->warn_trigraphs = 1;
@@ -6575,7 +6575,7 @@ cpp_handle_option (pfile, argc, argv)
 	  opts->warn_comments = 1;
 	}
       break;
-      
+
     case 'M':
       /* The style of the choices here is a bit mixed.
 	 The chosen scheme is a hybrid of keeping all options in one string
@@ -6587,7 +6587,7 @@ cpp_handle_option (pfile, argc, argv)
       /* ??? -MG must be specified in addition to one of -M or -MM.
 	 This can be relaxed in the future without breaking anything.
 	 The converse isn't true.  */
-      
+
       /* -MG isn't valid with -MD or -MMD.  This is checked for later.  */
       if (!strcmp (argv[i], "-MG"))
 	{
@@ -6614,9 +6614,9 @@ cpp_handle_option (pfile, argc, argv)
 	  /* For -M and -MM, write deps on standard output
 	     and suppress the usual output.  */
 	  opts->no_output = 1;
-	}	  
+	}
       break;
-      
+
     case 'd':
       {
 	char *p = argv[i] + 2;
@@ -6641,18 +6641,18 @@ cpp_handle_option (pfile, argc, argv)
 	}
       }
     break;
-    
+
     case 'g':
       if (argv[i][2] == '3')
 	opts->debug_output = 1;
       break;
-      
+
     case '-':
       if (strcmp (argv[i], "--help") != 0)
 	return i;
       print_help ();
       break;
-	
+
     case 'v':
       fprintf (stderr, "GNU CPP version %s", version_string);
 #ifdef TARGET_VERSION
@@ -6661,11 +6661,11 @@ cpp_handle_option (pfile, argc, argv)
       fprintf (stderr, "\n");
       opts->verbose = 1;
       break;
-      
+
     case 'H':
       opts->print_include_names = 1;
       break;
-      
+
     case 'D':
       if (argv[i][2] != 0)
 	push_pending (pfile, "-D", argv[i] + 2);
@@ -6677,11 +6677,11 @@ cpp_handle_option (pfile, argc, argv)
       else
 	i++, push_pending (pfile, "-D", argv[i]);
       break;
-      
+
     case 'A':
       {
 	char *p;
-	
+
 	if (argv[i][2] != 0)
 	  p = argv[i] + 2;
 	else if (i + 1 == argc)
@@ -6691,7 +6691,7 @@ cpp_handle_option (pfile, argc, argv)
 	  }
 	else
 	  p = argv[++i];
-	
+
 	if (!strcmp (p, "-")) {
 	  struct cpp_pending **ptr;
 	  /* -A- eliminates all predefined macros and assertions.
@@ -6716,7 +6716,7 @@ cpp_handle_option (pfile, argc, argv)
 	}
       }
     break;
-    
+
     case 'U':		/* JF #undef something */
       if (argv[i][2] != 0)
 	push_pending (pfile, "-U", argv[i] + 2);
@@ -6728,26 +6728,26 @@ cpp_handle_option (pfile, argc, argv)
       else
 	push_pending (pfile, "-U", argv[i+1]), i++;
       break;
-      
+
     case 'C':
       opts->put_out_comments = 1;
       break;
-      
+
     case 'E':			/* -E comes from cc -E; ignore it.  */
       break;
-      
+
     case 'P':
       opts->no_line_commands = 1;
       break;
-      
+
     case '$':			/* Don't include $ in identifiers.  */
       opts->dollars_in_ident = 0;
       break;
-      
+
     case 'I':			/* Add directory to path for includes.  */
       {
 	struct file_name_list *dirtmp;
-	
+
 	if (! CPP_OPTIONS(pfile)->ignore_srcdir
 	    && !strcmp (argv[i] + 2, "-")) {
 	  CPP_OPTIONS (pfile)->ignore_srcdir = 1;
@@ -6771,7 +6771,7 @@ cpp_handle_option (pfile, argc, argv)
 	}
       }
     break;
-    
+
     case 'n':
       if (!strcmp (argv[i], "-nostdinc"))
 	/* -nostdinc causes no default include directories.
@@ -6785,18 +6785,18 @@ cpp_handle_option (pfile, argc, argv)
 	no_precomp = 1;
 #endif
       break;
-      
+
     case 'r':
       if (!strcmp (argv[i], "-remap"))
 	opts->remap = 1;
       break;
-      
+
     case 'u':
       /* Sun compiler passes undocumented switch "-undef".
 	 Let's assume it means to inhibit the predefined symbols.  */
       opts->inhibit_predefs = 1;
       break;
-      
+
     case '\0': /* JF handle '-' as file name meaning stdin or stdout */
       if (opts->in_fname == NULL) {
 	opts->in_fname = "";
@@ -6805,7 +6805,7 @@ cpp_handle_option (pfile, argc, argv)
 	opts->out_fname = "";
 	break;
       }	/* else fall through into error */
-      
+
     default:
       return i;
     }
@@ -6841,7 +6841,7 @@ cpp_finish (pfile)
      cpp_reader *pfile;
 {
   struct cpp_options *opts = CPP_OPTIONS (pfile);
-  
+
   if (opts->print_deps)
     {
       /* Stream on which to print the dependency information.  */
@@ -7203,7 +7203,7 @@ read_token_list (pfile, error_flag)
       cpp_skip_hspace (pfile);
 
       c = GETC ();
-	  
+
       /* Find the end of the token.  */
       if (c == '(')
         {
@@ -7451,7 +7451,7 @@ cpp_error VPROTO ((cpp_reader * pfile, const char *msg, ...))
   va_list ap;
 
   VA_START(ap, msg);
-  
+
 #ifndef __STDC__
   pfile = va_arg (ap, cpp_reader *);
   msg = va_arg (ap, const char *);
@@ -7488,9 +7488,9 @@ cpp_warning VPROTO ((cpp_reader * pfile, const char *msg, ...))
   const char *msg;
 #endif
   va_list ap;
-  
+
   VA_START (ap, msg);
-  
+
 #ifndef __STDC__
   pfile = va_arg (ap, cpp_reader *);
   msg = va_arg (ap, const char *);
@@ -7510,9 +7510,9 @@ cpp_pedwarn VPROTO ((cpp_reader * pfile, const char *msg, ...))
   const char *msg;
 #endif
   va_list ap;
-  
+
   VA_START (ap, msg);
-  
+
 #ifndef __STDC__
   pfile = va_arg (ap, cpp_reader *);
   msg = va_arg (ap, const char *);
@@ -7553,9 +7553,9 @@ cpp_error_with_line VPROTO ((cpp_reader * pfile, int line, int column, const cha
   const char *msg;
 #endif
   va_list ap;
-  
+
   VA_START (ap, msg);
-  
+
 #ifndef __STDC__
   pfile = va_arg (ap, cpp_reader *);
   line = va_arg (ap, int);
@@ -7591,7 +7591,7 @@ v_cpp_warning_with_line (pfile, line, column, msg, ap)
     cpp_file_line_for_message (pfile, ip->nominal_fname, line, column);
 
   v_cpp_message (pfile, 0, msg, ap);
-}  
+}
 
 #if 0
 static void
@@ -7604,9 +7604,9 @@ cpp_warning_with_line VPROTO ((cpp_reader * pfile, int line, int column, const c
   const char *msg;
 #endif
   va_list ap;
-  
+
   VA_START (ap, msg);
-  
+
 #ifndef __STDC__
   pfile = va_arg (ap, cpp_reader *);
   line = va_arg (ap, int);
@@ -7629,9 +7629,9 @@ cpp_pedwarn_with_line VPROTO ((cpp_reader * pfile, int line, int column, const c
   const char *msg;
 #endif
   va_list ap;
-  
+
   VA_START (ap, msg);
-  
+
 #ifndef __STDC__
   pfile = va_arg (ap, cpp_reader *);
   line = va_arg (ap, int);
@@ -7659,7 +7659,7 @@ cpp_pedwarn_with_file_and_line VPROTO ((cpp_reader *pfile, char *file, int line,
   const char *msg;
 #endif
   va_list ap;
-  
+
   VA_START (ap, msg);
 
 #ifndef __STDC__

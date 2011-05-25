@@ -415,7 +415,7 @@ Defining your own directives}.
 You can use variables in @sc{gasp} to represent strings, registers, or
 the results of expressions.
 
-You must distinguish two kinds of variables: 
+You must distinguish two kinds of variables:
 @enumerate
 @item
 Variables defined with @code{.EQU} or @code{.ASSIGN}.  To evaluate this
@@ -1074,7 +1074,7 @@ write @samp{<4.3 !> 5.4!!>} to get the literal text @samp{4.3 > 5.4!}.
 
 @item Expression results as strings
 You can write @samp{%@var{expr}} to evaluate the expression @var{expr}
-and use the result as a string.  
+and use the result as a string.
 @end table
 
 @node Index

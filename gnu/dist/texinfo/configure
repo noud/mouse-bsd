@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Guess values for system-dependent variables and create Makefiles.
-# Generated automatically using autoconf version 2.12 
+# Generated automatically using autoconf version 2.12
 # Copyright (C) 1992, 93, 94, 95, 96 Free Software Foundation, Inc.
 #
 # This configure script is free software; the Free Software Foundation
@@ -1480,7 +1480,7 @@ if eval "test \"`echo '$ac_cv_header_'$ac_safe`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_hdr 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -1627,7 +1627,7 @@ if eval "test \"`echo '$ac_cv_header_'$ac_safe`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_hdr 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -1778,7 +1778,7 @@ fi
 echo "$ac_t""$ac_cv_c_const" 1>&6
 if test $ac_cv_c_const = no; then
   cat >> confdefs.h <<\EOF
-#define const 
+#define const
 EOF
 
 fi
@@ -2248,7 +2248,7 @@ if eval "test \"`echo '$ac_cv_func_'$ac_func`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_func 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -2303,7 +2303,7 @@ if eval "test \"`echo '$ac_cv_func_'$ac_func`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_func 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 LIBOBJS="$LIBOBJS ${ac_func}.o"
@@ -2344,7 +2344,7 @@ echo "$ac_t""$ac_cv_c_inline" 1>&6
 case "$ac_cv_c_inline" in
   inline | yes) ;;
   no) cat >> confdefs.h <<\EOF
-#define inline 
+#define inline
 EOF
  ;;
   *)  cat >> confdefs.h <<EOF
@@ -2420,7 +2420,7 @@ if eval "test \"`echo '$ac_cv_header_'$ac_safe`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_hdr 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -2475,7 +2475,7 @@ if eval "test \"`echo '$ac_cv_func_'$ac_func`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_func 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -2652,7 +2652,7 @@ EOF
 
 fi
 
-                              
+
    for ac_hdr in argz.h limits.h locale.h nl_types.h malloc.h string.h \
 unistd.h values.h sys/param.h
 do
@@ -2688,7 +2688,7 @@ if eval "test \"`echo '$ac_cv_header_'$ac_safe`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_hdr 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -2744,7 +2744,7 @@ if eval "test \"`echo '$ac_cv_func_'$ac_func`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_func 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -2801,7 +2801,7 @@ if eval "test \"`echo '$ac_cv_func_'$ac_func`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_func 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -2860,7 +2860,7 @@ else
 fi
 
     echo "$ac_t""$USE_NLS" 1>&6
-    
+
 
     USE_INCLUDED_LIBINTL=no
 
@@ -3099,7 +3099,7 @@ if eval "test \"`echo '$ac_cv_func_'$ac_func`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_func 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -3195,7 +3195,7 @@ rm -f conftest*
 		INSTOBJEXT=.mo
 	      fi
 	    fi
-	
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -3564,7 +3564,7 @@ else
   echo "$ac_t""no" 1>&6
 fi
 
-        
+
 	USE_INCLUDED_LIBINTL=yes
         CATOBJEXT=.gmo
         INSTOBJEXT=.mo
@@ -3605,18 +3605,18 @@ fi
       POFILES="$POFILES $lang.po"
     done
 
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-  
+
+
+
+
+
+
+
+
+
+
+
+
 
    if test "x$CATOBJEXT" != "x"; then
      if test "x$ALL_LINGUAS" = "x"; then
@@ -3645,7 +3645,7 @@ echo "configure:3627: checking for catalogs to be installed" >&5
      INCLUDE_LOCALE_H="\
 /* The system does not provide the header <locale.h>.  Take care yourself.  */"
    fi
-   
+
 
             test -d intl || mkdir intl
    if test "$CATOBJEXT" = ".cat"; then
@@ -3696,8 +3696,8 @@ fi
      GT_NO=
      GT_YES="#YES#"
    fi
-   
-   
+
+
 
             MKINSTALLDIRS=
    if test -n "$ac_aux_dir"; then
@@ -3706,10 +3706,10 @@ fi
    if test -z "$MKINSTALLDIRS"; then
      MKINSTALLDIRS="\$(top_srcdir)/mkinstalldirs"
    fi
-   
+
 
       l=
-   
+
 
          test -d po || mkdir po
    if test "x$srcdir" != "x."; then
@@ -3724,7 +3724,7 @@ fi
    rm -f po/POTFILES
    sed -e "/^#/d" -e "/^\$/d" -e "s,.*,	$posrcprefix& \\\\," -e "\$s/\(.*\) \\\\/\1/" \
 	< $srcdir/po/POTFILES.in > po/POTFILES
-  
+
 
 
 trap '' 1 2 15

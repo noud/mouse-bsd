@@ -88,7 +88,7 @@
  * are met:
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
- *  
+ *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR  ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -231,13 +231,13 @@ sbus_print(args, busname)
 
 	if (busname)
 		printf("%s at %s", sa->sa_name, busname);
-	printf(" slot %ld offset 0x%lx", (long)sa->sa_slot, 
+	printf(" slot %ld offset 0x%lx", (long)sa->sa_slot,
 	       (u_long)sa->sa_offset);
 	for (i = 0; i < sa->sa_nintr; i++) {
 		struct sbus_intr *sbi = &sa->sa_intr[i];
 
-		printf(" vector %lx ipl %ld", 
-		       (u_long)sbi->sbi_vec, 
+		printf(" vector %lx ipl %ld",
+		       (u_long)sbi->sbi_vec,
 		       (long)INTLEV(sbi->sbi_pri));
 	}
 	return (UNCONF);
@@ -573,7 +573,7 @@ sbus_get_intr(sc, node, ipp, np, slot)
 		if (!buf[0])
 			getpropstringA(node, "name", buf);
 
-		for (i = 0; intrmap[i].in_class; i++) 
+		for (i = 0; intrmap[i].in_class; i++)
 			if (strcmp(intrmap[i].in_class, buf) == 0) {
 				pri = INTLEVENCODE(intrmap[i].in_lev);
 				break;
@@ -587,10 +587,10 @@ sbus_get_intr(sc, node, ipp, np, slot)
 			pri |= slot << 3;
 
 		for (n = 0; n < *np; n++) {
-			/* 
-			 * We encode vector and priority into sbi_pri so we 
-			 * can pass them as a unit.  This will go away if 
-			 * sbus_establish ever takes an sbus_intr instead 
+			/*
+			 * We encode vector and priority into sbi_pri so we
+			 * can pass them as a unit.  This will go away if
+			 * sbus_establish ever takes an sbus_intr instead
 			 * of an integer level.
 			 * Stuff the real vector in sbi_vec.
 			 */
@@ -601,7 +601,7 @@ sbus_get_intr(sc, node, ipp, np, slot)
 		free(ipl, M_DEVBUF);
 		*ipp = ip;
 	}
-	
+
 	return (0);
 }
 
@@ -620,7 +620,7 @@ sbus_intr_establish(t, level, flags, handler, arg)
 	struct sbus_softc *sc = t->cookie;
 	struct intrhand *ih;
 	int ipl;
-	long vec = level; 
+	long vec = level;
 
 	ih = (struct intrhand *)
 		malloc(sizeof(struct intrhand), M_DEVBUF, M_NOWAIT);
@@ -637,7 +637,7 @@ sbus_intr_establish(t, level, flags, handler, arg)
 		vec = INTVEC(vec);
 #ifdef DEBUG
 		if (sbusdebug & SDB_INTR) {
-			printf("\nsbus: intr[%ld]%lx: %lx\n", (long)ipl, (long)vec, 
+			printf("\nsbus: intr[%ld]%lx: %lx\n", (long)ipl, (long)vec,
 			       intrlev[vec]);
 			printf("Hunting for IRQ...\n");
 		}
@@ -653,8 +653,8 @@ sbus_intr_establish(t, level, flags, handler, arg)
 #ifdef DEBUG
 			if (sbusdebug & SDB_INTR) {
 				int64_t intrmap = *ih->ih_map;
-				
-				printf("Found SBUS %lx IRQ as %llx in slot %d\n", 
+
+				printf("Found SBUS %lx IRQ as %llx in slot %d\n",
 				       (long)vec, (long long)intrmap, slot);
 				printf("\tmap addr %p clr addr %p\n", ih->ih_map, ih->ih_clr);
 			}
@@ -678,7 +678,7 @@ sbus_intr_establish(t, level, flags, handler, arg)
 			if (INTVEC(intrmap) == INTVEC(vec)) {
 #ifdef DEBUG
 				if (sbusdebug & SDB_INTR)
-					printf("Found OBIO %lx IRQ as %lx in slot %d\n", 
+					printf("Found OBIO %lx IRQ as %lx in slot %d\n",
 					       vec, (long)intrmap, i);
 #endif
 				/* Register the map and clear intr registers */
@@ -790,12 +790,12 @@ sbus_dmamap_load(t, map, buf, buflen, p, flags)
 
 	if (buflen > map->_dm_size)
 #ifdef DEBUG
-	{ 
+	{
 		printf("sbus_dmamap_load(): error %d > %d -- map size exceeded!\n", buflen, map->_dm_size);
 		Debugger();
 		return (EINVAL);
-	}		
-#else	
+	}
+#else
 		return (EINVAL);
 #endif
 	sgsize = round_page(buflen + ((int)vaddr & PGOFSET));
@@ -803,7 +803,7 @@ sbus_dmamap_load(t, map, buf, buflen, p, flags)
 	/*
 	 * XXX Need to implement "don't dma across this boundry".
 	 */
-	
+
 	s = splhigh();
 	err = extent_alloc(sc->sc_is.is_dvmamap, sgsize, NBPG,
 			     map->_dm_boundary, EX_NOWAIT, (u_long *)&dvmaddr);
@@ -813,12 +813,12 @@ sbus_dmamap_load(t, map, buf, buflen, p, flags)
 		return (err);
 
 #ifdef DEBUG
-	if (dvmaddr == (bus_addr_t)-1)	
-	{ 
+	if (dvmaddr == (bus_addr_t)-1)
+	{
 		printf("sbus_dmamap_load(): dvmamap_alloc(%d, %x) failed!\n", sgsize, flags);
 		Debugger();
-	}		
-#endif	
+	}
+#endif
 	if (dvmaddr == (bus_addr_t)-1)
 		return (ENOMEM);
 
@@ -859,7 +859,7 @@ sbus_dmamap_load(t, map, buf, buflen, p, flags)
 			       map, (long)dvmaddr, (long)(curaddr & ~(NBPG-1)));
 #endif
 		iommu_enter(&sc->sc_is, trunc_page(dvmaddr), trunc_page(curaddr), flags);
-			
+
 		dvmaddr += PAGE_SIZE;
 		vaddr += sgsize;
 		buflen -= sgsize;
@@ -896,7 +896,7 @@ sbus_dmamap_unload(t, map)
 	/* Mark the mappings as invalid. */
 	map->dm_mapsize = 0;
 	map->dm_nsegs = 0;
-	
+
 	/* Unmapping is bus dependent */
 	s = splhigh();
 	error = extent_free(sc->sc_is.is_dvmamap, dvmaddr, sgsize, EX_NOWAIT);
@@ -904,7 +904,7 @@ sbus_dmamap_unload(t, map)
 	if (error != 0)
 		printf("warning: %ld of DVMA space lost\n", (long)sgsize);
 
-	cache_flush((caddr_t)dvmaddr, (u_int) sgsize);	
+	cache_flush((caddr_t)dvmaddr, (u_int) sgsize);
 }
 
 
@@ -927,7 +927,7 @@ sbus_dmamap_sync(t, map, offset, len, ops)
 	if (ops&BUS_DMASYNC_PREREAD) {
 #ifdef DEBUG
 		if (sbusdebug & SDB_DVMA)
-			printf("sbus_dmamap_sync: syncing va %p len %lu BUS_DMASYNC_PREREAD\n", 	       
+			printf("sbus_dmamap_sync: syncing va %p len %lu BUS_DMASYNC_PREREAD\n",
 			       (long)va, (u_long)len);
 #endif
 
@@ -939,14 +939,14 @@ sbus_dmamap_sync(t, map, offset, len, ops)
 		 */
 #ifdef DEBUG
 		if (sbusdebug & SDB_DVMA)
-			printf("sbus_dmamap_sync: syncing va %p len %lu BUS_DMASYNC_POSTREAD\n", 	       
+			printf("sbus_dmamap_sync: syncing va %p len %lu BUS_DMASYNC_POSTREAD\n",
 			       (long)va, (u_long)len);
 #endif
 		while (len > 0) {
-			
+
 			/*
 			 * Streaming buffer flushes:
-			 * 
+			 *
 			 *   1 Tell strbuf to flush by storing va to strbuf_pgflush
 			 * If we're not on a cache line boundary (64-bits):
 			 *   2 Store 0 in flag
@@ -957,7 +957,7 @@ sbus_dmamap_sync(t, map, offset, len, ops)
 			 */
 #ifdef DEBUG
 			if (sbusdebug & SDB_DVMA)
-				printf("sbus_dmamap_sync: flushing va %p, %lu bytes left\n", 	       
+				printf("sbus_dmamap_sync: flushing va %p, %lu bytes left\n",
 				       (long)va, (u_long)len);
 #endif
 			bus_space_write_8(sc->sc_bustag, &sc->sc_is.is_sb->strbuf_pgflush, 0, va);
@@ -972,7 +972,7 @@ sbus_dmamap_sync(t, map, offset, len, ops)
 	if (ops&BUS_DMASYNC_PREWRITE) {
 #ifdef DEBUG
 		if (sbusdebug & SDB_DVMA)
-			printf("sbus_dmamap_sync: syncing va %p len %lu BUS_DMASYNC_PREWRITE\n", 	       
+			printf("sbus_dmamap_sync: syncing va %p len %lu BUS_DMASYNC_PREWRITE\n",
 			       (long)va, (u_long)len);
 #endif
 		/* Nothing to do */;
@@ -989,7 +989,7 @@ sbus_dmamap_sync(t, map, offset, len, ops)
 }
 
 
-/* 
+/*
  * Take memory allocated by our parent bus and generate DVMA mappings for it.
  */
 int
@@ -1009,7 +1009,7 @@ sbus_dmamem_alloc(t, size, alignment, boundary, segs, nsegs, rsegs, flags)
 	int n, s;
 	struct sbus_softc *sc = (struct sbus_softc *)t->_cookie;
 
-	if ((error = bus_dmamem_alloc(t->_parent, size, alignment, 
+	if ((error = bus_dmamem_alloc(t->_parent, size, alignment,
 				     boundary, segs, nsegs, rsegs, flags)))
 		return (error);
 
@@ -1102,7 +1102,7 @@ sbus_dmamem_map(t, segs, nsegs, size, kvap, flags)
 	struct pglist *mlist;
 	int cbit;
 
-	/* 
+	/*
 	 * digest flags:
 	 */
 	cbit = 0;
@@ -1141,12 +1141,12 @@ sbus_dmamem_unmap(t, kva, size)
 	caddr_t kva;
 	size_t size;
 {
-	
+
 #ifdef DIAGNOSTIC
 	if ((u_long)kva & PGOFSET)
 		panic("_bus_dmamem_unmap");
 #endif
-	
+
 	size = round_page(size);
 	pmap_remove(pmap_kernel(), (vaddr_t)kva, size);
 }

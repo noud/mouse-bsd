@@ -199,7 +199,7 @@ kernel_u_size ()
  * See the comment in m68k-tdep.c regarding the utility of these functions.
  */
 
-void 
+void
 supply_gregset (gregsetp)
      gregset_t *gregsetp;
 {

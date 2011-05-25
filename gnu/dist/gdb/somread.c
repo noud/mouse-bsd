@@ -221,7 +221,7 @@ som_symtab_read (abfd, objfile, section_offsets)
 		 the nasty habit of placing section symbols from the literal
 		 subspaces in the middle of the program's text.  Filter
 		 those out as best we can.  Check for first and last character
-		 being '$'. 
+		 being '$'.
 
 		 And finally, the newer HP compilers emit crud like $PIC_foo$N
 		 in some circumstance (PIC code I guess).  It's also claimed
@@ -309,13 +309,13 @@ som_symtab_read (abfd, objfile, section_offsets)
 	error ("Invalid symbol data; bad HP string table offset: %d",
 	       bufp->name.n_strx);
 
-      prim_record_minimal_symbol (symname, bufp->symbol_value, ms_type, 
+      prim_record_minimal_symbol (symname, bufp->symbol_value, ms_type,
 				  objfile);
     }
 }
 
 /* Scan and build partial symbols for a symbol file.
-   We have been initialized by a call to som_symfile_init, which 
+   We have been initialized by a call to som_symfile_init, which
    currently does nothing.
 
    SECTION_OFFSETS is a set of offsets to apply to relocate the symbols

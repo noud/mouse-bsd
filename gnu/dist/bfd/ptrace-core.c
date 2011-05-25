@@ -70,7 +70,7 @@ ptrace_unix_core_file_p (abfd)
   struct trad_core_struct *rawptr;
 
   val = bfd_read ((void *)&u, 1, sizeof u, abfd);
-  if (val != sizeof u || u.pt_magic != _BCS_PTRACE_MAGIC 
+  if (val != sizeof u || u.pt_magic != _BCS_PTRACE_MAGIC
       || u.pt_rev != _BCS_PTRACE_REV)
     {
       /* Too small to be a core file */
@@ -87,7 +87,7 @@ ptrace_unix_core_file_p (abfd)
 
   if (rawptr == NULL)
     return 0;
-  
+
   abfd->tdata.trad_core_data = rawptr;
 
   rawptr->u = u; /*Copy the uarea into the tdata part of the bfd */
@@ -167,7 +167,7 @@ boolean
 ptrace_unix_core_file_matches_executable_p  (core_bfd, exec_bfd)
      bfd *core_bfd, *exec_bfd;
 {
-  /* FIXME: Use pt_timdat field of the ptrace_user structure to match 
+  /* FIXME: Use pt_timdat field of the ptrace_user structure to match
      the date of the executable */
   return true;
 }
@@ -217,7 +217,7 @@ const bfd_target ptrace_core_vec =
      bfd_false, bfd_false,
      bfd_false, bfd_false
     },
-    
+
        BFD_JUMP_TABLE_GENERIC (_bfd_generic),
        BFD_JUMP_TABLE_COPY (_bfd_generic),
        BFD_JUMP_TABLE_CORE (ptrace_unix),

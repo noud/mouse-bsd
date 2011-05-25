@@ -115,11 +115,11 @@ struct cs4280_softc {
 	/* I/O (BA0) */
 	bus_space_tag_t	      ba0t;
 	bus_space_handle_t    ba0h;
-	
+
 	/* BA1 */
 	bus_space_tag_t	      ba1t;
 	bus_space_handle_t    ba1h;
-	
+
 	/* DMA */
 	bus_dma_tag_t	 sc_dmatag;
 	struct cs4280_dma *sc_dmas;
@@ -157,7 +157,7 @@ struct cs4280_softc {
 	u_int32_t cctl;
 
 	struct ac97_codec_if *codec_if;
-	struct ac97_host_if host_if;	
+	struct ac97_host_if host_if;
 
 	char	sc_suspend;
 	void   *sc_powerhook;		/* Power Hook */
@@ -278,7 +278,7 @@ struct midi_hw_if cs4280_midi_hw_if = {
 };
 #endif
 
-	
+
 
 struct audio_device cs4280_device = {
 	"CS4280",
@@ -288,20 +288,20 @@ struct audio_device cs4280_device = {
 
 
 int
-cs4280_match(parent, match, aux) 
+cs4280_match(parent, match, aux)
 	struct device *parent;
 	struct cfdata *match;
 	void *aux;
 {
 	struct pci_attach_args *pa = (struct pci_attach_args *)aux;
-	
+
 	if (PCI_VENDOR(pa->pa_id) != PCI_VENDOR_CIRRUS)
 		return (0);
 	if (PCI_PRODUCT(pa->pa_id) == PCI_PRODUCT_CIRRUS_CS4280
 #if 0  /* I can't confirm */
 	    || PCI_PRODUCT(pa->pa_id) == PCI_PRODUCT_CIRRUS_CS4610
 #endif
-	   
+
 	   ) {
 		return (1);
 	}
@@ -316,9 +316,9 @@ cs4280_read_codec(sc_, add, data)
 {
 	struct cs4280_softc *sc = sc_;
 	int n;
-	
+
 	DPRINTFN(5,("read_codec: add=0x%02x ", add));
-	/* 
+	/*
 	 * Make sure that there is not data sitting around from a preivous
 	 * uncompleted access.
 	 */
@@ -327,7 +327,7 @@ cs4280_read_codec(sc_, add, data)
 	/* Set up AC97 control registers. */
 	BA0WRITE4(sc, CS4280_ACCAD, add);
 	BA0WRITE4(sc, CS4280_ACCDA, 0);
-	BA0WRITE4(sc, CS4280_ACCTL, 
+	BA0WRITE4(sc, CS4280_ACCTL,
 	    ACCTL_RSTN | ACCTL_ESYN | ACCTL_VFRM | ACCTL_CRW  | ACCTL_DCV );
 
 	if (cs4280_src_wait(sc) < 0) {
@@ -341,7 +341,7 @@ cs4280_read_codec(sc_, add, data)
 	while (!(BA0READ4(sc, CS4280_ACSTS) & ACSTS_VSTS)) {
 		delay(1);
 		while (++n > 1000) {
-			printf("%s: AC97 read fail (VSTS==0) for add=0x%0x\n", 
+			printf("%s: AC97 read fail (VSTS==0) for add=0x%0x\n",
 			       sc->sc_dev.dv_xname, add);
 			return (1);
 		}
@@ -362,7 +362,7 @@ cs4280_write_codec(sc_, add, data)
 	DPRINTFN(5,("write_codec: add=0x%02x  data=0x%04x\n", add, data));
 	BA0WRITE4(sc, CS4280_ACCAD, add);
 	BA0WRITE4(sc, CS4280_ACCDA, data);
-	BA0WRITE4(sc, CS4280_ACCTL, 
+	BA0WRITE4(sc, CS4280_ACCTL,
 	    ACCTL_RSTN | ACCTL_ESYN | ACCTL_VFRM | ACCTL_DCV );
 
 	if (cs4280_src_wait(sc) < 0) {
@@ -413,7 +413,7 @@ cs4280_set_adc_rate(sc, rate)
 	 */
 	u_int32_t cci,cpi,cnt,cx,cy,  tmp1;
 	u_int16_t csrc, cgl, cdlay;
-	
+
 	/* XXX
 	 * Even though, embedded_audio_spec says capture rate range 11025 to
 	 * 48000, dhwiface.cpp says,
@@ -422,7 +422,7 @@ cs4280_set_adc_rate(sc, rate)
 	 *  Return an error if an attempt is made to stray outside that limit."
 	 *
 	 * so assume range as 48000/9 to 48000
-	 */ 
+	 */
 
 	if (rate < 8000)
 		rate = 8000;
@@ -465,7 +465,7 @@ cs4280_set_adc_rate(sc, rate)
 	if (((rate / 3) * 3) != rate)
 		cgl *= 3;
 	for (tmp1 = 5; tmp1 <= 125; tmp1 *= 5) {
-		if (((rate / tmp1) * tmp1) != rate) 
+		if (((rate / tmp1) * tmp1) != rate)
 			cgl *= 5;
 	}
 #if 0
@@ -494,15 +494,15 @@ cs4280_set_adc_rate(sc, rate)
 	tmp1 = BA1READ4(sc, CS4280_CD) & ~CD_MASK;
 	tmp1 |= cdlay <<18;
 	BA1WRITE4(sc, CS4280_CD, tmp1);
-	
+
 	BA1WRITE4(sc, CS4280_CPI, cpi);
-	
+
 	tmp1 = BA1READ4(sc, CS4280_CGL) & ~CGL_MASK;
 	tmp1 |= cgl;
 	BA1WRITE4(sc, CS4280_CGL, tmp1);
 
 	BA1WRITE4(sc, CS4280_CNT, cnt);
-	
+
 	tmp1 = BA1READ4(sc, CS4280_CGC) & ~CGC_MASK;
 	tmp1 |= cgl;
 	BA1WRITE4(sc, CS4280_CGC, tmp1);
@@ -527,7 +527,7 @@ cs4280_set_dac_rate(sc, rate)
 	int32_t ppi;
 	int16_t psrc;
 	u_int32_t px, py;
-	
+
 	if (rate < 8000)
 		rate = 8000;
 	if (rate > 48000)
@@ -548,7 +548,7 @@ cs4280_set_dac_rate(sc, rate)
 	px = BA1READ4(sc, CS4280_PSRC) & ~PSRC_MASK;
 	BA1WRITE4(sc, CS4280_PSRC,
 			  ( ((psrc<<16) & PSRC_MASK) | px ));
-#else	
+#else
 	/* suggested by cs461x.c (ALSA driver) */
 	BA1WRITE4(sc, CS4280_PSRC, CS4280_MK_PSRC(psrc,py));
 #endif
@@ -570,12 +570,12 @@ cs4280_attach(parent, self, aux)
 	char devinfo[256];
 	mixer_ctrl_t ctl;
 	u_int32_t mem;
-    
+
 	pci_devinfo(pa->pa_id, pa->pa_class, 0, devinfo);
 	printf(": %s (rev. 0x%02x)\n", devinfo, PCI_REVISION(pa->pa_class));
 
 	/* Map I/O register */
-	if (pci_mapreg_map(pa, CSCC_PCI_BA0, 
+	if (pci_mapreg_map(pa, CSCC_PCI_BA0,
 			  PCI_MAPREG_TYPE_MEM|PCI_MAPREG_MEM_TYPE_32BIT, 0,
 			  &sc->ba0t, &sc->ba0h, NULL, NULL)) {
 		printf("%s: can't map BA0 space\n", sc->sc_dev.dv_xname);
@@ -602,7 +602,7 @@ cs4280_attach(parent, self, aux)
 		mem |= 0x00002000;
 		pci_conf_write(pa->pa_pc, pa->pa_tag, PCI_BHLC_REG, mem);
 	}
-	
+
 	/* Map and establish the interrupt. */
 	if (pci_intr_map(pc, pa->pa_intrtag, pa->pa_intrpin,
 			 pa->pa_intrline, &ih)) {
@@ -652,7 +652,7 @@ cs4280_attach(parent, self, aux)
 	ctl.dev = cs4280_get_portnum_by_name(sc, AudioCinputs,
 					     AudioNcd, AudioNmute);
 	cs4280_mixer_set_port(sc, &ctl);
-	
+
 	audio_attach_mi(&cs4280_hw_if, sc, &sc->sc_dev);
 
 #if NMIDI > 0
@@ -677,7 +677,7 @@ cs4280_intr(p)
 	 *
 	 *  ring buffer in audio.c is pointed by BUFADDR
 	 *	 <------ ring buffer size == 64kB ------>
-	 *	 <-----> blksize == 2048*(sc->sc_[pr]count) kB 
+	 *	 <-----> blksize == 2048*(sc->sc_[pr]count) kB
 	 *	|= = = =|= = = =|= = = =|= = = =|= = = =|
 	 *	|	|	|	|	|	| <- call audio_intp every
 	 *						     sc->sc_[pr]_count time.
@@ -698,7 +698,7 @@ cs4280_intr(p)
 		BA0WRITE4(sc, CS4280_HICR, HICR_CHGM | HICR_IEV);
 		return (0);
 	}
-	
+
 	/* Playback Interrupt */
 	if (intr & HISR_PINT) {
 		mem = BA1READ4(sc, CS4280_PFIE);
@@ -724,7 +724,7 @@ cs4280_intr(p)
 	if (intr & HISR_CINT) {
 		int  i;
 		int16_t rdata;
-		
+
 		mem = BA1READ4(sc, CS4280_CIE);
 		BA1WRITE4(sc, CS4280_CIE, (mem & ~CIE_CI_MASK) | CIE_CI_DISABLE);
 		++sc->sc_ri;
@@ -786,7 +786,7 @@ cs4280_intr(p)
 	if (intr & HISR_MIDI) {
 		int data;
 
-		DPRINTF(("i: %d: ", 
+		DPRINTF(("i: %d: ",
 			 BA0READ4(sc, CS4280_MIDSR)));
 		/* Read the received data */
 		while ((sc->sc_iintr != NULL) &&
@@ -795,7 +795,7 @@ cs4280_intr(p)
 			DPRINTF(("r:%x\n",data));
 			sc->sc_iintr(sc->sc_arg, data);
 		}
-		
+
 		/* Write the data */
 #if 1
 		/* XXX:
@@ -808,7 +808,7 @@ cs4280_intr(p)
 				sc->sc_ointr(sc->sc_arg);
 		}
 #else
-		while ((sc->sc_ointr != NULL) && 
+		while ((sc->sc_ointr != NULL) &&
 		       ((BA0READ4(sc, CS4280_MIDSR) & MIDSR_TBF) == 0)) {
 			DPRINTF(("w: "));
 			sc->sc_ointr(sc->sc_arg);
@@ -962,14 +962,14 @@ cs4280_reset_codec(sc_)
 	delay(100);    /* delay 100us */
 	BA0WRITE4(sc, CS4280_ACCTL, ACCTL_RSTN);
 
-	/* 
+	/*
 	 * It looks like we do the following procedure, too
 	 */
 
 	/* Enable AC-link sync generation */
 	BA0WRITE4(sc, CS4280_ACCTL, ACCTL_ESYN | ACCTL_RSTN);
 	delay(50*1000); /* XXX delay 50ms */
-	
+
 	/* Assert valid frame signal */
 	BA0WRITE4(sc, CS4280_ACCTL, ACCTL_VFRM | ACCTL_ESYN | ACCTL_RSTN);
 
@@ -1014,10 +1014,10 @@ cs4280_close(addr)
 	void *addr;
 {
 	struct cs4280_softc *sc = addr;
-	
+
 	cs4280_halt_output(sc);
 	cs4280_halt_input(sc);
-	
+
 	sc->sc_pintr = 0;
 	sc->sc_rintr = 0;
 }
@@ -1096,15 +1096,15 @@ cs4280_set_params(addr, setmode, usemode, play, rec)
 	    mode = mode == AUMODE_RECORD ? AUMODE_PLAY : -1 ) {
 		if ((setmode & mode) == 0)
 			continue;
-		
+
 		p = mode == AUMODE_PLAY ? play : rec;
-		
+
 		if (p == play) {
 			DPRINTFN(5,("play: sample=%ld precision=%d channels=%d\n",
 				p->sample_rate, p->precision, p->channels));
 			/* play back data format may be 8- or 16-bit and
 			 * either stereo or mono.
-			 * playback rate may range from 8000Hz to 48000Hz 
+			 * playback rate may range from 8000Hz to 48000Hz
 			 */
 			if (p->sample_rate < 8000 || p->sample_rate > 48000 ||
 			    (p->precision != 8 && p->precision != 16) ||
@@ -1198,7 +1198,7 @@ cs4280_round_buffersize(addr, direction, size)
 	int direction;
 	size_t size;
 {
-	/* although real dma buffer size is 4KB, 
+	/* although real dma buffer size is 4KB,
 	 * let the audio.c driver use a larger buffer.
 	 * ( suggested by Lennart Augustsson. )
 	 */
@@ -1209,14 +1209,14 @@ int
 cs4280_get_props(hdl)
 	void *hdl;
 {
-	return (AUDIO_PROP_INDEPENDENT | AUDIO_PROP_FULLDUPLEX); 
+	return (AUDIO_PROP_INDEPENDENT | AUDIO_PROP_FULLDUPLEX);
 #ifdef notyet
-	/* XXX 
+	/* XXX
 	 * How can I mmap ?
 	 */
-		AUDIO_PROP_MMAP 
+		AUDIO_PROP_MMAP
 #endif
-	    
+
 }
 
 int
@@ -1247,7 +1247,7 @@ cs4280_mappage(addr, mem, off, prot)
 		DPRINTF(("cs4280_mappage: bad buffer address\n"));
 		return (-1);
 	}
-	return (bus_dmamem_mmap(sc->sc_dmatag, p->segs, p->nsegs, 
+	return (bus_dmamem_mmap(sc->sc_dmatag, p->segs, p->nsegs,
 				off, prot, BUS_DMA_WAITOK));
 }
 
@@ -1277,7 +1277,7 @@ cs4280_halt_output(addr)
 {
 	struct cs4280_softc *sc = addr;
 	u_int32_t mem;
-	
+
 	mem = BA1READ4(sc, CS4280_PCTL);
 	BA1WRITE4(sc, CS4280_PCTL, mem & ~PCTL_MASK);
 #ifdef DIAGNOSTIC
@@ -1355,8 +1355,8 @@ cs4280_allocmem(sc, size, align, p)
 		       sc->sc_dev.dv_xname, error);
 		return (error);
 	}
-	
-	error = bus_dmamem_map(sc->sc_dmatag, p->segs, p->nsegs, p->size, 
+
+	error = bus_dmamem_map(sc->sc_dmatag, p->segs, p->nsegs, p->size,
 			       &p->addr, BUS_DMA_NOWAIT|BUS_DMA_COHERENT);
 	if (error) {
 		printf("%s: unable to map dma, error=%d\n",
@@ -1372,7 +1372,7 @@ cs4280_allocmem(sc, size, align, p)
 		goto unmap;
 	}
 
-	error = bus_dmamap_load(sc->sc_dmatag, p->map, p->addr, p->size, NULL, 
+	error = bus_dmamap_load(sc->sc_dmatag, p->map, p->addr, p->size, NULL,
 				BUS_DMA_NOWAIT);
 	if (error) {
 		printf("%s: unable to load dma map, error=%d\n",
@@ -1402,17 +1402,17 @@ cs4280_malloc(addr, direction, size, pool, flags)
 	struct cs4280_dma *p;
 	caddr_t q;
 	int error;
-	
+
 	DPRINTFN(5,("cs4280_malloc: size=%d pool=%d flags=%d\n", size, pool, flags));
 	q = malloc(size, pool, flags);
-	if (!q) 
+	if (!q)
 		return (0);
 	p = malloc(sizeof(*p), pool, flags);
 	if (!p) {
 		free(q,pool);
 		return (0);
 	}
-	/* 
+	/*
 	 * cs4280 has fixed 4kB buffer
 	 */
 	error = cs4280_allocmem(sc, CS4280_DCHUNK, CS4280_DALIGN, p);
@@ -1438,7 +1438,7 @@ cs4280_free(addr, ptr, pool)
 {
 	struct cs4280_softc *sc = addr;
 	struct cs4280_dma **pp, *p;
-	
+
 	for (pp = &sc->sc_dmas; (p = *pp) != NULL; pp = &p->next) {
 		if (BUFADDR(p) == ptr) {
 			cs4280_freemem(sc, p);
@@ -1462,7 +1462,7 @@ cs4280_trigger_output(addr, start, end, blksize, intr, arg, param)
 	struct cs4280_softc *sc = addr;
 	u_int32_t pfie, pctl, mem, pdtc;
 	struct cs4280_dma *p;
-	
+
 #ifdef DIAGNOSTIC
 	if (sc->sc_prun)
 		printf("cs4280_trigger_output: already running\n");
@@ -1483,7 +1483,7 @@ cs4280_trigger_output(addr, start, end, blksize, intr, arg, param)
 	pdtc &= ~PDTC_MASK;
 	pdtc |= CS4280_MK_PDTC(param->precision * param->channels);
 	BA1WRITE4(sc, CS4280_PDTC, pdtc);
-	
+
 	DPRINTF(("param: precision=%d  factor=%d channels=%d encoding=%d\n",
 	       param->precision, param->factor, param->channels,
 	       param->encoding));
@@ -1555,7 +1555,7 @@ cs4280_trigger_input(addr, start, end, blksize, intr, arg, param)
 	struct cs4280_softc *sc = addr;
 	u_int32_t cctl, cie;
 	struct cs4280_dma *p;
-	
+
 #ifdef DIAGNOSTIC
 	if (sc->sc_rrun)
 		printf("cs4280_trigger_input: already running\n");
@@ -1586,7 +1586,7 @@ cs4280_trigger_input(addr, start, end, blksize, intr, arg, param)
 	/* stop capture DMA */
 	cctl = BA1READ4(sc, CS4280_CCTL) & ~CCTL_MASK;
 	BA1WRITE4(sc, CS4280_CCTL, cctl);
-	
+
 	for (p = sc->sc_dmas; p && BUFADDR(p) != start; p = p->next)
 		;
 	if (!p) {
@@ -1600,7 +1600,7 @@ cs4280_trigger_input(addr, start, end, blksize, intr, arg, param)
 	}
 	sc->sc_rdma = p;
 	sc->sc_rbuf = KERNADDR(p);
-	
+
 	/* initiate capture dma */
 	BA1WRITE4(sc, CS4280_CBA, DMAADDR(p));
 
@@ -1642,26 +1642,26 @@ cs4280_init(sc, init)
 	BA0WRITE4(sc, CS4280_ACCTL, 0);
 	delay(100);    /* delay 100us */
 	BA0WRITE4(sc, CS4280_ACCTL, ACCTL_RSTN);
-	
+
 	/* Enable AC-link sync generation */
 	BA0WRITE4(sc, CS4280_ACCTL, ACCTL_ESYN | ACCTL_RSTN);
 	delay(50*1000); /* delay 50ms */
 
 	/* Set the serial port timing configuration */
 	BA0WRITE4(sc, CS4280_SERMC1, SERMC1_PTC_AC97);
-	
+
 	/* Setup clock control */
 	BA0WRITE4(sc, CS4280_PLLCC, PLLCC_CDR_STATE|PLLCC_LPF_STATE);
 	BA0WRITE4(sc, CS4280_PLLM, PLLM_STATE);
 	BA0WRITE4(sc, CS4280_CLKCR2, CLKCR2_PDIVS_8);
-	
+
 	/* Power up the PLL */
 	BA0WRITE4(sc, CS4280_CLKCR1, CLKCR1_PLLP);
 	delay(50*1000); /* delay 50ms */
-	
+
 	/* Turn on clock */
 	BA0WRITE4(sc, CS4280_CLKCR1, CLKCR1_PLLP | CLKCR1_SWCE);
-	
+
 	/* Set the serial port FIFO pointer to the
 	 * first sample in FIFO. (not documented) */
 	cs4280_clear_fifos(sc);
@@ -1670,12 +1670,12 @@ cs4280_init(sc, init)
 	/* Set the serial port FIFO pointer to the first sample in the FIFO */
 	BA0WRITE4(sc, CS4280_SERBSP, 0);
 #endif
-	
+
 	/* Configure the serial port */
 	BA0WRITE4(sc, CS4280_SERC1,  SERC1_SO1EN | SERC1_SO1F_AC97);
 	BA0WRITE4(sc, CS4280_SERC2,  SERC2_SI1EN | SERC2_SI1F_AC97);
 	BA0WRITE4(sc, CS4280_SERMC1, SERMC1_MSPE | SERMC1_PTC_AC97);
-	
+
 	/* Wait for CODEC ready */
 	n = 0;
 	while ((BA0READ4(sc, CS4280_ACSTS) & ACSTS_CRDY) == 0) {
@@ -1699,7 +1699,7 @@ cs4280_init(sc, init)
 			return(1);
 		}
 	}
-	
+
 	/* Set AC97 output slot valid signals */
 	BA0WRITE4(sc, CS4280_ACOSV, ACOSV_SLV3 | ACOSV_SLV4);
 
@@ -1714,15 +1714,15 @@ cs4280_init(sc, init)
 
 	/* Save playback parameter and then write zero.
 	 * this ensures that DMA doesn't immediately occur upon
-	 * starting the processor core 
+	 * starting the processor core
 	 */
 	mem = BA1READ4(sc, CS4280_PCTL);
 	sc->pctl = mem & PCTL_MASK; /* save startup value */
 	cs4280_halt_output(sc);
-	
+
 	/* Save capture parameter and then write zero.
 	 * this ensures that DMA doesn't immediately occur upon
-	 * starting the processor core 
+	 * starting the processor core
 	 */
 	mem = BA1READ4(sc, CS4280_CCTL);
 	sc->cctl = mem & CCTL_MASK; /* save startup value */
@@ -1741,7 +1741,7 @@ cs4280_init(sc, init)
 			return(1);
 		}
 	}
-	
+
 	n = 0;
 	while (!(BA1READ4(sc, CS4280_SPCS) & SPCS_SPRUN)) {
 		delay(10);
@@ -1828,8 +1828,8 @@ cs4280_clear_fifos(sc)
 {
 	int pd = 0, cnt, n;
 	u_int32_t mem;
-	
-	/* 
+
+	/*
 	 * If device power down, power up the device and keep power down
 	 * state.
 	 */
@@ -1893,7 +1893,7 @@ cs4280_midi_close(addr)
 {
 	struct cs4280_softc *sc = addr;
 	u_int32_t mem;
-	
+
 	DPRINTF(("midi_close\n"));
 	mem = BA0READ4(sc, CS4280_MIDCR);
 	mem &= ~MIDCR_MASK;

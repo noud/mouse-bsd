@@ -171,7 +171,7 @@ again:
 			bn = &ybr.ypbind_respbody.ypbind_bindinfo;
 			ysd->dom_server_addr.sin_port =
 				bn->ypbind_binding_port;
-				
+
 			ysd->dom_server_addr.sin_addr =
 				bn->ypbind_binding_addr;
 
@@ -219,7 +219,7 @@ trynet:
 		}
 		clnt_destroy(client);
 
-		(void)memset(&ysd->dom_server_addr, 0, 
+		(void)memset(&ysd->dom_server_addr, 0,
 			     sizeof ysd->dom_server_addr);
 		ysd->dom_server_addr.sin_len = sizeof(struct sockaddr_in);
 		ysd->dom_server_addr.sin_family = AF_INET;

@@ -117,7 +117,7 @@ drsupioattach(parent, self, auxp)
 
 	drsc->sc_bst.base = DRCCADDR + NBPG * DRSUPIOPG + 1;
 	drsc->sc_bst.absm = &amiga_bus_stride_4;
-	
+
 	supa.supio_iot = &drsc->sc_bst;
 	supa.supio_ipl = 5;
 

@@ -319,7 +319,7 @@ slurp(F)
 				enomem();
 			memset(F->set + cnt, 0, 100 * sizeof(LINE));
 		}
-			
+
 		/*
 		 * Get any pushed back line, else get the next line.  Allocate
 		 * space as necessary.  If taking the line from the stack swap
@@ -349,7 +349,7 @@ slurp(F)
 		}
 		memmove(lp->line, bp, len);
 
-		/* Replace trailing newline, if it exists. */ 
+		/* Replace trailing newline, if it exists. */
 		if (bp[len - 1] == '\n')
 			lp->line[len - 1] = '\0';
 		else
@@ -538,7 +538,7 @@ obsolete(argv)
 			return;
 		switch (ap[1]) {
 		case 'a':
-			/* 
+			/*
 			 * The original join allowed "-a", which meant the
 			 * same as -a1 plus -a2.  POSIX 1003.2, Draft 11.2
 			 * only specifies this as "-a 1" and "a -2", so we

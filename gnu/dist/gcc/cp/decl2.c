@@ -288,9 +288,9 @@ int warn_sign_promo;
 
 int warn_old_style_cast;
 
-/* Warn about #pragma directives that are not recognised.  */      
+/* Warn about #pragma directives that are not recognised.  */
 
-int warn_unknown_pragmas; /* Tri state variable.  */  
+int warn_unknown_pragmas; /* Tri state variable.  */
 
 /* Nonzero means warn about use of multicharacter literals.  */
 
@@ -318,7 +318,7 @@ int flag_labels_ok;
    and to print them when we are done.  */
 int flag_detailed_statistics;
 
-/* C++ specific flags.  */   
+/* C++ specific flags.  */
 /* Nonzero for -fall-virtual: make every member function (except
    constructors) lay down in the virtual function table.  Calls
    can then either go through the virtual function table or not,
@@ -449,8 +449,8 @@ int name_mangling_version = 2;
 /* Nonzero means that guiding declarations are allowed.  */
 int flag_guiding_decls;
 
-/* Nonzero if squashed mangling is to be performed. 
-   This uses the B and K codes to reference previously seen class types 
+/* Nonzero if squashed mangling is to be performed.
+   This uses the B and K codes to reference previously seen class types
    and class qualifiers.       */
 int flag_do_squangling;
 
@@ -511,7 +511,7 @@ static struct { char *string; int *variable; int on_value;} lang_f_options[] =
    Return the number of strings consumed for a valid option.
    Otherwise return 0.  */
 
-int   
+int
 lang_decode_option (argc, argv)
      int argc;
      char **argv;
@@ -742,7 +742,7 @@ lang_decode_option (argc, argv)
 	warn_multichar = setting;
       else if (!strcmp (p, "unknown-pragmas"))
 	/* Set to greater than 1, so that even unknown pragmas in
-	   system headers will be warned about.  */  
+	   system headers will be warned about.  */
 	warn_unknown_pragmas = setting * 2;
       else if (!strcmp (p, "comment"))
 	;			/* cpp handles this one.  */
@@ -774,8 +774,8 @@ lang_decode_option (argc, argv)
 	  warn_reorder = setting;
 	  warn_sign_promo = setting;
 	  /* Only warn about unknown pragmas that are not in system
-	     headers.  */                                        
-	  warn_unknown_pragmas = 1;                  
+	     headers.  */
+	  warn_unknown_pragmas = 1;
 	}
       else return strings_processed;
     }
@@ -1369,26 +1369,26 @@ check_member_template (tmpl)
     {
       if (current_function_decl)
 	/* 14.5.2.2 [temp.mem]
-	   
+
 	   A local class shall not have member templates. */
 	cp_error ("declaration of member template `%#D' in local class",
 		  decl);
-      
+
       if (TREE_CODE (decl) == FUNCTION_DECL && DECL_VIRTUAL_P (decl))
 	{
 	  /* 14.5.2.3 [temp.mem]
 
 	     A member function template shall not be virtual.  */
-	  cp_error 
+	  cp_error
 	    ("invalid use of `virtual' in template declaration of `%#D'",
 	     decl);
 	  DECL_VIRTUAL_P (decl) = 0;
 	}
 
       /* The debug-information generating code doesn't know what to do
-	 with member templates.  */ 
+	 with member templates.  */
       DECL_IGNORED_P (tmpl) = 1;
-    } 
+    }
   else
     cp_error ("template declaration of `%#D'", decl);
 }
@@ -1489,14 +1489,14 @@ check_classfn (ctype, function)
 		  if (TREE_CODE (function) != TEMPLATE_DECL
 		      && TREE_CODE (fndecl) != TEMPLATE_DECL
 		      && !DESTRUCTOR_NAME_P (DECL_ASSEMBLER_NAME (function))
-		      && (DECL_ASSEMBLER_NAME (function) 
+		      && (DECL_ASSEMBLER_NAME (function)
 			  == DECL_ASSEMBLER_NAME (fndecl)))
 		    return fndecl;
 
 		  /* We cannot simply call decls_match because this
-		     doesn't work for static member functions that are 
+		     doesn't work for static member functions that are
                      pretending to be methods, and because the name
-		     may have been changed by asm("new_name").  */ 
+		     may have been changed by asm("new_name").  */
 		  if (DECL_NAME (function) == DECL_NAME (fndecl))
 		    {
 		      tree p1 = TYPE_ARG_TYPES (TREE_TYPE (function));
@@ -1514,20 +1514,20 @@ check_classfn (ctype, function)
 			  && (DECL_TEMPLATE_SPECIALIZATION (function)
 			      == DECL_TEMPLATE_SPECIALIZATION (fndecl))
 			  && (!DECL_TEMPLATE_SPECIALIZATION (function)
-			      || (DECL_TI_TEMPLATE (function) 
+			      || (DECL_TI_TEMPLATE (function)
 				  == DECL_TI_TEMPLATE (fndecl))))
 			return fndecl;
 
 		      if (is_member_template (fndecl))
 			/* This function might be an instantiation
 			   or specialization of fndecl.  */
-			templates = 
+			templates =
 			  scratch_tree_cons (NULL_TREE, fndecl, templates);
 		    }
 		}
 	      break;		/* loser */
 	    }
-	  else if (TREE_CODE (fndecl) == TEMPLATE_DECL 
+	  else if (TREE_CODE (fndecl) == TEMPLATE_DECL
 		   && IDENTIFIER_TYPENAME_P (DECL_NAME (fndecl))
 		   && IDENTIFIER_TYPENAME_P (fn_name))
 	    /* The method in the class is a member template
@@ -1535,7 +1535,7 @@ check_classfn (ctype, function)
 	       conversion operator.  It is possible that even though
 	       the names don't match, there is some specialization
 	       occurring.  */
-	    templates = 
+	    templates =
 	      scratch_tree_cons (NULL_TREE, fndecl, templates);
 	}
     }
@@ -1707,7 +1707,7 @@ grokfield (declarator, declspecs, init, asmspec_tree, attrlist)
 	      else
 		init = digest_init (TREE_TYPE (value), init, (tree *)0);
 	    }
-	  
+
 	  if (TREE_CODE (init) == CONST_DECL)
 	    init = DECL_INITIAL (init);
 	  else if (TREE_READONLY_DECL_P (init))
@@ -1767,12 +1767,12 @@ grokfield (declarator, declspecs, init, asmspec_tree, attrlist)
 	}
       if (! processing_template_decl)
 	pending_statics = perm_tree_cons (NULL_TREE, value, pending_statics);
-      
+
       /* Static consts need not be initialized in the class definition.  */
       if (init != NULL_TREE && TYPE_NEEDS_CONSTRUCTING (TREE_TYPE (value)))
 	{
 	  static int explanation = 0;
-	  
+
 	  error ("initializer invalid for static member with constructor");
 	  if (explanation++ == 0)
 	    error ("(you really want to initialize it separately)");
@@ -1909,21 +1909,21 @@ grokoptypename (declspecs, declarator)
      virtual void f () = 0;
      int g ();
    };
-   
+
    class D1 : B
    {
     public:
      int d1;
      // error, no f ();
    };
-   
+
    class D2 : B
    {
     public:
      int d2;
      void f ();
    };
-   
+
    class D3 : B
    {
     public:
@@ -1978,7 +1978,7 @@ grok_function_init (decl, init)
       /* Mark this function as being "defined".  */
       DECL_INITIAL (decl) = error_mark_node;
       /* pure virtual destructors must be defined.  */
-      /* pure virtual needs to be defined (as abort) only when put in 
+      /* pure virtual needs to be defined (as abort) only when put in
 	 vtbl. For wellformed call, it should be itself. pr4737 */
       if (!DESTRUCTOR_NAME_P (DECL_ASSEMBLER_NAME (decl)))
 	{
@@ -2201,7 +2201,7 @@ get_temp_regvar (type, init)
    returns a VAR_DECL whose size is the same as the size of the
    ANON_DECL, if one is available.  */
 
-tree 
+tree
 build_anon_union_vars (anon_decl, elems, static_p, external_p)
      tree anon_decl;
      tree* elems;
@@ -2212,8 +2212,8 @@ build_anon_union_vars (anon_decl, elems, static_p, external_p)
   tree main_decl = NULL_TREE;
   tree field;
 
-  for (field = TYPE_FIELDS (type); 
-       field != NULL_TREE; 
+  for (field = TYPE_FIELDS (type);
+       field != NULL_TREE;
        field = TREE_CHAIN (field))
     {
       tree decl;
@@ -2250,11 +2250,11 @@ build_anon_union_vars (anon_decl, elems, static_p, external_p)
 	  && simple_cst_equal (DECL_SIZE (decl),
 			       DECL_SIZE (anon_decl)) == 1)
 	main_decl = decl;
-      else 
+      else
 	/* ??? This causes there to be no debug info written out
 	   about this decl.  */
 	TREE_ASM_WRITTEN (decl) = 1;
-      
+
       if (DECL_NAME (field) == NULL_TREE
 	  && TREE_CODE (TREE_TYPE (field)) == UNION_TYPE)
 	/* The remainder of the processing was already done in the
@@ -2266,7 +2266,7 @@ build_anon_union_vars (anon_decl, elems, static_p, external_p)
       *elems = scratch_tree_cons (NULL_TREE, decl, *elems);
       TREE_TYPE (*elems) = type;
     }
-  
+
   return main_decl;
 }
 
@@ -2297,7 +2297,7 @@ finish_anon_union (anon_union_decl)
       return;
     }
 
-  main_decl = build_anon_union_vars (anon_union_decl, &elems, 
+  main_decl = build_anon_union_vars (anon_union_decl, &elems,
 				     static_p, external_p);
 
   if (static_p)
@@ -2471,7 +2471,7 @@ mark_vtable_entries (decl)
 
   for (; entries; entries = TREE_CHAIN (entries))
     {
-      tree fnaddr = (flag_vtable_thunks ? TREE_VALUE (entries) 
+      tree fnaddr = (flag_vtable_thunks ? TREE_VALUE (entries)
 		     : FNADDR_FROM_VTABLE_ENTRY (TREE_VALUE (entries)));
       tree fn = TREE_OPERAND (fnaddr, 0);
       TREE_ADDRESSABLE (fn) = 1;
@@ -2515,7 +2515,7 @@ maybe_make_one_only (decl)
      tree decl;
 {
   /* This is not necessary on targets that support weak symbols, because
-     the implicit instantiations will defer to the explicit one.  */     
+     the implicit instantiations will defer to the explicit one.  */
   if (! supports_one_only () || SUPPORTS_WEAK)
     return;
 
@@ -2654,7 +2654,7 @@ import_export_class (ctype)
       CLASSTYPE_INTERFACE_ONLY (ctype) = (import_export < 0);
     }
 }
-    
+
 static int
 finish_vtable_vardecl (prev, vars)
      tree prev, vars;
@@ -2816,7 +2816,7 @@ import_export_decl (decl)
 	  && (flag_implicit_templates || DECL_THIS_INLINE (decl)))
 	{
 	  if (!TREE_PUBLIC (decl))
-	    /* Templates are allowed to have internal linkage.  See 
+	    /* Templates are allowed to have internal linkage.  See
 	       [basic.link].  */
 	    ;
 	  else if (TREE_CODE (decl) == FUNCTION_DECL)
@@ -2871,7 +2871,7 @@ import_export_decl (decl)
 	DECL_NOT_REALLY_EXTERN (decl) = 0;
       else
 	comdat_linkage (decl);
-    } 
+    }
   else
     comdat_linkage (decl);
 
@@ -3109,7 +3109,7 @@ do_ctors ()
 	    }
 	  else
 	    expand_assignment (decl, init, 0, 0);
-	      
+
 	  /* The expression might have involved increments and
 	     decrements.  */
 	  emit_queue ();
@@ -3314,7 +3314,7 @@ finish_file ()
 	SET_DECL_ARTIFICIAL (vars);
 	pushdecl (vars);
 
-	reconsider |= walk_vtables ((void (*) PROTO((tree, tree))) 0, 
+	reconsider |= walk_vtables ((void (*) PROTO((tree, tree))) 0,
 				    finish_vtable_vardecl);
 
 	while (*p)
@@ -3458,7 +3458,7 @@ reparse_absdcl_as_casts (decl, expr)
      tree decl, expr;
 {
   tree type;
-  
+
   if (TREE_CODE (expr) == CONSTRUCTOR
       && TREE_TYPE (expr) == 0)
     {
@@ -3589,7 +3589,7 @@ build_expr_from_tree (t)
     case GT_EXPR:
     case MEMBER_REF:
       return build_x_binary_op
-	(TREE_CODE (t), 
+	(TREE_CODE (t),
 	 build_expr_from_tree (TREE_OPERAND (t, 0)),
 	 build_expr_from_tree (TREE_OPERAND (t, 1)));
 
@@ -3722,7 +3722,7 @@ build_expr_from_tree (t)
       return build_x_component_ref
 	(build_expr_from_tree (TREE_OPERAND (t, 0)),
 	 TREE_OPERAND (t, 1), NULL_TREE, 1);
-      
+
     case THROW_EXPR:
       return build_throw (build_expr_from_tree (TREE_OPERAND (t, 0)));
 
@@ -3782,7 +3782,7 @@ finish_decl_parsing (decl)
      tree decl;
 {
   extern int current_class_depth;
-  
+
   switch (TREE_CODE (decl))
     {
     case IDENTIFIER_NODE:
@@ -3856,9 +3856,9 @@ is_namespace_ancestor (root, child)
     return 0;
   return is_namespace_ancestor (root, CP_DECL_CONTEXT (child));
 }
-  
 
-/* Return the namespace that is the common ancestor 
+
+/* Return the namespace that is the common ancestor
    of two given namespaces. */
 
 tree
@@ -3873,7 +3873,7 @@ namespace_ancestor (ns1, ns2)
 /* Insert used into the using list of user. Set indirect_flag if this
    directive is not directly from the source. Also find the common
    ancestor and let our users know about the new namespace */
-static void 
+static void
 add_using_namespace (user, used, indirect)
      tree user;
      tree used;
@@ -3896,8 +3896,8 @@ add_using_namespace (user, used, indirect)
     }
 
   /* Add used to the user's using list. */
-  DECL_NAMESPACE_USING (user) 
-    = perm_tree_cons (used, namespace_ancestor (user, used), 
+  DECL_NAMESPACE_USING (user)
+    = perm_tree_cons (used, namespace_ancestor (user, used),
 		      DECL_NAMESPACE_USING (user));
 
   TREE_INDIRECT_USING (DECL_NAMESPACE_USING (user)) = indirect;
@@ -3977,12 +3977,12 @@ ambiguous_decl (name, old, new, flags)
         if (LOOKUP_QUALIFIERS_ONLY (flags))
           val = NULL_TREE;
       }
-        
+
   if (!BINDING_VALUE (old))
     BINDING_VALUE (old) = val;
   else if (val && val != BINDING_VALUE (old))
     {
-      if (is_overloaded_fn (BINDING_VALUE (old)) 
+      if (is_overloaded_fn (BINDING_VALUE (old))
 	  && is_overloaded_fn (val))
 	{
 	  BINDING_VALUE (old) = merge_functions (BINDING_VALUE (old),
@@ -4098,7 +4098,7 @@ set_decl_namespace (decl, scope)
     scope = global_namespace;
   /* Get rid of namespace aliases. */
   scope = ORIGINAL_NAMESPACE (scope);
-  
+
   if (!is_namespace_ancestor (current_namespace, scope))
     cp_error ("declaration of `%D' not in a namespace surrounding `%D'",
 	      decl, scope);
@@ -4127,7 +4127,7 @@ set_decl_namespace (decl, scope)
  complain:
   cp_error ("`%D' should have been declared inside `%D'",
 	    decl, scope);
-} 
+}
 
 /* Compute the namespace where a declaration is defined. */
 
@@ -4162,7 +4162,7 @@ current_decl_namespace ()
     result = decl_namespace (TYPE_STUB_DECL (current_class_type));
   else if (current_function_decl)
     result = decl_namespace (current_function_decl);
-  else 
+  else
     result = current_namespace;
   return result;
 }
@@ -4184,7 +4184,7 @@ pop_decl_namespace ()
   decl_namespace_list = TREE_CHAIN (decl_namespace_list);
 }
 
-static void 
+static void
 check_decl_namespace ()
 {
   my_friendly_assert (decl_namespace_list == NULL_TREE, 980711);
@@ -4219,7 +4219,7 @@ add_function (k, fn)
   if (k->functions && is_overloaded_fn (k->functions)
       && is_overloaded_fn (fn))
     k->functions = build_overload (fn, k->functions);
-  else 
+  else
     if(k->functions)
       {
 	tree f1 = OVL_CURRENT (k->functions);
@@ -4251,15 +4251,15 @@ arg_assoc_namespace (k, scope)
   if (purpose_member (scope, k->namespaces))
     return 0;
   k->namespaces = tree_cons (scope, NULL_TREE, k->namespaces);
-  
+
   value = namespace_binding (k->name, scope);
   if (!value)
     return 0;
-  
+
   for (; value; value = OVL_NEXT (value))
     if (add_function (k, OVL_CURRENT (value)))
       return 1;
-  
+
   return 0;
 }
 
@@ -4273,25 +4273,25 @@ arg_assoc_class (k, type)
 {
   tree list, friends, context;
   int i;
-  
+
   if (purpose_member (type, k->classes))
     return 0;
   k->classes = tree_cons (type, NULL_TREE, k->classes);
-  
+
   context = decl_namespace (TYPE_MAIN_DECL (type));
   if (arg_assoc_namespace (k, context))
     return 1;
-  
+
   /* Process baseclasses. */
   for (i = 0; i < CLASSTYPE_N_BASECLASSES (type); i++)
     if (arg_assoc_class (k, TYPE_BINFO_BASETYPE (type, i)))
       return 1;
-  
+
   /* Process friends. */
-  for (list = DECL_FRIENDLIST (TYPE_MAIN_DECL (type)); list; 
+  for (list = DECL_FRIENDLIST (TYPE_MAIN_DECL (type)); list;
        list = TREE_CHAIN (list))
     if (k->name == TREE_PURPOSE (list))
-      for (friends = TREE_VALUE (list); friends; 
+      for (friends = TREE_VALUE (list); friends;
 	   friends = TREE_CHAIN (friends))
 	/* Only interested in global functions with potentially hidden
            (i.e. unqualified) declarations. */
@@ -4422,7 +4422,7 @@ lookup_arg_dependent (name, fns, args)
   k.functions = fns;
   k.namespaces = NULL_TREE;
   k.classes = NULL_TREE;
-  
+
   push_scratch_obstack ();
   arg_assoc_args (&k, args);
   pop_obstacks ();
@@ -4448,7 +4448,7 @@ do_namespace_alias (alias, namespace)
   namespace = ORIGINAL_NAMESPACE (namespace);
 
   /* Build the alias. */
-  alias = build_lang_decl (NAMESPACE_DECL, alias, void_type_node);     
+  alias = build_lang_decl (NAMESPACE_DECL, alias, void_type_node);
   DECL_NAMESPACE_ALIAS (alias) = namespace;
   pushdecl (alias);
 }
@@ -4537,19 +4537,19 @@ do_nonmember_using_decl (scope, name, oldval, oldtype, newval, newtype)
 	  /* Duplicate use, ignore */
 	  if (tmp1)
 	    continue;
-	    
+
 	  *newval = build_overload (OVL_CURRENT (tmp), *newval);
 	  if (TREE_CODE (*newval) != OVERLOAD)
 	    *newval = ovl_cons (*newval, NULL_TREE);
 	  OVL_USED (*newval) = 1;
 	}
     }
-  else 
+  else
     {
       *newval = BINDING_VALUE (decls);
       if (oldval)
 	duplicate_decls (*newval, oldval);
-    } 
+    }
 
   *newtype = BINDING_TYPE (decls);
   if (oldtype && *newtype && oldtype != *newtype)
@@ -4572,7 +4572,7 @@ do_toplevel_using_decl (decl)
   decl = validate_nonmember_using_decl (decl, &scope, &name);
   if (decl == NULL_TREE)
     return;
-  
+
   binding = binding_for_name (name, current_namespace);
 
   oldval = BINDING_VALUE (binding);

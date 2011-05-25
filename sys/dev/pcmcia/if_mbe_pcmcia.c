@@ -88,7 +88,7 @@ const struct mbe_pcmcia_product {
 } mbe_pcmcia_products[] = {
 	{ { PCMCIA_STR_TDK_LAK_CD021BX,		PCMCIA_VENDOR_TDK,
 	    PCMCIA_PRODUCT_TDK_LAK_CD021BX,	0 },
-	  0 }, 
+	  0 },
 
 	{ { PCMCIA_STR_TDK_LAK_CF010,		PCMCIA_VENDOR_TDK,
 	    PCMCIA_PRODUCT_TDK_LAK_CF010,	0 },

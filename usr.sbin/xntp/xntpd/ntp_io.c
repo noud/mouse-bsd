@@ -265,7 +265,7 @@ create_sockets(port)
   int i, j;
   struct ifaddrs *ifaddrs, *ifap;
   struct sockaddr_in resmask;
-#if     _BSDI_VERSION < 199701 
+#if     _BSDI_VERSION < 199701
   struct ifaddrs *lp;
   int num_if;
 #endif
@@ -299,7 +299,7 @@ create_sockets(port)
   inter_list[0].notsent = 0;
   inter_list[0].flags = INT_BROADCAST;
 #if	_BSDI_VERSION >= 199510
-#if     _BSDI_VERSION >= 199701 
+#if     _BSDI_VERSION >= 199701
    if (getifaddrs(&ifaddrs) < 0)
      {
        msyslog(LOG_ERR, "getifaddrs: %m");
@@ -323,7 +323,7 @@ create_sockets(port)
 
       if (!ifap->ifa_addr)
 	continue;
-		
+
       if (ifap->ifa_addr->sa_family != AF_INET)
 	continue;
 
@@ -627,7 +627,7 @@ create_sockets(port)
 
   maxactivefd = 0;
   FD_ZERO(&activefds);
-			
+
   for (i = 0; i < ninterfaces; i++)
     {
       inter_list[i].fd =
@@ -795,7 +795,7 @@ io_multicast_add(addr)
 	   mreq.imr_multiaddr, mreq.imr_interface.s_addr,
 	   inet_ntoa(iaddr));
   inter_list[i].flags |= INT_MULTICAST;
-  if (i >= ninterfaces) ninterfaces = i+1;	
+  if (i >= ninterfaces) ninterfaces = i+1;
 #else /* MCAST */
   struct in_addr iaddr;
 
@@ -895,7 +895,7 @@ open_socket(addr, flags, turn_off_reuse)
   int on = 1, off = 0;
 
   /* create a datagram (UDP) socket */
-  if (  (fd = socket(AF_INET, SOCK_DGRAM, 0)) 
+  if (  (fd = socket(AF_INET, SOCK_DGRAM, 0))
 #ifndef SYS_WINNT
 		< 0
 #else
@@ -956,7 +956,7 @@ open_socket(addr, flags, turn_off_reuse)
 
 #ifdef USE_FIONBIO
 /* in vxWorks we use FIONBIO, but the others are defined for old systems, so
- * all hell breaks loose if we leave them defined 
+ * all hell breaks loose if we leave them defined
  */
 #undef O_NONBLOCK
 #undef FNDELAY
@@ -1150,7 +1150,7 @@ getrecvbufs()
 #endif
       return (struct recvbuf *)0;	/* nothing has arrived */
     }
-	
+
   /*
    * Get the fulllist chain and mark it empty
    */
@@ -1381,7 +1381,7 @@ input_handler(cts)
 
       fds = activefds;
       tvzero.tv_sec = tvzero.tv_usec = 0;
-      
+
       /*
        * If we have something to do, freeze a timestamp.
        * See below for the other cases (nothing (left) to do or error)
@@ -1437,7 +1437,7 @@ input_handler(cts)
 		      i = (rp->datalen == 0
 			   || rp->datalen > sizeof(rb->recv_space))
 			? sizeof(rb->recv_space) : rp->datalen;
-#ifndef SYS_WINNT				
+#ifndef SYS_WINNT
 		      rb->recv_length =
 			read(fd, (char *)&rb->recv_space, i)
 #else  /* SYS_WINNT */
@@ -1458,7 +1458,7 @@ input_handler(cts)
 			  continue;
 #endif
 			}
-	
+
 		      /*
 		       * Got one.  Mark how and when it got here,
 		       * put it on the full list and do bookkeeping.
@@ -1606,7 +1606,7 @@ input_handler(cts)
 			       0x00000000ffffffff,
 			       inet_ntoa(rb->recv_srcadr.sin_addr));
 #endif
-		      
+
 		      /*
 		       * Got one.  Mark how and when it got here,
 		       * put it on the full list and do bookkeeping.
@@ -1628,7 +1628,7 @@ input_handler(cts)
 			}
 		      fulllist = rb;
 		      full_recvbufs++;
-	
+
 		      inter_list[i].received++;
 		      packets_received++;
 		      goto select_again;
@@ -1780,7 +1780,7 @@ io_addclock_simple(rio)
    */
   rio->next = refio;
   refio = rio;
-  
+
   if (rio->fd > maxactivefd)
     maxactivefd = rio->fd;
   FD_SET(rio->fd, &activefds);
@@ -1803,10 +1803,10 @@ io_addclock(rio)
    */
   rio->next = refio;
   refio = rio;
-  
+
 # ifdef HAVE_SIGNALED_IO
   if (init_clock_sig(rio))
-    { 
+    {
       refio = rio->next;
       UNBLOCKIO();
       return 0;
@@ -1845,7 +1845,7 @@ io_closeclock(rio)
 	    rp->next = rio->next;
 	    break;
 	  }
-      
+
       if (rp == 0)
 	{
 	  /*
@@ -1856,7 +1856,7 @@ io_closeclock(rio)
 	  return;
 	}
     }
-  
+
   /*
    * Close the descriptor.
    */
@@ -1924,7 +1924,7 @@ init_clock_sig(rio)
 #define CLOCK_DONE
 {
   int pgrp, on = 1;
-	
+
   /* DO NOT ATTEMPT TO MAKE CLOCK-FD A CTTY: not portable, unreliable */
   pgrp = getpid();
   if (ioctl(rio->fd, FIOSSAIOOWN, (char *)&pgrp) == -1)
@@ -1950,7 +1950,7 @@ init_clock_sig(rio)
       exit(1);
       /*NOTREACHED*/
     }
-  return 0;	
+  return 0;
 }
 #  endif /* SYS_HPUX: FIOSSAIOOWN && FIOSNBIO && FIOSSAIOSTAT */
 /* Was: defined(SYS_AIX) && !defined(_BSD) */
@@ -2015,7 +2015,7 @@ init_clock_sig(rio)
 	     "fcntl(FNDELAY|FASYNC) fails for clock I/O: %m");
       return 1;
     }
-  return 0;	
+  return 0;
 }
 #  endif /* CLOCK_DONE */
 # endif /* !USE_TTY_SIGPOLL  */
@@ -2233,10 +2233,10 @@ void
 wait_for_signal()
 {
   sigset_t old;
-  
+
   if (sigprocmask(SIG_UNBLOCK, NULL, &old))
     msyslog(LOG_ERR, "wait_for_signal: sigprocmask() failed: %m");
-  
+
 #  if defined(USE_SIGIO)
   if (sigdelset(&old, SIGIO))
     msyslog(LOG_ERR, "wait_for_signal: sigdelset(SIGIO) failed: %m");
@@ -2247,7 +2247,7 @@ wait_for_signal()
 #  endif
   if (sigdelset(&old, SIGALRM))
     msyslog(LOG_ERR, "wait_for_signal: sigdelset(SIGALRM) failed: %m");
-  
+
   if (sigsuspend(&old) && (errno != EINTR))
     msyslog(LOG_ERR, "wait_for_signal: sigsuspend() failed: %m");
 }
@@ -2262,7 +2262,7 @@ void
 block_io_and_alarm()
 {
   int mask;
-  
+
   mask = sigmask(SIGIO) | sigmask(SIGALRM);
   if (sigblock(mask))
     msyslog(LOG_ERR, "block_io_and_alarm: sigblock() failed: %m");
@@ -2294,7 +2294,7 @@ void
 unblock_io_and_alarm()
 {
   int mask, omask;
-  
+
   mask = sigmask(SIGIO) | sigmask(SIGALRM);
   omask = sigblock(0);
   omask &= ~mask;
@@ -2321,7 +2321,7 @@ void
 wait_for_signal()
 {
   int mask, omask;
-  
+
   mask = sigmask(SIGIO) | sigmask(SIGALRM);
   omask = sigblock(0);
   omask &= ~mask;
@@ -2335,7 +2335,7 @@ void
 kill_asyncio()
 {
   int i;
-  
+
   BLOCKIO();
   for (i = 0; i <= maxactivefd; i++)
     (void)close_socket(i);
@@ -2360,7 +2360,7 @@ get_winnt_interfaces(ifc)
   char servicename[50];
   DWORD sizeofservicename = 50;
   int Done = 0;
-        
+
   /*
    * these need to be big as they are multi_sz in type and hold all
    * ip addresses and subnet mask for a given interface
@@ -2373,17 +2373,17 @@ get_winnt_interfaces(ifc)
   DWORD sizeofsubnetmasks = 10000;
   char bindservicenames[1000];
   DWORD sizeofbindnames = 1000;
-  
+
   char oneIpAddress[16];
   char oneSubNetMask[16];
   int count = 0;
   char *onenetcard;
-  
-  /* now get all the netcard values which are bound to tcpip */ 
-  
+
+  /* now get all the netcard values which are bound to tcpip */
+
   strcpy(newkey,"SYSTEM\\Currentcontrolset\\Services\\");
   strcat(newkey,"tcpip\\linkage");
-  
+
   bSuccess = RegOpenKey(HKEY_LOCAL_MACHINE,newkey,&hk);
   if(bSuccess != ERROR_SUCCESS)
     {
@@ -2410,7 +2410,7 @@ get_winnt_interfaces(ifc)
       return -1;
     }
 
-  /* now loop through and get all the values which are bound to tcpip */ 
+  /* now loop through and get all the values which are bound to tcpip */
   /* we can also close the key here as we have the values now */
   RegCloseKey(hk);
   onenetcard = bindservicenames;
@@ -2436,7 +2436,7 @@ get_winnt_interfaces(ifc)
        * shouldn't be a problem with machines with only a RAS
        * interface anyway as we can bind to the loopback or 0.0.0.0
        */
-      
+
       if ((strlen(servicename) >= 7) && (strncmp(strupr(servicename),"NDISWAN",7) == 0))
 	{
 	  /* skip it */
@@ -2448,11 +2448,11 @@ get_winnt_interfaces(ifc)
       else {
 	/* if opening this key fails we can assume it is not a network card ie digiboard and go on.. */
 	/* ok now that we have the service name parameter close the key and go get the ipaddress and subnet mask */
-	
+
 	strcpy(newkey,"SYSTEM\\Currentcontrolset\\Services\\");
 	strcat(newkey,servicename);
 	strcat(newkey,"\\parameters\\tcpip");
-	
+
 	bSuccess = RegOpenKey(HKEY_LOCAL_MACHINE,newkey,&hksub);
 	if(bSuccess != ERROR_SUCCESS)
 	  {
@@ -2462,7 +2462,7 @@ get_winnt_interfaces(ifc)
 #endif
 	  }
 	else
-	  { /* ok it is a network card */            
+	  { /* ok it is a network card */
 	    /* ok now get the ipaddress and subnetmask */
 	    sizeofipaddresses = 10000;
 	    bSuccess =
@@ -2493,7 +2493,7 @@ get_winnt_interfaces(ifc)
 	      RegCloseKey(hksub);
 	      return -1;
 	    }
-	  
+
 	  RegCloseKey(hksub);
 	  /* ok now that we have some addresses and subnet masks go through each one and add to our structure... */
 	  /* multi_sz strings are terminated by two \0 in a row */
@@ -2507,33 +2507,33 @@ get_winnt_interfaces(ifc)
 	      if (sscanf(ipptr,"%s",oneIpAddress) != EOF)
 		ipptr+= strlen(oneIpAddress) + 1; /* add one for terminator \0 */
 	      else Done = 1;
-	      
+
 	      if (sscanf(subptr,"%s",oneSubNetMask) != EOF)
 		subptr += strlen(oneSubNetMask) + 1;
 	      else Done = 1;
-	      
+
 	      /* now add to interface structure */
-	      if (!Done)                  
+	      if (!Done)
 		{
 		  ifr->ifr_addr.sa_family = AF_INET;
 		  ((struct sockaddr_in *)&ifr->ifr_addr)->sin_addr.s_addr = inet_addr(oneIpAddress);
 		  strcpy(ifr->ifr_mask,oneSubNetMask);
-		  
+
 		  if (strlen(servicename) > 15)
 		    strncpy(ifr->ifr_name,servicename,15);
 		  else strcpy(ifr->ifr_name,servicename);
-		  
+
 		  /* now increment pointer */
 		  ifc_buffer += sizeof (ifr->ifr_name) + sizeof(ifr->ifr_addr) + sizeof(ifr->ifr_mask);
 		  ++count;
-		  if (((char *)ipptr == '\0') || ((char *)subptr == '\0')) 
+		  if (((char *)ipptr == '\0') || ((char *)subptr == '\0'))
 		    Done = 1;
 		}
 	    }
 	} /* it is a network card */
-      } /* it is/not a temporary ndiswan name */ 
+      } /* it is/not a temporary ndiswan name */
     } /* end of loop  */
-  
+
   /* now reset the length */
   ifc->ifc_len = count * (sizeof(ifr->ifr_name) + sizeof(ifr->ifr_addr) + sizeof(ifr->ifr_mask));
   return 0;

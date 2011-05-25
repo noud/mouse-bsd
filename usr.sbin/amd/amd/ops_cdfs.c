@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: ops_cdfs.c,v 1.3 1999/03/30 17:22:46 ezk Exp 
+ * Id: ops_cdfs.c,v 1.3 1999/03/30 17:22:46 ezk Exp
  *
  */
 

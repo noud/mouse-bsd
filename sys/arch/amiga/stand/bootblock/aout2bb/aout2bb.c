@@ -67,7 +67,7 @@ int main(int argc, char *argv[]);
 
 char *progname;
 u_int8_t buffer[BBSIZE];
-u_int32_t relbuf[BBSIZE/sizeof(u_int32_t)]; 
+u_int32_t relbuf[BBSIZE/sizeof(u_int32_t)];
 	/* can't have more relocs than that*/
 
 int
@@ -77,8 +77,8 @@ intcmp(i, j)
 	int r;
 
 	r = (*(u_int32_t *)i) < (*(u_int32_t *)j);
-	
-	return 2*r-1; 
+
+	return 2*r-1;
 }
 
 int
@@ -98,7 +98,7 @@ main(argc, argv)
 	u_int32_t tsz, dsz, bsz, trsz, drsz, entry, relver;
 	int sumsize = 16;
 	int c;
-	
+
 
 	progname = argv[0];
 
@@ -152,7 +152,7 @@ main(argc, argv)
 	drsz = ntohl(eh->a_drsize);
 	entry = ntohl(eh->a_entry);
 
-	dprintf(("tsz = 0x%x, dsz = 0x%x, bsz = 0x%x, total 0x%x, entry=0x%x\n", 
+	dprintf(("tsz = 0x%x, dsz = 0x%x, bsz = 0x%x, total 0x%x, entry=0x%x\n",
 		tsz, dsz, bsz, tsz+dsz+bsz, entry));
 
 	if ((trsz+drsz)==0)
@@ -173,7 +173,7 @@ main(argc, argv)
 	memcpy(buffer, image + N_TXTOFF(*eh), tsz+dsz);
 
 	/*
-	 * Hm. This tool REALLY should understand more than one 
+	 * Hm. This tool REALLY should understand more than one
 	 * relocator version. For now, check that the relocator at
 	 * the image start does understand what we output.
 	 */
@@ -197,7 +197,7 @@ main(argc, argv)
 	}
 
 
-	
+
 	i = 0;
 
 	for (rpi = (struct relocation_info_m68k *)(image+N_TRELOFF(*eh));
@@ -269,12 +269,12 @@ main(argc, argv)
 		relbuf[i++] = rpi->r_address + tsz;
 	}
 	printf("%d absolute reloc%s found, ", i, i==1?"":"s");
-	
+
 	if (i > 1)
 		heapsort(relbuf, i, 4, intcmp);
 
 	oldaddr = 0;
-	
+
 	for (--i; i>=0; --i) {
 		dprintf(("0x%04x: ", relbuf[i]));
 		lptr = (u_int32_t *)&buffer[relbuf[i]];
@@ -320,8 +320,8 @@ main(argc, argv)
 	    : rpo >= buffer + BBSIZE)
 		errx(1, "Relocs don't fit.");
 
-	((u_int32_t *)buffer)[1] = 0; 
-	((u_int32_t *)buffer)[1] = 
+	((u_int32_t *)buffer)[1] = 0;
+	((u_int32_t *)buffer)[1] =
 	    (0xffffffff - chksum((u_int32_t *)buffer, sumsize * 512 / 4));
 
 	ofd = open(argv[1], O_CREAT|O_WRONLY, 0644);

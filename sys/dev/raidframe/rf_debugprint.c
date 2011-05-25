@@ -68,7 +68,7 @@ RF_DECLARE_STATIC_MUTEX(rf_debug_print_mutex)
 	return (0);
 }
 
-void 
+void
 rf_clear_debug_print_buffer()
 {
 	int     i;
@@ -78,7 +78,7 @@ rf_clear_debug_print_buffer()
 	rf_debugprint_index = 0;
 }
 
-void 
+void
 rf_debug_printf(s, a1, a2, a3, a4, a5, a6, a7, a8)
 	char   *s;
 	void   *a1, *a2, *a3, *a4, *a5, *a6, *a7, *a8;
@@ -106,13 +106,13 @@ rf_debug_printf(s, a1, a2, a3, a4, a5, a6, a7, a8)
 	}
 }
 
-void 
+void
 rf_print_debug_buffer()
 {
 	rf_spill_debug_buffer(NULL);
 }
 
-void 
+void
 rf_spill_debug_buffer(fname)
 	char   *fname;
 {

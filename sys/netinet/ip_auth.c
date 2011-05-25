@@ -441,7 +441,7 @@ fr_authioctlloop:
 		/*
 		 * If we experience an error which will result in the packet
 		 * not being processed, make sure we advance to the next one.
-		 */ 
+		 */
 		if (error == ENOBUFS) {
 			fr_authused--;
 			fr_auth[i].fra_index = -1;

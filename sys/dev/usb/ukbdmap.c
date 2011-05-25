@@ -114,7 +114,7 @@ static const keysym_t ukbd_keydesc_us[] = {
     KC(70),			KS_Print_Screen,
     KC(71), 			KS_Hold_Screen,
     KC(72),			KS_Pause,
-    KC(73),			KS_Insert, 
+    KC(73),			KS_Insert,
     KC(74),			KS_Home,
     KC(75),			KS_Prior,
     KC(76),			KS_Delete,

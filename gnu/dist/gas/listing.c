@@ -1292,21 +1292,21 @@ listing_flags (ignore)
   s_ignore (0);
 }
 
-void 
+void
 listing_list (on)
      int on;
 {
   s_ignore (0);
 }
 
-void 
+void
 listing_eject (ignore)
      int ignore;
 {
   s_ignore (0);
 }
 
-void 
+void
 listing_psize (ignore)
      int ignore;
 {
@@ -1320,7 +1320,7 @@ listing_nopage (ignore)
   s_ignore (0);
 }
 
-void 
+void
 listing_title (depth)
      int depth;
 {
@@ -1334,20 +1334,20 @@ listing_file (name)
 
 }
 
-void 
+void
 listing_newline (name)
      char *name;
 {
 
 }
 
-void 
+void
 listing_source_line (n)
      unsigned int n;
 {
 
 }
-void 
+void
 listing_source_file (n)
      const char *n;
 {

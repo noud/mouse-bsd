@@ -97,7 +97,7 @@
 #define		PMUCNT_GPIO0D		(1<<8)		/* GPIO0 Fall */
 #define		PMUCNT_GPIO0U		(0<<8)		/* GPIO0 Raise */
 
-#define		PMUCNT_HALTIMERRST	(1<<2)		/* HAL Timer Reset */ 
+#define		PMUCNT_HALTIMERRST	(1<<2)		/* HAL Timer Reset */
 #define		PMUCNT_ONE		(1<<1)		/* ALWAYS write 1 */
 
 
@@ -148,6 +148,6 @@
 #define	PMUWAIT_REG_W	0x008	/* PMU Wait Control Register (>= vr4111) */
 #define		PMUWAIT_DEFAULT		0x2c00		/* 343.75ms */
 
-#define	PMUDIV_REG_W	0x00C	/* PMU Div Mode Register (>= vr4121) */ 
+#define	PMUDIV_REG_W	0x00C	/* PMU Div Mode Register (>= vr4121) */
 
 /* END vrpmureg.h */

@@ -208,7 +208,7 @@ interpret(val, len)
 	d->rpc.r_number = atoi(cp);
 	q = d->rpc.r_aliases = d->rpc_aliases;
 	cp = strpbrk(cp, " \t");
-	if (cp != NULL) 
+	if (cp != NULL)
 		*cp++ = '\0';
 	while (cp && *cp) {
 		if (*cp == ' ' || *cp == '\t') {

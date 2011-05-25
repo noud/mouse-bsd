@@ -6,11 +6,11 @@ MEMORY {
 	ram   : o = 0x1000, l = 512k
 	}
 
-SECTIONS 				
-{ 					
+SECTIONS
+{
 .text :
-	{ 					
-	  *(.text) 				
+	{
+	  *(.text)
 	  *(.strings)
    	 ${RELOCATING+ _etext = . ; }
 	} ${RELOCATING+ > ram}
@@ -37,12 +37,12 @@ SECTIONS
 	*(COMMON)
 	${RELOCATING+ _end = . ;  }
 	} ${RELOCATING+ >ram}
-.stack ${RELOCATING+ 0x30000 }  : 
+.stack ${RELOCATING+ 0x30000 }  :
 	{
 	${RELOCATING+ _stack = . ; }
 	*(.stack)
 	} ${RELOCATING+ > ram}
-  .stab  . (NOLOAD) : 
+  .stab  . (NOLOAD) :
   {
     [ .stab ]
   }

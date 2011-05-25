@@ -366,7 +366,7 @@ api_map(sp, name, map, len)
  *
  * PUBLIC: int api_unmap __P((SCR *, char *));
  */
-int 
+int
 api_unmap(sp, name)
 	SCR *sp;
 	char *name;
@@ -428,7 +428,7 @@ api_opts_get(sp, name, value)
  *
  * PUBLIC: int api_opts_set __P((SCR *, char *));
  */
-int 
+int
 api_opts_set(sp, name)
 	SCR *sp;
 	char *name;
@@ -447,7 +447,7 @@ api_opts_set(sp, name)
  *
  * PUBLIC: int api_run_str __P((SCR *, char *));
  */
-int     
+int
 api_run_str(sp, cmd)
 	SCR *sp;
 	char *cmd;

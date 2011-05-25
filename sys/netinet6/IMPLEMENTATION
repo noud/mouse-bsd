@@ -460,7 +460,7 @@ and recompile the new kernel.
 Then you can test jumbo payloads by the ping6 command with -b and -s
 options.  The -b option must be specified to enlarge the size of the
 socket buffer and the -s option specifies the length of the packet,
-which should be more than 65,535.  For example, type as follows; 
+which should be more than 65,535.  For example, type as follows;
 	% ping6 -b 70000 -s 68000 ::1
 
 The IPv6 specification requires that the Jumbo Payload option must not
@@ -631,7 +631,7 @@ KAME/FreeBSD228	not supported		not supported
 KAME/FreeBSD3x	configurable		supported
 		default: enabled
 KAME/NetBSD	configurable		supported
-		default: disabled 
+		default: disabled
 KAME/BSDI4	enabled			supported		(*)
 KAME/OpenBSD	not supported		not supported
 
@@ -702,7 +702,7 @@ not recommend you to rely upon IPv4 mapped address.
 The platforms do not support IPv4 mapped address at all (both listening side
 and initiating side).  AF_INET6 and AF_INET sockets are totally separated.
 
-Port number space is totally separate between AF_INET and AF_INET6 sockets. 
+Port number space is totally separate between AF_INET and AF_INET6 sockets.
 
 1.12.2 KAME/FreeBSD3x
 
@@ -719,9 +719,9 @@ summarized as follows:
   connections in certain condition.  You can disable it with sysctl, or
   setsockopt.
 - If you remove MAPPED_ADDR_ENABLED option, the code to perform special
-  behavior will not be compiled.  It behaves as described in 1.12.1. 
+  behavior will not be compiled.  It behaves as described in 1.12.1.
 
-Wildcard AF_INET6 socket grabs IPv4 connection if and only if the following 
+Wildcard AF_INET6 socket grabs IPv4 connection if and only if the following
 conditions are satisfied:
 - there's no AF_INET socket that matches the IPv4 connection
 - the AF_INET6 socket is configured to accept IPv4 traffic, i.e.
@@ -763,7 +763,7 @@ configuration at in6pcb creation time.  To change per-socket behavior, you
 must perform setsockopt or reopen the socket.  Change in sysctl configuration
 will not change the behavior or sockets that are already opened.
 
-Wildcard AF_INET6 socket grabs IPv4 connection if and only if the following 
+Wildcard AF_INET6 socket grabs IPv4 connection if and only if the following
 conditions are satisfied:
 - there's no AF_INET socket that matches the IPv4 connection
 - the AF_INET6 socket is configured to accept IPv4 traffic, i.e.
@@ -883,7 +883,7 @@ KAME requires three items to be added into the standard drivers:
 
 (1) mbuf clustering requirement. In this stable release, we changed
     MINCLSIZE into MHLEN+1 for all the operating systems in order to make
-    all the drivers behave as we expect.  
+    all the drivers behave as we expect.
 
 (2) multicast.  If "ifmcstat" yields no multicast group for a
     interface, that interface has to be patched.

@@ -149,22 +149,22 @@ struct objc_static_instances
 /*
 ** Whereas a Module (defined further down) is the root (typically) of a file,
 ** a Symtab is the root of the class and category definitions within the
-** module.  
-** 
+** module.
+**
 ** A Symtab contains a variable length array of pointers to classes and
-** categories  defined in the module. 
+** categories  defined in the module.
 */
 typedef struct objc_symtab {
   unsigned long sel_ref_cnt;                     /* Unknown. */
   SEL        refs;                              /* Unknown. */
   unsigned short cls_def_cnt;                   /* Number of classes compiled
                                                   (defined) in the module. */
-  unsigned short cat_def_cnt;                   /* Number of categories 
-                                                  compiled (defined) in the 
+  unsigned short cat_def_cnt;                   /* Number of categories
+                                                  compiled (defined) in the
                                                   module. */
 
   void      *defs[1];                           /* Variable array of pointers.
-                                                  cls_def_cnt of type Class 
+                                                  cls_def_cnt of type Class
                                                   followed by cat_def_cnt of
                                                   type Category_t, followed
 						  by a NULL terminated array
@@ -174,38 +174,38 @@ typedef struct objc_symtab {
 
 /*
 ** The compiler generates one of these structures for each module that
-** composes the executable (eg main.m).  
-** 
-** This data structure is the root of the definition tree for the module.  
-** 
-** A collect program runs between ld stages and creates a ObjC ctor array. 
-** That array holds a pointer to each module structure of the executable. 
+** composes the executable (eg main.m).
+**
+** This data structure is the root of the definition tree for the module.
+**
+** A collect program runs between ld stages and creates a ObjC ctor array.
+** That array holds a pointer to each module structure of the executable.
 */
 typedef struct objc_module {
   unsigned long version;                        /* Compiler revision. */
   unsigned long size;                           /* sizeof(Module). */
-  const char* name;                             /* Name of the file where the 
-                                                  module was generated.   The 
+  const char* name;                             /* Name of the file where the
+                                                  module was generated.   The
                                                   name includes the path. */
 
   Symtab_t    symtab;                           /* Pointer to the Symtab of
                                                   the module.  The Symtab
-                                                  holds an array of 
-						  pointers to 
-                                                  the classes and categories 
+                                                  holds an array of
+						  pointers to
+                                                  the classes and categories
                                                   defined in the module. */
 } Module, *Module_t;
 
 
 /*
 ** The compiler generates one of these structures for a class that has
-** instance variables defined in its specification. 
+** instance variables defined in its specification.
 */
 typedef struct objc_ivar* Ivar_t;
 typedef struct objc_ivar_list {
-  int   ivar_count;                             /* Number of structures (Ivar) 
+  int   ivar_count;                             /* Number of structures (Ivar)
                                                   contained in the list.  One
-                                                  structure per instance 
+                                                  structure per instance
                                                   variable defined in the
                                                   class. */
   struct objc_ivar {
@@ -213,46 +213,46 @@ typedef struct objc_ivar_list {
                                                   variable as entered in the
                                                   class definition. */
     const char* ivar_type;                      /* Description of the Ivar's
-                                                  type.  Useful for 
+                                                  type.  Useful for
                                                   debuggers. */
-    int        ivar_offset;                    /* Byte offset from the base 
-                                                  address of the instance 
+    int        ivar_offset;                    /* Byte offset from the base
+                                                  address of the instance
                                                   structure to the variable. */
 
-  } ivar_list[1];                               /* Variable length 
+  } ivar_list[1];                               /* Variable length
                                                   structure. */
 } IvarList, *IvarList_t;
 
 
 /*
 ** The compiler generates one (or more) of these structures for a class that
-** has methods defined in its specification. 
-** 
+** has methods defined in its specification.
+**
 ** The implementation of a class can be broken into separate pieces in a file
 ** and categories can break them across modules. To handle this problem is a
-** singly linked list of methods. 
+** singly linked list of methods.
 */
 typedef struct objc_method Method;
 typedef Method* Method_t;
 typedef struct objc_method_list {
-  struct objc_method_list*  method_next;      /* This variable is used to link 
-                                                a method list to another.  It 
+  struct objc_method_list*  method_next;      /* This variable is used to link
+                                                a method list to another.  It
                                                 is a singly linked list. */
-  int            method_count;               /* Number of methods defined in 
+  int            method_count;               /* Number of methods defined in
                                                 this structure. */
   struct objc_method {
-    SEL         method_name;                  /* This variable is the method's 
-                                                name.  It is a char*. 
-                                                  The unique integer passed to 
-                                                objc_msg_send is a char* too.  
-                                                It is compared against 
+    SEL         method_name;                  /* This variable is the method's
+                                                name.  It is a char*.
+                                                  The unique integer passed to
+                                                objc_msg_send is a char* too.
+                                                It is compared against
                                                 method_name using strcmp. */
     const char* method_types;                 /* Description of the method's
                                                 parameter list.  Useful for
                                                 debuggers. */
-    IMP         method_imp;                   /* Address of the method in the 
+    IMP         method_imp;                   /* Address of the method in the
                                                 executable. */
-  } method_list[1];                           /* Variable length 
+  } method_list[1];                           /* Variable length
                                                 structure. */
 } MethodList, *MethodList_t;
 
@@ -263,12 +263,12 @@ struct objc_protocol_list {
 };
 
 /*
-** This is used to assure consistent access to the info field of 
+** This is used to assure consistent access to the info field of
 ** classes
 */
 #ifndef HOST_BITS_PER_LONG
 #define HOST_BITS_PER_LONG  (sizeof(long)*8)
-#endif 
+#endif
 
 #define __CLS_INFO(cls) ((cls)->info)
 #define __CLS_ISINFO(cls, mask) ((__CLS_INFO(cls)&mask)==mask)
@@ -284,7 +284,7 @@ struct objc_protocol_list {
 #define CLS_ISCLASS(cls) ((cls)&&__CLS_ISINFO(cls, _CLS_CLASS))
 
 /*
-** The class is initialized within the runtime.  This means that 
+** The class is initialized within the runtime.  This means that
 ** it has had correct super and sublinks assigned
 */
 #define _CLS_RESOLV 0x8L
@@ -292,7 +292,7 @@ struct objc_protocol_list {
 #define CLS_SETRESOLV(cls) __CLS_SETINFO(cls, _CLS_RESOLV)
 
 /*
-** The class has been send a +initialize message or a such is not 
+** The class has been send a +initialize message or a such is not
 ** defined for this class
 */
 #define _CLS_INITIALIZED 0x04L
@@ -300,7 +300,7 @@ struct objc_protocol_list {
 #define CLS_SETINITIALIZED(cls) __CLS_SETINFO(cls, _CLS_INITIALIZED)
 
 /*
-** The class number of this class.  This must be the same for both the 
+** The class number of this class.  This must be the same for both the
 ** class and its meta class object
 */
 #define CLS_GETNUMBER(cls) (__CLS_INFO(cls) >> (HOST_BITS_PER_LONG/2))
@@ -311,7 +311,7 @@ struct objc_protocol_list {
 
 /*
 ** The compiler generates one of these structures for each category.  A class
-** may have many categories and contain both instance and factory methods.  
+** may have many categories and contain both instance and factory methods.
 */
 typedef struct objc_category {
   const char*   category_name;                /* Name of the category.  Name
@@ -320,14 +320,14 @@ typedef struct objc_category {
   const char*   class_name;                   /* Name of the class to which
                                                 the category belongs. */
   MethodList_t  instance_methods;             /* Linked list of instance
-                                                methods defined in the 
+                                                methods defined in the
                                                 category. NULL indicates no
                                                 instance methods defined. */
-  MethodList_t  class_methods;                /* Linked list of factory 
+  MethodList_t  class_methods;                /* Linked list of factory
                                                 methods defined in the
                                                 category.  NULL indicates no
                                                 class methods defined. */
-  struct objc_protocol_list *protocols;	      /* List of Protocols 
+  struct objc_protocol_list *protocols;	      /* List of Protocols
 					         conformed to */
 } Category, *Category_t;
 
@@ -575,7 +575,7 @@ object_is_meta_class(id object)
   return CLS_ISMETA((Class)object);
 }
 
-struct sarray* 
+struct sarray*
 objc_get_uninstalled_dtable(void);
 
 #endif /* not __objc_api_INCLUDE_GNU */

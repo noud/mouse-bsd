@@ -74,7 +74,7 @@
 
 extern u_char qvss8x15_data[];
 
-struct wsdisplay_font qvss8x15 = { 
+struct wsdisplay_font qvss8x15 = {
 	"QVSS",				/* typeface name */
 	' ',				/* firstchar */
 	0377 - ' ' + 1,			/* numchars */

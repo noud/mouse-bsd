@@ -43,7 +43,7 @@
 
 /*
  * These functions have been moved to multiarch to allow
- * selection of which machines include them to be 
+ * selection of which machines include them to be
  * determined by the individual files.linux_<arch> files.
  *
  * Function in multiarch:
@@ -401,7 +401,7 @@ linux_sys_mmap(p, v, retval)
 	} */ *uap = v;
 	struct sys_mmap_args cma;
 	int flags;
-	
+
 	flags = 0;
 	flags |= cvtto_bsd_mask(SCARG(uap,flags), LINUX_MAP_SHARED, MAP_SHARED);
 	flags |= cvtto_bsd_mask(SCARG(uap,flags), LINUX_MAP_PRIVATE, MAP_PRIVATE);
@@ -877,7 +877,7 @@ linux_sys_setreuid(p, v, retval)
 		syscallarg(int) euid;
 	} */ *uap = v;
 	struct sys_setreuid_args bsa;
-	
+
 	SCARG(&bsa, ruid) = ((linux_uid_t)SCARG(uap, ruid) == (linux_uid_t)-1) ?
 		(uid_t)-1 : SCARG(uap, ruid);
 	SCARG(&bsa, euid) = ((linux_uid_t)SCARG(uap, euid) == (linux_uid_t)-1) ?
@@ -897,7 +897,7 @@ linux_sys_setregid(p, v, retval)
 		syscallarg(int) egid;
 	} */ *uap = v;
 	struct sys_setregid_args bsa;
-	
+
 	SCARG(&bsa, rgid) = ((linux_gid_t)SCARG(uap, rgid) == (linux_gid_t)-1) ?
 		(uid_t)-1 : SCARG(uap, rgid);
 	SCARG(&bsa, egid) = ((linux_gid_t)SCARG(uap, egid) == (linux_gid_t)-1) ?

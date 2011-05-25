@@ -1118,7 +1118,7 @@ char	*addr;
 		n++;
 		p = NULL;
 	}
-	
+
 	return (n);
 }
 

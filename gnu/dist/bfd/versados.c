@@ -433,7 +433,7 @@ process_otr (abfd, otr, pass)
 		      int rn = EDATA (abfd, otr->esdid - 1).relocs++;
 		      if (pass == 1)
 			{
-			  /* this is the first pass over the data, 
+			  /* this is the first pass over the data,
 			     just remember that we need a reloc */
 			}
 		      else

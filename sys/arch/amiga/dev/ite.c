@@ -109,7 +109,7 @@ struct ite_softc *kbd_ite;
 u_int bvolume = 10;
 u_int bpitch = 660;
 u_int bmsec = 75;
-	
+
 static char *bsamplep;
 static char sample[20] = {
 	0,39,75,103,121,127,121,103,75,39,0,
@@ -130,7 +130,7 @@ void itecnpollc __P((dev_t, int));
 static void repeat_handler __P((void *));
 inline static void ite_sendstr __P((char *));
 static void alignment_display __P((struct ite_softc *));
-inline static void snap_cury __P((struct ite_softc *)); 
+inline static void snap_cury __P((struct ite_softc *));
 inline static void ite_dnchar __P((struct ite_softc *, int));
 inline static void ite_inchar __P((struct ite_softc *, int));
 inline static void ite_clrtoeol __P((struct ite_softc *));
@@ -163,10 +163,10 @@ itematch(pdp, cfp, auxp)
 {
 	struct grf_softc *gp;
 	int maj;
-	
+
 	gp = auxp;
 	/*
-	 * all that our mask allows (more than enough no one 
+	 * all that our mask allows (more than enough no one
 	 * has > 32 monitors for text consoles on one machine)
 	 */
 	if (cfp->cf_unit >= sizeof(ite_confunits) * NBBY)
@@ -267,7 +267,7 @@ itecnprobe(cd)
 	 */
 	config_console();
 
-	/* 
+	/*
 	 * return priority of the best ite (already picked from attach)
 	 * or CN_DEAD.
 	 */
@@ -287,7 +287,7 @@ init_bell()
 		return;
 	bsamplep = alloc_chipmem(20);
 	if (bsamplep == NULL)
-		panic("no chipmem for ite_bell"); 
+		panic("no chipmem for ite_bell");
 
 	bcopy(sample, bsamplep, 20);
 }
@@ -303,7 +303,7 @@ ite_bell()
 
 	/*
 	 * the number of clock ticks per sample byte must be > 124
-	 * ergo bpitch must be < clock / 124*20 
+	 * ergo bpitch must be < clock / 124*20
 	 * i.e. ~1443, 1300 to be safe (PAL etc.). also not zero obviously
 	 */
 	period = clock / (bpitch * 20);
@@ -391,7 +391,7 @@ itecnpollc(dev, on)
  * standard entry points to the device.
  */
 
-/* 
+/*
  * iteinit() is the standard entry point for initialization of
  * an ite device, it is also called from ite_cninit().
  *
@@ -433,10 +433,10 @@ iteopen(dev, mode, devtype, p)
 
 	unit = ITEUNIT(dev);
 	first = 0;
-	
+
 	if (((1 << unit) & ite_confunits) == 0)
 		return (ENXIO);
-	
+
 	ip = getitesp(dev);
 
 	if (ip->tp == NULL) {
@@ -467,7 +467,7 @@ iteopen(dev, mode, devtype, p)
 		ttsetwater(tp);
 	}
 	error = ttyopen(tp, 0, mode & O_NONBLOCK);
-	if (error) 
+	if (error)
 		goto bad;
 
 	error = (*linesw[tp->t_line].l_open) (dev, tp);
@@ -557,7 +557,7 @@ iteioctl(dev, cmd, addr, flag, p)
 	struct itebell *ib;
 	struct tty *tp;
 	int error;
-	
+
 	ip = getitesp(dev);
 	tp = ip->tp;
 
@@ -640,7 +640,7 @@ itestart(tp)
 
 		tp->t_state |= TS_BUSY;
 		rbp = &tp->t_outq;
-		
+
 		len = q_to_b(rbp, buf, ITEBURST);
 	} splx(s);
 
@@ -677,8 +677,8 @@ ite_on(dev, flag)
 	unit = ITEUNIT(dev);
 	if (((1 << unit) & ite_confunits) == 0)
 		return (ENXIO);
-	
-	ip = getitesp(dev); 
+
+	ip = getitesp(dev);
 
 	/* force ite active, overriding graphics mode */
 	if (flag & 1) {
@@ -802,18 +802,18 @@ ite_cnfilter(c, caller)
 			key_mod |= mask;
 		splx(s);
 		return -1;
-	}	
+	}
 
 	if (up) {
 		splx(s);
 		return -1;
 	}
-	
+
 	/* translate modifiers */
 	if (key_mod & KBD_MOD_SHIFT) {
 		if (key_mod & KBD_MOD_ALT)
 			key = kbdmap.alt_shift_keys[c];
-		else 
+		else
 			key = kbdmap.shift_keys[c];
 	} else if (key_mod & KBD_MOD_ALT)
 		key = kbdmap.alt_keys[c];
@@ -872,7 +872,7 @@ repeat_handler(arg)
 	void *arg;
 {
 	tout_pending = 0;
-	if (last_char) 
+	if (last_char)
 		ite_filter(last_char, ITEFILT_REPEATER);
 }
 
@@ -894,7 +894,7 @@ ite_filter(c, caller)
 	/* have to make sure we're at spltty in here */
 	s = spltty();
 
-	/* 
+	/*
 	 * keyboard interrupts come at priority 2, while softint
 	 * generated keyboard-repeat interrupts come at level 1.  So,
 	 * to not allow a key-up event to get thru before a repeat for
@@ -948,7 +948,7 @@ ite_filter(c, caller)
 	if (key_mod & KBD_MOD_SHIFT) {
 		if (key_mod & KBD_MOD_ALT)
 			key = kbdmap.alt_shift_keys[c];
-		else 
+		else
 			key = kbdmap.shift_keys[c];
 	} else if (key_mod & KBD_MOD_ALT)
 		key = kbdmap.alt_keys[c];
@@ -960,7 +960,7 @@ ite_filter(c, caller)
 	}
 	code = key.code;
 
-	/* 
+	/*
 	 * arrange to repeat the keystroke. By doing this at the level
 	 * of scan-codes, we can have function keys, and keys that
 	 * send strings, repeat too. This also entitles an additional
@@ -1015,7 +1015,7 @@ ite_filter(c, caller)
 		static char *out = "pqrstuvwxymlnMPQRS";
 		char *cp = index (in, c);
 
-		/* 
+		/*
 		 * keypad-appmode sends SS3 followed by the above
 		 * translated character
 		 */
@@ -1034,7 +1034,7 @@ ite_filter(c, caller)
 		    3, 27, 'O', 'D'};
 
 		str = kbdmap.strings + code;
-		/* 
+		/*
 		 * if this is a cursor key, AND it has the default
 		 * keymap setting, AND we're in app-cursor mode, switch
 		 * to the above table. This is *nasty* !
@@ -1044,7 +1044,7 @@ ite_filter(c, caller)
 		    index("ABCD", str[3]))
 			str = app_cursor + 4 * (str[3] - 'A');
 
-		/* 
+		/*
 		 * using a length-byte instead of 0-termination allows
 		 * to embed \0 into strings, although this is not used
 		 * in the default keymap
@@ -1337,7 +1337,7 @@ ite_argnum (ip)
   *ip->ap = 0;
   n = atoi (ip->argbuf);
   *ip->ap = ch;
-  
+
   return n;
 }
 
@@ -1355,7 +1355,7 @@ ite_zargnum (ip)
   *ip->ap = 0;
   n = atoi (ip->argbuf);
   *ip->ap = ch;
-  
+
   return n;	/* don't "n ? n : 1" here, <CSI>0m != <CSI>1m ! */
 }
 
@@ -1367,7 +1367,7 @@ ite_putstr(s, len, dev)
 {
 	struct ite_softc *ip;
 	int i;
-	
+
 	ip = getitesp(dev);
 
 	/* XXX avoid problems */
@@ -2178,9 +2178,9 @@ iteputchar(c, ip)
 		}
 		break;
 	case BEL:
-		if (kbd_tty && kbd_ite && kbd_ite->tp == kbd_tty 
+		if (kbd_tty && kbd_ite && kbd_ite->tp == kbd_tty
 #ifdef DRACO
-		    && !is_draco()	
+		    && !is_draco()
 #endif
 		    )
 			ite_bell();
@@ -2246,7 +2246,7 @@ iteputchar(c, ip)
 		/* ignore, if not used as terminator */
 		break;
 	case OSC:
-		/* 
+		/*
 		 * introduces OS command. Ignore everything
 		 * upto ST
 		 */

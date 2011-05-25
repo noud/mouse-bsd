@@ -102,7 +102,7 @@ extern char version[];
 extern char kernel_text[];
 extern char etext[];
 
-vm_map_t exec_map = NULL;  
+vm_map_t exec_map = NULL;
 vm_map_t mb_map = NULL;
 vm_map_t phys_map = NULL;
 
@@ -318,7 +318,7 @@ cpu_startup()
 
 		while (curbufsize) {
 			pg = uvm_pagealloc(NULL, 0, NULL, 0);
-			if (pg == NULL) 
+			if (pg == NULL)
 				panic("cpu_startup: not enough memory for "
 				    "buffer cache");
 			pmap_kenter_pa(curbuf, VM_PAGE_TO_PHYS(pg),
@@ -555,7 +555,7 @@ cpu_init_kcore_hdr()
 	struct m68k_kcore_hdr *m = &h->un._m68k;
 	extern char end[];
 
-	bzero(&cpu_kcore_hdr, sizeof(cpu_kcore_hdr)); 
+	bzero(&cpu_kcore_hdr, sizeof(cpu_kcore_hdr));
 
 	/*
 	 * Initialize the `dispatcher' portion of the header.
@@ -627,10 +627,10 @@ cpu_dumpsize()
  */
 int
 cpu_dump(dump, blknop)
-	int (*dump) __P((dev_t, daddr_t, caddr_t, size_t)); 
+	int (*dump) __P((dev_t, daddr_t, caddr_t, size_t));
 	daddr_t *blknop;
 {
-	int buf[dbtob(1) / sizeof(int)]; 
+	int buf[dbtob(1) / sizeof(int)];
 	cpu_kcore_hdr_t *chdr;
 	kcore_seg_t *kseg;
 	int error;
@@ -884,7 +884,7 @@ luna68k_abort(cp)
 /*
  * cpu_exec_aout_makecmds():
  *	cpu-dependent a.out format hook for execve().
- * 
+ *
  * Determine of the given exec package refers to something which we
  * understand and, if so, set up the vmcmds for it.
  */

@@ -46,7 +46,7 @@ ipfstream::ipfstream(const char *name, int mode, int prot)
     }
 
     // Look for 'command |'
-    while (*p) p++; // Point to last 
+    while (*p) p++; // Point to last
     while (p[-1] == ' ' || p[-1] == '\t' || p[-1] == '\n') p--;
     if (p[-1] == '|') {
 	// Must remove the final '|'.

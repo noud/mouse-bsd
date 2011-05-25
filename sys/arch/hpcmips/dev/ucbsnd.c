@@ -85,8 +85,8 @@ struct ucbsnd_softc {
 	struct	tx_sound_tag sc_tag;
 	int	sc_mute;
 
-	/* 
-	 *  audio codec state machine 
+	/*
+	 *  audio codec state machine
 	 */
 	enum ucbsnd_state sa_state;
 
@@ -97,7 +97,7 @@ struct ucbsnd_softc {
 	void*		sa_sndih;
 	int		sa_retry;
 	int		sa_cnt; /* misc counter */
-	
+
 };
 
 int	ucbsnd_match	__P((struct device*, struct cfdata*, void*));
@@ -145,14 +145,14 @@ ucbsnd_attach(parent, self, aux)
 
 #define KHZ(a) ((a) / 1000), (((a) % 1000))
 	printf(": audio %d.%03d kHz telecom %d.%03d kHz",
-	       KHZ((tx39sib_clock(sc->sc_sib) * 2) / 
-		   (sc->sa_snd_rate * 64)), 
-	       KHZ((tx39sib_clock(sc->sc_sib) * 2) / 
+	       KHZ((tx39sib_clock(sc->sc_sib) * 2) /
+		   (sc->sa_snd_rate * 64)),
+	       KHZ((tx39sib_clock(sc->sc_sib) * 2) /
 		   (sc->sa_tel_rate * 64)));
 
-	ucb1200_state_install(parent, ucbsnd_busy, self, 
+	ucb1200_state_install(parent, ucbsnd_busy, self,
 			      UCB1200_SND_MODULE);
-	
+
 	printf("\n");
 }
 
@@ -161,7 +161,7 @@ ucbsnd_busy(arg)
 	void *arg;
 {
 	struct ucbsnd_softc *sc = arg;
-	
+
 	return sc->sa_state != UCBSND_IDLE;
 }
 
@@ -169,7 +169,7 @@ int
 ucbsnd_exec_output(arg)
 	void *arg;
 {
-	struct ucbsnd_softc *sc = arg;	
+	struct ucbsnd_softc *sc = arg;
 	tx_chipset_tag_t tc = sc->sc_tc;
 	txreg_t reg;
 
@@ -190,7 +190,7 @@ ucbsnd_exec_output(arg)
 
 		sc->sa_state = UCBSND_ENABLE_SAMPLERATE;
 		return 0;
-		
+
 	case UCBSND_ENABLE_SAMPLERATE:
 		/* Enable UCB1200 side sample rate */
 		reg = TX39_SIBSF0_WRITE;
@@ -205,13 +205,13 @@ ucbsnd_exec_output(arg)
 		/* Enable UCB1200 side */
 		reg = TX39_SIBSF0_WRITE;
 		reg = TX39_SIBSF0_REGADDR_SET(reg, UCB1200_AUDIOCTRLB_REG);
-		reg = TX39_SIBSF0_REGDATA_SET(reg, 
+		reg = TX39_SIBSF0_REGDATA_SET(reg,
 					      UCB1200_AUDIOCTRLB_OUTEN);
 		tx_conf_write(tc, TX39_SIBSF0CTRL_REG, reg);
 
 		/* Enable SIB side */
-		reg = tx_conf_read(tc, TX39_SIBCTRL_REG);	
-		tx_conf_write(tc, TX39_SIBCTRL_REG, 
+		reg = tx_conf_read(tc, TX39_SIBCTRL_REG);
+		tx_conf_write(tc, TX39_SIBCTRL_REG,
 			      reg | TX39_SIBCTRL_ENSND);
 
 		sc->sa_state = UCBSND_ENABLE_SPEAKER0;
@@ -229,21 +229,21 @@ ucbsnd_exec_output(arg)
 
 	case UCBSND_ENABLE_SPEAKER1:
 		reg = tx_conf_read(tc, TX39_SIBSF0STAT_REG);
-		if ((TX39_SIBSF0_REGADDR(reg) != UCB1200_IO_DATA_REG) && 
+		if ((TX39_SIBSF0_REGADDR(reg) != UCB1200_IO_DATA_REG) &&
 		    --sc->sa_retry > 0) {
 
 			sc->sa_state = UCBSND_ENABLE_SPEAKER0;
 			return 0;
 		}
-		
+
 		if (sc->sa_retry <= 0) {
 			printf("ucbsnd_exec_output: subframe0 busy\n");
-			
+
 			sc->sa_state = UCBSND_IDLE;
 			return 0;
 		}
 
-		reg |= TX39_SIBSF0_WRITE;		
+		reg |= TX39_SIBSF0_WRITE;
 		reg |= UCB1200_IO_DATA_SPEAKER;
 		tx_conf_write(tc, TX39_SIBSF0CTRL_REG, reg);
 
@@ -272,10 +272,10 @@ ucbsnd_exec_output(arg)
 			tx_conf_write(tc, TX39_SIBSNDHOLD_REG, 0);
 
 		tx_conf_write(tc, TX39_SIBSF0CTRL_REG, TX39_SIBSF0_SNDVALID);
-		
+
 		if (sc->sa_cnt > 50)
 			sc->sa_state = UCBSND_TRANSITION_DISABLE;
-		
+
 		return 0;
 
 	case UCBSND_TRANSITION_DISABLE:
@@ -285,10 +285,10 @@ ucbsnd_exec_output(arg)
 		sc->sa_sf0ih = tx_intr_establish(
 			tc, MAKEINTR(1, TX39_INTRSTATUS1_SIBSF0INT),
 			IST_EDGE, IPL_TTY, ucbsnd_exec_output, sc);
-		
+
 		sc->sa_state = UCBSND_DISABLE_OUTPUTPATH;
 		return 0;
-	
+
 	case UCBSND_DISABLE_OUTPUTPATH:
 		/* disable codec output path and mute */
 		reg = TX39_SIBSF0_WRITE;
@@ -307,16 +307,16 @@ ucbsnd_exec_output(arg)
 
 		sc->sa_state = UCBSND_DISABLE_SPEAKER1;
 		return 0;
-		
+
 	case UCBSND_DISABLE_SPEAKER1:
 		reg = tx_conf_read(tc, TX39_SIBSF0STAT_REG);
-		if ((TX39_SIBSF0_REGADDR(reg) != UCB1200_IO_DATA_REG) && 
+		if ((TX39_SIBSF0_REGADDR(reg) != UCB1200_IO_DATA_REG) &&
 		    --sc->sa_retry > 0) {
 
 			sc->sa_state = UCBSND_DISABLE_SPEAKER0;
 			return 0;
 		}
-		
+
 		if (sc->sa_retry <= 0) {
 			printf("ucbsnd_exec_output: subframe0 busy\n");
 
@@ -333,10 +333,10 @@ ucbsnd_exec_output(arg)
 
 	case UCBSND_DISABLE_SIB:
 		/* Disable SIB side */
-		reg = tx_conf_read(tc, TX39_SIBCTRL_REG);	
+		reg = tx_conf_read(tc, TX39_SIBCTRL_REG);
 		reg &= ~TX39_SIBCTRL_ENSND;
 		tx_conf_write(tc, TX39_SIBCTRL_REG, reg);
-		
+
 		/* end audio disable sequence */
 		tx_intr_disestablish(tc, sc->sa_sf0ih);
 		sc->sa_state = UCBSND_IDLE;
@@ -369,7 +369,7 @@ __ucbsnd_sound_click(arg)
 	tx_sound_tag_t arg;
 {
 	struct ucbsnd_softc *sc = (void*)arg;
-	
+
 	if (!sc->sc_mute && sc->sa_state == UCBSND_IDLE) {
 		sc->sa_state = UCBSND_INIT;
 		ucbsnd_exec_output((void*)sc);

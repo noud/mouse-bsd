@@ -1,6 +1,6 @@
 /*	$NetBSD: pmap.h,v 1.37 1999/08/01 13:48:07 ragge Exp $	   */
 
-/* 
+/*
  * Copyright (c) 1987 Carnegie-Mellon University
  * Copyright (c) 1991 Regents of the University of California.
  * All rights reserved.

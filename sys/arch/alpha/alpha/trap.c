@@ -35,17 +35,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -119,18 +119,18 @@ trap_init()
 	/*
 	 * Point interrupt/exception vectors to our own.
 	 */
-	alpha_pal_wrent(XentInt, ALPHA_KENTRY_INT); 
+	alpha_pal_wrent(XentInt, ALPHA_KENTRY_INT);
 	alpha_pal_wrent(XentArith, ALPHA_KENTRY_ARITH);
 	alpha_pal_wrent(XentMM, ALPHA_KENTRY_MM);
 	alpha_pal_wrent(XentIF, ALPHA_KENTRY_IF);
-	alpha_pal_wrent(XentUna, ALPHA_KENTRY_UNA); 
+	alpha_pal_wrent(XentUna, ALPHA_KENTRY_UNA);
 	alpha_pal_wrent(XentSys, ALPHA_KENTRY_SYS);
 
 	/*
 	 * Clear pending machine checks and error reports, and enable
 	 * system- and processor-correctable error reporting.
 	 */
-	alpha_pal_wrmces(alpha_pal_rdmces() & 
+	alpha_pal_wrmces(alpha_pal_rdmces() &
 	    ~(ALPHA_MCES_DSC|ALPHA_MCES_DPC));
 }
 
@@ -261,7 +261,7 @@ trap(a0, a1, a2, entry, framep)
 		p->p_md.md_tf = framep;
 #if	0
 /* This is to catch some wierd stuff on the UDB (mj) */
-		if (framep->tf_regs[FRAME_PC] > 0 && 
+		if (framep->tf_regs[FRAME_PC] > 0 &&
 		    framep->tf_regs[FRAME_PC] < 0x120000000) {
 			printf("PC Out of Whack\n");
 			printtrap(a0, a1, a2, entry, framep, 1, user);
@@ -300,7 +300,7 @@ trap(a0, a1, a2, entry, framep)
 		goto dopanic;
 
 	case ALPHA_KENTRY_ARITH:
-		/* 
+		/*
 		 * If user-land, just give a SIGFPE.  Should do
 		 * software completion and IEEE handling, if the
 		 * user has requested that.
@@ -310,7 +310,7 @@ trap(a0, a1, a2, entry, framep)
 			extern struct emul emul_osf1;
 
 			/* just punt on OSF/1.  XXX THIS IS EVIL */
-			if (p->p_emul == &emul_osf1) 
+			if (p->p_emul == &emul_osf1)
 				goto out;
 #endif
 			i = SIGFPE;
@@ -373,7 +373,7 @@ trap(a0, a1, a2, entry, framep)
 				    p);
 				goto dopanic;
 			}
-	
+
 			alpha_pal_wrfen(1);
 			if (fpcurproc)
 				savefpstate(&fpcurproc->p_addr->u_pcb.pcb_fp);
@@ -444,7 +444,7 @@ trap(a0, a1, a2, entry, framep)
 				vm = p->p_vmspace;
 				map = &vm->vm_map;
 			}
-	
+
 			switch (a2) {
 			case -1:		/* instruction fetch fault */
 			case 0:			/* load instruction */
@@ -458,7 +458,7 @@ trap(a0, a1, a2, entry, framep)
 				goto dopanic;
 #endif
 			}
-	
+
 			va = trunc_page((vaddr_t)a0);
 			rv = uvm_fault(map, va, 0, ftype);
 			/*
@@ -473,7 +473,7 @@ trap(a0, a1, a2, entry, framep)
 			    va < USRSTACK) {
 				if (rv == KERN_SUCCESS) {
 					unsigned nss;
-	
+
 					nss = btoc(USRSTACK -
 					    (unsigned long)va);
 					if (nss > vm->vm_ssize)
@@ -589,7 +589,7 @@ syscall(code, framep)
 	numsys = p->p_emul->e_nsysent;
 
 #ifdef COMPAT_OSF1
-	if (p->p_emul == &emul_osf1) 
+	if (p->p_emul == &emul_osf1)
 		switch (code) {
 		case OSF1_SYS_syscall:
 			/* OSF/1 syscall() */
@@ -628,17 +628,17 @@ syscall(code, framep)
 			panic("syscall: too many args (%d)", nargs);
 		error = copyin((caddr_t)(alpha_pal_rdusp()), &args[6],
 		    (nargs - 6) * sizeof(u_int64_t));
-	case 6:	
+	case 6:
 		args[5] = framep->tf_regs[FRAME_A5];
-	case 5:	
+	case 5:
 		args[4] = framep->tf_regs[FRAME_A4];
-	case 4:	
+	case 4:
 		args[3] = framep->tf_regs[FRAME_A3];
-	case 3:	
+	case 3:
 		args[2] = framep->tf_regs[FRAME_A2];
-	case 2:	
+	case 2:
 		args[1] = framep->tf_regs[FRAME_A1];
-	case 1:	
+	case 1:
 		args[0] = framep->tf_regs[FRAME_A0];
 	case 0:
 		break;
@@ -1032,7 +1032,7 @@ unaligned_fixup(va, opcode, reg, p)
 	 * process go on without warning.
 	 *
 	 * If we're trying to do a fixup, we assume that things
-	 * will be botched.  If everything works out OK, 
+	 * will be botched.  If everything works out OK,
 	 * unaligned_{load,store}_* clears the signal flag.
 	 */
 	signal = SIGBUS;
@@ -1105,7 +1105,7 @@ unaligned_fixup(va, opcode, reg, p)
 			panic("unaligned_fixup: can't get here");
 #endif
 		}
-	} 
+	}
 
 	/*
 	 * Force SIGBUS if requested.

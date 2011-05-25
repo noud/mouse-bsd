@@ -235,12 +235,12 @@ dhu_attach(parent, self, aux)
 		struct tty *tp;
 		tp = sc->sc_dhu[i].dhu_tty = ttymalloc();
 		sc->sc_dhu[i].dhu_state = STATE_IDLE;
-		bus_dmamap_create(sc->sc_dmat, tp->t_outq.c_cn, 1, 
+		bus_dmamap_create(sc->sc_dmat, tp->t_outq.c_cn, 1,
 		    tp->t_outq.c_cn, 0, BUS_DMA_ALLOCNOW|BUS_DMA_NOWAIT,
 		    &sc->sc_dhu[i].dhu_dmah);
 		bus_dmamap_load(sc->sc_dmat, sc->sc_dhu[i].dhu_dmah,
 		    tp->t_outq.c_cs, tp->t_outq.c_cn, 0, BUS_DMA_NOWAIT);
-			
+
 	}
 
 	/* Now establish RX & TX interrupt handlers */
@@ -341,7 +341,7 @@ dhuxint(arg)
 		tp->t_state &= ~TS_FLUSH;
 	else {
 		if (sc->sc_dhu[line].dhu_state == STATE_DMA_STOPPED)
-			sc->sc_dhu[line].dhu_cc -= 
+			sc->sc_dhu[line].dhu_cc -=
 			DHU_READ_WORD(DHU_UBA_TBUFCNT);
 		ndflush(&tp->t_outq, sc->sc_dhu[line].dhu_cc);
 		sc->sc_dhu[line].dhu_cc = 0;
@@ -577,8 +577,8 @@ dhustop(tp, flag)
 			sc->sc_dhu[line].dhu_state = STATE_DMA_STOPPED;
 
 			DHU_WRITE_BYTE(DHU_UBA_CSR, DHU_CSR_RXIE | line);
-			DHU_WRITE_WORD(DHU_UBA_LNCTRL, 
-			    DHU_READ_WORD(DHU_UBA_LNCTRL) | 
+			DHU_WRITE_WORD(DHU_UBA_LNCTRL,
+			    DHU_READ_WORD(DHU_UBA_LNCTRL) |
 			    DHU_LNCTRL_DMA_ABORT);
 		}
 
@@ -610,7 +610,7 @@ dhustart(tp)
 	if (tp->t_outq.c_cc == 0)
 		goto out;
 	cc = ndqb(&tp->t_outq, 0);
-	if (cc == 0) 
+	if (cc == 0)
 		goto out;
 
 	tp->t_state |= TS_BUSY;
@@ -626,8 +626,8 @@ dhustart(tp)
 	if (cc == 1) {
 
 		sc->sc_dhu[line].dhu_state = STATE_TX_ONE_CHAR;
-		
-		DHU_WRITE_WORD(DHU_UBA_TXCHAR, 
+
+		DHU_WRITE_WORD(DHU_UBA_TXCHAR,
 		    DHU_TXCHAR_DATA_VALID | *tp->t_outq.c_cf);
 
 	} else {
@@ -641,7 +641,7 @@ dhustart(tp)
 		DHU_WRITE_WORD(DHU_UBA_TBUFAD1, addr & 0xFFFF);
 		DHU_WRITE_WORD(DHU_UBA_TBUFAD2, ((addr>>16) & 0x3F) |
 		    DHU_TBUFAD2_TX_ENABLE);
-		DHU_WRITE_WORD(DHU_UBA_LNCTRL, 
+		DHU_WRITE_WORD(DHU_UBA_LNCTRL,
 		    DHU_READ_WORD(DHU_UBA_LNCTRL) & ~DHU_LNCTRL_DMA_ABORT);
 		DHU_WRITE_WORD(DHU_UBA_TBUFAD2,
 		    DHU_READ_WORD(DHU_UBA_TBUFAD2) | DHU_TBUFAD2_DMA_START);
@@ -715,7 +715,7 @@ dhuparam(tp, t)
 
 	DHU_WRITE_WORD(DHU_UBA_LPR, lpr);
 
-	DHU_WRITE_WORD(DHU_UBA_TBUFAD2, 
+	DHU_WRITE_WORD(DHU_UBA_TBUFAD2,
 	    DHU_READ_WORD(DHU_UBA_TBUFAD2) | DHU_TBUFAD2_TX_ENABLE);
 
 	lnctrl = DHU_READ_WORD(DHU_UBA_LNCTRL);

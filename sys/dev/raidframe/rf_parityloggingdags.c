@@ -66,7 +66,7 @@
  *
  *****************************************************************************/
 
-void 
+void
 rf_CommonCreateParityLoggingLargeWriteDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -308,7 +308,7 @@ rf_CommonCreateParityLoggingLargeWriteDAG(
  * A null qfuncs indicates single fault tolerant
  *****************************************************************************/
 
-void 
+void
 rf_CommonCreateParityLoggingSmallWriteDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -639,7 +639,7 @@ rf_CommonCreateParityLoggingSmallWriteDAG(
 }
 
 
-void 
+void
 rf_CreateParityLoggingSmallWriteDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -655,7 +655,7 @@ rf_CreateParityLoggingSmallWriteDAG(
 }
 
 
-void 
+void
 rf_CreateParityLoggingLargeWriteDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,

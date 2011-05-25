@@ -76,7 +76,7 @@ fetch_inferior_registers (regno)
   struct USER u;
   unsigned int offset;
 
-  offset = (char *) &u.pt_r0 - (char *) &u; 
+  offset = (char *) &u.pt_r0 - (char *) &u;
   regaddr = offset; /* byte offset to r0;*/
 
 /*  offset = ptrace (3, inferior_pid, (PTRACE_ARG3_TYPE) offset, 0) - KERNEL_U_ADDR; */
@@ -84,7 +84,7 @@ fetch_inferior_registers (regno)
     {
       /*regaddr = register_addr (regno, offset);*/
 	/* 88k enhancement  */
-        
+
       for (i = 0; i < REGISTER_RAW_SIZE (regno); i += sizeof (int))
  	{
  	  *(int *) &buf[i] = ptrace (3, inferior_pid,
@@ -113,10 +113,10 @@ fetch_inferior_registers (regno)
 			       (PTRACE_ARG3_TYPE) SFIP_OFFSET,0);
     supply_register (SFIP_REGNUM, buf);
 
-    if (target_is_m88110) 
+    if (target_is_m88110)
       {
         for (regaddr = XREGADDR(X0_REGNUM), regno = X0_REGNUM;
-             regno < NUM_REGS; 
+             regno < NUM_REGS;
              regno++, regaddr += 16)
           {
             X_REGISTER_RAW_TYPE xval;
@@ -158,7 +158,7 @@ store_inferior_registers (regno)
     {
       /*      regaddr = register_addr (regno, offset); */
       if (regno < PC_REGNUM)
-	{ 
+	{
 	  regaddr = offset + regno * sizeof (int);
 	  errno = 0;
 	  ptrace (6, inferior_pid,
@@ -190,8 +190,8 @@ store_inferior_registers (regno)
       else if (target_is_m88110 && regno < NUM_REGS)
         {
           X_REGISTER_RAW_TYPE xval;
-          
-          read_register_bytes(REGISTER_BYTE(regno), (char *)&xval, 
+
+          read_register_bytes(REGISTER_BYTE(regno), (char *)&xval,
                               sizeof(X_REGISTER_RAW_TYPE));
           regaddr = XREGADDR(regno);
           ptrace (6, inferior_pid, (PTRACE_ARG3_TYPE) regaddr, xval.w1);
@@ -203,7 +203,7 @@ store_inferior_registers (regno)
 	printf_unfiltered ("Bad register number for store_inferior routine\n");
     }
   else
-    { 
+    {
       for (regno = 0; regno < PC_REGNUM; regno++)
 	{
 	  /*      regaddr = register_addr (regno, offset); */
@@ -231,11 +231,11 @@ store_inferior_registers (regno)
 	      (PTRACE_ARG3_TYPE) SFIP_OFFSET,read_register(SFIP_REGNUM));
       if (target_is_m88110)
         {
-          for (regno = X0_REGNUM; regno < NUM_REGS; regno++) 
+          for (regno = X0_REGNUM; regno < NUM_REGS; regno++)
             {
               X_REGISTER_RAW_TYPE xval;
-     
-              read_register_bytes(REGISTER_BYTE(regno), (char *)&xval, 
+
+              read_register_bytes(REGISTER_BYTE(regno), (char *)&xval,
                                   sizeof(X_REGISTER_RAW_TYPE));
               regaddr = XREGADDR(regno);
               ptrace (6, inferior_pid, (PTRACE_ARG3_TYPE) regaddr, xval.w1);
@@ -270,7 +270,7 @@ m88k_register_u_addr (blockend, regnum)
       return (ustart + SNIP_OFFSET);
   else if (regnum == SFIP_REGNUM)
       return (ustart + SFIP_OFFSET);
-  else if (target_is_m88110) 
+  else if (target_is_m88110)
       return (ustart + ((int) &u.pt_x0 - (int) &u) +   /* Must be X register */
                sizeof(u.pt_x0) * (regnum - X0_REGNUM));
   else
@@ -333,7 +333,7 @@ fill_gregset (gregsetp, regno)
 #endif /* USE_PROC_FS */
 
 /* This support adds the equivalent of adb's % command.  When
-   the `add-shared-symbol-files' command is given, this routine scans 
+   the `add-shared-symbol-files' command is given, this routine scans
    the dynamic linker's link map and reads the minimal symbols
    from each shared object file listed in the map. */
 
@@ -358,7 +358,7 @@ add_shared_symbol_files ()
 {
   void *desc;
   struct link_map *ld_map, *lm, lms;
-  struct minimal_symbol *minsym; 
+  struct minimal_symbol *minsym;
   struct objfile *objfile;
   char *path_name;
 
@@ -381,7 +381,7 @@ add_shared_symbol_files ()
       read_memory ((CORE_ADDR)lm, (char*)&lms, sizeof (struct link_map));
       if (lms.l_name)
 	{
-	  if (target_read_string ((CORE_ADDR)lms.l_name, &path_name, 
+	  if (target_read_string ((CORE_ADDR)lms.l_name, &path_name,
                                   PATH_MAX, &local_errno))
 	    {
 	      symbol_file_add (path_name, 1, lms.l_addr, 0, 0, 0);
@@ -429,9 +429,9 @@ m88k_harris_core_register_addr (regno, reg_ptr)
        word_offset = R_EFIP;
        break;
      default:
-       if (regno <= FP_REGNUM) 
+       if (regno <= FP_REGNUM)
 	 word_offset = regno;
-       else 
+       else
 	 word_offset = ((regno - X0_REGNUM) * 4);
      }
    return (word_offset * 4);
@@ -480,13 +480,13 @@ supply_gregset (gregsetp)
    (fpregset_t *), unpack the register contents and supply them as gdb's
    idea of the current floating point register values.  */
 
-void 
+void
 supply_fpregset (fpregsetp)
      fpregset_t *fpregsetp;
 {
   register int regi;
   char *from;
-  
+
   for (regi = FP0_REGNUM ; regi <= FPLAST_REGNUM ; regi++)
     {
       from = (char *) &((*fpregsetp)[regi-FP0_REGNUM]);
@@ -512,9 +512,9 @@ unsigned int m88k_harris_core_register_addr(int regno, int reg_ptr)
     case SNIP_REGNUM : word_offset = R_NIP;  break;
     case SFIP_REGNUM : word_offset = R_FIP;  break;
     default :
-      if (regno <= FP_REGNUM) 
+      if (regno <= FP_REGNUM)
             word_offset = regno;
-      else 
+      else
             word_offset = ((regno - X0_REGNUM) * 4) + R_X0;
    }
    return (word_offset * 4);

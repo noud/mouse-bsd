@@ -27,6 +27,6 @@ provided you set the appropriate binary compatibility options in your
 kernel configuration.
 .Pp
 The i386 will be switching executable formats from a.out to ELF in
-the next release. The support for this has already been completed, but 
+the next release. The support for this has already been completed, but
 was judged too new to be included in
 .Nx 1.4 .

@@ -1,6 +1,6 @@
 /*	$NetBSD: cmdtable.h,v 1.3 1997/09/15 01:29:29 lukem Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1994 Philip A. Nelson.
  * All rights reserved.
  *

@@ -106,15 +106,15 @@
 static int
 filecore_checksum(bootblock)
 	u_char *bootblock;
-{  
+{
 	u_char byte0, accum_diff;
 	u_int sum;
 	int i;
- 
+
 	sum = 0;
 	accum_diff = 0;
 	byte0 = bootblock[0];
- 
+
 	/*
 	 * Sum the contents of the block, keeping track of whether
 	 * or not all bytes are the same.  If 'accum_diff' ends up
@@ -186,7 +186,7 @@ filecore_label_read(dev, strat, lp, osdep, msgp, cylp, netbsd_label_offp)
 	bb = (struct filecore_bootblock *)bp->b_data;
 
 	/* Validate boot block */
-       
+
 	if (bb->checksum != filecore_checksum((u_char *)bb)) {
 		/*
 		 * Invalid boot block so lets assume the
@@ -202,7 +202,7 @@ filecore_label_read(dev, strat, lp, osdep, msgp, cylp, netbsd_label_offp)
 
 	heads = bb->heads;
 	sectors = bb->secspertrack;
-                        
+
 	/* Do we have a NETBSD partition table ? */
 
 	if (bb->partition_type == PARTITION_FORMAT_RISCBSD) {
@@ -211,10 +211,10 @@ filecore_label_read(dev, strat, lp, osdep, msgp, cylp, netbsd_label_offp)
 	} else if (bb->partition_type == PARTITION_FORMAT_RISCIX) {
 		struct riscix_partition_table *rpt;
 		int loop;
-		
+
 		/*
 		 * We have a RISCiX partition table :-( groan
-		 * 
+		 *
 		 * Read the RISCiX partition table and see if
 		 * there is a NetBSD partition
 		 */
@@ -319,7 +319,7 @@ filecore_label_locate(dev, strat, lp, osdep, cylp, netbsd_label_offp)
 	rv = 1;
 
 	/* Validate boot block */
-       
+
 	if (bb->checksum != filecore_checksum((u_char *)bb)) {
 		/*
 		 * Invalid boot block so lets assume the
@@ -343,7 +343,7 @@ filecore_label_locate(dev, strat, lp, osdep, cylp, netbsd_label_offp)
 
 	heads = bb->heads;
 	sectors = bb->secspertrack;
-                       
+
 	/*printf("heads = %d nsectors = %d\n", heads, sectors);*/
 
 	netbsdpartoff = cyl * heads * sectors;

@@ -119,11 +119,11 @@ extern int errno;
 {
   if ([self isEqual:anotherObject])
     return 0;
-  // Ordering objects by their address is pretty useless, 
+  // Ordering objects by their address is pretty useless,
   // so subclasses should override this is some useful way.
   else if (self > anotherObject)
     return 1;
-  else 
+  else
     return -1;
 }
 
@@ -310,7 +310,7 @@ extern int errno;
 
 - shouldNotImplement:(SEL)aSel
 {
-  return [self error:"%s should not implement %s", 
+  return [self error:"%s should not implement %s",
 	             object_get_class_name(self), sel_get_name(aSel)];
 }
 
@@ -360,7 +360,7 @@ extern size_t strlen(const char*);
     return class_get_version (self);
 }
 
-// These are used to write or read the instance variables 
+// These are used to write or read the instance variables
 // declared in this particular part of the object.  Subclasses
 // should extend these, by calling [super read/write: aStream]
 // before doing their own archiving.  These methods are private, in
@@ -368,7 +368,7 @@ extern size_t strlen(const char*);
 
 - read: (TypedStream*)aStream
 {
-  // [super read: aStream];  
+  // [super read: aStream];
   return self;
 }
 

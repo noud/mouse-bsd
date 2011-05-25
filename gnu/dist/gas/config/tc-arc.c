@@ -1081,7 +1081,7 @@ md_convert_frag (abfd, sec, fragp)
    to achieve the same effect.  Perhaps put a special cookie in X_add_number
    to mark the expression as special.  */
 
-void 
+void
 md_operand (expressionP)
      expressionS *expressionP;
 {
@@ -1191,7 +1191,7 @@ arc_cons_fix_new (frag, where, nbytes, exp)
 /* The location from which a PC relative jump should be calculated,
    given a PC relative reloc.  */
 
-long 
+long
 md_pcrel_from (fixP)
      fixS *fixP;
 {

@@ -14,7 +14,7 @@ Shared memory Driver
 
 <p><h4>Description</h4>
 
-<p>This driver receives its reference clock info from a shared memory-segment. 
+<p>This driver receives its reference clock info from a shared memory-segment.
 The shared memory-segment is created with owner-only access
 for unit 0 and 1, and world access for unit 2 and 3
 
@@ -22,12 +22,12 @@ for unit 0 and 1, and world access for unit 2 and 3
 <pre>
 struct shmTime {
   int    mode; /* 0 - if valid set
-                *       use values, 
+                *       use values,
                 *       clear valid
-                * 1 - if valid set 
-                *       if count before and after read of 
+                * 1 - if valid set
+                *       if count before and after read of
                 *       values is equal,
-                *         use values 
+                *         use values
                 *       clear valid
                 */
   int    count;
@@ -39,22 +39,22 @@ struct shmTime {
   int    precision;
   int    nsamples;
   int    valid;
-  int    dummy[10]; 
+  int    dummy[10];
 };
 </pre>
 <p><h4>Operation mode=0</h4>
-When the poll-method of the driver is called, the valid-flag of the 
+When the poll-method of the driver is called, the valid-flag of the
 shared memory-segment is checked:
-<p>If set, the values in the record 
+<p>If set, the values in the record
 (clockTimeStampSec, clockTimeStampUSec, receiveTimeStampSec,
-receiveTimeStampUSec, leap, precision) are passed to ntp, and the valid-flag 
+receiveTimeStampUSec, leap, precision) are passed to ntp, and the valid-flag
 is cleared.
 <p>If not set, a timeout is reported to ntp, nothing else happend
 
 <p><h4>Operation mode=1</h4>
-When the poll-method of the driver is called, the valid-flag of the 
+When the poll-method of the driver is called, the valid-flag of the
 shared memory-segment is checked:
-<p>If set, the count-field of the record is remembered, and the values in 
+<p>If set, the count-field of the record is remembered, and the values in
 the record (clockTimeStampSec, clockTimeStampUSec, receiveTimeStampSec,
 receiveTimeStampUSec, leap, precision) are read. Then, the remembered count
 is compared to the count now in the record. If both are equal, the values

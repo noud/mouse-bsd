@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1991 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -44,7 +44,7 @@
  *
  *	@(#)time.h	5.6 (Berkeley) 6/23/90
  */
-/* 
+/*
  * HISTORY
  * 20-Sep-90  Mary Thompson (mrt) at Carnegie-Mellon University
  *	Taken from 4.3-reno-source to get the new copyright, but
@@ -91,6 +91,6 @@ extern char *ctime();
 extern char *timezone();
 extern void tzset();
 extern void tzsetwall();
-#endif 
+#endif
 
 #endif /* _TIME_H */

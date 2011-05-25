@@ -183,7 +183,7 @@ The directive @samp{.set mips16} puts the assembler into MIPS 16 mode,
 in which it will assemble instructions for the MIPS 16 processor.  Use
 @samp{.set nomips16} to return to normal 32 bit mode.
 
-Traditional @sc{mips} assemblers do not support this directive.  
+Traditional @sc{mips} assemblers do not support this directive.
 
 @node MIPS autoextend
 @section Directives for extending MIPS 16 bit instructions

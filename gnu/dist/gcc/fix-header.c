@@ -422,10 +422,10 @@ int lbrac_line, rbrac_line;
 int required_unseen_count = 0;
 int required_other = 0;
 
-void 
+void
 write_lbrac ()
 {
-  
+
 #if ADD_MISSING_EXTERN_C
   if (missing_extern_C_count + required_unseen_count > 0)
     fprintf (outf, "#ifdef __cplusplus\nextern \"C\" {\n#endif\n");
@@ -569,7 +569,7 @@ recognized_function (fname, fname_length,
   /* If we have a full prototype, we're done.  */
   if (have_arg_list)
     return;
-      
+
   if (kind == 'I')  /* don't edit inline function */
     return;
 
@@ -635,7 +635,7 @@ read_scan_file (in_fname, argc, argv)
   int i;
   register struct symbol_list *cur_symbols;
 
-  obstack_init (&scan_file_obstack); 
+  obstack_init (&scan_file_obstack);
 
   cpp_reader_init (&scan_in);
   scan_in.data = &scan_options;
@@ -718,7 +718,7 @@ read_scan_file (in_fname, argc, argv)
   if (required_unseen_count + partial_count + required_other
 #if ADD_MISSING_EXTERN_C
       + missing_extern_C_count
-#endif      
+#endif
       == 0)
     {
       if (verbose)
@@ -1138,7 +1138,7 @@ main (argc, argv)
 	      exit (SUCCESS_EXIT_CODE);
 	    }
 	}
-	  
+
     }
 #endif
 
@@ -1172,7 +1172,7 @@ main (argc, argv)
   else
     symbol_table[0].names = NULL;
 
-  /* Count and mark the prototypes required for this include file.  */ 
+  /* Count and mark the prototypes required for this include file.  */
   for (cur_symbols = &symbol_table[0]; cur_symbols->names; cur_symbols++)
     {
       int name_len;
@@ -1379,9 +1379,9 @@ cpp_message VPROTO ((cpp_reader *pfile, int is_error, const char *msg, ...))
   const char *msg;
 #endif
   va_list ap;
-  
+
   VA_START (ap, msg);
-  
+
 #ifndef __STDC__
   pfile = va_arg (ap, cpp_reader *);
   is_error = va_arg (ap, const int);
@@ -1401,7 +1401,7 @@ v_error (num, str, ap)
   fprintf (stderr, "%s: %s: ", progname, inc_filename);
   vfprintf (stderr, str, ap);
   fprintf (stderr, "\n");
-  if (num) 
+  if (num)
     exit (FATAL_EXIT_CODE);
 }
 
@@ -1412,7 +1412,7 @@ fatal VPROTO ((const char *str, ...))
   const char *str;
 #endif
   va_list ap;
-  
+
   VA_START(ap, str);
 
 #ifndef __STDC__
@@ -1430,7 +1430,7 @@ warning VPROTO ((const char *str, ...))
   const char *str;
 #endif
   va_list ap;
-  
+
   VA_START(ap, str);
 
 #ifndef __STDC__
@@ -1449,7 +1449,7 @@ cpp_fatal VPROTO ((cpp_reader * pfile, const char *str, ...))
   const char *str;
 #endif
   va_list ap;
-  
+
   VA_START(ap, str);
 
 #ifndef __STDC__

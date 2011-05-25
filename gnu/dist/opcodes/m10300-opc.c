@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 const struct mn10300_operand mn10300_operands[] = {
 #define UNUSED	0
-  {0, 0, 0}, 
+  {0, 0, 0},
 
 /* dn register in the first register operand position.  */
 #define DN0      (UNUSED+1)
@@ -92,7 +92,7 @@ const struct mn10300_operand mn10300_operands[] = {
   {16, 0, MN10300_OPERAND_PROMOTE | MN10300_OPERAND_MEMADDR},
 
 /* 32bit immediate, high 16 bits in the main instruction
-   word, 16bits in the extension word. 
+   word, 16bits in the extension word.
 
    The "bits" field indicates how many bits are in the
    main instruction word for MN10300_OPERAND_SPLIT!  */
@@ -109,7 +109,7 @@ const struct mn10300_operand mn10300_operands[] = {
 
 /* 32bit immediate, high 16 bits in the main instruction
    word, 16bits in the extension word, low 16bits are left
-   shifted 8 places. 
+   shifted 8 places.
 
    The "bits" field indicates how many bits are in the
    main instruction word for MN10300_OPERAND_SPLIT!  */
@@ -126,7 +126,7 @@ const struct mn10300_operand mn10300_operands[] = {
 
 /* 32bit immediate, high 24 bits in the main instruction
    word, 8 in the extension word, low 8 bits are left
-   shifted 16 places. 
+   shifted 16 places.
 
    The "bits" field indicates how many bits are in the
    main instruction word for MN10300_OPERAND_SPLIT!  */
@@ -179,7 +179,7 @@ const struct mn10300_operand mn10300_operands[] = {
 
 /* Either an open paren or close paren.  */
 #define PAREN	(SIMM16+1)
-  {0, 0, MN10300_OPERAND_PAREN}, 
+  {0, 0, MN10300_OPERAND_PAREN},
 
 /* dn register that appears in the first and second register positions.  */
 #define DN01     (PAREN+1)
@@ -209,10 +209,10 @@ const struct mn10300_operand mn10300_operands[] = {
 /* Reigster list.  */
 #define REGS    (REGS_SHIFT8+1)
   {8, 0, MN10300_OPERAND_REG_LIST},
-} ; 
+} ;
 
-#define MEM(ADDR) PAREN, ADDR, PAREN 
-#define MEM2(ADDR1,ADDR2) PAREN, ADDR1, ADDR2, PAREN 
+#define MEM(ADDR) PAREN, ADDR, PAREN
+#define MEM2(ADDR1,ADDR2) PAREN, ADDR1, ADDR2, PAREN
 
 /* The opcode table.
 

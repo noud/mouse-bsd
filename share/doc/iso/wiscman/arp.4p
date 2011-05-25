@@ -76,7 +76,7 @@ struct arpreq {
 .LP
 The address family for the
 .I arp_pa
-sockaddr must be AF_INET; for the 
+sockaddr must be AF_INET; for the
 .I arp_ha
 sockaddr it must be AF_UNSPEC.
 The only flag bits which may be written are ATF_PERM, ATF_PUBL

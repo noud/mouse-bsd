@@ -852,8 +852,8 @@ int
 cliprect2(sr, sc, dr, dc)
 	register lRectangle *sr;
 	register lRectangle *sc;
-	register lRectangle *dr;	
-	register lRectangle *dc;	
+	register lRectangle *dr;
+	register lRectangle *dc;
 {
 	register int d;
 
@@ -915,7 +915,7 @@ int
 cliprect(r, crp, p)
 	register lRectangle *r;
 	register lRectangle *crp;
-	register lRectangle *p;	
+	register lRectangle *p;
 {
 	register int d;
 
@@ -2308,7 +2308,7 @@ fill_scan(fb, fdata)
 
 	if ((nscan = fdata->nscan) <= 0)
 		return (FB_RERROR);
-	
+
 	/* clip pattern rectangle */
 	prect = fdata->ptnRect;
 	if (!getclip(fb, &fdata->ptnBM, &prect))
@@ -2950,7 +2950,7 @@ mem_vector(fb, p0, p1, mask, dbmp, lpf)
 		dy = -dy;
 		ddy = -ddy;
 	}
-	
+
 	if (dx > dy) {	/* case x */
 		lim = dx;
 		if (lpf)
@@ -3018,7 +3018,7 @@ mem_vector(fb, p0, p1, mask, dbmp, lpf)
 			y += ddy;
 		}
 	}
-	
+
 	/* rotate pattern */
 	pat = fb->pat;
 
@@ -3286,7 +3286,7 @@ draw_polydot(fb, dp)
 
 	if (fb->fbbm_op->fb_rop_dot == (void (*)())nofunc)
 		return (emulate_polydot(fb, dp));
-		
+
 	/* clip rectangle */
 	clip = dp->clip;
 

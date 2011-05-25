@@ -319,7 +319,7 @@ DirFindName (p, dname)
  * Dir_HasWildcards  --
  *	see if the given name has any wildcard characters in it
  *	be careful not to expand unmatching brackets or braces.
- *	XXX: This code is not 100% correct. ([^]] fails etc.) 
+ *	XXX: This code is not 100% correct. ([^]] fails etc.)
  *	I really don't think that make(1) should be expanding
  *	patterns, because then you have to set a mechanism for
  *	escaping the expansion!

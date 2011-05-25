@@ -117,7 +117,7 @@ fetchswap()
 		error("swapctl failed");
 		die(0);
 	}
-		
+
 	if (update_label)
 		labelswap();
 }

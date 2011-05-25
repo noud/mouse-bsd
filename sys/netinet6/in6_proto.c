@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -188,37 +188,37 @@ struct ip6protosw inet6sw[] = {
 },
 { SOCK_RAW,	&inet6domain,	IPPROTO_DSTOPTS,PR_ATOMIC|PR_ADDR,
   dest6_input,	0,	 	0,		0,
-  0,	  
+  0,
   0,		0,		0,		0,
 },
 { SOCK_RAW,	&inet6domain,	IPPROTO_ROUTING,PR_ATOMIC|PR_ADDR,
   route6_input,	0,	 	0,		0,
-  0,	  
+  0,
   0,		0,		0,		0,
 },
 { SOCK_RAW,	&inet6domain,	IPPROTO_FRAGMENT,PR_ATOMIC|PR_ADDR,
   frag6_input,	0,	 	0,		0,
-  0,	  
+  0,
   0,		0,		0,		0,
 },
 #ifdef IPSEC
 { SOCK_RAW,	&inet6domain,	IPPROTO_AH,	PR_ATOMIC|PR_ADDR,
   ah6_input,	0,	 	0,		0,
-  0,	  
+  0,
   0,		0,		0,		0,
   ipsec6_sysctl,
 },
 #ifdef IPSEC_ESP
 { SOCK_RAW,	&inet6domain,	IPPROTO_ESP,	PR_ATOMIC|PR_ADDR,
   esp6_input,	0,	 	0,		0,
-  0,	  
+  0,
   0,		0,		0,		0,
   ipsec6_sysctl,
 },
 #endif
 { SOCK_RAW,	&inet6domain,	IPPROTO_IPCOMP,	PR_ATOMIC|PR_ADDR,
   ipcomp6_input, 0,	 	0,		0,
-  0,	  
+  0,
   0,		0,		0,		0,
   ipsec6_sysctl,
 },
@@ -226,19 +226,19 @@ struct ip6protosw inet6sw[] = {
 #if NGIF > 0
 { SOCK_RAW,	&inet6domain,	IPPROTO_IPV4,	PR_ATOMIC|PR_ADDR,
   in6_gif_input,0,	 	0,		0,
-  0,	  
+  0,
   0,		0,		0,		0,
 },
 #ifdef INET6
 { SOCK_RAW,	&inet6domain,	IPPROTO_IPV6,	PR_ATOMIC|PR_ADDR,
   in6_gif_input,0,	 	0,		0,
-  0,	  
+  0,
   0,		0,		0,		0,
 },
 #endif /* INET6 */
 #endif /* GIF */
 { SOCK_RAW,     &inet6domain,	IPPROTO_PIM,	PR_ATOMIC|PR_ADDR,
-  pim6_input,    rip6_output,	0,              rip6_ctloutput, 
+  pim6_input,    rip6_output,	0,              rip6_ctloutput,
   rip6_usrreq,
   0,            0,              0,              0,
 },
@@ -251,7 +251,7 @@ struct ip6protosw inet6sw[] = {
 };
 
 struct domain inet6domain =
-    { AF_INET6, "internet6", 0, 0, 0, 
+    { AF_INET6, "internet6", 0, 0, 0,
       (struct protosw *)inet6sw,
       (struct protosw *)&inet6sw[sizeof(inet6sw)/sizeof(inet6sw[0])], 0,
       rn_inithead,

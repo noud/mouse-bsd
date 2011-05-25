@@ -106,43 +106,43 @@ __RCSID("$NetBSD: ld.c,v 1.68 2000/01/13 00:05:32 mycroft Exp $");
  * 	If a this type of symbol is encountered, its name is a warning
  * 	message to print each time the symbol referenced by the next symbol
  * 	table entry is referenced.
- * 
+ *
  * 	This feature may be used to allow backwards compatibility with
  * 	certain functions (eg. gets) but to discourage programmers from
  * 	their use.
- * 
+ *
  * 	So if, for example, you wanted to have ld print a warning whenever
  * 	the function "gets" was used in their C program, you would add the
  * 	following to the assembler file in which gets is defined:
- * 
+ *
  * 	.stabs "Obsolete function \"gets\" referenced",30,0,0,0
  * 	.stabs "_gets",1,0,0,0
- * 
+ *
  * 	These .stabs do not necessarily have to be in the same file as the
  * 	gets function, they simply must exist somewhere in the compilation.
- * 
- * 
+ *
+ *
  * N_INDR
  * 	Indicates the definition of a symbol as being an indirect reference
  *	to another symbol.  The other symbol appears as an undefined
  *	reference, immediately following this symbol.
- * 
+ *
  * 	Indirection is asymmetrical.  The other symbol's value will be used
  * 	to satisfy requests for the indirect symbol, but not vice versa.
  * 	If the other symbol does not have a definition, libraries will
  * 	be searched to find a definition.
- * 
+ *
  * 	So, for example, the following two lines placed in an assembler
  * 	input file would result in an object file which would direct gnu ld
  * 	to resolve all references to symbol "foo" as references to symbol
  * 	"bar".
- * 
+ *
  * 	.stabs "_foo",11,0,0,0
  * 	.stabs "_bar",1,0,0,0
- * 
+ *
  * 	Note that (11 == (N_INDR | N_EXT)) and (1 == (N_UNDF | N_EXT)).
- * 
- * 
+ *
+ *
  * N_SETA
  * N_SETT
  * N_SETD
@@ -163,49 +163,49 @@ __RCSID("$NetBSD: ld.c,v 1.68 2000/01/13 00:05:32 mycroft Exp $");
  * 	use by incremental loaders.  The array is ordered by the linkage
  * 	order; the first symbols which the linker encounters will be first
  * 	in the array.
- * 
+ *
  * 	In C syntax this looks like:
- * 
+ *
  * 	struct set_vector {
  * 		unsigned int length;
  * 		unsigned int vector[length];
  * 		unsigned int always_zero;
  * 	};
- * 
+ *
  * 	Before being placed into the array, each element is relocated
  * 	according to its type.  This allows the loader to create an array
  * 	of pointers to objects automatically.  N_SETA type symbols will not
  * 	be relocated.
- * 
+ *
  * 	The address of the set is made into an N_SETV symbol whose name is
  *	the same as the name of the set. This symbol acts like a N_DATA global
  *	symbol in that it can satisfy undefined external references.
- * 
+ *
  * 	For the purposes of determining whether or not to load in a library
  * 	file, set element definitions are not considered "real
  * 	definitions"; they will not cause the loading of a library
  * 	member.
- * 
+ *
  * 	If relocatable output is requested, none of this processing is
  * 	done.  The symbols are simply relocated and passed through to the
  * 	output file.
- * 
+ *
  * 	So, for example, the following three lines of assembler code
  * 	(whether in one file or scattered between several different ones)
  * 	will produce a three element vector (total length is five words;
  * 	see above), referenced by the symbol "_xyzzy", which will have the
  * 	addresses of the routines _init1, _init2, and _init3.
- * 
+ *
  * 	*NOTE*: If symbolic addresses are used in the n_value field of the
  * 	defining .stabs, those symbols must be defined in the same file as
  * 	that containing the .stabs.
- * 
+ *
  * 	.stabs "_xyzzy",23,0,0,_init1
  * 	.stabs "_xyzzy",23,0,0,_init2
  * 	.stabs "_xyzzy",23,0,0,_init3
- * 
+ *
  * 	Note that (23 == (N_SETT | N_EXT)).
- * 
+ *
  */
 
 /*
@@ -297,7 +297,7 @@ int	force_executable;
 
 /* 1 => assign space to common symbols even if `relocatable_output'.  */
 int	force_common_definition;
- 
+
 /* 1 => assign jmp slots to text symbols in shared objects even if non-PIC */
 int	force_alias_definition;
 
@@ -437,7 +437,7 @@ int	text_start_alignment;
  * This prevents text_start from being set later to default values.
  */
 int	T_flag_specified;
- 
+
 /*
  * Nonzero if -Tdata was specified in the command line.
  * This prevents data_start from being set later to default values.
@@ -644,7 +644,7 @@ main(argc, argv)
  * Analyze a command line argument. Return 0 if the argument is a filename.
  * Return 1 if the argument is a option complete in itself. Return 2 if the
  * argument is a option which uses an argument.
- * 
+ *
  * Thus, the value is the number of consecutive arguments that are part of
  * options.
  */
@@ -862,7 +862,7 @@ set_element_prefixed_p(name)
 /*
  * Record an option and arrange to act on it later. ARG should be the
  * following command argument, which may or may not be used by this option.
- * 
+ *
  * The `l' and `A' options are ignored here since they actually specify input
  * files.
  */
@@ -883,7 +883,7 @@ decode_option(swt, arg)
 		if (warn_obsolete_syntax)
 			warnx("-Bshareable: obsolete syntax");
 		return;
-	}			
+	}
 	if (!strcmp(swt + 1, "assert"))
 		return;
 #ifdef GNU_BINUTIL_COMPAT
@@ -1096,7 +1096,7 @@ do_rpath:
  * Call FUNCTION on each input file entry. Do not call for entries for
  * libraries; instead, call once for each library member that is being
  * loaded.
- * 
+ *
  * FUNCTION receives two arguments: the entry, and ARG.
  */
 
@@ -1148,7 +1148,7 @@ each_file(function, arg)
  * Call FUNCTION on each input file entry until it returns a non-zero value.
  * Return this value. Do not call for entries for libraries; instead, call
  * once for each library member that is being loaded.
- * 
+ *
  * FUNCTION receives two arguments: the entry, and ARG.  It must be a function
  * returning unsigned long (though this can probably be fudged).
  */
@@ -1540,7 +1540,7 @@ read_file_symbols(entry)
 		if (SARMAG != read(fd, armag, SARMAG) ||
 		    strncmp (armag, ARMAG, SARMAG))
 			errx(1,
-			     "%s: malformed input file (not rel or archive)",	
+			     "%s: malformed input file (not rel or archive)",
 			     get_file_name(entry));
 		entry->flags |= E_IS_LIBRARY;
 		search_library(fd, entry);
@@ -1627,7 +1627,7 @@ enter_file_symbols(entry)
  * Enter one global symbol in the hash table. LSP points to the `struct
  * localsymbol' from the file that describes the global symbol.  NAME is the
  * symbol's name. ENTRY is the file entry for the file the symbol comes from.
- * 
+ *
  * LSP is put on the chain of all such structs that refer to the same symbol.
  * This chain starts in the `refs' for symbols from relocatable objects. A
  * backpointer to the global symbol is kept in LSP.
@@ -1739,7 +1739,7 @@ enter_global_ref(lsp, name, entry)
 
 	if (sp == dynamic_symbol || sp == got_symbol || sp == plt_symbol) {
 		if (type != (N_UNDF | N_EXT) && !(entry->flags & E_JUST_SYMS))
-			errx(1,"Linker reserved symbol %s defined as type %x ",	
+			errx(1,"Linker reserved symbol %s defined as type %x ",
 				name, type);
 		return;
 	}
@@ -1917,11 +1917,11 @@ contains_symbol(entry, np)
 /*
  * Having entered all the global symbols and found the sizes of sections of
  * all files to be linked, make all appropriate deductions from this data.
- * 
+ *
  * We propagate global symbol values from definitions to references. We compute
  * the layout of the output file and where each input file's contents fit
  * into it.
- * 
+ *
  * This is now done in several stages.
  *
  * 1) All global symbols are examined for definitions in relocatable (.o)
@@ -2429,7 +2429,7 @@ consider_relocation(entry, dataseg)
 			 * pass2() and during actual relocation. We convert
 			 * the type back to something real again when writing
 			 * out the symbols.
-			 * 
+			 *
 			 */
 			lsp = &entry->symbols[reloc->r_symbolnum];
 			sp = lsp->symbol;

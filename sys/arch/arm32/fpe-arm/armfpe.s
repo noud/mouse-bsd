@@ -60,47 +60,47 @@ _fpe_arm_header:
 /* FPE Core entry points */
 
 
-	.global	_fpe_arm_core_abort	
+	.global	_fpe_arm_core_abort
 _fpe_arm_core_abort:
 	b	_fpe_arm_start + 0x00006cd4
 
-	.global	_fpe_arm_core_initws	
+	.global	_fpe_arm_core_initws
 _fpe_arm_core_initws:
 	b	_fpe_arm_start + 0x00006e68
 
-	.global	_fpe_arm_core_initcontext	
+	.global	_fpe_arm_core_initcontext
 _fpe_arm_core_initcontext:
 	b	_fpe_arm_start + 0x00006ed0
 
-	.global	_fpe_arm_core_changecontext	
+	.global	_fpe_arm_core_changecontext
 _fpe_arm_core_changecontext:
 	b	_fpe_arm_start + 0x00006f70
 
-	.global	_fpe_arm_core_shutdown	
+	.global	_fpe_arm_core_shutdown
 _fpe_arm_core_shutdown:
 	b	_fpe_arm_start + 0x00007080
 
-	.global	_fpe_arm_core_activatecontext	
+	.global	_fpe_arm_core_activatecontext
 _fpe_arm_core_activatecontext:
 	b	_fpe_arm_start + 0x00006fec
 
-	.global	_fpe_arm_core_deactivatecontext	
+	.global	_fpe_arm_core_deactivatecontext
 _fpe_arm_core_deactivatecontext:
 	b	_fpe_arm_start + 0x00006f78
 
-	.global	_fpe_arm_core_savecontext	
+	.global	_fpe_arm_core_savecontext
 _fpe_arm_core_savecontext:
 	b	_fpe_arm_start + 0x00007154
 
-	.global	_fpe_arm_core_loadcontext	
+	.global	_fpe_arm_core_loadcontext
 _fpe_arm_core_loadcontext:
 	b	_fpe_arm_start + 0x00007240
 
-	.global	_fpe_arm_core_disable	
+	.global	_fpe_arm_core_disable
 _fpe_arm_core_disable:
 	b	_fpe_arm_start + 0x00007090
 
-	.global	_fpe_arm_core_enable	
+	.global	_fpe_arm_core_enable
 _fpe_arm_core_enable:
 	b	_fpe_arm_start + 0x000070e4
 
@@ -115,19 +115,19 @@ _fpe_arm_core_enable:
 /* FPE Core constants */
 
 
-	.global	_fpe_arm_workspace_length	
+	.global	_fpe_arm_workspace_length
 _fpe_arm_workspace_length:
 	.word	0x0000000c
 
-	.global	_fpe_arm_context_length	
+	.global	_fpe_arm_context_length
 _fpe_arm_context_length:
 	.word	0x00000088
 
-	.global	_fpe_arm_identity	
+	.global	_fpe_arm_identity
 _fpe_arm_identity:
 	.word	_fpe_arm_start + 0x0000732c
 
-	.global	_fpe_arm_core	
+	.global	_fpe_arm_core
 _fpe_arm_core:
 	.word	0x00000000
 	.word	0x00000000

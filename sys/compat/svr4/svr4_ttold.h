@@ -51,7 +51,7 @@ struct svr4_tchars {
 struct	svr4_sgttyb {
 	u_char	sg_ispeed;
 	u_char	sg_ospeed;
-	u_char	sg_erase;	
+	u_char	sg_erase;
 	u_char	sg_kill;
 	int	sg_flags;
 };
@@ -95,7 +95,7 @@ struct svr4_ltchars {
 #define	SVR4_TIOCSTART	(SVR4_tIOC | 110)
 #define	SVR4_TIOCSTOP	(SVR4_tIOC | 111)
 #define	SVR4_TIOCNOTTY	(SVR4_tIOC | 113)
-#define	SVR4_TIOCOUTQ	(SVR4_tIOC | 115) 
+#define	SVR4_TIOCOUTQ	(SVR4_tIOC | 115)
 #define	SVR4_TIOCGLTC	(SVR4_tIOC | 116)
 #define	SVR4_TIOCSLTC	(SVR4_tIOC | 117)
 #define	SVR4_TIOCCDTR	(SVR4_tIOC | 120)

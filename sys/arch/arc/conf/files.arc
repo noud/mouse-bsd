@@ -24,7 +24,7 @@ file	arch/arc/arc/arc_trap.c
 file	arch/arc/arc/arcbios.c
 
 ##
-##	Machine-independent ATAPI drivers 
+##	Machine-independent ATAPI drivers
 ##
 include "dev/ata/files.ata"
 major	{ wd = 4 }

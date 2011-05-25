@@ -1,6 +1,6 @@
 /*	$NetBSD: mtreg.h,v 1.1 1995/10/02 00:28:22 thorpej Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1992, The University of Utah and
  * the Computer Systems Laboratory at the University of Utah (CSL).
  * All rights reserved.

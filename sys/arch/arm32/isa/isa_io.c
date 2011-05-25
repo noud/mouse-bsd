@@ -55,7 +55,7 @@ bs_protos(bs_notimpl);
  */
 
 /*
- * NOTE: ASSEMBLY LANGUAGE RELIES ON THE COOKIE -- THE FIRST MEMBER OF 
+ * NOTE: ASSEMBLY LANGUAGE RELIES ON THE COOKIE -- THE FIRST MEMBER OF
  *       THIS STRUCTURE -- TO BE THE VIRTUAL ADDRESS OF ISA/IO!
  */
 struct bus_space isa_io_bs_tag = {
@@ -130,7 +130,7 @@ struct bus_space isa_io_bs_tag = {
 };
 
 /*
- * NOTE: ASSEMBLY LANGUAGE RELIES ON THE COOKIE -- THE FIRST MEMBER OF 
+ * NOTE: ASSEMBLY LANGUAGE RELIES ON THE COOKIE -- THE FIRST MEMBER OF
  *       THIS STRUCTURE -- TO BE THE VIRTUAL ADDRESS OF ISA/MEMORY!
  */
 struct bus_space isa_mem_bs_tag = {
@@ -279,7 +279,7 @@ isa_bs_alloc(t, rstart, rend, size, alignment, boundary, cacheable,
 	panic("isa_alloc(): Help!\n");
 }
 
-void    
+void
 isa_bs_free(t, bsh, size)
 	void *t;
 	bus_space_handle_t bsh;
@@ -296,4 +296,4 @@ isa_bs_barrier(t, bsh, offset, len, flags)
 	int flags;
 {
 	/* just return */
-}	
+}

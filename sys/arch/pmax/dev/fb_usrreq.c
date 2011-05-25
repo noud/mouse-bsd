@@ -11,7 +11,7 @@ fbopen(dev, flag, mode, p)
 
 	if (minor(dev) >= fbndevs)
 	    return(ENXIO);
-	    
+
 	fi = fbdevs[minor(dev)];
 
 	if (fi->fi_open)
@@ -24,10 +24,10 @@ fbopen(dev, flag, mode, p)
 			printf("fbopen: no memory for cmap\n");
 			return (ENOMEM);
 		}
-		
+
 		fi->fi_driver->fbd_getcmap(fi, fi->fi_savedcmap, 0, 256);
 	}
-	
+
 	fi->fi_open = 1;
 	(*fi->fi_driver->fbd_initcmap)(fi);
 
@@ -52,7 +52,7 @@ fbclose(dev, flag, mode, p)
 
 	if (minor(dev) >= fbndevs)
 	    return(EBADF);
-	    
+
 	fi = fbdevs[minor(dev)];
 
 	if (!fi->fi_open)
@@ -96,7 +96,7 @@ fbioctl(dev, cmd, data, flag, p)
 
 	if (minor(dev) >= fbndevs)
 	    return(EBADF);
-	    
+
 	fi = fbdevs[minor(dev)];
 	fbtty = fi->fi_glasstty;
 
@@ -234,7 +234,7 @@ fbpoll(dev, events, p)
 
 	if (minor(dev) >= fbndevs)
 	    return(EBADF);
-	    
+
 	fi = fbdevs[minor(dev)];
 
 	if (events & (POLLIN | POLLRDNORM)) {
@@ -272,7 +272,7 @@ fbmmap(dev, off, prot)
 
 	if (minor(dev) >= fbndevs)
 	    return(-1);
-	    
+
 	fi = fbdevs[minor(dev)];
 
 	len = mips_round_page(((vaddr_t)fi->fi_fbu & PGOFSET)

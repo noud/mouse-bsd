@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -205,7 +205,7 @@ get_ifconfig_info()
 	int textsize, len;
 
 	/* Get ifconfig information */
-	
+
 	textsize = collect(T_OUTPUT, &textbuf, "/sbin/ifconfig -l 2>/dev/null");
 	if (textsize < 0) {
 		if (logging)
@@ -508,8 +508,8 @@ again:
 			(void)fprintf(script, "cat <<EOF >/etc/resolv.conf\n");
 		time(&now);
 		/* NB: ctime() returns a string ending in  '\n' */
-		(void)fprintf(f, ";\n; BIND data file\n; %s %s;\n", 
-		    "Created by NetBSD sysinst on", ctime(&now)); 
+		(void)fprintf(f, ";\n; BIND data file\n; %s %s;\n",
+		    "Created by NetBSD sysinst on", ctime(&now));
 		if (strcmp(net_namesvr, "") != 0)
 			(void)fprintf(f, "nameserver %s\n", net_namesvr);
 #ifdef INET6
@@ -518,8 +518,8 @@ again:
 #endif
 		(void)fprintf(f, "search %s\n", net_domain);
 		if (scripting) {
-			(void)fprintf(script, ";\n; BIND data file\n; %s %s;\n", 
-			    "Created by NetBSD sysinst on", ctime(&now)); 
+			(void)fprintf(script, ";\n; BIND data file\n; %s %s;\n",
+			    "Created by NetBSD sysinst on", ctime(&now));
 			if (strcmp(net_namesvr, "") != 0)
 				(void)fprintf(script, "nameserver %s\n",
 				    net_namesvr);
@@ -569,11 +569,11 @@ again:
 
 	if (strcmp(net_ip, "") != 0) {
 		if (strcmp(net_mask, "") != 0) {
-			run_prog(0, 0, NULL, 
+			run_prog(0, 0, NULL,
 			    "/sbin/ifconfig %s inet %s netmask %s",
 			    net_dev, net_ip, net_mask);
 		} else {
-			run_prog(0, 0, NULL, 
+			run_prog(0, 0, NULL,
 			    "/sbin/ifconfig %s inet %s", net_dev, net_ip);
 		}
 	}
@@ -584,9 +584,9 @@ again:
 
 	/* Set a default route if one was given */
 	if (strcmp(net_defroute, "") != 0) {
-		run_prog(0, 0, NULL, 
+		run_prog(0, 0, NULL,
 		    "/sbin/route -n flush -inet");
-		run_prog(0, 0, NULL, 
+		run_prog(0, 0, NULL,
 		    "/sbin/route -n add default %s",
 			  net_defroute);
 	}
@@ -598,22 +598,22 @@ again:
 
 #ifdef INET6
 	if (v6config && network_up) {
-		network_up = !run_prog(0, 1, NULL, 
+		network_up = !run_prog(0, 1, NULL,
 		    "/sbin/ping6 -v -c 3 -n -I %s ff02::9", net_dev);
 
 		if (strcmp(net_namesvr6, "") != 0)
-			network_up = !run_prog(0, 1, NULL, 
+			network_up = !run_prog(0, 1, NULL,
 			    "/sbin/ping6 -v -c 3 -n %s", net_namesvr6);
 	}
 #endif
 
 	if (strcmp(net_namesvr, "") != 0 && network_up)
-		network_up = !run_prog(0, 1, NULL, 
+		network_up = !run_prog(0, 1, NULL,
 		    "/sbin/ping -v -c 5 -w 5 -o -n %s",
 					net_namesvr);
 
 	if (strcmp(net_defroute, "") != 0 && network_up)
-		network_up = !run_prog(0, 1, NULL, 
+		network_up = !run_prog(0, 1, NULL,
 		    "/sbin/ping -v -c 5 -w 5 -o -n %s",
 					net_defroute);
 	fflush(NULL);
@@ -623,7 +623,7 @@ again:
 
 int
 get_via_ftp()
-{ 
+{
 	distinfo *list;
 	char ftp_user_encoded[STRSIZE];
 	char ftp_pass_encoded[STRSIZE];
@@ -668,14 +668,14 @@ get_via_ftp()
 		 * unsafe by a strict reading of RFC 1738).
 		 */
 		if (strcmp ("ftp", ftp_user) == 0)
-			ret = run_prog(0, 1, NULL, 
+			ret = run_prog(0, 1, NULL,
 			    "/usr/bin/ftp -a ftp://%s/%s/%s",
 			    ftp_host,
 			    url_encode(ftp_dir_encoded, ftp_dir, STRSIZE,
 					RFC1738_SAFE_LESS_SHELL_PLUS_SLASH, 1),
 			    filename);
 		else {
-			ret = run_prog(0, 1, NULL, 
+			ret = run_prog(0, 1, NULL,
 			    "/usr/bin/ftp ftp://%s:%s@%s/%s/%s",
 			    url_encode(ftp_user_encoded, ftp_user, STRSIZE,
 					RFC1738_SAFE_LESS_SHELL, 0),
@@ -699,7 +699,7 @@ get_via_ftp()
 				process_menu(MENU_ftpsource);
 			else
 				return 0;
-		} else 
+		} else
 			list++;
 
 	}
@@ -730,11 +730,11 @@ get_via_nfs()
 	process_menu(MENU_nfssource);
 again:
 
-	run_prog(0, 0, NULL, 
+	run_prog(0, 0, NULL,
 	    "/sbin/umount /mnt2");
-	
+
 	/* Mount it */
-	if (run_prog(0, 0, NULL, 
+	if (run_prog(0, 0, NULL,
 	    "/sbin/mount -r -o -i,-r=1024 -t nfs %s:%s /mnt2",
 	    nfs_host, nfs_dir)) {
 		msg_display(MSG_nfsbadmount, nfs_host, nfs_dir);
@@ -791,7 +791,7 @@ write_etc_hosts(FILE *f)
  * Write the network config info the user entered via menus into the
  * config files in the target disk.  Be careful not to lose any
  * information we don't immediately add back, in case the install
- * target is the currently-active root. 
+ * target is the currently-active root.
  *
  * XXXX rc.conf support is needed here!
  */
@@ -818,7 +818,7 @@ mnt_net_config(void)
 			/* If not running in target, copy resolv.conf there. */
 			if (strcmp(net_namesvr, "") != 0)
 				dup_file_into_target("/etc/resolv.conf");
-			/* 
+			/*
 			 * Add IPaddr/hostname to  /etc/hosts.
 			 * Be careful not to clobber any existing contents.
 			 * Relies on ordered seach of /etc/hosts. XXX YP?

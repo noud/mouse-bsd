@@ -45,7 +45,7 @@
 #define MT_TRAPLIB	0x000b
 #define MT_SYSTEM	0x000c
 #define MT_FILEMAN	0x000d
-#define MT_DEVDRVR	0x000e 
+#define MT_DEVDRVR	0x000e
 #define MT_DEVDESC	0x000f
 #define MT_MASK		0xff00
 
@@ -139,7 +139,7 @@ typedef	mh_com *Mh_dev,mh_dev;
 /* Configuration module */
 typedef mh_com *Mh_config, mh_config;
 
-#if 0 
+#if 0
 
 #if !defined(_MODDIR_H)
 /* go get _os_fmod (and others) */

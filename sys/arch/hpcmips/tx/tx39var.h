@@ -35,7 +35,7 @@ struct tx_chipset_tag {
 };
 
 typedef struct tx_chipset_tag* tx_chipset_tag_t;
-typedef u_int32_t txreg_t; 
+typedef u_int32_t txreg_t;
 
 void	tx_conf_register_intr __P((tx_chipset_tag_t, void*));
 void	tx_conf_register_power __P((tx_chipset_tag_t, void*));
@@ -73,8 +73,8 @@ struct txsimbus_attach_args {
 	char *tba_busname;
 };
 
-/* 
- *	txsim module attach arguments. 
+/*
+ *	txsim module attach arguments.
  */
 struct txsim_attach_args {
 	tx_chipset_tag_t ta_tc; /* Chipset tag */
@@ -84,12 +84,12 @@ struct txsim_attach_args {
  *	Interrupt staff
  */
 #define MAKEINTR(s, b) ((s) * 32 + (ffs(b) - 1))
-void*	tx_intr_establish __P((tx_chipset_tag_t, int, int, int, 
+void*	tx_intr_establish __P((tx_chipset_tag_t, int, int, int,
 			       int (*) __P((void*)),	void*));
 void	tx_intr_disestablish __P((tx_chipset_tag_t, void*));
 
 #ifdef USE_POLL
-void*	tx39_poll_establish __P((tx_chipset_tag_t, int, int, 
+void*	tx39_poll_establish __P((tx_chipset_tag_t, int, int,
 				 int (*) __P((void*)),	void*));
 void	tx39_poll_disestablish __P((tx_chipset_tag_t, void*));
 #define POLL_CONT	0

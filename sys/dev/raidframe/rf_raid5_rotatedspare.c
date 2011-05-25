@@ -46,7 +46,7 @@ typedef struct RF_Raid5RSConfigInfo_s {
 					 * IdentifyStripe */
 }       RF_Raid5RSConfigInfo_t;
 
-int 
+int
 rf_ConfigureRAID5_RS(
     RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr,
@@ -93,14 +93,14 @@ rf_ConfigureRAID5_RS(
 	return (0);
 }
 
-RF_ReconUnitCount_t 
+RF_ReconUnitCount_t
 rf_GetNumSpareRUsRAID5_RS(raidPtr)
 	RF_Raid_t *raidPtr;
 {
 	return (raidPtr->Layout.stripeUnitsPerDisk / raidPtr->numCol);
 }
 
-void 
+void
 rf_MapSectorRAID5_RS(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -124,7 +124,7 @@ rf_MapSectorRAID5_RS(
 	    (raidSector % raidPtr->Layout.sectorsPerStripeUnit);
 }
 
-void 
+void
 rf_MapParityRAID5_RS(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -143,7 +143,7 @@ rf_MapParityRAID5_RS(
 		*col = (*col + 1) % raidPtr->numCol;
 }
 
-void 
+void
 rf_IdentifyStripeRAID5_RS(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t addr,
@@ -157,7 +157,7 @@ rf_IdentifyStripeRAID5_RS(
 
 }
 
-void 
+void
 rf_MapSIDToPSIDRAID5_RS(
     RF_RaidLayout_t * layoutPtr,
     RF_StripeNum_t stripeID,

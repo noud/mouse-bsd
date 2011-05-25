@@ -12,7 +12,7 @@
 /dev/sd0b	none	swap	sw		0 0
 /dev/sd0f	/var	ffs	rw		1 2
 /dev/sd0g	/usr	ffs	rw		1 2
-/dev/sd0b	/tmp	mfs	rw,-s=20000	0 0 
+/dev/sd0b	/tmp	mfs	rw,-s=20000	0 0
 kernfs		/kern	kernfs	rw		0 0
 procfs		/proc	procfs	rw		0 0
 /dev/cd0a	/cdrom	cd9660	ro,noauto	0 0

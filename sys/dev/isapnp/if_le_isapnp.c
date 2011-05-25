@@ -38,7 +38,7 @@
  */
 
 /*
- * Copyright (c) 1997 Jonathan Stone <jonathan@NetBSD.org> and 
+ * Copyright (c) 1997 Jonathan Stone <jonathan@NetBSD.org> and
  * Matthias Drochner. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,8 +69,8 @@
 
 #include "opt_inet.h"
 #include "opt_ns.h"
-#include "bpfilter.h" 
- 
+#include "bpfilter.h"
+
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/mbuf.h>
@@ -90,14 +90,14 @@
 #include <netinet/in.h>
 #include <netinet/in_systm.h>
 #include <netinet/in_var.h>
-#include <netinet/ip.h> 
+#include <netinet/ip.h>
 #endif
- 
+
 #ifdef NS
 #include <netns/ns.h>
 #include <netns/ns_if.h>
 #endif
-  
+
 #if NBPFILTER > 0
 #include <net/bpf.h>
 #include <net/bpfdesc.h>

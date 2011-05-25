@@ -97,7 +97,7 @@ __RCSID("$NetBSD: locate.code.c,v 1.6 1997/10/19 04:11:54 lukem Exp $");
 
 #define	BGBUFSIZE	(NBG * 2)	/* size of bigram buffer */
 
-char buf1[MAXPATHLEN] = " ";	
+char buf1[MAXPATHLEN] = " ";
 char buf2[MAXPATHLEN];
 char bigrams[BGBUFSIZE + 1] = { 0 };
 

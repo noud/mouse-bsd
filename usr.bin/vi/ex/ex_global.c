@@ -282,7 +282,7 @@ ex_g_insdel(sp, op, lno)
 			/* If range less than the line, ignore it. */
 			if (rp->stop < lno)
 				continue;
-			
+
 			/*
 			 * If range greater than the line, decrement or
 			 * increment the range.

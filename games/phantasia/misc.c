@@ -104,7 +104,7 @@ descrlocation(playerp, shortflag)
 									label = "The Lord's Chamber";
 								else {
 									/* this
-									 * 
+									 *
 									 * expr
 									 * essi
 									 * on
@@ -116,13 +116,13 @@ descrlocation(playerp, shortflag)
 									 * ent
 									 * comp
 									 * iler
-									 * 
+									 *
 									 * loop
-									 * 
+									 *
 									 * with
-									 * 
+									 *
 									 * some
-									 * 
+									 *
 									 * comp
 									 * iler
 									 * s */

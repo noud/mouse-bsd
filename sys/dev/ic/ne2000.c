@@ -93,7 +93,7 @@ void	ne2000_read_hdr __P((struct dp8390_softc *, int, struct dp8390_ring *));
 int	ne2000_test_mem __P((struct dp8390_softc *));
 
 void	ne2000_writemem __P((bus_space_tag_t, bus_space_handle_t,
-	    bus_space_tag_t, bus_space_handle_t, u_int8_t *, int, size_t, 
+	    bus_space_tag_t, bus_space_handle_t, u_int8_t *, int, size_t,
 	    int, int));
 void	ne2000_readmem __P((bus_space_tag_t, bus_space_handle_t,
 	    bus_space_tag_t, bus_space_handle_t, int, u_int8_t *, size_t, int));

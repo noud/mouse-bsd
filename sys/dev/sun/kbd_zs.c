@@ -104,7 +104,7 @@ struct cfattach kbd_zs_ca = {
 /*
  * kbd_zs_match: how is this zs channel configured?
  */
-int 
+int
 kbd_zs_match(parent, cf, aux)
 	struct device *parent;
 	struct cfdata *cf;
@@ -119,7 +119,7 @@ kbd_zs_match(parent, cf, aux)
 	return 0;
 }
 
-void 
+void
 kbd_zs_attach(parent, self, aux)
 	struct device *parent, *self;
 	void   *aux;

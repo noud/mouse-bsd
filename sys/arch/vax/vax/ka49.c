@@ -12,7 +12,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *	This product includes software developed at Ludd, University of 
+ *	This product includes software developed at Ludd, University of
  *	Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -49,13 +49,13 @@ static	void	ka49_steal_pages __P((void));
 static	void	ka49_cache_enable __P((void));
 static	void	ka49_halt __P((void));
 
-/* 
+/*
  * Declaration of 49-specific calls.
  */
 struct	cpu_dep ka49_calls = {
 	ka49_steal_pages,
 	ka49_mchk,
-	ka49_memerr, 
+	ka49_memerr,
 	ka49_conf,
 	chip_clkread,
 	chip_clkwrite,

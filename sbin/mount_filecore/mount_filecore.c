@@ -5,7 +5,7 @@
  * Copyright (c) 1992, 1993, 1994 The Regents of the University of California.
  * All rights reserved.
  *
- * This code is contains code contributed to the NetBSD project by 
+ * This code is contains code contributed to the NetBSD project by
  * Christopher G. Demetriou
  *
  * Redistribution and use in source and binary forms, with or without
@@ -87,7 +87,7 @@ main(argc, argv)
 	useuid = 1;
 	args.uid = 0;
 	args.gid = 0;
-	
+
 	while ((ch = getopt(argc, argv, "anRfu:g:o:")) != -1)
 		switch (ch) {
 		case 'a':

@@ -1636,7 +1636,7 @@ print_input_statement (statm)
 /* Print all symbols defined in a particular section.  This is called
    via bfd_link_hash_traverse.  */
 
-static boolean 
+static boolean
 print_one_symbol (hash_entry, ptr)
      struct bfd_link_hash_entry *hash_entry;
      PTR ptr;
@@ -1826,7 +1826,7 @@ print_reloc_statement (reloc)
   print_nl ();
 
   print_dot = addr + size;
-}  
+}
 
 static void
 print_padding_statement (s)
@@ -2222,7 +2222,7 @@ lang_size_sections (s, output_section_statement, prev, fill, dot, relax)
 	   dot = align_power (dot, os->section_alignment);
 
 	 bfd_set_section_vma (0, os->bfd_section, dot);
-	 
+
 	 os->bfd_section->output_offset = 0;
        }
 
@@ -2331,7 +2331,7 @@ lang_size_sections (s, output_section_statement, prev, fill, dot, relax)
        output_section_statement->bfd_section->_raw_size += size;
      }
      break;
-     
+
      case lang_wild_statement_enum:
 
       dot = lang_size_sections (s->wild_statement.children.head,
@@ -2489,13 +2489,13 @@ lang_do_assignments (s, output_section_statement, fill, dot)
 					    os->fill, dot);
 		dot = os->bfd_section->vma + os->bfd_section->_raw_size;
 	      }
-	    if (os->load_base) 
+	    if (os->load_base)
 	      {
 		/* If nothing has been placed into the output section then
 		   it won't have a bfd_section. */
-		if (os->bfd_section) 
+		if (os->bfd_section)
 		  {
-		    os->bfd_section->lma 
+		    os->bfd_section->lma
 		      = exp_get_abs_int(os->load_base, 0,"load base", lang_final_phase_enum);
 		  }
 	      }
@@ -3134,7 +3134,7 @@ topower (x)
   if (x < 0)
     return -1;
 
-  for (l = 0; l < 32; l++) 
+  for (l = 0; l < 32; l++)
     {
       if (i >= (unsigned int) x)
 	return l;
@@ -3366,10 +3366,10 @@ lang_section_start (name, address)
    precedence.  */
 
 /* WINDOWS_NT.  When an entry point has been specified, we will also force
-   this symbol to be defined by calling ldlang_add_undef (equivalent to 
+   this symbol to be defined by calling ldlang_add_undef (equivalent to
    having switch -u entry_name on the command line).  The reason we do
    this is so that the user doesn't have to because they would have to use
-   the -u switch if they were specifying an entry point other than 
+   the -u switch if they were specifying an entry point other than
    _mainCRTStartup.  Specifically, if creating a windows application, entry
    point _WinMainCRTStartup must be specified.
      What I have found for non console applications (entry not _mainCRTStartup)
@@ -3392,8 +3392,8 @@ lang_add_entry (name, cmdline)
       entry_symbol = name;
       entry_from_cmdline = cmdline;
     }
-#if 0 
-  /* don't do this yet.  It seems to work (the executables run), but the 
+#if 0
+  /* don't do this yet.  It seems to work (the executables run), but the
      image created is very different from what I was getting before indicating
      that something else is being pulled in.  When everything else is working,
      then try to put this back in to see if it will do the right thing for
@@ -3469,7 +3469,7 @@ lang_add_reloc (reloc, howto, section, name, addend)
      union etree_union *addend;
 {
   lang_reloc_statement_type *p = new_stat (lang_reloc_statement, stat_ptr);
-  
+
   p->reloc = reloc;
   p->howto = howto;
   p->section = section;

@@ -1957,7 +1957,7 @@ typedef struct rs6000_args
    For RS/6000, we wish to handle large displacements off a base
    register by splitting the addend across an addiu/addis and the mem insn.
    This cuts number of extra insns needed from 3 to 1.  */
-   
+
 #define LEGITIMIZE_RELOAD_ADDRESS(X,MODE,OPNUM,TYPE,IND_LEVELS,WIN)     \
 do {                                                                    \
   /* We must recognize output that we have already generated ourselves.  */ \

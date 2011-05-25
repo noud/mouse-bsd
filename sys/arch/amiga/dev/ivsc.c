@@ -117,7 +117,7 @@ ivscattach(pdp, dp, auxp)
 	printf("\n");
 
 	zap = auxp;
-	
+
 	sc = (struct sci_softc *)dp;
 	rp = (u_char *)zap->va + 0x40;
 	sc->sci_data = rp;

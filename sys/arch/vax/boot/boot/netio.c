@@ -179,7 +179,7 @@ netmountroot(f, devname)
 
  get_my_netmask:
 		printf("My netmask? ");
-		bzero(input_line, sizeof(input_line)); 
+		bzero(input_line, sizeof(input_line));
 		gets(input_line);
 		if ((netmask = inet_addr(input_line)) ==
 		    htonl(INADDR_NONE)) {
@@ -189,7 +189,7 @@ netmountroot(f, devname)
 
  get_my_gateway:
 		printf("My gateway? ");
-		bzero(input_line, sizeof(input_line)); 
+		bzero(input_line, sizeof(input_line));
 		gets(input_line);
 		if ((gateip.s_addr = inet_addr(input_line)) ==
 		    htonl(INADDR_NONE)) {
@@ -199,7 +199,7 @@ netmountroot(f, devname)
 
  get_server_ip:
 		printf("Server IP address? ");
-		bzero(input_line, sizeof(input_line)); 
+		bzero(input_line, sizeof(input_line));
 		gets(input_line);
 		if ((rootip.s_addr = inet_addr(input_line)) ==
 		    htonl(INADDR_NONE)) {
@@ -209,7 +209,7 @@ netmountroot(f, devname)
 
  get_server_path:
 		printf("Server path? ");
-		bzero(rootpath, sizeof(rootpath)); 
+		bzero(rootpath, sizeof(rootpath));
 		gets(rootpath);
 		if (rootpath[0] == '\0' || rootpath[0] == '\n')
 			goto get_server_path;

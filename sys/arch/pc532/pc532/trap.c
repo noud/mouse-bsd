@@ -128,11 +128,11 @@ userret(p, pc, oticks)
 	/*
 	 * If profiling, charge recent system time to the trapped pc.
 	 */
-	if (p->p_flag & P_PROFIL) { 
+	if (p->p_flag & P_PROFIL) {
 		extern int psratio;
 
 		addupc_task(p, pc, (int)(p->p_sticks - oticks) * psratio);
-	}                   
+	}
 
 	curpriority = p->p_priority;
 }
@@ -450,7 +450,7 @@ trap(frame)
 		break;
 
 	case T_NMI:		/* non-maskable interrupt */
-	case T_NMI | T_USER: 
+	case T_NMI | T_USER:
 #if defined(KGDB) || defined(DDB)
 		/* NMI can be hooked up to a pushbutton for debugging */
 		printf ("NMI ... going to debugger\n");

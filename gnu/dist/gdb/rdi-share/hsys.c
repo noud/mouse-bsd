@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright (C) 1995 Advanced RISC Machines Limited. All rights reserved.
- * 
+ *
  * This software may be freely used, copied, modified, and distributed
  * provided that the above copyright notice is preserved in all copies of the
  * software.
@@ -30,7 +30,7 @@
 #include "endian.h"
 #include "logging.h"         /* Angel support functions. */
 #include "msgbuild.h"
-#include "sys.h"    
+#include "sys.h"
 #include "hsys.h"      /* Function and structure declarations. */
 #include "hostchan.h"
 
@@ -43,7 +43,7 @@
    points to the message body.  Functionality is provided by the debugger
    toolkit.  The routine is very loosely based on the HandleSWI routine from
    armos.c in the armulator source.                                         */
-/* These routines could be tested by providing a simple interface to armsd, 
+/* These routines could be tested by providing a simple interface to armsd,
    and running them in that.   */
 
 
@@ -232,7 +232,7 @@ int HandleSysMessage(Packet *packet, hsys_state *stateptr)
                                "r","r","r","r"} /* last 4 are illegal */ ;
 
   FILEHANDLE fh;  /* fh is used as an index to the real file handle
-                         * in OSptr */  
+                         * in OSptr */
   FILE *fhreal;
   unpack_message(BUFFERDATA(buffhead), "%w%w%w%w", &reason_code,
                  &DebugID, &OSInfo1, &OSInfo2);
@@ -240,7 +240,7 @@ int HandleSysMessage(Packet *packet, hsys_state *stateptr)
   reason_code &= 0xFFFF;        /* Strip away direction bit, OSInfo and     */
                                 /* DebugInfo fields.  Will want to do some  */
                                 /* sort of validation on this later.        */
-  
+
   switch(reason_code)
   {
 
@@ -264,7 +264,7 @@ int HandleSysMessage(Packet *packet, hsys_state *stateptr)
       stateptr->hostif->write(stateptr->hostif->hostosarg,
                               (char *) buffp+4, len);
       DevSW_FreePacket(packet);
-      return msgsend(CI_CLIB, "%w%w%w%w%w", CL_Write0|HtoT, DebugID, 
+      return msgsend(CI_CLIB, "%w%w%w%w%w", CL_Write0|HtoT, DebugID,
                     OSInfo1, OSInfo2, NoError);
     }
 
@@ -281,7 +281,7 @@ int HandleSysMessage(Packet *packet, hsys_state *stateptr)
                     DebugID, OSInfo1, OSInfo2, NoError, character);
     }
 
-  case CL_System:  /* Pass NULL terminated string to the hosts command 
+  case CL_System:  /* Pass NULL terminated string to the hosts command
                     * interpreter. As it is nULL terminated we dont need
                     * the length
                     */
@@ -307,14 +307,14 @@ int HandleSysMessage(Packet *packet, hsys_state *stateptr)
 
       if (buffhead!=NULL) {
         len = strlen(*(stateptr->CommandLine));
-        if (len > Armsd_BufferSize-24) len = Armsd_BufferSize-24; 
+        if (len > Armsd_BufferSize-24) len = Armsd_BufferSize-24;
         packet->pk_length = len + msgbuild(BUFFERDATA(buffhead),
                                            "%w%w%w%w%w%w", CL_GetCmdLine|HtoT,
                                            DebugID, OSInfo1, OSInfo2,
                                            NoError, len);
         strncpy((char *) BUFFERDATA(buffhead)+24,*(stateptr->CommandLine),
                 len);
-        
+
         Adp_ChannelWrite(CI_CLIB, packet);/* Send message. */
         return 0;
       }
@@ -395,7 +395,7 @@ int HandleSysMessage(Packet *packet, hsys_state *stateptr)
       return msgsend(CI_CLIB, "%w%w%w%w%w",  CL_Rename|HtoT,
                      DebugID, OSInfo1, OSInfo2, (err==0)? NoError : -1);
     }
-  
+
   case CL_Open:    /* open the file */
     {
       /* Open(word nbytes, bytes name, byte mode)
@@ -497,7 +497,7 @@ int HandleSysMessage(Packet *packet, hsys_state *stateptr)
       unsigned int ack_reason = CL_Write; /* first ack is for CL_Write */
 
       err = -1;                 /* err == 0 is fwrite() error indication */
-      unpack_message(buffp, "%w%w%w", &fh, &nbtotal, &nbytes); 
+      unpack_message(buffp, "%w%w%w", &fh, &nbtotal, &nbytes);
       DebugPrintF(("CL_Write: fh %d nbtotal %u nbytes %u\n",
                    fh, nbtotal, nbytes));
 
@@ -537,7 +537,7 @@ int HandleSysMessage(Packet *packet, hsys_state *stateptr)
             stateptr->hostif->write(stateptr->hostif->hostosarg,
                                     (char *)write_source, nbtotal);
           }
-          else 
+          else
              err = fwrite(write_source, 1, nbtotal, fhreal);
           stateptr->last_errno = errno;
           DebugCheckErr("fwrite", TRUE, (err == 0), stateptr->last_errno);
@@ -581,7 +581,7 @@ int HandleSysMessage(Packet *packet, hsys_state *stateptr)
 
           buffhead = packet->pk_buffer;
           unpack_message(BUFFERDATA(buffhead), "%w%w%w%w%w", &reason_code,
-                         &DebugID, &OSInfo1, &OSInfo2, &nbytes); 
+                         &DebugID, &OSInfo1, &OSInfo2, &nbytes);
           if (reason_code != (CL_WriteX|TtoH)) {
             DevSW_FreePacket(packet);
             free(rwhead);
@@ -606,7 +606,7 @@ int HandleSysMessage(Packet *packet, hsys_state *stateptr)
                        * do this for the moment just so we do actually return
                        */
     fprintf(stderr, "ERROR: unexpected CL_WriteX message received\n");
-    return -1; 
+    return -1;
 
   case CL_Read:
     {
@@ -690,7 +690,7 @@ int HandleSysMessage(Packet *packet, hsys_state *stateptr)
                          ADP_HandleUnknown, err, nbytes, nbleft);
 
         if (err == NoError) {
-          /* copy data into buffptr */   
+          /* copy data into buffptr */
           memcpy(BUFFERDATA(buffhead)+28, rwdata, nbytes);
           rwdata += nbytes;
           count += nbytes;
@@ -751,12 +751,12 @@ int HandleSysMessage(Packet *packet, hsys_state *stateptr)
       if (fhreal == NULL)
          err = -1;
       else {
-        err = fseek(fhreal, posn, SEEK_SET); 
+        err = fseek(fhreal, posn, SEEK_SET);
         stateptr->last_errno = errno;
         DebugCheckErr("fseek", TRUE, err, stateptr->last_errno);
       }
 
-      return msgsend(CI_CLIB, "%w%w%w%w%w", CL_Seek|HtoT, 
+      return msgsend(CI_CLIB, "%w%w%w%w%w", CL_Seek|HtoT,
                          DebugID, OSInfo1, OSInfo2, err);
     }
 
@@ -783,7 +783,7 @@ int HandleSysMessage(Packet *packet, hsys_state *stateptr)
       DebugPrintF(("returning len %ld\n", fl));
       return msgsend(CI_CLIB, "%w%w%w%w%w", CL_Flen|HtoT, DebugID, OSInfo1,
                      OSInfo2, fl);
-    } 
+    }
 
   case CL_IsTTY:
     {
@@ -801,7 +801,7 @@ int HandleSysMessage(Packet *packet, hsys_state *stateptr)
       }
       DebugPrintF(("returning %s\n", ttyOrNot ? "tty (1)" : "not (0)"));
 
-      return msgsend(CI_CLIB, "%w%w%w%w%w",CL_IsTTY|HtoT, 
+      return msgsend(CI_CLIB, "%w%w%w%w%w",CL_IsTTY|HtoT,
                          DebugID, OSInfo1, OSInfo2, ttyOrNot);
     }
 
@@ -809,7 +809,7 @@ int HandleSysMessage(Packet *packet, hsys_state *stateptr)
     {
       char *name;
       unsigned int tnamelen, TargetID;
-      unpack_message(buffp, "%w%w", &tnamelen, &TargetID); 
+      unpack_message(buffp, "%w%w", &tnamelen, &TargetID);
       DebugPrintF(("CL_TmpNam: tnamelen %d TargetID %d: ",
                    tnamelen, TargetID));
       DevSW_FreePacket(packet);

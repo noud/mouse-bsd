@@ -104,7 +104,7 @@ extern char kernel_text[];
 /* Defined by the linker */
 extern char etext[];
 
-vm_map_t exec_map = NULL;  
+vm_map_t exec_map = NULL;
 vm_map_t mb_map = NULL;
 vm_map_t phys_map = NULL;
 
@@ -257,7 +257,7 @@ cpu_startup()
 
 		while (curbufsize) {
 			pg = uvm_pagealloc(NULL, 0, NULL, 0);
-			if (pg == NULL) 
+			if (pg == NULL)
 				panic("cpu_startup: not enough memory for "
 				    "buffer cache");
 			pmap_kenter_pa(curbuf, VM_PAGE_TO_PHYS(pg),

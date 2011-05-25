@@ -38,7 +38,7 @@
 
 #include <sys/param.h>
 #include <sys/systm.h>
-#include <sys/mbuf.h> 
+#include <sys/mbuf.h>
 #include <sys/syslog.h>
 #include <sys/socket.h>
 #include <sys/device.h>
@@ -213,7 +213,7 @@ mb8795_config(sc)
     }
   }
 
-	/* @@@ more next hacks 
+	/* @@@ more next hacks
 	 * the  2000 covers at least a 1500 mtu + headers
 	 * + DMA_BEGINALIGNMENT+ DMA_ENDALIGNMENT
 	 */
@@ -335,7 +335,7 @@ mb8795_rint(sc)
 			bus_dmamap_sync(sc->sc_rx_dmat, map,
 					0, map->dm_mapsize, BUS_DMASYNC_POSTREAD);
 
-				
+
 			/* Find receive length and chop off CRC */
 			/* @@@ assumes packet is all in first segment
 			 */
@@ -346,8 +346,8 @@ mb8795_rint(sc)
 			bus_dmamap_unload(sc->sc_rx_dmat, map);
 
 			/* Install a fresh mbuf for next packet */
-			
-			sc->sc_rx_mb_head[sc->sc_rx_handled_idx] = 
+
+			sc->sc_rx_mb_head[sc->sc_rx_handled_idx] =
 					mb8795_rxdmamap_load(sc,map);
 
 			/* enable interrupts while we process the packet */
@@ -361,7 +361,7 @@ mb8795_rint(sc)
 			hex_dump(mtod(m,u_char *), m->m_pkthdr.len < 255 ? m->m_pkthdr.len : 128 );
 #endif
 #endif
-		
+
 			{
 				ifp->if_ipackets++;
 				debugipkt++;
@@ -377,7 +377,7 @@ mb8795_rint(sc)
 		splx(s);
 
 	}
-	
+
 	DPRINTF(("%s: rx interrupt, rxstat = %b\n",
 			sc->sc_dev.dv_xname, rxstat, XE_RXSTAT_BITS));
 
@@ -397,7 +397,7 @@ mb8795_rint(sc)
 void
 mb8795_tint(sc)
      struct mb8795_softc *sc;
-	
+
 {
 	u_char txstat;
 	u_char txmask;
@@ -436,7 +436,7 @@ mb8795_tint(sc)
 				sc->sc_dev.dv_xname,txstat,XE_TXSTAT_BITS);
 
 		/* turn interrupt off */
-		bus_space_write_1(sc->sc_bst,sc->sc_bsh, XE_TXMASK, 
+		bus_space_write_1(sc->sc_bst,sc->sc_bsh, XE_TXMASK,
 				txmask & ~XE_TXMASK_READYIE);
 	}
 #endif
@@ -494,7 +494,7 @@ mb8795_init(sc)
 				bus_dmamap_unload(sc->sc_rx_dmat, sc->sc_rx_dmamap[i]);
 				m_freem(sc->sc_rx_mb_head[i]);
 			}
-			sc->sc_rx_mb_head[i] = 
+			sc->sc_rx_mb_head[i] =
 					mb8795_rxdmamap_load(sc, sc->sc_rx_dmamap[i]);
 		}
 		sc->sc_rx_loaded_idx = 0;
@@ -508,7 +508,7 @@ mb8795_init(sc)
 #if 0 /* This interrupt was sometimes failing to ack correctly
 			 * causing a loop @@@
 			 */
-  bus_space_write_1(sc->sc_bst,sc->sc_bsh, XE_TXMASK, 
+  bus_space_write_1(sc->sc_bst,sc->sc_bsh, XE_TXMASK,
 			XE_TXMASK_UNDERFLOWIE | XE_TXMASK_COLLIE | XE_TXMASK_COLL16IE
 			| XE_TXMASK_PARERRIE);
 #else
@@ -607,7 +607,7 @@ mb8795_ioctl(ifp, cmd, data)
 				bcopy(ina->x_host.c_host,
 				    LLADDR(ifp->if_sadl),
 				    sizeof(sc->sc_enaddr));
-			}	
+			}
 			/* Set new address. */
 			mb8795_init(sc);
 			break;
@@ -828,7 +828,7 @@ mb8795_start(ifp)
 
 /****************************************************************/
 
-void 
+void
 mb8795_txdma_completed(map, arg)
 	bus_dmamap_t map;
 	void *arg;
@@ -848,7 +848,7 @@ mb8795_txdma_completed(map, arg)
 #endif
 }
 
-void 
+void
 mb8795_txdma_shutdown(arg)
 	void *arg;
 {
@@ -895,14 +895,14 @@ mb8795_txdma_shutdown(arg)
 
 #if 0
 	/* Enable ready interrupt */
-	bus_space_write_1(sc->sc_bst,sc->sc_bsh, XE_TXMASK, 
+	bus_space_write_1(sc->sc_bst,sc->sc_bsh, XE_TXMASK,
 			bus_space_read_1(sc->sc_bst,sc->sc_bsh, XE_TXMASK)
 			| XE_TXMASK_READYIE);
 #endif
 }
 
 
-void 
+void
 mb8795_rxdma_completed(map, arg)
 	bus_dmamap_t map;
 	void *arg;
@@ -923,7 +923,7 @@ mb8795_rxdma_completed(map, arg)
 #endif
 }
 
-void 
+void
 mb8795_rxdma_shutdown(arg)
 	void *arg;
 {
@@ -963,7 +963,7 @@ mb8795_rxdmamap_load(sc,map)
 	}
 
 	/* Align buffer, @@@ next specific.
-	 * perhaps should be using M_ALIGN here instead? 
+	 * perhaps should be using M_ALIGN here instead?
 	 * First we give us a little room to align with.
 	 */
 	{
@@ -983,7 +983,7 @@ mb8795_rxdmamap_load(sc,map)
 
   bus_dmamap_sync(sc->sc_rx_dmat, map, 0,
 			map->dm_mapsize, BUS_DMASYNC_PREREAD);
-	
+
   if (error) {
 		DPRINTF(("DEBUG: m->m_data = 0x%08x, m->m_len = %d\n",
 				m->m_data, m->m_len));
@@ -999,7 +999,7 @@ mb8795_rxdmamap_load(sc,map)
 	return(m);
 }
 
-bus_dmamap_t 
+bus_dmamap_t
 mb8795_rxdma_continue(arg)
 	void *arg;
 {
@@ -1029,7 +1029,7 @@ mb8795_rxdma_continue(arg)
 	return(map);
 }
 
-bus_dmamap_t 
+bus_dmamap_t
 mb8795_txdma_continue(arg)
 	void *arg;
 {

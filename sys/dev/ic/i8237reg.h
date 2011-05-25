@@ -11,6 +11,6 @@
 #define	DMA37MD_SINGLE	0x40	/* single mode */
 #define	DMA37MD_BLOCK	0x80	/* block mode */
 #define	DMA37MD_CASCADE	0xc0	/* cascade mode */
-	
+
 #define	DMA37SM_CLEAR	0x00	/* clear mask bit */
 #define	DMA37SM_SET	0x04	/* set mask bit */

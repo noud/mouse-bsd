@@ -654,7 +654,7 @@ struct dntt_type_memenum
 
    SUBTYPE points to a DNTT entry describing the type of the members.
 
-   BITLENGTH is the size of the set.  */ 
+   BITLENGTH is the size of the set.  */
 
 struct dntt_type_set
 {

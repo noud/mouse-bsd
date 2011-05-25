@@ -50,7 +50,7 @@ __RCSID("$NetBSD: types.c,v 1.7 1999/09/30 18:01:32 jsm Exp $");
 
 int
 is_repair(card)
-	CARD	card; 
+	CARD	card;
 {
 
 	return card == C_GAS || card == C_SPARE ||

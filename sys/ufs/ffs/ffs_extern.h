@@ -136,7 +136,7 @@ int ffs_fsync __P((void *));
 int ffs_reclaim __P((void *));
 __END_DECLS
 
- 
+
 /*
  * Soft dependency function prototypes.
  */

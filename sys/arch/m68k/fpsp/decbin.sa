@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -92,11 +92,11 @@
 *	it is negative.
 *
 *	Clean up and return.  Check if the final mul or div resulted
-*	in an inex2 exception.  If so, set inex1 in the fpsr and 
+*	in an inex2 exception.  If so, set inex1 in the fpsr and
 *	check if the inex1 exception is enabled.  If so, set d7 upper
 *	word to $0100.  This will signal unimp.sa that an enabled inex1
 *	exception occured.  Unimp will fix the stack.
-*	
+*
 
 DECBIN    IDNT    2,1 Motorola 040 Floating Point Software Package
 
@@ -132,7 +132,7 @@ FNIBS	equ	7
 FSTRT	equ	0
 *
 ESTRT	equ	4
-EDIGITS equ	2	
+EDIGITS equ	2
 *
 * Constants in single precision
 FZERO 	dc.l	$00000000
@@ -249,7 +249,7 @@ nextlw:
 	addq.l	#1,d1		;inc lw pointer in mantissa
 	cmp.l	#2,d1		;test for last lw
 	ble	loadlw		;if not, get last one
-	
+
 *
 *  Check the sign of the mant and make the value in fp0 the same sign.
 *
@@ -257,7 +257,7 @@ m_sign:
 	btst	#31,(a0)	;test sign of the mantissa
 	beq.b	ap_st_z		;if clear, go to append/strip zeros
 	fneg.x	fp0		;if set, negate fp0
-	
+
 *
 * Append/strip zeros:
 *
@@ -432,7 +432,7 @@ ap_n_en:
 *
 * Pwrten calculates the exponent factor in the selected rounding mode
 * according to the following table:
-*	
+*
 *	Sign of Mant  Sign of Exp  Rounding Mode  PWRTEN Rounding Mode
 *
 *	ANY	  ANY	RN	RN
@@ -520,7 +520,7 @@ mul:
 * it will be inex2, but will be reported as inex1 by get_op.
 *
 end_dec:
-	fmove.l	FPSR,d0		;get status register	
+	fmove.l	FPSR,d0		;get status register
 	bclr.l	#inex2_bit+8,d0	;test for inex2 and clear it
 	fmove.l	d0,FPSR		;return status reg w/o inex2
 	beq.b	no_exc		;skip this if no exc

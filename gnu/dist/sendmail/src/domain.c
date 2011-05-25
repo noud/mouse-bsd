@@ -470,7 +470,7 @@ bestmx_map_lookup(map, name, av, statp)
 	for (i = 0; i < nmx; i++)
 	{
 		int slen;
-		
+
 		if (strchr(mxhosts[i], map->map_coldelim) != NULL)
 		{
 			syserr("bestmx_map_lookup: MX host %.64s includes map delimiter character 0x%02X",
@@ -497,7 +497,7 @@ bestmx_map_lookup(map, name, av, statp)
 **	This algorithm tries to be smart about wildcard MX records.
 **	This is hard to do because DNS doesn't tell is if we matched
 **	against a wildcard or a specific MX.
-**	
+**
 **	We always prefer A & CNAME records, since these are presumed
 **	to be specific.
 **
@@ -530,7 +530,7 @@ dns_getcanonname(host, hbsize, trymx, statp)
 {
 	register u_char *eom, *ap;
 	register char *cp;
-	register int n; 
+	register int n;
 	HEADER *hp;
 	querybuf answer;
 	int ancount, qdcount;
@@ -575,7 +575,7 @@ cnameloop:
 			n++;
 
 	/*
-	**  If this is a simple name, determine whether it matches an 
+	**  If this is a simple name, determine whether it matches an
 	**  alias in the file defined by the environment variable HOSTALIASES.
 	*/
 	if (n == 0 && (xp = gethostalias(host)) != NULL)
@@ -593,7 +593,7 @@ cnameloop:
 	}
 
 	/*
-	**  Build the search list.  
+	**  Build the search list.
 	**	If there is at least one dot in name, start with a null
 	**	domain to search the unmodified name first.
 	**	If name does not end with a dot and search up local domain
@@ -725,7 +725,7 @@ cnameloop:
 					/*
 					**  If we are using MX matches and have
 					**  not yet gotten one, save this one
-					**  but keep searching for an A or 
+					**  but keep searching for an A or
 					**  CNAME match.
 					*/
 
@@ -801,7 +801,7 @@ cnameloop:
 
 		if (amatch)
 		{
-			/* 
+			/*
 			**  Got a good match -- either an A, CNAME, or an
 			**  exact MX record.  Save it and get out of here.
 			*/

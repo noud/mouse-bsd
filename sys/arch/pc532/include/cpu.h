@@ -64,7 +64,7 @@
  * clockframe; for now, use generic intrframe.
  */
 
-#define clockframe intrframe 
+#define clockframe intrframe
 
 #define	CLKF_USERMODE(framep)	USERMODE((framep)->if_regs.r_psr)
 #define	CLKF_BASEPRI(framep)	((framep)->if_pl == imask[IPL_ZERO])
@@ -125,7 +125,7 @@ int	kvtop __P((caddr_t));
 
 #endif /* _KERNEL */
 
-/* 
+/*
  * CTL_MACHDEP definitions.
  */
 #define	CPU_CONSDEV		1	/* dev_t: console terminal device */

@@ -1131,7 +1131,7 @@ loop:
 		{int block;
 		 block = (fd->sc_cylin * type->heads + head) * type->sectrac + sec;
 		 if (block != fd->sc_blkno) {
-			 printf("fdcintr: block %d != blkno %d\n",	
+			 printf("fdcintr: block %d != blkno %d\n",
 				block, fd->sc_blkno);
 #ifdef DDB
 			 Debugger();
@@ -1612,7 +1612,7 @@ fdformat(dev, finfo, p)
 			break;
 	}
 	splx(s);
-       
+
 	if (rv == EWOULDBLOCK) {
 		/* timed out */
 		rv = EIO;

@@ -107,7 +107,7 @@ int main(int argc, char **argv)
     if (sscanf(argv[i+1], "%d", &(param.*(param_table[j].par))) != 1)
       fatal("invalid argument `%1'", argv[i+1]);
     i++;
-  }    
+  }
   if (argc - i != 3)
     usage();
   errno = 0;
@@ -136,7 +136,7 @@ static int get_line(FILE *fp, string *p)
   }
   return p->length() > 0;
 }
-  
+
 static void convert_font(const font_params &param, FILE *infp, FILE *outfp)
 {
   string s;

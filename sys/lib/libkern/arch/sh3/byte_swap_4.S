@@ -31,7 +31,7 @@
 ENTRY(bswap32)
 ALTENTRY(ntohl)
 ALTENTRY(htonl)
-	swap.b	r4,r0	
+	swap.b	r4,r0
 	swap.w	r0,r0
 	rts
 	swap.b	r0,r0

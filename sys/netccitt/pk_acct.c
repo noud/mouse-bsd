@@ -60,7 +60,7 @@
 
 
 struct	vnode *pkacctp;
-/* 
+/*
  *  Turn on packet accounting
  */
 int
@@ -92,7 +92,7 @@ pk_accton(path)
 	return (error);
 }
 
-/* 
+/*
  *  Write a record on the accounting file.
  */
 

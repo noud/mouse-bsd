@@ -95,7 +95,7 @@ EXTRA_DIST = macro.texi userdoc.texi epsf.tex texinfo.tex
 TEXMF = @TEXMF@
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 TEXI2DVI = texi2dvi
 TEXINFO_TEX = $(srcdir)/texinfo.tex
 INFO_DEPS = info-stnd.info info.info texinfo
@@ -113,7 +113,7 @@ default: all
 
 .SUFFIXES:
 .SUFFIXES: .dvi .info .ps .texi .texinfo .txi
-$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps doc/Makefile
 
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
@@ -234,7 +234,7 @@ dvi: $(DVIS)
 check: all
 	$(MAKE)
 installcheck:
-install-exec: 
+install-exec:
 	@$(NORMAL_INSTALL)
 
 install-data: install-info-am install-data-local

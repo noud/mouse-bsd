@@ -420,7 +420,7 @@ rf_GetLayout(RF_ParityConfig_t parityConfig)
  * the configuration.
  *
  ****************************************************************************************/
-int 
+int
 rf_ConfigureLayout(
     RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr,
@@ -438,9 +438,9 @@ rf_ConfigureLayout(
 
 	if (layoutPtr->sectorsPerStripeUnit <= 0) {
 		RF_ERRORMSG2("raid%d: Invalid sectorsPerStripeUnit: %d\n",
-			     raidPtr->raidid, 
+			     raidPtr->raidid,
 			     (int)layoutPtr->sectorsPerStripeUnit );
-		return (EINVAL); 
+		return (EINVAL);
 	}
 
 	layoutPtr->stripeUnitsPerDisk = raidPtr->sectorsPerDisk / layoutPtr->sectorsPerStripeUnit;
@@ -496,7 +496,7 @@ rf_ConfigureLayout(
  * the parity stripe identifier associated with a stripe ID.  There is also
  * a RaidAddressToParityStripeID macro in layout.h
  */
-RF_StripeNum_t 
+RF_StripeNum_t
 rf_MapStripeIDToParityStripeID(layoutPtr, stripeID, which_ru)
 	RF_RaidLayout_t *layoutPtr;
 	RF_StripeNum_t stripeID;

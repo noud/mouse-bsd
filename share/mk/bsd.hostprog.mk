@@ -12,7 +12,7 @@ __initialized__:
 .MAIN:		all
 .endif
 
-.PHONY:		cleanprog 
+.PHONY:		cleanprog
 clean cleandir distclean: cleanprog
 
 CFLAGS+=	${COPTS}

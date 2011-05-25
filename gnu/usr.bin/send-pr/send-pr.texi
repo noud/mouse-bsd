@@ -73,7 +73,7 @@ into another language, under the above conditions for modified versions.
 @cindex overview to @code{send-pr}
 @cindex introduction to @code{send-pr}
 
-This manual documents @code{send-pr}, 
+This manual documents @code{send-pr},
 @ifinfo
 version @value{VERSION},
 @end ifinfo
@@ -204,7 +204,7 @@ and we're greeted with the following screen:
 @cartouche
 @smallexample
 SEND-PR: -*- text  -*-
-SEND-PR: Lines starting with `SEND-PR' will be removed 
+SEND-PR: Lines starting with `SEND-PR' will be removed
 SEND-PR: automatically as well as all comments (the text
 SEND-PR: below enclosed in `<' and `>').
 SEND-PR: Please consult the manual if you are not sure
@@ -212,25 +212,25 @@ SEND-PR: how to fill out a problem report.
 SEND-PR:
 SEND-PR: Choose from the following categories:
 SEND-PR:
-SEND-PR:           bfd       binutils  bison       
-SEND-PR: byacc     clib      config    cvs         diff        
-SEND-PR: doc       emacs     flex      g++         gas         
-SEND-PR: gcc       gdb       glob      gprof       grep        
-SEND-PR: info      ispell    kerberos  ld          libg++      
-SEND-PR: libiberty make      makeinfo  mas         newlib      
-SEND-PR: other     patch     rcs       readline    send-pr     
-SEND-PR: test      texindex  texinfo   texinfo.tex 
+SEND-PR:           bfd       binutils  bison
+SEND-PR: byacc     clib      config    cvs         diff
+SEND-PR: doc       emacs     flex      g++         gas
+SEND-PR: gcc       gdb       glob      gprof       grep
+SEND-PR: info      ispell    kerberos  ld          libg++
+SEND-PR: libiberty make      makeinfo  mas         newlib
+SEND-PR: other     patch     rcs       readline    send-pr
+SEND-PR: test      texindex  texinfo   texinfo.tex
 SEND-PR: bifrabulator  <---@emph{note: this one is fake}
 SEND-PR:
-To: cygnus-bugs@@cygnus.com 
-Subject: 
+To: cygnus-bugs@@cygnus.com
+Subject:
 From: jeffrey@@imaginary.com
 Reply-To: jeffrey@@imaginary.com
 X-send-pr-version: send-pr @value{VERSION}
 
 >Submitter-Id:  imaginary
 >Originator:    Jeffrey Osier
->Organization:  
+>Organization:
 Imaginary Software, Ltd.
 >Confidential:  <[ no | yes ] (one line)>
 >Synopsis:      <synopsis of the problem (one line)>
@@ -274,7 +274,7 @@ SEND-PR: Lines starting with `SEND-PR' will be removed
 SEND-PR: automatically as well as all comments (the text
 SEND-PR: @dots{}
 SEND-PR:
-To: cygnus-bugs@@cygnus.com 
+To: cygnus-bugs@@cygnus.com
 Subject: bifrabulator routines don't match
 From: jeffrey@@imaginary.com
 Reply-To: jeffrey@@imaginary.com
@@ -282,7 +282,7 @@ X-send-pr-version: send-pr @value{VERSION}
 
 >Submitter-Id:  imaginary
 >Originator:    Jeffrey Osier
->Organization:  
+>Organization:
 Imaginary Software, Ltd.
 >Confidential:  no
 >Synopsis:      bifrabulator routines don't match
@@ -291,13 +291,13 @@ Imaginary Software, Ltd.
 >Category:      bifrabulator
 >Class:         sw-bug
 >Release:       progressive-930101
->Environment:   
+>Environment:
 System: SunOS imaginary.com 4.1.1 1 sun4
 Architecture: sun4 (SPARC)
 
 >Description:
-   the following code I fed into the bifrabulator came back 
-   with a strange error.  apparently, the prestidigitation 
+   the following code I fed into the bifrabulator came back
+   with a strange error.  apparently, the prestidigitation
    routine doesn't match with the whatsitsname in all cases.
 
 >How-To-Repeat:
@@ -355,7 +355,7 @@ From:  hacker@@cygnus.com
 Subject:  Re: bifrabulator/1425: routines don't match
 Reply-To: hacker@@cygnus.com
 
-Got your message, Jeff.  It seems that the bifrabulator was 
+Got your message, Jeff.  It seems that the bifrabulator was
 confusing the prestidigitation routines with the realitychecker
 when lexically parsing the whatsitsname.
 
@@ -552,7 +552,7 @@ where @var{your-sid} is the identification code you received with
 into the template field @samp{>Submitter-Id:}.  If you've downloaded
 @code{send-pr} from the Net, use @samp{net} for this value.
 
-@item 
+@item
 Place the following line in
 @w{@file{@var{prefix}/lib/emacs/lisp/default.el}}, or instruct your
 users to place the following line in their @file{.emacs} files:
@@ -561,7 +561,7 @@ users to place the following line in their @file{.emacs} files:
 (autoload 'send-pr "send-pr" "Submit a Problem Report." t)
 @end smallexample
 
-@item 
+@item
 Create a mail alias for the Support Site from which you received
 @code{send-pr}, and for every site with which you wish to use
 @code{send-pr} to communicate.  Each alias must have a suffix of
@@ -637,7 +637,7 @@ If you use @sc{gnats} at your own organization, the default is usually
 your local address for reporting problems.
 
 To change this, simply edit the file @file{Makefile} before installing
-and change the line 
+and change the line
 
 @smallexample
 GNATS_SITE = @var{site}

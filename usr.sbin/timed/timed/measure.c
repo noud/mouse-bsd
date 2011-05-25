@@ -105,7 +105,7 @@ measure(u_long maxmsec,			/* wait this many msec at most */
 			goto quit;
 		}
 	}
-	    
+
 
 	/*
 	 * empty the icmp input queue
@@ -198,7 +198,7 @@ measure(u_long maxmsec,			/* wait this many msec at most */
 			if (cc < 0)
 				goto quit;
 
-			/* 
+			/*
 			 * got something.  See if it is ours
 			 */
 			icp = (struct icmp *)(packet + (ip->ip_hl << 2));

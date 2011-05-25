@@ -61,7 +61,7 @@ MOD_VFS("overlay", -1, &overlay_vfsops);
  */
 int
 overlay_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

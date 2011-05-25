@@ -26,7 +26,7 @@
  *
  */
 
-int	tx3912video_init __P((tx_chipset_tag_t, u_int32_t, int, int, 
+int	tx3912video_init __P((tx_chipset_tag_t, u_int32_t, int, int,
 			  u_int32_t*, u_int32_t*, int*));
 
 /*

@@ -400,7 +400,7 @@ consinit()
 }
 
 /*
- * Machine-dependent startup code: allocate memory for variable-sized tables, 
+ * Machine-dependent startup code: allocate memory for variable-sized tables,
  * initialize cpu.
  */
 void
@@ -786,4 +786,4 @@ nullwork()
 {
 
 	return (0);
-}	
+}

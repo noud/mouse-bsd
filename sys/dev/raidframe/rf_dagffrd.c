@@ -70,7 +70,7 @@
  * the DAG creation routines to be replaced at this single point.
  */
 
-void 
+void
 rf_CreateFaultFreeReadDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -123,7 +123,7 @@ rf_CreateFaultFreeReadDAG(
  *
  *****************************************************************************/
 
-void 
+void
 rf_CreateNonredundantDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -302,7 +302,7 @@ rf_CreateNonredundantDAG(
  *              allocList - list of memory allocated in DAG creation
  *****************************************************************************/
 
-static void 
+static void
 CreateMirrorReadDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -411,7 +411,7 @@ CreateMirrorReadDAG(
 	termNode->antType[0] = rf_control;
 }
 
-void 
+void
 rf_CreateMirrorIdleReadDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -424,7 +424,7 @@ rf_CreateMirrorIdleReadDAG(
 	    rf_DiskReadMirrorIdleFunc);
 }
 
-void 
+void
 rf_CreateMirrorPartitionReadDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,

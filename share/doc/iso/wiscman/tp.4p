@@ -17,7 +17,7 @@ TP \- ISO Transport Protocol
 .PP
 The ISO Transport Protocol implemented for AOS R2
 at the University of Wisconsin - Madison
-includes classes 0 and 4 
+includes classes 0 and 4
 of the ISO transport protocols
 as specified in
 the September 1984 version of DIS 8073.
@@ -29,7 +29,7 @@ Class 0 is essentially a null transport protocol, which is used
 when the underlying network service provides reliable, sequenced,
 flow-controlled, two-way data transmission.
 Class 0 does not provide the expedited data service.
-The protocols are implemented as a single transport layer entity 
+The protocols are implemented as a single transport layer entity
 that coexists with the Internet protocol suite.
 Class 0 may be used only in the ISO domain.
 Class 4 may be used in the Internet domain as well as in the ISO domain.
@@ -39,20 +39,20 @@ interface (see \fIsocket(2)\fR.)
 Two new system calls for sending and receiving
 were added to this interface to
 to permit the support the end-of-transport-service-data-unit (EOTSDU)
-indication. 
+indication.
 See \fIsendv(2)\fR and \fIrecvv(2)\fR.
 If the EOTSDU is not needed, the Berkeley 4.3BSD interface
-can be used. 
+can be used.
 See \fIsend(2)\fR and \fIrecv(2)\fR.
 .PP
-Through the 
+Through the
 \fIgetsockopt\fR and \fIsetsockopt\fR
 system calls,
-TP supports several options 
+TP supports several options
 to control such things as negotiable options
 in the protocol and protocol strategies.
 .\"These system calls are used
-.\"to submit data for inclusion on connect and disconnect TPDUs. 
+.\"to submit data for inclusion on connect and disconnect TPDUs.
 The options are defined in \fB<netargo/tp_user.h>\fR,
 and are described below.
 .\".PP
@@ -61,15 +61,15 @@ and are described below.
 .PP
 In the tables below,
 the options marked with a pound sign ( \fB#\fR )
-may be used 
+may be used
 with \fIsetsockopt()\fR
 after a connection is established.
 Others must be used before the connection
 is established, in other words,
 before calling
-\fIconnect()\fR or 
+\fIconnect()\fR or
 \fIaccept()\fR.
-All options may be used 
+All options may be used
 with \fIgetsockopt()\fR
 before or
 after a connection is established.
@@ -77,13 +77,13 @@ after a connection is established.
 .\" .PP
 .\" The options marked with an exclamation point ( \fB!\fR )
 .\" may be used after a connection is released,
-.\" but before 
+.\" but before
 .\" the TP reference timer (which generally
 .\" has a value in minutes) expires, and before
 .\" a \fIclose()\fR system call.
 .\" In other words, these commands may be used when the peer closes
 .\" a connection (possibly causing a disconnect indication), as long as the command
-.\" is issued "soon" after the disconnection occurred.  
+.\" is issued "soon" after the disconnection occurred.
 .\" Disconnect data may be sent by the side initiating the close
 .\" but not by the passive side ("passive" with respect to the closing
 .\" of the connection), so there is no need to read disconnect data
@@ -118,12 +118,12 @@ TPOPT_MY_TSEL\fB \fR
 .IP
 An "extended" transport selector (tsel) for this socket.
 This option is used to set or get the local tsel.
-When this option is used to set a tsel, 
+When this option is used to set a tsel,
 the default the 2-byte tsel
 that may have been allocated by \fIbind()\fR
 is retained, but this "extended" tsel is the
 tsel that is transmitted in a connection request
-When this option is used to get a tsel, 
+When this option is used to get a tsel,
 it will return whatever transport tsel exists;
 if no "extended" tsel was given to this socket,
 the 2-byte tsel is returned.
@@ -134,7 +134,7 @@ TPOPT_PEER_TSEL\fB \fR
 An "extended" transport selector (tsel) for the
 peer transport entity.
 This option is used to get the peer's tsel after
-a connection is established. 
+a connection is established.
 When used before a connection
 is established, this option can set the tsel that
 will be transmitted as the "called" tsel
@@ -144,12 +144,12 @@ TPOPT_PERF_MEAS\fB #\fR
 Boolean.
 .IP
 When \fBtrue\fR, performance measurements will be kept
-for this connection.  
+for this connection.
 When set before a connection is established, the
 active side will use a locally defined parameter on the
 connect request packet; if the peer is another ARGO
 implementation, this will cause performance measurement to be
-turned on 
+turned on
 on the passive side as well.
 See \fItpperf(8)\fR.
 .TP 25
@@ -174,8 +174,8 @@ struct tp_conn_param.
 .IP
 Used to get or set a group parameters for a connection.
 The struct tp_conn_param is the argument used with the
-\fIgetsockopt()\fR or \fIsetsockopt()\fR system call. 
-It is described in 
+\fIgetsockopt()\fR or \fIsetsockopt()\fR system call.
+It is described in
 \fB<netargo/tp_user.h>\fR.
 .PP
 The fields of the \fItp_conn_param\fR structure are
@@ -246,7 +246,7 @@ nonzero short integer [ various ]
 Number of clock ticks for which a reference will
 be considered frozen after the connection to which
 it applied is closed.
-This parameter applies to classes 4 and 0 in the 
+This parameter applies to classes 4 and 0 in the
 ARGO implementation, despite the fact that
 the frozen reference function is required only for
 class 4.
@@ -255,7 +255,7 @@ class 4.
 p_inact_ticks
 nonzero short integer [ various ]
 .IP
-Number of clock ticks without an incoming packet from the peer after which 
+Number of clock ticks without an incoming packet from the peer after which
 TP close the connection.
 This parameter applies only to class 4.
 .\" ******************8
@@ -279,17 +279,17 @@ paths.
 The actual window size at any time
 during the lifetime of a connection
 is a function of the buffer size limit, the negotiated
-maximum TPDU size, and the 
+maximum TPDU size, and the
 rate at which the user program receives data.
 This parameter applies only to class 4.
 .\" ******************8
 .TP 25
 p_tpdusize
-unsigned char between 0x7 and 0xd. 
+unsigned char between 0x7 and 0xd.
 [ 0xc for class 4 ] [ 0xb for class 0 ]
 .IP
 Log 2 of the maximum TPDU size to be negotiated.
-The TP standard (ISO 8473) gives an upper bound of 
+The TP standard (ISO 8473) gives an upper bound of
 0xd for class 4 and 0xb for class 0.
 The ARGO implementation places upper bounds of
 0xc on class 4 and 0xb on class 0.
@@ -330,11 +330,11 @@ a retransmission occurs.
 .IP
 TPRX_FASTSTART: Begin sending the maximum amount of data permitted
 by the peer (subject to availability).
-The alternative is to start sending slowly by 
+The alternative is to start sending slowly by
 pretending the peer's window is smaller than it is, and letting
 it slowly grow up to the real peer's window size.
 This is to smooth the effect of new connections on a congested network
-by preventing a transport connection from suddenly 
+by preventing a transport connection from suddenly
 overloading the network with a burst of packets.
 This strategy is also due to Van Jacobson.
 .\" ******************8
@@ -361,7 +361,7 @@ p_xpd_service
 Boolean.
 [ true ]
 .IP
-Boolean indicating that 
+Boolean indicating that
 the expedited data transport service will be negotiated.
 This parameter applies only to class 4.
 .\" ******************8
@@ -416,11 +416,11 @@ by CLNP (ISO 8473).
 ISO_CONS indicates the connection-oriented network service provided
 by X.25 (ISO 8208) and ISO 8878.
 .IP
-ISO_COSNS indicates the 
+ISO_COSNS indicates the
 connectionless network service running over a
 connection-oriented subnetwork service : CLNP (ISO 8473) over X.25 (ISO 8208).
 .IP
-IN_CLNS indicates the 
+IN_CLNS indicates the
 DARPA Internet connectionless network service provided by IP (RFC 791).
 .\" ******************8
 .TP 25
@@ -442,7 +442,7 @@ The bit numbering used is that of the PC/RT, which means that bit
 \fBDescription [Default]\fR
 .TP 10
 0
-TPFLAG_NLQOS_PDN : set when the quality of the 
+TPFLAG_NLQOS_PDN : set when the quality of the
 network service is
 similar to that of a public data network.
 .TP 10
@@ -477,7 +477,7 @@ Reserved.
 .SH "LIBRARIES
 .PP
 The new system calls \fIrecvv\fR and \fIsendv\fR are supported by a
-library, \fIlibtp.a\fR (rather than a modified C library).  
+library, \fIlibtp.a\fR (rather than a modified C library).
 Also in this
 library are new optional interfaces to the \fIconnect\fR and \fIaccept\fR
 system calls.  See LIBTP(3).
@@ -543,7 +543,7 @@ timing out while retransmitting a connect request TPDU,
 or receiving a DR TPDU,
 the TP entity issues a SIGURG signal, indicating that
 disconnection has occurred.
-If the signal is issued during a 
+If the signal is issued during a
 a system call, the system call may be interrupted,
 in which case the
 \fIerrno\fR value upon return from the system call is EINTR.
@@ -559,7 +559,7 @@ for the duration of the system call.
 A user program should take one of the following approaches:
 .IP "Block SIGURG." 5
 If the program is servicing
-only one connection, it can block or ignore SIGURG during connection 
+only one connection, it can block or ignore SIGURG during connection
 establishment.
 The advantage of this is that the \fIerrno\fR value
 returned is somewhat meaningful.
@@ -571,10 +571,10 @@ For some programs this is not a problem.
 If the program is servicing more than one connection at a time
 or expedited data may arrive or both, the program must
 service SIGURG.
-It can use the \fIgetsockopt(...TPOPT_FLAGS...)\fR system 
+It can use the \fIgetsockopt(...TPOPT_FLAGS...)\fR system
 call to see if the signal
 was due to the arrival of expedited data or due to a disconnection.
-In the latter case, 
+In the latter case,
 \fIgetsockopt()\fR
 will return ENOTCONN.
 .SH BUGS
@@ -587,7 +587,7 @@ situation, causing an overall degradation of TP performance.
 In general, this is not a problem because very few applications
 will actually be able to send packets this fast.
 Nevertheless,
-in order to prevent this reordering, 
+in order to prevent this reordering,
 one may induce a delay in the TP entity by setting the 1-byte
 value
 \fItp_delay\fR
@@ -595,7 +595,7 @@ to 1
 using the debugger.
 Hit the <pause> key, then
 type \fB/b tp_delay\fR followed by the <enter key>.
-The debugger will print the value 00.  
+The debugger will print the value 00.
 You then type \fB1\fR followed by the <enter key>.
 Then type \fBend\fR <enter key>.
 Then type \fBgo\fR <enter key>.

@@ -189,7 +189,7 @@ void	mfcsattach __P((struct device *, struct device *, void *));
 int	mfcsparam __P(( struct tty *, struct termios *));
 int	mfcshwiflow __P((struct tty *, int));
 void	mfcsstart __P((struct tty *));
-int	mfcsmctl __P((dev_t, int, int)); 
+int	mfcsmctl __P((dev_t, int, int));
 void	mfcsxintr __P((int));
 void	mfcseint __P((int, int));
 void	mfcsmint __P((register int));

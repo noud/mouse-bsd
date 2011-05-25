@@ -17,7 +17,7 @@ for more details.
 You should have received a copy of the GNU General Public License along
 with groff; see the file COPYING.  If not, write to the Free Software
 Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
-     
+
 #include "refer.h"
 #include "refid.h"
 #include "ref.h"
@@ -28,7 +28,7 @@ static int find_month(const char *start, const char *end);
 static void abbreviate_names(string &);
 
 #define DEFAULT_ARTICLES "the\000a\000an"
-     
+
 string articles(DEFAULT_ARTICLES, sizeof(DEFAULT_ARTICLES));
 
 // Multiple occurrences of fields are separated by FIELD_SEPARATOR.
@@ -237,7 +237,7 @@ void reference::delete_field(unsigned char c)
     if (field_index[i] != NULL_FIELD_INDEX)
       field_index[i] -= 1;
 }
-    
+
 void reference::compute_hash_code()
 {
   if (!rid.is_null())
@@ -315,7 +315,7 @@ void sortify_other(const char *s, int len, string &key)
 void sortify_title(const char *s, int len, string &key)
 {
   const char *end = s + len;
-  for (; s < end && (*s == ' ' || *s == '\n'); s++) 
+  for (; s < end && (*s == ' ' || *s == '\n'); s++)
     ;
   const char *ptr = s;
   for (;;) {
@@ -533,7 +533,7 @@ int same_reference(const reference &r1, const reference &r2)
     return 0;
   if (r1.nfields != r2.nfields)
     return 0;
-  int i = 0; 
+  int i = 0;
   for (i = 0; i < 256; i++)
     if (r1.field_index != r2.field_index)
       return 0;
@@ -815,7 +815,7 @@ void reference::output(FILE *fp)
 	      // should check for overflow
 	      n = n*10 + reverse_fields[j] - '0';
 	  }
-	  else 
+	  else
 	    n = INT_MAX;
 	  reverse_names(f, n);
 	}

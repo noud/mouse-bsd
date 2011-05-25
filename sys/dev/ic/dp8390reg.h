@@ -357,7 +357,7 @@
  * algorithm to allow prioritization of nodes.
  */
 #define ED_TCR_OFST	0x10
- 
+
 /*
  * bits 5, 6, and 7 are unused/reserved
  */

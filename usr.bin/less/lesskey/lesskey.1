@@ -9,7 +9,7 @@ lesskey \- specify key bindings for less
 .B "lesskey -V"
 .SH DESCRIPTION
 .I Lesskey
-is used to specify a set of key bindings to be used by 
+is used to specify a set of key bindings to be used by
 .I less.
 The input file is a text file which describes the key bindings,
 If the input file is "-", standard input is read.
@@ -19,9 +19,9 @@ On Unix systems, $HOME/.lesskey is used;
 on MS-DOS systems, $HOME/_lesskey is used;
 and on OS/2 systems $HOME/lesskey.ini is used,
 or $INIT/lesskey.ini if $HOME is undefined.
-The output file is a binary file which is used by 
+The output file is a binary file which is used by
 .I less.
-If no output file is specified, 
+If no output file is specified,
 and the environment variable LESSKEY is set,
 the value of LESSKEY is used as the name of the output file.
 Otherwise, a standard filename is used as the name of the output file,
@@ -36,7 +36,7 @@ will overwrite it.
 .PP
 The -V option causes
 .I lesskey
-to print its version number and immediately exit.  
+to print its version number and immediately exit.
 If -V is present, other options and arguments are ignored.
 .PP
 The input file consists of one or more
@@ -99,93 +99,93 @@ default command keys used by less:
 .sp
 .nf
 	#command
-	\er		forw-line 
-	\en		forw-line 
-	e		forw-line 
-	j		forw-line 
-	^E		forw-line 
-	^N		forw-line 
-	k		back-line 
-	y		back-line 
-	^Y		back-line 
-	^K		back-line 
-	^P		back-line 
-	J		forw-line-force 
-	K		back-line-force 
-	Y		back-line-force 
-	d		forw-scroll 
-	^D		forw-scroll 
-	u		back-scroll 
-	^U		back-scroll 
-	\e40		forw-screen 
-	f		forw-screen 
-	^F		forw-screen 
-	^V		forw-screen 
-	b		back-screen 
-	^B		back-screen 
-	\eev		back-screen 
+	\er		forw-line
+	\en		forw-line
+	e		forw-line
+	j		forw-line
+	^E		forw-line
+	^N		forw-line
+	k		back-line
+	y		back-line
+	^Y		back-line
+	^K		back-line
+	^P		back-line
+	J		forw-line-force
+	K		back-line-force
+	Y		back-line-force
+	d		forw-scroll
+	^D		forw-scroll
+	u		back-scroll
+	^U		back-scroll
+	\e40		forw-screen
+	f		forw-screen
+	^F		forw-screen
+	^V		forw-screen
+	b		back-screen
+	^B		back-screen
+	\eev		back-screen
 	\ee\e40		forw-screen-force
-	z		forw-window 
-	w		back-window 
-	F		forw-forever 
+	z		forw-window
+	w		back-window
+	F		forw-forever
 	\ee[		left-scroll
 	\ee]		right-scroll
-	R		repaint-flush 
-	r		repaint 
-	^R		repaint 
-	^L		repaint 
-	g		goto-line 
-	<		goto-line 
-	\ee<		goto-line 
-	p		percent 
-	%		percent 
+	R		repaint-flush
+	r		repaint
+	^R		repaint
+	^L		repaint
+	g		goto-line
+	<		goto-line
+	\ee<		goto-line
+	p		percent
+	%		percent
 	{		forw-bracket {}
 	}		back-bracket {}
 	(		forw-bracket ()
 	)		back-bracket ()
 	[		forw-bracket []
 	]		back-bracket []
-	\ee^F		forw-bracket 
-	\ee^B		back-bracket 
-	G		goto-end 
-	\ee>		goto-end 
-	>		goto-end 
-	=		status 
-	^G		status 
-	:f		status 
-	/		forw-search 
-	?		back-search 
+	\ee^F		forw-bracket
+	\ee^B		back-bracket
+	G		goto-end
+	\ee>		goto-end
+	>		goto-end
+	=		status
+	^G		status
+	:f		status
+	/		forw-search
+	?		back-search
 	\ee/		forw-search *
 	\ee?		back-search *
-	n		repeat-search 
-	\een		repeat-search-all 
-	N		reverse-search 
-	\eeN		reverse-search-all 
+	n		repeat-search
+	\een		repeat-search-all
+	N		reverse-search
+	\eeN		reverse-search-all
 	\eeu		undo-hilite
-	m		set-mark 
-	'		goto-mark 
-	^X^X		goto-mark 
-	E		examine 
-	:e		examine 
-	^X^V		examine 
-	:n		next-file 
-	:p		prev-file 
-	:x		index-file 
-	-		toggle-option 
+	m		set-mark
+	'		goto-mark
+	^X^X		goto-mark
+	E		examine
+	:e		examine
+	^X^V		examine
+	:n		next-file
+	:p		prev-file
+	:x		index-file
+	-		toggle-option
 	:t		toggle-option t
 	s		toggle-option o
-	_		display-option 
-	|		pipe 
-	v		visual 
-	!		shell 
-	+		firstcmd 
-	H		help 
-	h		help 
-	V		version 
-	q		quit 
-	:q		quit 
-	:Q		quit 
-	ZZ		quit 
+	_		display-option
+	|		pipe
+	v		visual
+	!		shell
+	+		firstcmd
+	H		help
+	h		help
+	V		version
+	q		quit
+	:q		quit
+	:Q		quit
+	ZZ		quit
 .fi
 .sp
 .SH PRECEDENCE
@@ -194,13 +194,13 @@ Commands specified by
 take precedence over the default commands.
 A default command key may be disabled by including it in the
 input file with the action "invalid".
-Alternatively, a key may be defined 
+Alternatively, a key may be defined
 to do nothing by using the action "noaction".
-"noaction" is similar to "invalid", but 
+"noaction" is similar to "invalid", but
 .I less
-will give an error beep for an "invalid" command, 
+will give an error beep for an "invalid" command,
 but not for a "noaction" command.
-In addition, ALL default commands may be disabled by 
+In addition, ALL default commands may be disabled by
 adding this control line to the input file:
 .sp
 #stop
@@ -208,8 +208,8 @@ adding this control line to the input file:
 This will cause all default commands to be ignored.
 The #stop line should be the last line in that section of the file.
 .PP
-Be aware that #stop can be dangerous.  
-Since all default commands are disabled, 
+Be aware that #stop can be dangerous.
+Since all default commands are disabled,
 you must provide sufficient commands before the #stop line
 to enable all necessary actions.
 For example, failure to provide a "quit" command can lead to frustration.
@@ -220,7 +220,7 @@ The line-editing section begins with the line:
 #line-edit
 .sp
 This section specifies new key bindings for the line editing commands,
-in a manner similar to the way key bindings for 
+in a manner similar to the way key bindings for
 ordinary commands are specified in the #command section.
 The line-editing section consists of a list of keys and actions,
 one per line as in the example below.
@@ -266,12 +266,12 @@ If a variable is specified in the system environment and also in a
 lesskey file, the value in the lesskey file takes precedence.
 Although the lesskey file can be used to override variables set in the
 environment, the main purpose of assigning variables in the lesskey file
-is simply to have all 
+is simply to have all
 .I less
 configuration information stored in one file.
 
 .SH EXAMPLE
-The following input file sets the -i option whenever 
+The following input file sets the -i option whenever
 .I less
 is run, and specifies the character set to be "latin1":
 .sp
@@ -286,7 +286,7 @@ is run, and specifies the character set to be "latin1":
 less(1)
 
 .SH WARNINGS
-It is not possible to specify special keys, such as uparrow, 
+It is not possible to specify special keys, such as uparrow,
 in a keyboard-independent manner.
 The only way to specify such keys is to specify the escape sequence
 which a particular keyboard sends when such a keys is pressed.

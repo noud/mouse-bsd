@@ -380,7 +380,7 @@ md*)
 #	mknod rmd${unit}c c $chr $(($unit * 16 + 2))
 	chgrp operator md${unit}? #rmd${unit}?
 	chmod 640 md${unit}? #rmd${unit}?
-	;;      
+	;;
 
 bpf*|tun*)
 	case $i in

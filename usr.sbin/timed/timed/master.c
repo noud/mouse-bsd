@@ -925,6 +925,6 @@ logwtmp(struct timeval *otime, struct timeval *ntime)
 	if ((f = open(WTMPX_FILE, O_WRONLY|O_APPEND)) >= 0) {
 		(void)write(f, (char *)wtmpx, sizeof(wtmpx));
 		(void)close(f);
-	} 
+	}
 }
 #endif /* sgi */

@@ -30,7 +30,7 @@
  */
 
  /* All bugs are subject to removal without further notice */
-		
+
 #include "opt_ddb.h"
 #include "opt_ktrace.h"
 
@@ -111,12 +111,12 @@ arithflt(frame)
 	u_quad_t oticks = 0;
 	vm_map_t map;
 	vm_prot_t ftype;
-	
+
 	uvmexp.traps++;
 	if ((umode = USERMODE(frame))) {
 		type |= T_USER;
 		oticks = p->p_sticks;
-		p->p_addr->u_pcb.framep = frame; 
+		p->p_addr->u_pcb.framep = frame;
 	}
 
 	type&=~(T_WRITE|T_PTEFETCH);
@@ -149,7 +149,7 @@ fram:
 		 * Due to a hardware bug (at in least KA65x CPUs) a double
 		 * page table fetch trap will cause a translation fault
 		 * even if access in the SPT PTE entry specifies 'no access'.
-		 * In for example section 6.4.2 in VAX Architecture 
+		 * In for example section 6.4.2 in VAX Architecture
 		 * Reference Manual it states that if a page both are invalid
 		 * and have no access set, a 'access violation fault' occurs.
 		 * Therefore, we must fall through here...
@@ -174,7 +174,7 @@ if(faultdebug)printf("trap accflt type %lx, code %lx, pc %lx, psl %lx\n",
 #endif
 
 		/*
-		 * Page tables are allocated in pmap_enter(). We get 
+		 * Page tables are allocated in pmap_enter(). We get
 		 * info from below if it is a page table fault, but
 		 * UVM may want to map in pages without faults, so
 		 * because we must check for PTE pages anyway we don't
@@ -281,7 +281,7 @@ if(faultdebug)printf("trap accflt type %lx, code %lx, pc %lx, psl %lx\n",
 		while ((sig = CURSIG(p)) != 0)
 			postsig(sig);
 	}
-	if (p->p_flag & P_PROFIL) { 
+	if (p->p_flag & P_PROFIL) {
 		extern int psratio;
 		addupc_task(p, frame->pc, (int)(p->p_sticks-oticks) * psratio);
 	}
@@ -322,7 +322,7 @@ if(startsysc)printf("trap syscall %s pc %lx, psl %lx, sp %lx, pid %d, frame %p\n
 		curproc->p_pid,frame);
 #endif
 	uvmexp.syscalls++;
- 
+
 	exptr = p->p_addr->u_pcb.framep = frame;
 	callp = p->p_emul->e_sysent;
 	nsys = p->p_emul->e_nsysent;
@@ -407,7 +407,7 @@ bad:
 		while ((sig = CURSIG(p)) != 0)
 			postsig(sig);
 	}
-	if (p->p_flag & P_PROFIL) { 
+	if (p->p_flag & P_PROFIL) {
 		extern int psratio;
 		addupc_task(p, frame->pc, (int)(p->p_sticks-oticks) * psratio);
 	}

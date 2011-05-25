@@ -5,17 +5,17 @@
  * All rights reserved.
  *
  * Author: Keith Bostic, Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -181,7 +181,7 @@ struct rpb {
 	u_long		rpb_tbhint_off;		/*  88: */
 	u_int64_t	rpb_pcs_cnt;		/*  90: */
 	u_int64_t	rpb_pcs_size;		/*  98; pcs size in bytes */
-	u_long		rpb_pcs_off;		/*  A0: offset to pcs info */ 
+	u_long		rpb_pcs_off;		/*  A0: offset to pcs info */
 	u_int64_t	rpb_ctb_cnt;		/*  A8: console terminal */
 	u_int64_t	rpb_ctb_size;		/*  B0: ctb size in bytes */
 	u_long		rpb_ctb_off;		/*  B8: offset to ctb */
@@ -234,7 +234,7 @@ struct pcs {
 
 	u_int64_t	pcs_pal_memsize;	/*  88: PAL memory size */
 	u_int64_t	pcs_pal_scrsize;	/*  90: PAL scratch size */
-	u_long		pcs_pal_memaddr;	/*  98: PAL memory addr */	
+	u_long		pcs_pal_memaddr;	/*  98: PAL memory addr */
 	u_long		pcs_pal_scraddr;	/*  A0: PAL scratch addr */
 	struct {
 		u_int64_t
@@ -254,8 +254,8 @@ struct pcs {
 			compatibility	: 16,	/* Compatibility revision */
 			proc_cnt	: 16;	/* Processor count */
 	} pcs_pal_rev;				/*  A8: */
-#define pcs_minorrev	pcs_pal_rev.minorrev	
-#define pcs_majorrev	pcs_pal_rev.majorrev	
+#define pcs_minorrev	pcs_pal_rev.minorrev
+#define pcs_majorrev	pcs_pal_rev.majorrev
 #define pcs_pal_type	pcs_pal_rev.pal_type
 #define pcs_compatibility	pcs_pal_rev.compatibility
 #define pcs_proc_cnt	pcs_pal_rev.proc_cnt
@@ -385,7 +385,7 @@ struct ctb {
 #define	CTB_TURBOSLOT_TYPE_EISA		2	/* EISA */
 #define	CTB_TURBOSLOT_TYPE_PCI		3	/* PCI */
 
-/* 
+/*
  * CRD: Console Routine Descriptor
  */
 struct crd {

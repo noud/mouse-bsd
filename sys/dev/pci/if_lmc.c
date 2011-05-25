@@ -206,9 +206,9 @@ static inline void
 lmc_srom_idle(lmc_softc_t * const sc)
 {
 	unsigned bit, csr;
-    
+
 	csr  = SROMSEL ; EMIT;
-	csr  = SROMSEL | SROMRD; EMIT;  
+	csr  = SROMSEL | SROMRD; EMIT;
 	csr ^= SROMCS; EMIT;
 	csr ^= SROMCLKON; EMIT;
 
@@ -224,11 +224,11 @@ lmc_srom_idle(lmc_softc_t * const sc)
 	csr  = 0; EMIT;
 }
 
-     
+
 static void
 lmc_srom_read(lmc_softc_t * const sc)
-{   
-	unsigned idx; 
+{
+	unsigned idx;
 	const unsigned bitwidth = SROM_BITWIDTH;
 	const unsigned cmdmask = (SROMCMD_RD << bitwidth);
 	const unsigned msb = 1 << (bitwidth + 3 - 1);
@@ -242,7 +242,7 @@ lmc_srom_read(lmc_softc_t * const sc)
 		csr  = SROMSEL | SROMRD;        EMIT;
 		csr ^= SROMCSON;                EMIT;
 		csr ^=            SROMCLKON;    EMIT;
-    
+
 		lastbit = 0;
 		for (bits = idx|cmdmask, bit = bitwidth + 3
 			     ; bit > 0
@@ -261,7 +261,7 @@ lmc_srom_read(lmc_softc_t * const sc)
 
 		for (data = 0, bits = 0; bits < 16; bits++) {
 			data <<= 1;
-			csr ^= SROMCLKON; EMIT;     /* clock H data valid */ 
+			csr ^= SROMCLKON; EMIT;     /* clock H data valid */
 			data |= LMC_CSR_READ(sc, csr_srom_mii) & SROMDIN ? 1 : 0;
 			csr ^= SROMCLKOFF; EMIT;    /* clock L data invalid */
 		}
@@ -426,7 +426,7 @@ lmc_watchdog(int unit)
 		if (sc->lmc_flags & LMC_IFUP)
 			lmc_ifup(sc);
 		sc->lmc_flags |= LMC_MODEMOK;
-		lmc_led_on(sc, LMC_MII16_LED1); 
+		lmc_led_on(sc, LMC_MII16_LED1);
 		return;
 	}
 
@@ -522,7 +522,7 @@ lmc_rx_intr(lmc_softc_t * const sc)
 		 */
 		if (eop == ri->ri_nextout)
 			break;
-	    
+
 		/*
 		 * 90% of the packets will fit in one descriptor.  So we
 		 * optimize for that case.
@@ -651,7 +651,7 @@ lmc_rx_intr(lmc_softc_t * const sc)
 		}
 		if (ms == NULL) {
 			/*
-			 * Couldn't allocate a new buffer.  Don't bother 
+			 * Couldn't allocate a new buffer.  Don't bother
 			 * trying to replenish the receive queue.
 			 */
 			fillok = 0;
@@ -1329,7 +1329,7 @@ lmc_attach(lmc_softc_t * const sc)
 	ifp->if_type = IFT_NONE;
 	ifp->if_unit = (sc->lmc_dev.dv_unit);
 #endif
-  
+
 	if_attach(ifp);
 
 #if defined(__NetBSD__) || defined(__FreeBSD__)

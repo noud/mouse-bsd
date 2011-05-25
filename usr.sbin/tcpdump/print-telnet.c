@@ -37,11 +37,11 @@
  */
 /*
  *      @(#)Copyright (c) 1994, Simon J. Gerraty.
- *      
+ *
  *      This is free software.  It comes with NO WARRANTY.
- *      Permission to use, modify and distribute this source code 
+ *      Permission to use, modify and distribute this source code
  *      is granted subject to the following conditions.
- *      1/ that the above copyright notice and this notice 
+ *      1/ that the above copyright notice and this notice
  *      are preserved in all copies.
  */
 
@@ -91,11 +91,11 @@ telnet_print(register const u_char *sp, u_int length)
 
 	off = 0;
 	x = 0;
-	
+
 	while (length > 0 && *sp == IAC) {
 		osp = (u_char *) sp;
 		tnet[0] = '\0';
-		
+
 		c = *sp++;
 		length--;
 		switch (*sp) {

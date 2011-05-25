@@ -89,7 +89,7 @@ MY_swap_std_reloc_out PARAMS ((bfd *abfd, arelent *g,
  *
  */
 
-reloc_howto_type MY(howto_table)[] = 
+reloc_howto_type MY(howto_table)[] =
 {
   /* ns32k immediate operands */
   HOWTO (BFD_RELOC_NS32K_IMM_8, 0, 0, 8, false, 0, true,
@@ -295,10 +295,10 @@ MY_swap_std_reloc_out (abfd, g, natptr)
   asection *output_section = sym->section->output_section;
 
   r_addend = g->addend + (*(g->sym_ptr_ptr))->section->output_section->vma;
-    
+
   /* name was clobbered by aout_write_syms to be symbol index */
 
-  /* If this relocation is relative to a symbol then set the 
+  /* If this relocation is relative to a symbol then set the
      r_index to the symbols index, and the r_extern bit.
 
      Absolute symbols can come in in two ways, either as an offset
@@ -307,7 +307,7 @@ MY_swap_std_reloc_out (abfd, g, natptr)
 
   if (bfd_is_com_section (output_section)
       || output_section == &bfd_abs_section
-      || output_section == &bfd_und_section) 
+      || output_section == &bfd_und_section)
     {
       if (bfd_abs_section.symbol == sym)
 	{
@@ -316,21 +316,21 @@ MY_swap_std_reloc_out (abfd, g, natptr)
 	  r_index = 0;
 	  r_extern = 0;
 	}
-      else 
+      else
 	{
 	  /* Fill in symbol */
 	  r_extern = 1;
 #undef KEEPIT
 #define KEEPIT udata.i
 	  r_index =  (*(g->sym_ptr_ptr))->KEEPIT;
-#undef KEEPIT     
+#undef KEEPIT
 	}
     }
-  else 
+  else
     {
       /* Just an ordinary section */
       r_extern = 0;
-      r_index  = output_section->target_index;      
+      r_index  = output_section->target_index;
     }
 
   MY_put_reloc (abfd, r_extern, r_index, g->address, g->howto, natptr);

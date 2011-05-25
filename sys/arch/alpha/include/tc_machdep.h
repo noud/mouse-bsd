@@ -87,7 +87,7 @@ typedef int32_t		tc_offset_t;
 #define	TC_DENSE_TO_SPARSE(addr)					\
     (((addr) & TC_SPACE_IND) | TC_SPACE_SPARSE |			\
 	(((addr) & TC_SPACE_DENSE_OFFSET) << 1))
-		
+
 #define	TC_PHYS_TO_UNCACHED(addr)					\
     (addr)
 

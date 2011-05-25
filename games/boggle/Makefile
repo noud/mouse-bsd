@@ -24,7 +24,7 @@ ${MKDICT}:
 
 ${MKINDEX}:
 	@cd ${.CURDIR}/mkindex && ${MAKE}
-	
+
 
 ${.OBJDIR}/dictionary: ${WORDS} ${MKDICT}
 	rm -f ${.TARGET}

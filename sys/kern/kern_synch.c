@@ -162,7 +162,7 @@ roundrobin(arg)
  * We now need to prove two things:
  *	1) Given factor ** (5 * loadavg) ~= .1, prove factor == b/(b+1)
  *	2) Given b/(b+1) ** power ~= .1, prove power == (5 * loadavg)
- *	
+ *
  * Facts:
  *         For x close to zero, exp(x) =~ 1 + x, since
  *              exp(x) = 0! + x**1/1! + x**2/2! + ... .

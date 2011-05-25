@@ -1,4 +1,4 @@
-.\"	$NetBSD: hardware,v 1.4 1999/03/26 09:10:48 mark Exp $	
+.\"	$NetBSD: hardware,v 1.4 1999/03/26 09:10:48 mark Exp $
 
 NetBSD/arm32 \*V runs on a number of systems with
 .Tn ARM6
@@ -144,7 +144,7 @@ Supported devices include (but is not limited to):
 .Ed
 .Pp
 Drivers for hardware marked with "[*]" are NOT present in installation
-kernels. 
+kernels.
 .Pp
 Other PCI device may be supported by Intel EBSA285 & Chalice CATS but
 have not been tested.

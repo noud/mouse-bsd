@@ -98,7 +98,7 @@ cy_find(sc)
 
 		/* wait until the chip is ready for command */
 		DELAY(1000);
-		if (bus_space_read_1(tag, bsh, chip + 
+		if (bus_space_read_1(tag, bsh, chip +
 		    ((CD1400_CCR << 1) << bustype)) != 0) {
 #ifdef CY_DEBUG
 			printf("not ready for command\n");
@@ -666,7 +666,7 @@ cyparam(tp, t)
 
 	/* channel was selected by the above call to cy_modem_control() */
 #if 0
-	cd_write_reg(sc, cy->cy_chip, CD1400_CAR, port & CD1400_CAR_CHAN); 
+	cd_write_reg(sc, cy->cy_chip, CD1400_CAR, port & CD1400_CAR_CHAN);
 #endif
 
 	/* set transmit speed */
@@ -1022,7 +1022,7 @@ cy_poll(arg)
 #ifdef CY_DEBUG1
 				did_something = 1;
 #endif
-			} else 
+			} else
 				splx(s);
 
 			s = spltty();
@@ -1235,7 +1235,7 @@ cy_intr(arg)
 			cy->cy_tx_int_count++;
 #endif
 #ifdef CY_DEBUG
-			printf("cy%d port %d tx service\n", card, 
+			printf("cy%d port %d tx service\n", card,
 			    cy->cy_port_num);
 #endif
 

@@ -1,4 +1,4 @@
-.\"  
+.\"
 .de @revision
 .ds RE \\$2
 ..
@@ -345,12 +345,12 @@ in=\\n[.i] fi=\\n[.u] .d=\\n[.d] nl=\\n[nl] pg=\\n[%]
 .de P
 .\"	skip P if previous heading
 .ie !((\\n[nl]=\\n[hd*last-pos]):(\\n[nl]=(\\n[hd*last-pos]-.5v))) \{\
-.	if \\n[D]>2 .tm Paragraph 
+.	if \\n[D]>2 .tm Paragraph
 .	par@doit \\$*
 .	if \\n[Np] \\n[H1].\\n+[par*number]\ \ \c
 .\}
 .el .if !(\\n[hd*last-hpos]=\\n[.k]) \{\
-.	if \\n[D]>2 .tm Paragraph 
+.	if \\n[D]>2 .tm Paragraph
 .	par@doit \\$*
 .	if \\n[Np] \\n[H1].\\n+[par*number]\ \ \c
 .\}
@@ -360,12 +360,12 @@ in=\\n[.i] fi=\\n[.u] .d=\\n[.d] nl=\\n[nl] pg=\\n[%]
 .de nP
 .\"	skip P if previous heading
 .ie !((\\n[nl]=\\n[hd*last-pos]):(\\n[nl]=(\\n[hd*last-pos]-.5v))) \{\
-.	if \\n[D]>2 .tm Paragraph 
+.	if \\n[D]>2 .tm Paragraph
 .	par@doit \\$*
 \\n[H2].\\n+[par*number2]\ \ \c
 .\}
 .el .if !(\\n[hd*last-hpos]=\\n[.k]) \{\
-.	if \\n[D]>2 .tm Paragraph 
+.	if \\n[D]>2 .tm Paragraph
 .	par@doit \\$*
 \\n[H2].\\n+[par*number2]\ \ \c
 .\}
@@ -726,7 +726,7 @@ in=\\n[.i] fi=\\n[.u] .d=\\n[.d] nl=\\n[nl] pg=\\n[%]
 .\" May change hd*mark (}0), hd*suf-space (}2) and hd*need (;3)
 .\" Can also change Hps1/2.
 .if d HX .HX \\n[hd*level] \\n[hd*arg1] "\\$2\\$3"
-.\"-------------------------------------- 
+.\"--------------------------------------
 .\" pre-space
 .ie \\n[hd*level]<=\\n[Hps] .SP \\n[Hps2]u
 .el .SP \\n[Hps1]u
@@ -762,10 +762,10 @@ in=\\n[.i] fi=\\n[.u] .d=\\n[.d] nl=\\n[nl] pg=\\n[%]
 .	vs \\*[hd*new-ps]+2
 .\}
 .\"
-.\"---------- user macro HY ------------- 
+.\"---------- user macro HY -------------
 .\"	user macro to reset indents
 .if d HY .HY \\n[hd*level] \\n[hd*arg1] "\\$2\\$3"
-.\"-------------------------------------- 
+.\"--------------------------------------
 .nr hd*mark-size \w@\\*[hd*mark]@
 .if (\\n[hd*level]<=\\n[Hc])&\\n[hd*htype] .ce\" center if level<=Hc
 .\"
@@ -824,8 +824,8 @@ in=\\n[.i] fi=\\n[.u] .d=\\n[.d] nl=\\n[nl] pg=\\n[%]
 .while \\n+[hd*i]<8 .af H\\n[hd*i] \\$[\\n[hd*i]] 1
 ..
 .\"----------------------
-.\" set page-nr, called from header 
-.\" 
+.\" set page-nr, called from header
+.\"
 .de hd@set-page
 .if \\n[.$]>0 .nr hd*h1-page \\$1
 .\"
@@ -875,7 +875,7 @@ in=\\n[.i] fi=\\n[.u] .d=\\n[.d] nl=\\n[nl] pg=\\n[%]
 .\"
 .if \\n[D]>2 .tm pg*foot-trap \\n[@pl]u-(\\n[pg*block-size]u+\\n[ft*note-size]u+\\n[pg*foot-margin]u+\\n[pg*footer-size]v) = \\n[pg*foot-trap]
 .\"
-.\" last-pos points to the position of the footer and bottom 
+.\" last-pos points to the position of the footer and bottom
 .\" block below foot-notes.
 .nr pg*last-pos \\n[@pl]u-(\\n[pg*block-size]u+\\n[pg*foot-margin]u+\\n[pg*footer-size]v)
 ..
@@ -964,7 +964,7 @@ in=\\n[.i] fi=\\n[.u] .d=\\n[.d] nl=\\n[nl] pg=\\n[%]
 .		PX
 .		rs
 .	\}
-.	\" check for pending footnotes 
+.	\" check for pending footnotes
 .	ft@check-old
 .	\"
 .	\" back to normal text processing
@@ -974,7 +974,7 @@ in=\\n[.i] fi=\\n[.u] .d=\\n[.d] nl=\\n[nl] pg=\\n[%]
 .	\" reset NCOL pointer at each new page.
 .	nr pg*last-ncol 0
 .	\" set multicolumn
-.	\" 
+.	\"
 .	pg@set-po
 .	\" print floating displays
 .	df@print-float 4
@@ -1135,7 +1135,7 @@ in=\\n[.i] fi=\\n[.u] .d=\\n[.d] nl=\\n[nl] pg=\\n[%]
 .ref@eot-print
 ..
 .\"-------------------------
-.\" set top and bottom margins 
+.\" set top and bottom margins
 .de VM
 .if \\n[.$]=0 \{\
 .	nr pg*extra-footer-size 0
@@ -1150,7 +1150,7 @@ in=\\n[.i] fi=\\n[.u] .d=\\n[.d] nl=\\n[nl] pg=\\n[%]
 .pg@move-trap
 ..
 .\"---------------------
-.\" multicolumn output. 
+.\" multicolumn output.
 .de pg@set-po
 .if \\n[pg*cols-per-page]>1 \{\
 .	ll \\n[pg*column-size]u
@@ -1375,7 +1375,7 @@ in=\\n[.i] fi=\\n[.u] .d=\\n[.d] nl=\\n[nl] pg=\\n[%]
 .		nr ds*wide 0
 .		if r ft*df-save \{\
 .			nr Df \\n[ft*df-save]
-.			rm ft*df-save 
+.			rm ft*df-save
 .		\}
 .	\}
 .	if '\\*[ft*x]'WD' \{\
@@ -2014,7 +2014,7 @@ in=\\n[.i] fi=\\n[.u] .d=\\n[.d] nl=\\n[nl] pg=\\n[%]
 .SP .5
 ..
 .\" ####### module eq #######################################
-.\" 
+.\"
 .nr eq*number 0 1
 .de EQ
 .ds eq*lable "\\$1
@@ -2191,7 +2191,7 @@ in=\\n[.i] fi=\\n[.u] .d=\\n[.d] nl=\\n[nl] pg=\\n[%]
 .ll \\n[@ll]u
 ..
 .\"########################### module lix ############################
-.\" LIST OF figures, tables, exhibits and equations 
+.\" LIST OF figures, tables, exhibits and equations
 .nr lix*fg-nr 0 1
 .nr lix*tb-nr 0 1
 .nr lix*ec-nr 0 1
@@ -2486,7 +2486,7 @@ in=\\n[.i] fi=\\n[.u] .d=\\n[.d] nl=\\n[nl] pg=\\n[%]
 .nr ref*flag 0 1
 ..
 .\"########################### module app ############################
-.\" 
+.\"
 .nr app*nr 0 1
 .af app*nr A
 .nr app*dnr 0 1

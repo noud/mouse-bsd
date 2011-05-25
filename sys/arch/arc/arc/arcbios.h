@@ -308,7 +308,7 @@ typedef struct arc_calls
 #define ARC_PARAM_BLK_MAGIC	0x53435241
 #define ARC_PARAM_BLK_MAGIC_BUG	0x41524353	/* This is wrong... but req */
 
-typedef struct arc_param_blk 
+typedef struct arc_param_blk
 {
 	u_int32_t	magic;		/* Magic Number */
 	u_int32_t	length;		/* Length of parameter block */

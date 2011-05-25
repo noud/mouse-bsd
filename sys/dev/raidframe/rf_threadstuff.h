@@ -60,7 +60,7 @@
 
 int     _rf_init_threadgroup(RF_ThreadGroup_t * g, char *file, int line);
 int     _rf_destroy_threadgroup(RF_ThreadGroup_t * g, char *file, int line);
-int 
+int
 _rf_init_managed_threadgroup(RF_ShutdownList_t ** listp,
     RF_ThreadGroup_t * g, char *file, int line);
 
@@ -174,10 +174,10 @@ struct RF_ThreadGroup_s {
 
 int     rf_mutex_init(struct simplelock *);
 int     rf_mutex_destroy(struct simplelock *);
-int 
+int
 _rf_create_managed_mutex(RF_ShutdownList_t **, struct simplelock *,
     char *, int);
-int 
+int
 _rf_create_managed_cond(RF_ShutdownList_t ** listp, int *,
     char *file, int line);
 

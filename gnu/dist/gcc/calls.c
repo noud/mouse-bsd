@@ -237,7 +237,7 @@ calls_function_1 (exp, which)
 
     case RTL_EXPR:
       return 0;
-      
+
     default:
       break;
     }
@@ -344,7 +344,7 @@ prepare_call_address (funexp, fndecl, call_fusage, reg_parm_seen)
    IS_CONST is true if this is a `const' call.  */
 
 static void
-emit_call_1 (funexp, fndecl, funtype, stack_size, struct_value_size, 
+emit_call_1 (funexp, fndecl, funtype, stack_size, struct_value_size,
              next_arg_reg, valreg, old_inhibit_defer_pop, call_fusage,
 	     is_const)
      rtx funexp;
@@ -374,7 +374,7 @@ emit_call_1 (funexp, fndecl, funtype, stack_size, struct_value_size,
 #ifndef ACCUMULATE_OUTGOING_ARGS
 #if defined (HAVE_call_pop) && defined (HAVE_call_value_pop)
   if (HAVE_call_pop && HAVE_call_value_pop
-      && (RETURN_POPS_ARGS (fndecl, funtype, stack_size) > 0 
+      && (RETURN_POPS_ARGS (fndecl, funtype, stack_size) > 0
           || stack_size == 0))
     {
       rtx n_pop = GEN_INT (RETURN_POPS_ARGS (fndecl, funtype, stack_size));
@@ -540,7 +540,7 @@ expand_call (exp, target, ignore)
   int reg_parm_seen;
   /* Nonzero if this is an indirect function call.  */
 
-  /* Nonzero if we must avoid push-insns in the args for this call. 
+  /* Nonzero if we must avoid push-insns in the args for this call.
      If stack space is allocated for register parameters, but not by the
      caller, then it is preallocated in the fixed part of the stack frame.
      So the entire argument block must then be preallocated (i.e., we
@@ -645,7 +645,7 @@ expand_call (exp, target, ignore)
 	}
     }
 
-  /* If we don't have specific function to call, see if we have a 
+  /* If we don't have specific function to call, see if we have a
      constant or `noreturn' function from the type.  */
   if (fndecl == 0)
     {
@@ -774,7 +774,7 @@ expand_call (exp, target, ignore)
 		     outgoing argument list in addition to the requested
 		     space, but there is no way to ask for stack space such
 		     that an argument list of a certain length can be
-		     safely constructed. 
+		     safely constructed.
 
 		     Add the stack space reserved for register arguments, if
 		     any, in the inline function.  What is really needed is the
@@ -1194,7 +1194,7 @@ expand_call (exp, target, ignore)
 	args[i].size.constant -= ((args[i].partial * UNITS_PER_WORD)
 				  / (PARM_BOUNDARY / BITS_PER_UNIT)
 				  * (PARM_BOUNDARY / BITS_PER_UNIT));
-      
+
       /* Update ARGS_SIZE, the total stack space for args so far.  */
 
       args_size.constant += args[i].size.constant;
@@ -1226,7 +1226,7 @@ expand_call (exp, target, ignore)
   reg_parm_stack_space = FINAL_REG_PARM_STACK_SPACE (args_size.constant,
 						     args_size.var);
 #endif
-      
+
   /* Compute the actual size of the argument block required.  The variable
      and constant sizes must be combined, the size may have to be rounded,
      and there may be a minimum required size.  */
@@ -1385,7 +1385,7 @@ expand_call (exp, target, ignore)
 
 	if (TYPE_MODE (TREE_TYPE (args[i].tree_value)) != args[i].mode)
 	  args[i].value
-	    = convert_modes (args[i].mode, 
+	    = convert_modes (args[i].mode,
 			     TYPE_MODE (TREE_TYPE (args[i].tree_value)),
 			     args[i].value, args[i].unsignedp);
       }
@@ -1442,7 +1442,7 @@ expand_call (exp, target, ignore)
 	     Therefore, we save any area of the stack that was already written
 	     and that we are using.  Here we set up to do this by making a new
 	     stack usage map from the old one.  The actual save will be done
-	     by store_one_arg. 
+	     by store_one_arg.
 
 	     Another approach might be to try to reorder the argument
 	     evaluations to avoid this conflicting stack usage.  */
@@ -1553,7 +1553,7 @@ expand_call (exp, target, ignore)
 
 
   /* If we preallocated stack space, compute the address of each argument.
-     We need not ensure it is a valid memory address here; it will be 
+     We need not ensure it is a valid memory address here; it will be
      validized when it is used.  */
   if (argblock)
     {
@@ -1592,7 +1592,7 @@ expand_call (exp, target, ignore)
 	  args[i].stack_slot = gen_rtx_MEM (args[i].mode, addr);
 	}
     }
-					       
+
 #ifdef PUSH_ARGS_REVERSED
 #ifdef STACK_BOUNDARY
   /* If we push args individually in reverse order, perform stack alignment
@@ -1679,7 +1679,7 @@ expand_call (exp, target, ignore)
 			     TYPE_MODE (TREE_TYPE (args[i].tree_value)),
 			     args[i].value, args[i].unsignedp);
 
-	/* If the value is expensive, and we are inside an appropriately 
+	/* If the value is expensive, and we are inside an appropriately
 	   short loop, put the value into a pseudo and then put the pseudo
 	   into the hard reg.
 
@@ -1759,7 +1759,7 @@ expand_call (exp, target, ignore)
 	}
     }
 #endif
-	  
+
 
   /* Now store (and compute if necessary) all non-register parms.
      These come before register parms, since they can require block-moves,
@@ -1878,7 +1878,7 @@ expand_call (exp, target, ignore)
       if (flag_check_memory_usage)
 	emit_library_call (chkr_set_right_libfunc, 1,
 			   VOIDmode, 3,
-			   structure_value_addr, ptr_mode, 
+			   structure_value_addr, ptr_mode,
 			   GEN_INT (struct_value_size), TYPE_MODE (sizetype),
 			   GEN_INT (MEMORY_USE_WO),
 			   TYPE_MODE (integer_type_node));
@@ -1891,7 +1891,7 @@ expand_call (exp, target, ignore)
 
   /* Now do the register loads required for any wholly-register parms or any
      parms which are passed both on the stack and in a register.  Their
-     expressions were already evaluated. 
+     expressions were already evaluated.
 
      Mark all register-parms as living through the call, putting these USE
      insns in the CALL_INSN_FUNCTION_USAGE field.  */
@@ -2027,7 +2027,7 @@ expand_call (exp, target, ignore)
       /* The return value from a malloc-like function can not alias
 	 anything else.  */
       last = get_last_insn ();
-      REG_NOTES (last) = 
+      REG_NOTES (last) =
 	gen_rtx_EXPR_LIST (REG_NOALIAS, temp, REG_NOTES (last));
 
       /* Write out the sequence.  */
@@ -2119,14 +2119,14 @@ expand_call (exp, target, ignore)
     {
       /* Some machines (the PA for example) want to return all small
 	 structures in registers regardless of the structure's alignment.
-	 
+
 	 Deal with them explicitly by copying from the return registers
 	 into the target MEM locations.  */
       int bytes = int_size_in_bytes (TREE_TYPE (exp));
       rtx src = NULL, dst = NULL;
       int bitsize = MIN (TYPE_ALIGN (TREE_TYPE (exp)), BITS_PER_WORD);
       int bitpos, xbitpos, big_endian_correction = 0;
-      
+
       if (target == 0)
 	{
 	  target = assign_stack_temp (BLKmode, bytes, 0);
@@ -2159,20 +2159,20 @@ expand_call (exp, target, ignore)
 	   bitpos += bitsize, xbitpos += bitsize)
 	{
 
-	  /* We need a new source operand each time xbitpos is on a 
+	  /* We need a new source operand each time xbitpos is on a
 	     word boundary and when xbitpos == big_endian_correction
 	     (the first time through).  */
 	  if (xbitpos % BITS_PER_WORD == 0
 	      || xbitpos == big_endian_correction)
 	    src = operand_subword_force (valreg,
-					 xbitpos / BITS_PER_WORD, 
+					 xbitpos / BITS_PER_WORD,
 					 BLKmode);
 
 	  /* We need a new destination operand each time bitpos is on
 	     a word boundary.  */
 	  if (bitpos % BITS_PER_WORD == 0)
 	    dst = operand_subword (target, bitpos / BITS_PER_WORD, 1, BLKmode);
-	      
+
 	  /* Use xbitpos for the source extraction (right justified) and
 	     xbitpos for the destination store (left justified).  */
 	  store_bit_field (dst, bitsize, bitpos % BITS_PER_WORD, word_mode,
@@ -2251,7 +2251,7 @@ expand_call (exp, target, ignore)
 			     PARM_BOUNDARY / BITS_PER_UNIT);
 	}
 #endif
-	  
+
       /* If we saved any argument areas, restore them.  */
       for (i = 0; i < num_actuals; i++)
 	if (args[i].save_area)
@@ -2275,7 +2275,7 @@ expand_call (exp, target, ignore)
     }
 #endif
 
-  /* If this was alloca, record the new stack level for nonlocal gotos.  
+  /* If this was alloca, record the new stack level for nonlocal gotos.
      Check for the handler slots since we might not have a save area
      for non-local gotos.  */
 
@@ -2459,7 +2459,7 @@ emit_library_call VPROTO((rtx orgfun, int no_queue, enum machine_mode outmode,
   reg_parm_stack_space = FINAL_REG_PARM_STACK_SPACE (args_size.constant,
 						     args_size.var);
 #endif
-      
+
   /* If this machine requires an external definition for library
      functions, write one out.  */
   assemble_external_libcall (fun);
@@ -2611,7 +2611,7 @@ emit_library_call VPROTO((rtx orgfun, int no_queue, enum machine_mode outmode,
 	}
     }
 #endif
-	  
+
   /* Push the args that need to be pushed.  */
 
   /* ARGNUM indexes the ARGVEC array in the order in which the arguments
@@ -2731,8 +2731,8 @@ emit_library_call VPROTO((rtx orgfun, int no_queue, enum machine_mode outmode,
      always signed.  We also assume that the list of arguments passed has
      no impact, so we pretend it is unknown.  */
 
-  emit_call_1 (fun, 
-               get_identifier (XSTR (orgfun, 0)), 
+  emit_call_1 (fun,
+               get_identifier (XSTR (orgfun, 0)),
 	       build_function_type (outmode == VOIDmode ? void_type_node
 				    : type_for_mode (outmode, 0), NULL_TREE),
                args_size.constant, 0,
@@ -2771,7 +2771,7 @@ emit_library_call VPROTO((rtx orgfun, int no_queue, enum machine_mode outmode,
 			 PARM_BOUNDARY / BITS_PER_UNIT);
     }
 #endif
-	  
+
   /* If we saved any argument areas, restore them.  */
   for (count = 0; count < nargs; count++)
     if (argvec[count].save_area)
@@ -3175,7 +3175,7 @@ emit_library_call_value VPROTO((rtx orgfun, rtx value, int no_queue,
 	}
     }
 #endif
-	  
+
   /* Push the args that need to be pushed.  */
 
   /* ARGNUM indexes the ARGVEC array in the order in which the arguments
@@ -3306,7 +3306,7 @@ emit_library_call_value VPROTO((rtx orgfun, rtx value, int no_queue,
   /* See the comment in emit_library_call about the function type we build
      and pass here.  */
 
-  emit_call_1 (fun, 
+  emit_call_1 (fun,
                get_identifier (XSTR (orgfun, 0)),
 	       build_function_type (type_for_mode (outmode, 0), NULL_TREE),
                args_size.constant, struct_value_size,
@@ -3360,7 +3360,7 @@ emit_library_call_value VPROTO((rtx orgfun, rtx value, int no_queue,
 			     PARM_BOUNDARY / BITS_PER_UNIT);
     }
 #endif
-	  
+
   /* If we saved any argument areas, restore them.  */
   for (count = 0; count < nargs; count++)
     if (argvec[count].save_area)
@@ -3427,7 +3427,7 @@ target_for_arg (type, size, args_addr, offset)
    or 0 on a machine where arguments are pushed individually.
 
    MAY_BE_ALLOCA nonzero says this could be a call to `alloca'
-   so must be careful about how the stack is used. 
+   so must be careful about how the stack is used.
 
    VARIABLE_SIZE nonzero says that this was a variable-sized outgoing
    argument stack.  This is used if ACCUMULATE_OUTGOING_ARGS to indicate
@@ -3534,7 +3534,7 @@ store_one_arg (arg, argblock, may_be_alloca, variable_size, fndecl,
      here.  */
   if (arg->n_aligned_regs != 0)
     reg = 0;
-  
+
   /* If this is being passed partially in a register, we can't evaluate
      it directly into its stack slot.  Otherwise, we can.  */
   if (arg->value == 0)
@@ -3594,7 +3594,7 @@ store_one_arg (arg, argblock, may_be_alloca, variable_size, fndecl,
 	    abort ();
 
 	  emit_library_call (chkr_set_right_libfunc, 1, VOIDmode, 3,
-			     XEXP (arg->stack, 0), ptr_mode, 
+			     XEXP (arg->stack, 0), ptr_mode,
 			     GEN_INT (GET_MODE_SIZE (arg->mode)),
 			     TYPE_MODE (sizetype),
 			     GEN_INT (MEMORY_USE_RW),
@@ -3608,7 +3608,7 @@ store_one_arg (arg, argblock, may_be_alloca, variable_size, fndecl,
       /* Argument is a scalar, not entirely passed in registers.
 	 (If part is passed in registers, arg->partial says how much
 	 and emit_push_insn will take care of putting it there.)
-	 
+
 	 Push it, and if its size is less than the
 	 amount of space allocated to it,
 	 also bump stack pointer by the additional space.
@@ -3673,7 +3673,7 @@ store_one_arg (arg, argblock, may_be_alloca, variable_size, fndecl,
 
 
   /* Unless this is a partially-in-register argument, the argument is now
-     in the stack. 
+     in the stack.
 
      ??? Note that this can change arg->value from arg->stack to
      arg->stack_slot and it matters when they are not the same.

@@ -105,7 +105,7 @@ lcdbusywait()
 	s = splhigh();
 	p1->portC = POWER | READ_BUSY | DISABLE;
 	splx(s);
-}	
+}
 
 void
 lcdput(cc)

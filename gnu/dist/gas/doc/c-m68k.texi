@@ -266,7 +266,7 @@ The following additional addressing modes are understood:
 
 @table @dfn
 @item Address Register Indirect
-@samp{(%a0)} through @samp{(%a7)}@* 
+@samp{(%a0)} through @samp{(%a7)}@*
 @samp{%a7} is also known as @samp{%sp}, i.e. the Stack Pointer.  @code{%a6}
 is also known as @samp{%fp}, the Frame Pointer.
 

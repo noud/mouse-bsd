@@ -32,7 +32,7 @@
 #include "grfcc.h"
 #if NGRFCC > 0
 /*
- * currently this is a backward compat hack that interface to 
+ * currently this is a backward compat hack that interface to
  * view.c
  */
 
@@ -62,7 +62,7 @@
 
 #include <uvm/uvm_extern.h>
 
-#include "view.h" 
+#include "view.h"
 
 int grfccmatch __P((struct device *, struct cfdata *, void *));
 int grfccprint __P((void *, const char *));
@@ -73,7 +73,7 @@ struct cfattach grfcc_ca = {
 	sizeof(struct grf_softc), grfccmatch, grfccattach
 };
 
-/* 
+/*
  * only used in console init
  */
 static struct cfdata *cfdata;
@@ -82,7 +82,7 @@ static struct cfdata *cfdata;
  * we make sure to only init things once.  this is somewhat
  * tricky regarding the console.
  */
-int 
+int
 grfccmatch(pdp, cfp, auxp)
 	struct device *pdp;
 	struct cfdata *cfp;
@@ -99,7 +99,7 @@ grfccmatch(pdp, cfp, auxp)
 	if (matchname("grfcc", mainbus_name) == 0)
 		return(0);
 	if (amiga_realconfig == 0 || ccconunit != cfp->cf_unit) {
-		if (grfcc_probe() == 0) 
+		if (grfcc_probe() == 0)
 			return(0);
 		viewprobe();
 		/*
@@ -115,7 +115,7 @@ grfccmatch(pdp, cfp, auxp)
 	return(1);
 }
 
-/* 
+/*
  * attach to the grfbus (mainbus)
  */
 void
@@ -126,7 +126,7 @@ grfccattach(pdp, dp, auxp)
 	static struct grf_softc congrf;
 	struct grf_softc *gp;
 
-	if (dp == NULL) 
+	if (dp == NULL)
 		gp = &congrf;
 	else
 		gp = (struct grf_softc *)dp;
@@ -136,7 +136,7 @@ grfccattach(pdp, dp, auxp)
 		 * we inited earlier just copy the info
 		 * take care not to copy the device struct though.
 		 */
-		bcopy(&congrf.g_display, &gp->g_display, 
+		bcopy(&congrf.g_display, &gp->g_display,
 		    (char *)&gp[1] - (char *)&gp->g_display);
 	} else {
 		gp->g_unit = GRF_CC_UNIT;
@@ -205,9 +205,9 @@ grf_cc_on(gp)
 	gi = &gp->g_display;
 
 	viewioctl(0, VIOCGBMAP, (caddr_t)&bm, -1, NULL); /* XXX type of bm ? */
-  
+
 	gp->g_data = (caddr_t) 0xDeadBeaf; /* not particularly clean.. */
-  
+
 	gi->gd_regaddr = (caddr_t) 0xdff000;	/* depricated */
 	gi->gd_regsize = round_page(sizeof (custom));
 	gi->gd_fbaddr  = bm.hardware_address;
@@ -222,7 +222,7 @@ grf_cc_on(gp)
 	}
 	gi->gd_colors = 1 << vs.depth;
 	gi->gd_planes = vs.depth;
-  
+
 	gi->gd_fbwidth = vs.width;
 	gi->gd_fbheight = vs.height;
 	gi->gd_fbx = 0;
@@ -236,6 +236,6 @@ grf_cc_on(gp)
 	gp->g_fbkva = NULL;		/* not needed, view internal */
 
 	viewioctl(0, VIOCDISPLAY, NULL, -1, NULL);
-}    
+}
 #endif
 

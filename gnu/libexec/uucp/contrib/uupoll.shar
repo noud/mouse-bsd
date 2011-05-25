@@ -154,12 +154,12 @@ X - uupoll.c
 X - uupoll.8c
 X
 CAVEAT:
-uupoll as well as autopoll are created, tested and run on 
+uupoll as well as autopoll are created, tested and run on
 a NeXT running NeXTstep 2.1+ only! Autopoll will take the same arguments
 as uucico and may well work with them the same way uucico works but it
 has only been tested to call uucico with the options:
 X
-X -s<site> -S<site> -f -r1 -C -D (as well as the long form of these options) 
+X -s<site> -S<site> -f -r1 -C -D (as well as the long form of these options)
 X
 so far. All options given to autopoll will be passed verbatim to uucico.
 X
@@ -194,7 +194,7 @@ X
 - (W) there might be an error but the program decided to go ahead.
 X      The exit code will be at least 4.
 - (E) a severe error was encountered that either aborts the whole run or
-X      only the task for one site will be aborted. 
+X      only the task for one site will be aborted.
 X      The exit code will be at least 8.
 - (C) a catastrophic error has been found such as unable to fork. The run
 X      is aborted.
@@ -287,10 +287,10 @@ limitation.
 .PP
 .IR Autopoll
 can be used to automate up to a certain degree the task of rescheduling
-a call. None of the standard programs already mentioned need to be 
+a call. None of the standard programs already mentioned need to be
 modified to get this working. Also not recommended (see BUGS section)
 .IR uucico
-may be an alias to 
+may be an alias to
 .IR autopoll
 as all arguments passed to
 .IR autopoll
@@ -328,7 +328,7 @@ time will be the time of the failing call plus 120 seconds.
 .PP
 In case the time calculated from the values found in a \.Status file is
 lower than the current time, the current time plus 60 seconds will be taken
-as the retry time. 
+as the retry time.
 .PP
 A site will
 .IR not
@@ -358,7 +358,7 @@ at all, all of which should be accompanied by (a) self explanatory message(s).
 fail. The exit code for this type is the same as for any other failure; this
 can reschedule the call over and over again or never.
 .PP
-\- 
+\-
 .IR autopoll
 may not work as expected when called with options other than \-r1, \-s,
 \-S or \-f.
@@ -381,7 +381,7 @@ has been received with `Time out in chat script'.
 without any alias expansion done.
 .PP
 \- the text strings whithin the \.Status files will not be used to detect
-a failing call. 
+a failing call.
 .SH FILES
 .nf
 /usr/local/lib/uucp	UUCP internal utilities
@@ -395,7 +395,7 @@ X				directories will hold the null jobs.
 X				has been compiled to place the messages
 X				into a file. Otherwise all messages will
 X				go to stderr. The directory as well as
-X				the name may be different. 
+X				the name may be different.
 .fi
 .SH SEE ALSO
 uucp(1C), uux(1C), uucico(8C), uupoll(8C), uuname(1C), sort(1), uniq(1),
@@ -429,35 +429,35 @@ X             is that autopoll will call uucico and if the return code is
 X             not zero a check is made on the status files to see which site's
 X             call failed. Those sites will be called again at that time found
 X             in the status file plus any imposed wait. The next call will be
-X             scheduled via an at job which in turn is handled by cron. 
+X             scheduled via an at job which in turn is handled by cron.
 X             Atrun depends on the scheduling granularity of cron so the
-X             actual times may be later than planned.  
+X             actual times may be later than planned.
 X             Autopoll will check the options -f and -s (-S) as well as the name
 X             of the site passed. All other options will be passed unchecked.
 X             The -f and -S options will indicate to autopoll that any wait
 X             to call a site should be ignored; if the call fails the next
 X             call to those sites will be at the current time plus 120 secs.
-X             When the time found plus any wait evaluates to a time that 
+X             When the time found plus any wait evaluates to a time that
 X             passed already the next call will be the current time plus 60
 X             secs. The name of the site if given must be a valid one and not
 X             the host itself otherwise it will be ignored.
-X  
+X
 X   Call:     autopoll [ options ]
 X
 X                      all option that apply to uucico may be given and
 X                      will be passed verbatim. See man uucico(8).
-X             
+X
 X   Environment: NeXT 2.1+, Taylor UUCP-1.04+
-X   
+X
 X   I/O:         stdin: unused.
 X                stdout: used only when ALOG_DIR is defined and the file
 X                        can't be opened. It will be a single message to tell
 X                        just that and the run is aborted.
 X                stderr: all messages go here.
 X                        If ALOG_DIR is defined (see conf.h) all messages will
-X                        be appended to a file autopoll.msglog in that 
+X                        be appended to a file autopoll.msglog in that
 X                        directory; the file will be created automatically if
-X                        necessary; a redirection is then no longer possible. 
+X                        necessary; a redirection is then no longer possible.
 X                Needs access to .Status files (see Comments later on).
 X
 X   Called Programs: sort, uniq, uucico, uuname, at
@@ -475,7 +475,7 @@ X                  check against uuname's output..
 X                - Invalid arguments will yield in an exit code > 0 as do
 X                  "normal" failures. It may therefore happen that a site
 X                  is called at the intervals with the same invalid arguments.
-X                - "Wrong time to call" is not handled properly and may 
+X                - "Wrong time to call" is not handled properly and may
 X                  call the site at the intervals until the time ban is lifted.
 X                - human action is necessary as we can't distinguish between
 X                  "normal" failures and "errors" such as wrong password,
@@ -586,7 +586,7 @@ X       int stat_code;
 X       int stat_retries;
 X       long stat_lastcall;
 X       long stat_delay;
-X       char *stat_errtext; 
+X       char *stat_errtext;
 };
 X struct Common_Stor {
 X        int maxtab;                       /* high-water-mark for site tab */
@@ -656,8 +656,8 @@ X * */
 X
 int set_mlog(FILE **seclog, struct Common_Stor *);
 int get_sites(struct Common_Stor *);
-int Call_Cico(int argc, char *argv[], struct Common_Stor *); 
-int get_args(int argc, char *argv[], struct Common_Stor *); 
+int Call_Cico(int argc, char *argv[], struct Common_Stor *);
+int get_args(int argc, char *argv[], struct Common_Stor *);
 int Housekeeping(int argc, char *argv[], struct Common_Stor *);
 int Chk_Status(int argc, char *argv[],
 X               struct timeval tcc,
@@ -715,7 +715,7 @@ X
 X Maxrc = Housekeeping(argc, argv, sCom_Sto);
 X
 /* If any errors popped up so far they are of such a nature that it is very
-X * questionable to continue; so we better bail out in this case. 
+X * questionable to continue; so we better bail out in this case.
 X */
 X  if (Maxrc <= WARNING) {
 X     if ((sCom_Sto->W_Stat = (union wait *)storage (sizeof(union wait),
@@ -747,15 +747,15 @@ X
 int Housekeeping(argc, argv, sCom_Sto)
 X               int argc;
 X               char *argv[];
-X               struct Common_Stor *sCom_Sto; { 
+X               struct Common_Stor *sCom_Sto; {
 X
 X FILE *seclog = NULL;
 X int Rc = OK;
 X int Rci = OK;                /* intermediate rc as returnd by functions */
 X
 X sCom_Sto->our_pid = getpid();
-X  
-/* 
+X
+/*
 X *  get our name sans path
 X * */
 X
@@ -768,7 +768,7 @@ X
 X * stderr will be used. Setup the cmd string to obtain all known sitenames
 X * which will be sorted in ascending order with duplicates removed
 X * */
-X   
+X
 X   Rc = set_mlog(&seclog, sCom_Sto);
 X   if (Rc > WARNING)
 X      return (Rc);
@@ -797,7 +797,7 @@ X                 sCom_Sto->called_as,
 X                 (sCom_Sto->pwd==NULL) ? "???":sCom_Sto->pwd->pw_name,
 X                 ctime(&sCom_Sto->tp.tv_sec));
 X
-/* set up the default grade 
+/* set up the default grade
 X * */
 X
 X   sCom_Sto->Grade = dGrade;          /* set default for now */
@@ -909,7 +909,7 @@ X                    strcat(sCom_Sto->call_args," ");
 X                    strcat(sCom_Sto->call_args,argv[j]);
 X                    strcat(sCom_Sto->call_args," ");
 X                 }
-X              }  
+X              }
 X              Rc = Rci <= Rc ? Rc:Rci;
 X          }
 X          else {
@@ -928,7 +928,7 @@ X       strcat(sCom_Sto->call_args,argv[j]);
 X       strcat(sCom_Sto->call_args," ");
 X   }    /* end copy all arguments */
 X
-X   if (sCom_Sto->ifwork) { 
+X   if (sCom_Sto->ifwork) {
 X      if (sCom_Sto->one_site) {
 X          strcat(sCom_Sto->call_args,"-C ");
 X      }
@@ -940,7 +940,7 @@ X        Rc = Rc >= WARNING ? Rc:WARNING;
 X      }
 X   }
 X
-X   if (! sCom_Sto->nodetach) { 
+X   if (! sCom_Sto->nodetach) {
 X      strcat(sCom_Sto->call_args,"-D ");
 X   }
 X
@@ -951,9 +951,9 @@ X
 X * call uucico or whatever programm is necessary to get connected
 X */
 X
-/*  Start uucico and wait for completion. In case the return code is '0'  
-X *  we're finished; otherwise we'll have to check the status files for any 
-X *  non successful calls (retry time > 0). 
+/*  Start uucico and wait for completion. In case the return code is '0'
+X *  we're finished; otherwise we'll have to check the status files for any
+X *  non successful calls (retry time > 0).
 X *  Any such site will be called again at the current time plus any wait
 X *  Note:
 X *       If the '-D' or '--nodetach' option is missing, uucico will
@@ -984,10 +984,10 @@ X     return (Rc);
 X }
 X
 X fflush(stderr);
-X switch(pid = fork()) { 
+X switch(pid = fork()) {
 X    case -1:
 X         fprintf(stderr,"%s: (C) could not fork(). Reason-code: %i (%s)\n",
-X                         sCom_Sto->called_as,errno,strerror(errno)); 
+X                         sCom_Sto->called_as,errno,strerror(errno));
 X         return (CAT);
 X    case 0:
 X         if ((argv[0] = (char *)storage(strlen(sCom_Sto->Uucico)+1,"argv[0]",
@@ -1000,7 +1000,7 @@ X         fprintf(stderr,"%s: (C) could not start %s. Reason-code: %i (%s)\n",
 X                         sCom_Sto->called_as,
 X                         sCom_Sto->Uucico,errno,strerror(errno));
 X         _exit (CAT);            /* child: bail out */
-X    default: 
+X    default:
 X         fprintf(stderr,"%s: (I) starting %s [%d]\n\n",
 X                        sCom_Sto->called_as,sCom_Sto->Uucico,pid);
 X         fflush(stderr);          /* maybe we come behind uucico's output */
@@ -1039,7 +1039,7 @@ X return (OK);   /* Never reached: silence the compiler */
 X
 X
 /* --------------------------------------------------------------------
-X * check the status after the call has completed and the return code 
+X * check the status after the call has completed and the return code
 X * is > zero. The status is checked for all sites found via uuname or
 X * for one site only (option -s, -S or --system given on call)
 X */
@@ -1049,7 +1049,7 @@ X               struct timeval tcc,
 X               struct timezone tzcc,
 X               struct Common_Stor *sCom_Sto) {
 X
-/* 
+/*
 X * For all sites found in Site_Tab their status files will be checked.
 X * The table scan will be bypassed for a call to a specific site.
 X * If the call failed the wait period is > 0. We will schedule an at-job
@@ -1076,7 +1076,7 @@ X
 /*
 X * Note
 X *     We have to increase the sum of time and wait by at least one minute.
-X *     That is because this time denotes the earliest point *after* which 
+X *     That is because this time denotes the earliest point *after* which
 X *     we may call again.
 X *     When a site is called at the wrong time the follwing actions are
 X *     taken: wait = 0  && ! force --> no further action (indicator: see log)
@@ -1138,7 +1138,7 @@ X   if (sCom_Sto->Sitetab[i].stat_lastcall == secs && sCom_Sto->one_site) {
 X
 X      if (errind == 0 && retries == 0 && add == 0)
 X         break;
-X      
+X
 X      if (errind > 0) {
 X         if (tcc.tv_sec <= (secs+add) && ! sCom_Sto->Sitetab[i].force) {
 X            fprintf(stderr,"%s: (W) retry time not reached for site: %s\n",
@@ -1173,7 +1173,7 @@ X
 X   Rs = OK;              /* if Rs is > WARNING we won't schedule a recall */
 X   switch(errind) {
 X       case STATUS_COMPLETE:
-X            if (add != 0 || retries != 0) { 
+X            if (add != 0 || retries != 0) {
 X               fprintf(stderr,"%s: (E) unknown error for call to site: %s\n",
 X                              sCom_Sto->called_as,sCom_Sto->Sitetab[i].name);
 X               Rs = Rs >= SEVERE ? Rs:SEVERE;
@@ -1234,7 +1234,7 @@ X   if (! schedule) {
 X      recall_cnt += 1;
 X      continue;              /* scheduling already done: unspec. + force */
 X   }
-X   if ((gettimeofday(&sCom_Sto->tp, &sCom_Sto->tzp)) != 0) { 
+X   if ((gettimeofday(&sCom_Sto->tp, &sCom_Sto->tzp)) != 0) {
 X      fprintf(stderr,"%s: (C) gettimeofday() failed. Reason: %i (%s)\n",
 X                     sCom_Sto->called_as,errno,strerror(errno));
 X      fclose(infile);
@@ -1269,11 +1269,11 @@ X            continue;
 X      }
 X      add += secs + 60;        /* if not force then take the full wait */
 X   }    /* force */
-X      
+X
 X   if (sCom_Sto->tp.tv_sec >= add) {
 X      add = sCom_Sto->tp.tv_sec + 60;               /* time < current time */
 X   }
-X           
+X
 X   sscanf(ctime(&add),"%*s %s %d %d:%d:%d",sCom_Sto->mon,
 X                      &sCom_Sto->day,
 X                      &sCom_Sto->hh,
@@ -1337,7 +1337,7 @@ int W_Ret = 0;
 int Rc = OK;
 int pid = 0;
 X
-/* 
+/*
 X * if we can't open the workfile to be passed to AT we'll abandon
 X * this site and set the rc accordingly
 X * */
@@ -1373,7 +1373,7 @@ X
 X   switch (pid = fork()) {
 X      case -1:
 X             fprintf(stderr,"%s: (C) could not fork(). Reason-code: %i (%s)\n",
-X                            sCom_Sto->called_as,errno,strerror(errno)); 
+X                            sCom_Sto->called_as,errno,strerror(errno));
 X             return (Rc >= CAT ? Rc:CAT);
 X       case 0:
 X             if (*at_opt == '\0')
@@ -1389,7 +1389,7 @@ X             fprintf(stderr,"%s: (C) could not start AT-cmd. Reason-code: %i (%
 X                             sCom_Sto->called_as,
 X                             errno,strerror(errno));
 X             _exit (CAT);            /* child: bail out */
-X        default: 
+X        default:
 X             fprintf(stderr,"%s: (I) at [%d] started. Job name: %s\n",
 X                            sCom_Sto->called_as,
 X                            pid,
@@ -1419,7 +1419,7 @@ X                else {
 X                   fprintf(stderr,"%s: (I) at-cmd [%d] ended normally\n",
 X                                  sCom_Sto->called_as,
 X                                  pid);
-X                } 
+X                }
 X             }
 X             else {
 X                fprintf(stderr,"%s: (E) at [%d] terminated by signal %i\n",
@@ -1437,7 +1437,7 @@ X * not to be our hostname.
 X * */
 X
 int Check_Site(struct Common_Stor *sCom_Sto) {
-X  
+X
 X  int i,j = 0;
 X  sCom_Sto->Single_Site_Tab = 0;
 X    if (strcmp(sCom_Sto->Single_Site,sCom_Sto->This_Site) == 0) {
@@ -1490,9 +1490,9 @@ X * passed to popen(); if undefined the deafult will be used
 X * */
 X
 int set_mlog(FILE **seclog, struct Common_Stor *sCom_Sto) {
-X 
+X
 X   int Rc = 0;
-X   
+X
 #ifdef ALOG_FILE
 X   if (!isatty(0)) {
 X      if ((freopen(Msg_Log,"a",stderr)) == NULL) {
@@ -1560,15 +1560,15 @@ X                             &sCom_Sto->Sitetab[i].stat_retries,
 X                             &sCom_Sto->Sitetab[i].stat_lastcall,
 X                             &sCom_Sto->Sitetab[i].stat_delay,
 X                             sCom_Sto->workf);
-X          
+X
 X            fclose(statsfile);
-X            if ((sCom_Sto->Sitetab[i].stat_errtext = 
+X            if ((sCom_Sto->Sitetab[i].stat_errtext =
 X                                (char *)storage (sizeof(sCom_Sto->workf),
 X                                "stat_errtext",&Rc, sCom_Sto)) == NULL) {
 X               Rc = Rc >= WARNING ? Rc:WARNING;
 X            }
 X            else
-X              strcpy(sCom_Sto->Sitetab[i].stat_errtext,sCom_Sto->workf);  
+X              strcpy(sCom_Sto->Sitetab[i].stat_errtext,sCom_Sto->workf);
 X          }
 X          sCom_Sto->maxtab = i++;                  /* set high-water-mark */
 X     }
@@ -1579,8 +1579,8 @@ X        Rc = Rc >= SEVERE ? Rc:SEVERE;
 X     }
 X     pclose(infile);
 X
-X    /* 
-X     * check for an empty table (strange but possible) 
+X    /*
+X     * check for an empty table (strange but possible)
 X     */
 X
 X    if (sCom_Sto->maxtab == 0) {
@@ -1591,7 +1591,7 @@ X    }
 X    else {
 X
 X      /* in case the internal table overflows we'll now give notice and tell
-X       * the user by which amount the table has to be increased to hold all          
+X       * the user by which amount the table has to be increased to hold all
 X       * site-names
 X       */
 X
@@ -1608,7 +1608,7 @@ X  }
 X  else  /* infile == NULL */
 X  {
 X     fprintf(stderr,"%s: (E) could not sort sitenames. Reason-code: %i (%s)\n",
-X                         sCom_Sto->called_as,errno,strerror(errno)); 
+X                         sCom_Sto->called_as,errno,strerror(errno));
 X     Rc = Rc >= SEVERE ? Rc:SEVERE;
 X
 X  }    /* if ((infile=popen(sCom_Sto->Usort,"r")) ... */
@@ -1688,8 +1688,8 @@ X *    We'll place the poll file in one of it's subdirectories
 X * */
 #define SPOOL_DIR "/usr/spool/uucp"
 X
-/*    at least one of the follwing must be defined To use the second or  
-X *    third set of definitions, change the  ``#if 1'' to ``#if 0'' 
+/*    at least one of the follwing must be defined To use the second or
+X *    third set of definitions, change the  ``#if 1'' to ``#if 0''
 X *    and change the appropriate ``#if 0'' to ``#if 1''.
 X * */
 #if 0
@@ -1710,7 +1710,7 @@ X *    message log created by uupoll and the file name itself.
 X *    change the ``#if 1'' to ``#if 0'' to have the messages on stderr
 X * */
 #if 1
-#define ULOG_FILE "/Logfiles/poll.log" 
+#define ULOG_FILE "/Logfiles/poll.log"
 #endif
 X
 /* change if to 0 if you don't have autopoll installed.               */
@@ -1728,7 +1728,7 @@ X * */
 X
 /*    Define the complete path to the autopoll program.
 X *    This will assure that we get the one we want
-X *    The path must be the same as given in Makefile (lbindir) 
+X *    The path must be the same as given in Makefile (lbindir)
 X * */
 #define AUTO_DIR "/usr/local/lib/uucp/autopoll"
 X
@@ -1737,7 +1737,7 @@ X *    message log created by autopoll and the file name itself.
 X *    change the ``#if 1'' to ``#if 0'' to have the messages on stderr
 X * */
 #if 1
-#define ALOG_FILE "/Logfiles/poll.log" 
+#define ALOG_FILE "/Logfiles/poll.log"
 #endif
 X
 /*    define the full path to the directory which holds the status files
@@ -1747,7 +1747,7 @@ X *    Example: /usr/spool/uucp/.Status/sys.sitename
 X *             then specify STATUS_DIR as
 X *             "/usr/spool/uucp/.Status/sys."
 X * */
-#define STATUS_DIR "/usr/spool/uucp/.Status/" 
+#define STATUS_DIR "/usr/spool/uucp/.Status/"
 #endif
 SHAR_EOF
 chmod 0444 uupoll/conf.h ||
@@ -1792,10 +1792,10 @@ that comes with the NeXTStep OS. The original version (up to 3.1) had a
 X bug in that
 X an unknown site given as argument would yield in a `Bus error' condition.
 Using any other type of UUCP like Taylor-UUCP with the option of having
-a different file structure as well as a different L.sys will therefore 
+a different file structure as well as a different L.sys will therefore
 make it necessary to do maintenance to the (unused) L.sys as well to keep
 .IR uupoll
-going. This one has been programmed from scratch due to the fact that no 
+going. This one has been programmed from scratch due to the fact that no
 source code was available. Some enhancements have been incorporated into
 this version:
 .PP
@@ -1813,7 +1813,7 @@ may be used to call any program instead of
 .IR uucico
 namely
 .IR autopoll
-to ease the task of rescheduling a failed call. 
+to ease the task of rescheduling a failed call.
 .SH DESCRIPTION
 .I Uupoll
 is used to force a poll of a remote system. It queues a null job for the
@@ -1836,7 +1836,7 @@ Only send jobs of grade
 .I grade
 or higher on this call. The
 .I grade
-stays in effect until it is changed by a different \-g option. 
+stays in effect until it is changed by a different \-g option.
 .TP 8
 .B \-n
 Queue the null job, but do not invoke the program that actually calls
@@ -1920,7 +1920,7 @@ sites given. That may lead to a `No port available' condition.
 X			compiled to place the messages into a file.
 X			Otherwise all messages will go to stderr.
 X			The directory as well as the name may be
-X			different. The name may be defined at compile time. 
+X			different. The name may be defined at compile time.
 .fi
 .SH SEE ALSO
 uucp(1C), uux(1C), uucico(8C), autopoll(8C)
@@ -1952,16 +1952,16 @@ X             replacement of the uupoll supplied by NeXT when using an
 X             UUCP or a file structure that is different from that hardwired
 X             config in NeXT's uupoll. The lack of source made it impossible
 X             to modify the supplied uupoll.
-X  
+X
 X   Call:     uupoll [-n] [-x] [-g[A | 0-9,A-Z,a-z]] site ...
-X             
+X
 X                    -n    just place a poll file but do not call uucico;
 X                          This option can be given only once.
 X                    -x    meaningful only for sites not affected by the -n
-X                          option. It prevents the creation of a poll file; 
-X                          the default is to place one. In case the poll fails 
-X                          there will be no attempt to poll those sites on 
-X                          the next general (unspecific) poll. If using 
+X                          option. It prevents the creation of a poll file;
+X                          the default is to place one. In case the poll fails
+X                          there will be no attempt to poll those sites on
+X                          the next general (unspecific) poll. If using
 X                          autopoll the site will be called at the next + 1
 X                          run of autopoll.
 X                    -g    any grade may be given to meet the criteria for
@@ -2150,7 +2150,7 @@ X
 X Maxrc = Housekeeping(argc, argv, sCom_Sto);
 X
 /* If any errors popped up so far they are of such a nature that it is very
-X * questionable to continue; so we better bail out in this case. 
+X * questionable to continue; so we better bail out in this case.
 X */
 X  if (Maxrc <= WARNING) {
 X        k = Call_Site(sCom_Sto);
@@ -2177,15 +2177,15 @@ X
 int Housekeeping(argc, argv, sCom_Sto)
 X               int argc;
 X               char *argv[];
-X               struct Common_Stor *sCom_Sto; { 
+X               struct Common_Stor *sCom_Sto; {
 X
 X FILE *seclog = NULL;
 X int Rc = OK;
 X int Rci = OK;                /* intermediate rc as returnd by functions */
 X
 X sCom_Sto->our_pid = getpid();
-X  
-/* 
+X
+/*
 X *  get our name sans path
 X * */
 X
@@ -2198,7 +2198,7 @@ X
 X * stderr will be used. Setup the cmd string to obtain all known sitenames
 X * which will be sorted in ascending order with duplicates removed
 X * */
-X   
+X
 X   Rc = set_mlog(&seclog, sCom_Sto);
 X   if (Rc > WARNING)
 X      return (Rc);
@@ -2227,7 +2227,7 @@ X                 sCom_Sto->called_as,
 X                 (sCom_Sto->pwd==NULL) ? "???":sCom_Sto->pwd->pw_name,
 X                 ctime(&sCom_Sto->tp.tv_sec));
 X
-/* set up the default grade 
+/* set up the default grade
 X * */
 X
 X   sCom_Sto->Grade = dGrade;          /* set default for now */
@@ -2417,13 +2417,13 @@ X              sCom_Sto->Sitetab[s].asap++;  /* and do not place a poll file */
 X        }
 X        s++;
 X        break;
-X   }        /* end of switch (*argv[i]) */ 
+X   }        /* end of switch (*argv[i]) */
 X }          /* end of for(...) */
 X
 /* now let's check what we've gotten so far. If no valid data has been */
 /* entered we will indicate that to prevent further processing         */
 X
-X if (! One_Site) { 
+X if (! One_Site) {
 X    fprintf(stderr,"%s: (E) found no site to call\n",
 X                   sCom_Sto->called_as);
 X    Rc = Rc >= SEVERE ? Rc:SEVERE;
@@ -2525,7 +2525,7 @@ X          {
 X             case -1:
 X                 fprintf(stderr,"%s: (C) could not fork() Reason-code: %i (%s)\n",
 X                                 sCom_Sto->called_as,
-X                                 errno,strerror(errno)); 
+X                                 errno,strerror(errno));
 X                   return (Rc >= CAT ? Rc:CAT);
 X             case 0:
 X                if (isatty(0))
@@ -2543,7 +2543,7 @@ X                                sCom_Sto->called_as,
 X                                sCom_Sto->Uucico,
 X                                errno,strerror(errno));
 X                _exit (CAT);            /* child: bail out */
-X             default: 
+X             default:
 X                fflush(stderr);
 X                fprintf(stderr,"%s: (I) %s [%d] started; site: %s\n",
 X                                sCom_Sto->called_as,
@@ -2583,9 +2583,9 @@ X * passed to popen(); if undefined the default will be used
 X * */
 X
 int set_mlog(FILE **seclog, struct Common_Stor *sCom_Sto) {
-X 
+X
 X   int Rc = 0;
-X   
+X
 #ifdef ALOG_FILE
 X   if (!isatty(0)) {
 X      if ((freopen(Msg_Log,"a",stderr)) == NULL) {
@@ -2650,8 +2650,8 @@ X        Rc = Rc >= SEVERE ? Rc:SEVERE;
 X     }
 X     pclose(infile);
 X
-X    /* 
-X     * check for an empty table (strange but possible) 
+X    /*
+X     * check for an empty table (strange but possible)
 X     */
 X
 X    if (sCom_Sto->maxtab == 0) {
@@ -2662,7 +2662,7 @@ X    }
 X    else {
 X
 X      /* in case the internal table overflows we'll now give notice and tell
-X       * the user by which amount the table has to be increased to hold all          
+X       * the user by which amount the table has to be increased to hold all
 X       * site-names
 X       */
 X
@@ -2679,7 +2679,7 @@ X  }
 X  else  /* infile == NULL */
 X  {
 X     fprintf(stderr,"%s: (E) could not sort sitenames. Reason-code: %i (%s)\n",
-X                         sCom_Sto->called_as,errno,strerror(errno)); 
+X                         sCom_Sto->called_as,errno,strerror(errno));
 X     Rc = Rc >= SEVERE ? Rc:SEVERE;
 X
 X  }    /* if ((infile=popen(sCom_Sto->Usort,"r")) ... */

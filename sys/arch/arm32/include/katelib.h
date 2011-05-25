@@ -43,7 +43,7 @@
  *
  * This should not really be a separate header file. Eventually I will merge
  * this into other header files once I have decided where the declarations
- * should go. 
+ * should go.
  *
  * Created      : 18/09/94
  *
@@ -73,10 +73,10 @@ void outsl	__P((u_int io, void *src, u_int size));
 */
 #define insl(io, dest, size) \
 	panic("insl: Function not implemented\n");
-	
+
 #define outsl(io, src, size) \
 	panic("outsl: Function not implemented\n");
-	
+
 /* Macros for reading and writing words, shorts, bytes */
 
 #define WriteWord(a, b) \

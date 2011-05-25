@@ -118,6 +118,6 @@ usage()
 {
 	(void)fprintf(stderr,
 	    "usage: nice [ -n increment ] utility [ argument ...]\n");
-	
+
 	exit(1);
 }

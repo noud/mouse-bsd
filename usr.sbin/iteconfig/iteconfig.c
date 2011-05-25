@@ -157,7 +157,7 @@ main(argc, argv)
 		xioctl(fd, ITEIOCSBELL, &newib);
 		xioctl(fd, ITEIOCGBELL, &ib);
 	}
-	
+
 	/*
 	 * get, set and get colors again
 	 */
@@ -197,7 +197,7 @@ xioctl(fd, cmd, addr)
 	int fd, cmd;
 	void *addr;
 {
-	if (ioctl(fd, cmd, addr) == -1) 
+	if (ioctl(fd, cmd, addr) == -1)
 		err(1, "ioctl");
 }
 
@@ -250,7 +250,7 @@ printcmap(cm, ncols)
 		break;
 	}
 	printf("\n");
-	
+
 	nel = ncols / 11 - 1;
 	for (i = 0; i < cm->size; i++) {
 		printf("0x%08lx ", cm->entry[i]);

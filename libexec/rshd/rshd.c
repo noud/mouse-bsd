@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -19,7 +19,7 @@
  * 4. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -410,7 +410,7 @@ doit(fromp)
 	}
 #ifdef LOGIN_CAP
 	lc = login_getclass(pwd ? pwd->pw_class : NULL);
-#endif	
+#endif
 
 	if (chdir(pwd->pw_dir) < 0) {
 #ifdef LOGIN_CAP
@@ -537,7 +537,7 @@ fail:
 #ifdef LOGIN_CAP
 	{
 	char *sh;
-	
+
 	if((sh = login_getcapstr(lc, "shell", NULL, NULL))) {
 		if(!(sh = strdup(sh))) {
                 	syslog(LOG_NOTICE, "Cannot alloc mem");

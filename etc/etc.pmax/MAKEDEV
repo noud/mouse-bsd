@@ -39,7 +39,7 @@
 # Platform-specific devices:
 #	NOTE: /dev/mouse should be a link to one of these for X windows.
 #	fb*	generic framebuffer pseudo-device
-#	px*	PixelStamp Xserver access 
+#	px*	PixelStamp Xserver access
 #
 # The following names are reserved for future use:
 #	pm*	raw interface to PMAX graphics devices
@@ -64,7 +64,7 @@ do
 case $i in
 
 all)
-	sh $0 minimal fd 
+	sh $0 minimal fd
 	sh $0 raid0 raid1 raid2 raid3
 	sh $0 pty0 vnd0 vnd1 vnd2 vnd3 ccd0 ccd1 ccd2 ccd3
 	sh $0 tun0 tun1 tun2 tun3
@@ -156,10 +156,10 @@ lkm)
 md*)
 	unit=${i#md}; blk=17; chr=97;
 	rm -f md${unit}? rmd${unit}?
-	mknod md${unit}a  b $blk $(($unit * 8 + 0)) 
-	mknod md${unit}c  b $blk $(($unit * 8 + 2)) 
-#	mknod rmd${unit}a c $chr $(($unit * 8 + 0)) 
-#	mknod rmd${unit}c c $chr $(($unit * 8 + 2)) 
+	mknod md${unit}a  b $blk $(($unit * 8 + 0))
+	mknod md${unit}c  b $blk $(($unit * 8 + 2))
+#	mknod rmd${unit}a c $chr $(($unit * 8 + 0))
+#	mknod rmd${unit}c c $chr $(($unit * 8 + 2))
 	chgrp operator md${unit}? #rmd${unit}?
 	chmod 640 md${unit}? #rmd${unit}?
 	;;
@@ -264,7 +264,7 @@ mouse)
 	;;
 
 # NOTE:
-# framebuffer-specific devices pm*, cfb*, xfb*, sfb* ,mfb* are not 
+# framebuffer-specific devices pm*, cfb*, xfb*, sfb* ,mfb* are not
 # supported in 1.2.  Use the generic fb device intsead.
 # the names and device entries are reserved for compatilibity reasons.
 #
@@ -348,7 +348,7 @@ random)
 	;;
 
 scsibus*)
-	unit=${i#scsibus}; 
+	unit=${i#scsibus};
 	rm -f scsibus$unit
 	mknod scsibus$unit c 95 $unit
 	chown root:wheel scsibus$unit

@@ -365,7 +365,7 @@ nfssvc_addsock(fp, mynam)
 		siz = NFS_MAXPACKET + sizeof (u_long);
 	else
 		siz = NFS_MAXPACKET;
-	error = soreserve(so, siz, siz); 
+	error = soreserve(so, siz, siz);
 	if (error) {
 		m_freem(mynam);
 		return (error);

@@ -282,7 +282,7 @@ iicsearch(parent, cf, aux)
 	return (0);
 }
 
-/* 
+/*
  * Q: Do we really need a device interface ?
  */
 
@@ -295,12 +295,12 @@ iicopen(dev, flag, mode, p)
 {
 	struct iic_softc *sc;
 	int unit = minor(dev);
-    
+
 	if (unit >= iic_cd.cd_ndevs)
 		return(ENXIO);
 
 	sc = iic_cd.cd_devs[unit];
-    
+
 	if (!sc) return(ENXIO);
 
 	if (sc->sc_flags & IIC_OPEN) return(EBUSY);
@@ -320,7 +320,7 @@ iicclose(dev, flag, mode, p)
 {
 	int unit = minor(dev);
 	struct iic_softc *sc = iic_cd.cd_devs[unit];
-    
+
 	sc->sc_flags &= ~IIC_OPEN;
 
 	return(0);

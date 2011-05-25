@@ -51,7 +51,7 @@
 #include <paths.h>
 
 /* Then, there's a blank line, and the user include files. */
-#include "pathnames.h"		/* Local includes in double quotes. */		
+#include "pathnames.h"		/* Local includes in double quotes. */
 
 /*
  * ANSI function declarations for private functions (i.e. functions not used
@@ -105,7 +105,7 @@ struct foo *foohead;		/* Head of global foo list */
 typedef struct _bar {
 	int	level;
 } BAR;
-	
+
 /*
  * All major routines should have a comment briefly describing what
  * they do.  The comment before the "main" routine should describe
@@ -160,7 +160,7 @@ main(argc, argv)
 	for (p = buf; *p != '\0'; ++p);
 	for (;;)
 		stmt;
-	
+
 	/*
 	 * Parts of a for loop may be left empty.  Don't put declarations
 	 * inside blocks unless the routine is unusually complicated.
@@ -187,7 +187,7 @@ main(argc, argv)
 		stmt;
 	} else
 		stmt;
-		
+
 	/* No spaces after function names. */
 	if (error = function(a1, a2))
 		exit(error);

@@ -49,7 +49,7 @@ getu16(swap, value)
 
 		retval.c[0] = tmpval.c[1];
 		retval.c[1] = tmpval.c[0];
-		
+
 		return retval.ui;
 	} else
 		return value;
@@ -72,7 +72,7 @@ getu32(swap, value)
 		retval.c[1] = tmpval.c[2];
 		retval.c[2] = tmpval.c[1];
 		retval.c[3] = tmpval.c[0];
-		
+
 		return retval.ui;
 	} else
 		return value;
@@ -99,7 +99,7 @@ getu64(swap, value)
 		retval.c[5] = tmpval.c[2];
 		retval.c[6] = tmpval.c[1];
 		retval.c[7] = tmpval.c[0];
-		
+
 		return retval.ui;
 	} else
 		return value;
@@ -386,12 +386,12 @@ tryelf(fd, buf, nbytes)
 		(void) memcpy(&elfhdr, buf, sizeof elfhdr);
 		swap = (u.c[sizeof(long) - 1] + 1) != elfhdr.e_ident[5];
 
-		if (getu16(swap, elfhdr.e_type) == ET_CORE) 
+		if (getu16(swap, elfhdr.e_type) == ET_CORE)
 #ifdef ELFCORE
 			dophn_core(class, swap,
 				   fd,
 				   getu32(swap, elfhdr.e_phoff),
-				   getu16(swap, elfhdr.e_phnum), 
+				   getu16(swap, elfhdr.e_phnum),
 				   getu16(swap, elfhdr.e_phentsize));
 #else
 			;
@@ -401,7 +401,7 @@ tryelf(fd, buf, nbytes)
 				dophn_exec(class, swap,
 					   fd,
 					   getu32(swap, elfhdr.e_phoff),
-					   getu16(swap, elfhdr.e_phnum), 
+					   getu16(swap, elfhdr.e_phnum),
 					   getu16(swap, elfhdr.e_phentsize));
 			}
 			doshn(class, swap,
@@ -423,7 +423,7 @@ tryelf(fd, buf, nbytes)
 		(void) memcpy(&elfhdr, buf, sizeof elfhdr);
 		swap = (u.c[sizeof(long) - 1] + 1) != elfhdr.e_ident[5];
 
-		if (getu16(swap, elfhdr.e_type) == ET_CORE) 
+		if (getu16(swap, elfhdr.e_type) == ET_CORE)
 #ifdef ELFCORE
 			dophn_core(class, swap,
 				   fd,
@@ -432,7 +432,7 @@ tryelf(fd, buf, nbytes)
 #else
 				   getu64(swap, elfhdr.e_phoff),
 #endif
-				   getu16(swap, elfhdr.e_phnum), 
+				   getu16(swap, elfhdr.e_phnum),
 				   getu16(swap, elfhdr.e_phentsize));
 #else
 			;
@@ -447,7 +447,7 @@ tryelf(fd, buf, nbytes)
 #else
 					   getu64(swap, elfhdr.e_phoff),
 #endif
-					   getu16(swap, elfhdr.e_phnum), 
+					   getu16(swap, elfhdr.e_phnum),
 					   getu16(swap, elfhdr.e_phentsize));
 			}
 			doshn(class, swap,

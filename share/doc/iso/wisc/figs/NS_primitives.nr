@@ -3,7 +3,7 @@
 .(b
 .TS
 tab(+) center box;
-c c 
+c c
 a | a .
 service primitive & arguments+kernel procedure call & arguments
 =

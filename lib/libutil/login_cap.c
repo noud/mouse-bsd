@@ -33,7 +33,7 @@
  *
  *	BSDI login_cap.c,v 2.13 1998/02/07 03:17:05 prb Exp
  */
- 
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/time.h>
@@ -94,7 +94,7 @@ login_getclass(class)
 	if ((res = cgetent(&lc->lc_cap, classfiles, lc->lc_class)) != 0 ) {
 		lc->lc_cap = 0;
 		switch (res) {
-		case 1: 
+		case 1:
 			syslog(LOG_ERR, "%s: couldn't resolve 'tc'",
 				lc->lc_class);
 			break;
@@ -156,7 +156,7 @@ login_getcapstr(lc, cap, def, e)
 		    lc->lc_class, cap);
 		return (e);
 	default:
-		if (status >= 0) 
+		if (status >= 0)
 			return (res);
 		syslog(LOG_ERR, "%s: unexpected error with capability %s",
 		    lc->lc_class, cap);
@@ -189,7 +189,7 @@ login_getcaptime(lc, cap, def, e)
 		errno = ERANGE;
 		return (e);
 	default:
-		if (status >= 0) 
+		if (status >= 0)
 			break;
 		syslog(LOG_ERR, "%s: unexpected error with capability %s",
 		    lc->lc_class, cap);
@@ -269,7 +269,7 @@ login_getcapnum(lc, cap, def, e)
 		errno = ERANGE;
 		return (e);
 	default:
-		if (status >= 0) 
+		if (status >= 0)
 			break;
 		syslog(LOG_ERR, "%s: unexpected error with capability %s",
 		    lc->lc_class, cap);
@@ -318,7 +318,7 @@ login_getcapsize(lc, cap, def, e)
 		errno = ERANGE;
 		return (e);
 	default:
-		if (status >= 0) 
+		if (status >= 0)
 			break;
 		syslog(LOG_ERR, "%s: unexpected error with capability %s",
 		    lc->lc_class, cap);
@@ -451,10 +451,10 @@ setuserenv(lc)
 	char *ptr;
 	char **res;
 	char *str = login_getcapstr(lc, "setenv", NULL, NULL);
-		  
+
 	if(str == NULL || *str == '\0')
 		return 0;
-	
+
 	/* count the sub-strings */
 	for (i = 1, ptr = str; *ptr; i++) {
 		ptr += strcspn(ptr, stop);
@@ -468,7 +468,7 @@ setuserenv(lc)
 
 	if(!res)
 		return -1;
-	
+
 	ptr = (char *)res + count * sizeof(char *);
 	strcpy(ptr, str);
 
@@ -479,19 +479,19 @@ setuserenv(lc)
 		if (*ptr)
 			*ptr++ = '\0';
 		}
-	
+
 	res[i] = NULL;
 
 	for (i = 0; i < count && res[i]; i++) {
 		if (*res[i] != '\0') {
 			if ((ptr = strchr(res[i], '=')))
 				*ptr++ = '\0';
-			else 
+			else
 				ptr = "";
 			setenv(res[i], ptr, 1);
 		}
 	}
-	
+
 	free(res);
 	return 0;
 }
@@ -538,7 +538,7 @@ setusercontext(lc, pwd, uid, flags)
 		flags &= ~(LOGIN_SETGROUP|LOGIN_SETLOGIN);
 
 	if (flags & LOGIN_SETRESOURCES)
-		for (i = 0; r_list[i].name; ++i) 
+		for (i = 0; r_list[i].name; ++i)
 			if (gsetrl(lc, r_list[i].what, r_list[i].name,
 			    r_list[i].type))
 				/* XXX - call syslog()? */;
@@ -804,9 +804,9 @@ multiply(n1, n2)
 	 * is not done then the first multiply below may overflow.)
 	 */
 	for (b1 = bpw; (((u_quad_t)1 << (b1-1)) & n1) == 0; --b1)
-		; 
+		;
 	for (b2 = bpw; (((u_quad_t)1 << (b2-1)) & n2) == 0; --b2)
-		; 
+		;
 	if (b1 + b2 - 2 > bpw) {
 		errno = ERANGE;
 		return (UQUAD_MAX);

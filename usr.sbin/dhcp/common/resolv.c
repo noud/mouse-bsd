@@ -195,7 +195,7 @@ struct sockaddr_in *pick_name_server ()
 			char rcbuf [512];
 			char *s, *t, *u;
 			rcdate = cur_time + 1;
-			
+
 			read_resolv_conf (rcdate);
 		}
 	}

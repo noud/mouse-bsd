@@ -10,7 +10,7 @@ install gas (under the name as).  This should go through without any
 problems.
 
 After switching into the BSD environment, you can configure GCC 2.0
-with the command 
+with the command
 
 % ./configure m68k-apollo-bsd
 

@@ -118,7 +118,7 @@ vrrtc_attach(parent, self, aux)
 {
 	struct vrip_attach_args *va = aux;
 	struct vrrtc_softc *sc = (void*)self;
-    
+
 	sc->sc_iot = va->va_iot;
 	if (bus_space_map(sc->sc_iot, va->va_addr, va->va_size,
 			  0 /* no flags */, &sc->sc_ioh)) {
@@ -127,10 +127,10 @@ vrrtc_attach(parent, self, aux)
 	}
 	/* RTC interrupt handler is directly dispatched from CPU intr */
 	vr_intr_establish(VR_INTR1, vrrtc_intr, sc);
-	/* But need to set level 1 interupt mask register, 
+	/* But need to set level 1 interupt mask register,
 	 * so regsiter fake interrurpt handler
 	 */
-	if (!(sc->sc_ih = vrip_intr_establish(va->va_vc, va->va_intr, 
+	if (!(sc->sc_ih = vrip_intr_establish(va->va_vc, va->va_intr,
 						IPL_CLOCK, 0, 0))) {
 		printf (":can't map interrupt.\n");
 		return;
@@ -172,7 +172,7 @@ vrrtc_intr(arg, pc, statusReg)
 {
 	struct vrrtc_softc *sc = arg;
 	struct clockframe cf;
-    
+
 	bus_space_write_2(sc->sc_iot, sc->sc_ioh, RTCINT_REG_W, RTCINT_ALL);
 	cf.pc = pc;
 	cf.sr = statusReg;
@@ -203,13 +203,13 @@ clock_init(dev)
 
 	timeh = bus_space_read_2(sc->sc_iot, sc->sc_ioh, ETIME_H_REG_W);
 	timel = bus_space_read_2(sc->sc_iot, sc->sc_ioh, ETIME_M_REG_W);
-	timel = (timel << 16) 
+	timel = (timel << 16)
 		| bus_space_read_2(sc->sc_iot, sc->sc_ioh, ETIME_L_REG_W);
 	printf("clock_init()  Elapse Time %04x%04x\n", timeh, timel);
 
 	timeh = bus_space_read_2(sc->sc_iot, sc->sc_ioh, ECMP_H_REG_W);
 	timel = bus_space_read_2(sc->sc_iot, sc->sc_ioh, ECMP_M_REG_W);
-	timel = (timel << 16) 
+	timel = (timel << 16)
 		| bus_space_read_2(sc->sc_iot, sc->sc_ioh, ECMP_L_REG_W);
 	printf("clock_init()  Elapse Compare %04x%04x\n", timeh, timel);
 
@@ -241,7 +241,7 @@ clock_init(dev)
 	 * Set tick (CLOCK_RATE)
 	 */
 	bus_space_write_2(sc->sc_iot, sc->sc_ioh, RTCL1_H_REG_W, 0);
-	bus_space_write_2(sc->sc_iot, sc->sc_ioh, 
+	bus_space_write_2(sc->sc_iot, sc->sc_ioh,
 			  RTCL1_L_REG_W, RTCL1_L_HZ/CLOCK_RATE);
 }
 
@@ -268,7 +268,7 @@ cvt_timehl_ct(timeh, timel, ct)
 	}
 
 #ifdef RTCDEBUG
-	printf("cvt_timehl_ct: timeh %08lx year %ld yrref %ld\n", 
+	printf("cvt_timehl_ct: timeh %08lx year %ld yrref %ld\n",
 		timeh, year, sec2);
 #endif /* RTCDEBUG */
 
@@ -284,7 +284,7 @@ cvt_timehl_ct(timeh, timel, ct)
 	month +=1; /* now month is 1..12 */
 
 #ifdef RTCDEBUG
-	printf("cvt_timehl_ct: timeh %08lx month %ld mref %ld\n", 
+	printf("cvt_timehl_ct: timeh %08lx month %ld mref %ld\n",
 		timeh, month, sec2);
 #endif /* RTCDEBUG */
 
@@ -293,7 +293,7 @@ cvt_timehl_ct(timeh, timel, ct)
 	timeh -= (date-1)*sec2;
 
 #ifdef RTCDEBUG
-	printf("cvt_timehl_ct: timeh %08lx date %ld dref %ld\n", 
+	printf("cvt_timehl_ct: timeh %08lx date %ld dref %ld\n",
 		timeh, date, sec2);
 #endif /* RTCDEBUG */
 
@@ -305,7 +305,7 @@ cvt_timehl_ct(timeh, timel, ct)
 	min = timeh/sec2;
 	timeh -= min*sec2;
 
-	sec = timeh*2 + timel/ETIME_L_HZ;	
+	sec = timeh*2 + timel/ETIME_L_HZ;
 
 #ifdef RTCDEBUG
 	printf("cvt_timehl_ct: hour %ld min %ld sec %ld\n", hour, min, sec);
@@ -333,7 +333,7 @@ clock_get(dev, base, ct)
 	u_long timel;	/* timel/32768 sec */
 
 	timeh = bus_space_read_2(sc->sc_iot, sc->sc_ioh, ETIME_H_REG_W);
-	timeh = (timeh << 16) 
+	timeh = (timeh << 16)
 		| bus_space_read_2(sc->sc_iot, sc->sc_ioh, ETIME_M_REG_W);
 	timel = bus_space_read_2(sc->sc_iot, sc->sc_ioh, ETIME_L_REG_W);
 
@@ -364,12 +364,12 @@ clock_set(dev, ct)
 	timel = 0;
 
 #ifdef RTCDEBUG
-	printf("clock_set: %d/%d/%d/%d/%d/%d\n", 
+	printf("clock_set: %d/%d/%d/%d/%d/%d\n",
 		ct->year, ct->mon, ct->day, ct->hour, ct->min, ct->sec);
 #endif /* RTCDEBUG */
 	ct->year += YBASE;
 #ifdef RTCDEBUG
-	printf("clock_set: %d/%d/%d/%d/%d/%d\n", 
+	printf("clock_set: %d/%d/%d/%d/%d/%d\n",
 		ct->year, ct->mon, ct->day, ct->hour, ct->min, ct->sec);
 #endif /* RTCDEBUG */
 	year = EPOCHYEAR;
@@ -405,7 +405,7 @@ clock_set(dev, ct)
 	cvt_timehl_ct(timeh, timel, NULL);
 #endif /* RTCDEBUG */
 
-	bus_space_write_2(sc->sc_iot, sc->sc_ioh, 
+	bus_space_write_2(sc->sc_iot, sc->sc_ioh,
 			  ETIME_H_REG_W, (timeh>>16)&0xffff);
 	bus_space_write_2(sc->sc_iot, sc->sc_ioh, ETIME_M_REG_W, timeh&0xffff);
 	bus_space_write_2(sc->sc_iot, sc->sc_ioh, ETIME_L_REG_W, timel);

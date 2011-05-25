@@ -78,7 +78,7 @@ extern void generic_search PARAMS ((int len, char *data, char *mask,
 /* Hook for `exec_file_command' command to call.  */
 
 extern void (*exec_file_display_hook) PARAMS ((char *filename));
-   
+
 extern void specify_exec_file_hook PARAMS ((void (*hook) (char *filename)));
 
 /* Binary File Diddlers for the exec and core files */
@@ -146,7 +146,7 @@ struct core_fns {
 				  int which, CORE_ADDR reg_addr));
 
   /* Finds the next struct core_fns.  They are allocated and initialized
-     in whatever module implements the functions pointed to; an 
+     in whatever module implements the functions pointed to; an
      initializer calls add_core_fns to add them to the global chain.  */
 
   struct core_fns *next;

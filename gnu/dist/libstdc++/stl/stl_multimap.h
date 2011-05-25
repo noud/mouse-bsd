@@ -65,7 +65,7 @@ public:
   };
 
 private:
-  typedef rb_tree<key_type, value_type, 
+  typedef rb_tree<key_type, value_type,
                   select1st<value_type>, key_compare, Alloc> rep_type;
   rep_type t;  // red-black tree representing multimap
 public:
@@ -74,7 +74,7 @@ public:
   typedef typename rep_type::reference reference;
   typedef typename rep_type::const_reference const_reference;
   typedef typename rep_type::iterator iterator;
-  typedef typename rep_type::const_iterator const_iterator; 
+  typedef typename rep_type::const_iterator const_iterator;
   typedef typename rep_type::reverse_iterator reverse_iterator;
   typedef typename rep_type::const_reverse_iterator const_reverse_iterator;
   typedef typename rep_type::size_type size_type;
@@ -85,7 +85,7 @@ public:
   multimap() : t(Compare()) { }
   explicit multimap(const Compare& comp) : t(comp) { }
 
-#ifdef __STL_MEMBER_TEMPLATES  
+#ifdef __STL_MEMBER_TEMPLATES
   template <class InputIterator>
   multimap(InputIterator first, InputIterator last)
     : t(Compare()) { t.insert_equal(first, last); }
@@ -110,7 +110,7 @@ public:
   multimap<Key, T, Compare, Alloc>&
   operator=(const multimap<Key, T, Compare, Alloc>& x) {
     t = x.t;
-    return *this; 
+    return *this;
   }
 
   // accessors:
@@ -136,7 +136,7 @@ public:
   iterator insert(iterator position, const value_type& x) {
     return t.insert_equal(position, x);
   }
-#ifdef __STL_MEMBER_TEMPLATES  
+#ifdef __STL_MEMBER_TEMPLATES
   template <class InputIterator>
   void insert(InputIterator first, InputIterator last) {
     t.insert_equal(first, last);
@@ -161,11 +161,11 @@ public:
   size_type count(const key_type& x) const { return t.count(x); }
   iterator lower_bound(const key_type& x) {return t.lower_bound(x); }
   const_iterator lower_bound(const key_type& x) const {
-    return t.lower_bound(x); 
+    return t.lower_bound(x);
   }
   iterator upper_bound(const key_type& x) {return t.upper_bound(x); }
   const_iterator upper_bound(const key_type& x) const {
-    return t.upper_bound(x); 
+    return t.upper_bound(x);
   }
    pair<iterator,iterator> equal_range(const key_type& x) {
     return t.equal_range(x);
@@ -180,13 +180,13 @@ public:
 };
 
 template <class Key, class T, class Compare, class Alloc>
-inline bool operator==(const multimap<Key, T, Compare, Alloc>& x, 
+inline bool operator==(const multimap<Key, T, Compare, Alloc>& x,
                        const multimap<Key, T, Compare, Alloc>& y) {
   return x.t == y.t;
 }
 
 template <class Key, class T, class Compare, class Alloc>
-inline bool operator<(const multimap<Key, T, Compare, Alloc>& x, 
+inline bool operator<(const multimap<Key, T, Compare, Alloc>& x,
                       const multimap<Key, T, Compare, Alloc>& y) {
   return x.t < y.t;
 }
@@ -194,7 +194,7 @@ inline bool operator<(const multimap<Key, T, Compare, Alloc>& x,
 #ifdef __STL_FUNCTION_TMPL_PARTIAL_ORDER
 
 template <class Key, class T, class Compare, class Alloc>
-inline void swap(multimap<Key, T, Compare, Alloc>& x, 
+inline void swap(multimap<Key, T, Compare, Alloc>& x,
                  multimap<Key, T, Compare, Alloc>& y) {
   x.swap(y);
 }

@@ -323,7 +323,7 @@ save_ffs(diskdev, bootblkname, bp, size)
 }
 
 int
-setup_contig_blocks(diskdev, blkno, bp, size) 
+setup_contig_blocks(diskdev, blkno, bp, size)
 	char *diskdev, *bp;
 	int blkno;
 	unsigned int size;
@@ -333,7 +333,7 @@ setup_contig_blocks(diskdev, blkno, bp, size)
 
 	ndb = howmany(size, tableblksize * DEV_BSIZE);
 	rdb = howmany(size, DEV_BSIZE);
-	
+
 	if (verbose)
 		printf("%s: block number %d, size %u table blocks: %d/%d\n",
 		       diskdev, blkno, size, ndb, fraglist->maxentries);

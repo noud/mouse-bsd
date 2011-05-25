@@ -7,20 +7,20 @@
 #if defined(REFCLOCK) && (defined(PARSE) || defined(PARSEPPS)) && defined(CLOCK_COMPUTIME)
 /*
  * clk_computime.c,v 1.8 1997/01/19 12:44:35 kardel Exp
- * 
+ *
  * Supports Diem's Computime Radio Clock
- * 
+ *
  * Used the Meinberg clock as a template for Diem's Computime Radio Clock
  *
  * adapted by Alois Camenzind <alois.camenzind@ubs.ch>
- * 
+ *
  * Copyright (C) 1992-1996 by Frank Kardel
  * Friedrich-Alexander Universität Erlangen-Nürnberg, Germany
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.
- * 
+ *
  */
 
 
@@ -36,22 +36,22 @@
 
 /*
  * The Computime receiver sends a datagram in the following format every minute
- * 
- * Timestamp	T:YY:MM:MD:WD:HH:MM:SSCRLF 
+ *
+ * Timestamp	T:YY:MM:MD:WD:HH:MM:SSCRLF
  * Pos          0123456789012345678901 2 3
  *              0000000000111111111122 2 2
  * Parse        T:  :  :  :  :  :  :  rn
- * 
- * T	Startcharacter "T" specifies start of the timestamp 
- * YY	Year MM	Month 1-12 
- * MD	Day of the month 
- * WD	Day of week 
- * HH	Hour 
- * MM   Minute 
+ *
+ * T	Startcharacter "T" specifies start of the timestamp
+ * YY	Year MM	Month 1-12
+ * MD	Day of the month
+ * WD	Day of week
+ * HH	Hour
+ * MM   Minute
  * SS   Second
- * CR   Carriage return 
+ * CR   Carriage return
  * LF   Linefeed
- * 
+ *
  */
 
 static struct format computime_fmt =
@@ -87,7 +87,7 @@ clockformat_t   clock_computime =
 
 /*
  * cvt_computime
- * 
+ *
  * convert simple type format
  */
 static          u_long
@@ -100,7 +100,7 @@ cvt_computime(buffer, size, vf, clock, vt)
 {
 	register struct format *format = vf;
 
-	if (!Strok(buffer, format->fixed_string)) { 
+	if (!Strok(buffer, format->fixed_string)) {
 		return CVT_NONE;
 	} else {
 		if (Stoi(&buffer[format->field_offsets[O_DAY].offset], &clock->day,
@@ -114,7 +114,7 @@ cvt_computime(buffer, size, vf, clock, vt)
 			Stoi(&buffer[format->field_offsets[O_MIN].offset], &clock->minute,
 				format->field_offsets[O_MIN].length) ||
 			Stoi(&buffer[format->field_offsets[O_SEC].offset], &clock->second,
-				format->field_offsets[O_SEC].length)) { 
+				format->field_offsets[O_SEC].length)) {
 			return CVT_FAIL | CVT_BADFMT;
 		} else {
 

@@ -39,12 +39,12 @@
 
 #include "opt_inet.h"
 #include "opt_ns.h"
-#include "bpfilter.h" 
- 
+#include "bpfilter.h"
+
 #include <sys/param.h>
 #include <sys/systm.h>
-#include <sys/mbuf.h> 
-#include <sys/socket.h> 
+#include <sys/mbuf.h>
+#include <sys/socket.h>
 #include <sys/ioctl.h>
 #include <sys/errno.h>
 #include <sys/syslog.h>
@@ -60,15 +60,15 @@
 #include <netinet/in.h>
 #include <netinet/in_systm.h>
 #include <netinet/in_var.h>
-#include <netinet/ip.h> 
+#include <netinet/ip.h>
 #include <netinet/if_inarp.h>
 #endif
- 
+
 #ifdef NS
 #include <netns/ns.h>
 #include <netns/ns_if.h>
 #endif
-  
+
 #if NBPFILTER > 0
 #include <net/bpf.h>
 #include <net/bpfdesc.h>

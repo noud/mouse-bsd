@@ -172,7 +172,7 @@ main(int argc, char **argv)
 		    (unsigned long long)cnwis.stats.nws_rxcrcerror);
 		printf("%10llu rxframe\n",
 		    (unsigned long long)cnwis.stats.nws_rxframe);
-		printf("%10llu rxerrors\n", 
+		printf("%10llu rxerrors\n",
 		    (unsigned long long)cnwis.stats.nws_rxerrors);
 		printf("%10llu rxavail\n",
 		    (unsigned long long)cnwis.stats.nws_rxavail);

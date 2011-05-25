@@ -95,7 +95,7 @@
 				 * Up to 255 SCBs on some types of aic7xxx
 				 * based boards.  The aic7870 have 16 internal
 				 * SCBs, but external SRAM bumps this to 255.
-				 * The aic7770 family have only 4, and the 
+				 * The aic7770 family have only 4, and the
 				 * aic7850 has only 3.
 				 */
 
@@ -146,8 +146,8 @@ typedef enum {
 					 * SRAM, we use the default target
 					 * settings.
 					 */
-	AHC_CHNLB		= 0x20,	/* 
-					 * Second controller on 3940 
+	AHC_CHNLB		= 0x20,	/*
+					 * Second controller on 3940
 					 * Also encodes the offset in the
 					 * SEEPROM for CHNLB info (32)
 					 */
@@ -174,7 +174,7 @@ typedef enum {
  * The driver keeps up to MAX_SCB scb structures per card in memory.  Only the
  * first 28 bytes of the structure need to be transfered to the card during
  * normal operation.  The fields starting at byte 28 are used for kernel level
- * bookkeeping.  
+ * bookkeeping.
  */
 struct scb {
 /* ------------    Begin hardware supported fields    ---------------- */
@@ -244,7 +244,7 @@ struct ahc_data {
 	u_long	baseport;
 #endif
 	struct	scb *scbarray[AHC_SCB_MAX]; /* Mirror boards scbarray */
-	struct	scb *pagedout_ntscbs[16];/* 
+	struct	scb *pagedout_ntscbs[16];/*
 					  * Paged out, non-tagged scbs
 					  * indexed by target.
 					  */

@@ -55,9 +55,9 @@
 #define LINUX_CDROMVOLREAD	0x5313	/* (struct linux_cdrom_volctrl) */
 #define LINUX_CDROMPLAYBLK	0x5317	/* (struct linux_cdrom_blk) */
 
-/* DVD-ROM Specific ioctls */              
+/* DVD-ROM Specific ioctls */
 #define	LINUX_DVD_READ_STRUCT	0x5390	/* Read structure */
-#define	LINUX_DVD_WRITE_STRUCT	0x5391	/* Write structure */ 
+#define	LINUX_DVD_WRITE_STRUCT	0x5391	/* Write structure */
 #define	LINUX_DVD_AUTH		0x5392	/* Authentication */
 
 struct linux_cdrom_blk {
@@ -80,7 +80,7 @@ struct linux_cdrom_ti {
 	u_char	cdti_trk1;	/* end track */
 	u_char	cdti_ind1;	/* end index */
 };
- 
+
 struct linux_cdrom_tochdr {
 	u_char	cdth_trk0;	/* start track */
 	u_char	cdth_trk1;	/* end track */

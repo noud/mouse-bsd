@@ -18,14 +18,14 @@
 
 <P>
 Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998
-Free Software Foundation, Inc. 
+Free Software Foundation, Inc.
 <P>
 Published by the Free Software Foundation <BR>
 59 Temple Place - Suite 330, <BR>
 Boston, MA 02111-1307 USA <BR>
 Printed copies are available for $20 each. <BR>
 ISBN 1-882114-11-6 <BR>
-                
+
 Permission is granted to make and distribute verbatim copies of
 this manual provided the copyright notice and this permission notice
 are preserved on all copies.
@@ -109,7 +109,7 @@ some variables with a trailing underscore.
 <H2><A NAME="SEC2" HREF="gdb_toc.html#TOC2">Free software</A></H2>
 
 <P>
-GDB is <STRONG>free software</STRONG>, protected by the GNU 
+GDB is <STRONG>free software</STRONG>, protected by the GNU
 General Public License
 (GPL).  The GPL gives you the freedom to copy or adapt a licensed
 program--but every person getting a copy also gets with it the
@@ -242,7 +242,7 @@ and contributed the Languages chapter of this manual.
 
 </P>
 <P>
-Fred Fish wrote most of the support for Unix System Vr4.  
+Fred Fish wrote most of the support for Unix System Vr4.
 He also enhanced the command-completion support to cover C++ overloaded
 symbols.
 
@@ -330,9 +330,9 @@ Let us use GDB to try to see what is going on.
 <PRE>
 $ <B>gdb m4</B>
 GDB is free software and you are welcome to distribute copies
- of it under certain conditions; type "show copying" to see 
+ of it under certain conditions; type "show copying" to see
  the conditions.
-There is absolutely no warranty for GDB; type "show warranty" 
+There is absolutely no warranty for GDB; type "show warranty"
  for details.
 
 GDB , Copyright 1995 Free Software Foundation, Inc...
@@ -390,7 +390,7 @@ context where it stops.
 <PRE>
 <B>changequote(&#60;QUOTE&#62;,&#60;UNQUOTE&#62;)</B>
 
-Breakpoint 1, m4_changequote (argc=3, argv=0x33c70) 
+Breakpoint 1, m4_changequote (argc=3, argv=0x33c70)
     at builtin.c:879
 879         if (bad_argc(TOKEN_DATA_TEXT(argv[0]),argc,1,3))
 </PRE>
@@ -436,7 +436,7 @@ stack frame for each active subroutine.
 (gdb) <B>bt</B>
 #0  set_quotes (lq=0x34c78 "&#60;QUOTE&#62;", rq=0x34c88 "&#60;UNQUOTE&#62;")
     at input.c:530
-#1  0x6344 in m4_changequote (argc=3, argv=0x33c70) 
+#1  0x6344 in m4_changequote (argc=3, argv=0x33c70)
     at builtin.c:882
 #2  0x8174 in expand_macro (sym=0x33320) at macro.c:242
 #3  0x7a88 in expand_token (obs=0x0, t=209696, td=0xf7fffa30)
@@ -584,7 +584,7 @@ session with the GDB <CODE>quit</CODE> command.
 
 <P>
 This chapter discusses how to start GDB, and how to get out of it.
-The essentials are: 
+The essentials are:
 
 <UL>
 <LI>
@@ -612,7 +612,7 @@ to specify more of your debugging environment at the outset.
 <P>
 The command-line options described here are designed
 to cover a variety of situations; in some environments, some of these
-options may effectively be unavailable.  
+options may effectively be unavailable.
 
 </P>
 <P>
@@ -768,7 +768,7 @@ Add <VAR>directory</VAR> to the path to search for source files.
 <EM>Warning: this option depends on operating system facilities that are not
 supported on all systems.</EM><BR>
 If memory-mapped files are available on your system through the <CODE>mmap</CODE>
-system call, you can use this option 
+system call, you can use this option
 to have GDB write the symbols from your
 program into a reusable file in the current directory.  If the program you are debugging is
 called <TT>`/tmp/fred'</TT>, the mapped symbol file is <TT>`./fred.syms'</TT>.
@@ -893,10 +893,10 @@ Run using <VAR>device</VAR> for your program's standard input and output.
 <DD>
 <A NAME="IDX4"></A>
  <A NAME="IDX5"></A>
- 
-To exit GDB, use the <CODE>quit</CODE> command (abbreviated <CODE>q</CODE>), or 
-type an end-of-file character (usually <KBD>C-d</KBD>).  If you do not supply 
-<VAR>expression</VAR>, GDB will terminate normally; otherwise it will 
+
+To exit GDB, use the <CODE>quit</CODE> command (abbreviated <CODE>q</CODE>), or
+type an end-of-file character (usually <KBD>C-d</KBD>).  If you do not supply
+<VAR>expression</VAR>, GDB will terminate normally; otherwise it will
 terminate using the result of <VAR>expression</VAR> as the error code.
 </DL>
 
@@ -931,7 +931,7 @@ just use the <CODE>shell</CODE> command.
 <DD>
 <A NAME="IDX7"></A>
  <A NAME="IDX8"></A>
- 
+
 Invoke a the standard shell to execute <VAR>command string</VAR>.
 If it exists, the environment variable <CODE>SHELL</CODE> determines which
 shell to run.  Otherwise GDB uses <CODE>/bin/sh</CODE>.
@@ -949,7 +949,7 @@ GDB:
 <DD>
 <A NAME="IDX9"></A>
  <A NAME="IDX10"></A>
- 
+
 Execute the <CODE>make</CODE> program with the specified
 arguments.  This is equivalent to <SAMP>`shell make <VAR>make-args</VAR>'</SAMP>.
 </DL>
@@ -1082,10 +1082,10 @@ example:
 <PRE>
 (gdb) b make_ <KBD>TAB</KBD>
 GDB sounds bell; press <KBD>TAB</KBD> again, to see:
-make_a_section_from_file     make_environ               
-make_abs_section             make_function_type         
-make_blockvector             make_pointer_type          
-make_cleanup                 make_reference_type        
+make_a_section_from_file     make_environ
+make_abs_section             make_function_type
+make_blockvector             make_pointer_type
+make_cleanup                 make_reference_type
 make_command                 make_symbol_completion_list
 (gdb) b make_
 </PRE>
@@ -1166,7 +1166,7 @@ completion on an overloaded symbol.
 
 </P>
 <P>
-You can always ask GDB itself for information on its commands, 
+You can always ask GDB itself for information on its commands,
 using the command <CODE>help</CODE>.
 
 </P>
@@ -1175,7 +1175,7 @@ using the command <CODE>help</CODE>.
 <DT><CODE>help</CODE>
 <DD>
 <A NAME="IDX22"></A>
- 
+
 <DT><CODE>h</CODE>
 <DD>
 You can use <CODE>help</CODE> (abbreviated <CODE>h</CODE>) with no arguments to
@@ -1197,9 +1197,9 @@ user-defined -- User-defined commands
 aliases -- Aliases of other commands
 obscure -- Obscure features
 
-Type "help" followed by a class name for a list of 
+Type "help" followed by a class name for a list of
 commands in that class.
-Type "help" followed by command name for full 
+Type "help" followed by command name for full
 documentation.
 Command name abbreviations are allowed if unambiguous.
 (gdb)
@@ -1222,7 +1222,7 @@ show -- Generic command for showing things set
  with "set"
 info -- Generic command for printing status
 
-Type "help" followed by command name for full 
+Type "help" followed by command name for full
 documentation.
 Command name abbreviations are allowed if unambiguous.
 (gdb)
@@ -1272,7 +1272,7 @@ all the sub-commands.  See section <A HREF="gdb.html#SEC159">Index</A>.
 <DD>
 <A NAME="IDX24"></A>
  <A NAME="IDX25"></A>
- 
+
 This command (abbreviated <CODE>i</CODE>) is for describing the state of your
 program.  For example, you can list the arguments given to your program
 with <CODE>info args</CODE>, list the registers currently in use with <CODE>info
@@ -1283,14 +1283,14 @@ You can get a complete list of the <CODE>info</CODE> sub-commands with
 <A NAME="IDX26"></A>
 <DT><CODE>set</CODE>
 <DD>
-You can assign the result of an expresson to an environment variable with 
+You can assign the result of an expresson to an environment variable with
 <CODE>set</CODE>.  For example, you can set the GDB prompt to a $-sign with
 <CODE>set prompt $</CODE>.
 
 <A NAME="IDX27"></A>
 <DT><CODE>show</CODE>
 <DD>
-In contrast to <CODE>info</CODE>, <CODE>show</CODE> is for describing the state of 
+In contrast to <CODE>info</CODE>, <CODE>show</CODE> is for describing the state of
 GDB itself.
 You can change most of the things you can <CODE>show</CODE>, by using the
 related command <CODE>set</CODE>; for example, you can control what number
@@ -1314,7 +1314,7 @@ exceptional in lacking corresponding <CODE>set</CODE> commands:
 <DD>
 <A NAME="IDX29"></A>
  <A NAME="IDX30"></A>
- 
+
 Show what version of GDB is running.  You should include this
 information in GDB bug-reports.  If multiple versions of GDB are in
 use at your site, you may occasionally want to determine which version
@@ -1340,7 +1340,7 @@ Display the GNU "NO WARRANTY" statement.
 <P>
 When you run a program under GDB, you must first generate
 debugging information when you compile it.
-You may start GDB with its arguments, if any, in an environment 
+You may start GDB with its arguments, if any, in an environment
 of your choice.  You may redirect your program's input and output, debug an
 already running process, or kill a child process.
 
@@ -1414,7 +1414,7 @@ format; if your GNU C compiler has this option, do not use it.
 <DT><CODE>run</CODE>
 <DD>
 <A NAME="IDX37"></A>
- 
+
 <DT><CODE>r</CODE>
 <DD>
 Use the <CODE>run</CODE> command to start your program under GDB.  You must
@@ -1552,7 +1552,7 @@ environment without having to start GDB over again.
 <DT><CODE>path <VAR>directory</VAR></CODE>
 <DD>
 <A NAME="IDX43"></A>
- 
+
 Add <VAR>directory</VAR> to the front of the <CODE>PATH</CODE> environment variable
 (the search path for executables), for both GDB and your program.
 You may specify several directory names, separated by <SAMP>`:'</SAMP> or
@@ -1644,7 +1644,7 @@ that specify files for GDB to operate on.  See section <A HREF="gdb.html#SEC99">
 <DT><CODE>cd <VAR>directory</VAR></CODE>
 <DD>
 <A NAME="IDX49"></A>
- 
+
 Set the GDB working directory to <VAR>directory</VAR>.
 
 <A NAME="IDX50"></A>
@@ -1662,7 +1662,7 @@ Print the GDB working directory.
 <A NAME="IDX52"></A>
 <A NAME="IDX53"></A>
 By default, the program you run under GDB does input and output to
-the same terminal that GDB uses.  GDB switches the terminal 
+the same terminal that GDB uses.  GDB switches the terminal
 to its own terminal modes to interact with you, but it records the terminal
 modes your program was using and switches back to them when you continue
 running your program.
@@ -1673,7 +1673,7 @@ running your program.
 <DT><CODE>info terminal</CODE>
 <DD>
 <A NAME="IDX54"></A>
- 
+
 Displays information recorded by GDB about the terminal modes your
 program is using.
 </DL>
@@ -1775,7 +1775,7 @@ attaching GDB to the process.
 <DT><CODE>detach</CODE>
 <DD>
 <A NAME="IDX59"></A>
- 
+
 When you have finished debugging the attached process, you can use the
 <CODE>detach</CODE> command to release it from GDB control.  Detaching
 the process continues its execution.  After the <CODE>detach</CODE> command,
@@ -1802,7 +1802,7 @@ confirm</CODE> command (see section <A HREF="gdb.html#SEC144">Optional warnings 
 <DT><CODE>kill</CODE>
 <DD>
 <A NAME="IDX60"></A>
- 
+
 Kill the child process in which your program is running under GDB.
 </DL>
 
@@ -1839,7 +1839,7 @@ Some operating systems provide a facility called <SAMP>`/proc'</SAMP> that can
 be used to examine the image of a running process using file-system
 subroutines.  If GDB is configured for an operating system with this
 facility, the command <CODE>info proc</CODE> is available to report on several
-kinds of information about the process running your program.  
+kinds of information about the process running your program.
 <CODE>info proc</CODE> works only on SVR4 systems that support <CODE>procfs</CODE>.
 
 </P>
@@ -1848,7 +1848,7 @@ kinds of information about the process running your program.
 <DT><CODE>info proc</CODE>
 <DD>
 <A NAME="IDX63"></A>
- 
+
 Summarize available information about the process.
 
 <A NAME="IDX64"></A>
@@ -1983,7 +1983,7 @@ number--always a single integer--with each thread in your program.
 <DT><CODE>info threads</CODE>
 <DD>
 <A NAME="IDX77"></A>
- 
+
 Display a summary of all threads currently in your
 program.  GDB displays for each thread (in this order):
 
@@ -2000,7 +2000,7 @@ program.  GDB displays for each thread (in this order):
 An asterisk <SAMP>`*'</SAMP> to the left of the GDB thread number
 indicates the current thread.
 
-For example, 
+For example,
 </DL>
 
 
@@ -2017,7 +2017,7 @@ For example,
 <DT><CODE>thread <VAR>threadno</VAR></CODE>
 <DD>
 <A NAME="IDX78"></A>
- 
+
 Make thread number <VAR>threadno</VAR> the current thread.  The command
 argument <VAR>threadno</VAR> is the internal GDB thread number, as
 shown in the first field of the <SAMP>`info threads'</SAMP> display.
@@ -2033,7 +2033,7 @@ you selected, and its current stack frame summary:
 
 As with the <SAMP>`[New ...]'</SAMP> message, the form of the text after
 <SAMP>`Switching to'</SAMP> depends on your system's conventions for identifying
-threads.  
+threads.
 
 <A NAME="IDX79"></A>
 <DT><CODE>thread apply [<VAR>threadno</VAR>] [<VAR>all</VAR>]  <VAR>args</VAR></CODE>
@@ -2042,8 +2042,8 @@ The <CODE>thread apply</CODE> command allows you to apply a command to one or
 more threads.  Specify the numbers of the threads that you want affected
 with the command argument <VAR>threadno</VAR>.  <VAR>threadno</VAR> is the internal
 GDB thread number, as shown in the first field of the <SAMP>`info
-threads'</SAMP> display.  To apply a command to all threads, use 
-<CODE>thread apply all</CODE> <VAR>args</VAR>. 
+threads'</SAMP> display.  To apply a command to all threads, use
+<CODE>thread apply all</CODE> <VAR>args</VAR>.
 </DL>
 
 <P>
@@ -2124,7 +2124,7 @@ request this information at any time.
 <DT><CODE>info program</CODE>
 <DD>
 <A NAME="IDX86"></A>
- 
+
 Display information about the status of your program: whether it is
 running or not,
 what process it is,
@@ -2143,7 +2143,7 @@ conditions to control in finer detail whether your program stops.
 You can set breakpoints with the <CODE>break</CODE> command and its variants
 (see section <A HREF="gdb.html#SEC29">Setting breakpoints</A>), to specify the place where
 your program should stop by line number, function name or exact address
-in the program.  
+in the program.
 In languages with exception handling (such as GNU C++), you can also set
 breakpoints where an exception is raised (see section <A HREF="gdb.html#SEC31">Breakpoints and exceptions</A>).
 
@@ -2192,7 +2192,7 @@ no effect on your program until you enable it again.
 <A NAME="IDX96"></A>
 <A NAME="IDX97"></A>
 Breakpoints are set with the <CODE>break</CODE> command (abbreviated
-<CODE>b</CODE>).  The debugger convenience variable <SAMP>`$bpnum'</SAMP> records the 
+<CODE>b</CODE>).  The debugger convenience variable <SAMP>`$bpnum'</SAMP> records the
 number of the breakpoints you've set most recently; see section <A HREF="gdb.html#SEC60">Convenience variables</A>, for a discussion of what you can do with
 convenience variables.
 
@@ -2205,7 +2205,7 @@ You have several ways to say where the breakpoint should go.
 
 <DT><CODE>break <VAR>function</VAR></CODE>
 <DD>
-Set a breakpoint at entry to function <VAR>function</VAR>.  
+Set a breakpoint at entry to function <VAR>function</VAR>.
 When using source languages that permit overloading of symbols, such as
 C++, <VAR>function</VAR> may refer to more than one possible place to break.
 See section <A HREF="gdb.html#SEC36">Breakpoint menus</A>, for a discussion of that situation.
@@ -2279,16 +2279,16 @@ program stops there.  See section <A HREF="gdb.html#SEC33">Disabling breakpoints
 <A NAME="IDX99"></A>
 <DT><CODE>hbreak <VAR>args</VAR></CODE>
 <DD>
-Set a hardware-assisted breakpoint.  <VAR>args</VAR> are the same as for the 
-<CODE>break</CODE> command and the breakpoint is set in the same way, but the 
+Set a hardware-assisted breakpoint.  <VAR>args</VAR> are the same as for the
+<CODE>break</CODE> command and the breakpoint is set in the same way, but the
 breakpoint requires hardware support and some target hardware may not
 have this support.  The main purpose of this is EPROM/ROM code
-debugging, so you can set a breakpoint at an instruction without 
-changing the instruction.  This can be used with the new trap-generation 
+debugging, so you can set a breakpoint at an instruction without
+changing the instruction.  This can be used with the new trap-generation
 provided by SPARClite DSU.  DSU will generate traps when a program accesses
-some date or instruction address that is assigned to the debug registers.  
+some date or instruction address that is assigned to the debug registers.
 However the hardware breakpoint registers can only take two data breakpoints,
-and GDB will reject this command if more than two are used.  
+and GDB will reject this command if more than two are used.
 Delete or disable usused hardware breakpoints before setting
 new ones.  See section <A HREF="gdb.html#SEC34">Break conditions</A>.
 
@@ -2297,11 +2297,11 @@ new ones.  See section <A HREF="gdb.html#SEC34">Break conditions</A>.
 <DD>
 Set a hardware-assisted breakpoint enabled only for one stop.  <VAR>args</VAR>
 are the same as for the <CODE>hbreak</CODE> command and the breakpoint is set in
-the same way.  However, like the <CODE>tbreak</CODE> command,  
+the same way.  However, like the <CODE>tbreak</CODE> command,
 the breakpoint is automatically deleted after the
 first time your program stops there.  Also, like the <CODE>hbreak</CODE>
-command, the breakpoint requires hardware support and some target hardware 
-may not have this support.  See section <A HREF="gdb.html#SEC33">Disabling breakpoints</A>.  
+command, the breakpoint requires hardware support and some target hardware
+may not have this support.  See section <A HREF="gdb.html#SEC33">Disabling breakpoints</A>.
 Also See section <A HREF="gdb.html#SEC34">Break conditions</A>.
 
 <A NAME="IDX101"></A>
@@ -2362,7 +2362,7 @@ are listed after that.
 number <VAR>n</VAR> as argument lists only that breakpoint.  The
 convenience variable <CODE>$_</CODE> and the default examining-address for
 the <CODE>x</CODE> command are set to the address of the last breakpoint
-listed (see section <A HREF="gdb.html#SEC56">Examining memory</A>).  
+listed (see section <A HREF="gdb.html#SEC56">Examining memory</A>).
 
 <CODE>info break</CODE> now displays a count of the number of times the
 breakpoint has been hit.  This is especially useful in conjunction with
@@ -2398,7 +2398,7 @@ You can see these breakpoints with the GDB maintenance command
 <DT><CODE>maint info breakpoints</CODE>
 <DD>
 <A NAME="IDX107"></A>
- 
+
 Using the same format as <SAMP>`info breakpoints'</SAMP>, display both the
 breakpoints you've set explicitly, and those GDB is using for
 internal purposes.  Internal breakpoints are shown with negative
@@ -2460,18 +2460,18 @@ you have no clue what part of your program is the culprit.
 <DT><CODE>watch <VAR>expr</VAR></CODE>
 <DD>
 <A NAME="IDX109"></A>
- 
+
 Set a watchpoint for an expression.  GDB will break when <VAR>expr</VAR>
 is written into by the program and its value changes.
-This can be used with the new trap-generation provided by 
+This can be used with the new trap-generation provided by
 SPARClite DSU.  DSU will generate traps when a program accesses
-some date or instruction address that is assigned to the debug registers.  
+some date or instruction address that is assigned to the debug registers.
 For the data addresses, DSU facilitates the <CODE>watch</CODE> command.
 However the hardware breakpoint registers can only take two data watchpoints,
 and both watchpoints must be the same kind.  For example, you can set two
 watchpoints with <CODE>watch</CODE> commands, two with <CODE>rwatch</CODE>
 commands, <STRONG>or</STRONG> two with <CODE>awatch</CODE> commands, but you cannot set one
-watchpoint with one command and the other with a different command. 
+watchpoint with one command and the other with a different command.
  will reject the command if you try to mix watchpoints.
 Delete or disable unused watchpoint commands before setting new ones.
 
@@ -2530,7 +2530,7 @@ given point in time.
 <DT><CODE>catch <VAR>exceptions</VAR></CODE>
 <DD>
 <A NAME="IDX116"></A>
- 
+
 You can set breakpoints at active exception handlers by using the
 <CODE>catch</CODE> command.  <VAR>exceptions</VAR> is a list of names of exceptions
 to catch.
@@ -2720,7 +2720,7 @@ watchpoints:
 <A NAME="IDX126"></A>
  <A NAME="IDX127"></A>
  <A NAME="IDX128"></A>
- 
+
 Disable the specified breakpoints--or all breakpoints, if none are
 listed.  A disabled breakpoint has no effect but is not forgotten.  All
 options such as ignore-counts, conditions and commands are remembered in
@@ -2812,7 +2812,7 @@ impose a further condition on a watchpoint.
 <DT><CODE>condition <VAR>bnum</VAR> <VAR>expression</VAR></CODE>
 <DD>
 <A NAME="IDX133"></A>
- 
+
 Specify <VAR>expression</VAR> as the break condition for breakpoint or
 watchpoint number <VAR>bnum</VAR>.  After you set a condition, breakpoint
 <VAR>bnum</VAR> stops your program only if the value of <VAR>expression</VAR> is
@@ -2849,7 +2849,7 @@ your program reaches it.
 <DT><CODE>ignore <VAR>bnum</VAR> <VAR>count</VAR></CODE>
 <DD>
 <A NAME="IDX135"></A>
- 
+
 Set the ignore count of breakpoint number <VAR>bnum</VAR> to <VAR>count</VAR>.
 The next <VAR>count</VAR> times the breakpoint is reached, your program's
 execution does not stop; other than to decrement the ignore count, GDB
@@ -2889,7 +2889,7 @@ breakpoints.
 <DD>
 <A NAME="IDX137"></A>
  <A NAME="IDX138"></A>
- 
+
 <DT><CODE>... <VAR>command-list</VAR> ...</CODE>
 <DD>
 <DT><CODE>end</CODE>
@@ -3040,7 +3040,7 @@ completes normally.  In contrast, <STRONG>stepping</STRONG> means executing just
 one more "step" of your program, where "step" may mean either one
 line of source code, or one machine instruction (depending on what
 particular command you use).  Either when continuing
-or when stepping, your program may stop even sooner, due to 
+or when stepping, your program may stop even sooner, due to
 a breakpoint or a signal.  (If due to a signal, you may want to use
 <CODE>handle</CODE>, or use <SAMP>`signal 0'</SAMP> to resume execution.
 See section <A HREF="gdb.html#SEC38">Signals</A>.)
@@ -3053,7 +3053,7 @@ See section <A HREF="gdb.html#SEC38">Signals</A>.)
 <A NAME="IDX145"></A>
  <A NAME="IDX146"></A>
  <A NAME="IDX147"></A>
- 
+
 <DT><CODE>c [<VAR>ignore-count</VAR>]</CODE>
 <DD>
 <DT><CODE>fg [<VAR>ignore-count</VAR>]</CODE>
@@ -3094,7 +3094,7 @@ variables that are interesting, until you see the problem happen.
 <DD>
 <A NAME="IDX148"></A>
  <A NAME="IDX149"></A>
- 
+
 Continue running your program until control reaches a different source
 line, then stop it and return control to GDB.  This command is
 abbreviated <CODE>s</CODE>.
@@ -3118,9 +3118,9 @@ function that has debugging information is called within the line.
 
 Also, the <CODE>step</CODE> command now only enters a subroutine if there is line
 number information for the subroutine.  Otherwise it acts like the
-<CODE>next</CODE> command.  This avoids problems when using <CODE>cc -gl</CODE> 
+<CODE>next</CODE> command.  This avoids problems when using <CODE>cc -gl</CODE>
 on MIPS machines.  Previously, <CODE>step</CODE> entered subroutines if there
-was any debugging information about the routine.  
+was any debugging information about the routine.
 
 <DT><CODE>step <VAR>count</VAR></CODE>
 <DD>
@@ -3136,7 +3136,7 @@ stepping stops right away.
 Continue to the next source line in the current (innermost) stack frame.
 This is similar to <CODE>step</CODE>, but function calls that appear within the line
 of code are executed without stopping.  Execution stops when control
-reaches a different line of code at the original stack level that was 
+reaches a different line of code at the original stack level that was
 executing when you gave the <CODE>next</CODE> command.  This command is abbreviated
 <CODE>n</CODE>.
 
@@ -3144,7 +3144,7 @@ An argument <VAR>count</VAR> is a repeat count, as for <CODE>step</CODE>.
 
 The <CODE>next</CODE> command now only stops at the first instruction of a
 source line.  This prevents the multiple stops that used to occur in
-swtch statements, for loops, etc. 
+swtch statements, for loops, etc.
 
 <A NAME="IDX152"></A>
 <DT><CODE>finish</CODE>
@@ -3285,7 +3285,7 @@ You can change these settings with the <CODE>handle</CODE> command.
 <DT><CODE>info signals</CODE>
 <DD>
 <A NAME="IDX162"></A>
- 
+
 Print a table of all the kinds of signals and how GDB has been told to
 handle each one.  You can use this to see the signal numbers of all
 the defined types of signals.
@@ -3295,7 +3295,7 @@ the defined types of signals.
 <A NAME="IDX163"></A>
 <DT><CODE>handle <VAR>signal</VAR> <VAR>keywords</VAR>...</CODE>
 <DD>
-Change the way GDB handles signal <VAR>signal</VAR>.  <VAR>signal</VAR> can 
+Change the way GDB handles signal <VAR>signal</VAR>.  <VAR>signal</VAR> can
 be the number of a signal or its name (with or without the <SAMP>`SIG'</SAMP> at the
 beginning).  The <VAR>keywords</VAR> say what change to make.
 </DL>
@@ -3354,7 +3354,7 @@ due to some sort of memory reference error, you might store correct
 values into the erroneous variables and continue, hoping to see more
 execution; but your program would probably terminate immediately as
 a result of the fatal signal once it saw the signal.  To prevent this,
-you can continue with <SAMP>`signal 0'</SAMP>.  See section <A HREF="gdb.html#SEC94">Giving your program a signal</A>. 
+you can continue with <SAMP>`signal 0'</SAMP>.  See section <A HREF="gdb.html#SEC94">Giving your program a signal</A>.
 
 </P>
 
@@ -3373,7 +3373,7 @@ breakpoints on all threads, or on a particular thread.
 <A NAME="IDX164"></A>
  <A NAME="IDX165"></A>
  <A NAME="IDX166"></A>
- 
+
 <DT><CODE>break <VAR>linespec</VAR> thread <VAR>threadno</VAR> if ...</CODE>
 <DD>
 <VAR>linespec</VAR> specifies source lines; there are several ways of
@@ -3415,7 +3415,7 @@ underfoot.
 <A NAME="IDX170"></A>
 Conversely, whenever you restart the program, <EM>all</EM> threads start
 executing.  <EM>This is true even when single-stepping</EM> with commands
-like <CODE>step</CODE> or <CODE>next</CODE>.  
+like <CODE>step</CODE> or <CODE>next</CODE>.
 
 </P>
 <P>
@@ -3446,12 +3446,12 @@ stopped and how it got there.
 </P>
 <P>
 <A NAME="IDX171"></A>
-Each time your program performs a function call, information about the call 
-is generated. 
-That information includes the location of the call in your program, 
-the arguments of the call, 
+Each time your program performs a function call, information about the call
+is generated.
+That information includes the location of the call in your program,
+the arguments of the call,
 and the local variables of the function being called.
-The information is saved in a block of data called a <STRONG>stack frame</STRONG>.  
+The information is saved in a block of data called a <STRONG>stack frame</STRONG>.
 The stack frames are allocated in a region of memory called the <STRONG>call
 stack</STRONG>.
 
@@ -3473,7 +3473,7 @@ interested in. See section <A HREF="gdb.html#SEC43">Selecting a frame</A>.
 </P>
 <P>
 When your program stops, GDB automatically selects the
-currently executing frame and describes it briefly, similar to the 
+currently executing frame and describes it briefly, similar to the
 <CODE>frame</CODE> command (see section <A HREF="gdb.html#SEC44">Information about a frame</A>).
 
 </P>
@@ -3544,11 +3544,11 @@ no provision for frameless functions elsewhere in the stack.
 <DT><CODE>frame <VAR>args</VAR></CODE>
 <DD>
 <A NAME="IDX181"></A>
- 
-The <CODE>frame</CODE> command allows you to move from one stack frame to another, 
+
+The <CODE>frame</CODE> command allows you to move from one stack frame to another,
 and to print the stack frame you select.  <VAR>args</VAR> may be either the
-address of the frame or the stack frame number.  Without an argument, 
-<CODE>frame</CODE> prints the current stack frame.  
+address of the frame or the stack frame number.  Without an argument,
+<CODE>frame</CODE> prints the current stack frame.
 
 <A NAME="IDX182"></A>
 <DT><CODE>select-frame</CODE>
@@ -3575,7 +3575,7 @@ stack.
 <DD>
 <A NAME="IDX183"></A>
  <A NAME="IDX184"></A>
- 
+
 <DT><CODE>bt</CODE>
 <DD>
 Print a backtrace of the entire stack: one line per frame for all
@@ -3621,7 +3621,7 @@ Here is an example of a backtrace.  It was made with the command
 </P>
 
 <PRE>
-#0  m4_traceon (obs=0x24eb0, argc=1, argv=0x2b8c8) 
+#0  m4_traceon (obs=0x24eb0, argc=1, argv=0x2b8c8)
     at builtin.c:993
 #1  0x6e38 in expand_macro (sym=0x2b600) at macro.c:242
 #2  0x6840 in expand_token (obs=0x0, t=177664, td=0xf7fffb08)
@@ -3652,7 +3652,7 @@ of the stack frame just selected.
 <DD>
 <A NAME="IDX188"></A>
  <A NAME="IDX189"></A>
- 
+
 <DT><CODE>f <VAR>n</VAR></CODE>
 <DD>
 Select frame number <VAR>n</VAR>.  Recall that frame zero is the innermost
@@ -3700,7 +3700,7 @@ abbreviate <CODE>down</CODE> as <CODE>do</CODE>.
 All of these commands end by printing two lines of output describing the
 frame.  The first line shows the frame number, the function name, the
 arguments, and the source file and line number of execution in that
-frame.  The second line shows the text of that source line.  
+frame.  The second line shows the text of that source line.
 
 </P>
 <P>
@@ -3727,7 +3727,7 @@ See section <A HREF="gdb.html#SEC47">Printing source lines</A>.
 <DD>
 <A NAME="IDX193"></A>
  <A NAME="IDX194"></A>
- 
+
 <DT><CODE>down-silently <VAR>n</VAR></CODE>
 <DD>
 These two commands are variants of <CODE>up</CODE> and <CODE>down</CODE>,
@@ -3771,7 +3771,7 @@ including:
 <UL>
 <LI>
 
-the address of the frame 
+the address of the frame
 <LI>
 
 the address of the next frame down (called by this frame)
@@ -3855,11 +3855,11 @@ commands:
 <DT><CODE>set heuristic-fence-post <VAR>limit</VAR></CODE>
 <DD>
 <A NAME="IDX205"></A>
- 
+
 Restrict GDB to examining at most <VAR>limit</VAR> bytes in its search
 for the beginning of a function.  A value of <VAR>0</VAR> (the default)
 means there is no limit.  However, except for <VAR>0</VAR>, the larger the
-limit the more bytes <CODE>heuristic-fence-post</CODE> must search and 
+limit the more bytes <CODE>heuristic-fence-post</CODE> must search and
 therefore the longer it takes to run.
 
 <DT><CODE>show heuristic-fence-post</CODE>
@@ -3887,7 +3887,7 @@ source files by explicit command.
 
 </P>
 <P>
-If you use GDB through its GNU Emacs interface, you may prefer 
+If you use GDB through its GNU Emacs interface, you may prefer
 to use
 Emacs facilities to view source; see section <A HREF="gdb.html#SEC150">Using GDB under GNU Emacs</A>.
 
@@ -3901,7 +3901,7 @@ Emacs facilities to view source; see section <A HREF="gdb.html#SEC150">Using GDB
 <A NAME="IDX206"></A>
 <A NAME="IDX207"></A>
 To print lines from a source file, use the <CODE>list</CODE> command
-(abbreviated <CODE>l</CODE>).  By default, ten lines are printed.  
+(abbreviated <CODE>l</CODE>).  By default, ten lines are printed.
 There are several ways to specify what part of the file you want to print.
 
 </P>
@@ -3943,7 +3943,7 @@ the <CODE>list</CODE> command.  You can change this using <CODE>set listsize</CO
 <DT><CODE>set listsize <VAR>count</VAR></CODE>
 <DD>
 <A NAME="IDX208"></A>
- 
+
 Make the <CODE>list</CODE> command display <VAR>count</VAR> source lines (unless
 the <CODE>list</CODE> argument explicitly specifies some other number).
 
@@ -4066,12 +4066,12 @@ regular expression.
 <DD>
 <A NAME="IDX213"></A>
  <A NAME="IDX214"></A>
- 
+
 <DT><CODE>search <VAR>regexp</VAR></CODE>
 <DD>
 The command <SAMP>`forward-search <VAR>regexp</VAR>'</SAMP> checks each line,
 starting with the one following the last line listed, for a match for
-<VAR>regexp</VAR>.  It lists the line that is found.  You can use the 
+<VAR>regexp</VAR>.  It lists the line that is found.  You can use the
 synonym <SAMP>`search <VAR>regexp</VAR>'</SAMP> or abbreviate the command name as
 <CODE>fo</CODE>.
 
@@ -4188,7 +4188,7 @@ You can use the command <CODE>info line</CODE> to map source lines to program
 addresses (and vice versa), and the command <CODE>disassemble</CODE> to display
 a range of addresses as machine instructions.  When run under GNU Emacs
 mode, the <CODE>info line</CODE> command now causes the arrow to point to the
-line specified.  Also, <CODE>info line</CODE> prints addresses in symbolic form as 
+line specified.  Also, <CODE>info line</CODE> prints addresses in symbolic form as
 well as hex.
 
 </P>
@@ -4197,7 +4197,7 @@ well as hex.
 <DT><CODE>info line <VAR>linespec</VAR></CODE>
 <DD>
 <A NAME="IDX229"></A>
- 
+
 Print the starting and ending addresses of the compiled code for
 source line <VAR>linespec</VAR>.  You can specify source lines in any of
 the ways understood by the <CODE>list</CODE> command (see section <A HREF="gdb.html#SEC47">Printing source lines</A>).
@@ -4241,7 +4241,7 @@ convenience variable <CODE>$_</CODE> (see section <A HREF="gdb.html#SEC60">Conve
  <A NAME="IDX233"></A>
  <A NAME="IDX234"></A>
  <A NAME="IDX235"></A>
- 
+
 This specialized command dumps a range of memory as machine
 instructions.  The default memory range is the function surrounding the
 program counter of the selected frame.  A single argument to this
@@ -4281,7 +4281,7 @@ End of assembler dump.
  <A NAME="IDX238"></A>
  <A NAME="IDX239"></A>
  <A NAME="IDX240"></A>
- 
+
 This command selects the instruction set to use when disassembling the program via the
 <CODE>disassemble</CODE> or <CODE>x/i</CODE> commands.  It is useful for architectures that
 have more than one native instruction set.
@@ -4300,7 +4300,7 @@ to either <CODE>i386</CODE> or <CODE>i8086</CODE>.  The default is <CODE>i386</C
 <A NAME="IDX243"></A>
 <A NAME="IDX244"></A>
 The usual way to examine data in your program is with the <CODE>print</CODE>
-command (abbreviated <CODE>p</CODE>), or its synonym <CODE>inspect</CODE>.  
+command (abbreviated <CODE>p</CODE>), or its synonym <CODE>inspect</CODE>.
 It evaluates and prints the value of an expression of the language your
 program is written in (see section <A HREF="gdb.html#SEC63">Using GDB with Different Languages</A>).
 
@@ -4357,7 +4357,7 @@ by preprocessor <CODE>#define</CODE> commands.
 <P>
 GDB now supports array constants in expressions input by
 the user.  The syntax is <VAR>{element, element...}</VAR>.  For example,
-you can now use the command <CODE>print {1, 2, 3}</CODE> to build up an array in 
+you can now use the command <CODE>print {1, 2, 3}</CODE> to build up an array in
 memory that is malloc'd in the target program.
 
 </P>
@@ -4430,7 +4430,7 @@ global (or static)
 </UL>
 
 <P>
-or 
+or
 
 </P>
 
@@ -4718,7 +4718,7 @@ any of several formats, independently of your program's data types.
 <DT><CODE>x/<VAR>nfu</VAR> <VAR>addr</VAR></CODE>
 <DD>
 <A NAME="IDX262"></A>
- 
+
 <DT><CODE>x <VAR>addr</VAR></CODE>
 <DD>
 <DT><CODE>x</CODE>
@@ -4875,7 +4875,7 @@ supported by <CODE>x</CODE>; otherwise it uses <CODE>print</CODE>.
 <DT><CODE>display <VAR>exp</VAR></CODE>
 <DD>
 <A NAME="IDX266"></A>
- 
+
 Add the expression <VAR>exp</VAR> to the list of expressions to display
 each time your program stops.  See section <A HREF="gdb.html#SEC52">Expressions</A>.
 
@@ -4908,7 +4908,7 @@ is a common name for the program counter; see section <A HREF="gdb.html#SEC61">R
 <DD>
 <A NAME="IDX267"></A>
  <A NAME="IDX268"></A>
- 
+
 <DT><CODE>delete display <VAR>dnums</VAR>...</CODE>
 <DD>
 Remove item numbers <VAR>dnums</VAR> from the list of expressions to display.
@@ -4977,7 +4977,7 @@ These settings are useful for debugging programs in any language:
 <DT><CODE>set print address</CODE>
 <DD>
 <A NAME="IDX274"></A>
- 
+
 <DT><CODE>set print address on</CODE>
 <DD>
 GDB prints memory addresses showing the location of stack
@@ -5033,7 +5033,7 @@ it prints a symbolic address:
 <DT><CODE>set print symbol-filename on</CODE>
 <DD>
 <A NAME="IDX276"></A>
- 
+
 Tell GDB to print the source file name and line number of a
 symbol in the symbolic form of an address.
 
@@ -5065,10 +5065,10 @@ printed is reasonably close to the closest earlier symbol:
 <DT><CODE>set print max-symbolic-offset <VAR>max-offset</VAR></CODE>
 <DD>
 <A NAME="IDX278"></A>
- 
+
 Tell GDB to only display the symbolic form of an address if the
 offset between the closest earlier symbol and the address is less than
-<VAR>max-offset</VAR>.  The default is 0, which tells GDB 
+<VAR>max-offset</VAR>.  The default is 0, which tells GDB
 to always print the symbolic form of an address if any symbol precedes it.
 
 <A NAME="IDX279"></A>
@@ -5113,7 +5113,7 @@ Other settings control how different kinds of objects are printed:
 <DT><CODE>set print array</CODE>
 <DD>
 <A NAME="IDX282"></A>
- 
+
 <DT><CODE>set print array on</CODE>
 <DD>
 Pretty print arrays.  This format is more convenient to read,
@@ -5154,7 +5154,7 @@ contain only short strings.
 <A NAME="IDX287"></A>
 <DT><CODE>set print pretty on</CODE>
 <DD>
-Cause GDB to print structures in an indented format with one member 
+Cause GDB to print structures in an indented format with one member
 per line, like this:
 
 
@@ -5208,7 +5208,7 @@ Show whether or not GDB is printing only seven-bit characters.
 <A NAME="IDX291"></A>
 <DT><CODE>set print union on</CODE>
 <DD>
-Tell GDB to print unions which are contained in structures.  This 
+Tell GDB to print unions which are contained in structures.  This
 is the default setting.
 
 <DT><CODE>set print union off</CODE>
@@ -5227,7 +5227,7 @@ For example, given the declarations
 <PRE>
 typedef enum {Tree, Bug} Species;
 typedef enum {Big_tree, Acorn, Seedling} Tree_forms;
-typedef enum {Caterpillar, Cocoon, Butterfly} 
+typedef enum {Caterpillar, Cocoon, Butterfly}
               Bug_forms;
 
 struct thing {
@@ -5267,7 +5267,7 @@ These settings are of interest when debugging C++ programs:
 <DD>
 <A NAME="IDX293"></A>
  <A NAME="IDX294"></A>
- 
+
 <DT><CODE>set print demangle on</CODE>
 <DD>
 Print C++ names in their source form rather than in the encoded
@@ -5310,7 +5310,7 @@ Allow GDB to choose a decoding style by inspecting your program.
 
 <DT><CODE>gnu</CODE>
 <DD>
-Decode based on the GNU C++ compiler (<CODE>g++</CODE>) encoding algorithm.  
+Decode based on the GNU C++ compiler (<CODE>g++</CODE>) encoding algorithm.
 This is the default.
 
 <DT><CODE>lucid</CODE>
@@ -5392,12 +5392,12 @@ Show whether C++ virtual function tables are pretty printed, or not.
 
 <P>
 <A NAME="IDX308"></A>
-Values printed by the <CODE>print</CODE> command are saved in the GDB 
-<STRONG>value history</STRONG>.  This allows you to refer to them in other expressions.  
-Values are kept until the symbol table is re-read or discarded 
-(for example with the <CODE>file</CODE> or <CODE>symbol-file</CODE> commands).  
-When the symbol table changes, the value history is discarded, 
-since the values may contain pointers back to the types defined in the 
+Values printed by the <CODE>print</CODE> command are saved in the GDB
+<STRONG>value history</STRONG>.  This allows you to refer to them in other expressions.
+Values are kept until the symbol table is re-read or discarded
+(for example with the <CODE>file</CODE> or <CODE>symbol-file</CODE> commands).
+When the symbol table changes, the value history is discarded,
+since the values may contain pointers back to the types defined in the
 symbol table.
 
 </P>
@@ -5468,7 +5468,7 @@ remains 4 even though the value of <CODE>x</CODE> has changed.
 <DT><CODE>show values</CODE>
 <DD>
 <A NAME="IDX312"></A>
- 
+
 Print the last ten values in the value history, with their item numbers.
 This is like <SAMP>`p $$9'</SAMP> repeated ten times, except that <CODE>show
 values</CODE> does not change the history.
@@ -5543,7 +5543,7 @@ variable, when used as an expression, has the type of its current value.
 <DT><CODE>show convenience</CODE>
 <DD>
 <A NAME="IDX314"></A>
- 
+
 Print a list of convenience variables used so far, and their values.
 Abbreviated <CODE>show con</CODE>.
 </DL>
@@ -5574,7 +5574,7 @@ values likely to be useful.
 <DT><CODE>$_</CODE>
 <DD>
 <A NAME="IDX315"></A>
- 
+
 The variable <CODE>$_</CODE> is automatically set by the <CODE>x</CODE> command to
 the last address examined (see section <A HREF="gdb.html#SEC56">Examining memory</A>).  Other
 commands which provide a default address for <CODE>x</CODE> to examine also
@@ -5614,7 +5614,7 @@ your machine.
 <DT><CODE>info registers</CODE>
 <DD>
 <A NAME="IDX319"></A>
- 
+
 Print the names and values of all registers except floating-point
 registers (in the selected stack frame).
 
@@ -5628,8 +5628,8 @@ registers.
 <DT><CODE>info registers <VAR>regname</VAR> ...</CODE>
 <DD>
 Print the <STRONG>relativized</STRONG> value of each specified register <VAR>regname</VAR>.
-As discussed in detail below, register values are normally relative to 
-the selected stack frame.  <VAR>regname</VAR> may be any register name valid on 
+As discussed in detail below, register values are normally relative to
+the selected stack frame.  <VAR>regname</VAR> may be any register name valid on
 the machine you are using, with or without the initial <SAMP>`$'</SAMP>.
 </DL>
 
@@ -5693,7 +5693,7 @@ the operating system is not the same one that your program normally
 sees.  For example, the registers of the 68881 floating point
 coprocessor are always saved in "extended" (raw) format, but all C
 programs expect to work with "double" (virtual) format.  In such
-cases, GDB normally works with the virtual format only (the format 
+cases, GDB normally works with the virtual format only (the format
 that makes sense for your program), but the <CODE>info registers</CODE> command
 prints the data in both formats.
 
@@ -5721,7 +5721,7 @@ frame makes no difference.
 <A NAME="IDX322"></A>
  <A NAME="IDX323"></A>
  <A NAME="IDX324"></A>
- 
+
 On AMD 29000 family processors, registers are saved in a separate
 "register stack".  There is no way for GDB to determine the extent
 of this stack.  Normally, GDB just assumes that the stack is "large
@@ -5756,7 +5756,7 @@ you more information about the status of the floating point hardware.
 <DT><CODE>info float</CODE>
 <DD>
 <A NAME="IDX327"></A>
- 
+
 Display hardware-dependent information about the floating
 point unit.  The exact contents and layout vary depending on the
 floating point chip.  Currently, <SAMP>`info float'</SAMP> is supported on
@@ -5775,7 +5775,7 @@ Although programming languages generally have common aspects, they are
 rarely expressed in the same manner.  For instance, in ANSI C,
 dereferencing a pointer <CODE>p</CODE> is accomplished by <CODE>*p</CODE>, but in
 Modula-2, it is accomplished by <CODE>p^</CODE>.  Values can also be
-represented (and displayed) differently.  Hex numbers in C appear as 
+represented (and displayed) differently.  Hex numbers in C appear as
 <SAMP>`0x1ae'</SAMP>, while in Modula-2 they appear as <SAMP>`1AEH'</SAMP>.
 
 </P>
@@ -5811,12 +5811,12 @@ source file is in.  However, most of the time GDB infers the
 language from the name of the file.  The language of a source file
 controls whether C++ names are demangled--this way <CODE>backtrace</CODE> can
 show each frame appropriately for its own language.  There is no way to
-set the language of a source file from within GDB.  
+set the language of a source file from within GDB.
 
 </P>
 <P>
 This is most commonly a problem when you use a program, such
-as <CODE>cfront</CODE> or <CODE>f2c</CODE>, that generates C but is written in 
+as <CODE>cfront</CODE> or <CODE>f2c</CODE>, that generates C but is written in
 another language.  In that case, make the
 program use <CODE>#line</CODE> directives in its C output; that way
 GDB will know the correct language of the source code of the original
@@ -5887,7 +5887,7 @@ your program.
 <A NAME="IDX330"></A>
 If you wish, you may set the language manually.  To do this, issue the
 command <SAMP>`set language <VAR>lang</VAR>'</SAMP>, where <VAR>lang</VAR> is the name of
-a language, such as 
+a language, such as
 <CODE>c</CODE> or <CODE>modula-2</CODE>.
 For a list of the supported languages, type <SAMP>`set language'</SAMP>.
 
@@ -5961,15 +5961,15 @@ build and compute expressions that may involve variables in your program.
 
 <DT><CODE>info frame</CODE>
 <DD>
-Display the source language for this frame.  This language becomes the 
+Display the source language for this frame.  This language becomes the
 working language if you use an identifier from this frame.
-See section <A HREF="gdb.html#SEC44">Information about a frame</A>, to identify the other 
+See section <A HREF="gdb.html#SEC44">Information about a frame</A>, to identify the other
 information listed here.
 
 <DT><CODE>info source</CODE>
 <DD>
 Display the source language of this source file.
-See section <A HREF="gdb.html#SEC90">Examining the Symbol Table</A>, to identify the other 
+See section <A HREF="gdb.html#SEC90">Examining the Symbol Table</A>, to identify the other
 information listed here.
 </DL>
 
@@ -6033,21 +6033,21 @@ type-compatible with the <CODE>REAL</CODE> 2.3.
 
 </P>
 <P>
-For the expressions you use in GDB commands, you can tell the 
-GDB type checker to skip checking; 
-to treat any mismatches as errors and abandon the expression; 
-or to only issue warnings when type mismatches occur, 
+For the expressions you use in GDB commands, you can tell the
+GDB type checker to skip checking;
+to treat any mismatches as errors and abandon the expression;
+or to only issue warnings when type mismatches occur,
 but evaluate the expression anyway.  When you choose the last of
 these, GDB evaluates expressions like the second example above, but
 also issues a warning.
 
 </P>
 <P>
-Even if you turn type checking off, there may be other reasons 
-related to type that prevent GDB from evaluating an expression.  
-For instance, GDB does not know how to add an <CODE>int</CODE> and 
-a <CODE>struct foo</CODE>.  These particular type errors have nothing to do 
-with the language in use, and usually arise from expressions, such as 
+Even if you turn type checking off, there may be other reasons
+related to type that prevent GDB from evaluating an expression.
+For instance, GDB does not know how to add an <CODE>int</CODE> and
+a <CODE>struct foo</CODE>.  These particular type errors have nothing to do
+with the language in use, and usually arise from expressions, such as
 the one described above, which make little sense to evaluate anyway.
 
 </P>
@@ -6095,7 +6095,7 @@ numbers and structures.
 
 <DT><CODE>show type</CODE>
 <DD>
-Show the current setting of the type checker, and whether or not GDB 
+Show the current setting of the type checker, and whether or not GDB
 is setting it automatically.
 </DL>
 
@@ -6242,7 +6242,7 @@ section `Options for Debugging Your Program or GNU CC' in <CITE>Using GNU CC</CI
 <P>
 Operators must be defined on values of specific types.  For instance,
 <CODE>+</CODE> is defined on numbers, but not on structures.  Operators are
-often defined on groups of types.  
+often defined on groups of types.
 
 </P>
 <P>
@@ -6523,7 +6523,7 @@ support in GDB does <EM>not</EM> work.
 <LI>
 
 <A NAME="IDX361"></A>
- 
+
 Member function calls are allowed; you can use expressions like
 
 
@@ -6553,7 +6553,7 @@ user-defined type operators.
 <A NAME="IDX366"></A>
 <LI>
 
-GDB understands variables declared as C++ references; you can use 
+GDB understands variables declared as C++ references; you can use
 them in expressions just as you do in C++ source--they are automatically
 dereferenced.
 
@@ -6591,7 +6591,7 @@ selects the working language.
 <P>
 If you allow GDB to set the language automatically, it recognizes
 source files whose names end with <TT>`.c'</TT>, <TT>`.C'</TT>, or <TT>`.cc'</TT>, and
-when GDB enters code compiled from one of these files, 
+when GDB enters code compiled from one of these files,
 it sets the working language to C or C++.
 See section <A HREF="gdb.html#SEC67">Having GDB infer the source language</A>, for
 further details.
@@ -6663,7 +6663,7 @@ designed specifically for use with C++.  Here is a summary:
 <DT><CODE>breakpoint menus</CODE>
 <DD>
 <A NAME="IDX370"></A>
- 
+
 When you want a breakpoint in a function whose name is overloaded,
 GDB breakpoint menus help you specify which function definition
 you want.  See section <A HREF="gdb.html#SEC36">Breakpoint menus</A>.
@@ -7333,7 +7333,7 @@ looks up the value of <CODE>x</CODE> in the scope of the file <TT>`foo.c'</TT>.
 <DT><CODE>info address <VAR>symbol</VAR></CODE>
 <DD>
 <A NAME="IDX391"></A>
- 
+
 Describe where the data for <VAR>symbol</VAR> is stored.  For a register
 variable, this says which register it is kept in.  For a non-register
 local variable, this prints the stack-frame offset at which the variable
@@ -7463,7 +7463,7 @@ reload the symbols for automatically relinked modules:
 <DT><CODE>set symbol-reloading on</CODE>
 <DD>
 <A NAME="IDX400"></A>
- 
+
 Replace symbol definitions for the corresponding source file when an
 object file with a particular name is seen again.
 
@@ -7546,7 +7546,7 @@ print x=4
 
 <P>
 stores the value 4 into the variable <CODE>x</CODE>, and then prints the
-value of the assignment expression (which is 4).  
+value of the assignment expression (which is 4).
 See section <A HREF="gdb.html#SEC63">Using GDB with Different Languages</A>, for more
 information on operators in supported languages.
 
@@ -7629,7 +7629,7 @@ an address of your own choosing, with the following commands:
 <DT><CODE>jump <VAR>linespec</VAR></CODE>
 <DD>
 <A NAME="IDX410"></A>
- 
+
 Resume execution at line <VAR>linespec</VAR>.  Execution stops again
 immediately if there is a breakpoint there.  See section <A HREF="gdb.html#SEC47">Printing source lines</A>, for a description of the different forms of
 <VAR>linespec</VAR>.
@@ -7682,7 +7682,7 @@ already executed, in order to examine its execution in more detail.
 <DT><CODE>signal <VAR>signal</VAR></CODE>
 <DD>
 <A NAME="IDX411"></A>
- 
+
 Resume execution where your program stopped, but immediately give it the
 signal <VAR>signal</VAR>.  <VAR>signal</VAR> can be the name or the number of a
 signal.  For example, on many systems <CODE>signal 2</CODE> and <CODE>signal
@@ -7717,7 +7717,7 @@ passes the signal directly to your program.
 <DD>
 <A NAME="IDX412"></A>
  <A NAME="IDX413"></A>
- 
+
 <DT><CODE>return <VAR>expression</VAR></CODE>
 <DD>
 You can cancel execution of a function call with the <CODE>return</CODE>
@@ -7765,8 +7765,8 @@ returned values.
 <P>
 You can use this variant of the <CODE>print</CODE> command if you want to
 execute a function from your program, but without cluttering the output
-with <CODE>void</CODE> returned values.  If the result is not void, it 
-is printed and saved in the value history. 
+with <CODE>void</CODE> returned values.  If the result is not void, it
+is printed and saved in the value history.
 
 </P>
 <P>
@@ -7807,10 +7807,10 @@ repairs.
 <DT><CODE>set write on</CODE>
 <DD>
 <A NAME="IDX419"></A>
- 
+
 <DT><CODE>set write off</CODE>
 <DD>
-If you specify <SAMP>`set write on'</SAMP>, GDB opens executable 
+If you specify <SAMP>`set write on'</SAMP>, GDB opens executable
 and core
 files for both reading and writing; if you specify <SAMP>`set write
 off'</SAMP> (the default), GDB opens them read-only.
@@ -7824,8 +7824,8 @@ effect.
 <DT><CODE>show write</CODE>
 <DD>
 <A NAME="IDX420"></A>
-Display whether executable files 
-and core files 
+Display whether executable files
+and core files
 are opened for writing as well as reading.
 </DL>
 
@@ -7835,7 +7835,7 @@ are opened for writing as well as reading.
 
 <P>
 GDB needs to know the file name of the program to be debugged, both in
-order to read its symbol table and in order to start your program.  
+order to read its symbol table and in order to start your program.
 To debug a core dump of a previous run, you must also tell GDB
 the name of the core dump file.
 
@@ -7851,7 +7851,7 @@ the name of the core dump file.
 <P>
 <A NAME="IDX422"></A>
 You may want to specify executable and core dump file names.
-The usual way to do this is at start-up time, using the arguments to 
+The usual way to do this is at start-up time, using the arguments to
 GDB's start-up commands (see section <A HREF="gdb.html#SEC5">Getting In and Out of GDB</A>).
 
 </P>
@@ -7868,14 +7868,14 @@ to specify new files are useful.
 <DD>
 <A NAME="IDX423"></A>
  <A NAME="IDX424"></A>
- 
+
 Use <VAR>filename</VAR> as the program to be debugged.  It is read for its
 symbols and for the contents of pure memory.  It is also the program
 executed when you use the <CODE>run</CODE> command.  If you do not specify a
-directory and the file is not found in the GDB working directory, 
-GDB uses the environment variable <CODE>PATH</CODE> as a list of 
-directories to search, just as the shell does when looking for a program 
-to run.  You can change the value of this variable, for both GDB 
+directory and the file is not found in the GDB working directory,
+GDB uses the environment variable <CODE>PATH</CODE> as a list of
+directories to search, just as the shell does when looking for a program
+to run.  You can change the value of this variable, for both GDB
 and your program, using the <CODE>path</CODE> command.
 
 On systems with memory-mapped files, an auxiliary file
@@ -7884,7 +7884,7 @@ On systems with memory-mapped files, an auxiliary file
 <TT>`<VAR>filename</VAR>.syms'</TT>, starting up more quickly.  See the
 descriptions of the file options <SAMP>`-mapped'</SAMP> and <SAMP>`-readnow'</SAMP>
 (available on the command line, and with the commands <CODE>file</CODE>,
-<CODE>symbol-file</CODE>, or <CODE>add-symbol-file</CODE>, described below), 
+<CODE>symbol-file</CODE>, or <CODE>add-symbol-file</CODE>, described below),
 for more information.
 
 <DT><CODE>file</CODE>
@@ -7910,7 +7910,7 @@ table and program to run from the same file.
 <CODE>symbol-file</CODE> with no argument clears out GDB information on your
 program's symbol table.
 
-The <CODE>symbol-file</CODE> command causes GDB to forget the contents 
+The <CODE>symbol-file</CODE> command causes GDB to forget the contents
 of its convenience variables, the value history, and all breakpoints and
 auto-display expressions.  This is because they may contain pointers to
 the internal data recording symbols and data types, which are part of
@@ -7936,7 +7936,7 @@ The purpose of this two-stage reading strategy is to make GDB start up
 faster.  For the most part, it is invisible except for occasional
 pauses while the symbol table details for a particular source file are
 being read.  (The <CODE>set verbose</CODE> command can turn these pauses
-into messages if desired.  See section <A HREF="gdb.html#SEC144">Optional warnings and messages</A>.) 
+into messages if desired.  See section <A HREF="gdb.html#SEC144">Optional warnings and messages</A>.)
 
 We have not implemented the two-stage strategy for COFF yet.  When the
 symbol table is stored in COFF format, <CODE>symbol-file</CODE> reads the
@@ -7955,7 +7955,7 @@ symbol table data in full right away.
 You can override the GDB two-stage strategy for reading symbol
 tables by using the <SAMP>`-readnow'</SAMP> option with any of the commands that
 load symbol table information, if you want to be sure GDB has the
-entire symbol table available.  
+entire symbol table available.
 
 If memory-mapped files are available on your system through the
 <CODE>mmap</CODE> system call, you can use another option, <SAMP>`-mapped'</SAMP>, to
@@ -8065,18 +8065,18 @@ table information for <VAR>filename</VAR>.
 <DT><CODE>add-shared-symbol-file</CODE>
 <DD>
 The <CODE>add-shared-symbol-file</CODE> command can be used only under Harris' CXUX
-operating system for the Motorola 88k.  GDB automatically looks for 
-shared libraries, however if GDB does not find yours, you can run 
+operating system for the Motorola 88k.  GDB automatically looks for
+shared libraries, however if GDB does not find yours, you can run
 <CODE>add-shared-symbol-file</CODE>.  It takes no arguments.
 
 <A NAME="IDX444"></A>
 <DT><CODE>section</CODE>
 <DD>
-The <CODE>section</CODE> command changes the base address of section SECTION of 
-the exec file to ADDR.  This can be used if the exec file does not contain 
-section addresses, (such as in the a.out format), or when the addresses 
-specified in the file itself are wrong.  Each section must be changed 
-separately.  The "info files" command lists all the sections and their 
+The <CODE>section</CODE> command changes the base address of section SECTION of
+the exec file to ADDR.  This can be used if the exec file does not contain
+section addresses, (such as in the a.out format), or when the addresses
+specified in the file itself are wrong.  Each section must be changed
+separately.  The "info files" command lists all the sections and their
 addresses.
 
 <A NAME="IDX445"></A>
@@ -8116,7 +8116,7 @@ debugging a core file).
 <DD>
 <A NAME="IDX448"></A>
  <A NAME="IDX449"></A>
- 
+
 <DT><CODE>info sharedlibrary</CODE>
 <DD>
 Print the names of the shared libraries which are currently loaded.
@@ -8244,7 +8244,7 @@ that case, the debugging target is specified as a side effect when you
 use the <CODE>file</CODE> or <CODE>core</CODE> commands.  When you need more
 flexibility--for example, running GDB on a physically separate
 host, or controlling a standalone system over a serial port or a
-realtime system over a TCP/IP connection--you 
+realtime system over a TCP/IP connection--you
 can use the <CODE>target</CODE> command to specify one of the target types
 configured for GDB (see section <A HREF="gdb.html#SEC103">Commands for managing targets</A>).
 
@@ -8282,8 +8282,8 @@ executable files contain only the program text and initialized data.)
 <P>
 When you type <CODE>run</CODE>, your executable file becomes an active process
 target as well.  When a process target is active, all GDB commands
-requesting memory addresses refer to that target; addresses in an 
-active core file or 
+requesting memory addresses refer to that target; addresses in an
+active core file or
 executable file target are obscured while the process
 target is active.
 
@@ -8329,14 +8329,14 @@ select it.
 <A NAME="IDX459"></A>
 <DT><CODE>set gnutarget <VAR>args</VAR></CODE>
 <DD>
-GDBuses its own library BFD to read your files.  GDB 
+GDBuses its own library BFD to read your files.  GDB
 knows whether it is reading an <STRONG>executable</STRONG>,
-a <STRONG>core</STRONG>, or a <STRONG>.o</STRONG> file, however you can specify the file format 
-with the <CODE>set gnutarget</CODE> command.  Unlike most <CODE>target</CODE> commands, 
+a <STRONG>core</STRONG>, or a <STRONG>.o</STRONG> file, however you can specify the file format
+with the <CODE>set gnutarget</CODE> command.  Unlike most <CODE>target</CODE> commands,
 with <CODE>gnutarget</CODE> the <CODE>target</CODE> refers to a program, not a machine.
 
 <EM>Warning:</EM> To specify a file format with <CODE>set gnutarget</CODE>,
-you must know the actual BFD name.  
+you must know the actual BFD name.
 
 See section <A HREF="gdb.html#SEC99">Commands to specify files</A>.
 
@@ -8359,7 +8359,7 @@ configuration):
 <DT><CODE>target exec <VAR>program</VAR></CODE>
 <DD>
 <A NAME="IDX461"></A>
- 
+
 An executable file.  <SAMP>`target exec <VAR>program</VAR>'</SAMP> is the same as
 <SAMP>`exec-file <VAR>program</VAR>'</SAMP>.
 
@@ -8469,14 +8469,14 @@ Array Tech LSI33K RAID controller board.
 <A NAME="IDX479"></A>
 <DT><CODE>target sparclite <VAR>dev</VAR></CODE>
 <DD>
-Fujitsu sparclite boards, used only for the purpose of loading.  
-You must use an additional command to debug the program. 
-For example: target remote <VAR>dev</VAR> using GDB standard 
+Fujitsu sparclite boards, used only for the purpose of loading.
+You must use an additional command to debug the program.
+For example: target remote <VAR>dev</VAR> using GDB standard
 remote protocol.
 </DL>
 
 <P>
-Different targets are available on different configurations of GDB; 
+Different targets are available on different configurations of GDB;
 your configuration may have more or fewer targets.
 
 </P>
@@ -8494,13 +8494,13 @@ your configuration may have more or fewer targets.
 </P>
 <P>
 You can now choose which byte order to use with a target system.
-Use the <CODE>set endian big</CODE> and <CODE>set endian little</CODE> commands.  
+Use the <CODE>set endian big</CODE> and <CODE>set endian little</CODE> commands.
 Use the <CODE>set endian auto</CODE> command to instruct
 GDB to use the byte order associated with the executable.
 You can see the current setting for byte order with the <CODE>show endian</CODE>
 command.
- 
-<EM>Warning:</EM> Currently, only embedded MIPS configurations support 
+
+<EM>Warning:</EM> Currently, only embedded MIPS configurations support
 dynamic selection of target byte order.
 
 </P>
@@ -8513,8 +8513,8 @@ dynamic selection of target byte order.
 </P>
 <P>
 If you are trying to debug a program running on a machine that cannot run
-GDB in the usual way, it is often useful to use remote debugging.  
-For example, you might use remote debugging on an operating system kernel, 
+GDB in the usual way, it is often useful to use remote debugging.
+For example, you might use remote debugging on an operating system kernel,
 or on a small system which does not have a general purpose operating system
 powerful enough to run a full-featured debugger.
 
@@ -8522,7 +8522,7 @@ powerful enough to run a full-featured debugger.
 <P>
 Some configurations of GDB have special serial or TCP/IP interfaces
 to make this work with particular debugging targets.  In addition,
-GDB comes with a generic serial protocol (specific to GDB, 
+GDB comes with a generic serial protocol (specific to GDB,
 but not specific to any particular target system) which you can use if you
 write the remote stubs--the code that runs on the remote system to
 communicate with GDB.
@@ -8684,7 +8684,7 @@ information on the state of your program, then continues to execute,
 retrieving and transmitting any information GDB needs, until you
 execute a GDB command that makes your program resume; at that point,
 <CODE>handle_exception</CODE> returns control to your own code on the target
-machine. 
+machine.
 
 <DT><CODE>breakpoint</CODE>
 <DD>
@@ -8698,7 +8698,7 @@ pressing the interrupt button transfers control to
 simply receiving characters on the serial port may also trigger a trap;
 again, in that situation, you don't need to call <CODE>breakpoint</CODE> from
 your own program--simply running <SAMP>`target remote'</SAMP> from the host
-GDB session gets control.  
+GDB session gets control.
 
 Call <CODE>breakpoint</CODE> if none of these is true, or if you simply want
 to make certain your program stops at a predetermined point for the
@@ -8734,7 +8734,7 @@ different name is used to allow you to distinguish the two if you wish.
 <DD>
 <A NAME="IDX511"></A>
 Write this subroutine to write a single character to the serial port.
-It may be identical to <CODE>putchar</CODE> for your target system; a 
+It may be identical to <CODE>putchar</CODE> for your target system; a
 different name is used to allow you to distinguish the two if you wish.
 </DL>
 
@@ -9010,7 +9010,7 @@ identifies the kind of command.
 
 </P>
 <P>
-These are some of the commands currently supported (for a complete list of 
+These are some of the commands currently supported (for a complete list of
 commands, look in <TT>`gdb/remote.c.'</TT>):
 
 </P>
@@ -9062,8 +9062,8 @@ to make a quick decision about single-stepping or conditional breakpoints.
 This eliminates the need to fetch the entire register set for each instruction
 being stepped through.
 
-The GDB remote serial protocol now implements a write-through 
-cache for registers.  GDB only re-reads the registers if the 
+The GDB remote serial protocol now implements a write-through
+cache for registers.  GDB only re-reads the registers if the
 target has run.
 </DL>
 
@@ -9233,7 +9233,7 @@ the baud rate used by the connection.  <VAR>port</VAR> and <VAR>node</VAR> defau
 to 0, <VAR>baud</VAR> defaults to 9600 bps.
 
 For example, to debug Emacs with the argument <SAMP>`foo.txt'</SAMP>and
-communicate with GDB over serial port number 2 or board 1 
+communicate with GDB over serial port number 2 or board 1
 using a 19200 bps connection:
 
 
@@ -9302,7 +9302,7 @@ reach the ordinary GDB prompt:
 </P>
 
 <PRE>
-Attach /dev/ttyNN -- specify NN, or "quit" to quit:  
+Attach /dev/ttyNN -- specify NN, or "quit" to quit:
 </PRE>
 
 <P>
@@ -9708,10 +9708,10 @@ GDB for debugging programs on the host itself.)
 <DT><CODE>VxWorks-timeout <VAR>args</VAR></CODE>
 <DD>
 <A NAME="IDX553"></A>
-All VxWorks-based targets now support the option <CODE>vxworks-timeout</CODE>.  
-This option is set by the user, and  <VAR>args</VAR> represents the number of 
-seconds GDB waits for responses to rpc's.  You might use this if 
-your VxWorks target is a slow software simulator or is on the far side 
+All VxWorks-based targets now support the option <CODE>vxworks-timeout</CODE>.
+This option is set by the user, and  <VAR>args</VAR> represents the number of
+seconds GDB waits for responses to rpc's.  You might use this if
+your VxWorks target is a slow software simulator or is on the far side
 of a thin network line.
 </DL>
 
@@ -9769,7 +9769,7 @@ GDB displays messages like these:
 </P>
 
 <PRE>
-Attaching remote machine across net... 
+Attaching remote machine across net...
 Connected to tt.
 </PRE>
 
@@ -9827,7 +9827,7 @@ Then, in GDB, type:
 </P>
 
 <PRE>
-(vxgdb) cd <VAR>hostpath</VAR>/vw/demo/rdb 
+(vxgdb) cd <VAR>hostpath</VAR>/vw/demo/rdb
 (vxgdb) load prog.o
 </PRE>
 
@@ -9879,11 +9879,11 @@ the time of attachment.
 
 </P>
 <P>
-GDB enables developers to debug tasks running on 
-Sparclet targets from a Unix host.  
+GDB enables developers to debug tasks running on
+Sparclet targets from a Unix host.
 GDB uses code that runs on
 both the Unix host and on the Sparclet target.  The program
-<CODE>gdb</CODE> is installed and executed on the Unix host.  
+<CODE>gdb</CODE> is installed and executed on the Unix host.
 
 </P>
 <DL COMPACT>
@@ -9891,16 +9891,16 @@ both the Unix host and on the Sparclet target.  The program
 <DT><CODE>timeout <VAR>args</VAR></CODE>
 <DD>
 <A NAME="IDX558"></A>
-GDB now supports the option <CODE>remotetimeout</CODE>.  
-This option is set by the user, and  <VAR>args</VAR> represents the number of 
-seconds GDB waits for responses.  
+GDB now supports the option <CODE>remotetimeout</CODE>.
+This option is set by the user, and  <VAR>args</VAR> represents the number of
+seconds GDB waits for responses.
 </DL>
 
 <P>
 <A NAME="IDX559"></A>
-When compiling for debugging, include the options "-g" to get debug 
+When compiling for debugging, include the options "-g" to get debug
 information and "-Ttext" to relocate the program to where you wish to
-load it on the target.  You may also want to add the options "-n" or 
+load it on the target.  You may also want to add the options "-n" or
 "-N" in order to reduce the size of the sections.
 
 </P>
@@ -9922,7 +9922,7 @@ sparclet-aout-objdump --headers --syms prog
 <A NAME="IDX560"></A>
 Once you have set
 your Unix execution search path to find GDB, you are ready to
-run GDB.  From your Unix host, run <CODE>gdb</CODE> 
+run GDB.  From your Unix host, run <CODE>gdb</CODE>
 (or <CODE>sparclet-aout-gdb</CODE>, depending on your installation).
 
 </P>
@@ -9969,7 +9969,7 @@ prog: No such file or directory.
 
 <P>
 When this happens, add the appropriate directories to the search paths with
-the GDB commands <CODE>path</CODE> and <CODE>dir</CODE>, and execute the 
+the GDB commands <CODE>path</CODE> and <CODE>dir</CODE>, and execute the
 <CODE>target</CODE> command again.
 
 </P>
@@ -9986,7 +9986,7 @@ To connect to a target on serial port "<CODE>ttya</CODE>", type:
 <PRE>
 (gdbslet) target sparclet /dev/ttya
 Remote target sparclet connected to /dev/ttya
-main () at ../prog.c:3 
+main () at ../prog.c:3
 </PRE>
 
 <P>
@@ -10004,12 +10004,12 @@ Connected to ttya.
 
 <P>
 <A NAME="IDX561"></A>
-Once connected to the Sparclet target, 
+Once connected to the Sparclet target,
 you can use the GDB
 <CODE>load</CODE> command to download the file from the host to the target.
 The file name and load offset should be given as arguments to the <CODE>load</CODE>
 command.
-Since the file format is aout, the program must be loaded to the starting 
+Since the file format is aout, the program must be loaded to the starting
 address.  You can use objdump to find out what this value is.  The load
 offset is an offset which is added to the VMA (virtual memory address)
 of each of the file's sections.
@@ -10025,8 +10025,8 @@ Loading section .text, size 0xdb0 vma 0x12010000
 </PRE>
 
 <P>
-If the code is loaded at a different address then what the program was linked 
-to, you may need to use the <CODE>section</CODE> and <CODE>add-symbol-file</CODE> commands 
+If the code is loaded at a different address then what the program was linked
+to, you may need to use the <CODE>section</CODE> and <CODE>add-symbol-file</CODE> commands
 to tell GDB where to map the symbol table.
 
 </P>
@@ -10037,7 +10037,7 @@ to tell GDB where to map the symbol table.
 <P>
 <A NAME="IDX562"></A>
 You can now begin debugging the task using GDB's execution control
-commands, <CODE>b</CODE>, <CODE>step</CODE>, <CODE>run</CODE>, etc.  See the GDB 
+commands, <CODE>b</CODE>, <CODE>step</CODE>, <CODE>run</CODE>, etc.  See the GDB
 manual for the list of commands.
 
 </P>
@@ -10045,13 +10045,13 @@ manual for the list of commands.
 <PRE>
 (gdbslet) b main
 Breakpoint 1 at 0x12010000: file prog.c, line 3.
-(gdbslet) run 
+(gdbslet) run
 Starting program: prog
 Breakpoint 1, main (argc=1, argv=0xeffff21c) at prog.c:3
 3        char *symarg = 0;
 (gdbslet) step
 4        char *execarg = "hello!";
-(gdbslet)                           
+(gdbslet) 
 </PRE>
 
 
@@ -10059,7 +10059,7 @@ Breakpoint 1, main (argc=1, argv=0xeffff21c) at prog.c:3
 <H3><A NAME="SEC132" HREF="gdb_toc.html#TOC132">GDB and Hitachi microprocessors</A></H3>
 <P>
 GDB needs to know these things to talk to your
-Hitachi SH, H8/300, or H8/500: 
+Hitachi SH, H8/300, or H8/500:
 
 </P>
 
@@ -10157,7 +10157,7 @@ H8/500 configurations:
 <DD>
 <A NAME="IDX568"></A>
  <A NAME="IDX569"></A>
- 
+
 <DT><CODE>set machine h8300h</CODE>
 <DD>
 Condition GDB for one of the two variants of the H8/300
@@ -10251,11 +10251,11 @@ GDB also supports these special commands for MIPS targets:
 <A NAME="IDX578"></A>
 Use the <CODE>set processor</CODE> command to set the type of MIPS
 processor when you want to access processor-type-specific registers.
-For example, <CODE>set processor <VAR>r3041</VAR></CODE> tells GDB 
+For example, <CODE>set processor <VAR>r3041</VAR></CODE> tells GDB
 to use the CPO registers appropriate for the 3041 chip.
-Use the <CODE>show processor</CODE> command to see what MIPS processor GDB 
+Use the <CODE>show processor</CODE> command to see what MIPS processor GDB
 is using.  Use the <CODE>info reg</CODE> command to see what registers
-GDB is using. 
+GDB is using.
 
 <DT><CODE>set mipsfpu double</CODE>
 <DD>
@@ -10364,7 +10364,7 @@ appropriate by inspecting the object code.
 <DD>
 <A NAME="IDX601"></A>
 <A NAME="IDX602"></A>
-Debug programs on a simulated CPU 
+Debug programs on a simulated CPU
 (which CPU depends on the GDB configuration)
 </DL>
 
@@ -10393,7 +10393,7 @@ Counts instructions run in the simulator.
 
 <DT><CODE>time</CODE>
 <DD>
-Execution time in 60ths of a second. 
+Execution time in 60ths of a second.
 </DL>
 
 <P>
@@ -10410,7 +10410,7 @@ simulated clock ticks.
 <P>
 You can alter the way GDB interacts with you by using
 the <CODE>set</CODE> command.  For commands controlling how GDB displays
-data, see section <A HREF="gdb.html#SEC58">Print settings</A>; other settings are described 
+data, see section <A HREF="gdb.html#SEC58">Print settings</A>; other settings are described
 here.
 
 </P>
@@ -10428,7 +10428,7 @@ GDB indicates its readiness to read a command by printing a string
 called the <STRONG>prompt</STRONG>.  This string is normally <SAMP>`(gdb)'</SAMP>.  You
 can change the prompt string with the <CODE>set prompt</CODE> command.  For
 instance, when debugging GDB with GDB, it is useful to change
-the prompt in one of the GDB sessions so that you can always tell 
+the prompt in one of the GDB sessions so that you can always tell
 which one you are talking to.
 
 </P>
@@ -10443,7 +10443,7 @@ or a prompt that does not.
 <DT><CODE>set prompt <VAR>newprompt</VAR></CODE>
 <DD>
 <A NAME="IDX604"></A>
- 
+
 Directs GDB to use <VAR>newprompt</VAR> as its prompt string henceforth.
 
 <A NAME="IDX605"></A>
@@ -10480,7 +10480,7 @@ command <CODE>set</CODE>.
 <DD>
 <A NAME="IDX608"></A>
  <A NAME="IDX609"></A>
- 
+
 <DT><CODE>set editing on</CODE>
 <DD>
 Enable command line editing (enabled by default).
@@ -10514,7 +10514,7 @@ history facility.
  <A NAME="IDX612"></A>
  <A NAME="IDX613"></A>
  <A NAME="IDX614"></A>
- 
+
 Set the name of the GDB command history file to <VAR>fname</VAR>.
 This is the file where GDB reads an initial command history
 list, and where it writes the command history from this session when it
@@ -10569,7 +10569,7 @@ The commands to control history expansion are:
 <DT><CODE>set history expansion on</CODE>
 <DD>
 <A NAME="IDX620"></A>
- 
+
 <DT><CODE>set history expansion</CODE>
 <DD>
 Enable history expansion.  History expansion is off by default.
@@ -10602,7 +10602,7 @@ These commands display the state of the GDB history parameters.
 <DT><CODE>show commands</CODE>
 <DD>
 <A NAME="IDX622"></A>
- 
+
 Display the last ten commands in the command history.
 
 <DT><CODE>show commands <VAR>n</VAR></CODE>
@@ -10649,7 +10649,7 @@ width</CODE> commands:
  <A NAME="IDX626"></A>
  <A NAME="IDX627"></A>
  <A NAME="IDX628"></A>
- 
+
 <DT><CODE>show height</CODE>
 <DD>
 <DT><CODE>set width <VAR>cpl</VAR></CODE>
@@ -10660,8 +10660,8 @@ These <CODE>set</CODE> commands specify a screen height of <VAR>lpp</VAR> lines 
 a screen width of <VAR>cpl</VAR> characters.  The associated <CODE>show</CODE>
 commands display the current settings.
 
-If you specify a height of zero lines, GDB does not pause during 
-output no matter how long the output is.  This is useful if output is to a 
+If you specify a height of zero lines, GDB does not pause during
+output no matter how long the output is.  This is useful if output is to a
 file or to an editor buffer.
 
 Likewise, you can specify <SAMP>`set width 0'</SAMP> to prevent GDB
@@ -10691,7 +10691,7 @@ both input and output with the <CODE>set radix</CODE> command.
 <DT><CODE>set input-radix <VAR>base</VAR></CODE>
 <DD>
 <A NAME="IDX631"></A>
- 
+
 Set the default base for numeric input.  Supported choices
 for <VAR>base</VAR> are decimal 8, 10, or 16.  <VAR>base</VAR> must itself be
 specified either unambiguously or using the current default radix; for
@@ -10747,7 +10747,7 @@ see <CODE>symbol-file</CODE> in section <A HREF="gdb.html#SEC99">Commands to spe
 <DT><CODE>set verbose on</CODE>
 <DD>
 <A NAME="IDX635"></A>
- 
+
 Enables GDB output of certain informational messages.
 
 <DT><CODE>set verbose off</CODE>
@@ -10771,7 +10771,7 @@ this information useful (see section <A HREF="gdb.html#SEC100">Errors reading sy
 <DT><CODE>set complaints <VAR>limit</VAR></CODE>
 <DD>
 <A NAME="IDX637"></A>
- 
+
 Permits GDB to output <VAR>limit</VAR> complaints about each type of unusual
 symbols before becoming silent about the problem.  Set <VAR>limit</VAR> to
 zero to suppress all complaints; set it to a large number to prevent
@@ -10809,7 +10809,7 @@ commands, you can disable this "feature":
  <A NAME="IDX640"></A>
  <A NAME="IDX641"></A>
  <A NAME="IDX642"></A>
- 
+
 Disables confirmation requests.
 
 <DT><CODE>set confirm on</CODE>
@@ -10838,7 +10838,7 @@ for execution as a unit: user-defined commands and command files.
 
 <P>
 <A NAME="IDX644"></A>
-A <STRONG>user-defined command</STRONG> is a sequence of GDB commands to which 
+A <STRONG>user-defined command</STRONG> is a sequence of GDB commands to which
 you assign a new name as a command.  This is done with the <CODE>define</CODE>
 command.  User commands may accept up to 10 arguments separated by whitespace.
 Arguments are accessed within the user command via <VAR>$arg0...$arg9</VAR>.
@@ -10862,7 +10862,7 @@ adder 1 2 3
 
 <P>
 This defines the command <CODE>adder</CODE>, which prints the sum of
-its three arguments.  Note the arguments are text substitutions, so they may 
+its three arguments.  Note the arguments are text substitutions, so they may
 reference variables, use complex expressions, or even perform inferior
 functions calls.
 
@@ -10872,7 +10872,7 @@ functions calls.
 <DT><CODE>define <VAR>commandname</VAR></CODE>
 <DD>
 <A NAME="IDX645"></A>
- 
+
 Define a command named <VAR>commandname</VAR>.  If there is already a command
 by that name, you are asked to confirm that you want to redefine it.
 
@@ -10904,10 +10904,10 @@ evaluates to true.
 <DT><CODE>document <VAR>commandname</VAR></CODE>
 <DD>
 Document the user-defined command <VAR>commandname</VAR>, so that it can be
-accessed by <CODE>help</CODE>.  The command <VAR>commandname</VAR> must already be 
-defined.  This command reads lines of documentation just as <CODE>define</CODE> 
-reads the lines of the command definition, ending with <CODE>end</CODE>.  
-After the <CODE>document</CODE> command is finished, <CODE>help</CODE> on command 
+accessed by <CODE>help</CODE>.  The command <VAR>commandname</VAR> must already be
+defined.  This command reads lines of documentation just as <CODE>define</CODE>
+reads the lines of the command definition, ending with <CODE>end</CODE>.
+After the <CODE>document</CODE> command is finished, <CODE>help</CODE> on command
 <VAR>commandname</VAR> displays the documentation you have written.
 
 You may use the <CODE>document</CODE> command again to change the
@@ -10938,8 +10938,8 @@ stops execution of the user-defined command.
 </P>
 <P>
 If used interactively, commands that would ask for confirmation proceed
-without asking when used inside a user-defined command.  Many GDB 
-commands that normally print messages to say what they are doing omit the 
+without asking when used inside a user-defined command.  Many GDB
+commands that normally print messages to say what they are doing omit the
 messages when used in a user-defined command.
 
 </P>
@@ -11005,9 +11005,9 @@ get a warning from the <CODE>define</CODE> command.
 
 <P>
 <A NAME="IDX653"></A>
-A command file for GDB is a file of lines that are GDB 
-commands.  Comments (lines starting with <KBD>#</KBD>) may also be included.  
-An empty line in a command file does nothing; it does not mean to repeat 
+A command file for GDB is a file of lines that are GDB
+commands.  Comments (lines starting with <KBD>#</KBD>) may also be included.
+An empty line in a command file does nothing; it does not mean to repeat
 the last command, as it would from the terminal.
 
 </P>
@@ -11029,7 +11029,7 @@ option; see section <A HREF="gdb.html#SEC8">Choosing modes</A>.
 <A NAME="IDX656"></A>
 On some configurations of GDB, the init file is known by a
 different name (these are typically environments where a specialized
-form of GDB may need to coexist with other forms, 
+form of GDB may need to coexist with other forms,
 hence a different name
 for the specialized version's init file).  These are the environments
 with special init file names:
@@ -11064,7 +11064,7 @@ You can also request the execution of a command file with the
 <DT><CODE>source <VAR>filename</VAR></CODE>
 <DD>
 <A NAME="IDX660"></A>
- 
+
 Execute the command file <VAR>filename</VAR>.
 </DL>
 
@@ -11098,14 +11098,14 @@ want.
 <DT><CODE>echo <VAR>text</VAR></CODE>
 <DD>
 <A NAME="IDX661"></A>
- 
+
 Print <VAR>text</VAR>.  Nonprinting characters can be included in
 <VAR>text</VAR> using C escape sequences, such as <SAMP>`\n'</SAMP> to print a
 newline.  <STRONG>No newline is printed unless you specify one.</STRONG>
 In addition to the standard C escape sequences, a backslash followed
 by a space stands for a space.  This is useful for displaying a
 string with spaces at the beginning or the end, since leading and
-trailing spaces are otherwise trimmed from all arguments.  
+trailing spaces are otherwise trimmed from all arguments.
 To print <SAMP>` and foo = '</SAMP>, use the command
 <SAMP>`echo \ and foo = \ '</SAMP>.
 
@@ -11133,7 +11133,7 @@ echo onto several lines.\n
 <DD>
 Print the value of <VAR>expression</VAR> and nothing but that value: no
 newlines, no <SAMP>`$<VAR>nn</VAR> = '</SAMP>.  The value is not entered in the
-value history either.  See section <A HREF="gdb.html#SEC52">Expressions</A>, for more information 
+value history either.  See section <A HREF="gdb.html#SEC52">Expressions</A>, for more information
 on expressions.
 
 <DT><CODE>output/<VAR>fmt</VAR> <VAR>expression</VAR></CODE>
@@ -11418,7 +11418,7 @@ If you are not sure whether you have found a bug, here are some guidelines:
 <A NAME="IDX669"></A>
  <A NAME="IDX670"></A>
  <A NAME="IDX671"></A>
- 
+
 If the debugger gets a fatal signal, for any input whatever, that is a
 GDB bug.  Reliable debuggers never crash.
 
@@ -11522,7 +11522,7 @@ easiest thing for you to do, and the most helpful.
 </P>
 <P>
 Keep in mind that the purpose of a bug report is to enable us to fix
-the bug if it is new to us.  
+the bug if it is new to us.
 Therefore, always write your bug reports on
 the assumption that the bug has not been reported previously.
 
@@ -11585,7 +11585,7 @@ incorrect.  For example, "It gets a fatal signal."
 
 Of course, if the bug is that GDB gets a fatal signal, then we will
 certainly notice it.  But if the bug is incorrect output, we might not
-notice unless it is glaringly wrong.  You might as well not give us a 
+notice unless it is glaringly wrong.  You might as well not give us a
 chance to make a mistake.
 
 Even if the problem you experience is a fatal signal, you should still
@@ -11684,8 +11684,8 @@ make refcard.dvi
 </PRE>
 
 <P>
-The GDB reference card is designed to print in <STRONG>landscape</STRONG> 
-mode on US "letter" size paper; 
+The GDB reference card is designed to print in <STRONG>landscape</STRONG>
+mode on US "letter" size paper;
 that is, on a sheet 11 inches wide by 8.5 inches
 high.  You will need to specify this form of printing as an option to
 your DVI output program.
@@ -11786,8 +11786,8 @@ build the <CODE>gdb</CODE> program.
 
 </P>
 <P>
-The GDB distribution includes all the source code you need for 
-GDB in a single directory, whose name is usually composed by 
+The GDB distribution includes all the source code you need for
+GDB in a single directory, whose name is usually composed by
 appending the version number to <SAMP>`gdb'</SAMP>.
 
 </P>
@@ -11943,7 +11943,7 @@ the <SAMP>`--srcdir'</SAMP> option; it is assumed.)
 
 </P>
 <P>
-For example, with version , you can build GDB in a 
+For example, with version , you can build GDB in a
 separate directory for a Sun 4 like this:
 
 </P>
@@ -11967,9 +11967,9 @@ directory <TT>`gdb-sun4/libiberty'</TT>, and GDB itself in
 </P>
 <P>
 One popular reason to build several GDB configurations in separate
-directories is to configure GDB for cross-compiling (where 
-GDB runs on one machine--the <STRONG>host</STRONG>---while debugging 
-programs that run on another machine--the <STRONG>target</STRONG>).  
+directories is to configure GDB for cross-compiling (where
+GDB runs on one machine--the <STRONG>host</STRONG>---while debugging
+programs that run on another machine--the <STRONG>target</STRONG>).
 You specify a cross-debugging target by
 giving the <SAMP>`--target=<VAR>target</VAR>'</SAMP> option to <CODE>configure</CODE>.
 

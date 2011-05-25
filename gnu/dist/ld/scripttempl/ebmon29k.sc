@@ -3,7 +3,7 @@ OUTPUT_FORMAT("${OUTPUT_FORMAT}")
 ENTRY(start)
 
 SECTIONS {
-  .text ${RELOCATING+${TEXT_START_ADDR}} : 
+  .text ${RELOCATING+${TEXT_START_ADDR}} :
     {
 	*(.text);
 	${RELOCATING+_etext = .};
@@ -11,17 +11,17 @@ SECTIONS {
   data ${RELOCATING+0x80002000} :
     {
 	*(.data);
-	*(.mstack); 
+	*(.mstack);
 	*(.shbss);
 	*(.rstack);
 	*(.mstack);
 	${CONSTRUCTING+CONSTRUCTORS}
     }
   .bss  . :
-    { 
-	*(COMMON) 	
+    {
+	*(COMMON)
 	*(.bss);
 	${RELOCATING+_end = .};
-    } 
+    }
 }
 EOF

@@ -134,7 +134,7 @@ static int ti_bind       __P((struct file *, int, struct svr4_strioctl *,
 static void bufprint __P((u_char *, size_t));
 static int show_ioc __P((const char *, struct svr4_strioctl *));
 static int show_strbuf __P((struct svr4_strbuf *));
-static void show_msg __P((const char *, int, struct svr4_strbuf *, 
+static void show_msg __P((const char *, int, struct svr4_strbuf *,
 			  struct svr4_strbuf *, int));
 
 static void
@@ -147,7 +147,7 @@ bufprint(buf, len)
 	uprintf("\n\t");
 	for (i = 0; i < len; i++) {
 		uprintf("%x ", buf[i]);
-		if (i && (i % 16) == 0) 
+		if (i && (i % 16) == 0)
 			uprintf("\n\t");
 	}
 }
@@ -232,7 +232,7 @@ show_msg(str, fd, ctl, dat, flags)
 			return;
 		show_strbuf(&buf);
 	}
-	else 
+	else
 		uprintf(", NULL");
 
 	if (dat != NULL) {
@@ -240,7 +240,7 @@ show_msg(str, fd, ctl, dat, flags)
 			return;
 		show_strbuf(&buf);
 	}
-	else 
+	else
 		uprintf(", NULL");
 
 	uprintf(", %x);\n", flags);
@@ -450,7 +450,7 @@ si_ogetudata(fp, fd, ioc, p)
 	case AF_INET:
 	    ud.tidusize = 16384;
 	    ud.addrsize = sizeof(struct sockaddr_in);
-	    if (pa.type == SVR4_SOCK_STREAM) 
+	    if (pa.type == SVR4_SOCK_STREAM)
 		    ud.etsdusize = 1;
 	    else
 		    ud.etsdusize = 0;
@@ -586,7 +586,7 @@ si_getudata(fp, fd, ioc, p)
 	    ud.tidusize = 16384;
 	    ud.tsdusize = 16384;
 	    ud.addrsize = sizeof(struct sockaddr_in);
-	    if (ud.sockparms.type == SVR4_SOCK_STREAM) 
+	    if (ud.sockparms.type == SVR4_SOCK_STREAM)
 		    ud.etsdusize = 1;
 	    else
 		    ud.etsdusize = 0;
@@ -896,7 +896,7 @@ svr4_stream_ti_ioctl(fp, p, retval, fd, cmd, dat)
 		return EINVAL;
 
 	sc.offs = 0x10;
-	
+
 	if ((error = copyin(sub, &skb, sizeof(skb))) != 0) {
 		DPRINTF(("ti_ioctl: error copying in strbuf\n"));
 		return error;
@@ -1022,7 +1022,7 @@ i_nread(fp, p, retval, fd, cmd, dat)
 	caddr_t dat;
 {
 	int error;
-	int nread = 0;	
+	int nread = 0;
 
 	/*
 	 * We are supposed to return the message length in nread, and the
@@ -1085,7 +1085,7 @@ i_fdinsert(fp, p, retval, fd, cmd, dat)
 	SCARG(&d2p, to) = fdi.fd;
 
 	if ((error = sys_dup2(p, &d2p, retval)) != 0) {
-		DPRINTF(("fdinsert: dup2(%d, %d) failed %d\n", 
+		DPRINTF(("fdinsert: dup2(%d, %d) failed %d\n",
 		    st->s_afd, fdi.fd, error));
 		return error;
 	}
@@ -1093,7 +1093,7 @@ i_fdinsert(fp, p, retval, fd, cmd, dat)
 	SCARG(&clp, fd) = st->s_afd;
 
 	if ((error = sys_close(p, &clp, retval)) != 0) {
-		DPRINTF(("fdinsert: close(%d) failed %d\n", 
+		DPRINTF(("fdinsert: close(%d) failed %d\n",
 		    st->s_afd, error));
 		return error;
 	}
@@ -1118,7 +1118,7 @@ _i_bind_rsvd(fp, p, retval, fd, cmd, dat)
 
 	/*
 	 * This is a supposed to be a kernel and library only ioctl.
-	 * It gets called before ti_bind, when we have a unix 
+	 * It gets called before ti_bind, when we have a unix
 	 * socket, to physically create the socket transport and
 	 * ``reserve'' it. I don't know how this get reserved inside
 	 * the kernel, but we are going to create it nevertheless.
@@ -1202,7 +1202,7 @@ i_setsig(fp, p, retval, fd, cmd, dat)
 	u_long cmd;
 	caddr_t dat;
 {
-	/* 
+	/*
 	 * This is the best we can do for now; we cannot generate
 	 * signals only for specific events so the signal mask gets
 	 * ignored; we save it just to pass it to a possible I_GETSIG...
@@ -1277,7 +1277,7 @@ i_getsig(fp, p, retval, fd, cmd, dat)
 			DPRINTF(("i_getsig: bad file descriptor\n"));
 			return EINVAL;
 		}
-		if ((error = copyout(&st->s_eventmask, dat, 
+		if ((error = copyout(&st->s_eventmask, dat,
 		    sizeof(st->s_eventmask))) != 0) {
 			DPRINTF(("i_getsig: bad eventmask pointer\n"));
 			return error;
@@ -1664,7 +1664,7 @@ svr4_sys_getmsg(p, v, retval)
 	show_msg(">getmsg", SCARG(uap, fd), SCARG(uap, ctl),
 		 SCARG(uap, dat), 0);
 #endif /* DEBUG_SVR4 */
-			
+
 	if ((u_int)SCARG(uap, fd) >= fdp->fd_nfiles ||
 	    (fp = fdp->fd_ofiles[SCARG(uap, fd)]) == NULL)
 		return EBADF;
@@ -1751,7 +1751,7 @@ svr4_sys_getmsg(p, v, retval)
 		SCARG(&ga, fdes) = SCARG(uap, fd);
 		SCARG(&ga, asa) = (void *) sup;
 		SCARG(&ga, alen) = flen;
-		
+
 		if ((error = sys_getpeername(p, &ga, retval)) != 0) {
 			DPRINTF(("getmsg: getpeername failed %d\n", error));
 			return error;
@@ -1759,7 +1759,7 @@ svr4_sys_getmsg(p, v, retval)
 
 		if ((error = copyin(sup, skp, sasize)) != 0)
 			return error;
-		
+
 		sc.cmd = SVR4_TI_CONNECT_REPLY;
 		sc.pad[0] = 0x4;
 		sc.offs = 0x18;
@@ -1810,7 +1810,7 @@ svr4_sys_getmsg(p, v, retval)
 		SCARG(&aa, s) = SCARG(uap, fd);
 		SCARG(&aa, name) = (void *) sup;
 		SCARG(&aa, anamelen) = flen;
-		
+
 		if ((error = sys_accept(p, &aa, retval)) != 0) {
 			DPRINTF(("getmsg: accept failed %d\n", error));
 			return error;
@@ -1822,7 +1822,7 @@ svr4_sys_getmsg(p, v, retval)
 
 		if ((error = copyin(sup, skp, sasize)) != 0)
 			return error;
-		
+
 		sc.cmd = SVR4_TI_ACCEPT_REPLY;
 		sc.offs = 0x18;
 		sc.pad[0] = 0x0;
@@ -1926,7 +1926,7 @@ svr4_sys_getmsg(p, v, retval)
 			 * zero and the length of the data area is zero.  I
 			 * think processes expect getmsg() to fill in dat.len
 			 * after reading at most dat.maxlen octets from the
-			 * stream.  Since we're using sockets I can let 
+			 * stream.  Since we're using sockets I can let
 			 * read() look after it and frob return values
 			 * appropriately (or inappropriately :-)
 			 *   -- newton@atdot.dotat.org        XXX
@@ -1940,7 +1940,7 @@ svr4_sys_getmsg(p, v, retval)
 			*retval = 0;
 			st->s_cmd = SVR4_TI_SENDTO_REQUEST;
 			break;
-			
+
 		}
 #endif
 		DPRINTF(("getmsg: Unknown state %x\n", st->s_cmd));

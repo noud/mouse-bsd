@@ -14,7 +14,7 @@ __RCSID("$NetBSD: htonl.c,v 1.9 1998/03/27 01:30:01 cgd Exp $");
 
 #undef htonl
 
-in_addr_t 
+in_addr_t
 htonl(x)
 	in_addr_t x;
 {

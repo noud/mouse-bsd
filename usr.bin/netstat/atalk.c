@@ -114,7 +114,7 @@ at_pr_host(sat, numeric)
 			return ("*");
 		}
 	}
-	(void)snprintf(mybuf, sizeof(mybuf), "%d", 
+	(void)snprintf(mybuf, sizeof(mybuf), "%d",
 	    (unsigned int)sat->sat_addr.s_node);
 	return (mybuf);
 }

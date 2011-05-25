@@ -30,7 +30,7 @@ typedef struct tx_sound_tag *tx_sound_tag_t;
 
 struct tx_sound_tag {
 	void	*ts_v;
-	
+
 	void	(*ts_click)	__P((tx_sound_tag_t));
 	void	(*ts_mute)	__P((tx_sound_tag_t, int));
 };

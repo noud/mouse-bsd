@@ -67,17 +67,17 @@ LEAF(modf)
 
 	mov.d	$f0, $f12		# f0 <- f12
 	abs.d	$f4, $f12		# f4 <- |f12|
-	c.olt.d $f4, $f2		# f4 ? < f2 
-	bc1f	1f			# leave f0 alone if Nan, infinity 
+	c.olt.d $f4, $f2		# f4 ? < f2
+	bc1f	1f			# leave f0 alone if Nan, infinity
 					# or >=2^52
 	c.eq.d	$f12,$f4		# was f12 positive ?
 	add.d	$f4,$f2,$f4		# round off to integer
 	bc1f	2f			# No -> will have to negate result
 	sub.d	$f0,$f4,$f2		# Remove fudge factor
 	j	1f			# integer fraction got
-2:	
+2:
 	sub.d	$f0,$f2,$f4		# Remove fudge factor and negate
-1:	
+1:
 	ctc1	t0, $31			# restore old rounding mode
 	s.d	$f0, 0(a2)		# save the integer part
 	sub.d	$f0, $f12, $f0		# subtract val - integer part

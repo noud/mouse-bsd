@@ -137,7 +137,7 @@ call_void_fn (name)
 {
   tree d = get_identifier (name);
   tree type;
-  
+
   if (IDENTIFIER_GLOBAL_VALUE (d))
     d = IDENTIFIER_GLOBAL_VALUE (d);
   else
@@ -245,7 +245,7 @@ build_typeid (exp)
   exp = get_tinfo_fn_dynamic (exp);
   exp = build_call (exp, TREE_TYPE (tinfo_fn_type), NULL_TREE);
   return convert_from_reference (exp);
-}  
+}
 
 tree
 build_x_typeid (exp)
@@ -298,7 +298,7 @@ get_tinfo_var (type)
 
   if (IDENTIFIER_GLOBAL_VALUE (tname))
     return IDENTIFIER_GLOBAL_VALUE (tname);
-    
+
   /* Figure out how much space we need to allocate for the type_info object.
      If our struct layout or the type_info classes are changed, this will
      need to be modified.  */
@@ -386,7 +386,7 @@ get_typeid_1 (type)
     (get_tinfo_fn (type), TREE_TYPE (tinfo_fn_type), NULL_TREE);
   return convert_from_reference (t);
 }
-  
+
 /* Return the type_info object for TYPE, creating it if necessary.  */
 
 tree
@@ -395,7 +395,7 @@ get_typeid (type)
 {
   if (type == error_mark_node)
     return error_mark_node;
-  
+
   if (! flag_rtti)
     {
       warning ("requesting typeid of object without -frtti");
@@ -565,8 +565,8 @@ build_dynamic_cast_1 (type, expr)
 		{
 		  cp_warning ("dynamic_cast of `%#D' to `%#T' can never succeed",
 			      expr, type);
-		  retval = build_int_2 (0, 0); 
-		  TREE_TYPE (retval) = type; 
+		  retval = build_int_2 (0, 0);
+		  TREE_TYPE (retval) = type;
 		  return retval;
 		}
 	    }
@@ -586,7 +586,7 @@ build_dynamic_cast_1 (type, expr)
 	  else
 	    td1 = get_tinfo_fn_dynamic (expr);
 	  td1 = decay_conversion (td1);
-	  
+
 	  td2 = decay_conversion
 	    (get_tinfo_fn (TYPE_MAIN_VARIANT (TREE_TYPE (type))));
 	  td3 = decay_conversion
@@ -625,7 +625,7 @@ build_dynamic_cast_1 (type, expr)
 	      assemble_external (dcast_fn);
 	      pop_obstacks ();
 	    }
-	  
+
           result = build_call
 	    (dcast_fn, TREE_TYPE (TREE_TYPE (dcast_fn)), elems);
 
@@ -658,7 +658,7 @@ build_dynamic_cast (type, expr)
 {
   if (type == error_mark_node || expr == error_mark_node)
     return error_mark_node;
-  
+
   if (processing_template_decl)
     return build_min (DYNAMIC_CAST_EXPR, copy_to_permanent (type), expr);
 
@@ -713,7 +713,7 @@ expand_si_desc (tdecl, type)
 	  (NULL_TREE, build_pointer_type (type_info_type_node),
 	   void_list_node)));
       tmp = build_function_type	(void_type_node, tmp);
-  
+
       fn = build_lang_decl (FUNCTION_DECL, fn, tmp);
       DECL_EXTERNAL (fn) = 1;
       TREE_PUBLIC (fn) = 1;
@@ -801,7 +801,7 @@ expand_class_desc (tdecl, type)
 	  name = (char *) alloca (TYPE_NAME_LENGTH (t)+sizeof (VBASE_NAME)+1);
 	  sprintf (name, VBASE_NAME_FORMAT, TYPE_NAME_STRING (t));
 	  field = lookup_field (type, get_identifier (name), 0, 0);
-	  offset = size_binop (FLOOR_DIV_EXPR, 
+	  offset = size_binop (FLOOR_DIV_EXPR,
 		DECL_FIELD_BITPOS (field), size_int (BITS_PER_UNIT));
 	  offset = convert (sizetype, offset);
 	}
@@ -893,7 +893,7 @@ expand_class_desc (tdecl, type)
 	  (NULL_TREE, build_pointer_type (base_info_type_node), tree_cons
 	   (NULL_TREE, sizetype, void_list_node))));
       tmp = build_function_type	(void_type_node, tmp);
-  
+
       fn = build_lang_decl (FUNCTION_DECL, fn, tmp);
       DECL_EXTERNAL (fn) = 1;
       TREE_PUBLIC (fn) = 1;
@@ -940,7 +940,7 @@ expand_ptr_desc (tdecl, type)
 	  (NULL_TREE, build_pointer_type (type_info_type_node),
 	   void_list_node)));
       tmp = build_function_type	(void_type_node, tmp);
-  
+
       fn = build_lang_decl (FUNCTION_DECL, fn, tmp);
       DECL_EXTERNAL (fn) = 1;
       TREE_PUBLIC (fn) = 1;
@@ -989,7 +989,7 @@ expand_attr_desc (tdecl, type)
 	   (NULL_TREE, build_pointer_type (type_info_type_node),
 	    void_list_node))));
       tmp = build_function_type	(void_type_node, tmp);
-  
+
       fn = build_lang_decl (FUNCTION_DECL, fn, tmp);
       DECL_EXTERNAL (fn) = 1;
       TREE_PUBLIC (fn) = 1;
@@ -1029,7 +1029,7 @@ expand_generic_desc (tdecl, type, fnname)
 	(NULL_TREE, ptr_type_node, tree_cons
 	 (NULL_TREE, const_string_type_node, void_list_node));
       tmp = build_function_type (void_type_node, tmp);
-  
+
       fn = build_lang_decl (FUNCTION_DECL, fn, tmp);
       DECL_EXTERNAL (fn) = 1;
       TREE_PUBLIC (fn) = 1;
@@ -1048,13 +1048,13 @@ expand_generic_desc (tdecl, type, fnname)
    Note that we take advantage of the passage
 
    5.2.7  Type identification                               [expr.typeid]
-   
+
    Whether or not the destructor is called for the type_info object at the
    end of the program is unspecified.
 
    and don't bother to arrange for these objects to be destroyed.  It
    doesn't matter, anyway, since the destructors don't do anything.
-       
+
    This must only be called from toplevel (i.e. from finish_file)!  */
 
 void

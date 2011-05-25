@@ -1,7 +1,7 @@
 /*	$NetBSD: privs.h,v 1.4 1998/06/27 21:15:08 christos Exp $	*/
 
-/* 
- *  privs.h - header for privileged operations 
+/*
+ *  privs.h - header for privileged operations
  *  Copyright (C) 1993  Thomas Koenig
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ extern
 #endif
 uid_t real_uid, effective_uid;
 
-#ifndef MAIN 
+#ifndef MAIN
 extern
 #endif
 gid_t real_gid, effective_gid;

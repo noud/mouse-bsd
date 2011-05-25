@@ -316,7 +316,7 @@ required routines, the bare-bones versions are still provided, in
 or both of the following `#define' statements before the comment shown:
 
      /* Insert #define statements here.  */
-     
+
      #define NEED_BSEARCH
      #define NEED_STRTOUL
 
@@ -611,41 +611,41 @@ system.  Before doing so, it is wise to review the explanations of some
 of the steps.  These explanations follow this list of steps.
 
      sh[ 1]# cd /usr/src
-     
+
      sh[ 2]# gunzip -c < /usr/FSF/gcc-2.8.1.tar.gz | tar xf -
      [Might say "Broken pipe"...that is normal on some systems.]
-     
+
      sh[ 3]# gunzip -c < /usr/FSF/g77-0.5.24.tar.gz | tar xf -
      ["Broken pipe" again possible.]
-     
+
      sh[ 4]# ln -s gcc-2.8.1 gcc
-     
+
      sh[ 5]# ln -s g77-0.5.24 g77
-     
+
      sh[ 6]# mv -i g77/* gcc
      [No questions should be asked by mv here; or, you made a mistake.]
-     
+
      sh[ 7]# cd gcc
      sh[ 8]# ./configure --prefix=/usr
      [Do not do the above if gcc is not installed in /usr/bin.
      You might need a different --prefix=..., as
      described below.]
-     
+
      sh[ 9]# make bootstrap
      [This takes a long time, and is where most problems occur.]
-     
+
      sh[10]# make compare
      [This verifies that the compiler is `sane'.
      If any files are printed, you have likely found a g77 bug.]
-     
+
      sh[11]# rm -fr stage1
-     
+
      sh[12]# make -k install
      [The actual installation.]
-     
+
      sh[13]# g77 -v
      [Verify that g77 is installed, obtain version info.]
-     
+
      sh[14]#
 
    *Note Updating Your Info Directory: Updating Documentation, for

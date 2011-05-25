@@ -11,11 +11,11 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
- 
+
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
+
     */
 
 
@@ -226,7 +226,7 @@ core_attach(core *memory,
   void *buffer = NULL;
   if (attach == attach_raw_memory)
     buffer = zalloc(nr_bytes);
-  for (access_map = 0; 
+  for (access_map = 0;
        access_map < nr_core_map_types;
        access_map++) {
     switch (access_map) {

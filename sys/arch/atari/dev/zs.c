@@ -404,7 +404,7 @@ struct proc	*p;
 	error = ttyopen(tp, ZS_DIALOUT(dev), (flags & O_NONBLOCK));
 	if (error)
 		goto bad;
-	
+
 	error = linesw[tp->t_line].l_open(dev, tp);
 	if(error)
 		goto bad;

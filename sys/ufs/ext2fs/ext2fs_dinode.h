@@ -88,9 +88,9 @@ struct ext2fs_dinode {
 	u_int16_t	e2di_linux_reserved2; /* 118 */
 	u_int32_t	e2di_linux_reserved3[2]; /* 120 */
 };
-	
 
-	
+
+
 #define	E2MAXSYMLINKLEN	((NDADDR + NIADDR) * sizeof(u_int32_t))
 
 /* File permissions. */

@@ -1111,7 +1111,7 @@ const struct m68k_opcode m68k_opcodes[] =
 {"ftrapule",	two(0xF07C, 0x000D), two(0xF1FF, 0xFFFF), "Ii", mfloat },
 {"ftrapult",	two(0xF07C, 0x000C), two(0xF1FF, 0xFFFF), "Ii", mfloat },
 {"ftrapun",	two(0xF07C, 0x0008), two(0xF1FF, 0xFFFF), "Ii", mfloat },
-        
+
 {"ftrapeqw",	two(0xF07A, 0x0001), two(0xF1FF, 0xFFFF), "Ii^w", mfloat },
 {"ftrapfw",	two(0xF07A, 0x0000), two(0xF1FF, 0xFFFF), "Ii^w", mfloat },
 {"ftrapgew",	two(0xF07A, 0x0013), two(0xF1FF, 0xFFFF), "Ii^w", mfloat },
@@ -1236,19 +1236,19 @@ const struct m68k_opcode m68k_opcodes[] =
 {"lsrl",	one(0160210),	one(0170770), "QdDs", m68000up | mcf5200 },
 {"lsrl",	one(0160250),	one(0170770), "DdDs", m68000up | mcf5200 },
 
-/* NOTE: The mcf5200 family programmer's reference manual does not 
+/* NOTE: The mcf5200 family programmer's reference manual does not
    indicate the byte form of the movea instruction is invalid (as it
    is on 68000 family cpus).  However, experiments on the 5202 yeild
    unexpected results.  The value is copied, but it is not sign extended
-   (as is done with movea.w) and the top three bytes in the address 
+   (as is done with movea.w) and the top three bytes in the address
    register are not disturbed.  I don't know if this is the intended
    behavior --- it could be a hole in instruction decoding (Motorola
    decided not to trap all invalid instructions for performance reasons)
-   --- but I suspect that it is not.   
+   --- but I suspect that it is not.
 
-   I reported this to Motorola ISD Technical Communications Support, 
-   which replied that other coldfire assemblers reject movea.b.  For 
-   this reason I've decided to not allow moveab. 
+   I reported this to Motorola ISD Technical Communications Support,
+   which replied that other coldfire assemblers reject movea.b.  For
+   this reason I've decided to not allow moveab.
 
 	jtc@cygnus.com - 97/01/24
  */

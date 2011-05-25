@@ -201,7 +201,7 @@ ea_dump_buffer(sc, offset)
 	int size;
 	int ctrl;
 	int ptr;
-	
+
 	addr = offset;
 
 	do {
@@ -245,7 +245,7 @@ eaprobe(parent, cf, aux)
 {
 	struct podule_attach_args *pa = (void *)aux;
 	u_int iobase;
-	
+
 /* Look for a network slot interface */
 
 	if ((matchpodule(pa, MANUFACTURER_ATOMWIDE, PODULE_ATOMWIDE_ETHER3, -1) == 0)
@@ -295,13 +295,13 @@ eaattach(parent, self, aux)
 	podules[sc->sc_podule_number].attached = 1;
 
 /* Set the address of the controller for easy access */
-	
+
 	sc->sc_iobase = sc->sc_podule->mod_base + EA_8005_BASE;
 
 /* Read the station address - the receiver must be off */
 
 	WriteShort(sc->sc_iobase + EA_8005_CONFIG1, EA_BUFCODE_STATION_ADDR0);
-	
+
 	for (sum = 0, loop = 0; loop < ETHER_ADDR_LEN; ++loop) {
 		myaddr[loop] =
 		    ReadByte(sc->sc_iobase + EA_8005_BUFWIN);
@@ -374,7 +374,7 @@ eaattach(parent, self, aux)
 	/* Should test the RAM */
 
 	ea_ramtest(sc);
-	
+
 /*	dprintf(("eaattach() finished.\n"));*/
 }
 
@@ -413,7 +413,7 @@ ea_ramtest(sc)
 		WriteShort(iobase + EA_8005_BUFWIN, loop);
 
 	/* Set the read start address and verify the pattern */
-	
+
 	ea_readbuf(sc, NULL, 0x0000, 0);
 
 	for (loop = 0; loop < EA_BUFFER_SIZE; loop += 2)
@@ -655,7 +655,7 @@ ea_stop(sc)
 	ea_releaseirq(sc);
 
 	/* Cancel any watchdog timer */
-	
+
 	sc->sc_ethercom.ec_if.if_timer = 0;
 }
 
@@ -696,7 +696,7 @@ ea_hardreset(sc)
 	u_int iobase = sc->sc_iobase;
 	struct ifnet *ifp = &sc->sc_ethercom.ec_if;
 	int loop;
-	
+
 
 	dprintf(("ea_hardreset()\n"));
 
@@ -885,7 +885,7 @@ ea_init(sc)
 /* Place a NULL header at the beginning of the transmit area */
 
 	ea_writebuf(sc, NULL, 0x0000, 0);
-		
+
 	WriteShort(iobase + EA_8005_BUFWIN, 0x0000);
 	WriteShort(iobase + EA_8005_BUFWIN, 0x0000);
 
@@ -902,7 +902,7 @@ ea_init(sc)
 /* Place a NULL header at the beginning of the receive area */
 
 	ea_writebuf(sc, NULL, sc->sc_rx_ptr, 0);
-		
+
 	WriteShort(iobase + EA_8005_BUFWIN, 0x0000);
 	WriteShort(iobase + EA_8005_BUFWIN, 0x0000);
 
@@ -949,7 +949,7 @@ ea_start(ifp)
 		return;
 
 	/* Mark interface as output active */
-	
+
 	ifp->if_flags |= IFF_OACTIVE;
 
 	/* tx packets */
@@ -964,7 +964,7 @@ ea_start(ifp)
  *
  * Called at splnet()
  */
- 
+
 void
 eatxpacket(sc)
 	struct ea_softc *sc;
@@ -1023,7 +1023,7 @@ eatxpacket(sc)
 		++len;
 
 	len = max(len, ETHER_MIN_LEN);
-	
+
 	if (len > (ETHER_MAX_LEN - ETHER_CRC_LEN))
 		log(LOG_WARNING, "ea: oversize packet = %d bytes\n", len);
 
@@ -1097,7 +1097,7 @@ eaintr(arg)
 /* Get the controller status */
 
 	status = ReadShort(iobase + EA_8005_STATUS);
-        dprintf(("st=%04x ", status));	
+        dprintf(("st=%04x ", status));
 
 /* Tx interrupt ? */
 
@@ -1111,7 +1111,7 @@ eaintr(arg)
 
 		ea_readbuf(sc, (u_char *)&txstatus, 0x0000, 4);
 
-#ifdef EA_TX_DEBUG		
+#ifdef EA_TX_DEBUG
 		dprintf(("txstatus=%08x\n", txstatus));
 #endif
 		txstatus = (txstatus >> 24) & 0xff;
@@ -1217,7 +1217,7 @@ eagetpackets(sc)
 /* Read rx header */
 
 		ea_readbuf(sc, (u_char *)&rxstatus, addr, 4);
-		
+
 /* Split the packet header */
 
 		ptr = ((rxstatus & 0xff) << 8) | ((rxstatus >> 8) & 0xff);
@@ -1233,7 +1233,7 @@ eagetpackets(sc)
 		if (ptr == 0) break;
 
 /* Get packet length */
-	
+
 		len = (ptr - addr) - 4;
 
 		if (len < 0) {

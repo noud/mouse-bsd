@@ -44,10 +44,10 @@ struct ainfo
     char *reloc0;
     char *howlval;
 
-    /* If addr val could be reg addr  - used for disasssmbly of 
+    /* If addr val could be reg addr  - used for disasssmbly of
        args into reg names - you want lda <0x10 to turn into lda <r0
        but you don't want lda #0x10 to do the same. */
-    char regflag; 
+    char regflag;
   };
 
 #define GET_M 	1
@@ -124,7 +124,7 @@ struct oinfo olist[] =
   {"lda", GET_M, "SET_A(src); SET_NBIT_M(GET_A); SET_ZBIT_M(GET_A);"},
   {"ldx", GET_X, "SET_X(src);SET_NBIT_X(GET_X); SET_ZBIT_X(GET_X);"},
   {"ldy", GET_X, "SET_Y(src);SET_NBIT_X(GET_Y); SET_ZBIT_X(GET_Y);"},
-  {"lsr", G2_GET, 
+  {"lsr", G2_GET,
        "SET_CBIT(src & 1); \
         SET_NBIT(0);       \
          src = src >> 1;   \
@@ -224,7 +224,7 @@ struct ainfo alist[] =
   {"(a)", "ABS_IND", "($0)", "2", "%sR_W65_ABS16",   "lval = fetch16(GET_PBRPC) + GET_DBR_HIGH; INC_PC(2);", 1},
   {"(a,x)", "ABS_IND_IDX", "($0,x)", "2", "%sR_W65_ABS16",
      "lval = fetch16((0xffff & (fetch16(GET_PBRPC) + GET_X )) + GET_PBR_HIGH) + GET_PBR_HIGH;INC_PC(2);",1},
-  {"xyz", "BLOCK_MOVE", "", "2", "", 0},	
+  {"xyz", "BLOCK_MOVE", "", "2", "", 0},
   0};
 
 
@@ -636,7 +636,7 @@ assembler_table (as)
 	{
 	  printf ("#define O_%s %d\n", o->name, i++);
 	}
-      
+
       qsort (optable, 256, sizeof (struct opinfo), pfunc);
 
       printf ("#ifdef DEFINE_TABLE\n");
@@ -682,7 +682,7 @@ assembler_table (as)
 	    printf ("\targs[1] = ( asR_W65_ABS16 & 0xff);\\\n");
 	    printf ("\tprint_operand (0,\"\t$0,$1\",args);\\\n");
 	  }
-	else if (a->reloc0 == 0) 
+	else if (a->reloc0 == 0)
 	  {
 	    printf ("print_operand (0, \"\t%s\", 0);\\\n", a->disasmstring );
 	  }
@@ -695,7 +695,7 @@ assembler_table (as)
 		    a->regflag,
 		    a->disasmstring);
 	  }
-	
+
 	printf ("\tsize += %s;\\\n\tbreak;\\\n", a->sizer);
       }
   }
@@ -950,7 +950,7 @@ worked_out_lval = 0;
       printf("#undef GET_XBIT\n");
       printf("#define GET_MBIT (the_mbit)\n");
       printf("#define GET_XBIT (the_xbit)\n");
-      
+
       printf("ENDFUNC();\n");
       printf("}");
     }

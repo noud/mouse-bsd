@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -94,7 +94,7 @@ char macos_order[] = {'a', 'd', 'e', 'f', 'g', 'h'};
  *  disk.
  */
 Block0 new_block0 = {0x4552, 512, 0};
- 
+
 /*
  * Compare lexigraphically two strings up to a max length
  */
@@ -276,7 +276,7 @@ sortmerge(void)
 		}
 	   }
 	}
-    } 
+    }
 
     /*
      * Map any remaining slots and partitions to any other non-reserved
@@ -434,7 +434,7 @@ check_for_errors()
 		errs++;
 	if ((map.blk[j].pmPyPartStart + map.blk[j].pmPartBlkCnt) > dlsize + 1)
 		errs++;
-    } 
+    }
     return(errs);
 }
 
@@ -772,7 +772,7 @@ md_make_bsd_partitions(void)
 		pl = bzb->flags.part - 'a';
 		switch (part_type(j, fstyp, use, name)) {
 		    case TYP_HFS:
-			bsdlabel[pl].pi_fstype = FS_HFS; 
+			bsdlabel[pl].pi_fstype = FS_HFS;
 			strcpy (fsmount[pl], bzb->mount_point);
 			break;
 		    case TYP_BSD:

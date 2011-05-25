@@ -383,6 +383,6 @@ pkg_perform(lpkg_head_t *pkgs)
 	free(Desc);
 	free_plist(&plist);
 	leave_playpen(home);
-	
+
 	return TRUE;		/* Success */
 }

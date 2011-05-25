@@ -138,7 +138,7 @@ decode_library_subfile(fd, library_entry, subfile_offset, length_loc)
 		name[namelen] = 0;
 		content_length -= namelen;
 		starting_offset += namelen;
-	} else 
+	} else
 
 #endif
 	{
@@ -560,7 +560,7 @@ subfile_wanted_p(entry)
 			 * defines a common we just note the its size.
 			 * Otherwise, the member gets included.
 			 */
-			
+
 			if (type == (N_UNDF|N_EXT) && p->n_value) {
 				/*
 				 * New symbol is common, just takes its

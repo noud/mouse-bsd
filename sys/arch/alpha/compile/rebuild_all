@@ -18,7 +18,7 @@ docf()
 {
 	echo "===> $1"
 	(
-		# docmd "cd ../conf ; config $cf" 
+		# docmd "cd ../conf ; config $cf"
 		cd $cf
 		# docmd "time make -k clean"
 		# docmd "time make -k depend"

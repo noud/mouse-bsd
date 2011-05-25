@@ -175,7 +175,7 @@ mii_phy_reset(sc)
 
 	/* Wait 100ms for it to complete. */
 	for (i = 0; i < 100; i++) {
-		reg = PHY_READ(sc, MII_BMCR); 
+		reg = PHY_READ(sc, MII_BMCR);
 		if ((reg & BMCR_RESET) == 0)
 			break;
 		delay(1000);

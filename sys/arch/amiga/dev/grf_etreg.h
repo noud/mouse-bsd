@@ -31,7 +31,7 @@
  * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
  * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.   
+ * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #ifndef _GRF_ETREG_H
@@ -44,7 +44,7 @@
  */
 
 /* Extension to grfvideo_mode to support text modes.
- * This can be passed to both text & gfx functions 
+ * This can be passed to both text & gfx functions
  * without worry.  If gv.depth == 4, then the extended
  * fields for a text mode are present.
  */
@@ -61,7 +61,7 @@ struct grfettext_mode {
 
 
 /* Tseng boards types, stored in ettype in grf_et.c.
- * used to decide how to handle Pass-through, etc. 
+ * used to decide how to handle Pass-through, etc.
  */
 
 #define OMNIBUS		2181
@@ -311,7 +311,7 @@ static __inline void RegWakeup(volatile void *ba) {
 		break;
 	    case MERLIN:
 		break;
-	} 
+	}
 	delay(200000);
 }
 
@@ -382,7 +382,7 @@ static __inline unsigned char RGfx(volatile void * ba, short idx) {
 
 int	et_mode __P((register struct grf_softc *gp, u_long cmd, void *arg,
 		u_long a2, int a3));
-int	et_load_mon __P((struct grf_softc *gp, struct grfettext_mode *gv)); 
+int	et_load_mon __P((struct grf_softc *gp, struct grfettext_mode *gv));
 int	grfet_cnprobe __P((void));
 void	grfet_iteinit __P((struct grf_softc *gp));
 

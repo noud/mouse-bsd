@@ -1,4 +1,4 @@
-/* 
+/*
  * Brains mmEye specific register definition
  */
 

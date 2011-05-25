@@ -58,15 +58,15 @@
 #include "rf_decluster.h"
 #include "rf_configure.h"
 
-/* 
+/*
 
-   XXX we include this here so we don't need to drag rf_debugMem.c into 
-   the picture...  This is userland, afterall... 
+   XXX we include this here so we don't need to drag rf_debugMem.c into
+   the picture...  This is userland, afterall...
 
  */
 
-/* XXX sucky hack to override the defn. of RF_Malloc as given in 
-rf_debugMem.c...  but I *really* don't want (nor need) to link with 
+/* XXX sucky hack to override the defn. of RF_Malloc as given in
+rf_debugMem.c...  but I *really* don't want (nor need) to link with
 that file here in userland..  GO
 */
 
@@ -108,7 +108,7 @@ int rf_MakeConfig(configname, cfgPtr)
     RF_ERRORMSG1("Can't open config file %s\n",configname);
     return(-1);
   }
-  
+
   rewind(fp);
   if (rf_search_file_for_start_of("array", buf, 256, fp)) {
     RF_ERRORMSG1("Unable to find start of \"array\" params in config file %s\n",configname);
@@ -139,7 +139,7 @@ int rf_MakeConfig(configname, cfgPtr)
       (void) strcpy(&cfgPtr->debugVars[c][0], cp);
     }
   }
-  
+
   rewind(fp);
   strcpy(cfgPtr->diskQueueType,"fifo");
   cfgPtr->maxOutstandingDiskReqs = 1;
@@ -285,7 +285,7 @@ int rf_MakeLayoutSpecificDeclustered(configfp, cfgPtr, arg)
     RF_ERRORMSG("Unable to parse header line in block design file\n");
     return(EINVAL);
   }
-  
+
   /* set the sparemap directory.  In the in-kernel version, there's a daemon
    * that's responsible for finding the sparemaps
    */
@@ -306,7 +306,7 @@ int rf_MakeLayoutSpecificDeclustered(configfp, cfgPtr, arg)
   /* allocate a buffer to hold the configuration info */
   cfgPtr->layoutSpecificSize = RF_SPAREMAP_NAME_LEN + 6 * sizeof(int) + b * k;
   /* can't use RF_Malloc here b/c debugMem module not yet init'd */
-  cfgBuf = (char *) malloc(cfgPtr->layoutSpecificSize);          
+  cfgBuf = (char *) malloc(cfgPtr->layoutSpecificSize);
   cfgPtr->layoutSpecific = (void *) cfgBuf;
   p = cfgBuf;
 

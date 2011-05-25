@@ -42,7 +42,7 @@ fetch_core_registers PARAMS ((char *, unsigned int, int, CORE_ADDR));
  * See the comment in m68k-tdep.c regarding the utility of these functions.
  */
 
-void 
+void
 supply_gregset (gregsetp)
      gregset_t *gregsetp;
 {

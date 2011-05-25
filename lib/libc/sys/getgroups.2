@@ -49,11 +49,11 @@
 .Sh DESCRIPTION
 .Fn getgroups
 gets the current group access list of the current user process
-and stores it in the array 
+and stores it in the array
 .Fa gidset .
 The parameter
 .Fa gidsetlen
-indicates the number of entries that may be placed in 
+indicates the number of entries that may be placed in
 .Fa gidset .
 .Fn getgroups
 returns the actual number of groups returned in
@@ -64,7 +64,7 @@ will ever
 be returned.
 If
 .Fa gidsetlen
-is 0, 
+is 0,
 .Fn getgroups
 returns the number of groups without modifying the
 .Fa gidset

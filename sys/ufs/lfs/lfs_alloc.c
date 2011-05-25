@@ -120,7 +120,7 @@ lfs_valloc(v)
 	extern int lfs_dirvcount;
 
 	fs = VTOI(ap->a_pvp)->i_lfs;
-	
+
 	/*
 	 * Prevent a race getting lfs_free.
 	 */
@@ -139,7 +139,7 @@ lfs_valloc(v)
 #ifdef ALLOCPRINT
 	printf("lfs_ialloc: allocate inode %d\n", new_ino);
 #endif
-	
+
 	/*
 	 * Remove the inode from the free list and write the new start
 	 * of the free list into the superblock.
@@ -193,7 +193,7 @@ lfs_valloc(v)
 	if(fs->lfs_free == LFS_UNUSED_INUM)
 		panic("inode 0 allocated [3]");
 #endif /* DIAGNOSTIC */
-	
+
 	lockmgr(&fs->lfs_freelock, LK_RELEASE, 0);
 
 	lockmgr(&ufs_hashlock, LK_EXCLUSIVE, 0);
@@ -202,26 +202,26 @@ lfs_valloc(v)
 		lockmgr(&ufs_hashlock, LK_RELEASE, 0);
 		return (error);
 	}
-	
+
 	ip = VTOI(vp);
 	/* Zero out the direct and indirect block addresses. */
 	bzero(&ip->i_din, sizeof(ip->i_din));
 	ip->i_din.ffs_din.di_inumber = new_ino;
-	
+
 	/* Set a new generation number for this inode. */
 	ip->i_ffs_gen++;
-	
+
 	/* Insert into the inode hash table. */
 	ufs_ihashins(ip);
 	lockmgr(&ufs_hashlock, LK_RELEASE, 0);
-	
+
 	error = ufs_vinit(vp->v_mount, lfs_specop_p, lfs_fifoop_p, &vp);
 	if (error) {
 		vput(vp);
 		*ap->a_vpp = NULL;
 		return (error);
 	}
-	
+
 	*ap->a_vpp = vp;
 	if(!(vp->v_flag & VDIROP)) {
 		lfs_vref(vp);
@@ -229,7 +229,7 @@ lfs_valloc(v)
 	}
 	vp->v_flag |= VDIROP;
 	VREF(ip->i_devvp);
-	
+
 	/* Set superblock modified bit and increment file count. */
 	fs->lfs_fmod = 1;
 	++fs->lfs_nfiles;
@@ -250,16 +250,16 @@ lfs_vcreate(mp, ino, vpp)
 #ifdef QUOTA
 	int i;
 #endif
-	
+
 	/* Create the vnode. */
 	if ((error = getnewvnode(VT_LFS, mp, lfs_vnodeop_p, vpp)) != 0) {
 		*vpp = NULL;
 		return (error);
 	}
-	
+
 	/* Get a pointer to the private mount structure. */
 	ump = VFSTOUFS(mp);
-	
+
 	/* Initialize the inode. */
 	ip = pool_get(&lfs_inode_pool, PR_WAITOK);
 	(*vpp)->v_data = ip;
@@ -302,13 +302,13 @@ lfs_vfree(v)
 	ufs_daddr_t old_iaddr;
 	ino_t ino;
 	extern int lfs_dirvcount;
-	
+
 	/* Get the inode number and file system. */
 	vp = ap->a_pvp;
 	ip = VTOI(vp);
 	fs = ip->i_lfs;
 	ino = ip->i_number;
-	
+
 	while(WRITEINPROG(vp)
 	      || fs->lfs_seglock
 	      || lockmgr(&fs->lfs_freelock, LK_EXCLUSIVE|LK_SLEEPFAIL, 0))
@@ -324,7 +324,7 @@ lfs_vfree(v)
 			}
 		}
 	}
-	
+
 	if(vp->v_flag & VDIROP) {
 		--lfs_dirvcount;
 		vp->v_flag &= ~VDIROP;
@@ -339,7 +339,7 @@ lfs_vfree(v)
 		--fs->lfs_uinodes;
 	}
 	ip->i_flag &= ~(IN_CLEANING | IN_ACCESS | IN_CHANGE | IN_MODIFIED | IN_UPDATE);
-#ifdef DEBUG_LFS	
+#ifdef DEBUG_LFS
 	if((int32_t)fs->lfs_uinodes<0) {
 		printf("U1");
 		fs->lfs_uinodes=0;
@@ -374,10 +374,10 @@ lfs_vfree(v)
 		(void) VOP_BWRITE(bp);
 	}
 	lockmgr(&fs->lfs_freelock, LK_RELEASE, 0);
-	
+
 	/* Set superblock modified bit and decrement file count. */
 	fs->lfs_fmod = 1;
 	--fs->lfs_nfiles;
-	
+
 	return (0);
 }

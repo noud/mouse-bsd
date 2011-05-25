@@ -104,7 +104,7 @@
 #define NTWOC_FECR_ETC1		0x0002	/* output clock port 1 */
 #define NTWOC_FECR_ETC0		0x0001	/* output clock port 0 */
 
-/* 
+/*
  * Daughter card for port.
  */
 #define NTWOC_FE_ID_V35		0x00
@@ -117,7 +117,7 @@
 #define NTWOC_FE_ID_NONE	0x07	/* empty, no card present */
 
 /*
- * ASIC Control defininitions 
+ * ASIC Control defininitions
  */
 
 /* Front End (Modem,etc) Control Register */

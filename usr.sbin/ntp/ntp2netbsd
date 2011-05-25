@@ -23,10 +23,10 @@ $version = "4-0.98f";
 
 # definitions ...
 
-@subdirs = ("lib/libntp", "domestic/lib/libntp", 
-	    "usr.sbin/ntp/include", "usr.sbin/ntp/html",    
-	    "usr.sbin/ntp/ntpdate", "usr.sbin/ntp/ntptime", 
-	    "usr.sbin/ntp/ntpq",    "usr.sbin/ntp/ntptrace", 
+@subdirs = ("lib/libntp", "domestic/lib/libntp",
+	    "usr.sbin/ntp/include", "usr.sbin/ntp/html",
+	    "usr.sbin/ntp/ntpdate", "usr.sbin/ntp/ntptime",
+	    "usr.sbin/ntp/ntpq",    "usr.sbin/ntp/ntptrace",
             "usr.sbin/ntp/ntpd",   "usr.sbin/ntp/ntpdc");
 
 @includef = (
@@ -41,7 +41,7 @@ $version = "4-0.98f";
 
 
 #	l_stdlib.h", "ntp.h", "ntp_calendar.h", "ntp_control.h",
-#	     "ntp_filegen.h", "ntp_fp.h", "ntp_if.h", "ntp_io.h", 
+#	     "ntp_filegen.h", "ntp_fp.h", "ntp_if.h", "ntp_io.h",
 #	     "ntp_machine.h", "ntp_malloc.h", "ntp_proto.h", "ntp_refclock.h",
 #	     "ntp_request.h", "ntp_select.h", "ntp_stdlib.h", "ntp_string.h",
 #	     "ntp_syslog.h", "ntp_types.h", "ntp_unixtime.h", "ntpd.h",
@@ -54,7 +54,7 @@ $version = "4-0.98f";
 	"clocktypes.c", "decodenetnum.c", "dofptoa.c", "dolfptoa.c",
 	"emalloc.c", "findconfig.c", "fptoa.c", "fptoms.c", "getopt.c",
 	"hextoint.c", "hextolfp.c", "humandate.c", "inttoa.c", "lib_strbuf.c",
-	"machines.c", "md5c.c", "memmove.c", "mexit.c", "mfptoa.c", 
+	"machines.c", "md5c.c", "memmove.c", "mexit.c", "mfptoa.c",
 	"mfptoms.c", "modetoa.c", "mstolfp.c", "msutotsf.c", "msyslog.c",
 	"netof.c", "numtoa.c", "numtohost.c", "octtoint.c", "prettydate.c",
 	"ranny.c", "refnumtoa.c", "statestr.c", "syssignal.c", "systime.c",
@@ -76,7 +76,7 @@ $version = "4-0.98f";
 	"refclock_atom.c", "refclock_ptbacts.c", "refclock_jupiter.c",
 	"refclock_usno.c", "refclock_true.c", "refclock_hpgps.c",
 	"refclock_shm.c", "refclock_gpsvme.c", "refclock_arbiter.c",
-	"refclock_arc.c", "refclock_palisade.c", 
+	"refclock_arc.c", "refclock_palisade.c",
 	"refclock_oncore.c", "refclock_chronolog.c", "refclock_dumbclock.c",
 	"refclock_ulink.c",
 	"jupiter.h", "refclock_palisade.h" );
@@ -84,11 +84,11 @@ $version = "4-0.98f";
 
 
 
-@ntpd_pf = ( "parse.c", "parse_conf.c", "clk_meinberg.c", 
-	     "clk_schmid.c", "clk_rawdcf.c", "clk_trimtsip.c", 
-	     "clk_dcf7000.c", "clk_trimtaip.c", "clk_rcc8000.c", 
-	     "clk_hopf6021.c", "clk_computime.c", "clk_wharton.c", 
-	     "clk_varitext.c", "data_mbg.c", "info_trimble.c", 
+@ntpd_pf = ( "parse.c", "parse_conf.c", "clk_meinberg.c",
+	     "clk_schmid.c", "clk_rawdcf.c", "clk_trimtsip.c",
+	     "clk_dcf7000.c", "clk_trimtaip.c", "clk_rcc8000.c",
+	     "clk_hopf6021.c", "clk_computime.c", "clk_wharton.c",
+	     "clk_varitext.c", "data_mbg.c", "info_trimble.c",
 	     "trim_info.c");
 
 @ntpdcf = ("ntpdc.c", "ntpdc.h", "ntpdc_ops.c");
@@ -102,28 +102,28 @@ $version = "4-0.98f";
 @ntptracef = ("ntptrace.c", "ntptrace.h");
 
 @htmlf = (
-	"accopt.htm",	"assoc.htm",	"authopt.htm",	
-	"biblio.htm",		"build.htm",	"clockopt.htm",	
-	"config.htm",		"confopt.htm",	"copyright.htm",	
-	"debug.htm",		"driver1.htm",	"driver10.htm",	
-	"driver11.htm",		"driver12.htm",	"driver18.htm",	
-	"driver19.htm",		"driver2.htm",	"driver20.htm",	
-	"driver22.htm",		"driver23.htm",	"driver24.htm",	
-	"driver26.htm",		"driver27.htm",	"driver28.htm",	
-	"driver29.htm",		"driver3.htm",	"driver30.htm",	
-	"driver32.htm",		"driver33.htm",	"driver34.htm",	
-	"driver4.htm",		"driver5.htm",	"driver6.htm",	
-	"driver7.htm",		"driver8.htm",	"driver9.htm",	
-	"exec.htm",		"extern.htm",	"gadget.htm",	
-	"hints.htm",		"howto.htm",	"htmlprimer.htm",	
-	"index.htm",		"kern.htm",	"kernpps.htm",	
-	"ldisc.htm",		"measure.htm",	"miscopt.htm",	
-	"monopt.htm",		"mx4200data.htm",	"notes.htm",	
-	"ntpd.htm",		"ntpdate.htm",	"ntpdc.htm",	
-	"ntpq.htm",		"ntptime.htm",	"ntptrace.htm",	
-	"parsedata.htm",	"parsenew.htm",	"patches.htm",	
-	"porting.htm",		"pps.htm",	"prefer.htm",	
-	"quick.htm",		"rdebug.htm",	"refclock.htm",	
+	"accopt.htm",	"assoc.htm",	"authopt.htm",
+	"biblio.htm",		"build.htm",	"clockopt.htm",
+	"config.htm",		"confopt.htm",	"copyright.htm",
+	"debug.htm",		"driver1.htm",	"driver10.htm",
+	"driver11.htm",		"driver12.htm",	"driver18.htm",
+	"driver19.htm",		"driver2.htm",	"driver20.htm",
+	"driver22.htm",		"driver23.htm",	"driver24.htm",
+	"driver26.htm",		"driver27.htm",	"driver28.htm",
+	"driver29.htm",		"driver3.htm",	"driver30.htm",
+	"driver32.htm",		"driver33.htm",	"driver34.htm",
+	"driver4.htm",		"driver5.htm",	"driver6.htm",
+	"driver7.htm",		"driver8.htm",	"driver9.htm",
+	"exec.htm",		"extern.htm",	"gadget.htm",
+	"hints.htm",		"howto.htm",	"htmlprimer.htm",
+	"index.htm",		"kern.htm",	"kernpps.htm",
+	"ldisc.htm",		"measure.htm",	"miscopt.htm",
+	"monopt.htm",		"mx4200data.htm",	"notes.htm",
+	"ntpd.htm",		"ntpdate.htm",	"ntpdc.htm",
+	"ntpq.htm",		"ntptime.htm",	"ntptrace.htm",
+	"parsedata.htm",	"parsenew.htm",	"patches.htm",
+	"porting.htm",		"pps.htm",	"prefer.htm",
+	"quick.htm",		"rdebug.htm",	"refclock.htm",
 	"release.htm",		"tickadj.htm",	"vxworks.htm",
 	"y2k.htm");
 
@@ -182,7 +182,7 @@ sub dumpsrcs {
 
 #
 # Main progarm.
-# 
+#
 
 $srcdir = $ENV{'SRCDIR'};
 $targetdir = $ENV{'TARGETDIR'};
@@ -190,9 +190,9 @@ $incdirs = "-I. -I$srcdir/config -I$srcdir";
 
 if (!$srcdir | !targetdir) {
     die "You must define the environment variables SRCDIR and TARGETDIR.\n"
-} 
+}
 print "Making the NetBSD directory tree.\n";
-foreach $f (@subdirs) { 
+foreach $f (@subdirs) {
     print "   -->$f\n";
     makedir ("$targetdir/$f");
 }
@@ -289,7 +289,7 @@ while ($line = <DATA>) {
 	}
 	print ODATA "$line\n";
     }
-}    
+}
 close (ODATA);
 
 #
@@ -685,8 +685,8 @@ char * Version = "4.0.98f-NetBSD Mon Nov 15 19:51:01 PST 1999 (1)";
 /* define if struct clockinfo has tickadj */
 #define HAVE_TICKADJ_IN_STRUCT_CLOCKINFO 1
 
-/* define if struct ntptimeval uses time.tv_nsec instead of time.tv_usec */ 
-/* #undef HAVE_TV_NSEC_IN_NTPTIMEVAL */ 
+/* define if struct ntptimeval uses time.tv_nsec instead of time.tv_usec */
+/* #undef HAVE_TV_NSEC_IN_NTPTIMEVAL */
 
 /* Does a system header defind struct ppsclockev? */
 /* #undef HAVE_STRUCT_PPSCLOCKEV */
@@ -1337,8 +1337,8 @@ arguments to determine the correct time. It must be run as root on the
 local host. A number of samples are obtained from each of the servers
 specified and a subset of the NTP clock filter and selection algorithms
 are applied to select the best of these. Note that the accuracy and
-reliability of 
-.Nm 
+reliability of
+.Nm
 depends on the number of servers, the number of polls each time it
 is run and the interval between runs.
 .Pp
@@ -1349,9 +1349,9 @@ This is useful in some cases to set the clock initially before
 starting the NTP daemon
 .Xr ntpd 8 .
 It is also possible
-to run 
+to run
 .Nm
-from a 
+from a
 .Xr cron 8
 script. However, it is important to note that
 .Nm
@@ -1360,7 +1360,7 @@ with contrived
 scripts is no substitute for the NTP daemon, which
 uses sophisticated algorithms to maximize accuracy and reliability while
 minimizing resource use. Finally, since
-.Nm 
+.Nm
 does not discipline the host clock frequency as does
 .Xr ntpd 8 ,
 the accuracy using
@@ -1370,7 +1370,7 @@ is limited.
 Time adjustments are made by
 .Nm
 in one of two ways.
-If 
+If
 .Nm
 determines the clock is in error more than 0.5
 second it will simply step the time by calling the system
@@ -1385,13 +1385,13 @@ is run by
 .Xr cron 8
 every hour or two.
 .Pp
-.Nm 
-will decline to set the date if an NTP server
-daemon (e.g., 
-.Xr ntpd 8 )
-is running on the same host. When running 
 .Nm
-on a regular basis from 
+will decline to set the date if an NTP server
+daemon (e.g.,
+.Xr ntpd 8 )
+is running on the same host. When running
+.Nm
+on a regular basis from
 .Xr cron 8
 as an alternative to running a daemon, doing so once every hour or two
 will result in precise enough timekeeping to avoid stepping the clock.
@@ -1402,7 +1402,7 @@ The following options are available:
 Enable the authentication function and specify the key identifier to
 be used for authentication as the argument
 .Ar key
-.Nm 
+.Nm
 The keys and key identifiers must match
 in both the client and server key files. The default is to disable the
 authentication function.
@@ -1411,7 +1411,7 @@ Force the time to always be slewed using the
 .Xr adjtime 2
 system call,
 even if the measured offset is greater than +-128 ms. The default is to
-step the time using 
+step the time using
 .Xr settimeofday 2
 if the offset is greater than +-128
 ms. Note that, if the offset is much greater than +-128 ms in this case,
@@ -1444,7 +1444,7 @@ timekeeping on very slow CPU's.
 .It Fl k Ar keyfile
 Specify the path for the authentication key file as the string
 .Ar keyfile .
-The default is 
+The default is
 .Pa /etc/ntp.keys .
 This file should be in the format described in
 .Xr ntpd 8 .
@@ -1463,7 +1463,7 @@ with values from 1 to 8 inclusive. The default is 4.
 Query only - don't set the clock.
 .It Fl s
 Divert logging output from the standard output (default) to the
-system 
+system
 .Xr syslog 3
 facility. This is designed primarily for convenience of
 .Xr cron 8
@@ -1475,12 +1475,12 @@ in seconds and fraction. The value is is rounded to a
 multiple of 0.2 seconds. The default is 1 second, a value suitable for
 polling across a LAN.
 .It Fl u
-Direct 
+Direct
 .Nm
 to use an unprivileged port or outgoing
 packets. This is most useful when behind a firewall that blocks incoming
 traffic to privileged ports, and you want to synchronise with hosts
-beyond the firewall. Note that the 
+beyond the firewall. Note that the
 .Fl d
 option always uses
 unprivileged ports.
@@ -1500,7 +1500,7 @@ identification string to be logged.
 The slew adjustment is actually 50% larger than the measured offset,
 since this (it is argued) will tend to keep a badly drifting clock more
 accurate. This is probably not a good idea and may cause a troubling
-hunt for some values of the kernel variables 
+hunt for some values of the kernel variables
 .Xr tick 9
 and
 .Xr tickadj 9 .
@@ -1516,7 +1516,7 @@ David L. Mills (mills@udel.edu)
 .Nm ntptime
 .Nd read kernel time variables
 .Sh SYNOPSIS
-.Nm 
+.Nm
 .Op Fl cdhr
 .Op Fl e Ar est_error
 .Op Fl f Ar frequency
@@ -1529,14 +1529,14 @@ David L. Mills (mills@udel.edu)
 reads and displays time-related kernel variables using the
 .Ar ntp_gettime
 system call. A similar display can be
-obtained using the 
+obtained using the
 .Xr ntpdc 8
 program.
 .Pp
 The options are as follows:
 .Bl -tag -width indent
 .It Fl c
-Display the execution time of 
+Display the execution time of
 .Nm
 itself.
 .It Fl d
@@ -1619,7 +1619,7 @@ attempt to retransmit requests, and will time requests out if the remote
 host is not heard from within a suitable timeout time.
 .Pp
 Command line options are described following. Specifying a command
-line option other than 
+line option other than
 .Op Fl i
 or
 .Op Fl n
@@ -1631,13 +1631,13 @@ the standard input.
 .Bl -tag -width indent
 .It Fl c
 The following argument is interpreted as an interactive format
-command and is added to the list of commands to be 
+command and is added to the list of commands to be
 .Cd cooked .
 Variables which are recognized by the server will have their values
 reformatted for human consumption. Variables which
 .Nm
 thinks should have a decodeable value but didn't are marked with a
-trailing 
+trailing
 .Cd ? .
 .It Cd debug Ar more | less | off
 Turns internal query program debugging on and off.
@@ -1651,14 +1651,14 @@ command may be obsolete.
 .It Cd host Ar hostname
 Set the host to which future queries will be sent. Hostname may be
 either a host name or a numeric address.
-.It Cd hostnames Op yes | no 
-If 
+.It Cd hostnames Op yes | no
+If
 .Op yes
 is specified, host names are printed in
-information displays. If 
+information displays. If
 .Op no
 is specified, numeric
-addresses are printed instead. The default is 
+addresses are printed instead. The default is
 .Op yes ,
 unless
 modified using the command line
@@ -1730,7 +1730,7 @@ alternative.
 Requests that a list of the server's clock variables be sent.
 Servers which have a radio clock or other external synchronization will
 respond positively to this. If the association identifier is omitted or
-zero the request is for the variables of the 
+zero the request is for the variables of the
 .Pa system clock
 and will generally get a positive response from all servers with a
 clock. If the server treats clocks as pseudo-peers, and hence can
@@ -1746,15 +1746,15 @@ This command differs from the
 command only
 for servers which retain state for out-of-spec client associations
 (i.e., fuzzballs). Such associations are normally omitted from the
-display when the 
+display when the
 .Cd associations
 command is used, but are
-included in the output of 
+included in the output of
 .Cd lassociations .
 .It Cd lpassociations
 Print data for all associations, including out-of-spec client
 associations, from the internally cached list of associations. This
-command differs from 
+command differs from
 .Cd passociations
 only when dealing with fuzzballs.
 .It Cd lpeers
@@ -1763,7 +1763,7 @@ server is maintaining state is printed. This can produce a much longer
 list of peers from fuzzball servers.
 .It Cd mreadlist Ar assocID Ar assocID
 .It Cd mrl Ar assocID Ar assocID
-Like the 
+Like the
 .Cd readlist
 command, except the query is done for
 each of a range of (nonzero) association IDs. This range is determined
@@ -1772,14 +1772,14 @@ from the association list cached by the most recent
 command.
 .It Cd mreadvar Ar assocID assocID Op variable_name=value ...
 .It Cd mrv Ar assocID assocID Op variable_name=value ...
-Like the 
+Like the
 .Cd readvar command, except the query is done for
 each of a range of (nonzero) association IDs. This range is determined
 from the association list cached by the most recent
 .Cd associations
 command.
 .It Cd opeers
-An old form of the 
+An old form of the
 .Cd peers command with the reference ID
 replaced by the local interface address.
 .It Cd passociations
@@ -1802,20 +1802,20 @@ The character in the left margin indicates the fate of this peer
 in the clock selection process. The codes mean:
 .Cd "\ "
 discarded due
-to high stratum and/or failed sanity checks; 
+to high stratum and/or failed sanity checks;
 .Cd "x"
 designated
-falseticker by the intersection algorithm; 
+falseticker by the intersection algorithm;
 .Cd "."
 culled from
-the end of the candidate list; 
+the end of the candidate list;
 .Cd "-"
 discarded by the clustering algorithm;
 .Cd "+"
-included in the final selection set; 
+included in the final selection set;
 .Cd "#"
 selected for synchronization but distance exceeds
-maximum; 
+maximum;
 .Cd "*"
 selected for synchronization; and
 .Cd "o"
@@ -1827,9 +1827,9 @@ time with servers which poorly control the data formats.
 .Pp
 The contents of the host field may be one of four forms. It may
 be a host name, an IP address, a reference clock implementation name
-with its parameter or 
+with its parameter or
 .Cd "REFCLK(<implementation number>,<parameter>)" .
-On 
+On
 .Cd "hostnames no"
 only IP-addresses will be displayed.
 .It Cd pstatus Ar assocID
@@ -1898,7 +1898,7 @@ determines where a given Network Time Protocol
 back to their master time source. If given no arguments, it starts with
 .Pa localhost
 Here is an example of the output from
-.Nm 
+.Nm
 .nf
 % ntptrace
 localhost: stratum 4, offset 0.0019529, synch distance 0.144135
@@ -1908,10 +1908,10 @@ usndh.edu: stratum 1, offset 0.00192, synch distance 0.011, refid 'WWVB'
 .Pp
 On each line, the fields are (left to right): the host name, the host
 stratum, the time offset between that host and the local host (as
-measured by 
-.Nm 
+measured by
+.Nm
 this is why it is not always zero for
-.Pa localhost, 
+.Pa localhost,
 the host synchronization distance, and (only
 for stratum-1 servers) the reference clock ID. All times are given in
 seconds. Note that the stratum is the server hop count to the primary
@@ -2142,7 +2142,7 @@ David L. Mills (mills@udel.edu)
 .Nm ntpdc
 .Nd special NTP query program
 .Sh SYNOPSIS
-.Nm 
+.Nm
 .Op Fl ilnps
 .Op Fl c Ar command
 .Oo
@@ -2217,7 +2217,7 @@ attempt to read interactive format commands from the standard input.
 .It Fl c Ar command
 The following argument is interpreted as an interactive format
 command and is added to the list of commands to be executed on the
-specified host(s). Multiple 
+specified host(s). Multiple
 .Fl c
 options may be given.
 .It Fl i
@@ -2235,7 +2235,7 @@ Output all host addresses in dotted-quad numeric format rather than
 converting to the canonical host names.
 .It Fl p
 Print a list of the peers known to the server as well as a summary
-of their state. This is equivalent to 
+of their state. This is equivalent to
 .Fl c Ar peers .
 .It Fl s
 Print a list of the peers known to the server as well as a summary
@@ -2575,7 +2575,7 @@ fashion.
 .It fudge Ar peer_address Op time1 time2 stratum refid
 This command provides a way to set certain data for a reference
 clock. See the source listing for further information.
-.It enable Op flag ... 
+.It enable Op flag ...
 .It disable Op Ar flag Op Ar ...
 These commands operate in the same way as the
 .Pa enable

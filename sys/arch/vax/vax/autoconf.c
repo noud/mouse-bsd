@@ -76,7 +76,7 @@ cpu_configure()
 	 * We're ready to start up. Clear CPU cold start flag.
 	 * Soft cold-start flag will be cleared in configure().
 	 */
-	if (dep_call->cpu_clrf) 
+	if (dep_call->cpu_clrf)
 		(*dep_call->cpu_clrf)();
 }
 

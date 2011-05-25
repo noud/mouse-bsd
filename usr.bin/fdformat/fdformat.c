@@ -17,10 +17,10 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *        This product includes software developed by the NetBSD 
+ *        This product includes software developed by the NetBSD
  *	  Foundation, Inc. and its contributors.
- * 4. Neither the name of The NetBSD Foundation nor the names of its 
- *    contributors may be used to endorse or promote products derived 
+ * 4. Neither the name of The NetBSD Foundation nor the names of its
+ *    contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
@@ -90,7 +90,7 @@ confirm(int def)
 	case 'N':
 	default:
 		return 0;
-	}		
+	}
 }
 
 int
@@ -268,7 +268,7 @@ main(int argc, char *argv[])
 	       parms.ncyl * parms.ntrk * parms.nspt * parms.nbps / 1024);
 	if (!confirm(1))
 		errx(1,"formatting abandoned--not confirmed.");
-	
+
 	if (verify)
 		trackbuf = malloc(parms.nbps * parms.nspt);
 

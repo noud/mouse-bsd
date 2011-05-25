@@ -129,7 +129,7 @@ static struct tok type2str[] = {
  *
  * Assume that a system that has INT64_FORMAT defined, has a 64-bit
  * integer datatype and can print it.
- */ 
+ */
 
 #define UNSIGNED 0
 #define SIGNED   1
@@ -1272,7 +1272,7 @@ parsepathconf(const u_int32_t *dp)
 	       ntohl(spp->pc_casepreserving) ? "keepcase" : "");
 	return (0);
 }
-				
+
 static void
 interp_reply(const struct rpc_msg *rp, u_int32_t proc, u_int32_t vers, int length)
 {

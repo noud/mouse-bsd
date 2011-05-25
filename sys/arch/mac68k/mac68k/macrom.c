@@ -178,7 +178,7 @@ mrg_DTInstall()
 	__asm __volatile ("movl a0, %0" : "=g" (ptr));
 
 	(caddr_t *)prev = &mrg_DTList;
-	while (*prev != NULL) 
+	while (*prev != NULL)
 		prev = *(caddr_t *)prev;
 	*(caddr_t *)ptr = NULL;
 	*(caddr_t *)prev = ptr;
@@ -219,7 +219,7 @@ mrg_VBLQueue()
 #define vblPhase 12
 	caddr_t vbltask;
 	caddr_t last_vbltask;
-	
+
 	last_vbltask = (caddr_t)&VBLQueue_head;
 	vbltask = VBLQueue_head;
 	while (0 != vbltask) {
@@ -362,12 +362,12 @@ mrg_FixMul()
 
 void
 mrg_1sec_timer_tick()
-{	
+{
 	/* The timer tick from the Egret chip triggers this routine via
 	 * Lvl1DT[0] (addr 0x192) once every second.
 	 */
 }
-  
+
 void
 mrg_lvl1dtpanic()		/* Lvl1DT stopper */
 {
@@ -630,7 +630,7 @@ caddr_t mrg_OStraps[256] = {
 		(caddr_t)mrg_SetPtrSize,
 		(caddr_t)mrg_GetPtrSize,
 	[0x2f]	(caddr_t)mrg_PostEvent,
-	[0x3b]	(caddr_t)mrg_Delay,	
+	[0x3b]	(caddr_t)mrg_Delay,
 	[0x47]	(caddr_t)mrg_SetTrapAddress,
 	[0x55]	(caddr_t)mrg_StripAddress,
 	[0x82]	(caddr_t)mrg_DTInstall,
@@ -818,14 +818,14 @@ mrg_init()
 	extern short mrg_ResErr;
 	caddr_t *handle;
 #endif
-	
+
 	/*
 	 * Clear the VBLQueue.
 	 */
 	VBLQueue = (u_int16_t) 0;
 	VBLQueue_head = (caddr_t) 0;
 	VBLQueue_tail = (caddr_t) 0;
-					 
+
 #if defined(MRG_TEST)
 	if (ROMResourceMap) {
 		printf("mrg: testing CountResources\n");
@@ -1064,7 +1064,7 @@ setup_egret(void)
 		jEgret = (void (*)) mrg_OStraps[0x92]; /* may have been set in asm() */
 	}
 	else printf("Help ...  No vector for InitEgret!!\n");
-	
+
 #if defined(MRG_DEBUG)
 	printf("mrg: ADBIntrVector: 0x%8lx,  mrg_ADBIntrVector: 0x%8lx\n",
 			(long) mrg_romadbintr,
@@ -1090,7 +1090,7 @@ mrg_initadbintr()
 			printf("     ...  Using defaults for IIsi.\n");
 
 			/* Egret and ADBReInit look into these HwCfgFlags */
-			HwCfgFlags = 0xfc00;	
+			HwCfgFlags = 0xfc00;
 			HwCfgFlags2 = 0x0000773F;
 			HwCfgFlags3 = 0x000001a6;
 		}
@@ -1099,7 +1099,7 @@ mrg_initadbintr()
 			HwCfgFlags, HwCfgFlags2, HwCfgFlags3);
 	}
 
-#ifdef MRG_ADB	
+#ifdef MRG_ADB
 	/*
 	 * If we think there is an Egret in the machine, attempt to
 	 * set it up.  If not, just enable the interrupts (only on
@@ -1125,7 +1125,7 @@ mrg_initadbintr()
 
 		if (mac68k_machine.do_graybars)
 			printf("mrg: ADB interrupts enabled.\n");
-	}	
+	}
 #else
 	/* Extra Egret setup required only for MRG ADB functions. */
 	printf("mrg: skipping egret setup\n");
@@ -1151,7 +1151,7 @@ mrg_fixupROMBase(obase, nbase)
 
 	/*
 	 * Grab the pointer to the Mac ROM Glue Vector table
-	 */ 
+	 */
 	rom = mrg_MacOSROMVectors;
 
 	if (rom == NULL)
@@ -1296,7 +1296,7 @@ mrg_fixupROMBase(obase, nbase)
 	printf("mrg: ROM Resource list-head 0x%08lx -> 0x%08lx\n",
 	    (long)rom->ROMResourceMap, (long)ROMResourceMap);
 #endif
-}   
+}
 
 #ifdef MRG_ADB
 void
@@ -1311,7 +1311,7 @@ ADBAlternateInit(void)
 			movl	%1, a3
 			jbsr	a1@
 			movml	sp@+, a0-a6/d0-d7"
-			: 
+			:
 			: "g" (mrg_ADBAlternateInit), "g" (ADBBase)
 			: "a1", "a3");
 	}

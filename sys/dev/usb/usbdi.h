@@ -45,7 +45,7 @@ typedef struct usbd_pipe	*usbd_pipe_handle;
 typedef struct usbd_xfer	*usbd_xfer_handle;
 typedef void			*usbd_private_handle;
 
-typedef enum {		/* keep in sync with usbd_status_msgs */ 
+typedef enum {		/* keep in sync with usbd_status_msgs */
 	USBD_NORMAL_COMPLETION = 0, /* must be 0 */
 	USBD_IN_PROGRESS,
 	/* errors */
@@ -112,7 +112,7 @@ void usbd_setup_default_xfer
 	     usbd_private_handle priv, u_int32_t timeout,
 	     usb_device_request_t *req,  void *buffer,
 	     u_int32_t length, u_int16_t flags, usbd_callback));
-void usbd_setup_isoc_xfer	
+void usbd_setup_isoc_xfer
 	__P((usbd_xfer_handle xfer, usbd_pipe_handle pipe,
 	     usbd_private_handle priv, u_int16_t *frlengths,
 	     u_int32_t nframes, u_int16_t flags, usbd_callback));
@@ -143,12 +143,12 @@ usbd_status usbd_open_pipe_intr
 	     u_int8_t flags, usbd_pipe_handle *pipe,
 	     usbd_private_handle priv, void *buffer,
 	     u_int32_t length, usbd_callback, int));
-usbd_status usbd_do_request 
+usbd_status usbd_do_request
 	__P((usbd_device_handle pipe, usb_device_request_t *req, void *data));
 usbd_status usbd_do_request_async
 	__P((usbd_device_handle pipe, usb_device_request_t *req, void *data));
 usbd_status usbd_do_request_flags
-	__P((usbd_device_handle pipe, usb_device_request_t *req, 
+	__P((usbd_device_handle pipe, usb_device_request_t *req,
 	     void *data, u_int16_t flags, int *));
 usb_interface_descriptor_t *usbd_get_interface_descriptor
 	__P((usbd_interface_handle iface));
@@ -160,14 +160,14 @@ usbd_status usbd_set_interface __P((usbd_interface_handle, int));
 int usbd_get_no_alts __P((usb_config_descriptor_t *, int));
 usbd_status	usbd_get_interface
 	__P((usbd_interface_handle iface, u_int8_t *aiface));
-void usbd_fill_deviceinfo 
+void usbd_fill_deviceinfo
 	__P((usbd_device_handle dev, struct usb_device_info *di));
 int usbd_get_interface_altindex __P((usbd_interface_handle iface));
 
 usb_interface_descriptor_t *usbd_find_idesc
 	__P((usb_config_descriptor_t *cd, int iindex, int ano));
 usb_endpoint_descriptor_t *usbd_find_edesc
-	__P((usb_config_descriptor_t *cd, int ifaceidx, int altidx, 
+	__P((usb_config_descriptor_t *cd, int ifaceidx, int altidx,
 	     int endptidx));
 
 void usbd_dopoll __P((usbd_interface_handle));

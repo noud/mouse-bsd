@@ -129,7 +129,7 @@ procfs_docmdline(curp, p, pfs, uio)
 	auio.uio_offset = (vaddr_t)pss.ps_argvstr;
 	auio.uio_resid = sizeof(argv);
 	auio.uio_segflg = UIO_SYSSPACE;
-	auio.uio_rw = UIO_READ; 
+	auio.uio_rw = UIO_READ;
 	auio.uio_procp = NULL;
 	error = uvm_io(&p->p_vmspace->vm_map, &auio);
 	if (error)
@@ -179,7 +179,7 @@ procfs_docmdline(curp, p, pfs, uio)
 
  doio:
 	xlen = len - uio->uio_offset;
-	if (xlen <= 0) 
+	if (xlen <= 0)
 		error = 0;
 	else
 		error = uiomove(arg + trunc_page(len), xlen, uio);

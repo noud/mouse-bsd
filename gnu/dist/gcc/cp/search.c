@@ -97,7 +97,7 @@ static void envelope_add_decl PROTO((tree, tree, tree *));
 static int get_base_distance_recursive
 	PROTO((tree, int, int, int, int *, tree *, tree, tree *,
 	       int, int *, int, int));
-static void expand_upcast_fixups 
+static void expand_upcast_fixups
 	PROTO((tree, tree, tree, tree, tree, tree, tree *));
 static void fixup_virtual_upcast_offsets
 	PROTO((tree, tree, int, int, tree, tree, tree, tree,
@@ -554,7 +554,7 @@ get_binfo (parent, binfo, protect)
   tree type = NULL_TREE;
   int dist;
   tree rval = NULL_TREE;
-  
+
   if (TREE_CODE (parent) == TREE_VEC)
     parent = BINFO_TYPE (parent);
   else if (! IS_AGGR_TYPE_CODE (TREE_CODE (parent)))
@@ -566,7 +566,7 @@ get_binfo (parent, binfo, protect)
     type = binfo;
   else
     my_friendly_abort (90);
-  
+
   dist = get_base_distance (parent, binfo, protect, &rval);
 
   if (dist == -3)
@@ -621,7 +621,7 @@ get_base_distance_recursive (binfo, depth, is_private, rval,
 	  int same_object = (tree_int_cst_equal (BINFO_OFFSET (*new_binfo_ptr),
 						 BINFO_OFFSET (binfo))
 			     && *via_virtual_ptr && via_virtual);
-			     
+
 	  if (*via_virtual_ptr && via_virtual==0)
 	    {
 	      *rval_private_ptr = is_private;
@@ -1663,14 +1663,14 @@ lookup_fnfields_1 (type, name)
       /* If we didn't find it, it might have been a template
 	 conversion operator.  (Note that we don't look for this case
 	 above so that we will always find specializations first.)  */
-      if (methods == end 
-	  && IDENTIFIER_TYPENAME_P (name)) 
+      if (methods == end
+	  && IDENTIFIER_TYPENAME_P (name))
 	{
 	  methods = &TREE_VEC_ELT (method_vec, 0) + 1;
-	  
+
 	  while (++methods != end)
 	    {
-	      if (TREE_CODE (OVL_CURRENT (*methods)) == TEMPLATE_DECL 
+	      if (TREE_CODE (OVL_CURRENT (*methods)) == TEMPLATE_DECL
 		  && IDENTIFIER_TYPENAME_P (DECL_NAME (OVL_CURRENT (*methods))))
 		break;
 	    }
@@ -2023,7 +2023,7 @@ lookup_member (xbasetype, name, protect, want_type)
     }
   else
     my_friendly_abort (97);
-  
+
   ret = lookup_field (basetype_path, name, protect, want_type);
   if (! ret && ! want_type)
     ret = lookup_fnfields (basetype_path, name, protect);
@@ -2392,7 +2392,7 @@ get_abstract_virtuals (type)
   /* First get all from non-virtual bases.  */
   abstract_virtuals
     = get_abstract_virtuals_1 (TYPE_BINFO (type), 1, abstract_virtuals);
-					       
+
   for (vbases = CLASSTYPE_VBASECLASSES (type); vbases; vbases = TREE_CHAIN (vbases))
     {
       tree virtuals = BINFO_VIRTUALS (vbases);
@@ -2951,7 +2951,7 @@ expand_upcast_fixups (binfo, addr, orig_addr, vbase, vbase_addr, t,
   tree vc;
   tree delta;
   unsigned HOST_WIDE_INT n;
-  
+
   delta = purpose_member (vbase, *vbase_offsets);
   if (! delta)
     {
@@ -3044,7 +3044,7 @@ expand_upcast_fixups (binfo, addr, orig_addr, vbase, vbase_addr, t,
 		}
 	      else
 		vc_delta = TREE_VALUE (vc_delta);
-   
+
 	      /* This is a downcast, so we have to subtract the offset
 		 for the virtual base.  */
 	      old_delta = build_binary_op (MINUS_EXPR, old_delta, vc_delta, 0);
@@ -3334,7 +3334,7 @@ note_debug_info_needed (type)
 
   if (current_template_parms)
     return;
-    
+
   if (TYPE_BEING_DEFINED (type))
     /* We can't go looking for the base types and fields just yet.  */
     return;
@@ -3607,7 +3607,7 @@ dfs_compress_decls (binfo)
 	{
 	  /* This is known to be an envelope of the kind described before
 	     dfs_pushdecls.  */
-	  tree class_value = 
+	  tree class_value =
 	    IDENTIFIER_CLASS_VALUE (DECL_NAME (OVL_CURRENT (*methods)));
 	  tree tmp = TREE_PURPOSE (class_value);
 

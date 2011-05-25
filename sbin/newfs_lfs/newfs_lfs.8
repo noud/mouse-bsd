@@ -47,16 +47,16 @@
 .Nm
 builds a log-structured file system on the specified special
 device basing its defaults on the information in the disk label.
-Before running 
+Before running
 .Nm
-the disk must be labeled using 
+the disk must be labeled using
 .Xr disklabel 8 ,
 the proper fstype is 4.4LFS.  Reasonable values for the
-.Li fsize, 
+.Li fsize,
 .Li bsize,
 and
 .Li cpg
-(really 
+(really
 .Li sgs,
 segment shift) fields are 1024, 8192, and 7 respectively.
 .Pp
@@ -116,7 +116,7 @@ The size of the file system in sectors.
 A \fBnewlfs\fR
 command appeared in
 .Bx 4.4 ,
-and was renamed to 
+and was renamed to
 .Nm
 for
 .Nx 1.4.

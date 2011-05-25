@@ -2,7 +2,7 @@
 
 .PATH: ${.CURDIR}/nls
 
-SRCS+=	catclose.c catgets.c catopen.c 
+SRCS+=	catclose.c catgets.c catopen.c
 MAN+=	catclose.3 catgets.3 catopen.3
 
 # indirect reference stubs, to be removed soon.

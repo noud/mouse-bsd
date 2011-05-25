@@ -38,19 +38,19 @@
 **  FACILITY:
 **
 **	kerndebug.h
-**	
+**
 **
 **  ABSTRACT:
 **
 **      This  header provides generic debugging capabilities using printf.
 **      All debugging can be compiled out by not defining the
-**      KERNEL_DEBUG macro. In addition the amount of debug output is 
-**      defined by individual variables controlled by each subsystem 
+**      KERNEL_DEBUG macro. In addition the amount of debug output is
+**      defined by individual variables controlled by each subsystem
 **      using this utility. Finally note that the two middle bytes of
-**      the kern debug flags (bits 16 to 23) are free for individual 
-**      subsystems to use as they please (eg. define switches for 
-**      individual functions etc). 
-**     
+**      the kern debug flags (bits 16 to 23) are free for individual
+**      subsystems to use as they please (eg. define switches for
+**      individual functions etc).
+**
 **  AUTHORS:
 **
 **      John Court
@@ -79,23 +79,23 @@ typedef unsigned int Kern_Debug_Flags;
 /*
 ** Set up source line location macro for extra debugging and panics
 */
-#ifdef  __FILE__ 
-#define KERN_DEBUG_LOC ":%s:%d:=\n\t",__FILE__,__LINE__  
-#else 
-#define KERN_DEBUG_LOC ":__FILE__ not supported :=\n\t" 
+#ifdef  __FILE__
+#define KERN_DEBUG_LOC ":%s:%d:=\n\t",__FILE__,__LINE__
+#else
+#define KERN_DEBUG_LOC ":__FILE__ not supported :=\n\t"
 #endif
 
 /*
-** This is real nasty in that it requires several printf's but is 
-** unavoidable due to the differences between 
+** This is real nasty in that it requires several printf's but is
+** unavoidable due to the differences between
 ** preprocessors supporting standard ANSI C and others.
-** 
-** NOTE: The format of calls to this macro must be 
 **
-**       KERN_DEBUG((Kern_Debug_Flags)CntrlVar, KERN_DEBUG_xxxx, 
+** NOTE: The format of calls to this macro must be
+**
+**       KERN_DEBUG((Kern_Debug_Flags)CntrlVar, KERN_DEBUG_xxxx,
 **                  (normal printf arguments));
-**     
-**       pay special attention to the extra set of () around the 
+**
+**       pay special attention to the extra set of () around the
 **       final arguement.
 **
 */
@@ -118,7 +118,7 @@ typedef unsigned int Kern_Debug_Flags;
 	} \
 }
 #else  /* else KERNEL_DEBUG not defined */
-#define KERN_DEBUG(CntrlVar,Level,Output) 
+#define KERN_DEBUG(CntrlVar,Level,Output)
 #endif /* end else KERNEL_DEBUG not defined */
 
 #endif /* _KERNDEBUG_H_ */

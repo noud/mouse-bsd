@@ -310,7 +310,7 @@ u_quad_t maxtable[] = {
 #endif
 		if (sblock.lfs_maxfilesize != maxfilesize) {
 			pwarn("INCORRECT MAXFILESIZE=%qu IN SUPERBLOCK (should be %qu)",
-				(unsigned long long)sblock.lfs_maxfilesize, 
+				(unsigned long long)sblock.lfs_maxfilesize,
 				(unsigned long long)maxfilesize);
 			sblock.lfs_maxfilesize = maxfilesize;
 			if (preen)
@@ -363,7 +363,7 @@ u_quad_t maxtable[] = {
 	}
 	lncntp = (int16_t *)calloc((unsigned)(maxino + 1), sizeof(int16_t));
 	if (lncntp == NULL) {
-		printf("cannot alloc %lu bytes for lncntp\n", 
+		printf("cannot alloc %lu bytes for lncntp\n",
 		    (unsigned long)(maxino + 1) * sizeof(int16_t));
 		goto badsblabel;
 	}

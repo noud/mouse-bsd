@@ -80,7 +80,7 @@ gbox_init(ip)
 	REGBASE->cmap_blu    = 0x00;
 	REGBASE->cmap_write  = 0x00;
 	gbcm_waitbusy(ip->regbase);
-	
+
 	REGBASE->creg_select = 0x01;
 	REGBASE->cmap_red    = 0xFF;
 	REGBASE->cmap_grn    = 0xFF;
@@ -145,7 +145,7 @@ gbox_clear(ip, sy, sx, h, w)
 	register int sy, sx, h, w;
 {
 	gbox_windowmove(ip, sy * ip->ftheight, sx * ip->ftwidth,
-			sy * ip->ftheight, sx * ip->ftwidth, 
+			sy * ip->ftheight, sx * ip->ftwidth,
 			h  * ip->ftheight, w  * ip->ftwidth,
 			RR_CLEAR);
 }
@@ -167,7 +167,7 @@ gbox_scroll(ip, sy, sx, count, dir)
         int dir, sx, count;
 {
 	register int height, dy, i;
-	
+
 	tile_mover_waitbusy(ip->regbase);
 	REGBASE->write_protect = 0x0;
 

@@ -210,7 +210,7 @@ main(argc, argv)
 	}
 	lc = login_getclass(pwd->pw_class);
 
-	pw_warntime = login_getcaptime(lc, "password-warn",  
+	pw_warntime = login_getcaptime(lc, "password-warn",
                                     _PASSWORD_WARNDAYS * SECSPERDAY,
                                     _PASSWORD_WARNDAYS * SECSPERDAY);
 #endif
@@ -344,7 +344,7 @@ badlogin:
 				(void)setenv("TERM", p, 1);
 			if (chdir(pwd->pw_dir) < 0)
 				errx(1, "no directory");
-		} 
+		}
 
 		if (asthem || pwd->pw_uid)
 			(void)setenv("USER", pwd->pw_name, 1);

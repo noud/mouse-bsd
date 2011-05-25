@@ -380,7 +380,7 @@ fi
 if [ -f /sbin/ldconfig ]; then
 	echo 'creating runtime link editor directory cache.'
 	ldconfig
-fi 
+fi
 
 # load kernel modules specified in /etc/lkm.conf
 if checkyesno lkm && [ -f /etc/rc.lkm ]; then

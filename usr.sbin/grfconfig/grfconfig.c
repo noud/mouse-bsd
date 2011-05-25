@@ -26,7 +26,7 @@
  * THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
  * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS 
+ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
  * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
@@ -58,7 +58,7 @@ __RCSID("$NetBSD: grfconfig.c,v 1.9 1997/11/20 10:35:15 veego Exp $");
 #include <amiga/dev/grfioctl.h>
 
 int main __P((int, char **));
-static void print_rawdata __P((struct grfvideo_mode *, int));    
+static void print_rawdata __P((struct grfvideo_mode *, int));
 
 static struct grf_flag {
 	u_short	grf_flag_number;
@@ -217,7 +217,7 @@ main(ac, av)
 			    (gv->vtotal == 0)) {
 				printf("grfconfig: Illegal value in "
 				    "mode #%d:\n %s\n", gv->mode_num, obuf);
-				return (1);  
+				return (1);
 			}
 
 			if (strstr(obuf, "default") != NULL) {
@@ -376,11 +376,11 @@ main(ac, av)
 
 			printf("\t%ld.%ldkHz @ %ldHz",
 			    gv->pixel_clock / (gv->htotal * 1000),
-			    (gv->pixel_clock / (gv->htotal * 100)) 
+			    (gv->pixel_clock / (gv->htotal * 100))
     	    	    	    	% 10,
 			    gv->pixel_clock / (gv->htotal * gv->vtotal));
 			printf(" flags:");
-				
+
 			if (gv->disp_flags == GRF_FLAGS_DEFAULT) {
 				printf(" default");
 			} else {

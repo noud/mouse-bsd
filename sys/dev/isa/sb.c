@@ -150,8 +150,8 @@ sbmatch(sc)
 	}
 
         if (0 <= sc->sc_drq16 && sc->sc_drq16 <= 3)
-        	/* 
-                 * XXX Some ViBRA16 cards seem to have two 8 bit DMA 
+        	/*
+                 * XXX Some ViBRA16 cards seem to have two 8 bit DMA
                  * channels.  I've no clue how to use them, so ignore
                  * one of them for now.  -- augustss@netbsd.org
                  */
@@ -167,7 +167,7 @@ sbmatch(sc)
 		}
 	} else
 		sc->sc_drq16 = sc->sc_drq8;
-	
+
 	if (ISSBPROCLASS(sc)) {
 		if (!SBP_IRQ_VALID(sc->sc_irq)) {
 			printf("%s: configured irq %d invalid\n",
@@ -273,7 +273,7 @@ sb_getdev(addr, retp)
 		strncpy(retp->name, "MV Jazz16", sizeof(retp->name));
 	else
 		strncpy(retp->name, "SoundBlaster", sizeof(retp->name));
-	sprintf(retp->version, "%d.%02d", 
+	sprintf(retp->version, "%d.%02d",
 		SBVER_MAJOR(sc->sc_version),
 		SBVER_MINOR(sc->sc_version));
 	if (0 <= sc->sc_model && sc->sc_model < sizeof names / sizeof names[0])
@@ -281,6 +281,6 @@ sb_getdev(addr, retp)
 	else
 		config = "??";
 	strncpy(retp->config, config, sizeof(retp->config));
-		
+
 	return 0;
 }

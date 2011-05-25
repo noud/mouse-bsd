@@ -35,7 +35,7 @@ static const char rcsid[] = "Id: getservent_r.c,v 8.3 1999/01/08 19:24:36 vixie 
 
 #ifdef SERV_R_RETURN
 
-static SERV_R_RETURN 
+static SERV_R_RETURN
 copy_servent(struct servent *, struct servent *, SERV_R_COPY_ARGS);
 
 SERV_R_RETURN
@@ -120,7 +120,7 @@ copy_servent(struct servent *se, struct servent *sptr, SERV_R_COPY_ARGS) {
 	len += strlen(se->s_name) + 1;
 	len += strlen(se->s_proto) + 1;
 	len += numptr * sizeof(char*);
-	
+
 	if (len > buflen) {
 		errno = ERANGE;
 		return (SERV_R_BAD);

@@ -35,17 +35,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -139,7 +139,7 @@ osf1_sys_fcntl(p, v, retval)
 	case OSF1_F_SETOWN:		/* XXX not yet supported */
 		/* XXX translate. */
 		return (EINVAL);
-		
+
 	case OSF1_F_GETLK:
 	case OSF1_F_SETLK:
 	case OSF1_F_SETLKW:
@@ -160,7 +160,7 @@ osf1_sys_fcntl(p, v, retval)
 		if (error != 0)
 			return (error);
 		break;
-		
+
 	case OSF1_F_RGETLK:		/* [lock mgr op] XXX not supported */
 	case OSF1_F_RSETLK:		/* [lock mgr op] XXX not supported */
 	case OSF1_F_CNVT:		/* [lock mgr op] XXX not supported */

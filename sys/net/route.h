@@ -43,7 +43,7 @@
 
 /*
  * Kernel resident routing tables.
- * 
+ *
  * The routing tables are initialized when interface addresses
  * are set by making entries for all directly connected interfaces.
  */
@@ -236,7 +236,7 @@ struct route_cb {
 	int	any_count;
 };
 
-/* 
+/*
  * This structure, and the prototypes for the rt_timer_{init,remove_all,
  * add,timer} functions all used with the kind permission of BSDI.
  * These allow functions to be called for routes at specific times.
@@ -247,7 +247,7 @@ struct rttimer {
 	LIST_ENTRY(rttimer) 	rtt_link;  /* multiple timers per rtentry */
 	struct rttimer_queue	*rtt_queue;/* back pointer to queue */
 	struct rtentry  	*rtt_rt;   /* Back pointer to the route */
-	void            	(*rtt_func) __P((struct rtentry *, 
+	void            	(*rtt_func) __P((struct rtentry *,
 						 struct rttimer *));
 	time_t          	rtt_time; /* When this timer was registered */
 };

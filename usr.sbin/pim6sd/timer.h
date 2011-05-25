@@ -34,12 +34,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -73,7 +73,7 @@
 
 #define TIMEOUT(timer)          \
     (!((timer) -= (MIN(timer, timer_interval))))
- 
+
 #define NOT_TIMEOUT(timer)      \
     ((timer) -= (MIN(timer, timer_interval)))
 
@@ -93,9 +93,9 @@ extern u_int32 pim_register_probe_time;
 extern u_int32 pim_assert_timeout;
 
 extern void init_timers     __P((void));
-extern void init_timers     __P((void)); 
-extern void age_vifs        __P((void)); 
-extern void age_routes      __P((void)); 
+extern void init_timers     __P((void));
+extern void age_vifs        __P((void));
+extern void age_routes      __P((void));
 extern void age_misc        __P((void));
 
 

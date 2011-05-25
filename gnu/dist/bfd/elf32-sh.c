@@ -433,8 +433,8 @@ sh_elf_reloc (abfd, reloc_entry, symbol_in, data, input_section, output_bfd,
     return bfd_reloc_undefined;
 
   if (bfd_is_com_section (symbol_in->section))
-    sym_value = 0;                           
-  else 
+    sym_value = 0;
+  else
     sym_value = (symbol_in->value +
 		 symbol_in->section->output_section->vma +
 		 symbol_in->section->output_offset);
@@ -565,7 +565,7 @@ sh_elf_info_to_howto (abfd, cache_ptr, dst)
    values; in coff-sh.c they come from include/coff/sh.h, whereas here
    they come from enum sh_reloc_type in this file.  */
 
-static boolean 
+static boolean
 sh_elf_relax_section (abfd, sec, link_info, again)
      bfd *abfd;
      asection *sec;

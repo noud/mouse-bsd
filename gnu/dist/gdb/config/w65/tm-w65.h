@@ -45,7 +45,7 @@ extern CORE_ADDR w65_skip_prologue ();
 /* Immediately after a function call, return the saved pc.
    Can't always go through the frames for this because on some machines
    the new frame is not set up until the new function executes
-   some instructions. 
+   some instructions.
 
    The return address is the value saved in the PR register + 4  */
 
@@ -82,7 +82,7 @@ extern CORE_ADDR w65_skip_prologue ();
 /*#define REGISTER_TYPE  int*/
 
 /* Say how much memory is needed to store a copy of the register set */
-#define REGISTER_BYTES    (NUM_REGS*4) 
+#define REGISTER_BYTES    (NUM_REGS*4)
 
 /* Index within `registers' of the first byte of the space for
    register N.  */
@@ -133,7 +133,7 @@ extern CORE_ADDR w65_skip_prologue ();
 #define P_REGNUM   23
 
 /* Store the address of the place in which to copy the structure the
-   subroutine will return.  This is called from call_function. 
+   subroutine will return.  This is called from call_function.
 
    We store structs through a pointer passed in R4 */
 
@@ -149,7 +149,7 @@ extern CORE_ADDR w65_skip_prologue ();
 
 
 /* Write into appropriate registers a function return value
-   of type TYPE, given in virtual format.  
+   of type TYPE, given in virtual format.
 
    Things always get returned in R4/R5 */
 

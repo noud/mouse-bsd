@@ -24,14 +24,14 @@ SECTIONS
     ${RELOCATING+ edata  =  .};
   }
   .bss ${RELOCATING+ SIZEOF(.data) + ADDR(.data)} :
-  { 					
+  {
     *(.bss)
     *(COMMON)
     ${RELOCATING+ end = .};
   }
   ${RELOCATING- ${INIT}}
   ${RELOCATING- ${FINI}}
-  .stab  0 ${RELOCATING+(NOLOAD)} : 
+  .stab  0 ${RELOCATING+(NOLOAD)} :
   {
     [ .stab ]
   }

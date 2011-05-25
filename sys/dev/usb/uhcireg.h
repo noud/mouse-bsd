@@ -84,7 +84,7 @@
 
 #define UHCI_FRNUM		0x06
 #define  UHCI_FRNUM_MASK	0x03ff
- 
+
 
 #define UHCI_FLBASEADDR		0x08
 

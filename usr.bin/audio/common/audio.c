@@ -297,7 +297,7 @@ decode_time(arg, tvp)
 
 	tvp->tv_sec = tvp->tv_usec = 0;
 	s = copy;
-	
+
 	/* handle [hh:]mm:ss.dd */
 	if ((colon = strchr(s, ':'))) {
 		*colon++ = '\0';

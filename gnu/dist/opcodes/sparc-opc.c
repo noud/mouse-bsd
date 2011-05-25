@@ -153,7 +153,7 @@ sparc_opcode_lookup_arch (name)
 #define FBFCC(x)	(((x)&0x3)<<20)	/* v9 */
 
 /* The order of the opcodes in the table is significant:
-	
+
 	* The assembler requires that all instances of the same mnemonic must
 	be consecutive.	If they aren't, the assembler will bomb at runtime.
 

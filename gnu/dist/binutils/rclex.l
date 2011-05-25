@@ -237,7 +237,7 @@ cpp_line (s)
   ++s;
   while (isspace (*s))
     ++s;
-  
+
   line = strtol (s, &send, 0);
   if (*send != '\0' && ! isspace (*send))
     return;

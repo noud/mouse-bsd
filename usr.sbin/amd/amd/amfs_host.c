@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: amfs_host.c,v 1.3 1999/01/13 23:30:57 ezk Exp 
+ * Id: amfs_host.c,v 1.3 1999/01/13 23:30:57 ezk Exp
  *
  */
 

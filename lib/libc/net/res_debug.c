@@ -19,7 +19,7 @@
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -33,14 +33,14 @@
  * SUCH DAMAGE.
  * -
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -358,7 +358,7 @@ __fp_nquery(msg, len, file)
 		fprintf(file,", Auth: %d", ntohs(hp->nscount));
 		fprintf(file, ", Addit: %d", ntohs(hp->arcount));
 	}
-	if ((!_res.pfcode) || (_res.pfcode & 
+	if ((!_res.pfcode) || (_res.pfcode &
 		(RES_PRF_HEADX | RES_PRF_HEAD2 | RES_PRF_HEAD1))) {
 		putc('\n',file);
 	}
@@ -1108,7 +1108,7 @@ __p_option(option)
 	case RES_DNSRCH:	return "dnsrch";
 	case RES_INSECURE1:	return "insecure1";
 	case RES_INSECURE2:	return "insecure2";
-	default:	
+	default:
 		(void)snprintf(nbuf, sizeof nbuf, "?0x%lx?", (u_long)option);
 		return (nbuf);
 	}
@@ -1403,7 +1403,7 @@ loc_aton(ascii, binary)
 		altsign = -1;
 		cp++;
 	}
-    
+
 	if (*cp == '+')
 		cp++;
 
@@ -1432,7 +1432,7 @@ loc_aton(ascii, binary)
 		goto defaults;
 
 	siz = precsize_aton(&cp);
-	
+
 	while (!isspace(*cp) && (cp < maxcp))	/* if trailing garbage or m */
 		cp++;
 
@@ -1465,7 +1465,7 @@ loc_aton(ascii, binary)
 	PUTLONG(latit,bcp);
 	PUTLONG(longit,bcp);
 	PUTLONG(alt,bcp);
-    
+
 	return (16);		/* size of RR in octets */
 }
 
@@ -1488,7 +1488,7 @@ loc_ntoa(binary, ascii)
 	int32_t latval, longval, altval;
 	u_int32_t templ;
 	u_int8_t sizeval, hpval, vpval, versionval;
-    
+
 	char *sizestr, *hpstr, *vpstr;
 
 	_DIAGASSERT(ascii != NULL);
@@ -1606,8 +1606,8 @@ __dn_count_labels(name)
 }
 
 
-/* 
- * Make dates expressed in seconds-since-Jan-1-1970 easy to read.  
+/*
+ * Make dates expressed in seconds-since-Jan-1-1970 easy to read.
  * SIG records are required to be printed like this, by the Secure DNS RFC.
  */
 char *
@@ -1617,7 +1617,7 @@ __p_secstodate (secs)
 	static char output[15];		/* YYYYMMDDHHMMSS and null */
 	time_t clk = secs;
 	struct tm tim;
-	
+
 	(void)gmtime_r(&clk, &tim);
 	tim.tm_year += 1900;
 	tim.tm_mon += 1;

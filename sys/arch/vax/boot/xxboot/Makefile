@@ -3,7 +3,7 @@
 S=	${.CURDIR}/../../../../
 
 PROG=	xxboot
-LINKS=	${BINDIR}/xxboot ${BINDIR}/raboot 
+LINKS=	${BINDIR}/xxboot ${BINDIR}/raboot
 LINKS+=	${BINDIR}/xxboot ${BINDIR}/rdboot
 LINKS+=	${BINDIR}/xxboot ${BINDIR}/sdboot
 LINKS+=	${BINDIR}/xxboot ${BINDIR}/hpboot

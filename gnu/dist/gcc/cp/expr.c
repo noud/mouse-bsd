@@ -97,7 +97,7 @@ cplus_expand_expr (exp, target, tmode, modifier)
 	   as is building the call which will perform the
 	   initialization.  It is left here to show the choices that
 	   exist for C++.  */
-	   
+
 	if (TREE_CODE (func) == ADDR_EXPR
 	    && TREE_CODE (TREE_OPERAND (func, 0)) == FUNCTION_DECL
 	    && DECL_CONSTRUCTOR_P (TREE_OPERAND (func, 0)))
@@ -298,7 +298,7 @@ extract_scalar_init (decl, init)
 	}
     }
 
-  return t; 
+  return t;
 }
 #endif
 
@@ -329,7 +329,7 @@ do_case (start, end)
 {
   tree value1 = NULL_TREE, value2 = NULL_TREE, label;
 
-  if (start != NULL_TREE && TREE_TYPE (start) != NULL_TREE 
+  if (start != NULL_TREE && TREE_TYPE (start) != NULL_TREE
       && POINTER_TYPE_P (TREE_TYPE (start)))
     error ("pointers are not permitted as case values");
 
@@ -346,7 +346,7 @@ do_case (start, end)
     value1 = check_cp_case_value (start);
   if (end)
     value2 = check_cp_case_value (end);
-  
+
   label = build_decl (LABEL_DECL, NULL_TREE, NULL_TREE);
 
   if (value1 != error_mark_node

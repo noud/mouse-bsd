@@ -282,7 +282,7 @@ lsi64854_setup(sc, addr, len, datain, dmasize)
 		sc->sc_dvmaaddr = *sc->sc_dmaaddr;
 		if (bus_dmamap_load(sc->sc_dmatag, sc->sc_dmamap,
 				*sc->sc_dmaaddr, sc->sc_dmasize,
-				NULL /* kernel address */,   
+				NULL /* kernel address */,
 				BUS_DMA_NOWAIT))
 			panic("%s: cannot allocate DVMA address",
 			      sc->sc_dev.dv_xname);
@@ -517,7 +517,7 @@ lsi64854_setup_pp(sc, addr, len, datain, dmasize)
 		sc->sc_dvmaaddr = *sc->sc_dmaaddr;
 		if (bus_dmamap_load(sc->sc_dmatag, sc->sc_dmamap,
 				*sc->sc_dmaaddr, sc->sc_dmasize,
-				NULL /* kernel address */,   
+				NULL /* kernel address */,
 				BUS_DMA_NOWAIT))
 			panic("%s: cannot allocate DVMA address",
 			      sc->sc_dev.dv_xname);

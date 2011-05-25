@@ -209,7 +209,7 @@ re_compile_pattern (pattern, size, bufp)
   /* address of the count-byte of the most recently inserted "exactn" command.
     This makes it possible to tell whether a new exact-match character
     can be added to that command or requires a new "exactn" command. */
-     
+
   char *pending_exact = 0;
 
   /* address of the place where a forward-jump should go
@@ -538,7 +538,7 @@ re_compile_pattern (pattern, size, bufp)
 	      PATPUSH (at_dot);
 	      break;
 
-	    case 's':	
+	    case 's':
 	      laststart = b;
 	      PATPUSH (syntaxspec);
 	      PATFETCH (c);
@@ -729,7 +729,7 @@ re_compile_fastmap (bufp)
   memset (fastmap, '\0', (1 << BYTEWIDTH));
   bufp->fastmap_accurate = 1;
   bufp->can_be_null = 0;
-      
+
   while (p)
     {
       if (p == pend)
@@ -796,7 +796,7 @@ re_compile_fastmap (bufp)
 	  if (stackp != stackb && *stackp == p)
 	    stackp--;
 	  continue;
-	  
+
 	case on_failure_jump:
 	  j = *p++ & 0377;
 	  j += SIGN_EXTEND_CHAR (*(char *)p) << 8;
@@ -937,7 +937,7 @@ re_search_2 (pbufp, string1, size1, string2, size2, startpos, range, regs, mstop
   /* Update the fastmap now if not correct already */
   if (fastmap && !pbufp->fastmap_accurate)
     re_compile_fastmap (pbufp);
-  
+
   /* Don't waste time in a long search for a pattern
      that says it is anchored.  */
   if (pbufp->used > 0 && (enum regexpcode) pbufp->buffer[0] == begbuf
@@ -1480,7 +1480,7 @@ re_match_2 (pbufp, string1, size1, string2, size2, pos, regs, mstop)
 	  PREFETCH;
 	  if (SYNTAX (*d++) != (enum syntaxcode) mcnt) goto fail;
 	  break;
-	  
+
 	case notwordchar:
 	  mcnt = (int) Sword;
 	  goto matchnotsyntax;
@@ -1496,7 +1496,7 @@ re_match_2 (pbufp, string1, size1, string2, size2, pos, regs, mstop)
 	  PREFETCH;
 	  if (SYNTAX (*d++) == 0) goto fail;
 	  break;
-	  
+
 	case notwordchar:
 	  PREFETCH;
 	  if (SYNTAX (*d++) != 0) goto fail;
@@ -1626,7 +1626,7 @@ re_exec (s)
 
 /* Indexed by a character, gives the upper case equivalent of the character */
 
-static char upcase[0400] = 
+static char upcase[0400] =
   { 000, 001, 002, 003, 004, 005, 006, 007,
     010, 011, 012, 013, 014, 015, 016, 017,
     020, 021, 022, 023, 024, 025, 026, 027,
@@ -1718,9 +1718,9 @@ print_buf (bufp)
   printf_unfiltered ("buf is :\n----------------\n");
   for (i = 0; i < bufp->used; i++)
     printchar (bufp->buffer[i]);
-  
+
   printf_unfiltered ("\n%d allocated, %d used.\n", bufp->allocated, bufp->used);
-  
+
   printf_unfiltered ("Allowed by fastmap: ");
   for (i = 0; i < (1 << BYTEWIDTH); i++)
     if (bufp->fastmap[i])

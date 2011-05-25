@@ -1861,7 +1861,7 @@ Var_Parse (str, ctxt, err, lengthPtr, freePtr)
 		    free(pattern.lhs);
 		    free(pattern.rhs);
 		    break;
-		}	
+		}
 		case '?':
 		{
 		    VarPattern 	pattern;

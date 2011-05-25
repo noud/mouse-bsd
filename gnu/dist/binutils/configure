@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Guess values for system-dependent variables and create Makefiles.
-# Generated automatically using autoconf version 2.12.1 
+# Generated automatically using autoconf version 2.12.1
 # Copyright (C) 1992, 93, 94, 95, 96 Free Software Foundation, Inc.
 #
 # This configure script is free software; the Free Software Foundation
@@ -1769,7 +1769,7 @@ fi
   else
     MAINT='#M#'
   fi
-  
+
 
 echo $ac_n "checking for Cygwin32 environment""... $ac_c" 1>&6
 echo "configure:1776: checking for Cygwin32 environment" >&5
@@ -1967,7 +1967,7 @@ if eval "test \"`echo '$ac_cv_header_'$ac_safe`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_hdr 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -2293,7 +2293,7 @@ if eval "test \"`echo '$ac_cv_func_'$ac_func`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_func 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -2640,7 +2640,7 @@ do
 	NLMCONV_DEFS="-DNLMCONV_I386 -DNLMCONV_ALPHA -DNLMCONV_POWERPC -DNLMCONV_SPARC"
     else
 	case $targ in
-	i[3456]86*-*-netware*) 
+	i[3456]86*-*-netware*)
 	  BUILD_NLMCONV='$(NLMCONV_PROG)$(EXEEXT)'
 	  NLMCONV_DEFS="$NLMCONV_DEFS -DNLMCONV_I386"
 	  ;;

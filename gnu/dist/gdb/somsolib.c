@@ -408,7 +408,7 @@ som_solib_add (arg_string, from_tty, target)
 
       /* Now see if we need to map in the text and data for this shared
 	 library (for example debugging a core file which does not use
-	 private shared libraries.). 
+	 private shared libraries.).
 
 	 Carefully peek at the first text address in the library.  If the
 	 read succeeds, then the libraries were privately mapped and were
@@ -509,7 +509,7 @@ som_solib_create_inferior_hook()
   remove_solib_event_breakpoints ();
 
   if (symfile_objfile == NULL)
-    return; 
+    return;
 
   /* First see if the objfile was dynamically linked.  */
   shlib_info = bfd_get_section_by_name (symfile_objfile->obfd, "$SHLIB_INFO$");
@@ -523,7 +523,7 @@ som_solib_create_inferior_hook()
   have_endo = 0;
   /* If __d_pid is present, then put the inferior's pid into __d_pid.  hpux9
      requires __d_pid to be set.  hpux10 doesn't require __d_pid to be set
-     and the symbol may not be available. 
+     and the symbol may not be available.
 
      Never warn about __d_pid.  */
   msymbol = lookup_minimal_symbol ("__d_pid", NULL, symfile_objfile);
@@ -613,7 +613,7 @@ som_solib_create_inferior_hook()
     }
   anaddr = SYMBOL_VALUE_ADDRESS (msymbol);
   status = target_write_memory (anaddr, buf, 4);
-  
+
   /* Now set a shlib_event breakpoint at __d_trap so we can track
      significant shared library events.  */
   msymbol = lookup_minimal_symbol ("__d_trap", NULL, symfile_objfile);
@@ -662,7 +662,7 @@ keep_going:
       return;
     }
 
-  /* Now find the address of _start and set a breakpoint there. 
+  /* Now find the address of _start and set a breakpoint there.
      We still need this code for two reasons:
 
 	* Not all sites have /usr/lib/end.o, so it's not always
@@ -670,7 +670,7 @@ keep_going:
 
 	* At this time no events are triggered for shared libraries
 	loaded at startup time (what a crock).  */
-	
+
   msymbol = lookup_minimal_symbol ("_start", NULL, symfile_objfile);
   if (msymbol == NULL)
     {

@@ -124,13 +124,13 @@ As of this writing, the nca driver has two known limitations:
 1) No DMA or pseudo-DMA support
 
 This is unfortunate, but may be remedied in a later release. I would welcome
-any help by someone more familiar with DMA, particularly in relation to 
+any help by someone more familiar with DMA, particularly in relation to
 bus_space().
 
 As it is, however, performance of the nca driver is acceptable, though some
 of that may depend on one's definition of "acceptable". Remember that these
 were not high speed controller under the best conditions, so much of it is
-really the nature of the beast. It should be adequate for tapes, CD-ROMS, 
+really the nature of the beast. It should be adequate for tapes, CD-ROMS,
 and low-usage disk devices (e.g., Zip drives). If you want to drive a CD-R
 drive, then invest in an Adaptec 154X or a PCI controller.
 
@@ -177,7 +177,7 @@ so easy to write this driver. My thanks also to the authors of the
 FreeBSD nca driver for inspiration and 53C400 support.
 
 In the end, I hope that someone else can find this driver as useful as I
-have. If so, please drop me a line at jruschme@exit109.com and let me 
+have. If so, please drop me a line at jruschme@exit109.com and let me
 know about it.
 
 Share and enjoy

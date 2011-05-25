@@ -499,11 +499,11 @@ getmmdd(struct tm *tp, char *ds)
 				ttm.tm_year += 1900 - TM_YEAR_BASE;
 		}
 	}
-	
+
 	if (ok && (mktime(&ttm) < 0)) {
 		ok = FALSE;
 	}
-	
+
 	if (ok) {
 		*tp = ttm;
 	} else {

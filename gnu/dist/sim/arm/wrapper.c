@@ -45,7 +45,7 @@ static int mem_size = 21;
 /* Non-zero to display start up banner, and maybe other things.  */
 static int verbosity;
 
-static void 
+static void
 init ()
 {
   static int done;
@@ -56,7 +56,7 @@ init ()
       state = ARMul_NewState ();
       ARMul_MemoryInit(state, 1 << mem_size);
       ARMul_OSInit(state);
-      ARMul_CoProInit(state); 
+      ARMul_CoProInit(state);
       state->verbose = verbosity;
       done = 1;
     }
@@ -73,24 +73,24 @@ arm_sim_set_verbosity (v)
 
 /* Must be called before initializing simulator.  */
 
-void 
+void
 arm_sim_set_mem_size (size)
      int size;
 {
   mem_size = size;
 }
 
-void 
+void
 arm_sim_set_profile ()
 {
 }
 
-void 
+void
 arm_sim_set_profile_size ()
 {
 }
 
-void 
+void
 ARMul_ConsolePrint (ARMul_State * state, const char *format,...)
 {
   va_list ap;
@@ -103,7 +103,7 @@ ARMul_ConsolePrint (ARMul_State * state, const char *format,...)
     }
 }
 
-ARMword 
+ARMword
 ARMul_Debug (ARMul_State * state, ARMword pc, ARMword instr)
 {
 
@@ -139,7 +139,7 @@ sim_read (addr, buffer, size)
   return size;
 }
 
-void 
+void
 sim_trace ()
 {
 }
@@ -180,7 +180,7 @@ sim_info (verbose)
 }
 
 
-int 
+int
 frommem (state, memory)
      struct ARMul_State *state;
      unsigned char *memory;
@@ -202,7 +202,7 @@ frommem (state, memory)
 }
 
 
-void 
+void
 tomem (state, memory,  val)
      struct ARMul_State *state;
      unsigned char *memory;

@@ -401,7 +401,7 @@ do {									\
    the precise function being called is known, FUNC is its
    FUNCTION_DECL; otherwise, FUNC is 0.  For m68k/SVR4 generate the
    result in d0, a0, or fp0 as appropriate. */
-   
+
 #undef FUNCTION_VALUE
 #define FUNCTION_VALUE(VALTYPE, FUNC)					\
   (TREE_CODE (VALTYPE) == REAL_TYPE && TARGET_68881			\

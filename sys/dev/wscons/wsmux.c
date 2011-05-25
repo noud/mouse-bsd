@@ -45,7 +45,7 @@
 /*
  * wscons mux device.
  *
- * The mux device is a collection of real mice and keyboards and acts as 
+ * The mux device is a collection of real mice and keyboards and acts as
  * a merge point for all the events from the different real devices.
  */
 
@@ -116,11 +116,11 @@ wsmux_setmax(n)
 		i = nwsmux;
 		nwsmux = n + 1;
 		if (nwsmux != 0)
-			wsmuxdevs = realloc(wsmuxdevs, 
-					    nwsmux * sizeof (*wsmuxdevs), 
+			wsmuxdevs = realloc(wsmuxdevs,
+					    nwsmux * sizeof (*wsmuxdevs),
 					    M_DEVBUF, M_NOWAIT);
 		else
-			wsmuxdevs = malloc(nwsmux * sizeof (*wsmuxdevs), 
+			wsmuxdevs = malloc(nwsmux * sizeof (*wsmuxdevs),
 					   M_DEVBUF, M_NOWAIT);
 		if (wsmuxdevs == 0)
 			panic("wsmux_setmax: no memory\n");
@@ -227,14 +227,14 @@ wsmuxopen(dev, flags, mode, p)
 	lasterror = 0;
 	for (m = LIST_FIRST(&sc->sc_reals); m; m = LIST_NEXT(m, next)) {
 		if (!m->sc_mevents->io && !*m->sc_muxp) {
-			DPRINTF(("wsmuxopen: %s: m=%p dev=%s\n", 
+			DPRINTF(("wsmuxopen: %s: m=%p dev=%s\n",
 				 sc->sc_dv.dv_xname, m, m->sc->dv_xname));
 			error = m->sc_ops->dopen(makedev(0, m->sc->dv_unit),
 						 flags, mode, p);
 			if (error) {
 				/* Ignore opens that fail */
 				lasterror = error;
-				DPRINTF(("wsmuxopen: open failed %d\n", 
+				DPRINTF(("wsmuxopen: open failed %d\n",
 					 error));
 			} else {
 				nopen++;
@@ -321,7 +321,7 @@ wsmux_add_mux(unit, muxsc)
 		if (m == sc)
 			return (EINVAL);
 
-	return (wsmux_attach_sc(muxsc, WSMUX_MUX, &sc->sc_dv, &sc->sc_events, 
+	return (wsmux_attach_sc(muxsc, WSMUX_MUX, &sc->sc_dv, &sc->sc_events,
 				&sc->sc_mux, &wsmux_muxops));
 }
 
@@ -334,7 +334,7 @@ wsmux_rem_mux(unit, muxsc)
 
 	if (unit < 0 || unit >= nwsmux || (sc = wsmuxdevs[unit]) == NULL)
 		return (ENXIO);
-	
+
 	DPRINTF(("wsmux_rem_mux: %s from %s\n", sc->sc_dv.dv_xname,
 		 muxsc->sc_dv.dv_xname));
 
@@ -389,7 +389,7 @@ wsmux_attach_sc(sc, type, dsc, ev, psp, ops)
 
 	if (sc->sc_displaydv) {
 		/* This is a display mux, so attach the new device to it. */
-		DPRINTF(("wsmux_attach_sc: %s: set display %p\n", 
+		DPRINTF(("wsmux_attach_sc: %s: set display %p\n",
 			 sc->sc_dv.dv_xname, sc->sc_displaydv));
 		error = 0;
 		if (m->sc_ops->dsetdisplay) {
@@ -402,8 +402,8 @@ wsmux_attach_sc(sc, type, dsc, ev, psp, ops)
 #ifdef WSDISPLAY_COMPAT_RAWKBD
 				DPRINTF(("wsmux_attach_sc: on %s set rawkbd=%d\n",
 					 m->sc->dv_xname, sc->sc_rawkbd));
-				(void)m->sc_ops->dioctl(m->sc, 
-					     WSKBDIO_SETMODE, 
+				(void)m->sc_ops->dioctl(m->sc,
+					     WSKBDIO_SETMODE,
 					     (caddr_t)&sc->sc_rawkbd,
 					     0, 0);
 #endif
@@ -423,7 +423,7 @@ wsmux_attach_sc(sc, type, dsc, ev, psp, ops)
 			 sc->sc_dv.dv_xname));
 		error = 0;
 	}
-	DPRINTF(("wsmux_attach_sc: done sc=%p psp=%p *psp=%p\n", 
+	DPRINTF(("wsmux_attach_sc: done sc=%p psp=%p *psp=%p\n",
 		 sc, psp, *psp));
 
 	return (error);
@@ -491,7 +491,7 @@ int wsmuxdoclose(dv, flags, mode, p)
 
 	for (m = LIST_FIRST(&sc->sc_reals); m; m = LIST_NEXT(m, next)) {
 		if (*m->sc_muxp == sc) {
-			DPRINTF(("wsmuxclose %s: m=%p dev=%s\n", 
+			DPRINTF(("wsmuxclose %s: m=%p dev=%s\n",
 				 sc->sc_dv.dv_xname, m, m->sc->dv_xname));
 			m->sc_ops->dclose(m->sc, flags, mode, p);
 			*m->sc_muxp = 0;
@@ -521,7 +521,7 @@ wsmuxdoioctl(dv, cmd, data, flag, p)
 	struct timeval xxxtime;
 	struct wsmux_device_list *l;
 
-	DPRINTF(("wsmuxdoioctl: %s: sc=%p, cmd=%08lx\n", 
+	DPRINTF(("wsmuxdoioctl: %s: sc=%p, cmd=%08lx\n",
 		 sc->sc_dv.dv_xname, sc, cmd));
 
 	switch (cmd) {
@@ -616,7 +616,7 @@ wsmuxdoioctl(dv, cmd, data, flag, p)
 		DPRINTF(("wsmuxdoioctl: m=%p *m->sc_muxp=%p sc=%p\n",
 			 m, *m->sc_muxp, sc));
 		if (*m->sc_muxp == sc) {
-			DPRINTF(("wsmuxdoioctl: %s: m=%p dev=%s\n", 
+			DPRINTF(("wsmuxdoioctl: %s: m=%p dev=%s\n",
 				 sc->sc_dv.dv_xname, m, m->sc->dv_xname));
 			error = m->sc_ops->dioctl(m->sc, cmd, data, flag, p);
 			if (!error)
@@ -641,29 +641,29 @@ wsmux_displayioctl(dv, cmd, data, flag, p)
 	struct wsplink *m;
 	int error, ok;
 
-	DPRINTF(("wsmux_displayioctl: %s: sc=%p, cmd=%08lx\n", 
+	DPRINTF(("wsmux_displayioctl: %s: sc=%p, cmd=%08lx\n",
 		 sc->sc_dv.dv_xname, sc, cmd));
 
 #ifdef WSDISPLAY_COMPAT_RAWKBD
 	if (cmd == WSKBDIO_SETMODE) {
 		sc->sc_rawkbd = *(int *)data;
 		DPRINTF(("wsmux_displayioctl: rawkbd = %d\n", sc->sc_rawkbd));
-	}		
+	}
 #endif
 
-	/* 
+	/*
 	 * Return 0 if any of the ioctl() succeeds, otherwise the last error.
 	 * Return -1 if no mux component accepts the ioctl.
 	 */
 	error = -1;
 	ok = 0;
 	for (m = LIST_FIRST(&sc->sc_reals); m; m = LIST_NEXT(m, next)) {
-		DPRINTF(("wsmux_displayioctl: m=%p sc=%p sc_muxp=%p\n", 
+		DPRINTF(("wsmux_displayioctl: m=%p sc=%p sc_muxp=%p\n",
 			 m, sc, *m->sc_muxp));
 		if (m->sc_ops->ddispioctl && *m->sc_muxp == sc) {
 			error = m->sc_ops->ddispioctl(m->sc, cmd, data,
 						      flag, p);
-			DPRINTF(("wsmux_displayioctl: m=%p dev=%s ==> %d\n", 
+			DPRINTF(("wsmux_displayioctl: m=%p dev=%s ==> %d\n",
 				 m, m->sc->dv_xname, error));
 			if (!error)
 				ok = 1;
@@ -708,10 +708,10 @@ wsmux_set_display(dv, muxsc)
 	error = 0;
 	for (m = LIST_FIRST(&sc->sc_reals); m; m = LIST_NEXT(m, next)) {
 		if (m->sc_ops->dsetdisplay &&
-		    (nsc ? m->sc_mevents->io == 0 && *m->sc_muxp == 0 : 
+		    (nsc ? m->sc_mevents->io == 0 && *m->sc_muxp == 0 :
 		           *m->sc_muxp == sc)) {
 			error = m->sc_ops->dsetdisplay(m->sc, nsc);
-			DPRINTF(("wsmux_set_display: m=%p dev=%s error=%d\n", 
+			DPRINTF(("wsmux_set_display: m=%p dev=%s error=%d\n",
 				 m, m->sc->dv_xname, error));
 			if (!error) {
 				ok = 1;
@@ -719,8 +719,8 @@ wsmux_set_display(dv, muxsc)
 #ifdef WSDISPLAY_COMPAT_RAWKBD
 				DPRINTF(("wsmux_set_display: on %s set rawkbd=%d\n",
 					 m->sc->dv_xname, sc->sc_rawkbd));
-				(void)m->sc_ops->dioctl(m->sc, 
-					     WSKBDIO_SETMODE, 
+				(void)m->sc_ops->dioctl(m->sc,
+					     WSKBDIO_SETMODE,
 					     (caddr_t)&sc->sc_rawkbd,
 					     0, 0);
 #endif
@@ -731,7 +731,7 @@ wsmux_set_display(dv, muxsc)
 		error = 0;
 
 	if (displaydv == NULL)
-		printf("%s: disconnecting from %s\n", 
+		printf("%s: disconnecting from %s\n",
 		       sc->sc_dv.dv_xname, odisplaydv->dv_xname);
 
 	return (error);

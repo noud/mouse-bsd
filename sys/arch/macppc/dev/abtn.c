@@ -95,7 +95,7 @@ abtn_attach(parent, self, aux)
 	SetADBInfo(&adbinfo, sc->adbaddr);
 }
 
-void 
+void
 abtn_adbcomplete(buffer, data, adb_command)
 	caddr_t buffer, data;
 	int adb_command;

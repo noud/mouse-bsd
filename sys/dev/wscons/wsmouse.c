@@ -142,11 +142,11 @@ void	wsmouse_attach __P((struct device *, struct device *, void *));
 int	wsmouse_detach __P((struct device *, int));
 int	wsmouse_activate __P((struct device *, enum devact));
 
-int	wsmouse_do_ioctl __P((struct wsmouse_softc *, u_long, caddr_t, 
+int	wsmouse_do_ioctl __P((struct wsmouse_softc *, u_long, caddr_t,
 			      int, struct proc *));
 
 int	wsmousedoclose __P((struct device *, int, int, struct proc *));
-int	wsmousedoioctl __P((struct device *, u_long, caddr_t, int, 
+int	wsmousedoioctl __P((struct device *, u_long, caddr_t, int,
 			    struct proc *));
 
 struct cfattach wsmouse_ca = {
@@ -494,7 +494,7 @@ wsmouseclose(dev, flags, mode, p)
 	struct proc *p;
 {
 #if NWSMOUSE > 0
-	return (wsmousedoclose(wsmouse_cd.cd_devs[minor(dev)], 
+	return (wsmousedoclose(wsmouse_cd.cd_devs[minor(dev)],
 			       flags, mode, p));
 #else
 	return (ENXIO);
@@ -653,7 +653,7 @@ wsmouse_add_mux(unit, muxsc)
 	if (sc->sc_mux || sc->sc_events.io)
 		return (EBUSY);
 
-	return (wsmux_attach_sc(muxsc, WSMUX_KBD, &sc->sc_dv, &sc->sc_events, 
+	return (wsmux_attach_sc(muxsc, WSMUX_KBD, &sc->sc_dv, &sc->sc_events,
 				&sc->sc_mux, &wsmouse_muxops));
 }
 

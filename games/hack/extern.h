@@ -219,7 +219,7 @@ struct obj *mkgoldobj __P((long));
 struct obj *getobj __P((char *, char *));
 int ckunpaid __P((struct obj *));
 int ggetobj __P((char *, int (*fn)(struct obj *), int));
-int askchain __P((struct obj *, char *, int, int (*)(struct obj *), 
+int askchain __P((struct obj *, char *, int, int (*)(struct obj *),
     int (*)(struct obj *), int));
 char obj_to_let __P((struct obj *));
 void prinv __P((struct obj *));

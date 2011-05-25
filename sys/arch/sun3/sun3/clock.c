@@ -276,7 +276,7 @@ clock_intr(cf)
 	/* Read the clock intr. reg. AGAIN! */
 	intersil_clear();
 
-	
+
 	{ /* Entertainment! */
 #ifdef	LED_IDLE_CHECK
 		/* With this option, LEDs move only when CPU is idle. */

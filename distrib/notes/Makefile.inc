@@ -13,9 +13,9 @@ SRCS=	${MAIN} whatis contents hardware xfer prep install\
 	upgrade donations legal.common legal postinstall ../Makefile.inc\
 	${MERGED_SRCS}
 ICMD=	${INSTALL} ${RENAME} ${PRESERVE} ${COPY}	\
-	-o root -g wheel -m ${NONBINMODE} 
+	-o root -g wheel -m ${NONBINMODE}
 
-PRESET=	${GFLAGS} -dV=$V -dV_S=${V_S} -dMACHINE=$M -d.CURDIR=${.CURDIR} -r$M=1 
+PRESET=	${GFLAGS} -dV=$V -dV_S=${V_S} -dMACHINE=$M -d.CURDIR=${.CURDIR} -r$M=1
 
 POST_PLAIN= -P-b -P-u -P-o
 

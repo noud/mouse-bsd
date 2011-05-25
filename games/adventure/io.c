@@ -306,7 +306,7 @@ rdesc(sect)			/* read description-format msgs */
 				ptext[oldloc].txtlen = maystart - seekstart;
 				break;
 			case 6:/* random messages              */
-				if (oldloc > RTXSIZ) 
+				if (oldloc > RTXSIZ)
 					errx(1,"Too many random msgs");
 				rtext[oldloc].seekadr = seekhere;
 				rtext[oldloc].txtlen = maystart - seekstart;

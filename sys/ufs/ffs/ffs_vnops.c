@@ -253,8 +253,8 @@ ffs_fsync(v)
 	    vp->v_specmountpoint != NULL &&
 	    (vp->v_specmountpoint->mnt_flag & MNT_SOFTDEP))
 		softdep_fsync_mountdev(vp);
-	
-	/* 
+
+	/*
 	 * Flush all dirty buffers associated with a vnode
 	 */
 	passes = NIADDR + 1;
@@ -307,7 +307,7 @@ loop:
 			return 0;
 		}
 
-		/* 
+		/*
 		 * Ensure that any filesystem metadata associated
 		 * with the vnode has been written.
 		 */

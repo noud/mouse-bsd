@@ -854,12 +854,12 @@ dependent COFF routines:
 .       struct bfd_link_info *info,
 .       bfd *abfd,
 .       const char *name,
-.       flagword flags, 
+.       flagword flags,
 .       asection *section,
 .       bfd_vma value,
 .       const char *string,
 .       boolean copy,
-.       boolean collect, 
+.       boolean collect,
 .       struct bfd_link_hash_entry **hashp));
 .
 . boolean (*_bfd_coff_link_output_has_begun) PARAMS ((
@@ -1335,12 +1335,12 @@ coff_mkobject_hook (abfd, filehdr, aouthdr)
     }
 #endif
 
-#ifdef ARM 
+#ifdef ARM
   /* Set the flags field from the COFF header read in */
   if (! coff_arm_bfd_set_private_flags (abfd, internal_f->f_flags))
     coff->flags = 0;
 #endif
-  
+
   return (PTR) coff;
 }
 #endif
@@ -1368,7 +1368,7 @@ coff_set_arch_mach_hook (abfd, filehdr)
     case PPCMAGIC:
       arch = bfd_arch_powerpc;
       machine = 0; /* what does this mean? (krk) */
-      break; 
+      break;
 #endif
 #ifdef I386MAGIC
     case I386MAGIC:
@@ -2012,10 +2012,10 @@ coff_set_flags (abfd, magicp, flagsp)
 	{
 	  if (APCS_26_FLAG (abfd))
 	    * flagsp |= F_APCS26;
-	  
+
 	  if (APCS_FLOAT_FLAG (abfd))
 	    * flagsp |= F_APCS_FLOAT;
-	  
+
 	  if (PIC_FLAG (abfd))
 	    * flagsp |= F_PIC;
 	}
@@ -2248,7 +2248,7 @@ coff_compute_section_file_positions (abfd)
 
 #ifdef COFF_IMAGE_WITH_PE
   int page_size;
-  if (coff_data (abfd)->link_info) 
+  if (coff_data (abfd)->link_info)
     {
       page_size = pe_data (abfd)->pe_opthdr.FileAlignment;
     }
@@ -2970,14 +2970,14 @@ coff_write_object_contents (abfd)
 #if defined(ARM)
 #define __A_MAGIC_SET__
     internal_a.magic = ZMAGIC;
-#endif 
+#endif
 
 #if defined(VAX)
 #define __A_MAGIC_SET__
     internal_a.magic = (abfd->flags & D_PAGED) ? VAX_AOUTHDR_ZMAGIC :
     (abfd->flags & WP_TEXT) ? VAX_AOUTHDR_NMAGIC :
     VAX_AOUTHDR_OMAGIC;
-#endif 
+#endif
 
 #if defined(PPC_PE)
 #define __A_MAGIC_SET__
@@ -3178,7 +3178,7 @@ coff_write_object_contents (abfd)
   }
   if (abfd->flags & EXEC_P)
     {
-      /* Note that peicode.h fills in a PEAOUTHDR, not an AOUTHDR. 
+      /* Note that peicode.h fills in a PEAOUTHDR, not an AOUTHDR.
 	 include/coff/pe.h sets AOUTSZ == sizeof(PEAOUTHDR)) */
       char buff[AOUTSZ];
       coff_swap_aouthdr_out (abfd, (PTR) & internal_a, (PTR) buff);
@@ -3239,7 +3239,7 @@ coff_set_section_contents (abfd, section, location, offset, count)
       to write a section which doesn't follow these assumptions.  The
       code has been tested on ISC 4.1 by me, and on SCO by Robert Lipe
       <robertl@arnet.com> (Thanks!).
-  
+
       Gvran Uddeborg <gvran@uddeborg.pp.se> */
 
     if (strcmp (section->name, _LIB) == 0)
@@ -3558,7 +3558,7 @@ coff_slurp_symbol_table (abfd)
 #ifdef I960
 	    case C_LEAFSTAT:	/* static leaf procedure        */
 #endif
-#if defined ARM 
+#if defined ARM
             case C_THUMBSTAT:   /* Thumb static                  */
             case C_THUMBLABEL:  /* Thumb label                   */
             case C_THUMBSTATFUNC:/* Thumb static function        */
@@ -4221,7 +4221,7 @@ static CONST bfd_coff_backend_data bfd_coff_std_swap_table =
 #define coff_bfd_copy_private_section_data  _bfd_generic_bfd_copy_private_section_data
 #endif
 
-#ifndef coff_bfd_copy_private_bfd_data 
+#ifndef coff_bfd_copy_private_bfd_data
 #define coff_bfd_copy_private_bfd_data      _bfd_generic_bfd_copy_private_bfd_data
 #endif
 
@@ -4233,7 +4233,7 @@ static CONST bfd_coff_backend_data bfd_coff_std_swap_table =
 #define coff_bfd_set_private_flags          _bfd_generic_bfd_set_private_flags
 #endif
 
-#ifndef coff_bfd_print_private_bfd_data 
+#ifndef coff_bfd_print_private_bfd_data
 #define coff_bfd_print_private_bfd_data     _bfd_generic_bfd_print_private_bfd_data
 #endif
 

@@ -272,7 +272,7 @@ nat_t *nat;
 		tcp2->th_dport = htons(dp);
 		fi.fin_data[0] = dp;
 		fi.fin_data[1] = sp;
-		ipn = nat_new(nat->nat_ptr, ip, &fi, 
+		ipn = nat_new(nat->nat_ptr, ip, &fi,
 			      IPN_UDP | (sp ? 0 : FI_W_SPORT),
 			      NAT_OUTBOUND);
 		if (ipn != NULL) {
@@ -294,7 +294,7 @@ nat_t *nat;
 			(void) fr_addstate(ip, &fi, FI_W_DPORT);
 		}
 	}
-		
+
 	ip->ip_p = swp;
 	ip->ip_src = swa;
 	ip->ip_dst = swb;

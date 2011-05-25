@@ -143,7 +143,7 @@ alpha_sgmap_init(t, sgmap, name, wbase, sgvabase, sgvasize, ptesize, ptva,
 		    ALPHA_PHYS_TO_K0SEG(alpha_sgmap_prefetch_spill_page_pa);
 		bzero((caddr_t)alpha_sgmap_prefetch_spill_page_va, NBPG);
 	}
-	
+
 	return;
  die:
 	panic("alpha_sgmap_init");
@@ -204,7 +204,7 @@ alpha_sgmap_alloc(map, origlen, sgmap, flags)
 		map->_dm_flags |= DMAMAP_HAS_SGMAP;
 	else
 		map->_dm_flags &= ~DMAMAP_HAS_SGMAP;
-	
+
 	return (error);
 }
 

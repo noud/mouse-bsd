@@ -86,12 +86,12 @@ istream& istream::get(char* buf, int len, char delim)
    TERMINATOR.  Super-nifty trick using recursion avoids unnecessary calls
    to NEW! */
 
-char *_sb_readline (streambuf *sb, long& total, char terminator) 
+char *_sb_readline (streambuf *sb, long& total, char terminator)
 {
     char buf[CHUNK_SIZE];
     char *ptr;
     int ch;
-    
+
     _IO_size_t count = _IO_getline_info(sb, buf, CHUNK_SIZE, terminator,
 				       -1, &ch);
     if (ch != EOF)
@@ -107,12 +107,12 @@ char *_sb_readline (streambuf *sb, long& total, char terminator)
 	}
 	return ptr;
     }
-    
+
     ptr = new char[total+1];
     if (ptr != NULL) {
 	ptr[total] = '\0';
 	memcpy(ptr + total - count, buf, count);
-    } 
+    }
     return ptr;
 }
 

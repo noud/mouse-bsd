@@ -567,7 +567,7 @@ apm_event_handle(sc, regs)
 			default:
 				code = "reserved";
 				break;
-		}	
+		}
 		printf("APM: %s event code %x\n", code, regs->BX);
 	}
 }
@@ -759,7 +759,7 @@ apm_set_ver(self)
 
 	regs.CX = 0x0102;	/* APM Version 1.2 */
 	regs.BX = APM_DEV_APM_BIOS;
-	
+
 	if (apm_v12_enabled &&
 	    (error = apmcall(APM_DRIVER_VERSION, &regs)) == 0) {
 		apm_majver = 1;
@@ -769,7 +769,7 @@ apm_set_ver(self)
 
 	regs.CX = 0x0101;	/* APM Version 1.1 */
 	regs.BX = APM_DEV_APM_BIOS;
-	
+
 	if (apm_v11_enabled &&
 	    (error = apmcall(APM_DRIVER_VERSION, &regs)) == 0) {
 		apm_majver = 1;
@@ -1041,7 +1041,7 @@ apmattach(parent, self, aux)
 		    apminfo.apm_code32_seg_base, apmsc->sc_dev.dv_xname));
 		printf("bogus 32-bit code segment start");
 		goto bail;
-	} 
+	}
 	if (apminfo.apm_code32_seg_base +
 	    apminfo.apm_code32_seg_len > IOM_END) {
 		DPRINTF(APMDEBUG_ATTACH, ("code32 segment oversized: [%x,%x)\n%s: ",
@@ -1345,7 +1345,7 @@ apmopen(dev, flag, mode, p)
 
 	if (!apm_inited)
 		return ENXIO;
-	
+
 	DPRINTF(APMDEBUG_DEVICE,
 	    ("apmopen: pid %d flag %x mode %x\n", p->p_pid, flag, mode));
 
@@ -1505,7 +1505,7 @@ apmioctl(dev, cmd, data, flag, p)
 				    APM_BATT_REMAINING(&regs);
 		}
 		break;
-		
+
 	default:
 		error = ENOTTY;
 	}

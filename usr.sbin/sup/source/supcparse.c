@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1992 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -36,16 +36,16 @@
  * Revision 1.6  92/08/11  12:07:38  mrt
  * 	Added use-rel-suffix option corresponding to -u switch.
  * 	[92/07/26            mrt]
- * 
+ *
  * Revision 1.5  92/02/08  18:24:19  mja
  * 	Added "keep" supfile option, corresponding to -k switch.
  * 	[92/01/17            vdelvecc]
- * 
+ *
  * Revision 1.4  91/05/16  14:49:50  ern
- * 	Change default timeout from none to 3 hours so we don't accumalute 
+ * 	Change default timeout from none to 3 hours so we don't accumalute
  * 	processes running sups to dead hosts especially for users.
  * 	[91/05/16  14:49:21  ern]
- * 
+ *
  *
  * 10-Feb-88  Glenn Marcy (gm0w) at Carnegie-Mellon University
  *	Added timeout to backoff.

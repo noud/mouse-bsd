@@ -33,7 +33,7 @@ NINDY ROM monitor at the other end of the line.
  *
  * MODES OF OPERATION
  * ----- -- ---------
- *	
+ *
  * As far as NINDY is concerned, GDB is always in one of two modes: command
  * mode or passthrough mode.
  *
@@ -68,7 +68,7 @@ NINDY ROM monitor at the other end of the line.
  *
  *		<info>#<checksum>
  *
- * where 
+ * where
  *	#	is a literal character
  *
  *	<info>	ASCII information;  all numeric information is in the
@@ -172,7 +172,7 @@ nindy_close (quitting)
   savename = 0;
 }
 
-/* Open a connection to a remote debugger.   
+/* Open a connection to a remote debugger.
    FIXME, there should be "set" commands for the options that are
    now specified with gdb command-line options (old_protocol,
    and initial_brk).  */
@@ -303,7 +303,7 @@ clean_up_tty (ptrarg)
 }
 
 /* Recover from ^Z or ^C while remote process is running */
-static void (*old_ctrlc)();  
+static void (*old_ctrlc)();
 #ifdef SIGTSTP
 static void (*old_ctrlz)();
 #endif
@@ -375,7 +375,7 @@ nindy_wait( pid, status )
 	{
 	  c = SERIAL_READCHAR (nindy_serial, -1);
 	  c &= ~0x40;
-	} 
+	}
       else if (c != 0x10) /* DLE */
 	/* Write out any characters preceding DLE */
 	{
@@ -395,11 +395,11 @@ nindy_wait( pid, status )
 	  else
 	    {
 	      /* Get out of loop */
-	      supply_register (IP_REGNUM, 
+	      supply_register (IP_REGNUM,
 			       (char *)&ip_value);
-	      supply_register (FP_REGNUM, 
+	      supply_register (FP_REGNUM,
 			       (char *)&fp_value);
-	      supply_register (SP_REGNUM, 
+	      supply_register (SP_REGNUM,
 			       (char *)&sp_value);
 	      break;
 	    }
@@ -688,7 +688,7 @@ nindy_load( filename, from_tty )
     error("can't prove it's an object file\n");
     return;
   }
- 
+
   for ( s = file->sections; s; s=s->next)
   {
     if (s->flags & SEC_LOAD)

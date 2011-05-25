@@ -1158,7 +1158,7 @@ hms_read_inferior_memory (memaddr, myaddr, len)
 	{
 	  buffer[i] = readchar ();
 	}
-      /* sometimes we loose characters in the ascii representation of the 
+      /* sometimes we loose characters in the ascii representation of the
          data.  I don't know where.  So just scan for the end of line */
       i = readchar ();
       while (i != '\n' && i != '\r')

@@ -94,7 +94,7 @@ Sun Jun 14 12:55:02 1992  James Clark  (jjc@jclark)
 	* tmac.Xps: Handle OE, oe, lq, rq.
 	* draw.c (FakeCharacter): Don't handle these.
 
-	* draw.c (FakeCharacter): Don't handle f/. 
+	* draw.c (FakeCharacter): Don't handle f/.
 
 Mon Jun  8 11:46:37 1992  James Clark  (jjc@jclark)
 
@@ -236,10 +236,10 @@ Sun May 26 14:14:01 1991  James Clark  (jjc at jclark)
 	* xditview.c: Add -resolution argument.
 	* GXditview.ad: Add default for GXditview.height.
 	* Dvi.c (Initialize, SetDevice): Use default_resolution.
-    
+
 	* Dvi.c: Make MY_HEIGHT and MY_WIDTH use the paperlength and
 	paperwidth commands in the DESC file.
-	
+
 	* Dvi.c: Add SS font to default font map.
 
 	* draw.c: Rewritten so as not to assume device and display
@@ -271,7 +271,7 @@ Sun May 26 14:14:01 1991  James Clark  (jjc at jclark)
 	* INSTALL: New file.
 
 	* libxdvi: Merged into main directory.
-	* xtotroff.c, xditview.c: Change includes accordingly.	
+	* xtotroff.c, xditview.c: Change includes accordingly.
 
 	* devX75, devX100: Merged into main directory.
 	* xditview.man: Renamed to gxditview.man.

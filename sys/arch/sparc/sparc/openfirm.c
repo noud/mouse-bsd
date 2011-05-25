@@ -75,7 +75,7 @@ OF_child(phandle)
 		cell_t phandle;
 		cell_t child;
 	} args;
-	
+
 	args.name = ADR2CELL("child");
 	args.nargs = 1;
 	args.nreturns = 1;
@@ -96,7 +96,7 @@ OF_parent(phandle)
 		cell_t phandle;
 		cell_t parent;
 	} args;
-	
+
 	args.name = ADR2CELL("parent");
 	args.nargs = 1;
 	args.nreturns = 1;
@@ -117,7 +117,7 @@ OF_instance_to_package(ihandle)
 		cell_t ihandle;
 		cell_t phandle;
 	} args;
-	
+
 	args.name = ADR2CELL("instance-to-package");
 	args.nargs = 1;
 	args.nreturns = 1;
@@ -141,7 +141,7 @@ OF_getproplen(handle, prop)
 		cell_t prop;
 		cell_t size;
 	} args;
-	
+
 	args.name = ADR2CELL("getproplen");
 	args.nargs = 2;
 	args.nreturns = 1;
@@ -169,7 +169,7 @@ OF_getprop(handle, prop, buf, buflen)
 		cell_t buflen;
 		cell_t size;
 	} args;
-	
+
 	if (buflen > NBPG)
 		return -1;
 	args.name = ADR2CELL("getprop");
@@ -201,7 +201,7 @@ OF_setprop(handle, prop, buf, buflen)
 		cell_t buflen;
 		cell_t size;
 	} args;
-	
+
 	if (buflen > NBPG)
 		return -1;
 	args.name = ADR2CELL("setprop");
@@ -231,7 +231,7 @@ OF_nextprop(handle, prop, buf)
 		cell_t buf;
 		cell_t next;
 	} args;
-	
+
 	args.name = ADR2CELL("nextprop");
 	args.nargs = 3;
 	args.nreturns = 1;
@@ -254,7 +254,7 @@ char *name;
 		cell_t device;
 		cell_t phandle;
 	} args;
-	
+
 	args.name = ADR2CELL("finddevice");
 	args.nargs = 1;
 	args.nreturns = 1;
@@ -279,7 +279,7 @@ OF_instance_to_path(ihandle, buf, buflen)
 		cell_t buflen;
 		cell_t length;
 	} args;
-	
+
 	if (buflen > NBPG)
 		return -1;
 	args.name = ADR2CELL("instance-to-path");
@@ -308,7 +308,7 @@ OF_package_to_path(phandle, buf, buflen)
 		cell_t buflen;
 		cell_t length;
 	} args;
-	
+
 	if (buflen > NBPG)
 		return -1;
 	args.name = ADR2CELL("package-to-path");
@@ -347,7 +347,7 @@ OF_call_method(method, ihandle, nargs, nreturns, va_alist)
 		cell_t args_n_results[12];
 	} args;
 	long *ip, n;
-	
+
 	if (nargs > 6)
 		return -1;
 	args.name = ADR2CELL("call-method");
@@ -389,7 +389,7 @@ OF_call_method_1(method, ihandle, nargs, va_alist)
 		cell_t args_n_results[16];
 	} args;
 	long *ip, n;
-	
+
 	if (nargs > 6)
 		return -1;
 	args.name = ADR2CELL("call-method");
@@ -420,10 +420,10 @@ OF_open(dname)
 		cell_t handle;
 	} args;
 	int l;
-	
+
 	if ((l = strlen(dname)) >= NBPG)
 		return -1;
-	args.name = ADR2CELL("open");	
+	args.name = ADR2CELL("open");
 	args.nargs = 1;
 	args.nreturns = 1;
 	args.dname = ADR2CELL(dname);
@@ -442,7 +442,7 @@ OF_close(handle)
 		cell_t nreturns;
 		cell_t handle;
 	} args;
-	
+
 	args.name = ADR2CELL("close");
 	args.nargs = 1;
 	args.nreturns = 0;
@@ -461,7 +461,7 @@ OF_test(service)
 		cell_t service;
 		cell_t status;
 	} args;
-	
+
 	args.name = ADR2CELL("test");
 	args.nargs = 1;
 	args.nreturns = 1;
@@ -484,7 +484,7 @@ OF_test_method(service, method)
 		cell_t method;
 		cell_t status;
 	} args;
-	
+
 	args.name = ADR2CELL("test-method");
 	args.nargs = 2;
 	args.nreturns = 1;
@@ -493,9 +493,9 @@ OF_test_method(service, method)
 	openfirmware(&args);
 	return args.status;
 }
-  
-    
-/* 
+
+
+/*
  * This assumes that character devices don't read in multiples of NBPG.
  */
 int
@@ -514,8 +514,8 @@ OF_read(handle, addr, len)
 		cell_t actual;
 	} args;
 	int l, act = 0;
-	
-	args.name = ADR2CELL("read");	
+
+	args.name = ADR2CELL("read");
 	args.nargs = 3;
 	args.nreturns = 1;
 	args.ihandle = HDL2CELL(handle);
@@ -556,7 +556,7 @@ OF_write(handle, addr, len)
 		cell_t actual;
 	} args;
 	int l, act = 0;
-		
+
 	args.name = ADR2CELL("write");
 	args.nargs = 3;
 	args.nreturns = 1;
@@ -589,7 +589,7 @@ OF_seek(handle, pos)
 		cell_t poslo;
 		cell_t status;
 	} args;
-	
+
 	args.name = ADR2CELL("seek");
 	args.nargs = 3;
 	args.nreturns = 1;
@@ -612,10 +612,10 @@ OF_boot(bootspec)
 		cell_t bootspec;
 	} args;
 	int l;
-	
+
 	if ((l = strlen(bootspec)) >= NBPG)
 		panic("OF_boot");
-	args.name = ADR2CELL("boot");	
+	args.name = ADR2CELL("boot");
 	args.nargs = 1;
 	args.nreturns = 0;
 	args.bootspec = ADR2CELL(bootspec);
@@ -631,7 +631,7 @@ OF_enter()
 		cell_t nargs;
 		cell_t nreturns;
 	} args;
-	
+
 	args.name = ADR2CELL("enter");
 	args.nargs = 0;
 	args.nreturns = 0;
@@ -646,7 +646,7 @@ OF_exit()
 		cell_t nargs;
 		cell_t nreturns;
 	} args;
-	
+
 	args.name = ADR2CELL("exit");
 	args.nargs = 0;
 	args.nreturns = 0;
@@ -662,7 +662,7 @@ OF_poweroff()
 		cell_t nargs;
 		cell_t nreturns;
 	} args;
-	
+
 	args.name = ADR2CELL("SUNW,power-off");
 	args.nargs = 0;
 	args.nreturns = 0;
@@ -681,7 +681,7 @@ void
 		cell_t newfunc;
 		cell_t oldfunc;
 	} args;
-	
+
 	args.name = ADR2CELL("set-callback");
 	args.nargs = 1;
 	args.nreturns = 1;
@@ -691,7 +691,7 @@ void
 	return (void*)(long)args.oldfunc;
 }
 
-void 
+void
 OF_set_symbol_lookup(s2v, v2s)
 	void (*s2v)(void *);
 	void (*v2s)(void *);
@@ -703,7 +703,7 @@ OF_set_symbol_lookup(s2v, v2s)
 		cell_t sym2val;
 		cell_t val2sym;
 	} args;
-		
+
 	args.name = ADR2CELL("set-symbol-lookup");
 	args.nargs = 2;
 	args.nreturns = 0;
@@ -724,7 +724,7 @@ OF_interpret(s)
 		cell_t verbs;
 		cell_t status;
 	} args;
-	
+
 	args.name = ADR2CELL("interpret");
 	args.nargs = 1;
 	args.nreturns = 1;
@@ -741,7 +741,7 @@ OF_milliseconds()
 		cell_t nreturns;
 		cell_t ticks;
 	} args;
-	
+
 	args.name = ADR2CELL("milliseconds");
 	args.nargs = 0;
 	args.nreturns = 1;
@@ -773,10 +773,10 @@ void OF_sym2val(cells)
 	db_expr_t value;
 
 	/* Set data segment pointer */
-	__asm __volatile("clr %%g4" : :); 
+	__asm __volatile("clr %%g4" : :);
 
 	/* No args?  Nothing to do. */
-	if (!args->nargs || 
+	if (!args->nargs ||
 	    !args->nreturns) return;
 
 	/* Do we have a place for the value? */
@@ -784,7 +784,7 @@ void OF_sym2val(cells)
 		args->nreturns = 1;
 		args->result = -1;
 		return;
-	} 
+	}
 	symbol = (db_sym_t)args->symbol;
 prom_printf("looking up symbol %s\n", symbol);
 	db_symbol_values(symbol, (char**)NULL, &value);
@@ -811,7 +811,7 @@ void OF_val2sym(cells)
 	__asm __volatile("clr %%g4" : :);
 
 	/* No args?  Nothing to do. */
-	if (!args->nargs || 
+	if (!args->nargs ||
 	    !args->nreturns) return;
 
 	/* Do we have a place for the value? */
@@ -819,18 +819,18 @@ void OF_val2sym(cells)
 		args->nreturns = 1;
 		args->offset = -1;
 		return;
-	} 
-	
+	}
+
 	value = args->value;
 prom_printf("looking up value %ld\n", value);
 	symbol = db_search_symbol(value, 0, &offset);
 	if (symbol == DB_SYM_NULL) {
 		args->nreturns = 1;
 		args->offset = -1;
-		return;		
+		return;
 	}
 	args->offset = offset;
 	args->symbol = ADR2CELL(symbol);
-       
+
 }
 #endif

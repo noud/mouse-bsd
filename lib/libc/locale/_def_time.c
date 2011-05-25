@@ -8,7 +8,7 @@
 #include <sys/localedef.h>
 #include <locale.h>
 
-const _TimeLocale _DefaultTimeLocale = 
+const _TimeLocale _DefaultTimeLocale =
 {
 	{
 		"Sun","Mon","Tue","Wed","Thu","Fri","Sat",

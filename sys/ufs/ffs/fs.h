@@ -68,7 +68,7 @@
 
 /*
  * Addresses stored in inodes are capable of addressing fragments
- * of `blocks'. File system blocks of at most size MAXBSIZE can 
+ * of `blocks'. File system blocks of at most size MAXBSIZE can
  * be optionally broken into 2, 4, or 8 pieces, each of which is
  * addressible; these pieces may be DEV_BSIZE, or some multiple of
  * a DEV_BSIZE unit.
@@ -230,7 +230,7 @@ struct fs {
 	int16_t	 fs_opostbl[16][8];	/* old rotation block list head */
 	int32_t	 fs_sparecon[49];	/* reserved for future constants */
 	time_t	 fs_fscktime;		/* last time fsck(8)ed */
-	int32_t	 fs_contigsumsize;	/* size of cluster summary array */ 
+	int32_t	 fs_contigsumsize;	/* size of cluster summary array */
 	int32_t	 fs_maxsymlinklen;	/* max length of an internal symlink */
 	int32_t	 fs_inodefmt;		/* format of on-disk inodes */
 	u_int64_t fs_maxfilesize;	/* maximum representable file size */

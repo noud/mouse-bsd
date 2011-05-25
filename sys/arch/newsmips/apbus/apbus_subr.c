@@ -86,7 +86,7 @@ apctl_dump(apctl)
 	printf("	softc:		%p\n", apctl->apbc_softc);
 	printf("	Slot:		%d\n", apctl->apbc_sl);
 	printf("\n");
-	
+
 	if (apctl->apbc_link)
 		apctl_dump(apctl->apbc_link);
 }

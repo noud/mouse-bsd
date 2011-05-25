@@ -46,7 +46,7 @@
 #define	CMD_HISTORY	1
 
 /*
- * HILITE_SEARCH is 1 if you wish to have search targets to be 
+ * HILITE_SEARCH is 1 if you wish to have search targets to be
  * displayed in standout mode.
  */
 #define	HILITE_SEARCH	1
@@ -65,7 +65,7 @@
 #define	TAGS		(!SECURE)
 
 /*
- * USERFILE is 1 if you wish to allow a .less file to specify 
+ * USERFILE is 1 if you wish to allow a .less file to specify
  * user-defined key bindings.
  */
 #define	USERFILE	(!SECURE)
@@ -102,9 +102,9 @@
 #define	ONLY_RETURN	0
 
 /*
- * LESSKEYFILE is the filename of the default lesskey output file 
+ * LESSKEYFILE is the filename of the default lesskey output file
  * (in the HOME directory).
- * DEF_LESSKEYINFILE is the filename of the default lesskey input 
+ * DEF_LESSKEYINFILE is the filename of the default lesskey input
  * (in the HOME directory).
  */
 #define	LESSKEYFILE		".less"
@@ -155,7 +155,7 @@
 #define	DEF_METACHARS	"; \t\n'\"()<>|&^`\\"
 #define	DEF_METAESCAPE	"\\"
 
-/* 
+/*
  * HAVE_DUP is 1 if your system has the dup() call.
  */
 #define	HAVE_DUP	1
@@ -217,7 +217,7 @@
 #define HAVE_FILENO 1
 
 /* Define HAVE_ERRNO if you have the errno variable */
-/* Define MUST_DEFINE_ERRNO if you have errno but it is not define 
+/* Define MUST_DEFINE_ERRNO if you have errno but it is not define
  * in errno.h */
 #define HAVE_ERRNO 1
 /* #undef MUST_DEFINE_ERRNO */

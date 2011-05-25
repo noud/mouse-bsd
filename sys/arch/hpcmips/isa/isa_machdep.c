@@ -72,10 +72,10 @@ vrisabmatch(parent, match, aux)
 {
 	struct gpbus_attach_args *gpa = aux;
 	platid_mask_t mask;
-    
+
 	if (strcmp(gpa->gpa_busname, match->cf_driver->cd_name))
 		return 0;
-	if (match->cf_loc[VRISABIFCF_PLATFORM] == VRISABIFCF_PLATFORM_DEFAULT) 
+	if (match->cf_loc[VRISABIFCF_PLATFORM] == VRISABIFCF_PLATFORM_DEFAULT)
 		return 1;
 	mask = PLATID_DEREF(match->cf_loc[VRISABIFCF_PLATFORM]);
 	if (platid_match(&platid, &mask))
@@ -90,12 +90,12 @@ vrisabattach(parent, self, aux)
 	void *aux;
 {
 	struct gpbus_attach_args *gpa = aux;
-	struct vrgiu_softc *chipset; 
+	struct vrgiu_softc *chipset;
 	struct vrisab_softc *sc = (void*)self;
 	struct isabus_attach_args iba;
 	bus_addr_t offset;
 	int i;
-    
+
 	sc->sc_gc = chipset = gpa->gpa_gc;
 	sc->sc_gf = gpa->gpa_gf;
 
@@ -165,7 +165,7 @@ isa_intr_establish(ic, port_irq, type, level, ih_fun, ih_arg)
 	int port, irq, mode;
 #define GET_PORT(i) (((i)>>16)&0x1f)
 #define GET_IRQ(i) ((i)&0xf)
-	/* 
+	/*
 	 * ISA IRQ <-> GPIO port mapping
 	 */
 	irq = GET_IRQ(port_irq);
@@ -217,7 +217,7 @@ __find_pcic(void)
 	int i, j, step, found;
 	u_int32_t addr;
 	u_int8_t reg;
-	int __read_revid (u_int32_t port) 
+	int __read_revid (u_int32_t port)
 		{
 			addr = MIPS_PHYS_TO_KSEG1(i + port);
 			printf("%#x\r", i);
@@ -237,7 +237,7 @@ __find_pcic(void)
 				       i + port - VR_ISA_PORT_BASE);
 		};
 	step = 0x1000000;
-	printf("\nFinding PCIC. Trying ISA port %#x-%#x step %#x\n", 
+	printf("\nFinding PCIC. Trying ISA port %#x-%#x step %#x\n",
 	       VR_ISA_PORT_BASE, VR_ISA_PORT_BASE + VR_ISA_PORT_SIZE, step);
 	for (i = VR_ISA_PORT_BASE; i < VR_ISA_PORT_BASE+VR_ISA_PORT_SIZE; i+= step) {
 		__read_revid (0x3e0);
@@ -246,4 +246,4 @@ __find_pcic(void)
 }
 #endif
 
-	
+

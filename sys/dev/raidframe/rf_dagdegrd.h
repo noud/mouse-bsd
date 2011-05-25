@@ -32,29 +32,29 @@
 #include "rf_types.h"
 
 /* degraded read DAG creation routines */
-void 
+void
 rf_CreateRaidFiveDegradedReadDAG(RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap, RF_DagHeader_t * dag_h, void *bp,
     RF_RaidAccessFlags_t flags, RF_AllocListElem_t * allocList);
-void 
+void
 rf_CreateRaidOneDegradedReadDAG(RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap, RF_DagHeader_t * dag_h, void *bp,
     RF_RaidAccessFlags_t flags, RF_AllocListElem_t * allocList);
-void 
+void
 rf_CreateDegradedReadDAG(RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap, RF_DagHeader_t * dag_h, void *bp,
     RF_RaidAccessFlags_t flags, RF_AllocListElem_t * allocList,
     RF_RedFuncs_t * recFunc);
-void 
+void
 rf_CreateRaidCDegradedReadDAG(RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap, RF_DagHeader_t * dag_h, void *bp,
     RF_RaidAccessFlags_t flags, RF_AllocListElem_t * allocList);
-void 
+void
 rf_DD_GenerateFailedAccessASMs(RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap, RF_PhysDiskAddr_t ** pdap,
     int *nNodep, RF_PhysDiskAddr_t ** pqpdap, int *nPQNodep,
     RF_AllocListElem_t * allocList);
-void 
+void
 rf_DoubleDegRead(RF_Raid_t * raidPtr, RF_AccessStripeMap_t * asmap,
     RF_DagHeader_t * dag_h, void *bp, RF_RaidAccessFlags_t flags,
     RF_AllocListElem_t * allocList, char *redundantReadNodeName,

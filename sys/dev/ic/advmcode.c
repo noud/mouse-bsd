@@ -3,7 +3,7 @@
 /*
  * Generic driver definitions and exported functions for the Advanced
  * Systems Inc. SCSI controllers
- * 
+ *
  * Copyright (c) 1998 The NetBSD Foundation, Inc.
  * All rights reserved.
  *
@@ -42,7 +42,7 @@
  */
 /*
  * advansys.c - Linux Host Driver for AdvanSys SCSI Adapters
- * 
+ *
  * Copyright (c) 1995-1998 Advanced System Products, Inc.
  * All Rights Reserved.
  *

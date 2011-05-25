@@ -179,7 +179,7 @@ ptx_register_u_addr PARAMS ((int, int));
 ((N < ST0_REGNUM) ? 0 : \
  (N < FP1_REGNUM) ? 1 : \
  0)
-  
+
 /* Convert data from raw format for register REGNUM
    to virtual format for register REGNUM.  */
 extern const struct floatformat floatformat_i387_ext; /* from floatformat.h */
@@ -190,7 +190,7 @@ extern const struct floatformat floatformat_i387_ext; /* from floatformat.h */
  (REGNUM < FP1_REGNUM) ? (void)floatformat_to_double(&floatformat_i387_ext, \
 						       (FROM),(TO)) : \
  (void)memcpy ((TO), (FROM), 4))
- 
+
 /* Convert data from virtual format for register REGNUM
    to raw format for register REGNUM.  */
 

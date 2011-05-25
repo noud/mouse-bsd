@@ -45,7 +45,7 @@ options		PFC_SCPCR_VAL	=0x00aa
 #options 	INSECURE	# disable kernel security levels
 
 options 	RTC_OFFSET=-540 # hardware clock is this many mins. west of GMT
-options 	HZ=50		# clock interrupt generates every 1/HZ sec 
+options 	HZ=50		# clock interrupt generates every 1/HZ sec
 #options 	NTP		# NTP phase/frequency locked loop
 
 #options 	KTRACE		# system call tracing via ktrace(1)

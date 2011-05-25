@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -338,14 +338,14 @@ nd6_ra_input(m, off, icmp6len)
 	}
 
  skip:
-	
+
 	/*
 	 * Src linkaddress
 	 */
     {
 	char *lladdr = NULL;
 	int lladdrlen = 0;
-	
+
 	if (ndopts.nd_opts_src_lladdr) {
 		lladdr = (char *)(ndopts.nd_opts_src_lladdr + 1);
 		lladdrlen = ndopts.nd_opts_src_lladdr->nd_opt_len << 3;
@@ -636,13 +636,13 @@ defrtrlist_update(new)
 	/*
 	 * Insert the new router at the end of the Default Router List.
 	 * If there is no other router, install it anyway. Otherwise,
-	 * just continue to use the current default router. 
+	 * just continue to use the current default router.
 	 */
 	TAILQ_INSERT_TAIL(&nd_defrouter, n, dr_entry);
 	if (TAILQ_FIRST(&nd_defrouter) == n)
 		defrouter_select();
 	splx(s);
-		
+
 	return(n);
 }
 
@@ -652,7 +652,7 @@ pfxrtr_lookup(pr, dr)
 	struct nd_defrouter *dr;
 {
 	struct nd_pfxrouter *search;
-	
+
 	for (search = pr->ndpr_advrtrs.lh_first; search; search = search->pfr_next) {
 		if (search->router == dr)
 			break;
@@ -1431,7 +1431,7 @@ in6_init_address_ltimes(struct nd_prefix *new,
 /*
  * Delete all the routing table entries that use the specified gateway.
  * XXX: this function causes search through all entries of routing table, so
- * it shouldn't be called when acting as a router. 
+ * it shouldn't be called when acting as a router.
  */
 void
 rt6_flush(gateway, ifp)

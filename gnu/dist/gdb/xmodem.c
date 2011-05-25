@@ -174,14 +174,14 @@ xmodem_send_packet (desc, packet, len, hashmark)
   int retries;
   int pktlen;
   int datasize;
-  
+
   /* build the packet header */
 
   packet[1] = blknum;
   packet[2] = ~blknum;
 
   blknum++;
-  
+
   if (len <= XMODEM_DATASIZE)
     {
       packet[0] = SOH;

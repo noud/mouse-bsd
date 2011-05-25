@@ -72,7 +72,7 @@ fetch_inferior_registers (regno)
   struct USER u;
   unsigned int offset;
 
-  offset = (char *) &u.pt_r0 - (char *) &u; 
+  offset = (char *) &u.pt_r0 - (char *) &u;
   regaddr = offset; /* byte offset to r0;*/
 
 /*  offset = ptrace (3, inferior_pid, (PTRACE_ARG3_TYPE) offset, 0) - KERNEL_U_ADDR; */
@@ -80,7 +80,7 @@ fetch_inferior_registers (regno)
     {
       /*regaddr = register_addr (regno, offset);*/
 	/* 88k enhancement  */
-        
+
       for (i = 0; i < REGISTER_RAW_SIZE (regno); i += sizeof (int))
  	{
  	  *(int *) &buf[i] = ptrace (3, inferior_pid,
@@ -125,7 +125,7 @@ store_inferior_registers (regno)
     {
       /*      regaddr = register_addr (regno, offset); */
       if (regno < PC_REGNUM)
-	{ 
+	{
 	  regaddr = offset + regno * sizeof (int);
 	  errno = 0;
 	  ptrace (6, inferior_pid,
@@ -149,7 +149,7 @@ store_inferior_registers (regno)
 	printf_unfiltered ("Bad register number for store_inferior routine\n");
     }
   else
-    { 
+    {
       for (regno = 0; regno < PC_REGNUM; regno++)
 	{
 	  /*      regaddr = register_addr (regno, offset); */
@@ -216,10 +216,10 @@ m88k_register_u_addr (blockend, regnum)
     case PSR_REGNUM:  return (ustart + ((int) &u.pt_psr - (int) &u));
     case FPSR_REGNUM: return (ustart + ((int) &u.pt_fpsr - (int) &u));
     case FPCR_REGNUM: return (ustart + ((int) &u.pt_fpcr - (int) &u));
-    case SXIP_REGNUM: return (ustart + SXIP_OFFSET); 
+    case SXIP_REGNUM: return (ustart + SXIP_OFFSET);
     case SNIP_REGNUM: return (ustart + SNIP_OFFSET);
-    case SFIP_REGNUM: return (ustart + SFIP_OFFSET); 
-    default: 
+    case SFIP_REGNUM: return (ustart + SFIP_OFFSET);
+    default:
 	if (regnum < NUM_REGS)
 	    /* The register is one of those which is not defined...
 	       give it zero */

@@ -643,7 +643,7 @@ extent_alloc_subregion1(ex, substart, subend, size, alignment, skew, boundary,
 				 * Calculate the next boundary after the start
 				 * of this region.
 				 */
-				dontcross = EXTENT_ALIGN(newstart+1, boundary, 
+				dontcross = EXTENT_ALIGN(newstart+1, boundary,
 				    (flags & EX_BOUNDZERO) ? 0 : ex->ex_start)
 				    - 1;
 
@@ -710,7 +710,7 @@ extent_alloc_subregion1(ex, substart, subend, size, alignment, skew, boundary,
 			 */
 			goto fail;
 		}
-		
+
 		last = rp;
 	}
 
@@ -734,7 +734,7 @@ extent_alloc_subregion1(ex, substart, subend, size, alignment, skew, boundary,
 			 * Calculate the next boundary after the start
 			 * of this region.
 			 */
-			dontcross = EXTENT_ALIGN(newstart+1, boundary, 
+			dontcross = EXTENT_ALIGN(newstart+1, boundary,
 			    (flags & EX_BOUNDZERO) ? 0 : ex->ex_start)
 			    - 1;
 

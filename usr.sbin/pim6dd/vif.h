@@ -21,7 +21,7 @@
  *  ABOUT THE SUITABILITY OF THIS SOFTWARE FOR ANY PURPOSE.  THIS SOFTWARE IS
  *  PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES,
  *  INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
- *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND 
+ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND
  *  NON-INFRINGEMENT.
  *
  *  IN NO EVENT SHALL USC, OR ANY OTHER CONTRIBUTOR BE LIABLE FOR ANY
@@ -33,7 +33,7 @@
  *  noted when applicable.
  */
 /*
- *  Questions concerning this software should be directed to 
+ *  Questions concerning this software should be directed to
  *  Pavlin Ivanov Radoslavov (pavlin@catarina.usc.edu)
  *
  *  KAME Id: vif.h,v 1.2 1999/08/24 16:45:23 jinmei Exp
@@ -154,8 +154,8 @@ typedef struct {
  * (called a "phyint"), a virtual point-to-point link (called a "tunnel")
  * or a "register vif" used by PIM. The register vif is used by the
  * Designated Router (DR) to send encapsulated data packets to the
- * Rendevous Point (RP) for a particular group. The data packets are 
- * encapsulated in PIM messages (IPPROTO_PIM = 103) and then unicast to 
+ * Rendevous Point (RP) for a particular group. The data packets are
+ * encapsulated in PIM messages (IPPROTO_PIM = 103) and then unicast to
  * the RP.
  * (Note: all addresses, subnet numbers and masks are kept in NETWORK order.)
  */
@@ -165,13 +165,13 @@ struct uvif {
     u_char	     uv_admetric;   /* advertised cost of this vif          */
 #if 0				/* unused for IPv6? */
     u_char	     uv_threshold;  /* min ttl required to forward on vif   */
-#endif 
+#endif
     u_int	     uv_rate_limit; /* rate limit on this vif               */
     struct sockaddr_in6 uv_lcl_addr;/* local address of this vif            */
     struct phaddr   *uv_linklocal;/* link-local address of this vif      */
 #if 0
     u_int32	     uv_rmt_addr;   /* remote end-point addr (tunnels only) */
-#endif 
+#endif
     struct sockaddr_in6 uv_dst_addr;   /* destination for PIM messages         */
     struct sockaddr_in6 uv_prefix;  /* prefix                (phyints only) */
     struct in6_addr  uv_subnetmask; /* subnet mask           (phyints only) */
@@ -280,11 +280,11 @@ struct listaddr {
 				 NBRF_TOOMANYROUTES|NBRF_NOTPRUNING)
 
 #define NO_VIF		((vifi_t)MAXMIFS)  /* An invalid vif index */
-  
+
 
 /*
  * Used to get the RPF neighbor and IIF info
- * for a given source from the unicast routing table. 
+ * for a given source from the unicast routing table.
  */
 struct rpfctl {
     struct sockaddr_in6 source; /* the source for which we want iif and rpfnbr */

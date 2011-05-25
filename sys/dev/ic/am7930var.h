@@ -83,7 +83,7 @@ struct auio {
 
 
 /*
- * interrupt-hanlder status 
+ * interrupt-hanlder status
  * XXX should be MI or required in each port's <machine/cpu.h>
  */
 struct am7930_intrhand {
@@ -114,7 +114,7 @@ struct am7930_softc {
 	void	(*sc_onclose) __P((struct am7930_softc *sc));
 
 
-	/* 
+	/*
 	 * interface to the sparc MD interrupt handlers.
 	 *  XXX should really either be in MD sparc derived softc struct,
 	 *  or replaced with an MI pdma type.

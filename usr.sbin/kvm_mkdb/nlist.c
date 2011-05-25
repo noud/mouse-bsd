@@ -78,7 +78,7 @@ static struct {
         {       create_knlist_elf64         },
 #endif
 };
-        
+
 void
 create_knlist(name, db)
 	const char *name;

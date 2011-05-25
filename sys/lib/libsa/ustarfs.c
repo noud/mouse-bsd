@@ -80,8 +80,8 @@
  */
 
 /* virtual offset to volume number */
- 
-#define	vda2vn(_v,_volsize) ((_v) / (_volsize))	
+
+#define	vda2vn(_v,_volsize) ((_v) / (_volsize))
 
 /* conversions between the three different levels of disk addresses */
 

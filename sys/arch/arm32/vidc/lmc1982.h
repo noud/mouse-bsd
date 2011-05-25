@@ -59,23 +59,23 @@
 #define VRIGHT		0x45
 #define VMODE		0x46
 #define VDIN		0x47
- 
+
 #define VIN1		0x0
 #define VIN2		0x1
 #define VMUTE		0x3
- 
+
 #define VLOUDNESS	0x1
 #define VENHANCEDSTEREO 0x2
- 
+
 #define VDBM12		0x0
 #define VDBM6		0x3
 #define VDBM0		0x6
 #define VDBP6		0x9
 #define VDBP12		0xc
- 
+
 #define VVOL0		0x0     /* zero attenuation */
 #define VVOLM80		0x28    /* max attenuation */
- 
+
 #define VLMONO		0x4
 #define VSTEREO		0x5
 #define VRMONO		0x6

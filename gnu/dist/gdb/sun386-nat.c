@@ -73,7 +73,7 @@ core_file_command (filename, from_tty)
     {
       filename = tilde_expand (filename);
       make_cleanup (free, filename);
-      
+
       if (have_inferior_p ())
 	error ("To look at a core file, you must kill the program with \"kill\".");
       corechan = open (filename, O_RDONLY, 0);
@@ -145,7 +145,7 @@ i387_to_double (from, to)
   /* push extended mode on 387 stack, then pop in double mode
    *
    * first, set exception masks so no error is generated -
-   * number will be rounded to inf or 0, if necessary 
+   * number will be rounded to inf or 0, if necessary
    */
   asm ("pushl %eax"); 		/* grab a stack slot */
   asm ("fstcw (%esp)");		/* get 387 control word */
@@ -153,14 +153,14 @@ i387_to_double (from, to)
   asm ("orl $0x3f,%eax");		/* mask all exceptions */
   asm ("pushl %eax");
   asm ("fldcw (%esp)");		/* load new value into 387 */
-  
+
   asm ("movl 8(%ebp),%eax");
   asm ("fldt (%eax)");		/* push extended number on 387 stack */
   asm ("fwait");
   asm ("movl 12(%ebp),%eax");
   asm ("fstpl (%eax)");		/* pop double */
   asm ("fwait");
-  
+
   asm ("popl %eax");		/* flush modified control word */
   asm ("fnclex");			/* clear exceptions */
   asm ("fldcw (%esp)");		/* restore original control word */
@@ -227,7 +227,7 @@ store_inferior_registers (regno)
   memcpy (&inferior_fp_registers.f_ctrl,
 	 &registers[REGISTER_BYTE (FPC_REGNUM)],
 	 sizeof inferior_fp_registers - sizeof inferior_fp_registers.f_st);
-  
+
 #ifdef PTRACE_FP_BUG
   if (regno == FP_REGNUM || regno == -1)
     /* Storing the frame pointer requires a gross hack, in which an
@@ -239,7 +239,7 @@ store_inferior_registers (regno)
       int reg = inferior_registers.r_reg[EAX];
       inferior_registers.r_reg[EAX] =
 	inferior_registers.r_reg[FP_REGNUM];
-      ptrace (PTRACE_SETREGS, inferior_pid, 
+      ptrace (PTRACE_SETREGS, inferior_pid,
 	      (PTRACE_ARG3_TYPE) &inferior_registers);
       ptrace (PTRACE_POKEDATA, inferior_pid, (PTRACE_ARG3_TYPE) stack,
 	      0xc589);

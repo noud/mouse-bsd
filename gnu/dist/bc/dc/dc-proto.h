@@ -1,6 +1,6 @@
 /*
  * prototypes of all externally visible dc functions
- * 
+ *
  * Copyright (C) 1994, 1997, 1998 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify

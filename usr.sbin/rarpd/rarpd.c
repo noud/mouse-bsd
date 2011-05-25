@@ -332,8 +332,8 @@ rarp_open(device)
 		BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, ETHERTYPE_REVARP, 0, 3),
 		BPF_STMT(BPF_LD | BPF_H | BPF_ABS, 20),
 		BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, ARPOP_REVREQUEST, 0, 1),
-		BPF_STMT(BPF_RET | BPF_K, 
-		    sizeof(struct arphdr) + 
+		BPF_STMT(BPF_RET | BPF_K,
+		    sizeof(struct arphdr) +
 		    2 * ETHER_ADDR_LEN + 2 * sizeof(struct in_addr) +
 		    sizeof(struct ether_header)),
 		BPF_STMT(BPF_RET | BPF_K, 0),
@@ -865,7 +865,7 @@ rarp_reply(ii, ep, ipaddr, hp)
 	/* Target hardware is unchanged. */
 	memmove(ar_spa(ap), (char *) &ii->ii_ipaddr, 4);
 
-	len = sizeof(*ep) + sizeof(*ap) + 
+	len = sizeof(*ep) + sizeof(*ap) +
 	    2 * ap->ar_pln + 2 * ap->ar_hln;
 #else
 	ap->ea_hdr.ar_hrd = htons(ARPHRD_ETHER);
@@ -884,7 +884,7 @@ rarp_reply(ii, ep, ipaddr, hp)
 #endif
 
 	if (lflag)
-		syslog(LOG_INFO, "%s asked; %s replied", hp->h_name, 
+		syslog(LOG_INFO, "%s asked; %s replied", hp->h_name,
 		    ether_ntoa((struct ether_addr *)ar_tha(ap)));
 	n = write(ii->ii_fd, (char *) ep, len);
 	if (n != len) {

@@ -98,7 +98,7 @@ hppaelf_create_output_section_statements ()
   ldlang_add_file (stub_file);
 }
 
-/* Walk all the lang statements splicing out any padding statements from 
+/* Walk all the lang statements splicing out any padding statements from
    the list.  */
 
 static void
@@ -174,7 +174,7 @@ hppaelf_finish ()
       einfo ("%X%P: can not size stub section: %E\n");
       return;
     }
-  
+
   /* If the size of the stub section is nonzero, then we need
      to resize the sections, recompute the assignments, and finally
      build the stubs.  */
@@ -182,19 +182,19 @@ hppaelf_finish ()
     {
       /* Delete all the padding statements, they're no longer valid.  */
       hppaelf_delete_padding_statements (stat_ptr->head, &stat_ptr->head);
-      
+
       /* Resize the sections.  */
       lang_size_sections (stat_ptr->head, abs_output_section,
 			  &stat_ptr->head, 0, (bfd_vma) 0, false);
-      
+
       /* Redo special stuff.  */
       ldemul_after_allocation ();
-      
+
       /* Do the assignments again.  */
       lang_do_assignments (stat_ptr->head,
 			   abs_output_section,
 			   (fill_type) 0, (bfd_vma) 0);
-      
+
       /* Now build the linker stubs.  */
       if (elf32_hppa_build_stubs (stub_file->the_bfd, &link_info) == false)
 	{
@@ -223,7 +223,7 @@ $s/$/n"/
 '
 
 cat >>e${EMULATION_NAME}.c <<EOF
-{			     
+{
   *isfile = 0;
 
   if (link_info.relocateable == true && config.build_constructors == true)
@@ -243,7 +243,7 @@ else
 # Scripts read from the filesystem.
 
 cat >>e${EMULATION_NAME}.c <<EOF
-{			     
+{
   *isfile = 1;
 
   if (link_info.relocateable == true && config.build_constructors == true)
@@ -263,7 +263,7 @@ fi
 
 cat >>e${EMULATION_NAME}.c <<EOF
 
-struct ld_emulation_xfer_struct ld_hppaelf_emulation = 
+struct ld_emulation_xfer_struct ld_hppaelf_emulation =
 {
   hppaelf_before_parse,
   syslib_default,

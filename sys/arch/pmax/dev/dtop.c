@@ -203,13 +203,13 @@ static u_char divend[NUMDIVS] = {0xff, 0xa5, 0xbc, 0xbe, 0xb2, 0xaf, 0xa8,
  */
 static u_long keymodes[8] = {0, 0, 0, 0, 0, 0x0003e800, 0, 0};
 
-struct consdev dtopcons = { 
+struct consdev dtopcons = {
 	NULL, NULL, (void *)dtopKBDGetc, NULL, NULL, NODEV, 0
 };
- 
+
 void dtikbd_cnattach __P((void));		/* XXX */
 
-void  
+void
 dtikbd_cnattach()
 {
 	cn_tab = &dtopcons;

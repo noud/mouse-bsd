@@ -32,9 +32,9 @@
  */
 
 /*
- * x i o . h 
+ * x i o . h
  *
- * this file defines the software structure we use to ioctl the 
+ * this file defines the software structure we use to ioctl the
  * 753/7053.   this interface isn't set in stone and may (or may not)
  * need adjustment.
  *

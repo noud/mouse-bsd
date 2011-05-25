@@ -80,15 +80,15 @@ branch_dest (opcode, instr, pc, safety)
      case 18	:
 	immediate = ((instr & ~3) << 6) >> 6;	/* br unconditional */
 	if (absolute)
-	  dest = immediate;	
+	  dest = immediate;
 	else
 	  dest = pc + immediate;
 	break;
 
-     case 16	:  
+     case 16	:
         immediate = ((instr & ~3) << 16) >> 16;	/* br conditional */
 	if (absolute)
-	  dest = immediate;	
+	  dest = immediate;
 	else
 	  dest = pc + immediate;
 	break;
@@ -125,9 +125,9 @@ branch_dest (opcode, instr, pc, safety)
 	    if (dest < TEXT_SEGMENT_BASE)
 	      dest = read_register (LR_REGNUM) & ~3;
 	  }
-	else return -1; 
+	else return -1;
 	break;
-	
+
        default: return -1;
   }
   return (dest < TEXT_SEGMENT_BASE) ? safety : dest;
@@ -176,7 +176,7 @@ single_step (signal)
 
       write_memory (breaks[ii], breakp, 4);
       stepBreaks[ii].address = breaks[ii];
-    }  
+    }
 
     one_stepped = 1;
   } else {
@@ -184,7 +184,7 @@ single_step (signal)
     /* remove step breakpoints. */
     for (ii=0; ii < 2; ++ii)
       if (stepBreaks[ii].address != 0)
-        write_memory 
+        write_memory
            (stepBreaks[ii].address, stepBreaks[ii].data, 4);
 
     one_stepped = 0;
@@ -221,7 +221,7 @@ single_step (signal)
 CORE_ADDR
 skip_prologue (pc, fdata)
      CORE_ADDR pc;
-     struct rs6000_framedata *fdata; 
+     struct rs6000_framedata *fdata;
 {
   CORE_ADDR orig_pc = pc;
   char buf[4];
@@ -395,7 +395,7 @@ skip_prologue (pc, fdata)
      We'd like to skip over it as well. Fortunately, xlc does some extra
      work before calling a function right after a prologue, thus we can
      single out such gcc2 behaviour. */
-     
+
 
   if ((op & 0xfc000001) == 0x48000001) { /* bl foo, an initializer function? */
     op = read_memory_integer (pc+4, 4);
@@ -411,7 +411,7 @@ skip_prologue (pc, fdata)
     }
   }
 #endif /* 0 */
- 
+
   fdata->offset = - fdata->offset;
   return pc;
 }
@@ -419,7 +419,7 @@ skip_prologue (pc, fdata)
 
 /*************************************************************************
   Support for creating pushind a dummy frame into the stack, and popping
-  frames, etc. 
+  frames, etc.
 *************************************************************************/
 
 /* The total size of dummy frame is 436, which is;
@@ -446,7 +446,7 @@ extern int stop_stack_dummy;
 
 /* push a dummy frame into stack, save all register. Currently we are saving
    only gpr's and fpr's, which is not good enough! FIXMEmgo */
-   
+
 void
 push_dummy_frame ()
 {
@@ -459,7 +459,7 @@ push_dummy_frame ()
   CORE_ADDR pc;
   /* Same thing, target byte order.  */
   char pc_targ[4];
-  
+
   /* Needed to figure out where to save the dummy link area.
      FIXME: There should be an easier way to do this, no?  tiemann 9/9/95.  */
   struct rs6000_framedata fdata;
@@ -471,13 +471,13 @@ push_dummy_frame ()
   if (dummy_frame_count >= dummy_frame_size) {
     dummy_frame_size += DUMMY_FRAME_ADDR_SIZE;
     if (dummy_frame_addr)
-      dummy_frame_addr = (CORE_ADDR*) xrealloc 
+      dummy_frame_addr = (CORE_ADDR*) xrealloc
         (dummy_frame_addr, sizeof(CORE_ADDR) * (dummy_frame_size));
     else
-      dummy_frame_addr = (CORE_ADDR*) 
+      dummy_frame_addr = (CORE_ADDR*)
 	xmalloc (sizeof(CORE_ADDR) * (dummy_frame_size));
   }
-  
+
   sp = read_register(SP_REGNUM);
   pc = read_register(PC_REGNUM);
   store_address (pc_targ, 4, pc);
@@ -486,9 +486,9 @@ push_dummy_frame ()
 
   dummy_frame_addr [dummy_frame_count++] = sp;
 
-  /* Be careful! If the stack pointer is not decremented first, then kernel 
-     thinks he is free to use the space underneath it. And kernel actually 
-     uses that area for IPC purposes when executing ptrace(2) calls. So 
+  /* Be careful! If the stack pointer is not decremented first, then kernel
+     thinks he is free to use the space underneath it. And kernel actually
+     uses that area for IPC purposes when executing ptrace(2) calls. So
      before writing register values into the new frame, decrement and update
      %sp first in order to secure your frame. */
 
@@ -517,11 +517,11 @@ push_dummy_frame ()
   for (ii=1; ii <=32; ++ii)
     write_memory (sp-256-(ii*4), &registers[REGISTER_BYTE (32-ii)], 4);
 
-  /* so far, 32*2 + 32 words = 384 bytes have been written. 
+  /* so far, 32*2 + 32 words = 384 bytes have been written.
      7 extra registers in our register set: pc, ps, cnd, lr, cnt, xer, mq */
 
   for (ii=1; ii <= (LAST_SP_REGNUM-FIRST_SP_REGNUM+1); ++ii) {
-    write_memory (sp-384-(ii*4), 
+    write_memory (sp-384-(ii*4),
 	       &registers[REGISTER_BYTE (FPLAST_REGNUM + ii)], 4);
   }
 
@@ -546,7 +546,7 @@ push_dummy_frame ()
    trouble poping it.  Therefore, we keep a dummy frame stack, keeping
    addresses of dummy frames as such.  When poping happens and when we
    detect that was a dummy frame, we pop it back to its parent by using
-   dummy frame stack (`dummy_frame_addr' array). 
+   dummy frame stack (`dummy_frame_addr' array).
 
 FIXME:  This whole concept is broken.  You should be able to detect
 a dummy stack frame *on the user's stack itself*.  When you do,
@@ -554,7 +554,7 @@ then you know the format of that stack frame -- including its
 saved SP register!  There should *not* be a separate stack in the
 GDB process that keeps track of these dummy frames!  -- gnu@cygnus.com Aug92
  */
-   
+
 static void
 pop_dummy_frame ()
 {
@@ -576,10 +576,10 @@ pop_dummy_frame ()
     read_memory (sp-384-(ii*4),
     		&registers[REGISTER_BYTE (FPLAST_REGNUM + ii)], 4);
 
-  read_memory (sp-(DUMMY_FRAME_SIZE-8), 
+  read_memory (sp-(DUMMY_FRAME_SIZE-8),
 	       &registers [REGISTER_BYTE(PC_REGNUM)], 4);
 
-  /* when a dummy frame was being pushed, we had to decrement %sp first, in 
+  /* when a dummy frame was being pushed, we had to decrement %sp first, in
      order to secure astack space. Thus, saved %sp (or %r1) value, is not the
      one we should restore. Change it with the one we need. */
 
@@ -614,7 +614,7 @@ pop_frame ()
   /* Make sure that all registers are valid.  */
   read_register_bytes (0, NULL, REGISTER_BYTES);
 
-  /* figure out previous %pc value. If the function is frameless, it is 
+  /* figure out previous %pc value. If the function is frameless, it is
      still in the link register, otherwise walk the frames and retrieve the
      saved %pc value in the previous frame. */
 
@@ -734,9 +734,9 @@ push_arguments (nargs, args, sp, struct_return, struct_addr)
   /* The first eight words of ther arguments are passed in registers. Copy
      them appropriately.
 
-     If the function is returning a `struct', then the first word (which 
+     If the function is returning a `struct', then the first word (which
      will be passed in r3) is used for struct return address. In that
-     case we should advance one word and start from r4 register to copy 
+     case we should advance one word and start from r4 register to copy
      parameters. */
 
   ii =  struct_return ? 1 : 0;
@@ -757,7 +757,7 @@ push_arguments (nargs, args, sp, struct_return, struct_addr)
         printf_unfiltered (
 "Fatal Error: a floating point parameter #%d with a size > 8 is found!\n", argno);
 
-      memcpy (&registers[REGISTER_BYTE(FP0_REGNUM + 1 + f_argno)], VALUE_CONTENTS (arg), 
+      memcpy (&registers[REGISTER_BYTE(FP0_REGNUM + 1 + f_argno)], VALUE_CONTENTS (arg),
          len);
       ++f_argno;
     }
@@ -768,8 +768,8 @@ push_arguments (nargs, args, sp, struct_return, struct_addr)
       while (argbytes < len) {
 
 	*(int*)&registers[REGISTER_BYTE(ii+3)] = 0;
-	memcpy (&registers[REGISTER_BYTE(ii+3)], 
-			 ((char*)VALUE_CONTENTS (arg))+argbytes, 
+	memcpy (&registers[REGISTER_BYTE(ii+3)],
+			 ((char*)VALUE_CONTENTS (arg))+argbytes,
 			(len - argbytes) > 4 ? 4 : len - argbytes);
 	++ii, argbytes += 4;
 
@@ -794,7 +794,7 @@ ran_out_of_registers_for_arguments:
   /* another six words for back chain, TOC register, link register, etc. */
   sp -= 24;
 
-  /* if there are more arguments, allocate space for them in 
+  /* if there are more arguments, allocate space for them in
      the stack, then push them starting from the ninth one. */
 
   if ((argno < nargs) || argbytes) {
@@ -823,7 +823,7 @@ ran_out_of_registers_for_arguments:
 
     write_register (SP_REGNUM, sp);
 
-    /* if the last argument copied into the registers didn't fit there 
+    /* if the last argument copied into the registers didn't fit there
        completely, push the rest of it into stack. */
 
     if (argbytes) {
@@ -848,7 +848,7 @@ ran_out_of_registers_for_arguments:
           printf_unfiltered (
 "Fatal Error: a floating point parameter #%d with a size > 8 is found!\n", argno);
 
-        memcpy (&registers[REGISTER_BYTE(FP0_REGNUM + 1 + f_argno)], VALUE_CONTENTS (arg), 
+        memcpy (&registers[REGISTER_BYTE(FP0_REGNUM + 1 + f_argno)], VALUE_CONTENTS (arg),
            len);
         ++f_argno;
       }
@@ -922,7 +922,7 @@ CORE_ADDR rs6000_struct_return_address;
 
 /* Indirect function calls use a piece of trampoline code to do context
    switching, i.e. to set the new TOC table. Skip such code if we are on
-   its first instruction (as when we have single-stepped to here). 
+   its first instruction (as when we have single-stepped to here).
    Also skip shared library trampoline code (which is different from
    indirect function call trampolines).
    Result is desired PC to step until, or NULL if we are not in
@@ -974,7 +974,7 @@ frameless_function_invocation (fi)
      or if the function was interrupted by a signal.  */
   if (fi->next != NULL && !fi->next->signal_handler_caller)
     return 0;
-  
+
   func_start = get_pc_function_start (fi->pc);
 
   /* If we failed to find the start of the function, it is a mistake
@@ -1043,12 +1043,12 @@ frame_get_cache_fsr (fi, fdatap)
      struct rs6000_framedata *fdatap;
 {
   int ii;
-  CORE_ADDR frame_addr; 
+  CORE_ADDR frame_addr;
   struct rs6000_framedata work_fdata;
 
   if (fi->cache_fsr)
     return;
-  
+
   if (fdatap == NULL) {
     fdatap = &work_fdata;
     (void) skip_prologue (get_pc_function_start (fi->pc), fdatap);
@@ -1062,7 +1062,7 @@ frame_get_cache_fsr (fi, fdatap)
     frame_addr = fi->prev->frame;
   else
     frame_addr = read_memory_integer (fi->frame, 4);
-  
+
   /* if != -1, fdatap->saved_fpr is the smallest number of saved_fpr.
      All fpr's from saved_fpr to fp31 are saved.  */
 
@@ -1076,7 +1076,7 @@ frame_get_cache_fsr (fi, fdatap)
 
   /* if != -1, fdatap->saved_gpr is the smallest number of saved_gpr.
      All gpr's from saved_gpr to gpr31 are saved.  */
-  
+
   if (fdatap->saved_gpr >= 0) {
     int gpr_offset = frame_addr + fdatap->gpr_offset;
     for (ii = fdatap->saved_gpr; ii < 32; ii++) {
@@ -1135,7 +1135,7 @@ frame_initial_stack_address (fi)
      (with the lowest address), the value in alloca register is good. */
 
   if (!fi->next)
-    return fi->initial_sp = read_register (fdata.alloca_reg);     
+    return fi->initial_sp = read_register (fdata.alloca_reg);
 
   /* Otherwise, this is a caller frame. Callee has usually already saved
      registers, but there are exceptions (such as when the callee
@@ -1151,7 +1151,7 @@ frame_initial_stack_address (fi)
 
     tmpaddr = callee_fi->cache_fsr->regs [fdata.alloca_reg];
     if (tmpaddr) {
-      fi->initial_sp = read_memory_integer (tmpaddr, 4); 
+      fi->initial_sp = read_memory_integer (tmpaddr, 4);
       return fi->initial_sp;
     }
 
@@ -1162,7 +1162,7 @@ frame_initial_stack_address (fi)
   /* If alloca register was not saved, by the callee (or any of its callees)
      then the value in the register is still good. */
 
-  return fi->initial_sp = read_register (fdata.alloca_reg);     
+  return fi->initial_sp = read_register (fdata.alloca_reg);
 }
 
 CORE_ADDR

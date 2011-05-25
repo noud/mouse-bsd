@@ -127,7 +127,7 @@ extern struct ifqueue pkintrq;
 #define RCF_SINGLEROUTE (2 << 8) | TOKEN_RCF_FRAME2 | TOKEN_RCF_BROADCAST_SINGLE
 
 static	int token_output __P((struct ifnet *, struct mbuf *,
-	    struct sockaddr *, struct rtentry *)); 
+	    struct sockaddr *, struct rtentry *));
 static	void token_input __P((struct ifnet *, struct mbuf *));
 
 /*

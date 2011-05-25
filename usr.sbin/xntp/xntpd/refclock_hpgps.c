@@ -18,7 +18,7 @@
 #include "ntp_refclock.h"
 #include "ntp_stdlib.h"
 
-/* Version 0.1 April  1, 1995  
+/* Version 0.1 April  1, 1995
  *         0.2 April 25, 1995
  *             tolerant of missing timecode response prompt and sends
  *             clear status if prompt indicates error;
@@ -51,7 +51,7 @@
  * the receiver. The receiver responds with a timecode string of ASCII
  * printing characters, followed by a <cr><lf>, followed by a prompt string
  * issued by the receiver, in the following format:
- * T#yyyymmddhhmmssMFLRVcc<cr><lf>scpi > 
+ * T#yyyymmddhhmmssMFLRVcc<cr><lf>scpi >
  *
  * The driver processes the response at the <cr> and <lf>, so what the
  * driver sees is the prompt from the previous poll, followed by this
@@ -67,7 +67,7 @@
  * so the first approximation for fudge time1 is nominally -0.955 seconds.
  * This number probably needs adjusting for each machine / OS type, so far:
  *  -0.955000 on an HP 9000 Model 712/80 HP-UX 9.05
- *  -0.953175 on an HP 9000 Model 370    HP-UX 9.10 
+ *  -0.953175 on an HP 9000 Model 370    HP-UX 9.10
  *
  * This receiver also provides a 1PPS signal, but I haven't figured out
  * how to deal with any of the CLK or PPS stuff yet. Stay tuned.
@@ -89,7 +89,7 @@
 #define	SPEED232	B9600	/* uart speed (9600 baud) */
 #define	PRECISION	(-10)	/* precision assumed (about 1 ms) */
 #define	REFID		"GPS\0"	/*  reference ID */
-#define	DESCRIPTION	"HP 58503A GPS Time and Frequency Reference Receiver" 
+#define	DESCRIPTION	"HP 58503A GPS Time and Frequency Reference Receiver"
 
 #define	NSAMPLES	3       /* stages of median filter */
 #define SMAX            23*80+1 /* for :SYSTEM:PRINT? status screen response */
@@ -303,15 +303,15 @@ hpgps_receive(rbufp)
                 (void)strcpy(up->lastptr, pp->a_lastcode);
                 up->lastptr += pp->lencode;
             }
-            if (up->linecnt == 0) 
+            if (up->linecnt == 0)
                 record_clock_stats(&peer->srcadr, up->statscrn);
-               
+
             return;
         }
 
         record_clock_stats(&peer->srcadr, pp->a_lastcode);
 	pp->lastrec = trtmp;
-            
+
 	up->lastptr = up->statscrn;
 	*up->lastptr = '\0';
 	up->pollcnt = 2;
@@ -336,7 +336,7 @@ hpgps_receive(rbufp)
         (void)strcpy(prompt,pp->a_lastcode);
         tcp = strrchr(pp->a_lastcode,'>');
         if (tcp == NULL)
-            tcp = pp->a_lastcode; 
+            tcp = pp->a_lastcode;
         else
             tcp++;
         prompt[tcp - pp->a_lastcode] = '\0';
@@ -355,7 +355,7 @@ hpgps_receive(rbufp)
             }
 
         /*
-         * make sure we got a timezone or timecode format and 
+         * make sure we got a timezone or timecode format and
          * then process accordingly
          */
         m = sscanf(tcp,"%c%c", &tcodechar1, &tcodechar2);
@@ -382,7 +382,7 @@ hpgps_receive(rbufp)
             refclock_report(peer, CEVNT_BADREPLY);
             return;
             }
-        if ((up->tzhour < -12) || (up->tzhour > 13) || 
+        if ((up->tzhour < -12) || (up->tzhour > 13) ||
             (up->tzminute < -59) || (up->tzminute > 59)){
 #ifdef DEBUG
 	    if (debug)
@@ -436,8 +436,8 @@ hpgps_receive(rbufp)
         refclock_report(peer, CEVNT_BADREPLY);
         return;
         } /* end of tcodechar2 format switch */
-           
-        /* 
+
+        /*
          * Compute and verify the checksum.
          * Characters are summed starting at tcodechar1, ending at just
          * before the expected checksum.  Bail out if incorrect.
@@ -456,7 +456,7 @@ hpgps_receive(rbufp)
             return;
         }
 
-        /* 
+        /*
          * Compute the day of year from the yyyymmdd format.
          * Exception noted for year 2000.
 	 */
@@ -525,7 +525,7 @@ hpgps_receive(rbufp)
 	/*
 	 * Decode the MFLRV indicators.
          * NEED TO FIGURE OUT how to deal with the request for service,
-         * time quality, and frequency quality indicators some day. 
+         * time quality, and frequency quality indicators some day.
 	 */
 	if (syncchar != '0') {
             pp->leap = LEAP_NOTINSYNC;
@@ -536,15 +536,15 @@ hpgps_receive(rbufp)
                     case '+':
 	            pp->leap = LEAP_ADDSECOND;
                     break;
-                     
+
                     case '0':
 	            pp->leap = LEAP_NOWARNING;
                     break;
-                     
+
                     case '-':
 		    pp->leap = LEAP_DELSECOND;
                     break;
-                     
+
                     default:
 #ifdef DEBUG
 	            if (debug)
@@ -575,10 +575,10 @@ hpgps_receive(rbufp)
 #ifdef DEBUG
 if (debug)
 printf("hpgps: refclock_rcv: off: %s, disp: %s, tref: %s, trec: %s, lp: %hd\n",
-       lfptoa(&pp->offset,6), 
-       ufptoa(pp->dispersion,6), 
-       ulfptoa(&trtmp,6), 
-       ulfptoa(&pp->lastrec,6), 
+       lfptoa(&pp->offset,6),
+       ufptoa(pp->dispersion,6),
+       ulfptoa(&trtmp,6),
+       ulfptoa(&pp->lastrec,6),
        pp->leap);
 #endif
 
@@ -589,7 +589,7 @@ printf("hpgps: refclock_rcv: off: %s, disp: %s, tref: %s, trec: %s, lp: %hd\n",
         * If CLK_FLAG4 is set, ask for the status screen response.
         */
         if (pp->sloppyclockflag & CLK_FLAG4){
-            up->linecnt = 22; 
+            up->linecnt = 22;
   	    if (write(pp->io.fd, ":SYSTEM:PRINT?\r", 15) != 15)
 		refclock_report(peer, CEVNT_FAULT);
             }

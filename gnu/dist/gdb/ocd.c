@@ -393,7 +393,7 @@ ocd_interrupt (signo)
 {
   /* If this doesn't work, try more severe steps.  */
   signal (signo, ocd_interrupt_twice);
-  
+
   if (remote_debug)
     printf_unfiltered ("ocd_interrupt called\n");
 
@@ -415,7 +415,7 @@ ocd_interrupt_twice (signo)
      int signo;
 {
   signal (signo, ofunc);
-  
+
   interrupt_query ();
 
   signal (signo, ocd_interrupt);
@@ -597,7 +597,7 @@ ocd_write_bdm_register (bdm_regno, reg)
   ocd_write_bdm_registers (bdm_regno, buf, 4);
 }
 
-void 
+void
 ocd_prepare_to_store ()
 {
 }
@@ -1283,7 +1283,7 @@ ocd_load (args, from_tty)
 /* This should be defined for each target */
 /* But we want to be able to compile this file for some configurations
    not yet supported fully */
-   
+
 #define BDM_BREAKPOINT {0x0,0x0,0x0,0x0} /* For ppc 8xx */
 /* #define BDM_BREAKPOINT {0x4a,0xfa} /* BGND insn used for CPU32 */
 

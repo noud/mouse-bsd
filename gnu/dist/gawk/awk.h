@@ -1,23 +1,23 @@
 /*
- * awk.h -- Definitions for gawk. 
+ * awk.h -- Definitions for gawk.
  */
 
-/* 
+/*
  * Copyright (C) 1986, 1988, 1989, 1991-1997 the Free Software Foundation, Inc.
- * 
+ *
  * This file is part of GAWK, the GNU implementation of the
  * AWK Programming Language.
- * 
+ *
  * GAWK is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * GAWK is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
@@ -312,7 +312,7 @@ typedef enum nodevals {
 
 	/*
 	 * boolean test of membership in array lnode is string-valued
-	 * expression rnode is array name 
+	 * expression rnode is array name
 	 */
 	Node_in_array,
 
@@ -531,7 +531,7 @@ struct src {
 #ifndef LONG_MIN
 #define LONG_MIN ((long)(-LONG_MAX - 1L))
 #endif
-#define HUGE    LONG_MAX 
+#define HUGE    LONG_MAX
 
 /* -------------------------- External variables -------------------------- */
 /* gawk builtin variables */
@@ -551,7 +551,7 @@ extern int OFMTidx;
 extern NODE *CONVFMT_node, *FIELDWIDTHS_node, *FILENAME_node;
 extern NODE *FNR_node, *FS_node, *IGNORECASE_node, *NF_node;
 extern NODE *NR_node, *OFMT_node, *OFS_node, *ORS_node, *RLENGTH_node;
-extern NODE *RSTART_node, *RS_node, *RT_node, *SUBSEP_node; 
+extern NODE *RSTART_node, *RS_node, *RT_node, *SUBSEP_node;
 extern NODE **stack_ptr;
 extern NODE *Nnull_string;
 extern NODE **fields_arr;

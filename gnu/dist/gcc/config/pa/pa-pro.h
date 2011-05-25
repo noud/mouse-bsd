@@ -19,7 +19,7 @@ the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
 /* Global constructor and destructor support.  */
 /* Define the pseudo-ops used to switch to the .ctors and .dtors sections.
- 
+
    Note that we want to give these sections the SHF_WRITE attribute
    because these sections will actually contain data (i.e. tables of
    addresses of functions in the current root executable or shared library
@@ -27,7 +27,7 @@ the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
    will have to be properly resolved/relocated (and then written into) by
    the dynamic linker when it actually attaches the given shared library
    to the executing process.  */
- 
+
 #define CTORS_SECTION_ASM_OP    "\t.section\t\".ctors\",#alloc,#write"
 #define DTORS_SECTION_ASM_OP    "\t.section\t\".dtors\",#alloc,#write"
 

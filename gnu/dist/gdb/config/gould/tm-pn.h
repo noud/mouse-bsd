@@ -291,7 +291,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
    However, if FRAME_CHAIN_VALID returns zero,
    it means the given frame is the outermost one and has no caller.  */
 
-/* In the case of the NPL, the frame's norminal address is Br2 and the 
+/* In the case of the NPL, the frame's norminal address is Br2 and the
    previous routines frame is up the stack X bytes, where X is the
    value stored in the code function header xA(Br1). */
 #define FRAME_CHAIN(thisframe)		(findframe(thisframe))
@@ -351,7 +351,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
   sp = push_word (sp, read_register (PS_REGNUM));			\
   write_register (SP_REGNUM, sp);  }
 
-/* Discard from the stack the innermost frame, 
+/* Discard from the stack the innermost frame,
    restoring all saved registers.  */
 
 #define POP_FRAME  \

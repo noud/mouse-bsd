@@ -189,7 +189,7 @@ kbdenable()
 		ciaa.cra &= ~(1<<6);	/* serial line == input */
 		splx(s);
 		return;
-		
+
 	} else {
 #endif
 	custom.intena = INTF_SETCLR | INTF_PORTS;
@@ -439,12 +439,12 @@ kbdintr(mask)
 #ifdef KBDRESET
 	static int reset_warn;
 #endif
- 
-	/* 
+
+	/*
 	 * now only invoked from generic CIA interrupt handler if there *is*
 	 * a keyboard interrupt pending
 	 */
-    
+
 	c = ~ciaa.sdr;	/* keyboard data is inverted */
 	/* ack */
 	ciaa.cra |= (1 << 6);	/* serial line output */
@@ -476,7 +476,7 @@ kbdintr(mask)
 #endif
 	kbdstuffchar(c);
 }
-  
+
 #ifdef DRACO
 /* maps MF-II keycodes to Amiga keycodes */
 
@@ -541,17 +541,17 @@ kbdgetcn ()
 	}
 #endif
 	s = spltty();
-	for (ints = 0; ! ((mask = ciaa.icr) & CIA_ICR_SP); 
+	for (ints = 0; ! ((mask = ciaa.icr) & CIA_ICR_SP);
 	    ints |= mask) ;
 
 	in = ciaa.sdr;
 	c = ~in;
-  
+
 	/* ack */
 	ciaa.cra |= (1 << 6);	/* serial line output */
 	ciaa.sdr = 0xff;	/* ack */
 	/* wait 200 microseconds */
-	DELAY(2000);	/* XXXX only works as long as DELAY doesn't 
+	DELAY(2000);	/* XXXX only works as long as DELAY doesn't
 			 * use a timer and waits.. */
 	ciaa.cra &= ~(1 << 6);
 	ciaa.sdr = in;
@@ -574,9 +574,9 @@ kbdstuffchar(c)
 	struct kbd_softc *k = &kbd_softc;
 	int put;
 
-	/* 
-	 * If not in event mode, deliver straight to ite to process 
-	 * key stroke 
+	/*
+	 * If not in event mode, deliver straight to ite to process
+	 * key stroke
 	 */
 
 	if (! k->k_event_mode) {
@@ -584,12 +584,12 @@ kbdstuffchar(c)
 		return;
 	}
 
-	/* 
+	/*
 	 * Keyboard is generating events. Turn this keystroke into an
 	 * event and put it in the queue. If the queue is full, the
 	 * keystroke is lost (sorry!).
 	 */
-	
+
 	put = k->k_events.ev_put;
 	fe = &k->k_events.ev_q[put];
 	put = (put + 1) % EV_QSIZE;
@@ -616,7 +616,7 @@ drkbdintr()
 	in = draco_ioct->io_kbddata;
 	draco_ioct->io_kbdrst = 0;
 
-	if (in == 0xF0) 
+	if (in == 0xF0)
 		k->k_rlprfx = 0x80;
 	else {
 		kbdstuffchar(in>=sizeof(drkbdtab) ? 0xff :

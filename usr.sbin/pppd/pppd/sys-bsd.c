@@ -556,7 +556,7 @@ sif6addr(unit, our_eui64, his_eui64)
 	error("sif6addr: ioctl(SIOCGIFINDEX): %m");
 	return 0;
     }
-    
+
     /* Local interface */
     memset(&ifr6, 0, sizeof(ifr6));
     IN6_LLADDR_FROM_EUI64(ifr6.ifr6_addr, our_eui64);
@@ -567,7 +567,7 @@ sif6addr(unit, our_eui64, his_eui64)
 	error("sif6addr: ioctl(SIOCSIFADDR): %m");
 	return 0;
     }
-    
+
     /* Route to remote host */
     memset(&rt6, 0, sizeof(rt6));
     IN6_LLADDR_FROM_EUI64(rt6.rtmsg_dst, his_eui64);
@@ -575,7 +575,7 @@ sif6addr(unit, our_eui64, his_eui64)
     rt6.rtmsg_dst_len = 128;
     rt6.rtmsg_ifindex = ifr.ifr_ifindex;
     rt6.rtmsg_metric = 1;
-    
+
     if (ioctl(sock6_fd, SIOCADDRT, &rt6) < 0) {
 	error("sif6addr: ioctl(SIOCADDRT): %m");
 	return 0;
@@ -635,7 +635,7 @@ cif6addr(unit, our_eui64, his_eui64)
 	error("cif6addr: ioctl(SIOCGIFINDEX): %m");
 	return 0;
     }
-    
+
     memset(&ifr6, 0, sizeof(ifr6));
     IN6_LLADDR_FROM_EUI64(ifr6.ifr6_addr, our_eui64);
     ifr6.ifr6_ifindex = ifr.ifr_ifindex;
@@ -715,7 +715,7 @@ open_ppp_loopback()
 	    warn("couldn't set attributes on loopback: %m");
     }
 
-    if ((flags = fcntl(loop_master, F_GETFL)) != -1) 
+    if ((flags = fcntl(loop_master, F_GETFL)) != -1)
 	if (fcntl(loop_master, F_SETFL, flags | O_NONBLOCK) == -1)
 	    warn("couldn't set loopback to nonblock: %m");
 

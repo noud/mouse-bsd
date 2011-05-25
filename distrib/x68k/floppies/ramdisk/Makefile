@@ -33,7 +33,7 @@ upgrade.sh: upgrade.tmpl
 start.sh: start.tmpl
 	sed "s/@@VERSION@@/${VER}/" < ${.ALLSRC} > ${.TARGET}
 
-all: ${AUXTARGETS} ${CBIN} 
+all: ${AUXTARGETS} ${CBIN}
 	dd if=/dev/zero of=${IMAGE} count=2400
 	vnconfig -v -c ${VND_CDEV} ${IMAGE} 512/15/2/80
 	newfs -B be -m 0 -o space -i 5120 -c 80 ${VND_RDEV}

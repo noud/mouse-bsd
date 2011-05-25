@@ -347,7 +347,7 @@ rmremote()
 	len += 2;
 	if (len > sizeof(line))
 		s = malloc(len);
-	else	
+	else
 		s = line;
 	cp = s;
 

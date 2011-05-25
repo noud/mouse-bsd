@@ -77,7 +77,7 @@ const char	netcls[] = "netcls";
  * structure queued on so_q0 by calling sonewconn().  When the connection
  * is established, soisconnected() is called, and transfers the
  * socket structure to so_q, making it available to accept().
- * 
+ *
  * If a socket is closed with sockets on either
  * so_q0 or so_q, these sockets are dropped.
  *
@@ -160,7 +160,7 @@ sonewconn1(head, connstatus)
 	if (head->so_qlen + head->so_q0len > 3 * head->so_qlimit / 2)
 		return ((struct socket *)0);
 	so = pool_get(&socket_pool, PR_NOWAIT);
-	if (so == NULL) 
+	if (so == NULL)
 		return (NULL);
 	memset((caddr_t)so, 0, sizeof(*so));
 	so->so_type = head->so_type;
@@ -276,7 +276,7 @@ sbwait(sb)
 	    sb->sb_timeo));
 }
 
-/* 
+/*
  * Lock a sockbuf already known to be locked;
  * return any error returned from sleep (EINTR).
  */
@@ -288,7 +288,7 @@ sb_lock(sb)
 
 	while (sb->sb_flags & SB_LOCK) {
 		sb->sb_flags |= SB_WANT;
-		error = tsleep((caddr_t)&sb->sb_flags, 
+		error = tsleep((caddr_t)&sb->sb_flags,
 			       (sb->sb_flags & SB_NOINTR) ?
 					PSOCK : PSOCK|PCATCH, netio, 0);
 		if (error)

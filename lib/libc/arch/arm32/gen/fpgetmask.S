@@ -46,5 +46,5 @@ ENTRY(fpgetmask)
 	rfs	r0
 	mov	r0, r0, lsr #16
 	and	r0, r0, #0x1f
-	mov	r15, r14		/* return */ 
+	mov	r15, r14		/* return */
 #endif	/* SOFTFLOAT */

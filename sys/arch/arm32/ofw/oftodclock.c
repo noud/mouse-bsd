@@ -33,7 +33,7 @@
  *    even if advised of the possibility of such damage.
  */
 
-/* 
+/*
  *   Real time clock (RTC) functions using OFW /rtc device:
  *      inittodr()
  *      resettodr()
@@ -147,7 +147,7 @@ ofrtcstatus(void)
 	char status[256];
 	int  l;
 
-	if ((ofrtc_ihandle == 0) || (l = OF_getprop(ofrtc_phandle, "status", 
+	if ((ofrtc_ihandle == 0) || (l = OF_getprop(ofrtc_phandle, "status",
 	    status, sizeof status - 1)) < 0) {
 		printf("OFW RTC: old firmware does not support RTC\n");
 		return 0;
@@ -204,7 +204,7 @@ inittodr(base)
 		setthetime(base, 1);
 		return;
 	}
-	  
+
 	n  = date[OFRTC_SEC];
 	n += date[OFRTC_MIN]       * SECMIN;
 	n += date[OFRTC_HR]        * SECHOUR;

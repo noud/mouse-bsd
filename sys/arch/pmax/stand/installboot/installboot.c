@@ -205,7 +205,7 @@ clr_bootstrap(const char *disk)
 
 	if (verbose)
 		fprintf(stderr, "writing\n");
-	
+
 	rv = pwrite(diskfd, &bb, sizeof bb, BOOT_BLOCK_OFFSET);
 	if (rv == -1)
 		err(EXIT_FAILURE, "write %s", disk);

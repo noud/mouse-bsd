@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -53,7 +53,7 @@ inet6_rthdr_space(type, seg)
      default:
 #ifdef DEBUG
 	 fprintf(stderr, "inet6_rthdr_space: unknown type(%d)\n", type);
-#endif 
+#endif
 	 return(0);
     }
 }
@@ -83,7 +83,7 @@ inet6_rthdr_init(bp, type)
      default:
 #ifdef DEBUG
 	 fprintf(stderr, "inet6_rthdr_init: unknown type(%d)\n", type);
-#endif 
+#endif
 	 return(NULL);
     }
 }
@@ -108,13 +108,13 @@ inet6_rthdr_add(cmsg, addr, flags)
 	 if (flags != IPV6_RTHDR_LOOSE && flags != IPV6_RTHDR_STRICT) {
 #ifdef DEBUG
 	     fprintf(stderr, "inet6_rthdr_add: unsupported flag(%d)\n", flags);
-#endif 
+#endif
 	     return(-1);
 	 }
 	 if (rt0->ip6r0_segleft == 23) {
 #ifdef DEBUG
 	     fprintf(stderr, "inet6_rthdr_add: segment overflow\n");
-#endif 
+#endif
 	     return(-1);
 	 }
 	 if (flags == IPV6_RTHDR_STRICT) {
@@ -134,7 +134,7 @@ inet6_rthdr_add(cmsg, addr, flags)
 #ifdef DEBUG
 	 fprintf(stderr, "inet6_rthdr_add: unknown type(%d)\n",
 		 rthdr->ip6r_type);
-#endif 
+#endif
 	 return(-1);
     }
 
@@ -159,13 +159,13 @@ inet6_rthdr_lasthop(cmsg, flags)
 	 if (flags != IPV6_RTHDR_LOOSE && flags != IPV6_RTHDR_STRICT) {
 #ifdef DEBUG
 	     fprintf(stderr, "inet6_rthdr_lasthop: unsupported flag(%d)\n", flags);
-#endif 
+#endif
 	     return(-1);
 	 }
 	 if (rt0->ip6r0_segleft > 23) {
 #ifdef DEBUG
 	     fprintf(stderr, "inet6_rthdr_add: segment overflow\n");
-#endif 
+#endif
 	     return(-1);
 	 }
 	 if (flags == IPV6_RTHDR_STRICT) {
@@ -180,7 +180,7 @@ inet6_rthdr_lasthop(cmsg, flags)
 #ifdef DEBUG
 	 fprintf(stderr, "inet6_rthdr_lasthop: unknown type(%d)\n",
 		 rthdr->ip6r_type);
-#endif 
+#endif
 	 return(-1);
     }
 
@@ -195,7 +195,7 @@ inet6_rthdr_reverse(in, out)
 {
 #ifdef DEBUG
     fprintf(stderr, "inet6_rthdr_reverse: not implemented yet\n");
-#endif 
+#endif
     return -1;
 }
 #endif
@@ -219,7 +219,7 @@ inet6_rthdr_segments(cmsg)
 #ifdef DEBUG
 	    fprintf(stderr, "inet6_rthdr_segments: invalid size(%d)\n",
 		rt0->ip6r0_len);
-#endif 
+#endif
 	    return -1;
 	}
 
@@ -230,7 +230,7 @@ inet6_rthdr_segments(cmsg)
 #ifdef DEBUG
 	fprintf(stderr, "inet6_rthdr_segments: unknown type(%d)\n",
 	    rthdr->ip6r_type);
-#endif 
+#endif
 	return -1;
     }
 }
@@ -256,14 +256,14 @@ inet6_rthdr_getaddr(cmsg, index)
 #ifdef DEBUG
 	    fprintf(stderr, "inet6_rthdr_getaddr: invalid size(%d)\n",
 		rt0->ip6r0_len);
-#endif 
+#endif
 	    return NULL;
 	}
 	naddr = (rt0->ip6r0_len * 8) / sizeof(struct in6_addr);
 	if (index <= 0 || naddr < index) {
 #ifdef DEBUG
 	    fprintf(stderr, "inet6_rthdr_getaddr: invalid index(%d)\n", index);
-#endif 
+#endif
 	    return NULL;
 	}
 	return &rt0->ip6r0_addr[index - 1];
@@ -273,7 +273,7 @@ inet6_rthdr_getaddr(cmsg, index)
 #ifdef DEBUG
 	fprintf(stderr, "inet6_rthdr_getaddr: unknown type(%d)\n",
 	    rthdr->ip6r_type);
-#endif 
+#endif
 	return NULL;
     }
 }
@@ -299,14 +299,14 @@ inet6_rthdr_getflags(cmsg, index)
 #ifdef DEBUG
 	    fprintf(stderr, "inet6_rthdr_getflags: invalid size(%d)\n",
 		rt0->ip6r0_len);
-#endif 
+#endif
 	    return -1;
 	}
 	naddr = (rt0->ip6r0_len * 8) / sizeof(struct in6_addr);
 	if (index < 0 || naddr < index) {
 #ifdef DEBUG
 	    fprintf(stderr, "inet6_rthdr_getflags: invalid index(%d)\n", index);
-#endif 
+#endif
 	    return -1;
 	}
 	if (rt0->ip6r0_slmap[index / 8] & (0x80 >> (index % 8)))
@@ -319,7 +319,7 @@ inet6_rthdr_getflags(cmsg, index)
 #ifdef DEBUG
 	fprintf(stderr, "inet6_rthdr_getflags: unknown type(%d)\n",
 	    rthdr->ip6r_type);
-#endif 
+#endif
 	return -1;
     }
 }

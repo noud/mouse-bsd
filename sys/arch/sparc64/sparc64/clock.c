@@ -233,7 +233,7 @@ clock_map(bh, model)
  * What we really need is some way to record the bus attach args
  * so we can call *_bus_map() later with BUS_SPACE_MAP_READONLY
  * or not to write enable/disable the device registers.  This is
- * a non-trivial operation.  
+ * a non-trivial operation.
  */
 /* ARGSUSED */
 static void
@@ -341,7 +341,7 @@ timerattach(parent, self, aux)
 #if 0
 	volatile int64_t *cnt = NULL, *lim = NULL;
 #endif
-	
+
 	/*
 	 * What we should have are 3 sets of registers that reside on
 	 * different parts of SYSIO or PSYCHO.  We'll use the prom
@@ -359,8 +359,8 @@ timerattach(parent, self, aux)
 	level14.ih_number = ma->ma_interrupts[1];
 /*	level14.ih_clr = (void*)timerreg_4u.t_clrintr[1]; */
 	intr_establish(14, &level14);
-	printf(" irq vectors %lx and %lx", 
-	       (u_long)level10.ih_number, 
+	printf(" irq vectors %lx and %lx",
+	       (u_long)level10.ih_number,
 	       (u_long)level14.ih_number);
 
 #if 0
@@ -369,8 +369,8 @@ timerattach(parent, self, aux)
 
 	/*
 	 * Calibrate delay() by tweaking the magic constant
-	 * until a delay(100) actually reads (at least) 100 us 
-	 * on the clock.  Since we're using the %tick register 
+	 * until a delay(100) actually reads (at least) 100 us
+	 * on the clock.  Since we're using the %tick register
 	 * which should be running at exactly the CPU clock rate, it
 	 * has a period of somewhere between 7ns and 3ns.
 	 */
@@ -499,8 +499,8 @@ cpu_initclocks()
 			(long)(cpu_clockrate/1000000));
 		/* We don't have a counter-timer -- use %tick */
 		level0.ih_clr = 0;
-		/* 
-		 * Establish a level 10 interrupt handler 
+		/*
+		 * Establish a level 10 interrupt handler
 		 *
 		 * We will have a conflict with the softint handler,
 		 * so we set the ih_number to 1.
@@ -508,29 +508,29 @@ cpu_initclocks()
 		level0.ih_number = 1;
 		intr_establish(10, &level0);
 		/* We only have one timer so we have no statclock */
-		stathz = 0;	
+		stathz = 0;
 		/* Make sure we have a sane cpu_clockrate -- we'll need it */
-		if (!cpu_clockrate) 
+		if (!cpu_clockrate)
 			/* Default to 200MHz clock XXXXX */
 			cpu_clockrate = 200000000;
 
 		/*
 		 * Calculate the starting %tick value.  We set that to the same
 		 * as time, scaled for the CPU clockrate.  This gets nasty, but
-		 * we can handle it.  time.tv_usec is in microseconds.  
-		 * cpu_clockrate is in MHz.  
+		 * we can handle it.  time.tv_usec is in microseconds.
+		 * cpu_clockrate is in MHz.
 		 */
 		start_time = time.tv_sec * cpu_clockrate;
 		/* Now fine tune the usecs */
 		start_time += cpu_clockrate / 1000000 * time.tv_usec;
-		
+
 		/* Initialize the %tick register */
 #ifdef __arch64__
 		__asm __volatile("wrpr %0, 0, %%tick" : : "r" (start_time));
 #else
 		{
 			int start_hi = (start_time>>32), start_lo = start_time;
-			__asm __volatile("sllx %0,32,%0; or %1,%0,%0; wrpr %0, 0, %%tick" 
+			__asm __volatile("sllx %0,32,%0; or %1,%0,%0; wrpr %0, 0, %%tick"
 					 : "=&r" (start_hi) /* scratch register */
 					 : "r" ((int)(start_hi)), "r" ((int)(start_lo)));
 		}
@@ -561,32 +561,32 @@ cpu_initclocks()
 	while (statvar > minint)
 		statvar >>= 1;
 
-	/* 
-	 * Enable timers 
+	/*
+	 * Enable timers
 	 *
 	 * Also need to map the interrupts cause we're not a child of the sbus.
 	 * N.B. By default timer[0] is disabled and timer[1] is enabled.
 	 */
 #if 0
 	timerreg_4u.t_timer[0].t_limit = tmr_ustolim(tick)|TMR_LIM_IEN|TMR_LIM_PERIODIC|TMR_LIM_RELOAD;
-	timerreg_4u.t_mapintr[0] |= INTMAP_V; 
+	timerreg_4u.t_mapintr[0] |= INTMAP_V;
 	timerreg_4u.t_timer[1].t_limit = tmr_ustolim(statint)|TMR_LIM_IEN|TMR_LIM_RELOAD;
-	timerreg_4u.t_mapintr[1] |= INTMAP_V; 
+	timerreg_4u.t_mapintr[1] |= INTMAP_V;
 #else
-	stxa(&timerreg_4u.t_timer[0].t_limit, ASI_NUCLEUS, tmr_ustolim(tick)|TMR_LIM_IEN|TMR_LIM_PERIODIC|TMR_LIM_RELOAD); 
-	stxa(&timerreg_4u.t_mapintr[0], ASI_NUCLEUS, timerreg_4u.t_mapintr[0]|INTMAP_V); 
+	stxa(&timerreg_4u.t_timer[0].t_limit, ASI_NUCLEUS, tmr_ustolim(tick)|TMR_LIM_IEN|TMR_LIM_PERIODIC|TMR_LIM_RELOAD);
+	stxa(&timerreg_4u.t_mapintr[0], ASI_NUCLEUS, timerreg_4u.t_mapintr[0]|INTMAP_V);
 
 #ifdef DEBUG
 	if (intrdebug)
 		/* Neglect to enable timer */
-		stxa(&timerreg_4u.t_timer[1].t_limit, ASI_NUCLEUS, tmr_ustolim(statint)|TMR_LIM_RELOAD); 
+		stxa(&timerreg_4u.t_timer[1].t_limit, ASI_NUCLEUS, tmr_ustolim(statint)|TMR_LIM_RELOAD);
 	else
 #endif
-		stxa(&timerreg_4u.t_timer[1].t_limit, ASI_NUCLEUS, tmr_ustolim(statint)|TMR_LIM_IEN|TMR_LIM_RELOAD); 
-	stxa(&timerreg_4u.t_mapintr[1], ASI_NUCLEUS, timerreg_4u.t_mapintr[1]|INTMAP_V); 
+		stxa(&timerreg_4u.t_timer[1].t_limit, ASI_NUCLEUS, tmr_ustolim(statint)|TMR_LIM_IEN|TMR_LIM_RELOAD);
+	stxa(&timerreg_4u.t_mapintr[1], ASI_NUCLEUS, timerreg_4u.t_mapintr[1]|INTMAP_V);
 #endif
 	statmin = statint - (statvar >> 1);
-	
+
 	/* Also zero out %tick which should be valid for at least 10 years */
 	__asm __volatile("wrpr %%g0, 0, %%tick" : : );
 }
@@ -650,7 +650,7 @@ clockintr(cap)
  * console input, we need to check for that here as well, and generate
  * a software interrupt to read it.
  *
- * %tick is really a level-14 interrupt.  We need to remap this in 
+ * %tick is really a level-14 interrupt.  We need to remap this in
  * locore.s to a level 10.
  */
 int
@@ -688,7 +688,7 @@ statintr(cap)
 	register u_long newint, r, var;
 
 #ifdef NOT_DEBUG
-	printf("statclock: count %x:%x, limit %x:%x\n", 
+	printf("statclock: count %x:%x, limit %x:%x\n",
 	       timerreg_4u.t_timer[1].t_count, timerreg_4u.t_timer[1].t_limit);
 #endif
 #ifdef NOT_DEBUG

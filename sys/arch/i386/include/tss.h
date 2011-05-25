@@ -53,14 +53,14 @@ struct i386tss {
 	int	tss_cr3;	/* page directory paddr */
 	int	__tss_eip;
 	int	__tss_eflags;
-	int	__tss_eax; 
-	int	__tss_ecx; 
-	int	__tss_edx; 
-	int	__tss_ebx; 
+	int	__tss_eax;
+	int	__tss_ecx;
+	int	__tss_edx;
+	int	__tss_ebx;
 	int	tss_esp;	/* saved stack pointer */
 	int	tss_ebp;	/* saved frame pointer */
-	int	__tss_esi; 
-	int	__tss_edi; 
+	int	__tss_esi;
+	int	__tss_edi;
 	int	__tss_es;
 	int	__tss_cs;
 	int	__tss_ss;

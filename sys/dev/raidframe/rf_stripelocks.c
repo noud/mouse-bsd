@@ -118,14 +118,14 @@ static RF_FreeList_t *rf_stripelock_freelist;
 static void rf_ShutdownStripeLockFreeList(void *);
 static void rf_RaidShutdownStripeLocks(void *);
 
-static void 
+static void
 rf_ShutdownStripeLockFreeList(ignored)
 	void   *ignored;
 {
 	RF_FREELIST_DESTROY(rf_stripelock_freelist, next, (RF_StripeLockDesc_t *));
 }
 
-int 
+int
 rf_ConfigureStripeLockFreeList(listp)
 	RF_ShutdownList_t **listp;
 {
@@ -174,7 +174,7 @@ rf_MakeLockTable()
 	return (lockTable);
 }
 
-void 
+void
 rf_ShutdownStripeLocks(RF_LockTableEntry_t * lockTable)
 {
 	int     i;
@@ -188,7 +188,7 @@ rf_ShutdownStripeLocks(RF_LockTableEntry_t * lockTable)
 	RF_Free(lockTable, rf_lockTableSize * sizeof(RF_LockTableEntry_t));
 }
 
-static void 
+static void
 rf_RaidShutdownStripeLocks(arg)
 	void   *arg;
 {
@@ -196,7 +196,7 @@ rf_RaidShutdownStripeLocks(arg)
 	rf_ShutdownStripeLocks(raidPtr->lockTable);
 }
 
-int 
+int
 rf_ConfigureStripeLocks(
     RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr,
@@ -221,7 +221,7 @@ rf_ConfigureStripeLocks(
  * with cbArg when you are granted the lock.  We store a tag in *releaseTag
  * that you need to give back to us when you release the lock.
  */
-int 
+int
 rf_AcquireStripeLock(
     RF_LockTableEntry_t * lockTable,
     RF_StripeNum_t stripeID,
@@ -328,7 +328,7 @@ rf_AcquireStripeLock(
 	return (retcode);
 }
 
-void 
+void
 rf_ReleaseStripeLock(
     RF_LockTableEntry_t * lockTable,
     RF_StripeNum_t stripeID,
@@ -388,12 +388,12 @@ rf_ReleaseStripeLock(
 	 * up. for each such descriptor in the wait list, we check it against
 	 * everything granted and against everything _in front_ of it in the
 	 * waiters queue.  If it conflicts with none of these, we release it.
-	 * 
+	 *
 	 * DON'T TOUCH THE TEMPLINK POINTER OF ANYTHING IN THE GRANTED LIST HERE.
 	 * This will roach the case where the callback tries to acquire a new
 	 * lock in the same stripe.  There are some asserts to try and detect
 	 * this.
-	 * 
+	 *
 	 * We apply 2 performance optimizations: (1) if releasing this lock
 	 * results in no more writers to this stripe, we just release
 	 * everybody waiting, since we place no restrictions on the number of
@@ -561,7 +561,7 @@ rf_ReleaseStripeLock(
 	}
 }
 /* must have the indicated lock table mutex upon entry */
-static void 
+static void
 AddToWaitersQueue(
     RF_LockTableEntry_t * lockTable,
     RF_StripeLockDesc_t * lockDesc,
@@ -593,13 +593,13 @@ AllocStripeLockDesc(RF_StripeNum_t stripeID)
 	return (p);
 }
 
-static void 
+static void
 FreeStripeLockDesc(RF_StripeLockDesc_t * p)
 {
 	RF_FREELIST_FREE(rf_stripelock_freelist, p, next);
 }
 
-static void 
+static void
 PrintLockedStripes(lockTable)
 	RF_LockTableEntry_t *lockTable;
 {

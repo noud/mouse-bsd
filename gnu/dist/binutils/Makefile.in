@@ -118,7 +118,7 @@ NLMCONV_PROG=nlmconv
 DLLTOOL_PROG=dlltool
 WINDRES_PROG=windres
 
-SRCONV_PROG=srconv sysdump coffdump 
+SRCONV_PROG=srconv sysdump coffdump
 
 man_MANS = ar.1 nm.1 objdump.1 ranlib.1 size.1 strings.1 strip.1 objcopy.1 \
 	addr2line.1 nlmconv.1 $(DEMANGLER_PROG).1
@@ -248,7 +248,7 @@ CLEANFILES = dep.sed .dep .dep1
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/../mkinstalldirs
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 bin_PROGRAMS =  size$(EXEEXT) objdump$(EXEEXT) ar$(EXEEXT) \
 strings$(EXEEXT) ranlib$(EXEEXT) c++filt$(EXEEXT) objcopy$(EXEEXT) \
 @BUILD_NLMCONV@ @BUILD_SRCONV@ @BUILD_DLLTOOL@ @BUILD_WINDRES@ \
@@ -264,70 +264,70 @@ LIBS = @LIBS@
 nlmconv_OBJECTS =  nlmconv.o nlmheader.o bucomm.o version.o filemode.o
 nlmconv_LDADD = $(LDADD)
 nlmconv_DEPENDENCIES =  ../bfd/libbfd.la ../libiberty/libiberty.a
-nlmconv_LDFLAGS = 
+nlmconv_LDFLAGS =
 srconv_OBJECTS =  srconv.o coffgrok.o bucomm.o version.o filemode.o
 srconv_LDADD = $(LDADD)
 srconv_DEPENDENCIES =  ../bfd/libbfd.la ../libiberty/libiberty.a
-srconv_LDFLAGS = 
+srconv_LDFLAGS =
 sysdump_OBJECTS =  sysdump.o bucomm.o version.o filemode.o
 sysdump_LDADD = $(LDADD)
 sysdump_DEPENDENCIES =  ../bfd/libbfd.la ../libiberty/libiberty.a
-sysdump_LDFLAGS = 
+sysdump_LDFLAGS =
 coffdump_OBJECTS =  coffdump.o coffgrok.o bucomm.o version.o filemode.o
 coffdump_LDADD = $(LDADD)
 coffdump_DEPENDENCIES =  ../bfd/libbfd.la ../libiberty/libiberty.a
-coffdump_LDFLAGS = 
+coffdump_LDFLAGS =
 dlltool_OBJECTS =  dlltool.o defparse.o deflex.o bucomm.o version.o \
 filemode.o
 dlltool_DEPENDENCIES =  ../bfd/libbfd.la ../libiberty/libiberty.a
-dlltool_LDFLAGS = 
+dlltool_LDFLAGS =
 windres_OBJECTS =  windres.o resrc.o rescoff.o resbin.o rcparse.o \
 rclex.o bucomm.o version.o filemode.o
 windres_DEPENDENCIES =  ../bfd/libbfd.la ../libiberty/libiberty.a
-windres_LDFLAGS = 
+windres_LDFLAGS =
 size_OBJECTS =  size.o bucomm.o version.o filemode.o
 size_LDADD = $(LDADD)
 size_DEPENDENCIES =  ../bfd/libbfd.la ../libiberty/libiberty.a
-size_LDFLAGS = 
+size_LDFLAGS =
 objdump_OBJECTS =  objdump.o prdbg.o rddbg.o debug.o stabs.o ieee.o \
 rdcoff.o bucomm.o version.o filemode.o
 objdump_DEPENDENCIES =  ../opcodes/libopcodes.la ../bfd/libbfd.la \
 ../libiberty/libiberty.a
-objdump_LDFLAGS = 
+objdump_LDFLAGS =
 ar_OBJECTS =  arparse.o arlex.o ar.o not-ranlib.o arsup.o bucomm.o \
 version.o filemode.o
 ar_DEPENDENCIES =  ../bfd/libbfd.la ../libiberty/libiberty.a
-ar_LDFLAGS = 
+ar_LDFLAGS =
 strings_OBJECTS =  strings.o bucomm.o version.o filemode.o
 strings_LDADD = $(LDADD)
 strings_DEPENDENCIES =  ../bfd/libbfd.la ../libiberty/libiberty.a
-strings_LDFLAGS = 
+strings_LDFLAGS =
 ranlib_OBJECTS =  ar.o is-ranlib.o arparse.o arlex.o arsup.o bucomm.o \
 version.o filemode.o
 ranlib_DEPENDENCIES =  ../bfd/libbfd.la ../libiberty/libiberty.a
-ranlib_LDFLAGS = 
-c__filt_OBJECTS = 
+ranlib_LDFLAGS =
+c__filt_OBJECTS =
 c__filt_DEPENDENCIES =  cplus-dem.o underscore.o \
 ../libiberty/libiberty.a
-c__filt_LDFLAGS = 
+c__filt_LDFLAGS =
 objcopy_OBJECTS =  objcopy.o not-strip.o rddbg.o debug.o stabs.o ieee.o \
 rdcoff.o wrstabs.o bucomm.o version.o filemode.o
 objcopy_LDADD = $(LDADD)
 objcopy_DEPENDENCIES =  ../bfd/libbfd.la ../libiberty/libiberty.a
-objcopy_LDFLAGS = 
+objcopy_LDFLAGS =
 addr2line_OBJECTS =  addr2line.o bucomm.o version.o filemode.o
 addr2line_LDADD = $(LDADD)
 addr2line_DEPENDENCIES =  ../bfd/libbfd.la ../libiberty/libiberty.a
-addr2line_LDFLAGS = 
+addr2line_LDFLAGS =
 nm_new_OBJECTS =  nm.o bucomm.o version.o filemode.o
 nm_new_LDADD = $(LDADD)
 nm_new_DEPENDENCIES =  ../bfd/libbfd.la ../libiberty/libiberty.a
-nm_new_LDFLAGS = 
+nm_new_LDFLAGS =
 strip_new_OBJECTS =  objcopy.o is-strip.o rddbg.o debug.o stabs.o ieee.o \
 rdcoff.o wrstabs.o bucomm.o version.o filemode.o
 strip_new_LDADD = $(LDADD)
 strip_new_DEPENDENCIES =  ../bfd/libbfd.la ../libiberty/libiberty.a
-strip_new_LDFLAGS = 
+strip_new_LDFLAGS =
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LEXLIB = @LEXLIB@
 YLWRAP = $(top_srcdir)/../ylwrap
@@ -361,7 +361,7 @@ default: all
 
 .SUFFIXES:
 .SUFFIXES: .S .c .dvi .info .l .lo .o .ps .s .texi .texinfo .y
-$(srcdir)/Makefile.in: @MAINT@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/Makefile.in: @MAINT@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --cygnus Makefile
 
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
@@ -954,7 +954,7 @@ cplus-dem.o: $(BASEDIR)/libiberty/cplus-dem.c $(INCDIR)/getopt.h
 #	-rm -f $(STRIP_PROG)
 #	-ln $(OBJCOPY_PROG) $(STRIP_PROG)
 
-sysroff.c: sysinfo$(EXEEXT_FOR_BUILD) sysroff.info 
+sysroff.c: sysinfo$(EXEEXT_FOR_BUILD) sysroff.info
 	./sysinfo$(EXEEXT_FOR_BUILD) -c <$(srcdir)/sysroff.info >sysroff.c
 	./sysinfo$(EXEEXT_FOR_BUILD) -i <$(srcdir)/sysroff.info >>sysroff.c
 	./sysinfo$(EXEEXT_FOR_BUILD) -g <$(srcdir)/sysroff.info >>sysroff.c
@@ -963,7 +963,7 @@ sysroff.h: sysinfo$(EXEEXT_FOR_BUILD) sysroff.info
 	./sysinfo$(EXEEXT_FOR_BUILD) -d <$(srcdir)/sysroff.info >sysroff.h
 
 sysinfo$(EXEEXT_FOR_BUILD): sysinfo.o syslex.o
-	$(CC_FOR_BUILD) $(CFLAGS) $(LDFLAGS) -o $@ sysinfo.o syslex.o 
+	$(CC_FOR_BUILD) $(CFLAGS) $(LDFLAGS) -o $@ sysinfo.o syslex.o
 
 syslex.o: syslex.c sysinfo.h
 	if [ -r syslex.c ]; then \

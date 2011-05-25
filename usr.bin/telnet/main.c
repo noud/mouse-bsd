@@ -301,7 +301,7 @@ main(argc, argv)
 		case 'P':
 			if (!strncmp("in", optarg, 2))
 				ipsec_policy_in = strdup(optarg);
-			else if (!strncmp("out", optarg, 3)) 
+			else if (!strncmp("out", optarg, 3))
 				ipsec_policy_out = strdup(optarg);
 			else
 				usage();

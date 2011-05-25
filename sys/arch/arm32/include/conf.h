@@ -38,7 +38,7 @@
  *
  * Prototypes for device driver functions
  */
- 
+
 #include <sys/conf.h>
 
 bdev_decl(wd);

@@ -11,7 +11,7 @@
 /*
  * Copyright (c) 1988, 1990
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -27,7 +27,7 @@
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -43,14 +43,14 @@
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -105,20 +105,20 @@
 
 /*
  * Portions Copyright (c) 1998 by MetaInfo, Incorporated.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of MetaInfo Incorporated not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND METAINFO INCORPORATED DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL METAINFO INCORPRATED
- * BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR 
+ * BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR
  * ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
- * IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT 
+ * IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT
  * OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 #if !defined(lint) && !defined(SABER)
@@ -192,7 +192,7 @@ static	struct zoneinfo	zone;		/* zone information */
 static	char		*ddtfilename = NULL,
 			*ddtfile = NULL;
 
-static char   *tmpname = NULL, 
+static char   *tmpname = NULL,
 			*tmpiname = NULL,	/* temporary file name for ixfr transaction file */
 			*domain;	/* domain being xfered */
 
@@ -210,7 +210,7 @@ static	char		*ProgName;
 static	void		usage(const char *),
 			tsig_init(const char *);
 static	int		getzone(struct zoneinfo *, u_int32_t, int),
-			print_output(struct zoneinfo *, u_int32_t, 
+			print_output(struct zoneinfo *, u_int32_t,
 				     u_char *, int, u_char *),
 			netread(int, char *, int, int),
 			writemsg(int, const u_char *, int);
@@ -316,7 +316,7 @@ void cleanup_for_exit(void) {
 	ddtfile = NULL;
 }
 
-	
+
 int
 main(int argc, char *argv[]) {
 	struct zoneinfo *zp;
@@ -400,7 +400,7 @@ main(int argc, char *argv[]) {
 		case 'z':		/* zone == domain */
 			domain = optarg;
 			domain_len = strlen(domain);
-			while ((domain_len > 0) && 
+			while ((domain_len > 0) &&
 					(domain[domain_len-1] == '.'))
 				domain[--domain_len] = '\0';
 			break;
@@ -594,7 +594,7 @@ main(int argc, char *argv[]) {
 		dprintf(1, "domain `%s'; file `%s'; serial %u\n",
 			domain, dbfile, serial_no);
 
-	if (ixfrfile) 
+	if (ixfrfile)
 		dprintf(1, "domain `%s'; ixfrfile `%s'; serial %u\n",
 			domain, ixfrfile, serial_no);
 
@@ -604,7 +604,7 @@ main(int argc, char *argv[]) {
 	tsig_init(tsigfile);
 
 	/* init zone data */
- 
+
 	zp = &zone;
 	if (stub_only)
 		zp->z_type = Z_STUB;
@@ -628,7 +628,7 @@ main(int argc, char *argv[]) {
 		if ((optind+1) != argc) {
 			if (strcasecmp("ixfr", argv[optind+1]) == 0) {
 #if ENABLE_IXFR
-				tmpsupportixfr = ISIXFR;	
+				tmpsupportixfr = ISIXFR;
 				servermethode[zp->z_addrcnt] = tmpsupportixfr;
 #endif
 				optind++;
@@ -640,7 +640,7 @@ main(int argc, char *argv[]) {
 		if (!inet_aton(tm, &zp->z_addr[zp->z_addrcnt])) {
 			if (strcmp("-ixfr",tm)==0) {
 #if ENABLE_IXFR
-				tmpsupportixfr = ISIXFR;	
+				tmpsupportixfr = ISIXFR;
 				servermethode[zp->z_addrcnt-1] = tmpsupportixfr;
 #endif
 				continue;
@@ -674,7 +674,7 @@ main(int argc, char *argv[]) {
 	result = getzone(zp, serial_no, port);
 	(void) fclose(dbfp);
 	(void) close(dbfd);
-	
+
 	if (ixfp)
 		(void) my_fclose(ixfp);
 	else
@@ -704,7 +704,7 @@ main(int argc, char *argv[]) {
 				cleanup_for_exit();
 				exit(XFER_FAIL);
 			};
-			exit(XFER_SUCCESSAXFRIXFRFILE);	
+			exit(XFER_SUCCESSAXFRIXFRFILE);
 		}
 		if (movefile(tmpname, dbfile) == -1) {
 			perror("movefile");
@@ -748,7 +748,7 @@ main(int argc, char *argv[]) {
 	/*NOTREACHED*/
 	return (0);		/* Make gcc happy. */
 }
- 
+
 static char *UsageText[] = {
 	"\t-z zone_to_transfer\n",
 	"\t-f db_file\n",
@@ -951,7 +951,7 @@ getzone(struct zoneinfo *zp, u_int32_t serial_no, int port) {
 			syslog(LOG_INFO, "socket: %m");
 			error++;
 			break;
-		}	
+		}
 		if (zp->z_axfr_src.s_addr != 0) {
 			memset(&sin, 0, sizeof sin);
 			sin.sin_family = AF_INET;
@@ -983,7 +983,7 @@ getzone(struct zoneinfo *zp, u_int32_t serial_no, int port) {
 			error++;
 			(void) my_close(s);
 			continue;
-		}	
+		}
 		if (methode == ISIXFR) {
 			hp = (HEADER *) buf;
 			cpp = buf;
@@ -1065,12 +1065,12 @@ getzone(struct zoneinfo *zp, u_int32_t serial_no, int port) {
 			syslog(LOG_INFO, "writemsg: %m");
 			error++;
 			(void) my_close(s);
-			continue;	
+			continue;
 		}
 		/*
 		 * Get out your butterfly net and catch the SOA
 		 */
-		
+
 		if (netread(s, (char *)buf, INT16SZ, XFER_TIMER) < 0) {
 			error++;
 			(void) my_close(s);
@@ -1112,7 +1112,7 @@ getzone(struct zoneinfo *zp, u_int32_t serial_no, int port) {
 				continue;
 			}
 		}
-		
+
 #ifdef DEBUG
 		if (debug >= 3) {
 			(void)fprintf(ddt,"len = %d\n", len);
@@ -1120,7 +1120,7 @@ getzone(struct zoneinfo *zp, u_int32_t serial_no, int port) {
 		}
 #endif
 		if ((methode == ISIXFR) && (ixfp == NULL)) {
-			delete_soa = 1;	
+			delete_soa = 1;
 			firstsoa = 1;
 			ixfr_soa = 0;
 			old_serial = serial_no;
@@ -1309,7 +1309,7 @@ getzone(struct zoneinfo *zp, u_int32_t serial_no, int port) {
 			fprintf(dbfp, "; from %s:%d (local %s) using %s at %s",
 				t, ntohs(sin.sin_port),
 				inet_ntoa(local.sin_addr),
-				(methode == ISIXFR) ? "IXFR":"AXFR", 
+				(methode == ISIXFR) ? "IXFR":"AXFR",
 				ctimel(tt.tv_sec));
 			free((void *)t);
 			for (;;) {
@@ -1391,7 +1391,7 @@ getzone(struct zoneinfo *zp, u_int32_t serial_no, int port) {
 						       "writemsg: %m");
 						error++;
 						(void) my_close(s);
-						break;	
+						break;
 					}
 				}
 /*XXX ZXFR*/
@@ -1488,7 +1488,7 @@ getzone(struct zoneinfo *zp, u_int32_t serial_no, int port) {
 					}
 					break;
 				}
-				if (query_type == T_IXFR) 
+				if (query_type == T_IXFR)
 					if (hp->rcode != NOERROR) {
 					    dprintf(1,
 					    "server %s did not support IXFR\n",
@@ -1689,7 +1689,7 @@ static SIG_FN
 read_alarm() {
 	read_interrupted = 1;
 }
- 
+
 static int
 netread(int fd, char *buf, int len, int timeout) {
 	static const char setitimerStr[] = "setitimer: %m";
@@ -2096,7 +2096,7 @@ print_output(struct zoneinfo *zp, u_int32_t serial_no, u_char *msg,
 		memcpy(cp1, cp, n);
 		cp += n;
 		cp1 += n;
-		
+
 		/* compute size of data */
 		n = cp1 - (u_char *)data;
 		cp1 = (u_char *)data;
@@ -2116,15 +2116,15 @@ print_output(struct zoneinfo *zp, u_int32_t serial_no, u_char *msg,
 			hp->rcode = FORMERR;
 			return (-1);  /* out of room! */
 		}
-		if (n > 0) { /* Actually, n should never be less than 4 */ 
+		if (n > 0) { /* Actually, n should never be less than 4 */
 			memcpy(cp1, cp, n);
 			cp += n;
-		} else {  
-			hp->rcode = FORMERR; 
+		} else {
+			hp->rcode = FORMERR;
 			return (-1);
 		}
 		n += cp1 - (u_char *)data;
-		cp1 = (u_char *)data; 
+		cp1 = (u_char *)data;
 		break;
 
 	default:
@@ -2218,7 +2218,7 @@ print_output(struct zoneinfo *zp, u_int32_t serial_no, u_char *msg,
 						scdsoa = 1;
 						soa_cnt++;
 					};
-				} else 
+				} else
 					soa_cnt++;
 			} else {
 				dprintf(2, "SOA, serial %u\n",
@@ -2256,7 +2256,7 @@ print_output(struct zoneinfo *zp, u_int32_t serial_no, u_char *msg,
 				soa_cnt++;
 				return (result);
 			}
-		}	
+		}
 	}
 
 	if (zp->z_type == Z_STUB) {
@@ -2325,7 +2325,7 @@ print_output(struct zoneinfo *zp, u_int32_t serial_no, u_char *msg,
 	 * that might have been altered by ignored records.
 	 * (This means that we sometimes output unnecessary $ORIGIN
 	 * lines, but that is harmless.)
-	 * 
+	 *
 	 * Also update prev_comment now.
 	 */
 	if (prev_comment && ignore[0] == '\0') {
@@ -2646,11 +2646,11 @@ print_output(struct zoneinfo *zp, u_int32_t serial_no, u_char *msg,
 		/* time signed */
 		(void) fprintf(dbfp," %s", p_secstodate(ns_get32((u_char*)cp)));
 		cp += INT32SZ;
-		
+
 		/* Key footprint */
 		(void) fprintf(dbfp," %d", ns_get16((u_char*)cp));
 		cp += INT16SZ;
-		
+
 		/* signer's name */
 		(void) fprintf(dbfp, " %s. ", cp);
 		cp += strlen((char *) cp) + 1;
@@ -2669,7 +2669,7 @@ print_output(struct zoneinfo *zp, u_int32_t serial_no, u_char *msg,
 		i = strlen((char *)cp)+1;
 		cp += i;
 		n -= i;
-		for (i=0; i < n*NS_NXT_BITS; i++) 
+		for (i=0; i < n*NS_NXT_BITS; i++)
 			if (NS_NXT_BIT_ISSET (i, cp))
 				fprintf(dbfp, " %s", p_type(i));
 		fprintf(dbfp,"\n");
@@ -2685,15 +2685,15 @@ print_output(struct zoneinfo *zp, u_int32_t serial_no, u_char *msg,
 		/* Object id */
 		(void) fprintf(dbfp,"%d ", ns_get16((u_char*)cp));
 		cp += INT16SZ;
-		
+
 		/* Key tag */
 		(void) fprintf(dbfp,"%d ", ns_get16((u_char*)cp));
 		cp += INT16SZ;
-		
+
 		/* Algorithm id */
 		(void) fprintf(dbfp,"%d ", (u_char)*cp);
 		cp += 1;
-		
+
 		n = b64_ntop(cp, n - 2 * INT16SZ - 1, databuf, databufsize);
 		if (n < 0)
 			panic ("cert b64_ntop failed", NULL);

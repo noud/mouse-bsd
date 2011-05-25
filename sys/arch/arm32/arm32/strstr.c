@@ -35,7 +35,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *	from: strstr.c,v 1.4 1995/06/15 00:08:43 jtc Exp 
+ *	from: strstr.c,v 1.4 1995/06/15 00:08:43 jtc Exp
  */
 
 #include <sys/param.h>

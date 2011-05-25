@@ -7,7 +7,7 @@ static const char rcsid[] = "Id: host.c,v 8.34 1999/11/11 19:39:10 cyarnell Exp"
 /*
  * Copyright (c) 1986
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -23,7 +23,7 @@ static const char rcsid[] = "Id: host.c,v 8.34 1999/11/11 19:39:10 cyarnell Exp"
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -39,14 +39,14 @@ static const char rcsid[] = "Id: host.c,v 8.34 1999/11/11 19:39:10 cyarnell Exp"
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -83,7 +83,7 @@ static const char copyright[] =
 #endif /* not lint */
 
 /*
- * Actually, this program is from Rutgers University, however it is 
+ * Actually, this program is from Rutgers University, however it is
  * based on nslookup and other pieces of named tools, so it needs
  * the above copyright notices.
  */
@@ -290,7 +290,7 @@ main(int argc, char **argv) {
 		s = *argv++;
 		argc--;
 		server_specified++;
-		
+
 		if (!inet_aton(s, &addr)) {
 			hp = gethostbyname(s);
 			if (hp == NULL) {
@@ -339,17 +339,17 @@ main(int argc, char **argv) {
 					strcpy (getdomain, chase_signer);
 					strcat (getdomain, ".");
 					gettype = ns_t_key;
-				} else if (!(chase_step & SD_BADSIG)) { 
+				} else if (!(chase_step & SD_BADSIG)) {
 					/* start new query, for SIG */
 					strcpy (getdomain, chase_domain);
 					strcat (getdomain, ".");
 					gettype = ns_t_sig;
-				} else if (hp && !(chase_step & SD_SIG) && 
+				} else if (hp && !(chase_step & SD_SIG) &&
 					   (chase_step & SD_BADSIG)) {
 					printf ("%s for %s not found, last verified key %s\n",
 						chase_step & SD_SIG ? "Key" : "Signature",
-						chase_step & SD_SIG ? chase_signer : chase_domain, 
-						chase_domain, 
+						chase_step & SD_SIG ? chase_signer : chase_domain,
+						chase_domain,
 						chase_lastgoodkey ? chase_lastgoodkey : "None");
 				}
 			}
@@ -558,7 +558,7 @@ gethostinfo(char *name) {
 	if (n == 0 && (tp = res_hostalias(&res, name, tmp, sizeof tmp))) {
 	        if (verbose)
 		    printf("Aliased to \"%s\"\n", tp);
-		res.options |= RES_DEFNAMES;	  
+		res.options |= RES_DEFNAMES;
 		return (getdomaininfo(tp, (char *)NULL));
 	}
 	if (n >= res.ndots) {
@@ -650,7 +650,7 @@ printinfo(const querybuf *answer, const u_char *eom, int filter, int isls) {
 	nscount = ntohs(hp->nscount);
 	arcount = ntohs(hp->arcount);
 	if (res.options & RES_DEBUG || (verbose && isls == 0))
-		printf("rcode = %d (%s), ancount=%d\n", 
+		printf("rcode = %d (%s), ancount=%d\n",
 		       hp->rcode, DecodeError(hp->rcode), ancount);
 	if (hp->rcode != NOERROR || (ancount+nscount+arcount) == 0) {
 		switch (hp->rcode) {
@@ -721,7 +721,7 @@ printinfo(const querybuf *answer, const u_char *eom, int filter, int isls) {
 	}
 
 	/* restore sigchase value */
-	
+
 	sigchase = savesigchase;
 
 	return (1);
@@ -768,7 +768,7 @@ void memswap (void *s1, void *s2, size_t n)
 		printf ("Out of memory\n");
 		exit (1);
 	}
-		
+
 	memcpy(tmp, s1, n);
 	memcpy(s1, s2, n);
 	memcpy(s2, tmp, n);
@@ -870,9 +870,9 @@ pr_rr(const u_char *cp, const u_char *msg, FILE *file, int filter) {
 		cp += dlen;
 		break;
 	case ns_t_cname:
-		if (dn_expand(msg, msg + 512, cp, cnamebuf, 
+		if (dn_expand(msg, msg + 512, cp, cnamebuf,
 			      sizeof(cnamebuf)) >= 0)
-			cname = cnamebuf;				
+			cname = cnamebuf;
 	case ns_t_mb:
 	case ns_t_mg:
 	case ns_t_mr:
@@ -1062,7 +1062,7 @@ pr_rr(const u_char *cp, const u_char *msg, FILE *file, int filter) {
 		if (doprint) {
 			if (n)
 				fprintf(file, "%c%.*s", punc, n, cp);
-			else 
+			else
 				fprintf(file, "%c\"\"",punc);
 		}
 		cp += n;
@@ -1071,7 +1071,7 @@ pr_rr(const u_char *cp, const u_char *msg, FILE *file, int filter) {
 		if (doprint) {
 			if (n)
 				fprintf(file, "%c%.*s", punc, n, cp);
-			else 
+			else
 				fprintf(file,"%c\"\"",punc);
 		}
 		cp += n;
@@ -1080,7 +1080,7 @@ pr_rr(const u_char *cp, const u_char *msg, FILE *file, int filter) {
 		if (doprint) {
 			if (n)
 				fprintf(file, "%c%.*s", punc, n, cp);
-			else 
+			else
 				fprintf(file, "%c\"\"",punc);
 		}
 		cp += n;
@@ -1121,7 +1121,7 @@ pr_rr(const u_char *cp, const u_char *msg, FILE *file, int filter) {
 		{
 			int n, j;
 			const u_char *end = cp + dlen;
-		 
+
 			while (cp < end) {
 				if (doprint)
 					(void) fputs(" \"", file);
@@ -1204,7 +1204,7 @@ pr_rr(const u_char *cp, const u_char *msg, FILE *file, int filter) {
 			memcpy(canonrr, cp1 - NS_HEADERDATA_SIZE,
 			       NS_HEADERDATA_SIZE);
 			/* Overwrite length field. */
-			ns_put16(n + bitmaplen, 
+			ns_put16(n + bitmaplen,
 				 canonrr + NS_HEADERDATA_SIZE - NS_INT16SZ);
 			/* Copy expanded name. */
 			memcpy(canonrr + NS_HEADERDATA_SIZE, cdname, n);
@@ -1256,30 +1256,30 @@ pr_rr(const u_char *cp, const u_char *msg, FILE *file, int filter) {
 		if (doprint && verbose)
 			fprintf(file, " %s", name);
 		else if (doprint && !verbose)
-			fprintf (file, " %s for type %s", name, 
+			fprintf (file, " %s for type %s", name,
 				 sym_ntos(__p_type_syms, tc, NULL));
 		/* signature */
 		{
 			char str[MY_PACKETSZ];
 			size_t len = cp1-cp+dlen;
-			
+
 			b64_ntop (cp, len, str, MY_PACKETSZ-1);
 
-			if (sigchase && !(chase_step & SD_SIG) && 
-			    strcmp (chase_domain, thisdomain) == 0 && 
+			if (sigchase && !(chase_step & SD_SIG) &&
+			    strcmp (chase_domain, thisdomain) == 0 &&
 			    chase_class == class & chase_type == tc)
 			{
 				u_char cdname[NS_MAXCDNAME];
 
 				if (doprint && !verbose)
 					fprintf(file, " (chasing key)");
-				
+
 				strcpy(chase_signer, name);
 
-				memcpy(&chase_sigorigttl[0], origttl, 
+				memcpy(&chase_sigorigttl[0], origttl,
 				       NS_INT32SZ);
 
-				n = ns_name_ntol(cp1 + SIG_RDATA_BY_NAME, 
+				n = ns_name_ntol(cp1 + SIG_RDATA_BY_NAME,
 						 cdname, sizeof cdname);
 				if (n >= 0) {
 					memcpy(chase_sigrdata, cp1,
@@ -1324,54 +1324,54 @@ pr_rr(const u_char *cp, const u_char *msg, FILE *file, int filter) {
 
 			b64_ntop (cp, len, str, MY_PACKETSZ-1);
 			cp += len;
-			
+
 			if (doprint && verbose)
 				fprintf (file, " %s", str);
 			break;
 		}
-		
+
 		default:
 			fprintf (stderr, "Unknown algorithm %d\n", n);
 			cp = cp1 + dlen;
 			break;
 		}
-		
-		if (sigchase && (chase_step & (SD_SIG|SD_RR)) && 
-		    strcmp (getdomain, name) == 0 && 
+
+		if (sigchase && (chase_step & (SD_SIG|SD_RR)) &&
+		    strcmp (getdomain, name) == 0 &&
 		    getclass == class & gettype == type)
 		{
 			DST_KEY *dstkey;
 			int rc, len, i, j;
-			
+
 			/* convert dnskey to dstkey */
-		
+
 			dstkey = dst_dnskey_to_key (name, cp1, dlen);
-		
+
 			/* fix ttl in rr */
-			
+
 			for (i = 0; i < NUMRR && chase_rr[i].len; i++)
 			{
-				len = dn_skipname(chase_rr[i].data, 
-						  chase_rr[i].data + 
+				len = dn_skipname(chase_rr[i].data,
+						  chase_rr[i].data +
 						  chase_rr[i].len);
-				if (len>=0) 
+				if (len>=0)
 					memcpy(chase_rr[i].data + len + NS_INT16SZ +
 					       NS_INT16SZ,
 					       &chase_sigorigttl, INT32SZ);
 			}
 
 			/* sort rr's (qsort() is too slow) */
-			
+
 			for (i = 0; i < NUMRR && chase_rr[i].len; i++)
 				for (j = i + 1; i < NUMRR && chase_rr[j].len; j++)
 					if (memcmp(chase_rr[i].data, chase_rr[j].data, MY_PACKETSZ) > 0)
 						memswap(&chase_rr[i], &chase_rr[j], sizeof(rrstruct));
-			
+
 			/* append rr's to sigrdata */
 
 			for (i = 0; i < NUMRR && chase_rr[i].len; i++)
 			{
-				memcpy (chase_sigrdata + chase_sigrdata_len, 
+				memcpy (chase_sigrdata + chase_sigrdata_len,
 					chase_rr[i].data, chase_rr[i].len);
 				chase_sigrdata_len += chase_rr[i].len;
 			}
@@ -1386,14 +1386,14 @@ pr_rr(const u_char *cp, const u_char *msg, FILE *file, int filter) {
 						chase_signature_len,
 						21,"SIG: ");
 			}
-			
+
 			/* do the works */
 
 			if (dstkey)
 				rc = dst_verify_data(SIG_MODE_ALL, dstkey, NULL,
-						     chase_sigrdata, 
+						     chase_sigrdata,
 						     chase_sigrdata_len,
-						     chase_signature, 
+						     chase_signature,
 						     chase_signature_len);
 			else
 				rc = 1;
@@ -1402,18 +1402,18 @@ pr_rr(const u_char *cp, const u_char *msg, FILE *file, int filter) {
 
 			if (verbose)
 			{
-				fprintf(file, "\nVerification %s", rc == 0 ? 
+				fprintf(file, "\nVerification %s", rc == 0 ?
 					"was SUCCESSFULL" :
 					"FAILED");
 			}
 			else
 			{
-				fprintf (file, 
+				fprintf (file,
 					 " that %s verify our %s "
-					 "record(s) on %s", 
+					 "record(s) on %s",
 					 rc == 0 ? "successfully" :
-					 "DOES NOT", 
-					 sym_ntos(__p_type_syms, chase_type, 
+					 "DOES NOT",
+					 sym_ntos(__p_type_syms, chase_type,
 						  NULL),
 					 chase_domain);
 			}
@@ -1425,7 +1425,7 @@ pr_rr(const u_char *cp, const u_char *msg, FILE *file, int filter) {
 			else
 			{
 				/* don't trace further after a failure */
-				sigchase = 0; 
+				sigchase = 0;
 			}
 
 			chase_step = 0;
@@ -1447,8 +1447,8 @@ pr_rr(const u_char *cp, const u_char *msg, FILE *file, int filter) {
 		fprintf(file, "packet size error (%p != %p)\n",
 			cp, cp1 + dlen);
 
-	if (sigchase && !(chase_step & SD_SIG) && 
-	    strcmp (getdomain, thisdomain) == 0 && getclass == class && 
+	if (sigchase && !(chase_step & SD_SIG) &&
+	    strcmp (getdomain, thisdomain) == 0 && getclass == class &&
 	    gettype == type && type != ns_t_sig)
 	{
 		u_char cdname[NS_MAXCDNAME];
@@ -1467,10 +1467,10 @@ pr_rr(const u_char *cp, const u_char *msg, FILE *file, int filter) {
 			memcpy(chase_rr[chase_rr_num].data + n,
 			       canonrr_len ? canonrr : cp1 - NS_HEADERDATA_SIZE,
 			       canonrr_len ? canonrr_len : dlen + NS_HEADERDATA_SIZE);
-			chase_rr[chase_rr_num].len = 
-				n + (canonrr_len != 0 ? canonrr_len : 
+			chase_rr[chase_rr_num].len =
+				n + (canonrr_len != 0 ? canonrr_len :
 				     dlen + NS_HEADERDATA_SIZE);
-			
+
 			strcpy(chase_domain, getdomain);
 			chase_class = class;
 			chase_type = type;
@@ -1602,7 +1602,7 @@ ListHosts(char *namePtr, int queryType) {
 			return (ERROR);
 		}
 		if (res.options & RES_DEBUG || verbose)
-			printf("rcode = %d (%s), ancount=%d\n", 
+			printf("rcode = %d (%s), ancount=%d\n",
 			       answer.qb1.rcode, DecodeError(answer.qb1.rcode),
 			       ntohs(answer.qb1.ancount));
 
@@ -1679,7 +1679,7 @@ ListHosts(char *namePtr, int queryType) {
 				if (dn_expand(answer.qb2, eom,
 					      cp, name, sizeof(name)) >= 0) {
 					if (numns < NUMNS &&
-					    ns_samename((char *)domain, 
+					    ns_samename((char *)domain,
 							namePtr) == 1) {
 						for (i = 0; i < numns; i++)
 							if (ns_samename(
@@ -1793,7 +1793,7 @@ ListHosts(char *namePtr, int queryType) {
 			perror("Connection failed, trying next server");
 		close(sockFD);
 		sockFD = -1;
-	}	
+	}
 	if (thisns >= numnsaddr) {
 		printf("No server for that domain responded\n");
 		if (!verbose)
@@ -1802,7 +1802,7 @@ ListHosts(char *namePtr, int queryType) {
 	}
 
 	/*
-	 * Send length & message for zone transfer 
+	 * Send length & message for zone transfer
 	 */
 
 	ns_put16(msglen, tmp);
@@ -1830,7 +1830,7 @@ ListHosts(char *namePtr, int queryType) {
 		if (numRead <= 0) {
 			error = ERR_READING_LEN;
 			break;
-		}	
+		}
 
 		if ((len = ns_get16(buf.qb2)) == 0)
 			break;	/* Protocol violation. */
@@ -1919,7 +1919,7 @@ ListHosts(char *namePtr, int queryType) {
 		return (ERROR);
 
 	case ERR_PRINTING:
-		fprintf(stderr,"*** Error during listing of %s: %s\n", 
+		fprintf(stderr,"*** Error during listing of %s: %s\n",
 				namePtr, DecodeError(result));
 		return (result);
 
@@ -1928,8 +1928,8 @@ ListHosts(char *namePtr, int queryType) {
 		fprintf(stderr,"ListHosts: error receiving zone transfer:\n");
 		fprintf(stderr,
 	       "  result: %s, answers = %d, authority = %d, additional = %d\n",
-			p_rcode(headerPtr->rcode), 
-		    	ntohs(headerPtr->ancount), ntohs(headerPtr->nscount), 
+			p_rcode(headerPtr->rcode),
+		    	ntohs(headerPtr->ancount), ntohs(headerPtr->nscount),
 			ntohs(headerPtr->arcount));
 		return (ERROR);
 	default:

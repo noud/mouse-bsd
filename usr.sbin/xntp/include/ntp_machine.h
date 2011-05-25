@@ -53,8 +53,8 @@ WHAT DOES IOCTL(SIOCGIFCONF) RETURN IN THE BUFFER
   When requesting the IP interface configuration with an ioctl(2) calll,
   an array of ifreq structures are placed in the provided buffer.  Some
   implementations also place the length of the buffer information in
-  the first integer position of the buffer.  
-  
+  the first integer position of the buffer.
+
   SIZE_RETURNED_IN_BUFFER - size integer is in the buffer
 
 WILL IOCTL(SIOCGIFCONF) WORK ON A SOCKET
@@ -65,7 +65,7 @@ WILL IOCTL(SIOCGIFCONF) WORK ON A SOCKET
 
   USE_STREAMS_DEVICE_FOR_IF_CONFIG - use the /dev/ip device for configuration
 
-MISC  
+MISC
 
   USE_PROTOTYPES    - Prototype functions
   DOSYNCTODR        - Resync TODR clock  every hour.
@@ -78,7 +78,7 @@ MISC
 		      to the correct broadcast address - are these
 		      implementations broken or did the spec change ?
 */
-  
+
 #if 0
 
 /*
@@ -164,7 +164,7 @@ typedef unsigned long u_long;
 # endif
 #endif
 
-/* 
+/*
  * UNIX V.4 on and NCR 3000
  */
 #if defined(SYS_SVR4)
@@ -212,7 +212,7 @@ typedef unsigned long u_long;
 #endif
 #endif
 
-/* 
+/*
  * Windows NT
  */
 #if defined(SYS_WINNT)
@@ -272,18 +272,18 @@ typedef char *caddr_t;
 #define NO_RENAME           1
 
 /* in vxWorks we use FIONBIO, but the others are defined for old systems, so
- * all hell breaks loose if we leave them defined we define USE_FIONBIO to 
- * undefine O_NONBLOCK FNDELAY O_NDELAY where necessary. 
+ * all hell breaks loose if we leave them defined we define USE_FIONBIO to
+ * undefine O_NONBLOCK FNDELAY O_NDELAY where necessary.
  */
 #define USE_FIONBIO         1
 /* end my new defines */
-    
+
 #define TIMEOFDAY           0x0     /* system wide realtime clock */
 #define HAVE_GETCLOCK       1       /* configure does not set this ... */
 #define HAVE_NO_NICE        1       /* configure does not set this ... */
 #define NODETACH            1
 
-/* vxWorks specific additions to take care of its 
+/* vxWorks specific additions to take care of its
  * unix (non)complicance
  */
 
@@ -294,7 +294,7 @@ typedef char *caddr_t;
 
 extern int sysClkRateGet();
 
-/* usrtime.h 
+/* usrtime.h
  * Bob Herlien's excellent time code find it at:
  * ftp://ftp.atd.ucar.edu/pub/vxworks/vx/usrTime.shar
  * I would recommend this instead of clock_[g|s]ettime() plus you get
@@ -319,7 +319,7 @@ extern void alarm (int seconds);
 #define _getch      getchar
 
 /* define this away for vxWorks */
-#define openlog(x,y) 
+#define openlog(x,y)
 /* use local defines for these */
 #undef min
 #undef max

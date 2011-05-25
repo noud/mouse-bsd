@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: fixmount.c,v 1.4 1999/02/04 07:24:42 ezk Exp 
+ * Id: fixmount.c,v 1.4 1999/02/04 07:24:42 ezk Exp
  *
  */
 

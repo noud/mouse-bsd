@@ -407,7 +407,7 @@ _rtld(sp)
 
 	_rtld_objmain->path = xstrdup("main program");
 	_rtld_objmain->mainprog = true;
-	
+
 	/*
 	 * Get the actual dynamic linker pathname from the executable if
 	 * possible.  (It should always be possible.)  That ensures that
@@ -419,7 +419,7 @@ _rtld(sp)
 		free(_rtld_objself.path);
 		_rtld_objself.path = xstrdup(_rtld_objmain->interp);
 	}
-	
+
 	_rtld_digest_dynamic(_rtld_objmain);
 
 	_rtld_linkmap_add(_rtld_objmain);
@@ -669,11 +669,11 @@ _rtld_dlsym(handle, name)
 	unsigned long hash;
 	const Elf_Sym *def;
 	const Obj_Entry *defobj;
-	
+
 	hash = _rtld_elf_hash(name);
 	def = NULL;
 	defobj = NULL;
-	
+
 #if 1
 	if (handle == NULL) {
 #else
@@ -700,7 +700,7 @@ _rtld_dlsym(handle, name)
 		} else {
 			if ((obj = _rtld_dlcheck(handle)) == NULL)
 				return NULL;
-			
+
 			if (obj->mainprog) {
 				/* Search main program and all libraries loaded by it. */
 				_rtld_curmark++;
@@ -714,10 +714,10 @@ _rtld_dlsym(handle, name)
 				defobj = obj;
 			}
 		}
-		
+
 		if (def != NULL)
 			return defobj->relocbase + def->st_value;
-		
+
 		_rtld_error("Undefined symbol \"%s\"", name);
 	return NULL;
 }
@@ -731,7 +731,7 @@ _rtld_dladdr(addr, info)
 	const Elf_Sym *def;
 	void *symbol_addr;
 	unsigned long symoffset;
-	
+
 	obj = _rtld_obj_from_addr(addr);
 	if (obj == NULL) {
 		_rtld_error("No shared object contains address");
@@ -741,7 +741,7 @@ _rtld_dladdr(addr, info)
 	info->dli_fbase = obj->mapbase;
 	info->dli_saddr = (void *)0;
 	info->dli_sname = NULL;
-	
+
 	/*
 	 * Walk the symbol list looking for the symbol whose address is
 	 * closest to the address sent in.
@@ -855,7 +855,7 @@ _rtld_obj_from_addr(const void *addr)
 {
 	unsigned long endhash;
 	Obj_Entry *obj;
-	
+
 	endhash = _rtld_elf_hash(END_SYM);
 	for (obj = _rtld_objlist;  obj != NULL;  obj = obj->next) {
 		const Elf_Sym *endsym;
@@ -900,7 +900,7 @@ _rtld_objlist_remove(list, obj)
 	Obj_Entry *obj;
 {
 	Objlist_Entry *elm;
-	
+
 	if ((elm = _rtld_objlist_find(list, obj)) != NULL) {
 		if ((list)->sqh_first == (elm)) {
 			SIMPLEQ_REMOVE_HEAD(list, elm, link);

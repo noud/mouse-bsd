@@ -70,7 +70,7 @@ __RCSID("$NetBSD: fsplit.c,v 1.7 1998/12/19 16:38:10 christos Exp $");
  *	If -e option is used, then only those subprograms named in the -e
  *		option are split off; e.g.:
  *			fsplit -esub1 -e sub2 prog.f
- *		isolates sub1 and sub2 in sub1.f and sub2.f.  The space 
+ *		isolates sub1 and sub2 in sub1.f and sub2.f.  The space
  *		after -e is optional.
  *
  *	Modified Feb., 1983 by Jerry Berkman, Computing Services, U.C. Berkeley.
@@ -221,7 +221,7 @@ saveit(name)
 	while(*name) *fptr++ = *name++;
 	*--fptr = 0;
 	*--fptr = 0;
-	for ( i=0 ; i<=extrknt; i++ ) 
+	for ( i=0 ; i<=extrknt; i++ )
 		if( strcmp(fname, extrnames[i]) == 0 ) {
 			extrfnd[i] = TRUE;
 			return(1);
@@ -292,7 +292,7 @@ lend()
 	return (0);
 }
 
-/*		check for keywords for subprograms	
+/*		check for keywords for subprograms
 		return 0 if comment card, 1 if found
 		name and put in arg string. invent name for unnamed
 		block datas and main programs.		*/
@@ -301,7 +301,7 @@ int
 lname(s)
 	char *s;
 {
-#	define LINESIZE 80 
+#	define LINESIZE 80
 	char *ptr, *p;
 	char	line[LINESIZE], *iptr = line;
 

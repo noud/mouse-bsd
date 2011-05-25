@@ -291,7 +291,7 @@ void do_file(const char *filename)
 	  if (np > 0)
 	    env.hpos += p[0];
 	}
-	else { 
+	else {
 	  int i;
 	  for (i = 0; i < np/2; i++) {
 	    env.hpos += p[i*2];
@@ -455,7 +455,7 @@ char *get_string(int is_long)
 	buf[i] = '\0';
 	break;
       }
-    }  
+    }
     buf[i] = c;
     c = get_char();
   }

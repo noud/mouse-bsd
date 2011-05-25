@@ -235,7 +235,7 @@ while [ "X$usrpart" = "X" ]; do
 	usrpart=""
 	echo	"You have selected $drivename"
 	echo	"here is a list of partitions on $drivename"
-	disklabel $drivename 2>/dev/null | sed -e '/^[ ][ ][ad-p]:/p;/^#[ \t]*size/p;d' 
+	disklabel $drivename 2>/dev/null | sed -e '/^[ ][ ][ad-p]:/p;/^#[ \t]*size/p;d'
 	echo	"which partition would you like to format and have"
 	echo -n	"mounted as /usr? (supply the letter): "
 	getresp

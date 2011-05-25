@@ -235,7 +235,7 @@ ospf6_print_lsaprefix(register const struct lsa_prefix *lsapp)
 	}
 	memset(&prefix, 0, sizeof(prefix));
 	memcpy(&prefix, lsapp->lsa_p_prefix, k * 4);
-	printf(" %s/%d", ip6addr_string(&prefix), 
+	printf(" %s/%d", ip6addr_string(&prefix),
 		lsapp->lsa_p_len);
 	if (lsapp->lsa_p_opt)
 		printf("(opt=%x)", lsapp->lsa_p_opt);

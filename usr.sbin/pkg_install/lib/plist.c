@@ -153,7 +153,7 @@ find_plist_option(package_t *pkg, char *name)
 			return p->name;
 		}
 	}
-	
+
 	return (char *) NULL;
 }
 
@@ -189,7 +189,7 @@ delete_plist(package_t *pkg, Boolean all, pl_ent_t type, char *name)
 }
 
 /*
- * Allocate a new packing list entry, and return a pointer to it. 
+ * Allocate a new packing list entry, and return a pointer to it.
  */
 plist_t *
 new_plist_entry(void)

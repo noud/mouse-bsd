@@ -298,61 +298,61 @@ fpu_execute(fe, instr)
 			cond = (curproc->p_md.md_tf->tf_tstate>>TSTATE_CCR_SHIFT)&PSR_ICC;
 			if (instr.i_fmovcc.i_cond != cond) return(0); /* success */
 			rs1 = fs->fs_regs[rs2];
-			goto mov;			
+			goto mov;
 		case FMVXC >> 2:
 			/* Presume we're curproc */
 			cond = (curproc->p_md.md_tf->tf_tstate>>(TSTATE_CCR_SHIFT+XCC_SHIFT))&PSR_ICC;
 			if (instr.i_fmovcc.i_cond != cond) return(0); /* success */
 			rs1 = fs->fs_regs[rs2];
-			goto mov;			
+			goto mov;
 		case FMVRZ >> 2:
 			/* Presume we're curproc */
 			rs1 = instr.i_fmovr.i_rs1;
 			if (rs1 != 0 && (int64_t)curproc->p_md.md_tf->tf_global[rs1] != 0)
 				return (0); /* success */
 			rs1 = fs->fs_regs[rs2];
-			goto mov;			
+			goto mov;
 		case FMVRLEZ >> 2:
 			/* Presume we're curproc */
 			rs1 = instr.i_fmovr.i_rs1;
 			if (rs1 != 0 && (int64_t)curproc->p_md.md_tf->tf_global[rs1] > 0)
 				return (0); /* success */
 			rs1 = fs->fs_regs[rs2];
-			goto mov;			
+			goto mov;
 		case FMVRLZ >> 2:
 			/* Presume we're curproc */
 			rs1 = instr.i_fmovr.i_rs1;
 			if (rs1 == 0 || (int64_t)curproc->p_md.md_tf->tf_global[rs1] >= 0)
 				return (0); /* success */
 			rs1 = fs->fs_regs[rs2];
-			goto mov;			
+			goto mov;
 		case FMVRNZ >> 2:
 			/* Presume we're curproc */
 			rs1 = instr.i_fmovr.i_rs1;
 			if (rs1 == 0 || (int64_t)curproc->p_md.md_tf->tf_global[rs1] == 0)
 				return (0); /* success */
 			rs1 = fs->fs_regs[rs2];
-			goto mov;			
+			goto mov;
 		case FMVRGZ >> 2:
 			/* Presume we're curproc */
 			rs1 = instr.i_fmovr.i_rs1;
 			if (rs1 == 0 || (int64_t)curproc->p_md.md_tf->tf_global[rs1] <= 0)
 				return (0); /* success */
 			rs1 = fs->fs_regs[rs2];
-			goto mov;			
+			goto mov;
 		case FMVRGEZ >> 2:
 			/* Presume we're curproc */
 			rs1 = instr.i_fmovr.i_rs1;
 			if (rs1 != 0 && (int64_t)curproc->p_md.md_tf->tf_global[rs1] < 0)
 				return (0); /* success */
 			rs1 = fs->fs_regs[rs2];
-			goto mov;			
+			goto mov;
 		case FCMP >> 2:
 			fpu_explode(fe, &fe->fe_f1, type, rs1);
 			fpu_explode(fe, &fe->fe_f2, type, rs2);
 			fpu_compare(fe, 0);
 			goto cmpdone;
-			
+
 		case FCMPE >> 2:
 			fpu_explode(fe, &fe->fe_f1, type, rs1);
 			fpu_explode(fe, &fe->fe_f2, type, rs2);
@@ -396,7 +396,7 @@ fpu_execute(fe, instr)
 	mov:
 		i = 1<<type;
 		fs->fs_regs[rd++] = rs1;
-		while (--i) 
+		while (--i)
 			fs->fs_regs[rd++] = fs->fs_regs[++rs2];
 		fs->fs_fsr = fe->fe_fsr;
 		return (0);	/* success */

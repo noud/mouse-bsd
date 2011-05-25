@@ -44,7 +44,7 @@ Those that we found most useful are described below.
 System maintenance tools
 .PP
 Several standard maintenance programs are invaluable in
-observing the basic actions of the system.  
+observing the basic actions of the system.
 The \fIvmstat\fP(1)
 program is designed to be an aid to monitoring
 systemwide activity.  Together with the
@@ -199,7 +199,7 @@ system is operating.  Each trace record contains a time stamp
 (taken from the VAX hardware time of day clock register), an
 event identifier, and additional information that is interpreted
 according to the event type.  Buffer cache operations, such as
-initiating a read, include 
+initiating a read, include
 the disk drive, block number, and transfer size in the trace record.
 Virtual memory operations, such as a pagein completing, include
 the virtual address and process id in the trace record.  The circular
@@ -220,7 +220,7 @@ to generate additional information, and a summary is written to a
 file.  In addition, the sampling program can also record
 information from other kernel data structures, such as those
 interpreted by the \fIvmstat\fP program.  Data written out to
-a file is further buffered to minimize I/O load. 
+a file is further buffered to minimize I/O load.
 .PP
 Once a trace log has been created, programs that compress
 and interpret the data may be run to generate graphs showing the
@@ -256,5 +256,5 @@ long term measurements of general timesharing.
 We have numerous examples where a benchmark program
 suggests vast improvements while the change
 in the long term system performance is negligible,
-and conversely examples in which the benchmark program run more slowly, 
+and conversely examples in which the benchmark program run more slowly,
 but the long term system performance improves significantly.

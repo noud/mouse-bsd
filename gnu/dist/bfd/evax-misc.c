@@ -39,7 +39,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
    evaluates environment variable EVAX_DEBUG for a
    numerical value on the first call
    all error levels below this value are printed
-  
+
    levels:
    1	toplevel bfd calls (functions from the bfd vector)
    2	functions called by bfd calls
@@ -228,36 +228,36 @@ _bfd_evax_get_header_values (abfd, buf, type, length)
 
 /* Get next record from object file to evax_buf
    set PRIV(buf_size) and return it
-  
+
    this is a little tricky since it should be portable.
-  
+
    the openVMS/AXP object file has 'variable length' which means that
    read() returns data in chunks of (hopefully) correct and expected
    size. The linker (and other tools on vms) depend on that. Unix doesn't
    know about 'formatted' files, so reading and writing such an object
    file in a unix environment is not trivial.
-  
+
    With the tool 'file' (available on all vms ftp sites), one
    can view and change the attributes of a file. Changing from
    'variable length' to 'fixed length, 512 bytes' reveals the
    record length at the first 2 bytes of every record. The same
    happens during the transfer of object files from vms to unix,
    at least with ucx, dec's implementation of tcp/ip.
-  
+
    The EVAX format repeats the length at bytes 2 & 3 of every record.
-  
+
    On the first call (file_format == FF_UNKNOWN) we check if
    the first and the third byte pair (!) of the record match.
    If they do it's an object file in an unix environment or with
    wrong attributes (FF_FOREIGN), else we should be in a vms
    environment where read() returns the record size (FF_NATIVE).
-  
+
    reading is always done in 2 steps.
    first just the record header is read and the length extracted
    by get_header_values
    then the read buffer is adjusted and the remaining bytes are
    read in.
-  
+
    all file i/o is always done on even file positions  */
 
 int

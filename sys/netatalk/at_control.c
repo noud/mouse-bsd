@@ -164,7 +164,7 @@ at_control(cmd, data, ifp, p)
 		 */
 		if (aa == (struct at_ifaddr *) 0) {
 			aa = (struct at_ifaddr *)
-			    malloc(sizeof(struct at_ifaddr), M_IFADDR, 
+			    malloc(sizeof(struct at_ifaddr), M_IFADDR,
 			    M_WAITOK);
 
 			if (aa == NULL)
@@ -287,7 +287,7 @@ at_control(cmd, data, ifp, p)
 		break;
 
 	case SIOCSIFADDR:
-		return (at_ifinit(ifp, aa, 
+		return (at_ifinit(ifp, aa,
 		    (struct sockaddr_at *) &ifr->ifr_addr));
 
 	case SIOCAIFADDR:
@@ -858,7 +858,7 @@ aa_clean()
 				ifa = ifa->ifa_next;
 			}
 			if (ifa->ifa_next) {
-				ifa->ifa_next = 
+				ifa->ifa_next =
 				    ((struct ifaddr *) aa)->ifa_next;
 			} else {
 				panic("at_entry");

@@ -3,7 +3,7 @@
 #	from: @(#)disktab	8.1 (Berkeley) 6/9/93
 #
 
-# Disk geometry and partition layout tables. 
+# Disk geometry and partition layout tables.
 # Key:
 #	dt	controller type
 #	ty	type of disk (fixed, removeable, simulated)

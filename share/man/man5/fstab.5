@@ -51,7 +51,7 @@ it is the duty of the system administrator to properly create
 and maintain this file.
 Each filesystem is described on a separate line;
 fields on each line are separated by tabs or spaces. Lines beginning
-with 
+with
 .Dq #
 are comments.
 The order of records in
@@ -74,17 +74,17 @@ For filesystems of type
 the special file name is the block special file name,
 and not the character special file name.
 If a program needs the character special file name,
-the program must create it by appending a 
+the program must create it by appending a
 .Dq r
 after the
-last 
+last
 .Dq /
 in the special file name.
 .Pp
 The second field,
 .Pq Fa fs_file ,
 describes the mount point for the filesystem.
-For swap and dump partitions, this field should be specified as 
+For swap and dump partitions, this field should be specified as
 .Dq none .
 .Pp
 The third field,
@@ -122,7 +122,7 @@ an
 .Tn MS-DOS
 .Dq FAT filesystem
 .It Em nfs
-a Sun Microsystems compatible 
+a Sun Microsystems compatible
 .Dq Network File System
 .It Em null
 a loop-back filesystem, allowing parts of the system to be viewed
@@ -148,19 +148,19 @@ It contains at least the type of mount (see
 below) plus any additional options
 appropriate to the filesystem type.
 .Pp
-The option 
+The option
 .Dq auto
-can be used in the 
+can be used in the
 .Dq noauto
 form to cause
-a file system not to be mounted automatically (with 
+a file system not to be mounted automatically (with
 .Dq mount -a
 ,
 or system boot time).
 .Pp
-If the options 
+If the options
 .Dq userquota
-and/or 
+and/or
 .Dq groupquota
 are specified,
 the filesystem is automatically processed by the
@@ -193,9 +193,9 @@ field (it is not deleted from the
 field).
 If
 .Fa fs_type
-is 
+is
 .Dq rw
-or 
+or
 .Dq ro
 then the filesystem whose name is given in the
 .Fa fs_file
@@ -203,7 +203,7 @@ field is normally mounted read-write or read-only on the
 specified special file.
 If
 .Fa fs_type
-is 
+is
 .Dq sw
 or
 .Dq dp
@@ -222,7 +222,7 @@ and
 are unused.
 If
 .Fa fs_type
-is specified as 
+is specified as
 .Dq xx
 the entry is ignored.
 This is useful to show disk partitions which are currently unused.

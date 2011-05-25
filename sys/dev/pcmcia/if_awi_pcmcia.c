@@ -427,7 +427,7 @@ awi_pcmcia_detach(self, flags)
 		pcmcia_mem_unmap (psc->sc_pf, psc->sc_mem_window);
 		pcmcia_mem_free (psc->sc_pf, &psc->sc_memh);
 	}
-	
+
 	return awi_detach(&psc->sc_awi);
 }
 

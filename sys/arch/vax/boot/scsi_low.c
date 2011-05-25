@@ -124,7 +124,7 @@ char *scsi_errors[] = {
 };
 
 /*===========================================================================*
- *				exec_scsi_low				     * 
+ *				exec_scsi_low				     *
  *===========================================================================*/
 /* Execute a generic SCSI command.  Passed pointers to eight buffers:
  * data-out, data-in, command, status, dummy, dummy, message-out, message-in.
@@ -165,7 +165,7 @@ long scsi_adr;
 }
 
 /*===========================================================================*
- *				sc_reset				     * 
+ *				sc_reset				     *
  *===========================================================================*/
 /*
  * Reset SCSI bus.
@@ -174,7 +174,7 @@ PRIVATE
 sc_reset()
 {
   volatile int i;
-  
+
   BB_DEBUG (("sc_reset()\n"));
 
   WR_ADR (SC_MODE, 0);			/* get into harmless state */
@@ -187,7 +187,7 @@ sc_reset()
 }
 
 /*===========================================================================*
- *				sc_wait_bus_free			     * 
+ *				sc_wait_bus_free			     *
  *===========================================================================*/
 PRIVATE int
 sc_wait_bus_free()
@@ -209,7 +209,7 @@ sc_wait_bus_free()
 }
 
 /*===========================================================================*
- *				sc_select				     * 
+ *				sc_select				     *
  *===========================================================================*/
 /* This duplicates much of the work that the interrupt routine would do on a
  * phase mismatch and, in fact, the original plan was to just do the select,
@@ -355,7 +355,7 @@ scsi_interrupt()
       break;				/* reti re-enables ints */
     }
     if (0 == ((stat2 =			/* check for another interrupt */
-      RD_ADR (SC_STAT2)) & SC_S_IRQ)) 
+      RD_ADR (SC_STAT2)) & SC_S_IRQ))
     {
       break;
     }

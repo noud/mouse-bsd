@@ -1,4 +1,4 @@
-/* GNU Objective C Runtime message lookup 
+/* GNU Objective C Runtime message lookup
    Copyright (C) 1993, 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
    Contributed by Kresten Krab Thorup
 
@@ -61,8 +61,8 @@ static void __objc_init_install_dtable(id, SEL);
 static double __objc_double_forward(id, SEL, ...);
 static id __objc_word_forward(id, SEL, ...);
 typedef struct { id many[8]; } __big;
-#if INVISIBLE_STRUCT_RETURN 
-static __big 
+#if INVISIBLE_STRUCT_RETURN
+static __big
 #else
 static id
 #endif
@@ -142,7 +142,7 @@ __objc_responds_to (id object, SEL sel)
   return (res != 0);
 }
 
-/* This is the lookup function.  All entries in the table are either a 
+/* This is the lookup function.  All entries in the table are either a
    valid method *or* zero.  If zero then either the dispatch table
    needs to be installed or it doesn't exist and forwarding is attempted. */
 __inline__
@@ -152,7 +152,7 @@ objc_msg_lookup(id receiver, SEL op)
   IMP result;
   if(receiver)
     {
-      result = sarray_get_safe (receiver->class_pointer->dtable, 
+      result = sarray_get_safe (receiver->class_pointer->dtable,
 				(sidx)op->sel_id);
       if (result == 0)
 	{
@@ -198,7 +198,7 @@ objc_msg_sendv(id object, SEL op, arglist_t arg_frame)
   const char *type;
   *((id*)method_get_first_argument (m, arg_frame, &type)) = object;
   *((SEL*)method_get_next_argument (arg_frame, &type)) = op;
-  return __builtin_apply((apply_t)m->method_imp, 
+  return __builtin_apply((apply_t)m->method_imp,
 			 arg_frame,
 			 method_get_sizeof_arguments (m));
 }
@@ -216,7 +216,7 @@ __objc_init_dispatch_tables()
 static void
 __objc_init_install_dtable(id receiver, SEL op)
 {
-  /* This may happen, if the programmer has taken the address of a 
+  /* This may happen, if the programmer has taken the address of a
      method before the dtable was initialized... too bad for him! */
   if(receiver->class_pointer->dtable != __objc_uninstalled_dtable)
     return;
@@ -231,7 +231,7 @@ __objc_init_install_dtable(id receiver, SEL op)
       /* install instance methods table */
       __objc_install_dispatch_table_for_class (receiver->class_pointer);
 
-      /* call +initialize -- this will in turn install the factory 
+      /* call +initialize -- this will in turn install the factory
 	 dispatch table if not already done :-) */
       __objc_send_initialize(receiver->class_pointer);
     }
@@ -259,7 +259,7 @@ __objc_install_premature_dtable(Class class)
 {
   assert(__objc_uninstalled_dtable);
   class->dtable = __objc_uninstalled_dtable;
-}   
+}
 
 /* Send +initialize to class if not already done */
 static void
@@ -273,7 +273,7 @@ __objc_send_initialize(Class class)
     {
       CLS_SETINITIALIZED(class);
       CLS_SETINITIALIZED(class->class_pointer);
-      
+
       if(class->super_class)
 	__objc_send_initialize(class->super_class);
 
@@ -306,7 +306,7 @@ __objc_send_initialize(Class class)
 	}
 	if (imp)
 	    (*imp)((id)class, op);
-		
+
       }
     }
 }
@@ -343,7 +343,7 @@ __objc_install_dispatch_table_for_class (Class class)
 {
   Class super;
 
-  /* If the class has not yet had its class links resolved, we must 
+  /* If the class has not yet had its class links resolved, we must
      re-compute all class links */
   if(!CLS_ISRESOLV(class))
     __objc_resolve_class_links();
@@ -373,7 +373,7 @@ __objc_update_dispatch_table_for_class (Class class)
   struct sarray *arr;
 
   /* not yet installed -- skip it */
-  if (class->dtable == __objc_uninstalled_dtable) 
+  if (class->dtable == __objc_uninstalled_dtable)
     return;
 
   objc_mutex_lock(__objc_runtime_mutex);
@@ -383,7 +383,7 @@ __objc_update_dispatch_table_for_class (Class class)
   sarray_free (arr);			   /* release memory */
 
   /* could have been lazy... */
-  __objc_install_dispatch_table_for_class (class); 
+  __objc_install_dispatch_table_for_class (class);
 
   if (class->subclass_list)	/* Traverse subclasses */
     for (next = class->subclass_list; next; next = next->sibling_class)
@@ -399,7 +399,7 @@ __objc_update_dispatch_table_for_class (Class class)
 
    This one is only called for categories. Class objects have their
    methods installed right away, and their selectors are made into
-   SEL's by the function __objc_register_selectors_from_class. */ 
+   SEL's by the function __objc_register_selectors_from_class. */
 void
 class_add_method_list (Class class, MethodList_t list)
 {
@@ -416,7 +416,7 @@ class_add_method_list (Class class, MethodList_t list)
       if (method->method_name)  /* Sometimes these are NULL */
 	{
 	  /* This is where selector names are transmogrified to SEL's */
-	  method->method_name = 
+	  method->method_name =
 	    sel_register_typed_name ((const char*)method->method_name,
 				     method->method_types);
 	}
@@ -445,7 +445,7 @@ class_get_class_method(MetaClass class, SEL op)
 
 /* Search for a method starting from the current class up its hierarchy.
    Return a pointer to the method's method structure if found.  NULL
-   otherwise. */   
+   otherwise. */
 
 static Method_t
 search_for_method_in_hierarchy (Class cls, SEL sel)
@@ -468,7 +468,7 @@ search_for_method_in_hierarchy (Class cls, SEL sel)
 
 /* Given a linked list of method and a method's name.  Search for the named
    method's method structure.  Return a pointer to the method's method
-   structure if found.  NULL otherwise. */  
+   structure if found.  NULL otherwise. */
 Method_t
 search_for_method_in_list (MethodList_t list, SEL op)
 {
@@ -519,7 +519,7 @@ __objc_word_forward (id rcv, SEL op, ...)
 /* Specific routine for forwarding floats/double because of
    architectural differences on some processors.  i386s for
    example which uses a floating point stack versus general
-   registers for floating point numbers.  This forward routine 
+   registers for floating point numbers.  This forward routine
    makes sure that GCC restores the proper return values */
 static double
 __objc_double_forward (id rcv, SEL op, ...)
@@ -580,7 +580,7 @@ __objc_forward (id object, SEL sel, arglist_t args)
       imp = get_imp (object->class_pointer, err_sel);
       return (*imp) (object, err_sel, sel);
     }
-  
+
   /* The object doesn't recognize the method.  Check for responding to
      error:.  If it does then sent it. */
   {
@@ -624,10 +624,10 @@ __objc_print_dtable_stats()
 #endif
 	 );
 
-  printf("arrays: %d = %ld bytes\n", narrays, 
+  printf("arrays: %d = %ld bytes\n", narrays,
 	 (long)narrays*sizeof(struct sarray));
   total += narrays*sizeof(struct sarray);
-  printf("buckets: %d = %ld bytes\n", nbuckets, 
+  printf("buckets: %d = %ld bytes\n", nbuckets,
 	 (long)nbuckets*sizeof(struct sbucket));
   total += nbuckets*sizeof(struct sbucket);
 
@@ -644,7 +644,7 @@ __objc_print_dtable_stats()
  If a class' dispatch table points to __objc_uninstalled_dtable
  then that means it needs its dispatch table to be installed. */
 __inline__
-struct sarray* 
+struct sarray*
 objc_get_uninstalled_dtable()
 {
   return __objc_uninstalled_dtable;

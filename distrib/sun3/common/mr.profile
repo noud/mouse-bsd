@@ -4,7 +4,7 @@
 # Copyright (c) 1995 Jason R. Thorpe
 # Copyright (c) 1994 Christopher G. Demetriou
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
 # are met:

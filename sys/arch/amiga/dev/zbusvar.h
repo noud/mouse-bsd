@@ -50,7 +50,7 @@ u_int		ZBUSAVAIL;	/* bytes of Zorro bus I/O space left */
 #define ZTWOROMTOP	(0x00F80000)
 #define NZTWOROMPG	btoc(ZTWOROMTOP-ZTWOROMBASE)
 
-/* 
+/*
  * maps a ztwo and/or A3000 builtin address into the mapped kva address
  */
 #define ztwomap(pa) \

@@ -89,7 +89,7 @@ struct raw_phdr
  *      calls   $0,(r0)
  *      calls   $0,(r0)
  *
- * which is separated by only three bytes, thus HASHFRACTION is 
+ * which is separated by only three bytes, thus HASHFRACTION is
  * calculated as:
  *
  *      HASHFRACTION = 3 / (2 * 2 - 1) = 1

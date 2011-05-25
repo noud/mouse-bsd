@@ -130,7 +130,7 @@ cursor(d, flag)
  * "ca" is the color/attributes value (left-shifted by 8)
  * or 0 if the current regular color for that screen is to be used.
  */
-void 
+void
 video_putc(c)
 	int c;
 {
@@ -196,7 +196,7 @@ video_putc(c)
 		memset(VramBase + VRAM_SIZE - VRAM_WIDTH * FONT_HEIGHT,
 			d->bgcolor, VRAM_WIDTH * FONT_HEIGHT);
 		d->col = COL - 1;
-	}	
+	}
 	cursor(d, 1);
 }
 #endif

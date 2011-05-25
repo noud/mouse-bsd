@@ -4,7 +4,7 @@
  * This file was taken from mvme68k/mvme68k/trap.c
  * should probably be re-synced when needed.
  * Darrin B. Jewell <jewell@mit.edu> Tue Aug  3 10:53:12 UTC 1999
- * original cvs id: NetBSD: trap.c,v 1.32 1999/08/03 10:52:06 dbj Exp 
+ * original cvs id: NetBSD: trap.c,v 1.32 1999/08/03 10:52:06 dbj Exp
  */
 
 /*
@@ -1044,7 +1044,7 @@ syscall(code, frame)
 		if (code != SUNOS_SYS_sigreturn) {
 			frame.f_regs[SP] += sizeof (int);
 			/*
-			 * remember that we adjusted the SP, 
+			 * remember that we adjusted the SP,
 			 * might have to undo this if the system call
 			 * returns ERESTART.
 			 */

@@ -6,12 +6,12 @@
  * Copyright (c) 1988 University of Utah.
  * Copyright (c) 1982, 1986, 1990 The Regents of the University of California.
  * All rights reserved.
- * 
+ *
  * Changed for the VAX port (and for readability) /IC
- * 
+ *
  * This code is derived from software contributed to Berkeley by the Systems
  * Programming Group of the University of Utah Computer Science Department.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -27,7 +27,7 @@
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -39,9 +39,9 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- * 
+ *
  * from: Utah Hdr: machdep.c 1.63 91/04/24
- * 
+ *
  * @(#)machdep.c	7.16 (Berkeley) 6/3/91
  */
 
@@ -207,7 +207,7 @@ cpu_startup()
 		/*
 		 * First <residual> buffers get (base+1) physical pages
 		 * allocated for them.	The rest get (base) physical pages.
-		 * 
+		 *
 		 * The rest of each buffer occupies virtual space, but has no
 		 * physical memory allocated for it.
 		 */
@@ -456,8 +456,8 @@ sendsig(catcher, sig, mask, code)
 	gsigctx.sc_pc = syscf->pc;
 	gsigctx.sc_ps = syscf->psl;
 	gsigctx.sc_ap = syscf->ap;
-	gsigctx.sc_fp = syscf->fp; 
-	gsigctx.sc_sp = syscf->sp; 
+	gsigctx.sc_fp = syscf->fp;
+	gsigctx.sc_sp = syscf->sp;
 	gsigctx.sc_onstack = psp->ps_sigstk.ss_flags & SS_ONSTACK;
 	gsigctx.sc_mask = *mask;
 
@@ -678,7 +678,7 @@ process_sstep(p, sstep)
  * Allocates a virtual range suitable for mapping in physical memory.
  * This differs from the bus_space routines in that it allocates on
  * physical page sizes instead of logical sizes. This implementation
- * uses resource maps when allocating space, which is allocated from 
+ * uses resource maps when allocating space, which is allocated from
  * the IOMAP submap. The implementation is similar to the uba resource
  * map handling. Size is given in pages.
  * If the page requested is bigger than a logical page, space is
@@ -733,7 +733,7 @@ vax_unmap_physmem(addr, size)
 	extern vaddr_t iospace;
 	int pageno = (addr - iospace) / VAX_NBPG;
 #ifdef PHYSMEMDEBUG
-	printf("vax_unmap_physmem: unmapping %d pages at addr %lx\n", 
+	printf("vax_unmap_physmem: unmapping %d pages at addr %lx\n",
 	    size, addr);
 #endif
 	iounaccess(addr, size);

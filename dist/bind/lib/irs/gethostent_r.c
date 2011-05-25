@@ -35,7 +35,7 @@ static const char rcsid[] = "Id: gethostent_r.c,v 8.4 1999/01/18 07:46:52 vixie 
 
 #ifdef HOST_R_RETURN
 
-static HOST_R_RETURN 
+static HOST_R_RETURN
 copy_hostent(struct hostent *, struct hostent *, HOST_R_COPY_ARGS);
 
 HOST_R_RETURN
@@ -126,7 +126,7 @@ copy_hostent(struct hostent *he, struct hostent *hptr, HOST_R_COPY_ARGS) {
 	}
 	len += strlen(he->h_name) + 1;
 	len += nptr * sizeof(char*);
-	
+
 	if (len > buflen) {
 		errno = ERANGE;
 		return (HOST_R_BAD);

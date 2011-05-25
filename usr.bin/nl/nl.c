@@ -42,7 +42,7 @@ __COPYRIGHT(
 "@(#) Copyright (c) 1999\
  The NetBSD Foundation, Inc.  All rights reserved.");
 __RCSID("$NetBSD: nl.c,v 1.5 1999/09/06 21:50:39 kleink Exp $");
-#endif    
+#endif
 
 #include <errno.h>
 #include <limits.h>

@@ -29,10 +29,10 @@
 .\" THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
 .Dd March 7, 1997
-.Dt FSIRAND 8 
+.Dt FSIRAND 8
 .Os
 .Sh NAME
-.Nm fsirand 
+.Nm fsirand
 .Nd install random inode generation numbers in a filesystem
 .Sh SYNOPSIS
 .Nm
@@ -62,7 +62,7 @@ Print the current inode generation numbers; the filesystem is not modified.
 exits zero on success, non-zero on failure.
 .Sh SEE ALSO
 .Xr fsck_ffs 8 ,
-.Xr newfs 8 
+.Xr newfs 8
 .Sh SECURITY CONSIDERATIONS
 The current implementation does not use a good random number generator,
 so the randomization can be predicted.

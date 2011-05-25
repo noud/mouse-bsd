@@ -16,7 +16,7 @@ didn't get a copy, you may request one from <license@ipv6.nrl.navy.mil>.
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -28,7 +28,7 @@ didn't get a copy, you may request one from <license@ipv6.nrl.navy.mil>.
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -273,7 +273,7 @@ tcp_segsize(tp, txsegsizep, rxsegsizep)
 
 	if (*txsegsizep != tp->t_segsz) {
 		/*
-		 * If the new segment size is larger, we don't want to 
+		 * If the new segment size is larger, we don't want to
 		 * mess up the congestion window, but if it is smaller
 		 * we'll have to reduce the congestion window to ensure
 		 * that we don't get into trouble with initial windows
@@ -282,9 +282,9 @@ tcp_segsize(tp, txsegsizep, rxsegsizep)
 		 * our congestion window will be different.
 		 */
 		if (*txsegsizep < tp->t_segsz) {
-			tp->snd_cwnd = max((tp->snd_cwnd / tp->t_segsz) 
+			tp->snd_cwnd = max((tp->snd_cwnd / tp->t_segsz)
 					   * *txsegsizep, *txsegsizep);
-			tp->snd_ssthresh = max((tp->snd_ssthresh / tp->t_segsz) 
+			tp->snd_ssthresh = max((tp->snd_ssthresh / tp->t_segsz)
 						* *txsegsizep, *txsegsizep);
 		}
 		tp->t_segsz = *txsegsizep;
@@ -511,7 +511,7 @@ again:
 	 * to peer.
 	 */
 	if (win > 0) {
-		/* 
+		/*
 		 * "adv" is the amount we can increase the window,
 		 * taking into account that we are limited by
 		 * TCP_MAXWIN << tp->rcv_scale.
@@ -605,7 +605,7 @@ send:
 			rt = NULL;
 
 		tp->snd_nxt = tp->iss;
-		tp->t_ourmss = tcp_mss_to_advertise(rt != NULL ? 
+		tp->t_ourmss = tcp_mss_to_advertise(rt != NULL ?
 						    rt->rt_ifp : NULL, af);
 		if ((tp->t_flags & TF_NOOPT) == 0) {
 			opt[0] = TCPOPT_MAXSEG;
@@ -613,7 +613,7 @@ send:
 			opt[2] = (tp->t_ourmss >> 8) & 0xff;
 			opt[3] = tp->t_ourmss & 0xff;
 			optlen = 4;
-	 
+
 			if ((tp->t_flags & TF_REQ_SCALE) &&
 			    ((flags & TH_ACK) == 0 ||
 			    (tp->t_flags & TF_RCVD_SCALE))) {
@@ -626,9 +626,9 @@ send:
 			}
 		}
  	}
- 
+
  	/*
-	 * Send a timestamp and echo-reply if this is a SYN and our side 
+	 * Send a timestamp and echo-reply if this is a SYN and our side
 	 * wants to use timestamps (TF_REQ_TSTMP is set) or both our side
 	 * and our peer have sent timestamps in our SYN's.
  	 */
@@ -637,7 +637,7 @@ send:
  	    ((flags & (TH_SYN|TH_ACK)) == TH_SYN ||
 	     (tp->t_flags & TF_RCVD_TSTMP))) {
 		u_int32_t *lp = (u_int32_t *)(opt + optlen);
- 
+
  		/* Form timestamp option as shown in appendix A of RFC 1323. */
  		*lp++ = htonl(TCPOPT_TSTAMP_HDR);
  		*lp++ = htonl(tcp_now);
@@ -646,7 +646,7 @@ send:
  	}
 
  	hdrlen += optlen;
- 
+
 #ifdef DIAGNOSTIC
 	if (len > txsegsize)
 		panic("tcp data to be sent is larger than segment");

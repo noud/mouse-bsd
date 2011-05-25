@@ -101,7 +101,7 @@ syscall(frame, code)
 	/*
 	 * Enable interrupts if they were enabled before the exception.
 	 * Since all syscalls *should* come from user mode it will always
-	 * be safe to enable them, but check anyway. 
+	 * be safe to enable them, but check anyway.
 	 */
 	if (!(frame->tf_spsr & I32_bit))
 		enable_interrupts(I32_bit);
@@ -227,7 +227,7 @@ syscall(frame, code)
 	nsys = p->p_emul->e_nsysent;
 	callp = p->p_emul->e_sysent;
 
-	switch (code) {	
+	switch (code) {
 #if defined(DDB) && defined(PORTMASTER)
 	/* Sometimes I want to enter the debugger outside of the interrupt handler */
 	case 0x102e:
@@ -248,7 +248,7 @@ syscall(frame, code)
 		params += sizeof(int);
 		regparams -= 1;
 		break;
-	
+
         case SYS___syscall:
 		if (callp != sysent)
 			break;
@@ -324,7 +324,7 @@ syscall(frame, code)
 
 	case ERESTART:
 		/*
-		 * Reconstruct the pc. opc contains the old pc address which is 
+		 * Reconstruct the pc. opc contains the old pc address which is
 		 * the instruction after the swi.
 		 */
 		frame->tf_pc = opc - 4;
@@ -363,7 +363,7 @@ child_return(arg)
 	struct trapframe *frame = p->p_md.md_regs;
 
 	frame->tf_r0 = 0;
-	frame->tf_spsr &= ~PSR_C_bit;	/* carry bit */	
+	frame->tf_spsr &= ~PSR_C_bit;	/* carry bit */
 
 	userret(p, frame->tf_pc, 0);
 

@@ -314,7 +314,7 @@ ht_enumerate(ht, cbfunc, arg)
 	struct hashent *hp, **hpp;
 	u_int i;
 	int rval = 0;
-	
+
 	for (i = 0; i < ht->ht_size; i++) {
 		hpp = &ht->ht_tab[i];
 		for (; (hp = *hpp) != NULL; hpp = &hp->h_next)

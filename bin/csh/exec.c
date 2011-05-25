@@ -55,7 +55,7 @@ __RCSID("$NetBSD: exec.c,v 1.15 1998/07/28 11:41:43 mycroft Exp $");
 # include <stdarg.h>
 #else
 # include <varargs.h>
-#endif 
+#endif
 
 #include "csh.h"
 #include "extern.h"
@@ -710,7 +710,7 @@ tellmewhat(lexp, str)
 	    if (str == NULL) {
 		if (aliased)
 		    prlex(cshout, lexp);
-		(void) fprintf(cshout, "%s: shell built-in command.\n", 
+		(void) fprintf(cshout, "%s: shell built-in command.\n",
 			       vis_str(sp->word));
 	    }
 	    else

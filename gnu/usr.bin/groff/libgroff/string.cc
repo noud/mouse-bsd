@@ -115,7 +115,7 @@ string::string(const string &s) : len(s.len)
   if (len != 0)
     memcpy(ptr, s.ptr, len);
 }
-  
+
 string::~string()
 {
   sfree(ptr, sz);

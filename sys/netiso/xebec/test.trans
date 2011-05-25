@@ -22,9 +22,9 @@ ALL_STATES = [STATE_A, STATE_B, STATE_C]
 EV_1	{ char *ev1_char; }
 EV_2	{ int	ev2_int; char ev2_char; }
 EV_3
-EV_4		{ struct blah	*ev4_blahptr; 
+EV_4		{ struct blah	*ev4_blahptr;
 			  unsigned int 	ev4_uint;
-			  int 			ev4_int; 
+			  int 			ev4_int;
 			}
 
 *TRANSITIONS
@@ -33,10 +33,10 @@ SAME			<==			[ STATE_A, STATE_B ] [ EV_1, EV_2, EV_3 ]
 	( $E.ev_all > 0 )
 	{
 		if( $P.test_state == STATE_A )
-			printf("state is STATE_A\n"); 
+			printf("state is STATE_A\n");
 		else
-			printf("state is STATE_B\n"); 
-		printf("action first transition\n"); 
+			printf("state is STATE_B\n");
+		printf("action first transition\n");
 	}
 
 ;

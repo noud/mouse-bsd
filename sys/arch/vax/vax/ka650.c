@@ -197,7 +197,7 @@ uvaxIII_mchk(cmcf)
 	    mcf->mc65_mrvaddr, mcf->mc65_istate1, mcf->mc65_istate2,
 	    mcf->mc65_pc, mcf->mc65_psl);
 	printf("dmaser=0x%b qbear=0x%x dmaear=0x%x\n",
-	    ka650merr_ptr->merr_dser, DMASER_BITS, 
+	    ka650merr_ptr->merr_dser, DMASER_BITS,
 	    (int)ka650merr_ptr->merr_qbear,
 	    (int)ka650merr_ptr->merr_dear);
 	ka650merr_ptr->merr_dser = DSER_CLEAR;

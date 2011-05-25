@@ -85,7 +85,7 @@ ebus_match(parent, match, aux)
 	struct pci_attach_args *pa = aux;
 
 	if (PCI_CLASS(pa->pa_class) == PCI_CLASS_BRIDGE &&
-	    PCI_VENDOR(pa->pa_id) == PCI_VENDOR_SUN && 
+	    PCI_VENDOR(pa->pa_id) == PCI_VENDOR_SUN &&
 	    PCI_PRODUCT(pa->pa_id) == PCI_PRODUCT_SUN_EBUS)
 		return (1);
 
@@ -203,7 +203,7 @@ ebus_setup_attach_args(sc, node, ea)
 	if (getprop(node, "interrupts", sizeof(u_int32_t), &ea->ea_nintrs,
 	    (void **)&ea->ea_intrs))
 		ea->ea_nintrs = 0;
-	else 
+	else
 		ebus_find_ino(sc, ea);
 
 	return (0);

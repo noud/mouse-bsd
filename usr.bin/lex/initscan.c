@@ -1250,7 +1250,7 @@ char *yytext;
  *
  * This code is derived from software contributed to Berkeley by
  * Vern Paxson.
- * 
+ *
  * The United States Government has rights in this work pursuant
  * to contract no. DE-AC03-76SF00098 between the United States
  * Department of Energy and the University of California.

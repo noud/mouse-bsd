@@ -42,19 +42,19 @@
 #ifdef __STL_USE_NAMESPACES
 
 // Names from stl_algobase.h
-using __STD::iter_swap; 
-using __STD::swap; 
-using __STD::min; 
-using __STD::max; 
-using __STD::copy; 
-using __STD::copy_backward; 
-using __STD::copy_n; 
-using __STD::fill; 
-using __STD::fill_n; 
-using __STD::mismatch; 
-using __STD::equal; 
-using __STD::lexicographical_compare; 
-using __STD::lexicographical_compare_3way; 
+using __STD::iter_swap;
+using __STD::swap;
+using __STD::min;
+using __STD::max;
+using __STD::copy;
+using __STD::copy_backward;
+using __STD::copy_n;
+using __STD::fill;
+using __STD::fill_n;
+using __STD::mismatch;
+using __STD::equal;
+using __STD::lexicographical_compare;
+using __STD::lexicographical_compare_3way;
 
 // Names from stl_uninitialized.h
 using __STD::uninitialized_copy;

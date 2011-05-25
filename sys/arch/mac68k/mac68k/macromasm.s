@@ -136,7 +136,7 @@
  * d0.
  *
  * If some code actually pulls down the a-trap line, we jump right
- * to the ROMs; none of this is called. 
+ * to the ROMs; none of this is called.
  */
 
 /* Initialize Utils, mainly XPRam */
@@ -302,7 +302,7 @@ _mrg_ResErr:
 	.word	0xa9af			| ResError
 	movw	sp@+, d0
 	movl	sp@+, d2		| restore d2
-	rts     
+	rts
 
 	/* pascal */ function(mrg_ResError)
 	/*
@@ -461,9 +461,9 @@ Laltoolbox:
 	addql	#4, sp		| pop frame ptr
 #if defined(MRG_DEBUG)
 		movml	#0xC0C0, sp@-	| better save
-		pea	LalP1	        
+		pea	LalP1
 		jbsr	_printf
-			| printf ("Toolbox trap\n"); 
+			| printf ("Toolbox trap\n");
 		lea	sp@(4), sp	| pop
 		movml	sp@+, #0x0303	| restore
 #endif

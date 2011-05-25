@@ -340,7 +340,7 @@ ypproc_all_2_svc(argp, rqstp)
 		res.ypresp_all_u.val.status = YP_YPERR;
 		return (&res);
 	}
-	
+
 	switch ((pid = fork())) {
 	case -1:
 		/* XXXCDC An error has occurred */
@@ -514,6 +514,6 @@ ypproc_maplist_2_svc(argp, rqstp)
 		closedir(dirp);
 
 	res.status = status;
-	
+
 	return ((void *)&res);
 }

@@ -136,7 +136,7 @@ mainbussearch(parent, cf, aux)
 			mb.mb_iosize = 0;
 			mb.mb_drq = MAINBUSCF_DACK_DEFAULT;
 			mb.mb_irq = MAINBUSCF_IRQ_DEFAULT;
-		} else {    
+		} else {
 			mb.mb_iobase = cf->cf_loc[MAINBUSCF_BASE] + IO_CONF_BASE;
 			mb.mb_iosize = 0;
 			mb.mb_drq = cf->cf_loc[MAINBUSCF_DACK];

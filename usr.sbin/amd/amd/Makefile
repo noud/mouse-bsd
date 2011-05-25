@@ -9,7 +9,7 @@ mapc.c map.c info_union.c info_passwd.c info_nis.c info_ndbm.c \
 info_file.c info_hesiod.c get_args.c conf.c clock.c autil.c \
 amq_svc.c amq_subr.c amfs_union.c amfs_toplvl.c amfs_root.c amfs_program.c \
 amfs_nfsx.c amfs_nfsl.c amfs_linkx.c amfs_link.c amfs_inherit.c amfs_host.c \
-amfs_error.c amfs_direct.c amfs_auto.c amd.c am_ops.c 
+amfs_error.c amfs_direct.c amfs_auto.c amd.c am_ops.c
 MAN+= amd.8
 YHEADER=1
 CLEANFILES+=conf_tok.c conf_parse.c conf_parse.h

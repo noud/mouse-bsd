@@ -36,7 +36,7 @@ main()
 {
 	int i;
 	unsigned char par;
-  
+
 	printf("u_char even_parity[] = {\n\t");
 	for (i = 0; i < 0x80; i++) {
 		par = bset(i,0) + bset(i,1) + bset(i,2) + bset(i,3)

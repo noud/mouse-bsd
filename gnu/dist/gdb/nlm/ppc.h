@@ -1,6 +1,6 @@
 typedef long Long;
 
-/* The following enum is used to access the special registers in 
+/* The following enum is used to access the special registers in
    the saved machine state.  */
 
 typedef enum

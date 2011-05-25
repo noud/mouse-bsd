@@ -147,7 +147,7 @@ void ariadne_autoselect __P((struct lance_softc *, int));
 int ariadne_mediachange __P((struct lance_softc *));
 void ariadne_hwinit __P((struct lance_softc *));
 
-/*      
+/*
  * Media types supported by the Ariadne.
  */
 int lemedia_ariadne[] = {
@@ -302,7 +302,7 @@ ariadne_hwinit(sc)
 	ariadne_wribcr(sc, LE_BCR_LED3, 0x0084);
 
 	/*
-	 * Enabel/Disable auto selection 
+	 * Enabel/Disable auto selection
 	 */
 	if (sc->sc_initmodemedia == 2)
 		ariadne_autoselect(sc, 1);
@@ -550,7 +550,7 @@ ariadne_zerobuf_word(sc, boff, len)
 	} else {
 		b1 = (u_short *)a1;
 	}
-		
+
 	for (i = len >> 1; i > 0; i--)
 		*b1++ = 0;
 

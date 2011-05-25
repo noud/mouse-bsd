@@ -78,7 +78,7 @@ fatal (const char *format, ...)
   xexit (1);
 }
 #else
-void 
+void
 fatal (va_alist)
      va_dcl
 {

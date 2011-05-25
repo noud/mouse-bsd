@@ -15,7 +15,7 @@ static char rcsid[] = "$Id: unbzip2.c,v 1.2 1999/08/20 00:08:57 simonb Exp $";
 /* ============================================================================
  * Bunzip2 in to out.
  */
-int unbzip2(in, out) 
+int unbzip2(in, out)
     int in, out;    /* input and output file descriptors */
 {
 	int		n, ret, end_of_file;

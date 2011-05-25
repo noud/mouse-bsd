@@ -1,25 +1,25 @@
 /*	$NetBSD: dbdma.c,v 1.2 1998/08/21 16:13:28 tsubai Exp $	*/
 
 /*
- * Copyright 1991-1998 by Open Software Foundation, Inc. 
- *              All Rights Reserved 
- *  
- * Permission to use, copy, modify, and distribute this software and 
- * its documentation for any purpose and without fee is hereby granted, 
- * provided that the above copyright notice appears in all copies and 
- * that both the copyright notice and this permission notice appear in 
- * supporting documentation. 
- *  
- * OSF DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE 
- * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
- * FOR A PARTICULAR PURPOSE. 
- *  
- * IN NO EVENT SHALL OSF BE LIABLE FOR ANY SPECIAL, INDIRECT, OR 
- * CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM 
- * LOSS OF USE, DATA OR PROFITS, WHETHER IN ACTION OF CONTRACT, 
- * NEGLIGENCE, OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION 
- * WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. 
- * 
+ * Copyright 1991-1998 by Open Software Foundation, Inc.
+ *              All Rights Reserved
+ *
+ * Permission to use, copy, modify, and distribute this software and
+ * its documentation for any purpose and without fee is hereby granted,
+ * provided that the above copyright notice appears in all copies and
+ * that both the copyright notice and this permission notice appear in
+ * supporting documentation.
+ *
+ * OSF DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE
+ * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ * FOR A PARTICULAR PURPOSE.
+ *
+ * IN NO EVENT SHALL OSF BE LIABLE FOR ANY SPECIAL, INDIRECT, OR
+ * CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+ * LOSS OF USE, DATA OR PROFITS, WHETHER IN ACTION OF CONTRACT,
+ * NEGLIGENCE, OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
+ * WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ *
  */
 
 #include <sys/param.h>
@@ -48,15 +48,15 @@ dbdma_start(dmap, commands)
 		panic("dbdma_start command structure not 16-byte aligned");
 
 	dmap->d_intselect = 0xff;  /* Endian magic - clear out interrupts */
-	DBDMA_ST4_ENDIAN(&dmap->d_control, 
+	DBDMA_ST4_ENDIAN(&dmap->d_control,
 			 DBDMA_CLEAR_CNTRL( (DBDMA_CNTRL_ACTIVE	|
 					     DBDMA_CNTRL_DEAD	|
 					     DBDMA_CNTRL_WAKE	|
 					     DBDMA_CNTRL_FLUSH	|
 					     DBDMA_CNTRL_PAUSE	|
-					     DBDMA_CNTRL_RUN      )));      
+					     DBDMA_CNTRL_RUN      )));
 	eieio();
-     
+
 	while (DBDMA_LD4_ENDIAN(&dmap->d_status) & DBDMA_CNTRL_ACTIVE)
 		eieio();
 
@@ -91,13 +91,13 @@ void
 dbdma_reset(dmap)
 	dbdma_regmap_t *dmap;
 {
-	out32rb(&dmap->d_control, 
+	out32rb(&dmap->d_control,
 			 DBDMA_CLEAR_CNTRL( (DBDMA_CNTRL_ACTIVE	|
 					     DBDMA_CNTRL_DEAD	|
 					     DBDMA_CNTRL_WAKE	|
 					     DBDMA_CNTRL_FLUSH	|
 					     DBDMA_CNTRL_PAUSE	|
-					     DBDMA_CNTRL_RUN      )));      
+					     DBDMA_CNTRL_RUN      )));
 
 	while (in32rb(&dmap->d_status) & DBDMA_CNTRL_RUN);
 }

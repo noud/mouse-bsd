@@ -91,7 +91,7 @@ int nbytes;	/* size actually read */
 			return 1;
 		}
 	}
-	if ((*buf == 'c' || *buf == 'C') && 
+	if ((*buf == 'c' || *buf == 'C') &&
 	    isascii(buf[1]) && isspace(buf[1])) {
 		ckfputs("fortran program text", stdout);
 		return 1;
@@ -115,7 +115,7 @@ int nbytes;	/* size actually read */
 			if (STREQ(p->name, token)) {
 				ckfputs(types[p->type], stdout);
 				if (has_escapes)
-					ckfputs(" (with escape sequences)", 
+					ckfputs(" (with escape sequences)",
 						stdout);
 				return 1;
 			}

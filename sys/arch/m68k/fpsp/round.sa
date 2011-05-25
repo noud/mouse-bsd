@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -45,7 +45,7 @@ ROUND	IDNT    2,1 Motorola 040 Floating Point Software Package
 *
 *	round --- round result according to precision/mode
 *
-*	a0 points to the input operand in the internal extended format 
+*	a0 points to the input operand in the internal extended format
 *	d1(high word) contains rounding precision:
 *		ext = $0000xxxx
 *		sgl = $0001xxxx
@@ -68,15 +68,15 @@ ROUND	IDNT    2,1 Motorola 040 Floating Point Software Package
 
 	xdef	round
 round:
-* If g=r=s=0 then result is exact and round is done, else set 
-* the inex flag in status reg and continue.  
+* If g=r=s=0 then result is exact and round is done, else set
+* the inex flag in status reg and continue.
 *
-	bsr.b	ext_grs			;this subroutine looks at the 
-*					:rounding precision and sets 
+	bsr.b	ext_grs			;this subroutine looks at the
+*					:rounding precision and sets
 *					;the appropriate g-r-s bits.
 	tst.l	d0			;if grs are zero, go force
 	bne.w	rnd_cont		;lower bits to zero for size
-	
+
 	swap	d1			;set up d1.w for round prec.
 	bra.w	truncate
 
@@ -117,7 +117,7 @@ rnd_plus:
 *
 rnd_mnus:
 	swap 	d1			;set up d1 for round prec.
-	tst.b	LOCAL_SGN(a0)		;check for sign	
+	tst.b	LOCAL_SGN(a0)		;check for sign
 	bpl.w	truncate		;if negative then truncate
 	move.l	#$ffffffff,d0		;force g,r,s to be all f's
 	lea	add_to_l,a1
@@ -153,7 +153,7 @@ rnd_near:
 *
 * The ext_grs extract the guard/round/sticky bits according to the
 * selected rounding precision. It is called by the round subroutine
-* only.  All registers except d0 are kept intact. d0 becomes an 
+* only.  All registers except d0 are kept intact. d0 becomes an
 * updated guard,round,sticky in d0{31:29}
 *
 * Notes: the ext_grs uses the round PREC, and therefore has to swap d1
@@ -164,7 +164,7 @@ ext_grs:
 	tst.w	d1
 	bne.b	sgl_or_dbl
 	bra.b	end_ext_grs
- 
+
 sgl_or_dbl:
 	movem.l	d2/d3,-(a7)		;make some temp registers
 	cmpi.w	#1,d1
@@ -174,19 +174,19 @@ grs_sgl:
 	move.l	#30,d2			;of the sgl prec. limits
 	lsl.l	d2,d3			;shift g-r bits to MSB of d3
 	move.l	LOCAL_HI(a0),d2		;get word 2 for s-bit test
-	andi.l	#$0000003f,d2		;s bit is the or of all other 
+	andi.l	#$0000003f,d2		;s bit is the or of all other
 	bne.b	st_stky			;bits to the right of g-r
 	tst.l	LOCAL_LO(a0)		;test lower mantissa
 	bne.b	st_stky			;if any are set, set sticky
 	tst.l	d0			;test original g,r,s
 	bne.b	st_stky			;if any are set, set sticky
 	bra.b	end_sd			;if words 3 and 4 are clr, exit
-grs_dbl:    
+grs_dbl:
 	bfextu	LOCAL_LO(a0){21:2},d3	;dbl-prec. g-r are 2 bits right
 	move.l	#30,d2			;of the dbl prec. limits
 	lsl.l	d2,d3			;shift g-r bits to the MSB of d3
 	move.l	LOCAL_LO(a0),d2		;get lower mantissa  for s-bit test
-	andi.l	#$000001ff,d2		;s bit is the or-ing of all 
+	andi.l	#$000001ff,d2		;s bit is the or-ing of all
 	bne.b	st_stky			;other bits to the right of g-r
 	tst.l	d0			;test word original g,r,s
 	bne.b	st_stky			;if any are set, set sticky
@@ -293,20 +293,20 @@ end_rnd:
 *
 *	NORMALIZE
 *
-* These routines (nrm_zero & nrm_set) normalize the unnorm.  This 
-* is done by shifting the mantissa left while decrementing the 
+* These routines (nrm_zero & nrm_set) normalize the unnorm.  This
+* is done by shifting the mantissa left while decrementing the
 * exponent.
 *
-* NRM_SET shifts and decrements until there is a 1 set in the integer 
+* NRM_SET shifts and decrements until there is a 1 set in the integer
 * bit of the mantissa (msb in d1).
 *
-* NRM_ZERO shifts and decrements until there is a 1 set in the integer 
-* bit of the mantissa (msb in d1) unless this would mean the exponent 
-* would go less than 0.  In that case the number becomes a denorm - the 
-* exponent (d0) is set to 0 and the mantissa (d1 & d2) is not 
+* NRM_ZERO shifts and decrements until there is a 1 set in the integer
+* bit of the mantissa (msb in d1) unless this would mean the exponent
+* would go less than 0.  In that case the number becomes a denorm - the
+* exponent (d0) is set to 0 and the mantissa (d1 & d2) is not
 * normalized.
 *
-* Note that both routines have been optimized (for the worst case) and 
+* Note that both routines have been optimized (for the worst case) and
 * therefore do not have the easy to follow decrement/shift loop.
 *
 *	NRM_ZERO
@@ -328,34 +328,34 @@ end_rnd:
 	xdef	nrm_zero
 nrm_zero:
 	move.w	LOCAL_EX(a0),d0
-	cmp.w   #64,d0          ;see if exp > 64 
+	cmp.w   #64,d0          ;see if exp > 64
 	bmi.b	d0_less
-	bsr	nrm_set		;exp > 64 so exp won't exceed 0 
+	bsr	nrm_set		;exp > 64 so exp won't exceed 0
 	rts
 d0_less:
 	movem.l	d2/d3/d5/d6,-(a7)
 	move.l	LOCAL_HI(a0),d1
 	move.l	LOCAL_LO(a0),d2
 
-	bfffo	d1{0:32},d3	;get the distance to the first 1 
+	bfffo	d1{0:32},d3	;get the distance to the first 1
 *				;in ms mant
 	beq.b	ms_clr		;branch if no bits were set
 	cmp.w	d3,d0		;of X>Y
-	bmi.b	greater		;then exp will go past 0 (neg) if 
+	bmi.b	greater		;then exp will go past 0 (neg) if
 *				;it is just shifted
 	bsr	nrm_set		;else exp won't go past 0
 	movem.l	(a7)+,d2/d3/d5/d6
-	rts	
+	rts
 greater:
 	move.l	d2,d6		;save ls mant in d6
 	lsl.l	d0,d2		;shift ls mant by count
 	lsl.l	d0,d1		;shift ms mant by count
 	move.l	#32,d5
-	sub.l	d0,d5		;make op a denorm by shifting bits 
-	lsr.l	d5,d6		;by the number in the exp, then 
+	sub.l	d0,d5		;make op a denorm by shifting bits
+	lsr.l	d5,d6		;by the number in the exp, then
 *				;set exp = 0.
 	or.l	d6,d1		;shift the ls mant bits into the ms mant
-	clr.l	d0		;same as if decremented exp to 0 
+	clr.l	d0		;same as if decremented exp to 0
 *				;while shifting
 	move.w	d0,LOCAL_EX(a0)
 	move.l	d1,LOCAL_HI(a0)
@@ -404,7 +404,7 @@ nrm_set:
 	rts
 
 *
-* We get here if ms mant was = 0, and we assume ls mant has bits 
+* We get here if ms mant was = 0, and we assume ls mant has bits
 * set (otherwise this would have been tagged a zero not a denorm).
 *
 lower:
@@ -424,10 +424,10 @@ lower:
 *
 *	Used by underflow.
 *
-* Input: 
+* Input:
 *	a0	 points to the operand to be denormalized
 *		 (in the internal extended format)
-*		 
+*
 *	d0: 	 rounding precision
 * Output:
 *	a0	 points to the denormalized result
@@ -435,15 +435,15 @@ lower:
 *
 *	d0 	is guard,round,sticky
 *
-* d0 comes into this routine with the rounding precision. It 
-* is then loaded with the denormalized exponent threshold for the 
+* d0 comes into this routine with the rounding precision. It
+* is then loaded with the denormalized exponent threshold for the
 * rounding precision.
 *
 
 	xdef	denorm
 denorm:
 	btst.b	#6,LOCAL_EX(a0)	;check for exponents between $7fff-$4000
-	beq.b	no_sgn_ext	
+	beq.b	no_sgn_ext
 	bset.b	#7,LOCAL_EX(a0)	;sign extend if it is so
 no_sgn_ext:
 
@@ -466,7 +466,7 @@ load_dbl:
 	move.l	d1,d0		;copy d1 into d0
 	sub.w	LOCAL_EX(a0),d0	;diff = threshold - exp
 	cmp.w	#67,d0		;if diff > 67 (mant + grs bits)
-	bpl.b	chk_stky	;then branch (all bits would be 
+	bpl.b	chk_stky	;then branch (all bits would be
 *				; shifted off in denorm routine)
 	clr.l	d0		;else clear the sticky flag
 	bsr	dnrm_lp		;denormalize the number
@@ -479,7 +479,7 @@ load_sgl:
 	move.l	d1,d0		;copy d1 into d0
 	sub.w	LOCAL_EX(a0),d0	;diff = threshold - exp
 	cmp.w	#67,d0		;if diff > 67 (mant + grs bits)
-	bpl.b	chk_stky	;then branch (all bits would be 
+	bpl.b	chk_stky	;then branch (all bits would be
 *				; shifted off in denorm routine)
 	clr.l	d0		;else clear the sticky flag
 	bsr	dnrm_lp		;denormalize the number
@@ -520,7 +520,7 @@ no_inex:
 *
 * The LOCAL_LO and LOCAL_GRS parts of the value are copied to FP_SCR2
 * so that bfext can be used to extract the new low part of the mantissa.
-* Dnrm_lp can be called with a0 pointing to ETEMP or WBTEMP and there 
+* Dnrm_lp can be called with a0 pointing to ETEMP or WBTEMP and there
 * is no LOCAL_GRS scratch word following it on the fsave frame.
 *
 	xdef	dnrm_lp
@@ -539,8 +539,8 @@ not_E3:
 	move.l	d1,d0			;copy the denorm threshold
 	sub.w	LOCAL_EX(a0),d1		;d1 = threshold - uns exponent
 	ble.b	no_lp			;d1 <= 0
-	cmp.w	#32,d1			
-	blt.b	case_1			;0 = d1 < 32 
+	cmp.w	#32,d1
+	blt.b	case_1			;0 = d1 < 32
 	cmp.w	#64,d1
 	blt.b	case_2			;32 <= d1 < 64
 	bra.w	case_3			;d1 >= 64
@@ -566,7 +566,7 @@ case_1:
 	move.l	d2,LOCAL_HI(a0)		;store new LOCAL_HI
 	move.l	d1,LOCAL_LO(a0)		;store new LOCAL_LO
 	clr.b	d1
-	bftst	d0{2:30}	
+	bftst	d0{2:30}
 	beq.b	c1nstky
 	bset.l	#rnd_stky_bit,d0
 	st.b	d1
@@ -609,7 +609,7 @@ end_c2:
 	move.l	FP_SCR2+LOCAL_GRS(a6),d2	;restore original g,r,s
 	andi.l	#$e0000000,d2		;clear all but G,R,S
 	tst.l	d2			;test if original G,R,S are clear
-	beq.b	clear_grs		
+	beq.b	clear_grs
 	or.l	#$20000000,d0		;set sticky bit in d0
 clear_grs:
 	andi.l	#$e0000000,d0		;get rid of all but G,R,S
@@ -645,7 +645,7 @@ sixty_four:
 	bfextu	d0{2:30},d1
 	andi.l	#$c0000000,d0
 	bra.b	c3com
-	
+
 sixty_five:
 	move.l	LOCAL_HI(a0),d0
 	bfextu	d0{1:31},d1

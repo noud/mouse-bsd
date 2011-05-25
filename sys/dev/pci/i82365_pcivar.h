@@ -33,7 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* 
+/*
  * Establish/disestablish interrupts for PCMCIA functions.
  */
 

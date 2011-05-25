@@ -375,7 +375,7 @@ ie_attach(sc)
 /*
  * Setup IE's ram space.
  */
-static int 
+static int
 ie_setupram(sc)
 	struct ie_softc *sc;
 {
@@ -616,7 +616,7 @@ ietint(sc)
 
 	if (status & IE_STAT_OK) {
 		ifp->if_opackets++;
-		ifp->if_collisions += 
+		ifp->if_collisions +=
 		  SWAP(status & IE_XS_MAXCOLL);
 	} else {
 		ifp->if_oerrors++;
@@ -894,7 +894,7 @@ iexmit(sc)
 	sc->xmit_cmds[sc->xctail]->ie_xmit_desc =
 	    vtop16sw(sc, (void*) sc->xmit_buffs[sc->xctail]);
 
-	sc->scb->ie_command_list = 
+	sc->scb->ie_command_list =
 	    vtop16sw(sc, (void*) sc->xmit_cmds[sc->xctail]);
 	cmd_and_wait(sc, IE_CU_START, 0, 0);
 
@@ -982,7 +982,7 @@ ieget(sc, to_bpf)
 			caddr_t newdata = (caddr_t)
 			    ALIGN(m->m_data + sizeof(struct ether_header)) -
 			    sizeof(struct ether_header);
-			len -= newdata - m->m_data; 
+			len -= newdata - m->m_data;
 			m->m_data = newdata;
 		}
 
@@ -1375,7 +1375,7 @@ run_tdr(sc, cmd)
  * [tbuf0, tbuf1] [rbuf0,...rbufN] gap [rframes] [tframes]
  * XXX - This needs review...
  */
-static void 
+static void
 iememinit(sc)
 	struct ie_softc *sc;
 {
@@ -1413,7 +1413,7 @@ iememinit(sc)
 	for (i = 0; i < sc->nrxbuf; i++) {
 		sc->rbuffs[i] = (volatile void *) ptr;
 		ptr = Align(ptr + sizeof(*sc->rbuffs[i]));
-		sc->rbuffs[i]->ie_rbd_buffer = 
+		sc->rbuffs[i]->ie_rbd_buffer =
 			Swap32(vtop24(sc, sc->cbuffs[i]));
 		sc->rbuffs[i]->ie_rbd_length = SWAP(IE_RBUF_SIZE);
 	}

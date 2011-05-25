@@ -4,7 +4,7 @@
  * THIS FILE AUTOMATICALLY GENERATED.  DO NOT EDIT.
  *
  * generated from:
- *	NetBSD: tcdevs,v 1.15 2000/01/05 12:14:33 drochner Exp 
+ *	NetBSD: tcdevs,v 1.15 2000/01/05 12:14:33 drochner Exp
  */
 
 /*

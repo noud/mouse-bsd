@@ -1758,8 +1758,8 @@ int getla(void)
 		(void) fcntl(kmem, F_SETFD, 1);
 	}
 
-	if (lseek(kmem, (sysmp(MP_KERNADDR, MPKA_AVENRUN) & 0x7fffffff), SEEK_SET) == -1 || 
-	    read(kmem, (char *)avenrun, sizeof(avenrun)) < sizeof(avenrun)) 
+	if (lseek(kmem, (sysmp(MP_KERNADDR, MPKA_AVENRUN) & 0x7fffffff), SEEK_SET) == -1 ||
+	    read(kmem, (char *)avenrun, sizeof(avenrun)) < sizeof(avenrun))
 	{
 		if (tTd(3, 1))
 			printf("getla: lseek or read: %s\n",
@@ -2218,7 +2218,7 @@ initsetproctitle(argc, argv, envp)
 	Argv = argv;
 
 	/*
-	**  Determine how much space we can use for setproctitle.  
+	**  Determine how much space we can use for setproctitle.
 	**  Use all contiguous argv and envp pointers starting at argv[0]
  	*/
 	for (i = 0; i < argc; i++)
@@ -3087,7 +3087,7 @@ usershellok(user, shell)
 	{
 		/* no /etc/shells; see if it is one of the std shells */
 		char **d;
-		
+
 		if (errno != ENOENT && LogLevel > 3)
 			sm_syslog(LOG_ERR, NOQID,
 				  "usershellok: cannot open %s: %s",
@@ -3735,7 +3735,7 @@ getvendor(vendorcode)
 {
 #if defined(VENDOR_NAME) && defined(VENDOR_CODE)
 	/*
-	**  Can't have the same switch case twice so need to 
+	**  Can't have the same switch case twice so need to
 	**  handle VENDOR_CODE outside of switch.  It might
 	**  match one of the existing VENDOR_* codes.
 	*/
@@ -3748,7 +3748,7 @@ getvendor(vendorcode)
 	{
 		case VENDOR_BERKELEY:
 			return "Berkeley";
-		
+
 		case VENDOR_SUN:
 			return "Sun";
 
@@ -3807,7 +3807,7 @@ vendor_post_defaults(e)
 {
 #ifdef __QNX__
 	char *p;
-	
+
 	/* Makes sure the SOCK environment variable remains */
 	if (p = getextenv("SOCK"))
 		setuserenv("SOCK", p);
@@ -3848,7 +3848,7 @@ void
 vendor_set_uid(uid)
 	UID_T uid;
 {
-	/* 
+	/*
 	**  We need to setup the share groups (lnodes)
 	**  and and auditing inforation (luid's)
 	**  before we loose our ``root''ness.
@@ -4242,7 +4242,7 @@ secureware_setup_secure(uid)
 
 	if (getluid() != -1)
 		return;
-	
+
 	if ((rc = set_secure_info(uid)) != SSI_GOOD_RETURN)
 	{
 		switch (rc)
@@ -4267,7 +4267,7 @@ secureware_setup_secure(uid)
 			syserr("Could not set kernel privs, uid = %d", uid);
 
 		  default:
-			syserr("Unknown return code (%d) from set_secure_info(%d)", 
+			syserr("Unknown return code (%d) from set_secure_info(%d)",
 				rc, uid);
 			break;
 		}
@@ -4553,7 +4553,7 @@ sm_syslog(level, id, fmt, va_alist)
 	extern char *DoprEnd;
 	VA_LOCAL_DECL
 	extern void sm_dopr __P((char *, const char *, va_list));
-	
+
 	SyslogErrno = errno;
 	if (id == NULL)
 	{
@@ -4608,10 +4608,10 @@ bufalloc:
 
 	begin = buf;
 	while (*begin != '\0' &&
-	       (strlen(begin) + idlen + 5) > SYSLOG_BUFSIZE) 
+	       (strlen(begin) + idlen + 5) > SYSLOG_BUFSIZE)
 	{
 		char save;
-	
+
 		if (seq == 999)
 		{
 			/* Too many messages */

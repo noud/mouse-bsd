@@ -1,4 +1,4 @@
-.\"	$NetBSD: install,v 1.10 1999/04/15 15:18:21 minoura Exp $	
+.\"	$NetBSD: install,v 1.10 1999/04/15 15:18:21 minoura Exp $
 .\"
 .\" Copyright (c) 1999 The NetBSD Foundation, Inc.
 .\" All rights reserved.
@@ -422,7 +422,7 @@ If you are retrieving the distribution sets using ftp,
 change into the temporary directory, and execute the
 command:
 .D1 Ic ftp Ar serv_ipaddr
-where 
+where
 .D1 Ar serv_ipaddr
 is once again the server's numeric
 IP address. Get the files with FTP, taking care to

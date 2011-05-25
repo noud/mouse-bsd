@@ -4,7 +4,7 @@
  * Revision 4.0  85/07/30  12:50:00  joe
  * Removed ferror() calls in output routine on every output except first.
  * Prepared for release to the world.
- * 
+ *
  * Revision 3.6  85/07/04  01:22:21  joe
  * Remove much wasted storage by overlaying hash table with the tables
  * used by decompress: tab_suffix[1<<BITS], stack[8000].  Updated USERMEM
@@ -30,9 +30,9 @@
  * Revision 3.1  85/05/12  18:56:13  jaw
  * Integrate decompress() stack speedups (from early pointer mods by McKie).
  * Repair multi-file USERMEM gaffe.  Unify 'force' flags to mimic semantics
- * of SVR2 'pack'.  Streamline block-compress table clear logic.  Increase 
+ * of SVR2 'pack'.  Streamline block-compress table clear logic.  Increase
  * output byte count by magic number size.
- * 
+ *
  * Revision 3.0   84/11/27  11:50:00  petsd!joe
  * Set HSIZE depending on BITS.  Set BITS depending on USERMEM.  Unrolled
  * loops in clear routines.  Added "-C" flag for 2.0 compatibility.  Used

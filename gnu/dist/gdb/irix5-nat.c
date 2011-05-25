@@ -46,7 +46,7 @@ fetch_core_registers PARAMS ((char *, unsigned int, int, CORE_ADDR));
  * any MIPS SVR4 target.
  */
 
-void 
+void
 supply_gregset (gregsetp)
      gregset_t *gregsetp;
 {
@@ -392,10 +392,10 @@ solib_map_sections (so)
   struct section_table *p;
   struct cleanup *old_chain;
   bfd *abfd;
-  
+
   filename = tilde_expand (so -> so_name);
   old_chain = make_cleanup (free, filename);
-  
+
   scratch_chan = openp (getenv ("PATH"), 1, filename, O_RDONLY, 0,
 			&scratch_pathname);
   if (scratch_chan < 0)
@@ -427,7 +427,7 @@ solib_map_sections (so)
     }
   if (build_section_table (abfd, &so -> sections, &so -> sections_end))
     {
-      error ("Can't find the file sections in `%s': %s", 
+      error ("Can't find the file sections in `%s': %s",
 	     bfd_get_filename (exec_bfd), bfd_errmsg (bfd_get_error ()));
     }
 
@@ -555,7 +555,7 @@ first_link_map_member ()
 
   /* The first entry in the list is the object file we are debugging,
      so skip it.  */
-  next_lladdr = (CORE_ADDR) list_old.next; 
+  next_lladdr = (CORE_ADDR) list_old.next;
 
 #ifdef HANDLE_NEW_OBJ_LIST
   if (list_old.data == NEW_OBJ_INFO_MAGIC)
@@ -565,7 +565,7 @@ first_link_map_member ()
       read_memory (lladdr, (char *) &list_32, sizeof (Elf32_Obj_Info));
       if (list_32.oi_size != sizeof (Elf32_Obj_Info))
 	return NULL;
-      next_lladdr = (CORE_ADDR) list_32.oi_next; 
+      next_lladdr = (CORE_ADDR) list_32.oi_next;
     }
 #endif
 
@@ -668,7 +668,7 @@ xfer_link_map_member (so_list_ptr, lm)
 
   new_lm -> l_variant = OBJ_LIST_OLD;
   new_lm -> l_lladdr = lladdr;
-  new_lm -> l_next = (CORE_ADDR) list_old.next; 
+  new_lm -> l_next = (CORE_ADDR) list_old.next;
 
 #ifdef HANDLE_NEW_OBJ_LIST
   if (list_old.data == NEW_OBJ_INFO_MAGIC)
@@ -679,7 +679,7 @@ xfer_link_map_member (so_list_ptr, lm)
       if (list_32.oi_size != sizeof (Elf32_Obj_Info))
 	return;
       new_lm -> l_variant = OBJ_LIST_32;
-      new_lm -> l_next = (CORE_ADDR) list_32.oi_next; 
+      new_lm -> l_next = (CORE_ADDR) list_32.oi_next;
 
       target_read_string ((CORE_ADDR) list_32.oi_pathname,
 			  &so_list_ptr -> so_name,
@@ -762,7 +762,7 @@ find_solib (so_list_ptr)
   struct so_list *so_list_next = NULL;
   struct link_map *lm = NULL;
   struct so_list *new;
-  
+
   if (so_list_ptr == NULL)
     {
       /* We are setting up for a new scan through the loaded images. */
@@ -792,7 +792,7 @@ find_solib (so_list_ptr)
       else
 	{
 	  so_list_head = new;
-	}      
+	}
       so_list_next = new;
       xfer_link_map_member (new, lm);
     }
@@ -824,7 +824,7 @@ symbol_add_stub (arg)
       if (lowest_sect)
 	text_addr = bfd_section_vma (so -> abfd, lowest_sect) + LM_OFFSET (so);
     }
-  
+
   so -> objfile = symbol_file_add (so -> so_name, so -> from_tty,
 				   text_addr,
 				   0, 0, 0);
@@ -851,7 +851,7 @@ solib_add (arg_string, from_tty, target)
      char *arg_string;
      int from_tty;
      struct target_ops *target;
-{	
+{
   register struct so_list *so = NULL;   	/* link map state variable */
 
   /* Last shared library that we read.  */
@@ -860,12 +860,12 @@ solib_add (arg_string, from_tty, target)
   char *re_err;
   int count;
   int old;
-  
+
   if ((re_err = re_comp (arg_string ? arg_string : ".")) != NULL)
     {
       error ("Invalid regexp: %s", re_err);
     }
-  
+
   /* Add the shared library sections to the section table of the
      specified target, if any.  */
   if (target)
@@ -880,7 +880,7 @@ solib_add (arg_string, from_tty, target)
 	      count += so -> sections_end - so -> sections;
 	    }
 	}
-      
+
       if (count)
 	{
 	  int update_coreops;
@@ -889,7 +889,7 @@ solib_add (arg_string, from_tty, target)
 	     here, otherwise we dereference a potential dangling pointer
 	     for each call to target_read/write_memory within this routine.  */
 	  update_coreops = core_ops.to_sections == target->to_sections;
-	     
+
 	  /* Reallocate the target's section table including the new size.  */
 	  if (target -> to_sections)
 	    {
@@ -905,7 +905,7 @@ solib_add (arg_string, from_tty, target)
 		xmalloc ((sizeof (struct section_table)) * count);
 	    }
 	  target -> to_sections_end = target -> to_sections + (count + old);
-	  
+
 	  /* Update the to_sections field in the core_ops structure
 	     if needed.  */
 	  if (update_coreops)
@@ -921,14 +921,14 @@ solib_add (arg_string, from_tty, target)
 		{
 		  count = so -> sections_end - so -> sections;
 		  memcpy ((char *) (target -> to_sections + old),
-			  so -> sections, 
+			  so -> sections,
 			  (sizeof (struct section_table)) * count);
 		  old += count;
 		}
 	    }
 	}
     }
-  
+
   /* Now add the symbol files.  */
   while ((so = find_solib (so)) != NULL)
     {
@@ -982,7 +982,7 @@ info_sharedlibrary_command (ignore, from_tty)
 {
   register struct so_list *so = NULL;  	/* link map state variable */
   int header_done = 0;
-  
+
   if (exec_bfd == NULL)
     {
       printf_unfiltered ("No exec file.\n");
@@ -1010,7 +1010,7 @@ info_sharedlibrary_command (ignore, from_tty)
     }
   if (so_list_head == NULL)
     {
-      printf_unfiltered ("No shared libraries loaded at this time.\n");	
+      printf_unfiltered ("No shared libraries loaded at this time.\n");
     }
 }
 
@@ -1043,7 +1043,7 @@ solib_address (address)
      CORE_ADDR address;
 {
   register struct so_list *so = 0;   	/* link map state variable */
-  
+
   while ((so = find_solib (so)) != NULL)
     {
       if (so -> so_name[0])
@@ -1058,12 +1058,12 @@ solib_address (address)
 
 /* Called by free_all_symtabs */
 
-void 
+void
 clear_solib()
 {
   struct so_list *next;
   char *bfd_filename;
-  
+
   while (so_list_head)
     {
       if (so_list_head -> sections)
@@ -1163,19 +1163,19 @@ enable_break ()
 
   return 0;
 }
-  
+
 /*
-  
+
 GLOBAL FUNCTION
-  
+
 	solib_create_inferior_hook -- shared library startup support
-  
+
 SYNOPSIS
-  
+
 	void solib_create_inferior_hook()
-  
+
 DESCRIPTION
-  
+
 	When gdb starts up the inferior, it nurses it along (through the
 	shell) until it is ready to execute it's first instruction.  At this
 	point, this function gets called via expansion of the macro
@@ -1216,7 +1216,7 @@ FIXME
 	Also, what if child has exit()ed?  Must exit loop somehow.
   */
 
-void 
+void
 solib_create_inferior_hook()
 {
   if (!enable_break ())
@@ -1239,7 +1239,7 @@ solib_create_inferior_hook()
       wait_for_inferior ();
     }
   while (stop_signal != TARGET_SIGNAL_TRAP);
-  
+
   /* We are now either at the "mapping complete" breakpoint (or somewhere
      else, a condition we aren't prepared to deal with anyway), so adjust
      the PC as necessary after a breakpoint, disable the breakpoint, and
@@ -1295,7 +1295,7 @@ _initialize_solib()
 {
   add_com ("sharedlibrary", class_files, sharedlibrary_command,
 	   "Load shared object library symbols for files matching REGEXP.");
-  add_info ("sharedlibrary", info_sharedlibrary_command, 
+  add_info ("sharedlibrary", info_sharedlibrary_command,
 	    "Status of loaded shared object libraries.");
 
   add_show_from_set

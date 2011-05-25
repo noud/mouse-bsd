@@ -14,8 +14,8 @@ typedef struct dst_key {
 } DST_KEY;
 #endif /* HAS_DST_KEY */
 
-/* 
- * DST Crypto API defintions 
+/*
+ * DST Crypto API defintions
  */
 void     dst_init(void);
 int      dst_check_algorithm(const int);
@@ -126,7 +126,7 @@ u_int16_t dst_s_id_calc(const u_char *key_data, const int key_len);
 #define DST_EXT_FLAG            4
 #define DST_KEY_START		4
 
-#ifndef SIGN_F_NOKEY 
+#ifndef SIGN_F_NOKEY
 #define SIGN_F_NOKEY		0xC000
 #endif
 

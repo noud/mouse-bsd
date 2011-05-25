@@ -115,7 +115,7 @@ typedef void (*mii_statusreq_t) __P((struct mii_softc *));
  */
 struct mii_softc {
 	struct device mii_dev;		/* generic device glue */
-	
+
 	LIST_ENTRY(mii_softc) mii_list;	/* entry on parent's PHY list */
 
 	int mii_phy;			/* our MII address */

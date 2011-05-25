@@ -225,7 +225,7 @@ kbdioctl(dev_t dev,u_long cmd,register caddr_t data,int flag,struct proc *p)
 		case KIOCSDIRECT:
 			k->k_event_mode = *(int *)data;
 			return 0;
-		
+
 		case KIOCRINGBELL:
 			kb = (struct kbdbell *)data;
 			if (kb)
@@ -377,7 +377,7 @@ void	*junk1, *junk2;
 			}
 			if (kbd_do_modifier(code) && !k->k_event_mode)
 				continue;
-			
+
 			/*
 			 * if not in event mode, deliver straight to ite to
 			 * process key stroke
@@ -451,7 +451,7 @@ kbd_bell_gparms(volume, pitch, duration)
 
 	tmp = sound[0] | (sound[1] << 8);
 	*pitch = KBDBELLCLOCK / tmp;
-	
+
 	*volume = 0;
 }
 
@@ -477,7 +477,7 @@ kbd_bell_sparms(volume, pitch, duration)
 	f += 2;
 	sound[ 4] = f & 0xff;
 	sound[ 5] = (f >> 8) & 0xf;
-	
+
 	sound[11] = t & 0xff;
 	sound[12] = (t >> 8) & 0xff;
 
@@ -668,4 +668,4 @@ u_char	code;
 		return 1;
 	}
 	return 0;
-}	
+}

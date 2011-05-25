@@ -175,7 +175,7 @@ main(argc, argv)
 			mt_com.mt_count = 1;
 			if (ioctl(mtfd, MTIOCTOP, &mt_com) < 0)
 				err(2, "%s", tape);
-		
+
 			mt_com.mt_op = MTFSF;
 			mt_com.mt_count = count;
 			if (ioctl(mtfd, MTIOCTOP, &mt_com) < 0)

@@ -47,7 +47,7 @@
 #define WORKING_DOT_WORD
 
 #define md_number_to_chars number_to_chars_littleendian
-     
+
 /* We need to handle lo(), hi(), etc etc in .hword, .word, etc
    directives, so we have to parse "cons" expressions ourselves.  */
 #define TC_PARSE_CONS_EXPRESSION(EXP, NBYTES) parse_cons_expression_v850 (EXP)

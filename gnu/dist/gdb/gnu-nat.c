@@ -98,8 +98,8 @@ void inf_validate_procs (struct inf *inf);
 void inf_steal_exc_ports (struct inf *inf);
 void inf_restore_exc_ports (struct inf *inf);
 struct proc *inf_tid_to_proc (struct inf *inf, int tid);
-inline void inf_set_threads_resume_sc (struct inf *inf, 
-				       struct proc *run_thread, 
+inline void inf_set_threads_resume_sc (struct inf *inf,
+				       struct proc *run_thread,
 				       int run_others);
 inline int inf_set_threads_resume_sc_for_signal_thread (struct inf *inf);
 inline void inf_suspend (struct inf *inf);
@@ -502,7 +502,7 @@ proc_trace (struct proc *proc, int set)
     return 0;			/* the thread must be dead.  */
 
   proc_debug (proc, "tracing %s", set ? "on" : "off");
-  
+
   if (set)
     {
       /* XXX We don't get the exception unless the thread has its own
@@ -581,7 +581,7 @@ make_proc (struct inf *inf, mach_port_t port, int tid)
   return proc;
 }
 
-/* Frees PROC and any resources it uses, and returns the value of PROC's 
+/* Frees PROC and any resources it uses, and returns the value of PROC's
    next field.  */
 struct proc *
 _proc_free (struct proc *proc)
@@ -715,7 +715,7 @@ inf_startup (struct inf *inf, int pid)
 }
 
 /* close current process, if any, and attach INF to process PORT */
-void 
+void
 inf_set_pid (struct inf *inf, pid_t pid)
 {
   task_t task_port;
@@ -1026,7 +1026,7 @@ inf_update_procs (struct inf *inf)
 /* Sets the resume_sc of each thread in inf.  That of RUN_THREAD is set to 0,
    and others are set to their run_sc if RUN_OTHERS is true, and otherwise
    their pause_sc.  */
-inline void 
+inline void
 inf_set_threads_resume_sc (struct inf *inf,
 			   struct proc *run_thread, int run_others)
 {
@@ -1277,7 +1277,7 @@ inf_signal (struct inf *inf, enum target_signal sig)
 	 happens. */
       {
 	inf_debug (inf, "sending %s to unstopped process (so resuming signal thread)", NAME);
-	err = 
+	err =
 	  INF_RESUME_MSGPORT_RPC (inf, msg_sig_post_untraced (msgport,
 							      host_sig, 0, refport));
       }
@@ -1475,7 +1475,7 @@ gnu_wait (int tid, struct target_waitstatus *status)
     {
       thread->sc = 1;
       inf_update_suspends (inf);
-    }      
+    }
 
   inf_debug (inf, "returning tid = %d, status = %s (%d)", tid,
 	     status->kind == TARGET_WAITKIND_EXITED ? "EXITED"
@@ -2039,7 +2039,7 @@ gnu_detach (args, from_tty)
 	printf_unfiltered ("Detaching from pid %d\n", current_inferior->pid);
       gdb_flush (gdb_stdout);
     }
-  
+
   inf_detach (current_inferior);
 
   inferior_pid = 0;
@@ -2154,7 +2154,7 @@ gnu_write_inferior (task, addr, myaddr, length)
 {
   error_t err = 0;
   vm_address_t low_address       = (vm_address_t) trunc_page (addr);
-  vm_size_t    aligned_length = 
+  vm_size_t    aligned_length =
     			(vm_size_t) round_page (addr+length) - low_address;
   pointer_t    copied;
   int	       copy_count;
@@ -2199,7 +2199,7 @@ gnu_write_inferior (task, addr, myaddr, length)
 	vm_offset_t offset;
 	vm_size_t   region_length = remaining_length;
 	vm_address_t old_address  = region_address;
-    
+
 	err = vm_region (task,
 			 &region_address,
 			 &region_length,
@@ -2231,10 +2231,10 @@ gnu_write_inferior (task, addr, myaddr, length)
 	  }
 
 	/* Chain the regions for later use */
-	region_element = 
+	region_element =
 	  (struct vm_region_list *)
 	    obstack_alloc (&region_obstack, sizeof (struct vm_region_list));
-    
+
 	region_element->protection = protection;
 	region_element->start      = region_address;
 	region_element->length     = region_length;
@@ -2242,7 +2242,7 @@ gnu_write_inferior (task, addr, myaddr, length)
 	/* Chain the regions along with protections */
 	region_element->next = region_head;
 	region_head          = region_element;
-	
+
 	region_address += region_length;
 	remaining_length = remaining_length - region_length;
       }
@@ -2250,12 +2250,12 @@ gnu_write_inferior (task, addr, myaddr, length)
     /* If things fail after this, we give up.
      * Somebody is messing up inferior_task's mappings.
      */
-    
+
     /* Enable writes to the chained vm regions */
     for (scan = region_head; scan; scan = scan->next)
       {
 	boolean_t protection_changed = FALSE;
-	
+
 	if (!(scan->protection & VM_PROT_WRITE))
 	  {
 	    err = vm_protect (task,
@@ -2272,12 +2272,12 @@ gnu_write_inferior (task, addr, myaddr, length)
 		    copied,
 		    aligned_length);
     CHK_GOTO_OUT ("vm_write failed", err);
-	
+
     /* Set up the original region protections, if they were changed */
     for (scan = region_head; scan; scan = scan->next)
       {
 	boolean_t protection_changed = FALSE;
-	
+
 	if (!(scan->protection & VM_PROT_WRITE))
 	  {
 	    err = vm_protect (task,
@@ -2294,7 +2294,7 @@ gnu_write_inferior (task, addr, myaddr, length)
   if (deallocate)
     {
       obstack_free (&region_obstack, 0);
-      
+
       (void) vm_deallocate (mach_task_self (),
 			    copied,
 			    copy_count);
@@ -2644,7 +2644,7 @@ set_task_exc_port_cmd (char *args, int from_tty)
   steal_exc_port (inf->task, parse_and_eval_address (args));
 }
 
-static void 
+static void
 set_stopped_cmd (char *args, int from_tty)
 {
   cur_inf ()->stopped = _parse_bool_arg (args, "yes", "no", "set stopped");
@@ -2659,7 +2659,7 @@ show_stopped_cmd (char *args, int from_tty)
 		     inf->stopped ? "is" : "isn't");
 }
 
-static void 
+static void
 set_sig_thread_cmd (char *args, int from_tty)
 {
   int tid;
@@ -2693,7 +2693,7 @@ show_sig_thread_cmd (char *args, int from_tty)
     printf_unfiltered ("There is no signal thread.\n");
 }
 
-static void 
+static void
 set_signals_cmd (char *args, int from_tty)
 {
   int trace;
@@ -2717,7 +2717,7 @@ show_signals_cmd (char *args, int from_tty)
 		     : (inf->want_signals ? "will be" : "won't be"));
 }
 
-static void 
+static void
 set_exceptions_cmd (char *args, int from_tty)
 {
   struct inf *inf = cur_inf ();
@@ -3158,7 +3158,7 @@ flush_inferior_icache(pc, amount)
 {
   vm_machine_attribute_val_t flush = MATTR_VAL_ICACHE_FLUSH;
   error_t   ret;
-  
+
   ret = vm_machine_attribute (current_inferior->task->port,
 			      pc,
 			      amount,

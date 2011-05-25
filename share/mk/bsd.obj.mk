@@ -35,7 +35,7 @@ __objdir=	obj
 
 .if defined(USR_OBJMACHINE)
 __usrobjdir=	${BSDOBJDIR}.${MACHINE}
-__usrobjdirpf=	
+__usrobjdirpf=
 .else
 __usrobjdir=	${BSDOBJDIR}
 .if defined(OBJMACHINE)

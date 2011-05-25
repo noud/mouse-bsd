@@ -10,19 +10,19 @@
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice in the documentation and/or other materials provided with 
+ *    notice in the documentation and/or other materials provided with
  *    the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
- * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN 
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -120,7 +120,7 @@ lsystem(cmd, donemsg)
 #if HAVE_DUP
 	/*
 	 * Force standard input to be the user's terminal
-	 * (the normal standard input), even if less's standard input 
+	 * (the normal standard input), even if less's standard input
 	 * is coming from a pipe.
 	 */
 	inp = dup(0);
@@ -143,7 +143,7 @@ lsystem(cmd, donemsg)
 			p = save(shell);
 		else
 		{
-			p = (char *) ecalloc(strlen(shell) + strlen(cmd) + 7, 
+			p = (char *) ecalloc(strlen(shell) + strlen(cmd) + 7,
 					sizeof(char));
 			sprintf(p, "%s -c \"%s\"", shell, cmd);
 		}
@@ -268,7 +268,7 @@ pipe_mark(c, cmd)
 		tpos = ch_zero();
 	bpos = position(BOTTOM);
 
- 	if (c == '.') 
+ 	if (c == '.')
  		return (pipe_data(cmd, tpos, bpos));
  	else if (mpos <= tpos)
  		return (pipe_data(cmd, mpos, bpos));
@@ -343,7 +343,7 @@ pipe_data(cmd, spos, epos)
 	/*
 	 * Finish up the last line.
 	 */
- 	while (c != '\n' && c != EOI ) 
+ 	while (c != '\n' && c != EOI )
  	{
  		c = ch_forw_get();
  		if (c == EOI)
@@ -415,7 +415,7 @@ static int pids[_NFILE] = { 0, 0, 0, 0, 0, 0, 0, 0,
                             0, 0, 0, 0, 0, 0, 0, 0,
                             0, 0, 0, 0, 0, 0, 0, 0,
                             0, 0, 0, 0, 0, 0, 0, 0 };
-/* 
+/*
  * p o p e n
  */
 FILE *popen(name, mode)
@@ -461,7 +461,7 @@ char     *name,
         fflush(stdout);
     fdsav = dup(fd);
     close(fd);
- 
+
     creat("/pipe", S_IWRITE+S_IREAD);
     pid = os9exec(os9forkc, argv[0], argv, environ, 0, 0, 3);
     fd2 = dup(fd);

@@ -744,7 +744,7 @@ NAME(aout,machine_type) (arch, machine, unknown)
   case bfd_arch_arm:
     if (machine == 0)	arch_flags = M_ARM;
     break;
-    
+
   case bfd_arch_mips:
     switch (machine) {
     case 0:
@@ -909,7 +909,7 @@ adjust_z_magic (abfd, execp)
   file_ptr text_end;
   CONST struct aout_backend_data *abdp;
   int ztih;			/* Nonzero if text includes exec header.  */
-  
+
   abdp = aout_backend_info (abfd);
 
   /* Text.  */
@@ -977,7 +977,7 @@ adjust_z_magic (abfd, execp)
     }
   obj_datasec(abfd)->filepos = (obj_textsec(abfd)->filepos
 				+ obj_textsec(abfd)->_raw_size);
-  
+
   /* Fix up exec header while we're at it.  */
   execp->a_text = obj_textsec(abfd)->_raw_size;
   if (ztih && (!abdp || (abdp && !abdp->exec_header_not_counted)))
@@ -1022,7 +1022,7 @@ adjust_n_magic (abfd, execp)
   file_ptr pos = adata(abfd).exec_bytes_size;
   bfd_vma vma = 0;
   int pad;
-  
+
   /* Text.  */
   obj_textsec(abfd)->filepos = pos;
   if (!obj_textsec(abfd)->user_set_vma)
@@ -1037,7 +1037,7 @@ adjust_n_magic (abfd, execp)
   if (!obj_datasec(abfd)->user_set_vma)
     obj_datasec(abfd)->vma = BFD_ALIGN (vma, adata(abfd).segment_size);
   vma = obj_datasec(abfd)->vma;
-  
+
   /* Since BSS follows data immediately, see if it needs alignment.  */
   vma += obj_datasec(abfd)->_raw_size;
   pad = align_power (vma, obj_bsssec(abfd)->alignment_power) - vma;
@@ -1279,7 +1279,7 @@ aout_get_external_symbols (abfd)
       obj_aout_external_syms (abfd) = syms;
       obj_aout_external_sym_count (abfd) = count;
     }
-      
+
   if (obj_aout_external_strings (abfd) == NULL
       && exec_hdr (abfd)->a_syms != 0)
     {
@@ -1608,7 +1608,7 @@ translate_to_native_sym_flags (abfd, cache_ptr, sym_pointer)
       return (*aout_backend_info (abfd)->translate_to_native_sym_flags)
              (abfd, cache_ptr, sym_pointer);
     }
-  
+
   /* Mask out any existing type bits in case copying from one section
      to another.  */
   sym_pointer->e_type[0] &= ~N_TYPE;
@@ -1622,7 +1622,7 @@ translate_to_native_sym_flags (abfd, cache_ptr, sym_pointer)
 	 file.  */
       (*_bfd_error_handler)
 	("%s: can not represent section for symbol `%s' in a.out object file format",
-	 bfd_get_filename (abfd), 
+	 bfd_get_filename (abfd),
 	 cache_ptr->name != NULL ? cache_ptr->name : "*unknown*");
       bfd_set_error (bfd_error_nonrepresentable_section);
       return false;
@@ -4794,7 +4794,7 @@ aout_link_input_section_std (finfo, input_bfd, input_section, relocs,
 
 #ifdef MY_reloc_howto
       howto = MY_reloc_howto(input_bfd, rel, r_index, r_extern, r_pcrel);
-#else      
+#else
       {
 	int r_jmptable;
 	int r_relative;

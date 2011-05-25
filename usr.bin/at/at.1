@@ -129,7 +129,7 @@ An
 .Nm at
 or
 .Nm batch
-command invoked from a 
+command invoked from a
 .Xr su 1
 shell will retain the current userid.
 The user will be mailed standard error and standard output from his
@@ -137,7 +137,7 @@ commands, if any. Mail will be sent using the command
 .Xr sendmail 8 .
 If
 .Nm at
-is executed from a 
+is executed from a
 .Xr su 1
 shell, the owner of the login shell will receive the mail.
 .Pp
@@ -163,7 +163,7 @@ to use
 If neither exists, only the superuser is allowed use of
 .Nm at .
 .Pp
-An empty 
+An empty
 .Pa /var/at/at.deny
 means that every user is allowed use these commands.
 This is the default configuration.
@@ -176,7 +176,7 @@ Uses the specified queue.
 A queue designation consists of a single letter.  Valid queue designations
 range from
 .Nm a
-to 
+to
 .Nm z
 and
 .Nm A
@@ -250,7 +250,7 @@ Job-creation lock file.
 If the file
 .Pa /var/run/utmp
 is not available or corrupted, or if the user is not logged on at the
-time 
+time
 .Nm at
 is invoked, the mail is sent to the userid found
 in the environment variable

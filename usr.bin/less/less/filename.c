@@ -10,19 +10,19 @@
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice in the documentation and/or other materials provided with 
+ *    notice in the documentation and/or other materials provided with
  *    the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
- * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN 
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -126,7 +126,7 @@ dirfile(dirname, filename)
 	/*
 	 * Construct the full pathname.
 	 */
-	pathname = (char *) calloc(strlen(dirname) + strlen(filename) + 2, 
+	pathname = (char *) calloc(strlen(dirname) + strlen(filename) + 2,
 					sizeof(char));
 	if (pathname == NULL)
 		return (NULL);
@@ -215,7 +215,7 @@ fexpand(s)
 	 (c) == '#' ? old_ifile : NULL_IFILE)
 
 	/*
-	 * Make one pass to see how big a buffer we 
+	 * Make one pass to see how big a buffer we
 	 * need to allocate for the expanded string.
 	 */
 	n = 0;
@@ -311,8 +311,8 @@ fcomplete(s)
 	/*
 	 * But in DOS, we have to glob "s*.*".
 	 * But if the final component of the filename already has
-	 * a dot in it, just do "s*".  
-	 * (Thus, "FILE" is globbed as "FILE*.*", 
+	 * a dot in it, just do "s*".
+	 * (Thus, "FILE" is globbed as "FILE*.*",
 	 *  but "FILE.A" is globbed as "FILE.A*").
 	 */
 	{
@@ -403,8 +403,8 @@ readfd(fd)
 	int ch;
 	char *buf;
 	char *p;
-	
-	/* 
+
+	/*
 	 * Make a guess about how many chars in the string
 	 * and allocate a buffer to hold it.
 	 */
@@ -495,7 +495,7 @@ esc_metachars(s)
 			if (*esc == '\0')
 			{
 				/*
-				 * We've got a metachar, but this shell 
+				 * We've got a metachar, but this shell
 				 * doesn't support escape chars.  Give up.
 				 */
 				return (NULL);
@@ -559,7 +559,7 @@ shellcmd(cmd)
 		/*
 		 * Try to escape any metacharacters in the command.
 		 * If we can't do that, just put the command in quotes.
-		 * (But that doesn't work well if the command itself 
+		 * (But that doesn't work well if the command itself
 		 * contains quotes.)
 		 */
 		if ((esccmd = esc_metachars(cmd)) == NULL)
@@ -574,7 +574,7 @@ shellcmd(cmd)
 		} else
 		{
 			/*
-			 * Read the output of <$SHELL -c cmd>.  
+			 * Read the output of <$SHELL -c cmd>.
 			 * No quotes; use the escaped cmd.
 			 */
 			scmd = (char *) ecalloc(strlen(shell) + strlen(esccmd) + 5,
@@ -672,7 +672,7 @@ lglob(filename)
 	register int spaces_in_file;
 #endif
 	DECL_GLOB_NAME(fnd,drive,dir,fname,ext,handle)
-	
+
 	GLOB_FIRST_NAME(filename, &fnd, handle);
 	if (GLOB_FIRST_FAILED(handle))
 	{
@@ -710,7 +710,7 @@ lglob(filename)
 		}
 #if SPACES_IN_FILENAMES
 		if (spaces_in_file)
-			sprintf(p, "%c%s%s%s%c ", openquote, 
+			sprintf(p, "%c%s%s%s%c ", openquote,
 				drive, dir, fnd.GLOB_NAME, closequote);
 		else
 #endif
@@ -745,7 +745,7 @@ lglob(filename)
 		/*
 		 * There may be dangerous metachars in this name.
 		 * We can't risk passing it to the shell.
-		 * {{ For example, do "!;TAB" when the first file 
+		 * {{ For example, do "!;TAB" when the first file
 		 *    in the dir is named "rm". }}
 		 */
 		free(filename);
@@ -755,7 +755,7 @@ lglob(filename)
 	 * Invoke lessecho, and read its output (a globbed list of filenames).
 	 */
 	cmd = (char *) ecalloc(strlen(lessecho) + strlen(s) + 24, sizeof(char));
-	sprintf(cmd, "%s -p0x%x -d0x%x -- %s", 
+	sprintf(cmd, "%s -p0x%x -d0x%x -- %s",
 		lessecho, openquote, closequote, s);
 	fd = shellcmd(cmd);
 	free(s);
@@ -792,7 +792,7 @@ lglob(filename)
 }
 
 /*
- * See if we should open a "replacement file" 
+ * See if we should open a "replacement file"
  * instead of the file we're about to open.
  */
 	public char *
@@ -811,7 +811,7 @@ open_altfile(filename, pf, pfd)
 #if HAVE_FILENO
 	int returnfd = 0;
 #endif
-	
+
 	if (secure)
 		return (NULL);
 	ch_ungetchar(-1);
@@ -822,7 +822,7 @@ open_altfile(filename, pf, pfd)
 	if (*lessopen == '|')
 	{
 		/*
-		 * If LESSOPEN starts with a |, it indicates 
+		 * If LESSOPEN starts with a |, it indicates
 		 * a "pipe preprocessor".
 		 */
 #if HAVE_FILENO
@@ -842,7 +842,7 @@ open_altfile(filename, pf, pfd)
 		 */
 		return (NULL);
 	}
-	cmd = (char *) ecalloc(strlen(lessopen) + strlen(gfilename) + 2, 
+	cmd = (char *) ecalloc(strlen(lessopen) + strlen(gfilename) + 2,
 			sizeof(char));
 	sprintf(cmd, lessopen, gfilename);
 	fd = shellcmd(cmd);
@@ -907,7 +907,7 @@ close_altfile(altfilename, filename, pipefd)
 	char *galtfilename;
 	FILE *fd;
 	char *cmd;
-	
+
 	if (secure)
 		return;
 	if (pipefd != NULL)
@@ -925,7 +925,7 @@ close_altfile(altfilename, filename, pipefd)
 		free(gfilename);
 		return;
 	}
-	cmd = (char *) ecalloc(strlen(lessclose) + strlen(gfilename) + 
+	cmd = (char *) ecalloc(strlen(lessclose) + strlen(gfilename) +
 			strlen(galtfilename) + 2, sizeof(char));
 	sprintf(cmd, lessclose, gfilename, galtfilename);
 	fd = shellcmd(cmd);
@@ -936,7 +936,7 @@ close_altfile(altfilename, filename, pipefd)
 		pclose(fd);
 #endif
 }
-		
+
 /*
  * Is the specified file a directory?
  */
@@ -987,7 +987,7 @@ bad_file(filename)
 	{
 		static char is_dir[] = " is a directory";
 
-		m = (char *) ecalloc(strlen(filename) + sizeof(is_dir), 
+		m = (char *) ecalloc(strlen(filename) + sizeof(is_dir),
 			sizeof(char));
 		strcpy(m, filename);
 		strcat(m, is_dir);

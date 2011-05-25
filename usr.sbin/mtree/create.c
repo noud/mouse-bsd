@@ -121,7 +121,7 @@ cwalk()
 			if (!dflag)
 				statf(p);
 			break;
-			
+
 		}
 	(void)fts_close(t);
 	if (sflag && keys & F_CKSUM)
@@ -141,7 +141,7 @@ statf(p)
 
 	strsvis(codebuf, p->fts_name, VISFLAGS, extra);
 	if (S_ISDIR(p->fts_statp->st_mode))
-		indent = printf("%s", codebuf); 
+		indent = printf("%s", codebuf);
 	else
 		indent = printf("    %s", codebuf);
 

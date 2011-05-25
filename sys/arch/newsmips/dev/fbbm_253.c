@@ -64,7 +64,7 @@ extern char *ext_fnt_addr[];
 extern short zero[];
 
 #define NOP		{ int j; for (j = 0; j < 40; j++); }
-	
+
 #define	VRAM_START	(unsigned int *)(0x88000000)
 #define VRAM_WIDTH	(2048/32)
 

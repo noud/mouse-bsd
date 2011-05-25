@@ -25,7 +25,7 @@ fs /dev/dk1b {
 fs /dev/dk4b {
 	fstype = swap
 }
-	
+
 // root
 fs /dev/dk0a {
 	fstype = FSTYPE_UFS
@@ -35,7 +35,7 @@ fs /dev/dk0a {
 	dumpset = csg_nightly
 	mount / {}
 }
-	
+
 // root backup
 fs /dev/dk4a {
 	fstype = FSTYPE_UFS
@@ -44,7 +44,7 @@ fs /dev/dk4a {
 	passno = 4
 	mount /backup {}
 }
-	
+
 // usr
 fs /dev/dk4d {
 	fstype = FSTYPE_UFS
@@ -54,7 +54,7 @@ fs /dev/dk4d {
 	dumpset = csg_nightly
 	mount /usr {}
 }
-	
+
 // tmp
 fs /dev/dk1a {
 	fstype = FSTYPE_UFS
@@ -63,7 +63,7 @@ fs /dev/dk1a {
 	passno = 2
 	mount /tmp {}
 }
-	
+
 // var
 fs /dev/dk4g {
 	fstype = FSTYPE_UFS
@@ -73,7 +73,7 @@ fs /dev/dk4g {
 	dumpset = csg_nightly
 	mount /var {}
 }
-	
+
 // shared stuff - usually for Suns
 fs /dev/dk5f {
 	fstype = FSTYPE_UFS
@@ -116,7 +116,7 @@ fs /dev/dk5f {
 		"
 	}
 }
-	
+
 // spool stuff, including the news
 fs /dev/dk4f {
 	fstype = FSTYPE_UFS
@@ -130,7 +130,7 @@ fs /dev/dk4f {
 		"
 	}
 }
-	
+
 fs /dev/dk3h {
 	fstype = FSTYPE_UFS
 	opts = DEFAULT_OPTS
@@ -138,7 +138,7 @@ fs /dev/dk3h {
 	passno = 2
 	mount /var/spool/News {}
 }
-	
+
 // this is the public ftp area
 fs /dev/dk3f {
 	fstype = FSTYPE_UFS
@@ -160,7 +160,7 @@ fs /dev/dk3f {
 		}
 	}
 }
-	
+
 // sources - local and public
 fs /dev/dk7c {
 	fstype = FSTYPE_UFS
@@ -182,7 +182,7 @@ fs /dev/dk7c {
 		"
 	}
 }
-	
+
 // sources - utx
 fs /dev/dk4e {
 	fstype = FSTYPE_UFS
@@ -197,7 +197,7 @@ fs /dev/dk4e {
 		"
 	}
 }
-	
+
 // home directories
 fs /dev/dk1h {
 	fstype = FSTYPE_UFS
@@ -254,7 +254,7 @@ fs /dev/dk1h {
 		"
 	}
 }
-	
+
 fs /dev/dk0h {
 	fstype = FSTYPE_UFS
 	opts = rw,quota
@@ -312,7 +312,7 @@ fs /dev/dk0h {
 		"
 	}
 }
-	
+
 // booting diskless suns
 fs /dev/dk5e {
 	fstype = FSTYPE_UFS
@@ -334,7 +334,7 @@ fs /dev/dk5e {
 		}
 	}
 }
-	
+
 fs /dev/dk5a {
 	fstype = FSTYPE_UFS
 	opts = DEFAULT_OPTS
@@ -350,7 +350,7 @@ fs /dev/dk5a {
 		"
 	}
 }
-	
+
 fs /dev/dk5d {
 	fstype = FSTYPE_UFS
 	opts = DEFAULT_OPTS

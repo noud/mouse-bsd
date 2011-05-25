@@ -107,7 +107,7 @@ configure()
 
 	TAILQ_INIT(&deferred_config_queue);
 	TAILQ_INIT(&interrupt_config_queue);
-	TAILQ_INIT(&alldevs); 
+	TAILQ_INIT(&alldevs);
 	TAILQ_INIT(&allevents);
 
 	/*
@@ -378,7 +378,7 @@ config_attach(parent, cf, aux, print)
 			new *= 2;
 		cd->cd_ndevs = new;
 		nsp = malloc(new * sizeof(void *), M_DEVBUF,
-		    cold ? M_NOWAIT : M_WAITOK);	
+		    cold ? M_NOWAIT : M_WAITOK);
 		if (nsp == 0)
 			panic("config_attach: %sing dev array",
 			    old != 0 ? "expand" : "creat");

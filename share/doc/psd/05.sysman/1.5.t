@@ -221,7 +221,7 @@ The F_DUPFD \fIcmd\fP provides identical functionality to
 it is provided solely for POSIX compatibility.
 The F_SETFD \fIcmd\fP can be used to set the close-on-exec
 flag for a file descriptor.
-The F_SETFL \fIcmd\fP may be used to set a descriptor in 
+The F_SETFL \fIcmd\fP may be used to set a descriptor in
 non-blocking I/O mode and/or enable signaling when I/O is possible.
 F_SETOWN may be used to specify a process or process
 group to be signaled when using the latter mode of operation
@@ -229,7 +229,7 @@ or when urgent indications arise.
 The
 .Fn fcntl
 system call also provides POSIX-compliant byte-range locking on files.
-However the semantics of unlocking on every 
+However the semantics of unlocking on every
 .Fn close
 rather than last close makes them useless.
 Much better semantics and faster locking are provided by the

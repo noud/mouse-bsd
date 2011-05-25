@@ -69,7 +69,7 @@ struct linux_utsname {
 };
 
 struct linux_tms {
-	linux_clock_t ltms_utime;	
+	linux_clock_t ltms_utime;
 	linux_clock_t ltms_stime;
 	linux_clock_t ltms_cutime;
 	linux_clock_t ltms_cstime;

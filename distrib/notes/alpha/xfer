@@ -1,4 +1,4 @@
-.\"	$NetBSD: xfer,v 1.5 1999/01/13 07:30:02 ross Exp $	
+.\"	$NetBSD: xfer,v 1.5 1999/01/13 07:30:02 ross Exp $
 .Pp
 A large number of different media types can be used to hold the
 binary distribution sets, but they must originally be obtained

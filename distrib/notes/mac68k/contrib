@@ -25,7 +25,7 @@ Takashi Hamada and John Wittkoski beating the direct ADB hardware
 driver into submission.
 .It
 David Huang for getting MACE Ethernet and basic DMA working on the
-AV Macs. 
+AV Macs.
 .It
 Scott Jann for acquiring a IIx and a IIci, used for building and
 testing release sets.

@@ -8,7 +8,7 @@ static const char rcsid[] = "Id: db_load.c,v 8.97 1999/10/30 03:21:35 vixie Exp"
 /*
  * Copyright (c) 1986, 1988, 1990
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -24,7 +24,7 @@ static const char rcsid[] = "Id: db_load.c,v 8.97 1999/10/30 03:21:35 vixie Exp"
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -40,14 +40,14 @@ static const char rcsid[] = "Id: db_load.c,v 8.97 1999/10/30 03:21:35 vixie Exp"
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -149,11 +149,11 @@ static u_int32_t	wordtouint32(char *);
 static void		fixup_soa(const char *fn, struct zoneinfo *zp);
 static int		get_nxt_types(u_char *, FILE *, const char *);
 
-static int		parse_sig_rr(char *, int, u_char *, int, FILE *,  
+static int		parse_sig_rr(char *, int, u_char *, int, FILE *,
 				     struct zoneinfo *, char *, u_int32_t ,
 				     enum context , enum transport , char **);
-static int		parse_key_rr(char *, int, u_char *, int, FILE *, 
-				     struct zoneinfo *, char *, enum context, 
+static int		parse_key_rr(char *, int, u_char *, int, FILE *,
+				     struct zoneinfo *, char *, enum context,
 				     enum transport, char **);
 
 static int		parse_cert_rr(char *, int, u_char *, int, FILE *, char **);
@@ -577,7 +577,7 @@ db_load(const char *filename, const char *in_origin,
 				errs++;
 				break;
 			}
-			if (ttl == USE_MINIMUM) 
+			if (ttl == USE_MINIMUM)
 				ttl = zp->z_minimum;
 			context = ns_ownercontext(type, transport);
 			if (!ns_nameok(NULL, domain, class, zp, transport, context,
@@ -641,7 +641,7 @@ db_load(const char *filename, const char *in_origin,
 				/* FALLTHROUGH */
 			soa_rp_minfo:
 				(void) strcpy((char *)data, buf);
-			       
+
 			        MAKENAME_OK((char *)data);
 				cp = (char *)(data + strlen((char *)data) + 1);
 				if (!getword(cp,
@@ -969,7 +969,7 @@ db_load(const char *filename, const char *in_origin,
 				break;
 
 			case ns_t_nxt:
-			case ns_t_key: 
+			case ns_t_key:
 			case ns_t_cert:
 		        case ns_t_sig: {
 				char *errmsg = NULL;
@@ -1032,7 +1032,7 @@ db_load(const char *filename, const char *in_origin,
 			dp->d_clev = clev;
 			c = db_set_update(domain, dp, &state, dbflags,
 					  (dataflags & DB_F_HINT) != 0 ?
-					  &fcachetab : &hashtab, 
+					  &fcachetab : &hashtab,
 					  empty_from, &rrcount, lineno,
 					  filename);
 			if (c == CNAMEANDOTHER)
@@ -1120,7 +1120,7 @@ db_err(int err, char *domain, int type, const char *filename, int lineno) {
 		ns_notice(ns_log_load, "%s:%d:%s: CNAME and OTHER data error",
 			  filename, lineno, domain);
 	if (err != DATAEXISTS)
-		ns_debug(ns_log_load, 1, "update failed %s %d", 
+		ns_debug(ns_log_load, 1, "update failed %s %d",
 			 domain, type);
 }
 
@@ -1148,7 +1148,7 @@ gettoken(FILE *fp, const char *src) {
 					return (DEFAULTTTL);
 			}
 			ns_notice(ns_log_db,
-				  "%s:%d: Unknown $ option: $%s", 
+				  "%s:%d: Unknown $ option: $%s",
 				  src, lineno, op);
 			return (ERRTOK);
 
@@ -1377,7 +1377,7 @@ getttl(FILE *fp, const char *fn, int lineno, u_int32_t *ttl, int *multiline) {
 static int
 getmlword(char *buf, size_t size, FILE *fp, int preserve) {
 	char *p;
-	
+
 	do {
 		while (!getword (buf, size, fp, preserve)) {
 			/* No more words on this line.  See if doing the
@@ -1518,8 +1518,8 @@ getnum(FILE *fp, const char *src, int opt) {
 	if (getnum_error)
 		return (0);
 	if (m > 9999) {
-		ns_info(ns_log_db, 
-			"%s:%d: number after the decimal point exceeds 9999", 
+		ns_info(ns_log_db,
+			"%s:%d: number after the decimal point exceeds 9999",
 			src, lineno);
 		getnum_error = 1;
 		return (0);
@@ -1741,7 +1741,7 @@ getprotocol(FILE *fp, const char *src) {
 	char b[MAXLEN];
 
 	(void) getword(b, sizeof(b), fp, 0);
-		
+
 	k = protocolnumber(b);
 	if (k == -1)
 		ns_info(ns_log_db, "%s:%d: unknown protocol: %s.",
@@ -1831,7 +1831,7 @@ wordtouint32(buf)
 		}
 	/* Check for truncation between u_long and u_int32_t */
 	res2 = result;
-	if (res2 != result)		
+	if (res2 != result)
 		wordtouint32_error = 1;
 	return (res2);
 }
@@ -1892,13 +1892,13 @@ getcharstring(char *buf, char *data, int type,
 }
 
 
-/* 
+/*
  * get_nxt_types(): Read the list of types in the NXT record.
  *
  * Data is the array where the bit flags are stored; it must
- * contain at least ns_t_any/NS_NXT_BITS bytes. 
+ * contain at least ns_t_any/NS_NXT_BITS bytes.
  * FP is the input FILE *.
- * Filename is the sourcefile 
+ * Filename is the sourcefile
  *
  * The result is how many bytes are significant in the result.
  * ogud@tis.com 1995
@@ -1965,7 +1965,7 @@ fixup_soa(const char *fn, struct zoneinfo *zp) {
 			   fn, zp->z_expire);
 
 	/*
-	 * Sanity: maximum down time if we havn't talked for six months 
+	 * Sanity: maximum down time if we havn't talked for six months
 	 * war must have broken out.
 	 */
 	if (zp->z_expire > ( 183 * 24 * 3600))
@@ -1989,12 +1989,12 @@ fixup_soa(const char *fn, struct zoneinfo *zp) {
 
 static int
 parse_sig_rr(char *buf, int buf_len, u_char *data, int data_size,
-	     FILE *fp, struct zoneinfo *zp, char *domain, u_int32_t ttl, 
+	     FILE *fp, struct zoneinfo *zp, char *domain, u_int32_t ttl,
 	     enum context domain_ctx, enum transport transport, char **errmsg)
 {
 /* The SIG record looks like this in the db file:
    Name Cl SIG RRtype Algid [OTTL] Texp Tsig Kfoot Signer Sig
-  
+
    where:  Name and Cl are as usual
    SIG     is a keyword
    RRtype  is a char string
@@ -2010,7 +2010,7 @@ parse_sig_rr(char *buf, int buf_len, u_char *data, int data_size,
    that follows it, which is larger than any u_int.
    The Labels field in the binary RR does not appear in the
    text RR.
-  
+
    It's too crazy to run these pages of SIG code at the right
    margin.  I'm exdenting them for readability.
 */
@@ -2026,11 +2026,11 @@ parse_sig_rr(char *buf, int buf_len, u_char *data, int data_size,
 	char *errtype = "SIG error";
 	int i, my_buf_size = MAXDATA, errs = 0;
 
-	
+
                 /* The TTL gets checked against the Original TTL,
-                   and bounded by the signature expiration time, which 
+                   and bounded by the signature expiration time, which
                    are both under the signature.  We can't let TTL drift
-                   based on the SOA record.  If defaulted, fix it now. 
+                   based on the SOA record.  If defaulted, fix it now.
                    (It's not clear to me why USE_MINIMUM isn't eliminated
                    before putting ALL RR's into the database.  -gnu@toad.com) */
 	if (ttl == USE_MINIMUM)
@@ -2038,14 +2038,14 @@ parse_sig_rr(char *buf, int buf_len, u_char *data, int data_size,
 
 	i = 0;
 	data[i] = '\0';
-	
+
 	getmlword_nesting = 0; /* KLUDGE err recovery */
-	
+
 	/* RRtype (char *)
 	 * if old style inp will contain the next token
 	 *copy that into buffer, otherwise read from file
 	 */
-	if (buf && buf_len == 0) 
+	if (buf && buf_len == 0)
 		if (!getmlword((char*)buf, my_buf_size, fp, 0))
 			ERRTO("SIG record doesn't specify type");
 	sig_type = sym_ston(__p_type_syms, buf, &success);
@@ -2064,7 +2064,7 @@ parse_sig_rr(char *buf, int buf_len, u_char *data, int data_size,
 	cp = &data[i];
 	PUTSHORT((u_int16_t)sig_type, cp);
 	i += 2;
-	
+
 	/* Algorithm id (8-bit decimal) */
 	if (!getmlword(buf, my_buf_size, fp, 0))
 		ERRTO("Missing algorithm ID");
@@ -2073,7 +2073,7 @@ parse_sig_rr(char *buf, int buf_len, u_char *data, int data_size,
 		ERRTO("Bad algorithm number");
 	data[i] = (u_char) al;
 	i++;
-	
+
 	/*
 	 * Labels (8-bit decimal)
 	 */
@@ -2084,7 +2084,7 @@ parse_sig_rr(char *buf, int buf_len, u_char *data, int data_size,
 		ERRTO("Bad label count number");
 	data[i] = (u_char) la;
 	i++;
-	
+
 	/*
 	 * OTTL (optional u_int32_t) and
 	 * Texp (u_int32_t date)
@@ -2121,7 +2121,7 @@ parse_sig_rr(char *buf, int buf_len, u_char *data, int data_size,
 	cp = &data[i];
 	PUTLONG(exptime, cp);
 	i += 4;
-	
+
 	/* Tsig (u_int32_t) */
 	if (!getmlword(buf, my_buf_size, fp, 0))
 		ERRTO("Missing signature time");
@@ -2131,7 +2131,7 @@ parse_sig_rr(char *buf, int buf_len, u_char *data, int data_size,
 	cp = &data[i];
 	PUTLONG(signtime, cp);
 	i += 4;
-	
+
 	/* Kfootprint (unsigned_16) */
 	if (!getmlword(buf, my_buf_size, fp, 0))
 		ERRTO("Missing key footprint");
@@ -2164,28 +2164,28 @@ parse_sig_rr(char *buf, int buf_len, u_char *data, int data_size,
 		if (siglen < 0)
 			ERRTO("Signature block bad");
 	}
-	
+
 	/* set total length and we're done! */
 	n = i + siglen;
-	
+
 	/*
 	 * Check signature time, expiration, and adjust TTL.  Note
 	 * that all time values are in GMT (UTC), *not* local time.
 	 */
-	
+
 	now = time (0); /* need to find a better place for this  XXX ogud */
 	/* Don't let bogus name servers increase the signed TTL */
 	if (ttl > origTTL)
 		ERRTO("TTL is greater than signed original TTL");
-	
+
 	/* Don't let bogus signers "sign" in the future.  */
 	if (signtime > (u_int32_t)now)
 		ERRTO("signature time is in the future");
-	
+
 	/* Ignore received SIG RR's that are already expired.  */
 	if (exptime <= (u_int32_t)now)
 		ERRTO("expiration time is in the past");
-	
+
 	/* Lop off the TTL at the expiration time.  */
 	timetilexp = exptime - now;
 	if (timetilexp < ttl) {
@@ -2208,19 +2208,19 @@ parse_sig_rr(char *buf, int buf_len, u_char *data, int data_size,
 		if (siglen > (NS_MD5RSA_MAX_BITS + 7) / 8)
 			ERRTO("Signature too long");
 		break;
-		
+
 	case NS_ALG_DH:
 		if (siglen < 1)
 			ERRTO("DH Signature too short");
 		break; /* need more tests here */
-		
+
 	case NS_ALG_DSA:
 		if (siglen < NS_DSA_SIG_SIZE)
 			ERRTO("DSS Signature too short");
 		else if (siglen > NS_DSA_SIG_SIZE)
 			ERRTO("DSS Signature too long ");
 		break; /* need more tests here */
-		
+
 	case NS_ALG_EXPIRE_ONLY:
 		if (siglen != 0)
 			ERRTO(
@@ -2234,15 +2234,15 @@ parse_sig_rr(char *buf, int buf_len, u_char *data, int data_size,
 		ERRTO("UNKOWN SIG algorithm");
 	}
 
-	/* Should we complain about algorithm-ID's that we	
+	/* Should we complain about algorithm-ID's that we
 	   don't understand?  It may help debug some obscure
 	   cases, but in general we should accept any RR whether
 	   we could cryptographically process it or not; it
 	   may be being published for some newer DNS clients
 	   to validate themselves.  */
-	
+
 	endline(fp);  /* flush the rest of the line */
-	
+
 	return (n);
  err:
 	*errmsg = errtype;
@@ -2254,10 +2254,10 @@ parse_nxt_rr(char *buf, int buf_len, u_char *data, int data_size,
 	     FILE *fp, struct zoneinfo *zp, char *domain, enum context context,
 	     enum transport transport, char **errmsg)
 {
-	
+
 	/* The NXT record looks like:
 	   Name Cl NXT nextname RRT1 RRT2 MX A SOA ...
-	  
+
 	   where:  Name and Cl are as usual
 	   NXT     is a keyword
 	   nextname is the next valid name in the zone after "Name".
@@ -2267,7 +2267,7 @@ parse_nxt_rr(char *buf, int buf_len, u_char *data, int data_size,
 	   	that no RR's of any other types are published for "Name".
 
 	   When a NXT record is cryptographically signed, it proves the
-	   nonexistence of an RR (actually a whole set of RR's). 
+	   nonexistence of an RR (actually a whole set of RR's).
 	*/
 	int n, errs = 0, i;
 	u_char *cp;
@@ -2289,7 +2289,7 @@ parse_nxt_rr(char *buf, int buf_len, u_char *data, int data_size,
 
 
 static int
-parse_cert_rr(char *buf, int buf_len, u_char *data, int data_size, 
+parse_cert_rr(char *buf, int buf_len, u_char *data, int data_size,
 	      FILE *fp, char **errmsg)
 {
 	/* Cert record looks like:
@@ -2303,7 +2303,7 @@ parse_cert_rr(char *buf, int buf_len, u_char *data, int data_size,
 	u_int32_t cert_type, key_tag, alg;
 	char *errtype = "CERT parse error";
 	int certlen, i, n, success;
-	
+
 	i = 0;
 	cp = &data[i];
 	cert_type = sym_ston(__p_cert_syms, buf, &success);
@@ -2314,29 +2314,29 @@ parse_cert_rr(char *buf, int buf_len, u_char *data, int data_size,
 	}
 	PUTSHORT((u_int16_t)cert_type, cp);
 	i += INT16SZ;
-	
+
 	if (!getmlword((char*)buf, buf_len, fp, 0))
 		ERRTO("CERT doesn't specify type");
-	
+
 	key_tag = wordtouint32(buf);
 	if (wordtouint32_error || key_tag > 0xFFFF)
 		ERRTO("CERT KEY tag out of range");
-	
+
 	PUTSHORT((u_int16_t)key_tag, cp);
 	i += INT16SZ;
-	
+
 	if (!getmlword(buf, buf_len, fp, 0))
 		ERRTO("CERT missing algorithm ID");
-	
+
 	alg = sym_ston(__p_key_syms, buf, &success);
 	if (!success) {
 		alg = wordtouint32(buf);
 		if (wordtouint32_error || alg > 0xFF)
 			ERRTO("CERT KEY alg out of range");
 	}
-	
+
 	data[i++] = (u_char)alg;
-	
+
 	if (!getallwords(buf, buf_len, fp, 0)) {
 		certlen = 0;
 	}
@@ -2352,7 +2352,7 @@ parse_cert_rr(char *buf, int buf_len, u_char *data, int data_size,
  err:
 	*errmsg = errtype;
 	return (-1);
-	
+
 }
 
 static int
@@ -2391,7 +2391,7 @@ parse_key_rr(char *buf, int buf_len, u_char *data, int data_size,
 	if (keyflags & NS_KEY_RESERVED_BITMASK)
 		ERRTO("KEY Reserved Flag Bit");
 	PUTSHORT(keyflags, cp);
-	
+
 	/*>>> Protocol (8-bit decimal) */
 	if (!getmlword((char*)buf, buf_len, fp, 0))
 		ERRTO("KEY Protocol Field");
@@ -2399,7 +2399,7 @@ parse_key_rr(char *buf, int buf_len, u_char *data, int data_size,
 	if (wordtouint32_error || 255 < pr)
 		ERRTO("KEY Protocol Field");
 	*cp++ = (u_char) pr;
-	
+
 	/*>>> Algorithm id (8-bit decimal) */
 	if (!getmlword((char*)buf, buf_len, fp, 0))
 		ERRTO("KEY Algorithm ID");
@@ -2407,11 +2407,11 @@ parse_key_rr(char *buf, int buf_len, u_char *data, int data_size,
 	if (wordtouint32_error || 0 == al || 255 == al || 255 < al)
 		ERRTO("KEY Algorithm ID");
 	*cp++ = (u_char) al;
-	
+
 	/*>>> Extended KEY flag field in bytes 5 and 6 */
 	if (NS_KEY_EXTENDED_FLAGS & keyflags) {
 		u_int32_t keyflags2;
-		
+
 		if (!getmlword((char*)buf, buf_len, fp, 0))
 			ERRTO("KEY Flags Field");
 		keyflags2 = wordtouint32(buf);
@@ -2421,7 +2421,7 @@ parse_key_rr(char *buf, int buf_len, u_char *data, int data_size,
 			ERRTO("KEY Reserved Flag2 Bit");
 		PUTSHORT(keyflags2, cp);
 	}
-	
+
 	/*>>> Public Key data is in BASE64.
 	 *	We don't care what algorithm it uses or what
 	 *	the internal structure of the BASE64 data is.
@@ -2430,29 +2430,29 @@ parse_key_rr(char *buf, int buf_len, u_char *data, int data_size,
 		klen = 0;
 	else {
 		/* Convert from BASE64 to binary. */
-		klen = b64_pton(buf, (u_char*)cp, 
+		klen = b64_pton(buf, (u_char*)cp,
 				data_size - (cp - data));
 		if (klen < 0)
 			ERRTO("KEY Public Key");
 	}
-	
+
 				/* set total length */
 	n = klen + (cp - data);
-	
+
 	/*
 	 * Now check for valid key flags & algs & etc, from the RFC.
 	 */
-	
+
 	if (NS_KEY_TYPE_NO_KEY == (keyflags & NS_KEY_TYPEMASK))
 		nk = 1;		/* No-key */
 	else
 		nk = 0;		/* have a key */
-	
+
 	if ((keyflags & (NS_KEY_NAME_TYPE | NS_KEY_TYPEMASK)) ==
 	    (NS_KEY_NAME_ZONE | NS_KEY_TYPE_CONF_ONLY))
 		/* Zone key must have Auth bit set. */
 		ERRTO("KEY Zone Key Auth. bit");
-	
+
 	if (al == 0 && nk == 0)
 		ERRTO("KEY Algorithm");
 	if (al != 0 && pr == 0)
@@ -2460,13 +2460,13 @@ parse_key_rr(char *buf, int buf_len, u_char *data, int data_size,
 
 	if (nk == 1 && klen != 0)
 		ERRTO("KEY No-Key Flags Set");
-	
+
 	if (nk == 0 && klen == 0)
 		ERRTO("KEY Type Spec'd");
-	
-	/* 
-	 *  Check algorithm-ID and key structure, for the algorithm-ID's 
-	 * that we know about. 
+
+	/*
+	 *  Check algorithm-ID and key structure, for the algorithm-ID's
+	 * that we know about.
 	 */
 	switch (al) {
 	case NS_ALG_MD5RSA:
@@ -2476,14 +2476,14 @@ parse_key_rr(char *buf, int buf_len, u_char *data, int data_size,
 		expbytes = *expstart++;
 		if (expbytes == 0)
 			GETSHORT(expbytes, expstart);
-		
+
 		if (expbytes < 1)
 			ERRTO("Exponent too short");
 		if (expbytes > (NS_MD5RSA_MAX_BITS + 7) / 8)
 			ERRTO("Exponent too long");
 		if (*expstart == 0)
 			ERRTO("Exponent w/ 0");
-		
+
 		modbytes = klen - (expbytes + (expstart - cp));
 		if (modbytes < (NS_MD5RSA_MIN_BITS + 7) / 8)
 			ERRTO("Modulus too short");
@@ -2492,11 +2492,11 @@ parse_key_rr(char *buf, int buf_len, u_char *data, int data_size,
 		if (*(expstart+expbytes) == 0)
 			ERRTO("Modulus starts w/ 0");
 		break;
-		
+
 	case NS_ALG_DH: {
 		u_char *dh_cp;
 		u_int16_t dh_len, plen, glen, ulen;
-		
+
 		dh_cp = (u_char *)cp;
 		GETSHORT(plen, dh_cp);
 		if(plen < 16)
@@ -2504,14 +2504,14 @@ parse_key_rr(char *buf, int buf_len, u_char *data, int data_size,
 		dh_len = 2 + plen;
 		if(dh_len > klen)
 			ERRTO("DH plen > klen");
-		
+
 		GETSHORT(glen, dh_cp);
 		if(glen <= 0 || glen > plen)
 			ERRTO("DH glen bad");
 		dh_len = 2 + glen;
 		if(dh_len > klen)
 			ERRTO("DH glen > klen");
-		
+
 		GETSHORT(ulen, dh_cp);
 		if(ulen <= 0 || ulen > plen)
 			ERRTO("DH ulen bad");
@@ -2522,10 +2522,10 @@ parse_key_rr(char *buf, int buf_len, u_char *data, int data_size,
 			ERRTO("DH *len < klen");
 		break;
 	}
-	
+
 	case NS_ALG_DSA: {
 		u_int8_t t;
-		
+
 		if ( klen == 0)
 			break;
 		t = *cp;
@@ -2535,7 +2535,7 @@ parse_key_rr(char *buf, int buf_len, u_char *data, int data_size,
 			ERRTO("DSA length");
 		break;
 	}
-	
+
 	case NS_ALG_PRIVATE_OID:
 		if (klen == 0)
 			ERRTO("No ObjectID in key");
@@ -2543,14 +2543,14 @@ parse_key_rr(char *buf, int buf_len, u_char *data, int data_size,
 	default:
 		ERRTO("Unknown Key algorithm");
 	}
-	
+
 	endline(fp);  /* flush the rest of the line */
 	return (n);
  err:
 	*errmsg = errtype;
 	return (-1);
 } /*T_KEY*/
-		 
+
 /*
  * function to invoke DNSSEC specific parsing routines.
  * this is simpler than copying these complicated blocks into the
@@ -2575,7 +2575,7 @@ parse_sec_rdata(char *buf, int buf_len, int buf_full, u_char *data,
 
 	switch (type) {
 	case ns_t_sig:
-		ret = parse_sig_rr(buf, buf_len, data, data_size, fp, zp, 
+		ret = parse_sig_rr(buf, buf_len, data, data_size, fp, zp,
 				   domain, ttl, context, transport, errmsg);
 		break;
 	case ns_t_key:

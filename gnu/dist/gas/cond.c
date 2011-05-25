@@ -59,7 +59,7 @@ static char *get_mri_string PARAMS ((int, int *));
 
 static struct conditional_frame *current_cframe = NULL;
 
-void 
+void
 s_ifdef (arg)
      int arg;
 {
@@ -100,7 +100,7 @@ s_ifdef (arg)
     }				/* if a valid identifyer name */
 }				/* s_ifdef() */
 
-void 
+void
 s_if (arg)
      int arg;
 {
@@ -246,7 +246,7 @@ s_ifc (arg)
   demand_empty_rest_of_line ();
 }
 
-void 
+void
 s_endif (arg)
      int arg;
 {
@@ -278,7 +278,7 @@ s_endif (arg)
   demand_empty_rest_of_line ();
 }				/* s_endif() */
 
-void 
+void
 s_else (arg)
      int arg;
 {
@@ -326,7 +326,7 @@ s_else (arg)
   demand_empty_rest_of_line ();
 }				/* s_else() */
 
-void 
+void
 s_ifeqs (arg)
      int arg;
 {
@@ -365,7 +365,7 @@ s_ifeqs (arg)
   demand_empty_rest_of_line ();
 }				/* s_ifeqs() */
 
-int 
+int
 ignore_input ()
 {
   char *s;
@@ -403,7 +403,7 @@ ignore_input ()
   return (current_cframe != NULL) && (current_cframe->ignoring);
 }				/* ignore_input() */
 
-static void 
+static void
 initialize_cframe (cframe)
      struct conditional_frame *cframe;
 {

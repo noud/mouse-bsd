@@ -162,7 +162,7 @@ with the standard input.
 Display information about processes attached to the specified terminal
 device.
 .It Fl U
-Displays processes belonging to the user whose username or uid has 
+Displays processes belonging to the user whose username or uid has
 been given to the
 .Fl U
 switch.
@@ -207,7 +207,7 @@ Also display information about processes without controlling terminals.
 If
 .Nm
 is unable to extract process information directly from the
-kernel (e.g., due to incorrect 
+kernel (e.g., due to incorrect
 .Fl M
 or
 .Fl N
@@ -215,9 +215,9 @@ options or kvm-based reasons), it currently uses an experimental
 fallback method to gather as much information as possible through the
 limited
 .Dq Pa /proc
-interface, if the 
+interface, if the
 .Dq Pa /proc
-filesystem is mounted.  See 
+filesystem is mounted.  See
 .Xr mount_procfs 8
 for more details.
 .Nm

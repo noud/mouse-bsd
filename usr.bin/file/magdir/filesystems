@@ -38,7 +38,7 @@
 >>>43	string		<NO\ NAME	label: %.11s,
 >>>43	string		NO\ NAME	unlabeled,
 >>>19	leshort		>0		%d sectors
->>>19	leshort		0		
+>>>19	leshort		0
 >>>>32	lelong		x		%d sectors
 >0x200	lelong	0x82564557		\b, BSD disklabel
 

@@ -154,7 +154,7 @@ struct alpha_bus_space {
 			    bus_size_t, u_int32_t *, bus_size_t));
 	void		(*abs_rm_8) __P((void *, bus_space_handle_t,
 			    bus_size_t, u_int64_t *, bus_size_t));
-					
+
 	/* read region */
 	void		(*abs_rr_1) __P((void *, bus_space_handle_t,
 			    bus_size_t, u_int8_t *, bus_size_t));
@@ -164,7 +164,7 @@ struct alpha_bus_space {
 			    bus_size_t, u_int32_t *, bus_size_t));
 	void		(*abs_rr_8) __P((void *, bus_space_handle_t,
 			    bus_size_t, u_int64_t *, bus_size_t));
-					
+
 	/* write (single) */
 	void		(*abs_w_1) __P((void *, bus_space_handle_t,
 			    bus_size_t, u_int8_t));
@@ -184,7 +184,7 @@ struct alpha_bus_space {
 			    bus_size_t, const u_int32_t *, bus_size_t));
 	void		(*abs_wm_8) __P((void *, bus_space_handle_t,
 			    bus_size_t, const u_int64_t *, bus_size_t));
-					
+
 	/* write region */
 	void		(*abs_wr_1) __P((void *, bus_space_handle_t,
 			    bus_size_t, const u_int8_t *, bus_size_t));

@@ -29,12 +29,12 @@ INCSDIR=/usr/include
 LINKS=${INCSDIR}/readline.h ${INCSDIR}/history.h
 
 CLEANFILES+=common.h editline.c emacs.h fcns.c fcns.h help.c help.h vi.h
-CPPFLAGS+=-I. -I${LIBEDITDIR} 
+CPPFLAGS+=-I. -I${LIBEDITDIR}
 CPPFLAGS+=-I. -I${.CURDIR}
 CPPFLAGS+=#-DDEBUG_TTY -DDEBUG_KEY -DDEBUG_READ -DDEBUG -DDEBUG_REFRESH
 CPPFLAGS+=#-DDEBUG_PASTE
 
-AHDR=vi.h emacs.h common.h 
+AHDR=vi.h emacs.h common.h
 ASRC=${LIBEDITDIR}/vi.c ${LIBEDITDIR}/emacs.c ${LIBEDITDIR}/common.c
 
 vi.h: vi.c makelist
@@ -52,7 +52,7 @@ fcns.h: ${AHDR} makelist
 fcns.c: ${AHDR} fcns.h makelist
 	sh ${LIBEDITDIR}/makelist -fc ${AHDR} > ${.TARGET}
 
-help.c: ${ASRC} makelist 
+help.c: ${ASRC} makelist
 	sh ${LIBEDITDIR}/makelist -bc ${ASRC} > ${.TARGET}
 
 help.h: ${ASRC} makelist
@@ -62,8 +62,8 @@ editline.c: ${OSRCS}
 	sh ${LIBEDITDIR}/makelist -e ${.ALLSRC:T} > ${.TARGET}
 
 test.o:	${LIBEDITDIR}/TEST/test.c
-	
-test:	libedit.a test.o 
+
+test:	libedit.a test.o
 	${CC} ${LDFLAGS} ${.ALLSRC} -o ${.TARGET} libedit.a ${LDADD} -ltermcap
 
 # minimal dependency to make "make depend" optional

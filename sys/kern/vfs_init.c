@@ -230,7 +230,7 @@ vfs_opv_init_default(vfs_opv_desc)
 
 	for (j = 0; j < vfs_opv_numops; j++)
 		if (opv_desc_vector[j] == NULL)
-			opv_desc_vector[j] = 
+			opv_desc_vector[j] =
 			    opv_desc_vector[VOFFSET(vop_default)];
 }
 

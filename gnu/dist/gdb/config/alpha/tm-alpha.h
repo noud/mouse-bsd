@@ -45,8 +45,8 @@ struct symbol;
 /* Floating point is IEEE compliant */
 #define IEEE_FLOAT
 
-/* Number of traps that happen between exec'ing the shell 
- * to run an inferior, and when we finally get to 
+/* Number of traps that happen between exec'ing the shell
+ * to run an inferior, and when we finally get to
  * the inferior code.  This is 2 on most implementations.
  */
 #define START_INFERIOR_TRAPS_EXPECTED 3
@@ -386,7 +386,7 @@ extern CORE_ADDR alpha_call_dummy_address PARAMS ((void));
 extern void ecoff_relocate_efi PARAMS ((struct symbol *, CORE_ADDR));
 
 /* Specific information about a procedure.
-   This overlays the ALPHA's PDR records, 
+   This overlays the ALPHA's PDR records,
    alpharead.c (ab)uses this to save memory */
 
 typedef struct alpha_extra_func_info {

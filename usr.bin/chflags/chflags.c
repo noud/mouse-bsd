@@ -133,7 +133,7 @@ main(argc, argv)
 	}
 
 	if ((ftsp = fts_open(++argv, fts_options , 0)) == NULL)
-		err(1, "fts_open `%s'", argv[0]); 
+		err(1, "fts_open `%s'", argv[0]);
 
 	for (rval = 0; (p = fts_read(ftsp)) != NULL;) {
 		switch (p->fts_info) {

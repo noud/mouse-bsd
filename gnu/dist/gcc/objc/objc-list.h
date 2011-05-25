@@ -1,4 +1,4 @@
-/* Generic single linked list to keep various information 
+/* Generic single linked list to keep various information
    Copyright (C) 1993, 1994, 1996 Free Software Foundation, Inc.
    Contributed by Kresten Krab Thorup.
 
@@ -35,7 +35,7 @@ struct objc_list {
 
 /* Return a cons cell produced from (head . tail) */
 
-static inline struct objc_list* 
+static inline struct objc_list*
 list_cons(void* head, struct objc_list* tail)
 {
   struct objc_list* cell;
@@ -60,7 +60,7 @@ list_length(struct objc_list* list)
   return i;
 }
 
-/* Return the Nth element of LIST, where N count from zero.  If N 
+/* Return the Nth element of LIST, where N count from zero.  If N
    larger than the list length, NULL is returned  */
 
 static inline void*

@@ -43,7 +43,7 @@ main (ac, av)
   int verbose = 0;
   char *name;
 
-  while ((i = getopt (ac, av, "m:p:s:tv")) != EOF) 
+  while ((i = getopt (ac, av, "m:p:s:tv")) != EOF)
     switch (i)
       {
       case 'm':

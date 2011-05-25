@@ -101,10 +101,10 @@ diff -ur ../autoconf-2.13.orig/acgeneral.m4 ./acgeneral.m4
 +changequote([, ])dnl
    ac_cv_path_$1="[$]$1" # Let the user override the test with a path.
    ;;
-   ?:/*)			 
+   ?:/*)
 @@ -1398,7 +1403,7 @@
    ac_dummy="ifelse([$4], , $PATH, [$4])"
-   for ac_dir in $ac_dummy; do 
+   for ac_dir in $ac_dummy; do
      test -z "$ac_dir" && ac_dir=.
 -    if test -f $ac_dir/$ac_word; then
 +    if test $ac_x $ac_dir/$ac_word; then

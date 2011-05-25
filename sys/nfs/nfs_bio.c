@@ -201,7 +201,7 @@ nfs_bioread(vp, uio, ioflag, cred, cflag)
 		case VDIR:
 			break;
 		default:
-			printf(" NQNFSNONCACHE: type %x unexpected\n",	
+			printf(" NQNFSNONCACHE: type %x unexpected\n",
 			    vp->v_type);
 		};
 	    }
@@ -327,7 +327,7 @@ diragain:
 			 */
 			if (nmp->nm_flag & NFSMNT_XLATECOOKIE)
 				return (EINVAL);
-			ndp = nfs_enterdircache(vp, uio->uio_offset, 
+			ndp = nfs_enterdircache(vp, uio->uio_offset,
 				uio->uio_offset, 0, 0);
 		}
 
@@ -366,7 +366,7 @@ diragain:
 		 * may have been set by an nfsiod since the last
 		 * check.
 		 */
-		if (np->n_direofoffset != 0 && 
+		if (np->n_direofoffset != 0 &&
 			ndp->dc_blkcookie == np->n_direofoffset) {
 			brelse(bp);
 			return (0);
@@ -436,7 +436,7 @@ diragain:
 		 * (if requested) as we go.
 		 */
 
-		while ((caddr_t)dp < ep && (caddr_t)dp + dp->d_reclen <= ep) {	
+		while ((caddr_t)dp < ep && (caddr_t)dp + dp->d_reclen <= ep) {
 			if (cflag & NFSBIO_CACHECOOKIES) {
 				nndp = nfs_enterdircache(vp, NFS_GETCOOKIE(pdp),
 				    ndp->dc_blkcookie, enn, bp->b_lblkno);
@@ -452,7 +452,7 @@ diragain:
 
 		/*
 		 * If the last requested entry was not the last in the
-		 * buffer (happens if NFS_DIRFRAGSIZ < NFS_DIRBLKSIZ),	
+		 * buffer (happens if NFS_DIRFRAGSIZ < NFS_DIRBLKSIZ),
 		 * cache the cookie of the last requested one, and
 		 * set of the offset to it.
 		 */
@@ -860,13 +860,13 @@ nfs_asyncio(bp, cred)
 	if (nfs_numasync == 0)
 		return (EIO);
 
-       
+
 	nmp = VFSTONFS(bp->b_vp->v_mount);
 again:
 	if (nmp->nm_flag & NFSMNT_INT)
 		slpflag = PCATCH;
 	gotiod = FALSE;
- 
+
 	/*
 	 * Find a free iod to process this request.
 	 */
@@ -1080,7 +1080,7 @@ nfs_doio(bp, cr, p)
 		iomode = NFSV3WRITE_FILESYNC;
 	    bp->b_flags |= B_WRITEINPROG;
 #ifdef fvdl_debug
-	    printf("nfs_doio(%x): bp %x doff %d dend %d\n", 
+	    printf("nfs_doio(%x): bp %x doff %d dend %d\n",
 		vp, bp, bp->b_dirtyoff, bp->b_dirtyend);
 #endif
 	    error = nfs_writerpc(vp, uiop, cr, &iomode, &must_commit);

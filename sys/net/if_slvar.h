@@ -40,7 +40,7 @@
 
 /*
  * Definitions for SLIP interface data structures
- * 
+ *
  * (This exists so programs like slstats can get at the definition
  *  of sl_softc.)
  */

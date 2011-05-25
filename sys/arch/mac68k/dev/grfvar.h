@@ -127,7 +127,7 @@ struct image_data {
 	u_int32_t	hRes;
 	u_int32_t	vRes;
 	u_int16_t	pixelType;
-	u_int16_t	pixelSize;	
+	u_int16_t	pixelSize;
 	u_int16_t	cmpCount;
 	u_int16_t	cmpSize;
 	u_int32_t	planeBytes;

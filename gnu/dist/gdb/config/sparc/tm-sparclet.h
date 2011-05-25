@@ -47,7 +47,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /* Initializer for an array of names of registers.
    There should be NUM_REGS strings in this initializer.  */
 /* Sparclet has no fp! */
-/* Compiler maps types for floats by number, so can't 
+/* Compiler maps types for floats by number, so can't
    change the numbers here. */
 
 #undef REGISTER_NAMES

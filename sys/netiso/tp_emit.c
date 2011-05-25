@@ -424,10 +424,10 @@ tp_emit(dutype, tpcb, seq, eot, data)
 #ifdef ARGO_DEBUG
 			if (argo_debug[D_SIZE_CHECK]) {
 #if 0
-				 if (data->m_len <= 16 && 
+				 if (data->m_len <= 16 &&
 				     data->m_off < (MLEN-18)) {
 					printf("Sending too much data on XPD: 18 bytes\n");
-					data->m_len = 18; 
+					data->m_len = 18;
 				}
 #endif
 			}
@@ -549,7 +549,7 @@ tp_emit(dutype, tpcb, seq, eot, data)
 
 					/*
 					 * tmp1 = amt of new cdt we're
-					 * advertising 
+					 * advertising
 					 */
 					tmp1 = SEQ_SUB(tpcb, seq,
 						       tpcb->tp_sent_rcvnxt);
@@ -560,7 +560,7 @@ tp_emit(dutype, tpcb, seq, eot, data)
 						 tps_cdt_acked[tmp1]
 						 [((tpcb->tp_lcredit >
 						    TP_PM_MAX) ?
-						   TP_PM_MAX : 
+						   TP_PM_MAX :
 						   tpcb->tp_lcredit)]);
 
 				}

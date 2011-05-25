@@ -34,7 +34,7 @@ CATMANPAGES =
 SRCS   = sysconfd.c
 OBJS   = sysconfd.o
 PROG   = sysconfd
-MAN    = 
+MAN    =
 
 DEBUG  = -g
 INCLUDES = -I.. -I../includes
@@ -55,7 +55,7 @@ install: $(PROG) $(CATMANPAGES)
 
 clean:
 	-rm -f $(OBJS)
-	
+
 realclean: clean
 	-rm -f $(PROG) $(CATMANPAGES) *~ #*
 

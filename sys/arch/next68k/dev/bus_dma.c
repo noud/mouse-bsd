@@ -4,7 +4,7 @@
  * This file was taken from from alpha/common/bus_dma.c
  * should probably be re-synced when needed.
  * Darrin B. Jewell <dbj@netbsd.org> Sat Jul 31 06:11:33 UTC 1999
- * original cvs id: NetBSD: bus_dma.c,v 1.31 1999/07/08 18:05:23 thorpej Exp 
+ * original cvs id: NetBSD: bus_dma.c,v 1.31 1999/07/08 18:05:23 thorpej Exp
  */
 
 /*-
@@ -524,16 +524,16 @@ _bus_dmamap_sync(t, map, offset, len, ops)
  */
 int
 _bus_dmamem_alloc(t, size, alignment, boundary, segs, nsegs, rsegs, flags)
-	bus_dma_tag_t t; 
+	bus_dma_tag_t t;
 	bus_size_t size, alignment, boundary;
 	bus_dma_segment_t *segs;
 	int nsegs;
 	int *rsegs;
-	int flags; 
+	int flags;
 {
 	extern paddr_t avail_start, avail_end;
 	paddr_t curaddr, lastaddr, high;
-	vm_page_t m;    
+	vm_page_t m;
 	struct pglist mlist;
 	int curseg, error;
 
@@ -626,7 +626,7 @@ _bus_dmamem_map(t, segs, nsegs, size, kvap, flags)
 	bus_dma_segment_t *segs;
 	int nsegs;
 	size_t size;
-	caddr_t *kvap;  
+	caddr_t *kvap;
 	int flags;
 {
 	vaddr_t va;

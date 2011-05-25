@@ -6,21 +6,21 @@ static char     rcsid[] = "Id: db_ixfr.c,v 8.18 1999/10/15 19:48:57 vixie Exp";
 
 /*
  * Portions Copyright (c) 1999 by Check Point Software Technologies, Inc.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
- * the name of Check Point Software Technologies Incorporated not be used 
- * in advertising or publicity pertaining to distribution of the document 
+ * the name of Check Point Software Technologies Incorporated not be used
+ * in advertising or publicity pertaining to distribution of the document
  * or software without specific, written prior permission.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS" AND CHECK POINT SOFTWARE TECHNOLOGIES 
- * INCORPORATED DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, 
- * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.   
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND CHECK POINT SOFTWARE TECHNOLOGIES
+ * INCORPORATED DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+ * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.
  * IN NO EVENT SHALL CHECK POINT SOFTWARE TECHNOLOGIES INCORPRATED
- * BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR 
+ * BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR
  * ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
- * IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT 
+ * IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT
  * OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
@@ -97,7 +97,7 @@ ixfr_get_change_list(struct zoneinfo *zp,
 		switch (ret) {
 		case DBIXFR_ERROR:
 			(void) my_fclose(fp);
-			ns_warning(ns_log_db, "Logical error in %s line %d", 
+			ns_warning(ns_log_db, "Logical error in %s line %d",
 				   zp->z_ixfr_base, lineno);
 			return (NULL);
 		case DBIXFR_FOUND_RR:
@@ -133,16 +133,16 @@ ixfr_get_change_list(struct zoneinfo *zp,
 /*
  * int ixfr_have_log(struct zoneinfo *zp,u_int32_t from_serial,
  *                   u_int32_t to_serial)
- * 
- * verify that ixfr transaction log contains changes  
+ *
+ * verify that ixfr transaction log contains changes
  * from from_serial to to_serial
- * 
- * returns: 
+ *
+ * returns:
  *         0 = serial number is up to date
- *         1 = transision is possible 
+ *         1 = transision is possible
  *        -1 = error while opening the ixfr transaction log
  *        -2 = error in parameters
- *        -3 = logical error in the history file 
+ *        -3 = logical error in the history file
  */
 int
 ixfr_have_log(struct zoneinfo *zp, u_int32_t from_serial, u_int32_t to_serial)
@@ -284,13 +284,13 @@ static struct map m_opcode[] = {
  * ixfr_getrr(struct zoneinfo *zp, FILE *fp,
  *            const char *filename, char *origin, struct namebuf **np,
  *            u_int32_t *old_serial, u_int32_t *new_serial)
- * 
+ *
  * read a line from the historic of a zone.
- * 
+ *
  * returns:
- * 
- *         DBIXFR_ERROR = an error occured 
- *         DBIXFR_FOUND_RR = a rr encountered 
+ *
+ *         DBIXFR_ERROR = an error occured
+ *         DBIXFR_FOUND_RR = a rr encountered
  *         DBIXFR_END = end of file
  */
 static int
@@ -339,7 +339,7 @@ ixfr_getrr(struct zoneinfo *zp, FILE *fp, const char *filename, char *origin,
 			}
 			/*
 			 * Empty line or EOF.
-			 * 
+			 *
 			 * Marks completion of current update packet.
 			 */
 			inside_next = 0;
@@ -522,7 +522,7 @@ ixfr_getrr(struct zoneinfo *zp, FILE *fp, const char *filename, char *origin,
 			 * Convert the ascii data 'buf' to the proper
 			 * format based on the type and pack into
 			 * 'data'.
-			 * 
+			 *
 			 * XXX - same as in db_load(), consolidation
 			 * needed
 			 */
@@ -739,7 +739,7 @@ ixfr_getrr(struct zoneinfo *zp, FILE *fp, const char *filename, char *origin,
 				}
 				endline(fp);
 				break;
-			case ns_t_sig: 
+			case ns_t_sig:
 			case ns_t_nxt:
 			case ns_t_key:
 			case ns_t_cert:{
@@ -854,7 +854,7 @@ ixfr_getrr(struct zoneinfo *zp, FILE *fp, const char *filename, char *origin,
 		APPEND(listuprec, rrecp, r_link);
 		/* Override zone number with current zone serial number */
 		rrecp->r_zone = serial;
-	}   
+	}
 
 	if (err)
 		return (DBIXFR_ERROR);

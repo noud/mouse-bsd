@@ -127,7 +127,7 @@ vripmatch(parent, match, aux)
 	void *aux;
 {
 	struct mainbus_attach_args *ma = aux;
-    
+
 	if (strcmp(ma->ma_name, match->cf_driver->cd_name))
 		return 0;
 	return 1;
@@ -153,7 +153,7 @@ vripattach(parent, self, aux)
 		printf("vripattach: can't map ICU register.\n");
 		return;
 	}
-	
+
 	/*
 	 *  Disable all Level 1 interrupts.
 	 */
@@ -236,7 +236,7 @@ vrip_intr_establish(vc, intr, level, ih_fun, ih_arg)
 	ih->ih_l1line = intr;
 	ih->ih_fun = ih_fun;
 	ih->ih_arg = ih_arg;
-    
+
 	/* Mask level 2 interrupt mask register. (disable interrupt) */
 	vrip_intr_setmask2(vc, ih, ~0, 0);
 	/* Unmask  Level 1 interrupt mask register (enable interrupt) */
@@ -299,7 +299,7 @@ vrip_intr_setmask1(vc, arg, enable)
 	if (enable)
 		reg |= (1 << level1);
 	else {
-		reg &= ~(1 << level1);	
+		reg &= ~(1 << level1);
 	}
 	sc->sc_intrmask = reg;
 	bus_space_write_2 (iot, ioh, MSYSINT1_REG_W, reg & 0xffff);
@@ -308,7 +308,7 @@ vrip_intr_setmask1(vc, arg, enable)
 	if (vrip_debug)
 		bitdisp32(reg);
 #endif /* VRIPDEBUG */
-    
+
 	return;
 }
 
@@ -320,7 +320,7 @@ vrip_dump_level2mask (vc, arg)
 	struct vrip_softc *sc = (void*)vc;
 	struct intrhand *ih = arg;
 	u_int32_t reg;
-    
+
 	if (ih->ih_mlreg) {
 		printf ("level1[%d] level2 mask:", ih->ih_l1line);
 		reg = bus_space_read_2(sc->sc_iot, sc->sc_ioh, ih->ih_mlreg);
@@ -342,9 +342,9 @@ vrip_intr_get_status2(vc, arg, mask)
 	struct vrip_softc *sc = (void*)vc;
 	struct intrhand *ih = arg;
 	u_int32_t reg;
-	reg = bus_space_read_2(sc->sc_iot, sc->sc_ioh, 
+	reg = bus_space_read_2(sc->sc_iot, sc->sc_ioh,
 			       ih->ih_lreg);
-	reg |= ((bus_space_read_2(sc->sc_iot, sc->sc_ioh, 
+	reg |= ((bus_space_read_2(sc->sc_iot, sc->sc_ioh,
 				  ih->ih_hreg) << 16)&0xffff0000);
 /*    bitdisp32(reg);*/
 	*mask = reg;
@@ -382,7 +382,7 @@ vrip_intr_setmask2(vc, arg, mask, onoff)
 			if (onoff)
 				reg |= ((mask >> 16) & 0xffff);
 			else
-				reg &= ~((mask >> 16) & 0xffff);		
+				reg &= ~((mask >> 16) & 0xffff);
 			bus_space_write_2(sc->sc_iot, sc->sc_ioh,
 					  ih->ih_mhreg, reg);
 		}

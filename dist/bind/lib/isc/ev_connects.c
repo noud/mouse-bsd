@@ -165,7 +165,7 @@ evCancelConn(evContext opaqueCtx, evConnID id) {
 		} else
 			OK(fcntl(this->fd, F_SETFL, mode | PORT_NONBLOCK));
 	}
-	
+
 	/* Unlink from ctx->conns. */
 	if (this->prev != NULL)
 		this->prev->next = this->next;

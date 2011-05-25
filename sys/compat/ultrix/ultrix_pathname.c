@@ -44,7 +44,7 @@
  *
  *	@(#)sun_misc.c	8.1 (Berkeley) 6/18/93
  *
- * from: Header: sun_misc.c,v 1.16 93/04/07 02:46:27 torek Exp 
+ * from: Header: sun_misc.c,v 1.16 93/04/07 02:46:27 torek Exp
  */
 
 
@@ -196,7 +196,7 @@ ultrix_sys_open(p, v, retval)
 	int l, r;
 	int noctty;
 	int ret;
-	
+
 	caddr_t sg = stackgap_init(p->p_emul);
 
 	/* convert open flags into NetBSD flags */
@@ -240,10 +240,10 @@ struct ultrix_statfs {
 };
 
 /*
- * Custruct ultrix statfs result from native. 
+ * Custruct ultrix statfs result from native.
  * XXX should this be the same as returned by Ultrix getmnt(2)?
  * XXX Ultrix predates DEV_BSIZE.  Is  conversion of disk space from 1k
- *  block units to DEV_BSIZE necessary? 
+ *  block units to DEV_BSIZE necessary?
  */
 static int
 ultrixstatfs(sp, buf)

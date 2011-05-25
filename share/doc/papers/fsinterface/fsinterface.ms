@@ -452,7 +452,7 @@ Several support facilities are used by the current
 filesystem and require generalization for use by other filesystem types.
 For filesystem implementations to be portable,
 it is desirable that these modified support facilities
-should also have a uniform interface and 
+should also have a uniform interface and
 behave in a consistent manner in target systems.
 A prominent example is the filesystem buffer cache.
 The buffer cache in a standard (System V or 4.3BSD)

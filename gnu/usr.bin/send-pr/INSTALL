@@ -6,7 +6,7 @@ installed.  The `send-pr' directory, however, is easily installed by
 itself by following these steps:
 
 1.  Unpack the distribution into a directory which we will refer to as
-    SRCDIR.  
+    SRCDIR.
 
 2.  Edit the `Makefile' to reflect local conventions.
 
@@ -14,7 +14,7 @@ itself by following these steps:
     the installation location.  The default is '/usr/local'.  All
     files are installed under "prefix" (see below).
 
-3.  Run 
+3.  Run
 	make all install [ info ] install-info [ clean ]
 
     from the "build directory".  The targets mean the following:
@@ -23,7 +23,7 @@ itself by following these steps:
 
      install	Installs the following:
 
-			    send-pr	into PREFIX/bin 
+			    send-pr	into PREFIX/bin
 			install-sid	into PREFIX/bin
 			  send-pr.1	into PREFIX/man/man1
 			 categories	as PREFIX/lib/gnats/SITE
@@ -37,7 +37,7 @@ install-info	Installs "send-pr.info" into PREFIX/info
        clean 	(optional) Removes all intermediary build files that can
 		           be rebuilt from source code
 
-4.  Run 
+4.  Run
 
 	install-sid SID
 
@@ -78,6 +78,6 @@ install-info	Installs "send-pr.info" into PREFIX/info
     information on using `send-pr'.
 
 
-Copyright (c) 1993, Free Software Foundation, Inc.  
+Copyright (c) 1993, Free Software Foundation, Inc.
 See the file COPYING for copyright information concerning this
 distribution and all its components.

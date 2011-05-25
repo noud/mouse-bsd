@@ -86,7 +86,7 @@ typedef struct {
 
 	/* Flags */
 
-	int podulenum; 
+	int podulenum;
 	int slottype;
 	int attached;
 
@@ -130,7 +130,7 @@ struct podule_attach_args {
 #define EASI_CYCLE_TYPE_C	0x01
 #define set_easi_cycle_type(podule, type) \
 	IOMD_WRITE_BYTE(IOMD_ECTCR, (IOMD_READ_BYTE(IOMD_ECTCR) & ~(1 << podule)) | (1 << type))
-  
+
 #ifdef _KERNEL
 
 /* Array of podule structures, one per possible podule */

@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: get_args.c,v 1.3 1999/01/10 21:53:45 ezk Exp 
+ * Id: get_args.c,v 1.3 1999/01/10 21:53:45 ezk Exp
  *
  */
 

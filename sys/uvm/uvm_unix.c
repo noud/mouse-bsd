@@ -2,7 +2,7 @@
 
 /*
  * Copyright (c) 1997 Charles D. Cranor and Washington University.
- * Copyright (c) 1991, 1993 The Regents of the University of California.  
+ * Copyright (c) 1991, 1993 The Regents of the University of California.
  * Copyright (c) 1988 University of Utah.
  *
  * All rights reserved.
@@ -22,7 +22,7 @@
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
  *      This product includes software developed by Charles D. Cranor,
- *	Washington University, the University of California, Berkeley and 
+ *	Washington University, the University of California, Berkeley and
  *	its contributors.
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
@@ -99,7 +99,7 @@ sys_obreak(p, v, retval)
 		rv = uvm_map(&vm->vm_map, &old, diff, NULL, UVM_UNKNOWN_OFFSET,
 		    UVM_MAPFLAG(UVM_PROT_ALL, UVM_PROT_ALL, UVM_INH_COPY,
 		    UVM_ADV_NORMAL, UVM_FLAG_AMAPPAD|UVM_FLAG_FIXED|
-		    UVM_FLAG_OVERLAY|UVM_FLAG_COPYONW)); 
+		    UVM_FLAG_OVERLAY|UVM_FLAG_COPYONW));
 
 		if (rv != KERN_SUCCESS) {
 			uprintf("sbrk: grow failed, return = %d\n", rv);
@@ -245,7 +245,7 @@ uvm_coredump(p, vp, cred, chdr)
 		    IO_NODELOCKED|IO_UNIT, cred, NULL, p);
 		if (error)
 			break;
-		
+
 		offset += cseg.c_size;
 		chdr->c_nseg++;
 	}
@@ -324,7 +324,7 @@ uvm_coredump32(p, vp, cred, chdr)
 		    IO_NODELOCKED|IO_UNIT, cred, NULL, p);
 		if (error)
 			break;
-		
+
 		offset += cseg.c_size;
 		chdr->c_nseg++;
 	}

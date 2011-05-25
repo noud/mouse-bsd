@@ -4,7 +4,7 @@
 ** netbsd.c		Low level kernel access functions for NetBSD
 **
 ** This program is in the public domain and may be used freely by anyone
-** who wants to. 
+** who wants to.
 **
 ** Last update: 15 July 1998
 **
@@ -69,7 +69,7 @@ struct nlist nl[] =
 #define N_FILE 0
 #define N_NFILE 1
 #define N_TCBTABLE 2
-      
+
   { "_filehead" },
   { "_nfiles" },
   { "_tcbtable" },
@@ -82,7 +82,7 @@ static struct file *xfile;
 static int nfile;
 
 static struct inpcbtable tcbtable;
-  
+
 static int getbuf __P((long, char *, int, char *));
 static struct socket *getlist __P((struct inpcbtable *, struct inpcbtable *,
     struct in_addr *, int, struct in_addr *, int));
@@ -97,7 +97,7 @@ int k_open()
   if ((kd = kvm_openfiles(path_unix, path_kmem, NULL, O_RDONLY, errbuf)) ==
       NULL)
     ERROR1("main: kvm_open: %s", errbuf);
-  
+
   /*
   ** Extract offsets to the needed variables in the kernel
   */
@@ -126,7 +126,7 @@ static int getbuf(addr, buf, len, what)
 
     return 0;
   }
-  
+
   return 1;
 }
 
@@ -148,7 +148,7 @@ getlist(tcbtablep, ktcbtablep, faddr, fport, laddr, lport)
 
 	if (!tcbtablep)
 		return NULL;
- 
+
 	for (kpcbp = tcbtablep->inpt_queue.cqh_first;
 	     kpcbp != (struct inpcb *)ktcbtablep;
 	     kpcbp = pcb.inp_queue.cqe_next) {
@@ -187,11 +187,11 @@ int k_getuid(faddr, fport, laddr, lport, uid
   struct socket *sockp;
   int i, mib[2];
   struct ucred ucb;
-  
+
   /* -------------------- FILE DESCRIPTOR TABLE -------------------- */
   if (!getbuf(nl[N_NFILE].n_value, (char *)&nfile, sizeof(nfile), "nfile"))
     return -1;
-  
+
   if (!getbuf(nl[N_FILE].n_value, (char *)&addr, sizeof(addr), "&file"))
     return -1;
 
@@ -216,15 +216,15 @@ int k_getuid(faddr, fport, laddr, lport, uid
     }
     xfile = (struct file *)((char *)xfile + sizeof(filehead));
   }
-  
+
   /* -------------------- TCP PCB LIST -------------------- */
   if (!getbuf(nl[N_TCBTABLE].n_value, (char *)&tcbtable, sizeof(tcbtable),
 			  "tcbtable"))
     return -1;
-  
+
   sockp = getlist(&tcbtable, (struct inpcbtable *)nl[N_TCBTABLE].n_value,
 				  faddr, fport, laddr, lport);
-  
+
   if (!sockp)
     return -1;
 
@@ -242,7 +242,7 @@ int k_getuid(faddr, fport, laddr, lport, uid
   {
     if (xfile[i].f_count == 0)
       continue;
-    
+
     if (xfile[i].f_type == DTYPE_SOCKET &&
 	(struct socket *) xfile[i].f_data == sockp)
     {

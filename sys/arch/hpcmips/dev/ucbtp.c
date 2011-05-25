@@ -123,8 +123,8 @@ struct ucbtp_softc {
 	int sc_x, sc_y, sc_p;
 	int sc_ox, sc_oy;
 
-	/* 
-	 * touch panel state machine 
+	/*
+	 * touch panel state machine
 	 */
 	void		*sm_ih; /* TX39 SIB subframe 0 interrupt handler */
 
@@ -173,7 +173,7 @@ const struct wsmouse_accessops ucbtp_accessops = {
 	ucbtp_disable,
 };
 
-/* 
+/*
  * XXX currently no calibration method. this is temporary hack.
  */
 #include <machine/platid.h>
@@ -192,7 +192,7 @@ struct calibration_sample_table {
 	    { 900, 255,  40, 200 },
 	    { 109, 249, 600, 200 },
 	    { 110, 753, 600,  40 }}}},
-	
+
 	{{{PLATID_WILD, PLATID_MACH_COMPAQ_C_2010}}, /* uch machine */
 	 { 0, 0, 639, 239, 5,
 	   {{ 506, 487, 320, 120 },
@@ -200,7 +200,7 @@ struct calibration_sample_table {
 	    { 880, 718,  40, 200 },
 	    { 140, 726, 600, 200 },
 	    { 137, 250, 600,  40 }}}},
-	 
+
 	{{{PLATID_WILD, PLATID_MACH_SHARP_MOBILON_HC4100}}, /* uch machine */
 	 { 0, 0, 639, 239, 5,
 	   {{ 497, 501, 320, 120 },
@@ -208,13 +208,13 @@ struct calibration_sample_table {
 	    { 242, 891,  40, 200 },
 	    { 241, 115, 600, 200 },
 	    { 747, 101, 600,  40 }}}},
-	
-	{{{PLATID_UNKNOWN, PLATID_UNKNOWN}}, 
+
+	{{{PLATID_UNKNOWN, PLATID_UNKNOWN}},
 	 { 0, 0, 639, 239, 5,
-	   {{0, 0, 0, 0}, 
-	    {0, 0, 0, 0}, 
-	    {0, 0, 0, 0}, 
-	    {0, 0, 0, 0}, 
+	   {{0, 0, 0, 0},
+	    {0, 0, 0, 0},
+	    {0, 0, 0, 0},
+	    {0, 0, 0, 0},
 	    {0, 0, 0, 0}}}},
 };
 
@@ -223,17 +223,17 @@ calibration_sample_lookup()
 {
 	struct calibration_sample_table *tab;
 	platid_mask_t mask;
-	
-	for (tab = calibration_sample_table; 
+
+	for (tab = calibration_sample_table;
 	     tab->cst_platform.dw.dw1 != PLATID_UNKNOWN; tab++) {
 
-		mask = PLATID_DEREF(&tab->cst_platform);		
-		
+		mask = PLATID_DEREF(&tab->cst_platform);
+
 		if (platid_match(&platid, &mask)) {
 			return &tab->cst_sample;
 		}
 	}
-	
+
 	return 0;
 }
 
@@ -252,7 +252,7 @@ ucbtp_calibration(sc)
 		return 1;
 	}
 
-	sc->sc_calibrated = 
+	sc->sc_calibrated =
 		tpcalib_ioctl(&sc->sc_tpcalib, WSMOUSEIO_SCALIBCOORDS,
 			      (caddr_t)cs, 0, 0) == 0 ? 1 : 0;
 
@@ -286,22 +286,22 @@ ucbtp_attach(parent, self, aux)
 	tc = sc->sc_tc = ucba->ucba_tc;
 	sc->sc_sib = ucba->ucba_sib;
 	sc->sc_ucb = ucba->ucba_ucb;
-	
+
 	printf(": ");
 	/* touch panel interrupt */
 	tx_intr_establish(tc, MAKEINTR(1, TX39_INTRSTATUS1_SIBIRQPOSINT),
 			  IST_EDGE, IPL_TTY, ucbtp_sibintr, sc);
-	
+
 	/* attempt to calibrate touch panel */
 	ucbtp_calibration(sc);
-	
+
 	printf("\n");
 
 	wsmaa.accessops = &ucbtp_accessops;
 	wsmaa.accesscookie = sc;
 
 	ucb1200_state_install(parent, ucbtp_busy, self, UCB1200_TP_MODULE);
-			      
+
 	/*
 	 * attach the wsmouse
 	 */
@@ -313,7 +313,7 @@ ucbtp_busy(arg)
 	void *arg;
 {
 	struct ucbtp_softc *sc = arg;
-	
+
 	return sc->sm_state != UCBADC_IDLE;
 }
 
@@ -321,8 +321,8 @@ int
 ucbtp_poll(arg)
 	void *arg;
 {
-	struct ucbtp_softc *sc = arg;	
-	
+	struct ucbtp_softc *sc = arg;
+
 	if (!ucb1200_state_idle(sc->sc_ucb)) /* subframe0 busy */
 		return POLL_CONT;
 
@@ -330,7 +330,7 @@ ucbtp_poll(arg)
 		sc->sc_polling_finish = 0;
 		return POLL_END;
 	}
-	
+
 	/* execute A-D converter */
 	sc->sm_state = UCBADC_ADC_INIT;
 	ucbtp_adc_async(sc);
@@ -343,7 +343,7 @@ ucbtp_sibintr(arg)
 	void *arg;
 {
 	struct ucbtp_softc *sc = arg;
-	
+
 	sc->sc_stat = UCBTS_STAT_TOUCH;
 
 	/* click! */
@@ -359,7 +359,7 @@ ucbtp_sibintr(arg)
 	}
 
 	/* don't acknoledge interrupt until polling finish */
-	
+
 	return 0;
 }
 
@@ -367,7 +367,7 @@ ucbtp_sibintr(arg)
 	sc->sm_addr = (addr), \
 	sc->sm_reg = (reg), \
 	sc->sm_returnstate = (ret),\
-	sc->sm_state = UCBADC_REGWRITE)	
+	sc->sm_state = UCBADC_REGWRITE)
 #define REGREAD(addr, ret) ( \
 	sc->sm_addr = (addr), \
 	sc->sm_returnstate = (ret), \
@@ -377,7 +377,7 @@ int
 ucbtp_adc_async(arg)
 	void *arg;
 {
-	struct ucbtp_softc *sc = arg;		
+	struct ucbtp_softc *sc = arg;
 	tx_chipset_tag_t tc = sc->sc_tc;
 	txreg_t reg;
 	u_int16_t reg16;
@@ -392,7 +392,7 @@ ucbtp_adc_async(arg)
 
 	case UCBADC_IDLE:
 		/* nothing to do */
-		break;		
+		break;
 
 	case UCBADC_ADC_INIT:
 		sc->sc_polling++;
@@ -423,7 +423,7 @@ ucbtp_adc_async(arg)
 				 UCB1200_TSCTRL_XPOSITION,
 				 UCBADC_ADC_ENABLE);
 			break;
-		case UCBADC_MEASUREMENT_Y:			
+		case UCBADC_MEASUREMENT_Y:
 			REGWRITE(UCB1200_TSCTRL_REG,
 				 UCB1200_TSCTRL_YPOSITION,
 				 UCBADC_ADC_ENABLE);
@@ -434,7 +434,7 @@ ucbtp_adc_async(arg)
 				 UCBADC_ADC_ENABLE);
 			break;
 		}
-		break;		
+		break;
 
 	case UCBADC_MEASUMENT_FINI:
 		switch (sc->sm_measurement) {
@@ -442,7 +442,7 @@ ucbtp_adc_async(arg)
 			sc->sm_measurement = UCBADC_MEASUREMENT_Y;
 			sc->sm_state = UCBADC_MEASUMENT_INIT;
 			break;
-		case UCBADC_MEASUREMENT_Y:			
+		case UCBADC_MEASUREMENT_Y:
 			sc->sm_measurement = UCBADC_MEASUREMENT_PRESSURE;
 			sc->sm_state = UCBADC_MEASUMENT_INIT;
 			break;
@@ -452,7 +452,7 @@ ucbtp_adc_async(arg)
 			sc->sm_state = UCBADC_ADC_INPUT;
 			break;
 		}
-		break;		
+		break;
 
 	case UCBADC_ADC_ENABLE:
 		switch (sc->sm_measurement) {
@@ -462,27 +462,27 @@ ucbtp_adc_async(arg)
 			sc->sm_tmpreg = UCB1200_ADCCTRL_INPUT_SET(
 				UCB1200_ADCCTRL_ENABLE,
 				UCB1200_ADCCTRL_INPUT_TSPX);
-			REGWRITE(UCB1200_ADCCTRL_REG, sc->sm_tmpreg, 
+			REGWRITE(UCB1200_ADCCTRL_REG, sc->sm_tmpreg,
 				 UCBADC_ADC_START0);
 			break;
-		case UCBADC_MEASUREMENT_Y:			
+		case UCBADC_MEASUREMENT_Y:
 			sc->sm_tmpreg = UCB1200_ADCCTRL_INPUT_SET(
 				UCB1200_ADCCTRL_ENABLE,
 				UCB1200_ADCCTRL_INPUT_TSPY);
-			REGWRITE(UCB1200_ADCCTRL_REG, sc->sm_tmpreg, 
+			REGWRITE(UCB1200_ADCCTRL_REG, sc->sm_tmpreg,
 				 UCBADC_ADC_START0);
 			break;
 		}
-		break;	
+		break;
 
 	case UCBADC_ADC_START0:
-		REGWRITE(UCB1200_ADCCTRL_REG, 
+		REGWRITE(UCB1200_ADCCTRL_REG,
 			 sc->sm_tmpreg | UCB1200_ADCCTRL_START,
 			 UCBADC_ADC_START1);
-		break;		
+		break;
 
 	case UCBADC_ADC_START1:
-		REGWRITE(UCB1200_ADCCTRL_REG, 
+		REGWRITE(UCB1200_ADCCTRL_REG,
 			 sc->sm_tmpreg,
 			 UCBADC_ADC_DATAREAD);
 		sc->sm_retry = 100;
@@ -494,7 +494,7 @@ ucbtp_adc_async(arg)
 
 	case UCBADC_ADC_DATAREAD_WAIT:
 		reg16 = TX39_SIBSF0_REGDATA(sc->sm_reg);
-		if (!(reg16 & UCB1200_ADCDATA_INPROGRESS) && 
+		if (!(reg16 & UCB1200_ADCDATA_INPROGRESS) &&
 		    --sc->sm_retry > 0) {
 			sc->sm_state = UCBADC_ADC_DATAREAD;
 		} else {
@@ -509,7 +509,7 @@ ucbtp_adc_async(arg)
 				sc->sc_x = UCB1200_ADCDATA(reg16);
 				DPRINTFN(9, ("x=%d\n", sc->sc_x));
 				break;
-			case UCBADC_MEASUREMENT_Y:			
+			case UCBADC_MEASUREMENT_Y:
 				sc->sc_y = UCB1200_ADCDATA(reg16);
 				DPRINTFN(9, ("y=%d\n", sc->sc_y));
 				break;
@@ -518,7 +518,7 @@ ucbtp_adc_async(arg)
 				DPRINTFN(9, ("p=%d\n", sc->sc_p));
 				break;
 			}
-			
+
 			sc->sm_state = UCBADC_ADC_DISABLE;
 		}
 
@@ -536,7 +536,7 @@ ucbtp_adc_async(arg)
 	case UCBADC_ADC_INPUT:
 		if (ucbtp_input(sc) == 0)
 			sc->sm_state = UCBADC_ADC_FINI;
-		else 
+		else
 			sc->sm_state = UCBADC_INTR_ACK0;
 		break;
 
@@ -557,7 +557,7 @@ ucbtp_adc_async(arg)
 	 * UCB1200 register access state
 	 */
 	case UCBADC_REGREAD:
-		/* 
+		/*
 		 * In	: sc->sm_addr
 		 * Out	: sc->sm_reg  (with SIBtag)
 		 */
@@ -593,7 +593,7 @@ ucbtp_adc_async(arg)
 			break;
 		}
 		break;
-		
+
 	case UCBADC_REGWRITE:
 		/*
 		 * In	: sc->sm_addr, sc->sm_reg (lower 16bit only)
@@ -638,7 +638,7 @@ ucbtp_input(sc)
 	}
 
 	tpcalib_trans(&sc->sc_tpcalib, sc->sc_x, sc->sc_y, &x, &y);
-	DPRINTFN(1, ("x: %d->%d y: %d->%d pressure=%d\n", 
+	DPRINTFN(1, ("x: %d->%d y: %d->%d pressure=%d\n",
 		     sc->sc_x, x, sc->sc_y, y, sc->sc_p));
 
 	if (sc->sc_p < UCBTS_PRESS_THRESHOLD) {
@@ -650,8 +650,8 @@ ucbtp_input(sc)
 			/* button 0 UP */
 			wsmouse_input(sc->sc_wsmousedev, 0, 0, 0, 0, 0);
 		} else {
-			wsmouse_input(sc->sc_wsmousedev, 0, 
-				      sc->sc_ox, sc->sc_oy, 0, 
+			wsmouse_input(sc->sc_wsmousedev, 0,
+				      sc->sc_ox, sc->sc_oy, 0,
 				      WSMOUSE_INPUT_ABSOLUTE_X |
 				      WSMOUSE_INPUT_ABSOLUTE_Y);
 
@@ -662,16 +662,16 @@ ucbtp_input(sc)
 		return 1;
 	}
 
-#ifdef TX391X /* debug */	
+#ifdef TX391X /* debug */
 	if (sc->sc_polling == 1)
 		tx3912video_dot(x, y);
-	else 
+	else
 		tx3912video_line(sc->sc_ox, sc->sc_oy, x, y);
 	sc->sc_ox = x, sc->sc_oy = y;
-#endif	
-	wsmouse_input(sc->sc_wsmousedev, 1, x, y, 0, 
+#endif
+	wsmouse_input(sc->sc_wsmousedev, 1, x, y, 0,
 		      WSMOUSE_INPUT_ABSOLUTE_X | WSMOUSE_INPUT_ABSOLUTE_Y);
-	
+
 	return 0;
 }
 
@@ -710,7 +710,7 @@ ucbtp_ioctl(v, cmd, data, flag, p)
 	case WSMOUSEIO_GTYPE:
 		*(u_int *)data = WSMOUSE_TYPE_TPANEL;
 		break;
-		
+
 	case WSMOUSEIO_SRES:
 		printf("%s(%d): WSMOUSRIO_SRES is not supported",
 		       __FILE__, __LINE__);
@@ -719,7 +719,7 @@ ucbtp_ioctl(v, cmd, data, flag, p)
 	case WSMOUSEIO_SCALIBCOORDS:
 	case WSMOUSEIO_GCALIBCOORDS:
                 return tpcalib_ioctl(&sc->sc_tpcalib, cmd, data, flag, p);
-		
+
 	default:
 		return (-1);
 	}

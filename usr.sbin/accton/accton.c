@@ -75,7 +75,7 @@ main(argc, argv)
 	argv += optind;
 
 	switch(argc) {
-	case 0: 
+	case 0:
 		if (acct(NULL))
 			err(1, "acct");
 		break;

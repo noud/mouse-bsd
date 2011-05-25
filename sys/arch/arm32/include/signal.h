@@ -109,7 +109,7 @@ struct sigcontext {
 	unsigned int sc_usr_lr;
 	unsigned int sc_svc_lr;
 	unsigned int sc_pc;
-	
+
 	sigset_t sc_mask;		/* signal mask to restore (new style) */
 };
 

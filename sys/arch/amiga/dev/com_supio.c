@@ -106,10 +106,10 @@ void com_supio_cleanup __P((void *));
 
 #if 0
 static int      comconsaddr;
-static bus_space_handle_t comconsioh; 
+static bus_space_handle_t comconsioh;
 static int      comconsattached;
 static bus_space_tag_t comconstag;
-static int comconsrate; 
+static int comconsrate;
 static tcflag_t comconscflag;
 #endif
 

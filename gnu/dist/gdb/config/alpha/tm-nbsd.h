@@ -31,7 +31,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #undef NO_SINGLE_STEP
 #define NO_SINGLE_STEP
-#undef CANNOT_STEP_BREAKPOINT 
+#undef CANNOT_STEP_BREAKPOINT
 
 #define	SOLIB_BKPT_NAME		"__start"
 

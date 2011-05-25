@@ -371,7 +371,7 @@ const struct op_print c_op_print_tab[] =
     {NULL, 0, 0, 0}
 };
 
-struct type ** CONST_PTR (c_builtin_types[]) = 
+struct type ** CONST_PTR (c_builtin_types[]) =
 {
   &builtin_type_int,
   &builtin_type_long,
@@ -415,7 +415,7 @@ const struct language_defn c_language_defn = {
   c_op_print_tab,		/* expression operators for printing */
   1,				/* c-style arrays */
   0,				/* String lower bound */
-  &builtin_type_char,		/* Type of string elements */ 
+  &builtin_type_char,		/* Type of string elements */
   LANG_MAGIC
 };
 
@@ -441,7 +441,7 @@ const struct language_defn cplus_language_defn = {
   c_op_print_tab,		/* expression operators for printing */
   1,				/* c-style arrays */
   0,				/* String lower bound */
-  &builtin_type_char,		/* Type of string elements */ 
+  &builtin_type_char,		/* Type of string elements */
   LANG_MAGIC
 };
 
@@ -467,7 +467,7 @@ const struct language_defn asm_language_defn = {
   c_op_print_tab,		/* expression operators for printing */
   1,				/* c-style arrays */
   0,				/* String lower bound */
-  &builtin_type_char,		/* Type of string elements */ 
+  &builtin_type_char,		/* Type of string elements */
   LANG_MAGIC
 };
 

@@ -25,7 +25,7 @@ snap_kern:
 	cd ${KERNCONFDIR} && config \
 		-b ${KERNOBJDIR}/${configfile} -s ${KERNSRCDIR} ${configfile}
 .ifndef UPDATE
-	cd ${KERNOBJDIR}/${configfile} && ${MAKE} clean 
+	cd ${KERNOBJDIR}/${configfile} && ${MAKE} clean
 .endif
 	cd ${KERNOBJDIR}/${configfile} && ${MAKE} depend && ${MAKE} ${_J}
 .endfor # EXTRA_KERNELS

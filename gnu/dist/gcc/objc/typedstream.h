@@ -87,7 +87,7 @@ typedef struct objc_typed_stream {
 
 /*
 ** Read and write objects as specified by TYPE.  All the `last'
-** arguments are pointers to the objects to read/write.  
+** arguments are pointers to the objects to read/write.
 */
 
 int objc_write_type (TypedStream* stream, const char* type, const void* data);
@@ -118,7 +118,7 @@ int objc_read_object (TypedStream* stream, id* object);
 
 /*
 ** Open a typed stream for reading or writing.  MODE may be either of
-** OBJC_READONLY or OBJC_WRITEONLY.  
+** OBJC_READONLY or OBJC_WRITEONLY.
 */
 
 TypedStream* objc_open_typed_stream (FILE* physical, int mode);

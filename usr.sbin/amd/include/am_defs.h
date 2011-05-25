@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: am_defs.h,v 1.10 1999/08/22 05:12:54 ezk Exp 
+ * Id: am_defs.h,v 1.10 1999/08/22 05:12:54 ezk Exp
  *
  */
 

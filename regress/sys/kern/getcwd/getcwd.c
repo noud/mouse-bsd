@@ -108,7 +108,7 @@ int __getcwd __P((char *, size_t));
  *		       		proc b: mount blort /foo)
  *		concurrent with force-unmounting of filesystem.
  */
- 
+
 #define bigname "Funkelhausersteinweitz.SIPBADMIN.a" 	 /* don't ask */
 #define littlename "getcwdtest"
 #define othername "testgetcwd"
@@ -128,7 +128,7 @@ check1 (dir, buf, calltext, actual, expected, experr)
 	char *calltext;
 	int actual, expected, experr;
 {
-	int ntest = test++;			
+	int ntest = test++;
 	if (actual != expected) {
 		fprintf(stderr,
 		    "test %d: in %s, %s failed; expected %d, got %d\n",
@@ -137,15 +137,15 @@ check1 (dir, buf, calltext, actual, expected, experr)
 		fail++;
 	} else if ((expected == -1) && (errno != (experr))) {
 		fprintf(stderr,
-		    "test %d: in %s, %s failed; expected error %d, got %d\n", 
+		    "test %d: in %s, %s failed; expected error %d, got %d\n",
 		    ntest, dir, calltext, experr, errno);
-		if (actual < 0) perror("getcwd"); 
+		if (actual < 0) perror("getcwd");
 		fail++;
 	} else if ((expected > 0) &&
 	    (buf != NULL) &&
 	    (strcmp (dir, buf) != 0)) {
 		fprintf(stderr,
-		    "test %d: in %s, %s got wrong dir %s\n", 
+		    "test %d: in %s, %s got wrong dir %s\n",
 		    ntest, dir, calltext, buf);
 		fail++;
 	} else {
@@ -183,7 +183,7 @@ time_old_getcwd()
 		perror("old_getcwd");
 		exit(1);
 	}
-	
+
 }
 
 void
@@ -204,10 +204,10 @@ time_func(name, func)
 {
 	struct timeval before, after;
 	double delta_t;
-	
+
 	int i;
 	chdir ("/usr/share/examples/emul/ultrix/etc");
-	
+
 	gettimeofday(&before, 0);
 	for (i=0; i<nloops; i++) {
 		(*func)();
@@ -219,7 +219,7 @@ time_func(name, func)
 	delta_t += ((double)(after.tv_usec - before.tv_usec))/1000000.0;
 
 	printf("%s: %d calls in %10.3f seconds; ", name, nloops, delta_t);
-	printf("%10.6f ms/call\n", (delta_t*1000.0)/nloops);	
+	printf("%10.6f ms/call\n", (delta_t*1000.0)/nloops);
 }
 
 void
@@ -241,17 +241,17 @@ void
 test___getcwd_perms()
 {
 	char kbuf[1024];
-	
-	if (geteuid() != 0) 
+
+	if (geteuid() != 0)
 	  {
 	    fprintf(stderr, "Not root; skipping permission tests\n");
-	    return;	    
+	    return;
 	  }
-	    
+
 	mkdir ("/tmp/permdir", 0700);
 	mkdir ("/tmp/permdir/subdir", 0755);
 	chdir ("/tmp/permdir/subdir");
-	
+
 	seteuid(altid);
 
 	CHECK("/tmp/permdir/subdir", __getcwd(kbuf, sizeof(kbuf)), -1, EACCES);
@@ -264,7 +264,7 @@ test___getcwd_perms()
 	mkdir ("/tmp/permdir", 0755);
 	mkdir ("/tmp/permdir/subdir", 0711);
 	chdir ("/tmp/permdir/subdir");
-	
+
 	seteuid(altid);
 
 	CHECK("/tmp/permdir/subdir", __getcwd(kbuf, sizeof(kbuf)), 20, 0);
@@ -280,8 +280,8 @@ test___getcwd_chroot()
 {
 	int pid, status;
 	char kbuf[1024];
-	
-	if (geteuid() != 0) 
+
+	if (geteuid() != 0)
 	  {
 	    fprintf(stderr, "Not root; skipping chroot tests\n");
 	    return;
@@ -296,7 +296,7 @@ test___getcwd_chroot()
 	CHECK ("/tmp/chrootdir", __getcwd(kbuf, sizeof(kbuf)), 15, 0);
 
 	fflush(NULL);
-	
+
 	pid = fork();
 
 	if (pid < 0) {
@@ -326,7 +326,7 @@ test___getcwd_chroot()
 			pass++;
 		else
 			fail++;
-		
+
 	}
 
 	chdir ("/");
@@ -342,7 +342,7 @@ test___getcwd()
 {
 	int i;
 	static char kbuf[1024];
-	
+
 	chdir("/");
 
 	CHECK("/", __getcwd(0, 0), -1, ERANGE);
@@ -350,7 +350,7 @@ test___getcwd()
 	CHECK("/", __getcwd(kbuf, 0xdeadbeef), -1, ERANGE); /* large negative */
 	CHECK("/", __getcwd(kbuf, 0x7000beef), 2, 0); /* large positive, rounds down */
 	CHECK("/", __getcwd(kbuf, 0x10000), 2, 0); /* slightly less large positive, rounds down */
-	CHECK("/", __getcwd(kbuf+0x100000, sizeof(kbuf)), -1, EFAULT); /* outside address space */	
+	CHECK("/", __getcwd(kbuf+0x100000, sizeof(kbuf)), -1, EFAULT); /* outside address space */
 	CHECK("/", __getcwd(0, 30), -1, EFAULT);
 	CHECK("/", __getcwd((void*)0xdeadbeef, 30), -1, EFAULT);
 	CHECK("/", __getcwd(kbuf, 2), 2, 0);
@@ -363,10 +363,10 @@ test___getcwd()
 	chdir("/sbin");
 	CHECK("/sbin", __getcwd(kbuf, sizeof(kbuf)), 6, 0);
 	/* verify that cacheable path gets range check right.. */
-	CHECK("/sbin", __getcwd(kbuf, 3), -1, ERANGE);	
+	CHECK("/sbin", __getcwd(kbuf, 3), -1, ERANGE);
 	chdir("/etc/mtree");
 	CHECK("/etc/mtree", __getcwd(kbuf, sizeof(kbuf)), 11, 0);
-	CHECK("/etc/mtree", __getcwd(kbuf, sizeof(kbuf)), 11, 0);	
+	CHECK("/etc/mtree", __getcwd(kbuf, sizeof(kbuf)), 11, 0);
 	/* mount point */
 	chdir("/usr/bin");
 	CHECK("/usr/bin", __getcwd(kbuf, sizeof(kbuf)), 9, 0);
@@ -380,7 +380,7 @@ test___getcwd()
 	/* verify that non-cachable path gets range check right.. */
 	CHECK("/tmp/" bigname, __getcwd(kbuf, 10), -1, ERANGE);
 	CHECK("/tmp/" bigname, __getcwd(kbuf, sizeof(kbuf)), 40, 0);
-	
+
 	if (rmdir("/tmp/" bigname) < 0) {
 		perror("rmdir");
 	}
@@ -395,7 +395,7 @@ test___getcwd()
 		perror("rename");
 		fail++;
 	}
-	CHECK("/tmp/" othername, __getcwd(kbuf, sizeof(kbuf)), 16, 0);	
+	CHECK("/tmp/" othername, __getcwd(kbuf, sizeof(kbuf)), 16, 0);
 	if (rmdir("/tmp/" othername) < 0) {
 		perror("rmdir");
 		fail++;
@@ -421,7 +421,7 @@ test___getcwd()
 			fail++;
 			break;
 		}
-		CHECK(buf, __getcwd(kbuf, sizeof(kbuf)), strlen(buf)+1, 0);	
+		CHECK(buf, __getcwd(kbuf, sizeof(kbuf)), strlen(buf)+1, 0);
 	}
 	for (i=0; i<nloops; i++) {
 		char buf[MAXPATHLEN];
@@ -440,7 +440,7 @@ stress_test_getcwd()
 {
 	char buf[MAXPATHLEN];
 	char ubuf[MAXPATHLEN];
-	char kbuf[MAXPATHLEN];	
+	char kbuf[MAXPATHLEN];
 	printf("reading directories from stdin..\n");
 	while (fgets(buf, MAXPATHLEN, stdin)) {
 		char *cp = strrchr(buf, '\n');
@@ -450,7 +450,7 @@ stress_test_getcwd()
 			warn("Can't change directory to %s", buf);
 			continue;
 		}
-		
+
 
 		cp = old_getcwd (ubuf, MAXPATHLEN);
 		if (strcmp(buf, ubuf) != 0) {
@@ -532,16 +532,16 @@ main(argc, argv)
 	if (argc != optind)
 		usage(progname);
 
-	if (run_regression) 
+	if (run_regression)
 		test___getcwd();
-	
+
 	if (!fail && run_performance)
 		test_speed();
 
 	if (!fail && run_stress)
 		stress_test_getcwd();
 
-	
+
 	if (verbose)
 		printf ("%d passes\n", pass);
 	if (!fail)
@@ -552,4 +552,4 @@ main(argc, argv)
 	}
 }
 
-     
+

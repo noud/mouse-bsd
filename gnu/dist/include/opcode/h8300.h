@@ -1,19 +1,19 @@
 /* Opcode table for the H8-300
    Copyright (C) 1991, 92, 93, 95, 96, 97, 1998 Free Software Foundation.
    Written by Steve Chamberlain, sac@cygnus.com.
-   
+
    This file is part of GDB, the GNU Debugger and GAS, the GNU Assembler.
-   
+
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; either version 2 of the License, or
    (at your option) any later version.
-   
+
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
@@ -47,7 +47,7 @@ typedef int op_type;
 #define L_32		0x04
 #define L_P             0x08
 #define L_24		0x10
-#define MEMRELAX 	0x20			/* move insn which may relax */ 
+#define MEMRELAX 	0x20			/* move insn which may relax */
 #define SRC             0x40
 #define DST             0x80
 
@@ -71,8 +71,8 @@ typedef int op_type;
 #define B31  		0x2000000		/* bit 3 must be high */
 #define CCR		0x4000000
 #define ABS             0x8000000
-#define ABSJMP		0x10000000  
-#define ABS8MEM         0x20000000	
+#define ABSJMP		0x10000000
+#define ABS8MEM         0x20000000
 #define PCREL           0x40000000
 #define MEMIND          0x80000000
 
@@ -132,17 +132,17 @@ typedef int op_type;
 #define OR32 RD32
 #endif
 
-struct code 
+struct code
 {
   op_type nib[30];
 };
 
-struct arg 
+struct arg
 {
   op_type nib[3];
 };
 
-struct h8_opcode 
+struct h8_opcode
 {
   int how;
   int inbase;
@@ -175,18 +175,18 @@ struct h8_opcode
 
 #define BRANCH(code, name, op) \
 { code, 1, 4,name,{{DISP8,E,0}}, {{ 0x4, op, DISP8, IGNORE, E, 0, 0, 0, 0}}, 0, 0, 0, 0}, \
-{ code, 0, 6,name,{{DISP16,E,0}}, {{ 0x5, 0x8, op, 0x0, DISP16, IGNORE, IGNORE, IGNORE, E,0}}, 0, 0, 0, 0} 
+{ code, 0, 6,name,{{DISP16,E,0}}, {{ 0x5, 0x8, op, 0x0, DISP16, IGNORE, IGNORE, IGNORE, E,0}}, 0, 0, 0, 0}
 
 #define SOP(code, x,name) \
-{code, 1, x,  name 
+{code, 1, x,  name
 
 #define NEW_SOP(code, in,x,name) \
-{code, in, x,  name 
+{code, in, x,  name
 #define EOP  ,0,0,0 }
 
 #define TWOOP(code, name, op1, op2,op3) \
 { code,1, 2,name, {{IMM8, RD8, E}},	{{ op1, RD8, IMM8, IGNORE, E, 0, 0, 0, 0}}, 0, 0, 0, 0},\
-{ code, 1, 2,name, {{RS8, RD8, E}},	{{ op2, op3, RS8, RD8, E, 0, 0, 0, 0}}, 0, 0, 0, 0} 
+{ code, 1, 2,name, {{RS8, RD8, E}},	{{ op2, op3, RS8, RD8, E, 0, 0, 0, 0}}, 0, 0, 0, 0}
 
 #define UNOP(code,name, op1, op2) \
 { code, 1, 2, name, {{OR8, E, 0}}, {{ op1, op2, 0, OR8, E, 0, 0, 0, 0}}, 0, 0, 0, 0}
@@ -227,7 +227,7 @@ struct h8_opcode
 #define O_BLS  8
 #define O_BCC  9
 #define O_BCS  10
-#define O_BNE  11  
+#define O_BNE  11
 #define O_BVC  12
 #define O_BVS  13
 #define O_BPL  14
@@ -313,10 +313,10 @@ struct h8_opcode
 /* FIXME: Lots of insns have "E, 0, 0, 0, 0" in the nibble code sequences.
    Methinks the zeroes aren't necessary.  Once confirmed, nuke 'em.  */
 
-struct h8_opcode h8_opcodes[] = 
+struct h8_opcode h8_opcodes[] =
 {
   TWOOP(O(O_ADD,SB),"add.b", 0x8, 0x0,0x8),
-  
+
   NEW_SOP(O(O_ADD,SW),1,2,"add.w"),{{RS16,RD16,E}},{{0x0,0x9,RS16,RD16,E}} EOP,
   NEW_SOP(O(O_ADD,SW),0,4,"add.w"),{{IMM16,RD16,E}},{{0x7,0x9,0x1,RD16,IMM16,IGNORE,IGNORE,IGNORE,E}} EOP,
   NEW_SOP(O(O_ADD,SL),0,2,"add.l"),{{RS32,RD32,E }}, {{0x0,0xA,B31|RS32,B30|RD32,E}} EOP,
@@ -328,7 +328,7 @@ struct h8_opcode h8_opcodes[] =
 
   NEW_SOP(O(O_AND,SW),0,2,"and.w"),{{RS16,RD16,E }},{{0x6,0x6,RS16,RD16,E}} EOP,
   NEW_SOP(O(O_AND,SW),0,4,"and.w"),{{IMM16,RD16,E }},{{0x7,0x9,0x6,RD16,IMM16,IGNORE,IGNORE,IGNORE,E}} EOP,
-  
+
   NEW_SOP(O(O_AND,SL),0,6,"and.l"),{{IMM32,RD32,E }},{{0x7,0xA,0x6,B30|RD32,IMM32LIST,E}} EOP,
   NEW_SOP(O(O_AND,SL),0,2,"and.l") ,{{RS32,RD32,E }},{{0x0,0x1,0xF,0x0,0x6,0x6,B30|RS32,B30|RD32,E}} EOP,
 
@@ -392,19 +392,19 @@ struct h8_opcode h8_opcodes[] =
 
   NEW_SOP(O(O_DIVU,SB),1,6,"divxu.b"), {{RS8,RD16,E}}, {{0x5,0x1,RS8,RD16,E,0,0,0,0}}EOP,
   NEW_SOP(O(O_DIVU,SW),0,20,"divxu.w"),{{RS16,RD32,E}},{{0x5,0x3,RS16,B30|RD32,E}}EOP,
-    
+
   NEW_SOP(O(O_DIVS,SB),0,20,"divxs.b") ,{{RS8,RD16,E }},{{0x0,0x1,0xD,0x0,0x5,0x1,RS8,RD16,E}} EOP,
   NEW_SOP(O(O_DIVS,SW),0,02,"divxs.w") ,{{RS16,RD32,E }},{{0x0,0x1,0xD,0x0,0x5,0x3,RS16,B30|RD32,E}} EOP,
 
   NEW_SOP(O(O_EEPMOV,SB),1,50,"eepmov.b"),{{E,0,0}},{{0x7,0xB,0x5,0xC,0x5,0x9,0x8,0xF,E}}EOP,
   NEW_SOP(O(O_EEPMOV,SW),0,50,"eepmov.w"),{{E,0,0}},{{0x7,0xB,0xD,0x4,0x5,0x9,0x8,0xF,E}} EOP,
-    
+
   NEW_SOP(O(O_EXTS,SW),0,2,"exts.w"),{{OR16,E,0}},{{0x1,0x7,0xD,OR16,E   }}EOP,
   NEW_SOP(O(O_EXTS,SL),0,2,"exts.l"),{{OR32,E,0}},{{0x1,0x7,0xF,OR32|B30,E   }}EOP,
 
   NEW_SOP(O(O_EXTU,SW),0,2,"extu.w"),{{OR16,E,0}},{{0x1,0x7,0x5,OR16,E   }}EOP,
   NEW_SOP(O(O_EXTU,SL),0,2,"extu.l"),{{OR32,E,0}},{{0x1,0x7,0x7,OR32|B30,E   }}EOP,
-    
+
   UNOP(O(O_INC,SB), "inc",0x0,0xA),
 
   NEW_SOP(O(O_INC,SW),0,2,"inc.w") ,{{DBIT,RD16,E }},{{0x0,0xB,0x5|DBIT,RD16,E}} EOP,
@@ -440,7 +440,7 @@ struct h8_opcode h8_opcodes[] =
   SOP(O(O_MOV_TO_REG,SB),6,"mov.b"),{{ABS|SRC|L_32|MEMRELAX,RD8,E }}, {{ 0x6,0xA,0x2,RD8,SRC|ABS|MEMRELAX|A32LIST,E }}EOP,
   SOP(O(O_MOV_TO_MEM,SB),4,"mov.b"),{{RS8,ABS|L_16|MEMRELAX|DST,E}},     {{ 0x6,0xA,0x8,RS8,DST|ABS|MEMRELAX|A16LIST,E}}EOP,
   SOP(O(O_MOV_TO_MEM,SB),6,"mov.b"),{{RS8,ABS|DST|L_32|MEMRELAX,E }},    {{ 0x6,0xA,0xA,RS8,DST|ABS|MEMRELAX|A32LIST,E }}EOP,
-    
+
   SOP(O(O_MOV_TO_REG,SB),6,"mov.b"),{{DISP|L_32|SRC,RD8,E}},  {{ 0x7,0x8,B30|DISPREG,0x0,0x6,0xA,0x2,RD8,SRC|DISP32LIST,E}}EOP,
   SOP(O(O_MOV_TO_MEM,SB),6,"mov.b"),{{RS8,DISP|L_32|DST,E}},  {{ 0x7,0x8,B30|DISPREG,0x0,0x6,0xA,0xA,RS8,DST|DISP32LIST,E}}EOP,
 
@@ -499,12 +499,12 @@ struct h8_opcode h8_opcodes[] =
 
   NEW_SOP(O(O_MULS,SB),0,20,"mulxs.b"),{{RS8,RD16,E}}, {{ 0x0,0x1,0xc,0x0,0x5,0x0,RS8,RD16,E}}EOP,
   NEW_SOP(O(O_MULS,SW),0,20,"mulxs.w"),{{RS16,RD32,E}},{{ 0x0,0x1,0xc,0x0,0x5,0x2,RS16,B30|RD32,E}}EOP,
-  
+
   /* ??? This can use UNOP3.  */
   NEW_SOP(O(O_NEG,SB),1,2,"neg.b"),{{ OR8,E, 0}},{{ 0x1,0x7,0x8,OR8,E,0,0,0,0}}EOP,
   NEW_SOP(O(O_NEG,SW),0,2,"neg.w"),{{ OR16,E,0}},{{ 0x1,0x7,0x9,OR16,E}}EOP,
   NEW_SOP(O(O_NEG,SL),0,2,"neg.l"),{{ OR32,E,0}},{{ 0x1,0x7,0xB,B30|OR32,E}}EOP,
-    
+
   NEW_SOP(O(O_NOP,SN),1,2,"nop"),{{E,0,0}},{{ 0x0,0x0,0x0,0x0,E,0,0,0,0}}EOP,
 
   /* ??? This can use UNOP3.  */

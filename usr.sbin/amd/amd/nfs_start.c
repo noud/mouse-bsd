@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: nfs_start.c,v 1.4 1999/02/04 07:24:16 ezk Exp 
+ * Id: nfs_start.c,v 1.4 1999/02/04 07:24:16 ezk Exp
  *
  */
 

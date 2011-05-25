@@ -76,7 +76,7 @@ hyper_init(ip)
 	ip->cblanky  = ip->fonty + ((128 / ip->cpl) +1) * ip->ftheight;
 
 	REGBASE->nblank = 0x05;
-	
+
 	/*
 	 * Clear the framebuffer on all planes.
 	 */
@@ -156,7 +156,7 @@ hyper_clear(ip, sy, sx, h, w)
 	register int sy, sx, h, w;
 {
 	hyper_windowmove(ip, sy * ip->ftheight, sx * ip->ftwidth,
-			 sy * ip->ftheight, sx * ip->ftwidth, 
+			 sy * ip->ftheight, sx * ip->ftwidth,
 			 h  * ip->ftheight, w  * ip->ftwidth,
 			 RR_CLEAR);
 }

@@ -95,7 +95,7 @@ dw_match(parent, cf, aux)
 		return 0;
 
 	/*
-	 * The uba type is actually only telling where the uba 
+	 * The uba type is actually only telling where the uba
 	 * space is in nexus space.
 	 */
 	if ((sa->type & ~3) != NEX_UBA0)
@@ -455,7 +455,7 @@ struct	cfattach uba_dw730_ca = {
 };
 #endif
 #if 0
-/* 
+/*
  * Stray interrupt vector handler, used when nowhere else to go to.
  */
 void
@@ -479,7 +479,7 @@ ubastray(arg)
 		if (sc->uh_type != DW780)
 #endif
 			rcvec = vektor;
-	} else 
+	} else
 		printf("uba%d: unexpected interrupt, vector 0x%x, br 0x%x\n",
 		    arg, svec, rbr);
 }
@@ -647,7 +647,7 @@ uballoc(uh, addr, bcnt, flags)
 	/* that's all the fields ubasetup() needs */
 	return (ubasetup(uh, &ubabuf, flags));
 }
- 
+
 /*
  * Release resources on uba uban, and then unblock resource waiters.
  * The map register parameter is by value since we need to block
@@ -661,7 +661,7 @@ ubarelse(uh, amr)
 	struct uba_unit *uu;
 	register int bdp, reg, npf, s;
 	int mr;
- 
+
 	/*
 	 * Carefully see if we should release the space, since
 	 * it may be released asynchronously at uba reset time.
@@ -863,7 +863,7 @@ ubasearch(parent, cf, aux)
 		goto fail;
 	if (vec == 0)
 		goto fail;
-		
+
 	scb_vecalloc(vec, ua.ua_ivec, cf->cf_unit, SCB_ISTACK);
 	if (ua.ua_reset) { /* device wants ubareset */
 		if (sc->uh_resno == 0) {

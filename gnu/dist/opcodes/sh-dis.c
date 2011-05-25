@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #define LITTLE_BIT 2
 
-static int 
+static int
 print_insn_shx (memaddr, info)
      bfd_vma memaddr;
      struct disassemble_info *info;
@@ -39,13 +39,13 @@ print_insn_shx (memaddr, info)
 
   status = info->read_memory_func (memaddr, insn, 2, info);
 
-  if (status != 0) 
+  if (status != 0)
     {
       info->memory_error_func (status, memaddr, info);
       return -1;
     }
 
-  if (info->flags & LITTLE_BIT) 
+  if (info->flags & LITTLE_BIT)
     {
       nibs[0] = (insn[1] >> 4) & 0xf;
       nibs[1] = insn[1] & 0xf;
@@ -53,7 +53,7 @@ print_insn_shx (memaddr, info)
       nibs[2] = (insn[0] >> 4) & 0xf;
       nibs[3] = insn[0] & 0xf;
     }
-  else 
+  else
     {
       nibs[0] = (insn[0] >> 4) & 0xf;
       nibs[1] = insn[0] & 0xf;
@@ -62,7 +62,7 @@ print_insn_shx (memaddr, info)
       nibs[3] = insn[1] & 0xf;
     }
 
-  for (op = sh_table; op->name; op++) 
+  for (op = sh_table; op->name; op++)
     {
       int n;
       int imm = 0;
@@ -76,7 +76,7 @@ print_insn_shx (memaddr, info)
 	{
 	  int i = op->nibbles[n];
 
-	  if (i < 16) 
+	  if (i < 16)
 	    {
 	      if (nibs[n] == i)
 		continue;
@@ -85,7 +85,7 @@ print_insn_shx (memaddr, info)
 	  switch (i)
 	    {
 	    case BRANCH_8:
-	      imm = (nibs[2] << 4) | (nibs[3]);	  
+	      imm = (nibs[2] << 4) | (nibs[3]);
 	      if (imm & 0x80)
 		imm |= ~0xff;
 	      imm = ((char)imm) * 2 + 4 ;
@@ -123,7 +123,7 @@ print_insn_shx (memaddr, info)
 	      imm = ((nibs[2] << 4) | nibs[3]) <<2;
 	      goto ok;
 	    case DISP_8:
-	      imm = (nibs[2] << 4) | (nibs[3]);	  
+	      imm = (nibs[2] << 4) | (nibs[3]);
 	      goto ok;
 	    case DISP_4:
 	      imm = nibs[3];
@@ -140,7 +140,7 @@ print_insn_shx (memaddr, info)
 	      break;
 	    case REG_B:
 	      rb = nibs[n] & 0x07;
-	      break;	
+	      break;
 	    default:
 	      abort();
 	    }
@@ -149,11 +149,11 @@ print_insn_shx (memaddr, info)
     ok:
       fprintf_fn (stream,"%s\t", op->name);
       disp_pc = 0;
-      for (n = 0; n < 3 && op->arg[n] != A_END; n++) 
+      for (n = 0; n < 3 && op->arg[n] != A_END; n++)
 	{
 	  if (n && op->arg[1] != A_END)
 	    fprintf_fn (stream, ",");
-	  switch (op->arg[n]) 
+	  switch (op->arg[n])
 	    {
 	    case A_IMM:
 	      fprintf_fn (stream, "#%d", (char)(imm));
@@ -165,31 +165,31 @@ print_insn_shx (memaddr, info)
 	      fprintf_fn (stream, "r%d", rn);
 	      break;
 	    case A_INC_N:
-	      fprintf_fn (stream, "@r%d+", rn);	
+	      fprintf_fn (stream, "@r%d+", rn);
 	      break;
 	    case A_DEC_N:
-	      fprintf_fn (stream, "@-r%d", rn);	
+	      fprintf_fn (stream, "@-r%d", rn);
 	      break;
 	    case A_IND_N:
-	      fprintf_fn (stream, "@r%d", rn);	
+	      fprintf_fn (stream, "@r%d", rn);
 	      break;
 	    case A_DISP_REG_N:
-	      fprintf_fn (stream, "@(%d,r%d)", imm, rn);	
+	      fprintf_fn (stream, "@(%d,r%d)", imm, rn);
 	      break;
 	    case A_REG_M:
 	      fprintf_fn (stream, "r%d", rm);
 	      break;
 	    case A_INC_M:
-	      fprintf_fn (stream, "@r%d+", rm);	
+	      fprintf_fn (stream, "@r%d+", rm);
 	      break;
 	    case A_DEC_M:
-	      fprintf_fn (stream, "@-r%d", rm);	
+	      fprintf_fn (stream, "@-r%d", rm);
 	      break;
 	    case A_IND_M:
-	      fprintf_fn (stream, "@r%d", rm);	
+	      fprintf_fn (stream, "@r%d", rm);
 	      break;
 	    case A_DISP_REG_M:
-	      fprintf_fn (stream, "@(%d,r%d)", imm, rm);	
+	      fprintf_fn (stream, "@(%d,r%d)", imm, rm);
 	      break;
 	    case A_REG_B:
 	      fprintf_fn (stream, "r%d_bank", rb);
@@ -201,10 +201,10 @@ print_insn_shx (memaddr, info)
 	      break;
 	    case A_IND_R0_REG_N:
 	      fprintf_fn (stream, "@(r0,r%d)", rn);
-	      break; 
+	      break;
 	    case A_IND_R0_REG_M:
 	      fprintf_fn (stream, "@(r0,r%d)", rm);
-	      break; 
+	      break;
 	    case A_DISP_GBR:
 	      fprintf_fn (stream, "@(%d,gbr)",imm);
 	      break;
@@ -307,7 +307,7 @@ print_insn_shx (memaddr, info)
       if (!(info->flags & 1)
 	  && (op->name[0] == 'j'
 	      || (op->name[0] == 'b'
-		  && (op->name[1] == 'r' 
+		  && (op->name[1] == 'r'
 		      || op->name[1] == 's'))
 	      || (op->name[0] == 'r' && op->name[1] == 't')
 	      || (op->name[0] == 'b' && op->name[2] == '.')))
@@ -362,7 +362,7 @@ print_insn_shx (memaddr, info)
   return 2;
 }
 
-int 
+int
 print_insn_shl (memaddr, info)
      bfd_vma memaddr;
      struct disassemble_info *info;
@@ -374,7 +374,7 @@ print_insn_shl (memaddr, info)
   return r;
 }
 
-int 
+int
 print_insn_sh (memaddr, info)
      bfd_vma memaddr;
      struct disassemble_info *info;

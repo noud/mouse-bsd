@@ -135,7 +135,7 @@ isp_attach(isp)
 				break;
 			}
 			if (fcp->isp_fwstate == FW_READY &&
-			    fcp->isp_loopstate >= LOOP_PDB_RCVD) { 
+			    fcp->isp_loopstate >= LOOP_PDB_RCVD) {
 				break;
 			}
 		}
@@ -238,7 +238,7 @@ ispcmd_slow(xs)
 	return (ispcmd(xs));
 }
 
-static int      
+static int
 ispioctl(sc_link, cmd, addr, flag, p)
 	struct scsipi_link *sc_link;
 	u_long cmd;
@@ -248,7 +248,7 @@ ispioctl(sc_link, cmd, addr, flag, p)
 {
 	struct ispsoftc *isp = sc_link->adapter_softc;
 	int s, chan, retval = ENOTTY;
-	
+
 	switch (cmd) {
 	case SCBUSIORESET:
 		chan = sc_link->scsipi_scsi.channel;
@@ -339,7 +339,7 @@ ispcmd(xs)
 	case CMD_COMPLETE:
 		result = COMPLETE;
 		break;
-		
+
 	}
 	/*
 	 * If we can't use interrupts, poll on completion.
@@ -562,20 +562,20 @@ isp_async(isp, cmd, arg)
 			case ISP1080_LVD_MODE:
 				sdp->isp_lvdmode = 1;
 				printf(m, isp->isp_name, bus, "LVD");
-				break;  
-			case ISP1080_HVD_MODE:  
+				break;
+			case ISP1080_HVD_MODE:
 				sdp->isp_diffmode = 1;
 				printf(m, isp->isp_name, bus, "Differential");
-				break;  
-			case ISP1080_SE_MODE:   
+				break;
+			case ISP1080_SE_MODE:
 				sdp->isp_ultramode = 1;
 				printf(m, isp->isp_name, bus, "Single-Ended");
-				break;          
-			default:        
+				break;
+			default:
 				printf("%s: unknown mode on bus %d (0x%x)\n",
 				    isp->isp_name, bus, l);
-				break;  
-			}       
+				break;
+			}
 #endif
 			/*
 			 * There's some ambiguity about our negotiated speed
@@ -661,7 +661,7 @@ isp_async(isp, cmd, arg)
 		char *ptr;
 		fcparam *fcp = isp->isp_param;
 		int tgt = *((int *) arg);
-		struct lportdb *lp = &fcp->portdb[tgt]; 
+		struct lportdb *lp = &fcp->portdb[tgt];
 
 		if (lp->valid) {
 			ptr = "arrived";

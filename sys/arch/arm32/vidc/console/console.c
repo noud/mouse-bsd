@@ -81,7 +81,7 @@ extern int debug_flags;
 #define CONSMAP_ITALIC	16
 
 /*
- * Local variables (to this file) 
+ * Local variables (to this file)
  */
 
 int locked=0;			/* Nut - is this really safe ? */
@@ -128,7 +128,7 @@ extern struct terminal_emulator vt220;
 /*
  * These find functions should move the console it finds to the top of
  * the list to achieve a caching type of operation.  A doubly
- * linked list would be faster methinks. 
+ * linked list would be faster methinks.
  */
 
 struct tty *
@@ -257,7 +257,7 @@ vconsole_spawn(dev, vc)
 	new->SPAWN ( new );
 	new->vtty = 1;
 
-	MALLOC (new->charmap, int *, sizeof(int)*((new->xchars)*(new->ychars)), 
+	MALLOC (new->charmap, int *, sizeof(int)*((new->xchars)*(new->ychars)),
 	    M_DEVBUF, M_NOWAIT );
 /*	printf("spawn:charmap=%08x\n", new->charmap);*/
 
@@ -376,11 +376,11 @@ physconopen(dev, flag, mode, p)
 	TP->t_state |= TS_CARR_ON;
 
 	new->opened=1;
-   
+
 	TP->t_winsize.ws_col = new->xchars;
 	TP->t_winsize.ws_row = new->ychars;
 	ret = ((*linesw[TP->t_line].l_open)(dev, TP));
- 
+
 	if ( majorhack==1 ) {
 		struct vconsole *vc_store;
 		int counter;
@@ -396,14 +396,14 @@ physconopen(dev, flag, mode, p)
 	 * then scroll the real screen up, just to fit the msgbuf on the
 	 * screen, then sink all output, and spew the msgbuf to the
 	 * new consoles charmap!
-	 */ 
+	 */
 
-		lines = 0; xs=0; 
+		lines = 0; xs=0;
 
  		for (counter=0;counter<end;counter++) {
 			xs++;
 			if (*((msgbufp->msg_bufc)+counter)==0x0a) {
-				if (xs>vc->xchars) lines++;	
+				if (xs>vc->xchars) lines++;
 				lines++;
 				xs=0;
 			}
@@ -432,7 +432,7 @@ physconopen(dev, flag, mode, p)
 	 */
 
 		xs=0;
-	
+
 		if ( end < 0 )
 			panic ( "msgbuf trashed reboot and try again" );
 
@@ -450,7 +450,7 @@ physconopen(dev, flag, mode, p)
 	        vconsole_current->xcur = 0;
 
 	        printf ( "\x0a" );
-	    }	 
+	    }
 
 	return(ret);
 }
@@ -592,7 +592,7 @@ physconioctl(dev, cmd, data, flag, p)
 */
 		vconsole_new = *vc;
 		vconsole_new.render_engine = &vidcconsole;
-		if ( vconsole_spawn_re ( 
+		if ( vconsole_spawn_re (
 		    makedev ( physcon_major, *(int *)data ),
 		    &vconsole_new ) == 0 )
 			return ENOMEM;
@@ -601,7 +601,7 @@ physconioctl(dev, cmd, data, flag, p)
 
  	case CONSOLE_GETVC:
 	    {
-/*	   	struct vconsole *vc_p;	
+/*	   	struct vconsole *vc_p;
 	   	vc_p = find_vc(dev);
 		*(int *)data = vc_p->number;*/
 		*(int *)data = vconsole_current->number;
@@ -609,7 +609,7 @@ physconioctl(dev, cmd, data, flag, p)
 	    }
 
 	case CONSOLE_CURSORFLASHRATE:
-		vc->CURSORFLASHRATE ( vc, *(int *)data );		
+		vc->CURSORFLASHRATE ( vc, *(int *)data );
 		return 0;
 
 	case CONSOLE_BLANKTIME:
@@ -643,7 +643,7 @@ physconioctl(dev, cmd, data, flag, p)
 
 	case CONSOLE_DEBUGPRINT:
 		{
-		    struct vconsole *vc_p;	
+		    struct vconsole *vc_p;
 
 		    vc_p = find_vc(makedev(physcon_major,*(int*)data));
 		    if (vc_p==0) return EINVAL;
@@ -656,8 +656,8 @@ physconioctl(dev, cmd, data, flag, p)
 		    vc_p->T_DEBUGPRINT ( vc_p );
 		    return 0;
 		}
-		
-	default: 
+
+	default:
 		error = vc->IOCTL ( vc, dev, cmd, data, flag, p );
 		if ( error >=0 )
 			return error;
@@ -667,7 +667,7 @@ physconioctl(dev, cmd, data, flag, p)
 		error = ttioctl(tp, cmd, data, flag, p);
 		if (error >= 0)
 			return error;
-	} 
+	}
 	return(ENOTTY);
 }
 
@@ -913,7 +913,7 @@ physconinit(cp)
 		if (test[counter]==0)
 			panic ( "Render engine %s is missins a routine",
 			    vconsole_master->render_engine->name );
-  
+
 	test = (int *) vconsole_master->terminal_emulator;
 	for (counter=0; counter<(sizeof(struct terminal_emulator)/4)-1; counter++)
 		if (test[counter]==0)
@@ -1040,7 +1040,7 @@ console_scrollback ()
 	if (vconsole_current == NULL)
 		return 0;
 	if (vconsole_current->R_SCROLLBACK(vconsole_current) == -1) {
-		if (vconsole_current->T_SCROLLBACK(vconsole_current) == -1) {  
+		if (vconsole_current->T_SCROLLBACK(vconsole_current) == -1) {
 		}
 	}
 	return 0;
@@ -1052,7 +1052,7 @@ console_scrollforward ()
 	if (vconsole_current == NULL)
 		return 0;
 	if (vconsole_current->R_SCROLLFORWARD(vconsole_current) == -1) {
-		if (vconsole_current->T_SCROLLFORWARD(vconsole_current) == -1) {  
+		if (vconsole_current->T_SCROLLFORWARD(vconsole_current) == -1) {
 		}
 	}
 	return 0;
@@ -1070,7 +1070,7 @@ physcon_switchdown()
 	int start;
 	int next = (vconsole_current->number);
 	start=next;
-	do {	
+	do {
 		next--;
 		next = next&0xff;
 		if (next == start) return 0;
@@ -1084,7 +1084,7 @@ physcon_switchup ()
 	int start;
 	int next = (vconsole_current->number);
 	start=next;
-	do {	
+	do {
 		next++;
 		next = next&0xff;
 		if (next == start) return 0;
@@ -1100,7 +1100,7 @@ console_switch(number)
 }
 
 /* switchto */
-int 
+int
 physcon_switch(number)
 	u_int number;
 {

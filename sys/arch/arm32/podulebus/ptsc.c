@@ -209,7 +209,7 @@ ptscattach(pdp, dp, auxp)
 #else
 	printf(" polling");
 #endif
-	
+
 	printf("\n");
 
 	/* attach all scsi units on us */
@@ -232,7 +232,7 @@ ptsc_intr(arg)
 		do {
 			dev->sc_status = *rp->FAS216.sfas_status;
 			dev->sc_interrupt = *rp->FAS216.sfas_interrupt;
-	  
+
 			if (dev->sc_interrupt & SFAS_INT_RESELECTED) {
 				dev->sc_resel[0] = *rp->FAS216.sfas_fifo;
 				dev->sc_resel[1] = *rp->FAS216.sfas_fifo;
@@ -362,7 +362,7 @@ ptsc_need_bump(sc, ptr, len)
 
 	if (p) {
 		p = 4-p;
-	    
+
 		if (len < 256)
 			p = len;
 	}
@@ -402,9 +402,9 @@ do { chain[n].ptr = (p); chain[n].len = (l); chain[n++].flg = (f); } while(0)
 	else if (p >= (void *)0xFF000000) {
 		while(l != 0) {
 			len = ((l > sc->sc_bump_sz) ? sc->sc_bump_sz : l);
-	  
+
 			set_link(n, (vm_offset_t)p, len, SFAS_CHAIN_BUMP);
-	  
+
 			p += len;
 			l -= len;
 		}
@@ -435,13 +435,13 @@ do { chain[n].ptr = (p); chain[n].len = (l); chain[n++].flg = (f); } while(0)
 				sc->sc_chain[n-1].len += max_t;
 			else
 				set_link(n, pa, max_t, SFAS_CHAIN_DMA);
-	  
+
 			lastpa = pa+max_t;
-	  
+
 			ptr += max_t;
 			len -= max_t;
 		}
-      
+
 		if (len)
 			set_link(n, (vm_offset_t)ptr, len, SFAS_CHAIN_BUMP);
 	}

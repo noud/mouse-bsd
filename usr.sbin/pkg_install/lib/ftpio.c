@@ -85,13 +85,13 @@ static fds	 ftpio;
  * expect "str" (a regular expression) on file descriptor "fd", storing
  * the FTP return code of the command in the integer "ftprc". The "str"
  * string is expected to match some FTP return codes after a '\n', e.g.
- * "\n(550|226).*\n" 
+ * "\n(550|226).*\n"
  */
 static int
 expect(int fd, const char *str, int *ftprc)
 {
     int rc;
-    char buf[90];  
+    char buf[90];
 #if EXPECT_DEBUG
     char *vstr;
 #endif /* EXPECT_DEBUG */
@@ -108,7 +108,7 @@ expect(int fd, const char *str, int *ftprc)
 	err(1, "expect: malloc() failed");
     strvis(vstr, str, VIS_NL|VIS_SAFE|VIS_CSTYLE);
 #endif /* EXPECT_DEBUG */
-	    
+
     if (regcomp(&rstr, str, REG_EXTENDED) != 0)
 	err(1, "expect: regcomp() failed");
 
@@ -165,13 +165,13 @@ expect(int fd, const char *str, int *ftprc)
 		fflush(stdout);
 #endif /* EXPECT_DEBUG */
 
-		if (ftprc && isdigit(buf[pmatch.rm_so+1])) 
+		if (ftprc && isdigit(buf[pmatch.rm_so+1]))
 		    *ftprc = atoi(buf+pmatch.rm_so+1);
 
 		done=1;
 		retval=0;
 	    }
-	    
+
 	    memmove(buf, buf+1, sizeof(buf)-1); /* yes, this is non-performant */
 	    break;
 	}
@@ -189,7 +189,7 @@ expect(int fd, const char *str, int *ftprc)
 
 /*
  * send a certain ftp-command "cmd" to our FTP coprocess, and wait for
- * "expectstr" to be returned. Return numeric FTP return code. 
+ * "expectstr" to be returned. Return numeric FTP return code.
  */
 static int
 ftp_cmd(const char *cmd, const char *expectstr)
@@ -198,10 +198,10 @@ ftp_cmd(const char *cmd, const char *expectstr)
 
     if (Verbose)
 	    verbose_ftp=1;
-    
+
     if (verbose_ftp)
       fprintf(stderr, "\n[1mftp> %s[0m", cmd);
-    
+
     fflush(stdout);
     rc=write(ftpio.command, cmd, strlen(cmd));
     if (rc == strlen(cmd)) {
@@ -240,46 +240,46 @@ setupCoproc(const char *base)
     switch (rc1) {
     case -1:
 	    /* Error */
-	    
+
 	    warn("setupCoproc: fork() failed");
 	    return -1;
 	    break;
 
     case 0:
 	    /* Child */
-	    
+
 	    (void) close(command_pipe[1]);
 	    dup2(command_pipe[0], 0);
 	    (void) close(command_pipe[0]);
-	    
+
 	    (void) close(answer_pipe[0]);
 	    dup2(answer_pipe[1], 1);
 	    (void) close(answer_pipe[1]);
-	    
+
 	    setbuf(stdout, NULL);
-	    
+
 	    if (Verbose)
 		    fprintf(stderr, "[1mftp -detv %s[0m\n", base);
 	    rc1 = execl("/usr/bin/ftp", "ftp", "-detv", base, NULL);
 	    warn("setupCoproc: execl() failed");
 	    exit(-1);
 	    break;
-    default: 
+    default:
 	    /* Parent */
 	    (void) close(command_pipe[0]);
 	    (void) close(answer_pipe[1]);
-	    
+
 	    (void) snprintf(buf, sizeof(buf), "%d", command_pipe[1]);
 	    setenv(PKG_FTPIO_COMMAND, buf, 1);
 	    (void) snprintf(buf, sizeof(buf), "%d", answer_pipe[0]);
 	    setenv(PKG_FTPIO_ANSWER, buf, 1);
-	    
+
 	    ftpio.command = command_pipe[1];
 	    ftpio.answer  = answer_pipe[0];
-	    
+
 	    fcntl(ftpio.command, F_SETFL, O_NONBLOCK);
 	    fcntl(ftpio.answer , F_SETFL, O_NONBLOCK);
-	    
+
 	    break;
     }
 
@@ -304,27 +304,27 @@ sigpipe_handler(int n)
 
 /*
  * Close the FTP coprocess' current connection, but
- * keep the process itself alive. 
+ * keep the process itself alive.
  */
-void 
+void
 ftp_stop(void)
 {
 #if defined(__svr4__) && defined(__sun__)
 	char	env[BUFSIZ];
 #endif
 	char *tmp1, *tmp2;
-	
+
 	if (!ftp_started)
 		return;
-	
+
 	tmp1=getenv(PKG_FTPIO_COMMAND);
 	tmp2=getenv(PKG_FTPIO_ANSWER);
-	
+
 	/* (Only) the last one closes the link */
 	if (tmp1 != NULL && tmp2 != NULL) {
 		if (needclose)
 			ftp_cmd("close\n", "\n(221 Goodbye.|Not connected.)\n");
-		
+
 		(void) close(ftpio.command);
 		(void) close(ftpio.answer);
 	}
@@ -335,7 +335,7 @@ ftp_stop(void)
 	(void) snprintf(env, sizeof(env), "%s=", PKG_FTPIO_ANSWER);
 	putenv(env);
 #else
-	unsetenv(PKG_FTPIO_COMMAND); 
+	unsetenv(PKG_FTPIO_COMMAND);
 	unsetenv(PKG_FTPIO_ANSWER);
 #endif
 }
@@ -344,7 +344,7 @@ ftp_stop(void)
 /*
  * (Start and re-)Connect the FTP coprocess to some host/dir.
  * If the requested host/dir is different than the one that the
- * coprocess is currently at, close first. 
+ * coprocess is currently at, close first.
  */
 static int
 ftp_start(char *base)
@@ -355,7 +355,7 @@ ftp_start(char *base)
 	char newDir[1024];
 	char *currentHost=getenv(PKG_FTPIO_CURRENTHOST);
 	char *currentDir=getenv(PKG_FTPIO_CURRENTDIR);
-	
+
 	fileURLHost(base, newHost, sizeof(newHost));
 	strcpy(newDir, strchr(base+URLlength(base), '/') + 1);
 	if (currentHost
@@ -367,59 +367,59 @@ ftp_start(char *base)
 			printf("currentHost='%s', newHost='%s'\n", currentHost, newHost);
 			printf("currentDir='%s', newDir='%s'\n", currentDir, newDir);
 		}
-		
+
 		ftp_stop();
-		
+
 		if (Verbose)
 			printf("ftp stopped\n");
 	}
 	setenv(PKG_FTPIO_CURRENTHOST, newHost, 1); /* need to update this in the environment */
 	setenv(PKG_FTPIO_CURRENTDIR, newDir, 1);   /* for subprocesses to have this available */
-	
+
 	tmp1=getenv(PKG_FTPIO_COMMAND);
 	tmp2=getenv(PKG_FTPIO_ANSWER);
 	if(tmp1==NULL || tmp2==NULL || *tmp1=='\0' || *tmp2=='\0') {
 		/* no FTP coprocess running yet */
-		
+
 		if (Verbose)
 			printf("Spawning FTP coprocess\n");
-		
+
 		rc = setupCoproc(base);
 		if (rc == -1) {
 			warnx("setupCoproc() failed");
 			return -1;
 		}
-		
+
 		needclose=1;
 		signal(SIGPIPE, sigpipe_handler);
-		
+
 		if ((expect(ftpio.answer, "\n(221|250|221|550).*\n", &rc) != 0)
 		    || rc != 250) {
 			warnx("expect1 failed, rc=%d", rc);
 			return -1;
 		}
-		
+
 		rc = ftp_cmd("prompt off\n", "\n(Interactive mode off|221).*\n");
 		if (rc == 221) {
 			/* something is wrong */
 			ftp_started=1; /* not really, but for ftp_stop() */
 			ftp_stop();
 		}
-		
+
 		ftp_started=1;
 	} else {
 		/* get FDs of our coprocess */
-		
+
 		ftpio.command = dup(atoi(tmp1));
 		ftpio.answer  = dup(atoi(tmp2));
-		
+
 		if (Verbose)
 			printf("Reusing FDs %s/%s for communication to FTP coprocess\n", tmp1, tmp2);
-		
+
 		fcntl(ftpio.command, F_SETFL, O_NONBLOCK);
 		fcntl(ftpio.answer , F_SETFL, O_NONBLOCK);
 	}
-	
+
 	return 0;
 }
 
@@ -463,7 +463,7 @@ expandURL(char *expandedurl, const char *wildcardurl)
 		warnx("Cannot generate temp file for ftp(1)'s ls output");
 		return -1; /* error */
 	}
-	close(tfd); /* We don't need the file descriptor, but will use 
+	close(tfd); /* We don't need the file descriptor, but will use
 		       the file in a second */
 
 	s=strpbrk(pkg, "<>[]?*{"); /* Could leave out "[]?*" here;
@@ -481,7 +481,7 @@ expandURL(char *expandedurl, const char *wildcardurl)
 		(void) snprintf(buf,  sizeof(buf), "ls %*.*s*.tgz %s\n",
                          (int)(s-pkg), (int)(s-pkg), pkg, tmpname);
 	}
-	
+
 	rc = ftp_cmd(buf, "\n(550|226).*\n"); /* catch errors */
 	if (rc != 226) {
 	    if (Verbose)
@@ -497,13 +497,13 @@ expandURL(char *expandedurl, const char *wildcardurl)
 	    unlink(tmpname);	/* remove clutter */
 	    return -1;
 	}
-	
+
 	best[0]='\0';
 	if (access(tmpname, R_OK)==0) {
 		int matches;
 		FILE *f;
 		char filename[FILENAME_MAX];
-		
+
 		f=fopen(tmpname, "r");
 		if (f == NULL) {
 		    warn("fopen");
@@ -523,7 +523,7 @@ expandURL(char *expandedurl, const char *wildcardurl)
 			}
 		}
 		(void) fclose(f);
-		
+
 		if (matches == 0)
 			warnx("nothing appropriate found\n");
 	}
@@ -569,7 +569,7 @@ unpackURL(const char *url, const char *dir)
 			return -1;
 		}
 	}
-	
+
 	pkg=strrchr(url, '/');
 	if (pkg == NULL){
 		warnx("unpackURL: no '/' in url %s?!", url);
@@ -586,7 +586,7 @@ unpackURL(const char *url, const char *dir)
 		setenv("PKG_PATH", pkg_path, 1);
 		printf("setenv PKG_PATH='%s'\n",pkg_path);
 	}
-	
+
 	rc = ftp_start(base);
 	if (rc == -1) {
 		warnx("ftp_start() failed");
@@ -665,7 +665,7 @@ miscstuff(const char *url)
 	    return -1;
 	}
     }
-    
+
     /* check if one more file(s) exist */
     if (0) {
 	char buf[FILENAME_MAX];
@@ -683,15 +683,15 @@ miscstuff(const char *url)
 	    warnx("chdir failed!");
 	    return -1;
 	}
-	
+
 	if (access("/tmp/xxx", R_OK)==0) {
 	    system("cat /tmp/xxx");
-	    
+
 	    {
 		/* count lines - >0 -> fexists() == true */
 		int len, count;
 		FILE *f;
-		
+
 		f=fopen("/tmp/xxx", "r");
 		if (f == NULL) {
 		    warn("fopen");
@@ -701,12 +701,12 @@ miscstuff(const char *url)
 		while (fgetln(f, &len))
 		    count++;
 		(void) fclose(f);
-		
+
 		printf("#lines = %d\n", count);
 	    }
 	} else
 	    printf("NO MATCH\n");
-	
+
 	unlink("/tmp/xxx");
     }
 
@@ -726,7 +726,7 @@ miscstuff(const char *url)
 	    system(buf);
 	}
     }
-#endif 
+#endif
 
     return 0;
 
@@ -765,7 +765,7 @@ main(int argc, char *argv[])
 
     while(argv[0] != NULL) {
 	    char newurl[FILENAME_MAX];
-	    
+
 	    printf("Expand %s:\n", argv[0]);
 	    rc = expandURL(newurl, argv[0]);
 	    if (rc==-1)
@@ -776,17 +776,17 @@ main(int argc, char *argv[])
 	    /* test out connection caching */
 	    if (1) {
 		    char *s, buf[FILENAME_MAX];
-		    
+
 		    if ((s=getenv(PKG_FTPIO_CNT)) && atoi(s)>0){
 			    (void) snprintf(buf, sizeof(buf),"%d", atoi(s)-1);
 			    setenv(PKG_FTPIO_CNT, buf, 1);
-			    
+
 			    (void) snprintf(buf, sizeof(buf), "%s -v '%s'", argv0, argv[0]);
 			    printf("%s>>> %s\n", s, buf);
 			    system(buf);
 		    }
 	    }
-	    
+
 	    printf("\n\n\n");
 	    argv++;
     }

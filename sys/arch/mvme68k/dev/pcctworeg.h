@@ -60,7 +60,7 @@
  * The PCCchip2 space is permanently mapped by pmap_bootstrap().  This
  * macro translates PCCTWO offsets into the corresponding KVA.
  */
-#define PCCTWO_VADDR(off)	((void *)IIOV(PCCTWO_BASE + (off))) 
+#define PCCTWO_VADDR(off)	((void *)IIOV(PCCTWO_BASE + (off)))
 
 
 /*

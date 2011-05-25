@@ -628,7 +628,7 @@ pagein(k, ve)
 	VAR *v;
 
 	v = ve->var;
-	(void)printf("%*ld", v->width, 
+	(void)printf("%*ld", v->width,
 	    k->ki_u.u_valid ? k->ki_u.u_ru.ru_majflt : 0);
 }
 

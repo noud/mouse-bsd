@@ -112,15 +112,15 @@ plum_attach(parent, self, aux)
 	}
 	memset(sc->sc_pc, 0, sizeof(struct plum_chipset_tag));
 	sc->sc_pc->pc_tc = ca->ca_tc;
-	
+
 	/* Attach Plum devices */
-	/* 
+	/*
 	 * interrupt, power/clock module is used by other plum module.
 	 * attach first.
 	 */
 	sc->sc_pri = 2;
 	config_search(plum_search, self, plum_print);
-	/* 
+	/*
 	 * Other plum module.
 	 */
 	sc->sc_pri = 1;
@@ -134,14 +134,14 @@ plum_idcheck(regt)
 	bus_space_handle_t regh;
 	plumreg_t reg;
 
-	if (bus_space_map(regt, PLUM_ID_REGBASE, 
+	if (bus_space_map(regt, PLUM_ID_REGBASE,
 			  PLUM_ID_REGSIZE, 0, &regh)) {
 		printf("ID register map failed\n");
 		return 0;
 	}
 	reg = plum_conf_read(regt, regh, PLUM_ID_REG);
 	bus_space_unmap(regt, regh, PLUM_ID_REGSIZE);
-	
+
 	return reg;
 }
 
@@ -161,7 +161,7 @@ plum_search(parent, cf, aux)
 {
 	struct plum_softc *sc = (void*)parent;
 	struct plum_attach_args pa;
-	
+
 	pa.pa_pc	= sc->sc_pc;
 	pa.pa_regt	= sc->sc_csregt;
 	pa.pa_iot	= sc->sc_csiot;

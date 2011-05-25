@@ -191,7 +191,7 @@ Lmatchc_fail:
 	movl	r10,r1
 	subl3	r10,r11,r0
 	jbr	Lmatchc_out
-Lmatchc_succ:	
+Lmatchc_succ:
 	movl	r1,r3
 	movl	r11,r1
 	clrl	r0
@@ -648,7 +648,7 @@ Lmovp_out:
  *
  *  r4 is carved up as follows:
  *
- *	------------------------------------------- 
+ *	-------------------------------------------
  *     |                                   N Z V C |
  *	-------------------------------------------
  *

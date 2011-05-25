@@ -216,7 +216,7 @@
 10	string		#\ This\ is\ a\ shell\ archive	shell archive text
 
 #
-# LBR. NB: May conflict with the questionable 
+# LBR. NB: May conflict with the questionable
 #          "binary Computer Graphics Metafile" format.
 #
 0       string  \0\ \ \ \ \ \ \ \ \ \ \ \0\0    LBR archive data

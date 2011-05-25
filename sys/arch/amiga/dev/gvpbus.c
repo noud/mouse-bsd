@@ -79,7 +79,7 @@ gvpbusattach(pdp, dp, auxp)
 	zap = auxp;
 	bcopy(zap, &ga.zargs, sizeof(struct zbus_args));
 	ga.flags = 0;
-	
+
 	/*
 	 * grab secondary type (or fake it if we have a series I)
 	 */
@@ -94,7 +94,7 @@ gvpbusattach(pdp, dp, auxp)
 		ga.flags |= GVP_NOBANK;
 #endif
 	}
-	
+
 
 	switch (ga.prod) {
 	/* no scsi */
@@ -143,7 +143,7 @@ gvpbusattach(pdp, dp, auxp)
 	 */
 	config_found(dp, &ga, gvpbusprint);
 	/*
-	 * eventually when io support is added we need to 
+	 * eventually when io support is added we need to
 	 * configure that too.
 	 */
 }
@@ -161,7 +161,7 @@ gvpbusprint(auxp, pnp)
 	/*
 	 * doesn't support io yet.
 	 */
-	if (gap->prod == GVP_IOEXTEND) 
+	if (gap->prod == GVP_IOEXTEND)
 		printf("gio at %s", pnp);
 	else
 		printf("gtsc at %s", pnp);

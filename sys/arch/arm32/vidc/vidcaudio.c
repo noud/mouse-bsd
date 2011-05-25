@@ -289,7 +289,7 @@ vidcaudio_open(addr, flags)
 
 	return 0;
 }
- 
+
 void
 vidcaudio_close(addr)
 	void *addr;
@@ -306,7 +306,7 @@ vidcaudio_close(addr)
 	ag.open = 0;
 }
 
-/* ************************************************************************* * 
+/* ************************************************************************* *
  | Interface to the generic audio driver                                     |
  * ************************************************************************* */
 
@@ -547,7 +547,7 @@ vidcaudio_dma_program(cur, end, intr, arg)
 		ag.in_progress = 1;
 
 		ag.next_cur = ag.next_end = 0;
-		ag.next_intr = ag.next_arg = 0; 
+		ag.next_intr = ag.next_arg = 0;
 
 		ag.intr = intr;
 		ag.arg = arg;
@@ -681,7 +681,7 @@ vidcaudio_intr(arg)
 			IOMD_WRITE_WORD(IOMD_SD0CURA, xcur);
 			IOMD_WRITE_WORD(IOMD_SD0ENDA, xend|FLAGS);
 			break;
-		 
+
 		case (OVERRUN|INTERRUPT|BANK_B):
 #ifdef PRINT
 			printf("B");

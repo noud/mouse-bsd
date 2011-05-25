@@ -75,7 +75,7 @@ Boston, MA 02111-1307, USA.  */
 
 /* Provide a LINK_SPEC appropriate for NetBSD.  Here we provide support
    for the special GCC options -static, -assert, and -nostdlib.  */
- 
+
 #undef LINK_SPEC
 #define LINK_SPEC \
   "%{G*} %{EB} %{EL} %{mips1} %{mips2} %{mips3} \

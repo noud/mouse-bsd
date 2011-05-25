@@ -417,7 +417,7 @@ svr4_msgrcv(p, v, retval)
 
 	return sys_msgrcv(p, &ap, retval);
 }
-	
+
 struct svr4_sys_msgget_args {
 	syscallarg(int) what;
 	syscallarg(svr4_key_t) key;

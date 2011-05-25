@@ -47,7 +47,7 @@
 
 #include <sys/param.h>
 #include <sys/systm.h>
-#include <sys/mbuf.h> 
+#include <sys/mbuf.h>
 #include <sys/syslog.h>
 #include <sys/socket.h>
 #include <sys/device.h>
@@ -425,7 +425,7 @@ am79900_intr(arg)
 		am79900_rint(sc);
 	if (isr & LE_C0_TINT)
 		am79900_tint(sc);
-	
+
 #if NRND > 0
 	rnd_add_uint32(&sc->rnd_source, isr);
 #endif

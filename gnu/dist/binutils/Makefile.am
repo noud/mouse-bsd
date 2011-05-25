@@ -39,7 +39,7 @@ NLMCONV_PROG=nlmconv
 DLLTOOL_PROG=dlltool
 WINDRES_PROG=windres
 
-SRCONV_PROG=srconv sysdump coffdump 
+SRCONV_PROG=srconv sysdump coffdump
 
 man_MANS = ar.1 nm.1 objdump.1 ranlib.1 size.1 strings.1 strip.1 objcopy.1 \
 	addr2line.1 nlmconv.1 $(DEMANGLER_PROG).1
@@ -190,7 +190,7 @@ addr2line_SOURCES = addr2line.c $(BULIBS)
 #	-rm -f $(STRIP_PROG)
 #	-ln $(OBJCOPY_PROG) $(STRIP_PROG)
 
-sysroff.c: sysinfo$(EXEEXT_FOR_BUILD) sysroff.info 
+sysroff.c: sysinfo$(EXEEXT_FOR_BUILD) sysroff.info
 	./sysinfo$(EXEEXT_FOR_BUILD) -c <$(srcdir)/sysroff.info >sysroff.c
 	./sysinfo$(EXEEXT_FOR_BUILD) -i <$(srcdir)/sysroff.info >>sysroff.c
 	./sysinfo$(EXEEXT_FOR_BUILD) -g <$(srcdir)/sysroff.info >>sysroff.c
@@ -199,7 +199,7 @@ sysroff.h: sysinfo$(EXEEXT_FOR_BUILD) sysroff.info
 	./sysinfo$(EXEEXT_FOR_BUILD) -d <$(srcdir)/sysroff.info >sysroff.h
 
 sysinfo$(EXEEXT_FOR_BUILD): sysinfo.o syslex.o
-	$(CC_FOR_BUILD) $(CFLAGS) $(LDFLAGS) -o $@ sysinfo.o syslex.o 
+	$(CC_FOR_BUILD) $(CFLAGS) $(LDFLAGS) -o $@ sysinfo.o syslex.o
 
 syslex.o: syslex.c sysinfo.h
 	if [ -r syslex.c ]; then \

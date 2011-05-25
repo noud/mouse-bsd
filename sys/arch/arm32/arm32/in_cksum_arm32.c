@@ -78,7 +78,7 @@
 	adcs	%0,%0,#0\n"		\
 	: "=r" (sum)			\
 	: "0" (sum), "r" (w), "r" (tmp1), "r" (tmp2), "r" (tmp3), "r" (tmp4))
-	
+
 #define ADD32	__asm __volatile("	\n\
 	ldmia	%2!, {%3, %4, %5, %6}	\n\
 	adds	%0,%0,%3; adcs %0,%0,%4	\n\
@@ -89,7 +89,7 @@
 	adcs	%0,%0,#0\n"		\
 	: "=r" (sum)			\
 	: "0" (sum), "r" (w), "r" (tmp1), "r" (tmp2), "r" (tmp3), "r" (tmp4))
-	
+
 #define ADD16	__asm __volatile("	\n\
 	ldmia	%2!, {%3, %4, %5, %6}	\n\
 	adds	%0,%0,%3; adcs %0,%0,%4	\n\

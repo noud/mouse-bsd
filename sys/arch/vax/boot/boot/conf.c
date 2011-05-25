@@ -95,11 +95,11 @@ int nfsys = (sizeof(file_system) / sizeof(struct fs_ops));
 extern struct netif_driver qe_driver;
 extern struct netif_driver le_driver;
 extern struct netif_driver ze_driver;
- 
+
 struct netif_driver *netif_drivers[] = {
 	&qe_driver,
 	&le_driver,
 	&ze_driver,
-}; 
+};
 int     n_netif_drivers = (sizeof(netif_drivers) / sizeof(netif_drivers[0]));
 

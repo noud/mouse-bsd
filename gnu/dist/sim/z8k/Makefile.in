@@ -1,17 +1,17 @@
 #    Makefile template for Configure for the z8k sim library.
 #    Copyright (C) 1993, 1995 Free Software Foundation, Inc.
 #    Written by Cygnus Support.
-# 
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
@@ -86,16 +86,16 @@ support.o:support.c inlines.h config.h
 mem.o: mem.c config.h tm.h mem.h sim.h
 
 comped1.o:comped1.c tc-gen1.h config.h
-	$(CC) -c -g -o comped1.o $(CSEARCH) $(srcdir)/comped1.c	
+	$(CC) -c -g -o comped1.o $(CSEARCH) $(srcdir)/comped1.c
 
 comped3.o:comped3.c tc-gen3.h config.h
-	$(CC) -c -g -o comped3.o $(CSEARCH) $(srcdir)/comped3.c	
+	$(CC) -c -g -o comped3.o $(CSEARCH) $(srcdir)/comped3.c
 
 compedb3.o:compedb3.c tc-genb3.h config.h
-	$(CC) -c -g -o compedb3.o $(CSEARCH) $(srcdir)/compedb3.c	
+	$(CC) -c -g -o compedb3.o $(CSEARCH) $(srcdir)/compedb3.c
 
 comped2.o:comped2.c tc-gen2.h config.h
-	$(CC) -c -g -o comped2.o $(CSEARCH) $(srcdir)/comped2.c	
+	$(CC) -c -g -o comped2.o $(CSEARCH) $(srcdir)/comped2.c
 
 tc-gen1.h:writecode
 	./writecode  -1 >tc-gen1.h
@@ -141,7 +141,7 @@ TAGS: force
 	etags $(INCDIR)/*.h $(srcdir)/*.h $(srcdir)/*.c
 
 mostlyclean clean:
-	rm -f *.[oa] *~ core tc-gen1.h tc-gen2.h tc-gen3.h tc-genb3.h writecode 
+	rm -f *.[oa] *~ core tc-gen1.h tc-gen2.h tc-gen3.h tc-genb3.h writecode
 	rm -f run libsim.a config.log
 
 distclean maintainer-clean realclean: clean

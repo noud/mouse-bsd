@@ -62,7 +62,7 @@ item_visible(item)
 		return E_BAD_ARGUMENT;
 	if (item->parent == NULL)
 		return E_NOT_CONNECTED;
-	
+
         return item->visible;
 }
 
@@ -75,7 +75,7 @@ item_name(item)
 {
 	if (item == NULL)
 		return NULL;
-	
+
         return item->name.string;
 }
 
@@ -88,7 +88,7 @@ item_description(item)
 {
 	if (item == NULL)
 		return NULL;
-	
+
         return item->description.string;
 }
 
@@ -230,7 +230,7 @@ set_item_value(param_item, flag)
         int flag;
 {
 	ITEM *item = (param_item != NULL) ? param_item : &_menui_default_item;
-	
+
           /* not bound to a menu */
         if (item->parent == NULL)
                 return E_NOT_CONNECTED;
@@ -273,7 +273,7 @@ new_item(name, description)
 
 	  /* copy in the defaults for the item */
 	(void)memcpy(new_one, &_menui_default_item, sizeof(ITEM));
-	
+
 	  /* fill in the name structure - first the length and then
 	     allocate room for the string & copy that. */
 	new_one->name.length = strlen(name);
@@ -283,7 +283,7 @@ new_item(name, description)
 		free(new_one);
                 return NULL;
         }
-        
+
         strcpy(new_one->name.string, name);
 
 	  /* fill in the description structure, stash the length then
@@ -296,7 +296,7 @@ new_item(name, description)
 		free(new_one);
 		return NULL;
 	}
-	
+
 	strcpy(new_one->description.string, description);
 
 	return new_one;
@@ -311,7 +311,7 @@ free_item(item)
 {
 	if (item == NULL)
 		return E_BAD_ARGUMENT;
-	
+
 	  /* check for connection to menu */
 	if (item->parent != NULL)
 		return E_CONNECTED;
@@ -345,7 +345,7 @@ set_current_item(param_menu, item)
 	if ((i = item_index(item)) < 0)
 		  /* item must not be a part of this menu */
 		return E_BAD_ARGUMENT;
-	
+
 	menu->cur_item = i;
 	return E_OK;
 }
@@ -359,10 +359,10 @@ current_item(menu)
 {
 	if (menu == NULL)
 		return NULL;
-	
+
 	if (menu->items == NULL)
 		return NULL;
-	
+
 	return menu->items[menu->cur_item];
 }
 

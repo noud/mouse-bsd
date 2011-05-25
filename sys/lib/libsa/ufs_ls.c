@@ -61,7 +61,7 @@ static char    *typestr[] = {
 	"WHT"
 };
 
-void 
+void
 ufs_ls(path)
 	const char *path;
 {

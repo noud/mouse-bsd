@@ -4,7 +4,7 @@
  * This file was taken from from mvme68k/include/proc.h and
  * should probably be re-synced when needed.
  * Darrin B Jewell <jewell@mit.edu>  Fri Aug 28 03:22:07 1998
- * original cvs id: NetBSD: proc.h,v 1.1.1.1 1995/07/25 23:12:16 chuck Exp 
+ * original cvs id: NetBSD: proc.h,v 1.1.1.1 1995/07/25 23:12:16 chuck Exp
  */
 
 

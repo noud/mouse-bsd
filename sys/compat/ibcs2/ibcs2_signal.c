@@ -275,7 +275,7 @@ ibcs2_sys_sigaction(p, v, retval)
 	return (0);
 }
 
-int 
+int
 ibcs2_sys_sigaltstack(p, v, retval)
 	register struct proc *p;
 	void *v;
@@ -325,7 +325,7 @@ ibcs2_sys_sigsys(p, v, retval)
 
 	if (signum <= 0 || signum >= IBCS2_NSIG)
 		return (EINVAL);
-	
+
 	switch (IBCS2_SIGCALL(SCARG(uap, sig))) {
 	case IBCS2_SIGSET_MASK:
 		if (SCARG(uap, fp) == IBCS2_SIG_HOLD)
@@ -341,29 +341,29 @@ ibcs2_sys_sigsys(p, v, retval)
 			return (error);
 		*retval = (int)obsa.sa_handler;
 		return (0);
-		
+
 	case IBCS2_SIGHOLD_MASK:
 	sighold:
 		sigemptyset(&ss);
 		sigaddset(&ss, signum);
 		return (sigprocmask1(p, SIG_BLOCK, &ss, 0));
-		
+
 	case IBCS2_SIGRELSE_MASK:
 		sigemptyset(&ss);
 		sigaddset(&ss, signum);
 		return (sigprocmask1(p, SIG_UNBLOCK, &ss, 0));
-		
+
 	case IBCS2_SIGIGNORE_MASK:
 		nbsa.sa_handler = SIG_IGN;
 		sigemptyset(&nbsa.sa_mask);
 		nbsa.sa_flags = 0;
 		return (sigaction1(p, signum, &nbsa, 0));
-		
+
 	case IBCS2_SIGPAUSE_MASK:
 		ss = p->p_sigmask;
 		sigdelset(&ss, signum);
 		return (sigsuspend1(p, &ss));
-		
+
 	default:
 		return (ENOSYS);
 	}
@@ -388,7 +388,7 @@ ibcs2_sys_sigprocmask(p, v, retval)
 	switch (SCARG(uap, how)) {
 	case IBCS2_SIG_BLOCK:
 		how = SIG_BLOCK;
-		break; 
+		break;
 	case IBCS2_SIG_UNBLOCK:
 		how = SIG_UNBLOCK;
 		break;

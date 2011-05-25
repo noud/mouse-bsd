@@ -213,7 +213,7 @@ usage:
 	if (ex.e_machine == EM_PPC)
 		aex.a_midmag = htonl((symflag << 26) | (MID_POWERPC << 16)
 			| OMAGIC);
-		
+
 	aex.a_text = text.len;
 	aex.a_data = data.len;
 	aex.a_bss = bss.len;

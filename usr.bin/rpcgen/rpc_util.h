@@ -32,7 +32,7 @@
 /*      @(#)rpc_util.h  1.5  90/08/29  (C) 1987 SMI   */
 
 /*
- * rpc_util.h, Useful definitions for the RPC protocol compiler 
+ * rpc_util.h, Useful definitions for the RPC protocol compiler
  */
 
 #define alloc(size)		(void *)malloc((unsigned)(size))
@@ -51,7 +51,7 @@ typedef struct list list;
 #define GET 2
 
 /*
- * Global variables 
+ * Global variables
  */
 #define MAXLINESIZE 1024
 extern char curline[MAXLINESIZE];
@@ -72,7 +72,7 @@ extern bas_type *typ_list_t;
  * All the option flags
  */
 extern int inetdflag;
-extern int pmflag;   
+extern int pmflag;
 extern int tblflag;
 extern int logflag;
 extern int newstyle;
@@ -91,7 +91,7 @@ extern int timerflag;
 extern int nonfatalerrors;
 
 /*
- * rpc_util routines 
+ * rpc_util routines
  */
 
 #define STOREVAL(list,item)	\
@@ -123,7 +123,7 @@ char *make_argname __P((char *, char *));
 void add_type __P((int, char *));
 bas_type *find_type __P((char *));
 /*
- * rpc_cout routines 
+ * rpc_cout routines
  */
 void emit __P((definition *));
 void emit_inline __P((declaration *, int));
@@ -131,7 +131,7 @@ void emit_single_in_line __P((declaration *, int, relation));
 char *upcase __P((char *));
 
 /*
- * rpc_hout routines 
+ * rpc_hout routines
  */
 
 void print_datadef __P((definition *));
@@ -141,7 +141,7 @@ void pprocdef __P((proc_list *, version_list *, char *, int, int));
 void pdeclaration __P((char *, declaration *, int, char *));
 
 /*
- * rpc_svcout routines 
+ * rpc_svcout routines
  */
 void write_most __P((char *, int, int));
 void write_netid_register __P((char *));

@@ -178,10 +178,10 @@ jcl(argv)
 	if (in.dbsz > INT_MAX || out.dbsz > INT_MAX)
 		errx(1, "buffer sizes cannot be greater than %d", INT_MAX);
 
-	/* Read, write and seek calls take off_t as arguments. 
+	/* Read, write and seek calls take off_t as arguments.
 	 *
 	 * The following check is not done because an off_t is a quad
-	 *  for current NetBSD implementations. 
+	 *  for current NetBSD implementations.
 	 *
 	 * if (in.offset > INT_MAX/in.dbsz || out.offset > INT_MAX/out.dbsz)
 	 *	errx(1, "seek offsets cannot be larger than %d", INT_MAX);

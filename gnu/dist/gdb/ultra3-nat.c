@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include <sys/param.h>
 #include <signal.h>
 #include <sys/ioctl.h>
-#include <fcntl.h>  
+#include <fcntl.h>
 
 #include "gdbcore.h"
 
@@ -41,10 +41,10 @@ static void fetch_core_registers PARAMS ((char *, unsigned, int, CORE_ADDR));
 /* Assumes support for AMD's Binary Compatibility Standard
    for ptrace().  If you define ULTRA3, the ultra3 extensions to
    ptrace() are used allowing the reading of more than one register
-   at a time. 
+   at a time.
 
    This file assumes KERNEL_DEBUGGING is turned off.  This means
-   that if the user/gdb tries to read gr64-gr95 or any of the 
+   that if the user/gdb tries to read gr64-gr95 or any of the
    protected special registers we silently return -1 (see the
    CANNOT_STORE/FETCH_REGISTER macros).  */
 #define	ULTRA3
@@ -78,7 +78,7 @@ fetch_inferior_registers (regno)
 #ifdef ULTRA3
   errno = 0;
   ptrace (PT_READ_STRUCT, inferior_pid,
-	  (PTRACE_ARG3_TYPE) register_addr(GR96_REGNUM,0), 
+	  (PTRACE_ARG3_TYPE) register_addr(GR96_REGNUM,0),
 	  (int)&pt_struct.pt_gr[0], 32*4);
   if (errno != 0) {
       perror_with_name ("reading global registers");
@@ -95,7 +95,7 @@ fetch_inferior_registers (regno)
 #ifdef ULTRA3
   errno = 0;
   ptrace (PT_READ_STRUCT, inferior_pid,
-	  (PTRACE_ARG3_TYPE) register_addr(LR0_REGNUM,0), 
+	  (PTRACE_ARG3_TYPE) register_addr(LR0_REGNUM,0),
 	  (int)&pt_struct.pt_lr[0], 128*4);
   if (errno != 0) {
       perror_with_name ("reading local registers");
@@ -121,14 +121,14 @@ fetch_inferior_registers (regno)
   fetch_register(BP_REGNUM);
   fetch_register(FC_REGNUM);
 
-/* Fake any registers that are in REGISTER_NAMES, but not available to gdb */ 
+/* Fake any registers that are in REGISTER_NAMES, but not available to gdb */
   registers_fetched();
 }
 
 /* Store our register values back into the inferior.
  * If REGNO is -1, do this for all registers.
- * Otherwise, REGNO specifies which register (so we can save time).  
- * NOTE: Assumes AMD's binary compatibility standard. 
+ * Otherwise, REGNO specifies which register (so we can save time).
+ * NOTE: Assumes AMD's binary compatibility standard.
  */
 
 void
@@ -140,7 +140,7 @@ store_inferior_registers (regno)
 
   if (regno >= 0)
     {
-      if (CANNOT_STORE_REGISTER(regno)) 
+      if (CANNOT_STORE_REGISTER(regno))
 	return;
       regaddr = register_addr (regno, 0);
       errno = 0;
@@ -162,7 +162,7 @@ store_inferior_registers (regno)
 	pt_struct.pt_gr[regno] = read_register(regno);
       errno = 0;
       ptrace (PT_WRITE_STRUCT, inferior_pid,
-	      (PTRACE_ARG3_TYPE) register_addr(GR1_REGNUM,0), 
+	      (PTRACE_ARG3_TYPE) register_addr(GR1_REGNUM,0),
 	      (int)&pt_struct.pt_gr1,(1*32*128)*4);
       if (errno != 0)
 	{
@@ -181,7 +181,7 @@ store_inferior_registers (regno)
       pt_struct.pt_fc  = read_register(FC_REGNUM);
       errno = 0;
       ptrace (PT_WRITE_STRUCT, inferior_pid,
-	      (PTRACE_ARG3_TYPE) register_addr(CPS_REGNUM,0), 
+	      (PTRACE_ARG3_TYPE) register_addr(CPS_REGNUM,0),
 	      (int)&pt_struct.pt_psr,(10)*4);
       if (errno != 0)
 	{
@@ -209,7 +209,7 @@ store_inferior_registers (regno)
     }
 }
 
-/* 
+/*
  * Fetch an individual register (and supply it).
  * return 0 on success, -1 on failure.
  * NOTE: Assumes AMD's Binary Compatibility Standard for ptrace().
@@ -238,7 +238,7 @@ fetch_register (regno)
 }
 
 
-/* 
+/*
  * Read AMD's Binary Compatibilty Standard conforming core file.
  * struct ptrace_user is the first thing in the core file
  */
@@ -267,12 +267,12 @@ fetch_core_registers (core_reg_sect, core_reg_size, which, reg_addr)
     }
   }
 
-  /* Fake any registers that are in REGISTER_NAMES, but not available to gdb */ 
+  /* Fake any registers that are in REGISTER_NAMES, but not available to gdb */
   registers_fetched();
 }
 
 
-/*  
+/*
  * Takes a register number as defined in tm.h via REGISTER_NAMES, and maps
  * it to an offset in a struct ptrace_user defined by AMD's BCS.
  * That is, it defines the mapping between gdb register numbers and items in
@@ -304,7 +304,7 @@ register_addr (regno,blockend)
 	case BP_REGNUM:  return(offsetof(struct ptrace_user,pt_bp));
 	case FC_REGNUM:  return(offsetof(struct ptrace_user,pt_fc));
 	default:
-	     fprintf_filtered(gdb_stderr,"register_addr():Bad register %s (%d)\n", 
+	     fprintf_filtered(gdb_stderr,"register_addr():Bad register %s (%d)\n",
 				reg_names[regno],regno);
 	     return(0xffffffff);	/* Should make ptrace() fail */
     }

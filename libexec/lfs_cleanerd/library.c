@@ -189,7 +189,7 @@ get_superblock (fsp, sbp)
 		}
 	} else
 		lseek(dev_fd, 0, SEEK_SET);
-		
+
 	get(dev_fd, LFS_LABELPAD, buf, LFS_SBPAD);
 	memcpy(&(sbp->lfs_dlfs), buf, sizeof(struct dlfs));
 	/* close (fid); */
@@ -670,7 +670,7 @@ mmap_segment (fsp, segment, segbuf, use_mmap)
                 if(debug > 1)
                         syslog(LOG_DEBUG, "mmap_segment\tseg_daddr: %lu\tseg_size: %lu\tseg_offset: %qu",
                                (u_long)seg_daddr, (u_long)ssize, (long long)seg_byte);
-            
+
 		/* malloc the space for the buffer */
 		*segbuf = malloc(ssize);
 		if (!*segbuf) {

@@ -65,23 +65,23 @@ static char sccsid[] = "@(#)portmap.c 1.32 87/08/06 Copyr 1984 Sun Micro";
  * may copy or modify Sun RPC without charge, but are not authorized
  * to license or distribute it to anyone else except as part of a product or
  * program developed by the user.
- * 
+ *
  * SUN RPC IS PROVIDED AS IS WITH NO WARRANTIES OF ANY KIND INCLUDING THE
  * WARRANTIES OF DESIGN, MERCHANTIBILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE, OR ARISING FROM A COURSE OF DEALING, USAGE OR TRADE PRACTICE.
- * 
+ *
  * Sun RPC is provided with no support and without any obligation on the
  * part of Sun Microsystems, Inc. to assist in its use, correction,
  * modification or enhancement.
- * 
+ *
  * SUN MICROSYSTEMS, INC. SHALL HAVE NO LIABILITY WITH RESPECT TO THE
  * INFRINGEMENT OF COPYRIGHTS, TRADE SECRETS OR ANY PATENTS BY SUN RPC
  * OR ANY PART THEREOF.
- * 
+ *
  * In no event will Sun Microsystems, Inc. be liable for any lost revenue
  * or profits or other special, indirect and consequential damages, even if
  * Sun has been advised of the possibility of such damages.
- * 
+ *
  * Sun Microsystems, Inc.
  * 2550 Garcia Avenue
  * Mountain View, California  94043
@@ -316,7 +316,7 @@ reg_service(rqstp, xprt)
 	struct pmaplist *pml, *prevpml, *fnd;
 	long ans, port;
 	caddr_t t;
-	
+
 	if (debugging)
 		(void)fprintf(stderr, "server: about to do a switch\n");
 	switch (rqstp->rq_proc) {
@@ -368,7 +368,7 @@ reg_service(rqstp, xprt)
 					goto done;
 				}
 			} else {
-				/* 
+				/*
 				 * add to END of list
 				 */
 				pml = (struct pmaplist *)
@@ -471,7 +471,7 @@ reg_service(rqstp, xprt)
 		if (!svc_getargs(xprt, xdr_void, NULL))
 			svcerr_decode(xprt);
 		else {
-			 struct pmaplist *p; 
+			 struct pmaplist *p;
 			 if (!check_access(svc_getcaller(xprt), rqstp->rq_proc, (u_long) 0)) {
 				p = 0;  /* send empty list */
 			 } else {
@@ -490,7 +490,7 @@ reg_service(rqstp, xprt)
 		 * Calls a procedure on the local machine.  If the requested
 		 * procedure is not registered this procedure does not return
 		 * error information!!
-		 * This procedure is only supported on rpc/udp and calls via 
+		 * This procedure is only supported on rpc/udp and calls via
 		 * rpc/udp.  It passes null authentication parameters.
 		 */
 		callit(rqstp, xprt);
@@ -590,7 +590,7 @@ xdr_len_opaque_parms(xdrs, cap)
  * a machine should shut-up instead of complain, less the requestor be
  * overrun with complaints at the expense of not hearing a valid reply ...
  *
- * This now forks so that the program & process that it calls can call 
+ * This now forks so that the program & process that it calls can call
  * back to the portmapper.
  */
 static void
@@ -614,7 +614,7 @@ callit(rqstp, xprt)
 	if (!svc_getargs(xprt, xdr_rmtcall_args, (caddr_t)&a))
 		return;
 	/* host and service access control */
-	if (!check_access(svc_getcaller(xprt), rqstp->rq_proc, a.rmt_prog)) 
+	if (!check_access(svc_getcaller(xprt), rqstp->rq_proc, a.rmt_prog))
 		return;
 	if ((pml = find_service(a.rmt_prog, a.rmt_vers,
 	    (u_long)IPPROTO_UDP)) == NULL)
@@ -679,10 +679,10 @@ toggle_verboselog(dummy)
 	verboselog = !verboselog;
 }
 
-int 
+int
 check_access(addr, proc, prog)
-	struct sockaddr_in *addr; 
-	u_long  proc; 
+	struct sockaddr_in *addr;
+	u_long  proc;
 	u_long  prog;
 {
 #ifdef LIBWRAP
@@ -708,7 +708,7 @@ is_loopback(addr)
 {
         if (addr->sin_addr.s_addr == htonl(INADDR_LOOPBACK))
 		return 1;
-	
+
 	return 0;
 }
 
@@ -719,7 +719,7 @@ logit(severity, addr, procnum, prognum, text)
 	int severity;
 	struct sockaddr_in *addr;
 	u_long procnum;
-	u_long prognum; 
+	u_long prognum;
 	char *text;
 {
     char   *procname;
@@ -730,18 +730,18 @@ logit(severity, addr, procnum, prognum, text)
     struct proc_map {
         u_long  code;
         char   *proc;
-    };  
+    };
     struct proc_map *procp;
     static struct proc_map procmap[] = {
         {PMAPPROC_CALLIT, "callit"},
         {PMAPPROC_DUMP, "dump"},
-        {PMAPPROC_GETPORT, "getport"}, 
+        {PMAPPROC_GETPORT, "getport"},
         {PMAPPROC_NULL, "null"},
         {PMAPPROC_SET, "set"},
         {PMAPPROC_UNSET, "unset"},
         {0, 0}
-    };  
-   
+    };
+
     /*
      * Fork off a process or the portmap daemon might hang while
      * getrpcbynumber() or syslog() does its thing.

@@ -18,7 +18,7 @@
  *        This product includes software developed by Waldi Ravens.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
- *      
+ *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -50,7 +50,7 @@ static struct AmigaIO *aio_save;
 
 static struct devsw devsw[] = {
         { "xd", xdstrategy, (void *)xdopenclose, (void *)xdopenclose, xdioctl }
-};              
+};
 
 struct fs_ops file_system[] = {
 	{ ufs_open, ufs_close, ufs_read, ufs_write, ufs_seek, ufs_stat },
@@ -70,7 +70,7 @@ xdinit(aio)
 	aio_base = aio_save->offset;
 }
 
-/* 
+/*
  * Kernel ist loaded from device and partition the kickstart
  * menu or boot priority has chosen:
  */
@@ -96,7 +96,7 @@ xdstrategy (devd, flag, dblk, size, buf, rsize)
 	daddr_t dblk;
 	size_t  size;
 	void    *buf;
-	size_t  *rsize; 
+	size_t  *rsize;
 {
 	struct AmigaIO *aio = (struct AmigaIO *)devd;
 

@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -225,7 +225,7 @@ ip6_output(m0, opt, ro, flags, im6o, ifpp)
 		/* no need to do IPsec. */
 		needipsec = 0;
 		break;
-	
+
 	case IPSEC_POLICY_IPSEC:
 		if (sp->req == NULL) {
 			/* XXX should be panic ? */
@@ -817,7 +817,7 @@ skip_ipsec2:;
 #endif /* PFIL_HOOKS */
 	/*
 	 * Send the packet to the outgoing interface.
-	 * If necessary, do IPv6 fragmentation before sending. 
+	 * If necessary, do IPv6 fragmentation before sending.
 	 */
 	tlen = m->m_pkthdr.len;
 	if (tlen <= mtu
@@ -831,7 +831,7 @@ skip_ipsec2:;
 	     * larger than the link's MTU.
 	     * XXX: IFF_FRAGMENTABLE (or such) flag has not been defined yet...
 	     */
-	    
+
 	    || ifp->if_flags & IFF_FRAGMENTABLE
 #endif
 	    )
@@ -1053,7 +1053,7 @@ ip6_copyexthdr(mp, hdr, hlen)
 }
 
 /*
- * Insert jumbo payload option. 
+ * Insert jumbo payload option.
  */
 static int
 ip6_insert_jumboopt(exthdrs, plen)

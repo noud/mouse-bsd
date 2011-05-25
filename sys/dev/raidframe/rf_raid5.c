@@ -50,7 +50,7 @@ typedef struct RF_Raid5ConfigInfo_s {
 					 * by IdentifyStripe */
 }       RF_Raid5ConfigInfo_t;
 
-int 
+int
 rf_ConfigureRAID5(
     RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr,
@@ -95,27 +95,27 @@ rf_ConfigureRAID5(
 	return (0);
 }
 
-int 
+int
 rf_GetDefaultNumFloatingReconBuffersRAID5(RF_Raid_t * raidPtr)
 {
 	return (20);
 }
 
-RF_HeadSepLimit_t 
+RF_HeadSepLimit_t
 rf_GetDefaultHeadSepLimitRAID5(RF_Raid_t * raidPtr)
 {
 	return (10);
 }
 #if !defined(__NetBSD__) && !defined(_KERNEL)
 /* not currently used */
-int 
+int
 rf_ShutdownRAID5(RF_Raid_t * raidPtr)
 {
 	return (0);
 }
 #endif
 
-void 
+void
 rf_MapSectorRAID5(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -131,7 +131,7 @@ rf_MapSectorRAID5(
 	    (raidSector % raidPtr->Layout.sectorsPerStripeUnit);
 }
 
-void 
+void
 rf_MapParityRAID5(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -148,7 +148,7 @@ rf_MapParityRAID5(
 	    (raidSector % raidPtr->Layout.sectorsPerStripeUnit);
 }
 
-void 
+void
 rf_IdentifyStripeRAID5(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t addr,
@@ -162,7 +162,7 @@ rf_IdentifyStripeRAID5(
 	*diskids = info->stripeIdentifier[stripeID % raidPtr->numCol];
 }
 
-void 
+void
 rf_MapSIDToPSIDRAID5(
     RF_RaidLayout_t * layoutPtr,
     RF_StripeNum_t stripeID,
@@ -176,7 +176,7 @@ rf_MapSIDToPSIDRAID5(
  * one to a function that will return information about the DAG, and
  * another to a function that will create the dag.
  */
-void 
+void
 rf_RaidFiveDagSelect(
     RF_Raid_t * raidPtr,
     RF_IoType_t type,
@@ -271,8 +271,8 @@ rf_RaidFiveDagSelect(
 
 				if (rf_dagDebug || rf_mapDebug) {
 					printf("raid%d: Redirected type '%c' r %d c %d o %ld -> r %d c %d o %ld\n",
-					       raidPtr->raidid, type, or, oc, 
-					       (long) oo, failedPDA->row, 
+					       raidPtr->raidid, type, or, oc,
+					       (long) oo, failedPDA->row,
 					       failedPDA->col,
 					       (long) failedPDA->startSector);
 				}

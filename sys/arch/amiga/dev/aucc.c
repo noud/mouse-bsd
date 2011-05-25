@@ -38,7 +38,7 @@
  * - ulaw -> 14bit conversion
  * - channel allocation is wrong for 14bit mono
  * - convert the... err... conversion routines to 68k asm for best performance
- * 	XXX: NO. aucc audio is limited by chipmem speed, anyway. You dont 
+ * 	XXX: NO. aucc audio is limited by chipmem speed, anyway. You dont
  *	want to make life difficult for amigappc work.
  *		-is
  *
@@ -93,7 +93,7 @@ int     auccdebug = 1;
 #define splaudio() spl4();
 
 /* clock frequency.. */
-extern int eclockfreq; 
+extern int eclockfreq;
 
 
 /* hw audio ch */
@@ -120,7 +120,7 @@ struct aucc_softc {
 };
 
 /* interrupt interfaces */
-void aucc_inthdl __P((int)); 
+void aucc_inthdl __P((int));
 
 /* forward declarations */
 static int init_aucc __P((struct aucc_softc *));
@@ -316,7 +316,7 @@ init_aucc(sc)
 		if (sc->sc_channel[i].nd_dma==NULL)
 			err=1;
 	 	sc->sc_channel[i].nd_dmalength=0;
-		sc->sc_channel[i].nd_volume=64; 
+		sc->sc_channel[i].nd_volume=64;
 		sc->sc_channel[i].nd_intr=NULL;
 		sc->sc_channel[i].nd_intrdata=NULL;
 		sc->sc_channel[i].nd_doublebuf=0;
@@ -404,7 +404,7 @@ aucc_set_out_sr(addr, sr)
 		sc->sc_channel[i].nd_per=per;
 	}
 
-	return(0);	
+	return(0);
 }
 
 int
@@ -425,7 +425,7 @@ aucc_query_encoding(addr, fp)
 			fp->precision = 8;
 			fp->flags = AUDIO_ENCODINGFLAG_EMULATED;
 			break;
-		
+
 		case 2:
 			strcpy(fp->name, AudioEulinear);
 			fp->encoding = AUDIO_ENCODING_ULINEAR;
@@ -697,7 +697,7 @@ aucc_start_output(addr, p, cc, intr, arg)
 	custom.intena = mask << INTB_AUD0;
 
 	/* copy data to dma buffer */
-		
+
 	if (sc->sc_channels == 1) {
 		dmap[0] =
 		dmap[1] =
@@ -855,11 +855,11 @@ aucc_set_port(addr, cp)
 
 		/* evil workaround for xanim bug, IMO */
 		if ((sc->sc_channels == 1) && (i == 2)) {
-			sc->sc_channel[0].nd_volume = 
-			    sc->sc_channel[3].nd_volume = 
+			sc->sc_channel[0].nd_volume =
+			    sc->sc_channel[3].nd_volume =
 			    cp->un.value.level[0]>>2;
-			sc->sc_channel[1].nd_volume = 
-			    sc->sc_channel[2].nd_volume = 
+			sc->sc_channel[1].nd_volume =
+			    sc->sc_channel[2].nd_volume =
 			    cp->un.value.level[1]>>2;
 		} else if (i>1) {
 			for (j=0;j<i;j++)
@@ -980,7 +980,7 @@ aucc_inthdl(int ch)
 	register int mask=aucc->sc_channel[ch].nd_mask;
 
 	/* for all channels in this maskgroup:
-	   disable dma, int 
+	   disable dma, int
 	   mark idle */
 	DPRINTF(("inthandler called, channel %d, mask 0x%x\n",ch,mask));
 
@@ -991,8 +991,8 @@ aucc_inthdl(int ch)
 	 */
 	custom.intena=mask<<INTB_AUD0;
 	/*
-	 * XXX custom.dmacon=mask; NO!!! 
-	 */ 
+	 * XXX custom.dmacon=mask; NO!!!
+	 */
 	for (i=0; i<4; i++) {
 		if (masks2[i]&&mask) {
 			DPRINTF(("marking channel %d idle\n",i));
@@ -1020,7 +1020,7 @@ aucc_inthdl(int ch)
 static u_int
 freqtoper(u_int freq) {
 	u_int per=eclockfreq*5/freq;
-	
+
 	if (per<124)
 		per=124; /* must have at least 124 ticks between samples */
 

@@ -31,7 +31,7 @@
 
 #include <sys/param.h>
 #include <sys/systm.h>
-#include <sys/mbuf.h> 
+#include <sys/mbuf.h>
 #include <sys/syslog.h>
 #include <sys/socket.h>
 #include <sys/device.h>
@@ -93,7 +93,7 @@ nextdma_config(nd)
 		t->_dmamap_load_raw = _bus_dmamap_load_raw_direct;
 		t->_dmamap_unload = _bus_dmamap_unload;
 		t->_dmamap_sync = _bus_dmamap_sync;
-  
+
 		t->_dmamem_alloc = _bus_dmamem_alloc;
 		t->_dmamem_free = _bus_dmamem_free;
 		t->_dmamem_map = _bus_dmamem_map;
@@ -140,7 +140,7 @@ nextdma_init(nd)
 	 */
     state &= (DMACSR_COMPLETE | DMACSR_SUPDATE | DMACSR_ENABLE);
 #else
-    state &= (DMACSR_BUSEXC | DMACSR_COMPLETE | 
+    state &= (DMACSR_BUSEXC | DMACSR_COMPLETE |
               DMACSR_SUPDATE | DMACSR_ENABLE);
 #endif
 		if (state) {
@@ -211,7 +211,7 @@ next_dma_rotate(nd)
 			next_dma_print(nd);
 			panic("DMA request unaligned at start\n");
 		}
-		if (!DMA_ENDALIGNED(nd->_nd_map_cont->dm_segs[nd->_nd_idx_cont].ds_addr + 
+		if (!DMA_ENDALIGNED(nd->_nd_map_cont->dm_segs[nd->_nd_idx_cont].ds_addr +
 				nd->_nd_map_cont->dm_segs[nd->_nd_idx_cont].ds_len)) {
 			next_dma_print(nd);
 			panic("DMA request unaligned at end\n");
@@ -403,7 +403,7 @@ next_dma_finish_xfer(nd)
 	bus_addr_t onext;
 	bus_addr_t olimit;
 	bus_addr_t slimit;
-			
+
 	onext = nd->_nd_map->dm_segs[nd->_nd_idx].ds_addr;
 	olimit = onext + nd->_nd_map->dm_segs[nd->_nd_idx].ds_len;
 
@@ -430,7 +430,7 @@ next_dma_finish_xfer(nd)
 	 * that we've completed that map.
 	 */
 	if (nd->_nd_map && ((nd->_nd_idx+1) == nd->_nd_map->dm_nsegs)) {
-		if (nd->nd_completed_cb) 
+		if (nd->nd_completed_cb)
 			(*nd->nd_completed_cb)(nd->_nd_map, nd->nd_cb_arg);
 	}
 	nd->_nd_map = 0;
@@ -480,13 +480,13 @@ nextdma_intr(arg)
 #ifdef DIAGNOSTIC
 			if (state & DMACSR_ENABLE) {
 				next_dma_print(nd);
-				panic("DMA: unexpected DMA state at shutdown (0x%b)\n", 
+				panic("DMA: unexpected DMA state at shutdown (0x%b)\n",
 						state,DMACSR_BITS);
 			}
 #endif
 			bus_space_write_4(nd->nd_bst, nd->nd_bsh, DD_CSR,
 					DMACSR_CLRCOMPLETE | DMACSR_RESET);
-			
+
 			DPRINTF(("DMA: a normal and expected shutdown occurred\n"));
 			if (nd->nd_shutdown_cb) (*nd->nd_shutdown_cb)(nd->nd_cb_arg);
 
@@ -591,7 +591,7 @@ nextdma_start(nd, dmadir)
 			NEXT_I_BIT(nd->nd_intr),NEXT_INTR_BITS));
 
 	bus_space_write_4(nd->nd_bst, nd->nd_bsh, DD_CSR, 0);
-	bus_space_write_4(nd->nd_bst, nd->nd_bsh, DD_CSR, 
+	bus_space_write_4(nd->nd_bst, nd->nd_bsh, DD_CSR,
 			DMACSR_INITBUF | DMACSR_RESET | dmadir);
 
 	next_dma_setup_curr_regs(nd);
@@ -602,7 +602,7 @@ nextdma_start(nd, dmadir)
 #endif
 
 	if ((nd->_nd_map_cont == NULL) && (nd->_nd_idx+1 == nd->_nd_map->dm_nsegs)) {
-		bus_space_write_4(nd->nd_bst, nd->nd_bsh, DD_CSR, 
+		bus_space_write_4(nd->nd_bst, nd->nd_bsh, DD_CSR,
 				DMACSR_SETENABLE | dmadir);
 	} else {
 		bus_space_write_4(nd->nd_bst, nd->nd_bsh, DD_CSR,

@@ -52,7 +52,7 @@ __KERNEL_RCSID(0, "$NetBSD: sfbplus.c,v 1.3 1999/12/15 15:09:37 ad Exp $");
 #include <dev/wscons/wsdisplayvar.h>
 
 #include <dev/tc/tcvar.h>
-#include <dev/ic/bt459reg.h>	
+#include <dev/ic/bt459reg.h>
 #include <dev/ic/bt463reg.h>
 #include <dev/tc/sfbreg.h>
 #include <dev/pci/tgareg.h>
@@ -549,7 +549,7 @@ sfbp_cnattach(addr)
         long defattr;
 
         sfbp_getdevconfig(addr, dcp);
- 
+
         sfb_alloc_attr(&dcp->dc_rcons, 0, 0, 0, &defattr);
 
         wsdisplay_cnattach(&sfb_stdscreen, &dcp->dc_rcons,
@@ -566,7 +566,7 @@ sfbpintr(arg)
 	caddr_t sfbasic = (caddr_t)sc->sc_dc->dc_vaddr + SFB_ASIC_OFFSET;
 	int v;
 	u_int32_t sisr;
-	
+
 #define	cc (&sc->sc_cursor)
 	sisr = *((u_int32_t *)sfbasic + TGA_REG_SISR);
 
@@ -605,7 +605,7 @@ sfbpinit(dc)
 	*(u_int32_t *)(sfbasic + SFB_ASIC_PIXELMASK) = ~0;
 	*(u_int32_t *)(sfbasic + SFB_ASIC_MODE) = 0; /* MODE_SIMPLE */
 	*(u_int32_t *)(sfbasic + SFB_ASIC_ROP) = 3;  /* ROP_COPY */
-	
+
     if (dc->dc_depth == 8) {
 	*(u_int32_t *)(sfbasic + 0x180000) = 0; /* Bt459 reset */
 
@@ -718,7 +718,7 @@ sfbpinit(dc)
 		REG(vdac, bt_cmap) = i;	tc_wmb();
 		REG(vdac, bt_cmap) = i;	tc_wmb();
 	}
-    } 
+    }
 }
 
 static int
@@ -910,7 +910,7 @@ sfbplocate(hw, x, y)
 	tc_wmb();
 }
 
-static void 
+static void
 bt459color(hw, cp)
 	void *hw;
 	u_int8_t *cp;

@@ -100,7 +100,7 @@ again:
 		if ((*outkey = malloc((size_t)(*outkeylen + 1))) == NULL)
 			r = YPERR_RESRC;
 		else {
-			(void)memcpy(*outkey, yprkv.keydat.dptr, 
+			(void)memcpy(*outkey, yprkv.keydat.dptr,
 			    (size_t)*outkeylen);
 			(*outkey)[*outkeylen] = '\0';
 		}

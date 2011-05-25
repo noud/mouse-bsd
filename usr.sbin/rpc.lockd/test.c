@@ -304,7 +304,7 @@ nlm_free_all_3(argp, clnt)
 }
 
 
-int 
+int
 main(int argc, char **argv)
 {
 	CLIENT *cli;

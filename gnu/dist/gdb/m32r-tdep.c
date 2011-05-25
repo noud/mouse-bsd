@@ -33,7 +33,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
    Doesn't really work for dummy frames, but it does pass back
    an empty frame_saved_regs, so I guess that's better than total failure */
 
-void 
+void
 m32r_frame_find_saved_regs (fi, regaddr)
      struct frame_info *fi;
      struct frame_saved_regs *regaddr;
@@ -85,7 +85,7 @@ m32r_scan_prologue (fi, fsr)
   CORE_ADDR prologue_start, prologue_end, current_pc;
   unsigned long framesize;
 
-  /* this code essentially duplicates skip_prologue, 
+  /* this code essentially duplicates skip_prologue,
      but we need the start address below.  */
 
   if (find_pc_partial_function (fi->pc, NULL, &prologue_start, &prologue_end))
@@ -107,7 +107,7 @@ m32r_scan_prologue (fi, fsr)
   prologue_end = min (prologue_end, fi->pc);
 
   /* Now, search the prologue looking for instructions that setup fp, save
-     rp (and other regs), adjust sp and such. */ 
+     rp (and other regs), adjust sp and such. */
 
   framesize = 0;
   for (current_pc = prologue_start; current_pc < prologue_end; current_pc += 2)
@@ -177,7 +177,7 @@ m32r_init_extra_frame_info (fi)
       fi->framesize = 0;
       return;
     }
-  else 
+  else
     {
       fi->using_frame_pointer = 0;
       fi->framesize = m32r_scan_prologue (fi, &fi->fsr);
@@ -213,7 +213,7 @@ m32r_find_callers_reg (fi, regnum)
     if (PC_IN_CALL_DUMMY (fi->pc, fi->frame, fi->frame))
       return generic_read_register_dummy (fi->pc, fi->frame, regnum);
     else if (fi->fsr.regs[regnum] != 0)
-      return read_memory_integer (fi->fsr.regs[regnum], 
+      return read_memory_integer (fi->fsr.regs[regnum],
 				  REGISTER_RAW_SIZE(regnum));
   return read_register (regnum);
 }
@@ -237,7 +237,7 @@ m32r_frame_chain (fi)
   /* is caller-of-this a dummy frame? */
   callers_pc = FRAME_SAVED_PC(fi);  /* find out who called us: */
   fp = m32r_find_callers_reg (fi, FP_REGNUM);
-  if (PC_IN_CALL_DUMMY(callers_pc, fp, fp))	
+  if (PC_IN_CALL_DUMMY(callers_pc, fp, fp))
     return fp;		/* dummy frame's frame may bear no relation to ours */
 
   if (find_pc_partial_function (fi->pc, 0, &fn_start, 0))
@@ -248,7 +248,7 @@ m32r_frame_chain (fi)
 
 /* Function: push_return_address (pc)
    Set up the return address for the inferior function call.
-   Necessary for targets that don't actually execute a JSR/BSR instruction 
+   Necessary for targets that don't actually execute a JSR/BSR instruction
    (ie. when using an empty CALL_DUMMY) */
 
 CORE_ADDR
@@ -277,7 +277,7 @@ m32r_pop_frame (frame)
     {
       for (regnum = 0; regnum < NUM_REGS; regnum++)
 	if (frame->fsr.regs[regnum] != 0)
-	  write_register (regnum, 
+	  write_register (regnum,
 			  read_memory_integer (frame->fsr.regs[regnum], 4));
 
       write_register (PC_REGNUM, FRAME_SAVED_PC (frame));
@@ -309,7 +309,7 @@ m32r_frame_saved_pc (fi)
    Setup the function arguments for calling a function in the inferior.
 
    On the Mitsubishi M32R architecture, there are four registers (R0 to R3)
-   which are dedicated for passing function arguments.  Up to the first 
+   which are dedicated for passing function arguments.  Up to the first
    four arguments (depending on size) may go into these registers.
    The rest go on the stack.
 
@@ -317,22 +317,22 @@ m32r_frame_saved_pc (fi)
    register or a whole 32-bit word on the stack, and will be
    right-justified in the register or the stack word.  This includes
    chars, shorts, and small aggregate types.
- 
-   Arguments of 8 bytes size are split between two registers, if 
-   available.  If only one register is available, the argument will 
+
+   Arguments of 8 bytes size are split between two registers, if
+   available.  If only one register is available, the argument will
    be split between the register and the stack.  Otherwise it is
    passed entirely on the stack.  Aggregate types with sizes between
    4 and 8 bytes are passed entirely on the stack, and are left-justified
    within the double-word (as opposed to aggregates smaller than 4 bytes
    which are right-justified).
 
-   Aggregates of greater than 8 bytes are first copied onto the stack, 
+   Aggregates of greater than 8 bytes are first copied onto the stack,
    and then a pointer to the copy is passed in the place of the normal
    argument (either in a register if available, or on the stack).
 
-   Functions that must return an aggregate type can return it in the 
+   Functions that must return an aggregate type can return it in the
    normal return value registers (R0 and R1) if its size is 8 bytes or
-   less.  For larger return values, the caller must allocate space for 
+   less.  For larger return values, the caller must allocate space for
    the callee to copy the return value to.  A pointer to this space is
    passed as an implicit first argument, always in R0. */
 
@@ -357,22 +357,22 @@ m32r_push_arguments (nargs, args, sp, struct_return, struct_addr)
   /* first force sp to a 4-byte alignment */
   sp = sp & ~3;
 
-  argreg = ARG0_REGNUM;  
+  argreg = ARG0_REGNUM;
   /* The "struct return pointer" pseudo-argument goes in R0 */
   if (struct_return)
       write_register (argreg++, struct_addr);
- 
+
   /* Now make sure there's space on the stack */
   for (argnum = 0, stack_alloc = 0;
        argnum < nargs; argnum++)
     stack_alloc += ((TYPE_LENGTH(VALUE_TYPE(args[argnum])) + 3) & ~3);
   sp -= stack_alloc;    /* make room on stack for args */
- 
- 
+
+
   /* Now load as many as possible of the first arguments into
      registers, and push the rest onto the stack.  There are 16 bytes
      in four registers available.  Loop thru args from first to last.  */
- 
+
   argreg = ARG0_REGNUM;
   for (argnum = 0, stack_offset = 0; argnum < nargs; argnum++)
     {
@@ -387,7 +387,7 @@ m32r_push_arguments (nargs, args, sp, struct_return, struct_addr)
         }
       else
         val = (char *) VALUE_CONTENTS (args[argnum]);
- 
+
       if (len > 4 && (len & 3) != 0)
         odd_sized_struct = 1;           /* such structs go entirely on stack */
       else
@@ -417,7 +417,7 @@ m32r_push_arguments (nargs, args, sp, struct_return, struct_addr)
   return sp;
 }
 
-/* Function: fix_call_dummy 
+/* Function: fix_call_dummy
    If there is real CALL_DUMMY code (eg. on the stack), this function
    has the responsability to insert the address of the actual code that
    is the target of the target function call.  */
@@ -448,7 +448,7 @@ get_saved_register (raw_buffer, optimized, addrp, frame, regnum, lval)
      int regnum;
      enum lval_type *lval;
 {
-  generic_get_saved_register (raw_buffer, optimized, addrp, 
+  generic_get_saved_register (raw_buffer, optimized, addrp,
 			      frame, regnum, lval);
 }
 

@@ -401,7 +401,7 @@ fbrcons_init(fb)
 		    a2int(getpropstring(optionsnode, "screen-#rows"), 34);
 	}
 #endif /* !RASTERCONS_FULLSCREEN */
-	/* 
+	/*
 	 * - force monochrome output
 	 * - eraserows() hack to clear the *entire* display
 	 * - cursor is currently enabled
@@ -412,7 +412,7 @@ fbrcons_init(fb)
 	/* Get operations set and connect to rcons */
 	if (rasops_init(ri, maxrow, maxcol))
 		panic("fbrcons_init: rasops_init failed!");
-		
+
 	/* PROM sets up colormap so black is index 0x00 and white is 0xff */
 	if (ri->ri_depth == 8) {
 		ri->ri_devcmap[0] = 0x00000000;

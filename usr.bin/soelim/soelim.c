@@ -128,7 +128,7 @@ openpath(p, name, parm)
 		if (p->list[i][0] == '\0')
 			f = name;
 		else {
-			(void)snprintf(filename, sizeof(filename), "%s/%s", 
+			(void)snprintf(filename, sizeof(filename), "%s/%s",
 			    p->list[i], name);
 			f = filename;
 		}
@@ -163,7 +163,7 @@ main(argc, argv)
 
 	argc -= optind;
 	argv += optind;
-			
+
 	if (argc == 0) {
 		(void)process(&p, STDIN_NAME);
 		exit(0);

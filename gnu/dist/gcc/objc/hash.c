@@ -64,7 +64,7 @@ hash_new (unsigned int size, hash_func_type hash_func,
 
   /* This should work for all processor architectures? */
   cache->mask = (size - 1);
-	
+
   /* Store the hashing function so that codes can be computed.  */
   cache->hash_func = hash_func;
 

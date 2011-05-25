@@ -5,17 +5,17 @@
  * All rights reserved.
  *
  * Authors: Keith Bostic, Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -110,7 +110,7 @@ interrupt(a0, a1, a2, framep)
 		printf("WARNING: received interprocessor interrupt!\n");
 #endif /* MULTIPROCESSOR */
 		break;
-		
+
 	case ALPHA_INTR_CLOCK:	/* clock interrupt */
 #if defined(MULTIPROCESSOR)
 		/* XXX XXX XXX */
@@ -217,7 +217,7 @@ machine_check(mces, framep, vector, param)
 
 	/* Processor correctable errors. */
 	if (mces & ALPHA_MCES_PCE)
-		printf("Warning: received processor correctable error.\n"); 
+		printf("Warning: received processor correctable error.\n");
 
 	/* Clear pending machine checks and correctable errors */
 	alpha_pal_wrmces(mces);

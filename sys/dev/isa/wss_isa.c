@@ -115,7 +115,7 @@ wssfind(parent, sc, ia)
 	-1, -1, -1, -1, -1, -1, -1, 0x08, -1, 0x10, 0x18, 0x20
     };
     static u_char dma_bits[4] = {1, 2, 0, 3};
-    
+
     sc->sc_iot = ia->ia_iot;
     if (ac->sc_dev.dv_cfdata->cf_flags & 1)
 	madprobe(sc, ia->ia_iobase);
@@ -138,7 +138,7 @@ wssfind(parent, sc, ia)
     /* Is there an ad1848 chip at (WSS iobase + WSS_CODEC)? */
     if (ad1848_isa_mapprobe(&sc->sc_ad1848, ia->ia_iobase + WSS_CODEC) == 0)
 	goto bad;
-	
+
     ia->ia_iosize = WSS_NPORT;
 
 #if 0
@@ -165,8 +165,8 @@ wssfind(parent, sc, ia)
 
     if (ac->mode <= 1)
 	ia->ia_drq2 = DRQUNK;
-    sc->wss_recdrq = 
-	ac->mode > 1 && ia->ia_drq2 != DRQUNK ? 
+    sc->wss_recdrq =
+	ac->mode > 1 && ia->ia_drq2 != DRQUNK ?
 	ia->ia_drq2 : ia->ia_drq;
     if (sc->wss_recdrq != sc->wss_playdrq && !isa_drq_isfree(sc->wss_ic,
       sc->wss_recdrq))
@@ -197,7 +197,7 @@ wss_isa_attach(parent, self, aux)
     struct wss_softc *sc = (struct wss_softc *)self;
     struct ad1848_softc *ac = (struct ad1848_softc *)&sc->sc_ad1848;
     struct isa_attach_args *ia = (struct isa_attach_args *)aux;
-    
+
     if (!wssfind(parent, sc, ia)) {
         printf("%s: wssfind failed\n", ac->sc_dev.dv_xname);
         return;
@@ -288,7 +288,7 @@ madprobe(sc, iobase)
     struct wss_softc *sc;
     int iobase;
 {
-    static int valid_ports[M_WSS_NPORTS] = 
+    static int valid_ports[M_WSS_NPORTS] =
         { M_WSS_PORT0, M_WSS_PORT1, M_WSS_PORT2, M_WSS_PORT3 };
     int i;
 

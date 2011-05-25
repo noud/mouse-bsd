@@ -27,6 +27,6 @@ kernel: smallnet.elf
 	./${PROG} ${KERNEL} ${.ALLSRC}
 	elf2ecoff smallnet.elf smallnet
 .endif
-	
+
 
 .include <bsd.prog.mk>

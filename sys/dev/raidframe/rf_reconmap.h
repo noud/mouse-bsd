@@ -66,7 +66,7 @@ RF_ReconMap_t *
 rf_MakeReconMap(RF_Raid_t * raidPtr, RF_SectorCount_t ru_sectors,
     RF_SectorCount_t disk_sectors, RF_ReconUnitCount_t spareUnitsPerDisk);
 
-void 
+void
 rf_ReconMapUpdate(RF_Raid_t * raidPtr, RF_ReconMap_t * mapPtr,
     RF_SectorNum_t startSector, RF_SectorNum_t stopSector);
 
@@ -76,7 +76,7 @@ int     rf_CheckRUReconstructed(RF_ReconMap_t * mapPtr, RF_SectorNum_t startSect
 
 RF_ReconUnitCount_t rf_UnitsLeftToReconstruct(RF_ReconMap_t * mapPtr);
 
-void 
+void
 rf_PrintReconMap(RF_Raid_t * raidPtr, RF_ReconMap_t * mapPtr,
     RF_RowCol_t frow, RF_RowCol_t fcol);
 

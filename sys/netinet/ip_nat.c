@@ -616,7 +616,7 @@ static int nat_flushtable()
 {
 	register nat_t *nat, **natp;
 	register int j = 0;
-  
+
 	/*
 	 * ALL NAT mappings deleted, so lets just make the deletions
 	 * quicker.

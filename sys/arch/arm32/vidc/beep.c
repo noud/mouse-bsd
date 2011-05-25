@@ -37,8 +37,8 @@
  */
 
 /*
- * To use the driver, open /dev/beep and write lines. 
- * Each write will generate a beep  
+ * To use the driver, open /dev/beep and write lines.
+ * Each write will generate a beep
  *
  */
 
@@ -79,10 +79,10 @@ struct beep_softc {
 	int sc_iobase;
 	int sc_open;
 	int sc_count;
-	u_int sc_sound_cur0; 
-	u_int sc_sound_end0; 
-	u_int sc_sound_cur1; 
-	u_int sc_sound_end1; 
+	u_int sc_sound_cur0;
+	u_int sc_sound_end0;
+	u_int sc_sound_cur1;
+	u_int sc_sound_end1;
 	vm_offset_t sc_buffer0;
 	vm_offset_t sc_buffer1;
 };
@@ -142,13 +142,13 @@ beepattach(parent, self, aux)
 {
 	struct beep_softc *sc = (void *)self;
 	struct mainbus_attach_args *mb = aux;
-    
+
 	sc->sc_iobase = mb->mb_iobase;
 	sc->sc_open = 0;
 	sc->sc_count = 0;
 
 	sc->sc_buffer0 = uvm_km_zalloc(kernel_map, NBPG);
-	if (sc->sc_buffer0 == 0) 
+	if (sc->sc_buffer0 == 0)
 		panic("beep: Cannot allocate buffer memory\n");
 	if ((sc->sc_buffer0 & (NBPG -1)) != 0)
 		panic("beep: Cannot allocate page aligned buffer\n");
@@ -176,7 +176,7 @@ beepattach(parent, self, aux)
 	IOMD_WRITE_WORD(IOMD_SD0ENDA, sc->sc_sound_end0 | 0xc0000000);
 	IOMD_WRITE_WORD(IOMD_SD0CURB, sc->sc_sound_cur1);
 	IOMD_WRITE_WORD(IOMD_SD0ENDB, sc->sc_sound_end1 | 0xc0000000);
-    
+
 	IOMD_WRITE_BYTE(IOMD_SD0CR, 0x90);
 
 	/* Install an IRQ handler */
@@ -251,7 +251,7 @@ beepopen(dev, flag, mode, p)
 	struct beep_softc *sc;
 	int unit = minor(dev);
 	int s;
-    
+
 	if (unit >= beep_cd.cd_ndevs)
 		return(ENXIO);
 
@@ -265,8 +265,8 @@ beepopen(dev, flag, mode, p)
 		return(EBUSY);
 	}
 
-	++sc->sc_open;   
-	(void)splx(s); 
+	++sc->sc_open;
+	(void)splx(s);
 
 	return(0);
 }
@@ -289,7 +289,7 @@ beepclose(dev, flag, mode, p)
 	s = splhigh();
 	--sc->sc_open;
 	(void)splx(s);
-      
+
 	return(0);
 }
 
@@ -308,7 +308,7 @@ beep_generate(void)
 	}
 /*	printf("beep: generate ");*/
 	++sc->sc_count;
-    
+
 /*	status = IOMD_READ_BYTE(IOMD_SD0ST);
 	printf("st=%02x\n", status);*/
 	IOMD_WRITE_BYTE(IOMD_SD0CR, 0x90);
@@ -336,7 +336,7 @@ beepioctl(dev, cmd, data, flag, p)
 
 	case BEEP_SETRATE:
 		rate = *(int *)data;
-	    
+
 		if (rate < 3 || rate > 255)
 			return(EINVAL);
 
@@ -356,7 +356,7 @@ beepioctl(dev, cmd, data, flag, p)
 	default:
 		return(ENXIO);
 		break;
-	}   
+	}
 
 	return(0);
 }

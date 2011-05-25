@@ -226,7 +226,7 @@ mfbattach(parent, self, aux)
 	caddr_t mfbaddr = (caddr_t) ta->ta_addr;
 	int unit = self->dv_unit;
 	struct fbinfo *fi;
-	
+
 	if (mfb_fi)
 		fi = mfb_fi;
 	else {

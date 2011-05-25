@@ -14,7 +14,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *	This product includes software developed at Ludd, University of 
+ *	This product includes software developed at Ludd, University of
  *	Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -65,13 +65,13 @@ static	void	ka48_cache_enable __P((void));
 
 struct	vs_cpu *ka48_cpu;
 
-/* 
+/*
  * Declaration of 48-specific calls.
  */
 struct	cpu_dep ka48_calls = {
 	ka48_steal_pages,
 	ka48_mchk,
-	ka48_memerr, 
+	ka48_memerr,
 	ka48_conf,
 	chip_clkread,
 	chip_clkwrite,

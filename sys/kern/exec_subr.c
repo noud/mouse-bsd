@@ -100,7 +100,7 @@ vmcmdset_extend(evsp)
 	evsp->evs_cnt += ocnt ? ocnt : EXEC_DEFAULT_VMCMD_SETSIZE;
 
 	/* allocate it */
-	MALLOC(nvcp, struct exec_vmcmd *, 
+	MALLOC(nvcp, struct exec_vmcmd *,
 	    (evsp->evs_cnt * sizeof(struct exec_vmcmd)), M_EXEC, M_WAITOK);
 
 	/* free the old struct, if there was one, and record the new one */
@@ -174,9 +174,9 @@ vmcmd_map_pagedvn(p, cmd)
 	 * do the map
 	 */
 
-	retval = uvm_map(&p->p_vmspace->vm_map, &cmd->ev_addr, cmd->ev_len, 
-		uobj, cmd->ev_offset, 
-		UVM_MAPFLAG(cmd->ev_prot, VM_PROT_ALL, UVM_INH_COPY, 
+	retval = uvm_map(&p->p_vmspace->vm_map, &cmd->ev_addr, cmd->ev_len,
+		uobj, cmd->ev_offset,
+		UVM_MAPFLAG(cmd->ev_prot, VM_PROT_ALL, UVM_INH_COPY,
 			UVM_ADV_NORMAL, UVM_FLAG_COPYONW|UVM_FLAG_FIXED));
 
 	/*
@@ -210,14 +210,14 @@ vmcmd_map_readvn(p, cmd)
 
 	if (cmd->ev_len == 0)
 		return(KERN_SUCCESS); /* XXXCDC: should it happen? */
-	
+
 	diff = cmd->ev_addr - trunc_page(cmd->ev_addr);
 	cmd->ev_addr -= diff;			/* required by uvm_map */
 	cmd->ev_offset -= diff;
 	cmd->ev_len += diff;
 
-	error = uvm_map(&p->p_vmspace->vm_map, &cmd->ev_addr, 
-			round_page(cmd->ev_len), NULL, UVM_UNKNOWN_OFFSET, 
+	error = uvm_map(&p->p_vmspace->vm_map, &cmd->ev_addr,
+			round_page(cmd->ev_len), NULL, UVM_UNKNOWN_OFFSET,
 			UVM_MAPFLAG(UVM_PROT_ALL, UVM_PROT_ALL, UVM_INH_COPY,
 			UVM_ADV_NORMAL,
 			UVM_FLAG_FIXED|UVM_FLAG_OVERLAY|UVM_FLAG_COPYONW));
@@ -238,7 +238,7 @@ vmcmd_map_readvn(p, cmd)
 		 * it mapped read-only, so now we are going to have to call
 		 * uvm_map_protect() to fix up the protection.  ICK.
 		 */
-		return(uvm_map_protect(&p->p_vmspace->vm_map, 
+		return(uvm_map_protect(&p->p_vmspace->vm_map,
 				trunc_page(cmd->ev_addr),
 				round_page(cmd->ev_addr + cmd->ev_len),
 				cmd->ev_prot, FALSE));
@@ -263,13 +263,13 @@ vmcmd_map_zero(p, cmd)
 
 	if (cmd->ev_len == 0)
 		return(KERN_SUCCESS); /* XXXCDC: should it happen? */
-	
+
 	diff = cmd->ev_addr - trunc_page(cmd->ev_addr);
 	cmd->ev_addr -= diff;			/* required by uvm_map */
 	cmd->ev_len += diff;
 
-	error = uvm_map(&p->p_vmspace->vm_map, &cmd->ev_addr, 
-			round_page(cmd->ev_len), NULL, UVM_UNKNOWN_OFFSET, 
+	error = uvm_map(&p->p_vmspace->vm_map, &cmd->ev_addr,
+			round_page(cmd->ev_len), NULL, UVM_UNKNOWN_OFFSET,
 			UVM_MAPFLAG(cmd->ev_prot, UVM_PROT_ALL, UVM_INH_COPY,
 			UVM_ADV_NORMAL,
 			UVM_FLAG_FIXED|UVM_FLAG_COPYONW));

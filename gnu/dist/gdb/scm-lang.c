@@ -258,7 +258,7 @@ const struct language_defn scm_language_defn = {
   NULL,				/* expression operators for printing */
   1,				/* c-style arrays */
   0,				/* String lower bound */
-  &builtin_type_char,		/* Type of string elements */ 
+  &builtin_type_char,		/* Type of string elements */
   LANG_MAGIC
 };
 

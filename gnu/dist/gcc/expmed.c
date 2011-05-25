@@ -47,7 +47,7 @@ static void do_cmp_and_jump		PROTO((rtx, rtx, enum rtx_code,
 #define CEIL(x,y) (((x) + (y) - 1) / (y))
 
 /* Non-zero means divides or modulus operations are relatively cheap for
-   powers of two, so don't use branches; emit the operation instead. 
+   powers of two, so don't use branches; emit the operation instead.
    Usually, this will mean that the MD file will emit non-branch
    sequences.  */
 
@@ -450,7 +450,7 @@ store_bit_field (str_rtx, bitsize, bitnum, fieldmode, value, align, total_size)
 	  /* Compute offset as multiple of this unit, counting in bytes.  */
 	  offset = (bitnum / unit) * GET_MODE_SIZE (bestmode);
 	  bitpos = bitnum % unit;
-	  op0 = change_address (op0, bestmode, 
+	  op0 = change_address (op0, bestmode,
 				plus_constant (XEXP (op0, 0), offset));
 
 	  /* Fetch that unit, store the bitfield in it, then store the unit.  */
@@ -567,7 +567,7 @@ store_fixed_bit_field (op0, offset, bitsize, bitpos, value, struct_align)
 
   if (! SLOW_UNALIGNED_ACCESS)
     struct_align = BIGGEST_ALIGNMENT / BITS_PER_UNIT;
-    
+
   /* There is a case not handled here:
      a structure with a known alignment of just a halfword
      and a field split across two aligned halfwords within the structure.
@@ -928,7 +928,7 @@ extract_bit_field (str_rtx, bitsize, bitnum, unsignedp,
   /* ??? We currently assume TARGET is at least as big as BITSIZE.
      If that's wrong, the solution is to test for it and set TARGET to 0
      if needed.  */
-  
+
   /* If OP0 is a register, BITPOS must count within a word.
      But as we have it, it counts within whatever size OP0 now has.
      On a bigendian machine, these are not the same, so convert.  */
@@ -974,7 +974,7 @@ extract_bit_field (str_rtx, bitsize, bitnum, unsignedp,
     }
 
   /* Handle fields bigger than a word.  */
-  
+
   if (bitsize > BITS_PER_WORD)
     {
       /* Here we transfer the words of the field
@@ -1045,7 +1045,7 @@ extract_bit_field (str_rtx, bitsize, bitnum, unsignedp,
 			   build_int_2 (GET_MODE_BITSIZE (mode) - bitsize, 0),
 			   NULL_RTX, 0);
     }
-  
+
   /* From here on we know the desired field is smaller than a word
      so we can assume it is an integer.  So we can safely extract it as one
      size of integer, if necessary, and then truncate or extend
@@ -1337,7 +1337,7 @@ extract_bit_field (str_rtx, bitsize, bitnum, unsignedp,
 	      target = extract_fixed_bit_field (tmode, op0, offset, bitsize,
 						bitpos, target, 0, align);
 	    }
-	} 
+	}
       else
 	extv_loses:
 #endif
@@ -1523,7 +1523,7 @@ extract_fixed_bit_field (tmode, op0, offset, bitsize, bitpos,
     }
 
   return expand_shift (RSHIFT_EXPR, mode, op0,
-		       build_int_2 (GET_MODE_BITSIZE (mode) - bitsize, 0), 
+		       build_int_2 (GET_MODE_BITSIZE (mode) - bitsize, 0),
 		       target, 0);
 }
 
@@ -1548,7 +1548,7 @@ mask_rtx (mode, bitpos, bitsize, complement)
   if (bitpos + bitsize < HOST_BITS_PER_WIDE_INT)
     masklow &= ((unsigned HOST_WIDE_INT) -1
 		>> (HOST_BITS_PER_WIDE_INT - bitpos - bitsize));
-  
+
   if (bitpos <= HOST_BITS_PER_WIDE_INT)
     maskhigh = -1;
   else
@@ -1838,7 +1838,7 @@ expand_shift (code, mode, shifted, amount, target, unsignedp)
 	      && INTVAL (op1) > 0 && INTVAL (op1) < GET_MODE_BITSIZE (mode))
 	    temp = expand_binop (mode,
 				 left ? rotr_optab : rotl_optab,
-				 shifted, 
+				 shifted,
 				 GEN_INT (GET_MODE_BITSIZE (mode)
 					  - INTVAL (op1)),
 				 target, unsignedp, methods);
@@ -1869,7 +1869,7 @@ expand_shift (code, mode, shifted, amount, target, unsignedp)
 	}
 
       /* We used to try extzv here for logical right shifts, but that was
-	 only useful for one machine, the VAX, and caused poor code 
+	 only useful for one machine, the VAX, and caused poor code
 	 generation there for lshrdi3, so the code was deleted and a
 	 define_expand for lshrsi3 was added to vax.md.  */
     }
@@ -2007,7 +2007,7 @@ synth_mult (alg_out, t, cost_limit)
       for (w = 1; (w & t) != 0; w <<= 1)
 	;
       /* If T was -1, then W will be zero after the loop.  This is another
-	 case where T ends with ...111.  Handling this with (T + 1) and 
+	 case where T ends with ...111.  Handling this with (T + 1) and
 	 subtract 1 produces slightly better code and results in algorithm
 	 selection much faster than treating it like the ...0111 case
 	 below.  */
@@ -2281,7 +2281,7 @@ expand_mult (mode, op0, op1, target, unsignedp)
 		   && ! preserve)
 		  ? target : 0;
 	      rtx accum_target = preserve ? 0 : accum;
-	      
+
 	      switch (alg.op[opno])
 		{
 		case alg_shift:
@@ -2658,7 +2658,7 @@ expand_mult_highpart (mode, op0, cnst1, target, unsignedp, max_cost)
     {
       op1 = force_reg (mode, op1);
       goto try;
-    } 
+    }
 
   /* Try widening the mode and perform a non-widening multiplication.  */
   moptab = smul_optab;
@@ -3661,7 +3661,7 @@ expand_divmod (rem_flag, code, mode, op0, op1, target, unsignedp)
 	    emit_label (label);
 	  }
 	return gen_lowpart (mode, rem_flag ? remainder : quotient);
-	
+
       default:
 	abort ();
       }
@@ -3786,39 +3786,39 @@ make_tree (type, x)
 	}
 
       return t;
-	  
+
     case PLUS:
       return fold (build (PLUS_EXPR, type, make_tree (type, XEXP (x, 0)),
 			  make_tree (type, XEXP (x, 1))));
-						       
+
     case MINUS:
       return fold (build (MINUS_EXPR, type, make_tree (type, XEXP (x, 0)),
 			  make_tree (type, XEXP (x, 1))));
-						       
+
     case NEG:
       return fold (build1 (NEGATE_EXPR, type, make_tree (type, XEXP (x, 0))));
 
     case MULT:
       return fold (build (MULT_EXPR, type, make_tree (type, XEXP (x, 0)),
 			  make_tree (type, XEXP (x, 1))));
-						      
+
     case ASHIFT:
       return fold (build (LSHIFT_EXPR, type, make_tree (type, XEXP (x, 0)),
 			  make_tree (type, XEXP (x, 1))));
-						      
+
     case LSHIFTRT:
       return fold (convert (type,
 			    build (RSHIFT_EXPR, unsigned_type (type),
 				   make_tree (unsigned_type (type),
 					      XEXP (x, 0)),
 				   make_tree (type, XEXP (x, 1)))));
-						      
+
     case ASHIFTRT:
       return fold (convert (type,
 			    build (RSHIFT_EXPR, signed_type (type),
 				   make_tree (signed_type (type), XEXP (x, 0)),
 				   make_tree (type, XEXP (x, 1)))));
-						      
+
     case DIV:
       if (TREE_CODE (type) != REAL_TYPE)
 	t = signed_type (type);
@@ -3908,7 +3908,7 @@ expand_and (op0, op1, target)
    Return 0 if that cannot be done.
 
    MODE is the mode to use for OP0 and OP1 should they be CONST_INTs.  If
-   it is VOIDmode, they cannot both be CONST_INT.  
+   it is VOIDmode, they cannot both be CONST_INT.
 
    UNSIGNEDP is for the case where we have to widen the operands
    to perform the operation.  It says to use zero-extension.
@@ -3950,7 +3950,7 @@ emit_store_flag (target, code, op0, op1, mode, unsignedp, normalizep)
   if (mode == VOIDmode)
     mode = GET_MODE (op0);
 
-  /* For some comparisons with 1 and -1, we can convert this to 
+  /* For some comparisons with 1 and -1, we can convert this to
      comparisons with zero.  This will often produce more opportunities for
      store-flag insns.  */
 
@@ -4050,7 +4050,7 @@ emit_store_flag (target, code, op0, op1, mode, unsignedp, normalizep)
 		: const_true_rtx);
 
       /* If the code of COMPARISON doesn't match CODE, something is
-	 wrong; we can no longer be sure that we have the operation.  
+	 wrong; we can no longer be sure that we have the operation.
 	 We could handle this case, but it should not happen.  */
 
       if (GET_CODE (comparison) != code)
@@ -4122,7 +4122,7 @@ emit_store_flag (target, code, op0, op1, mode, unsignedp, normalizep)
 	  else
 	    abort ();
 
-	  /* If we were converting to a smaller mode, do the 
+	  /* If we were converting to a smaller mode, do the
 	     conversion now.  */
 	  if (target_mode != compare_mode)
 	    {
@@ -4167,7 +4167,7 @@ emit_store_flag (target, code, op0, op1, mode, unsignedp, normalizep)
       return tem;
     }
 
-  /* Some other cases we can do are EQ, NE, LE, and GT comparisons with 
+  /* Some other cases we can do are EQ, NE, LE, and GT comparisons with
      the constant zero.  Reject all other comparisons at this point.  Only
      do LE and GT if branches are expensive since they are expensive on
      2-operand machines.  */
@@ -4229,14 +4229,14 @@ emit_store_flag (target, code, op0, op1, mode, unsignedp, normalizep)
       tem = expand_binop (mode, sub_optab, tem, op0, subtarget, 0,
 			  OPTAB_WIDEN);
     }
-				    
+
   if (code == EQ || code == NE)
     {
       /* For EQ or NE, one way to do the comparison is to apply an operation
 	 that converts the operand into a positive number if it is non-zero
 	 or zero if it was originally zero.  Then, for EQ, we subtract 1 and
 	 for NE we negate.  This puts the result in the sign bit.  Then we
-	 normalize with a shift, if needed. 
+	 normalize with a shift, if needed.
 
 	 Two operations that can do the above actions are ABS and FFS, so try
 	 them.  If that doesn't work, and MODE is smaller than a full word,

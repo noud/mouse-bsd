@@ -198,14 +198,14 @@ dependall: depend all
 
 # depend on root or device configuration
 autoconf.o conf.o: Makefile
- 
-# depend on network or filesystem configuration 
-uipc_proto.o vfs_conf.o: Makefile 
+
+# depend on network or filesystem configuration
+uipc_proto.o vfs_conf.o: Makefile
 
 # depend on maxusers
 machdep.o: Makefile
 
-# depend on CPU configuration 
+# depend on CPU configuration
 fd.o intio_dmac.o locore.o machdep.o pmap.o pmap_boostrap.o sys_machdep.o trap.o: Makefile
 
 # depend on DEBUG and/or DIAGNOSTIC options

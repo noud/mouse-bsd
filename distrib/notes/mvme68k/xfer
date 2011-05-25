@@ -1,4 +1,4 @@
-.\"	$NetBSD: xfer,v 1.5 1999/02/20 16:18:11 scw Exp $	
+.\"	$NetBSD: xfer,v 1.5 1999/02/20 16:18:11 scw Exp $
 .
 Installation is supported from several media types, including:
 .Bl -bullet -compact

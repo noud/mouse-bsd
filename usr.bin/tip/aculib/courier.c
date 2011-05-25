@@ -299,7 +299,7 @@ coursync()
 			buf[len] = '\0';
 			printf("coursync: (\"%s\")\n\r", buf);
 #endif
-			if (strchr(buf, '0') || 
+			if (strchr(buf, '0') ||
 			   (strchr(buf, 'O') && strchr(buf, 'K')))
 				return(1);
 		}
@@ -369,7 +369,7 @@ static int ringring;
 void
 cour_nap()
 {
-	
+
 	struct itimerval itv, oitv;
 	struct itimerval *itp = &itv;
 	struct sigaction sa, osa;

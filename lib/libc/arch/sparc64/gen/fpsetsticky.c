@@ -17,7 +17,7 @@ fpsetsticky(sticky)
 	__asm__("st %%fsr,%0" : "=m" (*&old));
 
 	new = old;
-	new &= ~(0x1f << 5); 
+	new &= ~(0x1f << 5);
 	new |= ((sticky & 0x1f) << 5);
 
 	__asm__("ld %0,%%fsr" : : "m" (*&new));

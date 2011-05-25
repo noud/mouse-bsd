@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright (C) 1995 Advanced RISC Machines Limited. All rights reserved.
- * 
+ *
  * This software may be freely used, copied, modified, and distributed
  * provided that the above copyright notice is preserved in all copies of the
  * software.
@@ -66,7 +66,7 @@ typedef enum AdpErrs AdpErrs;
                                    "Press <Ctrl-C> to abort.\n"
 #define AdpMessLen_LateStartup    (3*80)
 #define AdpMess_NewAgentStarting   "New Debug Agent about to start.\n"
- 
+
 #endif /* ndef angsd_adperr_h */
 
 /* EOF adperr.h */

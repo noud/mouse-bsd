@@ -189,7 +189,7 @@ cachectl1(req, addr, len, p)
 					ICPP(pa);
 				}
 				break;
-			
+
 			case CC_EXTPURGE|CC_PURGE:
 			case CC_PURGE:
 				if (doall)
@@ -209,7 +209,7 @@ cachectl1(req, addr, len, p)
 				else if (inc == NBPG)
 					DCFP(pa);
 				break;
-				
+
 			default:
 				error = EINVAL;
 				break;
@@ -260,7 +260,7 @@ sys_sysarch(p, v, retval)
 {
 #if 0 /* unused */
 	struct sys_sysarch_args /* {
-		syscallarg(int) op; 
+		syscallarg(int) op;
 		syscallarg(void *) parms;
 	} */ *uap = v;
 #endif

@@ -86,7 +86,7 @@ mainbus_attach(parent, self, args)
 	void *args;
 {
 	int i;
-	
+
 	if (machtype == LUNA_II)
 		devs[1].ma_addr = 0xf0000000;
 	printf("\n");

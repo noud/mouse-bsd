@@ -461,7 +461,7 @@ writeapplepartmap(fd)
 	pme.pmPartBlkCnt = pme.pmDataCnt = 2;
 	strcpy(pme.pmPartName, "Apple");
 	strcpy(pme.pmPartType, "Apple_partition_map");
-	
+
 	pme.pmPartStatus = 0x37;
 
 	if (lseek(fd, 512, SEEK_SET) != 512)

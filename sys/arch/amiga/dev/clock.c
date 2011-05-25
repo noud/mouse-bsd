@@ -62,7 +62,7 @@
 #include <sys/PROF.h>
 #endif
 
-/* the clocks run at NTSC: 715.909kHz or PAL: 709.379kHz. 
+/* the clocks run at NTSC: 715.909kHz or PAL: 709.379kHz.
    We're using a 100 Hz clock. */
 
 #define CLK_INTERVAL amiga_clk_interval
@@ -123,7 +123,7 @@ clockattach(pdp, dp, auxp)
 
 	if (eclockfreq == 0)
 		eclockfreq = 715909;	/* guess NTSC */
-		
+
 	CLK_INTERVAL = (eclockfreq / 100);
 
 #ifdef DRACO
@@ -134,7 +134,7 @@ clockattach(pdp, dp, auxp)
 	} else if (dracorev) {
 		clockcia = (struct CIA *)CIAAbase;
 		clockchip = "CIA A";
-	} else 
+	} else
 #endif
 	{
 		clockcia = (struct CIA *)CIABbase;
@@ -151,7 +151,7 @@ clockattach(pdp, dp, auxp)
 
 #ifdef DRACO
 	if (dracorev >= 4) {
-		/* 
+		/*
 		 * can't preload anything beforehand, timer is free_running;
 		 * but need this for delay calibration.
 		 */
@@ -165,7 +165,7 @@ clockattach(pdp, dp, auxp)
 	}
 #endif
 	/*
-	 * stop timer A 
+	 * stop timer A
 	 */
 	clockcia->cra = clockcia->cra & 0xc0;
 	clockcia->icr = 1 << 0;		/* disable timer A interrupt */
@@ -196,8 +196,8 @@ clockattach(pdp, dp, auxp)
  * We use two iterations because we don't have enough bits to do a factor of
  * 8 with better than 1%.
  *
- * XXX Note that we MUST stay below 1 tick if using clkread(), even for 
- * underestimated values of delaydivisor. 
+ * XXX Note that we MUST stay below 1 tick if using clkread(), even for
+ * underestimated values of delaydivisor.
  *
  * XXX the "ns" below is only correct for a shift of 10 bits, and even then
  * off by 2.4%
@@ -211,7 +211,7 @@ void calibrate_delay(dp)
 		/* XXX this should be defined elsewhere */
 
 	if (dp)
-		printf("Calibrating delay loop... "); 
+		printf("Calibrating delay loop... ");
 
 	do {
 		t1 = clkread();
@@ -223,7 +223,7 @@ void calibrate_delay(dp)
 #ifdef DEBUG
 	if (dp)
 		printf("\ndiff %ld us, new divisor %u/1024 us\n", t2,
-		    delaydivisor); 
+		    delaydivisor);
 	do {
 		t1 = clkread();
 		delay(1024);
@@ -233,7 +233,7 @@ void calibrate_delay(dp)
 	delaydivisor = (delaydivisor * t2 + 1023) >> 10;
 	if (dp)
 		printf("diff %ld us, new divisor %u/1024 us\n", t2,
-		    delaydivisor); 
+		    delaydivisor);
 #endif
 	do {
 		t1 = clkread();
@@ -247,7 +247,7 @@ void calibrate_delay(dp)
 		printf("diff %ld us, new divisor ", t2);
 #endif
 	if (dp)
-		printf("%u/1024 us\n", delaydivisor); 
+		printf("%u/1024 us\n", delaydivisor);
 }
 
 void
@@ -274,7 +274,7 @@ cpu_initclocks()
 	 * start timer A in continuous shot mode
 	 */
 	clockcia->cra = (clockcia->cra & 0xc0) | 1;
-  
+
 	/*
 	 * and globally enable interrupts for ciab
 	 */
@@ -326,7 +326,7 @@ clkread()
 		}
 
 		interval = (CLK_INTERVAL - 1) - ((hi<<8) | lo);
-   
+
 		/*
 		 * should read ICR and if there's an int pending, adjust
 		 * interval. However, since reading ICR clears the interrupt,
@@ -417,7 +417,7 @@ clockioctl(dev, cmd, data, flag, p)
 	struct proc *p;
 {
 	int error = 0;
-	
+
 	switch (cmd) {
 
 	case CLOCKMAP:
@@ -521,7 +521,7 @@ stopclock()
  * locore has been changed to turn the profile clock on/off when switching
  * into/out of a process that is profiling (startprofclock/stopprofclock).
  * This reduces the impact of the profiling clock on other users, and might
- * possibly increase the accuracy of the profiling. 
+ * possibly increase the accuracy of the profiling.
  */
 int  profint   = PRF_INTERVAL;	/* Clock ticks between interrupts */
 int  profscale = 0;		/* Scale factor from sys clock to prof clock */
@@ -653,7 +653,7 @@ inittodr(base)
 
 	tvbuf.tv_usec = 0;
 	tvbuf.tv_sec = base;	/* assume no battery clock exists */
-  
+
 	if (ugettod == NULL)
 		printf("WARNING: no battery clock\n");
 	else {
@@ -665,7 +665,7 @@ inittodr(base)
 		printf("WARNING: bad date in battery clock\n");
 		tvbuf.tv_sec = base;
 	}
-  
+
 	time = tvbuf;
 }
 

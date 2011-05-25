@@ -84,7 +84,7 @@ incinstall:: ${DESTDIR}${INCSDIR}/$I
 .if !defined(UPDATE)
 .PHONY: ${DESTDIR}${INCSDIR}/$I
 .endif
-${DESTDIR}${INCSDIR}/$I: ${DESTDIR}${INCSDIR} $I 
+${DESTDIR}${INCSDIR}/$I: ${DESTDIR}${INCSDIR} $I
 	@cmp -s ${.CURDIR}/$I ${.TARGET} > /dev/null 2>&1 || \
 	    (echo "${INSTALL} ${RENAME} ${PRESERVE} ${INSTPRIV} -c \
 		-o ${BINOWN} -g ${BINGRP} -m ${NONBINMODE} ${.CURDIR}/$I \
@@ -102,7 +102,7 @@ incinstall:: ${DESTDIR}${INCSDIR}/$I
 .if !defined(UPDATE)
 .PHONY: ${DESTDIR}${INCSDIR}/$I
 .endif
-${DESTDIR}${INCSDIR}/$I: ${DESTDIR}${INCSDIR} $I 
+${DESTDIR}${INCSDIR}/$I: ${DESTDIR}${INCSDIR} $I
 	@cmp -s $I ${.TARGET} > /dev/null 2>&1 || \
 	    (echo "${INSTALL} ${RENAME} ${PRESERVE} -c -o ${BINOWN} \
 		-g ${BINGRP} -m ${NONBINMODE} $I ${.TARGET}" && \

@@ -80,7 +80,7 @@ grfrt_cnprobe()
 	return(rv);
 }
 
-/* 
+/*
  * init the required fields in the grf_softc struct for a
  * grf to function as an ite.
  */
@@ -105,7 +105,7 @@ retina_init(ip)
 
 	ip->priv = ip->grf->g_data;
 	md = (struct MonDef *) ip->priv;
- 
+
 	ip->cols = md->TX;
 	ip->rows = md->TY;
 }
@@ -117,7 +117,7 @@ retina_cursor(ip, flag)
 	int flag;
 {
       volatile caddr_t ba = ip->grf->g_regkva;
-      
+
       if (flag == ERASE_CURSOR)
         {
 	  /* disable cursor */
@@ -148,7 +148,7 @@ screen_up(ip, top, bottom, lines)
 	int top;
 	int bottom;
 	int lines;
-{	
+{
 	volatile caddr_t ba = ip->grf->g_regkva;
 	volatile caddr_t fb = ip->grf->g_fbkva;
 	const struct MonDef * md = (struct MonDef *) ip->priv;
@@ -159,7 +159,7 @@ screen_up(ip, top, bottom, lines)
 	/* do some bounds-checking here.. */
 	if (top >= bottom)
 	  return;
-	  
+
 	if (top + lines >= bottom)
 	  {
 	    retina_clear (ip, top, 0, bottom - top, ip->cols);
@@ -170,7 +170,7 @@ screen_up(ip, top, bottom, lines)
 #ifdef BANKEDDEVPAGER
 	/* make sure to save/restore active bank (and if it's only
 	   for tests of the feature in text-mode..) */
-	bank = (RSeq (ba, SEQ_ID_PRIM_HOST_OFF_LO) 
+	bank = (RSeq (ba, SEQ_ID_PRIM_HOST_OFF_LO)
 		| (RSeq (ba, SEQ_ID_PRIM_HOST_OFF_HI) << 8));
 #endif
 
@@ -184,65 +184,65 @@ screen_up(ip, top, bottom, lines)
 	   `addqb' are the cheapest way to cause read/write cycles (DONT
 	   use `tas' on the Amiga!), their results are completely ignored
 	   by the NCR chip, it just replicates what it just read. */
-	
+
 		/* write to primary, read from secondary */
 	WSeq (ba, SEQ_ID_EXTENDED_MEM_ENA,
-		(RSeq(ba, SEQ_ID_EXTENDED_MEM_ENA) & 0x1f) | 0 ); 
+		(RSeq(ba, SEQ_ID_EXTENDED_MEM_ENA) & 0x1f) | 0 );
 		/* clear extended chain4 mode */
-	WSeq (ba, SEQ_ID_EXT_VIDEO_ADDR, RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) & ~0x02);  
-	
+	WSeq (ba, SEQ_ID_EXT_VIDEO_ADDR, RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) & ~0x02);
+
 		/* set write mode 1, "[...] data in the read latches is written
 		   to memory during CPU memory write cycles. [...]" */
 	WGfx (ba, GCT_ID_GRAPHICS_MODE,
-		(RGfx(ba, GCT_ID_GRAPHICS_MODE) & 0xfc) | 1); 
-	
+		(RGfx(ba, GCT_ID_GRAPHICS_MODE) & 0xfc) | 1);
+
 	{
-		/* write to line TOP */	
+		/* write to line TOP */
 		long toploc = top * (md->TX / 16);
-		WSeq (ba, SEQ_ID_PRIM_HOST_OFF_LO, ((unsigned char)toploc)); 
-		WSeq (ba, SEQ_ID_PRIM_HOST_OFF_HI, ((unsigned char)(toploc >> 8))); 
+		WSeq (ba, SEQ_ID_PRIM_HOST_OFF_LO, ((unsigned char)toploc));
+		WSeq (ba, SEQ_ID_PRIM_HOST_OFF_HI, ((unsigned char)(toploc >> 8)));
 	}
 	{
 		/* read from line TOP + LINES */
 		long fromloc = (top+lines) * (md->TX / 16);
-		WSeq (ba, SEQ_ID_SEC_HOST_OFF_LO, ((unsigned char)fromloc)) ; 
-		WSeq (ba, SEQ_ID_SEC_HOST_OFF_HI, ((unsigned char)(fromloc >> 8))) ; 
+		WSeq (ba, SEQ_ID_SEC_HOST_OFF_LO, ((unsigned char)fromloc)) ;
+		WSeq (ba, SEQ_ID_SEC_HOST_OFF_HI, ((unsigned char)(fromloc >> 8))) ;
 	}
 	{
 		caddr_t p = (caddr_t)fb;
 		/* transfer all characters but LINES lines, unroll by 16 */
 		short x = (1 + bottom - (top + lines)) * (md->TX / 16) - 1;
 		do {
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p)); 
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@+" : "=a" (p) : "0" (p));
 		} while (x--);
 	}
-	
+
 		/* reset to default values */
-	WSeq (ba, SEQ_ID_SEC_HOST_OFF_HI, 0); 
-	WSeq (ba, SEQ_ID_SEC_HOST_OFF_LO, 0); 
-	WSeq (ba, SEQ_ID_PRIM_HOST_OFF_HI, 0); 
-	WSeq (ba, SEQ_ID_PRIM_HOST_OFF_LO, 0); 
+	WSeq (ba, SEQ_ID_SEC_HOST_OFF_HI, 0);
+	WSeq (ba, SEQ_ID_SEC_HOST_OFF_LO, 0);
+	WSeq (ba, SEQ_ID_PRIM_HOST_OFF_HI, 0);
+	WSeq (ba, SEQ_ID_PRIM_HOST_OFF_LO, 0);
 		/* write mode 0 */
 	WGfx (ba, GCT_ID_GRAPHICS_MODE,
 		(RGfx(ba, GCT_ID_GRAPHICS_MODE) & 0xfc) | 0);
 		/* extended chain4 enable */
 	WSeq (ba, SEQ_ID_EXT_VIDEO_ADDR,
-		RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) | 0x02);  
+		RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) | 0x02);
 		/* read/write to primary on A0, secondary on B0 */
 	WSeq (ba, SEQ_ID_EXTENDED_MEM_ENA,
 		(RSeq(ba, SEQ_ID_EXTENDED_MEM_ENA) & 0x1f) | 0x40);
@@ -258,10 +258,10 @@ screen_up(ip, top, bottom, lines)
 	}
 
 	   /* clear extended chain4 mode */
-	WSeq (ba, SEQ_ID_EXT_VIDEO_ADDR, RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) & ~0x02);  
+	WSeq (ba, SEQ_ID_EXT_VIDEO_ADDR, RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) & ~0x02);
 	   /* set write mode 1, "[...] data in the read latches is written
 	      to memory during CPU memory write cycles. [...]" */
-	WGfx (ba, GCT_ID_GRAPHICS_MODE, (RGfx(ba, GCT_ID_GRAPHICS_MODE) & 0xfc) | 1); 
+	WGfx (ba, GCT_ID_GRAPHICS_MODE, (RGfx(ba, GCT_ID_GRAPHICS_MODE) & 0xfc) | 1);
 
 	{
 		unsigned long * p = (unsigned long *) fb;
@@ -281,7 +281,7 @@ screen_up(ip, top, bottom, lines)
 	   /* write mode 0 */
 	WGfx (ba, GCT_ID_GRAPHICS_MODE, (RGfx(ba, GCT_ID_GRAPHICS_MODE) & 0xfc) | 0);
 	   /* extended chain4 enable */
-	WSeq (ba, SEQ_ID_EXT_VIDEO_ADDR , RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) | 0x02);  
+	WSeq (ba, SEQ_ID_EXT_VIDEO_ADDR , RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) | 0x02);
 
 #ifdef BANKEDDEVPAGER
 	/* restore former bank */
@@ -309,7 +309,7 @@ screen_down(ip, top, bottom, lines)
 	/* do some bounds-checking here.. */
 	if (top >= bottom)
 	  return;
- 
+
 	if (top + lines >= bottom)
 	  {
 	    retina_clear (ip, top, 0, bottom - top, ip->cols);
@@ -319,32 +319,32 @@ screen_down(ip, top, bottom, lines)
 #ifdef BANKEDDEVPAGER
 	/* make sure to save/restore active bank (and if it's only
 	   for tests of the feature in text-mode..) */
-	bank = (RSeq (ba, SEQ_ID_PRIM_HOST_OFF_LO) 
+	bank = (RSeq (ba, SEQ_ID_PRIM_HOST_OFF_LO)
 		| (RSeq (ba, SEQ_ID_PRIM_HOST_OFF_HI) << 8));
 #endif
 	/* see screen_up() for explanation of chip-tricks */
 
 		/* write to primary, read from secondary */
 	WSeq (ba, SEQ_ID_EXTENDED_MEM_ENA,
-		(RSeq(ba, SEQ_ID_EXTENDED_MEM_ENA) & 0x1f) | 0 ); 
+		(RSeq(ba, SEQ_ID_EXTENDED_MEM_ENA) & 0x1f) | 0 );
 		/* clear extended chain4 mode */
-	WSeq (ba, SEQ_ID_EXT_VIDEO_ADDR, RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) & ~0x02);  
+	WSeq (ba, SEQ_ID_EXT_VIDEO_ADDR, RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) & ~0x02);
 
 		/* set write mode 1, "[...] data in the read latches is written
 		   to memory during CPU memory write cycles. [...]" */
-	WGfx (ba, GCT_ID_GRAPHICS_MODE, (RGfx(ba, GCT_ID_GRAPHICS_MODE) & 0xfc) | 1); 
+	WGfx (ba, GCT_ID_GRAPHICS_MODE, (RGfx(ba, GCT_ID_GRAPHICS_MODE) & 0xfc) | 1);
 
 	{
-		/* write to line TOP + LINES */	
+		/* write to line TOP + LINES */
 		long toloc = (top + lines) * (md->TX / 16);
-		WSeq (ba, SEQ_ID_PRIM_HOST_OFF_LO, ((unsigned char)toloc)); 
-		WSeq (ba, SEQ_ID_PRIM_HOST_OFF_HI, ((unsigned char)(toloc >> 8))); 
+		WSeq (ba, SEQ_ID_PRIM_HOST_OFF_LO, ((unsigned char)toloc));
+		WSeq (ba, SEQ_ID_PRIM_HOST_OFF_HI, ((unsigned char)(toloc >> 8)));
 	}
 	{
 		/* read from line TOP */
 		long fromloc = top * (md->TX / 16);
-		WSeq (ba, SEQ_ID_SEC_HOST_OFF_LO, ((unsigned char)fromloc)); 
-		WSeq (ba, SEQ_ID_SEC_HOST_OFF_HI, ((unsigned char)(fromloc >> 8))) ; 
+		WSeq (ba, SEQ_ID_SEC_HOST_OFF_LO, ((unsigned char)fromloc));
+		WSeq (ba, SEQ_ID_SEC_HOST_OFF_HI, ((unsigned char)(fromloc >> 8))) ;
 	}
 
 	{
@@ -352,38 +352,38 @@ screen_down(ip, top, bottom, lines)
 		short x = (1 + bottom - (top + lines)) * (md->TX / 16) - 1;
 		p += (1 + bottom - (top + lines)) * md->TX;
 		do {
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
-			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p)); 
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
+			asm volatile("addqb #1,%0@-" : "=a" (p) : "0" (p));
 		} while (x--);
 	}
 
-	WSeq (ba, SEQ_ID_PRIM_HOST_OFF_HI, 0); 
-	WSeq (ba, SEQ_ID_PRIM_HOST_OFF_LO, 0); 
-	WSeq (ba, SEQ_ID_SEC_HOST_OFF_HI, 0); 
-	WSeq (ba, SEQ_ID_SEC_HOST_OFF_LO, 0); 
+	WSeq (ba, SEQ_ID_PRIM_HOST_OFF_HI, 0);
+	WSeq (ba, SEQ_ID_PRIM_HOST_OFF_LO, 0);
+	WSeq (ba, SEQ_ID_SEC_HOST_OFF_HI, 0);
+	WSeq (ba, SEQ_ID_SEC_HOST_OFF_LO, 0);
 
 		/* write mode 0 */
 	WGfx (ba, GCT_ID_GRAPHICS_MODE,
 		(RGfx(ba, GCT_ID_GRAPHICS_MODE) & 0xfc) | 0);
 		/* extended chain4 enable */
-	WSeq (ba, SEQ_ID_EXT_VIDEO_ADDR , RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) | 0x02);  
+	WSeq (ba, SEQ_ID_EXT_VIDEO_ADDR , RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) | 0x02);
 		/* read/write to primary on A0, secondary on B0 */
 	WSeq (ba, SEQ_ID_EXTENDED_MEM_ENA,
-		(RSeq(ba, SEQ_ID_EXTENDED_MEM_ENA) & 0x1f) | 0x40 ); 
+		(RSeq(ba, SEQ_ID_EXTENDED_MEM_ENA) & 0x1f) | 0x40 );
 
 	/* fill the free lines with spaces */
 
@@ -395,10 +395,10 @@ screen_down(ip, top, bottom, lines)
 	}
 
 	   /* clear extended chain4 mode */
-	WSeq (ba, SEQ_ID_EXT_VIDEO_ADDR, RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) & ~0x02);  
+	WSeq (ba, SEQ_ID_EXT_VIDEO_ADDR, RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) & ~0x02);
 	   /* set write mode 1, "[...] data in the read latches is written
 	      to memory during CPU memory write cycles. [...]" */
-	WGfx (ba, GCT_ID_GRAPHICS_MODE, (RGfx(ba, GCT_ID_GRAPHICS_MODE) & 0xfc) | 1); 
+	WGfx (ba, GCT_ID_GRAPHICS_MODE, (RGfx(ba, GCT_ID_GRAPHICS_MODE) & 0xfc) | 1);
 
 	{
 		unsigned long * p = (unsigned long *) fb;
@@ -418,7 +418,7 @@ screen_down(ip, top, bottom, lines)
 	   /* write mode 0 */
 	WGfx (ba, GCT_ID_GRAPHICS_MODE, (RGfx(ba, GCT_ID_GRAPHICS_MODE) & 0xfc) | 0);
 	   /* extended chain4 enable */
-	WSeq (ba, SEQ_ID_EXT_VIDEO_ADDR , RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) | 0x02);  
+	WSeq (ba, SEQ_ID_EXT_VIDEO_ADDR , RSeq(ba, SEQ_ID_EXT_VIDEO_ADDR) | 0x02);
 
 #ifdef BANKEDDEVPAGER
 	/* restore former bank */

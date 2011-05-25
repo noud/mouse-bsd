@@ -142,7 +142,7 @@ crxrw(dev, uio, flags)
 	static char driveselect[2] = { RXCMD_DRIVE0, RXCMD_DRIVE1 };
 
 #if	CRXDEBUG
-	printf("crxrw(csa%d): %s\n", 
+	printf("crxrw(csa%d): %s\n",
 		minor(dev), uio->uio_rw==UIO_READ?"read":"write");
 	printf("crxrw: ka820port = %x\n", ka820port_ptr->csr);
 #endif

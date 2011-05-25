@@ -62,7 +62,7 @@ __objc_thread_detach(void (*func)(void *arg), void *arg)
       thread_id = *(objc_thread_t *)&new_thread_handle;
   else
     thread_id = NULL;
-  
+
   return thread_id;
 }
 

@@ -214,7 +214,7 @@ struct atari_bus_space {
 			    bus_size_t, u_int32_t));
 	void		(*abs_ws_8) __P((bus_space_tag_t, bus_space_handle_t,
 			    bus_size_t, u_int64_t));
-	
+
 	/* write multiple */
 	void		(*abs_wm_1) __P((bus_space_tag_t, bus_space_handle_t,
 			    bus_size_t, const u_int8_t *, bus_size_t));
@@ -224,7 +224,7 @@ struct atari_bus_space {
 			    bus_size_t, const u_int32_t *, bus_size_t));
 	void		(*abs_wm_8) __P((bus_space_tag_t, bus_space_handle_t,
 			    bus_size_t, const u_int64_t *, bus_size_t));
-	
+
 	/* write multiple stream */
 	void		(*abs_wms_1) __P((bus_space_tag_t, bus_space_handle_t,
 			    bus_size_t, const u_int8_t *, bus_size_t));
@@ -264,7 +264,7 @@ struct atari_bus_space {
 			    bus_size_t, u_int32_t, bus_size_t));
 	void		(*abs_sm_8) __P((bus_space_tag_t, bus_space_handle_t,
 			    bus_size_t, u_int64_t, bus_size_t));
-	
+
 	/* set region */
 	void		(*abs_sr_1) __P((bus_space_tag_t, bus_space_handle_t,
 			    bus_size_t, u_int8_t, bus_size_t));
@@ -274,7 +274,7 @@ struct atari_bus_space {
 			    bus_size_t, u_int32_t, bus_size_t));
 	void		(*abs_sr_8) __P((bus_space_tag_t, bus_space_handle_t,
 			    bus_size_t, u_int64_t, bus_size_t));
-	
+
 #if 0 /* See comment on __abs_copy below */
 	/* copy */
 	void		(*abs_c_1) __P((bus_space_tag_t, bus_space_handle_t,

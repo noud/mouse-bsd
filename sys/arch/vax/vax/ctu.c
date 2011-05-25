@@ -13,7 +13,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -37,7 +37,7 @@
  * fixed to at least calculate checksum on incoming packets.
  * Writing of tapes does not work, by some unknown reason so far.
  * It is almost useless to try to use this driver when running
- * multiuser, because the serial device don't have any buffers 
+ * multiuser, because the serial device don't have any buffers
  * so we will loose interrupts.
  */
 
@@ -230,7 +230,7 @@ ctuioctl(dev, cmd, data, fflag, p)
 }
 
 /*
- * Not bloody likely... 
+ * Not bloody likely...
  */
 int
 ctudump(dev, blkno, va, size)

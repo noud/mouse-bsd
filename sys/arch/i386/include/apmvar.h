@@ -253,7 +253,7 @@
 
 #ifndef _LOCORE
 
-/* filled in by apmcall */ 
+/* filled in by apmcall */
 
 struct apm_connect_info {
 	u_int apm_code32_seg_base;	/* real-mode style segment selector */

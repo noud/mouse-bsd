@@ -109,7 +109,7 @@ uvm_io(map, uio)
 		 */
 
 		error = uvm_map_extract(map, baseva, chunksz, kernel_map, &kva,
-			    UVM_EXTRACT_QREF | UVM_EXTRACT_CONTIG | 
+			    UVM_EXTRACT_QREF | UVM_EXTRACT_CONTIG |
 			    UVM_EXTRACT_FIXPROT);
 		if (error) {
 

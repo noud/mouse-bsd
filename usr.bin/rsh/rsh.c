@@ -370,7 +370,7 @@ try_connect:
 		struct sigaction sa;
 
 		if (sa.sa_handler != SIG_IGN) {
-			sa.sa_handler = sendsig;		
+			sa.sa_handler = sendsig;
 			(void) sigaction(sigs[i], &sa, NULL);
 		}
 	}
@@ -408,7 +408,7 @@ checkfd(fdp, outfd)
 
 	if (fdp->revents & (POLLNVAL|POLLERR|POLLHUP))
 		return -1;
-	   
+
 	if ((fdp->revents & POLLIN) == 0)
 		return 0;
 

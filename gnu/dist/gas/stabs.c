@@ -164,7 +164,7 @@ aout_process_stab (what, string, type, other, desc)
 /* This can handle different kinds of stabs (s,n,d) and different
    kinds of stab sections. */
 
-static void 
+static void
 s_stab_generic (what, stab_secname, stabstr_secname)
      int what;
      char *stab_secname;
@@ -425,7 +425,7 @@ s_xstab (what)
 
 /* Frob invented at RMS' request. Set the n_desc of a symbol.  */
 
-void 
+void
 s_desc (ignore)
      int ignore;
 {

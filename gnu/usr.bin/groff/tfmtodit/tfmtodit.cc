@@ -162,7 +162,7 @@ int kern_iterator::next(unsigned char *c1, unsigned char *c2, int *k)
     }
   return 0;
 }
-	  
+
 tfm::tfm()
 : char_info(0), width(0), height(0), depth(0), italic(0), lig_kern(0),
   kern(0), param(0)
@@ -250,7 +250,7 @@ tfm::~tfm()
   a_delete kern;
   a_delete param;
 }
-  
+
 int read2(unsigned char *&s)
 {
   int n;
@@ -680,7 +680,7 @@ struct {
   };
 
 static void usage();
-  
+
 int main(int argc, char **argv)
 {
   program_name = argv[0];
@@ -814,7 +814,7 @@ int main(int argc, char **argv)
     }
   printf("charset\n");
   char_list unnamed("---");
-  for (i = 0; i < 256; i++) 
+  for (i = 0; i < 256; i++)
     if (t.contains(i)) {
       char_list *p = table[i] ? table[i] : &unnamed;
       int m[6];

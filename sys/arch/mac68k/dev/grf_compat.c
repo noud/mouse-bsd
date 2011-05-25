@@ -78,7 +78,7 @@ grf_scinit(sc, name, unit)
 	struct grf_softc *sc;
 	const char *name;
 	int unit;
-{ 
+{
 	memset(sc, 0, sizeof(struct grf_softc));
 	snprintf(sc->sc_xname, sizeof(sc->sc_xname), "%s%d", name, unit);
 	sc->mfb_sc = NULL;

@@ -74,12 +74,12 @@ __RCSID("$NetBSD: mount_umap.c,v 1.10 1999/07/08 03:04:40 wrstuden Exp $");
 
 /*
  * This routine provides the user interface to mounting a umap layer.
- * It takes 4 mandatory parameters.  The mandatory arguments are the place 
+ * It takes 4 mandatory parameters.  The mandatory arguments are the place
  * where the next lower level is mounted, the place where the umap layer is to
  * be mounted, the name of the user mapfile, and the name of the group
  * mapfile.  The routine checks the ownerships and permissions on the
  * mapfiles, then opens and reads them.  Then it calls mount(), which
- * will, in turn, call the umap version of mount. 
+ * will, in turn, call the umap version of mount.
  */
 
 const struct mntopt mopts[] = {
@@ -138,7 +138,7 @@ main(argc, argv)
 #ifdef MAPSECURITY
 	/*
 	 * Check that group and other don't have write permissions on
-	 * this mapfile, and that the mapfile belongs to root. 
+	 * this mapfile, and that the mapfile belongs to root.
 	 */
 	if (fstat(fileno(fp), &statbuf))
 		err(1, "%s%s", mapfile, not);
@@ -186,7 +186,7 @@ main(argc, argv)
 #ifdef MAPSECURITY
 	/*
 	 * Check that group and other don't have write permissions on
-	 * this group mapfile, and that the file belongs to root. 
+	 * this group mapfile, and that the file belongs to root.
 	 */
 	if (fstat(fileno(gfp), &statbuf))
 		err(1, "%s%s", gmapfile, not);

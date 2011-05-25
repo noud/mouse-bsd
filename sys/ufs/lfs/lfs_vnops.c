@@ -275,7 +275,7 @@ lfs_fsync(v)
 		int a_flags;
 		struct proc *a_p;
 	} */ *ap = v;
-	
+
 	return (VOP_UPDATE(ap->a_vp, NULL, NULL,
 			   (ap->a_flags & FSYNC_WAIT) != 0 ? LFS_SYNC : 0)); /* XXX */
 }
@@ -311,16 +311,16 @@ static int lfs_set_dirop(fs)
                         	wakeup(&fs->lfs_dirops);
 		}
 
-		if(lfs_dirvcount > LFS_MAXDIROP) {		
+		if(lfs_dirvcount > LFS_MAXDIROP) {
 #ifdef DEBUG_LFS
-			printf("lfs_set_dirop: sleeping with dirops=%d, dirvcount=%d\n",fs->lfs_dirops,lfs_dirvcount); 
+			printf("lfs_set_dirop: sleeping with dirops=%d, dirvcount=%d\n",fs->lfs_dirops,lfs_dirvcount);
 #endif
 			if((error=tsleep(&lfs_dirvcount, PCATCH|PUSER, "lfs_maxdirop", 0))!=0)
 				return error;
-		}							
-	}								
-	++fs->lfs_dirops;						
-	fs->lfs_doifile = 1;						
+		}
+	}
+	++fs->lfs_dirops;
+	fs->lfs_doifile = 1;
 
 	return 0;
 }

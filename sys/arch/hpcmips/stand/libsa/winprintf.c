@@ -39,7 +39,7 @@
 #include <tchar.h>
 #include <stdarg.h>
 
-int 
+int
 win_printf(LPWSTR lpszFmt, ...)
 {
 	int count;

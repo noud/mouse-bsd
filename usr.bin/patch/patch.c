@@ -132,7 +132,7 @@ char **argv;
     Argc = argc;
     Argv = argv;
     get_some_switches();
-    
+
     /* make sure we clean up /tmp in case of disaster */
     set_signals(0);
 
@@ -144,27 +144,27 @@ char **argv;
 
 	if (outname == Nullch)
 	    outname = savestr(filearg[0]);
-    
+
 	/* for ed script just up and do it and exit */
 	if (diff_type == ED_DIFF) {
 	    do_ed_script();
 	    continue;
 	}
-    
+
 	/* initialize the patched file */
 	if (!skip_rest_of_patch)
 	    init_output(TMPOUTNAME);
-    
+
 	/* initialize reject file */
 	init_reject(TMPREJNAME);
-    
+
 	/* find out where all the lines are */
 	if (!skip_rest_of_patch)
 	    scan_input(filearg[0]);
-    
+
 	/* from here on, open no standard i/o files, because malloc */
 	/* might misfire and we can't catch it easily */
-    
+
 	/* apply each hunk of patch */
 	hunk = 0;
 	failed = 0;
@@ -272,13 +272,13 @@ char **argv;
 	    rejfp = Nullfp;
 	    continue;
 	}
-    
+
 	assert(hunk);
-    
+
 	/* finish spewing out the new file */
 	if (!skip_rest_of_patch)
 	    spew_output();
-	
+
 	/* and put the output where desired */
 	ignore_signals();
 	if (!skip_rest_of_patch) {
@@ -591,7 +591,7 @@ LINENUM fuzz;
     Reg2 LINENUM offset;
     LINENUM pat_lines = pch_ptrn_lines();
     Reg3 LINENUM max_pos_offset = input_lines - first_guess
-				- pat_lines + 1; 
+				- pat_lines + 1;
     Reg4 LINENUM max_neg_offset = first_guess - last_frozen_line - 1
 				+ pch_context();
 
@@ -667,7 +667,7 @@ abort_hunk()
 	    fprintf(rejfp, "%c %s", pch_char(i), pfetch(i));
 	    break;
 	default:
-	    fatal1("fatal internal error in abort_hunk\n"); 
+	    fatal1("fatal internal error in abort_hunk\n");
 	}
     }
 }
@@ -692,7 +692,7 @@ LINENUM where;
     where--;
     while (pch_char(new) == '=' || pch_char(new) == '\n')
 	new++;
-    
+
     while (old <= lastline) {
 	if (pch_char(old) == '-') {
 	    copy_till(where + old - 1);

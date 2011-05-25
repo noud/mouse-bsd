@@ -129,11 +129,11 @@ h8300_reloc16_estimate(abfd, input_section, reloc, shrink, link_info)
      unsigned int shrink;
      struct bfd_link_info *link_info;
 {
-  bfd_vma value;  
+  bfd_vma value;
   bfd_vma dot;
   bfd_vma gap;
 
-  /* The address of the thing to be relocated will have moved back by 
+  /* The address of the thing to be relocated will have moved back by
    the size of the shrink  - but we don't change reloc->address here,
    since we need it to know where the relocation lives in the source
    uncooked section */
@@ -141,10 +141,10 @@ h8300_reloc16_estimate(abfd, input_section, reloc, shrink, link_info)
   /*  reloc->address -= shrink;   conceptual */
 
   bfd_vma address = reloc->address - shrink;
-  
+
 
   switch (reloc->howto->type)
-    {     
+    {
     case R_MOV16B2:
     case R_JMP2:
       shrink+=2;
@@ -155,40 +155,40 @@ h8300_reloc16_estimate(abfd, input_section, reloc, shrink, link_info)
       value = bfd_coff_reloc16_get_value(reloc, link_info, input_section);
 
       if (value >= 0xff00)
-	{ 
+	{
 
 	  /* Change the reloc type from 16bit, possible 8 to 8bit
 	     possible 16 */
-	  reloc->howto = reloc->howto + 1;	  
+	  reloc->howto = reloc->howto + 1;
 	  /* The place to relc moves back by one */
 	  /* This will be two bytes smaller in the long run */
 	  shrink +=2 ;
 	  bfd_perform_slip(abfd, 2, input_section, address);
-	}      
+	}
 
       break;
-      /* This is the 24 bit branch which could become an 8 bitter, 
+      /* This is the 24 bit branch which could become an 8 bitter,
        the relocation points to the first byte of the insn, not the
        actual data */
 
     case R_JMPL1:
       value = bfd_coff_reloc16_get_value(reloc, link_info, input_section);
-	
+
       dot = input_section->output_section->vma +
 	input_section->output_offset + address;
-  
+
       /* See if the address we're looking at within 127 bytes of where
 	 we are, if so then we can use a small branch rather than the
 	 jump we were going to */
 
       gap = value - dot ;
-  
+
       if (-120 < (long)gap && (long)gap < 120 )
-	{ 
+	{
 
 	  /* Change the reloc type from 24bit, possible 8 to 8bit
 	     possible 32 */
-	  reloc->howto = reloc->howto + 1;	  
+	  reloc->howto = reloc->howto + 1;
 	  /* This will be two bytes smaller in the long run */
 	  shrink +=2 ;
 	  bfd_perform_slip(abfd, 2, input_section, address);
@@ -198,23 +198,23 @@ h8300_reloc16_estimate(abfd, input_section, reloc, shrink, link_info)
     case R_JMP1:
 
       value = bfd_coff_reloc16_get_value(reloc, link_info, input_section);
-	
+
       dot = input_section->output_section->vma +
 	input_section->output_offset + address;
-  
+
       /* See if the address we're looking at within 127 bytes of where
 	 we are, if so then we can use a small branch rather than the
 	 jump we were going to */
 
       gap = value - (dot - shrink);
-  
+
 
       if (-120 < (long)gap && (long)gap < 120 )
-	{ 
+	{
 
 	  /* Change the reloc type from 16bit, possible 8 to 8bit
 	     possible 16 */
-	  reloc->howto = reloc->howto + 1;	  
+	  reloc->howto = reloc->howto + 1;
 	  /* The place to relc moves back by one */
 
 	  /* This will be two bytes smaller in the long run */
@@ -224,7 +224,7 @@ h8300_reloc16_estimate(abfd, input_section, reloc, shrink, link_info)
       break;
     }
 
-  
+
   return shrink;
 }
 
@@ -336,8 +336,8 @@ h8300_reloc16_extra_cases (abfd, link_info, link_order, reloc, data, src_ptr,
       {
 	int gap = bfd_coff_reloc16_get_value (reloc, link_info,
 					      input_section);
-	bfd_vma dot = link_order->offset 
-	  + dst_address 
+	bfd_vma dot = link_order->offset
+	  + dst_address
 	    + link_order->u.indirect.section->output_section->vma;
 
 	gap -= dot + 1;
@@ -358,8 +358,8 @@ h8300_reloc16_extra_cases (abfd, link_info, link_order, reloc, data, src_ptr,
       {
 	bfd_vma gap = bfd_coff_reloc16_get_value (reloc, link_info,
 						  input_section);
-	bfd_vma dot = link_order->offset 
-	  + dst_address 
+	bfd_vma dot = link_order->offset
+	  + dst_address
 	    + link_order->u.indirect.section->output_section->vma;
 
 

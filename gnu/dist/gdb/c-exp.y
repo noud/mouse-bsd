@@ -34,7 +34,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
    with include files (<malloc.h> and <stdlib.h> for example) just became
    too messy, particularly when such includes can be inserted at random
    times by the parser generator.  */
-   
+
 %{
 
 #include "defs.h"
@@ -63,13 +63,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define	yylval	c_lval
 #define	yychar	c_char
 #define	yydebug	c_debug
-#define	yypact	c_pact	
-#define	yyr1	c_r1			
-#define	yyr2	c_r2			
-#define	yydef	c_def		
-#define	yychk	c_chk		
-#define	yypgo	c_pgo		
-#define	yyact	c_act		
+#define	yypact	c_pact
+#define	yyr1	c_r1
+#define	yyr2	c_r2
+#define	yydef	c_def
+#define	yychk	c_chk
+#define	yypgo	c_pgo
+#define	yyact	c_act
 #define	yyexca	c_exca
 #define yyerrflag c_errflag
 #define yynerrs	c_nerrs
@@ -179,7 +179,7 @@ parse_number PARAMS ((char *, int, int, YYSTYPE *));
    E.g. "c" when input_radix==16.  Depending on the parse, it will be
    turned into a name or into a number.  */
 
-%token <ssym> NAME_OR_INT 
+%token <ssym> NAME_OR_INT
 
 %token STRUCT CLASS UNION ENUM SIZEOF UNSIGNED COLONCOLON
 %token TEMPLATE
@@ -213,7 +213,7 @@ parse_number PARAMS ((char *, int, int, YYSTYPE *));
 %left '*' '/' '%'
 %right UNARY INCREMENT DECREMENT
 %right ARROW '.' '[' '('
-%token <ssym> BLOCKNAME 
+%token <ssym> BLOCKNAME
 %type <bval> block
 %left COLONCOLON
 
@@ -314,7 +314,7 @@ exp	:	exp '[' exp1 ']'
 			{ write_exp_elt_opcode (BINOP_SUBSCRIPT); }
 	;
 
-exp	:	exp '(' 
+exp	:	exp '('
 			/* This is to save the value of arglist_len
 			   being accumulated by an outer function call.  */
 			{ start_arglist (); }
@@ -446,7 +446,7 @@ exp	:	exp OROR exp
 exp	:	exp '?' exp ':' exp	%prec '?'
 			{ write_exp_elt_opcode (TERNOP_COND); }
 	;
-			  
+
 exp	:	exp '=' exp
 			{ write_exp_elt_opcode (BINOP_ASSIGN); }
 	;
@@ -653,7 +653,7 @@ variable:	name_not_typename
 			      if (symbol_read_needs_frame (sym))
 				{
 				  if (innermost_block == 0 ||
-				      contained_in (block_found, 
+				      contained_in (block_found,
 						    innermost_block))
 				    innermost_block = block_found;
 				}
@@ -671,7 +671,7 @@ variable:	name_not_typename
 			      /* C++: it hangs off of `this'.  Must
 			         not inadvertently convert from a method call
 				 to data ref.  */
-			      if (innermost_block == 0 || 
+			      if (innermost_block == 0 ||
 				  contained_in (block_found, innermost_block))
 				innermost_block = block_found;
 			      write_exp_elt_opcode (OP_THIS);
@@ -1044,7 +1044,7 @@ parse_number (p, len, parsed_float, putithere)
 	 FIXME: This check is wrong; for example it doesn't find overflow
 	 on 0x123456789 when LONGEST is 32 bits.  */
       if (c != 'l' && c != 'u' && n != 0)
-	{	
+	{
 	  if ((unsigned_p && (ULONGEST) prevn >= (ULONGEST) n))
 	    error ("Numeric constant too large.");
 	}
@@ -1104,11 +1104,11 @@ parse_number (p, len, parsed_float, putithere)
    /* If the high bit of the worked out type is set then this number
       has to be unsigned. */
 
-   if (unsigned_p || (n & high_bit)) 
+   if (unsigned_p || (n & high_bit))
      {
        putithere->typed_val_int.type = unsigned_type;
      }
-   else 
+   else
      {
        putithere->typed_val_int.type = signed_type;
      }
@@ -1166,7 +1166,7 @@ yylex ()
   int tempbufindex;
   static char *tempbuf;
   static int tempbufsize;
-  
+
  retry:
 
   tokstart = lexptr;
@@ -1429,7 +1429,7 @@ yylex ()
       c = tokstart[++namelen];
     }
 
-  /* The token "if" terminates the expression and is NOT 
+  /* The token "if" terminates the expression and is NOT
      removed from the input stream.  */
   if (namelen == 2 && tokstart[0] == 'i' && tokstart[1] == 'f')
     {
@@ -1457,9 +1457,9 @@ yylex ()
 	return STRUCT;
       if (STREQN (tokstart, "signed", 6))
 	return SIGNED_KEYWORD;
-      if (STREQN (tokstart, "sizeof", 6))      
+      if (STREQN (tokstart, "sizeof", 6))
 	return SIZEOF;
-      if (STREQN (tokstart, "double", 6))      
+      if (STREQN (tokstart, "double", 6))
 	return DOUBLE_KEYWORD;
       break;
     case 5:
@@ -1629,7 +1629,7 @@ yylex ()
     /* Input names that aren't symbols but ARE valid hex numbers,
        when the input radix permits them, can be names or numbers
        depending on the parse.  Note we support radixes > 16 here.  */
-    if (!sym && 
+    if (!sym &&
         ((tokstart[0] >= 'a' && tokstart[0] < 'a' + input_radix - 10) ||
          (tokstart[0] >= 'A' && tokstart[0] < 'A' + input_radix - 10)))
       {

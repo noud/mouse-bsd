@@ -72,7 +72,7 @@
  */
 
 
-void 
+void
 rf_CreateNonRedundantWriteDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -86,7 +86,7 @@ rf_CreateNonRedundantWriteDAG(
 	    RF_IO_TYPE_WRITE);
 }
 
-void 
+void
 rf_CreateRAID0WriteDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -100,7 +100,7 @@ rf_CreateRAID0WriteDAG(
 	    RF_IO_TYPE_WRITE);
 }
 
-void 
+void
 rf_CreateSmallWriteDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -114,7 +114,7 @@ rf_CreateSmallWriteDAG(
 	    &rf_xorFuncs, NULL);
 }
 
-void 
+void
 rf_CreateLargeWriteDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -166,7 +166,7 @@ rf_CreateLargeWriteDAG(
  *
  *****************************************************************************/
 
-void 
+void
 rf_CommonCreateLargeWriteDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -460,7 +460,7 @@ rf_CommonCreateLargeWriteDAG(
  * A null qfuncs indicates single fault tolerant
  *****************************************************************************/
 
-void 
+void
 rf_CommonCreateSmallWriteDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -1060,7 +1060,7 @@ rf_CommonCreateSmallWriteDAG(
  *              allocList - list of memory allocated in DAG creation
  *****************************************************************************/
 
-void 
+void
 rf_CreateRaidOneWriteDAG(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -1211,7 +1211,7 @@ rf_CreateRaidOneWriteDAG(
 
 
 
-void 
+void
 rf_CommonCreateLargeWriteDAGFwd(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -1479,7 +1479,7 @@ rf_CommonCreateLargeWriteDAGFwd(
  * A null qfuncs indicates single fault tolerant
  *****************************************************************************/
 
-void 
+void
 rf_CommonCreateSmallWriteDAGFwd(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,
@@ -1993,7 +1993,7 @@ rf_CommonCreateSmallWriteDAGFwd(
  *              allocList - list of memory allocated in DAG creation
  *****************************************************************************/
 
-void 
+void
 rf_CreateRaidOneWriteDAGFwd(
     RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap,

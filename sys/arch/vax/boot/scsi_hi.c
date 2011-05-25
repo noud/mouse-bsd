@@ -10,7 +10,7 @@
  * fairly self explanatory once you read the help messages.  They, in fact,
  * execute the "extended read", "extended write", and "request sense"
  * commands from the SCSI standard.
- * 
+ *
  * "Raw" lets you execute any SCSI command but you need a SCSI reference to
  * know what the commands are and what their formats are.  The SCSI
  * standard specifies that there are six buffers which, for example, hold a
@@ -20,7 +20,7 @@
  * array of pointers.  The array must actually be eight entries long; two
  * entries are not used.  By typing "raw <array address>", the SCSI command
  * is executed.
- * 
+ *
  * By the way, "read", "write", and "raw" talk only to the DP8490 SCSI
  * controller.  I have not had time to read the Adaptec data sheet and
  * write a driver for it.
@@ -114,7 +114,7 @@ PRIVATE U8		msg_buf[MSG_LEN];
 PRIVATE struct scsi_args scsi_args;
 
 /*===========================================================================*
- *				sc_rdwt					     * 
+ *				sc_rdwt					     *
  *===========================================================================*/
 /* Carry out a read or write request for the SCSI disk. */
 PRIVATE int
@@ -194,7 +194,7 @@ struct drive *dp;
 }
 
 /*===========================================================================*
- *				exec_scsi_hi				     * 
+ *				exec_scsi_hi				     *
  *===========================================================================*/
 /* Execute a "high-level" SCSI command.  This means execute a low level
  * command and, if it fails, execute a request sense to find out why.
@@ -232,7 +232,7 @@ struct drive *dp;
 }
 
 /*===========================================================================*
- *				get_sense				     * 
+ *				get_sense				     *
  *===========================================================================*/
 /* Execute a "request sense" SCSI command and check results.  When a SCSI
  * command returns CHECK_CONDITION, a request-sense command must be executed.

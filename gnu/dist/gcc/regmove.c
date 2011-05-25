@@ -127,7 +127,7 @@ try_auto_increment (insn, inc_insn, inc_insn_set, reg, increment, pre)
 	    {
 	      if (inc_insn_set)
 		validate_change
-		  (inc_insn, 
+		  (inc_insn,
 		   &SET_SRC (inc_insn_set),
 		   XEXP (SET_SRC (inc_insn_set), 0), 1);
 	      validate_change (insn, &XEXP (use, 0),
@@ -195,7 +195,7 @@ replacement_quality(reg)
 
    Search forward to see if SRC dies before either it or DEST is modified,
    but don't scan past the end of a basic block.  If so, we can replace SRC
-   with DEST and let SRC die in INSN. 
+   with DEST and let SRC die in INSN.
 
    This will reduce the number of registers live in that range and may enable
    DEST to be tied to SRC, thus often saving one register in addition to a
@@ -507,7 +507,7 @@ optimize_reg_copy_3 (insn, dest, src)
      seem worth the trouble and potential problems to migrate the real
      fix to the egcs-1.1 branch.  */
   return;
-     
+
   if (src_no < FIRST_PSEUDO_REGISTER
       || dst_no < FIRST_PSEUDO_REGISTER
       || ! find_reg_note (insn, REG_DEAD, src_reg)
@@ -1044,7 +1044,7 @@ regmove_optimize (f, nregs, regmove_dump_file)
 		  && (! reg_class_subset_p (dst_class, src_class)
 		      || CLASS_LIKELY_SPILLED_P (dst_class)))
 		continue;
-	  
+
 	      if (fixup_match_1 (insn, set, src, src_subreg, dst, pass,
 				 operand_number, match_number,
 				 regmove_dump_file))
@@ -1074,7 +1074,7 @@ regmove_optimize (f, nregs, regmove_dump_file)
 	  int insn_code_number = find_matches (insn, &match);
 	  int operand_number, match_number;
 	  int success = 0;
-	  
+
 	  if (insn_code_number < 0)
 	    continue;
 
@@ -1945,7 +1945,7 @@ regmove_profitable_p ()
 	  int icode = (int) tstoptab->handlers[(int) mode].insn_code;
 	  rtx reg0, reg1, reg2, pat;
 	  int i;
-    
+
 	  if (GET_MODE_BITSIZE (mode) < 32 || icode == CODE_FOR_nothing)
 	    continue;
 	  for (i = 0; i < FIRST_PSEUDO_REGISTER; i++)

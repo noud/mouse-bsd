@@ -106,7 +106,7 @@ main(argc, argv)
 		}
 	}
 	interface = argv[optind++];
-	
+
 	if ((AllFlag && interface) ||
 	    (!AllFlag && interface == 0) ||
 	    (Not3Flag && Not4Flag))
@@ -146,7 +146,7 @@ mopProcess(ii, pkt)
 	src	= pkt+6;
 	ptype   = (u_short *)(pkt+12);
 	index   = 0;
-	
+
 	if (*ptype < 1600) {
 		len = *ptype;
 		trans = TRANS_8023;
@@ -159,7 +159,7 @@ mopProcess(ii, pkt)
 		p = pkt+14;
 		if (Not3Flag) return;
 	}
-	
+
 	/* Ignore our own messages */
 
 	if (mopCmpEAddr(ii->eaddr,src) == 0) {
@@ -171,7 +171,7 @@ mopProcess(ii, pkt)
 	if (mopCmpEAddr(rc_mcst,dst) != 0) {
 		return;
 	}
-	
+
 	switch (trans) {
 	case TRANS_8023:
 		moplen = len;
@@ -186,12 +186,12 @@ mopProcess(ii, pkt)
 	if (mopcode != MOP_K_CODE_SID) {
 		return;
 	}
-	
+
 	tmpc	= mopGetChar(pkt,&index);		/* Reserved  */
 	tmps	= mopGetShort(pkt,&index);		/* Receipt # */
 
 	device	= 0;					/* Unknown Device */
-	
+
 	itype	= mopGetShort(pkt,&index);
 
 	while (index < (int)(moplen + 2)) {
@@ -230,7 +230,7 @@ mopProcess(ii, pkt)
 			break;
 		case MOP_K_INFO_SFID:
 			tmpc = mopGetChar(pkt,&index);
-			if ((index > 0) && (index < 17)) 
+			if ((index > 0) && (index < 17))
 			  index = index + tmpc;
 			break;
 		case MOP_K_INFO_PRTY:
@@ -276,7 +276,7 @@ mopProcess(ii, pkt)
 				index = index + ilen;
 			};
 		}
-		itype = mopGetShort(pkt,&index); 
+		itype = mopGetShort(pkt,&index);
 	}
 
 }

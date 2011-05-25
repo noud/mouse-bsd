@@ -6,7 +6,7 @@
 @format
 START-INFO-DIR-ENTRY
 * Binutils: (binutils).         The GNU binary utilities "ar", "objcopy",
-				"objdump", "nm", "nlmconv", "size", 
+				"objdump", "nm", "nlmconv", "size",
                                 "strings", "strip", and "ranlib".
 END-INFO-DIR-ENTRY
 @end format
@@ -42,7 +42,7 @@ into another language, under the above conditions for modified versions.
 @c  "objdump", "nm", "size", "strings", "strip", and "ranlib".
 @c
 @c Copyright (C) 1991, 92, 93, 94, 95, 96, 97, 1998 Free Software Foundation, Inc.
-@c 
+@c
 @c This text may be freely distributed under the terms of the GNU
 @c General Public License.
 @c
@@ -86,7 +86,7 @@ into another language, under the above conditions for modified versions.
 
 @cindex version
 This brief manual contains preliminary documentation for the @sc{gnu} binary
-utilities (collectively version @value{VERSION}): 
+utilities (collectively version @value{VERSION}):
 
 @iftex
 @table @code
@@ -164,7 +164,7 @@ the original individual files (called @dfn{members} of the archive).
 
 The original files' contents, mode (permissions), timestamp, owner, and
 group are preserved in the archive, and can be restored on
-extraction.  
+extraction.
 
 @cindex name length
 @sc{gnu} @code{ar} can maintain archives whose members have names of any
@@ -249,7 +249,7 @@ Use this operation to @emph{move} members in an archive.
 
 The ordering of members in an archive can make a difference in how
 programs are linked using the library, if a symbol is defined in more
-than one member.  
+than one member.
 
 If no modifiers are used with @code{m}, any members you name in the
 @var{member} arguments are moved to the @emph{end} of the archive;
@@ -373,7 +373,7 @@ member must be present as the @var{relpos} argument, before the
 @item l
 This modifier is accepted but not used.
 @c whaffor ar l modifier??? presumably compat; with
-@c what???---doc@@cygnus.com, 25jan91 
+@c what???---doc@@cygnus.com, 25jan91
 
 @item o
 @cindex dates in archive
@@ -479,7 +479,7 @@ to @code{SAVE}, commands affect only the temporary copy of the current
 archive.
 
 @table @code
-@item ADDLIB @var{archive} 
+@item ADDLIB @var{archive}
 @itemx ADDLIB @var{archive} (@var{module}, @var{module}, @dots{} @var{module})
 Add all the contents of @var{archive} (or, if specified, each named
 @var{module} from @var{archive}) to the current archive.
@@ -560,7 +560,7 @@ will not actually affect @var{archive} until you next use @code{SAVE}.
 In the current archive, replace each existing @var{module} (named in
 the @code{REPLACE} arguments) from files in the current working directory.
 To execute this command without errors, both the file, and the module in
-the current archive, must exist. 
+the current archive, must exist.
 
 Requires prior use of @code{OPEN} or @code{CREATE}.
 
@@ -572,7 +572,7 @@ When the flag is on, @code{DIRECTORY} output matches output from
 @item SAVE
 Commit your changes to the current archive, and actually save it as a
 file with the name specified in the last @code{CREATE} or @code{OPEN}
-command. 
+command.
 
 Requires prior use of @code{OPEN} or @code{CREATE}.
 
@@ -691,7 +691,7 @@ equivalent.
 @table @code
 @item -A
 @itemx -o
-@itemx --print-file-name 
+@itemx --print-file-name
 @cindex input file name
 @cindex file name
 @cindex source file name
@@ -700,7 +700,7 @@ in which it was found, rather than identifying the input file once only,
 before all of its symbols.
 
 @item -a
-@itemx --debug-syms 
+@itemx --debug-syms
 @cindex debugging symbols
 Display all symbols, even debugger-only symbols; normally these are not
 listed.
@@ -738,7 +738,7 @@ Only the first character of @var{format} is significant; it can be
 either upper or lower case.
 
 @item -g
-@itemx --extern-only 
+@itemx --extern-only
 @cindex external symbols
 Display only external symbols.
 
@@ -753,12 +753,12 @@ information can be found, print it after the other symbol information.
 
 @item -n
 @itemx -v
-@itemx --numeric-sort 
+@itemx --numeric-sort
 Sort symbols numerically by their addresses, rather than alphabetically
-by their names. 
+by their names.
 
 @item -p
-@itemx --no-sort 
+@itemx --no-sort
 @cindex sorting symbols
 Do not bother to sort the symbols in any order; print them in the order
 encountered.
@@ -776,7 +776,7 @@ When listing symbols from archive members, include the index: a mapping
 contain definitions for which names.
 
 @item -r
-@itemx --reverse-sort 
+@itemx --reverse-sort
 Reverse the order of the sort (whether numeric or alphabetic); let the
 last come first.
 
@@ -796,7 +796,7 @@ Specify an object code format other than your system's default format.
 @xref{Target Selection}, for more information.
 
 @item -u
-@itemx --undefined-only 
+@itemx --undefined-only
 @cindex external symbols
 @cindex undefined symbols
 Display only undefined symbols (those external to each object file).
@@ -879,7 +879,7 @@ If you do not specify @var{outfile}, @code{objcopy} creates a
 temporary file and destructively renames the result with
 the name of @var{infile}.
 
-@item -I @var{bfdname}	
+@item -I @var{bfdname}
 @itemx --input-target=@var{bfdname}
 Consider the source file's object format to be @var{bfdname}, rather than
 attempting to deduce it.  @xref{Target Selection}, for more information.
@@ -1073,7 +1073,7 @@ Show a summary of the options to @code{objcopy}.
 @kindex objdump
 
 @smallexample
-objdump [ -a | --archive-headers ] 
+objdump [ -a | --archive-headers ]
         [ -b @var{bfdname} | --target=@var{bfdname} ] [ --debugging ]
         [ -C | --demangle ] [ -d | --disassemble ]
         [ -D | --disassemble-all ] [ --disassemble-zeroes ]
@@ -1344,7 +1344,7 @@ ranlib [-vV] @var{archive}
 
 @code{ranlib} generates an index to the contents of an archive and
 stores it in the archive.  The index lists each symbol defined by a
-member of an archive that is a relocatable object file.  
+member of an archive that is a relocatable object file.
 
 You may use @samp{nm -s} or @samp{nm --print-armap} to list this index.
 
@@ -1371,7 +1371,7 @@ Show the version number of @code{ranlib}.
 @smallexample
 size [ -A | -B | --format=@var{compatibility} ]
      [ --help ]  [ -d | -o | -x | --radix=@var{number} ]
-     [ --target=@var{bfdname} ]  [ -V | --version ]  
+     [ --target=@var{bfdname} ]  [ -V | --version ]
      [ @var{objfile}@dots{} ]
 @end smallexample
 
@@ -1394,13 +1394,13 @@ Using one of these options, you can choose whether the output from @sc{gnu}
 @code{size} resembles output from System V @code{size} (using @samp{-A},
 or @samp{--format=sysv}), or Berkeley @code{size} (using @samp{-B}, or
 @samp{--format=berkeley}).  The default is the one-line format similar to
-Berkeley's.  
+Berkeley's.
 @c Bonus for doc-source readers: you can also say --format=strange (or
 @c anything else that starts with 's') for sysv, and --format=boring (or
 @c anything else that starts with 'b') for Berkeley.
 
 Here is an example of the Berkeley (default) format of output from
-@code{size}: 
+@code{size}:
 @smallexample
 size --format=Berkeley ranlib size
 text    data    bss     dec     hex     filename
@@ -1415,18 +1415,18 @@ This is the same data, but displayed closer to System V conventions:
 size --format=SysV ranlib size
 ranlib  :
 section         size         addr
-.text         294880         8192       
-.data          81920       303104       
-.bss           11592       385024       
-Total         388392    
+.text         294880         8192
+.data          81920       303104
+.bss           11592       385024
+Total         388392
 
 
 size  :
 section         size         addr
-.text         294880         8192       
-.data          81920       303104       
-.bss           11888       385024       
-Total         388688    
+.text         294880         8192
+.data          81920       303104
+.bss           11888       385024
+Total         388688
 @end smallexample
 
 @item --help
@@ -1562,7 +1562,7 @@ code format @var{bfdname}, and rewrite it in the same format.
 @item --help
 Show a summary of the options to @code{strip} and exit.
 
-@item -I @var{bfdname}	
+@item -I @var{bfdname}
 @itemx --input-target=@var{bfdname}
 Treat the original @var{objfile} as a file with the object
 code format @var{bfdname}.
@@ -1704,7 +1704,7 @@ Print the version number of @code{c++filt} and exit.
 @emph{Warning:} @code{c++filt} is a new utility, and the details of its
 user interface are subject to change in future releases.  In particular,
 a command-line option may be required in the the future to decode a name
-passed as an argument on the command line; in other words, 
+passed as an argument on the command line; in other words,
 
 @example
 c++filt @var{symbol}
@@ -2033,9 +2033,9 @@ once because some of them can only be configured @dfn{native} (on hosts
 with the same type as the target system).
 
 @menu
-* Target Selection::            
-* Architecture Selection::      
-* Linker Emulation Selection::  
+* Target Selection::
+* Architecture Selection::
+* Linker Emulation Selection::
 @end menu
 
 @node Target Selection

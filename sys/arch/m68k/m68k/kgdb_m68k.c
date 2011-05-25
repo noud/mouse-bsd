@@ -58,7 +58,7 @@
  * Translate a trap number into a unix compatible signal value.
  * (gdb only understands unix signal numbers).
  */
-int 
+int
 kgdb_signal(type)
 	int type;
 {

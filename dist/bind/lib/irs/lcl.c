@@ -30,7 +30,7 @@ static const char rcsid[] = "Id: lcl.c,v 1.15 1999/10/13 16:39:32 vixie Exp";
 #include <string.h>
 
 #include <sys/types.h>
-#include <netinet/in.h> 
+#include <netinet/in.h>
 #include <arpa/nameser.h>
 #include <resolv.h>
 

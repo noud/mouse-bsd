@@ -145,7 +145,7 @@ cpu_reboot(howto, bootstr)
  *  - take over memory management from OFW;
  *  - set-up the stacks
  *  - set-up the exception handlers
- * 
+ *
  * Return the new stackptr (va) for the SVC frame.
  *
  */
@@ -177,7 +177,7 @@ initarm(ofw_handle)
 	 * Set-up stacks.
 	 * OFW has control of the interrupt frame.
 	 * The kernel stack for SVC mode will be updated on return from
-	 * this routine. All we need to do is prepare for abort-handling 
+	 * this routine. All we need to do is prepare for abort-handling
 	 * and undefined exceptions.
 	 */
 	set_stackptr(PSR_UND32_MODE, undstack.pv_va + NBPG);

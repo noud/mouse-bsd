@@ -91,11 +91,11 @@ ofisapcattach(parent, dev, aux)
 	static struct isa_attach_args ia;
 
 	printf("\n");
-    
+
 #define BASE_KEYBOARD 0x60
 
 	/*
-	 * Start with the Keyboard and mouse device configuration in the 
+	 * Start with the Keyboard and mouse device configuration in the
 	 * SuperIO H/W
 	 */
 	(void)i87307KbdConfig(&isa_io_bs_tag, BASE_KEYBOARD, IRQ_KEYBOARD);

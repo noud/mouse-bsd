@@ -48,7 +48,7 @@ copyinstr(udaddr, kaddr, len, done)
 	const u_char *up = udaddr;
 	u_char *kp = kaddr;
 	int l;
-	
+
 	for (l = 0; len-- > 0; l++) {
 		if ((c = fubyte(up++)) < 0) {
 			*done = l;

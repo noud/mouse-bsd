@@ -137,7 +137,7 @@ void lance_config __P((struct lance_softc *));
 void lance_reset __P((struct lance_softc *));
 void lance_init __P((struct lance_softc *));
 int lance_put __P((struct lance_softc *, int, struct mbuf *));
-void lance_read __P((struct lance_softc *, int, int)); 
+void lance_read __P((struct lance_softc *, int, int));
 void lance_setladrf __P((struct ethercom *, u_int16_t *));
 
 /*

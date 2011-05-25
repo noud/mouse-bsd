@@ -42,7 +42,7 @@
 
 struct gspregs {
 	/*
-	 * alas, they didn't invert the A1 bit, so we have to write the 
+	 * alas, they didn't invert the A1 bit, so we have to write the
 	 * address pointer in two parts
 	 */
 	__volatile u_short hstadrl;

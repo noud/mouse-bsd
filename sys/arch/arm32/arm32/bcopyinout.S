@@ -81,7 +81,7 @@ ENTRY(copyin)
 	cmp	r1, r3
 	bcs	Lbadaddress
 
-	/* Quick exit if length is zero */	
+	/* Quick exit if length is zero */
 	teq	r2, #0
 	moveq	r0, #0
 	moveq	pc, lr
@@ -99,7 +99,7 @@ ENTRY(copyin)
 
 Lpgbase:
 	.long	PROCESS_PAGE_TBLS_BASE
-	
+
 ENTRY(copyout)
 	/* Validate user and kernel addresses */
 	ldr	r3, Lvm_min_address
@@ -114,7 +114,7 @@ ENTRY(copyout)
 	cmp	r0, r3
 	bcs	Lbadaddress
 
-	/* Quick exit if length is zero */	
+	/* Quick exit if length is zero */
 	teq	r2, #0
 	moveq	r0, #0
 	moveq	pc, lr

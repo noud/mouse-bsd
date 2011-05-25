@@ -45,7 +45,7 @@
 /*
  * Convenience macros. To get around the problem of dealing with properly
  * ordered bits on little-endian machines, we just convert everything to
- * big-endian and back again when we're done.  
+ * big-endian and back again when we're done.
  *
  * MBL: move bits left
  * MBR: move bits right
@@ -80,7 +80,7 @@
 	dw |= (MBR((sp)[1], 32 - (x))); \
 } while(0);
 
-/* Put a number of bits ( <= 32 ) from sw to *dp */ 
+/* Put a number of bits ( <= 32 ) from sw to *dp */
 #define PUTBITS(sw, x, w, dp) do { \
     int n = (x) + (w) - 32; \
     \

@@ -109,12 +109,12 @@ fetch_data (info, addr)
 /* Number of elements in the opcode table.  */
 #define NOPCODES (sizeof vax_opcodes / sizeof vax_opcodes[0])
 
-static const char * const vax_regs[16] = 
+static const char * const vax_regs[16] =
 {
   "r0", "r1", "r2", "r3", "r4", "r5", "r6", "r7",
   "r8", "r9", "r10", "r11", "ap", "fp", "sp", "pc"
 };
-static const char * const vax_literal_floats[64] = 
+static const char * const vax_literal_floats[64] =
 {
    "0.5",  "0.5625", "0.625", "0.6875", "0.75",  "0.8125", "0.875",  "0.9375",
    "1.0",  "1.125",  "1.25",  "1.375",  "1.5",   "1.625",  "1.75",   "1.875",
@@ -234,7 +234,7 @@ print_insn_vax (memaddr, info)
 	      arg->arg_address = priv.insn_start + aoffset + displacement;
 	      break;
 	    }
-		
+
 	  case 'v':	/* bit base */
 	  case 'a':	/* address of */
 	  case 'm':	/* modify */

@@ -92,7 +92,7 @@ static void DAGExecutionThread(RF_ThreadArg_t arg);
 
 static void rf_ShutdownEngine(void *);
 
-static void 
+static void
 rf_ShutdownEngine(arg)
 	void   *arg;
 {
@@ -103,7 +103,7 @@ rf_ShutdownEngine(arg)
 	DO_SIGNAL(raidPtr);
 }
 
-int 
+int
 rf_ConfigureEngine(
     RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr,
@@ -154,7 +154,7 @@ rf_ConfigureEngine(
 	return (rc);
 }
 
-static int 
+static int
 BranchDone(RF_DagNode_t * node)
 {
 	int     i;
@@ -197,7 +197,7 @@ BranchDone(RF_DagNode_t * node)
 	}
 }
 
-static int 
+static int
 NodeReady(RF_DagNode_t * node)
 {
 	int     ready;
@@ -236,15 +236,15 @@ NodeReady(RF_DagNode_t * node)
  * This routine assumes that the node's status field has alread been set to
  * "fired" or "recover" to indicate the direction of execution.
  */
-static void 
+static void
 FireNode(RF_DagNode_t * node)
 {
 	switch (node->status) {
 	case rf_fired:
 		/* fire the do function of a node */
 		if (rf_engineDebug) {
-			printf("raid%d: Firing node 0x%lx (%s)\n", 
-			       node->dagHdr->raidPtr->raidid, 
+			printf("raid%d: Firing node 0x%lx (%s)\n",
+			       node->dagHdr->raidPtr->raidid,
 			       (unsigned long) node, node->name);
 		}
 		if (node->flags & RF_DAGNODE_FLAG_YIELD) {
@@ -262,7 +262,7 @@ FireNode(RF_DagNode_t * node)
 	case rf_recover:
 		/* fire the undo function of a node */
 		if (rf_engineDebug) {
-			printf("raid%d: Firing (undo) node 0x%lx (%s)\n", 
+			printf("raid%d: Firing (undo) node 0x%lx (%s)\n",
 			       node->dagHdr->raidPtr->raidid,
 			       (unsigned long) node, node->name);
 		}
@@ -289,7 +289,7 @@ FireNode(RF_DagNode_t * node)
  * Attempt to fire each node in a linear array.
  * The entire list is fired atomically.
  */
-static void 
+static void
 FireNodeArray(
     int numNodes,
     RF_DagNode_t ** nodeList)
@@ -332,7 +332,7 @@ FireNodeArray(
  * Attempt to fire each node in a linked list.
  * The entire list is fired atomically.
  */
-static void 
+static void
 FireNodeList(RF_DagNode_t * nodeList)
 {
 	RF_DagNode_t *node, *next;
@@ -386,7 +386,7 @@ FireNodeList(RF_DagNode_t * nodeList)
  * must be locked.  I used the node queue mutex and locked down the
  * entire function, but this is certainly overkill.
  */
-static void 
+static void
 PropagateResults(
     RF_DagNode_t * node,
     int context)
@@ -585,7 +585,7 @@ PropagateResults(
 /*
  * Process a fired node which has completed
  */
-static void 
+static void
 ProcessNode(
     RF_DagNode_t * node,
     int context)
@@ -638,7 +638,7 @@ ProcessNode(
  * This routine is called by each node execution function to mark the node
  * as complete and fire off any successors that have been enabled.
  */
-int 
+int
 rf_FinishNode(
     RF_DagNode_t * node,
     int context)
@@ -664,7 +664,7 @@ rf_FinishNode(
  * All we do here is fire the direct successors of the header node.  The
  * DAG execution thread does the rest of the dag processing.
  */
-int 
+int
 rf_DispatchDAG(
     RF_DagHeader_t * dag,
     void (*cbFunc) (void *),
@@ -703,7 +703,7 @@ rf_DispatchDAG(
  * characteristics from the aio_completion_thread.
  */
 
-static void 
+static void
 DAGExecutionThread(RF_ThreadArg_t arg)
 {
 	RF_DagNode_t *nd, *local_nq, *term_nq, *fire_nq;

@@ -66,6 +66,6 @@ typedef _BSD_VA_LIST_	va_list;
 	((dest) = (src))
 #endif
 
-#define	va_end(ap)	
+#define	va_end(ap)
 
 #endif /* !_M68K_STDARG_H_ */

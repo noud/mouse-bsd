@@ -1276,7 +1276,7 @@ VMS_TBT_Source_File (Filename, ID_Number)
   /* Library module name (none).  */
   *cp++ = 0;
   /* Now that size is known, fill it in and write out the record.  */
-  Local[4] = cp - &Local[5];		/* source file declaration size */ 
+  Local[4] = cp - &Local[5];		/* source file declaration size */
   Local[0] = cp - &Local[1];		/* TBT record size */
   VMS_Store_Immediate_Data (Local, cp - Local, OBJ_S_C_TBT);
   return 1;
@@ -3863,7 +3863,7 @@ VMS_Emit_Globalvalues (text_siz, data_siz, Data_Segment)
 	      Size = VMS_Initialized_Data_Size (sp, text_siz + data_siz);
 	      if (Size > 4)
 		error ("Invalid data type for globalvalue");
-	      globalvalue = md_chars_to_number (Data_Segment + 
+	      globalvalue = md_chars_to_number (Data_Segment +
 		     S_GET_VALUE (sp) - text_siz , Size);
 	      /* Three times for good luck.  The linker seems to get confused
 	         if there are fewer than three */

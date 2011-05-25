@@ -15,7 +15,7 @@
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
  *      This product includes software developed by Winning Strategies, Inc.
- * 4. The name of Winning Strategies, Inc. may not be used to endorse or 
+ * 4. The name of Winning Strategies, Inc. may not be used to endorse or
  *    promote products derived from this software without specific prior
  *    written permission.
  *
@@ -61,7 +61,7 @@ static void usage __P((void));
     (PRINT_SYSNAME|PRINT_NODENAME|PRINT_RELEASE|PRINT_VERSION|PRINT_MACHINE)
 
 int
-main(argc, argv) 
+main(argc, argv)
 	int argc;
 	char **argv;
 {
@@ -87,10 +87,10 @@ main(argc, argv)
 		case 'p':
 			print_mask |= PRINT_MACHINE_ARCH;
 			break;
-		case 'r': 
+		case 'r':
 			print_mask |= PRINT_RELEASE;
 			break;
-		case 's': 
+		case 's':
 			print_mask |= PRINT_SYSNAME;
 			break;
 		case 'v':
@@ -101,7 +101,7 @@ main(argc, argv)
 			/* NOTREACHED */
 		}
 	}
-	
+
 	if (optind != argc) {
 		usage();
 		/* NOTREACHED */

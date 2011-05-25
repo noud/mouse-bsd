@@ -111,9 +111,9 @@ ahscattach(pdp, dp, auxp)
 	struct cfdev *cdp, *ecdp;
 
 	ecdp = &cfdev[ncfdev];
-	
+
 	for (cdp = cfdev; cdp < ecdp; cdp++) {
-		if (cdp->rom.manid == 8738 && 
+		if (cdp->rom.manid == 8738 &&
 		    cdp->rom.prodid == 35)
 				break;
 	}
@@ -238,7 +238,7 @@ ahsc_dmastop(dev)
 			while ((sdp->ISTR & ISTR_FE_FLG) == 0)
 				;
 		}
-		/* 
+		/*
 		 * clear possible interrupt and stop dma
 		 */
 		sdp->CINT = 1;
@@ -279,7 +279,7 @@ ahsc_dmaintr(arg)
 		sdp->CINT = 1;	/* clear possible interrupt */
 
 		/*
-		 * check for SCSI ints in the same go and 
+		 * check for SCSI ints in the same go and
 		 * eventually save an interrupt
 		 */
 	}
@@ -305,7 +305,7 @@ ahsc_dmanext(dev)
 		return(0);
 	}
 	if ((dev->sc_dmacmd & (CNTR_TCEN | CNTR_DDIR)) == 0) {
-		  /* 
+		  /*
 		   * only FLUSH if terminal count not enabled,
 		   * and reading from peripheral
 		   */
@@ -313,7 +313,7 @@ ahsc_dmanext(dev)
 		while ((sdp->ISTR & ISTR_FE_FLG) == 0)
 			;
         }
-	/* 
+	/*
 	 * clear possible interrupt and stop dma
 	 */
 	sdp->CINT = 1;	/* clear possible interrupt */

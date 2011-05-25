@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: am_ops.c,v 1.4 1999/03/13 17:03:26 ezk Exp 
+ * Id: am_ops.c,v 1.4 1999/03/13 17:03:26 ezk Exp
  *
  */
 

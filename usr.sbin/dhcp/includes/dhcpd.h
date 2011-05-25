@@ -201,7 +201,7 @@ struct group {
 	TIME bootp_lease_length;
 
 	char *filename;
-	char *server_name;	
+	char *server_name;
 	struct iaddr next_server;
 
 	int boot_unknown_clients;
@@ -277,7 +277,7 @@ enum dhcp_state {
 	S_REBOOTING,
 	S_INIT,
 	S_SELECTING,
-	S_REQUESTING, 
+	S_REQUESTING,
 	S_BOUND,
 	S_RENEWING,
 	S_REBINDING
@@ -656,7 +656,7 @@ int if_register_socket PROTO ((struct interface_info *));
 void if_reinitialize_fallback PROTO ((struct interface_info *));
 void if_register_fallback PROTO ((struct interface_info *));
 ssize_t send_fallback PROTO ((struct interface_info *,
-			      struct packet *, struct dhcp_packet *, size_t, 
+			      struct packet *, struct dhcp_packet *, size_t,
 			      struct in_addr,
 			      struct sockaddr_in *, struct hardware *));
 #endif
@@ -665,7 +665,7 @@ ssize_t send_fallback PROTO ((struct interface_info *,
 void if_reinitialize_send PROTO ((struct interface_info *));
 void if_register_send PROTO ((struct interface_info *));
 ssize_t send_packet PROTO ((struct interface_info *,
-			    struct packet *, struct dhcp_packet *, size_t, 
+			    struct packet *, struct dhcp_packet *, size_t,
 			    struct in_addr,
 			    struct sockaddr_in *, struct hardware *));
 #endif
@@ -950,7 +950,7 @@ void indent PROTO ((int));
 void add_route_direct PROTO ((struct interface_info *, struct in_addr));
 void add_route_net PROTO ((struct interface_info *, struct in_addr,
 			   struct in_addr));
-void add_route_default_gateway PROTO ((struct interface_info *, 
+void add_route_default_gateway PROTO ((struct interface_info *,
 				       struct in_addr));
 void remove_routes PROTO ((struct in_addr));
 void remove_if_route PROTO ((struct interface_info *, struct in_addr));

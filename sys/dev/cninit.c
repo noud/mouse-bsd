@@ -64,7 +64,7 @@ cninit()
 {
 	struct consdev *cp;
 	struct consdev *bestMatch;
-	
+
 	bestMatch = cn_tab = NULL;
 	/*
 	 * Collect information about all possible consoles

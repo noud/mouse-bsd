@@ -104,11 +104,11 @@ dofile()
 	int fd;
 	char *p, path[MAXPATHLEN];
 
-	/* If the standard output is a terminal, all output written to 
+	/* If the standard output is a terminal, all output written to
 	   its standard output shall be appended to the end of the file
 	   nohup.out in the current directory.  If nohup.out cannot be
 	   created or opened for appending, the output shall be appended
-	   to the end of the file nohup.out in the directory specified 
+	   to the end of the file nohup.out in the directory specified
 	   by the HOME environment variable.
 
 	   If a file is created, the file's permission bits shall be

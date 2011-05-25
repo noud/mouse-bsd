@@ -278,7 +278,7 @@ action(line)
 		for (ktent = eekeytab; ktent->kt_keyword != NULL; ++ktent) {
 			if (strcmp(ktent->kt_keyword, keyword) == 0) {
 				(*ktent->kt_handler)(ktent, arg);
-				return; 
+				return;
 			}
 		}
 

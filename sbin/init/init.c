@@ -701,14 +701,14 @@ single_user()
 		return (state_func_t) requested_transition;
 
 	if (!WIFEXITED(status)) {
-		if (WTERMSIG(status) == SIGKILL) { 
-			/* 
-			 *  reboot(8) killed shell? 
+		if (WTERMSIG(status) == SIGKILL) {
+			/*
+			 *  reboot(8) killed shell?
 			 */
 			warning("single user shell terminated.");
 			sleep(STALL_TIMEOUT);
 			_exit(0);
-		} else {	
+		} else {
 			warning("single user shell terminated, restarting");
 			return (state_func_t) single_user;
 		}
@@ -825,7 +825,7 @@ start_session_db()
 		return (1);
 	}
 	return (0);
-		
+
 }
 
 /*
@@ -1206,7 +1206,7 @@ multi_user()
 	/*
 	 * If the administrator has not set the security level to -1
 	 * to indicate that the kernel should not run multiuser in secure
-	 * mode, and the run script has not set a higher level of security 
+	 * mode, and the run script has not set a higher level of security
 	 * than level 1, then put the kernel into secure mode.
 	 */
 	if (getsecuritylevel() == 0)
@@ -1452,7 +1452,7 @@ msdosfs_root()
 	case 0:
 		if (chdir("/dev") == -1)
 			goto done;
-		(void) execl("/bin/sh", "sh", "./MAKEDEV", "all", NULL); 
+		(void) execl("/bin/sh", "sh", "./MAKEDEV", "all", NULL);
 		goto done;
 
 	case -1:

@@ -418,7 +418,7 @@ writedisklabel(dev, strat, lp, osdep)
 	/* disklabel in appropriate location? */
 	if (lp->d_partitions[0].p_offset != 0
 		&& lp->d_partitions[0].p_offset != dospartoff) {
-		error = EXDEV;		
+		error = EXDEV;
 		goto done;
 	}
 #endif

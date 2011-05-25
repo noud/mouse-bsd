@@ -38,23 +38,23 @@
 #include "rf_types.h"
 #include "rf_reconstruct.h"
 
-int 
+int
 rf_SubmitReconBuffer(RF_ReconBuffer_t * rbuf, int keep_int,
     int use_committed);
-int 
+int
 rf_SubmitReconBufferBasic(RF_ReconBuffer_t * rbuf, int keep_int,
     int use_committed);
-int 
+int
 rf_MultiWayReconXor(RF_Raid_t * raidPtr,
     RF_ReconParityStripeStatus_t * pssPtr);
 RF_ReconBuffer_t *rf_GetFullReconBuffer(RF_ReconCtrl_t * reconCtrlPtr);
-int 
+int
 rf_CheckForFullRbuf(RF_Raid_t * raidPtr, RF_ReconCtrl_t * reconCtrl,
     RF_ReconParityStripeStatus_t * pssPtr, int numDataCol);
-void 
+void
 rf_ReleaseFloatingReconBuffer(RF_Raid_t * raidPtr, RF_RowCol_t row,
     RF_ReconBuffer_t * rbuf);
-void 
+void
 rf_ReleaseBufferWaiters(RF_Raid_t * raidPtr,
     RF_ReconParityStripeStatus_t * pssPtr);
 void    rf_ReleaseBufferWaiter(RF_ReconCtrl_t * rcPtr, RF_ReconBuffer_t * rbuf);

@@ -20,7 +20,7 @@
 char *getenv();
 caddr_t malloc();
 
-#else 
+#else
 # include <stdio.h>
 # define setbuffer(f, b, s)	setvbuf((f), (b), (b) ? _IOFBF : _IONBF, (s))
 # include <string.h>

@@ -76,11 +76,11 @@ exec_mvme(file, flag)
 	}
 
 	/*
-	 * note: on the mvme ports, the kernel is linked in such a way that 
-	 * its entry point is the first item in .text, and thus a_entry can 
+	 * note: on the mvme ports, the kernel is linked in such a way that
+	 * its entry point is the first item in .text, and thus a_entry can
 	 * be used to determine both the load address and the entry point.
 	 * (also note that we make use of the fact that the kernel will live
-	 *  in a VA == PA range of memory ... otherwise we would take 
+	 *  in a VA == PA range of memory ... otherwise we would take
 	 *  loadaddr as a parameter and let the kernel relocate itself!)
 	 *
 	 * note that ZMAGIC files included the a.out header in the text area
@@ -107,7 +107,7 @@ exec_mvme(file, flag)
 	 */
 	printf("%d", x.a_text);
 	cc = (int)x.a_text;
-	if (magic == ZMAGIC) 
+	if (magic == ZMAGIC)
 		cc = cc - sizeof(x); /* a.out header part of text in zmagic */
 	if (read(io, cp, (size_t)cc) != (size_t)cc)
 		goto shread;
@@ -184,7 +184,7 @@ exec_mvme(file, flag)
 	close(io);
 
 	printf("Start @ 0x%p ...\n", entry);
-	(*entry)(flag, bugargs.ctrl_addr, 
+	(*entry)(flag, bugargs.ctrl_addr,
 				bugargs.ctrl_lun, bugargs.dev_lun, 0, cp);
 	printf("exec: kernel returned!\n");
 	return;

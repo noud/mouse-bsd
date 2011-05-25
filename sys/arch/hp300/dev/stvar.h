@@ -98,12 +98,12 @@ struct exb_xsense {
 #define XSK_NOTUSEDE	0xe
 #define XSK_REVERVED	0xf
 
-struct  exb_inquiry { 
+struct  exb_inquiry {
 	char	venderunique[16];
 };
 
 struct	st_mode {
-	u_char	sdl;	
+	u_char	sdl;
 	u_char  medtype;
 	u_char  wp: 1,		/* write protect */
 		bfmd: 3,	/* buffered write mode */

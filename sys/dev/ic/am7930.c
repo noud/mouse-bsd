@@ -180,7 +180,7 @@ init_amd(bt, bh)
 {
 	/* disable interrupts */
 	AM7930_WRITE_REG(bt, bh, cr, AMDR_INIT);
-	AM7930_WRITE_REG(bt, bh, dr, 
+	AM7930_WRITE_REG(bt, bh, dr,
 	    AMD_INIT_PMS_ACTIVE | AMD_INIT_INT_DISABLE);
 
 	/*
@@ -342,7 +342,7 @@ am7930_halt_output(addr)
 
 	/* XXX only halt, if input is also halted ?? */
 	AM7930_WRITE_REG(bt, bh, cr, AMDR_INIT);
-	AM7930_WRITE_REG(bt, bh, dr, 
+	AM7930_WRITE_REG(bt, bh, dr,
 	    AMD_INIT_PMS_ACTIVE | AMD_INIT_INT_DISABLE);
 	sc->sc_locked = 0;
 

@@ -1527,7 +1527,7 @@ Sat Sep 11 16:30:17 1993  Ian Lance Taylor  (ian@airs.com)
 	* unix/move.c (fsysdep_move_file): Don't delete the original file
 	if the move fails.
 	* unix/splcmd.c (zsysdep_spool_commands): Remove the temporary
-	file if the move fails.	
+	file if the move fails.
 
 Wed Sep  1 23:29:30 1993  Ian Lance Taylor  (ian@airs.com)
 
@@ -1726,7 +1726,7 @@ Sat Jul 10 10:28:03 1993  Ian Lance Taylor  (ian@airs.com)
 	UUCONF_PORTTYPE_PIPE.
 	* uuchk.c (ikshow_port): Report on port type pipe.
 	* uuconv.c (uvwrite_taylor_port): Write out port type pipe.
-	
+
 	* Marc Boucher: cu.c: (main, ucuabort): Use new variable
 	fCuconnprinted to avoid printing ZDISMSG if ZCONNMSG has not been
 	printed.
@@ -4821,7 +4821,7 @@ Mon Dec 16 11:26:17 1991  Ian Lance Taylor  (ian@airs.com)
 
 	* bnu.c (ubnu_read_sysfiles, ubnu_read_systems, fbnu_find_port,
 	fbnu_read_dialer_info): Mike Bernson: ignore lines that begin with
-	whitespace, fix compilation error.	
+	whitespace, fix compilation error.
 
 Sat Dec 14 20:59:10 1991  Ian Lance Taylor  (ian@airs.com)
 

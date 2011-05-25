@@ -71,7 +71,7 @@
  *
  */
 
-/* 
+/*
  *	@(#)pmap.h	7.6 (Berkeley) 5/10/91
  */
 #ifndef	_PMAP_MACHINE_

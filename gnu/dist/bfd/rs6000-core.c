@@ -4,7 +4,7 @@
    Using the following chars caused a compiler warning on HIUX (so I replaced
    them with octal escapes), and isn't useful without an understanding of what
    character set it is.
-   Written by Metin G. Ozisik, Mimi Ph\373\364ng-Th\345o V\365, 
+   Written by Metin G. Ozisik, Mimi Ph\373\364ng-Th\345o V\365,
      and John Gilmore.
    Archive support from Damon A. Permezel.
    Contributed by IBM Corporation and Cygnus Support.
@@ -80,7 +80,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define	core_hdr(bfd)		(((Rs6kCorData*)(bfd->tdata.any))->hdr)
 
 /* AIX 4.1 Changed the names and locations of a few items in the core file,
-   this seems to be the quickest easiet way to deal with it. 
+   this seems to be the quickest easiet way to deal with it.
 
    Note however that encoding magic addresses (STACK_END_ADDR) is going
    to be _very_ fragile.  But I don't see any easy way to get that info
@@ -172,7 +172,7 @@ rs6000coff_core_p (abfd)
      if it's not there, we refuse to have anything to do with this core
      file.  The usefulness of a core dump without a stack segment is pretty
      limited anyway.  */
-     
+
   if (!(coredata.c_flag & UBLOCK_VALID)
       || !(coredata.c_flag & LE_VALID))
     {
@@ -214,7 +214,7 @@ rs6000coff_core_p (abfd)
   tmpptr = (char*) bfd_zalloc (abfd, sizeof (Rs6kCorData));
   if (!tmpptr)
     return NULL;
-      
+
   set_tdata (abfd, tmpptr);
 
   /* Copy core file header.  */
@@ -409,7 +409,7 @@ rs6000coff_core_file_matches_executable_p (core_bfd, exec_bfd)
 	  path = n;
 	}
     }
-  
+
   str1 = strrchr (path, '/');
   str2 = strrchr (exec_bfd->filename, '/');
 
@@ -488,10 +488,10 @@ rs6000coff_get_section_contents (abfd, section, location, offset, count)
       regoffset = (char*)&mstatus.iar - (char*)&mstatus;
 
       if ( bfd_seek(abfd, section->filepos + regoffset, SEEK_SET) == -1
-	|| bfd_read(location, 4 * NUM_OF_SPEC_REGS, 1, abfd) != 
+	|| bfd_read(location, 4 * NUM_OF_SPEC_REGS, 1, abfd) !=
 							4 * NUM_OF_SPEC_REGS)
 	return (false); /* on error */
-      
+
       /* increment location address, and read the special registers.. */
       /* FIXMEmgo */
       return (true);
@@ -499,7 +499,7 @@ rs6000coff_get_section_contents (abfd, section, location, offset, count)
 
     /* else, use default bfd section content transfer. */
     else
-      return _bfd_generic_get_section_contents 
+      return _bfd_generic_get_section_contents
       			(abfd, section, location, offset, count);
 }
 

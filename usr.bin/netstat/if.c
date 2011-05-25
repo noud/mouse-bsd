@@ -131,7 +131,7 @@ intpr(interval, ifnetaddr, pfunc)
 		if (bflag) {
 			printf("%-5.5s %-5.5s %-13.13s %-17.17s "
 			       "%10.10s %10.10s",
-			       "Name", "Mtu", "Network", "Address", 
+			       "Name", "Mtu", "Network", "Address",
 			       "Ibytes", "Obytes");
 		} else {
 			printf("%-5.5s %-5.5s %-13.13s %-17.17s "
@@ -223,7 +223,7 @@ intpr(interval, ifnetaddr, pfunc)
 				if (aflag) {
 					u_long multiaddr;
 					struct in_multi inm;
-		
+
 					multiaddr = (u_long)
 					    ifaddr.in.ia_multiaddrs.lh_first;
 					while (multiaddr != 0) {
@@ -275,7 +275,7 @@ intpr(interval, ifnetaddr, pfunc)
 					u_long multiaddr;
 					struct in6_multi inm;
 					struct sockaddr_in6 sin6;
-		
+
 					multiaddr = (u_long)
 					    ifaddr.in6.ia6_multiaddrs.lh_first;
 					while (multiaddr != 0) {
@@ -363,7 +363,7 @@ intpr(interval, ifnetaddr, pfunc)
 			ifaddraddr = (u_long)ifaddr.ifa.ifa_list.tqe_next;
 		}
 		if (bflag) {
-			printf("%10llu %10llu", 
+			printf("%10llu %10llu",
 				(unsigned long long)ifnet.if_ibytes,
 				(unsigned long long)ifnet.if_obytes);
 		} else {

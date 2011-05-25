@@ -40,7 +40,7 @@ struct vmap {
 
   /* This is NULL for the exec-file.  */
   struct objfile *objfile;
-  
+
   unsigned  loaded:1;	/* True if symbols are loaded		*/
   unsigned  padding:15;
 };

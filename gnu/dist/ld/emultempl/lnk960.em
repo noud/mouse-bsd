@@ -52,7 +52,7 @@ append(list, name)
      lib_list_type ***list;
      char *name;
 {
-  lib_list_type *element = 
+  lib_list_type *element =
     (lib_list_type *)(xmalloc(sizeof(lib_list_type)));
 
   element->name = name;
@@ -76,7 +76,7 @@ lnk960_hll(name)
   }
 }
 
-static void 
+static void
 lnk960_syslib(name)
      char *name;
 {
@@ -86,7 +86,7 @@ lnk960_syslib(name)
 
 #ifdef GNU960
 
-static void 
+static void
 lnk960_before_parse()
 {
   static char *env_variables[] = { "G960LIB", "G960BASE", 0 };
@@ -111,7 +111,7 @@ lnk960_before_parse()
 
 #else	/* not GNU960 */
 
-static void 
+static void
 lnk960_before_parse()
 {
   char *name = getenv("I960BASE");
@@ -153,7 +153,7 @@ lnk960_after_parse()
   }
 
   /* if there has been no hll list then add our own */
-  
+
   if(had_hll && !had_hll_name) {
     append(&hll_list_tail,"cg");
     if (ldfile_output_machine == bfd_mach_i960_ka_sa ||
@@ -163,7 +163,7 @@ lnk960_after_parse()
         }
     }
   }
-  
+
   add_on(hll_list, lang_input_file_is_l_enum);
   add_on(syslib_list, lang_input_file_is_search_file_enum);
 }
@@ -188,7 +188,7 @@ lnk960_after_allocation()
 static struct
  {
    unsigned  long number;
-   char *name; 
+   char *name;
  }
 machine_table[] =
 {
@@ -289,7 +289,7 @@ else
 # Scripts read from the filesystem.
 
 cat >>e${EMULATION_NAME}.c <<EOF
-{			     
+{
   *isfile = 1;
 
   if (link_info.relocateable == true && config.build_constructors == true)
@@ -309,7 +309,7 @@ fi
 
 cat >>e${EMULATION_NAME}.c <<EOF
 
-struct ld_emulation_xfer_struct ld_lnk960_emulation = 
+struct ld_emulation_xfer_struct ld_lnk960_emulation =
 {
   lnk960_before_parse,
   lnk960_syslib,

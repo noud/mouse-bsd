@@ -247,7 +247,7 @@ udbexpand(a, sendq, aliaslevel, e)
 					printf("udbexpand: no match on %s (%d)\n",
 						keybuf, keylen);
 #if DB_VERSION_MAJOR > 1
-				if (dbc != NULL) 
+				if (dbc != NULL)
 				{
 					(void) dbc->c_close(dbc);
 					dbc = NULL;
@@ -658,7 +658,7 @@ udbmatch(user, field)
 		  case UDB_HESIOD:
 			key.data = keybuf;
 			key.size = keylen;
-			i = hes_udb_get(&key, &info); 
+			i = hes_udb_get(&key, &info);
 			if (i != 0 || info.size <= 0)
 			{
 				if (tTd(28, 2))
@@ -761,7 +761,7 @@ udbmatch(user, field)
 			{
 				key.data = ":default:mailname";
 				key.size = strlen(key.data);
-				i = hes_udb_get(&key, &info); 
+				i = hes_udb_get(&key, &info);
 
 				if (i != 0 || info.size <= 0)
 				{
@@ -1226,7 +1226,7 @@ _udbx_close()
 	{
 		if (up->udb_pid != pid)
 			continue;
-		
+
 #ifdef NEWDB
 		if (up->udb_type == UDB_DBFETCH)
 		{

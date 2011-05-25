@@ -33,8 +33,8 @@ Wed Apr 28 10:36:53 1993  John Oleynick  (juo@goldman.gnu.ai.mit.edu)
 	* util.c: Added code to try and work around broken tape drivers
 	that have problems with tapes > 2Gb.
 
-	* copyout.c (process_copy_out): Pass file_hdr to 
-	writeout_other_defers() and add_link_defer() by reference, 
+	* copyout.c (process_copy_out): Pass file_hdr to
+	writeout_other_defers() and add_link_defer() by reference,
 	not by value.
 
 	* copyin.c (process_copy_in): Pass file_hdr to defer_copyin()
@@ -44,7 +44,7 @@ Wed Apr 28 10:36:53 1993  John Oleynick  (juo@goldman.gnu.ai.mit.edu)
 
 Fri Apr 16 18:01:17 1993  John Oleynick  (juo@goldman.gnu.ai.mit.edu)
 
-	* mt.c, util.c: Include <sys/mtio.h> if HAVE_SYS_MTIO_H is 
+	* mt.c, util.c: Include <sys/mtio.h> if HAVE_SYS_MTIO_H is
 	defined, not HAVE_MTIO_H.
 
 Wed Apr 14 17:37:46 1993  John Oleynick  (juo@goldman.gnu.ai.mit.edu)
@@ -88,7 +88,7 @@ Mon Mar 29 17:04:06 1993  John Oleynick  (juo@hal.gnu.ai.mit.edu)
 	symlink().
 
 	* copyout.c: fixes to properly handle multiple links in newc
-	and crc format archives (new routines last_link(), 
+	and crc format archives (new routines last_link(),
 	count_defered_links_to_dev_ino(), add_link_defer(),
 	writeout_other_defers(), writeout_final_defers(),
 	writeout_defered_file()); support for new arf_hpbinary and
@@ -113,7 +113,7 @@ Mon Mar 29 17:04:06 1993  John Oleynick  (juo@hal.gnu.ai.mit.edu)
 
 	* system.h: new macro UMASKED_SYMLINK
 
-	* tar.c: minor changes to read (slightly broken?) System V.4 posix 
+	* tar.c: minor changes to read (slightly broken?) System V.4 posix
 	tar archives and HPUX posix tar archives.
 
 	* util.c: HPUX CDF support (including new routines
@@ -411,13 +411,13 @@ Tue Jun 11 16:40:02 1991  David J. MacKenzie  (djm at geech.gnu.ai.mit.edu)
 	Makefile from Makefile.in.
 
 	* copyin.c (process_copy_in): Use POSIX.2 fnmatch instead of
-	glob_match. 
+	glob_match.
 
 Mon Jun 10 22:11:19 1991  David J. MacKenzie  (djm at geech.gnu.ai.mit.edu)
 
 	* global.c, extern.h: New variable, name_end.
 	* main.c (process_args, usage): Add -0 +null option to set it.
-	* copypass.c (process_copy_pass), copyout.c (process_copy_out): 
+	* copypass.c (process_copy_pass), copyout.c (process_copy_out):
 	Use it.
 
 	* dstring.c (ds_fgetstr): New function made from ds_fgets.
@@ -513,7 +513,7 @@ Sat Jul  7 14:48:35 1990  David J. MacKenzie  (dave at edfmd)
 	High short-word of `mtime' and `filesize' always comes first.
 
 	* (read_in_ascii, read_in_binary): New functions, from code in
-	read_in_header. 
+	read_in_header.
 	(read_in_header): Search for valid magic number, then fill in
 	rest of header using read_in_ascii and read_in_binary.
 	* global.c, extern.h: New variable, `binary_flag'.
@@ -527,7 +527,7 @@ Wed Jul  4 00:40:58 1990  David J. MacKenzie  (djm at apple-gunkies)
 
 	* copyin.c (process_copy_in), util.c (toss_input,
 	create_all_directories, add_inode): Don't use `index' as a
-	variable name. 
+	variable name.
 
 Tue Jul  3 02:33:36 1990  David J. MacKenzie  (djm at apple-gunkies)
 
@@ -573,7 +573,7 @@ Mon Jul  2 03:57:41 1990  David J. MacKenzie  (dave at edfmd)
 	copypass.c (process_copy_pass): Set `output_is_seekable'
 	correctly and call finish_output_file.
 	* main.c (initialize_buffers): Allocate space for sentinel in
-	`output_buffer'. 
+	`output_buffer'.
 
 	* global.c, extern.h: New variable `numeric_uid'.
 	* main.c (process_args): Accept -n +numeric-uid-gid option, like ls.
@@ -595,10 +595,10 @@ Sat Jun 30 12:44:47 1990  David J. MacKenzie  (dave at edfmd)
 
 	* global.c, extern.h, copyin.c, copyout.c, util.c: Rename
 	`{input,output}_is_regular' to `{input,output}_is_special' and
-	reverse the truth value. 
+	reverse the truth value.
 
 	* global.c, extern.h: New variable `input_is_seekable' to
-	control whether to skip data with lseek or read. 
+	control whether to skip data with lseek or read.
 	* copyin.c (process_copy_in): Set it.
 	* util.c (toss_input): Use it.
 
@@ -613,7 +613,7 @@ Sat Jun 30 12:44:47 1990  David J. MacKenzie  (dave at edfmd)
 Sat Jun 30 01:53:12 1990  David J. MacKenzie  (dave at edfmd)
 
 	* dstring.c (ds_init): Return void because return value was
-	never used. 
+	never used.
 	(ds_resize): Ditto, and free old value instead of new one.
 
 	* util.c (empty_output_buffer, fill_input_buffer,
@@ -646,10 +646,10 @@ Thu Jun 28 16:07:15 1990  David J. MacKenzie  (dave at edfmd)
 Sat Jun 23 22:50:45 1990  David J. MacKenzie  (dave at edfmd)
 
 	* main.c (main): Set umask to 0 so permissions of created
-	files are preserved. 
+	files are preserved.
 
 	* copyin.c, copyout.c, copypass.c, util.c: Pass file
-	descriptors as ints, not pointers to ints. 
+	descriptors as ints, not pointers to ints.
 	Cast file timestamps and sizes to long *, not int *, for 16
 	bit machines.
 	Use lstat instead of stat, if available.
@@ -685,7 +685,7 @@ Thu May 31 20:51:43 1990  David J. MacKenzie  (djm at albert.ai.mit.edu)
 Sat Apr 14 02:31:01 1990  David J. MacKenzie  (djm at albert.ai.mit.edu)
 
 	* cpio.h (struct cpio_header): Make inode, mode, uid, gid
-	fields unsigned. 
+	fields unsigned.
 
 	* util.c (getgroup): New function.
 	* copyin.c (long_format): Print group name of files.
@@ -701,7 +701,7 @@ Sat Apr 14 02:31:01 1990  David J. MacKenzie  (djm at albert.ai.mit.edu)
 
 	* copyin.c (process_copy_in), copypass.c (process_copy_pass):
 	Don't complain in chown fails because the user doesn't have
-	permission. 
+	permission.
 
 Fri Apr 13 13:53:20 1990  David J. MacKenzie  (djm at albert.ai.mit.edu)
 
@@ -770,7 +770,7 @@ Sat Dec  2 13:22:37 1989  David J. MacKenzie  (djm at hobbes.ai.mit.edu)
 	* main.c: Change +copy-pass option to +pass, +copy-in to +in,
 	+copy-out to +out, and +mkdir to +make-directories, and add null
 	option to terminate table.
-	(process_args): Use the same code to handle long and short named 
+	(process_args): Use the same code to handle long and short named
 	options.
 	(usage): Mention long options in message.
 

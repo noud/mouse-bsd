@@ -226,7 +226,7 @@ nlm_i386_write_import (abfd, sec, rel)
 	    }
 	}
     }
-  
+
   bfd_put_32 (abfd, val, temp);
   if (bfd_write (temp, sizeof (temp), 1, abfd) != sizeof (temp))
     return false;
@@ -376,7 +376,7 @@ nlm_i386_read_import (abfd, sym)
   while (sym -> rcnt < rcount)
     {
       asection *section;
-      
+
       if (nlm_i386_read_reloc (abfd, sym, &section,
 			       &nlm_relocs -> reloc)
 	  == false)

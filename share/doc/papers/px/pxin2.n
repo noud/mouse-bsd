@@ -46,10 +46,10 @@ The expression ``a above b'' means that `a' is on top
 of the stack with `b' below it.
 Table 2.3 describes each of the opcodes.
 The character `*' at the end of a name specifies that
-all operations with the root prefix 
+all operations with the root prefix
 before the `*'
 are summarized by one entry.
-Table 2.2 gives the codes used 
+Table 2.2 gives the codes used
 to describe the type inline data expected by each instruction.
 .sp 2
 .so table2.1.n
@@ -282,7 +282,7 @@ pushes the value at this location onto the stack.
 Control then returns to the main
 interpreter loop.
 The
-.SM RV* 
+.SM RV*
 operators have short inline data that
 reduces the space required to address the first 32K of
 stack space in each stack frame.
@@ -294,7 +294,7 @@ provide explicit conversion to long as the data
 is pushed.
 This saves the generation of
 .SM STOI
-to align arguments to 
+to align arguments to
 .SM C
 subroutines.
 .SH
@@ -320,7 +320,7 @@ The operator
 .SM CON
 takes a length specification in the sub-opcode and can be used to load
 strings and other variable length data onto the stack.
-The operators 
+The operators
 .SM CON14
 and
 .SM CON24
@@ -467,7 +467,7 @@ A pointer to the specified length inline data is pushed
 onto the stack.
 This is primarily used for
 .I printf
-type strings used by 
+type strings used by
 .SM WRITEF .
 (see sections 3.6 and 3.8)
 .SH
@@ -513,7 +513,7 @@ The array address is indexed by the
 length 4 index (a length 2 index would use
 .SM INX2 )
 where the individual elements have a size of 8 bytes.
-The code for 
+The code for
 .SM INX4
 is:
 .DS
@@ -578,14 +578,14 @@ Range checking
 .PP
 The interpreter has several range checking operators.
 The important distinction among these operators is between values whose
-legal range begins at zero and those that do not begin at zero, 
+legal range begins at zero and those that do not begin at zero,
 for example
 a subrange variable whose values range from 45 to 70.
 For those that begin at zero, a simpler ``logical'' comparison against
 the upper bound suffices.
 For others, both the low and upper bounds must be checked independently,
 requiring two comparisons.
-On the 
+On the
 .SM "VAX 11/780"
 both checks are done using a single index instruction
 so the only gain is in reducing the inline data.
@@ -594,7 +594,7 @@ Case operators
 .PP
 The interpreter includes three operators for
 .B case
-statements that are used depending on the width of the 
+statements that are used depending on the width of the
 .B case
 label type.
 For each width, the structure of the case data is the same, and
@@ -700,7 +700,7 @@ Takes the cardinality of a set of size
 .I s
 bytes on top of the stack, leaving a 2 byte integer count.
 .SM CARD
-uses the 
+uses the
 .B ffs
 opcode to successively count the number of set bits in the set.
 .SH
@@ -807,7 +807,7 @@ The code can run significantly faster using these operators.
 .NH 2
 Mathematical Functions
 .PP
-The transcendental functions 
+The transcendental functions
 .SM SIN ,
 .SM COS ,
 .SM ATAN ,
@@ -829,7 +829,7 @@ and
 .SM ROUND
 take a double precision floating point number.
 .SM EXPO
-returns an integer representing the machine 
+returns an integer representing the machine
 representation of its argument's exponent,
 .SM TRUNC
 returns the integer part of its argument, and
@@ -847,7 +847,7 @@ The default is unlimited.
 .SH
 STLIM
 .IP
-A statement limit is passed on the stack. The statement limit 
+A statement limit is passed on the stack. The statement limit
 is set as specified.
 The default is 500,000.
 No limit is enforced when the ``p'' option is disabled.
@@ -888,7 +888,7 @@ PACK s,w,w,w
 UNPACK s,w,w,w
 .IP
 They function as a memory to memory move with several
-semantic checks. 
+semantic checks.
 They do no ``unpacking'' or ``packing'' in the true sense as the
 interpreter supports no packed data types.
 .SH
@@ -896,15 +896,15 @@ NEW s
 .br
 DISPOSE s
 .IP
-An 
+An
 .SM LV
-of a pointer is passed. 
+of a pointer is passed.
 .SM NEW
 allocates a record of a specified size and puts a pointer
 to it into the pointer variable.
 .SM DISPOSE
 deallocates the record pointed to by the pointer
-and sets the pointer to 
+and sets the pointer to
 .SM NIL .
 .sp
 .LP
@@ -914,12 +914,12 @@ converts a suitably small integer into an ascii character.
 Its primary purpose is to do a range check.
 The function
 .SM ODD*
-returns 
+returns
 .I true
 if its argument is odd and returns
 .I false
 if its argument is even.
-The function 
+The function
 .SM UNDEF
 always returns the value
 .I false .

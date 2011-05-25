@@ -340,7 +340,7 @@ add_swap(path)
 	if (stat(path, &sb) < 0)
 		goto oops;
 
-	if (sb.st_mode & S_IROTH) 
+	if (sb.st_mode & S_IROTH)
 		warnx("%s is readable by the world", path);
 	if (sb.st_mode & S_IWOTH)
 		warnx("%s is writable by the world", path);

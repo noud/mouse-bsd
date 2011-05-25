@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: amq_xdr.c,v 1.2 1999/01/10 21:53:59 ezk Exp 
+ * Id: amq_xdr.c,v 1.2 1999/01/10 21:53:59 ezk Exp
  *
  */
 

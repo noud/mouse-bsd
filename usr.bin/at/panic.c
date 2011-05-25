@@ -88,7 +88,7 @@ perr(a)
 	exit(EXIT_FAILURE);
 }
 
-void 
+void
 perr2(a, b)
 	char *a, *b;
 {

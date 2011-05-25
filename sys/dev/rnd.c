@@ -476,7 +476,7 @@ rndioctl(dev, cmd, addr, flag, p)
 	u_int32_t		 count;
 	u_int32_t		 start;
 	int			 s;
-	
+
 	ret = 0;
 
 	switch (cmd) {
@@ -583,7 +583,7 @@ rndioctl(dev, cmd, addr, flag, p)
 
 			return 0;
 		}
-			
+
 		/*
 		 * scan through the list, trying to find the name
 		 */
@@ -794,7 +794,7 @@ rnd_detach_source(rs)
 
 	splx(s);
 }
-	
+
 /*
  * Add a value to the entropy pool.  If rs is NULL no entropy estimation
  * will be performed, otherwise it should point to the source-specific

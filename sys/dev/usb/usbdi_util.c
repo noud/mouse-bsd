@@ -93,7 +93,7 @@ usbd_get_config_desc(dev, confidx, d)
 	usbd_status err;
 
 	DPRINTFN(3,("usbd_get_config_desc: confidx=%d\n", confidx));
-	err = usbd_get_desc(dev, UDESC_CONFIG, confidx, 
+	err = usbd_get_desc(dev, UDESC_CONFIG, confidx,
 			    USB_CONFIG_DESCRIPTOR_SIZE, d);
 	if (err)
 		return (err);
@@ -123,7 +123,7 @@ usbd_get_device_desc(dev, d)
 	usb_device_descriptor_t *d;
 {
 	DPRINTFN(3,("usbd_get_device_desc:\n"));
-	return (usbd_get_desc(dev, UDESC_DEVICE, 
+	return (usbd_get_desc(dev, UDESC_DEVICE,
 			     0, USB_DEVICE_DESCRIPTOR_SIZE, d));
 }
 
@@ -140,7 +140,7 @@ usbd_get_device_status(dev, st)
 	USETW(req.wIndex, 0);
 	USETW(req.wLength, sizeof(usb_status_t));
 	return (usbd_do_request(dev, &req, st));
-}	
+}
 
 usbd_status
 usbd_get_hub_status(dev, st)
@@ -155,7 +155,7 @@ usbd_get_hub_status(dev, st)
 	USETW(req.wIndex, 0);
 	USETW(req.wLength, sizeof(usb_hub_status_t));
 	return (usbd_do_request(dev, &req, st));
-}	
+}
 
 usbd_status
 usbd_set_address(dev, addr)
@@ -439,7 +439,7 @@ usbd_alloc_report_desc(ifc, descp, sizep, mem)
 #elif defined(__FreeBSD__)
 	struct malloc_type *mem;
 #endif
-	
+
 {
 	usb_interface_descriptor_t *id;
 	usb_hid_descriptor_t *hid;
@@ -460,7 +460,7 @@ usbd_alloc_report_desc(ifc, descp, sizep, mem)
 	if (*descp == NULL)
 		return (USBD_NOMEM);
 	/* XXX should not use 0 Report ID */
-	err = usbd_get_report_descriptor(dev, id->bInterfaceNumber, 0, 
+	err = usbd_get_report_descriptor(dev, id->bInterfaceNumber, 0,
 				       *sizep, *descp);
 	if (err) {
 		free(*descp, mem);
@@ -469,7 +469,7 @@ usbd_alloc_report_desc(ifc, descp, sizep, mem)
 	return (USBD_NORMAL_COMPLETION);
 }
 
-usbd_status 
+usbd_status
 usbd_get_config(dev, conf)
 	usbd_device_handle dev;
 	u_int8_t *conf;
@@ -484,7 +484,7 @@ usbd_get_config(dev, conf)
 	return (usbd_do_request(dev, &req, conf));
 }
 
-static void usbd_bulk_transfer_cb __P((usbd_xfer_handle xfer, 
+static void usbd_bulk_transfer_cb __P((usbd_xfer_handle xfer,
 		usbd_private_handle priv, usbd_status status));
 static void
 usbd_bulk_transfer_cb(xfer, priv, status)
@@ -542,7 +542,7 @@ usb_detach_wait(dv)
 		printf("usb_detach_wait: %s didn't detach\n",
 		        USBDEVPTRNAME(dv));
 	DPRINTF(("usb_detach_wait: %s done\n", USBDEVPTRNAME(dv)));
-}       
+}
 
 void
 usb_detach_wakeup(dv)
@@ -550,4 +550,4 @@ usb_detach_wakeup(dv)
 {
 	DPRINTF(("usb_detach_wakeup: for %s\n", USBDEVPTRNAME(dv)));
 	wakeup(dv);
-}       
+}

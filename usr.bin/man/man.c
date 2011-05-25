@@ -338,7 +338,7 @@ main(argc, argv)
 		}
 		exit(cleanup());
 	}
-		
+
 	/*
 	 * 8: We display things in a single command; build a list of things
 	 *    to display.
@@ -496,7 +496,7 @@ next:				anyfound = 1;
 	return (anyfound);
 }
 
-/* 
+/*
  * build_page --
  *	Build a man page for display.
  */
@@ -519,7 +519,7 @@ build_page(fmt, pathp)
 	}
 
        /*
-        * Historically man chdir'd to the root of the man tree. 
+        * Historically man chdir'd to the root of the man tree.
         * This was used in man pages that contained relative ".so"
         * directives (including other man pages for command aliases etc.)
         * It even went one step farther, by examining the first line
@@ -527,11 +527,11 @@ build_page(fmt, pathp)
         * make hard(?) links to the cat'ted man pages for space savings.
         * (We don't do that here, but we could).
         */
- 
+
        /* copy and find the end */
        for (b = buf, p = *pathp; (*b++ = *p++) != '\0';)
                continue;
- 
+
 	/* skip the last two path components, page name and man[n] */
 	for (--b, --p, n = 2; b != buf; b--, p--)
 		if (*b == '/')
@@ -711,7 +711,7 @@ jump(argv, flag, name)
 	exit(1);
 }
 
-/* 
+/*
  * onsig --
  *	If signaled, delete the temporary files.
  */

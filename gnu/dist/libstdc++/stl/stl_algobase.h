@@ -118,13 +118,13 @@ inline OutputIterator
 __copy_d(RandomAccessIterator first, RandomAccessIterator last,
          OutputIterator result, Distance*)
 {
-  for (Distance n = last - first; n > 0; --n, ++result, ++first) 
+  for (Distance n = last - first; n > 0; --n, ++result, ++first)
     *result = *first;
   return result;
 }
 
 template <class RandomAccessIterator, class OutputIterator>
-inline OutputIterator 
+inline OutputIterator
 __copy(RandomAccessIterator first, RandomAccessIterator last,
        OutputIterator result, random_access_iterator_tag)
 {
@@ -140,7 +140,7 @@ struct __copy_dispatch
   }
 };
 
-#ifdef __STL_CLASS_PARTIAL_SPECIALIZATION 
+#ifdef __STL_CLASS_PARTIAL_SPECIALIZATION
 
 template <class T>
 inline T* __copy_t(const T* first, const T* last, T* result, __true_type) {
@@ -157,7 +157,7 @@ template <class T>
 struct __copy_dispatch<T*, T*>
 {
   T* operator()(T* first, T* last, T* result) {
-    typedef typename __type_traits<T>::has_trivial_assignment_operator t; 
+    typedef typename __type_traits<T>::has_trivial_assignment_operator t;
     return __copy_t(first, last, result, t());
   }
 };
@@ -166,7 +166,7 @@ template <class T>
 struct __copy_dispatch<const T*, T*>
 {
   T* operator()(const T* first, const T* last, T* result) {
-    typedef typename __type_traits<T>::has_trivial_assignment_operator t; 
+    typedef typename __type_traits<T>::has_trivial_assignment_operator t;
     return __copy_t(first, last, result, t());
   }
 };
@@ -192,8 +192,8 @@ inline wchar_t* copy(const wchar_t* first, const wchar_t* last,
 }
 
 template <class BidirectionalIterator1, class BidirectionalIterator2>
-inline BidirectionalIterator2 __copy_backward(BidirectionalIterator1 first, 
-                                              BidirectionalIterator1 last, 
+inline BidirectionalIterator2 __copy_backward(BidirectionalIterator1 first,
+                                              BidirectionalIterator1 last,
                                               BidirectionalIterator2 result) {
   while (first != last) *--result = *--last;
   return result;
@@ -203,14 +203,14 @@ inline BidirectionalIterator2 __copy_backward(BidirectionalIterator1 first,
 template <class BidirectionalIterator1, class BidirectionalIterator2>
 struct __copy_backward_dispatch
 {
-  BidirectionalIterator2 operator()(BidirectionalIterator1 first, 
-                                    BidirectionalIterator1 last, 
+  BidirectionalIterator2 operator()(BidirectionalIterator1 first,
+                                    BidirectionalIterator1 last,
                                     BidirectionalIterator2 result) {
     return __copy_backward(first, last, result);
   }
 };
 
-#ifdef __STL_CLASS_PARTIAL_SPECIALIZATION 
+#ifdef __STL_CLASS_PARTIAL_SPECIALIZATION
 
 template <class T>
 inline T* __copy_backward_t(const T* first, const T* last, T* result,
@@ -230,7 +230,7 @@ template <class T>
 struct __copy_backward_dispatch<T*, T*>
 {
   T* operator()(T* first, T* last, T* result) {
-    typedef typename __type_traits<T>::has_trivial_assignment_operator t; 
+    typedef typename __type_traits<T>::has_trivial_assignment_operator t;
     return __copy_backward_t(first, last, result, t());
   }
 };
@@ -239,7 +239,7 @@ template <class T>
 struct __copy_backward_dispatch<const T*, T*>
 {
   T* operator()(const T* first, const T* last, T* result) {
-    typedef typename __type_traits<T>::has_trivial_assignment_operator t; 
+    typedef typename __type_traits<T>::has_trivial_assignment_operator t;
     return __copy_backward_t(first, last, result, t());
   }
 };
@@ -247,11 +247,11 @@ struct __copy_backward_dispatch<const T*, T*>
 #endif /* __STL_CLASS_PARTIAL_SPECIALIZATION */
 
 template <class BidirectionalIterator1, class BidirectionalIterator2>
-inline BidirectionalIterator2 copy_backward(BidirectionalIterator1 first, 
-                                            BidirectionalIterator1 last, 
+inline BidirectionalIterator2 copy_backward(BidirectionalIterator1 first,
+                                            BidirectionalIterator1 last,
                                             BidirectionalIterator2 result) {
-  return __copy_backward_dispatch<BidirectionalIterator1, 
-                                  BidirectionalIterator2>()(first, last, 
+  return __copy_backward_dispatch<BidirectionalIterator1,
+                                  BidirectionalIterator2>()(first, last,
                                                             result);
 }
 
@@ -360,7 +360,7 @@ bool lexicographical_compare(InputIterator1 first1, InputIterator1 last1,
   return first1 == last1 && first2 != last2;
 }
 
-inline bool 
+inline bool
 lexicographical_compare(const unsigned char* first1,
                         const unsigned char* last1,
                         const unsigned char* first2,

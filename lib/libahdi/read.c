@@ -147,7 +147,7 @@ read_rsec (fd, ptable, rsec, esec, flags)
 				part->ap_flg &= 0x01;
 			else
 				continue;
-			
+
 		if (AHDI_MKPID (part->ap_id[0], part->ap_id[1],
 		    part->ap_id[2]) == AHDI_PID_XGM) {
 			u_int	offs = part->ap_st + esec;
@@ -234,7 +234,7 @@ assign_letters (ptable)
 
 	have_root = 0;
 	pno = 0;
-	
+
 	for (i = 0; i < ptable->nparts; i++) {
 		while (pno == ROOT_PART || pno == SWAP_PART || pno == RAW_PART)
 			pno++;

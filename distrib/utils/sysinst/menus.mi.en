@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -39,7 +39,7 @@
 /*
  * Menu system definitions -- machine independent
  *
- * Some menus may be called directly in the code rather than via the 
+ * Some menus may be called directly in the code rather than via the
  * menu system.
  *
  *  This file must be first in the sed command line.
@@ -106,16 +106,16 @@ menu layout, title  "Choose your installation";
 	option "Custom", 	  exit, action { layoutkind = 3; };
 
 menu sizechoice, title  "Choose your size specifier";
-	option "Megabytes", exit, action 
+	option "Megabytes", exit, action
 		{ sizemult = MEG / sectorsize;
 		  multname = msg_string(MSG_megname);
 		};
-	option "Cylinders", exit, action 
-		{ sizemult = dlcylsize; 
+	option "Cylinders", exit, action
+		{ sizemult = dlcylsize;
 		  multname = msg_string(MSG_cylname);
 		};
-	option "Sectors", exit, action 
-		{ sizemult = 1; 
+	option "Sectors", exit, action
+		{ sizemult = 1;
 		  multname = msg_string(MSG_secname);
 		};
 
@@ -133,7 +133,7 @@ menu edfspart, title "Change what?", exit, y=15;
 		disp_cur_fspart(editpart, 1);
 	};
 	option "FS kind", sub menu  selfskind;
-	option "Offset/size", action  
+	option "Offset/size", action
 		{	int start, size;
 			msg_display_add(MSG_defaultunit, multname);
 			start = getpartoff(MSG_offset, 0);
@@ -143,7 +143,7 @@ menu edfspart, title "Change what?", exit, y=15;
 			bsdlabel[editpart].pi_offset = start;
 			bsdlabel[editpart].pi_size = size;
 		};
-	option "Bsize/Fsize", action 
+	option "Bsize/Fsize", action
 		{	char buf[40]; int i;
 
 			if (bsdlabel[editpart].pi_fstype != FS_BSDFFS) {
@@ -158,7 +158,7 @@ menu edfspart, title "Change what?", exit, y=15;
 			i = atoi(buf);
 			bsdlabel[editpart].pi_fsize = i;
 		};
-	option "Mount point", action 
+	option "Mount point", action
 		{	if (bsdlabel[editpart].pi_fstype == FS_BSDFFS ||
 			    bsdlabel[editpart].pi_fstype == FS_MSDOS)
 				msg_prompt_add (MSG_mountpoint, NULL,
@@ -170,22 +170,22 @@ menu edfspart, title "Change what?", exit, y=15;
 		};
 
 menu selfskind, title "Select the type", y=15;
-	option "4.2BSD", exit, action 
+	option "4.2BSD", exit, action
 			{ bsdlabel[editpart].pi_fstype = FS_BSDFFS;
 			  bsdlabel[editpart].pi_bsize  = 8192;
 			  bsdlabel[editpart].pi_fsize  = 1024;
 			};
-	option "unused", exit, action 
+	option "unused", exit, action
 			{ bsdlabel[editpart].pi_fstype = FS_UNUSED;
 			  bsdlabel[editpart].pi_bsize  = 0;
 			  bsdlabel[editpart].pi_fsize  = 0;
 			};
-	option "swap", exit, action 
+	option "swap", exit, action
 			{ bsdlabel[editpart].pi_fstype = FS_SWAP;
 			  bsdlabel[editpart].pi_bsize  = 0;
 			  bsdlabel[editpart].pi_fsize  = 0;
 			};
-	option "msdos", exit, action 
+	option "msdos", exit, action
 			{ bsdlabel[editpart].pi_fstype = FS_MSDOS;
 			  bsdlabel[editpart].pi_bsize  = 0;
 			  bsdlabel[editpart].pi_fsize  = 0;
@@ -198,17 +198,17 @@ menu distmedium, title "Select medium";
 				  got_dist = get_via_ftp();
 			        },
 				exit;
-	option "nfs",  action	{ 
+	option "nfs",  action	{
 				  got_dist = get_via_nfs();
 			 	}, exit;
 	option "cdrom", action  {
 				  got_dist = get_via_cdrom();
-				}, exit; 
+				}, exit;
 	option "floppy", action {
-			          got_dist = get_via_floppy(); 
+			          got_dist = get_via_floppy();
 				}, exit;
 	option "unmounted fs", action {
-				  got_dist = get_via_localfs(); 
+				  got_dist = get_via_localfs();
 				}, exit;
 	option "local dir", action {
 				   got_dist = get_via_localdir();
@@ -333,7 +333,7 @@ menu namesrv6, title "  Select IPv6 DNS server";
 #else
 		  yesno = 0;
 #endif
-		}; 
+		};
 	option "kiwi.itojun.org", exit, action
 		{
 #ifdef INET6
@@ -343,7 +343,7 @@ menu namesrv6, title "  Select IPv6 DNS server";
 #else
 		  yesno = 0;
 #endif
-		}; 
+		};
 	option "sh1.iijlab.net", exit, action
 		{
 #ifdef INET6
@@ -353,8 +353,8 @@ menu namesrv6, title "  Select IPv6 DNS server";
 #else
 		  yesno = 0;
 #endif
-		}; 
-	option "ns1.v6.intec.co.jp", exit, action 
+		};
+	option "ns1.v6.intec.co.jp", exit, action
 		{
 #ifdef INET6
 		  strncpy(net_namesvr6, "3ffe:508:0:1::53",
@@ -363,7 +363,7 @@ menu namesrv6, title "  Select IPv6 DNS server";
 #else
 		  yesno = 0;
 #endif
-		}; 
+		};
 	option "nttv6.net", exit, action
 		{
 #ifdef INET6
@@ -373,7 +373,7 @@ menu namesrv6, title "  Select IPv6 DNS server";
 #else
 		  yesno = 0;
 #endif
-		}; 
+		};
 	option "light.imasy.or.jp", exit, action
 		{
 #ifdef INET6
@@ -383,7 +383,7 @@ menu namesrv6, title "  Select IPv6 DNS server";
 #else
 		  yesno = 0;
 #endif
-		}; 
+		};
 	option "other ", exit, action
 		{ yesno = 0; };
 

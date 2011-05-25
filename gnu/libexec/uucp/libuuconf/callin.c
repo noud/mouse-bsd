@@ -133,7 +133,7 @@ uuconf_callin (pglobal, pcmpfn, pinfo)
 		  if (strchr (z0 + 1, ' ') != NULL)
 		    continue;
 		}
-	    }		  
+	    }
 	  iret = uuconf_cmd_line (pglobal, zline, as, (pointer) &s,
 				  ipcheck, 0, (pointer) NULL);
 	  if ((iret & UUCONF_CMDTABRET_EXIT) != 0)

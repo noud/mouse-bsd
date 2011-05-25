@@ -80,7 +80,7 @@ again:
 
 	r = clnt_call(ysd->dom_client, YPPROC_ORDER,
 		      (xdrproc_t)xdr_ypreq_nokey, &yprnk,
-		      (xdrproc_t)xdr_ypresp_order, &ypro, 
+		      (xdrproc_t)xdr_ypresp_order, &ypro,
 		      _yplib_timeout);
 	if (r != RPC_SUCCESS) {
 		if (++nerrs == _yplib_nerrs) {
@@ -91,7 +91,7 @@ again:
 			/* Case of NIS+ server in NIS compat mode */
 			r = YPERR_YPERR;
 			goto bail;
-	        } 
+	        }
 		ysd->dom_vers = -1;
 		goto again;
 	}

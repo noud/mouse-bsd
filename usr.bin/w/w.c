@@ -278,7 +278,7 @@ main(argc, argv)
 	/* sort by idle time */
 	if (sortidle && ehead != NULL) {
 		struct entry *from = ehead, *save;
-		
+
 		ehead = NULL;
 		while (from != NULL) {
 			for (nextp = &ehead;
@@ -291,7 +291,7 @@ main(argc, argv)
 			*nextp = save;
 		}
 	}
-			
+
 	if (!nflag) {
 		int	rv;
 

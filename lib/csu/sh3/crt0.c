@@ -48,7 +48,7 @@ start:
         bra	___start
         nop
 ");
-	
+
 #if defined(LIBC_SCCS) && !defined(lint)
 __RCSID("$NetBSD: crt0.c,v 1.1 1999/10/07 11:56:28 msaitoh Exp $");
 #endif /* LIBC_SCCS and not lint */

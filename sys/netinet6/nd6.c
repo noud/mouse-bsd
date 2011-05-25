@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -369,7 +369,7 @@ nd6_timer(ignored_arg)
 	register struct nd_defrouter *dr;
 	register struct nd_prefix *pr;
 	long time_second = time.tv_sec;
-	
+
 	s = splsoftnet();
 	timeout(nd6_timer, (caddr_t)0, nd6_prune * hz);
 
@@ -395,7 +395,7 @@ nd6_timer(ignored_arg)
 			ln = next;
 			continue;
 		}
-		
+
 		/* sanity check */
 		if (!rt)
 			panic("rt=0 in nd6_timer(ln=%p)\n", ln);
@@ -435,7 +435,7 @@ nd6_timer(ignored_arg)
 				ln->ln_state = ND6_LLINFO_STALE;
 			}
 			break;
-		/* 
+		/*
 		 * ND6_LLINFO_STALE state requires nothing for timer
 		 * routine.
 		 */
@@ -465,7 +465,7 @@ nd6_timer(ignored_arg)
 		}
 		ln = next;
 	}
-	
+
 	/* expire */
 	dr = TAILQ_FIRST(&nd_defrouter);
 	while (dr) {
@@ -636,7 +636,7 @@ nd6_lookup(addr6, create, ifp)
 	if (rt && (rt->rt_flags & RTF_LLINFO) == 0) {
 		/*
 		 * This is the case for the default route.
-		 * If we want to create a neighbor cache for the address, we 
+		 * If we want to create a neighbor cache for the address, we
 		 * should free the route for the destination and allocate an
 		 * interface route.
 		 */
@@ -663,7 +663,7 @@ nd6_lookup(addr6, create, ifp)
 			 * Create a new route. RTF_LLINFO is necessary
 			 * to create a Neighbor Cache entry for the
 			 * destination in nd6_rtrequest which will be
-			 * called in rtequest via ifa->ifa_rtrequest. 
+			 * called in rtequest via ifa->ifa_rtrequest.
 			 */
 			if (rtrequest(RTM_ADD, (struct sockaddr *)&sin6,
 				      ifa->ifa_addr,
@@ -708,7 +708,7 @@ nd6_lookup(addr6, create, ifp)
 
 /*
  * Detect if a given IPv6 address identifies a neighbor on a given link.
- * XXX: should take care of the destination of a p2p link? 
+ * XXX: should take care of the destination of a p2p link?
  */
 int
 nd6_is_addr_neighbor(addr, ifp)
@@ -898,7 +898,7 @@ nd6_resolve(ifp, rt, m, dst, desten)
 	if (m->m_flags & M_MCAST) {
 		switch (ifp->if_type) {
 		case IFT_ETHER:
-		case IFT_FDDI:			
+		case IFT_FDDI:
 			ETHER_MAP_IPV6_MULTICAST(&SIN6(dst)->sin6_addr,
 						 desten);
 			return(1);
@@ -1061,7 +1061,7 @@ nd6_rtrequest(req, rt, sa)
 			 */
 			ln->ln_state = ND6_LLINFO_REACHABLE;
 		} else {
-		        /* 
+		        /*
 			 * When req == RTM_RESOLVE, rt is created and
 			 * initialized in rtrequest(), so rt_expire is 0.
 			 */
@@ -1365,7 +1365,7 @@ nd6_ioctl(cmd, data, ifp)
 		nbi->isrouter = ln->ln_router;
 		nbi->expire = ln->ln_expire;
 		splx(s);
-		
+
 		break;
 	    }
 	case SIOCGDEFIFACE_IN6:	/* XXX: should be implemented as a sysctl? */
@@ -1509,7 +1509,7 @@ fail:
 				nd6_output(ifp, ln->ln_hold,
 					   (struct sockaddr_in6 *)rt_key(rt),
 					   rt);
-#endif 
+#endif
 				ln->ln_hold = 0;
 			}
 		} else if (ln->ln_state == ND6_LLINFO_INCOMPLETE) {
@@ -1558,9 +1558,9 @@ fail:
 	case ND_REDIRECT:
 		/*
 		 * If the icmp is a redirect to a better router, always set the
-		 * is_router flag. Otherwise, if the entry is newly created, 
+		 * is_router flag. Otherwise, if the entry is newly created,
 		 * clear the flag. [RFC 2461, sec 8.3]
-		 * 
+		 *
 		 */
 		if (code == ND_REDIRECT_ROUTER)
 			ln->ln_router = 1;
@@ -1644,7 +1644,7 @@ nd6_output(ifp, m0, dst, rt0)
 	}
 
 	/*
-	 * next hop determination. This routine is derived from ether_outpout. 
+	 * next hop determination. This routine is derived from ether_outpout.
 	 */
 	if (rt) {
 		if ((rt->rt_flags & RTF_UP) == 0) {
@@ -1654,7 +1654,7 @@ nd6_output(ifp, m0, dst, rt0)
 				rt->rt_refcnt--;
 				if (rt->rt_ifp != ifp)
 					return nd6_output(ifp, m0, dst, rt); /* XXX: loop care? */
-			} else 
+			} else
 				senderr(EHOSTUNREACH);
 		}
 		if (rt->rt_flags & RTF_GATEWAY) {
@@ -1739,15 +1739,15 @@ nd6_output(ifp, m0, dst, rt0)
 		}
 	}
 	return(0);
-	
+
   sendpkt:
 	return((*ifp->if_output)(ifp, m, (struct sockaddr *)dst, rt));
-	
+
   bad:
 	if (m)
 		m_freem(m);
 	return (error);
-}	
+}
 #undef senderr
 
 int
@@ -1763,7 +1763,7 @@ nd6_storelladdr(ifp, rt, m, dst, desten)
 	if (m->m_flags & M_MCAST) {
 		switch (ifp->if_type) {
 		case IFT_ETHER:
-		case IFT_FDDI:			
+		case IFT_FDDI:
 			ETHER_MAP_IPV6_MULTICAST(&SIN6(dst)->sin6_addr,
 						 desten);
 			return(1);

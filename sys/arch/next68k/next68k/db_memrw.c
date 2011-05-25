@@ -4,7 +4,7 @@
  * This file was taken from mvme68k/mvme68k/db_memrw.c
  * should probably be re-synced when needed.
  * Darrin B Jewell <jewell@mit.edu>  Fri Aug 28 03:22:07 1998
- * original cvs id: NetBSD: db_memrw.c,v 1.4 1998/08/22 10:55:34 scw Exp 
+ * original cvs id: NetBSD: db_memrw.c,v 1.4 1998/08/22 10:55:34 scw Exp
  */
 
 /*-

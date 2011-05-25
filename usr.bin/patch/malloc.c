@@ -7,9 +7,9 @@
  *
  *	Nov 1983, Mike@BRL, Added support for 4.1C/4.2 BSD.
  *
- * This is a very fast storage allocator.  It allocates blocks of a small 
+ * This is a very fast storage allocator.  It allocates blocks of a small
  * number of different sizes, and keeps free lists of each size.  Blocks
- * that don't exactly fit are passed up to the next larger size.  In this 
+ * that don't exactly fit are passed up to the next larger size.  In this
  * implementation, the available sizes are (2^n)-4 (or -16) bytes long.
  * This is designed for use in a program that uses vast quantities of
  * memory, but bombs when it runs out.  To make it a little better, it
@@ -170,17 +170,17 @@ morecore (nu)			/* ask system for more memory */
 	siz = cp - endofpure;
 #ifdef	M_WARN
 	switch (warnlevel) {
-	    case 0: 
+	    case 0:
 		if (siz > (lim_data / 4) * 3) {
 			warnlevel++;
 			malloc_warning ("Warning: past 75% of memory limit");}
 		break;
-	    case 1: 
+	    case 1:
 		if (siz > (lim_data / 20) * 17) {
 			warnlevel++;
 			malloc_warning ("Warning: past 85% of memory limit");}
 		break;
-	    case 2: 
+	    case 2:
 		if (siz > (lim_data / 20) * 19) {
 			warnlevel++;
 			malloc_warning ("Warning: past 95% of memory limit");}
@@ -464,6 +464,6 @@ void bcopy(source, dest, len)
     register char *source, *dest;
     register len; {
 	register i;
-	
+
 	for (i = 0; i < len; i++)
 	    *dest++ = *source++;}

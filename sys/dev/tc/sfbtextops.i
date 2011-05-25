@@ -585,7 +585,7 @@ TEXTOP(copyrows)(id, srcrow, dstrow, nrows)
 	SFBMODE(sfb, MODE_COPY);
 	SFBPLANEMASK(sfb, ~0);
 	SFBPIXELSHIFT(sfb, 0);
-	
+
 	if (width <= SFBCOPYBITS)
 		; /* never happens */
 	else if (width < SFBCOPY64BITS) {

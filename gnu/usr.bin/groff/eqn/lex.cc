@@ -247,7 +247,7 @@ static struct {
   { "del", "\\(gr" },
   { "cdot", "type \"binary\" vcenter ." },
   { "dollar", "$" },
-};  
+};
 
 void init_table(const char *device)
 {
@@ -374,7 +374,7 @@ int file_input::read_line()
 	lex_error("illegal input character code %1", c);
       else {
 	line += char(c);
-	if (c == '\n') 
+	if (c == '\n')
 	  break;
       }
     }
@@ -469,7 +469,7 @@ int top_input::get_location(char **fnp, int *lnp)
 // Character representing $1.  Must be illegal input character.
 #define ARG1 14
 
-argument_macro_input::argument_macro_input(const char *body, int ac, 
+argument_macro_input::argument_macro_input(const char *body, int ac,
 					   char **av, input *x)
 : input(x), argc(ac), ap(0)
 {

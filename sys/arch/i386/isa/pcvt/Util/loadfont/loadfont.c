@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 1992, 1995 Hellmuth Michaelis
  *
- * Copyright (c) 1992, 1994 Brian Dunford-Shore 
+ * Copyright (c) 1992, 1994 Brian Dunford-Shore
  *
  * All rights reserved.
  *
@@ -46,7 +46,7 @@ static char *id =
  *	-hm	patch from Joerg, -s scanlines option
  *
  *---------------------------------------------------------------------------*/
- 
+
 #include <stdio.h>
 #include <fcntl.h>
 #include <errno.h>
@@ -90,7 +90,7 @@ main(int argc, char **argv)
 	int info = -1;
 	int dflag = 0;
 	char *device;
-	
+
 	while( (c = getopt(argc, argv, "c:d:f:is:")) != -1)
 	{
 		switch(c)
@@ -98,7 +98,7 @@ main(int argc, char **argv)
 			case 'c':
 				chr_set = atoi(optarg);
 				break;
-				
+
 			case 'd':
 				device = optarg;
 				dflag = 1;
@@ -108,24 +108,24 @@ main(int argc, char **argv)
 				filename = optarg;
 				fflag = 1;
 				break;
-				
+
 			case 'i':
 				info = 1;
 				break;
-				
+
 			case 's':
 				scan_lines = atoi(optarg);
 				if(scan_lines == 0)
 					usage();
 				break;
-			
+
 			case '?':
 			default:
 				usage();
 				break;
 		}
 	}
-	
+
 	if(chr_set == -1 || fflag == -1)
 		info = 1;
 
@@ -154,7 +154,7 @@ main(int argc, char **argv)
 	if(info == 1)
 	{
 		int i;
-	
+
 		switch(screeninfo.adaptor_type)
 		{
 		  case UNKNOWN_ADAPTOR:
@@ -171,7 +171,7 @@ main(int argc, char **argv)
 		    }
 		    break;
 		  case VGA_ADAPTOR:
-		    printheader();		  
+		    printheader();
 		    for(i = 0;i < 8;i++)
 		    {
 			printvgafontattr(i);
@@ -216,7 +216,7 @@ main(int argc, char **argv)
 		usage();
 
 	sbp = &sbuf;
-	
+
 	if((in = fopen(filename, "r")) == NULL)
 	{
 		char buffer[80];
@@ -232,16 +232,16 @@ main(int argc, char **argv)
 		perror(buffer);
 		exit(1);
 	}
-		
+
 	chr_height = sbp->st_size / 256; /* 256 chars per font */
-			
+
 	if(chr_height * 256 != sbp->st_size ||
 	   chr_height < 8 || chr_height > 20) {
 		fprintf(stderr,
 			"File is no valid font file, size = %d.\n",
 			sbp->st_size);
 		exit(1);
-	}			
+	}
 
 	scr_rows = codetosize(roundrows(scan_lines / chr_height));
 	scr_scan = scr_rows * chr_height - 256 - 1;
@@ -260,7 +260,7 @@ main(int argc, char **argv)
 			"errno %d\n",
 			argv[1], sbp->st_size, ret, errno);
 		exit(1);
-	}		
+	}
 
 	loadfont(chr_set, chr_height, fonttab);
 	setfont(chr_set, 1, chr_height - 1, scr_scan, scr_rows);
@@ -335,7 +335,7 @@ static void
 printvgafontattr(int charset)
 {
 	struct vgafontattr vfattr;
-	
+
 	vfattr.character_set = charset;
 
 	if(ioctl(fd, VGAGETFONTATTR, &vfattr) == -1)

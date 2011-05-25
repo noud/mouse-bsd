@@ -66,9 +66,9 @@
 #define CONF_LONG	0x08
 #define CONF_SHORT	0x00
 
-/* 
+/*
  * These are not in the COM90C65 docs. Derived from the arcnet.asm
- * packet driver by Philippe Prindeville and Russel Nelson. 
+ * packet driver by Philippe Prindeville and Russel Nelson.
  */
 
 #define BAH_LDTST(x)	(0x07 | (x))
@@ -76,7 +76,7 @@
 #define TEST_OFF	0x00
 
 #define BAH_TA		1	/* int mask also */
-#define BAH_TMA		2	
+#define BAH_TMA		2
 #define BAH_RECON	4	/* int mask also */
 #define BAH_TEST	8	/* not in the COM90C65 docs (see above) */
 #define BAH_POR		0x10	/* non maskable interrupt */

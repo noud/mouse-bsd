@@ -59,7 +59,7 @@ struct cfattach spkr_ca = {
  */
 
 /*
- * Magic numbers for timer control. 
+ * Magic numbers for timer control.
  */
 #define PIT_MODE	(TIMER_SEL2|TIMER_16BIT|TIMER_SQWAVE)
 

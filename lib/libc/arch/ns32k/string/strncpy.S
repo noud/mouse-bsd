@@ -1,6 +1,6 @@
 /*	$NetBSD: strncpy.S,v 1.5 1999/11/16 18:17:39 matthias Exp $	*/
 
-/* 
+/*
  * Written by Matthias Pfaller, 1996
  * Public domain.
  */

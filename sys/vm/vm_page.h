@@ -1,6 +1,6 @@
 /*	$NetBSD: vm_page.h,v 1.34 1999/12/30 16:09:47 eeh Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1991, 1993
  *	The Regents of the University of California.  All rights reserved.
  *
@@ -42,17 +42,17 @@
  * All rights reserved.
  *
  * Authors: Avadis Tevanian, Jr., Michael Wayne Young
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -144,7 +144,7 @@ struct vm_page {
 /*
  * locking rules:
  *   PG_ ==> locked by object lock
- *   PQ_ ==> lock by page queue lock 
+ *   PQ_ ==> lock by page queue lock
  *   PQ_FREE is locked by free queue lock and is mutex with all other PQs
  *
  * possible deadwood: PG_FAULTING, PQ_LAUNDRY
@@ -207,7 +207,7 @@ struct vm_physseg {
 /*
  *	Each pageable resident page falls into one of three lists:
  *
- *	free	
+ *	free
  *		Available for allocation now.
  *	inactive
  *		Not referenced in any map, but still has an
@@ -403,7 +403,7 @@ VM_PAGE_CHECK(mem)
 	}
 	if (lcv == vm_nphysseg ||
 	    (mem->flags & (PG_ACTIVE|PG_INACTIVE)) == (PG_ACTIVE|PG_INACTIVE))
-		panic("vm_page_check: not valid!"); 
+		panic("vm_page_check: not valid!");
 	return;
 }
 

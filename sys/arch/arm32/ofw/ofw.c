@@ -35,7 +35,7 @@
 
 /*
  *  Routines for interfacing between NetBSD and OFW.
- * 
+ *
  *  Parts of this could be moved to an MI file in time. -JJK
  *
  */
@@ -136,7 +136,7 @@ pv_addr_t kernelstack;
 vm_offset_t msgbufphys;
 
 /* for storage allocation, used to be local to ofw_construct_proc0_addrspace */
-static vm_offset_t  virt_freeptr;	    
+static vm_offset_t  virt_freeptr;
 
 int ofw_callbacks = 0;		/* debugging counter */
 
@@ -357,7 +357,7 @@ ofw_boot(howto, bootstr)
 	/* Do a dump if requested. */
 	if ((howto & (RB_DUMP | RB_HALT)) == RB_DUMP)
 		dumpsys();
-	
+
 	/* Run any shutdown hooks */
 	doshutdownhooks();
 
@@ -553,7 +553,7 @@ ofw_getcleaninfo(void)
 	if ((cpu = OF_finddevice("/cpu")) == -1)
 		panic("no /cpu from OFW");
 
-	if ((OF_getprop(cpu, "d-cache-flush-address", &vclean, 
+	if ((OF_getprop(cpu, "d-cache-flush-address", &vclean,
 	    sizeof(vclean))) != sizeof(vclean)) {
 #ifdef DEBUG
 		printf("no OFW d-cache-flush-address property\n");
@@ -591,12 +591,12 @@ ofw_configisaonly(pio, pmem)
 	int size;
 	vm_offset_t hi, start;
 	struct isa_range ranges[2];
-  
+
 	if ((isa = OF_finddevice("/isa")) == -1)
 	panic("OFW has no /isa device node");
 
 	/* expect to find two isa ranges: IO/data and memory/data */
-	if ((size = OF_getprop(isa, "ranges", ranges, sizeof(ranges))) 
+	if ((size = OF_getprop(isa, "ranges", ranges, sizeof(ranges)))
 	    != sizeof(ranges))
 		panic("unexpected size of OFW /isa ranges property: %d", size);
 
@@ -632,18 +632,18 @@ ofw_configvl(vl, pio, pmem)
 	vm_offset_t hi, start;
 	struct vl_isa_range isa_ranges[2];
 	struct vl_range     vl_ranges[2];
-  
+
 	if ((isa = OF_finddevice("/vlbus/isa")) == -1)
 		panic("OFW has no /vlbus/isa device node");
 
 	/* expect to find two isa ranges: IO/data and memory/data */
-	if ((size = OF_getprop(isa, "ranges", isa_ranges, sizeof(isa_ranges))) 
+	if ((size = OF_getprop(isa, "ranges", isa_ranges, sizeof(isa_ranges)))
 	    != sizeof(isa_ranges))
 		panic("unexpected size of OFW /vlbus/isa ranges property: %d",
 		     size);
 
 	/* expect to find two vl ranges: IO/data and memory/data */
-	if ((size = OF_getprop(vl, "ranges", vl_ranges, sizeof(vl_ranges))) 
+	if ((size = OF_getprop(vl, "ranges", vl_ranges, sizeof(vl_ranges)))
 	    != sizeof(vl_ranges))
 		panic("unexpected size of OFW /vlbus ranges property: %d", size);
 
@@ -704,7 +704,7 @@ ofw_configisadma(pdma)
 	pmap_isa_dma_nranges = nOFdmaranges;
 #endif
 
-	for (rangeidx = 0, dr = OFdmaranges; rangeidx < nOFdmaranges; 
+	for (rangeidx = 0, dr = OFdmaranges; rangeidx < nOFdmaranges;
 	    ++rangeidx, ++dr) {
 		dr->start = of_decode_int((unsigned char *)&dr->start);
 		dr->size = of_decode_int((unsigned char *)&dr->size);
@@ -718,14 +718,14 @@ ofw_configisadma(pdma)
 	printf("dma ranges size = %d\n", size);
 
 	for (rangeidx = 0; rangeidx < nOFdmaranges; ++rangeidx) {
-		printf("%08lx %08lx\n", 
-		(u_long)OFdmaranges[rangeidx].start, 
+		printf("%08lx %08lx\n",
+		(u_long)OFdmaranges[rangeidx].start,
 		(u_long)OFdmaranges[rangeidx].size);
 	}
 #endif
 }
 
-/* 
+/*
  *  Memory configuration:
  *
  *  We start off running in the environment provided by OFW.
@@ -742,9 +742,9 @@ ofw_configisadma(pdma)
  *  that we are assuming control of memory-management by installing
  *  our callback-handler, and switch to the NetBSD-managed page
  *  tables with the setttb() call.
- *  
+ *
  *  This scheme may cause some amount of memory to be wasted within
- *  OFW as dead page tables, but it shouldn't be more than about 
+ *  OFW as dead page tables, but it shouldn't be more than about
  *  20-30KB.  (It's also possible that OFW will re-use the space.)
  */
 void
@@ -789,7 +789,7 @@ ofw_configmem(void)
 
 		/* physmem, physical_start, physical_end */
 		physmem = 0;
-		for (totalcnt = 0, mp = OFphysmem; totalcnt < nOFphysmem; 
+		for (totalcnt = 0, mp = OFphysmem; totalcnt < nOFphysmem;
 		    totalcnt++, mp++) {
 #ifdef	OLDPRINTFS
 			printf("physmem: %x, %x\n", mp->start, mp->size);
@@ -906,7 +906,7 @@ ofw_callbackhandler(args)
 		/*
 		 *  Note that we are running in the IRQ frame, with interrupts
 		 *  disabled.
-		 *  
+		 *
 		 *  We need to do two things here:
 		 *    - copy a few words out of the input frame into a global
 		 *      area, for later use by our real tick-handling code
@@ -915,7 +915,7 @@ ofw_callbackhandler(args)
 		 *      rather than the code that was actually interrupted.
 		 *      Our handler will resume when it finishes with the code
 		 *      that was actually interrupted.
-		 *  
+		 *
 		 *  It's simplest to do this in assembler, since it requires
 		 *  switching frames and grovelling about with registers.
 		 */
@@ -1106,7 +1106,7 @@ ofw_callbackhandler(args)
 			args_n_results[nargs + 1] = -1;
 			args->nreturns = 2;
 			return;
-		} 
+		}
 		args_n_results[nargs + 2] = alloclist.tqh_first->phys_addr;
 #if 0
 		printf("(succeeded: pa = 0x%lx)\n", args_n_results[nargs + 2]);
@@ -1409,7 +1409,7 @@ ofw_construct_proc0_addrspace(proc0_ttbbase, proc0_ptpt)
 		map_pagetable(L1pagetable, IO_VIRT_BASE + i * 0x00400000,
 		    proc0_pt_io[i].pv_pa);
 
-	/* 
+	/*
          * gross hack for the sake of not thrashing the TLB and making
 	 * cache flush more efficient: blast l1 ptes for sections.
          */
@@ -1602,7 +1602,7 @@ ofw_valloc(size, align)
 		if (((*ppvf)->size - lead) >= size) {
  			if (lead == 0) {
 				/* using whole block */
-				if (size == (*ppvf)->size) { 
+				if (size == (*ppvf)->size) {
 					/* splice out of list */
 					(*ppvf) = (*ppvf)->pNext;
 				} else { /* tail of block is free */
@@ -1813,7 +1813,7 @@ ofw_malloc(size)
 	vm_size_t   newSize, claim_size;
 
 	/* round and set minimum size */
-	size = max(sizeof(LEFTOVER), 
+	size = max(sizeof(LEFTOVER),
 	    ((size + (sizeof(LEFTOVER) - 1)) & ~(sizeof(LEFTOVER) - 1)));
 
 	for (ppLeftover = &leftovers; *ppLeftover;
@@ -1833,7 +1833,7 @@ ofw_malloc(size)
 			newSize = (*ppLeftover)->size - size; /* reduce size */
 			/* move pointer */
 			*ppLeftover = (PLEFTOVER)(((vm_offset_t)*ppLeftover)
-			    + size); 
+			    + size);
 			(*ppLeftover)->pNext = pLeft;
 			(*ppLeftover)->size  = newSize;
 		}
@@ -1950,5 +1950,5 @@ ofw_discardmappings(L2pagetable, va, size)
 static void
 ofw_initallocator(void)
 {
-    
+
 }

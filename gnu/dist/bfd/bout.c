@@ -416,7 +416,7 @@ callj_callback (abfd, link_info, reloc_entry,  data, srcidx, dstidx,
 
       /* The next symbol should be an N_BALNAME.  */
       BFD_ASSERT(IS_BALNAME(balsym->other));
-      
+
       /* We are calling a leaf, so replace the call instruction with a
 	 bal.  */
       word = BAL | ((word

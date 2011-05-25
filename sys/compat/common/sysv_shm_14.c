@@ -42,7 +42,7 @@
 #include <sys/signal.h>
 #include <sys/proc.h>
 #include <sys/mount.h>
-#include <sys/shm.h>  
+#include <sys/shm.h>
 
 #define	SYSVSHM
 
@@ -105,7 +105,7 @@ compat_14_sys_shmctl(p, v, retval)
 
 	if (cmd == IPC_SET) {
 		error = copyin(SCARG(uap, buf), &oshmbuf, sizeof(oshmbuf));
-		if (error) 
+		if (error)
 			return (error);
 		shmid_ds14_to_native(&oshmbuf, &shmbuf);
 	}
@@ -114,7 +114,7 @@ compat_14_sys_shmctl(p, v, retval)
 	    (cmd == IPC_SET || cmd == IPC_STAT) ? &shmbuf : NULL);
 
 	if (error == 0 && cmd == IPC_STAT) {
-		native_to_shmid_ds14(&shmbuf, &oshmbuf);     
+		native_to_shmid_ds14(&shmbuf, &oshmbuf);
 		error = copyout(&oshmbuf, SCARG(uap, buf), sizeof(oshmbuf));
 	}
 

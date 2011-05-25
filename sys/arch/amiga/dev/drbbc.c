@@ -108,17 +108,17 @@ drbbc_attach(pdp, dp, auxp)
 	sc->sc_dsh.ds_reset(sc->sc_dsh.ds_hw_handle);
 
 	ds_write_byte(&sc->sc_dsh, DS_ROM_READ);
-	for (i=0; i<8; ++i) 
+	for (i=0; i<8; ++i)
 		rombuf[i] = ds_read_byte(&sc->sc_dsh);
 
 	hostid = (rombuf[3] << 24) + (rombuf[2] << 16) +
 		(rombuf[1] << 8) + rombuf[7];
 
 	printf(": ROM %02x %02x%02x%02x%02x%02x%02x %02x (DraCo sernum %ld)\n",
-		rombuf[7], rombuf[6], rombuf[5], rombuf[4], 
+		rombuf[7], rombuf[6], rombuf[5], rombuf[4],
 		rombuf[3], rombuf[2], rombuf[1], rombuf[0],
-		hostid); 
-		
+		hostid);
+
 	ugettod = dracougettod;
 	usettod = (void *)0;
 	drbbc_sc = sc;
@@ -184,7 +184,7 @@ dracougettod(tvp)
 	/* address of seconds/256: */
 	ds_write_byte(&drbbc_sc->sc_dsh, 0x02);
 	ds_write_byte(&drbbc_sc->sc_dsh, 0x02);
-	
+
 	usecs = (ds_read_byte(&drbbc_sc->sc_dsh) * 1000000) / 256;
 	clkbuf = ds_read_byte(&drbbc_sc->sc_dsh)
 	    + (ds_read_byte(&drbbc_sc->sc_dsh)<<8)
@@ -193,7 +193,7 @@ dracougettod(tvp)
 
 	/* BSD time is wr. 1.1.1970; AmigaOS time wrt. 1.1.1978 */
 
-	clkbuf += (8*365 + 2) * 86400;	
+	clkbuf += (8*365 + 2) * 86400;
 
 	tvp->tv_sec = clkbuf;
 	tvp->tv_usec = usecs;

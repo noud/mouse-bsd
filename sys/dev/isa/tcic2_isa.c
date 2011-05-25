@@ -266,7 +266,7 @@ tcic_isa_attach(parent, self, aux)
 	 * apparently missing a bit or more of address lines. (e.g.
 	 * CIRRUS_PD672X with Linksys EthernetCard ne2000 clone in TI
 	 * TravelMate 5000--not clear which is at fault)
-	 * 
+	 *
 	 * Add a kludge to detect 10 bit wide buses and deal with them,
 	 * and also a config file option to override the probe.
 	 */
@@ -348,7 +348,7 @@ tcic_isa_chip_intr_establish(pch, pf, ipl, fct, arg)
 	return (ih);
 }
 
-void 
+void
 tcic_isa_chip_intr_disestablish(pch, ih)
 	pcmcia_chipset_handle_t pch;
 	void *ih;

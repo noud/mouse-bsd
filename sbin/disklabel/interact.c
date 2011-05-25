@@ -82,8 +82,8 @@ static struct cmds {
 	{ "W",	cmd_label,	"write the current partition table" },
 	{ NULL, NULL,		NULL }
 };
-	
-	
+
+
 
 static void
 cmd_help(lp, s, fd)
@@ -520,7 +520,7 @@ runcmd(line, lp, fd)
 		cmd_part(lp, line, fd);
 		return 0;
 	}
-		
+
 	printf("Unknown command %s\n", line);
 	return 1;
 }

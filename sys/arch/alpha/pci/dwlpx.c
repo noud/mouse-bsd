@@ -343,7 +343,7 @@ dwlpx_iointr(framep, vec)
 	}
 	printf("%s: node %d hose %d error interrupt\n",
 		sc->dwlpx_dev.dv_xname, ionode + 4, hosenum);
-	
+
 	for (i = 0; i < sc->dwlpx_nhpc; i++) {
 		if ((hpcs[i].err & PCIA_ERR_ERROR) == 0)
 			continue;

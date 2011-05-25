@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1992 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -78,15 +78,15 @@
  * 	  Added forward static declatations, delinted.
  * 	  Updated variable argument usage.
  * 	[92/08/08            mrt]
- * 
+ *
  * Revision 1.12  92/02/08  19:01:11  mja
  * 	Add (struct sockaddr *) casts for HC 2.1.
  * 	[92/02/08  18:59:09  mja]
- * 
+ *
  * Revision 1.11  89/08/03  19:49:03  mja
  * 	Updated to use v*printf() in place of _doprnt().
  * 	[89/04/19            mja]
- * 
+ *
  * 11-Feb-88  Glenn Marcy (gm0w) at Carnegie-Mellon University
  *	Moved sleep into computeBackoff, renamed to dobackoff.
  *

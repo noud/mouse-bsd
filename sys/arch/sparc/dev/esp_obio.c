@@ -239,8 +239,8 @@ espattach_obio(parent, self, aux)
 
 	/*
 	 * Alas, we must now modify the value a bit, because it's
-	 * only valid when can switch on FASTCLK and FASTSCSI bits  
-	 * in config register 3... 
+	 * only valid when can switch on FASTCLK and FASTSCSI bits
+	 * in config register 3...
 	 */
 	switch (sc->sc_rev) {
 	case NCR_VARIANT_ESP100:
@@ -270,7 +270,7 @@ espattach_obio(parent, self, aux)
 
 	/* Do the common parts of attachment. */
 	sc->sc_adapter.scsipi_cmd = ncr53c9x_scsi_cmd;
-	sc->sc_adapter.scsipi_minphys = minphys; 
+	sc->sc_adapter.scsipi_minphys = minphys;
 	ncr53c9x_attach(sc, &esp_obio_dev);
 
 	/* Turn on target selection using the `dma' method */

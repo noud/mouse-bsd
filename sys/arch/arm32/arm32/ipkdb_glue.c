@@ -54,7 +54,7 @@ dump(p, l)
 	u_char *p;
 {
 	int i, j, n;
-	
+
 	while (l > 0) {
 		printf("%08x: ", p);
 		n = l > 16 ? 16 : l;
@@ -135,7 +135,7 @@ ipkdbcopy(vs, vd, n)
 	int n;
 {
 	char *s = vs, *d = vd;
-	
+
 	while (--n >= 0)
 		*d++ = *s++;
 }
@@ -157,7 +157,7 @@ ipkdbcmp(vs, vd, n)
 	int n;
 {
 	char *s = vs, *d = vd;
-	
+
 	while (--n >= 0)
 		if (*d++ != *s++)
 			return *--d - *--s;
@@ -203,7 +203,7 @@ ipkdbsbyte(dst, ch)
 	pte = pteo | PT_AP(AP_KRW);
 	WriteWord(ptep, pte);
 	tlbflush();		/* XXX should be purge */
-         
+
 	*dst = (unsigned char)ch;
 
 	/* make sure the caches and memory are in sync */

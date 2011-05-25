@@ -8,7 +8,7 @@ For details about original KAME distribution, please refer to
 sys/netinet6/IMPLEMENTATION, or documents in KAME distribution.
 
 
-KERNEL 
+KERNEL
 ======
 * net/if_types.h
 
@@ -105,7 +105,7 @@ conservative way so that it will not break existing codebase.
 
 * -DINET6, -DIPSEC
 
-Where should we define -DINET6?  Should it be global option like 
+Where should we define -DINET6?  Should it be global option like
 EXPORTABLE_SYSTEM=1 (in /etc/mk.conf), or local option defined somewhere?
 (some people may need a binary tree with no IPv6 support at all, for
 smaller footprint)

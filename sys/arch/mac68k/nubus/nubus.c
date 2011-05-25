@@ -137,7 +137,7 @@ notfound:
 			bus_space_unmap(bst, bsh, NBMEMSIZE);
 			continue;
 		}
-  
+
 		rsrcid = 0x80;
 		lanes = fmtblock.bytelanes;
 

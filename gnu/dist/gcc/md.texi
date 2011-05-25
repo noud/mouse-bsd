@@ -1151,10 +1151,10 @@ constraints with multiple alternatives, sometimes one alternative
 requires @samp{&} while others do not.  See, for example, the
 @samp{movdf} insn of the 68000.
 
-An input operand can be tied to an earlyclobber operand if its only 
+An input operand can be tied to an earlyclobber operand if its only
 use as an input occurs before the early result is written.  Adding
 alternatives of this form often allows GCC to produce better code
-when only some of the inputs can be affected by the earlyclobber. 
+when only some of the inputs can be affected by the earlyclobber.
 See, for example, the @samp{mulsi3} insn of the ARM.
 
 @samp{&} does not obviate the need to write @samp{=}.

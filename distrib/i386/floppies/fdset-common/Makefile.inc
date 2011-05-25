@@ -85,7 +85,7 @@ netbsd.ram.gz: ${KERN} ${RAMDISK}
 
 # Let the kernel on the diskette be called "netbsd" although
 # it is compressed.  This is because the boot code will search
-# for "netbsd" first, and calling it "netbsd" instead of "netbsd.gz" 
+# for "netbsd" first, and calling it "netbsd" instead of "netbsd.gz"
 # we avoid scanning all the diskettes before reading the file.
 
 netbsd: netbsd.ram.gz
@@ -94,7 +94,7 @@ netbsd: netbsd.ram.gz
 
 # This is "cheating", just so that we have the available
 # space at the start of the tar file.  Installboot will overwrite
-# the start of the bootcode with the tail end of the "real", aligned 
+# the start of the bootcode with the tail end of the "real", aligned
 # second-stage boot loader when it is run (which is quite a bit shorter
 # than the entire ${BOOTCODE} file, even when symbols are removed.
 # (the first 15*512 bytes are put into the first 8K filesystem block,
@@ -111,7 +111,7 @@ release:
 	for f in ${RELEASEDIR}/installation/floppies/${BASENAME}?.fs; do \
 		gzip <$$f >$$f.gz; \
 	done
-	
+
 clean cleandir distclean:
 	/bin/rm -f *.core ${CLEANFILES} ${BASENAME}?.fs
 

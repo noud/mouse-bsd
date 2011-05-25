@@ -147,7 +147,7 @@ ahc_load_seeprom(ahc)
 	u_char	scsi_conf;
 	u_char	host_id;
 	int	have_seeprom;
-                 
+
 	sd.sd_st = ahc->sc_st;
 	sd.sd_sh = ahc->sc_sh;
 	sd.sd_offset = SEECTL;
@@ -158,7 +158,7 @@ ahc_load_seeprom(ahc)
 	sd.sd_DO = SEEDO;
 	sd.sd_DI = SEEDI;
 
-	if(bootverbose) 
+	if(bootverbose)
 		printf("%s: Reading SEEPROM...", ahc_name(ahc));
 	have_seeprom = ahc_acquire_seeprom(&sd);
 	if (have_seeprom) {
@@ -249,9 +249,9 @@ ahc_acquire_seeprom(sd)
 		DELAY (1000);  /* delay 1 msec */
         }
 	if ((SEEPROM_INB(sd) & sd->sd_RDY) == 0) {
-		SEEPROM_OUTB(sd, 0); 
+		SEEPROM_OUTB(sd, 0);
 		return (0);
-	}         
+	}
 	return(1);
 }
 

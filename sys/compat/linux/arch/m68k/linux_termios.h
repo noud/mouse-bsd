@@ -83,7 +83,7 @@
 #define LINUX_TIOCGSID		_LINUX_IO('T', 41)
 
 #define LINUX_TIOCGPTN		_LINUX_IOR('T', 48, unsigned int)
-#define LINUX_TIOCSPTLCK	_LINUX_IOW('T', 49, int) 
+#define LINUX_TIOCSPTLCK	_LINUX_IOW('T', 49, int)
 
 #define LINUX_FIONCLEX		_LINUX_IO('T', 80)
 #define LINUX_FIOCLEX		_LINUX_IO('T', 81)

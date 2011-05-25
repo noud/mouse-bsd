@@ -283,11 +283,11 @@ isp_reset(isp)
 			isp->isp_type = ISP_HA_SCSI_1040B;
 			isp->isp_clock = 60;
 			break;
-		case 6: 
+		case 6:
 			revname = "1040C";
 			isp->isp_type = ISP_HA_SCSI_1040C;
 			isp->isp_clock = 60;
-                        break; 
+                        break;
 		}
 		/*
 		 * Now, while we're at it, gather info about ultra
@@ -887,7 +887,7 @@ isp_scsi_channel_init(isp, channel)
 		} else {
 			int rvf = ISP_FW_REVX(isp->isp_fwrev);
 			sdf = DPARM_SAFE_DFLT;
-			
+
 			/*
 			 * It is not quite clear when this changed over so that
 			 * we could force narrow and async, so assume >= 7.55
@@ -4387,7 +4387,7 @@ isp_parse_nvram_1080(isp, bus, nvram_data)
 	sdparam *sdp = (sdparam *) isp->isp_param;
 	sdp += bus;
 
-	sdp->isp_fifo_threshold = 
+	sdp->isp_fifo_threshold =
 	    ISP1080_NVRAM_FIFO_THRESHOLD(nvram_data);
 
 	sdp->isp_initiator_id =
@@ -4517,7 +4517,7 @@ isp_parse_nvram_12160(isp, bus, nvram_data)
 	sdp->isp_fifo_threshold =
 	    ISP12160_NVRAM_FIFO_THRESHOLD(nvram_data);
 
-	sdp->isp_initiator_id = 
+	sdp->isp_initiator_id =
 	    ISP12160_NVRAM_INITIATOR_ID(nvram_data, bus);
 
 	sdp->isp_bus_reset_delay =

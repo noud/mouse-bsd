@@ -46,7 +46,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
    One day we might keep the stack pointer constant, that won't
    change the code for prologues, but it will make the frame
    pointerless case much more common.  */
-	
+
 /* Analyze the prologue to determine where registers are saved,
    the end of the prologue, etc etc.  Return the end of the prologue
    scanned.
@@ -61,7 +61,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
     * fsr -- Addresses of registers saved in the stack by this frame.
 
     * status -- A (relatively) generic status indicator.  It's a bitmask
-    with the following bits: 
+    with the following bits:
 
       MY_FRAME_IN_SP: The base of the current frame is actually in
       the stack pointer.  This can happen for frame pointerless
@@ -80,7 +80,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define MY_FRAME_IN_SP 0x1
 #define MY_FRAME_IN_FP 0x2
 #define NO_MORE_FRAMES 0x4
- 
+
 static CORE_ADDR
 mn10300_analyze_prologue (fi, pc)
     struct frame_info *fi;
@@ -258,15 +258,15 @@ mn10300_analyze_prologue (fi, pc)
 	  return addr;
 	}
     }
-  
+
   /* Next we should allocate the local frame.  No more prologue insns
      are found after allocating the local frame.
-       
+
      Search for add imm8,sp (0xf8feXX)
         or	add imm16,sp (0xfafeXXXX)
         or	add imm32,sp (0xfcfeXXXXXXXX).
-       
-     If none of the above was found, then this prologue has no 
+
+     If none of the above was found, then this prologue has no
      additional stack.  */
   status = target_read_memory (addr, buf, 2);
   if (status != 0)
@@ -438,7 +438,7 @@ mn10300_analyze_prologue (fi, pc)
     }
   return addr;
 }
-  
+
 /* Function: frame_chain
    Figure out and return the caller's frame pointer given current
    frame_info struct.
@@ -474,7 +474,7 @@ mn10300_frame_chain (fi)
 
        If our caller does not have a frame pointer, then his
        frame base is fi->frame + -caller's stack size.  */
-       
+
   /* The easiest way to get that info is to analyze our caller's frame.
 
      So we set up a dummy frame and call mn10300_analyze_prologue to
@@ -649,7 +649,7 @@ mn10300_push_arguments (nargs, args, sp, struct_return, struct_addr)
 /* Function: push_return_address (pc)
    Set up the return address for the inferior function call.
    Needed for targets where we don't actually execute a JSR/BSR instruction */
- 
+
 CORE_ADDR
 mn10300_push_return_address (pc, sp)
      CORE_ADDR pc;
@@ -665,7 +665,7 @@ mn10300_push_return_address (pc, sp)
 /* Function: store_struct_return (addr,sp)
    Store the structure value return address for an inferior function
    call.  */
- 
+
 CORE_ADDR
 mn10300_store_struct_return (addr, sp)
      CORE_ADDR addr;
@@ -675,8 +675,8 @@ mn10300_store_struct_return (addr, sp)
   write_register (0, addr);
   return sp;
 }
- 
-/* Function: frame_saved_pc 
+
+/* Function: frame_saved_pc
    Find the caller of this frame.  We do this by seeing if RP_REGNUM
    is saved in the stack anywhere, otherwise we get it from the
    registers.  If the inner frame is a dummy frame, return its PC
@@ -706,7 +706,7 @@ get_saved_register (raw_buffer, optimized, addrp, frame, regnum, lval)
      int regnum;
      enum lval_type *lval;
 {
-  generic_get_saved_register (raw_buffer, optimized, addrp, 
+  generic_get_saved_register (raw_buffer, optimized, addrp,
 			      frame, regnum, lval);
 }
 

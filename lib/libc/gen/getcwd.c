@@ -399,7 +399,7 @@ getcwd(pt, size)
 {
 	size_t ptsize, bufsize;
 	int len;
-	
+
 	/*
 	 * If no buffer specified by the user, allocate one as necessary.
 	 * If a buffer is specified, the size has to be non-zero.  The path

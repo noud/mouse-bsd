@@ -189,7 +189,7 @@ extern volatile unsigned char *Via1Base;
 #include <machine/pio.h>
 
 static __inline void
-via_reg_and(ign, reg, val) 
+via_reg_and(ign, reg, val)
 	int ign, reg, val;
 {
 	volatile unsigned char *addr = Via1Base + reg;
@@ -198,7 +198,7 @@ via_reg_and(ign, reg, val)
 }
 
 static __inline void
-via_reg_or(ign, reg, val) 
+via_reg_or(ign, reg, val)
 	int ign, reg, val;
 {
 	volatile unsigned char *addr = Via1Base + reg;
@@ -207,7 +207,7 @@ via_reg_or(ign, reg, val)
 }
 
 static __inline void
-via_reg_xor(ign, reg, val) 
+via_reg_xor(ign, reg, val)
 	int ign, reg, val;
 {
 	volatile unsigned char *addr = Via1Base + reg;

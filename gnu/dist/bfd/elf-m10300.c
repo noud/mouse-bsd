@@ -610,7 +610,7 @@ elf32_mn10300_finish_hash_table_entry (gen_entry, in_args)
 	We don't handle imm16->imm8 or d16->d8 as they're very rare
 	and somewhat more difficult to support.  */
 
-static boolean 
+static boolean
 mn10300_elf_relax_section (abfd, sec, link_info, again)
      bfd *abfd;
      asection *sec;
@@ -759,7 +759,7 @@ mn10300_elf_relax_section (abfd, sec, link_info, again)
 			  new_name = alloca (strlen (sym_name) + 10);
 			  sprintf (new_name, "%s_%08x", sym_name, (int)sym_sec);
 			  sym_name = new_name;
-		
+
 			  hash = (struct elf32_mn10300_link_hash_entry *)
 				   elf_link_hash_lookup (&hash_table->static_hash_table->root,
 						         sym_name, true,
@@ -779,7 +779,7 @@ mn10300_elf_relax_section (abfd, sec, link_info, again)
 					contents + irel->r_offset - 1);
 		      if (code != 0xdd && code != 0xcd)
 			hash->flags |= MN10300_CONVERT_CALL_TO_CALLS;
-		
+
 		      /* If this is a jump/call, then bump the direct_calls
 			 counter.  Else force "call" to "calls" conversions.  */
 		      if (r_type == R_MN10300_PCREL32
@@ -798,7 +798,7 @@ mn10300_elf_relax_section (abfd, sec, link_info, again)
 
 		  Elf32_External_Sym *esym, *esymend;
 		  int idx, shndx;
-		 
+
 		  shndx = _bfd_elf_section_from_bfd_section (input_bfd,
 							     section);
 
@@ -942,7 +942,7 @@ mn10300_elf_relax_section (abfd, sec, link_info, again)
 	      int shndx;
 	      Elf32_External_Sym *esym, *esymend;
 	      int idx;
-	      
+
 	      /* Skip non-code sections and empty sections.  */
 	      if ((section->flags & SEC_CODE) == 0 || section->_raw_size == 0)
 		continue;
@@ -1017,7 +1017,7 @@ mn10300_elf_relax_section (abfd, sec, link_info, again)
 
 		  if (sym_hash == NULL)
 		    continue;
-		      
+
 		  if (! ((sym_hash)->flags & MN10300_CONVERT_CALL_TO_CALLS)
 		      && ! ((sym_hash)->flags & MN10300_DELETED_PROLOGUE_BYTES))
 		    {
@@ -1583,7 +1583,7 @@ mn10300_elf_relax_section (abfd, sec, link_info, again)
 	    continue;
 
 	  /* Now make sure we are a conditional branch.  This may not
-	     be necessary, but why take the chance. 
+	     be necessary, but why take the chance.
 
 	     Note these checks assume that R_MN10300_PCREL8 relocs
 	     only occur on bCC and bCCx insns.  If they occured
@@ -1660,7 +1660,7 @@ mn10300_elf_relax_section (abfd, sec, link_info, again)
 		break;
 	    }
 	  bfd_put_8 (abfd, code, contents + irel->r_offset - 1);
-	  
+
 	  /* Set the reloc type and symbol for the first branch
 	     from the second branch.  */
 	  irel->r_info = nrel->r_info;
@@ -1686,7 +1686,7 @@ mn10300_elf_relax_section (abfd, sec, link_info, again)
 	  bfd_vma value = symval;
 	  value += irel->r_addend;
 
-	  /* See if the value will fit in 16 bits. 
+	  /* See if the value will fit in 16 bits.
 	     We allow any 16bit match here.  We prune those we can't
 	     handle below.  */
 	  if ((long)value < 0x7fff && (long)value > -0x8000)
@@ -1695,7 +1695,7 @@ mn10300_elf_relax_section (abfd, sec, link_info, again)
 
 	      /* Most insns which have 32bit operands are 6 bytes long;
 		 exceptions are pcrel insns and bit insns.
-		 
+
 		 We handle pcrel insns above.  We don't bother trying
 		 to handle the bit insns here.
 

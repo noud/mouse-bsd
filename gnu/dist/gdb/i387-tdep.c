@@ -49,7 +49,7 @@ print_387_control_word (control)
 {
   printf_unfiltered ("control %s: ", local_hex_string(control));
   printf_unfiltered ("compute to ");
-  switch ((control >> 8) & 3) 
+  switch ((control >> 8) & 3)
     {
     case 0: printf_unfiltered ("24 bits; "); break;
     case 1: printf_unfiltered ("(bad); "); break;
@@ -57,14 +57,14 @@ print_387_control_word (control)
     case 3: printf_unfiltered ("64 bits; "); break;
     }
   printf_unfiltered ("round ");
-  switch ((control >> 10) & 3) 
+  switch ((control >> 10) & 3)
     {
     case 0: printf_unfiltered ("NEAREST; "); break;
     case 1: printf_unfiltered ("DOWN; "); break;
     case 2: printf_unfiltered ("UP; "); break;
     case 3: printf_unfiltered ("CHOP; "); break;
     }
-  if (control & 0x3f) 
+  if (control & 0x3f)
     {
       printf_unfiltered ("mask:");
       if (control & 0x0001) printf_unfiltered (" INVALID");
@@ -85,7 +85,7 @@ print_387_status_word (status)
      unsigned int status;
 {
   printf_unfiltered ("status %s: ", local_hex_string (status));
-  if (status & 0xff) 
+  if (status & 0xff)
     {
       printf_unfiltered ("exceptions:");
       if (status & 0x0001) printf_unfiltered (" INVALID");

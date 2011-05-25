@@ -260,8 +260,8 @@ out:
 	if (errno != 0)
 		return;
 #ifdef TKT_SHMEM
-	/* 
-	 * handle the shared memory case 
+	/*
+	 * handle the shared memory case
 	 */
 	/* 5 == 4 (".shm") + 1 */
 	(void)strncpy(shmidname, file, sizeof(shmidname) - 5);

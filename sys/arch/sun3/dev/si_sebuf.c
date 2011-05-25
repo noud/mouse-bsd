@@ -240,7 +240,7 @@ se_attach(parent, self, args)
 	 */
 	ncr_sc->sc_no_disconnect =
 		(sc->sc_options & SE_NO_DISCONNECT);
-	ncr_sc->sc_parity_disable = 
+	ncr_sc->sc_parity_disable =
 		(sc->sc_options & SE_NO_PARITY_CHK) >> 8;
 	if (sc->sc_options & SE_FORCE_POLLING)
 		ncr_sc->sc_flags |= NCR5380_FORCE_POLLING;
@@ -350,7 +350,7 @@ se_intr_on(ncr_sc)
 
 	/* Clear the count so nothing happens. */
 	se->dma_cntr = 0;
-	
+
 	/* Clear the start address too. (paranoid?) */
 	se->dma_addr = 0;
 

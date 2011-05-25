@@ -80,5 +80,5 @@ Lminbrk:	.long	minbrk
 LSYS_break:	.long	SYS_break
 Lcurbrk:	.long	curbrk
 Lcerror:	.long	cerror
-	
+
 

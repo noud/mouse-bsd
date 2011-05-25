@@ -319,7 +319,7 @@ sys_sysarch(p, v, retval)
 {
 #if 0 /* unused */
 	struct sysarch_args /* {
-		syscallarg(int) op; 
+		syscallarg(int) op;
 		syscallarg(void *) parms;
 	} */ *uap = v;
 #endif

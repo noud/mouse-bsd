@@ -43,7 +43,7 @@ static tree build_signature_pointer_or_reference_name
 	PROTO((tree, int, int, int));
 static void build_signature_pointer_or_reference_decl
 	PROTO((tree, tree));
-static tree build_signature_pointer_or_reference_type 
+static tree build_signature_pointer_or_reference_type
 	PROTO((tree, int, int, int));
 static tree get_sigtable_name PROTO((tree, tree));
 static tree build_signature_table_constructor PROTO((tree, tree));
@@ -186,7 +186,7 @@ build_signature_pointer_or_reference_type (to_type, constp, volatilep, refp)
     else
       {
 	tree sig_tbl_type = cp_build_type_variant (to_type, 1, 0);
-	
+
 	sptr = build_lang_field_decl (FIELD_DECL,
 				      get_identifier (SIGNATURE_SPTR_NAME),
 				      build_pointer_type (sig_tbl_type));
@@ -313,7 +313,7 @@ build_member_function_pointer (member)
   int namlen = IDENTIFIER_LENGTH (DECL_ASSEMBLER_NAME (member));
   char *name;
   tree entry;
-  
+
   name = (char *) alloca (namlen + sizeof (SIGNATURE_FIELD_NAME) + 2);
   sprintf (name, SIGNATURE_FIELD_NAME_FORMAT, namstr);
 
@@ -353,7 +353,7 @@ append_signature_fields (list_of_fieldlists)
   tree mfptr;
   tree last_mfptr = NULL_TREE;
   tree mfptr_list = NULL_TREE;
-	      
+
   /* For signatures it should actually be only a list with one element.  */
   for (l = list_of_fieldlists; l; l = TREE_CHAIN (l))
     {
@@ -570,7 +570,7 @@ build_signature_table_constructor (sig_ty, rhs)
 	    last_rhs_field = rhs_field;
 	  else
 	    offset_p = 0;
-	  
+
 	  tbl_entry = build_component_ref (rhs, DECL_NAME (rhs_field),
 					   NULL_TREE, 1);
 	}
@@ -631,7 +631,7 @@ build_signature_table_constructor (sig_ty, rhs)
 	  index_decl = TREE_CHAIN (delta_decl);
 	  pfn_decl = TREE_CHAIN (index_decl);
 	  vt_off_decl = TREE_CHAIN (pfn_decl);
-	  
+
 	  tag = cp_convert (TREE_TYPE (tag_decl), tag);
 	  vb_off = cp_convert (TREE_TYPE (vb_off_decl), vb_off);
 	  delta = cp_convert (TREE_TYPE (delta_decl), delta);
@@ -958,7 +958,7 @@ build_signature_method_call (function, parms)
   pfn = build_component_ref (tbl_entry, pfn_identifier, NULL_TREE, 1);
   vt_off = build_component_ref (tbl_entry, vt_off_identifier, NULL_TREE, 1);
   idx = build_component_ref (tbl_entry, index_identifier, NULL_TREE, 1);
-  TREE_TYPE (pfn) = build_pointer_type (TREE_TYPE (function)); 
+  TREE_TYPE (pfn) = build_pointer_type (TREE_TYPE (function));
 
   if (IS_DEFAULT_IMPLEMENTATION (function))
     {

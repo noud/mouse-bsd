@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "fnmatch.h"
 
 /*
-SECTION 
+SECTION
 	Targets
 
 DESCRIPTION
@@ -34,7 +34,7 @@ DESCRIPTION
 	part of BFD is a structure containing pointers to functions
 	which perform certain low level operations on files. BFD
 	translates the applications's requests through a pointer into
-	calls to the back end routines. 
+	calls to the back end routines.
 
 	When a file is opened with <<bfd_openr>>, its format and
 	target are unknown. BFD uses various mechanisms to determine
@@ -42,11 +42,11 @@ DESCRIPTION
 
 	o Create a BFD by calling the internal routine
 	<<_bfd_new_bfd>>, then call <<bfd_find_target>> with the
-	target string supplied to <<bfd_openr>> and the new BFD pointer. 
+	target string supplied to <<bfd_openr>> and the new BFD pointer.
 
 	o If a null target string was provided to <<bfd_find_target>>,
 	look up the environment variable <<GNUTARGET>> and use
-	that as the target string. 
+	that as the target string.
 
 	o If the target string is still <<NULL>>, or the target string is
 	<<default>>, then use the first item in the target vector
@@ -56,7 +56,7 @@ DESCRIPTION
 
 	o Otherwise, inspect the elements in the target vector
 	one by one, until a match on target name is found. When found,
-	use it. 
+	use it.
 
 	o Otherwise return the error <<bfd_error_invalid_target>> to
 	<<bfd_openr>>.
@@ -66,7 +66,7 @@ DESCRIPTION
 
 	Once the BFD has been opened and the target selected, the file
 	format may be determined. This is done by calling
-	<<bfd_check_format>> on the BFD with a suggested format. 
+	<<bfd_check_format>> on the BFD with a suggested format.
 	If <<target_defaulted>> has been set, each possible target
 	type is tried to see if it recognizes the specified format.
 	<<bfd_check_format>> returns <<true>> when the caller guesses right.
@@ -87,17 +87,17 @@ SUBSECTION
 DESCRIPTION
 	This structure contains everything that BFD knows about a
 	target. It includes things like its byte order, name, and which
-	routines to call to do various operations.   
+	routines to call to do various operations.
 
 	Every BFD points to a target structure with its <<xvec>>
-	member. 
+	member.
 
 	The macros below are used to dispatch to functions through the
 	<<bfd_target>> vector. They are used in a number of macros further
 	down in @file{bfd.h}, and are also used when calling various
 	routines by hand inside the BFD implementation.  The @var{arglist}
 	argument must be parenthesized; it contains all the arguments
-	to the called function. 
+	to the called function.
 
 	They make the documentation (more) unpleasant to read, so if
 	someone wants to fix this and not break the above, please do.
@@ -134,7 +134,7 @@ DESCRIPTION
 
 	FIXME, these names should be rationalised with the names of
 	the entry points which call them. Too bad we can't have one
-	macro to define them both! 
+	macro to define them both!
 
 .enum bfd_flavour {
 .  bfd_target_unknown_flavour,
@@ -183,21 +183,21 @@ The order of bytes within the header parts of a file.
 A mask of all the flags which an executable may have set -
 from the set <<BFD_NO_FLAGS>>, <<HAS_RELOC>>, ...<<D_PAGED>>.
 
-.  flagword object_flags;       
+.  flagword object_flags;
 
 A mask of all the flags which a section may have set - from
 the set <<SEC_NO_FLAGS>>, <<SEC_ALLOC>>, ...<<SET_NEVER_LOAD>>.
 
 .  flagword section_flags;
 
-The character normally found at the front of a symbol 
+The character normally found at the front of a symbol
 (if any), perhaps `_'.
 
 .  char symbol_leading_char;
 
 The pad character for file names within an archive header.
 
-.  char ar_pad_char;            
+.  char ar_pad_char;
 
 The maximum number of characters in an archive header.
 
@@ -232,15 +232,15 @@ Byte swapping for the headers
 Format dependent routines: these are vectors of entry points
 within the target vector structure, one for each format to check.
 
-Check the format of a file being read.  Return a <<bfd_target *>> or zero. 
+Check the format of a file being read.  Return a <<bfd_target *>> or zero.
 
 .  const struct bfd_target *(*_bfd_check_format[bfd_type_end]) PARAMS ((bfd *));
 
-Set the format of a file being written.  
+Set the format of a file being written.
 
 .  boolean             (*_bfd_set_format[bfd_type_end]) PARAMS ((bfd *));
 
-Write cached information into a file being written, at <<bfd_close>>. 
+Write cached information into a file being written, at <<bfd_close>>.
 
 .  boolean             (*_bfd_write_contents[bfd_type_end]) PARAMS ((bfd *));
 
@@ -262,7 +262,7 @@ The general target vector.
 .  {* Called when a new section is created.  *}
 .  boolean       (*_new_section_hook) PARAMS ((bfd *, sec_ptr));
 .  {* Read the contents of a section.  *}
-.  boolean       (*_bfd_get_section_contents) PARAMS ((bfd *, sec_ptr, PTR, 
+.  boolean       (*_bfd_get_section_contents) PARAMS ((bfd *, sec_ptr, PTR,
 .                                            file_ptr, bfd_size_type));
 .  boolean       (*_bfd_get_section_contents_in_window)
 .                          PARAMS ((bfd *, sec_ptr, bfd_window *,
@@ -286,7 +286,7 @@ The general target vector.
 .     to another.  *}
 .  boolean       (*_bfd_copy_private_section_data) PARAMS ((bfd *, sec_ptr,
 .                                                       bfd *, sec_ptr));
-.  {* Called to copy BFD private symbol data from one symbol 
+.  {* Called to copy BFD private symbol data from one symbol
 .     to another.  *}
 .  boolean       (*_bfd_copy_private_symbol_data) PARAMS ((bfd *, asymbol *,
 .							   bfd *, asymbol *));
@@ -322,10 +322,10 @@ The general target vector.
 .  boolean  (*_bfd_construct_extended_name_table)
 .             PARAMS ((bfd *, char **, bfd_size_type *, const char **));
 .  void     (*_bfd_truncate_arname) PARAMS ((bfd *, CONST char *, char *));
-.  boolean  (*write_armap) PARAMS ((bfd *arch, 
+.  boolean  (*write_armap) PARAMS ((bfd *arch,
 .                              unsigned int elength,
 .                              struct orl *map,
-.                              unsigned int orl_count, 
+.                              unsigned int orl_count,
 .                              int stridx));
 .  PTR (*_bfd_read_ar_hdr_fn) PARAMS ((bfd *));
 .  bfd *    (*openr_next_archived_file) PARAMS ((bfd *arch, bfd *prev));
@@ -964,7 +964,7 @@ DESCRIPTION
 	variable to "default" will cause the first entry in the target
 	list to be returned, and "target_defaulted" will be set in the
 	BFD.  This causes <<bfd_check_format>> to loop over all the
-	targets to find the one that matches the file being read.   
+	targets to find the one that matches the file being read.
 */
 
 const bfd_target *

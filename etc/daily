@@ -141,7 +141,7 @@ if checkyesno check_uucp && \
 fi
 
 if checkyesno check_disks; then
-	df -k > $TMP 
+	df -k > $TMP
 	dump W > $TMP2
 	if [ -s $TMP -o -s $TMP2 ]; then
 		echo ""
@@ -212,7 +212,7 @@ if checkyesno run_rdist && [ -f /etc/Distfile ]; then
 		logf=`date +%Y.%b.%d`
 		rdist -f /etc/Distfile 2>&1 | tee /var/log/rdist/$logf
 	else
-		rdist -f /etc/Distfile 
+		rdist -f /etc/Distfile
 	fi
 fi
 

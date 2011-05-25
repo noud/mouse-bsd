@@ -42,7 +42,7 @@ __RCSID("$NetBSD: io.c,v 1.5 1997/10/20 00:23:24 lukem Exp $");
 #endif /* not lint */
 
 /*
- * This file contains the I/O handling and the exchange of 
+ * This file contains the I/O handling and the exchange of
  * edit characters. This connection itself is established in
  * ctl.c
  */
@@ -72,7 +72,7 @@ talk()
 	current_line = 0;
 
 	/*
-	 * Wait on both the other process (sockt_mask) and 
+	 * Wait on both the other process (sockt_mask) and
 	 * standard input ( STDIN_MASK )
 	 */
 	FD_ZERO(&read_template);
@@ -92,7 +92,7 @@ talk()
 			p_error("Unexpected error from select");
 			quit();
 		}
-		if (FD_ISSET(sockt, &read_set)) { 
+		if (FD_ISSET(sockt, &read_set)) {
 			/* There is data on sockt */
 			nb = read(sockt, buf, sizeof buf);
 			if (nb <= 0) {
@@ -120,7 +120,7 @@ talk()
  * on the screen and then exits. (i.e. a curses version of perror)
  */
 void
-p_error(string) 
+p_error(string)
 	char *string;
 {
 	wmove(my_win.x_win, current_line%my_win.x_nlines, 0);

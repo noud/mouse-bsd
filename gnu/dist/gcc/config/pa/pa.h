@@ -292,7 +292,7 @@ int lhs_lshift_cint_operand ();
    linked executables and shared libraries.  */
 #define LDD_SUFFIX "chatr"
 /* Look for lines like "dynamic   /usr/lib/X11R5/libX11.sl"
-   or "static    /usr/lib/X11R5/libX11.sl". 
+   or "static    /usr/lib/X11R5/libX11.sl".
 
    HPUX 10.20 also has lines like "static branch prediction ..."
    so we filter that out explicitly.
@@ -344,7 +344,7 @@ do {								\
 #define REAL_ARITHMETIC
 
 /* Define this macro if it is advisable to hold scalars in registers
-   in a wider mode than that declared by the program.  In such cases, 
+   in a wider mode than that declared by the program.  In such cases,
    the value is constrained to be within the bounds of the declared
    type, but kept valid in the wider mode.  The signedness of the
    extension may differ from that of the type.  */
@@ -787,7 +787,7 @@ int zdepi_cint_p ();
 
 /* Return the register class of a scratch register needed to copy IN into
    or out of a register in CLASS in MODE.  If it can be done directly
-   NO_REGS is returned. 
+   NO_REGS is returned.
 
   Avoid doing any work for the common case calls.  */
 
@@ -1102,7 +1102,7 @@ struct hppa_args {int words, nargs_prototype, indirect; };
 
 #define FUNCTION_ARG_PASS_BY_REFERENCE(CUM, MODE, TYPE, NAMED)		\
   ((TYPE) && int_size_in_bytes (TYPE) > 8)
- 
+
 #define FUNCTION_ARG_CALLEE_COPIES(CUM, MODE, TYPE, NAMED) \
   ((TYPE) && int_size_in_bytes (TYPE) > 8)
 
@@ -1150,7 +1150,7 @@ extern enum cmp_type hppa_branch_type;
       fprintf (FILE,							\
 	       "\t.SUBSPA .%s\n", name);				\
   }
-    
+
 #define ASM_DECLARE_FUNCTION_NAME(FILE, NAME, DECL) \
     do { tree fntype = TREE_TYPE (TREE_TYPE (DECL));			\
 	 tree tree_type = TREE_TYPE (DECL);				\
@@ -1525,7 +1525,7 @@ extern struct rtx_def *hppa_builtin_saveregs ();
    REG+REG, REG+(REG*SCALE) or REG+SMALLINT.
    But we can treat a SYMBOL_REF as legitimate if it is part of this
    function's constant-pool, because such addresses can actually
-   be output as REG+SMALLINT. 
+   be output as REG+SMALLINT.
 
    Note we only allow 5 bit immediates for access to a constant address;
    doing so avoids losing for loading/storing a FP register at an address
@@ -1782,7 +1782,7 @@ while (0)
     readonly_data_section (); \
   else \
     data_section ();
-   
+
 /* Arghh.  The hpux10 linker chokes if we have a reference to symbols
    in a readonly data section when the symbol is defined in a shared
    library.  Since we can't know at compile time if a symbol will be
@@ -2280,7 +2280,7 @@ DTORS_SECTION_FUNCTION
        fprintf (FILE, "\t.word 0x%lx\n", l);				\
      } while (0)
 
-/* This is how to output an assembler line defining an `int' constant. 
+/* This is how to output an assembler line defining an `int' constant.
 
    This is made more complicated by the fact that functions must be
    prefixed by a P% as well as code label references for the exception
@@ -2369,7 +2369,7 @@ DTORS_SECTION_FUNCTION
   fprintf ((FILE), "\t.align %d\n", ((ALIGNED) / BITS_PER_UNIT));	\
   assemble_name ((FILE), (NAME));				\
   fprintf ((FILE), "\n\t.block %d\n", (SIZE));}
-  
+
 /* Store in OUTPUT a string (made with alloca) containing
    an assembler-name for a local static variable named NAME.
    LABELNO is an integer which is different for each call.  */

@@ -808,7 +808,7 @@ loop forms in frag cache table - Yury Pshenychny <yura@rd.zgik.zaporizhzhe.ua>
 
 should use SPLNET/SPLX around expire routines in NAT/frag/state code.
 
-redeclared malloc in 44arp.c - 
+redeclared malloc in 44arp.c -
 
 3.1.7		8/2/97 - Released
 

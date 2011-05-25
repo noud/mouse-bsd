@@ -309,7 +309,7 @@ breada(vp, blkno, size, rablkno, rabsize, cred, bpp)
 	struct buf **bpp;
 {
 
-	return (breadn(vp, blkno, size, &rablkno, &rabsize, 1, cred, bpp));	
+	return (breadn(vp, blkno, size, &rablkno, &rabsize, 1, cred, bpp));
 }
 
 /*
@@ -327,7 +327,7 @@ bwrite(bp)
 	/*
 	 * Remember buffer type, to switch on it later.  If the write was
 	 * synchronous, but the file system was mounted with MNT_ASYNC,
-	 * convert it to a delayed write.  
+	 * convert it to a delayed write.
 	 * XXX note that this relies on delayed tape writes being converted
 	 * to async, not sync writes (which is safe, but ugly).
 	 */
@@ -643,7 +643,7 @@ getblk(vp, blkno, size, slpflag, slptimeo)
 	 * The following is an inlined version of 'incore()', but with
 	 * the 'invalid' test moved to after the 'busy' test.  It's
 	 * necessary because there are some cases in which the NFS
-	 * code sets B_INVAL prior to writing data to the server, but 
+	 * code sets B_INVAL prior to writing data to the server, but
 	 * in which the buffers actually contain valid data.  In this
 	 * case, we can't allow the system to allocate a new buffer for
 	 * the block until the write is finished.
@@ -700,7 +700,7 @@ struct buf *
 geteblk(size)
 	int size;
 {
-	struct buf *bp; 
+	struct buf *bp;
 
 	while ((bp = getnewbuf(0, 0)) == 0)
 		;
@@ -804,7 +804,7 @@ out:
 /*
  * Find a buffer which is available for use.
  * Select something from a free list.
- * Preference is to AGE list, then LRU list.    
+ * Preference is to AGE list, then LRU list.
  */
 struct buf *
 getnewbuf(slpflag, slptimeo)
@@ -875,15 +875,15 @@ start:
 	/* nuke any credentials we were holding */
 	if (bp->b_rcred != NOCRED) {
 		crfree(bp->b_rcred);
-		bp->b_rcred = NOCRED; 
+		bp->b_rcred = NOCRED;
 	}
 	if (bp->b_wcred != NOCRED) {
 		crfree(bp->b_wcred);
 		bp->b_wcred = NOCRED;
 	}
-	
+
 	bremhash(bp);
-	return (bp); 
+	return (bp);
 }
 
 /*
@@ -895,7 +895,7 @@ biowait(bp)
 	struct buf *bp;
 {
 	int s;
-	
+
 	s = splbio();
 	while (!ISSET(bp->b_flags, B_DONE))
 		tsleep(bp, PRIBIO + 1, "biowait", 0);

@@ -130,7 +130,7 @@ int main (argc, argv, envp)
 
 #if !(defined (DEBUG) || defined (SYSLOG_4_2) || defined (__CYGWIN32__))
 	setlogmask (LOG_UPTO (LOG_INFO));
-#endif	
+#endif
 
 	for (i = 1; i < argc; i++) {
 		if (!strcmp (argv [i], "-p")) {
@@ -194,7 +194,7 @@ int main (argc, argv, envp)
 #endif
 	}
 	remote_port = htons (ntohs (local_port) - 1);	/* XXX */
-  
+
 	/* Get the current time... */
 	GET_TIME (&cur_time);
 
@@ -325,7 +325,7 @@ void cleanup ()
 }
 
 /* Individual States:
- * 
+ *
  * Each routine is called from the dhclient_state_machine() in one of
  * these conditions:
  * -> entering INIT state
@@ -499,7 +499,7 @@ void state_selecting (ipp)
 
 	/* Add an immediate timeout to send the first DHCPREQUEST packet. */
 	send_request (ip);
-}  
+}
 
 /* state_requesting is called when we receive a DHCPACK message after
    having sent out one or more DHCPREQUEST packets. */
@@ -509,7 +509,7 @@ void dhcpack (packet)
 {
 	struct interface_info *ip = packet -> interface;
 	struct client_lease *lease;
-	
+
 	/* If we're not receptive to an offer right now, or if the offer
 	   has an unrecognizable transaction id, then just drop it. */
 	if (packet -> interface -> client -> xid != packet -> raw -> xid ||
@@ -553,7 +553,7 @@ void dhcpack (packet)
 			 	  new -> options [DHO_DHCP_LEASE_TIME].data);
 	else
 		ip -> client -> new -> expiry = TIME_MAX;
- 
+
 	/* A number that looks negative here is really just very large,
 	   because the lease expiry offset is unsigned. */
 	if (ip -> client -> new -> expiry < 0)
@@ -634,7 +634,7 @@ void bind_lease (ip)
 	ip -> client -> state = S_BOUND;
 	reinitialize_interfaces ();
 	go_daemon ();
-}  
+}
 
 /* state_bound is called when we've successfully bound to a particular
    lease, but the renewal time on that lease has expired.   We are
@@ -667,7 +667,7 @@ void state_bound (ipp)
 
 	/* Send the first packet immediately. */
 	send_request (ip);
-}  
+}
 
 int commit_leases ()
 {
@@ -702,7 +702,7 @@ void bootp (packet)
 			return;
 		}
 	}
-	
+
 	dhcpoffer (packet);
 
 }
@@ -756,10 +756,10 @@ void dhcpoffer (packet)
 	int arp_timeout_needed, stop_selecting;
 	char *name = (packet -> options [DHO_DHCP_MESSAGE_TYPE].len
 		      ? "DHCPOFFER" : "BOOTREPLY");
-	
+
 #ifdef DEBUG_PACKET
 	dump_packet (packet);
-#endif	
+#endif
 
 	/* If we're not receptive to an offer right now, or if the offer
 	   has an unrecognizable transaction id, then just drop it. */
@@ -816,7 +816,7 @@ void dhcpoffer (packet)
 	/* Send out an ARP Request for the offered IP address. */
 	script_init (ip, "ARPSEND", lease -> medium);
 	script_write_params (ip, "check_", lease);
-	/* If the script can't send an ARP request without waiting, 
+	/* If the script can't send an ARP request without waiting,
 	   we'll be waiting when we do the ARPCHECK, so don't wait now. */
 	if (script_go (ip))
 		arp_timeout_needed = 0;
@@ -960,7 +960,7 @@ struct client_lease *packet_to_lease (packet)
 		}
 	}
 	return lease;
-}	
+}
 
 void dhcpnak (packet)
 	struct packet *packet;
@@ -1041,7 +1041,7 @@ void send_discover (ipp)
 			ip -> client -> medium =
 				ip -> client -> medium -> next;
 			increase = 0;
-		} 
+		}
 		if (!ip -> client -> medium) {
 			if (fail)
 				error ("No valid media types for %s!",
@@ -1050,7 +1050,7 @@ void send_discover (ipp)
 				ip -> client -> config -> media;
 			increase = 1;
 		}
-			
+
 		note ("Trying medium \"%s\" %d",
 		      ip -> client -> medium -> string, increase);
 		script_init (ip, "MEDIUM", ip -> client -> medium);
@@ -1084,7 +1084,7 @@ void send_discover (ipp)
 	} else if (!ip -> client -> interval)
 		ip -> client -> interval =
 			ip -> client -> config -> initial_interval;
-		
+
 	/* If the backoff would take us to the panic timeout, just use that
 	   as the interval. */
 	if (cur_time + ip -> client -> interval >
@@ -1298,7 +1298,7 @@ void send_request (ipp)
 			((random () >> 2) %
 			 (2 * ip -> client -> interval));
 	}
-	
+
 	/* Don't backoff past cutoff. */
 	if (ip -> client -> interval >
 	    ip -> client -> config -> backoff_cutoff)
@@ -2050,11 +2050,11 @@ void script_write_params (ip, prefix, lease)
 					}
 					dp = dbuf;
 					memcpy (dp,
-						ip -> client -> 
+						ip -> client ->
 						config -> defaults [i].data,
-						ip -> client -> 
+						ip -> client ->
 						config -> defaults [i].len);
-					memcpy (dp + ip -> client -> 
+					memcpy (dp + ip -> client ->
 						config -> defaults [i].len,
 						lease -> options [i].data,
 						lease -> options [i].len);
@@ -2074,9 +2074,9 @@ void script_write_params (ip, prefix, lease)
 						lease -> options [i].data,
 						lease -> options [i].len);
 					memcpy (dp + lease -> options [i].len,
-						ip -> client -> 
+						ip -> client ->
 						config -> defaults [i].data,
-						ip -> client -> 
+						ip -> client ->
 						config -> defaults [i].len);
 				}
 			} else {
@@ -2093,7 +2093,7 @@ void script_write_params (ip, prefix, lease)
 		}
 		if (len) {
 			char *s = dhcp_option_ev_name (&dhcp_options [i]);
-				
+
 			fprintf (scriptFile, "%s%s=\"%s\"\n", prefix, s,
 				 pretty_print_option (i, dp, len, 0, 0));
 			fprintf (scriptFile, "export %s%s\n", prefix, s);
@@ -2118,7 +2118,7 @@ int script_go (ip)
 	fprintf (scriptFile, "exit $?\n");
 	fclose (scriptFile);
 	chmod (scriptName, 0700);
-	rval = system (scriptName);	
+	rval = system (scriptName);
 	if (!save_scripts)
 		unlink (scriptName);
 	return rval;

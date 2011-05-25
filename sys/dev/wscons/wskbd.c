@@ -222,11 +222,11 @@ static int wskbd_enable __P((struct wskbd_softc *, int));
 static void wskbd_holdscreen __P((struct wskbd_softc *, int));
 #endif
 
-int	wskbd_do_ioctl __P((struct wskbd_softc *, u_long, caddr_t, 
+int	wskbd_do_ioctl __P((struct wskbd_softc *, u_long, caddr_t,
 			    int, struct proc *));
 
 int	wskbddoclose __P((struct device *, int, int, struct proc *));
-int	wskbddoioctl __P((struct device *, u_long, caddr_t, int, 
+int	wskbddoioctl __P((struct device *, u_long, caddr_t, int,
 			  struct proc *));
 
 struct cfattach wskbd_ca = {
@@ -397,7 +397,7 @@ wskbd_attach(parent, self, aux)
 	sc->sc_keyrepeat_data = wskbd_default_keyrepeat_data;
 
 	if (ap->console) {
-		KASSERT(wskbd_console_initted); 
+		KASSERT(wskbd_console_initted);
 		KASSERT(wskbd_console_device == NULL);
 
 		wskbd_console_device = sc;
@@ -413,13 +413,13 @@ wskbd_attach(parent, self, aux)
 
 #if NWSMUX > 0
 	if (mux != WSKBDDEVCF_MUX_DEFAULT)
-		wsmux_attach(mux, WSMUX_KBD, &sc->sc_dv, &sc->sc_events, 
+		wsmux_attach(mux, WSMUX_KBD, &sc->sc_dv, &sc->sc_events,
 			     &sc->sc_mux, &wskbd_muxops);
 #endif
 
 }
 
-void    
+void
 wskbd_cnattach(consops, conscookie, mapdata)
 	const struct wskbd_consops *consops;
 	void *conscookie;
@@ -440,7 +440,7 @@ wskbd_cnattach(consops, conscookie, mapdata)
 	wskbd_console_initted = 1;
 }
 
-void    
+void
 wskbd_cndetach()
 {
 	KASSERT(wskbd_console_initted);
@@ -553,7 +553,7 @@ wskbd_input(dev, type, value)
 	u_int type;
 	int value;
 {
-	struct wskbd_softc *sc = (struct wskbd_softc *)dev; 
+	struct wskbd_softc *sc = (struct wskbd_softc *)dev;
 	struct wscons_event *ev;
 	struct wseventvar *evar;
 	struct timeval xxxtime;
@@ -816,7 +816,7 @@ wskbd_do_ioctl(sc, cmd, data, flag, p)
 {
 	int error;
 
-	/*      
+	/*
 	 * Try the generic ioctls that the wskbd interface supports.
 	 */
 	switch (cmd) {
@@ -1076,7 +1076,7 @@ wskbd_set_console_display(displaydv, muxsc)
 	if (!sc)
 		return (0);
 	sc->sc_displaydv = displaydv;
-	(void)wsmux_attach_sc(muxsc, WSMUX_KBD, &sc->sc_dv, &sc->sc_events, 
+	(void)wsmux_attach_sc(muxsc, WSMUX_KBD, &sc->sc_dv, &sc->sc_events,
 			      &sc->sc_mux, &wskbd_muxops);
 	return (&sc->sc_dv);
 }
@@ -1092,7 +1092,7 @@ wskbd_set_display(dv, muxsc)
 	int error;
 
 	DPRINTF(("wskbd_set_display: %s mux=%p disp=%p odisp=%p cons=%d\n",
-		 dv->dv_xname, muxsc, sc->sc_displaydv, displaydv, 
+		 dv->dv_xname, muxsc, sc->sc_displaydv, displaydv,
 		 sc->sc_isconsole));
 
 	if (sc->sc_isconsole)
@@ -1141,7 +1141,7 @@ wskbd_add_mux(unit, muxsc)
 	if (sc->sc_mux || sc->sc_events.io)
 		return (EBUSY);
 
-	return (wsmux_attach_sc(muxsc, WSMUX_KBD, &sc->sc_dv, &sc->sc_events, 
+	return (wsmux_attach_sc(muxsc, WSMUX_KBD, &sc->sc_dv, &sc->sc_events,
 				&sc->sc_mux, &wskbd_muxops));
 }
 
@@ -1186,7 +1186,7 @@ wskbd_cngetc(dev)
 		if (num-- > 0) {
 			ks = wskbd_console_data.t_symbols[pos++];
 			if (KS_GROUP(ks) == KS_GROUP_Ascii)
-				return (KS_VALUE(ks));	
+				return (KS_VALUE(ks));
 		} else {
 			(*wskbd_console_data.t_consops->getc)
 				(wskbd_console_data.t_consaccesscookie,

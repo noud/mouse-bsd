@@ -33,7 +33,7 @@
 # else
 #  define PATH_MAX 255 /* this is the value of POSIX_PATH_MAX */
 # endif
-#endif 
+#endif
 
 typedef struct dst_key {
 	char	*dk_key_name;   /* name of the key */
@@ -45,11 +45,11 @@ typedef struct dst_key {
 	void	*dk_KEY_struct; /* pointer to key in crypto pkg fmt */
 	struct dst_func *dk_func; /* point to cryptto pgk specific function table */
 } DST_KEY;
-#define HAS_DST_KEY 
+#define HAS_DST_KEY
 
 #include <isc/dst.h>
-/* 
- * define what crypto systems are supported for RSA, 
+/*
+ * define what crypto systems are supported for RSA,
  * BSAFE is prefered over RSAREF; only one can be set at any time
  */
 #if defined(BSAFE) && defined(RSAREF)
@@ -119,21 +119,21 @@ int dst_eay_dss_init();
 
 /* support functions */
 /* base64 to bignum conversion routines */
-int       dst_s_conv_bignum_u8_to_b64( char *out_buf, const int out_len, 
+int       dst_s_conv_bignum_u8_to_b64( char *out_buf, const int out_len,
 			               const char *header,
 				       const u_int8_t *bin_data,
 				       const int bin_len);
 int       dst_s_conv_bignum_b64_to_u8( const char **buf, u_int8_t *loc,
 				       const int loclen) ;
 /* from higher level support routines */
-int       dst_s_calculate_bits( const u_int8_t *str, const int max_bits); 
+int       dst_s_calculate_bits( const u_int8_t *str, const int max_bits);
 int       dst_s_verify_str( const char **buf, const char *str);
 
 
 /* conversion between dns names and key file names */
-size_t    dst_s_filename_length( const char *name, const char *suffix); 
-int       dst_s_build_filename(  char *filename, const char *name, 
-			         u_int16_t id, int alg, const char *suffix, 
+size_t    dst_s_filename_length( const char *name, const char *suffix);
+int       dst_s_build_filename(  char *filename, const char *name,
+			         u_int16_t id, int alg, const char *suffix,
 			         size_t filename_length);
 
 FILE      *dst_s_fopen (const char *filename, const char *mode, int perm);
@@ -144,8 +144,8 @@ int       dst_s_semi_random( u_int8_t *output, int size);
 u_int32_t dst_s_quick_random( int inc);
 void	  dst_s_quick_random_set( u_int32_t val, u_int32_t cnt);
 
-/* 
- * read and write network byte order into u_int?_t  
+/*
+ * read and write network byte order into u_int?_t
  *  all of these should be retired
  */
 u_int16_t dst_s_get_int16( const u_int8_t *buf);

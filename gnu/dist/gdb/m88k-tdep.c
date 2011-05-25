@@ -171,7 +171,7 @@ struct prologue_insns prologue_insn_tbl[] = {
   /* Various branch or jump instructions which have a delay slot -- these
      do not form part of the prologue, but the instruction in the delay
      slot might be a store instruction which should be noted. */
-  { 0xc4000000, 0xe4000000, PIA_NOTE_PROLOGUE_END }, 
+  { 0xc4000000, 0xe4000000, PIA_NOTE_PROLOGUE_END },
   					/* br.n, bsr.n, bb0.n, or bb1.n */
   { 0xec000000, 0xfc000000, PIA_NOTE_PROLOGUE_END }, /* bcnd.n */
   { 0xf400c400, 0xfffff7e0, PIA_NOTE_PROLOGUE_END } /* jmp.n or jsr.n */
@@ -187,7 +187,7 @@ struct prologue_insns prologue_insn_tbl[] = {
 #define NEXT_PROLOGUE_INSN(addr, lim, pword1) \
   (((addr) < (lim)) ? next_insn (addr, pword1) : 0)
 
-/* Read the m88k instruction at 'memaddr' and return the address of 
+/* Read the m88k instruction at 'memaddr' and return the address of
    the next instruction after that, or 0 if 'memaddr' is not the
    address of a valid instruction.  The instruction
    is stored at 'pword1'.  */
@@ -218,11 +218,11 @@ read_next_frame_reg(frame, regno)
 }
 
 /* Examine the prologue of a function.  `ip' points to the first instruction.
-   `limit' is the limit of the prologue (e.g. the addr of the first 
+   `limit' is the limit of the prologue (e.g. the addr of the first
    linenumber, or perhaps the program counter if we're stepping through).
-   `frame_sp' is the stack pointer value in use in this frame.  
+   `frame_sp' is the stack pointer value in use in this frame.
    `fsr' is a pointer to a frame_saved_regs structure into which we put
-   info about the registers saved by this frame.  
+   info about the registers saved by this frame.
    `fi' is a struct frame_info pointer; we fill in various fields in it
    to reflect the offsets of the arg pointer and the locals pointer.  */
 
@@ -249,7 +249,7 @@ examine_prologue (ip, limit, frame_sp, fsr, fi)
 
   while (next_ip)
     {
-      struct prologue_insns *pip; 
+      struct prologue_insns *pip;
 
       for (pip=prologue_insn_tbl; (insn & pip->mask) != pip->insn; )
 	  if (++pip >= prologue_insn_tbl + sizeof prologue_insn_tbl)
@@ -367,10 +367,10 @@ end_of_prologue_found:
   for (src = 0; src < 32; src++)
     if (must_adjust[src])
       fsr->regs[src] += frame_sp;
- 
+
   /* The saved value of the SP is always known.  */
   /* (we hope...) */
-  if (fsr->regs[SP_REGNUM] != 0 
+  if (fsr->regs[SP_REGNUM] != 0
    && fsr->regs[SP_REGNUM] != frame_sp - sp_offset)
     fprintf_unfiltered(gdb_stderr, "Bad saved SP value %x != %x, offset %x!\n",
         fsr->regs[SP_REGNUM],
@@ -382,7 +382,7 @@ end_of_prologue_found:
 }
 
 /* Given an ip value corresponding to the start of a function,
-   return the ip of the first instruction after the function 
+   return the ip of the first instruction after the function
    prologue.  */
 
 CORE_ADDR
@@ -434,10 +434,10 @@ frame_find_saved_regs (fi, fsr)
 	 the function prologue, we set limit to two instructions beyond
 	 where the prologue ends in case if any of the prologue instructions
 	 were moved into a delay slot of a branch instruction. */
-         
+
       ip = get_pc_function_start (fi->pc);
       sal = find_pc_line (ip, 0);
-      limit = (sal.end && sal.end < fi->pc) ? sal.end + 2 * BYTES_PER_88K_INSN 
+      limit = (sal.end && sal.end < fi->pc) ? sal.end + 2 * BYTES_PER_88K_INSN
 					    : fi->pc;
 
       /* This will fill in fields in *fi as well as in cache_fsr.  */
@@ -534,7 +534,7 @@ m88k_push_dummy_frame()
 
   for (rn = 0, offset = 0; rn <= SP_REGNUM; rn++, offset+=4)
     write_word (sp+offset, read_register(rn));
-  
+
   write_word (sp+offset, read_register (SXIP_REGNUM));
   offset += 4;
 
@@ -578,7 +578,7 @@ pop_frame ()
 
       for (regnum = 0, offset = 0; regnum <= SP_REGNUM; regnum++, offset+=4)
 	(void) write_register (regnum, read_memory_integer (sp+offset, 4));
-  
+
       write_register (SXIP_REGNUM, read_memory_integer (sp+offset, 4));
       offset += 4;
 
@@ -598,7 +598,7 @@ pop_frame ()
       offset += 4;
 
     }
-  else 
+  else
     {
       for (regnum = FP_REGNUM ; regnum > 0 ; regnum--)
 	  if (fsr.regs[regnum])

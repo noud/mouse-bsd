@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: ops_autofs.c,v 1.4 1999/01/13 23:31:00 ezk Exp 
+ * Id: ops_autofs.c,v 1.4 1999/01/13 23:31:00 ezk Exp
  *
  */
 

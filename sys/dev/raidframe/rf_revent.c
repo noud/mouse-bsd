@@ -67,7 +67,7 @@ static void rf_ShutdownReconEvent(ignored)
 	RF_FREELIST_DESTROY(rf_revent_freelist, next, (RF_ReconEvent_t *));
 }
 
-int 
+int
 rf_ConfigureReconEvent(listp)
 	RF_ShutdownList_t **listp;
 {
@@ -167,7 +167,7 @@ rf_GetNextReconEvent(reconDesc, row, continueFunc, continueArg)
 	return (event);
 }
 /* enqueues a reconstruction event on the indicated queue */
-void 
+void
 rf_CauseReconEvent(raidPtr, row, col, arg, type)
 	RF_Raid_t *raidPtr;
 	RF_RowCol_t row;
@@ -212,7 +212,7 @@ GetReconEventDesc(row, col, arg, type)
 	return (t);
 }
 
-void 
+void
 rf_FreeReconEventDesc(event)
 	RF_ReconEvent_t *event;
 {

@@ -107,7 +107,7 @@ struct iaddr ip_addr (subnet, mask, host_address)
 		} else
 			rv.iabuf [i + j] = habuf [i];
 	}
-		
+
 	return rv;
 }
 

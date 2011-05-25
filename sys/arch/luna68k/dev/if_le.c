@@ -202,7 +202,7 @@ myetheraddr(ether)
 			u = (u < 'A') ? u & 0xf : u - 'A' + 10;
 			l = ea[1];
 			l = (l < 'A') ? l & 0xf : l - 'A' + 10;
-		
+
 			ether[i] = l | (u << 4);
 			ea += 2;
 		}

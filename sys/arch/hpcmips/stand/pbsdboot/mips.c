@@ -59,9 +59,9 @@ mips_boot(caddr_t map)
 	 *  copy startup program code
 	 */
 	memcpy(mem, system_info.si_asmcode, system_info.si_asmcodelen);
-  
+
 	/*
-	 *  set map address (override target field of asmcode 
+	 *  set map address (override target field of asmcode
 	 *  "lui a0, 0x0; ori a0, 0x0;".
 	 */
 	*(unsigned short*)&mem[0] = (unsigned short)(((long)map) >> 16);
@@ -96,7 +96,7 @@ mips_boot(caddr_t map)
 		j = dummy_buf[i];
 		j++;
 	}
-	/*	
+	/*
 	 *  Flush I-cache
 	 */
 	__asm(".space 32768;");

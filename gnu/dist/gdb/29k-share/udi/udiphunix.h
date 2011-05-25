@@ -14,7 +14,7 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
@@ -33,13 +33,13 @@
 /* Types with at least the specified number of bits */
 typedef double		UDIReal64;		/* 64-bit real value */
 typedef float		UDIReal32;		/* 32-bit real value */
-  
+
 typedef unsigned long	UDIUInt32;		/* unsigned integers */
-typedef unsigned short	UDIUInt16; 
+typedef unsigned short	UDIUInt16;
 typedef unsigned char	UDIUInt8;
-  
-typedef long		UDIInt32;		/* 32-bit integer */ 
-typedef short		UDIInt16;		/* 16-bit integer */ 
+
+typedef long		UDIInt32;		/* 32-bit integer */
+typedef short		UDIInt16;		/* 16-bit integer */
 typedef char		UDIInt8;		/* unreliable signedness */
 
 /* To aid in supporting environments where the DFE and TIP use

@@ -45,7 +45,7 @@ typedef struct {
 
 #undef SHIFT_INST_REGS
 
-/* Extended registers are treated as 16 bytes by Harris' OS's. 
+/* Extended registers are treated as 16 bytes by Harris' OS's.
    We treat them as 16 bytes here for consistency's sake.  */
 
 #undef REGISTER_RAW_SIZE

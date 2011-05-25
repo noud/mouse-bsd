@@ -185,9 +185,9 @@ struct vidc_state {
 	int cp1;
 	int cp2;
 	int cp3;
-	int hcr, hswr, hbsr, hdsr, hder, hber, hcsr; 
+	int hcr, hswr, hbsr, hdsr, hder, hber, hcsr;
 	int hir;
-	int vcr, vswr, vbsr, vdsr, vder, vber, vcsr, vcer;	
+	int vcr, vswr, vbsr, vdsr, vder, vber, vcsr, vcer;
 	int ereg;
 	int fsynreg;
 	int conreg;

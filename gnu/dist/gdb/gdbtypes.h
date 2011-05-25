@@ -237,7 +237,7 @@ struct type
   /* Type that is a pointer to this type.
      NULL if no such pointer-to type is known yet.
      The debugger may add the address of such a type
-     if it has to construct one later.  */ 
+     if it has to construct one later.  */
 
   struct type *pointer_type;
 
@@ -317,7 +317,7 @@ struct type
     } *fields;
 
   /* For types with virtual functions (TYPE_CODE_STRUCT), VPTR_BASETYPE
-     is the base class which defined the virtual function table pointer.  
+     is the base class which defined the virtual function table pointer.
 
      For types that are pointer to member types (TYPE_CODE_MEMBER),
      VPTR_BASETYPE is the type that this pointer is a member of.
@@ -674,7 +674,7 @@ extern struct type *builtin_type_f_integer;
 extern struct type *builtin_type_f_logical;
 extern struct type *builtin_type_f_logical_s1;
 extern struct type *builtin_type_f_logical_s2;
-extern struct type *builtin_type_f_integer; 
+extern struct type *builtin_type_f_integer;
 extern struct type *builtin_type_f_integer_s2;
 extern struct type *builtin_type_f_real;
 extern struct type *builtin_type_f_real_s8;

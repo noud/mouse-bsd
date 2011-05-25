@@ -143,12 +143,12 @@ terminal_begin_using_terminal ()
 
   if (term_keypad_on)
       send_to_terminal (term_keypad_on);
-  
+
   if (!term_begin_use || !*term_begin_use)
     return;
 
 #ifdef SIGWINCH
-  sigsave = signal (SIGWINCH, SIG_IGN); 
+  sigsave = signal (SIGWINCH, SIG_IGN);
 #endif
 
   send_to_terminal (term_begin_use);
@@ -173,7 +173,7 @@ terminal_end_using_terminal ()
 
   if (term_keypad_off)
       send_to_terminal (term_keypad_off);
-  
+
   if (!term_end_use || !*term_end_use)
     return;
 

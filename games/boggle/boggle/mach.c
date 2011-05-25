@@ -140,7 +140,7 @@ results()
 
 	denom1 = npwords + nmwords;
 	denom2 = tnpwords + tnmwords;
- 
+
 	move(SCORE_LINE, SCORE_COL);
 	printw("Percentage: %0.2f%% (%0.2f%% over %d game%s)\n",
         denom1 ? (100.0 * npwords) / (double) (npwords + nmwords) : 0.0,
@@ -616,7 +616,7 @@ stop_catcher(signo)
 	sigprocmask(SIG_SETMASK, &osigset, (sigset_t *)0);
 	signal(SIGTSTP, stop_catcher);
 }
- 
+
 static void
 cont_catcher(signo)
 	int signo __attribute__((__unused__));
@@ -628,7 +628,7 @@ cont_catcher(signo)
 	refresh();
 	starttime();
 }
- 
+
 /*
  * The signal is caught but nothing is done about it...
  * It would mean reformatting the entire display

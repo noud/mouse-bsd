@@ -100,7 +100,7 @@ int grfbusmatch __P((struct device *, struct cfdata *, void *));
 void grfbusattach __P((struct device *, struct device *, void *));
 
 /*
- * pointers to grf drivers device structs 
+ * pointers to grf drivers device structs
  */
 struct grf_softc *grfsp[NGRF]; /* XXX */
 
@@ -279,7 +279,7 @@ grfpoll(dev, events, p)
 }
 
 /*
- * map the contents of a graphics display card into process' 
+ * map the contents of a graphics display card into process'
  * memory space.
  */
 int
@@ -290,14 +290,14 @@ int	off, prot;
 	struct grf_softc	*gp;
 	struct grfinfo		*gi;
 	u_int			vgabase, linbase;
-	
+
 	gp = grfsp[GRFUNIT(dev)];
 	gi = &gp->g_display;
 
 	vgabase = gi->gd_vgabase;
 	linbase = gi->gd_linbase;
 
-	/* 
+	/*
 	 * control registers
 	 */
 	if (off >= 0 && off < gi->gd_regsize)
@@ -394,9 +394,9 @@ struct grf_softc *gp;
 	gi = &gp->g_display;
 
 	viewioctl(gp->g_viewdev, VIOCGBMAP, (caddr_t)&bm, 0, NOPROC);
-  
+
 	gp->g_data = (caddr_t) 0xDeadBeaf; /* not particularly clean.. */
-  
+
 	gi->gd_fbaddr  = bm.hw_address;
 	gi->gd_fbsize  = bm.phys_mappable;
 	gi->gd_linbase = bm.lin_base;
@@ -417,7 +417,7 @@ struct grf_softc *gp;
 	}
 	gi->gd_colors = 1 << vs.depth;
 	gi->gd_planes = vs.depth;
-  
+
 	gi->gd_fbwidth         = vs.width;
 	gi->gd_fbheight        = vs.height;
 	gi->gd_dyn.gdi_fbx     = 0;
@@ -426,7 +426,7 @@ struct grf_softc *gp;
 	gi->gd_dyn.gdi_dheight = vs.height;
 	gi->gd_dyn.gdi_dx      = 0;
 	gi->gd_dyn.gdi_dy      = 0;
-}    
+}
 
 /*
  * Change the mode of the display.

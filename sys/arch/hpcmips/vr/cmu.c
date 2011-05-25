@@ -83,7 +83,7 @@ vrcmu_attach(parent, self, aux)
 {
 	struct vrip_attach_args *va = aux;
 	struct vrcmu_softc *sc = (void*)self;
-    
+
 	sc->sc_iot = va->va_iot;
 	if (bus_space_map(sc->sc_iot, va->va_addr, va->va_size,
 			  0 /* no flags */, &sc->sc_ioh)) {
@@ -120,10 +120,10 @@ vrcmu_supply(cc, mask, onoff)
 {
 	struct vrcmu_softc *sc = (void*)cc;
 	u_int16_t reg;
-    
+
 	reg = bus_space_read_2(sc->sc_iot, sc->sc_ioh, 0);
 #ifdef VRCMU_VERBOSE
-	printf("cmu register(enter):");    
+	printf("cmu register(enter):");
 	bitdisp16(reg);
 #endif
 	if (onoff)
@@ -132,7 +132,7 @@ vrcmu_supply(cc, mask, onoff)
 		reg &= ~mask;
 	bus_space_write_2(sc->sc_iot, sc->sc_ioh, 0, reg);
 #ifdef VRCMU_VERBOSE
-	printf("cmu register(exit) :");    
+	printf("cmu register(exit) :");
 	bitdisp16(reg);
 #endif
 	return 0;

@@ -50,7 +50,7 @@
  * This is difficuly as the podule addresses are interleaved with the
  * other IO devices thus making it difficult to separate them.
  */
- 
+
 #define IO_CONF_BASE			0xf6000000
 
 #define IO_HW_BASE			0x03000000

@@ -2,7 +2,7 @@
 
 /*
  * by Manuel Bouyer (bouyer@ensta.fr)
- * 
+ *
  * There is no copyright, you can use it as you want.
  */
 
@@ -60,7 +60,7 @@ struct fs_stat *fs_begin = NULL;
 char *qfextension[] = INITQFNAMES;
 int from_inetd = 1;
 
-void 
+void
 cleanup(dummy)
 	int dummy;
 {
@@ -119,7 +119,7 @@ main(argc, argv)
 	exit(1);
 }
 
-void 
+void
 rquota_service(request, transp)
 	struct svc_req *request;
 	SVCXPRT *transp;
@@ -143,7 +143,7 @@ rquota_service(request, transp)
 }
 
 /* read quota for the specified id, and send it */
-void 
+void
 sendquota(request, transp)
 	struct svc_req *request;
 	SVCXPRT *transp;
@@ -195,7 +195,7 @@ sendquota(request, transp)
 	}
 }
 
-void 
+void
 printerr_reply(transp)	/* when a reply to a request failed */
 	SVCXPRT *transp;
 {
@@ -215,7 +215,7 @@ printerr_reply(transp)	/* when a reply to a request failed */
 }
 
 /* initialise the fs_tab list from entries in /etc/fstab */
-void 
+void
 initfs()
 {
 	struct fs_stat *fs_current = NULL;

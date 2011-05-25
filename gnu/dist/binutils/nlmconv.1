@@ -15,27 +15,27 @@ nlmconv \- converts object code into an NLM
 .na
 .TP
 .B nlmconv
-.RB "[\|" \-I\ \fIbfdname\fB\ |\ \-\-input\-target=\fIbfdname\fR "\|]" 
-.RB "[\|" \-O\ \fIbfdname\fB\ |\ \-\-output\-target=\fIbfdname\fR "\|]" 
-.RB "[\|" \-T\ \fIheaderfile\fB\ |\ \-\-header\-file=\fIheaderfile\fR "\|]" 
-.RB "[\|" \-V\ |\ \-\-version\fR "\|]" 
-.RB "[\|" \-\-help\fR "\|]" 
+.RB "[\|" \-I\ \fIbfdname\fB\ |\ \-\-input\-target=\fIbfdname\fR "\|]"
+.RB "[\|" \-O\ \fIbfdname\fB\ |\ \-\-output\-target=\fIbfdname\fR "\|]"
+.RB "[\|" \-T\ \fIheaderfile\fB\ |\ \-\-header\-file=\fIheaderfile\fR "\|]"
+.RB "[\|" \-V\ |\ \-\-version\fR "\|]"
+.RB "[\|" \-\-help\fR "\|]"
 .B infile
 .B outfile
 .SH DESCRIPTION
 .B nlmconv
-converts the relocatable object file 
+converts the relocatable object file
 .B infile
-into the NetWare Loadable Module 
+into the NetWare Loadable Module
 .BR outfile ,
-optionally reading 
+optionally reading
 .I headerfile
 for NLM header information.  For instructions on writing the NLM
-command file language used in header files, see 
+command file language used in header files, see
 .IR "The NetWare Tool Maker Specification Manual" ,
 available from Novell, Inc.
 .B nlmconv
-currently works with i386 object files in 
+currently works with i386 object files in
 .BR COFF ,
 .BR ELF ,
 or
@@ -47,17 +47,17 @@ or
 format.
 .br
 .B nlmconv
-uses the GNU Binary File Descriptor library to read 
+uses the GNU Binary File Descriptor library to read
 .IR infile .
 .SH OPTIONS
 .TP
 .B \-I \fIbfdname\fR, \fB\-\-input\-target=\fIbfdname
-Consider the source file's object format to be 
+Consider the source file's object format to be
 .IR bfdname ,
 rather than attempting to deduce it.
 .TP
 .B \-O \fIbfdname\fR, \fB\-\-output\-target=\fIbfdname
-Write the output file using the object format 
+Write the output file using the object format
 .IR bfdname .
 .B nlmconv
 infers the output format based on the input format, e.g. for an i386
@@ -65,10 +65,10 @@ input file the output format is
 .IR nlm32\-i386 .
 .TP
 .B \-T \fIheaderfile\fR, \fB\-\-header\-file=\fIheaderfile
-Reads 
+Reads
 .I headerfile
 for NLM header information.  For instructions on writing the NLM
-command file language used in header files, see 
+command file language used in header files, see
 .IR "The NetWare Tool Maker Specification Manual" ,
 available from Novell, Inc.
 .TP
@@ -82,11 +82,11 @@ Show a summary of the options to
 .B nlmconv
 and exit.
 .SH "SEE ALSO"
-.RB "`\|" binutils "\|'" 
-entry in 
+.RB "`\|" binutils "\|'"
+entry in
 .B
 info\c
-\&; 
+\&;
 .I
 The GNU Binary Utilities\c
 \&, Roland H. Pesch (June 1993).

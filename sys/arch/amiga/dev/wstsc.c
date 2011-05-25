@@ -119,7 +119,7 @@ wstscattach(pdp, dp, auxp)
 	printf("\n");
 
 	zap = auxp;
-	
+
 	sc = (struct sci_softc *)dp;
 	rp = zap->va;
 	/*

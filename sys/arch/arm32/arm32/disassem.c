@@ -121,9 +121,9 @@ static struct arm32_insn arm32_i[] = {
     { 0x0c100010, 0x04000000, "str",	"BTdaW" },
     { 0x0c100010, 0x04100000, "ldr",	"BTdaW" },
     { 0x0e1f0000, 0x080d0000, "stm",	"YnWl" },	/* separate out r13 base */
-    { 0x0e1f0000, 0x081d0000, "ldm",	"YnWl" },	/* separate out r13 base */    
+    { 0x0e1f0000, 0x081d0000, "ldm",	"YnWl" },	/* separate out r13 base */
     { 0x0e100000, 0x08000000, "stm",	"XnWl" },
-    { 0x0e100000, 0x08100000, "ldm",	"XnWl" },    
+    { 0x0e100000, 0x08100000, "ldm",	"XnWl" },
     { 0x0e500ff0, 0x001000b0, "ldrh",	"daW" },
     { 0x0e500ff0, 0x000000b0, "strh",	"daW" },
     { 0x0e500ff0, 0x001000d0, "ldrsb",	"daW" },
@@ -305,7 +305,7 @@ disasm(di, loc, altfmt)
 				else
 					di->di_printf("#0x%08x",
 					    ((insn & 0xff) << (32 - shift)));
-			} else {  
+			} else {
 				disasm_register_shift(di, insn);
 			}
 			break;

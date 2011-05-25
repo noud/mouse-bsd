@@ -361,7 +361,7 @@ get_system_info(si)
 	    strerror(errno));
 	quit(23);
     }
-    
+
     /* convert memory stats to Kbytes */
     memory_stats[0] = pagetok(uvmexp.active);
     memory_stats[1] = pagetok(uvmexp.inactive);
@@ -445,7 +445,7 @@ get_process_info(si, sel, compare)
     int show_uid;
     int show_command;
 
-    
+
     pbase = kvm_getprocs(kd, KERN_PROC_ALL, 0, &nproc);
     if (nproc > onproc)
 	pref = (struct kinfo_proc **) realloc(pref, sizeof(struct kinfo_proc *)
@@ -485,7 +485,7 @@ get_process_info(si, sel, compare)
 #ifdef SDEAD
 		PP(pp, p_stat) != SDEAD &&
 #endif
-		(show_idle || (PP(pp, p_pctcpu) != 0) || 
+		(show_idle || (PP(pp, p_pctcpu) != 0) ||
 		 (PP(pp, p_stat) == SRUN)) &&
 		(!show_uid || EP(pp, e_pcred.p_ruid) == (uid_t)sel->uid))
 	    {
@@ -498,7 +498,7 @@ get_process_info(si, sel, compare)
     /* if requested, sort the "interesting" processes */
     if (compare != NULL)
     {
-	qsort((char *)pref, active_procs, sizeof(struct kinfo_proc *), 
+	qsort((char *)pref, active_procs, sizeof(struct kinfo_proc *),
 	    (int (*) __P((const void *, const void *)))compare);
     }
 
@@ -528,7 +528,7 @@ format_next_process(handle, get_userid)
     hp = (struct handle *)handle;
     pp = *(hp->next_proc++);
     hp->remaining--;
-    
+
 
     /* get the process's user struct and set cputime */
     if ((PP(pp, p_flag) & P_INMEM) == 0) {
@@ -620,7 +620,7 @@ check_nlist(nlst)
  *	    if "refstr" starts with a '!', then a failure on read will not
  *  	    be fatal (this may seem like a silly way to do things, but I
  *  	    really didn't want the overhead of another argument).
- *  	
+ *
  */
 
 static int
@@ -645,7 +645,7 @@ getkval(offset, ptr, size, refstr)
     }
     return(1);
 }
-    
+
 /* comparison routines for qsort */
 
 /*
@@ -885,7 +885,7 @@ proc_owner(pid)
     cnt = pref_len;
     while (--cnt >= 0)
     {
-	pp = *prefp++;	
+	pp = *prefp++;
 	if (PP(pp, p_pid) == (pid_t)pid)
 	{
 	    return((int)EP(pp, e_pcred.p_ruid));

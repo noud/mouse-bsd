@@ -232,7 +232,7 @@ do { \
 #define UVMHIST_FUNC(FNAME) \
 	static int _uvmhist_cnt = 0; \
 	static char *_uvmhist_name = FNAME; \
-	int _uvmhist_call; 
+	int _uvmhist_call;
 
 static __inline void uvmhist_print __P((struct uvm_history_ent *));
 

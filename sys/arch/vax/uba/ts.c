@@ -216,7 +216,7 @@ extern struct cfdriver ts_cd;
 #define ST_IDLE		6
 #define ST_BUSY		7
 
-/* Bits in minor device */ 
+/* Bits in minor device */
 #define TS_UNIT(dev)	(minor(dev)&03)
 #define TS_HIDENSITY	010
 
@@ -226,7 +226,7 @@ extern struct cfdriver ts_cd;
 /*
  * Since we don't have credits and thus only one operation per time,
  * we don't have and don't need queues like MSCP/TMSCP use them.
- * Per controller we only need one internal buffer for ioctls and 
+ * Per controller we only need one internal buffer for ioctls and
  * two pointers to buffers to simulate similiar behaviour ...
  */
 struct buf	 ts_cbuf[NTS];		/* internal cmd buffer (for ioctls) */
@@ -239,14 +239,14 @@ struct buf	*ts_wtab[NTS];		/* dummy I/O wait queue */
  * Initialize a TS device. Set up UBA mapping registers,
  * initialize data structures, what else ???
  */
-int 
+int
 tsinit (sc)
 	struct ts_softc *sc;
 {
 	volatile struct tsdevice *tsregs;
 	int unit = sc->sc_dev.dv_unit;
 	struct uba_unit *uu;
-	
+
 	uu = &sc->sc_unit;
 	tsregs = (struct tsdevice *)ts[unit].reg;
 	if (sc->sc_mapped == 0) {
@@ -264,7 +264,7 @@ tsinit (sc)
 	/*
 	 * bertram: start hardware initialization ??????
 	 */
-	
+
 	/* tsreset(unit); */
 
 	return (1);
@@ -276,7 +276,7 @@ tsinit (sc)
  * other words in command-buffer are unchanged and must thus be initialized
  * before calling this function.
  */
-int 
+int
 tsexec (ctlr, cmd)
 	int ctlr;
 	int cmd;
@@ -314,12 +314,12 @@ tsexec (ctlr, cmd)
 
 	sr = tsreg->tssr;
 	if ((sr & TS_SSR) == 0) {	/* subsystem NOT ready */
-		printf ("%s%d: subsystem not ready [%x]\n", 
+		printf ("%s%d: subsystem not ready [%x]\n",
 		    sc->sc_dev.dv_xname, sr);
 		return (-1);
 	}
 	dbx = ((char*)tsreg) + 3;	/* dbx is located at the fourth byte */
-	*dbx = (tscmdma >> 18) & 0x0F;	/* load bits 18-21 into dbx */ 
+	*dbx = (tscmdma >> 18) & 0x0F;	/* load bits 18-21 into dbx */
 
 	/* possible race-condition with ATTN !!! */
 
@@ -352,7 +352,7 @@ tsexec (ctlr, cmd)
 	return (0);	 /* completed successfully */
 }
 
-/*  
+/*
  * Execute a (ioctl) command on the tape drive a specified number of times.
  * This routine sets up a buffer and calls the strategy routine which
  * issues the command to the controller.
@@ -364,7 +364,7 @@ tscommand (dev, cmd, count)
 	int count;
 {
 	register struct buf *bp;
-	register int s;	 
+	register int s;
 
 	trace (("tscommand (%d, %x, %d)\n", TS_UNIT(dev), cmd, count));
 
@@ -514,7 +514,7 @@ tsstart (sc, bp)
 			tscmdp->cw1 = bp->b_bcount;
 			break;
 		case MTBSF:
-			cmd = TS_CMD_STMR; 
+			cmd = TS_CMD_STMR;
 			tscmdp->cw1 = bp->b_bcount;
 			break;
 		case MTFSR:
@@ -545,7 +545,7 @@ tsstart (sc, bp)
 			/* Need a no-op. get status */
 			cmd = TS_CMD_STAT;
 		} /* end switch (bp->b_resid) */
-	} else {	/* Its a read/write command (not an ioctl) */ 
+	} else {	/* Its a read/write command (not an ioctl) */
 		tscmdp->cw1 = UBAI_ADDR(i) & 0xffff;
 		tscmdp->cw2 = (UBAI_ADDR(i) >> 16) & 0x3f;
 		tscmdp->cw3 = bp->b_bcount;
@@ -581,9 +581,9 @@ do_cmd:
 /*
  * initialize the controller by sending WRITE CHARACTERISTICS command.
  * contents of command- and message-buffer are assembled during this
- * function. 
+ * function.
  */
-int 
+int
 tswchar (ctlr)
 	int ctlr;
 {
@@ -664,7 +664,7 @@ tswchar (ctlr)
  *
  */
 void
-tsreset(ctlr) 
+tsreset(ctlr)
 	int ctlr;
 {
 	struct ts_softc *sc = ts_cd.cd_devs[ctlr];
@@ -674,7 +674,7 @@ tsreset(ctlr)
 	/*
 	 * reset ctlr by writing into TSSR, then write characteristics
 	 */
-	timeout = 1000;		/* timeout in 10 seconds */	
+	timeout = 1000;		/* timeout in 10 seconds */
 	tsreg->tssr = 0;			/* start initialization */
 	do {
 		DELAY(10000);
@@ -719,13 +719,13 @@ tsmatch(parent, match, aux)
 	 * Set host-settable interrupt vector.
 	 * Assign 0 to the TSSR register to start the ts-device initialization.
 	 * The device is not really initialized at this point, this is just to
-	 * find out if the device exists. 
+	 * find out if the device exists.
 	 */
 	sc->sc_ivec = (uh->uh_lastiv -= 4);
 
 	count = 0;
 again:
-	timeout = 1000;		/* timeout in 10 seconds */	
+	timeout = 1000;		/* timeout in 10 seconds */
 	tsregs->tssr = 0;			/* start initialization */
 	do {
 		DELAY(10000);
@@ -776,7 +776,7 @@ tsattach(parent, self, aux)
 	struct tsmsg *tsmsgp = &ts[ctlr].msg;
 
 	trace (("tsslave (%x, %x)\n", ui, reg));
-	
+
 	/*
 	 * write the characteristics (again)
 	 * This will raise an interrupt during ST_SLAVE which indicates
@@ -844,7 +844,7 @@ tsintr(ctlr)
 	/*
 	 * There are two different things which can (and should) be checked:
 	 * the actual (internal) state and the device's result (tssr/msg.hdr)
-	 * 
+	 *
 	 * For each state there's only one "normal" interrupt. Anything else
 	 * has to be checked more intensively. Thus in a first run according
 	 * to the internal state the expected interrupt is checked/handled.
@@ -858,7 +858,7 @@ tsintr(ctlr)
 		/*
 		 * Ignore unsolicited interrupts.
 		 */
-		log (LOG_WARNING, "%s: stray intr [%x,%x]\n", 
+		log (LOG_WARNING, "%s: stray intr [%x,%x]\n",
 			sc->sc_dev.dv_xname, sr, mh);
 		return;
 
@@ -894,7 +894,7 @@ tsintr(ctlr)
 
 
 	default:
-		printf ("%s: unexpected interrupt during state %d [%x,%x]\n", 
+		printf ("%s: unexpected interrupt during state %d [%x,%x]\n",
 			sc->sc_dev.dv_xname, sc->sc_state, sr, mh);
 		return;
 	}
@@ -947,7 +947,7 @@ tsintr(ctlr)
 		return;
 
 	case TS_TC_TSA:
-		/* 
+		/*
 		 * Tape Status Alert -- A status condition is encountered
 		 * that may have significance to the program. Bits of
 		 * interest in the extended status registers include
@@ -963,13 +963,13 @@ tsintr(ctlr)
 		}
 		break;
 
-	case TS_TC_FR: 
+	case TS_TC_FR:
 		/*
 		 * Function Reject -- The specified function was not
 		 * initiated. Bits of interest include OFL, VCK, BOT,
 		 * WLE, ILC and ILA.
 		 */
-		debug (("Function reject\n")); 
+		debug (("Function reject\n"));
 		tsxstatus (tsmsgp);
 		if (sr & TS_OFL) {
 			printf ("tape is off-line.\n");
@@ -995,7 +995,7 @@ tsintr(ctlr)
 		 * Suggested recovery procedure is to log the error and
 		 * issue the appropriate retry command.
 		 */
-		debug (("Tape position down\n")); 
+		debug (("Tape position down\n"));
 		switch (cmask) {
 		case TS_CMD_RNF:	/* Read Next (forward) */
 			debug (("retry read forward ...\n"));
@@ -1009,7 +1009,7 @@ tsintr(ctlr)
 			return;
 		case TS_CMD_WD:		/* Write Data (Next) */
 			debug (("retry write data ...\n"));
-			sc->sc_rtc = 1;		
+			sc->sc_rtc = 1;
 			tsexec (ctlr, TS_CMD_WDR);
 			return;
 		case TS_CMD_WTM:
@@ -1028,11 +1028,11 @@ tsintr(ctlr)
 		 * Suggested recovery procedure is to log the error and
 		 * reissue the original command.
 		 */
-		printf ("Tape not moved\n"); 
+		printf ("Tape not moved\n");
 		if (sc->sc_rtc < 3) {
 			sc->sc_rtc++;
 			/* bertram: log the error !!! */
-			printf ("retrying command %x (%d)\n", 
+			printf ("retrying command %x (%d)\n",
 				tscmdp->cmdr, sc->sc_rtc);
 			tsexec (ctlr, tscmdp->cmdr);
 			return;
@@ -1045,21 +1045,21 @@ tsintr(ctlr)
 		 * No valid recovery procedures exist unless the tape
 		 * has labels or sequence numbers.
 		 */
-		printf ("Tape position lost\n"); 
+		printf ("Tape position lost\n");
 		break;
 
 	case TS_TC_FCE:
 		/*
 		 * Fatal subsytem Error -- The subsytem is incapable
 		 * of properly performing commands, or at least its
-		 * integrity is seriously questionable. Refer to the 
+		 * integrity is seriously questionable. Refer to the
 		 * fatal class code field in the TSSR register for
 		 * additional information on the type of fatal error.
 		 */
-		printf ("Fatal Controller Error\n"); 
+		printf ("Fatal Controller Error\n");
 
 	default:
-		printf ("%s: error 0x%x, resetting controller\n", 
+		printf ("%s: error 0x%x, resetting controller\n",
 			sc->sc_dev.dv_xname, sr & TS_TC);
 		tsreset (ctlr);
 	}
@@ -1107,7 +1107,7 @@ tsopen (dev, flag, type, p)
 	int s;
 
 	trace (("tsopen (%x, %x)\n", dev, flag));
-	
+
 	if (unit >= ts_cd.cd_ndevs)
 		return ENXIO;
 
@@ -1165,7 +1165,7 @@ tsclose (dev, flag, type, p)
 	register struct ts_softc *sc = ts_cd.cd_devs[TS_UNIT(dev)];
 
 	if (flag == FWRITE || ((flag & FWRITE) && sc->sc_liowf)) {
-		/* 
+		/*
 		 * We are writing two tape marks (EOT), but place the tape
 		 * before the second one, so that another write operation
 		 * will overwrite the second one and leave and EOF-mark.
@@ -1282,10 +1282,10 @@ tsioctl (dev, cmd, data, flag, p)
 				break;
 			}
 		} while (--callcount > 0);
-		if (bp->b_flags & B_ERROR) 
+		if (bp->b_flags & B_ERROR)
 			if ((error = bp->b_error) == 0)
 				return (EIO);
-		return (error);		
+		return (error);
 
 	case MTIOCGET:			/* get tape status */
 		sc = ts_cd.cd_devs[TS_UNIT(dev)];
@@ -1299,7 +1299,7 @@ tsioctl (dev, cmd, data, flag, p)
 
 	case MTIOCIEOT:			/* ignore EOT error */
 		debug (("MTIOCIEOT not implemented.\n"));
-		return (ENXIO); 
+		return (ENXIO);
 
 	case MTIOCEEOT:			/* enable EOT error */
 		debug (("MTIOCEEOT not implemented.\n"));
@@ -1315,7 +1315,7 @@ tsioctl (dev, cmd, data, flag, p)
 
 
 /*
- * 
+ *
  */
 int
 tsread (dev, uio)
@@ -1390,7 +1390,7 @@ tsstatus (sr)
 }
 
 void
-tsxstatus (mp) 
+tsxstatus (mp)
 	struct tsmsg *mp;
 {
 #ifdef DEBUG
@@ -1400,7 +1400,7 @@ tsxstatus (mp)
 	    TS_XST0_BITS, bits, sizeof(bits))));
 	debug (("xst1=%s, ", bitmask_snprintf(mp->xst1, TS_XST1_BITS,
 	    bits, sizeof(bits))));
-	debug (("xst2=%s, ", bitmask_snprintf(mp->xst2, TS_XST2_BITS, 
+	debug (("xst2=%s, ", bitmask_snprintf(mp->xst2, TS_XST2_BITS,
 	    bits, sizeof(bits))));
 	debug (("xst3=%s, ", bitmask_snprintf(mp->xst3, TS_XST3_BITS,
 	    bits, sizeof(bits))));
@@ -1437,7 +1437,7 @@ tsxstatus (mp)
 	if (mp->xst2 & TS_SF_WCF)	printf ("Write Clock Failure\n");
 	if (mp->xst2 & TS_SF_EFES)	printf ("extended features enabled\n");
 	if (mp->xst2 & TS_SF_BES)	printf ("Buffering enabled\n");
-	
+
 	printf ("micro-code revision level: %d\n", (mp->xst2 & TS_SF_MCRL)>>2);
 	printf ("unit number: %d\n", (mp->xst2 & TS_SF_UNIT));
 

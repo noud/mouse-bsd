@@ -31,20 +31,20 @@
 #ifndef _RF__RF_RAID5_ROTATEDSPARE_H_
 #define _RF__RF_RAID5_ROTATEDSPARE_H_
 
-int 
+int
 rf_ConfigureRAID5_RS(RF_ShutdownList_t ** listp, RF_Raid_t * raidPtr,
     RF_Config_t * cfgPtr);
 RF_ReconUnitCount_t rf_GetNumSpareRUsRAID5_RS(RF_Raid_t * raidPtr);
-void 
+void
 rf_MapSectorRAID5_RS(RF_Raid_t * raidPtr, RF_RaidAddr_t raidSector,
     RF_RowCol_t * row, RF_RowCol_t * col, RF_SectorNum_t * diskSector, int remap);
-void 
+void
 rf_MapParityRAID5_RS(RF_Raid_t * raidPtr, RF_RaidAddr_t raidSector,
     RF_RowCol_t * row, RF_RowCol_t * col, RF_SectorNum_t * diskSector, int remap);
-void 
+void
 rf_IdentifyStripeRAID5_RS(RF_Raid_t * raidPtr, RF_RaidAddr_t addr,
     RF_RowCol_t ** diskids, RF_RowCol_t * outRow);
-void 
+void
 rf_MapSIDToPSIDRAID5_RS(RF_RaidLayout_t * layoutPtr,
     RF_StripeNum_t stripeID, RF_StripeNum_t * psID,
     RF_ReconUnitNum_t * which_ru);

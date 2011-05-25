@@ -57,7 +57,7 @@ enum awi_state {
 
 #define AWI_SSID_LEN 33
 
-struct awi_bss_binding 
+struct awi_bss_binding
 {
 	u_int8_t	chanset; /* channel set to use */
 	u_int8_t	pattern; /* hop pattern to use */
@@ -74,14 +74,14 @@ struct awi_bss_binding
 #define NBND 4
 #define NTXD 4
 
-struct awi_txbd 
+struct awi_txbd
 {
 	u_int32_t	descr;	/* offset to descriptor */
 	u_int32_t	frame;	/* offset to frame */
-	u_int32_t	len;	/* frame length */	
+	u_int32_t	len;	/* frame length */
 };
 
-struct awi_softc 
+struct awi_softc
 {
 	struct device 		sc_dev;
 	struct am79c930_softc 	sc_chip;
@@ -97,7 +97,7 @@ struct awi_softc
 	    u_int8_t));
 
 	struct ifqueue		sc_mgtq;
-	
+
 	u_int32_t		sc_txbase;
 	u_int32_t		sc_txlen;
 	u_int32_t		sc_rxbase;
@@ -113,14 +113,14 @@ struct awi_softc
 	int			sc_nbindings;
 
 	u_int8_t		sc_my_addr[6];
-	
+
 	int			sc_new_bss;
 	struct awi_bss_binding	sc_active_bss;
 	/*
 	 * BSS's found during a scan.. XXX doesn't need to be in-line
 	 */
 	struct awi_bss_binding	sc_bindings[NBND];
-	
+
 	int			sc_txpending;
 	int			sc_ntxd;
 	int			sc_txnext; /* next txd to be given to driver */
@@ -175,7 +175,7 @@ extern int awi_detach __P((struct awi_softc *));
 #define AWI_FRAME_SIZE		1532
 
 /* refresh associations every 300s */
-  
+
 #define AWI_ASSOC_REFRESH	300
 
 extern int awi_intr __P((void *));

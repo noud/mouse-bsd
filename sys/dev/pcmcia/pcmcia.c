@@ -345,7 +345,7 @@ pcmcia_product_lookup(pa, tab, ent_size, matchfn)
 
 #ifdef DIAGNOSTIC
 	if (sizeof *ent > ent_size)
-		panic("pcmcia_product_lookup: bogus ent_size %ld", 
+		panic("pcmcia_product_lookup: bogus ent_size %ld",
 		      (long) ent_size);
 #endif
 
@@ -369,7 +369,7 @@ pcmcia_product_lookup(pa, tab, ent_size, matchfn)
         return (NULL);
 }
 
-int 
+int
 pcmcia_card_gettype(dev)
 	struct device  *dev;
 {
@@ -542,7 +542,7 @@ pcmcia_function_enable(pf)
 			       pcmcia_ccr_read(tmp, 0x06),
 
 			       pcmcia_ccr_read(tmp, 0x0A),
-			       pcmcia_ccr_read(tmp, 0x0C), 
+			       pcmcia_ccr_read(tmp, 0x0C),
 			       pcmcia_ccr_read(tmp, 0x0E),
 			       pcmcia_ccr_read(tmp, 0x10),
 
@@ -898,7 +898,7 @@ pcmcia_intr_disestablish(pf, ih)
 	}
 }
 
-int 
+int
 pcmcia_card_intr(arg)
 	void *arg;
 {
@@ -928,7 +928,7 @@ pcmcia_card_intr(arg)
 }
 
 #ifdef PCMCIADEBUG
-int 
+int
 pcmcia_card_intrdebug(arg)
 	void *arg;
 {

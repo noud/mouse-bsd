@@ -72,7 +72,7 @@ int main (argc, argv, envp)
 
 #if !(defined (DEBUG) || defined (SYSLOG_4_2) || defined (__CYGWIN32__))
 	setlogmask (LOG_UPTO (LOG_INFO));
-#endif	
+#endif
 
 	if (argc < 2)
 		error ("usage: statmsg type [data]");

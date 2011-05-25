@@ -96,7 +96,7 @@ device	ppb: pcibus
 attach	ppb at pci
 file	dev/pci/ppb.c			ppb
 
-# Cyclades Cyclom-8/16/32 
+# Cyclades Cyclom-8/16/32
 attach	cy at pci with cy_pci
 file	dev/pci/cy_pci.c		cy_pci
 
@@ -248,7 +248,7 @@ file	dev/pci/if_ti.c			ti
 attach	sf at pci with sf_pci
 file	dev/pci/if_sf_pci.c		sf_pci
 
-# YENTA PCI-Cardbus bridge 
+# YENTA PCI-Cardbus bridge
 #device  cbb: cbbus, pcmciabus
 device  cbb: pcmciaslot
 attach	cbb at pci with cbb_pci

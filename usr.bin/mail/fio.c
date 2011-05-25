@@ -242,7 +242,7 @@ makemessage(f, omsgCount)
 		if (message == 0)
 			errx(1, "Insufficient memory for %d messages\n",
 			      msgCount);
-	} else {        
+	} else {
 		if (message != 0)
 			free((char *) message);
 		if ((message = (struct message *) malloc((unsigned) size)) == 0)

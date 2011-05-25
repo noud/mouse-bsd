@@ -131,7 +131,7 @@ _C_LABEL(shark_fiq):
 	ldr	r11, [r12]
 	add	r11, r11, #1
 	str	r11, [r12]
-	
+
 	cmp	r9, #0
 	subeqs	pc, lr, #4             /* no routine => return from trap */
 

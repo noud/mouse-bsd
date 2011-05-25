@@ -213,7 +213,7 @@ sb_print (outfile, ptr)
     }
 }
 
-void 
+void
 sb_print_at (outfile, idx, ptr)
      FILE *outfile;
      int idx;

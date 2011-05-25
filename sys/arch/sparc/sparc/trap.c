@@ -558,7 +558,7 @@ badtrap:
 		break;
 
 	case T_ALIGN:
-		if ((p->p_md.md_flags & MDP_FIXALIGN) != 0 && 
+		if ((p->p_md.md_flags & MDP_FIXALIGN) != 0 &&
 		    fixalign(p, tf) == 0) {
 			ADVANCE;
 			break;

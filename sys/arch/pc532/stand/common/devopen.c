@@ -3,7 +3,7 @@
 /*-
  *  Copyright (c) 1993 John Brezak
  *  All rights reserved.
- * 
+ *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
  *  are met:
@@ -14,7 +14,7 @@
  *     documentation and/or other materials provided with the distribution.
  *  3. The name of the author may not be used to endorse or promote products
  *     derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR `AS IS'' AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -43,7 +43,7 @@ static int	devparse __P((const char *, int *,
 				int *, int *, int *, int *, char **));
 
 u_int opendev;
-	
+
 #define ispart(c)	((c) >= 'a' && (c) <= 'h')
 
 static int
@@ -72,7 +72,7 @@ devlookup(d, len)
 {
 	struct devsw *dp = devsw;
 	int i;
-    
+
 	for (i = 0; i < ndevs; i++, dp++)
 		if (dp->dv_name && strncmp(dp->dv_name, d, len) == 0)
 			return(i);
@@ -177,13 +177,13 @@ devparse(fname, dev, adapt, ctlr, unit, part, file)
 
 	/* return the remaining unparsed part as the file to boot */
 	return(0);
-    
+
 bad:
 	usage();
 
 baddev:
 	return(-1);
-}    
+}
 
 int
 devopen(f, fname, file)
@@ -209,7 +209,7 @@ devopen(f, fname, file)
 		return(ENODEV);
 
 	f->f_dev = dp;
-    
+
 	if ((error = (*dp->dv_open)(f, ctlr, unit, part)) == 0) {
 		opendev = MAKEBOOTDEV(dev, adapt, ctlr, unit, part);
 		return(0);
@@ -219,4 +219,4 @@ devopen(f, fname, file)
 		adapt, ctlr, unit, part, strerror(error));
 
 	return(error);
-}    
+}

@@ -70,7 +70,7 @@ _C_LABEL(splx):
 	jnz	_C_LABEL(Xspllower)
 	ret
 #endif /* PROF || GPROF */
-	
+
 /*
  * Process pending interrupts.
  *

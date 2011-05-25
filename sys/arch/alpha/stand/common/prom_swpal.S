@@ -5,17 +5,17 @@
  * All rights reserved.
  *
  * Author: Keith Bostic
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -31,16 +31,16 @@
 #include "../../include/prom.h"
 #include "../../include/rpb.h"
 
-/* Offsets from base of HWRPB. */	
-#define	RPB_SELFREF	0x00	
+/* Offsets from base of HWRPB. */
+#define	RPB_SELFREF	0x00
 #define	RPB_SLOTSIZE 	0x98
 #define	RPB_PERCPU_OFF	0xA0
 
 /* Offsets in a boot PCB. */
-#define	PCB_KSP		0x00	
+#define	PCB_KSP		0x00
 #define	PCB_PTBR	0x10
 #define	PCB_ASN		0x1c
-#define	PCB_FEN		0x28			
+#define	PCB_FEN		0x28
 
 /* Pal values. */
 #define PAL_RESERVED	0		/* Reserved to Digital. */
@@ -80,7 +80,7 @@ NESTED(switch_palcode, 0, PALSW_FRAME_SIZE, ra, PALSW_REGS, 0)
 
 	stq	pv, 0(sp)
 	stq	gp, 8(sp)
-	
+
 	ldiq 	s0, HWRPB_ADDR		/* s0 HWRPB_ADDR */
 	ldq 	s1, RPB_SLOTSIZE(s0)
 	call_pal PAL_VMS_mfpr_whami
@@ -88,14 +88,14 @@ NESTED(switch_palcode, 0, PALSW_FRAME_SIZE, ra, PALSW_REGS, 0)
 	ldq 	s2, RPB_PERCPU_OFF(s0)
 	addq 	s0, s2, s2
 	addq	s2, s1, s2		/* s2  PCB (virtual) */
-	
+
 	call_pal PAL_VMS_mfpr_ptbr
 	stq 	v0,   PCB_PTBR(s2)
 	stq	v0,   ptbr_save		/* save PTBR for the kernel */
 	stl 	zero, PCB_ASN(s2)
 	stq	zero, PCB_FEN(s2)
 	stq	sp,   PCB_KSP(s2)
-	
+
 	ldq	t0, RPB_SELFREF(s0)	/* HWRBP base (physical) */
 	ldq 	t1, RPB_PERCPU_OFF(s0)
 	addq 	t0, t1, t0

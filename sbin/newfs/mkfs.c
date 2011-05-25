@@ -379,7 +379,7 @@ mkfs(pp, fsys, fi, fo)
 			    fsize, sblock.fs_fsize);
 		exit(23);
 	}
-	/* 
+	/*
 	 * Calculate the number of cylinders per group
 	 */
 	sblock.fs_cpg = cpg;
@@ -637,7 +637,7 @@ next:
 	if (needswap)
 		ffs_sb_swap(&sblock, (struct fs*)writebuf, 1);
 	wtfs((int)SBOFF / sectorsize, sbsize, writebuf);
-	/* 
+	/*
 	 * Write out the duplicate super blocks
 	 */
 	for (cylno = 0; cylno < sblock.fs_ncg; cylno++)
@@ -713,7 +713,7 @@ initcg(cylno, utime)
 		acg.cg_nclusterblks = acg.cg_ndblk / sblock.fs_frag;
 	acg.cg_btotoff = &acg.cg_space[0] - (u_char *)(&acg.cg_firstfield);
 	acg.cg_boff = acg.cg_btotoff + sblock.fs_cpg * sizeof(int32_t);
-	acg.cg_iusedoff = acg.cg_boff + 
+	acg.cg_iusedoff = acg.cg_boff +
 		sblock.fs_cpg * sblock.fs_nrpos * sizeof(int16_t);
 	acg.cg_freeoff = acg.cg_iusedoff + howmany(sblock.fs_ipg, NBBY);
 	if (sblock.fs_contigsumsize <= 0) {
@@ -1097,7 +1097,7 @@ iput(ip, ino)
 		ffs_dinode_swap(ip, &buf[ino_to_fsbo(&sblock, ino)]);
 		/* ffs_dinode_swap() doesn't swap blocks addrs */
 		for (i=0; i<NDADDR + NIADDR; i++)
-			(&buf[ino_to_fsbo(&sblock, ino)])->di_db[i] = 
+			(&buf[ino_to_fsbo(&sblock, ino)])->di_db[i] =
 				bswap32(ip->di_db[i]);
 	} else
 		buf[ino_to_fsbo(&sblock, ino)] = *ip;
@@ -1175,7 +1175,7 @@ void
 free(ptr)
 	void *ptr;
 {
-	
+
 	/* do not worry about it for now */
 }
 
@@ -1392,7 +1392,7 @@ swap_cg(o, n)
 	}
 	for (i=0; i < btotsize / sizeof(u_int32_t); i++)
 		n32[i] = bswap32(o32[i]);
-	
+
 	for (i=0; i < fbsize/sizeof(u_int16_t); i++)
 		n16[i] = bswap16(o16[i]);
 

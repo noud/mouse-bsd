@@ -58,13 +58,13 @@ noperl(scrp)
 }
 #endif
 
-/* 
+/*
  * ex_perl -- :[line [,line]] perl [command]
  *	Run a command through the perl interpreter.
  *
  * PUBLIC: int ex_perl __P((SCR*, EXCMD *));
  */
-int 
+int
 ex_perl(scrp, cmdp)
 	SCR *scrp;
 	EXCMD *cmdp;
@@ -110,13 +110,13 @@ ex_perl(scrp, cmdp)
 #endif /* HAVE_PERL_INTERP */
 }
 
-/* 
+/*
  * ex_perldo -- :[line [,line]] perl [command]
  *	Run a set of lines through the perl interpreter.
  *
  * PUBLIC: int ex_perldo __P((SCR*, EXCMD *));
  */
-int 
+int
 ex_perldo(scrp, cmdp)
 	SCR *scrp;
 	EXCMD *cmdp;

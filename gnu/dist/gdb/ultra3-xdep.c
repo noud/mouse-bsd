@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include <sys/param.h>
 #include <signal.h>
 #include <sys/ioctl.h>
-#include <fcntl.h>  
+#include <fcntl.h>
 
 #include "gdbcore.h"
 
@@ -52,14 +52,14 @@ int fd, cmd, arg;
 
   switch (cmd) {
 	case F_GETFL: return(O_RDONLY);	break;
-	default:	
+	default:
 		printf_unfiltered("Ultra3's fcntl() failing, cmd = %d.\n",cmd);
 		return(-1);
   }
 }
 
 
-/* 
+/*
  * 4.2 Signal support, requires linking with libjobs.
  */
 static int	_SigMask;
@@ -85,7 +85,7 @@ unsigned int sigmask;
 	int lastmask = _SigMask;
 
 	for (i=0 ; i<NSIG ; i++) {
-		if (sigmask & mask) { 
+		if (sigmask & mask) {
 			if (!(_SigMask & mask)) {
 				sighold(i+1);
 				_SigMask |= mask;

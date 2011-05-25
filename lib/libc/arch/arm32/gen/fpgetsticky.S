@@ -45,5 +45,5 @@ ENTRY(fpgetsticky)
 #else
 	rfs	r0
 	and	r0, r0, #0x1f
-	mov	r15, r14		/* return */ 
+	mov	r15, r14		/* return */
 #endif	/* SOFTFLOAT */

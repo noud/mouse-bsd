@@ -2,7 +2,7 @@
 
 /*
  * mexit - Used to exit the XNTPD daemon
- * 
+ *
  */
 
 #ifdef SYS_WINNT
@@ -21,7 +21,7 @@ int status;
 		ExitThread((DWORD)status);
 	else {
 		/* service mode, need to have the service_main routine
-	 	 * register with the service control manager that the 
+	 	 * register with the service control manager that the
 		 * service has stopped running, before exiting
 		 */
 		 if ((status > 0) && (hServDoneEvent != NULL))

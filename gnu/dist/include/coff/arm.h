@@ -64,7 +64,7 @@ struct external_filehdr {
  * XXX - NC 5/6/97
  */
 
-#define	ARMMAGIC	0xa00  /* I just made this up */ 
+#define	ARMMAGIC	0xa00  /* I just made this up */
 
 #define ARMBADMAG(x) (((x).f_magic != ARMMAGIC))
 
@@ -75,7 +75,7 @@ struct external_filehdr {
 /********************** AOUT "OPTIONAL HEADER" **********************/
 
 
-typedef struct 
+typedef struct
 {
   char 	magic[2];		/* type of file				*/
   char	vstamp[2];		/* version stamp			*/
@@ -103,7 +103,7 @@ AOUTHDR;
 /* define some NT default values */
 /*  #define NT_IMAGE_BASE        0x400000 moved to internal.h */
 #define NT_SECTION_ALIGNMENT 0x1000
-#define NT_FILE_ALIGNMENT    0x200  
+#define NT_FILE_ALIGNMENT    0x200
 #define NT_DEF_RESERVE       0x100000
 #define NT_DEF_COMMIT        0x1000
 
@@ -164,7 +164,7 @@ struct external_lineno {
 #define E_FILNMLEN	14	/* # characters in a file name		*/
 #define E_DIMNUM	4	/* # array dimensions in auxiliary entry */
 
-struct external_syment 
+struct external_syment
 {
   union {
     char e_name[E_SYMNMLEN];
@@ -234,7 +234,7 @@ union external_auxent {
 };
 
 #define	SYMENT	struct external_syment
-#define	SYMESZ	18	
+#define	SYMESZ	18
 #define	AUXENT	union external_auxent
 #define	AUXESZ	18
 

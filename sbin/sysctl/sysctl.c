@@ -371,7 +371,7 @@ parse(string, flags)
 			getloadavg(loads, 3);
 			if (!nflag)
 				fprintf(stdout, "%s: ", string);
-			fprintf(stdout, "%.2f %.2f %.2f\n", 
+			fprintf(stdout, "%.2f %.2f %.2f\n",
 			    loads[0], loads[1], loads[2]);
 			return;
 		}
@@ -467,7 +467,7 @@ parse(string, flags)
 	default:
 		warnx("Illegal top level value: %d", mib[0]);
 		return;
-	
+
 	}
 	if (bufp) {
 		warnx("Name %s in %s is unknown", bufp, string);
@@ -552,7 +552,7 @@ parse(string, flags)
 		/* Don't know a good way to deal with this i386 specific one */
 		return;
 	}
-		
+
 	switch (type) {
 	case CTLTYPE_INT:
 		if (newsize == 0) {
@@ -1113,7 +1113,7 @@ usage()
 	extern char *__progname;
 
 	(void)fprintf(stderr, "Usage:\t%s %s\n\t%s %s\n\t%s %s\n\t%s %s\n",
-	    __progname, "[-n] variable ...", 
+	    __progname, "[-n] variable ...",
 	    __progname, "[-n] -w variable=value ...",
 	    __progname, "[-n] -a",
 	    __progname, "[-n] -A");

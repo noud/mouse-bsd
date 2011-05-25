@@ -75,7 +75,7 @@
 #define	PCIIDE_COMPAT_IRQ(chan)		((chan) == 0 ? 14 : 15)
 
 /*
- * definitions for IDE DMA 
+ * definitions for IDE DMA
  * XXX maybe this should go elsewhere
  */
 

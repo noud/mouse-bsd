@@ -36,7 +36,7 @@ This man page documents GNU bc version 1.04.
 .SH DESCRIPTION
 \fBbc\fR is a language that supports arbitrary precision numbers
 with interactive execution of statements.  There are some similarities
-in the syntax to the C programming language. 
+in the syntax to the C programming language.
 A standard math library is available by command line option.
 If requested, the math library is defined before processing any files.
 \fBbc\fR starts by processing code from all the files listed
@@ -47,8 +47,8 @@ processor, \fBbc\fR will never read from the standard input.)
 .PP
 This version of \fBbc\fR contains several extensions beyond
 traditional \fBbc\fR implementations and the POSIX draft standard.
-Command line options can cause these extensions to print a warning 
-or to be rejected.  This 
+Command line options can cause these extensions to print a warning
+or to be rejected.  This
 document describes the language accepted by this processor.
 Extensions will be identified as such.
 .SS OPTIONS
@@ -286,7 +286,7 @@ cause problems with the mixing of data and program in the standard input.
 The best use for this function is in a previously written program that
 needs input from the user, but never allows program code to be input
 from the user.  The value of the read function is the number read from
-the standard input using the current value of the variable 
+the standard input using the current value of the variable
 \fBibase\fR for the conversion base.
 .IP "scale ( expression )"
 The value of the scale function is the number of digits after the decimal
@@ -335,7 +335,7 @@ last value printed without having to retype the expression that
 printed the number.  Assigning to \fBlast\fR is legal and will
 overwrite the last printed value with the assigned value.  The newly
 assigned value will remain until the next number is printed or another
-value is assigned to \fBlast\fR.  (Some installations may allow the 
+value is assigned to \fBlast\fR.  (Some installations may allow the
 use of a single period (.) which is not part of a number as a short
 hand notation for for \fBlast\fR.)
 .IP "string"
@@ -354,7 +354,7 @@ special characters.  Special characters start with the backslash
 character (\e).  The special characters recognized by \fBbc\fR are
 "a" (alert or bell), "b" (backspace), "f" (form feed), "n" (newline),
 "r" (carriage return), "q" (double quote), "t" (tab), and "\e" (backslash).
-Any other character following the backslash will be ignored.  
+Any other character following the backslash will be ignored.
 .IP "{ statement_list }"
 This is the compound statement.  It allows multiple statements to be
 grouped together for execution.
@@ -370,7 +370,7 @@ is non-zero.  It evaluates the expression before each execution of
 the statement.   Termination of the loop is caused by a zero
 expression value or the execution of a break statement.
 .IP "\fBfor\fR ( [expression1] ; [expression2] ; [expression3] ) statement"
-The for statement controls repeated execution of the statement.  
+The for statement controls repeated execution of the statement.
 Expression1 is evaluated before the loop.  Expression2 is evaluated
 before each execution of the statement.  If it is non-zero, the statement
 is evaluated.  If it is zero, the loop is terminated.  After each
@@ -404,7 +404,7 @@ not executed.
 .IP "\fBreturn\fR"
 Return the value 0 from a function.  (See the section on functions.)
 .IP "\fBreturn\fR ( expression )"
-Return the value of the expression from a function.  (See the section on 
+Return the value of the expression from a function.  (See the section on
 functions.)
 .SS PSEUDO STATEMENTS
 These statements are not statements in the traditional sense.  They are
@@ -420,7 +420,7 @@ example, "if (0 == 1) quit" will cause \fBbc\fR to terminate.
 Print a longer warranty notice.  This is an extension.
 .SS FUNCTIONS
 Functions provide a method of defining a computation that can be executed
-later.  Functions in 
+later.  Functions in
 .B bc
 always compute a value and return it to the caller.  Function definitions
 are "dynamic" in the sense that a function is undefined until a definition
@@ -469,7 +469,7 @@ The function body is a list of \fBbc\fR statements.  Again, statements
 are separated by semicolons or newlines.  Return statements cause the
 termination of a function and the return of a value.  There are two
 versions of the return statement.  The first form, "\fBreturn\fR", returns
-the value 0 to the calling expression.  The second form, 
+the value 0 to the calling expression.  The second form,
 "\fBreturn ( \fIexpression \fB)\fR", computes the value of the expression
 and returns that value to the calling expression.  There is an implied
 "\fBreturn (0)\fR" at the end of every function.  This allows a function
@@ -484,7 +484,7 @@ of \fBibase\fR for conversion of numbers.
 .SS MATH LIBRARY
 If \fBbc\fR is invoked with the \fB-l\fR option, a math library is preloaded
 and the default scale is set to 20.   The math functions will calculate their
-results to the scale set at the time of their call.  
+results to the scale set at the time of their call.
 The math library defines the following functions:
 .IP "s (\fIx\fR)"
 The sine of x, x is in radians.
@@ -526,7 +526,7 @@ define e(x) {
   if (x<0) {
     m = 1
     x = -x
-  } 
+  }
 
   /* Precondition x. */
   z = scale;
@@ -558,7 +558,7 @@ define e(x) {
 .PP
 The following is code that uses the extended features of \fBbc\fR to
 implement a simple program for calculating checkbook balances.  This
-program is best kept in a file so that it can be used many times 
+program is best kept in a file so that it can be used many times
 without having to retype it at every use.
 .nf
 .RS
@@ -608,7 +608,7 @@ the number of history lines to the number given.  The value of
 0 disables the history feature.  For more information, read the
 user manuals for the GNU \fBreadline\fR and \fBhistory\fR libraries.
 .SS DIFFERENCES
-This version of 
+This version of
 .B bc
 was implemented from the POSIX P1003.2/D11 draft and contains
 several differences and extensions relative to the draft and
@@ -623,7 +623,7 @@ debugging the parser and preparing the math library.
 .PP
 A major source of differences is
 extensions, where a feature is extended to add more functionality and
-additions, where new features are added. 
+additions, where new features are added.
 The following is the list of differences and extensions.
 .IP LANG\ environment
 This version does not conform to the POSIX standard in the processing
@@ -640,7 +640,7 @@ Strings are not allowed to contain NUL characters.  POSIX says all characters
 must be included in strings.
 .IP last
 POSIX \fBbc\fR does not have a \fBlast\fR variable.  Some implementations
-of \fBbc\fR use the period (.) in a similar way.  
+of \fBbc\fR use the period (.) in a similar way.
 .IP comparisons
 POSIX \fBbc\fR allows comparisons only in the if statement, the while
 statement, and the second expression of the for statement.  Also, only
@@ -684,7 +684,7 @@ function will not be callable and becomes undefined.
 Syntax errors in the interactive execution code will invalidate the
 current execution block.  The execution block is terminated by an
 end of line that appears after a complete sequence of statements.
-For example, 
+For example,
 .nf
 .RS
 a = 1
@@ -714,7 +714,7 @@ are removed during the
 clean up process.  During a non-interactive
 session, the SIGINT signal will terminate the entire run of \fBbc\fR.
 .SS LIMITS
-The following are the limits currently in place for this 
+The following are the limits currently in place for this
 .B bc
 processor.  Some of them may have been changed by an installation.
 Use the limits statement to see the actual values.

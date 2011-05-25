@@ -32,8 +32,8 @@
 #define	PLUM_INT_REGBASE		0x8000
 #define	PLUM_INT_REGSIZE		0x1000
 
-/* 
- *  Interrupt status register 
+/*
+ *  Interrupt status register
  */
 #define	PLUM_INT_INTSTA_REG		0x000
 #define PLUM_INT_INTSTA_EXTINT		0x00000080
@@ -45,14 +45,14 @@
 #define PLUM_INT_INTSTA_C1SCINT		0x00000002
 #define PLUM_INT_INTSTA_PCCINT		0x00000001
 
-/* 
- *  Interrupt enable register 
+/*
+ *  Interrupt enable register
  */
 #define	PLUM_INT_INTIEN_REG		0x010
 #define PLUM_INT_INTIEN			0x00000001
 
 /*
- *  External interrupts 
+ *  External interrupts
  */
 /* outside input interrupt status register */
 #define	PLUM_INT_EXTINTS_REG		0x100

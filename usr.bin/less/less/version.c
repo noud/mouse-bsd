@@ -10,19 +10,19 @@
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice in the documentation and/or other materials provided with 
+ *    notice in the documentation and/or other materials provided with
  *    the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
- * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN 
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -62,7 +62,7 @@ v22    5/24/85	Added support for no RECOMP nor REGCMP.
 v23    5/25/85	Miscellanous changes and prettying up.
 		Posted to USENET.
 -----------------------------------------------------------------
-v24    6/3/85	Added ti,te terminal init & de-init.       
+v24    6/3/85	Added ti,te terminal init & de-init.
 		(Thanks to Mike Kersenbrock)
 v25    6/8/85	Added -U flag, standout mode underlining.
 v26    6/9/85	Added -M flag.
@@ -72,7 +72,7 @@ v27    6/15/85	Renamed some variables to make unique in
 v28    6/28/85	Fixed right margin bug.
 v29    6/28/85	Incorporated M.Rose's changes to signal.c
 v30    6/29/85	Fixed stupid bug in argument processing.
-v31    7/15/85	Added -p flag, changed repaint algorithm.  
+v31    7/15/85	Added -p flag, changed repaint algorithm.
 		Added kludge for magic cookie terminals.
 v32    7/16/85	Added cat_file if output not a tty.
 v33    7/23/85	Added -e flag and EDITOR.
@@ -144,7 +144,7 @@ v73    6/26/87	Allow Examine "#" for previous file.
 -----------------------------------------------------------------
 v74    9/18/87	Fix conflict in EOF symbol with stdio.h,
 		Make os.c more portable to BSD.
-v75    9/23/87	Fix problems in get_term (thanks to 
+v75    9/23/87	Fix problems in get_term (thanks to
 		Paul Eggert); new backwards scrolling in
 		jump_loc (thanks to Marion Hakanson).
 v76    9/23/87	Added -i flag; allow single "!" to
@@ -199,17 +199,17 @@ v103   3/14/89	Add -N, -f and -? options.  Add z and w
 v104   3/16/89	Added EDITPROTO.
 v105   3/20/89	Fix bug in find_linenum which cached
 		incorrectly on long lines.
-v106   3/31/89	Added -k option and multiple lesskey      
+v106   3/31/89	Added -k option and multiple lesskey
 		files.
 v107   4/27/89	Add 8-bit char support and -g option.
 		Split option code into 3 files.
-v108   5/5/89	Allocate position table dynamically       
+v108   5/5/89	Allocate position table dynamically
 		(thanks to Paul Eggert); change % command
 		from "percent" to vi-style brace finder.
 v109   5/10/89	Added ESC-% command, split prim.c.
 v110   5/24/89	Fixed bug in + option; fixed repaint bug
 		under Sun windows (thanks to Paul Eggert).
-v111   5/25/89	Generalized # and % expansion; use 
+v111   5/25/89	Generalized # and % expansion; use
 		calloc for some error messages.
 v112   5/30/89	Get rid of ESC-%, add {}()[] commands.
 v113   5/31/89	Optimize lseeks (thanks to Paul Eggert).
@@ -259,7 +259,7 @@ v141   2/8/90	Add edit_list for editing >1 file.
 v142   2/10/90	Add :x command.
 v143   2/11/90	Add * and @ modifies to search cmds.
 		Change ESC-/ cmd from /@* to / *.
-v144   3/1/90	Messed around with ch_zero; 
+v144   3/1/90	Messed around with ch_zero;
 		no real change.
 v145   3/2/90	Added -R and -v/-V for MSDOS;
 		renamed FILENAME to avoid conflict.
@@ -271,7 +271,7 @@ v150   4/6/90	Add LESS_CHARSET, LESS_CHARDEF.
 v151   4/13/90	Remove -g option; clean up ispipe.
 v152   4/14/90	lsystem() closes input file, for
 		editors which require exclusive open.
-v153   4/18/90	Fix bug if SHELL unset; 
+v153   4/18/90	Fix bug if SHELL unset;
 		fix bug in overstrike control char.
 v154   4/25/90	Output to fd 2 via buffer.
 v155   4/30/90	Ignore -i if uppercase in pattern
@@ -338,7 +338,7 @@ v185   7/11/91	-Pxxx sets short prompt; assume SIGWINCH
 v186   4/20/92	Port to MS-DOS (Microsoft C).
 v187   4/23/92	Added -D option & TAB_COMPLETE_FILENAME.
 v188   4/28/92	Added command line editing features.
-v189   12/8/92	Fix mem overrun in anscreen.c:init; 
+v189   12/8/92	Fix mem overrun in anscreen.c:init;
 		fix edit_list to recover from bin file.
 v190   2/13/93	Make TAB enter one filename at a time;
 		create ^L with old TAB functionality.
@@ -360,7 +360,7 @@ v200   7/25/94	Clean up copyright, minor fixes.
 v201   7/27/94	Check for no memcpy; add casts to calloc;
 		look for regcmp in libgen.a.
 		(thanks to Kaveh Ghazi).
-v202   7/28/94	Fix bug in edit_next/edit_prev with 
+v202   7/28/94	Fix bug in edit_next/edit_prev with
 		non-existant files.
 v203   8/2/94	Fix a variety of configuration bugs on
 		various systems. (thanks to Sakai
@@ -380,7 +380,7 @@ v206   8/10/94	Use initial_scrpos for -t to avoid
 v207   8/12/94	Fix bug if stdout is not tty.
 v208   8/16/94	Fix bug in close_altfile if goto err1
 		in edit_ifile. (Thanks to M.J. Hewitt)
-v209   8/16/94	Change scroll to wscroll to avoid 
+v209   8/16/94	Change scroll to wscroll to avoid
 		conflict with library function.
 v210   8/16/94	Fix bug with bold on 8 bit chars.
 		(thanks to Vitor Duarte)
@@ -403,7 +403,7 @@ v223   8/27/94	Support setlocale.
 v224   8/29/94	Revert v216: process BS in search
 		only if -u.
 v225   9/6/94	Rewrite undo_search again: toggle.
-v226   9/15/94	Configuration fixes. 
+v226   9/15/94	Configuration fixes.
 		(thanks to David MacKenzie)
 v227   9/19/94	Fixed strerror config problem.
 		Posted to prep.ai.mit.edu
@@ -416,7 +416,7 @@ v230   9/21/94	Don't print extra error msg in search
 		after regerror().
 v231   9/22/94	Fix hilite bug if search matches 0 chars.
 		(thanks to John Polstra)
-v232   9/23/94	Deal with weird systems that have 
+v232   9/23/94	Deal with weird systems that have
 		termios.h but not tcgetattr().
 		Posted to prep.ai.mit.edu
 -----------------------------------------------------------------
@@ -425,7 +425,7 @@ v233   9/26/94	Use get_term() instead of pos_init() in
 		(Thanks to John Malecki)
 v234   9/26/94	Make MIDDLE closer to middle of screen.
 v235   9/27/94	Use local strchr if system doesn't have.
-v236   9/28/94	Don't use libucb; use libterm if 
+v236   9/28/94	Don't use libucb; use libterm if
 		libtermcap & libcurses doesn't work.
 		(Fix for Solaris; thanks to Frank Kaefer)
 v237   9/30/94	Use system isupper() etc if provided.
@@ -451,7 +451,7 @@ v249   11/5/94	Remove -f flag from lesskey; default
 v250   11/7/94	Lesskey input file "-" means stdin.
 v251   11/9/94	Convert cfgetospeed result to ospeed.
 		(Thanks to Andrew Chernov)
-v252   11/16/94	Change default lesskey input file from 
+v252   11/16/94	Change default lesskey input file from
 		.lesskey.in to .lesskey.
 		Posted to prep.ai.mit.edu
 -----------------------------------------------------------------
@@ -486,7 +486,7 @@ v273   1/6/95	Fix ch_ungetchar bug; don't call
 v274   1/6/95	Ported to OS/2 (thanks to Kai Uwe Rommel)
 v275   1/18/95	Fix bug if toggle -G at EOF.
 v276   1/30/95	Fix OS/2 version.
-v277   1/31/95	Add "next" charset; don't display ^X 
+v277   1/31/95	Add "next" charset; don't display ^X
 		for X > 128.
 v278   2/14/95	Change default for -G.
 		Posted to prep.ai.mit.edu
@@ -500,7 +500,7 @@ v282   3/2/95	Minor fixes.
 v283   3/2/95	Fix homefile; make OS2 look in $HOME.
 v284   3/2/95	Error if "v" on LESSOPENed file;
 		"%" figures out file size on pipe.
-v285   3/7/95	Don't set # in lsystem; 
+v285   3/7/95	Don't set # in lsystem;
 		lesskey try $HOME first.
 v286   3/7/95	Reformat change history (too much free time?).
 v287   3/8/95	Fix hilite bug if overstrike multiple chars.
@@ -520,9 +520,9 @@ v293   4/28/95	Add auto-versioning stuff to make dist.
 v294   5/12/95	Fix Borland build.
 v295   1/20/96	Fix search on squished file; add /@@.
 v296   1/23/96	Allow cmdbuf larger than screen width.
-v297   1/24/96	Don't call termcap if tgetent fails; 
+v297   1/24/96	Don't call termcap if tgetent fails;
 		add #defines for buffers.
-v298   1/24/96	Change @@ to ^K.  
+v298   1/24/96	Change @@ to ^K.
 		Add alternate search modifiers ^N, ^F, ^E.
 v299   1/25/96	Fix percent overflow in jump_percent (thanks to Brent Wiese);
 		don't send "ti" after shell command till RETURN pressed.
@@ -545,14 +545,14 @@ v315   4/26/96	Fix "!;TAB" bug.
 v316   5/2/96	Make "|a" when (a < curr screen) go to end of curr screen.
 v317   5/14/96	Various fixes for the MS-DOS and OS/2 builds.
 		Added ## and %% handling for filenames
-v318   5/29/96	Port to OS-9 Microware compiler; minor fixes 
+v318   5/29/96	Port to OS-9 Microware compiler; minor fixes
 		(thanks to Martin Gregorie).
 v319   7/8/96	Fix Windows port (thanks to Jeff Paquette).
 v320   7/11/96	Final fixes for Windows port.
 v321   7/18/96	Minor fixes.
 		Posted to Web page.
 -----------------------------------------------------------------
-v322   8/13/96	Fix bug in shell escape from help file; add support for 
+v322   8/13/96	Fix bug in shell escape from help file; add support for
 		Microsoft Visual C under Windows; numerous small fixes.
 v323   8/19/96	Fixes for Windows version (thanks to Simon Munton);
 		fix for Linux library weirdness (thanks to Jim Diamond);

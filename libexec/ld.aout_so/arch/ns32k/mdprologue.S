@@ -78,7 +78,7 @@ ENTRY_NOPROFILE(binder_entry)
 /* Force cache line corresponding to address argument to be loaded */
 
 	.text
-	/* 
+	/*
 	 * Now we have to 0x200-align the text segment.
 	 * We know that the a.out header is 0x20 bytes long.
 	 * The code so far is less then 0x1e0 bytes. So we

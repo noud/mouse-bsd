@@ -101,8 +101,8 @@ dumpitem(char *label, struct hid_item *h)
 	if ((h->flags & HIO_CONST) && !verbose)
 		return;
 	printf("%s size=%d count=%d page=%s usage=%s%s", label,
-	       h->report_size, h->report_count, 
-	       hid_usage_page(HID_PAGE(h->usage)), 
+	       h->report_size, h->report_count,
+	       hid_usage_page(HID_PAGE(h->usage)),
 	       hid_usage_in_page(h->usage),
 	       h->flags & HIO_CONST ? " Const" : "");
 	printf(", logical range %d..%d",
@@ -126,7 +126,7 @@ dumpitems(report_desc_t r)
 		switch (h.kind) {
 		case hid_collection:
 			printf("Collection page=%s usage=%s\n",
-			       hid_usage_page(HID_PAGE(h.usage)), 
+			       hid_usage_page(HID_PAGE(h.usage)),
 			       hid_usage_in_page(h.usage));
 			break;
 		case hid_endcollection:
@@ -146,9 +146,9 @@ dumpitems(report_desc_t r)
 	hid_end_parse(d);
 	size = hid_report_size(r, hid_input, &report_id);
 	size -= report_id != 0;
-	printf("Total   input size %s%d bytes\n", 
+	printf("Total   input size %s%d bytes\n",
 	       report_id && size ? "1+" : "", size);
-	       
+
 	size = hid_report_size(r, hid_output, &report_id);
 	size -= report_id != 0;
 	printf("Total  output size %s%d bytes\n",
@@ -207,7 +207,7 @@ dumpdata(int f, report_desc_t rd, int loop)
 	char namebuf[10000], *namep;
 
 	hids = 0;
-	for (d = hid_start_parse(rd, 1<<hid_input); 
+	for (d = hid_start_parse(rd, 1<<hid_input);
 	     hid_get_item(d, &h); ) {
 		if (h.kind == hid_collection)
 			colls[++sp] = h.usage;
@@ -323,9 +323,9 @@ main(int argc, char **argv)
 		err(1, "%s", dev);
 
 	r = hid_get_report_desc(f);
-	if (r == 0) 
+	if (r == 0)
 		errx(1, "USB_GET_REPORT_DESC");
-	       
+
 	if (repdump) {
 		printf("Report descriptor:\n");
 		dumpitems(r);

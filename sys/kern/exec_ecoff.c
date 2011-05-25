@@ -88,7 +88,7 @@ exec_ecoff_makecmds(p, epp)
 		   epp->ep_vp);
 		break;
 	case ECOFF_NMAGIC:
-		error = exec_ecoff_prep_nmagic(p, epp, epp->ep_hdr, 
+		error = exec_ecoff_prep_nmagic(p, epp, epp->ep_hdr,
 		   epp->ep_vp);
 		break;
 	case ECOFF_ZMAGIC:
@@ -181,7 +181,7 @@ exec_ecoff_prep_omagic(p, epp, execp, vp)
 		NEW_VMCMD(&epp->ep_vmcmds, vmcmd_map_zero, eap->bsize,
 		    ECOFF_SEGMENT_ALIGN(execp, eap->bss_start), NULLVP, 0,
 		    VM_PROT_READ|VM_PROT_WRITE|VM_PROT_EXECUTE);
-	
+
 	return 0;
 }
 

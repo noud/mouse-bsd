@@ -497,8 +497,8 @@ static int ptyslavefd; /* for cleanopen() */
 
 int
 getpty(ptynum)
-int *ptynum;                     
-{                   
+int *ptynum;
+{
 	int ptyfd;
 
 	ptyfd = openpty(ptynum, &ptyslavefd, line, NULL, NULL);

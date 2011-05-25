@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -41,15 +41,15 @@
  *  documentation, and that any documentation, advertising materials,
  *  and other materials related to such distribution and use acknowledge
  *  that the software was developed by the University of Oregon.
- *  The name of the University of Oregon may not be used to endorse or 
- *  promote products derived from this software without specific prior 
+ *  The name of the University of Oregon may not be used to endorse or
+ *  promote products derived from this software without specific prior
  *  written permission.
  *
  *  THE UNIVERSITY OF OREGON DOES NOT MAKE ANY REPRESENTATIONS
  *  ABOUT THE SUITABILITY OF THIS SOFTWARE FOR ANY PURPOSE.  THIS SOFTWARE IS
  *  PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES,
  *  INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
- *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND 
+ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND
  *  NON-INFRINGEMENT.
  *
  *  IN NO EVENT SHALL UO, OR ANY OTHER CONTRIBUTOR BE LIABLE FOR ANY
@@ -61,7 +61,7 @@
  *  noted when applicable.
  */
 /*
- *  Questions concerning this software should be directed to 
+ *  Questions concerning this software should be directed to
  *  Kurt Windisch (kurtw@antc.uoregon.edu)
  *
  *  KAME Id: mld6_proto.c,v 1.2 1999/09/12 17:00:09 jinmei Exp
@@ -70,13 +70,13 @@
  * Part of this program has been derived from PIM sparse-mode pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
- *  
+ *
  * The pimd program is COPYRIGHT 1998 by University of Southern California.
  *
  * Part of this program has been derived from mrouted.
  * The mrouted program is covered by the license in the accompanying file
  * named "LICENSE.mrouted".
- * 
+ *
  * The mrouted program is COPYRIGHT 1989 by The Board of Trustees of
  * Leland Stanford Junior University.
  *
@@ -111,7 +111,7 @@ query_groups(v)
 	register struct uvif *v;
 {
 	register struct listaddr *g;
-    
+
 	v->uv_gq_timer = MLD6_QUERY_INTERVAL;
 	if (v->uv_flags & VIFF_QUERIER && (v->uv_flags & VIFF_NOLISTENER) == 0)
 		send_mld6(MLD6_LISTENER_QUERY, 0, &v->uv_linklocal->pa_addr,
@@ -195,7 +195,7 @@ accept_listener_query(src, dst, group, tmo)
 			time(&v->uv_querier->al_ctime);
 		}
 	}
-    
+
 	/*
 	 * Reset the timer since we've received a query.
 	 */
@@ -274,7 +274,7 @@ accept_listener_report(src, dst, group)
 			    "accept_listener_report: can't find a mif");
 		return;
 	}
-    
+
 	IF_DEBUG(DEBUG_MLD)
 		log(LOG_INFO, 0,
 		    "accepting multicast listener report: "
@@ -283,7 +283,7 @@ accept_listener_report(src, dst, group)
 		    inet6_fmt(group));
 
 	v = &uvifs[mifi];
-    
+
 	/*
 	 * Look for the group in our group list; if found, reset its timer.
 	 */
@@ -355,7 +355,7 @@ accept_listener_done(src, dst, group)
 		    inet6_fmt(dst), inet6_fmt(group));
 
 	v = &uvifs[mifi];
-    
+
 	if (!(v->uv_flags & (VIFF_QUERIER | VIFF_DR)))
 		return;
 
@@ -378,14 +378,14 @@ accept_listener_done(src, dst, group)
 			 */
 			if (g->al_old)
 				return;
-	    
+
 			/*
 			 * still waiting for a reply to a query,
 			 * ignore the done
 			 */
 			if (g->al_query)
 				return;
-	    
+
 			/** delete old timer set a timer for expiration **/
 			if (g->al_timerid)
 				g->al_timerid = DeleteTimer(g->al_timerid);
@@ -454,7 +454,7 @@ SetTimer(mifi, g)
 	struct listaddr *g;
 {
 	cbk_t *cbk;
-    
+
 	cbk = (cbk_t *) malloc(sizeof(cbk_t));
 	cbk->mifi = mifi;
 	cbk->g = g;
@@ -526,7 +526,7 @@ check_multicast_listener(v, group)
 	 * Look for the group in our listener list;
 	 */
 	for (g = v->uv_groups; g != NULL; g = g->al_next) {
-		if (inet6_equal(group, &g->al_addr)) 
+		if (inet6_equal(group, &g->al_addr))
 			return TRUE;
 	}
 	return FALSE;

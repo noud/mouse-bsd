@@ -132,7 +132,7 @@
 
 /* Transmit Done Queue Status Definitions */
 
-#define	LEMAC_TDQ_COL		0x03	/* Collision Mask */ 
+#define	LEMAC_TDQ_COL		0x03	/* Collision Mask */
 #define	LEMAC_TDQ_NOCOL		0x00	/*   No Collisions */
 #define	LEMAC_TDQ_ONECOL	0x01	/*   One Collision */
 #define	LEMAC_TDQ_MULCOL	0x02	/*   Multiple Collisions */

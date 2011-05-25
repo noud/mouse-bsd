@@ -51,7 +51,7 @@ section we describe the changes made to the system.
 User programs
 .PP
 .NH 3
-Mail system		
+Mail system
 .PP
 The mail system was the first culprit identified as a major
 contributor to the degradation in system performance.
@@ -315,7 +315,7 @@ consider the system manager that decides to change /tmp
 to be a symbolic link to /usr/tmp.
 A name such as /tmp/tmp1234 that previously required two component
 translations,
-now requires four component translations plus the cost of reading 
+now requires four component translations plus the cost of reading
 the contents of the symbolic link.
 .PP
 The new directory format also changes the characteristics of
@@ -413,7 +413,7 @@ is the basic overhead for clock processing.
 Process table management
 .PP
 In 4.2BSD there are numerous places in the kernel where a linear search
-of the process table is performed: 
+of the process table is performed:
 .IP \(bu 3
 in \fIexit\fP to locate and wakeup a process's parent;
 .IP \(bu 3
@@ -502,7 +502,7 @@ Table 5. Active file systems during buffer cache tests.
 During the test period the load average ranged from 2 to 13
 with an average of 5.
 The system had no idle time, 43% user time, and 57% system time.
-The system averaged 90 interrupts per second 
+The system averaged 90 interrupts per second
 (excluding the system clock interrupts),
 220 system calls per second,
 and 50 context switches per second (40 voluntary, 10 involuntary).
@@ -516,7 +516,7 @@ about 25 pages per second.
 .PP
 On average 250 requests to read disk blocks were initiated
 per second.
-These include read requests for file blocks made by user 
+These include read requests for file blocks made by user
 programs as well as requests initiated by the system.
 System reads include requests for indexing information to determine
 where a file's next data block resides,
@@ -539,7 +539,7 @@ we have not yet tested this hypothesis [Shannon83].
 .NH 3
 Network subsystem
 .PP
-The overhead associated with the 
+The overhead associated with the
 network facilities found in 4.2BSD is often
 difficult to gauge without profiling the system.
 This is because most input processing is performed
@@ -627,7 +627,7 @@ the system used 0.5 of the 4.5 megabytes of physical memory
 on the test machine;
 under 4.2BSD it used nearly 1 megabyte of physical memory.\**
 .FS
-\** The 4.1BSD system used for testing was really a 4.1a 
+\** The 4.1BSD system used for testing was really a 4.1a
 system configured
 with networking facilities and code to support
 remote file access.  The

@@ -7,23 +7,23 @@
  * may copy or modify Sun RPC without charge, but are not authorized
  * to license or distribute it to anyone else except as part of a product or
  * program developed by the user.
- * 
+ *
  * SUN RPC IS PROVIDED AS IS WITH NO WARRANTIES OF ANY KIND INCLUDING THE
  * WARRANTIES OF DESIGN, MERCHANTIBILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE, OR ARISING FROM A COURSE OF DEALING, USAGE OR TRADE PRACTICE.
- * 
+ *
  * Sun RPC is provided with no support and without any obligation on the
  * part of Sun Microsystems, Inc. to assist in its use, correction,
  * modification or enhancement.
- * 
+ *
  * SUN MICROSYSTEMS, INC. SHALL HAVE NO LIABILITY WITH RESPECT TO THE
  * INFRINGEMENT OF COPYRIGHTS, TRADE SECRETS OR ANY PATENTS BY SUN RPC
  * OR ANY PART THEREOF.
- * 
+ *
  * In no event will Sun Microsystems, Inc. be liable for any lost revenue
  * or profits or other special, indirect and consequential damages, even if
  * Sun has been advised of the possibility of such damages.
- * 
+ *
  * Sun Microsystems, Inc.
  * 2550 Garcia Avenue
  * Mountain View, California  94043
@@ -192,7 +192,7 @@ xdr_rmtcallres(xdrs, crp)
 
 /*
  * The following is kludged-up support for simple rpc broadcasts.
- * Someday a large, complicated system will replace these trivial 
+ * Someday a large, complicated system will replace these trivial
  * routines which only support udp/ip .
  */
 
@@ -267,7 +267,7 @@ getbroadcastnets(addrs, sock, buf)
 
 typedef bool_t (*resultproc_t) __P((caddr_t, struct sockaddr_in *));
 
-enum clnt_stat 
+enum clnt_stat
 clnt_broadcast(prog, vers, proc, xargs, argsp, xresults, resultsp, eachresult)
 	u_long		prog;		/* program number */
 	u_long		vers;		/* version number */
@@ -297,7 +297,7 @@ clnt_broadcast(prog, vers, proc, xargs, argsp, xresults, resultsp, eachresult)
 	struct rmtcallargs a;
 	struct rmtcallres r;
 	struct rpc_msg msg;
-	struct timeval t; 
+	struct timeval t;
 	int milliseconds;
 	char outbuf[MAX_BROADCAST_SIZE], inbuf[UDPMSGSIZE];
 

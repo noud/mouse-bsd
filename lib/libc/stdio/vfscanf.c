@@ -249,8 +249,8 @@ literal:
 #ifdef FLOATING_POINT
 		case 'E':
 		case 'G':
-		case 'e': 
-		case 'f': 
+		case 'e':
+		case 'f':
 		case 'g':
 			c = CT_FLOAT;
 			break;

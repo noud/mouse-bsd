@@ -156,7 +156,7 @@ decr_intr(frame)
 		 */
 		asm volatile ("mfmsr %0; ori %0, %0, %1; mtmsr %0"
 			      : "=r"(msr) : "K"(PSL_EE));
-		
+
 		/*
 		 * Do standard timer interrupt stuff.
 		 * Do softclock stuff only on the last iteration.
@@ -182,7 +182,7 @@ calc_delayconst()
 	int qhandle, phandle;
 	char name[32];
 	int msr, scratch;
-	
+
 	/*
 	 * Get this info during autoconf?				XXX
 	 */
@@ -220,7 +220,7 @@ mftb()
 {
 	u_long scratch;
 	u_quad_t tb;
-	
+
 	asm ("1: mftbu %0; mftb %0+1; mftbu %1; cmpw 0,%0,%1; bne 1b"
 	    : "=r"(tb), "=r"(scratch));
 	return tb;
@@ -236,7 +236,7 @@ microtime(tvp)
 	u_long tb;
 	u_long ticks;
 	int msr, scratch;
-	
+
 	asm volatile ("mfmsr %0; andi. %1,%0,%2; mtmsr %1"
 		      : "=r"(msr), "=r"(scratch) : "K"((u_short)~PSL_EE));
 	asm ("mftb %0" : "=r"(tb));
@@ -260,7 +260,7 @@ delay(n)
 {
 	u_quad_t tb;
 	u_long tbh, tbl, scratch;
-	
+
 	tb = mftb();
 	tb += (n * 1000 + ns_per_tick - 1) / ns_per_tick;
 	tbh = tb >> 32;

@@ -74,7 +74,7 @@ EXTRA_DIST = bc.1 dc.1
 man_MANS = bc.1 dc.1
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 TEXI2DVI = texi2dvi
 TEXINFO_TEX = $(srcdir)/texinfo.tex
 INFO_DEPS = dc.info
@@ -273,7 +273,7 @@ dvi: $(DVIS)
 check: all
 	$(MAKE)
 installcheck:
-install-exec: 
+install-exec:
 	@$(NORMAL_INSTALL)
 
 install-data: install-info-am install-man

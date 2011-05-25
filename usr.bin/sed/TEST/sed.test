@@ -464,7 +464,7 @@ test_print()
 		echo "" >> lines3
 		$SED -n -e '$p' lines3 /dev/null
 	fi
-		
+
 }
 
 test_subst()
@@ -495,7 +495,7 @@ u2/g' lines1
 	cat lines4
 	mark '8.12' ; $SED -e 's/[123]/X/g' lines1
 	mark '8.13' ; $SED -e 'y/0123456789/9876543210/' lines1
-	mark '8.14' ; 
+	mark '8.14' ;
 	if [ $BSD -eq 1 -o $GNU -eq 1 -o $SUN -eq 1 ] ; then
 		echo BSD/GNU/SUN sed fail this test
 	else

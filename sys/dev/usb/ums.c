@@ -140,7 +140,7 @@ USB_MATCH(ums)
 	int size, ret;
 	void *desc;
 	usbd_status err;
-	
+
 	if (uaa->iface == NULL)
 		return (UMATCH_NONE);
 	id = usbd_get_interface_descriptor(uaa->iface);
@@ -151,7 +151,7 @@ USB_MATCH(ums)
 	if (err)
 		return (UMATCH_NONE);
 
-	if (hid_is_collection(desc, size, 
+	if (hid_is_collection(desc, size,
 			      HID_USAGE2(HUP_GENERIC_DESKTOP, HUG_MOUSE)))
 		ret = UMATCH_IFACECLASS;
 	else
@@ -175,7 +175,7 @@ USB_ATTACH(ums)
 	u_int32_t flags, quirks;
 	int i, wheel;
 	struct hid_location loc_btn;
-	
+
 	sc->sc_udev = uaa->device;
 	sc->sc_iface = iface;
 	id = usbd_get_interface_descriptor(iface);
@@ -193,7 +193,7 @@ USB_ATTACH(ums)
 	DPRINTFN(10,("ums_attach: bLength=%d bDescriptorType=%d "
 		     "bEndpointAddress=%d-%s bmAttributes=%d wMaxPacketSize=%d"
 		     " bInterval=%d\n",
-		     ed->bLength, ed->bDescriptorType, 
+		     ed->bLength, ed->bDescriptorType,
 		     ed->bEndpointAddress & UE_ADDR,
 		     UE_GET_DIR(ed->bEndpointAddress)==UE_DIR_IN? "in" : "out",
 		     ed->bmAttributes & UE_XFERTYPE,
@@ -261,7 +261,7 @@ USB_ATTACH(ums)
 				hid_input, &loc_btn, 0))
 			break;
 	sc->nbuttons = i - 1;
-	sc->sc_loc_btn = malloc(sizeof(struct hid_location)*sc->nbuttons, 
+	sc->sc_loc_btn = malloc(sizeof(struct hid_location)*sc->nbuttons,
 				M_USBDEV, M_NOWAIT);
 	if (!sc->sc_loc_btn) {
 		printf("%s: no memory\n", USBDEVNAME(sc->sc_dev));
@@ -288,12 +288,12 @@ USB_ATTACH(ums)
 
 #ifdef USB_DEBUG
 	DPRINTF(("ums_attach: sc=%p\n", sc));
-	DPRINTF(("ums_attach: X\t%d/%d\n", 
+	DPRINTF(("ums_attach: X\t%d/%d\n",
 		 sc->sc_loc_x.pos, sc->sc_loc_x.size));
-	DPRINTF(("ums_attach: Y\t%d/%d\n", 
+	DPRINTF(("ums_attach: Y\t%d/%d\n",
 		 sc->sc_loc_x.pos, sc->sc_loc_x.size));
 	if (sc->flags & UMS_Z)
-		DPRINTF(("ums_attach: Z\t%d/%d\n", 
+		DPRINTF(("ums_attach: Z\t%d/%d\n",
 			 sc->sc_loc_z.pos, sc->sc_loc_z.size));
 	for (i = 1; i <= sc->nbuttons; i++) {
 		DPRINTF(("ums_attach: B%d\t%d/%d\n",
@@ -429,8 +429,8 @@ ums_enable(v)
 	sc->sc_buttons = 0;
 
 	/* Set up interrupt pipe. */
-	err = usbd_open_pipe_intr(sc->sc_iface, sc->sc_ep_addr, 
-		  USBD_SHORT_XFER_OK, &sc->sc_intrpipe, sc, 
+	err = usbd_open_pipe_intr(sc->sc_iface, sc->sc_ep_addr,
+		  USBD_SHORT_XFER_OK, &sc->sc_intrpipe, sc,
 		  sc->sc_ibuf, sc->sc_isize, ums_intr, USBD_DEFAULT_INTERVAL);
 	if (err) {
 		DPRINTF(("ums_enable: usbd_open_pipe_intr failed, error=%d\n",

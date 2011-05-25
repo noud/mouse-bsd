@@ -208,7 +208,7 @@ dk_establish(dk, dev)
 {
 }
 
-/* 
+/*
  * UNTESTED !!
  *
  * Determine the size of the transfer, and make sure it is
@@ -228,14 +228,14 @@ bounds_check_with_label(bp, lp, wlabel)
 	int sz = (bp->b_bcount + DEV_BSIZE - 1) >> DEV_BSHIFT;
 
 	/* overwriting disk label ? */
-	/* XXX should also protect bootstrap in first 8K */ 
+	/* XXX should also protect bootstrap in first 8K */
 	if (bp->b_blkno + p->p_offset <= LABELSECTOR + labelsect &&
 	    (bp->b_flags & B_READ) == 0 && wlabel == 0) {
 		bp->b_error = EROFS;
 		goto bad;
 	}
 
-	/* beyond partition? */ 
+	/* beyond partition? */
 	if (bp->b_blkno < 0 || bp->b_blkno + sz > maxsz) {
 		/* if exactly at end of disk, return an EOF */
 		if (bp->b_blkno == maxsz) {
@@ -249,7 +249,7 @@ bounds_check_with_label(bp, lp, wlabel)
 			goto bad;
 		}
 		bp->b_bcount = sz << DEV_BSHIFT;
-	}               
+	}
 
 	/* calculate cylinder for disksort to order transfers with */
 	bp->b_resid = (bp->b_blkno + p->p_offset) / lp->d_secpercyl;

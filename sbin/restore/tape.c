@@ -315,7 +315,7 @@ again:
 	if (command == 'R' || command == 'r' || curfile.action != SKIP) {
 		newvol = nextvol;
 		wantnext = 1;
-	} else { 
+	} else {
 		newvol = 0;
 		wantnext = 0;
 	}
@@ -417,7 +417,7 @@ gethdr:
  	 * If coming to this volume at random, skip to the beginning
  	 * of the next record.
  	 */
-	dprintf(stdout, "read %ld recs, tape starts with %ld\n", 
+	dprintf(stdout, "read %ld recs, tape starts with %ld\n",
 		(long)tpblksread, (long)tmpbuf.c_firstrec);
  	if (tmpbuf.c_type == TS_TAPE && (tmpbuf.c_flags & DR_NEWHEADER)) {
  		if (!wantnext) {
@@ -496,7 +496,7 @@ setdumpnum()
 #ifdef RRESTORE
 	if (host)
 		rmtioctl(MTFSF, dumpnum - 1);
-	else 
+	else
 #endif
 		if (ioctl(mt, (int)MTIOCTOP, (char *)&tcom) < 0)
 			fprintf(stderr, "ioctl MTFSF: %s\n", strerror(errno));
@@ -509,7 +509,7 @@ printdumpinfo()
 	fprintf(stdout, "Dumped from: %s",
 	    (spcl.c_ddate == 0) ? "the epoch\n" : ctime(&spcl.c_ddate));
 	fprintf(stderr, "Level %d dump of %s on %s:%s\n",
-		spcl.c_level, spcl.c_filesys, 
+		spcl.c_level, spcl.c_filesys,
 		*spcl.c_host? spcl.c_host: "[unknown]", spcl.c_dev);
 	fprintf(stderr, "Label: %s\n", spcl.c_label);
 }
@@ -1147,7 +1147,7 @@ good:
 		break;
 	}
 	/*
-	 * If we are restoring a filesystem with old format inodes, 
+	 * If we are restoring a filesystem with old format inodes,
 	 * copy the uid/gid to the new location.
 	 */
 	if (oldinofmt) {
@@ -1301,11 +1301,11 @@ checksum(buf)
 	} else {
 		/* What happens if we want to read restore tapes
 			for a 16bit int machine??? */
-		do 
+		do
 			i += swabl(*buf++);
 		while (--j);
 	}
-			
+
 	if (i != CHECKSUM) {
 		fprintf(stderr, "Checksum error %o, inode %d file %s\n", i,
 			curfile.ino, curfile.name);
@@ -1382,7 +1382,7 @@ swabst(cp, sp)
 		case '5': case '6': case '7': case '8': case '9':
 			n = (n * 10) + (*cp++ - '0');
 			continue;
-		
+
 		case 's': case 'w': case 'h':
 			if (n == 0)
 				n = 1;

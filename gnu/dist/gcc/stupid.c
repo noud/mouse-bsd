@@ -287,17 +287,17 @@ stupid_life_analysis (f, nregs, file)
     {
       register int r = reg_order[i];
 
-      /* Some regnos disappear from the rtl.  Ignore them to avoid crash. 
+      /* Some regnos disappear from the rtl.  Ignore them to avoid crash.
 	 Also don't allocate registers that cross a setjmp, or live across
 	 a call if this function receives a nonlocal goto.  */
       if (regno_reg_rtx[r] == 0 || regs_crosses_setjmp[r]
-	  || (REG_N_CALLS_CROSSED (r) > 0 
+	  || (REG_N_CALLS_CROSSED (r) > 0
 	      && current_function_has_nonlocal_label))
 	continue;
 
       /* Now find the best hard-register class for this pseudo register */
       if (N_REG_CLASSES > 1)
-	reg_renumber[r] = stupid_find_reg (REG_N_CALLS_CROSSED (r), 
+	reg_renumber[r] = stupid_find_reg (REG_N_CALLS_CROSSED (r),
 					   reg_preferred_class (r),
 					   PSEUDO_REGNO_MODE (r),
 					   reg_where_born[r],
@@ -404,7 +404,7 @@ stupid_find_reg (call_preserved, class, mode,
     for (i = FIRST_STACK_REG; i <= LAST_STACK_REG; i++)
       SET_HARD_REG_BIT (used, i);
 #endif
-  
+
   IOR_COMPL_HARD_REG_SET (used, reg_class_contents[(int) class]);
 
 #ifdef CLASS_CANNOT_CHANGE_SIZE
@@ -544,7 +544,7 @@ stupid_mark_refs (x, insn)
 		regs_crosses_setjmp[regno] = 1;
 
 	      /* If this register is only used in this insn and is only
-		 set, mark it unused.  We have to do this even when not 
+		 set, mark it unused.  We have to do this even when not
 		 optimizing so that MD patterns which count on this
 		 behavior (e.g., it not causing an output reload on
 		 an insn setting CC) will operate correctly.  */

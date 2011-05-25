@@ -169,7 +169,7 @@ FUNC(hw_mouse_sensitivity)
 	READ_REQ(0x2c, 3, 2);
 	table[num].value = req.rspbuf[0];
 	return(1);
-}	
+}
 
 FUNC(hw_power_battery_chargedisabled)
 {
@@ -321,7 +321,7 @@ FUNC(hw_kbd_repeat_delay)
 	READ_REQ(0x28, 3, 2);
 	table[num].value = req.rspbuf[0];
 	return(1);
-}	
+}
 
 FUNC(hw_kbd_repeat_speed)
 {
@@ -346,7 +346,7 @@ FUNC(hw_kbd_repeat_speed)
 	READ_REQ(0x29, 3, 2);
 	table[num].value = req.rspbuf[0];
 	return(1);
-}	
+}
 
 FUNC(hw_speaker_freq)
 {
@@ -384,7 +384,7 @@ FUNC(hw_speaker_volume)
 	READ_REQ(0x23, 3, 2);
 	table[num].value = req.rspbuf[0];
 	return(1);
-}	
+}
 
 FUNC(hw_video_tft_brightness)
 {
@@ -409,7 +409,7 @@ FUNC(hw_video_tft_brightness)
 	READ_REQ(0x24, 3, 2);
 	table[num].value = req.rspbuf[0];
 	return(1);
-}	
+}
 
 FUNC(hw_video_syncinva)
 {
@@ -480,7 +480,7 @@ FUNC(hw_video_compsync)
 	return(1);
 }
 
-/* ARGSUSED */                                              
+/* ARGSUSED */
 FUNC(hw_video_lid)
 {
 	struct tctrl_req req;
@@ -493,7 +493,7 @@ FUNC(hw_video_lid)
 	return(1);
 }
 
-/* ARGSUSED */                                              
+/* ARGSUSED */
 FUNC(hw_video_external)
 {
 	struct tctrl_req req;
@@ -506,7 +506,7 @@ FUNC(hw_video_external)
 	return(1);
 }
 
-/* ARGSUSED */                                              
+/* ARGSUSED */
 FUNC(hw_power_battery_int_chargelevel)
 {
 	struct tctrl_req req;
@@ -515,10 +515,10 @@ FUNC(hw_power_battery_int_chargelevel)
 	READ_REQ(0x7a, 1, 3);
 	table[num].value = req.rspbuf[0] == 0xfb ? 0 : req.rspbuf[0];
 	return(1);
-	
+
 }
 
-/* ARGSUSED */                                              
+/* ARGSUSED */
 FUNC(hw_power_battery_ext_chargelevel)
 {
 	struct tctrl_req req;
@@ -559,7 +559,7 @@ FUNC(hw_power_battery_ext_chargerate)
 	return(1);
 }
 
-/* ARGSUSED */                                              
+/* ARGSUSED */
 FUNC(hw_power_battery_ext)
 {
 	int i;
@@ -572,7 +572,7 @@ FUNC(hw_power_battery_ext)
 	return(1);
 }
 
-/* ARGSUSED */                                              
+/* ARGSUSED */
 FUNC(hw_power_battery_int)
 {
 	int i;
@@ -585,7 +585,7 @@ FUNC(hw_power_battery_int)
 	return(1);
 }
 
-/* ARGSUSED */                                              
+/* ARGSUSED */
 FUNC(hw_power_mains)
 {
 	int i;
@@ -598,7 +598,7 @@ FUNC(hw_power_mains)
 	return(1);
 }
 
-/* ARGSUSED */                                              
+/* ARGSUSED */
 FUNC(hw_poweroncycles)
 {
 	struct tctrl_req req;
@@ -610,7 +610,7 @@ FUNC(hw_poweroncycles)
 	return(1);
 }
 
-/* ARGSUSED */                                              
+/* ARGSUSED */
 FUNC(hw_poweronseconds)
 {
 	struct tctrl_req req;
@@ -622,7 +622,7 @@ FUNC(hw_poweronseconds)
 	return(1);
 }
 
-/* ARGSUSED */                                              
+/* ARGSUSED */
 FUNC(hw_microcontroller_version)
 {
 	char *bufp, buf[BUFSIZ];
@@ -637,7 +637,7 @@ FUNC(hw_microcontroller_version)
 }
 
 
-/* ARGSUSED */                                              
+/* ARGSUSED */
 FUNC(hw_version)
 {
 	char *bufp, buf[BUFSIZ];

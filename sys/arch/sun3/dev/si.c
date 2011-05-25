@@ -147,7 +147,7 @@ si_attach(sc)
 	 */
 	ncr_sc->sc_no_disconnect =
 		(sc->sc_options & SI_NO_DISCONNECT);
-	ncr_sc->sc_parity_disable = 
+	ncr_sc->sc_parity_disable =
 		(sc->sc_options & SI_NO_PARITY_CHK) >> 8;
 	if (sc->sc_options & SI_FORCE_POLLING)
 		ncr_sc->sc_flags |= NCR5380_FORCE_POLLING;

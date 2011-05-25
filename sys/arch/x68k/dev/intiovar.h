@@ -87,7 +87,7 @@ int intio_intr __P((struct frame *));
 
 
 #define PHYS_INTIODEV 0x00c00000
-  
+
 extern u_int8_t *intiobase;
 
 #define INTIO_ADDR(a)	((volatile u_int8_t *) (((u_int32_t) (a)) - (PHYS_INTIODEV) + intiobase))

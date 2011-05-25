@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /* Yet another way of extracting documentation from source.
    No, I haven't finished it yet, but I hope you people like it better
    than the old way
-  
+
    sac
 
    Basically, this is a sort of string forth, maybe we should call it
@@ -98,7 +98,7 @@ int warning;
 
 /* Here is a string type ... */
 
-typedef struct buffer 
+typedef struct buffer
 {
   char *ptr;
   unsigned long write_idx;
@@ -145,7 +145,7 @@ static int DEFUN(find, (str, what),
     unsigned int i;
     char *p;
     p = what;
-    for (i = 0; i < str->write_idx && *p; i++) 
+    for (i = 0; i < str->write_idx && *p; i++)
     {
 	if (*p == str->ptr[i])
 	 p++;
@@ -153,7 +153,7 @@ static int DEFUN(find, (str, what),
 	 p = what;
     }
     return (*p == 0);
-    
+
 }
 
 static void DEFUN(write_buffer,(buffer, f),
@@ -180,18 +180,18 @@ static char *DEFUN(addr, (buffer, idx),
 
 static char DEFUN(at,(buffer, pos),
 	   string_type *buffer AND
-	   unsigned int pos) 
+	   unsigned int pos)
 {
-  if (pos >= buffer->write_idx) 
+  if (pos >= buffer->write_idx)
     return 0;
   return buffer->ptr[pos];
 }
 
-static void DEFUN(catchar,(buffer, ch), 
+static void DEFUN(catchar,(buffer, ch),
 	   string_type *buffer AND
 	   int ch)
 {
-  if (buffer->write_idx == buffer->size) 
+  if (buffer->write_idx == buffer->size)
     {
       buffer->size *=2;
       buffer->ptr = realloc(buffer->ptr, buffer->size);
@@ -241,7 +241,7 @@ static void DEFUN(catstr,(dst, src),
 }
 
 
-static unsigned int 
+static unsigned int
 DEFUN(skip_white_and_stars,(src, idx),
       string_type *src AND
       unsigned int idx)
@@ -253,7 +253,7 @@ DEFUN(skip_white_and_stars,(src, idx),
 	     /* Don't skip past end-of-comment or star as first
 		character on its line.  */
 	     && at(src,idx +1) != '/'
-	     && at(src,idx -1) != '\n')) 
+	     && at(src,idx -1) != '\n'))
     idx++;
   return idx;
 }
@@ -285,7 +285,7 @@ struct dict_struct
     int code_length;
     int code_end;
     int var;
-    
+
 };
 typedef struct dict_struct dict_type;
 #define WORD(x) static void x()
@@ -356,7 +356,7 @@ static void DEFUN(exec,(word),
 		  dict_type *word)
 {
   pc = word->code;
-  while (*pc) 
+  while (*pc)
     (*pc)();
 }
 WORD(call)
@@ -366,13 +366,13 @@ WORD(call)
     e =  (dict_type *)(pc [1]);
     exec(e);
     pc = oldpc + 2;
-    
+
 }
 
 WORD(remchar)
 {
   if (tos->write_idx)
-    tos->write_idx--;    
+    tos->write_idx--;
   pc++;
 }
 
@@ -403,7 +403,7 @@ WORD(push_text)
     pc++;
     cattext(tos,*((char **)pc));
     pc++;
-    
+
 }
 
 
@@ -412,33 +412,33 @@ WORD(push_text)
    comments, removes blank space and leading *'s.
    Blank lines are turned into one blank line.  */
 
-static void 
+static void
 DEFUN(remove_noncomments,(src,dst),
 	   string_type *src AND
 	   string_type *dst)
 {
     unsigned int idx = 0;
-    
-    while (at(src,idx)) 
+
+    while (at(src,idx))
     {
 	/* Now see if we have a comment at the start of the line */
-	if (at(src,idx) == '\n' 
-	    && at(src,idx+1) ==  '/' 
-	    && at(src,idx+2) == '*') 
+	if (at(src,idx) == '\n'
+	    && at(src,idx+1) ==  '/'
+	    && at(src,idx+2) == '*')
 	{
 	    idx+=3;
-	    
+
 	    idx = skip_white_and_stars(src,idx);
 
 	    /* Remove leading dot */
 	    if (at(src, idx) == '.')
 	     idx++;
-	    
+
 	    /* Copy to the end of the line, or till the end of the
 	       comment */
 	    while (at(src, idx))
 	    {
-		if (at(src, idx) == '\n') 
+		if (at(src, idx) == '\n')
 		{
 		    /* end of line, echo and scrape of leading blanks  */
 		    if (at(src,idx +1) == '\n')
@@ -447,13 +447,13 @@ DEFUN(remove_noncomments,(src,dst),
 		    idx++;
 		    idx =   skip_white_and_stars(src, idx);
 		}
-		else if (at(src, idx) == '*' && at(src,idx+1) == '/') 
+		else if (at(src, idx) == '*' && at(src,idx+1) == '/')
 		{
 		    idx +=2 ;
 		    cattext(dst,"\nENDDD\n");
 		    break;
 		}
-		else 
+		else
 		{
 		    catchar(dst, at(src, idx));
 		    idx++;
@@ -488,13 +488,13 @@ DEFUN_VOID(paramstuff)
     unsigned int idx;
     string_type out;
     init_string(&out);
-    
+
 
     /* make sure that it's not already param'd or proto'd */
     if(find(tos,"PARAMS") || find(tos,"PROTO") || !find(tos,"(")) {
 	    catstr(&out,tos);
 	}
-    else 
+    else
     {
 	/* Find the open paren */
 	for (openp = 0; at(tos, openp) != '('  && at(tos,openp); openp++)
@@ -511,12 +511,12 @@ DEFUN_VOID(paramstuff)
 	 fname--;
 
 	fname++;
-	
+
 	for (idx = 0; idx < fname; idx++) 	/* Output type */
 	{
 	    catchar(&out, at(tos,idx));
 	}
-    
+
         cattext(&out, "\n");	/* Insert a newline between type and fnname */
 
 	for (idx = fname; idx < openp; idx++) 		/* Output fnname */
@@ -526,16 +526,16 @@ DEFUN_VOID(paramstuff)
 
 	cattext(&out," PARAMS (");
 
-	while (at(tos,idx) && at(tos,idx) !=';') 
+	while (at(tos,idx) && at(tos,idx) !=';')
 	{
 	    catchar(&out, at(tos, idx));
 	    idx++;
 	}
 	cattext(&out,");\n\n");
     }
-    overwrite_string(tos, &out);    
+    overwrite_string(tos, &out);
     pc++;
-    
+
 }
 
 
@@ -548,20 +548,20 @@ WORD(translatecomments)
     unsigned int idx = 0;
     string_type out;
     init_string(&out);
-    
-    while (at(tos, idx)) 
+
+    while (at(tos, idx))
     {
-	if (at(tos,idx) == '{' && at(tos,idx+1) =='*') 
+	if (at(tos,idx) == '{' && at(tos,idx+1) =='*')
 	{
 	    cattext(&out,"/*");
 	    idx+=2;
 	}
-	else if (at(tos,idx) == '*' && at(tos,idx+1) =='}') 
+	else if (at(tos,idx) == '*' && at(tos,idx+1) =='}')
 	{
 	    cattext(&out,"*/");
 	    idx+=2;
 	}
-	else  
+	else
 	{
 	    catchar(&out, at(tos, idx));
 	    idx++;
@@ -570,9 +570,9 @@ WORD(translatecomments)
 
 
     overwrite_string(tos, &out);
-    
+
     pc++;
-    
+
 }
 
 #if 0
@@ -586,20 +586,20 @@ WORD(manglecomments)
     unsigned int idx = 0;
     string_type out;
     init_string(&out);
-    
-    while (at(tos, idx)) 
+
+    while (at(tos, idx))
     {
-	if (at(tos,idx) == '\n' && at(tos,idx+1) =='*') 
+	if (at(tos,idx) == '\n' && at(tos,idx+1) =='*')
 	{
 	    cattext(&out,"	/*");
 	    idx+=2;
 	}
-	else if (at(tos,idx) == '*' && at(tos,idx+1) =='}') 
+	else if (at(tos,idx) == '*' && at(tos,idx+1) =='}')
 	{
 	    cattext(&out,"*/");
 	    idx+=2;
 	}
-	else  
+	else
 	{
 	    catchar(&out, at(tos, idx));
 	    idx++;
@@ -608,9 +608,9 @@ WORD(manglecomments)
 
 
     overwrite_string(tos, &out);
-    
+
     pc++;
-    
+
 }
 
 #endif
@@ -622,22 +622,22 @@ DEFUN_VOID(outputdots)
     unsigned int idx = 0;
     string_type out;
     init_string(&out);
-    
-    while (at(tos, idx)) 
+
+    while (at(tos, idx))
     {
-	if (at(tos, idx) == '\n' && at(tos, idx+1) == '.') 
+	if (at(tos, idx) == '\n' && at(tos, idx+1) == '.')
 	{
 	  char c;
 	  idx += 2;
-	    
+
 	    while ((c = at(tos, idx)) && c != '\n')
 	    {
-	      if (c == '{' && at(tos,idx+1) =='*') 
+	      if (c == '{' && at(tos,idx+1) =='*')
 		{
 		    cattext(&out," /*");
 		    idx+=2;
 		}
-	      else if (c == '*' && at(tos,idx+1) =='}') 
+	      else if (c == '*' && at(tos,idx+1) =='}')
 		{
 		    cattext(&out,"*/");
 		    idx+=2;
@@ -650,15 +650,15 @@ DEFUN_VOID(outputdots)
 	    }
 	    catchar(&out,'\n');
 	}
-	else 
+	else
 	{
 	    idx++;
 	}
-    }	
+    }
 
     overwrite_string(tos, &out);
     pc++;
-    
+
 }
 
 /* Find lines starting with . and | and put example around them on tos */
@@ -667,28 +667,28 @@ WORD(courierize)
     string_type out;
     unsigned int idx = 0;
     int command = 0;
-    
+
     init_string(&out);
-    
-    while (at(tos, idx)) 
+
+    while (at(tos, idx))
     {
-	if (at(tos, idx) == '\n' 
+	if (at(tos, idx) == '\n'
 	    && (at(tos, idx +1 ) == '.'
-		|| at(tos,idx+1) == '|')) 
+		|| at(tos,idx+1) == '|'))
 	{
 	    cattext(&out,"\n@example\n");
-	    do 
+	    do
 	    {
 		idx += 2;
-		
+
 		while (at(tos, idx) && at(tos, idx)!='\n')
 		{
-		    if (at(tos,idx)=='{' && at(tos,idx+1) =='*') 
+		    if (at(tos,idx)=='{' && at(tos,idx+1) =='*')
 		    {
 			cattext(&out," /*");
 			idx+=2;
 		    }
-		    else if (at(tos,idx)=='*' && at(tos,idx+1) =='}') 
+		    else if (at(tos,idx)=='*' && at(tos,idx+1) =='}')
 		    {
 			cattext(&out,"*/");
 			idx+=2;
@@ -703,7 +703,7 @@ WORD(courierize)
 			cattext(&out,"@}");
 			idx++;
 		    }
-		    else 
+		    else
 		    {
 			if (at(tos,idx) == '@')
 			    command = 1;
@@ -713,27 +713,27 @@ WORD(courierize)
 			catchar(&out, at(tos, idx));
 			idx++;
 		    }
-		    
+
 		}
 		catchar(&out,'\n');
-	    }  
-	    while (at(tos, idx) == '\n' 
+	    }
+	    while (at(tos, idx) == '\n'
 		   && ((at(tos, idx+1) == '.')
 		       || (at(tos,idx+1) == '|')))
 	      ;
 	    cattext(&out,"@end example");
 	}
-	else 
-	{    
+	else
+	{
 	    catchar(&out, at(tos, idx));
 	    idx++;
 	}
-    }    
+    }
 
     overwrite_string(tos, &out);
     pc++;
 
-    
+
 }
 
 /* Finds any lines starting with "o ", if there are any, then turns
@@ -747,30 +747,30 @@ WORD(bulletize)
     int on = 0;
     string_type out;
     init_string(&out);
-    
+
     while (at(tos, idx)) {
 	if (at(tos, idx) == '@' &&
-	    at(tos, idx+1) == '*') 
+	    at(tos, idx+1) == '*')
 	{
 	  cattext(&out,"*");
 	  idx+=2;
 	}
-	
+
 	else
 	    if (at(tos, idx) == '\n' &&
 		at(tos, idx+1) == 'o' &&
 		isspace((unsigned char) at(tos, idx +2)))
 	    {
-		if (!on) 
+		if (!on)
 		{
 		    cattext(&out,"\n@itemize @bullet\n");
 		    on = 1;
-		    
+
 		}
 		cattext(&out,"\n@item\n");
 		idx+=3;
 	    }
-	    else 
+	    else
 	    {
 		catchar(&out, at(tos, idx));
 		if (on && at(tos, idx) == '\n' &&
@@ -781,33 +781,33 @@ WORD(bulletize)
 		    on = 0;
 		}
 		idx++;
-		
+
 	    }
 	}
-    if (on) 
+    if (on)
     {
 	cattext(&out,"@end itemize\n");
-    }	
+    }
 
     delete_string(tos);
     *tos = out;
     pc++;
-    
+
 }
 
 /* Turn <<foo>> into @code{foo} in place at TOS*/
-   
+
 
 WORD(do_fancy_stuff)
 {
     unsigned int idx = 0;
     string_type out;
     init_string(&out);
-    while (at(tos, idx)) 
+    while (at(tos, idx))
     {
-	if (at(tos, idx) == '<' 
+	if (at(tos, idx) == '<'
 	    && at(tos, idx+1) == '<'
-	    && !isspace((unsigned char) at(tos,idx + 2))) 
+	    && !isspace((unsigned char) at(tos,idx + 2)))
 	{
 	    /* This qualifies as a << startup */
 	    idx +=2;
@@ -817,12 +817,12 @@ WORD(do_fancy_stuff)
 	    {
 		catchar(&out, at(tos, idx));
 		idx++;
-		
+
 	    }
 	    cattext(&out,"}");
 	    idx+=2;
 	}
-	else 
+	else
 	{
 	    catchar(&out, at(tos, idx));
 	    idx++;
@@ -831,10 +831,10 @@ WORD(do_fancy_stuff)
     delete_string(tos);
     *tos = out;
     pc++;
-    
+
 }
 /* A command is all upper case,and alone on a line */
-static int 
+static int
 DEFUN( iscommand,(ptr, idx),
       string_type *ptr AND
       unsigned int idx)
@@ -842,7 +842,7 @@ DEFUN( iscommand,(ptr, idx),
     unsigned int len = 0;
     while (at(ptr,idx)) {
 	    if (isupper((unsigned char) at(ptr,idx)) || at(ptr,idx) == ' ' ||
-		at(ptr,idx) == '_') 
+		at(ptr,idx) == '_')
 	    {
 	     len++;
 	     idx++;
@@ -867,7 +867,7 @@ DEFUN(copy_past_newline,(ptr, idx, dst),
 {
     int column = 0;
 
-    while (at(ptr, idx) && at(ptr, idx) != '\n') 
+    while (at(ptr, idx) && at(ptr, idx) != '\n')
     {
 	if (at (ptr, idx) == '\t')
 	  {
@@ -883,8 +883,8 @@ DEFUN(copy_past_newline,(ptr, idx, dst),
 	    column++;
 	  }
 	idx++;
-	
-    }    
+
+    }
     catchar(dst, at(ptr, idx));
     idx++;
     return idx;
@@ -897,7 +897,7 @@ WORD(icopy_past_newline)
     check_range ();
     init_string(tos);
     idx = copy_past_newline(ptr, idx, tos);
-    pc++;	
+    pc++;
 }
 
 /* indent
@@ -907,12 +907,12 @@ WORD(icopy_past_newline)
 WORD(kill_bogus_lines)
 {
     int sl ;
-    
+
     int idx = 0;
     int c;
     int dot = 0    ;
-    
-    string_type out;    
+
+    string_type out;
     init_string(&out);
     /* Drop leading nl */
     while (at(tos,idx) == '\n')
@@ -920,7 +920,7 @@ WORD(kill_bogus_lines)
 	idx++;
     }
     c = idx;
-    
+
     /* If the first char is a '.' prepend a newline so that it is
        recognized properly later.  */
     if (at (tos, idx) == '.')
@@ -931,23 +931,23 @@ WORD(kill_bogus_lines)
     {
 	idx++;
     }
-    
+
     /* find the last non white before the nl */
     idx--;
-    
+
     while (idx && isspace((unsigned char) at(tos,idx)))
      idx--;
     idx++;
-    
+
     /* Copy buffer upto last char, but blank lines before and after
        dots don't count */
     sl = 1;
 
     while (c < idx)
     {
-	if (at(tos,c) == '\n' 
+	if (at(tos,c) == '\n'
 	    && at(tos,c+1) == '\n'
-	    && at(tos,c+2) == '.') 
+	    && at(tos,c+2) == '.')
 	{
 	    /* Ignore two newlines before a dot*/
 	    c++;
@@ -957,7 +957,7 @@ WORD(kill_bogus_lines)
 	    /* remember that this line started with a dot */
 	    dot=2;
 	}
-	else if (at(tos,c) == '\n' 
+	else if (at(tos,c) == '\n'
 		 && at(tos,c+1) == '\n'
 		 && dot)
 	{
@@ -969,23 +969,23 @@ WORD(kill_bogus_lines)
 	if (at(tos,c) == '\n')
 	{
 	    sl = 1;
-	    
+
 	    if (dot == 2)dot=1;else dot = 0;
 	}
 	else
 	  sl = 0;
-	
-	c++;	
+
+	c++;
 
     }
-    
+
     /* Append nl*/
     catchar(&out, '\n');
     pc++;
     delete_string(tos);
     *tos = out;
-    
-    
+
+
 }
 
 WORD(indent)
@@ -996,7 +996,7 @@ WORD(indent)
     int ol =0;
     init_string(&out);
     while (at(tos,idx)) {
-	    switch (at(tos,idx)) 
+	    switch (at(tos,idx))
 	    {
 	      case '\n':
 		cattext(&out,"\n");
@@ -1020,16 +1020,16 @@ WORD(indent)
 		cattext(&out,")");
 		idx++;
 		ol=1;
-		
+
 		break;
 	      default:
 		catchar(&out,at(tos,idx));
 		ol=1;
-		
+
 		idx++;
 		break;
 	    }
-	}	
+	}
 
     pc++;
     delete_string(tos);
@@ -1048,18 +1048,18 @@ WORD(get_stuff_in_command)
 	    if (iscommand(ptr, idx))  break;
 	    idx =   copy_past_newline(ptr, idx, tos);
 	}
-    pc++;    
+    pc++;
 }
 
 WORD(swap)
 {
     string_type t;
-    
+
     t = tos[0];
     tos[0] = tos[-1];
-    tos[-1] =t; 
+    tos[-1] =t;
     pc++;
-    
+
 }
 
 WORD(other_dup)
@@ -1096,7 +1096,7 @@ WORD(icatstr)
 
 WORD(skip_past_newline)
 {
-    while (at(ptr,idx) 
+    while (at(ptr,idx)
 	   && at(ptr,idx) != '\n')
      idx++;
     idx++;
@@ -1114,7 +1114,7 @@ WORD(internalmode)
 
 WORD(maybecatstr)
 {
-    if (internal_wanted == internal_mode) 
+    if (internal_wanted == internal_mode)
     {
 	catstr(tos-1, tos);
     }
@@ -1133,24 +1133,24 @@ DEFUN(nextword,(string, word),
     int idx;
     char *dst;
     char *src;
-    
+
     int length = 0;
-    
+
     while (isspace((unsigned char) *string) || *string == '-') {
-	    if (*string == '-') 
+	    if (*string == '-')
 	    {
-		while (*string && *string != '\n') 
+		while (*string && *string != '\n')
 		 string++;
-		
+
 	    }
 	    else {
 		    string++;
 		}
 	}
     if (!*string) return 0;
-    
+
     word_start = string;
-    if (*string == '"') 
+    if (*string == '"')
       {
 	do
 	  {
@@ -1164,23 +1164,23 @@ DEFUN(nextword,(string, word),
 	  }
 	while (*string != '"');
       }
-    else     
+    else
       {
-	while (!isspace((unsigned char) *string)) 
+	while (!isspace((unsigned char) *string))
 	{
 	    string++;
 	    length++;
-	
+
 	}
     }
-    
+
     *word = malloc(length + 1);
 
     dst = *word;
     src = word_start;
 
 
-    for (idx= 0; idx < length; idx++) 
+    for (idx= 0; idx < length; idx++)
       {
 	if (src[idx] == '\\')
 	  switch (src[idx+1])
@@ -1207,11 +1207,11 @@ DEFUN(nextword,(string, word),
 
 
 
-    if(*string)    
+    if(*string)
      return string + 1;
-    else 
+    else
      return 0;
-    
+
 }
 dict_type *root;
 dict_type *
@@ -1222,35 +1222,35 @@ DEFUN(lookup_word,(word),
   while (ptr) {
       if (strcmp(ptr->word, word) == 0) return ptr;
       ptr = ptr->next;
-	    
+
     }
   if (warning)
    fprintf(stderr,"Can't find %s\n",word);
   return 0;
-    
-    
+
+
 }
 
 static void DEFUN_VOID(perform)
 {
   tos = stack;
-    
+
   while (at(ptr, idx)) {
       /* It's worth looking through the command list */
       if (iscommand(ptr, idx))
       {
 	char *next;
 	dict_type *word ;
-		
+
 	(void)		nextword(addr(ptr, idx), &next);
 
 
 	word = lookup_word(next);
 
 
-		
 
-	if (word) 
+
+	if (word)
 	{
 	  exec(word);
 	}
@@ -1260,7 +1260,7 @@ static void DEFUN_VOID(perform)
 	   fprintf(stderr,"warning, %s is not recognised\n",  next);
 	  skip_past_newline();
 	}
-		
+
       }
       else skip_past_newline();
 
@@ -1279,16 +1279,16 @@ DEFUN(newentry,(word),
     new->code_length = 1;
     new->code_end = 0;
     return new;
-    
+
 }
 
 
 unsigned int
-DEFUN(add_to_definition,(entry, word), 
+DEFUN(add_to_definition,(entry, word),
       dict_type *entry AND
       stinst_type word)
 {
-    if (entry->code_end == entry->code_length) 
+    if (entry->code_end == entry->code_length)
     {
 	entry->code_length += 2;
 	entry->code =
@@ -1296,8 +1296,8 @@ DEFUN(add_to_definition,(entry, word),
 			       entry->code_length *sizeof(word_type));
     }
     entry->code[entry->code_end] = word;
-    
-return     entry->code_end++;  
+
+return     entry->code_end++;
 }
 
 
@@ -1327,35 +1327,35 @@ DEFUN(add_var,(name),
 }
 
 
-void 
-DEFUN(compile, (string), 
+void
+DEFUN(compile, (string),
       char *string)
 {
     /* add words to the dictionary */
     char *word;
     string = nextword(string, &word);
-    while (string && *string && word[0]) 
+    while (string && *string && word[0])
     {
-	if (strcmp(word,"var")==0) 
+	if (strcmp(word,"var")==0)
 	{
  string=nextword(string, &word);
-	  
+
 	  add_var(word);
  string=nextword(string, &word);
 	}
-else	
-	    
+else
+
 	if (word[0] == ':')
 	{
 	    dict_type *ptr;
 	    /* Compile a word and add to dictionary */
 	    string = nextword(string, &word);
-	    
+
 	    ptr = newentry(word);
 	    string = nextword(string, &word);
-	    while (word[0] != ';' ) 
+	    while (word[0] != ';' )
 	    {
-		 switch (word[0]) 
+		 switch (word[0])
 		 {
 		   case '"':
 		     /* got a string, embed magic push string
@@ -1383,20 +1383,20 @@ else
 		     add_to_definition(ptr, (stinst_type)lookup_word(word));
 		 }
 
-		string = nextword(string, &word);		     
+		string = nextword(string, &word);
 	    }
 	    add_to_definition(ptr,0);
 	    string = nextword(string, &word);
 	}
-	else 
+	else
 	{
 	    fprintf(stderr,"syntax error at %s\n",string-1);
-	}	    
+	}
     }
 
 }
 
- 
+
 static void DEFUN_VOID(bang)
 {
   *(long *)((isp[0])) = isp[-1];
@@ -1414,7 +1414,7 @@ WORD(atsign)
 WORD(hello)
 {
   printf("hello\n");
-  pc++;    
+  pc++;
 }
 
 WORD(stdout_)
@@ -1449,20 +1449,20 @@ WORD(print)
 }
 
 
-static void DEFUN(read_in, (str, file), 
+static void DEFUN(read_in, (str, file),
 	   string_type *str AND
 		  FILE *file)
 {
-    char buff[10000];    
+    char buff[10000];
     unsigned int r;
-    do 
+    do
     {
 	r = fread(buff, 1, sizeof(buff), file);
 	catbuf(str, buff, r);
     }
     while (r);
     buff[0] = 0;
-    
+
     catbuf(str, buff,1);
 }
 
@@ -1470,7 +1470,7 @@ static void DEFUN(read_in, (str, file),
 static void DEFUN_VOID(usage)
 {
     fprintf(stderr,"usage: -[d|i|g] <file >file\n");
-    exit(33);    
+    exit(33);
 }
 
 /* There is no reliable way to declare exit.  Sometimes it returns
@@ -1497,14 +1497,14 @@ char *av[])
   init_string(stack+0);
   tos=stack+1;
   ptr = &pptr;
-    
+
   add_intrinsic("push_text", push_text);
   add_intrinsic("!", bang);
   add_intrinsic("@", atsign);
-  add_intrinsic("hello",hello);    
-  add_intrinsic("stdout",stdout_);    
-  add_intrinsic("stderr",stderr_);    
-  add_intrinsic("print",print);    
+  add_intrinsic("hello",hello);
+  add_intrinsic("stdout",stdout_);
+  add_intrinsic("stderr",stderr_);
+  add_intrinsic("print",print);
   add_intrinsic("skip_past_newline", skip_past_newline );
   add_intrinsic("catstr", icatstr );
   add_intrinsic("copy_past_newline", icopy_past_newline );
@@ -1530,13 +1530,13 @@ char *av[])
   add_intrinsic("internalmode", internalmode);
   add_intrinsic("print_stack_level", print_stack_level);
   add_intrinsic("strip_trailing_newlines", strip_trailing_newlines);
-    
+
   /* Put a nl at the start */
   catchar(&buffer,'\n');
 
-  read_in(&buffer, stdin); 
+  read_in(&buffer, stdin);
   remove_noncomments(&buffer, ptr);
-  for (i= 1; i < (unsigned int) ac; i++) 
+  for (i= 1; i < (unsigned int) ac; i++)
   {
     if (av[i][0] == '-')
     {
@@ -1547,7 +1547,7 @@ char *av[])
 	init_string(&b);
 
 	f  = fopen(av[i+1],"r");
-	if (!f) 
+	if (!f)
 	{
 	  fprintf(stderr,"Can't open the input file %s\n",av[i+1]);
 	  return 33;
@@ -1555,20 +1555,20 @@ char *av[])
 
 	read_in(&b, f);
 	compile(b.ptr);
-	perform();	
+	perform();
       }
-      else if (av[i][1] == 'i') 
+      else if (av[i][1] == 'i')
       {
 	internal_wanted = 1;
       }
-      else if (av[i][1] == 'w') 
+      else if (av[i][1] == 'w')
       {
 	warning = 1;
       }
       else
 	usage ();
     }
-  }      
+  }
   write_buffer(stack+0, stdout);
   if (tos != stack)
     {

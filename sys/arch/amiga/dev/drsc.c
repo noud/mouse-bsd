@@ -81,7 +81,7 @@ struct cfattach drsc_ca = {
 static struct siop_softc *drsc_softc;
 
 /*
- * One of us is on every DraCo motherboard, 
+ * One of us is on every DraCo motherboard,
  */
 int
 drscmatch(pdp, cfp, auxp)

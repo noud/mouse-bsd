@@ -207,7 +207,7 @@ Fri Feb 21 06:23:19 1997  Arnold D. Robbins  <arnold@skeeve.atl.ga.us>
 	* Misc changes from Katsuyuki Okabe <HGC02147@niftyserve.or.jp>:
 	* builtin.c (do_substr): change a %d to %ld in warning message.
 	* eval.c (op_assign): fix format string for warning about %=.
-	
+
 Wed Feb 19 23:29:02 1997  Arnold D. Robbins  <arnold@skeeve.atl.ga.us>
 
 	* main.c (main): add do_intervals to condition that causes
@@ -728,7 +728,7 @@ Thu Mar  7 08:08:51 1996  Arnold D. Robbins  <arnold@skeeve.atl.ga.us>
 	  fields between parse_high_water and NF.
 	* eval.c (nodetype2str): new function, used for diganostics.
 	  eval.c (interpret): use nodetype2str when finding invalid node.
-	  
+
 Mon Mar  4 09:02:28 1996  Arnold D. Robbins  <arnold@skeeve.atl.ga.us>
 
 	* builtin.c (do_toupper, do_tolower): use isascii along with

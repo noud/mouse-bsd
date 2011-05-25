@@ -117,7 +117,7 @@ static inline void ed_xmit __P((struct ed_softc *));
 static inline caddr_t ed_ring_copy __P((struct ed_softc *, caddr_t, caddr_t,
 					u_short));
 
-static inline void NIC_PUT __P((struct ed_softc *, int, u_char)); 
+static inline void NIC_PUT __P((struct ed_softc *, int, u_char));
 static inline u_char NIC_GET __P((struct ed_softc *, int));
 static inline void word_copy __P((caddr_t, caddr_t, int));
 struct mbuf *ed_ring_to_mbuf __P((struct ed_softc *, caddr_t, struct mbuf *, u_short));

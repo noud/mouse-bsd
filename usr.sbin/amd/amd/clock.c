@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: clock.c,v 1.3 1999/01/13 23:30:58 ezk Exp 
+ * Id: clock.c,v 1.3 1999/01/13 23:30:58 ezk Exp
  *
  */
 

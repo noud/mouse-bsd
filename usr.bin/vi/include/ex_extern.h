@@ -36,7 +36,7 @@ int ex_display __P((SCR *, EXCMD *));
 int ex_edit __P((SCR *, EXCMD *));
 int ex_equal __P((SCR *, EXCMD *));
 int ex_file __P((SCR *, EXCMD *));
-int ex_filter __P((SCR *, 
+int ex_filter __P((SCR *,
    EXCMD *, MARK *, MARK *, MARK *, char *, enum filtertype));
 int ex_global __P((SCR *, EXCMD *));
 int ex_v __P((SCR *, EXCMD *));

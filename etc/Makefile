@@ -29,7 +29,7 @@
 #	../crypto-us or ../crypto-intl.  It controls the building of
 #	the secr set, which can be disabled by setting CRYPTOPATH to
 #	"none".
-# 
+#
 # Targets:
 #    distribution: makes a full NetBSD distribution in DESTDIR. If
 #	INSTALL_DONE is set, it will not do a `make install.'
@@ -54,7 +54,7 @@ MKOBJ=	no
 
 # MD Makefile.inc may append MD targets to BIN[123].  Make sure all
 # are empty, to preserve the old semantics of setting them below with "=".
-BIN1=	
+BIN1=
 BIN2=
 BIN3=
 
@@ -285,7 +285,7 @@ snap_kern:
 	cd ${KERNCONFDIR} && ${CONFIG} \
 		-b ${KERNOBJDIR}/GENERIC -s ${KERNSRCDIR} GENERIC
 .ifndef UPDATE
-	cd ${KERNOBJDIR}/GENERIC && ${MAKE} clean 
+	cd ${KERNOBJDIR}/GENERIC && ${MAKE} clean
 .endif
 	cd ${KERNOBJDIR}/GENERIC && ${MAKE} depend && ${MAKE} ${_J}
 	cd ${KERNOBJDIR}/GENERIC &&	\
@@ -297,7 +297,7 @@ snap_kern:
 	cd ${KERNCONFDIR} && ${CONFIG} \
 		-b ${KERNOBJDIR}/${configfile} -s ${KERNSRCDIR} ${configfile}
 .ifndef UPDATE
-	cd ${KERNOBJDIR}/${configfile} && ${MAKE} clean 
+	cd ${KERNOBJDIR}/${configfile} && ${MAKE} clean
 .endif
 	cd ${KERNOBJDIR}/${configfile} && ${MAKE} depend && ${MAKE} ${_J}
 	cd ${KERNOBJDIR}/${configfile} &&	\
@@ -310,7 +310,7 @@ snap_kern:
 	cd ${KERNCONFDIR} && ${CONFIG} \
 		-b ${KERNOBJDIR}/${configfile} -s ${KERNSRCDIR} ${configfile}
 .ifndef UPDATE
-	cd ${KERNOBJDIR}/${configfile} && ${MAKE} clean 
+	cd ${KERNOBJDIR}/${configfile} && ${MAKE} clean
 .endif
 	cd ${KERNOBJDIR}/${configfile} && ${MAKE} depend && ${MAKE} ${_J}
 .endfor # BUILD_KERNELS

@@ -16,7 +16,7 @@ PROTOS = archive.p archures.p bfd.p \
 
 IPROTOS = cache.ip libbfd.ip reloc.ip init.ip archures.ip coffcode.ip
 
-# SRCDOC, SRCPROT, SRCIPROT only used to sidestep Sun Make bug in interaction 
+# SRCDOC, SRCPROT, SRCIPROT only used to sidestep Sun Make bug in interaction
 # between VPATH and suffix rules.  If you use GNU Make, perhaps other Makes,
 # you don't need these three:
 SRCDOC = $(srcdir)/../aoutx.h  $(srcdir)/../archive.c \
@@ -191,7 +191,7 @@ libbfd.h: $(srcdir)/../libbfd-in.h	\
 	$(srcdir)/../archures.c		\
 	$(srcdir)/proto.str		\
 	$(MKDOC)
-	cat $(srcdir)/../libbfd-in.h >libbfd.h 
+	cat $(srcdir)/../libbfd-in.h >libbfd.h
 	./$(MKDOC) -i -f $(srcdir)/proto.str  < $(srcdir)/../init.c >>libbfd.h
 	./$(MKDOC) -i -f $(srcdir)/proto.str  < $(srcdir)/../libbfd.c >>libbfd.h
 	./$(MKDOC) -i -f $(srcdir)/proto.str  < $(srcdir)/../cache.c >>libbfd.h
@@ -233,7 +233,7 @@ bfd.h: $(srcdir)/../bfd-in.h 		\
 	./$(MKDOC) -f $(srcdir)/proto.str<$(srcdir)/../archive.c >>bfd.h
 	./$(MKDOC) -f $(srcdir)/proto.str<$(srcdir)/../corefile.c >>bfd.h
 	./$(MKDOC) -f $(srcdir)/proto.str<$(srcdir)/../targets.c >>bfd.h
-	./$(MKDOC) -f $(srcdir)/proto.str<$(srcdir)/../format.c >>bfd.h	
+	./$(MKDOC) -f $(srcdir)/proto.str<$(srcdir)/../format.c >>bfd.h
 	echo "#ifdef __cplusplus" >>bfd.h
 	echo "}" >>bfd.h
 	echo "#endif" >>bfd.h

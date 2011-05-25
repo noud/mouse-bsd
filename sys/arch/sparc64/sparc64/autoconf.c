@@ -121,7 +121,7 @@ static	void bootpath_print __P((struct bootpath *));
 int	search_prom __P((int, char *));
 
 /* Global interrupt mappings for all device types.  Match against the OBP
- * 'device_type' property. 
+ * 'device_type' property.
  */
 struct intrmap intrmap[] = {
 	{ "block",	PIL_FD },	/* Floppy disk */
@@ -202,9 +202,9 @@ bootstrap(nctx)
 	extern void *ssym, *esym;
 #endif
 
-	/* 
+	/*
 	 * Initialize ddb first and register OBP callbacks.
-	 * We can do this because ddb_machine_init() and 
+	 * We can do this because ddb_machine_init() and
 	 * ddb_init() do not allocate anything, just initialze
 	 * some pointers to important things like the symtab.
 	 *
@@ -228,14 +228,14 @@ bootstrap(nctx)
 #endif
 #endif
 
-	/* 
-	 * These are the best approximations for the spitfire: 
+	/*
+	 * These are the best approximations for the spitfire:
 	 *
 	 * Contexts are 13 bits.
 	 *
 	 * Other values are not relevant, but used to simulate a sun4
 	 * 3-level MMU so we can address a full 32-bit virtual address
-	 * space.  
+	 * space.
 	 *
 	 * Eventually we should drop all of this in favor of traversing
 	 * process address spaces during MMU faults.
@@ -301,9 +301,9 @@ bootpath_build()
 		++nbootpath;
 	}
 	bp->name[0] = 0;
-	
+
 	bootpath_print(bootpath);
-	
+
 	/* Setup pointer to boot flags */
 	OF_getprop(chosen, "bootargs", buf, sizeof(buf));
 	cp = buf;
@@ -648,7 +648,7 @@ extern struct sparc_bus_space_tag mainbus_space_tag;
 	{
 		/* XXX - what to do on multiprocessor machines? */
 		register const char *cp;
-		
+
 		for (node = firstchild(node); node; node = nextsibling(node)) {
 			cp = getpropstringA(node, "device_type", namebuf);
 			if (strcmp(cp, "cpu") == 0) {
@@ -700,16 +700,16 @@ extern struct sparc_bus_space_tag mainbus_space_tag;
 		ma.ma_node = node;
 		ma.ma_upaid = getpropint(node, "upa-portid", -1);
 
-		if (getprop(node, "reg", sizeof(*ma.ma_reg), 
+		if (getprop(node, "reg", sizeof(*ma.ma_reg),
 			     &ma.ma_nreg, (void**)&ma.ma_reg) != 0)
 			continue;
 
-		if (getprop(node, "interrupts", sizeof(*ma.ma_interrupts), 
+		if (getprop(node, "interrupts", sizeof(*ma.ma_interrupts),
 			     &ma.ma_ninterrupts, (void**)&ma.ma_interrupts) != 0) {
 			free(ma.ma_reg, M_DEVBUF);
 			continue;
 		}
-		if (getprop(node, "address", sizeof(*ma.ma_address), 
+		if (getprop(node, "address", sizeof(*ma.ma_address),
 			     &ma.ma_naddress, (void**)&ma.ma_address) != 0) {
 			free(ma.ma_reg, M_DEVBUF);
 			free(ma.ma_interrupts, M_DEVBUF);
@@ -988,7 +988,7 @@ getdevunit(name, unit)
 
 /*
  * Device registration used to determine the boot device.
- * 
+ *
  * Copied from the sparc port.
  */
 #include <dev/scsipi/scsi_all.h>

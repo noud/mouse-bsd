@@ -16,7 +16,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -42,11 +42,11 @@
 #define SIZE_OWORD	16		/* Octaword */
 
 /*
- * The VAX instruction set has a variable length instruction format which 
- * may be as short as one byte and as long as needed depending on the type 
- * of instruction. [...] Each instruction consists of an opcode followed 
- * by zero to six operand specifiers whose number and type depend on the 
- * opcode. All operand specidiers are, themselves, of the same format -- 
+ * The VAX instruction set has a variable length instruction format which
+ * may be as short as one byte and as long as needed depending on the type
+ * of instruction. [...] Each instruction consists of an opcode followed
+ * by zero to six operand specifiers whose number and type depend on the
+ * opcode. All operand specidiers are, themselves, of the same format --
  * i.e. an address mode plus additional information.
  *
  * [VAX Architecture Handbook, p.52:  Instruction Format]
@@ -65,7 +65,7 @@ struct {
  *	r: operand is read only
  *	w: operand is written only
  *	m: operand is modified (both R and W)
- *	b: no operand reference. Branch displacement is specified. 
+ *	b: no operand reference. Branch displacement is specified.
  *	a: calculate the adress of the specified operand
  *	v: if not "Rn", same as a. If "RN," R[n+1]R[n]
  * Arguments (Data-Types):
@@ -101,7 +101,7 @@ struct {
 /* 0x0d */	{	"probew", 	"rb,rw,ab"		},
 /* 0x0e */	{	"insque", 	"ab,wl"			},
 /* 0x0f */	{	"remque", 	"ab,wl"			},
-	   
+
 /* 0x10 */	{	"bsbb", 	"bb"			},
 /* 0x11 */	{	"brb", 		"bb"			},
 /* 0x12 */	{	"*bneq",	"bb"			},
@@ -118,7 +118,7 @@ struct {
 /* 0x1d */	{	"bvs", 		"bb"			},
 /* 0x1e */	{	"*bcc", 	"bb"			},
 /* 0x1f */	{	"*bcs", 	"bb"			},
-	   
+
 /* 0x20 */	{	"addp4", 	"rw,ab,rw,ab"		},
 /* 0x21 */	{	"addp6", 	"rw,ab,rw,ab,rw,ab"	},
 /* 0x22 */	{	"subp4", 	"rw,ab,rw,ab"		},
@@ -135,7 +135,7 @@ struct {
 /* 0x2d */	{	"cmpc5", 	"rw,ab,rb,rw,ab"	},
 /* 0x2e */	{	"movtc", 	"rw,ab,rb,ab,rw,ab"	},
 /* 0x2f */	{	"movtuc", 	"rw,ab,rb,ab,rw,ab"	},
-	   
+
 /* 0x30 */	{	"bsbw", 	"bw"			},
 /* 0x31 */	{	"brw", 		"bw"			},
 /* 0x32 */	{	"cvtwl", 	"rw,wl"			},
@@ -152,7 +152,7 @@ struct {
 /* 0x3d */	{	"acbw", 	"rw,rw,mw,bw"		},
 /* 0x3e */	{	"movaw", 	"aw,wl"			},
 /* 0x3f */	{	"pushaw", 	"aw"			},
-	   
+
 /* 0x40 */	{	"addf2", 	"rf,mf"			},
 /* 0x41 */	{	"addf3", 	"rf,rf,wf"		},
 /* 0x42 */	{	"subf2", 	"rf,mf"			},
@@ -169,7 +169,7 @@ struct {
 /* 0x4d */	{	"cvtwf", 	"rw,wf"			},
 /* 0x4e */	{	"cvtlf", 	"rl,wf"			},
 /* 0x4f */	{	"acbf", 	"rf,rf,rf,bw"		},
-	   
+
 /* 0x50 */	{	"movf", 	"rf,wf"			},
 /* 0x51 */	{	"cmpf", 	"rf,rf"			},
 /* 0x52 */	{	"mnegf", 	"rf,wf"			},
@@ -186,7 +186,7 @@ struct {
 /* 0x5d */	{	"insqti", 	"ab,aq"			},
 /* 0x5e */	{	"remqhi", 	"aq,wl"			},
 /* 0x5f */	{	"remqti", 	"aq,wl"			},
-	   
+
 /* 0x60 */	{	"addd2", 	"rd,md"			},
 /* 0x61 */	{	"addd3", 	"rd,rd,wd"		},
 /* 0x62 */	{	"subd2", 	"rd,md"			},
@@ -203,7 +203,7 @@ struct {
 /* 0x6d */	{	"cvtwd", 	"rw,wd"			},
 /* 0x6e */	{	"cvtld", 	"rl,wd"			},
 /* 0x6f */	{	"acbd", 	"rd,rd,md,bw"		},
-	   
+
 /* 0x70 */	{	"movd", 	"rd,wd"			},
 /* 0x71 */	{	"cmpd", 	"rd,rd"			},
 /* 0x72 */	{	"mnegd", 	"rd,wd"			},
@@ -220,7 +220,7 @@ struct {
 /* 0x7d */	{	"movq", 	"rq,wq"			},
 /* 0x7e */	{	"*movaq", 	"aq,wl"			},
 /* 0x7f */	{	"*pushaq", 	"aq"			},
-	   
+
 /* 0x80 */	{	"addb2", 	"rb,mb"			},
 /* 0x81 */	{	"addb3", 	"rb,rb,wb"		},
 /* 0x82 */	{	"subb2", 	"rb,mb"			},
@@ -237,7 +237,7 @@ struct {
 /* 0x8d */	{	"xorb3", 	"rb,rb,wb"		},
 /* 0x8e */	{	"mnegb", 	"rb,wb"			},
 /* 0x8f */	{	"caseb", 	"rb,rb,rb,bw-list"	},
-	   
+
 /* 0x90 */	{	"movb", 	"rb,wb"			},
 /* 0x91 */	{	"cmpb", 	"rb,rb"			},
 /* 0x92 */	{	"mcomb", 	"rb,wb"			},
@@ -254,7 +254,7 @@ struct {
 /* 0x9d */	{	"acbb", 	"rb,rb,mb,bw"		},
 /* 0x9e */	{	"movab", 	"ab,wl"			},
 /* 0x9f */	{	"pushab", 	"ab"			},
-	   
+
 /* 0xa0 */	{	"addw2", 	"rw,mw"			},
 /* 0xa1 */	{	"addw3", 	"rw,rw,ww"		},
 /* 0xa2 */	{	"subw2", 	"rw,mw"			},
@@ -271,7 +271,7 @@ struct {
 /* 0xad */	{	"xorw3", 	"rw,rw,ww"		},
 /* 0xae */	{	"mnegw", 	"rw,ww"			},
 /* 0xaf */	{	"casew", 	"rw,rw,rw,bw-list"	},
-	   
+
 /* 0xb0 */	{	"movw", 	"rw,ww"			},
 /* 0xb1 */	{	"cmpw", 	"rw,rw"			},
 /* 0xb2 */	{	"mcomw", 	"rw,ww"			},
@@ -288,7 +288,7 @@ struct {
 /* 0xbd */	{	"chme", 	"rw"			},
 /* 0xbe */	{	"chms", 	"rw"			},
 /* 0xbf */	{	"chmu", 	"rw"			},
-	   
+
 /* 0xc0 */	{	"addl2", 	"rl,ml"			},
 /* 0xc1 */	{	"addl3", 	"rl,rl,wl"		},
 /* 0xc2 */	{	"subl2", 	"rl,ml"			},
@@ -305,7 +305,7 @@ struct {
 /* 0xcd */	{	"xorl3", 	"rl,rl,wl"		},
 /* 0xce */	{	"mnegl", 	"rl,wl"			},
 /* 0xcf */	{	"casel", 	"rl,rl,rl,bw-list"	},
-	   
+
 /* 0xd0 */	{	"movl", 	"rl,wl"			},
 /* 0xd1 */	{	"cmpl", 	"rl,rl"			},
 /* 0xd2 */	{	"mcoml", 	"rl,wl"			},
@@ -322,7 +322,7 @@ struct {
 /* 0xdd */	{	"pushl", 	"rl"			},
 /* 0xde */	{	"*moval", 	"al,wl"			},
 /* 0xdf */	{	"*pushal", 	"al"			},
-	   
+
 /* 0xe0 */	{	"bbs", 		"rl,vb,bb"		},
 /* 0xe1 */	{	"bbc", 		"rl,vb,bb"		},
 /* 0xe2 */	{	"bbss", 	"rl,vb,bb"		},
@@ -339,7 +339,7 @@ struct {
 /* 0xed */	{	"cmpzv", 	"rl,rb,vb,rl"		},
 /* 0xee */	{	"extv", 	"rl,rb,vb,wl"		},
 /* 0xef */	{	"extzv", 	"rl,rb,vb,wl"		},
-	   
+
 /* 0xf0 */	{	"insv", 	"rl,rl,rb,vb"		},
 /* 0xf1 */	{	"acbl", 	"rl,rl,ml,bw"		},
 /* 0xf2 */	{	"aoblss", 	"rl,ml,bb"		},
@@ -356,6 +356,6 @@ struct {
 /* 0xfd */	{	"-reserved-", 	""			},
 /* 0xfe */	{	"-reserved-", 	""			},
 /* 0xff */	{	"-reserved-", 	""			},
-  
+
 };
 

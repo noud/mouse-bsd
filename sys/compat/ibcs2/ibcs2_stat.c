@@ -97,7 +97,7 @@ cvt_statfs(sp, buf, len)
 	ssfs.f_fname[0] = 0;
 	ssfs.f_fpack[0] = 0;
 	return copyout((caddr_t)&ssfs, buf, len);
-}	
+}
 
 static int
 cvt_statvfs(sp, buf, len)
@@ -121,7 +121,7 @@ cvt_statvfs(sp, buf, len)
 	ssvfs.f_namemax = PATH_MAX;
 	ssvfs.f_fstr[0] = 0;
 	return copyout((caddr_t)&ssvfs, buf, len);
-}	
+}
 
 int
 ibcs2_sys_statfs(p, v, retval)

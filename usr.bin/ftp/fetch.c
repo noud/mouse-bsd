@@ -1456,7 +1456,7 @@ fetch_ftp(url)
 	} else
 		dir = NULL;
 	if (urltype == FTP_URL_T && file != NULL) {
-		url_decode(file);	
+		url_decode(file);
 		/* but still don't url_decode(dir) */
 	}
 	if (debug)

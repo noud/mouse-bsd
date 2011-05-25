@@ -193,10 +193,10 @@ char *argv[];
 	extern int optind;
 	extern int opterr;
 	extern char *optarg;
-	
+
 	int c;
 	int fd;
-	
+
 	while( (c = getopt(argc, argv, "ac:d:f:HVlms:t:vp:18")) != -1)
 	{
 		switch(c)
@@ -204,7 +204,7 @@ char *argv[];
 			case 'a':
 				aflag = 1;
 				break;
-				
+
 			case 'l':
 				lflag = 1;
 				break;
@@ -216,17 +216,17 @@ char *argv[];
 			case 'c':
 				current = atoi(optarg);
 				break;
-				
+
 			case 'd':
 				device = optarg;
 				dflag = 1;
 				break;
-				
+
 			case 'f':
 				onoff = optarg;
 				fflag = 1;
 				break;
-				
+
 			case 'V':
 				pflag = 1;
 				break;
@@ -310,7 +310,7 @@ char *argv[];
 			case '1':
 				colms = 132;
 				break;
-			
+
 			case '8':
 				colms = 80;
 				break;
@@ -349,7 +349,7 @@ char *argv[];
 			exit(1);
 		}
 		if(vflag)
-			printf("using device %s\n",device);		
+			printf("using device %s\n",device);
 	}
 
 	if(aflag == 1)	/* return adaptor type */
@@ -405,7 +405,7 @@ char *argv[];
 		}
 		goto success;
 	}
-	
+
 	if(Pflag == 3)
 	{
 		/* listing VGA palette */
@@ -446,14 +446,14 @@ char *argv[];
 	screeninfo.screen_no = -1; /* We are using fd */
 	screeninfo.current_screen = current;
 	screeninfo.pure_vt_mode = -1;
-	screeninfo.screen_size = res;	
+	screeninfo.screen_size = res;
 	screeninfo.force_24lines = -1;
-	
+
 	if(current != -1)	/* set current screen */
 	{
 		if(vflag)
 			printf("processing option -c, setting current screen to %d\n",current);
-		
+
 		if(ioctl(1, VGASETSCREEN, &screeninfo) == -1)
 		{
 			perror("ioctl VGASETSCREEN failed");
@@ -524,8 +524,8 @@ char *argv[];
 success:
 	if(vflag)
 		printf("successful execution of ioctl VGASETSCREEN!\n");
-	exit(0);	
-}			
+	exit(0);
+}
 
 usage()
 {
@@ -567,19 +567,19 @@ int fd;
 		case UNKNOWN_ADAPTOR:
 			printf("UNKNOWN\n");
 			break;
-			
+
 		case MDA_ADAPTOR:
 			printf("MDA\n");
 			break;
-			
+
 		case CGA_ADAPTOR:
 			printf("CGA\n");
 			break;
-			
+
 		case EGA_ADAPTOR:
 			printf("EGA\n");
 			break;
-			
+
 		case VGA_ADAPTOR:
 			printf("VGA\n");
 			break;
@@ -599,11 +599,11 @@ int fd;
 		default:
 			printf("UNKNOWN\n");
 			break;
-			
+
 		case MONITOR_MONO:
 			printf("MONO\n");
 			break;
-			
+
 		case MONITOR_COLOR:
 			printf("COLOR\n");
 			break;
@@ -679,26 +679,26 @@ int fd;
 	}
 
 	printf( "\nVideo Adaptor Type           = ");
-	
+
 	switch(screeninfo.adaptor_type)
 	{
 		default:
 		case UNKNOWN_ADAPTOR:
 			printf("UNKNOWN Video Adaptor\n");
 			break;
-			
+
 		case MDA_ADAPTOR:
 			printf("MDA - Monochrome Display Adaptor\n");
 			break;
-			
+
 		case CGA_ADAPTOR:
 			printf("CGA - Color Graphics Adaptor\n");
 			break;
-			
+
 		case EGA_ADAPTOR:
 			printf("EGA - Enhanced Graphics Adaptor\n");
 			break;
-			
+
 		case VGA_ADAPTOR:
 			printf("VGA - Video Graphics Adaptor/Array\n");
 			printf(" VGA Chipset Manufacturer    = %s\n",
@@ -710,61 +710,61 @@ int fd;
 			break;
 	}
 
-	printf( "Display Monitor Type         = ");	
+	printf( "Display Monitor Type         = ");
 
 	switch(screeninfo.monitor_type)
 	{
 		default:
 			printf("UNKNOWN Monitor Type\n");
 			break;
-			
+
 		case MONITOR_MONO:
 			printf("Monochrome Monitor\n");
 			break;
-			
+
 		case MONITOR_COLOR:
 			printf("Color Monitor\n");
 			break;
 	}
-	
+
 	printf( "Number of Downloadable Fonts = %d\n",screeninfo.totalfonts);
 	printf( "Number of Virtual Screens    = %d\n",screeninfo.totalscreens);
 	printf( "Info Request Screen Number   = %d\n",screeninfo.screen_no);
 	printf( "Current Displayed Screen     = %d\n",screeninfo.current_screen);
-	
-	if(screeninfo.pure_vt_mode == M_PUREVT)				
+
+	if(screeninfo.pure_vt_mode == M_PUREVT)
 		printf( "Terminal Emulation Mode      = VT220\n");
 	else
 		printf( "Terminal Emulation Mode      = VT220 with HP Features\n");
 
-	printf( "Lines                        = ");	
+	printf( "Lines                        = ");
 
 	switch(screeninfo.screen_size)
 	{
 		case SIZ_25ROWS:
 			printf( "25\n");
 			break;
-	
+
 		case SIZ_28ROWS:
 			printf( "28\n");
 			break;
-	
+
 		case SIZ_35ROWS:
 			printf( "35\n");
 			break;
-	
+
 		case SIZ_40ROWS:
 			printf( "40\n");
 			break;
-	
+
 		case SIZ_43ROWS:
 			printf( "43\n");
 			break;
-	
+
 		case SIZ_50ROWS:
 			printf( "50\n");
 			break;
-	
+
 		default:
 			printf( "UNKNOWN\n");
 			break;

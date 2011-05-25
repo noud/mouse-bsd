@@ -51,7 +51,7 @@ rtc_read(u_char reg)
 	int i;
 	u_int tmp;
 	u_char val;
-    
+
 	*scr2 = (*scr2 & ~(SCR2_RTDATA | SCR2_RTCLK)) | SCR2_RTCE;
 	DELAY(1);
 
@@ -74,7 +74,7 @@ rtc_read(u_char reg)
 	val = 0;			/* should be anyway */
 	for (i=0; i<8; i++) {
 		val <<= 1;
-	
+
 		tmp = *scr2 & ~(SCR2_RTDATA | SCR2_RTCLK);
 
 		*scr2 = tmp | SCR2_RTCLK;
@@ -96,7 +96,7 @@ void
 rtc_init(void)
 {
 	u_char val;
-	
+
 	val = rtc_read(RTC_STATUS);
 	new_clock = (val & RTC_NEW_CLOCK) ? 1 : 0;
 }
@@ -105,7 +105,7 @@ time_t
 getsecs(void)
 {
 	u_int secs;
-	
+
 	if (new_clock) {
 		secs = rtc_read(RTC_CNTR3) << 24 |
 		       rtc_read(RTC_CNTR2) << 16 |
@@ -124,6 +124,6 @@ getsecs(void)
 		       BCD_DECODE(m) * 60 +
 		       BCD_DECODE(s);
 	}
-	
+
 	return secs;
 }

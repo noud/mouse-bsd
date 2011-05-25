@@ -7,7 +7,7 @@ include	"arch/pc532/conf/std.pc532"
 
 maxusers	8			# estimated number of users
 
-makeoptions	DEBUG="-g" 
+makeoptions	DEBUG="-g"
 makeoptions	COPTS="-O1 -msb -mrtd"
 options 	MRTD
 

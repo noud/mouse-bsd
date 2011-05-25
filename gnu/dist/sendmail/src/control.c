@@ -148,7 +148,7 @@ closecontrolsocket(fullclose)
 
 		rval = safefile(ControlSocketName, RunAsUid, RunAsGid, RunAsUserName,
 				sff, S_IRUSR|S_IWUSR, NULL);
-		
+
 		/* if not safe, don't unlink */
 		if (rval != 0)
 			return;
@@ -245,7 +245,7 @@ control_command(sock, e)
 	extern void help __P((char *));
 
 	sm_setproctitle(FALSE, "control cmd read");
-		
+
 	s = fdopen(sock, "r+");
 	if (s == NULL)
 	{
@@ -278,11 +278,11 @@ control_command(sock, e)
 	       cmd < &cmdbuf[sizeof cmdbuf - 2])
 		*cmd++ = *p++;
 	*cmd = '\0';
-	
+
 	/* throw away leading whitespace */
 	while (isascii(*p) && isspace(*p))
 		p++;
-	
+
 	/* decode command */
 	for (c = CmdTab; c->cmdname != NULL; c++)
 	{
@@ -301,7 +301,7 @@ control_command(sock, e)
 		TrafficLogFile = traffic;
 		OutChannel = oldout;
 		break;
-		
+
 	  case CMDRESTART:	/* restart the daemon */
 		if (SaveArgv[0][0] != '/')
 		{

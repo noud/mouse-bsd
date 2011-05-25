@@ -9,7 +9,7 @@
 
 
 void load_kmap __P((const char *));
-void dump_kmap(); 
+void dump_kmap();
 
 int
 main(argc, argv)

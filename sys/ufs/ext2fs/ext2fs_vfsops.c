@@ -143,7 +143,7 @@ ext2fs_mountroot()
 
 	if (root_device->dv_class != DV_DISK)
 		return (ENODEV);
-	
+
 	/*
 	 * Get vnodes for rootdev.
 	 */
@@ -317,7 +317,7 @@ ext2fs_mount(mp, path, data, ndp, p)
 		    sizeof(fs->e2fs.e2fs_fsmnt) - size);
 	}
 	memcpy(mp->mnt_stat.f_mntonname, fs->e2fs_fsmnt, MNAMELEN);
-	(void) copyinstr(args.fspec, mp->mnt_stat.f_mntfromname, MNAMELEN - 1, 
+	(void) copyinstr(args.fspec, mp->mnt_stat.f_mntfromname, MNAMELEN - 1,
 		&size);
 	memset(mp->mnt_stat.f_mntfromname + size, 0, MNAMELEN - size);
 	if (fs->e2fs_fmod != 0) {	/* XXX */
@@ -388,7 +388,7 @@ ext2fs_reload(mountp, cred, p)
 	}
 
 	fs = VFSTOUFS(mountp)->um_e2fs;
-	/* 
+	/*
 	 * copy in new superblock, and compute in-memory values
 	 */
 	e2fs_sbload(newfs, &fs->e2fs);
@@ -423,7 +423,7 @@ ext2fs_reload(mountp, cred, p)
 		    fs->e2fs_bsize);
 		brelse(bp);
 	}
-	
+
 loop:
 	simple_lock(&mntvnode_slock);
 	for (vp = mountp->mnt_vnodelist.lh_first; vp != NULL; vp = nvp) {
@@ -765,7 +765,7 @@ loop:
 		if (vp->v_type == VNON || ((ip->i_flag &
 		    (IN_ACCESS | IN_CHANGE | IN_MODIFIED | IN_UPDATE)) == 0 &&
 		    (vp->v_dirtyblkhd.lh_first == NULL || waitfor == MNT_LAZY)))
-		{   
+		{
 			simple_unlock(&vp->v_interlock);
 			continue;
 		}
@@ -943,7 +943,7 @@ ext2fs_fhtovp(mp, fhp, vpp)
 		return (error);
 	}
 	ip = VTOI(nvp);
-	if (ip->i_e2fs_mode == 0 || ip->i_e2fs_dtime != 0 || 
+	if (ip->i_e2fs_mode == 0 || ip->i_e2fs_dtime != 0 ||
 		ip->i_e2fs_gen != ufhp->ufid_gen) {
 		vput(nvp);
 		*vpp = NULLVP;

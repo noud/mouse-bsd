@@ -50,7 +50,7 @@ m88k_is_local_label_name (abfd, name)
   return name[0] == '@';
 }
 
-static bfd_reloc_status_type 
+static bfd_reloc_status_type
 m88k_special_reloc (abfd, reloc_entry, symbol, data,
 		    input_section, output_bfd, error_message)
      bfd *abfd;
@@ -139,7 +139,7 @@ m88k_special_reloc (abfd, reloc_entry, symbol, data,
   return bfd_reloc_ok;
 }
 
-static reloc_howto_type howto_table[] = 
+static reloc_howto_type howto_table[] =
 {
   HOWTO (R_PCR16L,			/* type */
 	 02,				/* rightshift */

@@ -196,7 +196,7 @@
  *	FERR#:		13		(unconnected floating point error)
  *
  * total of 15 irqs:
- * timer, ide, 2 umi = isa/pci, ethernet, 2 codec, kb, usi, uart, floppy, 
+ * timer, ide, 2 umi = isa/pci, ethernet, 2 codec, kb, usi, uart, floppy,
  * parallel, rtc, mouse, ferr (irq 13)
  *
  * eventually, need to read the OFW dev info tree, and allocate IRQs.

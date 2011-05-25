@@ -41,7 +41,7 @@
 static int callcount[10];
 static void rf_ShutdownNWayXor(void *);
 
-static void 
+static void
 rf_ShutdownNWayXor(ignored)
 	void   *ignored;
 {
@@ -55,7 +55,7 @@ rf_ShutdownNWayXor(ignored)
 	printf("\n");
 }
 
-int 
+int
 rf_ConfigureNWayXor(listp)
 	RF_ShutdownList_t **listp;
 {
@@ -67,7 +67,7 @@ rf_ConfigureNWayXor(listp)
 	return (rc);
 }
 
-void 
+void
 rf_nWayXor1(src_rbs, dest_rb, len)
 	RF_ReconBuffer_t **src_rbs;
 	RF_ReconBuffer_t *dest_rb;
@@ -101,7 +101,7 @@ rf_nWayXor1(src_rbs, dest_rb, len)
 	}
 }
 
-void 
+void
 rf_nWayXor2(src_rbs, dest_rb, len)
 	RF_ReconBuffer_t **src_rbs;
 	RF_ReconBuffer_t *dest_rb;
@@ -194,7 +194,7 @@ rf_nWayXor2(src_rbs, dest_rb, len)
   _dst += 4;
 
 
-void 
+void
 rf_nWayXor3(src_rbs, dest_rb, len)
 	RF_ReconBuffer_t **src_rbs;
 	RF_ReconBuffer_t *dest_rb;
@@ -224,7 +224,7 @@ rf_nWayXor3(src_rbs, dest_rb, len)
 	}
 }
 
-void 
+void
 rf_nWayXor4(src_rbs, dest_rb, len)
 	RF_ReconBuffer_t **src_rbs;
 	RF_ReconBuffer_t *dest_rb;
@@ -256,7 +256,7 @@ rf_nWayXor4(src_rbs, dest_rb, len)
 	}
 }
 
-void 
+void
 rf_nWayXor5(src_rbs, dest_rb, len)
 	RF_ReconBuffer_t **src_rbs;
 	RF_ReconBuffer_t *dest_rb;
@@ -290,7 +290,7 @@ rf_nWayXor5(src_rbs, dest_rb, len)
 	}
 }
 
-void 
+void
 rf_nWayXor6(src_rbs, dest_rb, len)
 	RF_ReconBuffer_t **src_rbs;
 	RF_ReconBuffer_t *dest_rb;
@@ -326,7 +326,7 @@ rf_nWayXor6(src_rbs, dest_rb, len)
 	}
 }
 
-void 
+void
 rf_nWayXor7(src_rbs, dest_rb, len)
 	RF_ReconBuffer_t **src_rbs;
 	RF_ReconBuffer_t *dest_rb;
@@ -364,7 +364,7 @@ rf_nWayXor7(src_rbs, dest_rb, len)
 	}
 }
 
-void 
+void
 rf_nWayXor8(src_rbs, dest_rb, len)
 	RF_ReconBuffer_t **src_rbs;
 	RF_ReconBuffer_t *dest_rb;
@@ -405,7 +405,7 @@ rf_nWayXor8(src_rbs, dest_rb, len)
 }
 
 
-void 
+void
 rf_nWayXor9(src_rbs, dest_rb, len)
 	RF_ReconBuffer_t **src_rbs;
 	RF_ReconBuffer_t *dest_rb;

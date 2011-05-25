@@ -189,7 +189,7 @@ struct breakpoint
      when using watchpoints on local variables (might the concept
      of a related breakpoint be useful elsewhere, if not just call
      it the watchpoint_scope breakpoint or something like that. FIXME).  */
-  struct breakpoint *related_breakpoint; 
+  struct breakpoint *related_breakpoint;
 
   /* Holds the frame address which identifies the frame this watchpoint
      should be evaluated in, or NULL if the watchpoint should be evaluated
@@ -239,7 +239,7 @@ enum bpstat_what_main_action {
      taking into account stop_print_frame and source_only).  But the
      implications are a bit scary (interaction with auto-displays, etc.),
      so I won't try it.  */
-     
+
   /* Stop silently.  */
   BPSTAT_WHAT_STOP_SILENT,
 
@@ -399,7 +399,7 @@ extern void disable_longjmp_breakpoint PARAMS ((void));
 
 extern void set_longjmp_resume_breakpoint PARAMS ((CORE_ADDR,
 						   struct frame_info *));
- 
+
 extern void clear_breakpoint_hit_counts PARAMS ((void));
 
 /* The following are for displays, which aren't really breakpoints, but

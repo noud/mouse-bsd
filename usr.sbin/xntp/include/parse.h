@@ -7,7 +7,7 @@
  *
  * Copyright (C) 1989,1990,1991,1992,1993,1994,1995,1996 by Frank Kardel
  * Friedrich-Alexander Universität Erlangen-Nürnberg, Germany
- *                                    
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -197,8 +197,8 @@ typedef struct parsetime parsetime_t;
 #define PARSE_IO_CSIZE	0x00000003
 #define PARSE_IO_CS5	0x00000000
 #define PARSE_IO_CS6	0x00000001
-#define PARSE_IO_CS7	0x00000002 
-#define PARSE_IO_CS8	0x00000003 
+#define PARSE_IO_CS7	0x00000002
+#define PARSE_IO_CS8	0x00000003
 
 /*
  * sizes
@@ -208,7 +208,7 @@ typedef struct parsetime parsetime_t;
 /*
  * ioctl structure
  */
-union parsectl 
+union parsectl
 {
   struct parsegettc
     {
@@ -231,7 +231,7 @@ union parsectl
       u_long         parse_cs;	/* character size (needed for stripping) */
     } parsesetcs;
 };
-  
+
 typedef union parsectl parsectl_t;
 
 /*------ for conversion routines --------*/
@@ -241,7 +241,7 @@ typedef union parsectl parsectl_t;
 struct parse			/* parse module local data */
 {
   int            parse_flags;	/* operation and current status flags */
-  
+
   int		 parse_ioflags;	   /* io handling flags (5-8 Bit control currently) */
   int		 parse_syncflags;	   /* possible sync events (START/END/character) */
   /*
@@ -280,7 +280,7 @@ struct parse			/* parse module local data */
   char          *parse_ldata;	/* last data buffer */
   unsigned short parse_ldsize;	/* last data buffer length */
   u_long         parse_badformat;	/* number of unparsable pakets */
-  
+
   parsetime_t      parse_dtime;	/* external data prototype */
 };
 

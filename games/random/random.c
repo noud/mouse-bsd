@@ -108,7 +108,7 @@ main(argc, argv)
 			errx(1, "denominator is not valid.");
 		break;
 	default:
-		usage(); 
+		usage();
 		/* NOTREACHED */
 	}
 
@@ -125,7 +125,7 @@ main(argc, argv)
 	 */
 	if (unbuffer_output)
 		setbuf(stdout, NULL);
-	
+
 	/*
 	 * Select whether to print the first line.  (Prime the pump.)
 	 * We find a random number between 0 and denom - 1 and, if it's

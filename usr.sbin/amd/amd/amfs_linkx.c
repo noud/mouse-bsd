@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: amfs_linkx.c,v 1.2 1999/01/10 21:53:42 ezk Exp 
+ * Id: amfs_linkx.c,v 1.2 1999/01/10 21:53:42 ezk Exp
  *
  */
 

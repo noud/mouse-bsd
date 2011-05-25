@@ -21,7 +21,7 @@ A startup routine to set up the C runtime environment; these usually
 have a name like @file{crt0}.  The startup routine may be supplied by
 your hardware supplier, or you may have to write your own.
 
-@item 
+@item
 You probably need a C subroutine library to support your program's
 subroutine calls, notably managing input and output.
 
@@ -141,7 +141,7 @@ information on the state of your program, then continues to execute,
 retrieving and transmitting any information @value{GDBN} needs, until you
 execute a @value{GDBN} command that makes your program resume; at that point,
 @code{handle_exception} returns control to your own code on the target
-machine. 
+machine.
 
 @item breakpoint
 @cindex @code{breakpoint} subroutine, remote
@@ -154,7 +154,7 @@ pressing the interrupt button transfers control to
 simply receiving characters on the serial port may also trigger a trap;
 again, in that situation, you don't need to call @code{breakpoint} from
 your own program---simply running @samp{target remote} from the host
-@value{GDBN} session gets control.  
+@value{GDBN} session gets control.
 
 Call @code{breakpoint} if none of these is true, or if you simply want
 to make certain your program stops at a predetermined point for the
@@ -182,7 +182,7 @@ different name is used to allow you to distinguish the two if you wish.
 @item void putDebugChar(int)
 @kindex putDebugChar
 Write this subroutine to write a single character to the serial port.
-It may be identical to @code{putchar} for your target system; a 
+It may be identical to @code{putchar} for your target system; a
 different name is used to allow you to distinguish the two if you wish.
 @end table
 
@@ -404,7 +404,7 @@ sends data when your program stops.
 Command packets are distinguished by their first character, which
 identifies the kind of command.
 
-These are some of the commands currently supported (for a complete list of 
+These are some of the commands currently supported (for a complete list of
 commands, look in @file{gdb/remote.c.}):
 
 @table @code
@@ -445,8 +445,8 @@ to make a quick decision about single-stepping or conditional breakpoints.
 This eliminates the need to fetch the entire register set for each instruction
 being stepped through.
 
-The @value{GDBN} remote serial protocol now implements a write-through 
-cache for registers.  @value{GDBN} only re-reads the registers if the 
+The @value{GDBN} remote serial protocol now implements a write-through
+cache for registers.  @value{GDBN} only re-reads the registers if the
 target has run.
 @end table
 
@@ -588,7 +588,7 @@ To use the server, you must tell it how to communicate with
 @value{GDBN}; the name of your program; and the arguments for your
 program.  The syntax is:
 
-@smallexample 
+@smallexample
 load gdbserve [ BOARD=@var{board} ] [ PORT=@var{port} ]
               [ BAUD=@var{baud} ] @var{program} [ @var{args} @dots{} ]
 @end smallexample
@@ -598,7 +598,7 @@ the baud rate used by the connection.  @var{port} and @var{node} default
 to 0, @var{baud} defaults to 9600 bps.
 
 For example, to debug Emacs with the argument @samp{foo.txt}and
-communicate with @value{GDBN} over serial port number 2 or board 1 
+communicate with @value{GDBN} over serial port number 2 or board 1
 using a 19200 bps connection:
 
 @smallexample
@@ -664,7 +664,7 @@ options, you are prompted for what serial port to use, @emph{before} you
 reach the ordinary @value{GDBN} prompt:
 
 @example
-Attach /dev/ttyNN -- specify NN, or "quit" to quit:  
+Attach /dev/ttyNN -- specify NN, or "quit" to quit:
 @end example
 
 @noindent
@@ -792,7 +792,7 @@ bps, no parity, eight data bits, one stop bit, and no ``retry'' action;
 you must match the communications parameters when establishing the Unix
 end of the connection as well.
 @c FIXME: Who knows what this "no retry action" crud from the DOS manual may
-@c       mean?  It's optional; leave it out? ---doc@cygnus.com, 25feb91 
+@c       mean?  It's optional; leave it out? ---doc@cygnus.com, 25feb91
 
 To give control of the PC to the Unix side of the serial line, type
 the following at the DOS console:
@@ -1010,10 +1010,10 @@ installed with the name @code{vxgdb}, to distinguish it from a
 @table @code
 @item VxWorks-timeout @var{args}
 @kindex vxworks-timeout
-All VxWorks-based targets now support the option @code{vxworks-timeout}.  
-This option is set by the user, and  @var{args} represents the number of 
-seconds @value{GDBN} waits for responses to rpc's.  You might use this if 
-your VxWorks target is a slow software simulator or is on the far side 
+All VxWorks-based targets now support the option @code{vxworks-timeout}.
+This option is set by the user, and  @var{args} represents the number of
+seconds @value{GDBN} waits for responses to rpc's.  You might use this if
+your VxWorks target is a slow software simulator or is on the far side
 of a thin network line.
 @end table
 
@@ -1063,7 +1063,7 @@ network.  To connect to a target whose host name is ``@code{tt}'', type:
 @value{GDBN} displays messages like these:
 
 @smallexample
-Attaching remote machine across net... 
+Attaching remote machine across net...
 Connected to tt.
 @end smallexample
 
@@ -1109,7 +1109,7 @@ v
 Then, in @value{GDBN}, type:
 
 @example
-(vxgdb) cd @var{hostpath}/vw/demo/rdb 
+(vxgdb) cd @var{hostpath}/vw/demo/rdb
 (vxgdb) load prog.o
 @end example
 
@@ -1149,24 +1149,24 @@ the time of attachment.
 @subsection @value{GDBN} and Sparclet
 @cindex Sparclet
 
-@value{GDBN} enables developers to debug tasks running on 
-Sparclet targets from a Unix host.  
+@value{GDBN} enables developers to debug tasks running on
+Sparclet targets from a Unix host.
 @value{GDBN} uses code that runs on
 both the Unix host and on the Sparclet target.  The program
-@code{gdb} is installed and executed on the Unix host.  
+@code{gdb} is installed and executed on the Unix host.
 
 @table @code
 @item timeout @var{args}
 @kindex remotetimeout
-@value{GDBN} now supports the option @code{remotetimeout}.  
-This option is set by the user, and  @var{args} represents the number of 
-seconds @value{GDBN} waits for responses.  
+@value{GDBN} now supports the option @code{remotetimeout}.
+This option is set by the user, and  @var{args} represents the number of
+seconds @value{GDBN} waits for responses.
 @end table
 
 @kindex Compiling
-When compiling for debugging, include the options "-g" to get debug 
+When compiling for debugging, include the options "-g" to get debug
 information and "-Ttext" to relocate the program to where you wish to
-load it on the target.  You may also want to add the options "-n" or 
+load it on the target.  You may also want to add the options "-n" or
 "-N" in order to reduce the size of the sections.
 
 @example
@@ -1182,7 +1182,7 @@ sparclet-aout-objdump --headers --syms prog
 @kindex Running
 Once you have set
 your Unix execution search path to find @value{GDBN}, you are ready to
-run @value{GDBN}.  From your Unix host, run @code{gdb} 
+run @value{GDBN}.  From your Unix host, run @code{gdb}
 (or @code{sparclet-aout-gdb}, depending on your installation).
 
 @value{GDBN} comes up showing the prompt:
@@ -1195,7 +1195,7 @@ run @value{GDBN}.  From your Unix host, run @code{gdb}
 * Sparclet File::                Setting the file to debug
 * Sparclet Connection::          Connecting to Sparclet
 * Sparclet Download::            Sparclet download
-* Sparclet Execution::           Running and debugging 
+* Sparclet Execution::           Running and debugging
 @end menu
 
 @node Sparclet File
@@ -1225,7 +1225,7 @@ prog: No such file or directory.
 @end example
 
 When this happens, add the appropriate directories to the search paths with
-the @value{GDBN} commands @code{path} and @code{dir}, and execute the 
+the @value{GDBN} commands @code{path} and @code{dir}, and execute the
 @code{target} command again.
 
 @node Sparclet Connection
@@ -1237,7 +1237,7 @@ To connect to a target on serial port ``@code{ttya}'', type:
 @example
 (gdbslet) target sparclet /dev/ttya
 Remote target sparclet connected to /dev/ttya
-main () at ../prog.c:3 
+main () at ../prog.c:3
 @end example
 
 @need 750
@@ -1251,12 +1251,12 @@ Connected to ttya.
 @subsubsection Sparclet download
 
 @cindex download to Sparclet
-Once connected to the Sparclet target, 
+Once connected to the Sparclet target,
 you can use the @value{GDBN}
 @code{load} command to download the file from the host to the target.
 The file name and load offset should be given as arguments to the @code{load}
 command.
-Since the file format is aout, the program must be loaded to the starting 
+Since the file format is aout, the program must be loaded to the starting
 address.  You can use objdump to find out what this value is.  The load
 offset is an offset which is added to the VMA (virtual memory address)
 of each of the file's sections.
@@ -1269,8 +1269,8 @@ and bss at 0x12010170, in @value{GDBN}, type:
 Loading section .text, size 0xdb0 vma 0x12010000
 @end example
 
-If the code is loaded at a different address then what the program was linked 
-to, you may need to use the @code{section} and @code{add-symbol-file} commands 
+If the code is loaded at a different address then what the program was linked
+to, you may need to use the @code{section} and @code{add-symbol-file} commands
 to tell @value{GDBN} where to map the symbol table.
 
 @node Sparclet Execution
@@ -1278,19 +1278,19 @@ to tell @value{GDBN} where to map the symbol table.
 
 @cindex running and debugging Sparclet programs
 You can now begin debugging the task using @value{GDBN}'s execution control
-commands, @code{b}, @code{step}, @code{run}, etc.  See the @value{GDBN} 
+commands, @code{b}, @code{step}, @code{run}, etc.  See the @value{GDBN}
 manual for the list of commands.
 
 @example
 (gdbslet) b main
 Breakpoint 1 at 0x12010000: file prog.c, line 3.
-(gdbslet) run 
+(gdbslet) run
 Starting program: prog
 Breakpoint 1, main (argc=1, argv=0xeffff21c) at prog.c:3
 3        char *symarg = 0;
 (gdbslet) step
 4        char *execarg = "hello!";
-(gdbslet)                           
+(gdbslet) 
 @end example
 
 @end ifset
@@ -1299,7 +1299,7 @@ Breakpoint 1, main (argc=1, argv=0xeffff21c) at prog.c:3
 @node Hitachi Remote
 @subsection @value{GDBN} and Hitachi microprocessors
 @value{GDBN} needs to know these things to talk to your
-Hitachi SH, H8/300, or H8/500: 
+Hitachi SH, H8/300, or H8/500:
 
 @enumerate
 @item
@@ -1403,9 +1403,9 @@ itself, are described in @ref{Files,,Commands to specify files}.)
 @smallexample
 (eg-C:\H8300\TEST) @value{GDBP} t.x
 GDB is free software and you are welcome to distribute copies
- of it under certain conditions; type "show copying" to see 
+ of it under certain conditions; type "show copying" to see
  the conditions.
-There is absolutely no warranty for GDB; type "show warranty" 
+There is absolutely no warranty for GDB; type "show warranty"
 for details.
 GDB @value{GDBVN}, Copyright 1992 Free Software Foundation, Inc...
 (gdb) target hms
@@ -1552,11 +1552,11 @@ concentrator) instead of a serial port, using the syntax
 @kindex show processor
 Use the @code{set processor} command to set the type of MIPS
 processor when you want to access processor-type-specific registers.
-For example, @code{set processor @var{r3041}} tells @value{GDBN} 
+For example, @code{set processor @var{r3041}} tells @value{GDBN}
 to use the CPO registers appropriate for the 3041 chip.
-Use the @code{show processor} command to see what MIPS processor @value{GDBN} 
+Use the @code{show processor} command to see what MIPS processor @value{GDBN}
 is using.  Use the @code{info reg} command to see what registers
-@value{GDBN} is using. 
+@value{GDBN} is using.
 
 @item set mipsfpu double
 @itemx set mipsfpu single
@@ -1674,7 +1674,7 @@ appropriate by inspecting the object code.
 @item target sim
 @kindex sim
 @kindex target sim
-Debug programs on a simulated CPU 
+Debug programs on a simulated CPU
 @ifset GENERIC
 (which CPU depends on the @value{GDBN} configuration)
 @end ifset
@@ -1698,7 +1698,7 @@ Counts clock-ticks in the simulator.
 Counts instructions run in the simulator.
 
 @item time
-Execution time in 60ths of a second. 
+Execution time in 60ths of a second.
 @end table
 
 You can refer to these values in @value{GDBN} expressions with the usual

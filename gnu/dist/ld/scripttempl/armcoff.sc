@@ -24,9 +24,9 @@ SECTIONS
     *(.glue_7t)
     *(.glue_7)
     *(.rdata)
-    ${CONSTRUCTING+ ___CTOR_LIST__ = .; __CTOR_LIST__ = . ; 
+    ${CONSTRUCTING+ ___CTOR_LIST__ = .; __CTOR_LIST__ = . ;
 			LONG (-1); *(.ctors); *(.ctor); LONG (0); }
-    ${CONSTRUCTING+ ___DTOR_LIST__ = .; __DTOR_LIST__ = . ; 
+    ${CONSTRUCTING+ ___DTOR_LIST__ = .; __DTOR_LIST__ = . ;
 			LONG (-1); *(.dtors); *(.dtor);  LONG (0); }
     *(.fini)
     ${RELOCATING+ etext  =  .;}
@@ -39,7 +39,7 @@ SECTIONS
     ${RELOCATING+ _edata  =  .;}
   }
   .bss ${RELOCATING+ SIZEOF(.data) + ADDR(.data)} :
-  { 					
+  {
     ${RELOCATING+ __bss_start__ = . ;}
     *(.bss)
     *(COMMON)
@@ -50,7 +50,7 @@ SECTIONS
   ${RELOCATING+ _end = .;}
   ${RELOCATING+ __end__ = .;}
 
-  .stab  0 ${RELOCATING+(NOLOAD)} : 
+  .stab  0 ${RELOCATING+(NOLOAD)} :
   {
     [ .stab ]
   }

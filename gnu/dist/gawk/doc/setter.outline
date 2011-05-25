@@ -2,17 +2,17 @@
 % SSC Reference card typesetter outline / cut marks
 %
 % Copyright (C) 1996, Specialized System Consultants Inc. (SSC)
-% 
+%
 % This file is free software; you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
 % the Free Software Foundation; either version 2 of the License, or
 % (at your option) any later version.
-% 
+%
 % This file is distributed in the hope that it will be useful,
 % but WITHOUT ANY WARRANTY; without even the implied warranty of
 % MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 % GNU General Public License for more details.
-% 
+%
 % You should have received a copy of the GNU General Public License
 % along with this program; if not, write to the Free Software
 % Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
@@ -21,7 +21,7 @@
 %! modified to move the cut marks onto the page
 %! center a string
 /inch {72 mul} def
-/cshow  % stk: string 
+/cshow  % stk: string
 	% center string in space (space us variable)
 	{
 	dup stringwidth pop	% get length of string
@@ -55,7 +55,7 @@
 	4.25 inch 10.75 inch lineto
 	stroke
 
-	4.25 inch 1.75 inch moveto	
+	4.25 inch 1.75 inch moveto
 	4.25 inch 1.5 inch lineto
 	stroke
 

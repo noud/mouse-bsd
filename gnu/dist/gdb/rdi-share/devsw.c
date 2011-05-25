@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright (C) 1995 Advanced RISC Machines Limited. All rights reserved.
- * 
+ *
  * This software may be freely used, copied, modified, and distributed
  * provided that the above copyright notice is preserved in all copies of the
  * software.
@@ -291,7 +291,7 @@ AdpErrs DevSW_Read(const DeviceDescr *device, const DevChanID type,
        * we failed to initialise the next packet, but can
        * still return a packet that has already arrived.
        */
-      *packet = Adp_removeFromQueue(&ds->ds_readqueue[type]); 
+      *packet = Adp_removeFromQueue(&ds->ds_readqueue[type]);
       return adp_ok;
     }
   read_err = device->DeviceRead(&ds->ds_activeread, block);

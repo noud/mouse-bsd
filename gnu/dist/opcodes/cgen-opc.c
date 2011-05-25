@@ -69,7 +69,7 @@ cgen_set_cpu (data, mach, endian)
   /* Reset the hash tables.  */
   cgen_asm_init ();
   cgen_dis_init ();
-#endif  
+#endif
 }
 
 static unsigned int hash_keyword_name

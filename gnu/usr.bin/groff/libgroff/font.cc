@@ -73,13 +73,13 @@ struct text_file {
   text_file(FILE *fp, char *p);
   ~text_file();
   int next();
-  void error(const char *format, 
+  void error(const char *format,
 	     const errarg &arg1 = empty_errarg,
 	     const errarg &arg2 = empty_errarg,
 	     const errarg &arg3 = empty_errarg);
 };
 
-text_file::text_file(FILE *p, char *s) 
+text_file::text_file(FILE *p, char *s)
 : lineno(0), buf(0), size(0), skip_comments(1), fp(p), path(s)
 {
 }
@@ -135,7 +135,7 @@ int text_file::next()
   return 0;
 }
 
-void text_file::error(const char *format, 
+void text_file::error(const char *format,
 		      const errarg &arg1,
 		      const errarg &arg2,
 		      const errarg &arg3)
@@ -766,7 +766,7 @@ int font::load_desc()
 	t.error("bad number of fonts `%1'", p);
 	return 0;
       }
-      font_name_table = (const char **)new char *[nfonts+1]; 
+      font_name_table = (const char **)new char *[nfonts+1];
       for (i = 0; i < nfonts; i++) {
 	p = strtok(0, WS);
 	while (p == 0) {
@@ -894,7 +894,7 @@ int font::load_desc()
     return 0;
   }
   return 1;
-}      
+}
 
 void font::handle_unknown_font_command(const char *, const char *,
 				       const char *, int)

@@ -63,7 +63,7 @@ RF_DECLARE_MUTEX(rf_debug_mem_mutex)
 	static void memory_hash_insert(void *addr, int size, int line, char *filen);
 	static int memory_hash_remove(void *addr, int sz);
 
-void 
+void
 rf_record_malloc(p, size, line, filen)
 	void   *p;
 	int     size, line;
@@ -80,7 +80,7 @@ rf_record_malloc(p, size, line, filen)
 	}
 }
 
-void 
+void
 rf_unrecord_malloc(p, sz)
 	void   *p;
 	int     sz;
@@ -97,7 +97,7 @@ rf_unrecord_malloc(p, sz)
 	}
 }
 
-void 
+void
 rf_print_unfreed()
 {
 	int     i, foundone = 0;
@@ -118,7 +118,7 @@ rf_print_unfreed()
 	}
 }
 
-int 
+int
 rf_ConfigureDebugMem(listp)
 	RF_ShutdownList_t **listp;
 {
@@ -139,7 +139,7 @@ rf_ConfigureDebugMem(listp)
 }
 #define HASHADDR(_a_)      ( (((unsigned long) _a_)>>3) % RF_MH_TABLESIZE )
 
-static void 
+static void
 memory_hash_insert(addr, size, line, filen)
 	void   *addr;
 	int     size, line;
@@ -171,7 +171,7 @@ memory_hash_insert(addr, size, line, filen)
 	p->allocated = 1;
 }
 
-static int 
+static int
 memory_hash_remove(addr, sz)
 	void   *addr;
 	int     sz;

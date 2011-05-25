@@ -256,7 +256,7 @@ simple:
 	| SPECIAL text simple
 		{ $$ = make_special_box($2, $3); }
 	;
-	
+
 number:
 	text
 		{

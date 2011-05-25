@@ -12,7 +12,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -155,7 +155,7 @@ qematch(parent, cf, aux)
 	QE_WCSR(QE_CSR_VECTOR, ubasc->uh_lastiv);
 
 	/*
-	 * Map the ring area. Actually this is done only to be able to 
+	 * Map the ring area. Actually this is done only to be able to
 	 * send and receive a internal packet; some junk is loopbacked
 	 * so that the DEQNA has a reason to interrupt.
 	 */
@@ -271,7 +271,7 @@ qeattach(parent, self, aux)
 	bzero(sc->sc_qedata, sizeof(struct qe_cdata));
 	/*
 	 * Create the transmit descriptor DMA maps. We take advantage
-	 * of the fact that the Qbus address space is big, and therefore 
+	 * of the fact that the Qbus address space is big, and therefore
 	 * allocate map registers for all transmit descriptors also,
 	 * so that we can avoid this each time we send a packet.
 	 */
@@ -505,7 +505,7 @@ qestart(ifp)
 			ifp->if_flags |= IFF_OACTIVE;
 			goto out;
 		}
-		
+
 #if NBPFILTER > 0
 		if (ifp->if_bpf)
 			bpf_mtap(ifp->if_bpf, m);
@@ -749,7 +749,7 @@ qeioctl(ifp, cmd, data)
  * Add a receive buffer to the indicated descriptor.
  */
 int
-qe_add_rxbuf(sc, i) 
+qe_add_rxbuf(sc, i)
 	struct qe_softc *sc;
 	int i;
 {
@@ -825,7 +825,7 @@ qe_setup(sc)
 		qc->qc_setup[i * 8 + 1] = enaddr[i]; /* Own address */
 
 	/*
-	 * Multicast handling. The DEQNA can handle up to 12 direct 
+	 * Multicast handling. The DEQNA can handle up to 12 direct
 	 * ethernet addresses.
 	 */
 	j = 3; k = 0;

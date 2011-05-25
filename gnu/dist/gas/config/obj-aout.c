@@ -108,7 +108,7 @@ const pseudo_typeS obj_pseudo_table[] =
 void
 obj_aout_nbsd_frob_file()
 {
-  /* We don't generate N_SIZE symbols unless we are working with PIC code. 
+  /* We don't generate N_SIZE symbols unless we are working with PIC code.
    * (and the non global weak symbol is only troublesome for PIC code) */
   if (!aout_pic_flag)
     return;
@@ -133,7 +133,7 @@ obj_aout_nbsd_frob_file()
 	  /* We do only add SIZE symbols for objects (i.e other == 1)
 	     that have a .size directive. */
 	  if ((type != N_SIZE)
-	      && (type != (N_SIZE | N_EXT)) 
+	      && (type != (N_SIZE | N_EXT))
 	      && (other == 1)
 	      && ((expressionS*)sym->sy_sizexp != NULL))
 	    {
@@ -709,7 +709,7 @@ get_segmented_expression (expP)
      register expressionS *expP;
 {
   register segT retval;
-  
+
   retval = expression (expP);
   if (expP->X_op == O_illegal
       || expP->X_op == O_absent
@@ -724,12 +724,12 @@ get_segmented_expression (expP)
   return retval;
 }
 
-static segT 
+static segT
 get_known_segmented_expression (expP)
      register expressionS *expP;
 {
   register segT retval;
-  
+
   if ((retval = get_segmented_expression (expP)) == undefined_section)
     {
       /* There is no easy way to extract the undefined symbol from the
@@ -744,12 +744,12 @@ get_known_segmented_expression (expP)
       expP->X_op = O_constant;
       expP->X_add_number = 0;
     }
-  
+
   know (retval == absolute_section || SEG_NORMAL (retval));
   return (retval);
 } /* get_known_segmented_expression() */
 
-static void obj_aout_size(ignore) 
+static void obj_aout_size(ignore)
      int ignore;
 {
   register char *name;
@@ -767,7 +767,7 @@ static void obj_aout_size(ignore)
       s_ignore(0);
       return;
     }
-  
+
   SKIP_WHITESPACE();
   name = input_line_pointer;
   c = get_symbol_end();
@@ -775,7 +775,7 @@ static void obj_aout_size(ignore)
   symbolP = symbol_find(name);
   p = input_line_pointer;
   *p = c;
-  
+
   if (symbolP == NULL || (S_GET_OTHER(symbolP) != 1))
     {
       /* Not an object. Ignore. */
@@ -784,9 +784,9 @@ static void obj_aout_size(ignore)
       s_ignore(0);
       return;
     }
-  
+
   SKIP_WHITESPACE();
-  if (*input_line_pointer != ',') 
+  if (*input_line_pointer != ',')
     {
       as_bad("Expected comma after symbol-name: rest of line ignored.");
       ignore_rest_of_line();
@@ -794,14 +794,14 @@ static void obj_aout_size(ignore)
     }
   input_line_pointer ++; /* skip ',' */
   exp = (expressionS *)xmalloc(sizeof(expressionS));
-  retval = get_known_segmented_expression(exp); 
+  retval = get_known_segmented_expression(exp);
   if (retval !=  absolute_section)
     {
       as_bad("Illegal .size expression");
       ignore_rest_of_line();
       return;
     }
-  
+
   *p = 0;
   symbolP = symbol_find_or_make(name);
   *p = c;
@@ -809,7 +809,7 @@ static void obj_aout_size(ignore)
     as_warn("\"%s\" already has a size", S_GET_NAME(symbolP));
   } else
     symbolP->sy_sizexp = (void *)exp;
-  
+
   demand_empty_rest_of_line();
 } /* obj_aout_size() */
 

@@ -61,7 +61,7 @@ MOD_VFS("ext2fs", -1, &ext2fs_vfsops);
  */
 int
 ext2fs_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

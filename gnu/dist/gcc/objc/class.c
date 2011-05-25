@@ -29,13 +29,13 @@ Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /* The table of classname->class.  Used for objc_lookup_class and friends */
 static cache_ptr __objc_class_hash = 0;                 /* !T:MUTEX */
 
-/* This is a hook which is called by objc_get_class and 
+/* This is a hook which is called by objc_get_class and
    objc_lookup_class if the runtime is not able to find the class.
    This may e.g. try to load in the class using dynamic loading */
 Class (*_objc_lookup_class)(const char* name) = 0;      /* !T:SAFE */
 
 
-/* True when class links has been resolved */     
+/* True when class links has been resolved */
 BOOL __objc_class_links_resolved = NO;                  /* !T:UNUSED */
 
 
@@ -57,9 +57,9 @@ void __objc_init_class_tables()
 		 (compare_func_type) compare_strings);
 
   objc_mutex_unlock(__objc_runtime_mutex);
-}  
+}
 
-/* This function adds a class to the class hash table, and assigns the 
+/* This function adds a class to the class hash table, and assigns the
    class a number, unless it's already known */
 void
 __objc_add_class_to_hash(Class class)
@@ -71,7 +71,7 @@ __objc_add_class_to_hash(Class class)
   /* make sure the table is there */
   assert(__objc_class_hash);
 
-  /* make sure it's not a meta class */  
+  /* make sure it's not a meta class */
   assert(CLS_ISCLASS(class));
 
   /* Check to see if the class is already in the hash table.  */
@@ -142,8 +142,8 @@ objc_get_class (const char *name)
 
   if(class)
     return class;
-  
-  objc_error(nil, OBJC_ERR_BAD_CLASS, 
+
+  objc_error(nil, OBJC_ERR_BAD_CLASS,
 	     "objc runtime: cannot find class %s\n", name);
   return 0;
 }
@@ -156,12 +156,12 @@ objc_get_meta_class(const char *name)
 
 /* This function provides a way to enumerate all the classes in the
    executable.  Pass *ENUM_STATE == NULL to start the enumeration.  The
-   function will return 0 when there are no more classes.  
-   For example: 
-       id class; 
+   function will return 0 when there are no more classes.
+   For example:
+       id class;
        void *es = NULL;
        while ((class = objc_next_class(&es)))
-         ... do something with class; 
+         ... do something with class;
 */
 Class
 objc_next_class(void **enum_state)
@@ -171,7 +171,7 @@ objc_next_class(void **enum_state)
   /* make sure the table is there */
   assert(__objc_class_hash);
 
-  *(node_ptr*)enum_state = 
+  *(node_ptr*)enum_state =
     hash_next(__objc_class_hash, *(node_ptr*)enum_state);
 
   objc_mutex_unlock(__objc_runtime_mutex);
@@ -181,8 +181,8 @@ objc_next_class(void **enum_state)
   return (Class)0;
 }
 
-/* Resolve super/subclass links for all classes.  The only thing we 
-   can be sure of is that the class_pointer for class objects point 
+/* Resolve super/subclass links for all classes.  The only thing we
+   can be sure of is that the class_pointer for class objects point
    to the right meta class objects */
 void __objc_resolve_class_links()
 {
@@ -210,34 +210,34 @@ void __objc_resolve_class_links()
         {
           CLS_SETRESOLV(class1);
           CLS_SETRESOLV(class1->class_pointer);
-              
+
           if(class1->super_class)
-            {   
-              Class a_super_class 
+            {
+              Class a_super_class
                 = objc_get_class ((char *) class1->super_class);
-              
+
               assert (a_super_class);
-              
+
               DEBUG_PRINTF ("making class connections for: %s\n",
                             class1->name);
-              
+
               /* assign subclass links for superclass */
               class1->sibling_class = a_super_class->subclass_list;
               a_super_class->subclass_list = class1;
-              
+
               /* Assign subclass links for meta class of superclass */
               if (a_super_class->class_pointer)
                 {
                   class1->class_pointer->sibling_class
                     = a_super_class->class_pointer->subclass_list;
-                  a_super_class->class_pointer->subclass_list 
+                  a_super_class->class_pointer->subclass_list
                     = class1->class_pointer;
                 }
             }
           else                  /* a root class, make its meta object */
                                 /* be a subclass of Object */
             {
-              class1->class_pointer->sibling_class 
+              class1->class_pointer->sibling_class
                 = object_class->subclass_list;
               object_class->subclass_list = class1->class_pointer;
             }
@@ -300,14 +300,14 @@ class_pose_as (Class impostor, Class super_class)
 	    sub->super_class = impostor;
 	    impostor->subclass_list = sub;
 
-	    /* It will happen that SUB is not a class object if it is 
+	    /* It will happen that SUB is not a class object if it is
 	       the top of the meta class hierarchy chain.  (root
 	       meta-class objects inherit their class object)  If that is
-	       the case... don't mess with the meta-meta class. */ 
+	       the case... don't mess with the meta-meta class. */
 	    if (CLS_ISCLASS (sub))
 	      {
 		/* meta classes */
-		CLASSOF (sub)->sibling_class = 
+		CLASSOF (sub)->sibling_class =
 		  CLASSOF (impostor)->subclass_list;
 		CLASSOF (sub)->super_class = CLASSOF (impostor);
 		CLASSOF (impostor)->subclass_list = CLASSOF (sub);
@@ -320,12 +320,12 @@ class_pose_as (Class impostor, Class super_class)
     /* set subclasses of superclass to be impostor only */
     super_class->subclass_list = impostor;
     CLASSOF (super_class)->subclass_list = CLASSOF (impostor);
-    
+
     /* set impostor to have no sibling classes */
     impostor->sibling_class = 0;
     CLASSOF (impostor)->sibling_class = 0;
   }
-  
+
   /* check relationship of impostor and super_class is kept. */
   assert (impostor->super_class == super_class);
   assert (CLASSOF (impostor)->super_class == CLASSOF (super_class));
@@ -344,7 +344,7 @@ class_pose_as (Class impostor, Class super_class)
 	{
 	  node->value = impostor; /* change hash table value */
 	}
-    }      
+    }
 
   objc_mutex_unlock(__objc_runtime_mutex);
 
@@ -354,5 +354,5 @@ class_pose_as (Class impostor, Class super_class)
 
   return impostor;
 }
-  
+
 

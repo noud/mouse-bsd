@@ -23,7 +23,7 @@ ATOF_TARG_C = $(srcdir)/config/atof-@atof@.c
 ATOF_TARG_O = atof-@atof@.o
 
 # use @target_cpu_type@ for refering to configured target name
-IT_HDRS=itbl-parse.h $(srcdir)/itbl-ops.h 
+IT_HDRS=itbl-parse.h $(srcdir)/itbl-ops.h
 IT_SRCS=itbl-parse.c itbl-lex.c $(srcdir)/itbl-ops.c
 IT_DEPS=$(srcdir)/itbl-parse.y $(srcdir)/itbl-lex.l $(srcdir)/config/itbl-@target_cpu_type@.h
 IT_OBJS=itbl-parse.o itbl-lex.o itbl-ops.o

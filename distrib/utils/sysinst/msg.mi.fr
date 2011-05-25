@@ -74,9 +74,9 @@ message installusure
 {Vous avez choisi d'installer NetBSD sur votre disque dur. Ceci va changer les
 informations contenues sur votre disque dur. Vous devriez faire une sauvegarde
 complète de celui ci avant de continuer la procédure d'installation. Cette
-procédure va réaliser les actions suivantes : 
-	a) Partitionner votre disque dur. 
-	b) Créer de nouveaux systèmes de fichier BSD. 
+procédure va réaliser les actions suivantes :
+	a) Partitionner votre disque dur.
+	b) Créer de nouveaux systèmes de fichier BSD.
 	c) Installer les différents composants.
 
 (Après avoir indiqué les informations sur les partitions mais avant de
@@ -183,13 +183,13 @@ message megname
 message layout
 {NetBSD utilise un disklabel BSD pour séparer la portion du disque réservée à
 NetBSD en de multiples partitions BSD. Vous devez maintenant paramétrer le
-disklabel BSD. Vous avez différent choix: 
--- Standard : les partitions sont calculées par ce programme. 
--- Standard avec X : le double de swap plus la taille des binaires X. 
+disklabel BSD. Vous avez différent choix:
+-- Standard : les partitions sont calculées par ce programme.
+-- Standard avec X : le double de swap plus la taille des binaires X.
 -- Personnalisée : vous choisissez la taille des partitions.
 
-La taille allouée pour NetBSD sur votre disque est de %.2f Megaoctets. 
-L'installation standard requière au moins %.2f Megaoctets. 
+La taille allouée pour NetBSD sur votre disque est de %.2f Megaoctets.
+L'installation standard requière au moins %.2f Megaoctets.
 L'installation standard avec X requière au moins %.2f Megaoctets.
 }
 
@@ -508,15 +508,15 @@ message net_media
 message netok
 {Vous avez spécifié les valeurs suivantes. Sont elles exactes?
 
-Domaine (DNS):			 %s 
-Nom de machine:			 %s 
-Adresse IP:			 %s 
-Masque de réseau (Netmask):	 %s 
-Adresse du serveur de noms:	 %s 
-Adresse de la paserelle:	 %s 
-Type de réseau (media):		 %s 
-Autoconfiguration IPv6:		 %s 
-Adresse du serveur de noms IPv6: %s 
+Domaine (DNS):			 %s
+Nom de machine:			 %s
+Adresse IP:			 %s
+Masque de réseau (Netmask):	 %s
+Adresse du serveur de noms:	 %s
+Adresse de la paserelle:	 %s
+Type de réseau (media):		 %s
+Autoconfiguration IPv6:		 %s
+Adresse du serveur de noms IPv6: %s
 }
 
 message netagain

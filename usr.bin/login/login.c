@@ -162,7 +162,7 @@ main(argc, argv)
 	char tbuf[MAXPATHLEN + 2], tname[sizeof(_PATH_TTY) + 10];
 	char localhost[MAXHOSTNAMELEN + 1];
 	int need_chpass, require_chpass;
-	int login_retries = DEFAULT_RETRIES, 
+	int login_retries = DEFAULT_RETRIES,
 	    login_backoff = DEFAULT_BACKOFF;
 	time_t pw_warntime = _PASSWORD_WARNDAYS * SECSPERDAY;
 #ifdef KERBEROS5
@@ -263,7 +263,7 @@ main(argc, argv)
 		{
 		login_retries = (int) login_getcapnum(lc, "login-retries",
 					DEFAULT_RETRIES, DEFAULT_RETRIES);
-		login_backoff = (int) login_getcapnum(lc, "login-backoff", 
+		login_backoff = (int) login_getcapnum(lc, "login-backoff",
 					DEFAULT_BACKOFF, DEFAULT_BACKOFF);
 		login_close(lc);
 		lc = NULL;
@@ -361,7 +361,7 @@ main(argc, argv)
 		if (skey_haskey(username) == 0) {
 			static char skprompt[80];
 			char *skinfo = skey_keyinfo(username);
-				
+
 			(void)snprintf(skprompt, sizeof(skprompt)-1,
 			    "Password [%s]:",
 			    skinfo ? skinfo : "error getting challenge");
@@ -469,18 +469,18 @@ main(argc, argv)
 	saved_uid = geteuid();
 	saved_gid = getegid();
 	nsaved_gids = getgroups(NGROUPS_MAX, saved_gids);
-	
+
 	(void)setegid(pwd->pw_gid);
 	initgroups(username, pwd->pw_gid);
 	(void)seteuid(pwd->pw_uid);
-	
+
 	if (chdir(pwd->pw_dir) < 0) {
 #ifdef LOGIN_CAP
                 if (login_getcapbool(lc, "requirehome", 0)) {
 			(void) printf("Home directory %s required\n", pwd->pw_dir);
                         sleepexit(1);
 		}
-#endif	
+#endif
 		(void)printf("No home directory %s!\n", pwd->pw_dir);
 		if (chdir("/"))
 			exit(0);
@@ -508,7 +508,7 @@ main(argc, argv)
 		if (tp.tv_sec >= pwd->pw_expire) {
 			(void)printf("Sorry -- your account has expired.\n");
 			sleepexit(1);
-		} else if (pwd->pw_expire - tp.tv_sec < pw_warntime && 
+		} else if (pwd->pw_expire - tp.tv_sec < pw_warntime &&
 			   !quietlog)
 			(void)printf("Warning: your account expires on %s",
 			    ctime(&pwd->pw_expire));
@@ -519,7 +519,7 @@ main(argc, argv)
 		else if (tp.tv_sec >= pwd->pw_change) {
 			(void)printf("Sorry -- your password has expired.\n");
 			sleepexit(1);
-		} else if (pwd->pw_change - tp.tv_sec < pw_warntime && 
+		} else if (pwd->pw_change - tp.tv_sec < pw_warntime &&
 			   !quietlog)
 			(void)printf("Warning: your password expires on %s",
 			    ctime(&pwd->pw_change));
@@ -553,7 +553,7 @@ main(argc, argv)
 		environ = envinit;
 
 #ifdef LOGIN_CAP
-	if (setusercontext(lc, pwd, pwd->pw_uid, 
+	if (setusercontext(lc, pwd, pwd->pw_uid,
 	    LOGIN_SETALL & ~LOGIN_SETPATH) != 0) {
 		syslog(LOG_ERR, "setusercontext failed");
 		exit(1);
@@ -562,7 +562,7 @@ main(argc, argv)
 	(void)setgid(pwd->pw_gid);
 
 	initgroups(username, pwd->pw_gid);
-	
+
 	if (setlogin(pwd->pw_name) < 0)
 		syslog(LOG_ERR, "setlogin() failure: %m");
 
@@ -584,7 +584,7 @@ main(argc, argv)
 		pwd->pw_shell = shell;
 	}
 #endif
-	
+
 	(void)setenv("HOME", pwd->pw_dir, 1);
 	(void)setenv("SHELL", pwd->pw_shell, 1);
 	if (term[0] == '\0') {

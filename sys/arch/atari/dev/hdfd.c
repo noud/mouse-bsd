@@ -1520,7 +1520,7 @@ fdformat(dev, finfo, p)
 			break;
 	}
 	splx(s);
-       
+
 	if (rv == EWOULDBLOCK) {
 		/* timed out */
 		rv = EIO;

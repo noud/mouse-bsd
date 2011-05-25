@@ -59,7 +59,7 @@ int errarg::empty() const
 extern "C" {
   const char *itoa(int);
 }
-	    
+
 void errarg::print() const
 {
   switch (type) {
@@ -82,7 +82,7 @@ void errarg::print() const
 
 errarg empty_errarg;
 
-void errprint(const char *format, 
+void errprint(const char *format,
 	      const errarg &arg1,
 	      const errarg &arg2,
 	      const errarg &arg3)

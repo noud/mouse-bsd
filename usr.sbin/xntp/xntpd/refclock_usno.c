@@ -517,7 +517,7 @@ usno_timeout(peer)
 		default:
 		msyslog(LOG_ERR,
 		    "clock %s USNO invalid mode", ntoa(&peer->srcadr));
-		
+
 	}
 
 	/*

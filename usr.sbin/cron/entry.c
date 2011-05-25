@@ -280,7 +280,7 @@ load_entry(file, error_func, pw, envp)
 	 * too bad we don't know in advance how long it will be, since we
 	 * need to malloc a string for it... so, we limit it to MAX_COMMAND.
 	 * XXX - should use realloc().
-	 */ 
+	 */
 	ch = get_string(cmd, MAX_COMMAND, file, "\n");
 
 	/* a file without a \n before the EOF is rude, so we'll complain...
@@ -330,7 +330,7 @@ get_list(bits, low, high, names, ch, file)
 
 	/* list = range {"," range}
 	 */
-	
+
 	/* clear the bit string, since the default is 'off'.
 	 */
 	bit_nclear(bits, 0, (high-low+1));

@@ -137,11 +137,11 @@ vrbcu_dump_regs()
 	printf("vrbcu: RFCNT %x\n",  reg);
 	reg = vrbcu_read(sc, BCUREFCOUNT_REG_W);
 	printf("vrbcu: RFCOUNT %x\n",  reg);
-#endif /* VRBCUDEBUG */	
+#endif /* VRBCUDEBUG */
 	reg = vrbcu_read(sc, BCUCLKSPEED_REG_W);
 #ifdef VRBCUDEBUG
 	printf("vrbcu: CLKSPEED %x: \n",  reg);
-#endif /* VRBCUDEBUG */	
+#endif /* VRBCUDEBUG */
 	cpuclock = vrbcu_vrip_getcpuclock();
 	cpuid = vrbcu_vrip_getcpuid();
 
@@ -154,11 +154,11 @@ vrbcu_dump_regs()
 		vtclock = tclock = cpuclock/2;
 		break;
 	case BCUREVID_RID_4111:
-		if ((reg&BCUCLKSPEED_DIVT2B) == 0) 
+		if ((reg&BCUCLKSPEED_DIVT2B) == 0)
 			vtclock = tclock = cpuclock/2;
-		else if ((reg&BCUCLKSPEED_DIVT3B) == 0) 
+		else if ((reg&BCUCLKSPEED_DIVT3B) == 0)
 			vtclock = tclock = cpuclock/3;
-		else if ((reg&BCUCLKSPEED_DIVT4B) == 0) 
+		else if ((reg&BCUCLKSPEED_DIVT4B) == 0)
 			vtclock = tclock = cpuclock/4;
 		else
 			vtclock = tclock = 0; /* XXX */
@@ -206,7 +206,7 @@ vrbcu_vrip_getcpuid(void)
 	volatile u_int16_t *revreg;
 
 	if (vr_cpuid != -1)
-		return vr_cpuid; 
+		return vr_cpuid;
 
 	if (vr_cpuid == -1) {
 		revreg = (u_int16_t *)MIPS_PHYS_TO_KSEG1((VRIP_BCU_ADDR+BCUREVID_REG_W));
@@ -215,12 +215,12 @@ vrbcu_vrip_getcpuid(void)
 		vr_cpuid = (vr_cpuid&BCUREVID_RIDMASK)>>BCUREVID_RIDSHFT;
 	}
 	return vr_cpuid;
-}	
+}
 
 char *
 vrbcu_vrip_getcpuname(void)
 {
-	int cpuid;	
+	int cpuid;
 
 	if (vr_cpuname != NULL)
 		return vr_cpuname;
@@ -228,7 +228,7 @@ vrbcu_vrip_getcpuname(void)
 	cpuid = vrbcu_vrip_getcpuid();
 	vr_cpuname = cpuname[cpuid];
 	return vr_cpuname;
-}	
+}
 
 
 int
@@ -244,7 +244,7 @@ vrbcu_vrip_getcpumajor(void)
 	vr_major = *revreg;
 	vr_major = (vr_major&BCUREVID_MJREVMASK)>>BCUREVID_MJREVSHFT;
 	return vr_major;
-}	
+}
 
 int
 vrbcu_vrip_getcpuminor(void)
@@ -259,7 +259,7 @@ vrbcu_vrip_getcpuminor(void)
 	vr_minor = *revreg;
 	vr_minor = (vr_minor&BCUREVID_MNREVMASK)>>BCUREVID_MNREVSHFT;
 	return vr_minor;
-}	
+}
 
 #define CLKX	18432000	/* CLKX1,CLKX2: 18.432MHz */
 #define MHZ	1000000

@@ -87,7 +87,7 @@ extern int target_flags;
      * Tests of SETUP_INCOMING_VARARGS need to be made runtime checks
      since it depends on TARGET_GHS.  */
 #define TARGET_GHS (target_flags & MASK_GHS)
- 
+
 /* Don't do PC-relative calls, instead load the address of the target
    function into a register and perform a register indirect call.  */
 #define TARGET_LONG_CALLS (target_flags & MASK_LONG_CALLS)
@@ -208,7 +208,7 @@ extern struct small_memory_info small_memory[(int)SMALL_MEMORY_max];
    LEVEL is the optimization level specified; 2 if `-O2' is
    specified, 1 if `-O' is specified, and 0 if neither is specified.
 
-   SIZE is non-zero if `-Os' is specified, 0 otherwise.  
+   SIZE is non-zero if `-Os' is specified, 0 otherwise.
 
    You should not use this macro to change options that are not
    machine-specific.  These should uniformly selected by the same
@@ -404,7 +404,7 @@ extern struct small_memory_info small_memory[(int)SMALL_MEMORY_max];
 
    For any two classes, it is very desirable that there be another
    class that represents their union.  */
-   
+
 enum reg_class {
   NO_REGS, GENERAL_REGS, ALL_REGS, LIM_REG_CLASSES
 };
@@ -449,7 +449,7 @@ enum reg_class {
    or a pseudo reg currently allocated to a suitable hard reg.
    Since they use reg_renumber, they are safe only once reg_renumber
    has been allocated, which happens in local-alloc.c.  */
- 
+
 #define REGNO_OK_FOR_BASE_P(regno) \
   ((regno) < FIRST_PSEUDO_REGISTER || reg_renumber[regno] >= 0)
 
@@ -507,8 +507,8 @@ enum reg_class {
    0)
 
 /* Similar, but for floating constants, and defining letters G and H.
-   Here VALUE is the CONST_DOUBLE rtx itself. 
-     
+   Here VALUE is the CONST_DOUBLE rtx itself.
+
   `G' is a zero of some form.  */
 
 #define CONST_DOUBLE_OK_FOR_G(VALUE)					\
@@ -728,7 +728,7 @@ extern int current_function_anonymous_args;
 
 #define FUNCTION_ARG_PASS_BY_REFERENCE(CUM, MODE, TYPE, NAMED)		\
   ((TYPE) && int_size_in_bytes (TYPE) > 8)
- 
+
 #define FUNCTION_ARG_CALLEE_COPIES(CUM, MODE, TYPE, NAMED) \
   ((TYPE) && int_size_in_bytes (TYPE) > 8)
 
@@ -740,7 +740,7 @@ extern int current_function_anonymous_args;
    VALTYPE is the data type of the value (as a tree).
    If the precise function being called is known, FUNC is its FUNCTION_DECL;
    otherwise, FUNC is 0.   */
-   
+
 #define FUNCTION_VALUE(VALTYPE, FUNC) \
   gen_rtx (REG, TYPE_MODE (VALTYPE), 10)
 
@@ -894,7 +894,7 @@ extern int current_function_anonymous_args;
    machine-independent.  */
 
 /* Accept either REG or SUBREG where a register is valid.  */
-  
+
 #define RTX_OK_FOR_BASE_P(X)						\
   ((REG_P (X) && REG_OK_FOR_BASE_P (X))					\
    || (GET_CODE (X) == SUBREG && REG_P (SUBREG_REG (X))			\
@@ -1005,7 +1005,7 @@ do {									\
 /* A crude cut at RTX_COSTS for the V850.  */
 
 /* Provide the costs of a rtl expression.  This is in the body of a
-   switch on CODE. 
+   switch on CODE.
 
    There aren't DImode MOD, DIV or MULT operations, so call them
    very expensive.  Everything else is pretty much a constant cost.  */
@@ -1025,7 +1025,7 @@ do {									\
 #define SLOW_BYTE_ACCESS 1
 
 /* Define this if zero-extension is slow (more than one real instruction).  */
-#define SLOW_ZERO_EXTEND 
+#define SLOW_ZERO_EXTEND
 
 /* According expr.c, a value of around 6 should minimize code size, and
    for the V850 series, that's our primary concern.  */
@@ -1224,7 +1224,7 @@ do { char dstr[30];					\
   char* real_name;                                \
   STRIP_NAME_ENCODING (real_name, (NAME));        \
   fprintf (FILE, "_%s", real_name);               \
-  } while (0)           
+  } while (0)
 
 /* Store in OUTPUT a string (made with alloca) containing
    an assembler-name for a local static variable named NAME.

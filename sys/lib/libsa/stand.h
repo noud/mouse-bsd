@@ -263,7 +263,7 @@ int	null_stat __P((struct open_file *f, struct stat *sb));
 /* Machine dependent functions */
 void	machdep_start __P((char *, int, char *, char *, char *));
 int	getchar __P((void));
-void	putchar __P((int));    
+void	putchar __P((int));
 
 #ifdef __INTERNAL_LIBSA_CREAD
 int	oopen __P((const char *, int));

@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -79,7 +79,7 @@ is_pos:
 *	in the USER_FPn variable on the stack because all exception
 *	handlers restore fp0-fp3 from there.
 *
-	cmp.b	#$80,d0		
+	cmp.b	#$80,d0
 	bne.b	not_fp0
 	fmovem.x fp0,USER_FP0(a6)
 	rts
@@ -162,7 +162,7 @@ dest_dbl:
 	add.w	#$3ff,d0	;add double precision bias
 	swap	d0		;d0 now in upper word
 	lsl.l	#4,d0		;d0 now in proper place for dbl prec exp
-	tst.b	LOCAL_SGN(a1)	
+	tst.b	LOCAL_SGN(a1)
 	beq.b	get_mant	;if postive, go process mantissa
 	bset.l	#31,d0		;if negative, put in sign information
 *				; before continuing
@@ -233,7 +233,7 @@ dest_sgl:
 	add.w	#$7f,d0		;add single precision bias
 	swap	d0		;put exp in upper word of d0
 	lsl.l	#7,d0		;shift it into single exp bits
-	tst.b	LOCAL_SGN(a1)	
+	tst.b	LOCAL_SGN(a1)
 	beq.b	get_sman	;if positive, continue
 	bset.l	#31,d0		;if negative, put in sign first
 	bra.b	get_sman	;get mantissa
@@ -265,7 +265,7 @@ sgl_Dn:
 	or.l	#$10,d1		;reg_dest wants size added to reg#
 	bra.l	reg_dest	;size is X, rts in reg_dest will
 *				;return to caller of dest_sgl
-	
+
 dest_ext:
 	tst.b	LOCAL_SGN(a1)	;put back sign into exponent word
 	beq.b	dstx_cont

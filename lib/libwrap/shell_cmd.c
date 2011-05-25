@@ -4,9 +4,9 @@
   * shell_cmd() takes a shell command after %<character> substitutions. The
   * command is executed by a /bin/sh child process, with standard input,
   * standard output and standard error connected to /dev/null.
-  * 
+  *
   * Diagnostics are reported through syslog(3).
-  * 
+  *
   * Author: Wietse Venema, Eindhoven University of Technology, The Netherlands.
   */
 

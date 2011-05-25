@@ -1,7 +1,7 @@
 %{
 /*	$NetBSD: fgen.l,v 1.8 1999/06/08 12:45:47 tron Exp $	*/
 /* FLEX input for FORTH input file scanner */
-/*  
+/*
  * Copyright (c) 1998 Eduardo Horvath.
  * All rights reserved.
  *
@@ -74,7 +74,7 @@ struct fcode *dictionary = NULL;
 struct macro *aliases = NULL;
 int outf = 1; /* stdout */
 int state = 0;
-int nextfcode = 0x800; 
+int nextfcode = 0x800;
 int base = TOK_HEX;
 long outpos;
 char *outbuf = NULL;
@@ -127,13 +127,13 @@ int debug = 0;
 
 \'.\'		{ token.type = TOK_C_LIT; token.text = yytext; return &token; }
 
-\"{white}*(\\\"|[^"])*\"	{ token.type = TOK_STRING_LIT; token.text = yytext; 
+\"{white}*(\\\"|[^"])*\"	{ token.type = TOK_STRING_LIT; token.text = yytext;
 				return &token; } /* String started by `"' or `."' */
 
-\.\({white}*(\\\"|[^)])*\)	{ token.type = TOK_PSTRING; token.text = yytext; 
+\.\({white}*(\\\"|[^)])*\)	{ token.type = TOK_PSTRING; token.text = yytext;
 				return &token; } /* String of type `.(.....)' */
 
-\.\"{white}*(\\\"|[^"])*\"	{ token.type = TOK_PSTRING; token.text = yytext; 
+\.\"{white}*(\\\"|[^"])*\"	{ token.type = TOK_PSTRING; token.text = yytext;
 				return &token; }
 
 "("		{ token.type = TOK_COMMENT; token.text = yytext;
@@ -765,7 +765,7 @@ struct fcode *dict, *new;
 		else {
 #ifdef DEBUG
 			if (debug > 1)
-				(void)printf( "fadd: new FCode `%s' is %lx\n", 
+				(void)printf( "fadd: new FCode `%s' is %lx\n",
 					      new->name, new->num);
 #endif
 			new->l = new->r = NULL;
@@ -777,7 +777,7 @@ struct fcode *dict, *new;
 		else {
 #ifdef DEBUG
 			if (debug > 1)
-				(void)printf( "fadd: new FCode `%s' is %lx\n", 
+				(void)printf( "fadd: new FCode `%s' is %lx\n",
 					      new->name, new->num);
 #endif
 			new->l = new->r = NULL;
@@ -802,13 +802,13 @@ char *str;
 #ifdef DEBUG
 	ASSERT(dict->type == FCODE);
 	if (debug > 2)
-		(void)printf( "flookup: `%s' and `%s' %s match\n", 
+		(void)printf( "flookup: `%s' and `%s' %s match\n",
 			      str, dict->name, res?"don't":"do");
 #endif
 	if (!res) return (dict);
 	if (res < 0)
 		return (flookup(dict->l, str));
-	else 
+	else
 		return (flookup(dict->r, str));
 
 }
@@ -836,7 +836,7 @@ aadd(dict, new)
 			dict->l = new;
 #ifdef DEBUG
 			if (debug > 1)
-				(void)printf( "aadd: new alias `%s' to `%s'\n", 
+				(void)printf( "aadd: new alias `%s' to `%s'\n",
 					      new->name, new->equiv);
 #endif
 		}
@@ -848,7 +848,7 @@ aadd(dict, new)
 			dict->r = new;
 #ifdef DEBUG
 			if (debug > 1)
-				(void)printf( "aadd: new alias `%s' to `%s'\n", 
+				(void)printf( "aadd: new alias `%s' to `%s'\n",
 					      new->name, new->equiv);
 #endif
 		}
@@ -874,7 +874,7 @@ char *str;
 	if (!res) return (dict);
 	if (res < 0)
 		return (alookup(dict->l, str));
-	else 
+	else
 		return (alookup(dict->r, str));
 
 }
@@ -898,7 +898,7 @@ initdic()
 
 	while ((++code)->name) {
 		if(!fadd(dictionary, code)) {
-			printf("init: duplicate dictionary entry %s\n", 
+			printf("init: duplicate dictionary entry %s\n",
 			       code->name);
 			abort();
 		}
@@ -912,7 +912,7 @@ initdic()
 #endif
 	while ((++alias)->name) {
 		if(!aadd(aliases, alias)) {
-			printf("init: duplicate macro entry %s\n", 
+			printf("init: duplicate macro entry %s\n",
 			       alias->name);
 			abort();
 		}
@@ -921,12 +921,12 @@ initdic()
 }
 
 int
-apply_macros(input, str) 
+apply_macros(input, str)
 	YY_BUFFER_STATE input;
 	char *str;
 {
 	struct macro *xform = alookup(aliases, str);
-	
+
 	if (xform) {
 		YY_BUFFER_STATE newbuf;
 
@@ -980,10 +980,10 @@ main(argc, argv)
 		}
 	argc -= optind;
 	argv += optind;
-	
+
 	if (argc != 1)
 		usage(myname);
-	
+
 	infile = argv[0];
 
 	/*
@@ -997,7 +997,7 @@ main(argc, argv)
 	emit(hdrtype);
 	outpos = sizeof(*fheader);
 
-	/* 
+	/*
 	 * Do it.
 	 */
 	if ((inf = fopen(infile, "r")) == NULL)
@@ -1036,7 +1036,7 @@ main(argc, argv)
  */
 
 void
-tokenize(input) 
+tokenize(input)
 	YY_BUFFER_STATE input;
 {
 	FILE *inf;
@@ -1050,10 +1050,10 @@ tokenize(input)
 		switch (token->type) {
 		case TOK_NUMBER:
 			STATE(token->text, "TOK_NUMBER");
-		{ 
+		{
 			char *end;
 			Cell value;
-			
+
 			if (tokenizer) {
 				push(strtol(token->text, &end, 16));
 				break;
@@ -1063,7 +1063,7 @@ tokenize(input)
 				token_err(yylineno, infile, yytext,
 				    "illegal number conversion");
 
-			/* 
+			/*
 			 * If this is a 64-bit value we need to store two literals
 			 * and issue a `lxjoin' to combine them.  But that's a future
 			 * project.
@@ -1083,12 +1083,12 @@ tokenize(input)
 			spit(0);
 			spit(token->text[1]);
 		break;
-		case TOK_STRING_LIT: 
+		case TOK_STRING_LIT:
 			STATE(token->text, "TOK_STRING_LIT:");
 		{
 			int len;
 			char *p = token->text;
-			
+
 			++p;			/* Skip the quote */
 			len = strlen(++p);	/* Skip the 1st space */
 
@@ -1106,7 +1106,7 @@ tokenize(input)
 			sspit(p);
 		}
 		break;
-		case TOK_PSTRING: 
+		case TOK_PSTRING:
 			STATE(token->text, "TOK_PSTRING:");
 		{
 			int len;
@@ -1133,7 +1133,7 @@ tokenize(input)
 			/* The next pass should tokenize the FCODE number */
 			emit("b(')");
 			break;
-		case TOK_COMMENT: 
+		case TOK_COMMENT:
 			STATE(token->text, "TOK_COMMENT:");
 			while (((token = yylex()) != NULL) && token->type != TOK_ENDCOMMENT)
 				;
@@ -1143,14 +1143,14 @@ tokenize(input)
 			token_err(yylineno, infile, NULL,
 			    "ENDCOMMENT encountered outside comment");
 			break;
-		case TOK_COLON: 
+		case TOK_COLON:
 			STATE(token->text, "TOK_COLON:");
 
 			token = yylex();
 			if (token == NULL)
 				token_err(yylineno, infile, yytext,
 				    "EOF in colon definition");
-			
+
 			/* Add new code to dictionary */
 			fcode = malloc(sizeof(*fcode));
 			fcode->num = nextfcode++;
@@ -1160,7 +1160,7 @@ tokenize(input)
 				    "Duplicate definition: `%s'\n", fcode->name);
 #ifdef DEBUG
 			if (debug)
-				(void)printf("Adding %s to dictionary\n", token->text);		
+				(void)printf("Adding %s to dictionary\n", token->text);
 #endif
 			if (state == 0)
 				emit("new-token");
@@ -1177,7 +1177,7 @@ tokenize(input)
 			last_token = fcode->name;
 			defining = 1;
  			break;
-		case TOK_SEMICOLON: 
+		case TOK_SEMICOLON:
 			STATE(token->text, "TOK_SEMICOLON:");
 			emit("b(;)");
 			defining = 0;
@@ -1220,7 +1220,7 @@ tokenize(input)
 			if (token == NULL) {
 				(void)printf( "EOF in alias definition\n");
 				return;
-			}			
+			}
 			alias->equiv = strdup(token->text);
 			if (!aadd(aliases, alias)) {
 				(void)printf( "ERROR: Duplicate alias %s\n",
@@ -1270,13 +1270,13 @@ tokenize(input)
 				(void)printf( "EOF in colon definition\n");
 				return;
 			}
-			
+
 			/* Add new code to dictionary */
 			fcode = malloc(sizeof(*fcode));
 			fcode->num = nextfcode++;
 			fcode->name = strdup(token->text);
 			fadd(dictionary, fcode);
-			
+
 			if (state == 0)
 				emit("new-token");
 			else {
@@ -1303,13 +1303,13 @@ tokenize(input)
 				(void)printf( "EOF in constant definition\n");
 				return;
 			}
-			
+
 			/* Add new code to dictionary */
 			fcode = malloc(sizeof(*fcode));
 			fcode->num = nextfcode++;
 			fcode->name = strdup(token->text);
 			fadd(dictionary, fcode);
-			
+
 			if (state == 0)
 				emit("new-token");
 			else {
@@ -1344,13 +1344,13 @@ tokenize(input)
 				(void)printf( "EOF in create definition\n");
 				return;
 			}
-			
+
 			/* Add new code to dictionary */
 			fcode = malloc(sizeof(*fcode));
 			fcode->num = nextfcode++;
 			fcode->name = strdup(token->text);
 			fadd(dictionary, fcode);
-			
+
 			if (state == 0)
 				emit("new-token");
 			else {
@@ -1393,7 +1393,7 @@ tokenize(input)
 					token_err(yylineno, infile, NULL,
 					    "Illegal number conversion: %s", token->text);
 
-				/* 
+				/*
 				 * If this is a 64-bit value we need to store two literals
 				 * and issue a `lxjoin' to combine them.  But that's a future
 				 * project.
@@ -1413,13 +1413,13 @@ tokenize(input)
 				(void)printf( "EOF in colon definition\n");
 				return;
 			}
-			
+
 			/* Add new code to dictionary */
 			fcode = malloc(sizeof(*fcode));
 			fcode->num = nextfcode++;
 			fcode->name = strdup(token->text);
 			fadd(dictionary, fcode);
-			
+
 			if (state == 0)
 				emit("new-token");
 			else {
@@ -1452,7 +1452,7 @@ tokenize(input)
 			 * it generates the FCode and returns, with outpos at b2.  We then
 			 * calculate the offsets, put them in the right slots and finishup.
 			 */
-			
+
 			if (token->text[0] == '?')
 				emit("b(?do)");
 			else
@@ -1487,7 +1487,7 @@ tokenize(input)
 			/* revert to the end */
 			outpos = pos;
 			break;
-		case TOK_ENDCASE: 
+		case TOK_ENDCASE:
 			STATE(token->text, "TOK_ENDCASE:");
 			pos = outpos; /* Remember where we need to branch to */
 
@@ -1516,7 +1516,7 @@ tokenize(input)
 			STATE(token->text, "TOK_ENDOF");
 			off = pop();
 			emit("b(endof)");
-			/* 
+			/*
 			 * Save back pointer in the offset field so we can traverse
 			 * the linked list and patch it in the endcase.
 			 */
@@ -1543,19 +1543,19 @@ tokenize(input)
 			break;
 		case TOK_FIELD:
 			STATE(token->text, "TOK_FIELD");
-	
+
 			token = yylex();
 			if (token == NULL) {
 				(void)printf( "EOF in field definition\n");
 				return;
 			}
-			
+
 			/* Add new code to dictionary */
 			fcode = malloc(sizeof(*fcode));
 			fcode->num = nextfcode++;
 			fcode->name = strdup(token->text);
 			fadd(dictionary, fcode);
-			
+
 			if (state == 0)
 				emit("new-token");
 			else {
@@ -1569,7 +1569,7 @@ tokenize(input)
 			spit(fcode->num);
 			emit("b(field)");
 			break;
-		
+
 		case TOK_HEX:
 			STATE(token->text, "TOK_HEX");
 			if (token->text[1] != '#') {
@@ -1594,7 +1594,7 @@ tokenize(input)
 					    infile, yylineno, yytext);
 					exit(1);
 				}
-				/* 
+				/*
 				 * If this is a 64-bit value we need to store two literals
 				 * and issue a `lxjoin' to combine them.  But that's a future
 				 * project.
@@ -1684,7 +1684,7 @@ tokenize(input)
 					    infile, yylineno, yytext);
 					exit(1);
 				}
-				/* 
+				/*
 				 * If this is a 64-bit value we need to store two literals
 				 * and issue a `lxjoin' to combine them.  But that's a future
 				 * project.
@@ -1707,7 +1707,7 @@ tokenize(input)
 			 * `endcase'.  Here we will generate a temporary
 			 * offset of the `of' associated with the `endof'.
 			 * Then in `endcase' we should be pointing just
-			 * after the offset of the last `endof' so we 
+			 * after the offset of the last `endof' so we
 			 * calculate the offset and thread our way backwards
 			 * searching for the previous `b(case)' or `b(endof)'.
 			 */
@@ -1771,7 +1771,7 @@ tokenize(input)
 			}
 			spit(pos&0xff);
 		}
-		break;			
+		break;
 		case TOK_VALUE:
 			STATE(token->text, "TOK_VALUE");
 
@@ -1780,13 +1780,13 @@ tokenize(input)
 				(void)printf( "EOF in value definition\n");
 				return;
 			}
-			
+
 			/* Add new code to dictionary */
 			fcode = malloc(sizeof(*fcode));
 			fcode->num = nextfcode++;
 			fcode->name = strdup(token->text);
 			fadd(dictionary, fcode);
-			
+
 			if (state == 0)
 				emit("new-token");
 			else {
@@ -1808,13 +1808,13 @@ tokenize(input)
 				(void)printf( "EOF in variable definition\n");
 				return;
 			}
-			
+
 			/* Add new code to dictionary */
 			fcode = malloc(sizeof(*fcode));
 			fcode->num = nextfcode++;
 			fcode->name = strdup(token->text);
 			fadd(dictionary, fcode);
-			
+
 			if (state == 0)
 				emit("new-token");
 			else {
@@ -1880,7 +1880,7 @@ tokenize(input)
 			if (emit(token->text)) {
 #if 0
 				/*
-				 * Call an external command 
+				 * Call an external command
 				 *
 				 * XXXXX assumes it will always find the command
 				 */
@@ -1993,7 +1993,7 @@ sspit(s)
 		spit(*s++);
 }
 
-int 
+int
 yywrap()
 {
 	/* Always generate EOF */

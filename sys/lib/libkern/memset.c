@@ -53,7 +53,7 @@ __RCSID("$NetBSD: memset.c,v 1.7 1998/09/14 11:50:59 leo Exp $");
 #else
 #include <lib/libkern/libkern.h>
 #include <machine/limits.h>
-#endif 
+#endif
 
 #define	wsize	sizeof(u_int)
 #define	wmask	(wsize - 1)
@@ -98,7 +98,7 @@ memset(dst0, c0, length)
 	 *
 	 * but we use a minimum of 3 here since the overhead of the code
 	 * to do word writes is substantial.
-	 */ 
+	 */
 	if (length < 3 * wsize) {
 		while (length != 0) {
 			*dst++ = VAL;

@@ -9,7 +9,7 @@ How to install the pcvt driver on a FreeBSD 2.0 machine        (pcvt rel. 3.20)
 (1) Copy the driver distribution files into appropriate directories:
 
 	(1a) make a fresh directory
-	
+
 		mkdir /usr/src/sys/i386/isa/pcvt
 		cd /usr/src/sys/i386/isa/pcvt
 
@@ -26,7 +26,7 @@ How to install the pcvt driver on a FreeBSD 2.0 machine        (pcvt rel. 3.20)
     Both configurations are documented in the files Keyboard.HP and Keyboard.VT
     respectively.
 
-    Decide which one to use and set the "#define" of PCVT_VT220KEYB to 
+    Decide which one to use and set the "#define" of PCVT_VT220KEYB to
     compile the one you choosed.(see also pcvt_conf.h and pcvt_kbd.c)
     Note: the preferable way to do all option hacking is to add "options"
     lines to the kernel's config file. See the pcvt(4) man page (in this
@@ -105,8 +105,8 @@ How to install the pcvt driver on a FreeBSD 2.0 machine        (pcvt rel. 3.20)
 
      NOTE: pcvt works with an unmodified VT220 termcap entry !
 	   (it was written to do that .... ;-)
-	
-(13) To use the virtual terminals, one must "mknod" this devices, they have 
+
+(13) To use the virtual terminals, one must "mknod" this devices, they have
      major number 12 and minor numbers 0 to n. The MAKEDEV script in the
      /dev directory is suitable for this task, just change into the /dev
      directory and execute 'sh ./MAKEDEV vty8' to make devicefiles for 8
@@ -116,7 +116,7 @@ How to install the pcvt driver on a FreeBSD 2.0 machine        (pcvt rel. 3.20)
 
 (14) edit /etc/ttys to enable login on the virtual consoles, mine looks like
      this:
-	
+
 	ttyv0	"/usr/libexec/getty Pc"	pcvt25h	on secure
 	ttyv1	"/usr/libexec/getty Pc"	pcvt25h	on secure
 	ttyv2	"/usr/libexec/getty Pc"	pcvt25h	on secure
@@ -125,14 +125,14 @@ How to install the pcvt driver on a FreeBSD 2.0 machine        (pcvt rel. 3.20)
 	ttyv5	"/usr/libexec/getty Pc"	pcvt25h	on secure
 	ttyv6	"/usr/libexec/getty Pc"	pcvt25h	on secure
 	ttyv7	"/usr/libexec/getty Pc"	pcvt25h	on secure
-	
+
 
 (15) Edit /etc/rc.local to download fonts and establish emulation modes, mine
      looks like the example provided in Etc/rc.local
 
 
 (16) For FreeBSD 2.0 there is a patch to cons.c necessary, if you don't
-     apply this patch, you don't have a console device; Joerg Wunsch 
+     apply this patch, you don't have a console device; Joerg Wunsch
      provided this patch:
 
 *** cons.c.orig	Mon Oct 31 18:20:14 1994

@@ -109,7 +109,7 @@
 	  conversion functions
 	- Added new compile option FPE_PROF to fpe.c to compile in FP profiling
 	  code
-	- 
+	-
 
 14/10/95
 	- added podule id for laser direct card
@@ -189,7 +189,7 @@
 	- Implemented cpu_sysctl() function (just returns not supported
 	  error)
 	- The nosync kernel interrupt now correctly uses RB_NOSYNC
-	- 
+	-
 
 20/11/95
 	- restructure of directories contains device files
@@ -199,7 +199,7 @@
 	-
 
 24/11/95
-	- merged in new netbsd-current source tree 
+	- merged in new netbsd-current source tree
 	- removed all the validate_trapframe() calls
 	- the ioctl CONSOLE_BLANKTIME now reloads the blank timer
 	- the ioctl CONSOLE_BLANKTIME uses the default blank time if a
@@ -210,7 +210,7 @@
 
 26/11/95
 	- Fixed the definition of va_dcl in arm32/include/varargs.h
-	- 
+	-
 
 02/12/95
 	- Fixed the WriteShort() macro

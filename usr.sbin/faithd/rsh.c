@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1997 and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -85,7 +85,7 @@ static void
 relay(int src, int dst)
 {
 	int error;
-	ssize_t n;	
+	ssize_t n;
 	int atmark;
 
 	error = ioctl(s_rcv, SIOCATMARK, &atmark);
@@ -111,7 +111,7 @@ relay(int src, int dst)
 		close(src);
 		close(dst);
 		close(s_ctl);
-		close(s_ctl6);			
+		close(s_ctl6);
 		exit_success("terminating rsh/contorol connections");
 		break;
 	default:
@@ -157,13 +157,13 @@ rsh_dual_relay(int s_src, int s_dst)
 	s_ctl = accept(s_wld, (struct sockaddr *)&ctladdr, &len);
 	if (s_ctl == -1) goto bad;
 	close(s_wld);
-	
+
 	sa = (struct sockaddr *)&ctladdr6;
 	s_ctl6 = rresvport_af(&lport6, sa->sa_family);
 	if (s_ctl6 == -1) goto bad;
 	error = connect(s_ctl6, sa, sa->sa_len);
 	if (error == -1) goto bad;
-	
+
 	syslog(LOG_INFO, "starting rsh control connection");
 
 	for (;;) {

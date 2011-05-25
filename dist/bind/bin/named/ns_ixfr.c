@@ -6,21 +6,21 @@ static const char rcsid[] = "Id: ns_ixfr.c,v 8.17 1999/11/05 04:48:28 vixie Exp"
 
 /*
  * Portions Copyright (c) 1999 by Check Point Software Technologies, Inc.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
- * the name of Check Point Software Technologies Incorporated not be used 
- * in advertising or publicity pertaining to distribution of the document 
+ * the name of Check Point Software Technologies Incorporated not be used
+ * in advertising or publicity pertaining to distribution of the document
  * or software without specific, written prior permission.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS" AND CHECK POINT SOFTWARE TECHNOLOGIES 
- * INCORPORATED DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, 
- * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.   
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND CHECK POINT SOFTWARE TECHNOLOGIES
+ * INCORPORATED DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+ * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.
  * IN NO EVENT SHALL CHECK POINT SOFTWARE TECHNOLOGIES INCORPRATED
- * BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR 
+ * BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR
  * ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
- * IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT 
+ * IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT
  * OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
@@ -224,7 +224,7 @@ sx_send_ixfr(struct qstream *qsp) {
 				}
 				trp = rp;
 				rp = NEXT(rp, r_link);
-			} 
+			}
 
 			if (!foundsoa) {
 				cp = (char *)findsoaserial(old_soadp->d_data);
@@ -384,7 +384,7 @@ int ixfr_log_maint(struct zoneinfo *zp) {
 
 	(void) strcat(tmpname, ".XXXXXX");
 	if ((fd = mkstemp(tmpname)) == -1) {
-		ns_warning(ns_log_db, "can't make tmpfile (%s): %s", 
+		ns_warning(ns_log_db, "can't make tmpfile (%s): %s",
 				strerror(errno));
 		memput(tmpname, (strlen(zp->z_ixfr_base) + sizeof(".XXXXXX") + 1));
 	 	return (-1);
@@ -418,8 +418,8 @@ int ixfr_log_maint(struct zoneinfo *zp) {
 		return (-1);
 	}
 	(void) my_fclose(db_fp);
-	ns_debug(ns_log_default, 3, "%s, size %d blk %d", 
-	     zp->z_source, db_sb.st_size, 
+	ns_debug(ns_log_default, 3, "%s, size %d blk %d",
+	     zp->z_source, db_sb.st_size,
 	     db_sb.st_size);
 
 	/* open up the zone ixfr log */
@@ -443,10 +443,10 @@ int ixfr_log_maint(struct zoneinfo *zp) {
 		memput(tmpname, (strlen(zp->z_ixfr_base) + sizeof(".XXXXXX") + 1));
 		return (-1);
 	}
-	ns_debug(ns_log_default, 3, "%s, size %d log_s %d max %d\n", 
-	     zp->z_ixfr_base, 
-	     sb.st_size, 
-	     zp->z_log_size_ixfr, 
+	ns_debug(ns_log_default, 3, "%s, size %d log_s %d max %d\n",
+	     zp->z_ixfr_base,
+	     sb.st_size,
+	     zp->z_log_size_ixfr,
 	     zp->z_max_log_size_ixfr);
 	if (zp->z_max_log_size_ixfr) {
 		if (sb.st_size > zp->z_max_log_size_ixfr)
@@ -457,13 +457,13 @@ int ixfr_log_maint(struct zoneinfo *zp) {
 		if (sb.st_size > (db_sb.st_size * .50))
 			seek = sb.st_size - ((db_sb.st_size * .50)
 			 + ((db_sb.st_size * zp->z_max_log_size_ixfr) *.10));
-		else 
+		else
 			 seek = 0;
 	}
 	ns_debug(ns_log_default, 3, "seek: %d", seek);
 	if (seek < 1)
 	{
-		ns_debug(ns_log_default, 3, "%s does not need to be reduced", 
+		ns_debug(ns_log_default, 3, "%s does not need to be reduced",
 			zp->z_ixfr_base);
 		(void) my_fclose(to_fp);
 		(void) close(fd);
@@ -511,14 +511,14 @@ int ixfr_log_maint(struct zoneinfo *zp) {
 				if (!(fgets(buf, 2, from_fp) == NULL)) /* eat <cr><lf> */
 					found = 1;
 				break;
-			} 
+			}
 		}
 		if (feof(from_fp))
 			break;
 	}
 	if (found) {
 		ns_debug(ns_log_default, 1, "ixfr_log_maint(): found [END_DELTA]");
-	
+
 		while ((rcount = fread(buf, sizeof(char), MAXBSIZE, from_fp)) > 0) {
 			wcount = fwrite(buf, sizeof(char), rcount, to_fp);
 			if (rcount != wcount || wcount == -1) {
@@ -556,10 +556,10 @@ int ixfr_log_maint(struct zoneinfo *zp) {
 		(void) unlink(zp->z_ixfr_base);
 	(void) my_fclose(from_fp);
 
-	ns_debug(ns_log_default, 3, "%s, size %d log_s %d max %d\n", 
-	     zp->z_ixfr_base, 
-	     sb.st_size, 
-	     zp->z_log_size_ixfr, 
+	ns_debug(ns_log_default, 3, "%s, size %d log_s %d max %d\n",
+	     zp->z_ixfr_base,
+	     sb.st_size,
+	     zp->z_log_size_ixfr,
 	     zp->z_max_log_size_ixfr);
 	return (0);
 }

@@ -198,7 +198,7 @@ linux_sys_open(p, v, retval)
 	 * If we are a session leader, and we don't have a controlling
 	 * terminal yet, and the O_NOCTTY flag is not set, try to make
 	 * this the controlling terminal.
-	 */ 
+	 */
         if (!(fl & O_NOCTTY) && SESS_LEADER(p) && !(p->p_flag & P_CONTROLT)) {
                 struct filedesc *fdp = p->p_fd;
                 struct file     *fp = fdp->fd_ofiles[*retval];
@@ -355,7 +355,7 @@ linux_sys_fcntl(p, v, retval)
 		return sys_fcntl(p, &fca, retval);
 		break;
 	case LINUX_F_SETOWN:
-	case LINUX_F_GETOWN:	
+	case LINUX_F_GETOWN:
 		/*
 		 * We need to route around the normal fcntl() for these calls,
 		 * since it uses TIOC{G,S}PGRP, which is too restrictive for
@@ -664,7 +664,7 @@ linux_sys_chown(p, v, retval)
 		(uid_t)-1 : SCARG(uap, uid);
 	SCARG(&bca, gid) = ((linux_gid_t)SCARG(uap, gid) == (linux_gid_t)-1) ?
 		(gid_t)-1 : SCARG(uap, gid);
-	
+
 	return sys___posix_chown(p, &bca, retval);
 }
 
@@ -686,7 +686,7 @@ linux_sys_fchown(p, v, retval)
 		(uid_t)-1 : SCARG(uap, uid);
 	SCARG(&bfa, gid) = ((linux_gid_t)SCARG(uap, gid) == (linux_gid_t)-1) ?
 		(gid_t)-1 : SCARG(uap, gid);
-	
+
 	return sys___posix_fchown(p, &bfa, retval);
 }
 
@@ -711,7 +711,7 @@ linux_sys_lchown(p, v, retval)
 
 	return sys___posix_lchown(p, &bla, retval);
 }
-	
+
 int
 linux_sys_rename(p, v, retval)
 	struct proc *p;

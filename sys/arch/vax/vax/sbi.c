@@ -62,7 +62,7 @@ sbi_print(aux, name)
 		default:
 			printf("unknown device 0x%x at %s", sa->type, name);
 			unsupp++;
-		}		
+		}
 	}
 	printf(" tr%d", sa->nexnum);
 	return (unsupp ? UNSUPP : UNCONF);

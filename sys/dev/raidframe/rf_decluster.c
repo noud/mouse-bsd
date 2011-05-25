@@ -65,7 +65,7 @@ int     rf_GetSpareTableFromDaemon(RF_SparetWait_t * req);
 
 /* configuration code */
 
-int 
+int
 rf_ConfigureDeclustered(
     RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr,
@@ -289,7 +289,7 @@ rf_ConfigureDeclustered(
 }
 /* declustering with distributed sparing */
 static void rf_ShutdownDeclusteredDS(RF_ThreadArg_t);
-static void 
+static void
 rf_ShutdownDeclusteredDS(arg)
 	RF_ThreadArg_t arg;
 {
@@ -302,7 +302,7 @@ rf_ShutdownDeclusteredDS(arg)
 		rf_FreeSpareTable(raidPtr);
 }
 
-int 
+int
 rf_ConfigureDeclusteredDS(
     RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr,
@@ -322,7 +322,7 @@ rf_ConfigureDeclusteredDS(
 	return (0);
 }
 
-void 
+void
 rf_MapSectorDeclustered(raidPtr, raidSector, row, col, diskSector, remap)
 	RF_Raid_t *raidPtr;
 	RF_RaidAddr_t raidSector;
@@ -391,7 +391,7 @@ rf_MapSectorDeclustered(raidPtr, raidSector, row, col, diskSector, remap)
 
 
 /* prototyping this inexplicably causes the compile of the layout table (rf_layout.c) to fail */
-void 
+void
 rf_MapParityDeclustered(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -463,7 +463,7 @@ rf_MapParityDeclustered(
 /* returns an array of ints identifying the disks that comprise the stripe containing the indicated address.
  * the caller must _never_ attempt to modify this array.
  */
-void 
+void
 rf_IdentifyStripeDeclustered(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t addr,
@@ -512,7 +512,7 @@ rf_IdentifyStripeDeclustered(
  * If numBufsToAccumulate is not 1, we need to limit the head sep further
  * because multiple bufs will be required for each stripe under recon.
  */
-RF_HeadSepLimit_t 
+RF_HeadSepLimit_t
 rf_GetDefaultHeadSepLimitDeclustered(
     RF_Raid_t * raidPtr)
 {
@@ -525,7 +525,7 @@ rf_GetDefaultHeadSepLimitDeclustered(
  * for a reasonably large head-sep limit, but small enough that you
  * don't use up all your system memory with buffers.
  */
-int 
+int
 rf_GetDefaultNumFloatingReconBuffersDeclustered(RF_Raid_t * raidPtr)
 {
 	return (100 * rf_numBufsToAccumulate);
@@ -546,7 +546,7 @@ rf_GetDefaultNumFloatingReconBuffersDeclustered(RF_Raid_t * raidPtr)
  * the users stripe unit number from an offset into the array to
  * an offset into the last fulltable.
  */
-void 
+void
 rf_decluster_adjust_params(
     RF_RaidLayout_t * layoutPtr,
     RF_StripeNum_t * SUID,
@@ -580,7 +580,7 @@ rf_decluster_adjust_params(
  * map a stripe ID to a parity stripe ID.
  * See comment above RaidAddressToParityStripeID in layout.c.
  */
-void 
+void
 rf_MapSIDToPSIDDeclustered(
     RF_RaidLayout_t * layoutPtr,
     RF_StripeNum_t stripeID,
@@ -601,7 +601,7 @@ rf_MapSIDToPSIDDeclustered(
  * Called from MapSector and MapParity to retarget an access at the spare unit.
  * Modifies the "col" and "outSU" parameters only.
  */
-void 
+void
 rf_remap_to_spare_space(
     RF_RaidLayout_t * layoutPtr,
     RF_DeclusteredConfigInfo_t * info,
@@ -650,7 +650,7 @@ rf_remap_to_spare_space(
 	}
 }
 
-int 
+int
 rf_InstallSpareTable(
     RF_Raid_t * raidPtr,
     RF_RowCol_t frow,
@@ -678,7 +678,7 @@ rf_InstallSpareTable(
 /*
  * Invoked via ioctl to install a spare table in the kernel.
  */
-int 
+int
 rf_SetSpareTable(raidPtr, data)
 	RF_Raid_t *raidPtr;
 	void   *data;
@@ -716,7 +716,7 @@ rf_SetSpareTable(raidPtr, data)
 	return (0);
 }
 
-RF_ReconUnitCount_t 
+RF_ReconUnitCount_t
 rf_GetNumSpareRUsDeclustered(raidPtr)
 	RF_Raid_t *raidPtr;
 {
@@ -726,7 +726,7 @@ rf_GetNumSpareRUsDeclustered(raidPtr)
 }
 
 
-void 
+void
 rf_FreeSpareTable(raidPtr)
 	RF_Raid_t *raidPtr;
 {

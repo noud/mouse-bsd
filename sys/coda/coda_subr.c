@@ -1,13 +1,13 @@
 /*	$NetBSD: coda_subr.c,v 1.8 1999/10/17 23:39:15 cgd Exp $	*/
 
 /*
- * 
+ *
  *             Coda: an Experimental Distributed File System
  *                              Release 3.1
- * 
+ *
  *           Copyright (c) 1987-1998 Carnegie Mellon University
  *                          All Rights Reserved
- * 
+ *
  * Permission  to  use, copy, modify and distribute this software and its
  * documentation is hereby granted,  provided  that  both  the  copyright
  * notice  and  this  permission  notice  appear  in  all  copies  of the
@@ -16,22 +16,22 @@
  * that credit is given to Carnegie Mellon University  in  all  documents
  * and publicity pertaining to direct or indirect use of this code or its
  * derivatives.
- * 
+ *
  * CODA IS AN EXPERIMENTAL SOFTWARE SYSTEM AND IS  KNOWN  TO  HAVE  BUGS,
  * SOME  OF  WHICH MAY HAVE SERIOUS CONSEQUENCES.  CARNEGIE MELLON ALLOWS
  * FREE USE OF THIS SOFTWARE IN ITS "AS IS" CONDITION.   CARNEGIE  MELLON
  * DISCLAIMS  ANY  LIABILITY  OF  ANY  KIND  FOR  ANY  DAMAGES WHATSOEVER
  * RESULTING DIRECTLY OR INDIRECTLY FROM THE USE OF THIS SOFTWARE  OR  OF
  * ANY DERIVATIVE WORK.
- * 
+ *
  * Carnegie  Mellon  encourages  users  of  this  software  to return any
  * improvements or extensions that  they  make,  and  to  grant  Carnegie
  * Mellon the rights to redistribute these changes without encumbrance.
- * 
- * 	@(#) coda/coda_subr.c,v 1.1.1.1 1998/08/29 21:26:45 rvb Exp $ 
+ *
+ * 	@(#) coda/coda_subr.c,v 1.1.1.1 1998/08/29 21:26:45 rvb Exp $
  */
 
-/* 
+/*
  * Mach Operating System
  * Copyright (c) 1989 Carnegie-Mellon University
  * All rights reserved.  The CMU software License Agreement specifies
@@ -144,23 +144,23 @@ coda_unsave(cp)
 {
     struct cnode *ptr;
     struct cnode *ptrprev = NULL;
-    
-    ptr = coda_cache[coda_hash(&cp->c_fid)]; 
-    while (ptr != NULL) { 
-	if (ptr == cp) { 
+
+    ptr = coda_cache[coda_hash(&cp->c_fid)];
+    while (ptr != NULL) {
+	if (ptr == cp) {
 	    if (ptrprev == NULL) {
-		coda_cache[coda_hash(&cp->c_fid)] 
+		coda_cache[coda_hash(&cp->c_fid)]
 		    = CNODE_NEXT(ptr);
 	    } else {
 		CNODE_NEXT(ptrprev) = CNODE_NEXT(ptr);
 	    }
 	    CNODE_NEXT(cp) = (struct cnode *)NULL;
-	    
-	    return; 
-	}	
+
+	    return;
+	}
 	ptrprev = ptr;
 	ptr = CNODE_NEXT(ptr);
-    }	
+    }
 }
 
 /*
@@ -168,7 +168,7 @@ coda_unsave(cp)
  * NOTE: this allows multiple cnodes with same fid -- dcs 1/25/95
  */
 struct cnode *
-coda_find(fid) 
+coda_find(fid)
      ViceFid *fid;
 {
     struct cnode *cp;
@@ -181,8 +181,8 @@ coda_find(fid)
 	    (!IS_UNMOUNTING(cp)))
 	    {
 		coda_active++;
-		return(cp); 
-	    }		    
+		return(cp);
+	    }
 	cp = CNODE_NEXT(cp);
     }
     return(NULL);
@@ -204,21 +204,21 @@ coda_kill(whoIam, dcstat)
 {
 	int hash, count = 0;
 	struct cnode *cp;
-	
-	/* 
-	 * Algorithm is as follows: 
+
+	/*
+	 * Algorithm is as follows:
 	 *     Second, flush whatever vnodes we can from the name cache.
-	 * 
+	 *
 	 *     Finally, step through whatever is left and mark them dying.
 	 *        This prevents any operation at all.
 
 	 */
-	
+
 	/* This is slightly overkill, but should work. Eventually it'd be
 	 * nice to only flush those entries from the namecache that
 	 * reference a vnode in this vfs.  */
 	coda_nc_flush(dcstat);
-	
+
 	for (hash = 0; hash < CODA_CACHESIZE; hash++) {
 		for (cp = coda_cache[hash]; cp != NULL; cp = CNODE_NEXT(cp)) {
 			if (CTOV(cp)->v_mount == whoIam) {
@@ -226,11 +226,11 @@ coda_kill(whoIam, dcstat)
 				printf("coda_kill: vp %p, cp %p\n", CTOV(cp), cp);
 #endif
 				count++;
-				CODADEBUG(CODA_FLUSH, 
+				CODADEBUG(CODA_FLUSH,
 					 myprintf(("Live cnode fid %lx.%lx.%lx flags %d count %ld\n",
 						   (cp->c_fid).Volume,
 						   (cp->c_fid).Vnode,
-						   (cp->c_fid).Unique, 
+						   (cp->c_fid).Unique,
 						   cp->c_flags,
 						   CTOV(cp)->v_usecount)); );
 			}
@@ -241,7 +241,7 @@ coda_kill(whoIam, dcstat)
 
 /*
  * There are two reasons why a cnode may be in use, it may be in the
- * name cache or it may be executing.  
+ * name cache or it may be executing.
  */
 void
 coda_flush(dcstat)
@@ -249,14 +249,14 @@ coda_flush(dcstat)
 {
     int hash;
     struct cnode *cp;
-    
+
     coda_clstat.ncalls++;
     coda_clstat.reqs[CODA_FLUSH]++;
-    
+
     coda_nc_flush(dcstat);	    /* flush files from the name cache */
 
     for (hash = 0; hash < CODA_CACHESIZE; hash++) {
-	for (cp = coda_cache[hash]; cp != NULL; cp = CNODE_NEXT(cp)) {  
+	for (cp = coda_cache[hash]; cp != NULL; cp = CNODE_NEXT(cp)) {
 	    if (!ODD(cp->c_fid.Vnode)) /* only files can be executed */
 		coda_vmflush(cp);
 	}
@@ -265,18 +265,18 @@ coda_flush(dcstat)
 
 /*
  * As a debugging measure, print out any cnodes that lived through a
- * name cache flush.  
+ * name cache flush.
  */
 void
 coda_testflush(void)
 {
     int hash;
     struct cnode *cp;
-    
+
     for (hash = 0; hash < CODA_CACHESIZE; hash++) {
 	for (cp = coda_cache[hash];
 	     cp != NULL;
-	     cp = CNODE_NEXT(cp)) {  
+	     cp = CNODE_NEXT(cp)) {
 	    myprintf(("Live cnode fid %lx.%lx.%lx count %ld\n",
 		      (cp->c_fid).Volume,(cp->c_fid).Vnode,
 		      (cp->c_fid).Unique, CTOV(cp)->v_usecount));
@@ -293,7 +293,7 @@ coda_testflush(void)
 void
 coda_unmounting(whoIam)
 	struct mount *whoIam;
-{	
+{
 	int hash;
 	struct cnode *cp;
 
@@ -315,7 +315,7 @@ coda_unmounting(whoIam)
 void
 coda_checkunmounting(mp)
 	struct mount *mp;
-{	
+{
 	register struct vnode *vp, *nvp;
 	struct cnode *cp;
 	int count = 0, bad = 0;
@@ -337,7 +337,7 @@ loop:
 void
 coda_cacheprint(whoIam)
 	struct mount *whoIam;
-{	
+{
 	int hash;
 	struct cnode *cp;
 	int count = 0;
@@ -375,14 +375,14 @@ coda_cacheprint(whoIam)
  *
  * The fifth is a result of Venus detecting an inconsistent file.
  * CODA_PURGEFID  -- flush the attribute for the file
- *                  If it is a dir (odd vnode), purge its 
+ *                  If it is a dir (odd vnode), purge its
  *                  children from the namecache
  *                  remove the file from the namecache.
  *
  * The sixth allows Venus to replace local fids with global ones
  * during reintegration.
  *
- * CODA_REPLACE -- replace one ViceFid with another throughout the name cache 
+ * CODA_REPLACE -- replace one ViceFid with another throughout the name cache
  */
 
 int handleDownCall(opcode, out)
@@ -395,76 +395,76 @@ int handleDownCall(opcode, out)
       case CODA_FLUSH : {
 
 	  coda_flush(IS_DOWNCALL);
-	  
+
 	  CODADEBUG(CODA_FLUSH,coda_testflush();)    /* print remaining cnodes */
 	      return(0);
       }
-	
+
       case CODA_PURGEUSER : {
 	  coda_clstat.ncalls++;
 	  coda_clstat.reqs[CODA_PURGEUSER]++;
-	  
+
 	  /* XXX - need to prevent fsync's */
 	  coda_nc_purge_user(out->coda_purgeuser.cred.cr_uid, IS_DOWNCALL);
 	  return(0);
       }
-	
+
       case CODA_ZAPFILE : {
 	  struct cnode *cp;
 
 	  error = 0;
 	  coda_clstat.ncalls++;
 	  coda_clstat.reqs[CODA_ZAPFILE]++;
-	  
+
 	  cp = coda_find(&out->coda_zapfile.CodaFid);
 	  if (cp != NULL) {
 	      vref(CTOV(cp));
-	      
+
 	      cp->c_flags &= ~C_VATTR;
 	      if (CTOV(cp)->v_flag & VTEXT)
 		  error = coda_vmflush(cp);
-	      CODADEBUG(CODA_ZAPFILE, myprintf(("zapfile: fid = (%lx.%lx.%lx), 
+	      CODADEBUG(CODA_ZAPFILE, myprintf(("zapfile: fid = (%lx.%lx.%lx),
                                               refcnt = %ld, error = %d\n",
-					      cp->c_fid.Volume, 
-					      cp->c_fid.Vnode, 
-					      cp->c_fid.Unique, 
+					      cp->c_fid.Volume,
+					      cp->c_fid.Vnode,
+					      cp->c_fid.Unique,
 					      CTOV(cp)->v_usecount - 1, error)););
 	      if (CTOV(cp)->v_usecount == 1) {
 		  cp->c_flags |= C_PURGING;
 	      }
 	      vrele(CTOV(cp));
 	  }
-	  
+
 	  return(error);
       }
-	
+
       case CODA_ZAPDIR : {
 	  struct cnode *cp;
 
 	  coda_clstat.ncalls++;
 	  coda_clstat.reqs[CODA_ZAPDIR]++;
-	  
+
 	  cp = coda_find(&out->coda_zapdir.CodaFid);
 	  if (cp != NULL) {
 	      vref(CTOV(cp));
-	      
+
 	      cp->c_flags &= ~C_VATTR;
-	      coda_nc_zapParentfid(&out->coda_zapdir.CodaFid, IS_DOWNCALL);     
-	      
-	      CODADEBUG(CODA_ZAPDIR, myprintf(("zapdir: fid = (%lx.%lx.%lx), 
-                                          refcnt = %ld\n",cp->c_fid.Volume, 
-					     cp->c_fid.Vnode, 
-					     cp->c_fid.Unique, 
+	      coda_nc_zapParentfid(&out->coda_zapdir.CodaFid, IS_DOWNCALL);
+
+	      CODADEBUG(CODA_ZAPDIR, myprintf(("zapdir: fid = (%lx.%lx.%lx),
+                                          refcnt = %ld\n",cp->c_fid.Volume,
+					     cp->c_fid.Vnode,
+					     cp->c_fid.Unique,
 					     CTOV(cp)->v_usecount - 1)););
 	      if (CTOV(cp)->v_usecount == 1) {
 		  cp->c_flags |= C_PURGING;
 	      }
 	      vrele(CTOV(cp));
 	  }
-	  
+
 	  return(0);
       }
-	
+
       case CODA_PURGEFID : {
 	  struct cnode *cp;
 
@@ -477,18 +477,18 @@ int handleDownCall(opcode, out)
 	      vref(CTOV(cp));
 	      if (ODD(out->coda_purgefid.CodaFid.Vnode)) { /* Vnode is a directory */
 		  coda_nc_zapParentfid(&out->coda_purgefid.CodaFid,
-				     IS_DOWNCALL);     
+				     IS_DOWNCALL);
 	      }
 	      cp->c_flags &= ~C_VATTR;
 	      coda_nc_zapfid(&out->coda_purgefid.CodaFid, IS_DOWNCALL);
-	      if (!(ODD(out->coda_purgefid.CodaFid.Vnode)) 
+	      if (!(ODD(out->coda_purgefid.CodaFid.Vnode))
 		  && (CTOV(cp)->v_flag & VTEXT)) {
-		  
+
 		  error = coda_vmflush(cp);
 	      }
 	      CODADEBUG(CODA_PURGEFID, myprintf(("purgefid: fid = (%lx.%lx.%lx), refcnt = %ld, error = %d\n",
                                             cp->c_fid.Volume, cp->c_fid.Vnode,
-                                            cp->c_fid.Unique, 
+                                            cp->c_fid.Unique,
 					    CTOV(cp)->v_usecount - 1, error)););
 	      if (CTOV(cp)->v_usecount == 1) {
 		  cp->c_flags |= C_PURGING;
@@ -503,9 +503,9 @@ int handleDownCall(opcode, out)
 
 	  coda_clstat.ncalls++;
 	  coda_clstat.reqs[CODA_REPLACE]++;
-	  
+
 	  cp = coda_find(&out->coda_replace.OldFid);
-	  if (cp != NULL) { 
+	  if (cp != NULL) {
 	      /* remove the cnode from the hash table, replace the fid, and reinsert */
 	      vref(CTOV(cp));
 	      coda_unsave(cp);
@@ -516,7 +516,7 @@ int handleDownCall(opcode, out)
 					   out->coda_replace.OldFid.Volume,
 					   out->coda_replace.OldFid.Vnode,
 					   out->coda_replace.OldFid.Unique,
-					   cp->c_fid.Volume, cp->c_fid.Vnode, 
+					   cp->c_fid.Volume, cp->c_fid.Vnode,
 					   cp->c_fid.Unique, cp));)
 	      vrele(CTOV(cp));
 	  }
@@ -538,7 +538,7 @@ coda_vmflush(cp)
 }
 
 
-/* 
+/*
  * kernel-internal debugging switches
  */
 

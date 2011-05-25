@@ -38,7 +38,7 @@
  *
  *	%W% (Berkeley) %G%
  *
- * Id: conf_parse.y,v 1.3 1999/04/16 14:20:59 ezk Exp 
+ * Id: conf_parse.y,v 1.3 1999/04/16 14:20:59 ezk Exp
  *
  */
 

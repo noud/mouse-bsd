@@ -30,7 +30,7 @@ ${PROG}: ${OBJS} ${LIBSA} ${LIBZ} ${LIBKERN}
 	@${SIZE} ${.TARGET}.tmp
 	@${OBJCOPY} -O binary ${.TARGET}.tmp ${.TARGET}
 	@rm -f ${.TARGET}.tmp
- 
+
 # conjure up a magic header that is accepted by all Sun PROMS;
 # see installboot.c for details.
 ${FILES}: ${PROG}

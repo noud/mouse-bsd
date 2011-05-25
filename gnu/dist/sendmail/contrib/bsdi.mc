@@ -4,9 +4,9 @@ Received: from austin.BSDI.COM (austin.BSDI.COM [137.39.95.2]) by hofmann.CS.Ber
 Received: from austin.BSDI.COM (sanders@localhost [127.0.0.1]) by austin.BSDI.COM (8.6.9/8.6.9) with ESMTP id MAA14919 for <eric@cs.berkeley.edu>; Sat, 10 Dec 1994 12:49:01 -0600
 Message-Id: <199412101849.MAA14919@austin.BSDI.COM>
 To: Eric Allman <eric@cs.berkeley.edu>
-Subject: Re: sorting mailings lists with fastest delivery users first 
+Subject: Re: sorting mailings lists with fastest delivery users first
 In-reply-to: Your message of Sat, 10 Dec 1994 08:25:30 PST.
-References: <199412101625.IAA15407@mastodon.CS.Berkeley.EDU> 
+References: <199412101625.IAA15407@mastodon.CS.Berkeley.EDU>
 From: Tony Sanders <sanders@bsdi.com>
 Organization: Berkeley Software Design, Inc.
 Date: Sat, 10 Dec 1994 12:49:00 -0600

@@ -45,7 +45,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define PROGRESS(X) mpw_progress_measured (X, __FILE__, __LINE__);
 #else
 #define PROGRESS(X) mpw_progress (X);
-#endif 
+#endif
 
 /* Programs use this macro to indicate the end of a lengthy activity.
    STR must match a STR passed to START_PROGRESS previously.  */

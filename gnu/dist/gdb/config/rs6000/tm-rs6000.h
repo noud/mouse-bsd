@@ -135,7 +135,7 @@ extern CORE_ADDR skip_trampoline_code PARAMS ((CORE_ADDR));
 
 #define	PROCESS_LINENUMBER_HOOK()	aix_process_linenos ()
 extern void aix_process_linenos PARAMS ((void));
-   
+
 /* Immediately after a function call, return the saved pc.
    Can't go through the frames for this because on some machines
    the new frame is not set up until the new function executes
@@ -226,7 +226,7 @@ extern CORE_ADDR push_arguments PARAMS ((int, struct value **, CORE_ADDR,
 #define FP0_REGNUM 32		/* Floating point register 0 */
 #define	GP0_REGNUM 0		/* GPR register 0 */
 #define FP0_REGNUM 32		/* FPR (Floating point) register 0 */
-#define FPLAST_REGNUM 63	/* Last floating point register */  
+#define FPLAST_REGNUM 63	/* Last floating point register */
 
 /* Special purpose registers... */
 /* P.S. keep these in the same order as in /usr/mstsave.h `mstsave' structure, for
@@ -248,7 +248,7 @@ extern CORE_ADDR push_arguments PARAMS ((int, struct value **, CORE_ADDR,
 
 	32 4-byte gpr's
 	32 8-byte fpr's
-	7  4-byte special purpose registers, 
+	7  4-byte special purpose registers,
 	3  4-byte profile registers
 
    total 428 bytes. Keep some extra space for now, in case to add more. */
@@ -405,7 +405,7 @@ CORE_ADDR rs6000_frame_chain PARAMS ((struct frame_info *));
 extern int frameless_function_invocation PARAMS((struct frame_info *));
 
 /* Functions calling alloca() change the value of the stack pointer. We
-   need to use initial stack pointer (which is saved in r31 by gcc) in 
+   need to use initial stack pointer (which is saved in r31 by gcc) in
    such cases. If a compiler emits traceback table, then we should use the
    alloca register specified in traceback table. FIXME. */
 /* Also, it is a good idea to cache information about frame's saved registers
@@ -547,7 +547,7 @@ extern CORE_ADDR frame_initial_stack_address PARAMS ((struct frame_info *));
 #define PUSH_DUMMY_FRAME	push_dummy_frame ()
 extern void push_dummy_frame PARAMS ((void));
 
-/* Discard from the stack the innermost frame, 
+/* Discard from the stack the innermost frame,
    restoring all saved registers.  */
 
 #define POP_FRAME	pop_frame ()
@@ -562,13 +562,13 @@ extern void pop_frame PARAMS ((void));
 	stm	r0, num(r1)	// 0xbc010000
 	stu	r1, num(r1)	// 0x94210000
 
-	// the function we want to branch might be in a different load 
+	// the function we want to branch might be in a different load
 	// segment. reset the toc register. Note that the actual toc address
 	// will be fix by fix_call_dummy () along with function address.
 
 	st	r2, 0x14(r1)	// 0x90410014 save toc register
 	liu	r2, 0x1234	// 0x3c401234 reset a new toc value 0x12345678
-	oril	r2, r2,0x5678   // 0x60425678	
+	oril	r2, r2,0x5678   // 0x60425678
 
 				// load absolute address 0x12345678 to r0
 	liu	r0, 0x1234	// 0x3c001234
@@ -580,14 +580,14 @@ extern void pop_frame PARAMS ((void));
 	cror	0xf, 0xf, 0xf	// 0x4def7b82 (for 8 byte alignment)
 
 
-  We actually start executing by saving the toc register first, since the pushing 
+  We actually start executing by saving the toc register first, since the pushing
   of the registers is done by PUSH_DUMMY_FRAME.  If this were real code,
   the arguments for the function called by the `bctrl' would be pushed
   between the `stu' and the `bctrl', and we could allow it to execute through.
   But the arguments have to be pushed by GDB after the PUSH_DUMMY_FRAME is done,
   and we cannot allow to push the registers again.
 */
-	
+
 #define CALL_DUMMY {0x7c0802a6, 0xd8010000, 0xbc010000, 0x94210000, \
 		    0x90410014, 0x3c401234, 0x60425678,		    \
 		    0x3c001234, 0x60005678, 0x7c0903a6, 0x4e800421, \

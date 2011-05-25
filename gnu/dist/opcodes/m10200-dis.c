@@ -19,14 +19,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include <stdio.h>
 
 #include "ansidecl.h"
-#include "opcode/mn10200.h" 
+#include "opcode/mn10200.h"
 #include "dis-asm.h"
 
 static void disassemble PARAMS ((bfd_vma, struct disassemble_info *,
 				 unsigned long insn, unsigned long,
 				 unsigned int));
 
-int 
+int
 print_insn_mn10200 (memaddr, info)
      bfd_vma memaddr;
      struct disassemble_info *info;
@@ -230,7 +230,7 @@ disassemble (memaddr, info, insn, extension, size)
 	mysize = 5;
       else
 	abort ();
-	
+
       if (op->format == FMT_2 || op->format == FMT_5)
 	extra_shift = 8;
       else if (op->format == FMT_3
@@ -246,7 +246,7 @@ disassemble (memaddr, info, insn, extension, size)
 	  const unsigned char *opindex_ptr;
 	  unsigned int nocomma;
 	  int paren = 0;
-	  
+
 	  match = 1;
 	  (*info->fprintf_func) (info->stream, "%s\t", op->name);
 
@@ -280,7 +280,7 @@ disassemble (memaddr, info, insn, extension, size)
 		(*info->fprintf_func) (info->stream, ",");
 
 	      nocomma = 0;
-		
+
 	      if ((operand->flags & MN10200_OPERAND_DREG) != 0)
 		{
 		  value = ((insn >> (operand->shift + extra_shift))
@@ -319,7 +319,7 @@ disassemble (memaddr, info, insn, extension, size)
 	      else if ((operand->flags & MN10200_OPERAND_MEMADDR) != 0)
 		(*info->print_address_func) (value, info);
 
-	      else 
+	      else
 		(*info->fprintf_func) (info->stream, "%d", value);
 	    }
 	  /* All done. */

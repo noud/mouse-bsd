@@ -19,7 +19,7 @@
  *    must display the following acknowledgement:
  *        This product includes software developed by The NetBSD
  *        Foundation, Inc. and its contributors.
- * 4. Neither the name of The NetBSD Foundation nor the names of its 
+ * 4. Neither the name of The NetBSD Foundation nor the names of its
  *    contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
@@ -38,12 +38,12 @@
 
 #include "opt_inet.h"
 #include "opt_ns.h"
-#include "bpfilter.h" 
+#include "bpfilter.h"
 
 #include <sys/param.h>
 #include <sys/systm.h>
-#include <sys/mbuf.h> 
-#include <sys/socket.h> 
+#include <sys/mbuf.h>
+#include <sys/socket.h>
 #include <sys/ioctl.h>
 #include <sys/errno.h>
 #include <sys/syslog.h>
@@ -59,7 +59,7 @@
 #include <netinet/in.h>
 #include <netinet/in_systm.h>
 #include <netinet/in_var.h>
-#include <netinet/ip.h> 
+#include <netinet/ip.h>
 #endif
 
 #ifdef NS
@@ -150,7 +150,7 @@ tr_isapnp_attach(parent, self, aux)
 
 	sc->sc_aca = TR_ACA_OFFSET;
 	sc->sc_maddr = ipa->ipa_mem[sramidx].base;
-	/* 
+	/*
 	 * Reset the card.
 	 */
 	if (tr_reset(sc))

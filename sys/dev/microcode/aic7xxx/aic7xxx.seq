@@ -68,9 +68,9 @@ A = ACCUM
  * on just in case the reselection wins so that we can retry the selection at
  * a later time.  This problem cannot be resolved by holding a single entry
  * in scratch ram since a reconnecting target can request sense and this will
- * create yet another SCB waiting for selection.  The solution used here is to 
+ * create yet another SCB waiting for selection.  The solution used here is to
  * use byte 27 of the SCB as a psuedo-next pointer and to thread a list
- * of SCBs that are awaiting selection.  Since 0-0xfe are valid SCB offsets, 
+ * of SCBs that are awaiting selection.  Since 0-0xfe are valid SCB offsets,
  * SCB_LIST_NULL is 0xff which is out of range.  The kernel driver must
  * add an entry to this list everytime a request sense occurs.  The sequencer
  * will automatically consume the entries.
@@ -112,9 +112,9 @@ start2:
 	test	QINCNT,A	jz poll_for_work
 
 /*
- * We have at least one queued SCB now and we don't have any 
+ * We have at least one queued SCB now and we don't have any
  * SCBs in the list of SCBs awaiting selection.  Set the SCB
- * pointer from the FIFO so we see the right bank of SCB 
+ * pointer from the FIFO so we see the right bank of SCB
  * registers.
  */
 	mov	SCBPTR,QINFIFO
@@ -125,8 +125,8 @@ start2:
  * is not ideal for devices that have multiple luns active at the same
  * time, it is faster than looping through all SCB's looking for active
  * commands.  It may be benificial to make findscb a more general procedure
- * to see if the added cost of the search is negligible.  This code also 
- * assumes that the kernel driver will clear the active flags on board 
+ * to see if the added cost of the search is negligible.  This code also
+ * assumes that the kernel driver will clear the active flags on board
  * initialization, board reset, and a target SELTO.  Tagged commands
  * don't set the active bits since you can queue more than one command
  * at a time.  We do, however, look to see if there are any non-tagged
@@ -223,7 +223,7 @@ mk_message:
 	mvi     INTSTAT,AWAITING_MSG
 
 wait_for_selection:
-	test	SSTAT0,SELDO	jnz select 
+	test	SSTAT0,SELDO	jnz select
 	test	SSTAT0,SELDI	jz wait_for_selection
 
 /*
@@ -364,7 +364,7 @@ data_phase_wideodd:
 	test	SSTAT0,SDONE	jz data_phase_finish /* underrun STCNT != 0 */
 
 /*
- * Advance the scatter-gather pointers if needed 
+ * Advance the scatter-gather pointers if needed
  */
 sg_advance:
 	dec	SG_COUNT	/* one less segment to go */
@@ -418,7 +418,7 @@ dma_finish2:
  *
  *
  * In FreeBSD, the scatter list entry is only 8 bytes.
- * 
+ *
  * struct ahc_dma_seg {
  *       physaddr addr;                  four bytes, little-endian order
  *       long    len;                    four bytes, little endian order
@@ -452,7 +452,7 @@ dma_finish2:
 data_phase_finish:
 /*
  * After a DMA finishes, save the SG and STCNT residuals back into the SCB
- * We use STCNT instead of HCNT, since it's a reflection of how many bytes 
+ * We use STCNT instead of HCNT, since it's a reflection of how many bytes
  * were transferred on the SCSI (as opposed to the host) bus.
  */
 	mov	SCB_RESID_DCNT0,STCNT0
@@ -535,7 +535,7 @@ p_mesgout_outb:
 	dec	DINDEX
 	or	CLRSINT0, CLRSPIORDY
 	mov	SCSIDATL,SINDIR
-	
+
 p_mesgout4:
 	test	DINDEX,0xff	jnz p_mesgout_loop
 
@@ -617,9 +617,9 @@ mesgin_complete:
  * If we have a residual count, interrupt and tell the host.  Other
  * alternatives are to pause the sequencer on all command completes (yuck),
  * dma the resid directly to the host (slick, we may have space to do it now)
- * or have the sequencer pause itself when it encounters a non-zero resid 
+ * or have the sequencer pause itself when it encounters a non-zero resid
  * (unecessary pause just to flag the command -yuck-, but takes one instruction
- * and since it shouldn't happen that often is good enough for our purposes).  
+ * and since it shouldn't happen that often is good enough for our purposes).
  */
 resid:
 	mvi	INTSTAT,RESIDUAL
@@ -751,7 +751,7 @@ mesgin_identify:
 	test	A,0x78	jnz rej_mesgin	/*!DiscPriv|!LUNTAR|!Reserved*/
 
 	and	A,0x07			/* lun in lower three bits */
-	or      SAVED_TCL,A,SELID          
+	or      SAVED_TCL,A,SELID
 	and     SAVED_TCL,0xf7
 	and     A,SELBUSB,SBLKCTL	/* B Channel?? */
 	or      SAVED_TCL,A
@@ -779,7 +779,7 @@ get_tag:
  * the complement of SCBCOUNT to the incomming tag and there is
  * no carry.
  */
-	mov	A,COMP_SCBCOUNT	
+	mov	A,COMP_SCBCOUNT
 	add	SINDEX,A,ARG_1
 	jc	abort_tag
 
@@ -810,9 +810,9 @@ abort_tag:
 	jmp	mesgin_done
 
 /*
- * Message reject?  Let the kernel driver handle this.  If we have an 
- * outstanding WDTR or SDTR negotiation, assume that it's a response from 
- * the target selecting 8bit or asynchronous transfer, otherwise just ignore 
+ * Message reject?  Let the kernel driver handle this.  If we have an
+ * outstanding WDTR or SDTR negotiation, assume that it's a response from
+ * the target selecting 8bit or asynchronous transfer, otherwise just ignore
  * it since we have no clue what it pertains to.
  */
 mesgin_reject:
@@ -846,7 +846,7 @@ p_busfree:
 mk_mesg:
 	mvi	SEQCTL,0x50			/* PAUSEDIS|FASTMODE */
 	test	MSG_LEN,0xff	jz mk_mesg1	/* Should always succeed */
-	
+
 	/*
 	 * Hmmm.  For some reason the mesg buffer is in use.
 	 * Tell the driver.  It should look at SINDEX to find
@@ -923,7 +923,7 @@ dma4:
 	test	DFSTATUS,FIFOEMP	jz dma4
 
 /*
- * Now shut the DMA enables off and make sure that the DMA enables are 
+ * Now shut the DMA enables off and make sure that the DMA enables are
  * actually off first lest we get an ILLSADDR.
  */
 dma5:
@@ -1047,7 +1047,7 @@ sg_ram2scb:
 	mov	SCB_SGPTR1,SG_NEXT1
 	mov	SCB_SGPTR2,SG_NEXT2
 	mov	SCB_SGPTR3,SG_NEXT3
-	
+
 	mov	SCB_DATAPTR0,SHADDR0
 	mov	SCB_DATAPTR1,SHADDR1
 	mov	SCB_DATAPTR2,SHADDR2

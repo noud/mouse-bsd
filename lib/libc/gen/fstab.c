@@ -98,7 +98,7 @@ fstabscan()
 	static const char sep[] = ":\n";
 	static const char ws[] = " \t\n";
 	static char *fstab_type[] = {
-	    FSTAB_RW, FSTAB_RQ, FSTAB_RO, FSTAB_SW, FSTAB_DP, FSTAB_XX, NULL 
+	    FSTAB_RW, FSTAB_RQ, FSTAB_RO, FSTAB_SW, FSTAB_DP, FSTAB_XX, NULL
 	};
 
 	for (;;) {

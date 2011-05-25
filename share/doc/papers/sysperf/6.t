@@ -50,7 +50,7 @@ have read permission.
 The handling of process groups has been tightened to eliminate
 some problems.
 When a program attempts to change its process group,
-the system checks to see if the process with the pid of the process 
+the system checks to see if the process with the pid of the process
 group was started by the same user.
 If it exists and was started by a different user the process group
 number change is denied.

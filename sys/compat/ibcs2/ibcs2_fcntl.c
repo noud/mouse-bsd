@@ -123,7 +123,7 @@ ioflags2oflags(flags)
 	int flags;
 {
 	int r = 0;
-	
+
 	if (flags & IBCS2_O_RDONLY) r |= O_RDONLY;
 	if (flags & IBCS2_O_WRONLY) r |= O_WRONLY;
 	if (flags & IBCS2_O_RDWR) r |= O_RDWR;
@@ -144,7 +144,7 @@ oflags2ioflags(flags)
 	int flags;
 {
 	int r = 0;
-	
+
 	if (flags & O_RDONLY) r |= IBCS2_O_RDONLY;
 	if (flags & O_WRONLY) r |= IBCS2_O_WRONLY;
 	if (flags & O_RDWR) r |= IBCS2_O_RDWR;
@@ -194,15 +194,15 @@ ibcs2_sys_open(p, v, retval)
 
 int
 ibcs2_sys_creat(p, v, retval)
-        struct proc *p;  
+        struct proc *p;
 	void *v;
 	register_t *retval;
-{       
+{
 	struct ibcs2_sys_creat_args /* {
 		syscallarg(char *) path;
 		syscallarg(int) mode;
 	} */ *uap = v;
-	struct sys_open_args cup;   
+	struct sys_open_args cup;
 	caddr_t sg = stackgap_init(p->p_emul);
 
 	IBCS2_CHECK_ALT_CREAT(p, &sg, SCARG(uap, path));
@@ -210,7 +210,7 @@ ibcs2_sys_creat(p, v, retval)
 	SCARG(&cup, mode) = SCARG(uap, mode);
 	SCARG(&cup, flags) = O_WRONLY | O_CREAT | O_TRUNC;
 	return sys_open(p, &cup, retval);
-}       
+}
 
 int
 ibcs2_sys_access(p, v, retval)
@@ -286,7 +286,7 @@ ibcs2_sys_fcntl(p, v, retval)
 	struct sys_fcntl_args fa;
 	struct flock *flp;
 	struct ibcs2_flock ifl;
-	
+
 	switch(SCARG(uap, cmd)) {
 	case IBCS2_F_DUPFD:
 		SCARG(&fa, fd) = SCARG(uap, fd);

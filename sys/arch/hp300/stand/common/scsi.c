@@ -77,7 +77,7 @@ scsiinit()
 	register struct scsi_softc *hs;
 	register int i, addr;
 	static int waitset = 0;
-	
+
 	i = 0;
 	for (hw = sc_table; i < NSCSI && hw < &sc_table[MAXCTLRS]; hw++) {
 		if (!HW_ISSCSI(hw))

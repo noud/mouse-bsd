@@ -46,7 +46,7 @@ menu_driver(menu, c)
 {
 	int drv_top_row, drv_scroll, it, status = E_OK;
 	ITEM *drv_new_item;
-	
+
 	if (menu == NULL)
 		return E_BAD_ARGUMENT;
 	if (menu->posted == 0)
@@ -65,7 +65,7 @@ menu_driver(menu, c)
 	drv_new_item = menu->items[menu->cur_item];
 	it = menu->cur_item;
 	drv_top_row = menu->top_row;
-	
+
 	if ((c > REQ_BASE_NUM) && (c <= MAX_COMMAND)) {
 		  /* is a known driver request  - first check if the pattern
 		   * buffer needs to be cleared, we do this on non-search
@@ -81,7 +81,7 @@ menu_driver(menu, c)
 			menu->plen = 0;
 			menu->match_len = 0;
 		}
-		
+
 		switch (c) {
 		  case REQ_LEFT_ITEM:
 			  drv_new_item = drv_new_item->left;
@@ -113,7 +113,7 @@ menu_driver(menu, c)
 			  if (drv_scroll > menu->rows) {
 				  drv_scroll = menu->rows;
 			  }
-			  
+
 			  if (drv_scroll <= 0) {
 				  return E_REQUEST_DENIED;
 			  } else {
@@ -191,7 +191,7 @@ menu_driver(menu, c)
 		  case REQ_BACK_PATTERN:
 			  if (menu->pattern == NULL)
 				  return E_REQUEST_DENIED;
-			  
+
 			  if (menu->plen == 0)
 				  return E_REQUEST_DENIED;
 			  menu->pattern[menu->plen--] = '\0';
@@ -213,7 +213,7 @@ menu_driver(menu, c)
 							 MATCH_NEXT_REVERSE,
 							 &it);
 			  drv_new_item = menu->items[it];
-			  break; 
+			  break;
 		}
 	} else if (c > MAX_COMMAND) {
 		  /* must be a user command */
@@ -234,8 +234,8 @@ menu_driver(menu, c)
 		    && ((menu->opts & O_SHOWMATCH) == O_SHOWMATCH)) {
 			pos_menu_cursor(menu);
 		}
-		
-			    
+
+
 	} else {
 		  /* bad character */
 		return E_BAD_ARGUMENT;
@@ -247,7 +247,7 @@ menu_driver(menu, c)
 	if (drv_new_item->row < drv_top_row) drv_top_row = drv_new_item->row;
 	if (drv_new_item->row >= (drv_top_row + menu->rows))
 		drv_top_row = drv_new_item->row - menu->rows + 1;
-	
+
 	if ((drv_new_item->index != menu->cur_item)
 	    || (drv_top_row != menu->top_row))
 		_menui_goto_item(menu, drv_new_item, drv_top_row);
@@ -255,7 +255,7 @@ menu_driver(menu, c)
 	return status;
 }
 
-		
-	
-		
-	
+
+
+
+

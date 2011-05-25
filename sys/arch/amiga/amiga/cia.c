@@ -34,14 +34,14 @@
  *  Since the interrupt control register of a CIA is cleared
  *  when it's read, it is essential that different interrupt
  *  sources are managed from one central handler, or interrupts
- *  can get lost. 
+ *  can get lost.
  *
  *  if you write a handler dealing with a yet unused interrupt
- *  bit (handler == not_used), enter your interrupt handler 
+ *  bit (handler == not_used), enter your interrupt handler
  *  in the appropriate table below. If your handler must poll
  *  for an interrupt flag to come active, *always* call
  *  dispatch_cia_ints() afterwards with bits in the mask
- *  register your code didn't already deal with. 
+ *  register your code didn't already deal with.
  */
 #include <sys/types.h>
 #include <sys/cdefs.h>

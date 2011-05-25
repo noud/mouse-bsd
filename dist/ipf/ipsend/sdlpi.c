@@ -111,7 +111,7 @@ you lose
 int	sendip(fd, pkt, len)
 int	fd, len;
 char	*pkt;
-{			
+{
 	struct	strbuf	dbuf, *dp = &dbuf;
 
 	/*

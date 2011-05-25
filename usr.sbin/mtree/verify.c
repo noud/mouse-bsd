@@ -92,13 +92,13 @@ vwalk()
 	while ((p = fts_read(t)) != NULL) {
 		switch(p->fts_info) {
 		case FTS_D:
-			++ftsdepth; 
+			++ftsdepth;
 			break;
 		case FTS_DP:
-			--ftsdepth; 
+			--ftsdepth;
 			if (specdepth > ftsdepth) {
 				for (level = level->parent; level->prev;
-				      level = level->prev);  
+				      level = level->prev);
 				--specdepth;
 			}
 			continue;

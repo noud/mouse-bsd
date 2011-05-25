@@ -94,7 +94,7 @@ struct arm32_pci_chipset footbridge_pci_chipset = {
 struct arm32_bus_dma_tag footbridge_pci_bus_dma_tag = {
 	0,
 	0,
-	_bus_dmamap_create, 
+	_bus_dmamap_create,
 	_bus_dmamap_destroy,
 	_bus_dmamap_load,
 	_bus_dmamap_load_mbuf,
@@ -340,7 +340,7 @@ footbridge_pci_intr_string(pcv, ih)
 	}
 #endif
 	sprintf(irqstr, "irq %ld", ih);
-	return(irqstr);	
+	return(irqstr);
 }
 
 void *

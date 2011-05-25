@@ -60,20 +60,20 @@ struct audio_hw_if {
 	int	(*open)__P((void *, int));	/* open hardware */
 	void	(*close)__P((void *));		/* close hardware */
 	int	(*drain)__P((void *));		/* Optional: drain buffers */
-	
+
 	/* Encoding. */
 	/* XXX should we have separate in/out? */
 	int	(*query_encoding)__P((void *, struct audio_encoding *));
 
 	/* Set the audio encoding parameters (record and play).
-	 * Return 0 on success, or an error code if the 
+	 * Return 0 on success, or an error code if the
 	 * requested parameters are impossible.
 	 * The values in the params struct may be changed (e.g. rounding
 	 * to the nearest sample rate.)
 	 */
         int	(*set_params)__P((void *, int, int, struct audio_params *,
 		    struct audio_params *));
-  
+
 	/* Hardware may have some say in the blocksize to choose */
 	int	(*round_blocksize)__P((void *, int));
 
@@ -103,13 +103,13 @@ struct audio_hw_if {
 
 	int	(*getdev)__P((void *, struct audio_device *));
 	int	(*setfd)__P((void *, int));
-	
+
 	/* Mixer (in/out ports) */
 	int	(*set_port)__P((void *, mixer_ctrl_t *));
 	int	(*get_port)__P((void *, mixer_ctrl_t *));
 
 	int	(*query_devinfo)__P((void *, mixer_devinfo_t *));
-	
+
 	/* Allocate/free memory for the ring buffer. Usually malloc/free. */
 	void	*(*allocm)__P((void *, int, size_t, int, int));
 	void	(*freem)__P((void *, void *, int));
@@ -135,7 +135,7 @@ struct audio_attach_args {
 #define AUDIODEV_TYPE_MPU	3
 
 /* Attach the MI driver(s) to the MD driver. */
-struct device *audio_attach_mi __P((struct audio_hw_if *, void *, 
+struct device *audio_attach_mi __P((struct audio_hw_if *, void *,
 				    struct device *));
 int	audioprint __P((void *, const char *));
 

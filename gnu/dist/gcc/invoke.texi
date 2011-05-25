@@ -103,9 +103,9 @@ in the following sections.
 @xref{C++ Dialect Options,,Options Controlling C++ Dialect}.
 @smallexample
 -fall-virtual  -fdollars-in-identifiers  -felide-constructors
--fenum-int-equiv  -fexternal-templates  -ffor-scope  
--fno-for-scope  -fhandle-signatures  -fmemoize-lookups  
--fname-mangling-version-@var{n}  -fno-default-inline  
+-fenum-int-equiv  -fexternal-templates  -ffor-scope
+-fno-for-scope  -fhandle-signatures  -fmemoize-lookups
+-fname-mangling-version-@var{n}  -fno-default-inline
 -fno-gnu-keywords -fnonnull-objects -fguiding-decls
 -foperator-names  -fno-optional-diags -fstrict-prototype  -fthis-is-variable
 -ftemplate-depth-@var{n}  -nostdinc++  -traditional  +e@var{n}
@@ -118,12 +118,12 @@ in the following sections.
 -w  -W  -Wall  -Waggregate-return  -Wbad-function-cast
 -Wcast-align  -Wcast-qual  -Wchar-subscript  -Wcomment
 -Wconversion  -Werror  -Wformat
--Wid-clash-@var{len}  -Wimplicit -Wimplicit-int 
+-Wid-clash-@var{len}  -Wimplicit -Wimplicit-int
 -Wimplicit-function-declaration  -Wimport
 -Werror-implicit-function-declaration  -Winline
 -Wlarger-than-@var{len}  -Wlong-long
 -Wmain  -Wmissing-declarations
--Wmissing-prototypes  -Wmultichar  -Wnested-externs  -Wno-import  
+-Wmissing-prototypes  -Wmultichar  -Wnested-externs  -Wno-import
 -Wold-style-cast  -Woverloaded-virtual  -Wparentheses
 -Wpointer-arith  -Wredundant-decls  -Wreorder  -Wreturn-type
 -Wshadow  -Wsign-compare  -Wstrict-prototypes  -Wswitch
@@ -209,8 +209,8 @@ in the following sections.
 @smallexample
 @emph{M680x0 Options}
 -m68000  -m68020  -m68020-40  -m68020-60  -m68030  -m68040
--m68060  -mcpu32 -m5200  -m68881  -mbitfield  -mc68000  -mc68020  
--mfpa -mnobitfield  -mrtd  -mshort  -msoft-float  
+-m68060  -mcpu32 -m5200  -m68881  -mbitfield  -mc68000  -mc68020
+-mfpa -mnobitfield  -mrtd  -mshort  -msoft-float
 -malign-int
 
 @emph{VAX Options}
@@ -256,7 +256,7 @@ in the following sections.
 -mshort-load-bytes -mno-short-load-bytes -mshort-load-words -mno-short-load-words
 -msoft-float -mhard-float -mfpe
 -mthumb-interwork -mno-thumb-interwork
--mcpu= -march= -mfpe= 
+-mcpu= -march= -mfpe=
 -mstructure-size-boundary=
 -mbsd -mxopen -mno-symrename
 
@@ -341,13 +341,13 @@ in the following sections.
 -malign-functions=@var{num}
 
 @emph{HPPA Options}
--mbig-switch  -mdisable-fpregs  -mdisable-indexing  
--mfast-indirect-calls -mgas  -mjump-in-delay  
+-mbig-switch  -mdisable-fpregs  -mdisable-indexing
+-mfast-indirect-calls -mgas  -mjump-in-delay
 -mlong-load-store  -mno-big-switch  -mno-disable-fpregs
 -mno-disable-indexing  -mno-fast-indirect-calls  -mno-gas
--mno-jump-in-delay  -mno-long-load-store  
--mno-portable-runtime  -mno-soft-float  -mno-space  
--mno-space-regs  -msoft-float  -mpa-risc-1-0  
+-mno-jump-in-delay  -mno-long-load-store
+-mno-portable-runtime  -mno-soft-float  -mno-space
+-mno-space-regs  -msoft-float  -mpa-risc-1-0
 -mpa-risc-1-1  -mportable-runtime
 -mschedule=@var{list}  -mspace  -mspace-regs
 
@@ -1091,7 +1091,7 @@ This flag no longer affects declarations with C++ linkage.
 @item -fname-mangling-version-@var{n}
 Control the way in which names are mangled.  Version 0 is compatible
 with versions of g++ before 2.8.  Version 1 is the default.  Version 1
-will allow correct mangling of function templates.  For example, 
+will allow correct mangling of function templates.  For example,
 version 0 mangling does not mangle foo<int, double> and foo<int, char>
 given this declaration:
 
@@ -1116,7 +1116,7 @@ synonyms for the symbols they refer to.  @samp{-ansi} implies
 
 @item -fno-optional-diags
 Disable diagnostics that the standard says a compiler does not need to
-issue.  Currently, this means the diagnostic for a name having multiple 
+issue.  Currently, this means the diagnostic for a name having multiple
 meanings within a class.
 
 @item -frepo
@@ -1299,7 +1299,7 @@ arguments, two, or three arguments of appropriate types.
 Warn if a multicharacter constant (@samp{'FOOF'}) is used.  Usually they
 indicate a typo in the user's code, as they have implementation-defined
 values, and should not be used in portable code.
-  
+
 @item -Wparentheses
 Warn if parentheses are omitted in certain contexts, such
 as when there is an assignment in a context where a truth value
@@ -2018,7 +2018,7 @@ Dump after purging ADDRESSOF, to @file{@var{file}.addressof}.
 Dump after flow analysis, to @file{@var{file}.flow}.
 @item g
 Dump after global register allocation, to @file{@var{file}.greg}.
-@item G      
+@item G
 Dump after GCSE, to @file{@var{file}.gcse}.
 @item j
 Dump after first jump optimization, to @file{@var{file}.jump}.
@@ -2032,7 +2032,7 @@ Dump after local register allocation, to @file{@var{file}.lreg}.
 Dump after loop optimization, to @file{@var{file}.loop}.
 @item M
 Dump after performing the machine dependent reorganisation pass, to
-@file{@var{file}.mach}. 
+@file{@var{file}.mach}.
 @item N
 Dump after the register move pass, to @file{@var{file}.regmove}.
 @item r
@@ -2041,12 +2041,12 @@ Dump after RTL generation, to @file{@var{file}.rtl}.
 Dump after the second instruction scheduling pass, to @file{@var{file}.sched2}.
 @item s
 Dump after CSE (including the jump optimization that sometimes follows
-CSE), to @file{@var{file}.cse}. 
+CSE), to @file{@var{file}.cse}.
 @item S
 Dump after the first instruction scheduling pass, to @file{@var{file}.sched}.
 @item t
 Dump after the second CSE pass (including the jump optimization that
-sometimes follows CSE), to @file{@var{file}.cse2}. 
+sometimes follows CSE), to @file{@var{file}.cse2}.
 @item x
 Just generate RTL for a function instead of compiling it.  Usually used
 with @samp{r}.
@@ -2460,11 +2460,11 @@ object of one type is assumed never to reside at the same address as an
 object of a different type, unless the types are almost the same.  For
 example, an @code{unsigned int} can alias an @code{int}, but not a
 @code{void*} or a @code{double}.  A character type may alias any other
-type.  
+type.
 
 Pay special attention to code like this:
 @example
-union a_union @{ 
+union a_union @{
   int i;
   double d;
 @};
@@ -2481,7 +2481,7 @@ recently written to (called ``type-punning'') is common.  Even with
 is accessed through the union type.  So, the code above will work as
 expected.  However, this code might not:
 @example
-int f() @{ 
+int f() @{
   a_union t;
   int* ip;
   t.d = 3.0;
@@ -3125,7 +3125,7 @@ CPU32 or CPU32+ core, including the 68330, 68331, 68332, 68333, 68334,
 Generate output for a 520X "coldfire" family cpu.  This is the default
 when the compiler is configured for 520X-based systems.
 
-Use this option for microcontroller with a 5200 core, including 
+Use this option for microcontroller with a 5200 core, including
 the MCF5202, MCF5203, MCF5204 and MCF5202.
 
 
@@ -3190,7 +3190,7 @@ The @code{rtd} instruction is supported by the 68010, 68020, 68030,
 
 @item -malign-int
 @itemx -mno-align-int
-Control whether GNU CC aligns @code{int}, @code{long}, @code{long long}, 
+Control whether GNU CC aligns @code{int}, @code{long}, @code{long long},
 @code{float}, @code{double}, and @code{long double} variables on a 32-bit
 boundary (@samp{-malign-int}) or a 16-bit boundary (@samp{-mno-align-int}).
 Aligning variables on 32-bit boundaries produces code that runs somewhat
@@ -3839,14 +3839,14 @@ with this option.
 @kindex -mno-tpcs-frame
 Generate a stack frame that is compliant with the Thumb Procedure Call
 Standard for all non-leaf functions.  (A leaf function is one that does
-not call any other functions).  The default is @samp{-mno-apcs-frame}. 
+not call any other functions).  The default is @samp{-mno-apcs-frame}.
 
 @item -mtpcs-leaf-frame
 @kindex -mtpcs-leaf-frame
 @kindex -mno-tpcs-leaf-frame
 Generate a stack frame that is compliant with the Thumb Procedure Call
 Standard for all leaf functions.  (A leaf function is one that does
-not call any other functions).  The default is @samp{-mno-apcs-leaf-frame}. 
+not call any other functions).  The default is @samp{-mno-apcs-leaf-frame}.
 
 @item -mlittle-endian
 @kindex -mlittle-endian
@@ -3883,7 +3883,7 @@ Indicate to the linker that it should perform a relaxation optimization pass
 to shorten branches, calls and absolute memory addresses.  This option only
 has an effect when used on the command line for the final link step.
 
-This option makes symbolic debugging impossible. 
+This option makes symbolic debugging impossible.
 @end table
 
 @node MN10300 Options
@@ -3905,7 +3905,7 @@ Indicate to the linker that it should perform a relaxation optimization pass
 to shorten branches, calls and absolute memory addresses.  This option only
 has an effect when used on the command line for the final link step.
 
-This option makes symbolic debugging impossible. 
+This option makes symbolic debugging impossible.
 @end table
 
 
@@ -4314,18 +4314,18 @@ option; @samp{-mcpu=601} enables both the @samp{-mpower} and
 @samp{-mpower} and @samp{-mpowerpc} options.@refill
 @end ignore
 @c            changed paragraph
-Specifying any of the following options: 
+Specifying any of the following options:
 @samp{-mcpu=rios1}, @samp{-mcpu=rios2}, @samp{-mcpu=rsc},
-@samp{-mcpu=power}, or @samp{-mcpu=power2}  
-enables the @samp{-mpower} option and disables the @samp{-mpowerpc} option; 
+@samp{-mcpu=power}, or @samp{-mcpu=power2}
+enables the @samp{-mpower} option and disables the @samp{-mpowerpc} option;
 @samp{-mcpu=601} enables both the @samp{-mpower} and @samp{-mpowerpc} options.
 All of @samp{-mcpu=602}, @samp{-mcpu=603}, @samp{-mcpu=603e},
-@samp{-mcpu=604}, @samp{-mcpu=620}, 
-enable the @samp{-mpowerpc} option and disable the @samp{-mpower} option.  
-Exactly similarly, all of @samp{-mcpu=403},
-@samp{-mcpu=505}, @samp{-mcpu=821}, @samp{-mcpu=860} and @samp{-mcpu=powerpc} 
+@samp{-mcpu=604}, @samp{-mcpu=620},
 enable the @samp{-mpowerpc} option and disable the @samp{-mpower} option.
-@samp{-mcpu=common} disables both the 
+Exactly similarly, all of @samp{-mcpu=403},
+@samp{-mcpu=505}, @samp{-mcpu=821}, @samp{-mcpu=860} and @samp{-mcpu=powerpc}
+enable the @samp{-mpowerpc} option and disable the @samp{-mpower} option.
+@samp{-mcpu=common} disables both the
 @samp{-mpower} and @samp{-mpowerpc} options.@refill
 @c             end changes to prevent overfull hboxes
 
@@ -5313,8 +5313,8 @@ IEEE @var{inexact flag}.  Turning on this option causes the generated
 code to implement fully-compliant IEEE math.  The option is a shorthand
 for @samp{-D_IEEE_FP -D_IEEE_FP_INEXACT} plus the three following:
 @samp{-mieee-conformant},
-@samp{-mfp-trap-mode=sui}, 
-and @samp{-mtrap-precision=i}.  
+@samp{-mfp-trap-mode=sui},
+and @samp{-mtrap-precision=i}.
 On some Alpha implementations the resulting code may execute
 significantly slower than the code generated by default.  Since there
 is very little code that depends on the @var{inexact flag}, you should
@@ -5641,7 +5641,7 @@ area can hold up to 64 kilobytes.
 @item -mzda=@var{n}
 Put static or global variables whose size is @var{n} bytes or less into
 the first 32 kilobytes of memory.
- 
+
 @item -mv850
 Specify that the target processor is the V850.
 

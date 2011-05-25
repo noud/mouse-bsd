@@ -117,7 +117,7 @@ main (argc, argv)
 		  zKprogram, VERSION);
 	  exit (EXIT_SUCCESS);
 	  /*NOTREACHED*/
-	  
+
 	case 1:
 	  /* --help.  */
 	  ukhelp ();
@@ -392,7 +392,7 @@ ukshow (qsys, puuconf)
 	    printf (" Call out");
 	  else
 	    printf (" This alternate applies when calling");
-	  
+
 	  if (qsys->uuconf_zport != NULL || qsys->uuconf_qport != NULL)
 	    {
 	      printf (" using ");
@@ -675,7 +675,7 @@ ukshow (qsys, puuconf)
 	    printf (" %s", *pz);
 	  printf ("\n");
 	}
-	  
+
       if (qsys->uuconf_pzforward_to != NULL)
 	{
 	  printf (" May forward to");
@@ -683,7 +683,7 @@ ukshow (qsys, puuconf)
 	    printf (" %s", *pz);
 	  printf ("\n");
 	}
-	  
+
       if (qsys->uuconf_zprotocols != NULL)
 	printf (" Will use protocols %s\n", qsys->uuconf_zprotocols);
       else

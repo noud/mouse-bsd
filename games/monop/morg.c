@@ -158,7 +158,7 @@ m(prop)
  * to be unmortgaged.
  */
 void
-unmortgage() 
+unmortgage()
 {
 	int prop;
 
@@ -205,7 +205,7 @@ set_umlist()
  */
 static void
 unm(prop)
-	int prop; 
+	int prop;
 {
 	int price;
 

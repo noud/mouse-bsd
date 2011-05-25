@@ -70,7 +70,7 @@ kgdb_acc(va, len)
  * Translate a trap number into a unix compatible signal value.
  * (gdb only understands unix signal numbers).
  */
-int 
+int
 kgdb_signal(type)
 	int type;
 {
@@ -157,7 +157,7 @@ kgdb_setregs(regs, gdb_regs)
 	regs->tf_regs.r_pc  = gdb_regs[PC_REGNUM];
 	regs->tf_regs.r_psr = gdb_regs[PS_REGNUM]
 				| (regs->tf_regs.r_psr & PSL_T);
-}	
+}
 
 /*
  * Trap into kgdb to wait for debugger to connect,

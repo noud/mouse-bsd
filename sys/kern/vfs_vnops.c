@@ -309,7 +309,7 @@ unionread:
 				lvp = NULL;
 			}
 		}
-		
+
 		if (lvp != NULLVP) {
 			error = VOP_OPEN(lvp, FREAD, fp->f_cred, p);
 			if (error) {

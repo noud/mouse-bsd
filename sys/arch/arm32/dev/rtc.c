@@ -79,7 +79,7 @@ cmos_read(location)
  * actual addresses in the CMOS RAM
  */
 
-/* 
+/*
  	if (location > 0xF0)
 		return(-1);
 
@@ -189,7 +189,7 @@ rtc_read(arg, rtc)
 {
 	u_char buff[8];
 	int byte;
-    
+
 	buff[0] = 0;
 
 	if (iic_control(RTC_Write, buff, 1))
@@ -205,7 +205,7 @@ rtc_read(arg, rtc)
 	rtc->rtc_hour  = hexdectodec(buff[4] & 0x3f);
 
 	/* If in 12 hour mode need to look at the AM/PM flag */
-	
+
 	if (buff[4] & 0x80)
 		rtc->rtc_hour += (buff[4] & 0x40) ? 12 : 0;
 
@@ -215,12 +215,12 @@ rtc_read(arg, rtc)
 	byte = cmos_read(RTC_ADDR_YEAR);
 	if (byte == -1)
 		return(0);
-	rtc->rtc_year = byte; 
+	rtc->rtc_year = byte;
 
 	byte = cmos_read(RTC_ADDR_CENT);
 	if (byte == -1)
 		return(0);
-	rtc->rtc_cen = byte; 
+	rtc->rtc_cen = byte;
 
 	return(1);
 }
@@ -311,7 +311,7 @@ rtcattach(parent, self, aux)
 
 	ta.ta_name = "todclock";
 	ta.ta_rtc_arg = NULL;
-	ta.ta_rtc_write = rtc_write; 
+	ta.ta_rtc_write = rtc_write;
 	ta.ta_rtc_read =  rtc_read;
 	ta.ta_flags = 0;
 	config_found(self, &ta, NULL);
@@ -327,12 +327,12 @@ rtcopen(dev, flag, mode, p)
 {
 	struct rtc_softc *sc;
 	int unit = minor(dev);
-    
+
 	if (unit >= rtc_cd.cd_ndevs)
 		return(ENXIO);
 
 	sc = rtc_cd.cd_devs[unit];
-    
+
 	if (!sc) return(ENXIO);
 
 	if (sc->sc_flags & RTC_BROKEN) return(ENXIO);
@@ -353,7 +353,7 @@ rtcclose(dev, flag, mode, p)
 {
 	int unit = minor(dev);
 	struct rtc_softc *sc = rtc_cd.cd_devs[unit];
-    
+
 	sc->sc_flags &= ~RTC_OPEN;
 
 	return(0);
@@ -428,7 +428,7 @@ rtcwrite(dev, uio, flag)
 	if (uio->uio_offset || (length != sizeof(buffer)
 	  && length != sizeof(buffer - 1)))
 		return(EINVAL);
-	
+
 	if ((error = uiomove((caddr_t)buffer, sizeof(buffer), uio)))
 		return(error);
 
@@ -444,8 +444,8 @@ rtcwrite(dev, uio, flag)
 	rtc.rtc_hour  = twodigits(buffer, 0);
 	rtc.rtc_day   = twodigits(buffer, 14);
 	rtc.rtc_mon   = twodigits(buffer, 17);
-	rtc.rtc_year  = twodigits(buffer, 22); 
-	rtc.rtc_cen   = twodigits(buffer, 20); 
+	rtc.rtc_year  = twodigits(buffer, 22);
+	rtc.rtc_cen   = twodigits(buffer, 20);
 
 	s = splclock();
 	rtc_write(NULL, &rtc);

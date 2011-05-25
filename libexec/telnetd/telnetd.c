@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1997 and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -868,7 +868,7 @@ doit(who)
 #endif	/* _SC_CRAY_SECURE_SYS */
 
 	/* get name of connected client */
-	error = getnameinfo(who, who->sa_len, remote_host_name, 
+	error = getnameinfo(who, who->sa_len, remote_host_name,
 			    sizeof(remote_host_name), NULL, 0, 0);
 
 	if (error) {
@@ -1168,7 +1168,7 @@ telnet(f, p, host)
 		if (IF)	{
 			char buf[_POSIX2_LINE_MAX];
 			FILE *fd;
-                        
+
 			if ((fd = fopen(IF, "r")) != NULL) {
 				while (fgets(buf, sizeof(buf) - 1, fd) != NULL)
 					ptyibuf2ptr = putf(buf, ptyibuf2ptr);

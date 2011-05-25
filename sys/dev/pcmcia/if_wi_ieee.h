@@ -143,7 +143,7 @@ struct wi_mgmt_hdr {
 	u_int16_t		seq_ctl;
 };
 
-/* 
+/*
  * Lucent/wavelan IEEE signal strength cache
  *
  * driver keeps cache of last

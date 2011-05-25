@@ -416,7 +416,7 @@ DEFUN (core_create_function_syms, (core_bfd), bfd * core_bfd)
 	}
 
       /* This should be replaced with a binary search or hashed
-	 search.  Gross. 
+	 search.  Gross.
 
 	 Don't create a symtab entry for a function that has
 	 a mapping to a file, unless it's the first function
@@ -496,7 +496,7 @@ DEFUN (core_create_function_syms, (core_bfd), bfd * core_bfd)
 
       {
 	const char *filename, *func_name;
-	
+
 	if (get_src_info (symtab.limit->addr, &filename, &func_name,
 			  &symtab.limit->line_num))
 	  {

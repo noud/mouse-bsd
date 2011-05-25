@@ -273,7 +273,7 @@ nfs_null(vp, cred, procp)
 	caddr_t bpos, dpos;
 	int error = 0;
 	struct mbuf *mreq, *mrep, *md, *mb;
-	
+
 	nfsm_reqhead(vp, NFSPROC_NULL, 0);
 	nfsm_request(vp, NFSPROC_NULL, procp, cred);
 	nfsm_reqdone;
@@ -573,7 +573,7 @@ nfs_getattr(v)
 	int error = 0;
 	struct mbuf *mreq, *mrep, *md, *mb, *mb2;
 	int v3 = NFS_ISV3(vp);
-	
+
 	/*
 	 * Update local times for special files.
 	 */
@@ -789,7 +789,7 @@ nfs_lookup(v)
 	 * If the directory/name pair is found in the name cache,
 	 * we have to ensure the directory has not changed from
 	 * the time the cache entry has been created. If it has,
-	 * the cache entry has to be ignored 
+	 * the cache entry has to be ignored
 	 */
 	if ((error = cache_lookup(dvp, vpp, cnp)) >= 0) {
 		struct vattr vattr;
@@ -2096,7 +2096,7 @@ nfs_readdirrpc(vp, uiop, cred)
 		}
 		nfsm_dissect(tl, u_int32_t *, NFSX_UNSIGNED);
 		more_dirs = fxdr_unsigned(int, *tl);
-	
+
 		/* loop thru the dir entries, doctoring them to 4bsd form */
 		while (more_dirs && bigenough) {
 			if (v3) {
@@ -2166,7 +2166,7 @@ nfs_readdirrpc(vp, uiop, cred)
 						uiop->uio_offset =
 						    fxdr_swapcookie3(tl);
 					else
-						uiop->uio_offset = 
+						uiop->uio_offset =
 						    fxdr_cookie3(tl);
 				}
 				else {
@@ -2284,7 +2284,7 @@ nfs_readdirplusrpc(vp, uiop, cred)
 		dnp->n_cookieverf.nfsuquad[0] = *tl++;
 		dnp->n_cookieverf.nfsuquad[1] = *tl++;
 		more_dirs = fxdr_unsigned(int, *tl);
-	
+
 		/* loop thru the dir entries, doctoring them to 4bsd form */
 		while (more_dirs && bigenough) {
 			nfsm_dissect(tl, u_int32_t *, 3 * NFSX_UNSIGNED);
@@ -2594,7 +2594,7 @@ nfs_commit(vp, offset, cnt, cred, procp)
 	caddr_t bpos, dpos, cp2;
 	int error = 0, wccflag = NFSV3_WCCRATTR;
 	struct mbuf *mreq, *mrep, *md, *mb, *mb2;
-	
+
 	if ((nmp->nm_iflag & NFSMNT_HASWRITEVERF) == 0)
 		return (0);
 	nfsstats.rpccnt[NFSPROC_COMMIT]++;
@@ -3190,7 +3190,7 @@ nfs_writebp(bp, force)
 		}
 		brelse(bp);
 		return (rtval);
-	} 
+	}
 
 	return (0);
 }

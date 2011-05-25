@@ -66,11 +66,11 @@ string representing some of the information present, including the
 link level address itself, and the interface name or number, if present.
 This facility is experimental and is still subject to change.
 .Pp
-Prior to a call to 
+Prior to a call to
 .Fn link_addr ,
-.Fa sdl->sdl_len 
+.Fa sdl->sdl_len
 must be initialized to the size of the link-level socket structure,
-typically 
+typically
 .Fa sizeof(struct sockaddr_dl) .
 .Pp
 For

@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* Integer register names, indexed by the numbers which appear in the
    opcodes.  */
-static const char *const reg_names[] = 
+static const char *const reg_names[] =
  {"flags", "r1", "rp", "r3", "r4", "r5", "r6", "r7", "r8", "r9",
   "r10", "r11", "r12", "r13", "r14", "r15", "r16", "r17", "r18", "r19",
   "r20", "r21", "r22", "r23", "r24", "r25", "r26", "dp", "ret0", "ret1",
@@ -34,10 +34,10 @@ static const char *const reg_names[] =
 
 /* Floating point register names, indexed by the numbers which appear in the
    opcodes.  */
-static const char *const fp_reg_names[] = 
- {"fpsr", "fpe2", "fpe4", "fpe6", 
-  "fr4", "fr5", "fr6", "fr7", "fr8", 
-  "fr9", "fr10", "fr11", "fr12", "fr13", "fr14", "fr15", 
+static const char *const fp_reg_names[] =
+ {"fpsr", "fpe2", "fpe4", "fpe6",
+  "fr4", "fr5", "fr6", "fr7", "fr8",
+  "fr9", "fr10", "fr11", "fr12", "fr13", "fr14", "fr15",
   "fr16", "fr17", "fr18", "fr19", "fr20", "fr21", "fr22", "fr23",
   "fr24", "fr25", "fr26", "fr27", "fr28", "fr29", "fr30", "fr31"};
 
@@ -100,7 +100,7 @@ static const char float_comp_names[][8] =
   ",!?=", ",<>", ",!=", ",!=t", ",!?", ",<=>", ",true?", ",true"
 };
 
-/* For a bunch of different instructions form an index into a 
+/* For a bunch of different instructions form an index into a
    completer name table. */
 #define GET_COMPL(insn) (GET_FIELD (insn, 26, 26) | \
 			 GET_FIELD (insn, 18, 18) << 1)
@@ -138,7 +138,7 @@ fput_fp_reg_r (reg, info)
   if (reg < 4)
     (*info->fprintf_func) (info->stream, "fpe%d", reg * 2 + 1);
   else
-    (*info->fprintf_func) (info->stream, "%sR", reg ? fp_reg_names[reg] 
+    (*info->fprintf_func) (info->stream, "%sR", reg ? fp_reg_names[reg]
 						    : "fr0");
 }
 
@@ -302,7 +302,7 @@ print_insn_hppa (memaddr, info)
       if ((insn & opcode->mask) == opcode->match)
 	{
 	  register const char *s;
-	  
+
 	  (*info->fprintf_func) (info->stream, "%s", opcode->name);
 
 	  if (!strchr ("cfCY<?!@-+&U>~nHNZFIMadu|", opcode->args[0]))
@@ -495,7 +495,7 @@ print_insn_hppa (memaddr, info)
 		  break;
 		case 'W':
 		  /* 17 bit PC-relative branch.  */
-		  (*info->print_address_func) ((memaddr + 8 
+		  (*info->print_address_func) ((memaddr + 8
 						+ extract_17 (insn)),
 					       info);
 		  break;
@@ -594,7 +594,7 @@ print_insn_hppa (memaddr, info)
 		      fput_fp_reg_r (GET_FIELD (insn, 6, 10), info);
 		  else
 		      fput_fp_reg (GET_FIELD (insn, 6, 10), info);
-		      
+
 		  break;
 		case 'K':
                   if (GET_FIELD (insn, 19, 19))

@@ -16,7 +16,7 @@
 #	OTHER_BSS_SYMBOLS - symbols that appear at the start of the
 #		.bss section besides __bss_start.
 #	DATA_PLT - .plt should be in data segment, not text segment.
-#	EMBEDDED - whether this is for an embedded system. 
+#	EMBEDDED - whether this is for an embedded system.
 #
 # When adding sections, do note that the names of some sections are used
 # when specifying the start address of the next.

@@ -242,7 +242,7 @@ SlowScreen()
     int fieldattr, termattr;
     int columnsleft;
 
-#define	NORMAL		0		
+#define	NORMAL		0
 #define	HIGHLIGHT	1		/* Mask bits */
 #define	NONDISPLAY	4		/* Mask bits */
 #define	UNDETERMINED	8		/* Mask bits */
@@ -671,7 +671,7 @@ InitTerminal()
     struct termios term;
     speed_t speed;
 #endif
-    
+
     InitMapping();		/* Go do mapping file (MAP3270) first */
     if (!screenInitd) { 	/* not initialized */
 #if	defined(unix)

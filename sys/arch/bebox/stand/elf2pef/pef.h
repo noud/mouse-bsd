@@ -31,7 +31,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 struct FileHeader
    {
    	unsigned long magic;
@@ -49,7 +49,7 @@ struct FileHeader
 
 #define PEF_MAGIC 0x4A6F7921  /* Joy! */
 #define PEF_FILE  0x70656666  /* peff */
-#define PEF_PPC   0x70777063  /* pwpc */  
+#define PEF_PPC   0x70777063  /* pwpc */
 
 struct SectionHeader
    {
@@ -75,7 +75,7 @@ struct SectionHeader
 #define ContextShare	1
 #define TeamShare	2
 #define TaskShare	3
-#define GlobalShare	4   
+#define GlobalShare	4
 
 struct LoaderHeader
    {

@@ -79,7 +79,7 @@ xit:
 
 /* ARGSUSED */
 static void
-use_camera(obj) /* */ 
+use_camera(obj) /* */
 	struct obj     *obj;
 {
 	struct monst *mtmp;

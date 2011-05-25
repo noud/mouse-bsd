@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1991 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -51,11 +51,11 @@
  * HISTORY
  * Revision 1.1  89/10/14  19:53:39  rvb
  * Initial revision
- * 
+ *
  * Revision 1.2  89/08/03  14:36:46  mja
  * 	Update run() and runp() to use <varargs.h>.
  * 	[89/04/19            mja]
- * 
+ *
  * 23-Sep-86  Glenn Marcy (gm0w) at Carnegie-Mellon University
  *	Merged old runv and runvp modules.
  *
@@ -285,7 +285,7 @@ runio(argv, infile, outfile, errfile)
 		exit(1);
 		/*NOTREACHED*/
 		return 0;
-	
+
 	default:
 		if (waitpid(pid, &status, 0) == -1)
 			return -1;
@@ -318,7 +318,7 @@ runiofd(argv, infile, outfile, errfile)
 		exit(1);
 		/*NOTREACHED*/
 		return 0;
-	
+
 	default:
 		if (waitpid(pid, &status, 0) == -1)
 			return -1;

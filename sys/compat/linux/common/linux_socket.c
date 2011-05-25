@@ -62,7 +62,7 @@
 #include <sys/proc.h>
 #include <sys/vnode.h>
 #include <sys/device.h>
-#include <sys/protosw.h> 
+#include <sys/protosw.h>
 
 #include <sys/syscallargs.h>
 
@@ -508,7 +508,7 @@ linux_getifhwaddr(p, retval, fd, data)
 		if (strcmp(lreq.if_name, ifp->if_xname))
 			/* not this interface */
 			continue;
-		found=1;           
+		found=1;
 		if ((ifa = ifp->if_addrlist.tqh_first) != 0) {
 			for (; ifa != 0; ifa = ifa->ifa_list.tqe_next) {
 				sadl = (struct sockaddr_dl *)ifa->ifa_addr;
@@ -525,7 +525,7 @@ linux_getifhwaddr(p, retval, fd, data)
 					sadl->sdl_family;
 				error = copyout((caddr_t)&lreq, data,
 						sizeof(lreq));
-				goto out; 
+				goto out;
 			}
 		} else {
 			error = ENODEV;
@@ -552,7 +552,7 @@ linux_getifhwaddr(p, retval, fd, data)
 			if ((ifa = ifp->if_addrlist.tqh_first) == 0)
 				/* no addresses on this interface */
 				continue;
-			else 
+			else
 				for (; ifa != 0; ifa = ifa->ifa_list.tqe_next) {
 					sadl = (struct sockaddr_dl *)ifa->ifa_addr;
 					/* only return ethernet addresses */
@@ -579,7 +579,7 @@ linux_getifhwaddr(p, retval, fd, data)
 		/* unknown interface, not even an "eth*" name */
 		error = ENODEV;
 	}
-    
+
 out:
 	FILE_UNUSE(fp, p);
 	return error;
@@ -652,14 +652,14 @@ linux_sys_connect(p, v, retval)
 		syscallarg(const struct sockaddr *) name;
 		syscallarg(unsigned int) namelen;
 	} */ *uap = v;
-	
+
 	error = sys_connect (p, v, retval);
 
 	if (error == EISCONN) {
 		struct file *fp;
 		register struct socket *so;
 		int s, state, prflags;
-		
+
 		/* getsock() will use the descriptor for us */
 	    	if (getsock(p->p_fd, SCARG(uap, s), &fp) != 0)
 		    	return EISCONN;

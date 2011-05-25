@@ -44,7 +44,7 @@
  * This programs reads from either a single file given as an argument
  * or from stdin if no args are given. It tries to find a <ICON...>
  * tag in the file and read a CHRP style ASCII boot icon. It is not
- * overly intelligent at dealing with other confusing stuff in the 
+ * overly intelligent at dealing with other confusing stuff in the
  * file or wierd formatting due to the specialized nature of the input
  * files.
  *
@@ -125,7 +125,7 @@ CHRPI_putfooter(FILE *fp, CHRPI_spec img)
 {
     fprintf(fp, "</BITMAP>\n</ICON>\n");
 }
-    
+
 
 void
 CHRPI_putbitmap(FILE *fp, pixel** pixels, CHRPI_spec img)
@@ -141,7 +141,7 @@ CHRPI_putbitmap(FILE *fp, pixel** pixels, CHRPI_spec img)
         pP = pixels[row];
 
         for (col = 0; col < img->width; col++) {
-            
+
             r = PPM_GETR(*pP);
             g = PPM_GETG(*pP);
             b = PPM_GETB(*pP);

@@ -35,7 +35,7 @@
 
 /*
 **++
-** 
+**
 **  FACILITY:
 **
 **    ns87307 SuperIO chip configuration functions.
@@ -85,15 +85,15 @@
 **  FUNCTIONAL DESCRIPTION:
 **
 **     This function configures the Keyboard controller logical
-**     device on the ns87307 SuperIO hardware.  It sets up the addresses 
-**     of the data and command ports and configures the irq number and 
-**     triggering for the device.  It then activates the device.     
+**     device on the ns87307 SuperIO hardware.  It sets up the addresses
+**     of the data and command ports and configures the irq number and
+**     triggering for the device.  It then activates the device.
 **
 **  FORMAL PARAMETERS:
 **
 **       iot
-**       kbdBase   
-**       irqNum    
+**       kbdBase
+**       irqNum
 **
 **  IMPLICIT INPUTS:
 **
@@ -115,11 +115,11 @@
 */
 int
 i87307KbdConfig(bus_space_tag_t iot,
-		u_int           kbdBase, 
+		u_int           kbdBase,
 		u_int           irqNum )
 {
     u_int                configured = FALSE;
-    bus_space_handle_t   ioh;	     
+    bus_space_handle_t   ioh;
 
 
     if (!(bus_space_map( iot, CONNSIOADDR, NSIO_NPORTS, 0 , &ioh )))
@@ -130,7 +130,7 @@ i87307KbdConfig(bus_space_tag_t iot,
 	NSIO_CONFIG_KBCDATA( iot, ioh, kbdBase );
 	NSIO_CONFIG_KBCCMD(iot, ioh, kbdBase+4);
 	NSIO_WRITE_REG( iot, ioh, NSIO_KBC_CFG, 0x80 );
-	NSIO_ACTIVATE_DEV( iot, ioh ); 
+	NSIO_ACTIVATE_DEV( iot, ioh );
 	NSIO_CONFIG_KBCDEBUG( iot, ioh );
 
 	/* unmap the space so can probe later
@@ -154,14 +154,14 @@ i87307KbdConfig(bus_space_tag_t iot,
 **  FUNCTIONAL DESCRIPTION:
 **
 **     This function configures the Mouse logical device on the ns87307
-**     SuperIO chip. It sets up only the interrupt parameters since the 
+**     SuperIO chip. It sets up only the interrupt parameters since the
 **     mouse shares the device ports with the Keyboard. It also activates
-**     the device. 
+**     the device.
 **
 **  FORMAL PARAMETERS:
 **
 **       iot
-**       irqNum    
+**       irqNum
 **
 **  IMPLICIT INPUTS:
 **
@@ -186,7 +186,7 @@ i87307MouseConfig(bus_space_tag_t iot,
 		  u_int           irqNum )
 {
     u_int                configured;
-    bus_space_handle_t   ioh;	     
+    bus_space_handle_t   ioh;
 
     configured = FALSE; /* be a pessimist */
 
@@ -195,11 +195,11 @@ i87307MouseConfig(bus_space_tag_t iot,
 	/* Now do the mouse logical device IRQ settup.
 	*/
 	NSIO_SELECT_DEV( iot, ioh, NSIO_DEV_MOUSE );
-	NSIO_DEACTIVATE_DEV( iot, ioh );   
+	NSIO_DEACTIVATE_DEV( iot, ioh );
 	NSIO_CONFIG_IRQ( iot, ioh, irqNum, NSIO_IRQ_LEVEL | NSIO_IRQ_HIGH);
 	NSIO_ACTIVATE_DEV( iot, ioh );
 	NSIO_CONFIG_DEBUG( iot, ioh );
-	/* unmap the space so can probe later 
+	/* unmap the space so can probe later
 	*/
 	bus_space_unmap( iot, ioh, NSIO_NPORTS );
 
@@ -222,12 +222,12 @@ i87307MouseConfig(bus_space_tag_t iot,
 **
 **     This function configures the Parrel logical device on the ns87307
 **     SuperIO chip.
-**     the device. 
+**     the device.
 **
 **  FORMAL PARAMETERS:
 **
 **       iot
-**       irqNum    
+**       irqNum
 **
 **  IMPLICIT INPUTS:
 **
@@ -252,39 +252,39 @@ i87307PrinterConfig(bus_space_tag_t iot,
 		  u_int           irqNum )
 {
     u_int                configured = FALSE;
-    bus_space_handle_t   ioh;	     
+    bus_space_handle_t   ioh;
 
     u_char value;
- 
+
     if (!(bus_space_map( iot, CONNSIOADDR, NSIO_NPORTS, 0 , &ioh )))
     {
         /* select the printer */
         NSIO_SELECT_DEV( iot, ioh,  NSIO_DEV_LPT );
     	NSIO_DEACTIVATE_DEV( iot, ioh );
-        
-        value = NSIO_LPT_TRISTATE_DISABLE | 
+
+        value = NSIO_LPT_TRISTATE_DISABLE |
                 NSIO_LPT_CLOCK_DISABLE    |
                 NSIO_LPT_REPORT_SPP       |
                 NSIO_LPT_REG403_DISABLE   |
                 NSIO_LPT_SPP_EXTENDED;
     	NSIO_WRITE_REG( iot, ioh, NSIO_CFG_REG0, value);
-    	
+
         /* set the type of interupt */
-        value = NSIO_IRQ_HIGH | 
+        value = NSIO_IRQ_HIGH |
                 NSIO_IRQ_LEVEL;
         NSIO_CONFIG_IRQ( iot, ioh, irqNum,value);
-    
+
     	/* activate the device */
-    	NSIO_ACTIVATE_DEV( iot, ioh ); 
-        
-        
+    	NSIO_ACTIVATE_DEV( iot, ioh );
+
+
         /* unmap the space so can probe later */
     	bus_space_unmap( iot, ioh, NSIO_NPORTS );
-    
+
     	configured = TRUE;
     }
 
-    
+
     return (configured);
 } /* End i87307PrinterConfig() */
 
@@ -298,9 +298,9 @@ i87307PrinterConfig(bus_space_tag_t iot,
 **
 **  FUNCTIONAL DESCRIPTION:
 **
-**     This function prints out the irq, iobase etc, for the 
+**     This function prints out the irq, iobase etc, for the
 **     currently selected logical device.  It is intended to
-**     be used for debugging only.     
+**     be used for debugging only.
 **
 **  FORMAL PARAMETERS:
 **
@@ -323,41 +323,41 @@ i87307PrinterConfig(bus_space_tag_t iot,
 **      None.
 **
 **--
-*/     
+*/
 //#ifdef DDB
-void nsioConfigPrint(bus_space_tag_t nsioIot, 
-                     bus_space_handle_t  nsioIoh )                        
-{                                                                       
-    u_char     dev;                                                     
-    u_char     activate;                                                
-    u_char     iorange;                                                 
-    u_char     iobaseh;                                                 
-    u_char     iobasel;                                                 
-    u_char     irq;                                                     
-    u_char     irqType;                                                 
-    u_char     dma1;                                                    
-    u_char     dma2;                                                    
-    u_char     reg0;                                                    
-                                                                        
-    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_LOGDEV, dev );            
-    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_ACTIVATE, activate );     
-    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_IORNGCHK, iorange );      
-    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_IOBASEH, iobaseh );       
-    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_IOBASEL, iobasel );       
-    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_IRQ, irq );               
-    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_IRQTYPE, irqType );       
-    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_DMA1, dma1 );             
-    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_DMA2, dma2 );             
-    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_REG0, reg0 );             
-                                                                        
-    printf("nsio config for logical device %d\n", dev );                
-    printf("activate:   %x\n",activate);                                
-    printf("iorange:    %x\n",iorange);                                 
-    printf("iobase:     %x\n",(iobaseh << 8) | iobasel);                
-    printf("irq:        %x\n",irq);                                           
-    printf("irqtype:    %x\n",irqType);                                 
-    printf("dma1:       %x\n",dma1);                                    
-    printf("dma2:       %x\n",dma2) ;                                   
-    printf("reg0:       %x\n",reg0);                                    
-}  
+void nsioConfigPrint(bus_space_tag_t nsioIot,
+                     bus_space_handle_t  nsioIoh )
+{
+    u_char     dev;
+    u_char     activate;
+    u_char     iorange;
+    u_char     iobaseh;
+    u_char     iobasel;
+    u_char     irq;
+    u_char     irqType;
+    u_char     dma1;
+    u_char     dma2;
+    u_char     reg0;
+
+    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_LOGDEV, dev );
+    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_ACTIVATE, activate );
+    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_IORNGCHK, iorange );
+    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_IOBASEH, iobaseh );
+    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_IOBASEL, iobasel );
+    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_IRQ, irq );
+    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_IRQTYPE, irqType );
+    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_DMA1, dma1 );
+    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_DMA2, dma2 );
+    NSIO_READ_REG( nsioIot, nsioIoh, NSIO_CFG_REG0, reg0 );
+
+    printf("nsio config for logical device %d\n", dev );
+    printf("activate:   %x\n",activate);
+    printf("iorange:    %x\n",iorange);
+    printf("iobase:     %x\n",(iobaseh << 8) | iobasel);
+    printf("irq:        %x\n",irq);
+    printf("irqtype:    %x\n",irqType);
+    printf("dma1:       %x\n",dma1);
+    printf("dma2:       %x\n",dma2) ;
+    printf("reg0:       %x\n",reg0);
+}
 //#endif

@@ -92,4 +92,4 @@ etherip		97	ETHERIP		# Ethernet-within-IP Encapsulation
 encap		98	ENCAP		# Encapsulation Header
 any		99	any		# private encryption scheme
 gmtp		100	GMTP		# GMTP
-reserved	255	Reserved	# 
+reserved	255	Reserved	#

@@ -172,7 +172,7 @@ void read_client_leases ()
 	} while (1);
 }
 
-/* client-declaration :== 
+/* client-declaration :==
 	SEND option-decl |
 	DEFAULT option-decl |
 	SUPERSEDE option-decl |
@@ -601,7 +601,7 @@ void parse_client_lease_statement (cfile, is_static)
 		ip -> client -> leases = lease;
 		return;
 	}
-		
+
 	/* The last lease in the lease file on a particular interface is
 	   the active lease for that interface.    Of course, we don't know
 	   what the last lease in the file is until we've parsed the whole
@@ -805,7 +805,7 @@ struct option *parse_option_decl (cfile, options)
 					       sizeof hunkbuf - hunkix);
 				hunkix += len;
 				break;
-					
+
 			      case 't': /* Text string... */
 				token = next_token (&val, cfile);
 				if (token != STRING) {
@@ -1006,4 +1006,4 @@ void parse_reject_statement (cfile, config)
 		parse_warn ("expecting semicolon.");
 		skip_to_semi (cfile);
 	}
-}	
+}

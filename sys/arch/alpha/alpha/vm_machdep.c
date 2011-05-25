@@ -5,17 +5,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -132,7 +132,7 @@ cpu_exit(p)
 /*
  * Finish a fork operation, with process p2 nearly set up.
  * Copy and update the pcb and trap frame, making the child ready to run.
- * 
+ *
  * Rig the child's kernel stack so that it will start out in
  * switch_trampoline() and call child_return() with p2 as an
  * argument. This causes the newly-created child process to go
@@ -229,10 +229,10 @@ cpu_fork(p1, p2, stack, stacksize)
 		 * Arrange for continuation at child_return(), which
 		 * will return to exception_return().  Note that the child
 		 * process doesn't stay in the kernel for long!
-		 * 
+		 *
 		 * This is an inlined version of cpu_set_kpc.
 		 */
-		up->u_pcb.pcb_hw.apcb_ksp = (u_int64_t)p2tf;	
+		up->u_pcb.pcb_hw.apcb_ksp = (u_int64_t)p2tf;
 		up->u_pcb.pcb_context[0] =
 		    (u_int64_t)child_return;		/* s0: pc */
 		up->u_pcb.pcb_context[1] =

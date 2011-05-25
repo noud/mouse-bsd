@@ -2091,7 +2091,7 @@ ParseEOF (opened)
  * Side Effects:
  *---------------------------------------------------------------------
  */
-static __inline int 
+static __inline int
 ParseReadc()
 {
     if (curFILE)

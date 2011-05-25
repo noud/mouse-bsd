@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1995 Dale Rahn.
  * All rights reserved.
- *   
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -79,8 +79,8 @@ dk_establish(dk, dev)
 		target = bootctrllun % 8; /* XXX: 147 only */
 		lun = bootdevlun; /* XXX: 147, untested */
 
-		/* 
-		 * XXX: on the 167: 
+		/*
+		 * XXX: on the 167:
 		 * ignore bootctrllun
 		 * target = bootdevlun / 10
 		 * lun = bootdevlun % 10
@@ -135,7 +135,7 @@ readdisklabel(dev, strat, lp, clp)
 	brelse(bp);
 
 	if (msg || clp->magic1 != DISKMAGIC || clp->magic2 != DISKMAGIC) {
-		return (msg); 
+		return (msg);
 	}
 
 	cputobsdlabel(lp, clp);
@@ -287,7 +287,7 @@ writedisklabel(dev, strat, lp, clp)
 		bp->b_flags = B_INVAL | B_AGE | B_READ;
 		brelse(bp);
 	}
-	return (error); 
+	return (error);
 }
 
 
@@ -394,7 +394,7 @@ bsdtocpulabel(lp, clp)
 	/* note: assume at least 4 partitions */
 	bcopy(&lp->d_partitions[0], clp->vid_4, sizeof(struct partition) * 4);
 	bzero(clp->cfg_4, sizeof(struct partition) * 12);
-	bcopy(&lp->d_partitions[4], clp->cfg_4, sizeof(struct partition) 
+	bcopy(&lp->d_partitions[4], clp->cfg_4, sizeof(struct partition)
 		* ((MAXPARTITIONS < 16) ? (MAXPARTITIONS - 4) : 12));
 
 	/*
@@ -477,7 +477,7 @@ cputobsdlabel(lp, clp)
 	lp->d_sbsize = clp->sbsize;
 	/* note: assume at least 4 partitions */
 	bcopy(clp->vid_4, &lp->d_partitions[0], sizeof(struct partition) * 4);
-	bcopy(clp->cfg_4, &lp->d_partitions[4], sizeof(struct partition) 
+	bcopy(clp->cfg_4, &lp->d_partitions[4], sizeof(struct partition)
 		* ((MAXPARTITIONS < 16) ? (MAXPARTITIONS - 4) : 12));
 	lp->d_checksum = 0;
 	lp->d_checksum = dkcksum(lp);
@@ -506,7 +506,7 @@ printlp(lp, str)
 	for (i = 0; i < lp->d_npartitions; i++) {
 		struct partition *part = &lp->d_partitions[i];
 		const char *fstyp = fstypenames[part->p_fstype];
-		
+
 		printf("%c: size %10x offset %10x type %7s frag %5x cpg %3x\n",
 		    'a' + i, part->p_size, part->p_offset, fstyp,
 		    part->p_frag, part->p_cpg);
@@ -541,7 +541,7 @@ printclp(clp, str)
 		}
 
 		fstyp = fstypenames[part->p_fstype];
-		
+
 		printf("%c: size %10x offset %10x type %7s frag %5x cpg %3x\n",
 		    'a' + i, part->p_size, part->p_offset, fstyp,
 		    part->p_frag, part->p_cpg);

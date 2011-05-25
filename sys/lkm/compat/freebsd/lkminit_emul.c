@@ -64,7 +64,7 @@ MOD_EXEC("freebsd", -1, &freebsd_lkm_execsw);
  */
 int
 compat_freebsd_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

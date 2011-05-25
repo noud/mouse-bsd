@@ -57,7 +57,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* These are stored in the bfd's tdata */
 
-struct hpux_core_struct 
+struct hpux_core_struct
 {
   int sig;
   char cmd[MAXCOMLEN + 1];
@@ -258,7 +258,7 @@ const bfd_target hpux_core_vec =
      bfd_false, bfd_false,
      bfd_false, bfd_false
     },
-    
+
        BFD_JUMP_TABLE_GENERIC (_bfd_generic),
        BFD_JUMP_TABLE_COPY (_bfd_generic),
        BFD_JUMP_TABLE_CORE (hpux_core),

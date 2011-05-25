@@ -163,7 +163,7 @@ ht*|tm*|mt*|ts*|ut*|st*)
 		chmod 660 $name$unit $name$four $name$eight $name$twelve \
 		    n$name$unit n$name$eight nr$name$unit nr$name$eight \
 		    r$name$unit r$name$four r$name$eight r$name$twelve
-		if [ $i = ut ] 
+		if [ $i = ut ]
 		then
 			rm -f $name$twenty r$name$twenty
 			mknod $name$twenty	b $blk $twenty
@@ -289,10 +289,10 @@ ch*|uk*)
 md*)
 	unit=${i#md}; blk=23; chr=62;
 	rm -f md${unit}? rmd${unit}?
-	mknod md${unit}a  b $blk $(($unit * 8 + 0)) 
-	mknod md${unit}c  b $blk $(($unit * 8 + 2)) 
-#	mknod rmd${unit}a c $chr $(($unit * 8 + 0)) 
-#	mknod rmd${unit}c c $chr $(($unit * 8 + 2)) 
+	mknod md${unit}a  b $blk $(($unit * 8 + 0))
+	mknod md${unit}c  b $blk $(($unit * 8 + 2))
+#	mknod rmd${unit}a c $chr $(($unit * 8 + 0))
+#	mknod rmd${unit}c c $chr $(($unit * 8 + 2))
 	chgrp operator md${unit}? #rmd${unit}?
 	chmod 640 md${unit}? #rmd${unit}?
 	;;
@@ -520,7 +520,7 @@ ttyv0)
 	;;
 
 scsibus*)
-	unit=${i#scsibus}; 
+	unit=${i#scsibus};
 	rm -f scsibus$unit
 	mknod scsibus$unit c 72 $unit
 	chown root:wheel scsibus$unit

@@ -116,7 +116,7 @@ static u_char msencode[16] =
 static u_short mscrctab[256];
 
 /*
-  5554    aaaa    aaaa    aaa5    2aa4    4452    aa51  
+  5554    aaaa    aaaa    aaa5    2aa4    4452    aa51
           00      00      03      02      ac      0d
 */
 
@@ -1738,7 +1738,7 @@ int
 fdrawtocache(sc)
 	struct fd_softc *sc;
 {
-	
+
 	if (sc->openpart == FDMSDOSPART)
 		return(msrawtocache(sc));
 	else
@@ -1922,9 +1922,9 @@ mscachetoraw(sc)
 		 */
 		for (i = 0; i < 12; i++)
 			*rp++ = FDMFMGAP2;
-		*rp++ = FDMFMSYNC; 
-		*rp++ = FDMFMSYNC; 
-		*rp++ = FDMFMSYNC; 
+		*rp++ = FDMFMSYNC;
+		*rp++ = FDMFMSYNC;
+		*rp++ = FDMFMSYNC;
 
 		/*
 		 * sector information
@@ -1974,12 +1974,12 @@ mscachetoraw(sc)
 			*rp++ = FDMFMGAP3;
 	}
 
-	/* 
+	/*
 	 * fill rest of track with GAP3
 	 */
 	while (rp != erp)
 		*rp++ = FDMFMGAP3;
-	
+
 }
 
 int
@@ -1998,7 +1998,7 @@ msrawtocache(sc)
 		retry = 1;
 		do {
 			/*
-			 * skip leading gap to sync 
+			 * skip leading gap to sync
 			 */
 			if ((rp = (u_short *)fdfindsync((u_long *)rp, (u_long *)erp)) == NULL) {
 #ifdef DIAGNOSTIC
@@ -2007,7 +2007,7 @@ msrawtocache(sc)
 #endif
 				return(-1);
 			}
-			
+
 			/*
 			 * Grab sector info
 			 */
@@ -2158,7 +2158,7 @@ msblkdecode(rp, cp, len)
 	int len;
 {
 	while (len--) {
-		*cp++ = msdecode[*rp & 0x7f] | 
+		*cp++ = msdecode[*rp & 0x7f] |
 		    (msdecode[(*rp >> 8) & 0x7f] << 4);
 		rp++;
 	}
@@ -2200,7 +2200,7 @@ msblkencode(rp, cp, len, crc)
 
 		*rp++ = td;
 
-		/* 
+		/*
 		 * calc crc if requested
 		 */
 		if (crc)
@@ -2208,7 +2208,7 @@ msblkencode(rp, cp, len, crc)
 
 		cp++;
 	}
-       
+
 	if (crc)
 		*crc = mycrc;
 

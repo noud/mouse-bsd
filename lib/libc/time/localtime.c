@@ -247,7 +247,7 @@ const char * const	codep;
 	/*
         ** The first character must be sign extended on systems with >32bit
         ** longs.  This was solved differently in the master tzcode sources
-        ** (the fix first appeared in tzcode95c.tar.gz).  But I believe 
+        ** (the fix first appeared in tzcode95c.tar.gz).  But I believe
 	** that this implementation is superior.
         */
 

@@ -41,7 +41,7 @@
  */
 
 /*
- * mouse 
+ * mouse
  */
 
 #include "fb.h"
@@ -509,7 +509,7 @@ mspoll(dev, flag, p)
 	struct proc *p;
 {
 	register int unit = MSUNIT(dev);
-	register struct ms_stat *ms;	
+	register struct ms_stat *ms;
 	int s;
 
 	if (unit < 0 || unit >= NMS)

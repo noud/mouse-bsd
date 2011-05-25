@@ -46,7 +46,7 @@ copystr(kfaddr, kdaddr, len, done)
 	u_char *kfp = kfaddr;
 	u_char *kdp = kdaddr;
 	size_t l;
-	
+
 	for (l = 0; len-- > 0; l++) {
 		if (!(*kdp++ = *kfp++)) {
 			*done = l + 1;

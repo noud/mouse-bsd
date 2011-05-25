@@ -246,7 +246,7 @@ int linear_searcher::check_match(const char *buf, const char *bufend,
 	    || (match[-2] == '%' && match[-3] == '\n')))
       return 0;
   }
-    
+
   const char *p = match;
   int had_percent = 0;
   for (;;) {

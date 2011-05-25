@@ -91,10 +91,10 @@ while ( <> ) {
     # gather timestamps
     $last_date = $2;
     $first_date = $last_date unless defined $first_date;
-	
+
     # initialize new hosts
     unless ( defined $hosts{$1} ) {
-	$hosts{$1} = $files_in{$1} = $files_out{$1} = 
+	$hosts{$1} = $files_in{$1} = $files_out{$1} =
 	    $bytes_in{$1} = $bytes_out{$1} =
 		$secs_in{$1} = $secs_out{$1} = 0;
     }
@@ -163,9 +163,9 @@ foreach $host (@hosts) {
 
 sub print_line {
   reset "Z";		# reset print fields
-  local ($Zhost, 
-	 $Zi_bytes, $Zo_bytes, 
-	 $Zi_secs, $Zo_secs, 
+  local ($Zhost,
+	 $Zi_bytes, $Zo_bytes,
+	 $Zi_secs, $Zo_secs,
 	 $Zi_count, $Zo_count) = @_;
   $Ti_bytes += $Zi_bytes;
   $To_bytes += $Zo_bytes;
@@ -187,7 +187,7 @@ sub print_line {
 
 sub print_dashes {
   $Zhost = $Zi_bytes = $Zo_bytes = $Zt_bytes =
-    $Zi_hrs = $Zo_hrs = $Zi_acps = $Zo_acps = $Zi_count = $Zo_count = 
+    $Zi_hrs = $Zo_hrs = $Zi_acps = $Zo_acps = $Zi_count = $Zo_count =
       "------------";
   write;
   # easy, isn't it?

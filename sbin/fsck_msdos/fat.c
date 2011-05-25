@@ -534,7 +534,7 @@ checklost(dosfs, boot, fat)
 	cl_t head;
 	int mod = FSOK;
 	int ret;
-	
+
 	for (head = CLUST_FIRST; head < boot->NumClusters; head++) {
 		/* find next untravelled chain */
 		if (fat[head].head != head

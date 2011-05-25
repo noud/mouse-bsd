@@ -179,7 +179,7 @@ struct direct lfs_lf_dir[] = {
         { ROOTINO, sizeof(struct direct), DT_DIR, 2, ".." },
 };
 
-static daddr_t make_dinode 
+static daddr_t make_dinode
 	__P((ino_t, struct dinode *, int, daddr_t, struct lfs *));
 static void make_dir __P(( void *, struct direct *, int));
 static void put __P((int, off_t, void *, size_t));
@@ -329,7 +329,7 @@ make_lfs(fd, lp, partp, minfree, block_size, frag_size, seg_size)
 	if(warned_segtoobig)
 		fprintf(stderr,"Using segment size %d\n", ssize);
 
-	/* 
+	/*
 	 * The number of free blocks is set from the number of segments times
 	 * the segment size - MIN_FREE_SEGS (that we never write because we need to make
 	 * sure the cleaner can run).  Then we'll subtract off the room for the
@@ -356,7 +356,7 @@ make_lfs(fd, lp, partp, minfree, block_size, frag_size, seg_size)
 	/* Figure out where the superblocks are going to live */
 	lfsp->lfs_sboffs[0] = LFS_LABELPAD/lp->d_secsize;
 	for (i = 1; i < LFS_MAXNUMSB; i++) {
-		sb_addr = ((i * sb_interval) << 
+		sb_addr = ((i * sb_interval) <<
 		    (lfsp->lfs_segshift - lfsp->lfs_bshift + lfsp->lfs_fsbtodb))
 		    + lfsp->lfs_sboffs[0];
 		if (sb_addr > partp->p_size)
@@ -371,15 +371,15 @@ make_lfs(fd, lp, partp, minfree, block_size, frag_size, seg_size)
 
 	last_sb_addr = lfsp->lfs_sboffs[i - 1];
 	lfsp->lfs_lastseg = lfsp->lfs_sboffs[0];
-	lfsp->lfs_nextseg = 
+	lfsp->lfs_nextseg =
 	    lfsp->lfs_sboffs[1] ? lfsp->lfs_sboffs[1] : lfsp->lfs_sboffs[0];
 	lfsp->lfs_curseg = lfsp->lfs_lastseg;
 
 	/*
 	 * Initialize the segment usage table.  The first segment will
-	 * contain the superblock, the cleanerinfo (cleansz), the segusage 
-	 * table * (segtabsz), 1 block's worth of IFILE entries, the root 
-	 * directory, the lost+found directory and one block's worth of 
+	 * contain the superblock, the cleanerinfo (cleansz), the segusage
+	 * table * (segtabsz), 1 block's worth of IFILE entries, the root
+	 * directory, the lost+found directory and one block's worth of
 	 * inodes (containing the ifile, root, and l+f inodes).
 	 */
 	if (!(cleaninfo = malloc(lfsp->lfs_cleansz << lfsp->lfs_bshift)))
@@ -401,7 +401,7 @@ make_lfs(fd, lp, partp, minfree, block_size, frag_size, seg_size)
 	lfsp->lfs_bfree -=
 	     fsbtodb(lfsp, lfsp->lfs_cleansz + lfsp->lfs_segtabsz + 4);
 
-	/* 
+	/*
 	 * Now figure out the address of the ifile inode. The inode block
 	 * appears immediately after the segment summary.
 	 */
@@ -420,23 +420,23 @@ make_lfs(fd, lp, partp, minfree, block_size, frag_size, seg_size)
 		segp->su_nsums = 0;
 	}
 
-	/* 
+	/*
 	 * Initialize dynamic accounting.  The blocks available for
 	 * writing are the bfree blocks minus 1 segment summary for
 	 * each segment since you can't write any new data without
 	 * creating a segment summary - 2 segments that the cleaner
 	 * needs.
 	 */
-	lfsp->lfs_avail = lfsp->lfs_bfree - lfsp->lfs_nseg - 
+	lfsp->lfs_avail = lfsp->lfs_bfree - lfsp->lfs_nseg -
 		fsbtodb(lfsp, 2 * lfsp->lfs_ssize);
 	lfsp->lfs_uinodes = 0;
 	/*
 	 * Ready to start writing segments.  The first segment is different
 	 * because it contains the segment usage table and the ifile inode
-	 * as well as a superblock.  For the rest of the segments, set the 
+	 * as well as a superblock.  For the rest of the segments, set the
 	 * time stamp to be 0 so that the first segment is the most recent.
 	 * For each segment that is supposed to contain a copy of the super
-	 * block, initialize its first few blocks and its segment summary 
+	 * block, initialize its first few blocks and its segment summary
 	 * to indicate this.
 	 */
 	lfsp->lfs_nfiles = LFS_FIRST_INUM - 1;
@@ -452,13 +452,13 @@ make_lfs(fd, lp, partp, minfree, block_size, frag_size, seg_size)
 		fatal("%s", strerror(errno));
 	ifile = (IFILE *)ipagep;
 
-	/* 
+	/*
 	 * Initialize IFILE.  It is the next block following the
 	 * block of inodes (whose address has been calculated in
 	 * lfsp->lfs_idaddr;
 	 */
 	sb_addr = lfsp->lfs_idaddr + lfsp->lfs_bsize / lp->d_secsize;
-	sb_addr = make_dinode(LFS_IFILE_INUM, dip, 
+	sb_addr = make_dinode(LFS_IFILE_INUM, dip,
 	    lfsp->lfs_cleansz + lfsp->lfs_segtabsz+1, sb_addr, lfsp);
 	dip->di_mode = IFREG|IREAD|IWRITE;
 	dip->di_flags = SF_IMMUTABLE; /* XXX KS */
@@ -489,10 +489,10 @@ make_lfs(fd, lp, partp, minfree, block_size, frag_size, seg_size)
 	/* Make all the other dinodes invalid */
 	for (i = INOPB(lfsp)-3, dip++; i; i--, dip++)
 		dip->di_inumber = LFS_UNUSED_INUM;
-	
+
 
 	/* Link remaining IFILE entries in free list */
-	for (ip = &ifile[LFS_FIRST_INUM], i = LFS_FIRST_INUM; 
+	for (ip = &ifile[LFS_FIRST_INUM], i = LFS_FIRST_INUM;
 	    i < lfsp->lfs_ifpb; ++ip) {
 		ip->if_version = 1;
 		ip->if_daddr = LFS_UNUSED_DADDR;
@@ -510,10 +510,10 @@ make_lfs(fd, lp, partp, minfree, block_size, frag_size, seg_size)
 	dp = datasump = malloc (blocks_used * sizeof(u_long));
 	*dp++ = ((u_long *)dpagep)[0];		/* inode block */
 	for (i = 0; i < lfsp->lfs_cleansz; i++)
-		*dp++ = ((u_long *)cleaninfo)[(i << lfsp->lfs_bshift) / 
+		*dp++ = ((u_long *)cleaninfo)[(i << lfsp->lfs_bshift) /
 		    sizeof(u_long)];		/* Cleaner info */
 	for (i = 0; i < lfsp->lfs_segtabsz; i++)
-		*dp++ = ((u_long *)segtable)[(i << lfsp->lfs_bshift) / 
+		*dp++ = ((u_long *)segtable)[(i << lfsp->lfs_bshift) /
 		    sizeof(u_long)];		/* Segusage table */
 	*dp++ = ((u_long *)ifile)[0];		/* Ifile */
 
@@ -546,20 +546,20 @@ make_lfs(fd, lp, partp, minfree, block_size, frag_size, seg_size)
 	}
 
 	/*
-	 * use ipagep for space for writing out other stuff.  It used to 
+	 * use ipagep for space for writing out other stuff.  It used to
 	 * contain the ifile, but we're done with it.
 	 */
 
 	/* Write out the root and lost and found directories */
 	memset(ipagep, 0, lfsp->lfs_bsize);
-	make_dir(ipagep, lfs_root_dir, 
+	make_dir(ipagep, lfs_root_dir,
 	    sizeof(lfs_root_dir) / sizeof(struct direct));
 	*dp++ = ((u_long *)ipagep)[0];
 	put(fd, off, ipagep, lfsp->lfs_bsize);
 	off += lfsp->lfs_bsize;
 
 	memset(ipagep, 0, lfsp->lfs_bsize);
-	make_dir(ipagep, lfs_lf_dir, 
+	make_dir(ipagep, lfs_lf_dir,
 		sizeof(lfs_lf_dir) / sizeof(struct direct));
 	*dp++ = ((u_long *)ipagep)[0];
 	put(fd, off, ipagep, lfsp->lfs_bsize);
@@ -569,7 +569,7 @@ make_lfs(fd, lp, partp, minfree, block_size, frag_size, seg_size)
 	lfsp->lfs_cksum = lfs_sb_cksum(&(lfsp->lfs_dlfs));
 	put(fd, (off_t)LFS_LABELPAD, &(lfsp->lfs_dlfs), sizeof(struct dlfs));
 
-	/* 
+	/*
 	 * Finally, calculate all the fields for the summary structure
 	 * and write it.
 	 */
@@ -640,9 +640,9 @@ make_lfs(fd, lp, partp, minfree, block_size, frag_size, seg_size)
 	file_info.fi_ino = LOSTFOUNDINO;
 	memmove(sump, &file_info, sizeof(FINFO));
 
-	((daddr_t *)ipagep)[LFS_SUMMARY_SIZE / sizeof(daddr_t) - 1] = 
+	((daddr_t *)ipagep)[LFS_SUMMARY_SIZE / sizeof(daddr_t) - 1] =
 	    lfsp->lfs_idaddr;
-	((SEGSUM *)ipagep)->ss_sumsum = cksum(ipagep+sizeof(summary.ss_sumsum), 
+	((SEGSUM *)ipagep)->ss_sumsum = cksum(ipagep+sizeof(summary.ss_sumsum),
 	    LFS_SUMMARY_SIZE - sizeof(summary.ss_sumsum));
 	put(fd, (off_t)LFS_LABELPAD + LFS_SBPAD, ipagep, LFS_SUMMARY_SIZE);
 
@@ -661,7 +661,7 @@ make_lfs(fd, lp, partp, minfree, block_size, frag_size, seg_size)
 
 	/* Now, write rest of segments containing superblocks */
 	lfsp->lfs_cksum = lfs_sb_cksum(&(lfsp->lfs_dlfs));
-	for (seg_addr = last_addr = lfsp->lfs_sboffs[0], j = 1, i = 1; 
+	for (seg_addr = last_addr = lfsp->lfs_sboffs[0], j = 1, i = 1;
 	    i < lfsp->lfs_nseg; i++) {
 
 		/* Leave the time stamp on the alt sb, zero the rest */
@@ -678,10 +678,10 @@ make_lfs(fd, lp, partp, minfree, block_size, frag_size, seg_size)
 				j++;
 			put(fd, seg_seek, &(lfsp->lfs_dlfs), sizeof(struct dlfs));
 			seg_seek += LFS_SBPAD;
-		} 
+		}
 
 		/* Summary */
-		sp->ss_sumsum = cksum(&sp->ss_datasum, 
+		sp->ss_sumsum = cksum(&sp->ss_datasum,
 		    LFS_SUMMARY_SIZE - sizeof(sp->ss_sumsum));
 		put(fd, seg_seek, sp, LFS_SUMMARY_SIZE);
 	}
@@ -763,7 +763,7 @@ make_dinode(ino, dip, nblocks, saddr, lfsp)
 
 /*
  * Construct a set of directory entries in "bufp".  We assume that all the
- * entries in protodir fir in the first DIRBLKSIZ.  
+ * entries in protodir fir in the first DIRBLKSIZ.
  */
 static void
 make_dir(bufp, protodir, entries)

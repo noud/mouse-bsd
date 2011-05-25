@@ -92,7 +92,7 @@ readchar ()
   return buf & 0x7f;
 }
 
-/* Keep discarding input from the remote system, until STRING is found. 
+/* Keep discarding input from the remote system, until STRING is found.
    Let the user break out immediately.  */
 static void
 expect (string)
@@ -194,7 +194,7 @@ get_hex_regs (n, regno)
   for (i = 0; i < n; i++)
     {
       int j;
-      
+
       val = 0;
       for (j = 0; j < 8; j++)
 	val = (val << 4) + get_hex_digit (j == 0);
@@ -345,7 +345,7 @@ eb_open (name, from_tty)
   char *p;
 
   target_preopen (from_tty);
-  
+
   /* Find the first whitespace character, it separates dev_name from
      prog_name.  */
   if (name == 0)
@@ -366,7 +366,7 @@ the baud rate, and the name of the program to run on the remote system.");
   /* Skip over the whitespace after dev_name */
   for (; isspace (*p); p++)
     /*EMPTY*/;
-  
+
   if (1 != sscanf (p, "%d ", &baudrate))
     goto erroid;
 
@@ -375,7 +375,7 @@ the baud rate, and the name of the program to run on the remote system.");
     /*EMPTY*/;
   for (; isspace (*p); p++)
     /*EMPTY*/;
-  
+
   if (prog_name != NULL)
     free (prog_name);
   prog_name = savestring (p, strlen (p));
@@ -427,7 +427,7 @@ the baud rate, and the name of the program to run on the remote system.");
 
   /* Hello?  Are you there?  */
   write (eb_desc, "\n", 1);
-  
+
   expect_prompt ();
 }
 
@@ -471,7 +471,7 @@ eb_detach (from_tty)
   if (from_tty)
     printf ("Ending remote %s debugging\n", target_shortname);
 }
- 
+
 /* Tell the remote machine to resume.  */
 
 void
@@ -500,7 +500,7 @@ eb_resume (pid, step, sig)
 	{
 	  need_gi = 0;
 	  write (eb_desc, "gi\n", 3);
-	  
+
 	  /* Swallow the echo of "gi".  */
 	  expect ("gi\r");
 	}
@@ -520,11 +520,11 @@ int
 eb_wait (status)
      struct target_waitstatus *status;
 {
-  /* Strings to look for.  '?' means match any single character.  
+  /* Strings to look for.  '?' means match any single character.
      Note that with the algorithm we use, the initial character
      of the string cannot recur in the string, or we will not
      find some cases of the string in the input.  */
-  
+
   static char bpt[] = "Invalid interrupt taken - #0x50 - ";
   /* It would be tempting to look for "\n[__exit + 0x8]\n"
      but that requires loading symbols with "yc i" and even if
@@ -592,7 +592,7 @@ eb_wait (status)
 	  for (p = swallowed; p < swallowed_p; ++p)
 	    putc (*p, stdout);
 	  swallowed_p = swallowed;
-	  
+
 	  putc (ch, stdout);
 	}
     }
@@ -909,7 +909,7 @@ eb_read_inferior_memory(memaddr, myaddr, len)
     errno = EIO;
     return 0;
   }
-  
+
   startaddr = memaddr;
   count = 0;
   while (count < len)
@@ -981,7 +981,7 @@ Arguments are the name of the device for the serial line,\n\
 the speed to connect at in bits per second, and the filename of the\n\
 executable as it exists on the remote computer.  For example,\n\
         target amd-eb /dev/ttya 9600 demo",
-	eb_open, eb_close, 
+	eb_open, eb_close,
 	0, eb_detach, eb_resume, eb_wait,
 	eb_fetch_register, eb_store_register,
 	eb_prepare_to_store,

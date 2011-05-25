@@ -19,7 +19,7 @@ main()
 	volatile double x;
 
 	/*
-	 * check to make sure that all exceptions are masked and 
+	 * check to make sure that all exceptions are masked and
 	 * that the accumulated exception status is clear.
  	 */
 	assert(fpgetmask() == 0);

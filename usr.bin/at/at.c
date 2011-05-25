@@ -110,7 +110,7 @@ int main __P((int, char **));
 
 /* Signal catching functions */
 
-static void 
+static void
 sigc(signo)
 	int signo;
 {
@@ -124,7 +124,7 @@ sigc(signo)
 	exit(EXIT_FAILURE);
 }
 
-static void 
+static void
 alarmc(signo)
 	int signo;
 {
@@ -401,7 +401,7 @@ writefile(runtimer, queue)
 
 	(void)fclose(fp);
 
- 
+
  	PRIV_START
 
 	/*

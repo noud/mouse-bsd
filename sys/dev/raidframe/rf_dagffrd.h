@@ -32,19 +32,19 @@
 #include "rf_types.h"
 
 /* fault-free read DAG creation routines */
-void 
+void
 rf_CreateFaultFreeReadDAG(RF_Raid_t * raidPtr, RF_AccessStripeMap_t * asmap,
     RF_DagHeader_t * dag_h, void *bp, RF_RaidAccessFlags_t flags,
     RF_AllocListElem_t * allocList);
-void 
+void
 rf_CreateNonredundantDAG(RF_Raid_t * raidPtr, RF_AccessStripeMap_t * asmap,
     RF_DagHeader_t * dag_h, void *bp, RF_RaidAccessFlags_t flags,
     RF_AllocListElem_t * allocList, RF_IoType_t type);
-void 
+void
 rf_CreateMirrorIdleReadDAG(RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap, RF_DagHeader_t * dag_h, void *bp,
     RF_RaidAccessFlags_t flags, RF_AllocListElem_t * allocList);
-void 
+void
 rf_CreateMirrorPartitionReadDAG(RF_Raid_t * raidPtr,
     RF_AccessStripeMap_t * asmap, RF_DagHeader_t * dag_h, void *bp,
     RF_RaidAccessFlags_t flags, RF_AllocListElem_t * allocList);

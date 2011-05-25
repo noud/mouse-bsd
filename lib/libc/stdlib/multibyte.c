@@ -116,7 +116,7 @@ mbstowcs(pwcs, s, n)
 			count++;
 		} while (--n != 0);
 	}
-	
+
 	return count;
 }
 

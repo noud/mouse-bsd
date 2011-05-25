@@ -76,7 +76,7 @@ netif_open(machdep_hint)
 	struct iodesc *io;
 	int fd, error;
 	char addr[32];
-	
+
 #ifdef	NETIF_DEBUG
 	printf("netif_open...");
 #endif
@@ -93,7 +93,7 @@ netif_open(machdep_hint)
 
 	netif_of.nif_devdata = op;
 	io->io_netif = &netif_of;
-	
+
 	/* Put our ethernet address in io->myea */
 	OF_getprop(OF_instance_to_package(op->handle),
 		   "local-mac-address", io->myea, sizeof io->myea) == -1 &&

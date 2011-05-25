@@ -54,7 +54,7 @@ CreateMainWindow(HINSTANCE hInstance, HWND hWnd, LPCTSTR name, int cmdbar_height
 	res = FindResource(hInstance, name, RT_DIALOG);
 	if (res == NULL) {
 		debug_printf(TEXT("error=%d\n"), GetLastError());
-	} 
+	}
 	mem = (unsigned char*)LockResource(LoadResource(NULL, res));
 
 	/*
@@ -62,7 +62,7 @@ CreateMainWindow(HINSTANCE hInstance, HWND hWnd, LPCTSTR name, int cmdbar_height
 	 */
 	dlg = *(DLGTEMPLATE*)mem;
 	mem += sizeof(DLGTEMPLATE);
-		
+
 	GetClientRect(hWnd, &rect);
 	rect.top += cmdbar_height; /* get client rect w/o command bar */
 	ratio_x = (rect.right - rect.left) * 100 / dlg.cx;
@@ -203,14 +203,14 @@ CreateMainWindow(HINSTANCE hInstance, HWND hWnd, LPCTSTR name, int cmdbar_height
 		if (class_name) {
 			debug_printf(TEXT("Control: %04x "), item.id);
 			debug_printf(TEXT("class=%s "), class_name);
-			debug_printf(TEXT("contents=%s "), 
+			debug_printf(TEXT("contents=%s "),
 					window_text ? window_text : TEXT(""));
 
 			CreateWindowEx(
 				item.dwExtendedStyle,
 				class_name,						// Class
-				window_text,					// Title                
-				item.style,						// Style                
+				window_text,					// Title
+				item.style,						// Style
 				item.x * ratio_x / 100,
 				item.y * ratio_y / 100 + cmdbar_height,
 				item.cx * ratio_x / 100,

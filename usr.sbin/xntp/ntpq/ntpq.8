@@ -50,7 +50,7 @@ attempt to retransmit requests, and will time requests out if the remote
 host is not heard from within a suitable timeout time.
 .Pp
 Command line options are described following. Specifying a command
-line option other than 
+line option other than
 .Op Fl i
 or
 .Op Fl n
@@ -63,7 +63,7 @@ the standard input.
 .It Fl c
 The following argument is interpreted as an interactive format
 command and is added to the list of commands to be executed on the
-specified host(s). Multiple 
+specified host(s). Multiple
 .Fl c
 options may be given.
 .It Fl i
@@ -77,7 +77,7 @@ Output all host addresses in dotted-quad numeric format rather than
 converting to the canonical host names.
 .It Fl p
 Print a list of the peers known to the server as well as a summary
-of their state. This is equivalent to the 
+of their state. This is equivalent to the
 .Ar peers interactive command.
 .El
 .Sh INTERNAL COMMANDS
@@ -110,7 +110,7 @@ than this manual page.
 .It Cd rmvars Ar variable_name Op ...
 .It Cd clearvars
 The data carried by NTP mode 6 messages consists of a list of items
-of the form 
+of the form
 .Ar variable_name=value ,
 where the
 .Ar =value
@@ -135,13 +135,13 @@ Authenticated requests causes some servers to handle requests slightly
 differently, and can occasionally melt the CPU in fuzzballs if you turn
 authentication on before doing a peer display.
 .It Cd cooked
-Causes output from query commands to be 
+Causes output from query commands to be
 .Cd cooked .
 Variables which are recognized by the server will have their values
 reformatted for human consumption. Variables which
 .Nm
 thinks should have a decodeable value but didn't are marked with a
-trailing 
+trailing
 .Cd ? .
 .It Cd debug Ar more | less | off
 Turns internal query program debugging on and off.
@@ -155,14 +155,14 @@ command may be obsolete.
 .It Cd host Ar hostname
 Set the host to which future queries will be sent. Hostname may be
 either a host name or a numeric address.
-.It Cd hostnames Op yes | no 
-If 
+.It Cd hostnames Op yes | no
+If
 .Op yes
 is specified, host names are printed in
-information displays. If 
+information displays. If
 .Op no
 is specified, numeric
-addresses are printed instead. The default is 
+addresses are printed instead. The default is
 .Op yes ,
 unless
 modified using the command line
@@ -234,7 +234,7 @@ alternative.
 Requests that a list of the server's clock variables be sent.
 Servers which have a radio clock or other external synchronization will
 respond positively to this. If the association identifier is omitted or
-zero the request is for the variables of the 
+zero the request is for the variables of the
 .Pa system clock
 and will generally get a positive response from all servers with a
 clock. If the server treats clocks as pseudo-peers, and hence can
@@ -250,15 +250,15 @@ This command differs from the
 command only
 for servers which retain state for out-of-spec client associations
 (i.e., fuzzballs). Such associations are normally omitted from the
-display when the 
+display when the
 .Cd associations
 command is used, but are
-included in the output of 
+included in the output of
 .Cd lassociations .
 .It Cd lpassociations
 Print data for all associations, including out-of-spec client
 associations, from the internally cached list of associations. This
-command differs from 
+command differs from
 .Cd passociations
 only when dealing with fuzzballs.
 .It Cd lpeers
@@ -267,7 +267,7 @@ server is maintaining state is printed. This can produce a much longer
 list of peers from fuzzball servers.
 .It Cd mreadlist Ar assocID Ar assocID
 .It Cd mrl Ar assocID Ar assocID
-Like the 
+Like the
 .Cd readlist
 command, except the query is done for
 each of a range of (nonzero) association IDs. This range is determined
@@ -276,14 +276,14 @@ from the association list cached by the most recent
 command.
 .It Cd mreadvar Ar assocID assocID Op variable_name=value ...
 .It Cd mrv Ar assocID assocID Op variable_name=value ...
-Like the 
+Like the
 .Cd readvar command, except the query is done for
 each of a range of (nonzero) association IDs. This range is determined
 from the association list cached by the most recent
 .Cd associations
 command.
 .It Cd opeers
-An old form of the 
+An old form of the
 .Cd peers command with the reference ID
 replaced by the local interface address.
 .It Cd passociations
@@ -306,20 +306,20 @@ The character in the left margin indicates the fate of this peer
 in the clock selection process. The codes mean:
 .Cd "\ "
 discarded due
-to high stratum and/or failed sanity checks; 
+to high stratum and/or failed sanity checks;
 .Cd "x"
 designated
-falseticker by the intersection algorithm; 
+falseticker by the intersection algorithm;
 .Cd "."
 culled from
-the end of the candidate list; 
+the end of the candidate list;
 .Cd "-"
 discarded by the clustering algorithm;
 .Cd "+"
-included in the final selection set; 
+included in the final selection set;
 .Cd "#"
 selected for synchronization but distance exceeds
-maximum; 
+maximum;
 .Cd "*"
 selected for synchronization; and
 .Cd "o"
@@ -331,9 +331,9 @@ time with servers which poorly control the data formats.
 .Pp
 The contents of the host field may be one of four forms. It may
 be a host name, an IP address, a reference clock implementation name
-with its parameter or 
+with its parameter or
 .Cd "REFCLK(<implementation number>,<parameter>)" .
-On 
+On
 .Cd "hostnames no"
 only IP-addresses will be displayed.
 .It Cd pstatus Ar assocID

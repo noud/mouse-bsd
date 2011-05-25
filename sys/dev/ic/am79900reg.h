@@ -106,7 +106,7 @@ struct leinit {
 	int32_t	  pad;		/* Pad to 16 shorts */
 };
 
-/* Receive message descriptor 1 (rmd1_bits) */ 
+/* Receive message descriptor 1 (rmd1_bits) */
 #define	LE_R1_OWN	(1<<31)		/* LANCE owns the packet */
 #define	LE_R1_ERR	(1<<30)		/* error summary */
 #define	LE_R1_FRAM	(1<<29)		/* framing error */
@@ -120,7 +120,7 @@ struct leinit {
 #define	LE_R1_BITS \
     "\20\40OWN\37ERR\36FRAM\35OFLO\34CRC\33BUFF\32STP\31ENP"
 
-/* Transmit message descriptor 1 (tmd1_bits) */ 
+/* Transmit message descriptor 1 (tmd1_bits) */
 #define	LE_T1_OWN	(1<<31)		/* LANCE owns the packet */
 #define	LE_T1_ERR	(1<<30)		/* error summary */
 #define	LE_T1_MORE	(1<<28)		/* multiple collisions */
@@ -133,7 +133,7 @@ struct leinit {
 #define	LE_T1_BITS \
     "\20\40OWN\37ERR\36RES\35MORE\34ONE\33DEF\32STP\31ENP"
 
-/* Transmit message descriptor 3 (tmd3) */ 
+/* Transmit message descriptor 3 (tmd3) */
 #define	LE_T2_BUFF	(1<<31)		/* buffer error */
 #define	LE_T2_UFLO	(1<<30)		/* underflow error */
 #define	LE_T2_LCOL	(1<<28)		/* late collision */

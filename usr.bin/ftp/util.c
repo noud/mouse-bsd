@@ -691,7 +691,7 @@ remotemodtime(file, noisy)
 		timebuf.tm_hour = hour;
 		timebuf.tm_mday = day;
 		timebuf.tm_mon = mo - 1;
-		timebuf.tm_year = yy - TM_YEAR_BASE; 
+		timebuf.tm_year = yy - TM_YEAR_BASE;
 		timebuf.tm_isdst = -1;
 		rtime = timegm(&timebuf);
 		if (rtime == -1) {
@@ -870,7 +870,7 @@ progressmeter(flag)
 
 			/*
 			 * calculate the length of the `*' bar, ensuring that
-			 * the number of stars won't exceed the buffer size 
+			 * the number of stars won't exceed the buffer size
 			 */
 	barlength = MIN(sizeof(buf) - 1, ttywidth) - BAROVERHEAD;
 	if (barlength > 0) {

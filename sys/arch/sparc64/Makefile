@@ -22,7 +22,7 @@ tags:
 	sort -o ${TSPARC64} ${TSPARC64}
 
 .ifmake TAGS
-COMM!=  find ${SYSDIR} -name "arch" -prune -o -name "*.[ch]" -print 
+COMM!=  find ${SYSDIR} -name "arch" -prune -o -name "*.[ch]" -print
 .endif
 
 TAGS:

@@ -177,11 +177,11 @@ ns_sprintrrf(const u_char *msg, size_t msglen,
 		rdata += len;
 		T(addstr(" ", 1, &buf, &buflen));
 
-		    
+
 		/* Second word, optional in ISDN records. */
 		if (type == ns_t_isdn && rdata == edata)
 			break;
-		    
+
 		T(len = charstr(rdata, edata, &buf, &buflen));
 		if (len == 0)
 			goto formerr;
@@ -593,7 +593,7 @@ ns_sprintrrf(const u_char *msg, size_t msglen,
 			}
 			else
 				leader = " ";
-	
+
 			for (n = 0; n < len; n += 48) {
 				T(addstr(leader, strlen(leader),
 					 &buf, &buflen));

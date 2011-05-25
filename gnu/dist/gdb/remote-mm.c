@@ -18,17 +18,17 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-/* This is like remote.c but ecpects MiniMON to be running on the Am29000 
+/* This is like remote.c but ecpects MiniMON to be running on the Am29000
    target hardware.
  - David Wood (wood@lab.ultra.nyu.edu) at New York University adapted this
 	file to gdb 3.95.  I was unable to get this working on sun3os4
 	with termio, only with sgtty.  Because we are only attempting to
 	use this module to debug our kernel, which is already loaded when
-	gdb is started up, I did not code up the file downloading facilities.  
-	As a result this module has only the stubs to download files. 
-	You should get tagged at compile time if you need to make any 
+	gdb is started up, I did not code up the file downloading facilities.
+	As a result this module has only the stubs to download files.
+	You should get tagged at compile time if you need to make any
 	changes/additions.  */
- 
+
 #include "defs.h"
 #include "inferior.h"
 #include "wait.h"
@@ -71,22 +71,22 @@ static int mm_memory_space();
 FILE *log_file;
 #endif
 
-/*  
+/*
  * Size of message buffers.  I couldn't get memory reads to work when
  * the byte_count was larger than 512 (it may be a baud rate problem).
  */
-#define BUFER_SIZE  512		
-/* 
+#define BUFER_SIZE  512
+/*
  * Size of data area in message buffer on the TARGET (remote system).
  */
 #define MAXDATA_T  (target_config.max_msg_size - \
 			offsetof(struct write_r_msg_t,data[0]))
-/*		 
- * Size of data area in message buffer on the HOST (gdb). 
+/*
+ * Size of data area in message buffer on the HOST (gdb).
  */
 #define MAXDATA_H  (BUFER_SIZE - offsetof(struct write_r_msg_t,data[0]))
-/* 
- * Defined as the minimum size of data areas of the two message buffers 
+/*
+ * Defined as the minimum size of data areas of the two message buffers
  */
 #define MAXDATA	   (MAXDATA_H < MAXDATA_T ? MAXDATA_H : MAXDATA_T)
 
@@ -267,7 +267,7 @@ erroid:
   /* Skip over the whitespace after dev_name */
   for (; isspace (*p); p++)
     /*EMPTY*/;
-  
+
   if (1 != sscanf (p, "%d ", &baudrate))
     goto erroid;
 
@@ -276,7 +276,7 @@ erroid:
     /*EMPTY*/;
   for (; isspace (*p); p++)
     /*EMPTY*/;
-  
+
   if (prog_name != NULL)
     free (prog_name);
   prog_name = savestring (p, strlen (p));
@@ -379,9 +379,9 @@ erroid:
 		0x0f & (target_config.version >> 24) );
    }
 
-  /* Leave the target running... 
-   * The above message stopped the target in the dbg core (MiniMon),  
-   * so restart the target out of MiniMon, 
+  /* Leave the target running...
+   * The above message stopped the target in the dbg core (MiniMon),
+   * so restart the target out of MiniMon,
    */
   out_msg_buf->go_msg.code = GO;
   out_msg_buf->go_msg.length = 0;
@@ -401,13 +401,13 @@ mm_close (quitting)	/*FIXME: how is quitting used */
     error ("Can't close remote connection: not debugging remotely.");
 
   /* We should never get here if there isn't something valid in
-     mm_desc and mm_stream.  
+     mm_desc and mm_stream.
 
      Due to a bug in Unix, fclose closes not only the stdio stream,
      but also the file descriptor.  So we don't actually close
      mm_desc.  */
   DRAIN_INPUT();
-  fclose (mm_stream);	
+  fclose (mm_stream);
   /* close (mm_desc); */
 
   /* Do not try to close mm_desc again, later in the program.  */
@@ -422,10 +422,10 @@ mm_close (quitting)	/*FIXME: how is quitting used */
 #endif
 
   printf ("Ending remote debugging\n");
-} 
+}
 
 /************************************************************* REMOTE_ATACH */
-/* Attach to a program that is already loaded and running 
+/* Attach to a program that is already loaded and running
  * Upon exiting the process's execution is stopped.
  */
 static void
@@ -436,20 +436,20 @@ mm_attach (args, from_tty)
 
   if (!mm_stream)
       error ("MiniMon not opened yet, use the 'target minimon' command.\n");
-	
+
   if (from_tty)
       printf ("Attaching to remote program %s...\n", prog_name);
 
   /* Make sure the target is currently running, it is supposed to be. */
-  /* FIXME: is it ok to send MiniMon a BREAK if it is already stopped in 
+  /* FIXME: is it ok to send MiniMon a BREAK if it is already stopped in
    * 	the dbg core.  If so, we don't need to send this GO.
    */
   out_msg_buf->go_msg.code = GO;
   out_msg_buf->go_msg.length = 0;
   msg_send_serial(out_msg_buf);
   sleep(2);	/* At the worst it will stop, receive a message, continue */
- 
-  /* Send the mm a break. */ 
+
+  /* Send the mm a break. */
   out_msg_buf->break_msg.code = BREAK;
   out_msg_buf->break_msg.length = 0;
   msg_send_serial(out_msg_buf);
@@ -555,7 +555,7 @@ mm_wait (status)
     }
   }
 halted:
-  /* FIXME, these printfs should not be here.  This is a source level 
+  /* FIXME, these printfs should not be here.  This is a source level
      debugger, guys!  */
   if (in_msg_buf->halt_msg.trap_number== 0)
   { printf("Am290*0 received vector number %d (break point)\n",
@@ -639,10 +639,10 @@ exit:
 }
 
 /******************************************************* REMOTE_FETCH_REGISTERS
- * Read a remote register 'regno'. 
+ * Read a remote register 'regno'.
  * If regno==-1 then read all the registers.
  */
-static void 
+static void
 mm_fetch_registers (regno)
 int	regno;
 {
@@ -663,7 +663,7 @@ int	regno;
   supply_register (GR1_REGNUM , data_p);
 
 #if defined(GR64_REGNUM)	/* Read gr64-127 */
-/* Global Registers gr64-gr95 */ 
+/* Global Registers gr64-gr95 */
   out_msg_buf->read_req_msg.code= READ_REQ;
   out_msg_buf->read_req_msg.length = 4*3;
   out_msg_buf->read_req_msg.byte_count = 4*32;
@@ -678,7 +678,7 @@ int	regno;
   }
 #endif	/*  GR64_REGNUM */
 
-/* Global Registers gr96-gr127 */ 
+/* Global Registers gr96-gr127 */
   out_msg_buf->read_req_msg.code= READ_REQ;
   out_msg_buf->read_req_msg.length = 4*3;
   out_msg_buf->read_req_msg.byte_count = 4 * 32;
@@ -692,7 +692,7 @@ int	regno;
       supply_register (regno, data_p++);
   }
 
-/* Local Registers */ 
+/* Local Registers */
   out_msg_buf->read_req_msg.byte_count = 4 * (128);
   out_msg_buf->read_req_msg.memory_space = LOCAL_REG;
   out_msg_buf->read_req_msg.address = 0;
@@ -704,7 +704,7 @@ int	regno;
       supply_register (regno, data_p++);
   }
 
-/* Protected Special Registers */ 
+/* Protected Special Registers */
   out_msg_buf->read_req_msg.byte_count = 4*15;
   out_msg_buf->read_req_msg.memory_space = SPECIAL_REG;
   out_msg_buf->read_req_msg.address = 0;
@@ -721,7 +721,7 @@ int	regno;
 	fetch_register(PC2_REGNUM);
   }
 
-/* Unprotected Special Registers */ 
+/* Unprotected Special Registers */
   out_msg_buf->read_req_msg.byte_count = 4*8;
   out_msg_buf->read_req_msg.memory_space = SPECIAL_REG;
   out_msg_buf->read_req_msg.address = 128;
@@ -745,7 +745,7 @@ int	regno;
 
 
 /****************************************************** REMOTE_STORE_REGISTERS
- * Store register regno into the target.  
+ * Store register regno into the target.
  * If regno==-1 then store all the registers.
  * Result is 0 for success, -1 for failure.
  */
@@ -755,7 +755,7 @@ mm_store_registers (regno)
 int regno;
 {
   int result;
-  
+
   if (regno >= 0) {
     store_register(regno);
     return;
@@ -821,7 +821,7 @@ int regno;
 	result = -1;
   }
 
-/* Protected Special Registers */ 
+/* Protected Special Registers */
   /* VAB through TMR */
   out_msg_buf->write_r_msg.memory_space = SPECIAL_REG;
   out_msg_buf->write_r_msg.byte_count = 4* 10;
@@ -839,9 +839,9 @@ int regno;
   out_msg_buf->write_r_msg.length = 3*4 + out_msg_buf->write_r_msg.byte_count;
   for (regno=10 ; regno<=12 ; regno++)	/* LRU and MMU */
     out_msg_buf->write_r_msg.data[regno-10] = read_register (SR_REGNUM(regno));
-  if (USE_SHADOW_PC) 
+  if (USE_SHADOW_PC)
     out_msg_buf->write_r_msg.address = 20;	/* SPC0 */
-  else 
+  else
     out_msg_buf->write_r_msg.address = 10;	/* PC0 */
   msg_send_serial( out_msg_buf);
   if (!expect_msg(WRITE_ACK,in_msg_buf,1)) {
@@ -859,7 +859,7 @@ int regno;
 	result = -1;
   }
 
-/* Unprotected Special Registers */ 
+/* Unprotected Special Registers */
   out_msg_buf->write_r_msg.byte_count = 4*8;
   out_msg_buf->write_r_msg.length = 3*4 + out_msg_buf->write_r_msg.byte_count;
   out_msg_buf->write_r_msg.address = 128;
@@ -869,7 +869,7 @@ int regno;
   if (!expect_msg(WRITE_ACK,in_msg_buf,1)) {
 	result = -1;
   }
- 
+
   registers_changed ();
 }
 
@@ -975,7 +975,7 @@ int     from_tty;
 	if (from_tty) {
 		printf("Target has been stopped.");
 		printf("Would you like to do a hardware reset (y/n) [n] ");
-		fgets(buf,3,stdin);	
+		fgets(buf,3,stdin);
 		if (buf[0] == 'y') {
 			out_msg_buf->reset_msg.code = RESET;
 			out_msg_buf->bkpt_set_msg.length = 4*0;
@@ -984,13 +984,13 @@ int     from_tty;
 		}
 	}
 	pop_target();
-#endif 
+#endif
 }
 
 
 
 /***************************************************************************/
-/* 
+/*
  * Load a program into the target.
  */
 static void
@@ -1032,7 +1032,7 @@ mm_write_inferior_memory (memaddr, myaddr, len)
   int i,nwritten;
 
   out_msg_buf->write_req_msg.code= WRITE_REQ;
-  out_msg_buf->write_req_msg.memory_space = mm_memory_space(memaddr);	
+  out_msg_buf->write_req_msg.memory_space = mm_memory_space(memaddr);
 
   nwritten=0;
   while (nwritten < len) {
@@ -1041,14 +1041,14 @@ mm_write_inferior_memory (memaddr, myaddr, len)
   	for (i=0 ; i < num_to_write ; i++)
       		out_msg_buf->write_req_msg.data[i] = myaddr[i+nwritten];
   	out_msg_buf->write_req_msg.byte_count = num_to_write;
-  	out_msg_buf->write_req_msg.length = 3*4 + num_to_write; 
+  	out_msg_buf->write_req_msg.length = 3*4 + num_to_write;
   	out_msg_buf->write_req_msg.address = memaddr + nwritten;
   	msg_send_serial(out_msg_buf);
 
   	if (expect_msg(WRITE_ACK,in_msg_buf,1)) {
   		nwritten += in_msg_buf->write_ack_msg.byte_count;
   	} else {
-		break;	
+		break;
   	}
   }
   return(nwritten);
@@ -1072,8 +1072,8 @@ mm_read_inferior_memory(memaddr, myaddr, len)
   while (nread < len) {
 	int num_to_read = (len - nread);
 	if (num_to_read > MAXDATA) num_to_read = MAXDATA;
-  	out_msg_buf->read_req_msg.byte_count = num_to_read; 
-  	out_msg_buf->read_req_msg.length = 3*4 + num_to_read; 
+  	out_msg_buf->read_req_msg.byte_count = num_to_read;
+  	out_msg_buf->read_req_msg.length = 3*4 + num_to_read;
   	out_msg_buf->read_req_msg.address = memaddr + nread;
   	msg_send_serial(out_msg_buf);
 
@@ -1082,7 +1082,7 @@ mm_read_inferior_memory(memaddr, myaddr, len)
       			myaddr[i+nread] = in_msg_buf->read_ack_msg.data[i];
   		nread += in_msg_buf->read_ack_msg.byte_count;
   	} else {
-		break;	
+		break;
   	}
   }
   return(nread);
@@ -1256,7 +1256,7 @@ kbd_raw() {
    result = ioctl(0, TCSETAF, &tbuf);
 #else
    result = ioctl(0, TIOCSETP, &tbuf);
-#endif 
+#endif
    if (result == -1)
       return (errno);
 
@@ -1290,9 +1290,9 @@ kbd_restore() {
 }  /* end kbd_cooked() */
 
 
-/*****************************************************************************/ 
-/* Fetch a single register indicatated by 'regno'. 
- * Returns 0/-1 on success/failure.  
+/*****************************************************************************/
+/* Fetch a single register indicatated by 'regno'.
+ * Returns 0/-1 on success/failure.
  */
 static int
 fetch_register (regno)
@@ -1321,15 +1321,15 @@ fetch_register (regno)
   { out_msg_buf->read_req_msg.memory_space = LOCAL_REG;
     out_msg_buf->read_req_msg.address = (regno - LR0_REGNUM);
   }
-  else if (regno>=FPE_REGNUM && regno<=EXO_REGNUM)  
+  else if (regno>=FPE_REGNUM && regno<=EXO_REGNUM)
   { int val = -1;
     supply_register(160 + (regno - FPE_REGNUM),&val);
     return 0;		/* Pretend Success */
   }
-  else 
+  else
   { out_msg_buf->read_req_msg.memory_space = SPECIAL_REG;
-    out_msg_buf->read_req_msg.address = regnum_to_srnum(regno); 
-  } 
+    out_msg_buf->read_req_msg.address = regnum_to_srnum(regno);
+  }
 
   msg_send_serial(out_msg_buf);
 
@@ -1341,9 +1341,9 @@ fetch_register (regno)
   }
   return result;
 }
-/*****************************************************************************/ 
-/* Store a single register indicated by 'regno'. 
- * Returns 0/-1 on success/failure.  
+/*****************************************************************************/
+/* Store a single register indicated by 'regno'.
+ * Returns 0/-1 on success/failure.
  */
 static int
 store_register (regno)
@@ -1359,11 +1359,11 @@ store_register (regno)
   if (regno == GR1_REGNUM)
   { out_msg_buf->write_req_msg.memory_space = GLOBAL_REG;
     out_msg_buf->write_req_msg.address = 1;
-    /* Setting GR1 changes the numbers of all the locals, so invalidate the 
-     * register cache.  Do this *after* calling read_register, because we want 
-     * read_register to return the value that write_register has just stuffed 
-     * into the registers array, not the value of the register fetched from 
-     * the inferior.  
+    /* Setting GR1 changes the numbers of all the locals, so invalidate the
+     * register cache.  Do this *after* calling read_register, because we want
+     * read_register to return the value that write_register has just stuffed
+     * into the registers array, not the value of the register fetched from
+     * the inferior.
      */
     registers_changed ();
   }
@@ -1381,14 +1381,14 @@ store_register (regno)
   { out_msg_buf->write_req_msg.memory_space = LOCAL_REG;
     out_msg_buf->write_req_msg.address = (regno - LR0_REGNUM);
   }
-  else if (regno>=FPE_REGNUM && regno<=EXO_REGNUM)  
-  { 
+  else if (regno>=FPE_REGNUM && regno<=EXO_REGNUM)
+  {
     return 0;		/* Pretend Success */
   }
   else 	/* An unprotected or protected special register */
   { out_msg_buf->write_req_msg.memory_space = SPECIAL_REG;
-    out_msg_buf->write_req_msg.address = regnum_to_srnum(regno); 
-  } 
+    out_msg_buf->write_req_msg.address = regnum_to_srnum(regno);
+  }
 
   msg_send_serial(out_msg_buf);
 
@@ -1400,7 +1400,7 @@ store_register (regno)
   return result;
 }
 /****************************************************************************/
-/* 
+/*
  * Convert a gdb special register number to a 29000 special register number.
  */
 static int
@@ -1408,39 +1408,39 @@ regnum_to_srnum(regno)
 int	regno;
 {
 	switch(regno) {
-		case VAB_REGNUM: return(0); 
-		case OPS_REGNUM: return(1); 
-		case CPS_REGNUM: return(2); 
-		case CFG_REGNUM: return(3); 
-		case CHA_REGNUM: return(4); 
-		case CHD_REGNUM: return(5); 
-		case CHC_REGNUM: return(6); 
-		case RBP_REGNUM: return(7); 
-		case TMC_REGNUM: return(8); 
-		case TMR_REGNUM: return(9); 
+		case VAB_REGNUM: return(0);
+		case OPS_REGNUM: return(1);
+		case CPS_REGNUM: return(2);
+		case CFG_REGNUM: return(3);
+		case CHA_REGNUM: return(4);
+		case CHD_REGNUM: return(5);
+		case CHC_REGNUM: return(6);
+		case RBP_REGNUM: return(7);
+		case TMC_REGNUM: return(8);
+		case TMR_REGNUM: return(9);
 		case NPC_REGNUM: return(USE_SHADOW_PC ? (20) : (10));
 		case PC_REGNUM:  return(USE_SHADOW_PC ? (21) : (11));
 		case PC2_REGNUM: return(USE_SHADOW_PC ? (22) : (12));
-		case MMU_REGNUM: return(13); 
-		case LRU_REGNUM: return(14); 
-		case IPC_REGNUM: return(128); 
-		case IPA_REGNUM: return(129); 
-		case IPB_REGNUM: return(130); 
-		case Q_REGNUM:   return(131); 
-		case ALU_REGNUM: return(132); 
-		case BP_REGNUM:  return(133); 
-		case FC_REGNUM:  return(134); 
-		case CR_REGNUM:  return(135); 
-		case FPE_REGNUM: return(160); 
-		case INTE_REGNUM: return(161); 
-		case FPS_REGNUM: return(162); 
-		case EXO_REGNUM:return(164); 
+		case MMU_REGNUM: return(13);
+		case LRU_REGNUM: return(14);
+		case IPC_REGNUM: return(128);
+		case IPA_REGNUM: return(129);
+		case IPB_REGNUM: return(130);
+		case Q_REGNUM:   return(131);
+		case ALU_REGNUM: return(132);
+		case BP_REGNUM:  return(133);
+		case FC_REGNUM:  return(134);
+		case CR_REGNUM:  return(135);
+		case FPE_REGNUM: return(160);
+		case INTE_REGNUM: return(161);
+		case FPS_REGNUM: return(162);
+		case EXO_REGNUM:return(164);
 		default:
 			return(255);	/* Failure ? */
 	}
 }
 /****************************************************************************/
-/* 
+/*
  * Initialize the target debugger (minimon only).
  */
 static void
@@ -1463,7 +1463,7 @@ ADDR32	arg_start;
 	expect_msg(INIT_ACK,in_msg_buf,1);
 }
 /****************************************************************************/
-/* 
+/*
  * Return a pointer to a string representing the given message code.
  * Not all messages are represented here, only the ones that we expect
  * to be called with.
@@ -1475,14 +1475,14 @@ INT32	code;
 	static char cbuf[32];
 
 	switch (code) {
-	case BKPT_SET_ACK: sprintf(cbuf,"%s (%d)","BKPT_SET_ACK",code); break; 
-	case BKPT_RM_ACK: sprintf(cbuf,"%s (%d)","BKPT_RM_ACK",code); break; 
-	case INIT_ACK: 	  sprintf(cbuf,"%s (%d)","INIT_ACK",code); break; 
-	case READ_ACK: 	  sprintf(cbuf,"%s (%d)","READ_ACK",code); break; 
-	case WRITE_ACK:	  sprintf(cbuf,"%s (%d)","WRITE_ACK",code); break; 
-	case ERROR:       sprintf(cbuf,"%s (%d)","ERROR",code); break; 
-	case HALT: 	sprintf(cbuf,"%s (%d)","HALT",code); break; 
-	default:	sprintf(cbuf,"UNKNOWN (%d)",code); break; 
+	case BKPT_SET_ACK: sprintf(cbuf,"%s (%d)","BKPT_SET_ACK",code); break;
+	case BKPT_RM_ACK: sprintf(cbuf,"%s (%d)","BKPT_RM_ACK",code); break;
+	case INIT_ACK: 	  sprintf(cbuf,"%s (%d)","INIT_ACK",code); break;
+	case READ_ACK: 	  sprintf(cbuf,"%s (%d)","READ_ACK",code); break;
+	case WRITE_ACK:	  sprintf(cbuf,"%s (%d)","WRITE_ACK",code); break;
+	case ERROR:       sprintf(cbuf,"%s (%d)","ERROR",code); break;
+	case HALT: 	sprintf(cbuf,"%s (%d)","HALT",code); break;
+	default:	sprintf(cbuf,"UNKNOWN (%d)",code); break;
 	}
 	return(cbuf);
 }
@@ -1490,43 +1490,43 @@ INT32	code;
 /*
  * Selected (not all of them) error codes that we might get.
  */
-static char* 
+static char*
 error_msg_str(code)
 INT32	code;
 {
 	static char cbuf[50];
 
 	switch (code) {
-	case EMFAIL: 	return("EMFAIL: unrecoverable error"); 
-	case EMBADADDR: return("EMBADADDR: Illegal address"); 
-	case EMBADREG: 	return("EMBADREG: Illegal register "); 
+	case EMFAIL: 	return("EMFAIL: unrecoverable error");
+	case EMBADADDR: return("EMBADADDR: Illegal address");
+	case EMBADREG: 	return("EMBADREG: Illegal register ");
 	case EMACCESS: 	return("EMACCESS: Could not access memory");
-	case EMBADMSG: 	return("EMBADMSG: Unknown message type"); 
-	case EMMSG2BIG: return("EMMSG2BIG: Message to large"); 
-	case EMNOSEND: 	return("EMNOSEND: Could not send message"); 
-	case EMNORECV: 	return("EMNORECV: Could not recv message"); 
-	case EMRESET: 	return("EMRESET: Could not RESET target"); 
-	case EMCONFIG: 	return("EMCONFIG: Could not get target CONFIG"); 
-	case EMSTATUS: 	return("EMSTATUS: Could not get target STATUS"); 
-	case EMREAD: 	return("EMREAD: Could not READ target memory"); 
-	case EMWRITE: 	return("EMWRITE: Could not WRITE target memory"); 
-	case EMBKPTSET: return("EMBKPTSET: Could not set breakpoint"); 
-	case EMBKPTRM:	return("EMBKPTRM: Could not remove breakpoint"); 
-	case EMBKPTSTAT:return("EMBKPTSTAT: Could not get breakpoint status"); 
-	case EMBKPTNONE:return("EMBKPTNONE: All breakpoints in use"); 
-	case EMBKPTUSED:return("EMBKPTUSED: Breakpoints already in use"); 
-	case EMINIT: 	return("EMINIT: Could not init target memory"); 
-	case EMGO: 	return("EMGO: Could not start execution"); 
-	case EMSTEP: 	return("EMSTEP: Could not single step"); 
-	case EMBREAK: 	return("EMBREAK: Could not BREAK"); 
-	case EMCOMMERR: return("EMCOMMERR: Communication error"); 
+	case EMBADMSG: 	return("EMBADMSG: Unknown message type");
+	case EMMSG2BIG: return("EMMSG2BIG: Message to large");
+	case EMNOSEND: 	return("EMNOSEND: Could not send message");
+	case EMNORECV: 	return("EMNORECV: Could not recv message");
+	case EMRESET: 	return("EMRESET: Could not RESET target");
+	case EMCONFIG: 	return("EMCONFIG: Could not get target CONFIG");
+	case EMSTATUS: 	return("EMSTATUS: Could not get target STATUS");
+	case EMREAD: 	return("EMREAD: Could not READ target memory");
+	case EMWRITE: 	return("EMWRITE: Could not WRITE target memory");
+	case EMBKPTSET: return("EMBKPTSET: Could not set breakpoint");
+	case EMBKPTRM:	return("EMBKPTRM: Could not remove breakpoint");
+	case EMBKPTSTAT:return("EMBKPTSTAT: Could not get breakpoint status");
+	case EMBKPTNONE:return("EMBKPTNONE: All breakpoints in use");
+	case EMBKPTUSED:return("EMBKPTUSED: Breakpoints already in use");
+	case EMINIT: 	return("EMINIT: Could not init target memory");
+	case EMGO: 	return("EMGO: Could not start execution");
+	case EMSTEP: 	return("EMSTEP: Could not single step");
+	case EMBREAK: 	return("EMBREAK: Could not BREAK");
+	case EMCOMMERR: return("EMCOMMERR: Communication error");
 	default:     	sprintf(cbuf,"error number %d",code); break;
 	} /* end switch */
 
 	return (cbuf);
 }
 /****************************************************************************/
-/* 
+/*
  *  Receive a message and expect it to be of type msgcode.
  *  Returns 0/1 on failure/success.
  */
@@ -1537,7 +1537,7 @@ union msg_t *msg_buf;		/* Where to put  the message received */
 int	from_tty;		/* Print message on error if non-zero */
 {
   int	retries=0;
-  while(msg_recv_serial(msg_buf) && (retries++<MAX_RETRIES)); 
+  while(msg_recv_serial(msg_buf) && (retries++<MAX_RETRIES));
   if (retries >= MAX_RETRIES) {
 	printf("Expected msg %s, ",msg_str(msgcode));
 	printf("no message received!\n");
@@ -1548,17 +1548,17 @@ int	from_tty;		/* Print message on error if non-zero */
      if (from_tty) {
 	printf("Expected msg %s, ",msg_str(msgcode));
 	printf("got msg %s\n",msg_str(msg_buf->generic_msg.code));
-        if (msg_buf->generic_msg.code == ERROR) 
+        if (msg_buf->generic_msg.code == ERROR)
 		printf("%s\n",error_msg_str(msg_buf->error_msg.error_code));
      }
      return(0);			/* Failure */
   }
   return(1);			/* Success */
-}	
+}
 /****************************************************************************/
 /*
- * Determine the MiniMon memory space qualifier based on the addr. 
- * FIXME: Can't distinguis I_ROM/D_ROM.  
+ * Determine the MiniMon memory space qualifier based on the addr.
+ * FIXME: Can't distinguis I_ROM/D_ROM.
  * FIXME: Doesn't know anything about I_CACHE/D_CACHE.
  */
 static int
@@ -1566,15 +1566,15 @@ mm_memory_space(addr)
 CORE_ADDR	*addr;
 {
 	ADDR32 tstart = target_config.I_mem_start;
-	ADDR32 tend   = tstart + target_config.I_mem_size;  
+	ADDR32 tend   = tstart + target_config.I_mem_size;
 	ADDR32 dstart = target_config.D_mem_start;
-	ADDR32 dend   = tstart + target_config.D_mem_size;  
+	ADDR32 dend   = tstart + target_config.D_mem_size;
 	ADDR32 rstart = target_config.ROM_start;
-	ADDR32 rend   = tstart + target_config.ROM_size;  
+	ADDR32 rend   = tstart + target_config.ROM_size;
 
-	if (((ADDR32)addr >= tstart) && ((ADDR32)addr < tend)) { 
+	if (((ADDR32)addr >= tstart) && ((ADDR32)addr < tend)) {
 		return I_MEM;
-	} else if (((ADDR32)addr >= dstart) && ((ADDR32)addr < dend)) { 
+	} else if (((ADDR32)addr >= dstart) && ((ADDR32)addr < dend)) {
 		return D_MEM;
 	} else if (((ADDR32)addr >= rstart) && ((ADDR32)addr < rend)) {
 		/* FIXME: how do we determine between D_ROM and I_ROM */
@@ -1584,8 +1584,8 @@ CORE_ADDR	*addr;
 }
 
 /****************************************************************************/
-/* 
- *  Define the target subroutine names 
+/*
+ *  Define the target subroutine names
  */
 struct target_ops mm_ops = {
         "minimon", "Remote AMD/Minimon target",
@@ -1599,7 +1599,7 @@ struct target_ops mm_ops = {
         mm_insert_breakpoint, mm_remove_breakpoint, /* Breakpoints */
         0, 0, 0, 0, 0,          /* Terminal handling */
         mm_kill,             	/* FIXME, kill */
-        mm_load, 
+        mm_load,
         0,                      /* lookup_symbol */
         mm_create_inferior,  /* create_inferior */
         mm_mourn,            /* mourn_inferior FIXME */

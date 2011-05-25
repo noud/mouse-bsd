@@ -84,7 +84,7 @@ __RCSID("$NetBSD: strfile.c,v 1.19 2000/01/13 16:22:10 jsm Exp $");
  *	s - Silent.  Give no summary of data processed at the end of
  *	    the run.
  *	o - order the strings in alphabetic order
- *	i - if ordering, ignore case 
+ *	i - if ordering, ignore case
  *	r - randomize the order of the strings
  *	x - set rotated bit
  *

@@ -47,14 +47,14 @@ static RF_FreeList_t *rf_callback_freelist;
 #define RF_CALLBACK_INITIAL   4
 
 static void rf_ShutdownCallback(void *);
-static void 
+static void
 rf_ShutdownCallback(ignored)
 	void   *ignored;
 {
 	RF_FREELIST_DESTROY(rf_callback_freelist, next, (RF_CallbackDesc_t *));
 }
 
-int 
+int
 rf_ConfigureCallback(listp)
 	RF_ShutdownList_t **listp;
 {
@@ -85,7 +85,7 @@ rf_AllocCallbackDesc()
 	return (p);
 }
 
-void 
+void
 rf_FreeCallbackDesc(p)
 	RF_CallbackDesc_t *p;
 {

@@ -622,7 +622,7 @@ zs_cn_check_speed(bps)
 	if (tc < 0)
 		return 0;
 	rate = TCONST_TO_BPS(PCLK / 16, tc);
-	if (ZS_TOLERANCE > abs(((rate - bps)*1000)/bps)) 
+	if (ZS_TOLERANCE > abs(((rate - bps)*1000)/bps))
 		return 1;
 	else
 		return 0;
@@ -767,7 +767,7 @@ zs_set_speed(cs, bps)
 	cs->cs_preg[12] = tc;
 	cs->cs_preg[13] = tc >> 8;
 	splx(s);
-	
+
 #ifdef ZSMACDEBUG
 	zsprintf("Rate is %7d, tc is %7d, source no. %2d, flags %4x\n", \
 	    bps, tc, src, sf);
@@ -1106,7 +1106,7 @@ zscnprobe(cp)
 	int chosen, pkg;
 	int unit = 0;
 	char name[16];
-	
+
 	if ((chosen = OF_finddevice("/chosen")) == -1)
 		return;
 
@@ -1114,7 +1114,7 @@ zscnprobe(cp)
 		return;
 	if (OF_getprop(chosen, "stdout", &stdout, sizeof(stdout)) == -1)
 		return;
-	
+
 	if ((pkg = OF_instance_to_package(stdin)) == -1)
 		return;
 

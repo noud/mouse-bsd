@@ -8,7 +8,7 @@
 #include <sys/localedef.h>
 #include <locale.h>
 
-const _NumericLocale _DefaultNumericLocale = 
+const _NumericLocale _DefaultNumericLocale =
 {
 	".",
 	"",

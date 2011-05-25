@@ -55,11 +55,11 @@ typedef enum
        PCREL17C never reports a relocation error.
 
        When supporting argument relocations, function calls must be
-       accompanied by parameter relocation information.  This information is 
+       accompanied by parameter relocation information.  This information is
        carried in the ten high-order bits of the addend field.  The remaining
        22 bits of of the addend field are sign-extended to form the Addend.
 
-       Note the code to build argument relocations depends on the 
+       Note the code to build argument relocations depends on the
        addend being zero.  A consequence of this limitation is GAS
        can not perform relocation reductions for function symbols.  */
     R_PARISC_PCREL21L = 0x0a,
@@ -126,10 +126,10 @@ elf32_hppa_reloc_type;
 
 /* Define groups of basic relocations.  FIXME:  These should
    be the only basic relocations created by GAS.  The rest
-   should be internal to the BFD backend.  
+   should be internal to the BFD backend.
 
    The idea is both SOM and ELF define these basic relocation
-   types so they map into a SOM or ELF specific relocation 
+   types so they map into a SOM or ELF specific relocation
    as appropriate.  This allows GAS to share much more code
    between the two target object formats.  */
 

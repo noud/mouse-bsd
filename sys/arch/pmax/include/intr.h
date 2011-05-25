@@ -74,7 +74,7 @@ void	_clrsoftintr __P((int));
 #define splstatclock()	(_splraise(splvec.splstatclock))
 #define spllowersoftclock() _spllower(MIPS_SOFT_INT_MASK_0)
 #define splsoftclock()	_splraise(MIPS_SOFT_INT_MASK_0)
-#define splsoftnet()	_splraise(MIPS_SOFT_INT_MASK_1) 
+#define splsoftnet()	_splraise(MIPS_SOFT_INT_MASK_1)
 
 struct splvec {
 	int	splbio;

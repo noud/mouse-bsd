@@ -41,7 +41,7 @@ List of allocated and reserved major and minor numbers
 
 The block and character major numbers are ALWAYS allocated together to the
 same device driver even if the driver does not require both.
- 
+
  0 B 	- reserved
  0 C	- memory device
 	  minor = 0 - /dev/mem
@@ -262,7 +262,7 @@ same device driver even if the driver does not require both.
 53 B	- reserved
 53 C	- FIQ profiler
 54 B	- reserved
-54 C	- Footbridge diag serial 
+54 C	- Footbridge diag serial
 	  minor = 0 - /dev/fcom
 55 B	- reserved
 55 C	- reserved for bypass device

@@ -138,7 +138,7 @@ struct speedtab mscspeedtab_normal[] = {
 	{ 115200,	MSCPARAM_B115200 },
 	{ -1,		-1		}
 };
-  
+
 struct speedtab mscspeedtab_turbo[] = {
 	{ 0,		0		},
 	{ 100,		MSCPARAM_B50	},
@@ -159,7 +159,7 @@ struct speedtab mscspeedtab_turbo[] = {
 	{ 230400,	MSCPARAM_B115200 },
 	{ -1,		-1		}
 };
-  
+
 struct   speedtab *mscspeedtab;
 
 int mscmctl __P((dev_t dev, int bits, int howto));
@@ -260,7 +260,7 @@ mscattach(pdp, dp, auxp)
 
 	add_vbl_function (&msc_vbl_node[unit], MSC_VBL_PRIORITY, (void *)unit);
 
-	return; 
+	return;
 }
 
 /* ARGSUSED */
@@ -275,7 +275,7 @@ mscopen(dev, flag, mode, p)
 	volatile struct mscstatus *ms;
 	int error = 0;
 	int s, slot, ttyn;
-  
+
 	/* get the device structure */
 	slot = MSCSLOT(dev);
 	ttyn = MSCTTY(dev);
@@ -322,7 +322,7 @@ mscopen(dev, flag, mode, p)
 	tp->t_param = mscparam;
 	tp->t_dev = dev;
 	tp->t_hwiflow = mschwiflow;
- 
+
 	/* if port is still closing, just bitbucket remaining characters */
 	if (msc->closing) {
 		ms->OutFlush = TRUE;
@@ -376,7 +376,7 @@ mscopen(dev, flag, mode, p)
 		goto done;
 	}
 
-	/* 
+	/*
 	 * s = spltty();
 	 *
 	 * This causes hangs when put here, like other TTY drivers do, rather than
@@ -403,7 +403,7 @@ mscopen(dev, flag, mode, p)
 	printf("msc%d: %d got CD\n", msc->unit, MSCLINE(dev));
 #endif
 
-	done: 
+	done:
 		/* This is a way to handle lost XON characters */
 		if ((flag & O_TRUNC) && (tp->t_state & TS_TTSTOP)) {
 			tp->t_state &= ~TS_TTSTOP;
@@ -432,7 +432,7 @@ mscclose(dev, flag, mode, p)
 	int slot;
 	volatile struct mscstatus *ms;
 	struct mscdevice *msc;
-  
+
 	/* get the device structure */
 	slot = MSCSLOT(dev);
 
@@ -445,7 +445,7 @@ mscclose(dev, flag, mode, p)
 		return ENXIO;
 
 	ms = &msc->board->Status[msc->port];
-  
+
 	tp = msc_tty[MSCTTY(dev)];
 	(*linesw[tp->t_line].l_close)(tp, flag);
 
@@ -460,7 +460,7 @@ mscclose(dev, flag, mode, p)
 
 	return (0);
 }
- 
+
 
 int
 mscread(dev, uio, flag)
@@ -469,7 +469,7 @@ mscread(dev, uio, flag)
 	int flag;
 {
 	register struct tty *tp;
-  
+
 	tp = msc_tty[MSCTTY(dev)];
 
 	if (! tp)
@@ -477,7 +477,7 @@ mscread(dev, uio, flag)
 
 	return((*linesw[tp->t_line].l_read)(tp, uio, flag));
 }
- 
+
 
 int
 mscwrite(dev, uio, flag)
@@ -486,7 +486,7 @@ mscwrite(dev, uio, flag)
 	int flag;
 {
 	register struct tty *tp;
-  
+
 	tp = msc_tty[MSCTTY(dev)];
 
 	if (! tp)
@@ -497,7 +497,7 @@ mscwrite(dev, uio, flag)
 
 
 /*
- * This interrupt is periodically invoked in the vertical blank 
+ * This interrupt is periodically invoked in the vertical blank
  * interrupt. It's used to keep track of the modem control lines
  * and (new with the fast_int code) to move accumulated data up in
  * to the tty layer.
@@ -616,7 +616,7 @@ mscmint (data)
 
 		    /* data types of bytes in ibuf */
 		    cbuf = &msc->board->InCtl[msc->port][0];
-    
+
 		    /* do for all chars, if room */
 		    while (bufpos != newhead) {
 			/* which type of input data? */
@@ -642,7 +642,7 @@ mscmint (data)
 				break;
 
 			    default:
-				printf("msc%d: unknown data type %d\n", 
+				printf("msc%d: unknown data type %d\n",
 				msc->unit, cbuf[bufpos]);
 				bufpos++;
 			} /* switch on input data type */
@@ -687,7 +687,7 @@ NoRoomForYa:
 
 		    /* data types of bytes in ibuf */
 		    cbuf = &msc->board->InCtl[msc->port][0];
-    
+
 		    /* do for all chars, if room */
 			while (bufpos != newhead) {
 			    /* which type of input data? */
@@ -741,7 +741,7 @@ mscioctl(dev, cmd, data, flag, p)
 	struct mscdevice *msc;
 	volatile struct mscstatus *ms;
 	int s;
-  
+
 	/* get the device structure */
 	slot = MSCSLOT(dev);
 
@@ -766,7 +766,7 @@ mscioctl(dev, cmd, data, flag, p)
 
 	if (error >= 0)
 		return (error);
-  
+
 	switch (cmd) {
 
 		/* send break */
@@ -788,31 +788,31 @@ mscioctl(dev, cmd, data, flag, p)
 		case TIOCSDTR:
 			(void) mscmctl(dev, TIOCM_DTR | TIOCM_RTS, DMBIS);
 			break;
-      
+
 		case TIOCCDTR:
 			if (!MSCDIALIN(dev))	/* don't let dialins drop DTR */
 				(void) mscmctl(dev, TIOCM_DTR | TIOCM_RTS, DMBIC);
 			break;
-      
+
 		case TIOCMSET:
 			(void) mscmctl(dev, *(int *)data, DMSET);
 			break;
-      
+
 		case TIOCMBIS:
 			(void) mscmctl(dev, *(int *)data, DMBIS);
 			break;
-      
+
 		case TIOCMBIC:
 			if (MSCDIALIN(dev))	/* don't let dialins drop DTR */
 				(void) mscmctl(dev, *(int *)data & TIOCM_DTR, DMBIC);
 			else
 				(void) mscmctl(dev, *(int *)data, DMBIC);
 			break;
-      
+
 		case TIOCMGET:
 			*(int *)data = mscmctl(dev, 0, DMGET);
 			break;
-      
+
 		case TIOCGFLAGS:
 			*(int *)data = SWFLAGS(dev);
 			break;
@@ -845,7 +845,7 @@ mscparam(tp, t)
 	volatile struct mscstatus *ms;
 	int s, slot;
 	int ospeed = ttspeedtab(t->c_ospeed, mscspeedtab);
-  
+
 	/* get the device structure */
 	slot = MSCSLOT(tp->t_dev);
 
@@ -867,7 +867,7 @@ mscparam(tp, t)
 	tp->t_ispeed = t->c_ispeed;
 	tp->t_ospeed = t->c_ospeed;
 	tp->t_cflag = cflag;
-  
+
 	/* hang up if baud is zero */
 	if (t->c_ospeed == 0) {
 		if (!MSCDIALIN(tp->t_dev))  /* don't let dialins drop DTR */
@@ -885,7 +885,7 @@ mscparam(tp, t)
 
 		splx(s);
 	}
-  
+
 	return(0);
 }
 
@@ -958,7 +958,7 @@ mscstart(tp)
 	s = spltty();
 
 	/* don't start if explicitly stopped */
-	if (tp->t_state & (TS_TIMEOUT|TS_TTSTOP)) 
+	if (tp->t_state & (TS_TIMEOUT|TS_TTSTOP))
 		goto out;
 
 	/* wake up if below low water */
@@ -1001,7 +1001,7 @@ mscstart(tp)
 
 		mob = &msc->board->OutBuf[msc->port][0];
 		cp = &msc->tmpbuf[0];
-      
+
 		/* enable output */
 		ms->OutDisable = FALSE;
 
@@ -1029,10 +1029,10 @@ mscstart(tp)
 			tp->t_state &= ~TS_BUSY;
 	}
 
-out:  
+out:
 	splx(s);
 }
- 
+
 
 /* XXX */
 /*
@@ -1064,7 +1064,7 @@ mscstop(tp, flag)
 	}
 	splx(s);
 }
- 
+
 
 /*
  * bits can be: TIOCM_DTR, TIOCM_RTS, TIOCM_CTS, TIOCM_CD, TIOCM_RI, TIOCM_DSR
@@ -1102,11 +1102,11 @@ mscmctl(dev, bits, how)
 		    case DMSET:
 			msc->flags = (bits | (msc->flags & ~(TIOCM_DTR | TIOCM_RTS)));
 			break;
-      
+
 		    case DMBIC:
 			msc->flags &= ~bits;
 			break;
-      
+
 		    case DMBIS:
 			msc->flags |= bits;
 			break;
@@ -1134,7 +1134,7 @@ mscmctl(dev, bits, how)
 	bits = msc->flags;
 
 	(void) splx(s);
-  
+
 	return(bits);
 }
 
@@ -1162,7 +1162,7 @@ mscinitcard(zap)
 	volatile u_char *to;
 	volatile struct mscmemory *mlm;
 
-	mlm = (volatile struct mscmemory *)zap->va;	
+	mlm = (volatile struct mscmemory *)zap->va;
 	(void)mlm->Enable6502Reset;
 
 	/* copy the code across to the board */

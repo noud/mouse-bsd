@@ -955,7 +955,7 @@ loop:
 		/* allow 1/50 second for heads to settle */
 		timeout(fdcpseudointr, fdc, hz / 50);
 		return 1;
-		
+
 	case SEEKCOMPLETE:
 		/* Make sure seek really happened. */
 		out_fdc(iobase, NE7CMD_SENSEI);
@@ -1152,7 +1152,7 @@ fdioctl(dev, cmd, addr, flag)
 	switch (cmd) {
 	case DIOCGDINFO:
 		bzero(&buffer, sizeof(buffer));
-		
+
 		buffer.d_secpercyl = fd->sc_type->seccyl;
 		buffer.d_type = DTYPE_FLOPPY;
 		buffer.d_secsize = FDC_BSIZE;

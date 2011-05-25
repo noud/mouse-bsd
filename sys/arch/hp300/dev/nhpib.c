@@ -120,7 +120,7 @@ void	nhpibifc __P((struct nhpibdevice *));
 void	nhpibreadtimo __P((void *));
 int	nhpibwait __P((struct nhpibdevice *, int));
 
-void	nhpibreset __P((struct hpibbus_softc *)); 
+void	nhpibreset __P((struct hpibbus_softc *));
 int	nhpibsend __P((struct hpibbus_softc *, int, int, void *, int));
 int	nhpibrecv __P((struct hpibbus_softc *, int, int, void *, int));
 int	nhpibppoll __P((struct hpibbus_softc *));
@@ -178,7 +178,7 @@ nhpibattach(parent, self, aux)
 {
 	struct nhpib_softc *sc = (struct nhpib_softc *)self;
 	struct dio_attach_args *da = aux;
-	struct hpibdev_attach_args ha; 
+	struct hpibdev_attach_args ha;
 	const char *desc;
 	int ipl, type = HPIBA;
 

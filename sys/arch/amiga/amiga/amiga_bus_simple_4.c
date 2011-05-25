@@ -61,7 +61,7 @@ oabs(bsrm2_swap_)(handle, offset, pointer, count)
 	volatile u_int16_t *p;
 
 	p = (volatile u_int16_t *)(handle + offset * AMIGA_SIMPLE_BUS_STRIDE);
-	
+
 	while (count > 0) {
 		*pointer++ = bswap16(*p);
 		--count;
@@ -78,7 +78,7 @@ oabs(bswm2_swap_)(handle, offset, pointer, count)
 	volatile u_int16_t *p;
 
 	p = (volatile u_int16_t *)(handle + offset * AMIGA_SIMPLE_BUS_STRIDE);
-	
+
 	while (count > 0) {
 		*p = bswap16(*pointer);
 		++pointer;
@@ -93,7 +93,7 @@ const struct amiga_bus_space_methods amiga_bus_stride_4swap = {
         oabs(bsu_),
         0,
         0,
- 
+
         oabs(bsr1_),
         oabs(bsw1_),
         oabs(bsrm1_),

@@ -263,7 +263,7 @@ gld${EMULATION_NAME}_search_dir (dirname, filename, found_static)
   dir = opendir (dirname);
   if (dir == NULL)
     return NULL;
-  
+
   while ((entry = readdir (dir)) != NULL)
     {
       const char *s;
@@ -521,7 +521,7 @@ gld${EMULATION_NAME}_search_needed (path, name)
       path = s + 1;
     }
 
-  return false;	  
+  return false;
 }
 
 /* This function is called for each possible directory for a needed
@@ -661,7 +661,7 @@ gld${EMULATION_NAME}_before_allocation ()
   if (! link_info.shared && ! link_info.relocateable && ! entry_from_cmdline)
     {
       struct bfd_link_hash_entry *h;
-      
+
       for (h = link_info.hash->undefs; h != NULL; h = h->next)
 	{
 	  if (h->type == bfd_link_hash_undefined
@@ -959,7 +959,7 @@ $s/$/n"/
 '
 
 cat >>e${EMULATION_NAME}.c <<EOF
-{			     
+{
   *isfile = 0;
 
   if (link_info.relocateable == true && config.build_constructors == true)
@@ -979,7 +979,7 @@ else
 # Scripts read from the filesystem.
 
 cat >>e${EMULATION_NAME}.c <<EOF
-{			     
+{
   *isfile = 1;
 
   if (link_info.relocateable == true && config.build_constructors == true)
@@ -999,7 +999,7 @@ fi
 
 cat >>e${EMULATION_NAME}.c <<EOF
 
-struct ld_emulation_xfer_struct ld_${EMULATION_NAME}_emulation = 
+struct ld_emulation_xfer_struct ld_${EMULATION_NAME}_emulation =
 {
   gld${EMULATION_NAME}_before_parse,
   syslib_default,

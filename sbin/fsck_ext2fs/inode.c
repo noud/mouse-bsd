@@ -465,11 +465,11 @@ inocleanup()
 	free((char *)inpsort);
 	inphead = inpsort = NULL;
 }
-	
+
 void
 inodirty()
 {
-	
+
 	dirty(pbp);
 }
 
@@ -522,7 +522,7 @@ findino(idesc)
 	if (ino == 0)
 		return (KEEPON);
 	if (strcmp(dirp->e2d_name, idesc->id_name) == 0 &&
-	    (ino == EXT2_ROOTINO || ino >= EXT2_FIRSTINO) 
+	    (ino == EXT2_ROOTINO || ino >= EXT2_FIRSTINO)
 		&& ino <= maxino) {
 		idesc->id_parent = ino;
 		return (STOP|FOUND);

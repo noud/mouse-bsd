@@ -562,7 +562,7 @@ defoption(fname, opts, deps)
 
 
 /*
- * Define an option for which a value is required. 
+ * Define an option for which a value is required.
  */
 void
 defparam(fname, opts, deps)
@@ -598,7 +598,7 @@ addoption(name, value)
 	char low[500];
 	int is_fs, is_param, is_flag, is_opt, is_undecl;
 
-	/* 
+	/*
 	 * Figure out how this option was declared (if at all.)
 	 * XXX should use "params" and "flags" in config.
 	 * XXX crying out for a type field in a unified hashtab.
@@ -649,7 +649,7 @@ void
 addfsoption(name)
 	const char *name;
 {
-	const char *n; 
+	const char *n;
 	char *p, c;
 	char low[500];
 
@@ -708,7 +708,7 @@ do_option(ht, nppp, name, value, type)
 	/*
 	 * If a defopt'ed option was enabled but without an explicit
 	 * value, supply a default value of 1, as for non-defopt
-	 * options (where cc treats -DBAR as -DBAR=1.) 
+	 * options (where cc treats -DBAR as -DBAR=1.)
 	 */
 	if (OPT_DEFOPT(name) && value == NULL)
 		value = "1";
@@ -975,7 +975,7 @@ mkident()
 
 	if (ident == NULL)
 		return (0);
-	
+
 	if ((fp = fopen("ident", "w")) == NULL) {
 		(void)fprintf(stderr, "config: cannot write ident: %s\n",
 		    strerror(errno));

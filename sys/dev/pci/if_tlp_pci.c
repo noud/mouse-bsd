@@ -47,8 +47,8 @@
 #include "bpfilter.h"
 
 #include <sys/param.h>
-#include <sys/systm.h> 
-#include <sys/mbuf.h>   
+#include <sys/systm.h>
+#include <sys/mbuf.h>
 #include <sys/malloc.h>
 #include <sys/kernel.h>
 #include <sys/socket.h>
@@ -57,18 +57,18 @@
 #include <sys/device.h>
 
 #include <machine/endian.h>
- 
+
 #include <net/if.h>
 #include <net/if_dl.h>
 #include <net/if_media.h>
 #include <net/if_ether.h>
 
-#if NBPFILTER > 0 
+#if NBPFILTER > 0
 #include <net/bpf.h>
-#endif 
+#endif
 
 #ifdef INET
-#include <netinet/in.h> 
+#include <netinet/in.h>
 #include <netinet/if_inarp.h>
 #endif
 
@@ -917,7 +917,7 @@ tlp_pci_attach(parent, self, aux)
 			    sc->sc_dev.dv_xname);
 			return;
 		}
-		intrstr = pci_intr_string(pc, ih); 
+		intrstr = pci_intr_string(pc, ih);
 		psc->sc_ih = pci_intr_establish(pc, ih, IPL_NET,
 		    (psc->sc_flags & TULIP_PCI_SHAREDINTR) ?
 		    tlp_pci_shared_intr : tlp_intr, sc);
@@ -950,7 +950,7 @@ tlp_pci_shared_intr(arg)
 	     slave != NULL;
 	     slave = LIST_NEXT(slave, sc_intrq))
 		rv |= tlp_intr(&slave->sc_tulip);
-	
+
 	return (rv);
 }
 

@@ -37,12 +37,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -95,7 +95,7 @@
 #define SINGLE_SRC_MSK6LEN            128 /* the single source mask length */
 #define SINGLE_GRP_MSK6LEN            128 /* the single group mask length  */
 
-/* TODO: change? */ 
+/* TODO: change? */
 #define PIM_GROUP_PREFIX_DEFAULT_MASKLEN 8 /* The default group masklen if
                                              * omitted in the config file.
                                              */
@@ -169,7 +169,7 @@ typedef struct pim6_encod_uni_addr_ {
                       * misalignment for  the unicast
                       * address when placed in the
                       * memory. Must read it byte-by-byte!
-                      */ 
+                      */
 } pim6_encod_uni_addr_t;
 /* XXX: sizeof(pim6_encod_uni_addr_t) does not work due to misalignment */
 #define PIM6_ENCODE_UNI_ADDR_LEN 18
@@ -248,21 +248,21 @@ typedef struct pim_jp_encod_grp_ {
 
 /* PIM messages type */
 
-#define PIM_HELLO		 	0	
+#define PIM_HELLO		 	0
 #define PIM_REGISTER_STOP       	2
 #define PIM_JOIN_PRUNE          	3
 #define PIM_BOOTSTRAP       		4
 #define PIM_ASSERT              	5
 #define PIM_GRAFT               	6
-#define PIM_GRAFT_ACK           	7 
+#define PIM_GRAFT_ACK           	7
 #define PIM_CAND_RP_ADV         	8
 
 #define PIM_V2_HELLO            	PIM_HELLO
-#define PIM_V2_REGISTER         	PIM_REGISTER 
+#define PIM_V2_REGISTER         	PIM_REGISTER
 #define PIM_V2_REGISTER_STOP    	PIM_REGISTER_STOP
 #define PIM_V2_JOIN_PRUNE       	PIM_JOIN_PRUNE
 #define PIM_V2_BOOTSTRAP    		PIM_BOOTSTRAP
-#define PIM_V2_ASSERT           	PIM_ASSERT 
+#define PIM_V2_ASSERT           	PIM_ASSERT
 #define PIM_V2_GRAFT            	PIM_GRAFT
 #define PIM_V2_GRAFT_ACK        	PIM_GRAFT_ACK
 #define PIM_V2_CAND_RP_ADV      	PIM_CAND_RP_ADV
@@ -293,7 +293,7 @@ do { \
 						break;   	\
 			} \
 			(masklen) =tmp_masklen;	\
-		} while (0) 
+		} while (0)
 
 #define MASKLEN_TO_MASK6(masklen, mask6) \
      do {\
@@ -481,20 +481,20 @@ do { \
 #define DEFAULT_LOCAL_METRIC 1024		/* assert metrique par default */
 
 
-/*  
+/*
  * TODO: recalculate the messages sizes, probably with regard to the MTU
  * TODO: cleanup
  */
 
 #define MAX_JP_MESSAGE_SIZE     8192
 #define MAX_JP_MESSAGE_POOL_NUMBER 8
-#define MAX_JOIN_LIST_SIZE      1500 
+#define MAX_JOIN_LIST_SIZE      1500
 #define MAX_PRUNE_LIST_SIZE     1500
 
 #define STAR_STAR_RP_MSK6LEN     8 		/* Masklen for
                              			* ff00 ::
                              			* to encode (*,*,RP)
-                             			*/ 
+                             			*/
 
 /* interface independent statistics */
 struct pim6dstat {

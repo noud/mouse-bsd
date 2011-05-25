@@ -42,7 +42,7 @@ Boston, MA 02111-1307, USA.  */
    be considered a "key" and looked up as follows:
 
    -- If this is a Win32 OS, then the Registry will be examined for
-      an entry of "key" in 
+      an entry of "key" in
 
       HKEY_LOCAL_MACHINE\SOFTWARE\Free Software Foundation\
 
@@ -57,7 +57,7 @@ Boston, MA 02111-1307, USA.  */
    as an environment variable, whose value will be returned.
 
    Once all this is done, any '/' will be converted to DIR_SEPARATOR,
-   if they are different. 
+   if they are different.
 
    NOTE:  using resolve_keyed_path under Win32 requires linking with
    advapi32.dll.  */
@@ -304,7 +304,7 @@ update_path (path, key)
       while (path[0] == '@' || path[0] == '$')
 	path = translate_name (path);
     }
-      
+
 #ifdef DIR_SEPARATOR
   if (DIR_SEPARATOR != '/')
     {

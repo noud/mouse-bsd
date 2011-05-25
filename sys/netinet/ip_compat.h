@@ -758,7 +758,7 @@ typedef	struct	uio	{
 #  define	SPL_X(x)
 #  define	SPL_NET(x)
 #  define	SPL_IMP(x)
- 
+
 #  define	bcmp(a,b,c)	memcmp(a,b,c)
 #  define	bcopy(a,b,c)	memcpy(b,a,c)
 #  define	bzero(a,c)	memset(a,0,c)

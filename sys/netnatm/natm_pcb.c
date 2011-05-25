@@ -130,7 +130,7 @@ u_int8_t vpi;
    * lookup required
    */
 
-  for (cpcb = natm_pcbs.lh_first ; cpcb != NULL ; 
+  for (cpcb = natm_pcbs.lh_first ; cpcb != NULL ;
 					cpcb = cpcb->pcblist.le_next) {
     if (ifp == cpcb->npcb_ifp && vci == cpcb->npcb_vci && vpi == cpcb->npcb_vpi)
       break;
@@ -144,14 +144,14 @@ u_int8_t vpi;
     cpcb = NULL;
     goto done;					/* fail */
   }
-    
+
   /*
    * need to allocate a pcb?
    */
 
   if (npcb == NULL) {
     cpcb = npcb_alloc(M_NOWAIT);	/* could be called from lower half */
-    if (cpcb == NULL) 
+    if (cpcb == NULL)
       goto done;			/* fail */
   } else {
     cpcb = npcb;
@@ -182,11 +182,11 @@ int npcb_dump()
   struct natmpcb *cpcb;
 
   printf("npcb dump:\n");
-  for (cpcb = natm_pcbs.lh_first ; cpcb != NULL ; 
+  for (cpcb = natm_pcbs.lh_first ; cpcb != NULL ;
 					cpcb = cpcb->pcblist.le_next) {
     printf("if=%s, vci=%d, vpi=%d, IP=0x%x, sock=%p, flags=0x%x, inq=%d\n",
 	cpcb->npcb_ifp->if_xname, cpcb->npcb_vci, cpcb->npcb_vpi,
-	cpcb->ipaddr.s_addr, cpcb->npcb_socket, 
+	cpcb->ipaddr.s_addr, cpcb->npcb_socket,
 	cpcb->npcb_flags, cpcb->npcb_inq);
   }
   printf("done\n");

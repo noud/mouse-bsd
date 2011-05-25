@@ -1,12 +1,12 @@
 /*	$NetBSD: llc_subr.c,v 1.11 1999/09/10 03:24:14 simonb Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1990, 1991, 1992
- *		Dirk Husemann, Computer Science Department IV, 
+ *		Dirk Husemann, Computer Science Department IV,
  * 		University of Erlangen-Nuremberg, Germany.
  * Copyright (c) 1992, 1993
  *	The Regents of the University of California.  All rights reserved.
- * 
+ *
  * This code is derived from software contributed to Berkeley by
  * Dirk Husemann and the Computer Science Department (IV) of
  * the University of Erlangen-Nuremberg, Germany.
@@ -1012,7 +1012,7 @@ llc_state_NORMAL(linkp, frame, frame_kind, cmdrsp, pollfinal)
 	case LLCFT_INFO + LLC_CMD:
 	case LLCFT_INFO + LLC_RSP:{
 			register int    p = LLC_GETFLAG(linkp,P);
-			register int    nr = 
+			register int    nr =
 				LLCGBITS(frame->llc_control_ext,s_nr);
 
 			if (cmdrsp == LLC_CMD && pollfinal == 1) {
@@ -1059,7 +1059,7 @@ llc_state_NORMAL(linkp, frame, frame_kind, cmdrsp, pollfinal)
 	case LLCFT_RNR + LLC_CMD:
 	case LLCFT_RNR + LLC_RSP:{
 			register int    p = LLC_GETFLAG(linkp,P);
-			register int    nr = 
+			register int    nr =
 				LLCGBITS(frame->llc_control_ext,s_nr);
 
 			if (cmdrsp == LLC_CMD && pollfinal == 1) {
@@ -1224,7 +1224,7 @@ llc_state_BUSY(linkp, frame, frame_kind, cmdrsp, pollfinal)
 	case LLC_INVALID_NS + LLC_CMD:
 	case LLC_INVALID_NS + LLC_RSP:{
 			register int    p = LLC_GETFLAG(linkp,P);
-			register int    nr = 
+			register int    nr =
 				LLCGBITS(frame->llc_control_ext,s_nr);
 
 			if (cmdrsp == LLC_CMD && pollfinal == 1) {

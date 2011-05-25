@@ -344,7 +344,7 @@ template <class _FLT> inline complex<_FLT>
 conj (const complex<_FLT>& x)  __attribute__ ((const));
 
 template <class _FLT> inline complex<_FLT>
-conj (const complex<_FLT>& x) 
+conj (const complex<_FLT>& x)
 {
   return complex<_FLT> (real (x), -imag (x));
 }

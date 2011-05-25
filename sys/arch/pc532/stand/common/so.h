@@ -10,7 +10,7 @@
 struct scsi_args {
 	long ptr [8];
 };
- 
+
 int	sc_rdwt __P((int, int, void *, int, int, int));
 int	scsialive __P((int));
 int	scsi_tt_read __P((int, int, void *, u_int, daddr_t, u_int));

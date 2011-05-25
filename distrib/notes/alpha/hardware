@@ -1,4 +1,4 @@
-.\"	$NetBSD: hardware,v 1.8 1999/02/19 16:41:57 tron Exp $	
+.\"	$NetBSD: hardware,v 1.8 1999/02/19 16:41:57 tron Exp $
 .Pp
 NetBSD/alpha \*V runs on most of the
 .Tn DEC

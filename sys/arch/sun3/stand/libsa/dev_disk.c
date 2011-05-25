@@ -140,7 +140,7 @@ disk_strategy(devdata, flag, dblk, size, buf, rsize)
 
 	dmabuf = dvma_mapin(buf, size);
 	si_flag = (flag == F_READ) ? SAIO_F_READ : SAIO_F_WRITE;
-	
+
 	/*
 	 * The PROM strategy will occasionally return -1 and expect
 	 * us to try again.  From mouse@Collatz.McRCIM.McGill.EDU

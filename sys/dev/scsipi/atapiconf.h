@@ -42,7 +42,7 @@ struct atapi_mode_header;
 struct ataparams;
 
 int	wdc_atapi_get_params __P((struct scsipi_link *, u_int8_t, int,
-	    struct ataparams *)); 
+	    struct ataparams *));
 void	atapi_print_addr __P((struct scsipi_link *));
 int	atapi_interpret_sense __P((struct scsipi_xfer *));
 int	atapi_scsipi_cmd __P((struct scsipi_link *, struct scsipi_generic *,

@@ -108,7 +108,7 @@ spec()
 			set(p, centry);
 			continue;
 		}
-			
+
 		/* Grab file name, "$", "set", or "unset". */
 		if ((p = strtok(p, "\n\t ")) == NULL)
 			mtree_err("missing field");

@@ -97,7 +97,7 @@ uvm_pager_init()
 	/*
 	 * init ASYNC I/O queue
 	 */
-	
+
 	TAILQ_INIT(&uvm.aio_done);
 
 	/*
@@ -150,7 +150,7 @@ ReStart:
 	size = npages << PAGE_SHIFT;
 	kva = NULL;			/* let system choose VA */
 
-	if (uvm_map(pager_map, &kva, size, NULL, 
+	if (uvm_map(pager_map, &kva, size, NULL,
 	      UVM_UNKNOWN_OFFSET, UVM_FLAG_NOMERGE) != KERN_SUCCESS) {
 		if (waitf == M_NOWAIT) {
 			if (aio)
@@ -159,9 +159,9 @@ ReStart:
 			return(NULL);
 		}
 		simple_lock(&pager_map_wanted_lock);
-		pager_map_wanted = TRUE; 
+		pager_map_wanted = TRUE;
 		UVMHIST_LOG(maphist, "  SLEEPING on pager_map",0,0,0,0);
-		UVM_UNLOCK_AND_WAIT(pager_map, &pager_map_wanted_lock, FALSE, 
+		UVM_UNLOCK_AND_WAIT(pager_map, &pager_map_wanted_lock, FALSE,
 		    "pager_map",0);
 		goto ReStart;
 	}
@@ -202,7 +202,7 @@ uvm_pagermapout(kva, npages)
 	vsize_t size = npages << PAGE_SHIFT;
 	vm_map_entry_t entries;
 	UVMHIST_FUNC("uvm_pagermapout"); UVMHIST_CALLED(maphist);
-	
+
 	UVMHIST_LOG(maphist, " (kva=0x%x, npages=%d)", kva, npages,0,0);
 
 	/*
@@ -258,7 +258,7 @@ uvm_mk_pcluster(uobj, pps, npages, center, flags, mlo, mhi)
 	int center_idx, forward;
 	UVMHIST_FUNC("uvm_mk_pcluster"); UVMHIST_CALLED(maphist);
 
-	/* 
+	/*
 	 * center page should already be busy and write protected.  XXX:
 	 * suppose page is wired?  if we lock, then a process could
 	 * fault/block on it.  if we don't lock, a process could write the
@@ -295,10 +295,10 @@ uvm_mk_pcluster(uobj, pps, npages, center, flags, mlo, mhi)
 	pps[center_idx] = center;	/* plug in the center page */
 	ppsp = &pps[center_idx];
 	*npages = 1;
-	
+
 	/*
-	 * attempt to cluster around the left [backward], and then 
-	 * the right side [forward].    
+	 * attempt to cluster around the left [backward], and then
+	 * the right side [forward].
 	 *
 	 * note that for inactive pages (pages that have been deactivated)
 	 * there are no valid mappings and PG_CLEAN should be up to date.
@@ -353,7 +353,7 @@ uvm_mk_pcluster(uobj, pps, npages, center, flags, mlo, mhi)
 			*npages = *npages + 1;
 		}
 	}
-	
+
 	/*
 	 * done!  return the cluster array to the caller!!!
 	 */
@@ -380,7 +380,7 @@ uvm_shareprot(entry, prot)
 	vaddr_t start, stop;
 	UVMHIST_FUNC("uvm_shareprot"); UVMHIST_CALLED(maphist);
 
-	if (UVM_ET_ISSUBMAP(entry)) 
+	if (UVM_ET_ISSUBMAP(entry))
 		panic("uvm_shareprot: non-object attached");
 
 	start = entry->offset;
@@ -423,7 +423,7 @@ uvm_shareprot(entry, prot)
  *	1. we return the VM_PAGER status code of the pageout
  *	2. we return with the page queues unlocked
  *	3. if (uobj != NULL) [!swap_backed] we return with
- *		uobj locked _only_ if PGO_PDFREECLUST is set 
+ *		uobj locked _only_ if PGO_PDFREECLUST is set
  *		AND result != VM_PAGER_PEND.   in all other cases
  *		we return with uobj unlocked.   [this is a hack
  *		that allows the pagedaemon to save one lock/unlock
@@ -511,7 +511,7 @@ ReTry:
 	 * we have attempted the I/O.
 	 *
 	 * if the I/O was a success then:
-	 * 	if !PGO_PDFREECLUST, we return the cluster to the 
+	 * 	if !PGO_PDFREECLUST, we return the cluster to the
 	 *		caller (who must un-busy all pages)
 	 *	else we un-busy cluster pages for the pagedaemon
 	 *
@@ -607,18 +607,18 @@ ReTry:
 	 * was one).    give up!   the caller only has one page ("pg")
 	 * to worry about.
 	 */
-	
+
 	if (uobj && (flags & PGO_PDFREECLUST) != 0)
 		simple_lock(&uobj->vmobjlock);
 	return(result);
 }
 
 /*
- * uvm_pager_dropcluster: drop a cluster we have built (because we 
+ * uvm_pager_dropcluster: drop a cluster we have built (because we
  * got an error, or, if PGO_PDFREECLUST we are un-busying the
  * cluster pages on behalf of the pagedaemon).
  *
- * => uobj, if non-null, is a non-swap-backed object that is 
+ * => uobj, if non-null, is a non-swap-backed object that is
  *	locked by the caller.   we return with this object still
  *	locked.
  * => page queues are not locked
@@ -626,7 +626,7 @@ ReTry:
  * => ppsp/npages is our current cluster
  * => flags: PGO_PDFREECLUST: pageout was a success: un-busy cluster
  *	pages on behalf of the pagedaemon.
- *           PGO_REALLOCSWAP: drop previously allocated swap slots for 
+ *           PGO_REALLOCSWAP: drop previously allocated swap slots for
  *		clustered swap-backed pages (except for "pg" if !NULL)
  *		"swblk" is the start of swap alloc (e.g. for ppsp[0])
  *		[only meaningful if swap-backed (uobj == NULL)]
@@ -640,7 +640,7 @@ uvm_pager_dropcluster(uobj, pg, ppsp, npages, flags)
 	int flags;
 {
 	int lcv;
-	boolean_t obj_is_alive; 
+	boolean_t obj_is_alive;
 	struct uvm_object *saved_uobj;
 
 	/*
@@ -651,7 +651,7 @@ uvm_pager_dropcluster(uobj, pg, ppsp, npages, flags)
 
 		if (ppsp[lcv] == pg)		/* skip "pg" */
 			continue;
-	
+
 		/*
 		 * if swap-backed, gain lock on object that owns page.  note
 		 * that PQ_ANON bit can't change as long as we are holding
@@ -708,7 +708,7 @@ uvm_pager_dropcluster(uobj, pg, ppsp, npages, flags)
 			saved_uobj = ppsp[lcv]->uobject;
 			obj_is_alive =
 			    saved_uobj->pgops->pgo_releasepg(ppsp[lcv], NULL);
-			
+
 #ifdef DIAGNOSTIC
 			/* for normal objects, "pg" is still PG_BUSY by us,
 			 * so obj can't die */
@@ -734,7 +734,7 @@ uvm_pager_dropcluster(uobj, pg, ppsp, npages, flags)
 		}
 
 		/*
-		 * if we are operating on behalf of the pagedaemon and we 
+		 * if we are operating on behalf of the pagedaemon and we
 		 * had a successful pageout update the page!
 		 */
 		if (flags & PGO_PDFREECLUST) {

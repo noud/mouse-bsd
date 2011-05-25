@@ -1,16 +1,16 @@
 /*  armrdi.c -- ARMulator RDI interface:  ARM6 Instruction Emulator.
     Copyright (C) 1994 Advanced RISC Machines Ltd.
- 
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
- 
+
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
- 
+
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
@@ -105,10 +105,10 @@ void ARMul_ConsolePrint(ARMul_State *state, const char *format, ...)
   vsprintf(buf, format, ap);
 
   for (i = 0; buf[i] ;i++);  /* The string is i chars long */
-  
+
   str = buf;
   while (i >= 32) {
-    MYwrite_char(kidmum[1], RDP_OSOp); 
+    MYwrite_char(kidmum[1], RDP_OSOp);
     MYwrite_word(kidmum[1], SWI_Write0);
     MYwrite_char(kidmum[1], OS_SendString);
     MYwrite_char(kidmum[1], 32); /* Send string 32bytes at a time */
@@ -117,7 +117,7 @@ void ARMul_ConsolePrint(ARMul_State *state, const char *format, ...)
     wait_for_osreply(&junk);
     i -= 32;
   }
-  
+
   if (i > 0) {
     MYwrite_char(kidmum[1], RDP_OSOp);
     MYwrite_word(kidmum[1], SWI_Write0);
@@ -407,7 +407,7 @@ static int RDI_CPUwrite(unsigned mode, unsigned long mask, ARMword const buffer[
 
 static int RDI_CPread(unsigned CPnum, unsigned long mask, ARMword buffer[])
 {ARMword fpregsaddr, word[4] ;
- 
+
  unsigned r, w ;
  unsigned upto ;
 

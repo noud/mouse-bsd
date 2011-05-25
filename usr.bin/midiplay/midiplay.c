@@ -72,8 +72,8 @@ struct track {
 #define META_SMPTE	0x54
 #define META_TIMESIGN	0x58
 
-char *metanames[] = { 
-	"", "Text", "Copyright", "Track", "Instrument", 
+char *metanames[] = {
+	"", "Text", "Copyright", "Track", "Instrument",
 	"Lyric", "Marker", "Cue",
 };
 
@@ -100,10 +100,10 @@ extern char *__progname;
 #define E 0x40
 #define F 0x41
 
-u_char sample[] = { 
+u_char sample[] = {
 	'M','T','h','d',  0,0,0,6,  0,1,  0,1,  0,8,
 	'M','T','r','k',  0,0,0,4+13*8,
-	P(C), P(C), P(C), P(E), P(D), P(D), P(D), 
+	P(C), P(C), P(C), P(E), P(D), P(D), P(D),
 	P(F), P(E), P(E), P(D), P(D), PL(C),
 	0, 0xff, 0x2f, 0
 };
@@ -149,7 +149,7 @@ send_event(ev)
 {
 	/*
 	printf("%02x %02x %02x %02x %02x %02x %02x %02x\n",
-	       ev->arr[0], ev->arr[1], ev->arr[2], ev->arr[3], 
+	       ev->arr[0], ev->arr[1], ev->arr[2], ev->arr[3],
 	       ev->arr[4], ev->arr[5], ev->arr[6], ev->arr[7]);
 	*/
 	if (play)
@@ -255,7 +255,7 @@ playfile(f, name)
 	u_char *buf;
 	u_int tot, n, size, nread;
 
-	/* 
+	/*
 	 * We need to read the whole file into memory for easy processing.
 	 * Using mmap() would be nice, but some file systems do not support
 	 * it, nor does reading from e.g. a pipe.  The latter also precludes
@@ -349,7 +349,7 @@ playdata(buf, tot, name)
 		p += MARK_LEN + SIZE_LEN + len;
 	}
 
-	/* 
+	/*
 	 * Play MIDI events by selecting the track track with the lowest
 	 * curtime.  Execute the event, update the curtime and repeat.
 	 */
@@ -414,7 +414,7 @@ playdata(buf, tot, name)
 			    if (mlen == 1)
 				printf("MIDI %02x (%d) %02x\n",
 				       tp->status, mlen, msg[0]);
-			    else   
+			    else
 				printf("MIDI %02x (%d) %02x %02x\n",
 				       tp->status, mlen, msg[0], msg[1]);
 			}
@@ -429,20 +429,20 @@ playdata(buf, tot, name)
 				send_event(&event);
 				break;
 			case MIDI_CTL_CHANGE:
-				SEQ_MK_CHN_COMMON(&event, unit, status, chan, 
+				SEQ_MK_CHN_COMMON(&event, unit, status, chan,
 						  msg[0], 0, msg[1]);
 				send_event(&event);
 				break;
 			case MIDI_PGM_CHANGE:
 			case MIDI_CHN_PRESSURE:
-				SEQ_MK_CHN_COMMON(&event, unit, status, chan, 
+				SEQ_MK_CHN_COMMON(&event, unit, status, chan,
 						  msg[0], 0, 0);
 				send_event(&event);
 				break;
 			case MIDI_PITCH_BEND:
-				SEQ_MK_CHN_COMMON(&event, unit, status, chan, 
-						  0, 0, 
-						  (msg[0] & 0x7f) | 
+				SEQ_MK_CHN_COMMON(&event, unit, status, chan,
+						  0, 0,
+						  (msg[0] & 0x7f) |
 						  ((msg[1] & 0x7f) << 7));
 				send_event(&event);
 				break;
@@ -519,7 +519,7 @@ main(argc, argv)
 	}
 	argc -= optind;
 	argv += optind;
-    
+
 	fd = open(file, O_WRONLY);
 	if (fd < 0)
 		err(1, "%s", file);

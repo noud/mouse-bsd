@@ -77,7 +77,7 @@
  * address space, and the return from the allocation routine
  * can accommodate at most 2047 (ubavar.h: UBA_MAXMR);
  * QBAPAGES must be at least UBAPAGES.	Choose pragmatically.
- * 
+ *
  * Is there ever any need to have QBAPAGES != UBAPAGES???
  * Wont work now anyway, QBAPAGES _must_ be .eq. UBAPAGES.
  */
@@ -158,7 +158,7 @@ struct uba_regs {
 #define UBABRRVR_AIRI	0x80000000	/* adapter interrupt request */
 #define UBABRRVR_DIV	0x0000ffff	/* device interrupt vector field */
 #endif
- 
+
 /* uba_dpr */
 #ifdef DW780
 #define UBADPR_BNE	0x80000000	/* buffer not empty - purge */

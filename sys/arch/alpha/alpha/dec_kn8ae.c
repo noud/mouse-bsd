@@ -155,7 +155,7 @@ dec_kn8ae_device_register(dev, aux)
 
 			if ((b->slot / 1000) != pba->pba_bus)
 				return;
-	
+
 			pcidev = dev;
 #if	BDEBUG
 			printf("\npcidev = %s\n", pcidev->dv_xname);
@@ -174,7 +174,7 @@ dec_kn8ae_device_register(dev, aux)
 				return;
 
 			/* XXX function? */
-	
+
 			scsidev = dev;
 #if	BDEBUG
 			printf("\nscsidev = %s\n", scsidev->dv_xname);
@@ -225,7 +225,7 @@ dec_kn8ae_device_register(dev, aux)
 				return;
 
 			/* XXX function? */
-	
+
 			booted_device = dev;
 #if	BDEBUG
 			printf("\nbooted_device = %s\n", booted_device->dv_xname);
@@ -358,9 +358,9 @@ kn8ae_harderr(mces, type, logout, framep)
 	printf(fmt1, "Fill Syndrome", mptr->fill_syndrome);
 	printf(fmt1, "Interrupt Status Reg.", mptr->isr);
 	printf("\n");
-	dof_cnt = (ptr->rsvdheader & 0xffffffff00000000) >> 32; 
+	dof_cnt = (ptr->rsvdheader & 0xffffffff00000000) >> 32;
 	cpuwerr = ptr->rsvdheader & 0xffff;
-	
+
 	printf(fmt1, "CPU W/Error.", cpuwerr);
 	printf(fmt1, "DOF Count.", dof_cnt);
 	printf(fmt1, "TLDEV", ptr->tldev);
@@ -440,9 +440,9 @@ kn8ae_softerr(mces, type, logout, framep)
 	printf(fmt1, "Fill Syndrome", mptr->fill_syndrome);
 	printf(fmt1, "Interrupt Status Reg.", mptr->isr);
 	printf("\n");
-	dof_cnt = (ptr->rsvdheader & 0xffffffff00000000) >> 32; 
+	dof_cnt = (ptr->rsvdheader & 0xffffffff00000000) >> 32;
 	cpuwerr = ptr->rsvdheader & 0xffff;
-	
+
 	printf(fmt1, "CPU W/Error.", cpuwerr);
 	printf(fmt1, "DOF Count.", dof_cnt);
 	printf(fmt1, "TLDEV", ptr->tldev);

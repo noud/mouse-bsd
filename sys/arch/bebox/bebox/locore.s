@@ -104,7 +104,7 @@ __start:
 
 /*
  * Cpu detect.
- * 
+ *
  */
 	lis	8, 0x7FFF
 	ori	8, 8, 0xF3F0
@@ -166,7 +166,7 @@ __start_cpu0:
 	mr	4,1			/* end of mem reserved for kernel */
 	xor	0,0,0
 	stwu	0,-16(1)		/* end of stack chain */
-	
+
 	lis	3,__start@ha
 	addi	3,3,__start@l
 
@@ -189,11 +189,11 @@ ASENTRY(Idle)
 
 	or.	9,9,9
 	bne-	.Lsw1			/* at least one queue non-empty */
-	
+
 	ori	3,3,PSL_EE@l		/* reenable ints again */
 	mtmsr	3
 	isync
-	
+
 /* May do some power saving here? */
 
 	b	_ASM_LABEL(Idle)
@@ -258,7 +258,7 @@ ENTRY(cpu_switch)
 	addi	4,4,_C_LABEL(qs)@l
 	slwi	3,10,3
 	add	3,3,4			/* select queue */
-	
+
 	lwz	31,P_FORW(3)		/* unlink first proc from queue */
 	lwz	4,P_FORW(31)
 	stw	4,P_FORW(3)
@@ -381,7 +381,7 @@ GLOBAL(intr_depth)
 
 /*
  * This code gets copied to all the trap vectors
- * (except ISI/DSI, ALI, the interrupts, and possibly the debugging 
+ * (except ISI/DSI, ALI, the interrupts, and possibly the debugging
  * traps when using IPKDB).
  */
 	.text
@@ -1297,10 +1297,10 @@ _C_LABEL(ipkdbsbyte):
 	stw	5,0(9)			/* restore previous fault handler */
 	dcbst	0,9			/* and flush data... */
 	sync
-	icbi	0,9			/* and instruction caches */	
+	icbi	0,9			/* and instruction caches */
 	blr
 #endif	/* NIPKDB > 0 */
-	
+
 /*
  * int setfault()
  *

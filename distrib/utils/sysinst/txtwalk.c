@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -111,7 +111,7 @@ match(line, these, numthese)
 	int patlen;		/* Pattern length */
 	int which;		/* Which pattern we are using */
 
-	linelen = strlen(line); 	
+	linelen = strlen(line);
 
 	for (which = 0; which < numthese; which++) {
 		patlen = strlen(these[which].head);
@@ -133,7 +133,7 @@ process(this, line)
 	int numfound = 0;
 	char *p;
 	int   i, j;
-	
+
 	if (finddata(this, line, found, &numfound)) {
 #ifdef DEBUG
 		printf("process: \"%s\"\n", line);
@@ -256,7 +256,7 @@ finddata(this, line, found, numfound )
 			default:
 				return 0;
 			}
-			
+
 		} else if (*fmt == ' ') {
 			while (*line && isspace(*line))
 				line++;
@@ -268,13 +268,13 @@ finddata(this, line, found, numfound )
 		}
 		fmt++;
 	}
-	
+
 	/* Ran out of fmt. */
 	return 1;
 }
 
 /*
- * Utility routines.... 
+ * Utility routines....
  */
 
 static char *
@@ -284,7 +284,7 @@ strndup(str, len)
 {
 	int alen;
 	char *val;
-	
+
 	alen = strlen(str);
 	alen = len < alen ? len + 1 : alen + 1;
 	val = (char *)malloc(alen);

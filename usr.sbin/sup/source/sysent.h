@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1991 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -31,16 +31,16 @@
  * 	Removed include of sys/features.h as it is no longer
  * 	exported or needed.
  * 	[89/12/05            mrt]
- * 
+ *
  * Revision 2.3  89/01/20  15:44:24  gm0w
  * 	Added externs to the non-STDC case for functions that do not
  * 	have int return values.
  * 	[88/12/17            gm0w]
- * 
+ *
  * Revision 2.2  88/12/14  23:35:52  mja
  * 	Created.
  * 	[88/01/06            jjk]
- * 
+ *
  **********************************************************************
  */
 

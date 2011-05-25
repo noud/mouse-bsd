@@ -108,7 +108,7 @@ extern void quit PARAMS ((void));
 #endif
 
 /* Command classes are top-level categories into which commands are broken
-   down for "help" purposes.  
+   down for "help" purposes.
    Notes on classes: class_alias is for alias commands which are not
    abbreviations of the original command.  class-pseudo is for commands
    which are not really commands nor help topics ("stop").  */
@@ -129,7 +129,7 @@ enum command_class
    be forward declared to satisfy opaque references before their
    actual definition, needs to be here. */
 
-enum language 
+enum language
 {
    language_unknown, 		/* Language not known */
    language_auto,		/* Placeholder for automatic setting */
@@ -589,7 +589,7 @@ enum val_prettyprint
 
 extern int longest_to_int PARAMS ((LONGEST));
 
-/* Assorted functions we can declare, now that const and volatile are 
+/* Assorted functions we can declare, now that const and volatile are
    defined.  */
 
 extern char *savestring PARAMS ((const char *, int));
@@ -767,7 +767,7 @@ extern const bfd_arch_info_type *target_architecture;
 extern void set_architecture_from_file PARAMS ((bfd *));
 /* Notify target of a change to the selected architecture. Zero return
    status indicates that the target did not like the change. */
-extern int (*target_architecture_hook) PARAMS ((const bfd_arch_info_type *ap)); 
+extern int (*target_architecture_hook) PARAMS ((const bfd_arch_info_type *ap));
 extern void set_architecture_from_arch_mach PARAMS ((enum bfd_architecture arch, unsigned long mach));
 
 /* Number of bits in a char or unsigned char for the target machine.

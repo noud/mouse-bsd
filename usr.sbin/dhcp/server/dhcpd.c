@@ -112,7 +112,7 @@ int main (argc, argv, envp)
 	setlogmask (LOG_UPTO (LOG_INFO));
 #endif
 #endif
-#endif	
+#endif
 
 	for (i = 1; i < argc; i++) {
 		if (!strcmp (argv [i], "-p")) {
@@ -199,7 +199,7 @@ int main (argc, argv, envp)
 		endservent ();
 #endif
 	}
-  
+
 	remote_port = htons (ntohs (local_port) + 1);
 
 	/* Get the current time... */
@@ -210,7 +210,7 @@ int main (argc, argv, envp)
 		error ("Configuration file errors encountered -- exiting");
 
         /* test option should cause an early exit */
- 	if (cftest) 
+ 	if (cftest)
  		exit(0);
 
 	/* Start up the database... */

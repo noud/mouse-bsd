@@ -338,7 +338,7 @@ product LOGITECH N48		0xc001	N48 mouse
 product LOGITECH MBA47		0xc002	M-BA47 mouse
 product LOGITECH WMMOUSE	0xc004	WingMan Gaming Mouse
 product LOGITECH WMPAD		0xc208	WingMan GamePad Extreme
-product LOGITECH WMJOY		0xc281	WingMan Force joystick 
+product LOGITECH WMJOY		0xc281	WingMan Force joystick
 
 /* Lucent products */
 product LUCENT EVALKIT		0x1001	USS-720 evaluation kit

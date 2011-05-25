@@ -350,7 +350,7 @@ Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 .	sp \\n[cov*sp]u
 .	cov*au-div!\\n[cov*i]
 .	ie d cov*ai-div!\\n[cov*i] \{\
-.		sp .5v	
+.		sp .5v
 .		cov*ai-div!\\n[cov*i]
 .		nr cov*sp 1v
 .	\}

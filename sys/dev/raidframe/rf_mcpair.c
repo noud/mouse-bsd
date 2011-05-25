@@ -52,7 +52,7 @@ static void rf_ShutdownMCPair(void *);
 
 
 
-static int 
+static int
 init_mcpair(t)
 	RF_MCPair_t *t;
 {
@@ -74,7 +74,7 @@ init_mcpair(t)
 	return (0);
 }
 
-static void 
+static void
 clean_mcpair(t)
 	RF_MCPair_t *t;
 {
@@ -82,14 +82,14 @@ clean_mcpair(t)
 	rf_cond_destroy(&t->cond);
 }
 
-static void 
+static void
 rf_ShutdownMCPair(ignored)
 	void   *ignored;
 {
 	RF_FREELIST_DESTROY_CLEAN(rf_mcpair_freelist, next, (RF_MCPair_t *), clean_mcpair);
 }
 
-int 
+int
 rf_ConfigureMCPair(listp)
 	RF_ShutdownList_t **listp;
 {
@@ -122,14 +122,14 @@ rf_AllocMCPair()
 	return (t);
 }
 
-void 
+void
 rf_FreeMCPair(t)
 	RF_MCPair_t *t;
 {
 	RF_FREELIST_FREE_CLEAN(rf_mcpair_freelist, t, next, clean_mcpair);
 }
 /* the callback function used to wake you up when you use an mcpair to wait for something */
-void 
+void
 rf_MCPairWakeupFunc(mcpair)
 	RF_MCPair_t *mcpair;
 {

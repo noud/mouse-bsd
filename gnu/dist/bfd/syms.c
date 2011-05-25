@@ -527,7 +527,7 @@ static CONST struct section_to_type stt[] =
 };
 
 /* Return the single-character symbol type corresponding to
-   section S, or '?' for an unknown COFF section.  
+   section S, or '?' for an unknown COFF section.
 
    Check for any leading string which matches, so .text5 returns
    't' as well as .text */
@@ -538,7 +538,7 @@ coff_section_type (s)
 {
   CONST struct section_to_type *t;
 
-  for (t = &stt[0]; t->section; t++) 
+  for (t = &stt[0]; t->section; t++)
     if (!strncmp (s, t->section, strlen (t->section)))
       return t->type;
 

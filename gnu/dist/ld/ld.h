@@ -108,7 +108,7 @@ extern args_type command_line;
 
 typedef int token_code_type;
 
-typedef struct 
+typedef struct
 {
   bfd_size_type specified_data_size;
   boolean magic_demand_paged;

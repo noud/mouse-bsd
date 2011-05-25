@@ -68,7 +68,7 @@ cttyopen(dev, flag, mode, p)
 	 * Since group is tty and mode is 620 on most terminal lines
 	 * and since sessions protect terminals from processes outside
 	 * your session, this check is probably no longer necessary.
-	 * Since it inhibits setuid root programs that later switch 
+	 * Since it inhibits setuid root programs that later switch
 	 * to another user from accessing /dev/tty, we have decided
 	 * to delete this test. (mckusick 5/93)
 	 */

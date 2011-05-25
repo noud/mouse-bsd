@@ -92,8 +92,8 @@ OF_finddevice(name)
 		"finddevice",
 		1,
 		1,
-	};	
-	
+	};
+
 	args.device = name;
 	openfirmware(&args);
 
@@ -121,7 +121,7 @@ OF_getprop(handle, prop, buf, buflen)
 		4,
 		1,
 	};
-	
+
 	args.phandle = handle;
 	args.prop = prop;
 	args.buf = buf;
@@ -146,7 +146,7 @@ OF_open(dname)
 		1,
 		1,
 	};
-	
+
 	args.dname = dname;
 	openfirmware(&args);
 
@@ -199,7 +199,7 @@ OF_seek(handle, pos)
 		3,
 		1,
 	};
-	
+
 	args.handle = handle;
 	args.poshi = (int)(pos >> 32);
 	args.poslo = (int)pos;

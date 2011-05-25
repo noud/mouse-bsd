@@ -282,7 +282,7 @@ main(argc, argv)
 				else
 				{
 					register struct passwd *pw;
-					
+
 					TrustedUid = 0;
 					pw = getpwnam(b);
 					if (pw == NULL)
@@ -291,7 +291,7 @@ main(argc, argv)
 					else
 						TrustedUid = pw->pw_uid;
 				}
-				
+
 # ifdef UID_MAX
 				if (TrustedUid > UID_MAX)
 				{
@@ -550,18 +550,18 @@ main(argc, argv)
 		dbinfo.h_nelem = 4096;
 		dbinfo.db_cachesize = dbcachesize;
 # endif
-		
+
 # if DB_VERSION_MAJOR < 2
 		dbp.db = dbopen(mapname, mode, 0644, DB_HASH, &hinfo);
 # else
 		{
 			int flags = 0;
-			
+
 			if (bitset(O_CREAT, mode))
 				flags |= DB_CREATE;
 			if (bitset(O_TRUNC, mode))
 				flags |= DB_TRUNCATE;
-			
+
 			dbp.db = NULL;
 			errno = db_open(mapname, DB_HASH, flags, 0644,
 					NULL, &dbinfo, &dbp.db);
@@ -570,7 +570,7 @@ main(argc, argv)
 		if (dbp.db != NULL)
 		{
 			int fd;
-			
+
 # if DB_VERSION_MAJOR < 2
 			fd = dbp.db->fd(dbp.db);
 # else
@@ -617,12 +617,12 @@ main(argc, argv)
 # else
 		{
 			int flags = 0;
-			
+
 			if (bitset(O_CREAT, mode))
 				flags |= DB_CREATE;
 			if (bitset(O_TRUNC, mode))
 				flags |= DB_TRUNCATE;
-			
+
 			dbp.db = NULL;
 			errno = db_open(mapname, DB_BTREE, flags, 0644,
 					NULL, &dbinfo, &dbp.db);
@@ -631,7 +631,7 @@ main(argc, argv)
 		if (dbp.db != NULL)
 		{
 			int fd;
-			
+
 # if DB_VERSION_MAJOR < 2
 			fd = dbp.db->fd(dbp.db);
 # else
@@ -704,7 +704,7 @@ main(argc, argv)
 				progname, mapname, lineno, (long) sizeof ibuf);
 			continue;
 		}
-			
+
 		if (ibuf[0] == '\0' || ibuf[0] == '#')
 			continue;
 		if (isascii(ibuf[0]) && isspace(ibuf[0]))

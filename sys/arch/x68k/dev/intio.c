@@ -281,7 +281,7 @@ intio_map_allocate_region(parent, ia, flag)
 		if (flag != INTIO_MAP_ALLOCATE)
 		extent_free (map, ia->ia_addr, ia->ia_size, 0);
 		return 0;
-	} 
+	}
 
 	return -1;
 }
@@ -512,7 +512,7 @@ _intio_bus_dmamap_create(t, size, nsegments, maxsegsz, boundary, flags, dmamp)
 	 * DMAC), we may have to bounce it as well.
 	 */
 	if (avail_end <= t->_bounce_thresh)
-		/* Bouncing not necessary due to memory size. */ 
+		/* Bouncing not necessary due to memory size. */
 		map->x68k_dm_bounce_thresh = 0;
 	cookieflags = 0;
 	if (map->x68k_dm_bounce_thresh != 0 ||
@@ -580,7 +580,7 @@ _intio_bus_dmamap_destroy(t, map)
 int
 _intio_bus_dmamap_load(t, map, buf, buflen, p, flags)
 	bus_dma_tag_t t;
-	bus_dmamap_t map; 
+	bus_dmamap_t map;
 	void *buf;
 	bus_size_t buflen;
 	struct proc *p;
@@ -641,7 +641,7 @@ _intio_bus_dmamap_load(t, map, buf, buflen, p, flags)
  * Like _intio_bus_dmamap_load(), but for mbufs.
  */
 int
-_intio_bus_dmamap_load_mbuf(t, map, m0, flags)  
+_intio_bus_dmamap_load_mbuf(t, map, m0, flags)
 	bus_dma_tag_t t;
 	bus_dmamap_t map;
 	struct mbuf *m0;

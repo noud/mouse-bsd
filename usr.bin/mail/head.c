@@ -179,8 +179,8 @@ isdate(date)
 	char date[];
 {
 
-	return cmatch(date, ctype) || 
-	       cmatch(date, tmztype) || 
+	return cmatch(date, ctype) ||
+	       cmatch(date, tmztype) ||
 	       cmatch(date, SysV_tmztype) || cmatch(date, SysV_ctype);
 }
 

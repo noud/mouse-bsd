@@ -185,10 +185,10 @@ static struct complaint storclass_complaint =
 static struct complaint bf_notfound_complaint =
   {"line numbers off, `.bf' symbol not found", 0, 0};
 
-static struct complaint ef_complaint = 
+static struct complaint ef_complaint =
   {"Mismatched .ef symbol ignored starting at symnum %d", 0, 0};
 
-static struct complaint eb_complaint = 
+static struct complaint eb_complaint =
   {"Mismatched .eb symbol ignored starting at symnum %d", 0, 0};
 
 static void
@@ -336,7 +336,7 @@ struct pending_stabs **stabvector;
 {
   if ( *stabvector == NULL) {
     *stabvector = (struct pending_stabs *)
-	xmalloc (sizeof (struct pending_stabs) + 
+	xmalloc (sizeof (struct pending_stabs) +
 			INITIAL_STABVECTOR_LENGTH * sizeof (char*));
     (*stabvector)->count = 0;
     (*stabvector)->length = INITIAL_STABVECTOR_LENGTH;
@@ -344,7 +344,7 @@ struct pending_stabs **stabvector;
   else if ((*stabvector)->count >= (*stabvector)->length) {
     (*stabvector)->length += INITIAL_STABVECTOR_LENGTH;
     *stabvector = (struct pending_stabs *)
-	xrealloc ((char *) *stabvector, sizeof (struct pending_stabs) + 
+	xrealloc ((char *) *stabvector, sizeof (struct pending_stabs) +
 	(*stabvector)->length * sizeof (char*));
   }
   (*stabvector)->stab [(*stabvector)->count++] = stabname;
@@ -363,7 +363,7 @@ struct pending_stabs **stabvector;
        can do some garbage collection (I think). This makes line
        numbers and corresponding addresses unordered, and we end up
        with a line table like:
-       
+
 
 		lineno	addr
         foo()	  10	0x100
@@ -377,19 +377,19 @@ struct pending_stabs **stabvector;
 	static foo2()
 		  40	0x700
 		  50	0x800
-		  60	0x900		
+		  60	0x900
 
 	and that breaks gdb's binary search on line numbers, if the
 	above table is not sorted on line numbers. And that sort
 	should be on function based, since gcc can emit line numbers
 	like:
-	
+
 		10	0x100	- for the init/test part of a for stmt.
 		20	0x200
 		30	0x300
 		10	0x400	- for the increment part of a for stmt.
 
-	arrange_linetable() will do this sorting.		
+	arrange_linetable() will do this sorting.
 
      2)	aix symbol table might look like:
 
@@ -427,7 +427,7 @@ static struct linetable *
 arrange_linetable (oldLineTb)
      struct linetable *oldLineTb;			/* old linetable */
 {
-  int ii, jj, 
+  int ii, jj,
       newline, 					/* new line count */
       function_count;				/* # of functions */
 
@@ -447,7 +447,7 @@ arrange_linetable (oldLineTb)
 
       if (function_count >= fentry_size) {	/* make sure you have room. */
 	fentry_size *= 2;
-	fentry = (struct linetable_entry*) 
+	fentry = (struct linetable_entry*)
 	  xrealloc (fentry, fentry_size * sizeof (struct linetable_entry));
       }
       fentry[function_count].line = ii;
@@ -466,7 +466,7 @@ arrange_linetable (oldLineTb)
   /* allocate a new line table. */
   newLineTb = (struct linetable *)
     xmalloc
-      (sizeof (struct linetable) + 
+      (sizeof (struct linetable) +
        (oldLineTb->nitems - function_count) * sizeof (struct linetable_entry));
 
   /* if line table does not start with a function beginning, copy up until
@@ -474,7 +474,7 @@ arrange_linetable (oldLineTb)
 
   newline = 0;
   if (oldLineTb->item[0].line != 0)
-    for (newline=0; 
+    for (newline=0;
 	newline < oldLineTb->nitems && oldLineTb->item[newline].line; ++newline)
       newLineTb->item[newline] = oldLineTb->item[newline];
 
@@ -482,16 +482,16 @@ arrange_linetable (oldLineTb)
 
   for (ii=0; ii < function_count; ++ii) {
     for (jj = fentry[ii].line + 1;
-	         jj < oldLineTb->nitems && oldLineTb->item[jj].line != 0; 
+	         jj < oldLineTb->nitems && oldLineTb->item[jj].line != 0;
 							 ++jj, ++newline)
       newLineTb->item[newline] = oldLineTb->item[jj];
   }
   free (fentry);
   newLineTb->nitems = oldLineTb->nitems - function_count;
-  return newLineTb;  
-}     
+  return newLineTb;
+}
 
-/* include file support: C_BINCL/C_EINCL pairs will be kept in the 
+/* include file support: C_BINCL/C_EINCL pairs will be kept in the
    following `IncludeChain'. At the end of each symtab (end_symtab),
    we will determine if we should create additional symtab's to
    represent if (the include files. */
@@ -503,7 +503,7 @@ typedef struct _inclTable {
   /* Offsets to the line table.  end points to the last entry which is
      part of this include file.  */
   int		begin, end;
-  
+
   struct subfile *subfile;
   unsigned	funStartLine;			/* start line # of its function */
 } InclTable;
@@ -543,7 +543,7 @@ static void
 record_include_end (cs)
 struct coff_symbol *cs;
 {
-  InclTable *pTbl;  
+  InclTable *pTbl;
 
   if (inclDepth == 0)
     {
@@ -565,7 +565,7 @@ allocate_include_entry ()
 {
   if (inclTable == NULL)
     {
-      inclTable = (InclTable *) 
+      inclTable = (InclTable *)
 	xmalloc (sizeof (InclTable) * INITIAL_INCLUDE_TABLE_LENGTH);
       memset (inclTable,
 	      '\0', sizeof (InclTable) * INITIAL_INCLUDE_TABLE_LENGTH);
@@ -575,9 +575,9 @@ allocate_include_entry ()
   else if (inclIndx >= inclLength)
     {
       inclLength += INITIAL_INCLUDE_TABLE_LENGTH;
-      inclTable = (InclTable *) 
+      inclTable = (InclTable *)
 	xrealloc (inclTable, sizeof (InclTable) * inclLength);
-      memset (inclTable + inclLength - INITIAL_INCLUDE_TABLE_LENGTH, 
+      memset (inclTable + inclLength - INITIAL_INCLUDE_TABLE_LENGTH,
 	      '\0', sizeof (InclTable)*INITIAL_INCLUDE_TABLE_LENGTH);
     }
 }
@@ -620,7 +620,7 @@ process_linenos (start, end)
   if (inclIndx == 0)
     /* All source lines were in the main source file. None in include files. */
 
-    enter_line_range (&main_subfile, offset, 0, start, end, 
+    enter_line_range (&main_subfile, offset, 0, start, end,
     						&main_source_baseline);
 
   else
@@ -648,7 +648,7 @@ process_linenos (start, end)
 	  firstLine = &(inclTable[ii].funStartLine);
 
 	  /* Enter include file's lines now.  */
-	  enter_line_range (tmpSubfile, inclTable[ii].begin, 
+	  enter_line_range (tmpSubfile, inclTable[ii].begin,
 			    inclTable[ii].end, start, 0, firstLine);
 
 	  if (offset <= inclTable[ii].end)
@@ -659,7 +659,7 @@ process_linenos (start, end)
 	 enter remaining lines of the main file, if any left.  */
       if (offset < max_offset + 1 - LINESZ)
 	{
-	  enter_line_range (&main_subfile, offset, 0, start, end, 
+	  enter_line_range (&main_subfile, offset, 0, start, end,
 			    &main_source_baseline);
 	}
     }
@@ -687,7 +687,7 @@ process_linenos (start, end)
 	  current_subfile->line_vector = lineTb;
 	}
 
-      current_subfile->line_vector_length = 
+      current_subfile->line_vector_length =
 	current_subfile->line_vector->nitems;
     }
 
@@ -752,7 +752,7 @@ process_linenos (start, end)
 	      current_subfile->line_vector = lineTb;
 	    }
 
-	  current_subfile->line_vector_length = 
+	  current_subfile->line_vector_length =
 	    current_subfile->line_vector->nitems;
 	  start_subfile (pop_subfile (), (char*)0);
 	}
@@ -882,7 +882,7 @@ enter_line_range (subfile, beginoffset, endoffset, startaddr, endaddr,
 /* xcoff has static blocks marked in `.bs', `.es' pairs. They cannot be
    nested. At any given time, a symbol can only be in one static block.
    This is the base address of current static block, zero if non exists. */
-   
+
 static int static_block_base = 0;
 
 /* Section number for the current static block.  */
@@ -1301,7 +1301,7 @@ read_xcoff_symtab (pst)
 
 	      new = push_context (0, fcn_start_addr + off);
 
-	      new->name = define_symbol 
+	      new->name = define_symbol
 		(fcn_cs_saved.c_value + off,
 		 fcn_stab_saved.c_name, 0, 0, objfile);
 	      if (new->name != NULL)
@@ -1389,7 +1389,7 @@ read_xcoff_symtab (pst)
 	  /* beginning of include file */
 	  /* In xlc output, C_BINCL/C_EINCL pair doesn't show up in sorted
 	     order. Thus, when wee see them, we might not know enough info
-	     to process them. Thus, we'll be saving them into a table 
+	     to process them. Thus, we'll be saving them into a table
 	     (inclTable) and postpone their processing. */
 
 	  record_include_begin (cs);
@@ -1464,8 +1464,8 @@ read_xcoff_symtab (pst)
   (SYMBOL2) = (struct symbol *)		\
   	obstack_alloc (&objfile->symbol_obstack, sizeof (struct symbol)); \
   *(SYMBOL2) = *(SYMBOL1);
-  
- 
+
+
 #define	SYMNAME_ALLOC(NAME, ALLOCED)	\
   (ALLOCED) ? (NAME) : obsavestring ((NAME), strlen (NAME), &objfile->symbol_obstack);
 
@@ -1642,7 +1642,7 @@ read_symbol (symbol, symno)
   int nsyms =
     ((struct coff_symfile_info *)this_symtab_psymtab->objfile->sym_private)
       ->symtbl_num_syms;
-  char *stbl = 
+  char *stbl =
     ((struct coff_symfile_info *)this_symtab_psymtab->objfile->sym_private)
       ->symtbl;
   if (symno < 0 || symno >= nsyms)
@@ -1658,7 +1658,7 @@ read_symbol (symbol, symno)
 			stbl + (symno*local_symesz),
 			symbol);
 }
-  
+
 /* Get value corresponding to symbol number symno in symtbl.  */
 
 static int
@@ -1668,7 +1668,7 @@ read_symbol_nvalue (symno)
   struct internal_syment symbol[1];
 
   read_symbol (symbol, symno);
-  return symbol->n_value;  
+  return symbol->n_value;
 }
 
 
@@ -1682,7 +1682,7 @@ read_symbol_lineno (symno)
   int nsyms =
     ((struct coff_symfile_info *)this_symtab_psymtab->objfile->sym_private)
       ->symtbl_num_syms;
-  char *stbl = 
+  char *stbl =
     ((struct coff_symfile_info *)this_symtab_psymtab->objfile->sym_private)
       ->symtbl;
   struct internal_syment symbol[1];
@@ -1743,7 +1743,7 @@ static void
 find_linenos (abfd, asect, vpinfo)
      bfd *abfd;
      sec_ptr asect;
-     PTR vpinfo; 
+     PTR vpinfo;
 {
   struct coff_symfile_info *info;
   int size, count;
@@ -1774,7 +1774,7 @@ xcoff_psymtab_to_symtab_1 (pst)
 {
   struct cleanup *old_chain;
   int i;
-  
+
   if (!pst)
     return;
 
@@ -1878,7 +1878,7 @@ xcoff_new_init (objfile)
 }
 
 /* Do initialization in preparation for reading symbols from OBJFILE.
- 
+
    We will only be called if this is an XCOFF or XCOFF-like file.
    BFD handles figuring out the format of the file, and code in symfile.c
    uses BFD's determination to vector to us.  */
@@ -2021,7 +2021,7 @@ static struct partial_symtab *xcoff_end_psymtab
   PARAMS ((struct partial_symtab *, char **, int, int,
 	   struct partial_symtab **, int, int));
 
-/* Close off the current usage of PST.  
+/* Close off the current usage of PST.
    Returns PST, or NULL if the partial symtab was empty and thrown away.
 
    CAPPING_SYMBOL_NUMBER is the end of pst (exclusive).
@@ -2626,7 +2626,7 @@ get_toc_offset (objfile)
 }
 
 /* Scan and build partial symbols for a symbol file.
-   We have been initialized by a call to dbx_symfile_init, which 
+   We have been initialized by a call to dbx_symfile_init, which
    put all the relevant info into a "struct dbx_symfile_info",
    hung off the objfile structure.
 

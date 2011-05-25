@@ -80,7 +80,7 @@ typedef enum oasys_record {
   oasys_record_is_local_enum = 10
 } oasys_record_enum_type;
 
-  
+
 
 typedef struct oasys_record_header {
   unsigned char length;

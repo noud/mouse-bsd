@@ -52,7 +52,7 @@
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
  * 3. The author's name or those of the contributors may be used to
- *    endorse or promote products derived from this software without 
+ *    endorse or promote products derived from this software without
  *    specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR(S) AND CONTRIBUTORS
@@ -200,7 +200,7 @@ static void
 sv_write (sc, reg, val)
 	struct sv_softc *sc;
 	u_int8_t reg, val;
-     
+
 {
 	DPRINTFN(8,("sv_write(0x%x, 0x%x)\n", reg, val));
 	bus_space_write_1(sc->sc_iot, sc->sc_ioh, reg, val);
@@ -210,7 +210,7 @@ static u_int8_t
 sv_read(sc, reg)
 	struct sv_softc *sc;
 	u_int8_t reg;
-     
+
 {
 	u_int8_t val;
 
@@ -260,7 +260,7 @@ sv_match(parent, match, aux)
 	if (PCI_VENDOR(pa->pa_id) == PCI_VENDOR_S3 &&
 	    PCI_PRODUCT(pa->pa_id) == PCI_PRODUCT_S3_SONICVIBES)
 		return (1);
-	
+
 	return (0);
 }
 
@@ -309,7 +309,7 @@ sv_defer(self)
 	pcireg_t dmaio;
 
 	DPRINTF(("sv_defer: %p\n", sc));
-	if (pci_alloc_io(pc, pt, SV_DMAA_CONFIG_OFF, 
+	if (pci_alloc_io(pc, pt, SV_DMAA_CONFIG_OFF,
 			  sc->sc_iot, SV_DMAA_SIZE, SV_DMAA_ALIGN, 0,
 			  0, &sc->sc_dmaa_ioh)) {
 		printf("sv_attach: cannot allocate DMA A range\n");
@@ -317,10 +317,10 @@ sv_defer(self)
 	}
 	dmaio = pci_conf_read(pc, pt, SV_DMAA_CONFIG_OFF);
 	DPRINTF(("sv_attach: addr a dmaio=0x%lx\n", (u_long)dmaio));
-	pci_conf_write(pc, pt, SV_DMAA_CONFIG_OFF, 
+	pci_conf_write(pc, pt, SV_DMAA_CONFIG_OFF,
 		       dmaio | SV_DMA_CHANNEL_ENABLE | SV_DMAA_EXTENDED_ADDR);
 
-	if (pci_alloc_io(pc, pt, SV_DMAC_CONFIG_OFF, 
+	if (pci_alloc_io(pc, pt, SV_DMAC_CONFIG_OFF,
 			  sc->sc_iot, SV_DMAC_SIZE, SV_DMAC_ALIGN, 0,
 			  0, &sc->sc_dmac_ioh)) {
 		printf("sv_attach: cannot allocate DMA C range\n");
@@ -328,7 +328,7 @@ sv_defer(self)
 	}
 	dmaio = pci_conf_read(pc, pt, SV_DMAC_CONFIG_OFF);
 	DPRINTF(("sv_attach: addr c dmaio=0x%lx\n", (u_long)dmaio));
-	pci_conf_write(pc, pt, SV_DMAC_CONFIG_OFF, 
+	pci_conf_write(pc, pt, SV_DMAC_CONFIG_OFF,
 		       dmaio | SV_DMA_CHANNEL_ENABLE);
 
 	sc->sc_dmaset = 1;
@@ -348,14 +348,14 @@ sv_attach(parent, self, aux)
 	char const *intrstr;
 	u_int8_t reg;
 	struct audio_attach_args arg;
-	
+
 	printf ("\n");
-	
+
 	/* Map I/O registers */
 	if (pci_mapreg_map(pa, SV_ENHANCED_PORTBASE_SLOT,
 			   PCI_MAPREG_TYPE_IO, 0,
 			   &sc->sc_iot, &sc->sc_ioh, NULL, NULL)) {
-		printf("%s: can't map enhanced i/o space\n", 
+		printf("%s: can't map enhanced i/o space\n",
 		       sc->sc_dev.dv_xname);
 		return;
 	}
@@ -391,7 +391,7 @@ sv_attach(parent, self, aux)
 
 	sv_write_indirect(sc, SV_ANALOG_POWER_DOWN_CONTROL, 0);
 	sv_write_indirect(sc, SV_DIGITAL_POWER_DOWN_CONTROL, 0);
-	
+
 	/* initialize codec registers */
 	reg = sv_read(sc, SV_CODEC_CONTROL);
 	reg |= SV_CTL_RESET;
@@ -418,7 +418,7 @@ sv_attach(parent, self, aux)
 	sv_write(sc, SV_CODEC_INTMASK, reg);
 
 	sv_read(sc, SV_CODEC_STATUS);
-	
+
 	/* Map and establish the interrupt. */
 	if (pci_intr_map(pc, pa->pa_intrtag, pa->pa_intrpin,
 			 pa->pa_intrline, &ih)) {
@@ -436,16 +436,16 @@ sv_attach(parent, self, aux)
 		return;
 	}
 	printf("%s: interrupting at %s\n", sc->sc_dev.dv_xname, intrstr);
-	printf("%s: rev %d", sc->sc_dev.dv_xname, 
+	printf("%s: rev %d", sc->sc_dev.dv_xname,
 	       sv_read_indirect(sc, SV_REVISION_LEVEL));
 	if (sv_read(sc, SV_CODEC_CONTROL) & SV_CTL_MD1)
 		printf(", reverb SRAM present");
 	if (!(sv_read_indirect(sc, SV_WAVETABLE_SOURCE_SELECT) & SV_WSS_WT0))
 		printf(", wavetable ROM present");
 	printf("\n");
-	
+
 	sv_init_mixer(sc);
-	
+
 	audio_attach_mi(&sv_hw_if, sc, &sc->sc_dev);
 
 	arg.type = AUDIODEV_TYPE_OPL;
@@ -466,18 +466,18 @@ sv_dumpregs(sc)
 
 #if 0
 	for (idx = 0; idx < 0x50; idx += 4)
-		printf ("%02x = %x\n", idx, 
+		printf ("%02x = %x\n", idx,
 			pci_conf_read(pa->pa_pc, pa->pa_tag, idx));
 #endif
 
 	for (idx = 0; idx < 6; idx++)
 		printf ("REG %02x = %02x\n", idx, sv_read(sc, idx));
-	
+
 	for (idx = 0; idx < 0x32; idx++)
 		printf ("IREG %02x = %02x\n", idx, sv_read_indirect(sc, idx));
 
 	for (idx = 0; idx < 0x10; idx++)
-		printf ("DMA %02x = %02x\n", idx, 
+		printf ("DMA %02x = %02x\n", idx,
 			bus_space_read_1(sc->sc_iot, sc->sc_dmaa_ioh, idx));
 }
 #endif
@@ -492,7 +492,7 @@ sv_intr(p)
 	intr = sv_read(sc, SV_CODEC_STATUS);
 	DPRINTFN(5,("sv_intr: intr=0x%x\n", intr));
 
-	if (!(intr & (SV_INTSTATUS_DMAA | SV_INTSTATUS_DMAC))) 
+	if (!(intr & (SV_INTSTATUS_DMAA | SV_INTSTATUS_DMAC)))
 		return (0);
 
 	if (intr & SV_INTSTATUS_DMAA) {
@@ -504,7 +504,7 @@ sv_intr(p)
 		if (sc->sc_rintr)
 			sc->sc_rintr(sc->sc_rarg);
 	}
-	
+
 	return (1);
 }
 
@@ -524,7 +524,7 @@ sv_allocmem(sc, size, align, p)
 	if (error)
 		return (error);
 
-	error = bus_dmamem_map(sc->sc_dmatag, p->segs, p->nsegs, p->size, 
+	error = bus_dmamem_map(sc->sc_dmatag, p->segs, p->nsegs, p->size,
 			       &p->addr, BUS_DMA_NOWAIT|BUS_DMA_COHERENT);
 	if (error)
 		goto free;
@@ -534,7 +534,7 @@ sv_allocmem(sc, size, align, p)
 	if (error)
 		goto unmap;
 
-	error = bus_dmamap_load(sc->sc_dmatag, p->map, p->addr, p->size, NULL, 
+	error = bus_dmamap_load(sc->sc_dmatag, p->map, p->addr, p->size, NULL,
 				BUS_DMA_NOWAIT);
 	if (error)
 		goto destroy;
@@ -587,7 +587,7 @@ sv_close(addr)
 	void *addr;
 {
 	struct sv_softc *sc = addr;
-    
+
 	DPRINTF(("sv_close\n"));
 	sv_halt_output(sc);
 	sv_halt_input(sc);
@@ -665,7 +665,7 @@ sv_set_params(addr, setmode, usemode, play, rec)
 	struct audio_params *p = NULL;
 	int mode;
 	u_int32_t val;
-	
+
 	/*
 	 * This device only has one clock, so make the sample rates match.
 	 */
@@ -681,7 +681,7 @@ sv_set_params(addr, setmode, usemode, play, rec)
 			return (EINVAL);
 	}
 
-	for (mode = AUMODE_RECORD; mode != -1; 
+	for (mode = AUMODE_RECORD; mode != -1;
 	     mode = mode == AUMODE_RECORD ? AUMODE_PLAY : -1) {
 		if ((setmode & mode) == 0)
 			continue;
@@ -736,7 +736,7 @@ sv_set_params(addr, setmode, usemode, play, rec)
 			return (EINVAL);
 		}
 	}
-	
+
 	val = p->sample_rate * 65536 / 48000;
 	/*
 	 * If the sample rate is exactly 48KHz, the fraction would overflow the
@@ -780,21 +780,21 @@ sv_set_params(addr, setmode, usemode, play, rec)
 			if ((goal_f_out * (1 << a)) >= 80000000)
 				break;
 		}
-	  
+
 		/* a != 8 because sample_rate >= 2000 */
 
 		for (n = 33; n > 2; n--) {
 			m = (goal_f_out * n * (1 << a)) / F_REF;
 			if ((m > 257) || (m < 3))
 				continue;
- 
+
 			pll_sample = (m * F_REF) / (n * (1 << a));
 			pll_sample /= 512;
 
 			/* Threshold might be good here */
 			error = pll_sample - rec->sample_rate;
 			error = ABS(error);
-	    
+
 			if (error < best_error) {
 				best_error = error;
 				best_n = n;
@@ -805,9 +805,9 @@ sv_set_params(addr, setmode, usemode, play, rec)
 
 		best_n -= 2;
 		best_m -= 2;
-	  
+
 		sv_write_indirect(sc, SV_ADC_PLL_M, best_m);
-		sv_write_indirect(sc, SV_ADC_PLL_N, 
+		sv_write_indirect(sc, SV_ADC_PLL_N,
 				  best_n | (a << SV_PLL_R_SHIFT));
 	}
 
@@ -836,7 +836,7 @@ sv_trigger_output(addr, start, end, blksize, intr, arg, param)
 	u_int8_t mode;
 	int dma_count;
 
-	DPRINTFN(1, ("sv_trigger_output: sc=%p start=%p end=%p blksize=%d intr=%p(%p)\n", 
+	DPRINTFN(1, ("sv_trigger_output: sc=%p start=%p end=%p blksize=%d intr=%p(%p)\n",
 	    addr, start, end, blksize, intr, arg));
 	sc->sc_pintr = intr;
 	sc->sc_parg = arg;
@@ -857,7 +857,7 @@ sv_trigger_output(addr, start, end, blksize, intr, arg, param)
 	}
 
 	dma_count = ((char *)end - (char *)start) - 1;
-	DPRINTF(("sv_trigger_output: dma start loop input addr=%x cc=%d\n", 
+	DPRINTF(("sv_trigger_output: dma start loop input addr=%x cc=%d\n",
 	    (int)DMAADDR(p), dma_count));
 
 	bus_space_write_4(sc->sc_iot, sc->sc_dmaa_ioh, SV_DMA_ADDR0,
@@ -895,7 +895,7 @@ sv_trigger_input(addr, start, end, blksize, intr, arg, param)
 	u_int8_t mode;
 	int dma_count;
 
-	DPRINTFN(1, ("sv_trigger_input: sc=%p start=%p end=%p blksize=%d intr=%p(%p)\n", 
+	DPRINTFN(1, ("sv_trigger_input: sc=%p start=%p end=%p blksize=%d intr=%p(%p)\n",
 	    addr, start, end, blksize, intr, arg));
 	sc->sc_rintr = intr;
 	sc->sc_rarg = arg;
@@ -916,7 +916,7 @@ sv_trigger_input(addr, start, end, blksize, intr, arg, param)
 	}
 
 	dma_count = (((char *)end - (char *)start) >> 1) - 1;
-	DPRINTF(("sv_trigger_input: dma start loop input addr=%x cc=%d\n", 
+	DPRINTF(("sv_trigger_input: dma start loop input addr=%x cc=%d\n",
 	    (int)DMAADDR(p), dma_count));
 
 	bus_space_write_4(sc->sc_iot, sc->sc_dmac_ioh, SV_DMA_ADDR0,
@@ -946,7 +946,7 @@ sv_halt_output(addr)
 {
 	struct sv_softc *sc = addr;
 	u_int8_t mode;
-	
+
 	DPRINTF(("sv: sv_halt_output\n"));
 	mode = sv_read_indirect(sc, SV_PLAY_RECORD_ENABLE);
 	sv_write_indirect(sc, SV_PLAY_RECORD_ENABLE, mode & ~SV_PLAY_ENABLE);
@@ -960,7 +960,7 @@ sv_halt_input(addr)
 {
 	struct sv_softc *sc = addr;
 	u_int8_t mode;
-    
+
 	DPRINTF(("sv: sv_halt_input\n"));
 	mode = sv_read_indirect(sc, SV_PLAY_RECORD_ENABLE);
 	sv_write_indirect(sc, SV_PLAY_RECORD_ENABLE, mode & ~SV_RECORD_ENABLE);
@@ -989,7 +989,7 @@ sv_getdev(addr, retp)
 
 #define SV_LAST_CLASS 2
 
-static const char *mixer_classes[] = 
+static const char *mixer_classes[] =
 	{ AudioCinputs, AudioCoutputs, AudioCrecord };
 
 static const struct {
@@ -1001,18 +1001,18 @@ static const struct {
 } ports[] = {
   { SV_LEFT_AUX1_INPUT_CONTROL, SV_RIGHT_AUX1_INPUT_CONTROL, SV_AUX1_MASK,
     SV_INPUT_CLASS, "aux1" },
-  { SV_LEFT_CD_INPUT_CONTROL, SV_RIGHT_CD_INPUT_CONTROL, SV_CD_MASK, 
+  { SV_LEFT_CD_INPUT_CONTROL, SV_RIGHT_CD_INPUT_CONTROL, SV_CD_MASK,
     SV_INPUT_CLASS, AudioNcd },
   { SV_LEFT_LINE_IN_INPUT_CONTROL, SV_RIGHT_LINE_IN_INPUT_CONTROL, SV_LINE_IN_MASK,
     SV_INPUT_CLASS, AudioNline },
   { SV_MIC_INPUT_CONTROL, 0, SV_MIC_MASK, SV_INPUT_CLASS, AudioNmicrophone },
-  { SV_LEFT_SYNTH_INPUT_CONTROL, SV_RIGHT_SYNTH_INPUT_CONTROL, 
+  { SV_LEFT_SYNTH_INPUT_CONTROL, SV_RIGHT_SYNTH_INPUT_CONTROL,
     SV_SYNTH_MASK, SV_INPUT_CLASS, AudioNfmsynth },
   { SV_LEFT_AUX2_INPUT_CONTROL, SV_RIGHT_AUX2_INPUT_CONTROL, SV_AUX2_MASK,
     SV_INPUT_CLASS, "aux2" },
   { SV_LEFT_PCM_INPUT_CONTROL, SV_RIGHT_PCM_INPUT_CONTROL, SV_PCM_MASK,
     SV_INPUT_CLASS, AudioNdac },
-  { SV_LEFT_MIXER_OUTPUT_CONTROL, SV_RIGHT_MIXER_OUTPUT_CONTROL, 
+  { SV_LEFT_MIXER_OUTPUT_CONTROL, SV_RIGHT_MIXER_OUTPUT_CONTROL,
     SV_MIXER_OUT_MASK, SV_OUTPUT_CLASS, AudioNmaster }
 };
 
@@ -1039,7 +1039,7 @@ static const struct {
 #define SV_RECORD_GAIN (SV_LAST_MIXER + 3)
 #define SV_SRS_MODE (SV_LAST_MIXER + 4)
 
-int 
+int
 sv_query_devinfo(addr, dip)
 	void *addr;
 	mixer_devinfo_t *dip;
@@ -1051,7 +1051,7 @@ sv_query_devinfo(addr, dip)
 		dip->type = AUDIO_MIXER_CLASS;
 		dip->mixer_class = dip->index;
 		dip->next = dip->prev = AUDIO_MIXER_LAST;
-		strcpy(dip->label.name, 
+		strcpy(dip->label.name,
 		       mixer_classes[dip->index]);
 		return (0);
 	}
@@ -1061,10 +1061,10 @@ sv_query_devinfo(addr, dip)
 		int off = dip->index - SV_FIRST_MIXER;
 		int mute = (off % SV_DEVICES_PER_PORT);
 		int idx = off / SV_DEVICES_PER_PORT;
-		
+
 		dip->mixer_class = ports[idx].class;
 		strcpy(dip->label.name, ports[idx].audio);
-		
+
 		if (!mute) {
 			dip->type = AUDIO_MIXER_VALUE;
 			dip->prev = AUDIO_MIXER_LAST;
@@ -1074,13 +1074,13 @@ sv_query_devinfo(addr, dip)
 				dip->un.v.num_channels = 2;
 			else
 				dip->un.v.num_channels = 1;
-      
+
 			strcpy(dip->un.v.units.name, AudioNvolume);
 		} else {
 			dip->type = AUDIO_MIXER_ENUM;
 			dip->prev = dip->index - 1;
 			dip->next = AUDIO_MIXER_LAST;
-			
+
 			strcpy(dip->label.name, AudioNmute);
 			dip->un.e.num_mem = 2;
 			strcpy(dip->un.e.member[0].label.name, AudioNoff);
@@ -1088,7 +1088,7 @@ sv_query_devinfo(addr, dip)
 			strcpy(dip->un.e.member[1].label.name, AudioNon);
 			dip->un.e.member[1].ord = 1;
 		}
-		
+
 		return (0);
 	}
 
@@ -1099,10 +1099,10 @@ sv_query_devinfo(addr, dip)
 		dip->next = SV_RECORD_GAIN;
 		strcpy(dip->label.name, AudioNsource);
 		dip->type = AUDIO_MIXER_ENUM;
-		
+
 		dip->un.e.num_mem = ARRAY_SIZE(record_sources);
 		for (i = 0; i < ARRAY_SIZE(record_sources); i++) {
-			strcpy(dip->un.e.member[i].label.name, 
+			strcpy(dip->un.e.member[i].label.name,
 			       record_sources[i].name);
 			dip->un.e.member[i].ord = record_sources[i].idx;
 		}
@@ -1117,19 +1117,19 @@ sv_query_devinfo(addr, dip)
 		dip->un.v.num_channels = 1;
 		strcpy(dip->un.v.units.name, AudioNvolume);
 		return (0);
-		
+
 	case SV_MIC_BOOST:
 		dip->mixer_class = SV_RECORD_CLASS;
 		dip->prev = AUDIO_MIXER_LAST;
 		dip->next = AUDIO_MIXER_LAST;
 		strcpy(dip->label.name, "micboost");
 		goto on_off;
-		
+
 	case SV_SRS_MODE:
 		dip->mixer_class = SV_OUTPUT_CLASS;
 		dip->prev = dip->next = AUDIO_MIXER_LAST;
 		strcpy(dip->label.name, AudioNspatial);
-		
+
 	on_off:
 		dip->type = AUDIO_MIXER_ENUM;
 		dip->un.e.num_mem = 2;
@@ -1139,7 +1139,7 @@ sv_query_devinfo(addr, dip)
 		dip->un.e.member[1].ord = 1;
 		return (0);
 	}
-	
+
 	return (ENXIO);
 }
 
@@ -1157,21 +1157,21 @@ sv_mixer_set_port(addr, cp)
 		int off = cp->dev - SV_FIRST_MIXER;
 		int mute = (off % SV_DEVICES_PER_PORT);
 		idx = off / SV_DEVICES_PER_PORT;
-		
+
 		if (mute) {
-			if (cp->type != AUDIO_MIXER_ENUM) 
+			if (cp->type != AUDIO_MIXER_ENUM)
 				return (EINVAL);
 
 			reg = sv_read_indirect(sc, ports[idx].l_port);
-			if (cp->un.ord) 
+			if (cp->un.ord)
 				reg |= SV_MUTE_BIT;
 			else
 				reg &= ~SV_MUTE_BIT;
 			sv_write_indirect(sc, ports[idx].l_port, reg);
-			
+
 			if (ports[idx].r_port) {
 				reg = sv_read_indirect(sc, ports[idx].r_port);
-				if (cp->un.ord) 
+				if (cp->un.ord)
 					reg |= SV_MUTE_BIT;
 				else
 					reg &= ~SV_MUTE_BIT;
@@ -1179,14 +1179,14 @@ sv_mixer_set_port(addr, cp)
 			}
 		} else {
 			int  lval, rval;
-			
+
 			if (cp->type != AUDIO_MIXER_VALUE)
 				return (EINVAL);
-			
+
 			if (cp->un.value.num_channels != 1 &&
 			    cp->un.value.num_channels != 2)
 				return (EINVAL);
-			
+
 			if (ports[idx].r_port == 0) {
 				if (cp->un.value.num_channels != 1)
 					return (EINVAL);
@@ -1195,7 +1195,7 @@ sv_mixer_set_port(addr, cp)
 			} else {
 				if (cp->un.value.num_channels != 2)
 					return (EINVAL);
-				
+
 				lval = cp->un.value.level[AUDIO_MIXER_LEVEL_LEFT];
 				rval = cp->un.value.level[AUDIO_MIXER_LEVEL_RIGHT];
       }
@@ -1203,7 +1203,7 @@ sv_mixer_set_port(addr, cp)
 
 			reg = sv_read_indirect(sc, ports[idx].l_port);
 			reg &= ~(ports[idx].mask);
-			lval = (AUDIO_MAX_GAIN - lval) * ports[idx].mask / 
+			lval = (AUDIO_MAX_GAIN - lval) * ports[idx].mask /
 				AUDIO_MAX_GAIN;
 			reg |= lval;
 			sv_write_indirect(sc, ports[idx].l_port, reg);
@@ -1211,7 +1211,7 @@ sv_mixer_set_port(addr, cp)
 			if (ports[idx].r_port != 0) {
 				reg = sv_read_indirect(sc, ports[idx].r_port);
 				reg &= ~(ports[idx].mask);
-				
+
 				rval = (AUDIO_MAX_GAIN - rval) * ports[idx].mask /
 					AUDIO_MAX_GAIN;
 				reg |= rval;
@@ -1230,12 +1230,12 @@ sv_mixer_set_port(addr, cp)
 	case SV_RECORD_SOURCE:
 		if (cp->type != AUDIO_MIXER_ENUM)
 			return (EINVAL);
-		
+
 		for (idx = 0; idx < ARRAY_SIZE(record_sources); idx++) {
 			if (record_sources[idx].idx == cp->un.ord)
 				goto found;
 		}
-    
+
 		return (EINVAL);
 
 	found:
@@ -1243,31 +1243,31 @@ sv_mixer_set_port(addr, cp)
 		reg &= ~SV_REC_SOURCE_MASK;
 		reg |= (((cp->un.ord) << SV_REC_SOURCE_SHIFT) & SV_REC_SOURCE_MASK);
 		sv_write_indirect(sc, SV_LEFT_ADC_INPUT_CONTROL, reg);
-		
+
 		reg = sv_read_indirect(sc, SV_RIGHT_ADC_INPUT_CONTROL);
 		reg &= ~SV_REC_SOURCE_MASK;
 		reg |= (((cp->un.ord) << SV_REC_SOURCE_SHIFT) & SV_REC_SOURCE_MASK);
 		sv_write_indirect(sc, SV_RIGHT_ADC_INPUT_CONTROL, reg);
 		return (0);
-		
+
 	case SV_RECORD_GAIN:
 	{
 		int val;
-		
+
 		if (cp->type != AUDIO_MIXER_VALUE)
 			return (EINVAL);
-		
+
 		if (cp->un.value.num_channels != 1)
 			return (EINVAL);
-		
-		val = (cp->un.value.level[AUDIO_MIXER_LEVEL_MONO] * SV_REC_GAIN_MASK) 
+
+		val = (cp->un.value.level[AUDIO_MIXER_LEVEL_MONO] * SV_REC_GAIN_MASK)
 			/ AUDIO_MAX_GAIN;
-		
+
 		reg = sv_read_indirect(sc, SV_LEFT_ADC_INPUT_CONTROL);
 		reg &= ~SV_REC_GAIN_MASK;
 		reg |= val;
 		sv_write_indirect(sc, SV_LEFT_ADC_INPUT_CONTROL, reg);
-		
+
 		reg = sv_read_indirect(sc, SV_RIGHT_ADC_INPUT_CONTROL);
 		reg &= ~SV_REC_GAIN_MASK;
 		reg |= val;
@@ -1278,32 +1278,32 @@ sv_mixer_set_port(addr, cp)
 	case SV_MIC_BOOST:
 		if (cp->type != AUDIO_MIXER_ENUM)
 			return (EINVAL);
-		
+
 		reg = sv_read_indirect(sc, SV_LEFT_ADC_INPUT_CONTROL);
 		if (cp->un.ord) {
 			reg |= SV_MIC_BOOST_BIT;
 		} else {
 			reg &= ~SV_MIC_BOOST_BIT;
 		}
-		
+
 		sv_write_indirect(sc, SV_LEFT_ADC_INPUT_CONTROL, reg);
 		return (0);
-		
+
 	case SV_SRS_MODE:
 		if (cp->type != AUDIO_MIXER_ENUM)
 			return (EINVAL);
-		
+
 		reg = sv_read_indirect(sc, SV_SRS_SPACE_CONTROL);
 		if (cp->un.ord) {
 			reg &= ~SV_SRS_SPACE_ONOFF;
 		} else {
 			reg |= SV_SRS_SPACE_ONOFF;
 		}
-		
+
 		sv_write_indirect(sc, SV_SRS_SPACE_CONTROL, reg);
 		return (0);
 	}
-	
+
 	return (EINVAL);
 }
 
@@ -1315,47 +1315,47 @@ sv_mixer_get_port(addr, cp)
 	struct sv_softc *sc = addr;
 	int val;
 	u_int8_t reg;
-	
+
 	if (cp->dev >= SV_FIRST_MIXER &&
 	    cp->dev <= SV_LAST_MIXER) {
 		int off = cp->dev - SV_FIRST_MIXER;
 		int mute = (off % 2);
 		int idx = off / 2;
-		
+
 		if (mute) {
-			if (cp->type != AUDIO_MIXER_ENUM) 
+			if (cp->type != AUDIO_MIXER_ENUM)
 				return (EINVAL);
-			
+
 			reg = sv_read_indirect(sc, ports[idx].l_port);
 			cp->un.ord = ((reg & SV_MUTE_BIT) ? 1 : 0);
 		} else {
 			if (cp->type != AUDIO_MIXER_VALUE)
 				return (EINVAL);
-			
+
 			if (cp->un.value.num_channels != 1 &&
 			    cp->un.value.num_channels != 2)
 				return (EINVAL);
-			
+
 			if ((ports[idx].r_port == 0 &&
 			     cp->un.value.num_channels != 1) ||
 			    (ports[idx].r_port != 0 &&
 			     cp->un.value.num_channels != 2))
 				return (EINVAL);
-			
+
 			reg = sv_read_indirect(sc, ports[idx].l_port);
 			reg &= ports[idx].mask;
-			
+
 			val = AUDIO_MAX_GAIN - ((reg * AUDIO_MAX_GAIN) / ports[idx].mask);
-			
+
 			if (ports[idx].r_port != 0) {
 				cp->un.value.level[AUDIO_MIXER_LEVEL_LEFT] = val;
-				
+
 				reg = sv_read_indirect(sc, ports[idx].r_port);
 				reg &= ports[idx].mask;
-				
+
 				val = AUDIO_MAX_GAIN - ((reg * AUDIO_MAX_GAIN) / ports[idx].mask);
 				cp->un.value.level[AUDIO_MIXER_LEVEL_RIGHT] = val;
-			} else 
+			} else
 				cp->un.value.level[AUDIO_MIXER_LEVEL_MONO] = val;
 		}
 
@@ -1366,32 +1366,32 @@ sv_mixer_get_port(addr, cp)
 	case SV_RECORD_SOURCE:
 		if (cp->type != AUDIO_MIXER_ENUM)
 			return (EINVAL);
-		
+
 		reg = sv_read_indirect(sc, SV_LEFT_ADC_INPUT_CONTROL);
 		cp->un.ord = ((reg & SV_REC_SOURCE_MASK) >> SV_REC_SOURCE_SHIFT);
-		
+
 		return (0);
-		
+
 	case SV_RECORD_GAIN:
 		if (cp->type != AUDIO_MIXER_VALUE)
 			return (EINVAL);
 		if (cp->un.value.num_channels != 1)
 			return (EINVAL);
-		
+
 		reg = sv_read_indirect(sc, SV_LEFT_ADC_INPUT_CONTROL) & SV_REC_GAIN_MASK;
-		cp->un.value.level[AUDIO_MIXER_LEVEL_MONO] = 
+		cp->un.value.level[AUDIO_MIXER_LEVEL_MONO] =
 			(((unsigned int)reg) * AUDIO_MAX_GAIN) / SV_REC_GAIN_MASK;
-		
+
 		return (0);
-		
+
 	case SV_MIC_BOOST:
 		if (cp->type != AUDIO_MIXER_ENUM)
 			return (EINVAL);
 		reg = sv_read_indirect(sc, SV_LEFT_ADC_INPUT_CONTROL);
 		cp->un.ord = ((reg & SV_MIC_BOOST_BIT) ? 1 : 0);
 		return (0);
-		
-		
+
+
 	case SV_SRS_MODE:
 		if (cp->type != AUDIO_MIXER_ENUM)
 			return (EINVAL);
@@ -1399,7 +1399,7 @@ sv_mixer_get_port(addr, cp)
 		cp->un.ord = ((reg & SV_SRS_SPACE_ONOFF) ? 0 : 1);
 		return (0);
 	}
-	
+
 	return (EINVAL);
 }
 
@@ -1410,7 +1410,7 @@ sv_init_mixer(sc)
 {
 	mixer_ctrl_t cp;
 	int i;
-	
+
 	cp.type = AUDIO_MIXER_ENUM;
 	cp.dev = SV_SRS_MODE;
 	cp.un.ord = 0;
@@ -1496,7 +1496,7 @@ sv_mappage(addr, mem, off, prot)
 		;
 	if (!p)
 		return (-1);
-	return (bus_dmamem_mmap(sc->sc_dmatag, p->segs, p->nsegs, 
+	return (bus_dmamem_mmap(sc->sc_dmatag, p->segs, p->nsegs,
 				off, prot, BUS_DMA_WAITOK));
 }
 

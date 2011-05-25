@@ -333,7 +333,7 @@ and push it onto the main stack.
 The previous value in register @var{r}'s stack, if any,
 is now accessible via the @samp{l@var{r}} command.
 @end table
-@c 
+@c
 @c The @samp{f} command prints a list of all registers that have contents
 @c stored in them, together with their contents.
 @c Only the current contents of each register (the top of its stack)

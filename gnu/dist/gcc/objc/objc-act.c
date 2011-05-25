@@ -508,7 +508,7 @@ FILE *gen_declaration_file;
 
 int warn_selector = 0;
 
-/* Warn if methods required by a protocol are not implemented in the 
+/* Warn if methods required by a protocol are not implemented in the
    class adopting it.  When turned off, methods inherited to that
    class are also considered implemented */
 
@@ -529,7 +529,7 @@ static int generating_instance_variables = 0;
 static int print_struct_values = 0;
 
 /* Some platforms pass small structures through registers versus through
-   an invisible pointer.  Determine at what size structure is the 
+   an invisible pointer.  Determine at what size structure is the
    transition point between the two possibilities. */
 
 void
@@ -564,12 +564,12 @@ generate_struct_by_value_array ()
 	  chainon (field_decl_chain, field_decl);
 	}
       finish_struct (type, field_decl_chain, NULL_TREE);
- 
+
       aggregate_in_mem[i] = aggregate_value_p (type);
       if (!aggregate_in_mem[i])
 	found = 1;
     }
- 
+
   /* We found some structures that are returned in registers instead of memory
      so output the necessary data. */
   if (found)
@@ -578,16 +578,16 @@ generate_struct_by_value_array ()
 	if (!aggregate_in_mem[i])
 	  break;
       printf ("#define OBJC_MAX_STRUCT_BY_VALUE %d\n\n", i);
- 
+
       /* The first member of the structure is always 0 because we don't handle
 	 structures with 0 members */
       printf ("static int struct_forward_array[] = {\n  0");
- 
+
       for (j = 1; j <= i; j++)
 	printf (", %d", aggregate_in_mem[j]);
       printf ("\n};\n");
     }
- 
+
   exit (0);
 }
 
@@ -2112,7 +2112,7 @@ build_selector_translation_table ()
 
       if (flag_next_runtime)
 	finish_decl (decl, expr, NULL_TREE);
-      else 
+      else
 	{
 	  if (flag_typed_selectors)
 	    {
@@ -2124,7 +2124,7 @@ build_selector_translation_table ()
 					nreverse (eltlist));
 	    }
 	  initlist = tree_cons (NULL_TREE, expr, initlist);
-	  
+
 	}
     }
 
@@ -2396,7 +2396,7 @@ build_objc_string_decl (name, section)
   TREE_CONSTANT (decl) = 1;
   DECL_CONTEXT (decl) = 0;
   DECL_ARTIFICIAL (decl) = 1;
- 
+
   make_decl_rtl (decl, 0, 1);
   pushdecl_top_level (decl);
 
@@ -2912,7 +2912,7 @@ encode_method_prototype (method_decl, func_decl)
       /* Indicate register.  */
       if (offset_is_register)
 	obstack_1grow (&util_obstack, '+');
-      
+
       obstack_grow (&util_obstack, buf, strlen (buf));
     }
 
@@ -2973,7 +2973,7 @@ generate_method_descriptors (protocol)	/* generate_dispatch_tables */
 	= build_method_prototype_list_template (objc_method_prototype_template,
 						size);
 
-      initlist 
+      initlist
 	= build_descriptor_table_initializer (objc_method_prototype_template,
 					      chain);
 
@@ -3341,7 +3341,7 @@ build_selector_template ()
 
   tree decl_specs, field_decl, field_decl_chain;
 
-  objc_selector_template 
+  objc_selector_template
     = start_struct (RECORD_TYPE, get_identifier (UTAG_SELECTOR));
 
   /* void *sel_id; */
@@ -3504,7 +3504,7 @@ build_class_template ()
 
   /* struct objc_protocol **protocol_list; */
 
-  decl_specs = build_tree_list (NULL_TREE, 
+  decl_specs = build_tree_list (NULL_TREE,
 				xref_tag (RECORD_TYPE,
 					  get_identifier (UTAG_PROTOCOL)));
   field_decl
@@ -3773,7 +3773,7 @@ build_method_list_template (list_type, size)
 
   decl_specs
     = build_tree_list
-      (NULL_TREE, 
+      (NULL_TREE,
        xref_tag (RECORD_TYPE,
 		 get_identifier (UTAG_METHOD_PROTOTYPE_LIST)));
   field_decl
@@ -3851,7 +3851,7 @@ build_ivar_list_initializer (type, field_decl)
 			0),
 	   ivar);
 
-      initlist = tree_cons (NULL_TREE, 
+      initlist = tree_cons (NULL_TREE,
 			    build_constructor (type, nreverse (ivar)),
 			    initlist);
 
@@ -3963,12 +3963,12 @@ build_dispatch_table_initializer (type, entries)
 					     meth_var_types),
 			    elemlist);
 
-      elemlist = tree_cons (NULL_TREE, 
+      elemlist = tree_cons (NULL_TREE,
 			    build_unary_op (ADDR_EXPR,
 					    METHOD_DEFINITION (entries), 1),
 			    elemlist);
 
-      initlist = tree_cons (NULL_TREE, 
+      initlist = tree_cons (NULL_TREE,
 			    build_constructor (type, nreverse (elemlist)),
 			    initlist);
 
@@ -4625,19 +4625,19 @@ adjust_type_for_id_default (type)
 /*   Usage:
   		keyworddecl:
   			selector ':' '(' typename ')' identifier
-  
+
      Purpose:
   		Transform an Objective-C keyword argument into
   		the C equivalent parameter declarator.
-  
+
      In:	key_name, an "identifier_node" (optional).
   		arg_type, a  "tree_list" (optional).
   		arg_name, an "identifier_node".
-  
+
      Note:	It would be really nice to strongly type the preceding
   		arguments in the function prototype; however, then I
   		could not use the "accessor" macros defined in "tree.h".
-  
+
      Out:	an instance of "keyword_decl".  */
 
 tree
@@ -5969,7 +5969,7 @@ conforms_to_protocol (class, protocol)
    return 1;
 }
 
-/* Make sure all methods in CHAIN are accessible as MTYPE methods in 
+/* Make sure all methods in CHAIN are accessible as MTYPE methods in
    CONTEXT.  This is one of two mechanisms to check protocol integrity.  */
 
 static int
@@ -5993,17 +5993,17 @@ check_methods_accessible (chain, context, mtype)
 	    list = CLASS_NST_METHODS (context);
 
 	  if (lookup_method (list, chain))
-	      break; 
+	      break;
 
 	  else if (TREE_CODE (context) == CLASS_IMPLEMENTATION_TYPE
 		   || TREE_CODE (context) == CLASS_INTERFACE_TYPE)
-	    context = (CLASS_SUPER_NAME (context) 
+	    context = (CLASS_SUPER_NAME (context)
 		       ? lookup_interface (CLASS_SUPER_NAME (context))
 		       : NULL_TREE);
 
 	  else if (TREE_CODE (context) == CATEGORY_IMPLEMENTATION_TYPE
 		   || TREE_CODE (context) == CATEGORY_INTERFACE_TYPE)
-	    context = (CLASS_NAME (context) 
+	    context = (CLASS_NAME (context)
 		       ? lookup_interface (CLASS_NAME (context))
 		       : NULL_TREE);
 	  else
@@ -6048,7 +6048,7 @@ check_protocols (proto_list, type, name)
       if (TREE_CODE (p) == PROTOCOL_INTERFACE_TYPE)
 	{
 	  int f1, f2;
-	  
+
 	  /* Ensure that all protocols have bodies.  */
 	  if (flag_warn_protocol) {
 	    f1 = check_methods (PROTOCOL_CLS_METHODS (p),
@@ -6183,7 +6183,7 @@ start_class (code, class_name, super_name, protocol_list)
 
       else if (! super_name)
 	{
-	  CLASS_SUPER_NAME (implementation_context) 
+	  CLASS_SUPER_NAME (implementation_context)
 	    = CLASS_SUPER_NAME (implementation_template);
 	}
     }
@@ -7124,7 +7124,7 @@ really_start_method (method, parmlist)
 
 /* The following routine is always called...this "architecture" is to
    accommodate "old-style" variable length selectors.
- 
+
    - a:a b:b // prototype  ; id c; id d; // old-style.  */
 
 void
@@ -7794,7 +7794,7 @@ gen_declspecs (declspecs, buf, raw)
 	      }
 	  }
 	  break;
-	  
+
 	default:
 	  break;
 	}

@@ -111,7 +111,7 @@ static void get_in_break_mode (void);
 
 static const char hexchars[]="0123456789abcdef";
 
-#define NUMREGS 80 
+#define NUMREGS 80
 
 /* Number of bytes of registers.  */
 #define NUMREGBYTES (NUMREGS * 4)

@@ -44,9 +44,9 @@ typedef struct aucc_data {
 	u_int	nd_per;		/* period = clock/freq */
 	u_int	nd_volume;	/* 0..63 */
 	u_int	nd_busy;	/* 1, if channel is busy */
-	u_short	*nd_dma;	/* pointer to dma buffer */ 
+	u_short	*nd_dma;	/* pointer to dma buffer */
 	u_int	nd_dmalength;  	/* length of dma data */
-	int	nd_mask;	/* mask of active channels, 
+	int	nd_mask;	/* mask of active channels,
 				   together with this one */
 	void    (*nd_intr)(void *); /* interrupt routine */
 	void   *nd_intrdata;	/* interrupt data */

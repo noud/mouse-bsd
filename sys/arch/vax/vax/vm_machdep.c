@@ -86,7 +86,7 @@ pagemove(from, to, size)
 /*
  * Finish a fork operation, with process p2 nearly set up.
  * Copy and update the pcb and trap frame, making the child ready to run.
- * 
+ *
  * Rig the child's kernel stack so that it will start out in
  * proc_trampoline() and call child_return() with p2 as an
  * argument. This causes the newly-created child process to go
@@ -134,7 +134,7 @@ cpu_fork(p1, p2, stack, stacksize)
 
 	/* Mark page invalid */
 	pt = kvtopte((u_int)p2->p_addr + REDZONEADDR);
-	pt->pg_v = 0; 
+	pt->pg_v = 0;
 
 	/*
 	 * Activate address space for the new process.	The PTEs have

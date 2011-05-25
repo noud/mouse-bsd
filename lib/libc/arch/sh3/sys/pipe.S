@@ -47,9 +47,9 @@
 
 SYSCALL(pipe)
 	mov	r4, r2
-	mov.l	r0, @r2	
-	mov.l	r1, @(4,r2) 
+	mov.l	r0, @r2
+	mov.l	r1, @(4,r2)
 	xor	r0, r0
 	rts
 	nop
-	
+

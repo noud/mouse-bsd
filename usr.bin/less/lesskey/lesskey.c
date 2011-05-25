@@ -10,19 +10,19 @@
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice in the documentation and/or other materials provided with 
+ *    notice in the documentation and/or other materials provided with
  *    the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
- * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN 
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -30,7 +30,7 @@
 /*
  *	lesskey [-o output] [input]
  *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
  *	Make a .less file.
  *	If no input file is specified, standard input is used.
@@ -40,9 +40,9 @@
  *	key bindings.  Basically any sequence of 1 to MAX_CMDLEN
  *	keystrokes may be bound to an existing less function.
  *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
- *	The input file is an ascii file consisting of a 
+ *	The input file is an ascii file consisting of a
  *	sequence of lines of the form:
  *		string <whitespace> action [chars] <newline>
  *
@@ -56,14 +56,14 @@
  *		   to specify a character by its octal value.
  *		4. A backslash followed by b, e, n, r or t
  *		   to specify \b, ESC, \n, \r or \t, respectively.
- *		5. Any character (other than those mentioned above) preceded 
+ *		5. Any character (other than those mentioned above) preceded
  *		   by a \ to specify the character itself (characters which
  *		   must be preceded by \ include ^, \, and whitespace.
  *	"action" is the name of a "less" action, from the table below.
  *	"chars" is an optional sequence of characters which is treated
  *		as keyboard input after the command is executed.
  *
- *	Blank lines and lines which start with # are ignored, 
+ *	Blank lines and lines which start with # are ignored,
  *	except for the special control lines:
  *		#command	Signals the beginning of the command
  *				keys section.
@@ -74,7 +74,7 @@
  *		#stop		Stops command parsing in less;
  *				causes all default keys to be disabled.
  *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
  *	The output file is a non-ascii file, consisting of a header,
  *	one or more sections, and a trailer.
@@ -82,7 +82,7 @@
  *	and the section data.  Normally there are three sections:
  *		CMD_SECTION	Definition of command keys.
  *		EDIT_SECTION	Definition of editing keys.
- *		END_SECTION	A special section header, with no 
+ *		END_SECTION	A special section header, with no
  *				length word or section data.
  *
  *	Section data consists of zero or more byte sequences of the form:
@@ -96,7 +96,7 @@
  *	If action is ORed with A_EXTRA, the action byte is followed
  *		by the null-terminated "chars" string.
  *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 
 #include "less.h"
@@ -109,7 +109,7 @@ struct cmdname
 	int cn_action;
 };
 
-struct cmdname cmdnames[] = 
+struct cmdname cmdnames[] =
 {
 	{ "back-bracket",	A_B_BRACKET },
 	{ "back-line",		A_B_LINE },
@@ -166,7 +166,7 @@ struct cmdname cmdnames[] =
 	{ NULL,			0 }
 };
 
-struct cmdname editnames[] = 
+struct cmdname editnames[] =
 {
 	{ "back-complete",	EC_B_COMPLETE },
 	{ "backspace",		EC_BACKSPACE },
@@ -203,14 +203,14 @@ struct table vartable;
 struct table *currtable = &cmdtable;
 
 char fileheader[] = {
-	C0_LESSKEY_MAGIC, 
-	C1_LESSKEY_MAGIC, 
-	C2_LESSKEY_MAGIC, 
+	C0_LESSKEY_MAGIC,
+	C1_LESSKEY_MAGIC,
+	C2_LESSKEY_MAGIC,
 	C3_LESSKEY_MAGIC
 };
 char filetrailer[] = {
-	C0_END_LESSKEY_MAGIC, 
-	C1_END_LESSKEY_MAGIC, 
+	C0_END_LESSKEY_MAGIC,
+	C1_END_LESSKEY_MAGIC,
 	C2_END_LESSKEY_MAGIC
 };
 char cmdsection[1] =	{ CMD_SECTION };
@@ -387,7 +387,7 @@ tchar(pp)
 			return ('\t');
 		default:
 			/*
-			 * Backslash followed by any other char 
+			 * Backslash followed by any other char
 			 * just means that char.
 			 */
 			*pp = p+1;
@@ -411,7 +411,7 @@ tchar(pp)
 skipsp(s)
 	register char *s;
 {
-	while (*s == ' ' || *s == '\t')	
+	while (*s == ' ' || *s == '\t')
 		s++;
 	return (s);
 }
@@ -522,7 +522,7 @@ fputint(fd, val)
 
 	if (val >= KRADIX*KRADIX)
 	{
-		fprintf(stderr, "error: integer too big (%d > %d)\n", 
+		fprintf(stderr, "error: integer too big (%d > %d)\n",
 			val, KRADIX*KRADIX);
 		exit(1);
 	}
@@ -715,7 +715,7 @@ main(argc, argv)
 		char *path  = getenv("HOMEPATH");
 		if (drive != NULL && path != NULL)
 		{
-			char *env = (char *) calloc(strlen(drive) + 
+			char *env = (char *) calloc(strlen(drive) +
 					strlen(path) + 6, sizeof(char));
 			strcpy(env, "PATH=");
 			strcat(env, drive);
@@ -794,7 +794,7 @@ main(argc, argv)
 	fputbytes(out, (char *)edittable.buffer, edittable.pbuffer-edittable.buffer);
 
 	/* Environment variable section */
-	fputbytes(out, varsection, sizeof(varsection)); 
+	fputbytes(out, varsection, sizeof(varsection));
 	fputint(out, vartable.pbuffer - vartable.buffer);
 	fputbytes(out, (char *)vartable.buffer, vartable.pbuffer-vartable.buffer);
 

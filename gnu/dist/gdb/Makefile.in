@@ -7,12 +7,12 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
@@ -348,14 +348,14 @@ LINTFILES = $(SFILES) $(YYFILES) @CONFIG_SRCS@ init.c
 
 # "system" headers.  Using these in dependencies is a rather personal
 # choice. (-rich, summer 1993)
-# (Why would we not want to depend on them?  If one of these changes in a 
+# (Why would we not want to depend on them?  If one of these changes in a
 # non-binary-compatible way, it is a real pain to remake the right stuff
 # without these dependencies -kingdon, 13 Mar 1994)
 getopt_h =	$(INCLUDE_DIR)/getopt.h
 floatformat_h =	$(INCLUDE_DIR)/floatformat.h
 bfd_h =		$(BFD_DIR)/bfd.h
 wait_h =	$(INCLUDE_DIR)/wait.h
-dis-asm_h =	$(INCLUDE_DIR)/dis-asm.h 
+dis-asm_h =	$(INCLUDE_DIR)/dis-asm.h
 remote-sim_h =	$(INCLUDE_DIR)/remote-sim.h
 
 dcache_h = dcache.h
@@ -460,7 +460,7 @@ COMMON_OBS = version.o blockframe.o breakpoint.o findvar.o stack.o thread.o \
 
 OBS = $(COMMON_OBS) $(ANNOTATE_OBS) main.o
 
-LIBGDB_OBS = 
+LIBGDB_OBS =
 
 TSOBS = inflow.o
 
@@ -504,12 +504,12 @@ info dvi install-info clean-info: force
 	@$(MAKE) $(FLAGS_TO_PASS) DO=$@ "DODIRS=$(SUBDIRS)" subdir_do
 
 gdb.z:gdb.1
-	nroff -man $(srcdir)/gdb.1 | col -b > gdb.t 
+	nroff -man $(srcdir)/gdb.1 | col -b > gdb.t
 	pack gdb.t ; rm -f gdb.t
 	mv gdb.t.z gdb.z
 
 # Traditionally "install" depends on "all".  But it may be useful
-# not to; for example, if the user has made some trivial change to a 
+# not to; for example, if the user has made some trivial change to a
 # source file and doesn't care about rebuilding or just wants to save the
 # time it takes for make to check that all is up to date.
 # install-only is intended to address that need.
@@ -524,7 +524,7 @@ install-only:
 		fi ; \
 		$(INSTALL_PROGRAM) gdb$(EXEEXT) $(bindir)/$$transformed_name$(EXEEXT) ; \
 		$(INSTALL_DATA) $(srcdir)/gdb.1 $(man1dir)/$$transformed_name.1
-	@$(MAKE) DO=install "DODIRS=$(SUBDIRS)" $(FLAGS_TO_PASS) subdir_do 
+	@$(MAKE) DO=install "DODIRS=$(SUBDIRS)" $(FLAGS_TO_PASS) subdir_do
 
 uninstall: force
 	transformed_name=`t='$(program_transform_name)'; \
@@ -535,7 +535,7 @@ uninstall: force
 		  true ; \
 		fi ; \
 		rm -f $(bindir)/$$transformed_name$(EXEEXT) $(man1dir)/$$transformed_name.1
-	@$(MAKE) DO=uninstall "DODIRS=$(SUBDIRS)" $(FLAGS_TO_PASS) subdir_do 
+	@$(MAKE) DO=uninstall "DODIRS=$(SUBDIRS)" $(FLAGS_TO_PASS) subdir_do
 
 # We do this by grepping through sources.  If that turns out to be too slow,
 # maybe we could just require every .o file to have an initialization routine
@@ -617,7 +617,7 @@ saber_gdb: $(SFILES) $(DEPFILES) copying.c version.c
 	#load ../bfd/libbfd.a
 	#load ../readline/libreadline.a
 	#load ../mmalloc/libmmalloc.a
-	#load -ltermcap 
+	#load -ltermcap
 	#load `echo " "$(DEPFILES) | sed -e 's/\.o/.c/g' -e 's, , ../,g'`
 	echo "Load .c corresponding to:" $(DEPFILES)
 
@@ -693,7 +693,7 @@ TAGS: $(TAGFILES_NO_SRCDIR) $(TAGFILES_WITH_SRCDIR)
 tags: TAGS
 
 clean mostlyclean:
-	@$(MAKE) $(FLAGS_TO_PASS) DO=clean "DODIRS=$(SUBDIRS)" subdir_do 
+	@$(MAKE) $(FLAGS_TO_PASS) DO=clean "DODIRS=$(SUBDIRS)" subdir_do
 	rm -f *.o *.a $(ADD_FILES) *~ init.c-tmp
 	rm -f init.c version.c
 	rm -f gdb$(EXEEXT) core make.log libgdb-files
@@ -704,7 +704,7 @@ clean mostlyclean:
 # describe removing files; the only sort of "re-create a distribution"
 # functionality described is if the distributed files are unmodified.
 distclean: clean
-	@$(MAKE) $(FLAGS_TO_PASS) DO=distclean "DODIRS=$(SUBDIRS)" subdir_do 
+	@$(MAKE) $(FLAGS_TO_PASS) DO=distclean "DODIRS=$(SUBDIRS)" subdir_do
 	rm -f nm.h tm.h xm.h config.status config.h stamp-h .gdbinit
 	rm -f y.output yacc.acts yacc.tmp y.tab.h
 	rm -f config.log config.cache
@@ -912,7 +912,7 @@ udip2soc.o: $(srcdir)/29k-share/udi/udip2soc.c $(udiheaders)
 udi2go32.o: $(srcdir)/29k-share/udi/udi2go32.c $(udiheaders)
 	$(CC) -c $(INTERNAL_CFLAGS) $(srcdir)/29k-share/udi/udi2go32.c
 
-udr.o: $(srcdir)/29k-share/udi/udr.c $(udiheaders) 
+udr.o: $(srcdir)/29k-share/udi/udr.c $(udiheaders)
 	$(CC) -c $(INTERNAL_CFLAGS) $(srcdir)/29k-share/udi/udr.c
 
 a29k-tdep.o: a29k-tdep.c $(gdbcmd_h) $(gdbcore_h) $(inferior_h) $(defs_h)
@@ -1097,7 +1097,7 @@ i386-tdep.o: i386-tdep.c $(defs_h) $(gdbcore_h) $(inferior_h) target.h \
 i386aix-nat.o: i386aix-nat.c $(defs_h) $(frame_h) $(inferior_h) \
 	language.h $(gdbcore_h) $(floatformat_h) target.h
 
-i386b-nat.o: i386b-nat.c $(defs_h) 
+i386b-nat.o: i386b-nat.c $(defs_h)
 
 i386ly-nat.o: i386ly-nat.c $(defs_h) $(frame_h) $(inferior_h) target.h
 
@@ -1105,7 +1105,7 @@ i386ly-tdep.o: i386ly-tdep.c $(defs_h) $(inferior_h) target.h $(gdbcore_h)
 
 i386m3-nat.o: i386m3-nat.c $(defs_h) $(inferior_h) $(floatformat_h) target.h
 
-i386mach-nat.o: i386mach-nat.c $(defs_h) $(gdbcore_h) $(inferior_h) 
+i386mach-nat.o: i386mach-nat.c $(defs_h) $(gdbcore_h) $(inferior_h)
 
 i386v-nat.o: i386v-nat.c $(floatformat_h) $(defs_h) $(gdbcore_h) \
 	$(inferior_h) language.h target.h
@@ -1191,12 +1191,12 @@ os9kread.o: os9kread.c buildsym.h complaints.h $(bfd_h) $(defs_h) \
         objfiles.h stabsread.h symfile.h $(symtab_h) \
 	target.h gdb_string.h
 
-mem-break.o: mem-break.c $(defs_h) 
+mem-break.o: mem-break.c $(defs_h)
 
 minsyms.o: minsyms.c $(bfd_h) $(defs_h) objfiles.h symfile.h \
 	$(symtab_h) gdb_string.h
 
-mips-nat.o: mips-nat.c $(defs_h) $(gdbcore_h) $(inferior_h) 
+mips-nat.o: mips-nat.c $(defs_h) $(gdbcore_h) $(inferior_h)
 
 mips-tdep.o: mips-tdep.c $(defs_h) $(gdbcmd_h) $(gdbcore_h) \
 	$(inferior_h) language.h objfiles.h symfile.h gdb_string.h
@@ -1270,9 +1270,9 @@ printcmd.o: printcmd.c $(breakpoint_h) $(defs_h) $(expression_h) \
 procfs.o: procfs.c $(command_h) $(defs_h) $(gdbcore_h) $(inferior_h) \
 	target.h gdb_string.h
 
-pyr-tdep.o: pyr-tdep.c $(defs_h) 
+pyr-tdep.o: pyr-tdep.c $(defs_h)
 
-pyr-xdep.o: pyr-xdep.c $(defs_h) $(gdbcore_h) $(inferior_h) 
+pyr-xdep.o: pyr-xdep.c $(defs_h) $(gdbcore_h) $(inferior_h)
 
 gnu-regex.o: gnu-regex.c gnu-regex.h $(defs_h) gdb_string.h
 
@@ -1384,7 +1384,7 @@ scm-lang.o: $(defs_h) $(value_h) parser-defs.h language.h c-lang.h \
 scm-valprint.o: $(defs_h) $(value_h) parser-defs.h language.h  \
 	scm-lang.h valprint.h $(gdbcore_h)
 
-ser-go32.o: ser-go32.c $(defs_h) serial.h 
+ser-go32.o: ser-go32.c $(defs_h) serial.h
 
 ser-mac.o: ser-mac.c $(defs_h) serial.h signals.h
 
@@ -1392,7 +1392,7 @@ ser-ocd.o: ser-ocd.c $(defs_h) serial.h signals.h gdb_string.h
 
 ser-tcp.o: ser-tcp.c $(defs_h) serial.h signals.h gdb_string.h
 
-ser-unix.o: ser-unix.c $(defs_h) serial.h 
+ser-unix.o: ser-unix.c $(defs_h) serial.h
 
 serial.o: serial.c $(defs_h) serial.h gdb_string.h
 

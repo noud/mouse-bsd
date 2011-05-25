@@ -159,7 +159,7 @@ int     rf_ConfigureDiskQueueSystem(RF_ShutdownList_t ** listp);
 
 void    rf_TerminateDiskQueues(RF_Raid_t * raidPtr);
 
-int 
+int
 rf_ConfigureDiskQueues(RF_ShutdownList_t ** listp, RF_Raid_t * raidPtr,
     RF_Config_t * cfgPtr);
 
@@ -168,40 +168,40 @@ void    rf_DiskIOEnqueue(RF_DiskQueue_t * queue, RF_DiskQueueData_t * req, int p
 
 void    rf_DiskIOComplete(RF_DiskQueue_t * queue, RF_DiskQueueData_t * req, int status);
 
-int 
+int
 rf_DiskIOPromote(RF_DiskQueue_t * queue, RF_StripeNum_t parityStripeID,
     RF_ReconUnitNum_t which_ru);
 
 RF_DiskQueueData_t *
-rf_CreateDiskQueueData(RF_IoType_t typ, RF_SectorNum_t ssect, 
+rf_CreateDiskQueueData(RF_IoType_t typ, RF_SectorNum_t ssect,
 		       RF_SectorCount_t nsect, caddr_t buf,
-		       RF_StripeNum_t parityStripeID, 
+		       RF_StripeNum_t parityStripeID,
 		       RF_ReconUnitNum_t which_ru,
 		       int (*wakeF) (void *, int),
-		       void *arg, RF_DiskQueueData_t * next, 
+		       void *arg, RF_DiskQueueData_t * next,
 		       RF_AccTraceEntry_t * tracerec,
-		       void *raidPtr, RF_DiskQueueDataFlags_t flags, 
+		       void *raidPtr, RF_DiskQueueDataFlags_t flags,
 		       void *kb_proc);
 
 RF_DiskQueueData_t *
-rf_CreateDiskQueueDataFull(RF_IoType_t typ, RF_SectorNum_t ssect, 
+rf_CreateDiskQueueDataFull(RF_IoType_t typ, RF_SectorNum_t ssect,
 			   RF_SectorCount_t nsect, caddr_t buf,
-			   RF_StripeNum_t parityStripeID, 
+			   RF_StripeNum_t parityStripeID,
 			   RF_ReconUnitNum_t which_ru,
 			   int (*wakeF) (void *, int),
-			   void *arg, RF_DiskQueueData_t * next, 
+			   void *arg, RF_DiskQueueData_t * next,
 			   RF_AccTraceEntry_t * tracerec,
-			   int priority, int (*AuxFunc) (void *,...), 
-			   caddr_t buf2, void *raidPtr, 
+			   int priority, int (*AuxFunc) (void *,...),
+			   caddr_t buf2, void *raidPtr,
 			   RF_DiskQueueDataFlags_t flags, void *kb_proc);
 
-void    
+void
 rf_FreeDiskQueueData(RF_DiskQueueData_t * p);
 
-int 
-rf_ConfigureDiskQueue(RF_Raid_t *, RF_DiskQueue_t *, RF_RowCol_t, 
+int
+rf_ConfigureDiskQueue(RF_Raid_t *, RF_DiskQueue_t *, RF_RowCol_t,
 		      RF_RowCol_t, RF_DiskQueueSW_t *,
-		      RF_SectorCount_t, dev_t, int, 
+		      RF_SectorCount_t, dev_t, int,
 		      RF_ShutdownList_t **,
 		      RF_AllocListElem_t *);
 

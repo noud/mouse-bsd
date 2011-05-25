@@ -34,7 +34,7 @@ static const char rcsid[] = "Id: getnetgrent_r.c,v 8.4 1999/01/18 07:46:52 vixie
 
 #ifdef NGR_R_RETURN
 
-static NGR_R_RETURN 
+static NGR_R_RETURN
 copy_protoent(char **, char **, char **, char *, char *, char *,
 		NGR_R_COPY_ARGS);
 
@@ -56,7 +56,7 @@ getnetgrent_r(char **machinep, char **userp, char **domainp, NGR_R_ARGS) {
 	char *mp, *up, *dp;
 	int res = getnetgrent(&mp, &up, &dp);
 
-	if (res != 1) 
+	if (res != 1)
 		return (res);
 
 	return (copy_protoent(machinep, userp, domainp,
@@ -96,7 +96,7 @@ copy_protoent(char **machinep, char **userp, char **domainp,
 	if (mp != NULL) len += strlen(mp) + 1;
 	if (up != NULL) len += strlen(up) + 1;
 	if (dp != NULL) len += strlen(dp) + 1;
-	
+
 	if (len > buflen) {
 		errno = ERANGE;
 		return (NGR_R_BAD);

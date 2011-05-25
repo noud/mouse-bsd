@@ -177,7 +177,7 @@ umap_mapids(v_mount, credp)
 		credp->cr_gid = NULLGROUP;
 #endif
 
-	/* Now we must map each of the set of groups in the cr_groups 
+	/* Now we must map each of the set of groups in the cr_groups
 		structure. */
 
 	for(i=0; i < credp->cr_ngroups; i++) {

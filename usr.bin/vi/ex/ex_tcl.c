@@ -34,13 +34,13 @@ static const char sccsid[] = "@(#)ex_tcl.c	8.9 (Berkeley) 4/28/96";
 #include <tcl.h>
 #endif
 
-/* 
+/*
  * ex_tcl -- :[line [,line]] tcl [command]
  *	Run a command through the tcl interpreter.
  *
  * PUBLIC: int ex_tcl __P((SCR*, EXCMD *));
  */
-int 
+int
 ex_tcl(sp, cmdp)
 	SCR *sp;
 	EXCMD *cmdp;

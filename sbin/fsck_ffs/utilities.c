@@ -678,7 +678,7 @@ swap_cg(o, n)
 		}
 		for (i=0; i < sblock->fs_cpg; i++)
 			n32[i] = bswap32(o32[i]);
-		
+
 		for (i=0; i < sblock->fs_cpg * sblock->fs_nrpos; i++)
 			n16[i] = bswap16(o16[i]);
 

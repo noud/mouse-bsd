@@ -165,7 +165,7 @@ extern CORE_ADDR skip_prologue PARAMS ((CORE_ADDR, int));
       0 \
     } \
 }
-   
+
 #define PFP_REGNUM R0_REGNUM	/* Previous frame pointer	*/
 
 /* Total amount of space needed to store our copies of the machine's
@@ -218,7 +218,7 @@ extern CORE_ADDR skip_prologue PARAMS ((CORE_ADDR, int));
 #define EXTRACT_RETURN_VALUE(TYPE,REGBUF,VALBUF) \
 	memcpy(VALBUF, REGBUF+REGISTER_BYTE(R0_REGNUM), TYPE_LENGTH (TYPE))
 
-/* If USE_STRUCT_CONVENTION produces a 1, 
+/* If USE_STRUCT_CONVENTION produces a 1,
    extract from an array REGBUF containing the (raw) register state
    the address in which a function should return its structure value,
    as a CORE_ADDR (or an expression that can be used as one). */
@@ -329,14 +329,14 @@ extern void frame_find_saved_regs();		/* See arc-tdep.c */
 	pop_frame ()
 
 /* This sequence of words is the instructions  bl xxxx, flag 1 */
-#define CALL_DUMMY { 0x28000000, 0x1fbe8001 }   
+#define CALL_DUMMY { 0x28000000, 0x1fbe8001 }
 #define CALL_DUMMY_LENGTH 8
 
 /* Start execution at beginning of dummy */
-#define CALL_DUMMY_START_OFFSET 0 
+#define CALL_DUMMY_START_OFFSET 0
 
 /* Insert the specified number of args and function address
-   into a call sequence of the above form stored at 'dummyname'.*/  
+   into a call sequence of the above form stored at 'dummyname'.*/
 #define FIX_CALL_DUMMY(dummyname, pc, fun, nargs, args, type, gcc_p) \
 { \
         int from, to, delta, loc; \

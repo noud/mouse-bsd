@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Guess values for system-dependent variables and create Makefiles.
-# Generated automatically using autoconf version 2.12.1 
+# Generated automatically using autoconf version 2.12.1
 # Copyright (C) 1992, 93, 94, 95, 96 Free Software Foundation, Inc.
 #
 # This configure script is free software; the Free Software Foundation
@@ -1711,17 +1711,17 @@ EOF
 	;;
 
       mips)
-	echo ${extra_objects} | grep -s "itbl-parse.o" 
+	echo ${extra_objects} | grep -s "itbl-parse.o"
 	if test $? -ne 0 ; then
 	  extra_objects="$extra_objects itbl-parse.o"
 	fi
 
-	echo ${extra_objects} | grep -s "itbl-lex.o" 
+	echo ${extra_objects} | grep -s "itbl-lex.o"
 	if test $? -ne 0 ; then
 	  extra_objects="$extra_objects itbl-lex.o"
 	fi
 
-	echo ${extra_objects} | grep -s "itbl-ops.o" 
+	echo ${extra_objects} | grep -s "itbl-ops.o"
 	if test $? -ne 0 ; then
 	  extra_objects="$extra_objects itbl-ops.o"
 	fi
@@ -2474,7 +2474,7 @@ fi
   else
     MAINT='#M#'
   fi
-  
+
 
 echo $ac_n "checking for Cygwin32 environment""... $ac_c" 1>&6
 echo "configure:2471: checking for Cygwin32 environment" >&5
@@ -2595,7 +2595,7 @@ if eval "test \"`echo '$ac_cv_header_'$ac_safe`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_hdr 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -2877,7 +2877,7 @@ echo "$ac_t""$ac_cv_c_inline" 1>&6
 case "$ac_cv_c_inline" in
   inline | yes) ;;
   no) cat >> confdefs.h <<\EOF
-#define inline 
+#define inline
 EOF
  ;;
   *)  cat >> confdefs.h <<EOF
@@ -2994,7 +2994,7 @@ if eval "test \"`echo '$ac_cv_func_'$ac_func`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_func 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi

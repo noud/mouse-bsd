@@ -160,7 +160,7 @@ nfs_connect(nmp, rep)
 
 	nmp->nm_so = (struct socket *)0;
 	saddr = mtod(nmp->nm_nam, struct sockaddr *);
-	error = socreate(saddr->sa_family, &nmp->nm_so, nmp->nm_sotype, 
+	error = socreate(saddr->sa_family, &nmp->nm_so, nmp->nm_sotype,
 		nmp->nm_soproto);
 	if (error)
 		goto bad;
@@ -325,7 +325,7 @@ nfs_disconnect(nmp)
 {
 	register struct socket *so;
 	int drain = 0;
-	
+
 	if (nmp->nm_so) {
 		so = nmp->nm_so;
 		nmp->nm_so = (struct socket *)0;
@@ -498,7 +498,7 @@ tryagain:
 		}
 		so = rep->r_nmp->nm_so;
 		if (!so) {
-			error = nfs_reconnect(rep); 
+			error = nfs_reconnect(rep);
 			if (error) {
 				nfs_sndunlock(&rep->r_nmp->nm_iflag);
 				return (error);
@@ -721,10 +721,10 @@ nfs_reply(myrep)
 			}
 			return (error);
 		}
-		nmp->nm_waiters--;			
+		nmp->nm_waiters--;
 		if (nam)
 			m_freem(nam);
-	
+
 		/*
 		 * Get the xid and check that it is an rpc reply
 		 */
@@ -1504,7 +1504,7 @@ nfs_rcvlock(rep)
 
 	if (*flagp & NFSMNT_DISMNT)
 		return EIO;
-	
+
 	if (*flagp & NFSMNT_INT)
 		slpflag = PCATCH;
 	else

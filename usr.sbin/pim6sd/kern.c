@@ -38,12 +38,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -72,14 +72,14 @@
 #include "kern.h"
 
 
-/*  
+/*
  * Open/init the multicast routing in the kernel and sets the MRT_ASSERT
  * flag in the kernel.
  *
  */
 
 
-void 
+void
 k_init_pim(int socket)
 {
     int             v = 1;
@@ -111,12 +111,12 @@ k_stop_pim(socket)
 
 }
 
-/* 
+/*
  * Set the socket receiving buffer. `bufsize` is the preferred size,
  * `minsize` is the smallest acceptable size.
- */ 
+ */
 
-void 
+void
 k_set_rcvbuf(int socket, int bufsize, int minsize)
 {
     int             delta = bufsize / 2;
@@ -126,7 +126,7 @@ k_set_rcvbuf(int socket, int bufsize, int minsize)
      * Set the socket buffer.  If we can't set it as large as we
      * want, search around to try to find the highest acceptable
      * value.  The highest acceptable value being smaller than
-     * minsize is a fatal error. 
+     * minsize is a fatal error.
      */
 
 
@@ -158,12 +158,12 @@ k_set_rcvbuf(int socket, int bufsize, int minsize)
 		log(LOG_DEBUG,0,"Buffer reception size for socket %d : %d in %d iterations",socket, bufsize, iter);
 }
 
-/*  
+/*
  * Set the default Hop Limit for the multicast packets outgoing from this
  * socket.
- */ 
+ */
 
-void 
+void
 k_set_hlim(int socket, int h)
 {
     int             hlim = h;
@@ -178,7 +178,7 @@ k_set_hlim(int socket, int h)
  */
 
 
-void 
+void
 k_set_loop(int socket, int flag)
 {
     u_int           loop;
@@ -191,10 +191,10 @@ k_set_loop(int socket, int flag)
 /*
  * Set the IPV6_MULTICAST_IF option on local interface which has the
  * specified index.
- */  
+ */
 
 
-void 
+void
 k_set_if(int socket, u_int ifindex)
 {
     if (setsockopt(socket, IPPROTO_IPV6, IPV6_MULTICAST_IF,
@@ -206,9 +206,9 @@ k_set_if(int socket, u_int ifindex)
 
 /*
  * Join a multicast grp group on local interface ifa.
- */  
+ */
 
-void 
+void
 k_join(int socket, struct in6_addr * grp, u_int ifindex)
 {
     struct ipv6_mreq mreq;
@@ -224,9 +224,9 @@ k_join(int socket, struct in6_addr * grp, u_int ifindex)
 
 /*
  * Leave a multicats grp group on local interface ifa.
- */  
+ */
 
-void 
+void
 k_leave(int socket, struct in6_addr * grp, u_int ifindex)
 {
     struct ipv6_mreq mreq;
@@ -240,11 +240,11 @@ k_leave(int socket, struct in6_addr * grp, u_int ifindex)
 	       inet6_fmt(grp), ifindex2str(ifindex));
 }
 
-/* 
+/*
  * Add a virtual interface in the kernel.
  */
 
-void 
+void
 k_add_vif(int socket, vifi_t vifi, struct uvif * v)
 {
     struct mif6ctl  mc;
@@ -267,7 +267,7 @@ k_add_vif(int socket, vifi_t vifi, struct uvif * v)
  * Delete a virtual interface in the kernel.
  */
 
-void 
+void
 k_del_vif(int socket, vifi_t vifi)
 {
     if (setsockopt(socket, IPPROTO_IPV6, MRT6_DEL_MIF,
@@ -277,9 +277,9 @@ k_del_vif(int socket, vifi_t vifi)
 
 /*
  * Delete all MFC entries for particular routing entry from the kernel.
- */  
+ */
 
-int 
+int
 k_del_mfc(int socket, struct sockaddr_in6 * source, struct sockaddr_in6 * group)
 {
     struct mf6cctl  mc;
@@ -291,7 +291,7 @@ k_del_mfc(int socket, struct sockaddr_in6 * source, struct sockaddr_in6 * group)
     if (setsockopt(socket, IPPROTO_IPV6, MRT6_DEL_MFC, (char *) &mc, sizeof(mc)) < 0)
     {
 	pim6dstat.kern_del_cache_fail++;
-	log(LOG_WARNING, errno, "setsockopt MRT6_DEL_MFC");	
+	log(LOG_WARNING, errno, "setsockopt MRT6_DEL_MFC");
 	return FALSE;
     }
 
@@ -360,7 +360,7 @@ k_chg_mfc(socket, source, group, iif, oifs, rp_addr)
  * XXX: TODO: currently not used, but keep just in case we need it later.
  */
 
-int 
+int
 k_get_vif_count(vifi, retval)
     vifi_t          vifi;
     struct vif_count *retval;

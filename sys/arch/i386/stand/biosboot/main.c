@@ -57,7 +57,7 @@ char *names[] = {
     "netbsd", "netbsd.gz",
     "netbsd.old", "netbsd.old.gz",
     "onetbsd", "onetbsd.gz",
-#ifdef notyet    
+#ifdef notyet
     "netbsd.el", "netbsd.el.gz",
 #endif /*notyet*/
 };
@@ -174,7 +174,7 @@ sprint_bootsel(filename)
 	int unit, partition;
 	const char *file;
 	static char buf[80];
-	
+
 	if (parsebootfile(filename, &fsname, &devname, &unit,
 			  &partition, &file) == 0) {
 		sprintf(buf, "%s%d%c:%s", devname, unit, 'a' + partition, file);
@@ -219,7 +219,7 @@ print_banner()
 }
 
 
-/* 
+/*
  * note: normally, void main() wouldn't be legal, but this isn't a
  * hosted environment...
  */
@@ -348,7 +348,7 @@ command_dev(arg)
 		command_help(NULL);
 		return;
 	}
-	    
+
 	/* put to own static storage */
 	strncpy(savedevname, devname, MAXDEVNAME + 1);
 	default_devname = savedevname;

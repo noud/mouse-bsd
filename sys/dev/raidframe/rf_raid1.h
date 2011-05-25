@@ -33,29 +33,29 @@
 
 #include "rf_types.h"
 
-int 
+int
 rf_ConfigureRAID1(RF_ShutdownList_t ** listp, RF_Raid_t * raidPtr,
     RF_Config_t * cfgPtr);
-void 
+void
 rf_MapSectorRAID1(RF_Raid_t * raidPtr, RF_RaidAddr_t raidSector,
     RF_RowCol_t * row, RF_RowCol_t * col, RF_SectorNum_t * diskSector, int remap);
-void 
+void
 rf_MapParityRAID1(RF_Raid_t * raidPtr, RF_RaidAddr_t raidSector,
     RF_RowCol_t * row, RF_RowCol_t * col, RF_SectorNum_t * diskSector, int remap);
-void 
+void
 rf_IdentifyStripeRAID1(RF_Raid_t * raidPtr, RF_RaidAddr_t addr,
     RF_RowCol_t ** diskids, RF_RowCol_t * outRow);
-void 
+void
 rf_MapSIDToPSIDRAID1(RF_RaidLayout_t * layoutPtr,
     RF_StripeNum_t stripeID, RF_StripeNum_t * psID,
     RF_ReconUnitNum_t * which_ru);
-void 
+void
 rf_RAID1DagSelect(RF_Raid_t * raidPtr, RF_IoType_t type,
     RF_AccessStripeMap_t * asmap, RF_VoidFuncPtr * createFunc);
-int 
+int
 rf_VerifyParityRAID1(RF_Raid_t * raidPtr, RF_RaidAddr_t raidAddr,
     RF_PhysDiskAddr_t * parityPDA, int correct_it, RF_RaidAccessFlags_t flags);
-int 
+int
 rf_SubmitReconBufferRAID1(RF_ReconBuffer_t * rbuf, int keep_int,
     int use_committed);
 

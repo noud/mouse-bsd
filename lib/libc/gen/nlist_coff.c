@@ -157,7 +157,7 @@ __fdnlist_coff(fd, list)
 			i += esym.es_numaux;	/* XXX Skip aux entry */
 			continue;
 		}
-			
+
 		if (esym.es_zero != 0) {
 			memcpy(name, esym.es_name, 8);
 			name[8] = 0;

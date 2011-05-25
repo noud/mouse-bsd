@@ -448,7 +448,7 @@ int ipfr_slowtimer()
 # else
 	extern	int	fr_running;
 
-	if (fr_running <= 0) 
+	if (fr_running <= 0)
 		return;
 # endif
 #endif

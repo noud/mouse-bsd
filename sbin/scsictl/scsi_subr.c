@@ -46,7 +46,7 @@
 #include <sys/param.h>
 #include <sys/ioctl.h>
 #include <sys/scsiio.h>
-#include <err.h> 
+#include <err.h>
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -149,7 +149,7 @@ scsi_strvis(sdst, dlen, ssrc, slen)
 
 	while (slen > 0) {
 		if (*src < 0x20 || *src >= 0x80) {
-			/* non-printable characters */ 
+			/* non-printable characters */
 			dlen -= 4;
 			if (dlen < 1)
 				break;

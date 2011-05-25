@@ -34,12 +34,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -63,7 +63,7 @@ extern int 	pim6_socket;
 
 void init_pim6 __P((void));
 extern void send_pim6        __P((char *buf, struct sockaddr_in6 *src,
-                         struct sockaddr_in6 *dst, int type, 
+                         struct sockaddr_in6 *dst, int type,
                          int datalen));
 
 

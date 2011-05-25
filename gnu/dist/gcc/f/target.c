@@ -216,7 +216,7 @@ ffetarget_align (ffetargetAlign *updated_alignment,
 
   assert (alignment > 0);
   assert (*updated_alignment > 0);
-  
+
   assert (*updated_modulo < *updated_alignment);
   assert (modulo < alignment);
 

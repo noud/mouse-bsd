@@ -86,22 +86,22 @@
 
 #include <net/if.h>
 #include <net/if_dl.h>
-#include <net/if_ether.h>   
+#include <net/if_ether.h>
 #include <net/if_media.h>
 
 #ifdef INET
 #include <netinet/in.h>
 #include <netinet/in_systm.h>
-#include <netinet/in_var.h>     
+#include <netinet/in_var.h>
 #include <netinet/ip.h>
-#include <netinet/if_inarp.h>   
+#include <netinet/if_inarp.h>
 #endif
 
 #ifdef NS
 #include <netns/ns.h>
 #include <netns/ns_if.h>
-#endif 
-        
+#endif
+
 #if NBPFILTER > 0
 #include <net/bpf.h>
 #include <net/bpfdesc.h>

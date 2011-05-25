@@ -86,7 +86,7 @@ file name so the distinction is necessary.
 .PP
 The
 FUNIT
-word contains 
+word contains
 a set of flags.
 whose representations are:
 .TS
@@ -178,7 +178,7 @@ Block exit
 When block exit occurs the interpreter must free the files that are in
 use in the block
 and their associated buffers.
-This is simple and efficient because the files in the active file chain are 
+This is simple and efficient because the files in the active file chain are
 sorted by increasing block mark address.
 This means that the files for the current block will be at the front
 of the chain.
@@ -195,7 +195,7 @@ or on a call to the procedure
 .I flush
 or
 .I message
-is done by flushing 
+is done by flushing
 each file on the file chain that has the
 FWRITE
 bit set in its flags word.
@@ -278,7 +278,7 @@ READ*
 .IP
 If the file is a text file, read a block of text
 and convert it to the internal type of the specified
-operand. If the file is not a text file then 
+operand. If the file is not a text file then
 do an unformatted read of the next record.
 The procedure
 .SM READLN
@@ -290,7 +290,7 @@ The operator
 .SM READE
 reads a string name of an enumerated type and converts it
 to its internal value.
-.SM READE 
+.SM READE
 takes a pointer to a data structure as shown in figure 3.2.
 .so fig3.2.n
 See the description of
@@ -311,7 +311,7 @@ by the
 standard
 .SM I/O
 library routine.
-The sub-opcode 
+The sub-opcode
 .I s
 specifies the number
 of longword arguments on the stack.
@@ -319,7 +319,7 @@ of longword arguments on the stack.
 WRITEC
 .IP
 The character on the top of the stack is output
-without formatting. Formatted characters must be output with 
+without formatting. Formatted characters must be output with
 .SM WRITEF .
 .SH
 WRITES
@@ -346,7 +346,7 @@ NAM A
 .IP
 The value on the top of the stack is converted to a pointer
 to an enumerated type string name.
-The address 
+The address
 .SM A
 points to an enumerated type structure identical
 to that used by
@@ -356,8 +356,8 @@ The form of this structure for the predefined type
 .B boolean
 is shown in figure 3.3.
 .so fig3.3.n
-The code for 
-.SM NAM 
+The code for
+.SM NAM
 is
 .DS
 .mD
@@ -427,16 +427,16 @@ LVCON:4	"r ="
 WRITES
 RV8\fI:l	r\fP
 RV4\fI:l	i\fP
-MAX:8	1 
+MAX:8	1
 RV4\fI:l	i\fP
-MAX:1	1 
+MAX:1	1
 LVCON:8	" %*.*E"
 FILE
 WRITEF:6
 CONC4	\' \'
 WRITEC
 CON14:1
-NAM	\fIbool\fP 
+NAM	\fIbool\fP
 LVCON:4	"%s"
 FILE
 WRITEF:3
@@ -451,10 +451,10 @@ is an abbreviated form of the operator
 that is used when the file to be made active is
 .I output .
 A file descriptor, record count, string size, and a pointer
-to the constant string ``r ='' are pushed 
+to the constant string ``r ='' are pushed
 and then output by
 .SM WRITES .
-Next the value of 
+Next the value of
 .I r
 is pushed on the stack
 and the precision size is calculated by taking
@@ -469,7 +469,7 @@ by a file descriptor and the operator
 .SM WRITEF
 that prints out
 .I r .
-The value of six on 
+The value of six on
 .SM WRITEF
 comes from two longs for
 .I r
@@ -512,16 +512,16 @@ instead of explicitly pushing their file pointers.
 .SH
 FILE
 .IP
-The standard 
+The standard
 .SM I/O
-library file descriptor associated with the active file 
+library file descriptor associated with the active file
 is pushed onto the stack.
 .SH
 EOF
 .IP
 The file pointed to by the file pointer on the top
 of the stack is checked for end of file. A boolean
-is returned with 
+is returned with
 .I true
 indicating the end of file condition.
 .SH
@@ -549,7 +549,7 @@ The file is marked as defined but not opened.
 This allows
 .B program
 statement association of file names with file variables
-before their use by a 
+before their use by a
 .SM RESET
 or a
 .SM REWRITE .
@@ -576,7 +576,7 @@ the size of the data type associated with the file,
 the maximum size of the name (possibly zero),
 a pointer to the file name (possibly null),
 and a pointer to the file variable.
-If the file has never existed it is created as in 
+If the file has never existed it is created as in
 .SM DEFNAME .
 If no file name is specified and no previous name exists
 (for example one created by
@@ -589,11 +589,11 @@ opens the file for output.
 .sp 1
 .PP
 The three remaining file operations are
-.SM FLUSH 
+.SM FLUSH
 that flushes the active file,
 .SM REMOVE
 that takes the pointer to a file name and removes the
 specified file, and
 .SM MESSAGE
-that flushes all the output files and sets the 
+that flushes all the output files and sets the
 standard error file to be the active file.

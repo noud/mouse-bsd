@@ -1,7 +1,7 @@
 /* BFD back-end for RISC iX (Acorn, arm) binaries.
    Copyright (C) 1994, 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
    Contributed by Richard Earnshaw (rwe@pegasus.esprit.ec.org)
-   
+
 This file is part of BFD, the Binary File Descriptor library.
 
 This program is free software; you can redistribute it and/or modify
@@ -193,7 +193,7 @@ riscix_fix_pcrel_26 (abfd, reloc_entry, symbol, data, input_section,
   bfd_size_type addr = reloc_entry->address;
   long target = bfd_get_32 (abfd, (bfd_byte *) data + addr);
   bfd_reloc_status_type flag = bfd_reloc_ok;
-  
+
   /* If this is an undefined symbol, return error */
   if (symbol->section == &bfd_und_section
       && (symbol->flags & BSF_WEAK) == 0)
@@ -233,7 +233,7 @@ riscix_fix_pcrel_26 (abfd, reloc_entry, symbol, data, input_section,
   /* Now the ARM magic... Change the reloc type so that it is marked as done.
      Strictly this is only necessary if we are doing a partial relocation.  */
   reloc_entry->howto = &riscix_std_reloc_howto[7];
-  
+
   return flag;
 }
 
@@ -303,10 +303,10 @@ riscix_swap_std_reloc_out (abfd, g, natptr)
   /* For RISC iX, in pc-relative relocs the r_pcrel bit means that the
      relocation has been done already (Only for the 26-bit one I think)???!!!
      */
-  
+
   if (r_length == 3)
     r_pcrel = r_pcrel ? 0 : 1;
-  
+
 
 #if 0
   /* For a standard reloc, the addend is in the object file.  */
@@ -381,7 +381,7 @@ riscix_squirt_out_relocs (abfd, section)
   arelent **generic;
   unsigned char *native, *natptr;
   size_t each_size;
-  
+
   unsigned int count = section->reloc_count;
   size_t natsize;
 
@@ -462,7 +462,7 @@ MY(canonicalize_reloc)(abfd, section, relptr, symbols)
   return section->reloc_count;
 }
 
-/* This is the same as NAME(aout,some_aout_object_p), but has different 
+/* This is the same as NAME(aout,some_aout_object_p), but has different
    expansions of the macro definitions.  */
 
 const bfd_target *
@@ -474,7 +474,7 @@ riscix_some_aout_object_p (abfd, execp, callback_to_real_object_p)
   struct aout_data_struct *rawptr, *oldrawptr;
   const bfd_target *result;
 
-  rawptr = ((struct aout_data_struct  *) 
+  rawptr = ((struct aout_data_struct  *)
 	    bfd_zalloc (abfd, sizeof (struct aout_data_struct )));
 
   if (rawptr == NULL)
@@ -505,8 +505,8 @@ riscix_some_aout_object_p (abfd, execp, callback_to_real_object_p)
   if (N_DYNAMIC(*execp))
     abfd->flags |= DYNAMIC;
 
-								  
-  if ((execp->a_info & MF_SQUEEZED) != 0) /* Squeezed files aren't supported 
+
+  if ((execp->a_info & MF_SQUEEZED) != 0) /* Squeezed files aren't supported
 					     (yet)! */
     {
       bfd_set_error (bfd_error_wrong_format);

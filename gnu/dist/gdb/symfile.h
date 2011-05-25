@@ -89,7 +89,7 @@ struct sym_fns {
 
   /* Called when we are finished with an objfile.  Should do all cleanup
      that is specific to the object file format for the particular objfile. */
- 
+
   void (*sym_finish) PARAMS ((struct objfile *));
 
   /* This function produces a file-dependent section_offsets structure,
@@ -102,7 +102,7 @@ struct sym_fns {
   struct section_offsets *(*sym_offsets) PARAMS ((struct objfile *, CORE_ADDR));
 
   /* Finds the next struct sym_fns.  They are allocated and initialized
-     in whatever module implements the functions pointed to; an 
+     in whatever module implements the functions pointed to; an
      initializer calls add_symtab_fns to add them to the global chain.  */
 
   struct sym_fns *next;
@@ -210,7 +210,7 @@ extern int overlay_debugging;
 extern int overlay_cache_invalid;
 
 /* return the "mapped" overlay section  containing the PC */
-extern asection * 
+extern asection *
 find_pc_mapped_section PARAMS ((CORE_ADDR));
 
 /* return any overlay section containing the PC (even in its LMA region) */
@@ -242,7 +242,7 @@ extern CORE_ADDR
 overlay_unmapped_address PARAMS ((CORE_ADDR, asection *));
 
 /* convert an address in an overlay section (force into VMA range) */
-extern CORE_ADDR 
+extern CORE_ADDR
 symbol_overlayed_address PARAMS ((CORE_ADDR, asection *));
 
 /* From dwarfread.c */

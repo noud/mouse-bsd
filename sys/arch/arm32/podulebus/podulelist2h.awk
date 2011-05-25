@@ -169,7 +169,7 @@ END {
 			printf("\t{ PODULE_%s_%s,",
 			    podules[j, 1], podules[j, 2]) \
 			    > dfile
-	
+
 			printf("\t\"") > dfile
 			k = 4;
 			needspace = 0;

@@ -8,7 +8,7 @@ static const char rcsid[] = "Id: db_lookup.c,v 8.24 1999/10/15 19:48:58 vixie Ex
 /*
  * Copyright (c) 1986
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -24,7 +24,7 @@ static const char rcsid[] = "Id: db_lookup.c,v 8.24 1999/10/15 19:48:58 vixie Ex
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -40,14 +40,14 @@ static const char rcsid[] = "Id: db_lookup.c,v 8.24 1999/10/15 19:48:58 vixie Ex
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -102,7 +102,7 @@ static const char rcsid[] = "Id: db_lookup.c,v 8.24 1999/10/15 19:48:58 vixie Ex
 
 #include "named.h"
 
-/* 
+/*
  * Lookup 'name' and return a pointer to the namebuf;
  * NULL otherwise. If 'insert', insert name into tables.
  * Wildcard lookups are handled.
@@ -156,7 +156,7 @@ nlookup(const char *name, struct hashbuf **htpp,
 	     np != NULL;
 	     np = np->n_next) {
 		if (np->n_hashval == hval &&
-		    ((size_t)NAMELEN(*np) == (size_t)(cp - name)) && 
+		    ((size_t)NAMELEN(*np) == (size_t)(cp - name)) &&
 		    (strncasecmp(name, NAME(*np), cp - name) == 0)) {
 			*fname = name;
 			return (np);
@@ -282,7 +282,7 @@ nxtlower(const char *name, struct databuf *dp) {
 	 * by the zone, so the signer name must be the same as the owner.
 	 */
 	return (ns_samename(name, (char *)dp->d_data + SIG_HDR_SIZE) != 1 ? 0 : 1);
-}   
+}
 
 /* int
  * nxtmatch(name, dp1, dp2)
@@ -293,12 +293,12 @@ nxtlower(const char *name, struct databuf *dp) {
 int
 nxtmatch(const char *name, struct databuf *dp1, struct databuf *dp2) {
         int dp1_lower, dp2_lower;
-                
+
 	if (dp1->d_type != ns_t_nxt || dp2->d_type != ns_t_nxt)
 		return (0);
         dp1_lower = nxtlower(name, dp1);
         dp2_lower = nxtlower(name, dp2);
-        return (dp1_lower == dp2_lower); 
+        return (dp1_lower == dp2_lower);
 }
 
 /* int

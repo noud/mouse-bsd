@@ -44,4 +44,4 @@ extern int	bootpart;	/* boot partition (disk) */
 extern struct device *booted_device;	/* boot device */
 
 /* PARTITIONSHIFT from disklabel.h */
-#define	PARTITIONMASK	((1 << PARTITIONSHIFT) - 1) 
+#define	PARTITIONMASK	((1 << PARTITIONSHIFT) - 1)

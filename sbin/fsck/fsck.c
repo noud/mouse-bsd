@@ -34,7 +34,7 @@
  * SUCH DAMAGE.
  *
  * From: @(#)mount.c	8.19 (Berkeley) 4/19/94
- * From: NetBSD: mount.c,v 1.24 1995/11/18 03:34:29 cgd Exp 
+ * From: NetBSD: mount.c,v 1.24 1995/11/18 03:34:29 cgd Exp
  *
  */
 
@@ -259,7 +259,7 @@ checkfs(vfstype, spec, mntpt, auxarg, pidp)
 	argv[argc] = NULL;
 
 	if (flags & (CHECK_DEBUG|CHECK_VERBOSE)) {
-		(void)printf("start %s %swait", mntpt, 
+		(void)printf("start %s %swait", mntpt,
 			pidp ? "no" : "");
 		for (i = 0; i < argc; i++)
 			(void)printf(" %s", argv[i]);
@@ -500,7 +500,7 @@ getfslab(str)
 	if ((p - 'a') >= dl.d_npartitions)
 		errx(1, "partition `%s' is not defined on disk", str);
 
-	if ((t = dl.d_partitions[p - 'a'].p_fstype) >= FSMAXTYPES) 
+	if ((t = dl.d_partitions[p - 'a'].p_fstype) >= FSMAXTYPES)
 		errx(1, "partition `%s' is not of a legal vfstype",
 		    str);
 

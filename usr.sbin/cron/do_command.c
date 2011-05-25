@@ -125,7 +125,7 @@ child_process(e, u)
 	 */
 	pipe(stdin_pipe);	/* child's stdin */
 	pipe(stdout_pipe);	/* child's stdout */
-	
+
 	/* since we are a forked process, we can diddle the command string
 	 * we were passed -- nobody else is going to use it again, right?
 	 *
@@ -138,7 +138,7 @@ child_process(e, u)
 		int escaped = FALSE;
 		int ch;
 
-		for (input_data = e->cmd;  (ch = *input_data) != '\0'; 
+		for (input_data = e->cmd;  (ch = *input_data) != '\0';
 		    input_data++) {
 			if (escaped) {
 				escaped = FALSE;
@@ -369,7 +369,7 @@ child_process(e, u)
 				 */
 				mailto = usernm;
 			}
-		
+
 			/* if we are supposed to be mailing, MAILTO will
 			 * be non-NULL.  only in this case should we set
 			 * up the mail command and subjects and stuff...

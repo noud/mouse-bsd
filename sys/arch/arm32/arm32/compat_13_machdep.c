@@ -43,7 +43,7 @@
 #include <sys/map.h>
 #include <sys/proc.h>
 #include <sys/user.h>
-#include <sys/mount.h>  
+#include <sys/mount.h>
 #include <sys/syscallargs.h>
 
 int

@@ -191,7 +191,7 @@ sysnotify(const char *dname, ns_class class, ns_type type) {
 		return;
 	}
 	if (zp->z_notify == znotify_no ||
-	    (zp->z_notify == znotify_use_default &&    
+	    (zp->z_notify == znotify_use_default &&
 	     NS_OPTION_P(OPTION_NONOTIFY)))
 		return;
 	if (zp->z_type != z_master && zp->z_type != z_slave) {
@@ -210,7 +210,7 @@ sysnotify(const char *dname, ns_class class, ns_type type) {
 	 */
 	if (zp->z_notify_count != 0) {
 		/* zone-specific also notify */
-		
+
 		ns_debug(ns_log_notify, 3, "zone notify ns = %d",
 			 zp->z_notify_count);
 

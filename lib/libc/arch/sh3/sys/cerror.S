@@ -46,7 +46,7 @@
 #include "SYS.h"
 
 	.align 2
-	
+
 	.globl	_errno
 cerror:
 	mov.l	L_errno, r1

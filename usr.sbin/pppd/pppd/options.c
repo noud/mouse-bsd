@@ -1233,7 +1233,7 @@ setpassfilter_out(argv)
 {
     pc.linktype = DLT_PPP_SERIAL;
     pc.snapshot = PPP_HDRLEN;
- 
+
     if (pcap_compile(&pc, &pass_filter_out, *argv, 1, netmask) == 0)
 	return 1;
     option_error("error in pass-filter-out expression: %s\n", pcap_geterr(&pc));
@@ -1266,7 +1266,7 @@ setactivefilter_out(argv)
 {
     pc.linktype = DLT_PPP_SERIAL;
     pc.snapshot = PPP_HDRLEN;
- 
+
     if (pcap_compile(&pc, &active_filter_out, *argv, 1, netmask) == 0)
 	return 1;
     option_error("error in active-filter-out expression: %s\n",
@@ -1291,7 +1291,7 @@ noopt(argv)
 }
 
 /*
- * setdomain - Set domain name to append to hostname 
+ * setdomain - Set domain name to append to hostname
  */
 static int
 setdomain(argv)
@@ -1381,7 +1381,7 @@ setdevname(cp)
     default_device = 0;
     devnam_info.priv = privileged_option;
     devnam_info.source = option_source;
-  
+
     return 1;
 }
 
@@ -1397,7 +1397,7 @@ setipaddr(arg)
     char *colon;
     u_int32_t local, remote;
     ipcp_options *wo = &ipcp_wantoptions[0];
-  
+
     /*
      * IP address pair separated by ":".
      */
@@ -1405,7 +1405,7 @@ setipaddr(arg)
 	return 0;
     if (prepass)
 	return 1;
-  
+
     /*
      * If colon first character, then no local addr.
      */
@@ -1427,7 +1427,7 @@ setipaddr(arg)
 	    wo->ouraddr = local;
 	*colon = ':';
     }
-  
+
     /*
      * If colon last character, then no remote addr.
      */

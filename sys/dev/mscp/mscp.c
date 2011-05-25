@@ -387,7 +387,7 @@ out:
 		mxi->mxi_inuse = 0;
 		mi->mi_mxiuse |= (1 << mp->mscp_cmdref);
 		break;
-		
+
 	case M_OP_REPLACE | M_OP_END:
 		/*
 		 * A replace operation finished.  Just let the driver

@@ -111,7 +111,7 @@ that can be used by all of the kernel subsystems.
 The design of this allocator takes advantage of known memory usage
 patterns in the UNIX kernel and a hybrid strategy that is time-efficient
 for small allocations and space-efficient for large allocations.
-This allocator replaces the multiple memory allocation interfaces 
+This allocator replaces the multiple memory allocation interfaces
 with a single easy-to-program interface,
 results in more efficient use of global memory by eliminating
 partitioned and specialized memory pools,
@@ -153,7 +153,7 @@ For example, the block device subsystem provides a crude form of
 memory allocation through the allocation of empty buffers [Thompson78].
 The allocation is slow because of the implied semantics of
 finding the oldest buffer, pushing its contents to disk if they are dirty,
-and moving physical memory into or out of the buffer to create 
+and moving physical memory into or out of the buffer to create
 the requested size.
 To reduce the overhead, a ``new'' memory allocator was built in 4.3BSD
 for name translation that allocates a pool of empty buffers.
@@ -171,7 +171,7 @@ A generalized memory allocator is needed to reduce the complexity
 of writing code inside the kernel.
 Rather than providing many semi-specialized ways of allocating memory,
 the kernel should provide a single general purpose allocator.
-With only a single interface, 
+With only a single interface,
 programmers do not need to figure
 out the most appropriate way to allocate memory.
 If a good general purpose allocator is available,
@@ -246,7 +246,7 @@ that is running.
 .PP
 Another problem with a slow memory allocator is that programmers
 of frequently-used kernel interfaces will feel that they
-cannot afford to use it as their primary memory allocator. 
+cannot afford to use it as their primary memory allocator.
 Instead they will build their own memory allocator on top of the
 original by maintaining their own pool of memory blocks.
 Multiple allocators reduce the efficiency with which memory is used.
@@ -268,7 +268,7 @@ the savings from having a single free list grow.
 There are many different algorithms and
 implementations of user-level memory allocators.
 A survey of those available on UNIX systems appeared in [Korn85].
-Nearly all of the memory allocators tested made good use of memory, 
+Nearly all of the memory allocators tested made good use of memory,
 though most of them were too slow for use in the kernel.
 The fastest memory allocator in the survey by nearly a factor of two
 was the memory allocator provided on 4.2BSD originally
@@ -280,7 +280,7 @@ as its nearest competitor in the survey.
 The 4.2BSD user-level memory allocator works by maintaining a set of lists
 that are ordered by increasing powers of two.
 Each list contains a set of memory blocks of its corresponding size.
-To fulfill a memory request, 
+To fulfill a memory request,
 the size of the request is rounded up to the next power of two.
 A piece of memory is then removed from the list corresponding
 to the specified power of two and returned to the requester.
@@ -298,7 +298,7 @@ immediately preceding the memory block.
 There are several special conditions that arise when writing a
 memory allocator for the kernel that do not apply to a user process
 memory allocator.
-First, the maximum memory allocation can be determined at 
+First, the maximum memory allocation can be determined at
 the time that the machine is booted.
 This number is never more than the amount of physical memory on the machine,
 and is typically much less since a machine with all its
@@ -355,11 +355,11 @@ network on a diskless workstation.
 on a general timesharing machine at Berkeley.
 The ``In Use'', ``Free'', and ``Mem Use'' fields are instantaneous values;
 the ``Requests'' field is the number of allocations since system startup;
-the ``High Use'' field is the maximum value of 
+the ``High Use'' field is the maximum value of
 the ``Mem Use'' field since system startup.
 The figure demonstrates that most
 allocations are for small objects.
-Large allocations occur infrequently, 
+Large allocations occur infrequently,
 and are typically for long-lived objects
 such as buffers to hold the superblock for
 a mounted file system.
@@ -457,7 +457,7 @@ by calculating the page in which it resides,
 and looking up the size associated with that page.
 Eliminating the cost of the overhead per piece improved utilization
 far more than expected.
-The reason is that many allocations in the kernel are for blocks of 
+The reason is that many allocations in the kernel are for blocks of
 memory whose size is exactly a power of two.
 These requests would be nearly doubled if the user-level strategy were used.
 Now they can be accommodated with no wasted memory.
@@ -485,13 +485,13 @@ Many of the special purpose allocators have been eliminated.
 This list includes
 .RN calloc ,
 .RN wmemall ,
-and 
+and
 .RN zmemall .
 Many of the special purpose memory allocators built on
 top of other allocators have also been eliminated.
 For example, the allocator that was built on top of the buffer pool allocator
 .RN geteblk
-to allocate pathname buffers in 
+to allocate pathname buffers in
 .RN namei
 has been eliminated.
 Because the typical allocation is so fast,
@@ -587,7 +587,7 @@ on each of the free lists into order of increasing address.
 Since any given page has only one size of elements allocated from it,
 the effect of the sorting would be to sort the list into distinct pages.
 When all the pieces of a page became free,
-the page itself could be released back to the free pool so that 
+the page itself could be released back to the free pool so that
 it could be allocated to another purpose.
 Although there is no guarantee that all the pieces of a page would ever
 be freed,

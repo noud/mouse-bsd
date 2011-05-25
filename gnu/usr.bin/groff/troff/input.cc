@@ -371,7 +371,7 @@ int file_iterator::set_location(const char *f, int ln)
   return 1;
 }
 
-input_iterator nil_iterator;  
+input_iterator nil_iterator;
 
 class input_stack {
 public:
@@ -838,7 +838,7 @@ static int get_copy(node **nd, int defining)
     case '|':
       (void)input_stack::get(NULL);
       return ESCAPE_BAR;
-    case '^': 
+    case '^':
       (void)input_stack::get(NULL);
       return ESCAPE_CIRCUMFLEX;
     case '{':
@@ -876,7 +876,7 @@ static int get_copy(node **nd, int defining)
       return ESCAPE_RIGHT_PARENTHESIS;
     case '.':
       (void)input_stack::get(NULL);
-      return c;			
+      return c;
     case '%':
       (void)input_stack::get(NULL);
       return ESCAPE_PERCENT;
@@ -1034,7 +1034,7 @@ static node *do_zero_width()
     n = tem;
   }
   return new zero_width_node(n);
-}  
+}
 
 #else
 
@@ -1811,7 +1811,7 @@ symbol get_name(int required)
       return NULL_SYMBOL;
     }
   }
-  else 
+  else
     return get_long_name(required);
 }
 
@@ -1994,7 +1994,7 @@ int_stack::~int_stack()
     top = top->next;
     delete temp;
   }
-  
+
 }
 
 int int_stack::is_empty()
@@ -2053,7 +2053,7 @@ void process_input_stack()
     case token::TOKEN_CHAR:
       {
 	unsigned char ch = tok.c;
-	if (bol && 
+	if (bol &&
 	    (ch == curenv->control_char
 	     || ch == curenv->no_break_control_char)) {
 	  break_flag = ch == curenv->control_char;
@@ -2396,9 +2396,9 @@ struct macro_header {
 };
 
 
-macro::~macro() 
-{ 
-  if (p != 0 && --(p->count) <= 0) 
+macro::~macro()
+{
+  if (p != 0 && --(p->count) <= 0)
     delete p;
 }
 
@@ -2412,9 +2412,9 @@ macro::macro()
   p = 0;
 }
 
-macro::macro(const macro &m) 
+macro::macro(const macro &m)
 : filename(m.filename), lineno(m.lineno), p(m.p), length(m.length)
-{ 
+{
   if (p != 0)
     p->count++;
 }
@@ -2424,9 +2424,9 @@ macro &macro::operator=(const macro &m)
   // don't assign object
   if (m.p != 0)
     m.p->count++;
-  if (p != 0 && --(p->count) <= 0) 
-    delete p; 
-  p = m.p; 
+  if (p != 0 && --(p->count) <= 0)
+    delete p;
+  p = m.p;
   filename = m.filename;
   lineno = m.lineno;
   length = m.length;
@@ -2529,7 +2529,7 @@ public:
   void backtrace();
 };
 
-string_iterator::string_iterator(const macro &m, const char *p, symbol s) 
+string_iterator::string_iterator(const macro &m, const char *p, symbol s)
 : lineno(1), mac(m), newline_flag(0), how_invoked(p), nm(s)
 {
   count = mac.length;
@@ -2762,7 +2762,7 @@ public:
 };
 
 input_iterator *macro_iterator::get_arg(int i)
-{ 
+{
   if (i == 0)
     return make_temp_iterator(nm.contents());
   if (i > 0 && i <= argc) {
@@ -3155,7 +3155,7 @@ static void remove_character()
   }
   skip_line();
 }
-    
+
 static void interpolate_string(symbol nm)
 {
   request_or_macro *p = lookup_request(nm);
@@ -3316,7 +3316,7 @@ void do_define_macro(define_mode mode)
       }
       if (s[i] == 0
 	  && ((i == 2 && compatible_flag)
-	      || (d = get_copy(&n)) == ' ' 
+	      || (d = get_copy(&n)) == ' '
 	      || d == '\n')) {	// we found it
 		if (d == '\n')
 		  tok.make_newline();
@@ -3668,7 +3668,7 @@ static int read_size(int *x)
   else {
     token start(tok);
     tok.next();
-    if (!(inc 
+    if (!(inc
 	  ? get_number(&val, 'z')
 	  : get_number(&val, 'z', curenv->get_requested_point_size())))
       return 0;
@@ -3957,7 +3957,7 @@ node *do_special()
       c = tok.ch();
     if (c == '\0')
       error("%1 is illegal within \\X", tok.description());
-    else 
+    else
       mac.append(c);
   }
   return new special_node(mac);
@@ -4039,7 +4039,7 @@ static void skip_alternative()
       }
     /*
       Note that the level can properly be < 0, eg
-	
+
 	.if 1 \{\
 	.if 0 \{\
 	.\}\}
@@ -4099,7 +4099,7 @@ int do_if_request()
       skip_alternative();
       return 0;
     }
-    result = (c == 'd' 
+    result = (c == 'd'
 	      ? request_dictionary.lookup(nm) != 0
 	      : number_reg_dictionary.lookup(nm) != 0);
   }
@@ -4406,7 +4406,7 @@ const char *asciify(int c)
   }
   return buf;
 }
-  
+
 
 const char *input_char_description(int c)
 {
@@ -4988,7 +4988,7 @@ void abort_request()
   fputc('\n', stderr);
   cleanup_and_exit(1);
 }
-      
+
 char *read_string()
 {
   int len = 256;
@@ -5869,8 +5869,8 @@ static void copy_mode_error(const char *format,
 
 enum error_type { WARNING, ERROR, FATAL };
 
-static void do_error(error_type type, 
-		     const char *format, 
+static void do_error(error_type type,
+		     const char *format,
 		     const errarg &arg1,
 		     const errarg &arg2,
 		     const errarg &arg3)
@@ -5918,7 +5918,7 @@ int warning(warning_type t,
     return 0;
 }
 
-void error(const char *format, 
+void error(const char *format,
 	   const errarg &arg1,
 	   const errarg &arg2,
 	   const errarg &arg3)
@@ -5926,7 +5926,7 @@ void error(const char *format,
   do_error(ERROR, format, arg1, arg2, arg3);
 }
 
-void fatal(const char *format, 
+void fatal(const char *format,
 	   const errarg &arg1,
 	   const errarg &arg2,
 	   const errarg &arg3)

@@ -66,7 +66,7 @@ static void show_move __P((void));
  */
 void
 execute(com_num)
-	int com_num; 
+	int com_num;
 {
 	new_play = FALSE;	/* new_play is true if fixing	*/
 	(*func[com_num])();
@@ -82,7 +82,7 @@ execute(com_num)
  *	This routine moves a piece around.
  */
 void
-do_move() 
+do_move()
 {
 	int r1, r2;
 	bool was_jail;
@@ -116,7 +116,7 @@ ret:
  */
 void
 move(rl)
-	int rl; 
+	int rl;
 {
 	int old_loc;
 
@@ -133,7 +133,7 @@ move(rl)
  *	This routine shows the results of a move
  */
 static void
-show_move() 
+show_move()
 {
 	SQUARE *sqp;
 
@@ -176,7 +176,7 @@ show_move()
  *	This routine saves the current game for use at a later date
  */
 void
-save() 
+save()
 {
 	char *sp;
 	int outf, num;
@@ -223,7 +223,7 @@ save()
  *	This routine restores an old game from a file
  */
 void
-restore() 
+restore()
 {
 	char *sp;
 
@@ -240,7 +240,7 @@ restore()
  */
 int
 rest_f(file)
-	const char *file; 
+	const char *file;
 {
 	char *sp;
 	int inf, num;

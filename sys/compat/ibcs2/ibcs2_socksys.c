@@ -63,7 +63,7 @@ ibcs2_socksys(p, v, retval)
 	register struct ibcs2_socksys_args *uap = v;
 	int error;
 	int realargs[7]; /* 1 for command, 6 for recvfrom */
-      
+
 	/*
 	 * SOCKET should only be legal on /dev/socksys.
 	 * GETIPDOMAINNAME should only be legal on /dev/socksys ?
@@ -74,7 +74,7 @@ ibcs2_socksys(p, v, retval)
 	if (error)
 		return error;
 	DPRINTF(("ibcs2_socksys: %08x %08x %08x %08x %08x %08x %08x\n",
-	       realargs[0], realargs[1], realargs[2], realargs[3], 
+	       realargs[0], realargs[1], realargs[2], realargs[3],
 	       realargs[4], realargs[5], realargs[6]));
 	switch (realargs[0]) {
 	case SOCKSYS_ACCEPT:
@@ -130,7 +130,7 @@ ibcs2_socksys(p, v, retval)
 
 	default:
 		printf("socksys unknown %08x %08x %08x %08x %08x %08x %08x\n",
-		    realargs[0], realargs[1], realargs[2], realargs[3], 
+		    realargs[0], realargs[1], realargs[2], realargs[3],
                     realargs[4], realargs[5], realargs[6]);
 		return EINVAL;
 	}

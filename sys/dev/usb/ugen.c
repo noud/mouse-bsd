@@ -136,15 +136,15 @@ static struct cdevsw ugen_cdevsw = {
 };
 #endif
 
-static void ugenintr __P((usbd_xfer_handle xfer, usbd_private_handle addr, 
+static void ugenintr __P((usbd_xfer_handle xfer, usbd_private_handle addr,
 			  usbd_status status));
 
 static int ugen_do_read __P((struct ugen_softc *, int, struct uio *, int));
 static int ugen_do_write __P((struct ugen_softc *, int, struct uio *, int));
-static int ugen_do_ioctl __P((struct ugen_softc *, int, u_long, 
+static int ugen_do_ioctl __P((struct ugen_softc *, int, u_long,
 			      caddr_t, int, struct proc *));
 static int ugen_set_config __P((struct ugen_softc *sc, int configno));
-static usb_config_descriptor_t *ugen_get_cdesc __P((struct ugen_softc *sc, 
+static usb_config_descriptor_t *ugen_get_cdesc __P((struct ugen_softc *sc,
 						    int index, int *lenp));
 static usbd_status ugen_set_interface __P((struct ugen_softc *, int, int));
 static int ugen_get_alt_index __P((struct ugen_softc *sc, int ifaceidx));
@@ -172,7 +172,7 @@ USB_ATTACH(ugen)
 	char devinfo[1024];
 	usbd_status err;
 	int conf;
-	
+
 	usbd_devinfo(uaa->device, 0, devinfo);
 	USB_ATTACH_SETUP;
 	printf("%s: %s\n", USBDEVNAME(sc->sc_dev), devinfo);
@@ -182,7 +182,7 @@ USB_ATTACH(ugen)
 	/* First set configuration index 0, the default one for ugen. */
 	err = usbd_set_config_index(udev, 0, 0);
 	if (err) {
-		printf("%s: setting configuration index 0 failed\n", 
+		printf("%s: setting configuration index 0 failed\n",
 		       USBDEVNAME(sc->sc_dev));
 		sc->sc_dying = 1;
 		USB_ATTACH_ERROR_RETURN;
@@ -192,7 +192,7 @@ USB_ATTACH(ugen)
 	/* Set up all the local state for this configuration. */
 	err = ugen_set_config(sc, conf);
 	if (err) {
-		printf("%s: setting configuration %d failed\n", 
+		printf("%s: setting configuration %d failed\n",
 		       USBDEVNAME(sc->sc_dev), conf);
 		sc->sc_dying = 1;
 		USB_ATTACH_ERROR_RETURN;
@@ -255,7 +255,7 @@ ugen_set_config(sc, configno)
 			dir = UE_GET_DIR(endpt) == UE_DIR_IN ? IN : OUT;
 			sce = &sc->sc_endpoints[UE_GET_ADDR(endpt)][dir];
 			DPRINTFN(1,("ugen_set_config: endptno %d, endpt=0x%02x"
-				    "(%d,%d), sce=%p\n", 
+				    "(%d,%d), sce=%p\n",
 				    endptno, endpt, UE_GET_ADDR(endpt),
 				    UE_GET_DIR(endpt), sce));
 			sce->sc = sc;
@@ -283,7 +283,7 @@ ugenopen(dev, flag, mode, p)
 
 	USB_GET_SC_OPEN(ugen, unit, sc);
 
- 	DPRINTFN(5, ("ugenopen: flag=%d, mode=%d, unit=%d endpt=%d\n", 
+ 	DPRINTFN(5, ("ugenopen: flag=%d, mode=%d, unit=%d endpt=%d\n",
 		     flag, mode, unit, endpt));
 
 	if (sc == NULL || sc->sc_dying)
@@ -313,7 +313,7 @@ ugenopen(dev, flag, mode, p)
 		sce = &sc->sc_endpoints[endpt][dir];
 		sce->state = 0;
 		sce->timeout = USBD_NO_TIMEOUT;
-		DPRINTFN(5, ("ugenopen: sc=%p, endpt=%d, dir=%d, sce=%p\n", 
+		DPRINTFN(5, ("ugenopen: sc=%p, endpt=%d, dir=%d, sce=%p\n",
 			     sc, endpt, dir, sce));
 		edesc = sce->edesc;
 		switch (edesc->bmAttributes & UE_XFERTYPE) {
@@ -322,14 +322,14 @@ ugenopen(dev, flag, mode, p)
 			if (isize == 0)	/* shouldn't happen */
 				return (EINVAL);
 			sce->ibuf = malloc(isize, M_USBDEV, M_WAITOK);
-			DPRINTFN(5, ("ugenopen: intr endpt=%d,isize=%d\n", 
+			DPRINTFN(5, ("ugenopen: intr endpt=%d,isize=%d\n",
 				     endpt, isize));
                         if (clalloc(&sce->q, UGEN_IBSIZE, 0) == -1)
                                 return (ENOMEM);
-			err = usbd_open_pipe_intr(sce->iface, 
-				  edesc->bEndpointAddress, 
-				  USBD_SHORT_XFER_OK, &sce->pipeh, sce, 
-				  sce->ibuf, isize, ugenintr, 
+			err = usbd_open_pipe_intr(sce->iface,
+				  edesc->bEndpointAddress,
+				  USBD_SHORT_XFER_OK, &sce->pipeh, sce,
+				  sce->ibuf, isize, ugenintr,
 				  USBD_DEFAULT_INTERVAL);
 			if (err) {
 				free(sce->ibuf, M_USBDEV);
@@ -339,7 +339,7 @@ ugenopen(dev, flag, mode, p)
 			DPRINTFN(5, ("ugenopen: interrupt open done\n"));
 			break;
 		case UE_BULK:
-			err = usbd_open_pipe(sce->iface, 
+			err = usbd_open_pipe(sce->iface,
 				  edesc->bEndpointAddress, 0, &sce->pipeh);
 			if (err)
 				return (EIO);
@@ -389,13 +389,13 @@ ugenclose(dev, flag, mode, p)
 		sce = &sc->sc_endpoints[endpt][dir];
 		if (sce == NULL || sce->pipeh == NULL)
 			continue;
-		DPRINTFN(5, ("ugenclose: endpt=%d dir=%d sce=%p\n", 
+		DPRINTFN(5, ("ugenclose: endpt=%d dir=%d sce=%p\n",
 			     endpt, dir, sce));
-		
+
 		usbd_abort_pipe(sce->pipeh);
 		usbd_close_pipe(sce->pipeh);
 		sce->pipeh = NULL;
-		
+
 		if (sce->ibuf != NULL) {
 			free(sce->ibuf, M_USBDEV);
 			sce->ibuf = NULL;
@@ -492,8 +492,8 @@ ugen_do_read(sc, endpt, uio, flag)
 			tn = n;
 			err = usbd_bulk_transfer(
 				  xfer, sce->pipeh,
-				  sce->state & UGEN_SHORT_OK ? 
-				      USBD_SHORT_XFER_OK : 0, 
+				  sce->state & UGEN_SHORT_OK ?
+				      USBD_SHORT_XFER_OK : 0,
 				  sce->timeout, buf, &tn, "ugenrb");
 			if (err) {
 				if (err == USBD_INTERRUPTED)
@@ -579,7 +579,7 @@ ugen_do_write(sc, endpt, uio, flag)
 			if (error)
 				break;
 			DPRINTFN(1, ("ugenwrite: transfer %d bytes\n", n));
-			err = usbd_bulk_transfer(xfer, sce->pipeh, 0, 
+			err = usbd_bulk_transfer(xfer, sce->pipeh, 0,
 				  sce->timeout, buf, &n,"ugenwb");
 			if (err) {
 				if (err == USBD_INTERRUPTED)
@@ -713,13 +713,13 @@ ugenintr(xfer, addr, status)
 	usbd_get_xfer_status(xfer, NULL, NULL, &count, NULL);
 	ibuf = sce->ibuf;
 
-	DPRINTFN(5, ("ugenintr: xfer=%p status=%d count=%d\n", 
+	DPRINTFN(5, ("ugenintr: xfer=%p status=%d count=%d\n",
 		     xfer, status, count));
 	DPRINTFN(5, ("          data = %02x %02x %02x\n",
 		     ibuf[0], ibuf[1], ibuf[2]));
 
 	(void)b_to_q(ibuf, count, &sce->q);
-		
+
 	if (sce->state & UGEN_ASLP) {
 		sce->state &= ~UGEN_ASLP;
 		DPRINTFN(5, ("ugen_intr: waking %p\n", sce));
@@ -747,7 +747,7 @@ ugen_set_interface(sc, ifaceidx, altno)
 		return (err);
 	if (ifaceidx < 0 || ifaceidx >= niface)
 		return (USBD_INVAL);
-	
+
 	err = usbd_device2interface_handle(sc->sc_udev, ifaceidx, &iface);
 	if (err)
 		return (err);
@@ -840,7 +840,7 @@ ugen_do_ioctl(sc, endpt, cmd, addr, flag, p)
 	struct ugen_softc *sc;
 	int endpt;
 	u_long cmd;
-	caddr_t addr; 
+	caddr_t addr;
 	int flag;
 	struct proc *p;
 {
@@ -923,7 +923,7 @@ ugen_do_ioctl(sc, endpt, cmd, addr, flag, p)
 		break;
 	case USB_GET_ALTINTERFACE:
 		ai = (struct usb_alt_interface *)addr;
-		err = usbd_device2interface_handle(sc->sc_udev, 
+		err = usbd_device2interface_handle(sc->sc_udev,
 			  ai->interface_index, &iface);
 		if (err)
 			return (EINVAL);
@@ -936,7 +936,7 @@ ugen_do_ioctl(sc, endpt, cmd, addr, flag, p)
 		if (!(flag & FWRITE))
 			return (EPERM);
 		ai = (struct usb_alt_interface *)addr;
-		err = usbd_device2interface_handle(sc->sc_udev, 
+		err = usbd_device2interface_handle(sc->sc_udev,
 			  ai->interface_index, &iface);
 		if (err)
 			return (EINVAL);
@@ -997,7 +997,7 @@ ugen_do_ioctl(sc, endpt, cmd, addr, flag, p)
 			alt = ugen_get_alt_index(sc, ed->interface_index);
 		else
 			alt = ed->alt_index;
-		edesc = usbd_find_edesc(cdesc, ed->interface_index, 
+		edesc = usbd_find_edesc(cdesc, ed->interface_index,
 					alt, ed->endpoint_index);
 		if (edesc == NULL) {
 			free(cdesc, M_TEMP);
@@ -1032,7 +1032,7 @@ ugen_do_ioctl(sc, endpt, cmd, addr, flag, p)
 	}
 	case USB_GET_STRING_DESC:
 		si = (struct usb_string_desc *)addr;
-		err = usbd_get_string_desc(sc->sc_udev, si->string_index, 
+		err = usbd_get_string_desc(sc->sc_udev, si->string_index,
 			  si->language_id, &si->desc);
 		if (err)
 			return (EINVAL);
@@ -1069,7 +1069,7 @@ ugen_do_ioctl(sc, endpt, cmd, addr, flag, p)
 			uio.uio_offset = 0;
 			uio.uio_segflg = UIO_USERSPACE;
 			uio.uio_rw =
-				ur->request.bmRequestType & UT_READ ? 
+				ur->request.bmRequestType & UT_READ ?
 				UIO_READ : UIO_WRITE;
 			uio.uio_procp = p;
 			ptr = malloc(len, M_TEMP, M_WAITOK);
@@ -1079,7 +1079,7 @@ ugen_do_ioctl(sc, endpt, cmd, addr, flag, p)
 					goto ret;
 			}
 		}
-		err = usbd_do_request_flags(sc->sc_udev, &ur->request, 
+		err = usbd_do_request_flags(sc->sc_udev, &ur->request,
 			  ptr, ur->flags, &ur->actlen);
 		if (err) {
 			error = EIO;
@@ -1111,7 +1111,7 @@ int
 ugenioctl(dev, cmd, addr, flag, p)
 	dev_t dev;
 	u_long cmd;
-	caddr_t addr; 
+	caddr_t addr;
 	int flag;
 	struct proc *p;
 {
@@ -1169,12 +1169,12 @@ ugenpoll(dev, events, p)
 		}
 		break;
 	case UE_BULK:
-		/* 
+		/*
 		 * We have no easy way of determining if a read will
 		 * yield any data or a write will happen.
 		 * Pretend they will.
 		 */
-		revents |= events & 
+		revents |= events &
 			   (POLLIN | POLLRDNORM | POLLOUT | POLLWRNORM);
 		break;
 	default:

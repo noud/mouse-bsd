@@ -158,7 +158,7 @@ rf_MakeReconControl(reconDesc, frow, fcol, srow, scol)
 	return (reconCtrlPtr);
 }
 
-void 
+void
 rf_FreeReconControl(raidPtr, row)
 	RF_Raid_t *raidPtr;
 	RF_RowCol_t row;
@@ -190,7 +190,7 @@ rf_FreeReconControl(raidPtr, row)
 /******************************************************************************
  * computes the default head separation limit
  *****************************************************************************/
-RF_HeadSepLimit_t 
+RF_HeadSepLimit_t
 rf_GetDefaultHeadSepLimit(raidPtr)
 	RF_Raid_t *raidPtr;
 {
@@ -208,7 +208,7 @@ rf_GetDefaultHeadSepLimit(raidPtr)
 /******************************************************************************
  * computes the default number of floating recon buffers
  *****************************************************************************/
-int 
+int
 rf_GetDefaultNumFloatingReconBuffers(raidPtr)
 	RF_Raid_t *raidPtr;
 {
@@ -252,7 +252,7 @@ rf_MakeReconBuffer(
 /******************************************************************************
  * frees a reconstruction buffer
  *****************************************************************************/
-void 
+void
 rf_FreeReconBuffer(rbuf)
 	RF_ReconBuffer_t *rbuf;
 {
@@ -268,7 +268,7 @@ rf_FreeReconBuffer(rbuf)
 /******************************************************************************
  * debug only:  sanity check the number of floating recon bufs in use
  *****************************************************************************/
-void 
+void
 rf_CheckFloatingRbufCount(raidPtr, dolock)
 	RF_Raid_t *raidPtr;
 	int     dolock;

@@ -12,7 +12,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -31,7 +31,7 @@
 
 /*
  * Driver for the SGEC (Second Generation Ethernet Controller), sitting
- * on for example the VAX 4000/300 (KA670). 
+ * on for example the VAX 4000/300 (KA670).
  *
  * The SGEC looks like a mixture of the DEQNA and the TULIP. Fun toy.
  *
@@ -339,7 +339,7 @@ zestart(ifp)
 			ifp->if_flags |= IFF_OACTIVE;
 			goto out;
 		}
-		
+
 #if NBPFILTER > 0
 		if (ifp->if_bpf)
 			bpf_mtap(ifp->if_bpf, m);
@@ -633,7 +633,7 @@ ze_setup(sc)
 	bcopy(enaddr, zc->zc_setup, ETHER_ADDR_LEN);
 
 	/*
-	 * Multicast handling. The SGEC can handle up to 16 direct 
+	 * Multicast handling. The SGEC can handle up to 16 direct
 	 * ethernet addresses.
 	 */
 	j = 16;

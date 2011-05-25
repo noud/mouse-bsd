@@ -75,7 +75,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* Offsets for register values in _sigtramp frame.
    sigcontext is immediately above the _sigtramp frame on Irix.  */
-#define SIGFRAME_BASE		0x0 
+#define SIGFRAME_BASE		0x0
 #define SIGFRAME_PC_OFF		(SIGFRAME_BASE + 2 * 4)
 #define SIGFRAME_REGSAVE_OFF	(SIGFRAME_BASE + 3 * 4)
 #define SIGFRAME_FPREGSAVE_OFF	(SIGFRAME_BASE + 3 * 4 + 32 * 4 + 4)

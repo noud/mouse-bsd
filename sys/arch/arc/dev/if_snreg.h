@@ -28,7 +28,7 @@
 struct RXrsrc {
 	u_long	buff_ptrlo;	/* buffer address LO */
 	u_long	buff_ptrhi;	/* buffer address HI */
-	u_long	buff_wclo;	/* buffer size (16bit words) LO */ 
+	u_long	buff_wclo;	/* buffer size (16bit words) LO */
 	u_long	buff_wchi;	/* buffer size (16bit words) HI */
 };
 #endif

@@ -10,19 +10,19 @@
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice in the documentation and/or other materials provided with 
+ *    notice in the documentation and/or other materials provided with
  *    the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
- * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN 
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -86,7 +86,7 @@ findtag(tag)
 		 * Found it.
 		 * The line contains the tag, the filename and the
 		 * location in the file, separated by white space.
-		 * The location is either a decimal line number, 
+		 * The location is either a decimal line number,
 		 * or a search pattern surrounded by a pair of delimiters.
 		 * Parse the line and extract these parts.
 		 */
@@ -116,14 +116,14 @@ findtag(tag)
 		tagfile = save(tagfile);
 
 		/*
-		 * First see if it is a line number. 
+		 * First see if it is a line number.
 		 */
 		taglinenum = getnum(&p, 0, &err);
 		if (err)
 		{
 			/*
 			 * No, it must be a pattern.
-			 * Delete the initial "^" (if present) and 
+			 * Delete the initial "^" (if present) and
 			 * the final "$" from the pattern.
 			 * Delete any backslash in the pattern.
 			 */
@@ -172,7 +172,7 @@ edit_tagfile()
  * We don't use search() for several reasons:
  *   -	We don't want to blow away any search string we may have saved.
  *   -	The various regular-expression functions (from different systems:
- *	regcmp vs. re_comp) behave differently in the presence of 
+ *	regcmp vs. re_comp) behave differently in the presence of
  *	parentheses (which are almost always found in a tag).
  */
 	public POSITION
@@ -196,14 +196,14 @@ tagsearch()
 	for (;;)
 	{
 		/*
-		 * Get lines until we find a matching one or 
+		 * Get lines until we find a matching one or
 		 * until we hit end-of-file.
 		 */
 		if (ABORT_SIGS())
 			return (NULL_POSITION);
 
 		/*
-		 * Read the next line, and save the 
+		 * Read the next line, and save the
 		 * starting position of that line in linepos.
 		 */
 		linepos = pos;

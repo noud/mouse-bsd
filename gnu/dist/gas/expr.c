@@ -228,8 +228,8 @@ floating_constant (expressionP)
   expressionP->X_add_number = -1;
 }
 
-static valueT 
-generic_bignum_to_int32 () 
+static valueT
+generic_bignum_to_int32 ()
 {
   valueT number =
 	   ((generic_bignum[1] & LITTLENUM_MASK) << LITTLENUM_NUMBER_OF_BITS)
@@ -239,10 +239,10 @@ generic_bignum_to_int32 ()
 }
 
 #ifdef BFD64
-static valueT 
-generic_bignum_to_int64 () 
+static valueT
+generic_bignum_to_int64 ()
 {
-  valueT number = 
+  valueT number =
 	   ((((((((valueT) generic_bignum[3] & LITTLENUM_MASK)
 		 << LITTLENUM_NUMBER_OF_BITS)
 	        | ((valueT) generic_bignum[2] & LITTLENUM_MASK))
@@ -372,7 +372,7 @@ integer_constant (radix, expressionP)
   /* input_line_pointer->char after c. */
   small = (input_line_pointer - start - 1) < too_many_digits;
 
-  if (radix == 16 && c == '_') 
+  if (radix == 16 && c == '_')
     {
       /* This is literal of the form 0x333_0_12345678_1.
          This example is equivalent to 0x00000333000000001234567800000001.  */
@@ -387,7 +387,7 @@ integer_constant (radix, expressionP)
 	{
 
 	  /* Convert one 64-bit word. */
-	  int ndigit = 0; 
+	  int ndigit = 0;
 	  number = 0;
 	  for (c = *input_line_pointer++;
 	       (digit = hex_value (c)) < maxdig;
@@ -398,7 +398,7 @@ integer_constant (radix, expressionP)
 	    }
 
 	  /* Check for 8 digit per word max.  */
-	  if (ndigit > 8) 
+	  if (ndigit > 8)
 	    as_bad ("An bignum with underscores may not have more than 8 hex digits in any word.");
 
 	  /* Add this chunk to the bignum.  Shift things down 2 little digits.*/
@@ -426,7 +426,7 @@ integer_constant (radix, expressionP)
        */
       while (generic_bignum[num_little_digits-1] == 0 && num_little_digits > 1)
 	num_little_digits--;
-	
+
       if (num_little_digits <= 2)
 	{
 	  /* will fit into 32 bits. */
@@ -1217,7 +1217,7 @@ operand (expressionP)
 	      SKIP_WHITESPACE ();
 
 	      break;
-	    }	      
+	    }
 #endif
 
 	  symbolP = symbol_find_or_make (name);

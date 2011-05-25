@@ -19,23 +19,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include <stdio.h>
 
 #include "ansidecl.h"
-#include "opcode/v850.h" 
+#include "opcode/v850.h"
 #include "dis-asm.h"
 
 static const char *const v850_reg_names[] =
-{ "r0", "r1", "r2", "sp", "gp", "r5", "r6", "r7", 
-  "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15", 
-  "r16", "r17", "r18", "r19", "r20", "r21", "r22", "r23", 
+{ "r0", "r1", "r2", "sp", "gp", "r5", "r6", "r7",
+  "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15",
+  "r16", "r17", "r18", "r19", "r20", "r21", "r22", "r23",
   "r24", "r25", "r26", "r27", "r28", "r29", "ep", "lp" };
 
 static const char *const v850_sreg_names[] =
-{ "eipc", "eipsw", "fepc", "fepsw", "ecr", "psw", "sr6", "sr7", 
+{ "eipc", "eipsw", "fepc", "fepsw", "ecr", "psw", "sr6", "sr7",
   "sr8", "sr9", "sr10", "sr11", "sr12", "sr13", "sr14", "sr15",
-  "sr16", "sr17", "sr18", "sr19", "sr20", "sr21", "sr22", "sr23", 
+  "sr16", "sr17", "sr18", "sr19", "sr20", "sr21", "sr22", "sr23",
   "sr24", "sr25", "sr26", "sr27", "sr28", "sr29", "sr30", "sr31" };
 
 static const char *const v850_cc_names[] =
-{ "v", "c/l", "z", "nh", "s/n", "t", "lt", "le", 
+{ "v", "c/l", "z", "nh", "s/n", "t", "lt", "le",
   "nv", "nc/nl", "nz", "h", "ns/p", "sa", "ge", "gt" };
 
 static int
@@ -50,10 +50,10 @@ disassemble (memaddr, info, insn)
   int                         	short_op = ((insn & 0x0600) != 0x0600);
   int				bytes_read;
   int				target_processor;
-  
-  
+
+
   bytes_read = short_op ? 2 : 4;
-  
+
   /* If this is a two byte insn, then mask off the high bits. */
   if (short_op)
     insn &= 0xffff;
@@ -66,7 +66,7 @@ disassemble (memaddr, info, insn)
       break;
 
     }
-  
+
   /* Find the opcode.  */
   while (op->name)
     {
@@ -94,7 +94,7 @@ disassemble (memaddr, info, insn)
 	     insert commas into the output stream as well as
 	     when to insert disp[reg] expressions onto the
 	     output stream.  */
-	  
+
 	  for (opindex_ptr = op->operands, opnum = 1;
 	       *opindex_ptr != 0;
 	       opindex_ptr++, opnum++)
@@ -103,9 +103,9 @@ disassemble (memaddr, info, insn)
 	      int  	flag;
 	      int       status;
 	      bfd_byte	buffer[ 4 ];
-	      
+
 	      operand = &v850_operands[*opindex_ptr];
-	      
+
 	      if (operand->extract)
 		value = (operand->extract) (insn, 0);
 	      else
@@ -136,7 +136,7 @@ disassemble (memaddr, info, insn)
 		   Else we just need a comma.
 
 		   We may need to output a trailing ']' if the last operand
-		   in an instruction is the register for a memory address. 
+		   in an instruction is the register for a memory address.
 
 		   The exception (and there's always an exception) is the
 		   "jmp" insn which needs square brackets around it's only
@@ -154,7 +154,7 @@ disassemble (memaddr, info, insn)
 	      flag &= ~ V850_OPERAND_SIGNED;
 	      flag &= ~ V850_OPERAND_RELAX;
 	      flag &= - flag;
-	      
+
 	      switch (flag)
 		{
 		case V850_OPERAND_REG:  info->fprintf_func (info->stream, "%s", v850_reg_names[value]); break;
@@ -165,7 +165,7 @@ disassemble (memaddr, info, insn)
 		case V850_OPERAND_DISP:
 		  {
 		    bfd_vma addr = value + memaddr;
-		    
+
 		    /* On the v850 the top 8 bits of an address are used by an overlay manager.
 		       Thus it may happen that when we are looking for a symbol to match
 		       against an address with some of its top bits set, the search fails to
@@ -185,8 +185,8 @@ disassemble (memaddr, info, insn)
 		    info->print_address_func (addr, info);
 		    break;
 		  }
-		    
-		}		  
+
+		}
 
 	      /* Handle jmp correctly.  */
 	      if (memop == 1 && opnum == 1
@@ -215,7 +215,7 @@ disassemble (memaddr, info, insn)
   return bytes_read;
 }
 
-int 
+int
 print_insn_v850 (memaddr, info)
      bfd_vma memaddr;
      struct disassemble_info * info;
@@ -225,12 +225,12 @@ print_insn_v850 (memaddr, info)
   unsigned long insn = 0;
 
   /* First figure out how big the opcode is.  */
-  
+
   status = info->read_memory_func (memaddr, buffer, 2, info);
   if (status == 0)
     {
       insn = bfd_getl16 (buffer);
-      
+
       if (   (insn & 0x0600) == 0x0600
 	  && (insn & 0xffe0) != 0x0620)
 	{
@@ -241,7 +241,7 @@ print_insn_v850 (memaddr, info)
 	    insn = bfd_getl32 (buffer);
 	}
     }
-  
+
   if (status != 0)
     {
       info->memory_error_func (status, memaddr, info);

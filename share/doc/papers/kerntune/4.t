@@ -53,7 +53,7 @@ being profiled,
 produces no additional output while the kernel is running
 and allows the kernel to be measured in its real environment.
 Kernel profiles can be used to identify bottlenecks in performance.
-We have shown how to improve performance 
+We have shown how to improve performance
 by caching recently calculated name translations.
 The combined caches added to the name translation process
 reduce the average cost of translating a pathname to an inode by 35%.
@@ -64,7 +64,7 @@ in the system by nearly 9%.
 .SH
 \s+2Acknowledgements\s0
 .PP
-I would like to thank Robert Elz for sharing his ideas and 
+I would like to thank Robert Elz for sharing his ideas and
 his code for cacheing system wide names.
 Thanks also to all the users at Berkeley who provided all the
 input to generate the kernel profiles.

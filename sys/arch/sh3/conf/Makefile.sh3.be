@@ -34,7 +34,7 @@ SIZE?=	size
 STRIP?=	strip
 TSORT?=	tsort -q
 
-COPTS?=	-g -O 
+COPTS?=	-g -O
 
 # source tree is located via $S relative to the compilation directory
 .ifndef S
@@ -92,7 +92,7 @@ SYSTEM_DEP=	Makefile ${SYSTEM_OBJ}
 SYSTEM_LD_HEAD=	rm -f $@
 SYSTEM_LD=	@echo ${LD} ${LINKFLAGS} -o $@.out '$${SYSTEM_OBJ}' vers.o; \
 		${LD} ${LINKFLAGS} -o $@.out ${SYSTEM_OBJ} vers.o
-SYSTEM_LD_TAIL=	
+SYSTEM_LD_TAIL=
 
 DEBUG?=
 .if ${DEBUG} == "-g"
@@ -102,7 +102,7 @@ SYSTEM_LD_TAIL+=; \
 		echo ${STRIP} ${STRIPFLAGS} -o $@ $@.gdb; \
 		${STRIP} ${STRIPFLAGS} -o $@ $@.gdb
 .else
-LINKFLAGS+=	
+LINKFLAGS+=
 .endif
 
 %LOAD
@@ -173,14 +173,14 @@ dependall: depend all
 
 # depend on root or device configuration
 autoconf.o conf.o: Makefile
- 
-# depend on network or filesystem configuration 
-uipc_proto.o vfs_conf.o: Makefile 
+
+# depend on network or filesystem configuration
+uipc_proto.o vfs_conf.o: Makefile
 
 # depend on maxusers
 machdep.o: Makefile
 
-# depend on CPU configuration 
+# depend on CPU configuration
 locore.o machdep.o: Makefile
 
 

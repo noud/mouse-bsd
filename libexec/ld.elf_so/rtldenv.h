@@ -65,7 +65,7 @@ const char *xstrerror __P((int));
 # include <assert.h>
 # include <stdio.h>
 # include <err.h>
- 
+
 # define xprintf	printf
 # define xvprintf	vprintf
 # define xsnprintf	snprintf

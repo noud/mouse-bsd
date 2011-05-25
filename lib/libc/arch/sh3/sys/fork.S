@@ -45,10 +45,10 @@
 
 #include "SYS.h"
 
-	.text 
+	.text
 	.align 2
 2:	mov.l 1f, r3
-	jmp	@r3							
+	jmp	@r3
 	nop
 	_SYSCALL_NOERROR(fork,fork)
 	bf 2b
@@ -56,7 +56,7 @@
 	nop
 	.align 2
 	1: .long cerror
-3:	
+3:
 	add	#0xff, r1 /* from 1 to 0 in child, 0 to -1 in parent */
 	and	r1,r0
 	rts		/* pid = fork(); */

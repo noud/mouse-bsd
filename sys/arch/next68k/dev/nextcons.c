@@ -69,7 +69,7 @@ nextcnprobe(struct consdev *cp)
 	if ((rom_machine_type == NeXT_WARP9)
 	    || (rom_machine_type == NeXT_X15))
 		cp->cn_pri = CN_INTERNAL;
-	else 
+	else
 		cp->cn_pri = CN_DEAD;
 
 	cp->cn_dev = NODEV;
@@ -91,7 +91,7 @@ nextcngetc (dev_t dev)
 void
 nextcnputc(dev_t dev, int c)
 {
-	wsdisplay_cnputc(dev,c);	
+	wsdisplay_cnputc(dev,c);
 }
 
 void

@@ -924,7 +924,7 @@ alpha_ecoff_get_relocated_section_contents (abfd, link_info, link_order,
 	     does not cause anything to happen, itself.  */
 	  rel->address += input_section->output_offset;
 	  break;
-	    
+
 	case ALPHA_R_GPDISP:
 	  /* This marks the ldah of an ldah/lda pair which loads the
 	     gp register with the difference of the gp value and the
@@ -980,7 +980,7 @@ alpha_ecoff_get_relocated_section_contents (abfd, link_info, link_order,
 	    rel->address += input_section->output_offset;
 	  }
 	  break;
-	  
+
 	case ALPHA_R_OP_PUSH:
 	  /* Push a value on the reloc evaluation stack.  */
 	  {
@@ -1106,7 +1106,7 @@ alpha_ecoff_get_relocated_section_contents (abfd, link_info, link_order,
 	    stack[tos - 1] >>= relocation;
 	  }
 	  break;
-	    
+
 	case ALPHA_R_GPVALUE:
 	  /* I really don't know if this does the right thing.  */
 	  gp = rel->addend;
@@ -1126,7 +1126,7 @@ alpha_ecoff_get_relocated_section_contents (abfd, link_info, link_order,
 	  os->reloc_count++;
 	}
 
-      if (r != bfd_reloc_ok) 
+      if (r != bfd_reloc_ok)
 	{
 	  switch (r)
 	    {
@@ -1136,7 +1136,7 @@ alpha_ecoff_get_relocated_section_contents (abfd, link_info, link_order,
 		      input_bfd, input_section, rel->address)))
 		goto error_return;
 	      break;
-	    case bfd_reloc_dangerous: 
+	    case bfd_reloc_dangerous:
 	      if (! ((*link_info->callbacks->reloc_dangerous)
 		     (link_info, err, input_bfd, input_section,
 		      rel->address)))
@@ -1332,7 +1332,7 @@ alpha_convert_external_reloc (output_bfd, info, input_bfd, ext_rel, h)
 	    r_symndx = RELOC_SECTION_XDATA;
 	  break;
 	}
-		      
+
       if (r_symndx == -1)
 	abort ();
 
@@ -1619,7 +1619,7 @@ alpha_relocate_section (output_bfd, info, input_bfd, input_section,
 	  /* See ALPHA_R_LITERAL above for the uses of this reloc.  It
 	     does not cause anything to happen, itself.  */
 	  break;
-	    
+
 	case ALPHA_R_GPDISP:
 	  /* This marks the ldah of an ldah/lda pair which loads the
 	     gp register with the difference of the gp value and the
@@ -1679,7 +1679,7 @@ alpha_relocate_section (output_bfd, info, input_bfd, input_section,
 	    gp_usedp = true;
 	  }
 	  break;
-	  
+
 	case ALPHA_R_OP_PUSH:
 	case ALPHA_R_OP_PSUB:
 	case ALPHA_R_OP_PRSHIFT:
@@ -2201,7 +2201,7 @@ alpha_ecoff_get_elt_at_filepos (archive, filepos)
  error_return:
   if (nbfd != NULL)
     bfd_close (nbfd);
-  return NULL;  
+  return NULL;
 }
 
 /* Open the next archived file.  */

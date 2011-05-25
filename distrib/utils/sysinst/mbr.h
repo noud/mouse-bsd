@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -46,9 +46,9 @@
 
 #include <sys/disklabel_mbr.h>
 
-/*      
- * XXX  
- */     
+/*
+ * XXX
+ */
 #define MBR_SECSIZE     512
 
 #define MBR_PUT_LSCYL(c)		((c) & 0xff)
@@ -72,11 +72,11 @@ void	disp_cur_geom __P((void));
 int	check_geom __P((void));		/* primitive geometry sanity-check */
 
 void	disp_cur_part __P((struct mbr_partition *, int, int));
-int	edit_mbr __P((struct mbr_partition *));		
+int	edit_mbr __P((struct mbr_partition *));
 int 	partsoverlap __P((struct mbr_partition *, int, int));
 
 /* from mbr.c */
- 
+
 int     read_mbr __P((char *, char *, int));
 int     write_mbr __P((char *, char *, int, int));
 int     valid_mbr __P((char *));

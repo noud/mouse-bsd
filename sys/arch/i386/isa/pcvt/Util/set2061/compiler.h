@@ -220,7 +220,7 @@ inw(port)
 /*
  * rdinx - read the indexed byte port 'port', index 'ind', and return its value
  */
-static __inline__ unsigned char 
+static __inline__ unsigned char
 #ifdef __STDC__
 rdinx(unsigned short port, unsigned char ind)
 #else
@@ -238,7 +238,7 @@ unsigned char ind;
 /*
  * wrinx - write 'val' to port 'port', index 'ind'
  */
-static __inline__ void 
+static __inline__ void
 #ifdef __STDC__
 wrinx(unsigned short port, unsigned char ind, unsigned char val)
 #else
@@ -257,7 +257,7 @@ unsigned char ind, val;
  */
 static __inline__ void
 #ifdef __STDC__
-modinx(unsigned short port, unsigned char ind, 
+modinx(unsigned short port, unsigned char ind,
        unsigned char mask, unsigned char new)
 #else
 modinx(port, ind, mask, new)
@@ -321,7 +321,7 @@ unsigned char ind, mask;
 }
 
 /*
- * testinx - returns true iff all bits of register 'port', index 'ind' are 
+ * testinx - returns true iff all bits of register 'port', index 'ind' are
  *     	     readable & writable.
  */
 static __inline__ int

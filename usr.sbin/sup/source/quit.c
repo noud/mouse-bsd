@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1991 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -40,7 +40,7 @@
  * Revision 1.2  88/12/13  13:52:41  gm0w
  * 	Rewritten to use varargs.
  * 	[88/12/13            gm0w]
- * 
+ *
  **********************************************************************
  */
 
@@ -48,7 +48,7 @@
 #include "supcdefs.h"
 #include "supextern.h"
 
-void 
+void
 #ifdef __STDC__
 quit (int status, char * fmt, ...)
 #else

@@ -153,7 +153,7 @@ lfs_bmap(struct lfs *fs, struct dinode *idinode, ufs_daddr_t lbn)
 	ufs_daddr_t residue, up;
 	int off=0;
 	char bp[MAXBSIZE];
-	
+
 	if(lbn > 0 && lbn > (idinode->di_size-1)/dev_bsize) {
 		return UNASSIGNED;
 	}
@@ -231,7 +231,7 @@ lfs_ientry(ino_t ino)
     static daddr_t ifblkno;
     ufs_daddr_t lbn;
     daddr_t blkno;
-    
+
     lbn = ino/sblock->lfs_ifpb + sblock->lfs_cleansz + sblock->lfs_segtabsz;
     blkno = lfs_bmap(sblock,getino(sblock->lfs_ifile),lbn);
     if(blkno != ifblkno)

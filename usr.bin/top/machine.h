@@ -34,7 +34,7 @@ struct system_info
     int    *memory;
 };
 
-/* cpu_states is an array of percentages * 10.  For example, 
+/* cpu_states is an array of percentages * 10.  For example,
    the (integer) value 105 is 10.5% (or .105).
  */
 

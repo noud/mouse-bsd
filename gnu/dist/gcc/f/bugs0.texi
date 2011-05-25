@@ -1,5 +1,5 @@
 \input texinfo  @c -*-texinfo-*-
-@c %**start of header 
+@c %**start of header
 @setfilename BUGS
 @set BUGSONLY
 @c %**end of header

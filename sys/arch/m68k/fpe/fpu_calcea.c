@@ -399,7 +399,7 @@ fpu_load_ea(frame, insn, ea, dst)
 #endif
 	src = (char *)ea->ea_absaddr;
 	copyin(src, dst, len);
-    } else /* register indirect */ { 
+    } else /* register indirect */ {
 	if (ea->ea_flags & EA_PC_REL) {
 #ifdef DEBUG_FPE
 	    printf("load_ea: using PC\n");

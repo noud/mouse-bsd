@@ -99,7 +99,7 @@ OF_peer(phandle)
 		1,
 		1,
 	};
-	
+
 	args.phandle = phandle;
 	if (openfirmware(&args) == -1)
 		return 0;
@@ -121,7 +121,7 @@ OF_child(phandle)
 		1,
 		1,
 	};
-	
+
 	args.phandle = phandle;
 	if (openfirmware(&args) == -1)
 		return 0;
@@ -143,7 +143,7 @@ OF_parent(phandle)
 		1,
 		1,
 	};
-	
+
 	args.phandle = phandle;
 	if (openfirmware(&args) == -1)
 		return 0;
@@ -244,7 +244,7 @@ OF_finddevice(name)
 		"finddevice",
 		1,
 		1,
-	};	
+	};
 
 	args.device = name;
 	if (openfirmware(&args) == -1)
@@ -299,7 +299,7 @@ OF_package_to_path(phandle, buf, buflen)
 		3,
 		1,
 	};
-	
+
 	args.phandle = phandle;
 	args.buf = buf;
 	args.buflen = buflen;
@@ -334,7 +334,7 @@ OF_call_method(method, ihandle, nargs, nreturns, va_alist)
 		1,
 	};
 	int *ip, n;
-	
+
 	if (nargs > 6)
 		return -1;
 	args.nargs = nargs + 2;
@@ -394,7 +394,7 @@ OF_call_method_1(method, ihandle, nargs, va_alist)
 		2,
 	};
 	int *ip, n;
-	
+
 	if (nargs > 6)
 		return -1;
 	args.nargs = nargs + 2;
@@ -441,7 +441,7 @@ OF_open(dname)
 		1,
 		1,
 	};
-	
+
 	args.dname = dname;
 	if (openfirmware(&args) == -1)
 		return -1;
@@ -486,7 +486,7 @@ OF_read(handle, addr, len)
 		3,
 		1,
 	};
-	
+
 	args.ihandle = handle;
 	args.addr = addr;
 	args.len = len;
@@ -514,7 +514,7 @@ OF_write(handle, addr, len)
 		3,
 		1,
 	};
-	
+
 	args.ihandle = handle;
 	args.addr = addr;
 	args.len = len;
@@ -594,7 +594,7 @@ OF_release(virt, size)
                 2,
                 0,
         };
-        
+
         args.virt = virt;
         args.size = size;
         openfirmware(&args);
@@ -613,7 +613,7 @@ OF_milliseconds()
                 0,
                 1,
         };
-        
+
         openfirmware(&args);
         return args.ms;
 }
@@ -632,7 +632,7 @@ OF_boot(bootspec)
 		1,
 		0,
 	};
-	
+
 	args.bootspec = bootspec;
 	openfirmware(&args);
 	while (1);			/* just in case */

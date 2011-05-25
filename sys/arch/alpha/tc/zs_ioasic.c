@@ -410,7 +410,7 @@ zs_ioasic_enable(onoff)
 		    IOASIC_CSR_DMAEN_T2 | IOASIC_CSR_DMAEN_R2;
 #endif
 	} else {
-		*(volatile u_int *)(ioasic_base + IOASIC_IMSK) &= 
+		*(volatile u_int *)(ioasic_base + IOASIC_IMSK) &=
 		    ~(IOASIC_INTR_SCC_1 | IOASIC_INTR_SCC_0);
 #if !defined(DEC_3000_300) && defined(ZS_IOASIC_DMA)
 		*(volatile u_int *)(ioasic_base + IOASIC_CSR) &=

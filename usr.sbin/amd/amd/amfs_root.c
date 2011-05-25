@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: amfs_root.c,v 1.2 1999/01/10 21:53:43 ezk Exp 
+ * Id: amfs_root.c,v 1.2 1999/01/10 21:53:43 ezk Exp
  *
  */
 

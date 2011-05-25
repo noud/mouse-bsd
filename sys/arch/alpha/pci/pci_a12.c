@@ -137,10 +137,10 @@ pci_a12_pickintr(ccp)
 	set_iointr(a12_iointr);
 }
 
-int     
+int
 avalon_a12_intr_map(ccv, bustag, buspin, line, ihp)
         void *ccv;
-        pcitag_t bustag; 
+        pcitag_t bustag;
         int buspin, line;
         pci_intr_handle_t *ihp;
 {
@@ -288,7 +288,7 @@ a12_iointr(framep, vec)
 	 */
 #ifdef EVCNT_COUNTERS
 	++a12_intr_evcnt.ev_count;
-#else   
+#else
 	/* XXX implicit knowledge of intrcnt[] */
 	if(irq < 2)
 		++intrcnt[INTRCNT_A12_IRQ + irq];

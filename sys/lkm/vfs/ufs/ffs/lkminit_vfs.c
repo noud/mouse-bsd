@@ -61,7 +61,7 @@ MOD_VFS("ffs", -1, &ffs_vfsops);
  */
 int
 ffs_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

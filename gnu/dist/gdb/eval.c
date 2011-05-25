@@ -73,7 +73,7 @@ parse_and_eval_address (exp)
 {
   struct expression *expr = parse_expression (exp);
   register CORE_ADDR addr;
-  register struct cleanup *old_chain = 
+  register struct cleanup *old_chain =
       make_cleanup (free_current_contents, &expr);
 
   addr = value_as_pointer (evaluate_expression (expr));
@@ -198,7 +198,7 @@ evaluate_struct_tuple (struct_val, exp, pos, noside, nargs)
       int nlabels = 0;
       int bitpos, bitsize;
       char *addr;
-      
+
       /* Skip past the labels, and count them. */
       while (get_label (exp, pos) != NULL)
 	nlabels++;
@@ -235,7 +235,7 @@ evaluate_struct_tuple (struct_val, exp, pos, noside, nargs)
 			  substruct_type
 			    = TYPE_FIELD_TYPE (field_type, variantno);
 			  if (TYPE_CODE (substruct_type) == TYPE_CODE_STRUCT)
-			    { 
+			    {
 			      for (subfieldno = 0;
 				   subfieldno < TYPE_NFIELDS (substruct_type);
 				   subfieldno++)
@@ -381,7 +381,7 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
   struct type *type;
   int nargs;
   value_ptr *argvec;
-  int upper, lower, retcode; 
+  int upper, lower, retcode;
   int code;
 
   /* This expect_type crap should not be used for C.  C expressions do
@@ -810,7 +810,7 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
       for (; tem <= nargs; tem++)
 	{
 	  /* Ensure that array expressions are coerced into pointer objects. */
-	  
+
 	  argvec[tem] = evaluate_subexp_with_coercion (exp, pos, noside);
 	}
 
@@ -826,7 +826,7 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
 	  argvec[1] = arg2;
 	  argvec[0] = 0;
 	  strcpy(tstr, &exp->elts[pc2+2].string);
-          if (!argvec[0]) 
+          if (!argvec[0])
 	    {
 	      temp = arg2;
 	      argvec[0] =
@@ -875,24 +875,24 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
 	}
       return call_function_by_hand (argvec[0], nargs, argvec + 1);
 
-    case OP_F77_UNDETERMINED_ARGLIST: 
+    case OP_F77_UNDETERMINED_ARGLIST:
 
-      /* Remember that in F77, functions, substring ops and 
-         array subscript operations cannot be disambiguated 
-         at parse time.  We have made all array subscript operations, 
-         substring operations as well as function calls  come here 
-         and we now have to discover what the heck this thing actually was.  
+      /* Remember that in F77, functions, substring ops and
+         array subscript operations cannot be disambiguated
+         at parse time.  We have made all array subscript operations,
+         substring operations as well as function calls  come here
+         and we now have to discover what the heck this thing actually was.
 	 If it is a function, we process just as if we got an OP_FUNCALL. */
 
       nargs = longest_to_int (exp->elts[pc+1].longconst);
       (*pos) += 2;
 
-      /* First determine the type code we are dealing with.  */ 
+      /* First determine the type code we are dealing with.  */
       arg1 = evaluate_subexp (NULL_TYPE, exp, pos, noside);
       type = check_typedef (VALUE_TYPE (arg1));
       code = TYPE_CODE (type);
 
-      switch (code) 
+      switch (code)
 	{
 	case TYPE_CODE_ARRAY:
 	  goto multi_f77_subscript;
@@ -914,11 +914,11 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
 	  goto do_call_it;
 
 	default:
-              error ("Cannot perform substring on this type"); 
+              error ("Cannot perform substring on this type");
 	}
 
     op_f77_substr:
-      /* We have a substring operation on our hands here, 
+      /* We have a substring operation on our hands here,
          let us get the string we will be dealing with */
 
       /* Now evaluate the 'from' and 'to' */
@@ -932,17 +932,17 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
 
       if (noside == EVAL_SKIP)
         goto nosideret;
-      
+
       tem2 = value_as_long (arg2);
       tem3 = value_as_long (arg3);
-      
+
       return value_slice (arg1, tem2, tem3 - tem2 + 1);
 
     case OP_COMPLEX:
-      /* We have a complex number, There should be 2 floating 
-	 point numbers that compose it */ 
+      /* We have a complex number, There should be 2 floating
+	 point numbers that compose it */
       arg1 = evaluate_subexp (NULL_TYPE, exp, pos, noside);
-      arg2 = evaluate_subexp (NULL_TYPE, exp, pos, noside); 
+      arg2 = evaluate_subexp (NULL_TYPE, exp, pos, noside);
 
       return value_literal_complex (arg1, arg2, builtin_type_f_complex_s16);
 
@@ -1131,7 +1131,7 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
       if (noside == EVAL_SKIP)
 	goto nosideret;
       return value_in (arg1, arg2);
-      
+
     case MULTI_SUBSCRIPT:
       (*pos) += 2;
       nargs = longest_to_int (exp->elts[pc + 1].longconst);
@@ -1157,7 +1157,7 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
 	      /* If the user attempts to subscript something that has no target
 		 type (like a plain int variable for example), then report this
 		 as an error. */
-	      
+
 	      type = TYPE_TARGET_TYPE (check_typedef (VALUE_TYPE (arg1)));
 	      if (type != NULL)
 		{
@@ -1171,7 +1171,7 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
 			 TYPE_NAME (VALUE_TYPE (arg1)));
 		}
 	    }
-	  
+
 	  if (binop_user_defined_p (op, arg1, arg2))
 	    {
 	      arg1 = value_x_binop (arg1, arg2, op, OP_NULL, noside);
@@ -1184,13 +1184,13 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
       return (arg1);
 
     multi_f77_subscript:
-      { 
-	int subscript_array[MAX_FORTRAN_DIMS+1]; /* 1-based array of 
+      {
+	int subscript_array[MAX_FORTRAN_DIMS+1]; /* 1-based array of
 						    subscripts, max == 7 */
 	int array_size_array[MAX_FORTRAN_DIMS+1];
 	int ndimensions=1,i;
-	struct type *tmp_type; 
-	int offset_item;   /* The array offset where the item lives */ 
+	struct type *tmp_type;
+	int offset_item;   /* The array offset where the item lives */
 
 	if (nargs > MAX_FORTRAN_DIMS)
 	  error ("Too many subscripts for F77 (%d Max)", MAX_FORTRAN_DIMS);
@@ -1201,65 +1201,65 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
 	if (nargs != ndimensions)
 	  error ("Wrong number of subscripts");
 
-	/* Now that we know we have a legal array subscript expression 
-	   let us actually find out where this element exists in the array. */ 
+	/* Now that we know we have a legal array subscript expression
+	   let us actually find out where this element exists in the array. */
 
-	offset_item = 0; 
+	offset_item = 0;
 	for (i = 1; i <= nargs; i++)
 	  {
-	    /* Evaluate each subscript, It must be a legal integer in F77 */ 
+	    /* Evaluate each subscript, It must be a legal integer in F77 */
 	    arg2 = evaluate_subexp_with_coercion (exp, pos, noside);
 
-	    /* Fill in the subscript and array size arrays */ 
+	    /* Fill in the subscript and array size arrays */
 
 	    subscript_array[i] = value_as_long (arg2);
-               
+
 	    retcode = f77_get_dynamic_upperbound (tmp_type, &upper);
 	    if (retcode == BOUND_FETCH_ERROR)
-	      error ("Cannot obtain dynamic upper bound"); 
+	      error ("Cannot obtain dynamic upper bound");
 
-	    retcode = f77_get_dynamic_lowerbound (tmp_type, &lower); 
+	    retcode = f77_get_dynamic_lowerbound (tmp_type, &lower);
 	    if (retcode == BOUND_FETCH_ERROR)
-	      error("Cannot obtain dynamic lower bound"); 
+	      error("Cannot obtain dynamic lower bound");
 
 	    array_size_array[i] = upper - lower + 1;
-               
-	    /* Zero-normalize subscripts so that offsetting will work. */ 
-               
+
+	    /* Zero-normalize subscripts so that offsetting will work. */
+
 	    subscript_array[i] -= lower;
 
-	    /* If we are at the bottom of a multidimensional 
+	    /* If we are at the bottom of a multidimensional
 	       array type then keep a ptr to the last ARRAY
 	       type around for use when calling value_subscript()
 	       below. This is done because we pretend to value_subscript
-	       that we actually have a one-dimensional array 
-	       of base element type that we apply a simple 
-	       offset to. */ 
+	       that we actually have a one-dimensional array
+	       of base element type that we apply a simple
+	       offset to. */
 
-	    if (i < nargs) 
-	      tmp_type = check_typedef (TYPE_TARGET_TYPE (tmp_type)); 
+	    if (i < nargs)
+	      tmp_type = check_typedef (TYPE_TARGET_TYPE (tmp_type));
 	  }
 
 	/* Now let us calculate the offset for this item */
 
-	offset_item = subscript_array[ndimensions]; 
-         
+	offset_item = subscript_array[ndimensions];
+
 	for (i = ndimensions - 1; i >= 1; i--)
-	  offset_item = 
+	  offset_item =
 	    array_size_array[i] * offset_item + subscript_array[i];
 
 	/* Construct a value node with the value of the offset */
 
-	arg2 = value_from_longest (builtin_type_f_integer, offset_item); 
+	arg2 = value_from_longest (builtin_type_f_integer, offset_item);
 
-	/* Let us now play a dirty trick: we will take arg1 
+	/* Let us now play a dirty trick: we will take arg1
 	   which is a value node pointing to the topmost level
 	   of the multidimensional array-set and pretend
-	   that it is actually a array of the final element 
+	   that it is actually a array of the final element
 	   type, this will ensure that value_subscript()
 	   returns the correct type value */
 
-	VALUE_TYPE (arg1) = tmp_type; 
+	VALUE_TYPE (arg1) = tmp_type;
 	return value_ind (value_add (value_coerce_array (arg1), arg2));
       }
 
@@ -1270,12 +1270,12 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
 	  arg2 = evaluate_subexp (NULL_TYPE, exp, pos, noside);
 	  goto nosideret;
 	}
-      
+
       oldpos = *pos;
       arg2 = evaluate_subexp (NULL_TYPE, exp, pos, EVAL_AVOID_SIDE_EFFECTS);
       *pos = oldpos;
-      
-      if (binop_user_defined_p (op, arg1, arg2)) 
+
+      if (binop_user_defined_p (op, arg1, arg2))
 	{
 	  arg2 = evaluate_subexp (NULL_TYPE, exp, pos, noside);
 	  return value_x_binop (arg1, arg2, op, OP_NULL, noside);
@@ -1296,12 +1296,12 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
 	  arg2 = evaluate_subexp (NULL_TYPE, exp, pos, noside);
 	  goto nosideret;
 	}
-      
+
       oldpos = *pos;
       arg2 = evaluate_subexp (NULL_TYPE, exp, pos, EVAL_AVOID_SIDE_EFFECTS);
       *pos = oldpos;
-      
-      if (binop_user_defined_p (op, arg1, arg2)) 
+
+      if (binop_user_defined_p (op, arg1, arg2))
 	{
 	  arg2 = evaluate_subexp (NULL_TYPE, exp, pos, noside);
 	  return value_x_binop (arg1, arg2, op, OP_NULL, noside);
@@ -1399,7 +1399,7 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
 	{
 	  return value_x_binop (arg1, arg2, op, OP_NULL, noside);
 	}
-      else 
+      else
 	{
 	  tem = value_less (arg1, arg2) || value_equal (arg1, arg2);
 	  return value_from_longest (LA_BOOL_TYPE, (LONGEST) tem);
@@ -1484,7 +1484,7 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
 
     case UNOP_ADDR:
       /* C++: check for and handle pointer to members.  */
-      
+
       op = exp->elts[*pos].opcode;
 
       if (noside == EVAL_SKIP)
@@ -1541,7 +1541,7 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
 	}
       else
 	{
-	  arg2 = value_add (arg1, value_from_longest (builtin_type_char, 
+	  arg2 = value_add (arg1, value_from_longest (builtin_type_char,
 						   (LONGEST) 1));
 	  return value_assign (arg1, arg2);
 	}
@@ -1556,7 +1556,7 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
 	}
       else
 	{
-	  arg2 = value_sub (arg1, value_from_longest (builtin_type_char, 
+	  arg2 = value_sub (arg1, value_from_longest (builtin_type_char,
 						   (LONGEST) 1));
 	  return value_assign (arg1, arg2);
 	}
@@ -1571,7 +1571,7 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
 	}
       else
 	{
-	  arg2 = value_add (arg1, value_from_longest (builtin_type_char, 
+	  arg2 = value_add (arg1, value_from_longest (builtin_type_char,
 						   (LONGEST) 1));
 	  value_assign (arg1, arg2);
 	  return arg1;
@@ -1587,12 +1587,12 @@ evaluate_subexp_standard (expect_type, exp, pos, noside)
 	}
       else
 	{
-	  arg2 = value_sub (arg1, value_from_longest (builtin_type_char, 
+	  arg2 = value_sub (arg1, value_from_longest (builtin_type_char,
 						   (LONGEST) 1));
 	  value_assign (arg1, arg2);
 	  return arg1;
 	}
-	
+
     case OP_THIS:
       (*pos) += 1;
       return value_of_this (1);
@@ -1826,13 +1826,13 @@ calc_f77_array_dims (array_type)
 
   if ((TYPE_CODE(array_type) != TYPE_CODE_ARRAY))
     error ("Can't get dimensions for a non-array type");
-   
-  tmp_type = array_type; 
+
+  tmp_type = array_type;
 
   while ((tmp_type = TYPE_TARGET_TYPE (tmp_type)))
     {
       if (TYPE_CODE (tmp_type) == TYPE_CODE_ARRAY)
 	++ndimen;
     }
-  return ndimen; 
+  return ndimen;
 }

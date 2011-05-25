@@ -274,7 +274,7 @@ process_sstep(p, sstep)
 		tf->tf_eflags |= PSL_T;
 	else
 		tf->tf_eflags &= ~PSL_T;
-	
+
 	return (0);
 }
 

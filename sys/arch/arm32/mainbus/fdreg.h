@@ -92,7 +92,7 @@
  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  *
- * From: FreeBSD: Id: ioctl_fd.h,v 1.7 1994/10/30 19:17:39 joerg Exp 
+ * From: FreeBSD: Id: ioctl_fd.h,v 1.7 1994/10/30 19:17:39 joerg Exp
  */
 
 #define FD_MAX_NSEC 36		/* highest known number of spt - allow for */

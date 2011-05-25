@@ -86,7 +86,7 @@ struct vt220_info {
 	int beepoff;
 	int param[MAXPARMS];
 	int parami;
-	u_char m_om, sc_om;		/* flag, vt100 mode, origin mode */	
+	u_char m_om, sc_om;		/* flag, vt100 mode, origin mode */
 	u_char scrr_beg;
 	u_char scrr_len;
 	u_char scrr_end;

@@ -109,7 +109,7 @@ main(int argc, char **argv)
 	} else if (argc < 1) {
 		usage();
 	}
-		
+
 	/* generate all requested files */
 	while (name != NULL || argc > 0) {
 		if (name == NULL) {

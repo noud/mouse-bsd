@@ -1,7 +1,7 @@
-#	$NetBSD: Makefile,v 1.18 1999/12/10 05:45:07 itojun Exp $	
+#	$NetBSD: Makefile,v 1.18 1999/12/10 05:45:07 itojun Exp $
 
 PROG=	tcpdump
-MAN=	tcpdump.8 
+MAN=	tcpdump.8
 
 CPPFLAGS+=-DHAVE_FCNTL_H=1 -DHAVE_MALLOC_H=1 -DHAVE_MEMORY_H=1
 CPPFLAGS+=-DTIME_WITH_SYS_TIME=1 -DHAVE_NET_SLIP_H=1 -DHAVE_VFPRINTF=1
@@ -29,6 +29,6 @@ SRCS+=	print-ah.c print-esp.c print-frag6.c print-icmp6.c print-ip6.c \
 SRCS+= version.c
 SRCS+= print-ascii.c print-telnet.c
 
-AWKS= atime.awk packetdat.awk stime.awk send-ack.awk   
+AWKS= atime.awk packetdat.awk stime.awk send-ack.awk
 
 .include <bsd.prog.mk>

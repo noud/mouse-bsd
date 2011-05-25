@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1999 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -330,7 +330,7 @@ grppfx_statement:
 			new->type = IN6_PREFIX;
 			new->attru.prefix = prefix;
 			new->next = grp_prefix;
- 
+
 			grp_prefix = new;
 		}
 	}
@@ -371,7 +371,7 @@ thres_attributes:
 				return(-1);
 		}
 
-/*  
+/*
  * switch_data_threshold [rate <number> interval <number>]
  * Operation: reads and assigns the switch to the spt threshold due to
  * data packets, if used as DR.
@@ -455,7 +455,7 @@ add_attribute_flag(list, type, flag)
 	unsigned int flag;
 {
 	struct attr_list *p;
-	
+
 	if ((p = malloc(sizeof(*p))) == NULL) {
 		yyerror("malloc failed");
 		return(NULL);
@@ -476,7 +476,7 @@ add_attribute_num(list, type, num)
 	double num;
 {
 	struct attr_list *p;
-	
+
 	if ((p = malloc(sizeof(*p))) == NULL) {
 		yyerror("malloc failed");
 		return(NULL);
@@ -558,7 +558,7 @@ phyint_config()
 	struct uvif *v;
 	vifi_t vifi;
 	struct attr_list *al;
-	
+
 	for (vifi = 0, v = uvifs; vifi < numvifs ; ++vifi , ++v) {
 		for (al = (struct attr_list *)v->config_attr; al; al = al->next) {
 			switch(al->type) {
@@ -754,7 +754,7 @@ bsr_config()
 		log(LOG_DEBUG,0,
 		    "Local BSR period is : %u sec.",
 		    my_bsr_period);
-	}  
+	}
 
 	return(0);
 }

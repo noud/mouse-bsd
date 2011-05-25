@@ -134,15 +134,15 @@ u_short mfbmask16[16] =
      ( 1<<6 ),  ( 1<<5 ),  ( 1<<4 ),
      ( 1<<3 ),  ( 1<<2 ),  ( 1<<1 ),
      ( 1<<0 )
-    }; 
-u_short mfbrmask16[16] = 
+    };
+u_short mfbrmask16[16] =
     {
     0xffff ^  ( 1<<15 ), 0xffff ^  ( 1<<14),
     0xffff ^  ( 1<<13 ), 0xffff ^  ( 1<<12 ),
-    0xffff ^  ( 1<<11 ), 0xffff ^  ( 1<<10), 
+    0xffff ^  ( 1<<11 ), 0xffff ^  ( 1<<10),
     0xffff ^  ( 1<<9 ),  0xffff ^  ( 1<<8),
-    0xffff ^  ( 1<<7 ),  0xffff ^  ( 1<<6),  
-    0xffff ^  ( 1<<5 ),  0xffff ^  ( 1<<4),  
+    0xffff ^  ( 1<<7 ),  0xffff ^  ( 1<<6),
+    0xffff ^  ( 1<<5 ),  0xffff ^  ( 1<<4),
     0xffff ^  ( 1<<3 ),  0xffff ^  ( 1<<2),
     0xffff ^  ( 1<<1 ),  0xffff ^  ( 1<<0)
     };
@@ -431,35 +431,35 @@ u_int mfbpartmasks32[32][32] = {
 
 u_int mfbmask32[32] =
     {
-     ( 1<<31 ),  ( 1<<30 ),  ( 1<<29 ), 
-     ( 1<<28 ),  ( 1<<27 ),  ( 1<<26 ), 
-     ( 1<<25 ),  ( 1<<24 ),  ( 1<<23 ), 
-     ( 1<<22 ),  ( 1<<21 ),  ( 1<<20 ), 
-     ( 1<<19 ),  ( 1<<18 ),  ( 1<<17 ), 
-     ( 1<<16 ),  ( 1<<15 ),  ( 1<<14 ), 
-     ( 1<<13 ),  ( 1<<12 ),  ( 1<<11 ), 
+     ( 1<<31 ),  ( 1<<30 ),  ( 1<<29 ),
+     ( 1<<28 ),  ( 1<<27 ),  ( 1<<26 ),
+     ( 1<<25 ),  ( 1<<24 ),  ( 1<<23 ),
+     ( 1<<22 ),  ( 1<<21 ),  ( 1<<20 ),
+     ( 1<<19 ),  ( 1<<18 ),  ( 1<<17 ),
+     ( 1<<16 ),  ( 1<<15 ),  ( 1<<14 ),
+     ( 1<<13 ),  ( 1<<12 ),  ( 1<<11 ),
      ( 1<<10 ),  ( 1<<9 ),  ( 1<<8 ),
-     ( 1<<7 ),  ( 1<<6 ),  ( 1<<5 ), 
-     ( 1<<4 ),  ( 1<<3 ),  ( 1<<2 ), 
+     ( 1<<7 ),  ( 1<<6 ),  ( 1<<5 ),
+     ( 1<<4 ),  ( 1<<3 ),  ( 1<<2 ),
      ( 1<<1 ),  ( 1<<0 )
-    }; 
+    };
 
-u_int mfbrmask32[32] = 
+u_int mfbrmask32[32] =
     {
-    0xffffffff ^  ( 1<<31 ), 0xffffffff ^  ( 1<<30 ), 
-    0xffffffff ^  ( 1<<29 ), 0xffffffff ^  ( 1<<28), 
+    0xffffffff ^  ( 1<<31 ), 0xffffffff ^  ( 1<<30 ),
+    0xffffffff ^  ( 1<<29 ), 0xffffffff ^  ( 1<<28),
     0xffffffff ^  ( 1<<27 ), 0xffffffff ^  ( 1<<26),
-    0xffffffff ^  ( 1<<25 ), 0xffffffff ^  ( 1<<24 ), 
-    0xffffffff ^  ( 1<<23 ), 0xffffffff ^  ( 1<<22), 
+    0xffffffff ^  ( 1<<25 ), 0xffffffff ^  ( 1<<24 ),
+    0xffffffff ^  ( 1<<23 ), 0xffffffff ^  ( 1<<22),
     0xffffffff ^  ( 1<<21 ), 0xffffffff ^  ( 1<<20),
-    0xffffffff ^  ( 1<<19 ), 0xffffffff ^  ( 1<<18 ), 
+    0xffffffff ^  ( 1<<19 ), 0xffffffff ^  ( 1<<18 ),
     0xffffffff ^  ( 1<<17 ), 0xffffffff ^  ( 1<<16),
     0xffffffff ^  ( 1<<15 ), 0xffffffff ^  ( 1<<14),
     0xffffffff ^  ( 1<<13 ), 0xffffffff ^  ( 1<<12 ),
-    0xffffffff ^  ( 1<<11 ), 0xffffffff ^  ( 1<<10), 
+    0xffffffff ^  ( 1<<11 ), 0xffffffff ^  ( 1<<10),
     0xffffffff ^  ( 1<<9 ),  0xffffffff ^  ( 1<<8),
-    0xffffffff ^  ( 1<<7 ),  0xffffffff ^  ( 1<<6),  
-    0xffffffff ^  ( 1<<5 ),  0xffffffff ^  ( 1<<4),  
+    0xffffffff ^  ( 1<<7 ),  0xffffffff ^  ( 1<<6),
+    0xffffffff ^  ( 1<<5 ),  0xffffffff ^  ( 1<<4),
     0xffffffff ^  ( 1<<3 ),  0xffffffff ^  ( 1<<2),
     0xffffffff ^  ( 1<<1 ),  0xffffffff ^  ( 1<<0)
     };
@@ -1775,7 +1775,7 @@ lPoint		*dp;	/* destination point */
 				}
 				nl = nlMiddle;
 #ifdef mc68020
-				Duff(nl, pdst--; psrc--; 
+				Duff(nl, pdst--; psrc--;
 					  *pdst = DoMergeRop(*psrc, *pdst));
 #else /* mc68020 */
 				psrc -= nl & 7;
@@ -3497,7 +3497,7 @@ int lpf;		/* if 0, don't draw last point */
 		dy = -dy;
 		ddy = -ddy;
 	}
-	
+
 #ifndef mc68020
 	bit = mfbmask32[p0->x & 0x1f];
 	leftbit = mfbmask32[0];
@@ -3711,7 +3711,7 @@ int lpf;		/* if 0, don't draw last point */
 		dy = -dy;
 		ddy = -ddy;
 	}
-	
+
 #ifndef mc68020
 	bit = mfbmask32[p0->x & 0x1f];
 	leftbit = mfbmask32[0];
@@ -3930,7 +3930,7 @@ int lpf;		/* if 0, don't draw last point */
 		dy = -dy;
 		ddy = -ddy;
 	}
-	
+
 #ifndef mc68020
 	bit = mfbmask32[p0->x & 0x1f];
 	leftbit = mfbmask32[0];
@@ -4109,7 +4109,7 @@ int lpf;		/* if 0, don't draw last point */
 		dy = -dy;
 		ddy = -ddy;
 	}
-	
+
 	if (dx > dy) {			/* case x */
 		lim = dx;
 		if (lpf)
@@ -4158,7 +4158,7 @@ int lpf;		/* if 0, don't draw last point */
 			addr += ddy;
 		}
 	}
-	
+
 	/* rotate pattern */
 	pat = fb->pat;
 

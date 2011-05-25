@@ -3,12 +3,12 @@
 .\"WISC: Header: errors.nr,v 1.2 88/12/06 16:06:07 nhall Exp $
 .\"WISC: Source: /usr/argo/doc/kernel/RCS/errors.nr,v $
 .NC "Error Handling"
-This section describes the various ways that the ARGO kernel 
+This section describes the various ways that the ARGO kernel
 handles errors.
 For the purpose of this description,
 errors are divided into
 three classes : user errors, remote-end errors, and internal errors.
-These three classes of errors and the way 
+These three classes of errors and the way
 the ARGO kernel handles them are described below.
 .sh 1 "Network Layer Errors"
 .pp
@@ -35,9 +35,9 @@ Insufficient \fImbufs\fR+ENOBUFS
 .sh 2 "Remote-end Errors"
 .pp
 An error that occurs as the result of incoming NPDU
-is a remote-end error.  
+is a remote-end error.
 .pp
-In the case of CONS, 
+In the case of CONS,
 the majority of these are addressing problems,
 PDN-generated errors (network or gateway congestion, number busy),
 or higher layer negotiation problems.
@@ -66,7 +66,7 @@ the most remote-end errors are parsing errors.
 When a remote-end error is discovered, processing of the NPDU stops. The
 NPDU is discarded, and if error reporting is not disabled, and ER NPDU
 is sent back to the source of the offending packet. The following
-tables show the errors that may occur, and the error reason 
+tables show the errors that may occur, and the error reason
 that will specified when the ER NPDU is returned.
 .pp
 The following general errors may occur while parsing an NPDU:
@@ -143,7 +143,7 @@ those routines called directly or indirectly
 the by system-call routines,
 this is done
 by simply returning
-this integer value. 
+this integer value.
 The errors that fall into this category are described
 in the following table:
 .(b L
@@ -163,13 +163,13 @@ EPROTOTYPE+Attempting to use an inappropriate transport
  +class for the network service. (e.g. class 0 over CLNS)
  +or attempting to use an unknown network service.
 _
-EISCONN+Attempting to perform on a connected socket an action 
+EISCONN+Attempting to perform on a connected socket an action
  +that is permitted only on unconnected sockets.
 _
 ENOTCONN+Attempting to perform on an unconnected socket an
  +action that is permitted only on connected sockets.
 _
-EMSGSIZE+Trying to send more data than are permitted on 
+EMSGSIZE+Trying to send more data than are permitted on
  +connect, disconnect, or expedited data PDUs.
 _
 ENOTSOCK+The integer argument passed in the system
@@ -193,14 +193,14 @@ by \fIerrno\fR but which occur asynchronously
 are detected by the socket layer when the value
 of the field \fIso_error\fR in the socket
 structure is non-zero.
-This is used to report such errors as 
+This is used to report such errors as
 ECONNRESET,
 ECONNABORTED, and
 ECONNTIMEDOUT, which are really remote-end errors.
 .sh 2 "Remote-end Errors"
 .pp
 An error that occurs is the result of a timer
-or is a result of an 
+or is a result of an
 incoming TPDU
 is a remote-end error.
 The majority of these errors are parsing errors.
@@ -225,14 +225,14 @@ l l l.
 Error+Meaning+Return code or action taken
 =
 Retransmission+The remote end has not responded +ETIMEDOUT
-timeout+to repeated attempts to send.+ 
- +This can occur during connection+ 
- +or after connection establishment.+ 
+timeout+to repeated attempts to send.+
+ +This can occur during connection+
+ +or after connection establishment.+
 _
 Inactivity+The remote end has not sent anything +ETIMEDOUT
 timeout+within the last \fIx\fR time, where+
 +\fIx\fR is a locally defined+
-+large value.+ 
++large value.+
 _
 Unacceptable+An unacceptable TPDU has arrived, and the+TPDU dropped
 TPDU +remote end can be identified.+possibly DR/ER returned
@@ -254,7 +254,7 @@ Problem+Action taken by TP
 No connection at destination+Respond with DR, reason: session entity
 reference or reference frozen+not attached to TSAP
 _
-Invalid destination reference+Respond with DR, reason: mismatched 
+Invalid destination reference+Respond with DR, reason: mismatched
 +references
 _
 Invalid parameter code+Respond with ER, cause: inval. param. code
@@ -299,7 +299,7 @@ routine \fIperror()\fR that prints an error messages for a given
 \fIerrno\fR value.
 .sh 2 "Internal Errors"
 .pp
-Some internal errors are the result of 
+Some internal errors are the result of
 a lack of resources such as buffers.
 These are reported to the user with the
 global variable
@@ -325,7 +325,7 @@ ETOOMANYREFS+TP ran out of (unfrozen) reference numbers.
 Other
 internal errors are coding errors
 or errors of misinterpretation of a specification.
-They result in the printing of a message on the 
+They result in the printing of a message on the
 console followed by a system panic.
 The following panics have been coded into TP:
 .(b L
@@ -336,21 +336,21 @@ l l.
 =
 tp_emit CR/CC+The length indicator field of a TPDU is longer than the
  +amount of space in an mbuf; TP is attempting to send a
- +CR TPDU that is too large (perhaps legal but too large for 
+ +CR TPDU that is too large (perhaps legal but too large for
  +this implementation to manage).
 _
-tp_rcvoob: unexpected cluster+An incoming XPD TPDU was put into a cluster 
+tp_rcvoob: unexpected cluster+An incoming XPD TPDU was put into a cluster
  +mbuf by a lower layer.
 _
 tp timeout table overflow+The system ran out of structures for TP timers.
 _
-tp: T_DETACH+The connected socket that is being detached has 
+tp: T_DETACH+The connected socket that is being detached has
  +no parent socket.
 _
-tp_soisdisconnected+The socket head queue is 
+tp_soisdisconnected+The socket head queue is
  +corrupted.
 _
-tp_soisdisconnecting+The socket head queue is 
+tp_soisdisconnecting+The socket head queue is
  +corrupted.
 _
 tpclnp_input: bad clnp_len +The length parameter passed by clnp

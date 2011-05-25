@@ -154,7 +154,7 @@ frame_saved_pc (frame)
   return read_memory_integer (FRAME_FP (frame) + 2, PTR_SIZE);
 }
 
-void 
+void
 h8500_pop_frame ()
 {
   unsigned regnum;

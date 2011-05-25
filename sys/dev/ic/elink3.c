@@ -230,7 +230,7 @@ void	ep_tick __P((void *));
 
 static int epbusyeeprom __P((struct ep_softc *));
 u_int16_t ep_read_eeprom __P((struct ep_softc *, u_int16_t));
-static inline void ep_reset_cmd __P((struct ep_softc *sc, 
+static inline void ep_reset_cmd __P((struct ep_softc *sc,
 					u_int cmd, u_int arg));
 static inline void ep_finish_reset __P((bus_space_tag_t, bus_space_handle_t));
 static inline void ep_discard_rxtop __P((bus_space_tag_t, bus_space_handle_t));
@@ -385,14 +385,14 @@ epconfig(sc, chipset, enaddr)
 	 * 11-bit parameter, and  11 bits isn't enough to hold a full-size
 	 * packet length.
 	 * Commands to these cards implicitly upshift a packet size
-	 * or threshold by 2 bits. 
+	 * or threshold by 2 bits.
 	 * To detect  cards with large-packet support, we probe by setting
 	 * the transmit threshold register, then change windows and
 	 * read back the threshold register directly, and see if the
 	 * threshold value was shifted or not.
 	 */
 	bus_space_write_2(iot, ioh, ELINK_COMMAND,
-	    SET_TX_AVAIL_THRESH | ELINK_LARGEWIN_PROBE); 
+	    SET_TX_AVAIL_THRESH | ELINK_LARGEWIN_PROBE);
 	GO_WINDOW(5);
 	i = bus_space_read_2(iot, ioh, ELINK_W5_TX_AVAIL_THRESH);
 	GO_WINDOW(1);
@@ -414,7 +414,7 @@ epconfig(sc, chipset, enaddr)
 	}
 
 	/*
-	 * Ensure Tx-available interrupts are enabled for 
+	 * Ensure Tx-available interrupts are enabled for
 	 * start the interface.
 	 * XXX should be in epinit()?
 	 */
@@ -433,7 +433,7 @@ epconfig(sc, chipset, enaddr)
 	ether_ifattach(ifp, enaddr);
 
 	/*
-	 * Finish configuration: 
+	 * Finish configuration:
 	 * determine chipset if the front-end couldn't do so,
 	 * show board details, set media.
 	 */
@@ -862,7 +862,7 @@ epinit(sc)
 
 
 /*
- * Set multicast receive filter. 
+ * Set multicast receive filter.
  * elink3 hardware has no selective multicast filter in hardware.
  * Enable reception of all multicasts and filter in software.
  */
@@ -1268,7 +1268,7 @@ readcheck:
 		if ((status & S_INTR_LATCH) == 0) {
 			/*
 			 * No interrupt, read the packet and continue
-			 * Is  this supposed to happen? Is my motherboard 
+			 * Is  this supposed to happen? Is my motherboard
 			 * completely busted?
 			 */
 			epread(sc);
@@ -1474,7 +1474,7 @@ epintr(arg)
 		if (status)
 			rnd_add_uint32(&sc->rnd_source, status);
 #endif
-	}	
+	}
 
 	/* no more interrupts */
 	return (ret);
@@ -1936,7 +1936,7 @@ epshutdown(arg)
 	void *arg;
 {
 	register struct ep_softc *sc = arg;
-	int s = splnet(); 
+	int s = splnet();
 
 	if (sc->enabled) {
 		epstop(sc);

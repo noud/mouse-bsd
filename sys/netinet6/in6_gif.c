@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -126,7 +126,7 @@ in6_gif_output(ifp, family, m, rt)
 		m_freem(m);
 		return EAFNOSUPPORT;
 	}
-	
+
 	/* prepend new IP header */
 	M_PREPEND(m, sizeof(struct ip6_hdr), M_DONTWAIT);
 	if (m && m->m_len < sizeof(struct ip6_hdr))
@@ -200,7 +200,7 @@ in6_gif_output(ifp, family, m, rt)
 			- sizeof(struct ip6_hdr);
 #endif
 	}
-	
+
 #ifdef IPSEC
 	m->m_pkthdr.rcvif = NULL;
 #endif /*IPSEC*/
@@ -249,7 +249,7 @@ int in6_gif_input(mp, offp, proto)
 		ip6stat.ip6s_nogif++;
 		return IPPROTO_DONE;
 	}
-	
+
 	otos = ip6->ip6_flow;
 	m_adj(m, *offp);
 
@@ -293,7 +293,7 @@ int in6_gif_input(mp, offp, proto)
 		m_freem(m);
 		return IPPROTO_DONE;
 	}
-		
+
 	gif_input(m, af, gifp);
 	return IPPROTO_DONE;
 }

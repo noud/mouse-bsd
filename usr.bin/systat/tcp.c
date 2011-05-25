@@ -92,37 +92,37 @@ labeltcp(void)
 
 	wmove(wnd, 0, 0); wclrtoeol(wnd);
 
-	LHD(0,  "connections initiated");		
-	LHD(1,  "connections accepted");		
+	LHD(0,  "connections initiated");
+	LHD(1,  "connections accepted");
 	LHD(2,  "connections established");
-		
-	LHD(4,  "connections dropped");		
-	LHD(5,  "  in embryonic state");		
-	LHD(6,  "  on retransmit timeout");	
-	LHD(7,  "  by keepalive");			
-	LHD(8,  "  by persist");		
+
+	LHD(4,  "connections dropped");
+	LHD(5,  "  in embryonic state");
+	LHD(6,  "  on retransmit timeout");
+	LHD(7,  "  by keepalive");
+	LHD(8,  "  by persist");
 
 	LHD(10, "potential rtt updates");
-	LHD(11, "successful rtt updates");		
-	LHD(12, "delayed acks sent");	
-	LHD(13, "retransmit timeouts");	
-	LHD(14, "persist timeouts");	
-	LHD(15, "keepalive probes");	
-	LHD(16, "keepalive timeouts");		
-	
+	LHD(11, "successful rtt updates");
+	LHD(12, "delayed acks sent");
+	LHD(13, "retransmit timeouts");
+	LHD(14, "persist timeouts");
+	LHD(15, "keepalive probes");
+	LHD(16, "keepalive timeouts");
+
 	RHD(9,  "total TCP packets received");
 	RHD(10, "  in sequence");
 	RHD(11, "  completely duplicate");
 	RHD(12, "  with some duplicate data");
 	RHD(13, "  out of order");
 	RHD(14, "  duplicate acks");
-	RHD(15, "  acks");	
+	RHD(15, "  acks");
 	RHD(16, "  window probes");
 	RHD(17, "  window updates");
-	
+
 	RHD(0, "total TCP packets sent");
-	RHD(1, "  data");	
-	RHD(2, "  data (retransmit)");	
+	RHD(1, "  data");
+	RHD(2, "  data (retransmit)");
 	RHD(3, "  ack-only");
 	RHD(4, "  window probes");
 	RHD(5, "  window updates");
@@ -133,7 +133,7 @@ labeltcp(void)
 void
 showtcpsyn(void)
 {
-	
+
 	SHOW(0, 0, tcps_sc_added);
 	SHOW(1, 0, tcps_sc_completed);
 	SHOW(2, 0, tcps_sc_timed_out);
@@ -153,7 +153,7 @@ labeltcpsyn(void)
 {
 
 	wmove(wnd, 0, 0); wclrtoeol(wnd);
-	LHD(0,  "entries added");		
+	LHD(0,  "entries added");
 	LHD(1,  "connections completed");
 	LHD(2,  "entries timed out");
 	LHD(3,  "duplicate SYNs recieved");
@@ -170,12 +170,12 @@ labeltcpsyn(void)
 void
 showtcp(void)
 {
-	
-	SHOW(0, 0, tcps_connattempt);		
-	SHOW(1, 0, tcps_accepts);		
-	SHOW(2, 0, tcps_connects);		
 
-	SHOW(4, 0, tcps_drops);	
+	SHOW(0, 0, tcps_connattempt);
+	SHOW(1, 0, tcps_accepts);
+	SHOW(2, 0, tcps_connects);
+
+	SHOW(4, 0, tcps_drops);
 	SHOW(5, 0, tcps_conndrops);
 	SHOW(6, 0, tcps_timeoutdrop);
 	SHOW(7, 0, tcps_keepdrops);

@@ -50,7 +50,7 @@ __KERNEL_RCSID(0, "$NetBSD: spc.c,v 1.1 2000/01/05 08:48:56 nisimura Exp $");
 
 #include <dev/scsipi/scsi_all.h>
 #include <dev/scsipi/scsipi_all.h>
-#include <dev/scsipi/scsi_message.h> 
+#include <dev/scsipi/scsi_message.h>
 #include <dev/scsipi/scsiconf.h>
 
 #include <dev/ic/mb89352reg.h>
@@ -77,7 +77,7 @@ spc_match(parent, cf, aux)
 	if (strcmp(ma->ma_name, spc_cd.cd_name))
 		return 0;
 #if 0
-	if (badaddr((caddr_t)ma->ma_addr, 4)) 
+	if (badaddr((caddr_t)ma->ma_addr, 4))
 		return 0;
 	/* Experiments proved 2nd SPC address does NOT make a buserror. */
 #endif

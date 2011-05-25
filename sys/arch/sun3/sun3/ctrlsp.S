@@ -44,9 +44,9 @@
 #include <machine/asm.h>
 #define FC_CONTROL 3	/* from cpu.h */
 
-/*	
+/*
  * unsigned char get_control_byte (char *addr)
- */	
+ */
 ENTRY(get_control_byte)
 	movc sfc, d1			| save sfc
 	moveq #FC_CONTROL, d0		| sfc = FC_CONTROL
@@ -59,7 +59,7 @@ ENTRY(get_control_byte)
 
 /*
  * unsigned int get_control_word (char *addr)
- */	
+ */
 ENTRY(get_control_word)
 	movc sfc, d1			| save sfc
 	moveq #FC_CONTROL, d0		| sfc = FC_CONTROL
@@ -69,7 +69,7 @@ ENTRY(get_control_word)
 	movc d1, sfc			| restore sfc
 	rts
 
-/*	
+/*
  * void set_control_byte (char *addr, int value)
  */
 ENTRY(set_control_byte)

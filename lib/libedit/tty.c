@@ -475,7 +475,7 @@ tty_setup(el)
 
     if (el->el_flags & EDIT_DISABLED)
 	return (0);
-    
+
     if (tty_getty(el, &el->el_tty.t_ed) == -1) {
 #ifdef DEBUG_TTY
 	(void) fprintf(el->el_errfile,
@@ -948,7 +948,7 @@ tty_cookedmode(el)
 
     if (el->el_flags & EDIT_DISABLED)
 	return (0);
-    
+
     if (tty_setty(el, &el->el_tty.t_ex) == -1) {
 #ifdef DEBUG_TTY
 	(void) fprintf(el->el_errfile, "tty_cookedmode: tty_setty: %s\n",

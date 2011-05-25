@@ -21,7 +21,7 @@ options 	KTRACE
 options 	COMPAT_43
 
 file-system 	FFS
-file-system 	NFS	
+file-system 	NFS
 file-system 	KERNFS
 #file-system 	MFS
 #file-system	MSDOSFS

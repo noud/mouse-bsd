@@ -123,7 +123,7 @@ extern int i386_skip_prologue PARAMS ((int));
 
 #define REGISTER_BYTE(N) \
   (((N) < FP0_REGNUM) ? ((N) * 4) : ((((N) - FP0_REGNUM) * 10) + 64))
- 
+
 /* Number of bytes of storage in the actual machine representation for
    register N.  All registers are 4 bytes, except 387 st(0) - st(7),
    which are 80 bits each. */
@@ -143,7 +143,7 @@ extern int i386_skip_prologue PARAMS ((int));
 
 #define MAX_REGISTER_VIRTUAL_SIZE 8
 
-/* Return the GDB type object for the "standard" data type of data in 
+/* Return the GDB type object for the "standard" data type of data in
    register N.  Perhaps si and di should go here, but potentially they
    could be used for things other than address.  */
 
@@ -270,7 +270,7 @@ extern void i386_push_dummy_frame PARAMS ((void));
 extern void i386_pop_frame PARAMS ((void));
 
 
-/* this is 
+/* this is
  *   call 11223344 (32 bit relative)
  *   int3
  */

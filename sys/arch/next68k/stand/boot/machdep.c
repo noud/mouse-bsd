@@ -62,7 +62,7 @@ machdep_start(char *entry, int howto, char *loadaddr, char *ssym, char *esym)
   MON(int,MG_boot_how) = howto;
   entry_point = entry + (long)loadaddr;
   DPRINTF(("start=0x%lx\n", (u_long)entry_point));
-  
+
   /* @@@ hack to pass esym to kernel */
   *((u_int *)loadaddr) = (u_int)esym;
 
@@ -117,10 +117,10 @@ trap(struct trapframe *fp)
     printf("Got unexpected trap: format=%x vector=%x sr=%x pc=%x\n",
 	   (fp->frame>>12)&0xF, fp->frame&0xFFF, fp->sr, fp->pc);
     printf("dregs: %x %x %x %x %x %x %x %x\n",
-	   fp->dregs[0], fp->dregs[1], fp->dregs[2], fp->dregs[3], 
+	   fp->dregs[0], fp->dregs[1], fp->dregs[2], fp->dregs[3],
 	   fp->dregs[4], fp->dregs[5], fp->dregs[6], fp->dregs[7]);
     printf("aregs: %x %x %x %x %x %x %x %x\n",
-	   fp->aregs[0], fp->aregs[1], fp->aregs[2], fp->aregs[3], 
+	   fp->aregs[0], fp->aregs[1], fp->aregs[2], fp->aregs[3],
 	   fp->aregs[4], fp->aregs[5], fp->aregs[6], fp->aregs[7]);
     intrap = 0;
     printf("Halting.\n");

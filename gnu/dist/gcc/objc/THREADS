@@ -1,5 +1,5 @@
 This file describes in little detail the modifications to the
-Objective-C runtime needed to make it thread safe. 
+Objective-C runtime needed to make it thread safe.
 
 First off, kudos to Galen Hunt who is the author of this great work.
 
@@ -17,7 +17,7 @@ GCC bug account or to:
 * Sarray Threading:
 
 The most critical component of the Objective-C runtime is the sparse array
-structure (sarray).  Sarrays store object selectors and implementations.  
+structure (sarray).  Sarrays store object selectors and implementations.
 Following in the tradition of the Objective-C runtime, my threading
 support assumes that fast message dispatching is far more important
 than *ANY* and *ALL* other operations.  The message dispatching thus
@@ -25,13 +25,13 @@ uses *NO* locks on any kind.  In fact, if you look in sarray.h, you
 will notice that the message dispatching has not been modified.
 Instead, I have modified the sarray management functions so that all
 updates to the sarray data structure can be made in parallel will
-message dispatching.  
+message dispatching.
 
 To support concurrent message dispatching, no dynamically allocated
 sarray data structures are freed while more than one thread is
 operational.  Sarray data structures that are no longer in use are
 kept in a linked list of garbage and are released whenever the program
-is operating with a single thread.  The programmer can also flush the 
+is operating with a single thread.  The programmer can also flush the
 garbage list by calling sarray_remove_garbage when the programmer can
 ensure that no message dispatching is taking place concurrently.  The
 amount of un-reclaimed sarray garbage should normally be extremely
@@ -42,8 +42,8 @@ normally occurs while the program is single threaded.
 ******************************************************************************
 * Static Variables:
 
-The following variables are either statically or globally defined. This list 
-does not include variables which are internal to implementation dependent 
+The following variables are either statically or globally defined. This list
+does not include variables which are internal to implementation dependent
 versions of thread-*.c.
 
 The following threading designations are used:
@@ -84,7 +84,7 @@ uninitialized_statics		MUTEX	init.c
 
 Notes:
 1) Initialized once in unithread mode.
-2) Initialized value will always be same, guaranteed by lock on selector 
+2) Initialized value will always be same, guaranteed by lock on selector
    hash table.
 
 
@@ -102,7 +102,7 @@ high degree of portability across platforms.
 
 The backend is composed of a file with the necessary code to map the ObjC
 thread and mutex to a platform specific implementation.  For example, the
-file thr-solaris.c contains the implementation for Solaris.  When you 
+file thr-solaris.c contains the implementation for Solaris.  When you
 configure GCC, it attempts to pick an appropriate backend file for the
 target platform; however, you can override this choice by assign the
 OBJC_THREAD_FILE make variable to the basename of the backend file.  This
@@ -145,7 +145,7 @@ This has the undesirable effect that if objc_thread_yield is actually
 turned into a function based upon future need; then ObjC programs which
 access the thread functions would need to be recompiled versus just
 being relinked.
- 
+
 ******************************************************************************
 * Threads:
 
@@ -178,7 +178,7 @@ objc_thread_detach(SEL selector, id object, id argument), objc_thread_t
 objc_thread_set_priority(int priority), int
 	Sets a thread's relative priority within the program.  Valid
 	options are:
-	
+
 	OBJC_THREAD_INTERACTIVE_PRIORITY
 	OBJC_THREAD_BACKGROUND_PRIORITY
 	OBJC_THREAD_LOW_PRIORITY
@@ -266,9 +266,9 @@ objc_mutex_lock(objc_mutex_t mutex), int
 	Locks a mutex.  As mentioned earlier, the same thread may call
 	this routine repeatedly.
 	Return -1 if error otherwise return 0.
-	
+
 objc_mutex_trylock(objc_mutex_t mutex), int
-	Attempts to lock a mutex.  If lock on mutex can be acquired 
+	Attempts to lock a mutex.  If lock on mutex can be acquired
 	then function operates exactly as objc_mutex_lock.
 	Return -1 if failed to acquire lock otherwise return 0.
 
@@ -292,7 +292,7 @@ __objc_mutex_deallocate(objc_mutex_t mutex), int
 __objc_mutex_lock(objc_mutex_t mutex), int
 	Locks a mutex, called by objc_mutex_lock.
 	Return -1 if error otherwise return 0.
-	
+
 __objc_mutex_trylock(objc_mutex_t mutex), int
 	Attempts to lock a mutex, called by objc_mutex_trylock.
 	Return -1 if failed to acquire lock or error otherwise return 0.
@@ -314,13 +314,13 @@ threads to access the mutex.
 * User programs should use these functions.
 *
 
-objc_condition_allocate(void), objc_condition_t 
+objc_condition_allocate(void), objc_condition_t
 	Allocate a condition mutex.
 	Return NULL if error otherwise return condition pointer.
 
 objc_condition_deallocate(objc_condition_t condition), int
 	Deallocate a condition. Note that this includes an implicit
-	condition_broadcast to insure that waiting threads have the 
+	condition_broadcast to insure that waiting threads have the
 	opportunity to wake.  It is legal to dealloc a condition only
 	if no other thread is/will be using it. Does NOT check for
 	other threads waiting but just wakes them up.
@@ -334,9 +334,9 @@ objc_condition_wait(objc_condition_t condition, objc_mutex_t mutex), int
 	The mutex is used to lock access to the shared data that make up the
 	"condition" predicate.
 	Return -1 if error otherwise return 0.
-	
+
 objc_condition_broadcast(objc_condition_t condition), int
-	Wake up all threads waiting on this condition. It is recommended that 
+	Wake up all threads waiting on this condition. It is recommended that
 	the called would lock the same mutex as the threads in
 	objc_condition_wait before changing the "condition predicate"
 	and make this call and unlock it right away after this call.
@@ -362,7 +362,7 @@ __objc_condition_deallocate(objc_condition_t condition), int
 __objc_condition_wait(objc_condition_t condition, objc_mutex_t mutex), int
 	Wait on the condition, called by objc_condition_wait.
 	Return -1 if error otherwise return 0 when condition is met.
-	
+
 __objc_condition_broadcast(objc_condition_t condition), int
 	Wake up all threads waiting on this condition.
 	Called by objc_condition_broadcast.

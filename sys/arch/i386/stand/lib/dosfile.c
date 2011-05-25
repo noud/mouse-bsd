@@ -78,7 +78,7 @@ dos2errno()
 	return (err);
 }
 
-int 
+int
 dos_open(path, f)
 	char           *path;
 	struct open_file *f;
@@ -102,7 +102,7 @@ dos_open(path, f)
 	return (0);
 }
 
-int 
+int
 dos_read(f, addr, size, resid)
 	struct open_file *f;
 	void           *addr;
@@ -168,7 +168,7 @@ dos_read(f, addr, size, resid)
 	return (0);
 }
 
-int 
+int
 dos_close(f)
 	struct open_file *f;
 {
@@ -182,7 +182,7 @@ dos_close(f)
 	return (0);
 }
 
-int 
+int
 dos_write(f, start, size, resid)
 	struct open_file *f;
 	void           *start;
@@ -192,7 +192,7 @@ dos_write(f, start, size, resid)
 	return (EROFS);
 }
 
-int 
+int
 dos_stat(f, sb)
 	struct open_file *f;
 	struct stat    *sb;
@@ -208,7 +208,7 @@ dos_stat(f, sb)
 	return (0);
 }
 
-off_t 
+off_t
 dos_seek(f, offset, where)
 	struct open_file *f;
 	off_t           offset;

@@ -194,7 +194,7 @@ ie_sebuf_attach(parent, self, args)
 }
 
 /* Whack the "channel attetion" line. */
-void 
+void
 ie_sebuf_attend(sc)
 	struct ie_softc *sc;
 {
@@ -208,7 +208,7 @@ ie_sebuf_attend(sc)
  * This is called during driver attach.
  * Reset and initialize.
  */
-void 
+void
 ie_sebuf_reset(sc)
 	struct ie_softc *sc;
 {

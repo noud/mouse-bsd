@@ -309,7 +309,7 @@ add_warning()
 	f_print(fout, " */\n\n");
 }
 /* clear list of arguments */
-static void 
+static void
 clear_args()
 {
 	int     i;
@@ -318,7 +318,7 @@ clear_args()
 	argcount = FIXEDARGS;
 }
 /* make sure that a CPP exists */
-static void 
+static void
 find_cpp()
 {
 	struct stat buf;
@@ -437,7 +437,7 @@ static char *valid_i_nettypes[] =
 	NULL
 };
 
-static int 
+static int
 check_nettype(name, list_to_check)
 	char   *name;
 	char   *list_to_check[];

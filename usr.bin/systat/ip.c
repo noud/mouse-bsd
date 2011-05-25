@@ -96,44 +96,44 @@ labelip(void)
 
 	wmove(wnd, 0, 0); wclrtoeol(wnd);
 
-	LHD(0,  "total packets received");	
+	LHD(0,  "total packets received");
 	LHD(1,  "  passed to upper layers");
-	LHD(2,  "  with bad checksums");		
-	LHD(3,  "  too short for header");	
-	LHD(4,  "  too short for data");		
-	LHD(5,  "  with invalid hlen");		
-	LHD(6,  "  with invalid length");	
+	LHD(2,  "  with bad checksums");
+	LHD(3,  "  too short for header");
+	LHD(4,  "  too short for data");
+	LHD(5,  "  with invalid hlen");
+	LHD(6,  "  with invalid length");
 	LHD(7,  "  with invalid version");
 	LHD(8,  "  too large");
-	LHD(9,  "  option errors");	
+	LHD(9,  "  option errors");
 	LHD(10, "  fragments received");
-	LHD(11, "  fragments dropped");		
-	LHD(12, "  fragments timed out");		
-	LHD(13, "  packets reassembled ok");	
+	LHD(11, "  fragments dropped");
+	LHD(12, "  fragments timed out");
+	LHD(13, "  packets reassembled ok");
 
-	LHD(15, "packets forwarded");	
-	LHD(16, "  fast forwarded");	
-	LHD(17, "  unreachable dests");	
-	LHD(18, "  redirects generated");	
+	LHD(15, "packets forwarded");
+	LHD(16, "  fast forwarded");
+	LHD(17, "  unreachable dests");
+	LHD(18, "  redirects generated");
 
 	RHD(0,  "total packets sent");
 	RHD(1,  "  generated locally");
 	RHD(2,  "  output drops");
 	RHD(3,  "  output fragments generated");
-	RHD(4,  "  fragmentation failed");	
+	RHD(4,  "  fragmentation failed");
 	RHD(5,  "  destinations unreachable");
-	RHD(6,  "  packets output via raw IP");	
+	RHD(6,  "  packets output via raw IP");
 	RHD(7,  "  total UDP packets sent");
 
 	RHD(9, "total UDP packets recieved");
-	RHD(10, "  too short for header");	
-	RHD(11, "  invalid checksum");	
-	RHD(12, "  invalid length");	
+	RHD(10, "  too short for header");
+	RHD(11, "  invalid checksum");
+	RHD(12, "  invalid length");
 	RHD(13, "  no socket for dest port");
-	RHD(14, "  no socket for broadcast");	
-	RHD(15, "  socket buffer full");	
+	RHD(14, "  no socket for broadcast");
+	RHD(15, "  socket buffer full");
 }
-	
+
 void
 showip(void)
 {
@@ -160,7 +160,7 @@ showip(void)
 	SHOW(i.ips_noroute, 5, 35);
 	SHOW(i.ips_rawout, 6, 35);
 	SHOW(u.udps_opackets, 7, 35);
-	
+
 	SHOW(i.ips_fragments, 10, 0);
 	SHOW(i.ips_fragdropped, 11, 0);
 	SHOW(i.ips_fragtimeout, 12, 0);

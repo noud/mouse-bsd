@@ -374,8 +374,8 @@ dopowerhooks(why)
 {
 	struct powerhook_desc *dp;
 
-	for (dp = LIST_FIRST(&powerhook_list); 
-	     dp != NULL; 
+	for (dp = LIST_FIRST(&powerhook_list);
+	     dp != NULL;
 	     dp = LIST_NEXT(dp, sfd_list)) {
 		(*dp->sfd_fn)(why, dp->sfd_arg);
 	}
@@ -515,8 +515,8 @@ doexechooks(p)
 {
 	struct exechook_desc *edp;
 
-	for (edp = LIST_FIRST(&exechook_list); 
-	     edp != NULL; 
+	for (edp = LIST_FIRST(&exechook_list);
+	     edp != NULL;
 	     edp = LIST_NEXT(edp, ehk_list)) {
 		(*edp->ehk_fn)(p, edp->ehk_arg);
 	}
@@ -537,7 +537,7 @@ static struct device fakemdrootdev[NMD];
 
 #include "raid.h"
 #if NRAID == 1
-#define BOOT_FROM_RAID_HOOKS 1 
+#define BOOT_FROM_RAID_HOOKS 1
 #endif
 
 #ifdef BOOT_FROM_RAID_HOOKS
@@ -939,7 +939,7 @@ getdisk(str, len, defpart, devp, isdump)
 #ifdef BOOT_FROM_RAID_HOOKS
 		if (isdump == 0)
 			for (j = 0; j < numraid; j++)
-				printf(" %s[a-%c]", 
+				printf(" %s[a-%c]",
 				       raidrootdev[j].dv_xname,
 				       'a' + MAXPARTITIONS - 1);
 #endif
@@ -1068,7 +1068,7 @@ getstr(cp, size)
  * plus a possible `x' + suffix extension) fits into len bytes (including
  * the terminating NUL).
  * Returns the number of bytes stored in buf, or -1 * if there was a problem.
- * E.g, given a len of 9 and a suffix of `B': 
+ * E.g, given a len of 9 and a suffix of `B':
  *	bytes		result
  *	-----		------
  *	99999		`99999 B'

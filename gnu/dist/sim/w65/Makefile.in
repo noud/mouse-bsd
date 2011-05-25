@@ -7,12 +7,12 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
@@ -49,7 +49,7 @@ SHELL = /bin/sh
 
 INSTALL = `cd $(srcdir)/../..;pwd`/install.sh -c
 INSTALL_PROGRAM = $(INSTALL)
-INSTALL_DATA = $(INSTALL) 
+INSTALL_DATA = $(INSTALL)
 INSTALL_XFORM = $(INSTALL) -t='$(program_transform_name)'
 INSTALL_XFORM1 = $(INSTALL_XFORM) -b=.1
 
@@ -104,7 +104,7 @@ LIBIBERTY = ../../libiberty/libiberty.a
 BFD = ../../bfd/libbfd.a
 
 RUNTEST = runtest
-RUNTESTFLAGS = 
+RUNTESTFLAGS =
 FLAGS_TO_PASS = \
 	"CC=$(CC)" \
 	"CFLAGS=$(CFLAGS)" \
@@ -161,9 +161,9 @@ maintainer-clean realclean: clean distclean
 etags tags: TAGS
 
 TAGS: force
-	etags $(INCDIR)/*.h $(srcdir)/*.[hc] 
+	etags $(INCDIR)/*.h $(srcdir)/*.[hc]
 
-install: all 
+install: all
 	for i in $(PROGS) ; do \
 	  $(INSTALL_XFORM) $$i $(bindir)/`echo $$i | sed -e 's/.new//'` ; \
 	done

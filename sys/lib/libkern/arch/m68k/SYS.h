@@ -86,7 +86,7 @@
 
 #define RSYSCALL(x)							\
 	PSEUDO(x,x)
-	
+
 #define	ASMSTR		.asciz
 
 	.globl	CERROR

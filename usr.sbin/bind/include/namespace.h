@@ -54,7 +54,7 @@
 #define putshort		bind_putshort
 #define res_dnok		bind_res_dnok
 #define _getshort		bind__getshort
-#define res_hnok		bind_res_hnok	
+#define res_hnok		bind_res_hnok
 #define res_send_setqhook	bind_res_send_setqhook
 #define res_send_setrhook	bind_res_send_setrhook
 #define __p_type_syms		bind_p_type_syms

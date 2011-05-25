@@ -84,7 +84,7 @@
 
 #include <sys/param.h>
 #include <sys/systm.h>
-#include <sys/mbuf.h> 
+#include <sys/mbuf.h>
 #include <sys/syslog.h>
 #include <sys/socket.h>
 #include <sys/device.h>
@@ -217,7 +217,7 @@ static	void ln_init __P((struct ln_softc *));
 static	inline int ln_put __P((struct ln_softc *, caddr_t, struct mbuf *));
 static	inline void ln_rint __P((struct ln_softc *));
 static	inline void ln_tint __P((struct ln_softc *));
-static	inline void ln_read __P((struct ln_softc *, caddr_t, int)); 
+static	inline void ln_read __P((struct ln_softc *, caddr_t, int));
 void	ln_reset __P((struct ln_softc *));
 
 static	short *lance_csr; /* LANCE CSR virtual address */
@@ -277,13 +277,13 @@ lnattach(parent, self, aux)
 	sc->sc_dmat = va->va_dmat;
 #define	ALLOCSIZ ((sizeof(struct buffdesc) + BUFSIZE) * (NRBUF + NTBUF))
 
-	err = bus_dmamem_alloc(sc->sc_dmat, ALLOCSIZ, NBPG, 0, 
+	err = bus_dmamem_alloc(sc->sc_dmat, ALLOCSIZ, NBPG, 0,
 	    &seg, 1, &rseg, BUS_DMA_NOWAIT);
 	if (err) {
 		printf(": unable to alloc buffer block: err %d\n", err);
 		return;
 	}
-	err = bus_dmamem_map(sc->sc_dmat, &seg, rseg, ALLOCSIZ, 
+	err = bus_dmamem_map(sc->sc_dmat, &seg, rseg, ALLOCSIZ,
 	    &sc->sc_memblk, BUS_DMA_NOWAIT|BUS_DMA_COHERENT);
 	if (err) {
 		printf(": unable to map buffer block: err %d\n", err);
@@ -891,7 +891,7 @@ ln_ioctl(ifp, cmd, data)
 				bcopy(ina->x_host.c_host,
 				    LLADDR(ifp->if_sadl),
 				    sizeof(sc->sc_enaddr));
-			}	
+			}
 			/* Set new address. */
 			ln_init(sc);
 			break;

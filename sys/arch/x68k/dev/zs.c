@@ -328,7 +328,7 @@ zshard(arg)
 	/*
 	 * Actually, zs hardware ipl is 5.
 	 * Here we disable all interrupts to shorten the zshard
-	 * handling time.  Otherwise, too many characters are 
+	 * handling time.  Otherwise, too many characters are
 	 * dropped.
 	 */
 	s = splhigh();

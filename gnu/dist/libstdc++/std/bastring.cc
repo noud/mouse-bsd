@@ -39,7 +39,7 @@ operator delete (void * ptr)
 {
   Allocator::deallocate(ptr, sizeof(Rep) +
 			reinterpret_cast<Rep *>(ptr)->res *
-			sizeof (charT)); 
+			sizeof (charT));
 }
 
 template <class charT, class traits, class Allocator>

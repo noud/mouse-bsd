@@ -13,15 +13,15 @@ _
 =
 \fINCB_RESTART\fR:T{
 .na
-(ECN_RESTART) 
+(ECN_RESTART)
 T}:\(sr::none:none:T{
 .na
 dequeue the request, and issue an NCB_LISTEN request to the board.
 T}
 _
 \fINCB_CALL\fR:(ECN_CALL):\(sr:T{
-.na  
-(ECN_ACCEPT) 
+.na
+(ECN_ACCEPT)
 T}:none:connected:T{
 .na
 dequeue the request, pass an ECN_ACCEPT reply to CONS, and issue a RECEIVE to
@@ -29,7 +29,7 @@ the board.
 T}
 _
 \fINCB_LISTEN\fR::\(sr:T{
-.na  
+.na
 (ECN_CONNECT)
 T}:T{
 .na
@@ -43,7 +43,7 @@ T}
 _
 \fINCB_CLEAR\fR:(ECN_CLEAR):\(sr:(ECN_CLEAR):T{
 .na
-normal clearing with all outstanding ACKs returned 
+normal clearing with all outstanding ACKs returned
 T}:none:T{
 .na
 dequeue the request.
@@ -51,7 +51,7 @@ T}
 :_:_:_:_:_:_
 ::\(sr::T{
 .na
-immediate clearing 
+immediate clearing
 T}:none:T{
 .na
 dequeue the request.
@@ -66,7 +66,7 @@ dequeue the request and reply to CONS with an ECN_ACK.
 T}
 :_:_:_:_:_:_
 :T{
-.na  
+.na
 (ECN_RESET)
 T}:\(sr::T{
 .na
@@ -116,13 +116,13 @@ same as above.
 T}
 :_:_:_:_:_:_
 :::T{
-.na   
+.na
 (ECN_RESET)
 T}:none:T{
 .na
 reset received
 T}:T{
-dequeue the request, send an ECN_RESET back up to CONS, and issue another 
+dequeue the request, send an ECN_RESET back up to CONS, and issue another
 receive.
 T}
 .TE

@@ -85,7 +85,7 @@ main(argc, argv)
 
 	dchar = '\t';			/* default delimiter is \t */
 
-	/* Since we don't support multi-byte characters, the -c and -b 
+	/* Since we don't support multi-byte characters, the -c and -b
 	   options are equivalent, and the -n option is meaningless. */
 	while ((ch = getopt(argc, argv, "b:c:d:f:sn")) != -1)
 		switch(ch) {

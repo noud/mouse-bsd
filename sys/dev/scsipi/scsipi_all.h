@@ -146,9 +146,9 @@ struct scsipi_sense_data {
 
 
 struct scsipi_sense_data_unextended {
-/* 1*/	u_int8_t error_code; 
+/* 1*/	u_int8_t error_code;
 /* 4*/	u_int8_t block[3];
-}; 
+};
 
 #define	T_DIRECT	0x00	/* direct access device */
 #define	T_SEQUENTIAL	0x01	/* sequential access device */

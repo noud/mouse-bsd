@@ -202,7 +202,7 @@ struct nwent {
 /*
  * Externs.
  */
-extern struct irs_acc *	irs_gen_acc __P((const char *options, 
+extern struct irs_acc *	irs_gen_acc __P((const char *options,
 					 const char *conf_file));
 extern struct irs_acc *	irs_lcl_acc __P((const char *options));
 extern struct irs_acc *	irs_dns_acc __P((const char *options));
@@ -229,7 +229,7 @@ struct net_data;			/* forward */
 struct net_data *net_data_create(const char *conf_file);
 struct net_data *net_data_init(const char *conf_file);
 void		net_data_destroy(void *p);
-	
+
 extern struct group    *getgrent_p __P((struct net_data *net_data));
 extern struct group    *getgrnam_p __P((const char *name,
 					struct net_data *net_data));

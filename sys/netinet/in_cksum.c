@@ -79,7 +79,7 @@ in_cksum(m, len)
 			 * of a word spanning between this mbuf and the
 			 * last mbuf.
 			 *
-			 * s_util.c[0] is already saved when scanning previous 
+			 * s_util.c[0] is already saved when scanning previous
 			 * mbuf.
 			 */
 			s_util.c[1] = *(u_int8_t *)w;

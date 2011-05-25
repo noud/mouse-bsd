@@ -43,7 +43,7 @@ fetch_inferior_registers (regno)
   thread_state_data_t state;
   unsigned int stateCnt = TRACE_FLAVOR_SIZE;
   int index;
-  
+
   if (! MACH_PORT_VALID (current_thread))
     error ("fetch inferior registers: Invalid thread");
 
@@ -60,7 +60,7 @@ fetch_inferior_registers (regno)
 	     mach_error_string (ret));
   else
     {
-      for (index = 0; index < NUM_REGS; index++) 
+      for (index = 0; index < NUM_REGS; index++)
 	supply_register (index,(void*)&state[index]);
     }
 
@@ -95,7 +95,7 @@ store_inferior_registers (regno)
 			  state,
 			  &stateCnt);
 
-   if (ret != KERN_SUCCESS) 
+   if (ret != KERN_SUCCESS)
     {
       warning ("store_inferior_registers (get): %s",
 	       mach_error_string (ret));
@@ -111,27 +111,27 @@ store_inferior_registers (regno)
    * that gdb thinks are valid (e.g. ignore the regno
    * parameter)
    */
-  if (regno > 0 && regno < NUM_REGS ) 
+  if (regno > 0 && regno < NUM_REGS )
     {
-      memcpy(&state[regno], &registers[REGISTER_BYTE (regno)], 
+      memcpy(&state[regno], &registers[REGISTER_BYTE (regno)],
 	     REGISTER_RAW_SIZE(regno));
     }
   else
     {
-      for (index = 0; index < NUM_REGS; index++) 
-	memcpy(&state[index], &registers[REGISTER_BYTE (index)], 
+      for (index = 0; index < NUM_REGS; index++)
+	memcpy(&state[index], &registers[REGISTER_BYTE (index)],
 	       REGISTER_RAW_SIZE(index));
 /* 	state[index] = registers[REGISTER_BYTE (index)];*/
 
     }
-  
+
   /* Write gdb's current view of register to the thread
    */
   ret = thread_set_state (current_thread,
 			  TRACE_FLAVOR,
 			  state,
 			  TRACE_FLAVOR_SIZE);
-  
+
   if (ret != KERN_SUCCESS)
     warning ("store_inferior_registers (set): %s",
 	     mach_error_string (ret));

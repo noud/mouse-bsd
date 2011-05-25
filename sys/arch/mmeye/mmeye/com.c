@@ -192,7 +192,7 @@ static int ppscap =
 	PPS_TSFMT_TSPEC |
 	PPS_CAPTUREASSERT |
 	PPS_CAPTURECLEAR |
-#ifdef  PPS_SYNC 
+#ifdef  PPS_SYNC
 	PPS_HARDPPSONASSERT | PPS_HARDPPSONCLEAR |
 #endif	/* PPS_SYNC */
 	PPS_OFFSETASSERT | PPS_OFFSETCLEAR;
@@ -571,7 +571,7 @@ com_config(sc)
 		/* Set 16550 compatibility mode */
 		bus_space_write_1(iot, sc->sc_hayespioh, HAYESP_CMD1,
 				  HAYESP_SETMODE);
-		bus_space_write_1(iot, sc->sc_hayespioh, HAYESP_CMD2, 
+		bus_space_write_1(iot, sc->sc_hayespioh, HAYESP_CMD2,
 				  HAYESP_MODE_FIFO|HAYESP_MODE_RTS|
 				  HAYESP_MODE_SCALE);
 
@@ -586,7 +586,7 @@ com_config(sc)
 		/* Set flow control levels */
 		bus_space_write_1(iot, sc->sc_hayespioh, HAYESP_CMD1,
 				  HAYESP_SETRXFLOW);
-		bus_space_write_1(iot, sc->sc_hayespioh, HAYESP_CMD2, 
+		bus_space_write_1(iot, sc->sc_hayespioh, HAYESP_CMD2,
 				  HAYESP_HIBYTE(HAYESP_RXHIWMARK));
 		bus_space_write_1(iot, sc->sc_hayespioh, HAYESP_CMD2,
 				  HAYESP_LOBYTE(HAYESP_RXHIWMARK));
@@ -746,7 +746,7 @@ comopen(dev, flag, mode, p)
 	struct tty *tp;
 	int s, s2;
 	int error;
- 
+
 	if (unit >= com_cd.cd_ndevs)
 		return (ENXIO);
 	sc = com_cd.cd_devs[unit];
@@ -885,7 +885,7 @@ bad:
 
 	return (error);
 }
- 
+
 int
 comclose(dev, flag, mode, p)
 	dev_t dev;
@@ -916,7 +916,7 @@ comclose(dev, flag, mode, p)
 
 	return (0);
 }
- 
+
 int
 comread(dev, uio, flag)
 	dev_t dev;
@@ -928,10 +928,10 @@ comread(dev, uio, flag)
 
 	if (COM_ISALIVE(sc) == 0)
 		return (EIO);
- 
+
 	return ((*linesw[tp->t_line].l_read)(tp, uio, flag));
 }
- 
+
 int
 comwrite(dev, uio, flag)
 	dev_t dev;
@@ -943,7 +943,7 @@ comwrite(dev, uio, flag)
 
 	if (COM_ISALIVE(sc) == 0)
 		return (EIO);
- 
+
 	return ((*linesw[tp->t_line].l_write)(tp, uio, flag));
 }
 
@@ -1007,7 +1007,7 @@ comioctl(dev, cmd, data, flag, p)
 		break;
 
 	case TIOCSFLAGS:
-		error = suser(p->p_ucred, &p->p_acflag); 
+		error = suser(p->p_ucred, &p->p_acflag);
 		if (error)
 			break;
 		sc->sc_swflags = *(int *)data;
@@ -1045,7 +1045,7 @@ comioctl(dev, cmd, data, flag, p)
 			break;
 		}
 		sc->ppsparam = *pp;
-	 	/* 
+	 	/*
 		 * Compute msr masks from user-specified timestamp state.
 		 */
 		mode = sc->ppsparam.mode;
@@ -1108,19 +1108,19 @@ comioctl(dev, cmd, data, flag, p)
 	case TIOCDCDTIMESTAMP:	/* XXX old, overloaded  API used by xntpd v3 */
 		/*
 		 * Some GPS clocks models use the falling rather than
-		 * rising edge as the on-the-second signal. 
+		 * rising edge as the on-the-second signal.
 		 * The old API has no way to specify PPS polarity.
 		 */
 		sc->sc_ppsmask = MSR_DCD;
 #ifndef PPS_TRAILING_EDGE
 		sc->sc_ppsassert = MSR_DCD;
 		sc->sc_ppsclear = -1;
-		TIMESPEC_TO_TIMEVAL((struct timeval *)data, 
+		TIMESPEC_TO_TIMEVAL((struct timeval *)data,
 		    &sc->ppsinfo.assert_timestamp);
 #else
 		sc->sc_ppsassert = -1
 		sc->sc_ppsclear = 0;
-		TIMESPEC_TO_TIMEVAL((struct timeval *)data, 
+		TIMESPEC_TO_TIMEVAL((struct timeval *)data,
 		    &sc->ppsinfo.clear_timestamp);
 #endif
 		break;
@@ -1219,7 +1219,7 @@ tiocm_to_com(sc, how, ttybits)
 		SET(combits, MCR_DTR);
 	if (ISSET(ttybits, TIOCM_RTS))
 		SET(combits, MCR_RTS);
- 
+
 	switch (how) {
 	case TIOCMBIC:
 		CLR(sc->sc_mcr, combits);
@@ -1945,13 +1945,13 @@ comintr(arg)
 		lsr = bus_space_read_1(iot, ioh, com_lsr);
 #if defined(DDB) || defined(KGDB)
 		if (ISSET(lsr, LSR_BI)) {
-#ifdef DDB 
+#ifdef DDB
 			if (ISSET(sc->sc_hwflags, COM_HW_CONSOLE)) {
 				console_debugger();
 				continue;
 			}
 #endif
-#ifdef KGDB 
+#ifdef KGDB
 			if (ISSET(sc->sc_hwflags, COM_HW_KGDB)) {
 				kgdb_connect(1);
 				continue;
@@ -2030,7 +2030,7 @@ comintr(arg)
 				    sc->sc_ppsassert) {
 					/* XXX nanotime() */
 					microtime(&tv);
-					TIMEVAL_TO_TIMESPEC(&tv, 
+					TIMEVAL_TO_TIMESPEC(&tv,
 					    &sc->ppsinfo.assert_timestamp);
 					if (sc->ppsparam.mode & PPS_OFFSETASSERT) {
 						timespecadd(&sc->ppsinfo.assert_timestamp,
@@ -2044,14 +2044,14 @@ comintr(arg)
 						hardpps(&tv, tv.tv_usec);
 #endif
 					sc->ppsinfo.assert_sequence++;
-					sc->ppsinfo.current_mode = 
+					sc->ppsinfo.current_mode =
 					    sc->ppsparam.mode;
 
-				} else if (ISSET(msr, sc->sc_ppsmask) == 
+				} else if (ISSET(msr, sc->sc_ppsmask) ==
 				    sc->sc_ppsclear) {
 					/* XXX nanotime() */
 					microtime(&tv);
-					TIMEVAL_TO_TIMESPEC(&tv, 
+					TIMEVAL_TO_TIMESPEC(&tv,
 					    &sc->ppsinfo.clear_timestamp);
 					if (sc->ppsparam.mode & PPS_OFFSETCLEAR) {
 						timespecadd(&sc->ppsinfo.clear_timestamp,
@@ -2065,7 +2065,7 @@ comintr(arg)
 						hardpps(&tv, tv.tv_usec);
 #endif
 					sc->ppsinfo.clear_sequence++;
-					sc->ppsinfo.current_mode = 
+					sc->ppsinfo.current_mode =
 					    sc->ppsparam.mode;
 				}
 			}

@@ -85,7 +85,7 @@ __KERNEL_RCSID(0, "$NetBSD: pm.c,v 1.33 2000/02/03 04:09:15 nisimura Exp $");
 static u_short	curReg;		/* copy of PCCRegs.cmdr since it's read only */
 
 static struct fbuaccess pmu;
-static struct pmax_fbtty pmfb;	
+static struct pmax_fbtty pmfb;
 static struct fbinfo *pm_fi;
 
 static int	pm_video_on __P ((struct fbinfo *));
@@ -179,7 +179,7 @@ pmattach(parent, self, aux)
 	printf(": %dx%dx%d%s",
 		fi->fi_type.fb_width,
 		fi->fi_type.fb_height,
-		fi->fi_type.fb_depth, 
+		fi->fi_type.fb_depth,
 		(pm_fi) ? " console" : "");
 
 	printf("\n");

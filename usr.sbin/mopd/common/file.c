@@ -410,12 +410,12 @@ CheckAOutFile(fd)
 		return(-1);
 
 	(void)lseek(fd, (off_t) 0, SEEK_SET);
-	
+
 	if (read(fd, (char *)&ex_swap, sizeof(ex_swap)) != sizeof(ex_swap))
 		return(-1);
 
 	(void)lseek(fd, (off_t) 0, SEEK_SET);
-	
+
 	mid = getMID(mid, N_GETMID (ex));
 
 	if (mid == -1) {
@@ -687,7 +687,7 @@ GetFileInfo(fd, load, xfr, aout,
 		}
 	} else {
 		err = CheckMopFile(fd);
-		
+
 		if (err == 0) {
 			err = GetMopFileInfo(fd, load, xfr);
 			if (err != 0) {
@@ -719,7 +719,7 @@ mopFileRead(dlslot, buf)
 		len = 0;
 
 		total = dlslot->a_text;
-		
+
 		if (pos < total) {
 			notdone = total - pos;
 			if (notdone <= bsz) {
@@ -748,7 +748,7 @@ mopFileRead(dlslot, buf)
 		}
 
 		total = total + dlslot->a_data;
-		
+
 		if ((bsz > 0) && (pos < total)) {
 			notdone = total - pos;
 			if (notdone <= bsz) {
@@ -775,7 +775,7 @@ mopFileRead(dlslot, buf)
 			pos = pos + outlen;
 			bsz = bsz - outlen;
 		}
-		
+
 		total = total + dlslot->a_bss;
 
 		if ((bsz > 0) && (pos < total)) {
@@ -790,7 +790,7 @@ mopFileRead(dlslot, buf)
 			pos = pos + outlen;
 			bsz = bsz - outlen;
 		}
-		
+
 		total = total + dlslot->a_bss_fill;
 
 		if ((bsz > 0) && (pos < total)) {
@@ -805,7 +805,7 @@ mopFileRead(dlslot, buf)
 			pos = pos + outlen;
 			bsz = bsz - outlen;
 		}
-		
+
 		dlslot->a_lseek = pos;
 
 	}

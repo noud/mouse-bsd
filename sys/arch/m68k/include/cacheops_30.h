@@ -48,7 +48,7 @@ TBIA_30()
 	__asm __volatile (" pflusha;"
 			  " movc %0,%%cacr" : : "d" (tmp));
 }
-	
+
 /*
  * Invalidate any TLB entry for given VA (TB Invalidate Single)
  */

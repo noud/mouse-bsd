@@ -35,7 +35,7 @@
  * Support for printing debugging messages.
  */
 
-#ifndef DEBUG_H 
+#ifndef DEBUG_H
 #define DEBUG_H
 
 
@@ -46,7 +46,7 @@ extern void debug_printf __P((const char *, ...))
 extern int debug;
 
 # define dbg(a)		debug_printf a
-#else 
+#else
 # define dbg(a)		((void) 0)
 #endif
 #ifdef RTLD_DEBUG_RELOC

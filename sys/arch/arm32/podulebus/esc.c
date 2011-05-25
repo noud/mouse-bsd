@@ -640,7 +640,7 @@ esc_ixfer(dev)
 			dev->sc_interrupt = *esc_interrupt;
 		}
 	}
-	
+
 /* Update buffer pointers to reflect the sent/recieved data. */
 	dev->sc_buf = buf;
 	dev->sc_len = len;

@@ -2,7 +2,7 @@
 
 /*
  * /src/NTP/REPOSITORY/v4/libparse/parse_conf.c,v 3.24 1997/01/19 12:44:45 kardel Exp
- *  
+ *
  * parse_conf.c,v 3.24 1997/01/19 12:44:45 kardel Exp
  *
  * Parser configuration module for reference clocks
@@ -15,7 +15,7 @@
  *
  * Copyright (C) 1992,1993,1994,1995,1996 by Frank Kardel
  * Friedrich-Alexander Universität Erlangen-Nürnberg, Germany
- *                                    
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

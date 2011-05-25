@@ -496,7 +496,7 @@ fsysdep_get_work (qsys, bgrade, qcmd)
 		}
 	    }
 	  while (e == NULL);
-	  
+
 	  qfile = (struct ssfile *) xmalloc (sizeof (struct ssfile));
 	  callocated = CFILELINES;
 	  iline = 0;
@@ -551,7 +551,7 @@ fsysdep_get_work (qsys, bgrade, qcmd)
       while (TRUE)
 	{
 	  int iline;
-	  
+
 	  if (qSwork_file->cdid >= qSwork_file->clines)
 	    {
 	      /* We don't want to free qSwork_file here, since it must
@@ -618,7 +618,7 @@ fsysdep_did_work (pseq)
   struct ssfile *qfile;
   struct ssline *qline;
   int i;
-  
+
   qline = (struct ssline *) pseq;
 
   ubuffree (qline->zline);
@@ -735,7 +735,7 @@ zsysdep_save_temp_file (pseq)
       ubuffree (zto);
       return "Could not move file to preservation directory";
     }
-    
+
   cwant = sizeof "File saved as\n\t/" + strlen (zSspooldir) + strlen (zto);
   if (cwant > cbuf)
     {

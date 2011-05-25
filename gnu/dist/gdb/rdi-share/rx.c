@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright (C) 1995 Advanced RISC Machines Limited. All rights reserved.
- * 
+ *
  * This software may be freely used, copied, modified, and distributed
  * provided that the above copyright notice is preserved in all copies of the
  * software.
@@ -87,7 +87,7 @@ re_status Angel_RxEngine(unsigned char new_ch, struct data_packet *packet,
       /*
        * must be a normal packet so do some unexpected etx/stx checking
        * we haven't been told to escape or received an escape so unless
-       * we are expecting an stx or etx then we can take the unexpected 
+       * we are expecting an stx or etx then we can take the unexpected
        * stx/etx trap
        */
       if ((new_ch == (rxstate->config->stx)) && (rxstate->rx_state != RST_STX))
@@ -101,7 +101,7 @@ re_status Angel_RxEngine(unsigned char new_ch, struct data_packet *packet,
   {
     /*
      * do this to speed up the common case, no real penalty for
-     * other cases 
+     * other cases
      */
 #ifdef DO_TRACE
     __rt_trace("rxe-dat ");
@@ -144,7 +144,7 @@ re_status Angel_RxEngine(unsigned char new_ch, struct data_packet *packet,
       rxstate->rx_state = RST_LEN;
       rxstate->error = RE_OKAY;
       rxstate->field_c = 0; /* set up here for the length that follows */
-#ifdef DO_TRACE 
+#ifdef DO_TRACE
       __rt_trace("rxe-type-%2x ", packet->type);
 #endif
       rxstate->crc = crc32(&new_ch, 1, rxstate->crc);
@@ -247,7 +247,7 @@ re_status Angel_RxEngine(unsigned char new_ch, struct data_packet *packet,
           __rt_info("RXE Data =");
           for (c=0; c < packet->len; c++)
             __rt_info("%02x", packet->data[c]);
-          __rt_info("\n"); 
+          __rt_info("\n");
         }
 #endif
 
@@ -316,7 +316,7 @@ static re_status unexp_etx(struct re_state *rxstate)
 
 /*
  * This can be used as the buffer allocation callback for the rx engine,
- * and makes use of angel_DD_GetBuffer() [in devdrv.h]. 
+ * and makes use of angel_DD_GetBuffer() [in devdrv.h].
  *
  * Saves duplicating this callback function in every device driver that
  * uses the rx engine.

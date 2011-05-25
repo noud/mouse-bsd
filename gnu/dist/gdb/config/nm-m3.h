@@ -55,7 +55,7 @@ extern int must_suspend_thread;
  *
  * It SHOULD never change, but if it does, gdb `run'
  * command won't work until you fix this define.
- * 
+ *
  */
 #define MIG_EXEC_SYSCALL_ID		101000
 

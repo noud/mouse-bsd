@@ -122,7 +122,7 @@
 
 #if defined(__NetBSD__) || defined(__OpenBSD__)
 #ifdef INET
-#include <netinet/in.h> 
+#include <netinet/in.h>
 #include <netinet/if_inarp.h>
 #endif
 
@@ -198,7 +198,7 @@ static usbd_status kue_do_request
 				   usb_device_request_t *, void *, u_int16_t,
 				   u_int32_t *));
 static usbd_status kue_ctl_l	__P((struct kue_softc *, int, u_int8_t,
-				    u_int16_t, char *, u_int32_t, 
+				    u_int16_t, char *, u_int32_t,
 				    u_int32_t, u_int32_t *));
 #define kue_ctl(sc, rw, breq, val, data, len) \
 	kue_ctl_l(sc, rw, breq, val, data, len, 0, 0)
@@ -324,7 +324,7 @@ kue_ctl_l(sc, rw, breq, val, data, len, flags, lenp)
 	USETW(req.wLength, len);
 
 	s = splusb();
-	err = kue_do_request(sc->kue_udev, &req, data, 
+	err = kue_do_request(sc->kue_udev, &req, data,
 		  sc->kue_xfer_flags | flags, lenp);
 	splx(s);
 
@@ -374,7 +374,7 @@ kue_load_fw(sc)
 	       USBDEVNAME(sc->kue_dev));
 
 	/* Load code segment */
-	DPRINTFN(1,("%s: kue_load_fw: download code_seg\n", 
+	DPRINTFN(1,("%s: kue_load_fw: download code_seg\n",
 		    USBDEVNAME(sc->kue_dev)));
 	err = kue_ctl(sc, KUE_CTL_WRITE, KUE_CMD_SEND_SCAN,
 	    0, kue_code_seg, sizeof(kue_code_seg));
@@ -385,7 +385,7 @@ kue_load_fw(sc)
 	}
 
 	/* Load fixup segment */
-	DPRINTFN(1,("%s: kue_load_fw: download fix_seg\n", 
+	DPRINTFN(1,("%s: kue_load_fw: download fix_seg\n",
 		    USBDEVNAME(sc->kue_dev)));
 	err = kue_ctl(sc, KUE_CTL_WRITE, KUE_CMD_SEND_SCAN,
 	    0, kue_fix_seg, sizeof(kue_fix_seg));
@@ -396,7 +396,7 @@ kue_load_fw(sc)
 	}
 
 	/* Send trigger command. */
-	DPRINTFN(1,("%s: kue_load_fw: download trig_seg\n", 
+	DPRINTFN(1,("%s: kue_load_fw: download trig_seg\n",
 		    USBDEVNAME(sc->kue_dev)));
 	err = kue_ctl(sc, KUE_CTL_WRITE, KUE_CMD_SEND_SCAN,
 	    0, kue_trig_seg, sizeof(kue_trig_seg));
@@ -950,7 +950,7 @@ kue_rxeof(xfer, priv, status)
 	usbd_get_xfer_status(xfer, NULL, NULL, &total_len, NULL);
 
 	DPRINTFN(10,("%s: %s: total_len=%d len=%d\n", USBDEVNAME(sc->kue_dev),
-		     __FUNCTION__, total_len, 
+		     __FUNCTION__, total_len,
 		     UGETW(mtod(c->kue_mbuf, u_int8_t *))));
 
 	m = c->kue_mbuf;

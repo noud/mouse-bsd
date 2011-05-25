@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1998 and 1999 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -257,7 +257,7 @@ dhcp6_print(register const u_char *cp, u_int length,
 				printf(" ");
 			printf("cliaddr=%s",
 				ip6addr_string(&dh6->dh6_sol.dh6sol_cliaddr));
-			printf(" relayaddr=%s", 
+			printf(" relayaddr=%s",
 				ip6addr_string(&dh6->dh6_sol.dh6sol_relayaddr));
 			printf(")");
 		} else
@@ -276,9 +276,9 @@ dhcp6_print(register const u_char *cp, u_int length,
 		printf("pref=%u", dh6->dh6_adv.dh6adv_pref);
 		printf(" cliaddr=%s",
 			ip6addr_string(&dh6->dh6_adv.dh6adv_cliaddr));
-		printf(" relayaddr=%s", 
+		printf(" relayaddr=%s",
 			ip6addr_string(&dh6->dh6_adv.dh6adv_relayaddr));
-		printf(" servaddr=%s", 
+		printf(" servaddr=%s",
 			ip6addr_string(&dh6->dh6_adv.dh6adv_serveraddr));
 		extp = (u_char *)((&dh6->dh6_adv) + 1);
 		dhcp6ext_print(extp, ep);
@@ -301,7 +301,7 @@ dhcp6_print(register const u_char *cp, u_int length,
 		printf("xid=0x%04x", dh6->dh6_req.dh6req_xid);
 		printf(" cliaddr=%s",
 			ip6addr_string(&dh6->dh6_req.dh6req_cliaddr));
-		printf(" relayaddr=%s", 
+		printf(" relayaddr=%s",
 			ip6addr_string(&dh6->dh6_req.dh6req_relayaddr));
 		extp = (char *)((&dh6->dh6_req) + 1);
 		if ((dh6->dh6_req.dh6req_flags & DH6REQ_SERVPRESENT) != 0) {

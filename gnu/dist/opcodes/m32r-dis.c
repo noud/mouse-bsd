@@ -317,13 +317,13 @@ m32r_cgen_print_operand (opindex, info, fields, attrs, pc, length)
   }
 }
 
-cgen_extract_fn * m32r_cgen_extract_handlers[] = 
+cgen_extract_fn * m32r_cgen_extract_handlers[] =
 {
   0, /* default */
   extract_insn_normal,
 };
 
-cgen_print_fn * m32r_cgen_print_handlers[] = 
+cgen_print_fn * m32r_cgen_print_handlers[] =
 {
   0, /* default */
   print_insn_normal,

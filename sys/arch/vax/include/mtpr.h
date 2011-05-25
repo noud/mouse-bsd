@@ -55,7 +55,7 @@
 #define PR_SBR    12 /* System Base Register */
 #define PR_SLR    13 /* System Limit Register */
 #define PR_PCBB   16 /* Process Control Block Base */
-#define PR_SCBB   17 /* System Control Block Base */ 
+#define PR_SCBB   17 /* System Control Block Base */
 #define PR_IPL    18 /* Interrupt Priority Level */
 #define PR_ASTLVL 19 /* AST Level */
 #define PR_SIRR   20 /* Software Interrupt Request */

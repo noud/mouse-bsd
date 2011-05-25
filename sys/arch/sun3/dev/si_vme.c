@@ -281,7 +281,7 @@ si_vme_intr_on(ncr_sc)
 	/* Clear the count so nothing happens. */
 	si->dma_counth = 0;
 	si->dma_countl = 0;
-	
+
 	/* Clear the start address too. (paranoid?) */
 	si->dma_addrh = 0;
 	si->dma_addrl = 0;
@@ -375,7 +375,7 @@ si_vme_dma_setup(ncr_sc)
 #if 0
 	/* Clear FIFO counter. (also hits dma_count) */
 	si->fifo_cnt_hi = 0;
-	si->fifo_count = 0;		
+	si->fifo_count = 0;
 #endif
 }
 

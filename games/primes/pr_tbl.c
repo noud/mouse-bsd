@@ -52,7 +52,7 @@ __RCSID("$NetBSD: pr_tbl.c,v 1.5 1999/09/08 21:17:55 jsm Exp $");
  *
  *   chongo <for a good prime call: 391581 * 2^216193 - 1> /\oo/\
  *
- * We are able to sieve 2^32-1 because this table has primes up to 65537 
+ * We are able to sieve 2^32-1 because this table has primes up to 65537
  * and 65537^2 > 2^32-1.
  */
 

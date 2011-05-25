@@ -284,7 +284,7 @@ ses_device_type(sa)
 {
 	struct scsipi_inquiry_data *inqp = sa->sa_inqptr;
 	int length;
- 
+
 	if (inqp == NULL)
 		return (SES_NONE);
 
@@ -391,7 +391,7 @@ sesioctl(dev, cmd, arg_addr, flag, p)
 	dev_t dev;
 	u_long cmd;
 	caddr_t arg_addr;
-	int flag;       
+	int flag;
 	struct proc *p;
 {
 	ses_encstat tmp;
@@ -439,7 +439,7 @@ sesioctl(dev, cmd, arg_addr, flag, p)
 		error = copyout(&ssc->ses_nobjects, addr,
 		    sizeof (ssc->ses_nobjects));
 		break;
-		
+
 	case SESIOC_GETOBJMAP:
 		for (uobj = addr, i = 0; i != ssc->ses_nobjects; i++, uobj++) {
 			obj.obj_id = i;
@@ -1146,7 +1146,7 @@ ses_getputstat(ses_softc_t *ssc, int objid, SesComStat *sp, int slp, int in)
 			cdb[4] = bufsiz & 0xff;
 			cdb[5] = 0;
 			amt = -bufsiz;
-			err = ses_runcmd(ssc, cdb, 6, sdata, &amt);   
+			err = ses_runcmd(ssc, cdb, 6, sdata, &amt);
 		}
 	}
 	SES_FREE(sdata, bufsiz);

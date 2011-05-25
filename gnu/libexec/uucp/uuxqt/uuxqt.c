@@ -660,7 +660,7 @@ iqset (puuconf, argc, argv, pvar, pinfo)
      int argc;
      char **argv;
      pointer pvar;
-     pointer pinfo;     
+     pointer pinfo;
 {
   boolean *pf = (boolean *) pvar;
 
@@ -1170,7 +1170,7 @@ uqdo_xqt_file (puuconf, zfile, zbase, qsys, zlocalname, zcmd, pfprocessed)
 				       (const char *) NULL)))
 	{
 	  ulog (LOG_ERROR, "Not permitted to read %s", zQinput);
-	      
+
 	  if (zmail != NULL && ! fQno_ack)
 	    {
 	      const char *az[20];
@@ -1199,7 +1199,7 @@ uqdo_xqt_file (puuconf, zfile, zbase, qsys, zlocalname, zcmd, pfprocessed)
 	   && strcmp (zQoutsys, zlocalname) != 0)
     {
       char *zdata;
-	 
+
       /* The output file is destined for some other system, so we must
 	 use a temporary file to catch standard output.  */
       if (strcmp (zQoutsys, qsys->uuconf_zname) == 0)
@@ -1249,7 +1249,7 @@ uqdo_xqt_file (puuconf, zfile, zbase, qsys, zlocalname, zcmd, pfprocessed)
   else
     {
       boolean fok;
-	 
+
       qoutsys = NULL;
 
       /* If we permitted the standard output to be redirected into
@@ -1287,7 +1287,7 @@ uqdo_xqt_file (puuconf, zfile, zbase, qsys, zlocalname, zcmd, pfprocessed)
       if (! fok)
 	{
 	  ulog (LOG_ERROR, "Not permitted to write to %s", zQoutfile);
-	      
+
 	  if (zmail != NULL && ! fQno_ack)
 	    {
 	      const char *az[20];

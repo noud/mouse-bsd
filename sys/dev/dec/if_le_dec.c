@@ -87,7 +87,7 @@ void le_dec_writereg __P((volatile u_short *regptr, u_short val));
 #endif
 
 hide void le_dec_wrcsr __P((struct lance_softc *, u_int16_t, u_int16_t));
-hide u_int16_t le_dec_rdcsr __P((struct lance_softc *, u_int16_t));  
+hide u_int16_t le_dec_rdcsr __P((struct lance_softc *, u_int16_t));
 
 void
 dec_le_common_attach(sc, eap)

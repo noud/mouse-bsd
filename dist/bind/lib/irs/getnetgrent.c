@@ -136,7 +136,7 @@ init(void) {
 			return (NULL);
 		}
 	}
-	
+
 	return (net_data);
 }
 

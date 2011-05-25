@@ -175,7 +175,7 @@ store_inferior_registers (regno)
 	  sizeof(inferior_registers.r_regs));
   /* The PC travels in the R_ZERO slot. */
   inferior_registers.r_regs[R_ZERO] =
-    *(long *) &registers[REGISTER_BYTE (PC_REGNUM)];    
+    *(long *) &registers[REGISTER_BYTE (PC_REGNUM)];
   ptrace (PT_SETREGS, inferior_pid,
 	  (PTRACE_ARG3_TYPE) &inferior_registers, 0);
 

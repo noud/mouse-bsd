@@ -113,7 +113,7 @@ file	arch/atari/dev/ite_et.c		grfet needs-count
 file	arch/atari/dev/grfabs_et.c	grfet
 
 device	ite: tty
-attach	ite at grfcc,grfet 
+attach	ite at grfcc,grfet
 file	arch/atari/dev/ite.c		ite needs-flag
 file	arch/atari/dev/kbdmap.c		ite
 file	arch/atari/dev/font_8x8.c	ite

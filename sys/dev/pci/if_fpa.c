@@ -256,7 +256,7 @@ pdq_pci_shutdown(
     void *sc)
 {
     pdq_hwreset(((pdq_softc_t *)sc)->sc_pdq);
-}   
+}
 #endif
 
 static u_long pdq_pci_count;

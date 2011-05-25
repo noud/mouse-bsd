@@ -105,7 +105,7 @@ ENTRY(bcopy)
 	cmpl	%a1,%a0			| src after dest?
 	jlt	Lbcback			| yes, must copy backwards
 
-	/* 
+	/*
 	 * It isn't worth the overhead of aligning to {long}word boundries
 	 * if the string is too short.
 	 */
@@ -115,7 +115,7 @@ ENTRY(bcopy)
 	/* word align */
 	movl	%a1,%d0
 	btst	#0,%d0		| if (dst & 1)
-	jeq	Lbcfalgndw	| 
+	jeq	Lbcfalgndw	|
 	movb	%a0@+,%a1@+	|	*(char *)dst++ = *(char *) src++
 	subql	#1,%d1		|	len--
 Lbcfalgndw:
@@ -176,7 +176,7 @@ Lbcback:
 	addl	%d1,%a0		| src pointer to end
 	addl	%d1,%a1		| dest pointer to end
 
-	/* 
+	/*
 	 * It isn't worth the overhead of aligning to {long}word boundries
 	 * if the string is too short.
 	 */
@@ -186,7 +186,7 @@ Lbcback:
 	/* word align */
 	movl	%a1,%d0
 	btst	#0,%d0		| if (dst & 1)
-	jeq	Lbcbalgndw	| 
+	jeq	Lbcbalgndw	|
 	movb	%a0@-,%a1@-	|	*(char *)dst-- = *(char *) src--
 	subql	#1,%d1		|	len--
 Lbcbalgndw:
@@ -215,7 +215,7 @@ Lbcb32loop:
 	clrw	%d0
 	subql	#1,%d0
 	jcc	Lbcb32loop
-	
+
 Lbcblong:
 	/* copy by longwords */
 	movel	%d1,%d0

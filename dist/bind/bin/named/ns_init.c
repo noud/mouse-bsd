@@ -8,7 +8,7 @@ static const char rcsid[] = "Id: ns_init.c,v 8.63 1999/10/15 19:49:04 vixie Exp"
 /*
  * Copyright (c) 1986, 1990
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -24,7 +24,7 @@ static const char rcsid[] = "Id: ns_init.c,v 8.63 1999/10/15 19:49:04 vixie Exp"
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -40,14 +40,14 @@ static const char rcsid[] = "Id: ns_init.c,v 8.63 1999/10/15 19:49:04 vixie Exp"
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -262,7 +262,7 @@ void
 do_reload(const char *domain, int type, int class, int mark) {
 	struct zoneinfo *zp;
 
-	ns_debug(ns_log_config, 1, "do_reload: %s %d %d %d", 
+	ns_debug(ns_log_config, 1, "do_reload: %s %d %d %d",
 		 *domain ? domain : ".", type, class, mark);
 
 	/*
@@ -396,7 +396,7 @@ ns_ownercontext(type, transport)
 			context = hostname_ctx;
 			break;
 		default:
-			panic("impossible condition in ns_ownercontext()", 
+			panic("impossible condition in ns_ownercontext()",
 			      NULL);
 		}
 		break;
@@ -497,7 +497,7 @@ ns_nameok(const struct qinfo *qry, const char *name, int class,
 		 * We use log_write directly here to avoid duplicating
 		 * the message formatting and arguments.
 		 */
-		log_write(log_ctx, ns_log_default, 
+		log_write(log_ctx, ns_log_default,
 			  (transport != response_trans) ||
 			  (o == NULL) || (s == NULL) ||
 			  ( (qry != NULL) &&

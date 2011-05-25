@@ -179,7 +179,7 @@ if_ubaalloc(ifu, ifrw, nmr)
  * so that protocols can determine where incoming packets arrived.
  * Note: we may be called to receive from a transmit buffer by some
  * devices.  In that case, we must force normal mapping of the buffer,
- * so that the correct data will appear (only unibus maps are 
+ * so that the correct data will appear (only unibus maps are
  * changed when remapping the transmit buffers).
  */
 struct mbuf *

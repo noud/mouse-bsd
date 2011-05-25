@@ -48,7 +48,7 @@ void __objc_init_selector_tables()
     = hash_new (SELECTOR_HASH_SIZE,
 		(hash_func_type) hash_string,
 		(compare_func_type) compare_strings);
-}  
+}
 
 /* This routine is given a class and records all of the methods in its class
    structure in the record table.  */
@@ -80,8 +80,8 @@ register_selectors_from_list (MethodList_t method_list)
   while (i < method_list->method_count)
     {
       Method_t method = &method_list->method_list[i];
-      method->method_name 
-	= sel_register_typed_name ((const char*)method->method_name, 
+      method->method_name
+	= sel_register_typed_name ((const char*)method->method_name,
 				     method->method_types);
       i += 1;
     }
@@ -121,15 +121,15 @@ void __objc_register_instance_methods_to_class(Class class)
 	      && !search_for_method_in_list (class_method_list,
 					      mth->method_name))
 	    {
-	      /* This instance method isn't a class method. 
+	      /* This instance method isn't a class method.
 		  Add it into the new_list. */
 	      *curr_method = *mth;
-  
+
 	      /* Reallocate the method list if necessary */
 	      if(++new_list->method_count == max_methods_no)
 		new_list =
 		  objc_realloc(new_list, sizeof(struct objc_method_list)
-				+ sizeof(struct 
+				+ sizeof(struct
 					objc_method[max_methods_no += 16]));
 	      curr_method = &new_list->method_list[new_list->method_count];
 	    }
@@ -283,8 +283,8 @@ sel_get_uid (const char *name)
   return sel_register_typed_name (name, 0);
 }
 
-/* Get name of selector.  If selector is unknown, the empty string "" 
-   is returned */ 
+/* Get name of selector.  If selector is unknown, the empty string ""
+   is returned */
 const char*
 sel_get_name (SEL selector)
 {
@@ -328,7 +328,7 @@ extern struct sarray* __objc_uninstalled_dtable;
    we can just store the pointers.  If NO then we need to copy
    name and types because the pointers may disappear later on. */
 SEL
-__sel_register_typed_name (const char *name, const char *types, 
+__sel_register_typed_name (const char *name, const char *types,
 			   struct objc_selector *orig, BOOL is_const)
 {
   struct objc_selector* j;
@@ -389,7 +389,7 @@ __sel_register_typed_name (const char *name, const char *types,
 	j = orig;
       else
 	j = objc_malloc (sizeof (struct objc_selector));
-	
+
       j->sel_id = (void*)i;
       /* Can we use the pointer or must copy types?  Don't copy if NULL */
       if ((is_const) || (types == 0))
@@ -401,9 +401,9 @@ __sel_register_typed_name (const char *name, const char *types,
       l = 0;
     }
 
-  DEBUG_PRINTF ("Record selector %s[%s] as: %ld\n", name, types, 
+  DEBUG_PRINTF ("Record selector %s[%s] as: %ld\n", name, types,
 		soffset_decode (i));
-  
+
   {
     int is_new = (l == 0);
     const char *new_name;
@@ -432,13 +432,13 @@ SEL
 sel_register_name (const char *name)
 {
   SEL ret;
-    
+
   objc_mutex_lock(__objc_runtime_mutex);
   /* Assume that name is not constant static memory and needs to be
      copied before put into a runtime structure.  is_const == NO */
   ret = __sel_register_typed_name (name, 0, 0, NO);
   objc_mutex_unlock(__objc_runtime_mutex);
-  
+
   return ret;
 }
 
@@ -446,13 +446,13 @@ SEL
 sel_register_typed_name (const char *name, const char *type)
 {
   SEL ret;
-    
+
   objc_mutex_lock(__objc_runtime_mutex);
   /* Assume that name and type are not constant static memory and need to
      be copied before put into a runtime structure.  is_const == NO */
   ret = __sel_register_typed_name (name, type, 0, NO);
   objc_mutex_unlock(__objc_runtime_mutex);
-  
+
   return ret;
 }
 

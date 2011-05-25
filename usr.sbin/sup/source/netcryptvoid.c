@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1992 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -29,7 +29,7 @@
  * Revision 2.2  92/09/09  22:04:34  mrt
  * 	Created.
  * 	[92/09/09            mrt]
- * 
+ *
  */
 /*
  * DATA ENCRYPTION
@@ -72,7 +72,7 @@ int x;
 {
 	if (cryptflag == 0) {
 		return(SCMOK);
-	} else 
+	} else
 		return (SCMERR);
 }
 

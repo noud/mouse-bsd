@@ -114,7 +114,7 @@ With either interface display (option
 .Fl i
 or an interval, as described below),
 show the number of dropped packets.
-.It Fl f Ar address_family 
+.It Fl f Ar address_family
 Limit statistics or address control block reports to those
 of the specified
 .Ar address family  .
@@ -147,7 +147,7 @@ By default, show the IP Multicast virtual-interface and routing tables.
 If the
 .Fl s
 option is also present, show multicast routing statistics.
-.It Fl I Ar interface 
+.It Fl I Ar interface
 Show information about the specified interface;
 used with a
 .Ar wait
@@ -214,7 +214,7 @@ This address may be obtained using the
 flag.  The default protocol is TCP, but may be overridden using the
 .Fl p
 flag.
-.It Fl p Ar protocol 
+.It Fl p Ar protocol
 Show statistics about
 .Ar protocol  ,
 which is either a well-known name for a protocol or an alias for it.  Some
@@ -282,18 +282,18 @@ and
 manual pages.
 The mapping between letters and flags is:
 .Bl -column XXXX RTF_BLACKHOLE
-1	RTF_PROTO2	Protocol specific routing flag #1 
-2	RTF_PROTO1	Protocol specific routing flag #2 
-B	RTF_BLACKHOLE	Just discard pkts (during updates) 
-C	RTF_CLONING	Generate new routes on use 
-D	RTF_DYNAMIC	Created dynamically (by redirect) 
+1	RTF_PROTO2	Protocol specific routing flag #1
+2	RTF_PROTO1	Protocol specific routing flag #2
+B	RTF_BLACKHOLE	Just discard pkts (during updates)
+C	RTF_CLONING	Generate new routes on use
+D	RTF_DYNAMIC	Created dynamically (by redirect)
 G	RTF_GATEWAY	Destination requires forwarding by intermediary
-H	RTF_HOST	Host entry (net otherwise) 
+H	RTF_HOST	Host entry (net otherwise)
 L	RTF_LLINFO	Valid protocol to link address translation.
-M	RTF_MODIFIED	Modified dynamically (by redirect) 
-R	RTF_REJECT	Host or net unreachable 
-S	RTF_STATIC	Manually added 
-U	RTF_UP	Route usable 
+M	RTF_MODIFIED	Modified dynamically (by redirect)
+R	RTF_REJECT	Host or net unreachable
+S	RTF_STATIC	Manually added
+U	RTF_UP	Route usable
 X	RTF_XRESOLVE	External daemon translates proto to link address
 .El
 .Pp
@@ -308,7 +308,7 @@ to the same destination.
 The use field provides a count of the number of packets
 sent using that route.  The mtu entry shows the mtu associated with
 that route.  This mtu value is used as the basis for the TCP maximum
-segment size.  The 'L' flag appended to the mtu value indicates that 
+segment size.  The 'L' flag appended to the mtu value indicates that
 the value is locked, and that path mtu discovery is turned off for
 that route.
 A

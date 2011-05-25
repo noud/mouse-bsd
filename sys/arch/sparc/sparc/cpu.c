@@ -773,8 +773,8 @@ cpumatch_sun4c(sc, mp, node)
 	sc->mmu_npmeg = sc->mmu_nsegment =
 		getpropint(rnode, "mmu-npmg", 128);
 	sc->mmu_ncontext = getpropint(rnode, "mmu-nctx", 8);
-                              
-	/* Get clock frequency */ 
+
+	/* Get clock frequency */
 	sc->hz = getpropint(rnode, "clock-frequency", 0);
 }
 
@@ -791,7 +791,7 @@ getcacheinfo_sun4c(sc, node)
 		return;
 
 	/* Sun4c's have only virtually-addressed caches */
-	ci->c_physical = 0; 
+	ci->c_physical = 0;
 	ci->c_totalsize = getpropint(node, "vac-size", 65536);
 	/*
 	 * Note: vac-hwflush is spelled with an underscore
@@ -857,7 +857,7 @@ getcacheinfo_obp(sc, node)
 		ci->c_split = 0;
 
 	/* hwflush is used only by sun4/4c code */
-	ci->c_hwflush = 0; 
+	ci->c_hwflush = 0;
 
 	if (node_has_property(node, "icache-nlines") &&
 	    node_has_property(node, "dcache-nlines") &&
@@ -874,7 +874,7 @@ getcacheinfo_obp(sc, node)
 		ci->ic_associativity =
 			getpropint(node, "icache-associativity", 1);
 		ci->ic_totalsize = l * ci->ic_nlines * ci->ic_associativity;
-	
+
 		ci->dc_nlines = getpropint(node, "dcache-nlines", 0);
 		ci->dc_linesize = l =
 			getpropint(node, "dcache-line-size",0);
@@ -893,7 +893,7 @@ getcacheinfo_obp(sc, node)
 	} else {
 		/* unified I/D cache */
 		ci->c_nlines = getpropint(node, "cache-nlines", 128);
-		ci->c_linesize = l = 
+		ci->c_linesize = l =
 			getpropint(node, "cache-line-size", 0);
 		for (i = 0; (1 << i) < l && l; i++)
 			/* void */;
@@ -904,7 +904,7 @@ getcacheinfo_obp(sc, node)
 			ci->c_nlines *
 			getpropint(node, "cache-associativity", 1);
 	}
-	
+
 	if (node_has_property(node, "ecache-nlines")) {
 		/* we have a L2 "e"xternal cache */
 		ci->ec_nlines = getpropint(node, "ecache-nlines", 32768);
@@ -1398,7 +1398,7 @@ getcpuinfo(sc, node)
 			if (sc->hz == 0) {
 				/*
 				 * Try to find it in the OpenPROM root...
-				 */     
+				 */
 				sc->hz = getpropint(findroot(),
 						    "clock-frequency", 0);
 			}

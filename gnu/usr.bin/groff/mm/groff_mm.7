@@ -55,7 +55,7 @@ the macros OK and PM is not implemented.
 .B \(bu
 groff mm does not support cut marks
 .LP
-\fBmm\fP is intended to be international. Therefore it is 
+\fBmm\fP is intended to be international. Therefore it is
 possible to write short national macrofiles which change all
 english text to the preferred language. Use \fBmmse\fP as an example.
 .LP
@@ -251,7 +251,7 @@ Bottom block start. Begins the definition of a text block wich is
 printed at the bottom of each page. Block ends with \fBBE\fP.
 .TP
 .B BVL
-Start of 
+Start of
 broken variable-item list.
 Broken variable-item list has no fixed mark, it assumes that
 every \fBLI\fP has a mark instead.
@@ -264,7 +264,7 @@ item.
 .B "COVER [arg]"
 \&\fBCOVER\fP begins a coversheet definition. It is important
 that \fB.COVER\fP appears before any normal text.
-\&\fB.COVER\fP uses \fIarg\fP to build the filename 
+\&\fB.COVER\fP uses \fIarg\fP to build the filename
 /usr/share/tmac/mm/\fIarg\fP.cov. Therefore it is possible to create unlimited
 types of coversheets.
 \fIms.cov\fP is supposed to look like the \fBms\fP coversheet.
@@ -291,7 +291,7 @@ Display end. Ends a block of text, display, that begins
 with \fBDS\fP or \fBDF\fP.
 .TP
 .B "DF [format [fill [rindent]]]"
-Begin floating display (no nesting allowed). 
+Begin floating display (no nesting allowed).
 A floating display is saved in a queue and is printed in the
 order entered. \fIFormat\fP, \fIfill\fP and \fIrindent\fP is the same
 as in \fBDS\fP.
@@ -516,7 +516,7 @@ is controlled by number register \fBFs\fP, default value is 1.
 .B "GETHN refname [varname]"
 Includes the headernumber where the corresponding \fBSETR\fP \fIrefname\fP
 was placed. Will be X.X.X. in pass 1. See \fBINITR\fP.
-If varname is used, \fBGETHN\fP sets the stringvariable \fIvarname\fP to the 
+If varname is used, \fBGETHN\fP sets the stringvariable \fIvarname\fP to the
 headernumber.
 .TP
 .B "GETPN refname [varname]"
@@ -538,7 +538,7 @@ and contains the page and headernumber.
 .B "GETST refname [varname]"
 Includes the string saved with the second argument to \fB.SETR\fP.
 Will be dummystring in pass 1.
-If varname is used, \fBGETST\fP sets the stringvariable \fIvarname\fP to the 
+If varname is used, \fBGETST\fP sets the stringvariable \fIvarname\fP to the
 saved string. See \fBINITR\fP.
 .TP
 .B "H level [heading-text [heading-suffix]]"
@@ -687,7 +687,7 @@ Hyphenation can be turned by setting number
 register \fBHy\fP to 0 in the beginning of the file.
 .TP
 .B "HM [arg1 [arg2 [... [arg7]]]]"
-Heading mark style. 
+Heading mark style.
 Controls the type of marking for printing of the heading counters.
 Default is 1 for all levels.
 .sp
@@ -808,7 +808,7 @@ x)
 .in
 .sp
 Every item in the list will get \fILI-space\fP number of blank lines
-before them. Default is 1. 
+before them. Default is 1.
 .sp
 \fBLB\fP itself will print \fILB-space\fP blank lines. Default is 0.
 .TP
@@ -911,7 +911,7 @@ See also string variable \fBLetSJ\fP.
 Begin multiple columns. Return to normal with \fB1C\fP.
 \fBMC\fP will create as many columns as the current line length permits.
 \fIColumn-size\fP is the width of each column, and \fIcolumn-separation\fP
-is the space between two columns. Default separation is the 
+is the space between two columns. Default separation is the
 column-size/15.
 See also \fB1C\fP.
 .TP
@@ -956,7 +956,7 @@ Begin a special multi-column mode. Every columns width must be specified.
 Also the space between the columns must be specified. The last column
 does not need any space-definition. MULB starts a diversion and MULE
 ends the diversion and prints the columns.
-The unit for width and space is 'n', but MULB accepts all 
+The unit for width and space is 'n', but MULB accepts all
 normal unitspecifications like 'c' and 'i'.
 MULB operates in a separate environment.
 .TP
@@ -971,7 +971,7 @@ Print numbered paragraph with header level two. Se \fB.P\fP.
 .TP
 .B "NS [arg [1]]"
 Prints different types of notations. The argument selects between
-the predefined type of notations. If the second argument is available, 
+the predefined type of notations. If the second argument is available,
 then the argument becomes the entire notation.
 If the argument doesn't exist in the predefined, it will be
 printed as \fBCopy (\fP\fIarg\fP\fB) to\fP.
@@ -1055,9 +1055,9 @@ Sets linelength, pagelength and/or pageoffset.
 This macro can be used for special formatting, like letterheads
 and other.
 It is normally the first command in a file, though it's not necessary.
-\fBPGFORM\fP can be used without arguments 
+\fBPGFORM\fP can be used without arguments
 to reset everything after a \fBMOVE\fP.
-A line-break is done unless the fourth argument is given. 
+A line-break is done unless the fourth argument is given.
 This can be used to avoid the pagenumber on the first page while setting
 new width and length.
 .TP
@@ -1107,7 +1107,7 @@ Read from standard input to diversion and/or string.
 The text will be saved in a diversion named \fIdiversion\fP.
 Recall the text by writing the name of the diversion after a dot
 on an empty line. A string will also be defined if
-\fIstring\fP is given. \fIDiversion\fP and/or \fIprompt\fP can 
+\fIstring\fP is given. \fIDiversion\fP and/or \fIprompt\fP can
 be empty ("").
 .TP
 .B RF
@@ -1247,7 +1247,7 @@ It must be scaled, like \fB.ds\ Ci\ .25i\ .5i\ .75i\ 1i\ 1i\fP.
 The indentation is normally controlled by the maxlength of headings
 in each level.
 .sp
-All texts can be redefined, new stringvariables 
+All texts can be redefined, new stringvariables
 \fILifg\fP, \fILitb\fP, \fILiex\fP, \fILiec\fP and \fILicon\fP contains
 "Figure", "TABLE", "Exhibit", "Equation" and "CONTENTS".
 These can be redefined to other languages.
@@ -1490,7 +1490,7 @@ Argument to \fB.nm\fP in \fB.VERBON\fP, default: \fB1\fP.
 .B "Number variables used in mm:"
 .TP
 .B Aph
-Print an appendix-page for every new appendix 
+Print an appendix-page for every new appendix
 if this numbervariable is non-zero.
 No output will occur if \fBAph\fP is zero, but there will always
 be an appendix-entry in the 'List of contents'.
@@ -1592,7 +1592,7 @@ Default 99.
 .TP
 .B Lsp
 .TP
-The size of an empty line. Normally 0.5v, but it is 1v 
+The size of an empty line. Normally 0.5v, but it is 1v
 if \fBn\fP is set (\fB.nroff\fP).
 .TP
 .B N

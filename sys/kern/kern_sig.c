@@ -42,7 +42,7 @@
 
 #include "opt_ktrace.h"
 #include "opt_compat_sunos.h"
-#include "opt_compat_netbsd32.h"	
+#include "opt_compat_netbsd32.h"
 
 #define	SIGPROP		/* include signal properties table */
 #include <sys/param.h>
@@ -400,7 +400,7 @@ sigprocmask1(p, how, nss, oss)
 
 	return (0);
 }
-	
+
 /*
  * Manipulate signal mask.
  * Note that we receive new mask, not pointer,
@@ -630,14 +630,14 @@ killpg1(cp, signum, pgid, all)
 	register struct pcred *pc = cp->p_cred;
 	struct pgrp *pgrp;
 	int nfound = 0;
-	
+
 	if (all) {
-		/* 
-		 * broadcast 
+		/*
+		 * broadcast
 		 */
 		proclist_lock_read();
 		for (p = allproc.lh_first; p != 0; p = p->p_list.le_next) {
-			if (p->p_pid <= 1 || p->p_flag & P_SYSTEM || 
+			if (p->p_pid <= 1 || p->p_flag & P_SYSTEM ||
 			    p == cp || !CANSIGNAL(cp, pc, p, signum))
 				continue;
 			nfound++;
@@ -646,8 +646,8 @@ killpg1(cp, signum, pgid, all)
 		}
 		proclist_unlock_read();
 	} else {
-		if (pgid == 0)		
-			/* 
+		if (pgid == 0)
+			/*
 			 * zero pgid means send to my process group.
 			 */
 			pgrp = cp->p_pgrp;
@@ -1279,7 +1279,7 @@ sigexit(p, signum)
 }
 
 /*
- * Dump core, into a file named "progname.core" or "core" (depending on the 
+ * Dump core, into a file named "progname.core" or "core" (depending on the
  * value of shortcorename), unless the process was setuid/setgid.
  */
 int

@@ -394,7 +394,7 @@ AGAIN:
 		    BUS_DMASYNC_PREREAD|BUS_DMASYNC_PREWRITE);
 		aha_nextmbx(wmbi, wmbx, mbi);
 		bus_dmamap_sync(sc->sc_dmat, sc->sc_dmamap_control,
-		    AHA_MBI_OFF(wmbi), sizeof(struct aha_mbx_in), 
+		    AHA_MBI_OFF(wmbi), sizeof(struct aha_mbx_in),
 		    BUS_DMASYNC_POSTREAD|BUS_DMASYNC_POSTWRITE);
 	} while (wmbi->stat != AHA_MBI_FREE);
 
@@ -1293,7 +1293,7 @@ aha_scsi_cmd(xs)
 			    (flags & XS_CTL_NOSLEEP) ? BUS_DMA_NOWAIT :
 			    BUS_DMA_WAITOK);
 		}
-		
+
 		if (error) {
 			if (error == EFBIG) {
 				printf("%s: aha_scsi_cmd, more than %d"

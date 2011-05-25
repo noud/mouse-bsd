@@ -159,10 +159,10 @@ compare_pctcpu_noidle (a, b)
 char *
 state2str(kp)
 	struct kinfo_proc *kp;
-{       
+{
 	struct proc *p;
 	struct eproc *e;
-	int flag; 
+	int flag;
 	char *cp;
 	char buf[5];
 	static char statestr[4];
@@ -217,7 +217,7 @@ state2str(kp)
 	if ((flag & P_SYSTEM) || p->p_holdcnt)
 		*cp++ = 'L';
 	if (e->e_flag & EPROC_SLEADER)
-		*cp++ = 's'; 
+		*cp++ = 's';
 	if ((flag & P_CONTROLT) && e->e_pgid == e->e_tpgid)
 		*cp++ = '+';
 	*cp = '\0';
@@ -261,7 +261,7 @@ vsz2int(kp)
 	i = pgtok(e->e_vm.vm_dsize + e->e_vm.vm_ssize + e->e_vm.vm_tsize);
 
 	return ((i < 0) ? 0 : i);
-} 
+}
 
 int
 rss2int(kp)
@@ -269,7 +269,7 @@ rss2int(kp)
 {
 	struct eproc *e;
 	int	i;
- 
+
 	e = &(kp->kp_eproc);
 	i = pgtok(e->e_vm.vm_rssize);
 
@@ -308,9 +308,9 @@ comm2str(kp)
 double
 pmem2float(kp)
 	struct kinfo_proc *kp;
-{	                       
+{
 	struct proc *p;
-	struct eproc *e; 
+	struct eproc *e;
 	double fracmem;
 	int szptudot;
 
@@ -328,7 +328,7 @@ pmem2float(kp)
 
 char *
 start2str(kp)
-	struct kinfo_proc *kp; 
+	struct kinfo_proc *kp;
 {
 	struct proc *p;
 	struct pstats pstats;
@@ -354,23 +354,23 @@ start2str(kp)
 	        /* I *hate* SCCS... */
 	        static char fmt[] = __CONCAT("%a%", "I%p");
 	        strftime(startstr, sizeof(startstr) - 1, fmt, tp);
-	} else  
+	} else
 	        strftime(startstr, sizeof(startstr) - 1, "%e%b%y", tp);
 
 	return startstr;
 }
 
-char *    
+char *
 time2str(kp)
 	struct kinfo_proc *kp;
-{	       
+{
 	long secs;
 	long psecs;     /* "parts" of a second. first micro, then centi */
 	static char timestr[10];
 	struct proc *p;
 
 	p = &(kp->kp_proc);
-	        
+
 	if (P_ZOMBIE(p)) {
 	        secs = 0;
 	        psecs = 0;

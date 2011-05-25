@@ -170,7 +170,7 @@ mmrw(dev, uio, flags)
 					cnt = c;
 				d = iov->iov_base;
 				switch (uio->uio_segflg) {
-					
+
 				case UIO_USERSPACE:
 					if (uio->uio_rw == UIO_READ)
 						while (cnt--)
@@ -184,7 +184,7 @@ mmrw(dev, uio, flags)
 					if (error)
 						goto unlock;
 					break;
-					
+
 				case UIO_SYSSPACE:
 					if (uio->uio_rw == UIO_READ)
 						while (cnt--)

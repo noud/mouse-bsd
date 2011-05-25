@@ -102,7 +102,7 @@ main(argc, argv)
 
 	if (*argv == NULL)
 		usage();
-	
+
 	for (exitval = EXIT_SUCCESS; *argv != NULL; ++argv) {
 		char *slash;
 
@@ -138,7 +138,7 @@ main(argc, argv)
 }
 
 /*
- * mkpath -- create directories.  
+ * mkpath -- create directories.
  *	path     - path
  *	mode     - file mode of terminal directory
  *	dir_mode - file mode of intermediate directories
@@ -183,7 +183,7 @@ mkpath(path, mode, dir_mode)
 			warnx("%s: %s", path, strerror(ENOTDIR));
 			return (-1);
 		}
-		    
+
 		*slash = '/';
 	}
 

@@ -36,17 +36,17 @@ hp300_header_append (where, headers)
   DO (a_info);
   DO (a_spare1);
   DO (a_spare2);
-  DO (a_text);      
-  DO (a_data);     
-  DO (a_bss);     
-  DO (a_trsize); 
+  DO (a_text);
+  DO (a_data);
+  DO (a_bss);
+  DO (a_trsize);
   DO (a_drsize);
   DO (a_spare3);
   DO (a_spare4);
   DO (a_spare5);
-  DO (a_entry); 
+  DO (a_entry);
   DO (a_spare6);
   DO (a_spare7);
-  DO (a_syms);  
+  DO (a_syms);
   DO (a_spare8);
 }

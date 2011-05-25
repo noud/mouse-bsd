@@ -92,7 +92,7 @@ static struct speedtab sptab[] = {
 	{ -1, -1 }
 };
 
-static u_long s2btab[] = { 
+static u_long s2btab[] = {
 	0,
 	50,
 	75,
@@ -365,10 +365,10 @@ ibcs2_sys_ioctl(p, v, retval)
 		struct termios bts;
 		struct ibcs2_termios sts;
 		struct ibcs2_termio st;
-	
+
 		if ((error = (*ctl)(fp, TIOCGETA, (caddr_t)&bts, p)) != 0)
 			return error;
-	
+
 		btios2stios (&bts, &sts);
 		if (SCARG(uap, cmd) == IBCS2_TCGETA) {
 			stios2stio (&sts, &st);

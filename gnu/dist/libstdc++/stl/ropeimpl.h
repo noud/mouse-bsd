@@ -71,7 +71,7 @@ void __rope_iterator_base<charT,Alloc>::setbuf
     }
 }
 
-// Set path and buffer inside a rope iterator.  We assume that 
+// Set path and buffer inside a rope iterator.  We assume that
 // pos and root are already set.
 template <class charT, class Alloc>
 void __rope_iterator_base<charT,Alloc>::setcache
@@ -116,7 +116,7 @@ void __rope_iterator_base<charT,Alloc>::setcache
 			(__rope_RopeConcatenation<charT,Alloc> *)curr_rope;
 		RopeBase * left = c -> left;
 		size_t left_len = left -> size;
-		
+
 		dirns <<= 1;
 		if (pos >= curr_start_pos + left_len) {
 		    dirns |= 1;
@@ -359,7 +359,7 @@ void __rope_RopeBase<charT,Alloc>::free_tree()
 	        __rope_RopeLeaf<charT,Alloc> * l =
 			(__rope_RopeLeaf<charT,Alloc> *)this;
 		charT * d = l -> data;
-		
+
 		if (d != c_string) {
 		    free_c_string();
 		}
@@ -422,7 +422,7 @@ rope<charT,Alloc>::leaf_concat_char_iter
     charT * new_data = (charT *)
 	DataAlloc::allocate(rounded_up_size(old_len + len));
     RopeLeaf * result;
-    
+
     uninitialized_copy_n(r -> data, old_len, new_data);
     uninitialized_copy_n(iter, len, new_data + old_len);
     __cond_store_eos(new_data[old_len + len]);
@@ -637,7 +637,7 @@ rope<charT,Alloc>::concat(RopeBase * left, RopeBase * right)
 		   && RopeBase::leaf ==
 		      ((RopeConcatenation *)left) -> right -> tag) {
 	  RopeLeaf * leftright =
-		    (RopeLeaf *)(((RopeConcatenation *)left) -> right); 
+		    (RopeLeaf *)(((RopeConcatenation *)left) -> right);
 	  if (leftright -> size + right -> size <= copy_max) {
 	    RopeBase * leftleft = ((RopeConcatenation *)left) -> left;
 	    RopeBase * rest = leaf_concat_char_iter(leftright,
@@ -667,7 +667,7 @@ rope<charT,Alloc>::substring(RopeBase * base, size_t start, size_t endp1)
     size_t len = base -> size;
     size_t adj_endp1;
     const size_t lazy_threshold = 128;
-    
+
     if (endp1 >= len) {
 	if (0 == start) {
 	    base -> ref_nonnil();
@@ -785,7 +785,7 @@ class __rope_flatten_char_consumer : public __rope_char_consumer<charT> {
 	    return true;
 	}
 };
-	    
+
 template<class charT>
 class __rope_find_char_char_consumer : public __rope_char_consumer<charT> {
     private:
@@ -804,7 +804,7 @@ class __rope_find_char_char_consumer : public __rope_char_consumer<charT> {
 	    count += n; return true;
 	}
 };
-	    
+
 template<class charT>
 class __rope_insert_char_consumer : public __rope_char_consumer<charT> {
     private:
@@ -818,7 +818,7 @@ class __rope_insert_char_consumer : public __rope_char_consumer<charT> {
 	bool operator() (const charT* leaf, size_t n);
 		// Returns true to continue traversal.
 };
-	    
+
 template<class charT>
 bool __rope_insert_char_consumer<charT>::operator()
 					(const charT * leaf, size_t n)
@@ -912,7 +912,7 @@ inline void __rope_fill(ostream& o, size_t n)
 
     for (i = 0; i < n; i++) o.put(f);
 }
-    
+
 
 template <class charT> inline bool __rope_is_simple(charT *) { return false; }
 inline bool __rope_is_simple(char *) { return true; }
@@ -928,7 +928,7 @@ ostream& operator<< (ostream& o, const rope<charT, Alloc>& r)
     size_t rope_len = r.size();
     __rope_insert_char_consumer<charT> c(o);
     bool is_simple = __rope_is_simple((charT *)0);
-    
+
     if (rope_len < w) {
 	pad_len = w - rope_len;
     } else {
@@ -1061,7 +1061,7 @@ rope<charT,Alloc>::dump(RopeBase * r, int indent)
 	    bool too_big = r -> size > prefix-> size;
 
 	    flatten(prefix, buffer);
-	    buffer[prefix -> size] = __eos((charT *)0); 
+	    buffer[prefix -> size] = __eos((charT *)0);
 	    printf("%s%s\n", (char *)buffer, too_big? "...\n" : "\n");
 	} else {
 	    printf("\n");
@@ -1194,7 +1194,7 @@ rope<charT,Alloc>::fetch(RopeBase *r, size_type i)
     __GC_CONST charT * cstr = r -> c_string;
 
     __stl_assert(i < r -> size);
-    if (0 != cstr) return cstr[i]; 
+    if (0 != cstr) return cstr[i];
     for(;;) {
       switch(r -> tag) {
 	case RopeBase::concat:

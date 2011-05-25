@@ -99,7 +99,7 @@ compat_14_sys___semctl(p, v, retval)
 	cmd = SCARG(uap, cmd);
 
 	switch (cmd) {
-	case IPC_SET:    
+	case IPC_SET:
 	case IPC_STAT:
 		pass_arg = &sembuf;
 		break;
@@ -114,10 +114,10 @@ compat_14_sys___semctl(p, v, retval)
 	if (pass_arg != NULL) {
 		error = copyin(SCARG(uap, arg), &arg, sizeof(arg));
 		if (error)
-			return (error);  
-		if (cmd == IPC_SET) { 
+			return (error);
+		if (cmd == IPC_SET) {
 			error = copyin(arg.buf, &osembuf, sizeof(osembuf));
-			if (error)  
+			if (error)
 				return (error);
 			semid_ds14_to_native(&osembuf, &sembuf);
 		}

@@ -528,7 +528,7 @@ ncr53c9x_select(sc, ecb)
 			sc->sc_cmdlen = clen;
 			sc->sc_cmdp = (caddr_t)&ecb->cmd + 1;
 			NCRDMA_SETUP(sc, &sc->sc_cmdp, &sc->sc_cmdlen, 0, &dmasize);
-	
+
 			/* Program the SCSI counter */
 			NCR_WRITE_REG(sc, NCR_TCL, dmasize);
 			NCR_WRITE_REG(sc, NCR_TCM, dmasize >> 8);
@@ -555,7 +555,7 @@ ncr53c9x_select(sc, ecb)
 	}
 
 	if (ncr53c9x_dmaselect && (tiflags & T_NEGOTIATE) == 0) {
-		ecb->cmd.id = 
+		ecb->cmd.id =
 		    MSG_IDENTIFY(lun, (tiflags & T_RSELECTOFF)?0:1);
 
 		/* setup DMA transfer for command */
@@ -884,7 +884,7 @@ ncr53c9x_done(sc, ecb)
 		}
 	} else
 		ncr53c9x_dequeue(sc, ecb);
-		
+
 	ncr53c9x_free_ecb(sc, ecb, xs->xs_control);
 	ti->cmds++;
 	scsipi_done(xs);
@@ -1315,7 +1315,7 @@ ncr53c9x_msgout(sc)
 			    sc->sc_dev.dv_xname, __LINE__);
 		}
 	}
-			
+
 	if (sc->sc_omlen == 0) {
 		/* Pick up highest priority message */
 		sc->sc_msgout = sc->sc_msgpriq & -sc->sc_msgpriq;
@@ -1639,7 +1639,7 @@ again:
 
 			/* it may be OK to disconnect */
 			if ((sc->sc_flags & NCR_ABORTING) == 0) {
-				/*  
+				/*
 				 * Section 5.1.1 of the SCSI 2 spec
 				 * suggests issuing a REQUEST SENSE
 				 * following an unexpected disconnect.
@@ -1647,7 +1647,7 @@ again:
 				 * allegiance condition when
 				 * disconnecting, and this is necessary
 				 * to clean up their state.
-				 */     
+				 */
 				printf("%s: unexpected disconnect; ",
 				    sc->sc_dev.dv_xname);
 				if (ecb->flags & ECB_SENSE) {

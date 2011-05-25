@@ -228,11 +228,11 @@ done:
 	return (error);
 }
 
-/*	
+/*
  * Print out the name of the device; ex. TK50, RA80. DEC uses a common
  * disk type encoding scheme for most of its disks.
- */   
-void  
+ */
+void
 disk_printtype(unit, type)
 	int unit, type;
 {

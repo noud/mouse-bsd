@@ -88,7 +88,7 @@ enum bustypes {
 
 #if VAX8600
 #define	MAXNNEXUS (2 * NNEXSBI)
-#else 
+#else
 #define	MAXNNEXUS NNEXSBI
 #endif
 

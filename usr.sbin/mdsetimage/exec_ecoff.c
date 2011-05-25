@@ -83,7 +83,7 @@ findoff_ecoff(mappedfile, mappedsize, vmaddr, fileoffp)
 	    vmaddr < (exechdrp->a.text_start + exechdrp->a.tsize))
 		*fileoffp = vmaddr - exechdrp->a.text_start +
 		    ECOFF_TXTOFF(exechdrp);
-	else if (exechdrp->a.data_start <= vmaddr && 
+	else if (exechdrp->a.data_start <= vmaddr &&
             vmaddr < (exechdrp->a.data_start + exechdrp->a.dsize))
 		*fileoffp = vmaddr - exechdrp->a.data_start +
 		    ECOFF_DATOFF(exechdrp);

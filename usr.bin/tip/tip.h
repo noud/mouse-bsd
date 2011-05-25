@@ -108,7 +108,7 @@ typedef
 		char	*v_abrev;	/* possible abreviation */
 		char	*v_value;	/* casted to a union later */
 				/*
-				 * XXX:	this assumes that the storage space 
+				 * XXX:	this assumes that the storage space
 				 *	of a pointer >= that of a long
 				 */
 	}
@@ -314,8 +314,8 @@ void	tipout __P((void));
 void	ttysetup __P((int));
 void	unraw __P((void));
 void	user_uid __P((void));
-int	uu_lock __P((char *));	
-int	uu_unlock __P((char *));	
+int	uu_lock __P((char *));
+int	uu_unlock __P((char *));
 void	variable __P((char));
 void	vinit __P((void));
 char   *vinterp __P((char *, char));

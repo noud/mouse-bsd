@@ -24,7 +24,7 @@ static char sccsid[] = "@(#)rmail.c	8.18 (Berkeley) 10/23/1998";
  *
  * This program reads the >From ... remote from ... lines that UUCP is so
  * fond of and turns them into something reasonable.  It then execs sendmail
- * with various options built from these lines. 
+ * with various options built from these lines.
  *
  * The expected syntax is:
  *
@@ -308,7 +308,7 @@ main(argc, argv)
 			sprintf (args [i++], "<%s>", *argv);
 		}
 		argv++;
-	} 
+	}
 	args[i] = 0;
 
 	if (debug) {

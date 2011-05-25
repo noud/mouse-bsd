@@ -34,7 +34,7 @@ CFLAGS=		-Os -mno-fp-regs -g
 NETBSD_VERS!=sh ${.CURDIR}/../../../../conf/osrelease.sh
 CPPFLAGS+= -DNETBSD_VERS='"${NETBSD_VERS}"'
 
-HAVE_GCC28!=	${CC} --version | egrep "^(2\.8|egcs)" ; echo 
+HAVE_GCC28!=	${CC} --version | egrep "^(2\.8|egcs)" ; echo
 .if (${HAVE_GCC28} != "")
 CWARNFLAGS+=	-Wno-main
 .endif

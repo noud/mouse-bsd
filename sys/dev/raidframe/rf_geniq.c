@@ -40,7 +40,7 @@
 
    val  = value;
 */
-int 
+int
 lsfr_shift(val, poly)
 	unsigned val, poly;
 {
@@ -64,7 +64,7 @@ lsfr_shift(val, poly)
 
 RF_ua32_t rf_qfor[32];
 
-void 
+void
 main()
 {
 	unsigned int i, j, l, a, b;

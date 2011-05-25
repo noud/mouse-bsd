@@ -206,7 +206,7 @@ ie_cooldown(temperature)
 {
 }
 
-/* 
+/*
  * Wake the i82586 chip up and get it to do something
  */
 
@@ -307,7 +307,7 @@ ieprobe(struct device *parent, struct cfdata *cf, void *aux)
 /*
  * Attach our driver to the interfaces it uses
  */
-  
+
 void ieattach ( struct device *parent, struct device *self, void *aux )
 {
 	struct ie_softc *sc = (void *)self;
@@ -437,7 +437,7 @@ void ieattach ( struct device *parent, struct device *self, void *aux )
 					crc32(idrom,28), *(u_long *)(idrom+28));
             for ( i=0; i<32; i+=8 ) {
 	        printf ( "IDROM: %02x %02x %02x %02x %02x %02x %02x %02x\n",
-		    idrom[0+i], idrom[1+i], idrom[2+i], idrom[3+i], 
+		    idrom[0+i], idrom[1+i], idrom[2+i], idrom[3+i],
 		    idrom[4+i], idrom[5+i], idrom[6+i], idrom[7+i] );
 	    }
 	    printf ( "ie: I'll ignore this fact for now!\n" );
@@ -456,13 +456,13 @@ void ieattach ( struct device *parent, struct device *self, void *aux )
 	ifp->if_ioctl = ieioctl;
 	ifp->if_watchdog = iewatchdog;
 	ifp->if_flags = IFF_BROADCAST | IFF_NOTRAILERS;
-	
+
 	/* Signed, dated then sent */
         if_attach (ifp);
 	ether_ifattach(ifp, hwaddr);
 
 	/* "Hmm," said nuts, "what if the attach fails" */
-    
+
 	/* Write some pretty things on the annoucement line */
 	printf ( " %s using %dk card ram",
 	    ether_sprintf(hwaddr),
@@ -491,8 +491,8 @@ void ieattach ( struct device *parent, struct device *self, void *aux )
 
 	printf("\n");
 }
-  
-                  
+
+
 /*
  * Oh no!! Where's my shorts!!! I'm sure I put them on this morning
  */
@@ -715,7 +715,7 @@ iewatchdog(ifp)
 	iereset(sc);
 }
 
-/* 
+/*
  * Start the time-domain-refloctometer running
  */
 
@@ -824,7 +824,7 @@ setup_rfa(sc, ptr)
 	    host2ie(sc, &rbd, ptr, sizeof rbd);
 	    ptr+=sizeof rbd;
 
-	    sc->cbuffs[i] = ptr;	
+	    sc->cbuffs[i] = ptr;
 	    ptr+=IE_RXBUF_SIZE;
 	}
 	rbd.ie_rbd_next = sc->rbuffs[0];
@@ -1177,7 +1177,7 @@ ieget(struct ie_softc *sc, int *to_bpf )
 		caddr_t newdata = (caddr_t)
 		    ALIGN(m->m_data + sizeof(struct ether_header)) -
 		    sizeof(struct ether_header);
-		len -= newdata - m->m_data; 
+		len -= newdata - m->m_data;
 		m->m_data = newdata;
 	}
 
@@ -1475,7 +1475,7 @@ iexmit(sc)
 
     struct ie_xmit_cmd xc;
     struct ie_xmit_buf xb;
-    
+
     ie2host(sc, sc->xmit_buffs[sc->xctail], (char *)&xb, sizeof xb );
     xb.ie_xmit_flags |= IE_XMIT_LAST;
     xb.ie_xmit_next = 0xffff;
@@ -1559,7 +1559,7 @@ iestart(ifp)
    		    host2ie(sc, txbuf, sc->xmit_cbuffs[sc->xchead], len );
 
 		/* sc->xmit_buffs[sc->xchead]->ie_xmit_flags = len; */
-		
+
 		WRITE_MEMBER(sc,struct ie_xmit_buf, ie_xmit_flags,
 				sc->xmit_buffs[sc->xchead], len)
 
@@ -1582,18 +1582,18 @@ ietint(sc)
 
     ifp->if_timer=0;
     ifp->if_flags &= ~IFF_OACTIVE;
- 
+
     READ_MEMBER(sc,struct ie_xmit_cmd, ie_xmit_status,
 	sc->xmit_cmds[sc->xctail], status );
 
     if (!(status&IE_STAT_COMPL) || (status & IE_STAT_BUSY) )
 	printf ( "ietint: command still busy!\n" );
-    
+
     if ( status & IE_STAT_OK ) {
 	ifp->if_opackets++;
 	ifp->if_collisions += status & IE_XS_MAXCOLL;
     } else {
-	ifp->if_oerrors++;	
+	ifp->if_oerrors++;
 	if ( status & IE_STAT_ABORT )
 	    printf ( "ie: send aborted\n" );
 	if ( status & IE_XS_LATECOLL )
@@ -1611,7 +1611,7 @@ ietint(sc)
     /* Done with the buffer */
     sc->xmit_free++;
     sc->xctail = (sc->xctail + 1 ) % NTXBUF;
- 
+
     /* Start the next packet transmitting, if any */
     if ( sc->xmit_free<NTXBUF )
 	iexmit(sc);

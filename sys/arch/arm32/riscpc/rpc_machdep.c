@@ -40,7 +40,7 @@
  *
  * Machine dependant functions for kernel setup
  *
- * This file needs a lot of work. 
+ * This file needs a lot of work.
  *
  * Created      : 17/09/94
  */
@@ -627,7 +627,7 @@ initarm(bootconf)
 	 * Pheww right we are ready to switch page tables !!!
 	 * The L1 table is at bootconfig.scratchphysicalbase + 0x4000
 	 */
- 
+
 	/* Switch tables */
 	setttb(bootconfig.scratchphysicalbase + 0x4000);
 
@@ -681,7 +681,7 @@ initarm(bootconf)
 	 *
 	 * The secondary bootstrap has the responcibility to sort locating the
 	 * kernel to the correct address and for creating the kernel page tables.
-	 * It must also set up various memory pointers that are used by pmap etc.  
+	 * It must also set up various memory pointers that are used by pmap etc.
 	 */
 	process_kernel_args();
 
@@ -701,10 +701,10 @@ initarm(bootconf)
 	    + bootconfig.dram[bootconfig.dramblocks - 1].pages * NBPG;
 	physical_freeend = physical_end;
 	free_pages = bootconfig.drampages;
-    
+
 	for (loop = 0; loop < bootconfig.dramblocks; ++loop)
 		physmem += bootconfig.dram[loop].pages;
-    
+
 	/*
 	 * Reserve some pages at the top of the memory for later use
 	 *
@@ -733,7 +733,7 @@ initarm(bootconf)
 	 * After the kernel/args we allocate some the the fixed page tables
 	 * we need to get the system going.
 	 * We allocate one page directory and 8 page tables and store the
-	 * physical addresses in the kernel_pt_table array.	
+	 * physical addresses in the kernel_pt_table array.
 	 * Must remember that neither the page L1 or L2 page tables are the
 	 * same size as a page !
 	 *
@@ -818,10 +818,10 @@ initarm(bootconf)
 	valloc_pages(kernelstack, UPAGES);
 
 #ifdef VERBOSE_INIT_ARM
-	printf("IRQ stack: p0x%08lx v0x%08lx\n", irqstack.pv_pa, irqstack.pv_va); 
-	printf("ABT stack: p0x%08lx v0x%08lx\n", abtstack.pv_pa, abtstack.pv_va); 
-	printf("UND stack: p0x%08lx v0x%08lx\n", undstack.pv_pa, undstack.pv_va); 
-	printf("SVC stack: p0x%08lx v0x%08lx\n", kernelstack.pv_pa, kernelstack.pv_va); 
+	printf("IRQ stack: p0x%08lx v0x%08lx\n", irqstack.pv_pa, irqstack.pv_va);
+	printf("ABT stack: p0x%08lx v0x%08lx\n", abtstack.pv_pa, abtstack.pv_va);
+	printf("UND stack: p0x%08lx v0x%08lx\n", undstack.pv_pa, undstack.pv_va);
+	printf("SVC stack: p0x%08lx v0x%08lx\n", kernelstack.pv_pa, kernelstack.pv_va);
 #endif
 
 	alloc_pages(msgbufphys, round_page(MSGBUFSIZE) / NBPG);
@@ -1085,7 +1085,7 @@ initarm(bootconf)
 			printf("Pagetable for V%08x = %08x\n", loop << 20,
 			    ReadWord(0xf2000000 + loop * 4));
 	}
- 
+
 	for (loop = 0x0; loop < 0x400; ++loop) {
 		if (ReadWord(kernel_pt_table[KERNEL_PT_PTE] + loop * 4) != 0)
 			printf("Pagetable for V%08x P%08x = %08x\n",
@@ -1127,7 +1127,7 @@ initarm(bootconf)
 
 #ifdef CPU_SA110
 	if (cputype == ID_SA110)
-		rpc_sa110_cc_setup();	
+		rpc_sa110_cc_setup();
 #endif	/* CPU_SA110 */
 
 #if NIPKDB > 0

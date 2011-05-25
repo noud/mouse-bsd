@@ -7,10 +7,10 @@ target_alias = i386
 target_cpu = i386
 target_vendor = unknown
 target_os = scosysv322
-target_makefile_frag = 
-host_makefile_frag = 
-site_makefile_frag = 
-links = 
+target_makefile_frag =
+host_makefile_frag =
+site_makefile_frag =
+links =
 VPATH = .
 ALL=all.internal
 # Makefile for GNU Assembler documentation
@@ -121,7 +121,7 @@ as.ms: as-${CONFIG}.texinfo
 		-e '/@c TEXI2ROFF-KILL/,/@c END TEXI2ROFF-KILL/d' \
 		-e 's/{.*,,/{/' \
 		as-${CONFIG}.texinfo | \
-	texi2roff -ms >as.ms 
+	texi2roff -ms >as.ms
 
 # roff output (-mm)
 as.mm: as-${CONFIG}.texinfo
@@ -132,7 +132,7 @@ as.mm: as-${CONFIG}.texinfo
 		as-${CONFIG}.texinfo | \
 	texi2roff -mm | \
 	sed -e 's/---/\\(em/g' \
-	>as.mm 
+	>as.mm
 
 # roff output (-me)
 as.me: as-${CONFIG}.texinfo
@@ -140,7 +140,7 @@ as.me: as-${CONFIG}.texinfo
 		-e '/@c TEXI2ROFF-KILL/,/@c END TEXI2ROFF-KILL/d' \
 		-e 's/{.*,,/{/' \
 		as-${CONFIG}.texinfo | \
-	texi2roff -me >as.me 
+	texi2roff -me >as.me
 
 
 

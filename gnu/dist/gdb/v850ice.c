@@ -371,7 +371,7 @@ v850ice_store_registers (regno)
 /* Prepare to store registers.  Nothing to do here, since the ICE can write one
    register at a time.  */
 
-static void 
+static void
 v850ice_prepare_to_store ()
 {
 }
@@ -414,7 +414,7 @@ v850ice_xfer_memory (memaddr, myaddr, len, should_write, target)
 
       tmp = alloca (len + 100);
       memset (tmp + len, 0xff, 100);
-      
+
 #if 1
       sprintf (cmd, "memory b 0x%x l=%d", (int)memaddr, len);
       retval = ExeAppReq ("GDB", MREADBLOCK, cmd, &iob);

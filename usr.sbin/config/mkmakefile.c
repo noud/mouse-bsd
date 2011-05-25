@@ -57,7 +57,7 @@
  * Make the Makefile.
  */
 
-static const char *srcpath __P((struct files *)); 
+static const char *srcpath __P((struct files *));
 
 static const char *prefix_prologue __P((const char *));
 

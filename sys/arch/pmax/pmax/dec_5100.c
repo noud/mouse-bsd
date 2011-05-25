@@ -79,7 +79,7 @@ dec_5100_init()
 
 	splvec.splbio = MIPS_SPL1;
 	splvec.splnet = MIPS_SPL1;
-	splvec.spltty = MIPS_SPL_0_1; 
+	splvec.spltty = MIPS_SPL_0_1;
 	splvec.splimp = MIPS_SPL_0_1_2;
 	splvec.splclock = MIPS_SPL_0_1_2;
 	splvec.splstatclock = MIPS_SPL_0_1_2;

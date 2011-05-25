@@ -120,8 +120,8 @@ product TCM 5093	3C579 Ethernet
 product TCM 5094	3C509 Ethernet Combo
 product	TCM 5920 	3C592 Etherlink III
 product	TCM 5970 	3C597 Fast Etherlink TX
-product	TCM 5971 	3C597 Fast Etherlink T4 
-product	TCM 5972 	3C597 Fast Etherlink MII 
+product	TCM 5971 	3C597 Fast Etherlink T4
+product	TCM 5972 	3C597 Fast Etherlink MII
 
 /* Standard Microsystems (SMC) */
 product SMC 8010	Ethercard Elite32C Ultra

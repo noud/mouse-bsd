@@ -168,7 +168,7 @@ createmonster(mon)
  * 		  if monst==TRUE check for no monster at this location
  * This routine will return FALSE if at a wall or the dungeon exit on level 1
  */
-int 
+int
 cgood(x, y, itm, monst)
 	int    x, y;
 	int             itm, monst;

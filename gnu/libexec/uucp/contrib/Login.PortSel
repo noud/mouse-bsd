@@ -4,22 +4,22 @@
 # NOTE: Untested with xchat V1.1. Taken from DECUS UUCP.
 #
 # From: "Kent C. Brodie" <moocow!brodie@CSD4.MILW.WISC.EDU>
-#	uucp:	{uunet!marque,csd4.milw.wisc.edu}!moocow!brodie  
+#	uucp:	{uunet!marque,csd4.milw.wisc.edu}!moocow!brodie
 # special script for "uwmcsd4", have to go through a port selector (and then
-# log in via standard Unix procedures).  
+# log in via standard Unix procedures).
 #
 # Also included is the ability to wait in the port selector queue.
-# Be forwarned that the debug log can get pretty big depending on 
+# Be forwarned that the debug log can get pretty big depending on
 # how many times you "wait" in the queue.
 # (C) 1989 Kent C. Brodie - Medical College of Wisconsin
 
-# P0 is systemname , P1 is username, P2 is password. 
+# P0 is systemname , P1 is username, P2 is password.
 
 	zero
 
 # send a CR to get the selector's attention.  Sleep a little bit
 # due to large login text of selector.   It sends "Which System?"
-# when it's ready. 
+# when it's ready.
 
 getprtslct:
 	count
@@ -62,7 +62,7 @@ prtwaitbad:
 
 # Here's where we wait in the queue.  The port selector sends us a status
 # message about once a minute.  We either get "nn Your place in queue"
-# or we get "System Available.  Are you Ready?". 
+# or we get "System Available.  Are you Ready?".
 # If something goes wrong, we time out waiting for either response.
 # The reason we don't sleep for 40-50 seconds is because as SOON as the
 # port is ready, it informs us.  If we wait too long, it drops us.
@@ -95,8 +95,8 @@ noconnect:
 	logerr	Sent system name, no "OK" from selector
 	failed
 
-# standard Unix login stuff.  Send cr, expect "ogin:", if no, send a break 
-# (which tells Unix to try the next bit rate) and try again.  
+# standard Unix login stuff.  Send cr, expect "ogin:", if no, send a break
+# (which tells Unix to try the next bit rate) and try again.
 
 connected:
 	send	\r

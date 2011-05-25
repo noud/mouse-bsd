@@ -41,7 +41,7 @@
  *
  *	%W% (Berkeley) %G%
  *
- * Id: conf_tok.l,v 1.2 1999/01/10 21:53:45 ezk Exp 
+ * Id: conf_tok.l,v 1.2 1999/01/10 21:53:45 ezk Exp
  *
  */
 

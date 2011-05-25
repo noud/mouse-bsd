@@ -31,7 +31,7 @@
  */
 
 /* The view major device is a placeholder device.  It serves
- * simply to map the semantics of a graphics dipslay to 
+ * simply to map the semantics of a graphics dipslay to
  * the semantics of a character block device.  In other
  * words the graphics system as currently built does not like to be
  * refered to by open/close/ioctl.  This device serves as
@@ -74,7 +74,7 @@ int view_default_width = 640;
 int view_default_height = 400;
 int view_default_depth = 2;
 
-/* 
+/*
  *  functions for probeing.
  */
 
@@ -91,7 +91,7 @@ void
 viewprobe()
 {
     	int i;
-	
+
 	if (view_inited)
 		return;
 
@@ -117,14 +117,14 @@ view_display (vu)
 
 	if (vu == NULL)
 		return;
-	
+
 	s = spltty ();
 
 	/*
-	 * mark views that share this monitor as not displaying 
+	 * mark views that share this monitor as not displaying
 	 */
 	for (i=0; i<NVIEW; i++) {
-		if ((views[i].flags & VUF_DISPLAY) && 
+		if ((views[i].flags & VUF_DISPLAY) &&
 		    views[i].monitor == vu->monitor)
 			views[i].flags &= ~VUF_DISPLAY;
 	}
@@ -143,7 +143,7 @@ view_display (vu)
 	splx(s);
 }
 
-/* 
+/*
  * remove a view from our added list if it is marked as displaying
  * switch to a new display.
  */
@@ -159,7 +159,7 @@ view_remove(vu)
 	vu->flags &= ~VUF_ADDED;
 	if (vu->flags & VUF_DISPLAY) {
 		for (i = 0; i < NVIEW; i++) {
-			if ((views[i].flags & VUF_ADDED) && &views[i] != vu && 
+			if ((views[i].flags & VUF_ADDED) && &views[i] != vu &&
 			    views[i].monitor == vu->monitor) {
 				view_display(&views[i]);
 				break;
@@ -178,7 +178,7 @@ view_setsize(vu, vs)
 	view_t *new, *old;
 	dimen_t ns;
 	int co, cs;
-   
+
 	co = 0;
 	cs = 0;
 	if (vs->x != vu->size.x || vs->y != vu->size.y)
@@ -190,14 +190,14 @@ view_setsize(vu, vs)
 
 	if (cs == 0 && co == 0)
 		return(0);
-    
+
 	ns.width = vs->width;
 	ns.height = vs->height;
 
 	new = grf_alloc_view(NULL, &ns, vs->depth);
 	if (new == NULL)
 		return(ENOMEM);
-	
+
 	old = vu->view;
 	vu->view = new;
 	vu->size.x = new->display.x;
@@ -210,9 +210,9 @@ view_setsize(vu, vs)
 	vu->size.x = vs->x;
 	vu->size.y = vs->y;
 
-	/* 
-	 * we need a custom remove here to avoid letting 
-	 * another view display mark as not added or displayed 
+	/*
+	 * we need a custom remove here to avoid letting
+	 * another view display mark as not added or displayed
 	 */
 	if (vu->flags & VUF_DISPLAY) {
 		vu->flags &= ~(VUF_ADDED|VUF_DISPLAY);
@@ -283,7 +283,7 @@ viewclose (dev, flags, mode, p)
 	vu->flags = 0;
 	vu->view = NULL;
 	vu->mode = NULL;
-	vu->monitor = NULL;	
+	vu->monitor = NULL;
        	return(0);
 }
 
@@ -312,7 +312,7 @@ viewioctl (dev, cmd, data, flag, p)
 		view_remove(vu);
 		break;
 	case VIOCGSIZE:
-		bcopy(&vu->size, data, sizeof (struct view_size)); 
+		bcopy(&vu->size, data, sizeof (struct view_size));
 		break;
 	case VIOCSSIZE:
 		error = view_setsize(vu, (struct view_size *)data);
@@ -354,11 +354,11 @@ view_get_colormap (vu, ucm)
 		return(ENOMEM);
 
 	uep = ucm->entry;
-	error = 0;	
+	error = 0;
 	ucm->entry = cme;	  /* set entry to out alloc. */
 	if (vu->view == NULL || grf_get_colormap(vu->view, ucm))
 		error = EINVAL;
-	else 
+	else
 		error = copyout(cme, uep, sizeof(u_long) * ucm->size);
 	ucm->entry = uep;	  /* set entry back to users. */
 	free(cme, M_IOCTLOPS);
@@ -381,7 +381,7 @@ view_set_colormap(vu, ucm)
 
 	bcopy (ucm, cm, sizeof(colormap_t));
 	cm->entry = (u_long *)&cm[1];		 /* table directly after. */
-	if (((error = 
+	if (((error =
 	    copyin(ucm->entry, cm->entry, sizeof (u_long) * ucm->size)) == 0)
 	    && (vu->view == NULL || grf_use_colormap(vu->view, cm)))
 		error = EINVAL;
@@ -398,11 +398,11 @@ viewmmap(dev, off, prot)
 	struct view_softc *vu;
 	bmap_t *bm;
 	u_char *bmd_start;
-	u_long bmd_size; 
+	u_long bmd_size;
 
 	vu = &views[minor(dev)];
 	bm = vu->view->bitmap;
-	bmd_start = bm->hardware_address; 
+	bmd_start = bm->hardware_address;
 	bmd_size = bm->bytes_per_row*bm->rows*bm->depth;
 
 	if (off >= 0 && off < bmd_size)

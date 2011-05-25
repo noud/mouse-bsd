@@ -258,7 +258,7 @@ char *id;
 		bp = kskip(bp);
 		if (*bp == 0)
 			return (-1);
-		if ((xp=nmatch(id,bp)) == 0) 
+		if ((xp=nmatch(id,bp)) == 0)
 			continue;
 		bp = xp;	/* we have an entry */
 		if (*bp == '@')

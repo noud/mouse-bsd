@@ -5,17 +5,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -221,11 +221,11 @@ tc_3000_500_iointr(framep, vec)
 		ifound = 0;
 
 #ifdef EVCNT_COUNTERS
-	/* No interrupt counting via evcnt counters */ 
+	/* No interrupt counting via evcnt counters */
 	XXX BREAK HERE XXX
 #else /* !EVCNT_COUNTERS */
 #define	INCRINTRCNT(slot)	intrcnt[INTRCNT_KN15 + slot]++
-#endif /* EVCNT_COUNTERS */ 
+#endif /* EVCNT_COUNTERS */
 
 #define	CHECKINTR(slot)							\
 		if (ir & tc_3000_500_intrbits[slot]) {			\
@@ -323,7 +323,7 @@ tc_3000_500_ioslot(slot, flags, set)
 	volatile u_int32_t *iosp;
 	u_int32_t ios;
 	int s;
-	
+
 	iosp = (volatile u_int32_t *)TC_3000_500_IOSLOT;
 	ios = *iosp;
 	flags <<= (slot * 3);

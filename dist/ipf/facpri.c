@@ -35,7 +35,7 @@ table_t	facs[] = {
 	{ "auth", LOG_AUTH },	{ "syslog", LOG_SYSLOG },
 	{ "lpr", LOG_LPR },	{ "news", LOG_NEWS },
 	{ "uucp", LOG_UUCP },
-#if LOG_CRON == LOG_CRON2 
+#if LOG_CRON == LOG_CRON2
 	{ "cron2", LOG_CRON1 },
 #else
 	{ "cron", LOG_CRON1 },

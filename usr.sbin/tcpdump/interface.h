@@ -198,11 +198,11 @@ struct pcap_pkthdr;
 struct p8022Hdr;
 #endif
 
-extern void ascii_print_with_offset(const u_char *, u_int, u_int);    
-extern void ascii_print(const u_char *, u_int);    
-extern void hex_print_with_offset(const u_char *, u_int, u_int);    
-extern void hex_print(const u_char *, u_int);    
-extern void telnet_print(const u_char *, u_int);    
+extern void ascii_print_with_offset(const u_char *, u_int, u_int);
+extern void ascii_print(const u_char *, u_int);
+extern void hex_print_with_offset(const u_char *, u_int, u_int);
+extern void hex_print(const u_char *, u_int);
+extern void telnet_print(const u_char *, u_int);
 extern int ether_encap_print(u_short, const u_char *, u_int, u_int);
 extern int llc_print(const u_char *, u_int, u_int, const u_char *,
 	const u_char *);

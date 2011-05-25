@@ -409,17 +409,17 @@ find_saved_register (frame, regnum)
      callers to this routine asking for the stack pointer want the
      stack pointer saved for *this* frame; this is returned from the
      next frame.  */
-     
+
   if (REGISTER_IN_WINDOW_P(regnum))
     {
       frame1 = get_next_frame (frame);
       if (!frame1) return 0;	/* Registers of this frame are active.  */
-      
+
       /* Get the SP from the next frame in; it will be this
 	 current frame.  */
       if (regnum != SP_REGNUM)
-	frame1 = frame;	
-	  
+	frame1 = frame;
+
       get_frame_saved_regs (frame1, &saved_regs);
       return saved_regs.regs[regnum];	/* ... which might be zero */
     }
@@ -743,7 +743,7 @@ write_register_gen (regno, myaddr)
   if (register_valid [regno]
       && memcmp (&registers[REGISTER_BYTE (regno)], myaddr, size) == 0)
     return;
-  
+
   target_prepare_to_store ();
 
   memcpy (&registers[REGISTER_BYTE (regno)], myaddr, size);
@@ -881,7 +881,7 @@ write_register (regno, val)
   if (register_valid [regno]
       && memcmp (&registers[REGISTER_BYTE (regno)], buf, size) == 0)
     return;
-  
+
   target_prepare_to_store ();
 
   memcpy (&registers[REGISTER_BYTE (regno)], buf, size);
@@ -1083,7 +1083,7 @@ symbol_read_needs_frame (sym)
 
 /* Given a struct symbol for a variable,
    and a stack frame id, read the value of the variable
-   and return a (pointer to a) struct value containing the value. 
+   and return a (pointer to a) struct value containing the value.
    If the variable cannot be found, return a zero pointer.
    If FRAME is NULL, use the selected_frame.  */
 
@@ -1117,11 +1117,11 @@ read_var_value (var, frame)
     case LOC_LABEL:
       /* Put the constant back in target format.  */
       if (overlay_debugging)
-	store_address (VALUE_CONTENTS_RAW (v), len, 
+	store_address (VALUE_CONTENTS_RAW (v), len,
 		       symbol_overlayed_address (SYMBOL_VALUE_ADDRESS (var),
 						 SYMBOL_BFD_SECTION (var)));
       else
-	store_address (VALUE_CONTENTS_RAW (v), len, 
+	store_address (VALUE_CONTENTS_RAW (v), len,
 		       SYMBOL_VALUE_ADDRESS (var));
       VALUE_LVAL (v) = not_lval;
       return v;
@@ -1181,14 +1181,14 @@ read_var_value (var, frame)
 	addr += SYMBOL_VALUE (var);
 	break;
       }
-			    
+
     case LOC_TYPEDEF:
       error ("Cannot look up value of a typedef");
       break;
 
     case LOC_BLOCK:
       if (overlay_debugging)
-	VALUE_ADDRESS (v) = symbol_overlayed_address 
+	VALUE_ADDRESS (v) = symbol_overlayed_address
 	  (BLOCK_START (SYMBOL_BLOCK_VALUE (var)), SYMBOL_BFD_SECTION (var));
       else
 	VALUE_ADDRESS (v) = BLOCK_START (SYMBOL_BLOCK_VALUE (var));
@@ -1203,7 +1203,7 @@ read_var_value (var, frame)
 	if (frame == NULL)
 	  return 0;
 	b = get_frame_block (frame);
-	
+
 
 	if (SYMBOL_CLASS (var) == LOC_REGPARM_ADDR)
 	  {
@@ -1283,7 +1283,7 @@ value_from_register (type, regnum, frame)
       )
     {
       /* Value spread across multiple storage locations.  */
-      
+
       int local_regnum;
       int mem_stor = 0, reg_stor = 0;
       int mem_tracking = 1;
@@ -1372,7 +1372,7 @@ value_from_register (type, regnum, frame)
 	    else
 	      {
 		mem_stor++;
-	      
+
 		mem_tracking =
 		  (mem_tracking
 		   && (regnum == local_regnum
@@ -1431,7 +1431,7 @@ value_from_register (type, regnum, frame)
   VALUE_ADDRESS (v) = addr;
 
   /* Convert raw data to virtual format if necessary.  */
-  
+
 #ifdef REGISTER_CONVERTIBLE
   if (REGISTER_CONVERTIBLE (regnum))
     {
@@ -1451,12 +1451,12 @@ value_from_register (type, regnum, frame)
 
       memcpy (VALUE_CONTENTS_RAW (v), raw_buffer + VALUE_OFFSET (v), len);
     }
-  
+
   return v;
 }
 
 /* Given a struct symbol for a variable or function,
-   and a stack frame id, 
+   and a stack frame id,
    return a (pointer to a) struct value containing the properly typed
    address.  */
 
@@ -1488,7 +1488,7 @@ locate_var_value (var, frame)
     }
 
   /* Not a memory address; check what the problem was.  */
-  switch (VALUE_LVAL (lazy_value)) 
+  switch (VALUE_LVAL (lazy_value))
     {
     case lval_register:
     case lval_reg_frame_relative:

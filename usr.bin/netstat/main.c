@@ -683,7 +683,7 @@ usage()
 	(void)fprintf(stderr,
 "usage: %s [-Aan] [-f address_family] [-M core] [-N system]\n", __progname);
 	(void)fprintf(stderr,
-"       %s [-gimnrsv] [-f address_family] [-M core] [-N system]\n", 
+"       %s [-gimnrsv] [-f address_family] [-M core] [-N system]\n",
 	__progname);
 	(void)fprintf(stderr,
 "       %s [-n] [-I interface] [-M core] [-N system] [-w wait]\n", __progname);

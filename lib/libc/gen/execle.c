@@ -90,10 +90,10 @@ execle(name, arg, va_alist)
 	va_end(ap);
 
 	argv = alloca (i * sizeof (char *));
-	
+
 	VA_START(ap, arg);
 	argv[0] = (char *) arg;
-	for (i = 1; (argv[i] = (char *) va_arg(ap, char *)) != NULL; i++) 
+	for (i = 1; (argv[i] = (char *) va_arg(ap, char *)) != NULL; i++)
 		;
 	envp = (char **) va_arg(ap, char **);
 	va_end(ap);

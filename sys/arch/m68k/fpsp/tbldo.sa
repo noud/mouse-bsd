@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -38,12 +38,12 @@
 *			of indirection in do_func for monoadic
 *			functions.  Dyadic functions require two
 *			levels, and the tables are still contained
-*			in do_func.  The table is arranged for 
+*			in do_func.  The table is arranged for
 *			index with a 10-bit index, with the first
 *			7 bits the opcode, and the remaining 3
 *			the stag.  For dyadic functions, all
 *			valid addresses are to the generic entry
-*			point. 
+*			point.
 *
 
 TBLDO	IDNT    2,1 Motorola 040 Floating Point Software Package
@@ -82,7 +82,7 @@ tblpre:
 	dc.l	smovcr		;$00-7 fmovecr all
 
 	dc.l	sint		;$01-0 fint norm
-	dc.l	szero		;$01-1 fint zero 
+	dc.l	szero		;$01-1 fint zero
 	dc.l	sinf		;$01-2 fint inf
 	dc.l	src_nan		;$01-3 fint nan
 	dc.l	sintd		;$01-4 fint denorm inx

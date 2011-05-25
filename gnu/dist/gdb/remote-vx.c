@@ -95,7 +95,7 @@ static struct timeval rpcTimeout = { 10, 0 };
 
 static char *skip_white_space ();
 static char *find_white_space ();
- 
+
 /* Tell the VxWorks target system to download a file.
    The load addresses of the text, data, and bss segments are
    stored in *pTextAddr, *pDataAddr, and *pBssAddr (respectively).
@@ -118,14 +118,14 @@ net_load (filename, pTextAddr, pDataAddr, pBssAddr)
      net_clnt_call (), because we need to set a large timeout value.
      The load on the target side can take quite a while, easily
      more than 10 seconds.  The user can kill this call by typing
-     CTRL-C if there really is a problem with the load.  
+     CTRL-C if there really is a problem with the load.
 
      Do not change the tv_sec value without checking -- select() imposes
      a limit of 10**8 on it for no good reason that I can see...  */
 
   load_timeout.tv_sec = 99999999;   /* A large number, effectively inf. */
   load_timeout.tv_usec = 0;
- 
+
   status = clnt_call (pClient, VX_LOAD, xdr_wrapstring, &filename, xdr_ldfile,
 		      &ldstruct, load_timeout);
 
@@ -195,7 +195,7 @@ vx_remove_breakpoint (addr)
    ENV is the environment vector to pass.
    Returns process id.  Errors reported with error().
    On VxWorks, we ignore exec_file.  */
- 
+
 static void
 vx_create_inferior (exec_file, args, env)
      char *exec_file;
@@ -260,9 +260,9 @@ parse_args (arg_string, arg_struct)
   register int arg_count = 0;	/* number of arguments */
   register int arg_index = 0;
   register char *p0;
- 
+
   memset ((char *) arg_struct, '\0', sizeof (arg_array));
- 
+
   /* first count how many arguments there are */
 
   p0 = arg_string;
@@ -302,7 +302,7 @@ skip_white_space (p)
     p++;
   return p;
 }
-    
+
 /* Search for the first unquoted whitespace character in a string.
    Returns a pointer to the character, or to the null terminator
    if no whitespace is found.  */
@@ -329,7 +329,7 @@ find_white_space (p)
     }
   return p;
 }
-    
+
 /* Poll the VxWorks target system for an event related
    to the debugged task.
    Returns -1 if remote wait failed, task status otherwise.  */
@@ -355,7 +355,7 @@ net_wait (pEvent)
     else
       return (-1);
 }
-    
+
 /* Suspend the remote task.
    Returns -1 if suspend fails on target system, 0 otherwise.  */
 
@@ -577,7 +577,7 @@ vx_files_info ()
 static void
 vx_run_files_info ()
 {
-  printf_unfiltered ("\tRunning %s VxWorks process %s", 
+  printf_unfiltered ("\tRunning %s VxWorks process %s",
 		     vx_running ? "child" : "attached",
 		     local_hex_string (inferior_pid));
   if (vx_running)
@@ -790,7 +790,7 @@ net_step ()
 
   if (status == RPC_SUCCESS)
     return step_status;
-  else 
+  else
     error (rpcerr);
 }
 
@@ -816,7 +816,7 @@ net_ptrace_clnt_call (request, pPtraceIn, pPtraceOut)
 
 /* Query the target for the name of the file from which VxWorks was
    booted.  pBootFile is the address of a pointer to the buffer to
-   receive the file name; if the pointer pointed to by pBootFile is 
+   receive the file name; if the pointer pointed to by pBootFile is
    NULL, memory for the buffer will be allocated by XDR.
    Returns -1 if rpc failed, 0 otherwise.  */
 
@@ -943,7 +943,7 @@ net_connect (host)
     }
 }
 
-/* Sleep for the specified number of milliseconds 
+/* Sleep for the specified number of milliseconds
  * (assumed to be less than 1000).
  * If select () is interrupted, returns immediately;
  * takes an error exit if select () fails for some other reason.
@@ -989,7 +989,7 @@ vx_wait (pid_to_wait_for, status)
 
       /* If a net_quit () or net_wait () call has failed,
 	 allow the user to break the connection with the target.
-	 We can't simply error () out of this loop, since the 
+	 We can't simply error () out of this loop, since the
 	 data structures representing the state of the inferior
 	 are in an inconsistent state.  */
 
@@ -1009,7 +1009,7 @@ vx_wait (pid_to_wait_for, status)
 	      continue;
 	    }
 	}
-      
+
       pid = rdbEvent.taskId;
       if (pid == 0)
 	{
@@ -1118,7 +1118,7 @@ vx_open (args, from_tty)
     error_no_arg ("target machine name");
 
   target_preopen (from_tty);
-  
+
   unpush_target (&vx_ops);
   printf_unfiltered ("Attaching remote machine across net...\n");
   gdb_flush (gdb_stdout);
@@ -1286,7 +1286,7 @@ vx_detach (args, from_tty)
 
   if (args)		/* FIXME, should be possible to leave suspended */
     signal = atoi (args);
-  
+
   memset ((char *)&ptrace_in,  '\0', sizeof (ptrace_in));
   memset ((char *)&ptrace_out, '\0', sizeof (ptrace_out));
   ptrace_in.pid = inferior_pid;
@@ -1358,7 +1358,7 @@ net_clnt_call (procNum, inProc, in, outProc, out)
     char *out;
 {
   enum clnt_stat status;
-  
+
   status = clnt_call (pClient, procNum, inProc, in, outProc, out, rpcTimeout);
 
   if (status != RPC_SUCCESS)

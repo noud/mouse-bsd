@@ -5,7 +5,7 @@
  * -
  * Copyright (c) 1985, 1988, 1993
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -21,7 +21,7 @@
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -35,14 +35,14 @@
  * SUCH DAMAGE.
  * -
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -584,7 +584,7 @@ gethostbyname2(name, af)
 				h_errno = NETDB_SUCCESS;
 				return (&host);
 			}
-			if (!isdigit(*cp) && *cp != '.') 
+			if (!isdigit(*cp) && *cp != '.')
 				break;
 		}
 	if ((isxdigit(name[0]) && strchr(name, ':') != NULL) ||
@@ -616,7 +616,7 @@ gethostbyname2(name, af)
 				h_errno = NETDB_SUCCESS;
 				return (&host);
 			}
-			if (!isxdigit(*cp) && *cp != ':' && *cp != '.') 
+			if (!isxdigit(*cp) && *cp != ':' && *cp != '.')
 				break;
 		}
 
@@ -643,7 +643,7 @@ gethostbyaddr(addr, len, af)
 		NS_NIS_CB(_yp_gethtbyaddr, NULL)
 		{ 0 }
 	};
-	
+
 	_DIAGASSERT(addr != NULL);
 
 	if (af == AF_INET6 && len == IN6ADDRSZ &&
@@ -912,7 +912,7 @@ _gethtbyaddr(rv, cb_data, ap)
 	addr = va_arg(ap, unsigned char *);
 	len = va_arg(ap, int);
 	af = va_arg(ap, int);
-	
+
 	host.h_length = len;
 	host.h_addrtype = af;
 
@@ -1002,7 +1002,7 @@ addrsort(ap, num)
 	p = ap;
 	for (i = 0; i < num; i++, p++) {
 	    for (j = 0 ; (unsigned)j < _res.nsort; j++)
-		if (_res.sort_list[j].addr.s_addr == 
+		if (_res.sort_list[j].addr.s_addr ==
 		    (((struct in_addr *)(void *)(*p))->s_addr &
 		    _res.sort_list[j].mask))
 			break;
@@ -1305,7 +1305,7 @@ _yp_gethtbyaddr(rv, cb_data, ap)
 	uaddr = va_arg(ap, unsigned char *);
 	/* NOSTRICT skip len */(void)va_arg(ap, int);
 	af = va_arg(ap, int);
-	
+
 	if (!__ypdomain) {
 		if (_yp_check(&__ypdomain) == 0)
 			return NS_UNAVAIL;

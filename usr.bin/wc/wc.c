@@ -130,7 +130,7 @@ main(argc, argv)
 		} while(*++argv);
 
 		if (dototal)
-			print_counts(tlinect, twordct, tcharct, "total"); 
+			print_counts(tlinect, twordct, tcharct, "total");
 	}
 
 	exit(rval);
@@ -158,7 +158,7 @@ cnt(file)
 	} else  {
 		fd = STDIN_FILENO;
 	}
-	
+
 	if (!doword) {
 		/*
 		 * line counting is split out because it's a lot

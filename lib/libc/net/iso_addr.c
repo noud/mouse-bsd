@@ -77,7 +77,7 @@ iso_addr(addr)
 			newaddr = *addr - 'a' + 10;
 		} else if ((*addr >= 'A') && (*addr <= 'F')) {
 			newaddr = *addr - 'A' + 10;
-		} else if (*addr == 0) 
+		} else if (*addr == 0)
 			state |= END;
 		else
 			state |= DELIM;
@@ -98,7 +98,7 @@ iso_addr(addr)
 			break;
 		}
 		break;
-	} while (cp < cplim); 
+	} while (cp < cplim);
 	out_addr.isoa_len = cp - out_addr.isoa_genaddr;
 	return (&out_addr);
 }
@@ -110,7 +110,7 @@ iso_ntoa(isoa)
 	const struct iso_addr *isoa;
 {
 	static char obuf[64];
-	register char *out = obuf; 
+	register char *out = obuf;
 	register size_t i;
 	register u_char *in = (u_char *)isoa->isoa_genaddr;
 	u_char *inlim = in + isoa->isoa_len;

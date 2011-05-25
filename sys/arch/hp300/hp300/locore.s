@@ -539,7 +539,7 @@ GLOBAL(proc_trampoline)
 
 /*
  * Trap/interrupt vector routines
- */ 
+ */
 #include <m68k/m68k/trap_subr.s>
 
 	.data
@@ -566,7 +566,7 @@ ENTRY_NOPROFILE(buserr60)
 	movl	%a0,%sp@(FR_SP)		|   in the savearea
 	movel	%sp@(FR_HW+12),%d0	| FSLW
 	btst	#2,%d0			| branch prediction error?
-	jeq	Lnobpe			
+	jeq	Lnobpe
 	movc	%cacr,%d2
 	orl	#IC60_CABC,%d2		| clear all branch cache entries
 	movc	%d2,%cacr
@@ -586,7 +586,7 @@ Lnobpe:
 Lberr3:
 	movl	%d1,%sp@-
 	movl	%d0,%sp@-			| code is FSLW now.
-	andw	#0x1f80,%d0 
+	andw	#0x1f80,%d0
 	jeq	Lberr60			| it is a bus error
 	movl	#T_MMUFLT,%sp@-		| show that we are an MMU fault
 	jra	_ASM_LABEL(faultstkadj)	| and deal with it
@@ -840,7 +840,7 @@ ENTRY_NOPROFILE(trap0)
 	movw	#SPL1,%sr
 	tstb	_C_LABEL(ssir)
 	jne	Lsir1
-Ltrap1:	
+Ltrap1:
 	movl	%sp@(FR_SP),%a0		| grab and restore
 	movl	%a0,%usp			|   user SP
 	moveml	%sp@+,#0x7FFF		| restore most registers
@@ -1145,7 +1145,7 @@ Lgotsir:
 	moveml	#0xFFFF,%sp@-		| save all registers
 	movl	%usp,%a1			| including
 	movl	%a1,%sp@(FR_SP)		|    the users SP
-Lsir1:	
+Lsir1:
 	clrl	%sp@-			| VA == none
 	clrl	%sp@-			| code == none
 	movl	#T_SSIR,%sp@-		| type == software interrupt
@@ -1168,7 +1168,7 @@ Ldorte:
 
 /*
  * Primitives
- */ 
+ */
 
 /*
  * Use common m68k support routines.

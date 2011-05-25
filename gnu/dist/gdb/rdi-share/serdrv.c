@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright (C) 1995 Advanced RISC Machines Limited. All rights reserved.
- * 
+ *
  * This software may be freely used, copied, modified, and distributed
  * provided that the above copyright notice is preserved in all copies of the
  * software.
@@ -50,7 +50,7 @@
 #ifndef UNUSED
 #  define UNUSED(x) (x = x)      /* Silence compiler warnings */
 #endif
- 
+
 #define MAXREADSIZE 512
 #define MAXWRITESIZE 512
 
@@ -82,7 +82,7 @@ static struct writestate wstate;
  */
 static unsigned int baud_options[] = {
 #ifdef __hpux
-    115200, 57600, 
+    115200, 57600,
 #endif
     38400, 19200, 9600
 };
@@ -96,7 +96,7 @@ static ParameterList param_list[] = {
 static const ParameterOptions serial_options = {
     sizeof(param_list)/sizeof(ParameterList), param_list };
 
-/* 
+/*
  * The default parameter config for the device
  */
 static Parameter param_default[] = {
@@ -171,7 +171,7 @@ static void process_baud_rate( unsigned int target_baud_rate )
 
                break;   /* out of i loop */
            }
-                
+
 #ifdef DEBUG
         if ( i >= full_list->num_options )
            printf( "couldn't match baud rate %u\n", target_baud_rate );
@@ -250,7 +250,7 @@ static int SerialOpen(const char *name, const char *arg)
      * DANGER!: passing in NULL as the packet is ok for now as it is just
      * IGNOREd but this may well change
      */
-    Angel_TxEngineInit(&config, NULL, &wstate.txstate); 
+    Angel_TxEngineInit(&config, NULL, &wstate.txstate);
     return 0;
 }
 
@@ -343,7 +343,7 @@ static int SerialRead(DriverCall *dc, bool block) {
 #endif
 
     switch(restatus) {
-      
+
       case RS_GOOD_PKT:
         ret_code = 1;
         /* fall through to: */
@@ -351,8 +351,8 @@ static int SerialRead(DriverCall *dc, bool block) {
       case RS_BAD_PKT:
         /*
          * We now need to shuffle any left over data down to the
-         * beginning of our private buffer ready to be used 
-         *for the next packet 
+         * beginning of our private buffer ready to be used
+         *for the next packet
          */
 #ifdef DO_TRACE
         printf("SerialRead() processed %d, moving down %d\n", c, rbindex-c);
@@ -413,7 +413,7 @@ static int SerialWrite(DriverCall *dc) {
   }
 
 #ifdef DO_TRACE
-  { 
+  {
     int i = 0;
 
     while (i<wstate.wbindex)
@@ -457,7 +457,7 @@ static int SerialWrite(DriverCall *dc) {
     printf("Wrote %#04x bytes\n", nwritten);
 #endif
 
-  if ((unsigned) nwritten == wstate.wbindex && 
+  if ((unsigned) nwritten == wstate.wbindex &&
       (testatus == TS_DONE_PKT || testatus == TS_IDLE)) {
 
     /* finished sending the packet */
@@ -474,7 +474,7 @@ static int SerialWrite(DriverCall *dc) {
     printf("SerialWrite: Wrote part of packet wbindex=%i, nwritten=%i\n",
            wstate.wbindex, nwritten);
 #endif
-   
+
     /*
      *  still some data left to send shuffle whats left down and reset
      * the ptr
@@ -612,15 +612,15 @@ static int SerialIoctl(const int opcode, void *args) {
 
     switch (opcode)
     {
-       case DC_RESET:         
+       case DC_RESET:
            ret_code = serial_reset();
            break;
 
-       case DC_SET_PARAMS:     
+       case DC_SET_PARAMS:
            ret_code = serial_set_params((const ParameterConfig *)args);
            break;
 
-       case DC_GET_USER_PARAMS:     
+       case DC_GET_USER_PARAMS:
            ret_code = serial_get_user_params((ParameterOptions **)args);
            break;
 
@@ -628,7 +628,7 @@ static int SerialIoctl(const int opcode, void *args) {
            ret_code = serial_get_default_params((ParameterConfig **)args);
            break;
 
-       default:               
+       default:
            ret_code = DE_BAD_OP;
            break;
     }

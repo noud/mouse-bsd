@@ -19,10 +19,10 @@ static const char rcsid[] = "$Header: /cvsroot/basesrc/dist/bind/lib/dst/bsafe_l
  * NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
  * WITH THE USE OR PERFORMANCE OF THE SOFTWARE.
  */
-/* 
- * This file contains two components 
- * 1. Interface to the BSAFE library to allow compilation of Bind 
- *    with TIS/DNSSEC when BSAFE is not available 
+/*
+ * This file contains two components
+ * 1. Interface to the BSAFE library to allow compilation of Bind
+ *    with TIS/DNSSEC when BSAFE is not available
  *    all calls to BSAFE are contained inside this file.
  * 2. The glue to connvert RSA KEYS to and from external formats
  */
@@ -116,8 +116,8 @@ static int dst_bsafe_compare_keys(const DST_KEY *key1, const DST_KEY *key2);
 static void *dst_bsafe_free_key_structure(void *key);
 
 /*
- * dst_bsafe_init()  Function to answer set up function pointers for 
- *	   BSAFE/DNSSAFE related functions 
+ * dst_bsafe_init()  Function to answer set up function pointers for
+ *	   BSAFE/DNSSAFE related functions
  */
 int
 dst_bsafe_init()
@@ -143,7 +143,7 @@ dst_bsafe_init()
 /*
  * dst_bsafe_sign
  *     Call BSAFE signing functions to sign a block of data.
- *     There are three steps to signing, INIT (initialize structures), 
+ *     There are three steps to signing, INIT (initialize structures),
  *     UPDATE (hash (more) data), FINAL (generate a signature).  This
  *     routine performs one or more of these steps.
  * Parameters
@@ -155,7 +155,7 @@ dst_bsafe_init()
  *     priv_key    key to use for signing.
  *     signature   location to store signature.
  *     sig_len     size in bytes of signature field.
- * returns 
+ * returns
  *	N  Success on SIG_MODE_FINAL = returns signature length in bytes
  *	0  Success on SIG_MODE_INIT  and UPDATE
  *	 <0  Failure
@@ -163,7 +163,7 @@ dst_bsafe_init()
 
 static int
 dst_bsafe_sign(const int mode, DST_KEY *dkey, void **context,
-	       const u_char *data, const int len, 
+	       const u_char *data, const int len,
 	       u_char *signature, const int sig_len)
 {
 	u_int sign_len = 0;
@@ -173,19 +173,19 @@ dst_bsafe_sign(const int mode, DST_KEY *dkey, void **context,
 	u_int u_bytes = 0;
 	u_char work_area[NS_MD5RSA_MAX_SIZE];
 
-	if (mode & SIG_MODE_INIT) { 
+	if (mode & SIG_MODE_INIT) {
 		md5_ctx = (B_ALGORITHM_OBJ *) malloc(sizeof(B_ALGORITHM_OBJ));
 		if ((status = B_CreateAlgorithmObject(md5_ctx)))
 			return (-1);
 		if ((status = B_SetAlgorithmInfo(*md5_ctx, AI_MD5, NULL)))
 			return (-1);
 	}
-	else if (context) 
+	else if (context)
 		md5_ctx = (B_ALGORITHM_OBJ *) *context;
-	if (md5_ctx == NULL) 
+	if (md5_ctx == NULL)
 		return (-1);
 
-	w_bytes = dst_bsafe_md5digest(mode, md5_ctx, 
+	w_bytes = dst_bsafe_md5digest(mode, md5_ctx,
 				      data, len,work_area, sizeof(work_area));
         if (w_bytes < 0 || (mode & SIG_MODE_FINAL)) {
 		B_DestroyAlgorithmObject(md5_ctx);
@@ -198,7 +198,7 @@ dst_bsafe_sign(const int mode, DST_KEY *dkey, void **context,
 		RSA_Key *key;
 		int ret = 0;
 		B_ALGORITHM_OBJ rsaEncryptor = (B_ALGORITHM_OBJ) NULL_PTR;
-		
+
 		if (dkey == NULL || dkey->dk_KEY_struct == NULL)
 			return (-1);
 		key = (RSA_Key *) dkey->dk_KEY_struct;
@@ -212,7 +212,7 @@ dst_bsafe_sign(const int mode, DST_KEY *dkey, void **context,
 						 NULL_PTR)))
 
 			ret = SIGN_FINAL_FAILURE;
-		if (ret == 0 && 
+		if (ret == 0 &&
 		    (status = B_EncryptInit(rsaEncryptor,
 					    key->rk_Private_Key,
 					    CHOOSER, NULL_SURRENDER)))
@@ -236,12 +236,12 @@ dst_bsafe_sign(const int mode, DST_KEY *dkey, void **context,
 					     NULL_PTR, NULL_SURRENDER)))
 			ret = SIGN_FINAL_FAILURE;
 		B_DestroyAlgorithmObject(&rsaEncryptor);
-		if (ret != 0) 
+		if (ret != 0)
 			return (ret);
 
 	}
 	else {
-		if (context == NULL) 
+		if (context == NULL)
 			return (-1);
 		*context = (void *) md5_ctx;
 	}
@@ -250,10 +250,10 @@ dst_bsafe_sign(const int mode, DST_KEY *dkey, void **context,
 
 
 /*
- * Dst_bsafe_verify 
- *     Calls BSAFE verification routines.  There are three steps to 
- *     verification, INIT (initialize structures), UPDATE (hash (more) data), 
- *     FINAL (generate a signature).  This routine performs one or more of 
+ * Dst_bsafe_verify
+ *     Calls BSAFE verification routines.  There are three steps to
+ *     verification, INIT (initialize structures), UPDATE (hash (more) data),
+ *     FINAL (generate a signature).  This routine performs one or more of
  *     these steps.
  * Parameters
  *     mode	SIG_MODE_INIT, SIG_MODE_UPDATE and/or SIG_MODE_FINAL.
@@ -264,8 +264,8 @@ dst_bsafe_sign(const int mode, DST_KEY *dkey, void **context,
  *     pub_key     key to use for verify.
  *     signature   signature.
  *     sig_len     length in bytes of signature.
- * returns 
- *     0  Success 
+ * returns
+ *     0  Success
  *    <0  Failure
  */
 
@@ -280,19 +280,19 @@ dst_bsafe_verify(const int mode, DST_KEY *dkey, void **context,
 	int status = 0, w_bytes = 0;
 	u_int u_bytes = 0;
 
-	if (mode & SIG_MODE_INIT) { 
+	if (mode & SIG_MODE_INIT) {
 		md5_ctx = (B_ALGORITHM_OBJ *) malloc(sizeof(B_ALGORITHM_OBJ));
 		if ((status = B_CreateAlgorithmObject(md5_ctx)))
 			return (-1);
 		if ((status = B_SetAlgorithmInfo(*md5_ctx, AI_MD5, NULL)))
 			return (-1);
 	}
-	else if (context) 
+	else if (context)
 		md5_ctx = (B_ALGORITHM_OBJ *) *context;
-	if (md5_ctx == NULL) 
+	if (md5_ctx == NULL)
 		return (-1);
 
-	w_bytes = dst_bsafe_md5digest(mode, md5_ctx, data, len, 
+	w_bytes = dst_bsafe_md5digest(mode, md5_ctx, data, len,
 				      digest, sizeof(digest));
 
 	if (w_bytes < 0 || (mode & SIG_MODE_FINAL)) {
@@ -326,14 +326,14 @@ dst_bsafe_verify(const int mode, DST_KEY *dkey, void **context,
 					    CHOOSER, NULL_SURRENDER)))
 			ret = VERIFY_FINAL_FAILURE;
 
-		if (ret == 0 && 
+		if (ret == 0 &&
 		    (status = B_DecryptUpdate(rsaEncryptor, work_area,
 					      &u_bytes, 0,
 					      (u_char *) signature, sig_len,
 					      NULL_PTR, NULL_SURRENDER)))
 			ret = VERIFY_FINAL_FAILURE;
 
-		if (ret == 0 && 
+		if (ret == 0 &&
 		    (status = B_DecryptFinal(rsaEncryptor, work_area + u_bytes,
 					     &u_bytes,
 					     sizeof(work_area) - u_bytes,
@@ -350,7 +350,7 @@ dst_bsafe_verify(const int mode, DST_KEY *dkey, void **context,
 			return(VERIFY_FINAL_FAILURE);
 	}
 	else {
-		if (context == NULL) 
+		if (context == NULL)
 			return (-1);
 		*context = (void *) md5_ctx;
 	}
@@ -364,12 +364,12 @@ dst_bsafe_verify(const int mode, DST_KEY *dkey, void **context,
  *     This function gets in a pointer to the public key and a work area
  *     to write the key into.
  * Parameters
- *     public    KEY structure 
- *     out_str   buffer to write encoded key into 
+ *     public    KEY structure
+ *     out_str   buffer to write encoded key into
  *     out_len   size of out_str
  * Return
- *	N >= 0 length of encoded key 
- *	n < 0  error 
+ *	N >= 0 length of encoded key
+ *	n < 0  error
  */
 
 static int
@@ -409,7 +409,7 @@ dst_bsafe_to_dns_key(const DST_KEY *in_key, u_char *out_str,
 		memcpy(op, pub->modulus.data, pub->modulus.len);
 		n += pub->modulus.len;
 	}
-	else 
+	else
 		n = -1;
 	return (n);
 }
@@ -417,7 +417,7 @@ dst_bsafe_to_dns_key(const DST_KEY *in_key, u_char *out_str,
 
 /*
  * dst_bsafe_from_dns_key
- *     Converts from a DNS KEY RR format to an RSA KEY. 
+ *     Converts from a DNS KEY RR format to an RSA KEY.
  * Parameters
  *     len    Length in bytes of DNS key
  *     key    DNS key
@@ -465,7 +465,7 @@ dst_bsafe_from_dns_key(DST_KEY *s_key, const u_char *key, const int len)
 		bytes = (int) dst_s_get_int16(key_ptr);
 		key_ptr += sizeof(u_int16_t);
 	}
-	if (bytes > MAX_RSA_MODULUS_LEN) { 
+	if (bytes > MAX_RSA_MODULUS_LEN) {
 		dst_bsafe_free_key_structure(r_key);
 		return (-1);
 	}
@@ -480,7 +480,7 @@ dst_bsafe_from_dns_key(DST_KEY *s_key, const u_char *key, const int len)
 	key_ptr += bytes;	/* beginning of modulus */
 	bytes = len - bytes - 1;	/* length of modulus */
 
-	if (bytes > MAX_RSA_MODULUS_LEN) { 
+	if (bytes > MAX_RSA_MODULUS_LEN) {
 		dst_bsafe_free_key_structure(r_key);
 		return (-1);
 	}
@@ -496,7 +496,7 @@ dst_bsafe_from_dns_key(DST_KEY *s_key, const u_char *key, const int len)
 	s_key->dk_key_size = dst_bsafe_key_size(r_key);
 	SAFE_FREE(public->modulus.data);
 	SAFE_FREE(public->exponent.data);
-	SAFE_FREE(public);	
+	SAFE_FREE(public);
 	return (1);
 }
 
@@ -504,10 +504,10 @@ dst_bsafe_from_dns_key(DST_KEY *s_key, const u_char *key, const int len)
 /*
  *  dst_bsafe_key_to_file_format
  *	Encodes an RSA Key into the portable file format.
- *  Parameters 
- *	rkey      RSA KEY structure 
+ *  Parameters
+ *	rkey      RSA KEY structure
  *	buff      output buffer
- *	buff_len  size of output buffer 
+ *	buff_len  size of output buffer
  *  Return
  *	0  Failure - null input rkey
  *     -1  Failure - not enough space in output area
@@ -599,14 +599,14 @@ dst_bsafe_key_to_file_format(const DST_KEY *key, char *buff,
 
 /*
  * dst_bsafe_key_from_file_format
- *     Converts contents of a private key file into a private RSA key. 
- * Parameters 
- *     RSA_Key    structure to put key into 
- *     buff       buffer containing the encoded key 
+ *     Converts contents of a private key file into a private RSA key.
+ * Parameters
+ *     RSA_Key    structure to put key into
+ *     buff       buffer containing the encoded key
  *     buff_len   the length of the buffer
  * Return
- *     n >= 0 Foot print of the key converted 
- *     n <  0 Error in conversion 
+ *     n >= 0 Foot print of the key converted
+ *     n <  0 Error in conversion
  */
 
 static int
@@ -799,8 +799,8 @@ dst_bsafe_free_key_structure(void *key)
  *  Parameters
  *	key    generic Key structure
  *	exp    the public exponent
- *  Return 
- *	0 Failure 
+ *  Return
+ *	0 Failure
  *	1 Success
  */
 
@@ -899,9 +899,9 @@ dst_bsafe_generate_keypair(DST_KEY *key, int exp)
 		return (0);
 
 	/* gets random seed from /dev/random if present, generates random
-	 * values if it is not present. 
-	 * first fill the buffer with semi random data 
-	 * then fill as much as possible with good random data 
+	 * values if it is not present.
+	 * first fill the buffer with semi random data
+	 * then fill as much as possible with good random data
 	 */
 	i = dst_random(DST_RAND_SEMI, randomSeedLen, randomSeed);
 	i += dst_random(DST_RAND_KEY,  randomSeedLen, randomSeed);
@@ -910,7 +910,7 @@ dst_bsafe_generate_keypair(DST_KEY *key, int exp)
 		SAFE_FREE(rsa);
 		return(0);
 	}
-	if ((status = B_RandomUpdate(randomAlgorithm, randomSeed, 
+	if ((status = B_RandomUpdate(randomAlgorithm, randomSeed,
 				     randomSeedLen, NULL_SURRENDER)) != 0) {
 		SAFE_FREE(rsa);
 		return (0);
@@ -935,7 +935,7 @@ dst_bsafe_generate_keypair(DST_KEY *key, int exp)
 }
 
 
-/************************************************************************** 
+/**************************************************************************
  *  dst_bsafe_compare_keys
  *	Compare two keys for equality.
  *  Return
@@ -961,18 +961,18 @@ dst_bsafe_compare_keys(const DST_KEY *key1, const DST_KEY *key2)
 	A_RSA_KEY *public1 = NULL, *public2 = NULL;
 	A_PKCS_RSA_PRIVATE_KEY *p1 = NULL, *p2 = NULL;
 
-	if (rkey1 == NULL && rkey2 == NULL) 
+	if (rkey1 == NULL && rkey2 == NULL)
 		return(0);
-	else if (rkey1 == NULL) 
+	else if (rkey1 == NULL)
 		return (1);
 	else if (rkey2 == NULL)
 		return (2);
 
-	if (rkey1->rk_Public_Key) 
-		B_GetKeyInfo((POINTER *) &public1, rkey1->rk_Public_Key, 
+	if (rkey1->rk_Public_Key)
+		B_GetKeyInfo((POINTER *) &public1, rkey1->rk_Public_Key,
 			     KI_RSAPublic);
-	if (rkey2->rk_Public_Key) 
-		B_GetKeyInfo((POINTER *) &public2, rkey2->rk_Public_Key, 
+	if (rkey2->rk_Public_Key)
+		B_GetKeyInfo((POINTER *) &public2, rkey2->rk_Public_Key,
 			     KI_RSAPublic);
 	if (public1 == NULL && public2 == NULL)
 		return (0);
@@ -982,39 +982,39 @@ dst_bsafe_compare_keys(const DST_KEY *key1, const DST_KEY *key2)
 	status = dst_s_bsafe_itemcmp(public1->modulus, public2->modulus) ||
 		 dst_s_bsafe_itemcmp(public1->exponent, public2->exponent);
 
-	if (status) 
+	if (status)
 		return (status);
 
 	if (rkey1->rk_Private_Key == NULL || rkey2->rk_Private_Key == NULL)
 		/* if neither or only one is private key consider identical */
-		return (status);  
+		return (status);
 	if (rkey1->rk_Private_Key)
 		s1 = B_GetKeyInfo((POINTER *) &p1, rkey1->rk_Private_Key,
 				  KI_PKCS_RSAPrivate);
 	if (rkey2->rk_Private_Key)
 		s2 = B_GetKeyInfo((POINTER *) &p2, rkey2->rk_Private_Key,
 				  KI_PKCS_RSAPrivate);
-	if (p1 == NULL || p2 == NULL) 
+	if (p1 == NULL || p2 == NULL)
 		return (0);
 
 	status = dst_s_bsafe_itemcmp(p1->modulus, p2->modulus) ||
-		dst_s_bsafe_itemcmp (p1->publicExponent, 
+		dst_s_bsafe_itemcmp (p1->publicExponent,
 				     p2->publicExponent) ||
-		dst_s_bsafe_itemcmp (p1->privateExponent, 
+		dst_s_bsafe_itemcmp (p1->privateExponent,
 				     p2->privateExponent) ||
 		dst_s_bsafe_itemcmp (p1->prime[0], p2->prime[0]) ||
 		dst_s_bsafe_itemcmp (p1->prime[1], p2->prime[1]) ||
-		dst_s_bsafe_itemcmp (p1->primeExponent[0], 
+		dst_s_bsafe_itemcmp (p1->primeExponent[0],
 				     p2->primeExponent[0])||
-		dst_s_bsafe_itemcmp (p1->primeExponent[1], 
+		dst_s_bsafe_itemcmp (p1->primeExponent[1],
 				     p2->primeExponent[1])||
 		dst_s_bsafe_itemcmp (p1->coefficient, p2->coefficient);
 	return (status);
 }
 
 
-/* 
- * dst_bsafe_key_size() 
+/*
+ * dst_bsafe_key_size()
  * Function to calculate how the size of the key in bits
  */
 static int
@@ -1036,9 +1036,9 @@ dst_bsafe_key_size(RSA_Key *r_key)
 	return (size);
 }
 
-/* 
- * dst_bsafe_md5digest(): function to digest data using MD5 digest function 
- * if needed 
+/*
+ * dst_bsafe_md5digest(): function to digest data using MD5 digest function
+ * if needed
  */
 static int
 dst_bsafe_md5digest(const int mode, B_ALGORITHM_OBJ *digest_obj,
@@ -1073,8 +1073,8 @@ dst_bsafe_md5digest(const int mode, B_ALGORITHM_OBJ *digest_obj,
 	return (0);
 }
 
-/* 
- * just use the standard memory functions for bsafe 
+/*
+ * just use the standard memory functions for bsafe
  */
 void
 T_free(POINTER block)

@@ -62,7 +62,7 @@
  *
  * Each interface is referenced by a network interface structure,
  * arpcom.ac_if, which the routing code uses to locate the interface.
- * This structure contains the output queue for the interface, 
+ * This structure contains the output queue for the interface,
  * its address, ...
  */
 struct cs_softc {
@@ -157,7 +157,7 @@ do {									\
 /* Return Status */
 #define	CS_ERROR   -1
 #define CS_OK       1
-		
+
 /* Config Flags in cs_softc */
 
 #define CFGFLG_MEM_MODE     0x0001

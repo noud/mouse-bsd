@@ -73,9 +73,9 @@ Thank you for using NetBSD!
 message installusure
 {You have chosen to install NetBSD on your hard disk.  This will change
 information on your hard disk.  You should have made a full backup
-before this procedure!  This procedure will do the following things: 
-	a) Partition your disk 
-	b) Create new BSD file systems 
+before this procedure!  This procedure will do the following things:
+	a) Partition your disk
+	b) Create new BSD file systems
 	c) Load and install distribution sets
 
 (After you enter the partition information but before your disk is
@@ -179,13 +179,13 @@ message megname
 message layout
 {NetBSD uses a BSD disklabel to carve up the NetBSD portion of the disk
 into multiple BSD partitions.  You must now set up your BSD disklabel.
-You have several choices.  They are summarized below. 
--- Standard: the BSD disklabel partitions are computed by this program. 
--- Standard with X: twice the swap space, space for X binaries. 
+You have several choices.  They are summarized below.
+-- Standard: the BSD disklabel partitions are computed by this program.
+-- Standard with X: twice the swap space, space for X binaries.
 -- Custom: you specify the sizes of all the BSD disklabel partitions.
 
-The NetBSD part of your disk is %.2f Megabytes. 
-Standard requires at least %.2f Megabytes. 
+The NetBSD part of your disk is %.2f Megabytes.
+Standard requires at least %.2f Megabytes.
 Standard with X requires at least %.2f Megabytes.
 }
 
@@ -493,15 +493,15 @@ message net_media
 message netok
 {The following are the values you entered.  Are they OK?
 
-DNS Domain:		%s 
-Host Name:		%s 
-Host IP:		%s 
-Netmask:		%s 
-IPv4 Nameserver:	%s 
-IPv4 Gateway:		%s 
-Media type:		%s 
-IPv6 autoconf:		%s 
-IPv6 Nameserver:	%s 
+DNS Domain:		%s
+Host Name:		%s
+Host IP:		%s
+Netmask:		%s
+IPv4 Nameserver:	%s
+IPv4 Gateway:		%s
+Media type:		%s
+IPv6 autoconf:		%s
+IPv6 Nameserver:	%s
 }
 
 message netagain

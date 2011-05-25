@@ -43,7 +43,7 @@
 #	Call with	%ah = 0x86
 #			%cx = time interval (high)
 #			%dx = time interval (low)
-#	Return:	
+#	Return:
 #		If error
 #			CF  = set
 #		else

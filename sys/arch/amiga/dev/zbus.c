@@ -51,7 +51,7 @@ struct preconfdata {
 };
 
 
-/* 
+/*
  * explain the names.. 0123456789 => zothfisven
  */
 static struct aconfdata aconftab[] = {
@@ -229,8 +229,8 @@ aconflookup(mid, pid)
 	return("board");
 }
 
-/* 
- * mainbus driver 
+/*
+ * mainbus driver
  */
 
 struct cfattach zbus_ca = {
@@ -280,7 +280,7 @@ zbusattach(pdp, dp, auxp)
 	}
 	for (cdp = cfdev; cdp < ecdp; cdp++) {
 		for (pcp = preconftab; pcp < epcp; pcp++) {
-			if (pcp->manid == cdp->rom.manid && 
+			if (pcp->manid == cdp->rom.manid &&
 			    pcp->prodid == cdp->rom.prodid)
 				break;
 		}
@@ -300,11 +300,11 @@ zbusattach(pdp, dp, auxp)
 		if (amiga_realconfig && pcp < epcp && pcp->vaddr)
 			za.va = pcp->vaddr;
 		else {
-			za.va = (void *) (isztwopa(za.pa) ? ztwomap(za.pa) 
+			za.va = (void *) (isztwopa(za.pa) ? ztwomap(za.pa)
 			    : zbusmap(za.pa, za.size));
 /*                     		??????? */
 			/*
-			 * save value if early console init 
+			 * save value if early console init
 			 */
 			if (amiga_realconfig == 0)
 				pcp->vaddr = za.va;

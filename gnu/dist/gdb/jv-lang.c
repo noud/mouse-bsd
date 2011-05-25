@@ -128,7 +128,7 @@ add_class_symtab_symbol (sym)
       class_symtab->free_ptr = (char *) bl;
       BLOCKVECTOR_BLOCK (bv, GLOBAL_BLOCK) = bl;
     }
-  
+
   BLOCK_SYM (bl, BLOCK_NSYMS (bl)) = sym;
   BLOCK_NSYMS (bl) = BLOCK_NSYMS (bl) + 1;
 }
@@ -324,7 +324,7 @@ type_from_class (clas)
   return java_link_class_type (type, clas);
 }
 
-/* Fill in class TYPE with data from the CLAS value. */ 
+/* Fill in class TYPE with data from the CLAS value. */
 
 struct type *
 java_link_class_type (type, clas)
@@ -418,7 +418,7 @@ java_link_class_type (type, clas)
   TYPE_FIELD_NAME (type, nfields) = "class";
   TYPE_FIELD_TYPE (type, nfields) = VALUE_TYPE (clas);
   SET_TYPE_FIELD_PRIVATE (type, nfields);
-  
+
   for (i = TYPE_N_BASECLASSES (type);  i < nfields;  i++)
     {
       int accflags;
@@ -555,7 +555,7 @@ java_link_class_type (type, clas)
   TYPE_FN_FIELDLISTS (type) = (struct fn_fieldlist*)
     obstack_alloc (&dynamics_objfile->symbol_obstack, j);
   memcpy (TYPE_FN_FIELDLISTS (type), fn_fieldlists, j);
- 
+
   return type;
 }
 
@@ -797,7 +797,7 @@ evaluate_subexp_java (expect_type, exp, pos, noside)
       /* If the user attempts to subscript something that is not an
 	 array or pointer type (like a plain int variable for example),
 	 then report this as an error. */
-      
+
       COERCE_REF (arg1);
       type = check_typedef (VALUE_TYPE (arg1));
       name = TYPE_NAME (type);
@@ -805,7 +805,7 @@ evaluate_subexp_java (expect_type, exp, pos, noside)
 	{
 	  type = check_typedef (TYPE_TARGET_TYPE (type));
 	  if (TYPE_CODE (type) == TYPE_CODE_STRUCT
-	      && TYPE_TAG_NAME (type) != NULL 
+	      && TYPE_TAG_NAME (type) != NULL
 	      && TYPE_TAG_NAME (type)[0] == '[')
 	    {
 	      CORE_ADDR address;
@@ -817,7 +817,7 @@ evaluate_subexp_java (expect_type, exp, pos, noside)
 	      value_ptr temp = clas;
 	      /* Get CLASS_ELEMENT_TYPE of the array type. */
 	      temp = value_struct_elt (&temp, NULL, "methods",
-				       NULL, "structure"); 
+				       NULL, "structure");
 	      VALUE_TYPE (temp) = VALUE_TYPE (clas);
 	      el_type = type_from_class (temp);
 	      if (TYPE_CODE (el_type) == TYPE_CODE_STRUCT)
@@ -956,7 +956,7 @@ const struct language_defn java_language_defn = {
   java_op_print_tab,		/* expression operators for printing */
   0,				/* not c-style arrays */
   0,				/* String lower bound */
-  &builtin_type_char,		/* Type of string elements */ 
+  &builtin_type_char,		/* Type of string elements */
   LANG_MAGIC
 };
 

@@ -172,7 +172,7 @@ DELAY(mic)
 	 */
 
 	/*
-	 * this function uses HSync pulses as base units. The custom chips 
+	 * this function uses HSync pulses as base units. The custom chips
 	 * display only deals with 31.6kHz/2 refresh, this gives us a
 	 * resolution of 1/15800 s, which is ~63us (add some fuzz so we really
 	 * wait awhile, even if using small timeouts)
@@ -265,7 +265,7 @@ clockioctl(dev, cmd, data, flag, p)
 	struct proc *p;
 {
 	int error = 0;
-	
+
 	switch (cmd) {
 
 	case CLOCKMAP:
@@ -368,7 +368,7 @@ stopclock()
  * locore has been changed to turn the profile clock on/off when switching
  * into/out of a process that is profiling (startprofclock/stopprofclock).
  * This reduces the impact of the profiling clock on other users, and might
- * possibly increase the accuracy of the profiling. 
+ * possibly increase the accuracy of the profiling.
  */
 int  profint   = PRF_INTERVAL;	/* Clock ticks between interrupts */
 int  profscale = 0;		/* Scale factor from sys clock to prof clock */
@@ -503,12 +503,12 @@ inittodr(base)
 	time_t base;
 {
 	u_long timbuf = base;	/* assume no battery clock exists */
-  
+
 	if (!gettod)
 		printf ("WARNING: no battery clock\n");
 	else
 		timbuf = gettod();
-  
+
 	if (timbuf < base) {
 		printf ("WARNING: bad date in battery clock\n");
 		timbuf = base;

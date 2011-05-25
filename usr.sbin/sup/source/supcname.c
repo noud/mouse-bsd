@@ -3,7 +3,7 @@
 /*
  * Copyright (c) 1992 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
@@ -31,7 +31,7 @@
  * Revision 1.4  92/08/11  12:07:32  mrt
  * 	Added copyright.
  * 	[92/08/10            mrt]
- * 
+ *
  * 21-Dec-87  Glenn Marcy (gm0w) at Carnegie-Mellon University
  *	Changed to no longer use a name server.
  *

@@ -237,7 +237,7 @@ device is attached to the remote system (e.g. /dev/ttya).");
   /* Start the remote connection; if error (0), discard this target.
      In particular, if the user quits, be sure to discard it (we'd be
      in an inconsistent state otherwise).  */
-  if (!catch_errors (sds_start_remote, (char *)0, 
+  if (!catch_errors (sds_start_remote, (char *)0,
 		     "Couldn't establish connection to remote target\n",
 		     RETURN_MASK_ALL))
     pop_target ();
@@ -279,7 +279,7 @@ fromhex (a)
     return a - '0';
   else if (a >= 'a' && a <= 'f')
     return a - 'a' + 10;
-  else 
+  else
     error ("Reply contains invalid hex digit %d", a);
 }
 
@@ -387,7 +387,7 @@ sds_interrupt (signo)
 
   /* If this doesn't work, try more severe steps.  */
   signal (signo, sds_interrupt_twice);
-  
+
   if (remote_debug)
     printf_unfiltered ("sds_interrupt called\n");
 
@@ -404,7 +404,7 @@ sds_interrupt_twice (signo)
      int signo;
 {
   signal (signo, ofunc);
-  
+
   interrupt_query ();
 
   signal (signo, sds_interrupt);
@@ -525,7 +525,7 @@ sds_fetch_registers (regno)
 /* Prepare to store registers.  Since we may send them all, we have to
    read out the ones we don't want to change first.  */
 
-static void 
+static void
 sds_prepare_to_store ()
 {
   /* Make sure the entire registers array is valid.  */
@@ -1087,7 +1087,7 @@ sds_insert_breakpoint (addr, contents_cache)
   *p++ = (int) (addr >> 16) & 0xff;
   *p++ = (int) (addr >>  8) & 0xff;
   *p++ = (int) (addr      ) & 0xff;
-  
+
   retlen = sds_send (buf, p - buf);
 
   for (i = 0; i < 4; ++i)
@@ -1195,7 +1195,7 @@ sds_command (args, from_tty)
   for (i = 0; i < retlen; ++i)
     {
       printf_filtered ("%02x", buf[i]);
-    }  
+    }
   printf_filtered ("\n");
 }
 
@@ -1210,5 +1210,5 @@ _initialize_remote_sds ()
 		     &showlist);
 
   add_com ("sds", class_obscure, sds_command,
-	   "Send a command to the SDS monitor."); 
+	   "Send a command to the SDS monitor.");
 }

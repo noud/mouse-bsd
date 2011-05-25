@@ -234,8 +234,8 @@ satlinkopen(dev, flags, fmt, p)
 		    SATLINK_CMD_RESET);
 
 	/* Reset the ring buffer, and start the DMA loop. */
-	sc->sc_uptr = 0; 
-	sc->sc_sptr = 0; 
+	sc->sc_uptr = 0;
+	sc->sc_sptr = 0;
 	sc->sc_lastresid = sc->sc_bufsize;
 	bzero(sc->sc_buf, sc->sc_bufsize);
 	error = isa_dmastart(sc->sc_ic, sc->sc_drq, sc->sc_buf,

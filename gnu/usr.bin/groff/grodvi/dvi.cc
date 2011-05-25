@@ -448,8 +448,8 @@ void dvi_printer::postamble()
   out1(id_byte);
   for (i = 0; i < 4 || byte_count % 4 != 0; i++)
     out1(filler);
-}  
-  
+}
+
 void dvi_printer::begin_page(int i)
 {
   page_count++;

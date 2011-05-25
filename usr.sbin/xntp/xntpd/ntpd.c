@@ -157,7 +157,7 @@ extern int syscall	P((int, struct timeval *, struct timeval *));
 #ifdef SYS_WINNT
 extern void worker_thread(void *);
 #endif /* SYS_WINNT */
-	
+
 #ifdef	SIGDIE2
 static	RETSIGTYPE	finish		P((int));
 #endif	/* SIGDIE2 */
@@ -198,7 +198,7 @@ void xntpdmain
   initializing = 1;		/* mark that we are initializing */
   debug = 0;			/* no debugging by default */
 
-#ifdef HAVE_UMASK     
+#ifdef HAVE_UMASK
   /* vxWorks does not have umask */
   {
     int uv;
@@ -341,7 +341,7 @@ void xntpdmain
  * If this runs as a service under NT, the main thread will block at
  * StartServiceCtrlDispatcher() and another thread will be started by the
  * Service Control Dispatcher which will begin execution at the routine
- * specified in that call (viz. service_main) 
+ * specified in that call (viz. service_main)
  */
 void
 service_main(argc, argv)
@@ -434,10 +434,10 @@ service_main(argc, argv)
 
 #ifdef SYS_WINNT
   /* GMS 1/18/1997
-   * TODO: lock the process in memory using SetProcessWorkingSetSize() and VirtualLock() functions 
+   * TODO: lock the process in memory using SetProcessWorkingSetSize() and VirtualLock() functions
    *
     process_handle = GetCurrentProcess();
-	if (SetProcessWorkingSetSize(process_handle, 2097152 , 4194304 ) == TRUE) { 
+	if (SetProcessWorkingSetSize(process_handle, 2097152 , 4194304 ) == TRUE) {
 		if (VirtualLock(0 , 4194304) == FALSE)
 			msyslog(LOG_ERR, "VirtualLock() failed: %m");
 	} else {
@@ -609,11 +609,11 @@ service_main(argc, argv)
     {
 # endif
 
-      /* 
+      /*
        * the service_main() thread will have to wait for requests to
        * start/stop/pause/continue from the services icon in the Control
        * Panel or from any WIN32 application start a new thread to perform
-       * all the work of the NTP service 
+       * all the work of the NTP service
        */
       if (!(WorkerThreadHandle = (HANDLE)_beginthread(
 						      worker_thread,
@@ -663,7 +663,7 @@ service_main(argc, argv)
       return;
 # if defined(DEBUG)
     }
-  else 
+  else
     worker_thread( (void *) 0 );
 # endif
 } /* end service_main() */
@@ -709,10 +709,10 @@ worker_thread(notUsed)
    * needed). The potential race condition is also avoided.
    */
   /* On VMS, I suspect that select() can't be interrupted
-   * by a "signal" either, so I take the easy way out and 
-   * have select() time out after one second. 
-   * System clock updates really aren't time-critical, 
-   * and - lacking a hardware reference clock - I have 
+   * by a "signal" either, so I take the easy way out and
+   * have select() time out after one second.
+   * System clock updates really aren't time-critical,
+   * and - lacking a hardware reference clock - I have
    * yet to learn about anything else that is.
    */
   was_alarmed = 0;
@@ -743,7 +743,7 @@ worker_thread(notUsed)
 	   */
 #ifndef HAVE_SIGNALED_IO
 	  rdfdes = activefds;
-#if defined(VMS) || defined(SYS_VXWORKS) 
+#if defined(VMS) || defined(SYS_VXWORKS)
 	  /* make select() wake up after one second */
 	  {
 	    struct timeval t1;
@@ -761,7 +761,7 @@ worker_thread(notUsed)
 	      l_fp ts;
 
 	      get_systime(&ts);
-          
+
 	      (void)input_handler(&ts);
 	    }
 	  else if (

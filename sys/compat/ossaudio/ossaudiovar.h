@@ -244,7 +244,7 @@ struct oss_synth_info {
 	int	nr_voices;
 	int	nr_drums;
 	int	instr_bank_size;
-	u_int	capabilities;	
+	u_int	capabilities;
 #define OSS_SYNTH_CAP_PERCMODE		0x00000001
 #define OSS_SYNTH_CAP_OPL3		0x00000002
 #define OSS_SYNTH_CAP_INPUT		0x00000004

@@ -37,7 +37,7 @@
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)print.c	8.3 (Berkeley) 4/2/94";
-#else 
+#else
 __RCSID("$NetBSD: print.c,v 1.5 1997/10/18 13:18:52 lukem Exp $");
 #endif
 #endif /* not lint */

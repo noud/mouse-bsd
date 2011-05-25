@@ -133,7 +133,7 @@ java_type_print_base (type, stream, show, level)
       else if (show > 0 || TYPE_TAG_NAME (type) == NULL)
 	{
 	  java_type_print_derivation_info (stream, type);
-	  
+
 	  fprintf_filtered (stream, "{\n");
 	  if ((TYPE_NFIELDS (type) == 0) && (TYPE_NFN_FIELDS (type) == 0))
 	    {
@@ -197,7 +197,7 @@ java_type_print_base (type, stream, show, level)
 	      for (j = 0; j < len2; j++)
 		{
 		  char *physname = TYPE_FN_FIELD_PHYSNAME (f, j);
-		  int is_full_physname_constructor = 
+		  int is_full_physname_constructor =
 		    ((physname[0] == '_' && physname[1] == '_'
 		      && strchr ("0123456789Qt", physname[2]))
 		     || STREQN (physname, "__ct__", 6)

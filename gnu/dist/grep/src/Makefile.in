@@ -107,7 +107,7 @@ EXTRA_DIST = regex.h regex.c              dosbuf.c              vms_fab.c vms_fa
 
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 bin_PROGRAMS =  grep$(EXEEXT) egrep$(EXEEXT) fgrep$(EXEEXT)
 PROGRAMS =  $(bin_PROGRAMS)
 
@@ -121,19 +121,19 @@ obstack.$(OBJEXT) savedir.$(OBJEXT) getopt.$(OBJEXT) getopt1.$(OBJEXT) \
 search.$(OBJEXT) grepmat.$(OBJEXT)
 grep_LDADD = $(LDADD)
 grep_DEPENDENCIES =  @ALLOCA@ @LIBOBJS@
-grep_LDFLAGS = 
+grep_LDFLAGS =
 egrep_OBJECTS =  grep.$(OBJEXT) dfa.$(OBJEXT) kwset.$(OBJEXT) \
 obstack.$(OBJEXT) savedir.$(OBJEXT) getopt.$(OBJEXT) getopt1.$(OBJEXT) \
 search.$(OBJEXT) egrepmat.$(OBJEXT)
 egrep_LDADD = $(LDADD)
 egrep_DEPENDENCIES =  @ALLOCA@ @LIBOBJS@
-egrep_LDFLAGS = 
+egrep_LDFLAGS =
 fgrep_OBJECTS =  grep.$(OBJEXT) dfa.$(OBJEXT) kwset.$(OBJEXT) \
 obstack.$(OBJEXT) savedir.$(OBJEXT) getopt.$(OBJEXT) getopt1.$(OBJEXT) \
 search.$(OBJEXT) fgrepmat.$(OBJEXT)
 fgrep_LDADD = $(LDADD)
 fgrep_DEPENDENCIES =  @ALLOCA@ @LIBOBJS@
-fgrep_LDFLAGS = 
+fgrep_LDFLAGS =
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
@@ -152,7 +152,7 @@ OBJECTS = $(grep_OBJECTS) $(egrep_OBJECTS) $(fgrep_OBJECTS)
 all: all-redirect
 .SUFFIXES:
 .SUFFIXES: .S .c .o .obj .s
-$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu src/Makefile
 
 Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status

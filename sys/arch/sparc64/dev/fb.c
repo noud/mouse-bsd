@@ -265,8 +265,8 @@ fbrcons_init(fb)
 	maxcol = a2int(getpropstring(optionsnode, "screen-#columns"), 80);
 	maxrow = a2int(getpropstring(optionsnode, "screen-#rows"), 34);
 #endif /* !RASTERCONS_FULLSCREEN */
-	/* 
-	 * XXX until somebody actually sets the colormap after a call to 
+	/*
+	 * XXX until somebody actually sets the colormap after a call to
 	 * rasops_init() with ri->ri_cmap, we can only do mono..
 	 */
 	ri->ri_forcemono = 1;
@@ -274,7 +274,7 @@ fbrcons_init(fb)
 	/* Get operations set and connect to rcons */
 	if (rasops_init(ri, maxrow, maxcol, 0, 1))
 		panic("fbrcons_init: rasops_init failed!");
-	
+
 	rc->rc_ops = &ri->ri_ops;
 	rc->rc_cookie = ri;
 	rc->rc_bell = fb_bell;

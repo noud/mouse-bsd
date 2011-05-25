@@ -220,7 +220,7 @@ struct procinfo {
   int num_syscall_handlers;	/* Number of syscall trap handlers
 				   currently installed */
 				/* Pointer to list of syscall trap handlers */
-  struct procfs_syscall_handler *syscall_handlers; 
+  struct procfs_syscall_handler *syscall_handlers;
   int new_child;		/* Non-zero if it's a new thread */
 };
 
@@ -656,7 +656,7 @@ SYNOPSIS
 	static struct procinfo * find_procinfo (pid_t pid, int okfail);
 
 DESCRIPTION
-	
+
 	Given a process id, look it up in the procinfo chain.  Returns
 	a struct procinfo *.  If can't find pid, then call error(),
 	unless okfail is set, in which case, return NULL;
@@ -690,7 +690,7 @@ SYNOPSIS
 	static struct procinfo * current_procinfo;
 
 DESCRIPTION
-	
+
 	Looks up inferior_pid in the procinfo chain.  Always returns a
 	struct procinfo *.  If process can't be found, we error() out.
  */
@@ -708,7 +708,7 @@ SYNOPSIS
 	static void add_fd (struct procinfo *);
 
 DESCRIPTION
-	
+
 	Add the fd of the supplied procinfo to the list of fds used for
 	poll/select operations.
  */
@@ -744,8 +744,8 @@ SYNOPSIS
 	static void remove_fd (struct procinfo *);
 
 DESCRIPTION
-	
-	Remove the fd of the supplied procinfo from the list of fds used 
+
+	Remove the fd of the supplied procinfo from the list of fds used
 	for poll/select operations.
  */
 
@@ -787,7 +787,7 @@ SYNOPSIS
 	static int procfs_read_status (pi) struct procinfo *pi;
 
 DESCRIPTION
-	
+
 	Given a pointer to a procinfo struct, get the status of
 	the status_fd in the appropriate way.  Returns 0 on failure,
 	1 on success.
@@ -799,7 +799,7 @@ procfs_read_status (pi)
 {
 #ifdef PROCFS_USE_READ_WRITE
    if ((lseek (pi->status_fd, 0, SEEK_SET) < 0) ||
-           (read (pi->status_fd, (char *) &pi->prstatus, 
+           (read (pi->status_fd, (char *) &pi->prstatus,
              sizeof (gdb_prstatus_t)) != sizeof (gdb_prstatus_t)))
 #else
   if (ioctl (pi->status_fd, PIOCSTATUS, &pi->prstatus) < 0)
@@ -820,7 +820,7 @@ SYNOPSIS
 	static int procfs_write_pcwstop (pi) struct procinfo *pi;
 
 DESCRIPTION
-	
+
 	Given a pointer to a procinfo struct, send a PCWSTOP to
 	the ctl_fd in the appropriate way.  Returns 0 on failure,
 	1 on success.
@@ -852,7 +852,7 @@ SYNOPSIS
 	static void procfs_write_pckill (pi) struct procinfo *pi;
 
 DESCRIPTION
-	
+
 	Given a pointer to a procinfo struct, send a kill to
 	the ctl_fd in the appropriate way.  Returns 0 on failure,
 	1 on success.
@@ -917,7 +917,7 @@ wait_fd ()
     }
   pi->had_event = 1;
 #endif /* LOSING_POLL */
-  
+
   clear_sigint_trap ();
   clear_sigio_trap ();
 
@@ -925,7 +925,7 @@ wait_fd ()
 
   for (i = 0; i < num_poll_list && num_fds > 0; i++)
     {
-      if (0 == (poll_list[i].revents & 
+      if (0 == (poll_list[i].revents &
 		(POLLWRNORM | POLLPRI | POLLERR | POLLHUP | POLLNVAL)))
 	continue;
       for (pi = procinfo_list; pi; pi = next_pi)
@@ -944,7 +944,7 @@ wait_fd ()
 		      break;
 		    }
 		  if (info_verbose)
-		    printf_filtered ("LWP %d exited.\n", 
+		    printf_filtered ("LWP %d exited.\n",
 				     (pi->pid >> 16) & 0xffff);
 		  close_proc_file (pi);
 		  if (num_fds != 0)
@@ -976,7 +976,7 @@ SYNOPSIS
 	static char *lookupdesc (struct trans *transp, unsigned int val);
 
 DESCRIPTION
-	
+
 	Given a pointer to a translation table and a value to be translated,
 	lookup the desc string and return it.
  */
@@ -987,7 +987,7 @@ lookupdesc (transp, val)
      unsigned int val;
 {
   char *desc;
-  
+
   for (desc = NULL; transp -> name != NULL; transp++)
     {
       if (transp -> value == val)
@@ -1018,7 +1018,7 @@ SYNOPSIS
 				 char *prefix);
 
 DESCRIPTION
-	
+
 	Given a pointer to a translation table, a value to be translated,
 	and a default prefix to return if the value can't be translated,
 	match the value with one of the translation table entries and
@@ -1037,7 +1037,7 @@ lookupname (transp, val, prefix)
 {
   static char *locbuf;
   char *name;
-  
+
   for (name = NULL; transp -> name != NULL; transp++)
     {
       if (transp -> value == val)
@@ -1071,7 +1071,7 @@ sigcodename (sip)
   struct sigcode *scp;
   char *name = NULL;
   static char locbuf[32];
-  
+
   for (scp = siginfo_table; scp -> codename != NULL; scp++)
     {
       if ((scp -> signo == sip -> si_signo) &&
@@ -1095,7 +1095,7 @@ sigcodedesc (sip)
 {
   struct sigcode *scp;
   char *desc = NULL;
-  
+
   for (scp = siginfo_table; scp -> codename != NULL; scp++)
     {
       if ((scp -> signo == sip -> si_signo) &&
@@ -1134,7 +1134,7 @@ syscallname (syscallnum)
      int syscallnum;
 {
   static char locbuf[32];
-  
+
   if (syscallnum >= 0 && syscallnum < MAX_SYSCALLS
       && syscall_table[syscallnum] != NULL)
     return syscall_table[syscallnum];
@@ -1844,7 +1844,7 @@ unconditionally_kill_inferior (pi)
 {
   int ppid;
   struct proc_ctl pctl;
-  
+
   ppid = pi->prstatus.pr_ppid;
 
 #ifdef PROCFS_NEED_CLEAR_CURSIG_FOR_KILL
@@ -1899,7 +1899,7 @@ DESCRIPTION
 	Copy LEN bytes to/from inferior's memory starting at MEMADDR
 	from/to debugger memory starting at MYADDR.  Copy from inferior
 	if DOWRITE is zero or to inferior if DOWRITE is nonzero.
-  
+
 	Returns the length copied, which is either the LEN argument or
 	zero.  This xfer function does not do partial moves, since procfs_ops
 	doesn't allow memory operations to cross below us in the target stack
@@ -2055,7 +2055,7 @@ DESCRIPTION
 
 	Allocate a procinfo structure, open the /proc file and then set up the
 	set of signals and faults that are to be traced.  Returns a pointer to
-	the new procinfo structure.  
+	the new procinfo structure.
 
 NOTES
 
@@ -2069,7 +2069,7 @@ init_procinfo (pid, kill)
      int pid;
      int kill;
 {
-  struct procinfo *pi = (struct procinfo *) 
+  struct procinfo *pi = (struct procinfo *)
     xmalloc (sizeof (struct procinfo));
   struct sig_ctl  sctl;
   struct flt_ctl  fctl;
@@ -2114,9 +2114,9 @@ init_procinfo (pid, kill)
   ioctl (pi->ctl_fd, PIOCGFAULT, &pi->saved_fltset.fltset);
   ioctl (pi->ctl_fd, PIOCGENTRY, &pi->saved_entryset.sysset);
   ioctl (pi->ctl_fd, PIOCGEXIT, &pi->saved_exitset.sysset);
-  
+
   /* Set up trace and fault sets, as gdb expects them. */
-  
+
   memset ((char *) &pi->prrun, 0, sizeof (pi->prrun));
   prfillset (&pi->prrun.pr_trace);
   procfs_notice_signals (pid);
@@ -2428,7 +2428,7 @@ procfs_fork_handler (pi, syscall_num, why, rtnvalp, statvalp)
 
 LOCAL FUNCTION
 
-	procfs_set_inferior_syscall_traps - setup the syscall traps 
+	procfs_set_inferior_syscall_traps - setup the syscall traps
 
 SYNOPSIS
 
@@ -2662,7 +2662,7 @@ proc_set_exec_trap ()
   struct sys_ctl entryset;
   char procname[MAX_PROC_NAME_SIZE];
   int fd;
-  
+
   sprintf (procname, CTL_PROC_NAME_FMT, getpid ());
 #ifdef UNIXWARE
   if ((fd = open (procname, O_WRONLY)) < 0)
@@ -3020,7 +3020,7 @@ procfs_detach (args, from_tty)
     }
   if (args)
     siggnal = atoi (args);
-  
+
   do_detach (siggnal);
   inferior_pid = 0;
   unpush_target (&procfs_ops);		/* Pop out of handling an inferior */
@@ -3148,13 +3148,13 @@ do_attach (pid)
 		  print_sys_errmsg (pi->pathname, errno);
 		  close_proc_file (pi);
 		  error ("procfs_read_status failed");
-		} 
+		}
 #endif
 	      pi->nopass_next_sigstop = 1;
 	    }
 	  else
 	    {
-	      printf_unfiltered ("Ok, gdb will wait for %s to stop.\n", 
+	      printf_unfiltered ("Ok, gdb will wait for %s to stop.\n",
 				 target_pid_to_str (pi->pid));
 	    }
 	}
@@ -3539,7 +3539,7 @@ procfs_wait (pid, ourstatus)
 		  {
 		    /* The LWP has apparently terminated.  */
 		    if (info_verbose)
-		      printf_filtered ("LWP %d doesn't respond.\n", 
+		      printf_filtered ("LWP %d doesn't respond.\n",
 				       (procinfo->pid >> 16) & 0xffff);
 		    close_proc_file (procinfo);
 		    continue;
@@ -3793,7 +3793,7 @@ procfs_resume (pid, step, signo)
     {
       /* The LWP has apparently terminated.  */
       if (info_verbose)
-	printf_filtered ("LWP %d doesn't respond.\n", 
+	printf_filtered ("LWP %d doesn't respond.\n",
 			 (pi->pid >> 16) & 0xffff);
       close_proc_file (pi);
     }
@@ -3808,7 +3808,7 @@ procfs_resume (pid, step, signo)
 	{
 	  /* The LWP has apparently terminated.  */
 	  if (info_verbose)
-	    printf_filtered ("LWP %d doesn't respond.\n", 
+	    printf_filtered ("LWP %d doesn't respond.\n",
 			     (pi->pid >> 16) & 0xffff);
 	  close_proc_file (pi);
 	}
@@ -3816,7 +3816,7 @@ procfs_resume (pid, step, signo)
 
   /* Continue all the other threads that haven't had an event of interest.
      Also continue them if they have NOPASS_NEXT_SIGSTOP set; this is only
-     set by do_attach, and means this is the first resume after an attach.  
+     set by do_attach, and means this is the first resume after an attach.
      All threads were CSTOP'd by do_attach, and should be resumed now.  */
 
   if (pid == -1)
@@ -3824,7 +3824,7 @@ procfs_resume (pid, step, signo)
       {
 	next_pi = procinfo->next;
 	if (pi != procinfo)
-	  if (!procinfo->had_event || 
+	  if (!procinfo->had_event ||
 	      (procinfo->nopass_next_sigstop && signo == TARGET_SIGNAL_STOP))
 	    {
 	      procinfo->had_event = procinfo->nopass_next_sigstop = 0;
@@ -3834,7 +3834,7 @@ procfs_resume (pid, step, signo)
 			 sizeof (struct proc_ctl)) < 0)
 		{
 		  if (!procfs_read_status (procinfo))
-		    fprintf_unfiltered(gdb_stderr, 
+		    fprintf_unfiltered(gdb_stderr,
 				       "procfs_read_status failed, errno=%d\n",
 				       errno);
 		  print_sys_errmsg (procinfo->pathname, errno);
@@ -3847,7 +3847,7 @@ procfs_resume (pid, step, signo)
 		{
 		  /* The LWP has apparently terminated.  */
 		  if (info_verbose)
-		    printf_filtered ("LWP %d doesn't respond.\n", 
+		    printf_filtered ("LWP %d doesn't respond.\n",
 				     (procinfo->pid >> 16) & 0xffff);
 		  close_proc_file (procinfo);
 		  continue;
@@ -3860,7 +3860,7 @@ procfs_resume (pid, step, signo)
 		  && ioctl (procinfo->ctl_fd, PIOCRUN, &procinfo->prrun) < 0)
 		{
 		  if (!procfs_read_status (procinfo))
-		    fprintf_unfiltered(gdb_stderr, 
+		    fprintf_unfiltered(gdb_stderr,
 				       "procfs_read_status failed, errno=%d\n",
 				       errno);
 		  print_sys_errmsg (procinfo->pathname, errno);
@@ -3903,7 +3903,7 @@ procfs_fetch_registers (regno)
     {
       supply_gregset (&pi->prstatus.pr_lwp.pr_context.uc_mcontext.gregs);
 #if defined (FP0_REGNUM)
-      supply_fpregset (&pi->prstatus.pr_lwp.pr_context.uc_mcontext.fpregs); 
+      supply_fpregset (&pi->prstatus.pr_lwp.pr_context.uc_mcontext.fpregs);
 #endif
     }
 #else /* UNIXWARE */
@@ -3929,7 +3929,7 @@ fails
 
 SYNOPSIS
 
-	static void proc_init_failed (struct procinfo *pi, 
+	static void proc_init_failed (struct procinfo *pi,
 				      char *why, int kill_p)
 
 DESCRIPTION
@@ -4159,7 +4159,7 @@ mappingflags (flags)
      long flags;
 {
   static char asciiflags[8];
-  
+
   strcpy (asciiflags, "-------");
 #if defined (MA_PHYS)
   if (flags & MA_PHYS)   asciiflags[0] = 'd';
@@ -4251,10 +4251,10 @@ info_proc_stop (pip, summary)
 	      break;
 	    }
 	}
-      
+
       /* Use the pr_why field to determine what the pr_what field means, and
 	 print more information. */
-      
+
       switch (why)
 	{
 	  case PR_REQUESTED:
@@ -4458,16 +4458,16 @@ info_proc_syscalls (pip, summary)
 	  print_sys_errmsg (pip -> pathname, errno);
 	  error ("PIOCGENTRY failed");
 	}
-      
+
       if (ioctl (pip -> ctl_fd, PIOCGEXIT, &pip -> exitset) < 0)
 	{
 	  print_sys_errmsg (pip -> pathname, errno);
 	  error ("PIOCGEXIT failed");
 	}
 #endif
-      
+
       printf_filtered ("System call tracing information:\n\n");
-      
+
       printf_filtered ("\t%-12s %-8s %-8s\n",
 		       "System call",
 		       "Entry",
@@ -4555,7 +4555,7 @@ info_proc_signals (pip, summary)
 	  error ("PIOCGTRACE failed");
 	}
 #endif
-      
+
       printf_filtered ("Disposition of signals:\n\n");
       printf_filtered ("\t%-15s %-8s %-8s %-8s  %s\n\n",
 		       "Signal", "Trace", "Hold", "Pending", "Description");
@@ -4621,7 +4621,7 @@ info_proc_faults (pip, summary)
 	  error ("PIOCGFAULT failed");
 	}
 #endif
-      
+
       printf_filtered ("Current traced hardware fault set:\n\n");
       printf_filtered ("\t%-12s %-8s\n", "Fault", "Trace");
 
@@ -5425,7 +5425,7 @@ procfs_lwp_creation_handler (pi, syscall_num, why, rtnvalp, statvalp)
 #endif
     perror_with_name (pi->pathname);
 
-  /* The new child may have been created in one of two states: 
+  /* The new child may have been created in one of two states:
      SUSPENDED or RUNNABLE.  If runnable, we will simply signal it to run.
      If suspended, we flag it to be continued later, when it has an event.  */
 
@@ -5615,12 +5615,12 @@ procfs_stopped_by_watchpoint(pid)
     {
       why = pi->prstatus.pr_why;
       what = pi->prstatus.pr_what;
-      if (why == PR_FAULTED 
+      if (why == PR_FAULTED
 #if defined (FLTWATCH) && defined (FLTKWATCH)
 	  && (what == FLTWATCH || what == FLTKWATCH)
 #else
 #ifdef FLTWATCH
-	  && (what == FLTWATCH) 
+	  && (what == FLTWATCH)
 #endif
 #ifdef FLTKWATCH
 	  && (what == FLTKWATCH)
@@ -5773,7 +5773,7 @@ _initialize_procfs ()
 
   add_target (&procfs_ops);
 
-  add_info ("processes", info_proc, 
+  add_info ("processes", info_proc,
 "Show process status information using /proc entry.\n\
 Specify process id or use current inferior by default.\n\
 Specify keywords for detailed information; default is summary.\n\

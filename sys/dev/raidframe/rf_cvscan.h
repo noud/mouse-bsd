@@ -77,7 +77,7 @@ rf_CvscanCreate(RF_SectorCount_t sect_per_disk,
 void    rf_CvscanEnqueue(void *qptr, RF_DiskQueueData_t * req, int priority);
 RF_DiskQueueData_t *rf_CvscanDequeue(void *qptr);
 RF_DiskQueueData_t *rf_CvscanPeek(void *qptr);
-int 
+int
 rf_CvscanPromote(void *qptr, RF_StripeNum_t parityStripeID,
     RF_ReconUnitNum_t which_ru);
 

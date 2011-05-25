@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: am_utils.h,v 1.6 1999/08/22 05:12:55 ezk Exp 
+ * Id: am_utils.h,v 1.6 1999/08/22 05:12:55 ezk Exp
  *
  */
 

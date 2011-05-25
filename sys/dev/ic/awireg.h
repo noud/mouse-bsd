@@ -134,7 +134,7 @@
 #define AWI_CMD_KILL_RX	0x6
 
 #define AWI_CMD_SLEEP		0x7
-#define AWI_CA_SLEEP_LEN		0x8 
+#define AWI_CA_SLEEP_LEN		0x8
 #define AWI_CA_WAKEUP			0x0 /* uint64 */
 
 #define AWI_CMD_WAKE		0x8
@@ -197,7 +197,7 @@
 #define AWI_STA_PSP			0x04 /* enable PSP */
 #define AWI_STA_RXEN			0x02 /* enable RX */
 #define AWI_STA_TXEN			0x01 /* enable TX */
-					      
+
 #define AWI_INTSTAT		0x4f3
 #define AWI_INTMASK		0x4f4
 
@@ -369,7 +369,7 @@
 #define AWI_MIB_LOCAL_SIZE		32
 
 /*
- * MAC mib 
+ * MAC mib
  */
 
 #define AWI_MIB_MAC_RTS_THRESH		4	 /* 2 bytes */
@@ -479,7 +479,7 @@
 #define IEEEWL_FH_PATTERN_MIN		0
 #define IEEEWL_FH_PATTERN_MAX		77
 
-struct awi_mac_header 
+struct awi_mac_header
 {
 	u_int8_t	awi_fc;
 	u_int8_t	awi_f2;
@@ -495,15 +495,15 @@ struct awi_llc_header
 	u_int8_t	awi_llc_goo[8];
 };
 
-struct awi_assoc_hdr 
+struct awi_assoc_hdr
 {
 	u_int8_t	awi_cap_info[2];
 	u_int8_t	awi_li[2];
 };
 
-struct awi_auth_hdr 
+struct awi_auth_hdr
 {
 	u_int8_t	awi_algno[2];
 	u_int8_t	awi_seqno[2];
-	u_int8_t	awi_status[2];		
+	u_int8_t	awi_status[2];
 };

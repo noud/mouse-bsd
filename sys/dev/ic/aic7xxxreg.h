@@ -121,7 +121,7 @@
 #define		REQO		0x02
 #define		ACKO		0x01
 
-/* 
+/*
  * SCSI Rate Control (p. 3-17).
  * Contents of this register determine the Synchronous SCSI data transfer
  * rate and the maximum synchronous Req/Ack offset.  An offset of 0 in the
@@ -157,7 +157,7 @@
  * across the SCSI bus.  The counter is decremented only once
  * the data has been safely transferred.  SDONE in SSTAT0 is
  * set when STCNT goes to 0
- */ 
+ */
 #define STCNT			0x008
 #define STCNT0			0x008
 #define STCNT1			0x009
@@ -600,19 +600,19 @@
  * port is not busy servicing another request, it reconfigures
  * to allow access to the serial EEPROM.  When this happens, SEERDY
  * gets set high to verify that the memory port access has been
- * granted.  
+ * granted.
  *
- * After successful arbitration for the memory port, the SEECS bit of 
- * the SEECTL register is connected to the chip select.  The SEECK, 
- * SEEDO, and SEEDI are connected to the clock, data out, and data in 
- * lines respectively.  The SEERDY bit of SEECTL is useful in that it 
- * gives us an 800 nsec timer.  After a write to the SEECTL register, 
- * the SEERDY goes high 800 nsec later.  The one exception to this is 
- * when we first request access to the memory port.  The SEERDY goes 
- * high to signify that access has been granted and, for this case, has 
+ * After successful arbitration for the memory port, the SEECS bit of
+ * the SEECTL register is connected to the chip select.  The SEECK,
+ * SEEDO, and SEEDI are connected to the clock, data out, and data in
+ * lines respectively.  The SEERDY bit of SEECTL is useful in that it
+ * gives us an 800 nsec timer.  After a write to the SEECTL register,
+ * the SEERDY goes high 800 nsec later.  The one exception to this is
+ * when we first request access to the memory port.  The SEERDY goes
+ * high to signify that access has been granted and, for this case, has
  * no implied timing.
  *
- * See 93cx6.c for detailed information on the protocol necessary to 
+ * See 93cx6.c for detailed information on the protocol necessary to
  * read the serial EEPROM.
  */
 #define SEECTL			0x01e
@@ -711,7 +711,7 @@
 					 * Mask of bits to test against
 					 * when looking at the Queue Count
 					 * registers.  Works around a bug
-					 * on aic7850 chips. 
+					 * on aic7850 chips.
 					 */
 #define FLAGS			0x04a
 #define		SINGLE_BUS	0x00

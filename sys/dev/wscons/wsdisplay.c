@@ -155,13 +155,13 @@ struct cfattach wsdisplay_emul_ca = {
 	wsdisplay_emul_match,
 	wsdisplay_emul_attach,
 };
- 
+
 struct cfattach wsdisplay_noemul_ca = {
 	sizeof (struct wsdisplay_softc),
 	wsdisplay_noemul_match,
 	wsdisplay_noemul_attach,
 };
- 
+
 /* Exported tty- and cdevsw-related functions. */
 cdev_decl(wsdisplay);
 
@@ -644,9 +644,9 @@ wsdisplay_common_attach(sc, console, scrdata, accessops, accesscookie)
 			break;
 	}
 
-	if (i > start) 
+	if (i > start)
 		wsdisplay_addscreen_print(sc, start, i-start);
-	
+
 	if (hookset == 0)
 		shutdownhook_establish(wsdisplay_shutdownhook, NULL);
 	hookset = 1;
@@ -1169,7 +1169,7 @@ wsdisplaystart(tp)
 	struct wsscreen *scr;
 	register int s, n;
 	u_char *buf;
-		
+
 	s = spltty();
 	if (tp->t_state & (TS_TIMEOUT | TS_BUSY | TS_TTSTOP)) {
 		splx(s);
@@ -1182,15 +1182,15 @@ wsdisplaystart(tp)
 		splx(s);
 		return;
 	}
-	tp->t_state |= TS_BUSY; 
+	tp->t_state |= TS_BUSY;
 	splx(s);
-	
+
 	/*
 	 * Drain output from ring buffer.
-	 * The output will normally be in one contiguous chunk, but when the 
-	 * ring wraps, it will be in two pieces.. one at the end of the ring, 
-	 * the other at the start.  For performance, rather than loop here, 
-	 * we output one chunk, see if there's another one, and if so, output 
+	 * The output will normally be in one contiguous chunk, but when the
+	 * ring wraps, it will be in two pieces.. one at the end of the ring,
+	 * the other at the start.  For performance, rather than loop here,
+	 * we output one chunk, see if there's another one, and if so, output
 	 * it too.
 	 */
 
@@ -1783,7 +1783,7 @@ void
 wsdisplay_switchtoconsole()
 {
 	if (wsdisplay_console_device != NULL)
-		wsdisplay_switch((struct device *)wsdisplay_console_device, 
+		wsdisplay_switch((struct device *)wsdisplay_console_device,
 		    0, 0);
 }
 

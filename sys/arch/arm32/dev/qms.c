@@ -113,13 +113,13 @@ qmsopen(dev, flag, mode, p)
 {
 	struct qms_softc *sc;
 	int unit = minor(dev);
- 
+
  	/* validate the unit and softc */
 	if (unit >= qms_cd.cd_ndevs)
 		return(ENXIO);
 
 	sc = qms_cd.cd_devs[unit];
-    
+
 	if (!sc) return(ENXIO);
 
 	/* check if we are already open */
@@ -127,7 +127,7 @@ qmsopen(dev, flag, mode, p)
 
 	/* update softc */
 	sc->sc_proc = p;
-    
+
 	sc->lastx = -1;
 	sc->lasty = -1;
 	sc->lastb = -1;
@@ -196,7 +196,7 @@ qmsread(dev, uio, flag)
 			return(error);
 		}
 	}
-	
+
 	while (sc->sc_buffer.c_cc > 0 && uio->uio_resid > 0) {
 		length = min(sc->sc_buffer.c_cc, uio->uio_resid);
 		if(length>sizeof(buffer))
@@ -358,7 +358,7 @@ qmsioctl(dev, cmd, data, flag, p)
 		oo->y = sc->origy;
 		return 0;
 	}
-	}   
+	}
 
 	return (EINVAL);
 }
@@ -404,7 +404,7 @@ qmsintr(arg)
 
 /*		if (dosignal)*/
 			psignal(sc->sc_proc, SIGIO);
-		
+
 		sc->lastx = x;
 		sc->lasty = y;
 		sc->lastb = b;

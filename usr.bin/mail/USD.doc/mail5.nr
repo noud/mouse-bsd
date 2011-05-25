@@ -399,9 +399,9 @@ headers is printed.
 Print a brief and usually out of date help message about the commands
 in
 .i Mail .
-The 
+The
 .i man
-page for 
+page for
 .i mail
 is usually more up-to-date than either the help message or this manual.
 It is also a synonym for \fB?\fP.
@@ -559,7 +559,7 @@ variable is set, messages longer than the number of lines it indicates
 are paged through the command specified by the \fBPAGER\fP variable.
 The \fBprint\fP command can be abbreviated to \fBp\fP.
 .ip "\fBquit\fP\ \ "
-Terminates the session, saving all undeleted, unsaved and unwritten messages 
+Terminates the session, saving all undeleted, unsaved and unwritten messages
 in the user's \fImbox\fP file in their login directory
 (messages marked as having been read), preserving all
 messages marked with \fBhold\fP or \fBpreserve\fP or never referenced
@@ -1031,7 +1031,7 @@ command will print out instead of the default five lines.
 .ip "\fBverbose\fP\ \ "
 The binary option "verbose" causes
 .i Mail
-to invoke sendmail with the 
+to invoke sendmail with the
 .b \-v
 flag, which causes it to go into verbose mode and announce expansion
 of aliases, etc. Setting the "verbose" option is equivalent to

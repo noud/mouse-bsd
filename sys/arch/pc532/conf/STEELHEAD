@@ -53,7 +53,7 @@ options 	"CONSOLE_SPEED=B19200"	# default baud on the console (tty00)
 #options 	"RAMD_SIZE=1536000"	# Size of the "boot strap ram disk"
 #options 	"RAMD_ADR=0x400000"	# Adr of the "boot strap ram disk"
 
-config		netbsd	root on sd0 type ffs 
+config		netbsd	root on sd0 type ffs
 
 ncr0	at mainbus0 flags 0x2000
 
@@ -67,4 +67,4 @@ pseudo-device	bpfilter 4		# packet filter
 pseudo-device	sl 3			# compressed SLIP
 pseudo-device	ppp 2			# Point-to-Point Protocol
 pseudo-device   vnd 4			# Vnode devices
-#pseudo-device	ether			# 
+#pseudo-device	ether			#

@@ -74,7 +74,7 @@ mopProcessInfo(pkt, index, moplen, dl_rpr, trans)
         u_short itype,tmps;
 	u_char  ilen ,tmpc,device;
 	u_char  uc1,uc2,uc3,*ucp;
-	
+
 	device = 0;
 
 	switch(trans) {
@@ -86,7 +86,7 @@ mopProcessInfo(pkt, index, moplen, dl_rpr, trans)
 		break;
 	}
 
-	itype = mopGetShort(pkt,index); 
+	itype = mopGetShort(pkt,index);
 
 	while (*index < (int)(moplen)) {
 		ilen  = mopGetChar(pkt,index);
@@ -170,7 +170,7 @@ mopProcessInfo(pkt, index, moplen, dl_rpr, trans)
 				ucp = pkt + *index; *index = *index + ilen;
 			};
 		}
-		itype = mopGetShort(pkt,index); 
+		itype = mopGetShort(pkt,index);
         }
 }
 
@@ -190,7 +190,7 @@ mopSendASV(dst, src, ii, trans)
 
 	p = &pkt[index];
 	mopPutChar(pkt,&index,mopcode);
-	
+
 	mopPutLength(pkt, trans, index);
 	newlen = mopGetLength(pkt, trans);
 
@@ -202,7 +202,7 @@ mopSendASV(dst, src, ii, trans)
 		mopPrintHeader(stdout, pkt, trans);
 		mopPrintMopHeader(stdout, pkt, trans);
 	}
-	
+
 	if ((DebugFlag >= DEBUG_INFO)) {
 		mopDumpDL(stdout, pkt, trans);
 	}
@@ -228,7 +228,7 @@ mopStartLoad(dst, src, dl_rpr, trans)
 	u_short	 newlen,ptype = MOP_K_PROTO_DL;
 
 	slot = -1;
-	
+
 	/* Look if we have a non terminated load, if so, use it's slot */
 
 	for (i = 0; i < MAXDL; i++) {
@@ -238,7 +238,7 @@ mopStartLoad(dst, src, dl_rpr, trans)
 			}
 		}
 	}
-	
+
 	/* If no slot yet, then find first free */
 
 	if (slot == -1) {
@@ -254,15 +254,15 @@ mopStartLoad(dst, src, dl_rpr, trans)
 	}
 
 	/* If no slot yet, then return. No slot is free */
-	
+
 	if (slot == -1)
 		return;
-	
+
 	/* Ok, save info from RPR */
 
 	dllist[slot] = *dl_rpr;
 	dllist[slot].status = DL_STATUS_READ_IMGHDR;
-	
+
 	/* Get Load and Transfer Address. */
 
 	GetFileInfo(dllist[slot].ldfd,
@@ -309,7 +309,7 @@ mopStartLoad(dst, src, dl_rpr, trans)
 		mopPrintHeader(stdout, pkt, trans);
 		mopPrintMopHeader(stdout, pkt, trans);
 	}
-	
+
 	if ((DebugFlag >= DEBUG_INFO)) {
 		mopDumpDL(stdout, pkt, trans);
 	}
@@ -337,7 +337,7 @@ mopNextLoad(dst, src, new_count, trans)
 	u_char	 mopcode;
 
 	slot = -1;
-	
+
 	for (i = 0; i < MAXDL; i++) {
 		if (dllist[i].status != DL_STATUS_FREE) {
 			if (mopCmpEAddr(dst,dllist[i].eaddr) == 0)
@@ -346,7 +346,7 @@ mopNextLoad(dst, src, new_count, trans)
 	}
 
 	/* If no slot yet, then return. No slot is free */
-	
+
 	if (slot == -1)
 		return;
 
@@ -369,10 +369,10 @@ mopNextLoad(dst, src, new_count, trans)
 	}
 
 	dllist[slot].lseek     = lseek(dllist[slot].ldfd,0L,SEEK_CUR);
-	
+
 	if (dllist[slot].dl_bsz >= 1492)
 		dllist[slot].dl_bsz = 1492;
-	
+
 	index = 0;
 	mopPutHeader(pkt, &index, dst, src, ptype, trans);
 	p = &pkt[index];
@@ -383,15 +383,15 @@ mopNextLoad(dst, src, new_count, trans)
 	mopPutLong (pkt,&index,dllist[slot].loadaddr);
 
 	len = mopFileRead(&dllist[slot],&pkt[index]);
-	
+
 	if (len > 0 ) {
-			
+
 		dllist[slot].nloadaddr = dllist[slot].loadaddr + len;
 		index = index + len;
 
 		mopPutLength(pkt, trans, index);
 		newlen = mopGetLength(pkt, trans);
-		
+
 	} else {
 		if (len == 0) {
 			index = pindex;
@@ -411,7 +411,7 @@ mopNextLoad(dst, src, new_count, trans)
 
 			mopPutLength(pkt, trans, index);
 			newlen = mopGetLength(pkt, trans);
-		
+
 			dllist[slot].status = DL_STATUS_SENT_PLT;
 		} else {
 			dllist[slot].status = DL_STATUS_FREE;
@@ -427,7 +427,7 @@ mopNextLoad(dst, src, new_count, trans)
 		mopPrintHeader(stdout, pkt, trans);
 		mopPrintMopHeader(stdout, pkt, trans);
 	}
-	
+
 	if ((DebugFlag >= DEBUG_INFO)) {
 		mopDumpDL(stdout, pkt, trans);
 	}
@@ -466,7 +466,7 @@ mopProcessDL(fd, ii, pkt, index, dst, src, trans, len)
 		mopPrintHeader(stdout, pkt, trans);
 		mopPrintMopHeader(stdout, pkt, trans);
 	}
-	
+
 	if ((DebugFlag >= DEBUG_INFO)) {
 		mopDumpDL(stdout, pkt, trans);
 	}
@@ -486,9 +486,9 @@ mopProcessDL(fd, ii, pkt, index, dst, src, trans, len)
 	case MOP_K_CODE_RMD:
 		break;
 	case MOP_K_CODE_RPR:
-		
+
 		tmpc = mopGetChar(pkt,index);		/* Device Type */
-		
+
 		tmpc = mopGetChar(pkt,index);		/* Format Version */
 		if ((tmpc != MOP_K_RPR_FORMAT) &&
 		    (tmpc != MOP_K_RPR_FORMAT_V3)) {
@@ -496,9 +496,9 @@ mopProcessDL(fd, ii, pkt, index, dst, src, trans, len)
 			mopPrintHWA(stderr,src);
 			(void)fprintf(stderr,"\n");
 		}
-		
+
 		rpr_pgty = mopGetChar(pkt,index);	/* Program Type */
-		
+
 		tmpc = mopGetChar(pkt,index);		/* Software ID Len */
 		for (i = 0; i < tmpc; i++) {
 			pfile[i] = mopGetChar(pkt,index);
@@ -516,9 +516,9 @@ mopProcessDL(fd, ii, pkt, index, dst, src, trans, len)
 			sprintf(pfile,"%02x%02x%02x%02x%02x%02x%c",
 				src[0],src[1],src[2],src[3],src[4],src[5],0);
 		}
-		
+
 		tmpc = mopGetChar(pkt,index);		/* Processor */
-	
+
 		iindex = *index;
 		dl_rpr = &dl;
 		memset(dl_rpr, 0, sizeof(*dl_rpr));
@@ -553,18 +553,18 @@ mopProcessDL(fd, ii, pkt, index, dst, src, trans, len)
 				syslog(LOG_INFO, line);
 			}
 		}
-		
+
 		break;
 	case MOP_K_CODE_RML:
-		
+
 		load = mopGetChar(pkt,index);		/* Load Number	*/
-		
+
 		tmpc = mopGetChar(pkt,index);		/* Error	*/
-		
+
 		if ((mopCmpEAddr(dst,ii->eaddr) == 0)) {
 			mopNextLoad(src, ii->eaddr, load, trans);
 		}
-		
+
 		break;
 	case MOP_K_CODE_RDS:
 		break;
@@ -602,7 +602,7 @@ mopProcessRC(fd, ii, pkt, index, dst, src, trans, len)
 		mopPrintHeader(stdout, pkt, trans);
 		mopPrintMopHeader(stdout, pkt, trans);
 	}
-	
+
 	if ((DebugFlag >= DEBUG_INFO)) {
 		mopDumpRC(stdout, pkt, trans);
 	}
@@ -616,24 +616,24 @@ mopProcessRC(fd, ii, pkt, index, dst, src, trans, len)
 	case MOP_K_CODE_BOT:
 		break;
 	case MOP_K_CODE_SID:
-		
+
 		tmpc = mopGetChar(pkt,index);		/* Reserved */
-		
+
 		if ((DebugFlag >= DEBUG_INFO)) {
 			(void)fprintf(stderr, "Reserved     :   %02x\n",tmpc);
 		}
-		
+
 		tmps = mopGetShort(pkt,index);		/* Receipt # */
 		if ((DebugFlag >= DEBUG_INFO)) {
 			(void)fprintf(stderr, "Receipt Nbr  : %04x\n",tmpc);
 		}
-		
+
 		dl_rpr = &dl;
 		memset(dl_rpr, 0, sizeof(*dl_rpr));
 		dl_rpr->ii = ii;
 		memmove((char *)(dl_rpr->eaddr), (char *)src, 6);
 		mopProcessInfo(pkt,index,moplen,dl_rpr,trans);
-		
+
 		break;
 	case MOP_K_CODE_RQC:
 		break;

@@ -229,7 +229,7 @@ struct wsdisplay_cmap {
 	u_char	*red;				/* red color map elements */
 	u_char	*green;				/* green color map elements */
 	u_char	*blue;				/* blue color map elements */
-};      
+};
 #define WSDISPLAYIO_GETCMAP	_IOW('W', 66, struct wsdisplay_cmap)
 #define WSDISPLAYIO_PUTCMAP	_IOW('W', 67, struct wsdisplay_cmap)
 

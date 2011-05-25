@@ -1,6 +1,6 @@
 /*	$NetBSD: ethers.c,v 1.17 2000/01/22 22:19:14 mycroft Exp $	*/
 
-/* 
+/*
  * ethers(3N) a la Sun.
  *
  * Written by Roland McGrath <roland@frob.com> 10/14/93.
@@ -80,7 +80,7 @@ ether_ntohost(hostname, e)
 	char *hostname;
 	struct ether_addr *e;
 {
-	FILE *f; 
+	FILE *f;
 	char *p;
 	size_t len;
 	struct ether_addr try;
@@ -93,7 +93,7 @@ ether_ntohost(hostname, e)
 	_DIAGASSERT(e != NULL);
 
 #ifdef YP
-	trylen = snprintf(trybuf, sizeof trybuf, "%x:%x:%x:%x:%x:%x", 
+	trylen = snprintf(trybuf, sizeof trybuf, "%x:%x:%x:%x:%x:%x",
 	    e->ether_addr_octet[0], e->ether_addr_octet[1],
 	    e->ether_addr_octet[2], e->ether_addr_octet[3],
 	    e->ether_addr_octet[4], e->ether_addr_octet[5]);
@@ -130,7 +130,7 @@ ether_ntohost(hostname, e)
 		    memcmp(&try, e, sizeof try) == 0) {
 			(void)fclose(f);
 			return 0;
-		}     
+		}
 	}
 	(void)fclose(f);
 	errno = ENOENT;

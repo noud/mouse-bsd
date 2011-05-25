@@ -48,7 +48,7 @@
  * |                               | Page address | V |
  *
  * The page address is bits <n:13> of the physical address of the
- * page.  The V bit is set if the PTE holds a valid mapping. 
+ * page.  The V bit is set if the PTE holds a valid mapping.
  */
 #define SGPTE_PGADDR_SHIFT      12
 #define SGPTE_VALID             0x0000000000000001UL

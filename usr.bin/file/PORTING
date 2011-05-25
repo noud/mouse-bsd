@@ -1,6 +1,6 @@
 $NetBSD: PORTING,v 1.5 1998/09/20 15:27:15 christos Exp $
 Portability of the new file(1) command.
-@(#) Id: PORTING,v 1.11 1993/09/23 21:47:23 christos Exp 
+@(#) Id: PORTING,v 1.11 1993/09/23 21:47:23 christos Exp
 
 Read this file only if the program doesn't compile on your system.
 
@@ -40,7 +40,7 @@ files. For example, the lstat(2) call is normally found in
 4BSD systems, but might be grafted into some other variant
 of UNIX. If it's done right (ie., using the same definitions),
 my program will compile and work correctly. Look at the #ifdefs
-to see how it's done. 
+to see how it's done.
 
 I've also tried to include source for all the non-portable library routines
 I used (getopt, str*).   Non-portable here means `not in every
@@ -56,7 +56,7 @@ This will work for 99% of the systems out there. ONLY if you
 have a system in which  neither types.h nor sysmacros.h defines
 `major' will this automatic include fail (I hope). On such
 systems, you will get a compilation error in trying to compile
-a warning message. Please do the following: 
+a warning message. Please do the following:
 
 	1) change the appropriate #include at the start of fsmagic.c
 and	2) let me know the name of the system, the release number,
@@ -70,7 +70,7 @@ to include `-Dvoid=int' in the variable COPTS in the Makefile.
 Other than this, there should be no portability problems,
 but one never knows these days. Please let me know of any
 other problems you find porting to a UNIX system. I don't much
-care about non-UNIX systems but will collect widely-used magic 
+care about non-UNIX systems but will collect widely-used magic
 numbers for them as well as for UNIX systems.
 
 Mark Moraes and Christos Zoulas

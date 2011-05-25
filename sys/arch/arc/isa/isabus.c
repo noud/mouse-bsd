@@ -41,28 +41,28 @@
  *
  *	@(#)isa.c	7.2 (Berkeley) 5/12/91
  */
-/* 
+/*
  * Mach Operating System
  * Copyright (c) 1991,1990,1989 Carnegie Mellon University
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
+ *
  * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
  * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND FOR
  * ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
- * 
+ *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
  *  School of Computer Science
  *  Carnegie Mellon University
  *  Pittsburgh PA 15213-3890
- * 
+ *
  * any improvements or extensions that they make and grant Carnegie Mellon
  * the rights to redistribute these changes.
  */
@@ -307,7 +307,7 @@ intr_calculatemasks()
 /*
  *	Establish a ISA bus interrupt.
  */
-void *   
+void *
 isabr_intr_establish(ic, irq, type, level, ih_fun, ih_arg)
         isa_chipset_tag_t ic;
         int irq;
@@ -374,11 +374,11 @@ isabr_intr_establish(ic, irq, type, level, ih_fun, ih_arg)
 	return (ih);
 }
 
-void                    
+void
 isabr_intr_disestablish(ic, arg)
         isa_chipset_tag_t ic;
-        void *arg;      
-{               
+        void *arg;
+{
 
 }
 
@@ -406,7 +406,7 @@ isabr_iointr(mask, cf)
 	case DESKSTATION_TYNE:
 		isa_outb(IO_ICU1, 0x0f);	/* Poll */
 		vector = isa_inb(IO_ICU1);
-		if(vector > 0 || (isa_vector = vector & 7) == 2) { 
+		if(vector > 0 || (isa_vector = vector & 7) == 2) {
 			isa_outb(IO_ICU2, 0x0f);
 			vector = isa_inb(IO_ICU2);
 			if(vector > 0) {
@@ -420,7 +420,7 @@ isabr_iointr(mask, cf)
 	case DESKSTATION_RPC44:
 		isa_outb(IO_ICU1, 0x0f);	/* Poll */
 		vector = isa_inb(IO_ICU1);
-		if(vector > 0 || (isa_vector = vector & 7) == 2) { 
+		if(vector > 0 || (isa_vector = vector & 7) == 2) {
 			isa_outb(IO_ICU2, 0x0f);
 			vector = isa_inb(IO_ICU2);
 			if(vector > 0) {
@@ -464,12 +464,12 @@ isabr_iointr(mask, cf)
 }
 
 
-/* 
+/*
  * Initialize the Interrupt controller logic.
  */
 void
 isabr_initicu()
-{  
+{
 
 	isa_outb(IO_ICU1, 0x11);		/* reset; program device, four bytes */
 	isa_outb(IO_ICU1+1, 0);			/* starting at this vector index */
@@ -478,7 +478,7 @@ isabr_initicu()
 	isa_outb(IO_ICU1+1, 0xff);		/* leave interrupts masked */
 	isa_outb(IO_ICU1, 0x68);		/* special mask mode (if available) */
 	isa_outb(IO_ICU1, 0x0a);		/* Read IRR by default. */
-#ifdef REORDER_IRQ  
+#ifdef REORDER_IRQ
 	isa_outb(IO_ICU1, 0xc0 | (3 - 1));	/* pri order 3-7, 0-2 (com2 first) */
 #endif
 
@@ -489,7 +489,7 @@ isabr_initicu()
 	isa_outb(IO_ICU2+1, 0xff);		/* leave interrupts masked */
 	isa_outb(IO_ICU2, 0x68);		/* special mask mode (if available) */
 	isa_outb(IO_ICU2, 0x0a);		/* Read IRR by default. */
-}	       
+}
 
 
 /*

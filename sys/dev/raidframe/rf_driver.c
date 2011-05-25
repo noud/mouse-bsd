@@ -163,7 +163,7 @@ static RF_ShutdownList_t *globalShutdown;	/* non array-specific
 static int rf_ConfigureRDFreeList(RF_ShutdownList_t ** listp);
 
 /* called at system boot time */
-int     
+int
 rf_BootRaidframe()
 {
 	int     rc;
@@ -189,7 +189,7 @@ rf_BootRaidframe()
  * be kept around. This is used with systems like "sentinel" to detect
  * memory leaks.
  */
-int 
+int
 rf_UnbootRaidframe()
 {
 	int     rc;
@@ -212,7 +212,7 @@ rf_UnbootRaidframe()
 /*
  * Called whenever an array is shutdown
  */
-static void 
+static void
 rf_UnconfigureArray()
 {
 	int     rc;
@@ -240,7 +240,7 @@ rf_UnconfigureArray()
 /*
  * Called to shut down an array.
  */
-int 
+int
 rf_Shutdown(raidPtr)
 	RF_Raid_t *raidPtr;
 {
@@ -285,7 +285,7 @@ void
 rf_UnconfigureVnodes( raidPtr )
 	RF_Raid_t *raidPtr;
 {
-	int r,c; 
+	int r,c;
 	struct proc *p;
 
 
@@ -369,7 +369,7 @@ rf_UnconfigureVnodes( raidPtr )
 	} \
 }
 
-int 
+int
 rf_Configure(raidPtr, cfgPtr, ac)
 	RF_Raid_t *raidPtr;
 	RF_Config_t *cfgPtr;
@@ -378,7 +378,7 @@ rf_Configure(raidPtr, cfgPtr, ac)
 	RF_RowCol_t row, col;
 	int     i, rc;
 
-	/* XXX This check can probably be removed now, since 
+	/* XXX This check can probably be removed now, since
 	   RAIDFRAME_CONFIGURRE now checks to make sure that the
 	   RAID set is not already valid
 	*/
@@ -397,7 +397,7 @@ rf_Configure(raidPtr, cfgPtr, ac)
 			return (rc);
 		}
 		/* initialize globals */
-		printf("RAIDFRAME: protectedSectors is %ld\n", 
+		printf("RAIDFRAME: protectedSectors is %ld\n",
 		       rf_protectedSectors);
 
 		rf_clear_debug_print_buffer();
@@ -406,7 +406,7 @@ rf_Configure(raidPtr, cfgPtr, ac)
 
 		/*
 	         * Yes, this does make debugging general to the whole
-	         * system instead of being array specific. Bummer, drag.  
+	         * system instead of being array specific. Bummer, drag.
 		 */
 		rf_ConfigureDebug(cfgPtr);
 		DO_INIT_CONFIGURE(rf_ConfigureDebugMem);
@@ -529,7 +529,7 @@ rf_Configure(raidPtr, cfgPtr, ac)
 	return (0);
 }
 
-static int 
+static int
 init_rad(desc)
 	RF_RaidAccessDesc_t *desc;
 {
@@ -551,7 +551,7 @@ init_rad(desc)
 	return (0);
 }
 
-static void 
+static void
 clean_rad(desc)
 	RF_RaidAccessDesc_t *desc;
 {
@@ -559,14 +559,14 @@ clean_rad(desc)
 	rf_cond_destroy(&desc->cond);
 }
 
-static void 
+static void
 rf_ShutdownRDFreeList(ignored)
 	void   *ignored;
 {
 	RF_FREELIST_DESTROY_CLEAN(rf_rad_freelist, next, (RF_RaidAccessDesc_t *), clean_rad);
 }
 
-static int 
+static int
 rf_ConfigureRDFreeList(listp)
 	RF_ShutdownList_t **listp;
 {
@@ -643,7 +643,7 @@ rf_AllocRaidAccDesc(
 	return (desc);
 }
 
-void 
+void
 rf_FreeRaidAccDesc(RF_RaidAccessDesc_t * desc)
 {
 	RF_Raid_t *raidPtr = desc->raidPtr;
@@ -664,7 +664,7 @@ rf_FreeRaidAccDesc(RF_RaidAccessDesc_t * desc)
  * when either the DAG library is incomplete or there are too many
  * failures in a parity group.
  ********************************************************************/
-int 
+int
 rf_DoAccess(
     RF_Raid_t * raidPtr,
     RF_IoType_t type,
@@ -734,7 +734,7 @@ bp_in is a buf pointer.  void * to facilitate ignoring it outside the kernel
 	return (0);
 }
 /* force the array into reconfigured mode without doing reconstruction */
-int 
+int
 rf_SetReconfiguredMode(raidPtr, row, col)
 	RF_Raid_t *raidPtr;
 	int     row;
@@ -759,7 +759,7 @@ rf_SetReconfiguredMode(raidPtr, row, col)
 extern int fail_row, fail_col, fail_time;
 extern int delayed_recon;
 
-int 
+int
 rf_FailDisk(
     RF_Raid_t * raidPtr,
     int frow,
@@ -779,13 +779,13 @@ rf_FailDisk(
 /* releases a thread that is waiting for the array to become quiesced.
  * access_suspend_mutex should be locked upon calling this
  */
-void 
+void
 rf_SignalQuiescenceLock(raidPtr, reconDesc)
 	RF_Raid_t *raidPtr;
 	RF_RaidReconDesc_t *reconDesc;
 {
 	if (rf_quiesceDebug) {
-		printf("raid%d: Signalling quiescence lock\n", 
+		printf("raid%d: Signalling quiescence lock\n",
 		       raidPtr->raidid);
 	}
 	raidPtr->access_suspend_release = 1;
@@ -795,7 +795,7 @@ rf_SignalQuiescenceLock(raidPtr, reconDesc)
 	}
 }
 /* suspends all new requests to the array.  No effect on accesses that are in flight.  */
-int 
+int
 rf_SuspendNewRequestsAndWait(raidPtr)
 	RF_Raid_t *raidPtr;
 {
@@ -820,7 +820,7 @@ rf_SuspendNewRequestsAndWait(raidPtr)
 	return (raidPtr->waiting_for_quiescence);
 }
 /* wake up everyone waiting for quiescence to be released */
-void 
+void
 rf_ResumeNewRequests(raidPtr)
 	RF_Raid_t *raidPtr;
 {
@@ -851,7 +851,7 @@ rf_ResumeNewRequests(raidPtr)
  *
  ****************************************************************************************/
 
-static void 
+static void
 set_debug_option(name, val)
 	char   *name;
 	long    val;
@@ -871,7 +871,7 @@ set_debug_option(name, val)
 
 /* would like to use sscanf here, but apparently not available in kernel */
 /*ARGSUSED*/
-static void 
+static void
 rf_ConfigureDebug(cfgPtr)
 	RF_Config_t *cfgPtr;
 {
@@ -903,7 +903,7 @@ rf_ConfigureDebug(cfgPtr)
  * Throughput stats currently only used in user-level RAIDframe
  */
 
-static int 
+static int
 rf_InitThroughputStats(
     RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr,
@@ -924,7 +924,7 @@ rf_InitThroughputStats(
 	return (0);
 }
 
-void 
+void
 rf_StartThroughputStats(RF_Raid_t * raidPtr)
 {
 	RF_LOCK_MUTEX(raidPtr->throughputstats.mutex);
@@ -935,7 +935,7 @@ rf_StartThroughputStats(RF_Raid_t * raidPtr)
 	RF_UNLOCK_MUTEX(raidPtr->throughputstats.mutex);
 }
 
-static void 
+static void
 rf_StopThroughputStats(RF_Raid_t * raidPtr)
 {
 	struct timeval diff;
@@ -950,7 +950,7 @@ rf_StopThroughputStats(RF_Raid_t * raidPtr)
 	RF_UNLOCK_MUTEX(raidPtr->throughputstats.mutex);
 }
 
-static void 
+static void
 rf_PrintThroughputStats(RF_Raid_t * raidPtr)
 {
 	RF_ASSERT(raidPtr->throughputstats.num_out_ios == 0);
@@ -961,7 +961,7 @@ rf_PrintThroughputStats(RF_Raid_t * raidPtr)
 }
 #endif				/* !KERNEL && !SIMULATE */
 
-void 
+void
 rf_StartUserStats(RF_Raid_t * raidPtr)
 {
 	RF_GETTIME(raidPtr->userstats.start);
@@ -970,13 +970,13 @@ rf_StartUserStats(RF_Raid_t * raidPtr)
 	raidPtr->userstats.num_sect_moved = 0;
 }
 
-void 
+void
 rf_StopUserStats(RF_Raid_t * raidPtr)
 {
 	RF_GETTIME(raidPtr->userstats.stop);
 }
 
-void 
+void
 rf_UpdateUserStats(raidPtr, rt, numsect)
 	RF_Raid_t *raidPtr;
 	int     rt;		/* resp time in us */
@@ -987,7 +987,7 @@ rf_UpdateUserStats(raidPtr, rt, numsect)
 	raidPtr->userstats.num_sect_moved += numsect;
 }
 
-void 
+void
 rf_PrintUserStats(RF_Raid_t * raidPtr)
 {
 	long    elapsed_us, mbs, mbs_frac;

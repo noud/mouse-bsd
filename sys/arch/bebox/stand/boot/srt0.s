@@ -71,7 +71,7 @@ _start:
 	ori	3,3,start_ldr@l
 	mtlr	3			/* Easiest way to do an absolute jump */
 	blr
-start_ldr:	
+start_ldr:
 /* Clear all of BSS */
 	lis	3,edata@h
 	ori	3,3,edata@l
@@ -86,7 +86,7 @@ start_ldr:
 90:
 	bl	main
 hang:
-	b	hang	
+	b	hang
 
 /*
  * end address

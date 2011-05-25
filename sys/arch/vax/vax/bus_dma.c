@@ -755,7 +755,7 @@ _bus_dmamem_alloc_range(t, size, alignment, boundary, segs, nsegs, rsegs,
  */
 struct vax_bus_dma_tag vax_bus_dma_tag = {
 	NULL,
-	0, 
+	0,
 	0,
 	0,
 	0,

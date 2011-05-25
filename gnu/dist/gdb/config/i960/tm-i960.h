@@ -128,7 +128,7 @@ extern CORE_ADDR saved_pc_after_call ();
    other frames, and 2) This register is automatically "saved" upon
    subroutine calls and thus there is no need to search more than one
    stack frame for it.
-   
+
    On the i960, in fact, the name of this register in another frame is
    "mud" -- there is no overlap between the windows.  Each window is
    simply saved into the stack (true for our purposes, after having been
@@ -218,7 +218,7 @@ extern CORE_ADDR saved_pc_after_call ();
 #define EXTRACT_RETURN_VALUE(TYPE,REGBUF,VALBUF) \
 	memcpy(VALBUF, REGBUF+REGISTER_BYTE(G0_REGNUM), TYPE_LENGTH (TYPE))
 
-/* If USE_STRUCT_CONVENTION produces a 1, 
+/* If USE_STRUCT_CONVENTION produces a 1,
    extract from an array REGBUF containing the (raw) register state
    the address in which a function should return its structure value,
    as a CORE_ADDR (or an expression that can be used as one).
@@ -233,7 +233,7 @@ extern CORE_ADDR saved_pc_after_call ();
 
 /* Write into appropriate registers a function return value
    of type TYPE, given in virtual format, for "value returning" functions.
-  
+
    For 'return' command:  not (yet) implemented for i960.  */
 
 #define STORE_RETURN_VALUE(TYPE,VALBUF) \
@@ -294,7 +294,7 @@ extern CORE_ADDR saved_pc_after_call ();
 
 /* Note that in the i960 architecture the return pointer is saved in the
    *caller's* stack frame.
-  
+
    Make sure to zero low-order bits because of bug in 960CA A-step part
    (instruction addresses should always be word-aligned anyway).  */
 
@@ -335,7 +335,7 @@ extern void frame_find_saved_regs();		/* See i960-tdep.c */
 /* Things needed for making calls to functions in the inferior process */
 
 /* Push an empty stack frame, to record the current ip, etc.
-  
+
    Not (yet?) implemented for i960.  */
 
 #define PUSH_DUMMY_FRAME	\
@@ -348,7 +348,7 @@ error("Function calls into the inferior process are not supported on the i960")
 
 
 /* This sequence of words is the instructions
-  
+
   	callx 0x00000000
   	fmark
  */
@@ -363,7 +363,7 @@ error("Function calls into the inferior process are not supported on the i960")
 
 /* Insert the specified number of args and function address
    into a call sequence of the above form stored at 'dummyname'.
-  
+
    Ignore arg count on i960.  */
 
 /* #define FIX_CALL_DUMMY(dummyname, fun, nargs) *(((int *)dummyname)+1) = fun */

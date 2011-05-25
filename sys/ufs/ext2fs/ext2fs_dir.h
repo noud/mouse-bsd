@@ -92,7 +92,7 @@ struct	ext2fs_direct {
 
 /* Ext2 directory file types (not the same as FFS. Sigh. */
 #define EXT2_FT_UNKNOWN         0
-#define EXT2_FT_REG_FILE        1 
+#define EXT2_FT_REG_FILE        1
 #define EXT2_FT_DIR             2
 #define EXT2_FT_CHRDEV          3
 #define EXT2_FT_BLKDEV          4

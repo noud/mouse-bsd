@@ -29,7 +29,7 @@ static const char rcsid[] = "@(#)Id: larp.c,v 2.1 1999/08/04 17:31:10 darrenr Ex
  * its IP address in address
  * (4 bytes)
  */
-int	resolve(host, address) 
+int	resolve(host, address)
 char	*host, *address;
 {
         struct	hostent	*hp;

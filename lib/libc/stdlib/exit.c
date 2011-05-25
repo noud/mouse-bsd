@@ -58,7 +58,7 @@ exit(status)
 {
 	struct atexit *p;
 	int n;
-	
+
 	mutex_lock(&__atexit_mutex);
 	for (p = __atexit; p; p = p->next)
 		for (n = p->ind; --n >= 0;)

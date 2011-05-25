@@ -111,7 +111,7 @@ ds1687_ram_read(sc, addr)
 
 	addr -= RTC_PC_RAM_SIZE;
 	if (addr < RTC_BANK0_RAM_SIZE)
-		return(ds1687_read(sc, RTC_BANK0_RAM_START + addr));		
+		return(ds1687_read(sc, RTC_BANK0_RAM_START + addr));
 
 	addr -= RTC_BANK0_RAM_SIZE;
 	if (addr < RTC_EXT_RAM_SIZE) {
@@ -184,7 +184,7 @@ dsrtc_read(arg, rtc)
 	rtc->rtc_mon   = ds1687_read(sc, RTC_MONTH);
 	rtc->rtc_year  = ds1687_read(sc, RTC_YEAR);
 	ds1687_bank_select(sc, 1);
-	rtc->rtc_cen   = ds1687_read(sc, RTC_CENTURY); 
+	rtc->rtc_cen   = ds1687_read(sc, RTC_CENTURY);
 	ds1687_bank_select(sc, 0);
 
 	return(1);
@@ -234,7 +234,7 @@ dsrtcattach(parent, self, aux)
 	struct dsrtc_softc *sc = (struct dsrtc_softc *)self;
 	struct isa_attach_args *ia = aux;
 	struct todclock_attach_args ta;
-	
+
 	sc->sc_iot = ia->ia_iot;
 	if (bus_space_map(sc->sc_iot, ia->ia_iobase,
 	    NRTC_PORTS, 0, &sc->sc_ioh)) {
@@ -251,7 +251,7 @@ dsrtcattach(parent, self, aux)
 
 	ta.ta_name = "todclock";
 	ta.ta_rtc_arg = sc;
-	ta.ta_rtc_write = dsrtc_write; 
+	ta.ta_rtc_write = dsrtc_write;
 	ta.ta_rtc_read = dsrtc_read;
 	ta.ta_flags = 0;
 	config_found(self, &ta, NULL);

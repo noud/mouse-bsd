@@ -8,7 +8,7 @@ static const char rcsid[] = "Id: ns_req.c,v 8.104 1999/10/15 19:49:04 vixie Exp"
 /*
  * Copyright (c) 1986, 1988, 1990
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -24,7 +24,7 @@ static const char rcsid[] = "Id: ns_req.c,v 8.104 1999/10/15 19:49:04 vixie Exp"
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -40,14 +40,14 @@ static const char rcsid[] = "Id: ns_req.c,v 8.104 1999/10/15 19:49:04 vixie Exp"
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -191,7 +191,7 @@ ns_req(u_char *msg, int msglen, int buflen, struct qstream *qsp,
 #endif
 	msglen_orig = msglen;
 	siglen = sizeof(sig);
-	
+
 	tsigstart = ns_find_tsig(msg, msg + msglen);
 	if (tsigstart == NULL)
 		has_tsig = 0;
@@ -209,7 +209,7 @@ ns_req(u_char *msg, int msglen, int buflen, struct qstream *qsp,
 		}
 	}
 	if (has_tsig && key != NULL) {
-		n = ns_verify(msg, &msglen, key, NULL, 0, sig, &siglen, 
+		n = ns_verify(msg, &msglen, key, NULL, 0, sig, &siglen,
 			      &tsig_time, 0);
 		if (n != 0) {
 			hp->rcode = ns_r_notauth;
@@ -377,7 +377,7 @@ ns_req(u_char *msg, int msglen, int buflen, struct qstream *qsp,
 			INSIST(0);
 		}
 		cp = msg + msglen;
-		
+
 	}
 	/* Either the message is not truncated or there was no TSIG */
 	else {
@@ -420,9 +420,9 @@ ns_req(u_char *msg, int msglen, int buflen, struct qstream *qsp,
 			nameserIncr(from.sin_addr, nssSendtoErr);
 		}
 		nameserIncr(from.sin_addr, nssSentAns);
-		if (hp->rcode == ns_r_nxdomain) 
+		if (hp->rcode == ns_r_nxdomain)
 			nameserIncr(from.sin_addr, nssSentNXD);
-		if (!hp->aa) 
+		if (!hp->aa)
 			nameserIncr(from.sin_addr, nssSentNaAns);
 	} else
 		writestream(qsp, msg, cp - msg);
@@ -637,10 +637,10 @@ req_query(HEADER *hp, u_char **cpp, u_char *eom, struct qstream *qsp,
 	if (((ntohs(hp->nscount) != 0) && (type != ns_t_ixfr)) ||
            ((ntohs(hp->nscount) != 1) && (type == ns_t_ixfr)))
 	{
-		ns_debug(ns_log_default, 1, "FORMERR Query nscount wrong"); 
+		ns_debug(ns_log_default, 1, "FORMERR Query nscount wrong");
 		hp->rcode = ns_r_formerr;
 		return (Finish);
-	} 
+	}
 
 	afterq = *cpp;
 	qtypeIncr(type);
@@ -726,8 +726,8 @@ req_query(HEADER *hp, u_char **cpp, u_char *eom, struct qstream *qsp,
 	if (qrylog) {
 		ns_info(ns_log_queries, "%s/%s/%s/%s/%s",
 			(hp->rd) ? "XX+" : "XX ",
-			inet_ntoa(from.sin_addr), 
-			(dname[0] == '\0') ? "." : dname, 
+			inet_ntoa(from.sin_addr),
+			(dname[0] == '\0') ? "." : dname,
 			p_type(type), p_class(class));
 	}
 #endif /*QRYLOG*/
@@ -744,10 +744,10 @@ req_query(HEADER *hp, u_char **cpp, u_char *eom, struct qstream *qsp,
 		 dname, fname, cname);
 
 #ifdef YPKLUDGE
-	/* Some braindamaged resolver software will not 
-	   recognize internet addresses in dot notation and 
-	   send out address  queries for "names" such as 
-	   128.93.8.1.  This kludge will prevent those 
+	/* Some braindamaged resolver software will not
+	   recognize internet addresses in dot notation and
+	   send out address  queries for "names" such as
+	   128.93.8.1.  This kludge will prevent those
 	   from flooding higher level servers.
 	   We simply claim to be authoritative and that
 	   the domain doesn't exist.
@@ -808,14 +808,14 @@ req_query(HEADER *hp, u_char **cpp, u_char *eom, struct qstream *qsp,
 		    ixfr_error = ixfr_have_log(zp, serial_ixfr, zp->z_serial);
 		    if (ixfr_error < 0) {
 			ns_debug(ns_log_default,
-				 1, "ixfr_have_log(%d %d) failed %d", 
+				 1, "ixfr_have_log(%d %d) failed %d",
 				 serial_ixfr, zp->z_serial, ixfr_error);
 			ixfr_found = 0;
                         /* Refuse IXFR and send AXFR */
                         type = ns_t_axfr;
 		    } else
 			ixfr_found = 1;
-	        }   
+	        }
 	}
 	/*
 	 * If recursion is turned on, we need to check recursion ACL
@@ -860,7 +860,7 @@ req_query(HEADER *hp, u_char **cpp, u_char *eom, struct qstream *qsp,
 			}
 
 			/*
-			 * See if we would have made a referral from 
+			 * See if we would have made a referral from
 			 * an enclosing zone if we are actually in the
 			 * cache.
 			 */
@@ -1020,7 +1020,7 @@ req_query(HEADER *hp, u_char **cpp, u_char *eom, struct qstream *qsp,
 			count = 0;
 #endif
 			hp->rcode = ns_r_nxdomain;
-			/* 
+			/*
 			 * XXX forcing AA all the time isn't right, but
 			 * we have to work that way by default
 			 * for compatibility with older servers.
@@ -1048,7 +1048,7 @@ req_query(HEADER *hp, u_char **cpp, u_char *eom, struct qstream *qsp,
 		 * look for better servers for other requests.
 		 */
 		if (ns_t_xfr_p(type)) {
-			ns_debug(ns_log_default, 1,	
+			ns_debug(ns_log_default, 1,
 				 "transfer refused: no data");
 			return (Refuse);
 		}
@@ -1182,7 +1182,7 @@ req_query(HEADER *hp, u_char **cpp, u_char *eom, struct qstream *qsp,
 						}
 						*cpp += n;
 						*buflenp -= n;
-						hp->nscount = 
+						hp->nscount =
 							htons((u_int16_t)
 							      count);
 					}
@@ -1196,7 +1196,7 @@ req_query(HEADER *hp, u_char **cpp, u_char *eom, struct qstream *qsp,
 	case SERVFAIL:
 		/* We're authoritative but the zone isn't loaded. */
 		if (!founddata &&
-		    !(NS_ZOPTION_P(zp, OPTION_FORWARD_ONLY) && 
+		    !(NS_ZOPTION_P(zp, OPTION_FORWARD_ONLY) &&
 		      NS_ZFWDTAB(zp))) {
 			hp->rcode = ns_r_servfail;
 			free_nsp(nsp);
@@ -1290,8 +1290,8 @@ req_query(HEADER *hp, u_char **cpp, u_char *eom, struct qstream *qsp,
 	case FW_DUP:
 		break;		/* Duplicate request dropped */
 	case FW_NOSERVER:
-		/* 
-		 * Don't go into an infinite loop if 
+		/*
+		 * Don't go into an infinite loop if
 		 * the admin gave root NS records in the cache
 		 * file without giving address records
 		 * for the root servers.
@@ -1701,7 +1701,7 @@ make_rr(const char *name, struct databuf *dp, u_char *buf,
 		cp1 += n;
 		n = (u_int16_t)((cp - sp) - INT16SZ);
 		ns_debug(ns_log_default, 1, "current size n = %u", n);
-		
+
 		/* Service */
 		n = *cp1++;
 		buflen -= n + 1;
@@ -1833,7 +1833,7 @@ make_rr(const char *name, struct databuf *dp, u_char *buf,
 			return (-1);  /* out of room! */
 		memcpy(cp, cp1, n);
 		cp += n;
-		
+
   		/* save data length & return */
 		n = (u_int16_t)((cp - sp) - INT16SZ);
   		PUTSHORT((u_int16_t)n, sp);
@@ -1847,7 +1847,7 @@ make_rr(const char *name, struct databuf *dp, u_char *buf,
 
 		cp += n;
 		buflen -=n;
-		cp1 += strlen((char *)cp1) + 1; 
+		cp1 += strlen((char *)cp1) + 1;
 
 		/* copy nxt bit map */
 		n = dp->d_size - (u_int16_t)((cp1 - dp->d_data));
@@ -2007,7 +2007,7 @@ loop:
 			count++;
 		}
  next_rr:
-		if (!NS_OPTION_P(OPTION_NOFETCHGLUE) && 
+		if (!NS_OPTION_P(OPTION_NOFETCHGLUE) &&
 		    !foundcname && !foundany &&
 		    (ap->a_type == T_A || ap->a_type == T_AAAA)) {
 			/* ask a real server for this info */

@@ -68,13 +68,13 @@ plumisabmatch(parent, match, aux)
 {
 	struct plumiobus_attach_args *pba = aux;
 	platid_mask_t mask;
-    
+
 
 	if (strcmp(pba->pba_busname, match->cf_driver->cd_name)) {
 		return 0;
 	}
 
-	if (match->cf_loc[PLUMIOBUSIFCF_PLATFORM] == 
+	if (match->cf_loc[PLUMIOBUSIFCF_PLATFORM] ==
 	    PLUMIOBUSIFCF_PLATFORM_DEFAULT) {
 		return 1;
 	}
@@ -96,7 +96,7 @@ plumisabattach(parent, self, aux)
 	struct plumiobus_attach_args *pba = aux;
 	struct plumisab_softc *sc = (void*)self;
 	struct isabus_attach_args iba;
-    
+
 	printf("\n");
 	sc->sc_pc = pba->pba_pc;
 	sc->sc_iot = pba->pba_iot;
@@ -153,7 +153,7 @@ isa_intr_establish(ic, irq, type, level, ih_fun, ih_arg)
 	void *ih_arg;
 {
 	struct plumisab_softc *sc = (void*)ic;
-	
+
 	sc->sc_ih = plum_intr_establish(sc->sc_pc, sc->sc_irq, type, level,
 					ih_fun, ih_arg);
 	return sc->sc_ih;
@@ -177,8 +177,8 @@ isa_intr_alloc(ic, mask, type, irq)
 	int *irq;
 {
 	struct plumisab_softc *sc = (void*)ic;
-	
+
 	*irq = sc->sc_irq;
-	
+
 	return 0;
 }

@@ -144,7 +144,7 @@ pass5()
 		     &newcg->cg_space[0] - (u_char *)(&newcg->cg_firstfield);
 		newcg->cg_boff =
 		    newcg->cg_btotoff + fs->fs_cpg * sizeof(int32_t);
-		newcg->cg_iusedoff = newcg->cg_boff + 
+		newcg->cg_iusedoff = newcg->cg_boff +
 		    fs->fs_cpg * fs->fs_nrpos * sizeof(int16_t);
 		newcg->cg_freeoff =
 		    newcg->cg_iusedoff + howmany(fs->fs_ipg, NBBY);
@@ -388,7 +388,7 @@ pass5()
 	}
 }
 
-void 
+void
 print_bmap(map, size)
 	u_char *map;
 	u_int32_t size;

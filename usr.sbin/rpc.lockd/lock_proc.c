@@ -71,7 +71,7 @@ static void	transmit4_result __P((int, nlm4_res *, struct svc_req *));
  * Notes:	Extracts the source address from the transport handle
  *		passed in as part of the called procedure specification
  */
-static void 
+static void
 log_from_addr(fun_name, req)
 	char *fun_name;
 	struct svc_req *req;
@@ -211,7 +211,7 @@ get_client(host_addr)
  *		calling it with timeout 0 as a hack to just issue a datagram
  *		without expecting a result
  */
-static void 
+static void
 transmit_result(opcode, result, req)
 	int opcode;
 	nlm_res *result;
@@ -243,7 +243,7 @@ transmit_result(opcode, result, req)
  *		calling it with timeout 0 as a hack to just issue a datagram
  *		without expecting a result
  */
-static void 
+static void
 transmit4_result(opcode, result, req)
 	int opcode;
 	nlm4_res *result;

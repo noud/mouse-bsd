@@ -103,13 +103,13 @@ static	int _obio_bus_map __P((bus_space_tag_t, bus_type_t, bus_addr_t,
 static struct sparc_bus_space_tag obio_space_tag = {
 	NULL,				/* cookie */
 	NULL,				/* parent bus tag */
-	_obio_bus_map,			/* bus_space_map */ 
+	_obio_bus_map,			/* bus_space_map */
 	NULL,				/* bus_space_unmap */
 	NULL,				/* bus_space_subregion */
-	NULL,				/* bus_space_barrier */ 
-	obio_bus_mmap,			/* bus_space_mmap */ 
+	NULL,				/* bus_space_barrier */
+	obio_bus_mmap,			/* bus_space_mmap */
 	NULL				/* bus_intr_establish */
-}; 
+};
 #endif
 
 /*
@@ -273,7 +273,7 @@ obiosearch(parent, cf, aux)
 
 	/*
 	 * Avoid sun4m entries which don't have valid PAs.
-	 * no point in even probing them. 
+	 * no point in even probing them.
 	 */
 	if (cf->cf_loc[0] == -1)
 		return (0);

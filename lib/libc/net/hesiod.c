@@ -102,7 +102,7 @@ static void	  translate_errors __P((void));
  * hesiod_init --
  *	initialize a hesiod_p.
  */
-int 
+int
 hesiod_init(context)
 	void	**context;
 {
@@ -156,7 +156,7 @@ hesiod_init(context)
  * hesiod_end --
  *	Deallocates the hesiod_p.
  */
-void 
+void
 hesiod_end(context)
 	void	*context;
 {
@@ -276,7 +276,7 @@ hesiod_resolve(context, name, type)
 }
 
 /*ARGSUSED*/
-void 
+void
 hesiod_free_list(context, list)
 	void	 *context;
 	char	**list;
@@ -298,7 +298,7 @@ hesiod_free_list(context, list)
  *	-1 on failure.  On failure, it might leave values in ctx->lhs
  *	or ctx->rhs which need to be freed by the caller.
  */
-static int 
+static int
 read_config_file(ctx, filename)
 	struct hesiod_p	*ctx;
 	const char	*filename;

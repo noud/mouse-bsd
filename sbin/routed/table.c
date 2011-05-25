@@ -1259,7 +1259,7 @@ read_rt(void)
 			trace_act("ignore multicast %s", str);
 			continue;
 		}
-		
+
 		if (m.r.rtm.rtm_flags & RTF_LLINFO) {
 			trace_act("ignore ARP %s", str);
 			continue;

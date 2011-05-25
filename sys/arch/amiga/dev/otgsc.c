@@ -66,7 +66,7 @@ struct scsipi_device otgsc_scsidev = {
 
 
 #ifdef DEBUG
-extern int sci_debug;  
+extern int sci_debug;
 #define QPRINTF(a) if (sci_debug > 1) printf a
 #else
 #define QPRINTF(a)
@@ -112,7 +112,7 @@ otgscattach(pdp, dp, auxp)
 	printf("\n");
 
 	zap = auxp;
-	
+
 	sc = (struct sci_softc *)dp;
 	rp = (u_char *)zap->va + 0x2000;
 	sc->sci_data = rp;

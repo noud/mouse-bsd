@@ -60,13 +60,13 @@ int method_get_number_of_arguments (struct objc_method*);
 int method_get_sizeof_arguments (struct objc_method*);
 
 char* method_get_first_argument (struct objc_method*,
-				 arglist_t argframe, 
+				 arglist_t argframe,
 				 const char** type);
-char* method_get_next_argument (arglist_t argframe, 
+char* method_get_next_argument (arglist_t argframe,
 				const char **type);
-char* method_get_nth_argument (struct objc_method* m, 
+char* method_get_nth_argument (struct objc_method* m,
 			       arglist_t argframe,
-			       int arg, 
+			       int arg,
 			       const char **type);
 
 unsigned objc_get_type_qualifiers (const char* type);

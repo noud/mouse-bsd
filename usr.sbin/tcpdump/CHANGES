@@ -258,7 +258,7 @@ v3.1 Thu Jun 13 20:59:32 PDT 1996
 
 - Don't checksum ip header if we don't have all of it. Thanks to John
   Hawkinson (jhawk@mit.edu).
- 
+
 - Print out hostnames if possible in egp printer. Thanks to Jeffrey
   Honig (jhc@bsdi.com)
 

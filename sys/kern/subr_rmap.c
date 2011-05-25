@@ -59,13 +59,13 @@ rminit(mp, size, addr, name, nelem)
 	int nelem;
 {
 	struct mapent *ep;
-	
+
 	/* mapsize had better be at least 2 */
 	if (nelem < 2 || addr <= 0 || size < 0)
 		panic("rminit %s",name);
 	mp->m_name = name;
 	mp->m_limit = (struct mapent *)mp + nelem;
-	
+
 	/* initially the first entry describes all free space */
 	ep = (struct mapent *)mp + 1;
 	ep->m_size = size;
@@ -87,13 +87,13 @@ rmalloc(mp, size)
 {
 	struct mapent *ep, *fp;
 	long addr;
-	
+
 	/* first check arguments */
 	if (size < 0)
 		panic("rmalloc %s", mp->m_name);
 	if (!size)
 		return 0;
-	
+
 	fp = 0;
 	/* try to find the smallest fit */
 	for (ep = (struct mapent *)mp + 1; ep < mp->m_limit; ep++) {
@@ -142,10 +142,10 @@ rmfree(mp, size, addr)
 	/* first check arguments */
 	if (size <= 0 || addr <= 0)
 		panic("rmfree %s", mp->m_name);
-	
+
 	while (1) {
 		fp = 0;
-		
+
 		for (ep = (struct mapent *)mp + 1; ep < mp->m_limit; ep++) {
 			if (!ep->m_addr) {
 				/* unused slots terminate the list */

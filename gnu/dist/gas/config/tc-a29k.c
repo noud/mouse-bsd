@@ -427,7 +427,7 @@ machine_ip (str)
 
   /* Build the opcode, checking as we go to make sure that the
      operands match.
-   
+
      If an operand matches, we modify the_insn or opcode appropriately,
      and do a "continue".  If an operand fails to match, we "break".  */
 
@@ -1258,7 +1258,7 @@ md_operand (expressionP)
 	  type = 'x';
 	  fieldlimit = 4;
 	}
-      else 
+      else
 	{
 	  return;
 	}
@@ -1289,7 +1289,7 @@ md_operand (expressionP)
       SKIP_WHITESPACE ();
 
       input_line_pointer = s;
-      expressionP->X_op = O_constant; 
+      expressionP->X_op = O_constant;
       expressionP->X_unsigned = 1;
       expressionP->X_add_number = ((floatbuf[fieldnum * 2]
 				    << LITTLENUM_NUMBER_OF_BITS)

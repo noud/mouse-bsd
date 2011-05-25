@@ -21,9 +21,9 @@ clean cleandir distclean:
 
 release: all
 	${INSTALL} -d -o root -g wheel -m 755 \
-		${RELEASEDIR}/installation/instkernel/	
+		${RELEASEDIR}/installation/instkernel/
 	${INSTALL} -c -o root -g wheel -m 644 netbsd-${INSTALL_KERNEL}.gz \
-		${RELEASEDIR}/installation/instkernel/	
+		${RELEASEDIR}/installation/instkernel/
 
 .include <bsd.own.mk>
 .include <bsd.obj.mk>

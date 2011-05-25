@@ -619,7 +619,7 @@ kgdb_acc(addr, len, rw, usertoo)
 #if defined(SUN4M)		/* we just use ptes here...its easier */
 	if (CPU_ISSUN4M) {
 		pte = getpte4m(addr);
-		if ((pte & SRMMU_TETYPE) != SRMMU_TEPTE || 
+		if ((pte & SRMMU_TETYPE) != SRMMU_TEPTE ||
 		    (rw == B_WRITE && (pte & PPROT_WRITE) == 0))
 		        return (0);
 	}

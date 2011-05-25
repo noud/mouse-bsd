@@ -382,7 +382,7 @@ extern int flag_pic;
 
 extern int flag_exceptions;
 
-/* Nonzero means use the new model for exception handling. Replaces 
+/* Nonzero means use the new model for exception handling. Replaces
    -DNEW_EH_MODEL as a compile option. */
 
 extern int flag_new_exceptions;

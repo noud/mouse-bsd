@@ -81,7 +81,7 @@ _rtld_symlook_list(const char *name, unsigned long hash, Objlist *objlist,
 	const Elf_Sym *def;
 	const Obj_Entry *defobj;
 	const Objlist_Entry *elm;
-	
+
 	def = NULL;
 	defobj = NULL;
 	for (elm = SIMPLEQ_FIRST(objlist); elm; elm = SIMPLEQ_NEXT(elm, link)) {
@@ -179,7 +179,7 @@ _rtld_find_symdef(obj_list, r_info, name, refobj, defobj_out, in_plt)
 	def = NULL;
 	defobj = NULL;
 	_rtld_curmark++;
-	
+
 	if (refobj->symbolic) {	/* Look first in the referencing object */
 		symp = _rtld_symlook_obj(name, hash, refobj, in_plt);
 		refobj->mark = _rtld_curmark;
@@ -188,7 +188,7 @@ _rtld_find_symdef(obj_list, r_info, name, refobj, defobj_out, in_plt)
 			defobj = refobj;
 		}
 	}
-	
+
 	/* Search all objects loaded at program start up. */
 	if (def == NULL || ELF_ST_BIND(def->st_info) == STB_WEAK) {
 		symp = _rtld_symlook_list(name, hash, &_rtld_list_main, &obj, in_plt);
@@ -198,7 +198,7 @@ _rtld_find_symdef(obj_list, r_info, name, refobj, defobj_out, in_plt)
 			defobj = obj;
 		}
 	}
-	
+
 	/* Search all dlopened DAGs containing the referencing object. */
 	for (elm = SIMPLEQ_FIRST(&refobj->dldags); elm; elm = SIMPLEQ_NEXT(elm, link)) {
 		if (def != NULL && ELF_ST_BIND(def->st_info) != STB_WEAK)
@@ -211,7 +211,7 @@ _rtld_find_symdef(obj_list, r_info, name, refobj, defobj_out, in_plt)
 			defobj = obj;
 		}
 	}
-	
+
 	/* Search all RTLD_GLOBAL objects. */
 	if (def == NULL || ELF_ST_BIND(def->st_info) == STB_WEAK) {
 		symp = _rtld_symlook_list(name, hash, &_rtld_list_global, &obj, in_plt);
@@ -221,7 +221,7 @@ _rtld_find_symdef(obj_list, r_info, name, refobj, defobj_out, in_plt)
 			defobj = obj;
 		}
 	}
-	
+
 	/*
 	 * If we found no definition and the reference is weak, treat the
 	 * symbol as having the value zero.
@@ -230,7 +230,7 @@ _rtld_find_symdef(obj_list, r_info, name, refobj, defobj_out, in_plt)
 		def = &_rtld_sym_zero;
 		defobj = _rtld_objmain;
 	}
-	
+
 	if (def != NULL)
 		*defobj_out = defobj;
 	else if (ELF_R_TYPE(r_info) != R_TYPE(NONE)) {

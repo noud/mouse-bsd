@@ -133,11 +133,11 @@ dec_maxine_init()
 	platform.memsize = memsize_scan;
 	platform.clkread = kn02ca_clkread;
 	/* MAXINE has 1 microsec. free-running high resolution timer */
- 
+
 	/* clear any memory errors */
 	*(u_int32_t *)MIPS_PHYS_TO_KSEG1(XINE_REG_TIMEOUT) = 0;
 	kn02ca_wbflush();
- 
+
 	ioasic_base = MIPS_PHYS_TO_KSEG1(XINE_SYS_ASIC);
 	mips_hardware_intr = dec_maxine_intr;
 
@@ -146,14 +146,14 @@ dec_maxine_init()
 	 * clock interrupt does via INT 1.  splclock and splstatclock
 	 * should block IOASIC activities.
 	 */
-	splvec.splbio = MIPS_SPL3; 
+	splvec.splbio = MIPS_SPL3;
 	splvec.splnet = MIPS_SPL3;
 	splvec.spltty = MIPS_SPL3;
 	splvec.splimp = MIPS_SPL3;
 	splvec.splclock = MIPS_SPL_0_1_3;
 	splvec.splstatclock = MIPS_SPL_0_1_3;
- 
-	/* calibrate cpu_mhz value */  
+
+	/* calibrate cpu_mhz value */
 	mc_cpuspeed(ioasic_base+IOASIC_SLOT_8_START, MIPS_INT_MASK_1);
 
 	*(u_int32_t *)(ioasic_base + IOASIC_LANCE_DECODE) = 0x3;
@@ -164,7 +164,7 @@ dec_maxine_init()
 	*(u_int32_t *)(ioasic_base + IOASIC_FLOPPY_DECODE) = 13;
 	*(u_int32_t *)(ioasic_base + IOASIC_CSR) = 0x00001fc1;
 #endif
-  
+
 	/* sanitize interrupt mask */
 	xine_tc3_imask = 0;
 	*(u_int32_t *)(ioasic_base + IOASIC_INTR) = 0;
@@ -458,7 +458,7 @@ static unsigned
 kn02ca_clkread()
 {
 	u_int32_t cycles;
-  
+
 	cycles = *(u_int32_t *)MIPS_PHYS_TO_KSEG1(XINE_REG_FCTR);
 	return cycles - latched_cycle_cnt;
 }

@@ -27,7 +27,7 @@ static char * const _v96xp = (char *)P4032_V96x;
 #define V96X_PCI_CMD		V96XH(0x04)
 #define V96X_PCI_STAT		V96XH(0x06)
 #define V96X_PCI_CC_REV		V96XW(0x08)
-#define V96X_PCI_HDR_CFG	V96XW(0x0c)	
+#define V96X_PCI_HDR_CFG	V96XW(0x0c)
 #define V96X_PCI_IO_BASE	V96XW(0x10)
 #define V96X_PCI_BASE0		V96XW(0x14)
 #define V96X_PCI_BASE1		V96XW(0x1c)
@@ -227,7 +227,7 @@ static char * const _v96xp = (char *)P4032_V96x;
 #define V96X_LB_CFG_ERR_EN		0x02
 #define V96X_LB_CFG_RDY_EN		0x01
 
-/* fifo configuration register */ 
+/* fifo configuration register */
 #define V96X_FIFO_CFG_PBRST_MAX		0xc000
 #define V96X_FIFO_CFG_PBRST_MAX_SHIFT	14
 #define V96X_FIFO_CFG_WR_LB		0x3000

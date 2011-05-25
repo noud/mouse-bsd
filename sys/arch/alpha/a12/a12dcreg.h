@@ -121,8 +121,8 @@ typedef struct mstate_struct {
 
 /* EVENT TRACKING */
 
-typedef enum { 
-BS,BE,BL,READ0,READ1,WRITE0,WRITE1,R360,W360,CL1,CL2,IDL1,IDL2 
+typedef enum {
+BS,BE,BL,READ0,READ1,WRITE0,WRITE1,R360,W360,CL1,CL2,IDL1,IDL2
 } ET;
 
 typedef struct {

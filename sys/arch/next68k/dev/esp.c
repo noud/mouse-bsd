@@ -199,7 +199,7 @@ esp_hex_dump(unsigned char *pkt, size_t len)
 			for(j=0; j<16; j++) {
 				printf("%c", pkt[i-15+j]>=32 && pkt[i-15+j]<127?pkt[i-15+j]:'.');
 			}
-			printf("%c\n%c%c%c%c%c%c%c%c  ", '|', 
+			printf("%c\n%c%c%c%c%c%c%c%c  ", '|',
 					XCHR((i+1)>>28),XCHR((i+1)>>24),XCHR((i+1)>>20),XCHR((i+1)>>16),
 					XCHR((i+1)>>12), XCHR((i+1)>>8), XCHR((i+1)>>4), XCHR(i+1));
 		}
@@ -233,7 +233,7 @@ espattach_intio(parent, self, aux)
 #endif
 
 	esc->sc_bst = NEXT68K_INTIO_BUS_SPACE;
-	if (bus_space_map(esc->sc_bst, NEXT_P_SCSI, 
+	if (bus_space_map(esc->sc_bst, NEXT_P_SCSI,
 			ESP_DEVICE_SIZE, 0, &esc->sc_bsh)) {
     panic("\n%s: can't map ncr53c90 registers",
 				sc->sc_dev.dv_xname);
@@ -304,8 +304,8 @@ espattach_intio(parent, self, aux)
 
 	/*
 	 * Alas, we must now modify the value a bit, because it's
-	 * only valid when can switch on FASTCLK and FASTSCSI bits  
-	 * in config register 3... 
+	 * only valid when can switch on FASTCLK and FASTSCSI bits
+	 * in config register 3...
 	 */
 	switch (sc->sc_rev) {
 	case NCR_VARIANT_ESP100:
@@ -326,7 +326,7 @@ espattach_intio(parent, self, aux)
 	}
 
 	/* @@@ Some ESP_DCTL bits probably need setting */
-	NCR_WRITE_REG(sc, ESP_DCTL, 
+	NCR_WRITE_REG(sc, ESP_DCTL,
 			ESPDCTL_20MHZ | ESPDCTL_INTENB | ESPDCTL_RESET);
 	DELAY(10);
 	DPRINTF(("esp dctl is 0x%02x\n",NCR_READ_REG(sc,ESP_DCTL)));
@@ -406,7 +406,7 @@ espattach_intio(parent, self, aux)
 
 	/* Do the common parts of attachment. */
 	sc->sc_adapter.scsipi_cmd = ncr53c9x_scsi_cmd;
-	sc->sc_adapter.scsipi_minphys = minphys; 
+	sc->sc_adapter.scsipi_minphys = minphys;
 	ncr53c9x_attach(sc, &esp_dev);
 }
 
@@ -496,16 +496,16 @@ esp_dma_isintr(sc)
 #endif
 				DPRINTF(("%s: flushing dma, count = %d\n", sc->sc_dev.dv_xname,flushcount));
 				if (esc->sc_datain) {
-					NCR_WRITE_REG(sc, ESP_DCTL, 
+					NCR_WRITE_REG(sc, ESP_DCTL,
 							ESPDCTL_20MHZ | ESPDCTL_INTENB | ESPDCTL_DMAMOD | ESPDCTL_DMARD | ESPDCTL_FLUSH);
 					DPRINTF(("esp dctl is 0x%02x\n",NCR_READ_REG(sc,ESP_DCTL)));
-					NCR_WRITE_REG(sc, ESP_DCTL, 
+					NCR_WRITE_REG(sc, ESP_DCTL,
 							ESPDCTL_20MHZ | ESPDCTL_INTENB | ESPDCTL_DMAMOD | ESPDCTL_DMARD);
 				} else {
-					NCR_WRITE_REG(sc, ESP_DCTL, 
+					NCR_WRITE_REG(sc, ESP_DCTL,
 							ESPDCTL_20MHZ | ESPDCTL_INTENB | ESPDCTL_DMAMOD | ESPDCTL_FLUSH);
 					DPRINTF(("esp dctl is 0x%02x\n",NCR_READ_REG(sc,ESP_DCTL)));
-					NCR_WRITE_REG(sc, ESP_DCTL, 
+					NCR_WRITE_REG(sc, ESP_DCTL,
 							ESPDCTL_20MHZ | ESPDCTL_INTENB | ESPDCTL_DMAMOD);
 				}
 				DPRINTF(("esp dctl is 0x%02x\n",NCR_READ_REG(sc,ESP_DCTL)));
@@ -679,7 +679,7 @@ esp_dma_setup(sc, addr, len, datain, dmasize)
 	if ((esc->sc_datain != -1) ||
 			(esc->sc_main_dmamap->dm_mapsize != 0) ||
 			(esc->sc_tail_dmamap->dm_mapsize != 0) ||
-			(esc->sc_dmasize != 0)) {			
+			(esc->sc_dmasize != 0)) {
 		panic("%s: map already loaded in esp_dma_setup\n"
 				"\tdatain = %d\n\tmain_mapsize=%d\n\tail_mapsize=%d\n\tdmasize = %d",
 				sc->sc_dev.dv_xname, esc->sc_datain,
@@ -712,7 +712,7 @@ esp_dma_setup(sc, addr, len, datain, dmasize)
 	{
 		size_t slop_bgn_size; /* # bytes to be fifo'd at beginning */
 		size_t slop_end_size; /* # bytes to be transferred in tail buffer */
-		
+
 		{
 			u_long bgn = (u_long)(*esc->sc_dmaaddr);
 			u_long end = (u_long)(*esc->sc_dmaaddr+esc->sc_dmasize);
@@ -776,7 +776,7 @@ esp_dma_setup(sc, addr, len, datain, dmasize)
 				}
 #if 0
 				bus_dmamap_sync(esc->sc_scsi_dma.nd_dmat, esc->sc_main_dmamap,
-						0, esc->sc_main_dmamap->dm_mapsize, 
+						0, esc->sc_main_dmamap->dm_mapsize,
 						(esc->sc_datain ? BUS_DMASYNC_PREREAD : BUS_DMASYNC_PREWRITE));
 #endif
 			} else {
@@ -811,7 +811,7 @@ esp_dma_setup(sc, addr, len, datain, dmasize)
 				}
 #if 0
 				bus_dmamap_sync(esc->sc_scsi_dma.nd_dmat, esc->sc_tail_dmamap,
-						0, esc->sc_tail_dmamap->dm_mapsize, 
+						0, esc->sc_tail_dmamap->dm_mapsize,
 						(esc->sc_datain ? BUS_DMASYNC_PREREAD : BUS_DMASYNC_PREWRITE));
 #endif
 			}
@@ -829,7 +829,7 @@ esp_dma_store(sc)
 {
 	struct esp_softc *esc = (struct esp_softc *)sc;
 	char *p = &esp_dma_dump[0];
-	
+
 	p += sprintf(p,"%s: sc_datain=%d\n",sc->sc_dev.dv_xname,esc->sc_datain);
 	p += sprintf(p,"%s: sc_loaded=0x%08x\n",sc->sc_dev.dv_xname,esc->sc_loaded);
 
@@ -949,20 +949,20 @@ esp_dma_go(sc)
 
 	if (esc->sc_main_dmamap->dm_mapsize) {
 		bus_dmamap_sync(esc->sc_scsi_dma.nd_dmat, esc->sc_main_dmamap,
-				0, esc->sc_main_dmamap->dm_mapsize, 
+				0, esc->sc_main_dmamap->dm_mapsize,
 				(esc->sc_datain ? BUS_DMASYNC_PREREAD : BUS_DMASYNC_PREWRITE));
 	}
 
 	if (esc->sc_tail_dmamap->dm_mapsize) {
 		bus_dmamap_sync(esc->sc_scsi_dma.nd_dmat, esc->sc_tail_dmamap,
-				0, esc->sc_tail_dmamap->dm_mapsize, 
+				0, esc->sc_tail_dmamap->dm_mapsize,
 				(esc->sc_datain ? BUS_DMASYNC_PREREAD : BUS_DMASYNC_PREWRITE));
 	}
 
-	nextdma_start(&esc->sc_scsi_dma, 
+	nextdma_start(&esc->sc_scsi_dma,
 			(esc->sc_datain ? DMACSR_SETREAD : DMACSR_SETWRITE));
 
-	if (esc->sc_datain) { 
+	if (esc->sc_datain) {
 		NCR_WRITE_REG(sc, ESP_DCTL,
 				ESPDCTL_20MHZ | ESPDCTL_INTENB | ESPDCTL_DMAMOD | ESPDCTL_DMARD);
 	} else {
@@ -1008,24 +1008,24 @@ esp_dmacb_continue(arg)
 	}
 #endif
 
-	if ((!(esc->sc_loaded & ESP_LOADED_MAIN)) && 
+	if ((!(esc->sc_loaded & ESP_LOADED_MAIN)) &&
 			(esc->sc_main_dmamap->dm_mapsize)) {
 			DPRINTF(("%s: Loading main map\n",sc->sc_dev.dv_xname));
 #if 0
 			bus_dmamap_sync(esc->sc_scsi_dma.nd_dmat, esc->sc_main_dmamap,
-					0, esc->sc_main_dmamap->dm_mapsize, 
+					0, esc->sc_main_dmamap->dm_mapsize,
 					(esc->sc_datain ? BUS_DMASYNC_PREREAD : BUS_DMASYNC_PREWRITE));
 #endif
 			esc->sc_loaded |= ESP_LOADED_MAIN;
 			return(esc->sc_main_dmamap);
 	}
 
-	if ((!(esc->sc_loaded & ESP_LOADED_TAIL)) && 
+	if ((!(esc->sc_loaded & ESP_LOADED_TAIL)) &&
 			(esc->sc_tail_dmamap->dm_mapsize)) {
 			DPRINTF(("%s: Loading tail map\n",sc->sc_dev.dv_xname));
 #if 0
 			bus_dmamap_sync(esc->sc_scsi_dma.nd_dmat, esc->sc_tail_dmamap,
-					0, esc->sc_tail_dmamap->dm_mapsize, 
+					0, esc->sc_tail_dmamap->dm_mapsize,
 					(esc->sc_datain ? BUS_DMASYNC_PREREAD : BUS_DMASYNC_PREWRITE));
 #endif
 			esc->sc_loaded |= ESP_LOADED_TAIL;
@@ -1145,7 +1145,7 @@ esp_dmacb_shutdown(arg)
 
 #ifdef ESP_DEBUG
 	if (esp_debug) {
-		
+
 		int n = NCR_READ_REG(sc, NCR_FFLAG);
 		DPRINTF(("%s: fifo size = %d, seq = 0x%x\n",
 				sc->sc_dev.dv_xname,n & NCRFIFO_FF, (n & NCRFIFO_SS)>>5));

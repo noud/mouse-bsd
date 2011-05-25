@@ -75,7 +75,7 @@ struct emul emul_freebsd_aout = {
 #endif /* EXEC_AOUT */
 
 #ifdef EXEC_ELF32
- 
+
 struct emul ELFNAMEEND(emul_freebsd) = {
 	"freebsd",
 	NULL,

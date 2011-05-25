@@ -32,7 +32,7 @@
 	.align	4
 
 ASENTRY_NOPROFILE(start)
-	jra	1f	
+	jra	1f
 	.word	0
 	.word	0
 	.word	0

@@ -21,7 +21,7 @@ A: Nvi uses the C library routine isprint(3) to determine if a character
    HP-UX 10.X	en_US.iso88591
    SunOS  4.X	iso_8859_1
    SunOS  5.X	iso_8859_1
-	
+
 Q: My map won't work!
 A: One thing that you should immediately check if a vi map doesn't work
    is if depends on the final cursor position after a P or p command.

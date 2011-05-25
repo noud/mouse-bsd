@@ -17,7 +17,7 @@ fpsetsticky(sticky)
 	__asm__("cfc1 %0,$31" : "=r" (old));
 
 	new = old;
-	new &= ~(0x1f << 2); 
+	new &= ~(0x1f << 2);
 	new |= ((sticky & 0x1f) << 2);
 
 	__asm__("ctc1 %0,$31" : : "r" (new));

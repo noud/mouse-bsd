@@ -58,7 +58,7 @@ Boston, MA 02111-1307, USA.  */
    register.  The bit is 1 if the register is live at the beginning
    of the basic block.
 
-   Two types of elements can be added to an insn's REG_NOTES.  
+   Two types of elements can be added to an insn's REG_NOTES.
    A REG_DEAD note is added to an insn's REG_NOTES for any register
    that meets both of two conditions:  The value in the register is not
    needed in subsequent insns and the insn does not replace the value in
@@ -261,7 +261,7 @@ static HARD_REG_SET elim_reg_set;
 static void find_basic_blocks_1		PROTO((rtx, rtx, int));
 static void mark_label_ref		PROTO((rtx, rtx, int));
 static void life_analysis_1		PROTO((rtx, int));
-static void propagate_block		PROTO((regset, rtx, rtx, int, 
+static void propagate_block		PROTO((regset, rtx, rtx, int,
 					       regset, int));
 static rtx flow_delete_insn		PROTO((rtx));
 static int insn_dead_p			PROTO((rtx, regset, int));
@@ -495,7 +495,7 @@ find_basic_blocks_1 (f, nonlocal_label_list, live_reachable_p)
 	  if (NOTE_LINE_NUMBER (insn) == NOTE_INSN_EH_REGION_BEG)
 	    {
               if (eh_note)
-                nested_eh_region [NOTE_BLOCK_NUMBER (insn)] = 
+                nested_eh_region [NOTE_BLOCK_NUMBER (insn)] =
                                      NOTE_BLOCK_NUMBER (XEXP (eh_note, 0));
               else
                 nested_eh_region [NOTE_BLOCK_NUMBER (insn)] = 0;
@@ -514,7 +514,7 @@ find_basic_blocks_1 (f, nonlocal_label_list, live_reachable_p)
 	       && (asynchronous_exceptions
 		   || (GET_CODE (insn) == CALL_INSN
 		       && ! in_libcall_block)))
-	active_eh_region[INSN_UID (insn)] = 
+	active_eh_region[INSN_UID (insn)] =
                                         NOTE_BLOCK_NUMBER (XEXP (eh_note, 0));
       BLOCK_NUM (insn) = i;
 
@@ -589,7 +589,7 @@ find_basic_blocks_1 (f, nonlocal_label_list, live_reachable_p)
 		  {
 		    if (GET_RTX_CLASS (GET_CODE (insn)) == 'i')
 		      {
-			
+
 			/* References to labels in non-jumping insns have
 			   REG_LABEL notes attached to them.
 
@@ -660,17 +660,17 @@ find_basic_blocks_1 (f, nonlocal_label_list, live_reachable_p)
 				     && ! find_reg_note (insn, REG_RETVAL,
 							 NULL_RTX)))
 			  {
-			    if (active_eh_region[INSN_UID (insn)]) 
+			    if (active_eh_region[INSN_UID (insn)])
                               {
                                 int region;
                                 handler_info *ptr;
                                 region = active_eh_region[INSN_UID (insn)];
-                                for ( ; region; 
-                                             region = nested_eh_region[region]) 
+                                for ( ; region;
+                                             region = nested_eh_region[region])
                                   {
                                     ptr = get_first_handler (region);
                                     for ( ; ptr ; ptr = ptr->next)
-                                      mark_label_ref (gen_rtx_LABEL_REF 
+                                      mark_label_ref (gen_rtx_LABEL_REF
                                        (VOIDmode, ptr->handler_label), insn, 0);
                                   }
                               }
@@ -783,7 +783,7 @@ find_basic_blocks_1 (f, nonlocal_label_list, live_reachable_p)
 			prev = &XEXP (x, 1);
 		      }
 		  }
-		 
+
 		PUT_CODE (insn, NOTE);
 		NOTE_LINE_NUMBER (insn) = NOTE_INSN_DELETED;
 		NOTE_SOURCE_FILE (insn) = 0;
@@ -854,7 +854,7 @@ find_basic_blocks_1 (f, nonlocal_label_list, live_reachable_p)
           if (GET_CODE (insn) == NOTE)
             {
               if ((NOTE_LINE_NUMBER (insn) == NOTE_INSN_EH_REGION_BEG) ||
-                  (NOTE_LINE_NUMBER (insn) == NOTE_INSN_EH_REGION_END)) 
+                  (NOTE_LINE_NUMBER (insn) == NOTE_INSN_EH_REGION_END))
                 {
                   int num = CODE_LABEL_NUMBER (insn);
                   /* A NULL handler indicates a region is no longer needed */
@@ -1184,14 +1184,14 @@ life_analysis_1 (f, nregs)
 		  if (GET_CODE (tem) == USE
 		      || GET_CODE (tem) == CLOBBER)
 		    continue;
-		    
+
 		  if (GET_CODE (tem) != SET
 		      || GET_CODE (SET_DEST (tem)) != REG
 		      || GET_CODE (SET_SRC (tem)) != REG
 		      || REGNO (SET_DEST (tem)) != REGNO (SET_SRC (tem)))
 		    break;
 		}
-		
+
 	      if (i == XVECLEN (PATTERN (insn), 0)
 		  /* Insns carrying these notes are useful later on.  */
 		  && ! find_reg_note (insn, REG_EQUAL, NULL_RTX))
@@ -1255,7 +1255,7 @@ life_analysis_1 (f, nregs)
 			 HARD_FRAME_POINTER_REGNUM);
       SET_REGNO_REG_SET (basic_block_new_live_at_end[n_basic_blocks - 1],
 			 HARD_FRAME_POINTER_REGNUM);
-#endif      
+#endif
       }
 
   /* Mark all global registers and all registers used by the epilogue
@@ -1632,7 +1632,7 @@ propagate_block (old, first, last, final, significant, bnum)
 	  else if (NOTE_LINE_NUMBER (insn) == NOTE_INSN_LOOP_BEG)
 	    loop_depth--;
 
-	  /* If we have LOOP_DEPTH == 0, there has been a bookkeeping error. 
+	  /* If we have LOOP_DEPTH == 0, there has been a bookkeeping error.
 	     Abort now rather than setting register status incorrectly.  */
 	  if (loop_depth == 0)
 	    abort ();
@@ -1659,7 +1659,7 @@ propagate_block (old, first, last, final, significant, bnum)
 	    = (insn_dead_p (PATTERN (insn), old, 0)
 	       /* Don't delete something that refers to volatile storage!  */
 	       && ! INSN_VOLATILE (insn));
-	  int libcall_is_dead 
+	  int libcall_is_dead
 	    = (insn_is_dead && note != 0
 	       && libcall_dead_p (PATTERN (insn), old, note, insn));
 
@@ -1753,7 +1753,7 @@ propagate_block (old, first, last, final, significant, bnum)
 	      mark_set_regs (old, dead, PATTERN (insn),
 			     final ? insn : NULL_RTX, significant);
 
-	      /* If an insn doesn't use CC0, it becomes dead since we 
+	      /* If an insn doesn't use CC0, it becomes dead since we
 		 assume that every insn clobbers it.  So show it dead here;
 		 mark_used_regs will set it live if it is referenced.  */
 	      cc0_live = 0;
@@ -1892,7 +1892,7 @@ insn_dead_p (x, needed, call_ok)
       if (GET_CODE (r) == CC0)
 	return ! cc0_live;
 #endif
-      
+
       if (GET_CODE (r) == MEM && last_mem_set && ! MEM_VOLATILE_P (r)
 	  && rtx_equal_p (r, last_mem_set))
 	return 1;
@@ -2134,9 +2134,9 @@ mark_set_1 (needed, dead, x, insn, significant)
       || (GET_CODE (reg) == REG
 	  && last_mem_set != 0 && reg_overlap_mentioned_p (reg, last_mem_set)))
     last_mem_set = 0;
-    
+
   if (GET_CODE (reg) == MEM && ! side_effects_p (reg)
-      /* There are no REG_INC notes for SP, so we can't assume we'll see 
+      /* There are no REG_INC notes for SP, so we can't assume we'll see
 	 everything that invalidates it.  To be safe, don't eliminate any
 	 stores though SP; none of them should be redundant anyway.  */
       && ! reg_mentioned_p (stack_pointer_rtx, reg))
@@ -2228,7 +2228,7 @@ mark_set_1 (needed, dead, x, insn, significant)
 	      REG_N_SETS (regno)++;
 
 	      REG_N_REFS (regno) += loop_depth;
-		  
+
 	      /* The insns where a reg is live are normally counted
 		 elsewhere, but we want the count to include the insn
 		 where the reg is set, and the normal counting mechanism
@@ -2422,7 +2422,7 @@ find_auto_inc (needed, x, insn)
 
 	      /* INCR will become a NOTE and INSN won't contain a
 		 use of ADDR.  If a use of ADDR was just placed in
-		 the insn before INSN, make that the next use. 
+		 the insn before INSN, make that the next use.
 		 Otherwise, invalidate it.  */
 	      if (GET_CODE (PREV_INSN (insn)) == INSN
 		  && GET_CODE (PATTERN (PREV_INSN (insn))) == SET
@@ -2735,7 +2735,7 @@ mark_used_regs (needed, live, x, final, insn)
 	    mark_used_regs (needed, live, SET_SRC (x), final, insn);
 	    return;
 	  }
-	    
+
 	/* Storing in STRICT_LOW_PART is like storing in a reg
 	   in that this SET might be dead, so ignore it in TESTREG.
 	   but in some other ways it is like using the reg.
@@ -2821,7 +2821,7 @@ mark_used_regs (needed, live, x, final, insn)
   {
     register char *fmt = GET_RTX_FORMAT (code);
     register int i;
-    
+
     for (i = GET_RTX_LENGTH (code) - 1; i >= 0; i--)
       {
 	if (fmt[i] == 'e')
@@ -3359,7 +3359,7 @@ compute_preds_succs (s_preds, s_succs, num_preds, num_succs)
 	    }
 	}
     }
-      
+
   for (bb = 0; bb < n_basic_blocks; bb++)
     {
       rtx head;
@@ -3404,7 +3404,7 @@ compute_preds_succs (s_preds, s_succs, num_preds, num_succs)
     {
       basic_block_drops_in = NULL;
       uid_block_number = NULL;
-    
+
     }
 }
 
@@ -4125,7 +4125,7 @@ count_reg_references (x)
 	    count_reg_references (SET_SRC (x));
 	    return;
 	  }
-	    
+
 	/* Storing in STRICT_LOW_PART is like storing in a reg
 	   in that this SET might be dead, so ignore it in TESTREG.
 	   but in some other ways it is like using the reg.
@@ -4172,7 +4172,7 @@ count_reg_references (x)
   {
     register char *fmt = GET_RTX_FORMAT (code);
     register int i;
-    
+
     for (i = GET_RTX_LENGTH (code) - 1; i >= 0; i--)
       {
 	if (fmt[i] == 'e')
@@ -4237,7 +4237,7 @@ recompute_reg_usage (f)
 	  else if (NOTE_LINE_NUMBER (insn) == NOTE_INSN_LOOP_BEG)
 	    loop_depth++;
 
-	  /* If we have LOOP_DEPTH == 0, there has been a bookkeeping error. 
+	  /* If we have LOOP_DEPTH == 0, there has been a bookkeeping error.
 	     Abort now rather than setting register status incorrectly.  */
 	  if (loop_depth == 0)
 	    abort ();

@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -200,7 +200,7 @@ edit_mbr(partition)
 			otherparts += otherpart(part[i].mbrp_typ);
 			/* check for dualboot *bsd too */
 			ourparts += ourpart(part[i].mbrp_typ);
-		}					  
+		}
 
 		/* Ask if we really want to blow away non-NetBSD stuff */
 		if (otherparts != 0 || ourparts > 1) {
@@ -288,7 +288,7 @@ edit_mbr(partition)
 			process_menu(MENU_ok);
 			return 0;
 		}
-			
+
 		if (numbsd > 1) {
 			msg_display(MSG_multbsdpart, bsdpart);
 			process_menu(MENU_ok);
@@ -308,7 +308,7 @@ edit_mbr(partition)
 			if (yesno)
 				part[bsdpart].mbrp_typ = dosptyp_nbsd;
 		}
-			
+
 		ptstart = part[bsdpart].mbrp_start;
 		ptsize = part[bsdpart].mbrp_size;
 		fsdsize = dlsize;
@@ -337,7 +337,7 @@ partsoverlap(part, i, j)
 	if (part[i].mbrp_size == 0 || part[j].mbrp_size == 0)
 		return 0;
 
-	return 
+	return
 		(part[i].mbrp_start < part[j].mbrp_start &&
 		 part[i].mbrp_start + part[i].mbrp_size > part[j].mbrp_start)
 		||
@@ -404,7 +404,7 @@ read_mbr(disk, buf, len)
 
 	/* Open the disk. */
 	fd = opendisk(disk, O_RDONLY, diskpath, sizeof(diskpath), 0);
-	if (fd < 0) 
+	if (fd < 0)
 		return -1;
 
 	if (lseek(fd, MBR_BBSECTOR * MBR_SECSIZE, SEEK_SET) < 0) {
@@ -445,7 +445,7 @@ write_mbr(disk, buf, len, convert)
 
 	/* Open the disk. */
 	fd = opendisk(disk, O_WRONLY, diskpath, sizeof(diskpath), 0);
-	if (fd < 0) 
+	if (fd < 0)
 		return -1;
 
 	if (lseek(fd, MBR_BBSECTOR * MBR_SECSIZE, SEEK_SET) < 0) {
@@ -559,7 +559,7 @@ guess_biosgeom_from_mbr(buf, cyl, head, sec)
 				break;
 			}
 		}
-		if (heads != -1)	
+		if (heads != -1)
 			break;
 	}
 

@@ -139,11 +139,11 @@ load_srec (desc, file, load_offset, maxrecsize, flags, hashmark, waitack)
 	putchar_unfiltered ('\n');
       }
 
-  if (hashmark) 
+  if (hashmark)
     putchar_unfiltered ('\n');
 
   end_time = time (NULL);
-  
+
   /* Write a terminator record.  */
 
   reclen = maxrecsize;
@@ -197,7 +197,7 @@ load_srec (desc, file, load_offset, maxrecsize, flags, hashmark, waitack)
  *        7) four byte address termination record
  *        8) three byte address termination record
  *        9) two byte address termination record
- *       
+ *
  *      - address
  *        is the start address of the data following, or in the case of
  *        a termination record, the start address of the image
@@ -281,13 +281,13 @@ make_srec (srec, targ_addr, abfd, sect, sectoff, maxrecsize, flags)
      portions of the packet.  */
 
   checksum = 0;
-  
+
   checksum += (payload_size + addr_size + 1	/* Packet length */
 	       + (targ_addr & 0xff)		/* Address... */
 	       + ((targ_addr >>  8) & 0xff)
 	       + ((targ_addr >> 16) & 0xff)
 	       + ((targ_addr >> 24) & 0xff));
-  
+
   p = srec + 1 + 1 + 2 + addr_size * 2;
 
   /* Build the Srecord.  */

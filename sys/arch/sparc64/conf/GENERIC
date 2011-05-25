@@ -13,7 +13,7 @@ maxusers	32
 # We currently support three architecture types; at least one is required.
 options		SUN4U		# sun4u - Ultra 140 and 170
 options		TRAPWIN
-options		__ELF__		# we use elf 
+options		__ELF__		# we use elf
 #options		_LP64		# we're using a 64-bit compiler
 
 ## System options specific to the sparc machine type
@@ -251,9 +251,9 @@ ms0	at zs1 channel 1	# mouse
 
 ## Part of a PC87332VLJ?
 #ucom0	at ebus? addr 0x3083f8		# `com' driver
-#ucom1	at ebus? addr 0x3062f8		# 
+#ucom1	at ebus? addr 0x3062f8		#
 #ucom0	at ebus?			# `com' driver
-#ucom1	at ebus?			# 
+#ucom1	at ebus?			#
 #kbd0	at ucom0 channel 0		# keyboard
 #ms0	at ucom1 channel 1		# mouse
 

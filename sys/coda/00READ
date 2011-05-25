@@ -50,7 +50,7 @@ You must include this device in your platform conf.c
 By way of example for the x86, you add:
 #include "vcoda.h"
 cdev_decl(vc_nb_);
-to the "header" area  and 
+to the "header" area  and
         cdev_vc_nb_init(NVCODA,vc_nb_),  /* 60: coda file system psdev */
 to the cdev switch.
 

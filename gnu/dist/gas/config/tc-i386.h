@@ -46,9 +46,9 @@ struct fix;
 extern int tc_i386_fix_adjustable PARAMS ((struct fix *));
 
 /* This is the relocation type for direct references to GLOBAL_OFFSET_TABLE.
- * It comes up in complicated expressions such as 
+ * It comes up in complicated expressions such as
  * _GLOBAL_OFFSET_TABLE_+[.-.L284], which cannot be expressed normally with
- * the regular expressions.  The fixup specified here when used at runtime 
+ * the regular expressions.  The fixup specified here when used at runtime
  * implies that we should add the address of the GOT to the specified location,
  * and as a result we have simplified the expression into something we can use.
  */

@@ -135,7 +135,7 @@ soo_ioctl(fp, cmd, data, p)
 		return (ifioctl(so, cmd, data, p));
 	if (IOCGROUP(cmd) == 'r')
 		return (rtioctl(cmd, data, p));
-	return ((*so->so_proto->pr_usrreq)(so, PRU_CONTROL, 
+	return ((*so->so_proto->pr_usrreq)(so, PRU_CONTROL,
 	    (struct mbuf *)cmd, (struct mbuf *)data, (struct mbuf *)0, p));
 }
 

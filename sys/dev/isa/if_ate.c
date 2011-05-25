@@ -76,7 +76,7 @@ struct fe_simple_probe_struct {
 	u_char bits;	/* Values to be compared against. */
 };
 
-static __inline__ int fe_simple_probe __P((bus_space_tag_t, 
+static __inline__ int fe_simple_probe __P((bus_space_tag_t,
     bus_space_handle_t, struct fe_simple_probe_struct const *));
 static __inline__ void ate_strobe __P((bus_space_tag_t, bus_space_handle_t));
 static void ate_read_eeprom __P((bus_space_tag_t, bus_space_handle_t,

@@ -6,7 +6,7 @@
  *
  * This code is derived from software contributed to Berkeley by
  * Vern Paxson.
- * 
+ *
  * The United States Government has rights in this work pursuant
  * to contract no. DE-AC03-76SF00098 between the United States
  * Department of Energy and the University of California.
@@ -250,7 +250,7 @@ int *t, *ns_addr, accset[], *nacc_addr, *hv_addr;
 	register int stkpos, ns, tsp;
 	int numstates = *ns_addr, nacc, hashval, transsym, nfaccnum;
 	int stkend, nstate;
-	static int did_stk_init = false, *stk; 
+	static int did_stk_init = false, *stk;
 
 #define MARK_STATE(state) \
 trans1[state] = trans1[state] - MARKER_DIFFERENCE;

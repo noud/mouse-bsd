@@ -654,7 +654,7 @@ parse_coff_symbol (abfd, types, sym, coff_symno, psyment, dhandle, type,
       break;
     }
 
-  return true;				   
+  return true;
 }
 
 /* This is the main routine.  It looks through all the symbols and

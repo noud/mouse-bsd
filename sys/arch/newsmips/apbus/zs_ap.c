@@ -80,7 +80,7 @@
 #define PORTA_OFFSET	0x00050000
 #define   PORT_CTL		2
 #define     PORTCTL_RI		0x01
-#define     PORTCTL_DSR		0x02	
+#define     PORTCTL_DSR		0x02
 #define     PORTCTL_DTR		0x04
 #define   PORT_SEL		3
 #define     PORTSEL_LOCALTALK	0x01

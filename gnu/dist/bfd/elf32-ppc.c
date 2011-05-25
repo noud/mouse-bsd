@@ -1295,7 +1295,7 @@ ppc_elf_create_linker_section (abfd, info, which)
       defaults.which = which;
       defaults.hole_written_p = false;
       defaults.alignment = 2;
-      
+
       /* Both of these sections are (technically) created by the user
 	 putting data in them, so they shouldn't be marked
 	 SEC_LINKER_CREATED.
@@ -1392,7 +1392,7 @@ ppc_elf_create_dynamic_sections (abfd, info)
 
   if (!_bfd_elf_create_dynamic_sections(abfd, info))
     return false;
-  
+
   flags = (SEC_ALLOC | SEC_LOAD | SEC_HAS_CONTENTS | SEC_IN_MEMORY
 	   | SEC_LINKER_CREATED);
 
@@ -1809,7 +1809,7 @@ ppc_elf_size_dynamic_sections (output_bfd, info)
      symbol for each output section.  These are local symbols, which
      means that they must come first in the dynamic symbol table.
      That means we must increment the dynamic symbol index of every
-     other dynamic symbol. 
+     other dynamic symbol.
 
      FIXME: We assume that there will never be relocations to
      locations in linker-created sections that do not have
@@ -2530,7 +2530,7 @@ ppc_elf_finish_dynamic_sections (output_bfd, info)
 	    {
 	      BFD_ASSERT(indx > 0);
 	      BFD_ASSERT(dindx > 0);
-	      
+
 	      if (dindx > maxdindx)
 		maxdindx = dindx;
 
@@ -2923,7 +2923,7 @@ ppc_elf_relocate_section (output_bfd, info, input_bfd, input_section,
 			  if (indx <= 0)
 			    {
 			      printf("indx=%d section=%s flags=%08x name=%s\n",
-				     indx, osec->name, osec->flags, 
+				     indx, osec->name, osec->flags,
 				     h->root.root.string);
 			    }
 #endif
@@ -3131,7 +3131,7 @@ ppc_elf_relocate_section (output_bfd, info, input_bfd, input_section,
 			+ splt->output_offset
 			+ h->plt_offset);
  	  break;
- 
+
 	/* relocate against _SDA_BASE_ */
 	case (int)R_PPC_SDAREL16:
 	  BFD_ASSERT (sec != (asection *)0);

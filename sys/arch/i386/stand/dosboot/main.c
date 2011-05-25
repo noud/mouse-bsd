@@ -162,7 +162,7 @@ sprint_bootsel(filename)
 	int unit, partition;
 	const char *file;
 	static char buf[80];
-	
+
 	if (parsebootfile(filename, &fsname, &devname, &unit,
 			  &partition, &file) == 0) {
 		if (!strcmp(fsname, "dos"))
@@ -238,13 +238,13 @@ print_banner(void)
 	printf(">> Memory: %d/%d %sk\n", getbasemem(), extmem, s);
 }
 
-void 
+void
 usage()
 {
 	printf("dosboot [-u] [-c <commands>] [-i] [filename [-bootopts]]\n");
 }
 
-int 
+int
 main(argc, argv)
 	int             argc;
 	char          **argv;
@@ -390,7 +390,7 @@ command_dev(arg)
 		command_help(NULL);
 		return;
 	}
-	    
+
 	/* put to own static storage */
 	strncpy(savedevname, devname, MAXDEVNAME + 1);
 	default_devname = savedevname;

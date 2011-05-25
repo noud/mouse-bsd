@@ -95,7 +95,7 @@
 
 #include <machine/autoconf.h>
 #include <machine/cpu.h>
- 
+
 #include <dev/cons.h>
 
 #include <hp300/dev/diovar.h>
@@ -429,7 +429,7 @@ rbox_init(ip)
 	REGBASE->vdrive = 0x0;
 
 	ite_fontinfo(ip);
-	
+
 	REGBASE->opwen = 0xFF;
 
 	/*
@@ -450,7 +450,7 @@ rbox_init(ip)
 	}
 
 	REGBASE->rep_rule = 0x33;
-	
+
 	/*
 	 * I cannot figure out how to make the blink planes stop. So, we
 	 * must set both colormaps so that when the planes blink, and
@@ -473,9 +473,9 @@ rbox_init(ip)
  	REGBASE->blink = 0x00;
 	REGBASE->write_enable = 0x01;
 	REGBASE->opwen = 0x00;
-	
+
 	ite_fontinit(ip);
-	
+
 	/*
 	 * Stash the inverted cursor.
 	 */
@@ -500,7 +500,7 @@ rbox_putc(ip, c, dy, dx, mode)
         int dy, dx, c, mode;
 {
         int wrr = ((mode == ATTR_INV) ? RR_COPYINVERTED : RR_COPY);
-	
+
 	rbox_windowmove(ip, charY(ip, c), charX(ip, c),
 			dy * ip->ftheight, dx * ip->ftwidth,
 			ip->ftheight, ip->ftwidth, wrr);
@@ -527,7 +527,7 @@ rbox_clear(ip, sy, sx, h, w)
 	int sy, sx, h, w;
 {
 	rbox_windowmove(ip, sy * ip->ftheight, sx * ip->ftwidth,
-			sy * ip->ftheight, sx * ip->ftwidth, 
+			sy * ip->ftheight, sx * ip->ftwidth,
 			h  * ip->ftheight, w  * ip->ftwidth,
 			RR_CLEAR);
 }
@@ -559,7 +559,7 @@ rbox_scroll(ip, sy, sx, count, dir)
 		dy = sy;
 		dx = sx - count;
 		width = ip->cols - sx;
-	}		
+	}
 
 	rbox_windowmove(ip, sy * ip->ftheight, sx * ip->ftwidth,
 			dy * ip->ftheight, dx * ip->ftwidth,
@@ -575,7 +575,7 @@ rbox_windowmove(ip, sy, sx, dy, dx, h, w, func)
 	struct rboxfb *rp = REGBASE;
 	if (h == 0 || w == 0)
 		return;
-	
+
 	rb_waitbusy(ip->regbase);
 	rp->rep_rule = func << 4 | func;
 	rp->source_y = sy;

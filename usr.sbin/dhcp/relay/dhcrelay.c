@@ -107,7 +107,7 @@ int main (argc, argv, envp)
 
 #if !(defined (DEBUG) || defined (SYSLOG_4_2))
 	setlogmask (LOG_UPTO (LOG_INFO));
-#endif	
+#endif
 
 	for (i = 1; i < argc; i++) {
 		if (!strcmp (argv [i], "-p")) {
@@ -188,7 +188,7 @@ int main (argc, argv, envp)
 		endservent ();
 	}
 	remote_port = htons (ntohs (local_port) + 1);
-  
+
 	/* We need at least one server. */
 	if (!sp) {
 		usage (s);
@@ -238,7 +238,7 @@ int main (argc, argv, envp)
 			else {
 				fprintf (pf, "%ld\n", (long)getpid ());
 				fclose (pf);
-			}	
+			}
 		}
 
 		close (0);
@@ -347,7 +347,7 @@ void relay (ip, packet, length, from_port, from, hfrom)
 			       inet_ntoa (sp -> to.sin_addr));
 		}
 	}
-				 
+
 }
 
 static void usage (appname)

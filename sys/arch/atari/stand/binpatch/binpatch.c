@@ -61,7 +61,7 @@ main(argc, argv)
   u_long  lval;
   u_short sval;
   u_char  cval;
-  
+
 
   while ((c = getopt (argc, argv, "a:bwlr:s:o:")) != -1)
     switch (c)
@@ -112,7 +112,7 @@ main(argc, argv)
           offset = atoi (optarg);
         break;
       }
-  
+
   argv += optind;
   argc -= optind;
 
@@ -152,7 +152,7 @@ main(argc, argv)
   addr += offset;
 
   /* if replace-mode, have to reopen the file for writing.
-     Can't do that from the beginning, or nlist() will not 
+     Can't do that from the beginning, or nlist() will not
      work (at least not under AmigaDOS) */
   if (do_replace)
     {
@@ -193,7 +193,7 @@ main(argc, argv)
       break;
     }
 
-  
+
   if (symbol)
     printf ("%s(0x%x): %d (0x%x)\n", symbol, addr, lval, lval);
   else

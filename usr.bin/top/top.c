@@ -395,7 +395,7 @@ Usage: %s [-ISbinqu] [-d x] [-s x] [-o field] [-U username] [number]\n",
 	fprintf(stderr, "%s: can't allocate sufficient memory\n", myname);
 	exit(4);
     }
-    
+
     /* print warning if user requested more processes than we can display */
     if (topn > max_topn)
     {
@@ -538,7 +538,7 @@ Usage: %s [-ISbinqu] [-d x] [-s x] [-o field] [-U username] [number]\n",
 
 	/* update the header area */
 	(*d_header)(header_text);
-    
+
 	if (topn > 0)
 	{
 	    /* determine number of processes to actually display */
@@ -592,14 +592,14 @@ Usage: %s [-ISbinqu] [-d x] [-s x] [-o field] [-U username] [number]\n",
 		    d_process = u_process;
 		}
 	    }
-    
+
 	    no_command = Yes;
 	    if (!interactive)
 	    {
 		/* set up alarm */
 		(void) signal(SIGALRM, onalrm);
 		(void) alarm((unsigned)delay);
-    
+
 		/* wait for the rest of it .... */
 		pause();
 	    }
@@ -619,7 +619,7 @@ Usage: %s [-ISbinqu] [-d x] [-s x] [-o field] [-U username] [number]\n",
 		{
 		    int newval;
 		    char *errmsg;
-    
+
 		    /* something to read -- clear the message area first */
 		    clear_message();
 
@@ -649,7 +649,7 @@ Usage: %s [-ISbinqu] [-d x] [-s x] [-o field] [-U username] [number]\n",
 			    case CMD_redraw:	/* redraw screen */
 				reset_display();
 				break;
-    
+
 			    case CMD_update:	/* merely update display */
 				/* is the load average high? */
 				if (system_info.load_avg[0] > LoadMax)
@@ -659,12 +659,12 @@ Usage: %s [-ISbinqu] [-d x] [-s x] [-o field] [-U username] [number]\n",
 				    fflush(stdout);
 				}
 				break;
-	    
+
 			    case CMD_quit:	/* quit */
 				quit(0);
 				/*NOTREACHED*/
 				break;
-	    
+
 			    case CMD_help1:	/* help */
 			    case CMD_help2:
 				reset_display();
@@ -674,7 +674,7 @@ Usage: %s [-ISbinqu] [-d x] [-s x] [-o field] [-U username] [number]\n",
 				fflush(stdout);
 				(void) read(0, &ch, 1);
 				break;
-	
+
 			    case CMD_errors:	/* show errors */
 				if (error_count() == 0)
 				{
@@ -693,7 +693,7 @@ Usage: %s [-ISbinqu] [-d x] [-s x] [-o field] [-U username] [number]\n",
 				    (void) read(0, &ch, 1);
 				}
 				break;
-	
+
 			    case CMD_number1:	/* new number */
 			    case CMD_number2:
 				new_message(MT_standout,
@@ -723,7 +723,7 @@ Usage: %s [-ISbinqu] [-d x] [-s x] [-o field] [-U username] [number]\n",
 				    topn = newval;
 				}
 				break;
-	    
+
 			    case CMD_delay:	/* new seconds delay */
 				new_message(MT_standout, "Seconds to delay: ");
 				if ((i = readline(tempbuf1, 8, Yes)) > -1)
@@ -732,7 +732,7 @@ Usage: %s [-ISbinqu] [-d x] [-s x] [-o field] [-U username] [number]\n",
 				}
 				clear_message();
 				break;
-	
+
 			    case CMD_displays:	/* change display count */
 				new_message(MT_standout,
 					"Displays to show (currently %s): ",
@@ -748,7 +748,7 @@ Usage: %s [-ISbinqu] [-d x] [-s x] [-o field] [-U username] [number]\n",
 				}
 				clear_message();
 				break;
-    
+
 			    case CMD_kill:	/* kill program */
 				new_message(0, "kill ");
 				if (readline(tempbuf2, sizeof(tempbuf2), No) > 0)
@@ -765,7 +765,7 @@ Usage: %s [-ISbinqu] [-d x] [-s x] [-o field] [-U username] [number]\n",
 				    clear_message();
 				}
 				break;
-	    
+
 			    case CMD_renice:	/* renice program */
 				new_message(0, "renice ");
 				if (readline(tempbuf2, sizeof(tempbuf2), No) > 0)
@@ -819,7 +819,7 @@ Usage: %s [-ISbinqu] [-d x] [-s x] [-o field] [-U username] [number]\n",
 				    clear_message();
 				}
 				break;
-	    
+
 #ifdef ORDER
 			    case CMD_order:
 				new_message(MT_standout,
@@ -844,7 +844,7 @@ Usage: %s [-ISbinqu] [-d x] [-s x] [-o field] [-U username] [number]\n",
 				}
 				break;
 #endif
-	    
+
 			    default:
 				new_message(MT_standout, " BAD CASE IN SWITCH!");
 				putchar('\r');

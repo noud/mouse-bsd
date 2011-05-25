@@ -4,7 +4,7 @@
  * THIS FILE AUTOMATICALLY GENERATED.  DO NOT EDIT.
  *
  * generated from:
- *	NetBSD: cardbusdevs,v 1.7 1999/12/11 22:22:34 explorer Exp 
+ *	NetBSD: cardbusdevs,v 1.7 1999/12/11 22:22:34 explorer Exp
  */
 
 /*

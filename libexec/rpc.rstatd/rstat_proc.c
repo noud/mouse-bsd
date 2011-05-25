@@ -240,7 +240,7 @@ updatestat(dummy)
 	}
 	sincelastreq++;
 
-	/* 
+	/*
 	 * dkreadstats reads in the "disk_count" as well as the "disklist"
 	 * statistics.  It also retrieves "hz" and the "cp_time" array.
 	 */
@@ -299,7 +299,7 @@ updatestat(dummy)
 	gettimeofday(&tm, (struct timezone *) 0);
 	stats_all.s3.v_intr -= hz*(tm.tv_sec - btm.tv_sec) +
 	    hz*(tm.tv_usec - btm.tv_usec)/1000000;
-	
+
 	stats_all.s3.if_ipackets = 0;
 	stats_all.s3.if_opackets = 0;
 	stats_all.s3.if_ierrors = 0;

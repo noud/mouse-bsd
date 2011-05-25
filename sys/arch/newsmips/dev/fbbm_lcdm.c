@@ -67,7 +67,7 @@ extern unsigned int mfbmask32[];
 extern unsigned int mfbrmask32[];
 
 #define NOP	for (j = 0; j < 40; j++)
-	
+
 #ifdef news3200
 #define LCD_PORT	(volatile unsigned long *)(0xb0000000)
 #define DIMMER_PORT	(volatile unsigned long *)(0xb0100000)

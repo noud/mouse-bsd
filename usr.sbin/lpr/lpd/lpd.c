@@ -288,7 +288,7 @@ main(argc, argv)
 			s = accept(funix,
 			    (struct sockaddr *)&fromunix, &fromlen);
 		} else {
-                        for (i = 1; i <= *finet; i++) 
+                        for (i = 1; i <= *finet; i++)
 				if (FD_ISSET(finet[i], &readfds)) {
 					domain = AF_INET, fromlen = sizeof(frominet);
 					s = accept(finet[i], (struct sockaddr *)&frominet, &fromlen);
@@ -299,7 +299,7 @@ main(argc, argv)
 				syslog(LOG_WARNING, "accept: %m");
 			continue;
 		}
-		
+
 		switch (fork()) {
 		case 0:
 			signal(SIGCHLD, SIG_IGN);
@@ -309,7 +309,7 @@ main(argc, argv)
 			signal(SIGTERM, SIG_IGN);
 			(void)close(funix);
 			if (!sflag && finet)
-                        	for (i = 1; i <= *finet; i++) 
+                        	for (i = 1; i <= *finet; i++)
 					(void)close(finet[i]);
 			dup2(s, 1);
 			(void)close(s);

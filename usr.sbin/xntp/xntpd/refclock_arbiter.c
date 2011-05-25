@@ -37,7 +37,7 @@
  *
  * Format B5 (24 ASCII printing characters):
  *
- * <cr><lf>i yy ddd hh:mm:ss.000bbb  
+ * <cr><lf>i yy ddd hh:mm:ss.000bbb
  *
  *	on-time = <cr>
  *	i = synchronization flag (' ' = locked, '?' = unlocked)
@@ -313,7 +313,7 @@ arb_receive(rbufp)
 	 * timecode has invalid length, which sometimes occurs when the
 	 * B0 amputates the broadcast, we just quietly steal away. Note
 	 * that the time quality character and receiver status string is
-	 * tacked on the end for clockstats display. 
+	 * tacked on the end for clockstats display.
 	 */
 	if (pp->lencode == LENARB) {
 		/*
@@ -435,7 +435,7 @@ arb_poll(unit, peer)
 	} else
 		pp->polls++;
 	up->tcswitch = 0;
-	
+
 }
 
 #else /* not (REFCLOCK && ARBITER) */

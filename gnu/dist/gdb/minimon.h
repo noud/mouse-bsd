@@ -36,7 +36,7 @@ typedef unsigned short int UINT16; /* 16 bit integer (unsigned) */
 /****************************************************************************/
 
 /*
- * Error codes 
+ * Error codes
  */
 
 /* General errors */
@@ -434,7 +434,7 @@ struct bkpt_rm_ack_msg_t {
 
 struct bkpt_stat_ack_msg_t {
           INT32    code;  /* 39 */
-          INT32    length; 
+          INT32    length;
           INT32    memory_space;
           ADDR32   address;
           INT32    pass_count;

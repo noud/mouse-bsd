@@ -483,7 +483,7 @@ putf(cp, where)
 		}
 		cp++;
 	}
-	
+
 	return (putlocation);
 }
 

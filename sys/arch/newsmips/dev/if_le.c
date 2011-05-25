@@ -103,7 +103,7 @@ struct cfattach le_ca = {
 #endif
 
 hide void lewrcsr __P((struct lance_softc *, u_int16_t, u_int16_t));
-hide u_int16_t lerdcsr __P((struct lance_softc *, u_int16_t));  
+hide u_int16_t lerdcsr __P((struct lance_softc *, u_int16_t));
 
 hide void
 lewrcsr(sc, port, val)
@@ -127,7 +127,7 @@ lerdcsr(sc, port)
 	ler1->ler1_rap = port;
 	val = ler1->ler1_rdp;
 	return (val);
-} 
+}
 
 int
 le_match(parent, cf, aux)

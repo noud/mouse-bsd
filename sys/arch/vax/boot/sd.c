@@ -156,7 +156,7 @@ sdgetinfo(ss)
 	    printf("sdgetinfo: sdstrategy error %d\n", err);
 	    return 0;
 	}
-	
+
 	msg = getdisklabel(io_buf, lp);
 	if (msg) {
 		printf("sd(%d,%d,%d): %s\n",
@@ -178,7 +178,7 @@ sdopen(f, ctlr, unit, part)
 	printf("sdopen: ctlr=%d unit=%d part=%d\n",
 	    ctlr, unit, part);
 #endif
-	
+
 	if (ctlr >= NSCSI || !scsialive(ctlr))
 		return (EADAPT);
 	if (unit >= NSD)
@@ -242,6 +242,6 @@ retry:
 		goto retry;
 	}
 	*rsize = size;
-	
+
 	return(0);
 }

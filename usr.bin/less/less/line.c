@@ -10,19 +10,19 @@
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice in the documentation and/or other materials provided with 
+ *    notice in the documentation and/or other materials provided with
  *    the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
- * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN 
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -108,7 +108,7 @@ plinenum(pos)
 	/*
 	 * Get the line number and put it in the current line.
 	 * {{ Note: since find_linenum calls forw_raw_line,
-	 *    it may seek in the input file, requiring the caller 
+	 *    it may seek in the input file, requiring the caller
 	 *    of plinenum to re-seek if necessary. }}
 	 */
 	lno = find_linenum(pos);
@@ -286,7 +286,7 @@ storec(c, a, pos)
 	 *    delete only one space.  It's not worth trying to do more.
 	 *    It's hardly worth doing this much. }}
 	 */
-	if (curr > 0 && a != AT_NORMAL && 
+	if (curr > 0 && a != AT_NORMAL &&
 		linebuf[curr-1] == ' ' && attr[curr-1] == AT_NORMAL &&
 		attr_swidth(a) > 0)
 	{
@@ -296,12 +296,12 @@ storec(c, a, pos)
 		 */
 		attr[curr-1] = AT_INVIS;
 		column--;
-	} else if (curr > 0 && attr[curr-1] != AT_NORMAL && 
+	} else if (curr > 0 && attr[curr-1] != AT_NORMAL &&
 		attr[curr-1] != AT_INVIS && c == ' ' && a == AT_NORMAL &&
 		attr_ewidth(attr[curr-1]) > 0)
 	{
 		/*
-		 * We are about to append a space just after an 
+		 * We are about to append a space just after an
 		 * exit-attribute sequence.  Delete the space.
 		 */
 		a = AT_INVIS;
@@ -341,7 +341,7 @@ pappend(c, pos)
 	if (c == '\r' && bs_mode == BS_SPECIAL)
 	{
 		/*
-		 * Don't put the CR into the buffer until we see 
+		 * Don't put the CR into the buffer until we see
 		 * the next char.  If the next char is a newline,
 		 * discard the CR.
 		 */
@@ -377,15 +377,15 @@ do_append(c, pos)
 	{
 		/*
 		 * Overstrike the character at the current position
-		 * in the line buffer.  This will cause either 
-		 * underline (if a "_" is overstruck), 
+		 * in the line buffer.  This will cause either
+		 * underline (if a "_" is overstruck),
 		 * bold (if an identical character is overstruck),
 		 * or just deletion of the character in the buffer.
 		 */
 		overstrike = 0;
 		if ((char)c == linebuf[curr]) {
 			STOREC(linebuf[curr], AT_BOLD);
-		} else if (c == '_') { 
+		} else if (c == '_') {
 			STOREC(linebuf[curr], AT_UNDERLINE);
 		} else if (linebuf[curr] == '_') {
 			STOREC(c, AT_UNDERLINE);
@@ -409,7 +409,7 @@ do_append(c, pos)
 			overstrike = 1;
 			break;
 		}
-	} else if (c == '\t') 
+	} else if (c == '\t')
 	{
 		/*
 		 * Expand a tab into spaces.
@@ -437,19 +437,19 @@ do_append(c, pos)
 			 * Output as a normal character.
 			 */
 			STOREC(c, AT_NORMAL);
-		} else 
+		} else
 		{
 			/*
 			 * Convert to printable representation.
 			 */
-			s = prchar(c);  
+			s = prchar(c);
 			a = binattr;
 
 			/*
 			 * Make sure we can get the entire representation
 			 * of the character on this line.
 			 */
-			if (column + (int) strlen(s) + 
+			if (column + (int) strlen(s) +
 			    attr_swidth(a) + attr_ewidth(a) > sc_width)
 				return (1);
 
@@ -510,7 +510,7 @@ gline(i, ap)
 	register int *ap;
 {
 	char *s;
-	
+
 	if (is_null_line)
 	{
 		/*

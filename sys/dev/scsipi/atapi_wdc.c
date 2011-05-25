@@ -195,20 +195,20 @@ wdc_atapi_get_params(ab_link, drive, flags, id)
 	if (wdc_c.flags & (AT_ERROR | AT_TIMEOU | AT_DF)) {
 		WDCDEBUG_PRINT(("wdc_atapi_get_params: ATAPI_SOFT_RESET "
 		    "failed for drive %s:%d:%d: error 0x%x\n",
-		    chp->wdc->sc_dev.dv_xname, chp->channel, drive, 
+		    chp->wdc->sc_dev.dv_xname, chp->channel, drive,
 		    wdc_c.r_error), DEBUG_PROBE);
 		return -1;
 	}
 	chp->ch_drive[drive].state = 0;
 
 	bus_space_read_1(chp->cmd_iot, chp->cmd_ioh, wd_status);
-	
+
 	/* Some ATAPI devices need a bit more time after software reset. */
 	delay(5000);
 	if (ata_get_params(&chp->ch_drive[drive], AT_POLL, id) != 0) {
 		WDCDEBUG_PRINT(("wdc_atapi_get_params: ATAPI_IDENTIFY_DEVICE "
 		    "failed for drive %s:%d:%d: error 0x%x\n",
-		    chp->wdc->sc_dev.dv_xname, chp->channel, drive, 
+		    chp->wdc->sc_dev.dv_xname, chp->channel, drive,
 		    wdc_c.r_error), DEBUG_PROBE);
 		return -1;
 	}
@@ -310,13 +310,13 @@ wdc_atapi_start(chp, xfer)
 	 * data is necessary, multiple data transfer phases will be done.
 	 */
 
-	wdccommand(chp, xfer->drive, ATAPI_PKT_CMD, 
+	wdccommand(chp, xfer->drive, ATAPI_PKT_CMD,
 	    xfer->c_bcount <= 0xffff ? xfer->c_bcount : 0xffff,
-	    0, 0, 0, 
+	    0, 0, 0,
 	    (xfer->c_flags & C_DMA) ? ATAPI_PKT_CMD_FTRE_DMA : 0);
-	
+
 	/*
-	 * If there is no interrupt for CMD input, busy-wait for it (done in 
+	 * If there is no interrupt for CMD input, busy-wait for it (done in
 	 * the interrupt routine. If it is a polled command, call the interrupt
 	 * routine until command is done.
 	 */
@@ -371,7 +371,7 @@ wdc_atapi_intr(chp, xfer, irq)
 		sc_xfer->error = XS_TIMEOUT;
 		wdc_atapi_reset(chp, xfer);
 		return 1;
-	} 
+	}
 
 	/* Ack interrupt done in wait_for_unbusy */
 	bus_space_write_1(chp->cmd_iot, chp->cmd_ioh, wd_sdh,
@@ -392,7 +392,7 @@ wdc_atapi_intr(chp, xfer, irq)
 	/* If we missed an IRQ and were using DMA, flag it as a DMA error */
 	if ((xfer->c_flags & C_TIMEOU) && (xfer->c_flags & C_DMA))
 		ata_dmaerr(drvp);
-	/* 
+	/*
 	 * if the request sense command was aborted, report the short sense
 	 * previously recorded, else continue normal processing
 	 */
@@ -561,7 +561,7 @@ again:
 		/* Read data */
 		WDCDEBUG_PRINT(("PHASE_DATAIN\n"), DEBUG_INTR);
 		if (((sc_xfer->xs_control & XS_CTL_DATA_IN) == 0 &&
-		    (xfer->c_flags & C_SENSE) == 0) || 
+		    (xfer->c_flags & C_SENSE) == 0) ||
 		    (xfer->c_flags & C_DMA) != 0) {
 			printf("wdc_atapi_intr: bad data phase DATAIN\n");
 			if (xfer->c_flags & C_DMA) {
@@ -606,7 +606,7 @@ again:
 				    (u_int32_t *)((char *)xfer->databuf +
 				                  xfer->c_skip),
 				    len >> 2);
-				
+
 			    xfer->c_skip += len & 0xfffffffc;
 			    xfer->c_bcount -= len & 0xfffffffc;
 			    len = len & 0x03;
@@ -616,13 +616,13 @@ again:
 				bus_space_read_multi_2(chp->cmd_iot,
 				    chp->cmd_ioh, wd_data,
 				    (u_int16_t *)((char *)xfer->databuf +
-				                  xfer->c_skip), 
+				                  xfer->c_skip),
 				    len >> 1);
 			    else
 				bus_space_read_multi_stream_2(chp->cmd_iot,
 				    chp->cmd_ioh, wd_data,
 				    (u_int16_t *)((char *)xfer->databuf +
-				                  xfer->c_skip), 
+				                  xfer->c_skip),
 				    len >> 1);
 			    xfer->c_skip += len;
 			    xfer->c_bcount -=len;
@@ -851,7 +851,7 @@ wdc_atapi_done(chp, xfer)
 	/* remove this command from xfer queue */
 	wdc_free_xfer(chp, xfer);
 	sc_xfer->xs_status |= XS_STS_DONE;
-	    
+
 	WDCDEBUG_PRINT(("wdc_atapi_done: scsipi_done\n"), DEBUG_XFERS);
 	scsipi_done(sc_xfer);
 	WDCDEBUG_PRINT(("wdcstart from wdc_atapi_done, flags 0x%x\n",

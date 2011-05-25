@@ -30,7 +30,7 @@
 #   AFTER CHANGING THIS FILE, AND COMMIT THE UPDATED MANPAGE!
 #
 ###########################################################################
-#       
+#
 # Device "make" file.  Valid arguments:
 #	all	makes all known devices, including local devices.
 #		Tries to make the 'standard' number of each type.
@@ -61,10 +61,10 @@
 #	quadmouse*	"quadrature mouse"
 #	pms*		"PS/2 mouse"
 #	wsmouse* wscons mouse events
-# 
+#
 # Keyboard devices:
 #	wskbd*	wscons keyboard events
-# 
+#
 # Terminal ports:
 #	tty*	serial ports
 #	fcom	DC21285 COM port
@@ -138,9 +138,9 @@ ramdisk|floppy)
 	;;
 
 usbs)
-	sh $0 usb0 usb1 
+	sh $0 usb0 usb1
 	sh $0 uhid0 uhid1 uhid2 uhid3
-	sh $0 ulpt0 ulpt1 
+	sh $0 ulpt0 ulpt1
 	sh $0 ttyU0 ttyU1
 	;;
 
@@ -347,7 +347,7 @@ st*)
 	st*) name=st;	unit=${i#st};	chr=25;	blk=25;;
 	esac
 	rm -f $name$unit n$name$unit e$name$unit en$name$unit \
-		r$name$unit nr$name$unit er$name$unit enr$name$unit 
+		r$name$unit nr$name$unit er$name$unit enr$name$unit
 	mknod $name$unit	b $blk $(($unit * 16 + 0))
 	mknod n$name$unit	b $blk $(($unit * 16 + 1))
 	mknod e$name$unit	b $blk $(($unit * 16 + 2))
@@ -357,9 +357,9 @@ st*)
 	mknod er$name$unit	c $chr $(($unit * 16 + 2))
 	mknod enr$name$unit	c $chr $(($unit * 16 + 3))
 	chgrp operator $name$unit n$name$unit e$name$unit en$name$unit \
-		r$name$unit nr$name$unit er$name$unit enr$name$unit 
+		r$name$unit nr$name$unit er$name$unit enr$name$unit
 	chmod 660 $name$unit n$name$unit e$name$unit en$name$unit \
-		r$name$unit nr$name$unit er$name$unit enr$name$unit 
+		r$name$unit nr$name$unit er$name$unit enr$name$unit
 	;;
 
 ch*|uk*)
@@ -566,7 +566,7 @@ cfs*)
 	;;
 
 scsibus*)
-	unit=${i#scsibus}; 
+	unit=${i#scsibus};
 	rm -f scsibus$unit
 	mknod scsibus$unit c 70 $unit
 	chown root:wheel scsibus$unit

@@ -211,14 +211,14 @@ sd_scsibus_get_optparms(sd, dp, flags)
 	scsipi_cmd.length = sizeof(struct scsi_mode_header) +
 	    sizeof(struct scsi_blk_desc);
 
-	if ((error = scsipi_command(sd->sc_link,  
-	    (struct scsipi_generic *)&scsipi_cmd, sizeof(scsipi_cmd),  
+	if ((error = scsipi_command(sd->sc_link,
+	    (struct scsipi_generic *)&scsipi_cmd, sizeof(scsipi_cmd),
 	    (u_char *)&scsipi_sense, sizeof(scsipi_sense), SDRETRIES,
 	    6000, NULL, flags | XS_CTL_DATA_IN)) != 0)
 		return (SDGP_RESULT_OFFLINE);		/* XXX? */
 
 	dp->blksize = _3btol(scsipi_sense.blk_desc.blklen);
-	if (dp->blksize == 0) 
+	if (dp->blksize == 0)
 		dp->blksize = 512;
 
 	/*

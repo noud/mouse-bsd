@@ -1,4 +1,4 @@
-/* 
+/*
 Copyright (C) 1993 Free Software Foundation
 
 This file is part of the GNU IO Library.  This library is free
@@ -70,7 +70,7 @@ static char* itoa(unsigned long i, int size, int neg, int base)
     if (needed < (2+neg) || ptr > EndBuffer)
 	return NULL;
     *--ptr = 0;
-    
+
     if (i == 0)
 	*--ptr = '0';
     while (i != 0 && ptr > buf) {

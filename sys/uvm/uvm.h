@@ -147,7 +147,7 @@ UVMHIST_DECL(pdhist);
 #ifdef _KERNEL
 
 /*
- * UVM_UNLOCK_AND_WAIT: atomic unlock+wait... front end for the 
+ * UVM_UNLOCK_AND_WAIT: atomic unlock+wait... front end for the
  * uvm_sleep() function.
  */
 

@@ -49,7 +49,7 @@ ENTRY(sigsetjmp)
 	mov.l	r5, @r0
 	tst	r5, r5
 	bt	1f
-	
+
 	sts.l	pr, @-r15
 	mov.l	r4, @-r15
 	mov	#0, r4
@@ -62,7 +62,7 @@ ENTRY(sigsetjmp)
 	mov	r4, r1
 	add	#4*10, r1
 	mov.l	r0, @r1
-	
+
 1:
 	add	#4*9, r4
 	mov.l	r15, @-r4
@@ -99,7 +99,7 @@ ENTRY(siglongjmp)
 	mov.l	@r15+, r5
 	mov.l	@r15+, r4
 
-1:	
+1:
 	mov	r5, r0
 	lds.l	@r4+, pr
 	mov.l	@r4+, r8

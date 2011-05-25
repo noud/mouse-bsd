@@ -74,7 +74,7 @@ getfl(c)
 	char c;
 {
 	char buf[256], *cp;
-	
+
 	putchar(c);
 	/*
 	 * get the UNIX receiving file's name
@@ -86,7 +86,7 @@ getfl(c)
 		printf("\r\n%s: cannot create\r\n", copyname);
 		return;
 	}
-	
+
 	/*
 	 * collect parameters
 	 */
@@ -152,17 +152,17 @@ transfer(buf, fd, eofchars)
 	quit = 0;
 	kill(pid, SIGIOT);
 	read(repdes[0], (char *)&ccc, 1);  /* Wait until read process stops */
-	
+
 	/*
 	 * finish command
 	 */
 	r = '\r';
 	xpwrite(FD, &r, 1);
 	do
-		read(FD, &c, 1); 
+		read(FD, &c, 1);
 	while ((c&STRIP_PAR) != '\n');
 	tcsetattr(0, TCSAFLUSH, &defchars);
-	
+
 	(void) setjmp(intbuf);
 	f = signal(SIGINT, intcopy);
 	start = time(0);

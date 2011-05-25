@@ -111,7 +111,7 @@ qe_init(desc, machdep_hint)
 
 	sc = (void *)alloc(sizeof(struct qe_softc));
 
-	bzero(sc,sizeof(struct qe_softc)); 
+	bzero(sc,sizeof(struct qe_softc));
 
 	for(i = 0; i < 8192; i++)
 		qm[i] = PG_V | i;

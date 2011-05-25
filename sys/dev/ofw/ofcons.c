@@ -72,7 +72,7 @@ ofcons_match(parent, match, aux)
 	void *aux;
 {
 	struct ofbus_attach_args *oba = aux;
-	
+
 	if (strcmp(oba->oba_busname, "ofw"))
 		return (0);
 	if (!ofcons_probe())
@@ -102,7 +102,7 @@ ofcons_open(dev, flag, mode, p)
 	struct ofcons_softc *sc;
 	int unit = minor(dev);
 	struct tty *tp;
-	
+
 	if (unit >= ofcons_cd.cd_ndevs)
 		return ENXIO;
 	sc = ofcons_cd.cd_devs[unit];
@@ -125,7 +125,7 @@ ofcons_open(dev, flag, mode, p)
 	} else if ((tp->t_state&TS_XCLUDE) && suser(p->p_ucred, &p->p_acflag))
 		return EBUSY;
 	tp->t_state |= TS_CARR_ON;
-	
+
 	if (!(sc->of_flags & OFPOLL)) {
 		sc->of_flags |= OFPOLL;
 		timeout(ofcons_poll, sc, 1);
@@ -158,7 +158,7 @@ ofcons_read(dev, uio, flag)
 {
 	struct ofcons_softc *sc = ofcons_cd.cd_devs[minor(dev)];
 	struct tty *tp = sc->of_tty;
-	
+
 	return (*linesw[tp->t_line].l_read)(tp, uio, flag);
 }
 
@@ -170,7 +170,7 @@ ofcons_write(dev, uio, flag)
 {
 	struct ofcons_softc *sc = ofcons_cd.cd_devs[minor(dev)];
 	struct tty *tp = sc->of_tty;
-	
+
 	return (*linesw[tp->t_line].l_write)(tp, uio, flag);
 }
 
@@ -185,7 +185,7 @@ ofcons_ioctl(dev, cmd, data, flag, p)
 	struct ofcons_softc *sc = ofcons_cd.cd_devs[minor(dev)];
 	struct tty *tp = sc->of_tty;
 	int error;
-	
+
 	if ((error = (*linesw[tp->t_line].l_ioctl)(tp, cmd, data, flag, p)) >= 0)
 		return error;
 	if ((error = ttioctl(tp, cmd, data, flag, p)) >= 0)
@@ -216,7 +216,7 @@ ofcons_start(tp)
 	struct clist *cl;
 	int s, len;
 	u_char buf[OFBURSTLEN];
-	
+
 	s = spltty();
 	if (tp->t_state & (TS_TIMEOUT | TS_BUSY | TS_TTSTOP)) {
 		splx(s);
@@ -261,7 +261,7 @@ ofcons_poll(aux)
 	struct ofcons_softc *sc = aux;
 	struct tty *tp = sc->of_tty;
 	char ch;
-	
+
 	while (OF_read(stdin, &ch, 1) > 0) {
 		if (tp && (tp->t_state & TS_ISOPEN))
 			(*linesw[tp->t_line].l_rint)(ch, tp);
@@ -320,7 +320,7 @@ ofcons_cngetc(dev)
 {
 	unsigned char ch = '\0';
 	int l;
-	
+
 	while ((l = OF_read(stdin, &ch, 1)) != 1)
 		if (l != -2 && l != 0)
 			return -1;
@@ -333,7 +333,7 @@ ofcons_cnputc(dev, c)
 	int c;
 {
 	char ch = c;
-	
+
 	OF_write(stdout, &ch, 1);
 }
 
@@ -343,7 +343,7 @@ ofcons_cnpollc(dev, on)
 	int on;
 {
 	struct ofcons_softc *sc = ofcons_cd.cd_devs[minor(dev)];
-	
+
 	if (!sc)
 		return;
 	if (on) {

@@ -430,7 +430,7 @@ search(sb)
 
 	return (NULL);
 }
-			
+
 static int
 keyw(sym)
 	sym_t	*sym;
@@ -755,7 +755,7 @@ ccon()
 		cv = (char)val;
 		val = cv;
 	}
-	
+
 	yylval.y_val = xcalloc(1, sizeof (val_t));
 	yylval.y_val->v_tspec = INT;
 	yylval.y_val->v_quad = val;
@@ -1459,5 +1459,5 @@ freeyyv(sp, tok)
 			lerror("fryylv() 1");
 		}
 		free(strg);
-	}	
+	}
 }

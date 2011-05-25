@@ -172,7 +172,7 @@ vrpiuattach(parent, self, aux)
 #endif
 
 	/* install interrupt handler and enable interrupt */
-	if (!(sc->sc_handler = 
+	if (!(sc->sc_handler =
 	      vrip_intr_establish(va->va_vc, va->va_intr, IPL_TTY,
 				  vrpiu_intr, sc))) {
 		printf (": can't map interrupt line.\n");
@@ -280,7 +280,7 @@ vrpiu_ioctl(v, cmd, data, flag, p)
 	case WSMOUSEIO_GTYPE:
 		*(u_int *)data = WSMOUSE_TYPE_TPANEL;
 		break;
-		
+
 	case WSMOUSEIO_SRES:
 		printf("%s(%d): WSMOUSRIO_SRES is not supported",
 		       __FILE__, __LINE__);
@@ -289,7 +289,7 @@ vrpiu_ioctl(v, cmd, data, flag, p)
 	case WSMOUSEIO_SCALIBCOORDS:
 	case WSMOUSEIO_GCALIBCOORDS:
                 return tpcalib_ioctl(&sc->sc_tpcalib, cmd, data, flag, p);
-		
+
 	default:
 		return (-1);
 	}

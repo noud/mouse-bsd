@@ -59,11 +59,11 @@ The register values specified by
 .Fa *regs
 (with one exception) are installed before the BIOS interrupt is called.
 The processor flags are handled specially.  Only the following flags are
-passed to the 
+passed to the
 BIOS from the registers in
-.Fa regs 
+.Fa regs
 (the remainder come from the processor's flags register at the time
-of the call): 
+of the call):
 .Ar PSL_C ,
 .Ar PSL_PF ,
 .Ar PSL_AF ,

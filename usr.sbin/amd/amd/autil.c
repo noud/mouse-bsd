@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: autil.c,v 1.3 1999/01/10 21:53:44 ezk Exp 
+ * Id: autil.c,v 1.3 1999/01/10 21:53:44 ezk Exp
  *
  */
 

@@ -1,7 +1,7 @@
 /* ldctor.c -- constructor support routines
    Copyright (C) 1991, 92, 93, 94, 1995 Free Software Foundation, Inc.
    By Steve Chamberlain <sac@cygnus.com>
-   
+
 This file is part of GLD, the Gnu Linker.
 
 GLD is free software; you can redistribute it and/or modify

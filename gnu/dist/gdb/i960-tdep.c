@@ -183,7 +183,7 @@ examine_prologue (ip, limit, frame_addr, fsr)
 
   if (within_leaf_prologue)
     return (ip);
-	  
+
   /* Accept zero or more instances of "mov[qtl]? gx, ry", where y >= 4.
      This may cause us to mistake the moving of a register
      parameter to a local register for the saving of a callee-saved
@@ -217,7 +217,7 @@ examine_prologue (ip, limit, frame_addr, fsr)
       next_ip = NEXT_PROLOGUE_INSN (ip, limit, &insn1, &insn2);
     }
 
-  /* Accept zero or more instances of "st[qtl]? gx, n(fp)".  
+  /* Accept zero or more instances of "st[qtl]? gx, n(fp)".
      This may cause us to mistake the copying of a register
      parameter to the frame for the saving of a callee-saved
      register, but that can't be helped, since with the
@@ -286,7 +286,7 @@ examine_prologue (ip, limit, frame_addr, fsr)
 }
 
 /* Given an ip value corresponding to the start of a function,
-   return the ip of the first instruction after the function 
+   return the ip of the first instruction after the function
    prologue.  */
 
 CORE_ADDR
@@ -337,7 +337,7 @@ frame_find_saved_regs (fi, fsr)
       /* Find the start and end of the function prologue.  If the PC
 	 is in the function prologue, we only consider the part that
 	 has executed already.  */
-         
+
       ip = get_pc_function_start (fi->pc);
       sal = find_pc_line (ip, 0);
       limit = (sal.end && sal.end < fi->pc) ? sal.end: fi->pc;
@@ -363,15 +363,15 @@ frame_find_saved_regs (fi, fsr)
   *fsr = *fi->fsr;
 
   /* Fetch the value of the sp from memory every time, since it
-     is conceivable that it has changed since the cache was flushed.  
-     This unfortunately undoes much of the savings from caching the 
-     saved register values.  I suggest adding an argument to 
+     is conceivable that it has changed since the cache was flushed.
+     This unfortunately undoes much of the savings from caching the
+     saved register values.  I suggest adding an argument to
      get_frame_saved_regs () specifying the register number we're
      interested in (or -1 for all registers).  This would be passed
      through to FRAME_FIND_SAVED_REGS (), permitting more efficient
      computation of saved register addresses (e.g., on the i960,
-     we don't have to examine the prologue to find local registers). 
-	-- markf@wrs.com 
+     we don't have to examine the prologue to find local registers).
+	-- markf@wrs.com
      FIXME, we don't need to refetch this, since the cache is cleared
      every time the child process is restarted.  If GDB itself
      modifies SP, it has to clear the cache by hand (does it?).  -gnu */
@@ -445,7 +445,7 @@ frame_struct_result_address (fi)
 
 /* Return address to which the currently executing leafproc will return,
    or 0 if ip is not in a leafproc (or if we can't tell if it is).
-  
+
    Do this by finding the starting address of the routine in which ip lies.
    If the instruction there is "mov g14, gx" (where x is in [0,7]), this
    is a leafproc and the return address is in register gx.  Well, this is
@@ -471,7 +471,7 @@ leafproc_return (ip)
 	      && (insn1 & 0xff87ffff) == 0x5c80161e       /* mov g14, gx */
 	      && (dst = REG_SRCDST (insn1)) <= G0_REGNUM + 7)
 	    {
-	      /* Get the return address.  If the "mov g14, gx" 
+	      /* Get the return address.  If the "mov g14, gx"
 		 instruction hasn't been executed yet, read
 		 the return address from g14; otherwise, read it
 		 from the register into which g14 was moved.  */
@@ -495,14 +495,14 @@ leafproc_return (ip)
 	    }
 	}
     }
-  
+
   return (0);
 }
 
 /* Immediately after a function call, return the saved pc.
    Can't go through the frames for this because on some machines
    the new frame is not set up until the new function executes
-   some instructions. 
+   some instructions.
    On the i960, the frame *is* set up immediately after the call,
    unless the function is a leaf procedure.  */
 
@@ -544,7 +544,7 @@ pop_frame ()
       /* Non-leaf procedure.  Restore local registers, incl IP.  */
       prev_fi = get_prev_frame (current_fi);
       read_memory (prev_fi->frame, local_regs_buf, sizeof (local_regs_buf));
-      write_register_bytes (REGISTER_BYTE (R0_REGNUM), local_regs_buf, 
+      write_register_bytes (REGISTER_BYTE (R0_REGNUM), local_regs_buf,
 		            sizeof (local_regs_buf));
 
       /* Restore frame pointer.  */
@@ -703,7 +703,7 @@ mem( memaddr, word1, word2, noprint )
 	abort ();
 }
 
-/* Read the i960 instruction at 'memaddr' and return the address of 
+/* Read the i960 instruction at 'memaddr' and return the address of
    the next instruction after that, or 0 if 'memaddr' is not the
    address of a valid instruction.  The first word of the instruction
    is stored at 'pword1', and the second word, if any, is stored at
@@ -794,7 +794,7 @@ mon960_frame_chain_valid (chain, curframe)
 		return 0;
 	}
 
-	sym = lookup_symbol(sf, 0, VAR_NAMESPACE, (int *)NULL, 
+	sym = lookup_symbol(sf, 0, VAR_NAMESPACE, (int *)NULL,
 				  (struct symtab **)NULL);
 	if ( sym != 0 ){
 		a = SYMBOL_VALUE (sym);

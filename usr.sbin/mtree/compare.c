@@ -166,7 +166,7 @@ typeerr:		LABEL;
         }
 	if (mflag && !uflag) {
 		if (s->flags & F_FLAGS)
-		    CLEARFLAGS(p->fts_accpath, s->st_flags, 
+		    CLEARFLAGS(p->fts_accpath, s->st_flags,
 			p->fts_statp->st_flags, p->fts_statp->st_flags,
 			SP_FLGS);
 		return (label);
@@ -321,7 +321,7 @@ typeerr:		LABEL;
 			(void)close(fd);
 			if (s->cksum != val) {
 				LABEL;
-				(void)printf("%scksum (%lu, %lu)\n", 
+				(void)printf("%scksum (%lu, %lu)\n",
 				    tab, s->cksum, (unsigned long)val);
 			}
 			tab = "\t";

@@ -439,7 +439,7 @@ typedef struct poll_info
 #define NOCLOCK_FORMAT		NO_FORMAT
 #define NOCLOCK_TYPE		CTL_SST_TS_UNSPEC
 #define NOCLOCK_SAMPLES		0
-#define NOCLOCK_KEEP		0 
+#define NOCLOCK_KEEP		0
 
 #define DCF_TYPE		CTL_SST_TS_LF
 #define GPS_TYPE		CTL_SST_TS_UHF
@@ -682,7 +682,7 @@ static	int	trimbletsip_init	P((struct parseunit *));
 #define TRIMBLETAIP_INIT	    trimbletaip_init
 #define TRIMBLETSIP_INIT	    trimbletsip_init
 
-#define TRIMBLETAIP_EVENT	    trimbletaip_event   
+#define TRIMBLETAIP_EVENT	    trimbletaip_event
 
 #define TRIMBLETAIP_END		    poll_end
 #define TRIMBLETSIP_END		    poll_end
@@ -738,7 +738,7 @@ static poll_info_t rcc8000_pollinfo = { RCC_POLLRATE, RCC_POLLCMD, RCC_CMDSIZE }
 #define RCC8000_KEEP	        3
 
 /*
- * Hopf Radio clock 6021 Format 
+ * Hopf Radio clock 6021 Format
  *
  */
 #define HOPF6021_ROOTDELAY	0x00000000 /* 0 */
@@ -1090,7 +1090,7 @@ static struct parse_clockinfo
   },
   {                             /* mode 12 */
     HOPF6021_FLAGS,
-    NO_POLL,     
+    NO_POLL,
     NO_INIT,
     NO_EVENT,
     NO_END,
@@ -1218,7 +1218,7 @@ list_err(parse, state)
 
   if (do_it)
     err->err_cnt++;
-  
+
   if (err->err_stage->err_count &&
       (err->err_cnt >= err->err_stage->err_count))
     {
@@ -1242,7 +1242,7 @@ list_err(parse, state)
 	     l_mktime(current_time - err->err_started));
       err->err_suppressed = 0;
     }
-  
+
   return do_it;
 }
 
@@ -1267,7 +1267,7 @@ static int  stream_timecode P((struct parseunit *, parsectl_t *));
 static void stream_receive  P((struct recvbuf *));
 static void stream_poll     P((struct parseunit *));
 #endif
-					 
+
 static int  local_init     P((struct parseunit *));
 static void local_end      P((struct parseunit *));
 static int  local_nop      P((struct parseunit *));
@@ -1446,7 +1446,7 @@ stream_setcs(parse, tcl)
      parsectl_t  *tcl;
 {
   struct strioctl strioc;
-  
+
   strioc.ic_cmd     = PARSEIOC_SETCS;
   strioc.ic_timout  = 0;
   strioc.ic_dp      = (char *)tcl;
@@ -1468,7 +1468,7 @@ stream_enable(parse)
      struct parseunit *parse;
 {
   struct strioctl strioc;
-  
+
   strioc.ic_cmd     = PARSEIOC_ENABLE;
   strioc.ic_timout  = 0;
   strioc.ic_dp      = (char *)0;
@@ -1491,7 +1491,7 @@ stream_disable(parse)
      struct parseunit *parse;
 {
   struct strioctl strioc;
-  
+
   strioc.ic_cmd     = PARSEIOC_DISABLE;
   strioc.ic_timout  = 0;
   strioc.ic_dp      = (char *)0;
@@ -1515,7 +1515,7 @@ stream_getfmt(parse, tcl)
      parsectl_t  *tcl;
 {
   struct strioctl strioc;
-  
+
   strioc.ic_cmd     = PARSEIOC_GETFMT;
   strioc.ic_timout  = 0;
   strioc.ic_dp      = (char *)tcl;
@@ -1537,7 +1537,7 @@ stream_setfmt(parse, tcl)
      parsectl_t  *tcl;
 {
   struct strioctl strioc;
-  
+
   strioc.ic_cmd     = PARSEIOC_SETFMT;
   strioc.ic_timout  = 0;
   strioc.ic_dp      = (char *)tcl;
@@ -1561,12 +1561,12 @@ stream_timecode(parse, tcl)
      parsectl_t  *tcl;
 {
   struct strioctl strioc;
-  
+
   strioc.ic_cmd     = PARSEIOC_TIMECODE;
   strioc.ic_timout  = 0;
   strioc.ic_dp      = (char *)tcl;
   strioc.ic_len     = sizeof (*tcl);
-	
+
   if (ioctl(parse->generic->io.fd, I_STR, (caddr_t)&strioc) == -1)
     {
       ERR(ERR_INTERNAL)
@@ -1600,7 +1600,7 @@ stream_receive(rbufp)
       return;
     }
   clear_err(parse, ERR_BADIO);
-  
+
   memmove((caddr_t)&parsetime,
 	  (caddr_t)rbufp->recv_buffer,
 	  sizeof(parsetime_t));
@@ -1644,7 +1644,7 @@ stream_poll(parse)
    *    - read the second packet from the parse module (fresh)
    *    - compute values for xntp
    */
-	
+
   FD_ZERO(&fdmask);
   fd = parse->generic->io.fd;
   FD_SET(fd, &fdmask);
@@ -1707,7 +1707,7 @@ stream_poll(parse)
 		{
 		  selecttime.tv_usec = curtime.tv_usec - starttime.tv_usec;
 		}
-	
+
 
 	      if (timercmp(&selecttime, &timeout, >))
 		{
@@ -1731,7 +1731,7 @@ stream_poll(parse)
 		{
 		  selecttime.tv_usec = timeout.tv_usec - selecttime.tv_usec;
 		}
-	
+
 	      FD_SET(fd, &fdmask);
 	      continue;
 	    }
@@ -1840,7 +1840,7 @@ stream_poll(parse)
 		{
 		  selecttime.tv_usec = curtime.tv_usec - starttime.tv_usec;
 		}
-	
+
 
 	      if (timercmp(&selecttime, &timeout, >))
 		{
@@ -1864,7 +1864,7 @@ stream_poll(parse)
 		{
 		  selecttime.tv_usec = timeout.tv_usec - selecttime.tv_usec;
 		}
-	
+
 	      FD_SET(fd, &fdmask);
 	      continue;
 	    }
@@ -1879,7 +1879,7 @@ stream_poll(parse)
 	  ERR(ERR_NODATA)
 	    msyslog(LOG_WARNING, "PARSE receiver #%d: no data[new] from device (check receiver / cableling) ", CLK_UNIT(parse->peer));
 	}
-	
+
       /*
        * we will return here iff we got a good old sample as this would
        * be misinterpreted. bad samples are passed on to be logged into the
@@ -2156,7 +2156,7 @@ local_poll(parse)
 		    {
 		      selecttime.tv_usec = curtime.tv_usec - starttime.tv_usec;
 		    }
-	
+
 
 		  if (!timercmp(&selecttime, &timeout, >))
 		    {
@@ -2174,7 +2174,7 @@ local_poll(parse)
 			{
 			  selecttime.tv_usec = timeout.tv_usec - selecttime.tv_usec;
 			}
-	
+
 		      FD_SET(fd, &fdmask);
 		      continue;
 		    }
@@ -2337,7 +2337,7 @@ parsestate(state, buffer)
 		  strcpy(t, "; ");
 		  t += 2;
 		}
-	
+
 	      strcpy(t, sflagstrings[i].name);
 	      t += strlen(t);
 	    }
@@ -2613,7 +2613,7 @@ parse_shutdown(unit, peer)
   struct parseunit *parse;
 
   unit = CLK_UNIT(peer);
-	
+
   if (unit >= MAXUNITS)
     {
       msyslog(LOG_ERR,
@@ -2623,7 +2623,7 @@ parse_shutdown(unit, peer)
     }
 
   parse = parseunits[unit];
-	
+
   if (parse && !parse->peer)
     {
       msyslog(LOG_ERR,
@@ -2637,7 +2637,7 @@ parse_shutdown(unit, peer)
    */
   parse_statistics(parse);
   TIMER_DEQUEUE(&parse->stattimer);
-	
+
 #if ATOM
   {
     /*
@@ -2652,7 +2652,7 @@ parse_shutdown(unit, peer)
     {
       parse->parse_type->cl_end(parse);
     }
-	
+
   if (parse->binding)
     PARSE_END(parse);
 
@@ -2794,7 +2794,7 @@ parse_start(sysunit, peer)
   parse->localdata      = (void *)0;
 
   clear_err(parse, ERR_ALL);
-  
+
   parse->parse_type     = &parse_clockinfo[type];
 
   parse->generic->fudgetime1.l_ui = 0;	/* we can only pre-configure delays less than 1 second */
@@ -2813,9 +2813,9 @@ parse_start(sysunit, peer)
     memmove((char *)&parse->generic->refid, parse->parse_type->cl_id, 4);
   else
     parse->generic->refid = htonl(PARSEHSREFID);
-	
+
   parse->generic->io.fd = fd232;
-	
+
   parse->peer = peer;		/* marks it also as busy */
 
   parse->binding = init_iobinding(parse);
@@ -2825,7 +2825,7 @@ parse_start(sysunit, peer)
       msyslog(LOG_ERR, "PARSE receiver #%d: parse_start: io sub system initialisation failed.");
       parse_shutdown(CLK_UNIT(parse->peer), peer); /* let our cleaning staff do the work */
       return 0;			/* well, ok - special initialisation broke */
-    }      
+    }
 
   /*
    * configure terminal line
@@ -2871,7 +2871,7 @@ parse_start(sysunit, peer)
       tio.c_iflag = parse_clockinfo[type].cl_iflag;
       tio.c_oflag = parse_clockinfo[type].cl_oflag;
       tio.c_lflag = parse_clockinfo[type].cl_lflag;
-	
+
 
 #ifdef HAVE_TERMIOS
       if ((cfsetospeed(&tio, parse_clockinfo[type].cl_speed) == -1) ||
@@ -2926,7 +2926,7 @@ parse_start(sysunit, peer)
       parse_shutdown(CLK_UNIT(parse->peer), peer); /* let our cleaning staff do the work */
       return 0;			/* well, ok - special initialisation broke */
     }
-  
+
   strcpy(tmp_ctl.parseformat.parse_buffer, parse->parse_type->cl_format);
   tmp_ctl.parseformat.parse_count = strlen(tmp_ctl.parseformat.parse_buffer);
 
@@ -2936,7 +2936,7 @@ parse_start(sysunit, peer)
       parse_shutdown(CLK_UNIT(parse->peer), peer); /* let our cleaning staff do the work */
       return 0;			/* well, ok - special initialisation broke */
     }
-  
+
   /*
    * get rid of all IO accumulated so far
    */
@@ -2954,7 +2954,7 @@ parse_start(sysunit, peer)
   }
 #endif
 #endif
-  
+
   /*
    * try to do any special initializations
    */
@@ -3280,7 +3280,7 @@ parse_control(unit, in, out)
 	{
 	  strcpy(tt, prettydate(&parse->time.parse_time.fp));
 	  t = tt + strlen(tt);
-	  
+
 	  sprintf(t, " (%c%02d%02d)\"", sign, utcoff / 60, utcoff % 60);
 	}
 
@@ -3311,9 +3311,9 @@ parse_control(unit, in, out)
 
 	  parse->generic->badformat += tmpctl.parsegettc.parse_badformat;
 	}
-	
+
       tmpctl.parseformat.parse_format = tmpctl.parsegettc.parse_format;
-	
+
       if (!PARSE_GETFMT(parse, &tmpctl))
 	{
 	  ERR(ERR_INTERNAL)
@@ -3349,7 +3349,7 @@ parse_control(unit, in, out)
 	      percent /= 10;
 	      div     /= 10;
 	    }
-	
+
 	  if (div)
 	    percent = (percent * 10000) / div;
 	  else
@@ -3359,7 +3359,7 @@ parse_control(unit, in, out)
 	    {
 	      char item[80];
 	      int count;
-	      
+
 	      sprintf(item, "%s%s%s: %s (%d.%02d%%)",
 		      sum ? "; " : "",
                       (parse->generic->currentstatus == i) ? "*" : "",
@@ -3412,7 +3412,7 @@ parse_event(parse, event)
 
       if (parse->parse_type->cl_event)
 	parse->parse_type->cl_event(parse, event);
-      
+
       if (event != CEVNT_NOMINAL)
 	{
 	  parse->generic->lastevent = parse->generic->currentstatus;
@@ -3539,7 +3539,7 @@ parse_process(parse, parsetime)
   if (parse->lastformat != parsetime->parse_format)
     {
       parsectl_t tmpctl;
-	
+
       tmpctl.parseformat.parse_format = parsetime->parse_format;
 
       if (!PARSE_GETFMT(parse, &tmpctl))
@@ -3566,10 +3566,10 @@ parse_process(parse, parsetime)
       /*
        * something happend
        */
-	
+
       (void) parsestate(parsetime->parse_state, tmp1);
       (void) parsestate(parse->time.parse_state, tmp2);
-	
+
       NLOG(NLOG_CLOCKINFO) /* conditional if clause for conditional syslog */
 	msyslog(LOG_INFO,"PARSE receiver #%d: STATE CHANGE: %s -> %s",
 	     CLK_UNIT(parse->peer), tmp2, tmp1);
@@ -3668,14 +3668,14 @@ parse_process(parse, parsetime)
        * off = PARSE-timestamp + propagation delay - kernel time stamp
        */
       offset = parse->generic->fudgetime1;
-    
+
       off = parsetime->parse_time.fp;
 
       reftime = off;
 
       L_ADD(&off, &offset);
       rectime = off;		/* this makes org time and xmt time somewhat artificial */
-    
+
       L_SUB(&off, &parsetime->parse_stime.fp);
     }
 
@@ -3793,10 +3793,10 @@ parse_process(parse, parsetime)
   clear_err(parse, ERR_BADDATA);
   clear_err(parse, ERR_NODATA);
   clear_err(parse, ERR_INTERNAL);
-  
+
   parse->generic->lastrec = rectime;
   parse->generic->lastref = reftime;
-  
+
   /*
    * and now stick it into the clock machine
    * samples are only valid iff lastsync is not too old and
@@ -3830,7 +3830,7 @@ parse_process(parse, parsetime)
 	    leap = LEAP_NOWARNING;
 	  }
     }
-  
+
   refclock_receive(parse->peer, &parse->generic->offset, 0,
 		   parse->generic->dispersion, &reftime, &rectime,
 		   leap | REFCLOCK_OWN_STATES);
@@ -3904,9 +3904,9 @@ poll_init(parse)
     {
       parse->localdata = (void *)emalloc(sizeof(poll_timer_t));
       memset((char *)parse->localdata, 0, sizeof(poll_timer_t));
-  
+
       pt = (poll_timer_t *)parse->localdata;
-      
+
       pt->timer.peer          = (struct peer *)parse; /* well, only we know what it is */
       pt->timer.event_handler = (void (*) P((struct peer *))) poll_poll;
       poll_poll(parse);
@@ -3963,7 +3963,7 @@ trimbletaip_init(parse)
   else
     {
       tio.c_cc[VEOL] = TRIMBLETAIP_EOL;
-	
+
       if (TTY_SETATTR(parse->generic->io.fd, &tio) == -1)
 	{
 	  msyslog(LOG_ERR, "PARSE receiver #%d: trimbletaip_init: tcsetattr(fd, &tio): %m", CLK_UNIT(parse->peer));
@@ -3982,7 +3982,7 @@ static char *taipinit[] = {
   ">FTM00020001<",
   (char *)0
 };
-      
+
 static void
 trimbletaip_event(parse, event)
   struct parseunit *parse;
@@ -4114,7 +4114,7 @@ union {
     float   fv;
     double  dv;
 }  uval;
-  
+
 struct txbuf
 {
   short idx;			/* index to first unused byte */
@@ -4169,7 +4169,7 @@ sendetx(buf, parse)
 }
 
 #if 0
-static void  
+static void
 sendint(buf, a)
   struct txbuf *buf;
   int a;
@@ -4207,7 +4207,7 @@ trimbletsip_init(parse)
   struct txbuf buf;
 
   buf.txt = buffer;
-  
+
   if (!poll_init(parse))
     {
       sendcmd(&buf, 0x1f);	/* request software versions */
@@ -4261,7 +4261,7 @@ rawdcf_init(parse)
    * Here a voltage between the DTR and the RTS line is used. Unfortunately
    * the name has changed from CIOCM_DTR to TIOCM_DTR recently.
    */
-	
+
 #ifdef TIOCM_DTR
   int sl232 = TIOCM_DTR;	/* turn on DTR for power supply */
 #else
@@ -4368,4 +4368,4 @@ int refclock_parse_bs;
  * Revision information 3.1 - 3.79 from log deleted 1996/06/01 kardel
  *
  */
- 
+

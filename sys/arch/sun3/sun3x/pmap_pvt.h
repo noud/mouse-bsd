@@ -65,7 +65,7 @@ struct a_tmgr_struct {
  * short format table descriptors (a 'B' table), a pointer to the level
  * A table manager currently using it, the index of this B table
  * within that parent A table, and the number of wired and active entries
- * it currently contains. 
+ * it currently contains.
  */
 struct b_tmgr_struct {
 	a_tmgr_t	*bt_parent; /* Parent 'A' table manager         */
@@ -102,8 +102,8 @@ struct c_tmgr_struct {
 	vm_offset_t	ct_va;      /* starting va that this table maps */
 };
 
-/* The Mach VM code requires that the pmap module be able to apply 
- * several different operations on all page descriptors that map to a 
+/* The Mach VM code requires that the pmap module be able to apply
+ * several different operations on all page descriptors that map to a
  * given physical address.  A few of these are:
  *  + invalidate all mappings to a page.
  *  + change the type of protection on all mappings to a page.
@@ -111,7 +111,7 @@ struct c_tmgr_struct {
  *  + determine if a physical page has been accessed (read from)
  *  + clear such information
  * The collection of structures and tables which we used to make this
- * possible is known as the 'Physical to Virtual' or 'PV' system.  
+ * possible is known as the 'Physical to Virtual' or 'PV' system.
  *
  * Every physical page of memory managed by the virtual memory system
  * will have a structure which describes whether or not it has been

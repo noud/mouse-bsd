@@ -26,12 +26,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* redefined from tm-i960.h */
 /* Number of machine registers */
-#undef NUM_REGS 
+#undef NUM_REGS
 #define NUM_REGS 40
 
 /* Initializer for an array of names of registers.
    There should be NUM_REGS strings in this initializer.  */
-#undef REGISTER_NAMES 
+#undef REGISTER_NAMES
 #define REGISTER_NAMES { \
 	/*  0 */ "pfp", "sp",  "rip", "r3",  "r4",  "r5",  "r6",  "r7", \
 	/*  8 */ "r8",  "r9",  "r10", "r11", "r12", "r13", "r14", "r15",\

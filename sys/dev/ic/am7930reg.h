@@ -46,7 +46,7 @@
 
 /*
  * Bit encodings for chip commands from "Microprocessor Access Guide for
- * Indirect Registers", p.19 Am79C30A/32A Advanced Micro Devices spec 
+ * Indirect Registers", p.19 Am79C30A/32A Advanced Micro Devices spec
  * sheet (preliminary).
  *
  * Indirect register numbers (the value written into cr to select a given

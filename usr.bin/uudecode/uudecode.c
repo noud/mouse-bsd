@@ -142,10 +142,10 @@ decode()
 		return(1);
 	}
 	/* zap newline */
-	for (p = fn; *p && *p != '\n'; p++) 
+	for (p = fn; *p && *p != '\n'; p++)
 	        ;
 	if (*p) *p = 0;
-	
+
 	/* handle ~user/file format */
 	if (*fn == '~') {
 		if (!(p = strchr(fn, '/'))) {
@@ -172,7 +172,7 @@ decode()
 
 	/* create output file, set mode */
 	if (!pflag && (!freopen(fn, "w", stdout) ||
-	    fchmod(fileno(stdout), mode & 0666))) { 
+	    fchmod(fileno(stdout), mode & 0666))) {
 		warnx("%s: %s", fn, filename);
 		return(1);
 	}

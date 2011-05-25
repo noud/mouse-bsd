@@ -23,15 +23,15 @@
 
 #ifdef __STL_USE_NAMESPACES
 
-using __STD::__malloc_alloc_template; 
-using __STD::malloc_alloc; 
-using __STD::simple_alloc; 
-using __STD::debug_alloc; 
-using __STD::__default_alloc_template; 
-using __STD::alloc; 
-using __STD::single_client_alloc; 
+using __STD::__malloc_alloc_template;
+using __STD::malloc_alloc;
+using __STD::simple_alloc;
+using __STD::debug_alloc;
+using __STD::__default_alloc_template;
+using __STD::alloc;
+using __STD::single_client_alloc;
 #ifdef __STL_STATIC_TEMPLATE_MEMBER_BUG
-using __STD::__malloc_alloc_oom_handler; 
+using __STD::__malloc_alloc_oom_handler;
 #endif /* __STL_STATIC_TEMPLATE_MEMBER_BUG */
 
 

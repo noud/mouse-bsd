@@ -107,7 +107,7 @@ over:
  */
 static void
 get_list(struct_no, play_no)
-	int struct_no, play_no; 
+	int struct_no, play_no;
 {
 	int sn, pn;
 	PLAY *pp;
@@ -160,7 +160,7 @@ once_more:
  */
 static int
 set_list(the_list)
-	OWN *the_list; 
+	OWN *the_list;
 {
 	int i;
 	OWN *op;
@@ -220,7 +220,7 @@ do_trade()
  */
 static void
 move_em(from, to)
-	TRADE *from, *to; 
+	TRADE *from, *to;
 {
 	PLAY *pl_fr, *pl_to;
 	OWN *op;

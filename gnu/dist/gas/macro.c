@@ -68,7 +68,7 @@ extern void *alloca ();
 /* The routines in this file handle macro definition and expansion.
    They are called by both gasp and gas.  */
 
-/* Structures used to store macros. 
+/* Structures used to store macros.
 
    Each macro knows its name and included text.  It gets built with a
    list of formal arguments, and also keeps a hash table which points
@@ -297,7 +297,7 @@ getstring (idx, in, acc)
   idx = sb_skip_white (idx, in);
 
   while (idx < in->len
-	 && (in->ptr[idx] == '"' 
+	 && (in->ptr[idx] == '"'
 	     || (in->ptr[idx] == '<' && (macro_alternate || macro_mri))
 	     || (in->ptr[idx] == '\'' && macro_alternate)))
     {
@@ -349,7 +349,7 @@ getstring (idx, in, acc)
 	    }
 	}
     }
-  
+
   return idx;
 }
 
@@ -412,28 +412,28 @@ get_any_string (idx, in, out, expand, pretend_quoted)
 	      idx = getstring (idx, in, out);
 	    }
 	}
-      else 
+      else
 	{
-	  while (idx < in->len 
+	  while (idx < in->len
 		 && (in->ptr[idx] == '"'
 		     || in->ptr[idx] == '\''
-		     || pretend_quoted 
+		     || pretend_quoted
 		     || (in->ptr[idx] != ' '
 			 && in->ptr[idx] != '\t'
 			 && in->ptr[idx] != ','
 			 && (in->ptr[idx] != '<'
 			     || (! macro_alternate && ! macro_mri)))))
 	    {
-	      if (in->ptr[idx] == '"' 
+	      if (in->ptr[idx] == '"'
 		  || in->ptr[idx] == '\'')
 		{
 		  char tchar = in->ptr[idx];
 		  sb_add_char (out, in->ptr[idx++]);
 		  while (idx < in->len
 			 && in->ptr[idx] != tchar)
-		    sb_add_char (out, in->ptr[idx++]);		    
+		    sb_add_char (out, in->ptr[idx++]);
 		  if (idx == in->len)
-		    return idx;	      
+		    return idx;
 		}
 	      sb_add_char (out, in->ptr[idx++]);
 	    }
@@ -650,7 +650,7 @@ sub_actual (start, in, t, formal_hash, kind, out, copyifnotthere)
     {
       sb_add_sb (out, t);
     }
-  else 
+  else
     {
       sb_add_char (out, '\\');
       sb_add_sb (out, t);
@@ -922,7 +922,7 @@ macro_expand (idx, in, m, out, comment_char)
   const char *err;
 
   sb_new (&t);
-  
+
   /* Reset any old value the actuals may have */
   for (f = m->formals; f; f = f->next)
       sb_reset (&f->actual);
@@ -1179,7 +1179,7 @@ expand_irp (irpc, idx, in, out, get_line, comment_char)
   sb_new (&sub);
   if (! buffer_and_nest (mn, "ENDR", &sub, get_line))
     return "unexpected end of file in irp or irpc";
-  
+
   sb_new (&f.name);
   sb_new (&f.def);
   sb_new (&f.actual);

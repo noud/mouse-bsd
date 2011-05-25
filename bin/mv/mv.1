@@ -93,14 +93,14 @@ options is the one which affects
 .Nm Ns 's
 behavior.
 .Pp
-It is an error for any of the 
-.Ar source 
+It is an error for any of the
+.Ar source
 operands to specify a nonexistant file or directory.
 .Pp
 It is an error for the
 .Ar source
-operand to specify a directory if the 
-.Ar target 
+operand to specify a directory if the
+.Ar target
 exists and is not a directory.
 .Pp
 If the destination path does not have a mode which permits writing,
@@ -109,13 +109,13 @@ prompts the user for confirmation as specified for the
 .Fl i
 option.
 .Pp
-Should the 
+Should the
 .Xr rename  2
-call fail because 
+call fail because
 .Ar source
 and
 .Ar target
-are on different file systems, 
+are on different file systems,
 .Nm
 will remove the destination file, copy the source file to the
 destination, and then remove the source.

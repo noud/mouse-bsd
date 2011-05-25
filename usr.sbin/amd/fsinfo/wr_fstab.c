@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: wr_fstab.c,v 1.2 1999/01/10 21:54:30 ezk Exp 
+ * Id: wr_fstab.c,v 1.2 1999/01/10 21:54:30 ezk Exp
  *
  */
 

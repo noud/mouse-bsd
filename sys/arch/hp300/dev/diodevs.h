@@ -4,7 +4,7 @@
  * THIS FILE AUTOMATICALLY GENERATED.  DO NOT EDIT.
  *
  * generated from:
- *	NetBSD: diodevs,v 1.3 1997/10/09 09:06:50 jtc Exp 
+ *	NetBSD: diodevs,v 1.3 1997/10/09 09:06:50 jtc Exp
  */
 
 /*-

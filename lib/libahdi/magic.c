@@ -55,7 +55,7 @@ check_magic(fd, offset, flags)
 	bblk = disk_read(fd, offset, nsec);
 	if (bblk != NULL) {
 		u_int	*end, *p;
-		
+
 		end = (u_int *)&bblk[BBMINSIZE - sizeof(struct disklabel)];
 		for (p = (u_int *)bblk; p < end; ++p) {
 			struct disklabel *dl = (struct disklabel *)&p[1];

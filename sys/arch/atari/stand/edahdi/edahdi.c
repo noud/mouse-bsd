@@ -33,7 +33,7 @@
 
 /*
  * This code implements a simple editor for partition id's on disks containing
- * AHDI partition info. 
+ * AHDI partition info.
  *
  * Credits for the code handling disklabels goes to Waldi Ravens.
  *
@@ -355,7 +355,7 @@ bsd_label(fd, offset)
 	bblk = disk_read(fd, offset, nsec);
 	if (bblk) {
 		u_int	*end, *p;
-		
+
 		end = (u_int *)&bblk[BBMINSIZE - sizeof(struct disklabel)];
 		rv  = 1;
 		for (p = (u_int *)bblk; p < end; ++p) {

@@ -4,7 +4,7 @@
    Contributed by Michael Tiemann (tiemann@cygnus.com)
 
 This file is part of GNU CC.
-   
+
 GNU CC is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2, or (at your option)
@@ -72,7 +72,7 @@ static void do_build_assign_ref PROTO((tree));
 static void do_build_copy_constructor PROTO((tree));
 static tree largest_union_member PROTO((tree));
 static tree build_decl_overload_real PROTO((tree, tree, tree, tree,
-					    tree, int)); 
+					    tree, int));
 static void build_template_template_parm_names PROTO((tree));
 static void build_template_parm_names PROTO((tree, tree));
 static void build_underscore_int PROTO((int));
@@ -333,7 +333,7 @@ is_back_referenceable_type (type)
     /* We're not generating any back-references.  */
     return 0;
 
-  switch (TREE_CODE (type)) 
+  switch (TREE_CODE (type))
     {
     case INTEGER_TYPE:
     case REAL_TYPE:
@@ -341,7 +341,7 @@ is_back_referenceable_type (type)
     case BOOLEAN_TYPE:
       /* These types have single-character manglings, so there's no
 	 point in generating back-references.  */
-      return 0;         
+      return 0;
 
     case TEMPLATE_TYPE_PARM:
       /* It would be a bit complex to demangle signatures correctly if
@@ -365,7 +365,7 @@ issue_nrepeats (nrepeats, type)
   if (nrepeats == 1 && !is_back_referenceable_type (type))
     /* For types whose manglings are short, don't bother using the
        repetition code if there's only one repetition, since the
-       repetition code will be about as long as the ordinary mangling.  */ 
+       repetition code will be about as long as the ordinary mangling.  */
     build_mangled_name_for_type (type);
   else
     {
@@ -427,7 +427,7 @@ issue_ktype (decl)
     }
   return FALSE;
 }
-  
+
 /* Build a representation for DECL, which may be an entity not at
    global scope.  If so, a marker indicating that the name is
    qualified has already been output, but the qualifying context has
@@ -561,7 +561,7 @@ build_overload_int (value, in_template)
 
 	      if (TREE_CODE_CLASS (tc) == 't')
 		/* We can get here with sizeof, e.g.:
-		     
+
 		   template <class T> void f(A<sizeof(T)>);  */
 		build_mangled_name_for_type (operand);
 	      else if (IS_EXPR_CODE_CLASS (TREE_CODE_CLASS (tc)))
@@ -577,7 +577,7 @@ build_overload_int (value, in_template)
 	  /* We don't ever want this output, but it's
 	     inconvenient not to be able to build the string.
 	     This should cause assembler errors we'll notice.  */
-	    
+
 	  static int n;
 	bad_value:
 	  sprintf (digit_buffer, " *%d", n++);
@@ -611,7 +611,7 @@ build_overload_int (value, in_template)
 /* Output S followed by a representation of the TEMPLATE_PARM_INDEX
    supplied in INDEX.  */
 
-static void 
+static void
 build_mangled_template_parm_index (s, index)
      char* s;
      tree index;
@@ -864,7 +864,7 @@ build_template_parm_names (parmlist, arglist)
      tree arglist;
 {
   int i, nparms;
-  
+
   nparms = TREE_VEC_LENGTH (parmlist);
   icat (nparms);
   for (i = 0; i < nparms; i++)
@@ -885,7 +885,7 @@ build_template_parm_names (parmlist, arglist)
 	    build_mangled_name_for_type (arg);
 	  else
 	    {
-	      /* A TEMPLATE_DECL node, output the parameter declaration 
+	      /* A TEMPLATE_DECL node, output the parameter declaration
 		 and template name */
 
 	      OB_PUTC ('z');
@@ -915,7 +915,7 @@ build_overload_identifier (name)
       && IS_AGGR_TYPE (TREE_TYPE (name))
       && CLASSTYPE_TEMPLATE_INFO (TREE_TYPE (name))
       && (PRIMARY_TEMPLATE_P (CLASSTYPE_TI_TEMPLATE (TREE_TYPE (name)))
-	  || (TREE_CODE (DECL_CONTEXT (CLASSTYPE_TI_TEMPLATE 
+	  || (TREE_CODE (DECL_CONTEXT (CLASSTYPE_TI_TEMPLATE
 				       (TREE_TYPE (name))))
 	      == FUNCTION_DECL)))
     {
@@ -998,7 +998,7 @@ build_qualified_name (decl)
    non-zero, mangled names for structure/union types are intentionally
    mangled differently from the method described in the ARM.  */
 
-void 
+void
 build_mangled_name_for_type_with_Gcode (type, extra_Gcode)
      tree type;
      int extra_Gcode;
@@ -1053,13 +1053,13 @@ build_mangled_name (parmtypes, begin, end)
      tree parmtypes;
      int begin, end;
 {
-  if (begin) 
+  if (begin)
     OB_INIT ();
 
-  if (TREE_CODE (parmtypes) != TREE_LIST)  
+  if (TREE_CODE (parmtypes) != TREE_LIST)
     /* There is only one type.  */
     build_mangled_name_for_type (parmtypes);
-  else  
+  else
     {
       /* There are several types in a parameter list.  */
       int nrepeats = 0;
@@ -1080,7 +1080,7 @@ build_mangled_name (parmtypes, begin, end)
 
 	  if (parmtype == last_type)
 	    {
-	      if (flag_do_squangling 
+	      if (flag_do_squangling
 		  || (old_style_repeats && TREE_USED (parmtype)
 		      && !TYPE_FOR_JAVA (parmtype)))
 		{
@@ -1101,7 +1101,7 @@ build_mangled_name (parmtypes, begin, end)
 		issue_nrepeats (nrepeats, last_type);
 	      nrepeats = 0;
 	    }
-	  
+
 	  last_type = parmtype;
 
 	  if (old_style_repeats)
@@ -1125,7 +1125,7 @@ build_mangled_name (parmtypes, begin, end)
 		  nrepeats = 0;
 		  continue;
 		}
-	      
+
 	      /* Only cache types which take more than one character.  */
 	      if ((parmtype != TYPE_MAIN_VARIANT (parmtype)
 		   || (TREE_CODE (parmtype) != INTEGER_TYPE
@@ -1154,14 +1154,14 @@ build_mangled_name (parmtypes, begin, end)
 	OB_PUTC ('e');
     }
 
-  if (end) 
+  if (end)
     OB_FINISH ();
   return (char *)obstack_base (&scratch_obstack);
 }
 
 /* handles emitting modifiers such as Constant, read-only, and volatile */
-void 
-process_modifiers (parmtype) 
+void
+process_modifiers (parmtype)
      tree parmtype;
 {
   if (TREE_READONLY (parmtype))
@@ -1179,8 +1179,8 @@ process_modifiers (parmtype)
    so, return 1 and emit a backreference to TYPE.  Otherwise, add TYPE
    to the list of back-referenceable types and return 0.  */
 
-int 
-check_btype (type) 
+int
+check_btype (type)
      tree type;
 {
   int x;
@@ -1195,8 +1195,8 @@ check_btype (type)
      qualifiers.  */
   type = TYPE_MAIN_VARIANT (type);
 
-  for (x = 0; x < maxbtype; x++) 
-    if (type == btypelist[x]) 
+  for (x = 0; x < maxbtype; x++)
+    if (type == btypelist[x])
       {
 	OB_PUTC ('B');
 	icat (x);
@@ -1205,13 +1205,13 @@ check_btype (type)
 	return 1 ;
       }
 
-  if (maxbsize <= maxbtype) 
+  if (maxbsize <= maxbtype)
     {
       /* Enlarge the table.  */
       maxbsize = maxbsize * 3 / 2;
-      btypelist = (tree *)xrealloc (btypelist, sizeof (tree) * maxbsize); 
+      btypelist = (tree *)xrealloc (btypelist, sizeof (tree) * maxbsize);
     }
-  
+
   /* Register the TYPE.  */
   btypelist[maxbtype++] = type;
 
@@ -1219,8 +1219,8 @@ check_btype (type)
 }
 
 /* handle emitting the correct code for various node types */
-static void 
-process_overload_item (parmtype, extra_Gcode) 
+static void
+process_overload_item (parmtype, extra_Gcode)
   tree parmtype;
   int extra_Gcode;
 {
@@ -1274,8 +1274,8 @@ process_overload_item (parmtype, extra_Gcode)
     default:
       break;
     }
-  
-  if (flag_do_squangling && check_btype (parmtype)) 
+
+  if (flag_do_squangling && check_btype (parmtype))
     /* If PARMTYPE is already in the list of back-referenceable types,
        then check_btype will output the appropriate reference, and
        there's nothing more to do.  */
@@ -1404,7 +1404,7 @@ process_overload_item (parmtype, extra_Gcode)
       /* have to do these */
     case UNION_TYPE:
     case RECORD_TYPE:
-      {   
+      {
         if (extra_Gcode)
           OB_PUTC ('G');       /* make it look incompatible with AT&T */
         /* drop through into next case */
@@ -1430,12 +1430,12 @@ process_overload_item (parmtype, extra_Gcode)
       break;
 
     case TEMPLATE_TEMPLATE_PARM:
-      /* Find and output the original template parameter 
+      /* Find and output the original template parameter
          declaration. */
       if (CLASSTYPE_TEMPLATE_INFO (parmtype))
         {
 	  build_mangled_template_parm_index ("tzX",
-					     TEMPLATE_TYPE_PARM_INDEX 
+					     TEMPLATE_TYPE_PARM_INDEX
 					     (parmtype));
           build_template_parm_names
             (DECL_INNERMOST_TEMPLATE_PARMS (CLASSTYPE_TI_TEMPLATE (parmtype)),
@@ -1444,7 +1444,7 @@ process_overload_item (parmtype, extra_Gcode)
       else
         {
 	  build_mangled_template_parm_index ("ZzX",
-					     TEMPLATE_TYPE_PARM_INDEX 
+					     TEMPLATE_TYPE_PARM_INDEX
 					     (parmtype));
           build_template_template_parm_names
             (DECL_INNERMOST_TEMPLATE_PARMS (TYPE_STUB_DECL (parmtype)));
@@ -1452,17 +1452,17 @@ process_overload_item (parmtype, extra_Gcode)
       break;
 
     case TEMPLATE_TYPE_PARM:
-      build_mangled_template_parm_index ("X", 
+      build_mangled_template_parm_index ("X",
 					 TEMPLATE_TYPE_PARM_INDEX
 					 (parmtype));
       break;
-        
+
     case TYPENAME_TYPE:
       /* When mangling the type of a function template whose
          declaration looks like:
 
          template <class T> void foo(typename T::U)
-         
+
          we have to mangle these.  */
       build_qualified_name (parmtype);
       break;
@@ -1499,9 +1499,9 @@ build_static_name (context, name)
   return get_identifier ((char *)obstack_base (&scratch_obstack));
 }
 
-static tree 
+static tree
 build_decl_overload_real (dname, parms, ret_type, tparms, targs,
-			  for_method) 
+			  for_method)
      tree dname;
      tree parms;
      tree ret_type;
@@ -1579,7 +1579,7 @@ build_decl_overload_real (dname, parms, ret_type, tparms, targs,
 
 	  build_mangled_name_for_type (this_type);
 
-          if (!flag_do_squangling) 
+          if (!flag_do_squangling)
 	    {
 	      my_friendly_assert (maxtype < typevec_size, 387);
 	      typevec[maxtype++] = this_type;
@@ -1598,7 +1598,7 @@ build_decl_overload_real (dname, parms, ret_type, tparms, targs,
 	}
       else
 	{
-	  /* the namespace qualifier for a global function 
+	  /* the namespace qualifier for a global function
 	     will count as type */
 	  if (current_namespace != global_namespace
 	      && !flag_do_squangling)
@@ -1658,7 +1658,7 @@ build_decl_overload (dname, parms, for_method)
      int for_method;
 {
   return build_decl_overload_real (dname, parms, NULL_TREE, NULL_TREE,
-				   NULL_TREE, for_method); 
+				   NULL_TREE, for_method);
 }
 
 
@@ -1666,7 +1666,7 @@ build_decl_overload (dname, parms, for_method)
 
 tree
 build_template_decl_overload (decl, parms, ret_type, tparms, targs,
-			      for_method) 
+			      for_method)
      tree decl;
      tree parms;
      tree ret_type;
@@ -1683,10 +1683,10 @@ build_template_decl_overload (decl, parms, ret_type, tparms, targs,
 
   my_friendly_assert (TREE_CODE_CLASS (TREE_CODE (decl)) == 'd', 980702);
   saved_ctx = current_namespace;
-  current_namespace = CP_DECL_CONTEXT (decl);  
+  current_namespace = CP_DECL_CONTEXT (decl);
 
   res = build_decl_overload_real (DECL_NAME (decl), parms, ret_type,
-				  tparms, targs, for_method); 
+				  tparms, targs, for_method);
 
   current_namespace = saved_ctx;
   return res;
@@ -2183,25 +2183,25 @@ do_build_copy_constructor (fndecl)
 
 	  if (p == error_mark_node)
 	    cp_error ("in default copy constructor");
-	  else 
+	  else
 	    current_base_init_list = tree_cons (basetype,
 						p, current_base_init_list);
 	}
-	
+
       for (i = 0; i < n_bases; ++i)
 	{
 	  tree p, basetype = TREE_VEC_ELT (binfos, i);
 	  if (TREE_VIA_VIRTUAL (basetype))
-	    continue; 
+	    continue;
 
 	  basetype = BINFO_TYPE (basetype);
 	  p = convert_to_reference
 	    (build_reference_type (basetype), parm,
 	     CONV_IMPLICIT|CONV_CONST, LOOKUP_COMPLAIN, NULL_TREE);
 
-	  if (p == error_mark_node) 
+	  if (p == error_mark_node)
 	    cp_error ("in default copy constructor");
-	  else 
+	  else
 	    {
 	      p = convert_from_reference (p);
 	      current_base_init_list = tree_cons (basetype,

@@ -184,7 +184,7 @@ bus_mem_add_mapping(bpa, size, flags, bshp)
 			*pte |= PG_CI;
 		pmap_update();
 	}
- 
+
 	return 0;
 }
 
@@ -221,7 +221,7 @@ bus_space_unmap(t, bsh, size)
 	}
 }
 
-void    
+void
 bus_space_free(t, bsh, size)
 	bus_space_tag_t t;
 	bus_space_handle_t bsh;

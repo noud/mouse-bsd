@@ -145,7 +145,7 @@ extern struct cfdriver et_cd;
  * Look for a ET4000 (Crazy Dots) card on the VME bus.  We might
  * match Spektrum cards too (untested).
  */
-int 
+int
 et_vme_match(pdp, cfp, auxp)
 	struct device	*pdp;
 	struct cfdata	*cfp;
@@ -489,7 +489,7 @@ etmmap(dev, offset, prot)
 
 	sc = et_cd.cd_devs[minor(dev)];
 
-	/* 
+	/*
 	 * control registers
 	 * mapped from offset 0x0 to REG_MAPPABLE
 	 */
@@ -513,7 +513,7 @@ etmmap(dev, offset, prot)
 	return(-1);
 }
 
-int 
+int
 eton(dev)
 	dev_t dev;
 {
@@ -527,7 +527,7 @@ eton(dev)
 	return(0);
 }
 
-int 
+int
 etoff(dev)
 	dev_t dev;
 {

@@ -8,7 +8,7 @@
 # Contents:  Poll uudemon.poll
 # Wrapped by dburr@sbanet on Fri Jul 23 20:15:18 1993
 PATH=/bin:/usr/bin:/usr/ucb ; export PATH
-if test -f 'Poll' -a "${1}" != "-c" ; then 
+if test -f 'Poll' -a "${1}" != "-c" ; then
   echo shar: Will not clobber existing file \"'Poll'\"
 else
 echo shar: Extracting \"'Poll'\" \(244 characters\)
@@ -29,7 +29,7 @@ if test 244 -ne `wc -c <'Poll'`; then
 fi
 # end of 'Poll'
 fi
-if test -f 'uudemon.poll' -a "${1}" != "-c" ; then 
+if test -f 'uudemon.poll' -a "${1}" != "-c" ; then
   echo shar: Will not clobber existing file \"'uudemon.poll'\"
 else
 echo shar: Extracting \"'uudemon.poll'\" \(941 characters\)

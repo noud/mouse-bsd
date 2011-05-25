@@ -69,7 +69,7 @@ mbmatch(parent, cf, aux)
 
 	/*
 	 * Only one mainbus, but some people are stupid...
-	 */	
+	 */
 	if (cf->cf_unit > 0)
 		return(0);
 
@@ -119,7 +119,7 @@ mbattach(parent, self, aux)
 
 	/* Attach Vr41x1 integrated peripherals (if configured). */
 	ma.ma_name = "vrip";
-	if (!system_bus_iot) 
+	if (!system_bus_iot)
 	    mb_bus_space_init();
 	hpcmips_init_bus_space_extent(system_bus_iot); /* Now prepare extent */
 	ma.ma_iot = system_bus_iot;

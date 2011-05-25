@@ -7,4 +7,4 @@ all: $(PROG)
 
 .include <bsd.prog.mk>
 
-$(PROG):	compiler.h 
+$(PROG):	compiler.h

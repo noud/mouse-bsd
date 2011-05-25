@@ -143,7 +143,7 @@ mac_init ()
       if (strcmp(str, "openp") == 0)
 	debug_openp = 1;
     }
-  
+
   /* Don't do anything if we`re running under MPW. */
   if (!StandAlone)
     return;
@@ -267,7 +267,7 @@ mac_command_loop()
 	{
 	  short itemhit;
 	  DialogPtr dialog;
-      
+
 	  /* Handle all the modeless dialogs here. */
 	  if (DialogSelect (&event, &dialog, &itemhit))
 	    {
@@ -292,7 +292,7 @@ get_global_mouse (mouse)
 Point *mouse;
 {
   EventRecord evt;
-	
+
   OSEventAvail (0, &evt);
   *mouse = evt.where;
 }
@@ -974,7 +974,7 @@ hacked_printf (const char *fmt, ...)
 
 #undef vfprintf
 
-int 
+int
 hacked_vfprintf (FILE *fp, const char *format, va_list args)
 {
   if (mac_app && (fp == stdout || fp == stderr))

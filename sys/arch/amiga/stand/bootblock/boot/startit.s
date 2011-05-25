@@ -274,7 +274,7 @@ ckend:
 	.word 0x4e7b,0xd005		| movec a5,itt1
 	.word 0x4e7b,0xd006		| movec a5,dtt0
 	.word 0x4e7b,0xd007		| movec a5,dtt1
-	
+
 noDraCo:
 	moveq	#0,d2			| zero out unused registers
 	movel	d2,a1			| (might make future compatibility

@@ -30,7 +30,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #include <core.out.h>
 
-struct sgi_core_struct 
+struct sgi_core_struct
 {
   int sig;
   char cmd[CORE_NAMESIZE];
@@ -45,7 +45,7 @@ static asection *make_bfd_asection
 static const bfd_target *irix_core_core_file_p PARAMS ((bfd *));
 static char *irix_core_core_file_failing_command PARAMS ((bfd *));
 static int irix_core_core_file_failing_signal PARAMS ((bfd *));
-static boolean irix_core_core_file_matches_executable_p 
+static boolean irix_core_core_file_matches_executable_p
   PARAMS ((bfd *, bfd *));
 static asymbol *irix_core_make_empty_symbol PARAMS ((bfd *));
 static void swap_abort PARAMS ((void));
@@ -259,7 +259,7 @@ const bfd_target irix_core_vec =
      bfd_false, bfd_false,
      bfd_false, bfd_false
     },
-    
+
        BFD_JUMP_TABLE_GENERIC (_bfd_generic),
        BFD_JUMP_TABLE_COPY (_bfd_generic),
        BFD_JUMP_TABLE_CORE (irix_core),

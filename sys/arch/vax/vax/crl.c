@@ -83,7 +83,7 @@ crlattach()
 	crl_intr = idsptch;
 	crl_intr.hoppaddr = crlintr;
 	scb->scb_csrint = &crl_intr;
-}	
+}
 
 /*ARGSUSED*/
 int
@@ -126,7 +126,7 @@ crlrw(dev, uio, flag)
 	register int s;
 	int error;
 
-	if (uio->uio_resid == 0) 
+	if (uio->uio_resid == 0)
 		return (0);
 	s = spl4();
 	while (crltab.crl_state & CRL_BUSY)
@@ -148,10 +148,10 @@ crlrw(dev, uio, flag)
 				break;
 		}
 		bp->b_flags = uio->uio_rw == UIO_WRITE ? B_WRITE : B_READ;
-		s = spl4(); 
+		s = spl4();
 		crlstart();
 		while ((bp->b_flags & B_DONE) == 0)
-			sleep((caddr_t)bp, PRIBIO);	
+			sleep((caddr_t)bp, PRIBIO);
 		splx(s);
 		if (bp->b_flags & B_ERROR) {
 			error = EIO;
@@ -210,7 +210,7 @@ crlintr(arg)
 		case CRL_F_RETSTS:
 			crlstat.crl_ds = mfpr(PR_STXDB);
 			printf("crlcs=0x%b, crlds=0x%b\n", crlstat.crl_cs,
-				CRLCS_BITS, crlstat.crl_ds, CRLDS_BITS); 
+				CRLCS_BITS, crlstat.crl_ds, CRLDS_BITS);
 			break;
 
 		case CRL_F_READ:

@@ -77,7 +77,7 @@ _CreateMsgPort:
 	jsr	a6@(-0x29a)
 	movl	sp@+,a6
 	rts
-	
+
 #ifdef notyet
 	.globl _DeleteMsgPort
 _DeleteMsgPort:
@@ -87,7 +87,7 @@ _DeleteMsgPort:
 	jsr	a6@(-0x2a0)
 	movl	sp@+,a6
 	rts
-	
+
 	.globl _DeleteIORequest
 _DeleteIORequest:
 	movl	a6,sp@-
@@ -97,7 +97,7 @@ _DeleteIORequest:
 	movl	sp@+,a6
 	rts
 #endif
-	
+
 	.globl	_OpenDevice
 _OpenDevice:
 	movl	a6,sp@-
@@ -111,7 +111,7 @@ _OpenDevice:
 	rts
 
 	.globl	_DoIO
-_DoIO:	
+_DoIO:
 	movl	a6,sp@-
 	movl	pc@(_SysBase:w),a6
 	movl	sp@(8),a1
@@ -120,7 +120,7 @@ _DoIO:
 	rts
 #ifdef nomore
 	.globl	_CheckIO
-_CheckIO:	
+_CheckIO:
 	movl	a6,sp@-
 	movl	pc@(_SysBase:w),a6
 	movl	sp@(8),a1
@@ -129,7 +129,7 @@ _CheckIO:
 	rts
 #endif
 	.globl	_WaitIO
-_WaitIO:	
+_WaitIO:
 	movl	a6,sp@-
 	movl	pc@(_SysBase:w),a6
 	movl	sp@(8),a1
@@ -138,7 +138,7 @@ _WaitIO:
 	rts
 
 	.globl	_SendIO
-_SendIO:	
+_SendIO:
 	movl	a6,sp@-
 	movl	pc@(_SysBase:w),a6
 	movl	sp@(8),a1
@@ -147,7 +147,7 @@ _SendIO:
 	rts
 
 	.globl	_AbortIO
-_AbortIO:	
+_AbortIO:
 	movl	a6,sp@-
 	movl	pc@(_SysBase:w),a6
 	movl	sp@(8),a1
@@ -156,7 +156,7 @@ _AbortIO:
 	rts
 
 	.globl	_WaitPort
-_WaitPort:	
+_WaitPort:
 	movl	a6,sp@-
 	movl	pc@(_SysBase:w),a6
 	movl	sp@(8),a0

@@ -88,7 +88,7 @@
 #define PDC2xx_SCR_SET_POLL(r,x) (((r) & 0xff0fffff) | (((x) & 0xf) << 20))
 #define PDC2xx_SCR_DMA		0x01000000
 #define PDC2xx_SCR_IORDY	0x02000000
-#define PDC2xx_SCR_G2FD		0x04000000		
+#define PDC2xx_SCR_G2FD		0x04000000
 #define PDC2xx_SCR_FLOAT	0x08000000
 #define PDC2xx_SCR_RSET		0x10000000
 #define PDC2xx_SCR_TST		0x20000000

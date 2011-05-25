@@ -88,7 +88,7 @@ pmatch(string, pattern, estr)
 				case 2:
 					return 2;
 				default:
-					return -1;	
+					return -1;
 				}
 				*estr = string;
 			}
@@ -113,7 +113,7 @@ pmatch(string, pattern, estr)
 					continue;
 				if (rangec == '-' && *(pattern - 2) != '[' &&
 				    *pattern != ']') {
-					match = 
+					match =
 					    stringc <= (u_char)*pattern &&
 					    (u_char)*(pattern - 2) <= stringc;
 					pattern++;

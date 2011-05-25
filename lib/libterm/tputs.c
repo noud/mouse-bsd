@@ -70,7 +70,7 @@ _tputs_convert(ptr, affcnt)
         int affcnt;
 {
         int i = 0;
-        
+
           /*
            * Convert the number representing the delay.
            */
@@ -122,7 +122,7 @@ tputs(cp, affcnt, outc)
 
           /* scan and convert delay digits (if any) */
         i = _tputs_convert(&cp, affcnt);
-        
+
 	/*
 	 * The guts of the string.
 	 */
@@ -178,13 +178,13 @@ t_puts(info, cp, affcnt, outc, args)
                         pad[0] = '\0';
                 }
         }
-        
+
 	if (cp == 0)
 		return -1;
 
           /* scan and convert delay digits (if any) */
         i = _tputs_convert(&cp, affcnt);
-        
+
 	/*
 	 * The guts of the string.
 	 */

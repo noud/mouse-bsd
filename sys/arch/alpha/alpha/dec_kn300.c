@@ -121,7 +121,7 @@ dec_kn300_cons_init()
 	ctb = (struct ctb *)(((caddr_t)hwrpb) + hwrpb->rpb_ctb_off);
 
 	switch (ctb->ctb_term_type) {
-	case 2: 
+	case 2:
 		/* serial console ... */
 		/*
 		 * Delay to allow PROM putchars to complete.
@@ -207,7 +207,7 @@ dec_kn300_device_register(dev, aux)
 
 			if ((b->slot / 1000) != pba->pba_bus)
 				return;
-	
+
 			pcidev = dev;
 #if	BDEBUG
 			printf("\npcidev = %s\n", pcidev->dv_xname);
@@ -226,7 +226,7 @@ dec_kn300_device_register(dev, aux)
 				return;
 
 			/* XXX function? */
-	
+
 			scsidev = dev;
 #if	BDEBUG
 			printf("\nscsidev = %s\n", scsidev->dv_xname);
@@ -277,7 +277,7 @@ dec_kn300_device_register(dev, aux)
 				return;
 
 			/* XXX function? */
-	
+
 			booted_device = dev;
 #if	BDEBUG
 			printf("\nbooted_device = %s\n", booted_device->dv_xname);
@@ -405,7 +405,7 @@ kn300_mcheck(mces, type, logout, framep)
 {
 	struct mchkinfo *mcp;
 	static const char *fmt1 = "        %-25s = 0x%l016x\n";
-	int i;	
+	int i;
 	mc_hdr_ev5 *hdr;
 	mc_uc_ev5 *ptr;
 	struct mcpcia_iodsnap *iodsnp;

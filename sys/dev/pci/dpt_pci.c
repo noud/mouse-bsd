@@ -72,10 +72,10 @@ dpt_pci_match(parent, match, aux)
 {
 	struct pci_attach_args *pa = (struct pci_attach_args *) aux;
 
-	if (PCI_VENDOR(pa->pa_id) == PCI_VENDOR_DPT && 
+	if (PCI_VENDOR(pa->pa_id) == PCI_VENDOR_DPT &&
 	    PCI_PRODUCT(pa->pa_id) == PCI_PRODUCT_DPT_SC_RAID)
 		return (1);
- 
+
 	return (0);
 }
 
@@ -98,12 +98,12 @@ dpt_pci_attach(parent, self, aux)
 	pc = pa->pa_pc;
 	printf(": ");
 
-	if (pci_mapreg_map(pa, PCI_CBIO, PCI_MAPREG_TYPE_IO, 0, &sc->sc_iot, 
+	if (pci_mapreg_map(pa, PCI_CBIO, PCI_MAPREG_TYPE_IO, 0, &sc->sc_iot,
 	    &ioh, NULL, NULL)) {
 		printf("can't map i/o space\n");
 		return;
 	}
-	
+
 	/* Need to map in by 16 registers */
 	if (bus_space_subregion(sc->sc_iot, ioh, 16, 16, &sc->sc_ioh)) {
 		printf("can't map i/o subregion\n");
@@ -135,9 +135,9 @@ dpt_pci_attach(parent, self, aux)
 
 	/* Read the EATA configuration */
 	if (dpt_readcfg(sc)) {
-		printf("%s: readcfg failed - see dpt(4)\n", 
+		printf("%s: readcfg failed - see dpt(4)\n",
 		    sc->sc_dv.dv_xname);
-		return;	
+		return;
 	}
 
 	/* Now attach to the bus-independent code */

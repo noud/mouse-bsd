@@ -32,9 +32,9 @@ Command
 Reply
 	read registers:
 DR<cr>
-     - 0 -    - 1 -    - 2 -    - 3 -      - 4 -    - 5 -    -- 6 -   - 7 - 
+     - 0 -    - 1 -    - 2 -    - 3 -      - 4 -    - 5 -    -- 6 -   - 7 -
 D = XXXXXXXX XXXXXXXX XXXXXXXX XXXXXXXX   XXXXXXXX XXXXXXXX XXXXXXXX XXXXXXXX
-A = XXXXXXXX XXXXXXXX XXXXXXXX XXXXXXXX   XXXXXXXX XXXXXXXX XXXXXXXX 
+A = XXXXXXXX XXXXXXXX XXXXXXXX XXXXXXXX   XXXXXXXX XXXXXXXX XXXXXXXX
     PC = XXXXXX       SSP = XXXXXX    USP = XXXXXX     SR = XXXXXXXX
  >
 Each byte of register data is described by two hex digits.
@@ -117,7 +117,7 @@ es1800_child_detach PARAMS ((char *, int));
 static void
 es1800_child_open PARAMS ((char *, int));
 
-static void 
+static void
 es1800_transparent PARAMS ((char *, int));
 
 static void
@@ -145,7 +145,7 @@ static int
 es1800_xfer_inferior_memory PARAMS ((CORE_ADDR, char *, int, int,
 				     struct target_ops *));
 
-static void 
+static void
 es1800_prepare_to_store PARAMS ((void));
 
 static int es1800_wait PARAMS ((int, struct target_waitstatus *));
@@ -250,12 +250,12 @@ extern struct target_ops es1800_ops;		/* Forward decl */
 extern struct target_ops es1800_child_ops;	/* Forward decl */
 
 static int kiodebug;
-static int timeout = 100; 
+static int timeout = 100;
 static char *savename;				/* Name of i/o device used */
 static serial_ttystate es1800_saved_ttystate;
 static int es1800_fc_save;			/* Save fcntl state */
 
-/* indicates that the emulator uses 32-bit data-adress (68020-mode) 
+/* indicates that the emulator uses 32-bit data-adress (68020-mode)
    instead of 24-bit (68000 -mode) */
 
 static int m68020;
@@ -432,7 +432,7 @@ es1800_open (name, from_tty)
 	      p[3], p[4]);
     }
 
-  /* if no init_break statement is present in .gdb file we have to check 
+  /* if no init_break statement is present in .gdb file we have to check
      whether to download a breakpoint routine or not */
 
 #if 0
@@ -510,7 +510,7 @@ es1800_attach (args, from_tty)
    Close the open connection to the remote debugger.
    Use this when you want to detach and do something else
    with your gdb.
- 
+
    args     - arguments given to the 'detach' command
    from_tty - says whether to be verbose or not */
 
@@ -561,7 +561,7 @@ es1800_resume (pid, step, siggnal)
 /* Wait until the remote machine stops, then return,
    storing status in STATUS just as `wait' would.
    status -  */
- 
+
 static int
 es1800_wait (pid, status)
      int pid;
@@ -580,7 +580,7 @@ es1800_wait (pid, status)
       while (1)
         {
 	  getmessage (buf, sizeof(buf));
-	  if (strncmp ( buf, "\r\n* BREAK *", 11) == 0) 
+	  if (strncmp ( buf, "\r\n* BREAK *", 11) == 0)
 	    {
 	      status->kind = TARGET_WAITKIND_STOPPED;
 	      status->value.sig = TARGET_SIGNAL_TRAP;
@@ -645,7 +645,7 @@ es1800_fetch_register (regno)
   int k;
   int r;
   char *p;
-  static char regtab[18][4] = 
+  static char regtab[18][4] =
     {
       "D0 ", "D1 ", "D2 ", "D3 ", "D4 ", "D5 ", "D6 ", "D7 ",
       "A0 ", "A1 ", "A2 ", "A3 ", "A4 ", "A5 ", "A6 ", "SSP",
@@ -749,7 +749,7 @@ es1800_fetch_registers ()
 	}
       else			/* use userstackpointer USP  */
 	{
-	  send_with_reply ("USP", buf, sizeof (buf)); 
+	  send_with_reply ("USP", buf, sizeof (buf));
 	}
       p = buf;
       for (k = 0; k<4; k++)
@@ -783,14 +783,14 @@ es1800_fetch_registers ()
 	}
     }
   else    /* 68000-mode */
-    {                       
+    {
       if (*p == '2') /* use supervisorstackpointer SSP  */
 	{
-	  send_with_reply ("SSP", buf, sizeof (buf)); 
+	  send_with_reply ("SSP", buf, sizeof (buf));
 	}
       else  /* use userstackpointer USP  */
 	{
-	  send_with_reply ("USP", buf, sizeof (buf)); 
+	  send_with_reply ("USP", buf, sizeof (buf));
 	}
 
       /* fetch STACKPOINTER */
@@ -820,7 +820,7 @@ es1800_fetch_registers ()
 
       /* fetch PC */
 
-      send_with_reply ("PC", buf, sizeof (buf)); 
+      send_with_reply ("PC", buf, sizeof (buf));
       p = buf;
       for (k = 0; k < 4; k++)
 	{
@@ -829,7 +829,7 @@ es1800_fetch_registers ()
 	      error ("Emulator reply is too short: %s", buf);
 	    }
 	  registers[r++] = fromhex (buf[k*2+1]) * 16 + fromhex (buf[k*2+2]);
-	}    
+	}
     }
 }
 
@@ -870,8 +870,8 @@ es1800_store_register(regno)
     {
       j = regno;
       k = regno+1;
-      r += regno * 4; 
-    }    
+      r += regno * 4;
+    }
 
   if ((regno == -1) || (regno == 15))
     {
@@ -883,13 +883,13 @@ es1800_store_register(regno)
 	{
 	  if (*p == '3') /* use masterstackpointer MSP */
 	    {
-	      strcpy (stack_pointer,"MSP");  
+	      strcpy (stack_pointer,"MSP");
 	    }
 	  else
 	    {
 	      if (*p == '2') /* use interruptstackpointer ISP  */
 		{
-		  strcpy (stack_pointer,"ISP");  
+		  strcpy (stack_pointer,"ISP");
 		}
 	      else
 		{
@@ -901,11 +901,11 @@ es1800_store_register(regno)
 	{
 	  if (*p == '2') /* use supervisorstackpointer SSP  */
 	    {
-	      strcpy (stack_pointer,"SSP");  
+	      strcpy (stack_pointer,"SSP");
 	    }
 	  else
 	    {
-	      strcpy (stack_pointer,"USP");/* use userstackpointer USP  */  
+	      strcpy (stack_pointer,"USP");/* use userstackpointer USP  */
 	    }
 	}
       strcpy (regtab[15],stack_pointer);
@@ -935,7 +935,7 @@ es1800_store_register(regno)
 
 /* Prepare to store registers.  */
 
-static void 
+static void
 es1800_prepare_to_store ()
 {
   /* Do nothing, since we can store individual regs */
@@ -985,11 +985,11 @@ tohex (nib)
 
 /* Read or write LEN bytes from inferior memory at MEMADDR, transferring
    to or from debugger address MYADDR.  Write to inferior if WRITE is
-   nonzero.  Returns length of data written or read; 0 for error. 
- 
+   nonzero.  Returns length of data written or read; 0 for error.
+
    memaddr - the target's address
    myaddr  - gdb's address
-   len     - number of bytes 
+   len     - number of bytes
    write   - write if != 0 otherwise read	*/
 
 static int
@@ -1027,7 +1027,7 @@ es1800_xfer_inferior_memory (memaddr, myaddr, len, write, tops)
    MEMADDR is the address in the remote memory space.
    MYADDR is the address of the buffer in our space.
    LEN is the number of bytes.
- 
+
    memaddr - the target's address
    myaddr  - gdb's address
    len     - number of bytes   */
@@ -1053,7 +1053,7 @@ es1800_write_bytes (memaddr, myaddr, len)
 
 /* Read memory data directly from the emulator.
    This does not use the data cache; the data cache uses this.
- 
+
    memaddr - the target's address
    myaddr  - gdb's address
    len     - number of bytes   */
@@ -1117,12 +1117,12 @@ es1800_files_info (tops)
 
 /* We read the contents of the target location and stash it,
    then overwrite it with a breakpoint instruction.
- 
+
    addr           - is the target location in the target machine.
    contents_cache - is a pointer to memory allocated for saving the target contents.
-                    It is guaranteed by the caller to be long enough to save sizeof 
+                    It is guaranteed by the caller to be long enough to save sizeof
                     BREAKPOINT bytes.
- 
+
    FIXME: This size is target_arch dependent and should be available in
    the target_arch transfer vector, if we ever have one...  */
 
@@ -1131,7 +1131,7 @@ es1800_insert_breakpoint (addr, contents_cache)
      CORE_ADDR addr;
      char *contents_cache;
 {
-  int val; 
+  int val;
 
   val = target_read_memory (addr, contents_cache, sizeof (es1800_break_insn));
 
@@ -1146,12 +1146,12 @@ es1800_insert_breakpoint (addr, contents_cache)
 
 
 /* Write back the stashed instruction
- 
+
    addr           - is the target location in the target machine.
    contents_cache - is a pointer to memory allocated for saving the target contents.
-                    It is guaranteed by the caller to be long enough to save sizeof 
+                    It is guaranteed by the caller to be long enough to save sizeof
                     BREAKPOINT bytes.	*/
- 
+
 static int
 es1800_remove_breakpoint (addr, contents_cache)
      CORE_ADDR addr;
@@ -1196,7 +1196,7 @@ verify_break (vec)
 
   if (memaddress)
     {
-      status = target_read_memory (memaddress, buf, 8); 
+      status = target_read_memory (memaddress, buf, 8);
       if (status != 0)
 	{
 	  memory_error (status, memaddress);
@@ -1241,8 +1241,8 @@ get_break_addr (vec, addrp)
     }
 
     memaddress += (vec + 32) * 4;     /* address of trap vector */
-    status = target_read_memory (memaddress, (char *) addrp, 4); 
-    if (status != 0)                                                   
+    status = target_read_memory (memaddress, (char *) addrp, 4);
+    if (status != 0)
       {
 	memory_error (status, memaddress);
       }
@@ -1262,14 +1262,14 @@ es1800_kill ()
 }
 
 
-/* Load a file to the ES1800 emulator. 
+/* Load a file to the ES1800 emulator.
    Converts the file from a.out format into Extended Tekhex format
    before the file is loaded.
    Also loads the trap routine, and sets the ES1800 breakpoint on it
    filename - the a.out to be loaded
    from_tty - says whether to be verbose or not
    FIXME Uses emulator overlay memory for trap routine	*/
- 
+
 static void
 es1800_load (filename, from_tty)
      char *filename;
@@ -1282,7 +1282,7 @@ es1800_load (filename, from_tty)
   struct cleanup *old_chain;
   int es1800_load_format = 5;
 
-  if (es1800_desc == NULL) 
+  if (es1800_desc == NULL)
     {
       printf ("No emulator attached, type emulator-command first\n");
       return;
@@ -1321,7 +1321,7 @@ es1800_load (filename, from_tty)
       default:
 	error ("Downloading format not defined\n");
     }
- 
+
   breakpoint_init_inferior ();
   inferior_pid = 0;
   if (from_tty)
@@ -1340,7 +1340,7 @@ es1800_load (filename, from_tty)
 
   download (instream, from_tty, es1800_load_format);
 
-  /* if breakpoint routine is not present anymore we have to check 
+  /* if breakpoint routine is not present anymore we have to check
      whether to download a new breakpoint routine or not */
 
   if ((verify_break (es1800_break_vec) != 0)
@@ -1403,7 +1403,7 @@ bfd_copy (from_bfd, to_bfd)
 	  error ("bfd_set_section_flags");
 	}
       new->vma = p->vma;
-      
+
       for (i = 0; (i + NUMCPYBYTES) < p->_cooked_size ; i += NUMCPYBYTES)
 	{
 	  if (!bfd_get_section_contents (from_bfd, p, (PTR) buf, (file_ptr) i,
@@ -1521,12 +1521,12 @@ es1800_mourn_inferior ()
 
 /* ES1800-protocol specific routines */
 
-/* Keep discarding input from the remote system, until STRING is found. 
-   Let the user break out immediately. 
+/* Keep discarding input from the remote system, until STRING is found.
+   Let the user break out immediately.
    string - the string to expect
    nowait - break out if string not the emulator's first respond otherwise
             read until string is found (== 0)   */
- 
+
 static void
 expect (string, nowait)
      char *string;
@@ -1650,9 +1650,9 @@ send_with_reply (string, buf, len)
 
 
 /* Send the command in STR to the emulator adding \r. check
-   the echo for consistency. 
+   the echo for consistency.
    string - the es1800 command  */
- 
+
 static void
 send_command (string)
      char *string;
@@ -1674,7 +1674,7 @@ static void
 send (string)
      char *string;
 {
-  if (kiodebug) 
+  if (kiodebug)
     {
       fprintf (stderr, "Sending: %s\n", string);
     }
@@ -1682,10 +1682,10 @@ send (string)
 }
 
 
-/* Read a message from the emulator and store it in BUF. 
+/* Read a message from the emulator and store it in BUF.
    buf    - containing the emulator reply on return
    len    - size of buf  */
- 
+
 static void
 getmessage (buf, len)
      char *buf;
@@ -1706,7 +1706,7 @@ getmessage (buf, len)
   c = readchar ();
   do
     {
-      if (c) 
+      if (c)
 	{
 	  if (len-- < 2) /* char and terminaling NULL */
 	    {
@@ -1722,7 +1722,7 @@ getmessage (buf, len)
     }
   while (!prompt_found);
   *bp = 0;
-  
+
   if (kiodebug)
     {
       fprintf (stderr,"message received :%s\n", buf);
@@ -1766,7 +1766,7 @@ FILE *instream;
 	    printf ("%5d\b\b\b\b\b",++i);
 	    fflush (stdout);
 	  }
-	if ((c = readchar ()) != 006) 
+	if ((c = readchar ()) != 006)
 	  {
 	    error ("expected ACK");
 	  }
@@ -1788,7 +1788,7 @@ FILE *instream;
    FIXME, uses busy wait, and is SUNOS (or at least BSD) specific  */
 
 /*ARGSUSED*/
-static void 
+static void
 es1800_transparent (args, from_tty)
      char *args;
      int from_tty;
@@ -1809,7 +1809,7 @@ es1800_transparent (args, from_tty)
   int i;
 
   dont_repeat ();
-  if (es1800_desc == NULL) 
+  if (es1800_desc == NULL)
     {
       printf ("No emulator attached, type emulator-command first\n");
       return;
@@ -1822,7 +1822,7 @@ es1800_transparent (args, from_tty)
   printf (" >");
   fflush (stdout);
 
-  if ((console = open ("/dev/tty", O_RDWR)) == -1) 
+  if ((console = open ("/dev/tty", O_RDWR)) == -1)
     {
       perror_with_name ("/dev/tty:");
     }
@@ -1846,7 +1846,7 @@ es1800_transparent (args, from_tty)
     }
 
   console_mode_save = modebl;
-  modebl.sg_flags = RAW; 
+  modebl.sg_flags = RAW;
 
   if (ioctl (console, TIOCSETP, &modebl))
     {
@@ -1867,7 +1867,7 @@ es1800_transparent (args, from_tty)
     }
 
   while (1)
-    { 
+    {
       cc = read (console, inputbuf, inputcnt);
       if (cc != -1)
 	{
@@ -1884,7 +1884,7 @@ es1800_transparent (args, from_tty)
 	      perror_with_name ("FEL! write:");
 	    }
 	  es1800_cnt -= cc;
-	  if (es1800_cnt && cc) 
+	  if (es1800_cnt && cc)
 	    {
 	      for (i = 0; i < es1800_cnt; i++)
 		{
@@ -1896,7 +1896,7 @@ es1800_transparent (args, from_tty)
 	{
 	  perror_with_name ("FEL! read:");
 	}
-      
+
       cc = read (es1800_desc->fd,inputbuf,inputcnt);
       if (cc != -1)
 	{
@@ -1909,7 +1909,7 @@ es1800_transparent (args, from_tty)
 	      perror_with_name ("FEL! write:");
 	    }
 	  consolecnt -= cc;
-	  if (consolecnt && cc) 
+	  if (consolecnt && cc)
 	    {
 	      for (i = 0; i < consolecnt; i++)
 		{
@@ -1996,12 +1996,12 @@ es1800_init_break (args, from_tty)
   sprintf (buf, "@.L%lx=$%lx", memaddress, es1800_break_address);
   send_command (buf);   /* set the address of the break routine in the */
   		       /* trap vector */
-  
+
   sprintf (buf, "@.L%lx=$4E714E71", es1800_break_address);      /* NOP; NOP */
   send_command (buf);
   sprintf (buf, "@.L%lx=$4E714E73", es1800_break_address + 4);  /* NOP; RTE */
   send_command (buf);
-  
+
   sprintf (buf, "AC2=$%lx", es1800_break_address + 4);
   /* breakpoint at es1800-break_address */
   send_command (buf);
@@ -2012,7 +2012,7 @@ es1800_init_break (args, from_tty)
       printf ("Breakpoint (trap $%x) routine at address: %lx\n",
 	      es1800_break_vec, es1800_break_address);
     }
-}	  
+}
 
 static void
 es1800_child_open (arg, from_tty)
@@ -2031,7 +2031,7 @@ es1800_child_detach (args, from_tty)
     {
       error ("Argument given to \"detach\" when remotely debugging.");
     }
-  
+
   pop_target ();
   if (from_tty)
     {

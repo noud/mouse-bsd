@@ -370,13 +370,13 @@ KENTRY(copystr, 16)
 
 	/*
 	 * Terminated due to limit count.
-	 * Return ENAMETOOLONG. 
+	 * Return ENAMETOOLONG.
 	 */
 0:	movd	ENAMETOOLONG,r0
 	br	2f
 
 1:	/*
-	 * Terminated due to match. Adjust 
+	 * Terminated due to match. Adjust
 	 * count and transfer final element.
 	 */
 	addqd	-1,r1
@@ -1103,11 +1103,11 @@ ASENTRY_NOPROFILE(interrupt)
 	orw	r2,_C_LABEL(Cur_pl)(pc)
 	orw	r2,@ICU_ADR+IMSK
 	movb	@ICU_ADR+HVCT,r2	/* Acknowledge Interrupt */
-	/* 
-	 * Flush pending writes and then enable CPU interrupts. 
+	/*
+	 * Flush pending writes and then enable CPU interrupts.
 	 */
 	ints_off ; ints_on
-	/* 
+	/*
 	 * Increment interrupt counters.
 	 */
 	addqd	1,_C_LABEL(intrcnt)(pc)[r1:d]
@@ -1184,7 +1184,7 @@ GLOBAL(inttab)
 /*
  * void *ram_size(void *start);
  * Determine RAM size.
- * 
+ *
  * First attempt: write-and-read-back (WRB) each page from start
  * until WRB fails or get a parity error.  This didn't work because
  * address decoding wraps around.
@@ -1206,7 +1206,7 @@ GLOBAL(inttab)
  * can be held by capacitance on the bus and can be correctly
  * read back if there is no intervening bus cycle.  Hence,
  * read and write two patterns.
- * 
+ *
  * Registers:
  *   r0 - current page, return value
  *   r1 - old config register

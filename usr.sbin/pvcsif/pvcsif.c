@@ -51,7 +51,7 @@ void usage(void)
 	exit(1);
 }
 
-int 
+int
 main(int argc, char **argv)
 {
 	struct ifreq ifr;
@@ -91,7 +91,7 @@ main(int argc, char **argv)
 	else
 		printf("created a pvc subinterface %s (bound to %s)\n",
 		       ifr.ifr_name, argv[1]);
-    
+
 	return (0);
 }
 

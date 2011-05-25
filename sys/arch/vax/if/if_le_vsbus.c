@@ -205,13 +205,13 @@ le_vsbus_attach(parent, self, aux)
          */
 
 #define ALLOCSIZ (64 * 1024)
-        err = bus_dmamem_alloc(va->va_dmat, ALLOCSIZ, NBPG, 0, 
+        err = bus_dmamem_alloc(va->va_dmat, ALLOCSIZ, NBPG, 0,
             &seg, 1, &rseg, BUS_DMA_NOWAIT);
         if (err) {
                 printf(": unable to alloc buffer block: err %d\n", err);
                 return;
         }
-        err = bus_dmamem_map(va->va_dmat, &seg, rseg, ALLOCSIZ, 
+        err = bus_dmamem_map(va->va_dmat, &seg, rseg, ALLOCSIZ,
             (caddr_t *)&sc->sc_am7990.lsc.sc_mem,
 	    BUS_DMA_NOWAIT|BUS_DMA_COHERENT);
         if (err) {

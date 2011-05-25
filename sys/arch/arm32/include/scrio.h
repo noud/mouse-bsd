@@ -45,8 +45,8 @@
 #define DATA_BUF_MAX	256
 
 /* status information for Status */
-#define CARD_REMOVED	0x0000		
-#define CARD_INSERTED	0x0001		
+#define CARD_REMOVED	0x0000
+#define CARD_INSERTED	0x0001
 #define CARD_ON         0x0002
 
 typedef struct {
@@ -56,7 +56,7 @@ typedef struct {
 typedef struct {
 	unsigned char atrBuf[ATR_BUF_MAX];
 	unsigned int  atrLen;
-	unsigned int  status;					
+	unsigned int  status;
 } ScrOn;
 
 typedef struct {

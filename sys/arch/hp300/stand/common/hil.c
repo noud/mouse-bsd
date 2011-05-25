@@ -101,9 +101,9 @@
  * Supports only unshifted, shifted and control keys.
  */
 char hil_us_keymap[] = {
-	NULL,	'`',	'\\',	ESC,	NULL,	DEL,	NULL,	NULL,  
-	'\n',	'\t',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,  
-	NULL,	'\n',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,  
+	NULL,	'`',	'\\',	ESC,	NULL,	DEL,	NULL,	NULL,
+	'\n',	'\t',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
+	NULL,	'\n',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
 	NULL,	'\t',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
 	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
 	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'\b',	NULL,
@@ -159,9 +159,9 @@ char hil_us_ctrlmap[] = {
 
 #ifdef UK_KEYBOARD
 char hil_uk_keymap[] = {
-	NULL,	'`',	'<',	ESC,	NULL,	DEL,	NULL,	NULL,  
-	'\n',	'\t',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,  
-	NULL,	'\n',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,  
+	NULL,	'`',	'<',	ESC,	NULL,	DEL,	NULL,	NULL,
+	'\n',	'\t',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
+	NULL,	'\n',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
 	NULL,	'\t',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
 	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,
 	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'\b',	NULL,

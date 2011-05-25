@@ -3,7 +3,7 @@
 #	from: @(#)disktab	8.1 (Berkeley) 6/9/93
 #
 
-# Disk geometry and partition layout tables. 
+# Disk geometry and partition layout tables.
 # Key:
 #	dt	controller type
 #	ty	type of disk (fixed, removeable, simulated)
@@ -167,17 +167,17 @@ rz57|RZ57|DEC RZ57 Winchester:\
 
 # NOTE: The RZ58 uses a recording technique called zoned recording.
 #   Using this technique, the number of sectors per track will vary
-#   depending on what zone of the disk is in use (simply multiplying 
+#   depending on what zone of the disk is in use (simply multiplying
 #   ns*nt*nc does not give true capacity of the drive).  The ns (number
 #   of sectors per track) is calculated by "ns = total sectors/(nt*nc)"
 #   and is a rounded value.  Therefore, the value "ns" is an approximation,
-#   not a true representation, of what is stored on disk. 
+#   not a true representation, of what is stored on disk.
 #
 #   The 'c' partition listed below gives the true size of the RZ58
-#   (this information can be obtained by use of the DEVGETGEOM ioctl). 
+#   (this information can be obtained by use of the DEVGETGEOM ioctl).
 #
 #   The NetBSD :su#: entry is derived from the 'c' partition size.
-#    
+#
 
 rz58|RZ58|DEC RZ58 Winchester:\
 	:ty=winchester:ns#85:nt#15:nc#2112:\

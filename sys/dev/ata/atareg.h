@@ -93,10 +93,10 @@ struct ataparams {
 /* words 71-72 are ATAPI only */
     u_int16_t	atap_pkt_br;		/* 71: time (ns) to bus release */
     u_int16_t	atap_pkt_bsyclr;	/* 72: tme to clear BSY after service */
-    u_int16_t	__reserved4[2];	
+    u_int16_t	__reserved4[2];
     u_int16_t	atap_queuedepth;   	/* 75: */
 #define WDC_QUEUE_DEPTH_MASK 0x0F
-    u_int16_t	__reserved5[4];   	
+    u_int16_t	__reserved5[4];
     u_int16_t	atap_ata_major;  	/* 80: Major version number */
 #define	WDC_VER_ATA1	0x0002
 #define	WDC_VER_ATA2	0x0004

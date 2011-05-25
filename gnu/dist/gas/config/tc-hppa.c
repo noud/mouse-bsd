@@ -2989,10 +2989,10 @@ md_apply_fix (fixP, valp)
 	  && S_GET_SEGMENT (fixP->fx_addsy) == hppa_fixP->segment
 	  && !(fixP->fx_subsy
 	       && S_GET_SEGMENT (fixP->fx_subsy) != hppa_fixP->segment))
-	      
+
 	new_val = hppa_field_adjust (*valp, 0, hppa_fixP->fx_r_field);
 #undef arg_reloc_stub_needed
-	
+
       switch (fmt)
 	{
 	/* Handle all opcodes with the 'j' operand type.  */
@@ -6373,7 +6373,7 @@ pa_text (unused)
    selectors).
 
    Reject reductions involving symbols with external scope; such
-   reductions make life a living hell for object file editors. 
+   reductions make life a living hell for object file editors.
 
    FIXME.  Also reject R_HPPA relocations which are 32bits wide in
    the code space.  The SOM BFD backend doesn't know how to pull the
@@ -6393,7 +6393,7 @@ hppa_fix_adjustable (fixp)
     return 0;
 
   /* Reject reductions of symbols in sym1-sym2 expressions when
-     the fixup will occur in a CODE subspace. 
+     the fixup will occur in a CODE subspace.
 
      XXX FIXME: Long term we probably want to reject all of these;
      for example reducing in the debug section would lose if we ever

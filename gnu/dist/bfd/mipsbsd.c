@@ -92,7 +92,7 @@ MY(set_arch_mach) (abfd, machtype)
     machine = 0;
     break;
   }
-  bfd_set_arch_mach(abfd, arch, machine);  
+  bfd_set_arch_mach(abfd, arch, machine);
 }
 
 /* Determine the size of a relocation entry, based on the architecture */
@@ -195,7 +195,7 @@ mips_fix_jmp_addr (abfd,reloc_entry,symbol,data,input_section,output_bfd)
      bfd *output_bfd;
 {
   bfd_vma relocation, pc;
- 
+
   /* If this is a partial relocation, just continue. */
   if (output_bfd != (bfd *)NULL)
     return bfd_reloc_continue;
@@ -205,7 +205,7 @@ mips_fix_jmp_addr (abfd,reloc_entry,symbol,data,input_section,output_bfd)
       && (symbol->flags & BSF_WEAK) == 0)
     return bfd_reloc_undefined;
 
-  /* 
+  /*
    * Work out which section the relocation is targetted at and the
    * initial relocation command value.
    */
@@ -249,7 +249,7 @@ mips_fix_hi16_s (abfd, reloc_entry, symbol, data, input_section,
      char **error_message;
 {
   bfd_vma relocation;
- 
+
   /* If this is a partial relocation, just continue. */
   if (output_bfd != (bfd *)NULL)
     return bfd_reloc_continue;
@@ -259,7 +259,7 @@ mips_fix_hi16_s (abfd, reloc_entry, symbol, data, input_section,
       && (symbol->flags & BSF_WEAK) == 0)
     return bfd_reloc_undefined;
 
-  /* 
+  /*
    * Work out which section the relocation is targetted at and the
    * initial relocation command value.
    */
@@ -351,7 +351,7 @@ MY(canonicalize_reloc)(abfd, section, relptr, symbols)
     return section->reloc_count;
   }
   if (tblptr && section->reloc_count) {
-    for (count = 0; count++ < section->reloc_count;) 
+    for (count = 0; count++ < section->reloc_count;)
       *relptr++ = tblptr++;
     *relptr = 0;
     return section->reloc_count;
@@ -362,7 +362,7 @@ MY(canonicalize_reloc)(abfd, section, relptr, symbols)
   tblptr = section->relocation;
 
   /* fix up howto entries */
-  for (count = 0; count++ < section->reloc_count;) 
+  for (count = 0; count++ < section->reloc_count;)
     {
       c = tblptr->howto - NAME(aout,ext_howto_table);
       tblptr->howto = &mips_howto_table_ext[c];

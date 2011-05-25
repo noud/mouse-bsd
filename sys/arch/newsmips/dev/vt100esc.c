@@ -176,7 +176,7 @@ jiskanji(sp, c)
 /*
  *  This routine is the command analiser using second character.
  *  If a command has found then switch to particular escape handling
- *  routine, and directly called by mother routine. 
+ *  routine, and directly called by mother routine.
  *  The arguments are passed through the routine.
  */
 void
@@ -187,7 +187,7 @@ esc_top_level(sp, c)
 	register  struct  esc_sequence	*estp;
 
 	for (estp = esc_seq_table; estp->command ; estp++) {
-		if (estp->command == c) { 
+		if (estp->command == c) {
 					/* command found  */
 			sp->s_estp = estp;
 			if (*estp->terminators == '\0') {
@@ -528,7 +528,7 @@ csr_pos(sp, x, y)
 
 /*
  *  Erase in display.
- *  erase_disp(sp, pn) erases display from the cursor to the end, from 
+ *  erase_disp(sp, pn) erases display from the cursor to the end, from
  *  the beginning to the cursor or completely according to pn = 0, 1 or 2
  *  respectively.
  */
@@ -565,7 +565,7 @@ erase_disp(sp, pn)
 
 /*
  *  Erase in line.
- *  erase_line(sp, pn) erases line from the cursor to the end, from the 
+ *  erase_line(sp, pn) erases line from the cursor to the end, from the
  *  beginning to the cursor or completely according to pn = 0, 1 or 2
  *  respectively.
  */
@@ -583,7 +583,7 @@ erase_line(sp, pn)
 			sp->s_plane, sp->s_bgcol);
 		break;
 	case 1:
-		clear_chars(LFT_M, spc->csr_y, 
+		clear_chars(LFT_M, spc->csr_y,
 			spc->csr_x - LFT_M + 1, sp->s_term_mode & DECSCNM,
 			sp->s_plane, sp->s_bgcol);
 		break;
@@ -609,7 +609,7 @@ insert_line(sp, pn)
 	register struct region *spr = &sp->s_region;
 
 	pn = imax(pn, 1);
-	if (spc->csr_y < spr->top_margin || spc->csr_y > spr->btm_margin) 
+	if (spc->csr_y < spr->top_margin || spc->csr_y > spr->btm_margin)
 		return;
 	if (pn <= spr->btm_margin - spc->csr_y) {
 		move_lines(spc->csr_y, spr->btm_margin - pn - spc->csr_y + 1,
@@ -621,7 +621,7 @@ insert_line(sp, pn)
 	spc->csr_x = LFT_M;
 	spc->csr_p.x = x_ofst;
 }
-			
+
 /*
  *  Delete line.
  *  delete_line(sp, pn) deletes pn lines in scroll region
@@ -714,7 +714,7 @@ esc_csi_dec(sp, c)
 					break;
 				case 6:		/*  origin	*/
 					sp->s_term_mode |= DECOM;
-					sp->s_csr.csr_x = LFT_M; 
+					sp->s_csr.csr_x = LFT_M;
 					sp->s_csr.csr_y =
 						sp->s_region.top_margin;
 					sp->s_csr.csr_p.x = x_ofst;
@@ -834,9 +834,9 @@ change_csr_key_pad(applic)
 		kys->key_string = pad;
 		kpd++;
 		pfk->pfk_shift = PF_NORMAL;
-		kbd_ioctl(SCC_KEYBOARD, KIOCSETS, pfk); 
+		kbd_ioctl(SCC_KEYBOARD, KIOCSETS, pfk);
 		pfk->pfk_shift = PF_SHIFT;
-		kbd_ioctl(SCC_KEYBOARD, KIOCSETS, pfk); 
+		kbd_ioctl(SCC_KEYBOARD, KIOCSETS, pfk);
 	}
 }
 
@@ -922,7 +922,7 @@ esc_tab_set(sp)
 
 /*
  *  reverse index
- *  esc_rev_index(sp) moves the cursor up if the cursor is not at the top 
+ *  esc_rev_index(sp) moves the cursor up if the cursor is not at the top
  *  margin. If the cursor is at the top margin then the screen takes place
  *  scroll down.
  */
@@ -1003,9 +1003,9 @@ change_aux_key_pad(applic)
 		kys->key_string = pad;
 		kpd++;
 		pfk->pfk_shift = PF_NORMAL;
-		kbd_ioctl(SCC_KEYBOARD, KIOCSETS, pfk); 
+		kbd_ioctl(SCC_KEYBOARD, KIOCSETS, pfk);
 		pfk->pfk_shift = PF_SHIFT;
-		kbd_ioctl(SCC_KEYBOARD, KIOCSETS, pfk); 
+		kbd_ioctl(SCC_KEYBOARD, KIOCSETS, pfk);
 	}
 	if (!applic) {
 		pfk->pfk_shift = PF_SHIFT;
@@ -1013,7 +1013,7 @@ change_aux_key_pad(applic)
 
 		pfk->pfk_num = MINUS;
 		kys->key_string = "/";
-		kbd_ioctl(SCC_KEYBOARD, KIOCSETS, pfk); 
+		kbd_ioctl(SCC_KEYBOARD, KIOCSETS, pfk);
 
 		pfk->pfk_num = PLUS;
 		kys->key_string = "*";
@@ -1160,7 +1160,7 @@ static int sensitive = 0;
 static int pval = 0;
 /*
  *  terminal parameter set command
- *  esc_parm_set(sp, c)  sets terminal parameters such as font-width, 
+ *  esc_parm_set(sp, c)  sets terminal parameters such as font-width,
  *  font-height, character-width, character-height, character-position,
  *  underlind-position, screen-width, screen-height, x-offset, y-offset,
  *  right-mergin, bottom-mergin, dimmer-count, bell-length.
@@ -1463,7 +1463,7 @@ static int active_buf = 0;
  *	    `p' , `E' or `Z' tells that the sequence has terminated.
  *  remark:
  *	  when the terminator is `Z', the function number `n' can be omitted,
- *	  and even though the number is specified, there is no affection to 
+ *	  and even though the number is specified, there is no affection to
  *	  the result.
  *
  *
@@ -1477,7 +1477,7 @@ static int active_buf = 0;
  *  or
  *	   "^[Pn|I"			(shift	mode)
  *
- *	  then the answer is 
+ *	  then the answer is
  *
  *	   "^[Pn|n1;n2;...;nmr"		(normal	mode)
  *  or
@@ -1557,7 +1557,7 @@ pf_define(pfn, length, terminator)
 	pfk->pfk_shift = (terminator == 'p') ? PF_NORMAL: PF_SHIFT;
 	kys->key_length = length;
 	kys->key_string = esc_buf;
- 	kbd_ioctl(SCC_KEYBOARD, KIOCSETS, pfk); 
+ 	kbd_ioctl(SCC_KEYBOARD, KIOCSETS, pfk);
 }
 
 /*
@@ -1578,7 +1578,7 @@ pf_answer(pfn, terminator)
 	register char *p = def_seq;
 	register int length;
 	register int j;
-	
+
 	/*
 	 *  function key inquiry
 	 *    get string in def_seq

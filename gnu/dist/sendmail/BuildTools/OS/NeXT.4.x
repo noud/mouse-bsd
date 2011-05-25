@@ -22,7 +22,7 @@ define(`confINSTALL', `${BUILDBIN}/install.sh')
 PUSHDIVERT(3)
 unistd.h:
 	cp /dev/null unistd.h
- 
+
 dirent.h:
 	echo "#include <sys/dir.h>" > dirent.h
 	echo "#define dirent	direct" >> dirent.h

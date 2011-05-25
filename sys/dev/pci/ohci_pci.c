@@ -91,7 +91,7 @@ ohci_pci_match(parent, match, aux)
 	    PCI_SUBCLASS(pa->pa_class) == PCI_SUBCLASS_SERIALBUS_USB &&
 	    PCI_INTERFACE(pa->pa_class) == PCI_INTERFACE_OHCI)
 		return (1);
- 
+
 	return (0);
 }
 
@@ -155,12 +155,12 @@ ohci_pci_attach(parent, self, aux)
 	vendor = pci_findvendor(pa->pa_id);
 	sc->sc.sc_id_vendor = PCI_VENDOR(pa->pa_id);
 	if (vendor)
-		strncpy(sc->sc.sc_vendor, vendor, 
+		strncpy(sc->sc.sc_vendor, vendor,
 			sizeof(sc->sc.sc_vendor) - 1);
 	else
-		sprintf(sc->sc.sc_vendor, "vendor 0x%04x", 
+		sprintf(sc->sc.sc_vendor, "vendor 0x%04x",
 			PCI_VENDOR(pa->pa_id));
-	
+
 	r = ohci_init(&sc->sc);
 	if (r != USBD_NORMAL_COMPLETION) {
 		printf("%s: init failed, error=%d\n", devname, r);

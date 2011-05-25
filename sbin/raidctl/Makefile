@@ -1,5 +1,5 @@
 #	$NetBSD: Makefile,v 1.6 1999/08/07 23:48:11 oster Exp $
-PROG=	raidctl 
+PROG=	raidctl
 SRCS=	rf_configure.c rf_layout.c raidctl.c
 MAN=	raidctl.8
 

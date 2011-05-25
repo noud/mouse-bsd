@@ -38,7 +38,7 @@
 
 /*
  * PICA system dma driver. Handles resource allocation and
- * logical (viritual) address remaping. 
+ * logical (viritual) address remaping.
  */
 
 #include <sys/param.h>

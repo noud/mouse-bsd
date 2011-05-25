@@ -923,14 +923,14 @@ deliver(e, firstto)
 	**  Clear $&{client_*} macros if this is a bounce message to
 	**  prevent rejection by check_compat ruleset.
 	*/
-	
+
 	if (bitset(EF_RESPONSE, e->e_flags))
 	{
 		define(macid("{client_name}", NULL), "", e);
 		define(macid("{client_addr}", NULL), "", e);
 		define(macid("{client_port}", NULL), "", e);
 	}
-	
+
 	/*
 	**  Do initial argv setup.
 	**	Insert the mailer name.  Notice that $x expansion is

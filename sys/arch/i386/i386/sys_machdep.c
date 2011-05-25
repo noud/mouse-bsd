@@ -452,24 +452,24 @@ sys_sysarch(p, v, retval)
 
 	switch(SCARG(uap, op)) {
 #ifdef	USER_LDT
-	case I386_GET_LDT: 
+	case I386_GET_LDT:
 		error = i386_get_ldt(p, SCARG(uap, parms), retval);
 		break;
 
-	case I386_SET_LDT: 
+	case I386_SET_LDT:
 		error = i386_set_ldt(p, SCARG(uap, parms), retval);
 		break;
 #endif
 
-	case I386_IOPL: 
+	case I386_IOPL:
 		error = i386_iopl(p, SCARG(uap, parms), retval);
 		break;
 
-	case I386_GET_IOPERM: 
+	case I386_GET_IOPERM:
 		error = i386_get_ioperm(p, SCARG(uap, parms), retval);
 		break;
 
-	case I386_SET_IOPERM: 
+	case I386_SET_IOPERM:
 		error = i386_set_ioperm(p, SCARG(uap, parms), retval);
 		break;
 

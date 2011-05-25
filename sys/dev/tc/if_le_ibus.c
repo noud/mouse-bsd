@@ -128,20 +128,20 @@ le_pmax_attach(parent, self, aux)
 
 void
 le_dec_copytobuf_gap2(sc, fromv, boff, len)
-	struct lance_softc *sc;  
+	struct lance_softc *sc;
 	void *fromv;
 	int boff;
 	register int len;
 {
 	volatile caddr_t buf = sc->sc_mem;
 	register caddr_t from = fromv;
-	register volatile u_int16_t *bptr;  
+	register volatile u_int16_t *bptr;
 
 	if (boff & 0x1) {
 		/* handle unaligned first byte */
 		bptr = ((volatile u_int16_t *)buf) + (boff - 1);
 		*bptr = (*from++ << 8) | (*bptr & 0xff);
-		bptr += 2;  
+		bptr += 2;
 		len--;
 	} else
 		bptr = ((volatile u_int16_t *)buf) + boff;

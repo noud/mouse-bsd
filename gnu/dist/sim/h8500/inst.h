@@ -4,7 +4,7 @@
 #define CSIZE 1000
 
 
-union rtype 
+union rtype
     {
       unsigned long l;
       unsigned short s[2];
@@ -43,7 +43,7 @@ typedef struct
       unsigned long *lptr;
       unsigned char **segptr;
       union rtype *rptr;
-      
+
     }
   reg;
   int literal;
@@ -83,7 +83,7 @@ typedef struct
 {
   int exception;
   union rtype   regs[20];
-  
+
 
 
   unsigned char *memory;

@@ -66,7 +66,7 @@ from the buffer pointed to by
 .Fa buf .
 .Fn writev
 performs the same action, but gathers the output data
-from the 
+from the
 .Fa iovcnt
 buffers specified by the members of the
 .Fa iov
@@ -77,11 +77,11 @@ and
 perform the same functions, but write to the specified position in
 the file without modifying the file pointer.
 .Pp
-For 
+For
 .Fn writev
 and
 .Fn pwritev ,
-the 
+the
 .Fa iovec
 structure is defined as:
 .Pp
@@ -92,7 +92,7 @@ struct iovec {
 };
 .Ed
 .Pp
-Each 
+Each
 .Fa iovec
 entry specifies the base address and length of an area
 in memory from which data should be written.
@@ -183,7 +183,7 @@ The file was marked for non-blocking I/O,
 and no data could be written immediately.
 .El
 .Pp
-In addition, 
+In addition,
 .Fn writev
 and
 .Fn pwritev

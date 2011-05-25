@@ -2,7 +2,7 @@
 
 /*
  * Copyright (c) 1995 Michael Teske
- * All rights reserved. 
+ * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -427,9 +427,9 @@ grfcvattach(pdp, dp, auxp)
 
 	zap = auxp;
 
-	/* 
+	/*
 	 * This function is called twice, once on console init (dp == NULL)
-	 * and once on "normal" grf5 init. 
+	 * and once on "normal" grf5 init.
 	 */
 
 	if (dp == NULL) /* console init */

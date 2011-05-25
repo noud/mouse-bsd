@@ -28,7 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 	'$' or '#'.  If <data> starts with two characters followed by
 	':', then the existing stubs interpret this as a sequence number.
 
-	CSUM1 and CSUM2 are ascii hex representation of an 8-bit 
+	CSUM1 and CSUM2 are ascii hex representation of an 8-bit
 	checksum of <data>, the most significant nibble is sent first.
 	the hex digits 0-9,a-f are used.
 
@@ -44,7 +44,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 	Request		Packet
 
 	set thread	Hct...		Set thread for subsequent operations.
-					c = 'c' for thread used in step and 
+					c = 'c' for thread used in step and
 					continue; t... can be -1 for all
 					threads.
 					c = 'g' for thread used in other
@@ -122,7 +122,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 					n... = `thread'
 					  r... = thread process ID.  This is
 						 a hex integer.
-					n... = other string not starting 
+					n... = other string not starting
 					    with valid hex digit.
 					  gdb should ignore this n,r pair
 					  and go on to the next.  This way
@@ -141,7 +141,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 	thread alive	TXX		Find out if the thread XX is alive.
 	reply		OK		thread is still alive
 			ENN		thread is dead
-	
+
 	remote restart	RXX		Restart the remote server
 
 	extended ops 	!		Use the extended remote protocol.
@@ -170,10 +170,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 	Responses can be run-length encoded to save space.  A '*' means that
 	the next character is an ASCII encoding giving a repeat count which
 	stands for that many repititions of the character preceding the '*'.
-	The encoding is n+29, yielding a printable character where n >=3 
+	The encoding is n+29, yielding a printable character where n >=3
 	(which is where rle starts to win).  Don't use an n > 126.
 
-	So 
+	So
 	"0* " means the same as "0000".  */
 
 #include "defs.h"
@@ -728,7 +728,7 @@ device is attached to the remote system (e.g. /dev/ttya).");
   /* Start the remote connection; if error (0), discard this target.
      In particular, if the user quits, be sure to discard it
      (we'd be in an inconsistent state otherwise).  */
-  if (!catch_errors (remote_start_remote, (char *)0, 
+  if (!catch_errors (remote_start_remote, (char *)0,
 		     "Couldn't establish connection to remote target\n", RETURN_MASK_ALL))
     pop_target();
 }
@@ -769,7 +769,7 @@ fromhex (a)
     return a - 'a' + 10;
   else if (a >= 'A' && a <= 'F')
     return a - 'A' + 10;
-  else 
+  else
     error ("Reply contains invalid hex digit %d", a);
 }
 
@@ -834,7 +834,7 @@ remote_interrupt (signo)
 {
   /* If this doesn't work, try more severe steps.  */
   signal (signo, remote_interrupt_twice);
-  
+
   if (remote_debug)
     printf_unfiltered ("remote_interrupt called\n");
 
@@ -853,7 +853,7 @@ remote_interrupt_twice (signo)
      int signo;
 {
   signal (signo, ofunc);
-  
+
   interrupt_query ();
 
   signal (signo, remote_interrupt);
@@ -885,7 +885,7 @@ remote_console_output (msg)
 {
   char *p;
 
-  for (p = msg; *p; p +=2) 
+  for (p = msg; *p; p +=2)
     {
       char tb[2];
       char c = fromhex (p[0]) * 16 + fromhex (p[1]);
@@ -893,7 +893,7 @@ remote_console_output (msg)
       tb[1] = 0;
       if (target_output_hook)
 	target_output_hook (tb);
-      else 
+      else
 	fputs_filtered (tb, gdb_stdout);
     }
 }
@@ -1132,7 +1132,7 @@ remote_fetch_registers (regno)
    'G' request), we have to read out the ones we don't want to change
    first.  */
 
-static void 
+static void
 remote_prepare_to_store ()
 {
   /* Make sure the entire registers array is valid.  */
@@ -1196,14 +1196,14 @@ remote_store_registers (regno)
   remote_send (buf);
 }
 
-/* 
+/*
    Use of the data cache *used* to be disabled because it loses for looking at
    and changing hardware I/O ports and the like.  Accepting `volatile'
    would perhaps be one way to fix it.  Another idea would be to use the
    executable file for the text segment (for all SEC_CODE sections?
    For all SEC_READONLY sections?).  This has problems if you want to
    actually see what the memory contains (e.g. self-modifying code,
-   clobbered memory, user downloaded the wrong thing).  
+   clobbered memory, user downloaded the wrong thing).
 
    Because it speeds so much up, it's now enabled, if you're playing
    with registers you turn it of (set remotecache 0)
@@ -1403,7 +1403,7 @@ remote_xfer_memory(memaddr, myaddr, len, should_write, target)
   return dcache_xfer_memory (remote_dcache, memaddr, myaddr, len, should_write);
 }
 
-   
+
 #if 0
 /* Enable after 4.12.  */
 
@@ -1685,7 +1685,7 @@ read_frame (buf)
 	    if (csum == pktcsum)
 	      return 1;
 
-	    if (remote_debug) 
+	    if (remote_debug)
 	      {
 		printf_filtered ("Bad checksum, sentsum=0x%x, csum=0x%x, buf=",
 				 pktcsum, csum);
@@ -1848,7 +1848,7 @@ extended_remote_mourn ()
 {
   /* We do _not_ want to mourn the target like this; this will
      remove the extended remote target  from the target stack,
-     and the next time the user says "run" it'll fail. 
+     and the next time the user says "run" it'll fail.
 
      FIXME: What is the right thing to do here?  */
 #if 0
@@ -1867,7 +1867,7 @@ remote_mourn_1 (target)
 
 /* In the extended protocol we want to be able to do things like
    "run" and have them basically work as expected.  So we need
-   a special create_inferior function. 
+   a special create_inferior function.
 
    FIXME: One day add support for changing the exec file
    we're debugging, arguments and an environment.  */
@@ -1928,7 +1928,7 @@ static unsigned char little_break_insn[] = LITTLE_REMOTE_BREAKPOINT;
 /* Insert a breakpoint on targets that don't have any better breakpoint
    support.  We read the contents of the target location and stash it,
    then overwrite it with a breakpoint instruction.  ADDR is the target
-   location in the target machine.  CONTENTS_CACHE is a pointer to 
+   location in the target machine.  CONTENTS_CACHE is a pointer to
    memory allocated for saving the target contents.  It is guaranteed
    by the caller to be long enough to save sizeof BREAKPOINT bytes (this
    is accomplished via BREAKPOINT_MAX).  */

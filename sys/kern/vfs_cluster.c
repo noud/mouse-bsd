@@ -250,7 +250,7 @@ skip_readahead:
 	if (bp) {
 		if (bp->b_flags & (B_DONE | B_DELWRI))
 			panic("cluster_read: DONE bp");
-		else 
+		else
 			error = VOP_STRATEGY(bp);
 	}
 

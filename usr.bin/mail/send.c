@@ -98,7 +98,7 @@ sendmessage(mp, obuf, doign, prefix)
 			break;
 		count -= length = strlen(line);
 		if (firstline) {
-			/* 
+			/*
 			 * First line is the From line, so no headers
 			 * there to worry about
 			 */

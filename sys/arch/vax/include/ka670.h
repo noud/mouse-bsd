@@ -15,7 +15,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -43,11 +43,11 @@
 
 #define KA670_ROM_BASE	0x20040000	/* System module ROM */
 #define KA670_ROM_END	0x2007FFFF
-#define KA670_ROM_SIZE	   0x40000	
+#define KA670_ROM_SIZE	   0x40000
 
 /*
- * The following values refer to bits/bitfields within the 4 internal 
- * registers controlling primary cache: 
+ * The following values refer to bits/bitfields within the 4 internal
+ * registers controlling primary cache:
  * PR_PCTAG(124, tag-register)		PR_PCIDX(125, index-register)
  * PR_PCERR(126, error-register)	PR_PCSTS(127, status-register)
  */

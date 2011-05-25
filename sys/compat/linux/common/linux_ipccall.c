@@ -139,7 +139,7 @@ linux_sys_ipc(p, v, retval)
 #ifdef SYSVSHM
 	case LINUX_SYS_shmat: {
 		struct linux_sys_shmat_args bsa;
-	
+
 		SCARG(&bsa, shmid) = SCARG(uap, a1);
 		SCARG(&bsa, shmaddr) = (void *)SCARG(uap, ptr);
 		SCARG(&bsa, shmflg) = SCARG(uap, a2);

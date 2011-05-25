@@ -1,6 +1,6 @@
 /*	$NetBSD: pmap.h,v 1.1 1999/12/09 14:53:12 tsutsui Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1987 Carnegie-Mellon University
  * Copyright (c) 1991, 1993
  *	The Regents of the University of California.  All rights reserved.

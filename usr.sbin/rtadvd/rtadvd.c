@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -219,7 +219,7 @@ main(argc, argv)
 		timeout = rtadvd_check_timer();
 
 		syslog(LOG_DEBUG,
-		       "<%s> set timer to %ld:%ld. waiting for inputs " 
+		       "<%s> set timer to %ld:%ld. waiting for inputs "
 		       "or timeout",
 		       __FUNCTION__,
 		       timeout->tv_sec, timeout->tv_usec);
@@ -288,7 +288,7 @@ rtmsg_input()
 	}
 	if (n > rtmsg_len(msg)) {
 		/*
-		 * This usually won't happen for messages received on 
+		 * This usually won't happen for messages received on
 		 * an routing socket.
 		 */
 		if (dflag > 1)
@@ -450,7 +450,7 @@ rtadvd_input()
 	int *hlimp = NULL;
 #ifdef OLDRAWSOCKET
 	struct ip6_hdr *ip;
-#endif 
+#endif
 	struct icmp6_hdr *icp;
 	int ifindex = 0;
 	struct cmsghdr *cm;
@@ -515,7 +515,7 @@ rtadvd_input()
 	}
 
 	icp = (struct icmp6_hdr *)rcvmhdr.msg_iov[0].iov_base;
-#endif 
+#endif
 
 	switch(icp->icmp6_type) {
 	 case ND_ROUTER_SOLICIT:
@@ -559,7 +559,7 @@ rtadvd_input()
 	 case ND_ROUTER_ADVERT:
 		 /*
 		  * Message verification - RFC-2461 6.1.2
-		  * XXX: there's a same dilemma as above... 
+		  * XXX: there's a same dilemma as above...
 		  */
 		 if (*hlimp != 255) {
 			 syslog(LOG_NOTICE,
@@ -752,13 +752,13 @@ ra_input(int len, struct nd_router_advert *ra,
 	       inet_ntop(AF_INET6, &from->sin6_addr,
 			 ntopbuf, INET6_ADDRSTRLEN),
 	       if_indextoname(pi->ipi6_ifindex, ifnamebuf));
-	
+
 	/* ND option check */
 	memset(&ndopts, 0, sizeof(ndopts));
 	if (nd6_options((struct nd_opt_hdr *)(ra + 1),
 			len - sizeof(struct nd_router_advert),
 			 &ndopts,
-			NDOPT_FLAG_PREFIXINFO | NDOPT_FLAG_MTU)) { 
+			NDOPT_FLAG_PREFIXINFO | NDOPT_FLAG_MTU)) {
 		syslog(LOG_ERR,
 		       "<%s> ND option check failed for an RA from %s on %s",
 		       __FUNCTION__,
@@ -865,7 +865,7 @@ ra_input(int len, struct nd_router_advert *ra,
 	/* Preferred and Valid Lifetimes for prefixes */
 	{
 		struct nd_optlist *optp = ndopts.nd_opts_list;
-		
+
 		if (ndopts.nd_opts_pi)
 			prefix_check(ndopts.nd_opts_pi, rai, from);
 		while (optp) {
@@ -874,7 +874,7 @@ ra_input(int len, struct nd_router_advert *ra,
 			optp = optp->next;
 		}
 	}
-	
+
   done:
 	free_ndopts(&ndopts);
 	return;
@@ -1076,7 +1076,7 @@ sock_open()
 	int on;
 	/* XXX: should be max MTU attached to the node */
 	static u_char answer[1500];
-	static u_char sndcmsgbuf[CMSG_SPACE(sizeof(struct in6_pktinfo)) + 
+	static u_char sndcmsgbuf[CMSG_SPACE(sizeof(struct in6_pktinfo)) +
 				CMSG_SPACE(sizeof(int))];
 
 	if ((sock = socket(AF_INET6, SOCK_RAW, IPPROTO_ICMPV6)) < 0) {
@@ -1101,7 +1101,7 @@ sock_open()
 		       __FUNCTION__, strerror(errno));
 		exit(1);
 	}
-#endif 
+#endif
 
 	on = 1;
 	/* specify to tell value of hoplimit field of received IP6 hdr */
@@ -1119,7 +1119,7 @@ sock_open()
 		       __FUNCTION__, strerror(errno));
 		exit(1);
 	}
-#endif 
+#endif
 
 	ICMP6_FILTER_SETBLOCKALL(&filt);
 	ICMP6_FILTER_SETPASS(ND_ROUTER_SOLICIT, &filt);
@@ -1153,7 +1153,7 @@ sock_open()
 		}
 		ra = ra->next;
 	}
-	
+
 	/* initialize msghdr for receiving packets */
 	rcviov[0].iov_base = (caddr_t)answer;
 	rcviov[0].iov_len = sizeof(answer);
@@ -1170,7 +1170,7 @@ sock_open()
 	sndmhdr.msg_iovlen = 1;
 	sndmhdr.msg_control = (caddr_t)sndcmsgbuf;
 	sndmhdr.msg_controllen = sizeof(sndcmsgbuf);
-	
+
 	return;
 }
 
@@ -1233,7 +1233,7 @@ struct rainfo *rainfo;
 
 	syslog(LOG_DEBUG,
 	       "<%s> send RA on %s, # of waitings = %d",
-	       __FUNCTION__, rainfo->ifname, rainfo->waiting); 
+	       __FUNCTION__, rainfo->ifname, rainfo->waiting);
 
 	i = sendmsg(sock, &sndmhdr, 0);
 
@@ -1290,7 +1290,7 @@ ra_timer_update(void *data, struct timeval *tm)
 	 * between the interface's configured MinRtrAdvInterval and
 	 * MaxRtrAdvInterval(discovery-v2-02 6.2.4).
 	 */
-	interval = rai->mininterval; 
+	interval = rai->mininterval;
 	interval += random() % (rai->maxinterval - rai->mininterval);
 
 	/*

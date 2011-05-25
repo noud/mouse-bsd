@@ -45,7 +45,7 @@
 #include <sys/buf.h>
 #include <sys/proc.h>
 #include <sys/user.h>
-#include <sys/chio.h> 
+#include <sys/chio.h>
 #include <sys/device.h>
 #include <sys/malloc.h>
 #include <sys/conf.h>

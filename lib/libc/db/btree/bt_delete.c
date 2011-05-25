@@ -163,7 +163,7 @@ __bt_stkacq(t, hp, c)
 	pgno_t pgno;
 	recno_t nextpg, prevpg;
 	int exact, level;
-	
+
 	/*
 	 * Find the first occurrence of the key in the tree.  Toss the
 	 * currently locked page so we don't hit an already-locked page.
@@ -279,7 +279,7 @@ __bt_stkacq(t, hp, c)
 		if ((h = mpool_get(t->bt_mp, prevpg, 0)) == NULL)
 			return (1);
 	}
-	
+
 
 ret:	mpool_put(t->bt_mp, h, 0);
 	return ((*hp = mpool_get(t->bt_mp, c->pg.pgno, 0)) == NULL);
@@ -411,7 +411,7 @@ __bt_pdelete(t, h)
 		/* Get the parent page. */
 		if ((pg = mpool_get(t->bt_mp, parent->pgno, 0)) == NULL)
 			return (RET_ERROR);
-		
+
 		idx = parent->index;
 		bi = GETBINTERNAL(pg, idx);
 
@@ -581,7 +581,7 @@ __bt_curdel(t, key, h, idx)
 			key = &c->key;
 		}
 		/* Check previous key, if not at the beginning of the page. */
-		if (idx > 0) { 
+		if (idx > 0) {
 			e.page = h;
 			e.index = idx - 1;
 			if (__bt_cmp(t, key, &e) == 0) {

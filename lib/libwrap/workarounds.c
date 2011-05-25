@@ -5,7 +5,7 @@
   * around library functions and system calls that are known to have problems
   * on some systems. Most of these workarounds won't do any harm on regular
   * systems.
-  * 
+  *
   * Author: Wietse Venema, Eindhoven University of Technology, The Netherlands.
   */
 
@@ -53,7 +53,7 @@ __RCSID("$NetBSD: workarounds.c,v 1.6 2000/01/21 17:08:34 mycroft Exp $");
   * You have this problem when the compiler complains about illegal lvalues
   * or something like that. The following code fixes this mutant behaviour.
   * It should not be enabled on "normal" systems.
-  * 
+  *
   * Bug reported by ben@piglet.cr.usgs.gov (Rev. Ben A. Mesander).
   */
 

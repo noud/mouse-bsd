@@ -61,7 +61,7 @@ mem_regions(memp, availp)
 	struct mem_region **memp, **availp;
 {
 	int phandle, i, j, cnt;
-	
+
 	/*
 	 * Get memory.
 	 */

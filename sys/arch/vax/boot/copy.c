@@ -90,7 +90,7 @@ Xmain()
 	/* NOTREACHED */
 }
 
-int 
+int
 fill_buffer (void)
 {
 	char 	devname[64], sparname[64];
@@ -191,14 +191,14 @@ again:
 				vn - 1, vn);
 		}
 	} while (numblocks > 0);
-	printf ("Reading of miniroot done. (%d blocks read)\n", 
+	printf ("Reading of miniroot done. (%d blocks read)\n",
 		(bufp - iobuf) / 512);
 
 	return (-errors);
 }
 
-int 
-write_disk (void) 
+int
+write_disk (void)
 {
 	char line[64];
 	char devname[64];
@@ -240,7 +240,7 @@ write_disk (void)
 	printf ("Halt the machine and reboot from distribution media,\n");
 	printf ("giving second partition as part to mount as root. Ex:\n");
 	printf (": ra(0,1) for ra disk 0, hp(2,1) for massbuss disk 2\n");
-	
+
 	return (-errors);
 }
 

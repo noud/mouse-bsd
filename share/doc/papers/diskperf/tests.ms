@@ -80,9 +80,9 @@ Each test was run three times;
 the first to clear out any useful data in the cache,
 and the second two to insure that the experiment
 had stablized and was repeatable.
-Each test operated on eight Megabytes of data to 
+Each test operated on eight Megabytes of data to
 insure that the cache did not overly influence the results.
-Another file system was then initialized using a 
+Another file system was then initialized using a
 basic blocking factor of four Kilobytes and the same tests
 were run again and timed.
 A command script for a run appears as follows:

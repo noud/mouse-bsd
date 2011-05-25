@@ -70,7 +70,7 @@ struct vrgiu_softc {
 	void *sc_ih;
 	u_int32_t sc_intr_mask;
 	u_int32_t sc_intr_mode[MAX_GPIO_INOUT];
-	TAILQ_HEAD(, vrgiu_intr_entry) sc_intr_head[MAX_GPIO_INOUT]; 
+	TAILQ_HEAD(, vrgiu_intr_entry) sc_intr_head[MAX_GPIO_INOUT];
 	/* Platform dependent port mapping XXX Should not be in here? */
 	int sc_gpio_map[MAX_GPIO_OUT];
 };

@@ -17,16 +17,16 @@
   1. Redistributions of source code must retain the above copyright
      notice, this list of conditions and the following disclaimer.
 
-  2. The origin of this software must not be misrepresented; you must 
-     not claim that you wrote the original software.  If you use this 
-     software in a product, an acknowledgment in the product 
+  2. The origin of this software must not be misrepresented; you must
+     not claim that you wrote the original software.  If you use this
+     software in a product, an acknowledgment in the product
      documentation would be appreciated but is not required.
 
   3. Altered source versions must be plainly marked as such, and must
      not be misrepresented as being the original software.
 
-  4. The name of the author may not be used to endorse or promote 
-     products derived from this software without specific prior written 
+  4. The name of the author may not be used to endorse or promote
+     products derived from this software without specific prior written
      permission.
 
   THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS
@@ -65,12 +65,12 @@
 
 /*--
    WARNING:
-      This program and library (attempts to) compress data by 
-      performing several non-trivial transformations on it.  
-      Unless you are 100% familiar with *all* the algorithms 
-      contained herein, and with the consequences of modifying them, 
-      you should NOT meddle with the compression or decompression 
-      machinery.  Incorrect changes can and very likely *will* 
+      This program and library (attempts to) compress data by
+      performing several non-trivial transformations on it.
+      Unless you are 100% familiar with *all* the algorithms
+      contained herein, and with the consequences of modifying them,
+      you should NOT meddle with the compression or decompression
+      machinery.  Incorrect changes can and very likely *will*
       lead to disasterous loss of data.
 
    DISCLAIMER:
@@ -85,8 +85,8 @@
       of various special cases in the code which occur with very low
       but non-zero probability make it impossible to rule out the
       possibility of bugs remaining in the program.  DO NOT COMPRESS
-      ANY DATA WITH THIS PROGRAM AND/OR LIBRARY UNLESS YOU ARE PREPARED 
-      TO ACCEPT THE POSSIBILITY, HOWEVER SMALL, THAT THE DATA WILL 
+      ANY DATA WITH THIS PROGRAM AND/OR LIBRARY UNLESS YOU ARE PREPARED
+      TO ACCEPT THE POSSIBILITY, HOWEVER SMALL, THAT THE DATA WILL
       NOT BE RECOVERABLE.
 
       That is not to say this program is inherently unreliable.
@@ -94,9 +94,9 @@
       has been carefully constructed and extensively tested.
 
    PATENTS:
-      To the best of my knowledge, bzip2/libbzip2 does not use any 
-      patented algorithms.  However, I do not have the resources 
-      available to carry out a full patent search.  Therefore I cannot 
+      To the best of my knowledge, bzip2/libbzip2 does not use any
+      patented algorithms.  However, I do not have the resources
+      available to carry out a full patent search.  Therefore I cannot
       give any guarantee of the above statement.
 --*/
 
@@ -238,7 +238,7 @@ typedef int             Int32;
 typedef unsigned int    UInt32;
 typedef short           Int16;
 typedef unsigned short  UInt16;
-                                       
+
 #define True  ((Bool)1)
 #define False ((Bool)0)
 
@@ -327,8 +327,8 @@ void compressStream ( FILE *stream, FILE *zStream )
    if (ferror(stream)) goto errhandler_io;
    if (ferror(zStream)) goto errhandler_io;
 
-   bzf = bzWriteOpen ( &bzerr, zStream, 
-                       blockSize100k, verbosity, workFactor );   
+   bzf = bzWriteOpen ( &bzerr, zStream,
+                       blockSize100k, verbosity, workFactor );
    if (bzerr != BZ_OK) goto errhandler;
 
    if (verbosity >= 2) fprintf ( stderr, "\n" );
@@ -410,8 +410,8 @@ Bool uncompressStream ( FILE *zStream, FILE *stream )
 
    while (True) {
 
-      bzf = bzReadOpen ( 
-               &bzerr, zStream, verbosity, 
+      bzf = bzReadOpen (
+               &bzerr, zStream, verbosity,
                (int)smallMode, unused, nUnused
             );
       if (bzf == NULL || bzerr != BZ_OK) goto errhandler;
@@ -468,10 +468,10 @@ Bool uncompressStream ( FILE *zStream, FILE *stream )
          if (streamNo == 1) {
             return False;
          } else {
-            fprintf ( stderr, 
+            fprintf ( stderr,
                       "\n%s: %s: trailing garbage after EOF ignored\n",
                       progName, inName );
-            return True;       
+            return True;
          }
       default:
          panic ( "decompress:unexpected error" );
@@ -500,8 +500,8 @@ Bool testStream ( FILE *zStream )
 
    while (True) {
 
-      bzf = bzReadOpen ( 
-               &bzerr, zStream, verbosity, 
+      bzf = bzReadOpen (
+               &bzerr, zStream, verbosity,
                (int)smallMode, unused, nUnused
             );
       if (bzf == NULL || bzerr != BZ_OK) goto errhandler;
@@ -551,15 +551,15 @@ Bool testStream ( FILE *zStream )
          return False;
       case BZ_DATA_ERROR_MAGIC:
          if (streamNo == 1) {
-          fprintf ( stderr, 
+          fprintf ( stderr,
                     "\n%s: bad magic number (ie, not created by bzip2)\n",
                     inName );
             return False;
          } else {
-            fprintf ( stderr, 
+            fprintf ( stderr,
                       "\n%s: %s: trailing garbage after EOF ignored\n",
                       progName, inName );
-            return True;       
+            return True;
          }
       default:
          panic ( "test:unexpected error" );
@@ -593,7 +593,7 @@ void showFileNames ( void )
    fprintf (
       stderr,
       "\tInput file = %s, output file = %s\n",
-      inName, outName 
+      inName, outName
    );
 }
 
@@ -615,10 +615,10 @@ void cleanUpAndFail ( Int32 ec )
                    progName );
    }
    if (numFileNames > 0 && numFilesProcessed < numFileNames) {
-      fprintf ( stderr, 
+      fprintf ( stderr,
                 "%s: WARNING: some files have not been processed:\n"
                 "\t%d specified on command line, %d not processed yet.\n\n",
-                progName, numFileNames, 
+                progName, numFileNames,
                           numFileNames - numFilesProcessed );
    }
    exit ( ec );
@@ -736,7 +736,7 @@ void pad ( Char *s )
 
 
 /*---------------------------------------------*/
-void copyFileName ( Char* to, Char* from ) 
+void copyFileName ( Char* to, Char* from )
 {
    if ( strlen(from) > FILE_NAME_LEN-10 )  {
       fprintf (
@@ -796,9 +796,9 @@ void copyDatePermissionsAndOwner ( Char *srcName, Char *dstName )
 
    retVal = chmod ( dstName, statBuf.st_mode );
    ERROR_IF_NOT_ZERO ( retVal );
-   /* Not sure if this is really portable or not.  Causes 
+   /* Not sure if this is really portable or not.  Causes
       problems on my x86-Linux Redhat 5.0 box.  Decided
-      to omit it from 0.9.0.  JRS, 27 June 98.  If you 
+      to omit it from 0.9.0.  JRS, 27 June 98.  If you
       understand Unix file semantics and portability issues
       well enough to fix this properly, drop me a line
       at jseward@acm.org.

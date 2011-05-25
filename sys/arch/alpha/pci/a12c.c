@@ -118,7 +118,7 @@ a12c_init(ccp, mallocsafe)
 	a12c_pci_init(&ccp->ac_pc, ccp);
 
 	a12c_dma_init(ccp);
-	
+
 	ccp->ac_initted = 1;
 }
 
@@ -144,7 +144,7 @@ a12cattach(parent, self, aux)
 	a12c_init(ccp, 1);
 
 	/* XXX print chipset information */
-	printf(": driver %s over logic %x\n", "$Revision: 1.5 $", 
+	printf(": driver %s over logic %x\n", "$Revision: 1.5 $",
 		A12_ALL_EXTRACT(REGVAL(A12_VERS)));
 
 	pci_a12_pickintr(ccp);

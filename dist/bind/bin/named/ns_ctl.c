@@ -810,7 +810,7 @@ verb_trace(struct ctl_sctx *ctl, struct ctl_sess *sess,
 			     NULL, NULL, NULL, NULL, 0);
 		return;
 	}
-	if (i > 0) 
+	if (i > 0)
 		desired_debug = i;
 	else
 		desired_debug++;

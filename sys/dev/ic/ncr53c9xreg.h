@@ -191,7 +191,7 @@
 /*
    The following registers are only on the ESP406/FAS408.  The
    documentation refers to them as "Control Register Set #1".
-   These are the registers that are visible when bit 7 of 
+   These are the registers that are visible when bit 7 of
    register 0x0d is set.  This bit is common to both register sets.
 */
 

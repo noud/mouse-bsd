@@ -196,77 +196,77 @@ sr        @r{status register}
 sz        @r{size; @samp{.b} or @samp{.w}.  If omitted, default @samp{.w}}
 
 ldc[.b] ea,crb                 bcc[.w] pcrel16
-ldc[.w] ea,sr                  bcc[.b] pcrel8 
+ldc[.w] ea,sr                  bcc[.b] pcrel8
 add[:q] sz qim,ea_noimm        bhs[.w] pcrel16
-add[:g] sz ea,rd               bhs[.b] pcrel8 
+add[:g] sz ea,rd               bhs[.b] pcrel8
 adds sz ea,rd                  bcs[.w] pcrel16
-addx sz ea,rd                  bcs[.b] pcrel8 
+addx sz ea,rd                  bcs[.b] pcrel8
 and sz ea,rd                   blo[.w] pcrel16
-andc[.b] imm8,crb              blo[.b] pcrel8 
+andc[.b] imm8,crb              blo[.b] pcrel8
 andc[.w] imm16,sr              bne[.w] pcrel16
-bpt                            bne[.b] pcrel8 
+bpt                            bne[.b] pcrel8
 bra[.w] pcrel16                beq[.w] pcrel16
-bra[.b] pcrel8                 beq[.b] pcrel8 
+bra[.b] pcrel8                 beq[.b] pcrel8
 bt[.w] pcrel16                 bvc[.w] pcrel16
-bt[.b] pcrel8                  bvc[.b] pcrel8 
+bt[.b] pcrel8                  bvc[.b] pcrel8
 brn[.w] pcrel16                bvs[.w] pcrel16
-brn[.b] pcrel8                 bvs[.b] pcrel8 
+brn[.b] pcrel8                 bvs[.b] pcrel8
 bf[.w] pcrel16                 bpl[.w] pcrel16
-bf[.b] pcrel8                  bpl[.b] pcrel8 
+bf[.b] pcrel8                  bpl[.b] pcrel8
 bhi[.w] pcrel16                bmi[.w] pcrel16
-bhi[.b] pcrel8                 bmi[.b] pcrel8 
+bhi[.b] pcrel8                 bmi[.b] pcrel8
 bls[.w] pcrel16                bge[.w] pcrel16
-bls[.b] pcrel8                 bge[.b] pcrel8 
+bls[.b] pcrel8                 bge[.b] pcrel8
 @page
-blt[.w] pcrel16                mov[:g][.b] imm8,ea_mem       
-blt[.b] pcrel8                 mov[:g][.w] imm16,ea_mem      
-bgt[.w] pcrel16                movfpe[.b] ea,rd              
-bgt[.b] pcrel8                 movtpe[.b] rs,ea_noimm        
-ble[.w] pcrel16                mulxu sz ea,rd                
-ble[.b] pcrel8                 neg sz ea                     
-bclr sz imm4,ea_noimm          nop                           
-bclr sz rs,ea_noimm            not sz ea                     
-bnot sz imm4,ea_noimm          or sz ea,rd                   
-bnot sz rs,ea_noimm            orc[.b] imm8,crb              
-bset sz imm4,ea_noimm          orc[.w] imm16,sr              
-bset sz rs,ea_noimm            pjmp abs24                    
-bsr[.b] pcrel8                 pjmp @@rd                     
-bsr[.w] pcrel16                pjsr abs24                    
-btst sz imm4,ea_noimm          pjsr @@rd                     
-btst sz rs,ea_noimm            prtd imm8                     
-clr sz ea                      prtd imm16                    
-cmp[:e][.b] imm8,rd            prts                          
-cmp[:i][.w] imm16,rd           rotl sz ea                    
-cmp[:g].b imm8,ea_noimm        rotr sz ea                    
-cmp[:g][.w] imm16,ea_noimm     rotxl sz ea                   
-Cmp[:g] sz ea,rd               rotxr sz ea                   
-dadd rs,rd                     rtd imm8                     
-divxu sz ea,rd                 rtd imm16                    
-dsub rs,rd                     rts                          
-exts[.b] rd                    scb/f rs,pcrel8               
-extu[.b] rd                    scb/ne rs,pcrel8             
-jmp @@rd                        scb/eq rs,pcrel8             
-jmp @@(imm8,rd)                 shal sz ea                   
-jmp @@(imm16,rd)                shar sz ea                    
-jmp abs16                      shll sz ea            
-jsr @@rd                        shlr sz ea            
-jsr @@(imm8,rd)                 sleep                 
-jsr @@(imm16,rd)                stc[.b] crb,ea_noimm  
-jsr abs16                      stc[.w] sr,ea_noimm   
-ldm @@sp+,(rlist)               stm (rlist),@@-sp     
-link fp,imm8                   sub sz ea,rd          
-link fp,imm16                  subs sz ea,rd         
-mov[:e][.b] imm8,rd            subx sz ea,rd         
-mov[:i][.w] imm16,rd           swap[.b] rd           
-mov[:l][.w] abs8,rd            tas[.b] ea     
-mov[:l].b abs8,rd              trapa imm4     
-mov[:s][.w] rs,abs8            trap/vs        
-mov[:s].b rs,abs8              tst sz ea      
-mov[:f][.w] @@(disp8,fp),rd     unlk fp        
-mov[:f][.w] rs,@@(disp8,fp)     xch[.w] rs,rd 
-mov[:f].b @@(disp8,fp),rd       xor sz ea,rd   
+blt[.w] pcrel16                mov[:g][.b] imm8,ea_mem
+blt[.b] pcrel8                 mov[:g][.w] imm16,ea_mem
+bgt[.w] pcrel16                movfpe[.b] ea,rd
+bgt[.b] pcrel8                 movtpe[.b] rs,ea_noimm
+ble[.w] pcrel16                mulxu sz ea,rd
+ble[.b] pcrel8                 neg sz ea
+bclr sz imm4,ea_noimm          nop
+bclr sz rs,ea_noimm            not sz ea
+bnot sz imm4,ea_noimm          or sz ea,rd
+bnot sz rs,ea_noimm            orc[.b] imm8,crb
+bset sz imm4,ea_noimm          orc[.w] imm16,sr
+bset sz rs,ea_noimm            pjmp abs24
+bsr[.b] pcrel8                 pjmp @@rd
+bsr[.w] pcrel16                pjsr abs24
+btst sz imm4,ea_noimm          pjsr @@rd
+btst sz rs,ea_noimm            prtd imm8
+clr sz ea                      prtd imm16
+cmp[:e][.b] imm8,rd            prts
+cmp[:i][.w] imm16,rd           rotl sz ea
+cmp[:g].b imm8,ea_noimm        rotr sz ea
+cmp[:g][.w] imm16,ea_noimm     rotxl sz ea
+Cmp[:g] sz ea,rd               rotxr sz ea
+dadd rs,rd                     rtd imm8
+divxu sz ea,rd                 rtd imm16
+dsub rs,rd                     rts
+exts[.b] rd                    scb/f rs,pcrel8
+extu[.b] rd                    scb/ne rs,pcrel8
+jmp @@rd                        scb/eq rs,pcrel8
+jmp @@(imm8,rd)                 shal sz ea
+jmp @@(imm16,rd)                shar sz ea
+jmp abs16                      shll sz ea
+jsr @@rd                        shlr sz ea
+jsr @@(imm8,rd)                 sleep
+jsr @@(imm16,rd)                stc[.b] crb,ea_noimm
+jsr abs16                      stc[.w] sr,ea_noimm
+ldm @@sp+,(rlist)               stm (rlist),@@-sp
+link fp,imm8                   sub sz ea,rd
+link fp,imm16                  subs sz ea,rd
+mov[:e][.b] imm8,rd            subx sz ea,rd
+mov[:i][.w] imm16,rd           swap[.b] rd
+mov[:l][.w] abs8,rd            tas[.b] ea
+mov[:l].b abs8,rd              trapa imm4
+mov[:s][.w] rs,abs8            trap/vs
+mov[:s].b rs,abs8              tst sz ea
+mov[:f][.w] @@(disp8,fp),rd     unlk fp
+mov[:f][.w] rs,@@(disp8,fp)     xch[.w] rs,rd
+mov[:f].b @@(disp8,fp),rd       xor sz ea,rd
 mov[:f].b rs,@@(disp8,fp)       xorc.b imm8,crb
 mov[:g] sz rs,ea_mem           xorc.w imm16,sr
-mov[:g] sz ea,rd              
+mov[:g] sz ea,rd
 @end smallexample
 @end ifset

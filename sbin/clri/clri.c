@@ -114,7 +114,7 @@ main(argc, argv)
 	imax = ufs_rw32(sbp->fs_ncg, needswap) *
 		ufs_rw32(sbp->fs_ipg, needswap);
 	for (i = 1; i < (argc - 1); i++)
-		if (atoi(argv[i]) <= 0 || atoi(argv[i]) >= imax) 
+		if (atoi(argv[i]) <= 0 || atoi(argv[i]) >= imax)
 			errx(1, "%s is not a valid inode number", argv[i]);
 
 	/* delete clean flag in the superblok */

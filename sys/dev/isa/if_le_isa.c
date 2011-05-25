@@ -161,7 +161,7 @@ int le_isa_intredge __P((void *));
 #endif
 
 hide void le_isa_wrcsr __P((struct lance_softc *, u_int16_t, u_int16_t));
-hide u_int16_t le_isa_rdcsr __P((struct lance_softc *, u_int16_t));  
+hide u_int16_t le_isa_rdcsr __P((struct lance_softc *, u_int16_t));
 
 #define	LE_ISA_MEMSIZE	16384
 
@@ -185,11 +185,11 @@ le_isa_rdcsr(sc, port)
 {
 	struct le_softc *lesc = (struct le_softc *)sc;
 	bus_space_tag_t iot = lesc->sc_iot;
-	bus_space_handle_t ioh = lesc->sc_ioh; 
+	bus_space_handle_t ioh = lesc->sc_ioh;
 	u_int16_t val;
 
 	bus_space_write_2(iot, ioh, lesc->sc_rap, port);
-	val = bus_space_read_2(iot, ioh, lesc->sc_rdp); 
+	val = bus_space_read_2(iot, ioh, lesc->sc_rdp);
 	return (val);
 }
 

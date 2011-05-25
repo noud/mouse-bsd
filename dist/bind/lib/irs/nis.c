@@ -37,7 +37,7 @@ static const char rcsid[] = "Id: nis.c,v 1.13 1999/01/18 07:46:58 vixie Exp";
 #include <errno.h>
 
 #include <sys/types.h>
-#include <netinet/in.h> 
+#include <netinet/in.h>
 #include <arpa/nameser.h>
 #include <resolv.h>
 

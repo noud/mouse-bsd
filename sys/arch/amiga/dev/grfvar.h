@@ -44,10 +44,10 @@
 
 struct ite_softc;
 
-/* 
+/*
  * this struct is owned by the driver (grfcc, grfrt)
- * and is passed to grf when grf is configed. The ite also 
- * uses it... 
+ * and is passed to grf when grf is configed. The ite also
+ * uses it...
  */
 struct	grf_softc {
 	struct device  g_device;	/* config sets this up. */

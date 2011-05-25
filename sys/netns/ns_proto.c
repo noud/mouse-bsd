@@ -96,7 +96,7 @@ struct protosw nssw[] = {
 };
 
 struct domain nsdomain =
-    { PF_NS, "network systems", 0, 0, 0, 
+    { PF_NS, "network systems", 0, 0, 0,
       nssw, &nssw[sizeof(nssw)/sizeof(nssw[0])], 0,
       rn_inithead, 16, sizeof(struct sockaddr_ns)};
 

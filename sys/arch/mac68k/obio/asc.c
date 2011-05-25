@@ -303,7 +303,7 @@ ascmmap(dev, off, prot)
 	return (-1);
 }
 
-static int 
+static int
 asc_ring_bell(arg, freq, length, volume)
 	void *arg;
 	int freq, length, volume;
@@ -354,7 +354,7 @@ asc_ring_bell(arg, freq, length, volume)
 	return (0);
 }
 
-static void 
+static void
 asc_stop_bell(arg)
 	void *arg;
 {

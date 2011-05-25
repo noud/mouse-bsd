@@ -35,7 +35,7 @@ static const char rcsid[] = "Id: getnetent_r.c,v 8.4 1999/01/18 07:46:52 vixie E
 
 #ifdef NET_R_RETURN
 
-static NET_R_RETURN 
+static NET_R_RETURN
 copy_netent(struct netent *, struct netent *, NET_R_COPY_ARGS);
 
 NET_R_RETURN
@@ -118,7 +118,7 @@ copy_netent(struct netent *ne, struct netent *nptr, NET_R_COPY_ARGS) {
 	}
 	len += strlen(ne->n_name) + 1;
 	len += numptr * sizeof(char*);
-	
+
 	if (len > buflen) {
 		errno = ERANGE;
 		return (NET_R_BAD);

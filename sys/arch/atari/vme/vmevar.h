@@ -39,7 +39,7 @@
 
 #include <machine/bus.h>
 
-/* 
+/*
  * Structures and definitions needed by the machine-dependent header.
  */
 struct vmebus_attach_args;

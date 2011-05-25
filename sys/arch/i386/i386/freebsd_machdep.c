@@ -332,7 +332,7 @@ netbsd_to_freebsd_ptrace_regs(nregs, nfpregs, fregs)
 		*(struct freebsd_env87 *)&nframe->sv_env;
 	memcpy(fregs->freebsd_ptrace_fpregs.sv_ac, nframe->sv_ac,
 	      sizeof(fregs->freebsd_ptrace_fpregs.sv_ac));
-	fregs->freebsd_ptrace_fpregs.sv_ex_sw = 
+	fregs->freebsd_ptrace_fpregs.sv_ex_sw =
 		nframe->sv_ex_sw;
 	/*
 	 * fortunately, sizeof(freebsd_save87) >= sizeof(save87)
@@ -414,13 +414,13 @@ freebsd_ptrace_getregs(fregs, addr, datap)
 		*datap = FREEBSD_REGS_OFFSET + FREEBSD_USRSTACK;
 		return 0;
 	} else if (offset >= FREEBSD_REGS_OFFSET &&
-		   offset <= FREEBSD_REGS_OFFSET + 
+		   offset <= FREEBSD_REGS_OFFSET +
 		      sizeof(fregs->freebsd_ptrace_regs)-sizeof(register_t)) {
 		*datap = *(register_t *)&((caddr_t)&fregs->freebsd_ptrace_regs)
 			[(vaddr_t) addr - FREEBSD_REGS_OFFSET];
 		return 0;
 	} else if (offset >= FREEBSD_U_SAVEFP_OFFSET &&
-		   offset <= FREEBSD_U_SAVEFP_OFFSET + 
+		   offset <= FREEBSD_U_SAVEFP_OFFSET +
 		      sizeof(fregs->freebsd_ptrace_fpregs)-sizeof(register_t)){
 		*datap= *(register_t *)&((caddr_t)&fregs->freebsd_ptrace_fpregs)
 			[offset - FREEBSD_U_SAVEFP_OFFSET];
@@ -447,7 +447,7 @@ freebsd_ptrace_setregs(fregs, addr, data)
 			[offset - FREEBSD_REGS_OFFSET] = data;
 		return 0;
 	} else if (offset >= FREEBSD_U_SAVEFP_OFFSET &&
-		   offset <= FREEBSD_U_SAVEFP_OFFSET + 
+		   offset <= FREEBSD_U_SAVEFP_OFFSET +
 			sizeof(fregs->freebsd_ptrace_fpregs) - sizeof(int)) {
 		*(int *)&((caddr_t)&fregs->freebsd_ptrace_fpregs)
 			[offset - FREEBSD_U_SAVEFP_OFFSET] = data;

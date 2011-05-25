@@ -91,7 +91,7 @@ struct lkm_dev coda_lkm_dev = {
  */
 int
 coda_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

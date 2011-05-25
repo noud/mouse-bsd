@@ -80,7 +80,7 @@ __RCSID("$NetBSD: mkarp.c,v 1.3 2000/02/11 11:27:20 abs Exp $");
 
 #include "mkarp.h"
 
-int	rtmsg __P((int, int, struct rt_msghdr *, struct sockaddr_inarp *, 
+int	rtmsg __P((int, int, struct rt_msghdr *, struct sockaddr_inarp *,
 		   struct sockaddr_dl *));
 struct	{
 	struct	rt_msghdr m_rtm;
@@ -88,7 +88,7 @@ struct	{
 }	m_rtmsg;
 
 /*
- * Set an individual arp entry 
+ * Set an individual arp entry
  */
 int
 mkarp(haddr, ipaddr)

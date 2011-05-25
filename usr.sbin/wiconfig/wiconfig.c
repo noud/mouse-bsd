@@ -266,7 +266,7 @@ wi_hex2int(char c)
 	if (c >= 'a' && c <= 'f')
                 return (c - 'a' + 10);
 
-	return (0); 
+	return (0);
 }
 
 static void wi_str2key(s, k)
@@ -505,7 +505,7 @@ static void wi_dumpinfo(iface)
 			break;
 		default:
 			break;
-		}	
+		}
 		printf("\n");
 	}
 
@@ -539,7 +539,7 @@ static void wi_dumpinfo(iface)
 				break;
 			default:
 				break;
-			}	
+			}
 			printf("\n");
 		}
 	}

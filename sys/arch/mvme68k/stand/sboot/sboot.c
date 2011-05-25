@@ -37,7 +37,7 @@
 
 #include "sboot.h"
 
-void sboot() 
+void sboot()
 
 {
   char * mesg;
@@ -64,7 +64,7 @@ void sboot()
  * exit to rom
  */
 
-void callrom () 
+void callrom ()
 {
   asm("trap #15; .word 0x0063");
 }
@@ -89,12 +89,12 @@ char *buf, *ebuf;
 		servip[1], servip[2], servip[3]);
     } else  {
 	printf ("Failed.\n");
-    } 
+    }
     return;
   case 'e':
     printf("exiting to ROM\n");
     callrom();
-    return; 
+    return;
   case 'f':
     if (do_get_file() == 1) {
       printf("Download Failed\n");

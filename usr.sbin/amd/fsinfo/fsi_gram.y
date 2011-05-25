@@ -38,7 +38,7 @@
  *
  *	%W% (Berkeley) %G%
  *
- * Id: fsi_gram.y,v 1.3 1999/04/16 14:21:14 ezk Exp 
+ * Id: fsi_gram.y,v 1.3 1999/04/16 14:21:14 ezk Exp
  *
  */
 

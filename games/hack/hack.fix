@@ -53,7 +53,7 @@ West Germany
   	    (u.uinshop != roomno + 1 || shlevel != dlevel || !shopkeeper)) {
   		if(shopkeeper) {
   		    if(ESHK(shopkeeper)->billct) {
-  			if(inroom(shopkeeper->mx, shopkeeper->my) 
+  			if(inroom(shopkeeper->mx, shopkeeper->my)
 ***************
 *** 136,142
   		u.uinshop = 0;
@@ -68,7 +68,7 @@ West Germany
   	    (u.uinshop != roomno + 1 || shlevel != dlevel || !shopkeeper)) {
   		if(shopkeeper) {
   		    if(ESHK(shopkeeper)->billct) {
-! 			if(inroom(shopkeeper->mx, shopkeeper->my) 
+! 			if(inroom(shopkeeper->mx, shopkeeper->my)
 ! 			    == u.uinshop - 1)	/* ab@unido */
 ! 			    pline("Somehow you escaped the shop without paying!");
   			addupbill();

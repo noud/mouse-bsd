@@ -66,7 +66,7 @@ if [ $? -eq 0 ]; then
 fi
 
 if [ -z ${servertype} ]; then
-	cat 1>&2 << __usage 
+	cat 1>&2 << __usage
 usage: 	${progname} -c [domainname]
 	${progname} -m [domainname]
 	${progname} -s master_server [domainname]
@@ -256,7 +256,7 @@ master)
 	done
 	newsubdir="${newsubdir} ${domain}"
 
-	if [ -f ${yp_dir}/Makefile.tmp ]; then 
+	if [ -f ${yp_dir}/Makefile.tmp ]; then
 		rm ${yp_dir}/Makefile.tmp
 	fi
 

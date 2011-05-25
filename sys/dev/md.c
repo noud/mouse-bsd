@@ -451,7 +451,7 @@ md_ioctl_kalloc(sc, umd, proc)
 	sc->sc_size = (size_t)size;
 	sc->sc_type = MD_KMEM_ALLOCATED;
 	return 0;
-}	
+}
 
 #if MEMORY_DISK_SERVER
 
@@ -489,7 +489,7 @@ md_ioctl_server(sc, umd, proc)
 	sc->sc_size = 0;
 
 	return (error);
-}	
+}
 
 int md_sleep_pri = PWAIT | PCATCH;
 

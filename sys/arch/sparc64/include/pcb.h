@@ -103,7 +103,7 @@
  * The only other register we need to save is %cwp because it cannot
  * be trivially computed from the other registers.  The %cwp is
  * stored in the %tstate register, but if the machine was in a register
- * window spill/fill handler, the value of that %cwp may be off by 
+ * window spill/fill handler, the value of that %cwp may be off by
  * as much as 2 register windows.  We will also store %cwp.  [We will
  * try to steal pcb_uw or pcb_nsaved for this purpose eventually.]
  *
@@ -121,7 +121,7 @@
  * full windows we have.  As soon as a flush traps, we dump all user
  * windows to the pcb, handle the fault, then restore all user windows.
  *
- * XXX we are using pcb_nsaved as the counter.  pcb_uw is still a mask.  
+ * XXX we are using pcb_nsaved as the counter.  pcb_uw is still a mask.
  * change this as soon as the new scheme is debugged.
  */
 struct pcb {

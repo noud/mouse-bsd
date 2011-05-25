@@ -48,7 +48,7 @@ typedef enum { SA_INVERSE } scr_attr_t;
 
 /* Key type argument to scr_keyval(). */
 typedef enum { KEY_VEOF, KEY_VERASE, KEY_VKILL, KEY_VWERASE } scr_keyval_t;
- 
+
 /*
  * GS:
  *

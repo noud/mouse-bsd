@@ -440,7 +440,7 @@ pgdelete(pgrp)
 	register struct pgrp *pgrp;
 {
 
-	if (pgrp->pg_session->s_ttyp != NULL && 
+	if (pgrp->pg_session->s_ttyp != NULL &&
 	    pgrp->pg_session->s_ttyp->t_pgrp == pgrp)
 		pgrp->pg_session->s_ttyp->t_pgrp = NULL;
 	LIST_REMOVE(pgrp, pg_hash);
@@ -497,7 +497,7 @@ fixjobc(p, pgrp, entering)
 	}
 }
 
-/* 
+/*
  * A process group has become orphaned;
  * if there are any stopped processes in the group,
  * hang-up all process in that group.
@@ -561,7 +561,7 @@ pgrpdump()
 				    pgrp->pg_members.lh_first);
 				for (p = pgrp->pg_members.lh_first; p != 0;
 				    p = p->p_pglist.le_next) {
-					printf("\t\tpid %d addr %p pgrp %p\n", 
+					printf("\t\tpid %d addr %p pgrp %p\n",
 					    p->p_pid, p, p->p_pgrp);
 				}
 			}

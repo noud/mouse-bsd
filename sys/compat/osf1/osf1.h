@@ -391,7 +391,7 @@ struct osf1_rusage {
 #define OSF1_RLIMIT_NOFILE	6
 #define OSF1_RLIMIT_AS		7
 
-#define OSF1_RLIM_INFINITY	0x7fffffffffffffffL 
+#define OSF1_RLIM_INFINITY	0x7fffffffffffffffL
 
 struct osf1_rlimit {
 	rlim_t	rlim_cur;

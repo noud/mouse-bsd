@@ -51,7 +51,7 @@
  * John Markus Bj,Ax(Brndalen
  * Department of Computer Science
  * University of Troms,Ax(B
- * Norway             
+ * Norway
  * johnm@staff.cs.uit.no, http://www.cs.uit.no/~johnm/
  */
 

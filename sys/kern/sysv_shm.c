@@ -181,7 +181,7 @@ shm_delete_mapping(vm, shmmap_s)
 	struct shmid_ds *shmseg;
 	int segnum, result;
 	size_t size;
-	
+
 	segnum = IPCID_TO_IX(shmmap_s->shmid);
 	shmseg = &shmsegs[segnum];
 	size = (shmseg->shm_segsz + PGOFSET) & ~PGOFSET;
@@ -273,7 +273,7 @@ sys_shmat(p, v, retval)
 	flags = MAP_ANON | MAP_SHARED;
 	if (SCARG(uap, shmaddr)) {
 		flags |= MAP_FIXED;
-		if (SCARG(uap, shmflg) & SHM_RND) 
+		if (SCARG(uap, shmflg) & SHM_RND)
 			attach_va =
 			    (vaddr_t)SCARG(uap, shmaddr) & ~(SHMLBA-1);
 		else if (((vaddr_t)SCARG(uap, shmaddr) & (SHMLBA-1)) == 0)
@@ -314,7 +314,7 @@ sys___shmctl13(p, v, retval)
 		syscallarg(int) shmid;
 		syscallarg(int) cmd;
 		syscallarg(struct shmid_ds *) buf;
-	} */ *uap = v;  
+	} */ *uap = v;
 	struct shmid_ds shmbuf;
 	int cmd, error;
 
@@ -439,7 +439,7 @@ shmget_allocate_segment(p, uap, mode, retval)
 	struct shmid_ds *shmseg;
 	struct shm_handle *shm_handle;
 	int error = 0;
-	
+
 	if (SCARG(uap, size) < shminfo.shmmin ||
 	    SCARG(uap, size) > shminfo.shmmax)
 		return EINVAL;
@@ -521,7 +521,7 @@ sys_shmget(p, v, retval)
 				goto again;
 			return error;
 		}
-		if ((SCARG(uap, shmflg) & IPC_CREAT) == 0) 
+		if ((SCARG(uap, shmflg) & IPC_CREAT) == 0)
 			return ENOENT;
 	}
 	return shmget_allocate_segment(p, uap, mode, retval);

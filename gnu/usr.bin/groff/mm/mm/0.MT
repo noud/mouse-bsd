@@ -63,7 +63,7 @@ TM
 .\"------------
 .\" index arg1
 .de cov@print-au1
-.if d cov*au!\\$1!\\$2 \\*[cov*au!\\$1!\\$2] 
+.if d cov*au!\\$1!\\$2 \\*[cov*au!\\$1!\\$2]
 ..
 .\"------------
 .de cov@print-au2

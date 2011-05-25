@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: srvr_amfs_auto.c,v 1.2 1999/01/10 21:53:53 ezk Exp 
+ * Id: srvr_amfs_auto.c,v 1.2 1999/01/10 21:53:53 ezk Exp
  *
  */
 

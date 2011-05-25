@@ -70,7 +70,7 @@ bool operator<(const queue<T, Sequence>& x, const queue<T, Sequence>& y) {
 }
 
 #ifndef __STL_LIMITED_DEFAULT_TEMPLATES
-template <class T, class Sequence = vector<T>, 
+template <class T, class Sequence = vector<T>,
           class Compare = less<typename Sequence::value_type> >
 #else
 template <class T, class Sequence, class Compare>
@@ -93,14 +93,14 @@ public:
   priority_queue(InputIterator first, InputIterator last, const Compare& x)
     : c(first, last), comp(x) { make_heap(c.begin(), c.end(), comp); }
   template <class InputIterator>
-  priority_queue(InputIterator first, InputIterator last) 
+  priority_queue(InputIterator first, InputIterator last)
     : c(first, last) { make_heap(c.begin(), c.end(), comp); }
 #else /* __STL_MEMBER_TEMPLATES */
-  priority_queue(const value_type* first, const value_type* last, 
+  priority_queue(const value_type* first, const value_type* last,
                  const Compare& x) : c(first, last), comp(x) {
     make_heap(c.begin(), c.end(), comp);
   }
-  priority_queue(const value_type* first, const value_type* last) 
+  priority_queue(const value_type* first, const value_type* last)
     : c(first, last) { make_heap(c.begin(), c.end(), comp); }
 #endif /* __STL_MEMBER_TEMPLATES */
 
@@ -109,7 +109,7 @@ public:
   const_reference top() const { return c.front(); }
   void push(const value_type& x) {
     __STL_TRY {
-      c.push_back(x); 
+      c.push_back(x);
       push_heap(c.begin(), c.end(), comp);
     }
     __STL_UNWIND(c.clear());

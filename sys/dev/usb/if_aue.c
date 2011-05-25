@@ -126,7 +126,7 @@
 
 #if defined(__NetBSD__) || defined(__OpenBSD__)
 #ifdef INET
-#include <netinet/in.h> 
+#include <netinet/in.h>
 #include <netinet/if_inarp.h>
 #endif
 
@@ -557,7 +557,7 @@ aue_miibus_statchg(dev)
 #define AUE_POLY	0xEDB88320
 #define AUE_BITS	6
 
-static u_int32_t 
+static u_int32_t
 aue_crc(addr)
 	caddr_t			addr;
 {
@@ -658,7 +658,7 @@ aue_reset(sc)
   	 */
 	csr_write_1(sc, AUE_GPIO0, AUE_GPIO_OUT0|AUE_GPIO_SEL0);
   	csr_write_1(sc, AUE_GPIO0, AUE_GPIO_OUT0|AUE_GPIO_SEL0|AUE_GPIO_SEL1);
-  
+
 	/* Grrr. LinkSys has to be different from everyone else. */
 	if ((sc->aue_vendor == USB_VENDOR_LINKSYS &&
 	     sc->aue_product == USB_PRODUCT_LINKSYS_USB100TX) ||
@@ -934,7 +934,7 @@ USB_DETACH(aue)
 	sc->aue_attached = 0;
 	splx(s);
 
-	usbd_add_drv_event(USB_EVENT_DRIVER_DETACH, sc->aue_udev, 
+	usbd_add_drv_event(USB_EVENT_DRIVER_DETACH, sc->aue_udev,
 			   USBDEV(sc->aue_dev));
 
 	return (0);
@@ -1005,7 +1005,7 @@ aue_newbuf(sc, c, m)
 	return (0);
 }
 
-static int 
+static int
 aue_rx_list_init(sc)
 	struct aue_softc	*sc;
 {
@@ -1548,7 +1548,7 @@ aue_openpipes(sc)
 	}
 	err = usbd_open_pipe_intr(sc->aue_iface, sc->aue_ed[AUE_ENDPT_INTR],
 	    USBD_EXCLUSIVE_USE, &sc->aue_ep[AUE_ENDPT_INTR], sc,
-	    &sc->aue_cdata.aue_ibuf, AUE_INTR_PKTLEN, aue_intr, 
+	    &sc->aue_cdata.aue_ibuf, AUE_INTR_PKTLEN, aue_intr,
 	    AUE_INTR_INTERVAL);
 	if (err) {
 		printf("%s: open intr pipe failed: %s\n",

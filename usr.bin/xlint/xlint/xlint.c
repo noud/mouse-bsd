@@ -151,7 +151,7 @@ appstrg(lstp, s)
 	lst[i] = s;
 	lst[i + 1] = NULL;
 	*lstp = lst;
-}	
+}
 
 static void
 appcstrg(lstp, s)
@@ -286,7 +286,7 @@ usage()
 	(void)fprintf(stderr,
     "Usage: %s [-abceghprvxzHF] [-s|-t] [-i|-nu] [-Dname[=def]] [-Uname]\n",
 	    __progname);
-	(void)fprintf(stderr, 
+	(void)fprintf(stderr,
     "\t[-Idirectory] [-Ldirectory] [-llibrary] [-ooutputfile] file ...\n");
 	(void)fprintf(stderr,
     "       %s [-abceghprvzHF] [-s|-t] -Clibrary [-Dname[=def]]\n", __progname);
@@ -456,7 +456,7 @@ main(argc, argv)
 			appcstrg(&cflags, "-idirafter");
 			appcstrg(&cflags, optarg);
 			break;
-			
+
 		case 'D':
 		case 'I':
 		case 'U':
@@ -611,7 +611,7 @@ fname(name, last)
 		warn("ftruncate");
 		terminate(-1);
 	}
-	 
+
 	runchild(path, args, cppout, cppoutfd);
 	free(path);
 	freelst(&args);
@@ -748,7 +748,7 @@ lint2()
 
 	path = xmalloc(strlen(PATH_LIBEXEC) + sizeof ("/lint2"));
 	(void)sprintf(path, "%s/lint2", PATH_LIBEXEC);
-	
+
 	appcstrg(&args, path);
 	applst(&args, l2flags);
 	applst(&args, l2libs);

@@ -653,7 +653,7 @@ cleanup:
 		else if (name[3] == PROC_PID_LIMIT_TYPE_SOFT)
 			error = sysctl_quad(oldp, oldlenp, newp, newlen,
 			    &alim.rlim_cur);
-		else 
+		else
 			error = EINVAL;
 
 		if (error)

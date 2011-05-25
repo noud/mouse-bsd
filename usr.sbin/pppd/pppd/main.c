@@ -761,7 +761,7 @@ main(argc, argv)
 	}
 
 	if (!demand) {
-	    
+
 	    info("Using interface ppp%d", ifunit);
 	    slprintf(ifname, sizeof(ifname), "ppp%d", ifunit);
 	    script_setenv("IFNAME", ifname);
@@ -843,7 +843,7 @@ main(argc, argv)
 	 */
 	if (!demand) {
 	    if (pidfilename[0] != 0
-		&& unlink(pidfilename) < 0 && errno != ENOENT) 
+		&& unlink(pidfilename) < 0 && errno != ENOENT)
 		warn("unable to delete pid file %s: %m", pidfilename);
 	    pidfilename[0] = 0;
 	}
@@ -891,7 +891,7 @@ main(argc, argv)
 
 	if (!demand) {
 	    if (pidfilename[0] != 0
-		&& unlink(pidfilename) < 0 && errno != ENOENT) 
+		&& unlink(pidfilename) < 0 && errno != ENOENT)
 		warn("unable to delete pid file %s: %m", pidfilename);
 	    pidfilename[0] = 0;
 	}
@@ -1155,10 +1155,10 @@ cleanup()
     if (real_ttyfd >= 0)
 	close_tty();
 
-    if (pidfilename[0] != 0 && unlink(pidfilename) < 0 && errno != ENOENT) 
+    if (pidfilename[0] != 0 && unlink(pidfilename) < 0 && errno != ENOENT)
 	warn("unable to delete pid file %s: %m", pidfilename);
     pidfilename[0] = 0;
-    if (linkpidfile[0] != 0 && unlink(linkpidfile) < 0 && errno != ENOENT) 
+    if (linkpidfile[0] != 0 && unlink(linkpidfile) < 0 && errno != ENOENT)
 	warn("unable to delete pid file %s: %m", linkpidfile);
     linkpidfile[0] = 0;
 
@@ -1243,9 +1243,9 @@ timeout(func, arg, time)
     int time;
 {
     struct callout *newp, *p, **pp;
-  
+
     MAINDEBUG(("Timeout %p:%p in %d seconds.", func, arg, time));
-  
+
     /*
      * Allocate timeout.
      */
@@ -1256,7 +1256,7 @@ timeout(func, arg, time)
     gettimeofday(&timenow, NULL);
     newp->c_time.tv_sec = timenow.tv_sec + time;
     newp->c_time.tv_usec = timenow.tv_usec;
-  
+
     /*
      * Find correct place and link it in.
      */
@@ -1279,9 +1279,9 @@ untimeout(func, arg)
     void *arg;
 {
     struct callout **copp, *freep;
-  
+
     MAINDEBUG(("Untimeout %p:%p.", func, arg));
-  
+
     /*
      * Find first matching timeout and remove it from the list.
      */
@@ -1642,7 +1642,7 @@ run_program(prog, args, must_exist, done, arg)
 #ifdef BSD
 	/* Force the priority back to zero if pppd is running higher. */
 	if (setpriority (PRIO_PROCESS, 0, 0) < 0)
-	    warn("can't reset priority to 0: %m"); 
+	    warn("can't reset priority to 0: %m");
 #endif
 
 	/* SysV recommends a second fork at this point. */

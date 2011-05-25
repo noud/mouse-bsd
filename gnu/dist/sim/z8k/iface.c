@@ -69,7 +69,7 @@ sim_read (where, what, howmuch)
   return howmuch;
 }
 
-static void 
+static void
 control_c (sig, code, scp, addr)
      int sig;
      int code;

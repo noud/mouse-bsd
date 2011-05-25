@@ -15,7 +15,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *	This product includes software developed at Ludd, University of 
+ *	This product includes software developed at Ludd, University of
  *	Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -111,7 +111,7 @@ struct	vsbus_softc {
 	struct vax_bus_dma_tag sc_dmatag;
 };
 
-struct	cfattach vsbus_ca = { 
+struct	cfattach vsbus_ca = {
 	sizeof(struct vsbus_softc), vsbus_match, vsbus_attach
 };
 
@@ -126,7 +126,7 @@ vsbus_print(aux, name)
 
 	printf(" csr 0x%lx vec %o ipl %x maskbit %d", va->va_paddr,
 	    va->va_cvec & 511, va->va_br, va->va_maskno - 1);
-	return(UNCONF); 
+	return(UNCONF);
 }
 
 int
@@ -175,7 +175,7 @@ vsbus_attach(parent, self, aux)
 	/*
 	 * First: find which interrupts we won't care about.
 	 * There are interrupts that interrupt on a periodic basic
-	 * that we don't want to interfere with the rest of the 
+	 * that we don't want to interfere with the rest of the
 	 * interrupt probing.
 	 */
 	*sc->sc_intmsk = 0;

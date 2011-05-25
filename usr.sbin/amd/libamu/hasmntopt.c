@@ -40,7 +40,7 @@ n * modification, are permitted provided that the following conditions
  *
  *      %W% (Berkeley) %G%
  *
- * Id: hasmntopt.c,v 1.2 1999/01/10 21:54:37 ezk Exp 
+ * Id: hasmntopt.c,v 1.2 1999/01/10 21:54:37 ezk Exp
  *
  */
 

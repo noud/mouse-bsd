@@ -63,8 +63,8 @@ message dlgeom
 disklabel and the disklabel reports geometry that is different from
 the real geometry.  The two geometries are:
 
-disklabel:	%d cylinders, %d heads, %d sectors 
-real geometry:	%d cylinders, %d heads, %d sectors 
+disklabel:	%d cylinders, %d heads, %d sectors
+real geometry:	%d cylinders, %d heads, %d sectors
 }
 
 /* the %s's will expand into three character strings */

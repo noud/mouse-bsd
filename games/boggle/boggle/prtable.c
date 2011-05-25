@@ -61,7 +61,7 @@ static int	get_maxlen __P((const char *const [], int, int (*)(const char *const 
  *	width	- max line width if not zero
  *	prentry - address of the routine to call to print the string
  *	length  - address of the routine to call to determine the length
- *		  of string to be printed 
+ *		  of string to be printed
  *
  * prtable and length are called with the the address of the base and
  * an index

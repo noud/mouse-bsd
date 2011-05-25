@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -140,7 +140,7 @@ nd6_ns_input(m, off, icmp6len)
 		lladdr = (char *)(ndopts.nd_opts_src_lladdr +1);
 		lladdrlen = ndopts.nd_opts_src_lladdr->nd_opt_len << 3;
 	}
-	
+
 	if (IN6_IS_ADDR_UNSPECIFIED(&ip6->ip6_src) && lladdr) {
 		log(LOG_INFO, "nd6_ns_input: bad DAD packet "
 			"(link-layer address option)\n");
@@ -182,7 +182,7 @@ nd6_ns_input(m, off, icmp6len)
 		struct rtentry *rt;
 		struct sockaddr_in6 tsin6;
 
-		bzero(&tsin6, sizeof tsin6);		
+		bzero(&tsin6, sizeof tsin6);
 		tsin6.sin6_len = sizeof(struct sockaddr_in6);
 		tsin6.sin6_family = AF_INET6;
 		tsin6.sin6_addr = taddr6;
@@ -313,7 +313,7 @@ nd6_ns_output(ifp, daddr6, taddr6, ln, dad)
 	int maxlen;
 	caddr_t mac;
 	struct ifnet *outif = NULL;
-	
+
 	if (IN6_IS_ADDR_MULTICAST(taddr6))
 		return;
 
@@ -454,7 +454,7 @@ nd6_ns_output(ifp, daddr6, taddr6, ln, dad)
 		struct nd_opt_hdr *nd_opt = (struct nd_opt_hdr *)(nd_ns + 1);
 		/* 8 byte alignments... */
 		optlen = (optlen + 7) & ~7;
-		
+
 		m->m_pkthdr.len += optlen;
 		m->m_len += optlen;
 		icmp6len += optlen;
@@ -718,7 +718,7 @@ nd6_na_input(m, off, icmp6len)
 #else
 		nd6_output(ifp, ln->ln_hold,
 			   (struct sockaddr_in6 *)rt_key(rt), rt);
-#endif 
+#endif
 		ln->ln_hold = 0;
 	}
 }
@@ -825,7 +825,7 @@ nd6_na_output(ifp, daddr6, taddr6, flags, tlladdr)
 	if (tlladdr && (mac = nd6_ifptomac(ifp))) {
 		int optlen = sizeof(struct nd_opt_hdr) + ifp->if_addrlen;
 		struct nd_opt_hdr *nd_opt = (struct nd_opt_hdr *)(nd_na + 1);
-		
+
 		/* roundup to 8 bytes alignment! */
 		optlen = (optlen + 7) & ~7;
 

@@ -72,8 +72,8 @@ using __STD::iterator_category;
 using __STD::distance_type;
 using __STD::value_type;
 
-using __STD::distance; 
-using __STD::advance; 
+using __STD::distance;
+using __STD::advance;
 
 using __STD::insert_iterator;
 using __STD::front_insert_iterator;

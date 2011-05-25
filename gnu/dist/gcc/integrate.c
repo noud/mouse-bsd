@@ -92,7 +92,7 @@ get_label_from_map (map, i)
   rtx x = map->label_map[i];
 
   if (x == NULL_RTX)
-    {                     
+    {
       push_obstacks_nochange ();
       end_temporary_allocation ();
       x = map->label_map[i] = gen_label_rtx();
@@ -265,7 +265,7 @@ static int in_nonparm_insns;
 
 /* Subroutine for `save_for_inline{copying,nocopy}'.  Performs initialization
    needed to save FNDECL's insns and info for future inline expansion.  */
-   
+
 static rtx
 initialize_for_inline (fndecl, min_labelno, max_labelno, max_reg, copy)
      tree fndecl;
@@ -404,7 +404,7 @@ initialize_for_inline (fndecl, min_labelno, max_labelno, max_reg, copy)
 /* Subroutine for `save_for_inline{copying,nocopy}'.  Finishes up the
    things that must be done to make FNDECL expandable as an inline function.
    HEAD contains the chain of insns to which FNDECL will expand.  */
-   
+
 static void
 finish_inline (fndecl, head)
      tree fndecl;
@@ -470,7 +470,7 @@ save_for_inline_copying (fndecl)
   rtx *new_parm_reg_stack_loc;
   rtx *new2;
 
-  /* Make and emit a return-label if we have not already done so. 
+  /* Make and emit a return-label if we have not already done so.
      Do this before recording the bounds on label numbers.  */
 
   if (return_label == 0)
@@ -663,11 +663,11 @@ save_for_inline_copying (fndecl)
 	  if (NOTE_LINE_NUMBER (copy) == NOTE_INSN_EH_REGION_BEG
 	      || NOTE_LINE_NUMBER (copy) == NOTE_INSN_EH_REGION_END)
 	    {
-              int new_region = CODE_LABEL_NUMBER 
+              int new_region = CODE_LABEL_NUMBER
                                         (label_map[NOTE_BLOCK_NUMBER (copy)]);
 
               /* we have to duplicate the handlers for the original */
-              if (NOTE_LINE_NUMBER (copy) == NOTE_INSN_EH_REGION_BEG) 
+              if (NOTE_LINE_NUMBER (copy) == NOTE_INSN_EH_REGION_BEG)
                 {
                   handler_info *ptr, *temp;
                   int nr;
@@ -681,11 +681,11 @@ save_for_inline_copying (fndecl)
                       add_new_handler (nr, temp);
                     }
                 }
-                
+
 	      /* We have to forward these both to match the new exception
 		 region.  */
 	      NOTE_BLOCK_NUMBER (copy) = new_region;
-	      
+
 	    }
 	  RTX_INTEGRATED_P (copy) = RTX_INTEGRATED_P (insn);
 	  break;
@@ -949,7 +949,7 @@ save_constants (px)
  again:
   x = *px;
 
-  /* If this is a CONST_DOUBLE, don't try to fix things up in 
+  /* If this is a CONST_DOUBLE, don't try to fix things up in
      CONST_DOUBLE_MEM, because this is an infinite recursion.  */
   if (GET_CODE (x) == CONST_DOUBLE)
     return;
@@ -961,7 +961,7 @@ save_constants (px)
       RTX_INTEGRATED_P (new) = 1;
 
       /* If the MEM was in a different mode than the constant (perhaps we
-	 were only looking at the low-order part), surround it with a 
+	 were only looking at the low-order part), surround it with a
 	 SUBREG so we can save both modes.  */
 
       if (GET_MODE (x) != const_mode)
@@ -1144,7 +1144,7 @@ copy_for_inline (orig)
 	 it is possible for unshare_all_rtl to copy the address, into memory
 	 that won't be saved.  Although the MEM can safely be shared, and
 	 won't be copied there, the address itself cannot be shared, and may
-	 need to be copied. 
+	 need to be copied.
 
 	 There are also two exceptions with constants: The first is if the
 	 constant is a LABEL_REF or the sum of the LABEL_REF
@@ -1468,7 +1468,7 @@ expand_inline_function (fndecl, parms, target, ignore, type,
 			  (TYPE_ALIGN (TREE_TYPE (TREE_TYPE (formal)))
 			   / BITS_PER_UNIT));
     }
-	
+
   /* Allocate the structures we use to remap things.  */
 
   map = (struct inline_remap *) alloca (sizeof (struct inline_remap));
@@ -1731,7 +1731,7 @@ expand_inline_function (fndecl, parms, target, ignore, type,
     {
       if (! structure_value_addr || ! aggregate_value_p (DECL_RESULT (fndecl)))
 	abort ();
-  
+
       /* Pass the function the address in which to return a structure value.
 	 Note that a constructor can cause someone to call us with
 	 STRUCTURE_VALUE_ADDR, but the initialization takes place
@@ -2070,7 +2070,7 @@ expand_inline_function (fndecl, parms, target, ignore, type,
                       ptr = get_first_handler (NOTE_BLOCK_NUMBER (copy));
                       for ( ; ptr; ptr = ptr->next)
                         {
-                          temp = get_new_handler ( get_label_from_map (map, 
+                          temp = get_new_handler ( get_label_from_map (map,
                                       CODE_LABEL_NUMBER (ptr->handler_label)),
                                                                ptr->type_info);
                           add_new_handler (nr, temp);
@@ -2224,7 +2224,7 @@ integrate_decl_tree (let, level, map)
 
   if (level > 0)
     pushlevel (0);
-  
+
   for (t = BLOCK_VARS (let); t; t = TREE_CHAIN (t))
     {
       tree d;
@@ -2388,7 +2388,7 @@ copy_rtx_and_substitute (orig, map)
 	      start_sequence ();
 	      loc = assign_stack_temp (BLKmode, size, 1);
 	      loc = XEXP (loc, 0);
-	      /* When arguments grow downward, the virtual incoming 
+	      /* When arguments grow downward, the virtual incoming
 		 args pointer points to the top of the argument block,
 		 so the remapped location better do the same.  */
 #ifdef ARGS_GROW_DOWNWARD
@@ -2498,7 +2498,7 @@ copy_rtx_and_substitute (orig, map)
     case LABEL_REF:
       copy = gen_rtx_LABEL_REF (mode,
 				LABEL_REF_NONLOCAL_P (orig) ? XEXP (orig, 0)
-				: get_label_from_map (map, 
+				: get_label_from_map (map,
 						      CODE_LABEL_NUMBER (XEXP (orig, 0))));
       LABEL_OUTSIDE_LOOP_P (copy) = LABEL_OUTSIDE_LOOP_P (orig);
 
@@ -2699,7 +2699,7 @@ copy_rtx_and_substitute (orig, map)
 	RTX_UNCHANGING_P (copy) = RTX_UNCHANGING_P (orig);
 
       return copy;
-      
+
     default:
       break;
     }
@@ -2899,7 +2899,7 @@ subst_constants (loc, insn, map)
 	  /* We can't call subst_constants on &SUBREG_REG (x) because any
 	     constant or SUBREG wouldn't be valid inside our SUBEG.  Instead,
 	     see what is inside, try to form the new SUBREG and see if that is
-	     valid.  We handle two cases: extracting a full word in an 
+	     valid.  We handle two cases: extracting a full word in an
 	     integral mode and extracting the low part.  */
 	  subst_constants (&inner, NULL_RTX, map);
 
@@ -3003,7 +3003,7 @@ subst_constants (loc, insn, map)
     }
 
   format_ptr = GET_RTX_FORMAT (code);
-  
+
   /* If the first operand is an expression, save its mode for later.  */
   if (*format_ptr == 'e')
     op0_mode = GET_MODE (XEXP (x, 0));
@@ -3366,7 +3366,7 @@ output_inline_function (fndecl)
   regno_pointer_align = INLINE_REGNO_POINTER_ALIGN (head);
   max_parm_reg = MAX_PARMREG (head);
   parm_reg_stack_loc = (rtx *) PARMREG_STACK_LOC (head);
-  
+
   stack_slot_list = STACK_SLOT_LIST (head);
   forced_labels = FORCED_LABELS (head);
 

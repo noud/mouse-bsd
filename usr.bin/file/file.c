@@ -337,7 +337,7 @@ int wid;
 	}
 
 	if (wid > 0 && !bflag)
-	     (void) printf("%s:%*s ", inname, 
+	     (void) printf("%s:%*s ", inname,
 			   (int) (wid - strlen(inname)), "");
 
 	if (inname != stdname) {

@@ -34,13 +34,13 @@ Boston, MA 02111-1307, USA.  */
    the executable file might be covered by the GNU General Public License.  */
 
 	.code	 16
-	
+
 #ifndef __USER_LABEL_PREFIX__
 #error USER_LABEL_PREFIX not defined
 #endif
 
 #define RET	mov	pc, lr
-	
+
 /* ANSI concatenation macros.  */
 
 #define CONCAT1(a, b) CONCAT2(a, b)
@@ -62,7 +62,7 @@ ip		.req	r12
 sp		.req	r13
 lr		.req	r14
 pc		.req	r15
-	
+
 	.text
 	.globl SYM (__udivsi3)
 	.align 0
@@ -72,7 +72,7 @@ SYM (__udivsi3):
 	beq	Ldiv0
 	mov	curbit, #1
 	mov	result, #0
-	
+
 	push	{ work }
 	cmp	dividend, divisor
 	bcc	Lgot_result
@@ -83,7 +83,7 @@ SYM (__udivsi3):
 Loop1:
 	@ Unless the divisor is very big, shift it up in multiples of
 	@ four bits, since this is the amount of unwinding in the main
-	@ division loop.  Continue shifting until the divisor is 
+	@ division loop.  Continue shifting until the divisor is
 	@ larger than the dividend.
 	cmp	divisor, work
 	bcs     Lbignum
@@ -96,7 +96,7 @@ Loop1:
 Lbignum:
 	@ Set work to 0x80000000
 	lsl	work, #3
-Loop2:		
+Loop2:
 	@ For very big divisors, we must shift it a bit at a time, or
 	@ we will be in danger of overflowing.
 	cmp	divisor, work
@@ -116,28 +116,28 @@ Loop3:
 	bcc     Over1
 	sub	dividend, dividend, divisor
 	orr	result, result, curbit
-Over1:	
+Over1:
 	lsr	work, divisor, #1
 	cmp	dividend, work
 	bcc	Over2
 	sub	dividend, dividend, work
 	lsr	work, curbit, #1
 	orr	result, work
-Over2:	
+Over2:
 	lsr	work, divisor, #2
 	cmp	dividend, work
 	bcc	Over3
 	sub	dividend, dividend, work
 	lsr	work, curbit, #2
 	orr	result, work
-Over3:	
+Over3:
 	lsr	work, divisor, #3
 	cmp	dividend, work
 	bcc	Over4
 	sub	dividend, dividend, work
 	lsr	work, curbit, #3
 	orr	result, work
-Over4:	
+Over4:
 	cmp	dividend, #0			@ Early termination?
 	beq	Lgot_result
 	lsr	curbit,  #4			@ No, any more bits to do?
@@ -177,9 +177,9 @@ SYM (__umodsi3):
 	mov	curbit, #1
 	cmp	dividend, divisor
 	bcs	Over1
-	RET	
+	RET
 
-Over1:	
+Over1:
 	@ Load the constant 0x10000000 into our work register
 	push	{ work }
 	mov	work, #1
@@ -187,7 +187,7 @@ Over1:
 Loop1:
 	@ Unless the divisor is very big, shift it up in multiples of
 	@ four bits, since this is the amount of unwinding in the main
-	@ division loop.  Continue shifting until the divisor is 
+	@ division loop.  Continue shifting until the divisor is
 	@ larger than the dividend.
 	cmp	divisor, work
 	bcs	Lbignum
@@ -212,7 +212,7 @@ Loop2:
 	b	Loop2
 
 Loop3:
-	@ Test for possible subtractions.  On the final pass, this may 
+	@ Test for possible subtractions.  On the final pass, this may
 	@ subtract too much from the dividend, so keep track of which
 	@ subtractions are done, we can fix them up afterwards...
 	mov	overdone, #0
@@ -258,7 +258,7 @@ Over5:
 	lsr	divisor, #4
 	b	Loop3
 
-Over6:	
+Over6:
 	@ Any subtractions that we should not have done will be recorded in
 	@ the top three bits of "overdone".  Exactly which were not needed
 	@ are governed by the position of the bit, stored in ip.
@@ -267,7 +267,7 @@ Over6:
 	@ in the bottom nibble.
 
 	mov	work, #0xe
-	lsl	work, #28	
+	lsl	work, #28
 	and	overdone, work
 	bne	Over7
 	pop	{ work }
@@ -298,7 +298,7 @@ Over9:
 	add	dividend, dividend, work
 Over10:
 	pop	{ work }
-	RET	
+	RET
 
 Ldiv0:
 	push	{ lr }
@@ -325,7 +325,7 @@ pc		.req	r15
 SYM (__divsi3):
 	cmp	divisor, #0
 	beq	Ldiv0
-	
+
 	push	{ work }
 	mov	work, dividend
 	eor	work, divisor		@ Save the sign of the result.
@@ -335,11 +335,11 @@ SYM (__divsi3):
 	cmp	divisor, #0
 	bpl	Over1
 	neg	divisor, divisor	@ Loops below use unsigned.
-Over1:	
+Over1:
 	cmp	dividend, #0
 	bpl	Over2
 	neg	dividend, dividend
-Over2:	
+Over2:
 	cmp	dividend, divisor
 	bcc	Lgot_result
 
@@ -348,7 +348,7 @@ Over2:
 Loop1:
 	@ Unless the divisor is very big, shift it up in multiples of
 	@ four bits, since this is the amount of unwinding in the main
-	@ division loop.  Continue shifting until the divisor is 
+	@ division loop.  Continue shifting until the divisor is
 	@ larger than the dividend.
 	cmp	divisor, work
 	Bcs	Lbignum
@@ -362,7 +362,7 @@ Lbignum:
 	@ For very big divisors, we must shift it a bit at a time, or
 	@ we will be in danger of overflowing.
 	lsl	work, #3
-Loop2:		
+Loop2:
 	cmp	divisor, work
 	Bcs	Loop3
 	cmp	divisor, dividend
@@ -387,28 +387,28 @@ Over3:
 	sub	dividend, dividend, work
 	lsr	work, curbit, #1
 	orr	result, work
-Over4:	
+Over4:
 	lsr	work, divisor, #2
 	cmp	dividend, work
 	Bcc	Over5
 	sub	dividend, dividend, work
 	lsr	work, curbit, #2
 	orr	result, result, work
-Over5:	
+Over5:
 	lsr	work, divisor, #3
 	cmp	dividend, work
 	Bcc	Over6
 	sub	dividend, dividend, work
 	lsr	work, curbit, #3
 	orr	result, result, work
-Over6:	
+Over6:
 	cmp	dividend, #0			@ Early termination?
 	Beq	Lgot_result
 	lsr	curbit, #4			@ No, any more bits to do?
 	Beq	Lgot_result
 	lsr	divisor, #4
 	b	Loop3
-	
+
 Lgot_result:
 	mov	r0, result
 	mov	work, ip
@@ -417,7 +417,7 @@ Lgot_result:
 	neg	r0, r0
 Over7:
 	pop	{ work }
-	RET	
+	RET
 
 Ldiv0:
 	push	{ lr }
@@ -447,7 +447,7 @@ SYM (__modsi3):
 	beq	Ldiv0
 	Bpl	Over1
 	neg	divisor, divisor		@ Loops below use unsigned.
-Over1:	
+Over1:
 	push	{ work }
 	@ Need to save the sign of the dividend, unfortunately, we need
 	@ ip later on.  Must do this after saving the original value of
@@ -456,7 +456,7 @@ Over1:
 	cmp	dividend, #0
 	Bpl	Over2
 	neg	dividend, dividend
-Over2:	
+Over2:
 	cmp	dividend, divisor
 	bcc	Lgot_result
 	mov	work, #1
@@ -464,7 +464,7 @@ Over2:
 Loop1:
 	@ Unless the divisor is very big, shift it up in multiples of
 	@ four bits, since this is the amount of unwinding in the main
-	@ division loop.  Continue shifting until the divisor is 
+	@ division loop.  Continue shifting until the divisor is
 	@ larger than the dividend.
 	cmp	divisor, work
 	bcs	Lbignum
@@ -489,7 +489,7 @@ Loop2:
 	b	Loop2
 
 Loop3:
-	@ Test for possible subtractions.  On the final pass, this may 
+	@ Test for possible subtractions.  On the final pass, this may
 	@ subtract too much from the dividend, so keep track of which
 	@ subtractions are done, we can fix them up afterwards...
 	mov	overdone, #0
@@ -535,7 +535,7 @@ Over6:
 	lsr	divisor, #4
 	b	Loop3
 
-Over7:	
+Over7:
 	@ Any subtractions that we should not have done will be recorded in
 	@ the top three bits of "overdone".  Exactly which were not needed
 	@ are governed by the position of the bit, stored in ip.
@@ -546,7 +546,7 @@ Over7:
 	lsl	work, #28
 	and	overdone, work
 	beq	Lgot_result
-	
+
 	mov	curbit, ip
 	mov	work, #3
 	ror	curbit, work
@@ -577,14 +577,14 @@ Lgot_result:
 	neg	dividend, dividend
 Over10:
 	pop	{ work }
-	RET	
+	RET
 
 Ldiv0:
 	push    { lr }
 	bl	SYM (__div0)
 	mov	r0, #0			@ about as wrong as it could be
 	pop	{ pc }
-	
+
 #endif /* L_modsi3 */
 
 #ifdef L_dvmd_tls
@@ -593,19 +593,19 @@ Ldiv0:
 	.align 0
 	.thumb_func
 SYM (__div0):
-	RET	
+	RET
 
 #endif /* L_divmodsi_tools */
 
-	
+
 #ifdef L_call_via_rX
 
-/* These labels & instructions are used by the Arm/Thumb interworking code. 
-   The address of function to be called is loaded into a register and then 
-   one of these labels is called via a BL instruction.  This puts the 
-   return address into the link register with the bottom bit set, and the 
+/* These labels & instructions are used by the Arm/Thumb interworking code.
+   The address of function to be called is loaded into a register and then
+   one of these labels is called via a BL instruction.  This puts the
+   return address into the link register with the bottom bit set, and the
    code here switches to the correct mode before executing the function.  */
-	
+
 	.text
 	.align 0
 
@@ -638,32 +638,32 @@ SYM (_call_via_\register):
 #ifdef L_interwork_call_via_rX
 
 /* These labels & instructions are used by the Arm/Thumb interworking code,
-   when the target address is in an unknown instruction set.  The address 
+   when the target address is in an unknown instruction set.  The address
    of function to be called is loaded into a register and then one of these
-   labels is called via a BL instruction.  This puts the return address 
-   into the link register with the bottom bit set, and the code here 
+   labels is called via a BL instruction.  This puts the return address
+   into the link register with the bottom bit set, and the code here
    switches to the correct mode before executing the function.  Unfortunately
    the target code cannot be relied upon to return via a BX instruction, so
    instead we have to store the resturn address on the stack and allow the
    called function to return here instead.  Upon return we recover the real
    return address and use a BX to get back to Thumb mode.  */
-	
+
 	.text
 	.align 0
 
 	.code 32
-_arm_return:		
+_arm_return:
 	ldmia 	r13!, {r12}
 	bx 	r12
 	.code 16
 
-.macro interwork register					
+.macro interwork register
 	.globl	SYM (_interwork_call_via_\register)
 	.thumb_func
 SYM (_interwork_call_via_\register):
 	bx 	pc
 	nop
-	
+
 	.code 32
 	.globl .Lchange_\register
 .Lchange_\register:
@@ -673,7 +673,7 @@ SYM (_interwork_call_via_\register):
 	bx	\register
 	.code 16
 .endm
-	
+
 	interwork r0
 	interwork r1
 	interwork r2
@@ -689,7 +689,7 @@ SYM (_interwork_call_via_\register):
 	interwork ip
 	interwork sp
 	interwork lr
-		
+
 #endif /* L_interwork_call_via_rX */
 
-	
+

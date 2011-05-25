@@ -42,17 +42,17 @@
  * All rights reserved.
  *
  * Author: Keith Bostic, Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -170,7 +170,7 @@ ioasicattach(parent, self, aux)
 
 	ioasicfound = 1;
 
-	sc->sc_bst = ta->ta_memt; 
+	sc->sc_bst = ta->ta_memt;
 	if (bus_space_map(ta->ta_memt, ta->ta_addr,
 			0x400000, 0, &sc->sc_bsh)) {
 		printf("%s: unable to map device\n", sc->sc_dv.dv_xname);
@@ -308,11 +308,11 @@ ioasic_intr(val)
 		sir = bus_space_read_4(sc->sc_bst, sc->sc_bsh, IOASIC_INTR);
 
 #ifdef EVCNT_COUNTERS
-	/* No interrupt counting via evcnt counters */ 
+	/* No interrupt counting via evcnt counters */
 	XXX BREAK HERE XXX
 #else /* !EVCNT_COUNTERS */
 #define	INCRINTRCNT(slot)	intrcnt[INTRCNT_IOASIC + slot]++
-#endif /* EVCNT_COUNTERS */ 
+#endif /* EVCNT_COUNTERS */
 
 		/* XXX DUPLICATION OF INTERRUPT BIT INFORMATION... */
 #define	CHECKINTR(slot, bits)						\

@@ -311,7 +311,7 @@ getpkt(buf)
 			SERIAL_WRITE (nindy_serial, "+", 1);
 			return hdr[2];
 		}
-	
+
 		/* Bad checksum: report, send NAK, and re-receive
 		 */
 		fprintf(stderr, errfmt, cs_recv, cs_calc );
@@ -691,7 +691,7 @@ ninConnect( name, baudrate, brk, silent, old_protocol )
     char *name;		/* "/dev/ttyXX" to be opened			*/
     char *baudrate;/* baud rate: a string of ascii decimal digits (eg,"9600")*/
     int brk;		/* 1 => send break to tty first thing after opening it*/
-    int silent;		/* 1 => stifle unnecessary messages when talking to 
+    int silent;		/* 1 => stifle unnecessary messages when talking to
 			 *	this tty.
 			 */
     int old_protocol;
@@ -910,10 +910,10 @@ ninRegPut( regname, val )
  *	Get a dump of the contents of the entire 960 register set.  The
  *	individual registers appear in the dump in the following order:
  *
- *		pfp  sp   rip  r3   r4   r5   r6   r7 
- *		r8   r9   r10  r11  r12  r13  r14  r15 
- *		g0   g1   g2   g3   g4   g5   g6   g7 
- *		g8   g9   g10  g11  g12  g13  g14  fp 
+ *		pfp  sp   rip  r3   r4   r5   r6   r7
+ *		r8   r9   r10  r11  r12  r13  r14  r15
+ *		g0   g1   g2   g3   g4   g5   g6   g7
+ *		g8   g9   g10  g11  g12  g13  g14  fp
  *		pc   ac   ip   tc   fp0  fp1  fp2  fp3
  *
  *	Each individual register comprises exactly 4 bytes, except for

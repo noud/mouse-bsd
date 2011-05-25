@@ -41,4 +41,4 @@ ENTRY(alloca)
 	bic	r0, r0, #0x00000003
 	sub	r13, r13, r0		/* Adjust the stack pointer */
 	mov	r0, r13			/* r0 = base of new space */
-	mov	r15, r14		/* return */ 
+	mov	r15, r14		/* return */

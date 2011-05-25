@@ -368,10 +368,10 @@ tolocal(argc, argv)
 		if ((bp = malloc(len)) == NULL)
 			err(1, NULL);
 		(void)snprintf(bp, len, "%s -f %s", cmd, src);
-		rem = 
+		rem =
 #ifdef KERBEROS
-		    use_kerberos ? 
-			kerberos(&host, bp, pwname, suser) : 
+		    use_kerberos ?
+			kerberos(&host, bp, pwname, suser) :
 #endif
 			rcmd(&host, port, pwname, suser, bp, 0);
 		(void)free(bp);
@@ -728,7 +728,7 @@ bad:			run_err("%s: %s", np, strerror(errno));
 					j = write(ofd, bp->buf, count);
 					if (j != count) {
 						wrerr = YES;
-						wrerrno = j >= 0 ? EIO : errno; 
+						wrerrno = j >= 0 ? EIO : errno;
 					}
 				}
 				count = 0;
@@ -738,7 +738,7 @@ bad:			run_err("%s: %s", np, strerror(errno));
 		if (count != 0 && wrerr == NO &&
 		    (j = write(ofd, bp->buf, count)) != count) {
 			wrerr = YES;
-			wrerrno = j >= 0 ? EIO : errno; 
+			wrerrno = j >= 0 ? EIO : errno;
 		}
 		if (ftruncate(ofd, size)) {
 			run_err("%s: truncate: %s", np, strerror(errno));
@@ -807,9 +807,9 @@ again:
 		errno = 0;
 		if (dest_realm == NULL)
 			dest_realm = krb_realmofhost(*host);
-		rem = 
+		rem =
 #ifdef CRYPT
-		    doencrypt ? 
+		    doencrypt ?
 			krcmd_mutual(host,
 			    port, user, bp, 0, dest_realm, &cred, schedule) :
 #endif

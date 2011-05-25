@@ -213,7 +213,7 @@ clnp_ours(dst)
 	for (ia = iso_ifaddr.tqh_first; ia != 0; ia = ia->ia_list.tqe_next) {
 #ifdef ARGO_DEBUG
 		if (argo_debug[D_ROUTE]) {
-			printf("clnp_ours: ia_sis %p, dst %p\n", 
+			printf("clnp_ours: ia_sis %p, dst %p\n",
 			    &ia->ia_addr, dst);
 		}
 #endif

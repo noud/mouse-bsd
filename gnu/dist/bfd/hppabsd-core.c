@@ -18,14 +18,14 @@
    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
    Written by the Center for Software Science at the University of Utah
-   and by Cygnus Support. 
+   and by Cygnus Support.
 
    The core file structure for the Utah 4.3BSD and OSF1 ports on the
    PA is a mix between traditional cores and hpux cores -- just
    different enough that supporting this format would tend to add
    gross hacks to trad-core.c or hpux-core.c.  So instead we keep any
    gross hacks isolated to this file.  */
-   
+
 
 /* This file can only be compiled on systems which use HPPA-BSD style
    core files.
@@ -183,9 +183,9 @@ hppabsd_core_core_file_p (abfd)
   core_stacksec (abfd) = make_bfd_asection (abfd, ".stack",
 					   SEC_ALLOC + SEC_HAS_CONTENTS,
 					   clicksz * u.u_ssize,
-					   NBPG * (USIZE + KSTAKSIZE) 
+					   NBPG * (USIZE + KSTAKSIZE)
 					     + clicksz * u.u_dsize, 2);
-  core_stacksec (abfd)->vma = USRSTACK; 
+  core_stacksec (abfd)->vma = USRSTACK;
 
   core_datasec (abfd) = make_bfd_asection (abfd, ".data",
 					  SEC_ALLOC + SEC_LOAD
@@ -248,7 +248,7 @@ static void
 swap_abort ()
 {
   /* This way doesn't require any declaration for ANSI to fuck up.  */
-  abort ();	
+  abort ();
 }
 
 #define	NO_GET	((bfd_vma (*) PARAMS ((   const bfd_byte *))) swap_abort )
@@ -290,7 +290,7 @@ const bfd_target hppabsd_core_vec =
      bfd_false, bfd_false,
      bfd_false, bfd_false
     },
-    
+
        BFD_JUMP_TABLE_GENERIC (_bfd_generic),
        BFD_JUMP_TABLE_COPY (_bfd_generic),
        BFD_JUMP_TABLE_CORE (hppabsd_core),

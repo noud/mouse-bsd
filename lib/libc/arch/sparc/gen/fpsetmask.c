@@ -17,7 +17,7 @@ fpsetmask(mask)
 	__asm__("st %%fsr,%0" : "=m" (*&old));
 
 	new = old;
-	new &= ~(0x1f << 23); 
+	new &= ~(0x1f << 23);
 	new |= ((mask & 0x1f) << 23);
 
 	__asm__("ld %0,%%fsr" : : "m" (*&new));

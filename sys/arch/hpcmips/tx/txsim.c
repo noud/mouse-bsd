@@ -62,7 +62,7 @@ txsim_match(parent, match, aux)
 	void *aux;
 {
 	struct mainbus_attach_args *ma = aux;
-    
+
 	if (strcmp(ma->ma_name, match->cf_driver->cd_name))
 		return 0;
 	return 1;
@@ -79,14 +79,14 @@ txsim_attach(parent, self, aux)
 	printf("\n");
 
 	tx_sound_init(tx_conf_get_tag());
-	/* 
-	 *	interrupt, clock module is used by other system module. 
+	/*
+	 *	interrupt, clock module is used by other system module.
 	 *	so attach first.
 	 */
 	sc->sc_pri = 2;
 	config_search(txsim_search, self, txsim_print);
-	/* 
-	 *	Other system module. 
+	/*
+	 *	Other system module.
 	 */
 	sc->sc_pri = 1;
 	config_search(txsim_search, self, txsim_print);
@@ -108,9 +108,9 @@ txsim_search(parent, cf, aux)
 {
 	struct txsim_softc *sc = (void*)parent;
 	struct txsim_attach_args ta;
-	
+
 	ta.ta_tc = tx_conf_get_tag();
-	
+
 	if ((*cf->cf_attach->ca_match)(parent, cf, &ta) == sc->sc_pri) {
 		config_attach(parent, cf, &ta, txsim_print);
 	}

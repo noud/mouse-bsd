@@ -57,7 +57,7 @@ notes for how to use sysinst.
 .It
 Extract the .tgz files.
 For example, to extract base.tgz:
-.Dl Ic cd / 
+.Dl Ic cd /
 .Dl Ic pax -zrvpe -f /gz.files/base.tgz
 .It
 Extract all the .tgz files you want.  You should carefully

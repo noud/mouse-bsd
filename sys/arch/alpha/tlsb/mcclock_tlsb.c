@@ -67,7 +67,7 @@ void	mcclock_tlsb_attach __P((struct device *, struct device *, void *));
 struct cfattach mcclock_tlsb_ca = {
 	sizeof (struct mcclock_tlsb_softc),
 	mcclock_tlsb_match,
-	mcclock_tlsb_attach, 
+	mcclock_tlsb_attach,
 };
 
 extern struct cfdriver mcclock_cd;

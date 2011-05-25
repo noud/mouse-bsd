@@ -69,7 +69,7 @@ void
 net_data_destroy(void *p) {
 	struct net_data *net_data = p;
 
-	
+
 	res_nclose(net_data->res);
 	if (net_data->gr != NULL) {
 		(*net_data->gr->close)(net_data->gr);

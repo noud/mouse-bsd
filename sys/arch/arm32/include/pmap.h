@@ -163,7 +163,7 @@ void	pmap_procwr __P((struct proc *, vm_offset_t, u_long));
 #endif	/* _KERNEL */
 
 /*
- * Useful macros and constants 
+ * Useful macros and constants
  */
 
 /* Virtual address to page table entry */

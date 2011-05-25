@@ -1,16 +1,16 @@
 /*  communicate.c -- ARMulator RDP comms code:  ARM6 Instruction Emulator.
     Copyright (C) 1994 Advanced RISC Machines Ltd.
- 
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
- 
+
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
- 
+
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
@@ -55,7 +55,7 @@ int MYread_char(int sock, unsigned char *c) {
 
   FD_ZERO(&readfds);
   FD_SET(sock, &readfds);
-  
+
   i = select(nfds, &readfds,
 	     (fd_set *) 0,
 	     (fd_set *) 0,
@@ -65,12 +65,12 @@ int MYread_char(int sock, unsigned char *c) {
     perror("select");
     exit(1);
   }
-  
+
   if (!i) {
     fprintf(stderr, "read: Timeout\n");
     return -1;
   }
-  
+
   if ((i = read(sock, c, 1)) < 1) {
     if (!i && sock == debugsock) {
       fprintf(stderr, "Connection with debugger severed.\n");
@@ -91,11 +91,11 @@ int MYread_char(int sock, unsigned char *c) {
     perror("read");
     return -1;
   }
-  
+
 #ifdef DEBUG
   if (sock == debugsock) fprintf(stderr, "<%02x ", *c);
 #endif
-  
+
   return 0;
 }
 
@@ -110,10 +110,10 @@ int MYread_charwait(int sock, unsigned char *c) {
   struct sockaddr_in isa;
 
  retry:
-  
+
   FD_ZERO(&readfds);
   FD_SET(sock, &readfds);
-  
+
   i = select(nfds, &readfds,
 	     (fd_set *) 0,
 	     (fd_set *) 0,
@@ -123,7 +123,7 @@ int MYread_charwait(int sock, unsigned char *c) {
     perror("select");
     exit(-1);
   }
-  
+
   if ((i = read(sock, c, 1)) < 1) {
     if (!i && sock == debugsock) {
       fprintf(stderr, "Connection with debugger severed.\n");
@@ -141,11 +141,11 @@ int MYread_charwait(int sock, unsigned char *c) {
     perror("read");
     return -1;
   }
-  
+
 #ifdef DEBUG
   if (sock == debugsock) fprintf(stderr, "<%02x ", *c);
 #endif
-  
+
   return 0;
 }
 
@@ -154,13 +154,13 @@ void MYwrite_char(int sock, unsigned char c) {
   if (write(sock, &c, 1) < 1)
     perror("write");
 #ifdef DEBUG
-  if (sock == debugsock) fprintf(stderr, ">%02x ", c);  
+  if (sock == debugsock) fprintf(stderr, ">%02x ", c);
 #endif
 }
 
 int MYread_word(int sock, ARMword *here) {
   unsigned char a, b, c, d;
-  
+
   if (MYread_char(sock, &a) < 0) return -1;
   if (MYread_char(sock, &b) < 0) return -1;
   if (MYread_char(sock, &c) < 0) return -1;
@@ -177,7 +177,7 @@ void MYwrite_word(int sock, ARMword i) {
 }
 
 void MYwrite_string(int sock, char *s) {
-  int i;  
+  int i;
   for (i = 0; MYwrite_char(sock, s[i]), s[i]; i++);
 }
 
@@ -199,7 +199,7 @@ void MYwrite_FPword(int sock, char *fromhere) {
 int passon(int source, int dest, int n) {
   char *p;
   int i;
-  
+
   p = (char *) malloc(n);
   if (!p) {
     perror("Out of memory\n");
@@ -208,12 +208,12 @@ int passon(int source, int dest, int n) {
   if (n) {
     for (i = 0; i < n; i++)
       if (MYread_char(source, &p[i]) < 0) return -1;
-    
+
 #ifdef DEBUG
-    if (dest == debugsock) 
+    if (dest == debugsock)
       for (i = 0; i < n; i++) fprintf(stderr, ")%02x ", (unsigned char) p[i]);
 #endif
-    
+
     write(dest, p, n);
   }
   free(p);

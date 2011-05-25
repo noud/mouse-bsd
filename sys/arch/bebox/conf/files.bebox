@@ -34,7 +34,7 @@ major	{wd = 0}
 #
 # Memory Disk for install floppy
 #
-file arch/bebox/bebox/md_root.c   memory_disk_hooks 
+file arch/bebox/bebox/md_root.c   memory_disk_hooks
 major   {md = 17}
 
 #

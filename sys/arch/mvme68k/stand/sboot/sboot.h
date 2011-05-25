@@ -70,12 +70,12 @@ int le_put(u_char *, size_t);
 
 /* etherfun */
 #define READ 0
-#define ACKN 1 
+#define ACKN 1
 void do_rev_arp();
 int get_rev_arp();
 int rev_arp();
 void do_send_tftp( int );
-int do_get_file(); 
+int do_get_file();
 void tftp_file(char *, u_long);
 
 /* clock */
@@ -86,7 +86,7 @@ u_long oc_cksum (void *, u_long, u_long);
 
 #define CONS_ZS_ADDR (0xfffe3002)
 #define CLOCK_ADDR (0xfffe07f8)
-#define LOAD_ADDR 0x8000 
+#define LOAD_ADDR 0x8000
 
 unsigned char myea[6];                /* my ether addr */
 unsigned char myip[4];

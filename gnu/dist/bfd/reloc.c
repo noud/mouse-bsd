@@ -1020,7 +1020,7 @@ bfd_install_relocation (abfd, reloc_entry, data_start, data_start_offset,
   if (howto->special_function)
     {
       bfd_reloc_status_type cont;
-  
+
       /* XXX - The special_function calls haven't been fixed up to deal
 	 with creating new relocations and section contents.  */
       cont = howto->special_function (abfd, reloc_entry, symbol,

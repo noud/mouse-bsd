@@ -171,7 +171,7 @@ sub dumpsrcs {
 
 #
 # Main progarm.
-# 
+#
 
 $srcdir = $ENV{'SRCDIR'};
 $targetdir = $ENV{'TARGETDIR'};
@@ -179,9 +179,9 @@ $incdirs = "-I. -I$srcdir/config -I$srcdir";
 
 if (!$srcdir | !targetdir) {
     die "You must define the environment variables SRCDIR and TARGETDIR.\n"
-} 
+}
 print "Making the NetBSD directory tree.\n";
-foreach $f (@subdirs) { 
+foreach $f (@subdirs) {
     print "   -->$f\n";
     makedir ("$targetdir/$f");
 }
@@ -245,7 +245,7 @@ while ($line = <DATA>) {
 	}
 	print ODATA "$line\n";
     }
-}    
+}
 close (ODATA);
 
 #
@@ -283,7 +283,7 @@ DPADD+=	${LIBPCAP} ${LIBL}
 %% srcs
 SRCS+= version.c
 
-%% awks 
+%% awks
 
 .include <bsd.prog.mk>
 %% file usr.sbin/tcpdump/version.c

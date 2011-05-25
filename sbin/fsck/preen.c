@@ -80,7 +80,7 @@ static int nrun = 0, ndisks = 0;
 
 static struct diskentry *finddisk __P((const char *));
 static void addpart __P((const char *, const char *, const char *, void *));
-static int startdisk __P((struct diskentry *, 
+static int startdisk __P((struct diskentry *,
     int (*)(const char *, const char *, const char *, void *, pid_t *)));
 static void printpart __P((void));
 

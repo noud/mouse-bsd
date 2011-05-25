@@ -64,7 +64,7 @@ options 	SCNDEF_CFLAG="CREAD+CS8+HUPCL"
 options 	NS381			# FPU installed
 options 	PLIP			# PLIP driver in dev/lpt.c
 
-config		netbsd root on sd0a type ffs 
+config		netbsd root on sd0a type ffs
 
 sd0 at scsibus0 target 0 lun 0		# Quantum LP52S
 sd1 at scsibus0 target 1 lun 0		# Micropolis 4110

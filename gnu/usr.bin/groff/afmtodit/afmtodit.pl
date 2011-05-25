@@ -137,7 +137,7 @@ close(DESC);
 
 if ($opt_e) {
     # read the encoding file
-    
+
     open(ENCODING, $opt_e) || die "$prog: can't open \`$opt_e': $!\n";
     while (<ENCODING>) {
 	chop;
@@ -210,7 +210,7 @@ if (!$opt_n && $#ligatures >= 0) {
 
 if ($#kern1 >= 0) {
     print("kernpairs\n");
-    
+
     for ($i = 0; $i <= $#kern1; $i++) {
 	$c1 = $kern1[$i];
 	$c2 = $kern2[$i];

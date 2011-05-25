@@ -56,8 +56,8 @@ __RCSID("$NetBSD: freopen.c,v 1.10 1999/09/20 04:39:28 lukem Exp $");
 #include <stdlib.h>
 #include "local.h"
 
-/* 
- * Re-direct an existing, open (probably) file to some other file. 
+/*
+ * Re-direct an existing, open (probably) file to some other file.
  * ANSI is written such that the original file gets closed if at
  * all possible, no matter what.
  */

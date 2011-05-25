@@ -1957,7 +1957,7 @@
    (set_attr "type" "pcload,move,load,store,move,pcload,move,move")])
 
 ;; If the output is a register and the input is memory or a register, we have
-;; to be careful and see which word needs to be loaded first.  
+;; to be careful and see which word needs to be loaded first.
 
 (define_split
   [(set (match_operand:DI 0 "general_movdst_operand" "")
@@ -2021,7 +2021,7 @@
    (set_attr "type" "move,pcload,load,store")])
 
 ;; If the output is a register and the input is memory or a register, we have
-;; to be careful and see which word needs to be loaded first.  
+;; to be careful and see which word needs to be loaded first.
 
 (define_split
   [(set (match_operand:DF 0 "general_movdst_operand" "")
@@ -2788,7 +2788,7 @@
 				    (match_dup 2))))
 	      (set (reg:SI 18)
 		   (ne:SI (ior:SI (match_dup 1) (match_dup 2))
-			  (const_int 0)))])]  
+			  (const_int 0)))])]
   ""
   "
 {
@@ -2804,7 +2804,7 @@
 				    (match_dup 2))))
 	      (set (reg:SI 18)
 		   (ne:SI (ior:SI (match_operand 1 "" "") (match_dup 2))
-			  (const_int 0)))])]  
+			  (const_int 0)))])]
   ""
   "operands[2] = gen_reg_rtx (SImode);")
 

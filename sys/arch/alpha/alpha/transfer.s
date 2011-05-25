@@ -21,7 +21,7 @@
  *    1/1/1999 unless these terms (including possibly the assignment
  *    date) are updated by Avalon prior to the latest specified assignment
  *    date.
- *    
+ *
  *
  * THIS SOFTWARE IS PROVIDED BY AVALON COMPUTER SYSTEMS, INC. AND CONTRIBUTORS
  * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED

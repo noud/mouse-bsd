@@ -121,7 +121,7 @@ extern int (*mountroot) __P((void));
 /* the following is used externally (sysctl_hw) */
 char	machine[] = MACHINE;		/* from <machine/param.h> */
 char	machine_arch[] = MACHINE_ARCH;	/* from <machine/param.h> */
-char	cpu_model[128];	
+char	cpu_model[128];
 
 char	cpu_name[40];			/* set cpu depend xx_init() */
 
@@ -199,7 +199,7 @@ extern struct user *proc0paddr;
 
 /*
  * Do all the stuff that locore normally does before calling main().
- * Process arguments passed to us by the boot loader. 
+ * Process arguments passed to us by the boot loader.
  * Return the first page address following the system.
  */
 void
@@ -391,7 +391,7 @@ mach_init(argc, argv, bi)
 	/*
 	 * Find out how much memory is available and clear memory.
 	 */
-	physmem = btoc((paddr_t)kernend - MIPS_KSEG0_START) + 
+	physmem = btoc((paddr_t)kernend - MIPS_KSEG0_START) +
 		(*platform.mem_init)(kernend);
 	maxmem = physmem;
 
@@ -787,4 +787,4 @@ unsigned
 nullclkread()
 {
 	return 0;
-}	
+}

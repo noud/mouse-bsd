@@ -19,10 +19,10 @@ static const char rcsid[] = "$Header: /cvsroot/basesrc/dist/bind/lib/dst/eay_dss
  * NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
  * WITH THE USE OR PERFORMANCE OF THE SOFTWARE.
  */
-/* 
- * This file contains two components 
- * 1. Interface to the EAY libcrypto library to allow compilation of Bind 
- *    with TIS/DNSSEC when EAY libcrypto is not available 
+/*
+ * This file contains two components
+ * 1. Interface to the EAY libcrypto library to allow compilation of Bind
+ *    with TIS/DNSSEC when EAY libcrypto is not available
  *    all calls to libcrypto are contained inside this file.
  * 2. The glue to connvert DSA KEYS to and from external formats
  */
@@ -69,8 +69,8 @@ static int dst_eay_dss_generate_keypair(DST_KEY *key, int exp);
 static int dst_eay_dss_compare_keys(const DST_KEY *key1, const DST_KEY *key2);
 
 /*
- * dst_eay_dss_init()  Function to answer set up function pointers for 
- *	    EAY DSS related functions 
+ * dst_eay_dss_init()  Function to answer set up function pointers for
+ *	    EAY DSS related functions
  */
 int
 dst_eay_dss_init()
@@ -96,7 +96,7 @@ dst_eay_dss_init()
 /*
  * dst_eay_dss_sign
  *     Call EAY DSS signing functions to sign a block of data.
- *     There are three steps to signing, INIT (initialize structures), 
+ *     There are three steps to signing, INIT (initialize structures),
  *     UPDATE (hash (more) data), FINAL (generate a signature).  This
  *     routine performs one or more of these steps.
  * Parameters
@@ -108,7 +108,7 @@ dst_eay_dss_init()
  *     priv_key    key to use for signing.
  *     signature   location to store signature.
  *     sig_len     size in bytes of signature field.
- * returns 
+ * returns
  *	N  Success on SIG_MODE_FINAL = returns signature length in bytes
  *         N is 41 for DNS
  *	0  Success on SIG_MODE_INIT  and UPDATE
@@ -117,14 +117,14 @@ dst_eay_dss_init()
 
 static int
 dst_eay_dss_sign(const int mode, DST_KEY *dkey, void **context,
-		 const u_char *data, const int len, 
+		 const u_char *data, const int len,
 		 u_char *signature, const int sig_len)
 {
 	int sign_len = 0;
 	int status;
 	SHA_CTX *ctx = NULL;
 
-	if (mode & SIG_MODE_INIT) 
+	if (mode & SIG_MODE_INIT)
 		ctx = (SHA_CTX *) malloc(sizeof(SHA_CTX));
 	else if (context)
 		ctx = (SHA_CTX *) *context;
@@ -162,7 +162,7 @@ dst_eay_dss_sign(const int mode, DST_KEY *dkey, void **context,
 		sign_len += SHA_DIGEST_LENGTH;
 	}
 	else {
-		if (context == NULL) 
+		if (context == NULL)
 			return (-1);
 		*context = (void *) ctx;
 	}
@@ -171,10 +171,10 @@ dst_eay_dss_sign(const int mode, DST_KEY *dkey, void **context,
 
 
 /*
- * dst_eay_dss_verify 
- *     Calls EAY DSS verification routines.  There are three steps to 
- *     verification, INIT (initialize structures), UPDATE (hash (more) data), 
- *     FINAL (generate a signature).  This routine performs one or more of 
+ * dst_eay_dss_verify
+ *     Calls EAY DSS verification routines.  There are three steps to
+ *     verification, INIT (initialize structures), UPDATE (hash (more) data),
+ *     FINAL (generate a signature).  This routine performs one or more of
  *     these steps.
  * Parameters
  *     mode	SIG_MODE_INIT, SIG_MODE_UPDATE and/or SIG_MODE_FINAL.
@@ -185,8 +185,8 @@ dst_eay_dss_sign(const int mode, DST_KEY *dkey, void **context,
  *     pub_key     key to use for verify.
  *     signature   signature.
  *     sig_len     length in bytes of signature.
- * returns 
- *     0  Success 
+ * returns
+ *     0  Success
  *    <0  Failure
  */
 
@@ -198,7 +198,7 @@ dst_eay_dss_verify(const int mode, DST_KEY *dkey, void **context,
 	int status;
 	SHA_CTX *ctx = NULL;
 
-	if (mode & SIG_MODE_INIT) 
+	if (mode & SIG_MODE_INIT)
 		ctx = (SHA_CTX *) malloc(sizeof(SHA_CTX));
 	else if (context)
 		ctx = (SHA_CTX *) *context;
@@ -238,7 +238,7 @@ dst_eay_dss_verify(const int mode, DST_KEY *dkey, void **context,
 			return (VERIFY_FINAL_FAILURE);
 	}
 	else {
-		if (context == NULL) 
+		if (context == NULL)
 			return (-1);
 		*context = (void *) ctx;
 	}
@@ -252,12 +252,12 @@ dst_eay_dss_verify(const int mode, DST_KEY *dkey, void **context,
  *     This function gets in a pointer to the public key and a work area
  *     to write the key into.
  * Parameters
- *     public    KEY structure 
- *     out_str   buffer to write encoded key into 
+ *     public    KEY structure
+ *     out_str   buffer to write encoded key into
  *     out_len   size of out_str
  * Return
- *	N >= 0 length of encoded key 
- *	n < 0  error 
+ *	N >= 0 length of encoded key
+ *	n < 0  error
  */
 
 static int
@@ -291,7 +291,7 @@ dst_eay_dss_to_dns_key(const DST_KEY *in_key, u_char *out_str,
 
 /*
  * dst_eay_dss_from_dns_key
- *     Converts from a DNS KEY RR format to an RSA KEY. 
+ *     Converts from a DNS KEY RR format to an RSA KEY.
  * Parameters
  *     len    Length in bytes of DNS key
  *     key    DNS key
@@ -316,7 +316,7 @@ dst_eay_dss_from_dns_key(DST_KEY *s_key, const u_char *key, const int len)
 	if (len == 0)  /* process null key */
 		return (1);
 
-	if (key_ptr == NULL)  
+	if (key_ptr == NULL)
 		return (0);
 	t = (int) *key_ptr++;	/* length of exponent in bytes */
 	p_bytes = 64 + 8 * t;
@@ -343,19 +343,19 @@ dst_eay_dss_from_dns_key(DST_KEY *s_key, const u_char *key, const int len)
 	d_key->pub_key = BN_bin2bn(key_ptr, p_bytes, NULL);
 	key_ptr += p_bytes;
 
-	s_key->dk_id = dst_s_id_calc(key, len); 
+	s_key->dk_id = dst_s_id_calc(key, len);
 	s_key->dk_key_size = p_bytes * 8;
 	return (1);
 }
 
 
-/************************************************************************** 
+/**************************************************************************
  *  dst_eay_dss_key_to_file_format
  *	Encodes an DSA Key into the portable file format.
- *  Parameters 
- *	key      DSA KEY structure 
+ *  Parameters
+ *	key      DSA KEY structure
  *	buff      output buffer
- *	buff_len  size of output buffer 
+ *	buff_len  size of output buffer
  *  Return
  *	0  Failure - null input rkey
  *     -1  Failure - not enough space in output area
@@ -427,16 +427,16 @@ dst_eay_dss_key_to_file_format(const DST_KEY *key, u_char *buff,
 }
 
 
-/************************************************************************** 
+/**************************************************************************
  * dst_eay_dss_key_from_file_format
- *     Converts contents of a private key file into a private DSA key. 
- * Parameters 
- *     d_key    structure to put key into 
- *     buff       buffer containing the encoded key 
+ *     Converts contents of a private key file into a private DSA key.
+ * Parameters
+ *     d_key    structure to put key into
+ *     buff       buffer containing the encoded key
  *     buff_len   the length of the buffer
  * Return
- *     n >= 0 Foot print of the key converted 
- *     n <  0 Error in conversion 
+ *     n >= 0 Foot print of the key converted
+ *     n <  0 Error in conversion
  */
 
 static int
@@ -475,25 +475,25 @@ dst_eay_dss_key_from_file_format(DST_KEY *d_key, const u_char *buff,
 				return (-6);
 			dsa_key->q = BN_bin2bn (s, len, NULL);
 			if (dsa_key->q == NULL)
-				return (-7);	
+				return (-7);
 		} else if (dst_s_verify_str(&p, "Base(g): ")) {
 			if (!(len = dst_s_conv_bignum_b64_to_u8(&p, s, s_len)))
 				return (-8);
 			dsa_key->g = BN_bin2bn (s, len, NULL);
 			if (dsa_key->g == NULL)
-				return (-9);	
+				return (-9);
 		} else if (dst_s_verify_str(&p, "Private_value(x): ")) {
 			if (!(len = dst_s_conv_bignum_b64_to_u8(&p, s, s_len)))
 				return (-10);
 			dsa_key->priv_key = BN_bin2bn (s, len, NULL);
 			if (dsa_key->priv_key == NULL)
-				return (-11);	
+				return (-11);
 		} else if (dst_s_verify_str(&p, "Public_value(y): ")) {
 			if (!(len = dst_s_conv_bignum_b64_to_u8(&p, s, s_len)))
 				return (-12);
 			dsa_key->pub_key = BN_bin2bn (s, len, NULL);
 			if (dsa_key->pub_key == NULL)
-				return (-13);	
+				return (-13);
 		} else {
 			EREPORT(("Decode_DSAKey(): Bad keyword %s\n", p));
 			return (-14);
@@ -508,7 +508,7 @@ dst_eay_dss_key_from_file_format(DST_KEY *d_key, const u_char *buff,
 }
 
 
-/************************************************************************** 
+/**************************************************************************
  * dst_eay_dss_free_key_structure
  *     Frees all dynamicly allocated structures in DSA.
  */
@@ -531,14 +531,14 @@ dst_eay_dss_free_key_structure(void *key)
 }
 
 
-/************************************************************************** 
+/**************************************************************************
  *  dst_eay_dss_generate_keypair
  *	Generates unique keys that are hard to predict.
  *  Parameters
  *	key    generic Key structure
  *	exp    the public exponent
- *  Return 
- *	0 Failure 
+ *  Return
+ *	0 Failure
  *	1 Success
  */
 
@@ -597,7 +597,7 @@ dst_eay_dss_compare_keys(const DST_KEY *key1, const DST_KEY *key2)
 
 	if (dkey1 == NULL && dkey2 == NULL)
 		return (0);
-	else if (dkey1 == NULL) 
+	else if (dkey1 == NULL)
 		return (2);
 	else if (dkey2 == NULL)
 		return(1);
@@ -606,7 +606,7 @@ dst_eay_dss_compare_keys(const DST_KEY *key1, const DST_KEY *key2)
 		 BN_cmp(dkey1->q, dkey2->q) ||
 		 BN_cmp(dkey1->g, dkey2->g) ||
 		 BN_cmp(dkey1->pub_key, dkey2->pub_key);
-	
+
 	if (status)
 		return (status);
 
@@ -617,9 +617,9 @@ dst_eay_dss_compare_keys(const DST_KEY *key1, const DST_KEY *key2)
 	} else
 		return (0);
 }
-#else 
+#else
 int
-dst_eay_dss_init() 
+dst_eay_dss_init()
 {
 	return (0);
 }

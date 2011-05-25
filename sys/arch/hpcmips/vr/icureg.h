@@ -70,7 +70,7 @@
 #define		PIUINT_PADLOST		(1<<2)	/* A/D data timeout intr */
 #define		PIUINT_PENCHG		(1)	/* Touch Panel contact intr */
 
-#define AIUINT_REG_W		0x004	/* Level2 AIU intr reg */	
+#define AIUINT_REG_W		0x004	/* Level2 AIU intr reg */
 #define MAIUINT_REG_W		0x010	/* Level2 Mask AIU intr reg */
 
 #define		AIUINT_INTMEND		(1<<11)	/* Audio input DMA buffer 2 page */

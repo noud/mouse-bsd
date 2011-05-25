@@ -160,9 +160,9 @@ rndpool_add_uint32(rp, val, entropy)
 {
 	val = (val << rp->rotate) | (val >> rp->rotate);
 	rp->rotate = (rp->rotate + 1) & 0x07;
-	
+
 	rndpool_add_one_word(rp, val);
-	
+
 	if (entropy) {
 		rp->entropy += entropy;
 		if (rp->entropy > RND_POOLBITS)
@@ -182,9 +182,9 @@ rndpool_add_data(rp, p, len, entropy)
 {
 	u_int32_t  val;
 	u_int8_t  *buf;
-	
+
 	buf = p;
-	
+
 	for (; len > 3 ; len -= 4) {
 		val = *((u_int32_t *)buf);
 
@@ -257,7 +257,7 @@ rndpool_extract_data(rp, p, len, mode)
 		SHA1Init(&hash);
 		SHA1Update(&hash, (u_int8_t *)rp->pool, RND_POOLWORDS * 4);
 		SHA1Final((u_int8_t *)digest, &hash);
-    
+
 		/*
 		 * Add the hash into the pool.  This helps stir the pool a
 		 * bit, and also guarantees that the next hash will generate
@@ -266,7 +266,7 @@ rndpool_extract_data(rp, p, len, mode)
 		 */
 		for (i = 0 ; i < 5 ; i++)
 			rndpool_add_one_word(rp, digest[i]);
-		
+
 		if (remain < RND_ENTROPY_THRESHOLD) {
 			bcopy(digest, buf, remain);
 			buf += remain;
@@ -288,7 +288,7 @@ rndpool_extract_data(rp, p, len, mode)
 		if (mode == RND_EXTRACT_GOOD)
 			good = (rp->entropy >= 8 * RND_ENTROPY_THRESHOLD);
 	}
-	
+
 	bzero(&hash, sizeof(hash));
 	bzero(digest, sizeof(digest));
 

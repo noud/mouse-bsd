@@ -468,7 +468,7 @@ void init_frame_pc ();
 #define FRAME_IS_UNCHAINED(frame)	((frame)->flags & TRANSPARENT)
 
 /* Find the previous frame of a transparent routine.
- * For now lets not try and trace through a transparent routine (we might 
+ * For now lets not try and trace through a transparent routine (we might
  * have to assume that all transparent routines are traps).
  */
 #define FIND_PREV_UNCHAINED_FRAME(frame)	0
@@ -534,7 +534,7 @@ extern CORE_ADDR frame_locals_address ();
        |____________|<-msp 1--after   | sr160-sr162    |  |
        |            | PUSH_DUMMY_FRAME| sr128-sr135    |  |
        | struct ret |                 |________________|  |
-       | 17+        |                 |                |  | 
+       | 17+        |                 |                |  |
        |____________|<- lrp           | args_out_dummy |  |
        | struct ret |		      |  (16 words)    |  |
        | 16         |		      |________________|  |
@@ -602,7 +602,7 @@ extern void pop_frame ();
  CONST_INSN:
    const lr0,inf		; (replaced by       half of target addr)
    consth lr0,inf		; (replaced by other half of target addr)
-   calli lr0, lr0 
+   calli lr0, lr0
    aseq 0x40,gr1,gr1   ; nop
  BREAKPT_INSN:
    asneq 0x50,gr1,gr1  ; breakpoint	(replaced by local breakpoint insn)

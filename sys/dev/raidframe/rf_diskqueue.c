@@ -158,13 +158,13 @@ static RF_FreeList_t *rf_dqd_freelist;
 
 #include <sys/buf.h>
 
-static int 
+static int
 init_dqd(dqd)
 	RF_DiskQueueData_t *dqd;
 {
 	/* XXX not sure if the following malloc is appropriate... probably not
 	 * quite... */
-	dqd->bp = (struct buf *) malloc(sizeof(struct buf), 
+	dqd->bp = (struct buf *) malloc(sizeof(struct buf),
 					M_RAIDFRAME, M_NOWAIT);
 	if (dqd->bp == NULL) {
 		return (ENOMEM);
@@ -174,7 +174,7 @@ init_dqd(dqd)
 	return (0);
 }
 
-static void 
+static void
 clean_dqd(dqd)
 	RF_DiskQueueData_t *dqd;
 {
@@ -182,7 +182,7 @@ clean_dqd(dqd)
 }
 /* configures a single disk queue */
 
-int 
+int
 rf_ConfigureDiskQueue(
       RF_Raid_t * raidPtr,
       RF_DiskQueue_t * diskqueue,
@@ -228,14 +228,14 @@ rf_ConfigureDiskQueue(
 	return (0);
 }
 
-static void 
+static void
 rf_ShutdownDiskQueueSystem(ignored)
 	void   *ignored;
 {
 	RF_FREELIST_DESTROY_CLEAN(rf_dqd_freelist, next, (RF_DiskQueueData_t *), clean_dqd);
 }
 
-int 
+int
 rf_ConfigureDiskQueueSystem(listp)
 	RF_ShutdownList_t **listp;
 {
@@ -257,7 +257,7 @@ rf_ConfigureDiskQueueSystem(listp)
 	return (0);
 }
 
-int 
+int
 rf_ConfigureDiskQueues(
     RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr,
@@ -286,18 +286,18 @@ rf_ConfigureDiskQueues(
 	}
 	raidPtr->Queues = diskQueues;
 	for (r = 0; r < raidPtr->numRow; r++) {
-		RF_CallocAndAdd(diskQueues[r], raidPtr->numCol + 
-				 ((r == 0) ? RF_MAXSPARE : 0), 
-				sizeof(RF_DiskQueue_t), (RF_DiskQueue_t *), 
+		RF_CallocAndAdd(diskQueues[r], raidPtr->numCol +
+				 ((r == 0) ? RF_MAXSPARE : 0),
+				sizeof(RF_DiskQueue_t), (RF_DiskQueue_t *),
 				raidPtr->cleanupList);
 		if (diskQueues[r] == NULL)
 			return (ENOMEM);
 		for (c = 0; c < raidPtr->numCol; c++) {
 			rc = rf_ConfigureDiskQueue(raidPtr, &diskQueues[r][c],
 						   r, c, p,
-						   raidPtr->sectorsPerDisk, 
+						   raidPtr->sectorsPerDisk,
 						   raidPtr->Disks[r][c].dev,
-						   cfgPtr->maxOutstandingDiskReqs, 
+						   cfgPtr->maxOutstandingDiskReqs,
 						   listp, raidPtr->cleanupList);
 			if (rc)
 				return (rc);
@@ -346,7 +346,7 @@ rf_ConfigureDiskQueues(
  * simulator rules:
  *    Do the same as at user level, with the sleeps and wakeups suppressed.
  */
-void 
+void
 rf_DiskIOEnqueue(queue, req, pri)
 	RF_DiskQueue_t *queue;
 	RF_DiskQueueData_t *req;
@@ -404,7 +404,7 @@ rf_DiskIOEnqueue(queue, req, pri)
 
 
 /* get the next set of I/Os started, kernel version only */
-void 
+void
 rf_DiskIOComplete(queue, req, status)
 	RF_DiskQueue_t *queue;
 	RF_DiskQueueData_t *req;
@@ -495,7 +495,7 @@ rf_DiskIOComplete(queue, req, status)
  * need not implement it.  If there is no promotion routine associated with
  * a queue, this routine does nothing and returns -1.
  */
-int 
+int
 rf_DiskIOPromote(queue, parityStripeID, which_ru)
 	RF_DiskQueue_t *queue;
 	RF_StripeNum_t parityStripeID;
@@ -592,7 +592,7 @@ rf_CreateDiskQueueDataFull(
 	return (p);
 }
 
-void 
+void
 rf_FreeDiskQueueData(p)
 	RF_DiskQueueData_t *p;
 {

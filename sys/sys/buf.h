@@ -86,8 +86,8 @@
 #define NOLIST ((struct buf *)0x87654321)
 
 /*
- * To avoid including <ufs/ffs/softdep.h> 
- */   
+ * To avoid including <ufs/ffs/softdep.h>
+ */
 LIST_HEAD(workhead, worklist);
 
 /*

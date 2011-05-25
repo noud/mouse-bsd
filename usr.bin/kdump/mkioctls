@@ -57,13 +57,13 @@ BEGIN {
 }
 
 /^#[ 	]*define[ 	]*(TIO|FIO|SIO|OSIO)[A-Z]*[ 	]*_IO/ {
-	
+
 	# find where the name starts
 	for (i = 1; i <= NF; i++)
 		if ($i ~ /define/)
 			break;
 	++i;
-	# 
+	#
 	printf("\tif (val == %s)\n\t\treturn (\"%s\");\n", $i, $i);
 
 }

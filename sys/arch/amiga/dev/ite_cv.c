@@ -55,7 +55,7 @@
 #include <machine/cpu.h>
 #include <amiga/dev/itevar.h>
 #include <amiga/dev/iteioctl.h>
-#include <amiga/amiga/device.h> 
+#include <amiga/amiga/device.h>
 #include <amiga/dev/grfioctl.h>
 #include <amiga/dev/grfvar.h>
 #include <amiga/dev/grf_cvreg.h>
@@ -148,14 +148,14 @@ cv_ite_init(ip)
 #if 0  /* XXX malloc seems not to work in early init :( */
 	if (cv_rowc)
 		free(cv_rowc, M_DEVBUF);
- 
+
 	/* alloc all in one */
 	cv_rowc = malloc(sizeof(short) * (ip->rows + 1) * (ip->cols + 2),
 		M_DEVBUF, M_WAITOK);
 	if (!cv_rowc)
 		panic("No buffers for ite_cv!");
 #endif
- 
+
 	console_buffer = cv_rowc + ip->rows + 1;
 
 

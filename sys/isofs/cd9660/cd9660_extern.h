@@ -62,15 +62,15 @@ struct iso_mnt {
 	int logical_block_size;
 	int im_bshift;
 	int im_bmask;
-	
+
 	int volume_space_size;
 	struct netexport im_export;
-	
+
 	char root[ISODCL (157, 190)];
 	int root_extent;
 	int root_size;
 	enum ISO_FTYPE  iso_ftype;
-	
+
 	int rr_skip;
 	int rr_skip0;
 };
@@ -101,7 +101,7 @@ void cd9660_init __P((void));
 int cd9660_sysctl __P((int *, u_int, void *, size_t *, void *, size_t,
 			struct proc *));
 
-int cd9660_mountroot __P((void)); 
+int cd9660_mountroot __P((void));
 
 extern int (**cd9660_vnodeop_p) __P((void *));
 extern int (**cd9660_specop_p) __P((void *));

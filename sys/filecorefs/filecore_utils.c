@@ -117,16 +117,16 @@
 int
 filecore_bbchecksum(bb)
 	void *bb;
-{  
+{
 	u_char *bootblock = bb;
 	u_char byte0, accum_diff;
 	u_int sum;
 	int i;
- 
+
 	sum = 0;
 	accum_diff = 0;
 	byte0 = bootblock[0];
- 
+
 	/*
 	 * Sum the contents of the block, keeping track of whether
 	 * or not all bytes are the same.  If 'accum_diff' ends up
@@ -145,7 +145,7 @@ filecore_bbchecksum(bb)
 	 */
 	accum_diff |= bootblock[i] ^ byte0;
 	sum = (sum - ((sum - 1) / 255) * 255);
- 
+
 	/*
 	 * If all bytes in block are the same
 	 * or the checksum does not match ; call it invalid.

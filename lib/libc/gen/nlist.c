@@ -83,7 +83,7 @@ static const struct {
 	{	__fdnlist_elf64		},
 #endif
 };
-	
+
 int
 nlist(name, list)
 	const char *name;

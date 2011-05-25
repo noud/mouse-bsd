@@ -88,12 +88,12 @@ II.	Special Keys Used To Change The General Runtime Functionality
 			switch OFF:
 			ESC & j @	remove labels from screen
 
-			switch ON:			
+			switch ON:
 			ESC & j A	display system fkey labels
 			ESC & j B	display user fkey labels
 			ESC & j C	display current fkey labels
 
-		
+
 	ALT-F10	User / System Function key labels
 	-----------------------------------------
 
@@ -104,15 +104,15 @@ II.	Special Keys Used To Change The General Runtime Functionality
 
 		this key is only active if labels are toggled on via
 		the ALT-F9 function key
-		
+
 		screen has either 25-3 = 22, 28-3 = 25 or 50-3 = 47 lines
 			2 lines fkey labels displayed
 			row/col display enabled
 			1 line status/load avg line
 
-		
+
 		applicable escape sequences: (see above)
-		
+
 			ESC & j A	display system fkey labels
 			ESC & j B	display user fkey labels
 			ESC & j C	display current fkey labels
@@ -168,7 +168,7 @@ II.	Special Keys Used To Change The General Runtime Functionality
 		keypress of F12, the next screen is displayed, wrapping
 		from the maximum screen number back to screen 0.
 
-		(this functionality is available via an ioctl)	
+		(this functionality is available via an ioctl)
 
 
 III.	Special Keys used to change the Runtime Functionality of a Page
@@ -192,8 +192,8 @@ III.	Special Keys used to change the Runtime Functionality of a Page
  	- F3, -/-
 	- F4, -/-
 	- F5, toggle the audible beep generation
-	- F6, toggle 7/8 bit char width 
-	- F7, toggle display functions. this means that control codes 
+	- F6, toggle 7/8 bit char width
+	- F7, toggle display functions. this means that control codes
 	      in the range 0x00 to 0x1f are not EXECUTED by the emulator
 	      any longer, but displayed on the screen
 	- F8, toggle automatic cursor wraparound at end of line
@@ -235,7 +235,7 @@ IV.	Keyboard VT220 compatibility
 
 	ALT-SHIFT-F1 ... ALT-SHIFT-F8
 			User Defined Keys for F14 - F20
-	 
+
 	Insert		Insert Here (ESC [ 2 ~)
 
 	Delete		Remove (ESC [ 3 ~)
@@ -262,7 +262,7 @@ IV.	Keyboard VT220 compatibility
 
 	ALT-Keypad-0	can be used to generate any keycode in the
 	ALT-Keypad-1	rage 0-255.
-	ALT-Keypad-2	this was modeled with the behaviour of a 	
+	ALT-Keypad-2	this was modeled with the behaviour of a
 	ALT-Keypad-3	popular boot loader in mind
 	ALT-Keypad-4
 	ALT-Keypad-5

@@ -99,7 +99,7 @@ Without the
 .Fl p
 option,
 .Nm
-audits and interactively repairs inconsistent conditions for filesystems. 
+audits and interactively repairs inconsistent conditions for filesystems.
 If the filesystem is inconsistent the operator is prompted for concurrence
 before each correction is attempted.
 It should be noted that some of the corrective actions which are not
@@ -115,7 +115,7 @@ or
 .Li no .
 If the operator does not have write permission on the filesystem
 .Nm
-will default to a 
+will default to a
 .Fl n
 action.
 .Pp
@@ -135,8 +135,8 @@ Convert the filesystem metadatas to the specified byte order if needed.
 Valid byte order are `be' and `le'. If
 .Nm ""
 is interrupted while swapping the metadatas byte order, the filesystem cannot
-be recovered. 
-.Nm "" 
+be recovered.
+.Nm ""
 will print a message in interactive mode if the filesystem is not in host
 byte order.
 .It Fl b
@@ -154,7 +154,7 @@ The filesystem is in the old (static table) format.
 The filesystem is in the new (dynamic table) format.
 .It 2
 The filesystem supports 32-bit uid's and gid's,
-short symbolic links are stored in the inode, 
+short symbolic links are stored in the inode,
 and directories have an added field showing the file type.
 .It 3
 If maxcontig is greater than one,
@@ -174,7 +174,7 @@ possible without user interaction.
 Conversion in preen mode is best used when all the filesystems
 are being converted at once.
 The format of a filesystem can be determined from the
-second line of output from 
+second line of output from
 .Xr dumpfs 8 .
 .It Fl d
 Print debugging output.
@@ -196,7 +196,7 @@ In particular, systems that do not wish to have lost files accessible
 by all users on the system should use a more restrictive
 set of permissions such as 700.
 .It Fl n
-Assume a no response to all questions asked by 
+Assume a no response to all questions asked by
 .Nm
 except for
 .Ql CONTINUE? ,
@@ -205,7 +205,7 @@ do not open the filesystem for writing.
 .It Fl p
 Specify ``preen'' mode, described above.
 .It Fl y
-Assume a yes response to all questions asked by 
+Assume a yes response to all questions asked by
 .Nm "" ;
 this should be used with great caution as this is a free license
 to continue after essentially unlimited trouble has been encountered.
@@ -222,7 +222,7 @@ Incorrect link counts.
 .It
 Size checks:
 .Bl -item -indent indent -compact
-.It 
+.It
 Directory size not a multiple of DIRBLKSIZ.
 .It
 Partially truncated file.
@@ -234,7 +234,7 @@ Blocks not accounted for anywhere.
 .It
 Directory checks:
 .Bl -item -indent indent -compact
-.It 
+.It
 File pointing to unallocated inode.
 .It
 Inode number out of range.
@@ -245,7 +245,7 @@ or having the wrong inode number.
 .It
 Super Block checks:
 .Bl -item -indent indent -compact
-.It 
+.It
 More blocks for inodes than there are in the filesystem.
 .It
 Bad free block map format.
@@ -256,7 +256,7 @@ Total free block and/or free inode count incorrect.
 .Pp
 Orphaned files and directories (allocated but unreferenced) are,
 with the operator's concurrence, reconnected by
-placing them in the 
+placing them in the
 .Pa lost+found
 directory.
 The name assigned is the inode number.
@@ -268,7 +268,7 @@ If there is insufficient space its size is increased.
 Because of inconsistencies between the block device and the buffer cache,
 the raw device should always be used.
 .Sh DIAGNOSTICS
-The diagnostics produced by 
+The diagnostics produced by
 .Nm
 are fully enumerated and explained in Appendix A of
 .Rs

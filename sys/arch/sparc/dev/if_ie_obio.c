@@ -140,7 +140,7 @@ struct cfattach ie_obio_ca = {
 /* Supported media */
 static int media[] = {
 	IFM_ETHER | IFM_10_2,
-};      
+};
 #define NMEDIA	(sizeof(media) / sizeof(media[0]))
 
 
@@ -223,7 +223,7 @@ ie_obio_read16(sc, offset)
 
 void
 ie_obio_write16(sc, offset, v)
-	struct ie_softc *sc;	
+	struct ie_softc *sc;
 	int offset;
 	u_int16_t v;
 {
@@ -233,7 +233,7 @@ ie_obio_write16(sc, offset, v)
 
 void
 ie_obio_write24(sc, offset, addr)
-	struct ie_softc *sc;	
+	struct ie_softc *sc;
 	int offset;
 	int addr;
 {

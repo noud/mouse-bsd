@@ -186,7 +186,7 @@ typedef enum cgen_insn_type {
 #include "opcode/cgen.h"
 
 /* This struct records data prior to insertion or after extraction.  */
-struct cgen_fields 
+struct cgen_fields
 {
   long f_nil;
   long f_op1;

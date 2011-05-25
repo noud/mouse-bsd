@@ -1,5 +1,5 @@
 /* gawkmisc.c --- miscellanious gawk routines that are OS specific.
- 
+
    Copyright (C) 1986, 1988, 1989, 1991 - 96 the Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
@@ -27,7 +27,7 @@ gawk_name(filespec)
 const char *filespec;
 {
 	char *p;
-    
+
 	/* "path/name" -> "name" */
 	p = strrchr(filespec, '/');
 	return (p == NULL ? (char *) filespec : p + 1);

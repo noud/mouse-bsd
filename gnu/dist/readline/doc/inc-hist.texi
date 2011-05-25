@@ -42,15 +42,15 @@ from a user's standpoint.
 @cindex expansion
 
 The History library provides a history expansion feature similar
-to the history expansion in @code{csh}.  The following text describes the 
+to the history expansion in @code{csh}.  The following text describes the
 syntax you use to manipulate history information.
 
 History expansion takes two parts.  In the first part, determine
 which line from the previous history will be used for substitution.
 This line is called the @dfn{event}.
 In the second part, select portions of that line for inclusion into the
-current line.  These portions are called @dfn{words}.  
-@value{GDBN} breaks the line into words in the same 
+current line.  These portions are called @dfn{words}.
+@value{GDBN} breaks the line into words in the same
 way that the Bash shell does, so that several English (or Unix) words
 surrounded by quotes are considered one word.
 
@@ -93,7 +93,7 @@ Refer to the most recent command containing @var{string}.
 @node Word Designators
 @subsection Word Designators
 
-A @key{:} separates the event designator from the @dfn{word designator}.  
+A @key{:} separates the event designator from the @dfn{word designator}.
 It can be omitted if the word designator begins with a @key{^}, @key{$},
 @key{*} or @key{%}.  Words are numbered from the beginning of the line,
 with the first word being denoted by a 0 (zero).
@@ -137,9 +137,9 @@ of the following @dfn{modifiers}, each preceded by a @key{:}.
 The entire command line typed so far.  This means the current command,
 not the previous command.
 @c
-@c  FIXME:  If it doesn't belong here, let's put it where it does. 
+@c  FIXME:  If it doesn't belong here, let's put it where it does.
 @c
-@c  so it technically isn't a word designator and doesn't belong in 
+@c  so it technically isn't a word designator and doesn't belong in
 @c  this section.
 
 @item h

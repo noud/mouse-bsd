@@ -768,7 +768,7 @@ get_specific (opcode, operands, size)
 		      x |= L_32;
 		    }
 		  /* Promote an L8 to L_16 if it makes us match.  */
-		  if (op & ABS && op & L_8 && op & DISP) 
+		  if (op & ABS && op & L_8 && op & DISP)
 		    {
 		      if (x & L_16)
 			found= 1;
@@ -784,7 +784,7 @@ get_specific (opcode, operands, size)
 	      else if ((op & MODE) != (x & MODE))
 		{
 		  found = 0;
-		}	
+		}
 	    }
 	}
     }
@@ -807,18 +807,18 @@ check_operand (operand, width, string)
       /* No symbol involved, let's look at offset, it's dangerous if any of
 	 the high bits are not 0 or ff's, find out by oring or anding with
 	 the width and seeing if the answer is 0 or all fs*/
-      
+
       if ((operand->exp.X_add_number & ~width) != 0 &&
 	  (operand->exp.X_add_number | width) != (~0))
 	{
-	  if (width == 255 
+	  if (width == 255
 	      && (operand->exp.X_add_number & 0xff00) == 0xff00)
 	    {
 	      /* Just ignore this one - which happens when trying to
 		 fit a 16 bit address truncated into an 8 bit address
 		 of something like bset.  */
 	    }
-	  else 
+	  else
 	    {
 	      as_warn ("operand %s0x%lx out of range.", string,
 		       (unsigned long) operand->exp.X_add_number);
@@ -1471,7 +1471,7 @@ md_convert_frag (headers, seg, fragP)
   abort ();
 }
 
-valueT 
+valueT
 md_section_align (seg, size)
      segT seg;
      valueT size;

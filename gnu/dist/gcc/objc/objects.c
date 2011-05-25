@@ -31,7 +31,7 @@ id __objc_object_alloc(Class);
 id __objc_object_dispose(id);
 id __objc_object_copy(id);
 
-id (*_objc_object_alloc)(Class)   = __objc_object_alloc;   /* !T:SINGLE */ 
+id (*_objc_object_alloc)(Class)   = __objc_object_alloc;   /* !T:SINGLE */
 id (*_objc_object_dispose)(id)    = __objc_object_dispose; /* !T:SINGLE */
 id (*_objc_object_copy)(id)       = __objc_object_copy;    /* !T:SINGLE */
 
@@ -76,7 +76,7 @@ id __objc_object_alloc(Class class)
   return (id)objc_malloc(class->instance_size);
 }
 
-id __objc_object_dispose(id object) 
+id __objc_object_dispose(id object)
 {
   objc_free(object);
   return 0;

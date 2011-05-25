@@ -620,7 +620,7 @@ vid_setscreen(struct screeninfo *data, Dev_t dev)
 	x = spltty();
 
 	waitfor = screen + 1;
-	
+
 	/* if the vt is yet to be released by a process, wait here */
 
 	if(vs[screen].vt_status & VT_WAIT_REL)

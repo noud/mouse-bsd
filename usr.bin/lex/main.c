@@ -1017,7 +1017,7 @@ _( "Variable trailing context rules entail a large performance penalty\n" ) );
 "\tLexerError( \"yyFlexLexer::yylex invoked but %option yyclass used\" );" );
 			outn( "\treturn 0;" );
 			outn( "\t}" );
-	
+
 			out_str( "\n#define YY_DECL int %s::yylex()\n",
 				yyclass );
 			}

@@ -206,7 +206,7 @@ ENTRY(footbridge_bs_wr_2)
 	teq	r2, #0
 	moveq	pc, lr
 
-Lfootbridge_wr_2_loop:	
+Lfootbridge_wr_2_loop:
 	ldrh	r3, [r1], #2	/*.word 0xe0d130b2*/
 	strh	r3, [r0], #2
 	subs	r2, r2, #1

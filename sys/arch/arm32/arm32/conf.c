@@ -43,7 +43,7 @@
  *
  * Created      : 17/09/94
  */
- 
+
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/buf.h>
@@ -144,7 +144,7 @@ struct bdevsw bdevsw[] = {
 
 int nblkdev = sizeof(bdevsw) / sizeof(bdevsw[0]);
 
-#include "vt.h"                                 
+#include "vt.h"
 #include "pty.h"
 #define ptstty          ptytty
 #define ptsioctl        ptyioctl
@@ -264,9 +264,9 @@ struct cdevsw cdevsw[] = {
 	cdev_tty_init(NFCOM, fcom),	/* 54: FOOTBRIDGE console */
 #else
 	/* FOOTBRIDGE */
-	cdev_lkm_dummy(),		/* 54: */	
+	cdev_lkm_dummy(),		/* 54: */
 #endif	/* FOOTBRIDGE */
-	cdev_lkm_dummy(),		/* 55: Reserved for bypass device */	
+	cdev_lkm_dummy(),		/* 55: Reserved for bypass device */
 	cdev_joy_init(NJOY,joy),	/* 56: ISA joystick */
 	cdev_midi_init(NMIDI,midi),	/* 57: MIDI I/O */
 	cdev_midi_init(NSEQUENCER,sequencer),	/* 58: sequencer I/O */
@@ -407,13 +407,13 @@ static int chrtoblktbl[] = {
 /*
  * Convert a character device number to a block device number.
  */
- 
+
 dev_t
 chrtoblk(dev)
 	dev_t dev;
 {
 	int blkmaj;
-                  
+
 	if (major(dev) >= nchrdev)
 		return (NODEV);
 
@@ -423,7 +423,7 @@ chrtoblk(dev)
 	return (makedev(blkmaj, minor(dev)));
 }
 
-#if !defined(FOOTBRIDGE)                                                                                   
+#if !defined(FOOTBRIDGE)
 /*
  * This entire table could be autoconfig()ed but that would mean that
  * the kernel's idea of the console would be out of sync with that of
@@ -434,7 +434,7 @@ chrtoblk(dev)
 #include <dev/cons.h>
 
 cons_decl(rpcconsole);
-cons_decl(com);   
+cons_decl(com);
 cons_decl(ofcons_);
 cons_decl(pc);
 
@@ -452,5 +452,5 @@ struct consdev constab[] = {
 	{ 0 },
 };
 #endif	/* !FOOTBRIDGE */
-                           
+
 /* End of conf.c */

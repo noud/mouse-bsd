@@ -3028,7 +3028,7 @@ _bfd_mips_elf_find_nearest_line (abfd, section, symbols, offset, filename_ptr,
   asection *msec;
 
   if (_bfd_dwarf2_find_nearest_line (abfd, section, symbols, offset,
-				     filename_ptr, functionname_ptr, 
+				     filename_ptr, functionname_ptr,
 				     line_ptr))
     return true;
 

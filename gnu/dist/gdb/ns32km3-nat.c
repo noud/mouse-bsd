@@ -42,7 +42,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
  * location where the gdb registers[i] is stored.
  */
 
-static int reg_offset[] = 
+static int reg_offset[] =
 {
   REG_N_OFFSET(r0),  REG_N_OFFSET(r1), REG_N_OFFSET(r2), REG_N_OFFSET(r3),
   REG_N_OFFSET(r4),  REG_N_OFFSET(r5), REG_N_OFFSET(r6), REG_N_OFFSET(r7),
@@ -83,7 +83,7 @@ fetch_inferior_registers (regno)
   thread_state_data_t state;
   unsigned int stateCnt = NS532_COMBINED_STATE_COUNT;
   int index;
-  
+
   if (! MACH_PORT_VALID (current_thread))
     error ("fetch inferior registers: Invalid thread");
 
@@ -107,7 +107,7 @@ fetch_inferior_registers (regno)
 #endif
   else
     {
-      for (index = 0; index < NUM_REGS; index++) 
+      for (index = 0; index < NUM_REGS; index++)
 	supply_register (index, (char *)state+reg_offset[index]);
     }
 
@@ -142,7 +142,7 @@ store_inferior_registers (regno)
 			  state,
 			  &stateCnt);
 
-   if (ret != KERN_SUCCESS) 
+   if (ret != KERN_SUCCESS)
     {
       warning ("store_inferior_registers (get): %s",
 	       mach_error_string (ret));
@@ -163,17 +163,17 @@ store_inferior_registers (regno)
   else
 #endif
     {
-      for (index = 0; index < NUM_REGS; index++) 
+      for (index = 0; index < NUM_REGS; index++)
 	STORE_REGS (state, index, 1);
     }
-  
+
   /* Write gdb's current view of register to the thread
    */
   ret = thread_set_state (current_thread,
 			  NS532_COMBINED_STATE,
 			  state,
 			  NS532_COMBINED_STATE_COUNT);
-  
+
   if (ret != KERN_SUCCESS)
     warning ("store_inferior_registers (set): %s",
 	     mach_error_string (ret));

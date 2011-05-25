@@ -60,7 +60,7 @@ static void coff_pointerize_aux
 static boolean make_a_section_from_file
   PARAMS ((bfd *, struct internal_scnhdr *, unsigned int));
 static const bfd_target *coff_real_object_p
-  PARAMS ((bfd *, unsigned, struct internal_filehdr *, 
+  PARAMS ((bfd *, unsigned, struct internal_filehdr *,
 	   struct internal_aouthdr *));
 static void fixup_symbol_value
   PARAMS ((bfd *, coff_symbol_type *, struct internal_syment *));
@@ -683,7 +683,7 @@ coff_renumber_symbols (bfd_ptr, first_undef)
   for (symbol_index = 0; symbol_index < symbol_count; symbol_index++)
     {
       coff_symbol_type *coff_symbol_ptr = coff_symbol_from (bfd_ptr, symbol_ptr_ptr[symbol_index]);
-      symbol_ptr_ptr[symbol_index]->udata.i = symbol_index; 
+      symbol_ptr_ptr[symbol_index]->udata.i = symbol_index;
       if (coff_symbol_ptr && coff_symbol_ptr->native)
 	{
 	  combined_entry_type *s = coff_symbol_ptr->native;
@@ -1075,7 +1075,7 @@ coff_write_native_symbol (abfd, symbol, written, string_size_p,
       while (lineno[count].line_number != 0)
 	{
 #if 0
-	  /* 13 april 92. sac 
+	  /* 13 april 92. sac
 	     I've been told this, but still need proof:
 	     > The second bug is also in `bfd/coffcode.h'.  This bug
 	     > causes the linker to screw up the pc-relocations for
@@ -1477,7 +1477,7 @@ build_debug_section (abfd)
   if (debug_section == NULL)
     return NULL;
 
-  /* Seek to the beginning of the `.debug' section and read it. 
+  /* Seek to the beginning of the `.debug' section and read it.
      Save the current position first; it is needed by our caller.
      Then read debug section and reset the file pointer.  */
 
@@ -1579,7 +1579,7 @@ _bfd_coff_read_string_table (abfd)
 		 + obj_raw_syment_count (abfd) * bfd_coff_symesz (abfd)),
 		SEEK_SET) != 0)
     return NULL;
-    
+
   if (bfd_read (extstrsize, sizeof extstrsize, 1, abfd) != sizeof extstrsize)
     {
       if (bfd_get_error () != bfd_error_file_truncated)

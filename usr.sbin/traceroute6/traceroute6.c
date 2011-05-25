@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -260,7 +260,7 @@ __RCSID("$NetBSD: traceroute6.c,v 1.7 2000/02/16 00:38:14 itojun Exp $");
 #include <sys/file.h>
 #include <sys/ioctl.h>
 
-#include <netinet/in.h> 
+#include <netinet/in.h>
 
 #include <arpa/inet.h>
 
@@ -277,7 +277,7 @@ __RCSID("$NetBSD: traceroute6.c,v 1.7 2000/02/16 00:38:14 itojun Exp $");
 #include <netinet/udp.h>
 
 #ifdef IPSEC
-#include <net/route.h> 
+#include <net/route.h>
 #include <netinet6/ipsec.h>
 #endif
 
@@ -348,7 +348,7 @@ int datalen;			/* How much data */
 char rtbuf[2064];
 #ifdef USE_RFC2292BIS
 struct ip6_rthdr *rth;
-#endif 
+#endif
 struct cmsghdr *cmsg;
 
 char *source = 0;
@@ -387,7 +387,7 @@ main(argc, argv)
 
 	on = 1;
 	seq = 0;
-	
+
 	while ((ch = getopt(argc, argv, "dlm:np:q:rs:w:vg:")) != EOF)
 		switch(ch) {
 		case 'd':
@@ -560,7 +560,7 @@ main(argc, argv)
 	if (setsockopt(rcvsock, IPPROTO_IPV6, IPV6_PKTINFO, &on,
 		       sizeof(on)) < 0)
 		err(1, "setsockopt(IPV6_PKTINFO)");
-#endif 
+#endif
 
 	/* specify to tell value of hoplimit field of received IP6 hdr */
 #ifdef IPV6_RECVHOPLIMIT
@@ -571,7 +571,7 @@ main(argc, argv)
 	if (setsockopt(rcvsock, IPPROTO_IPV6, IPV6_HOPLIMIT, &on,
 		       sizeof(on)) < 0)
 		err(1, "setsockopt(IPV6_HOPLIMIT)");
-#endif 
+#endif
 
 	if (options & SO_DEBUG)
 		(void) setsockopt(rcvsock, SOL_SOCKET, SO_DEBUG,
@@ -982,7 +982,7 @@ packet_ok(mhdr, cc, seq)
 #ifdef OLDRAWSOCKET
 	int hlen;
 	struct ip6_hdr *ip;
-#endif 
+#endif
 
 #ifdef OLDRAWSOCKET
 	ip = (struct ip6_hdr *) buf;
@@ -1034,7 +1034,7 @@ packet_ok(mhdr, cc, seq)
 		return(0);
 	}
 	rcvhlim = *hlimp;
- 
+
 	type = icp->icmp6_type;
 	code = icp->icmp6_code;
 	if ((type == ICMP6_TIME_EXCEEDED && code == ICMP6_TIME_EXCEED_TRANSIT)

@@ -166,7 +166,7 @@ GLOBAL(vectab)
 	VECTOR(intiotrap)	/* 111: unassigned, reserved */
 	VECTOR(intiotrap)	/* 112: Z8530 SCC (onboard) */
 	VECTOR(intiotrap)	/* 113: Z8530 SCC */
-	VECTOR(intiotrap)	/* 114: Z8530 SCC */; 
+	VECTOR(intiotrap)	/* 114: Z8530 SCC */;
 	VECTOR(intiotrap)	/* 115: unassigned, reserved */
 	VECTOR(intiotrap)	/* 116: unassigned, reserved */
 	VECTOR(intiotrap)	/* 117: unassigned, reserved */

@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: mount_fs.c,v 1.7 1999/08/22 21:12:33 ezk Exp 
+ * Id: mount_fs.c,v 1.7 1999/08/22 21:12:33 ezk Exp
  *
  */
 

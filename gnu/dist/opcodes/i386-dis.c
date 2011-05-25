@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
  * of the "Opcode Map" chapter (Appendix A) of the Intel 80386
  * Programmers Manual.  Usually, there is a capital letter, followed
  * by a small letter.  The capital letter tell the addressing mode,
- * and the small letter tells about the operand size.  Refer to 
+ * and the small letter tells about the operand size.  Refer to
  * the Intel manual for details.
  */
 
@@ -555,53 +555,53 @@ static struct dis386 dis386_twobyte[] = {
   { GRP6 },
   { GRP7 },
   { "larS", Gv, Ew },
-  { "lslS", Gv, Ew },  
+  { "lslS", Gv, Ew },
   { "(bad)" },
   { "(bad)" },
   { "clts" },
-  { "(bad)" },  
+  { "(bad)" },
   /* 08 */
   { "invd" },
   { "wbinvd" },
-  { "(bad)" },  { "ud2a" },  
-  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },  
+  { "(bad)" },  { "ud2a" },
+  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },
   /* 10 */
-  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },  
-  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },  
+  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },
+  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },
   /* 18 */
-  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },  
-  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },  
+  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },
+  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },
   /* 20 */
   /* these are all backward in appendix A of the intel book */
   { "movl", Rd, Cd },
   { "movl", Rd, Dd },
   { "movl", Cd, Rd },
-  { "movl", Dd, Rd },  
+  { "movl", Dd, Rd },
   { "movl", Rd, Td },
   { "(bad)" },
   { "movl", Td, Rd },
-  { "(bad)" },  
+  { "(bad)" },
   /* 28 */
-  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },  
-  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },  
+  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },
+  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },
   /* 30 */
-  { "wrmsr" },  { "rdtsc" },  { "rdmsr" },  { "rdpmc" },  
-  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },  
+  { "wrmsr" },  { "rdtsc" },  { "rdmsr" },  { "rdpmc" },
+  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },
   /* 38 */
-  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },  
-  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },  
+  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },
+  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },
   /* 40 */
   { "cmovo", Gv,Ev }, { "cmovno", Gv,Ev }, { "cmovb", Gv,Ev }, { "cmovae", Gv,Ev },
   { "cmove", Gv,Ev }, { "cmovne", Gv,Ev }, { "cmovbe", Gv,Ev }, { "cmova", Gv,Ev },
   /* 48 */
   { "cmovs", Gv,Ev }, { "cmovns", Gv,Ev }, { "cmovp", Gv,Ev }, { "cmovnp", Gv,Ev },
-  { "cmovl", Gv,Ev }, { "cmovge", Gv,Ev }, { "cmovle", Gv,Ev }, { "cmovg", Gv,Ev },  
+  { "cmovl", Gv,Ev }, { "cmovge", Gv,Ev }, { "cmovle", Gv,Ev }, { "cmovg", Gv,Ev },
   /* 50 */
-  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },  
-  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },  
+  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },
+  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },
   /* 58 */
-  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },  
-  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },  
+  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },
+  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },
   /* 60 */
   { "punpcklbw", MX, EM },
   { "punpcklwd", MX, EM },
@@ -629,7 +629,7 @@ static struct dis386 dis386_twobyte[] = {
   { "pcmpeqd", MX, EM },
   { "emms" },
   /* 78 */
-  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },  
+  { "(bad)" },  { "(bad)" },  { "(bad)" },  { "(bad)" },
   { "(bad)" },  { "(bad)" },
   { "movd", Ev, MX },
   { "movq", EM, MX },
@@ -637,20 +637,20 @@ static struct dis386 dis386_twobyte[] = {
   { "jo", Jv },
   { "jno", Jv },
   { "jb", Jv },
-  { "jae", Jv },  
+  { "jae", Jv },
   { "je", Jv },
   { "jne", Jv },
   { "jbe", Jv },
-  { "ja", Jv },  
+  { "ja", Jv },
   /* 88 */
   { "js", Jv },
   { "jns", Jv },
   { "jp", Jv },
-  { "jnp", Jv },  
+  { "jnp", Jv },
   { "jl", Jv },
   { "jge", Jv },
   { "jle", Jv },
-  { "jg", Jv },  
+  { "jg", Jv },
   /* 90 */
   { "seto", Eb },
   { "setno", Eb },
@@ -668,52 +668,52 @@ static struct dis386 dis386_twobyte[] = {
   { "setl", Eb },
   { "setge", Eb },
   { "setle", Eb },
-  { "setg", Eb },  
+  { "setg", Eb },
   /* a0 */
   { "pushS", fs },
   { "popS", fs },
   { "cpuid" },
-  { "btS", Ev, Gv },  
+  { "btS", Ev, Gv },
   { "shldS", Ev, Gv, Ib },
   { "shldS", Ev, Gv, CL },
   { "(bad)" },
-  { "(bad)" },  
+  { "(bad)" },
   /* a8 */
   { "pushS", gs },
   { "popS", gs },
   { "rsm" },
-  { "btsS", Ev, Gv },  
+  { "btsS", Ev, Gv },
   { "shrdS", Ev, Gv, Ib },
   { "shrdS", Ev, Gv, CL },
   { "(bad)" },
-  { "imulS", Gv, Ev },  
+  { "imulS", Gv, Ev },
   /* b0 */
   { "cmpxchgb", Eb, Gb },
   { "cmpxchgS", Ev, Gv },
   { "lssS", Gv, Mp },	/* 386 lists only Mp */
-  { "btrS", Ev, Gv },  
+  { "btrS", Ev, Gv },
   { "lfsS", Gv, Mp },	/* 386 lists only Mp */
   { "lgsS", Gv, Mp },	/* 386 lists only Mp */
   { "movzbS", Gv, Eb },
-  { "movzwS", Gv, Ew },  
+  { "movzwS", Gv, Ew },
   /* b8 */
   { "ud2b" },
   { "(bad)" },
   { GRP8 },
-  { "btcS", Ev, Gv },  
+  { "btcS", Ev, Gv },
   { "bsfS", Gv, Ev },
   { "bsrS", Gv, Ev },
   { "movsbS", Gv, Eb },
-  { "movswS", Gv, Ew },  
+  { "movswS", Gv, Ew },
   /* c0 */
   { "xaddb", Eb, Gb },
   { "xaddS", Ev, Gv },
   { "(bad)" },
-  { "(bad)" },  
   { "(bad)" },
   { "(bad)" },
   { "(bad)" },
-  { GRP9 },  
+  { "(bad)" },
+  { GRP9 },
   /* c8 */
   { "bswap", eAX },
   { "bswap", eCX },
@@ -730,7 +730,7 @@ static struct dis386 dis386_twobyte[] = {
   { "psrlq", MX, EM },
   { "(bad)" },
   { "pmullw", MX, EM },
-  { "(bad)" },  { "(bad)" },  
+  { "(bad)" },  { "(bad)" },
   /* d8 */
   { "psubusb", MX, EM },
   { "psubusw", MX, EM },
@@ -747,7 +747,7 @@ static struct dis386 dis386_twobyte[] = {
   { "(bad)" },
   { "(bad)" },
   { "pmulhw", MX, EM },
-  { "(bad)" },  { "(bad)" },  
+  { "(bad)" },  { "(bad)" },
   /* e8 */
   { "psubsb", MX, EM },
   { "psubsw", MX, EM },
@@ -764,12 +764,12 @@ static struct dis386 dis386_twobyte[] = {
   { "psllq", MX, EM },
   { "(bad)" },
   { "pmaddwd", MX, EM },
-  { "(bad)" },  { "(bad)" },  
+  { "(bad)" },  { "(bad)" },
   /* f8 */
   { "psubb", MX, EM },
   { "psubw", MX, EM },
   { "psubd", MX, EM },
-  { "(bad)" },  
+  { "(bad)" },
   { "paddb", MX, EM },
   { "paddw", MX, EM },
   { "paddd", MX, EM },
@@ -1199,7 +1199,7 @@ print_insn_x86 (pc, info, aflag, dflag)
   start_pc = pc;
   start_codep = inbuf;
   codep = inbuf;
-  
+
   ckprefix ();
 
   FETCH_DATA (info, codep + 1);
@@ -1207,16 +1207,16 @@ print_insn_x86 (pc, info, aflag, dflag)
     enter_instruction = 1;
   else
     enter_instruction = 0;
-  
+
   obufp = obuf;
-  
+
   if (prefixes & PREFIX_REPZ)
     oappend ("repz ");
   if (prefixes & PREFIX_REPNZ)
     oappend ("repnz ");
   if (prefixes & PREFIX_LOCK)
     oappend ("lock ");
-  
+
   if ((prefixes & PREFIX_FWAIT)
       && ((*codep < 0xd8) || (*codep > 0xdf)))
     {
@@ -1224,10 +1224,10 @@ print_insn_x86 (pc, info, aflag, dflag)
       (*info->fprintf_func) (info->stream, "fwait");
       return (1);
     }
-  
+
   if (prefixes & PREFIX_DATA)
     dflag ^= 1;
-  
+
   if (prefixes & PREFIX_ADR)
     {
       aflag ^= 1;
@@ -1236,7 +1236,7 @@ print_insn_x86 (pc, info, aflag, dflag)
       else
 	oappend ("addr16 ");
     }
-  
+
   if (*codep == 0x0f)
     {
       FETCH_DATA (info, codep + 2);
@@ -1266,34 +1266,34 @@ print_insn_x86 (pc, info, aflag, dflag)
     {
       if (dp->name == NULL)
 	dp = &grps[dp->bytemode1][reg];
-      
+
       putop (dp->name, aflag, dflag);
-      
+
       obufp = op1out;
       op_ad = 2;
       if (dp->op1)
 	(*dp->op1)(dp->bytemode1, aflag, dflag);
-      
+
       obufp = op2out;
       op_ad = 1;
       if (dp->op2)
 	(*dp->op2)(dp->bytemode2, aflag, dflag);
-      
+
       obufp = op3out;
       op_ad = 0;
       if (dp->op3)
 	(*dp->op3)(dp->bytemode3, aflag, dflag);
     }
-  
+
   obufp = obuf + strlen (obuf);
   for (i = strlen (obuf); i < 6; i++)
     oappend (" ");
   oappend (" ");
   (*info->fprintf_func) (info->stream, "%s", obuf);
-  
+
   /* enter instruction is printed with operands in the
    * same order as the intel book; everything else
-   * is printed in reverse order 
+   * is printed in reverse order
    */
   if (enter_instruction)
     {
@@ -1576,9 +1576,9 @@ dofloat (aflag, dflag)
 {
   struct dis386 *dp;
   unsigned char floatop;
-  
+
   floatop = codep[-1];
-  
+
   if (mod != 3)
     {
       putop (float_mem[(floatop - 0xd8) * 8 + reg], aflag, dflag);
@@ -1587,7 +1587,7 @@ dofloat (aflag, dflag)
       return;
     }
   codep++;
-  
+
   dp = &float_reg[floatop - 0xd8][reg];
   if (dp->name == NULL)
     {
@@ -1642,7 +1642,7 @@ putop (template, aflag, dflag)
      int dflag;
 {
   char *p;
-  
+
   for (p = template; *p; p++)
     {
       switch (*p)
@@ -1863,7 +1863,7 @@ OP_G (bytemode, aflag, dflag)
      int aflag;
      int dflag;
 {
-  switch (bytemode) 
+  switch (bytemode)
     {
     case b_mode:
       oappend (names8[reg]);
@@ -1926,8 +1926,8 @@ OP_REG (code, aflag, dflag)
      int dflag;
 {
   char *s;
-  
-  switch (code) 
+
+  switch (code)
     {
     case indir_dx_reg: s = "(%dx)"; break;
 	case ax_reg: case cx_reg: case dx_reg: case bx_reg:
@@ -1964,8 +1964,8 @@ OP_I (bytemode, aflag, dflag)
      int dflag;
 {
   int op;
-  
-  switch (bytemode) 
+
+  switch (bytemode)
     {
     case b_mode:
       FETCH_DATA (the_info, codep + 1);
@@ -1996,8 +1996,8 @@ OP_sI (bytemode, aflag, dflag)
      int dflag;
 {
   int op;
-  
-  switch (bytemode) 
+
+  switch (bytemode)
     {
     case b_mode:
       FETCH_DATA (the_info, codep + 1);
@@ -2037,8 +2037,8 @@ OP_J (bytemode, aflag, dflag)
 {
   int disp;
   int mask = -1;
-  
-  switch (bytemode) 
+
+  switch (bytemode)
     {
     case b_mode:
       FETCH_DATA (the_info, codep + 1);
@@ -2093,16 +2093,16 @@ OP_DIR (size, aflag, dflag)
      int dflag;
 {
   int seg, offset;
-  
-  switch (size) 
+
+  switch (size)
     {
     case lptr:
-      if (aflag) 
+      if (aflag)
 	{
 	  offset = get32 ();
 	  seg = get16 ();
-	} 
-      else 
+	}
+      else
 	{
 	  offset = get16 ();
 	  seg = get16 ();
@@ -2119,7 +2119,7 @@ OP_DIR (size, aflag, dflag)
 	  if ((offset & 0x8000) != 0)
 	    offset -= 0x10000;
 	}
-      
+
       offset = start_pc + codep - start_codep + offset;
       set_op (offset);
       sprintf (scratchbuf, "0x%x", offset);
@@ -2147,7 +2147,7 @@ OP_OFF (bytemode, aflag, dflag)
     off = get32 ();
   else
     off = get16 ();
-  
+
   sprintf (scratchbuf, "0x%x", off);
   oappend (scratchbuf);
   return (0);
@@ -2249,7 +2249,7 @@ OP_rm (bytemode, aflag, dflag)
      int aflag;
      int dflag;
 {
-  switch (bytemode) 
+  switch (bytemode)
     {
     case d_mode:
       oappend (names32[rm]);

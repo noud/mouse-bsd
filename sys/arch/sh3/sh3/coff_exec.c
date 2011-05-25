@@ -80,7 +80,7 @@ exec_coff_makecmds(p, epp)
 
 	if (COFF_BADMAG(fp))
 		return ENOEXEC;
-	
+
 	ap = (void *)((char *)epp->ep_hdr + sizeof(struct coff_filehdr));
 	switch (ap->a_magic) {
 	case COFF_OMAGIC:
@@ -196,7 +196,7 @@ exec_coff_prep_omagic(p, epp, fp, ap)
 			  NULLVP, 0,
 			  VM_PROT_READ|VM_PROT_WRITE|VM_PROT_EXECUTE);
 #endif
-	
+
 	return exec_coff_setup_stack(p, epp);
 }
 
@@ -254,7 +254,7 @@ coff_find_section(p, vp, fp, sh, s_type)
 	int s_type;
 {
 	int i, pos, resid, siz, error;
-	
+
 	pos = COFF_HDR_SIZE;
 	for (i = 0; i < fp->f_nscns; i++, pos += sizeof(struct coff_scnhdr)) {
 		siz = sizeof(struct coff_scnhdr);
@@ -303,12 +303,12 @@ exec_coff_prep_zmagic(p, epp, fp, ap)
 	long  baddr, bsize;
 #endif
 	struct coff_scnhdr sh;
-	
+
 	DPRINTF(("enter exec_coff_prep_zmagic\n"));
 
 	/* set up command for text segment */
 	error = coff_find_section(p, epp->ep_vp, fp, &sh, COFF_STYP_TEXT);
-	if (error) {		
+	if (error) {
 		DPRINTF(("can't find text section: %d\n", error));
 		return error;
 	}
@@ -332,7 +332,7 @@ exec_coff_prep_zmagic(p, epp, fp, ap)
 		return ETXTBSY;
 	}
 	epp->ep_vp->v_flag |= VTEXT;
-	
+
 	DPRINTF(("VMCMD: addr %lx size %lx offset %lx\n", epp->ep_taddr,
 		 epp->ep_tsize, offset));
 	if (!(offset & PAGE_MASK) && !(epp->ep_taddr & PAGE_MASK)) {
@@ -382,7 +382,7 @@ exec_coff_prep_zmagic(p, epp, fp, ap)
 			  COFF_ROUND(ap->a_dstart + ap->a_dsize, COFF_LDPGSZ),
 			  NULLVP, 0,
 			  VM_PROT_READ|VM_PROT_WRITE|VM_PROT_EXECUTE);
-		
+
 	}
 #else
 	/* set up command for bss segment */
@@ -405,7 +405,7 @@ exec_coff_prep_zmagic(p, epp, fp, ap)
 		struct coff_slhdr *slhdr;
 		char buf[128], *bufp;	/* FIXME */
 		int len = sh.s_size, path_index, entry_len;
-		
+
 		DPRINTF(("COFF shlib size %d offset %d\n",
 			 sh.s_size, sh.s_scnptr));
 
@@ -434,7 +434,7 @@ exec_coff_prep_zmagic(p, epp, fp, ap)
 		}
 	}
 #endif
-		
+
 	/* set up entry point */
 	epp->ep_entry = ap->a_entry;
 
@@ -444,7 +444,7 @@ exec_coff_prep_zmagic(p, epp, fp, ap)
 		 epp->ep_daddr, epp->ep_dsize,
 		 epp->ep_entry));
 #endif
-	
+
 	return exec_coff_setup_stack(p, epp);
 }
 

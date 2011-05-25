@@ -186,10 +186,10 @@ svis(dst, c, flag, nextc, extra)
  *	be encoded, too. These functions are useful e. g. to
  *	encode strings in such a way so that they are not interpreted
  *	by a shell.
- *	
+ *
  *	Dst must be 4 times the size of src to account for possible
  *	expansion.  The length of dst, not including the trailing NULL,
- *	is returned. 
+ *	is returned.
  *
  *	Strsvisx encodes exactly len bytes from src into dst.
  *	This is useful for encoding a block of data.
@@ -246,7 +246,7 @@ char *
 vis(dst, c, flag, nextc)
 	char *dst;
 	int c, flag, nextc;
-	
+
 {
 	char extra[MAXEXTRAS];
 
@@ -261,10 +261,10 @@ vis(dst, c, flag, nextc)
 
 /*
  * strvis, strvisx - visually encode characters from src into dst
- *	
+ *
  *	Dst must be 4 times the size of src to account for possible
  *	expansion.  The length of dst, not including the trailing NULL,
- *	is returned. 
+ *	is returned.
  *
  *	Strvisx encodes exactly len bytes from src into dst.
  *	This is useful for encoding a block of data.

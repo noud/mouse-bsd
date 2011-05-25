@@ -158,7 +158,7 @@ footbridge_bs_map(t, bpa, size, cacheable, bshp)
 	 * The whole 64K of PCI space is always completely mapped during
 	 * boot.
 	 *
-	 * Eventually this function will do the mapping check overlapping / 
+	 * Eventually this function will do the mapping check overlapping /
 	 * multiple mappings.
 	 */
 
@@ -194,7 +194,7 @@ footbridge_mem_bs_map(t, bpa, size, cacheable, bshp)
 	}
 
 	/*
-	 * Eventually this function will do the mapping check for overlapping / 
+	 * Eventually this function will do the mapping check for overlapping /
 	 * multiple mappings
 	 */
 
@@ -269,7 +269,7 @@ footbridge_mem_bs_unmap(t, bsh, size)
 	uvm_km_free(kernel_map, startva, endva - startva);
 }
 
-void    
+void
 footbridge_bs_free(t, bsh, size)
 	void *t;
 	bus_space_handle_t bsh;
@@ -300,4 +300,4 @@ footbridge_bs_barrier(t, bsh, offset, len, flags)
 	bus_size_t offset, len;
 	int flags;
 {
-}	
+}

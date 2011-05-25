@@ -123,13 +123,13 @@ int needswap;	/* file system in swapped byte order */
 static __inline u_int16_t iswap16 __P((u_int16_t));
 static __inline u_int32_t iswap32 __P((u_int32_t));
 static __inline u_int64_t iswap64 __P((u_int64_t));
-    
+
 static __inline u_int16_t iswap16(x)
 	u_int16_t x;
-{           
+{
 	if (needswap)
 		return bswap16(x);
-	else return x;  
+	else return x;
 }
 
 static __inline u_int32_t iswap32(x)
@@ -146,7 +146,7 @@ static __inline u_int64_t iswap64(x)
 	if (needswap)
 		return bswap64(x);
 	else return x;
-}  
+}
 
 #ifndef __P
 #include <sys/cdefs.h>
@@ -185,7 +185,7 @@ void	dumpmap __P((char *map, int type, ino_t ino));
 void	writeheader __P((ino_t ino));
 
 /* data block caching */
-void	bread __P((daddr_t blkno, char *buf, int size));	
+void	bread __P((daddr_t blkno, char *buf, int size));
 void	rawread __P((daddr_t, char *, int));
 void	initcache __P((int, int));
 void	printcachestats __P((void));

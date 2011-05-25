@@ -105,7 +105,7 @@ sb_isapnp_attach(parent, self, aux)
 	printf("\n");
 
 	if (isapnp_config(ipa->ipa_iot, ipa->ipa_memt, ipa)) {
-		printf("%s: error in region allocation\n", 
+		printf("%s: error in region allocation\n",
 		       sc->sc_dev.dv_xname);
 		return;
 	}

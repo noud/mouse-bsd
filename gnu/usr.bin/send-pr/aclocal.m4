@@ -60,7 +60,7 @@ define([AC_PASSWD],dnl
 [echo checking how to access passwd database
 PASSWD="cat /etc/passwd"
 if test -f /bin/domainname && test -n "`/bin/domainname`"; then
-  if test -f /usr/bin/niscat && 
+  if test -f /usr/bin/niscat &&
      /usr/bin/niscat passwd.org_dir > /dev/null 2>&1; then
     PASSWD="/usr/bin/niscat passwd.org_dir"
   elif test -f /usr/bin/ypcat && /usr/bin/ypcat passwd > /dev/null 2>&1; then

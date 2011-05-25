@@ -1,6 +1,6 @@
 /*	$NetBSD: perm.h,v 1.1 1998/06/27 21:15:08 christos Exp $	*/
 
-/* 
+/*
  *  perm.h -  header for at(1)
  *  Copyright (C) 1994  Thomas Koenig
  *

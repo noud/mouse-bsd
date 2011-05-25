@@ -7,4 +7,4 @@ MT_CFLAGS= -DI80960
 
 # Don't use remote.o; it doesn't compile (and won't work) due to lack of
 # BREAKPOINT.
-REMOTE_OBS= dcache.o remote-utils.o 
+REMOTE_OBS= dcache.o remote-utils.o

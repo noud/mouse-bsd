@@ -36,7 +36,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <m68k/asm.h>	
+#include <m68k/asm.h>
 
 ASENTRY(start)
 	bra		start0

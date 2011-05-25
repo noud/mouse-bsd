@@ -1153,7 +1153,7 @@ m32r_elf_relocate_section (output_bfd, info, input_bfd, input_section,
    When the chip supports parallel 16 bit insns, things may change.
 */
 
-static boolean 
+static boolean
 m32r_elf_relax_section (abfd, sec, link_info, again)
      bfd *abfd;
      asection *sec;
@@ -1824,7 +1824,7 @@ m32r_elf_merge_private_bfd_data (ibfd, obfd)
 	 to the default values.  */
       if (bfd_get_arch_info (ibfd)->the_default)
 	return true;
-      
+
       elf_flags_init (obfd) = true;
       elf_elfheader (obfd)->e_flags = in_flags;
 
@@ -1863,19 +1863,19 @@ m32r_elf_print_private_bfd_data (abfd, ptr)
      PTR     ptr;
 {
   FILE * file = (FILE *) ptr;
-  
+
   BFD_ASSERT (abfd != NULL && ptr != NULL)
-  
+
   fprintf (file, "private flags = %lx", elf_elfheader (abfd)->e_flags);
-  
+
   switch (elf_elfheader (abfd)->e_flags & EF_M32R_ARCH)
     {
     default:
     case E_M32R_ARCH:  fprintf (file, ": m32r instructions"); break;
     }
-  
+
   fputc ('\n', file);
-  
+
   return true;
 }
 
@@ -1908,5 +1908,5 @@ m32r_elf_print_private_bfd_data (abfd, ptr)
 #define bfd_elf32_bfd_merge_private_bfd_data 	m32r_elf_merge_private_bfd_data
 #define bfd_elf32_bfd_set_private_flags		m32r_elf_set_private_flags
 #define bfd_elf32_bfd_print_private_bfd_data	m32r_elf_print_private_bfd_data
-					
+
 #include "elf32-target.h"

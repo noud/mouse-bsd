@@ -117,7 +117,7 @@ compat_43_sys_gethostname(p, v, retval)
 /*
  * The string data is appended to the end of the bsdi_si structure during
  * copyout. The "char *" offsets in the bsdi_si struct are relative to the
- * base of the bsdi_si struct. 
+ * base of the bsdi_si struct.
  */
 struct bsdi_si {
         char    *machine;

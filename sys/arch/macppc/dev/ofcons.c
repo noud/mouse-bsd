@@ -117,7 +117,7 @@ ofcopen(dev, flag, mode, p)
 	struct ofcons_softc *sc;
 	int unit = minor(dev);
 	struct tty *tp;
-	
+
 	if (unit >= macofcons_cd.cd_ndevs)
 		return ENXIO;
 	sc = macofcons_cd.cd_devs[unit];
@@ -140,7 +140,7 @@ ofcopen(dev, flag, mode, p)
 	} else if ((tp->t_state&TS_XCLUDE) && suser(p->p_ucred, &p->p_acflag))
 		return EBUSY;
 	tp->t_state |= TS_CARR_ON;
-	
+
 	return (*linesw[tp->t_line].l_open)(dev, tp);
 }
 
@@ -166,7 +166,7 @@ ofcread(dev, uio, flag)
 {
 	struct ofcons_softc *sc = macofcons_cd.cd_devs[minor(dev)];
 	struct tty *tp = sc->of_tty;
-	
+
 	return (*linesw[tp->t_line].l_read)(tp, uio, flag);
 }
 
@@ -178,7 +178,7 @@ ofcwrite(dev, uio, flag)
 {
 	struct ofcons_softc *sc = macofcons_cd.cd_devs[minor(dev)];
 	struct tty *tp = sc->of_tty;
-	
+
 	return (*linesw[tp->t_line].l_write)(tp, uio, flag);
 }
 
@@ -193,7 +193,7 @@ ofcioctl(dev, cmd, data, flag, p)
 	struct ofcons_softc *sc = macofcons_cd.cd_devs[minor(dev)];
 	struct tty *tp = sc->of_tty;
 	int error;
-	
+
 	if ((error = (*linesw[tp->t_line].l_ioctl)(tp, cmd, data, flag, p)) >= 0)
 		return error;
 	if ((error = ttioctl(tp, cmd, data, flag, p)) >= 0)
@@ -224,7 +224,7 @@ ofcstart(tp)
 	struct clist *cl;
 	int s, len;
 	u_char buf[OFBURSTLEN];
-	
+
 	s = spltty();
 	if (tp->t_state & (TS_TIMEOUT | TS_BUSY | TS_TTSTOP)) {
 		splx(s);
@@ -329,7 +329,7 @@ ofccngetc(dev)
 #else
 	unsigned char ch = '\0';
 	int l;
-	
+
 	while ((l = OF_read(stdin, &ch, 1)) != 1)
 		if (l != -2 && l != 0)
 			return -1;
@@ -343,7 +343,7 @@ ofccnputc(dev, c)
 	int c;
 {
 	char ch = c;
-	
+
 	OF_write(stdout, &ch, 1);
 }
 

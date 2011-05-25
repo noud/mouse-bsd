@@ -101,7 +101,7 @@ const struct cfattach siotty_ca = {
 };
 extern struct cfdriver siotty_cd;
 
-static int 
+static int
 siotty_match(parent, cf, aux)
 	struct device *parent;
 	struct cfdata *cf;
@@ -114,7 +114,7 @@ siotty_match(parent, cf, aux)
 	return 1;
 }
 
-static void 
+static void
 siotty_attach(parent, self, aux)
 	struct device *parent, *self;
 	void *aux;
@@ -203,7 +203,7 @@ siostart(tp)
 {
 	struct siotty_softc *sc = siotty_cd.cd_devs[minor(tp->t_dev)];
 	int s, c;
- 
+
 	s = spltty();
 	if (tp->t_state & (TS_BUSY|TS_TIMEOUT|TS_TTSTOP))
 		goto out;
@@ -292,7 +292,7 @@ sioparam(tp, t)
 		if ((tp->t_cflag & PARODD) == 0)
 			wr4 |= WR4_EPARITY;
 	}
-	wr4 |= (tp->t_cflag & CSTOPB) ? WR4_STOP2 : WR4_STOP1;	
+	wr4 |= (tp->t_cflag & CSTOPB) ? WR4_STOP2 : WR4_STOP1;
 	sc->sc_wr[WR4] = wr4;
 
 	s = spltty();
@@ -368,7 +368,7 @@ sioopen(dev, flag, mode, p)
 	if ((tp = sc->sc_tty) == NULL) {
 		tp = sc->sc_tty = ttymalloc();
 		tty_attach(tp);
-	}		
+	}
 	else if ((tp->t_state & TS_ISOPEN) && (tp->t_state & TS_XCLUDE)
 	    && p->p_ucred->cr_uid != 0)
 		return EBUSY;
@@ -407,7 +407,7 @@ sioopen(dev, flag, mode, p)
 		return error;
 	return (*linesw[tp->t_line].l_open)(dev, tp);
 }
- 
+
 int
 sioclose(dev, flag, mode, p)
 	dev_t dev;
@@ -433,7 +433,7 @@ sioclose(dev, flag, mode, p)
 	splx(s);
 	return ttyclose(tp);
 }
- 
+
 int
 sioread(dev, uio, flag)
 	dev_t dev;
@@ -442,10 +442,10 @@ sioread(dev, uio, flag)
 {
 	struct siotty_softc *sc = siotty_cd.cd_devs[minor(dev)];
 	struct tty *tp = sc->sc_tty;
- 
+
 	return (*linesw[tp->t_line].l_read)(tp, uio, flag);
 }
- 
+
 int
 siowrite(dev, uio, flag)
 	dev_t dev;
@@ -454,7 +454,7 @@ siowrite(dev, uio, flag)
 {
 	struct siotty_softc *sc = siotty_cd.cd_devs[minor(dev)];
 	struct tty *tp = sc->sc_tty;
- 
+
 	return (*linesw[tp->t_line].l_write)(tp, uio, flag);
 }
 
@@ -521,7 +521,7 @@ siotty(dev)
 	dev_t dev;
 {
 	struct siotty_softc *sc = siotty_cd.cd_devs[minor(dev)];
- 
+
 	return sc->sc_tty;
 }
 

@@ -20,7 +20,7 @@
  * Xerox PARC).  It attempts to parallel in command syntax and output
  * format the unicast traceroute program written by Van Jacobson (LBL)
  * for the parts where that makes sense.
- * 
+ *
  * Copyright (c) 1995 by the University of Southern California
  * All rights reserved.
  *
@@ -183,7 +183,7 @@ inet_name(addr)
 }
 
 
-u_int32_t 
+u_int32_t
 host_addr(name)
     char   *name;
 {
@@ -290,7 +290,7 @@ flag_type(type)
 	(void)snprintf(buf, sizeof buf, "Unknown error code %d", type);
 	return (buf);
     }
-}    
+}
 
 /*
  * If destination is on a local net, get the netmask, else set the
@@ -463,7 +463,7 @@ send_recv(dst, type, code, tries, save)
 	 * Change the qid for each request sent to avoid being confused
 	 * by duplicate responses
 	 */
-#ifdef SYSV    
+#ifdef SYSV
 	query->tr_qid  = ((u_int32_t)lrand48() >> 8);
 #else
 	query->tr_qid  = ((u_int32_t)random() >> 8);
@@ -1151,7 +1151,7 @@ print_stats(base, prev, new)
 	if (ttl < n->tr_fttl) ttl = n->tr_fttl;
 	else ++ttl;
     }
-	   
+
     printf("     %c      \\__   ttl%5d   ", first ? 'v' : '|', ttl);
     stat_line(p, n, FALSE, r);
     if (!first) {
@@ -1371,7 +1371,7 @@ Usage: mtrace [-Mlnps] [-w wait] [-m max_hops] [-q nqueries] [-g gateway]\n\
 	char myhostname[MAXHOSTNAMELEN];
 	struct hostent *hp;
 	int error;
-    
+
 	error = sysinfo(SI_HOSTNAME, myhostname, sizeof(myhostname));
 	if (error == -1) {
 	    perror("Getting my hostname");
@@ -1403,7 +1403,7 @@ Usage: mtrace [-Mlnps] [-w wait] [-m max_hops] [-q nqueries] [-g gateway]\n\
      */
     gettimeofday(&tv, 0);
     seed = tv.tv_usec ^ lcl_addr;
-#ifdef SYSV    
+#ifdef SYSV
     srand48(seed);
 #else
     srandom(seed);
@@ -1431,7 +1431,7 @@ Usage: mtrace [-Mlnps] [-w wait] [-m max_hops] [-q nqueries] [-g gateway]\n\
     }
 
     /*
-     * If the response is to be a multicast address, make sure we 
+     * If the response is to be a multicast address, make sure we
      * are listening on that multicast address.
      */
     if (raddr) {
@@ -1470,7 +1470,7 @@ Usage: mtrace [-Mlnps] [-w wait] [-m max_hops] [-q nqueries] [-g gateway]\n\
 	hops = qno;
 	tries = nqueries;
 	printf("Querying reverse path, maximum %d hops... ", qno);
-	fflush(stdout); 
+	fflush(stdout);
     }
     base.rtime = 0;
     base.len = 0;
@@ -1718,7 +1718,7 @@ log(int severity, int syserr, char *format, ...)
 	va_start(ap, format);
 #else
 /*VARARGS3*/
-void 
+void
 log(severity, syserr, format, va_alist)
 	int     severity, syserr;
 	char   *format;

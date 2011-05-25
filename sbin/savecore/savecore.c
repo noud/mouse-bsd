@@ -214,7 +214,7 @@ kmem_setup()
 	char	errbuf[_POSIX2_LINE_MAX];
 	int	i, hdrsz;
 	char	*dump_sys;
-	
+
 	/*
 	 * Some names we need for the currently running system, others for
 	 * the system that was running when the dump was made.  The values
@@ -231,7 +231,7 @@ kmem_setup()
 	if (kvm_nlist(kd_kern, current_nl) == -1)
 		syslog(LOG_ERR, "%s: kvm_nlist: %s", _PATH_UNIX,
 			kvm_geterr(kd_kern));
-	
+
 	for (i = 0; cursyms[i] != -1; i++)
 		if (current_nl[cursyms[i]].n_value == 0) {
 			syslog(LOG_ERR, "%s: %s not in namelist",

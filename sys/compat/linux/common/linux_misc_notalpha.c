@@ -205,7 +205,7 @@ linux_sys_time(p, v, retval)
 }
 
 /*
- * utime(). Do conversion to things that utimes() understands, 
+ * utime(). Do conversion to things that utimes() understands,
  * and pass it on.
  */
 int

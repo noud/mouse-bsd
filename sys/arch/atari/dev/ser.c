@@ -67,11 +67,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 /*
  * Copyright (c) 1991 The Regents of the University of California.
  * All rights reserved.
- *    
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -99,7 +99,7 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- *    
+ *
  *      @(#)com.c       7.5 (Berkeley) 5/16/91
  */
 
@@ -347,7 +347,7 @@ seropen(dev, flag, mode, p)
 	struct tty *tp;
 	int s, s2;
 	int error = 0;
- 
+
 	if (unit >= ser_cd.cd_ndevs)
 		return (ENXIO);
 	sc = ser_cd.cd_devs[unit];
@@ -461,7 +461,7 @@ bad:
 
 	return (error);
 }
- 
+
 int
 serclose(dev, flag, mode, p)
 	dev_t		dev;
@@ -499,10 +499,10 @@ serread(dev, uio, flag)
 {
 	struct ser_softc *sc = ser_cd.cd_devs[SERUNIT(dev)];
 	struct tty *tp = sc->sc_tty;
- 
+
 	return ((*linesw[tp->t_line].l_read)(tp, uio, flag));
 }
- 
+
 int
 serwrite(dev, uio, flag)
 	dev_t dev;
@@ -511,7 +511,7 @@ serwrite(dev, uio, flag)
 {
 	struct ser_softc *sc = ser_cd.cd_devs[SERUNIT(dev)];
 	struct tty *tp = sc->sc_tty;
- 
+
 	return ((*linesw[tp->t_line].l_write)(tp, uio, flag));
 }
 
@@ -568,9 +568,9 @@ serioctl(dev, cmd, data, flag, p)
 		break;
 
 	case TIOCSFLAGS:
-		error = suser(p->p_ucred, &p->p_acflag); 
+		error = suser(p->p_ucred, &p->p_acflag);
 		if (error)
-			return (error); 
+			return (error);
 		sc->sc_swflags = *(int *)data;
 		break;
 
@@ -747,7 +747,7 @@ serparam(tp, t)
 #endif
 
 	sc->sc_ospeed = ospeed;
-	
+
 	/* and copy to tty */
 	tp->t_ispeed = 0;
 	tp->t_ospeed = t->c_ospeed;
@@ -1033,7 +1033,7 @@ void ser_shutdown(sc)
 
 
 	s = splserial();
-	
+
 	/* If we were asserting flow control, then deassert it. */
 	sc->sc_rx_blocked = 1;
 	ser_hwiflow(sc, 1);
@@ -1182,7 +1182,7 @@ sersoft(arg)
 
 	if (!ISSET(tp->t_state, TS_ISOPEN) && (tp->t_wopen == 0))
 		return;
-	
+
 	if (sc->sc_rx_ready) {
 		sc->sc_rx_ready = 0;
 		serrxint(sc, tp);

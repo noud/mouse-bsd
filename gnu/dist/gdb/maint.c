@@ -331,8 +331,8 @@ maintenance_translate_address (arg, from_tty)
     sym = lookup_minimal_symbol_by_pc (address);
 
   if (sym)
-    printf_filtered ("%s+%u\n", 
-		     SYMBOL_SOURCE_NAME (sym), 
+    printf_filtered ("%s+%u\n",
+		     SYMBOL_SOURCE_NAME (sym),
 		     address - SYMBOL_VALUE_ADDRESS (sym));
   else if (sect)
     printf_filtered ("no symbol at %s:0x%08x\n", sect->name, address);

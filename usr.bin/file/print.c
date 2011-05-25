@@ -68,7 +68,7 @@ struct magic *m;
 	if (m->flag & INDIR)
 		(void) fprintf(stderr, "(%s,%d),",
 			       /* Note: in.type is unsigned */
-			       (m->in.type < SZOF(typ)) ? 
+			       (m->in.type < SZOF(typ)) ?
 					typ[m->in.type] : "*bad*",
 			       m->in.offset);
 
@@ -121,7 +121,7 @@ struct magic *m;
  * ckfprintf - fprintf, but with error checking
  */
 void
-ckfputs(str, fil) 	
+ckfputs(str, fil)
     const char *str;
     FILE *fil;
 {
@@ -175,9 +175,9 @@ error(va_alist)
 	f = va_arg(va, const char *);
 #endif
 	/* cuz we use stdout for most, stderr here */
-	(void) fflush(stdout); 
+	(void) fflush(stdout);
 
-	if (progname != NULL) 
+	if (progname != NULL)
 		(void) fprintf(stderr, "%s: ", progname);
 	(void) vfprintf(stderr, f, va);
 	va_end(va);
@@ -202,10 +202,10 @@ magwarn(va_alist)
 	f = va_arg(va, const char *);
 #endif
 	/* cuz we use stdout for most, stderr here */
-	(void) fflush(stdout); 
+	(void) fflush(stdout);
 
-	if (progname != NULL) 
-		(void) fprintf(stderr, "%s: %s, %d: ", 
+	if (progname != NULL)
+		(void) fprintf(stderr, "%s: %s, %d: ",
 			       progname, magicfile, lineno);
 	(void) vfprintf(stderr, f, va);
 	va_end(va);

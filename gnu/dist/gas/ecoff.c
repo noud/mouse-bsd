@@ -769,7 +769,7 @@ enum aux_type {
    can't be represented (assuming there are strings > 4096 bytes).  */
 
 /* FIXME: Yes, there can be such strings while emitting C++ class debug
-   info.  Templates are the offender here, the test case in question 
+   info.  Templates are the offender here, the test case in question
    having a mangled class name of
 
      t7rb_tree4Z4xkeyZt4pair2ZC4xkeyZt7xsocket1Z4UserZt9select1st2Zt4pair\
@@ -5234,7 +5234,7 @@ ecoff_set_gp_prolog_size (sz)
   cur_proc_ptr->pdr.gp_used = 1;
 }
 
-int 
+int
 ecoff_no_current_file ()
 {
   return cur_file_ptr == (efdr_t *) NULL;

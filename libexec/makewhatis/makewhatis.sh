@@ -14,7 +14,7 @@ TMP=/tmp/whatis$$
 trap "rm -f $LIST $TMP; exit 1" 1 2 15
 
 MANDIR=${1-/usr/share/man}
-if test ! -d "$MANDIR"; then 
+if test ! -d "$MANDIR"; then
 	echo "makewhatis: $MANDIR: not a directory"
 	exit 1
 fi
@@ -31,7 +31,7 @@ fi
 
 find $MANDIR \( -type f -o -type l \) -name '*.[0-9]*' -ls | \
     sort -n | awk '{if (u[$1]) next; u[$1]++ ; print $11}' > $LIST
- 
+
 egrep '\.[1-9]$' $LIST | xargs /usr/libexec/getNAME | \
 	sed -e 's/ [a-zA-Z0-9]* \\-/ -/' > $TMP
 

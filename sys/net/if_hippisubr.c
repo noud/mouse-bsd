@@ -72,7 +72,7 @@
 #endif
 
 static	int hippi_output __P((struct ifnet *, struct mbuf *,
-	    struct sockaddr *, struct rtentry *)); 
+	    struct sockaddr *, struct rtentry *));
 static	void hippi_input __P((struct ifnet *, struct mbuf *));
 
 /*
@@ -113,7 +113,7 @@ hippi_output(ifp, m0, dst, rt0)
 				if (rt->rt_ifp != ifp)
 					return (*rt->rt_ifp->if_output)
 							(ifp, m0, dst, rt);
-			} else 
+			} else
 				senderr(EHOSTUNREACH);
 		}
 		if ((rt->rt_flags & RTF_GATEWAY) && dst->sa_family != AF_NS) {
@@ -146,7 +146,7 @@ hippi_output(ifp, m0, dst, rt0)
 #endif
 	case AF_INET:
 		if (rt) {
-			struct sockaddr_dl *sdl = 
+			struct sockaddr_dl *sdl =
 				(struct sockaddr_dl *) SDL(rt->rt_gateway);
 			if (sdl->sdl_family == AF_LINK && sdl->sdl_alen != 0)
 				bcopy(LLADDR(sdl), &ifield, sizeof(ifield));
@@ -171,7 +171,7 @@ hippi_output(ifp, m0, dst, rt0)
 		l = mtod(m, struct llc *);
 		l->llc_control = LLC_UI;
 		l->llc_dsap = l->llc_ssap = LLC_SNAP_LSAP;
-		l->llc_snap.org_code[0] = l->llc_snap.org_code[1] = 
+		l->llc_snap.org_code[0] = l->llc_snap.org_code[1] =
 			l->llc_snap.org_code[2] = 0;
 		bcopy((caddr_t) &htype, (caddr_t) &l->llc_snap.ether_type,
 		      sizeof(u_int16_t));
@@ -198,7 +198,7 @@ hippi_output(ifp, m0, dst, rt0)
 	hh->hi_fp.fp_d2_len = htonl(d2_len);
 
 	/* Pad out the D2 area to end on a quadword (64-bit) boundry. */
-    
+
 	if (d2_len % 8 != 0) {
 		static u_int32_t buffer[2] = {0, 0};
 		m_copyback(m, m->m_pkthdr.len, 8 - d2_len % 8, (caddr_t) buffer);
@@ -256,7 +256,7 @@ hippi_input(ifp, m)
 	ifp->if_lastchange = time;
 	ifp->if_ibytes += m->m_pkthdr.len;
 	if (hh->hi_le.le_dest_addr[0] & 1) {
-		if (bcmp((caddr_t)etherbroadcastaddr, 
+		if (bcmp((caddr_t)etherbroadcastaddr,
 			 (caddr_t)hh->hi_le.le_dest_addr,
 			 sizeof(etherbroadcastaddr)) == 0)
 			m->m_flags |= M_BCAST;
@@ -312,7 +312,7 @@ hippi_ip_input(ifp, m)
 	register struct ifqueue *inq;
 	int s;
 	u_int32_t *ip;
-    
+
 	ip = mtod(m, u_int32_t *);
 
 	schednetisr(NETISR_IP);

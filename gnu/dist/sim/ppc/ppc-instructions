@@ -155,7 +155,7 @@
 	  signed16 done;				/* # of cycles until insn is done */
 	  signed16 nr_writebacks;			/* # of registers this unit writes back */
 	};
-	
+
 	/* Structure to hold the current state information for the simulated CPU model */
 	struct _model_data {
 	  cpu *processor;				/* point back to processor */
@@ -1001,7 +1001,7 @@ unsigned32::function::SINGLE:unsigned64 FRS
 	}
 	else {
 	  WORD = 0x0; /* ??? */
-	}	  
+	}
 	return WORD;
 
 
@@ -2326,7 +2326,7 @@ void::function::invalid_arithemetic_operation:cpu *processor, unsigned_word cia,
 	    CR_SET_XER_SO(0, cr_i_zero);
 	  }
 	  else {
-	    /* ment to randomly to store, we never do! */	
+	    /* ment to randomly to store, we never do! */
 	    CR_SET_XER_SO(0, 0);
 	  }
 	  RESERVE = 0;
@@ -2349,7 +2349,7 @@ void::function::invalid_arithemetic_operation:cpu *processor, unsigned_word cia,
 	    CR_SET_XER_SO(0, cr_i_zero);
 	  }
 	  else {
-	    /* ment to randomly to store, we never do */	
+	    /* ment to randomly to store, we never do */
 	    CR_SET_XER_SO(0, 0);
 	  }
 	  RESERVE = 0;

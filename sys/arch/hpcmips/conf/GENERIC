@@ -170,7 +170,7 @@ button0 at vrgiu? platform NEC_MCR_510 id BTN_COVER port 3
 button0 at vrgiu? platform NEC_MCR_530 id BTN_COVER port 3
 button1 at vrgiu? platform NEC_MCR_530 id BTN_APP0  port 2
 button0 at vrgiu? platform NEC_MCR_7XX id BTN_COVER port 3
-button0 at vrgiu? platform IBM_WORKPAD id BTN_REC port 1 active 0 
+button0 at vrgiu? platform IBM_WORKPAD id BTN_REC port 1 active 0
 button1 at vrgiu? platform IBM_WORKPAD id BTN_APP0  port 2 active 0
 pwctl0 at vrgiu? platform NEC_MCR_3XX id PWCTL_COM0 port 14
 pwctl0 at vrgiu? platform NEC_MCR_5XX id PWCTL_COM0 port 14

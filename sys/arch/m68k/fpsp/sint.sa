@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -33,8 +33,8 @@
 *
 *	sint.sa 3.1 12/10/90
 *
-*	The entry point sINT computes the rounded integer 
-*	equivalent of the input argument, sINTRZ computes 
+*	The entry point sINT computes the rounded integer
+*	equivalent of the input argument, sINTRZ computes
 *	the integer rounded to zero of the input argument.
 *
 *	Entry points sint and sintrz are called from do_func
@@ -56,10 +56,10 @@
 *
 *	Algorithm: (sint and sintrz)
 *
-*	1. If exp(X) >= 63, return X. 
+*	1. If exp(X) >= 63, return X.
 *	   If exp(X) < 0, return +/- 0 or +/- 1, according to
 *	   the rounding mode.
-*	
+*
 *	2. (X is in range) set rsc = 63 - exp(X). Unnormalize the
 *	   result to the exponent $403e.
 *
@@ -103,9 +103,9 @@ SINT    IDNT    2,1 Motorola 040 Floating Point Software Package
 sint:
 	bfextu	FPCR_MODE(a6){2:2},d1	;use user's mode for rounding
 *					;implicity has extend precision
-*					;in upper word. 
+*					;in upper word.
 	move.l	d1,L_SCR1(a6)		;save mode bits
-	bra.b	sintexc			
+	bra.b	sintexc
 
 *
 *	FINT with extended denorm inputs.
@@ -140,13 +140,13 @@ sintmz:
 sintrz:
 	move.l	#1,L_SCR1(a6)		;use rz mode for rounding
 *					;implicity has extend precision
-*					;in upper word. 
-	bra.b	sintexc			
+*					;in upper word.
+	bra.b	sintexc
 *
 *	SINTDO
 *
 *	Input:	a0 points to an IEEE extended format operand
-* 	Output:	fp0 has the result 
+* 	Output:	fp0 has the result
 *
 * Exeptions:
 *
@@ -158,7 +158,7 @@ sintrz:
 sintdo:
 	bfextu	FPCR_MODE(a6){2:2},d1	;use user's mode for rounding
 *					;implicitly has ext precision
-*					;in upper word. 
+*					;in upper word.
 	move.l	d1,L_SCR1(a6)		;save mode bits
 *
 * Real work of sint is in sintexc
@@ -166,7 +166,7 @@ sintdo:
 sintexc:
 	bclr.b	#sign_bit,LOCAL_EX(a0)	;convert to internal extended
 *					;format
-	sne	LOCAL_SGN(a0)		
+	sne	LOCAL_SGN(a0)
 	cmp.w	#$403e,LOCAL_EX(a0)	;check if (unbiased) exp > 63
 	bgt.b	out_rnge			;branch if exp < 63
 	cmp.w	#$3ffd,LOCAL_EX(a0)	;check if (unbiased) exp < 0
@@ -212,7 +212,7 @@ un_rnrz:
 un_rnrz_neg:
 	bsr	ld_mzero
 	bra	t_inx2
-	
+
 *
 * Input is greater than 2^63.  All bits are significant.  Return
 * the input.

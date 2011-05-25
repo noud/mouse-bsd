@@ -174,37 +174,37 @@ static struct alpha_bus_space pci_a12c_mem_space = {
 
 	/* barrier */
 	pci_a12c_mem_barrier,
-	
+
 	/* read (single) */
 	pci_a12c_mem_read_1,
 	pci_a12c_mem_read_2,
 	pci_a12c_mem_read_4,
 	pci_a12c_mem_read_8,
-	
+
 	/* read multiple */
 	pci_a12c_mem_read_multi_1,
 	pci_a12c_mem_read_multi_2,
 	pci_a12c_mem_read_multi_4,
 	pci_a12c_mem_read_multi_8,
-	
+
 	/* read region */
 	pci_a12c_mem_read_region_1,
 	pci_a12c_mem_read_region_2,
 	pci_a12c_mem_read_region_4,
 	pci_a12c_mem_read_region_8,
-	
+
 	/* write (single) */
 	pci_a12c_mem_write_1,
 	pci_a12c_mem_write_2,
 	pci_a12c_mem_write_4,
 	pci_a12c_mem_write_8,
-	
+
 	/* write multiple */
 	pci_a12c_mem_write_multi_1,
 	pci_a12c_mem_write_multi_2,
 	pci_a12c_mem_write_multi_4,
 	pci_a12c_mem_write_multi_8,
-	
+
 	/* write region */
 	pci_a12c_mem_write_region_1,
 	pci_a12c_mem_write_region_2,
@@ -216,7 +216,7 @@ static struct alpha_bus_space pci_a12c_mem_space = {
 	pci_a12c_mem_set_multi_2,
 	pci_a12c_mem_set_multi_4,
 	pci_a12c_mem_set_multi_8,
-	
+
 	/* set region */
 	pci_a12c_mem_set_region_1,
 	pci_a12c_mem_set_region_2,
@@ -367,7 +367,7 @@ pci_a12c_mem_read_multi_N(1,u_int8_t)
 pci_a12c_mem_read_multi_N(2,u_int16_t)
 pci_a12c_mem_read_multi_N(4,u_int32_t)
 pci_a12c_mem_read_multi_N(8,u_int64_t)
-/* 
+/*
 
  * In this case, we _really_ don't want all those barriers that the
  * bus_space_read's once did, and that we have carried over into

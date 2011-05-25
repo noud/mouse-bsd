@@ -353,7 +353,7 @@ struct scsipi_inquiry_pattern {
 struct scsipibus_attach_args {
 	struct scsipi_link *sa_sc_link;
 	struct scsipi_inquiry_pattern sa_inqbuf;
-	struct scsipi_inquiry_data *sa_inqptr; 
+	struct scsipi_inquiry_data *sa_inqptr;
 	union {				/* bus-type specific infos */
 		u_int8_t scsi_version;	/* SCSI version */
 	} scsipi_info;

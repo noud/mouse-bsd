@@ -22,8 +22,8 @@
  * THIS SOFTWARE IS PROVIDED BY PHILIP NELSON ``AS IS'' AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL PHILIP NELSON BE LIABLE FOR ANY DIRECT, INDIRECT, 
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * IN NO EVENT SHALL PHILIP NELSON BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
  * NOT LIMITED TO,  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
  * DATA, OR PROFITS;  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
  * THEORY OF LIABILITY,  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
@@ -31,7 +31,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* avl.c: Routines for manipulation an avl tree. 
+/* avl.c: Routines for manipulation an avl tree.
  *
  * an include file should define the following minimum struct.:
  * (Comments must be made into real comments.)
@@ -55,11 +55,11 @@ id_rec *
   find_id (id_rec *tree, char *id)
 {
   int cmp_result;
-  
+
   /* Check for an empty tree. */
   if (tree == NULL)
     return NULL;
-  
+
   /* Recursively search the tree. */
   cmp_result = strcmp (id, tree->id);
   if (cmp_result == 0)
@@ -67,7 +67,7 @@ id_rec *
   else if (cmp_result < 0)
     return find_id (tree->left, id);
   else
-    return find_id (tree->right, id);  
+    return find_id (tree->right, id);
 }
 
 
@@ -79,7 +79,7 @@ id_rec *
 int insert_id (id_rec **root, id_rec *new_id)
 {
   id_rec *A, *B;
-  
+
   /* If root is NULL, this where it is to be inserted. */
   if (*root == NULL)
     {
@@ -89,7 +89,7 @@ int insert_id (id_rec **root, id_rec *new_id)
       new_id->balance = 0;
       return (TRUE);
     }
-  
+
   /* We need to search for a leaf. */
   if (strcmp (new_id->id, (*root)->id) < 0)
     {
@@ -98,7 +98,7 @@ int insert_id (id_rec **root, id_rec *new_id)
 	{
 	  /* The height increased. */
 	  (*root)->balance --;
-	  
+
 	  switch ((*root)->balance)
 	    {
 	    case  0:  /* no height increase. */
@@ -142,8 +142,8 @@ int insert_id (id_rec **root, id_rec *new_id)
 		    }
 		  (*root)->balance = 0;
 		}
-	    }     
-	} 
+	    }
+	}
     }
   else
     {
@@ -195,10 +195,10 @@ int insert_id (id_rec **root, id_rec *new_id)
 		    }
 		  (*root)->balance = 0;
 		}
-	    }     
-	} 
+	    }
+	}
     }
-  
+
   /* If we fall through to here, the tree did not grow in height. */
   return (FALSE);
 }

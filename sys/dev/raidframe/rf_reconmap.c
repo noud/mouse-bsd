@@ -52,14 +52,14 @@
 #define RU_NIL      ((RF_ReconMapListElem_t *) 0)
 
 
-static void 
+static void
 compact_stat_entry(RF_Raid_t * raidPtr, RF_ReconMap_t * mapPtr,
     int i);
 static void crunch_list(RF_ReconMap_t * mapPtr, RF_ReconMapListElem_t * listPtr);
 static RF_ReconMapListElem_t *
 MakeReconMapListElem(RF_SectorNum_t startSector,
     RF_SectorNum_t stopSector, RF_ReconMapListElem_t * next);
-static void 
+static void
 FreeReconMapListElem(RF_ReconMap_t * mapPtr,
     RF_ReconMapListElem_t * p);
 static void update_size(RF_ReconMap_t * mapPtr, int size);
@@ -127,7 +127,7 @@ rf_MakeReconMap(raidPtr, ru_sectors, disk_sectors, spareUnitsPerDisk)
  *
  *-----------------------------------------------------------------------------*/
 
-void 
+void
 rf_ReconMapUpdate(raidPtr, mapPtr, startSector, stopSector)
 	RF_Raid_t *raidPtr;
 	RF_ReconMap_t *mapPtr;
@@ -186,7 +186,7 @@ rf_ReconMapUpdate(raidPtr, mapPtr, startSector, stopSector)
  *
  *-----------------------------------------------------------------------------*/
 
-static void 
+static void
 compact_stat_entry(raidPtr, mapPtr, i)
 	RF_Raid_t *raidPtr;
 	RF_ReconMap_t *mapPtr;
@@ -205,7 +205,7 @@ compact_stat_entry(raidPtr, mapPtr, i)
 	}
 }
 
-static void 
+static void
 crunch_list(mapPtr, listPtr)
 	RF_ReconMap_t *mapPtr;
 	RF_ReconMapListElem_t *listPtr;
@@ -256,7 +256,7 @@ MakeReconMapListElem(
  *
  *-----------------------------------------------------------------------------*/
 
-static void 
+static void
 FreeReconMapListElem(mapPtr, p)
 	RF_ReconMap_t *mapPtr;
 	RF_ReconMapListElem_t *p;
@@ -274,7 +274,7 @@ FreeReconMapListElem(mapPtr, p)
  * Free an entire status structure.  Inefficient, but can be called at any time.
  *
  *-----------------------------------------------------------------------------*/
-void 
+void
 rf_FreeReconMap(mapPtr)
 	RF_ReconMap_t *mapPtr;
 {
@@ -304,7 +304,7 @@ rf_FreeReconMap(mapPtr)
  *
  *---------------------------------------------------------------------------*/
 
-int 
+int
 rf_CheckRUReconstructed(mapPtr, startSector)
 	RF_ReconMap_t *mapPtr;
 	RF_SectorNum_t startSector;
@@ -317,7 +317,7 @@ rf_CheckRUReconstructed(mapPtr, startSector)
 	return ((l == RU_ALL) ? 1 : 0);
 }
 
-RF_ReconUnitCount_t 
+RF_ReconUnitCount_t
 rf_UnitsLeftToReconstruct(mapPtr)
 	RF_ReconMap_t *mapPtr;
 {
@@ -325,7 +325,7 @@ rf_UnitsLeftToReconstruct(mapPtr)
 	return (mapPtr->unitsLeft);
 }
 /* updates the size fields of a status descriptor */
-static void 
+static void
 update_size(mapPtr, size)
 	RF_ReconMap_t *mapPtr;
 	int     size;
@@ -334,7 +334,7 @@ update_size(mapPtr, size)
 	mapPtr->maxSize = RF_MAX(mapPtr->size, mapPtr->maxSize);
 }
 
-static void 
+static void
 PrintList(listPtr)
 	RF_ReconMapListElem_t *listPtr;
 {
@@ -345,7 +345,7 @@ PrintList(listPtr)
 	printf("\n");
 }
 
-void 
+void
 rf_PrintReconMap(raidPtr, mapPtr, frow, fcol)
 	RF_Raid_t *raidPtr;
 	RF_ReconMap_t *mapPtr;
@@ -374,7 +374,7 @@ rf_PrintReconMap(raidPtr, mapPtr, frow, fcol)
 	}
 }
 
-void 
+void
 rf_PrintReconSchedule(mapPtr, starttime)
 	RF_ReconMap_t *mapPtr;
 	struct timeval *starttime;

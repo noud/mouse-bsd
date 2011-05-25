@@ -120,7 +120,7 @@ grfiv_match(parent, cf, aux)
 
 			if (bus_space_map(oa->oa_tag, base, 0x40, 0, &bsh))
 				return 0;
-			
+
 			/* Disable interrupts */
 			bus_space_write_1(oa->oa_tag, bsh, 0x18, 0x1);
 			break;

@@ -23,7 +23,7 @@
                 Computer Science Department, 9062
                 Western Washington University
                 Bellingham, WA 98226-9062
-       
+
 *************************************************************************/
 
 /* Include the configuration file. */
@@ -77,7 +77,7 @@ typedef struct arg_list
 /* Each function has its own code segments and labels.  There can be
    no jumps between functions so labels are unique to a function. */
 
-typedef struct 
+typedef struct
     {
       char f_defined;   /* Is this function defined yet. */
       char *f_body[BC_MAX_SEGS];

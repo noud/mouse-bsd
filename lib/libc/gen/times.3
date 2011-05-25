@@ -43,7 +43,7 @@
 .Lb libc
 .Sh SYNOPSIS
 .Fd #include <sys/times.h>
-.Ft clock_t 
+.Ft clock_t
 .Fn times "struct tms *tp"
 .Sh DESCRIPTION
 .Bf -symbolic
@@ -117,7 +117,7 @@ If an error occurs,
 .Fn times
 returns the value
 .Pq (clock_t)\-1 ,
-and sets 
+and sets
 .Va errno
 to indicate the error.
 .Sh ERRORS

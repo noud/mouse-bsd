@@ -73,7 +73,7 @@ file	dev/sbus/cs4231_sbus.c		audiocs_sbus
 # Magma Serial/Parallel boards
 #
 device	magma {}
-attach	magma at sbus                                 
+attach	magma at sbus
 device	mtty: tty
 attach	mtty at magma
 device	mbpp

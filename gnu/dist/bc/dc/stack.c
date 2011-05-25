@@ -1,4 +1,4 @@
-/* 
+/*
  * implement stack functions for dc
  *
  * Copyright (C) 1994, 1997, 1998 Free Software Foundation, Inc.

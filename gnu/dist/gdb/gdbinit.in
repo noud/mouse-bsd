@@ -15,4 +15,4 @@ dir .
 dir @srcdir@/../mmalloc
 dir @srcdir@/../libiberty
 dir @srcdir@/../bfd
-set prompt (top-gdb) 
+set prompt (top-gdb)

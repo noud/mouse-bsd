@@ -57,7 +57,7 @@
 #
 # Keyboard devices:
 #	wskbd*	wscons keyboard events
-# 
+#
 # Terminal ports:
 #	com*	standard PC COM ports			(XXX)
 #	tty*	alias for PC COM ports, this is what the system really wants
@@ -121,9 +121,9 @@ ramdisk)
 	;;
 
 usbs)
-	sh $0 usb0 usb1 
+	sh $0 usb0 usb1
 	sh $0 uhid0 uhid1 uhid2 uhid3
-	sh $0 ulpt0 ulpt1 
+	sh $0 ulpt0 ulpt1
 	;;
 
 std)
@@ -250,7 +250,7 @@ md*)
 #	mknod rmd${unit}c c $chr $(($unit * 8 + 2))
 	chgrp operator md${unit}? #rmd${unit}?
 	chmod 640 md${unit}? #rmd${unit}?
-	;;      
+	;;
 
 ss*)
 	case $i in
@@ -351,7 +351,7 @@ st*)
 	st*) name=st;	unit=${i#st};	chr=18;	blk=4;;
 	esac
 	rm -f $name$unit n$name$unit e$name$unit en$name$unit \
-		r$name$unit nr$name$unit er$name$unit enr$name$unit 
+		r$name$unit nr$name$unit er$name$unit enr$name$unit
 	mknod $name$unit	b $blk $(($unit * 16 + 0))
 	mknod n$name$unit	b $blk $(($unit * 16 + 1))
 	mknod e$name$unit	b $blk $(($unit * 16 + 2))
@@ -361,9 +361,9 @@ st*)
 	mknod er$name$unit	c $chr $(($unit * 16 + 2))
 	mknod enr$name$unit	c $chr $(($unit * 16 + 3))
 	chgrp operator $name$unit n$name$unit e$name$unit en$name$unit \
-		r$name$unit nr$name$unit er$name$unit enr$name$unit 
+		r$name$unit nr$name$unit er$name$unit enr$name$unit
 	chmod 660 $name$unit n$name$unit e$name$unit en$name$unit \
-		r$name$unit nr$name$unit er$name$unit enr$name$unit 
+		r$name$unit nr$name$unit er$name$unit enr$name$unit
 	;;
 
 ch*|uk*)
@@ -430,7 +430,7 @@ random)
 
 
 scsibus*)
-	unit=${i#scsibus}; 
+	unit=${i#scsibus};
 	rm -f scsibus$unit
 	mknod scsibus$unit c 16 $unit
 	chown root:wheel scsibus$unit

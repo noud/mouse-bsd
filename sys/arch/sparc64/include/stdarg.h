@@ -68,7 +68,7 @@ typedef _BSD_VA_LIST_	va_list;
 	((dest) = (src))
 #endif
 
-#define va_end(ap)	
+#define va_end(ap)
 
 #ifdef __arch64__
 /*
@@ -94,7 +94,7 @@ typedef _BSD_VA_LIST_	va_list;
 	   (sizeof(type) <= 16 ? __va_arg16(ap, type) :			\
 	    *__va_arg(ap, type *)))))
 #else
-/* 
+/*
  * For sparcv8 code.
  */
 #define	__va_size(type) \
@@ -139,6 +139,6 @@ typedef _BSD_VA_LIST_	va_list;
 	 *__va_arg(ap, type *) : __va_size(type) == 8 ?			\
 	 __va_8byte(ap, type) : __va_arg(ap, type))
 
-#endif	
+#endif
 
 #endif /* !_SPARC64_STDARG_H_ */

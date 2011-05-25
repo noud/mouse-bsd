@@ -1043,7 +1043,7 @@ lwa_operand (op, mode)
 
   if (reload_completed && GET_CODE (inner) == SUBREG)
     inner = SUBREG_REG (inner);
-    
+
   return gpc_reg_operand (inner, mode)
     || (memory_operand (inner, mode)
 	&& GET_CODE (XEXP (inner, 0)) != PRE_INC
@@ -1294,9 +1294,9 @@ function_arg_padding (mode, type)
 }
 
 /* If defined, a C expression that gives the alignment boundary, in bits,
-   of an argument with the specified mode and type.  If it is not defined, 
+   of an argument with the specified mode and type.  If it is not defined,
    PARM_BOUNDARY is used for all arguments.
-   
+
    Windows NT wants anything >= 8 bytes to be double word aligned.
 
    V.4 wants long longs to be double word aligned.  */
@@ -1557,7 +1557,7 @@ function_arg_pass_by_reference (cum, mode, type, named)
 
 
 /* Perform any needed actions needed for a function that is receiving a
-   variable number of arguments. 
+   variable number of arguments.
 
    CUM is as above.
 
@@ -1659,7 +1659,7 @@ setup_incoming_varargs (cum, mode, type, pretend_size, no_rtl)
 
    If this macro is not defined, the compiler will output an ordinary
    call to the library function `__builtin_saveregs'.
-   
+
    On the Power/PowerPC return the address of the area on the stack
    used to hold arguments.  Under AIX, this includes the 8 word register
    save area.  Under V.4 this does not.  */
@@ -2111,7 +2111,7 @@ registers_ok_for_quad_peep (reg1, reg2)
      rtx reg1, reg2;
 {
   /* We might have been passed a SUBREG.  */
-  if (GET_CODE (reg1) != REG || GET_CODE (reg2) != REG) 
+  if (GET_CODE (reg1) != REG || GET_CODE (reg2) != REG)
     return 0;
 
   return (REGNO (reg1) == REGNO (reg2) - 1);
@@ -2218,7 +2218,7 @@ secondary_reload_class (class, mode, in)
 }
 
 /* Given a comparison operation, return the bit number in CCR to test.  We
-   know this is a valid comparison.  
+   know this is a valid comparison.
 
    SCC_P is 1 if this is for an scc.  That means that %D will have been
    used instead of %C, so the bits will be in different places.
@@ -2348,7 +2348,7 @@ rs6000_replace_regno (x, from, reg)
     }
 
   return x;
-}  
+}
 
 
 /* By generating position-independent code, when two different
@@ -2633,7 +2633,7 @@ print_operand (file, x, code)
       else
 	putc ('m', file);
       return;
-	
+
     case 'h':
       /* If constant, output low-order five bits.  Otherwise,
 	 write normally. */
@@ -2707,7 +2707,7 @@ print_operand (file, x, code)
 		     reg_names[SMALL_DATA_REG]);
 	}
       return;
-			    
+
     case 'm':
       /* MB value for a mask operand.  */
       if (! mask_operand (x, VOIDmode))
@@ -2731,7 +2731,7 @@ print_operand (file, x, code)
 	  fprintf (file, "%d", i);
 	  return;
 	}
-	  
+
       /* Otherwise, look for the first 0 bit from the right.  The result is its
 	 number plus 1. We know the low-order bit is one.  */
       for (i = 0; i < 32; i++)
@@ -2769,7 +2769,7 @@ print_operand (file, x, code)
 	  fprintf (file, "%d", 30 - i);
 	  return;
 	}
-	  
+
       /* Otherwise, look for the first 0 bit from the left.  The result is its
 	 number minus 1. We know the high-order bit is one.  */
       for (i = 0; i < 32; i++)
@@ -2893,7 +2893,7 @@ print_operand (file, x, code)
 	}
 
     case 't':
-      /* Write 12 if this jump operation will branch if true, 4 otherwise. 
+      /* Write 12 if this jump operation will branch if true, 4 otherwise.
 	 All floating-point operations except NE branch true and integer
 	 EQ, LT, GT, LTU and GTU also branch true.  */
       if (GET_RTX_CLASS (GET_CODE (x)) != '<')
@@ -2908,7 +2908,7 @@ print_operand (file, x, code)
       else
 	putc ('4', file);
       return;
-      
+
     case 'T':
       /* Opposite of 't': write 4 if this jump operation will branch if true,
 	 12 otherwise.   */
@@ -2924,7 +2924,7 @@ print_operand (file, x, code)
       else
 	fputs ("12", file);
       return;
-      
+
     case 'u':
       /* High-order 16 bits of constant for use in unsigned operand.  */
       if (! INT_P (x))
@@ -3037,7 +3037,7 @@ print_operand (file, x, code)
 		     reg_names[SMALL_DATA_REG]);
 	}
       return;
-			    
+
     case 'z':
       /* X is a SYMBOL_REF.  Write out the name preceded by a
 	 period and without any trailing data in brackets.  Used for function
@@ -3087,7 +3087,7 @@ print_operand (file, x, code)
 		     reg_names[SMALL_DATA_REG]);
 	}
       return;
-			    
+
     case 0:
       if (GET_CODE (x) == REG)
 	fprintf (file, "%s", reg_names[REGNO (x)]);
@@ -3265,17 +3265,17 @@ rs6000_makes_calls ()
 		| Parameter save area (P)		| 8
 		+---------------------------------------+
 		| Alloca space (A)			| 8+P
-		+---------------------------------------+    
+		+---------------------------------------+
 		| Varargs save area (V)			| 8+P+A
-		+---------------------------------------+    
+		+---------------------------------------+
 		| Local variable space (L)		| 8+P+A+V
-		+---------------------------------------+    
+		+---------------------------------------+
 		| Float/int conversion temporary (X)	| 8+P+A+V+L
 		+---------------------------------------+
 		| saved CR (C)				| 8+P+A+V+L+X
-		+---------------------------------------+    
+		+---------------------------------------+
 		| Save area for GP registers (G)	| 8+P+A+V+L+X+C
-		+---------------------------------------+    
+		+---------------------------------------+
 		| Save area for FP registers (F)	| 8+P+A+V+L+X+C+G
 		+---------------------------------------+
 	old SP->| back chain to caller's caller		|
@@ -3300,21 +3300,21 @@ rs6000_makes_calls ()
 		| Parameter save area (P)		| 24
 		+---------------------------------------+
 		| Alloca space (A)			| 24+P
-		+---------------------------------------+     
+		+---------------------------------------+
 		| Local variable space (L)		| 24+P+A
-		+---------------------------------------+     
+		+---------------------------------------+
 		| Float/int conversion temporary (X)	| 24+P+A+L
 		+---------------------------------------+
 		| Save area for FP registers (F)	| 24+P+A+L+X
-		+---------------------------------------+     
+		+---------------------------------------+
 		| Possible alignment area (Y)		| 24+P+A+L+X+F
-		+---------------------------------------+     
+		+---------------------------------------+
 		| Save area for GP registers (G)	| 24+P+A+L+X+F+Y
-		+---------------------------------------+     
+		+---------------------------------------+
 		| Save area for CR (C)			| 24+P+A+L+X+F+Y+G
-		+---------------------------------------+     
+		+---------------------------------------+
 		| Save area for TOC (T)			| 24+P+A+L+X+F+Y+G+C
-		+---------------------------------------+     
+		+---------------------------------------+
 		| Save area for LR (R)			| 24+P+A+L+X+F+Y+G+C+T
 		+---------------------------------------+
 	old SP->| back chain to caller's caller		|
@@ -3528,7 +3528,7 @@ rs6000_stack_info ()
 			     : info_ptr->fpmem_offset);
     }
   else
-    info_ptr->fpmem_offset = 0;  
+    info_ptr->fpmem_offset = 0;
 
   /* Zero offsets if we're not saving those registers */
   if (!info_ptr->fp_size)
@@ -4514,7 +4514,7 @@ output_toc (file, x, labelno)
       base = XEXP (XEXP (x, 0), 0);
       offset = INTVAL (XEXP (XEXP (x, 0), 1));
     }
-  
+
   if (GET_CODE (base) == SYMBOL_REF)
     name = XSTR (base, 0);
   else if (GET_CODE (base) == LABEL_REF)
@@ -4844,7 +4844,7 @@ int get_issue_rate()
   case CPU_PPC601:
     return 3;       /* ? */
   case CPU_PPC603:
-    return 2; 
+    return 2;
   case CPU_PPC604:
     return 4;
   case CPU_PPC620:

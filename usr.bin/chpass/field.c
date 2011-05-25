@@ -37,7 +37,7 @@
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)field.c	8.4 (Berkeley) 4/2/94";
-#else 
+#else
 __RCSID("$NetBSD: field.c,v 1.7 1998/08/10 23:21:05 kim Exp $");
 #endif
 #endif /* not lint */
@@ -101,7 +101,7 @@ p_passwd(p, pw, ep)
 		warnx("can't save password entry");
 		return (1);
 	}
-	
+
 	return (0);
 }
 
@@ -180,7 +180,7 @@ p_class(p, pw, ep)
 		warnx("can't save entry");
 		return (1);
 	}
-	
+
 	return (0);
 }
 

@@ -12,7 +12,7 @@ __initialized__:
 .endif
 
 MAKEINFO?=	makeinfo
-INFOFLAGS?=	
+INFOFLAGS?=
 INSTALL_INFO?=	install-info
 
 .SUFFIXES: .txi .texi .texinfo .info

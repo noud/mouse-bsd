@@ -331,7 +331,7 @@ static enum mips_monitor_type mips_monitor = MON_LAST;
    default prompt will be set according the target:
 	target		prompt
 	-----		-----
-	pmon		PMON> 
+	pmon		PMON>
 	ddb		NEC010>
 	lsi		PMON>
 */
@@ -447,7 +447,7 @@ struct lsi_error lsi_warning_table[] =
 };
 
 struct lsi_error lsi_error_table[] =
-{  
+{
   { E_BPT,	"No such breakpoint number" },
   { E_RGE,	"Range is not supported" },
   { E_QAL,	"The requested qualifiers can not be used" },
@@ -474,7 +474,7 @@ close_ports()
     }
   tftp_in_use = 0;
 }
-    
+
 /* Handle low-level error that we can't recover from.  Note that just
    error()ing out from target_wait or some such low-level place will cause
    all hell to break loose--the rest of GDB will tend to get left in an
@@ -497,7 +497,7 @@ mips_error (va_alist)
   va_start (args);
   string = va_arg (args, char *);
 #endif
- 
+
   target_terminal_ours ();
   wrap_here("");			/* Force out any buffered output */
   gdb_flush (gdb_stdout);
@@ -592,7 +592,7 @@ mips_expect_timeout (string, timeout)
 	putc_readable (c);
 
       if (c == *p++)
-	{	
+	{
 	  if (*p == '\0')
 	    {
 	      immediate_quit = 0;
@@ -779,7 +779,7 @@ mips_receive_header (hdr, pgarbage, ch, timeout)
 	      ++*pgarbage;
 	      if (mips_syn_garbage > 0
 		  && *pgarbage > mips_syn_garbage)
-		mips_error ("Debug protocol failure:  more than %d characters before a sync.", 
+		mips_error ("Debug protocol failure:  more than %d characters before a sync.",
 			    mips_syn_garbage);
 	    }
 	}
@@ -852,7 +852,7 @@ mips_cksum (hdr, data, len)
   p = hdr + 1;
   while (c-- != 0)
     cksum += *p++;
-  
+
   c = len;
   p = data;
   while (c-- != 0)
@@ -1246,7 +1246,7 @@ mips_receive_packet (buff, throw_error, timeout)
    occurs, it sets *PERR to 1 and sets errno according to what the
    target board reports.  */
 
-static CORE_ADDR 
+static CORE_ADDR
 mips_request (cmd, addr, data, perr, timeout, buff)
      int cmd;
      CORE_ADDR addr;
@@ -1354,7 +1354,7 @@ mips_enter_debug ()
      being displayed to the user. */
   if (mips_monitor != MON_IDT)
     mips_expect ("\r");
-  
+
   {
     char buff[DATA_MAXLEN + 1];
     if (mips_receive_packet (buff, 1, 3) < 0)
@@ -1387,7 +1387,7 @@ mips_exit_debug ()
 
   if (mips_monitor == MON_IDT && !mips_expect ("Exiting remote debug"))
     return -1;
-    
+
   if (mips_monitor == MON_DDB)
     {
       if (!mips_expect ("\n"))
@@ -1706,7 +1706,7 @@ lsi_open (name, from_tty)
   /* Clear the LSI breakpoint table.  */
   for (i = 0; i < MAX_LSI_BREAKPOINTS; i++)
     lsi_breakpoints[i].type = BREAK_UNUSED;
-  
+
   common_open (&lsi_ops, name, from_tty, MON_LSI, "PMON> ");
 }
 
@@ -2063,7 +2063,7 @@ mips_store_registers (regno)
 
 /* Fetch a word from the target board.  */
 
-static unsigned int 
+static unsigned int
 mips_fetch_word (addr)
      CORE_ADDR addr;
 {
@@ -2171,7 +2171,7 @@ mips_xfer_memory (memaddr, myaddr, len, write, ignore)
 				    extract_unsigned_integer (&buffer[i*4], 4),
 				    NULL);
 	  /* Report each kilobyte (we download 32-bit words at a time) */
-	  if (i % 256 == 255) 
+	  if (i % 256 == 255)
 	    {
 	      printf_unfiltered ("*");
 	      fflush (stdout);
@@ -2312,7 +2312,7 @@ mips_mourn_inferior ()
 /* Insert a breakpoint.  On targets that don't have built-in breakpoint
    support, we read the contents of the target location and stash it,
    then overwrite it with a breakpoint instruction.  ADDR is the target
-   location in the target machine.  CONTENTS_CACHE is a pointer to 
+   location in the target machine.  CONTENTS_CACHE is a pointer to
    memory allocated for saving the target contents.  It is guaranteed
    by the caller to be long enough to save sizeof BREAKPOINT bytes (this
    is accomplished via BREAKPOINT_MAX).  */
@@ -2387,7 +2387,7 @@ pmon_insert_breakpoint (addr, contents_cache)
       tbuff[0] = '0';
       tbuff[1] = 'x';
 
-      /* FIXME!! only 8 bytes!  need to expand for Bfd64; 
+      /* FIXME!! only 8 bytes!  need to expand for Bfd64;
          which targets return 64-bit addresses?  PMON returns only 32! */
       if (!mips_getstring (&tbuff[2], 8))
         return 1;
@@ -2562,7 +2562,7 @@ clear_breakpoint (addr, len, type)
    command.  If there's no error, just return 0.  If it's a warning,
    print the warning text and return 0.  If it's an error, print
    the error text and return 1.  <ADDR> is the address of the breakpoint
-   that was being set.  <RERRFLG> is the error code returned by PMON. 
+   that was being set.  <RERRFLG> is the error code returned by PMON.
    This is a helper function for common_breakpoint.  */
 
 static int
@@ -2712,8 +2712,8 @@ common_breakpoint (set, addr, len, type)
 		     code - an error return code, a value of zero indicates a
 			    succesful completion, other values indicate various
 			    errors and warnings.
-	      
-	     Possible return codes: OK, W_QAL, E_QAL, E_OUT, E_NON.  
+
+	     Possible return codes: OK, W_QAL, E_QAL, E_OUT, E_NON.
 
 	  */
 
@@ -2908,13 +2908,13 @@ mips_load_srec (args)
 		}
 
 	    } /* Per-packet (or S-record) loop */
-	  
+
 	  putchar_unfiltered ('\n');
 	} /* Loadable sections */
     }
-  if (hashmark) 
+  if (hashmark)
     putchar_unfiltered ('\n');
-  
+
   /* Write a type 7 terminator record. no data for a type 7, and there
      is no data, so len is 0.  */
 
@@ -2955,7 +2955,7 @@ mips_load_srec (args)
  *        7) four byte address termination record
  *        8) three byte address termination record
  *        9) two byte address termination record
- *       
+ *
  *      - address
  *        is the start address of the data following, or in the case of
  *        a termination record, the start address of the image
@@ -3353,7 +3353,7 @@ pmon_load_fast (file)
      care, since it just scans to the next prompt anyway. */
   /* Start the download: */
   pmon_start_download();
-  
+
   /* Zero the checksum */
   sprintf(buffer,"/Kxx\n");
   reclen = strlen(buffer);
@@ -3622,5 +3622,5 @@ synchronize with the remote system.  A value of -1 means that there is no limit\
 		     &showlist);
 
   add_com ("pmon <command>", class_obscure, pmon_command,
-	   "Send a packet to PMON (must be in debug mode)."); 
+	   "Send a packet to PMON (must be in debug mode).");
 }

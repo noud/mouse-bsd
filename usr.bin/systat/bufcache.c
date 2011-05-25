@@ -182,7 +182,7 @@ showbufcache()
 	    "%-20s    %6d %3d    %8d %3d    %8d %3d     %3d",
 	    "Total:", tbuf, (100 * tbuf) / nbuf,
 	    tvalid, (100 * tvalid) / bufkb,
-	    tsize, (100 * tsize) / bufkb, (100 * tvalid) / tsize); 
+	    tsize, (100 * tsize) / bufkb, (100 * tvalid) / tsize);
 }
 
 int

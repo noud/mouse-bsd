@@ -34,12 +34,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -54,7 +54,7 @@
 #define CANDIDATE_RP    3
 #define GROUP_PREFIX    4
 #define BOOTSTRAP_RP    5
-#define REG_THRESHOLD   6 
+#define REG_THRESHOLD   6
 #define DATA_THRESHOLD  7
 #define DEFAULT_SOURCE_METRIC     8
 #define DEFAULT_SOURCE_PREFERENCE 9
@@ -62,7 +62,7 @@
 #define GRANULARITY				  11
 #define JOIN_PRUNE_PERIOD		  12
 #define DATA_TIMEOUT		13
-#define REGISTER_SUPPRESSION_TIMEOUT 14 
+#define REGISTER_SUPPRESSION_TIMEOUT 14
 #define PROBE_TIME			15
 #define ASSERT_TIMEOUT			16
 

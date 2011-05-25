@@ -5,17 +5,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -82,7 +82,7 @@ NESTED(prom_dispatch, 5, DISPATCH_FRAME_SIZE, ra, DISPATCH_REGS, 0)
 	lda	pv, prom_dispatch_v
 	ldq	v0, 0(pv)		/* routine */
 	ldq	pv, 8(pv)		/* routine_arg */
-	
+
 	jsr	ra, (v0)
 
 #ifdef	STUPID_PROM_IS_32_BITS
@@ -104,13 +104,13 @@ NESTED(prom_dispatch, 5, DISPATCH_FRAME_SIZE, ra, DISPATCH_REGS, 0)
 	RET
 END(prom_dispatch)
 
-#undef	D_RA			
-#undef	D_S0			
-#undef	D_S1			
-#undef	D_S2			
-#undef	D_S3			
-#undef	D_S4			
-#undef	D_S5			
-#undef	D_S6			
+#undef	D_RA
+#undef	D_S0
+#undef	D_S1
+#undef	D_S2
+#undef	D_S3
+#undef	D_S4
+#undef	D_S5
+#undef	D_S6
 #undef	DISPATCH_FRAME_SIZE
 #undef	DISPATCH_REGS

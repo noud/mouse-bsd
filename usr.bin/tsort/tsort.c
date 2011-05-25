@@ -350,7 +350,7 @@ tsort()
 					if (!quiet) {
 						warnx("cycle in data");
 						for (i = 0; i < cnt; i++)
-							warnx("%s", 
+							warnx("%s",
 							    longest_cycle[i]->n_name);
 					}
 					remove_node(n);

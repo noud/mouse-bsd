@@ -101,7 +101,7 @@ gtscmatch(pdp, cfp, auxp)
 }
 
 /*
- * attach all devices on our board. 
+ * attach all devices on our board.
  */
 void
 gtscattach(pdp, dp, auxp)
@@ -114,7 +114,7 @@ gtscattach(pdp, dp, auxp)
 
 	gap = auxp;
 	sc = (struct sbic_softc *)dp;
-	sc->sc_cregs = rp = gap->zargs.va;	
+	sc->sc_cregs = rp = gap->zargs.va;
 
 	/*
 	 * disable ints and reset bank register
@@ -122,7 +122,7 @@ gtscattach(pdp, dp, auxp)
 	rp->CNTR = 0;
 	if ((gap->flags & GVP_NOBANK) == 0)
 		rp->bank = 0;
-	
+
 	sc->sc_dmago =  gtsc_dmago;
 	sc->sc_enintr = gtsc_enintr;
 	sc->sc_dmanext = gtsc_dmanext;
@@ -139,13 +139,13 @@ gtscattach(pdp, dp, auxp)
 	else
 		sc->sc_dmamask = ~0x07ffffff;
 	printf(": dmamask 0x%lx", ~sc->sc_dmamask);
-	
+
 	if ((gap->flags & GVP_NOBANK) == 0)
 		sc->gtsc_bankmask = (~sc->sc_dmamask >> 18) & 0x01c0;
 
 #if 0
 	/*
-	 * if the user requests a bounce buffer or 
+	 * if the user requests a bounce buffer or
 	 * the users kva space is not ztwo and dma needs it
 	 * try and allocate a bounce buffer.  If we allocate
 	 * one and it is in ztwo space leave maxdma to user
@@ -161,7 +161,7 @@ gtscattach(pdp, dp, auxp)
 			printf(" bounce pa 0x%x", kvtop(sc->sc_dmabuffer));
 		else if (gtsc_maxdma == 0) {
 			gtsc_maxdma = 1024;
-			printf(" bounce pa 0x%x", 
+			printf(" bounce pa 0x%x",
 			    PREP_DMA_MEM(sc->sc_dmabuffer));
 		}
 	}
@@ -250,7 +250,7 @@ gtsc_dmago(dev, addr, count, flags)
 	} else
 		sdp->ACR = (u_int) dev->sc_cur->dc_addr;
 	if (dev->gtsc_bankmask)
-		sdp->bank = 
+		sdp->bank =
 		    dev->gtsc_bankmask & (((u_int)dev->sc_cur->dc_addr) >> 18);
 	sdp->ST_DMA = 1;
 
@@ -280,7 +280,7 @@ gtsc_dmastop(dev)
 		printf("gtsc_dmastop()\n");
 #endif
 	if (dev->sc_dmacmd) {
-		/* 
+		/*
 		 * clear possible interrupt and stop dma
 		 */
 		s = splbio();
@@ -328,7 +328,7 @@ gtsc_dmanext(dev)
 		gtsc_dmastop(dev);
 		return(0);
 	}
-	/* 
+	/*
 	 * clear possible interrupt and stop dma
 	 */
 	sdp->CNTR &= ~GVP_CNTR_INT_P;
@@ -337,7 +337,7 @@ gtsc_dmanext(dev)
 	sdp->CNTR = dev->sc_dmacmd;
 	sdp->ACR = (u_int) dev->sc_cur->dc_addr;
 	if (dev->gtsc_bankmask)
-		sdp->bank = 
+		sdp->bank =
 		    dev->gtsc_bankmask & ((u_int)dev->sc_cur->dc_addr >> 18);
 	sdp->ST_DMA = 1;
 

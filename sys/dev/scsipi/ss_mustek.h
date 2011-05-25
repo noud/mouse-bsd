@@ -116,7 +116,7 @@ struct mustek_get_status_cmd {
 
 struct mustek_get_status_data {
 #define MUSTEK_READY 0
-#define MUSTEK_BUSY  -1	
+#define MUSTEK_BUSY  -1
 	u_int8_t ready_busy;		/* 0 = ready */
 	u_int8_t bytes_per_line[2];	/* LSB */
 	u_int8_t lines[3];		/* LSB */

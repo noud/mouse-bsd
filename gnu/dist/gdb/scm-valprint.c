@@ -248,7 +248,7 @@ scm_scmval_print (svalue, stream, format, deref_ref, recurse, pretty)
 	      {
 		buf_size = min (len - done, 64);
 		read_memory (addr + done, buffer, buf_size);
-		
+
 		for (i = 0; i < buf_size; ++i)
 		  switch (buffer[i])
 		    {

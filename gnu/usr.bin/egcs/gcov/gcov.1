@@ -43,7 +43,7 @@
 .Op Fl o Ar dir
 .Ar source.c
 .Sh DESCRIPTION
-The C compiler 
+The C compiler
 .Xr gcc 1
 supports the command line options
 .Fl fprofile-arcs
@@ -62,19 +62,19 @@ and
 these files describe the control flow graph of the program.
 .Pp
 When executed, the program will update execution counts for each
-basic block in a file 
-named 
+basic block in a file
+named
 .Pa source.da .
 This file will be created if it doesn't exist.  If the program is run
 multiple times, the execution counts will reflect all runs of the
 program since the file was first created.
-The 
+The
 .Xr gcov 1
 program can then be used to display the collected data in
 human-readable form.  When the command
 .Dl gcov Pa source.c
 is run, a copy of the source file with execution counts prepended to each line is
-created in 
+created in
 .Pa source.c.gcov ,
 and some summary statistics are printed to standard output.
 .Pp
@@ -91,12 +91,12 @@ Create longer unambiguous names when executable code in the object
 comes from an included header file rather than the main file.
 If, for example,
 .Pa source.c
-includes one or more header files 
-.Pa header.h 
+includes one or more header files
+.Pa header.h
 which include instrumented code, the report for this code will be put
-in 
-.Pa source.c.header.h.gcov 
-instead of the default 
+in
+.Pa source.c.header.h.gcov
+instead of the default
 .Pa header.h.gcov .
 .It Fl n
 Do not create output files (but still display summaries to standard
@@ -105,19 +105,19 @@ output).
 Display the version number of
 .Xr gcov 1
 .It Fl o Ar dir
-Find 
+Find
 .Pa .bb ,
 .Pa .bbg ,
-and 
+and
 .Pa .da
 files in the directory
 .Pa dir .
 .El
 .Sh SEE ALSO
 .Xr gcc 1 ,
-.Xr gprof 1 
+.Xr gprof 1
 .br
-The 
+The
 .Sq gcc
 entry in
 .Xr info 1

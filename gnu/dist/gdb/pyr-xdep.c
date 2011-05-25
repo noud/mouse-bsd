@@ -44,16 +44,16 @@ fetch_inferior_registers (regno)
   register int skipped_frames = 0;
 
   registers_fetched ();
-  
+
   for (regno = 0; regno < 64; regno++) {
     reg_buf[regno] = ptrace (3, inferior_pid, (PTRACE_ARG3_TYPE) regno, 0);
-    
+
 #if defined(PYRAMID_CONTROL_FRAME_DEBUGGING)
     printf_unfiltered ("Fetching register %s, got %0x\n",
 	    reg_names[regno],
 	    reg_buf[regno]);
 #endif /* PYRAMID_CONTROL_FRAME_DEBUGGING */
-    
+
     if (reg_buf[regno] == -1 && errno == EIO) {
       printf_unfiltered("fetch_interior_registers: fetching register %s\n",
 	     reg_names[regno]);
@@ -65,9 +65,9 @@ fetch_inferior_registers (regno)
   datum = ptrace (3, inferior_pid,
 		  (PTRACE_ARG3_TYPE) (((char *)&u.u_pcb.pcb_csp) -
 		  ((char *)&u)), 0);
-  
-  
-  
+
+
+
   /* FIXME: Find the Current Frame Pointer (CFP). CFP is a global
      register (ie, NOT windowed), that gets saved in a frame iff
      the code for that frame has a prologue (ie, "adsf N").  If
@@ -75,7 +75,7 @@ fetch_inferior_registers (regno)
      pr13, cfp is set to sp, and N bytes of locals are allocated
      (sp is decremented by n).
      This makes finding CFP hard. I guess the right way to do it
-     is: 
+     is:
      - If this is the innermost frame, believe ptrace() or
      the core area.
      - Otherwise:
@@ -85,8 +85,8 @@ fetch_inferior_registers (regno)
      - figure out where the call is to;
      - if the first insn is an adsf, we got a frame
      pointer. */
-  
-  
+
+
   /* Normal processors have separate stack pointers for user and
      kernel mode. Getting the last user mode frame on such
      machines is easy: the kernel context of the ptrace()'d
@@ -96,8 +96,8 @@ fetch_inferior_registers (regno)
      kernel-context control frames on their stack.
      To avoid tracing back into the kernel context of an inferior,
      we skip 0 or more contiguous control frames where the pc is
-     in the kernel. */ 
-  
+     in the kernel. */
+
   while (1) {
     register int inferior_saved_pc;
     inferior_saved_pc = ptrace (1, inferior_pid,
@@ -110,7 +110,7 @@ fetch_inferior_registers (regno)
     skipped_frames++;
     datum -= CONTROL_STACK_FRAME_SIZE;
   }
-  
+
   reg_buf[CSP_REGNUM] = datum;
   supply_register(CSP_REGNUM, reg_buf+CSP_REGNUM);
 #ifdef  PYRAMID_CONTROL_FRAME_DEBUGGING
@@ -188,10 +188,10 @@ CORE_ADDR last_frame_offset;
    Don't know if is this any of meaningful, useful or necessary.   */
 extern int reg_stack_offset;
 
-#endif /* PYRAMID_CORE */  
+#endif /* PYRAMID_CORE */
 
 
-/* Work with core dump and executable files, for GDB. 
+/* Work with core dump and executable files, for GDB.
    This code would be in corefile.c if it weren't machine-dependent. */
 
 void
@@ -229,7 +229,7 @@ core_file_command (filename, from_tty)
     {
       filename = tilde_expand (filename);
       make_cleanup (free, filename);
-      
+
       if (have_inferior_p ())
 	error ("To look at a core file, you must kill the program with \"kill\".");
       corechan = open (filename, O_RDONLY, 0);
@@ -325,7 +325,7 @@ core_file_command (filename, from_tty)
 						   + 30);
 		  strcpy (buffer, "Reading register ");
 		  strcat (buffer, reg_names[regno]);
-						   
+
 		  perror_with_name (buffer);
 		}
 

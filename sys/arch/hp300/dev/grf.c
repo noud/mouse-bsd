@@ -561,7 +561,7 @@ grfunlock(gp)
 		gp->g_lockpslot = gp->g_lock->gl_lockslot = 0;
 	}
 	if (gp->g_flags & GF_WANTED) {
-		wakeup((caddr_t)&gp->g_flags); 
+		wakeup((caddr_t)&gp->g_flags);
 		gp->g_flags &= ~GF_WANTED;
 	}
 	gp->g_lockp = NULL;
@@ -703,7 +703,7 @@ iounmmap(dev, addr)
  * an array of pids.  The first element is used to record the last slot used
  * (for faster lookups).  The remaining elements record up to GRFMAXLCK-1
  * process ids.  Returns a slot number between 1 and GRFMAXLCK or 0 if no
- * slot is available. 
+ * slot is available.
  */
 int
 grffindpid(gp)

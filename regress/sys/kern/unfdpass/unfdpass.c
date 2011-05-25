@@ -110,7 +110,7 @@ main(argc, argv)
 	fd_set oob;
 	pid_t pid;
 	int ch;
-	
+
 
 	while ((ch = getopt(argc, argv, "DESdepr")) != -1) {
 		switch(ch) {
@@ -122,11 +122,11 @@ main(argc, argv)
 		case 'E':
 			exit_later++; /* test later GC */
 			break;
-			
+
 		case 'd':
 			pass_dir++;
 			break;
-			
+
 		case 'D':
 			pass_dir++;
 			pass_root_dir++;
@@ -143,7 +143,7 @@ main(argc, argv)
 		case 'p':
 			make_pretzel++;
 			break;
-			
+
 		case '?':
 		default:
 			usage(progname);
@@ -203,11 +203,11 @@ main(argc, argv)
 
 	if (exit_early)
 		exit(0);
-	
+
 	if (chroot_rcvr &&
 	    ((chroot(".") < 0)))
 		err(1, "chroot");
-	
+
 	/*
 	 * Wait for the sender to connect.
 	 */
@@ -223,7 +223,7 @@ main(argc, argv)
 
 	if (exit_later)
 		exit(0);
-	
+
 	/*
 	 * Grab the descriptors and credentials passed to us.
 	 */
@@ -279,7 +279,7 @@ main(argc, argv)
 				/* NOTREACHED */
 			}
 		}
-	
+
 
 		/*
 		 * Read the files and print their contents.
@@ -323,7 +323,7 @@ main(argc, argv)
 				printf("Credentials do NOT match.\n");
 		}
 	} while (sock != -1);
-	
+
 
 	/*
 	 * All done!
@@ -361,7 +361,7 @@ child()
 	int i, fd, sock, nfd;
 	struct sockaddr_un sun;
 	int spair[2];
-	
+
 	/*
 	 * Create socket and connect to the receiver.
 	 */
@@ -382,7 +382,7 @@ child()
 	if (pass_sock) {
 		fdcm.files[i++] = sock;
 	}
-	
+
 
 
 	if (pass_dir)
@@ -399,17 +399,17 @@ child()
 			err(1, "child open %s", fname);
 		fdcm.files[i] = fd;
 	}
-	
+
 	if (pass_dir) {
 		char *dirname = pass_root_dir ? "/" : ".";
 
-		
+
 		if ((fd = open(dirname, O_RDONLY, 0)) == -1) {
 			err(1, "child open directory %s", dirname);
 		}
 		fdcm.files[i] = fd;
 	}
-	
+
 	(void) memset(&msg, 0, sizeof(msg));
 	msg.msg_control = (caddr_t) &fdcm;
 	msg.msg_controllen = sizeof(fdcm);
@@ -434,13 +434,13 @@ child()
 			err(1, "child prezel sendmsg");
 
 		close(fdcm.files[0]);
-		close(fdcm.files[1]);		
+		close(fdcm.files[1]);
 		fdcm.files[0] = spair[0];
-		fdcm.files[1] = spair[1];		
+		fdcm.files[1] = spair[1];
 		make_pretzel--;
 	}
-	
-	
+
+
 
 	if (sendmsg(sock, &msg, 0) == -1)
 		err(1, "child sendmsg");

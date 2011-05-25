@@ -122,7 +122,7 @@ static struct {
 
 #if defined(__NetBSD__) && defined(WSDISPLAY_COMPAT_RAWKBD)
 #define NN 0			/* no translation */
-/* 
+/*
  * Translate USB keycodes to US keyboard XT scancodes.
  * Scancodes >= 128 represent EXTENDED keycodes.
  */
@@ -247,13 +247,13 @@ USB_MATCH(ukbd)
 {
 	USB_MATCH_START(ukbd, uaa);
 	usb_interface_descriptor_t *id;
-	
+
 	/* Check that this is a keyboard that speaks the boot protocol. */
 	if (uaa->iface == NULL)
 		return (UMATCH_NONE);
 	id = usbd_get_interface_descriptor(uaa->iface);
 	if (id == NULL ||
-	    id->bInterfaceClass != UCLASS_HID || 
+	    id->bInterfaceClass != UCLASS_HID ||
 	    id->bInterfaceSubClass != USUBCLASS_BOOT ||
 	    id->bInterfaceProtocol != UPROTO_BOOT_KEYBOARD)
 		return (UMATCH_NONE);
@@ -273,7 +273,7 @@ USB_ATTACH(ukbd)
 #else
 	int i;
 #endif
-	
+
 	sc->sc_udev = uaa->device;
 	sc->sc_iface = iface;
 	id = usbd_get_interface_descriptor(iface);
@@ -292,7 +292,7 @@ USB_ATTACH(ukbd)
 	DPRINTFN(10,("ukbd_attach: bLength=%d bDescriptorType=%d "
 		     "bEndpointAddress=%d-%s bmAttributes=%d wMaxPacketSize=%d"
 		     " bInterval=%d\n",
-		     ed->bLength, ed->bDescriptorType, 
+		     ed->bLength, ed->bDescriptorType,
 		     ed->bEndpointAddress & UE_ADDR,
 		     UE_GET_DIR(ed->bEndpointAddress)==UE_DIR_IN? "in" : "out",
 		     ed->bmAttributes & UE_XFERTYPE,
@@ -371,7 +371,7 @@ ukbd_enable(v, on)
 	/* Should only be called to change state */
 	if (sc->sc_enabled == on) {
 #ifdef DIAGNOSTIC
-		printf("ukbd_enable: %s: bad call on=%d\n", 
+		printf("ukbd_enable: %s: bad call on=%d\n",
 		       USBDEVNAME(sc->sc_dev), on);
 #endif
 		return (EBUSY);
@@ -380,7 +380,7 @@ ukbd_enable(v, on)
 	DPRINTF(("ukbd_enable: sc=%p on=%d\n", sc, on));
 	if (on) {
 		/* Set up interrupt pipe. */
-		err = usbd_open_pipe_intr(sc->sc_iface, sc->sc_ep_addr, 
+		err = usbd_open_pipe_intr(sc->sc_iface, sc->sc_ep_addr,
 			  USBD_SHORT_XFER_OK, &sc->sc_intrpipe, sc,
 			  &sc->sc_ndata, sizeof(sc->sc_ndata), ukbd_intr,
 			  USBD_DEFAULT_INTERVAL);
@@ -496,10 +496,10 @@ ukbd_intr(xfer, addr, status)
 	omod = sc->sc_odata.modifiers;
 	if (mod != omod)
 		for (i = 0; i < NMOD; i++)
-			if (( mod & ukbd_mods[i].mask) != 
+			if (( mod & ukbd_mods[i].mask) !=
 			    (omod & ukbd_mods[i].mask))
-				ADDKEY(ukbd_mods[i].key | 
-				       (mod & ukbd_mods[i].mask 
+				ADDKEY(ukbd_mods[i].key |
+				       (mod & ukbd_mods[i].mask
 					  ? PRESS : RELEASE));
 	if (memcmp(ud->keycode, sc->sc_odata.keycode, NKEYCODE) != 0) {
 		/* Check for released keys. */
@@ -514,7 +514,7 @@ ukbd_intr(xfer, addr, status)
 		rfound:
 			;
 		}
-		
+
 		/* Check for pressed keys. */
 		for (i = 0; i < NKEYCODE; i++) {
 			key = ud->keycode[i];
@@ -562,7 +562,7 @@ ukbd_intr(xfer, addr, status)
 					sc->sc_rep[npress++] = 0xe0;
 				sc->sc_rep[npress++] = c & 0x7f;
 			}
-			DPRINTFN(1,("ukbd_intr: raw = %s0x%02x\n", 
+			DPRINTFN(1,("ukbd_intr: raw = %s0x%02x\n",
 				    c & 0x80 ? "0xe0 " : "",
 				    cbuf[j]));
 			j++;
@@ -582,7 +582,7 @@ ukbd_intr(xfer, addr, status)
 	s = spltty();
 	for (i = 0; i < nkeys; i++) {
 		key = ibuf[i];
-		wskbd_input(sc->sc_wskbddev, 
+		wskbd_input(sc->sc_wskbddev,
 		    key&RELEASE ? WSCONS_EVENT_KEY_UP : WSCONS_EVENT_KEY_DOWN,
 		    key&CODEMASK);
 	}
@@ -679,7 +679,7 @@ ukbd_cngetc(v, type, data)
 	sc->sc_polling = 0;
 	c = sc->sc_pollchars[0];
 	sc->sc_npollchar--;
-	memcpy(sc->sc_pollchars, sc->sc_pollchars+1, 
+	memcpy(sc->sc_pollchars, sc->sc_pollchars+1,
 	       sc->sc_npollchar * sizeof(u_int16_t));
 	*type = c & RELEASE ? WSCONS_EVENT_KEY_UP : WSCONS_EVENT_KEY_DOWN;
 	*data = c & CODEMASK;

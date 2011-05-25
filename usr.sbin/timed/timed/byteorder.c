@@ -64,7 +64,7 @@ bytenetorder(ptr)
 		ptr->tsp_time.tv_sec = htonl((u_long)ptr->tsp_time.tv_sec);
 		ptr->tsp_time.tv_usec = htonl((u_long)ptr->tsp_time.tv_usec);
 		break;
-	
+
 	default:
 		break;		/* nothing more needed */
 	}
@@ -84,7 +84,7 @@ bytehostorder(ptr)
 		ptr->tsp_time.tv_sec = ntohl((u_long)ptr->tsp_time.tv_sec);
 		ptr->tsp_time.tv_usec = ntohl((u_long)ptr->tsp_time.tv_usec);
 		break;
-	
+
 	default:
 		break;		/* nothing more needed */
 	}

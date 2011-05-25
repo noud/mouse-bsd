@@ -44,14 +44,14 @@ then the target library, then build with \`LANGUAGES=f77'.])])
 AC_HEADER_STDC
 dnl We could do this if we didn't know we were using gcc
 dnl AC_MSG_CHECKING(for prototype-savvy compiler)
-dnl AC_CACHE_VAL(g77_cv_sys_proto,                
-dnl   [AC_TRY_LINK(,                             
+dnl AC_CACHE_VAL(g77_cv_sys_proto,
+dnl   [AC_TRY_LINK(,
 dnl dnl looks screwy because TRY_LINK expects a function body
-dnl    [return 0;} int foo (int * bar) {],       
-dnl    g77_cv_sys_proto=yes,                      
-dnl    [g77_cv_sys_proto=no                       
-dnl     AC_DEFINE(KR_headers)])])                
-dnl AC_MSG_RESULT($g77_cv_sys_proto)              
+dnl    [return 0;} int foo (int * bar) {],
+dnl    g77_cv_sys_proto=yes,
+dnl    [g77_cv_sys_proto=no
+dnl     AC_DEFINE(KR_headers)])])
+dnl AC_MSG_RESULT($g77_cv_sys_proto)
 
 AC_MSG_CHECKING(for posix)
 AC_CACHE_VAL(g77_cv_header_posix,
@@ -61,12 +61,12 @@ AC_CACHE_VAL(g77_cv_header_posix,
 #ifdef _POSIX_VERSION
   yes
 #endif
-], 
+],
   g77_cv_header_posix=yes,
   g77_cv_header_posix=no))
 AC_MSG_RESULT($g77_cv_header_posix)
 
-# We can rely on the GNU library being posix-ish.  I guess checking the 
+# We can rely on the GNU library being posix-ish.  I guess checking the
 # header isn't actually like checking the functions, though...
 AC_MSG_CHECKING(for GNU library)
 AC_CACHE_VAL(g77_cv_lib_gnu,
@@ -75,7 +75,7 @@ AC_CACHE_VAL(g77_cv_lib_gnu,
 #ifdef __GNU_LIBRARY__
   yes
 #endif
-], 
+],
   g77_cv_lib_gnu=yes, g77_cv_lib_gnu=no))
 AC_MSG_RESULT($g77_cv_lib_gnu)
 
@@ -153,7 +153,7 @@ AC_MSG_RESULT($g77_cv_sys_sprintf_ansi)
 
 # The cygwin patch takes steps to avoid defining USE_STRLEN here -- I don't
 # understand why.
-if test $g77_cv_sys_sprintf_ansi != yes; then 
+if test $g77_cv_sys_sprintf_ansi != yes; then
   AC_DEFINE(USE_STRLEN)
 fi
 

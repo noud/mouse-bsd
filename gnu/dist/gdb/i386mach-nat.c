@@ -82,7 +82,7 @@ store_inferior_registers (regno)
   memcpy (&inferior_fp_registers.f_ctrl,
 	 &registers[REGISTER_BYTE (FPC_REGNUM)],
 	 sizeof inferior_fp_registers - sizeof inferior_fp_registers.f_st);
-  
+
 #ifdef PTRACE_FP_BUG
   if (regno == FP_REGNUM || regno == -1)
     /* Storing the frame pointer requires a gross hack, in which an

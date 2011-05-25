@@ -110,7 +110,7 @@ procfs_dostatus(curp, p, pfs, uio)
 			p->p_stats->p_start.tv_usec);
 	else
 		ps += sprintf(ps, " -1,-1");
-	
+
 	{
 		struct timeval ut, st;
 

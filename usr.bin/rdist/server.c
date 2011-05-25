@@ -383,7 +383,7 @@ sendf(rname, opts)
 		if (write(rem, buf, strlen(buf)) < 0)
 			error("can not write dir spec to remote: %s\n",
 			    strerror(errno));
-			
+
 		if (response() < 0) {
 			closedir(d);
 			return;
@@ -598,7 +598,7 @@ update(rname, opts, stp)
 	off_t size;
 	time_t mtime;
 
-	if (debug) 
+	if (debug)
 		printf("update(%s, %lx, %lx)\n", rname, (long)opts, (long)stp);
 
 	/*
@@ -637,7 +637,7 @@ again:
 
 	case '\3':
 		*--cp = '\0';
-		if (lfp != NULL) 
+		if (lfp != NULL)
 			log(lfp, "update: note: %s\n", s);
 		goto again;
 

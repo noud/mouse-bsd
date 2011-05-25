@@ -15,7 +15,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -130,8 +130,8 @@
 #define KA410_CFG_14MB		0x07
 
 
-/* 
- * interrupt request-, clear-, and mask register 
+/*
+ * interrupt request-, clear-, and mask register
  */
 extern volatile unsigned char *ka410_intreq;
 extern volatile unsigned char *ka410_intclr;
@@ -171,7 +171,7 @@ struct ka410_cpu {
 };
 
 /*
- * KA410 uses bits 2-9 of longwords to store single bytes in NVRAM, 
+ * KA410 uses bits 2-9 of longwords to store single bytes in NVRAM,
  * thus we declare the clock as an struct of bit-fields, so that the
  * generic clock-routines work for KA410...
  */

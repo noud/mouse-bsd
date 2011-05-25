@@ -88,7 +88,7 @@ int file_input::read_line()
 	lex_error("illegal input character code %1", c);
       else {
 	line += char(c);
-	if (c == '\n') 
+	if (c == '\n')
 	  break;
       }
     }
@@ -513,13 +513,13 @@ int lookup_keyword(const char *str, int len)
     { "width", WIDTH },
     { "with", WITH },
   };
-  
+
   const keyword *start = table;
   const keyword *end = table + sizeof(table)/sizeof(table[0]);
   while (start < end) {
     // start <= target < end
     const keyword *mid = start + (end - start)/2;
-    
+
     int cmp = docmp(str, len, mid->name, strlen(mid->name));
     if (cmp == 0)
       return mid->token;
@@ -902,7 +902,7 @@ int get_token(int lookup_flag)
     case '7':
     case '8':
     case '9':
-      {   
+      {
 	int overflow = 0;
 	n = 0;
 	for (;;) {

@@ -299,7 +299,7 @@ void tty_printer::end_page(int page_length)
       p = tem;
     }
     int hpos = 0;
-    
+
     glyph *nextp;
     for (p = g; p; delete p, p = nextp) {
       nextp = p->next;

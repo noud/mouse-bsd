@@ -170,7 +170,7 @@ struct errs		/* structure for a system-call error */
 static struct errs errs[ERRMAX];
 static int errcnt;
 static char *err_toomany = " too many errors occurred";
-static char *err_listem = 
+static char *err_listem =
 	" Many errors occurred.  Press `e' to display the list of errors.";
 
 /* These macros get used to reset and log the errors */
@@ -403,7 +403,7 @@ char *str;
 		return(" invalid signal number");
 	    }
 	}
-	else 
+	else
 	{
 	    /* translate the name into a number */
 	    for (sigp = sigdesc; sigp->name != NULL; sigp++)

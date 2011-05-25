@@ -31,8 +31,8 @@ typedef struct skbd_controller *skbd_tag_t;
 struct skbd_controller {
 	/* controller interface */
 	void	*skif_v;
-	int	(*skif_establish) __P((void*, 
-				       int (*)(void*, int, int), 
+	int	(*skif_establish) __P((void*,
+				       int (*)(void*, int, int),
 				       void (*)(void*),
 				       void*));
 	int	(*skif_poll) __P((void*));

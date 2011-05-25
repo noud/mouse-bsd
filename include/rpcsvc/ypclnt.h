@@ -58,7 +58,7 @@
 #define YPOP_INSERT	2		/* add, do not change */
 #define YPOP_DELETE	3		/* delete this entry */
 #define YPOP_STORE 	4		/* add, or change */
- 
+
 struct ypall_callback {
 	/* return non-0 to stop getting called */
 	int (*foreach) __P((int, char *, int, char *, int, char *));

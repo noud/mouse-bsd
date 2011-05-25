@@ -146,13 +146,13 @@ void	dumpsys __P((void));
 caddr_t	mdallocsys __P((caddr_t));
 void	stackdump __P((void));
 
-/* 
+/*
  * This is the table that tells us how to access different bus space types.
- */ 
+ */
 #define BUS_BYPASS_ACCESS_ENABLED 0
 #if BUS_BYPASS_ACCESS_ENABLED == 1
 /*
- * Bypass access 
+ * Bypass access
  */
 int bus_type_asi[] = {
 	ASI_PHYS_NON_CACHED,			/* UPA */
@@ -348,7 +348,7 @@ setregs(p, pack, stack)
 	 *	%tpc,%tnpc: entry point of program
 	 */
 	tstate = (ASI_PRIMARY_NO_FAULT<<TSTATE_ASI_SHIFT) |
-		((PSTATE_USER)<<TSTATE_PSTATE_SHIFT) | 
+		((PSTATE_USER)<<TSTATE_PSTATE_SHIFT) |
 		(tf->tf_tstate & TSTATE_CWP);
 	if ((fs = p->p_md.md_fpstate) != NULL) {
 		/*
@@ -367,14 +367,14 @@ setregs(p, pack, stack)
 	tf->tf_tstate = tstate;
 	tf->tf_global[1] = (vaddr_t)PS_STRINGS;
 	/* %g4 needs to point to the start of the data segment */
-	tf->tf_global[4] = 0; 
+	tf->tf_global[4] = 0;
 	tf->tf_pc = pack->ep_entry & ~3;
 	tf->tf_npc = tf->tf_pc + 4;
 	stack -= sizeof(struct rwindow);
 	tf->tf_out[6] = stack - STACK_OFFSET;
 	tf->tf_out[7] = NULL;
 #ifdef NOTDEF_DEBUG
-	printf("setregs: setting tf %p sp %p pc %p\n", (long)tf, 
+	printf("setregs: setting tf %p sp %p pc %p\n", (long)tf,
 	       (long)tf->tf_out[6], (long)tf->tf_pc);
 	Debugger();
 #endif
@@ -428,17 +428,17 @@ cpu_sysctl(name, namelen, oldp, oldlenp, newp, newlen, p)
 			 * It can be the empty string if we booted from the default
 			 * kernel name.
 			 */
-			for (cp = bootargs; 
+			for (cp = bootargs;
 			     *cp && *cp != ' ' && *cp != '\t' && *cp != '\n';
 			     cp++);
 			*cp = 0;
 			/* Now we've separated out the kernel name from the args */
 			cp = bootargs;
-			if (*cp == 0 || *cp == '-') 
+			if (*cp == 0 || *cp == '-')
 				/*
 				 * We can leave it NULL && let userland handle
 				 * the failure or set it to the default name,
-				 * `netbsd' 
+				 * `netbsd'
 				 */
 				cp = "netbsd";
 		}
@@ -465,7 +465,7 @@ sendsig(catcher, sig, mask, code)
 	struct sigacts *psp = p->p_sigacts;
 	struct sigframe *fp;
 	struct trapframe64 *tf;
-	vaddr_t addr; 
+	vaddr_t addr;
 	struct rwindow *oldsp, *newsp;
 #ifdef NOT_DEBUG
 	struct rwindow tmpwin;
@@ -553,7 +553,7 @@ sendsig(catcher, sig, mask, code)
 	    printf("sendsig: saving sf to %p, setting stack pointer %p to %p\n",
 		   fp, &(((struct rwindow *)newsp)->rw_in[6]), (vaddr_t)tf->tf_out[6]);
 #endif
-	if (rwindow_save(p) || copyout((caddr_t)&sf, (caddr_t)fp, sizeof sf) || 
+	if (rwindow_save(p) || copyout((caddr_t)&sf, (caddr_t)fp, sizeof sf) ||
 #ifdef NOT_DEBUG
 	    copyin(oldsp, &tmpwin, sizeof(tmpwin)) || copyout(&tmpwin, newsp, sizeof(tmpwin)) ||
 #endif
@@ -595,7 +595,7 @@ sendsig(catcher, sig, mask, code)
 
 #ifdef DEBUG
 	if ((sigdebug & SDB_KSTACK) && p->p_pid == sigpid) {
-		printf("sendsig: about to return to catcher %p thru %p\n", 
+		printf("sendsig: about to return to catcher %p thru %p\n",
 		       catcher, addr);
 		if (sigdebug & SDB_DDB) Debugger();
 	}
@@ -769,7 +769,7 @@ haltsys:
 		i = 1;
 		str[0] = '\0';
 	}
-			
+
 	if (howto & RB_SINGLE)
 		str[i++] = 's';
 	if (howto & RB_KDB)
@@ -949,11 +949,11 @@ trapdump(tf)
 	printf("TRAPFRAME: tstate=%x:%x pc=%x:%x npc=%x:%x y=%x\n",
 	       tf->tf_tstate, tf->tf_pc, tf->tf_npc, tf->tf_y);
 	printf("%%g1-7: %x:%x %x:%x %x:%x %x:%x %x:%x %x:%x %x:%x\n",
-	       tf->tf_global[1], tf->tf_global[2], tf->tf_global[3], 
-	       tf->tf_global[4], tf->tf_global[5], tf->tf_global[6], 
+	       tf->tf_global[1], tf->tf_global[2], tf->tf_global[3],
+	       tf->tf_global[4], tf->tf_global[5], tf->tf_global[6],
 	       tf->tf_global[7]);
 	printf("%%o0-7: %x:%x %x:%x %x:%x %x:%x\n %x:%x %x:%x %x:%x %x:%x\n",
-	       tf->tf_out[0], tf->tf_out[1], tf->tf_out[2], tf->tf_out[3], 
+	       tf->tf_out[0], tf->tf_out[1], tf->tf_out[2], tf->tf_out[3],
 	       tf->tf_out[4], tf->tf_out[5], tf->tf_out[6], tf->tf_out[7]);
 }
 /*
@@ -1091,12 +1091,12 @@ _bus_dmamap_load(t, map, buf, buflen, p, flags)
 
 	if (buflen > map->_dm_size)
 #ifdef DEBUG
-	{ 
+	{
 		printf("_bus_dmamap_load(): error %d > %d -- map size exceeded!\n", buflen, map->_dm_size);
 		Debugger();
 		return (EINVAL);
-	}		
-#else	
+	}
+#else
 		return (EINVAL);
 #endif
 
@@ -1616,7 +1616,7 @@ void sparc_bus_barrier (t, h, offset, size, flags)
 	bus_size_t	size;
 	int		flags;
 {
-	/* 
+	/*
 	 * We have lots of alternatives depending on whether we're
 	 * synchronizing loads with loads, loads with stores, stores
 	 * with loads, or stores with stores.  The only ones that seem

@@ -48,7 +48,7 @@ INSTALL_PROGRAM = $(INSTALL)
 INSTALL_FILE = $(INSTALL)
 
 # Define this as & to perform parallel make on a Sequent.
-# Note that this has some bugs, and it seems currently necessary 
+# Note that this has some bugs, and it seems currently necessary
 # to compile all the gen* files first by hand to avoid erroneous results.
 P =
 
@@ -61,7 +61,7 @@ RANLIB_TEST = [ -f /usr/bin/ranlib -o -f /bin/ranlib ]
 # NOTE: -O does not work on some Unix systems!
 CCLIBFLAGS = -O
 
-# Version of ar to use when compiling gnulib. 
+# Version of ar to use when compiling gnulib.
 OLDAR = ar
 
 version=`$(unsubdir)/../gcc$(subdir)/gcc -dumpversion`
@@ -93,10 +93,10 @@ GNULIB2 = gnulib2.portable
 
 # List of extra C and assembler files to add to gnulib.
 # Assembler files should have names ending in `.asm'.
-LIBFUNCS_EXTRA = 
+LIBFUNCS_EXTRA =
 
 # Program to convert libraries.
-LIBCONVERT = 
+LIBCONVERT =
 
 # Control whether header files are installed.
 INSTALL_HEADERS=install-headers
@@ -117,7 +117,7 @@ AUX_OUTPUT2 =
 HOST_PREFIX=
 # Prefix to apply to names of object files when compiling them
 # to run on the machine we are compiling on.
-# The default for this variable is chosen to keep these rules 
+# The default for this variable is chosen to keep these rules
 # out of the way of the other rules for compiling the same source files.
 HOST_PREFIX_1=loser-
 HOST_CC=$(CC)
@@ -262,7 +262,7 @@ LIBS = $(LOCAL_LOADLIBES) $(CLIB) $(unsubdir)/../libiberty$(subdir)/libiberty.a
 
 # Likewise, for use in the tools that must run on this machine
 # even if we are cross-building GCC.
-HOST_LIBS = $(HOST_PREFIX)$(OBSTACK) $(USE_HOST_ALLOCA) $(HOST_PREFIX)$(MALLOC) $(CLIB) 
+HOST_LIBS = $(HOST_PREFIX)$(OBSTACK) $(USE_HOST_ALLOCA) $(HOST_PREFIX)$(MALLOC) $(CLIB)
 
 # Specify the directories to be searched for header files.
 # Both . and srcdir are used, in that order,
@@ -313,87 +313,87 @@ compilations: ${OBJS}
 
 app.o : app.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h struc-symbol.h \
-  write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h 
+  write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h
 as.o : as.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h struc-symbol.h \
-  write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h 
+  write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h
 atof-generic.o : atof-generic.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h struc-symbol.h \
-  write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h 
+  write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h
 bignum-copy.o : bignum-copy.c as.h host.h \
   targ-env.h obj-format.h \
   targ-cpu.h struc-symbol.h \
-  write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h 
+  write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h
 cond.o : cond.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h struc-symbol.h \
   write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h \
-   
+
 debug.o : debug.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h struc-symbol.h \
   write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h \
-  subsegs.h 
+  subsegs.h
 expr.o : expr.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h  struc-symbol.h \
   write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h \
-   
-fn-const.o : fn-const.c flonum.h bignum.h 
+
+fn-const.o : fn-const.c flonum.h bignum.h
 fn-copy.o : fn-copy.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h  struc-symbol.h \
-  write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h 
-flonum-mult.o : flonum-mult.c flonum.h bignum.h 
+  write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h
+flonum-mult.o : flonum-mult.c flonum.h bignum.h
 frags.o : frags.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h  struc-symbol.h \
   write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h \
-  subsegs.h  
+  subsegs.h
 hash.o : hash.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h  struc-symbol.h \
-  write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h 
-hex-value.o : hex-value.c 
+  write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h
+hex-value.o : hex-value.c
 input-file.o : input-file.c as.h host.h \
    targ-env.h obj-format.h targ-cpu.h \
    struc-symbol.h write.h flonum.h bignum.h expr.h \
-  frags.h hash.h read.h symbols.h tc.h obj.h input-file.h 
+  frags.h hash.h read.h symbols.h tc.h obj.h input-file.h
 input-scrub.o : input-scrub.c \
   as.h host.h targ-env.h obj-format.h \
   targ-cpu.h  struc-symbol.h \
   write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h \
-  input-file.h 
+  input-file.h
 messages.o : messages.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h  struc-symbol.h \
   write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h
-obstack.o : obstack.c  
+obstack.o : obstack.c
 output-file.o : output-file.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h  struc-symbol.h \
   write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h \
-  output-file.h 
+  output-file.h
 read.o : read.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h  struc-symbol.h \
   write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h \
-   
-strstr.o : strstr.c   
+
+strstr.o : strstr.c
 subsegs.o : subsegs.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h  struc-symbol.h \
   write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h \
-  subsegs.h  
+  subsegs.h
 symbols.o : symbols.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h  struc-symbol.h \
   write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h \
-   subsegs.h 
-version.o : version.c 
+   subsegs.h
+version.o : version.c
 write.o : write.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h  struc-symbol.h \
   write.h flonum.h bignum.h expr.h frags.h hash.h read.h symbols.h tc.h obj.h \
-  subsegs.h  output-file.h 
+  subsegs.h  output-file.h
 xmalloc.o : xmalloc.c
-xrealloc.o : xrealloc.c 
+xrealloc.o : xrealloc.c
 atof-targ.o : atof-targ.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h struc-symbol.h \
   write.h flonum.h bignum.h expr.h frags.h hash.h read.h \
-  symbols.h tc.h obj.h 
+  symbols.h tc.h obj.h
 obj-format.o : obj-format.c as.h host.h targ-env.h obj-format.h \
   targ-cpu.h struc-symbol.h \
   write.h flonum.h bignum.h expr.h frags.h hash.h read.h \
-  symbols.h tc.h obj.h  
+  symbols.h tc.h obj.h
 targ-cpu.o : targ-cpu.c targ-env.h obj-format.h \
   targ-cpu.h struc-symbol.h \
   write.h flonum.h bignum.h expr.h frags.h hash.h read.h \
@@ -424,7 +424,7 @@ $(HOST_PREFIX_1)malloc.o: malloc.c
 doc: as.info
 
 as.info: doc/as.texinfo
-	(cd doc; make as.info; mv as.info $srcdir)	
+	(cd doc; make as.info; mv as.info $srcdir)
 
 
 # Deletion of files made during compilation.
@@ -439,7 +439,7 @@ clean:
 	-rm -f $(STAGESTUFF)
 # Delete the temporary source copies for cross compilation.
 	-rm -f $(HOST_PREFIX_1)alloca.c $(HOST_PREFIX_1)malloc.c
-	-rm -f $(HOST_PREFIX_1)obstack.c 
+	-rm -f $(HOST_PREFIX_1)obstack.c
 # Delete the stamp files except stamp-gnulib2.
 	-rm -f core
 
@@ -453,7 +453,7 @@ cleanconfig: clean
 # Get rid of every file that's generated from some other file (except INSTALL).
 realclean: cleanconfig
 	-rm -f gas.aux gas.cps gas.fns gas.info gas.kys gas.pgs gas.tps gas.vrs
-	-rm -f TAGS 
+	-rm -f TAGS
 	-rm -f gas.info* gas.?? gas.??s gas.log gas.toc gas.*aux
 	-rm -f *.dvi
 
@@ -500,7 +500,7 @@ uninstall:
 
 tags TAGS: force
 	etags $(REAL_SOURCES) $(REAL_HEADERS) README Makefile config/*.[hc]
-	
+
 bootstrap: $(ALL) force
 	$(MAKE) stage1
 	$(MAKE) CC="$(CC)" CFLAGS="-O -Bstage1/ $(CFLAGS)" libdir=$(libdir) ALLOCA= $(ALL)

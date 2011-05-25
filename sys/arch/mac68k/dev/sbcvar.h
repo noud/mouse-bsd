@@ -76,7 +76,7 @@ struct sbc_softc {
  *
  * The options code is based on the sparc 'si' driver's version of
  * the same.
- */     
+ */
 #define	SBC_PDMA	0x01	/* Use PDMA for polled transfers */
 #define	SBC_INTR	0x02	/* Allow SCSI IRQ/DRQ interrupts */
 #define	SBC_RESELECT	0x04	/* Allow disconnect/reselect */

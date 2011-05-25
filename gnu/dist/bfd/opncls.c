@@ -67,7 +67,7 @@ _bfd_new_bfd ()
   nbfd->sections = (asection *) NULL;
   nbfd->format = bfd_unknown;
   nbfd->my_archive = (bfd *) NULL;
-  nbfd->origin = 0;				
+  nbfd->origin = 0;
   nbfd->opened_once = false;
   nbfd->output_has_begun = false;
   nbfd->section_count = 0;
@@ -306,7 +306,7 @@ bfd_openstreamr (filename, target, streamarg)
   nbfd->iostream = (PTR) stream;
   nbfd->filename = filename;
   nbfd->direction = read_direction;
-				
+
   if (! bfd_cache_init (nbfd))
     {
       objalloc_free ((struct objalloc *) nbfd->memory);

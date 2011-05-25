@@ -685,7 +685,7 @@ start_driver()
 # endif
 			execl(Driver, "HUNT", (char *) NULL);
 # ifdef INTERNET
-		else 
+		else
 			execl(Driver, "HUNT", "-p", use_port, (char *) NULL);
 # endif
 		/* only get here if exec failed */

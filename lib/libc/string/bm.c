@@ -60,7 +60,7 @@ __weak_alias(bm_exec,_bm_exec)
 __weak_alias(bm_free,_bm_free)
 #endif
 
-/* 
+/*
  * XXX
  * The default frequency table starts at 99 and counts down.  The default
  * table should probably be oriented toward text, and will necessarily be

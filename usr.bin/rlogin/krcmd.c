@@ -43,9 +43,9 @@ __RCSID("$NetBSD: krcmd.c,v 1.6 1999/06/24 22:43:35 tls Exp $");
 #endif /* not lint */
 
 /*
- *	Source: /a/cvsroot/src/usr.bin/rlogin/krcmd.c,v 
+ *	Source: /a/cvsroot/src/usr.bin/rlogin/krcmd.c,v
  *	Header: /mit/kerberos/ucb/mit/kcmd/RCS/krcmd.c,v 5.1
- *		89/07/25 15:38:44 kfall Exp Locker: kfall 
+ *		89/07/25 15:38:44 kfall Exp Locker: kfall
  * static char *rcsid_kcmd_c =
  * "Header: /mit/kerberos/ucb/mit/kcmd/RCS/krcmd.c,v 5.1 89/07/25 15:38:44
  *	kfall Exp Locker: kfall ";
@@ -73,7 +73,7 @@ int	kcmd __P((int *, char **, u_short, char *, char *, char *, int *,
 
 /*
  * krcmd: simplified version of Athena's "kcmd"
- *	returns a socket attached to the destination, -1 or krb error on error 
+ *	returns a socket attached to the destination, -1 or krb error on error
  *	if fd2p is non-NULL, another socket is filled in for it
  */
 

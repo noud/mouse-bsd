@@ -650,9 +650,9 @@ tferror(tf, e)
 
 		if (
 #if STAT64 > 0
-		    fstat64(fileno(tf), &st) 
+		    fstat64(fileno(tf), &st)
 #else
-		    fstat(fileno(tf), &st) 
+		    fstat(fileno(tf), &st)
 #endif
 		    < 0)
 		  st.st_size = 0;

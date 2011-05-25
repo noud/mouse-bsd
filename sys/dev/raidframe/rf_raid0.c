@@ -48,7 +48,7 @@ typedef struct RF_Raid0ConfigInfo_s {
 	RF_RowCol_t *stripeIdentifier;
 }       RF_Raid0ConfigInfo_t;
 
-int 
+int
 rf_ConfigureRAID0(
     RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr,
@@ -80,7 +80,7 @@ rf_ConfigureRAID0(
 	return (0);
 }
 
-void 
+void
 rf_MapSectorRAID0(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -96,7 +96,7 @@ rf_MapSectorRAID0(
 	    (raidSector % raidPtr->Layout.sectorsPerStripeUnit);
 }
 
-void 
+void
 rf_MapParityRAID0(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -109,7 +109,7 @@ rf_MapParityRAID0(
 	*diskSector = 0;
 }
 
-void 
+void
 rf_IdentifyStripeRAID0(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t addr,
@@ -123,7 +123,7 @@ rf_IdentifyStripeRAID0(
 	*outRow = 0;
 }
 
-void 
+void
 rf_MapSIDToPSIDRAID0(
     RF_RaidLayout_t * layoutPtr,
     RF_StripeNum_t stripeID,
@@ -134,7 +134,7 @@ rf_MapSIDToPSIDRAID0(
 	*psID = stripeID;
 }
 
-void 
+void
 rf_RAID0DagSelect(
     RF_Raid_t * raidPtr,
     RF_IoType_t type,
@@ -145,7 +145,7 @@ rf_RAID0DagSelect(
 	    (RF_VoidFuncPtr) rf_CreateFaultFreeReadDAG : (RF_VoidFuncPtr) rf_CreateRAID0WriteDAG);
 }
 
-int 
+int
 rf_VerifyParityRAID0(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidAddr,

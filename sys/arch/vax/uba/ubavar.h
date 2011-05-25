@@ -61,7 +61,7 @@
  * During normal operation, resources are allocated and returned
  * to the structures here.  We watch the number of passive releases
  * on each uba, and if the number is excessive may reset the uba.
- * 
+ *
  * When uba resources are needed and not available, or if a device
  * which can tolerate no other uba activity (rk07) gets on the bus,
  * then device drivers may have to wait to get to the bus and are

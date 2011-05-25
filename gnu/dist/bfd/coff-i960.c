@@ -98,7 +98,7 @@ coff_i960_is_local_label_name (abfd, name)
 #define BAL	 0x0b000000	/* Template for 'bal' instruction	*/
 #define BAL_MASK 0x00ffffff
 
-static bfd_reloc_status_type 
+static bfd_reloc_status_type
 optcall_callback (abfd, reloc_entry, symbol_in, data,
 		  input_section, ignore_bfd, error_message)
      bfd *abfd;
@@ -121,8 +121,8 @@ optcall_callback (abfd, reloc_entry, symbol_in, data,
     reloc_entry->address += input_section->output_offset;
     return bfd_reloc_ok;
   }
-    
-  /* So the target symbol has to be of coff type, and the symbol 
+
+  /* So the target symbol has to be of coff type, and the symbol
      has to have the correct native information within it */
   if ((bfd_asymbol_flavour(&cs->symbol) != bfd_target_coff_flavour)
       || (cs->native == (combined_entry_type *)NULL))
@@ -137,7 +137,7 @@ optcall_callback (abfd, reloc_entry, symbol_in, data,
     }
   else
     {
-    switch (cs->native->u.syment.n_sclass) 
+    switch (cs->native->u.syment.n_sclass)
       {
       case C_LEAFSTAT:
       case C_LEAFEXT:
@@ -187,7 +187,7 @@ optcall_callback (abfd, reloc_entry, symbol_in, data,
    useful.  It was used before this target was converted to use the
    COFF specific backend linker.  */
 
-static bfd_reloc_status_type 
+static bfd_reloc_status_type
 coff_i960_relocate (abfd, reloc_entry, symbol, data, input_section,
 		    output_bfd, error_message)
      bfd *abfd;
@@ -401,7 +401,7 @@ coff_i960_relocate_section (output_bfd, info, input_bfd, input_section,
 	  sym = NULL;
 	}
       else
-	{    
+	{
 	  h = obj_coff_sym_hashes (input_bfd)[symndx];
 	  sym = syms + symndx;
 	}

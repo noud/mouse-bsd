@@ -78,7 +78,7 @@ Installation
 
 2)  Glance through config.h to make sure system dependencies are correct.
     Most of them should have been taken care of by running the
-    Configure script. 
+    Configure script.
 
     If you have any additional changes to make to the C definitions, they
     can be done in the Makefile, or in config.h.  Bear in mind that they may

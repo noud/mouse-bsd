@@ -309,7 +309,7 @@ eisaid_to_string(id, s)
 	char *s;
 {
 	static char hex[] = "0123456789ABCDEF";
-	
+
 	*s++ = 'A' + (id[0] >> 2) - 1;
 	*s++ = 'A' + ((id[0] & 3) << 3) + (id[1] >> 5) - 1;
 	*s++ = 'A' + (id[1] & 0x1f) - 1;

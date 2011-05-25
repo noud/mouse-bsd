@@ -290,7 +290,7 @@ fileGetURL(char *base, char *spec)
 
 	if (Verbose)
 		printf("Trying to fetch %s.\n", fname);
-	
+
 	pen[0] = '\0';
 	rp = make_playpen(pen, sizeof(pen), 0);
 	if (rp == NULL) {
@@ -302,7 +302,7 @@ fileGetURL(char *base, char *spec)
 	rc = unpackURL(fname, pen);
 	if (rc < 0) {
 		leave_playpen(rp); /* Don't leave dir hang around! */
-		
+
 		printf("Error on unpackURL('%s', '%s')\n", fname, pen);
 		return NULL;
 	}
@@ -323,7 +323,7 @@ fileFindByPath(char *base, char *fname)
 
 /* printf("HF: fileFindByPath(\"%s\", \"%s\")\n", base, fname); *//*HF*/
 
-	/* The following code won't return a match if base is an URL 
+	/* The following code won't return a match if base is an URL
 	 * Could save some cycles here - HF */
 	if (ispkgpattern(fname)) {
 		if ((cp = findbestmatchingname(".", fname)) != NULL) {
@@ -358,7 +358,7 @@ fileFindByPath(char *base, char *fname)
 					char url[FILENAME_MAX];
 
 					/* save url to expand, as tmp is the static var in which
-					 * we return the result of the expansion. 
+					 * we return the result of the expansion.
 					 */
 					strcpy(url, tmp);
 
@@ -420,12 +420,12 @@ fileFindByPath(char *base, char *fname)
 		if (IS_URL(tmp)) {
 			char url[FILENAME_MAX];
 			int rc;
-			
+
 			/* save url to expand, as tmp is the static var in which
-			 * we return the result of the expansion. 
+			 * we return the result of the expansion.
 			 */
 			strcpy(url, tmp);
-			
+
 /*			printf("HF: expandURL('%s')'ing #3\n", url);*//*HF*/
 			rc = expandURL(tmp, url);
 			if (rc >= 0) {
@@ -452,7 +452,7 @@ fileFindByPath(char *base, char *fname)
 			}
 
 			/* No luck with this parth of PKG_PATH - try next one */
-			
+
 		} else {
 		if (ispkgpattern(tmp)) {
 			char   *s;
@@ -475,7 +475,7 @@ fileFindByPath(char *base, char *fname)
 				{
 					char *s;
 					char buf2[FILENAME_MAX];
-					
+
 					s = strstr(tmp, ".tgz");
 					*s = '\0';
 					snprintf(buf2, FILENAME_MAX, "%s-[0-9]*.tgz", tmp);

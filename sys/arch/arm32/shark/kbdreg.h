@@ -3,7 +3,7 @@
 #ifndef _KBDREG_H
 #define _KBDREG_H
 
-/* Commands sent by the controller to the physical keyboard 
+/* Commands sent by the controller to the physical keyboard
 */
 #define	KBC_RESET	0xFF	/* reset the keyboard */
 #define	KBC_RESEND	0xFE	/* request the keyboard resend the last byte */
@@ -15,7 +15,7 @@
 #define	KBC_MODEIND	0xED	/* set mode indicators (i.e. LEDs) */
 #define	KBC_ECHO	0xEE	/* request an echo from the keyboard */
 
-/* Physical keyboard responses 
+/* Physical keyboard responses
 */
 #define	KBR_EXTENDED	0xE0	/* extended key sequence */
 #define	KBR_RESEND	0xFE	/* needs resend of command */

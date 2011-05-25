@@ -56,7 +56,7 @@
 
 struct wdc_ofisa_softc {
 	struct wdc_softc sc_wdcdev;
-	struct	channel_softc *wdc_chanptr;	
+	struct	channel_softc *wdc_chanptr;
 	struct  channel_softc wdc_channel;
 	void	*sc_ih;
 };

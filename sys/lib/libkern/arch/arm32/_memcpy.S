@@ -70,34 +70,34 @@ Lmemcpy_ft8:
 	/* We have aligned source and destination */
 	subs	r2, r2, #8
 	blt	Lmemcpy_fl12		/* less than 12 bytes (4 from above) */
-	subs	r2, r2, #0x14         
+	subs	r2, r2, #0x14
 	blt	Lmemcpy_fl32		/* less than 32 bytes (12 from above) */
 	stmdb	sp!, {r4}		/* borrow r4 */
 
 	/* blat 32 bytes at a time */
 	/* XXX for really big copies perhaps we should use more registers */
-Lmemcpy_floop32:	
+Lmemcpy_floop32:
 	ldmia	r1!, {r3, r4, r12, lr}
 	stmia	r0!, {r3, r4, r12, lr}
 	ldmia	r1!, {r3, r4, r12, lr}
 	stmia	r0!, {r3, r4, r12, lr}
-	subs	r2, r2, #0x20         
+	subs	r2, r2, #0x20
 	bge	Lmemcpy_floop32
 
 	cmn	r2, #0x10
 	ldmgeia	r1!, {r3, r4, r12, lr}	/* blat a remaining 16 bytes */
 	stmgeia	r0!, {r3, r4, r12, lr}
-	subge	r2, r2, #0x10         
+	subge	r2, r2, #0x10
 	ldmia	sp!, {r4}		/* return r4 */
 
 Lmemcpy_fl32:
-	adds	r2, r2, #0x14         
+	adds	r2, r2, #0x14
 
 	/* blat 12 bytes at a time */
 Lmemcpy_floop12:
 	ldmgeia	r1!, {r3, r12, lr}
 	stmgeia	r0!, {r3, r12, lr}
-	subges	r2, r2, #0x0c         
+	subges	r2, r2, #0x0c
 	bge	Lmemcpy_floop12
 
 Lmemcpy_fl12:
@@ -152,9 +152,9 @@ Lmemcpy_fsrcul:
 	cmp	r12, #2
 	bgt	Lmemcpy_fsrcul3
 	beq	Lmemcpy_fsrcul2
-	cmp	r2, #0x0c            
+	cmp	r2, #0x0c
 	blt	Lmemcpy_fsrcul1loop4
-	sub	r2, r2, #0x0c         
+	sub	r2, r2, #0x0c
 	stmdb	sp!, {r4, r5}
 
 Lmemcpy_fsrcul1loop16:
@@ -168,10 +168,10 @@ Lmemcpy_fsrcul1loop16:
 	mov	r12, r12, lsr #8
 	orr	r12, r12, lr, lsl #24
 	stmia	r0!, {r3-r5, r12}
-	subs	r2, r2, #0x10         
+	subs	r2, r2, #0x10
 	bge	Lmemcpy_fsrcul1loop16
 	ldmia	sp!, {r4, r5}
-	adds	r2, r2, #0x0c         
+	adds	r2, r2, #0x0c
 	blt	Lmemcpy_fsrcul1l4
 
 Lmemcpy_fsrcul1loop4:
@@ -187,9 +187,9 @@ Lmemcpy_fsrcul1l4:
 	b	Lmemcpy_fl4
 
 Lmemcpy_fsrcul2:
-	cmp	r2, #0x0c            
+	cmp	r2, #0x0c
 	blt	Lmemcpy_fsrcul2loop4
-	sub	r2, r2, #0x0c         
+	sub	r2, r2, #0x0c
 	stmdb	sp!, {r4, r5}
 
 Lmemcpy_fsrcul2loop16:
@@ -203,10 +203,10 @@ Lmemcpy_fsrcul2loop16:
 	mov	r12, r12, lsr #16
 	orr	r12, r12, lr, lsl #16
 	stmia	r0!, {r3-r5, r12}
-	subs	r2, r2, #0x10         
+	subs	r2, r2, #0x10
 	bge	Lmemcpy_fsrcul2loop16
 	ldmia	sp!, {r4, r5}
-	adds	r2, r2, #0x0c         
+	adds	r2, r2, #0x0c
 	blt	Lmemcpy_fsrcul2l4
 
 Lmemcpy_fsrcul2loop4:
@@ -222,9 +222,9 @@ Lmemcpy_fsrcul2l4:
 	b	Lmemcpy_fl4
 
 Lmemcpy_fsrcul3:
-	cmp	r2, #0x0c            
+	cmp	r2, #0x0c
 	blt	Lmemcpy_fsrcul3loop4
-	sub	r2, r2, #0x0c         
+	sub	r2, r2, #0x0c
 	stmdb	sp!, {r4, r5}
 
 Lmemcpy_fsrcul3loop16:
@@ -238,10 +238,10 @@ Lmemcpy_fsrcul3loop16:
 	mov	r12, r12, lsr #24
 	orr	r12, r12, lr, lsl #8
 	stmia	r0!, {r3-r5, r12}
-	subs	r2, r2, #0x10         
+	subs	r2, r2, #0x10
 	bge	Lmemcpy_fsrcul3loop16
 	ldmia	sp!, {r4, r5}
-	adds	r2, r2, #0x0c         
+	adds	r2, r2, #0x0c
 	blt	Lmemcpy_fsrcul3l4
 
 Lmemcpy_fsrcul3loop4:
@@ -281,18 +281,18 @@ Lmemcpy_bloop32:
 	stmdb	r0!, {r3, r4, r12, lr}
 	ldmdb	r1!, {r3, r4, r12, lr}
 	stmdb	r0!, {r3, r4, r12, lr}
-	subs	r2, r2, #0x20         
+	subs	r2, r2, #0x20
 	bge	Lmemcpy_bloop32
 
 Lmemcpy_bl32:
-	cmn	r2, #0x10            
+	cmn	r2, #0x10
 	ldmgedb	r1!, {r3, r4, r12, lr}	/* blat a remaining 16 bytes */
 	stmgedb	r0!, {r3, r4, r12, lr}
-	subge	r2, r2, #0x10         
-	adds	r2, r2, #0x14         
+	subge	r2, r2, #0x10
+	adds	r2, r2, #0x14
 	ldmgedb	r1!, {r3, r12, lr}	/* blat a remaining 12 bytes */
 	stmgedb	r0!, {r3, r12, lr}
-	subge	r2, r2, #0x0c         
+	subge	r2, r2, #0x0c
 	ldmia	sp!, {r4, lr}
 
 Lmemcpy_bl12:
@@ -344,9 +344,9 @@ Lmemcpy_bsrcul:
 	cmp	r12, #2
 	blt	Lmemcpy_bsrcul1
 	beq	Lmemcpy_bsrcul2
-	cmp	r2, #0x0c            
+	cmp	r2, #0x0c
 	blt	Lmemcpy_bsrcul3loop4
-	sub	r2, r2, #0x0c         
+	sub	r2, r2, #0x0c
 	stmdb	sp!, {r4, r5, lr}
 
 Lmemcpy_bsrcul3loop16:
@@ -360,10 +360,10 @@ Lmemcpy_bsrcul3loop16:
 	mov	r4, r4, lsl #8
 	orr	r4, r4, r3, lsr #24
 	stmdb	r0!, {r4, r5, r12, lr}
-	subs	r2, r2, #0x10         
+	subs	r2, r2, #0x10
 	bge	Lmemcpy_bsrcul3loop16
 	ldmia	sp!, {r4, r5, lr}
-	adds	r2, r2, #0x0c         
+	adds	r2, r2, #0x0c
 	blt	Lmemcpy_bsrcul3l4
 
 Lmemcpy_bsrcul3loop4:
@@ -379,9 +379,9 @@ Lmemcpy_bsrcul3l4:
 	b	Lmemcpy_bl4
 
 Lmemcpy_bsrcul2:
-	cmp	r2, #0x0c            
+	cmp	r2, #0x0c
 	blt	Lmemcpy_bsrcul2loop4
-	sub	r2, r2, #0x0c         
+	sub	r2, r2, #0x0c
 	stmdb	sp!, {r4, r5, lr}
 
 Lmemcpy_bsrcul2loop16:
@@ -395,10 +395,10 @@ Lmemcpy_bsrcul2loop16:
 	mov	r4, r4, lsl #16
 	orr	r4, r4, r3, lsr #16
 	stmdb	r0!, {r4, r5, r12, lr}
-	subs	r2, r2, #0x10         
+	subs	r2, r2, #0x10
 	bge	Lmemcpy_bsrcul2loop16
 	ldmia	sp!, {r4, r5, lr}
-	adds	r2, r2, #0x0c         
+	adds	r2, r2, #0x0c
 	blt	Lmemcpy_bsrcul2l4
 
 Lmemcpy_bsrcul2loop4:
@@ -414,9 +414,9 @@ Lmemcpy_bsrcul2l4:
 	b	Lmemcpy_bl4
 
 Lmemcpy_bsrcul1:
-	cmp	r2, #0x0c            
+	cmp	r2, #0x0c
 	blt	Lmemcpy_bsrcul1loop4
-	sub	r2, r2, #0x0c         
+	sub	r2, r2, #0x0c
 	stmdb	sp!, {r4, r5, lr}
 
 Lmemcpy_bsrcul1loop32:
@@ -430,10 +430,10 @@ Lmemcpy_bsrcul1loop32:
 	mov	r4, r4, lsl #24
 	orr	r4, r4, r3, lsr #8
 	stmdb	r0!, {r4, r5, r12, lr}
-	subs	r2, r2, #0x10         
+	subs	r2, r2, #0x10
 	bge	Lmemcpy_bsrcul1loop32
 	ldmia	sp!, {r4, r5, lr}
-	adds	r2, r2, #0x0c         
+	adds	r2, r2, #0x0c
 	blt	Lmemcpy_bsrcul1l4
 
 Lmemcpy_bsrcul1loop4:
@@ -447,4 +447,4 @@ Lmemcpy_bsrcul1loop4:
 Lmemcpy_bsrcul1l4:
 	add	r1, r1, #1
 	b	Lmemcpy_bl4
-	
+

@@ -1,5 +1,5 @@
 /*  $NetBSD: i2c_eeprom.h,v 1.1 1997/10/17 17:21:26 bouyer Exp $   */
- 
+
 /*
  * Copyright (c) 1997 Manuel Bouyer.  All rights reserved.
  *

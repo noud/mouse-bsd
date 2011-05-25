@@ -82,7 +82,7 @@ static void yy_input PARAMS ((char *, int *result, int max_size));
 static void comment PARAMS ((void));
 static void lex_warn_invalid PARAMS ((char *where, char *what));
 
-/* STATES 
+/* STATES
 	EXPRESSION	definitely in an expression
 	SCRIPT		definitely in a script
 	BOTH		either EXPRESSION or SCRIPT
@@ -109,7 +109,7 @@ FILENAMECHAR1	[_a-zA-Z\/\.\\\$\_\~]
 SYMBOLCHARN     [_a-zA-Z\/\.\\\$\_\~0-9]
 FILENAMECHAR	[_a-zA-Z0-9\/\.\-\_\+\=\$\:\[\]\\\,\~]
 WILDCHAR	[_a-zA-Z0-9\/\.\-\_\+\=\$\:\[\]\\\,\~\?\*]
-WHITE		[ \t\n\r]+ 
+WHITE		[ \t\n\r]+
 
 NOCFILENAMECHAR	[_a-zA-Z0-9\/\.\-\_\+\$\:\[\]\\\~]
 
@@ -157,7 +157,7 @@ V_IDENTIFIER [*?.$_a-zA-Z][*?_a-zA-Z0-9]*
 <MRI,EXPRESSION>([0-9A-Fa-f])+(H|h|X|x|B|b|O|o|D|d) {
 				   int ibase ;
 				   switch (yytext[yyleng-1]) {
-				    case 'X': 
+				    case 'X':
 				    case 'x':
 				    case 'H':
 				    case 'h':
@@ -187,7 +187,7 @@ V_IDENTIFIER [*?.$_a-zA-Z][*?_a-zA-Z0-9]*
 				  if (yytext[yyleng-1] == 'M'
 				      || yytext[yyleng-1] == 'm')
 				    yylval.integer *= 1024 * 1024;
-				  if (yytext[yyleng-1] == 'K' 
+				  if (yytext[yyleng-1] == 'K'
 				      || yytext[yyleng-1]=='k')
 				    yylval.integer *= 1024;
 				  return INT;
@@ -328,13 +328,13 @@ V_IDENTIFIER [*?.$_a-zA-Z][*?_a-zA-Z0-9]*
 
 <MRI>{FILENAMECHAR1}{NOCFILENAMECHAR}*	{
 /* Filename without commas, needed to parse mri stuff */
-				 yylval.name = buystring(yytext); 
+				 yylval.name = buystring(yytext);
 				  return NAME;
 				}
 
 
 <BOTH,EXPRESSION>{FILENAMECHAR1}{FILENAMECHAR}*	{
-				 yylval.name = buystring(yytext); 
+				 yylval.name = buystring(yytext);
 				  return NAME;
 				}
 <BOTH,EXPRESSION>"-l"{FILENAMECHAR}+ {
@@ -393,12 +393,12 @@ V_IDENTIFIER [*?.$_a-zA-Z][*?_a-zA-Z0-9]*
 
 <<EOF>> {
   include_stack_ptr--;
-    
-  if (include_stack_ptr == 0) 
+
+  if (include_stack_ptr == 0)
   {
     yyterminate();
   }
-  else 
+  else
   {
     yy_switch_to_buffer(include_stack[include_stack_ptr]);
 
@@ -412,7 +412,7 @@ V_IDENTIFIER [*?.$_a-zA-Z][*?_a-zA-Z0-9]*
 
 <SCRIPT,MRI,VERS_START,VERS_SCRIPT,VERS_NODE>.	lex_warn_invalid(" in script", yytext);
 <EXPRESSION,DEFSYMEXP,BOTH>.	lex_warn_invalid(" in expression", yytext);
-    
+
 %%
 
 
@@ -424,7 +424,7 @@ lex_push_file (file, name)
      FILE *file;
      const char *name;
 {
-  if (include_stack_ptr >= MAX_INCLUDE_DEPTH) 
+  if (include_stack_ptr >= MAX_INCLUDE_DEPTH)
     {
       einfo("%F:includes nested too deeply\n");
     }
@@ -441,7 +441,7 @@ lex_push_file (file, name)
 /* Return a newly created flex input buffer containing STRING,
    which is SIZE bytes long.  */
 
-static YY_BUFFER_STATE 
+static YY_BUFFER_STATE
 yy_create_string_buffer (string, size)
      CONST char *string;
      size_t size;
@@ -485,7 +485,7 @@ lex_redirect (string)
   YY_BUFFER_STATE tmp;
 
   yy_init = 0;
-  if (include_stack_ptr >= MAX_INCLUDE_DEPTH) 
+  if (include_stack_ptr >= MAX_INCLUDE_DEPTH)
     {
       einfo("%F: macros nested too deeply\n");
     }
@@ -538,7 +538,7 @@ ldlex_defsym ()
   *(state_stack_p)++ = yy_start;
   BEGIN (DEFSYMEXP);
 }
-	   
+
 void
 ldlex_expression ()
 {
@@ -569,13 +569,13 @@ yy_input (buf, result, max_size)
      int *result;
      int max_size;
 {
-  *result = 0; 
+  *result = 0;
   if (yy_current_buffer->yy_input_file)
     {
       if (yyin)
 	{
 	  *result = read (fileno (yyin), (char *) buf, max_size);
-	  if (*result < 0) 
+	  if (*result < 0)
 	    einfo ("%F%P: read in flex scanner failed\n");
 	}
     }
@@ -591,7 +591,7 @@ comment ()
   while (1)
   {
     c = input();
-    while (c != '*' && c != EOF) 
+    while (c != '*' && c != EOF)
     {
       if (c == '\n')
 	lineno++;

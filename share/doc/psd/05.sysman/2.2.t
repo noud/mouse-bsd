@@ -229,7 +229,7 @@ The 7000 bits encode set user ID as 4000, set group ID as 2000, and the
 sticky bit as 1000.
 The mode specified to
 .Fn open
-is modified by 
+is modified by
 the process \fIumask\fP; permissions specified in the
 \fIumask\fP are cleared in the mode of the created file.
 The \fIumask\fP can be changed with the call:
@@ -348,7 +348,7 @@ char *path1, *path2;
 The
 .Fn unlink
 primitive may be used to remove
-either type of link. 
+either type of link.
 .LP
 If a file is a symbolic link, the ``value'' of the
 link may be read with the
@@ -750,7 +750,7 @@ char *path; result fhandle_t *fhp;
 .DE
 returns a file handle for the specified file or directory in the
 file handle pointed to by fhp.
-This file handle can then be used in future calls to NFS to access 
+This file handle can then be used in future calls to NFS to access
 the file without the need to repeat the pathname translation.
 This system call is restricted to the superuser.
 .Sh 3 "Other filesystems

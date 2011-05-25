@@ -69,7 +69,7 @@ _bfd_ecoff_swap_tir_in (bigend, ext_copy, intern)
   struct tir_ext ext[1];
 
   *ext = *ext_copy;		/* Make it reasonable to do in-place.  */
-  
+
   /* now the fun stuff... */
   if (bigend) {
     intern->fBitfield   = 0 != (ext->t_bits1[0] & TIR_BITS1_FBITFIELD_BIG);
@@ -126,7 +126,7 @@ _bfd_ecoff_swap_tir_out (bigend, intern_copy, ext)
   TIR intern[1];
 
   *intern = *intern_copy;	/* Make it reasonable to do in-place.  */
-  
+
   /* now the fun stuff... */
   if (bigend) {
     ext->t_bits1[0] = ((intern->fBitfield ? TIR_BITS1_FBITFIELD_BIG : 0)
@@ -182,7 +182,7 @@ _bfd_ecoff_swap_rndx_in (bigend, ext_copy, intern)
   struct rndx_ext ext[1];
 
   *ext = *ext_copy;		/* Make it reasonable to do in-place.  */
-  
+
   /* now the fun stuff... */
   if (bigend) {
     intern->rfd   = (ext->r_bits[0] << RNDX_BITS0_RFD_SH_LEFT_BIG)
@@ -221,7 +221,7 @@ _bfd_ecoff_swap_rndx_out (bigend, intern_copy, ext)
   RNDXR intern[1];
 
   *intern = *intern_copy;	/* Make it reasonable to do in-place.  */
-  
+
   /* now the fun stuff... */
   if (bigend) {
     ext->r_bits[0] = intern->rfd >> RNDX_BITS0_RFD_SH_LEFT_BIG;
@@ -465,7 +465,7 @@ add_memory_shuffle (ainfo, head, tail, data, size)
      unsigned long size;
 {
   struct shuffle *n;
-     
+
   n = (struct shuffle *) objalloc_alloc (ainfo->memory,
 					 sizeof (struct shuffle));
   if (!n)
@@ -557,7 +557,7 @@ bfd_ecoff_debug_free (handle, output_bfd, output_debug, output_swap, info)
      struct bfd_link_info *info;
 {
   struct accumulate *ainfo = (struct accumulate *) handle;
-  
+
   bfd_hash_table_free (&ainfo->fdr_hash.table);
 
   if (! info->relocateable)
@@ -1967,9 +1967,9 @@ lookup_line (abfd, debug_info, debug_swap, line_info)
   boolean stabs;
   FDR *fdr_ptr;
   int i;
-  
+
   offset = line_info->cache.start;
-     
+
   /* Build FDR table (sorted by object file's base-address) if we
      don't have it already.  */
   if (line_info->fdrtab == NULL
@@ -2046,9 +2046,9 @@ lookup_line (abfd, debug_info, debug_swap, line_info)
                malloc.c.  I'm not sure why this happens, but it could
                be due to optimizations that reorder a function's
                position within an object-file.
-        
+
          Strategy:
-         
+
          On the first call to this function, we build a table of FDRs
          that is sorted by the base-address of the object-file the FDR
          is referring to.  Notice that each object-file may contain
@@ -2079,9 +2079,9 @@ lookup_line (abfd, debug_info, debug_swap, line_info)
 	  bfd_vma dist, min_dist = 0;
 	  char *pdr_hold;
 	  char *pdr_end;
-	  
+
 	  fdr_ptr = tab[i].fdr;
-	  
+
 	  pdr_ptr = ((char *) debug_info->external_pdr
 		     + fdr_ptr->ipdFirst * external_pdr_size);
 	  pdr_end = pdr_ptr + fdr_ptr->cpd * external_pdr_size;
@@ -2105,7 +2105,7 @@ lookup_line (abfd, debug_info, debug_swap, line_info)
 		    }
 		}
 	    }
-	  
+
 	  if (!best_pdr || min_dist < best_dist)
 	    {
 	      best_dist = min_dist;

@@ -8,8 +8,8 @@ I. INTRODUCTION
 
 This collection of M4 macros is meant to help in pre-processing texinfo
 files to allow configuring them by hosts; for example, the reader of an
-as manual who only has access to a 386 may not really want to see crud about 
-VAXen. 
+as manual who only has access to a 386 may not really want to see crud about
+VAXen.
 
 A preprocessor is used, rather than extending texinfo, because this
 way we can hack the conditionals in only one place; otherwise we would
@@ -93,7 +93,7 @@ different configurations:
     _fi__(_M680X0__ && !_ALL_ARCH__)
     _if__(_AMD29K__ && !_ALL_ARCH__)
     @setfilename as-29k.info
-    _fi__(_AMD29K__ && !_ALL_ARCH__) 
+    _fi__(_AMD29K__ && !_ALL_ARCH__)
 
 Note that you can use Boolean expressions in the arguments; the
 expression language is that of the built-in m4 macro `eval', described
@@ -160,7 +160,7 @@ Francophones, perhaps) but a little less common in text (save for
 those poor Francophones.  You win some, you lose some).  Still, we
 expect also to have to set < and > occasionally in text; to do that,
 we define a macro to turn off quote handling (_0__) and a macro to
-turn it back on (_1__), according to our convention.  
+turn it back on (_1__), according to our convention.
 
 	BEWARE: This seems to make < and > unusable as relational operations
 		in calls to the builtin "eval".  So far I've gotten
@@ -190,7 +190,7 @@ effect exists---
 
 	BEWARE: text following an `_if__' on the same line is
 		DISCARDED even if the condition is true; text
-		following a `_fi__' on the same line is also 
+		following a `_fi__' on the same line is also
 		always discarded.
 
 The recommended convention is to always place _if__ and _fi__ on a

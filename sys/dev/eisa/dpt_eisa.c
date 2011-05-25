@@ -80,7 +80,7 @@ const char *dpt_eisa_boards[] = {
 	"NEC8200",	/* OEM */
 	"ATT2408",	/* OEM */
 	NULL
-}; 
+};
 
 int
 dpt_eisa_irq(iot, ioh, irq)
@@ -137,12 +137,12 @@ dpt_eisa_attach(parent, self, aux)
 	bus_space_tag_t iot;
 	const char *intrstr;
 	int irq;
-	
+
 	ea = aux;
 	sc = (struct dpt_softc *)self;
 	iot = ea->ea_iot;
 	ec = ea->ea_ec;
-	
+
 	printf(": ");
 
 	if (bus_space_map(iot, EISA_SLOT_ADDR(ea->ea_slot) +
@@ -165,7 +165,7 @@ dpt_eisa_attach(parent, self, aux)
 		printf("can't map interrupt (%d)\n", irq);
 		return;
 	}
-	
+
 	intrstr = eisa_intr_string(ec, ih);
 	sc->sc_ih = eisa_intr_establish(ec, ih, IST_LEVEL, IPL_BIO,
 	    dpt_intr, sc);
@@ -179,9 +179,9 @@ dpt_eisa_attach(parent, self, aux)
 
 	/* Read the EATA configuration */
 	if (dpt_readcfg(sc)) {
-		printf("%s: readcfg failed - see dpt(4)\n", 
+		printf("%s: readcfg failed - see dpt(4)\n",
 		    sc->sc_dv.dv_xname);
-		return;	
+		return;
 	}
 
 	/* Now attach to the bus-independent code */

@@ -180,7 +180,7 @@
 (define_delay (eq_attr "type" "uncond_branch")
   [(eq_attr "in_uncond_branch_delay" "true")
    (nil) (nil)])
-   
+
 ;; Function units of the SPARC
 
 ;; (define_function_unit {name} {num-units} {n-users} {test}
@@ -199,7 +199,7 @@
 ;; ---- cypress CY7C602 scheduling:
 ;; Memory with load-delay of 1 (i.e., 2 cycle load).
 
-(define_function_unit "memory" 1 0 
+(define_function_unit "memory" 1 0
   (and (eq_attr "cpu" "cypress")
     (eq_attr "type" "load,sload,fpload"))
   2 2)
@@ -444,7 +444,7 @@
 ;; Compare instructions.
 ;; This controls RTL generation and register allocation.
 
-;; We generate RTL for comparisons and branches by having the cmpxx 
+;; We generate RTL for comparisons and branches by having the cmpxx
 ;; patterns store away the operands.  Then, the scc and bcc patterns
 ;; emit RTL for both the compare and the branch.
 ;;
@@ -780,7 +780,7 @@
       emit_float_lib_cmp (sparc_compare_op0, sparc_compare_op1, EQ);
       emit_insn (gen_sne (operands[0]));
       DONE;
-    }      
+    }
   else if (TARGET_V9)
     {
       if (gen_v9_scc (EQ, operands))
@@ -833,7 +833,7 @@
       emit_float_lib_cmp (sparc_compare_op0, sparc_compare_op1, NE);
       emit_insn (gen_sne (operands[0]));
       DONE;
-    }      
+    }
   else if (TARGET_V9)
     {
       if (gen_v9_scc (NE, operands))
@@ -1127,7 +1127,7 @@
   "TARGET_ARCH64"
   "mov 0,%0\;movrz %1,-1,%0"
   [(set_attr "type" "cmove")
-   (set_attr "length" "2")]) 
+   (set_attr "length" "2")])
 
 (define_insn "*seqdi_zero_trunc"
   [(set (match_operand:SI 0 "register_operand" "=&r")
@@ -1360,7 +1360,7 @@
       emit_float_lib_cmp (sparc_compare_op0, sparc_compare_op1, EQ);
       emit_jump_insn (gen_bne (operands[0]));
       DONE;
-    }      
+    }
   operands[1] = gen_compare_reg (EQ, sparc_compare_op0, sparc_compare_op1);
 }")
 
@@ -1384,7 +1384,7 @@
       emit_float_lib_cmp (sparc_compare_op0, sparc_compare_op1, NE);
       emit_jump_insn (gen_bne (operands[0]));
       DONE;
-    }      
+    }
   operands[1] = gen_compare_reg (NE, sparc_compare_op0, sparc_compare_op1);
 }")
 
@@ -1408,7 +1408,7 @@
       emit_float_lib_cmp (sparc_compare_op0, sparc_compare_op1, GT);
       emit_jump_insn (gen_bne (operands[0]));
       DONE;
-    }      
+    }
   operands[1] = gen_compare_reg (GT, sparc_compare_op0, sparc_compare_op1);
 }")
 
@@ -1442,7 +1442,7 @@
       emit_float_lib_cmp (sparc_compare_op0, sparc_compare_op1, LT);
       emit_jump_insn (gen_bne (operands[0]));
       DONE;
-    }      
+    }
   operands[1] = gen_compare_reg (LT, sparc_compare_op0, sparc_compare_op1);
 }")
 
@@ -1476,7 +1476,7 @@
       emit_float_lib_cmp (sparc_compare_op0, sparc_compare_op1, GE);
       emit_jump_insn (gen_bne (operands[0]));
       DONE;
-    }      
+    }
   operands[1] = gen_compare_reg (GE, sparc_compare_op0, sparc_compare_op1);
 }")
 
@@ -1510,7 +1510,7 @@
       emit_float_lib_cmp (sparc_compare_op0, sparc_compare_op1, LE);
       emit_jump_insn (gen_bne (operands[0]));
       DONE;
-    }      
+    }
   operands[1] = gen_compare_reg (LE, sparc_compare_op0, sparc_compare_op1);
 }")
 
@@ -1856,7 +1856,7 @@
 {
 #if HOST_BITS_PER_WIDE_INT == 32
   rtx high, low;
-  
+
   split_double (operands[1], &high, &low);
 
   if (high == const0_rtx)
@@ -2236,7 +2236,7 @@
 ;;; constant in two instructions.  Currently the compiler will use HIGH/LO_SUM
 ;;; for anything not matching the HIK constraints, which results in 5
 ;;; instructions.  Positive 32 bit constants can be loaded in the obvious way
-;;; with sethi/ori.  To extend the trick, in the xor instruction, use 
+;;; with sethi/ori.  To extend the trick, in the xor instruction, use
 ;;; xor %o0, ((op1 & 0x3ff) | -0x400), %o0
 ;;; This needs the original value of operands[1], not the inverted value.
 
@@ -2582,7 +2582,7 @@
    (set_attr "length" "4,5,5")])
 
 ;; This is disabled because it does not work.  Long doubles have only 8
-;; byte alignment.  Adding an offset of 8 or 12 to an 8 byte aligned %lo may 
+;; byte alignment.  Adding an offset of 8 or 12 to an 8 byte aligned %lo may
 ;; cause it to overflow.  See also GO_IF_LEGITIMATE_ADDRESS.
 (define_insn "*store_tf"
   [(set (mem:TF (match_operand:SI 0 "symbolic_operand" "i,i"))
@@ -4787,7 +4787,7 @@ return \"srl %1,0,%0\";
   [(set_attr "type" "ialu,fp")])
 
 ;; These correspond to the above in the case where we also (or only)
-;; want to set the condition code.  
+;; want to set the condition code.
 
 (define_insn "*cmp_cc_arith_op"
   [(set (reg:CC 100)
@@ -5527,7 +5527,7 @@ if (! TARGET_ARCH64)
   /* Some implementations (e.g. TurboSparc) are reported to have problems
      with
 	foo: b,a foo
-     i.e. an empty loop with the annul bit set.  The workaround is to use 
+     i.e. an empty loop with the annul bit set.  The workaround is to use
         foo: b foo; nop
      instead.  */
 
@@ -5576,8 +5576,8 @@ if (! TARGET_ARCH64)
   "jmp %a0%#"
   [(set_attr "type" "uncond_branch")])
 
-;; This pattern recognizes the "instruction" that appears in 
-;; a function call that wants a structure value, 
+;; This pattern recognizes the "instruction" that appears in
+;; a function call that wants a structure value,
 ;; to inform the called function if compiled with Sun CC.
 ;(define_insn "*unimp_insn"
 ;  [(match_operand:SI 0 "immediate_operand" "")]
@@ -5604,7 +5604,7 @@ if (! TARGET_ARCH64)
   if (GET_CODE (XEXP (operands[0], 0)) == LABEL_REF)
     {
       /* This is really a PIC sequence.  We want to represent
-	 it as a funny jump so its delay slots can be filled. 
+	 it as a funny jump so its delay slots can be filled.
 
 	 ??? But if this really *is* a CALL, will not it clobber the
 	 call-clobbered registers?  We lose this if it is a JUMP_INSN.
@@ -5955,7 +5955,7 @@ if (! TARGET_ARCH64)
   "! TARGET_PTR64"
  "jmp %a0%#"
  [(set_attr "type" "uncond_branch")])
- 
+
 (define_insn "*branch_sp64"
   [(set (pc) (match_operand:DI 0 "address_operand" "p"))]
   "TARGET_PTR64"
@@ -6224,7 +6224,7 @@ if (! TARGET_ARCH64)
   operands[1] = legitimize_pic_address (operands[1], Pmode, operands[0]);
 }")
 
-;; These split sne/seq insns.  The forms of the resulting insns are 
+;; These split sne/seq insns.  The forms of the resulting insns are
 ;; somewhat bogus, but they avoid extra patterns and show data dependency.
 ;; Nothing will look at these in detail after splitting has occurred.
 
@@ -6329,7 +6329,7 @@ if (! TARGET_ARCH64)
 ;; Peepholes go at the end.
 
 ;; Optimize consecutive loads or stores into ldd and std when possible.
-;; The conditions in which we do this are very restricted and are 
+;; The conditions in which we do this are very restricted and are
 ;; explained in the code for {registers,memory}_ok_for_ldd functions.
 
 (define_peephole
@@ -6357,9 +6357,9 @@ if (! TARGET_ARCH64)
         (match_operand:SI 1 "memory_operand" ""))
    (set (match_operand:SI 2 "register_operand" "=rf")
         (match_operand:SI 3 "memory_operand" ""))]
-   "registers_ok_for_ldd_peep (operands[0], operands[2]) 
+   "registers_ok_for_ldd_peep (operands[0], operands[2])
    && ! MEM_VOLATILE_P (operands[1]) && ! MEM_VOLATILE_P (operands[3])
-   && addrs_ok_for_ldd_peep (XEXP (operands[1], 0), XEXP (operands[3], 0))" 
+   && addrs_ok_for_ldd_peep (XEXP (operands[1], 0), XEXP (operands[3], 0))"
   "ldd %1,%0")
 
 (define_peephole
@@ -6367,17 +6367,17 @@ if (! TARGET_ARCH64)
         (match_operand:SI 1 "register_operand" "rf"))
    (set (match_operand:SI 2 "memory_operand" "")
         (match_operand:SI 3 "register_operand" "rf"))]
-   "registers_ok_for_ldd_peep (operands[1], operands[3]) 
+   "registers_ok_for_ldd_peep (operands[1], operands[3])
    && ! MEM_VOLATILE_P (operands[0]) && ! MEM_VOLATILE_P (operands[2])
    && addrs_ok_for_ldd_peep (XEXP (operands[0], 0), XEXP (operands[2], 0))"
   "std %1,%0")
- 
+
 (define_peephole
   [(set (match_operand:SF 0 "register_operand" "=fr")
         (match_operand:SF 1 "memory_operand" ""))
    (set (match_operand:SF 2 "register_operand" "=fr")
         (match_operand:SF 3 "memory_operand" ""))]
-   "registers_ok_for_ldd_peep (operands[0], operands[2]) 
+   "registers_ok_for_ldd_peep (operands[0], operands[2])
    && ! MEM_VOLATILE_P (operands[1]) && ! MEM_VOLATILE_P (operands[3])
    && addrs_ok_for_ldd_peep (XEXP (operands[1], 0), XEXP (operands[3], 0))"
   "ldd %1,%0")
@@ -6387,7 +6387,7 @@ if (! TARGET_ARCH64)
         (match_operand:SF 1 "register_operand" "fr"))
    (set (match_operand:SF 2 "memory_operand" "")
         (match_operand:SF 3 "register_operand" "fr"))]
-   "registers_ok_for_ldd_peep (operands[1], operands[3]) 
+   "registers_ok_for_ldd_peep (operands[1], operands[3])
    && ! MEM_VOLATILE_P (operands[0]) && ! MEM_VOLATILE_P (operands[2])
    && addrs_ok_for_ldd_peep (XEXP (operands[0], 0), XEXP (operands[2], 0))"
   "std %1,%0")
@@ -6397,7 +6397,7 @@ if (! TARGET_ARCH64)
         (match_operand:SI 1 "memory_operand" ""))
    (set (match_operand:SI 2 "register_operand" "=rf")
         (match_operand:SI 3 "memory_operand" ""))]
-   "registers_ok_for_ldd_peep (operands[2], operands[0]) 
+   "registers_ok_for_ldd_peep (operands[2], operands[0])
    && ! MEM_VOLATILE_P (operands[3]) && ! MEM_VOLATILE_P (operands[1])
    && addrs_ok_for_ldd_peep (XEXP (operands[3], 0), XEXP (operands[1], 0))"
   "ldd %3,%2")
@@ -6407,17 +6407,17 @@ if (! TARGET_ARCH64)
         (match_operand:SI 1 "register_operand" "rf"))
    (set (match_operand:SI 2 "memory_operand" "")
         (match_operand:SI 3 "register_operand" "rf"))]
-   "registers_ok_for_ldd_peep (operands[3], operands[1]) 
+   "registers_ok_for_ldd_peep (operands[3], operands[1])
    && ! MEM_VOLATILE_P (operands[2]) && ! MEM_VOLATILE_P (operands[0])
-   && addrs_ok_for_ldd_peep (XEXP (operands[2], 0), XEXP (operands[0], 0))" 
+   && addrs_ok_for_ldd_peep (XEXP (operands[2], 0), XEXP (operands[0], 0))"
   "std %3,%2")
- 
+
 (define_peephole
   [(set (match_operand:SF 0 "register_operand" "=fr")
         (match_operand:SF 1 "memory_operand" ""))
    (set (match_operand:SF 2 "register_operand" "=fr")
         (match_operand:SF 3 "memory_operand" ""))]
-   "registers_ok_for_ldd_peep (operands[2], operands[0]) 
+   "registers_ok_for_ldd_peep (operands[2], operands[0])
    && ! MEM_VOLATILE_P (operands[3]) && ! MEM_VOLATILE_P (operands[1])
    && addrs_ok_for_ldd_peep (XEXP (operands[3], 0), XEXP (operands[1], 0))"
   "ldd %3,%2")
@@ -6427,11 +6427,11 @@ if (! TARGET_ARCH64)
         (match_operand:SF 1 "register_operand" "fr"))
    (set (match_operand:SF 2 "memory_operand" "")
         (match_operand:SF 3 "register_operand" "fr"))]
-   "registers_ok_for_ldd_peep (operands[3], operands[1]) 
+   "registers_ok_for_ldd_peep (operands[3], operands[1])
    && ! MEM_VOLATILE_P (operands[2]) && ! MEM_VOLATILE_P (operands[0])
    && addrs_ok_for_ldd_peep (XEXP (operands[2], 0), XEXP (operands[0], 0))"
   "std %3,%2")
- 
+
 ;; Optimize the case of following a reg-reg move with a test
 ;; of reg just moved.  Don't allow floating point regs for operand 0 or 1.
 ;; This can result from a float to fix conversion.

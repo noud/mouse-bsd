@@ -13,7 +13,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *	This product includes software developed at Ludd, University of 
+ *	This product includes software developed at Ludd, University of
  *	Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -221,7 +221,7 @@ kdbgo(usc, bp)
 	}
 	/*
 	 * pte's for userspace isn't necessary positioned
-	 * in consecutive physical pages. We check if they 
+	 * in consecutive physical pages. We check if they
 	 * are, otherwise we need to copy the pte's to a
 	 * physically contigouos page area.
 	 * XXX some copying here may be unneccessary. Subject to fix.

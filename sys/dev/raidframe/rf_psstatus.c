@@ -48,7 +48,7 @@
 #define Dprintf2(s,a,b)       if (rf_pssDebug) rf_debug_printf(s,(void *)((unsigned long)a),(void *)((unsigned long)b),NULL,NULL,NULL,NULL,NULL,NULL)
 #define Dprintf3(s,a,b,c)     if (rf_pssDebug) rf_debug_printf(s,(void *)((unsigned long)a),(void *)((unsigned long)b),(void *)((unsigned long)c),NULL,NULL,NULL,NULL,NULL)
 
-static void 
+static void
 RealPrintPSStatusTable(RF_Raid_t * raidPtr,
     RF_PSStatusHeader_t * pssTable);
 
@@ -60,7 +60,7 @@ static int init_pss(RF_ReconParityStripeStatus_t *, RF_Raid_t *);
 static void clean_pss(RF_ReconParityStripeStatus_t *, RF_Raid_t *);
 static void rf_ShutdownPSStatus(void *);
 
-static int 
+static int
 init_pss(p, raidPtr)
 	RF_ReconParityStripeStatus_t *p;
 	RF_Raid_t *raidPtr;
@@ -71,7 +71,7 @@ init_pss(p, raidPtr)
 	return (0);
 }
 
-static void 
+static void
 clean_pss(p, raidPtr)
 	RF_ReconParityStripeStatus_t *p;
 	RF_Raid_t *raidPtr;
@@ -79,7 +79,7 @@ clean_pss(p, raidPtr)
 	RF_Free(p->issued, raidPtr->numCol * sizeof(char));
 }
 
-static void 
+static void
 rf_ShutdownPSStatus(arg)
 	void   *arg;
 {
@@ -88,7 +88,7 @@ rf_ShutdownPSStatus(arg)
 	RF_FREELIST_DESTROY_CLEAN_ARG(raidPtr->pss_freelist, next, (RF_ReconParityStripeStatus_t *), clean_pss, raidPtr);
 }
 
-int 
+int
 rf_ConfigurePSStatus(
     RF_ShutdownList_t ** listp,
     RF_Raid_t * raidPtr,
@@ -141,7 +141,7 @@ rf_MakeParityStripeStatusTable(raidPtr)
 	return (pssTable);
 }
 
-void 
+void
 rf_FreeParityStripeStatusTable(raidPtr, pssTable)
 	RF_Raid_t *raidPtr;
 	RF_PSStatusHeader_t *pssTable;
@@ -220,7 +220,7 @@ rf_LookupRUStatus(
  * no recon was requested while recon was blocked.  Assumes the hash
  * chain is ALREADY LOCKED.
  */
-void 
+void
 rf_PSStatusDelete(raidPtr, pssTable, pssPtr)
 	RF_Raid_t *raidPtr;
 	RF_PSStatusHeader_t *pssTable;
@@ -245,7 +245,7 @@ rf_PSStatusDelete(raidPtr, pssTable, pssPtr)
 	RF_ASSERT(0);		/* we must find it here */
 }
 /* deletes an entry from the ps status table after reconstruction has completed */
-void 
+void
 rf_RemoveFromActiveReconTable(raidPtr, row, psid, which_ru)
 	RF_Raid_t *raidPtr;
 	RF_RowCol_t row;
@@ -311,7 +311,7 @@ rf_AllocPSStatus(raidPtr)
 	return (p);
 }
 
-void 
+void
 rf_FreePSStatus(raidPtr, p)
 	RF_Raid_t *raidPtr;
 	RF_ReconParityStripeStatus_t *p;
@@ -323,7 +323,7 @@ rf_FreePSStatus(raidPtr, p)
 	RF_FREELIST_FREE_CLEAN_ARG(raidPtr->pss_freelist, p, next, clean_pss, raidPtr);
 }
 
-static void 
+static void
 RealPrintPSStatusTable(raidPtr, pssTable)
 	RF_Raid_t *raidPtr;
 	RF_PSStatusHeader_t *pssTable;
@@ -365,7 +365,7 @@ RealPrintPSStatusTable(raidPtr, pssTable)
 	}
 }
 
-void 
+void
 rf_PrintPSStatusTable(raidPtr, row)
 	RF_Raid_t *raidPtr;
 	RF_RowCol_t row;

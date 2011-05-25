@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define TM_SUN3_H
 
 /* Sun3 status includes fpflags, which shows whether the FPU has been used
-   by the process, and whether the FPU was done with an instruction or 
+   by the process, and whether the FPU was done with an instruction or
    was interrupted in the middle of a long instruction.  See
    <machine/reg.h>.  */
 /*                      a&d, pc,sr, fp, fpstat, fpflags   */

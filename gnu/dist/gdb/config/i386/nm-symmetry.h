@@ -38,7 +38,7 @@ extern int child_wait PARAMS ((int, struct target_waitstatus *));
 #include <sys/param.h>
 #include <sys/user.h>
 #include <sys/mc_vmparam.h>
-/* VA_UAREA is defined in <sys/mc_vmparam.h>, and is dependant upon 
+/* VA_UAREA is defined in <sys/mc_vmparam.h>, and is dependant upon
    sizeof(struct user) */
 #define KERNEL_U_ADDR (VA_UAREA) /* ptx */
 #else

@@ -265,7 +265,7 @@ gdt_put_slot(slot)
 	gdt_count--;
 
 	gdt[slot].gd.gd_type = SDT_SYSNULL;
-	/* 
+	/*
 	 * shrink the GDT if we're using less than 1/4 of it.
 	 * Shrinking at that point means we'll still have room for
 	 * almost 2x as many processes as are now running without

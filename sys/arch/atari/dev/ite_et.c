@@ -181,7 +181,7 @@ void		*auxp;
 	       int			maj;
 
 	/*
-	 * find our major device number 
+	 * find our major device number
 	 */
 	for(maj = 0; maj < nchrdev; maj++)
 		if (cdevsw[maj].d_open == grfopen)
@@ -233,7 +233,7 @@ void		*auxp;
 	if(gp->g_display.gd_colors == 2)
 		printf(" monochrome\n");
 	else printf(" colors %d\n", gp->g_display.gd_colors);
-	
+
 	/*
 	 * try and attach an ite
 	 */
@@ -366,7 +366,7 @@ struct itewinsize	*winsz;
 	/*
 	 * Reinitialize our structs
 	 */
-	ip->cols = view->display.width  / ip->font.width; 
+	ip->cols = view->display.width  / ip->font.width;
 	ip->rows = view->display.height / ip->font.height;
 
 	/*
@@ -418,8 +418,8 @@ struct proc		*p;
 			ws.ws_ypixel = view->display.height;
 			ite_reset(ip);
 			/*
-			 * XXX tell tty about the change 
-			 * XXX this is messy, but works 
+			 * XXX tell tty about the change
+			 * XXX this is messy, but works
 			 */
 			iteioctl(ip->grf->g_itedev,TIOCSWINSZ,(caddr_t)&ws,0,p);
 		}
@@ -609,7 +609,7 @@ et_inittextmode(ip, etregs, loadfont)
 		vgaw(ba, VDAC_ADDRESS_W, 0);
 		for (z = 0; z < 256; z++) {
 			y = (z & 1) ? ((z > 7) ? 2 : 1) : 0;
-    
+
 			vgaw(ba, VDAC_DATA, etconscolors[y][0]);
 			vgaw(ba, VDAC_DATA, etconscolors[y][1]);
 			vgaw(ba, VDAC_DATA, etconscolors[y][2]);
@@ -628,7 +628,7 @@ et_inittextmode(ip, etregs, loadfont)
 		WGfx(ba, GCT_ID_GRAPHICS_MODE,	 0x00);
 		WGfx(ba, GCT_ID_MISC,		 0x04);
 		splx(s);
-	
+
 		/*
 		 * load text font into beginning of display memory. Each
 		 * character cell is 32 bytes long (enough for 4 planes)

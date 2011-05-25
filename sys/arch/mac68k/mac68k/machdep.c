@@ -186,7 +186,7 @@ u_int32_t mac68k_vidlen;	/* mem length */
 int	(*mac68k_bell_callback) __P((void *, int, int, int));
 caddr_t	mac68k_bell_cookie;
 
-vm_map_t exec_map = NULL;  
+vm_map_t exec_map = NULL;
 vm_map_t mb_map = NULL;
 vm_map_t phys_map = NULL;
 
@@ -450,7 +450,7 @@ cpu_startup(void)
 
 		while (curbufsize) {
 			pg = uvm_pagealloc(NULL, 0, NULL, 0);
-			if (pg == NULL) 
+			if (pg == NULL)
 				panic("cpu_startup: not enough memory for "
 				    "buffer cache");
 			pmap_enter(kernel_map->pmap, curbuf,
@@ -1664,7 +1664,7 @@ static romvec_t romvecs[] =
 		(caddr_t)0x0,		/* PB ADB interrupt */
 		(caddr_t)0x40ab2f84,	/* ADBBase + 130 interrupt; whatzit? */
 		(caddr_t)0x40a0a360,	/* CountADBs */
-		(caddr_t)0x40a0a37a,	/* GetIndADB */	
+		(caddr_t)0x40a0a37a,	/* GetIndADB */
 		(caddr_t)0x40a0a3a6,	/* GetADBInfo */
 		(caddr_t)0x40a0a3ac,	/* SetADBInfo */
 		(caddr_t)0x40a0a752,	/* ADBReInit */

@@ -65,16 +65,16 @@ struct cd_sub_channel_q_data {
         u_char  mc_valid:1;
         u_char  :7;
 #endif
-        u_char  mc_number[15]; 
+        u_char  mc_number[15];
 #if BYTE_ORDER == LITTLE_ENDIAN
         u_char  :7;
-        u_char  ti_valid:1;   
+        u_char  ti_valid:1;
 #endif
 #if BYTE_ORDER == BIG_ENDIAN
-        u_char  ti_valid:1;   
+        u_char  ti_valid:1;
         u_char  :7;
 #endif
-        u_char  ti_number[15]; 
+        u_char  ti_number[15];
 };
 
 struct cd_sub_channel_position_data {

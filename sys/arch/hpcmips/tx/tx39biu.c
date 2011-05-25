@@ -99,7 +99,7 @@ tx39biu_attach(parent, self, aux)
 	reg |= TX39_MEMCONFIG4_ENWATCH;
 	reg = TX39_MEMCONFIG4_WATCHTIMEVAL_SET(reg, 0xf);
 	tx_conf_write(tc, TX39_MEMCONFIG4_REG, reg);
-	
+
 	reg = tx_conf_read(tc, TX39_MEMCONFIG4_REG);
 	if (reg & TX39_MEMCONFIG4_ENWATCH) {
 		int i;
@@ -113,7 +113,7 @@ tx39biu_attach(parent, self, aux)
 	/*	Clear watch dog timer interrupt */
 	tx39biu_intr(sc);
 
-	/* 
+	/*
 	 *	Chip select virtual bridge
 	 */
 	config_defer(self, tx39biu_callback);
@@ -164,7 +164,7 @@ tx39biu_intr(arg)
 
 void
 tx39biu_dump(tc)
-	tx_chipset_tag_t tc;	
+	tx_chipset_tag_t tc;
 {
 	char *rowsel[] = {"18,17:9", "22,18,20,19,17:9", "20,22,21,19,17:9",
 			  "22,23,21,19,17:9"};
@@ -174,7 +174,7 @@ tx39biu_dump(tc)
 			  "22,p,X,23,21,8:1", "24,23,21,8:2"};
 	txreg_t reg;
 	int i;
-	/* 
+	/*
 	 *	Memory config 0 register
 	 */
 	reg = tx_conf_read(tc, TX39_MEMCONFIG0_REG);
@@ -223,51 +223,51 @@ tx39biu_dump(tc)
 		printf(" ROW %s COL %s\n", rowsel[r], colsel[c]);
 	}
 
-	/* 
+	/*
 	 *	Memory config 3 register
 	 */
 	printf(" config3:");
 	reg = tx_conf_read(tc, TX39_MEMCONFIG3_REG);
 #ifdef TX391X
 	ISSETPRINT(reg, 3, ENMCS3PAGE);
-	ISSETPRINT(reg, 3, ENMCS2PAGE);    
-	ISSETPRINT(reg, 3, ENMCS1PAGE);    
-	ISSETPRINT(reg, 3, ENMCS0PAGE);    
+	ISSETPRINT(reg, 3, ENMCS2PAGE);
+	ISSETPRINT(reg, 3, ENMCS1PAGE);
+	ISSETPRINT(reg, 3, ENMCS0PAGE);
 #endif /* TX391X */
-	ISSETPRINT(reg, 3, ENCS3PAGE);    
-	ISSETPRINT(reg, 3, ENCS2PAGE);     
-	ISSETPRINT(reg, 3, ENCS1PAGE);     
-	ISSETPRINT(reg, 3, ENCS0PAGE);     
-	ISSETPRINT(reg, 3, CARD2WAITEN);     
-	ISSETPRINT(reg, 3, CARD1WAITEN);   
-	ISSETPRINT(reg, 3, CARD2IOEN);   
-	ISSETPRINT(reg, 3, CARD1IOEN);     
+	ISSETPRINT(reg, 3, ENCS3PAGE);
+	ISSETPRINT(reg, 3, ENCS2PAGE);
+	ISSETPRINT(reg, 3, ENCS1PAGE);
+	ISSETPRINT(reg, 3, ENCS0PAGE);
+	ISSETPRINT(reg, 3, CARD2WAITEN);
+	ISSETPRINT(reg, 3, CARD1WAITEN);
+	ISSETPRINT(reg, 3, CARD2IOEN);
+	ISSETPRINT(reg, 3, CARD1IOEN);
 #ifdef TX391X
-	ISSETPRINT(reg, 3, PORT8SEL);     
+	ISSETPRINT(reg, 3, PORT8SEL);
 #endif /* TX391X */
-#ifdef TX392X 
+#ifdef TX392X
 	ISSETPRINT(reg, 3, CARD2_8SEL);
 	ISSETPRINT(reg, 3, CARD1_8SEL);
 #endif /* TX392X */
 
 	printf("\n");
 
-	/* 
+	/*
 	 *	Memory config 4 register
 	 */
 	reg = tx_conf_read(tc, TX39_MEMCONFIG4_REG);
 	printf(" config4:");
 	ISSETPRINT(reg, 4, ENBANK1HDRAM);
-	ISSETPRINT(reg, 4, ENBANK0HDRAM);  
-	ISSETPRINT(reg, 4, ENARB);  
+	ISSETPRINT(reg, 4, ENBANK0HDRAM);
+	ISSETPRINT(reg, 4, ENARB);
 	ISSETPRINT(reg, 4, DISSNOOP);
 	ISSETPRINT(reg, 4, CLRWRBUSERRINT);
 	ISSETPRINT(reg, 4, ENBANK1OPT);
-	ISSETPRINT(reg, 4, ENBANK0OPT);    
-	ISSETPRINT(reg, 4, ENWATCH);    
+	ISSETPRINT(reg, 4, ENBANK0OPT);
+	ISSETPRINT(reg, 4, ENWATCH);
 	ISSETPRINT(reg, 4, MEMPOWERDOWN);
-	ISSETPRINT(reg, 4, ENRFSH1);  
-	ISSETPRINT(reg, 4, ENRFSH0);       
+	ISSETPRINT(reg, 4, ENRFSH1);
+	ISSETPRINT(reg, 4, ENRFSH0);
 	if (reg & TX39_MEMCONFIG4_ENWATCH) {
 		i = TX39_MEMCONFIG4_WATCHTIMEVAL(reg);
 		i = (1000 * (i + 1) * 64) / 36864;

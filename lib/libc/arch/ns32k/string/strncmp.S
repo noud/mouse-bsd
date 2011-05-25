@@ -1,6 +1,6 @@
 /*	$NetBSD: strncmp.S,v 1.4 1999/06/06 20:20:46 matthias Exp $	*/
 
-/* 
+/*
  * Written by Matthias Pfaller, 1996
  * Public domain.
  */

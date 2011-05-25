@@ -60,7 +60,7 @@ int main __P((int, char **));
 void process __P((FILE *, char *));
 
 int
-main(argc, argv) 
+main(argc, argv)
 	int argc;
 	char *argv[];
 {
@@ -109,7 +109,7 @@ main(argc, argv)
 #endif
 		case '?':
 		default:
-			fprintf(stderr, 
+			fprintf(stderr,
 		"usage: vis [-nwctsobf] [-F foldwidth]\n");
 			exit(1);
 		}
@@ -128,7 +128,7 @@ main(argc, argv)
 		process(stdin, "<stdin>");
 	exit(0);
 }
-	
+
 void
 process(fp, filename)
 	FILE *fp;
@@ -136,9 +136,9 @@ process(fp, filename)
 {
 	static int col = 0;
 	char *cp = "\0"+1;	/* so *(cp-1) starts out != '\n' */
-	int c, rachar; 
+	int c, rachar;
 	char buff[5];
-	
+
 	c = getc(fp);
 	while (c != EOF) {
 		rachar = getc(fp);
@@ -155,7 +155,7 @@ process(fp, filename)
 			*cp++ = '$';
 			*cp++ = '\n';
 			*cp = '\0';
-		} else 
+		} else
 			(void) vis(buff, (char)c, eflags, (char)rachar);
 
 		cp = buff;

@@ -200,7 +200,7 @@ END {
 			printf("\t    PCMCIA_VENDOR_%s, PCMCIA_PRODUCT_%s_%s,\n",
 			    products[i, 1], products[i, 1], products[i, 2]) > dfile
 		}
-		printf("\t    PCMCIA_CIS_%s_%s,\n", 
+		printf("\t    PCMCIA_CIS_%s_%s,\n",
 		    products[i, 1], products[i, 2]) > dfile
 		printf("\t    ") > dfile
 		printf("0") > dfile

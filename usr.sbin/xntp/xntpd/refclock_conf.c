@@ -186,7 +186,7 @@ extern  struct refclock refclock_palisade;
 extern  struct refclock refclock_oncore;
 #else
 #define refclock_oncore refclock_none
-#endif 
+#endif
 
 #if defined(JUPITER) && defined(PPS)
 extern	struct refclock refclock_jupiter;

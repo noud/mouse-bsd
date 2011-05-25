@@ -5,28 +5,28 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 # M68000 Hi-Performance Microprocessor Division
-# M68060 Software Package Production Release 
-# 
+# M68060 Software Package Production Release
+#
 # M68060 Software Package Copyright (C) 1993, 1994, 1995, 1996 Motorola Inc.
 # All rights reserved.
-# 
+#
 # THE SOFTWARE is provided on an "AS IS" basis and without warranty.
 # To the maximum extent permitted by applicable law,
 # MOTOROLA DISCLAIMS ALL WARRANTIES WHETHER EXPRESS OR IMPLIED,
 # INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS
 # FOR A PARTICULAR PURPOSE and any warranty against infringement with
 # regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-# and any accompanying written materials. 
-# 
+# and any accompanying written materials.
+#
 # To the maximum extent permitted by applicable law,
 # IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
 # (INCLUDING WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS,
 # BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR OTHER PECUNIARY LOSS)
 # ARISING OF THE USE OR INABILITY TO USE THE SOFTWARE.
-# 
+#
 # Motorola assumes no responsibility for the maintenance and support
-# of the SOFTWARE.  
-# 
+# of the SOFTWARE.
+#
 # You are hereby granted a copyright license to use, modify, and distribute the
 # SOFTWARE so long as this entire notice is retained without alteration
 # in any modified and/or redistributed versions, and that such modified
@@ -41,11 +41,11 @@
 The file ilsp.s contains the "Library version" of the
 68060 Integer Software Package. Routines included in this
 module can be used to emulate 64-bit divide and multiply,
-and the "cmp2" instruction. These instructions are not 
-implemented in hardware on the 68060 and normally take 
+and the "cmp2" instruction. These instructions are not
+implemented in hardware on the 68060 and normally take
 exception vector #61 "Unimplemented Integer Instruction".
 
-By re-compiling a program that uses these instructions, and 
+By re-compiling a program that uses these instructions, and
 making subroutine calls in place of the unimplemented
 instructions, a program can avoid the overhead associated with
 taking the exception.
@@ -72,7 +72,7 @@ documentation purposes.
 
 Release file structure:
 -----------------------
-The file ilsp.sa contains an "Entry-Point" section and a 
+The file ilsp.sa contains an "Entry-Point" section and a
 code section. The ILSP has no "Call-Out" section. The first section
 is the "Entry-Point" section. In order to access a function in the
 package, a program must "bsr" or "jsr" to the location listed
@@ -86,7 +86,7 @@ re-compiled with every new 68060ILSP release.
 
 For example, to use a 64-bit multiply instruction,
 do a "bsr" or "jsr" to the entry point defined by
-the 060ILSP entry table. A compiler generated code sequence 
+the 060ILSP entry table. A compiler generated code sequence
 for unsigned multiply could look like:
 
 # mulu.l <ea>,Dh:Dl
@@ -116,7 +116,7 @@ For a divide:
 	mov.l	(%sp)+,%d1	# load remainder
 	mov.l	(%sp)+,%d0	# load quotient
 
-The library routines also return the correct condition code 
+The library routines also return the correct condition code
 register value. If this is important, then the caller of the library
 routine must make sure that the value isn't lost while popping
 other items off of the stack.

@@ -206,7 +206,7 @@ changes if any of the credits are incorrect. -gwr
 
 --> bootp-2.2+FdC released
 01/27/93  <fdc@watsun.cc.columbia.edu> Frank da Cruz
-	Added RFC 1395 information: Merit dump file, 
+	Added RFC 1395 information: Merit dump file,
 	client domain name, swap server address, root path.
 
 --> bootp-2.2alpha released

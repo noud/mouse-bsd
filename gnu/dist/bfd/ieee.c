@@ -1515,7 +1515,7 @@ ieee_object_p (abfd)
 
   if (! ieee_slurp_section_data (abfd))
     goto fail;
-    
+
   return abfd->xvec;
 got_wrong_format:
   bfd_set_error (bfd_error_wrong_format);

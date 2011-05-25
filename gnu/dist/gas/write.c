@@ -2124,7 +2124,7 @@ relax_segment (segment_frag_root, segment)
 #endif
 
 	case rs_leb128:
-	  /* Initial guess is always 1; doing otherwise can result in 
+	  /* Initial guess is always 1; doing otherwise can result in
 	     stable solutions that are larger than the minimum.  */
 	  address += fragP->fr_offset = 1;
 	  break;

@@ -47,7 +47,7 @@
 
 #define pri_ok(p)  ( ((p) == RF_IO_NORMAL_PRIORITY) || ((p) == RF_IO_LOW_PRIORITY))
 
-static void 
+static void
 CheckCvscanState(RF_CvscanHeader_t * hdr, char *file, int line)
 {
 	long    i, key;
@@ -84,7 +84,7 @@ CheckCvscanState(RF_CvscanHeader_t * hdr, char *file, int line)
 
 
 
-static void 
+static void
 PriorityInsert(RF_DiskQueueData_t ** list_ptr, RF_DiskQueueData_t * req)
 {
 	/* * insert block pointed to by req in to list whose first * entry is
@@ -101,7 +101,7 @@ PriorityInsert(RF_DiskQueueData_t ** list_ptr, RF_DiskQueueData_t * req)
 
 
 
-static void 
+static void
 ReqInsert(RF_DiskQueueData_t ** list_ptr, RF_DiskQueueData_t * req, RF_CvscanArmDir_t order)
 {
 	/* * insert block pointed to by req in to list whose first * entry is
@@ -132,7 +132,7 @@ ReqDequeue(RF_DiskQueueData_t ** list_ptr)
 
 
 
-static void 
+static void
 ReBalance(RF_CvscanHeader_t * hdr)
 {
 	/* DO_CHECK_STATE(hdr); */
@@ -147,7 +147,7 @@ ReBalance(RF_CvscanHeader_t * hdr)
 
 
 
-static void 
+static void
 Transfer(RF_DiskQueueData_t ** to_list_ptr, RF_DiskQueueData_t ** from_list_ptr)
 {
 	RF_DiskQueueData_t *gp;
@@ -161,7 +161,7 @@ Transfer(RF_DiskQueueData_t ** to_list_ptr, RF_DiskQueueData_t ** from_list_ptr)
 
 
 
-static void 
+static void
 RealEnqueue(RF_CvscanHeader_t * hdr, RF_DiskQueueData_t * req)
 {
 	RF_ASSERT(req->priority == RF_IO_NORMAL_PRIORITY || req->priority == RF_IO_LOW_PRIORITY);
@@ -201,7 +201,7 @@ RealEnqueue(RF_CvscanHeader_t * hdr, RF_DiskQueueData_t * req)
 
 
 
-void 
+void
 rf_CvscanEnqueue(void *q_in, RF_DiskQueueData_t * elem, int priority)
 {
 	RF_CvscanHeader_t *hdr = (RF_CvscanHeader_t *) q_in;
@@ -317,7 +317,7 @@ rf_CvscanPeek(void *q_in)
 */
 
 
-int 
+int
 rf_CvscanConfigure()
 {
 	return (0);
@@ -352,7 +352,7 @@ rf_CvscanCreate(RF_SectorCount_t sectPerDisk,
 #if defined(__NetBSD__) && defined(_KERNEL)
 /* PrintCvscanQueue is not used, so we ignore it... */
 #else
-static void 
+static void
 PrintCvscanQueue(RF_CvscanHeader_t * hdr)
 {
 	RF_DiskQueueData_t *tmp;
@@ -392,7 +392,7 @@ PrintCvscanQueue(RF_CvscanHeader_t * hdr)
  * only have one or zero entries in the burner queue, so execution time should
  * be short.
  */
-int 
+int
 rf_CvscanPromote(void *q_in, RF_StripeNum_t parityStripeID, RF_ReconUnitNum_t which_ru)
 {
 	RF_CvscanHeader_t *hdr = (RF_CvscanHeader_t *) q_in;

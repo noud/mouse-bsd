@@ -1,6 +1,6 @@
 /*	$NetBSD: ieeefp.h,v 1.2 1999/07/07 01:52:26 danw Exp $	*/
 
-/* 
+/*
  * Written by J.T. Conklin, Apr 6, 1995
  * Public domain.
  */

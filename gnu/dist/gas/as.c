@@ -503,7 +503,7 @@ the GNU General Public License.  This program has absolutely no warranty.\n");
 	case OPTION_INSTTBL:
 	case 't':
 	  {
-	    /* optarg is the name of the file containing the instruction 
+	    /* optarg is the name of the file containing the instruction
 	       formats, opcodes, register names, etc. */
 	    struct itbl_file_list *n;
 
@@ -512,20 +512,20 @@ the GNU General Public License.  This program has absolutely no warranty.\n");
 		as_warn ( "No file name following -t option\n" );
 		break;
 	      }
-	    
+
 	    n = (struct itbl_file_list *) xmalloc (sizeof *n);
 	    n->next = itbl_files;
 	    n->name = optarg;
 	    itbl_files = n;
 
 	    /* Parse the file and add the new instructions to our internal
-	       table.  If multiple instruction tables are specified, the 
-	       information from this table gets appended onto the existing 
+	       table.  If multiple instruction tables are specified, the
+	       information from this table gets appended onto the existing
 	       internal table. */
 	    itbl_files->name = xstrdup (optarg);
 	    if (itbl_parse (itbl_files->name) != 0)
 	      {
-		fprintf (stderr, "Failed to read instruction table %s\n", 
+		fprintf (stderr, "Failed to read instruction table %s\n",
 			 itbl_files->name);
 		exit (EXIT_SUCCESS);
 	      }
@@ -539,7 +539,7 @@ the GNU General Public License.  This program has absolutely no warranty.\n");
 	case OPTION_GSTABS:
 	  debug_type = DEBUG_STABS;
 	  break;
- 
+
 	case 'J':
 	  flag_signed_overflow_ok = 1;
 	  break;
@@ -674,7 +674,7 @@ the GNU General Public License.  This program has absolutely no warranty.\n");
 
 static long start_time;
 
-int 
+int
 main (argc, argv)
      int argc;
      char **argv;
@@ -724,7 +724,7 @@ main (argc, argv)
   symbol_begin ();
   frag_init ();
   subsegs_begin ();
-  parse_args (&argc, &argv); 
+  parse_args (&argc, &argv);
   read_begin ();
   input_scrub_begin ();
   expr_begin ();
@@ -875,7 +875,7 @@ dump_statistics ()
  * Note the un*x semantics: there is only 1 logical input file, but it
  * may be a catenation of many 'physical' input files.
  */
-static void 
+static void
 perform_an_assembly_pass (argc, argv)
      int argc;
      char **argv;

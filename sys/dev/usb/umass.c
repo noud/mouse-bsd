@@ -112,7 +112,7 @@
 
 #include <dev/scsipi/scsi_all.h>
 #include <dev/scsipi/scsipi_all.h>
-#include <dev/scsipi/scsiconf.h> 
+#include <dev/scsipi/scsiconf.h>
 
 #if defined(USB_DEBUG) && !defined(UMASS_DEBUG)
 #define UMASS_DEBUG 1
@@ -416,7 +416,7 @@ USB_DETACH(umass)
 
 	if (sc->sc_child != NULL)
 		rv = config_detach(sc->sc_child, flags);
-	
+
 	if (rv != 0)
 		return (rv);
 
@@ -629,7 +629,7 @@ usbd_status
 umass_bulk_transfer(umass_softc_t *sc, int lun, void *cmd, int cmdlen,
 		    void *data, int datalen, int dir, int *residue)
 {
-	static int dCBWtag = 42;	/* tag to be used in transfers, 
+	static int dCBWtag = 42;	/* tag to be used in transfers,
 					 * incremented at each transfer */
 	usb_bulk_cbw_t cbw;		/* command block wrapper struct */
 	usb_bulk_csw_t csw;		/* command status wrapper struct */
@@ -724,7 +724,7 @@ umass_bulk_transfer(umass_softc_t *sc, int lun, void *cmd, int cmdlen,
 					USBD_SHORT_XFER_OK, &n);
 		if (err)
 			DPRINTF(UDMASS_BULK, ("%s: failed to receive data, "
-				"(%d bytes, n = %d), %s\n", 
+				"(%d bytes, n = %d), %s\n",
 				USBDEVNAME(sc->sc_dev),
 				datalen, n, usbd_errstr(err)));
 	} else if (dir == DIR_OUT) {
@@ -732,7 +732,7 @@ umass_bulk_transfer(umass_softc_t *sc, int lun, void *cmd, int cmdlen,
 					data, datalen, 0, &n);
 		if (err)
 			DPRINTF(UDMASS_BULK, ("%s: failed to send data, "
-				"(%d bytes, n = %d), %s\n", 
+				"(%d bytes, n = %d), %s\n",
 				USBDEVNAME(sc->sc_dev),
 				datalen, n, usbd_errstr(err)));
 	}
@@ -869,7 +869,7 @@ umass_scsipi_scsi_cmd(xs)
 
 	/*
 	 * FAILED commands are supposed to be SCSI failed commands
-	 * and are therefore considered to be successfull CDW/CSW  
+	 * and are therefore considered to be successfull CDW/CSW
 	 * transfers.  PHASE errors are more serious and should return
 	 * an error to the SCSIPI system.
 	 *

@@ -158,7 +158,7 @@ AC_SUBST(TCLHDIR)
 AC_DEFUN(CY_AC_PATH_TCLCONFIG, [
 #
 # Ok, lets find the tcl configuration
-# First, look for one uninstalled.  
+# First, look for one uninstalled.
 # the alternative search directory is invoked by --with-tclconfig
 #
 
@@ -273,7 +273,7 @@ dnl    AC_SUBST(TCL_UNSHARED_LIB_SUFFIX)
 
 # Warning: Tk definitions are very similar to Tcl definitions but
 # are not precisely the same.  There are a couple of differences,
-# so don't do changes to Tcl thinking you can cut and paste it do 
+# so don't do changes to Tcl thinking you can cut and paste it do
 # the Tk differences and later simply substitute "Tk" for "Tcl".
 # Known differences:
 #  - Acceptable Tcl major version #s is 7-9 while Tk is 4-9
@@ -380,7 +380,7 @@ AC_SUBST(TKHDIR)
 AC_DEFUN(CY_AC_PATH_TKCONFIG, [
 #
 # Ok, lets find the tk configuration
-# First, look for one uninstalled.  
+# First, look for one uninstalled.
 # the alternative search directory is invoked by --with-tkconfig
 #
 
@@ -481,7 +481,7 @@ dnl    AC_SUBST(TK_EXEC_PREFIX)
 ])
 
 
-# check for Itcl headers. 
+# check for Itcl headers.
 
 AC_DEFUN(CY_AC_PATH_ITCLH, [
 AC_MSG_CHECKING(for Itcl private headers. srcdir=${srcdir})
@@ -506,7 +506,7 @@ AC_SUBST(ITCLHDIR)
 AC_SUBST(ITCLLIB)
 ])
 
-# check for Tix headers. 
+# check for Tix headers.
 
 AC_DEFUN(CY_AC_PATH_TIX, [
 AC_MSG_CHECKING(for Tix private headers. srcdir=${srcdir})

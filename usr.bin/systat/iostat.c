@@ -213,7 +213,7 @@ showiostat()
 
 	/*
 	 * Interrupt CPU state not calculated yet.
-	 */ 
+	 */
 	for (i = 0; i < CPUSTATES; i++)
 		stat1(row++, i);
 	if (!numbers) {

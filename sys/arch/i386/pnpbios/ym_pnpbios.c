@@ -48,12 +48,12 @@
 
 #include <i386/pnpbios/pnpbiosvar.h>
 
-#include <dev/ic/ad1848reg.h> 
+#include <dev/ic/ad1848reg.h>
 #include <dev/isa/ad1848var.h>
- 
+
 #include <dev/ic/cs4231reg.h>
 #include <dev/isa/cs4231var.h>
-  
+
 #include <dev/ic/opl3sa3reg.h>
 #include <dev/isa/wssreg.h>
 #include <dev/isa/ymvar.h>

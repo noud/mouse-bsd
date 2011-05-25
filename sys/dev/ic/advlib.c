@@ -180,18 +180,18 @@ static u_int16_t AscSetIsaDmaChannel __P((bus_space_tag_t, bus_space_handle_t,
 static u_int8_t AscGetIsaDmaSpeed __P((bus_space_tag_t, bus_space_handle_t));
 static u_int8_t AscSetIsaDmaSpeed __P((bus_space_tag_t, bus_space_handle_t,
 					u_int8_t));
-		
+
 /* Messages routines */
 static void AscHandleExtMsgIn __P((ASC_SOFTC *, u_int16_t, u_int8_t,
 					ASC_SCSI_BIT_ID_TYPE, int, u_int8_t));
 static u_int8_t AscMsgOutSDTR __P((ASC_SOFTC *, u_int8_t, u_int8_t));
-		
+
 /* SDTR routines */
 static void AscSetChipSDTR __P((bus_space_tag_t, bus_space_handle_t,
 					u_int8_t, u_int8_t));
 static u_int8_t AscCalSDTRData __P((ASC_SOFTC *, u_int8_t, u_int8_t));
 static u_int8_t AscGetSynPeriodIndex __P((ASC_SOFTC *, u_int8_t));
-		
+
 /* Queue routines */
 static int AscSendScsiQueue __P((ASC_SOFTC *, ASC_SCSI_Q *, u_int8_t));
 static int AscSgListToQueue __P((int));
@@ -211,21 +211,21 @@ static void AscCleanUpBusyQueue __P((bus_space_tag_t, bus_space_handle_t));
 static int _AscWaitQDone __P((bus_space_tag_t, bus_space_handle_t,
 					ASC_SCSI_Q *));
 static int AscCleanUpDiscQueue __P((bus_space_tag_t, bus_space_handle_t));
-		
+
 /* Abort and Reset CCB routines */
 static int AscRiscHaltedAbortCCB __P((ASC_SOFTC *, ADV_CCB *));
 static int AscRiscHaltedAbortTIX __P((ASC_SOFTC *, u_int8_t));
-		
+
 /* Error Handling routines */
 static int AscSetLibErrorCode __P((ASC_SOFTC *, u_int16_t));
-		
+
 /* Handle bugged borads routines */
 static int AscTagQueuingSafe __P((ASC_SCSI_INQUIRY *));
 static void AscAsyncFix __P((ASC_SOFTC *, u_int8_t, ASC_SCSI_INQUIRY *));
-		
+
 /* Miscellaneous routines */
 static int AscCompareString __P((u_char *, u_char *, int));
-		
+
 /* Device oriented routines */
 static int DvcEnterCritical __P((void));
 static void DvcLeaveCritical __P((int));

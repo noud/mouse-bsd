@@ -16,9 +16,9 @@ refnumtoa(num)
 	register u_int32 netnum;
 	register char *buf;
 	register const char *rclock;
-	
+
 	netnum = ntohl(num);
-	
+
 	LIB_GETBUF(buf);
 
 	rclock = clockname((int)((u_long)netnum >> 8) & 0xff);

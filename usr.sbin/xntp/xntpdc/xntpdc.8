@@ -7,7 +7,7 @@
 .Nm xntpdc
 .Nd special NTP query program
 .Sh SYNOPSIS
-.Nm 
+.Nm
 .Op Fl ilnps
 .Op Fl c Ar command
 .Oo
@@ -82,7 +82,7 @@ attempt to read interactive format commands from the standard input.
 .It Fl c Ar command
 The following argument is interpreted as an interactive format
 command and is added to the list of commands to be executed on the
-specified host(s). Multiple 
+specified host(s). Multiple
 .Fl c
 options may be given.
 .It Fl i
@@ -100,7 +100,7 @@ Output all host addresses in dotted-quad numeric format rather than
 converting to the canonical host names.
 .It Fl p
 Print a list of the peers known to the server as well as a summary
-of their state. This is equivalent to 
+of their state. This is equivalent to
 .Fl c Ar peers .
 .It Fl s
 Print a list of the peers known to the server as well as a summary
@@ -440,7 +440,7 @@ fashion.
 .It fudge Ar peer_address Op time1 time2 stratum refid
 This command provides a way to set certain data for a reference
 clock. See the source listing for further information.
-.It enable Op flag ... 
+.It enable Op flag ...
 .It disable Op Ar flag Op Ar ...
 These commands operate in the same way as the
 .Pa enable

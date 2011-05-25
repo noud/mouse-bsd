@@ -181,7 +181,7 @@ protopr(off, name)
 			inetprint(&inpcb.inp_faddr, inpcb.inp_fport, name, 0);
 		} else {
 			inetprint(&inpcb.inp_laddr, inpcb.inp_lport, name, 0);
-			inetprint(&inpcb.inp_faddr, inpcb.inp_fport, name, 
+			inetprint(&inpcb.inp_faddr, inpcb.inp_fport, name,
 			    inpcb.inp_lport != inpcb.inp_fport);
 		}
 		if (istcp) {

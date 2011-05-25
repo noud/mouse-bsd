@@ -25,7 +25,7 @@
  * SUCH DAMAGE.
  *
  */
-/* 
+/*
  * 1	EXT -> IO5(INT0, INT1, INT2), IO3(INT0, INT1)
  * 2	SM
  * 3	USBWAKE

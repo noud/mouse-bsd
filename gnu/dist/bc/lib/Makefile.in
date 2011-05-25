@@ -72,7 +72,7 @@ INCLUDES = -I$(srcdir) -I$(srcdir)/../h
 libbc_a_SOURCES = getopt.c getopt1.c vfprintf.c number.c
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 LIBRARIES =  $(noinst_LIBRARIES)
 
 
@@ -80,7 +80,7 @@ DEFS = @DEFS@ -I. -I$(srcdir) -I..
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-libbc_a_LIBADD = 
+libbc_a_LIBADD =
 libbc_a_OBJECTS =  getopt.o getopt1.o vfprintf.o number.o
 AR = ar
 CFLAGS = @CFLAGS@
@@ -182,16 +182,16 @@ dvi:
 check: all
 	$(MAKE)
 installcheck:
-install-exec: 
+install-exec:
 	@$(NORMAL_INSTALL)
 
-install-data: 
+install-data:
 	@$(NORMAL_INSTALL)
 
 install: install-exec install-data all
 	@:
 
-uninstall: 
+uninstall:
 
 install-strip:
 	$(MAKE) INSTALL_PROGRAM='$(INSTALL_PROGRAM) -s' INSTALL_SCRIPT='$(INSTALL_PROGRAM)' install

@@ -59,7 +59,7 @@
  * pulse generator in the gadget box is adjusted to produce a start bit
  * of length 26 usec at 38400 bps. Used with the LDISC_CLKPPS line
  * discipline, this produces an ASCII DEL character ('\377') followed by
- * a timestamp at each seconds epoch. 
+ * a timestamp at each seconds epoch.
  *
  * The third way involves an auxiliary radio clock driver which calls
  * the PPS driver with a timestamp captured by that driver. This use is
@@ -328,7 +328,7 @@ atom_pps(peer)
 	 * extend the fraction and stash in the buffer. No harm is done
 	 * if previous data are overwritten. If the discipline comes bum
 	 * or the data grow stale, just forget it.
-	 */ 
+	 */
 	i = up->ev.serial;
 	if (ioctl(fdpps, CIOGETEV, (caddr_t)&up->ev) < 0)
 		return;
@@ -548,7 +548,7 @@ atom_poll(unit, peer)
 
 	if (pp->leap == 0)
 	  refclock_report(peer, CEVNT_NOMINAL);
-	
+
 	refclock_receive(peer, &pp->offset, 0, pp->dispersion,
 			 &pp->lastrec, &pp->lastrec, pp->leap);
 }

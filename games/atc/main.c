@@ -88,7 +88,7 @@ main(ac, av)
 		switch (ch) {
 		case '?':
 		case 'u':
-		default: 
+		default:
 			f_usage++;
 			break;
 		case 'l':
@@ -115,7 +115,7 @@ main(ac, av)
 	srandom(seed);
 
 	if (f_usage)
-		fprintf(stderr, 
+		fprintf(stderr,
 		    "Usage: %s -[u?lstp] [-[gf] game_name] [-r random seed]\n",
 			av[0]);
 	if (f_showscore)
@@ -129,7 +129,7 @@ main(ac, av)
 		buf[strlen(buf) - 1] = '\0';
 		puts(buf);
 	}
-		
+
 	if (f_usage || f_showscore || f_list || f_printpath)
 		exit(0);
 

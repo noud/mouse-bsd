@@ -7,7 +7,7 @@
 
 #include "bsd.h"
 
-#if	defined(TALK_43) || defined(TALK_42) 
+#if	defined(TALK_43) || defined(TALK_42)
 
 #include <sys/cdefs.h>
 #ifndef lint
@@ -42,7 +42,7 @@ CTL_MSG msg;
 
 /* open the ctl socket */
 void
-open_ctl() 
+open_ctl()
 {
 	int length;
 

@@ -7,7 +7,7 @@ EXTRA_DIST = bc.h fix-libmath_h libmath.b sbc.y
 noinst_HEADERS = libmath.h
 
 DISTCLEANFILES = sbc sbc.c sbc.h
-MAINTAINERCLEANFILES = libmath.h bc.c bc.h 
+MAINTAINERCLEANFILES = libmath.h bc.c bc.h
 
 datadir = $(prefix)/@DATADIRNAME@
 

@@ -261,7 +261,7 @@ struct cardbus_softc {
   int sc_bus;			/* cardbus bus number */
   int sc_device;		/* cardbus device number */
   int sc_intrline;		/* CardBus intrline */
-  
+
   bus_space_tag_t sc_iot;	/* CardBus I/O space tag */
   bus_space_tag_t sc_memt;	/* CardBus MEM space tag */
   bus_dma_tag_t sc_dmat;	/* DMA tag */

@@ -76,7 +76,7 @@
 #define FPU_ALL		0xff000000	/* Note this is ~ARM_ANY */
 #define FPU_MEMMULTI	0x7f000000	/* Not fpu_core */
 
-     
+
 #ifndef CPU_DEFAULT
 #if defined __thumb__
 #define CPU_DEFAULT (ARM_ARCHv4 | ARM_THUMB)
@@ -176,7 +176,7 @@ static CONST struct asm_shift shift[] =
 
 #define NUM_FLOAT_VALS 8
 
-CONST char *fp_const[] = 
+CONST char *fp_const[] =
 {
   "0.0", "1.0", "2.0", "3.0", "4.0", "5.0", "0.5", "10.0", 0
 };
@@ -213,7 +213,7 @@ struct asm_cond
 /* This is to save a hash look-up in the common case */
 #define COND_ALWAYS 0xe0000000
 
-static CONST struct asm_cond conds[] = 
+static CONST struct asm_cond conds[] =
 {
   {"eq", 0x00000000},
   {"ne", 0x10000000},
@@ -421,7 +421,7 @@ static void do_fp_cmp		PARAMS ((char *operands, unsigned long flags));
 static void do_fp_from_reg	PARAMS ((char *operands, unsigned long flags));
 static void do_fp_to_reg	PARAMS ((char *operands, unsigned long flags));
 
-static void fix_new_arm		PARAMS ((fragS *frag, int where, 
+static void fix_new_arm		PARAMS ((fragS *frag, int where,
 					 short int size, expressionS *exp,
 					 int pc_rel, int reloc));
 static int arm_reg_parse	PARAMS ((char **ccp));
@@ -466,14 +466,14 @@ static void output_inst		PARAMS ((char *));
    take 2: */
 #define INSN_SIZE       4
 
-/* LONGEST_INST is the longest basic instruction name without conditions or 
+/* LONGEST_INST is the longest basic instruction name without conditions or
  * flags.
  * ARM7M has 4 of length 5
  */
 
 #define LONGEST_INST 5
 
-struct asm_opcode 
+struct asm_opcode
 {
   CONST char *template;		/* Basic string to match */
   unsigned long value;		/* Basic instruction code */
@@ -484,7 +484,7 @@ struct asm_opcode
   void (*parms) PARAMS ((char *, unsigned long));
 };
 
-static CONST struct asm_opcode insns[] = 
+static CONST struct asm_opcode insns[] =
 {
 /* ARM Instructions */
   {"and",   0x00000000, NULL,   s_flag,      ARM_ANY,      do_arit},
@@ -730,7 +730,7 @@ static int thumb_reg		PARAMS ((char **str, int hi_lo));
 #define THUMB_HALFWORD 1
 #define THUMB_BYTE 0
 
-struct thumb_opcode 
+struct thumb_opcode
 {
   CONST char *template;		/* Basic string to match */
   unsigned long value;		/* Basic instruction code */
@@ -927,7 +927,7 @@ literalT literals[MAX_LITERAL_POOL_SIZE];
 int next_literal_pool_place = 0; /* Next free entry in the pool */
 int lit_pool_num = 1; /* Next literal pool number */
 symbolS *current_poolP = NULL;
-symbolS *symbol_make_empty PARAMS ((void)); 
+symbolS *symbol_make_empty PARAMS ((void));
 
 static int
 add_to_lit_pool ()
@@ -966,12 +966,12 @@ add_to_lit_pool ()
 
   return SUCCESS;
 }
- 
+
 /* Can't use symbol_new here, so have to create a symbol and then at
    a later date assign it a value. Thats what these functions do */
 static void
 symbol_locate (symbolP, name, segment, valu, frag)
-     symbolS *symbolP; 
+     symbolS *symbolP;
      CONST char *name;		/* It is copied, the caller can modify */
      segT segment;		/* Segment identifier (SEG_<something>) */
      valueT valu;		/* Symbol value */
@@ -1017,16 +1017,16 @@ symbol_locate (symbolP, name, segment, valu, frag)
 #ifdef tc_symbol_new_hook
   tc_symbol_new_hook (symbolP);
 #endif
- 
+
 #ifdef DEBUG_SYMS
   verify_symbol_chain(symbol_rootP, symbol_lastP);
 #endif /* DEBUG_SYMS */
 }
 
 symbolS *
-symbol_make_empty () 
+symbol_make_empty ()
 {
-  symbolS *symbolP; 
+  symbolS *symbolP;
 
   symbolP = (symbolS *) obstack_alloc (&notes, sizeof (symbolS));
 
@@ -1050,7 +1050,7 @@ validate_immediate (val)
     unsigned int i;
 
 #define rotate_left(v, n) (v << n | v >> (32 - n))
-    
+
     for (i = 0; i < 32; i += 2)
         if ((a = rotate_left (val, i)) <= 0xff)
             return a | (i << 7); /* 12-bit pack: [shift-cnt,const] */
@@ -1068,7 +1068,7 @@ validate_offset_imm (val, hwse)
   return val;
 }
 
-    
+
 static void
 s_req (a)
      int a;
@@ -1131,7 +1131,7 @@ s_ltorg (internal)
 #ifdef OBJ_COFF
   ARM_SET_INTERWORK (current_poolP, support_interwork);
 #endif
-  
+
   while (lit_count < next_literal_pool_place)
     /* First output the expression in the instruction to the pool */
     emit_expr (&(literals[lit_count++].exp), 4); /* .word */
@@ -1199,14 +1199,14 @@ s_force_thumb (ignore)
      This is used by gcc/config/arm/lib1funcs.asm for example
      to compile interworking support functions even if the
      target processor should not support interworking.  */
-     
+
   if (! thumb_mode)
     {
       thumb_mode = 1;
-      
+
       record_alignment (now_seg, 1);
     }
-  
+
   demand_empty_rest_of_line ();
 }
 
@@ -1218,7 +1218,7 @@ s_thumb_func (ignore)
      We need to know this for the interworking support.  */
 
   label_is_thumb_function_name = true;
-  
+
   demand_empty_rest_of_line();
 }
 
@@ -1309,7 +1309,7 @@ skip_past_comma (str)
 {
   char *p = *str, c;
   int comma = 0;
-    
+
   while ((c = *p) == ' ' || c == ',')
     {
       p++;
@@ -1772,8 +1772,8 @@ do_msr (str, flags)
       inst.error = bad_args;
       return;
     }
-     
-  inst.error = NULL; 
+
+  inst.error = NULL;
   inst.instruction |= flags;
   end_of_line (str);
   return;
@@ -1784,7 +1784,7 @@ do_msr (str, flags)
    SMULL RdLo, RdHi, Rm, Rs
    UMLAL RdLo, RdHi, Rm, Rs
    SMLAL RdLo, RdHi, Rm, Rs
-*/   
+*/
 static void
 do_mull (str, flags)
      char *str;
@@ -1832,7 +1832,7 @@ do_mull (str, flags)
       inst.error = bad_pc;
       return;
     }
-   
+
   inst.instruction |= flags;
   end_of_line (str);
   return;
@@ -1844,7 +1844,7 @@ do_mul (str, flags)
      unsigned long flags;
 {
   int rd, rm;
-  
+
   /* only one format "rd, rm, rs" */
   while (*str == ' ')
     str++;
@@ -2046,7 +2046,7 @@ my_get_expression (ep, str)
 {
   char *save_in;
   segT seg;
-  
+
   save_in = input_line_pointer;
   input_line_pointer = *str;
   seg = expression (ep);
@@ -2096,10 +2096,10 @@ decode_shift (str, unrestrict)
   struct asm_shift *shft;
   char *p;
   char c;
-    
+
   while (**str == ' ')
     (*str)++;
-    
+
   for (p = *str; isalpha (*p); p++)
     ;
 
@@ -2217,8 +2217,8 @@ negate_data_op (instruction, value)
       value = negated;
       break;
 
-    case OPCODE_ADD: 
-      new_inst = OPCODE_SUB;               
+    case OPCODE_ADD:
+      new_inst = OPCODE_SUB;
       value = negated;
       break;
 
@@ -2227,44 +2227,44 @@ negate_data_op (instruction, value)
       value = negated;
       break;
 
-    case OPCODE_CMN: 
-      new_inst = OPCODE_CMP;               
+    case OPCODE_CMN:
+      new_inst = OPCODE_CMP;
       value = negated;
       break;
 
       /* Now Inverted ops */
     case OPCODE_MOV:             /* MOV <-> MVN */
-      new_inst = OPCODE_MVN;               
+      new_inst = OPCODE_MVN;
       value = inverted;
       break;
 
-    case OPCODE_MVN: 
+    case OPCODE_MVN:
       new_inst = OPCODE_MOV;
       value = inverted;
       break;
 
-    case OPCODE_AND:             /* AND <-> BIC */ 
-      new_inst = OPCODE_BIC;               
+    case OPCODE_AND:             /* AND <-> BIC */
+      new_inst = OPCODE_BIC;
       value = inverted;
       break;
 
-    case OPCODE_BIC: 
+    case OPCODE_BIC:
       new_inst = OPCODE_AND;
       value = inverted;
       break;
 
     case OPCODE_ADC:              /* ADC <-> SBC */
-      new_inst = OPCODE_SBC;               
+      new_inst = OPCODE_SBC;
       value = inverted;
       break;
 
-    case OPCODE_SBC: 
+    case OPCODE_SBC:
       new_inst = OPCODE_ADC;
       value = inverted;
       break;
 
       /* We cannot do anything */
-    default:  
+    default:
       return FAIL;
     }
 
@@ -2273,7 +2273,7 @@ negate_data_op (instruction, value)
 
   *instruction &= OPCODE_MASK;
   *instruction |= new_inst << DATA_OP_SHIFT;
-  return value; 
+  return value;
 }
 
 static int
@@ -2285,7 +2285,7 @@ data_op2 (str)
 
   while (**str == ' ')
     (*str)++;
-    
+
   if (reg_required_here (str, 0) != FAIL)
     {
       if (skip_past_comma (str) == SUCCESS)
@@ -2322,7 +2322,7 @@ data_op2 (str)
 		      inst.error = "Constant expression expected";
 		      return FAIL;
 		    }
- 
+
 		  /* Rotate must be a multiple of 2 */
 		  if (((unsigned) expr.X_add_number) > 30
 		      || (expr.X_add_number & 1) != 0
@@ -2641,7 +2641,7 @@ do_ldst (str, flags)
 
   while (*str == ' ')
     str++;
-    
+
   if ((conflict_reg = reg_required_here (&str, 12)) == FAIL)
     {
       if (!inst.error)
@@ -2769,15 +2769,15 @@ do_ldst (str, flags)
 	  inst.instruction |= INST_IMMEDIATE | (OPCODE_MOV << DATA_OP_SHIFT);
 	  inst.instruction |= (flags & COND_MASK) | (value & 0xfff);
 	  end_of_line(str);
-	  return; 
+	  return;
 	}
       else
 	{
-	  /* Insert into literal pool */     
+	  /* Insert into literal pool */
 	  if (add_to_lit_pool () == FAIL)
 	    {
 	      if (!inst.error)
-		inst.error = "literal pool insertion failed"; 
+		inst.error = "literal pool insertion failed";
 	      return;
 	    }
 
@@ -2791,7 +2791,7 @@ do_ldst (str, flags)
 	    inst.reloc.type = BFD_RELOC_ARM_LITERAL;
 	  inst.reloc.pc_rel = 1;
 	  inst.instruction |= (REG_PC << 16);
-	  pre_inc = 1; 
+	  pre_inc = 1;
 	}
     }
   else
@@ -2811,7 +2811,7 @@ do_ldst (str, flags)
       inst.instruction |= (REG_PC << 16);
       pre_inc = 1;
     }
-    
+
   if (pre_inc && (flags & TRANS_BIT))
     inst.error = "Pre-increment instruction with translate";
 
@@ -2837,12 +2837,12 @@ reg_list (strp)
 	{
 	  int in_range = 0;
 	  int cur_reg = -1;
-      
+
 	  str++;
 	  do
 	    {
 	      int reg;
-	    
+
 	      while (*str == ' ')
 		str++;
 
@@ -2855,7 +2855,7 @@ reg_list (strp)
 	      if (in_range)
 		{
 		  int i;
-	      
+
 		  if (reg <= cur_reg)
 		    {
 		      inst.error = "Bad range in register list";
@@ -2865,7 +2865,7 @@ reg_list (strp)
 		  for (i = cur_reg + 1; i < reg; i++)
 		    {
 		      if (range & (1 << i))
-			as_tsktsk 
+			as_tsktsk
 			  ("Warning: Duplicated register (r%d) in register list",
 			   i);
 		      else
@@ -2903,7 +2903,7 @@ reg_list (strp)
 
 	  if (expr.X_op == O_constant)
 	    {
-	      if (expr.X_add_number 
+	      if (expr.X_add_number
 		  != (expr.X_add_number & 0x0000ffff))
 		{
 		  inst.error = "invalid register mask";
@@ -2916,7 +2916,7 @@ reg_list (strp)
 
 		  regno &= -regno;
 		  regno = (1 << regno) - 1;
-		  as_tsktsk 
+		  as_tsktsk
 		    ("Warning: Duplicated register (r%d) in register list",
 		     regno);
 		}
@@ -3029,7 +3029,7 @@ do_swap (str, flags)
      unsigned long flags;
 {
   int reg;
-  
+
   while (*str == ' ')
     str++;
 
@@ -3691,9 +3691,9 @@ do_fp_to_reg (str, flags)
 /* Thumb specific routines */
 
 /* Parse and validate that a register is of the right form, this saves
-   repeated checking of this information in many similar cases. 
-   Unlike the 32-bit case we do not insert the register into the opcode 
-   here, since the position is often unknown until the full instruction 
+   repeated checking of this information in many similar cases.
+   Unlike the 32-bit case we do not insert the register into the opcode
+   here, since the position is often unknown until the full instruction
    has been parsed.  */
 static int
 thumb_reg (strp, hi_lo)
@@ -3767,7 +3767,7 @@ thumb_add_sub (str, subtract)
 
       if (skip_past_comma (&str) == FAIL)
 	{
-	  /* Two operand format, shuffle the registers and pretend there 
+	  /* Two operand format, shuffle the registers and pretend there
 	     are 3 */
 	  Rn = Rs;
 	  Rs = Rd;
@@ -3829,7 +3829,7 @@ thumb_add_sub (str, subtract)
       if (inst.reloc.exp.X_op != O_constant)
 	{
 	  /* Value isn't known yet, all we can do is store all the fragments
-	     we know about in the instruction and let the reloc hacking 
+	     we know about in the instruction and let the reloc hacking
 	     work it all out.  */
 	  inst.instruction = (subtract ? 0x8000 : 0) | (Rd << 4) | Rs;
 	  inst.reloc.type = BFD_RELOC_ARM_THUMB_ADD;
@@ -4163,7 +4163,7 @@ thumb_load_store (str, load_store, size)
 	return;
 
       end_of_line (str);
-      
+
       if (   inst.reloc.exp.X_op != O_constant
 	  && inst.reloc.exp.X_op != O_symbol)
 	{
@@ -4178,14 +4178,14 @@ thumb_load_store (str, load_store, size)
 
 	  inst.instruction  = T_OPCODE_MOV_I8 | (Rd << 8);
 	  inst.instruction |= inst.reloc.exp.X_add_number;
-	  return; 
+	  return;
 	}
 
-      /* Insert into literal pool */     
+      /* Insert into literal pool */
       if (add_to_lit_pool () == FAIL)
 	{
 	  if (!inst.error)
-	    inst.error = "literal pool insertion failed"; 
+	    inst.error = "literal pool insertion failed";
 	  return;
 	}
 
@@ -4273,7 +4273,7 @@ thumb_load_store (str, load_store, size)
       if (inst.reloc.exp.X_op == O_constant)
 	{
 	  unsigned offset = inst.reloc.exp.X_add_number;
-	  
+
 	  if (offset & ~(0x1f << size))
 	    {
 	      inst.error = "Invalid offset";
@@ -4312,7 +4312,7 @@ do_t_nop (str)
   return;
 }
 
-/* Handle the Format 4 instructions that do not have equivalents in other 
+/* Handle the Format 4 instructions that do not have equivalents in other
    formats.  That is, ADC, AND, EOR, SBC, ROR, TST, NEG, CMN, ORR, MUL,
    BIC and MVN.  */
 static void
@@ -4723,7 +4723,7 @@ void
 md_begin ()
 {
   int i;
-  
+
   if ((arm_ops_hsh = hash_new ()) == NULL
       || (arm_tops_hsh = hash_new ()) == NULL
       || (arm_cond_hsh = hash_new ()) == NULL
@@ -4731,7 +4731,7 @@ md_begin ()
       || (arm_reg_hsh = hash_new ()) == NULL
       || (arm_psr_hsh = hash_new ()) == NULL)
     as_fatal ("Virtual memory exhausted");
-    
+
   for (i = 0; i < sizeof (insns) / sizeof (struct asm_opcode); i++)
     hash_insert (arm_ops_hsh, insns[i].template, (PTR) (insns + i));
   for (i = 0; i < sizeof (tinsns) / sizeof (struct thumb_opcode); i++)
@@ -4751,27 +4751,27 @@ md_begin ()
 #ifdef OBJ_COFF
   {
     unsigned int flags = 0;
-    
+
     /* Set the flags in the private structure */
     if (uses_apcs_26)      flags |= F_APCS26;
     if (support_interwork) flags |= F_INTERWORK;
     if (uses_apcs_float)   flags |= F_APCS_FLOAT;
     if (pic_code)          flags |= F_PIC;
-    
+
     bfd_set_private_flags (stdoutput, flags);
   }
 #endif
-  
+
   {
     unsigned mach;
-    
+
     /* Record the CPU type as well */
     switch (cpu_variant & ARM_CPU_MASK)
       {
       case ARM_2:
 	mach = bfd_mach_arm_2;
 	break;
-	
+
       case ARM_3: /* also ARM_250 */
 	mach = bfd_mach_arm_2a;
 	break;
@@ -4780,7 +4780,7 @@ md_begin ()
       case ARM_6 | ARM_3 | ARM_2:	/* Actually no CPU type defined */
 	mach = bfd_mach_arm_4;
 	break;
-	
+
       case ARM_7: 			/* also ARM_6 */
 	mach = bfd_mach_arm_3;
 	break;
@@ -4796,7 +4796,7 @@ md_begin ()
 	else if (cpu_variant & ARM_LONGMUL)
 	  mach = bfd_mach_arm_3M;
       }
-	
+
     bfd_set_arch_mach (stdoutput, TARGET_ARCH, mach);
   }
 }
@@ -4820,7 +4820,7 @@ md_number_to_chars (buf, val, n)
     number_to_chars_littleendian (buf, val, n);
 }
 
-static valueT 
+static valueT
 md_chars_to_number (buf, n)
      char *buf;
      int n;
@@ -4949,7 +4949,7 @@ md_pcrel_from (fixP)
 	 for the calculation */
       return (fixP->fx_where + fixP->fx_frag->fr_address) & ~3;
     }
-  
+
   return fixP->fx_where + fixP->fx_frag->fr_address;
 }
 
@@ -4973,7 +4973,7 @@ md_undefined_symbol (name)
   return 0;
 }
 
-/* arm_reg_parse () := if it looks like a register, return its token and 
+/* arm_reg_parse () := if it looks like a register, return its token and
    advance the pointer. */
 
 static int
@@ -5006,7 +5006,7 @@ arm_reg_parse (ccp)
   *--p = 0;
   reg = (struct reg_entry *) hash_find (arm_reg_hsh, start);
   *p = c;
-  
+
   if (reg)
     {
       *ccp = p;
@@ -5029,7 +5029,7 @@ arm_psr_parse (ccp)
   while (isalpha (c) || c == '_')
     c = *p++;
 
-  *--p = 0;  
+  *--p = 0;
   psr = (CONST struct asm_psr *) hash_find (arm_psr_hsh, start);
   *p = c;
 
@@ -5126,7 +5126,7 @@ md_apply_fix3 (fixP, val, seg)
       if ((value = validate_offset_imm (value, 1)) == FAIL)
         {
           if (fixP->fx_r_type == BFD_RELOC_ARM_HWLITERAL)
-	    as_bad_where (fixP->fx_file, fixP->fx_line, 
+	    as_bad_where (fixP->fx_file, fixP->fx_line,
 			"invalid literal constant: pool needs to be closer\n");
           else
             as_bad ("bad immediate value for offset (%d)", value);
@@ -5149,7 +5149,7 @@ md_apply_fix3 (fixP, val, seg)
 
       if ((value = validate_offset_imm (value, 0)) == FAIL)
 	{
-	  as_bad_where (fixP->fx_file, fixP->fx_line, 
+	  as_bad_where (fixP->fx_file, fixP->fx_line,
 			"invalid literal constant: pool needs to be closer\n");
 	  break;
 	}
@@ -5163,7 +5163,7 @@ md_apply_fix3 (fixP, val, seg)
     case BFD_RELOC_ARM_SHIFT_IMM:
       newval = md_chars_to_number (buf, INSN_SIZE);
       if (((unsigned long) value) > 32
-	  || (value == 32 
+	  || (value == 32
 	      && (((newval & 0x60) == 0) || (newval & 0x60) == 0x60)))
 	{
 	  as_bad_where (fixP->fx_file, fixP->fx_line,
@@ -5193,7 +5193,7 @@ md_apply_fix3 (fixP, val, seg)
       else
 	{
 	  if (((unsigned long) value) > 0x00ffffff)
-	    as_bad_where (fixP->fx_file, fixP->fx_line, 
+	    as_bad_where (fixP->fx_file, fixP->fx_line,
 			  "Invalid swi expression");
 	  newval = md_chars_to_number (buf, INSN_SIZE) & 0xff000000;
 	  newval |= value;
@@ -5500,7 +5500,7 @@ tc_gen_reloc (section, fixp)
     case BFD_RELOC_32:
       if (pic_code && fixp->fx_pcrel == 0 && fixp->fx_addsy != NULL)
 	{
-	  if (section == text_section) 
+	  if (section == text_section)
 	    code = BFD_RELOC_ARM_GOT32;
 	  else
 	    code = fixp->fx_r_type;
@@ -5518,7 +5518,7 @@ tc_gen_reloc (section, fixp)
 	  code = BFD_RELOC_ARM_JMPSLOT;
 	  break;
 	}
-    case BFD_RELOC_RVA:      
+    case BFD_RELOC_RVA:
     case BFD_RELOC_THUMB_PCREL_BRANCH9:
     case BFD_RELOC_THUMB_PCREL_BRANCH12:
     case BFD_RELOC_THUMB_PCREL_BRANCH23:
@@ -5615,7 +5615,7 @@ output_inst (str)
      char *str;
 {
   char *to = NULL;
-    
+
   if (inst.error)
     {
       as_bad (inst.error);
@@ -5665,13 +5665,13 @@ md_assemble (str)
 
   if (*str == ' ')
     str++;			/* Skip leading white space */
-    
+
   /* scan up to the end of the op-code, which must end in white space or
      end of string */
   for (start = p = str; *p != '\0'; p++)
     if (*p == ' ')
       break;
-    
+
   if (p == str)
     {
       as_bad ("No operator -- statement `%s'\n", str);
@@ -5834,13 +5834,13 @@ md_assemble (str)
 
   c = *p;
   *p = '\0';
-    
+
   if (*q && !strncmp (q, ".req ", 4))
     {
       int    reg;
       char * copy_of_str = str;
       char * r;
-      
+
       q += 4;
       while (*q == ' ')
 	q++;
@@ -5848,7 +5848,7 @@ md_assemble (str)
       for (r = q; *r != '\0'; r++)
 	if (*r == ' ')
 	  break;
-      
+
       if (r != q)
 	{
 	  int regnum;
@@ -5859,7 +5859,7 @@ md_assemble (str)
 	  *r = d;
 
 	  reg = arm_reg_parse (& str);
-	  
+
 	  if (reg == FAIL)
 	    {
 	      if (regnum != FAIL)
@@ -5875,7 +5875,7 @@ md_assemble (str)
 	    {
 	      if (reg != regnum)
 		as_warn ("ignoring redefinition of register alias '%s'", copy_of_str );
-	      
+
 	      /* Do not warn abpout redefinitions to the same alias.  */
 	    }
 	  else
@@ -5884,7 +5884,7 @@ md_assemble (str)
 	}
       else
 	as_warn ("ignoring incomplete .req pseuso op");
-      
+
       *p = c;
       return;
     }
@@ -6001,7 +6001,7 @@ md_parse_option (c, arg)
 		 to us, so we must parse them here.  */
 
 	      str += 5;
-	      
+
 	      if (! strcmp (str, "32"))
 		{
 		  uses_apcs_26 = false;
@@ -6045,7 +6045,7 @@ md_parse_option (c, arg)
 		  pic_code = true;
 		  return 1;
 		}
-	      
+
 	      as_bad ("Unrecognised APCS switch -m%s", arg);
 	      return 0;
   	    }
@@ -6085,7 +6085,7 @@ md_parse_option (c, arg)
 	      else
 		goto bad;
 	      break;
-		
+
 	    case '8':
 	      if (! strcmp (str, "8"))
 		cpu_variant = (cpu_variant & ~ARM_ANY) | ARM_7 | ARM_ARCHv4 | ARM_LONGMUL;
@@ -6120,7 +6120,7 @@ md_parse_option (c, arg)
 		      ++ str;
 		    else
 		      goto bad;
-		    
+
 		  case 'c': /* Unknown */
                   case 'd': /* debug */
                   case 'i': /* embedded ice */
@@ -6145,10 +6145,10 @@ md_parse_option (c, arg)
 		    default:  as_bad ("Invalid architecture variant -m%s", arg); break;
 		    }
 		  break;
-		  
+
 		case '3':
 		    cpu_variant = (cpu_variant & ~ARM_ANY) | ARM_7;
-                    
+
 		  switch (*++str)
 		    {
 		    case 'm': cpu_variant |= ARM_LONGMUL; break;
@@ -6156,10 +6156,10 @@ md_parse_option (c, arg)
 		    default:  as_bad ("Invalid architecture variant -m%s", arg); break;
 		    }
 		  break;
-		  
+
 		case '4':
 		  cpu_variant = (cpu_variant & ~ARM_ANY) | ARM_ARCHv4;
-		  
+
 		  switch (*++str)
 		    {
 		    case 't': cpu_variant |= ARM_THUMB; break;
@@ -6167,13 +6167,13 @@ md_parse_option (c, arg)
 		    default:  as_bad ("Invalid architecture variant -m%s", arg); break;
 		    }
 		  break;
-		  
+
 		default:
 		  as_bad ("Invalid architecture variant -m%s", arg);
 		  break;
 		}
 	      break;
-	      
+
 	    default:
 	    bad:
 	      as_bad ("Invalid processor variant -m%s", arg);
@@ -6293,7 +6293,7 @@ arm_frob_label (sym)
 #ifdef OBJ_COFF
   ARM_SET_INTERWORK (sym, support_interwork);
 #endif
-  
+
   if (label_is_thumb_function_name)
     {
       /* When the address of a Thumb function is taken the bottom
@@ -6302,7 +6302,7 @@ arm_frob_label (sym)
 	 correctly.  */
 
       THUMB_SET_FUNC (sym, 1);
-      
+
       label_is_thumb_function_name = false;
     }
 }
@@ -6342,11 +6342,11 @@ arm_adjust_symtab ()
               case C_LABEL:
                 S_SET_STORAGE_CLASS (sym, C_THUMBLABEL);
                 break;
-              default: /* do nothing */ 
+              default: /* do nothing */
                 break;
             }
         }
-      
+
       if (ARM_IS_INTERWORK (sym))
 	{
 	  coffsymbol(sym->bsym)->native->u.syment.n_flags = 0xFF;
@@ -6397,8 +6397,8 @@ parse_cons_expression_arm(exp)
 {
   static const char* got = GLOBAL_OFFSET_TABLE_NAME;
   static int strlen_got = 0;
-  static char* line_space = NULL; /* Horrible hack because I'm not sure that 
-				     free() is okay to call at the end of 
+  static char* line_space = NULL; /* Horrible hack because I'm not sure that
+				     free() is okay to call at the end of
 				     this fn */
 
   char *tmp_line_pointer;
@@ -6411,7 +6411,7 @@ parse_cons_expression_arm(exp)
   char *name;		/* points to name of symbol */
   segT segment;
 
-  if (strlen_got == 0) 
+  if (strlen_got == 0)
     strlen_got = strlen(got);
 
   if (strncmp(input_line_pointer, got, strlen_got) != 0)
@@ -6420,7 +6420,7 @@ parse_cons_expression_arm(exp)
       expression(exp);
       return;
     }
-  
+
   saved_line_pointer = input_line_pointer;
 
   name = input_line_pointer;
@@ -6428,7 +6428,7 @@ parse_cons_expression_arm(exp)
   symbolP = symbol_find_or_make (name);
 
   segment = S_GET_SEGMENT (symbolP);
-  if (segment == undefined_section) 
+  if (segment == undefined_section)
     {
       exp->X_op = O_symbol;
       exp->X_add_symbol = symbolP;
@@ -6461,14 +6461,14 @@ parse_cons_expression_arm(exp)
 
   rhs = input_line_pointer + 1;
 
-  while (*input_line_pointer != '\n' && *input_line_pointer != '\0' && 
+  while (*input_line_pointer != '\n' && *input_line_pointer != '\0' &&
 	 *input_line_pointer != ';')
     input_line_pointer++;
   eol_pointer = input_line_pointer;
 
-  if (line_space != NULL) 
+  if (line_space != NULL)
     free (line_space);
-  input_line_pointer = line_space = malloc(eol_pointer - 
+  input_line_pointer = line_space = malloc(eol_pointer -
 					   saved_line_pointer + 3);
   strncpy (input_line_pointer, saved_line_pointer, rhs - saved_line_pointer);
   input_line_pointer[rhs - saved_line_pointer] = '\0';
@@ -6481,7 +6481,7 @@ parse_cons_expression_arm(exp)
 
   expression(exp);
 
-/* XXX - Hack to check whether any pointers are left referring to the 
+/* XXX - Hack to check whether any pointers are left referring to the
  * line_space buffer
  * Note: free() to be moved down here if this turns out to be safe.
  */
@@ -6516,7 +6516,7 @@ s_cons(size)
 	int size;
 {
 #if 0
-	if (pic_code) 
+	if (pic_code)
 	  abort();		/* Whoops */
 #endif
 	cons (size);
@@ -6554,7 +6554,7 @@ cons_fix_new_arm(frag, where, size, exp)
 	 *
 	 * @@ Should look at CPU word size.
 	 */
-	switch (size) 
+	switch (size)
 	  {
 	  case 2:
 	    type = BFD_RELOC_16;
@@ -6567,7 +6567,7 @@ cons_fix_new_arm(frag, where, size, exp)
 	    type = BFD_RELOC_64;
 	    break;
 	  }
-	
+
 	/* Look for possible GOTPC reloc */
 
 	/*
@@ -6579,20 +6579,20 @@ cons_fix_new_arm(frag, where, size, exp)
 	    && exp->X_add_symbol
 	    && S_GET_SEGMENT (exp->X_add_symbol) == undefined_section
 	    && exp->X_op_symbol
-	    && S_GET_SEGMENT (exp->X_op_symbol) == expr_section) 
+	    && S_GET_SEGMENT (exp->X_op_symbol) == expr_section)
 	  {
 	    /*
 	     * This could be it
 	     * Is the primary symbol name "__GLOBAL_OFFSET_TABLE" ?
 	     */
 	    if (strcmp (S_GET_NAME(exp->X_add_symbol),
-		       GLOBAL_OFFSET_TABLE_NAME) == 0) 
+		       GLOBAL_OFFSET_TABLE_NAME) == 0)
 	      {
 		type = BFD_RELOC_ARM_GOTPC;
 		pcrel = 1;
 	      }
 	  }
-	
+
 	fix_new_exp (frag, where, (int) size, exp, pcrel, type);
 }
 
@@ -6620,7 +6620,7 @@ s_type(a)
 
   if (c == ',')
     {
-      /* Allow some leeway here, as .type has used several different 
+      /* Allow some leeway here, as .type has used several different
 	 characters at different times.  `%' is the current favourite
 	 and this is what gcc 2.8 outputs, but `@' is traditional on
 	 other machines and there was a time when `#' got used by some
@@ -6629,14 +6629,14 @@ s_type(a)
 	  || input_line_pointer[0] == '%')
         ++input_line_pointer;
 
-      if (strncmp (input_line_pointer, "object", 6) == 0) 
+      if (strncmp (input_line_pointer, "object", 6) == 0)
 	{
 	  symbolP = symbol_find_or_make (symbol_name);
 	  S_SET_OTHER (symbolP, S_GET_OTHER(symbolP) | AUX_OBJECT);
 	  input_line_pointer += 6;
-	} 
-      else 
-	if (strncmp (input_line_pointer, "function", 8) == 0) 
+	}
+      else
+	if (strncmp (input_line_pointer, "function", 8) == 0)
 	  {
 	    symbolP = symbol_find_or_make (symbol_name);
 	    S_SET_OTHER (symbolP, S_GET_OTHER(symbolP) | AUX_FUNCTION);

@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: mtab_bsd.c,v 1.2 1999/01/10 21:54:11 ezk Exp 
+ * Id: mtab_bsd.c,v 1.2 1999/01/10 21:54:11 ezk Exp
  *
  */
 

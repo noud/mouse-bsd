@@ -3,34 +3,34 @@
 .NC "The Design of Unix IPC"
 .sh 1 "General"
 .pp
-The ARGO implementation of 
+The ARGO implementation of
 TP and CLNP was designed to fit into the AOS
 kernel
 as easily as possible.
 All the standard protocol hooks are used.
 To understand the design, it is useful to have
-read 
+read
 Leffler, Joy, and Fabry:
 \*(lq4.2 BSD Networking Implementation Notes\*(rq July 1983.
 This section describes the
 design of the IPC support in the AOS kernel.
 .sh 1 "Functional Unit Overview"
 .pp
-The 
+The
 AOS
 kernel
 is a monolithic program of considerable size and complexity.
 The code can be separated into parts of distinct function,
 but there are no kernel processes per se.
 The kernel code is either executed on behalf of a user
-process, in which case the kernel was entered by a system call, 
+process, in which case the kernel was entered by a system call,
 or it is executed on behalf of a hardware or software interrupt.
-The following sections describe briefly the major functional units 
+The following sections describe briefly the major functional units
 of the kernel.
 .\" FIGURE
 .so ../wisc/figs/func_units.nr
 .CF
-shows the arrangement of these kernel units and 
+shows the arrangement of these kernel units and
 their interactions.
 .sh 2 "The file system."
 .pp
@@ -45,31 +45,31 @@ such as buffer management and bus support
 for the various types of busses on the machine.
 .sh 2 "Interprocess communication (IPC)."
 .pp
-This includes 
-support for various protocols, 
+This includes
+support for various protocols,
 buffer management, and a standard interface for inter-protocol
 communication.
-.sh 2 "Network interface drivers." 
+.sh 2 "Network interface drivers."
 .pp
-These drivers are closely tied to the IPC support. 
+These drivers are closely tied to the IPC support.
 They use the IPC's buffer management unit rather
 than the buffers used by the blocked device drivers.
-The interface between these drivers and the rest of the kernel 
+The interface between these drivers and the rest of the kernel
 differs from the interface used by the blocked devices.
-.sh 2 "Tty driver" 
+.sh 2 "Tty driver"
 .pp
 This is terminal support, including the user interface
 and the device drivers.
-.sh 2 "System call interface." 
+.sh 2 "System call interface."
 .pp
 This handles signals, traps, and system calls.
-.sh 2 "Clock." 
+.sh 2 "Clock."
 .pp
 The clock is used in various forms by many
 other units.
-.sh 2 "User process support (the rest)." 
+.sh 2 "User process support (the rest)."
 .pp
-This includes support for accounting, process creation, 
+This includes support for accounting, process creation,
 control, scheduling, and destruction.
 .pp
 .sh 2 "IPC"
@@ -77,7 +77,7 @@ control, scheduling, and destruction.
 The major functional unit that supports IPC
 can be divided into the following smaller functional
 units.
-.sh 3 "Buffer management." 
+.sh 3 "Buffer management."
 .pp
 All protocols share a pool of buffers called \fImbufs\fR.
 The internal structure has changed considerably since 4.3:
@@ -116,16 +116,16 @@ in the mbuf structure itself.
 Large mbufs, called \fIclusters\fR, are page-sized
 and page-aligned.
 They may be \*(lqcopied\*(rq by multiply mapping the pages they occupy.
-They consist of a page of memory plus a small mbuf structure 
+They consist of a page of memory plus a small mbuf structure
 whose fields are used
-to link clusters into chains, but whose \fIm_dat\fR array is 
+to link clusters into chains, but whose \fIm_dat\fR array is
 not used.
-The \fIm_data\fR field of the structure 
+The \fIm_data\fR field of the structure
 is a pointer to the active data in all cases.
 The remainder of the description in the argo document
 is generally obsolete, and I am merely deleting the
 rest of it at this point.
-.sh 3 "Routing." 
+.sh 3 "Routing."
 .pp
 Routing decisions in the kernel are made by the procedure \fIrtalloc()\fR.
 This procedure will scan the kernel routing tables (stored in mbufs)
@@ -138,13 +138,13 @@ stuff pointers (parent, l-r child for internal nodes, mask and address
 for external nodes), and may be completely revised again
 to make use of patricia trees.
 .pp
-If a route is not found, then a default route is used (if present). 
+If a route is not found, then a default route is used (if present).
 .pp
 If a route is found, the entity which called \fIrtalloc()\fR can use information
 from the \fIrtentry\fR structure to dispatch the datagram. Specifically, the
-datagram is queued on the interface identified by the interface 
+datagram is queued on the interface identified by the interface
 pointer \fIrt_ifp\fR.
-.sh 3 "Socket code." 
+.sh 3 "Socket code."
 .pp
 This is the protocol-independent part of the IPC support.
 Each communication endpoint (which may or may not be associated
@@ -199,8 +199,8 @@ For a send operation, data are copied from the user's address space
 into chains of mbufs.
 This is done by the socket module, which then calls the underlying
 transport protocol module to place the data
-on the send queue. 
-This is generally done by 
+on the send queue.
+This is generally done by
 appending to the chain beginning at \fIsb_mb\fR.
 The socket module copies data from the \fIso_rcv\fR queue
 to the user's address space to effect a receive operation.
@@ -259,7 +259,7 @@ There are some flags that are specific to the TCP concept
 of out-of-band data.
 A flag SS_OOBAVAIL was added for the ARGO implementation, to support
 the TP concept of out-of-band data (expedited data).
-.sh 3 "Network Interface Drivers" 
+.sh 3 "Network Interface Drivers"
 .pp
 The drivers for the devices attaching a Unix machine to a network
 medium share a common interface to the protocol
@@ -268,13 +268,13 @@ There is a common data structure for managing queues,
 not surprisingly, a chain of mbufs.
 There is a set of macros that are used to enqueue and
 dequeue mbuf chains at high priority.
-A driver 
+A driver
 delivers an indication to a protocol entity when
-an incoming packet has been placed on a queue by 
+an incoming packet has been placed on a queue by
 issuing a
 software
 interrupt.
-.sh 3 "Support for individual protocols." 
+.sh 3 "Support for individual protocols."
 .pp
 Each protocol is written as a separate functional unit.
 Because all protocols share the clock and the mbuf pool, they
@@ -292,7 +292,7 @@ The AOS
 IPC was designed for DoD Internet protocols, all of
 which run over DoD IP.
 The assumptions that DoD Internet is the domain
-and that DoD IP is the network layer 
+and that DoD IP is the network layer
 appear in the code and data structures in numerous places.
 An example is that the transport protocols all directly call
 IP routines.
@@ -319,15 +319,15 @@ This list of examples is not complete.
 .pp
 To summarize, adding a new transport protocol to the kernel consists of
 adding entries to the tables in the protocol management
-unit, 
+unit,
 modifying the network interface driver(s) to recognize
-new network protocol identifiers, 
+new network protocol identifiers,
 adding the
 new system calls to the kernel and to the user library,
 and
 adding code modules for each of the protocols,
 and correcting deficiencies in the socket code,
-where the assumptions made about the nature of 
-transport protocols do not apply. 
+where the assumptions made about the nature of
+transport protocols do not apply.
 .i
 (Touchy touchy, aren't we!?! -- Sklower)

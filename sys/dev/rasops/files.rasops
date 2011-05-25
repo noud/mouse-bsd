@@ -14,7 +14,7 @@ file dev/rasops/rasops.c ( (rasops_glue |
     rasops1 | rasops2 | rasops8 | rasops15 | rasops16 | rasops24 | rasops32) &
     (rasterconsole | wsdisplay)) needs-flag
 
-file dev/rasops/rasops_masks.c ((rasterconsole | wsdisplay) & 
+file dev/rasops/rasops_masks.c ((rasterconsole | wsdisplay) &
     (rasops1 | rasops2))
 file dev/rasops/rasops1.c ((rasterconsole | wsdisplay) & rasops1)
 file dev/rasops/rasops2.c ((rasterconsole | wsdisplay) & rasops2)

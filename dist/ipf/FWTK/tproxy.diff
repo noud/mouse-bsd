@@ -28,7 +28,7 @@
 ***************
 *** 324,329 ****
 --- 331,369 ----
-  	char localbuf[2048];   
+  	char localbuf[2048];
   	void timeout();
   	extern int errno;
 + 	/*
@@ -70,7 +70,7 @@
 ***************
 *** 337,344 ****
 --- 377,386 ----
-  	 * and modify the call to (and subroutine) serverconnect() as 
+  	 * and modify the call to (and subroutine) serverconnect() as
   	 * appropriate.
   	 */
 + #if 0

@@ -113,7 +113,7 @@ connect()
 				;
 			if (*cp)
 				*cp++ = '\0';
-			
+
 			if ((conflag = (*acu->acu_dialer)(phnum, CU)) != 0) {
 				if (CM != NULL)
 					xpwrite(FD, CM, strlen(CM));
@@ -150,7 +150,7 @@ connect()
 				;
 			if (*cp)
 				*cp++ = '\0';
-			
+
 			if ((conflag = (*acu->acu_dialer)(phnum, CU)) != 0) {
 				fclose(fd);
 				if (CM != NULL)
@@ -185,7 +185,7 @@ disconnect(reason)
 		logent(value(HOST), "", acu->acu_name, "call terminated");
 		if (boolean(value(VERBOSE)))
 			printf("\r\ndisconnecting...");
-	} else 
+	} else
 		logent(value(HOST), "", acu->acu_name, reason);
 	(*acu->acu_disconnect)();
 }

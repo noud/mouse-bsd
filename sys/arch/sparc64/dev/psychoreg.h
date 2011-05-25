@@ -102,7 +102,7 @@ struct psychoreg {
 	u_int64_t	pwrmgt_int_map;		/* power mgmt wake interrupt map reg */	/* 1fe.0000.1090 */
 	u_int64_t	ffb0_int_map;		/* FFB0 graphics interrupt map reg */	/* 1fe.0000.1098 */
 	u_int64_t	ffb1_int_map;		/* FFB1 graphics interrupt map reg */	/* 1fe.0000.10a0 */
-	
+
 	u_int64_t	pad6[107];
 
 	/* Note: clear interrupt 0 registers are not really used */
@@ -164,7 +164,7 @@ struct psychoreg {
 		/* This is really the IOMMU's, not the PCI bus's */
 		struct iommu_strbuf pci_strbuf;						/* 1fe.0000.2800-210 */
 #define psy_iommu_strbuf psy_pcictl[0].pci_strbuf
-		
+
 		u_int64_t	pad13[765];
 	} psy_pcictl[2];			/* For PCI a and b */
 
@@ -178,7 +178,7 @@ struct psychoreg {
 
 	u_int64_t	iommu_svadiag;		/* IOMMU virtual addr diag reg */	/* 1fe.0000.a400 */
 	u_int64_t	iommu_tlb_comp_diag;	/* IOMMU TLB tag compare diag reg */	/* 1fe.0000.a408 */
-	
+
 	u_int64_t	pad16[30];
 
 	u_int64_t	iommu_queue_diag[16];	/* IOMMU LRU queue diag */		/* 1fe.0000.a500-a578 */
@@ -201,7 +201,7 @@ struct psychoreg {
 		u_int64_t	pad20[208];
 	} psy_strbufdiag[2];					/* For PCI a and b */
 
-	/* 
+	/*
 	 * Here is the rest of the map, which we're not specifying:
 	 *
 	 * 1fe.0100.0000 - 1fe.01ff.ffff	PCI configuration space

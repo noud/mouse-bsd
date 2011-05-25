@@ -54,7 +54,7 @@ int nextdisplay_match __P((struct device *, struct cfdata *, void *));
 void nextdisplay_attach __P((struct device *, struct device *, void *));
 
 struct cfattach nextdisplay_ca = {
-	sizeof(struct nextdisplay_softc), 
+	sizeof(struct nextdisplay_softc),
 	nextdisplay_match,
 	nextdisplay_attach,
 };
@@ -143,7 +143,7 @@ nextdisplay_match(parent, match, aux)
 	if ((rom_machine_type == NeXT_WARP9)
 	    || (rom_machine_type == NeXT_X15))
 		return (1);
-	else 
+	else
 		return (0);
 }
 
@@ -159,7 +159,7 @@ nextdisplay_init(dc, color)
 
 	/* printf("in nextdisplay_init\n"); */
 
-	if (color) 
+	if (color)
 		addr = (paddr_t)colorbase;
 	else
 		addr = (paddr_t)monobase;
@@ -170,7 +170,7 @@ nextdisplay_init(dc, color)
 
 	dc->dc_wid = 1152; /* XXX color */
 	dc->dc_ht = 832; /* XXX color */
-	dc->dc_depth = color ? 8 : 2; 
+	dc->dc_depth = color ? 8 : 2;
 	dc->dc_rowbytes = dc->dc_wid * dc->dc_depth / 8;
 
 	dc->dc_videobase = dc->dc_vaddr;
@@ -212,11 +212,11 @@ nextdisplay_init(dc, color)
 	rcons_init(rcp, 34, 80);
 
 	if (color) {
-		nextdisplay_color.nrows = dc->dc_rcons.rc_maxrow; 
-		nextdisplay_color.ncols = dc->dc_rcons.rc_maxcol; 
+		nextdisplay_color.nrows = dc->dc_rcons.rc_maxrow;
+		nextdisplay_color.ncols = dc->dc_rcons.rc_maxcol;
 	} else {
-		nextdisplay_mono.nrows = dc->dc_rcons.rc_maxrow; 
-		nextdisplay_mono.ncols = dc->dc_rcons.rc_maxcol; 
+		nextdisplay_mono.nrows = dc->dc_rcons.rc_maxrow;
+		nextdisplay_mono.ncols = dc->dc_rcons.rc_maxcol;
 	}
 }
 
@@ -243,7 +243,7 @@ nextdisplay_attach(parent, self, aux)
 	}
 
 	isconsole = nextdisplay_is_console(addr);
-				
+
 	if (isconsole) {
 		sc->sc_dc = &nextdisplay_console_dc;
 		sc->nscreens = 1;
@@ -337,7 +337,7 @@ nextdisplay_alloc_screen(v, type, cookiep, curxp, curyp, defattrp)
 	*cookiep = &sc->sc_dc->dc_rcons; /* one and only for now */
 	*curxp = 0;
 	*curyp = 0;
-	rcons_alloc_attr(&sc->sc_dc->dc_rcons, 0, 0, 
+	rcons_alloc_attr(&sc->sc_dc->dc_rcons, 0, 0,
 			 WSATTR_REVERSE, &defattr);
 	*defattrp = defattr;
 	sc->nscreens++;

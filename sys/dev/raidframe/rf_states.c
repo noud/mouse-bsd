@@ -83,7 +83,7 @@ StateName(RF_AccessState_t state)
 	}
 }
 
-void 
+void
 rf_ContinueRaidAccess(RF_RaidAccessDesc_t * desc)
 {
 	int     suspended = RF_FALSE;
@@ -136,7 +136,7 @@ rf_ContinueRaidAccess(RF_RaidAccessDesc_t * desc)
 
 		if (rf_printStatesDebug) {
 			printf("raid%d: State: %-24s StateIndex: %3i desc: 0x%ld %s\n",
-			       unit, StateName(current_state), 
+			       unit, StateName(current_state),
 			       current_state_index, (long) desc,
 			       suspended ? "callback scheduled" : "looping");
 		}
@@ -146,7 +146,7 @@ rf_ContinueRaidAccess(RF_RaidAccessDesc_t * desc)
 }
 
 
-void 
+void
 rf_ContinueDagAccess(RF_DagList_t * dagList)
 {
 	RF_AccTraceEntry_t *tracerec = &(dagList->desc->tracerec);
@@ -177,10 +177,10 @@ rf_ContinueDagAccess(RF_DagList_t * dagList)
 		desc->status = 1;	/* bad status */
 		{
 			printf("raid%d: DAG failure: %c addr 0x%lx (%ld) nblk 0x%x (%d) buf 0x%lx\n",
-			       desc->raidPtr->raidid, desc->type, 
+			       desc->raidPtr->raidid, desc->type,
 			       (long) desc->raidAddress,
 			       (long) desc->raidAddress, (int) desc->numBlocks,
-			       (int) desc->numBlocks, 
+			       (int) desc->numBlocks,
 			       (unsigned long) (desc->bufPtr));
 		}
 	}
@@ -188,31 +188,31 @@ rf_ContinueDagAccess(RF_DagList_t * dagList)
 	rf_ContinueRaidAccess(desc);
 }
 
-int 
+int
 rf_State_LastState(RF_RaidAccessDesc_t * desc)
 {
 	void    (*callbackFunc) (RF_CBParam_t) = desc->callbackFunc;
 	RF_CBParam_t callbackArg;
 
 	callbackArg.p = desc->callbackArg;
-	
+
 	/*
 	 * If this is not an async request, wake up the caller
 	 */
 	if (desc->async_flag == 0)
 		wakeup(desc->bp);
-	
-	/* 
+
+	/*
 	 * Wakeup any requests waiting to go.
 	 */
-	
+
 	RF_LOCK_MUTEX(((RF_Raid_t *) desc->raidPtr)->mutex);
 	((RF_Raid_t *) desc->raidPtr)->openings++;
 	RF_UNLOCK_MUTEX(((RF_Raid_t *) desc->raidPtr)->mutex);
 
 	/* wake up any pending IO */
 	raidstart(((RF_Raid_t *) desc->raidPtr));
-		
+
 	/* printf("Calling biodone on 0x%x\n",desc->bp); */
 	biodone(desc->bp);	/* access came through ioctl */
 
@@ -223,7 +223,7 @@ rf_State_LastState(RF_RaidAccessDesc_t * desc)
 	return RF_FALSE;
 }
 
-int 
+int
 rf_State_IncrAccessCount(RF_RaidAccessDesc_t * desc)
 {
 	RF_Raid_t *raidPtr;
@@ -239,7 +239,7 @@ rf_State_IncrAccessCount(RF_RaidAccessDesc_t * desc)
 	return RF_FALSE;
 }
 
-int 
+int
 rf_State_DecrAccessCount(RF_RaidAccessDesc_t * desc)
 {
 	RF_Raid_t *raidPtr;
@@ -258,7 +258,7 @@ rf_State_DecrAccessCount(RF_RaidAccessDesc_t * desc)
 	return RF_FALSE;
 }
 
-int 
+int
 rf_State_Quiesce(RF_RaidAccessDesc_t * desc)
 {
 	RF_AccTraceEntry_t *tracerec = &desc->tracerec;
@@ -297,7 +297,7 @@ rf_State_Quiesce(RF_RaidAccessDesc_t * desc)
 	return suspended;
 }
 
-int 
+int
 rf_State_Map(RF_RaidAccessDesc_t * desc)
 {
 	RF_Raid_t *raidPtr = desc->raidPtr;
@@ -318,7 +318,7 @@ rf_State_Map(RF_RaidAccessDesc_t * desc)
 	return RF_FALSE;
 }
 
-int 
+int
 rf_State_Lock(RF_RaidAccessDesc_t * desc)
 {
 	RF_AccTraceEntry_t *tracerec = &desc->tracerec;
@@ -374,14 +374,14 @@ rf_State_Lock(RF_RaidAccessDesc_t * desc)
 				} else {
 					if (rf_pssDebug) {
 						printf("raid%d: skipping force/block because already done, psid %ld\n",
-						       desc->raidPtr->raidid, 
+						       desc->raidPtr->raidid,
 						       (long) asm_p->stripeID);
 					}
 				}
 			} else {
 				if (rf_pssDebug) {
 					printf("raid%d: skipping force/block because not write or not under recon, psid %ld\n",
-					       desc->raidPtr->raidid, 
+					       desc->raidPtr->raidid,
 					       (long) asm_p->stripeID);
 				}
 			}
@@ -418,7 +418,7 @@ rf_State_Lock(RF_RaidAccessDesc_t * desc)
  *   else
  *     done (FAIL)
  */
-int 
+int
 rf_State_CreateDAG(RF_RaidAccessDesc_t * desc)
 {
 	RF_AccTraceEntry_t *tracerec = &desc->tracerec;
@@ -471,7 +471,7 @@ rf_State_CreateDAG(RF_RaidAccessDesc_t * desc)
  *  - this preserves atomic parity update
  * dags for independents parity groups (stripes) are fired concurrently */
 
-int 
+int
 rf_State_ExecuteDAG(RF_RaidAccessDesc_t * desc)
 {
 	int     i;
@@ -510,7 +510,7 @@ rf_State_ExecuteDAG(RF_RaidAccessDesc_t * desc)
  * first, check to all dags in the access have completed
  * if not, fire as many dags as possible */
 
-int 
+int
 rf_State_ProcessDAG(RF_RaidAccessDesc_t * desc)
 {
 	RF_AccessStripeMapHeader_t *asmh = desc->asmap;
@@ -568,7 +568,7 @@ rf_State_ProcessDAG(RF_RaidAccessDesc_t * desc)
 	}
 }
 /* only make it this far if all dags complete successfully */
-int 
+int
 rf_State_Cleanup(RF_RaidAccessDesc_t * desc)
 {
 	RF_AccTraceEntry_t *tracerec = &desc->tracerec;
@@ -619,7 +619,7 @@ rf_State_Cleanup(RF_RaidAccessDesc_t * desc)
 			    asm_p->parityInfo &&
 			    !(desc->flags & RF_DAG_SUPPRESS_LOCKS)) {
 				RF_ASSERT_VALID_LOCKREQ(&asm_p->lockReqDesc);
-				rf_ReleaseStripeLock(raidPtr->lockTable, 
+				rf_ReleaseStripeLock(raidPtr->lockTable,
 						     asm_p->stripeID,
 						     &asm_p->lockReqDesc);
 			}

@@ -15,7 +15,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed by Charles D. Cranor and 
+ *      This product includes software developed by Charles D. Cranor and
  *	Washington University.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission.
@@ -116,7 +116,7 @@ atm_output(ifp, m0, dst, rt0)
 		if ((rt->rt_flags & RTF_UP) == 0) { /* route went down! */
 			if ((rt0 = rt = RTALLOC1(dst, 0)) != NULL)
 				rt->rt_refcnt--;
-			else 
+			else
 				senderr(EHOSTUNREACH);
 		}
 
@@ -160,7 +160,7 @@ atm_output(ifp, m0, dst, rt0)
 			}
 # endif
 			if (!atmresolve(rt, m, dst, &atmdst)) {
-				m = NULL; 
+				m = NULL;
 				/* XXX: atmresolve already free'd it */
 				senderr(EHOSTUNREACH);
 				/* XXX: put ATMARP stuff here */
@@ -178,13 +178,13 @@ atm_output(ifp, m0, dst, rt0)
 			bcopy(dst->sa_data, &atmdst, sizeof(atmdst));
 			llc_hdr = (struct atmllc *)(dst->sa_data + sizeof(atmdst));
 			break;
-			
+
 		default:
 #if defined(__NetBSD__) || defined(__OpenBSD__)
-			printf("%s: can't handle af%d\n", ifp->if_xname, 
+			printf("%s: can't handle af%d\n", ifp->if_xname,
 			    dst->sa_family);
 #elif defined(__FreeBSD__) || defined(__bsdi__)
-			printf("%s%d: can't handle af%d\n", ifp->if_name, 
+			printf("%s%d: can't handle af%d\n", ifp->if_name,
 			    ifp->if_unit, dst->sa_family);
 #endif
 			senderr(EAFNOSUPPORT);
@@ -203,9 +203,9 @@ atm_output(ifp, m0, dst, rt0)
 		*ad = atmdst;
 		if (atm_flags & ATM_PH_LLCSNAP) {
 			atmllc = (struct atmllc *)(ad + 1);
-			bcopy(ATMLLC_HDR, atmllc->llchdr, 
+			bcopy(ATMLLC_HDR, atmllc->llchdr,
 						sizeof(atmllc->llchdr));
-			ATM_LLC_SETTYPE(atmllc, etype); 
+			ATM_LLC_SETTYPE(atmllc, etype);
 		}
 	}
 
@@ -353,10 +353,10 @@ atm_ifattach(ifp)
  * XXX -- for now, use newly-introduced "net/if_var.h" as an identifier.
  * need a better way to identify 3.0.  -- kjc
  */
-	for (ifa = ifp->if_addrhead.tqh_first; ifa; 
+	for (ifa = ifp->if_addrhead.tqh_first; ifa;
 	    ifa = ifa->ifa_link.tqe_next)
 #elif defined(__FreeBSD__) || defined(__bsdi__)
-	for (ifa = ifp->if_addrlist; ifa; ifa = ifa->ifa_next) 
+	for (ifa = ifp->if_addrlist; ifa; ifa = ifa->ifa_next)
 #endif
 
 		if ((sdl = (struct sockaddr_dl *)ifa->ifa_addr) &&

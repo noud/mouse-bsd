@@ -126,7 +126,7 @@ struct timer_4u {
 #define TMR_LIM_MASK		0x1fffffff
 };
 
-struct timerreg_4u {		
+struct timerreg_4u {
 	struct timer_4u*	t_timer;		/* There are two of them */
 	volatile int64_t*	t_clrintr;		/* There are two of these, too. */
 	volatile int64_t*	t_mapintr;		/* Same here. */

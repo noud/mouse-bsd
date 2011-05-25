@@ -56,7 +56,7 @@ readboot(dosfs, boot)
 	u_char fsinfo[2 * DOSBOOTBLOCKSIZE];
 	u_char backup[DOSBOOTBLOCKSIZE];
 	int ret = FSOK;
-	
+
 	if (read(dosfs, block, sizeof block) < sizeof block) {
 		perror("could not read boot block");
 		return FSFATAL;

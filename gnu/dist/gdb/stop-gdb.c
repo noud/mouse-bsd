@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
    A simple client to make GDB (versions 4.4 and later) on Mach 3 return
    to the command level when it is waiting for the inferior to stop.
-  
+
    Actions: Lookup the send right to the GDB message port from the
             NetMsgServer.
 

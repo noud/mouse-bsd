@@ -67,7 +67,7 @@
 ENTRY(setjmp)
 	/*
 	 * We use the part of the sigcontext structure, the sp, pc, and npc fields,
-	 * for the sigstack call so we don't need to get our own stackframe.  It 
+	 * for the sigstack call so we don't need to get our own stackframe.  It
 	 * won't be filled out till later anyway.
 	 */
 	mov	%o0, %o3		/* Save our jmp_buf in %o3 */
@@ -76,13 +76,13 @@ ENTRY(setjmp)
 	mov	SYS_compat_13_sigprocmask13, %g1
 	clr	%o1			/* sigprocmask(SIG_BLOCK, (sigset_t *)NULL, (sigset_t *)a) */
 	t	ST_SYSCALL
-	
+
 	st	%o0, [%o3 + 0x04]	/* sc.sc_mask = current mask; */
 	mov	SYS___sigaltstack14, %g1
 	clr	%o0			/* sigstack(NULL, &foo) */
 	add	%o2, 8, %o1		/* (foo being at the bottom of the stack) */
 	t	ST_SYSCALL
-	
+
 	lduw	[%o3 + 8 + 0x10], %o0	/* foo.ss_flags */
 	and	%o0, 1, %o1		/* onstack = foo.ss_flags & 1; */
 	st	%o0, [%o3 + 0x00]	/* sc.sc_onstack = current onstack; */

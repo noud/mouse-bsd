@@ -110,7 +110,7 @@ struct ms_softc	*ms;
 	rel_ms.dx = rel_ms.dy = 0;
 	mouse_soft(&rel_ms, sizeof(rel_ms), KBD_TIMEO_PKG);
 }
-/* 
+/*
  * Note that we are called from the keyboard software interrupt!
  */
 void

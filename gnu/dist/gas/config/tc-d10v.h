@@ -35,7 +35,7 @@
 #define MD_APPLY_FIX3
 
 /* call md_pcrel_from_section, not md_pcrel_from */
-#define MD_PCREL_FROM_SECTION(FIXP, SEC) md_pcrel_from_section(FIXP, SEC)   
+#define MD_PCREL_FROM_SECTION(FIXP, SEC) md_pcrel_from_section(FIXP, SEC)
 
 /* Permit temporary numeric labels.  */
 #define LOCAL_LABELS_FB 1

@@ -53,7 +53,7 @@ static char *server_addr;	/* user-settable IP address for gdb host */
 static char *download_path;	/* user-settable path for SREC files     */
 
 
-/* 
+/*
  * Function: m32r_load_1 (helper function)
  */
 
@@ -90,7 +90,7 @@ m32r_load_section (abfd, s, data_count)
     }
 }
 
-static int 
+static int
 m32r_load_1 (dummy)
      void *dummy;
 {
@@ -100,12 +100,12 @@ m32r_load_1 (dummy)
   return data_count;
 }
 
-/* 
- * Function: m32r_load (an alternate way to load) 
+/*
+ * Function: m32r_load (an alternate way to load)
  */
 
 static void
-m32r_load (filename, from_tty) 
+m32r_load (filename, from_tty)
     char *filename;
     int from_tty;
 {
@@ -178,7 +178,7 @@ m32r_load (filename, from_tty)
 }
 
 static void
-m32r_load_gen (filename, from_tty) 
+m32r_load_gen (filename, from_tty)
     char *filename;
     int from_tty;
 {
@@ -192,10 +192,10 @@ static void m32r_open PARAMS ((char *args, int from_tty));
    different names than GDB does, and don't support all the registers
    either. So, typing "info reg sp" becomes an "A7". */
 
-static char *m32r_regnames[] = 
-{ "r0",  "r1",  "r2",  "r3",  "r4",  "r5",  "r6",  "r7", 
-  "r8",  "r9",  "r10", "r11", "r12", "r13", "r14", "r15", 
-  "psw", "cbr", "spi", "spu", "bpc", "pc",  "accl", "acch", 
+static char *m32r_regnames[] =
+{ "r0",  "r1",  "r2",  "r3",  "r4",  "r5",  "r6",  "r7",
+  "r8",  "r9",  "r10", "r11", "r12", "r13", "r14", "r15",
+  "psw", "cbr", "spi", "spu", "bpc", "pc",  "accl", "acch",
 };
 
 static void
@@ -258,9 +258,9 @@ m32r_supply_register (regname, regnamelen, val, vallen)
 #ifdef BCARRY_REGNUM
 	  monitor_supply_register (BCARRY_REGNUM, zero); /* KLUDGE: (??????) */
 #endif
-	}	  
+	}
 
-      if (regno == SPI_REGNUM || regno == SPU_REGNUM)	
+      if (regno == SPI_REGNUM || regno == SPU_REGNUM)
 	{ /* special handling for stack pointer (spu or spi) */
 	  unsigned long stackmode = read_register (PSW_REGNUM) & 0x80;
 
@@ -448,7 +448,7 @@ m32r_upload_command (args, from_tty)
       if (hostent != 0)
 	{
 #if 1
-	  memcpy (&inet_addr.s_addr, hostent->h_addr, 
+	  memcpy (&inet_addr.s_addr, hostent->h_addr,
 		  sizeof(inet_addr.s_addr));
 	  server_addr = (char *) inet_ntoa (inet_addr);
 #else
@@ -566,7 +566,7 @@ Specify the serial device it is connected to (e.g. /dev/ttya).";
      &showlist);
 
   add_com ("upload", class_obscure, m32r_upload_command,
-	   "Upload the srec file via the monitor's Ethernet upload capability."); 
+	   "Upload the srec file via the monitor's Ethernet upload capability.");
 
   add_com ("tload", class_obscure, m32r_load, "test upload command.");
 #endif

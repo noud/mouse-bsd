@@ -50,7 +50,7 @@ GCC=gcc
 srcdir = .
 
 # It is also possible that you will need to add -I/usr/include/sys to the
-# CFLAGS section if your system doesn't have fcntl.h in /usr/include (which 
+# CFLAGS section if your system doesn't have fcntl.h in /usr/include (which
 # is where it should be according to Posix).
 
 # Set this up with gcc if you have gnu ld and the loader will print out
@@ -88,10 +88,10 @@ INTERNAL_CFLAGS = ${CFLAGS} ${GLOBAL_CFLAGS} ${PROFILE_CFLAGS} \
 
 SFILES = $(srcdir)/
 
-DEPFILES = 
+DEPFILES =
 
 SOURCES = $(SFILES) $(ALLDEPFILES)
-TAGFILES = $(SOURCES) ${HFILES} ${ALLPARAM} ${POSSLIBS} 
+TAGFILES = $(SOURCES) ${HFILES} ${ALLPARAM} ${POSSLIBS}
 
 OBS = hostchan.o drivers.o devsw.o rx.o tx.o params.o hsys.o crc.o \
 logging.o msgbuild.o ardi.o serdrv.o serpardr.o etherdrv.o bytesex.o \
@@ -110,12 +110,12 @@ libangsd.a: $(OBS)
 	 $(RANLIB) libangsd.a
 
 # Traditionally "install" depends on "all".  But it may be useful
-# not to; for example, if the user has made some trivial change to a 
+# not to; for example, if the user has made some trivial change to a
 # source file and doesn't care about rebuilding or just wants to save the
 # time it takes for make to check that all is up to date.
 # install-only is intended to address that need.
 install: all install-only
-install-only: 
+install-only:
 
 uninstall:
 

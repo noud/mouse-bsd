@@ -44,7 +44,7 @@ extern int patlock;
 
 char errmsg[MAXPATHLEN + 40] = "";
 
-/* get_compiled_pattern: return pointer to compiled pattern from command 
+/* get_compiled_pattern: return pointer to compiled pattern from command
    buffer */
 pattern_t *
 get_compiled_pattern()

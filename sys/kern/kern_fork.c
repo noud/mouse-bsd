@@ -214,7 +214,7 @@ again:
 			if (p2->p_pid > nextpid && pidchecked > p2->p_pid)
 				pidchecked = p2->p_pid;
 
-			if (p2->p_pgrp->pg_id > nextpid && 
+			if (p2->p_pgrp->pg_id > nextpid &&
 			    pidchecked > p2->p_pgrp->pg_id)
 				pidchecked = p2->p_pgrp->pg_id;
 

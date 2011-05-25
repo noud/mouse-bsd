@@ -180,7 +180,7 @@ mbr_label_read(dev, strat, lp, osdep, msgp, cylp, netbsd_label_offp)
 				/* update disklabel with details */
 				lp->d_partitions[2].p_size =
 				    mbrp->mbrp_size;
-				lp->d_partitions[2].p_offset = 
+				lp->d_partitions[2].p_offset =
 				    mbrp->mbrp_start;
 				lp->d_ntracks = mbrp->mbrp_ehd + 1;
 				lp->d_nsectors = MBR_PSECT(mbrp->mbrp_esect);

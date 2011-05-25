@@ -185,7 +185,7 @@ esac
 if [ $upgradefs = YES ]; then
 	echo	""
 	echo	"Upgrading the file system on ${drivename}a..."
-	
+
 	$DONTDOIT fsck -p -c 2 /dev/r${drivename}a
 	if [ $? != 0 ]; then
 		echo	"FATAL ERROR: FILE SYSTEM UPGRADE FAILED."

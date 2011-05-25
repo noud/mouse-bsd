@@ -45,14 +45,14 @@
  */
 struct info {
 	int fd;                                 /* file descriptor */
-	int ldisc;                              /* line discipline */  
+	int ldisc;                              /* line discipline */
 	int off;                                /* turn off */
 	int set;                                /* need set */
 	int wset;                               /* need window set */
 	char *arg;                              /* argument */
-	struct termios t;                       /* terminal info */  
+	struct termios t;                       /* terminal info */
 	struct winsize win;                     /* window info */
-}; 
+};
 
 int        ksearch __P((char ***, struct info *));
 int        msearch __P((char ***, struct info *));

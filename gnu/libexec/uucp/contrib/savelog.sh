@@ -4,7 +4,7 @@
 # savelog - save a log file
 #
 #    Copyright (C) 1987, 1988 Ronald S. Karr and Landon Curt Noll
-# 
+#
 # See the file COPYING, distributed with smail, for restriction
 # and warranty information.
 #
@@ -20,7 +20,7 @@
 #
 # The savelog command saves and optionally compresses old copies of files
 # into an 'dir'/OLD sub-directory.  The 'dir' directory is determined from
-# the directory of each 'file'.  
+# the directory of each 'file'.
 #
 # Older version of 'file' are named:
 #
@@ -34,30 +34,30 @@
 # If the 'file' does not exist or if it is zero length, no further processing
 # is performed.  However if -t was also given, it will be created.
 #
-# For files that do exist and have lengths greater than zero, the following 
+# For files that do exist and have lengths greater than zero, the following
 # actions are performed.
 #
 #	1) Version numered files are cycled.  That is version 6 is moved to
 #	   version 7, version is moved to becomes version 6, ... and finally
 #	   version 0 is moved to version 1.  Both compressed names and
-#	   uncompressed names are cycled, regardless of -t.  Missing version 
+#	   uncompressed names are cycled, regardless of -t.  Missing version
 #	   files are ignored.
 #
-#	2) The new OLD/file.1 is compressed and is changed subject to 
-#	   the -m, -u and -g flags.  This step is skipped if the -t flag 
+#	2) The new OLD/file.1 is compressed and is changed subject to
+#	   the -m, -u and -g flags.  This step is skipped if the -t flag
 #	   was given.
 #
 #	3) The main file is moved to OLD/file.0.
 #
-#	4) If the -m, -u, -g or -t flags are given, then file is created 
+#	4) If the -m, -u, -g or -t flags are given, then file is created
 #	   (as an empty file) subject to the given flags.
 #
 #	5) The new OLD/file.0 is chanegd subject to the -m, -u and -g flags.
 #
-# Note: If the OLD sub-directory does not exist, it will be created 
+# Note: If the OLD sub-directory does not exist, it will be created
 #       with mode 0755.
 #
-# Note: If no -m, -u or -g flag is given, then the primary log file is 
+# Note: If no -m, -u or -g flag is given, then the primary log file is
 #	not created.
 #
 # Note: Since the version numbers start with 0, version number <cycle>
@@ -122,20 +122,20 @@ while [ $# -gt 0 ]; do
 	# if not a file or empty, do nothing major
 	if [ ! -s $filename ]; then
 		# if -t was given and it does not exist, create it
-		if [ ! -z "$touch" -a ! -f $filename ]; then 
+		if [ ! -z "$touch" -a ! -f $filename ]; then
 			touch $filename
 			if [ "$?" -ne 0 ]; then
 				echo "$prog: could not touch $filename" 1>&2
 				exitcode=4
 				continue
 			fi
-			if [ ! -z "$user" ]; then 
+			if [ ! -z "$user" ]; then
 				$CHOWN $user $filename
 			fi
-			if [ ! -z "$group" ]; then 
+			if [ ! -z "$group" ]; then
 				chgrp $group $filename
 			fi
-			if [ ! -z "$mode" ]; then 
+			if [ ! -z "$mode" ]; then
 				chmod $mode $filename
 			fi
 		fi
@@ -204,13 +204,13 @@ while [ $# -gt 0 ]; do
 			$COMPRESS $COMP_FLAG < $newname.0 > $newfile
 			rm -f $newname.0
 		fi
-		if [ ! -z "$user" ]; then 
+		if [ ! -z "$user" ]; then
 			$CHOWN $user $newfile
 		fi
-		if [ ! -z "$group" ]; then 
+		if [ ! -z "$group" ]; then
 			chgrp $group $newfile
 		fi
-		if [ ! -z "$mode" ]; then 
+		if [ ! -z "$mode" ]; then
 			chmod $mode $newfile
 		fi
 	fi
@@ -220,27 +220,27 @@ while [ $# -gt 0 ]; do
 
 	# replace file if needed
 	if [ ! -z "$touch" -o ! -z "$user" -o \
-	     ! -z "$group" -o ! -z "$mode" ]; then 
+	     ! -z "$group" -o ! -z "$mode" ]; then
 		touch $filename
 	fi
-	if [ ! -z "$user" ]; then 
+	if [ ! -z "$user" ]; then
 		$CHOWN $user $filename
 	fi
-	if [ ! -z "$group" ]; then 
+	if [ ! -z "$group" ]; then
 		chgrp $group $filename
 	fi
-	if [ ! -z "$mode" ]; then 
+	if [ ! -z "$mode" ]; then
 		chmod $mode $filename
 	fi
 
 	# fix the permissions on the holding place file.0 file
-	if [ ! -z "$user" ]; then 
+	if [ ! -z "$user" ]; then
 		$CHOWN $user $newname.0
 	fi
-	if [ ! -z "$group" ]; then 
+	if [ ! -z "$group" ]; then
 		chgrp $group $newname.0
 	fi
-	if [ ! -z "$mode" ]; then 
+	if [ ! -z "$mode" ]; then
 		chmod $mode $newname.0
 	fi
 done

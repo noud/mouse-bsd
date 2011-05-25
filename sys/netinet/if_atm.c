@@ -111,7 +111,7 @@ atm_rtrequest(req, rt, sa)
 		 * case we are being called via "ifconfig" to set the address.
 		 */
 
-		if ((rt->rt_flags & RTF_HOST) == 0) { 
+		if ((rt->rt_flags & RTF_HOST) == 0) {
 			rt_setgate(rt,rt_key(rt),(struct sockaddr *)&null_sdl);
 			gate = rt->rt_gateway;
 			SDL(gate)->sdl_type = rt->rt_ifp->if_type;
@@ -142,9 +142,9 @@ atm_rtrequest(req, rt, sa)
 		if (sin->sin_family != AF_INET)
 			goto failed;
 		aph = (struct atm_pseudohdr *) LLADDR(SDL(gate));
-		npcb = npcb_add(NULL, rt->rt_ifp, ATM_PH_VCI(aph), 
+		npcb = npcb_add(NULL, rt->rt_ifp, ATM_PH_VCI(aph),
 						ATM_PH_VPI(aph));
-		if (npcb == NULL) 
+		if (npcb == NULL)
 			goto failed;
 		npcb->npcb_flags |= NPCB_IP;
 		npcb->ipaddr.s_addr = sin->sin_addr.s_addr;
@@ -157,7 +157,7 @@ atm_rtrequest(req, rt, sa)
 		 */
 		bcopy(LLADDR(SDL(gate)), &api.aph, sizeof(api.aph));
 		api.rxhand = NULL;
-		if (rt->rt_ifp->if_ioctl(rt->rt_ifp, SIOCATMENA, 
+		if (rt->rt_ifp->if_ioctl(rt->rt_ifp, SIOCATMENA,
 							(caddr_t)&api) != 0) {
 			printf("atm: couldn't add VC\n");
 			goto failed;
@@ -188,7 +188,7 @@ failed:
 		 */
 
 		if (rt->rt_flags & RTF_LLINFO) {
-			npcb_free((struct natmpcb *)rt->rt_llinfo, 
+			npcb_free((struct natmpcb *)rt->rt_llinfo,
 								NPCB_DESTROY);
 			rt->rt_llinfo = NULL;
 			rt->rt_flags &= ~RTF_LLINFO;
@@ -200,7 +200,7 @@ failed:
 
 		bcopy(LLADDR(SDL(gate)), &api.aph, sizeof(api.aph));
 		api.rxhand = NULL;
-		(void)rt->rt_ifp->if_ioctl(rt->rt_ifp, SIOCATMDIS, 
+		(void)rt->rt_ifp->if_ioctl(rt->rt_ifp, SIOCATMDIS,
 							(caddr_t)&api);
 
 		break;
@@ -215,7 +215,7 @@ failed:
  *     [3] "dst" = sockaddr_in (IP) address of dest.
  *   output:
  *     [4] "desten" = ATM pseudo header which we will fill in VPI/VCI info
- *   return: 
+ *   return:
  *     0 == resolve FAILED; note that "m" gets m_freem'd in this case
  *     1 == resolve OK; desten contains result
  *
@@ -242,7 +242,7 @@ atmresolve(rt, m, dst, desten)
 		rt = RTALLOC1(dst, 0);
 		if (rt == NULL) goto bad; /* failed */
 		rt->rt_refcnt--;	/* don't keep LL references */
-		if ((rt->rt_flags & RTF_GATEWAY) != 0 || 
+		if ((rt->rt_flags & RTF_GATEWAY) != 0 ||
 			(rt->rt_flags & RTF_LLINFO) == 0 ||
 			/* XXX: are we using LLINFO? */
 			rt->rt_gateway->sa_family != AF_LINK) {
@@ -251,7 +251,7 @@ atmresolve(rt, m, dst, desten)
 	}
 
 	/*
-	 * note that rt_gateway is a sockaddr_dl which contains the 
+	 * note that rt_gateway is a sockaddr_dl which contains the
 	 * atm_pseudohdr data structure for this route.   we currently
 	 * don't need any rt_llinfo info (but will if we want to support
 	 * ATM ARP [c.f. if_ether.c]).

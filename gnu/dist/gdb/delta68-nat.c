@@ -41,7 +41,7 @@ register_addr (regno, blockend)
     { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, -1, 15, 16 };
 
   if (regno >= 0 && regno < sizeof(sysv68reg) / sizeof(sysv68reg[0]))
-    return blockend + sysv68reg[regno] * 4; 
+    return blockend + sysv68reg[regno] * 4;
   else if (regno < FPC_REGNUM)
     return offsetof (struct user, u_fpu.regs.reg[regno - FP0_REGNUM][0]);
   else if (regno == FPC_REGNUM)

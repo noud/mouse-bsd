@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -75,7 +75,7 @@ sockopen()
 	static u_char answer[1500];
 	static u_char rcvcmsgbuf[CMSG_SPACE(sizeof(struct in6_pktinfo)) +
 				CMSG_SPACE(sizeof(int))];
-	static u_char sndcmsgbuf[CMSG_SPACE(sizeof(struct in6_pktinfo)) + 
+	static u_char sndcmsgbuf[CMSG_SPACE(sizeof(struct in6_pktinfo)) +
 				CMSG_SPACE(sizeof(int))];
 
 	memset(&sin6_allrouters, 0, sizeof(struct sockaddr_in6));
@@ -107,7 +107,7 @@ sockopen()
 		       strerror(errno));
 		exit(1);
 	}
-#endif 
+#endif
 
 	on = 1;
 	/* specify to tell value of hoplimit field of received IP6 hdr */
@@ -125,7 +125,7 @@ sockopen()
 		       strerror(errno));
 		exit(1);
 	}
-#endif 
+#endif
 
 	/* specfiy to accept only router advertisements on the socket */
 	ICMP6_FILTER_SETBLOCKALL(&filt);

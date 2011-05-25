@@ -137,7 +137,7 @@ typedef struct adb_dev_s{
 	/* Get device info from ADB system */
 typedef struct adb_devinfo_s{
 	adb_dev_t	dev[ADB_MAX_DEVS];
-		/* [addr].addr == -1 if none */ 
+		/* [addr].addr == -1 if none */
 } adb_devinfo_t;
 #define ADBIOC_DEVSINFO	_IOR('A', 128, adb_devinfo_t)
 

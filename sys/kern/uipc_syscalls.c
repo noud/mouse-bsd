@@ -479,7 +479,7 @@ sendit(p, s, mp, flags, retsize)
 #ifdef KTRACE
 	struct iovec *ktriov = NULL;
 #endif
-	
+
 	/* getsock() will use the descriptor for us */
 	if ((error = getsock(p->p_fd, s, &fp)) != 0)
 		return (error);
@@ -689,7 +689,7 @@ recvit(p, s, mp, namelenp, retsize)
 #ifdef KTRACE
 	struct iovec *ktriov = NULL;
 #endif
-	
+
 	/* getsock() will use the descriptor for us */
 	if ((error = getsock(p->p_fd, s, &fp)) != 0)
 		return (error);

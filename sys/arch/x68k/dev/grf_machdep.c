@@ -130,7 +130,7 @@ int
 grfbussearch(dp, match, aux)
 	struct device *dp;
 	struct cfdata *match;
-	
+
 	void *aux;
 {
 	int i = 0;

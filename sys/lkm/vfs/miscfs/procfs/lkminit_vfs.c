@@ -61,7 +61,7 @@ MOD_VFS("procfs", -1, &procfs_vfsops);
  */
 int
 procfs_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

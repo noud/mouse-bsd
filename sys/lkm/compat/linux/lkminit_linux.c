@@ -72,7 +72,7 @@ MOD_EXEC("compat_linux", -1, &linux_lkm_execsw);
  */
 int
 compat_linux_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {
@@ -84,7 +84,7 @@ compat_linux_lkmentry(lkmtp, cmd, ver)
 
 int
 compat_linux_lkmload(lkmtp, cmd)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 {
 	if (elf_probe_funcs_insert(linux_elf32_probe))
@@ -100,7 +100,7 @@ compat_linux_lkmload(lkmtp, cmd)
  */
 int
 compat_linux_lkmunload(lkmtp, cmd)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 {
 	if (elf_probe_funcs_insert(linux_elf32_probe))

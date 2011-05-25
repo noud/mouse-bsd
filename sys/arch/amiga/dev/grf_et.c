@@ -51,9 +51,9 @@
  * Kari Mettinen's Cirrus driver by Tobias Abt
  *
  * Fixed Merlin in Z-III, fixed LACE and DBLSCAN, added Domino16M proto
- * and AT&T ATT20c491 DAC, added memory-size detection by Klaus Burkert. 
+ * and AT&T ATT20c491 DAC, added memory-size detection by Klaus Burkert.
  *
- * 
+ *
  * TODO:
  *
  */
@@ -414,7 +414,7 @@ et_boardinit(gp)
 		vgaw(ba, MERLIN_VDAC_DATA, 0);
 	}
 
-	
+
 	/* setup initial unchanging parameters */
 
 	vgaw(ba, GREG_HERCULESCOMPAT + ((ettype == DOMINO) ? 0x0fff : 0), 0x03);
@@ -540,7 +540,7 @@ et_boardinit(gp)
 			vgaw(ba, GREG_SEGMENTSELECT2, 0x11); /* 1MB offset */
 			*et_fbtestaddr = 0x12345678;
 			vgaw(ba, GREG_SEGMENTSELECT2, 0x00);
-			if (*et_fbtestaddr == 0x0) 
+			if (*et_fbtestaddr == 0x0)
 				et_fbsize = 0x200000;		/* 2 MB */
 			else
 				et_fbsize = 0x100000;		/* 1 MB */

@@ -8,7 +8,7 @@ LDSTATIC= -static		# only static compilation makes sense here
 .include <bsd.own.mk>		# May define DESTDIR in mk.conf..
 .if defined(DESTDIR)
 LDLIBS+= -lgcc -lc -lgcc ${LIBCRTEND}
-GOODAOUT_LIB= -nostdlib -L${DESTDIR}/usr/lib ${LDSTATIC} 
+GOODAOUT_LIB= -nostdlib -L${DESTDIR}/usr/lib ${LDSTATIC}
 GOODAOUT_LIB+= ${LIBCRT0} ${LIBCRTBEGIN}
 .else
 GOODAOUT_LIB= ${LDSTATIC}

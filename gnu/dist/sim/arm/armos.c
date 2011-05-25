@@ -1,16 +1,16 @@
 /*  armos.c -- ARMulator OS interface:  ARM6 Instruction Emulator.
     Copyright (C) 1994 Advanced RISC Machines Ltd.
- 
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
- 
+
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
- 
+
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
@@ -106,8 +106,8 @@ struct OSblock {
 
 #ifdef macintosh
 #define FIXCRLF(t,c) ((t & BINARY)?c:((c=='\n'||c=='\r')?(c ^ 7):c))
-#else                   
-#define FIXCRLF(t,c) c 
+#else
+#define FIXCRLF(t,c) c
 #endif
 
 static ARMword softvectorcode[] =
@@ -235,12 +235,12 @@ unsigned ARMul_OSHandleSWI(ARMul_State *state,ARMword number)
 	char *local = malloc (len);
 	res = read (f,local, len);
 	if (res > 0)
-	  for (i = 0; i < res; i++) 
+	  for (i = 0; i < res; i++)
 	    ARMul_WriteByte(state, ptr + i, local[i]) ;
 	free (local);
 	state->Reg[0] = res == -1 ? -1 : len - res;
 	OSptr->ErrorNo = errno;
-	return TRUE;     
+	return TRUE;
       }
 
     case SWI_Write:
@@ -251,7 +251,7 @@ unsigned ARMul_OSHandleSWI(ARMul_State *state,ARMword number)
 	int res;
 	int i;
 	char *local = malloc (len);
-	for (i = 0; i < len; i++) 
+	for (i = 0; i < len; i++)
 	  {
 	    local[i] = ARMul_ReadByte(state, ptr + i);
 	  }
@@ -259,14 +259,14 @@ unsigned ARMul_OSHandleSWI(ARMul_State *state,ARMword number)
 	state->Reg[0] = res == -1 ? -1 : len - res;
 	free (local);
 	OSptr->ErrorNo = errno;
-	return TRUE;     
+	return TRUE;
       }
 
     case SWI_Open:
       {
 	char dummy[2000];
 	int i;
-	for (i = 0; 
+	for (i = 0;
 	     dummy[i] = ARMul_ReadByte(state, state->Reg[0] + i);
 	     i++)
 	  ;
@@ -274,7 +274,7 @@ unsigned ARMul_OSHandleSWI(ARMul_State *state,ARMword number)
 	OSptr->ErrorNo = errno;
 	return TRUE;
       }
-   
+
     case SWI_Close:
       state->Reg[0] = close (state->Reg[0]);
       OSptr->ErrorNo = errno;
@@ -308,7 +308,7 @@ unsigned ARMul_OSHandleSWI(ARMul_State *state,ARMword number)
       return(TRUE) ;
 
     default :
-      state->Emulate = FALSE ;      
+      state->Emulate = FALSE ;
       return(FALSE) ;
     }
 }
@@ -457,7 +457,7 @@ unsigned ARMul_OSHandleSWI(ARMul_State *state,ARMword number)
           fptr = stderr ;
        else
 	 {
-	   switch (type) 
+	   switch (type)
 	     {
 	     case O_RDONLY:
 	       fptr = fopen(buffer,"r") ;
@@ -782,7 +782,7 @@ unsigned ARMul_OSHandleSWI(ARMul_State *state,ARMword number)
        }
 
     default :
-          state->Emulate = FALSE ;      
+          state->Emulate = FALSE ;
        return(FALSE) ;
     }
 #endif

@@ -453,7 +453,7 @@ char *pretty_print_option (code, data, len, emit_commas, emit_quotes)
 		comma = ',';
 	else
 		comma = ' ';
-	
+
 	/* Figure out the size of the data. */
 	for (i = 0; dhcp_options [code].format [i]; i++) {
 		if (!numhunk) {
@@ -503,7 +503,7 @@ char *pretty_print_option (code, data, len, emit_commas, emit_quotes)
 			      dhcp_options [code].name,
 			      &(dhcp_options [code].format [i]));
 			break;
-		} 
+		}
 	}
 
 	/* Check for too few bytes... */
@@ -589,7 +589,7 @@ char *pretty_print_option (code, data, len, emit_commas, emit_quotes)
 		if (i + 1 < numhunk) {
 			*op++ = comma;
 		}
-		
+
 	}
 	return optbuf;
 }
@@ -617,7 +617,7 @@ void do_packet (interface, packet, len, from_port, from, hfrom)
 	tp.client_addr = from;
 	tp.interface = interface;
 	tp.haddr = hfrom;
-	
+
 	parse_options (&tp);
 	if (tp.options_valid &&
 	    tp.options [DHO_DHCP_MESSAGE_TYPE].data)

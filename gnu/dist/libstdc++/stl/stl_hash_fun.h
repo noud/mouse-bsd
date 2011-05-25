@@ -39,10 +39,10 @@ template <class Key> struct hash { };
 
 inline size_t __stl_hash_string(const char* s)
 {
-  unsigned long h = 0; 
+  unsigned long h = 0;
   for ( ; *s; ++s)
     h = 5*h + *s;
-  
+
   return size_t(h);
 }
 

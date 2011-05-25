@@ -181,8 +181,8 @@ main(argc, argv)
 
 	atexit(cleanup);
 
-	printf("Type    Id  Off %-*s Size %-*s Rev Module Name\n", 
-	    POINTERSIZE, "Loadaddr", 
+	printf("Type    Id  Off %-*s Size %-*s Rev Module Name\n",
+	    POINTERSIZE, "Loadaddr",
 	    POINTERSIZE, "Info");
 
 	/*

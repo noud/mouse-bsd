@@ -1,7 +1,7 @@
 /* Opcode table for the ARM.
 
    Copyright 1994, 1995, 1996, 1997 Free Software Foundation, Inc.
-   
+
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; either version 2, or (at your option)
@@ -29,7 +29,7 @@ struct thumb_opcode
 };
 
 /* format of the assembler string :
-   
+
    %%			%
    %<bitfield>d		print the bitfield in decimal
    %<bitfield>x		print the bitfield in hex

@@ -150,7 +150,7 @@ irq_init()
 	set_spl_masks();
 
 	/* Enable IRQ's and FIQ's */
-	enable_interrupts(I32_bit | F32_bit); 
+	enable_interrupts(I32_bit | F32_bit);
 }
 
 
@@ -180,7 +180,7 @@ irq_claim(irq, handler)
 	 */
 	if (irq == IRQ_INSTRUCT)
 		irq = handler->ih_num;
-    
+
 	/* Make sure the irq number is valid */
 	if (irq < 0 || irq >= NIRQS)
 		return(-1);
@@ -258,7 +258,7 @@ irq_release(irq, handler)
 	/* Locate the handler */
 	irqhand = irqhandlers[irq];
 	prehand = &irqhandlers[irq];
-    
+
 	while (irqhand && handler != irqhand) {
 		prehand = &irqhand;
 		irqhand = irqhand->ih_next;
@@ -300,7 +300,7 @@ irq_release(irq, handler)
 		disable_irq(irq);
 
 	set_spl_masks();
-      
+
 	return(0);
 }
 
@@ -435,13 +435,13 @@ void
 disable_irq(irq)
 	int irq;
 {
-	u_int oldirqstate; 
+	u_int oldirqstate;
 
 	oldirqstate = disable_interrupts(I32_bit);
 	current_mask &= ~(1 << irq);
 	irq_setmasks();
 	restore_interrupts(oldirqstate);
-}  
+}
 
 
 /*
@@ -456,13 +456,13 @@ void
 enable_irq(irq)
 	int irq;
 {
-	u_int oldirqstate; 
+	u_int oldirqstate;
 
 	oldirqstate = disable_interrupts(I32_bit);
 	current_mask |= (1 << irq);
 	irq_setmasks();
 	restore_interrupts(oldirqstate);
-}  
+}
 
 
 /*
@@ -510,7 +510,7 @@ fiq_claim(handler)
 	zero_page_readwrite();
 
 	WriteWord(0x0000003c, (u_int) handler->fh_func);
-    
+
 	zero_page_readonly();
 	cpu_cache_syncI_rng(0, 0x40);	/* XXX 0x3c should never be in the ic*/
 

@@ -32,7 +32,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *	@(#)extern.h	8.2 (Berkeley) 4/20/95 
+ *	@(#)extern.h	8.2 (Berkeley) 4/20/95
  *	$NetBSD: extern.h,v 1.11 2000/02/10 12:34:43 tron Exp $
  */
 

@@ -134,7 +134,7 @@ static int		 __pwproto_flags;
 static char		 line[1024];
 static long		 prbuf[1024 / sizeof(long)];
 static DB		*__pwexclude = (DB *)NULL;
- 
+
 static int	__pwexclude_add __P((const char *));
 static int	__pwexclude_is __P((const char *));
 static void	__pwproto_set __P((void));
@@ -178,7 +178,7 @@ __pwexclude_add(name)
 	/* store it */
 	if((__pwexclude->put)(__pwexclude, &key, &data, 0) == -1)
 		return 1;
-	
+
 	return 0;
 }
 
@@ -204,7 +204,7 @@ __pwexclude_is(name)
 
 	if((__pwexclude->get)(__pwexclude, &key, &data, 0) == 0)
 		return 1;	/* excluded */
-	
+
 	return 0;
 }
 
@@ -232,7 +232,7 @@ __pwproto_set()
 		ptr += (strlen(pw->pw_name) + 1);
 	} else
 		__pwproto->pw_name = (char *)NULL;
-	
+
 	/* password */
 	if(pw->pw_passwd && (pw->pw_passwd)[0]) {
 		ptr = (char *)ALIGN((u_long)ptr);
@@ -262,7 +262,7 @@ __pwproto_set()
 		ptr += (strlen(pw->pw_gecos) + 1);
 	} else
 		__pwproto->pw_gecos = (char *)NULL;
-	
+
 	/* dir */
 	if(pw->pw_dir && (pw->pw_dir)[0]) {
 		ptr = (char *)ALIGN((u_long)ptr);
@@ -1178,7 +1178,7 @@ __hashpw(key)
 		break;			/* found */
 	case 1:
 		return NS_NOTFOUND;
-	case -1:			
+	case -1:
 		return NS_UNAVAIL;	/* error in db routines */
 	default:
 		abort();

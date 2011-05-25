@@ -18,8 +18,8 @@
  */
 
 
-/* When this symbol is defined allocations via memget are made slightly 
-   bigger and some debugging info stuck before and after the region given 
+/* When this symbol is defined allocations via memget are made slightly
+   bigger and some debugging info stuck before and after the region given
    back to the caller. */
 /* #define DEBUGGING_MEMCLUSTER */
 
@@ -208,7 +208,7 @@ __memget_record(size_t size, const char *file, int line) {
 #endif
 	}
 
-	/* 
+	/*
 	 * If there are no blocks in the free list for this size, get a chunk
 	 * of memory and then break it up into "new_size"-sized blocks, adding
 	 * them to the free list.
@@ -306,7 +306,7 @@ __memget_record(size_t size, const char *file, int line) {
 	memcpy(p, &fp, sizeof fp);
 #endif
 
-	/* 
+	/*
 	 * The stats[] uses the _actual_ "size" requested by the
 	 * caller, with the caveat (in the code above) that "size" >= the
 	 * max. size (max_size) ends up getting recorded as a call to
@@ -322,9 +322,9 @@ __memget_record(size_t size, const char *file, int line) {
 #endif
 }
 
-/* 
- * This is a call from an external caller, 
- * so we want to count this as a user "put". 
+/*
+ * This is a call from an external caller,
+ * so we want to count this as a user "put".
  */
 void
 __memput(void *mem, size_t size) {
@@ -406,7 +406,7 @@ __memput_record(void *mem, size_t size, const char *file, int line) {
 	freelists[new_size] = (memcluster_element *)mem;
 #endif
 
-	/* 
+	/*
 	 * The stats[] uses the _actual_ "size" requested by the
 	 * caller, with the caveat (in the code above) that "size" >= the
 	 * max. size (max_size) ends up getting recorded as a call to
@@ -475,7 +475,7 @@ memstats(FILE *out) {
 
 /* Private. */
 
-/* 
+/*
  * Round up size to a multiple of sizeof(void *).  This guarantees that a
  * block is at least sizeof void *, and that we won't violate alignment
  * restrictions, both of which are needed to make lists of blocks.
@@ -484,7 +484,7 @@ static size_t
 quantize(size_t size) {
 	int remainder;
 	/*
-	 * If there is no remainder for the integer division of 
+	 * If there is no remainder for the integer division of
 	 *
 	 *	(rightsize/P_SIZE)
 	 *

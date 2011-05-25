@@ -24,7 +24,7 @@
                 Computer Science Department, 9062
                 Western Washington University
                 Bellingham, WA 98226-9062
-       
+
 *************************************************************************/
 
 #include "bcdefs.h"
@@ -104,7 +104,7 @@ rl_input (buf, result, max)
       }
       rl_len = strlen (rl_line)+1;
       if (rl_len != 1)
-	add_history (rl_line); 
+	add_history (rl_line);
       rl_line[rl_len-1] = '\n';
       printf ("\r");
       fflush (stdout);
@@ -182,14 +182,14 @@ limits return(Limits);
        yyerror ("illegal character: %s",yytext);
 #endif
     }
-"+"|"-"|";"|"("|")"|"{"|"}"|"["|"]"|","|"^" { yylval.c_value = yytext[0]; 
+"+"|"-"|";"|"("|")"|"{"|"}"|"["|"]"|","|"^" { yylval.c_value = yytext[0];
 					      return((int)yytext[0]); }
 && { return(AND); }
 \|\| { return(OR); }
 "!" { return(NOT); }
 "*"|"/"|"%" { yylval.c_value = yytext[0]; return((int)yytext[0]); }
 "="|\+=|-=|\*=|\/=|%=|\^=  { yylval.c_value = yytext[0]; return(ASSIGN_OP); }
-=\+|=-|=\*|=\/|=%|=\^  { 
+=\+|=-|=\*|=\/|=%|=\^  {
 #ifdef OLD_EQ_OP
 			 char warn_save;
 			 warn_save = warn_not_std;
@@ -213,7 +213,7 @@ limits return(Limits);
 
 	for (;;)
 	  {
-	    while ( ((c=input()) != '*') && (c != EOF)) 
+	    while ( ((c=input()) != '*') && (c != EOF))
 	      /* eat it */
 	      if (c == '\n') line_no++;
 	    if (c == '*')
@@ -266,7 +266,7 @@ limits return(Limits);
 		    *dst++ = *src++;
 	        }
 	      *dst = 0;
-	      yylval.s_value = strcopyof(yytext); 
+	      yylval.s_value = strcopyof(yytext);
 	      return(NUMBER);
 	    }
 .       {

@@ -24,7 +24,7 @@ struct external_filehdr {
 /********************** AOUT "OPTIONAL HEADER" **********************/
 
 
-typedef struct 
+typedef struct
 {
   char 	magic[2];		/* type of file				*/
   char	vstamp[2];		/* version stamp			*/
@@ -100,7 +100,7 @@ struct external_lineno {
 #define E_FILNMLEN	14	/* # characters in a file name		*/
 #define E_DIMNUM	4	/* # array dimensions in auxiliary entry */
 
-struct external_syment 
+struct external_syment
 {
   union {
     char e_name[E_SYMNMLEN];
@@ -122,7 +122,7 @@ struct external_syment
 #define N_TMASK		(060)
 #define N_BTSHFT	(4)
 #define N_TSHIFT	(2)
-  
+
 
 union external_auxent {
   struct {
@@ -145,7 +145,7 @@ union external_auxent {
 	} x_fcnary;
 	char x_tvndx[2];		/* tv index */
   } x_sym;
-  
+
   union {
 	char x_fname[E_FILNMLEN];
 	struct {
@@ -153,24 +153,24 @@ union external_auxent {
 	  char x_offset[4];
 	} x_n;
   } x_file;
-  
+
   struct {
 	char x_scnlen[4];			/* section length */
 	char x_nreloc[2];	/* # relocation entries */
 	char x_nlinno[2];	/* # line numbers */
   } x_scn;
-  
+
   struct {
 	char x_tvfill[4];	/* tv fill value */
 	char x_tvlen[2];	/* length of .tv */
 	char x_tvran[2][2];	/* tv range */
   } x_tv;		/* info about .tv section (in auxent of symbol .tv)) */
-  
+
 
 };
 
 #define	SYMENT	struct external_syment
-#define	SYMESZ	18	
+#define	SYMESZ	18
 #define	AUXENT	union external_auxent
 #define	AUXESZ	18
 

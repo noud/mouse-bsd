@@ -62,7 +62,7 @@ __RCSID("$NetBSD: __glob13.c,v 1.13 2000/01/22 22:19:09 mycroft Exp $");
  * GLOB_TILDE:
  *	expand ~user/foo to the /home/dir/of/user/foo
  * GLOB_BRACE:
- *	expand {1,2}{a,b} to 1a 1b 2a 2b 
+ *	expand {1,2}{a,b} to 1a 1b 2a 2b
  * gl_matchc:
  *	Number of matches in the current invocation of glob.
  */
@@ -200,11 +200,11 @@ glob(pattern, flags, errfunc, pglob)
 	bufnext = patbuf;
 	bufend = bufnext + MAXPATHLEN;
 	if (flags & GLOB_NOESCAPE) {
-	    while (bufnext < bufend && (c = *patnext++) != EOS) 
+	    while (bufnext < bufend && (c = *patnext++) != EOS)
 		    *bufnext++ = c;
 	} else {
 		/* Protect the quoted characters. */
-		while (bufnext < bufend && (c = *patnext++) != EOS) 
+		while (bufnext < bufend && (c = *patnext++) != EOS)
 			if (c == QUOTE) {
 				if ((c = *patnext++) == EOS) {
 					c = QUOTE;
@@ -284,7 +284,7 @@ globexp2(ptr, pattern, pglob, rv)
 			for (pm = pe++; *pe != RBRACKET && *pe != EOS; pe++)
 				continue;
 			if (*pe == EOS) {
-				/* 
+				/*
 				 * We could not find a matching RBRACKET.
 				 * Ignore and just look for RBRACE
 				 */
@@ -312,7 +312,7 @@ globexp2(ptr, pattern, pglob, rv)
 			for (pl = pm++; *pm != RBRACKET && *pm != EOS; pm++)
 				continue;
 			if (*pm == EOS) {
-				/* 
+				/*
 				 * We could not find a matching RBRACKET.
 				 * Ignore and just look for RBRACE
 				 */
@@ -337,7 +337,7 @@ globexp2(ptr, pattern, pglob, rv)
 				/* Append the current string */
 				for (lm = ls; (pl < pm); *lm++ = *pl++)
 					continue;
-				/* 
+				/*
 				 * Append the rest of the pattern after the
 				 * closing brace
 				 */
@@ -387,7 +387,7 @@ globtilde(pattern, patbuf, pglob)
 		return pattern;
 
 	/* Copy up to the end of the string or / */
-	for (p = pattern + 1, d = (char *)(void *)patbuf; *p && *p != SLASH; 
+	for (p = pattern + 1, d = (char *)(void *)patbuf; *p && *p != SLASH;
 	     *d++ = *p++)
 		continue;
 
@@ -395,8 +395,8 @@ globtilde(pattern, patbuf, pglob)
 	d = (char *)(void *)patbuf;
 
 	if (*d == EOS) {
-		/* 
-		 * handle a plain ~ or ~/ by expanding $HOME 
+		/*
+		 * handle a plain ~ or ~/ by expanding $HOME
 		 * first and then trying the password file
 		 */
 		if ((h = getenv("HOME")) == NULL) {
@@ -419,14 +419,14 @@ globtilde(pattern, patbuf, pglob)
 	/* Copy the home directory */
 	for (b = patbuf; *h; *b++ = *h++)
 		continue;
-	
+
 	/* Append the rest of the pattern */
 	while ((*b++ = *p++) != EOS)
 		continue;
 
 	return patbuf;
 }
-	
+
 
 /*
  * The main glob() routine: compiles the pattern (optionally processing
@@ -487,7 +487,7 @@ glob0(pattern, pglob)
 			break;
 		case STAR:
 			pglob->gl_flags |= GLOB_MAGCHAR;
-			/* collapse adjacent stars to one, 
+			/* collapse adjacent stars to one,
 			 * to avoid exponential behavior
 			 */
 			if (bufnext == patbuf || bufnext[-1] != M_ALL)
@@ -506,9 +506,9 @@ glob0(pattern, pglob)
 	if ((err = glob1(patbuf, pglob)) != 0)
 		return(err);
 
-	if (pglob->gl_pathc == oldpathc) {	
+	if (pglob->gl_pathc == oldpathc) {
 		/*
-		 * If there was no match we are going to append the pattern 
+		 * If there was no match we are going to append the pattern
 		 * if GLOB_NOCHECK was specified or if GLOB_NOMAGIC was
 		 * specified and the pattern did not contain any magic
 		 * characters GLOB_NOMAGIC is there just for compatibility
@@ -586,7 +586,7 @@ glob2(pathbuf, pathend, pattern, pglob)
 			*pathend = EOS;
 			if (g_lstat(pathbuf, &sb, pglob))
 				return(0);
-		
+
 			if (((pglob->gl_flags & GLOB_MARK) &&
 			    pathend[-1] != SEP) && (S_ISDIR(sb.st_mode)
 			    || (S_ISLNK(sb.st_mode) &&
@@ -645,7 +645,7 @@ glob3(pathbuf, pathend, pattern, restpattern, pglob)
 
 	*pathend = EOS;
 	errno = 0;
-	    
+
 	if ((dirp = g_opendir(pathbuf, pglob)) == NULL) {
 		/* TODO: don't call for ENOENT or ENOTDIR? */
 		if (pglob->gl_errfunc) {
@@ -671,7 +671,7 @@ glob3(pathbuf, pathend, pattern, restpattern, pglob)
 		/* Initial DOT must be matched literally. */
 		if (dp->d_name[0] == DOT && *pattern != DOT)
 			continue;
-		for (sc = (u_char *) dp->d_name, dc = pathend; 
+		for (sc = (u_char *) dp->d_name, dc = pathend;
 		     (*dc++ = *sc++) != EOS;)
 			continue;
 		if (!match(pathend, pattern, restpattern)) {
@@ -720,7 +720,7 @@ globextend(path, pglob)
 	_DIAGASSERT(pglob != NULL);
 
 	newsize = sizeof(*pathv) * (2 + pglob->gl_pathc + pglob->gl_offs);
-	pathv = pglob->gl_pathv ? 
+	pathv = pglob->gl_pathv ?
 		    realloc(pglob->gl_pathv, newsize) :
 		    malloc(newsize);
 	if (pathv == NULL)
@@ -766,7 +766,7 @@ match(name, pat, patend)
 		case M_ALL:
 			if (pat == patend)
 				return(1);
-			do 
+			do
 			    if (match(name, pat, patend))
 				    return(1);
 			while (*name++ != EOS);
@@ -928,7 +928,7 @@ g_Ctoc(str, buf)
 }
 
 #ifdef DEBUG
-static void 
+static void
 qprintf(str, s)
 	const char *str;
 	Char *s;

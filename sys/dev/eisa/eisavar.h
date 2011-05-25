@@ -45,7 +45,7 @@
 #include <machine/bus.h>
 #include <dev/eisa/eisareg.h>		/* For ID register & string info. */
 
-/* 
+/*
  * Structures and definitions needed by the machine-dependent header.
  */
 struct eisabus_attach_args;

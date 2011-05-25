@@ -1,4 +1,4 @@
-.\"	$NetBSD: prep,v 1.20 1999/07/21 11:25:23 is Exp $	
+.\"	$NetBSD: prep,v 1.20 1999/07/21 11:25:23 is Exp $
 .Pp
 You will need an AmigaDOS hard drive prep tool to prepare your hard
 drives for use with NetBSD/Amiga.  HDToolBox is provided with the
@@ -20,8 +20,8 @@ type so that you have working geometry parameters. To do this
 you enter the "Change drive type" menu, and either use "read
 parameters from drive" or set them manually.
 .Pp
-Note you will be modifying your HD's. If you mess something 
-up here you could lose everything on all the drives that 
+Note you will be modifying your HD's. If you mess something
+up here you could lose everything on all the drives that
 you configure.  It is therefore advised that you:
 .Bl -enum
 .It
@@ -116,7 +116,7 @@ Mask and maxtransfer are not used with NetBSD.
 The swap (for installation) and the root partition (if you plan to
 use the bootblocks) MUST BE WITHIN THE FIRST 4 gigabytes of the disk!
 The reason for the former is that xstreamtodev uses trackdisk.device
-compatible I/O-calls, the reason for the latter is that the bootblock 
+compatible I/O-calls, the reason for the latter is that the bootblock
 gets a 32bit partition offset from the operating system.
 .tag)
 .Pp

@@ -21,7 +21,7 @@
  * Metricom MAC addresses is done via local link-level routes.
  * The link-level addresses are entered as an 8-digit packed BCD number.
  * To add a route for a radio at IP address 10.1.2.3, with radio
- * address '1234-5678', reachable via interface strip0, use the command 
+ * address '1234-5678', reachable via interface strip0, use the command
  *
  *	route add -host 10.1.2.3  -link strip0:12:34:56:78
  */
@@ -88,7 +88,7 @@
  * pinging you can use up all your bandwidth).  Made low clist behavior
  * more robust and slightly less likely to hang serial line.
  * Sped up a bunch of things.
- * 
+ *
  * Note that splimp() is used throughout to block both (tty) input
  * interrupts and network activity; thus, splimp must be >= spltty.
  */
@@ -257,7 +257,7 @@ struct st_header {
  *
  */
 static u_char* UnStuffData __P((u_char *src, u_char *end, u_char
-				*dest, u_long dest_length)); 
+				*dest, u_long dest_length));
 
 static u_char* StuffData __P((u_char *src, u_long length, u_char *dest,
 			      u_char **code_ptr_ptr));
@@ -411,7 +411,7 @@ stripinit(sc)
 		else {
 			printf("%s: can't allocate buffer\n",
 			    sc->sc_if.if_xname);
-			
+
 			sc->sc_if.if_flags &= ~IFF_UP;
 			return (0);
 		}
@@ -628,7 +628,7 @@ bad:
 }
 
 
-/* 
+/*
  *  Prepend a STRIP header to the packet.
  * (based on 4.4bsd if_ppp)
  *
@@ -790,7 +790,7 @@ stripoutput(ifp, m, dst, rt)
 		sc->sc_if.if_noproto++;
 		return (EAFNOSUPPORT);
 	}
-	
+
 	ifq = &sc->sc_if.if_snd;
 	ip = mtod(m, struct ip *);
 	if (sc->sc_if.if_flags & SC_NOICMP && ip->ip_p == IPPROTO_ICMP) {
@@ -1087,7 +1087,7 @@ strip_btom(sc, len)
 		/*
 		 * XXX this is that evil trick I mentioned...
 		 */
-		p = sc->sc_xxx; 
+		p = sc->sc_xxx;
 		sc->sc_xxx = (u_char *)malloc(MCLBYTES, M_MBUF, M_NOWAIT);
 		if (sc->sc_xxx == NULL) {
 			/*
@@ -1460,7 +1460,7 @@ strip_timeout(x)
     splx(s);
 }
 
-	
+
 /*
  * Strip watchdog routine.
  * The radio hardware is balky. When sent long packets or bursts of small
@@ -1627,7 +1627,7 @@ strip_newpacket(sc, ptr, end)
 	/* Check for SRIP key, and skip over it */
 	if (ptr[0] != 'S' || ptr[1] != 'I' || ptr[2] != 'P' || ptr[3] != '0') {
 		if (ptr[0] == 'E' && ptr[1] == 'R' && ptr[2] == 'R' &&
-		    ptr[3] == '_') { 
+		    ptr[3] == '_') {
 			*name_end = 0;
 			RecvErr_Message(sc, name, ptr+4);
 		 }
@@ -1687,7 +1687,7 @@ typedef enum
 	Stuff_Same      = 0x80,
 	Stuff_Zero      = 0xC0,
 	Stuff_NoCode    = 0xFF,		/* Special code, meaning no code selected */
-	
+
 	Stuff_CodeMask  = 0xC0,
 	Stuff_CountMask = 0x3F,
 	Stuff_MaxCount  = 0x3F,
@@ -1708,7 +1708,7 @@ typedef enum
  * to NULL;  between subsequent calls the calling routine should leave
  * the value alone and simply pass it back unchanged so that the
  * encoder can recover its current state.
- */ 
+ */
 
 #define StuffData_FinishBlock(X) \
 	(*code_ptr = (X) ^ Stuff_Magic, code = Stuff_NoCode)
@@ -1719,9 +1719,9 @@ StuffData(u_char *src, u_long length, u_char *dest, u_char **code_ptr_ptr)
 	u_char *end = src + length;
 	u_char *code_ptr = *code_ptr_ptr;
 	u_char code = Stuff_NoCode, count = 0;
-	
+
 	if (!length) return(dest);
-	
+
 	if (code_ptr) {	/* Recover state from last call, if applicable */
 		code  = (*code_ptr ^ Stuff_Magic) & Stuff_CodeMask;
 		count = (*code_ptr ^ Stuff_Magic) & Stuff_CountMask;
@@ -1751,7 +1751,7 @@ StuffData(u_char *src, u_long length, u_char *dest, u_char **code_ptr_ptr)
 		 * Stuff_Zero: We already have at least one zero encoded
 		 */
 		case Stuff_Zero:
-		  	
+
 			/* If another zero, count it, else finish this code block */
 			if (*src == 0) {
 				count++;
@@ -1824,14 +1824,14 @@ StuffData(u_char *src, u_long length, u_char *dest, u_char **code_ptr_ptr)
  * "end".  It writes the decoded data into the buffer pointed to by
  * "dst", up to a  maximum of "dst_length", and returns the new
  * value of "src" so that a follow-on call can read more data,
- * continuing from where the first left off. 
+ * continuing from where the first left off.
  *
  * There are three types of results:
  * 1. The source data runs out before extracting "dst_length" bytes:
  *    UnStuffData returns NULL to indicate failure.
  * 2. The source data produces exactly "dst_length" bytes:
  *    UnStuffData returns new_src = end to indicate that all bytes
- *    were consumed. 
+ *    were consumed.
  * 3. "dst_length" bytes are extracted, with more
  *     remaining. UnStuffData returns new_src < end to indicate that
  *     there are more bytes to be read.

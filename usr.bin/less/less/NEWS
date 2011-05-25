@@ -7,7 +7,7 @@
       http://www.flash.net/~marknu/less
   You can also download the latest version of less from there.
 
-  The email address for questions about less 
+  The email address for questions about less
   has been changed to marknu@flash.net.
 
 ======================================================================
@@ -21,7 +21,7 @@
 
 * New -W flag highlights the first new line after any forward movement.
 
-* Window resize works even if LINES and/or COLUMNS environment 
+* Window resize works even if LINES and/or COLUMNS environment
   variables are incorrect.
 
 * New percent escapes for prompt strings:
@@ -45,7 +45,7 @@
 * Now works correctly on Windows when using a scrolling terminal
   window (buffer larger than display window).
 
-* On Windows, now restores the console screen on exit.  
+* On Windows, now restores the console screen on exit.
   Use -X to get the old behavior.
 
 * Fixed bug on Windows when CAPS-LOCK or NUM-LOCK is pressed.
@@ -73,7 +73,7 @@
 
 * Added commands ESC-( and ESC-), same as ESC-[ and ESC-].
 
-* A "quit" command defined in a lesskey file may now have an "extra" 
+* A "quit" command defined in a lesskey file may now have an "extra"
   string, which is used to return an exit code from less when it quits.
 
 * New environment variables LESSMETACHARS and LESSMETAESCAPE provide
@@ -90,7 +90,7 @@
 
 	Major changes between "less" versions 291 and 321
 
-* Command line at bottom of screen now scrolls, so it can be longer 
+* Command line at bottom of screen now scrolls, so it can be longer
   than the screen width.
 
 * New commands ESC-] and ESC-[ scroll the display horizontally.
@@ -115,7 +115,7 @@
 * Command line argument "--" signals that the rest of the arguments
   are files (not option flags).
 
-* Help file (less.hlp) is no longer installed.  Help text is now 
+* Help file (less.hlp) is no longer installed.  Help text is now
   embedded in the less executable itself.
 
 * Added -Ph to change the prompt for the help text.
@@ -157,16 +157,16 @@
 * A LESSOPEN preprocessor may now pipe the converted file data to less,
   rather than writing it to a temporary file.
 
-* Search pattern highlighting has been fixed.  It now highlights 
+* Search pattern highlighting has been fixed.  It now highlights
   reliably, even if a string is split across two screen lines,
   contains TABs, etc.
 
-* The -F flag (which suppress search highlighting) has been changed 
-  to -G.  A new flag, -g, changes search highlighting to highlight 
-  only the string found by the last search command, instead of all 
+* The -F flag (which suppress search highlighting) has been changed
+  to -G.  A new flag, -g, changes search highlighting to highlight
+  only the string found by the last search command, instead of all
   strings which match the last search command.
 
-* New flag -I acts like -i, but ignores case even if the search 
+* New flag -I acts like -i, but ignores case even if the search
   pattern contains uppercase letters.
 
 * Less now checks for the environment variable VISUAL before EDITOR.
@@ -180,7 +180,7 @@
 
 * Changes in line-editing keys:
   The literal key is now ^V or ^A rather than \ (backslash).
-  Filename completion commands (TAB and ^L) are disabled 
+  Filename completion commands (TAB and ^L) are disabled
   when typing a search pattern.
 
 * Line-editing command keys can be redefined using lesskey.
@@ -192,7 +192,7 @@
 
 * New option -V displays version number of lesskey.
 
-* Help file less.hlp is now installed by default in /usr/local/share 
+* Help file less.hlp is now installed by default in /usr/local/share
   rather than /usr/local/lib.
 
 
@@ -208,17 +208,17 @@
   have a regular expression library.
   regexp.c is Copyright (c) 1986 by University of Toronto.
 
-* New line-editing keys, including command history (arrow keys) and 
+* New line-editing keys, including command history (arrow keys) and
   filename completion (TAB).
 
 * Input preprocessor allows modification of input files (e.g. uncompress)
   via LESSOPEN/LESSCLOSE environment variables.
 
 * New -X flag disables sending termcap "ti" and "te" (initialize and
-  deinitialize) strings to the terminal. 
+  deinitialize) strings to the terminal.
 
 * Changing -i from within less now correctly affects a subsequent
-  repeated search.  
+  repeated search.
 
 * Searching for underlined or overstruck text now works when the -u
   flag is in effect, rather than the -i flag.
@@ -238,18 +238,18 @@
           Things that may surprise you
         ********************************
 
-* When you enter text at the bottom of the screen (search string, 
-  filename, etc.), some keys act different than previously.  
-  Specifically, \ (backslash), ESC, TAB, BACKTAB, and control-L 
+* When you enter text at the bottom of the screen (search string,
+  filename, etc.), some keys act different than previously.
+  Specifically, \ (backslash), ESC, TAB, BACKTAB, and control-L
   now have line editing functions.
 
 * Some previous unofficial versions of less were able to display
   compressed files.  The new LESSOPEN/LESSCLOSE feature now provides
   this functionality in a different way.
 
-* Some previous unofficial versions of less provided a -Z flag to 
+* Some previous unofficial versions of less provided a -Z flag to
   set the number of lines of text to retain between full screen scrolls.
-  The -z-n flag (that is, -z with a negative number) provides this 
+  The -z-n flag (that is, -z with a negative number) provides this
   functionality.
 
 
@@ -268,7 +268,7 @@
 * New option -T specifies a "tags" file.
 
 * Non-printable, non-control characters are displayed in octal.
-  Such characters, as well as control characters, are displayed 
+  Such characters, as well as control characters, are displayed
   in blinking mode.
 
 * New command -+ sets an option to its default.
@@ -330,19 +330,19 @@
 * File marks (set by the m command) are now preserved when a new
   file is edited.  The ' command can thus be used to switch files.
 
-* New command ESC-/ searches all files (on the command line) 
+* New command ESC-/ searches all files (on the command line)
   for a pattern.
 
 * New command ESC-n repeats previous search, spanning files.
 
 * The N command has been changed to repeat the previous search
-  in the reverse direction.  The old N command is still available 
+  in the reverse direction.  The old N command is still available
   via :n.
 
 * New command ESC-N repeats previous search in the reverse
   direction and spanning files.
 
-* 8 bit characters are now supported.  A new option (-g) can be 
+* 8 bit characters are now supported.  A new option (-g) can be
   used to strip off the eighth bit (the previous behavior).
 
 * Options which take a following string (like -t) may now
@@ -365,9 +365,9 @@
 * Examining a file which was previously examined will return
   to the same position in the file.
 
-* A "%" is expanded to the current filename and a "#" to the 
+* A "%" is expanded to the current filename and a "#" to the
   previous filename, in both shell commands and the E command.
-  (Previously % worked only in shell commands and # worked 
+  (Previously % worked only in shell commands and # worked
   only in the E command.)
 
 * New command ":ta" is equivalent to "-t".

@@ -140,7 +140,7 @@ OK, let's configure our sendmail.cf!  I'll just go from the top down...
    use to distinguish between local and non-local hosts.  Look at the
    sendmail doc for details on this stuff.
 
-	Kmailhosts nis -f -m -a. mailhosts 
+	Kmailhosts nis -f -m -a. mailhosts
 
 5) You might wish to add the following line to support Errors-To: headers.
    I don't.

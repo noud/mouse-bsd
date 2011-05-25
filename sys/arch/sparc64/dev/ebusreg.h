@@ -62,7 +62,7 @@
  */
 
 struct ebus_regs {
-	u_int32_t	hi;		/* high bits of physaddr */ 
+	u_int32_t	hi;		/* high bits of physaddr */
 	u_int32_t	lo;
 	u_int32_t	size;
 };

@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -257,7 +257,7 @@ md_make_bsd_partitions(void)
 	bsdlabel[C].pi_fstype = FS_UNUSED;
 	bsdlabel[C].pi_offset = ptstart;
 	bsdlabel[C].pi_size = fsptsize;
-	
+
 	bsdlabel[D].pi_fstype = FS_UNUSED;
 	bsdlabel[D].pi_offset = 0;
 	bsdlabel[D].pi_size = fsdsize;
@@ -335,7 +335,7 @@ custom:		ask_sizemult();
 		strcpy (fsmount[A], "/");
 		partstart += partsize;
 		remain -= partsize;
-		
+
 		/* swap */
 		i = NUMSEC( 2 * (rammb < 16 ? 16 : rammb),
 			   MEG/sectorsize, dlcylsize) + partstart;
@@ -349,7 +349,7 @@ custom:		ask_sizemult();
 		bsdlabel[B].pi_size = partsize;
 		partstart += partsize;
 		remain -= partsize;
-		
+
 		/* Others E, F, G, H */
 		part = E;
 		if (remain > 0)
@@ -376,7 +376,7 @@ custom:		ask_sizemult();
 			}
 			part++;
 		}
-		
+
 		break;
 	}
 

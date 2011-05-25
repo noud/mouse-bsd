@@ -234,7 +234,7 @@ main(argc, argv)
 	 * The following is a work around for vhangup interactions
 	 * which cause great problems getting window systems started.
 	 * If the tty line is "-", we do the old style getty presuming
-	 * that the file descriptors are already set up for us. 
+	 * that the file descriptors are already set up for us.
 	 * J. Gettys - MIT Project Athena.
 	 */
 	if (argc <= 2 || strcmp(argv[2], "-") == 0) {
@@ -337,9 +337,9 @@ main(argc, argv)
 			putpad(CL);
 		edithost(HE);
 
-                /* 
+                /*
                  * If this is the first time through this, and an
-                 * issue file has been given, then send it. 
+                 * issue file has been given, then send it.
                  */
 		if (first_time != 0 && IF != NULL) {
 			char buf[_POSIX2_LINE_MAX];
@@ -352,7 +352,7 @@ main(argc, argv)
 			}
 		}
 		first_time = 0;
-                    
+
 		if (IM && *IM)
 			putf(IM);
 		oflush();
@@ -382,8 +382,8 @@ main(argc, argv)
 		        execle(PP, "ppplogin", ttyn, (char *) 0, env);
 		        syslog(LOG_ERR, "%s: %m", PP);
 		        exit(1);
-		} 
-		
+		}
+
 		if (rval || AL) {
 			int i;
 
@@ -419,7 +419,7 @@ main(argc, argv)
 			limit.rlim_max = RLIM_INFINITY;
 			limit.rlim_cur = RLIM_INFINITY;
 			(void)setrlimit(RLIMIT_CPU, &limit);
-			execle(LO, "login", AL ? "-fp" : "-p", "--", name, 
+			execle(LO, "login", AL ? "-fp" : "-p", "--", name,
 			    (char *)0, env);
 			syslog(LOG_ERR, "%s: %m", LO);
 			exit(1);
@@ -440,7 +440,7 @@ getname()
 	char *np;
 	unsigned char cs;
 	int ppp_state, ppp_connection;
-	
+
 	/*
 	 * Interrupt may happen if we use CBREAK mode
 	 */

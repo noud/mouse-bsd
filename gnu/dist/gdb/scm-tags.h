@@ -4,17 +4,17 @@
 #ifndef TAGSH
 #define TAGSH
 /*	Copyright (C) 1995 Free Software Foundation, Inc.
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
@@ -41,18 +41,18 @@
  *
  * If you write modifications of your own for GUILE, it is your choice
  * whether to permit this exception to apply to your modifications.
- * If you do not wish that, delete this exception notice.  
+ * If you do not wish that, delete this exception notice.
  */
 
 
-/** This file defines the format of SCM values and cons pairs.  
+/** This file defines the format of SCM values and cons pairs.
  ** It is here that tag bits are assigned for various purposes.
  **/
 
 
 /* Three Bit Tags
  *
- * 000 -- a non-immediate value.  Points into the pair heap.  
+ * 000 -- a non-immediate value.  Points into the pair heap.
  *
  * 001 -- a gloc (i.e., a resolved global variable in a CAR in a code graph)
  *	  or the CAR of an object handle (i.e., the tagged pointer to the
@@ -64,7 +64,7 @@
  *	  about glocs.  In most cases, when a value in the CAR of a pair
  *	  has the tag 001, it means that the pair is an object handle.
  *
- * 010 -- the tag for immediate, exact integers. 
+ * 010 -- the tag for immediate, exact integers.
  *
  * 011 -- in the CAR of a pair, this tag indicates that the pair is a closure.
  *	  The remaining bits of the CAR are a pointer into the pair heap
@@ -201,7 +201,7 @@ typedef long SCM;
 
 
 
-/* Immediate? Predicates 
+/* Immediate? Predicates
  */
 #define SCM_IMP(x) 	(6 & (int)(x))
 #define SCM_NIMP(x) 	(!SCM_IMP(x))
@@ -246,7 +246,7 @@ enum scm_tags
 #define SCM_MAKISYM(n) 		(((n)<<9)+0x74L)
 #define SCM_MAKIFLAG(n) 	(((n)<<9)+0x174L)
 
-/* This table must agree with the declarations 
+/* This table must agree with the declarations
  * in repl.c: {Names of immediate symbols}.
  *
  * These are used only in eval but their values
@@ -337,14 +337,14 @@ enum scm_tags
 
 
 
-/* Lvectors 
+/* Lvectors
  */
 #define SCM_LVECTORP(x) (TYP7(x)==tc7_lvector)
 
 
 #if 0
 
-/* Sockets 
+/* Sockets
  */
 #define tc_socket (tc7_port | OPN)
 #define SCM_SOCKP(x) (((0x7f | OPN | RDNG | WRTNG) & CAR(x))==(tc_socket))

@@ -84,7 +84,7 @@ uhci_pci_match(parent, match, aux)
 	    PCI_SUBCLASS(pa->pa_class) == PCI_SUBCLASS_SERIALBUS_USB &&
 	    PCI_INTERFACE(pa->pa_class) == PCI_INTERFACE_UHCI)
 		return (1);
- 
+
 	return (0);
 }
 
@@ -174,7 +174,7 @@ uhci_pci_attach(parent, self, aux)
 	else
 		sprintf(sc->sc.sc_vendor, "vendor 0x%04x",
 			PCI_VENDOR(pa->pa_id));
-	
+
 	r = uhci_init(&sc->sc);
 	if (r != USBD_NORMAL_COMPLETION) {
 		printf("%s: init failed, error=%d\n", devname, r);

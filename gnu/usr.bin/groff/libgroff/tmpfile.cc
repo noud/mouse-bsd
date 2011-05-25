@@ -53,7 +53,7 @@ FILE *xtmpfile()
     if (!dir)
       dir = DEFAULT_TMPDIR;
   }
-  
+
   const char *p = strrchr(dir, '/');
   int needs_slash = (!p || p[1]);
   char *templ = new char[strlen(dir) + needs_slash

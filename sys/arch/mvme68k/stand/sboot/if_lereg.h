@@ -133,7 +133,7 @@ struct lereg2 {
 #define	LE_MODE_NORMAL	0		/* none of the above */
 
 
-/* Receive message descriptor 1 (rmd1_bits) */ 
+/* Receive message descriptor 1 (rmd1_bits) */
 #define	LE_R1_OWN	0x80		/* LANCE owns the packet */
 #define	LE_R1_ERR	0x40		/* error summary */
 #define	LE_R1_FRAM	0x20		/* framing error */
@@ -146,7 +146,7 @@ struct lereg2 {
 #define LE_R1_BITS \
     "\20\10OWN\7ERR\6FRAM\5OFLO\4CRC\3BUFF\2STP\1ENP"
 
-/* Transmit message descriptor 1 (tmd1_bits) */ 
+/* Transmit message descriptor 1 (tmd1_bits) */
 #define	LE_T1_OWN	0x80		/* LANCE owns the packet */
 #define	LE_T1_ERR	0x40		/* error summary */
 #define	LE_T1_MORE	0x10		/* multiple collisions */
@@ -158,7 +158,7 @@ struct lereg2 {
 #define LE_T1_BITS \
     "\20\10OWN\7ERR\6RES\5MORE\4ONE\3DEF\2STP\1ENP"
 
-/* Transmit message descriptor 3 (tmd3) */ 
+/* Transmit message descriptor 3 (tmd3) */
 #define	LE_T3_BUFF	0x8000		/* buffer error */
 #define	LE_T3_UFLO	0x4000		/* underflow error */
 #define	LE_T3_LCOL	0x1000		/* late collision */

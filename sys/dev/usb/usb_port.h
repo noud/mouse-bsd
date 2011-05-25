@@ -39,7 +39,7 @@
  */
 
 
-/* 
+/*
  * Macro's to cope with the differences between operating systems.
  */
 

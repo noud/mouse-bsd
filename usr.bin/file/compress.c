@@ -4,7 +4,7 @@
  * compress routines:
  *	zmagic() - returns 0 if not recognized, uncompresses and prints
  *		   information if recognized
- *	uncompress(method, old, n, newch) - uncompress old into new, 
+ *	uncompress(method, old, n, newch) - uncompress old into new,
  *					    using method, return sizeof new
  */
 #include "file.h"
@@ -89,7 +89,7 @@ int n;
 	int fdin[2], fdout[2];
 
 	if (pipe(fdin) == -1 || pipe(fdout) == -1) {
-		error("cannot create pipe (%s).\n", strerror(errno));	
+		error("cannot create pipe (%s).\n", strerror(errno));
 		/*NOTREACHED*/
 	}
 	switch (fork()) {
@@ -108,7 +108,7 @@ int n;
 
 		execvp(compr[method].argv[0],
 		       (char *const *)compr[method].argv);
-		error("could not execute `%s' (%s).\n", 
+		error("could not execute `%s' (%s).\n",
 		      compr[method].argv[0], strerror(errno));
 		/*NOTREACHED*/
 	case -1:

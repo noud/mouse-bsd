@@ -434,7 +434,7 @@ scsi_attach_children(sc)
 				    target, lun, &inqbuf, sizeof(inqbuf)))
 					continue;
 			}
-			
+
 			/*
 			 * There is a device here; find a driver
 			 * to match it.
@@ -515,7 +515,7 @@ scsireset(unit)
 
 	if (hs->sc_flags & SCSI_ALIVE)
 		scsiabort(-1, hs, hd, "reset");
-		
+
 	hd->scsi_id = 0xFF;
 	DELAY(100);
 	/*
@@ -1494,7 +1494,7 @@ scsi_tt_oddio(ctlr, slave, unit, buf, len, b_flags, freedma)
  * Copy a counted string, trimming the trailing space, and turn
  * the result into a C-style string.
  */
-void    
+void
 scsi_str(src, dst, len)
 	char *src, *dst;
 	size_t len;

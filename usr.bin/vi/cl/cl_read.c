@@ -192,7 +192,7 @@ cl_read(sp, flags, bp, blen, nrp, tp)
 			break;
 		}
 	}
-	
+
 	/*
 	 * The user can enter a key in the editor to quote a character.  If we
 	 * get here and the next key is supposed to be quoted, do what we can.
@@ -306,7 +306,7 @@ err:		if (errno == EINTR)
 	return (rval);
 }
 
-/* 
+/*
  * cl_resize --
  *	Reset the options for a resize event.
  */

@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -48,9 +48,9 @@
 #define	min(a,b)	(a < b ? a : b)
 #define	max(a,b)	(a > b ? a : b)
 
-/* Define for external varible use */ 
+/* Define for external varible use */
 #ifdef MAIN
-#define EXTERN 
+#define EXTERN
 #define INIT(x) = x
 #else
 #define EXTERN extern
@@ -100,7 +100,7 @@ EXTERN int ttysig_ignore;
 EXTERN pid_t ttysig_forward;
 EXTERN int layoutkind;
 EXTERN int sizemult INIT(1);
-EXTERN const char *multname; 
+EXTERN const char *multname;
 EXTERN const char *doingwhat;
 
 /* loging variables */
@@ -147,11 +147,11 @@ EXTERN char *disktype;		/* ST506, SCSI, ... */
 EXTERN int editpart;
 
 /* Partition start and size in disk sectors. */
-EXTERN int ptstart, ptsize;	
+EXTERN int ptstart, ptsize;
 
 /* File system disk size.  File system partition size. May not include
    full disk size. */
-EXTERN int fsdsize, fsptsize;	
+EXTERN int fsdsize, fsptsize;
 
 
 EXTERN int fsdmb;
@@ -174,7 +174,7 @@ EXTERN char *doessf INIT("");
 EXTERN int  nodist;
 EXTERN int  got_dist;
 /* Relative file name for storing a distribution. */
-EXTERN char dist_dir[STRSIZE] INIT("/usr/INSTALL");  
+EXTERN char dist_dir[STRSIZE] INIT("/usr/INSTALL");
 EXTERN int  clean_dist_dir INIT(0);
 /* Absolute path name where the distribution should be extracted from. */
 

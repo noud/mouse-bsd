@@ -139,7 +139,7 @@ labelipsec(void)
 	}
 #endif
 }
-	
+
 void
 showipsec(void)
 {

@@ -52,7 +52,7 @@ __RCSID("$NetBSD: getcap.c,v 1.2 1999/03/13 19:11:54 sommerfe Exp $");
 
 #include <sys/types.h>
 #include <ctype.h>
-#include <errno.h>	
+#include <errno.h>
 #include <fcntl.h>
 #include <limits.h>
 #include <stdio.h>
@@ -208,7 +208,7 @@ getent(cap, len, db_array, fd, name, depth, nfield)
 	int myfd = 0, eof, foundit;
 	char *record;
 	int tc_not_resolved;
-	
+
 	/*
 	 * Return with ``loop detected'' error if we've recursed more than
 	 * MAX_RECURSION times.
@@ -291,7 +291,7 @@ getent(cap, len, db_array, fd, name, depth, nfield)
 			for (;;) {
 				if (bp >= b_end) {
 					int n;
-		
+
 					n = read(fd, buf, sizeof(buf));
 					if (n <= 0) {
 						if (myfd)
@@ -308,7 +308,7 @@ getent(cap, len, db_array, fd, name, depth, nfield)
 					b_end = buf+n;
 					bp = buf;
 				}
-	
+
 				c = *bp++;
 				if (c == '\n') {
 					if (slash) {
@@ -345,7 +345,7 @@ getent(cap, len, db_array, fd, name, depth, nfield)
 				*rp++ = c;
 
 				/*
-				 * Enforce loop invariant: if no room 
+				 * Enforce loop invariant: if no room
 				 * left in record buffer, try to get
 				 * some more.
 				 */
@@ -377,13 +377,13 @@ getent(cap, len, db_array, fd, name, depth, nfield)
 			 */
 			if (eof)
 				break;
-				
+
 			/*
 			 * Toss blank lines and comments.
 			 */
 			if (*record == '\0' || *record == '#')
 				continue;
-	
+
 			/*
 			 * See if this is the record we want ...
 			 */
@@ -443,7 +443,7 @@ tc_exp:	{
 			tclen = s - tcstart;
 			tcend = s;
 
-			iret = getent(&icap, &ilen, db_p, fd, tc, depth+1, 
+			iret = getent(&icap, &ilen, db_p, fd, tc, depth+1,
 				      NULL);
 			newicap = icap;		/* Put into a register. */
 			newilen = ilen;
@@ -459,11 +459,11 @@ tc_exp:	{
 					tc_not_resolved = 1;
 				/* couldn't resolve tc */
 				if (iret == -1) {
-					*(s - 1) = ':';			
+					*(s - 1) = ':';
 					scan = s - 1;
 					tc_not_resolved = 1;
 					continue;
-					
+
 				}
 			}
 			/* not interested in name field of tc'ed record */
@@ -526,7 +526,7 @@ tc_exp:	{
 			 */
 			scan = s-1;
 		}
-	
+
 	}
 	/*
 	 * Close file (if we opened it), give back any extra memory, and
@@ -536,17 +536,17 @@ tc_exp:	{
 		(void)close(fd);
 	*len = rp - record - 1;	/* don't count NUL */
 	if (r_end > rp)
-		if ((record = 
+		if ((record =
 		     realloc(record, (size_t)(rp - record))) == NULL) {
 			errno = ENOMEM;
 			return (-2);
 		}
-		
+
 	*cap = record;
 	if (tc_not_resolved)
 		return (1);
 	return (0);
-}	
+}
 
 
 /*
@@ -617,7 +617,7 @@ cgetclose()
 }
 
 /*
- * Cgetnext() gets either the first or next entry in the logical database 
+ * Cgetnext() gets either the first or next entry in the logical database
  * specified by db_array.  It returns 0 upon completion of the database, 1
  * upon returning an entry with more remaining, and -1 if an error occurs.
  */
@@ -679,10 +679,10 @@ cgetnext(bp, db_array)
 				slash = 1;
 			else
 				slash = 0;
-		}			
+		}
 
 
-		/* 
+		/*
 		 * Line points to a name line.
 		 */
 		done = 0;
@@ -724,12 +724,12 @@ cgetnext(bp, db_array)
 				*rp++ = *cp;
 
 		*rp = '\0';
-		/* 
-		 * XXX 
+		/*
+		 * XXX
 		 * Last argument of getent here should be nbuf if we want true
-		 * sequential access in the case of duplicates.  
+		 * sequential access in the case of duplicates.
 		 * With NULL, getent will return the first entry found
-		 * rather than the duplicate entry record.  This is a 
+		 * rather than the duplicate entry record.  This is a
 		 * matter of semantics that should be resolved.
 		 */
 		status = getent(bp, &dummy, db_array, -1, buf, 0, NULL);
@@ -871,10 +871,10 @@ cgetstr(buf, cap, str)
  * Cgetustr retrieves the value of the string capability cap from the
  * capability record pointed to by buf.  The difference between cgetustr()
  * and cgetstr() is that cgetustr does not decode escapes but rather treats
- * all characters literally.  A pointer to a  NUL terminated malloc'd 
- * copy of the string is returned in the char pointed to by str.  The 
+ * all characters literally.  A pointer to a  NUL terminated malloc'd
+ * copy of the string is returned in the char pointed to by str.  The
  * length of the string not including the trailing NUL is returned on success,
- * -1 if the requested string capability couldn't be found, -2 if a system 
+ * -1 if the requested string capability couldn't be found, -2 if a system
  * error was encountered (storage allocation failure).
  */
 int
@@ -1020,10 +1020,10 @@ nfcmp(nf, rec)
 {
 	char *cp, tmp;
 	int ret;
-	
+
 	for (cp = rec; *cp != ':'; cp++)
 		;
-	
+
 	tmp = *(cp + 1);
 	*(cp + 1) = '\0';
 	ret = strcmp(nf, rec);

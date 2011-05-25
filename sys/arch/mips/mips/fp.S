@@ -4499,7 +4499,7 @@ bcemul_add:
 	xor	v0, v0, t0
 	srl	v0, v0, 31
 	beq	v0, zero, addok
-	
+
 	j	_C_LABEL(bcemul_sigfpe)
 
 addok:
@@ -4550,7 +4550,7 @@ bcemul_sub:
 	xor	v0, v0, t0
 	srl	v0, v0, 31
 	beq	v0, zero, subok
-	
+
 	j	_C_LABEL(bcemul_sigfpe)
 
 subok:

@@ -88,7 +88,7 @@ char		**dr_name;
 }
 
 /*
- * Dereference the namelist pointer `v' and fill in the local copy 
+ * Dereference the namelist pointer `v' and fill in the local copy
  * 'p' which is of size 's'.
  */
 #define deref_nl(v, p, s) deref_kptr((void *)namelist[(v)].n_value, (p), (s));
@@ -145,7 +145,7 @@ dkswap()
 }
 
 /*
- * Read the disk statistics for each disk in the disk list. 
+ * Read the disk statistics for each disk in the disk list.
  * Also collect statistics for tty i/o and cpu ticks.
  */
 void
@@ -234,7 +234,7 @@ dkinit(select, egid)
 	last.dk_bytes = calloc(dk_ndrive, sizeof(u_int64_t));
 	cur.dk_select = calloc(dk_ndrive, sizeof(int));
 	cur.dk_name = calloc(dk_ndrive, sizeof(char *));
-	
+
 	if (!cur.dk_time || !cur.dk_xfer || !cur.dk_seek || !cur.dk_bytes
 	    || !last.dk_time || !last.dk_xfer || !last.dk_seek || !last.dk_bytes
 	    || !cur.dk_select || !cur.dk_name)
@@ -262,7 +262,7 @@ dkinit(select, egid)
 }
 
 /*
- * Dereference the kernel pointer `kptr' and fill in the local copy 
+ * Dereference the kernel pointer `kptr' and fill in the local copy
  * pointed to by `ptr'.  The storage space must be pre-allocated,
  * and the size of the copy passed in `len'.
  */

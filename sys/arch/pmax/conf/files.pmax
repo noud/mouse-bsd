@@ -134,7 +134,7 @@ file	arch/pmax/dev/rz.c		rz needs-count
 device  xasc: ncr53c9x,scsi
 attach  xasc at tc with xasc_pmaz
 file    arch/pmax/tc/asc_pmaz.c         xasc_pmaz needs-flag
-attach  xasc at ioasic with xasc_ioasic   
+attach  xasc at ioasic with xasc_ioasic
 file    arch/pmax/tc/asc_ioasic.c       xasc_ioasic needs-flag
 
 
@@ -160,7 +160,7 @@ file	dev/tc/if_le_ibus.c		le_pmax		needs-flag #for kn01_intr
 
 
 # Raster operations for rcons. This isn't in the rcons section, since
-# it depends on fb devices for configuration glue. 
+# it depends on fb devices for configuration glue.
 include "dev/rasops/files.rasops"
 
 

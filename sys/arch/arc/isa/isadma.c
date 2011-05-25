@@ -111,7 +111,7 @@ isadma_cascade(chan)
 
 #ifdef ISADMA_DEBUG
 	if (chan < 0 || chan > 7)
-		panic("isadma_cascade: impossible request"); 
+		panic("isadma_cascade: impossible request");
 #endif
 
 	/* set dma channel mode, and set dma channel mode */
@@ -151,7 +151,7 @@ isadma_start(addr, nbytes, chan, flags)
 	    ((flags & DMAMODE_LOOP) != 0) != 1) ||
 	    ((chan & 4) ? (nbytes >= (1<<17) || nbytes & 1 || (u_int)addr & 1) :
 	    (nbytes >= (1<<16))))
-		panic("isadma_start: impossible request"); 
+		panic("isadma_start: impossible request");
 #endif
 
 	di = dma_info+chan;

@@ -107,13 +107,13 @@ struct RF_LockTableEntry_s {
 int     rf_ConfigureStripeLockFreeList(RF_ShutdownList_t ** listp);
 RF_LockTableEntry_t *rf_MakeLockTable(void);
 void    rf_ShutdownStripeLocks(RF_LockTableEntry_t * lockTable);
-int 
+int
 rf_ConfigureStripeLocks(RF_ShutdownList_t ** listp, RF_Raid_t * raidPtr,
     RF_Config_t * cfgPtr);
-int 
+int
 rf_AcquireStripeLock(RF_LockTableEntry_t * lockTable,
     RF_StripeNum_t stripeID, RF_LockReqDesc_t * lockReqDesc);
-void 
+void
 rf_ReleaseStripeLock(RF_LockTableEntry_t * lockTable,
     RF_StripeNum_t stripeID, RF_LockReqDesc_t * lockReqDesc);
 

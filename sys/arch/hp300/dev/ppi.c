@@ -101,8 +101,8 @@ struct	ppi_softc {
 };
 
 /* sc_flags values */
-#define	PPIF_ALIVE	0x01	
-#define	PPIF_OPEN	0x02	
+#define	PPIF_ALIVE	0x01
+#define	PPIF_OPEN	0x02
 #define PPIF_UIO	0x04
 #define PPIF_TIMO	0x08
 #define PPIF_DELAY	0x10

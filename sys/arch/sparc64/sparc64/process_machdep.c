@@ -130,7 +130,7 @@ process_write_regs(p, regs)
 			tf->tf_out[i] = regs->r_out[i];
 		}
 		/* We should also read in the ins and locals.  See signal stuff */
-		tf->tf_tstate = (tf->tf_tstate & ~TSTATE_CCR) | 
+		tf->tf_tstate = (tf->tf_tstate & ~TSTATE_CCR) |
 			(regs->r_tstate & TSTATE_CCR);
 		return (0);
 	}
@@ -144,7 +144,7 @@ process_write_regs(p, regs)
 		tf->tf_out[i] = regp->r_out[i];
 	}
 	/* We should also read in the ins and locals.  See signal stuff */
-	tf->tf_tstate = (int64_t)(tf->tf_tstate & ~TSTATE_CCR) | 
+	tf->tf_tstate = (int64_t)(tf->tf_tstate & ~TSTATE_CCR) |
 		PSRCC_TO_TSTATE(regp->r_psr);
 	return (0);
 }

@@ -33,14 +33,14 @@
  * SUCH DAMAGE.
  * -
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -115,7 +115,7 @@ struct __res_state_ext _res_ext;
  * since it was noted that INADDR_ANY actually meant ``the first interface
  * you "ifconfig"'d at boot time'' and if this was a SLIP or PPP interface,
  * it had to be "up" in order for you to reach your own name server.  It
- * was later decided that since the recommended practice is to always 
+ * was later decided that since the recommended practice is to always
  * install local static routes through 127.0.0.1 for all your network
  * interfaces, that we could solve this problem without a code change.
  *
@@ -365,11 +365,11 @@ res_init()
 				if (inet_aton(net, &a)) {
 				    _res.sort_list[nsort].mask = a.s_addr;
 				} else {
-				    _res.sort_list[nsort].mask = 
+				    _res.sort_list[nsort].mask =
 					net_mask(_res.sort_list[nsort].addr);
 				}
 			    } else {
-				_res.sort_list[nsort].mask = 
+				_res.sort_list[nsort].mask =
 				    net_mask(_res.sort_list[nsort].addr);
 			    }
 #ifdef INET6
@@ -433,7 +433,7 @@ res_init()
 		    continue;
 		}
 	    }
-	    if (nserv > 1) 
+	    if (nserv > 1)
 		_res.nscount = nserv;
 	    _res.nsort = nsort;
 	    (void) fclose(fp);

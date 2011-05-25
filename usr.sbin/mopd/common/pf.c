@@ -96,7 +96,7 @@ pfInit(interface, mode, protocol, typ)
 		sizeof insns / sizeof(insns[0]),
 		insns
 	};
-	
+
   	/* Go through all the minors and find one that isn't in use. */
 	do {
 		(void) sprintf(device, "/dev/bpf%d", n++);
@@ -107,7 +107,7 @@ pfInit(interface, mode, protocol, typ)
       		syslog(LOG_ERR,"pfInit: open %s: %m", device);
 		return(-1);
 	}
-  
+
 	/* Set immediate mode so packets are processed as they arrive. */
 	immediate = 1;
 	if (ioctl(fd, BIOCIMMEDIATE, &immediate) < 0) {
@@ -158,12 +158,12 @@ pfAddMulti(s, interface, addr)
 {
 	struct ifreq ifr;
 	int	fd;
-	
+
 	strcpy(ifr.ifr_name, interface);
 
 	ifr.ifr_addr.sa_family = AF_UNSPEC;
 	memmove(ifr.ifr_addr.sa_data, addr, 6);
-	
+
 	/*
 	 * open a socket, temporarily, to use for SIOC* ioctls
 	 *
@@ -178,7 +178,7 @@ pfAddMulti(s, interface, addr)
 		return(-1);
 	}
 	close(fd);
-	
+
 	return(0);
 }
 
@@ -193,12 +193,12 @@ pfDelMulti(s, interface, addr)
 {
 	struct ifreq ifr;
 	int	fd;
-	
+
 	strcpy(ifr.ifr_name, interface);
-	
+
 	ifr.ifr_addr.sa_family = AF_UNSPEC;
 	memmove(ifr.ifr_addr.sa_data, addr, 6);
-	
+
 	/*
 	 * open a socket, temporarily, to use for SIOC* ioctls
 	 *
@@ -213,7 +213,7 @@ pfDelMulti(s, interface, addr)
 		return(-1);
 	}
 	close(fd);
-	
+
 	return(0);
 }
 
@@ -238,9 +238,9 @@ pfWrite(fd, buf, len, trans)
 	int fd, len, trans;
 	u_char *buf;
 {
-	
+
 	struct iovec iov[2];
-	
+
 	switch (trans) {
 	case TRANS_8023:
 		iov[0].iov_base = (caddr_t)buf;
@@ -258,7 +258,7 @@ pfWrite(fd, buf, len, trans)
 
 	if (writev(fd, iov, 2) == len)
 		return(len);
-	
+
 	return(-1);
 }
 

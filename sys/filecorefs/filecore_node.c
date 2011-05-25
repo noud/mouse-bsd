@@ -2,7 +2,7 @@
 
 /*-
  * Copyright (c) 1998 Andrew McMurry
- * Copyright (c) 1982, 1986, 1989, 1994 
+ * Copyright (c) 1982, 1986, 1989, 1994
  *           The Regents of the University of California.
  * All rights reserved.
  *
@@ -169,10 +169,10 @@ filecore_inactive(v)
 	struct proc *p = ap->a_p;
 	struct filecore_node *ip = VTOI(vp);
 	int error = 0;
-	
+
 	if (prtactive && vp->v_usecount != 0)
 		vprint("filecore_inactive: pushing active", vp);
-	
+
 	ip->i_flag = 0;
 	VOP_UNLOCK(vp, 0);
 	/*
@@ -197,7 +197,7 @@ filecore_reclaim(v)
 	} */ *ap = v;
 	struct vnode *vp = ap->a_vp;
 	struct filecore_node *ip = VTOI(vp);
-	
+
 	if (prtactive && vp->v_usecount != 0)
 		vprint("filecore_reclaim: pushing active", vp);
 	/*

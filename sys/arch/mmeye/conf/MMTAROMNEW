@@ -30,7 +30,7 @@ options		INITTODR_ALWAYS_USE_RTC
 options 	INSECURE	# disable kernel security levels
 
 options 	RTC_OFFSET=0	# hardware clock is this many mins. west of GMT
-options 	HZ=10		# clock interrupt generates every 1/10 sec 
+options 	HZ=10		# clock interrupt generates every 1/10 sec
 				# for Debug
 #options 	NTP		# NTP phase/frequency locked loop
 
@@ -128,7 +128,7 @@ shb* at mainbus?
 
 # PCMCIA bus support
 pcmcia*	at shpcic? controller ? socket ?
-#pcmcia*	at shb? 
+#pcmcia*	at shb?
 
 # SH PCMCIA controllers
 shpcic0	at shb? port 0xb000000a iomem 0xb8000000 iosiz 0x4000000

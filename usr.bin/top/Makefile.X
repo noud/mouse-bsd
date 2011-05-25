@@ -75,7 +75,7 @@ lint: sigdesc.h
 	$(LINT) $(LINTFLAGS) $(CFILES)
 
 # include file dependencies
-top.o: boolean.h display.h screen.h top.h top.local.h utils.h machine.h 
+top.o: boolean.h display.h screen.h top.h top.local.h utils.h machine.h
 commands.o: boolean.h sigdesc.h utils.h
 display.o: boolean.h display.h layout.h screen.h top.h top.local.h utils.h
 screen.o: boolean.h screen.h

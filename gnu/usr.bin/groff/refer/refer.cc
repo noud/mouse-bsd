@@ -119,7 +119,7 @@ int main(int argc, char **argv)
        !finished_options && argc > 0 && argv[0][0] == '-'
        && argv[0][1] != '\0';
        argv++, argc--) {
-    const char *opt = argv[0] + 1; 
+    const char *opt = argv[0] + 1;
     while (opt != 0 && *opt != '\0') {
       switch (*opt) {
       case 'C':
@@ -1212,10 +1212,10 @@ unsigned hash_string(const char *s, int len)
 
 int next_size(int n)
 {
-  static const int table_sizes[] = { 
+  static const int table_sizes[] = {
     101, 503, 1009, 2003, 3001, 4001, 5003, 10007, 20011, 40009,
     80021, 160001, 500009, 1000003, 2000003, 4000037, 8000009,
-    16000057, 32000011, 64000031, 128000003, 0 
+    16000057, 32000011, 64000031, 128000003, 0
   };
 
   const int *p;

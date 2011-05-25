@@ -93,9 +93,9 @@ extern struct emul emul_hpux;
 #endif
 
 /* XXX ITE interface */
-char *kbd_keymap; 
+char *kbd_keymap;
 char *kbd_shiftmap;
-char *kbd_ctrlmap; 
+char *kbd_ctrlmap;
 char *kbd_ctrlshiftmap;
 char **kbd_stringmap;
 
@@ -219,7 +219,7 @@ hilopen(dev, flags, mode, p)
 		printf("hilopen(%d): loop %x device %x\n",
 		       p->p_pid, HILLOOP(dev), device);
 #endif
-	
+
 	if ((hilp->hl_device[HILLOOPDEV].hd_flags & HIL_ALIVE) == 0)
 		return(ENXIO);
 
@@ -507,7 +507,7 @@ hilioctl(dev, cmd, data, flag, p)
 			data[4-i] = hold;
 		}
 		break;
-		
+
 	case HILIOCRT:
 		for (i = 0; i < 4; i++) {
 			send_hil_cmd(hilp->hl_addr, (cmd & 0xFF) + i,
@@ -584,7 +584,7 @@ hilioctl(dev, cmd, data, flag, p)
         case HILIOCRESET:
 	        hilreset(hilp);
 		break;
-		
+
 #ifdef DEBUG
         case HILIOCTEST:
 		hildebug = *(int *) data;
@@ -675,7 +675,7 @@ hpuxhilioctl(dev, cmd, data, flag)
 			data[4-i] = hold;
 		}
 		break;
-		
+
 	case EFTRT:
 		for (i = 0; i < 4; i++) {
 			send_hil_cmd(hilp->hl_addr, (cmd & 0xFF) + i,
@@ -689,13 +689,13 @@ hpuxhilioctl(dev, cmd, data, flag)
 		send_hil_cmd(hilp->hl_addr, (cmd & 0xFF), NULL, 0, &hold);
 		*data = hold;
 		break;
-		
+
         case EFTSRPG:
         case EFTSRD:
         case EFTSRR:
 		send_hil_cmd(hilp->hl_addr, (cmd & 0xFF), data, 1, NULL);
 		break;
-		
+
 	case EFTSBI:
 #ifdef hp800
 		/* XXX big magic */
@@ -849,7 +849,7 @@ hil_process_int(hilp, stat, c)
 		itefilter(stat, c);
 		return;
 #endif
-		
+
 	case HIL_STATUS:			/* The status info. */
 		if (c & HIL_ERROR) {
 		  	hilp->hl_cmddone = TRUE;
@@ -886,12 +886,12 @@ hil_process_int(hilp, stat, c)
 			   if (hilp->hl_cmdending) {
 				hilp->hl_cmddone = TRUE;
 				hilp->hl_cmdending = FALSE;
-			   } else  
+			   } else
 				*hilp->hl_cmdbp++ = c;
 		        }
 		}
 		return;
-		
+
 	case 0:		/* force full jump table */
 	default:
 		return;
@@ -961,7 +961,7 @@ hilevent(hilp)
 			continue;
 		mask &= ~hilqmask(qnum);
 		hq = hilp->hl_queue[qnum].hq_eventqueue;
-		
+
 		/*
 		 * Ensure that queue fields that we rely on are valid
 		 * and that there is space in the queue.  If either
@@ -1553,7 +1553,7 @@ hiliddev(hilp)
 			send_hildev_cmd(hilp, i, HILSECURITY);
 			break;
 		}
-	}		
+	}
 	hilp->hl_cmdbp = hilp->hl_cmdbuf;
 	hilp->hl_cmddev = 0;
 #ifdef DEBUG
@@ -1709,7 +1709,7 @@ polloff(hildevice)
 	/*
 	 * Must wait til polling is really stopped
 	 */
-	do {	
+	do {
 		HILWAIT(hildevice);
 		WRITEHILCMD(hildevice, HIL_READBUSY);
 		HILDATAWAIT(hildevice);
@@ -1794,7 +1794,7 @@ hilreport(hilp)
 			printf("hil%d: sc: ", i);
 			printhilcmdbuf(hilp);
 		}
-	}		
+	}
 	hilp->hl_cmdbp = hilp->hl_cmdbuf;
 	hilp->hl_cmddev = 0;
 	splx(s);

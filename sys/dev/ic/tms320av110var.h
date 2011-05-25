@@ -105,7 +105,7 @@ static void tav_write_short __P((bus_space_tag_t, bus_space_handle_t,
 
 #define tav_write_byte(ioh, iot, off, v) bus_space_write_1(ioh, iot, off, v)
 
-static __inline void 
+static __inline void
 tav_write_short(iot, ioh, off, val)
 	bus_space_tag_t iot;
 	bus_space_handle_t ioh;

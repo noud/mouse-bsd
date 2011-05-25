@@ -45,7 +45,7 @@ set_item_userptr(param_item, userptr)
         char *userptr;
 {
 	ITEM *item = (param_item != NULL) ? param_item : &_menui_default_item;
-	
+
         if ((item->userptr = (char *) malloc(strlen(userptr))) == NULL)
                 return E_SYSTEM_ERROR;
 

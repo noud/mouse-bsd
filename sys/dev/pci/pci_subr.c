@@ -52,7 +52,7 @@
 
 static void pci_conf_print_common __P((pci_chipset_tag_t, pcitag_t,
     const pcireg_t *regs));
-static void pci_conf_print_bar __P((pci_chipset_tag_t, pcitag_t, 
+static void pci_conf_print_bar __P((pci_chipset_tag_t, pcitag_t,
     const pcireg_t *regs, int, const char *));
 static void pci_conf_print_regs __P((const pcireg_t *regs, int first,
     int pastlast));

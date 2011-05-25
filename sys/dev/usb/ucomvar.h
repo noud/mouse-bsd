@@ -50,14 +50,14 @@
 struct	ucom_softc;
 
 struct ucom_methods {
-	void (*ucom_get_status)__P((void *sc, int portno, 
+	void (*ucom_get_status)__P((void *sc, int portno,
 				    u_char *lsr, u_char *msr));
 	void (*ucom_set)__P((void *sc, int portno, int reg, int onoff));
 #define UCOM_SET_DTR 1
 #define UCOM_SET_RTS 2
 #define UCOM_SET_BREAK 3
 	int (*ucom_param)__P((void *sc, int portno, struct termios *));
-	int (*ucom_ioctl)__P((void *sc, int portno, u_long cmd, 
+	int (*ucom_ioctl)__P((void *sc, int portno, u_long cmd,
 			      caddr_t data, int flag, struct proc *p));
 	void (*ucom_open)__P((void *sc, int portno));
 	void (*ucom_close)__P((void *sc, int portno));

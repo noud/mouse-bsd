@@ -197,7 +197,7 @@ getpwcommon(struct irs_pw *this, const char *arg, const char *type) {
 	if (!(cp = strchr(cp, ':')))
 		goto cleanup;
 	*cp++ = '\0';
-	
+
 	pvt->passwd.pw_uid = atoi(cp);
 	if (!(cp = strchr(cp, ':')))
 		goto cleanup;
@@ -220,7 +220,7 @@ getpwcommon(struct irs_pw *this, const char *arg, const char *type) {
 
 	pvt->passwd.pw_shell = cp;
 	return (&pvt->passwd);
-	
+
  cleanup:
 	free(pvt->pwbuf);
 	pvt->pwbuf = NULL;

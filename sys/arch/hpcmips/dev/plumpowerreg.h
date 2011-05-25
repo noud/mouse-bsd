@@ -26,7 +26,7 @@
  *
  */
 
-/* 
+/*
  * POWER CONTROLLER
  */
 #define	PLUM_POWER_REGBASE		0x7000

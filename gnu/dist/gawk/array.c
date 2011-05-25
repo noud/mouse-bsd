@@ -2,22 +2,22 @@
  * array.c - routines for associative arrays.
  */
 
-/* 
+/*
  * Copyright (C) 1986, 1988, 1989, 1991 - 97 the Free Software Foundation, Inc.
- * 
+ *
  * This file is part of GAWK, the GNU implementation of the
  * AWK Programming Language.
- * 
+ *
  * GAWK is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * GAWK is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
@@ -149,7 +149,7 @@ unsigned long hsize;
 	h = 0;
 
 #if defined(VAXC)
-	/*	
+	/*
 	 * This was an implementation of "Duff's Device", but it has been
 	 * redone, separating the switch for extra iterations from the
 	 * loop. This is necessary because the DEC VAX-C compiler is
@@ -256,7 +256,7 @@ NODE *symbol, *subs;
  * isn't there. Returns a pointer ala get_lhs to where its value is stored.
  *
  * SYMBOL is the address of the node (or other pointer) being dereferenced.
- * SUBS is a number or string used as the subscript. 
+ * SUBS is a number or string used as the subscript.
  */
 
 NODE **
@@ -407,7 +407,7 @@ assoc_next(lookat)
 struct search *lookat;
 {
 	register NODE *symbol = lookat->sym;
-	
+
 	if (symbol == NULL)
 		fatal("null symbol in assoc_next");
 	if (symbol->var_array == NULL || lookat->idx > symbol->array_size) {
@@ -467,7 +467,7 @@ NODE *symbol;
 	static long sizes[] = { 13, 127, 1021, 8191, 16381, 32749, 65497,
 #if ! defined(MSDOS) && ! defined(OS2) && ! defined(atarist)
 				131101, 262147, 524309, 1048583, 2097169,
-				4194319, 8388617, 16777259, 33554467, 
+				4194319, 8388617, 16777259, 33554467,
 				67108879, 134217757, 268435459, 536870923,
 				1073741827
 #endif

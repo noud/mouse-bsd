@@ -37,7 +37,7 @@
  */
 
 /*
- * Startit for Phase5 PPC boards. 
+ * Startit for Phase5 PPC boards.
  */
 
 #include <sys/types.h>
@@ -55,10 +55,10 @@ startit(kp, ksize, entry, fmem, fmemsz, cmemsz,
 		bootpartoff, history;
 {
 	int i;
-	
+
 #define ONESEC
 /* #define ONESEC for (i=0; i<1000000; i++) */
-	
+
 	ONESEC *(volatile u_int16_t *)0xdff180 = 0x0f0;
 	*(volatile u_int8_t *)0xf60000 = 0x10;
 	ONESEC *(volatile u_int16_t *)0xdff180 = 0xf80;

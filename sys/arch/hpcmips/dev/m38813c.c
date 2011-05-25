@@ -102,7 +102,7 @@ m38813c_attach(parent, self, aux)
 	sc->sc_chip = &m38813c_chip;
 	sc->sc_chip->scc_cst = ca->ca_csio.cstag;
 
-	if (bus_space_map(sc->sc_chip->scc_cst, ca->ca_csio.csbase, 
+	if (bus_space_map(sc->sc_chip->scc_cst, ca->ca_csio.csbase,
 			  ca->ca_csio.cssize, 0, &sc->sc_chip->scc_csh)) {
 		printf(": can't map i/o space\n");
 	}
@@ -141,7 +141,7 @@ m38813c_cnattach(addr)
 	paddr_t addr;
 {
 	struct m38813c_chip *scc = &m38813c_chip;
-	
+
 	scc->scc_csh = MIPS_PHYS_TO_KSEG1(addr);
 
 	m38813c_ifsetup(scc);
@@ -198,7 +198,7 @@ m38813c_poll(arg)
 	}
 
 	datain= bus_space_read_1(t, h, 0);
-	
+
 	skbd_input_hook(&scc->scc_controller);
 
 	if (datain == KBR_EXTENDED0) {

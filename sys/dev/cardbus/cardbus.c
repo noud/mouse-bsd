@@ -201,16 +201,16 @@ cardbus_read_tuples(ca, cis_ptr, tuples, len)
     bus_space_handle_t bar_memh;
     bus_size_t bar_size;
     bus_addr_t bar_addr;
-    
+
     int reg;
-      
+
     memset(tuples, 0, len);
 
     cis_ptr = cis_ptr & CARDBUS_CIS_ADDRMASK;
 
     switch(cardbus_space) {
     case CARDBUS_CIS_ASI_TUPLE:
-	DPRINTF(("%s: reading CIS data from configuration space\n", 
+	DPRINTF(("%s: reading CIS data from configuration space\n",
 		 sc->sc_dev.dv_xname));
 	for (i = cis_ptr, j = 0; i < 0xff; i += 4) {
 	    u_int32_t e = (cf->cardbus_conf_read)(cc, tag, i);
@@ -248,7 +248,7 @@ cardbus_read_tuples(ca, cis_ptr, tuples, len)
 	cardbus_conf_write(cc, cf, tag, reg, 0);
 	if(Cardbus_mapreg_map(ca->ca_ct, reg,
 			      CARDBUS_MAPREG_TYPE_MEM | PCI_MAPREG_MEM_TYPE_32BIT,
-			      0, 
+			      0,
 			      NULL, &bar_memh, &bar_addr, &bar_size)) {
 	    printf("%s: failed to map memory\n", sc->sc_dev.dv_xname);
 	    return 1;
@@ -260,14 +260,14 @@ cardbus_read_tuples(ca, cis_ptr, tuples, len)
 	    int save;
 	    struct cardbus_rom_image_head rom_image;
 	    struct cardbus_rom_image *p;
-		    
+
 	    save = splhigh();
 	    /* enable rom address decoder */
 	    exrom = cardbus_conf_read(cc, cf, tag, reg);
 	    cardbus_conf_write(cc, cf, tag, reg, exrom | 1);
-	    
+
 	    command = cardbus_conf_read(cc, cf, tag, CARDBUS_COMMAND_STATUS_REG);
-	    cardbus_conf_write(cc, cf, tag, CARDBUS_COMMAND_STATUS_REG, 
+	    cardbus_conf_write(cc, cf, tag, CARDBUS_COMMAND_STATUS_REG,
 			       command | CARDBUS_COMMAND_MEM_ENABLE);
 
 	    if(cardbus_read_exrom(ca->ca_memt, bar_memh, &rom_image))
@@ -294,21 +294,21 @@ cardbus_read_tuples(ca, cis_ptr, tuples, len)
 	    splx(save);
 	} else {
 	    command = cardbus_conf_read(cc, cf, tag, CARDBUS_COMMAND_STATUS_REG);
-	    cardbus_conf_write(cc, cf, tag, CARDBUS_COMMAND_STATUS_REG, 
+	    cardbus_conf_write(cc, cf, tag, CARDBUS_COMMAND_STATUS_REG,
 			       command | CARDBUS_COMMAND_MEM_ENABLE);
 	    /* XXX byte order? */
-	    bus_space_read_region_1(ca->ca_memt, bar_memh, 
+	    bus_space_read_region_1(ca->ca_memt, bar_memh,
 				    cis_ptr, tuples, 256);
 	    found++;
 	}
 	command = cardbus_conf_read(cc, cf, tag, CARDBUS_COMMAND_STATUS_REG);
-	cardbus_conf_write(cc, cf, tag, CARDBUS_COMMAND_STATUS_REG, 
+	cardbus_conf_write(cc, cf, tag, CARDBUS_COMMAND_STATUS_REG,
 			   command & ~CARDBUS_COMMAND_MEM_ENABLE);
 	cardbus_conf_write(cc, cf, tag, reg, 0);
 #if 0
 	/* XXX unmap memory */
-	(*ca->ca_ct->ct_cf->cardbus_space_free)(ca->ca_ct, 
-						ca->ca_ct->ct_sc->sc_rbus_memt, 
+	(*ca->ca_ct->ct_cf->cardbus_space_free)(ca->ca_ct,
+						ca->ca_ct->ct_sc->sc_rbus_memt,
 						bar_memh, bar_size);
 #endif
 	break;
@@ -334,7 +334,7 @@ parse_tuple(u_int8_t *tuple, int len, void *data)
     switch(tuple[0]) {
     case PCMCIA_CISTPL_MANFID:
 	if(tuple[1] != 5) {
-	    DPRINTF(("%s: wrong length manufacturer id (%d)\n", 
+	    DPRINTF(("%s: wrong length manufacturer id (%d)\n",
 		     __func__, tuple[1]));
 	    break;
 	}
@@ -374,15 +374,15 @@ parse_tuple(u_int8_t *tuple, int len, void *data)
     case PCMCIA_CISTPL_FUNCID:
 	cis->funcid = tuple[2];
 	break;
-	
+
     case PCMCIA_CISTPL_FUNCE:
 	if(cis->funcid == PCMCIA_FUNCTION_NETWORK && tuple[1] >= 8) {
 	    if(tuple[2] == PCMCIA_TPLFE_TYPE_LAN_NID) {
 		if(tuple[3] > sizeof(cis->funce.network.netid)) {
-		    DPRINTF(("%s: unknown network id type (len = %d)\n", 
+		    DPRINTF(("%s: unknown network id type (len = %d)\n",
 			     __func__, tuple[3]));
 		} else {
-		    memcpy(cis->funce.network.netid, 
+		    memcpy(cis->funce.network.netid,
 			   tuple + 4, tuple[3]);
 		}
 	    }
@@ -457,7 +457,7 @@ cardbus_attach_card(sc)
       return 0;
     }
   }
-  
+
   bhlc = cardbus_conf_read(cc, cf, tag, CARDBUS_BHLC_REG);
   if (CARDBUS_LATTIMER(bhlc) < 0x10) {
     bhlc &= ~(CARDBUS_LATTIMER_MASK << CARDBUS_LATTIMER_SHIFT);
@@ -471,16 +471,16 @@ cardbus_attach_card(sc)
     struct cardbus_attach_args ca;
 
     tag = cardbus_make_tag(cc, cf, sc->sc_bus, sc->sc_device, function);
-  
+
     id = cardbus_conf_read(cc, cf, tag, CARDBUS_ID_REG);
     class = cardbus_conf_read(cc, cf, tag, CARDBUS_CLASS_REG);
     cis_ptr = cardbus_conf_read(cc, cf, tag, CARDBUS_CIS_REG);
-  
+
     /* Invalid vendor ID value? */
     if (CARDBUS_VENDOR(id) == CARDBUS_VENDOR_INVALID) {
       continue;
     }
-      
+
     DPRINTF(("cardbus_attach_card: Vendor 0x%x, Product 0x%x, CIS 0x%x\n",
 	     CARDBUS_VENDOR(id), CARDBUS_PRODUCT(id), cis_ptr));
 
@@ -494,9 +494,9 @@ cardbus_attach_card(sc)
     cardbus_conf_write(cc, cf, tag, CARDBUS_BASE4_REG, 0);
     cardbus_conf_write(cc, cf, tag, CARDBUS_BASE5_REG, 0);
     cardbus_conf_write(cc, cf, tag, CARDBUS_ROM_REG, 0);
-    
+
     /*
-     * We need to allocate the ct here, since we might 
+     * We need to allocate the ct here, since we might
      * need it when reading the CIS
      */
     if (NULL == (ct = (cardbus_devfunc_t)malloc(sizeof(struct cardbus_devfunc),
@@ -675,7 +675,7 @@ cardbus_detach_card(sc)
  *   Interrupt handler of pccard.
  *  args:
  *   cardbus_chipset_tag_t *cc
- *   int irq: 
+ *   int irq:
  */
 void *
 cardbus_intr_establish(cc, cf, irq, level, func, arg)
@@ -734,7 +734,7 @@ enable_function(sc, cdstatus, function)
 
 static void
 disable_function(sc, function)
-     struct cardbus_softc *sc; 
+     struct cardbus_softc *sc;
      int function;
 {
 
@@ -876,7 +876,7 @@ decode_tuples(tuple, buflen, func, data)
       break;
     }
   }
-  
+
   return 1;
 }
 

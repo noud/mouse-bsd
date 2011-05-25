@@ -201,7 +201,7 @@ CLEANFILES = libopcodes.a stamp-lib dep.sed .dep .dep1
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/../mkinstalldirs
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 LIBRARIES =  $(noinst_LIBRARIES)
 
 
@@ -209,7 +209,7 @@ DEFS = @DEFS@ -I. -I$(srcdir) -I.
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-libopcodes_a_LIBADD = 
+libopcodes_a_LIBADD =
 libopcodes_a_SOURCES = libopcodes.a.c
 libopcodes_a_OBJECTS =  libopcodes.a.o
 LTLIBRARIES =  $(lib_LTLIBRARIES)
@@ -234,7 +234,7 @@ default: all
 
 .SUFFIXES:
 .SUFFIXES: .S .c .lo .o .s
-$(srcdir)/Makefile.in: @MAINT@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/Makefile.in: @MAINT@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --cygnus Makefile
 
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
@@ -421,7 +421,7 @@ install-info:
 install-exec: install-libLTLIBRARIES
 	@$(NORMAL_INSTALL)
 
-install-data: 
+install-data:
 	@$(NORMAL_INSTALL)
 
 install: install-exec install-data all

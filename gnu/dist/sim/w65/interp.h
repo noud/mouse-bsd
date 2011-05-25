@@ -57,7 +57,7 @@ SET_CBIT((bits>>0)&1);  }
 #define GET_DPR 	(the_dpr)
 #define GET_IBIT	(the_ibit)
 #define GET_MBIT	(the_mbit)
-#define SET_XBIT(x)     { the_xbit = x; }       
+#define SET_XBIT(x)     { the_xbit = x; }
 #define GET_NBIT 	(the_nbit)
 #define GET_PBRPC 	(the_pc)
 #define GET_PBR_HIGH 	(the_pc & 0xff0000)

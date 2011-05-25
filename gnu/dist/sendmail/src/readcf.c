@@ -454,7 +454,7 @@ readcf(cfname, safe, e)
 				continue;
 			if (!isascii(*p) || !isdigit(*p))
 			{
-				syserr("invalid argument to V line: \"%.20s\"", 
+				syserr("invalid argument to V line: \"%.20s\"",
 					&bp[1]);
 				break;
 			}
@@ -2318,7 +2318,7 @@ setoption(opt, val, safe, sticky, e)
 			else
 			{
 				register struct group *gr;
-	
+
 				gr = getgrnam(p);
 				if (gr == NULL)
 					syserr("readcf: option RunAsUser: unknown group %s",

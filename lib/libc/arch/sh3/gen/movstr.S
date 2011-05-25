@@ -87,5 +87,5 @@ loop2:
 	tst	r6, r6
 	bf	1b
 
-	rts	
+	rts
 	nop

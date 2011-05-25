@@ -168,7 +168,7 @@ mypause (arg)
 static int
 myreadc (arg)
      PTR arg;
-{ 
+{
   return fgetc (stdin);
 }
 
@@ -344,7 +344,7 @@ arm_rdi_create_inferior (exec_file, args, env)
 
   entry_point = (CORE_ADDR) bfd_get_start_address (exec_bfd);
 
-  arm_rdi_kill ();	 
+  arm_rdi_kill ();
   remove_breakpoints ();
   init_wait_for_inferior ();
 
@@ -372,7 +372,7 @@ arm_rdi_create_inferior (exec_file, args, env)
 				      &end_of_num, 0);
 	      printf_filtered ("Setting top-of-memory to 0x%x\n",
 			       top_of_memory);
-	  
+
 	      rslt=angel_RDI_info (RDIInfo_SetTopMem, &top_of_memory, &arg2);
 	      if (rslt)
 		{
@@ -518,7 +518,7 @@ arm_rdi_fetch_registers (regno)
   unsigned long rawreg, rawregs[32];
   char cookedreg[4];
 
-  if (regno == -1) 
+  if (regno == -1)
     {
       rslt = angel_RDI_CPUread (255, 0x27fff, rawregs);
       if (rslt)
@@ -560,7 +560,7 @@ arm_rdi_fetch_registers (regno)
     }
 }
 
-static void 
+static void
 arm_rdi_prepare_to_store ()
 {
   /* Nothing to do.  */
@@ -578,7 +578,7 @@ arm_rdi_store_registers (regno)
   /* These need to be able to take 'floating point register' contents */
   unsigned long rawreg[3], rawerreg[3];
 
-  if (regno  == -1) 
+  if (regno  == -1)
     {
       for (regno = 0; regno < NUM_REGS; regno++)
 	arm_rdi_store_registers (regno);
@@ -630,7 +630,7 @@ arm_rdi_xfer_memory(memaddr, myaddr, len, should_write, target)
 	  printf_filtered ("RDI_write: %s\n", rdi_error_message (rslt));
 	}
     }
-  else 
+  else
     {
       rslt = angel_RDI_read (memaddr, myaddr, &len);
       if (rslt)
@@ -663,7 +663,7 @@ arm_rdi_files_info (ignore)
     printf_filtered ("Target can do profiling.\n");
   if (arg1 & (1 << 4))
     printf_filtered ("Target is real hardware.\n");
-  
+
   rslt = angel_RDI_info (RDIInfo_Step, &arg1, &arg2);
   if (rslt)
     {
@@ -774,7 +774,7 @@ rdi_error_message (err)
 {
   switch (err)
     {
-    case RDIError_NoError: 
+    case RDIError_NoError:
       return "no error";
     case RDIError_Reset:
       return "debuggee reset";
@@ -853,7 +853,7 @@ rdi_error_message (err)
     case RDIError_UndefinedMessage:
       return "internal error, undefined message";
     default:
-      return "undefined error message, should reset target"; 
+      return "undefined error message, should reset target";
     }
 }
 
@@ -918,7 +918,7 @@ rdi_error_signal (err)
     case RDIError_UnimplementedMessage:
     case RDIError_UndefinedMessage:
     default:
-      return TARGET_SIGNAL_UNKNOWN; 
+      return TARGET_SIGNAL_UNKNOWN;
     }
 }
 

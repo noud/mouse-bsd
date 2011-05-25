@@ -145,7 +145,7 @@ dec_3min_init()
 	kn02ba_wbflush();
 
 	ioasic_base = MIPS_PHYS_TO_KSEG1(KMIN_SYS_ASIC);
-	mips_hardware_intr = dec_3min_intr; 
+	mips_hardware_intr = dec_3min_intr;
 
 	/*
 	 * Since all the motherboard interrupts come through the
@@ -154,7 +154,7 @@ dec_3min_init()
 	 * TURBOchannel option slots, just splhigh().
 	 */
 	splvec.splbio = MIPS_SPL_0_1_2_3;
-	splvec.splnet = MIPS_SPL_0_1_2_3; 
+	splvec.splnet = MIPS_SPL_0_1_2_3;
 	splvec.spltty = MIPS_SPL_0_1_2_3;
 	splvec.splimp = MIPS_SPL_0_1_2_3;
 	splvec.splclock = MIPS_SPL_0_1_2_3;
@@ -162,17 +162,17 @@ dec_3min_init()
 
 	/* enable posting of MIPS_INT_MASK_3 to CAUSE register */
 	*(u_int32_t *)(ioasic_base + IOASIC_IMSK) = KMIN_INTR_CLOCK;
-	/* calibrate cpu_mhz value */ 
+	/* calibrate cpu_mhz value */
 	mc_cpuspeed(ioasic_base+IOASIC_SLOT_8_START, MIPS_INT_MASK_3);
 
 	*(u_int32_t *)(ioasic_base + IOASIC_LANCE_DECODE) = 0x3;
 	*(u_int32_t *)(ioasic_base + IOASIC_SCSI_DECODE) = 0xe;
-#if 0	
+#if 0
 	*(u_int32_t *)(ioasic_base + IOASIC_SCC0_DECODE) = (0x10|4);
 	*(u_int32_t *)(ioasic_base + IOASIC_SCC1_DECODE) = (0x10|6);
 	*(u_int32_t *)(ioasic_base + IOASIC_CSR) = 0x00000f00;
-#endif	
-  
+#endif
+
 	/* sanitize interrupt mask */
 	kmin_tc3_imask = (KMIN_INTR_CLOCK|KMIN_INTR_PSWARN|KMIN_INTR_TIMEOUT);
 	*(u_int32_t *)(ioasic_base + IOASIC_INTR) = 0;
@@ -489,7 +489,7 @@ done:
 	intr_depth--;
 	*(u_int32_t *)(ioasic_base + IOASIC_IMSK) = old_mask;
 
-	
+
 	return (MIPS_SR_INT_IE | (status & ~cause & MIPS_HARD_INT_MASK));
 }
 

@@ -8,7 +8,7 @@ static const char rcsid[] = "Id: db_glue.c,v 8.39 1999/10/15 19:48:57 vixie Exp"
 /*
  * Copyright (c) 1986, 1988
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -24,7 +24,7 @@ static const char rcsid[] = "Id: db_glue.c,v 8.39 1999/10/15 19:48:57 vixie Exp"
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -40,14 +40,14 @@ static const char rcsid[] = "Id: db_glue.c,v 8.39 1999/10/15 19:48:57 vixie Exp"
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -327,7 +327,7 @@ get_class(const char *class) {
 
 /* rm_datum(dp, np, pdp, savedpp)
  *	remove datum 'dp' from name 'np'.  pdp is previous data pointer.
- *	if savedpp is not NULL, and compiled with BIND_UPDATE, save 
+ *	if savedpp is not NULL, and compiled with BIND_UPDATE, save
  *      datum dp there rather than freeing the memory (caller will take
  *      care of freeing it)
  * return value:
@@ -339,7 +339,7 @@ rm_datum(struct databuf *dp, struct namebuf *np, struct databuf *pdp,
 	struct databuf *ndp = dp->d_next;
 
 	ns_debug(ns_log_db, 3, "rm_datum(%lx, %lx, %lx, %lx) -> %lx",
-		 (u_long)dp, (u_long)np->n_data, (u_long)pdp, 
+		 (u_long)dp, (u_long)np->n_data, (u_long)pdp,
 		 (u_long)savedpp, (u_long)ndp);
 	if ((dp->d_flags & DB_F_ACTIVE) == 0)
 		panic("rm_datum: DB_F_ACTIVE not set", NULL);
@@ -350,7 +350,7 @@ rm_datum(struct databuf *dp, struct namebuf *np, struct databuf *pdp,
 #ifdef BIND_UPDATE
 	if (savedpp != NULL) {
 		/* mark deleted or pending deletion */
-		dp->d_mark |= D_MARK_DELETED; 
+		dp->d_mark |= D_MARK_DELETED;
 		dp->d_next = *savedpp;
 		*savedpp = dp;
 	} else
@@ -442,7 +442,7 @@ getname(struct namebuf *np, char *buf, int buflen) {
 		i = (int) NAMELEN(*np);
 		if (i + 1 >= buflen) {
 			*cp = '\0';
-			ns_info(ns_log_db, 
+			ns_info(ns_log_db,
 				"domain name too long: %s...", buf);
 			strcpy(buf, "Name_Too_Long");
 			return;
@@ -577,7 +577,7 @@ db_lame_add(char *zone, char *server, time_t when) {
 	lame_hash_cnt++;
 }
 
-time_t 
+time_t
 db_lame_find(char *zone, struct databuf *dp) {
 	unsigned int hval = nhash(zone);
 	struct lame_hash *this;

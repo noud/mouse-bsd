@@ -96,7 +96,7 @@ struct rdblock {
 #define RDBF_DISKID	0x10	/* disk id is valid ?? */
 #define RDBF_CTRLID	0x20	/* ctrl id is valid ?? */
 #define RDBF_SYNC	0x40	/* drive supports SCSI synchronous mode */
-	
+
 struct ados_environ {
 	u_long tabsize;		/* 0: environ table size */
 	u_long sizeblock;	/* 1: n long words in a block */

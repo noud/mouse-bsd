@@ -51,7 +51,7 @@
 #include <machine/frame.h>
 #include "assym.h"
 
-	.text	
+	.text
 	.align	0
 
 Lastpending:
@@ -120,7 +120,7 @@ ASENTRY_NP(data_abort_entry)
 	add	lr, pc, #exception_exit - . - 8
 	ldr	r1, Ldata_abort_handler_address
 	ldr	pc, [r1]
-	
+
 Ldata_abort_return:	/* XXX - could just straight to exception_exit */
 	b	exception_exit
 
@@ -153,7 +153,7 @@ ASENTRY_NP(prefetch_abort_entry)
 	add	lr, pc, #exception_exit - . - 8
 	ldr	r1, Lprefetch_abort_handler_address
 	ldr	pc, [r1]
-	
+
 Lprefetch_abort_return:	/* XXX - could just straight to exception_exit */
 	b	exception_exit
 

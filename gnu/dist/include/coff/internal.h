@@ -38,7 +38,7 @@ struct internal_extra_pe_filehdr
   unsigned short e_res2[10];	/* Reserved words, all 0x0 */
   bfd_vma  e_lfanew;		/* File address of new exe header, 0x80 */
   unsigned long dos_message[16]; /* text which always follows dos header */
-  bfd_vma  nt_signature;   	/* required NT signature, 0x4550 */ 
+  bfd_vma  nt_signature;   	/* required NT signature, 0x4550 */
 };
 
 struct internal_filehdr
@@ -81,7 +81,7 @@ struct internal_filehdr
 #define F_DLL           (0x2000)
 
 /* extra structure which is used in the optional header */
-typedef struct _IMAGE_DATA_DIRECTORY 
+typedef struct _IMAGE_DATA_DIRECTORY
 {
   bfd_vma VirtualAddress;
   long    Size;
@@ -97,7 +97,7 @@ typedef struct _IMAGE_DATA_DIRECTORY
 #define PE_DEF_SECTION_ALIGNMENT 0x1000
 #define PE_DEF_FILE_ALIGNMENT 0x200
 
-struct internal_extra_pe_aouthdr 
+struct internal_extra_pe_aouthdr
 {
   /* PE stuff  */
   bfd_vma ImageBase;		/* address of specific location in memory that
@@ -108,14 +108,14 @@ struct internal_extra_pe_aouthdr
   short   MajorOperatingSystemVersion; /* minimum version of the operating */
   short   MinorOperatingSystemVersion; /* system req'd for exe, default to 1*/
   short   MajorImageVersion;	/* user defineable field to store version of */
-  short   MinorImageVersion;	/* exe or dll being created, default to 0 */ 
+  short   MinorImageVersion;	/* exe or dll being created, default to 0 */
   short   MajorSubsystemVersion; /* minimum subsystem version required to */
   short   MinorSubsystemVersion; /* run exe; default to 3.1 */
   long    Reserved1;		/* seems to be 0 */
   long    SizeOfImage;		/* size of memory to allocate for prog */
   long    SizeOfHeaders;	/* size of PE header and section table */
   long    CheckSum;		/* set to 0 */
-  short   Subsystem;	
+  short   Subsystem;
 
   /* type of subsystem exe uses for user interface,
      possible values:
@@ -126,7 +126,7 @@ struct internal_extra_pe_aouthdr
      7 - POSIX_CUI runs in Posix character subsystem */
   short   DllCharacteristics;	/* flags for DLL init, use 0 */
   bfd_vma SizeOfStackReserve;	/* amount of memory to reserve  */
-  bfd_vma SizeOfStackCommit;	/* amount of memory initially committed for 
+  bfd_vma SizeOfStackCommit;	/* amount of memory initially committed for
 				   initial thread's stack, default is 0x1000 */
   bfd_vma SizeOfHeapReserve;	/* amount of virtual memory to reserve and */
   bfd_vma SizeOfHeapCommit;	/* commit, don't know what to defaut it to */
@@ -313,7 +313,7 @@ struct internal_scnhdr
 #define STYP_LIB	 (0x0800)	/* for .lib: same as INFO */
 #define STYP_MERGE	 (0x2000)	/* merge section -- combines with text, data or bss sections only */
 #define STYP_REVERSE_PAD (0x4000)	/* section will be padded with no-op instructions wherever padding is necessary and there is a
-					
+
 									     word of contiguous bytes
 									     beginning on a word boundary. */
 

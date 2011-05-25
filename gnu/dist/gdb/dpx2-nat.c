@@ -32,7 +32,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* this table must line up with REGISTER_NAMES in tm-68k.h */
 /* symbols like 'A0' come from <sys/reg.h> */
-static int regmap[] = 
+static int regmap[] =
 {
   R0, R1, R2, R3, R4, R5, R6, R7,
   A0, A1, A2, A3, A4, A5, A6, SP,

@@ -7,7 +7,7 @@ SUBDIR+= mbr_bootsel
 
 .if (${MACHINE} == "i386" || ${MACHINE} == "bebox" || \
     ${MACHINE} == "ofppc" || ${MACHINE} == "hpcmips" || ${MACHINE} == "arc")
-PROG=	fdisk 
+PROG=	fdisk
 SRCS=	fdisk.c
 DPADD+=	${LIBUTIL}
 LDADD+=	-lutil

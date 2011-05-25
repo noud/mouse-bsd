@@ -150,7 +150,7 @@ if [ $upgradefs = YES ]; then
 fi
 
 echo	"checking the file system on ${drivename}a..."
-	
+
 fsck -f -p $upgrargs /dev/r${drivename}a
 if [ $? != 0 ]; then
 	echo	"FATAL ERROR: FILE SYSTEM UPGRADE FAILED."

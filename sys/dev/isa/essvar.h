@@ -54,7 +54,7 @@
 **	Blair Fidler	Software Engineering Australia
 **			Gold Coast, Australia.
 **
-**  CREATION DATE:  
+**  CREATION DATE:
 **
 **	May 12, 1997.
 **
@@ -129,17 +129,17 @@ struct ess_softc
 
 	u_short	sc_open;		/* reference count of open calls */
 
-	int ndevs; 
+	int ndevs;
 	u_char	gain[ESS_MAX_NDEVS][2];	/* kept in input levels */
 #define ESS_LEFT 0
 #define ESS_RIGHT 1
-	
+
 	u_int	out_port;		/* output port */
 	u_int	in_mask;		/* input ports */
 	u_int	in_port;		/* XXX needed for MI interface */
 
 	u_int	spkr_state;		/* non-null is on */
-	
+
 	struct ess_audio_channel sc_audio1; /* audio channel for record */
 	struct ess_audio_channel sc_audio2; /* audio channel for playback */
 

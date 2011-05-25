@@ -282,7 +282,7 @@ get_word_mem_da (context, addr)
 }
 
 #undef get_word_reg
-int 
+int
 get_word_reg (context, reg) sim_state_type
 * context;
      int reg;
@@ -571,17 +571,17 @@ unsigned int sb;
 unsigned int sub;
 {
 #define MASK (1<<31)
-  context->broken_flags = 0;	
-  if (sub)                        
-    PSW_CARRY = sa < sb; 		
-  else 				
-    PSW_CARRY = d < sa; 		
+  context->broken_flags = 0;
+  if (sub)
+    PSW_CARRY = sa < sb;
+  else
+    PSW_CARRY = d < sa;
   if (sub)
     PSW_OVERFLOW = (SIGN(sa) != SIGN(sb)) && (SIGN(d) == SIGN(sb));
   else
     PSW_OVERFLOW = (SIGN(sa) == SIGN(sb)) && (SIGN(d) != SIGN(sb));
 
-  PSW_SIGN = ((int)d) <0; 
+  PSW_SIGN = ((int)d) <0;
   PSW_ZERO = d == 0;
 }
 
@@ -595,10 +595,10 @@ unsigned short int sub;
   unsigned short sa = sal;
   unsigned short sb = sbl;
 #define MASK (1<<15)
-  context->broken_flags = 0;	
-  if (sub)                        
-    PSW_CARRY = sal < sbl; 		
-  else 			
+  context->broken_flags = 0;
+  if (sub)
+    PSW_CARRY = sal < sbl;
+  else
     PSW_CARRY = (d & 0x10000) != 0;
 
   if (sub)
@@ -606,7 +606,7 @@ unsigned short int sub;
   else
     PSW_OVERFLOW = (SIGN(sa) == SIGN(sb)) && (SIGN(d) != SIGN(sb));
 
-  PSW_SIGN = ((short int)d) <0; 
+  PSW_SIGN = ((short int)d) <0;
   PSW_ZERO = ((short)d) == 0;
 }
 
@@ -618,16 +618,16 @@ unsigned char sb;
 unsigned char sub;
 {
 #define MASK (1<<7)
-  context->broken_flags = 0;	
-  if (sub)                        
-    PSW_CARRY = sa < sb; 		
-  else 				
-    PSW_CARRY = d < sa; 		
+  context->broken_flags = 0;
+  if (sub)
+    PSW_CARRY = sa < sb;
+  else
+    PSW_CARRY = d < sa;
   if (sub)
     PSW_OVERFLOW = (SIGN(sa) != SIGN(sb)) && (SIGN(d) == SIGN(sb));
   else
     PSW_OVERFLOW = (SIGN(sa) == SIGN(sb)) && (SIGN(d) != SIGN(sb));
-  PSW_SIGN = ((char)d) <0; 
+  PSW_SIGN = ((char)d) <0;
   PSW_ZERO = d == 0;
 }
 

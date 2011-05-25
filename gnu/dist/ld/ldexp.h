@@ -21,7 +21,7 @@
 #define LDEXP_H
 
 /* The result of an expression tree */
-typedef struct 
+typedef struct
 {
   bfd_vma value;
   struct lang_output_section_statement_struct *section;
@@ -30,7 +30,7 @@ typedef struct
 
 
 
-typedef struct 
+typedef struct
 {
   int node_code;
   enum { etree_binary,
@@ -47,7 +47,7 @@ typedef struct
 
 
 
-typedef union etree_union 
+typedef union etree_union
 {
   node_type type;
   struct {

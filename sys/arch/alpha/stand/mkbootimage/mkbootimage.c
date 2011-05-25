@@ -110,7 +110,7 @@ main(int argc, char **argv)
 	/*
 	 * Allocate a buffer, with space to round up the input file
 	 * to the next block size boundary, and with space for the boot
-	 * block. 
+	 * block.
 	 */
 	outbufsize = roundup(insb.st_size, BOOT_BLOCK_BLOCKSIZE);
 	outbufsize += sizeof (struct boot_block);

@@ -61,7 +61,7 @@ MOD_VFS("cd9660", -1, &cd9660_vfsops);
  */
 int
 cd9660_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

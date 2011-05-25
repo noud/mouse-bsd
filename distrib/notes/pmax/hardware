@@ -1,4 +1,4 @@
-.\"	$NetBSD: hardware,v 1.9 1999/10/06 22:37:29 ad Exp $	
+.\"	$NetBSD: hardware,v 1.9 1999/10/06 22:37:29 ad Exp $
 .
 NetBSD/pmax \*V runs on the following classes of machines:
 .Bl -bullet -compact
@@ -79,13 +79,13 @@ Be sure to use either a DEC-compatible fixed-sync monitor
 or a multisync monitor that supports sync-on-green.
 .		Note)
 .It
-serial ports: 
+serial ports:
 .	Bl -hyphen -compact
 .	It
 ttya and ttyb (can be used as console if needed)
 .	El
 .It
-ethernet: 
+ethernet:
 .	Bl -hyphen -compact
 .	It
 on-board AMD Lance ethernet
@@ -95,7 +95,7 @@ TURBOchannel AMD Lance ethernet cards
 .Pq the Em PMAD
 .	El
 .It
-SCSI: 
+SCSI:
 .	Bl -hyphen -compact
 .	It
 on-board DEC
@@ -111,7 +111,7 @@ TurboChannel
 .Pq the Em PMAZ
 .	El
 .It
-DEC (LK-201 or compatible) keyboard 
+DEC (LK-201 or compatible) keyboard
 .It
 DEC
 .Em hockey puck
@@ -136,6 +136,6 @@ floppy driver for Personal DECstation machines
 TurboChannel audio hardware (LoFi)
 .El
 .(Note
-The primary obstacle to supporting the above is non-availability of sample 
+The primary obstacle to supporting the above is non-availability of sample
 hardware for development.
 .Note)

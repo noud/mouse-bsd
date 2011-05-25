@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #include <ctype.h>
 
-static boolean 
+static boolean
 scan (info, string)
      const struct bfd_arch_info * info;
      const char * string;
@@ -41,9 +41,9 @@ scan (info, string)
      architecture, eg the string m68k:68020 would match the m68k entry
      up to the :, then we get left with the machine number */
 
-  for (ptr_src = string, ptr_tst = info->arch_name; 
+  for (ptr_src = string, ptr_tst = info->arch_name;
        *ptr_src && *ptr_tst;
-       ptr_src++, ptr_tst++) 
+       ptr_src++, ptr_tst++)
     {
       if (*ptr_src != *ptr_tst) break;
     }
@@ -52,7 +52,7 @@ scan (info, string)
      colons */
   if (*ptr_src == ':')
     ptr_src++;
-  
+
   if (*ptr_src == 0)
     {
       /* nothing more, then only keep this one if it is the default
@@ -67,14 +67,14 @@ scan (info, string)
       ptr_src++;
     }
 
-  switch (number) 
+  switch (number)
     {
 
-    default:  
+    default:
       return false;
     }
 
-  if (arch != info->arch) 
+  if (arch != info->arch)
     return false;
 
   if (number != info->mach)

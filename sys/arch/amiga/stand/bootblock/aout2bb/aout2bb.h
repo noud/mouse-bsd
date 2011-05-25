@@ -40,12 +40,12 @@
  * Relocator version definitions for aout to Amiga bootblock converter.
  */
 
-/* 
+/*
  * All the tables are at the end of the bootblock, with logical start at the
  * end.
  */
 
-/* 
+/*
  * The following formats are for a length of 8 kBytes only.
  */
 

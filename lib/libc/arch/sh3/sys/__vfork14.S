@@ -67,7 +67,7 @@ err:
 	mov	#0xff, r0
 	jmp	@r2
 	nop
-	
+
 	.align 2
 LSYS___vfork14:
 	.long	SYS___vfork14

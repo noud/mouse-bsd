@@ -64,7 +64,7 @@ typedef struct RF_EvenOddConfigInfo_s {
 					 * IdentifyStripe */
 }       RF_EvenOddConfigInfo_t;
 
-int 
+int
 rf_ConfigureEvenOdd(listp, raidPtr, cfgPtr)
 	RF_ShutdownList_t **listp;
 	RF_Raid_t *raidPtr;
@@ -120,19 +120,19 @@ rf_ConfigureEvenOdd(listp, raidPtr, cfgPtr)
 	return (0);
 }
 
-int 
+int
 rf_GetDefaultNumFloatingReconBuffersEvenOdd(RF_Raid_t * raidPtr)
 {
 	return (20);
 }
 
-RF_HeadSepLimit_t 
+RF_HeadSepLimit_t
 rf_GetDefaultHeadSepLimitEvenOdd(RF_Raid_t * raidPtr)
 {
 	return (10);
 }
 
-void 
+void
 rf_IdentifyStripeEvenOdd(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t addr,
@@ -160,7 +160,7 @@ rf_IdentifyStripeEvenOdd(
 */
 
 
-void 
+void
 rf_MapParityEvenOdd(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -178,7 +178,7 @@ rf_MapParityEvenOdd(
 	    (raidSector % raidPtr->Layout.sectorsPerStripeUnit);
 }
 
-void 
+void
 rf_MapEEvenOdd(
     RF_Raid_t * raidPtr,
     RF_RaidAddr_t raidSector,
@@ -196,7 +196,7 @@ rf_MapEEvenOdd(
 	    (raidSector % raidPtr->Layout.sectorsPerStripeUnit);
 }
 
-void 
+void
 rf_EODagSelect(
     RF_Raid_t * raidPtr,
     RF_IoType_t type,
@@ -346,7 +346,7 @@ rf_EODagSelect(
 }
 
 
-int 
+int
 rf_VerifyParityEvenOdd(raidPtr, raidAddr, parityPDA, correct_it, flags)
 	RF_Raid_t *raidPtr;
 	RF_RaidAddr_t raidAddr;

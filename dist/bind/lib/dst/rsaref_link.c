@@ -87,7 +87,7 @@ static void dst_rsaref_init_random_struct(R_RANDOM_STRUCT * randomstruct);
 
 /*
  * dst_rsaref_init()  Function to answer set up function pointers for RSAREF
- *	     related functions 
+ *	     related functions
  */
 int
 dst_rsaref_init()
@@ -141,9 +141,9 @@ dst_rsaref_sign(const int mode, DST_KEY *dkey, void **context,
 
 	if (mode & SIG_MODE_INIT)
 		ctx = malloc(sizeof(*ctx));
-	else if (context) 
+	else if (context)
 		ctx = (R_SIGNATURE_CTX *) *context;
-	if (ctx == NULL) 
+	if (ctx == NULL)
 		return (-1);
 
 	if ((mode & SIG_MODE_INIT) && R_SignInit(ctx, DA_MD5))
@@ -167,7 +167,7 @@ dst_rsaref_sign(const int mode, DST_KEY *dkey, void **context,
 		SAFE_FREE(ctx);
 	}
 	else {
-		if (context == NULL) 
+		if (context == NULL)
 			return (-1);
 		*context = (void *) ctx;
 	}
@@ -196,16 +196,16 @@ dst_rsaref_sign(const int mode, DST_KEY *dkey, void **context,
 
 static int
 dst_rsaref_verify(const int mode, DST_KEY *dkey, void **context,
-		  const u_char *data,	const int len, 
+		  const u_char *data,	const int len,
 		  const u_char *signature, const int sig_len)
 {
 	R_SIGNATURE_CTX *ctx = NULL;
 
 	if (mode & SIG_MODE_INIT)
 		ctx = malloc(sizeof(*ctx));
-	else if (context) 
+	else if (context)
 		ctx = (R_SIGNATURE_CTX *) *context;
-	if (ctx == NULL) 
+	if (ctx == NULL)
 		return (-1);
 
 	if ((mode & SIG_MODE_INIT) && R_VerifyInit(ctx, DA_MD5))
@@ -222,12 +222,12 @@ dst_rsaref_verify(const int mode, DST_KEY *dkey, void **context,
 			return (-1);
 		if (signature == NULL || sig_len <= 0)
 			return (VERIFY_FINAL_FAILURE);
-		if (R_VerifyFinal(ctx, (u_char *) signature, sig_len, 
+		if (R_VerifyFinal(ctx, (u_char *) signature, sig_len,
 				  key->rk_Public_Key))
 			return (VERIFY_FINAL_FAILURE);
 	}
 	else {
-		if (context == NULL) 
+		if (context == NULL)
 			return (-1);
 		*context = (void *) ctx;
 	}
@@ -269,7 +269,7 @@ dst_rsaref_to_dns_key(const DST_KEY *in_key, u_char *out_str,
 	memset(op, 0, out_len);
 
 	/* find first non zero */
-	for (n = 0; public->exponent[n] == 0x0; n++) ;	
+	for (n = 0; public->exponent[n] == 0x0; n++) ;
 
 	n = (MAX_RSA_MODULUS_LEN - n);	/* find lenght of exponent */
 	*op++ = (u_int8_t) n;
@@ -343,7 +343,7 @@ dst_rsaref_from_dns_key(DST_KEY *s_key, const u_char *key, const int len)
 		bytes = (int) dst_s_get_int16(key_ptr);
 		key_ptr += sizeof(u_int16_t);
 	}
-	if (bytes > MAX_RSA_MODULUS_LEN) { 
+	if (bytes > MAX_RSA_MODULUS_LEN) {
 		dst_rsaref_free_key_structure(r_key);
 		return (-1);
 	}
@@ -352,7 +352,7 @@ dst_rsaref_from_dns_key(DST_KEY *s_key, const u_char *key, const int len)
 
 	key_ptr += bytes;	/* beginning of modulus */
 	bytes = len - bytes - 1;	/* length of modulus */
-	if (bytes > MAX_RSA_MODULUS_LEN) { 
+	if (bytes > MAX_RSA_MODULUS_LEN) {
 		dst_rsaref_free_key_structure(r_key);
 		return (-1);
 	}
@@ -567,7 +567,7 @@ dst_rsaref_compare_keys(const DST_KEY *dkey1, const DST_KEY *dkey2)
 {
 	RSA_Key *rkey1 = (RSA_Key *) dkey1->dk_KEY_struct;
 	RSA_Key *rkey2 = (RSA_Key *) dkey2->dk_KEY_struct;
-       
+
 	if (rkey1 == NULL && rkey2 == NULL)
 		return (0); /* same */
 	else if (rkey1 == NULL)
@@ -723,9 +723,9 @@ dst_rsaref_init_random_struct(R_RANDOM_STRUCT * randomstruct)
 	array = (u_char *) malloc(bytesNeeded);
 
 	/* extract the random data from /dev/random if present, generate
-	 *   it if not present 
-	 * first fill the buffer with semi random data 
-	 *  then fill as much as possible with good random data 
+	 *   it if not present
+	 * first fill the buffer with semi random data
+	 *  then fill as much as possible with good random data
 	 */
 	n = dst_random(DST_RAND_SEMI, bytesNeeded, array);
 	n += dst_random(DST_RAND_KEY, bytesNeeded, array);
@@ -747,7 +747,7 @@ dst_rsaref_init_random_struct(R_RANDOM_STRUCT * randomstruct)
 }
 
 
-#else 
+#else
 int /* rsaref is not available */
 dst_rsaref_init()
 {

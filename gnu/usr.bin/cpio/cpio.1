@@ -71,8 +71,8 @@ argument.
 .PP
 .B cpio
 supports the following archive formats: binary, old ASCII, new
-ASCII, crc, HPUX binary, HPUX old ASCII, old tar, and POSIX.1 tar.  
-The binary format 
+ASCII, crc, HPUX binary, HPUX old ASCII, old tar, and POSIX.1 tar.
+The binary format
 is obsolete because it encodes information about the files in a way
 that is not portable between different machine architectures.
 The old ASCII format is portable between different machine architectures,
@@ -85,7 +85,7 @@ currently, it is only supported by GNU and Unix System V R4.
 The crc format is
 like the new ASCII format, but also contains a checksum for each file
 which
-.B cpio 
+.B cpio
 calculates when creating an archive
 and verifies when the file is extracted from the archive.
 The HPUX formats are provided for compatibility with HPUX's cpio which
@@ -100,7 +100,7 @@ longer than 100 characters, and can not be used to archive "special"
 The POSIX.1 tar format can not be used to archive files with names longer
 than 255 characters (less unless they have a "/" in just the right place).
 .PP
-By default,  
+By default,
 .B cpio
 creates binary format archives, for compatibility with
 older

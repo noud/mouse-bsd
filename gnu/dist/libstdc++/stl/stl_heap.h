@@ -44,14 +44,14 @@ void __push_heap(RandomAccessIterator first, Distance holeIndex,
     *(first + holeIndex) = *(first + parent);
     holeIndex = parent;
     parent = (holeIndex - 1) / 2;
-  }    
+  }
   *(first + holeIndex) = value;
 }
 
 template <class RandomAccessIterator, class Distance, class T>
 inline void __push_heap_aux(RandomAccessIterator first,
                             RandomAccessIterator last, Distance*, T*) {
-  __push_heap(first, Distance((last - first) - 1), Distance(0), 
+  __push_heap(first, Distance((last - first) - 1), Distance(0),
               T(*(last - 1)));
 }
 
@@ -76,7 +76,7 @@ template <class RandomAccessIterator, class Compare, class Distance, class T>
 inline void __push_heap_aux(RandomAccessIterator first,
                             RandomAccessIterator last, Compare comp,
                             Distance*, T*) {
-  __push_heap(first, Distance((last - first) - 1), Distance(0), 
+  __push_heap(first, Distance((last - first) - 1), Distance(0),
               T(*(last - 1)), comp);
 }
 
@@ -169,7 +169,7 @@ void __make_heap(RandomAccessIterator first, RandomAccessIterator last, T*,
   if (last - first < 2) return;
   Distance len = last - first;
   Distance parent = (len - 2)/2;
-    
+
   while (true) {
     __adjust_heap(first, parent, len, T(*(first + parent)));
     if (parent == 0) return;
@@ -188,7 +188,7 @@ void __make_heap(RandomAccessIterator first, RandomAccessIterator last,
   if (last - first < 2) return;
   Distance len = last - first;
   Distance parent = (len - 2)/2;
-    
+
   while (true) {
     __adjust_heap(first, parent, len, T(*(first + parent)), comp);
     if (parent == 0) return;

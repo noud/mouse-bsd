@@ -159,7 +159,7 @@ gb (x)
   return read_memory_integer (x, 1) & 0xff;
 }
 
-extern CORE_ADDR 
+extern CORE_ADDR
 w65_skip_prologue (pc)
      CORE_ADDR pc;
 {

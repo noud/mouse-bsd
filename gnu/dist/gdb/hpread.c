@@ -603,7 +603,7 @@ hpread_build_psymtabs (objfile, section_offsets, mainline)
 		{
 		  pst = hpread_start_psymtab (objfile, section_offsets,
 					      "globals", 0,
-					      (hp_symnum 
+					      (hp_symnum
 					       * sizeof (struct dntt_type_block)),
 					      objfile->global_psymbols.next,
 					      objfile->static_psymbols.next);
@@ -847,7 +847,7 @@ hpread_start_psymtab (objfile, section_offsets,
 }
 
 
-/* Close off the current usage of PST.  
+/* Close off the current usage of PST.
    Returns PST or NULL if the partial symtab was empty and thrown away.
 
    FIXME:  List variables and peculiarities of same.  */
@@ -1282,7 +1282,7 @@ hpread_read_enum_type (hp_type, dn_bufp, objfile)
       sym = (struct symbol *) obstack_alloc (&objfile->symbol_obstack,
 					     sizeof (struct symbol));
       memset (sym, 0, sizeof (struct symbol));
-      SYMBOL_NAME (sym) = obsavestring (name, strlen (name), 
+      SYMBOL_NAME (sym) = obsavestring (name, strlen (name),
 					&objfile->symbol_obstack);
       SYMBOL_CLASS (sym) = LOC_CONST;
       SYMBOL_NAMESPACE (sym) = VAR_NAMESPACE;
@@ -1827,7 +1827,7 @@ hpread_process_one_debug_symbol (dn_bufp, name, section_offsets, objfile,
 	}
       start_subfile (name, NULL);
       break;
-      
+
     case DNTT_TYPE_MODULE:
       /* No need to do anything with these DNTT_TYPE_MODULE symbols anymore.  */
       break;
@@ -1840,7 +1840,7 @@ hpread_process_one_debug_symbol (dn_bufp, name, section_offsets, objfile,
 						SL_INDEX (objfile),
 						dn_bufp->dfunc.address,
 						objfile, offset);
-      
+
       WITHIN_FUNCTION (objfile) = 1;
       CURRENT_FUNCTION_VALUE (objfile) = valu;
 

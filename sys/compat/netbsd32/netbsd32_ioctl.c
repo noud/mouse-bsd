@@ -372,7 +372,7 @@ netbsd32_ioctl(p, v, retval)
 
 	/*
 	 * we need to translate some commands (_IOW) before calling sys_ioctl,
-	 * some after (_IOR), and some both (_IOWR). 
+	 * some after (_IOR), and some both (_IOWR).
 	 */
 #if 0
 	{

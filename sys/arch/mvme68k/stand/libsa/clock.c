@@ -61,6 +61,6 @@ getsecs()
 	struct mvmeprom_time m;
 
 	mvmeprom_rtc_rd(&m);
-	return (chiptotime(m.sec_BCD, m.min_BCD, m.hour_BCD, m.day_BCD, 
+	return (chiptotime(m.sec_BCD, m.min_BCD, m.hour_BCD, m.day_BCD,
 			m.month_BCD, m.year_BCD));
 }

@@ -171,7 +171,7 @@ ioat66attach(parent, self, aux)
 	}
 
 	if(bus_space_map(iot, IOAT66SHARED, 1, 0, &sc->sc_intmasq)) {
-	  printf("%s: can't map shared interupt mask\n", 
+	  printf("%s: can't map shared interupt mask\n",
 	 	 sc->sc_dev.dv_xname);
 	  return;
 	}

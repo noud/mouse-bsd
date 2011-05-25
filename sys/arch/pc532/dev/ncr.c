@@ -100,7 +100,7 @@ ncr_match(parent, cf, aux)
 {
 	struct confargs *ca = aux;
 	int unit = cf->cf_unit;
-	
+
 	if (unit != 0)	/* Only one unit */
 		return(0);
 
@@ -123,7 +123,7 @@ ncr_attach(parent, self, aux)
 	 */
 	scsi_select_ctlr(DP8490);
 
-	/* Pull in config flags. */ 
+	/* Pull in config flags. */
 	flags = ca->ca_flags | ncr_default_options;
 
 	if (flags)
@@ -347,7 +347,7 @@ static int
 ncr_pdma_out(sc, phase, datalen, data)
 	struct ncr5380_softc *sc;
 	int phase, datalen;
-	u_char *data; 
+	u_char *data;
 {
 	volatile u_char *pdma = PDMA_ADDRESS;
 	int i, s, resid;
@@ -377,7 +377,7 @@ ncr_pdma_out(sc, phase, datalen, data)
 		W4(0);
 		data += 4;
 		resid -= 4;
-		
+
 		for (; resid >= NCR_TSIZE_OUT; resid -= NCR_TSIZE_OUT) {
 			if (ncr_ready(sc) == 0) {
 				resid += 4; /* Overshot */

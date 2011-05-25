@@ -4,7 +4,7 @@
  * THIS FILE AUTOMATICALLY GENERATED.  DO NOT EDIT.
  *
  * generated from:
- *	NetBSD: eisadevs,v 1.17 1999/09/29 17:40:18 ad Exp 
+ *	NetBSD: eisadevs,v 1.17 1999/09/29 17:40:18 ad Exp
  */
 
 /*

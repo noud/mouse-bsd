@@ -267,15 +267,15 @@ vidcconsole_coldinit(vc)
 		dispsize = bootconfig.vram[0].pages * NBPG;
 		transfersize = dispsize >> 10;
 	}
-    
+
 	ptov = dispbase - phys_base;
 
 	dispend = dispstart+dispsize;
- 
+
 	vidc_currentmode = &vidcmodes[0];
 	loop = 0;
 	found = 0;
-  
+
 	while (vidcmodes[loop].pixel_rate != 0) {
   		if (vidcmodes[loop].hder == (bootconfig.width + 1)
   		    && vidcmodes[loop].vder == (bootconfig.height + 1)
@@ -309,7 +309,7 @@ vidcconsole_coldinit(vc)
 
 	dispstart = dispbase;
 	dispend = dispstart+dispsize;
-    
+
 	IOMD_WRITE_WORD(IOMD_VIDINIT, dispstart-ptov);
 	IOMD_WRITE_WORD(IOMD_VIDSTART, dispstart-ptov);
 	IOMD_WRITE_WORD(IOMD_VIDEND, (dispend-transfersize)-ptov);
@@ -331,7 +331,7 @@ void
 vidcconsole_mode(vc, mode)
 	struct vconsole *vc;
 	struct vidc_mode *mode;
-{    
+{
 	register int acc;
 	int bpp_mask;
         int log_bpp;
@@ -394,11 +394,11 @@ vidcconsole_mode(vc, mode)
 		best_r = fsyn_pref[0].r;
 		best_match = fsyn_pref[0].f;
 		best_v = fsyn_pref[0].v;
-        
+
 	/* Look up */
-        
+
 		counter=0;
-        
+
 		while (fsyn_pref[counter].r != 0) {
 			if (least_error > mod(fsyn_pref[counter].f - vidc_currentmode->pixel_rate)) {
 				best_match = fsyn_pref[counter].f;
@@ -422,12 +422,12 @@ vidcconsole_mode(vc, mode)
 					}
 				}
 		}
-    
+
 		if (best_r > 63) best_r=63;
 		if (best_v > 63) best_v=63;
 		if (best_r < 1)  best_r= 1;
 		if (best_v < 1)  best_v= 1;
-    
+
 	}
 /*
 	printf ( "best_v = %d  best_r = %d best_f = %d\n", best_v, best_r, best_match );
@@ -555,7 +555,7 @@ vidcconsole_init(vc)
 	 * I forget about its memory, which could cause a memory leak, but
 	 * this would be easily detectable and fixable
 	 */
-     
+
 #ifdef SELFTEST
 	if (vc->r_data != 0) {
 		printf( "*********************************************************\n" );
@@ -574,7 +574,7 @@ vidcconsole_init(vc)
 		MALLOC((vc->r_data), char *, sizeof(struct vidc_info),
 		    M_DEVBUF, M_NOWAIT);
 	}
-    
+
 	if (vc->r_data==0)
 		panic("render engine initialisation failed. CLEAN THIS UP!");
 
@@ -585,12 +585,12 @@ vidcconsole_init(vc)
 
 	vidcconsole_mode(vc, vidc_currentmode);
 	R_DATA->scrollback_end = dispstart;
-    
+
 	new = (struct vidc_info *)vc->r_data;
 
 	R_DATA->text_colours = 1 << R_DATA->BITSPERPIXEL;
 	if (R_DATA->text_colours > 8) R_DATA->text_colours = 8;
-    
+
 #ifdef INVERSE_CONSOLE
 	R_DATA->n_backcolour = R_DATA->text_colours - 1;
 	R_DATA->n_forecolour = 0;
@@ -618,7 +618,7 @@ vidcconsole_init(vc)
 	R_DATA->fast_render = R_DATA->forecolour | (R_DATA->backcolour<<8) | (R_DATA->font->pixel_height<<16);
 	R_DATA->blanked=0;
 	vc->BLANK(vc, BLANK_NONE);
-    
+
 	if (vc == vconsole_current)
 		vidcconsole_textpalette(vc);
 
@@ -702,7 +702,7 @@ vidcconsole_redraw(vc, x, y, a, b)
                                 c = (vc->charmap)[vc->xcur+vc->ycur*vc->xchars];
             			if ((c&BOLD)!=0)
 					R_DATA->font = R_DATA->boldfont;
-				else	
+				else
 					R_DATA->font = R_DATA->normalfont;
 				R_DATA->fast_render = ((c>>8)&0x7)|(((c>>11)&0x7)<<8)| (R_DATA->font->pixel_height<<16);
 				if ( c & BLINKING )
@@ -762,7 +762,7 @@ vidcconsole_swapin(vc)
                                 c = (vc->charmap)[vc->xcur+vc->ycur*vc->xchars];
             			if ((c&BOLD)!=0)
 					R_DATA->font = R_DATA->boldfont;
-				else	
+				else
 					R_DATA->font = R_DATA->normalfont;
 /*
     				R_DATA->forecolour = ((c>>8)&0x7);
@@ -928,7 +928,7 @@ vidcconsole_scrolldown(vc, low, high)
 
     if ( low<0 ) low = 0;
     if ( high>(vc->ychars-1) ) high=vc->ychars-1;
-    
+
     if ( ( low==0 ) && ( high==vc->ychars-1 ))
     {
         dispstart-=R_DATA->bytes_per_line;
@@ -985,17 +985,17 @@ vidcconsole_cls(vc)
 #ifdef RC7500
 	dispstart = dispbase;
 	dispend = dispstart+dispsize;
-    
+
 	IOMD_WRITE_WORD(IOMD_VIDINIT, dispstart-ptov);
 	IOMD_WRITE_WORD(IOMD_VIDSTART, dispstart-ptov);
 	IOMD_WRITE_WORD(IOMD_VIDEND, (dispend-transfersize)-ptov);
 #endif
-    
+
 	vidcconsolemc_cls ( (char *)dispstart, (char *)dispstart+R_DATA->screensize, R_DATA->backfillcolour );
     /*
 	memset((char *)dispstart,
 		R_DATA->backfillcolour, R_DATA->screensize);
-    */  
+    */
 	vc->xcur = vc->ycur = 0;
 }
 
@@ -1021,7 +1021,7 @@ vidcconsole_scrollback(vc)
 	temp = scrollback_ptr;
 
 	scrollback_ptr-=R_DATA->bytes_per_line * (vc->ychars-2);
-	
+
         if ( scrollback_ptr < dispbase )
     	    scrollback_ptr += dispsize;
 
@@ -1046,11 +1046,11 @@ vidcconsole_scrollforward(vc)
 
 	if (scrollback_ptr==0)
 	    return 0;
-	
+
 	temp = scrollback_ptr;
 
 	scrollback_ptr+=R_DATA->bytes_per_line * (vc->ychars - 2);
-	
+
         if ( scrollback_ptr >= dispend )
     	    scrollback_ptr -= dispsize;
 
@@ -1096,8 +1096,8 @@ vidcconsole_clreos(vc, code)
 	switch (code)
 	{
 		case 0:
-    			vidcconsolemc_cls ( addr, 
-				(unsigned char *)dispend, 
+    			vidcconsolemc_cls ( addr,
+				(unsigned char *)dispend,
 				R_DATA->backfillcolour );
 			if ((unsigned char *)endofscreen > (unsigned char *)dispend) {
 				char string[80];
@@ -1109,11 +1109,11 @@ vidcconsole_clreos(vc, code)
 			break;
 
 		case 1:
-    			vidcconsolemc_cls ( (unsigned char *)dispstart+R_DATA->screensize, 
-				addr, 
+    			vidcconsolemc_cls ( (unsigned char *)dispstart+R_DATA->screensize,
+				addr,
 				R_DATA->backfillcolour );
 			break;
-			
+
 		case 2:
 		default:
 			vidcconsole_cls ( vc );
@@ -1396,11 +1396,11 @@ vidcconsole_setfgcol(vc, col)
 		R_DATA->forecolour=16;
 	else
 		R_DATA->forecolour=0;
-    
+
 	R_DATA->forefillcolour = 0;
-    
+
 	R_DATA->forecolour += col;
-    
+
 /*TODO
 	if ( R_DATA->forecolour >> 1<<R_DATA->BITSPERPIXEL )
 		R_DATA->forecolour>>1;
@@ -1428,7 +1428,7 @@ vidcconsole_setbgcol(vc, col)
 
 	R_DATA->backfillcolour = 0;
 	R_DATA->backcolour += col;
- /*TODO   
+ /*TODO
 	if ( R_DATA->backcolour >> 1<<R_DATA->BITSPERPIXEL )
 		R_DATA->backcolour>>1;
 */
@@ -1489,11 +1489,11 @@ vidcconsole_sgr(vc, type)
 
 	case 1: /* bold */
             R_DATA->font = R_DATA->boldfont;
-	    break;	
+	    break;
 
 	case 22: /* not bold */
             R_DATA->font = R_DATA->normalfont;
-	    break;	
+	    break;
 
         case 5:	/* blinking */
 	    if ( R_DATA->forecolour < 16 )
@@ -1519,7 +1519,7 @@ vidcconsole_sgr(vc, type)
 	    R_DATA->forecolour = R_DATA->n_backcolour;
             R_DATA->backcolour = R_DATA->n_forecolour;
     	    break;
-            
+
         case 27: /* not reverse */
 	    R_DATA->forecolour = R_DATA->n_forecolour;
             R_DATA->backcolour = R_DATA->n_backcolour;
@@ -1561,7 +1561,7 @@ vidcconsole_blank(vc, type)
     		vidc_write(VIDC_EREG, ereg);
 #endif
 		break;
-		
+
 	case 1: /* not implemented yet */
 	case 2:
 	case 3:
@@ -1676,7 +1676,7 @@ vidcconsole_flash_go(vc)
 }
 
 /* What does this function do ? */
-int 
+int
 vidcconsole_flash(vc, flash)
 	struct vconsole *vc;
 	int flash;
@@ -1697,7 +1697,7 @@ vidcconsole_cursorflash(vc, flash)
 struct render_engine vidcconsole = {
 	vidcconsole_name,
 	vidcconsole_init,
-	
+
 	vidcconsole_putchar,
 
 	vidcconsole_spawn,

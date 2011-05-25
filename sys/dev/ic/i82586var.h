@@ -259,5 +259,5 @@ struct ie_softc {
 /* Exported functions */
 int 	i82586_intr	__P((void *));
 int 	i82586_proberam __P((struct ie_softc *));
-void 	i82586_attach 	__P((struct ie_softc *, char *, u_int8_t *, 
+void 	i82586_attach 	__P((struct ie_softc *, char *, u_int8_t *,
 			     int*, int, int));

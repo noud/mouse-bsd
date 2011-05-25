@@ -110,7 +110,7 @@ midiprobe(parent, match, aux)
 {
 	struct audio_attach_args *sa = aux;
 
-	DPRINTFN(6,("midiprobe: type=%d sa=%p hw=%p\n", 
+	DPRINTFN(6,("midiprobe: type=%d sa=%p hw=%p\n",
 		 sa->type, sa, sa->hwif));
 	return (sa->type == AUDIODEV_TYPE_MIDI) ? 1 : 0;
 }
@@ -236,7 +236,7 @@ midi_in(addr, data)
 	if (data == MIDI_ACK)
 		return;
 
-	DPRINTFN(3, ("midi_in: sc=%p data=0x%02x state=%d pos=%d\n", 
+	DPRINTFN(3, ("midi_in: sc=%p data=0x%02x state=%d pos=%d\n",
 		     sc, data, sc->in_state, sc->in_pos));
 
 	if (!(sc->flags & FREAD))
@@ -306,7 +306,7 @@ deliver:
 #endif
 
 	if (mb->used + sc->in_pos > mb->usedhigh) {
-		DPRINTF(("midi_in: buffer full, discard data=0x%02x\n", 
+		DPRINTF(("midi_in: buffer full, discard data=0x%02x\n",
 			 sc->in_msg[0]));
 		return;
 	}
@@ -423,7 +423,7 @@ midiread(dev, uio, ioflag)
 	int used, cc, n, resid;
 	int s;
 
-	DPRINTF(("midiread: %p, count=%lu\n", sc, 
+	DPRINTF(("midiread: %p, count=%lu\n", sc,
 		 (unsigned long)uio->uio_resid));
 
 	error = 0;
@@ -499,7 +499,7 @@ midi_start_output(sc, intr)
 	for (i = 0; i < mmax && mb->used > 0 && !error; i++) {
 		outp = mb->outp;
 		splx(s);
-		DPRINTFN(4, ("midi_start_output: %p i=%d, data=0x%02x\n", 
+		DPRINTFN(4, ("midi_start_output: %p i=%d, data=0x%02x\n",
 			     sc, i, *outp));
 #ifdef MIDI_SAVE
 		midisave.buf[midicnt] = *outp;
@@ -539,14 +539,14 @@ midiwrite(dev, uio, ioflag)
 	int used, cc, n;
 	int s;
 
-	DPRINTFN(2, ("midiwrite: %p, unit=%d, count=%lu\n", sc, unit, 
+	DPRINTFN(2, ("midiwrite: %p, unit=%d, count=%lu\n", sc, unit,
 		     (unsigned long)uio->uio_resid));
 
 	error = 0;
 	while (uio->uio_resid > 0 && !error) {
 		s = splaudio();
 		if (mb->used >= mb->usedhigh) {
-			DPRINTFN(3,("midi_write: sleep used=%d hiwat=%d\n", 
+			DPRINTFN(3,("midi_write: sleep used=%d hiwat=%d\n",
 				 mb->used, mb->usedhigh));
 			if (ioflag & IO_NDELAY) {
 				splx(s);
@@ -557,7 +557,7 @@ midiwrite(dev, uio, ioflag)
 				splx(s);
 				return error;
 			}
-		}			
+		}
 		used = mb->used;
 		inp = mb->inp;
 		splx(s);

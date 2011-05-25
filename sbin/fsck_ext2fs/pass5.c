@@ -112,7 +112,7 @@ pass5()
 		memset(&idesc[0], 0, sizeof idesc);
 		for (i = 0; i < 3; i++) {
 			idesc[i].id_type = ADDR;
-		}       
+		}
 
 		j = fs->e2fs.e2fs_ipg * c + 1;
 
@@ -151,7 +151,7 @@ pass5()
 
 		/* fill in unused par of the inode map */
 		for (i = fs->e2fs.e2fs_ipg / NBBY; i < fs->e2fs_bsize; i++)
-			ibmap[i] = 0xff; 
+			ibmap[i] = 0xff;
 
 		dbase = c * sblock.e2fs.e2fs_bpg +
 		    sblock.e2fs.e2fs_first_dblock;
@@ -241,7 +241,7 @@ pass5()
 	}
 }
 
-void 
+void
 print_bmap(map, size)
 	u_char *map;
 	u_int32_t size;

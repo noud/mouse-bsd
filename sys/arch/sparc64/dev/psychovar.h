@@ -87,7 +87,7 @@ struct psycho_softc {
 #define	sc_psycho_other	__sc_psycho_other
 
 	/*
-	 * PSYCHO register.  we record the base physical address of these 
+	 * PSYCHO register.  we record the base physical address of these
 	 * also as it is the base of the entire PSYCHO
 	 */
 	struct psychoreg		*sc_regs;
@@ -95,7 +95,7 @@ struct psycho_softc {
 
 	/* our tags (from parent) */
 	bus_space_tag_t			sc_bustag;
-	bus_dma_tag_t			sc_dmatag;	
+	bus_dma_tag_t			sc_dmatag;
 
 	/* config space */
 	bus_space_tag_t			sc_configtag;

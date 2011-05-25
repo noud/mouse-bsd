@@ -30,9 +30,9 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  *
 	i = (i &~ (OP_MASK_X << OP_SH_X)) | (j << OP_SH_X)
 
    Make sure you use fields that are appropriate for the instruction,
-   of course.  
+   of course.
 
-   The 'i' format uses OP, RS, RT and IMMEDIATE.  
+   The 'i' format uses OP, RS, RT and IMMEDIATE.
 
    The 'j' format uses OP and TARGET.
 
@@ -118,7 +118,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  *
 #define OP_SH_HINT              16
 #define OP_MASK_HINT            0x1f
 #define OP_SH_MMI               0       /* Multimedia (parallel) op */
-#define OP_MASK_MMI             0x3f 
+#define OP_MASK_MMI             0x3f
 #define OP_SH_MMISUB            6
 #define OP_MASK_MMISUB          0x1f
 #define OP_MASK_PERFREG		0x1f	/* Performance monitoring */
@@ -379,11 +379,11 @@ enum {
     M_DLA_AB,
     M_DLI,
     M_DMUL,
-    M_DMUL_I, 
+    M_DMUL_I,
     M_DMULO,
-    M_DMULO_I, 
+    M_DMULO_I,
     M_DMULOU,
-    M_DMULOU_I, 
+    M_DMULOU_I,
     M_DREM_3,
     M_DREM_3I,
     M_DREMU_3,
@@ -438,11 +438,11 @@ enum {
     M_LWR_AB,
     M_LWU_AB,
     M_MUL,
-    M_MUL_I, 
+    M_MUL_I,
     M_MULO,
-    M_MULO_I, 
+    M_MULO_I,
     M_MULOU,
-    M_MULOU_I, 
+    M_MULOU_I,
     M_NOR_I,
     M_OR_I,
     M_REM_3,

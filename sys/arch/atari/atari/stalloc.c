@@ -61,13 +61,13 @@ init_stmem()
 	struct mem_node *mem;
 
 	stmem_total = st_pool_size - sizeof(*mem);
-    
+
 	mem = (struct mem_node *)st_pool_virt;
 	mem->size = st_pool_size - sizeof(*mem);
 
 	CIRCLEQ_INIT(&st_list);
 	CIRCLEQ_INIT(&free_list);
-    
+
 	CIRCLEQ_INSERT_HEAD(&st_list, mem, link);
 	CIRCLEQ_INSERT_HEAD(&free_list, mem, free_link);
 	splx(s);
@@ -86,7 +86,7 @@ void	**phys_addr;
 
 	s = splhigh();
 
-	if (size & ~(ST_BLOCKMASK)) 
+	if (size & ~(ST_BLOCKMASK))
 		size = (size & ST_BLOCKMASK) + ST_BLOCKSIZE;
 
 	/*
@@ -112,7 +112,7 @@ void	**phys_addr;
 
 	if ((mn->size - size) <= sizeof (*mn)) {
 		/*
-		 * our allocation would not leave room 
+		 * our allocation would not leave room
 		 * for a new node in between.
 		 */
 		CIRCLEQ_REMOVE(&free_list, mn, free_link);

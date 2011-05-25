@@ -175,7 +175,7 @@ static size_t malloc_pagemask;
 #endif
 
 /* Set when initialization has been done */
-static unsigned malloc_started;	
+static unsigned malloc_started;
 
 /* Recusion flag for public interface. */
 static int malloc_active;
@@ -515,11 +515,11 @@ malloc_pages(size_t size)
 	    wrterror("(ES): zero length entry on free_list\n");
 	if (pf->page == pf->end)
 	    wrterror("(ES): zero entry on free_list\n");
-	if (pf->page > pf->end) 
+	if (pf->page > pf->end)
 	    wrterror("(ES): sick entry on free_list\n");
 	if ((void*)pf->page >= (void*)sbrk(0))
 	    wrterror("(ES): entry on free_list past brk\n");
-	if (page_dir[ptr2idx(pf->page)] != MALLOC_FREE) 
+	if (page_dir[ptr2idx(pf->page)] != MALLOC_FREE)
 	    wrterror("(ES): non-free first page on free-list\n");
 	if (page_dir[ptr2idx(pf->end)-1] != MALLOC_FREE)
 	    wrterror("(ES): non-free last page on free-list\n");
@@ -535,7 +535,7 @@ malloc_pages(size_t size)
 	    pf->prev->next = pf->next;
 	    delay_free = pf;
 	    break;
-	} 
+	}
 
 	p = pf->page;
 	pf->page = (char *)pf->page + size;
@@ -817,7 +817,7 @@ irealloc(void *ptr, size_t size)
 	else
 	    memcpy(p, ptr, size);
 	ifree(ptr);
-    } 
+    }
     return p;
 }
 
@@ -922,7 +922,7 @@ free_pages(void *ptr, int idx, struct pginfo *info)
 	    wrterror("freelist is destroyed.\n");
 	}
     }
-    
+
     /* Return something to OS ? */
     if (!pf->next &&				/* If we're the last one, */
       pf->size > malloc_cache &&		/* ..and the cache is full, */
@@ -1012,7 +1012,7 @@ free_bytes(void *ptr, int idx, struct pginfo *info)
     /* Free the page & the info structure if need be */
     page_dir[ptr2idx(info->page)] = MALLOC_FIRST;
     vp = info->page;		/* Order is important ! */
-    if(vp != (void*)info) 
+    if(vp != (void*)info)
 	ifree(info);
     ifree(vp);
 }
@@ -1124,7 +1124,7 @@ realloc(void *ptr, size_t size)
     if (ptr && !malloc_started) {
 	wrtwarning("malloc() has never been called.\n");
 	ptr = 0;
-    }		
+    }
     if (!malloc_started)
 	malloc_init();
     if (malloc_sysv && !size) {

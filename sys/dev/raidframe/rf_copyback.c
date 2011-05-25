@@ -61,12 +61,12 @@ int     rf_copyback_in_progress;
 static int rf_CopybackReadDoneProc(RF_CopybackDesc_t * desc, int status);
 static int rf_CopybackWriteDoneProc(RF_CopybackDesc_t * desc, int status);
 static void rf_CopybackOne(RF_CopybackDesc_t * desc, int typ,
-			   RF_RaidAddr_t addr, RF_RowCol_t testRow, 
+			   RF_RaidAddr_t addr, RF_RowCol_t testRow,
 			   RF_RowCol_t testCol,
 			   RF_SectorNum_t testOffs);
 static void rf_CopybackComplete(RF_CopybackDesc_t * desc, int status);
 
-int 
+int
 rf_ConfigureCopyback(listp)
 	RF_ShutdownList_t **listp;
 {
@@ -82,7 +82,7 @@ rf_ConfigureCopyback(listp)
 #include <sys/vnode.h>
 
 /* do a complete copyback */
-void 
+void
 rf_CopybackReconstructedData(raidPtr)
 	RF_Raid_t *raidPtr;
 {
@@ -231,8 +231,8 @@ rf_CopybackReconstructedData(raidPtr)
 	raidread_component_label( raidPtr->raid_cinfo[frow][fcol].ci_dev,
 				  raidPtr->raid_cinfo[frow][fcol].ci_vp,
 				  &c_label);
-		
-	c_label.version = RF_COMPONENT_LABEL_VERSION; 
+
+	c_label.version = RF_COMPONENT_LABEL_VERSION;
 	c_label.mod_counter = raidPtr->mod_counter;
 	c_label.serial_number = raidPtr->serial_number;
 	c_label.row = frow;
@@ -241,7 +241,7 @@ rf_CopybackReconstructedData(raidPtr)
 	c_label.num_columns = raidPtr->numCol;
 	c_label.clean = RF_RAID_DIRTY;
 	c_label.status = rf_ds_optimal;
-	
+
 	raidwrite_component_label( raidPtr->raid_cinfo[frow][fcol].ci_dev,
 				   raidPtr->raid_cinfo[frow][fcol].ci_vp,
 				   &c_label);
@@ -252,7 +252,7 @@ rf_CopybackReconstructedData(raidPtr)
  * invoked via callback after a copyback I/O has completed to
  * continue on with the next one
  */
-void 
+void
 rf_ContinueCopyback(desc)
 	RF_CopybackDesc_t *desc;
 {
@@ -321,7 +321,7 @@ rf_ContinueCopyback(desc)
 
 
 /* copyback one unit */
-static void 
+static void
 rf_CopybackOne(desc, typ, addr, testRow, testCol, testOffs)
 	RF_CopybackDesc_t *desc;
 	int     typ;
@@ -379,7 +379,7 @@ rf_CopybackOne(desc, typ, addr, testRow, testCol, testOffs)
 
 
 /* called at interrupt context when the read has completed.  just send out the write */
-static int 
+static int
 rf_CopybackReadDoneProc(desc, status)
 	RF_CopybackDesc_t *desc;
 	int     status;
@@ -397,7 +397,7 @@ rf_CopybackReadDoneProc(desc, status)
  * in the simulator, invoke the next copyback directly.
  * can't free diskqueuedata structs in the kernel b/c we're at interrupt context.
  */
-static int 
+static int
 rf_CopybackWriteDoneProc(desc, status)
 	RF_CopybackDesc_t *desc;
 	int     status;
@@ -410,7 +410,7 @@ rf_CopybackWriteDoneProc(desc, status)
 	return (0);
 }
 /* invoked when the copyback has completed */
-static void 
+static void
 rf_CopybackComplete(desc, status)
 	RF_CopybackDesc_t *desc;
 	int     status;

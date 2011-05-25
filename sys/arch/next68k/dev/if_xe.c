@@ -129,7 +129,7 @@ xe_attach(parent, self, aux)
 		printf("\n%s: can't map ethernet receive DMA registers\n",
 				sc->sc_dev.dv_xname);
 		return;
-	} 
+	}
   xe_sc->sc_rxdma.nd_intr = NEXT_I_ENETR_DMA;
 	xe_sc->sc_rxdma.nd_continue_cb = NULL;
 	xe_sc->sc_rxdma.nd_completed_cb = NULL;

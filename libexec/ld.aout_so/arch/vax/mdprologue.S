@@ -62,7 +62,7 @@ _rtl:					/* crt0 calls us here */
  * First call to a procedure generally comes through here for binding.
  * We got here via JSB so now (sp) is inside our jmpslot_t.  So we
  * simply preserve our registers, push the address of jmpslot_t for
- * _binder.  Save the address we are supported to call (which was 
+ * _binder.  Save the address we are supported to call (which was
  * returned in R0) in the stack location that the JSB used to store
  * its return address (which we don't care about anymore).
  *

@@ -39,17 +39,17 @@ symmetry_extract_return_value(type, regbuf, valbuf)
      char *regbuf;
      char *valbuf;
 {
-  union { 
-    double	d; 
-    int	l[2]; 
-  } xd; 
+  union {
+    double	d;
+    int	l[2];
+  } xd;
   struct minimal_symbol *msymbol;
   float f;
 
-  if (TYPE_CODE_FLT == TYPE_CODE(type)) { 
+  if (TYPE_CODE_FLT == TYPE_CODE(type)) {
     msymbol = lookup_minimal_symbol ("1167_flt", NULL, NULL);
     if (msymbol != NULL) {
-      /* found "1167_flt" means 1167, %fp2-%fp3 */ 
+      /* found "1167_flt" means 1167, %fp2-%fp3 */
       /* float & double; 19= %fp2, 20= %fp3 */
       /* no single precision on 1167 */
       xd.l[1] = *((int *)&regbuf[REGISTER_BYTE(19)]);
@@ -62,21 +62,21 @@ symmetry_extract_return_value(type, regbuf, valbuf)
 	break;
       case 8:
 	/* FIXME: broken for cross-debugging.  */
-	memcpy (valbuf, &xd.d, TYPE_LENGTH(type)); 
+	memcpy (valbuf, &xd.d, TYPE_LENGTH(type));
 	break;
       default:
 	error("Unknown floating point size");
 	break;
       }
-    } else { 
-      /* 387 %st(0), gcc uses this */ 
+    } else {
+      /* 387 %st(0), gcc uses this */
       i387_to_double(((int *)&regbuf[REGISTER_BYTE(3)]),
-		     &xd.d); 
+		     &xd.d);
       switch (TYPE_LENGTH(type)) {
       case 4:			/* float */
 	f = (float) xd.d;
 	/* FIXME: broken for cross-debugging.  */
-	memcpy (valbuf, &f, 4); 
+	memcpy (valbuf, &f, 4);
 	break;
       case 8:			/* double */
 	/* FIXME: broken for cross-debugging.  */
@@ -88,6 +88,6 @@ symmetry_extract_return_value(type, regbuf, valbuf)
       }
     }
   } else {
-    memcpy (valbuf, regbuf, TYPE_LENGTH (type)); 
+    memcpy (valbuf, regbuf, TYPE_LENGTH (type));
   }
 }

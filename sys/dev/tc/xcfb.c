@@ -184,7 +184,7 @@ static u_int32_t ims332_read_reg __P((int));
 extern long ioasic_base;	/* XXX */
 
 /*
- * Compose 2 bit/pixel cursor image.  
+ * Compose 2 bit/pixel cursor image.
  *   M M M M I I I I		M I M I M I M I
  *	[ before ]		   [ after ]
  *   3 2 1 0 3 2 1 0		3 3 2 2 1 1 0 0
@@ -333,7 +333,7 @@ xcfb_cnattach()
         long defattr;
 
         xcfb_getdevconfig(addr, dcp);
- 
+
         rcons_alloc_attr(&dcp->dc_rcons, 0, 0, 0, &defattr);
 
         wsdisplay_cnattach(&xcfb_stdscreen, &dcp->dc_rcons,
@@ -683,7 +683,7 @@ ims332_loadcmap(cm)
 {
 	int i;
 	u_int32_t rgb;
-	
+
 	for (i = 0; i < CMAP_SIZE; i++) {
 		rgb = cm->b[i] << 16 | cm->g[i] << 8 | cm->r[i];
 		ims332_write_reg(IMS332_REG_LUT_BASE + i, rgb);

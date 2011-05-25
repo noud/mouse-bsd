@@ -68,7 +68,7 @@ void accent_box::output()
   printf("\\h'\\n[" WIDTH_FORMAT "]u-\\n[" WIDTH_FORMAT "]u/2u+\\n["
 	 SKEW_FORMAT "]u'",
 	 p->uid, ab->uid, p->uid);
-  printf("\\v'-\\n[" SUP_RAISE_FORMAT "]u'", uid); 
+  printf("\\v'-\\n[" SUP_RAISE_FORMAT "]u'", uid);
   ab->output();
   printf("\\h'-\\n[" WIDTH_FORMAT "]u'", ab->uid);
   printf("\\v'\\n[" SUP_RAISE_FORMAT "]u'", uid);
@@ -114,7 +114,7 @@ void accent_box::output()
   printf("\\h'\\n[" LEFT_WIDTH_FORMAT "]u+\\n[" SKEW_FORMAT "]u"
 	 "-(\\n[" WIDTH_FORMAT "]u/2u)'",
 	 uid, p->uid, ab->uid);
-  printf("\\v'-\\n[" SUP_RAISE_FORMAT "]u'", uid); 
+  printf("\\v'-\\n[" SUP_RAISE_FORMAT "]u'", uid);
   ab->output();
   printf(DELIMITER_CHAR);
   printf("\\Z" DELIMITER_CHAR);
@@ -270,7 +270,7 @@ void uaccent_box::output()
   printf("\\Z" DELIMITER_CHAR);
   printf("\\h'\\n[" LEFT_WIDTH_FORMAT "]u-(\\n[" WIDTH_FORMAT "]u/2u)'",
 	 uid, ab->uid);
-  printf("\\v'\\n[" DEPTH_FORMAT "]u'", p->uid); 
+  printf("\\v'\\n[" DEPTH_FORMAT "]u'", p->uid);
   ab->output();
   printf(DELIMITER_CHAR);
   printf("\\Z" DELIMITER_CHAR);

@@ -195,7 +195,7 @@ struct opcode {
 };
 
 /* format of the assembler string :
-   
+
    %%			%
    %<bitfield>d		print the bitfield in decimal
    %<bitfield>x		print the bitfield in hex

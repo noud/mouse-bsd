@@ -1,5 +1,5 @@
 /*	$NetBSD: dos_file.S,v 1.4 1999/01/22 22:43:44 thorpej Exp $	*/
-	
+
 /* extracted from Tor Egge's patches for NetBSD boot */
 
 #include <machine/asm.h>
@@ -25,7 +25,7 @@ ENTRY(dosopen)
 	pushl	%ebx
 	pushl	%esi
 	pushl	%edi
-	
+
 	movl	0x8(%ebp), %edx # File name.
 
 	call	_C_LABEL(prot_to_real)	# enter real mode
@@ -68,7 +68,7 @@ ENTRY(dosread)
 	pushl	%edx
 	pushl	%esi
 	pushl	%edi
-	
+
 	movl	0x8(%ebp), %ebx # File handle
 	movl	0xc(%ebp), %edx # Buffer.
 	movl	0x10(%ebp) , %ecx	# Bytes to read
@@ -111,7 +111,7 @@ ENTRY(dosclose)
 	pushl	%ebx
 	pushl	%esi
 	pushl	%edi
-	
+
 	movl	0x8(%ebp), %ebx # File handle
 
 	call	_C_LABEL(prot_to_real)	# enter real mode
@@ -151,7 +151,7 @@ ENTRY(dosseek)
 	pushl	%edx
 	pushl	%esi
 	pushl	%edi
-	
+
 	movl	0x8(%ebp), %ebx # File handle
 	movl	0xc(%ebp), %ecx # Offset
 	movl	0x10(%ebp) , %edx	# whence

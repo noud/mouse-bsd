@@ -159,7 +159,7 @@ yeartoday(year)
 	return((year % 4) ? 365 : 366);
 }
 
-                 
+
 static int month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 static int timeset = 0;
 
@@ -290,7 +290,7 @@ inittodr(base)
 		(void)splx(s);
 	} else
 		return;
-			
+
 	/* Convert the rtc time into seconds */
 
 	n = rtc.rtc_sec + 60 * rtc.rtc_min + 3600 * rtc.rtc_hour;
@@ -332,6 +332,6 @@ inittodr(base)
 			    ((n - base) / 60) % 60, (n - base) % 60);
 		}
 	}
-}  
+}
 
 /* End of todclock.c */

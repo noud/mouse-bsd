@@ -1498,7 +1498,7 @@ mips_relocate_section (output_bfd, info, input_bfd, input_section,
 	      memmove (here + PCREL16_EXPANSION_ADJUSTMENT, here,
 		       (size_t) (input_section->_raw_size
 				 - (int_rel.r_vaddr - input_section->vma)));
-		       
+
 	      /* Generate the new instructions.  */
 	      if (! mips_relax_pcrel16 (info, input_bfd, input_section,
 					h, here,
@@ -1619,7 +1619,7 @@ mips_relocate_section (output_bfd, info, input_bfd, input_section,
 			int_rel.r_symndx = RELOC_SECTION_TEXT;
 		      break;
 		    }
-		      
+
 		  if (int_rel.r_symndx == -1)
 		    abort ();
 
@@ -2173,7 +2173,7 @@ mips_relax_section (abfd, sec, info, again)
 	      mips_ecoff_swap_reloc_in (abfd, (PTR) (adj_ext_rel + 1), &rello);
 
 	      BFD_ASSERT (rello.r_type == MIPS_R_RELLO);
-	      
+
 	      addhi = bfd_get_32 (abfd,
 				   contents + adj_int_rel.r_vaddr - sec->vma);
 	      addhi &= 0xffff;

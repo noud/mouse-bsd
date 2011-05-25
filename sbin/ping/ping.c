@@ -259,7 +259,7 @@ main(int argc, char *argv[])
 	char *policy_out = NULL;
 #endif
 #endif
-  
+
 
 #ifdef sgi
 	__progname = argv[0];
@@ -853,7 +853,7 @@ pinger(void)
 		if (setsockopt(sloop,IPPROTO_IP,IP_HDRINCL,
 			       (char *)&sw, sizeof(sw)) < 0)
 			err(1, "Can't set special IP header");
-		
+
 		(void)gettimeofday(&clear_cache,0);
 	}
 
@@ -1789,7 +1789,7 @@ gethost(const char *arg,
 		}
 		return;
 	}
-	
+
 	hp = gethostbyname(name);
 	if (!hp)
 		errx(1, "Cannot resolve \"%s\" (%s)",name,hstrerror(h_errno));

@@ -154,11 +154,11 @@ print_insn_arg (d, p, addr, stream)
 	else if (regnum == 9)        /*89 is Immediate Word Mode*/
 	  {
 	    temp1 = *p;
-	    temp1 <<= 8; 
+	    temp1 <<= 8;
 	    temp1 |= *(p +1);
 	    fprintf_unfiltered (stream, "$%d", temp1);
 	    p += 2;
-	  }  
+	  }
 
 	else if (regnum == PC_REGNUM)    /*8F is Immediate Long Mode*/
 	  {

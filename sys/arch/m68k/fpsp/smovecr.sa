@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -64,7 +64,7 @@ SMOVECR	IDNT	2,1 Motorola 040 Floating Point Software Package
 
 FZERO	dc.l	00000000
 *
-*	FMOVECR 
+*	FMOVECR
 *
 	xdef	smovcr
 smovcr:
@@ -80,7 +80,7 @@ smovcr:
 	cmpi.b	#$0e,d0		;check range $0b - $0e
 	ble.b	SM_TBL		;valid constants in this range
 	cmpi.b	#$2f,d0		;check range $10 - $2f
-	ble.b	Z_VAL		;if in this range, return zero 
+	ble.b	Z_VAL		;if in this range, return zero
 	cmpi.b	#$3f,d0		;check range $30 - $3f
 	ble  	BG_TBL		;valid constants in this range
 Z_VAL:
@@ -174,7 +174,7 @@ not_ext:
 	lea	FP_SCR1(a6),a0
 	btst.b	#sign_bit,LOCAL_EX(a0)
 	sne	LOCAL_SGN(a0)		;convert to internal ext. format
-	
+
 	bsr	round			;go round the mantissa
 
 	bfclr	LOCAL_SGN(a0){0:8}	;convert back to IEEE ext format

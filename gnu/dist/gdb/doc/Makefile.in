@@ -7,12 +7,12 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
@@ -42,7 +42,7 @@ MAKEINFO=makeinfo
 # where to find texi2roff, ditto
 TEXI2ROFF=texi2roff
 
-# Where is the source dir for the READLINE library doc?  
+# Where is the source dir for the READLINE library doc?
 # Traditionally readline is in .. or .
 READLINE_DIR = ${gdbdir}/../readline/doc
 
@@ -137,7 +137,7 @@ de-stage3: force
 
 # The "least clean" level of cleaning.  Get rid of files which are
 # automatically generated files that are just intermediate files,
-# 
+#
 mostlyclean:
 	rm -f gdb.mm gdb.ms gdb.me links2roff
 	rm -f *.aux *.cp* *.fn* *.ky* *.log *.pg* *.toc *.tp* *.vr*
@@ -149,7 +149,7 @@ clean: mostlyclean
 distclean: clean
 	rm -f Makefile config.status
 
-# GDBvn.texi, the dvi files, the info files, and the postscript files, 
+# GDBvn.texi, the dvi files, the info files, and the postscript files,
 # are all part of the distribution, so it should not be removed by
 # "clean" or "distclean".  Use maintainer-clean to remove them.
 
@@ -217,13 +217,13 @@ gdb.ps: gdb.dvi
 
 # GDB MANUAL: info file
 # We're using texinfo2, and older makeinfo's may not be able to
-# cope with all the markup.  
+# cope with all the markup.
 gdb.info: ${SFILES_DOC}
 	$(MAKEINFO) -I ${READLINE_DIR} -I $(srcdir) -o ./gdb.info gdb.texinfo
 
 # GDB MANUAL: roff translations
 # Try to use a recent texi2roff.  v2 was put on prep in jan91.
-# If you want an index, see texi2roff doc for postprocessing 
+# If you want an index, see texi2roff doc for postprocessing
 # and add -i to texi2roff invocations below.
 # Workarounds for texi2roff-2 (probably fixed in later texi2roff's, delete
 #    corresponding -e lines when later texi2roff's are current)
@@ -232,7 +232,7 @@ gdb.info: ${SFILES_DOC}
 # + @   (that's at-BLANK) not recognized by texi2roff, turned into blank
 # + @alphaenumerate is ridiculously new, turned into @enumerate
 
-# texi2roff doesn't have a notion of include dirs, so we have to fake 
+# texi2roff doesn't have a notion of include dirs, so we have to fake
 # it out for gdb manual's include files---but only if not configured
 # in main sourcedir.
 links2roff: $(SFILES_INCLUDED)
@@ -243,7 +243,7 @@ links2roff: $(SFILES_INCLUDED)
 	fi
 	touch links2roff
 
-#  "Readline" appendices.  Get them also due to lack of includes, 
+#  "Readline" appendices.  Get them also due to lack of includes,
 # regardless of whether or not configuring in main sourcedir.
 # @ftable removed due to bug in texi2roff-2; if your texi2roff
 # is newer, try just ln or cp
@@ -270,7 +270,7 @@ gdb.me: $(SFILES_LOCAL) links2roff rluser.texinfo inc-hist.texi
 		$(srcdir)/gdb.texinfo | \
 	$(TEXI2ROFF) -me | \
 	sed -e 's/---/\\(em/g' \
-	>gdb.me 
+	>gdb.me
 
 # gdb manual suitable for [gtn]roff -ms
 gdb.ms: $(SFILES_LOCAL) links2roff rluser.texinfo inc-hist.texi
@@ -285,10 +285,10 @@ gdb.ms: $(SFILES_LOCAL) links2roff rluser.texinfo inc-hist.texi
 		$(srcdir)/gdb.texinfo | \
 	$(TEXI2ROFF) -ms | \
 	sed -e 's/---/\\(em/g' \
-	>gdb.ms 
+	>gdb.ms
 
 # gdb manual suitable for [tn]roff -mm
-# '@noindent's removed due to texi2roff-2 mm bug; if yours is newer, 
+# '@noindent's removed due to texi2roff-2 mm bug; if yours is newer,
 #   try leaving them in
 gdb.mm: $(SFILES_LOCAL) links2roff rluser.texinfo inc-hist.texi
 	sed -e '/\\input texinfo/d' \
@@ -303,7 +303,7 @@ gdb.mm: $(SFILES_LOCAL) links2roff rluser.texinfo inc-hist.texi
 		$(srcdir)/gdb.texinfo | \
 	$(TEXI2ROFF) -mm | \
 	sed -e 's/---/\\(em/g' \
-	>gdb.mm 
+	>gdb.mm
 
 
 # GDB INTERNALS MANUAL: TeX dvi file

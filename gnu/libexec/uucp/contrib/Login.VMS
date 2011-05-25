@@ -50,7 +50,7 @@ l1:
 	timeout	l1		2000	# Wait 2 sec. and try again
 	expect	gotlogin		Username:
 #
-# Start here if no system password supplied. 
+# Start here if no system password supplied.
 # Send <CR> until we get Username: Try 5 times at 2 sec. intervals.
 #
 login:

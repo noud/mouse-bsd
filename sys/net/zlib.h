@@ -57,7 +57,7 @@ extern "C" {
 /* +++ zconf.h */
 /* zconf.h -- configuration of the zlib compression library
  * Copyright (C) 1995-1996 Jean-loup Gailly.
- * For conditions of distribution and use, see copyright notice in zlib.h 
+ * For conditions of distribution and use, see copyright notice in zlib.h
  */
 
 /* From: zconf.h,v 1.20 1996/07/02 15:09:28 me Exp $ */
@@ -243,7 +243,7 @@ typedef uLong FAR uLongf;
 
 #define ZLIB_VERSION "1.0.4P"
 
-/* 
+/*
      The 'zlib' compression library provides in-memory compression and
   decompression functions, including integrity checks of the uncompressed
   data.  This version of the library supports only one compression method
@@ -380,7 +380,7 @@ extern const char * EXPORT zlibVersion OF((void));
    This check is automatically made by deflateInit and inflateInit.
  */
 
-/* 
+/*
 extern int EXPORT deflateInit OF((z_streamp strm, int level));
 
      Initializes the internal stream state for compression. The fields
@@ -459,7 +459,7 @@ extern int EXPORT deflate OF((z_streamp strm, int flush));
   more input data, until it returns with Z_STREAM_END or an error. After
   deflate has returned Z_STREAM_END, the only possible operations on the
   stream are deflateReset or deflateEnd.
-  
+
     Z_FINISH can be used immediately after deflateInit if all the compression
   is to be done in a single step. In this case, avail_out must be at least
   0.1% larger than avail_in plus 12 bytes.  If deflate does not return
@@ -492,7 +492,7 @@ extern int EXPORT deflateEnd OF((z_streamp strm));
 */
 
 
-/* 
+/*
 extern int EXPORT inflateInit OF((z_streamp strm));
 
      Initializes the internal stream state for decompression. The fields
@@ -583,7 +583,7 @@ extern int EXPORT inflateEnd OF((z_streamp strm));
     The following functions are needed only in some special applications.
 */
 
-/*   
+/*
 extern int EXPORT deflateInit2 OF((z_streamp strm,
                                    int  level,
                                    int  method,
@@ -639,9 +639,9 @@ extern int EXPORT deflateInit2 OF((z_streamp strm,
    not enough memory, Z_STREAM_ERROR if a parameter is invalid (such as
    an invalid method). msg is set to null if there is no error message.
    deflateInit2 does not perform any compression: this will be done by
-   deflate(). 
+   deflate().
 */
-                            
+
 extern int EXPORT deflateSetDictionary OF((z_streamp strm,
                                            const Bytef *dictionary,
 				           uInt  dictLength));
@@ -668,7 +668,7 @@ extern int EXPORT deflateSetDictionary OF((z_streamp strm,
    parameter is invalid (such as NULL dictionary) or the stream state
    is inconsistent (for example if deflate has already been called for this
    stream). deflateSetDictionary does not perform any compression: this will
-   be done by deflate(). 
+   be done by deflate().
 */
 
 extern int EXPORT deflateCopy OF((z_streamp dest,
@@ -730,7 +730,7 @@ extern int EXPORT deflateOutputPending OF((z_streamp strm));
    or flush).
 */
 
-/*   
+/*
 extern int EXPORT inflateInit2 OF((z_streamp strm,
                                    int  windowBits));
 
@@ -785,7 +785,7 @@ extern int EXPORT inflateSetDictionary OF((z_streamp strm,
 */
 
 extern int EXPORT inflateSync OF((z_streamp strm));
-/* 
+/*
     Skips invalid compressed data until the special marker (see deflate()
   above) can be found, or until all available input is skipped. No output
   is provided.

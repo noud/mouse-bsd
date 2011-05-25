@@ -17,7 +17,7 @@ fpsetround(rnd_dir)
 	__asm__("st %%fsr,%0" : "=m" (*&old));
 
 	new = old;
-	new &= ~(0x03 << 30); 
+	new &= ~(0x03 << 30);
 	new |= ((rnd_dir & 0x03) << 30);
 
 	__asm__("ld %0,%%fsr" : : "m" (*&new));

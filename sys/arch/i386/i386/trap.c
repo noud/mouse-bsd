@@ -199,11 +199,11 @@ userret(p, pc, oticks)
 	/*
 	 * If profiling, charge recent system time to the trapped pc.
 	 */
-	if (p->p_flag & P_PROFIL) { 
+	if (p->p_flag & P_PROFIL) {
 		extern int psratio;
 
 		addupc_task(p, pc, (int)(p->p_sticks - oticks) * psratio);
-	}                   
+	}
 
 	curpriority = p->p_priority;
 }

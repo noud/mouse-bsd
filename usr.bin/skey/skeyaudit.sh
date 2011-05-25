@@ -5,7 +5,7 @@
 # This script will look thru the skeykeys file for
 # people with sequence numbers less then LOWLIMIT=12
 # and send them an e-mail reminder to use skeyinit soon
-# 
+#
 
 AWK=/usr/bin/awk
 GREP=/usr/bin/grep

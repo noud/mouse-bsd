@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -192,7 +192,7 @@ ether_output(ifp, m0, dst, rt0)
 				if (rt->rt_ifp != ifp)
 					return (*rt->rt_ifp->if_output)
 							(ifp, m0, dst, rt);
-			} else 
+			} else
 				senderr(EHOSTUNREACH);
 		}
 		if ((rt->rt_flags & RTF_GATEWAY) && dst->sa_family != AF_NS) {
@@ -245,7 +245,7 @@ ether_output(ifp, m0, dst, rt0)
 		else
 			bcopy((caddr_t)ar_tha(ah),
 				(caddr_t)edst, sizeof(edst));
-		
+
 		ah->ar_hrd = htons(ARPHRD_ETHER);
 
 		switch(ntohs(ah->ar_op)) {
@@ -292,7 +292,7 @@ ether_output(ifp, m0, dst, rt0)
 		    (struct sockaddr_at *)dst, ifp);
 		if (aa == NULL)
 		    goto bad;
-		
+
 		/*
 		 * In the phase 2 case, we need to prepend an mbuf for the
 		 * llc header.  Since we must preserve the value of m,
@@ -385,7 +385,7 @@ ether_output(ifp, m0, dst, rt0)
 #ifdef	LLC
 /*	case AF_NSAP: */
 	case AF_CCITT: {
-		struct sockaddr_dl *sdl = 
+		struct sockaddr_dl *sdl =
 			(struct sockaddr_dl *) rt -> rt_gateway;
 
 		if (sdl && sdl->sdl_family == AF_LINK
@@ -412,14 +412,14 @@ ether_output(ifp, m0, dst, rt0)
 			printf("ether_output: sending LLC2 pkt to: ");
 			for (i=0; i<6; i++)
 				printf("%x ", edst[i] & 0xff);
-			printf(" len 0x%x dsap 0x%x ssap 0x%x control 0x%x\n", 
+			printf(" len 0x%x dsap 0x%x ssap 0x%x control 0x%x\n",
 			    m->m_pkthdr.len, l->llc_dsap & 0xff, l->llc_ssap &0xff,
 			    l->llc_control & 0xff);
 
 		}
 #endif /* LLC_DEBUG */
 		} break;
-#endif /* LLC */	
+#endif /* LLC */
 
 	case pseudo_AF_HDRCMPLT:
 		hdrcmplt = 1;
@@ -597,7 +597,7 @@ ether_input(ifp, m)
 				if (l->llc_ssap != LLC_SNAP_LSAP) {
 					goto dropanyway;
 				}
-	    
+
 				if (Bcmp(&(l->llc_snap_org_code)[0],
 				    at_org_code, sizeof(at_org_code)) == 0 &&
 				    ntohs(l->llc_snap_ether_type) ==
@@ -617,14 +617,14 @@ ether_input(ifp, m)
 					aarpinput(ifp, m); /* XXX */
 				    return;
 				}
-		    
+
 			default:
 				goto dropanyway;
 			}
 			break;
 #endif /* NETATALK */
 #ifdef	ISO
-		case LLC_ISO_LSAP: 
+		case LLC_ISO_LSAP:
 			switch (l->llc_control) {
 			case LLC_UI:
 				/* LLC_UI_P forbidden in class 1 service */
@@ -649,7 +649,7 @@ ether_input(ifp, m)
 					break;
 				}
 				goto dropanyway;
-				
+
 			case LLC_XID:
 			case LLC_XID_P:
 				if(m->m_len < 6)
@@ -676,9 +676,9 @@ ether_input(ifp, m)
 				sa.sa_len = sizeof(sa);
 				eh2 = (struct ether_header *)sa.sa_data;
 				for (i = 0; i < 6; i++) {
-					eh2->ether_shost[i] = c = 
+					eh2->ether_shost[i] = c =
 					    eh->ether_dhost[i];
-					eh2->ether_dhost[i] = 
+					eh2->ether_dhost[i] =
 					    eh->ether_dhost[i] =
 					    eh->ether_shost[i];
 					eh->ether_shost[i] = c;
@@ -701,7 +701,7 @@ ether_input(ifp, m)
 			if (m == 0)
 				return;
 			if ( !sdl_sethdrif(ifp, eh->ether_shost, LLC_X25_LSAP,
-					    eh->ether_dhost, LLC_X25_LSAP, 6, 
+					    eh->ether_dhost, LLC_X25_LSAP, 6,
 					    mtod(m, struct sdl_hdr *)))
 				panic("ETHER cons addr failure");
 			mtod(m, struct sdl_hdr *)->sdlhdr_len = etype;

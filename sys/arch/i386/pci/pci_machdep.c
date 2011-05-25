@@ -154,7 +154,7 @@ struct {
  */
 struct i386_bus_dma_tag pci_bus_dma_tag = {
 	0,			/* _bounce_thresh */
-	_bus_dmamap_create, 
+	_bus_dmamap_create,
 	_bus_dmamap_destroy,
 	_bus_dmamap_load,
 	_bus_dmamap_load_mbuf,
@@ -532,7 +532,7 @@ pci_intr_string(pc, ih)
 
 	sprintf(irqstr, "irq %d", ih);
 	return (irqstr);
-	
+
 }
 
 void *

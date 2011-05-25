@@ -177,7 +177,7 @@ struct kbdmap ascii_kbdmap = {
 	   {0, '+'},
 	   {0, '*'},	/* 0x28 */
 	   {0, '}'},
-	   {C, 'Z'},	
+	   {C, 'Z'},
 	   {C, 'X'},
 	   {C, 'C'},
 	   {C, 'V'},
@@ -255,14 +255,14 @@ struct kbdmap ascii_kbdmap = {
 	{
 	},
 
-	{	   
+	{
 	  /* string table. If there's a better way to get the offsets into the
 	     above table, please tell me..
-	     
+
 	     NOTE: save yourself and others a lot of grief by *not* using
 	           CSI == 0x9b, using the two-character sequence gives
 	           much less trouble, especially in GNU-Emacs.. */
-	  
+
 	  3, ESC, 'O', 'P',		/* 0x00: F1 (k1) */
 	  3, ESC, 'O', 'Q',		/* 0x04: F2 (k2) */
 	  3, ESC, 'O', 'R',		/* 0x08: F3 (k3) */

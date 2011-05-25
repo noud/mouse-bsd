@@ -83,7 +83,7 @@
  *
  * This routine is very heavily used in the network
  * code and should be modified for each CPU to be as fast as possible.
- * 
+ *
  * This implementation is the ns32k version.
  */
 

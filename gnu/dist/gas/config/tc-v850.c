@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "as.h"
-#include "subsegs.h"     
+#include "subsegs.h"
 #include "opcode/v850.h"
 
 #define AREA_ZDA 0
@@ -60,15 +60,15 @@ const char comment_chars[] = "#";
 /* Characters which start a comment at the beginning of a line.  */
 const char line_comment_chars[] = ";#";
 
-/* Characters which may be used to separate multiple commands on a 
+/* Characters which may be used to separate multiple commands on a
    single line.  */
 const char line_separator_chars[] = ";";
 
-/* Characters which are used to indicate an exponent in a floating 
+/* Characters which are used to indicate an exponent in a floating
    point number.  */
 const char EXP_CHARS[] = "eE";
 
-/* Characters which mean that a number is a floating point constant, 
+/* Characters which mean that a number is a floating point constant,
    as in 0d1.0.  */
 const char FLT_CHARS[] = "dD";
 
@@ -113,7 +113,7 @@ void
 v850_sdata (int ignore)
 {
   obj_elf_section_change_hook();
-  
+
   subseg_set (sdata_section, (subsegT) get_absolute_expression ());
 
   demand_empty_rest_of_line ();
@@ -123,9 +123,9 @@ void
 v850_tdata (int ignore)
 {
   obj_elf_section_change_hook();
-  
+
   subseg_set (tdata_section, (subsegT) get_absolute_expression ());
-  
+
   demand_empty_rest_of_line ();
 }
 
@@ -133,9 +133,9 @@ void
 v850_zdata (int ignore)
 {
   obj_elf_section_change_hook();
-  
+
   subseg_set (zdata_section, (subsegT) get_absolute_expression ());
-  
+
   demand_empty_rest_of_line ();
 }
 
@@ -143,9 +143,9 @@ void
 v850_sbss (int ignore)
 {
   obj_elf_section_change_hook();
-  
+
   subseg_set (sbss_section, (subsegT) get_absolute_expression ());
-  
+
   demand_empty_rest_of_line ();
 }
 
@@ -153,9 +153,9 @@ void
 v850_tbss (int ignore)
 {
   obj_elf_section_change_hook();
-  
+
   subseg_set (tbss_section, (subsegT) get_absolute_expression ());
-  
+
   demand_empty_rest_of_line ();
 }
 
@@ -163,9 +163,9 @@ void
 v850_zbss (int ignore)
 {
   obj_elf_section_change_hook();
-  
+
   subseg_set (zbss_section, (subsegT) get_absolute_expression ());
-  
+
   demand_empty_rest_of_line ();
 }
 
@@ -173,9 +173,9 @@ void
 v850_rosdata (int ignore)
 {
   obj_elf_section_change_hook();
-  
+
   subseg_set (rosdata_section, (subsegT) get_absolute_expression ());
-  
+
   demand_empty_rest_of_line ();
 }
 
@@ -183,9 +183,9 @@ void
 v850_rozdata (int ignore)
 {
   obj_elf_section_change_hook();
-  
+
   subseg_set (rozdata_section, (subsegT) get_absolute_expression ());
-  
+
   demand_empty_rest_of_line ();
 }
 
@@ -196,9 +196,9 @@ v850_bss (int ignore)
   register int temp = get_absolute_expression ();
 
   obj_elf_section_change_hook();
-  
+
   subseg_set (bss_section, (subsegT) temp);
-   
+
   demand_empty_rest_of_line ();
 }
 
@@ -206,12 +206,12 @@ void
 v850_offset (int ignore)
 {
   int temp = get_absolute_expression ();
-  
+
   temp -= frag_now_fix();
-  
+
   if (temp > 0)
     (void) frag_more (temp);
-  
+
   demand_empty_rest_of_line ();
 }
 
@@ -333,7 +333,7 @@ v850_comm (area)
 	    default:
 	      abort();
 	    }
-	  
+
 	  if (align)
 	    frag_align (align, 0, 0);
 
@@ -357,13 +357,13 @@ v850_comm (area)
 	    default:
 	      abort();
 	    }
-	  
+
 	  symbolP->sy_frag = frag_now;
 	  pfrag = frag_var (rs_org, 1, 1, (relax_substateT) 0, symbolP,
 			    (offsetT) size, (char *) 0);
 	  *pfrag = 0;
 	  S_SET_SIZE (symbolP, size);
-	  
+
 	  switch (area)
 	    {
 	    case AREA_SDA: S_SET_SEGMENT (symbolP, sbss_section); break;
@@ -372,7 +372,7 @@ v850_comm (area)
 	    default:
 	      abort();
 	    }
-	    
+
 	  S_CLEAR_EXTERNAL (symbolP);
 	  obj_elf_section_change_hook();
 	  subseg_set (old_sec, old_subsec);
@@ -383,7 +383,7 @@ v850_comm (area)
 	  S_SET_VALUE (symbolP, (valueT) size);
 	  S_SET_ALIGN (symbolP, temp);
 	  S_SET_EXTERNAL (symbolP);
-	  
+
 	  switch (area)
 	    {
 	    case AREA_SDA: S_SET_SEGMENT (symbolP, scommon_section); break;
@@ -516,7 +516,7 @@ static const struct reg_name pre_defined_registers[] =
 #define REG_NAME_CNT	(sizeof (pre_defined_registers) / sizeof (struct reg_name))
 
 
-static const struct reg_name system_registers[] = 
+static const struct reg_name system_registers[] =
 {
   { "ecr",    4 },
   { "eipc",   0 },
@@ -587,7 +587,7 @@ reg_name_search (regs, regcount, name, accept_numbers)
 	    return reg;
 	}
     }
-  
+
   low = 0;
   high = regcount - 1;
 
@@ -635,9 +635,9 @@ register_name (expressionP)
 				name, FALSE);
 
   * input_line_pointer = c;	/* put back the delimiting char */
-  
+
   /* look to see if it's in the register table */
-  if (reg_number >= 0) 
+  if (reg_number >= 0)
     {
       expressionP->X_op         = O_register;
       expressionP->X_add_number = reg_number;
@@ -645,14 +645,14 @@ register_name (expressionP)
       /* make the rest nice */
       expressionP->X_add_symbol = NULL;
       expressionP->X_op_symbol  = NULL;
-      
+
       return true;
     }
   else
     {
       /* reset the line as if we had not done anything */
       input_line_pointer = start;
-      
+
       return false;
     }
 }
@@ -688,7 +688,7 @@ system_register_name (expressionP, accept_numbers
 				accept_numbers);
 
   * input_line_pointer = c;   /* put back the delimiting char */
-  
+
   if (reg_number < 0
       && accept_numbers)
     {
@@ -707,9 +707,9 @@ system_register_name (expressionP, accept_numbers
 	    }
 	}
     }
-      
+
   /* look to see if it's in the register table */
-  if (reg_number >= 0) 
+  if (reg_number >= 0)
     {
       expressionP->X_op         = O_register;
       expressionP->X_add_number = reg_number;
@@ -724,7 +724,7 @@ system_register_name (expressionP, accept_numbers
     {
       /* reset the line as if we had not done anything */
       input_line_pointer = start;
-      
+
       return false;
     }
 }
@@ -755,9 +755,9 @@ cc_name (expressionP)
   reg_number = reg_name_search (cc_names, CC_NAME_CNT, name, FALSE);
 
   * input_line_pointer = c;   /* put back the delimiting char */
-  
+
   /* look to see if it's in the register table */
-  if (reg_number >= 0) 
+  if (reg_number >= 0)
     {
       expressionP->X_op         = O_constant;
       expressionP->X_add_number = reg_number;
@@ -772,7 +772,7 @@ cc_name (expressionP)
     {
       /* reset the line as if we had not done anything */
       input_line_pointer = start;
-      
+
       return false;
     }
 }
@@ -792,7 +792,7 @@ struct option md_longopts[] =
 {
   {NULL, no_argument, NULL, 0}
 };
-size_t md_longopts_size = sizeof md_longopts; 
+size_t md_longopts_size = sizeof md_longopts;
 
 
 void
@@ -803,7 +803,7 @@ md_show_usage (stream)
   fprintf (stream, "\t-mwarn-signed-overflow    Warn if signed immediate values overflow\n");
   fprintf (stream, "\t-mwarn-unsigned-overflow  Warn if unsigned immediate values overflow\n");
   fprintf (stream, "\t-mv850                    The code is targeted at the v850\n");
-} 
+}
 
 int
 md_parse_option (c, arg)
@@ -834,7 +834,7 @@ md_parse_option (c, arg)
       fprintf (stderr, "unknown command line option: -%c%s\n", c, arg);
       return 0;
     }
-  
+
   return 1;
 }
 
@@ -870,7 +870,7 @@ md_atof (type, litp, sizep)
       *sizep = 0;
       return "bad call to md_atof";
     }
-  
+
   t = atof_ieee (input_line_pointer, type, words);
   if (t)
     input_line_pointer = t;
@@ -895,7 +895,7 @@ md_convert_frag (abfd, sec, fragP)
   fragS *    fragP;
 {
   subseg_change (sec, 0);
-  
+
   /* In range conditional or unconditional branch.  */
   if (fragP->fr_subtype == 0 || fragP->fr_subtype == 2)
     {
@@ -907,7 +907,7 @@ md_convert_frag (abfd, sec, fragP)
   /* Out of range conditional branch.  Emit a branch around a jump.  */
   else if (fragP->fr_subtype == 1)
     {
-      unsigned char *buffer = 
+      unsigned char *buffer =
 	(unsigned char *) (fragP->fr_fix + fragP->fr_literal);
 
       /* Reverse the condition of the first branch.  */
@@ -962,12 +962,12 @@ md_begin ()
     {
       if (machine == -1)
 	machine        = 0;
-      
+
       if (processor_mask == -1)
 	processor_mask = PROCESSOR_V850;
     }
   else
-    as_bad ("Unable to determine default target processor from string: %s", 
+    as_bad ("Unable to determine default target processor from string: %s",
             TARGET_CPU);
 
   v850_hash = hash_new();
@@ -980,7 +980,7 @@ md_begin ()
   op = v850_opcodes;
   while (op->name)
     {
-      if (strcmp (prev_name, op->name)) 
+      if (strcmp (prev_name, op->name))
 	{
 	  prev_name = (char *) op->name;
 	  hash_insert (v850_hash, op->name, (char *) op);
@@ -994,28 +994,28 @@ md_begin ()
 
   sdata_section = subseg_new (".sdata", 0);
   bfd_set_section_flags (stdoutput, sdata_section, applicable & (SEC_ALLOC | SEC_LOAD | SEC_RELOC | SEC_DATA | SEC_HAS_CONTENTS));
-  
+
   tdata_section = subseg_new (".tdata", 0);
   bfd_set_section_flags (stdoutput, tdata_section, applicable & (SEC_ALLOC | SEC_LOAD | SEC_RELOC | SEC_DATA | SEC_HAS_CONTENTS));
-  
+
   zdata_section = subseg_new (".zdata", 0);
   bfd_set_section_flags (stdoutput, zdata_section, applicable & (SEC_ALLOC | SEC_LOAD | SEC_RELOC | SEC_DATA | SEC_HAS_CONTENTS));
-  
+
   sbss_section = subseg_new (".sbss", 0);
   bfd_set_section_flags (stdoutput, sbss_section, applicable & SEC_ALLOC);
   seg_info (sbss_section)->bss = 1;
-  
+
   tbss_section = subseg_new (".tbss", 0);
   bfd_set_section_flags (stdoutput, tbss_section, applicable & SEC_ALLOC);
   seg_info (tbss_section)->bss = 1;
-  
+
   zbss_section = subseg_new (".zbss", 0);
   bfd_set_section_flags (stdoutput, zbss_section, applicable & SEC_ALLOC);
   seg_info (zbss_section)->bss = 1;
-  
+
   rosdata_section = subseg_new (".rosdata", 0);
   bfd_set_section_flags (stdoutput, rosdata_section, applicable & (SEC_ALLOC | SEC_LOAD | SEC_RELOC | SEC_READONLY));
-			 
+
   rozdata_section = subseg_new (".rozdata", 0);
   bfd_set_section_flags (stdoutput, rozdata_section, applicable & (SEC_ALLOC | SEC_LOAD | SEC_RELOC | SEC_READONLY));
 
@@ -1037,14 +1037,14 @@ handle_sdaoff (const struct v850_operand * operand)
 {
   if (operand == NULL)                             return BFD_RELOC_V850_SDA_16_16_OFFSET;
   if (operand->bits == 15 && operand->shift == 17) return BFD_RELOC_V850_SDA_15_16_OFFSET;
-  
+
   if (   operand->bits  != 16
       || operand->shift != 16)
     {
       as_bad ("sdaoff() relocation used on an instruction which does not support it");
       return BFD_RELOC_64;  /* Used to indicate an error condition.  */
     }
-  
+
   return BFD_RELOC_V850_SDA_16_16_OFFSET;
 }
 
@@ -1060,7 +1060,7 @@ handle_zdaoff (const struct v850_operand * operand)
       as_bad ("zdaoff() relocation used on an instruction which does not support it");
       return BFD_RELOC_64;  /* Used to indicate an error condition.  */
     }
-  
+
   return BFD_RELOC_V850_ZDA_16_16_OFFSET;
 }
 
@@ -1070,13 +1070,13 @@ handle_tdaoff (const struct v850_operand * operand)
   if (operand == NULL)                               return BFD_RELOC_V850_TDA_7_7_OFFSET;  /* data item, not an instruction.  */
   if (operand->bits == 6 && operand->shift == 1)     return BFD_RELOC_V850_TDA_6_8_OFFSET;  /* sld.w/sst.w, operand: D8_6  */
   if (operand->bits == 16 && operand->shift == 16)   return BFD_RELOC_V850_TDA_16_16_OFFSET; /* set1 & chums, operands: D16 */
-  
+
   if (operand->bits != 7)
     {
       as_bad ("tdaoff() relocation used on an instruction which does not support it");
       return BFD_RELOC_64;  /* Used to indicate an error condition.  */
     }
-  
+
   return  operand->insert != NULL
     ? BFD_RELOC_V850_TDA_7_8_OFFSET     /* sld.h/sst.h, operand: D8_7 */
     : BFD_RELOC_V850_TDA_7_7_OFFSET;    /* sld.b/sst.b, opreand: D7   */
@@ -1105,7 +1105,7 @@ v850_reloc_prefix (const struct v850_operand * operand)
       input_line_pointer += strlen (name);				\
       return reloc;							\
     }
-  
+
   CHECK_ ("hi0",    BFD_RELOC_HI16);
   CHECK_ ("hi",     BFD_RELOC_HI16_S);
   CHECK_ ("lo",     BFD_RELOC_LO16);
@@ -1113,11 +1113,11 @@ v850_reloc_prefix (const struct v850_operand * operand)
   CHECK_ ("zdaoff", handle_zdaoff (operand));
   CHECK_ ("tdaoff", handle_tdaoff (operand));
 
-  
+
   /* Restore skipped parenthesis.  */
   if (paren_skipped)
     -- input_line_pointer;
-  
+
   return BFD_RELOC_UNUSED;
 }
 
@@ -1135,7 +1135,7 @@ v850_insert_operand (insn, operand, val, file, line, str)
   if (operand->insert)
     {
       const char * message = NULL;
-      
+
       insn = operand->insert (insn, val, & message);
       if (message != NULL)
 	{
@@ -1180,24 +1180,24 @@ v850_insert_operand (insn, operand, val, file, line, str)
 		max = (1 << operand->bits) - 1;
 	      else
 		max = (1 << (operand->bits - 1)) - 1;
-	      
+
 	      min = - (1 << (operand->bits - 1));
 	    }
 	  else
 	    {
 	      max = (1 << operand->bits) - 1;
-	      
+
 	      if (! warn_unsigned_overflows)
 		min = - (1 << (operand->bits - 1));
 	      else
 		min = 0;
 	    }
-	  
+
 	  if (val < (offsetT) min || val > (offsetT) max)
 	    {
 	      const char * err = "operand out of range (%s not between %ld and %ld)";
 	      char         buf[100];
-	      
+
 	      /* Restore min and mix to expected values for decimal ranges.  */
 	      if ((operand->flags & V850_OPERAND_SIGNED)
 		  && ! warn_signed_overflows)
@@ -1210,12 +1210,12 @@ v850_insert_operand (insn, operand, val, file, line, str)
 	      if (str)
 		{
 		  sprintf (buf, "%s: ", str);
-		  
+
 		  sprint_value (buf + strlen (buf), val);
 		}
 	      else
 		sprint_value (buf, val);
-	      
+
 	      if (file == (char *) NULL)
 		as_warn (err, buf, min, max);
 	      else
@@ -1225,7 +1225,7 @@ v850_insert_operand (insn, operand, val, file, line, str)
 
       insn |= (((long) val & ((1 << operand->bits) - 1)) << operand->shift);
     }
-  
+
   return insn;
 }
 
@@ -1233,7 +1233,7 @@ v850_insert_operand (insn, operand, val, file, line, str)
 static char                 copy_of_instruction [128];
 
 void
-md_assemble (str) 
+md_assemble (str)
      char * str;
 {
   char *                    s;
@@ -1253,13 +1253,13 @@ md_assemble (str)
   unsigned long             extra_data;
   char *		    saved_input_line_pointer;
 
-  
+
   strncpy (copy_of_instruction, str, sizeof (copy_of_instruction) - 1);
-  
+
   /* Get the opcode.  */
   for (s = str; *s != '\0' && ! isspace (*s); s++)
     continue;
-  
+
   if (*s != '\0')
     *s++ = '\0';
 
@@ -1279,19 +1279,19 @@ md_assemble (str)
   start_of_operands = str;
 
   saved_input_line_pointer = input_line_pointer;
-  
+
   for (;;)
     {
       const char * errmsg = NULL;
 
       match = 0;
-      
+
       if ((opcode->processors & processor_mask) == 0)
 	{
 	  errmsg = "Target processor does not support this instruction.";
 	  goto error;
 	}
-      
+
       relaxable = 0;
       fc = 0;
       next_opindex = 0;
@@ -1328,17 +1328,17 @@ md_assemble (str)
 	  /* Gather the operand. */
 	  hold = input_line_pointer;
 	  input_line_pointer = str;
-	  
+
 	  /* lo(), hi(), hi0(), etc... */
 	  if ((reloc = v850_reloc_prefix (operand)) != BFD_RELOC_UNUSED)
 	    {
 	      /* This is a fake reloc, used to indicate an error condition.  */
-	      if (reloc == BFD_RELOC_64) 
+	      if (reloc == BFD_RELOC_64)
 		{
 		  match = 1;
 		  goto error;
 		}
-		 
+
 	      expression (& ex);
 
 	      if (ex.X_op == O_constant)
@@ -1349,7 +1349,7 @@ md_assemble (str)
 		      /* To cope with "not1 7, zdaoff(0xfffff006)[r0]"
 			 and the like.  */
 		      /* Fall through.  */
-		      
+
 		    case BFD_RELOC_LO16:
 		      {
 			/* Truncate, then sign extend the value.  */
@@ -1374,8 +1374,8 @@ md_assemble (str)
 			ex.X_add_number = SEXT16 (temp);
 			break;
 		      }
-		    
-		      
+
+
 		    default:
 		      fprintf (stderr, "reloc: %d\n", reloc);
 		      as_bad ("AAARG -> unhandled constant reloc");
@@ -1388,7 +1388,7 @@ md_assemble (str)
 		}
 	      else
 		{
-		      
+
 		  if (fc > MAX_INSN_FIXUPS)
 		    as_fatal ("too many fixups");
 
@@ -1401,8 +1401,8 @@ md_assemble (str)
 	  else
 	    {
 	      errmsg = NULL;
-	      
-	      if ((operand->flags & V850_OPERAND_REG) != 0) 
+
+	      if ((operand->flags & V850_OPERAND_REG) != 0)
 		{
 		  if (!register_name (& ex))
 		    {
@@ -1412,14 +1412,14 @@ md_assemble (str)
 		      && ex.X_add_number == 0)
 		    {
 		      errmsg = "register r0 cannot be used here";
-		      
+
 		      /* Force an error message to be generated by
 			 skipping over any following potential matches
 			 for this opcode.  */
 		      opcode += 3;
 		    }
 		}
-	      else if ((operand->flags & V850_OPERAND_SRG) != 0) 
+	      else if ((operand->flags & V850_OPERAND_SRG) != 0)
 		{
 		  if (!system_register_name (& ex, true
 					     ))
@@ -1431,7 +1431,7 @@ md_assemble (str)
 		{
 		  char * start = input_line_pointer;
 		  char   c     = get_symbol_end ();
-		  
+
 		  if (strcmp (start, "ep") != 0 && strcmp (start, "r30") != 0)
 		    {
 		      /* Put things back the way we found them.  */
@@ -1440,17 +1440,17 @@ md_assemble (str)
 		      errmsg = "expected EP register";
 		      goto error;
 		    }
-		  
+
 		  *input_line_pointer = c;
 		  str = input_line_pointer;
 		  input_line_pointer = hold;
-	      
+
 		  while (   *str == ' ' || *str == ',' || *str == '['
 			 || *str == ']')
 		    ++ str;
 		  continue;
 		}
-	      else if ((operand->flags & V850_OPERAND_CC) != 0) 
+	      else if ((operand->flags & V850_OPERAND_CC) != 0)
 		{
 		  if (!cc_name (& ex))
 		    {
@@ -1466,9 +1466,9 @@ md_assemble (str)
 		     the register name "zero".  Attempt to reparse the
 		     field as an expression, and only complain if we
 		     cannot generate a constant.  */
-		  
+
 		  input_line_pointer = str;
-		  
+
 		  expression (& ex);
 
 		  if (ex.X_op != O_constant)
@@ -1501,10 +1501,10 @@ md_assemble (str)
 
 	      if (errmsg)
 		goto error;
-	      
+
 /* fprintf (stderr, " insn: %x, operand %d, op: %d, add_number: %d\n", insn, opindex_ptr - opcode->operands, ex.X_op, ex.X_add_number); */
 
-	      switch (ex.X_op) 
+	      switch (ex.X_op)
 		{
 		case O_illegal:
 		  errmsg = "illegal operand";
@@ -1564,22 +1564,22 @@ md_assemble (str)
 		 processor.  */
 	      if ((opcode->processors & processor_mask) == 0)
 		goto error;
-	      
+
 	      continue;
 	    }
-	  
+
 	  as_bad ("%s: %s", copy_of_instruction, errmsg);
-	  
+
 	  if (* input_line_pointer == ']')
 	    ++ input_line_pointer;
-	  
+
 	  ignore_rest_of_line ();
 	  input_line_pointer = saved_input_line_pointer;
 	  return;
         }
       break;
     }
-      
+
   while (isspace (*str))
     ++str;
 
@@ -1589,7 +1589,7 @@ md_assemble (str)
   input_line_pointer = str;
 
   /* Write out the instruction. */
-  
+
   if (relaxable && fc > 0)
     {
       insn_size = 2;
@@ -1614,7 +1614,7 @@ md_assemble (str)
 	  md_number_to_chars (f + 2, 0, 4);
 	}
     }
-  else 
+  else
     {
       /* Four byte insns have an opcode with the two high bits on.  */
       if ((insn & 0x0600) == 0x0600)
@@ -1622,15 +1622,15 @@ md_assemble (str)
       else
 	insn_size = 2;
 
-      
+
       f = frag_more (insn_size);
-      
+
       md_number_to_chars (f, insn, insn_size);
 
       if (extra_data_after_insn)
 	{
 	  f = frag_more (extra_data_len);
-	  
+
 	  md_number_to_chars (f, extra_data, extra_data_len);
 
 	  extra_data_after_insn = false;
@@ -1642,16 +1642,16 @@ md_assemble (str)
      BFD_RELOC_UNUSED plus the operand index.  This lets us easily
      handle fixups for any operand type, although that is admittedly
      not a very exciting feature.  We pick a BFD reloc type in
-     md_apply_fix.  */  
+     md_apply_fix.  */
   for (i = 0; i < fc; i++)
     {
       const struct v850_operand * operand;
       bfd_reloc_code_real_type    reloc;
-      
+
       operand = & v850_operands[ fixups[i].opindex ];
 
       reloc = fixups[i].reloc;
-      
+
       if (reloc != BFD_RELOC_UNUSED)
 	{
 	  reloc_howto_type * reloc_howto = bfd_reloc_type_lookup (stdoutput,
@@ -1662,12 +1662,12 @@ md_assemble (str)
 
 	  if (!reloc_howto)
 	    abort();
-	  
+
 	  size = bfd_get_reloc_size (reloc_howto);
 
 	  /* XXX This will abort on an R_V850_8 reloc -
 	     is this reloc actually used ? */
-	  if (size != 2 && size != 4) 
+	  if (size != 2 && size != 4)
 	    abort();
 
 	  address = (f - frag_now->fr_literal) + insn_size - size;
@@ -1676,9 +1676,9 @@ md_assemble (str)
 	    {
 	      address += 2;
 	    }
-	  
+
 	  fixP = fix_new_exp (frag_now, address, size,
-			      & fixups[i].exp, 
+			      & fixups[i].exp,
 			      reloc_howto->pc_relative,
 			      reloc);
 
@@ -1710,14 +1710,14 @@ md_assemble (str)
 
 /* If while processing a fixup, a reloc really needs to be created */
 /* then it is done here.  */
-                 
+
 arelent *
 tc_gen_reloc (seg, fixp)
      asection * seg;
      fixS *     fixp;
 {
   arelent * reloc;
-  
+
   reloc              = (arelent *) xmalloc (sizeof (arelent));
   reloc->sym_ptr_ptr = & fixp->fx_addsy->bsym;
   reloc->address     = fixp->fx_frag->fr_address + fixp->fx_where;
@@ -1730,12 +1730,12 @@ tc_gen_reloc (seg, fixp)
 		    (int)fixp->fx_r_type);
 
       xfree (reloc);
-      
+
       return NULL;
     }
-  
+
   reloc->addend = fixp->fx_addnumber;
-  
+
   return reloc;
 }
 
@@ -1752,7 +1752,7 @@ md_estimate_size_before_relax (fragp, seg)
   else
     abort ();
   return 2;
-} 
+}
 
 long
 md_pcrel_from (fixp)
@@ -1827,7 +1827,7 @@ md_apply_fix3 (fixp, valuep, seg)
 	  return 1;
 	}
 
-      /* Determine a BFD reloc value based on the operand information.  
+      /* Determine a BFD reloc value based on the operand information.
 	 We are only prepared to turn a few of the operands into relocs. */
 
       if (operand->bits == 22)
@@ -1837,7 +1837,7 @@ md_apply_fix3 (fixp, valuep, seg)
       else
 	{
 	  /* fprintf (stderr, "bits: %d, insn: %x\n", operand->bits, insn); */
-	  
+
 	  as_bad_where(fixp->fx_file, fixp->fx_line,
 		       "unresolved expression that must be resolved");
 	  fixp->fx_done = 1;
@@ -1856,7 +1856,7 @@ md_apply_fix3 (fixp, valuep, seg)
       else if (fixp->fx_size == 4)
 	bfd_putl32 (value, (unsigned char *) where);
     }
-  
+
   fixp->fx_addnumber = value;
   return 1;
 }

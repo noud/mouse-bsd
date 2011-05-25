@@ -72,7 +72,7 @@ extern int (**mfs_vnodeop_p) __P((void *));
  * mfs vfs operations.
  */
 
-extern struct vnodeopv_desc mfs_vnodeop_opv_desc;  
+extern struct vnodeopv_desc mfs_vnodeop_opv_desc;
 
 struct vnodeopv_desc *mfs_vnodeopv_descs[] = {
 	&mfs_vnodeop_opv_desc,
@@ -98,9 +98,9 @@ struct vfsops mfs_vfsops = {
 	mfs_vnodeopv_descs,
 };
 
-/* 
+/*
  * Memory based filesystem initialization.
- */ 
+ */
 void
 mfs_init()
 {
@@ -151,7 +151,7 @@ mfs_mountroot()
 		free(mfsp, M_MFSNODE);
 		vrele(rootvp);
 		return (error);
-	}	
+	}
 	simple_lock(&mountlist_slock);
 	CIRCLEQ_INSERT_TAIL(&mountlist, mp, mnt_list);
 	simple_unlock(&mountlist_slock);

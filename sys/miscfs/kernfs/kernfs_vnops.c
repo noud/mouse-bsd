@@ -629,7 +629,7 @@ kernfs_readdir(v)
 
 	if (i >= nkern_targets)
 		return 0;
-	  
+
 	memset((caddr_t)&d, 0, UIO_MX);
 	d.d_reclen = UIO_MX;
 
@@ -777,15 +777,15 @@ kernfs_print(v)
 }
 
 int
-kernfs_link(v) 
+kernfs_link(v)
 	void *v;
 {
 	struct vop_link_args /* {
 		struct vnode *a_dvp;
-		struct vnode *a_vp;  
+		struct vnode *a_vp;
 		struct componentname *a_cnp;
 	} */ *ap = v;
- 
+
 	VOP_ABORTOP(ap->a_dvp, ap->a_cnp);
 	vput(ap->a_dvp);
 	return (EROFS);
@@ -802,7 +802,7 @@ kernfs_symlink(v)
 		struct vattr *a_vap;
 		char *a_target;
 	} */ *ap = v;
-  
+
 	VOP_ABORTOP(ap->a_dvp, ap->a_cnp);
 	vput(ap->a_dvp);
 	return (EROFS);

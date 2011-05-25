@@ -51,7 +51,7 @@ ffs(int reg)
 	return	val;
 }
 
-static __inline__ void 
+static __inline__ void
 _remque(void *p)
 {
 	__asm__ __volatile ("remque (%0),%0;clrl 4(%0)"
@@ -60,7 +60,7 @@ _remque(void *p)
 			: "memory" );
 }
 
-static __inline__ void 
+static __inline__ void
 _insque(void *p, void *q)
 {
 	__asm__ __volatile ("insque (%0), (%1)"

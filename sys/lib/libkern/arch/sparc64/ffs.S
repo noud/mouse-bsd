@@ -97,7 +97,7 @@ ENTRY(ffs)
 	ldsb	[%o2 + %o0], %o0
 	retl
 	 add	%o0, 24, %o0
-	
+
 	.globl	_C_LABEL(__ffstab)
 _C_LABEL(__ffstab):
 	.byte	-24,1,2,1,3,1,2,1,4,1,2,1,3,1,2,1 /* 00-0f */

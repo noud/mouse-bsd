@@ -106,7 +106,7 @@ struct render_engine {
 /* Blank type 3 is suported by default */
 
 #define BLANK_NONE	0	/* Not really blanked */
-#define BLANK_IDLE	1	/* Vsync dropped for fast reactivation */ 
+#define BLANK_IDLE	1	/* Vsync dropped for fast reactivation */
 #define BLANK_UNUSED	2	/* Hsync dropped for semi fast reactivation */
 #define BLANK_OFF	3	/* All signals removed slowest reactivation */
 

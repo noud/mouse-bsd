@@ -47,7 +47,7 @@ __RCSID("$NetBSD: yppush_proc.c,v 1.4 1997/11/18 07:01:50 lukem Exp $");
 
 #include "yppush.h"
 
-void * 
+void *
 yppushproc_null_1_svc(argp, rqstp)
 	void *argp;
 	struct svc_req *rqstp;
@@ -58,7 +58,7 @@ yppushproc_null_1_svc(argp, rqstp)
 	return ((void *)&result);
 }
 
-void * 
+void *
 yppushproc_xfrresp_1_svc(argp, rqstp)
 	void *argp;
 	struct svc_req *rqstp;

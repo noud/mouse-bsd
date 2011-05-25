@@ -1,6 +1,6 @@
 #	$NetBSD: SALMON,v 1.11 1998/06/26 01:54:05 lukem Exp $
 #
-# SALMON: Phil Nelson's 2nd (test) pc532 
+# SALMON: Phil Nelson's 2nd (test) pc532
 #
 
 include	"arch/pc532/conf/std.pc532"
@@ -51,7 +51,7 @@ options 	INET			# IP
 #options 	"RAMD_SIZE=1536000"	# Size of the "boot strap ram disk"
 #options 	"RAMD_ADR=0x400000"	# Adr of the "boot strap ram disk"
 
-config		netbsd	root on sd0 type ffs 
+config		netbsd	root on sd0 type ffs
 
 #rd0 at mainbus?
 
@@ -65,4 +65,4 @@ pseudo-device	bpfilter 4		# packet filter
 pseudo-device	sl 2			# compressed SLIP
 pseudo-device	ppp 2			# Point-to-Point Protocol
 pseudo-device   vnd 4			# Vnode devices
-#pseudo-device	ether			# 
+#pseudo-device	ether			#

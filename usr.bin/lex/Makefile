@@ -5,7 +5,7 @@
 # -8 flag is given.  If you want it to always generate 8-bit scanners, add
 # "-DDEFAULT_CSIZE=256" to CPPFLAGS.  Note that doing so will double the size
 # of all uncompressed scanners.
-# 
+#
 # If on your system you have trouble building flex due to 8-bit character
 # problems, remove the -8 from FLEX_FLAGS and the "#define FLEX_8_BIT_CHARS"
 # from the beginning of flexdef.h.
@@ -29,7 +29,7 @@ MAN = flex.1
 
 LINKS=	${BINDIR}/lex ${BINDIR}/flex \
 	${BINDIR}/lex ${BINDIR}/flex++
-MLINKS=	flex.1 lex.1 
+MLINKS=	flex.1 lex.1
 
 skel.c:	flex.skl mkskel.sh
 	sh ${.CURDIR}/mkskel.sh ${.CURDIR}/flex.skl > skel.c

@@ -30,7 +30,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*
- * some colors, handy for debugging 
+ * some colors, handy for debugging
  */
 #ifdef DEBUG
 #define COL_BLACK	0x000

@@ -249,7 +249,7 @@ isp_target_notify(isp, vptr, optrp)
 	return (rval);
 }
 
- 
+
 /*
  * Toggle (on/off) target mode for bus/target/lun
  *
@@ -577,7 +577,7 @@ isp_got_msg_fc(isp, bus, inp)
 	in_fcentry_t *inp;
 {
 	static char *f1 = "%s: %s from iid %d lun %d seq 0x%x\n";
-	static char *f2 = 
+	static char *f2 =
 	    "%s: unknown %s 0x%x lun %d iid %d task flags 0x%x seq 0x%x\n";
 
 	if (inp->in_status != IN_MSG_RECEIVED) {

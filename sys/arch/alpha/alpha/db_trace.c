@@ -52,7 +52,7 @@ __KERNEL_RCSID(0, "$NetBSD: db_trace.c,v 1.4 1999/07/12 07:37:14 ross Exp $");
 
 #include <alpha/alpha/db_instruction.h>
 
-#include <ddb/db_sym.h> 
+#include <ddb/db_sym.h>
 #include <ddb/db_access.h>
 #include <ddb/db_variables.h>
 #include <ddb/db_output.h>
@@ -144,7 +144,7 @@ db_stack_trace_cmd(addr, have_addr, count, modif)
 			if (p == NULL) {
 				db_printf("not found\n");
 				return;
-			}	
+			}
 			if ((p->p_flag & P_INMEM) == 0) {
 				db_printf("swapped out\n");
 				return;

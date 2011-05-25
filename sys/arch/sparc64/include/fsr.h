@@ -47,7 +47,7 @@
 #ifndef _MACHINE_FSR_H_
 #define	_MACHINE_FSR_H_
 
-/* 
+/*
  * Bits in FPRS
  */
 #define FPRS_FEF	0x04		/* Enable FP -- must be set to enable FP regs */

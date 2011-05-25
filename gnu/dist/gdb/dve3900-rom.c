@@ -58,7 +58,7 @@ struct bit_field
   int  length;		/* number of bits in the field */
   int  start;		/* starting (least significant) bit number of field */
 };
-        
+
 /* Local functions for register manipulation.  */
 
 static void r3900_supply_register PARAMS ((char *regname, int regnamelen,
@@ -222,7 +222,7 @@ static struct bit_field cache_fields [] =
 #endif
 
 
-static struct bit_field cause_fields[] = 
+static struct bit_field cause_fields[] =
 {
   { "<BD=",	" ",	"bd",   1, 31 },
   { "CE=",	" ",	"ce",   2, 28 },
@@ -295,7 +295,7 @@ fetch_bad_vaddr()
   monitor_supply_register (BADVADDR_REGNUM, buf);
 }
 
-    
+
 /* Read a series of bit fields from the monitor, and return their
    combined binary value.  */
 
@@ -317,7 +317,7 @@ fetch_fields (bf)
 	  bits &= ((1 << bf->length) - 1);	/* mask out useless bits */
 	  val |= bits << bf->start;		/* insert into register */
 	}
-	  
+
     }
 
   return val;
@@ -468,7 +468,7 @@ debug_readchar (hex)
 	sprintf (buf, "[%02x]", c & 0xff);
       else if (c == '\0')
 	strcpy (buf, "\\0");
-      else 
+      else
 	{
 	  buf[0] = c;
 	  buf[1] = '\0';
@@ -521,7 +521,7 @@ static void
 ignore_packet ()
 {
   int c;
-  int len;  
+  int len;
 
   /* Ignore lots of trash (messages about section addresses, for example)
      until we see the start of a packet.  */
@@ -612,7 +612,7 @@ send_packet (type, buf, buflen, seq)
 	}
       sum = (sum & 0xffff) + ((sum >> 16) & 0xffff);
       sum += (sum >> 16) & 1;
-      sum = ~sum;  
+      sum = ~sum;
 
       hdr[0] = (sum >> 8) & 0xff;
       hdr[1] = sum & 0xff;
@@ -688,7 +688,7 @@ count_section (abfd, s, section_count)
    packets containing read requests, but rather than respond
    to them in an general way, we expect them to following
    a certain pattern.
-   
+
    For example, we know that the monitor will start loading by
    issuing an 8-byte read request for the binary file header.
    We know this is coming and ignore the actual contents
@@ -755,7 +755,7 @@ load_section (abfd, s, data_count)
  */
 
 static void
-r3900_load (filename, from_tty) 
+r3900_load (filename, from_tty)
     char *filename;
     int from_tty;
 {
@@ -794,7 +794,7 @@ r3900_load (filename, from_tty)
   monitor_printf ("Rm\r");
   ignore_packet ();
   send_packet ('a', "", 0, 0);
-  
+
   /* Output the fast load header (number of sections and starting address).  */
   bfd_map_over_sections ((bfd *) abfd, (section_map_func) count_section,
 			 &section_count);

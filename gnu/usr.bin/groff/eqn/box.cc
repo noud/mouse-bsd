@@ -28,7 +28,7 @@ char *grfont = 0;
 char *gbfont = 0;
 int gsize = 0;
 
-int script_size_reduction = -1;	// negative means reduce by a percentage 
+int script_size_reduction = -1;	// negative means reduce by a percentage
 
 int positive_space = -1;
 int negative_space = -1;
@@ -415,7 +415,7 @@ int box::right_is_italic()
 void box::hint(unsigned)
 {
 }
-  
+
 void box::handle_char_type(int, int)
 {
 }

@@ -355,11 +355,11 @@ fxp_attach(sc)
 	if (sc->sc_sdhook == NULL)
 		printf("%s: WARNING: unable to establish shutdown hook\n",
 		    sc->sc_dev.dv_xname);
-	/* 
+	/*
   	 * Add suspend hook, for similar reasons..
 	 */
 	sc->sc_powerhook = powerhook_establish(fxp_power, sc);
-	if (sc->sc_powerhook == NULL) 
+	if (sc->sc_powerhook == NULL)
 		printf("%s: WARNING: unable to establish power hook\n",
 		    sc->sc_dev.dv_xname);
 	return;
@@ -501,8 +501,8 @@ fxp_get_info(sc, enaddr)
 	    sc->sc_eeprom_size = 6; /* XXX panic here? */
 	}
 #ifdef DEBUG
-	printf("%s: detected %d word EEPROM\n", 
-	       sc->sc_dev.dv_xname, 
+	printf("%s: detected %d word EEPROM\n",
+	       sc->sc_dev.dv_xname,
 	       1 << sc->sc_eeprom_size);
 #endif
 
@@ -543,7 +543,7 @@ fxp_get_info(sc, enaddr)
  * contents with a varying number of address bits, but no such
  * register seem to be available. The high bits of register 10 are 01
  * on the 558 and 559, but apparently not on the 557.
- * 
+ *
  * The Linux driver computes a checksum on the EEPROM data, but the
  * value of this checksum is not very well documented.
  */
@@ -581,7 +581,7 @@ fxp_autosize_eeprom(sc)
 		CSR_WRITE_2(sc, FXP_CSR_EEPROMCONTROL,
 		    FXP_EEPROM_EECS | FXP_EEPROM_EESK);
 		DELAY(1);
-		if((CSR_READ_2(sc, FXP_CSR_EEPROMCONTROL) & 
+		if((CSR_READ_2(sc, FXP_CSR_EEPROMCONTROL) &
 		    FXP_EEPROM_EEDO) == 0)
 			break;
 		CSR_WRITE_2(sc, FXP_CSR_EEPROMCONTROL, FXP_EEPROM_EECS);
@@ -591,7 +591,7 @@ fxp_autosize_eeprom(sc)
 	DELAY(1);
 	if(x != 6 && x != 8) {
 #ifdef DEBUG
-		printf("%s: strange EEPROM size (%d)\n", 
+		printf("%s: strange EEPROM size (%d)\n",
 		       sc->sc_dev.dv_xname, 1 << x);
 #endif
 	} else
@@ -1509,7 +1509,7 @@ fxp_mii_mediastatus(ifp, ifmr)
 		ifmr->ifm_status = 0;
 		return;
 	}
-	
+
 	mii_pollstat(&sc->sc_mii);
 	ifmr->ifm_status = sc->sc_mii.mii_media_status;
 	ifmr->ifm_active = sc->sc_mii.mii_media_active;
@@ -1855,7 +1855,7 @@ fxp_enable(sc)
 			return (EIO);
 		}
 	}
-	
+
 	sc->sc_enabled = 1;
 	return (0);
 }

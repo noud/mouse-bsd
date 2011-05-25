@@ -15,13 +15,13 @@
 
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
+   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 
  */
 
 
-/* 
+/*
    Much of this file (in particular the SWI stuff) is based on code by
    David Taylor (djt1000@uk.ac.cam.hermes).
 
@@ -563,8 +563,8 @@ rdp_fetch_one_fpu_register (mask, buf)
     }
   else
     {
-      /* There are 12 bytes long 
-         !! fixme about endianness 
+      /* There are 12 bytes long
+         !! fixme about endianness
        */
       int dummy;		/* I've seen these come back as four words !! */
       send_rdp ("bbw-SWWWWZ", RDP_COPRO_READ, FPU_COPRO_NUMBER, mask, buf + 0, buf + 4, buf + 8, &dummy);
@@ -603,8 +603,8 @@ rdp_store_one_fpu_register (mask, buf)
     }
   else
     {
-      /* There are 12 bytes long 
-         !! fixme about endianness 
+      /* There are 12 bytes long
+         !! fixme about endianness
        */
       int dummy = 0;
       /* I've seen these come as four words, not the three advertized !! */
@@ -759,7 +759,7 @@ rdp_catch_vectors ()
 	    (1<<0)|(1<<1)|(1<<3)|(1<<4)|(1<<5)
 	    );
 }
-  
+
 
 
 #define a_byte 1
@@ -910,7 +910,7 @@ exec_swi (swi, args)
       else
 	remote_rdp_xfer_inferior_memory (args[0].n, "", 1, 1, 0);
       return 1;
-      
+
     default:
       return 0;
     }
@@ -1150,7 +1150,7 @@ remote_rdp_open (args, from_tty)
       const char * CPU = "ARM7TDI";
       int ICEversion;
       int len = strlen (CPU);
-      
+
       send_rdp ("bbbbw-p-SWZ",
 		RDP_SELECT_CONFIG,
 		RDI_ConfigCPU,	/* Aspect: set the CPU */
@@ -1358,7 +1358,7 @@ remote_rdp_create_inferior (exec_file, allargs, env)
 
   entry_point = (CORE_ADDR) bfd_get_start_address (exec_bfd);
 
-  remote_rdp_kill ();	 
+  remote_rdp_kill ();
   remove_breakpoints ();
   init_wait_for_inferior ();
 
@@ -1392,7 +1392,7 @@ remote_rdp_attach(args, from_tty)
 {
   return;
 }
-  
+
 /* Define the target subroutine names */
 
 struct target_ops remote_rdp_ops =

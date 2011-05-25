@@ -42,8 +42,8 @@
 
 #include <sys/param.h>
 #include <sys/systm.h>
-#include <sys/device.h> 
- 
+#include <sys/device.h>
+
 #include <hp300/dev/intiovar.h>
 
 int	intiomatch __P((struct device *, struct cfdata *, void *));

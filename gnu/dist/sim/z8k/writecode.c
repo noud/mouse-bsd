@@ -570,7 +570,7 @@ info_args (p)
 	case CLASS_FLAGS:
 		emit ("register unsigned int imm_src=<insn_4>;\n");
 		nibs++;
-break;	  
+break;
 	case CLASS_IMM:
 	  /* Work out the size of the think to fetch */
 
@@ -1170,7 +1170,7 @@ doset (p, v)
 opcode_entry_type*p;
 int v;
 {
-  if (v) 
+  if (v)
     emit (" tmp = op_dst | (1<< op_src);\n");
   else
     emit (" tmp = op_dst & ~(1<< op_src);\n");

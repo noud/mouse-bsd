@@ -16,7 +16,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -34,14 +34,14 @@
  */
 
  /* All bugs are subject to removal without further notice */
-		
+
 
 #define	_LOCORE
 
 #include "sys/disklabel.h"
 
 #include "../include/mtpr.h"
-#include "../include/asm.h"		
+#include "../include/asm.h"
 
 _start:	.globl _start		# this is the symbolic name for the start
 				# of code to be relocated. We can use this
@@ -52,9 +52,9 @@ _start:	.globl _start		# this is the symbolic name for the start
 	brb	from_0x00	# continue behind dispatch-block
 
 .org	0x02			# information used by uVAX-ROM
-	.byte (LABELOFFSET + d_end_)/2 # offset in words to identification area 
+	.byte (LABELOFFSET + d_end_)/2 # offset in words to identification area
 	.byte	1		# this byte must be 1
-	.word	0		# logical block number (word swapped) 
+	.word	0		# logical block number (word swapped)
 	.word	0		# of the secondary image
 
 .org	0x08			#
@@ -67,7 +67,7 @@ _start:	.globl _start		# this is the symbolic name for the start
 	brw	cont_750
 
 
-from_0x00:			# uVAX from TK50 
+from_0x00:			# uVAX from TK50
 from_0x0A:			# uVAX from disk
 	brw	start_uvax	# all(?) uVAXen continue there
 
@@ -92,24 +92,24 @@ bootinfo:	.long 0x0	# another 3 bytes if within byte-offset
 #define SIOFF           0x0A    /* byte offset into secondary image */
 
 .org    LABELOFFSET + d_end_
-	.byte	0x18		# must be 0x18 
-	.byte	0x00		# must be 0x00 (MBZ) 
-	.byte	0x00		# any value 
-	.byte	0xFF - (0x18 + 0x00 + 0x00)	
+	.byte	0x18		# must be 0x18
+	.byte	0x00		# must be 0x00 (MBZ)
+	.byte	0x00		# any value
+	.byte	0xFF - (0x18 + 0x00 + 0x00)
 		/* 4th byte holds 1s' complement of sum of previous 3 bytes */
 
-	.byte	0x00		# must be 0x00 (MBZ) 
+	.byte	0x00		# must be 0x00 (MBZ)
 	.byte	VOLINFO
-	.byte	0x00		# any value 
-	.byte	0x00		# any value 
+	.byte	0x00		# any value
+	.byte	0x00		# any value
 
-	.long	SISIZE		# size in blocks of secondary image 
-	.long	SILOAD		# load offset (usually 0) 
-	.long 	SIOFF		# byte offset into secondary image 
-	.long	(SISIZE + SILOAD + SIOFF)	# sum of previous 3 
+	.long	SISIZE		# size in blocks of secondary image
+	.long	SILOAD		# load offset (usually 0)
+	.long 	SIOFF		# byte offset into secondary image
+	.long	(SISIZE + SILOAD + SIOFF)	# sum of previous 3
 
 /*
- * After bootblock (LBN0) has been loaded into the first page 
+ * After bootblock (LBN0) has been loaded into the first page
  * of good memory by 11/750's ROM-code (transfer address
  * of bootblock-code is: base of good memory + 0x0C) registers
  * are initialized as:
@@ -166,13 +166,13 @@ start_all:
 	subl3	$_start, $_end, r2	# get complete size (incl. bss)
 	movl	$_start, r3		# get relocated base-address of code
 	movc5	r0, (r1), $0, r2, (r3)	# copy code to new location
-	
-	movl	$relocated, -(sp)	# return-address on top of stack 
+
+	movl	$relocated, -(sp)	# return-address on top of stack
 	rsb	 			# can be replaced with new address
 relocated:				# now relocation is done !!!
 	movl	sp, _bootregs
 	movl	ap, _boothowto
-	calls	$0, _Xmain		# call Xmain (gcc workaround)which is 
+	calls	$0, _Xmain		# call Xmain (gcc workaround)which is
 	halt				# not intended to return ...
 
 /*

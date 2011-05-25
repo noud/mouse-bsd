@@ -51,7 +51,7 @@ private:
   };
 
   // Per instance state
-  obj* volatile free_list[NFREELISTS]; 
+  obj* volatile free_list[NFREELISTS];
   __pthread_alloc_template<dummy>* next; 	// Free list link
 
   static size_t ROUND_UP(size_t bytes) {
@@ -76,7 +76,7 @@ private:
   static __pthread_alloc_template<dummy>* free_allocators;
   static pthread_key_t key;
   static bool key_initialized;
-	// Pthread key under which allocator is stored. 
+	// Pthread key under which allocator is stored.
 	// Allocator instances that are currently unclaimed by any thread.
   static void destructor(void *instance);
 	// Function to be called on thread exit to reclaim allocator
@@ -226,7 +226,7 @@ char *__pthread_alloc_template<dummy>
 	size_t bytes_to_get = 2 * total_bytes + ROUND_UP(heap_size >> 4);
 	// Try to make use of the left-over piece.
 	if (bytes_left > 0) {
-	    __pthread_alloc_template<dummy>* a = 
+	    __pthread_alloc_template<dummy>* a =
 		(__pthread_alloc_template<dummy>*)pthread_getspecific(key);
 	    obj * volatile * my_free_list =
 			a->free_list + FREELIST_INDEX(bytes_left);
@@ -242,7 +242,7 @@ char *__pthread_alloc_template<dummy>
 	  {
 	    const int cache_line_size = 128;  // probable upper bound
 	    bytes_to_get &= ~(cache_line_size-1);
-	    start_free = (char *)memalign(cache_line_size, bytes_to_get); 
+	    start_free = (char *)memalign(cache_line_size, bytes_to_get);
 	    if (0 == start_free) {
 	      start_free = (char *)malloc_alloc::allocate(bytes_to_get);
 	    }

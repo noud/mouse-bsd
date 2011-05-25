@@ -43,7 +43,7 @@ into another language, under the above conditions for modified versions.
 
 @titlepage
 @title GNU gprof
-@subtitle The @sc{gnu} Profiler 
+@subtitle The @sc{gnu} Profiler
 @author Jay Fenlason and Richard Stallman
 
 @page
@@ -498,7 +498,7 @@ names are not listed as global, and which are not visible outside the
 file/function/block where they were defined.)  Time spent in these
 functions, calls to/from them, etc, will all be attributed to the
 function that was loaded directly before it in the executable file.
-@c This is compatible with Unix @code{gprof}, but a bad idea.  
+@c This is compatible with Unix @code{gprof}, but a bad idea.
 This option affects both the flat profile and the call graph.
 
 @item -c
@@ -615,7 +615,7 @@ children@dots{}) in the call graph.  The function will still be listed
 as a child of any functions that call it, but its index number will be
 shown as @samp{[not printed]}.  More than one @samp{-e} option may be
 given; only one @var{function_name} may be indicated with each @samp{-e}
-option. 
+option.
 
 @item -E @var{function_name}
 The @code{-E @var{function}} option works like the @code{-e} option, but
@@ -629,7 +629,7 @@ The @samp{-f @var{function}} option causes @code{gprof} to limit the
 call graph to the function @var{function_name} and its children (and
 their children@dots{}).  More than one @samp{-f} option may be given;
 only one @var{function_name} may be indicated with each @samp{-f}
-option.  
+option.
 
 @item -F @var{function_name}
 The @samp{-F @var{function}} option works like the @code{-f} option, but
@@ -740,8 +740,8 @@ This is part of a flat profile for a small program:
 Flat profile:
 
 Each sample counts as 0.01 seconds.
-  %   cumulative   self              self     total           
- time   seconds   seconds    calls  ms/call  ms/call  name    
+  %   cumulative   self              self     total
+ time   seconds   seconds    calls  ms/call  ms/call  name
  33.34      0.02     0.02     7208     0.00     0.00  open
  16.67      0.03     0.01      244     0.04     0.12  offtime
  16.67      0.04     0.01        8     1.25     1.25  memccpy
@@ -1247,8 +1247,8 @@ Note that @code{ct_init} accounted for four histogram hits, and
 Flat profile:
 
 Each sample counts as 0.01 seconds.
-  %   cumulative   self              self     total           
- time   seconds   seconds    calls  us/call  us/call  name    
+  %   cumulative   self              self     total
+ time   seconds   seconds    calls  us/call  us/call  name
  30.77      0.13     0.04     6335     6.31     6.31  ct_init
 
 
@@ -1280,8 +1280,8 @@ from line 385, and 6525 calls from 387.
 Flat profile:
 
 Each sample counts as 0.01 seconds.
-  %   cumulative   self                    
- time   seconds   seconds    calls  name    
+  %   cumulative   self
+ time   seconds   seconds    calls  name
   7.69      0.10     0.01           ct_init (trees.c:349)
   7.69      0.11     0.01           ct_init (trees.c:351)
   7.69      0.12     0.01           ct_init (trees.c:382)
@@ -1370,9 +1370,9 @@ annotated source listing for a sample @code{gzip} run:
                     unsigned n;
             2 ->@{
                     register ulg c;
-                
+
                     static ulg crc = (ulg)0xffffffffL;
-                
+
             2 ->    if (s == NULL) @{
             1 ->	c = 0xffffffffL;
             1 ->    @} else @{
@@ -1672,7 +1672,7 @@ more overhead than kernel-based profiling.  Also, due to the
 added delay required to deliver the signal, this method is
 less accurate as well.
 
-A special startup routine allocates memory for the histogram and 
+A special startup routine allocates memory for the histogram and
 either calls @code{profil()} or sets up
 a clock signal handler.
 This routine (@code{monstartup}) can be invoked in several ways.

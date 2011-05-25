@@ -29,7 +29,7 @@ the executable file might be covered by the GNU General Public License. */
 #include "iomanip.h"
 
 
-// Those functions are called through a pointer, 
+// Those functions are called through a pointer,
 // thus it does not make sense, to inline them.
 
 ios & __iomanip_setbase (ios& i, int n)
@@ -37,11 +37,11 @@ ios & __iomanip_setbase (ios& i, int n)
     ios::fmtflags b;
     switch (n)
       {
-	case  8: 
+	case  8:
 	  b = ios::oct; break;
-	case 10: 
+	case 10:
 	  b = ios::dec; break;
-	case 16: 
+	case 16:
 	  b = ios::hex; break;
 	default:
 	  b = 0;
@@ -57,7 +57,7 @@ ios & __iomanip_setfill (ios& i, int n)
     //FIXME else
     //FIXME   i.fill( (wchar) n);
     return i;
-}   
+}
 
 ios &  __iomanip_setprecision (ios& i, int n)
 {

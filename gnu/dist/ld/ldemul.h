@@ -111,7 +111,7 @@ typedef struct ld_emulation_xfer_struct
   boolean (*place_orphan)
     PARAMS ((struct lang_input_statement_struct *, asection *));
 
-  /* Run after assigning parsing with the args, but before 
+  /* Run after assigning parsing with the args, but before
      reading the script.  Used to initialize symbols used in the script. */
   void	(*set_symbols) PARAMS ((void));
 
@@ -126,7 +126,7 @@ typedef struct ld_emulation_xfer_struct
 
 } ld_emulation_xfer_type;
 
-typedef enum 
+typedef enum
 {
   intel_ic960_ld_mode_enum,
   default_mode_enum ,

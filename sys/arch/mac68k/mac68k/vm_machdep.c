@@ -65,7 +65,7 @@
 /*
  * Finish a fork operation, with process p2 nearly set up.
  * Copy and update the pcb and trap frame, making the child ready to run.
- * 
+ *
  * Rig the child's kernel stack so that it will start out in
  * proc_trampoline() and call child_return() with p2 as an
  * argument. This causes the newly-created child process to go
@@ -258,7 +258,7 @@ pagemove(from, to, size)
  * Map `size' bytes of physical memory starting at `paddr' into
  * kernel VA space at `vaddr'.  Read/write and cache-inhibit status
  * are specified by `prot'.
- */ 
+ */
 void
 physaccess(vaddr, paddr, size, prot)
 	caddr_t vaddr, paddr;
@@ -308,7 +308,7 @@ extern vm_map_t phys_map;
 /*
  * Map a user I/O request into kernel virtual address space.
  * Note: the pages are already locked by uvm_vslock(), so we
- * do not need to pass an access_type to pmap_enter().   
+ * do not need to pass an access_type to pmap_enter().
  */
 void
 vmapbuf(bp, len)

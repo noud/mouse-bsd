@@ -142,7 +142,7 @@ svr4_sys_wait(p, v, retval)
 
 	if ((error = sys_wait4(p, &w4, retval)) != 0)
 		return error;
-	
+
 	if ((error = copyin(SCARG(&w4, status), &st, sizeof(st))) != 0)
 		return error;
 
@@ -741,10 +741,10 @@ svr4_sys_break(p, v, retval)
 
 	if (diff > 0) {
 		rv = uvm_map(&vm->vm_map, &old, diff, NULL, UVM_UNKNOWN_OFFSET,
-           		UVM_MAPFLAG(UVM_PROT_ALL, UVM_PROT_ALL, UVM_INH_COPY, 
-			UVM_ADV_NORMAL, 
+           		UVM_MAPFLAG(UVM_PROT_ALL, UVM_PROT_ALL, UVM_INH_COPY,
+			UVM_ADV_NORMAL,
 			UVM_FLAG_AMAPPAD|UVM_FLAG_FIXED|
-			UVM_FLAG_OVERLAY|UVM_FLAG_COPYONW)); 
+			UVM_FLAG_OVERLAY|UVM_FLAG_COPYONW));
 		if (rv != KERN_SUCCESS) {
 			uprintf("sbrk: grow failed, return = %d\n", rv);
 			return ENOMEM;
@@ -840,7 +840,7 @@ svr4_sys_ulimit(p, v, retval)
 			struct sys_setrlimit_args srl;
 			struct rlimit krl;
 			caddr_t sg = stackgap_init(p->p_emul);
-			struct rlimit *url = (struct rlimit *) 
+			struct rlimit *url = (struct rlimit *)
 				stackgap_alloc(&sg, sizeof *url);
 
 			krl.rlim_cur = SCARG(uap, newlimit) * 512;
@@ -1029,7 +1029,7 @@ svr4_hrtcntl(p, uap, retval)
 
 
 int
-svr4_sys_hrtsys(p, v, retval) 
+svr4_sys_hrtsys(p, v, retval)
 	struct proc *p;
 	void *v;
 	register_t *retval;
@@ -1117,7 +1117,7 @@ svr4_setinfo(p, st, s)
 
 
 int
-svr4_sys_waitsys(p, v, retval) 
+svr4_sys_waitsys(p, v, retval)
 	struct proc *p;
 	void *v;
 	register_t *retval;
@@ -1128,7 +1128,7 @@ svr4_sys_waitsys(p, v, retval)
 
 
 	switch (SCARG(uap, grp)) {
-	case SVR4_P_PID:	
+	case SVR4_P_PID:
 		break;
 
 	case SVR4_P_PGID:
@@ -1143,7 +1143,7 @@ svr4_sys_waitsys(p, v, retval)
 		return EINVAL;
 	}
 
-	DPRINTF(("waitsys(%d, %d, %p, %x)\n", 
+	DPRINTF(("waitsys(%d, %d, %p, %x)\n",
 	         SCARG(uap, grp), SCARG(uap, id),
 		 SCARG(uap, info), SCARG(uap, options)));
 
@@ -1158,7 +1158,7 @@ loop:
 			continue;
 		}
 		nfound++;
-		if (q->p_stat == SZOMB && 
+		if (q->p_stat == SZOMB &&
 		    ((SCARG(uap, options) & (SVR4_WEXITED|SVR4_WTRAPPED)))) {
 			*retval = 0;
 			DPRINTF(("found %d\n", q->p_pid));
@@ -1310,7 +1310,7 @@ bsd_statfs_to_svr4_statvfs64(bfs, sfs)
 
 
 int
-svr4_sys_statvfs(p, v, retval) 
+svr4_sys_statvfs(p, v, retval)
 	struct proc *p;
 	void *v;
 	register_t *retval;
@@ -1340,7 +1340,7 @@ svr4_sys_statvfs(p, v, retval)
 
 
 int
-svr4_sys_fstatvfs(p, v, retval) 
+svr4_sys_fstatvfs(p, v, retval)
 	struct proc *p;
 	void *v;
 	register_t *retval;
@@ -1399,7 +1399,7 @@ svr4_sys_statvfs64(p, v, retval)
 
 
 int
-svr4_sys_fstatvfs64(p, v, retval) 
+svr4_sys_fstatvfs64(p, v, retval)
 	struct proc *p;
 	void *v;
 	register_t *retval;

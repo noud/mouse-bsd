@@ -121,7 +121,7 @@ config_vifs_from_kernel()
 		caddr_t newbuf;
 
 		if (ioctl(udp_socket,SIOCGIFCONF,(char *)&ifc) <0)
-		      log(LOG_ERR, errno, "ioctl SIOCGIFCONF");	
+		      log(LOG_ERR, errno, "ioctl SIOCGIFCONF");
 		/*
 		 * If the buffer was large enough to hold all the addresses
 		 * then break out, otherwise increase the buffer size and
@@ -144,7 +144,7 @@ config_vifs_from_kernel()
 	}
 	if (ifc.ifc_buf == NULL)
 	    log(LOG_ERR, 0, "config_vifs_from_kernel: ran out of memory");
-	
+
 
 	ifrp = (struct ifreq *) ifc.ifc_buf;
 	ifend = (struct ifreq * ) (ifc.ifc_buf + ifc.ifc_len);
@@ -163,7 +163,7 @@ config_vifs_from_kernel()
 			n=sizeof(*ifrp);
 #else
 		n=sizeof(*ifrp);
-#endif 
+#endif
 
 		/*
 		 * Ignore any interface for an address family other than IPv6.
@@ -255,7 +255,7 @@ config_vifs_from_kernel()
 				add_phaddr(v, &addr,&mask);
 				break;
 			}
-		}	
+		}
 
 		if( vifi != numvifs )
 			continue;
@@ -266,9 +266,9 @@ config_vifs_from_kernel()
 		if( numvifs == MAXMIFS )
 		{
 			log(LOG_WARNING, 0,
-			    "too many vifs, ignoring %s", ifr.ifr_name);	
+			    "too many vifs, ignoring %s", ifr.ifr_name);
 			continue;
-		}		
+		}
 
 		/*
 		 * Everyone below is a potential vif interface.
@@ -283,12 +283,12 @@ config_vifs_from_kernel()
 		strncpy ( v->uv_name , ifr.ifr_name,IFNAMSIZ);
 		v->uv_ifindex = if_nametoindex(v->uv_name);
 		add_phaddr(v,&addr,&mask);
-	
+
 		/* prefix local calc. (and what about add_phaddr?...) */
 		for (i = 0; i < sizeof(struct in6_addr); i++)
 			v->uv_prefix.sin6_addr.s6_addr[i] =
 				addr.sin6_addr.s6_addr[i] & mask.s6_addr[i];
-	
+
 		if(flags & IFF_POINTOPOINT)
 			v->uv_flags |=(VIFF_REXMIT_PRUNES | VIFF_POINT_TO_POINT);
 
@@ -311,8 +311,8 @@ config_vifs_from_kernel()
 
 		++numvifs;
 
-		
-		if( !(flags & IFF_UP)) 
+
+		if( !(flags & IFF_UP))
 		{
 			v->uv_flags |= VIFF_DOWN;
 			vifs_down = TRUE;
@@ -326,7 +326,7 @@ add_phaddr(struct uvif *v,struct sockaddr_in6 *addr,struct in6_addr *mask)
 {
 	struct phaddr *pa;
 	int i;
-	
+
 	if( (pa=malloc(sizeof(*pa))) == NULL)
 		        log(LOG_ERR, 0, "add_phaddr: memory exhausted");
 
@@ -416,13 +416,13 @@ config_vifs_from_file()
 			break;
 		case CANDIDATE_RP:
 			parse_candidateRP(s);
-			break;	
+			break;
 		case GROUP_PREFIX:
 			parse_group_prefix(s);
-			break;	
+			break;
 		case BOOTSTRAP_RP:
 			parseBSR(s);
-			break;	
+			break;
 		case REG_THRESHOLD:
 			parse_reg_threshold(s);
 			break;
@@ -434,7 +434,7 @@ config_vifs_from_file()
 			break;
 		case DEFAULT_SOURCE_PREFERENCE :
 			parse_default_source_preference(s);
-			break;	
+			break;
 		case HELLO_PERIOD :
 			parse_hello_period(s);
 			break;
@@ -459,9 +459,9 @@ config_vifs_from_file()
 		default:
 	       log(LOG_WARNING, 0, "unknown command '%s' in %s",
         	w, configfilename);
-	
+
 		}
-	}	
+	}
 	cand_rp_adv_message.message_size = cand_rp_adv_message.insert_data_ptr - cand_rp_adv_message.buffer;
 	if (cand_rp_flag != FALSE)
 	{
@@ -484,12 +484,12 @@ config_vifs_from_file()
 		    	my_cand_rp_adv_period);
 		}
 	}
-       
+
 
 	if( cand_bsr_flag!=FALSE)
 	{
 		IF_DEBUG(DEBUG_PIM_BOOTSTRAP)
-		{	
+		{
 			log(LOG_DEBUG, 0,
 		    	"Local BSR address: %s",
 		    	inet6_fmt(&my_bsr_address.sin6_addr));
@@ -498,8 +498,8 @@ config_vifs_from_file()
 			log(LOG_DEBUG,0,
 				"Local BSR period is : %u sec.",
 				my_bsr_period);
-		
-		}  
+
+		}
 
 	}
 
@@ -590,7 +590,7 @@ int parse_phyint(char *s)
 
 	if(EQUAL((w = next_word(&s)),""))
 	{
-		log(LOG_WARNING, 0, "Missing phyint name in %s", configfilename);	
+		log(LOG_WARNING, 0, "Missing phyint name in %s", configfilename);
 		return FALSE;
 	}
 	ifname = w;
@@ -604,7 +604,7 @@ int parse_phyint(char *s)
 			"in %s", w, configfilename);
 			return FALSE;
 		}
-	
+
 		if(strcmp(v->uv_name,ifname))
 			continue;
 
@@ -614,7 +614,7 @@ int parse_phyint(char *s)
 				v->uv_flags |=VIFF_DISABLED;
 			else if (EQUAL(w, "nolistener"))
 				v->uv_flags |= VIFF_NOLISTENER;
-			else 
+			else
 			{
 				if(EQUAL(w,"preference"))
 				{
@@ -625,7 +625,7 @@ int parse_phyint(char *s)
 						    "phyint %s in %s",
 						    ifname, configfilename);
 					}
-					else 
+					else
 					{
 						if (sscanf(w,"%u%c",&n,&c) != 1 ||
 						    n < 1 || n > 255 )
@@ -643,7 +643,7 @@ int parse_phyint(char *s)
 								log(LOG_DEBUG, 0,"Config setting default local preference on %d to %s",n,ifname);
 							v->uv_local_pref = n;
 						}
-  					}	
+  					}
 				}
 				else
 				{
@@ -657,7 +657,7 @@ int parse_phyint(char *s)
 							    ifname,
 							    configfilename);
 						}
-						else 
+						else
 						{
 							if (sscanf(w, "%u%c", &n, &c) != 1 ||
 							    n < 1 || n > 1024 )
@@ -674,8 +674,8 @@ int parse_phyint(char *s)
 									    n,ifname);
 								v->uv_local_metric = n;
         					}
-   
-    					}       
+
+    					}
     				}
     			}
 			}
@@ -702,12 +702,12 @@ parse_candidateRP(char *s)
 	u_int priority = PIM_DEFAULT_CAND_RP_PRIORITY;
 
 	sa6_rp = NULL;
-	cand_rp_flag = FALSE;	
+	cand_rp_flag = FALSE;
 
 	my_cand_rp_adv_period = PIM_DEFAULT_CAND_RP_ADV_PERIOD;
-		
+
 	while(!EQUAL((w = next_word(&s)),""))
-	{ 
+	{
 		if((!EQUAL(w,"priority")) && (!EQUAL(w,"time")))
 		{
 			/*
@@ -716,7 +716,7 @@ parse_candidateRP(char *s)
 			 * (aliasing) else look at the end of the function.
 			 */
 			sa6_rp = local_iface(w);
-			if(!sa6_rp)	
+			if(!sa6_rp)
 				log(LOG_WARNING, 0,
 				    "cand_rp '%s' in  %s is not configured."
 				    "take the max local address the router..",
@@ -731,7 +731,7 @@ parse_candidateRP(char *s)
 					log(LOG_WARNING,0,
 					    "Missing priority ; set to default "
 					    ": %d (0 is highest )",priority);
-				}	
+				}
 				else
 				{
 					if (sscanf(w,"%u",&priority)!= 1 )
@@ -752,7 +752,7 @@ parse_candidateRP(char *s)
 					log(LOG_WARNING, 0,
 					    "Missing cand_adv period ;"
 					    "set to default : %d",time);
-				}	
+				}
 				else
 				{
 					if (sscanf(w,"%u",&time)!= 1 )
@@ -762,7 +762,7 @@ parse_candidateRP(char *s)
 						    "Invalid cand_adv_period "
 						    "'%s';set to default : %d",
 						    w,time);
-							
+
 					}
 					else
 					{
@@ -787,7 +787,7 @@ parse_candidateRP(char *s)
 	my_cand_rp_address=*sa6_rp;
 	my_cand_rp_priority = priority;
 	my_cand_rp_adv_period = time;
-	cand_rp_flag = TRUE;	
+	cand_rp_flag = TRUE;
 
 	return TRUE;
 }
@@ -798,14 +798,14 @@ parse_candidateRP(char *s)
  * output: int
  * operation: parse group_prefix configured information.
  *  General form: 'group_prefix <group-addr>/<prefix_len>'.
- */ 
+ */
 int
 parse_group_prefix(char *s)
 {
 	char *w;
 	struct in6_addr group_addr;
 	u_int32 masklen=PIM_GROUP_PREFIX_DEFAULT_MASKLEN;
-	
+
 	w=next_word(&s);
 	if (EQUAL(w,""))
 	{
@@ -816,7 +816,7 @@ parse_group_prefix(char *s)
 	}
 
 	w=strtok(w,"/");
-	
+
 	if ( inet_pton(AF_INET6,w,(void *)&group_addr) != 1 )
 	{
 		log(LOG_WARNING, 0,
@@ -862,7 +862,7 @@ parse_group_prefix(char *s)
 	(*cand_rp_adv_message.prefix_cnt_ptr)++;
 
 	return TRUE;
-		
+
 }
 /*
  * function name: parseBSR
@@ -871,8 +871,8 @@ parse_group_prefix(char *s)
  * operation: parse the candidate BSR configured information.
  *  General form:
  *  'cand_bootstrap_router <ifname> [priority <number>]'.
- *  this function is similar to parse_candrp 
- */ 
+ *  this function is similar to parse_candrp
+ */
 
 int
 parseBSR(char *s)
@@ -884,7 +884,7 @@ parseBSR(char *s)
 	my_bsr_period = PIM_DEFAULT_BOOTSTRAP_PERIOD;
 
 	sa6_bsr = NULL;
-	cand_bsr_flag = FALSE; 
+	cand_bsr_flag = FALSE;
 
 	while(!EQUAL((w = next_word(&s)),""))
 	{
@@ -893,7 +893,7 @@ parseBSR(char *s)
 
 			sa6_bsr = local_iface(w);
 			if(!sa6_bsr)
-			{	
+			{
 				log(LOG_WARNING,0,
 				    "cand_bootstrap_router '%s' in %s is not "
 				    "configured.Take the max router address.",
@@ -949,7 +949,7 @@ parseBSR(char *s)
 					else
 						my_bsr_period=time;
 				}
-			}	
+			}
 		}
 	}
 
@@ -958,13 +958,13 @@ parseBSR(char *s)
 
 	my_bsr_address=*sa6_bsr;
         my_bsr_priority = priority;
-       	MASKLEN_TO_MASK6(RP_DEFAULT_IPV6_HASHMASKLEN,my_bsr_hash_mask); 
+       	MASKLEN_TO_MASK6(RP_DEFAULT_IPV6_HASHMASKLEN,my_bsr_hash_mask);
 	cand_bsr_flag = TRUE;
 
       	return TRUE;
 }
 
-/*  
+/*
  * function name: parse_reg_threshold
  * input: char *s
  * output: int (TRUE if successful, FALSE o.w.)
@@ -975,7 +975,7 @@ parseBSR(char *s)
  *        General form:
  *      'switch_register_threshold [rate <number> interval <number>]'.
  * comments: called by config_vifs_from_file()
- */ 
+ */
 
 
 int parse_reg_threshold(char *s)
@@ -1004,7 +1004,7 @@ int parse_reg_threshold(char *s)
 					    "switch_register_threshold : "
 					    "Invalid rate '%s' , set to defaut :"
 					    " %u (bits/s)",
-					    w,rate); 
+					    w,rate);
 				}
 			}
 		}
@@ -1032,7 +1032,7 @@ int parse_reg_threshold(char *s)
 				log(LOG_WARNING,0,"swhitch_register_threshold : Invalid parameter %s",w);
 			}
 		}
-	}							
+	}
 
 	if( interval < timer_interval)
 	{
@@ -1047,16 +1047,16 @@ int parse_reg_threshold(char *s)
 	return TRUE;
 
 }
-/*  
+/*
  * function name: parse_data_threshold
  * input: char *s
  * output: int
  * operation: reads and assigns the switch to the spt threshold
  *        due to data packets, if used as DR.
  *        General form:
- *      'switch_data_threshold [rate <number> interval <number>]'.  
+ *      'switch_data_threshold [rate <number> interval <number>]'.
  *		similar to register_threshold...
- */ 
+ */
 
 int parse_data_threshold(char *s)
 {
@@ -1079,7 +1079,7 @@ int parse_data_threshold(char *s)
 				{
 					rate = PIM_DEFAULT_DATA_RATE;
 					log(LOG_WARNING,0,"switch_data_threshold : Invalid rate '%s' ; set to default : %u (bits/s)",
-					w,rate); 
+					w,rate);
 				}
 			}
 		}
@@ -1107,7 +1107,7 @@ int parse_data_threshold(char *s)
 				log(LOG_WARNING,0,"swhitch_data_threshold :Invalid Parameter %s",w);
 			}
 		}
-	}							
+	}
 
 	if( interval < timer_interval)
 	{
@@ -1144,7 +1144,7 @@ int parse_default_source_metric(char *s)
 	struct uvif *v;
 
 	value = DEFAULT_LOCAL_METRIC;
-	
+
 	if (EQUAL((w = next_word(&s)), ""))
 	{
 		log(LOG_WARNING,0,
@@ -1163,11 +1163,11 @@ int parse_default_source_metric(char *s)
 		default_source_metric = value;
 		log(LOG_INFO,0, "Default_source_metric is : %u", default_source_metric);
 
-		for (vifi = 0, v = uvifs; vifi < MAXVIFS; ++vifi, ++v) 
+		for (vifi = 0, v = uvifs; vifi < MAXVIFS; ++vifi, ++v)
 		{
 			v->uv_local_metric = default_source_metric;
 		}
-	
+
 
 	}
 		return(TRUE);
@@ -1193,7 +1193,7 @@ int parse_default_source_preference(char *s)
 	struct uvif *v;
 
 	value = DEFAULT_LOCAL_PREF;
-	
+
 	if (EQUAL((w = next_word(&s)), ""))
 	{
 		log(LOG_WARNING,0,
@@ -1212,11 +1212,11 @@ int parse_default_source_preference(char *s)
 		default_source_preference = value;
 		log(LOG_INFO,0, "default_source_preference set to: %u", default_source_preference);
 
-		for (vifi = 0, v = uvifs; vifi < MAXVIFS; ++vifi, ++v) 
+		for (vifi = 0, v = uvifs; vifi < MAXVIFS; ++vifi, ++v)
 		{
 			v->uv_local_pref = default_source_preference;
 		}
-	
+
 
 	}
 		return(TRUE);
@@ -1226,7 +1226,7 @@ int parse_default_source_preference(char *s)
  * function name: parse_hello_period
  * input: char *s
  * output: int
- * operation: reads and assigns the hello period for a pim router 
+ * operation: reads and assigns the hello period for a pim router
  *        General form:
  *      'hello_period <number> <coef>'.
  *	number is the period in second between 2 hello messages
@@ -1242,7 +1242,7 @@ int parse_hello_period(char *s)
 
 	hellop = PIM_TIMER_HELLO_PERIOD;
 	coef = 3.5;
-	
+
 	if (EQUAL((w = next_word(&s)), ""))
 	{
 		log(LOG_WARNING,0,
@@ -1259,7 +1259,7 @@ int parse_hello_period(char *s)
 			w,hellop);
 		}
 		pim_hello_period = hellop;
-		
+
 		if (!EQUAL((w=next_word(&s)),""))
 		{
 			if (sscanf(w, "%f", &coef) != 1)
@@ -1271,30 +1271,30 @@ int parse_hello_period(char *s)
 			}
 			if(coef<=1)
 			{
-				coef = 3.5;	
+				coef = 3.5;
 				log(LOG_WARNING,0,
 				"for hello period coef must be > 1;set to default %.1f",
 				coef);
-			}	
+			}
 
-		}	
-			
+		}
+
 
 	}
-		pim_hello_holdtime = coef*pim_hello_period; 
+		pim_hello_holdtime = coef*pim_hello_period;
 		return(TRUE);
 }
 /*
  * function name: parse_jp_period
  * input: char *s
  * output: int
- * operation: reads and assigns the join/prune period for a pim router 
+ * operation: reads and assigns the join/prune period for a pim router
  *        General form:
  *      'join_prune_period <number> <coef>'.
  *	number is the period in second between 2 join/prune messages
  *  	and coef is the coef to deterimine the join/prune holdtime
  *    	default : 3.5
- * This function is similar to the function above 
+ * This function is similar to the function above
  */
 
 int parse_jp_period(char *s)
@@ -1323,7 +1323,7 @@ int parse_jp_period(char *s)
 		}
 
 		pim_join_prune_period = jpp;
-		
+
 		if (!EQUAL((w=next_word(&s)),""))
 		{
 			if (sscanf(w, "%f", &coef) != 1)
@@ -1335,17 +1335,17 @@ int parse_jp_period(char *s)
 			}
 			if(coef<=1)
 			{
-				coef = 3.5;	
+				coef = 3.5;
 				log(LOG_WARNING,0,
 				"for join/prune period coef must be > 1;set to default %.1f",
 				coef);
-			}	
+			}
 
-		}	
-			
+		}
+
 
 	}
-		pim_join_prune_holdtime = coef*pim_join_prune_period; 
+		pim_join_prune_holdtime = coef*pim_join_prune_period;
 		return(TRUE);
 }
 
@@ -1363,7 +1363,7 @@ int parse_granularity(char *s)
 {
 	char *w;
 	u_int granu;
-	
+
 	granu = DEFAULT_TIMER_INTERVAL;
 
 	if( EQUAL((w= next_word(&s)),""))
@@ -1391,9 +1391,9 @@ int parse_granularity(char *s)
 			granu);
 		}
 	}
-	
+
 	timer_interval = granu;
-	return TRUE;	
+	return TRUE;
 }
 
 /* function name : parse_data_timeout
@@ -1408,7 +1408,7 @@ int parse_data_timeout(char *s)
 {
 	char *w;
 	u_int time;
-	
+
 	time = PIM_DATA_TIMEOUT;
 
 	if( EQUAL((w= next_word(&s)),""))
@@ -1436,9 +1436,9 @@ int parse_data_timeout(char *s)
 			time);
 		}
 	}
-	
+
 	pim_data_timeout = time;
-	return TRUE;	
+	return TRUE;
 }
 
 /* function name : parse_register_suppression_timeout
@@ -1453,7 +1453,7 @@ int parse_register_suppression_timeout(char *s)
 {
 	char *w;
 	u_int time;
-	
+
 	time = PIM_REGISTER_SUPPRESSION_TIMEOUT;
 
 	if( EQUAL((w= next_word(&s)),""))
@@ -1481,9 +1481,9 @@ int parse_register_suppression_timeout(char *s)
 			time);
 		}
 	}
-	
+
 	pim_register_suppression_timeout = time;
-	return TRUE;	
+	return TRUE;
 }
 
 /* function name : parse_probe_time
@@ -1498,7 +1498,7 @@ int parse_probe_time(char *s)
 {
 	char *w;
 	u_int time;
-	
+
 	time = PIM_REGISTER_PROBE_TIME;
 
 	if( EQUAL((w= next_word(&s)),""))
@@ -1526,15 +1526,15 @@ int parse_probe_time(char *s)
 			time);
 		}
 	}
-	
+
 	pim_register_probe_time = time;
-	return TRUE;	
+	return TRUE;
 }
 
 /* function name : parse_assert_timeout
  * input char *s
  * output int
- * operation : reads and assigns the assert timeout 
+ * operation : reads and assigns the assert timeout
  * 		General form :
  * 		'assert_timeout <number>
  * default : 180 s.
@@ -1543,7 +1543,7 @@ int parse_assert_timeout(char *s)
 {
 	char *w;
 	u_int time;
-	
+
 	time = PIM_ASSERT_TIMEOUT;
 
 	if( EQUAL((w= next_word(&s)),""))
@@ -1571,9 +1571,9 @@ int parse_assert_timeout(char *s)
 			time);
 		}
 	}
-	
+
 	pim_assert_timeout = time;
-	return TRUE;	
+	return TRUE;
 }
 
 

@@ -81,7 +81,7 @@ file	arch/amiga/dev/par.c		par needs-count
 # audio
 device	aucc: audio
 attach	aucc at mainbus
-file	arch/amiga/dev/aucc.c		aucc needs-flag 
+file	arch/amiga/dev/aucc.c		aucc needs-flag
 
 device	melody: audio, tms320av110
 attach	melody at zbus
@@ -253,7 +253,7 @@ major	{sd = 4}
 major	{cd = 7}
 
 # wd 33c93 contrllers
-define	sbic 
+define	sbic
 file	arch/amiga/dev/sbic.c		sbic
 
 # GVP series II
@@ -280,7 +280,7 @@ device	wstsc: scsi, sci
 attach	wstsc at zbus
 file	arch/amiga/dev/wstsc.c		wstsc needs-flag
 
-# IVS 
+# IVS
 device	ivsc: scsi, sci
 attach	ivsc at zbus
 file	arch/amiga/dev/ivsc.c		ivsc needs-flag

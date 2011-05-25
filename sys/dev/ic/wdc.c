@@ -68,7 +68,7 @@
 
 /*
  * CODE UNTESTED IN THE CURRENT REVISION:
- *   
+ *
  */
 
 #ifndef WDCDEBUG
@@ -117,7 +117,7 @@ struct pool wdc_xfer_pool;
 static void  __wdcerror	  __P((struct channel_softc*, char *));
 static int   __wdcwait_reset  __P((struct channel_softc *, int));
 void  __wdccommand_done __P((struct channel_softc *, struct wdc_xfer *));
-void  __wdccommand_start __P((struct channel_softc *, struct wdc_xfer *));	
+void  __wdccommand_start __P((struct channel_softc *, struct wdc_xfer *));
 int   __wdccommand_intr __P((struct channel_softc *, struct wdc_xfer *, int));
 int   wdprint __P((void *, const char *));
 void	wdc_kill_pending __P((struct channel_softc *));
@@ -214,7 +214,7 @@ wdcprobe(chp)
 	    WDSD_IBM);
 	delay(10);
 	bus_space_write_1(chp->ctl_iot, chp->ctl_ioh, wd_aux_ctlr,
-	    WDCTL_RST | WDCTL_IDS); 
+	    WDCTL_RST | WDCTL_IDS);
 	DELAY(1000);
 	bus_space_write_1(chp->ctl_iot, chp->ctl_ioh, wd_aux_ctlr,
 	    WDCTL_IDS);
@@ -268,7 +268,7 @@ wdcprobe(chp)
 				chp->ch_drive[drive].drive_flags |= DRIVE_OLD;
 		}
 	}
-	return (ret_value);	
+	return (ret_value);
 }
 
 void
@@ -292,7 +292,7 @@ wdcattach(chp)
 
 	/* initialise global data */
 	if (inited == 0) {
-		
+
 		/* Initialize the wdc_xfer pool. */
 		pool_init(&wdc_xfer_pool, sizeof(struct wdc_xfer), 0,
 		    0, 0, "wdcspl", 0, NULL, NULL, M_DEVBUF);
@@ -648,7 +648,7 @@ wdcrestart(v)
 	wdcstart(chp);
 	splx(s);
 }
-	
+
 
 /*
  * Interrupt routine for the controller.  Acknowledge the interrupt, check for
@@ -850,7 +850,7 @@ wdcwait(chp, mask, bits, timeout)
 			printf("%s channel %d: warning: busy-wait took %dus\n",
 			    chp->wdc->sc_dev.dv_xname, chp->channel,
 			    WDCDELAY * time);
-		else 
+		else
 			printf("%s:%d:%d: warning: busy-wait took %dus\n",
 			    chp->wdc->sc_dev.dv_xname, chp->channel,
 			    xfer->drive,
@@ -896,7 +896,7 @@ wdctimeout(arg)
 
 /*
  * Probe drive's capabilites, for use by the controller later
- * Assumes drvp points to an existing drive. 
+ * Assumes drvp points to an existing drive.
  * XXX this should be a controller-indep function
  */
 void
@@ -932,7 +932,7 @@ wdc_probe_caps(drvp)
 		}
 	}
 #if 0 /* Some ultra-DMA drives claims to only support ATA-3. sigh */
-	if (params.atap_ata_major > 0x01 && 
+	if (params.atap_ata_major > 0x01 &&
 	    params.atap_ata_major != 0xffff) {
 		for (i = 14; i > 0; i--) {
 			if (params.atap_ata_major & (1 << i)) {
@@ -945,7 +945,7 @@ wdc_probe_caps(drvp)
 				break;
 			}
 		}
-	} else 
+	} else
 #endif
 	if (drvp->drive_flags & DRIVE_CAP32)
 		printf("\n");
@@ -955,7 +955,7 @@ wdc_probe_caps(drvp)
 		drvp->PIO_mode = 3;
 
 	/*
-	 * It's not in the specs, but it seems that some drive 
+	 * It's not in the specs, but it seems that some drive
 	 * returns 0xffff in atap_extensions when this field is invalid
 	 */
 	if (params.atap_extensions != 0xffff &&
@@ -982,7 +982,7 @@ wdc_probe_caps(drvp)
 				if (ata_set_mode(drvp, 0x08 | (i + 3),
 				   AT_POLL) != CMD_OK)
 					continue;
-			if (!printed) { 
+			if (!printed) {
 				printf("%s: drive supports PIO mode %d",
 				    drv_dev->dv_xname, i + 3);
 				sep = ",";
@@ -1000,7 +1000,7 @@ wdc_probe_caps(drvp)
 			}
 		}
 		if (!printed) {
-			/* 
+			/*
 			 * We didn't find a valid PIO mode.
 			 * Assume the values returned for DMA are buggy too
 			 */
@@ -1219,7 +1219,7 @@ void
 __wdccommand_start(chp, xfer)
 	struct channel_softc *chp;
 	struct wdc_xfer *xfer;
-{   
+{
 	int drive = xfer->drive;
 	struct wdc_command *wdc_c = xfer->cmd;
 
@@ -1264,7 +1264,7 @@ __wdccommand_intr(chp, xfer, irq)
 	    chp->wdc->sc_dev.dv_xname, chp->channel, xfer->drive), DEBUG_INTR);
 	if (wdcwait(chp, wdc_c->r_st_pmask, wdc_c->r_st_pmask,
 	     (irq == 0)  ? wdc_c->timeout : 0)) {
-		if (irq && (xfer->c_flags & C_TIMEOU) == 0) 
+		if (irq && (xfer->c_flags & C_TIMEOU) == 0)
 			return 0; /* IRQ was not for us */
 		wdc_c->flags |= AT_TIMEOU;
 		__wdccommand_done(chp, xfer);
@@ -1474,7 +1474,7 @@ wdc_kill_pending(chp)
 }
 
 static void
-__wdcerror(chp, msg) 
+__wdcerror(chp, msg)
 	struct channel_softc *chp;
 	char *msg;
 {
@@ -1487,12 +1487,12 @@ __wdcerror(chp, msg)
 		    chp->channel, xfer->drive, msg);
 }
 
-/* 
+/*
  * the bit bucket
  */
 void
 wdcbit_bucket(chp, size)
-	struct channel_softc *chp; 
+	struct channel_softc *chp;
 	int size;
 {
 
@@ -1506,7 +1506,7 @@ int
 wdc_addref(chp)
 	struct channel_softc *chp;
 {
-	struct wdc_softc *wdc = chp->wdc; 
+	struct wdc_softc *wdc = chp->wdc;
 	struct scsipi_adapter *adapter = &wdc->sc_atapi_adapter;
 	int s, error = 0;
 

@@ -111,7 +111,7 @@ rtx_varies_p (x)
       /* The operand 0 of a LO_SUM is considered constant
 	 (in fact is it related specifically to operand 1).  */
       return rtx_varies_p (XEXP (x, 1));
-      
+
     default:
       break;
     }
@@ -158,7 +158,7 @@ rtx_addr_can_trap_p (x)
 
     case LO_SUM:
       return rtx_addr_can_trap_p (XEXP (x, 1));
-      
+
     default:
       break;
     }
@@ -167,7 +167,7 @@ rtx_addr_can_trap_p (x)
   return 1;
 }
 
-/* Return 1 if X refers to a memory location whose address 
+/* Return 1 if X refers to a memory location whose address
    cannot be compared reliably with constant addresses,
    or if X refers to a BLKmode memory object.  */
 
@@ -282,11 +282,11 @@ reg_mentioned_p (reg, in)
 
     case CONST_INT:
       return GET_CODE (reg) == CONST_INT && INTVAL (in) == INTVAL (reg);
-      
+
     case CONST_DOUBLE:
       /* These are kept unique for a given value.  */
       return 0;
-      
+
     default:
       break;
     }
@@ -401,7 +401,7 @@ reg_referenced_p (x, body)
 	if (reg_referenced_p (x, XVECEXP (body, 0, i)))
 	  return 1;
       return 0;
-      
+
     default:
       return 0;
     }
@@ -534,7 +534,7 @@ modified_between_p (x, start, end)
 
     case REG:
       return reg_set_between_p (x, start, end);
-      
+
     default:
       break;
     }
@@ -619,13 +619,13 @@ single_set (insn)
 {
   rtx set;
   int i;
-  
+
   if (GET_RTX_CLASS (GET_CODE (insn)) != 'i')
     return 0;
 
   if (GET_CODE (PATTERN (insn)) == SET)
     return PATTERN (insn);
-  
+
   else if (GET_CODE (PATTERN (insn)) == PARALLEL)
     {
       for (i = 0, set = 0; i < XVECLEN (PATTERN (insn), 0); i++)
@@ -641,7 +641,7 @@ single_set (insn)
 	  }
       return set;
     }
-  
+
   return 0;
 }
 
@@ -682,14 +682,14 @@ find_last_value (x, pinsn, valid_to)
 		return src;
 	      }
 	  }
-	  
+
 	/* If set in non-simple way, we don't have a value.  */
 	if (reg_set_p (x, p))
 	  break;
       }
 
   return x;
-}     
+}
 
 /* Return nonzero if register in range [REGNO, ENDREGNO)
    appears either explicitly or implicitly in X
@@ -733,7 +733,7 @@ refers_to_regno_p (regno, endregno, x, loc)
 	return 1;
 
       return (endregno > i
-	      && regno < i + (i < FIRST_PSEUDO_REGISTER 
+	      && regno < i + (i < FIRST_PSEUDO_REGISTER
 			      ? HARD_REGNO_NREGS (i, GET_MODE (x))
 			      : 1));
 
@@ -1070,7 +1070,7 @@ rtx_equal_p (x, y)
 
   If the item being stored in or clobbered is a SUBREG of a hard register,
   the SUBREG will be passed.  */
-     
+
 void
 note_stores (x, fun)
      register rtx x;
@@ -1198,7 +1198,7 @@ dead_or_set_regno_p (insn, test_regno)
   if (GET_CODE (PATTERN (insn)) == SET)
     {
       rtx dest = SET_DEST (PATTERN (insn));
- 
+
       /* A value is totally replaced if it is the destination or the
 	 destination is a SUBREG of REGNO that does not change the number of
 	 words in it.  */
@@ -1464,7 +1464,7 @@ volatile_insn_p (x)
   {
     register char *fmt = GET_RTX_FORMAT (code);
     register int i;
-    
+
     for (i = GET_RTX_LENGTH (code) - 1; i >= 0; i--)
       {
 	if (fmt[i] == 'e')
@@ -1530,7 +1530,7 @@ volatile_refs_p (x)
   {
     register char *fmt = GET_RTX_FORMAT (code);
     register int i;
-    
+
     for (i = GET_RTX_LENGTH (code) - 1; i >= 0; i--)
       {
 	if (fmt[i] == 'e')
@@ -1605,7 +1605,7 @@ side_effects_p (x)
   {
     register char *fmt = GET_RTX_FORMAT (code);
     register int i;
-    
+
     for (i = GET_RTX_LENGTH (code) - 1; i >= 0; i--)
       {
 	if (fmt[i] == 'e')
@@ -1738,7 +1738,7 @@ inequality_comparisons_p (x)
     case GE:
     case GEU:
       return 1;
-      
+
     default:
       break;
     }
@@ -1761,7 +1761,7 @@ inequality_comparisons_p (x)
 	      return 1;
 	}
     }
-	    
+
   return 0;
 }
 
@@ -1801,12 +1801,12 @@ replace_rtx (x, from, to)
     }
 
   return x;
-}  
+}
 
 /* Throughout the rtx X, replace many registers according to REG_MAP.
    Return the replacement for X (which may be X with altered contents).
    REG_MAP[R] is the replacement for register R, or 0 for don't replace.
-   NREGS is the length of REG_MAP; regs >= NREGS are not mapped.  
+   NREGS is the length of REG_MAP; regs >= NREGS are not mapped.
 
    We only support REG_MAP entries of REG or SUBREG.  Also, hard registers
    should not be mapped to pseudos or vice versa since validate_change
@@ -1902,7 +1902,7 @@ replace_regs (x, reg_map, nregs, replace_dest)
 
       SET_SRC (x) = replace_regs (SET_SRC (x), reg_map, nregs, 0);
       return x;
-      
+
     default:
       break;
     }

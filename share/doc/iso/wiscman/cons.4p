@@ -4,7 +4,7 @@
 .ds ]W Wisconsin ARGO 1.0
 .UC 4
 .SH NAME
-CONS \- Connection Oriented Network Service 
+CONS \- Connection Oriented Network Service
 .SH SYNOPSIS
 For use as a network service (CONS):
 .nf
@@ -53,7 +53,7 @@ OSI connection-oriented network service.
 The OSI CONS contains several "service elements"
 that ARGO does not use or support.
 Expedited data,
-quality of service  maintenance, 
+quality of service  maintenance,
 call collision resolution,
 permanent virtual circuits,
 user data on connect and release,
@@ -61,7 +61,7 @@ user-level acknowledgement
 ("receipt confirmation" in CCITT/ISO argot), and reset/resynchronize
 are not supported.
 Several of the service primitives for connection establishment
-and release are not supported, and 
+and release are not supported, and
 numerous parameters to other primitives specified in the OSI CONS
 are not supported.
 The CONS glue does provide all the support necessary to run
@@ -73,7 +73,7 @@ OSINET and EAN at this writing.
 Interoperability with other networks will be established in the future.
 .PP
 The coprocessor that implements the X.25 link and packet layers
-is the Eicon Technologies Access/X.25 Stand-Alone Network Adaper 
+is the Eicon Technologies Access/X.25 Stand-Alone Network Adaper
 (see \fIecn(4)\fR).
 .PP
 The glue module provides two interfaces to higher layers:
@@ -88,14 +88,14 @@ provide a graceful close service; it provides only an abort service.
 .PP
 The subnetwork service is neither reliable nor sequenced.
 The subnetwork service implemented by the glue hides the
-connection-oriented aspects of the protocols; nevertheless, 
+connection-oriented aspects of the protocols; nevertheless,
 we call it the "connection-oriented subnetwork service" (COSNS)
 here, for lack of a better name.
 .SS "LIBRARIES
 No libraries are needed to use the CONS, however,
 the numerous error values returned by X.25 cannot be accommodated
 by the standard \fIperror()\fR in the C library.
-The ISO library 
+The ISO library
 .nf
 .sp
 .in +5
@@ -110,12 +110,12 @@ The error codes returned by the CONS are taken from
 the diagnostic code of the X.25 level 3 packets, as
 descibed in figure 14-B of ISO 8208 (the ISO standard which
 is equivalent to CCITT X.25).
-The actual error value returned in 
+The actual error value returned in
 \fIerrno\fR
 is the X.25 diagnostic code in the lower 10 bits
 logically "or"ed with the hexadecimal value 0x8400 (bits
 10 and 15 set, counting from zero at the the least significant bit).
-The error values can be found in 
+The error values can be found in
 the file
 .nf
 .in +5
@@ -141,7 +141,7 @@ directory service database
 can be used to determine the network service to be used by the
 transport layer.  See also \fIisodir(5)\fR and \fIisodir(3)\fR.
 .PP
-The connectionless network layer entity routes packets to the 
+The connectionless network layer entity routes packets to the
 COSNS based on the routing table entries in the connectionless network layer.
 This means that any type of NSAP-address supported by the kernel
 may be used with a CLNP packet
@@ -154,8 +154,8 @@ The X.121 addresses are extracted from the \fISNPA cache\fR,
 a table that maps NSAP-addresses to SNPA-addresses, and
 is maintained by the ES-IS protocol module of the OSI network layer.
 In addition to placing a DTE address in the X.25 packet,
-the "glue" may 
-uses the 1984 Called Address Extension facility to convey the 
+the "glue" may
+uses the 1984 Called Address Extension facility to convey the
 NSAP-addresses.
 Whether or not this is done depends on the compile-time option -DX25_1984.
 .SS Incoming path:
@@ -167,8 +167,8 @@ Address Extension facility, if present.
 If the facility is absent, the glue creates two type-37 NSAP-addresses,
 filling in the X.121 address from the called and
 calling DTE-addresses on the Call Request packet, if present.
-The glue then requests of the ES-IS module to add an entry to the 
-SNPA cache to associate the calling DTE address with its 
+The glue then requests of the ES-IS module to add an entry to the
+SNPA cache to associate the calling DTE address with its
 derived NSAP-address.
 These cache entries have a holding of 5 minutes, and get
 refreshed as long as there is activity on the virtual circuit
@@ -181,7 +181,7 @@ If there is no protocol identifier, the higher layer is assumed to be ISO
 transport.
 .SH "BUGS
 .PP
-If an incoming X.25 Call Request contains no DTE-addresses and 
+If an incoming X.25 Call Request contains no DTE-addresses and
 no NSAP-addresses (in the Address Extension facility)
 the kernel panics.
 .SH "SEE ALSO

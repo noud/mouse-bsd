@@ -163,10 +163,10 @@ update(dummy)
 				if (pp->xpos == sp->airport[i].x &&
 				    pp->ypos == sp->airport[i].y) {
 					if (pp->dest_type == T_AIRPORT)
-					    loser(pp, 
+					    loser(pp,
 						"landed at the wrong airport.");
 					else
-					    loser(pp, 
+					    loser(pp,
 						"landed instead of exited.");
 				}
 			loser(pp, "crashed on the ground.");
@@ -177,10 +177,10 @@ update(dummy)
 				if (pp->xpos == sp->exit[i].x &&
 				    pp->ypos == sp->exit[i].y) {
 					if (pp->dest_type == T_EXIT)
-					    loser(pp, 
+					    loser(pp,
 						"exited via the wrong exit.");
 					else
-					    loser(pp, 
+					    loser(pp,
 						"exited instead of landed.");
 				}
 			loser(pp, "illegally left the flight arena.");
@@ -230,7 +230,7 @@ command(pp)
 
 	buf[0] = '\0';
 	bp = buf;
-	(void)sprintf(bp, "%c%d%c%c%d: ", name(pp), pp->altitude, 
+	(void)sprintf(bp, "%c%d%c%c%d: ", name(pp), pp->altitude,
 		(pp->fuel < LOWFUEL) ? '*' : ' ',
 		(pp->dest_type == T_AIRPORT) ? 'A' : 'E', pp->dest_no);
 
@@ -247,7 +247,7 @@ command(pp)
 		(void)sprintf(bp, " @ B%d", pp->delayd_no);
 
 	bp = strchr(buf, '\0');
-	if (*comm_start == '\0' && 
+	if (*comm_start == '\0' &&
 	    (pp->status == S_UNMARKED || pp->status == S_IGNORED))
 		strcpy(bp, "---------");
 	return (buf);
@@ -271,7 +271,7 @@ number(l)
 		return (-1);
 	else if (l >= 'a' && l <= 'z')
 		return (l - 'a');
-	else 
+	else
 		return (l - 'A');
 }
 

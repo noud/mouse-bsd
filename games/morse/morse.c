@@ -137,10 +137,10 @@ main(argc, argv)
 		if (*argv) {
 			do {
 				s=strchr(*argv, ',');
-				
+
 				if (s)
 					*s='\0';
-				
+
 				decode(*argv);
 			} while (*++argv);
 		}else{
@@ -154,13 +154,13 @@ main(argc, argv)
 
 				if (*s) {
 					p=strtok(s, " \n\t");
-					
+
 					while (p) {
 						s=strchr(p, ',');
 
 						if (s)
 							*s='\0';
-						
+
 						decode(p);
 						p=strtok(NULL, " \n\t");
 					}
@@ -177,7 +177,7 @@ main(argc, argv)
 		else while ((ch = getchar()) != EOF)
 			morse(ch);
 	}
-	
+
 	return 0;
 }
 

@@ -43,7 +43,7 @@
  *
  *	@(#)ieee.h	8.1 (Berkeley) 6/11/93
  *
- * from: Header: ieee.h,v 1.7 92/11/26 02:04:37 torek Exp 
+ * from: Header: ieee.h,v 1.7 92/11/26 02:04:37 torek Exp
  */
 
 /*

@@ -160,7 +160,7 @@ dirscan(idesc)
 			dirty(bp);
 			sbdirty();
 		}
-		if (n & STOP) 
+		if (n & STOP)
 			return (n);
 	}
 	return (idesc->id_filesize > 0 ? KEEPON : STOP);
@@ -553,7 +553,7 @@ makeentry(parent, ino, name)
 	struct dinode *dp;
 	struct inodesc idesc;
 	char pathbuf[MAXPATHLEN + 1];
-	
+
 	if (parent < ROOTINO || parent >= maxino ||
 	    ino < ROOTINO || ino >= maxino)
 		return (0);

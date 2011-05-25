@@ -148,7 +148,7 @@ lfs_bwrite(v)
 	return lfs_bwrite_ext(bp,0);
 }
 
-/* 
+/*
  * Determine if there is enough room currently available to write db
  * disk blocks.  We need enough blocks for the new blocks, the current
  * inode blocks, a summary block, plus potentially the ifile inode and
@@ -185,7 +185,7 @@ lfs_bwrite_ext(bp, flags)
 	struct lfs *fs;
 	struct inode *ip;
 	int db, error, s;
-	
+
 	/*
 	 * Don't write *any* blocks if we're mounted read-only.
 	 * In particular the cleaner can't write blocks either.
@@ -231,7 +231,7 @@ lfs_bwrite_ext(bp, flags)
 #endif
 		while (!lfs_fits(fs, db) && !CANT_WAIT(bp,flags)) {
 			/* Out of space, need cleaner to run */
-			
+
 			wakeup(&lfs_allclean_wakeup);
 			wakeup(&fs->lfs_nextseg);
 			error = tsleep(&fs->lfs_avail, PCATCH | PUSER, "cleaner", NULL);
@@ -241,7 +241,7 @@ lfs_bwrite_ext(bp, flags)
 				return (error);
 			}
 		}
-		
+
 		ip = VTOI(bp->b_vp);
 		if (bp->b_flags & B_CALL)
 		{
@@ -263,12 +263,12 @@ lfs_bwrite_ext(bp, flags)
 		splx(s);
 
 	}
-	
+
 	if(bp->b_flags & B_CALL)
 		bp->b_flags &= ~B_BUSY;
 	else
 		brelse(bp);
-	
+
 	return (0);
 }
 
@@ -318,8 +318,8 @@ lfs_flush(fs, flags)
 	int flags;
 {
 	register struct mount *mp, *nmp;
-	
-	if(lfs_dostats) 
+
+	if(lfs_dostats)
 		++lfs_stats.write_exceeded;
 	if (lfs_writing && flags==0) {/* XXX flags */
 #ifdef DEBUG_LFS
@@ -328,7 +328,7 @@ lfs_flush(fs, flags)
 		return;
 	}
 	lfs_writing = 1;
-	
+
 	simple_lock(&mountlist_slock);
 	for (mp = mountlist.cqh_first; mp != (void *)&mountlist; mp = nmp) {
 		if (vfs_busy(mp, LK_NOWAIT, &mountlist_slock)) {
@@ -360,7 +360,7 @@ lfs_check(vp, blkno, flags)
 	extern int lfs_dirvcount;
 
 	error = 0;
-	
+
 	/* If out of buffers, wait on writer */
 	/* XXX KS - if it's the Ifile, we're probably the cleaner! */
 	if (VTOI(vp)->i_number == LFS_IFILE_INUM)
@@ -409,9 +409,9 @@ lfs_newbuf(vp, daddr, size)
 	struct buf *bp;
 	size_t nbytes;
 	int s;
-	
+
 	nbytes = roundup(size, DEV_BSIZE);
-	
+
 	bp = malloc(sizeof(struct buf), M_SEGMENT, M_WAITOK);
 	bzero(bp, sizeof(struct buf));
 	if (nbytes)
@@ -419,7 +419,7 @@ lfs_newbuf(vp, daddr, size)
 	if(nbytes) {
 		bzero(bp->b_data, nbytes);
 	}
-#ifdef DIAGNOSTIC	
+#ifdef DIAGNOSTIC
 	if(vp==NULL)
 		panic("vp is NULL in lfs_newbuf");
 	if(bp==NULL)
@@ -428,7 +428,7 @@ lfs_newbuf(vp, daddr, size)
 	s = splbio();
 	bgetvp(vp, bp);
 	splx(s);
-	
+
 	bp->b_bufsize = size;
 	bp->b_bcount = size;
 	bp->b_lblkno = daddr;
@@ -437,7 +437,7 @@ lfs_newbuf(vp, daddr, size)
 	bp->b_resid = 0;
 	bp->b_iodone = lfs_callback;
 	bp->b_flags |= B_BUSY | B_CALL | B_NOCACHE;
-	
+
 	return (bp);
 }
 
@@ -446,7 +446,7 @@ lfs_freebuf(bp)
 	struct buf *bp;
 {
 	int s;
-	
+
 	s = splbio();
 	if(bp->b_vp)
 		brelvp(bp);
@@ -462,12 +462,12 @@ lfs_freebuf(bp)
  * Definitions for the buffer free lists.
  */
 #define BQUEUES		4		/* number of free buffer queues */
- 
+
 #define BQ_LOCKED	0		/* super-blocks &c */
 #define BQ_LRU		1		/* lru, useful buffers */
-#define BQ_AGE		2		/* rubbish */ 
+#define BQ_AGE		2		/* rubbish */
 #define BQ_EMPTY	3		/* buffer headers with no memory */
- 
+
 extern TAILQ_HEAD(bqueues, buf) bufqueues[BQUEUES];
 
 /*

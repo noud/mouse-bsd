@@ -290,7 +290,7 @@
 			*tl = txdr_unsigned(NFSV3SATTRTIME_DONTCHANGE);		\
 		}								\
 		}
-				
+
 
 #define	nfsm_strsiz(s,m) \
 		{ nfsm_dissect(tl,u_int32_t *,NFSX_UNSIGNED); \
@@ -336,7 +336,7 @@
 		mb = mreq = nfsm_reqh((v),(a),(s),&bpos)
 
 #define nfsm_reqdone	m_freem(mrep); \
-		nfsmout: 
+		nfsmout:
 
 #define nfsm_rndup(a)	(((a)+3)&(~0x3))
 

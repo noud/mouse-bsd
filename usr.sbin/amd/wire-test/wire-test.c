@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: wire-test.c,v 1.4 1999/02/04 07:24:54 ezk Exp 
+ * Id: wire-test.c,v 1.4 1999/02/04 07:24:54 ezk Exp
  *
  */
 

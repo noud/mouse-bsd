@@ -41,7 +41,7 @@
  */
 /*
  * advansys.c - Linux Host Driver for AdvanSys SCSI Adapters
- * 
+ *
  * Copyright (c) 1995-1999 Advanced System Products, Inc.
  * All Rights Reserved.
  *
@@ -1425,7 +1425,7 @@ ADW_SOFTC      *sc;
 	 *
 	 * Set default values if a bad checksum is found.
 	 */
-	if (AdvGet38C0800EEPConfig(iot, ioh, &eep_config) != 
+	if (AdvGet38C0800EEPConfig(iot, ioh, &eep_config) !=
 			eep_config.check_sum) {
 		warn_code |= ASC_WARN_EEPROM_CHKSUM;
 
@@ -1563,7 +1563,7 @@ ADW_SOFTC      *sc;
 			termination = ADW_TERM_SE;
 		} else {
 			/*
-			 * The EEPROM 'termination_se' field contains 
+			 * The EEPROM 'termination_se' field contains
 			 * a bad value.
 			 * Use automatic termination instead.
 			 */

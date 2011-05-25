@@ -509,7 +509,7 @@ qestart(ifp)
 void
 qestop(sc)
 	struct qe_softc *sc;
-{	
+{
 	bus_space_tag_t t = sc->sc_bustag;
 	bus_space_handle_t mr = sc->sc_mr;
 	bus_space_handle_t cr = sc->sc_cr;

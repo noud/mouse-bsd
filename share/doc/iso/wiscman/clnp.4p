@@ -14,24 +14,24 @@ clnp \- Connectionless-Mode Network Protocol
 .PP
 .B s = socket(AF_ISO, SOCK_RAW, 0);
 .SH DESCRIPTION
-CLNP is the connectionless-mode network protocol used by the 
+CLNP is the connectionless-mode network protocol used by the
 connectionless-mode network service. This protocol is specified in
 ISO 8473.
 It may be accessed
 through a \*(lqraw socket\*(rq for debugging purposes only.
 CLNP sockets are connectionless,
 and are normally used with the
-.I sendto 
+.I sendto
 and
-.I recvfrom 
+.I recvfrom
 calls, though the
 .IR connect (2)
 call may also be used to fix the destination for future
-packets (in which case the 
+packets (in which case the
 .IR read (2)
 or
 .IR recv (2)
-and 
+and
 .IR write (2)
 or
 .IR send (2)
@@ -74,7 +74,7 @@ when the system runs out of memory for
 an internal data structure;
 .TP 15
 [EADDRNOTAVAIL]
-when an attempt is made to create a 
+when an attempt is made to create a
 socket with a network address for which no network interface
 exists;
 .TP 15

@@ -56,7 +56,7 @@ int     filecnt;
 /*
  * Assumes CWD is in /var/db/pkg/<pkg>!
  */
-static void 
+static void
 check1pkg(const char *pkgdir)
 {
 	FILE   *f;
@@ -84,7 +84,7 @@ check1pkg(const char *pkgdir)
 				warnx("dirp not initialized, please send-pr!");
 				abort();
 			}
-			
+
 			(void) snprintf(file, sizeof(file), "%s/%s", dirp, p->name);
 
 			if (!(isfile(file) || islinktodir(file)))
@@ -105,7 +105,7 @@ check1pkg(const char *pkgdir)
 						free(md5file);
 					}
 				}
-				
+
 				filecnt++;
 			}
 			break;
@@ -145,7 +145,7 @@ check1pkg(const char *pkgdir)
 	fclose(f);
 }
 
-static void 
+static void
 rebuild(void)
 {
 	DIR    *dp;
@@ -269,7 +269,7 @@ rebuild(void)
 	    _pkgdb_getPKGDB_FILE());
 }
 
-static void 
+static void
 checkall(void)
 {
 	DIR    *dp;
@@ -328,7 +328,7 @@ checkpattern_fn(const char *pkg, char *data)
 	return 0;
 }
 
-int 
+int
 main(int argc, char *argv[])
 {
 	if (argc < 2)
@@ -417,7 +417,7 @@ main(int argc, char *argv[])
 			else
 				printf("Key not present in pkgdb.\n");
 		}
-		
+
 		pkgdb_close();
 
 	} else if (strcasecmp(argv[1], "add") == 0) {
@@ -454,7 +454,7 @@ main(int argc, char *argv[])
 	return 0;
 }
 
-void 
+void
 usage(void)
 {
 	printf("Usage: %s command args ...\n"

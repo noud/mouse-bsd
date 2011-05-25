@@ -476,15 +476,15 @@ get_operands (info, ptr)
 	    }
 	  else
 	    {
-	      if (info->code == O_jmp) 
+	      if (info->code == O_jmp)
 		{
 		bytes = 2;
 		amode = ADDR_ABS_IND_LONG;
-	      } 
-	      else 
+	      }
+	      else
 {
 		bytes = 1;
-	      
+
 		amode = ADDR_DIR_IND_LONG;
 	      }
 	    }

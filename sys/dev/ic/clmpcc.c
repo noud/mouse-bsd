@@ -497,7 +497,7 @@ clmpccopen(dev, flag, mode, p)
 	int oldch;
 	int error;
 	int unit;
- 
+
 	if ( (unit = CLMPCCUNIT(dev)) >= clmpcc_cd.cd_ndevs ||
 	     (sc = clmpcc_cd.cd_devs[unit]) == NULL ) {
 		return ENXIO;
@@ -571,7 +571,7 @@ clmpccopen(dev, flag, mode, p)
 	} else
 	if ( ISSET(tp->t_state, TS_XCLUDE) && p->p_ucred->cr_uid != 0 )
 		return EBUSY;
-	
+
 	error = ttyopen(tp, CLMPCCDIALOUT(dev), ISSET(flag, O_NONBLOCK));
 	if (error)
 		goto bad;
@@ -593,7 +593,7 @@ bad:
 
 	return error;
 }
- 
+
 int
 clmpccclose(dev, flag, mode, p)
 	dev_t dev;
@@ -627,7 +627,7 @@ clmpccclose(dev, flag, mode, p)
 
 	return 0;
 }
- 
+
 int
 clmpccread(dev, uio, flag)
 	dev_t dev;
@@ -636,10 +636,10 @@ clmpccread(dev, uio, flag)
 {
 	struct clmpcc_softc *sc = clmpcc_cd.cd_devs[CLMPCCUNIT(dev)];
 	struct tty *tp = sc->sc_chans[CLMPCCCHAN(dev)].ch_tty;
- 
+
 	return ((*linesw[tp->t_line].l_read)(tp, uio, flag));
 }
- 
+
 int
 clmpccwrite(dev, uio, flag)
 	dev_t dev;
@@ -648,7 +648,7 @@ clmpccwrite(dev, uio, flag)
 {
 	struct clmpcc_softc *sc = clmpcc_cd.cd_devs[CLMPCCUNIT(dev)];
 	struct tty *tp = sc->sc_chans[CLMPCCCHAN(dev)].ch_tty;
- 
+
 	return ((*linesw[tp->t_line].l_write)(tp, uio, flag));
 }
 
@@ -724,7 +724,7 @@ clmpccioctl(dev, cmd, data, flag, p)
 		break;
 
 	case TIOCSFLAGS:
-		error = suser(p->p_ucred, &p->p_acflag); 
+		error = suser(p->p_ucred, &p->p_acflag);
 		if ( error )
 			break;
 		ch->ch_openflags = *((int *)data) &
@@ -1154,7 +1154,7 @@ clmpcc_rxintr(arg)
 	/*
 	 * Note: The chip is completely hosed WRT these error
 	 *       conditions; there seems to be no way to associate
-	 *       the error with the correct character in the FIFO. 
+	 *       the error with the correct character in the FIFO.
 	 *       We compromise by tagging the first character we read
 	 *       with the error. Not perfect, but there's no other way.
 	 */

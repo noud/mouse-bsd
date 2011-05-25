@@ -51,7 +51,7 @@ void
 c_type_print_varspec_prefix PARAMS ((struct type *, GDB_FILE *, int, int));
 
 
-/* Print a description of a type in the format of a 
+/* Print a description of a type in the format of a
    typedef for the current language.
    NEW is the new name for a type TYPE. */
 
@@ -144,7 +144,7 @@ c_print_type (type, varstring, stream, show, level)
   c_type_print_varspec_suffix (type, stream, show, 0, demangled_args);
 
 }
-  
+
 /* If TYPE is a derived type, then print out derivation information.
    Print only the actual base classes of this type, not the base classes
    of the base classes.  I.E.  for the derivation hierarchy:
@@ -350,7 +350,7 @@ c_type_print_varspec_suffix (type, stream, show, passed_a_ptr, demangled_args)
     case TYPE_CODE_ARRAY:
       if (passed_a_ptr)
 	fprintf_filtered (stream, ")");
-      
+
       fprintf_filtered (stream, "[");
       if (TYPE_LENGTH (type) >= 0 && TYPE_LENGTH (TYPE_TARGET_TYPE (type)) > 0
 	  && TYPE_ARRAY_UPPER_BOUND_TYPE(type) != BOUND_CANNOT_BE_DETERMINED)
@@ -358,7 +358,7 @@ c_type_print_varspec_suffix (type, stream, show, passed_a_ptr, demangled_args)
 			  (TYPE_LENGTH (type)
 			   / TYPE_LENGTH (TYPE_TARGET_TYPE (type))));
       fprintf_filtered (stream, "]");
-      
+
       c_type_print_varspec_suffix (TYPE_TARGET_TYPE (type), stream, 0, 0, 0);
       break;
 
@@ -478,7 +478,7 @@ c_type_print_base (type, stream, show, level)
     }
 
   CHECK_TYPEDEF (type);
-	  
+
   switch (TYPE_CODE (type))
     {
     case TYPE_CODE_TYPEDEF:
@@ -522,7 +522,7 @@ c_type_print_base (type, stream, show, level)
       else if (show > 0 || TYPE_TAG_NAME (type) == NULL)
 	{
 	  cp_type_print_derivation_info (stream, type);
-	  
+
 	  fprintf_filtered (stream, "{\n");
 	  if ((TYPE_NFIELDS (type) == 0) && (TYPE_NFN_FIELDS (type) == 0))
 	    {
@@ -621,7 +621,7 @@ c_type_print_base (type, stream, show, level)
 	      for (j = 0; j < len2; j++)
 		{
 		  char *physname = TYPE_FN_FIELD_PHYSNAME (f, j);
-		  int is_full_physname_constructor = 
+		  int is_full_physname_constructor =
 		    ((physname[0] == '_' && physname[1] == '_'
 		      && strchr ("0123456789Qt", physname[2]))
 		     || STREQN (physname, "__ct__", 6)

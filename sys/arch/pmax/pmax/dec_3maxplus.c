@@ -133,26 +133,26 @@ dec_3maxplus_init()
 	platform.memsize = memsize_scan;
 	platform.clkread = kn03_clkread;
 	/* 3MAX+ has IOASIC free-running high resolution timer */
- 
+
 	/* clear any memory errors */
 	*(u_int32_t *)MIPS_PHYS_TO_KSEG1(KN03_SYS_ERRADR) = 0;
 	kn03_wbflush();
 
 	ioasic_base = MIPS_PHYS_TO_KSEG1(KN03_SYS_ASIC);
 	mips_hardware_intr = dec_3maxplus_intr;
-   
+
 	/*
 	 * 3MAX+ IOASIC interrupts come through INT 0, while
 	 * clock interrupt does via INT 1.  splclock and splstatclock
 	 * should block IOASIC activities.
-	 */ 
+	 */
 	splvec.splbio = MIPS_SPL0;
 	splvec.splnet = MIPS_SPL0;
 	splvec.spltty = MIPS_SPL0;
 	splvec.splimp = MIPS_SPL0;
-	splvec.splclock = MIPS_SPL_0_1;	 
+	splvec.splclock = MIPS_SPL_0_1;
 	splvec.splstatclock = MIPS_SPL_0_1;
-	
+
 	/* calibrate cpu_mhz value */
 	mc_cpuspeed(ioasic_base+IOASIC_SLOT_8_START, MIPS_INT_MASK_1);
 

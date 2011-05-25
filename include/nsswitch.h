@@ -118,7 +118,7 @@ typedef struct {
  */
 #define NS_FILES_CB(F,C)	{ NSSRC_FILES,	F,	C },
 #define NS_COMPAT_CB(F,C)	{ NSSRC_COMPAT,	F,	C },
- 
+
 #ifdef HESIOD
 #   define NS_DNS_CB(F,C)	{ NSSRC_DNS,	F,	C },
 #else

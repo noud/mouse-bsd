@@ -30,7 +30,7 @@
  */
 
  /* All bugs are subject to removal without further notice */
-		
+
 #define NRSP 1 /* Kludge */
 #define NCMD 1 /* Kludge */
 
@@ -95,7 +95,7 @@ raopen(f, adapt, ctlr, unit, part)
 	int i,err, udacsr;
 
 #ifdef DEV_DEBUG
-	printf("raopen: adapter %d ctlr %d unit %d part %d\n", 
+	printf("raopen: adapter %d ctlr %d unit %d part %d\n",
 	    adapt, ctlr, unit, part);
 #endif
 	bzero(lp, sizeof(struct disklabel));
@@ -242,7 +242,7 @@ rastrategy(ra, func, dblk, size, buf, rsize)
 	uda.uda_cmd.mscp_seq.seq_bytecount = size;
 	uda.uda_cmd.mscp_unit = ra->unit;
 #ifdef DEV_DEBUG
-	printf("rastrategy: blk 0x%lx count %lx unit %lx\n", 
+	printf("rastrategy: blk 0x%lx count %lx unit %lx\n",
 	    uda.uda_cmd.mscp_seq.seq_lbn, size, ra->unit);
 #endif
 	if (func == F_WRITE)

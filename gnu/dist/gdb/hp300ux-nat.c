@@ -1,6 +1,6 @@
 /* HP/UX native interface for HP 300's, for GDB when running under Unix.
    Copyright 1986, 1987, 1989, 1991, 1992, 1993 Free Software Foundation, Inc.
-   
+
 This file is part of GDB.
 
 This program is free software; you can redistribute it and/or modify
@@ -84,7 +84,7 @@ fetch_inferior_register (regno, regaddr)
     {
       union { int i; short s[2]; } ps_val;
       int regval;
-      
+
       ps_val.i = (ptrace (PT_RUAREA, inferior_pid, (PTRACE_ARG3_TYPE) regaddr,
 			  0, 0));
       regval = ps_val.s[0];
@@ -95,7 +95,7 @@ fetch_inferior_register (regno, regaddr)
     {
       char buf[MAX_REGISTER_RAW_SIZE];
       register int i;
-      
+
       for (i = 0; i < REGISTER_RAW_SIZE (regno); i += sizeof (int))
 	{
 	  *(int *) &buf[i] = ptrace (PT_RUAREA, inferior_pid,
@@ -121,7 +121,7 @@ store_inferior_register_1 (regno, regaddr, val)
   if (errno != 0)
     {
       char string_buf[64];
-      
+
       sprintf (string_buf, "writing register number %d", regno);
       perror_with_name (string_buf);
     }
@@ -138,7 +138,7 @@ store_inferior_register (regno, regaddr)
   if (regno == PS_REGNUM)
     {
       union { int i; short s[2]; } ps_val;
-      
+
       ps_val.i = (ptrace (PT_RUAREA, inferior_pid, (PTRACE_ARG3_TYPE) regaddr,
 			  0, 0));
       ps_val.s[0] = (read_register (regno));
@@ -149,7 +149,7 @@ store_inferior_register (regno, regaddr)
     {
       register int i;
       extern char registers[];
-      
+
       for (i = 0; i < REGISTER_RAW_SIZE (regno); i += sizeof (int))
 	{
 	  store_inferior_register_1
@@ -167,7 +167,7 @@ fetch_inferior_registers (regno)
 {
   struct user u;
   register unsigned int ar0_offset;
-  
+
   ar0_offset = (INFERIOR_AR0 (u));
   if (regno == -1)
     {
@@ -199,7 +199,7 @@ store_inferior_registers (regno)
       store_inferior_register (regno, (FP_REGISTER_ADDR (u, regno)));
       return;
     }
-  
+
   ar0_offset = (INFERIOR_AR0 (u));
   if (regno >= 0)
     {

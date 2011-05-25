@@ -95,13 +95,13 @@ serial_logchar (chtype, ch, timeout)
       else
 	switch (ch)
 	  {
-	  case '\\':	fputs_unfiltered ("\\\\", serial_logfp); break;	
-	  case '\b':	fputs_unfiltered ("\\b", serial_logfp); break;	
-	  case '\f':	fputs_unfiltered ("\\f", serial_logfp); break;	
-	  case '\n':	fputs_unfiltered ("\\n", serial_logfp); break;	
-	  case '\r':	fputs_unfiltered ("\\r", serial_logfp); break;	
-	  case '\t':	fputs_unfiltered ("\\t", serial_logfp); break;	
-	  case '\v':	fputs_unfiltered ("\\v", serial_logfp); break;	
+	  case '\\':	fputs_unfiltered ("\\\\", serial_logfp); break;
+	  case '\b':	fputs_unfiltered ("\\b", serial_logfp); break;
+	  case '\f':	fputs_unfiltered ("\\f", serial_logfp); break;
+	  case '\n':	fputs_unfiltered ("\\n", serial_logfp); break;
+	  case '\r':	fputs_unfiltered ("\\r", serial_logfp); break;
+	  case '\t':	fputs_unfiltered ("\\t", serial_logfp); break;
+	  case '\v':	fputs_unfiltered ("\\v", serial_logfp); break;
 	  default:	fprintf_unfiltered (serial_logfp, isprint (ch) ? "%c" : "\\x%02x", ch & 0xFF); break;
 	  }
     }
@@ -389,7 +389,7 @@ connect_command (args, fromtty)
 
   if (args)
     fprintf_unfiltered(gdb_stderr, "This command takes no args.  They have been ignored.\n");
-	
+
   printf_unfiltered("[Entering connect mode.  Use ~. or ~^D to escape]\n");
 
   tty_desc = SERIAL_FDOPEN (0);

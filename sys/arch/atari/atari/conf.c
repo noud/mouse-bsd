@@ -171,7 +171,7 @@ int	nblkdev = sizeof(bdevsw) / sizeof(bdevsw[0]);
 	(dev_type_write((*))) enodev, dev_init(c,n,ioctl), \
 	(dev_type_stop((*))) enodev, 0, dev_init(c,n,poll), \
 	(dev_type_mmap((*))) enodev }
-	
+
 #include "i4b.h"
 #include "i4bctl.h"
 #include "i4btrc.h"

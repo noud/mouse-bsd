@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -15,7 +15,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -384,14 +384,14 @@ in_pcbconnect(v, nam)
 		register struct route *ro;
 
 		ia = (struct in_ifaddr *)0;
-		/* 
+		/*
 		 * If route is known or can be allocated now,
 		 * our src addr is taken from the i/f, else punt.
 		 */
 		ro = &inp->inp_route;
 		if (ro->ro_rt &&
 		    (!in_hosteq(satosin(&ro->ro_dst)->sin_addr,
-			sin->sin_addr) || 
+			sin->sin_addr) ||
 		    inp->inp_socket->so_options & SO_DONTROUTE)) {
 			RTFREE(ro->ro_rt);
 			ro->ro_rt = (struct rtentry *)0;
@@ -410,7 +410,7 @@ in_pcbconnect(v, nam)
 		 * corresponding to the outgoing interface
 		 * unless it is the loopback (in case a route
 		 * to our address on another net goes to loopback).
-		 * 
+		 *
 		 * XXX Is this still true?  Do we care?
 		 */
 		if (ro->ro_rt && !(ro->ro_rt->rt_ifp->if_flags & IFF_LOOPBACK))
@@ -532,7 +532,7 @@ in_setsockaddr(inp, nam)
 	struct mbuf *nam;
 {
 	register struct sockaddr_in *sin;
-	
+
 	nam->m_len = sizeof (*sin);
 	sin = mtod(nam, struct sockaddr_in *);
 	bzero((caddr_t)sin, sizeof (*sin));
@@ -548,7 +548,7 @@ in_setpeeraddr(inp, nam)
 	struct mbuf *nam;
 {
 	register struct sockaddr_in *sin;
-	
+
 	nam->m_len = sizeof (*sin);
 	sin = mtod(nam, struct sockaddr_in *);
 	bzero((caddr_t)sin, sizeof (*sin));
@@ -660,9 +660,9 @@ in_losing(inp)
 		rt_missmsg(RTM_LOSING, &info, rt->rt_flags, 0);
 		if (rt->rt_flags & RTF_DYNAMIC)
 			(void) rtrequest(RTM_DELETE, rt_key(rt),
-				rt->rt_gateway, rt_mask(rt), rt->rt_flags, 
+				rt->rt_gateway, rt_mask(rt), rt->rt_flags,
 				(struct rtentry **)0);
-		else 
+		else
 		/*
 		 * A new route can be allocated
 		 * the next time output is attempted.
@@ -870,7 +870,7 @@ in_selectsrc(sin, ro, soopts, mopts, errorp)
 	struct in_ifaddr *ia;
 
 	ia = (struct in_ifaddr *)0;
-	/* 
+	/*
 	 * If route is known or can be allocated now,
 	 * our src addr is taken from the i/f, else punt.
 	 */
@@ -894,7 +894,7 @@ in_selectsrc(sin, ro, soopts, mopts, errorp)
 	 * corresponding to the outgoing interface
 	 * unless it is the loopback (in case a route
 	 * to our address on another net goes to loopback).
-	 * 
+	 *
 	 * XXX Is this still true?  Do we care?
 	 */
 	if (ro->ro_rt && !(ro->ro_rt->rt_ifp->if_flags & IFF_LOOPBACK))

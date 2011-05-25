@@ -45,7 +45,7 @@ typedef struct label_t {	/* Used by setjmp & longjmp */
         int val[11];
 } label_t;
 #endif
-         
+
 /* NB: This should probably be if defined(_KERNEL) */
 #if !defined(_POSIX_C_SOURCE) && !defined(_XOPEN_SOURCE)
 typedef	unsigned long	vm_offset_t;

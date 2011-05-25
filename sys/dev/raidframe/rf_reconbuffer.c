@@ -84,7 +84,7 @@ static RF_VoidFuncPtr nWayXorFuncs[] = {
 	(RF_VoidFuncPtr) rf_nWayXor9
 };
 
-int 
+int
 rf_SubmitReconBuffer(rbuf, keep_it, use_committed)
 	RF_ReconBuffer_t *rbuf;	/* the recon buffer to submit */
 	int     keep_it;	/* whether we can keep this buffer or we have
@@ -100,7 +100,7 @@ rf_SubmitReconBuffer(rbuf, keep_it, use_committed)
 	return (rc);
 }
 
-int 
+int
 rf_SubmitReconBufferBasic(rbuf, keep_it, use_committed)
 	RF_ReconBuffer_t *rbuf;	/* the recon buffer to submit */
 	int     keep_it;	/* whether we can keep this buffer or we have
@@ -271,7 +271,7 @@ out:
 	return (retcode);
 }
 
-int 
+int
 rf_MultiWayReconXor(raidPtr, pssPtr)
 	RF_Raid_t *raidPtr;
 	RF_ReconParityStripeStatus_t *pssPtr;	/* the pss descriptor for this
@@ -345,7 +345,7 @@ out:
  *
  * ASSUMES THE RB_MUTEX IS LOCKED AT ENTRY.
  */
-int 
+int
 rf_CheckForFullRbuf(raidPtr, reconCtrl, pssPtr, numDataCol)
 	RF_Raid_t *raidPtr;
 	RF_ReconCtrl_t *reconCtrl;
@@ -388,7 +388,7 @@ rf_CheckForFullRbuf(raidPtr, reconCtrl, pssPtr, numDataCol)
 /* release a floating recon buffer for someone else to use.
  * assumes the rb_mutex is LOCKED at entry
  */
-void 
+void
 rf_ReleaseFloatingReconBuffer(raidPtr, row, rbuf)
 	RF_Raid_t *raidPtr;
 	RF_RowCol_t row;
@@ -419,7 +419,7 @@ rf_ReleaseFloatingReconBuffer(raidPtr, row, rbuf)
 /* release any disk that is waiting on a buffer for the indicated RU.
  * assumes the rb_mutex is LOCKED at entry
  */
-void 
+void
 rf_ReleaseBufferWaiters(raidPtr, pssPtr)
 	RF_Raid_t *raidPtr;
 	RF_ReconParityStripeStatus_t *pssPtr;
@@ -446,7 +446,7 @@ rf_ReleaseBufferWaiters(raidPtr, pssPtr)
  *
  * assumes the rb_mutex is LOCKED at entry
  */
-void 
+void
 rf_ReleaseBufferWaiter(rcPtr, rbuf)
 	RF_ReconCtrl_t *rcPtr;
 	RF_ReconBuffer_t *rbuf;

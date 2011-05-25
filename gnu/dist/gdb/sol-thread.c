@@ -234,7 +234,7 @@ td_err_string (errcode)
   for (i = 0; i < td_err_size; i++)
     if (td_err_table[i].num == errcode)
       return td_err_table[i].str;
-		  
+
   sprintf (buf, "Unknown thread_db error code: %d", errcode);
 
   return buf;
@@ -279,7 +279,7 @@ td_state_string (statecode)
   for (i = 0; i < td_thr_state_table_size; i++)
     if (td_thr_state_table[i].num == statecode)
       return td_thr_state_table[i].str;
-		  
+
   sprintf (buf, "Unknown thread_db state code: %d", statecode);
 
   return buf;
@@ -526,7 +526,7 @@ sol_thread_resume (pid, step, signo)
       if (pid == -2)		/* Inactive thread */
 	error ("This version of Solaris can't start inactive threads.");
       if (info_verbose && pid == -1)
-	warning ("Specified thread %d seems to have terminated", 
+	warning ("Specified thread %d seems to have terminated",
 		 GET_THREAD (save_pid));
     }
 
@@ -562,7 +562,7 @@ sol_thread_wait (pid, ourstatus)
       if (pid == -2)		/* Inactive thread */
 	error ("This version of Solaris can't start inactive threads.");
       if (info_verbose && pid == -1)
-	warning ("Specified thread %d seems to have terminated", 
+	warning ("Specified thread %d seems to have terminated",
 		 GET_THREAD (save_pid));
     }
 
@@ -906,7 +906,7 @@ sol_thread_can_run ()
   return procfs_suppress_run;
 }
 
-/* 
+/*
 
 LOCAL FUNCTION
 
@@ -1080,7 +1080,7 @@ ps_lgetregs (const struct ps_prochandle *ph, lwpid_t lwpid,
   old_chain = save_inferior_pid ();
 
   inferior_pid = BUILD_LWP (lwpid, PIDGET (inferior_pid));
-  
+
   if (target_has_execution)
     procfs_ops.to_fetch_registers (-1);
   else
@@ -1103,7 +1103,7 @@ ps_lsetregs (const struct ps_prochandle *ph, lwpid_t lwpid,
   old_chain = save_inferior_pid ();
 
   inferior_pid = BUILD_LWP (lwpid, PIDGET (inferior_pid));
-  
+
   supply_gregset (gregset);
   if (target_has_execution)
     procfs_ops.to_store_registers (-1);
@@ -1233,7 +1233,7 @@ ps_lsetfpregs (const struct ps_prochandle *ph, lwpid_t lwpid,
   old_chain = save_inferior_pid ();
 
   inferior_pid = BUILD_LWP (lwpid, PIDGET (inferior_pid));
-  
+
   supply_fpregset (*fpregset);
   if (target_has_execution)
     procfs_ops.to_store_registers (-1);
@@ -1300,7 +1300,7 @@ ps_lgetLDT (const struct ps_prochandle *ph, lwpid_t lwpid,
 
   /* LDT not found.  */
   return PS_ERR;
-}        
+}
 #endif /* TM_I386SOL2_H */
 
 /* Convert a pid to printable form. */
@@ -1411,10 +1411,10 @@ sol_core_files_info (t)
 
 #ifdef MAINTENANCE_CMDS
 /* Worker bee for info sol-thread command.  This is a callback function that
-   gets called once for each Solaris thread (ie. not kernel thread) in the 
+   gets called once for each Solaris thread (ie. not kernel thread) in the
    inferior.  Print anything interesting that we can think of.  */
 
-static int 
+static int
 info_cb (th, s)
      const td_thrhandle_t *th;
      void *s;
@@ -1425,8 +1425,8 @@ info_cb (th, s)
 
   if ((ret = p_td_thr_get_info (th, &ti)) == TD_OK)
     {
-      printf_filtered ("%s thread #%d, lwp %d, ", 
-		       ti.ti_type == TD_THR_SYSTEM ? "system" : "user  ", 
+      printf_filtered ("%s thread #%d, lwp %d, ",
+		       ti.ti_type == TD_THR_SYSTEM ? "system" : "user  ",
 		       ti.ti_tid, ti.ti_lid);
       switch (ti.ti_state) {
 	default:
@@ -1436,7 +1436,7 @@ info_cb (th, s)
 	case TD_THR_ACTIVE:  printf_filtered ("(active) ");	break;
 	case TD_THR_ZOMBIE:  printf_filtered ("(zombie) ");	break;
 	case TD_THR_SLEEP:   printf_filtered ("(asleep) ");	break;
-	case TD_THR_STOPPED_ASLEEP: 
+	case TD_THR_STOPPED_ASLEEP:
 	  printf_filtered ("(stopped asleep)");			break;
       }
       /* Print thr_create start function: */
@@ -1460,7 +1460,7 @@ info_cb (th, s)
   else
     warning ("info sol-thread: failed to get info for thread.");
 
-  return 0;    
+  return 0;
 }
 
 /* List some state about each Solaris user thread in the inferior.  */
@@ -1470,7 +1470,7 @@ info_solthreads (args, from_tty)
      char *args;
      int from_tty;
 {
-  p_td_ta_thr_iter (main_ta, info_cb, args, 
+  p_td_ta_thr_iter (main_ta, info_cb, args,
 		    TD_THR_ANY_STATE, TD_THR_LOWEST_PRIORITY,
 		    TD_SIGNO_MASK, TD_THR_ANY_USER_FLAGS);
 }
@@ -1618,7 +1618,7 @@ _initialize_sol_thread ()
   procfs_suppress_run = 1;
 
 #ifdef MAINTENANCE_CMDS
-  add_cmd ("sol-threads", class_maintenance, info_solthreads, 
+  add_cmd ("sol-threads", class_maintenance, info_solthreads,
 	    "Show info on Solaris user threads.\n", &maintenanceinfolist);
 #endif /* MAINTENANCE_CMDS */
 

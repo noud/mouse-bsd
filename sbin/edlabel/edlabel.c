@@ -286,7 +286,7 @@ edit_partition(d, idx, modify)
 		printf("bad partition index\n");
 		return;
 	}
-	
+
 	p = &d->d_partitions[idx];
 	letter = 'a' + idx;
 

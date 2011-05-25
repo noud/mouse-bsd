@@ -162,9 +162,9 @@ itematch(pdp, cfp, auxp)
 {
 	struct grf_softc *gp  = auxp;
 	int		 maj;
-	
+
 	/*
-	 * all that our mask allows (more than enough no one 
+	 * all that our mask allows (more than enough no one
 	 * has > 32 monitors for text consoles on one machine)
 	 */
 	if (cfp->cf_unit >= sizeof(ite_confunits) * NBBY)
@@ -265,7 +265,7 @@ itecnprobe(cd)
 	 */
 	config_console();
 
-	/* 
+	/*
 	 * return priority of the best ite (already picked from attach)
 	 * or CN_DEAD.
 	 */
@@ -344,7 +344,7 @@ itecnputc(dev, c)
  * standard entry points to the device.
  */
 
-/* 
+/*
  * iteinit() is the standard entry point for initialization of
  * an ite device, it is also called from itecninit().
  *
@@ -388,10 +388,10 @@ iteopen(dev, mode, devtype, p)
 
 	unit = ITEUNIT(dev);
 	first = 0;
-	
+
 	if (((1 << unit) & ite_confunits) == 0)
 		return (ENXIO);
-	
+
 	ip = getitesp(dev);
 
 	if (ip->tp == NULL) {
@@ -522,7 +522,7 @@ iteioctl(dev, cmd, addr, flag, p)
 	struct itewinsize	*is;
 	struct itebell		*ib;
 	int error;
-	
+
 	ip   = getitesp(dev);
 	tp   = ip->tp;
 	view = viewview(ip->grf->g_viewdev);
@@ -622,7 +622,7 @@ itestart(tp)
 
 		tp->t_state |= TS_BUSY;
 		rbp = &tp->t_outq;
-		
+
 		len = q_to_b(rbp, buf, ITEBURST);
 	} splx(s);
 
@@ -659,8 +659,8 @@ ite_on(dev, flag)
 	unit = ITEUNIT(dev);
 	if (((1 << unit) & ite_confunits) == 0)
 		return (ENXIO);
-	
-	ip = getitesp(dev); 
+
+	ip = getitesp(dev);
 
 	/* force ite active, overriding graphics mode */
 	if (flag & 1) {
@@ -709,7 +709,7 @@ int	unit;
 		return;	/* Don't try unconfigured units	*/
 	ip = getitesp(unit);
 	if(!(ip->flags & ITE_INITED))
-		return; 
+		return;
 
 	/*
 	 * If switching to an active ite, also switch the keyboard.
@@ -814,7 +814,7 @@ enum caller	caller;
 		splx(s);
 		return -1;
 	}
-	
+
 	/* translate modifiers */
 	if(kbd_modifier & KBD_MOD_SHIFT) {
 		if(kbd_modifier & KBD_MOD_ALT)
@@ -884,7 +884,7 @@ repeat_handler(arg)
 void *arg;
 {
 	tout_pending = 0;
-	if(last_char) 
+	if(last_char)
 		add_sicallback((si_farg)ite_filter, (void *)last_char,
 						    (void *)ITEFILT_REPEATER);
 }
@@ -914,7 +914,7 @@ enum caller	caller;
 	/* have to make sure we're at spltty in here */
 	s = spltty();
 
-	/* 
+	/*
 	 * keyboard interrupts come at priority 2, while softint
 	 * generated keyboard-repeat interrupts come at level 1.  So,
 	 * to not allow a key-up event to get thru before a repeat for
@@ -999,7 +999,7 @@ enum caller	caller;
 	}
 	code = key.code;
 
-	/* 
+	/*
 	 * Arrange to repeat the keystroke. By doing this at the level
 	 * of scan-codes, we can have function keys, and keys that
 	 * send strings, repeat too. This also entitles an additional
@@ -1051,7 +1051,7 @@ enum caller	caller;
 		static char *out = "pqrstuvwxymlnMPQRS";
 			   char *cp  = index(in, code);
 
-		/* 
+		/*
 		 * keypad-appmode sends SS3 followed by the above
 		 * translated character
 		 */
@@ -1070,7 +1070,7 @@ enum caller	caller;
 		    3, 27, 'O', 'D'};
 
 		str = kbdmap->strings + code;
-		/* 
+		/*
 		 * if this is a cursor key, AND it has the default
 		 * keymap setting, AND we're in app-cursor mode, switch
 		 * to the above table. This is *nasty* !
@@ -1081,7 +1081,7 @@ enum caller	caller;
 		    index("ABCD", str[3]))
 			str = app_cursor + 4 * (str[3] - 'A');
 
-		/* 
+		/*
 		 * using a length-byte instead of 0-termination allows
 		 * to embed \0 into strings, although this is not used
 		 * in the default keymap
@@ -1373,7 +1373,7 @@ ite_argnum (ip)
   *ip->ap = 0;
   n = atoi (ip->argbuf);
   *ip->ap = ch;
-  
+
   return n;
 }
 
@@ -1391,7 +1391,7 @@ ite_zargnum (ip)
   *ip->ap = 0;
   n = atoi (ip->argbuf);
   *ip->ap = ch;
-  
+
   return n;	/* don't "n ? n : 1" here, <CSI>0m != <CSI>1m ! */
 }
 
@@ -1403,7 +1403,7 @@ ite_putstr(s, len, dev)
 {
 	struct ite_softc *ip;
 	int i;
-	
+
 	ip = getitesp(dev);
 
 	/* XXX avoid problems */
@@ -1432,70 +1432,70 @@ iteputchar(c, ip)
 	else
 		kbd_tty = kbd_ite->tp;
 
-	if (ip->escape) 
+	if (ip->escape)
 	  {
-	    switch (ip->escape) 
+	    switch (ip->escape)
 	      {
 	      case ESC:
 	        switch (c)
 	          {
 		  /* first 7bit equivalents for the 8bit control characters */
-		  
+
 	          case 'D':
 		    c = IND;
 		    ip->escape = 0;
 		    break; /* and fall into the next switch below (same for all `break') */
-		    
+
 		  case 'E':
 		    c = NEL;
 		    ip->escape = 0;
 		    break;
-		    
+
 		  case 'H':
 		    c = HTS;
 		    ip->escape = 0;
 		    break;
-		    
+
 		  case 'M':
 		    c = RI;
 		    ip->escape = 0;
 		    break;
-		    
+
 		  case 'N':
 		    c = SS2;
 		    ip->escape = 0;
 		    break;
-		  
+
 		  case 'O':
 		    c = SS3;
 		    ip->escape = 0;
 		    break;
-		    
+
 		  case 'P':
 		    c = DCS;
 		    ip->escape = 0;
 		    break;
-		    
+
 		  case '[':
 		    c = CSI;
 		    ip->escape = 0;
 		    break;
-		    
+
 		  case '\\':
 		    c = ST;
 		    ip->escape = 0;
 		    break;
-		    
+
 		  case ']':
 		    c = OSC;
 		    ip->escape = 0;
 		    break;
-		    
+
 		  case '^':
 		    c = PM;
 		    ip->escape = 0;
 		    break;
-		    
+
 		  case '_':
 		    c = APC;
 		    ip->escape = 0;
@@ -1508,8 +1508,8 @@ iteputchar(c, ip)
 		     ip->escape = ' ';
 		     break;
 
-		  
-		  /* a lot of character set selections, not yet used... 
+
+		  /* a lot of character set selections, not yet used...
 		     94-character sets: */
 		  case '(':	/* G0 */
 		  case ')':	/* G1 */
@@ -1522,12 +1522,12 @@ iteputchar(c, ip)
 		  case 'A':	/* ISO latin 1 */
 		  case '<':	/* user preferred suplemental */
 		  case '0':	/* dec special graphics */
-		  
+
 		  /* 96-character sets: */
 		  case '-':	/* G1 */
 		  case '.':	/* G2 */
 		  case '/':	/* G3 */
-		  
+
 		  /* national character sets: */
 		  case '4':	/* dutch */
 		  case '5':
@@ -1538,45 +1538,45 @@ iteputchar(c, ip)
 		  case 'Y':	/* italian */
 		  case '6':	/* norwegian/danish */
 		  /* note: %5 and %6 are not supported (two chars..) */
-		    
+
 		    ip->escape = 0;
 		    /* just ignore for now */
 		    return;
-		    
-		  
+
+
 		  /* locking shift modes (as you might guess, not yet supported..) */
 		  case '`':
 		    ip->GR = ip->G1;
 		    ip->escape = 0;
 		    return;
-		    
+
 		  case 'n':
 		    ip->GL = ip->G2;
 		    ip->escape = 0;
 		    return;
-		    
+
 		  case '}':
 		    ip->GR = ip->G2;
 		    ip->escape = 0;
 		    return;
-		    
+
 		  case 'o':
 		    ip->GL = ip->G3;
 		    ip->escape = 0;
 		    return;
-		    
+
 		  case '|':
 		    ip->GR = ip->G3;
 		    ip->escape = 0;
 		    return;
-		    
-		  
+
+
 		  /* font width/height control */
 		  case '#':
 		    ip->escape = '#';
 		    return;
-		    
-		    
+
+
 		  /* hard terminal reset .. */
 		  case 'c':
 		    ite_reset (ip);
@@ -1591,7 +1591,7 @@ iteputchar(c, ip)
 		    ip->save_attribute = ip->attribute;
 		    ip->escape = 0;
 		    return;
-		    
+
 		  case '8':
 		    ip->curx = ip->save_curx;
 		    ip->cury = ip->save_cury;
@@ -1599,17 +1599,17 @@ iteputchar(c, ip)
 		    SUBR_CURSOR(ip, MOVE_CURSOR);
 		    ip->escape = 0;
 		    return;
-		    
+
 		  case '=':
 		    ip->keypad_appmode = 1;
 		    ip->escape = 0;
 		    return;
-		    
+
 		  case '>':
 		    ip->keypad_appmode = 0;
 		    ip->escape = 0;
 		    return;
-		  
+
 		  case 'Z':	/* request ID */
 		    if (ip->emul_level == EMUL_VT100)
 		      ite_sendstr ("\033[?61;0c"); /* XXX not clean */
@@ -1639,20 +1639,20 @@ iteputchar(c, ip)
 		    ip->eightbit_C1 = 0;
 		    ip->escape = 0;
 		    return;
-		    
+
 		  case 'G':
 		    ip->eightbit_C1 = 1;
 		    ip->escape = 0;
 		    return;
-		    
+
 		  default:
 		    /* not supported */
 		    ip->escape = 0;
 		    return;
 		  }
 		break;
-		
-		
+
+
 	      case '#':
 		switch (c)
 		  {
@@ -1660,34 +1660,34 @@ iteputchar(c, ip)
 		    /* single height, single width */
 		    ip->escape = 0;
 		    return;
-		    
+
 		  case '6':
 		    /* double width, single height */
 		    ip->escape = 0;
 		    return;
-		    
+
 		  case '3':
 		    /* top half */
 		    ip->escape = 0;
 		    return;
-		    
+
 		  case '4':
 		    /* bottom half */
 		    ip->escape = 0;
 		    return;
-		    
+
 		  case '8':
 		    /* screen alignment pattern... */
 		    alignment_display (ip);
 		    ip->escape = 0;
 		    return;
-		    
+
 		  default:
 		    ip->escape = 0;
 		    return;
 		  }
 		break;
-		  
+
 
 
 	      case CSI:
@@ -1722,8 +1722,8 @@ iteputchar(c, ip)
 	              ip->emul_level = EMUL_VT300_8;
 	            ip->escape = 0;
 	            return;
-	            
-	          
+
+
 	          case '?':
 		    *ip->ap = 0;
 	            ip->escape = '?';
@@ -1758,15 +1758,15 @@ iteputchar(c, ip)
 			break;
 		      case 6:
 			/* cursor position report */
-		        sprintf (ip->argbuf, "\033[%d;%dR", 
+		        sprintf (ip->argbuf, "\033[%d;%dR",
 				 ip->cury + 1, ip->curx + 1);
 			ite_sendstr (ip->argbuf);
 			break;
 		      }
 		    ip->escape = 0;
 		    return;
-	          
-  
+
+
 		  case 'x':
 		    switch (ite_zargnum(ip))
 		      {
@@ -1797,7 +1797,7 @@ iteputchar(c, ip)
 		    ip->escape = 0;
 		    return;
 
-	          
+
   	          case 'h': case 'l':
 		    n = ite_zargnum (ip);
 		    switch (n)
@@ -1818,7 +1818,7 @@ iteputchar(c, ip)
 	            ip->escape = 0;
 	            return;
 
-		  
+
 		  case 'L':
 		    ite_inline (ip, ite_argnum (ip));
 	            ip->escape = 0;
@@ -1829,7 +1829,7 @@ iteputchar(c, ip)
 		    ite_dnchar (ip, ite_argnum (ip));
 	            ip->escape = 0;
 	            return;
-		    
+
 
 		  case '@':
 		    ite_inchar (ip, ite_argnum (ip));
@@ -1838,7 +1838,7 @@ iteputchar(c, ip)
 
 
 		  case 'G':
-		    /* this one was *not* in my vt320 manual but in 
+		    /* this one was *not* in my vt320 manual but in
 		       a vt320 termcap entry.. who is right?
 		       It's supposed to set the horizontal cursor position. */
 		    *ip->ap = 0;
@@ -1886,8 +1886,8 @@ iteputchar(c, ip)
 		    SUBR_CURSOR(ip, MOVE_CURSOR);
 		    clr_attr (ip, ATTR_INV);
 		    return;
-		    
-		  case 'A':		    
+
+		  case 'A':
 		    n = ite_argnum (ip);
 		    n = ip->cury - (n ? n : 1);
 		    if (n < 0) n = 0;
@@ -1902,7 +1902,7 @@ iteputchar(c, ip)
 		    SUBR_CURSOR(ip, MOVE_CURSOR);
 		    clr_attr (ip, ATTR_INV);
 		    return;
-		  
+
 		  case 'B':
 		    n = ite_argnum (ip);
 		    n = ip->cury + (n ? n : 1);
@@ -1918,7 +1918,7 @@ iteputchar(c, ip)
 		    SUBR_CURSOR(ip, MOVE_CURSOR);
 		    clr_attr (ip, ATTR_INV);
 		    return;
-		  
+
 		  case 'C':
 		    n = ite_argnum (ip);
 		    n = n ? n : 1;
@@ -1927,7 +1927,7 @@ iteputchar(c, ip)
 		    SUBR_CURSOR(ip, MOVE_CURSOR);
 		    clr_attr (ip, ATTR_INV);
 		    return;
-		  
+
 		  case 'D':
 		    n = ite_argnum (ip);
 		    n = n ? n : 1;
@@ -1937,8 +1937,8 @@ iteputchar(c, ip)
 		    SUBR_CURSOR(ip, MOVE_CURSOR);
 		    clr_attr (ip, ATTR_INV);
 		    return;
-		  
-		    
+
+
 
 
 		  case 'J':
@@ -1977,7 +1977,7 @@ iteputchar(c, ip)
 		    ip->escape = 0;
 		    return;
 
-	          
+
 	          case '}': case '`':
 	            /* status line control */
 	            ip->escape = 0;
@@ -2013,8 +2013,8 @@ iteputchar(c, ip)
 		      }
 		    ip->escape = 0;
 		    return;
-		    
-		  
+
+
 		  case 'm':
 		    /* big attribute setter/resetter */
 		    {
@@ -2032,12 +2032,12 @@ iteputchar(c, ip)
 			      clr_attr (ip, ATTR_ALL);
 			      cp++;
 			      break;
-			      
+
 			    case '1':
 			      set_attr (ip, ATTR_BOLD);
 			      cp++;
 			      break;
-			      
+
 			    case '2':
 			      switch (cp[1])
 			        {
@@ -2045,49 +2045,49 @@ iteputchar(c, ip)
 			          clr_attr (ip, ATTR_BOLD);
 			          cp += 2;
 			          break;
-			        
+
 			        case '4':
 			          clr_attr (ip, ATTR_UL);
 			          cp += 2;
 			          break;
-			          
+
 			        case '5':
 			          clr_attr (ip, ATTR_BLINK);
 			          cp += 2;
 			          break;
-			          
+
 			        case '7':
 			          clr_attr (ip, ATTR_INV);
 			          cp += 2;
 			          break;
-		        	
+
 		        	default:
 		        	  cp++;
 		        	  break;
 		        	}
 			      break;
-			      
+
 			    case '4':
 			      set_attr (ip, ATTR_UL);
 			      cp++;
 			      break;
-			      
+
 			    case '5':
 			      set_attr (ip, ATTR_BLINK);
 			      cp++;
 			      break;
-			      
+
 			    case '7':
 			      set_attr (ip, ATTR_INV);
 			      cp++;
 			      break;
-			    
+
 			    default:
 			      cp++;
 			      break;
 			    }
 		        }
-		    
+
 		    }
 		    ip->escape = 0;
 		    return;
@@ -2099,8 +2099,8 @@ iteputchar(c, ip)
 		    ip->escape = 0;
 		    return;
 
-		  
-		  
+
+
 		  default:
 		    ip->escape = 0;
 		    return;
@@ -2129,11 +2129,11 @@ iteputchar(c, ip)
 		        if (! strncmp (ip->argbuf, "15", 2))
 		          /* printer status: no printer */
 		          ite_sendstr ("\033[13n");
-		          
+
 		        else if (! strncmp (ip->argbuf, "25", 2))
 		          /* udk status */
 		          ite_sendstr ("\033[20n");
-		          
+
 		        else if (! strncmp (ip->argbuf, "26", 2))
 		          /* keyboard dialect: US */
 		          ite_sendstr ("\033[27;1n");
@@ -2186,14 +2186,14 @@ iteputchar(c, ip)
 		      }
 		    ip->escape = 0;
 		    return;
-		    
+
 		  default:
 		    ip->escape = 0;
 		    return;
 		  }
 		break;
 
-	      
+
 	      default:
 	        ip->escape = 0;
 	        return;
@@ -2205,7 +2205,7 @@ iteputchar(c, ip)
 	case VT:	/* VT is treated like LF */
 	case FF:	/* so is FF */
 	case LF:
-		/* cr->crlf distinction is done here, on output, 
+		/* cr->crlf distinction is done here, on output,
 		   not on input! */
 		if (ip->linefeed_newline)
 		  ite_crlf (ip);
@@ -2216,7 +2216,7 @@ iteputchar(c, ip)
 	case CR:
 		ite_cr (ip);
 		break;
-	
+
 	case BS:
 		if (--ip->curx < 0)
 			ip->curx = 0;
@@ -2242,7 +2242,7 @@ iteputchar(c, ip)
 	case SO:
 		ip->GL = ip->G1;
 		break;
-		
+
 	case SI:
 		ip->GL = ip->G0;
 		break;
@@ -2254,7 +2254,7 @@ iteputchar(c, ip)
 	case CAN:
 		ip->escape = 0;	/* cancel any escape sequence in progress */
 		break;
-		
+
 	case SUB:
 		ip->escape = 0;	/* dito, but see below */
 		/* should also display a reverse question mark!! */
@@ -2269,7 +2269,7 @@ iteputchar(c, ip)
 	case IND:	/* index: move cursor down, scroll */
 		ite_lf (ip);
 		break;
-		
+
 	case NEL:	/* next line. next line, first pos. */
 		ite_crlf (ip);
 		break;
@@ -2278,7 +2278,7 @@ iteputchar(c, ip)
 		if (ip->curx < ip->cols)
 		  ip->tabs[ip->curx] = 1;
 		break;
-		
+
 	case RI:	/* reverse index */
 		ite_rlf (ip);
 		break;
@@ -2286,24 +2286,24 @@ iteputchar(c, ip)
 	case SS2:	/* go into G2 for one character */
 		/* not yet supported */
 		break;
-		
+
 	case SS3:	/* go into G3 for one character */
 		break;
-		
+
 	case DCS:	/* device control string introducer */
 		ip->escape = DCS;
 		ip->ap = ip->argbuf;
 		break;
-		
+
 	case CSI:	/* control sequence introducer */
 		ip->escape = CSI;
 		ip->ap = ip->argbuf;
 		break;
-		
+
 	case ST:	/* string terminator */
 		/* ignore, if not used as terminator */
 		break;
-		
+
 	case OSC:	/* introduces OS command. Ignore everything upto ST */
 		ip->escape = OSC;
 		break;
@@ -2311,7 +2311,7 @@ iteputchar(c, ip)
 	case PM:	/* privacy message, ignore everything upto ST */
 		ip->escape = PM;
 		break;
-		
+
 	case APC:	/* application program command, ignore everything upto ST */
 		ip->escape = APC;
 		break;
@@ -2326,7 +2326,7 @@ iteputchar(c, ip)
 		if ((ip->attribute & ATTR_INV) || attrtest(ip, ATTR_INV)) {
 			attrset(ip, ATTR_INV);
 			SUBR_PUTC(ip, c, ip->cury, ip->curx, ATTR_INV);
-		}			
+		}
 		else
 			SUBR_PUTC(ip, c, ip->cury, ip->curx, ATTR_NOR);
 #else

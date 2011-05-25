@@ -654,7 +654,7 @@ sppp_output(struct ifnet *ifp, struct mbuf *m,
 		 * become invalid. So we
 		 * - don't let packets with src ip addr 0 thru
 		 * - we flag TCP packets with src ip 0 as an error
-		 */	
+		 */
 
 		if(ip->ip_src.s_addr == INADDR_ANY)	/* -hm */
 		{
@@ -665,12 +665,12 @@ sppp_output(struct ifnet *ifp, struct mbuf *m,
 			else
 				return(0);
 		}
-		
+
 		/*
 		 * Put low delay, telnet, rlogin and ftp control packets
 		 * in front of the queue.
 		 */
-		 
+
 		if (! IF_QFULL (&sp->pp_fastq) &&
 		    ((ip->ip_tos & IPTOS_LOWDELAY) ||
 	    	    ((ip->ip_p == IPPROTO_TCP &&
@@ -813,7 +813,7 @@ sppp_attach(struct ifnet *ifp)
 	/* Initialize keepalive handler. */
 	if (! spppq)
 #if defined(__FreeBSD__) && __FreeBSD__ >= 3
-		keepalive_ch = 
+		keepalive_ch =
 #endif
 		timeout(sppp_keepalive, 0, hz * 10);
 
@@ -1144,7 +1144,7 @@ sppp_cisco_send(struct sppp *sp, int type, long par1, long par2)
 #if defined(__FreeBSD__) && __FreeBSD__ >= 3
 	getmicrouptime(&tv);
 #endif
-	
+
 	MGETHDR (m, M_DONTWAIT, MT_DATA);
 	if (! m)
 		return;
@@ -1778,7 +1778,7 @@ sppp_to_event(const struct cp *cp, struct sppp *sp)
 		case STATE_ACK_SENT:
 			(cp->scr)(sp);
 #if defined(__FreeBSD__) && __FreeBSD__ >= 3
-			sp->ch[cp->protoidx] = 
+			sp->ch[cp->protoidx] =
 #endif
 			timeout(cp->TO, (void *)sp, sp->lcp.timeout);
 			break;
@@ -2360,7 +2360,7 @@ sppp_lcp_tlu(struct sppp *sp)
 	/* notify low-level driver of state change */
 	if (sp->pp_chg)
 		sp->pp_chg(sp, (int)sp->pp_phase);
-	
+
 	if (sp->pp_phase == PHASE_NETWORK)
 		/* if no NCP is starting, close down */
 		sppp_lcp_check_and_close(sp);
@@ -3082,7 +3082,7 @@ sppp_chap_input(struct sppp *sp, struct mbuf *m)
 			}
 			break;
 		}
-		
+
 		if (debug) {
 			log(LOG_DEBUG,
 			    SPP_FMT "chap input <%s id=0x%x len=%d name=",
@@ -3192,7 +3192,7 @@ sppp_chap_input(struct sppp *sp, struct mbuf *m)
 			sppp_print_string(sp->hisauth.name,
 					  sppp_strnlen(sp->hisauth.name, AUTHNAMELEN));
 			addlog("\n");
-		}    
+		}
 		if (debug) {
 			log(LOG_DEBUG, SPP_FMT "chap input(%s) "
 			    "<%s id=0x%x len=%d name=",
@@ -4044,7 +4044,7 @@ sppp_set_ip_addr(struct sppp *sp, u_long src)
 		si->sin_addr.s_addr = htonl(src);
 
 		/* add new route */
-		error = rtinit(ifa, (int)RTM_ADD, RTF_HOST);		
+		error = rtinit(ifa, (int)RTM_ADD, RTF_HOST);
 		if (debug && error)
 		{
 			log(LOG_DEBUG, SPP_FMT "sppp_set_ip_addr: rtinit ADD failed, error=%d",
@@ -4052,7 +4052,7 @@ sppp_set_ip_addr(struct sppp *sp, u_long src)
 		}
 #endif
 	}
-}			
+}
 
 static int
 sppp_params(struct sppp *sp, int cmd, void *data)
@@ -4186,7 +4186,7 @@ sppp_phase_network(struct sppp *sp)
 	/* if no NCP is starting, all this was in vain, close down */
 	sppp_lcp_check_and_close(sp);
 }
-	
+
 
 static const char *
 sppp_cp_type_name(u_char type)

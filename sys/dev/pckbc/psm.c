@@ -248,25 +248,25 @@ pms_ioctl(v, cmd, data, flag, p)
 	case WSMOUSEIO_GTYPE:
 		*(u_int *)data = WSMOUSE_TYPE_PS2;
 		break;
-		
+
 	case WSMOUSEIO_SRES:
 		i = (*(u_int *)data - 12) / 25;
-		
+
 		if (i < 0)
 			i = 0;
-			
+
 		if (i > 3)
 			i = 3;
 
 		kbcmd[0] = PMS_SET_RES;
-		kbcmd[1] = i;			
-		i = pckbc_enqueue_cmd(sc->sc_kbctag, sc->sc_kbcslot, kbcmd, 
+		kbcmd[1] = i;
+		i = pckbc_enqueue_cmd(sc->sc_kbctag, sc->sc_kbcslot, kbcmd,
 		    2, 0, 1, 0);
-		
+
 		if (i)
 			printf("pms_ioctl: SET_RES command error\n");
 		break;
-		
+
 	default:
 		return (-1);
 	}

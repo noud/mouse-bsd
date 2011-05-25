@@ -213,7 +213,7 @@ move_rect(src_x, src_y, width, height, dst_x, dst_y, rop)
 {
 	lRectangle sr;
 	lPoint dp;
-		
+
 	sr.origin.x = src_x;
 	sr.origin.y = src_y;
 	sr.extent.x = width;
@@ -273,7 +273,7 @@ line(param)
 
 /*
  *  cursor on
- *  cursor_on(x, y, plane) puts cursor at position (x, y) with color = plane, 
+ *  cursor_on(x, y, plane) puts cursor at position (x, y) with color = plane,
  *  if cursor sw is off.
  *  At the same time the image of cursor position is saved.
  */
@@ -387,7 +387,7 @@ clear_lines(sl, nl, rev, fcol, bcol)
 /*
  *  Clear chars
  *  clear_chars(x, y, nchar, rev) clears nchar characters following the
- *  position (x, y) with rev mode. If rev = 0 then normal clear else 
+ *  position (x, y) with rev mode. If rev = 0 then normal clear else
  *  reverse clear.
  */
 void
@@ -418,7 +418,7 @@ copy_char(sp, c, kanji)
 {
 	register char *f_addr;
 	register int len;
-	register lRectangle *sr, *dr; 
+	register lRectangle *sr, *dr;
 	lRectangle udr;
 	register char **fnt_addr;
 	extern struct fb_map rommap;
@@ -547,7 +547,7 @@ vt_flush(spc)
 {
 	register char *f_addr;
 	register int len;
-	register lRectangle *sr, *dr; 
+	register lRectangle *sr, *dr;
 	lRectangle fr, cr;
 	register int i;
 	register unsigned int c;
@@ -682,7 +682,7 @@ vt_flush(spc)
 		} else {
 			if (oldf_addr != 0)
 				fbbm_rop_init(consfb, consfb->funcvec);
-	
+
 			fbbm_rop_copy(consfb, sr, &dr->origin, 1, consfb->planemask);
 			if (fpa & BOLD) {
 				/*

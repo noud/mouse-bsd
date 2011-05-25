@@ -874,7 +874,7 @@ Ignore any errors from the commands associated with this target, exactly
 as if they all were preceded by a dash
 .Pq Ql \- .
 .It Ic .MADE
-Mark all sources of this target as being up-to-date. 
+Mark all sources of this target as being up-to-date.
 .It Ic .MAKE
 Execute the commands associated with this target even if the
 .Fl n
@@ -1044,17 +1044,17 @@ If
 .Ev MAKEOBJDIRPREFIX
 is set, then
 .Nm
-will 
+will
 .Xr chdir 2
 to ${MAKEOBJDIRPREFIX}${.CURDIR} if it exists.
 Otherwise if
 .Ev MAKEOBJDIR
 and the named directory exists
 .Nm
-will 
+will
 .Xr chdir 2
 to it.
-These actions are taken before any makefiles are read which is why they 
+These actions are taken before any makefiles are read which is why they
 need to be set in the environment.
 .Sh FILES
 .Bl -tag -width /usr/share/mk -compact

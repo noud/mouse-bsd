@@ -73,20 +73,20 @@ struct __list_iterator {
   pointer operator->() const { return &(operator*()); }
 #endif /* __SGI_STL_NO_ARROW_OPERATOR */
 
-  self& operator++() { 
+  self& operator++() {
     node = (link_type)((*node).next);
     return *this;
   }
-  self operator++(int) { 
+  self operator++(int) {
     self tmp = *this;
     ++*this;
     return tmp;
   }
-  self& operator--() { 
+  self& operator--() {
     node = (link_type)((*node).prev);
     return *this;
   }
-  self operator--(int) { 
+  self operator--(int) {
     self tmp = *this;
     --*this;
     return tmp;
@@ -121,7 +121,7 @@ protected:
   typedef void* void_pointer;
   typedef __list_node<T> list_node;
   typedef simple_alloc<list_node, Alloc> list_node_allocator;
-public:      
+public:
   typedef T value_type;
   typedef value_type* pointer;
   typedef const value_type* const_pointer;
@@ -144,7 +144,7 @@ public:
   const_reverse_iterator;
   typedef reverse_bidirectional_iterator<iterator, value_type, reference,
   difference_type>
-  reverse_iterator; 
+  reverse_iterator;
 #endif /* __STL_CLASS_PARTIAL_SPECIALIZATION */
 
 protected:
@@ -165,7 +165,7 @@ protected:
   }
 
 protected:
-  void empty_initialize() { 
+  void empty_initialize() {
     node = get_node();
     node->next = node;
     node->prev = node;
@@ -216,13 +216,13 @@ public:
   iterator end() { return node; }
   const_iterator end() const { return node; }
   reverse_iterator rbegin() { return reverse_iterator(end()); }
-  const_reverse_iterator rbegin() const { 
-    return const_reverse_iterator(end()); 
+  const_reverse_iterator rbegin() const {
+    return const_reverse_iterator(end());
   }
   reverse_iterator rend() { return reverse_iterator(begin()); }
-  const_reverse_iterator rend() const { 
+  const_reverse_iterator rend() const {
     return const_reverse_iterator(begin());
-  } 
+  }
   bool empty() const { return node->next == node; }
   size_type size() const {
     size_type result = 0;
@@ -276,7 +276,7 @@ public:
   void clear();
 
   void pop_front() { erase(begin()); }
-  void pop_back() { 
+  void pop_back() {
     iterator tmp = end();
     erase(--tmp);
   }
@@ -311,17 +311,17 @@ protected:
     if (position != last) {
       (*(link_type((*last.node).prev))).next = position.node;
       (*(link_type((*first.node).prev))).next = last.node;
-      (*(link_type((*position.node).prev))).next = first.node;  
+      (*(link_type((*position.node).prev))).next = first.node;
       link_type tmp = link_type((*position.node).prev);
       (*position.node).prev = (*last.node).prev;
-      (*last.node).prev = (*first.node).prev; 
+      (*last.node).prev = (*first.node).prev;
       (*first.node).prev = tmp;
     }
   }
 
 public:
   void splice(iterator position, list& x) {
-    if (!x.empty()) 
+    if (!x.empty())
       transfer(position, x.begin(), x.end());
   }
   void splice(iterator position, list&, iterator i) {
@@ -331,7 +331,7 @@ public:
     transfer(position, i, j);
   }
   void splice(iterator position, list&, iterator first, iterator last) {
-    if (first != last) 
+    if (first != last)
       transfer(position, first, last);
   }
   void remove(const T& value);
@@ -429,7 +429,7 @@ void list<T, Alloc>::resize(size_type new_size, const T& x)
     insert(end(), new_size - len, x);
 }
 
-template <class T, class Alloc> 
+template <class T, class Alloc>
 void list<T, Alloc>::clear()
 {
   link_type cur = (link_type) node->next;
@@ -512,7 +512,7 @@ void list<T, Alloc>::reverse() {
     ++first;
     transfer(begin(), old, first);
   }
-}    
+}
 
 template <class T, class Alloc>
 void list<T, Alloc>::sort() {
@@ -527,9 +527,9 @@ void list<T, Alloc>::sort() {
       counter[i].merge(carry);
       carry.swap(counter[i++]);
     }
-    carry.swap(counter[i]);         
+    carry.swap(counter[i]);
     if (i == fill) ++fill;
-  } 
+  }
 
   for (int i = 1; i < fill; ++i) counter[i].merge(counter[i-1]);
   swap(counter[fill-1]);
@@ -594,9 +594,9 @@ void list<T, Alloc>::sort(StrictWeakOrdering comp) {
       counter[i].merge(carry, comp);
       carry.swap(counter[i++]);
     }
-    carry.swap(counter[i]);         
+    carry.swap(counter[i]);
     if (i == fill) ++fill;
-  } 
+  }
 
   for (int i = 1; i < fill; ++i) counter[i].merge(counter[i-1], comp);
   swap(counter[fill-1]);
@@ -608,7 +608,7 @@ void list<T, Alloc>::sort(StrictWeakOrdering comp) {
 #pragma reset woff 1174
 #endif
 
-__STL_END_NAMESPACE 
+__STL_END_NAMESPACE
 
 #endif /* __SGI_STL_INTERNAL_LIST_H */
 

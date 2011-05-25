@@ -41,9 +41,9 @@ L_overflow:
 
 ENTRY(__udivsi3)
 L_udivide:				/* r0 = r0 / r1; r1 = r0 % r1 */
-	eor     r0, r1, r0 
-	eor     r1, r0, r1 
-	eor     r0, r1, r0 
+	eor     r0, r1, r0
+	eor     r1, r0, r1
+	eor     r0, r1, r0
 					/* r0 = r1 / r0; r1 = r1 % r0 */
 	cmp	r0, #1
 	bcc	L_overflow
@@ -63,9 +63,9 @@ L_divide_l0:				/* r0 == 1 */
 
 ENTRY(__divsi3)
 L_divide:				/* r0 = r0 / r1; r1 = r0 % r1 */
-	eor     r0, r1, r0 
-	eor     r1, r0, r1 
-	eor     r0, r1, r0 
+	eor     r0, r1, r0
+	eor     r1, r0, r1
+	eor     r0, r1, r0
 					/* r0 = r1 / r0; r1 = r1 % r0 */
 	cmp	r0, #1
 	bcc	L_overflow
@@ -84,7 +84,7 @@ L_divide_l1:
 
 	/*
 	 * If the highest bit of the dividend is set, we have to be
-	 * careful when shifting the divisor. Test this. 
+	 * careful when shifting the divisor. Test this.
 	 */
 	movs	r1,r1
 	bpl	L_old_code

@@ -306,7 +306,7 @@ ffs_mount(mp, path, data, ndp, p)
 	(void) copyinstr(path, fs->fs_fsmnt, sizeof(fs->fs_fsmnt) - 1, &size);
 	memset(fs->fs_fsmnt + size, 0, sizeof(fs->fs_fsmnt) - size);
 	memcpy(mp->mnt_stat.f_mntonname, fs->fs_fsmnt, MNAMELEN);
-	(void) copyinstr(args.fspec, mp->mnt_stat.f_mntfromname, MNAMELEN - 1, 
+	(void) copyinstr(args.fspec, mp->mnt_stat.f_mntfromname, MNAMELEN - 1,
 	    &size);
 	memset(mp->mnt_stat.f_mntfromname + size, 0, MNAMELEN - size);
 	if (fs->fs_fmod != 0) {	/* XXX */
@@ -387,7 +387,7 @@ ffs_reload(mountp, cred, p)
 		free(newfs, M_UFSMNT);
 		return (EIO);		/* XXX needs translation */
 	}
-	/* 
+	/*
 	 * Copy pointer fields back into superblock before copying in	XXX
 	 * new superblock. These should really be in the ufsmount.	XXX
 	 * Note that important parameters (eg fs_ncg) are unchanged.
@@ -629,7 +629,7 @@ ffs_mountfs(devvp, mp, p)
 		else
 #endif
 			memcpy(space, bp->b_data, (u_int)size);
-			
+
 		fs->fs_csp[fragstoblks(fs, i)] = (struct csum *)space;
 		space += size;
 		brelse(bp);
@@ -1016,7 +1016,7 @@ ffs_vget(mp, ino, vpp)
 #ifdef FFS_EI
 	if (UFS_FSNEEDSWAP(fs))
 		ffs_dinode_swap((struct dinode *)cp, &ip->i_din.ffs_din);
-	else 
+	else
 #endif
 		memcpy(&ip->i_din.ffs_din, cp, DINODE_SIZE);
 	if (DOINGSOFTDEP(vp))

@@ -110,7 +110,7 @@ int load_sun(io, loadaddr, entry)
 	 */
 	printf("%d", x.a_text);
 	cc = x.a_text;
-	if (magic == ZMAGIC) 
+	if (magic == ZMAGIC)
 		cc -= sizeof(x);
 	if (read(io, cp, cc) != cc)
 		goto shread;

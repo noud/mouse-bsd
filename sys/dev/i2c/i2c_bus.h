@@ -1,5 +1,5 @@
 /*  $NetBSD: i2c_bus.h,v 1.1 1997/10/17 17:21:19 bouyer Exp $   */
- 
+
 /*
  * Copyright (c) 1997 Manuel Bouyer.  All rights reserved.
  *
@@ -45,7 +45,7 @@ typedef struct _i2c_adapter {
 #define I2C_DATA  0x00
 #define I2C_CLOCK 0x01
 #define I2C_TXEN 0x02
- 
+
 /* services provided by the i2c serial bus */
 
 int i2c_write_byte __P((i2c_adapter_t *, u_int8_t));

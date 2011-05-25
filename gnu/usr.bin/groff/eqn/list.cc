@@ -93,7 +93,7 @@ int list_box::compute_metrics(int style)
   sty = style;
   int i;
   for (i = 0; i < list.len; i++) {
-    int t = list.p[i]->spacing_type; 
+    int t = list.p[i]->spacing_type;
     // 5
     if (t == BINARY_TYPE) {
       int prevt;
@@ -106,7 +106,7 @@ int list_box::compute_metrics(int style)
 	list.p[i]->spacing_type = ORDINARY_TYPE;
     }
     // 7
-    else if ((t == RELATION_TYPE || t == CLOSING_TYPE 
+    else if ((t == RELATION_TYPE || t == CLOSING_TYPE
 	      || t == PUNCTUATION_TYPE)
 	     && i > 0 && list.p[i-1]->spacing_type == BINARY_TYPE)
       list.p[i-1]->spacing_type = ORDINARY_TYPE;

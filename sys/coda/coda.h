@@ -1,13 +1,13 @@
 /*	$NetBSD: coda.h,v 1.6 1998/11/11 19:22:08 rvb Exp $	*/
 
 /*
- * 
+ *
  *             Coda: an Experimental Distributed File System
  *                              Release 3.1
- * 
+ *
  *           Copyright (c) 1987-1998 Carnegie Mellon University
  *                          All Rights Reserved
- * 
+ *
  * Permission  to  use, copy, modify and distribute this software and its
  * documentation is hereby granted,  provided  that  both  the  copyright
  * notice  and  this  permission  notice  appear  in  all  copies  of the
@@ -16,18 +16,18 @@
  * that credit is given to Carnegie Mellon University  in  all  documents
  * and publicity pertaining to direct or indirect use of this code or its
  * derivatives.
- * 
+ *
  * CODA IS AN EXPERIMENTAL SOFTWARE SYSTEM AND IS  KNOWN  TO  HAVE  BUGS,
  * SOME  OF  WHICH MAY HAVE SERIOUS CONSEQUENCES.  CARNEGIE MELLON ALLOWS
  * FREE USE OF THIS SOFTWARE IN ITS "AS IS" CONDITION.   CARNEGIE  MELLON
  * DISCLAIMS  ANY  LIABILITY  OF  ANY  KIND  FOR  ANY  DAMAGES WHATSOEVER
  * RESULTING DIRECTLY OR INDIRECTLY FROM THE USE OF THIS SOFTWARE  OR  OF
  * ANY DERIVATIVE WORK.
- * 
+ *
  * Carnegie  Mellon  encourages  users  of  this  software  to return any
  * improvements or extensions that  they  make,  and  to  grant  Carnegie
  * Mellon the rights to redistribute these changes without encumbrance.
- * 
+ *
  * 	@(#) coda/coda.h,v 1.1.1.1 1998/08/29 21:26:46 rvb Exp
  */
 
@@ -46,7 +46,7 @@
 /* Catch new _KERNEL defn for NetBSD */
 #ifdef __NetBSD__
 #include <sys/types.h>
-#endif 
+#endif
 
 #ifndef CODA_MAXSYMLINKS
 #define CODA_MAXSYMLINKS 10
@@ -62,7 +62,7 @@ typedef u_long dev_t;
 typedef void * caddr_t;
 #ifdef DOS
 typedef unsigned __int64 u_quad_t;
-#else 
+#else
 typedef unsigned long long u_quad_t;
 #endif
 
@@ -115,7 +115,7 @@ struct timespec {
 #define C_O_EXCL	0x100
 #define C_O_CREAT	0x200
 
-/* these are to find mode bits in Venus */ 
+/* these are to find mode bits in Venus */
 #define C_M_READ  00400
 #define C_M_WRITE 00200
 
@@ -168,7 +168,7 @@ typedef u_long VolumeId;
 typedef u_long VnodeId;
 typedef u_long Unique_t;
 typedef u_long FileVersion;
-#endif 
+#endif
 
 #ifndef	_VICEFID_T_
 #define _VICEFID_T_	1
@@ -183,14 +183,14 @@ typedef struct ViceFid {
 #ifdef __linux__
 static __inline__ ino_t  coda_f2i(struct ViceFid *fid)
 {
-	if ( ! fid ) 
-		return 0; 
+	if ( ! fid )
+		return 0;
 	if (fid->Vnode == 0xfffffffe || fid->Vnode == 0xffffffff)
 		return ((fid->Volume << 20) | (fid->Unique & 0xfffff));
 	else
 		return (fid->Unique + (fid->Vnode<<10) + (fid->Volume<<20));
 }
-	
+
 #else
 #define coda_f2i(fid)\
 	((fid) ? ((fid)->Unique + ((fid)->Vnode<<10) + ((fid)->Volume<<20)) : 0)
@@ -214,7 +214,7 @@ struct coda_cred {
     vuid_t cr_uid, cr_euid, cr_suid, cr_fsuid; /* Real, efftve, set, fs uid*/
     vgid_t cr_groupid,     cr_egid, cr_sgid, cr_fsgid; /* same for groups */
 };
-#endif 
+#endif
 
 #ifndef _VENUS_VATTR_T_
 #define _VENUS_VATTR_T_
@@ -242,7 +242,7 @@ struct coda_vattr {
 	u_quad_t	va_filerev;	/* file modification number */
 };
 
-#endif 
+#endif
 
 /*
  * Kernel <--> Venus communications.
@@ -285,7 +285,7 @@ struct coda_vattr {
 
 #define VC_MAXDATASIZE	    8192
 #define VC_MAXMSGSIZE      sizeof(union inputArgs)+sizeof(union outputArgs) +\
-                            VC_MAXDATASIZE  
+                            VC_MAXDATASIZE
 
 #define CIOC_KERNEL_VERSION _IOWR('c', 10, sizeof (int))
 #if	0
@@ -312,7 +312,7 @@ struct coda_in_hdr {
 /* Really important that opcode and unique are 1st two fields! */
 struct coda_out_hdr {
     unsigned long opcode;
-    unsigned long unique;	
+    unsigned long unique;
     unsigned long result;
 };
 
@@ -415,7 +415,7 @@ struct  coda_lookup_in {
     struct coda_in_hdr ih;
     ViceFid	VFid;
     int         name;		/* Place holder for data. */
-    int         flags;	
+    int         flags;
 };
 
 struct coda_lookup_out {
@@ -587,29 +587,29 @@ struct coda_purgeuser_out {
 
 /* coda_zapfile: */
 /* CODA_ZAPFILE is a venus->kernel call */
-struct coda_zapfile_out {  
+struct coda_zapfile_out {
     struct coda_out_hdr oh;
     ViceFid CodaFid;
 };
 
 /* coda_zapdir: */
-/* CODA_ZAPDIR is a venus->kernel call */	
-struct coda_zapdir_out {	  
+/* CODA_ZAPDIR is a venus->kernel call */
+struct coda_zapdir_out {
     struct coda_out_hdr oh;
     ViceFid CodaFid;
 };
 
 /* coda_zapnode: */
-/* CODA_ZAPVNODE is a venus->kernel call */	
-struct coda_zapvnode_out { 
+/* CODA_ZAPVNODE is a venus->kernel call */
+struct coda_zapvnode_out {
     struct coda_out_hdr oh;
     struct coda_cred cred;
     ViceFid VFid;
 };
 
 /* coda_purgefid: */
-/* CODA_PURGEFID is a venus->kernel call */	
-struct coda_purgefid_out { 
+/* CODA_PURGEFID is a venus->kernel call */
+struct coda_purgefid_out {
     struct coda_out_hdr oh;
     ViceFid CodaFid;
 };
@@ -622,7 +622,7 @@ struct coda_rdwr_in {
     int	count;
     int	offset;
     int	ioflag;
-    caddr_t	data;		/* Place holder for data. */	
+    caddr_t	data;		/* Place holder for data. */
 };
 
 struct coda_rdwr_out {
@@ -634,7 +634,7 @@ struct coda_rdwr_out {
 
 
 /* coda_replace: */
-/* CODA_REPLACE is a venus->kernel call */	
+/* CODA_REPLACE is a venus->kernel call */
 struct coda_replace_out { /* coda_replace is a venus->kernel call */
     struct coda_out_hdr oh;
     ViceFid NewFid;
@@ -653,9 +653,9 @@ struct coda_open_by_path_out {
 	int path;
 };
 
-/* 
- * Occasionally, we don't cache the fid returned by CODA_LOOKUP. 
- * For instance, if the fid is inconsistent. 
+/*
+ * Occasionally, we don't cache the fid returned by CODA_LOOKUP.
+ * For instance, if the fid is inconsistent.
  * This case is handled by setting the top bit of the type result parameter.
  */
 #define CODA_NOCACHE          0x80000000
@@ -705,7 +705,7 @@ union outputArgs {
     struct coda_rdwr_out coda_rdwr;
     struct coda_replace_out coda_replace;
 	struct coda_open_by_path_out coda_open_by_path;
-};    
+};
 
 union coda_downcalls {
     /* CODA_INVALIDATE is a venus->kernel call */
@@ -757,5 +757,5 @@ struct PioctlData {
 #define	IS_CTL_FID(fidp)	((fidp)->Volume == CTL_VOL &&\
 				 (fidp)->Vnode == CTL_VNO &&\
 				 (fidp)->Unique == CTL_UNI)
-#endif 
+#endif
 

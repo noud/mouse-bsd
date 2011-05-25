@@ -99,8 +99,8 @@ struct RF_ThroughputStats_s {
 struct RF_Raid_s {
 	/* This portion never changes, and can be accessed without locking */
 	/* an exception is Disks[][].status, which requires locking when it is
-	 * changed.  XXX this is no longer true.  numSpare and friends can 
-	 * change now. 
+	 * changed.  XXX this is no longer true.  numSpare and friends can
+	 * change now.
          */
 	u_int   numRow;		/* number of rows of disks, typically == # of
 				 * ranks */
@@ -139,7 +139,7 @@ struct RF_Raid_s {
 	int     clean;          /* the clean bit for this array. */
 
 	int     openings;       /* Number of IO's which can be scheduled
-				   simultaneously (high-level - not a 
+				   simultaneously (high-level - not a
 				   per-component limit)*/
 
 	/*

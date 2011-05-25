@@ -219,7 +219,7 @@ logwakeup()
 	selwakeup(&logsoftc.sc_selp);
 	if (logsoftc.sc_state & LOG_ASYNC) {
 		if (logsoftc.sc_pgid < 0)
-			gsignal(-logsoftc.sc_pgid, SIGIO); 
+			gsignal(-logsoftc.sc_pgid, SIGIO);
 		else if ((p = pfind(logsoftc.sc_pgid)) != NULL)
 			psignal(p, SIGIO);
 	}

@@ -145,7 +145,7 @@ sm_dopr( buffer, format, args )
 			       else
 				 len = len*10 + ch - '0';
 			       goto nextch;
-		       case '*': 
+		       case '*':
 			       if (pointflag)
 				 maxwidth = va_arg( args, int );
 			       else
@@ -205,12 +205,12 @@ sm_dopr( buffer, format, args )
 #if HASSTRERROR
                                dostr(strerror(SyslogErrno), 0);
 #else
-                               if (SyslogErrno < 0 || SyslogErrno >= sys_nerr) 
+                               if (SyslogErrno < 0 || SyslogErrno >= sys_nerr)
                                {
                                    dostr("Error ", 0);
                                    fmtnum(SyslogErrno, 10, 0, 0, 0, 0);
                                }
-                               else 
+                               else
                                    dostr((char *)sys_errlist[SyslogErrno], 0);
 #endif
 			       break;

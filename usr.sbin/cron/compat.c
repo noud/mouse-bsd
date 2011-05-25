@@ -150,7 +150,7 @@ getdtablesize() {
  * Snarfage done by Jarkko Hietaniemi <Jarkko.Hietaniemi@hut.fi>
  * *) well, almost, had to K&R the function entry, HPUX "cc"
  * does not grok ANSI function prototypes */
- 
+
 /*
  * flock (fd, operation)
  *
@@ -206,13 +206,13 @@ flock(fd, operation)
 	case LOCK_UN:		/* unlock */
 		i = lockf (fd, F_ULOCK, 0);
 		break;
- 
+
 	default:		/* can't decipher operation */
 		i = -1;
 		errno = EINVAL;
 		break;
 	}
- 
+
 	return (i);
 }
 #endif /*NEED_FLOCK*/

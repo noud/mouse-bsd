@@ -141,7 +141,7 @@ struct wd_softc {
 	struct ata_drive_datas *drvp; /* Our controller's infos */
 	int openings;
 	struct ataparams sc_params;/* drive characteistics found */
-	int sc_flags;	  
+	int sc_flags;
 #define WDF_LOCKED	  0x01
 #define WDF_WANTED	  0x02
 #define WDF_WLABEL	  0x04 /* label is writable */
@@ -345,7 +345,7 @@ wdattach(parent, self, aux)
 	wd->sc_sdhook = shutdownhook_establish(wd_shutdown, wd);
 	if (wd->sc_sdhook == NULL)
 		printf("%s: WARNING: unable to establish shutdown hook\n",
-		    wd->sc_dev.dv_xname); 
+		    wd->sc_dev.dv_xname);
 #if NRND > 0
 	rnd_attach_source(&wd->rnd_source, wd->sc_dev.dv_xname,
 			  RND_TYPE_DISK, 0);
@@ -392,11 +392,11 @@ wddetach(self, flags)
 
 	s = splbio();
 
-	/* Kill off any queued buffers. */ 
+	/* Kill off any queued buffers. */
 	while ((bp = BUFQ_FIRST(&sc->sc_q)) != NULL) {
 		BUFQ_REMOVE(&sc->sc_q, bp);
 		bp->b_error = EIO;
-		bp->b_flags |= B_ERROR; 
+		bp->b_flags |= B_ERROR;
 		bp->b_resid = bp->b_bcount;
 		biodone(bp);
 	}
@@ -438,7 +438,7 @@ wdstrategy(bp)
 
 	WDCDEBUG_PRINT(("wdstrategy (%s)\n", wd->sc_dev.dv_xname),
 	    DEBUG_XFERS);
-	
+
 	/* Valid request?  */
 	if (bp->b_blkno < 0 ||
 	    (bp->b_bcount % lp->d_secsize) != 0 ||
@@ -446,7 +446,7 @@ wdstrategy(bp)
 		bp->b_error = EINVAL;
 		goto bad;
 	}
-	
+
 	/* If device invalidated (e.g. media change, door open), error. */
 	if ((wd->sc_flags & WDF_LOADED) == 0) {
 		bp->b_error = EIO;
@@ -512,8 +512,8 @@ wdstart(arg)
 		if ((bp = BUFQ_FIRST(&wd->sc_q)) == NULL)
 			return;
 		BUFQ_REMOVE(&wd->sc_q, bp);
-	
-		/* 
+
+		/*
 		 * Make the command. First lock the device
 		 */
 		wd->openings--;
@@ -764,7 +764,7 @@ wdopen(dev, flag, fmt, p)
 		error = ENXIO;
 		goto bad;
 	}
-	
+
 	/* Insure only one open at a time. */
 	switch (fmt) {
 	case S_IFCHR:
@@ -801,7 +801,7 @@ wdclose(dev, flag, fmt, p)
 	struct wd_softc *wd = wd_cd.cd_devs[WDUNIT(dev)];
 	int part = WDPART(dev);
 	int error;
-	
+
 	WDCDEBUG_PRINT(("wdclose\n"), DEBUG_FUNCS);
 	if ((error = wdlock(wd)) != 0)
 		return error;
@@ -946,13 +946,13 @@ wdioctl(dev, xfer, addr, flag, p)
 	case DIOCGDINFO:
 		*(struct disklabel *)addr = *(wd->sc_dk.dk_label);
 		return 0;
-	
+
 	case DIOCGPART:
 		((struct partinfo *)addr)->disklab = wd->sc_dk.dk_label;
 		((struct partinfo *)addr)->part =
 		    &wd->sc_dk.dk_label->d_partitions[WDPART(dev)];
 		return 0;
-	
+
 	case DIOCWDINFO:
 	case DIOCSDINFO:
 		if ((flag & FWRITE) == 0)
@@ -984,7 +984,7 @@ wdioctl(dev, xfer, addr, flag, p)
 		else
 			wd->sc_flags &= ~WDF_KLABEL;
 		return 0;
-	
+
 	case DIOCWLABEL:
 		if ((flag & FWRITE) == 0)
 			return EBADF;
@@ -1006,7 +1006,7 @@ wdioctl(dev, xfer, addr, flag, p)
 		register struct format_op *fop;
 		struct iovec aiov;
 		struct uio auio;
-	
+
 		fop = (struct format_op *)addr;
 		aiov.iov_base = fop->df_buf;
 		aiov.iov_len = fop->df_count;
@@ -1174,7 +1174,7 @@ wddump(dev, blkno, va, size)
 
 	/* Check transfer bounds against partition size. */
 	if ((blkno < 0) || ((blkno + nblks) > lp->d_partitions[part].p_size))
-		return EINVAL;  
+		return EINVAL;
 
 	/* Offset block number to start of partition. */
 	blkno += lp->d_partitions[part].p_offset;
@@ -1185,7 +1185,7 @@ wddump(dev, blkno, va, size)
 		wddumprecalibrated = 1;
 		wd->drvp->state = RECAL;
 	}
-  
+
 	while (nblks > 0) {
 again:
 		wd->sc_wdc_bio.blkno = blkno;
@@ -1227,7 +1227,7 @@ again:
 			printf("wddump: %s", errbuf);
 			err = EIO;
 			break;
-		case NOERROR: 
+		case NOERROR:
 			err = 0;
 			break;
 		default:
@@ -1540,9 +1540,9 @@ wdioctlstrategy(bp)
 			wi->wi_atareq.head = wdc_c.r_head ;
 			wi->wi_atareq.cylinder = wdc_c.r_cyl;
 			wi->wi_atareq.sec_num = wdc_c.r_sector;
-			wi->wi_atareq.sec_count = wdc_c.r_count; 
-			wi->wi_atareq.features = wdc_c.r_precomp; 
-			wi->wi_atareq.error = wdc_c.r_error; 
+			wi->wi_atareq.sec_count = wdc_c.r_count;
+			wi->wi_atareq.features = wdc_c.r_precomp;
+			wi->wi_atareq.error = wdc_c.r_error;
 		}
 	}
 

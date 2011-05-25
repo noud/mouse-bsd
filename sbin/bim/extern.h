@@ -1,6 +1,6 @@
 /*	$NetBSD: extern.h,v 1.1 1997/09/15 01:29:31 lukem Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1994 Philip A. Nelson.
  * All rights reserved.
  *

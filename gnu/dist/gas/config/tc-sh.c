@@ -548,7 +548,7 @@ parse_at (src, op)
 	      else if (mode == A_DISP_PC)
 		{
 		  /* Turn a plain @(4,pc) into @(.+4,pc) */
-		  if (immediate.X_op == O_constant) { 
+		  if (immediate.X_op == O_constant) {
 		    immediate.X_add_symbol = dot();
 		    immediate.X_op = O_symbol;
 		  }
@@ -813,7 +813,7 @@ get_specific (opcode, operands)
 		goto fail;
 	      reg_m = 4;
 	      break;
-	
+
 	    default:
 	      printf ("unhandled %d\n", arg);
 	      goto fail;
@@ -1071,7 +1071,7 @@ sh_frob_label ()
       offset = frag_now_fix ();
       if (frag_now != last_label_frag
 	  || offset != last_label_offset)
-	{	
+	{
 	  fix_new (frag_now, offset, 2, &abs_symbol, 0, 0, BFD_RELOC_SH_LABEL);
 	  last_label_frag = frag_now;
 	  last_label_offset = offset;
@@ -1175,7 +1175,7 @@ md_atof (type, litP, sizeP)
 	  litP += 2;
 	}
     }
-     
+
   return NULL;
 }
 
@@ -1512,7 +1512,7 @@ md_convert_frag (headers, seg, fragP)
 		(unsigned long) fragP->fr_address);
       else
 	as_bad ("at 0x%lx, displacement to %sdefined symbol %s overflows 12-bit field",
-		(unsigned long) fragP->fr_address,		
+		(unsigned long) fragP->fr_address,
 		S_IS_DEFINED (fragP->fr_symbol) ? "" : "un",
 		S_GET_NAME (fragP->fr_symbol));
 
@@ -1599,11 +1599,11 @@ md_convert_frag (headers, seg, fragP)
     case C (COND_JUMP, COND32):
     case C (COND_JUMP, UNDEF_WORD_DISP):
       if (fragP->fr_symbol == NULL)
-	as_bad ("at 0x%lx, displacement overflows 8-bit field", 
+	as_bad ("at 0x%lx, displacement overflows 8-bit field",
 		(unsigned long) fragP->fr_address);
-      else  
+      else
 	as_bad ("at 0x%lx, displacement to %sdefined symbol %s overflows 8-bit field ",
-		(unsigned long) fragP->fr_address,		
+		(unsigned long) fragP->fr_address,
 		S_IS_DEFINED (fragP->fr_symbol) ? "" : "un",
 		S_GET_NAME (fragP->fr_symbol));
 
@@ -1931,14 +1931,14 @@ md_apply_fix (fixP, val)
       break;
 
     case BFD_RELOC_32:
-      if (! target_big_endian) 
+      if (! target_big_endian)
 	{
 	  *buf++ = val >> 0;
 	  *buf++ = val >> 8;
 	  *buf++ = val >> 16;
 	  *buf++ = val >> 24;
 	}
-      else 
+      else
 	{
 	  *buf++ = val >> 24;
 	  *buf++ = val >> 16;
@@ -1952,8 +1952,8 @@ md_apply_fix (fixP, val)
 	{
 	  *buf++ = val >> 0;
 	  *buf++ = val >> 8;
-	} 
-      else 
+	}
+      else
 	{
 	  *buf++ = val >> 8;
 	  *buf++ = val >> 0;

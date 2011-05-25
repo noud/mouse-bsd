@@ -96,7 +96,7 @@ clockmatch(parent, match, aux)
 {
 	struct confargs *ca = aux;
 
-	/* See how many clocks this system has */	
+	/* See how many clocks this system has */
 	switch (cputype) {
 
 	case ACER_PICA_61:
@@ -257,7 +257,7 @@ inittodr(base)
 	} else
 		badbase = 0;
 
-	/* Read RTC chip registers */ 
+	/* Read RTC chip registers */
 	(*csc->sc_get)(csc, base, &c);
 
 	csc->sc_initted = 1;

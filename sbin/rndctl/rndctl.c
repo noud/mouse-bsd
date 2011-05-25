@@ -77,7 +77,7 @@ find_type(char *name)
 	arg_t *a;
 
 	a = source_types;
-	
+
 	while (a->name != NULL) {
 		if (strcmp(a->name, name) == 0)
 			return a->type;
@@ -94,7 +94,7 @@ find_name(u_int32_t type)
 	arg_t *a;
 
 	a = source_types;
-	
+
 	while (a->name != NULL) {
 		if (type == a->type)
 			return a->name;
@@ -183,10 +183,10 @@ do_list(int all, u_int32_t type, char *name)
 		res = ioctl(fd, RNDGETSRCNUM, &rstat);
 		if (res < 0)
 			err(1, "ioctl(RNDGETSRCNUM)");
-                        
+
 		if (rstat.count == 0)
 			break;
-                        
+
 		for (res = 0 ; res < rstat.count ; res++) {
 			if ((all != 0)
 			    || (type == rstat.source[res].type))

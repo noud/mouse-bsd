@@ -99,7 +99,7 @@ EXTRA_DIST = grep.1 egrep.man fgrep.man
 CLEANFILES = egrep.1 fgrep.1
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 TEXI2DVI = texi2dvi
 INFO_DEPS = grep.info
 DVIS = grep.dvi
@@ -119,7 +119,7 @@ GZIP_ENV = --best
 all: all-redirect
 .SUFFIXES:
 .SUFFIXES: .dvi .info .ps .texi .texinfo .txi
-$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu doc/Makefile
 
 Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status

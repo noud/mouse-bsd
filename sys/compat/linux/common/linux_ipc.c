@@ -371,7 +371,7 @@ linux_sys_shmat(p, v, retval)
 	if ((error = copyout(&retval[0], (caddr_t) SCARG(uap, raddr),
 	     sizeof retval[0])))
 		return error;
-	
+
 	retval[0] = 0;
 	return 0;
 }

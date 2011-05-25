@@ -78,7 +78,7 @@ int over_box::compute_metrics(int style)
   }
   if (reduce_size)
     printf(".ps \\n[" SIZE_FORMAT "]\n", uid);
-  printf(".nr " WIDTH_FORMAT " (\\n[" WIDTH_FORMAT "]>?\\n[" WIDTH_FORMAT "]", 
+  printf(".nr " WIDTH_FORMAT " (\\n[" WIDTH_FORMAT "]>?\\n[" WIDTH_FORMAT "]",
 	 uid, num->uid, den->uid);
   // allow for \(ru being wider than both the numerator and denominator
   if (!draw_flag)

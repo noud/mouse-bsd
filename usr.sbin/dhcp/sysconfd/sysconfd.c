@@ -84,7 +84,7 @@ int main (argc, argv, envp)
 
 #if !(defined (DEBUG) || defined (SYSLOG_4_2) || defined (__CYGWIN32__))
 	setlogmask (LOG_UPTO (LOG_INFO));
-#endif	
+#endif
 
 	/* Make a socket... */
 	sysconf_fd = socket (AF_UNIX, SOCK_STREAM, 0);

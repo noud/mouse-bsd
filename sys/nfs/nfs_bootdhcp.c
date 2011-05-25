@@ -98,7 +98,7 @@
  * Given that the server needs a-priori knowledge about
  * the client anyway, it might as well assign a fixed IP
  * address for the client and support BOOTP.
- * 
+ *
  * On the other hand, disk-FULL clients may use DHCP, but
  * in that case the DHCP client should be user-mode code,
  * and has no bearing on the code below. -gwr

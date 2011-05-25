@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: xutil.c,v 1.5 1999/08/24 21:31:10 ezk Exp 
+ * Id: xutil.c,v 1.5 1999/08/24 21:31:10 ezk Exp
  *
  */
 
@@ -428,7 +428,7 @@ real_plog(int lvl, char *fmt, va_list vargs)
    * XXX: ptr is 1024 bytes long, but we may write to ptr[strlen(ptr) + 2]
    * (to add an '\n', see code below) so we have to limit the string copy
    * to 1023 (including the '\0').
-   * 
+   *
    */
   vsnprintf(ptr, 1023, efmt, vargs);
   msg[1022] = '\0';		/* null terminate, to be sure */

@@ -15,7 +15,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed at Ludd, University of 
+ *      This product includes software developed at Ludd, University of
  *      Lule}, Sweden and its contributors.
  * 4. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission
@@ -80,7 +80,7 @@
 #define KA43_PCTL_DMA	0x01000000	/* LANCE DMA control (bit 24) */
 
 /*
- * "CH2" and "SESR" are two common names related to Secondary Cache 
+ * "CH2" and "SESR" are two common names related to Secondary Cache
  */
 #define KA43_SESR	0x21100000	/* same as KA43_CH2_CREG */
 
@@ -99,8 +99,8 @@
 	"\020\010TPE\007DPE\006MISS\005DIRTY\004CERR\003LERR\002SERR\001ENABLE"
 
 /*
- * The following values refer to bits/bitfields within the 4 internal 
- * registers controlling primary cache: 
+ * The following values refer to bits/bitfields within the 4 internal
+ * registers controlling primary cache:
  * PR_PCTAG(124, tag-register)		PR_PCIDX(125, index-register)
  * PR_PCERR(126, error-register)	PR_PCSTS(127, status-register)
  */
@@ -215,8 +215,8 @@
 
 struct ka43_cpu {
 	u_long  hltcod;		/* Halt Code Register */
-	u_long  pad2;		
-	u_long  pad3;		
+	u_long  pad2;
+	u_long  pad3;
 	u_char  intreg[4];	/* Four 1-byte registers */
 	u_short	diagdsp;	/* Diagnostic display register */
 	u_short pad4;

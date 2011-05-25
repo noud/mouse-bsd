@@ -1,6 +1,6 @@
 /*	$NetBSD: pmap_bootstrap.c,v 1.17 1999/03/23 04:18:50 minoura Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1991, 1993
  *	The Regents of the University of California.  All rights reserved.
  *
@@ -339,7 +339,7 @@ pmap_bootstrap(nextpa, firstpa)
 		protopte += NBPG;
 	}
 	/*
-	 * map the kernel segment table cache invalidated for 
+	 * map the kernel segment table cache invalidated for
 	 * these machines (for the 68040 not strictly necessary, but
 	 * recommended by Motorola; for the 68060 mandatory)
 	 */
@@ -487,7 +487,7 @@ pmap_bootstrap(nextpa, firstpa)
 		 */
 		if (RELOC(mmutype, int) == MMU_68040) {
 			int num;
-			
+
 			kpm->pm_stfree = ~l2tobm(0);
 			num = roundup((nptpages + 1) * (NPTEPG / SG4_LEV3SIZE),
 				      SG4_LEV2SIZE) / SG4_LEV2SIZE;

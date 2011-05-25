@@ -1,6 +1,6 @@
 /*	$NetBSD: memcpy.S,v 1.6 1998/05/28 22:07:22 matthias Exp $	*/
 
-/* 
+/*
  * Written by Matthias Pfaller, 1996
  * Public domain.
  */

@@ -91,7 +91,7 @@ procfs_domem(curp, p, pfs, uio)
 		return (error);
 
 	/* XXXCDC: how should locking work here? */
-	if ((p->p_flag & P_WEXIT) || (p->p_vmspace->vm_refcnt < 1)) 
+	if ((p->p_flag & P_WEXIT) || (p->p_vmspace->vm_refcnt < 1))
 		return(EFAULT);
 	PHOLD(p);
 	p->p_vmspace->vm_refcnt++;  /* XXX */
@@ -163,7 +163,7 @@ procfs_checkioperm(p, t)
 
 	if (!proc_isunder(t, p))
 		return EPERM;
-	
+
 	return (0);
 }
 

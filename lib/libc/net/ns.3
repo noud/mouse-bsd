@@ -47,7 +47,7 @@ address conversion routines
 .Sh SYNOPSIS
 .Fd #include <sys/types.h>
 .Fd #include <netns/ns.h>
-.Ft struct ns_addr 
+.Ft struct ns_addr
 .Fn ns_addr "const char *cp"
 .Ft char *
 .Fn ns_ntoa "struct ns_addr ns"
@@ -71,7 +71,7 @@ notation in common use in the Xerox Development Environment:
 .Ed
 .Pp
 Trailing zero fields are suppressed, and each number is printed in hexadecimal,
-in a format suitable for input to 
+in a format suitable for input to
 .Fn ns_addr .
 Any fields lacking super-decimal digits will have a
 trailing
@@ -123,7 +123,7 @@ The
 .Fn ns_addr
 and
 .Fn ns_toa
-functions appeared in 
+functions appeared in
 .Bx 4.3 .
 .Sh BUGS
 The string returned by

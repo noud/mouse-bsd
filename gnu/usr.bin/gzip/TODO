@@ -54,5 +54,5 @@ Some of the planned features include:
   'compress' currently handles better than gzip.
 
 - Implement the -e (encrypt) option.
-   
+
 Send comments to Jean-loup Gailly <jloup@chorus.fr>.

@@ -54,7 +54,7 @@ HOWTO (R_JR, 0, 1, 8, true, 0, complain_overflow_signed, 0,
 
 /* Turn a howto into a reloc number */
 
-static int 
+static int
 coff_z8k_select_reloc (howto)
      reloc_howto_type *howto;
 {
@@ -121,7 +121,7 @@ rtype2howto (internal, dst)
 #define RELOC_PROCESSING(relent,reloc,symbols,abfd,section) \
  reloc_processing(relent, reloc, symbols, abfd, section)
 
-static void 
+static void
 reloc_processing (relent, reloc, symbols, abfd, section)
      arelent * relent;
      struct internal_reloc *reloc;
@@ -178,7 +178,7 @@ extra_case (in_abfd, link_info, link_order, reloc, data, src_ptr, dst_ptr)
 
     case R_IMM4L:
       bfd_put_8 (in_abfd,
-		 ((bfd_get_8 (in_abfd, data + *dst_ptr) & 0xf0) 
+		 ((bfd_get_8 (in_abfd, data + *dst_ptr) & 0xf0)
 		  | (0x0f
 		     & bfd_coff_reloc16_get_value (reloc, link_info,
 						   input_section))),

@@ -80,8 +80,8 @@ void scierror __P((struct sci_softc *, u_char));
 void scisetdelay __P((int));
 void sci_scsidone __P((struct sci_softc *, int));
 void sci_donextcmd __P((struct sci_softc *));
-int  sci_ixfer_out __P((struct sci_softc *, int, register u_char *, int)); 
-void sci_ixfer_in __P((struct sci_softc *, int, register u_char *, int)); 
+int  sci_ixfer_out __P((struct sci_softc *, int, register u_char *, int));
+void sci_ixfer_in __P((struct sci_softc *, int, register u_char *, int));
 
 int sci_cmd_wait = SCI_CMD_WAIT;
 int sci_data_wait = SCI_DATA_WAIT;

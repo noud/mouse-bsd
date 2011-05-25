@@ -143,7 +143,7 @@ hide void le_zerobuf __P((struct lance_softc *, int, int));
 int	lestd[] = { 0, 0x4000, 0x8000, 0xC008 };
 
 hide void lewrcsr __P((struct lance_softc *, u_int16_t, u_int16_t));
-hide u_int16_t lerdcsr __P((struct lance_softc *, u_int16_t));  
+hide u_int16_t lerdcsr __P((struct lance_softc *, u_int16_t));
 
 hide void
 lewrcsr(sc, port, val)

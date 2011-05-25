@@ -214,7 +214,7 @@ hpux_sys_wait(p, v, retval)
 	if (SCARG(uap, status) == NULL)
 		return error;
 	else
-		return copyout(&retval[1], 
+		return copyout(&retval[1],
 			       SCARG(uap, status), sizeof(retval[1]));
 }
 

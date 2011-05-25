@@ -91,7 +91,7 @@ static void pk_reset __P((struct pklcd *, int));
  * Attach X.25 protocol to socket, allocate logical channel descripter and
  * buffer space, and enter LISTEN state if we are to accept IN-COMMING CALL
  * packets.
- * 
+ *
  */
 
 struct pklcd *

@@ -146,7 +146,7 @@ struct ultrix_getmnt_args {
 #define ULTRIX_NM_PGTHRESH 0x0080  /* set page threshold for exec */
 #define ULTRIX_NM_INT      0x0100  /* allow hard mount keyboard interrupts */
 #define ULTRIX_NM_NOAC     0x0200  /* don't cache attributes */
-									
+
 
 static void
 make_ultrix_mntent __P(( struct statfs *sp, struct ultrix_fs_data *tem));
@@ -407,7 +407,7 @@ ultrix_sys_mount(p, v, retval)
 		ua.fspec = SCARG(uap, special);
 		memset(&ua.export, 0, sizeof(ua.export));
 		SCARG(&nuap, data) = usp;
-	
+
 		if ((error = copyout(&ua, SCARG(&nuap, data),
 				     sizeof ua)) !=0) {
 			return(error);

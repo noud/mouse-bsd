@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with GNU CC; see the file COPYING.  If not, write to
 the Free Software Foundation, 59 Temple Place - Suite 330,
 Boston, MA 02111-1307, USA.  */
-   
+
 #include "config.h"
 #include "system.h"
 #include "tree.h"
@@ -86,7 +86,7 @@ cp_thing (errfn, atarg1, format, ap)
       cp_printer * function;
       int alternate;
       int maybe_here;
-      
+
       /* ignore text */
       if (*f != '%')
 	{
@@ -188,7 +188,7 @@ cp_thing (errfn, atarg1, format, ap)
   buf[offset] = '\0';
 
   /* If ATARG1 is set, but we haven't extracted any arguments, then
-     extract one tree argument for ATARG.  */  
+     extract one tree argument for ATARG.  */
   if (nargs == 0 && atarg1)
     atarg = va_arg (ap, tree);
 

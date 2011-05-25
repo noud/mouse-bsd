@@ -339,7 +339,7 @@ zs_attach_sbus(parent, self, aux)
 			 * high 4GB range, this needs to be changed to
 			 * sign-extend the address.
 			 */
-			zsaddr[zs_unit] = 
+			zsaddr[zs_unit] =
 				(struct zsdevice *)
 				(unsigned long)sa->sa_promvaddrs[0];
 		} else {
@@ -358,9 +358,9 @@ zs_attach_sbus(parent, self, aux)
 				(long)kvaddr;
 		}
 	}
-	/* 
+	/*
 	 * Check to see if we're the console.  We presume the input comes from
-	 * the same location as the output, although that may not be true.  
+	 * the same location as the output, although that may not be true.
 	 * To support input from the serial line but output to a display we
 	 * would need to generate some really weird consdev vectors.
 	 */
@@ -843,7 +843,7 @@ zs_abort(cs)
 #elif defined(DDB)
 	{
 		extern int db_active;
-		
+
 		if (!db_active)
 			Debugger();
 		else
@@ -969,7 +969,7 @@ zscnpollc(dev, on)
 	dev_t dev;
 	int on;
 {
-	/* 
+	/*
 	 * Need to tell zs driver to acknowledge all interrupts or we get
 	 * annoying spurious interrupt messages.  This is because mucking
 	 * with spl() levels during polling does not prevent interrupts from

@@ -38,12 +38,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -97,7 +97,7 @@ u_long          rtm_inits;
 /*
  * Local functions definitions.
  */
-static int getmsg 
+static int getmsg
 __P((register struct rt_msghdr *, int,
      struct rpfctl * rpfinfo));
 
@@ -282,7 +282,7 @@ getmsg(rtm, msglen, rpfinfop)
     struct sockaddr *dst = NULL,
                    *gate = NULL,
                    *mask = NULL;
-					
+
     struct sockaddr_dl *ifp = NULL;
     register struct sockaddr *sa;
     register char  *cp;

@@ -113,7 +113,7 @@ tpcalib_ioctl(sc, cmd, data, flag, p)
 				    &sc->sc_ay, &sc->sc_by, &sc->sc_cy)) {
 			printf("tpcalib: MRA error");
 			tpcalib_reset(sc);
-			
+
 			return (-1);
 		} else {
 			sc->sc_minx = d->minx;

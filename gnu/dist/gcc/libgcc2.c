@@ -43,7 +43,7 @@ Boston, MA 02111-1307, USA.  */
 #endif
 
 #include "machmode.h"
-#include "defaults.h" 
+#include "defaults.h"
 #ifndef L_trampoline
 #include <stddef.h>
 #endif
@@ -1005,7 +1005,7 @@ __floatdidf (DItype u)
 
 /* Define codes for all the float formats that we know of.  Note
    that this is copied from real.h.  */
-   
+
 #define UNKNOWN_FLOAT_FORMAT 0
 #define IEEE_FLOAT_FORMAT 1
 #define VAX_FLOAT_FORMAT 2
@@ -1204,10 +1204,10 @@ asm ("___builtin_saveregs:");
 	*/
 
 	asm ("	fst.q	%f8,  0(%sp)"); /* save floating regs (f8-f15)  */
-	asm ("	fst.q	%f12,16(%sp)"); 
+	asm ("	fst.q	%f12,16(%sp)");
 
 	asm ("	st.l	%r16,32(%sp)"); /* save integer regs (r16-r27) */
-	asm ("	st.l	%r17,36(%sp)"); 
+	asm ("	st.l	%r17,36(%sp)");
 	asm ("	st.l	%r18,40(%sp)");
 	asm ("	st.l	%r19,44(%sp)");
 	asm ("	st.l	%r20,48(%sp)");
@@ -1273,9 +1273,9 @@ asm ("___builtin_saveregs:");
 	*/
 
 	asm ("	fst.q	f8,  0(sp)");
-	asm ("	fst.q	f12,16(sp)"); 
+	asm ("	fst.q	f12,16(sp)");
 	asm ("	st.l	r16,32(sp)");
-	asm ("	st.l	r17,36(sp)"); 
+	asm ("	st.l	r17,36(sp)");
 	asm ("	st.l	r18,40(sp)");
 	asm ("	st.l	r19,44(sp)");
 	asm ("	st.l	r20,48(sp)");
@@ -1344,7 +1344,7 @@ asm ("___builtin_saveregs:");
 	asm ("	adds	80,sp,r16");  /* return address of the __va_ctl.  */
 	asm ("	bri	r1");
 	asm ("	mov	r30,sp");
-				/* recover stack and pass address to start 
+				/* recover stack and pass address to start
 				   of data.  */
 #endif /* not __PARAGON__ */
 #endif /* not __svr4__ */
@@ -1496,11 +1496,11 @@ __bb_exit_func (void)
 	{
 	  /* If the file exists, and the number of counts in it is the same,
 	     then merge them in.  */
-	     
+
 	  if ((da_file = fopen (ptr->filename, "r")) != 0)
 	    {
 	      long n_counts = 0;
-	      
+
 	      if (__read_long (&n_counts, da_file, 8) != 0)
 		{
 		  fprintf (stderr, "arc profiling: Can't read output file %s.\n",
@@ -1547,7 +1547,7 @@ __bb_exit_func (void)
 
 	  if (__write_long (ptr->ncounts, da_file, 8) != 0)
 	    {
-	      
+
 	      fprintf (stderr, "arc profiling: Error writing output file %s.\n",
 		       ptr->filename);
 	    }
@@ -1569,7 +1569,7 @@ __bb_exit_func (void)
 		fprintf (stderr, "arc profiling: Error writing output file %s.\n",
 			 ptr->filename);
 	    }
-	  
+
 	  if (fclose (da_file) == EOF)
 	    fprintf (stderr, "arc profiling: Error closing output file %s.\n",
 		     ptr->filename);
@@ -1766,7 +1766,7 @@ struct {
   struct bb *blocks;
 } __bb;
 
-/* Vars to store addrs of source and destination basic blocks 
+/* Vars to store addrs of source and destination basic blocks
    of a jump.  */
 
 static unsigned long bb_src = 0;
@@ -1816,7 +1816,7 @@ gopen (char *fn, char *mode)
   if (mode[1])
     return (FILE *) 0;
 
-  if (mode[0] != 'r' && mode[0] != 'w') 
+  if (mode[0] != 'r' && mode[0] != 'w')
     return (FILE *) 0;
 
   p = fn + strlen (fn)-1;
@@ -1880,7 +1880,7 @@ __bb_exit_trace_func ()
   FILE *file = fopen ("bb.out", "a");
   struct bb_func *f;
   struct bb *b;
-        
+
   if (!file)
     perror ("bb.out");
 
@@ -1921,7 +1921,7 @@ __bb_exit_trace_func ()
                     goto found;
                 }
             }
-  
+
           if (!printed_something)
             {
               fprintf (file, "Functions in `bb.in' not executed during basic block profiling on %s\n", ctime ((void *) &time_value));
@@ -1932,7 +1932,7 @@ __bb_exit_trace_func ()
           if (p->filename)
               fprintf (file, " of file %s", p->filename);
           fprintf (file, "\n" );
-  
+
 found:        ;
         }
 
@@ -1952,7 +1952,7 @@ found:        ;
             }
           return;
         }
-    
+
       else if (file)
         {
           long time_value;
@@ -1961,13 +1961,13 @@ found:        ;
           unsigned long cnt_max  = 0;
           int cnt_len;
           int addr_len;
-    
+
           /* This is somewhat type incorrect, but it avoids worrying about
              exactly where time.h is included from.  It should be ok unless
              a void * differs from other pointer formats, or if sizeof (long)
              is < sizeof (time_t).  It would be nice if we could assume the
              use of rationale standards here.  */
-    
+
           time ((void *) &time_value);
           fprintf (file, "Basic block jump tracing");
 
@@ -1991,36 +1991,36 @@ found:        ;
             }
 
           fprintf (file, " finished on %s\n", ctime ((void *) &time_value));
-    
+
           for (i = 0; i < BB_BUCKETS; i++)
             {
                struct bb_edge *bucket = bb_hashbuckets[i];
                for ( ; bucket; bucket = bucket->next )
                  {
-                   if (addr_max < bucket->src_addr) 
+                   if (addr_max < bucket->src_addr)
                      addr_max = bucket->src_addr;
-                   if (addr_max < bucket->dst_addr) 
+                   if (addr_max < bucket->dst_addr)
                      addr_max = bucket->dst_addr;
-                   if (cnt_max < bucket->count) 
+                   if (cnt_max < bucket->count)
                      cnt_max = bucket->count;
                  }
             }
           addr_len = num_digits (addr_max, 16);
           cnt_len  = num_digits (cnt_max, 10);
-    
+
           for ( i = 0; i < BB_BUCKETS; i++)
             {
                struct bb_edge *bucket = bb_hashbuckets[i];
                for ( ; bucket; bucket = bucket->next )
                  {
                    fprintf (file, "Jump from block 0x%.*lx to "
-                                  "block 0x%.*lx executed %*lu time(s)\n", 
-                            addr_len, bucket->src_addr, 
-                            addr_len, bucket->dst_addr, 
+                                  "block 0x%.*lx executed %*lu time(s)\n",
+                            addr_len, bucket->src_addr,
+                            addr_len, bucket->dst_addr,
                             cnt_len, bucket->count);
                  }
             }
-  
+
           fprintf (file, "\n");
 
         }
@@ -2090,14 +2090,14 @@ __bb_init_prg ()
   while(fscanf (file, " %" BBINBUFSIZESTR "s ", buf) != EOF)
     {
       p = buf;
-      if (*p == '-') 
-        { 
-          m = TRACE_OFF; 
-          p++; 
+      if (*p == '-')
+        {
+          m = TRACE_OFF;
+          p++;
         }
-      else 
-        { 
-          m = TRACE_ON; 
+      else
+        {
+          m = TRACE_ON;
         }
       if (!strcmp (p, "__bb_trace__"))
         bb_mode |= 1;
@@ -2107,7 +2107,7 @@ __bb_init_prg ()
         bb_mode |= 4;
       else if (!strcmp (p, "__bb_showret__"))
         bb_mode |= 8;
-      else 
+      else
         {
           struct bb_func *f = (struct bb_func *) malloc (sizeof (struct bb_func));
           if (f)
@@ -2142,7 +2142,7 @@ __bb_init_prg ()
     }
   fclose (file);
 
-#ifdef HAVE_POPEN 
+#ifdef HAVE_POPEN
 
   if (bb_mode & 1)
       bb_tracefile = gopen ("bbtrace.gz", "w");
@@ -2156,7 +2156,7 @@ __bb_init_prg ()
 
   if (bb_mode & 2)
     {
-      bb_hashbuckets = (struct bb_edge **) 
+      bb_hashbuckets = (struct bb_edge **)
                    malloc (BB_BUCKETS * sizeof (struct bb_edge *));
       if (bb_hashbuckets)
         memset (bb_hashbuckets, 0, BB_BUCKETS * sizeof (struct bb_edge *));
@@ -2203,7 +2203,7 @@ __bb_trace_func ()
 	= & bb_hashbuckets[ (((int) bb_src*8) ^ (int) bb_dst) % BB_BUCKETS ];
       bucket = *startbucket;
 
-      for (bucket = *startbucket; bucket; 
+      for (bucket = *startbucket; bucket;
            oldnext = &(bucket->next), bucket = *oldnext)
         {
           if (bucket->src_addr == bb_src
@@ -2266,7 +2266,7 @@ __bb_trace_func_ret ()
 	= & bb_hashbuckets[ (((int) bb_dst * 8) ^ (int) bb_src) % BB_BUCKETS ];
       bucket = *startbucket;
 
-      for (bucket = *startbucket; bucket; 
+      for (bucket = *startbucket; bucket;
            oldnext = &(bucket->next), bucket = *oldnext)
         {
           if (bucket->src_addr == bb_dst
@@ -2380,9 +2380,9 @@ __bb_init_trace_func (struct bb *blocks, unsigned long blockno)
   MACHINE_STATE_SAVE("3")
 
   if (!blocks->zero_word)
-    { 
+    {
       if (!trace_init)
-        { 
+        {
           trace_init = 1;
           __bb_init_prg ();
         }
@@ -2461,7 +2461,7 @@ unsigned int __shtab[] = {
 void
 __clear_cache (char *beg, char *end)
 {
-#ifdef CLEAR_INSN_CACHE 
+#ifdef CLEAR_INSN_CACHE
   CLEAR_INSN_CACHE (beg, end);
 #else
 #ifdef INSN_CACHE_SIZE
@@ -2525,7 +2525,7 @@ __clear_cache (char *beg, char *end)
   /* Compute the cache alignment of the place to stop clearing.  */
 #if 0  /* This is not needed for gcc's purposes.  */
   /* If the block to clear is bigger than a cache plane,
-     we clear the entire cache, and OFFSET is already correct.  */ 
+     we clear the entire cache, and OFFSET is already correct.  */
   if (end < beg + INSN_CACHE_PLANE_SIZE)
 #endif
     offset = (((int) (end + INSN_CACHE_LINE_WIDTH - 1)
@@ -2612,8 +2612,8 @@ mprotect (char *addr, int len, int prot)
 
 #endif
 
-#ifdef TRANSFER_FROM_TRAMPOLINE 
-TRANSFER_FROM_TRAMPOLINE 
+#ifdef TRANSFER_FROM_TRAMPOLINE
+TRANSFER_FROM_TRAMPOLINE
 #endif
 
 #if defined (NeXT) && defined (__MACH__)
@@ -2648,7 +2648,7 @@ __enable_execute_stack (char *addr)
 #else
   __clear_cache ((int) addr, (int) eaddr);
 #endif
-} 
+}
 
 #endif /* defined (NeXT) && defined (__MACH__) */
 
@@ -2694,7 +2694,7 @@ __enable_execute_stack ()
   int save_errno;
   static unsigned long lowest = USRSTACK;
   unsigned long current = (unsigned long) &save_errno & -NBPC;
-  
+
   /* Ignore errno being set. memctl sets errno to EINVAL whenever the
      address is seen as 'negative'. That is the case with the stack.   */
 
@@ -2748,7 +2748,7 @@ __clear_insn_cache ()
   errno changing without explicitly calling any system-call. */
   save_errno = errno;
 
-  /* Keep it simple : memctl (MCT_TEXT) always fully clears the insn cache. 
+  /* Keep it simple : memctl (MCT_TEXT) always fully clears the insn cache.
      No need to use an address derived from _start or %sp, as 0 works also. */
   memctl(0, 4096, MCT_TEXT);
   errno = save_errno;
@@ -2969,7 +2969,7 @@ extern void __bb_exit_func ();
 extern void _cleanup ();
 extern void _exit () __attribute__ ((noreturn));
 
-void 
+void
 exit (int status)
 {
 #if !defined (INIT_SECTION_ASM_OP) || !defined (OBJECT_FORMAT_ELF)
@@ -3280,13 +3280,13 @@ __sjthrow ()
 	  __terminate ();
 	}
     }
-  
+
   /* We must call terminate if we try and rethrow an exception, when
      there is no exception currently active and when there are no
      handlers left.  */
   if (! eh->info || (*dhc)[0] == 0)
     __terminate ();
-    
+
   /* Find the jmpbuf associated with the top element of the dynamic
      handler chain.  The jumpbuf starts two words into the buffer.  */
   jmpbuf = &(*dhc)[2];
@@ -3378,15 +3378,15 @@ EH_TABLE_LOOKUP
 
 /* Return the table version of an exception descriptor */
 
-short 
-__get_eh_table_version (exception_descriptor *table) 
+short
+__get_eh_table_version (exception_descriptor *table)
 {
   return table->lang.version;
 }
 
 /* Return the originating table language of an exception descriptor */
 
-short 
+short
 __get_eh_table_language (exception_descriptor *table)
 {
   return table->lang.language;
@@ -3445,18 +3445,18 @@ find_exception_handler (void *pc, exception_descriptor *table, void *eh_info)
 
       /* Subtract 1 from the PC to avoid hitting the next region */
       pc--;
-      
+
       /* We can't do a binary search because the table is in inner-most
          to outermost address ranges within functions */
       for (pos = 0; tab[pos].start_region != (void *) -1; pos++)
-        { 
+        {
           if (tab[pos].start_region <= pc && tab[pos].end_region > pc)
             {
               if (tab[pos].match_info)
                 {
                   __eh_matcher matcher = ((__eh_info *)eh_info)->match_function;
                   /* match info but no matcher is NOT a match */
-                  if (matcher) 
+                  if (matcher)
                     {
                       ret = (*matcher)(eh_info, tab[pos].match_info, table);
                       if (ret)
@@ -3613,7 +3613,7 @@ __throw ()
      active.  */
   if (! eh->info)
     __terminate ();
-    
+
   /* Start at our stack frame.  */
 label:
   udata = __frame_state_for (&&label, udata);
@@ -3641,7 +3641,7 @@ label:
 
   handler = 0;
   for (;;)
-    { 
+    {
       frame_state *p = udata;
       udata = next_stack_level (pc, udata, sub_udata);
       sub_udata = p;

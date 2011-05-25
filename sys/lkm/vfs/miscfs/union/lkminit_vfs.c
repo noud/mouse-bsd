@@ -61,7 +61,7 @@ MOD_VFS("union", -1, &union_vfsops);
  */
 int
 union_lkmentry(lkmtp, cmd, ver)
-	struct lkm_table *lkmtp;	
+	struct lkm_table *lkmtp;
 	int cmd;
 	int ver;
 {

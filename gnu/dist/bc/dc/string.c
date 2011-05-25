@@ -1,4 +1,4 @@
-/* 
+/*
  * implement string functions for dc
  *
  * Copyright (C) 1994, 1997, 1998 Free Software Foundation, Inc.
@@ -137,7 +137,7 @@ dc_readstring DC_DECLARG((fp, ldelim, rdelim))
 	int ldelim DC_DECLSEP
 	int rdelim DC_DECLEND
 {
-	static char *line_buf = NULL;	/* a buffer to build the string in */ 
+	static char *line_buf = NULL;	/* a buffer to build the string in */
 	static size_t buflen = 0;		/* the current size of line_buf */
 	int depth=1;
 	int c;

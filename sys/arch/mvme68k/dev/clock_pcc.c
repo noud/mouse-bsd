@@ -131,7 +131,7 @@ clock_pcc_initclocks(proftick, stattick)
 
 	sys_pcc->t2_pload = pcc_timer_us2lim(stattick);
 	sys_pcc->t2_cr = PCC_TIMERCLEAR;
-	sys_pcc->t2_cr = PCC_TIMERSTART; 
+	sys_pcc->t2_cr = PCC_TIMERSTART;
 	sys_pcc->t2_int = clock_pcc_lvl;
 }
 

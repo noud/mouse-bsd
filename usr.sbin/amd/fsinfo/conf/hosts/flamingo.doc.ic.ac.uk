@@ -17,7 +17,7 @@ dumphost flamingo.doc.ic.ac.uk
 fs /dev/xy0b {
 	fstype = swap
 }
-	
+
 // root
 fs /dev/xy0a {
 	fstype = FSTYPE_UFS
@@ -27,7 +27,7 @@ fs /dev/xy0a {
 	dumpset = csg_sun3_vax
 	mount / {}
 }
-	
+
 // usr
 fs /dev/xy0f {
 	fstype = FSTYPE_UFS
@@ -41,7 +41,7 @@ fs /dev/xy0f {
 			root=gould:pelican:ssun2.doc.ic.ac.uk"
 	}
 }
-	
+
 // tmp
 fs /dev/xy0d {
 	fstype = FSTYPE_UFS
@@ -52,7 +52,7 @@ fs /dev/xy0d {
 		exportfs "-access=ssun1:tsunfs,root=tsunfs"
 	}
 }
-	
+
 // var
 fs /dev/xy0e {
 	fstype = FSTYPE_UFS
@@ -79,7 +79,7 @@ fs /dev/xy0e {
 		}
 	}
 }
-	
+
 // source - sos4
 fs /dev/xy0h {
 	fstype = FSTYPE_UFS
@@ -91,7 +91,7 @@ fs /dev/xy0h {
 		exportfs "-access=svax:pelican:gould,root=pelican:svax"
 	}
 }
-	
+
 // home directories
 fs /dev/xy0g {
 	fstype = FSTYPE_UFS

@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /* The signal handler trampoline is called _sigtramp.  */
 #undef IN_SIGTRAMP
 #define IN_SIGTRAMP(pc, name) ((name) && STREQ ("_sigtramp", name))
- 
+
 /* On entry to the signal handler trampoline, an ucontext is already
    pushed on the stack. We can get at the saved registers via the
    mcontext which is contained within the ucontext.  */

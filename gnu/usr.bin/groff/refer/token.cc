@@ -296,7 +296,7 @@ static void init_two_char_letter(char l1, char l2, char u1, char u2,
   buf[2] = l1;
   buf[3] = l2;
   store_letter(strsave(buf), p, sk);
-  
+
 }
 
 static void init_special_chars()
@@ -319,7 +319,7 @@ static void init_special_chars()
   init_two_char_letter('o', 'a', 'o', 'A', "a");
   init_two_char_letter('T', 'p', 'T', 'P', THORN_SORT_KEY);
   init_two_char_letter('-', 'd', '-', 'D');
-  
+
   store_token("\\(ss", TOKEN_LOWER, 0, "SS");
   store_token("\\[ss]", TOKEN_LOWER, 0, "SS");
 

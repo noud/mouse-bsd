@@ -39,7 +39,7 @@
 @c
 @c      %W% (Berkeley) %G%
 @c
-@c Id: am-utils.texi,v 1.9 1999/08/16 01:16:33 ezk Exp 
+@c Id: am-utils.texi,v 1.9 1999/08/16 01:16:33 ezk Exp
 @c
 @setfilename am-utils.info
 
@@ -103,7 +103,7 @@ tools within Am-utils.
 * Overview::                 An overview of Amd.
 * Supported Platforms::      Machines and Systems supported by Amd.
 * Mount Maps::               Details of mount maps
-* Amd Command Line Options:: All the Amd command line options explained. 
+* Amd Command Line Options:: All the Amd command line options explained.
 * Filesystem Types::         The different mount types supported by Amd.
 * Amd Configuration File::   The amd.conf file syntax and meaning.
 * Run-time Administration::  How to start, stop and control Amd.
@@ -1273,7 +1273,7 @@ Similarly, if the password file entry was
 /home/cc/sugar/mjh
 @end example
 
-the map entry used by @i{Amd} would be 
+the map entry used by @i{Amd} would be
 
 @example
 rfs:=/home/sugar;rhost:=sugar.cc;sublink:=jsp
@@ -1334,8 +1334,8 @@ dn: cn=amdmap amd.home[], CUCS
 cn          : amdmap amd.home[]
 objectClass : amdmap
 amdmapName  : amd.home
-amdmapKey   : 
-amdmapValue : 
+amdmapKey   :
+amdmapValue :
 
 dn: cn=amdmap amd.home[zing], CUCS
 cn          : amdmap amd.home[zing]
@@ -2752,7 +2752,7 @@ Built by ezk@@cs.columbia.edu on date Wed Oct 22 15:21:03 EDT 1997.
 cpu=sparc (big-endian), arch=sun4, karch=sun4u.
 full_os=solaris2.5.1, os=sos5, osver=5.5.1, vendor=sun.
 Map support for: root, passwd, union, nisplus, nis, ndbm, file, error.
-AMFS: nfs, link, nfsx, nfsl, host, linkx, program, union, inherit, 
+AMFS: nfs, link, nfsx, nfsl, host, linkx, program, union, inherit,
       ufs, lofs, hsfs, pcfs, auto, direct, toplvl, error.
 FS: autofs, cachefs, cdfs, lofs, nfs, nfs3, pcfs, tfs, tmpfs, ufs.
 Network 1: wire="mcl-lab-net.cs.columbia.edu" (netnumber=128.59.13).
@@ -3010,7 +3010,7 @@ use the @code{-S} option.
 @section @code{-T} @var{tag}
 @cindex Tags for Amd configuration file
 @cindex Configuration file; tags
- 
+
 Specify a tag to use with @file{amd.conf}.  All map entries tagged with
 @var{tag} will be processed.  Map entries that are not tagged are always
 processed.  Map entries that are tagged with a tag other than @var{tag}
@@ -4146,15 +4146,15 @@ distributed maps in several locations as needed.
 The following parameters are applicable to the @samp{[global]} section only.
 
 @menu
-* arch Parameter::    
+* arch Parameter::
 * auto_dir Parameter::
 * cache_duration Parameter::
-* cluster Parameter:: 
+* cluster Parameter::
 * debug_options Parameter::
 * dismount_interval Parameter::
 * fully_qualified_hosts Parameter::
-* hesiod_base Parameter::   
-* karch Parameter::   
+* hesiod_base Parameter::
+* karch Parameter::
 * ldap_base Parameter::
 * ldap_cache_maxmem Parameter::
 * ldap_cache_seconds Parameter::
@@ -4166,10 +4166,10 @@ The following parameters are applicable to the @samp{[global]} section only.
 * nfs_retry_interval Parameter::
 * nis_domain Parameter::
 * normalize_hostnames Parameter::
-* os Parameter::      
-* osver Parameter::   
+* os Parameter::
+* osver Parameter::
 * pid_file Parameter::
-* plock Parameter::   
+* plock Parameter::
 * portmap_program Parameter::
 * print_pid Parameter::
 * print_version Parameter::
@@ -4605,7 +4605,7 @@ The following parameters are applicable only to regular map sections.
 
 @menu
 * map_name Parameter::
-* tag Parameter::     
+* tag Parameter::
 @end menu
 
 @c ----------------------------------------------------------------
@@ -4664,20 +4664,20 @@ fully_qualified_hosts =  no
 # DEFINE AN AMD MOUNT POINT
 [ /u ]
 map_name =               amd.u
-                         
-[ /proj ]                
+
+[ /proj ]
 map_name =               amd.proj
-                         
-[ /src ]                 
+
+[ /src ]
 map_name =               amd.src
-                         
-[ /misc ]                
+
+[ /misc ]
 map_name =               amd.misc
-                         
-[ /import ]              
+
+[ /import ]
 map_name =               amd.import
-                         
-[ /tftpboot/.amd ]       
+
+[ /tftpboot/.amd ]
 tag =                    tftpboot
 map_name =               amd.tftpboot
 @end example
@@ -5169,7 +5169,7 @@ fsinfo.
 * Using FSinfo::                    Basic concepts.
 * FSinfo Grammar::                  Language syntax, semantics and examples.
 * FSinfo host definitions::         Defining a new host.
-* FSinfo host attributes::          Definable host attributes. 
+* FSinfo host attributes::          Definable host attributes.
 * FSinfo filesystems::              Defining locally attached filesystems.
 * FSinfo static mounts::            Defining additional static mounts.
 * FSinfo automount definitions::
@@ -5726,7 +5726,7 @@ filesystem.@refill
 This provides support for Imperial College's local file backup tools and
 is not documented further here.
 
-@node FSinfo filesystems log, , FSinfo filesystems dumpset, FSinfo filesystems    
+@node FSinfo filesystems log, , FSinfo filesystems dumpset, FSinfo filesystems
 @comment  node-name,  next,  previous,  up
 @subsection log Option
 @cindex FSinfo log filesystems option
@@ -6307,8 +6307,8 @@ of user IDs and home directories to the file @file{/tmp/hlfsddump}.
 
 @menu
 * Introduction to Hlfsd::
-* Background to Mail Delivery::        
-* Using Hlfsd::       
+* Background to Mail Delivery::
+* Using Hlfsd::
 @end menu
 
 @c ================================================================
@@ -6670,9 +6670,9 @@ discussed.
 @cindex Hlfsd; using
 
 @menu
-* Controlling Hlfsd:: 
-* Hlfsd Options::     
-* Hlfsd Files::       
+* Controlling Hlfsd::
+* Hlfsd Options::
+* Hlfsd Files::
 @end menu
 
 @c ----------------------------------------------------------------
@@ -6881,24 +6881,24 @@ The following are additional utilities and scripts included with
 am-utils, and get installed.
 
 @menu
-* am-eject::          
-* amd.conf-sample::   
-* amd2ldif::          
-* amd2sun::           
-* automount2amd::           
-* ctl-amd::           
-* ctl-hlfsd::         
-* expn::              
-* fix-amd-map::       
-* fixmount::          
-* fixrmtab::          
-* lostaltmail::       
+* am-eject::
+* amd.conf-sample::
+* amd2ldif::
+* amd2sun::
+* automount2amd::
+* ctl-amd::
+* ctl-hlfsd::
+* expn::
+* fix-amd-map::
+* fixmount::
+* fixrmtab::
+* lostaltmail::
 * lostaltmail.conf-sample::
-* mk-amd-map::        
-* pawd::              
-* wait4amd::          
-* wait4amd2die::      
-* wire-test::         
+* mk-amd-map::
+* pawd::
+* wait4amd::
+* wait4amd2die::
+* wire-test::
 @end menu
 
 @c ----------------------------------------------------------------
@@ -6916,7 +6916,7 @@ then attempts to eject the removable device.
 @section amd.conf-sample
 @pindex amd.conf-sample
 
-A sample @i{Amd} configuration file. @xref{Amd Configuration File}. 
+A sample @i{Amd} configuration file. @xref{Amd Configuration File}.
 
 @c ----------------------------------------------------------------
 @node amd2ldif, amd2sun, amd.conf-sample, Assorted Tools
@@ -7115,7 +7115,7 @@ an alternate directory.  This is useful to continue delivering mail,
 even if the user's file system was unavailable, full, or over quota.
 But, the mail which gets delivered to  the alternate directory needs to
 be resent to its respective users.  This is what the @samp{lostaltmail}
-script does. 
+script does.
 
 Use it as follows:
 
@@ -7883,7 +7883,7 @@ The mount daemon refused to return a file handle for the requested filesystem.
 The mount daemon gave some other error for the requested filesystem.
 
 @item Finishing with status @i{exit-status}
-@i{Amd} is about to exit with the given exit status. 
+@i{Amd} is about to exit with the given exit status.
 
 @item Re-synchronizing cache for map @t{$@{@i{map}@}}
 The named map has been modified and the internal cache is being re-synchronized.

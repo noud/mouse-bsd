@@ -49,5 +49,5 @@ ENTRY(fpsetmask)
 	orr	r0, r1, r0, lsl #16
 	wfs	r0
 	mov	r0, r1, lsr #16		/* Return old mask */
-	mov	r15, r14		/* return */ 
+	mov	r15, r14		/* return */
 #endif	/* SOFTFLOAT */

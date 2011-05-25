@@ -5,7 +5,7 @@
 cat << __EOF
 
 /* Automatically generated file, do not edit! */
- 
+
 /* Define name and version of host machine (eg. solaris2.5.1) */
 #define HOST_OS "`uname -s | tr '[A-Z]' '[a-z]'``uname -r`"
 

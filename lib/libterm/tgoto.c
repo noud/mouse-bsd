@@ -125,7 +125,7 @@ t_goto(info, CM, destcol, destline, buffer, limit)
                 count = MAXRETURNSIZE;
                 BC = t_getstr(info, "bc", &bc_ptr, &count);
         }
-        
+
 	if (cp == 0) {
                 errno = EINVAL;
 toohard:
@@ -187,7 +187,7 @@ one:
                                 errno = E2BIG;
                                 goto toohard;
                         }
-                        
+
 swap:
 			oncol = 1 - oncol;
 setwhich:
@@ -241,7 +241,7 @@ setwhich:
                                                         errno = E2BIG;
                                                         goto toohard;
                                                 }
-                                                
+
                                                 (void)strcat(added, add);
 						which++;
 					} while (which == '\n');
@@ -290,7 +290,7 @@ setwhich:
                 errno = E2BIG;
                 goto toohard;
         }
-        
+
         (void)strcpy(dp, added);
         UP = old_up;
         BC = old_bc;

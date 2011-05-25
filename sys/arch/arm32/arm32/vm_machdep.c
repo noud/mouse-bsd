@@ -97,7 +97,7 @@ pt_entry_t *pmap_pte	__P((pmap_t, vm_offset_t));
 /*
  * Finish a fork operation, with process p2 nearly set up.
  * Copy and update the pcb and trap frame, making the child ready to run.
- * 
+ *
  * Rig the child's kernel stack so that it will start out in
  * proc_trampoline() and call child_return() with p2 as an
  * argument. This causes the newly-created child process to go
@@ -138,7 +138,7 @@ cpu_fork(p1, p2, stack, stacksize)
 	/* Copy the pcb */
 	*pcb = p1->p_addr->u_pcb;
 
-	/* 
+	/*
 	 * Set up the undefined stack for the process.
 	 * Note: this stack is not in use if we are forking from p1
 	 */
@@ -339,7 +339,7 @@ vmapbuf(bp, len)
 		printf("vmapbuf: bp=%08x buf=%08x len=%08x\n", (u_int)bp,
 		    (u_int)bp->b_data, (u_int)len);
 #endif	/* PMAP_DEBUG */
-    
+
 	if ((bp->b_flags & B_PHYS) == 0)
 		panic("vmapbuf");
 
@@ -365,7 +365,7 @@ vmapbuf(bp, len)
 	if (len <= 0x1000) {
 		cpu_cache_purgeID_rng(faddr, len);
 		cpu_cache_purgeID_rng(taddr, len);
-	} else 
+	} else
 		cpu_cache_purgeID();
 
 	for (pages = len >> PAGE_SHIFT; pages; pages--)

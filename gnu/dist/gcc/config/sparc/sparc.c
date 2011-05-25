@@ -1270,7 +1270,7 @@ eligible_for_epilogue_delay (trial, slot)
   /* This matches "*return_[qhs]i".  */
   if (arith_operand (src, GET_MODE (src)))
     return GET_MODE_SIZE (GET_MODE (src)) <= GET_MODE_SIZE (SImode);
-    
+
   /* This matches "*return_di".  */
   else if (arith_double_operand (src, GET_MODE (src)))
     return GET_MODE_SIZE (GET_MODE (src)) <= GET_MODE_SIZE (DImode);
@@ -1327,7 +1327,7 @@ check_return_regs (x)
     case NEG:
     case MEM:
       return check_return_regs (XEXP (x, 0));
-      
+
     default:
       return 0;
     }
@@ -1421,7 +1421,7 @@ check_pic (i)
     }
 }
 
-/* Return true if X is an address which needs a temporary register when 
+/* Return true if X is an address which needs a temporary register when
    reloaded while generating PIC code.  */
 
 int
@@ -2157,7 +2157,7 @@ output_move_quad (operands)
   rtx addreg1 = 0;
 
   load_late_half[0] = 0; load_late_half[1] = 0;
-  load_late[0] = 0; load_late[1] = 0; load_late[2] = 0; 
+  load_late[0] = 0; load_late[1] = 0; load_late[2] = 0;
   load_late[3] = 0;
 
   wordpart[0][0] = NULL;  wordpart[1][0] = NULL;  wordpart[2][0] = NULL;
@@ -2196,7 +2196,7 @@ output_move_quad (operands)
   if (optype0 == REGOP)
     {
       wordpart[0][0] = gen_rtx_REG (word_mode, REGNO (op0) + 0);
-      if (TARGET_ARCH64 && FP_REG_P (op0) 
+      if (TARGET_ARCH64 && FP_REG_P (op0)
 	  && REGNO (op0) < SPARC_FIRST_V9_FP_REG)
 	wordpart[1][0] = gen_rtx_REG (word_mode, REGNO (op0) + 2);
       else
@@ -2207,7 +2207,7 @@ output_move_quad (operands)
 	  wordpart[2][0] = gen_rtx_REG (word_mode, REGNO (op0) + 2);
 	  wordpart[3][0] = gen_rtx_REG (word_mode, REGNO (op0) + 3);
 	}
-  
+
       /* Loading into a register which overlaps a register used in the
 	 address.  */
       if (optype1 != REGOP && reg_overlap_mentioned_p (op0, op1))
@@ -2329,7 +2329,7 @@ output_move_quad (operands)
 
       REAL_VALUE_FROM_CONST_DOUBLE (r, op1);
       REAL_VALUE_TO_TARGET_LONG_DOUBLE (r, l);
-      
+
       wordpart[0][1] = GEN_INT (l[0]);
       wordpart[1][1] = GEN_INT (l[1]);
       wordpart[2][1] = GEN_INT (l[2]);
@@ -2381,7 +2381,7 @@ output_move_quad (operands)
 		  /* ??? Can `mem' have an inappropriate alignment here?  */
 		  return (mem == op1 ? "ldq %1,%0" : "stq %1,%0");
 		}
-	      else 
+	      else
 		{
 		  if (REGNO (reg) >= SPARC_FIRST_V9_FP_REG)
 		    abort();
@@ -2508,7 +2508,7 @@ output_move_quad (operands)
     }
   else /* TARGET_ARCH64 */
     {
-      if (load_late_half[0]) 
+      if (load_late_half[0])
 	{
 	  /* Load the second half first. */
 	  if (addreg0)
@@ -2546,7 +2546,7 @@ output_move_quad (operands)
 	    output_asm_insn ("add %0,-0x8,%0", &addreg1);
 	}
     }
-  
+
   return "";
 }
 
@@ -2620,7 +2620,7 @@ output_fp_move_quad (operands)
 	      int dir = move_quad_direction (op1, op0);
 	      if (dir > 0)
 		return "fmovd %1,%0\n\tfmovd %S1,%S0";
-	      else 
+	      else
 		return "fmovd %S1,%S0\n\tfmovd %1,%0";
 	    }
 	  else
@@ -2878,7 +2878,7 @@ sparc_init_modes ()
 	    sparc_mode_class[i] = 1 << (int) T_MODE;
 	  else if (GET_MODE_SIZE (i) == 32)
 	    sparc_mode_class[i] = 1 << (int) O_MODE;
-	  else 
+	  else
 	    sparc_mode_class[i] = 0;
 	  break;
 	case MODE_FLOAT:
@@ -2891,7 +2891,7 @@ sparc_init_modes ()
 	    sparc_mode_class[i] = 1 << (int) TF_MODE;
 	  else if (GET_MODE_SIZE (i) == 32)
 	    sparc_mode_class[i] = 1 << (int) OF_MODE;
-	  else 
+	  else
 	    sparc_mode_class[i] = 0;
 	  break;
 	case MODE_CC:
@@ -3146,7 +3146,7 @@ build_big_number (file, num, reg)
       int asize = num;
       int inv = ~asize;
       int low = -0x400 + (asize & 0x3FF);
-	  
+
       fprintf (file, "\tsethi %%hi(%d),%s\n\txor %s,%d,%s\n",
 	       inv, reg, reg, low, reg);
     }
@@ -3327,13 +3327,13 @@ output_function_epilogue (file, size, leaf_function)
 #endif
 
   else if (current_function_epilogue_delay_list == 0)
-    {                                                
+    {
       /* If code does not drop into the epilogue, do nothing.  */
-      rtx insn = get_last_insn ();                               
-      if (GET_CODE (insn) == NOTE)                               
-      insn = prev_nonnote_insn (insn);                           
-      if (insn && GET_CODE (insn) == BARRIER)                    
-      return;                                                    
+      rtx insn = get_last_insn ();
+      if (GET_CODE (insn) == NOTE)
+      insn = prev_nonnote_insn (insn);
+      if (insn && GET_CODE (insn) == BARRIER)
+      return;
     }
 
   /* Restore any call saved registers.  */
@@ -3420,7 +3420,7 @@ output_function_epilogue (file, size, leaf_function)
       else if ((actual_fsize & 0x3ff) == 0)
 	fprintf (file, "\tsethi %%hi(%d),%%g1\n\t%s\n\tadd %%sp,%%g1,%%sp\n",
 		 actual_fsize, ret);
-      else		 
+      else
 	fprintf (file, "\tsethi %%hi(%d),%%g1\n\tor %%g1,%%lo(%d),%%g1\n\t%s\n\tadd %%sp,%%g1,%%sp\n",
 		 actual_fsize, actual_fsize, ret);
       target_flags |= old_target_epilogue;
@@ -3736,7 +3736,7 @@ function_arg_record_value_1 (type, startbitpos, parms)
 
 /* Handle recursive structure field register assignment.  */
 
-static void 
+static void
 function_arg_record_value_3 (bitpos, parms)
      int bitpos;
      struct function_arg_record_value_parms *parms;
@@ -4318,7 +4318,7 @@ sparc_builtin_saveregs (arglist)
       && first_reg < NPARM_REGS (word_mode))
     emit_library_call (chkr_set_right_libfunc, 1, VOIDmode, 3,
 		       address, ptr_mode,
-		       GEN_INT (UNITS_PER_WORD 
+		       GEN_INT (UNITS_PER_WORD
 			 	* (NPARM_REGS (word_mode) - first_reg)),
 		       TYPE_MODE (sizetype), GEN_INT (MEMORY_USE_RW),
 		       TYPE_MODE (integer_type_node));
@@ -4737,7 +4737,7 @@ order_regs_for_local_alloc ()
 }
 
 /* Return 1 if REGNO (reg1) is even and REGNO (reg1) == REGNO (reg2) - 1.
-   This makes them candidates for using ldd and std insns. 
+   This makes them candidates for using ldd and std insns.
 
    Note reg1 and reg2 *must* be hard registers.  */
 
@@ -4746,31 +4746,31 @@ registers_ok_for_ldd_peep (reg1, reg2)
      rtx reg1, reg2;
 {
   /* We might have been passed a SUBREG.  */
-  if (GET_CODE (reg1) != REG || GET_CODE (reg2) != REG) 
+  if (GET_CODE (reg1) != REG || GET_CODE (reg2) != REG)
     return 0;
 
   if (REGNO (reg1) % 2 != 0)
     return 0;
 
-  /* Integer ldd is deprecated in SPARC V9 */ 
-  if (TARGET_V9 && REGNO (reg1) < 32)                  
-    return 0;                             
+  /* Integer ldd is deprecated in SPARC V9 */
+  if (TARGET_V9 && REGNO (reg1) < 32)
+    return 0;
 
   return (REGNO (reg1) == REGNO (reg2) - 1);
 }
 
-/* Return 1 if addr1 and addr2 are suitable for use in an ldd or 
+/* Return 1 if addr1 and addr2 are suitable for use in an ldd or
    std insn.
 
    This can only happen when addr1 and addr2 are consecutive memory
-   locations (addr1 + 4 == addr2).  addr1 must also be aligned on a 
-   64 bit boundary (addr1 % 8 == 0).  
+   locations (addr1 + 4 == addr2).  addr1 must also be aligned on a
+   64 bit boundary (addr1 % 8 == 0).
 
    We know %sp and %fp are kept aligned on a 64 bit boundary.  Other
-   registers are assumed to *never* be properly aligned and are 
+   registers are assumed to *never* be properly aligned and are
    rejected.
 
-   Knowing %sp and %fp are kept aligned on a 64 bit boundary, we 
+   Knowing %sp and %fp are kept aligned on a 64 bit boundary, we
    need only check that the offset for addr1 % 8 == 0.  */
 
 int
@@ -4819,7 +4819,7 @@ addrs_ok_for_ldd_peep (addr1, addr2)
   if (reg1 != REGNO (XEXP (addr2, 0)))
     return 0;
 
-  /* The first offset must be evenly divisible by 8 to ensure the 
+  /* The first offset must be evenly divisible by 8 to ensure the
      address is 64 bit aligned.  */
   if (offset1 % 8 != 0)
     return 0;
@@ -4833,7 +4833,7 @@ addrs_ok_for_ldd_peep (addr1, addr2)
   return 1;
 }
 
-/* Return 1 if reg is a pseudo, or is the first register in 
+/* Return 1 if reg is a pseudo, or is the first register in
    a hard register pair.  This makes it a candidate for use in
    ldd and std insns.  */
 
@@ -4842,12 +4842,12 @@ register_ok_for_ldd (reg)
      rtx reg;
 {
   /* We might have been passed a SUBREG.  */
-  if (GET_CODE (reg) != REG) 
+  if (GET_CODE (reg) != REG)
     return 0;
 
   if (REGNO (reg) < FIRST_PSEUDO_REGISTER)
     return (REGNO (reg) % 2 == 0);
-  else 
+  else
     return 1;
 }
 
@@ -5222,7 +5222,7 @@ sparc_type_code (type)
 	{
 	case ERROR_MARK:
 	  return qualifiers;
-  
+
 	case ARRAY_TYPE:
 	  qualifiers |= (3 << shift);
 	  break;
@@ -5270,16 +5270,16 @@ sparc_type_code (type)
 
 	  if (TYPE_PRECISION (type) <= CHAR_TYPE_SIZE)
 	    return (qualifiers | (TREE_UNSIGNED (type) ? 12 : 2));
-  
+
 	  else if (TYPE_PRECISION (type) <= SHORT_TYPE_SIZE)
 	    return (qualifiers | (TREE_UNSIGNED (type) ? 13 : 3));
-  
+
 	  else if (TYPE_PRECISION (type) <= INT_TYPE_SIZE)
 	    return (qualifiers | (TREE_UNSIGNED (type) ? 14 : 4));
-  
+
 	  else
 	    return (qualifiers | (TREE_UNSIGNED (type) ? 15 : 5));
-  
+
 	case REAL_TYPE:
 	  /* If this is a range type, consider it to be the underlying
 	     type.  */
@@ -5292,9 +5292,9 @@ sparc_type_code (type)
 	  if (TYPE_PRECISION (type) == FLOAT_TYPE_SIZE)
 	    return (qualifiers | 6);
 
-	  else 
+	  else
 	    return (qualifiers | 7);
-  
+
 	case COMPLEX_TYPE:	/* GNU Fortran COMPLEX type.  */
 	  /* ??? We need to distinguish between double and float complex types,
 	     but I don't know how yet because I can't reach this code from
@@ -5307,7 +5307,7 @@ sparc_type_code (type)
 	case SET_TYPE:		/* GNU Pascal SET type.  */
 	case LANG_TYPE:		/* ? */
 	  return qualifiers;
-  
+
 	default:
 	  abort ();		/* Not a type! */
         }
@@ -5839,7 +5839,7 @@ sparc_flat_output_function_prologue (file, size)
 	  unsigned int size1 = ((size - reg_offset + 64) + 15) & -16;
 	  /* Offset to register save area from %sp.  */
 	  unsigned int offset = size1 - (size - reg_offset);
-	  
+
 	  if (size1 <= 4096)
 	    {
 	      fprintf (file, "\tadd %s,%d,%s\n",
@@ -6150,71 +6150,71 @@ supersparc_adjust_cost (insn, link, dep_insn, cost)
       if (insn_type == TYPE_IALU || insn_type == TYPE_SHIFT)
 	return 0;
     }
-	
+
   return cost;
 }
 
 int
 ultrasparc_adjust_cost (insn, link, dep_insn, cost)
-     rtx insn;                                     
-     rtx link;                                     
-     rtx dep_insn;                                     
-     int cost;                                     
+     rtx insn;
+     rtx link;
+     rtx dep_insn;
+     int cost;
 {
   enum attr_type insn_type, dep_type;
-  rtx pat = PATTERN(insn);                                                    
-  rtx dep_pat = PATTERN (dep_insn);                                           
+  rtx pat = PATTERN(insn);
+  rtx dep_pat = PATTERN (dep_insn);
 
-  if (recog_memoized (insn) < 0 || recog_memoized (dep_insn) < 0)        
-    return cost;                                     
+  if (recog_memoized (insn) < 0 || recog_memoized (dep_insn) < 0)
+    return cost;
 
-  insn_type = get_attr_type (insn);                     
-  dep_type = get_attr_type (dep_insn);                  
+  insn_type = get_attr_type (insn);
+  dep_type = get_attr_type (dep_insn);
 
 #define SLOW_FP(dep_type) \
 (dep_type == TYPE_FPSQRT || dep_type == TYPE_FPDIVS || dep_type == TYPE_FPDIVD)
 
   switch (REG_NOTE_KIND (link))
-    {                                              
-    case 0:                                        
+    {
+    case 0:
       /* Data dependency; DEP_INSN writes a register that INSN reads some
-	 cycles later.  */                               
+	 cycles later.  */
 
       switch (insn_type)
-	{                              
-	  /* UltraSPARC can dual issue a store and an instruction setting       
-	     the value stored, except for divide and square root.  */           
+	{
+	  /* UltraSPARC can dual issue a store and an instruction setting
+	     the value stored, except for divide and square root.  */
 	case TYPE_FPSTORE:
-	  if (! SLOW_FP (dep_type))        
-	    return 0;                                     
+	  if (! SLOW_FP (dep_type))
+	    return 0;
 	  return cost;
 
-	case TYPE_STORE:                                  
+	case TYPE_STORE:
 	  if (GET_CODE (pat) != SET || GET_CODE (dep_pat) != SET)
-	    return cost;     
+	    return cost;
 
 	  if (rtx_equal_p (SET_DEST (dep_pat), SET_SRC (pat)))
 	  /* The dependency between the two instructions is on the data
 	     that is being stored.  Assume that the address of the store
 	     is not also dependent.  */
-	    return 0;                                
-	  return cost;                                   
+	    return 0;
+	  return cost;
 
-	case TYPE_LOAD:   
-	case TYPE_SLOAD:               
-	case TYPE_FPLOAD:                                                       
-	  /* A load does not return data until at least 11 cycles after         
+	case TYPE_LOAD:
+	case TYPE_SLOAD:
+	case TYPE_FPLOAD:
+	  /* A load does not return data until at least 11 cycles after
 	     a store to the same location.  3 cycles are accounted for
 	     in the load latency; add the other 8 here.  */
 	  if (dep_type == TYPE_STORE || dep_type == TYPE_FPSTORE)
-	    {   
+	    {
 	      /* If the addresses are not equal this may be a false
 		 dependency because pointer aliasing could not be
 		 determined.  Add only 2 cycles in that case.  2 is
 		 an arbitrary compromise between 8, which would cause
 		 the scheduler to generate worse code elsewhere to
-		 compensate for a dependency which might not really    
-		 exist, and 0.  */                                      
+		 compensate for a dependency which might not really
+		 exist, and 0.  */
 	      if (GET_CODE (pat) != SET || GET_CODE (dep_pat) != SET
 		  || GET_CODE (SET_SRC (pat)) != MEM
 		  || GET_CODE (SET_DEST (dep_pat)) != MEM
@@ -6222,63 +6222,63 @@ ultrasparc_adjust_cost (insn, link, dep_insn, cost)
 				    XEXP (SET_DEST (dep_pat), 0)))
 		return cost + 2;
 
-	      return cost + 8;         
-	    }                                                                   
+	      return cost + 8;
+	    }
 	  return cost;
 
-	case TYPE_BRANCH:                                  
+	case TYPE_BRANCH:
 	  /* Compare to branch latency is 0.  There is no benefit from
 	     separating compare and branch.  */
-	  if (dep_type == TYPE_COMPARE)                            
-	    return 0;                                            
-	  /* Floating point compare to branch latency is less than 
-	     compare to conditional move.  */                        
-	  if (dep_type == TYPE_FPCMP)                             
-	    return cost - 1;                                           
+	  if (dep_type == TYPE_COMPARE)
+	    return 0;
+	  /* Floating point compare to branch latency is less than
+	     compare to conditional move.  */
+	  if (dep_type == TYPE_FPCMP)
+	    return cost - 1;
 	  return cost;
 
-	case TYPE_FPCMOVE:                                    
+	case TYPE_FPCMOVE:
 	  /* FMOVR class instructions can not issue in the same cycle
 	     or the cycle after an instruction which writes any
 	     integer register.  Model this as cost 2 for dependent
-	     instructions.  */  
+	     instructions.  */
 	  if ((dep_type == TYPE_IALU || dep_type == TYPE_UNARY
 	       || dep_type == TYPE_BINARY)
-	      && cost < 2)                                                      
+	      && cost < 2)
 	    return 2;
 	  /* Otherwise check as for integer conditional moves. */
 
-	case TYPE_CMOVE:                       
+	case TYPE_CMOVE:
 	  /* Conditional moves involving integer registers wait until
 	     3 cycles after loads return data.  The interlock applies
 	     to all loads, not just dependent loads, but that is hard
-	     to model.  */                        
-	  if (dep_type == TYPE_LOAD || dep_type == TYPE_SLOAD)                  
-	    return cost + 3;                                           
+	     to model.  */
+	  if (dep_type == TYPE_LOAD || dep_type == TYPE_SLOAD)
+	    return cost + 3;
 	  return cost;
 
 	default:
 	  break;
 	}
-	break;                                                
+	break;
 
-    case REG_DEP_ANTI:                                       
+    case REG_DEP_ANTI:
       /* Divide and square root lock destination registers for full latency. */
-      if (! SLOW_FP (dep_type))             
-	return 0;                                               
-      break;                                                                  
+      if (! SLOW_FP (dep_type))
+	return 0;
+      break;
 
     default:
       break;
     }
 
-  /* Other costs not accounted for:                            
+  /* Other costs not accounted for:
      - Multiply should be modeled as having no latency because there is
-       nothing the scheduler can do about it.  
-     - Single precision floating point loads lock the other half of  
-       the even/odd register pair.                                   
+       nothing the scheduler can do about it.
+     - Single precision floating point loads lock the other half of
+       the even/odd register pair.
      - Several hazards associated with ldd/std are ignored because these
-       instructions are rarely generated for V9.  
+       instructions are rarely generated for V9.
      - A shift following an integer instruction which does not set the
        condition codes can not issue in the same cycle.
      - The floating point pipeline can not have both a single and double
@@ -6286,23 +6286,23 @@ ultrasparc_adjust_cost (insn, link, dep_insn, cost)
        and graphics instructions are given honorary double precision status.
      - call and jmpl are always the first instruction in a group.  */
 
-  return cost;                                                              
-}  
+  return cost;
+}
 
-int                                                           
+int
 sparc_issue_rate ()
 {
   switch (sparc_cpu)
     {
-    default:                                 
-      return 1;                                                    
-    case PROCESSOR_V9:                                                
+    default:
+      return 1;
+    case PROCESSOR_V9:
       /* Assume V9 processors are capable of at least dual-issue.  */
       return 2;
-    case PROCESSOR_SUPERSPARC:                                        
-      return 3;                                                      
-    case PROCESSOR_ULTRASPARC:                                            
-      return 4;                                                    
+    case PROCESSOR_SUPERSPARC:
+      return 3;
+    case PROCESSOR_ULTRASPARC:
+      return 4;
     }
 }
 

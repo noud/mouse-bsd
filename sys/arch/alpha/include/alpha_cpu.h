@@ -114,7 +114,7 @@ struct alpha_pcb {
 /*
  * Interrupt Type Code Definitions [OSF/1 PALcode Specific]
  */
- 
+
 #define	ALPHA_INTR_XPROC	0	/* interprocessor interrupt */
 #define	ALPHA_INTR_CLOCK	1	/* clock interrupt */
 #define	ALPHA_INTR_ERROR	2	/* correctable error or mcheck */

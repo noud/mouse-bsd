@@ -423,7 +423,7 @@ dbxout_init (asm_file, input_file_name, syms)
   /* Used to put `Ltext:' before the reference, but that loses on sun 4.  */
   fprintf (asmfile, "%s ", ASM_STABS_OP);
   output_quoted_string (asmfile, input_file_name);
-  fprintf (asmfile, ",%d,0,0,%s\n", 
+  fprintf (asmfile, ",%d,0,0,%s\n",
 	   N_SO, &ltext_label_name[1]);
   text_section ();
   ASM_OUTPUT_INTERNAL_LABEL (asmfile, "Ltext", 0);
@@ -556,7 +556,7 @@ dbxout_source_file (file, filename)
     }
 }
 
-/* Output a line number symbol entry into output stream FILE, 
+/* Output a line number symbol entry into output stream FILE,
    for source file FILENAME and line number LINENO.  */
 
 void
@@ -975,7 +975,7 @@ dbxout_range_type (type)
     }
   else
     fprintf (asmfile, ";0");
-  if (TYPE_MAX_VALUE (type) 
+  if (TYPE_MAX_VALUE (type)
       && TREE_CODE (TYPE_MAX_VALUE (type)) == INTEGER_CST)
     {
       fputc (';', asmfile);
@@ -1020,7 +1020,7 @@ dbxout_type (type, full, show_arg_types)
 	 or volatile.  (Since stabs does not distinguish const and volatile,
 	 there is no need to make them separate types.  But types with
 	 different names are usefully distinguished.) */
-	 
+
       for (tem = TYPE_MAIN_VARIANT (type); tem; tem = TYPE_NEXT_VARIANT (tem))
 	if (!TYPE_READONLY (tem) && !TYPE_VOLATILE (tem)
 	    && TYPE_NAME (tem) == TYPE_NAME (type))
@@ -1125,7 +1125,7 @@ dbxout_type (type, full, show_arg_types)
 
   if (TYPE_NAME (type) && TREE_CODE (TYPE_NAME (type)) == TYPE_DECL
       && DECL_ORIGINAL_TYPE (TYPE_NAME (type)))
-    { 
+    {
       dbxout_type (DECL_ORIGINAL_TYPE (TYPE_NAME (type)), 0, 0);
       return;
     }
@@ -1832,7 +1832,7 @@ dbxout_symbol (decl, local)
 	  }
 
 	/* Don't output a tag if this is an incomplete type (TYPE_SIZE is
-	   zero).  This prevents the sun4 Sun OS 4.x dbx from crashing.  */ 
+	   zero).  This prevents the sun4 Sun OS 4.x dbx from crashing.  */
 
 	if (tag_needed && TYPE_NAME (type) != 0
 	    && (TREE_CODE (TYPE_NAME (type)) == IDENTIFIER_NODE
@@ -1941,7 +1941,7 @@ dbxout_symbol (decl, local)
 
       dbxout_symbol_location (decl, type, 0, DECL_RTL (decl));
       break;
-      
+
     default:
       break;
     }
@@ -1963,7 +1963,7 @@ dbxout_symbol_location (decl, type, suffix, home)
 
   /* Don't mention a variable at all
      if it was completely optimized into nothingness.
-     
+
      If the decl was from an inline function, then its rtl
      is not identically the rtl that was used in this
      particular compilation.  */
@@ -2298,7 +2298,7 @@ dbxout_parms (parms)
 	      }
 
 	    /* It is quite tempting to use:
-	       
+
 	           dbxout_type (TREE_TYPE (parms), 0, 0);
 
 	       as the next statement, rather than using DECL_ARG_TYPE(), so

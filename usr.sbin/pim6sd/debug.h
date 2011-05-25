@@ -34,12 +34,12 @@
  *
  */
 /*
- * This program has been derived from pim6dd.        
+ * This program has been derived from pim6dd.
  * The pim6dd program is covered by the license in the accompanying file
  * named "LICENSE.pim6dd".
  */
 /*
- * This program has been derived from pimd.        
+ * This program has been derived from pimd.
  * The pimd program is covered by the license in the accompanying file
  * named "LICENSE.pimd".
  *
@@ -48,7 +48,7 @@
 
 
 #ifndef DEBUG_H
-#define DEBUG_H 
+#define DEBUG_H
 #include <sys/types.h>
 #include <stdio.h>
 
@@ -112,7 +112,7 @@ extern FILE *log_fp;
 				DEBUG_PIM_JOIN_PRUNE | DEBUG_PIM_BOOTSTRAP | \
 				DEBUG_PIM_ASSERT | DEBUG_PIM_CAND_RP | \
 				DEBUG_PIM_MRT | DEBUG_PIM_TIMER | \
-				DEBUG_PIM_RPF ) 
+				DEBUG_PIM_RPF )
 
 #define DEBUG_MRT             ( DEBUG_DVMRP_ROUTE | DEBUG_PIM_MRT )
 #define DEBUG_NEIGHBORS       ( DEBUG_DVMRP_PEER | DEBUG_PIM_HELLO )

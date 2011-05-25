@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: conf.c,v 1.4 1999/02/04 07:24:15 ezk Exp 
+ * Id: conf.c,v 1.4 1999/02/04 07:24:15 ezk Exp
  *
  */
 

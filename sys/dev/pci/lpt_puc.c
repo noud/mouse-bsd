@@ -31,7 +31,7 @@
  */
 
 /*
- * Machine-independent parallel port ('lpt') driver attachment to "PCI 
+ * Machine-independent parallel port ('lpt') driver attachment to "PCI
  * Universal Communications" controller driver.
  *
  * Author: Christopher G. Demetriou, May 17, 1998.

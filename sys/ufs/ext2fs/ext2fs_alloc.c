@@ -68,7 +68,7 @@ static ufs_daddr_t	ext2fs_mapsearch __P((struct m_ext2fs *, char *, ufs_daddr_t)
 
 /*
  * Allocate a block in the file system.
- * 
+ *
  * A preference may be optionally specified. If a preference is given
  * the following hierarchy is used to allocate a block:
  *   1) allocate the requested block.
@@ -93,7 +93,7 @@ ext2fs_alloc(ip, lbn, bpref, cred, bnp)
 	register struct m_ext2fs *fs;
 	ufs_daddr_t bno;
 	int cg;
-	
+
 	*bnp = 0;
 	fs = ip->i_e2fs;
 #ifdef DIAGNOSTIC
@@ -126,7 +126,7 @@ nospace:
 
 /*
  * Allocate an inode in the file system.
- * 
+ *
  * If allocating a directory, use ext2fs_dirpref to select the inode.
  * If allocating in a directory, the following hierarchy is followed:
  *   1) allocate the preferred inode.
@@ -156,7 +156,7 @@ ext2fs_valloc(v)
 	mode_t mode = ap->a_mode;
 	ino_t ino, ipref;
 	int cg, error;
-	
+
 	*ap->a_vpp = NULL;
 	pip = VTOI(pvp);
 	fs = pip->i_e2fs;
@@ -228,7 +228,7 @@ ext2fs_dirpref(fs)
  * Select the desired position for the next block in a file.  The file is
  * logically divided into sections. The first section is composed of the
  * direct blocks. Each additional section contains fs_maxbpg blocks.
- * 
+ *
  * If no blocks have been allocated in the first section, the policy is to
  * request a block in the same cylinder group as the inode that describes
  * the file. Otherwise, the policy is to try to allocate the blocks
@@ -639,7 +639,7 @@ ext2fs_mapsearch(fs, bbp, bpref)
 
 /*
  * Fserr prints the name of a file system with an error diagnostic.
- * 
+ *
  * The form of the error message is:
  *	fs: error message
  */

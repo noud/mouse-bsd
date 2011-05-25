@@ -3,7 +3,7 @@
    Contributed by Pieter `Tiggr' Schoenmakers (rcpieter@win.tue.nl)
    and Martin Simmons (@harleqn.co.uk).
    More major hacks by Richard Earnshaw (rwe11@cl.cam.ac.uk)
-   
+
 This file is part of GNU CC.
 
 GNU CC is free software; you can redistribute it and/or modify
@@ -204,7 +204,7 @@ Unrecognized value in TARGET_CPU_DEFAULT.
 #define CPP_ENDIAN_DEFAULT_SPEC ""
 
 /* Translate (for now) the old -m[236] option into the appropriate -mcpu=...
-   and -mapcs-xx equivalents. 
+   and -mapcs-xx equivalents.
    ??? Remove support for this style in 2.9.*/
 #define CC1_SPEC "\
 %{m2:-mcpu=arm2 -mapcs-26} \
@@ -389,9 +389,9 @@ extern struct arm_cpu_select arm_select[];
 #define TARGET_CPU_DEFAULT ((char *) 0)
 #endif
 
-/* Which processor we are running on, for instruction scheduling 
+/* Which processor we are running on, for instruction scheduling
    purposes.  */
-enum processor_type 
+enum processor_type
 {
   PROCESSOR_ARM2,
   PROCESSOR_ARM3,
@@ -514,7 +514,7 @@ extern int arm_arch4;
    in instructions that operate on numbered bit-fields.  */
 #define BITS_BIG_ENDIAN  0
 
-/* Define this if most significant byte of a word is the lowest numbered.  
+/* Define this if most significant byte of a word is the lowest numbered.
    Most ARM processors are run in little endian mode, so that is the default.
    If you want to have it run-time selectable, change the definition in a
    cover file to be TARGET_BIG_ENDIAN.  */
@@ -651,7 +651,7 @@ extern int arm_arch4;
    The latter must include the registers where values are returned
    and the register where structure-value addresses are passed.
    Aside from that, you can include as many other registers as you like.
-   The CC is not preserved over function calls on the ARM 6, so it is 
+   The CC is not preserved over function calls on the ARM 6, so it is
    easier to assume this for all.  SFP is preserved, since FP is. */
 #define CALL_USED_REGISTERS  \
 {                            \
@@ -730,7 +730,7 @@ extern int arm_arch4;
 
 /* Value should be nonzero if functions must have frame pointers.
    Zero means the frame pointer need not be set up (and parms may be accessed
-   via the stack pointer) in functions that seem suitable.  
+   via the stack pointer) in functions that seem suitable.
    If we have to have a frame pointer we might as well make use of it.
    APCS says that the frame pointer does not need to be pushed in leaf
    functions.  */
@@ -755,7 +755,7 @@ extern int arm_arch4;
 /* The order in which register should be allocated.  It is good to use ip
    since no saving is required (though calls clobber it) and it never contains
    function parameters.  It is quite good to use lr since other calls may
-   clobber it anyway.  Allocate r0 through r3 in reverse order since r3 is 
+   clobber it anyway.  Allocate r0 through r3 in reverse order since r3 is
    least likely to contain a function parameter; in addition results are
    returned in r0.
    */
@@ -826,9 +826,9 @@ enum reg_class
    C is the letter, and VALUE is a constant value.
    Return 1 if VALUE is in the range specified by C.
 	I: immediate arithmetic operand (i.e. 8 bits shifted as required).
-	J: valid indexing constants.  
+	J: valid indexing constants.
 	K: ~value ok in rhs argument of data operand.
-	L: -value ok in rhs argument of data operand. 
+	L: -value ok in rhs argument of data operand.
         M: 0..32, or a power of 2  (for shifts, or mult done by shift).  */
 #define CONST_OK_FOR_LETTER_P(VALUE, C)  		\
   ((C) == 'I' ? const_ok_for_arm (VALUE) :		\
@@ -840,7 +840,7 @@ enum reg_class
    : 0)
 
 /* For the ARM, `Q' means that this is a memory operand that is just
-   an offset from a register.  
+   an offset from a register.
    `S' means any symbol that has the SYMBOL_REF_FLAG set or a CONSTANT_POOL
    address.  This means that the symbol is in the text segment and can be
    accessed without using a load. */
@@ -853,7 +853,7 @@ enum reg_class
    : (C) == 'S' ? (optimize > 0 && CONSTANT_ADDRESS_P (OP))		    \
    : 0)
 
-/* Constant letter 'G' for the FPU immediate constants. 
+/* Constant letter 'G' for the FPU immediate constants.
    'H' means the same constant negated.  */
 #define CONST_DOUBLE_OK_FOR_LETTER_P(X,C)			\
     ((C) == 'G' ? const_double_rtx_ok_for_fpu (X) 		\
@@ -1705,8 +1705,8 @@ extern struct rtx_def *legitimize_pic_address ();
 			   || GET_RTX_CLASS (GET_CODE (XEXP (X, 1))) == 'c') \
 			  ? 1 : 0))					     \
 		: 4)))))
-	 
-   
+
+
 
 /* Try to generate sequences that don't involve branches, we can then use
    conditional instructions */
@@ -1735,12 +1735,12 @@ extern int arm_pic_register;
 	(! symbol_mentioned_p (X)				\
 	 && (! CONSTANT_POOL_ADDRESS_P (X)			\
 	     || ! symbol_mentioned_p (get_pool_constant (X))))
- 
+
 
 
 /* Condition code information. */
 /* Given a comparison code (EQ, NE, etc.) and the first operand of a COMPARE,
-   return the mode to be used for the comparison. 
+   return the mode to be used for the comparison.
    CCFPEmode should be used with floating inequalities,
    CCFPmode should be used with floating equalities.
    CC_NOOVmode should be used with SImode integer equalities.
@@ -2017,29 +2017,29 @@ do {									\
      when running in 32 bit mode.  */					\
   ((!TARGET_APCS_32) ? (GEN_INT (0x03fffffc)) : (GEN_INT (0xffffffff)))
 
-/* Prototypes for arm.c -- actually, they aren't since the types aren't 
+/* Prototypes for arm.c -- actually, they aren't since the types aren't
    fully defined yet.  */
 
 int arm_preserved_register (/* int */);
 void arm_override_options (/* void */);
 int use_return_insn (/* void */);
 int const_ok_for_arm (/* HOST_WIDE_INT */);
-int const_ok_for_op (/* HOST_WIDE_INT, enum rtx_code, 
+int const_ok_for_op (/* HOST_WIDE_INT, enum rtx_code,
 			enum machine_mode */);
-int arm_split_constant (/* enum rtx_code, enum machine_mode, 
+int arm_split_constant (/* enum rtx_code, enum machine_mode,
 			   HOST_WIDE_INT, struct rtx_def *,
 			   struct rtx_def *, int */);
-enum rtx_code arm_canonicalize_comparison (/* enum rtx_code, 
+enum rtx_code arm_canonicalize_comparison (/* enum rtx_code,
 					      struct rtx_def ** */);
 int arm_return_in_memory (/* union tree_node * */);
 int legitimate_pic_operand_p (/* struct rtx_def * */);
-struct rtx_def *legitimize_pic_address (/* struct rtx_def *, 
+struct rtx_def *legitimize_pic_address (/* struct rtx_def *,
 					   enum machine_mode,
 					   struct rtx_def * */);
 int is_pic (/* struct rtx_def * */);
 void arm_finalize_pic (/* void */);
 int arm_rtx_costs (/* struct rtx_def *, enum rtx_code, enum rtx_code */);
-int arm_adjust_cost (/* struct rtx_def *, struct rtx_def *, 
+int arm_adjust_cost (/* struct rtx_def *, struct rtx_def *,
 			struct rtx_def *, int */);
 int const_double_rtx_ok_for_fpu (/* struct rtx_def * */);
 int neg_const_double_rtx_ok_for_fpu (/* struct rtx_def * */);
@@ -2083,7 +2083,7 @@ int multi_register_push (/* struct rtx_def *, enum machine_mode */);
 int arm_valid_machine_decl_attribute (/* union tree_node *, union tree_node *,
 					 union tree_node *,
 					 union tree_node * */);
-struct rtx_def *arm_gen_load_multiple (/* int, int, struct rtx_def *, 
+struct rtx_def *arm_gen_load_multiple (/* int, int, struct rtx_def *,
 					  int, int, int, int */);
 struct rtx_def *arm_gen_store_multiple (/* int, int, struct rtx_def *,
 					   int, int, int, int */);

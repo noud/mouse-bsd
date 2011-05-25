@@ -31,20 +31,20 @@ should already be individually sorted.  It always works to sort
 instead of merge; merging is provided because it is faster, in the
 case where it works.
 .PP
-A pair of lines is compared as follows: 
+A pair of lines is compared as follows:
 if any key fields have been specified,
 .B sort
 compares each pair of fields, in the order specified on the command
 line, according to the associated ordering options, until a difference
 is found or no fields are left.
-.PP 
+.PP
 If any of the global options
 .I Mbdfinr
-are given but no key fields are 
+are given but no key fields are
 specified,
 .B sort
 compares the entire lines according to the global options.
-.PP 
+.PP
 Finally, as a last resort when all keys compare equal
 (or if no ordering options were specified at all),
 .B sort
@@ -94,9 +94,9 @@ when sorting so that, for example, `b' is sorted the same way `B' is.
 Ignore characters outside the ASCII range 040-0176 (inclusive) when sorting.
 .TP
 .I \-M
-An initial string, consisting of any amount of white space, followed 
-by three letters abbreviating a month name, is folded to lower case 
-and compared in the order `jan' < `feb' < ... < `dec.'  Invalid names 
+An initial string, consisting of any amount of white space, followed
+by three letters abbreviating a month name, is folded to lower case
+and compared in the order `jan' < `feb' < ... < `dec.'  Invalid names
 compare low to valid names.  This option implies
 .IR \-b .
 .TP

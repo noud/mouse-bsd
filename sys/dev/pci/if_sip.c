@@ -32,7 +32,7 @@
 /*
  * Device driver for the Silicon Integrated Systems SiS 900 and
  * SiS 7016 10/100 PCI Ethernet controllers.
- *    
+ *
  * Written by Jason R. Thorpe for Network Computer, Inc.
  */
 
@@ -365,7 +365,7 @@ sip_attach(parent, self, aux)
 	memh_valid = (pci_mapreg_map(pa, SIP_PCI_CFGMA,
 	    PCI_MAPREG_TYPE_MEM|PCI_MAPREG_MEM_TYPE_32BIT, 0,
 	    &memt, &memh, NULL, NULL) == 0);
-	
+
 	if (memh_valid) {
 		sc->sc_st = memt;
 		sc->sc_sh = memh;
@@ -905,14 +905,14 @@ sip_ioctl(ifp, cmd, data)
 			error = sip_init(sc);
 		}
 		break;
-	
+
 	case SIOCADDMULTI:
 	case SIOCDELMULTI:
 		error = (cmd == SIOCADDMULTI) ?
 		    ether_addmulti(ifr, &sc->sc_ethercom) :
 		    ether_delmulti(ifr, &sc->sc_ethercom);
 
-		if (error == ENETRESET) { 
+		if (error == ENETRESET) {
 			/*
 			 * Multicast list has changed; set the hardware filter
 			 * accordingly.
@@ -1660,13 +1660,13 @@ sip_read_eeprom(sc, word, wordcnt, data)
 			bus_space_write_4(st, sh, SIP_EROMAR, reg);
 			delay(4);
 		}
-		
+
 		/* Shift in address. */
 		for (x = 6; x > 0; x--) {
 			if ((word + i) & (1 << (x - 1)))
 				reg |= EROMAR_EEDI;
 			else
-				reg &= ~EROMAR_EEDI; 
+				reg &= ~EROMAR_EEDI;
 			bus_space_write_4(st, sh, SIP_EROMAR, reg);
 			bus_space_write_4(st, sh, SIP_EROMAR,
 			    reg | EROMAR_EESK);
@@ -1708,7 +1708,7 @@ sip_add_rxbuf(sc, idx)
 	int error;
 
 	MGETHDR(m, M_DONTWAIT, MT_DATA);
-	if (m == NULL)  
+	if (m == NULL)
 		return (ENOBUFS);
 
 	MCLGET(m, M_DONTWAIT);

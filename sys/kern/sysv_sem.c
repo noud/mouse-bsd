@@ -656,7 +656,7 @@ sys_semop(p, v, retval)
 		return(eval);
 	}
 
-	/* 
+	/*
 	 * Loop trying to satisfy the vector of requests.
 	 * If we reach a point where we must wait, any requests already
 	 * performed are rolled back and we go to sleep until some other

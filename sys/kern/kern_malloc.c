@@ -256,7 +256,7 @@ malloc(size, type, flags)
 			allocsize = 1 << indx;
 		npg = btoc(allocsize);
 		va = (caddr_t) uvm_km_kmemalloc(kmem_map, uvmexp.kmem_object,
-				(vsize_t)ctob(npg), 
+				(vsize_t)ctob(npg),
 				(flags & M_NOWAIT) ? UVM_KMF_NOWAIT : 0);
 		if (va == NULL) {
 			/*
@@ -338,7 +338,7 @@ malloc(size, type, flags)
 								{
 			printf(
 		    "%s %ld of object %p size %ld %s %s (invalid addr %p)\n",
-			    "Data modified on freelist: word", 
+			    "Data modified on freelist: word",
 			    (long)((int32_t *)&kbp->kb_next - (int32_t *)kbp),
 			    va, size, "previous type", savedtype, kbp->kb_next);
 #ifdef MALLOCLOG
@@ -692,7 +692,7 @@ kmeminit()
 	kmemusage = (struct kmemusage *) uvm_km_zalloc(kernel_map,
 		(vsize_t)(nkmempages * sizeof(struct kmemusage)));
 	kmem_map = uvm_km_suballoc(kernel_map, (vaddr_t *)&kmembase,
-		(vaddr_t *)&kmemlimit, (vsize_t)(nkmempages << PAGE_SHIFT), 
+		(vaddr_t *)&kmemlimit, (vsize_t)(nkmempages << PAGE_SHIFT),
 			VM_MAP_INTRSAFE, FALSE, &kmem_map_store.vmi_map);
 #ifdef KMEMSTATS
 	for (indx = 0; indx < MINBUCKET + 16; indx++) {

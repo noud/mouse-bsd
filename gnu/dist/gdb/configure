@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Guess values for system-dependent variables and create Makefiles.
-# Generated automatically using autoconf version 2.12.1 
+# Generated automatically using autoconf version 2.12.1
 # Copyright (C) 1992, 93, 94, 95, 96 Free Software Foundation, Inc.
 #
 # This configure script is free software; the Free Software Foundation
@@ -1410,7 +1410,7 @@ if eval "test \"`echo '$ac_cv_header_'$ac_safe`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_hdr 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -1543,7 +1543,7 @@ fi
 echo "$ac_t""$ac_cv_c_const" 1>&6
 if test $ac_cv_c_const = no; then
   cat >> confdefs.h <<\EOF
-#define const 
+#define const
 EOF
 
 fi
@@ -1598,7 +1598,7 @@ if eval "test \"`echo '$ac_cv_func_'$ac_func`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_func 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -1966,7 +1966,7 @@ if eval "test \"`echo '$ac_cv_header_'$ac_safe`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_hdr 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -2021,7 +2021,7 @@ if eval "test \"`echo '$ac_cv_func_'$ac_func`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_func 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -2510,7 +2510,7 @@ rm -f conftest*
       fi
       ;;
    esac
-   
+
 fi
 
 ENABLE_CFLAGS=
@@ -2527,7 +2527,7 @@ fi
 
 
 if test "${enable_netrom}" = "yes"; then
-	CONFIG_OBS="${CONFIG_OBS} remote-nrom.o" 
+	CONFIG_OBS="${CONFIG_OBS} remote-nrom.o"
         CONFIG_SRCS="${CONFIG_SRCS} remote-nrom.c"
 fi
 
@@ -2790,7 +2790,7 @@ echo "configure:2771: checking for executable suffix" >&5
 if eval "test \"`echo '$''{'am_cv_exeext'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
-  
+
 if test "$CYGWIN32" = yes -o "$MINGW32" = yes; then
 am_cv_exeext=.exe
 else

@@ -7,23 +7,23 @@
  * may copy or modify Sun RPC without charge, but are not authorized
  * to license or distribute it to anyone else except as part of a product or
  * program developed by the user.
- * 
+ *
  * SUN RPC IS PROVIDED AS IS WITH NO WARRANTIES OF ANY KIND INCLUDING THE
  * WARRANTIES OF DESIGN, MERCHANTIBILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE, OR ARISING FROM A COURSE OF DEALING, USAGE OR TRADE PRACTICE.
- * 
+ *
  * Sun RPC is provided with no support and without any obligation on the
  * part of Sun Microsystems, Inc. to assist in its use, correction,
  * modification or enhancement.
- * 
+ *
  * SUN MICROSYSTEMS, INC. SHALL HAVE NO LIABILITY WITH RESPECT TO THE
  * INFRINGEMENT OF COPYRIGHTS, TRADE SECRETS OR ANY PATENTS BY SUN RPC
  * OR ANY PART THEREOF.
- * 
+ *
  * In no event will Sun Microsystems, Inc. be liable for any lost revenue
  * or profits or other special, indirect and consequential damages, even if
  * Sun has been advised of the possibility of such damages.
- * 
+ *
  * Sun Microsystems, Inc.
  * 2550 Garcia Avenue
  * Mountain View, California  94043
@@ -39,7 +39,7 @@ __RCSID("$NetBSD: svc_simple.c,v 1.18 2000/01/22 22:19:18 mycroft Exp $");
 #endif
 #endif
 
-/* 
+/*
  * svc_simple.c
  * Simplified front end to rpc.
  *
@@ -84,7 +84,7 @@ registerrpc(prognum, versnum, procnum, progname, inproc, outproc)
 	char *(*progname) __P((char [UDPMSGSIZE]));
 	xdrproc_t inproc, outproc;
 {
-	
+
 	if (procnum == NULLPROC) {
 		warnx("can't reassign procedure number %ld", NULLPROC);
 		return (-1);
@@ -97,7 +97,7 @@ registerrpc(prognum, versnum, procnum, progname, inproc, outproc)
 		}
 	}
 	(void) pmap_unset((u_long)prognum, (u_long)versnum);
-	if (!svc_register(transp, (u_long)prognum, (u_long)versnum, 
+	if (!svc_register(transp, (u_long)prognum, (u_long)versnum,
 	    universal, IPPROTO_UDP)) {
 	    	warnx("couldn't register prog %d vers %d", prognum, versnum);
 		return (-1);
@@ -130,7 +130,7 @@ universal(rqstp, transp)
 	_DIAGASSERT(rqstp != NULL);
 	_DIAGASSERT(transp != NULL);
 
-	/* 
+	/*
 	 * enforce "procnum 0 is echo" convention
 	 */
 	if (rqstp->rq_proc == NULLPROC) {

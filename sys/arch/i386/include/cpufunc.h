@@ -48,11 +48,11 @@
 
 #ifdef _KERNEL
 
-static __inline void 
+static __inline void
 invlpg(u_int addr)
-{ 
+{
         __asm __volatile("invlpg (%0)" : : "r" (addr) : "memory");
-}  
+}
 
 static __inline void
 lidt(void *p)

@@ -475,7 +475,7 @@ print_blks(buf, size, blknum)
 	int chars;
 	char prbuf[CHARS_PER_LINES+1];
 	int blk;
- 
+
 	chars = 0;
 	for(blk = 0; blk < size; blk++, (*blknum)++) {
 		if (buf[blk] == 0)
@@ -503,7 +503,7 @@ print_indirblks(blk,ind_level, blknum)
 #define MAXNINDIR	(MAXBSIZE / sizeof(daddr_t))
 	daddr_t idblk[MAXNINDIR];
 	int i;
- 
+
 	printf("Indirect block %d (level %d):\n", blk, ind_level+1);
 	bread(fsreadfd, (char *)idblk, fsbtodb(sblock, blk),
 	    (int)sblock->fs_bsize);

@@ -86,7 +86,7 @@ Xmain()
 	vax_cputype = (mfpr(PR_SID) >> 24) & 0xFF;
 
 	/*
-	 */ 
+	 */
         switch (vax_cputype) {
 
         case VAX_TYP_UV2:
@@ -271,7 +271,7 @@ devopen(f, fname, file)
 		}
 	}
 
-	/* 
+	/*
 	 * the disklabel _shall_ be at address LABELOFFSET + RELOC in
 	 * phys memory now, no need at all to reread it again.
 	 * Actually disklabel is only needed when using hp disks,

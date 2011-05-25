@@ -252,7 +252,7 @@ CheckForPkg(char *pkgspec, char *dbdir)
 	}
 	if (error) {
 		/* found nothing - try 'pkg-[0-9]*' */
-		
+
 		char    try[FILENAME_MAX];
 		snprintf(try, FILENAME_MAX, "%s-[0-9]*", pkgspec);
 		if (findmatchingname(_pkgdb_getPKGDB_DIR(), try,

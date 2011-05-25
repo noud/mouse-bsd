@@ -144,7 +144,7 @@ sethandler(void)
 		unlink (_PATH_POFFDPID);
 		exit(1);
 	}
-	
+
 	sw = powerinfo.pow_switch_boottime;
 	oldsw = powerinfo.pow_switch_current & 6;
 

@@ -210,7 +210,7 @@ struct m68k_opcode_alias
 
 /* For the 68851: */
 /*
-   I didn't use much imagination in choosing the 
+   I didn't use much imagination in choosing the
    following codes, so many of them aren't very
    mnemonic. -rab
 

@@ -60,7 +60,7 @@ static struct systypes {
 	int  sys_type;
 } sys_types[] = {
     { NULL,		"PICA-61",			ACER_PICA_61 },
-    { NULL,		"DESKTECH-TYNE",		DESKSTATION_TYNE }, 
+    { NULL,		"DESKTECH-TYNE",		DESKSTATION_TYNE },
     { NULL,		"DESKTECH-ARCStation I",	DESKSTATION_RPC44 },
     { NULL,		"Microsoft-Jazz",		MAGNUM },
 };

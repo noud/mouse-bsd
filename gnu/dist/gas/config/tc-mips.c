@@ -207,7 +207,7 @@ static int mips_4100 = -1;
 static int mips_3900 = -1;
 
 
-/* Whether the processor uses hardware interlocks to protect 
+/* Whether the processor uses hardware interlocks to protect
    reads from the HI and LO registers, and thus does not
    require nops to be inserted.  */
 #define hilo_interlocks (mips_4010 || mips_cpu == 4300 || mips_3900 \
@@ -801,7 +801,7 @@ md_begin ()
       if (strcmp (cpu, "mips") == 0)
         {
           if (mips_opts.isa < 0)
-            mips_cpu = 3000;   
+            mips_cpu = 3000;
 
           else if (mips_opts.isa == 2)
             mips_cpu = 6000;
@@ -812,10 +812,10 @@ md_begin ()
           else if (mips_opts.isa == 4)
             mips_cpu = 8000;
 
-          else 
+          else
             mips_cpu = 3000;
         }
-      
+
       else if (strcmp (cpu, "r3900") == 0
                || strcmp (cpu, "mipstx39") == 0
                )
@@ -859,7 +859,7 @@ md_begin ()
       else if (strcmp (cpu, "r8000") == 0
 	       || strcmp (cpu, "mips4") == 0)
         mips_cpu = 8000;
-      
+
       else if (strcmp (cpu, "r10000") == 0)
         mips_cpu = 10000;
 
@@ -892,7 +892,7 @@ md_begin ()
                || mips_cpu == 8000
                || mips_cpu == 10000)
         mips_opts.isa = 4;
-      
+
       else
         mips_opts.isa = 1;
     }
@@ -1092,7 +1092,7 @@ md_begin ()
 
 	    (void) bfd_set_section_flags (stdoutput, sec, flags);
 	    (void) bfd_set_section_alignment (stdoutput, sec, 2);
-	
+
 #ifdef OBJ_ELF
 	    mips_regmask_frag = frag_more (sizeof (Elf32_External_RegInfo));
 #endif
@@ -1165,7 +1165,7 @@ md_assemble (str)
   else
     {
       mips_ip (str, &insn);
-      DBG(("returned from mips_ip(%s) insn_opcode = 0x%x\n", 
+      DBG(("returned from mips_ip(%s) insn_opcode = 0x%x\n",
 		str, insn.insn_opcode));
     }
 
@@ -1429,7 +1429,7 @@ append_insn (place, ip, address_expr, reloc_type, unmatched_hi)
 	     than the floating point unit are not distinguished at
 	     all.  */
           /* Itbl support may require additional care here. FIXME!
-             Need to modify this to include knowledge about 
+             Need to modify this to include knowledge about
              user specified delays!  */
 	  if (prev_pinfo & INSN_WRITE_FPR_T)
 	    {
@@ -1769,9 +1769,9 @@ append_insn (place, ip, address_expr, reloc_type, unmatched_hi)
 	mips_cprmask[1] |= 1 << ((ip->insn_opcode >> OP_SH_FR) & OP_MASK_FR);
       if (pinfo & INSN_COP)
 	{
-	  /* We don't keep enough information to sort these cases out. 
-	     The itbl support does keep this information however, although 
-	     we currently don't support itbl fprmats as part of the cop 
+	  /* We don't keep enough information to sort these cases out.
+	     The itbl support does keep this information however, although
+	     we currently don't support itbl fprmats as part of the cop
 	     instruction.  May want to add this support in the future. */
 	}
       /* Never set the bit for $0, which is always zero.  */
@@ -2215,7 +2215,7 @@ mips_emit_delays (insns)
 		     | INSN_READ_HI)))
 	  || (! mips_opts.mips16
 	      && ! gpr_interlocks
-	      && (prev_insn.insn_mo->pinfo 
+	      && (prev_insn.insn_mo->pinfo
                   & INSN_LOAD_MEMORY_DELAY))
 	  || (! mips_opts.mips16
 	      && mips_opts.isa < 2
@@ -3294,7 +3294,7 @@ load_address (counter, reg, ep)
  * mips assembler simply uses register $zero. Just one tiny optimization
  * we're missing.
  */
-         
+
 /* XXX rever to binutils 2.8.1 version, r4000 kernel weirdness. */
 
 static void
@@ -4485,7 +4485,7 @@ macro (ip)
 	{
 	  if (sreg != PIC_CALL_REG)
 	    as_warn ("MIPS PIC call to register other than $25");
-      
+
 	  macro_build ((char *) NULL, &icnt, (expressionS *) NULL, "jalr",
 		       "d,s", dreg, sreg);
 	  if (mips_cprestore_offset < 0)
@@ -4591,7 +4591,7 @@ macro (ip)
 	      p += 4;
 	      macro_build (p, &icnt, (expressionS *) NULL, "nop", "");
 	      p += 4;
-	    }			   
+	    }
 	  macro_build (p, &icnt, &offset_expr,
 		       ((bfd_arch_bits_per_address (stdoutput) == 32
 			 || mips_opts.isa < 3)
@@ -4921,7 +4921,7 @@ macro (ip)
 		        ? "lw" : "ld"),
 		       "t,o(b)", tempreg, (int) BFD_RELOC_MIPS_GOT16, GP);
 	  macro_build ((char *) NULL, &icnt, (expressionS *) NULL, "nop", "");
-	  p = frag_var (rs_machine_dependent, 4, 0, 
+	  p = frag_var (rs_machine_dependent, 4, 0,
 			RELAX_ENCODE (0, 4, -8, 0, 0, 0),
 			offset_expr.X_add_symbol, (offsetT) 0,
 			(char *) NULL);
@@ -5146,7 +5146,7 @@ macro (ip)
 	}
       else
 	abort ();
-	
+
       /* Now we load the register(s).  */
       if (mips_opts.isa >= 3)
 	macro_build ((char *) NULL, &icnt, &offset_expr, "ld", "t,o(b)",
@@ -5230,7 +5230,7 @@ macro (ip)
 	      /* FIXME: This won't work for a 64 bit address.  */
 	      macro_build_lui ((char *) NULL, &icnt, &offset_expr, AT);
 	    }
-	      
+
 	  if (mips_opts.isa >= 2)
 	    {
 	      macro_build ((char *) NULL, &icnt, &offset_expr, "ldc1",
@@ -5477,7 +5477,7 @@ macro (ip)
 	  macro_build (p, &icnt, &offset_expr, s, fmt,
 		       coproc ? treg : treg + 1,
 		       (int) BFD_RELOC_LO16, AT);
-	}	  
+	}
       else if (mips_pic == SVR4_PIC && ! mips_big_got)
 	{
 	  int off;
@@ -5723,7 +5723,7 @@ macro (ip)
       What are the side-effects of the cop instruction?
       What cache support might we have and what are its effects?
       Both coprocessor & memory require delays. how long???
-      What registers are read/set/modified? 
+      What registers are read/set/modified?
 
       If an itbl is provided to interpret cop instructions,
       this knowledge can be encoded in the itbl spec. */
@@ -5752,11 +5752,11 @@ macro (ip)
          This code builds table entries out of the macros in mip_opcodes.
          FIXME: For now we just assemble the expression and pass it's
          value along as a 32-bit immediate.
-         We may want to have the assembler assemble this value, 
+         We may want to have the assembler assemble this value,
          so that we gain the assembler's knowledge of delay slots,
          symbols, etc.
          Would it be more efficient to use mask (id) here? */
-      if (itbl_have_entries 
+      if (itbl_have_entries
 	  && (immed_expr = itbl_assemble (ip->insn_mo->name, "")))
         {
 	  s = ip->insn_mo->name;
@@ -5771,7 +5771,7 @@ macro (ip)
   if (mips_opts.noat)
     as_warn ("Macro used $at after \".set noat\"");
 }
-          
+
 static void
 macro2 (ip)
      struct mips_cl_insn *ip;
@@ -5793,17 +5793,17 @@ macro2 (ip)
   offsetT maxnum;
   bfd_reloc_code_real_type r;
   char *p;
-          
+
   treg = (ip->insn_opcode >> 16) & 0x1f;
   dreg = (ip->insn_opcode >> 11) & 0x1f;
   sreg = breg = (ip->insn_opcode >> 21) & 0x1f;
   mask = ip->insn_mo->mask;
-          
+
   expr1.X_op = O_constant;
   expr1.X_op_symbol = NULL;
   expr1.X_add_symbol = NULL;
   expr1.X_add_number = 1;
-          
+
   switch (mask)
     {
 #endif /* LOSING_COMPILER */
@@ -6857,7 +6857,7 @@ mips_ip (str, ip)
       save_c = *s;
       *s++ = '\0';
     }
-	
+
   insn = (struct mips_opcode *) hash_find (op_hash, str);
 
   /* If we didn't find the instruction in the opcode table, try again, but
@@ -6865,7 +6865,7 @@ mips_ip (str, ip)
      first '.'.  */
   if (insn == NULL)
     {
-      /* Restore the character we overwrite above (if any).  */ 
+      /* Restore the character we overwrite above (if any).  */
       if (save_c)
 	*(--s) = save_c;
 
@@ -6934,7 +6934,7 @@ mips_ip (str, ip)
 	      ++insn;
 	      continue;
 	    }
-	  if (insn_isa == 15 
+	  if (insn_isa == 15
               || insn_isa <= mips_opts.isa)
 	    insn_error = "opcode not supported on this processor";
 	  else
@@ -7169,7 +7169,7 @@ mips_ip (str, ip)
 			  p = s+1; 	/* advance past '$' */
 			  n = itbl_get_field (&p);  /* n is name */
 
-			  /* See if this is a register defined in an 
+			  /* See if this is a register defined in an
 			     itbl entry */
 			  r = itbl_get_reg_val (n);
 			  if (r)
@@ -7177,9 +7177,9 @@ mips_ip (str, ip)
 			      /* Get_field advances to the start of
 				 the next field, so we need to back
 				 rack to the end of the last field. */
-			      if (p) 
+			      if (p)
 				s = p - 1;
-			      else 
+			      else
 				s = strchr (s,'\0');
 			      regno = r;
 			    }
@@ -7210,7 +7210,7 @@ mips_ip (str, ip)
 		  if (c == 'z' && regno != 0)
 		    break;
 
-	/* Now that we have assembled one operand, we use the args string 
+	/* Now that we have assembled one operand, we use the args string
 	 * to figure out where it goes in the instruction. */
 		  switch (c)
 		    {
@@ -8620,7 +8620,7 @@ md_atof (type, litP, sizeP)
 	  litP += 2;
 	}
     }
-     
+
   return NULL;
 }
 
@@ -8902,7 +8902,7 @@ md_parse_option (c, arg)
     case OPTION_M3900:
       mips_3900 = 1;
       break;
-      
+
     case OPTION_NO_M3900:
       mips_3900 = 0;
       break;
@@ -10168,7 +10168,7 @@ s_cpadd (ignore)
 		? "addu" : "daddu"),
 	       "d,v,t", reg, reg, GP);
 
-  demand_empty_rest_of_line ();  
+  demand_empty_rest_of_line ();
 }
 
 /* Handle the .insn pseudo-op.  This marks instruction labels in

@@ -46,7 +46,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
    When dumping core, the control stack is written to a core files as
    a third segment. The core-handling functions need to know to deal
-   with it. */ 
+   with it. */
 
 /* Tell dep.c what the extra segment is.  */
 #define PYRAMID_CORE

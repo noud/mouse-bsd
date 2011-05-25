@@ -48,7 +48,7 @@ xstart:
 	cmpl	a3, a4			| already there?
 	beqs	restart			| short-circuit out
 
-					| Relocate the code and data 
+					| Relocate the code and data
 	movl	#_edata,d2		| Desired end of program
 	subl	a4,d2			| Calculate length, round up.
 	lsrl	#2,d2

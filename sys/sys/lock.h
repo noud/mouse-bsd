@@ -40,7 +40,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* 
+/*
  * Copyright (c) 1995
  *	The Regents of the University of California.  All rights reserved.
  *

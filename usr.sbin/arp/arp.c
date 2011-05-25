@@ -218,7 +218,7 @@ struct	{
 }	m_rtmsg;
 
 /*
- * Set an individual arp entry 
+ * Set an individual arp entry
  */
 int
 set(argc, argv)
@@ -325,7 +325,7 @@ get(host)
 }
 
 /*
- * Delete an arp entry 
+ * Delete an arp entry
  */
 int
 delete(host, info)
@@ -373,7 +373,7 @@ delete:
 		(void)printf("cannot locate %s\n", host);
 		return (1);
 	}
-	if (rtmsg(RTM_DELETE)) 
+	if (rtmsg(RTM_DELETE))
 		return (1);
 	if (vflag)
 		(void)printf("%s (%s) deleted\n", host,
@@ -483,13 +483,13 @@ atosdl(s, sdl)
 	int i;
 	long b;
 	caddr_t endp;
-	caddr_t p; 
+	caddr_t p;
 	char *t, *r;
 
 	p = LLADDR(sdl);
 	endp = ((caddr_t)sdl) + sdl->sdl_len;
 	i = 0;
-	
+
 	b = strtol(s, &t, 16);
 	if (t == s)
 		return 1;

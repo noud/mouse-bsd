@@ -4,7 +4,7 @@
 ** proxy.c                         This file implements the proxy() call.
 **
 ** This program is in the public domain and may be used freely by anyone
-** who wants to. 
+** who wants to.
 **
 ** Last update: 12 Dec 1992
 **
@@ -53,18 +53,18 @@ int proxy(laddr, faddr, lport, fport, timeout)
     /* Just here to make the compiler shut up! */
     laddr = faddr = NULL;
     timeout = NULL;
-	
+
     printf("%d , %d : ERROR : %s\r\n",
 	   lport, fport,
 	   unknown_flag ? "UNKNOWN-ERROR" : "X-NOT-YET-IMPLEMENTED");
-    
+
     return -1;
 #else
   id_t *idp;
   char *answer;
   char *opsys;
   char *charset;
-  
+
   idp = id_open(laddr, faddr, timeout);
   if (!idp)
   {
@@ -93,12 +93,12 @@ int proxy(laddr, faddr, lport, fport, timeout)
 	     charset ? charset : "",
 	     answer);
       break;
-      
+
     case 2:
       printf("%d , %d : ERROR : %s\r\n",
 	     lport, fport, answer);
       break;
-      
+
     case 0:  /* More to parse - fix this later! */
     case -1: /* Internal error */
     default:
@@ -108,5 +108,5 @@ int proxy(laddr, faddr, lport, fport, timeout)
   }
 
   id_close(idp);
-#endif  
+#endif
 }

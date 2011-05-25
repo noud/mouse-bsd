@@ -3,7 +3,7 @@
 /*
  * Generic driver definitions and exported functions for the Advanced
  * Systems Inc. Narrow SCSI controllers
- * 
+ *
  * Copyright (c) 1998 The NetBSD Foundation, Inc.
  * All rights reserved.
  *

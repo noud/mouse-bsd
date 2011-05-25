@@ -16,20 +16,20 @@ MEMORY
 	eight : o = 0xff00, l = 0x100
 }
 
-SECTIONS 				
-{ 					
+SECTIONS
+{
 .vectors : {
 	/* Use something like this to place a specific function's address
-	   into the vector table. 
+	   into the vector table.
 
 	SHORT(ABSOLUTE(_foobar)) */
 
 	*(.vectors)
         } ${RELOCATING+ > vectors}
 
-.text :	{ 					
-	*(.rodata) 				
-	*(.text) 				
+.text :	{
+	*(.rodata)
+	*(.text)
 	*(.strings)
    	${RELOCATING+ _etext = . ; }
 	} ${RELOCATING+ > ram}

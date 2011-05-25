@@ -108,7 +108,7 @@ ufs_daddr_t lfs_bmap(struct lfs *fs, struct dinode *idinode, ufs_daddr_t lbn)
 {
 	ufs_daddr_t residue, up, off=0;
 	struct bufarea *bp;
-	
+
 	if(lbn > 0 && lbn > (idinode->di_size-1)/dev_bsize) {
 		return UNASSIGNED;
 	}
@@ -258,7 +258,7 @@ lfs_ientry(ino_t ino)
         ifp = (struct ifile *)malloc(sizeof(*ifp));
         *ifp = (((struct ifile *)(bp->b_un.b_buf))[ino%sblock.lfs_ifpb]);
         bp->b_flags &= ~B_INUSE;
-        
+
         return ifp;
     }
     else
@@ -630,7 +630,7 @@ inocleanup()
 void
 inodirty()
 {
-	
+
     dirty(pbp);
 }
 

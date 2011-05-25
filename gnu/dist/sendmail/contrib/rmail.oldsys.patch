@@ -96,13 +96,13 @@ prototypes.  Perhaps this should be included in the next version?
   		err(EX_TEMPFAIL, NULL);
   
   					/* Set name of ``from'' person. */
-! 	if (((from_path ? strlen(from_path) : 0) + strlen(from_user) + 3) 
+! 	if (((from_path ? strlen(from_path) : 0) + strlen(from_user) + 3)
 ! 	    > sizeof(buf))
 ! 		err(EX_DATAERR, "from address too long");
 ! 	(void)sprintf(buf, "-f%s%s",
   	    from_path ? from_path : "", from_user);
   	if ((args[i++] = strdup(buf)) == NULL)
   		err(EX_TEMPFAIL, NULL);
--- 
+--
 William A. Gianopoulos; Raytheon Missile Systems Division
 wag@sccux1.msd.ray.com

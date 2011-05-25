@@ -77,9 +77,9 @@ struct RF_Config_s {
 				 * be copied in */
 	int     force;                          /* if !0, ignore many fatal
 						   configuration conditions */
-	/* 
-	   "force" is used to override cases where the component labels would 
-	   indicate that configuration should not proceed without user 
+	/*
+	   "force" is used to override cases where the component labels would
+	   indicate that configuration should not proceed without user
 	   intervention
 	 */
 };

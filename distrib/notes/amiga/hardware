@@ -1,4 +1,4 @@
-.\" $NetBSD: hardware,v 1.34 1999/12/17 21:55:11 is Exp $	
+.\" $NetBSD: hardware,v 1.34 1999/12/17 21:55:11 is Exp $
 .
 .Nx \*V
 runs on any Amiga that has a 68020 or better CPU with
@@ -45,11 +45,11 @@ Supported devices include:
 .Bd -literal -offset indent
 A4000/A1200 IDE controller, including ATAPI devices.
 SCSI host adapters:
-	33c93 based boards: A2091, A3000 builtin, A3000 builtin 
+	33c93 based boards: A2091, A3000 builtin, A3000 builtin
 	    modified for Apollo accellerator board, and GVP series II.
-	53c80 based boards: 12 Gauge, IVS, Wordsync/Bytesync and 
+	53c80 based boards: 12 Gauge, IVS, Wordsync/Bytesync and
 	    Emplant.*)
-	53c710 based boards: A4091, Magnum, Warp Engine, Zeus 
+	53c710 based boards: A4091, Magnum, Warp Engine, Zeus
 	    and DraCo builtin.
 	FAS216 based SCSI boards: FastLane Z3, Blizzard I and II,
 	    Blizzard IV, Blizzard 2060, CyberSCSI Mk I and II.
@@ -73,7 +73,7 @@ Video controllers:
 Audio I/O:
 	Amiga builtin
 	Melody Mpeg-audio layer 2 board
-	
+
 Ethernet controllers:
 	A2065 Ethernet
 	Hydra Ethernet
@@ -97,7 +97,7 @@ Serial cards:
 	HyperCom 3Z, HyperCom 4, HyperCom 3+ and 4+
 	MultiFaceCard II and III
 	A2232 (normal and clockdoubled)
-Amiga floppy drives with Amiga (880/1760kB) and 
+Amiga floppy drives with Amiga (880/1760kB) and
 	IBM (720/1440kB) encoding. ****)
 Amiga parallel port.
 Amiga serial port.
@@ -126,7 +126,7 @@ There are reports that the Mustek and HP Scanjet hang if
 accessed from the A3000. This might apply to other
 33C93-Adapters, too.
 .It ****
-Our floppy driver doesn't notice when mounted floppies are 
+Our floppy driver doesn't notice when mounted floppies are
 write-protected at the moment. Your floppy will stay
 unchanged, but you might not notice that you didn't write
 anything due to the buffer cache. Also note that HD floppy

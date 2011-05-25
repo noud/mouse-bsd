@@ -54,23 +54,23 @@ send-pr \- send problem report (PR) to a central support site
 ]
 .SH DESCRIPTION
 .B send-pr
-is a tool used to submit 
-.I problem reports 
+is a tool used to submit
+.I problem reports
 .\" SITE ADMINISTRATORS - change this if you use a local default
-(PRs) to a central support site.  In most cases the correct 
+(PRs) to a central support site.  In most cases the correct
 .I site
 will be the default.  This argument indicates the support site which
 is responsible for the category of problem involved.  Some sites may
-use a local address as a default.  
+use a local address as a default.
 .I site
-values are defined by using the 
+values are defined by using the
 .BR aliases (5).
 .LP
 .B send-pr
 invokes an editor on a problem report template (after trying to fill
 in some fields with reasonable default values).  When you exit the
 editor,
-.B send-pr 
+.B send-pr
 sends the completed form to the
 .I Problem Report Management System
 (\fBGNATS\fR) at a central support site.  At the support site, the PR
@@ -111,8 +111,8 @@ information, the faster your support team can solve your problems.
 specify a file (\fIproblem-report\fR) which already contains a
 complete problem report.
 .B send-pr
-sends the contents of the file without invoking the editor.  If 
-the value for 
+sends the contents of the file without invoking the editor.  If
+the value for
 .I problem-report
 is
 .BR `\|\-\|' ,
@@ -122,18 +122,18 @@ reads from standard input.
 .TP
 .BI \-t " mail-address"
 Change mail address at the support site for problem reports.  The
-default 
+default
 .I mail-address
-is the address used for the default 
-.IR site .  
+is the address used for the default
+.IR site .
 Use the
 .I site
 argument rather than this option in nearly all cases.
 .TP
 .B \-P
-print the form specified by the environment variable 
-.B PR_FORM 
-on standard output.  If 
+print the form specified by the environment variable
+.B PR_FORM
+on standard output.  If
 .B PR_FORM
 is not set, print the standard blank PR template.  No mail is sent.
 .TP
@@ -143,10 +143,10 @@ print the list of available categories.  No mail is sent.
 .B \-\-request\-id
 sends mail to the default support site, or
 .I site
-if specified, with a request for your 
-.IR submitter-id . 
+if specified, with a request for your
+.IR submitter-id .
 If you are
-not affiliated with 
+not affiliated with
 .IR site ,
 use a
 .I submitter-id
@@ -154,7 +154,7 @@ of
 .BR net \|'.
 .TP
 .B \-V
-Display the 
+Display the
 .B send-pr
 version number.
 .LP
@@ -178,7 +178,7 @@ Defaults to $USER if not set.
 .TP
 .SM NAME
 Sets the default for the Originator field of the problem report.
-If not set, then the file $HOME/.fullname is used.  If 
+If not set, then the file $HOME/.fullname is used.  If
 $HOME/.fullname is not present, then an attempt is made to query
 the password file for a full name.
 .TP
@@ -214,8 +214,8 @@ is used.
 .SH "HOW TO FILL OUT A PROBLEM REPORT"
 Problem reports have to be in a particular form so that a program can
 easily manage them.  Please remember the following guidelines:
-.IP \(bu 3m 
-describe only 
+.IP \(bu 3m
+describe only
 .B one problem
 with each problem report.
 .IP \(bu 3m
@@ -223,9 +223,9 @@ For follow-up mail, use the same subject line as the one in the automatic
 acknowledgent. It consists of category, PR number and the original synopsis
 line.  This allows the support site to relate several mail messages to a
 particular PR and to record them automatically.
-.IP \(bu 3m 
+.IP \(bu 3m
 Please try to be as accurate as possible in the subject and/or synopsis line.
-.IP \(bu 3m 
+.IP \(bu 3m
 The subject and the synopsis line are not confidential.  This is
 because open-bugs lists are compiled from them.  Avoid confidential
 information there.
@@ -251,7 +251,7 @@ The product, component or concept is working in general, but lacks
 features, has irritating behavior, does something wrong, or doesn't
 match its documentation.
 .LP
-The default value is 
+The default value is
 .B serious.
 .LP
 The
@@ -266,7 +266,7 @@ The problem should be solved in the next release.
 .IP \fBlow\fR
 The problem should be solved in a future release.
 .LP
-The default value is 
+The default value is
 .B medium.
 .LP
 The
@@ -289,8 +289,8 @@ A support problem or question.
 The default value is
 .B sw-bug.
 .LP
-See the GNU 
-.B Info 
+See the GNU
+.B Info
 file
 .B send-pr.info
 or the document \fIReporting Problems With send-pr\fR\ for detailed
@@ -310,7 +310,7 @@ copy of empty PR form, for testing purposes
 file for rejected PRs
 .TP
 .SM $HOME/.fullname
-Contains the default for the Originator field of the problem 
+Contains the default for the Originator field of the problem
 report if $NAME is not set
 .TP
 .SM $HOME/.organization
@@ -322,9 +322,9 @@ Contains the default for the Organization field of the problem
 report if $ORGANIZATION is not set and $HOME/.organization does
 not exist.
 .SH EMACS USER INTERFACE
-An Emacs user interface for 
+An Emacs user interface for
 .B send-pr
-with completion of field values is part of the 
+with completion of field values is part of the
 .B send-pr
 distribution (invoked with
 .BR "M-x send-pr" ).
@@ -333,12 +333,12 @@ See the file
 or the ASCII file
 .B INSTALL
 in the top level directory of the distribution for configuration and
-installation information.  The Emacs LISP template file is 
+installation information.  The Emacs LISP template file is
 .B send-pr-el.in
 and is installed as
 .BR send-pr.el .
 .SH INSTALLATION AND CONFIGURATION
-See 
+See
 .B send-pr.info
 or
 .B INSTALL

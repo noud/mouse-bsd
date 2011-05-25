@@ -41,7 +41,7 @@ static void aout_adobe_write_section PARAMS ((bfd *abfd, sec_ptr sect));
 void aout_adobe_swap_exec_header_in
   PARAMS ((bfd *abfd, struct external_exec *raw_bytes,
 	   struct internal_exec *execp));
-	 
+
 void
 aout_adobe_swap_exec_header_in (abfd, raw_bytes, execp)
      bfd *abfd;
@@ -179,7 +179,7 @@ aout_adobe_callback (abfd)
 
     default:
       (*_bfd_error_handler)
-	("%s: Unknown section type in a.out.adobe file: %x\n", 
+	("%s: Unknown section type in a.out.adobe file: %x\n",
 	 bfd_get_filename (abfd), ext->e_type[0]);
       goto no_more_sections;
     }
@@ -229,7 +229,7 @@ aout_adobe_callback (abfd)
       break;
     }
   }
-no_more_sections:  
+no_more_sections:
 
   adata(abfd).reloc_entry_size = sizeof (struct reloc_std_external);
   adata(abfd).symbol_entry_size = sizeof (struct external_nlist);
@@ -336,7 +336,7 @@ aout_adobe_write_object_contents (abfd)
     return false;
 
   /* Now write out reloc info, followed by syms and strings */
-  if (bfd_get_symcount (abfd) != 0) 
+  if (bfd_get_symcount (abfd) != 0)
     {
       if (bfd_seek (abfd, (file_ptr)(N_SYMOFF(*exec_hdr(abfd))), SEEK_SET)
 	  != 0)
@@ -448,7 +448,7 @@ aout_adobe_set_arch_mach (abfd, arch, machine)
   return false;
 }
 
-static int 
+static int
 aout_adobe_sizeof_headers (ignore_abfd, ignore)
      bfd *ignore_abfd;
      boolean ignore;

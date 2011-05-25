@@ -19,8 +19,8 @@ FindConfig(base)
 {
     static char result[BUFSIZ];
     char hostname[MAXHOSTNAMELEN + 1], *cp;
-    struct stat sbuf; 
-    struct utsname unamebuf; 
+    struct stat sbuf;
+    struct utsname unamebuf;
 
     /* All keyed by initial target being a directory */
     (void) strcpy(result, base);
@@ -55,8 +55,8 @@ FindConfig(base)
 			}
 		    }
 		}
-	    } 
-	} 
+	    }
+	}
     }
 outahere:
     return(result);

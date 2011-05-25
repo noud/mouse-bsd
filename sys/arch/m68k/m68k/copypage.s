@@ -5,8 +5,8 @@
  * All rights reserved.
  *
  * This code is derived from software contributed to The NetBSD Foundation
- * by J.T. Conklin <jtc@netbsd.org> and 
- * by Hiroshi Horitomo <horimoto@cs-aoi.cs.sist.ac.jp> 
+ * by J.T. Conklin <jtc@netbsd.org> and
+ * by Hiroshi Horitomo <horimoto@cs-aoi.cs.sist.ac.jp>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions

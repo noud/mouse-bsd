@@ -205,7 +205,7 @@ nullfs_mount(mp, path, data, ndp, p)
 
 	(void) copyinstr(path, mp->mnt_stat.f_mntonname, MNAMELEN - 1, &size);
 	memset(mp->mnt_stat.f_mntonname + size, 0, MNAMELEN - size);
-	(void) copyinstr(args.la.target, mp->mnt_stat.f_mntfromname, MNAMELEN - 1, 
+	(void) copyinstr(args.la.target, mp->mnt_stat.f_mntfromname, MNAMELEN - 1,
 	    &size);
 	memset(mp->mnt_stat.f_mntfromname + size, 0, MNAMELEN - size);
 #ifdef NULLFS_DIAGNOSTIC
@@ -241,7 +241,7 @@ nullfs_unmount(mp, mntflags, p)
 	 * moment, but who knows...
 	 */
 #if 0
-	mntflushbuf(mp, 0); 
+	mntflushbuf(mp, 0);
 	if (mntinvalbuf(mp, 1))
 		return (EBUSY);
 #endif
@@ -252,7 +252,7 @@ nullfs_unmount(mp, mntflags, p)
 
 #ifdef NULLFS_DIAGNOSTIC
 	vprint("alias root of lower", null_rootvp);
-#endif	 
+#endif
 	/*
 	 * Release reference on underlying root vnode
 	 */

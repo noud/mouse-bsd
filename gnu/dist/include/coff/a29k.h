@@ -1,7 +1,7 @@
-/* COFF spec for AMD 290*0 
+/* COFF spec for AMD 290*0
    Contributed by David Wood @ New York University.
  */
- 
+
 #ifndef AMD
 # define AMD
 #endif
@@ -29,16 +29,16 @@ struct external_filehdr
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 /*
-** Magic numbers for Am29000 
-**	(AT&T will assign the "real" magic number)  
+** Magic numbers for Am29000
+**	(AT&T will assign the "real" magic number)
 */
 
 #define SIPFBOMAGIC     0572    /* Am29000 (Byte 0 is MSB) */
 #define SIPRBOMAGIC     0573    /* Am29000 (Byte 0 is LSB) */
 
 
-#define A29K_MAGIC_BIG 		SIPFBOMAGIC	
-#define A29K_MAGIC_LITTLE	SIPRBOMAGIC	
+#define A29K_MAGIC_BIG 		SIPFBOMAGIC
+#define A29K_MAGIC_LITTLE	SIPRBOMAGIC
 #define A29KBADMAG(x) 	(((x).f_magic!=A29K_MAGIC_BIG) && \
 			  ((x).f_magic!=A29K_MAGIC_LITTLE))
 
@@ -55,10 +55,10 @@ struct external_filehdr
 /*--------------------------------------------------------------*/
 
 /*
-** Optional (a.out) header 
+** Optional (a.out) header
 */
 
-typedef	struct external_aouthdr 
+typedef	struct external_aouthdr
 {
   char  magic[2];	       /* type of file			 */
   char  vstamp[2];	      /* version stamp			*/
@@ -75,7 +75,7 @@ typedef	struct external_aouthdr
 
 /* aouthdr magic numbers */
 #define NMAGIC		0410	/* separate i/d executable */
-#define SHMAGIC	0406		/* NYU/Ultra3 shared data executable 
+#define SHMAGIC	0406		/* NYU/Ultra3 shared data executable
 				   (writable text) */
 
 #define _ETEXT   	"_etext"
@@ -86,7 +86,7 @@ typedef	struct external_aouthdr
 ** Section header and related definitions
 */
 
-struct external_scnhdr 
+struct external_scnhdr
 {
 	char	    s_name[8];      /* section name		 */
 	char	    s_paddr[4];     /* physical address, aliased s_nlib */
@@ -114,7 +114,7 @@ struct external_scnhdr
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 /*
-** Section types - with additional section type for global 
+** Section types - with additional section type for global
 ** registers which will be relocatable for the Am29000.
 **
 ** In instances where it is necessary for a linker to produce an
@@ -141,16 +141,16 @@ struct external_reloc {
 };
 
 #define	RELOC		struct external_reloc
-#define	RELSZ		10		/* sizeof (RELOC) */ 
+#define	RELSZ		10		/* sizeof (RELOC) */
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 /*
-** Relocation types for the Am29000 
+** Relocation types for the Am29000
 */
 
 #define	R_ABS		0	/* reference is absolute */
- 
+
 #define	R_IREL		030	/* instruction relative (jmp/call) */
 #define	R_IABS		031	/* instruction absolute (jmp/call) */
 #define	R_ILOHALF	032	/* instruction low half  (const)  */
@@ -164,19 +164,19 @@ struct external_reloc {
 #define	R_IGLBLRC	040	/* instruction global register RC */
 #define	R_IGLBLRA	041	/* instruction global register RA */
 #define	R_IGLBLRB	042	/* instruction global register RB */
- 
+
 /*
 NOTE:
-All the "I" forms refer to 29000 instruction formats.  The linker is 
+All the "I" forms refer to 29000 instruction formats.  The linker is
 expected to know how the numeric information is split and/or aligned
 within the instruction word(s).  R_BYTE works for instructions, too.
 
-If the parameter to a CONSTH instruction is a relocatable type, two 
-relocation records are written.  The first has an r_type of R_IHIHALF 
-(33 octal) and a normal r_vaddr and r_symndx.  The second relocation 
-record has an r_type of R_IHCONST (34 octal), a normal r_vaddr (which 
-is redundant), and an r_symndx containing the 32-bit constant offset 
-to the relocation instead of the actual symbol table index.  This 
+If the parameter to a CONSTH instruction is a relocatable type, two
+relocation records are written.  The first has an r_type of R_IHIHALF
+(33 octal) and a normal r_vaddr and r_symndx.  The second relocation
+record has an r_type of R_IHCONST (34 octal), a normal r_vaddr (which
+is redundant), and an r_symndx containing the 32-bit constant offset
+to the relocation instead of the actual symbol table index.  This
 second record is always written, even if the constant offset is zero.
 The constant fields of the instruction are set to zero.
 */
@@ -187,7 +187,7 @@ The constant fields of the instruction are set to zero.
 ** Line number entry declaration and related definitions
 */
 
-struct external_lineno 
+struct external_lineno
 {
    union {
 	 char l_symndx[4]; /* function name symbol index, iff l_lnno == 0*/
@@ -251,7 +251,7 @@ struct external_syment
 /*--------------------------------------------------------------*/
 
 /*
-** Auxiliary symbol table entry declaration and related 
+** Auxiliary symbol table entry declaration and related
 ** definitions.
 */
 
@@ -302,4 +302,4 @@ union external_auxent {
 };
 
 #define	AUXENT		union external_auxent
-#define	AUXESZ		18	
+#define	AUXESZ		18

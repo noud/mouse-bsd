@@ -198,6 +198,6 @@ sd_atapibus_get_parms(sd, dp, flags)
 	dp->sectors = sense_data.pages.flex_geometry.ph_sec_tr;
 	dp->cyls = _2btol(sense_data.pages.flex_geometry.ncyl);
 	dp->rot_rate = _2btol(sense_data.pages.flex_geometry.rot_rate);
-	
+
 	return (SDGP_RESULT_OK);
 }

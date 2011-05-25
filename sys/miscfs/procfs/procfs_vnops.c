@@ -424,15 +424,15 @@ procfs_print(v)
 }
 
 int
-procfs_link(v) 
+procfs_link(v)
 	void *v;
 {
 	struct vop_link_args /* {
 		struct vnode *a_dvp;
-		struct vnode *a_vp;  
+		struct vnode *a_vp;
 		struct componentname *a_cnp;
 	} */ *ap = v;
- 
+
 	VOP_ABORTOP(ap->a_dvp, ap->a_cnp);
 	vput(ap->a_dvp);
 	return (EROFS);
@@ -449,7 +449,7 @@ procfs_symlink(v)
 		struct vattr *a_vap;
 		char *a_target;
 	} */ *ap = v;
-  
+
 	VOP_ABORTOP(ap->a_dvp, ap->a_cnp);
 	vput(ap->a_dvp);
 	return (EROFS);
@@ -683,7 +683,7 @@ procfs_access(v)
  *
  * Locking isn't hard here, just poorly documented.
  *
- * If we're looking up ".", just vref the parent & return it. 
+ * If we're looking up ".", just vref the parent & return it.
  *
  * If we're looking up "..", unlock the parent, and lock "..". If everything
  * went ok, and we're on the last component and the caller requested the
@@ -735,7 +735,7 @@ procfs_lookup(v)
 		/*
 		 * Shouldn't get here with .. in the root node.
 		 */
-		if (cnp->cn_flags & ISDOTDOT) 
+		if (cnp->cn_flags & ISDOTDOT)
 			return (EIO);
 
 		iscurproc = CNEQ(cnp, "curproc", 7);
@@ -905,7 +905,7 @@ procfs_readdir(v)
 		     uio->uio_resid >= UIO_MX && i < nproc_targets; pt++, i++) {
 			if (pt->pt_valid && (*pt->pt_valid)(p) == 0)
 				continue;
-			
+
 			d.d_fileno = PROCFS_FILENO(pfs->pfs_pid, pt->pt_pfstype);
 			d.d_namlen = pt->pt_namlen;
 			memcpy(d.d_name, pt->pt_name, pt->pt_namlen + 1);

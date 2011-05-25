@@ -65,7 +65,7 @@ struct pim {
 	u_char  pim_rsv;	/* Reserved */
 	u_short	pim_cksum;	/* IP style check sum */
 };
-#endif 
+#endif
 
 
 #include <stdio.h>

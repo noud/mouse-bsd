@@ -23,13 +23,13 @@
  * THIS SOFTWARE IS PROVIDED BY JONATHAN STONE ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -65,7 +65,7 @@ __RCSID("$NetBSD: target.c,v 1.22 1999/06/20 06:08:15 cgd Exp $");
 #include "menu_defs.h"
 
 /*
- * local  prototypes 
+ * local  prototypes
  */
 static const char*	get_rootdev __P((void));
 static const char* mounted_rootpart __P((void));
@@ -112,7 +112,7 @@ backtowin()
 }
 
 /*
- * Get name of current root device  from kernel via sysctl. 
+ * Get name of current root device  from kernel via sysctl.
  * On NetBSD-1.3_ALPHA, this just returns the name of a
  * device (e.g., "sd0"), not a specific partition -- like "sd0a",
  * or "sd0b" for root-in-swap.
@@ -138,7 +138,7 @@ get_rootdev()
 
 
 /*
- * Check if current root and target are on the same 
+ * Check if current root and target are on the same
  * device (e.g., both on "sd0") or on different devices
  * e.g., target is "sd0" and root is "le0" (nfs).
  */
@@ -198,7 +198,7 @@ must_mount_root()
 }
 
 /*
- * Is the root pattion we're running from the same as the root 
+ * Is the root pattion we're running from the same as the root
  * which the  user has selected to install/upgrade?
  * Uses global variable "diskdev" to find the selected device for
  * install/upgrade.
@@ -257,7 +257,7 @@ mounted_rootpart()
 	}
 #if defined(DEBUG)
 	endwin();
-	printf("mounted_rootpart: got %s on %s\n", 
+	printf("mounted_rootpart: got %s on %s\n",
 	    statfsbuf.f_mntonname, statfsbuf.f_mntfromname);
 	fflush(stdout);
 	backtowin();
@@ -271,7 +271,7 @@ mounted_rootpart()
 }
 
 /*
- * Is this device partition (e.g., "sd0a") mounted as root? 
+ * Is this device partition (e.g., "sd0a") mounted as root?
  * Note difference from target_on_current_disk()!
  */
 int
@@ -305,7 +305,7 @@ is_active_rootpart(devpart)
 }
 
 /*
- * Pathname  prefixing glue to support installation either 
+ * Pathname  prefixing glue to support installation either
  * from in-ramdisk miniroots or on-disk diskimages.
  * If our root is on the target disk, the install target is mounted
  * on /mnt and we need to prefix installed pathnames with /mnt.
@@ -316,7 +316,7 @@ const char *
 target_prefix()
 {
 	/*
-	 * XXX fetch sysctl variable for current root, and compare 
+	 * XXX fetch sysctl variable for current root, and compare
 	 * to the devicename of the install target disk.
 	 */
 	return(target_already_root() ? "" : "/mnt");
@@ -325,11 +325,11 @@ target_prefix()
 /*
  * concatenate two pathnames.
  * XXX returns either input args or result in a static buffer.
- * The caller must copy if it wants to use the pathname past the 
+ * The caller must copy if it wants to use the pathname past the
  * next call to a target-prefixing  function, or to modify the inputs..
  * Used only  internally so this is probably safe.
  */
-static const char*  
+static const char*
 concat_paths(prefix, suffix)
 	const char* prefix;
 	const char *suffix;
@@ -355,7 +355,7 @@ concat_paths(prefix, suffix)
 /*
  * Do target prefix expansion on a pathname.
  * XXX uses concat_paths and so returns result in a static buffer.
- * The caller must copy if it wants to use the pathname past the 
+ * The caller must copy if it wants to use the pathname past the
  * next call to a target-prefixing  function, or to modify the inputs..
  * Used only  internally so this is probably safe.
  *
@@ -370,7 +370,7 @@ target_expand(tgtpath)
 }
 
 /* Make a directory, with a prefix like "/mnt" or possibly just "". */
-static void 
+static void
 make_prefixed_dir(prefix, path)
 	const char *prefix;
 	const char *path;
@@ -403,7 +403,7 @@ make_ramdisk_dir(path)
  *
  * Append |string| to the  filename |path|, where |path| is
  * relative to the root of the install target.
- * for example, 
+ * for example,
  *    echo_to_target_file( "Newbie.NetBSD.ORG", "/etc/myname");
  * would set the default hostname at the next reboot of the installed-on disk.
  */
@@ -417,7 +417,7 @@ append_to_target_file(path, string)
 }
 
 /*
- * As append_to_target_file, but with ftrunc semantics. 
+ * As append_to_target_file, but with ftrunc semantics.
  */
 void
 echo_to_target_file(path, string)
@@ -526,7 +526,7 @@ cp_to_target(srcpath, tgt_path)
 /*
  * Duplicate a file from the current root to the same pathname
  * in the target system.  Pathname must be an absolute pathname.
- * If we're running in the target, do nothing. 
+ * If we're running in the target, do nothing.
  */
 void
 dup_file_into_target(filename)
@@ -579,7 +579,7 @@ target_fopen(filename, type)
 }
 
 /*
- * Do a mount and record the mountpoint in a list of mounts to 
+ * Do a mount and record the mountpoint in a list of mounts to
  * unwind after completing or aborting a mount.
  */
 int
@@ -611,7 +611,7 @@ mount_with_unwind(fstype, from, on)
 
 /*
  * unwind the mount stack, umounting mounted filesystems.
- * For now, ignore any errors in unmount. 
+ * For now, ignore any errors in unmount.
  * (Why would we be unable to unmount?  The user has suspended
  *  us and forked shell sitting somewhere in the target root?)
  */
@@ -699,7 +699,7 @@ target_test(test, path)
 }
 
 /*
- * Verify a directory already exists in the target root 
+ * Verify a directory already exists in the target root
  * filesystem. Do not create the directory if it doesn't  exist.
  * Assumes that sysinst has already mounted the target root.
  */
@@ -712,7 +712,7 @@ target_test_dir(path)
 }
 
 /*
- * Verify an ordinary file already exists in the target root 
+ * Verify an ordinary file already exists in the target root
  * filesystem. Do not create the directory if it doesn't  exist.
  * Assumes that sysinst has already mounted the target root.
  */

@@ -535,7 +535,7 @@ Thu Oct 28 14:09:48 1993  James Clark  (jjc@jclark.com)
 	* troff/input.cc (exit_troff): Likewise
 
 	* Makefile.in: Remove `Making ...' messages since GNU make now
-	gives these. 
+	gives these.
 
 	* configure.in: Use AC_HAVE_HEADERS(unistd.h) instead of AC_UNISTD_H.
 
@@ -703,7 +703,7 @@ Sat May 15 17:26:00 1993  James Clark  (jjc at jclark.com)
 	(glyph::hpos): Change type to short.
 	(tty_printer::end_page): Output multiple backspaces if necessary.
 	 Remove casts of glyph::hpos to int.
-	
+
 Fri May  7 12:14:37 1993  James Clark  (jjc at jclark.com)
 
 	* tmac/tmac.s (@RT): New definition.
@@ -1814,7 +1814,7 @@ Fri Jul 17 11:12:49 1992  James Clark  (jjc at jclark)
 	font::set_unknown_desc_command_handler.
 	(broken.h): Don't include.
 	* ps/Makefile: No need for broken.h.  Pass BROKEN_SPOOLER_FLAGS to
-	submake 
+	submake
 	* ps/devps/Makefile: Add `broken' command to DESC file using
 	BROKEN_SPOOLER_FLAGS.
 
@@ -1955,7 +1955,7 @@ Mon Jul  6 11:06:52 1992  James Clark  (jjc at jclark)
 	(main): Call process_startup_file().
 	* macros/troffrc: New file.
 	* macros/Makefile: Install troffrc.
-	* groff.c (main): Don't pass extra -m option to troff. For a 
+	* groff.c (main): Don't pass extra -m option to troff. For a
 	pseudo device pass the name of the pseudo device to troff using
 	-d.
 	* groff.sh: Likewise.
@@ -2230,7 +2230,7 @@ Tue Jun  2 00:54:34 1992  James Clark  (jjc@jclark)
 	only if current_field.
 
 	* troff/dictionary.c (dictionary::lookup): Free old_table after
-	rehashing. 
+	rehashing.
 
 Mon Jun  1 10:15:22 1992  James Clark  (jjc@jclark)
 
@@ -2318,7 +2318,7 @@ Tue May  5 10:58:39 1992  James Clark  (jjc at jclark)
 	translation.
 	* troff/input.c (translate): Allow translation to \%.
 	* troff/node.c (node::add_char): Handle
-	TRANSLATE_HYPHEN_INDICATOR.	
+	TRANSLATE_HYPHEN_INDICATOR.
 	(make_node): Don't allow TRANSLATE_HYPHEN_INDICATOR here.
 
 	* troff/input.c (init_charset_table): Don't set BREAK_AFTER flag
@@ -2679,7 +2679,7 @@ Sat Jan  4 14:42:26 1992  James Clark  (jjc at jclark)
 
 Fri Jan  3 13:27:51 1992  James Clark  (jjc at jclark)
 
-	* tbl/table.h (format_type): 
+	* tbl/table.h (format_type):
 	* refer/token.h (token_type): If NESTED_TYPES is defined, use
 	typedef to make these types visible at file scope.
 	* Makefile: Add NESTED_TYPES configuration option.
@@ -2798,7 +2798,7 @@ Sun Sep 29 08:40:57 1991  James Clark  (jjc at jclark)
 	* pic/pic.y (YYDEBUG): Don't define for Borland C++.
 
 	* lib/lib.h: #ifdef out declarations of itoa and iftoa for Borland
-	C++. 
+	C++.
 
 	* pic/lex.c (input_stack::bol): Move definition out of class body.
 
@@ -2914,7 +2914,7 @@ Tue Jul 30 10:03:56 1991  James Clark  (jjc at jclark)
 	ps_printer::do_mdef, ps_printer::do_import): Call flush_sbuf().
 	(ps_printer::special): New specials invis and endinvis.
 	(ps_printer::do_invis, ps_printer::do_endinvis): New functions.
-	(ps_printer::set_char, ps_printer::draw): Return if invis_count>0. 
+	(ps_printer::set_char, ps_printer::draw): Return if invis_count>0.
 	(ps_printer::end_page): Check that invis_count == 0.
 	(ps_printer::invis_count): New member.
 	(ps_printer::ps_printer): Initialize invis_count to 0.
@@ -3226,7 +3226,7 @@ Mon May 20 11:22:14 1991  James Clark  (jjc at jclark)
 	* troff/env.c (class trie, class hyphen_trie): Make the
 	elements of the trie be of type char not unsigned char.
 	Declare arguments to be const char* instead of unsigned char *.
-	
+
 	* troff/env.c (hyphenate): Initialize hbuf[0].
 
 	* troff/input.c (set_string): Declare p to be char * and cast
@@ -3492,7 +3492,7 @@ Thu Mar 14 10:22:26 1991  James Clark  (jjc at jclark)
 
 Wed Mar 13 12:49:40 1991  James Clark  (jjc at jclark)
 
-	* Version 1.01 released. 
+	* Version 1.01 released.
 
 	* dvi/devdvi/CompileFonts: Add cm*ss10 fonts.
 
@@ -3619,7 +3619,7 @@ Sun Feb 24 21:32:30 1991  James Clark  (jjc at jclark)
 Thu Feb 21 11:49:26 1991  James Clark  (jjc at jclark)
 
 	* eqn/main.c (main): New option -N which sets
-	no_newline_in_delim_flag. 
+	no_newline_in_delim_flag.
 	(do_file): If no_newline_in_delim_flag is set don't allow newlines
 	in delimiters.
 	* groff.c (main): Pass -N on to eqn.
@@ -3928,7 +3928,7 @@ Fri Dec 21 11:41:53 1990  James Clark  (jjc at jclark)
 	instead of setting trap; call @init first.  Set pg@top as top of
 	page macro.
 	(cov*auto-init): Deleted.  Set cov*tl-init instead of
-	cov*auto-init as top of page trap. 
+	cov*auto-init as top of page trap.
 	(TL, LP): Do a break instead of calling cov*tl-init.
 	(cov*print): With RP format but no TL, alias FS and FE to @FS and
 	@FE; in this case also give a warning and always start another
@@ -4269,7 +4269,7 @@ Thu Nov  1 02:03:50 1990  James Clark  (jjc at jclark)
 	* troff/div.c (begin_page): Test no_space_mode after doing the
 	break, but still push the page ejector cookie before doing the
 	break.  Also set the next page number after doing the break.
-	
+
 	* xditview/xditview.c (NewFile): Don't set the title and icon name
 	if this is the first file and its name is `-'.
 	* groff/groff.c: Define a new device flag XT_OPTION.  Set it for
@@ -4563,7 +4563,7 @@ Fri Oct  5 04:03:13 1990  James Clark  (jjc at jclark)
 	printing stuff before the row.  If the current row is not all
 	lines and the stuff doesn't contain a line, don't unnecessarily
 	mark the top of the row before printing the stuff.
-	
+
 Mon Oct  1 11:42:00 1990  James Clark  (jjc at jclark)
 
 	* troff/groff.h: Remove MAX_PATH.
@@ -4604,7 +4604,7 @@ Sat Sep 22 11:32:22 1990  James Clark  (jjc at jclark)
 	(class constant_vunits_reg): New class.
 	(init_div_requests): Implement number registers .trunc and .ne
 	using constant_vunits_reg.
-	(class truncated_space_reg): Deleted.	
+	(class truncated_space_reg): Deleted.
 
 	* troff/div.h: Don't have a no_space_mode member in diversion.
 	Instead have it in top_level_diversion.
@@ -4654,7 +4654,7 @@ Wed Sep 19 10:54:37 1990  James Clark  (jjc at jclark)
 	* troff/node.c (troff_output_file::print_line,
 	troff_output_file::end_of_line, output_file::end_of_line,
 	ascii_output_file::print_line, suppress_output_file::print_line):
-	Corresponding changes.	
+	Corresponding changes.
 
 Tue Sep 18 11:31:47 1990  James Clark  (jjc at jclark)
 
@@ -4673,7 +4673,7 @@ Mon Sep 17 09:19:19 1990  James Clark  (jjc at jclark)
 
 	* ps/devps/Makefile: Remove T from FONTS. Remove TSymbol.ps and
 	Troff.ps from DOWNLOAD.
-	
+
 	* troff/Makefile: Change comment in DEFINES to avoid confusing
 	System V make.
 
@@ -4896,7 +4896,7 @@ Thu Sep  6 13:29:10 1990  James Clark  (jjc at jclark)
 	get_diverted_space_node methods. Make `n' member private.
 	* troff/input.c: (token::diverted_space): Removed.
 	* troff/token.h: Removed declaration.
-	
+
 
 Tue Sep  4 00:48:04 1990  James Clark  (jjc at jclark)
 
@@ -4905,10 +4905,10 @@ Tue Sep  4 00:48:04 1990  James Clark  (jjc at jclark)
 
 	* tbl/table.c (table::do_row): Entries that don't end in the
 	this row shouldn't make the row non-blank.
-	
+
 	* tbl/table.c (table::make_columns_equal): Only set the width of
 	columns which are marked as equal.
-	
+
 	* tbl/main.c (process_data): Before issuing excess data error,
 	if last character was a newline unget it; then get it again after
 	the error.  Also include the contents of the entry in the message.
@@ -5239,7 +5239,7 @@ Sun Aug 12 09:41:15 1990  James Clark  (jjc at yquem)
 	char)): Use asciify.
 	* troff/input.c (asciify): Don't make it static.
 	* troff/token.h (asciify): Declare it.
-	
+
 	* troff/input.c (get_name, get_long_name, token::get_char,
 	token::delimiter): Add an extra default argument which says
 	whether a warning should be printed.
@@ -5502,7 +5502,7 @@ Fri Jul 27 10:21:25 1990  James Clark  (jjc at yquem)
 	SUPPRESS_BOTTOM_REG back to 0.  In T#, do nothing if
 	SUPPRESS_BOTTOM_REG is non-zero.  In T#, always mark the current
 	vertical position and return to it before turning traps on again.
-	
+
 Thu Jul 26 02:54:32 1990  James Clark  (jjc at yquem)
 
 	* troff/node.c, troff/node.h: In classes derived from node,
@@ -5624,7 +5624,7 @@ Wed Jul 18 10:23:31 1990  James Clark  (jjc at yquem)
 
 	* troff/node.h (class transparent_dummy_node): New class.
 	* troff/node.c (class transparent_dummy_node): Provide member
-	functions. 
+	functions.
 	* troff/env.c (interrupt): Add a transparent_dummy_node, rather
 	than a dummy_node.
 
@@ -5705,7 +5705,7 @@ Sat Jul 14 11:23:01 1990  James Clark  (jjc at yquem)
 	* lib/lib.h: If CFRONT_ANSI_BUG is defined, cast INT_MIN to long.
 	This works around a bug in AT&T C++ 2.0 used with an ANSI C
 	compiler.
-	
+
 	* macros/tmac.an (an-header): Set no-space mode.
 
 	* macros/tmac.an (TH): Start a new page if necessary.

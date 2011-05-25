@@ -76,7 +76,7 @@ void startit_end __P((void));
  *	2:      needs esym location passed in a4
  *	3:      load kernel image into fastmem rather than chipmem
  *	MAX:    highest version with backward compatibility.
- */     
+ */
 
 #define KERNEL_STARTUP_VERSION		3
 #define KERNEL_STARTUP_VERSION_MAX	9
@@ -89,7 +89,7 @@ char default_command[] = "netbsd -ASn2";
 
 int
 pain(aio)
-	void *aio;	
+	void *aio;
 {
 	long int io = 0;
 	char linebuf[128];
@@ -192,7 +192,7 @@ pain(aio)
 					m_value = get_number(&path) * 1024;
 					break;
 				case 'n':	/* non-contiguous memory */
-					amiga_flags |= 
+					amiga_flags |=
 					    (get_number(&path) & 3) << 1;
 					break;
 				case 'p':	/* Select fastmem by priority */
@@ -257,7 +257,7 @@ pain(aio)
 	nseg = 0;
 	mh = SysBase->MemLst;
 	vfrom = mh->Lower & -__PGSZ;
-	vsize = (mh->Upper & -__PGSZ) - vfrom; 
+	vsize = (mh->Upper & -__PGSZ) - vfrom;
 	contflag = mapped1to1 = 0;
 
 	do {
@@ -277,16 +277,16 @@ pain(aio)
 
 #ifdef DEBUG_MEMORY_LIST
 		printf("%lx %lx %lx %ld/%lx %lx\n",
-			(long)from, (long)size, 
+			(long)from, (long)size,
 			(long)mh->Attribs, (long)mh->Pri,
 			(long)vfrom, (long)vsize);
 #endif
 		/* Insert The Evergrowing Kludge List Here: */
 
 		/* a) dont load kernel over DraCo MMU table */
-			
+
 		if (((cpuid >> 24) == 0x7D) &&
-		    ((from & -DRACOMMUMARGIN) == 0x40000000) && 
+		    ((from & -DRACOMMUMARGIN) == 0x40000000) &&
 		    (size >= DRACOMMUMARGIN)) {
 
 			memseg[nseg].ms_start = from & -DRACOMMUMARGIN;
@@ -318,7 +318,7 @@ pain(aio)
 			contflag = 0;
 			if (mh->next) {
 				vfrom = mh->Lower & -__PGSZ;
-				vsize = (mh->Upper & -__PGSZ) - vfrom; 
+				vsize = (mh->Upper & -__PGSZ) - vfrom;
 			}
 		}
 	} while ((++nseg <= 16) && vsize);
@@ -350,11 +350,11 @@ pain(aio)
 		goto err;
 	}
 #endif
-		
+
 	textsz = (ehs.a_text + __LDPGSZ - 1) & (-__LDPGSZ);
 	esym = 0;
 
-	ksize = textsz + ehs.a_data + ehs.a_bss 
+	ksize = textsz + ehs.a_data + ehs.a_bss
 	    + sizeof(*nkcd) + ncd*sizeof(*cd)
 	    + sizeof(*nkcd) + nseg * sizeof(struct boot_memseg);
 
@@ -537,9 +537,9 @@ char **ptr;
 	}
 	*ptr = p - 1;
 #ifdef TEST
-	fprintf(stderr, "get_number: got %c0x%x", 
+	fprintf(stderr, "get_number: got %c0x%x",
 	    sign ? '-' : '+', value);
-#endif	
+#endif
 	return (sign ? -value : value);
 }
 

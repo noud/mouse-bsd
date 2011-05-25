@@ -398,7 +398,7 @@ trap(type, code, v, frame)
 		i = SIGBUS;
 		break;
 
-	/* 
+	/*
 	 * Kernel coprocessor violation
 	 */
 	case T_COPERR:
@@ -425,7 +425,7 @@ trap(type, code, v, frame)
 		ucode = frame.f_format;	/* XXX was ILL_RESAD_FAULT */
 		break;
 
-	/* 
+	/*
 	 * User coprocessor violation
 	 */
 	case T_COPERR|T_USER:
@@ -433,8 +433,8 @@ trap(type, code, v, frame)
 		i = SIGFPE;	/* XXX What is a proper response here? */
 		break;
 
-	/* 
-	 * 6888x exceptions 
+	/*
+	 * 6888x exceptions
 	 */
 	case T_FPERR|T_USER:
 		/*
@@ -488,7 +488,7 @@ trap(type, code, v, frame)
 		break;
 
 	/*
-	 * divde by zero, CHK/TRAPV inst 
+	 * divde by zero, CHK/TRAPV inst
 	 */
 	case T_ZERODIV|T_USER:
 	case T_CHKINST|T_USER:
@@ -534,7 +534,7 @@ trap(type, code, v, frame)
 		frame.f_sr &= ~PSL_T;
 		i = SIGTRAP;
 		break;
-	/* 
+	/*
 	 * Kernel AST (should not happen)
 	 */
 	case T_ASTFLT:
@@ -690,7 +690,7 @@ trap(type, code, v, frame)
 	if ((type & T_USER) == 0)
 		return;
 out:
-	userret(p, &frame, sticks, v, 1); 
+	userret(p, &frame, sticks, v, 1);
 }
 
 #ifdef M68040
@@ -1042,7 +1042,7 @@ syscall(code, frame)
 		if (code != SUNOS_SYS_sigreturn) {
 			frame.f_regs[SP] += sizeof (int);
 			/*
-			 * remember that we adjusted the SP, 
+			 * remember that we adjusted the SP,
 			 * might have to undo this if the system call
 			 * returns ERESTART.
 			 */
@@ -1173,7 +1173,7 @@ syscall(code, frame)
 			error = p->p_emul->e_errno[error];
 		frame.f_regs[D0] = error;
 		frame.f_sr |= PSL_C;	/* carry bit */
-		break;	
+		break;
 	}
 
 #ifdef SYSCALL_DEBUG

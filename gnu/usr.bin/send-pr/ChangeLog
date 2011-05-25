@@ -73,7 +73,7 @@ Thu Oct  6 13:05:19 1994  Brendan Kehoe  (brendan@lisa.cygnus.com)
 
 	* send-pr-el.in (gnats::get-config): Go to point-min after running
 	the shell command on the region.
-	(send-pr::start-up): Likewise, after inserting the site template. 
+	(send-pr::start-up): Likewise, after inserting the site template.
 
 	* send-pr.sh (TMPDIR): If TMPDIR ends in a slash, cut it off to
 	avoid emacs send-pr not working.
@@ -438,7 +438,7 @@ Thu Aug 26 14:31:21 1993  Jason Merrill  (jason@deneb.cygnus.com)
 	(die): New function to massage buggy Sun sh
 	(EXIT_STATUS): New variable to massage buggy Sun sh
 	Don't parse To: and CC: headers any more
-	Check for failure of MAIL_AGENT	
+	Check for failure of MAIL_AGENT
 
 Tue Aug 24 16:57:13 1993  Jason Merrill  (jason@deneb.cygnus.com)
 
@@ -590,7 +590,7 @@ Wed Apr  7 13:41:04 1993  Brendan Kehoe  (brendan@lisa.cygnus.com)
 
 	* send-pr.sh (ORGANIZATION): If they don't have an ORGANIZATION
 	environment variable, then try for DEFAULT_ORGANIZATION, then
-	$HOME/.organization, before going for their .signature.  
+	$HOME/.organization, before going for their .signature.
 
 	* Makefile.in (install-sid): Use `tmp-inst-sid' instead of
 	`tmp-install-sid' to avoid filename length limits.

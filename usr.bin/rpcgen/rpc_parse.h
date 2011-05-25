@@ -32,7 +32,7 @@
 /*      @(#)rpc_parse.h  1.3  90/08/29  (C) 1987 SMI   */
 
 /*
- * rpc_parse.h, Definitions for the RPCL parser 
+ * rpc_parse.h, Definitions for the RPCL parser
  */
 
 enum defkind {
@@ -114,7 +114,7 @@ struct arg_list {
 	char *argname; /* name of struct for arg*/
 	decl_list *decls;
 };
-	
+
 typedef struct arg_list arg_list;
 
 struct proc_list {

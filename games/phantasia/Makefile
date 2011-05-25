@@ -16,7 +16,7 @@ CLEANFILES+=map setup setup.o host_phantglobs.o
 
 realall: setup phantasia
 
-setup: host_phantglobs.o setup.o monsters.asc ${LIBM} 
+setup: host_phantglobs.o setup.o monsters.asc ${LIBM}
 	${HOST_CC} host_phantglobs.o setup.o -o ${.TARGET} -lm
 
 host_phantglobs.o: ${.CURDIR}/phantglobs.c

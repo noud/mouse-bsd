@@ -664,7 +664,7 @@ gcse_main (f, file)
      presense of setjmp, so just punt to be safe.  */
   if (current_function_calls_setjmp)
     return;
-   
+
   /* For calling dump_foo fns from gdb.  */
   debug_stderr = stderr;
 
@@ -1583,7 +1583,7 @@ insert_expr_in_table (x, mode, insn, antic_p, avail_p)
 	  /* Add EXPR to end of this hash chain.  */
 	  last_expr->next_same_hash = cur_expr;
 	}
-      /* Set the fields of the expr element.  */ 
+      /* Set the fields of the expr element.  */
       cur_expr->expr = x;
       cur_expr->bitmap_index = n_exprs++;
       cur_expr->next_same_hash = NULL;
@@ -1814,7 +1814,7 @@ hash_scan_set (pat, insn, set_p)
   /* Check if first/last set in this block for classic gcse,
      but not for copy/constant propagation.  */
   if (optimize_size && !set_p)
-      
+
     {
       rtx dest = SET_DEST (pat);
 
@@ -2059,7 +2059,7 @@ compute_hash_table (f, set_p)
 	   insn && insn != NEXT_INSN (basic_block_end[bb]);
 	   insn = NEXT_INSN (insn))
 	{
-#ifdef NON_SAVING_SETJMP 
+#ifdef NON_SAVING_SETJMP
 	  if (NON_SAVING_SETJMP && GET_CODE (insn) == NOTE
 	      && NOTE_LINE_NUMBER (insn) == NOTE_INSN_SETJMP)
 	    {
@@ -2583,7 +2583,7 @@ compute_kill_rd ()
     }
 }
 
-/* Compute the reaching definitions as in 
+/* Compute the reaching definitions as in
    Compilers Principles, Techniques, and Tools. Aho, Sethi, Ullman,
    Chapter 10.  It is the same algorithm as used for computing available
    expressions but applied to the gens and kills of reaching definitions.  */
@@ -2796,7 +2796,7 @@ compute_available ()
 
   for (bb = 1; bb < n_basic_blocks; bb++)
     sbitmap_difference (ae_out[bb], u_bitmap, ae_kill[bb]);
-    
+
   passes = 0;
   changed = 1;
   while (changed)
@@ -2908,7 +2908,7 @@ computing_insn (expr, insn)
   int bb = BLOCK_NUM (insn);
 
   if (expr->avail_occr->next == NULL)
-    {    
+    {
       if (BLOCK_NUM (expr->avail_occr->insn) == bb)
 	{
 	  /* The available expression is actually itself
@@ -2922,7 +2922,7 @@ computing_insn (expr, insn)
   else
     {
       /* Pattern is computed more than once.
-	 Search backwards from this insn to see how many of these 
+	 Search backwards from this insn to see how many of these
 	 computations actually reach this insn.  */
       struct occr *occr;
       rtx insn_computes_expr = NULL;
@@ -3032,7 +3032,7 @@ can_disregard_other_sets (addr_this_reg, insn, for_combine)
 	  if (number_of_reaching_defs > 1)
 	    {
 	      /* If in this setting the value the register is being
-		 set to is equal to the previous value the register 
+		 set to is equal to the previous value the register
 		 was set to and this setting reaches the insn we are
 		 trying to do the substitution on then we are ok.  */
 
@@ -3042,7 +3042,7 @@ can_disregard_other_sets (addr_this_reg, insn, for_combine)
 				 SET_SRC (PATTERN (insn))))
 		return 0;
 	    }
-	  *addr_this_reg = this_reg; 
+	  *addr_this_reg = this_reg;
 	}
 
       /* prev_this_reg = this_reg; */
@@ -3188,7 +3188,7 @@ handle_avail_expr (insn, expr)
 	      fprintf (gcse_file, "GCSE: Replacing the source in insn %d with reg %d set in insn %d\n",
 		       INSN_UID (insn),
 		       REGNO (SET_DEST (PATTERN (NEXT_INSN (insn_computes_expr)))),
-		       INSN_UID (insn_computes_expr)); 
+		       INSN_UID (insn_computes_expr));
 	    }
 
 	}
@@ -3728,7 +3728,7 @@ cprop_insn (insn)
       set = find_avail_set (regno, insn);
       if (! set)
 	continue;
-  
+
       pat = set->expr;
       /* ??? We might be able to handle PARALLELs.  Later.  */
       if (GET_CODE (pat) != SET)

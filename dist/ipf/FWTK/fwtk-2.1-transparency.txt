@@ -200,7 +200,7 @@ diff -c -r ./ftp-gw/ftp-gw.c ../../fwtk-2.1-violated/fwtk/ftp-gw/ftp-gw.c
 +                                 return(1);
 +                         }
 +                 }
-+         }      
++         }
 + 
 +         syslog(LLEV,"permit host=%s/%s connect to %s",rladdr,riaddr,dest);
 + 
@@ -303,13 +303,13 @@ diff -c -r ./http-gw/http-gw.c ../../fwtk-2.1-violated/fwtk/http-gw/http-gw.c
 +                                         strncpy(def_server, psychic, strlen(psychic));
 +                                 }
 +                         }
-+                         
++ 
   /*  See if it can be forwarded */
   
   			if( can_forward(buf)){
 ***************
 *** 1564,1570 ****
-  				    		    parse_vec[0], 
+  				    		    parse_vec[0],
   						    parse_vec[1],
   				    		    ourname, ourport);
 ! 				    }else{
@@ -317,7 +317,7 @@ diff -c -r ./http-gw/http-gw.c ../../fwtk-2.1-violated/fwtk/http-gw/http-gw.c
   						    parse_vec[0], parse_vec[2],
   						    parse_vec[3], chk_type_ch,
 --- 1576,1589 ----
-  				    		    parse_vec[0], 
+  				    		    parse_vec[0],
   						    parse_vec[1],
   				    		    ourname, ourport);
 ! 				    }
@@ -371,7 +371,7 @@ diff -c -r ./lib/hnam.c ../../fwtk-2.1-violated/fwtk/lib/hnam.c
 + 
 + #ifdef linux
 + 	if (!(err = getsockname(0, &sin, &sl))) {
-+ 		if(ptr)	
++ 		if(ptr)
 + 			* ptr = ntohs(sin.sin_port);
 + 
 + 		sprintf(buf, "%s", inet_ntoa(sin.sin_addr));
@@ -640,7 +640,7 @@ diff -c -r ./tn-gw/tn-gw.c ../../fwtk-2.1-violated/fwtk/tn-gw/tn-gw.c
 + 				sprintf(dest, "%s:%d", psychic, port);
 + 			else
 + 				sprintf(dest, "%s", psychic);
-+  
++ 
 + 			if (!welcomedone)
 + 				if ((cf = cfg_get("welcome-msg", confp)) != (Cfg *)0) {
 + 					if (cf->argc != 1) {

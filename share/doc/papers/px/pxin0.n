@@ -78,7 +78,7 @@ These
 .I
 PX Implementation Notes
 .R
-have been updated from the  original 
+have been updated from the  original
 .SM "PDP 11/70"
 implementation notes to reflect the interpreter that runs on the
 .SM "VAX 11/780" .
@@ -136,7 +136,7 @@ MCS74-07644-A03 and MCS78-07291
 and of an \s-2IBM\s0 Graduate Fellowship are gratefully acknowledged.
 .FE
 .FS
-\*(dd\ The financial support of a Howard Hughes Graduate 
+\*(dd\ The financial support of a Howard Hughes Graduate
 Fellowship is gratefully acknowledged.
 .FE
 .bp

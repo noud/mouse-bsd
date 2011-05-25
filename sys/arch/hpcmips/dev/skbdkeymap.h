@@ -33,7 +33,7 @@
 #define KEY_SPECIAL_LIGHT	1
 
 const u_int8_t default_keymap[] = {
-/*      0    1    2    3    4    5    6    7 */       
+/*      0    1    2    3    4    5    6    7 */
 /* 0 */	UNK, UNK, UNK, UNK, UNK, UNK, UNK, UNK,
 /* 1 */	UNK, UNK, UNK, UNK, UNK, UNK, UNK, UNK,
 /* 2 */	UNK, UNK, UNK, UNK, UNK, UNK, UNK, UNK,
@@ -58,7 +58,7 @@ const int default_special_keymap[] = {
 };
 
 const u_int8_t tc5165_mobilon_keymap[] = {
-/*      0    1    2    3    4    5    6    7 */       
+/*      0    1    2    3    4    5    6    7 */
 /* 0 */	37 , 45 , 44 , UNK, 9  , 51 , 23 , UNK,
 /* 1 */	UNK, 56 , UNK, UNK, UNK, UNK, UNK, UNK,
 /* 2 */	UNK, UNK, 29 , UNK, UNK, UNK, UNK, UNK,
@@ -83,7 +83,7 @@ const int tc5165_mobilon_special_keymap[] = {
 };
 
 const u_int8_t tc5165_telios_jp_keymap[] = {
-/*      0    1    2    3    4    5    6    7 */       
+/*      0    1    2    3    4    5    6    7 */
 /* 0 */	58,  15,  IGN, 1,   IGN, IGN, IGN, IGN,
 /* 1 */	IGN, IGN, IGN, IGN, 54,  42,  IGN, IGN,
 /* 2 */	31,  18,  4,   IGN, IGN, 32,  45,  59,
@@ -103,10 +103,10 @@ const u_int8_t tc5165_telios_jp_keymap[] = {
 };
 
 const u_int8_t tc5165_compaq_c_jp_keymap[] = {
-/*      0    1    2    3    4    5    6    7 */       
-/* 0 */	38,  50,  49,  48,  47,  46,  45,  44, 
+/*      0    1    2    3    4    5    6    7 */
+/* 0 */	38,  50,  49,  48,  47,  46,  45,  44,
 /* 1 */	56,  IGN, IGN, IGN, IGN, IGN, IGN, IGN,
-/* 2 */	13,  IGN, 112, 121, 123, 41,  28,  57, 
+/* 2 */	13,  IGN, 112, 121, 123, 41,  28,  57,
 /* 3 */	77,  75,  80,  72,  39,  53,  52,  51,
 /* 4 */	24,  25,  40,  IGN, 43,  26,  115, 58,
 /* 5 */	54,  IGN, IGN, IGN, IGN, IGN, IGN, IGN,
@@ -128,7 +128,7 @@ const int tc5165_compaq_c_jp_special_keymap[] = {
 };
 
 const u_int8_t m38813c_keymap[] = {
-/*      0    1    2    3    4    5    6    7 */       
+/*      0    1    2    3    4    5    6    7 */
 /* 0 */	0,   1,   2,   3,   4,   5,   6,   7,
 /* 1 */	8,   9,   10,  11,  12,  13,  14,  15,
 /* 2 */	16,  17,  18,  19,  20,  21,  22,  23,
@@ -154,22 +154,22 @@ const struct skbd_keymap_table {
 	kbd_t		st_layout;
 } skbd_keymap_table[] = {
 	{{{PLATID_WILD, PLATID_MACH_COMPAQ_C}},
-	 tc5165_compaq_c_jp_keymap, 
+	 tc5165_compaq_c_jp_keymap,
 	 tc5165_compaq_c_jp_special_keymap,
 	 KB_JP},
 
 	{{{PLATID_WILD, PLATID_MACH_VICTOR_INTERLINK}},
-	 m38813c_keymap, 
+	 m38813c_keymap,
 	 default_special_keymap,
 	 KB_JP},
 
 	{{{PLATID_WILD, PLATID_MACH_SHARP_TELIOS}},
-	 tc5165_telios_jp_keymap, 
+	 tc5165_telios_jp_keymap,
 	 default_special_keymap,
 	 KB_JP},
 
 	{{{PLATID_WILD, PLATID_MACH_SHARP_MOBILON}},
-	 tc5165_mobilon_keymap, 
+	 tc5165_mobilon_keymap,
 	 tc5165_mobilon_special_keymap,
 	 KB_US},
 

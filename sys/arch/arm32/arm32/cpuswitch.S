@@ -147,7 +147,7 @@ Lsetrunqueue_erg:
 	ldr	r2, Lqs
 	ldr	r1, [r2]
 	add	r0, pc, #Ltext2 - . - 8
-	b	_C_LABEL(panic)	
+	b	_C_LABEL(panic)
 
 Ltext1:
 	.asciz	"setrunqueue : %08x %08x\n"
@@ -216,9 +216,9 @@ Lcurpcb:
 Lwant_resched:
 	.word	_C_LABEL(want_resched)
 
-Lcpufuncs:	
+Lcpufuncs:
 	.word	_C_LABEL(cpufuncs)
-	
+
 	.data
 	.global	_C_LABEL(curpcb)
 _C_LABEL(curpcb):
@@ -389,7 +389,7 @@ findqueue:
 
 	/* rem: r6 = new process */
 	ldr	r7, [r6, #(P_FORW)]
-	str	r7, [r5, #(P_FORW)]	
+	str	r7, [r5, #(P_FORW)]
 
 	/*
 	 * Test to see if the queue is now empty. If the head of the queue
@@ -536,7 +536,7 @@ Lcs_cache_purged:
 	ldr	r3, Lcpufuncs
 	add	lr, pc, #Lcs_context_switched - . - 8
 	ldr	pc, [r3, #CF_CONTEXT_SWITCH]
-       
+
 Lcs_context_switched:
 	/*
 	 * This can be optimised... We know we want to go from SVC32
@@ -561,7 +561,7 @@ Lcs_context_switched:
 
 #ifdef ARMFPE
 	add	r0, r1, #(USER_SIZE) & 0x00ff
-	add	r0, r0, #(USER_SIZE) & 0xff00 
+	add	r0, r0, #(USER_SIZE) & 0xff00
 	bl	_C_LABEL(arm_fpe_core_changecontext)
 #endif
 
@@ -632,7 +632,7 @@ Lse_cache_purged:
 	ldr	r4, Lcpufuncs
 	add	lr, pc, #Lse_context_switched - . - 8
 	ldr	pc, [r4, #CF_CONTEXT_SWITCH]
-       
+
 Lse_context_switched:
 	/* Restore all the save registers */
 	add	r7, r2, #PCB_R8

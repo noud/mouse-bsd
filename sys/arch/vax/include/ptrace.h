@@ -31,7 +31,7 @@
  */
 
  /* All bugs are subject to removal without further notice */
-		
+
 
 #define PT_STEP         (PT_FIRSTMACH + 0)
 #define PT_GETREGS      (PT_FIRSTMACH + 1)

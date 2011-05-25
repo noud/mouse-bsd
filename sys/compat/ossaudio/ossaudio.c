@@ -74,7 +74,7 @@ oss_ioctl_audio(p, uap, retval)
 		syscallarg(caddr_t) data;
 	} */ *uap;
 	register_t *retval;
-{	       
+{
 	struct file *fp;
 	struct filedesc *fdp;
 	u_long com;
@@ -341,8 +341,8 @@ oss_ioctl_audio(p, uap, retval)
 			goto out;
 		break;
 	case OSS_SNDCTL_DSP_GETFMTS:
-		for(idat = 0, tmpenc.index = 0; 
-		    ioctlf(fp, AUDIO_GETENC, (caddr_t)&tmpenc, p) == 0; 
+		for(idat = 0, tmpenc.index = 0;
+		    ioctlf(fp, AUDIO_GETENC, (caddr_t)&tmpenc, p) == 0;
 		    tmpenc.index++) {
 			switch(tmpenc.encoding) {
 			case AUDIO_ENCODING_ULAW:
@@ -404,7 +404,7 @@ oss_ioctl_audio(p, uap, retval)
 		bufinfo.fragstotal = tmpinfo.play.buffer_size / bufinfo.fragsize;
 		bufinfo.bytes = tmpinfo.play.buffer_size;
 		DPRINTF(("oss_sys_ioctl: SNDCTL_DSP_GETxSPACE = %d %d %d %d\n",
-			 bufinfo.fragsize, bufinfo.fragments, 
+			 bufinfo.fragsize, bufinfo.fragments,
 			 bufinfo.fragstotal, bufinfo.bytes));
 		error = copyout(&bufinfo, SCARG(uap, data), sizeof bufinfo);
 		if (error)
@@ -506,13 +506,13 @@ oss_ioctl_audio(p, uap, retval)
 struct audiodevinfo {
 	int done;
 	dev_t dev;
-	int16_t devmap[OSS_SOUND_MIXER_NRDEVICES], 
+	int16_t devmap[OSS_SOUND_MIXER_NRDEVICES],
 	        rdevmap[NETBSD_MAXDEVS];
         u_long devmask, recmask, stereomask;
 	u_long caps, source;
 };
 
-/* 
+/*
  * Collect the audio device information to allow faster
  * emulation of the Linux mixer ioctls.  Cache the information
  * to eliminate the overhead of repeating all the ioctls needed
@@ -633,7 +633,7 @@ oss_ioctl_mixer(p, uap, retval)
 		syscallarg(caddr_t) data;
 	} */ *uap;
 	register_t *retval;
-{	       
+{
 	struct file *fp;
 	struct filedesc *fdp;
 	u_long com;
@@ -777,7 +777,7 @@ oss_ioctl_mixer(p, uap, retval)
 				r = mc.un.value.level[AUDIO_MIXER_LEVEL_RIGHT];
 			}
 			idat = TO_OSSVOL(l) | (TO_OSSVOL(r) << 8);
-			DPRINTF(("OSS_MIXER_READ  n=%d (dev=%d) l=%d, r=%d, idat=%04x\n", 
+			DPRINTF(("OSS_MIXER_READ  n=%d (dev=%d) l=%d, r=%d, idat=%04x\n",
 				 n, di->devmap[n], l, r, idat));
 			break;
 		} else if ((OSS_MIXER_WRITE_R(OSS_SOUND_MIXER_FIRST) <= com &&
@@ -804,7 +804,7 @@ oss_ioctl_mixer(p, uap, retval)
 				mc.un.value.num_channels = 1;
 				mc.un.value.level[AUDIO_MIXER_LEVEL_MONO] = (l+r)/2;
 			}
-			DPRINTF(("OSS_MIXER_WRITE n=%d (dev=%d) l=%d, r=%d, idat=%04x\n", 
+			DPRINTF(("OSS_MIXER_WRITE n=%d (dev=%d) l=%d, r=%d, idat=%04x\n",
 				 n, di->devmap[n], l, r, idat));
 			error = ioctlf(fp, AUDIO_MIXER_WRITE, (caddr_t)&mc, p);
 			if (error)
@@ -839,7 +839,7 @@ oss_ioctl_sequencer(p, uap, retval)
 		syscallarg(caddr_t) data;
 	} */ *uap;
 	register_t *retval;
-{	       
+{
 	struct file *fp;
 	struct filedesc *fdp;
 	u_long com;
@@ -887,23 +887,23 @@ oss_ioctl_sequencer(p, uap, retval)
 		strncpy(osi.name, si.name, sizeof osi.name);
 		osi.device = si.device;
 		switch(si.synth_type) {
-		case SYNTH_TYPE_FM: 
+		case SYNTH_TYPE_FM:
 			osi.synth_type = OSS_SYNTH_TYPE_FM; break;
-		case SYNTH_TYPE_SAMPLE: 
+		case SYNTH_TYPE_SAMPLE:
 			osi.synth_type = OSS_SYNTH_TYPE_SAMPLE; break;
-		case SYNTH_TYPE_MIDI: 
+		case SYNTH_TYPE_MIDI:
 			osi.synth_type = OSS_SYNTH_TYPE_MIDI; break;
 		default:
 			osi.synth_type = 0; break;
 		}
 		switch(si.synth_subtype) {
-		case SYNTH_SUB_FM_TYPE_ADLIB: 
+		case SYNTH_SUB_FM_TYPE_ADLIB:
 			osi.synth_subtype = OSS_FM_TYPE_ADLIB; break;
-		case SYNTH_SUB_FM_TYPE_OPL3: 
+		case SYNTH_SUB_FM_TYPE_OPL3:
 			osi.synth_subtype = OSS_FM_TYPE_OPL3; break;
-		case SYNTH_SUB_MIDI_TYPE_MPU401: 
+		case SYNTH_SUB_MIDI_TYPE_MPU401:
 			osi.synth_subtype = OSS_MIDI_TYPE_MPU401; break;
-		case SYNTH_SUB_SAMPLE_TYPE_BASIC: 
+		case SYNTH_SUB_SAMPLE_TYPE_BASIC:
 			osi.synth_subtype = OSS_SAMPLE_TYPE_BASIC; break;
 		default:
 			osi.synth_subtype = 0; break;
@@ -913,7 +913,7 @@ oss_ioctl_sequencer(p, uap, retval)
 		osi.nr_drums = 0;
 		osi.instr_bank_size = si.instr_bank_size;
 		osi.capabilities = 0;
-		if (si.capabilities & SYNTH_CAP_OPL3) 
+		if (si.capabilities & SYNTH_CAP_OPL3)
 			osi.capabilities |= OSS_SYNTH_CAP_OPL3;
 		if (si.capabilities & SYNTH_CAP_INPUT)
 			osi.capabilities |= OSS_SYNTH_CAP_INPUT;

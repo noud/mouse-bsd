@@ -211,7 +211,7 @@ zsms_enable(v)
 	if (sc->self_test < 0) {
 		sc->self_test = 0;
 		return EBUSY;
-	} else if (sc->self_test == 5) {  
+	} else if (sc->self_test == 5) {
 		sc->self_test = 0;
 		sc->sc_enabled = 1;
 	}
@@ -290,7 +290,7 @@ zsms_input(vsc, data)
 			sc->buttons |= WSMS_BUTTON2;
 		if ((data & RIGHT_BUTTON) != 0)
 			sc->buttons |= WSMS_BUTTON3;
-	    
+
 		sc->dx = data & MOUSE_X_SIGN;
 		sc->dy = data & MOUSE_Y_SIGN;
 	} else if (sc->inputstate == 2) {

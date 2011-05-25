@@ -14,7 +14,7 @@ vmel	-  VME D32 space
 
 Devices supported:
 
-'obio' Bus: 
+'obio' Bus:
 Device	Type    Description
 ---------------------------------------------------------------------------
 zs	CHAR	zilog 8530 serial ports; used for serial ports, keybd, mouse

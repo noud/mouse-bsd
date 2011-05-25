@@ -1,15 +1,15 @@
 /*	$NetBSD: __vfork14.S,v 1.1 1998/01/04 20:58:12 thorpej Exp $	*/
 
-/* 
+/*
  * Copyright (c) 1992 Helsinki University of Technology
  * All Rights Reserved.
- * 
+ *
  * Permission to use, copy, modify and distribute this software and its
  * documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
+ *
  * HELSINKI UNIVERSITY OF TECHNOLOGY ALLOWS FREE USE OF THIS SOFTWARE IN
  * ITS "AS IS" CONDITION. HELSINKI UNIVERSITY OF TECHNOLOGY DISCLAIMS ANY
  * LIABILITY OF ANY KIND FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE
@@ -27,7 +27,7 @@
 	RCSID("$NetBSD: __vfork14.S,v 1.1 1998/01/04 20:58:12 thorpej Exp $")
 #endif
 
-/* 
+/*
  * r0 = pid of child in parent / pid of parent in child
  * r1 = 0 in parent, 1 in child
  *

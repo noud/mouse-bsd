@@ -33,7 +33,7 @@ SECTIONS
       ${RELOCATING+ __.data.end = .};
     }
   .bss ${RELOCATING+ SIZEOF(.data) + ADDR(.data)} :
-    { 					
+    {
       ${RELOCATING+ __.bss.start = .};
       *(.bss)
       *(COMMON)

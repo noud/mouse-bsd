@@ -96,17 +96,17 @@ static int rf_AllocDiskStructures(RF_Raid_t *, RF_Config_t *);
  *
  * initialize the disks comprising the array
  *
- * We want the spare disks to have regular row,col numbers so that we can 
- * easily substitue a spare for a failed disk.  But, the driver code assumes 
- * throughout that the array contains numRow by numCol _non-spare_ disks, so 
+ * We want the spare disks to have regular row,col numbers so that we can
+ * easily substitue a spare for a failed disk.  But, the driver code assumes
+ * throughout that the array contains numRow by numCol _non-spare_ disks, so
  * it's not clear how to fit in the spares.  This is an unfortunate holdover
- * from raidSim.  The quick and dirty fix is to make row zero bigger than the 
- * rest, and put all the spares in it.  This probably needs to get changed 
+ * from raidSim.  The quick and dirty fix is to make row zero bigger than the
+ * rest, and put all the spares in it.  This probably needs to get changed
  * eventually.
  *
  **************************************************************************/
 
-int 
+int
 rf_ConfigureDisks( listp, raidPtr, cfgPtr )
 	RF_ShutdownList_t **listp;
 	RF_Raid_t *raidPtr;
@@ -121,7 +121,7 @@ rf_ConfigureDisks( listp, raidPtr, cfgPtr )
 
 	force = cfgPtr->force;
 
-	RF_CallocAndAdd(disks, raidPtr->numRow, sizeof(RF_RaidDisk_t *), 
+	RF_CallocAndAdd(disks, raidPtr->numRow, sizeof(RF_RaidDisk_t *),
 			(RF_RaidDisk_t **), raidPtr->cleanupList);
 	if (disks == NULL) {
 		ret = ENOMEM;
@@ -141,9 +141,9 @@ rf_ConfigureDisks( listp, raidPtr, cfgPtr )
 		numFailuresThisRow = 0;
 		/* We allocate RF_MAXSPARE on the first row so that we
 		   have room to do hot-swapping of spares */
-		RF_CallocAndAdd(disks[r], raidPtr->numCol 
-				+ ((r == 0) ? RF_MAXSPARE : 0), 
-				sizeof(RF_RaidDisk_t), (RF_RaidDisk_t *), 
+		RF_CallocAndAdd(disks[r], raidPtr->numCol
+				+ ((r == 0) ? RF_MAXSPARE : 0),
+				sizeof(RF_RaidDisk_t), (RF_RaidDisk_t *),
 				raidPtr->cleanupList);
 		if (disks[r] == NULL) {
 			ret = ENOMEM;
@@ -159,10 +159,10 @@ rf_ConfigureDisks( listp, raidPtr, cfgPtr )
 			goto fail;
 		}
 		for (c = 0; c < raidPtr->numCol; c++) {
-				ret = rf_ConfigureDisk(raidPtr, 
+				ret = rf_ConfigureDisk(raidPtr,
 						       &cfgPtr->devnames[r][c][0],
 						       &disks[r][c], r, c);
-			
+
 			if (ret)
 				goto fail;
 
@@ -226,7 +226,7 @@ rf_ConfigureDisks( listp, raidPtr, cfgPtr )
 		} else {
 			ret = EINVAL;
 			goto fail;
-		} 
+		}
 	}
 
 	for (r = 0; r < raidPtr->numRow; r++) {
@@ -253,7 +253,7 @@ rf_ConfigureDisks( listp, raidPtr, cfgPtr )
 	return (0);
 
 fail:
-	
+
 	rf_UnconfigureVnodes( raidPtr );
 
 	return (ret);
@@ -265,7 +265,7 @@ fail:
  * recall from the above comment that the spare disk descriptors are stored
  * in row zero, which is specially expanded to hold them.
  ****************************************************************************/
-int 
+int
 rf_ConfigureSpareDisks( listp, raidPtr, cfgPtr )
 	RF_ShutdownList_t ** listp;
 	RF_Raid_t * raidPtr;
@@ -288,7 +288,7 @@ rf_ConfigureSpareDisks( listp, raidPtr, cfgPtr )
 		if (ret)
 			goto fail;
 		if (disks[i].status != rf_ds_optimal) {
-			RF_ERRORMSG1("Warning: spare disk %s failed TUR\n", 
+			RF_ERRORMSG1("Warning: spare disk %s failed TUR\n",
 				     &cfgPtr->spare_names[i][0]);
 		} else {
 			disks[i].status = rf_ds_spare;	/* change status to
@@ -296,7 +296,7 @@ rf_ConfigureSpareDisks( listp, raidPtr, cfgPtr )
 			DPRINTF6("Spare Disk %d: dev %s numBlocks %ld blockSize %d (%ld MB)\n", i,
 			    disks[i].devname,
 			    (long int) disks[i].numBlocks, disks[i].blockSize,
-			    (long int) disks[i].numBlocks * 
+			    (long int) disks[i].numBlocks *
 				 disks[i].blockSize / 1024 / 1024);
 		}
 		num_spares_done++;
@@ -312,7 +312,7 @@ rf_ConfigureSpareDisks( listp, raidPtr, cfgPtr )
 		}
 		if (disks[i].numBlocks < raidPtr->sectorsPerDisk) {
 			RF_ERRORMSG3("Spare disk %s (%d blocks) is too small to serve as a spare (need %ld blocks)\n",
-				     disks[i].devname, disks[i].blockSize, 
+				     disks[i].devname, disks[i].blockSize,
 				     (long int) raidPtr->sectorsPerDisk);
 			ret = EINVAL;
 			goto fail;
@@ -329,19 +329,19 @@ rf_ConfigureSpareDisks( listp, raidPtr, cfgPtr )
 fail:
 
 	/* Release the hold on the main components.  We've failed to allocate
-	 * a spare, and since we're failing, we need to free things.. 
-		 
-	 XXX failing to allocate a spare is *not* that big of a deal... 
-	 We *can* survive without it, if need be, esp. if we get hot
-	 adding working.  
+	 * a spare, and since we're failing, we need to free things..
 
-	 If we don't fail out here, then we need a way to remove this spare... 
-	 that should be easier to do here than if we are "live"... 
+	 XXX failing to allocate a spare is *not* that big of a deal...
+	 We *can* survive without it, if need be, esp. if we get hot
+	 adding working.
+
+	 If we don't fail out here, then we need a way to remove this spare...
+	 that should be easier to do here than if we are "live"...
 
 	 */
 
 	rf_UnconfigureVnodes( raidPtr );
-	
+
 	return (ret);
 }
 
@@ -354,7 +354,7 @@ rf_AllocDiskStructures(raidPtr, cfgPtr)
 	int ret;
 	int r;
 
-	RF_CallocAndAdd(disks, raidPtr->numRow, sizeof(RF_RaidDisk_t *), 
+	RF_CallocAndAdd(disks, raidPtr->numRow, sizeof(RF_RaidDisk_t *),
 			(RF_RaidDisk_t **), raidPtr->cleanupList);
 	if (disks == NULL) {
 		ret = ENOMEM;
@@ -373,9 +373,9 @@ rf_AllocDiskStructures(raidPtr, cfgPtr)
 	for (r = 0; r < raidPtr->numRow; r++) {
 		/* We allocate RF_MAXSPARE on the first row so that we
 		   have room to do hot-swapping of spares */
-		RF_CallocAndAdd(disks[r], raidPtr->numCol 
-				+ ((r == 0) ? RF_MAXSPARE : 0), 
-				sizeof(RF_RaidDisk_t), (RF_RaidDisk_t *), 
+		RF_CallocAndAdd(disks[r], raidPtr->numCol
+				+ ((r == 0) ? RF_MAXSPARE : 0),
+				sizeof(RF_RaidDisk_t), (RF_RaidDisk_t *),
 				raidPtr->cleanupList);
 		if (disks[r] == NULL) {
 			ret = ENOMEM;
@@ -392,7 +392,7 @@ rf_AllocDiskStructures(raidPtr, cfgPtr)
 		}
 	}
 	return(0);
-fail:	
+fail:
 	rf_UnconfigureVnodes( raidPtr );
 
 	return(ret);
@@ -408,7 +408,7 @@ rf_AutoConfigureDisks(raidPtr, cfgPtr, auto_config)
 {
 	RF_RaidDisk_t **disks;
 	RF_RaidDisk_t *diskPtr;
-	RF_RowCol_t r, c;	
+	RF_RowCol_t r, c;
 	RF_SectorCount_t min_numblks = (RF_SectorCount_t) 0x7FFFFFFFFFFFLL;
 	int bs, ret;
 	int numFailuresThisRow;
@@ -457,28 +457,28 @@ rf_AutoConfigureDisks(raidPtr, cfgPtr, auto_config)
 				/* Found it.  Configure it.. */
 				diskPtr->blockSize = ac->clabel->blockSize;
 				diskPtr->numBlocks = ac->clabel->numBlocks;
-				/* Note: rf_protectedSectors is already 
+				/* Note: rf_protectedSectors is already
 				   factored into numBlocks here */
 				raidPtr->raid_cinfo[r][c].ci_vp = ac->vp;
 				raidPtr->raid_cinfo[r][c].ci_dev = ac->dev;
 
 				memcpy(&raidPtr->raid_cinfo[r][c].ci_label,
 				       ac->clabel, sizeof(*ac->clabel));
-				sprintf(diskPtr->devname, "/dev/%s", 
+				sprintf(diskPtr->devname, "/dev/%s",
 					ac->devname);
 				diskPtr->dev = ac->dev;
-			
-				/* 
+
+				/*
 				 * we allow the user to specify that
 				 * only a fraction of the disks should
 				 * be used this is just for debug: it
-				 * speeds up the parity scan 
+				 * speeds up the parity scan
 				 */
 
-				diskPtr->numBlocks = diskPtr->numBlocks * 
+				diskPtr->numBlocks = diskPtr->numBlocks *
 					rf_sizePercentage / 100;
 
-				/* XXX these will get set multiple times, 
+				/* XXX these will get set multiple times,
 				   but since we're autoconfiguring, they'd
 				   better be always the same each time!
 				   If not, this is the least of your worries */
@@ -505,7 +505,7 @@ rf_AutoConfigureDisks(raidPtr, cfgPtr, auto_config)
 	return (0);
 
 fail:
-	
+
 	rf_UnconfigureVnodes( raidPtr );
 
 	return (ret);
@@ -513,7 +513,7 @@ fail:
 }
 
 /* configure a single disk in the array */
-int 
+int
 rf_ConfigureDisk(raidPtr, buf, diskPtr, row, col)
 	RF_Raid_t *raidPtr;
 	char   *buf;
@@ -566,27 +566,27 @@ rf_ConfigureDisk(raidPtr, buf, diskPtr, row, col)
 		if (error) {
 			return (error);
 		}
-		
+
 		diskPtr->blockSize = dpart.disklab->d_secsize;
-		
+
 		diskPtr->numBlocks = dpart.part->p_size - rf_protectedSectors;
 		diskPtr->partitionSize = dpart.part->p_size;
 
 		raidPtr->raid_cinfo[row][col].ci_vp = vp;
 		raidPtr->raid_cinfo[row][col].ci_dev = va.va_rdev;
-		
+
 		diskPtr->dev = va.va_rdev;
-		
+
 		/* we allow the user to specify that only a fraction of the
 		 * disks should be used this is just for debug:  it speeds up
 		 * the parity scan */
-		diskPtr->numBlocks = diskPtr->numBlocks * 
+		diskPtr->numBlocks = diskPtr->numBlocks *
 			rf_sizePercentage / 100;
 	}
 	return (0);
 }
 
-static void rf_print_label_status( RF_Raid_t *, int, int, char *, 
+static void rf_print_label_status( RF_Raid_t *, int, int, char *,
 				  RF_ComponentLabel_t *);
 
 static void
@@ -598,10 +598,10 @@ rf_print_label_status( raidPtr, row, column, dev_name, ci_label )
 	RF_ComponentLabel_t *ci_label;
 {
 
-	printf("raid%d: Component %s being configured at row: %d col: %d\n", 
+	printf("raid%d: Component %s being configured at row: %d col: %d\n",
 	       raidPtr->raidid, dev_name, row, column );
 	printf("         Row: %d Column: %d Num Rows: %d Num Columns: %d\n",
-	       ci_label->row, ci_label->column, 
+	       ci_label->row, ci_label->column,
 	       ci_label->num_rows, ci_label->num_columns);
 	printf("         Version: %d Serial Number: %d Mod Counter: %d\n",
 	       ci_label->version, ci_label->serial_number,
@@ -610,7 +610,7 @@ rf_print_label_status( raidPtr, row, column, dev_name, ci_label )
 	       ci_label->clean ? "Yes" : "No", ci_label->status );
 }
 
-static int rf_check_label_vitals( RF_Raid_t *, int, int, char *, 
+static int rf_check_label_vitals( RF_Raid_t *, int, int, char *,
 				  RF_ComponentLabel_t *, int, int );
 static int rf_check_label_vitals( raidPtr, row, column, dev_name, ci_label,
 				  serial_number, mod_counter )
@@ -625,7 +625,7 @@ static int rf_check_label_vitals( raidPtr, row, column, dev_name, ci_label,
 	int fatal_error = 0;
 
 	if (serial_number != ci_label->serial_number) {
-		printf("%s has a different serial number: %d %d\n", 
+		printf("%s has a different serial number: %d %d\n",
 		       dev_name, serial_number, ci_label->serial_number);
 		fatal_error = 1;
 	}
@@ -633,9 +633,9 @@ static int rf_check_label_vitals( raidPtr, row, column, dev_name, ci_label,
 		printf("%s has a different modfication count: %d %d\n",
 		       dev_name, mod_counter, ci_label->mod_counter);
 	}
-	
+
 	if (row != ci_label->row) {
-		printf("Row out of alignment for: %s\n", dev_name); 
+		printf("Row out of alignment for: %s\n", dev_name);
 		fatal_error = 1;
 	}
 	if (column != ci_label->column) {
@@ -658,14 +658,14 @@ static int rf_check_label_vitals( raidPtr, row, column, dev_name, ci_label,
 }
 
 
-/* 
+/*
 
    rf_CheckLabels() - check all the component labels for consistency.
    Return an error if there is anything major amiss.
 
  */
 
-int 
+int
 rf_CheckLabels( raidPtr, cfgPtr )
 	RF_Raid_t *raidPtr;
 	RF_Config_t *cfgPtr;
@@ -695,18 +695,18 @@ rf_CheckLabels( raidPtr, cfgPtr )
 	too_fatal = 0;
 	force = cfgPtr->force;
 
-	/* 
-	   We're going to try to be a little intelligent here.  If one 
+	/*
+	   We're going to try to be a little intelligent here.  If one
 	   component's label is bogus, and we can identify that it's the
 	   *only* one that's gone, we'll mark it as "failed" and allow
 	   the configuration to proceed.  This will be the *only* case
 	   that we'll proceed if there would be (otherwise) fatal errors.
-	   
+
 	   Basically we simply keep a count of how many components had
 	   what serial number.  If all but one agree, we simply mark
-	   the disagreeing component as being failed, and allow 
+	   the disagreeing component as being failed, and allow
 	   things to come up "normally".
-	   
+
 	   We do this first for serial numbers, and then for "mod_counter".
 
 	 */
@@ -768,11 +768,11 @@ rf_CheckLabels( raidPtr, cfgPtr )
 			/* Locate the maverick component */
 			if (ser_count[1] > ser_count[0]) {
 				serial_number = ser_values[1];
-			} 
+			}
 			for (r = 0; r < raidPtr->numRow; r++) {
 				for (c = 0; c < raidPtr->numCol; c++) {
 				ci_label = &raidPtr->raid_cinfo[r][c].ci_label;
-					if (serial_number != 
+					if (serial_number !=
 					    ci_label->serial_number) {
 						hosed_row = r;
 						hosed_column = c;
@@ -795,15 +795,15 @@ rf_CheckLabels( raidPtr, cfgPtr )
 			too_fatal = 1;
 		}
 		if (cfgPtr->parityConfig == '0') {
-			/* We've identified two different serial numbers. 
+			/* We've identified two different serial numbers.
 			   RAID 0 can't cope with that, so we'll punt */
 			too_fatal = 1;
 		}
 
-	} 
+	}
 
 	/* record the serial number for later.  If we bail later, setting
-	   this doesn't matter, otherwise we've got the best guess at the 
+	   this doesn't matter, otherwise we've got the best guess at the
 	   correct serial number */
 	raidPtr->serial_number = serial_number;
 
@@ -817,20 +817,20 @@ rf_CheckLabels( raidPtr, cfgPtr )
 				mod_number = mod_values[0];
 			} else {
 				/* counts of different modification values
-				   are the same.   Assume greater value is 
-				   the correct one, all other things 
+				   are the same.   Assume greater value is
+				   the correct one, all other things
 				   considered */
 				if (mod_values[0] > mod_values[1]) {
 					mod_number = mod_values[0];
 				} else {
 					mod_number = mod_values[1];
 				}
-				
+
 			}
 			for (r = 0; r < raidPtr->numRow && !too_fatal ; r++) {
 				for (c = 0; c < raidPtr->numCol; c++) {
 					ci_label = &raidPtr->raid_cinfo[r][c].ci_label;
-					if (mod_number != 
+					if (mod_number !=
 					    ci_label->mod_counter) {
 						if ( ( hosed_row == r ) &&
 						     ( hosed_column == c )) {
@@ -868,7 +868,7 @@ rf_CheckLabels( raidPtr, cfgPtr )
 			   RAID 0 can't cope with that, so we'll punt */
 			too_fatal = 1;
 		}
-	} 
+	}
 
 	raidPtr->mod_counter = mod_number;
 
@@ -882,12 +882,12 @@ rf_CheckLabels( raidPtr, cfgPtr )
 	}
 
 	if (num_ser > 2) {
-		printf("raid%d: Too many different serial numbers!\n", 
+		printf("raid%d: Too many different serial numbers!\n",
 		       raidPtr->raidid);
 	}
 
 	if (num_mod > 2) {
-		printf("raid%d: Too many different mod counters!\n", 
+		printf("raid%d: Too many different mod counters!\n",
 		       raidPtr->raidid);
 	}
 
@@ -903,12 +903,12 @@ rf_CheckLabels( raidPtr, cfgPtr )
 			if ((r == hosed_row) && (c == hosed_column)) {
 				printf("raid%d: Ignoring %s\n",
 				       raidPtr->raidid, dev_name);
-			} else {			
-				rf_print_label_status( raidPtr, r, c, 
+			} else {
+				rf_print_label_status( raidPtr, r, c,
 						       dev_name, ci_label );
-				if (rf_check_label_vitals( raidPtr, r, c, 
+				if (rf_check_label_vitals( raidPtr, r, c,
 							   dev_name, ci_label,
-							   serial_number, 
+							   serial_number,
 							   mod_number )) {
 					fatal_error = 1;
 				}
@@ -925,7 +925,7 @@ rf_CheckLabels( raidPtr, cfgPtr )
 	/* we note the state of the parity */
 	raidPtr->parity_good = parity_good;
 
-	return(fatal_error);	
+	return(fatal_error);
 }
 
 int rf_add_hot_spare(RF_Raid_t *, RF_SingleComponent_t *);
@@ -961,7 +961,7 @@ rf_add_hot_spare(raidPtr, sparePtr)
 	if (ret)
 		goto fail;
 	if (disks[spare_number].status != rf_ds_optimal) {
-		RF_ERRORMSG1("Warning: spare disk %s failed TUR\n", 
+		RF_ERRORMSG1("Warning: spare disk %s failed TUR\n",
 			     sparePtr->component_name);
 		ret=EINVAL;
 		goto fail;
@@ -969,12 +969,12 @@ rf_add_hot_spare(raidPtr, sparePtr)
 		disks[spare_number].status = rf_ds_spare;
 		DPRINTF6("Spare Disk %d: dev %s numBlocks %ld blockSize %d (%ld MB)\n", spare_number,
 			 disks[spare_number].devname,
-			 (long int) disks[spare_number].numBlocks, 
+			 (long int) disks[spare_number].numBlocks,
 			 disks[spare_number].blockSize,
-			 (long int) disks[spare_number].numBlocks * 
+			 (long int) disks[spare_number].numBlocks *
 			 disks[spare_number].blockSize / 1024 / 1024);
 	}
-	
+
 
 	/* check sizes and block sizes on the spare disk */
 	bs = 1 << raidPtr->logBytesPerSector;
@@ -985,31 +985,31 @@ rf_add_hot_spare(raidPtr, sparePtr)
 	}
 	if (disks[spare_number].numBlocks < raidPtr->sectorsPerDisk) {
 		RF_ERRORMSG3("Spare disk %s (%d blocks) is too small to serve as a spare (need %ld blocks)\n",
-			     disks[spare_number].devname, 
-			     disks[spare_number].blockSize, 
+			     disks[spare_number].devname,
+			     disks[spare_number].blockSize,
 			     (long int) raidPtr->sectorsPerDisk);
 		ret = EINVAL;
 		goto fail;
 	} else {
-		if (disks[spare_number].numBlocks > 
+		if (disks[spare_number].numBlocks >
 		    raidPtr->sectorsPerDisk) {
-			RF_ERRORMSG2("Warning: truncating spare disk %s to %ld blocks\n", disks[spare_number].devname, 
+			RF_ERRORMSG2("Warning: truncating spare disk %s to %ld blocks\n", disks[spare_number].devname,
 				     (long int) raidPtr->sectorsPerDisk);
-			
+
 			disks[spare_number].numBlocks = raidPtr->sectorsPerDisk;
 		}
 	}
 
 	spareQueues = &raidPtr->Queues[0][raidPtr->numCol];
 	ret = rf_ConfigureDiskQueue( raidPtr, &spareQueues[spare_number],
-				 0, raidPtr->numCol + spare_number, 
+				 0, raidPtr->numCol + spare_number,
 				 raidPtr->Queues[0][0].qPtr, /* XXX */
 				 raidPtr->sectorsPerDisk,
 				 raidPtr->Disks[0][raidPtr->numCol + spare_number].dev,
 				 raidPtr->Queues[0][0].maxOutstanding, /* XXX */
 				 &raidPtr->shutdownList,
 				 raidPtr->cleanupList);
-				 
+
 
 	raidPtr->numSpare++;
 	RF_UNLOCK_MUTEX(raidPtr->mutex);

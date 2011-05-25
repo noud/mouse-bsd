@@ -25,7 +25,7 @@ $version = "3.28";
 @subdirs = ("usr.bin/file", "usr.bin/file/magdir");
 
 
-@filef = ("LEGAL.NOTICE", "MAINT", 
+@filef = ("LEGAL.NOTICE", "MAINT",
 	  "README", "apprentice.c", "ascmagic.c",
 	  "compress.c", "file.c", "file.h", "fsmagic.c",
 	  "internat.c", "is_tar.c", "names.h", "patchlevel.h",
@@ -150,7 +150,7 @@ sub dumpsrcs {
 
 #
 # Main progarm.
-# 
+#
 
 $srcdir = $ENV{'SRCDIR'};
 $targetdir = $ENV{'TARGETDIR'};
@@ -158,9 +158,9 @@ $incdirs = "-I. -I$srcdir/config -I$srcdir";
 
 if (!$srcdir | !targetdir) {
     die "You must define the environment variables SRCDIR and TARGETDIR.\n"
-} 
+}
 print "Making the NetBSD directory tree.\n";
-foreach $f (@subdirs) { 
+foreach $f (@subdirs) {
     print "   -->$f\n";
     makedir ("$targetdir/$f");
 }
@@ -233,7 +233,7 @@ while ($line = <DATA>) {
 	}
 	print ODATA "$line\n";
     }
-}    
+}
 close (ODATA);
 
 #

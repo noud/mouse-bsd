@@ -172,7 +172,7 @@ change_ttyflags(tep)
 	sep = flags = rval = 0;
 	strflags[0] = '\0';
 
-	
+
 	/* Convert ttyent.h flags into ioctl flags. */
 	if (st & TTY_LOCAL) {
 		flags |= TIOCFLAG_CLOCAL;

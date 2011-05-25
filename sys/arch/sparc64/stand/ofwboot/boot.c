@@ -105,7 +105,7 @@ prom2boot(dev)
 	char *cp, *lp = 0;
 	int handle;
 	char devtype[16];
-	
+
 	for (cp = dev; *cp; cp++)
 		if (*cp == ':')
 			lp = cp;
@@ -141,7 +141,7 @@ parseargs(str, howtop)
 			break;
 	if (!*cp)
 		return;
-	
+
 	*cp++ = 0;
 	while (*cp) {
 		switch (*cp++) {
@@ -200,7 +200,7 @@ chain(pentry, args, ssym, esym)
 	bcopy(&machine_tag, args + l, sizeof(machine_tag));
 	l += sizeof(machine_tag);
 
-	/* 
+	/*
 	 * Since we don't need the boot string (we can get it from /chosen)
 	 * we won't pass it in.  Just pass in esym and magic #
 	 */
@@ -469,7 +469,7 @@ elf32_exec(fd, elf, entryp, ssymp, esymp)
 			continue;
 		if (shp->sh_type != SHT_SYMTAB
 		    && shp->sh_type != SHT_STRTAB) {
-			shp->sh_offset = 0; 
+			shp->sh_offset = 0;
 			shp->sh_type = SHT_NOBITS;
 			continue;
 		}
@@ -536,7 +536,7 @@ main()
 	char bootline[512];		/* Should check size? */
 	char *cp;
 	int i, fd;
-	
+
 	/* Initialize kernelname */
 	kernelname = kernels[0];
 

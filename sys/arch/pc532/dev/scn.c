@@ -655,7 +655,7 @@ scn_config(unit, ispeed, ospeed, mr1, mr2)
 			}
 		}
 	}
-	return EINVAL;	
+	return EINVAL;
 
     gotit:
 	s = spltty();
@@ -1005,7 +1005,7 @@ scnattach(parent, self, aux)
 		printf("%c flags %d", delim, sc->sc_swflags);
 		delim = ',';
 	}
-		
+
 #ifdef KGDB
 	if (kgdb_dev == makedev(scnmajor, unit)) {
 		if (scnconsole == unit)
@@ -1127,7 +1127,7 @@ scnopen(dev, flag, mode, p)
 		 *
 		 * This used to be more compact (while loop with lots of nots)
 		 * but it was incomprehensible.
-		 * 
+		 *
 		 * "getty" is the classic case of a program that waits here...
 		 */
 		for (;;) {
@@ -1603,7 +1603,7 @@ scnsoft(arg)
 					SCN_OP_BIS(sc, sc->sc_op_rts);
 					splx(s);
 				}
-					
+
 			}
 			sc->sc_rbget = get;
 		}

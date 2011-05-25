@@ -160,7 +160,7 @@ main (argc, argv)
   /* A hash table entry of 0 means "unused" so reserve it.  */
   fprintf (outf, "  {\"\", \"\", \"\"},\n");
   next_index = 1;
-  
+
   for (;;)
     {
       int c = skip_spaces (inf, ' ');

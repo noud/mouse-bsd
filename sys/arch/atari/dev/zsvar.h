@@ -158,6 +158,6 @@ struct zs_chanstate {
 /*
  * Split minor into unit, dialin/dialout & flag nibble.
  */
-#define	ZS_UNIT(dev)		((minor(dev) >> 4) & 0xf) 
-#define	ZS_FLAGS(dev)		(minor(dev) & 0xf) 
+#define	ZS_UNIT(dev)		((minor(dev) >> 4) & 0xf)
+#define	ZS_FLAGS(dev)		(minor(dev) & 0xf)
 #define	ZS_DIALOUT(dev)		(minor(dev) & 0x80000)

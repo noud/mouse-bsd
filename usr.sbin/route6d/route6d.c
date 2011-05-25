@@ -5,7 +5,7 @@
 /*
  * Copyright (C) 1995, 1996, 1997, and 1998 WIDE Project.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -17,7 +17,7 @@
  * 3. Neither the name of the project nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -118,7 +118,7 @@ struct	ifc {			/* Configuration of an interface */
 	int	ifc_joined;			/* joined to ff02::9 */
 };
 
-struct	ifac {			/* Adddress associated to an interface */ 
+struct	ifac {			/* Adddress associated to an interface */
 	struct	ifc *ifa_conf;		/* back pointer */
 	struct	ifac *ifa_next;
 	struct	in6_addr ifa_addr;	/* address */
@@ -650,8 +650,8 @@ ripsend(ifcp, sin, flag)
 		 * Request from non-link local address is not
 		 * a regular route6d update.
 		 */
-		maxrte = (IFMINMTU - sizeof(struct ip6_hdr) - 
-				sizeof(struct udphdr) - 
+		maxrte = (IFMINMTU - sizeof(struct ip6_hdr) -
+				sizeof(struct udphdr) -
 				sizeof(struct rip6) + sizeof(struct netinfo6)) /
 				sizeof(struct netinfo6);
 		nrt = 0; np = ripbuf->rip6_nets; nh = NULL;
@@ -689,8 +689,8 @@ ripsend(ifcp, sin, flag)
 		ripflush(ifcp, sin);
 		return;
 	}
-	maxrte = (ifcp->ifc_mtu - sizeof(struct ip6_hdr) - 
-			sizeof(struct udphdr) - 
+	maxrte = (ifcp->ifc_mtu - sizeof(struct ip6_hdr) -
+			sizeof(struct udphdr) -
 			sizeof(struct rip6) + sizeof(struct netinfo6)) /
 			sizeof(struct netinfo6);
 	nrt = 0; np = ripbuf->rip6_nets; nh = NULL;
@@ -704,7 +704,7 @@ ripsend(ifcp, sin, flag)
 				continue;
 			if (rrt->rrt_info.rip6_plen <= iffp->iff_plen)
 				continue;
-			ia = rrt->rrt_info.rip6_dest; 
+			ia = rrt->rrt_info.rip6_dest;
 			applyplen(&ia, iffp->iff_plen);
 			if (IN6_ARE_ADDR_EQUAL(&ia, &iffp->iff_addr)) {
 				ok = 0;
@@ -719,7 +719,7 @@ ripsend(ifcp, sin, flag)
 			ok = 0;
 			if (rrt->rrt_info.rip6_plen < iffp->iff_plen)
 				continue;
-			ia = rrt->rrt_info.rip6_dest; 
+			ia = rrt->rrt_info.rip6_dest;
 			applyplen(&ia, iffp->iff_plen);
 			if (IN6_ARE_ADDR_EQUAL(&ia, &iffp->iff_addr)) {
 				ok = 1;
@@ -951,8 +951,8 @@ riprecv()
 		} else {
 			riprequest(NULL, np, nn, &fsock);
 		}
-		return; 
-	} 
+		return;
+	}
 
 	if (!IN6_IS_ADDR_LINKLOCAL(&fsock.sin6_addr)) {
 		trace(1, "Packets from non-ll addr: %s\n",
@@ -969,7 +969,7 @@ riprecv()
 		return;		/* The packet is from me; ignore */
 	if (rp->rip6_cmd != RIP6_RESPONSE) {
 		trace(1, "Invalid command %d\n", rp->rip6_cmd);
-		return; 
+		return;
 	}
 	if (iff_find(ifcp, 'N') != NULL)
 		return;
@@ -1036,7 +1036,7 @@ riprecv()
 			/* special rule: ::/0 means default, not "in /0" */
 			if (iffp->iff_plen == 0 && np->rip6_plen > 0)
 				continue;
-			ia = np->rip6_dest; 
+			ia = np->rip6_dest;
 			applyplen(&ia, iffp->iff_plen);
 			if (IN6_ARE_ADDR_EQUAL(&ia, &iffp->iff_addr)) {
 				ok = 1;
@@ -1091,7 +1091,7 @@ riprecv()
 				/* same metric, same route from same gw */
 				rrt->rrt_t = t;
 			}
-			/* 
+			/*
 			 * if nq->rip6_metric == HOPCNT_INFINITY6 then
 			 * do not update age value. Do nothing.
 			 */
@@ -1480,7 +1480,7 @@ rtrecv()
 #if 0
 		if (rta[RTAX_DST] == NULL) {
 			trace(1, "\tno destination, ignored\n");
-			continue;	
+			continue;
 		}
 		if (rta[RTAX_DST]->sin6_family != AF_INET6) {
 			trace(1, "\taf mismatch, ignored\n");
@@ -1626,7 +1626,7 @@ rt_del(sdst, sgw, smask)
 		gw = &in6addr_loopback;
 		prefix = rrt->rrt_info.rip6_plen;
 	} else {
-		trace(1, "\tunsupported af: (gw=%d, mask=%d)\n", 
+		trace(1, "\tunsupported af: (gw=%d, mask=%d)\n",
 			sgw->sin6_family, smask->sin6_family);
 		return -1;
 	}
@@ -2572,7 +2572,7 @@ ifonly:
 		if (getroute(&rrt->rrt_info, &gw)) {
 			/*
 			 * When the address has already been registered in the
-			 * kernel routing table, it should be removed 
+			 * kernel routing table, it should be removed
 			 */
 			delroute(&rrt->rrt_info, &gw);
 		}
@@ -2630,7 +2630,7 @@ mask2len(addr, lenlim)
 {
 	int i = 0, j;
 	u_char *p = (u_char *)addr;
-	
+
 	for (j = 0; j < lenlim; j++, p++) {
 		if (*p != 0xff)
 			break;
@@ -2754,7 +2754,7 @@ ripsuptrig()
 	time_t t;
 
 	double r = rand();
-	t  = (int)(RIP_TRIG_INT6_MIN + 
+	t  = (int)(RIP_TRIG_INT6_MIN +
 		(RIP_TRIG_INT6_MAX - RIP_TRIG_INT6_MIN) * (r / RAND_MAX ));
 	sup_trig_update = time(NULL) + t;
 	return t;

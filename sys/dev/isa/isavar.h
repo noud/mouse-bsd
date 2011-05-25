@@ -70,7 +70,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *	BSDI Id: isavar.h,v 1.5 1992/12/01 18:06:00 karels Exp 
+ *	BSDI Id: isavar.h,v 1.5 1992/12/01 18:06:00 karels Exp
  */
 
 #ifndef _DEV_ISA_ISAVAR_H_
@@ -83,7 +83,7 @@
 #include <sys/queue.h>
 #include <machine/bus.h>
 
-/* 
+/*
  * Structures and definitions needed by the machine-dependent header.
  */
 struct isabus_attach_args;
@@ -151,7 +151,7 @@ struct isa_softc {
 
 /*
  * ISA interrupt handler manipulation.
- * 
+ *
  * To establish an ISA interrupt handler, a driver calls isa_intr_establish()
  * with the interrupt number, type, level, function, and function argument of
  * the interrupt it wants to handle.  Isa_intr_establish() returns an opaque
@@ -163,7 +163,7 @@ struct isa_softc {
  * "I took care of it", or -1 for "I guess it was mine, but I wasn't
  * expecting it."
  *
- * To remove an interrupt handler, the driver calls isa_intr_disestablish() 
+ * To remove an interrupt handler, the driver calls isa_intr_disestablish()
  * with the handle returned by isa_intr_establish() for that handler.
  */
 

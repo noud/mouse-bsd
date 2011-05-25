@@ -1428,7 +1428,7 @@ sim_resume (step, siggnal)
 	FETCH (argb, code->srcb, 1);
 
 
-	
+
 #ifdef DEBUG
 	if (debug)
 	  {
@@ -2225,7 +2225,7 @@ sim_store_register (rn, value)
     case PR6_REGNUM:
     case PR7_REGNUM:
       SET_SEGREG (segforreg[rn], value[1]);
-      reg = rn - PR0_REGNUM;      
+      reg = rn - PR0_REGNUM;
       cpu.regs[reg].s[LOW] = (value[2] << 8) | value[3];
       return;
     }
@@ -2379,11 +2379,11 @@ sim_info (verbose)
   printf_filtered ("cycles (v approximate) %10d\n", cpu.cycles);
   printf_filtered ("real time taken        %10.4f\n", timetaken);
   printf_filtered ("virtual time taked     %10.4f\n", virttime);
-  if (timetaken) 
+  if (timetaken)
     {
       printf_filtered ("simulation ratio       %10.4f\n", virttime / timetaken);
     }
-  
+
   printf_filtered ("compiles               %10d\n", cpu.compiles);
   printf_filtered ("cache size             %10d\n", cpu.csize);
 }

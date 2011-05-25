@@ -25,13 +25,13 @@
  * THIS SOFTWARE IS PROVIDED BY PIERMONT INFORMATION SYSTEMS INC. ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * ARE DISCLAIMED. IN NO EVENT SHALL PIERMONT INFORMATION SYSTEMS INC. BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -63,7 +63,7 @@ static void get_disks (void);
 static void foundffs (struct data *list, int num);
 static int do_fsck(const char *diskpart);
 static int fsck_root __P((void));
-static int 
+static int
     do_ffs_newfs(const char *partname, int part, const char *mountpoint);
 
 static int fsck_with_error_menu(const char *diskpart);
@@ -99,7 +99,7 @@ static void get_disks(void)
 		xd++;
 	}
 }
-			
+
 
 int find_disks(void)
 {
@@ -154,7 +154,7 @@ int find_disks(void)
 		/* Remove that space we added. */
 		diskdev[strlen(diskdev)-1] = 0;
 	}
-	
+
 	/* Set disk. */
 	for (i = 0; i < numdisks; i++)
 		if (strcmp(diskdev, disks[i].dd_name) == 0)
@@ -224,7 +224,7 @@ void disp_cur_fspart(int disp, int showall)
  * i386  port uses "/sbin/disklabel -w -r", just like i386
  * miniroot scripts, though this may leave a bogus incore label.
  *
- * Sun ports should use  DISKLABEL_CMD "/sbin/disklabel -w"	
+ * Sun ports should use  DISKLABEL_CMD "/sbin/disklabel -w"
  * to get incore  to ondisk inode translation for the Sun proms.
  */
 int write_disklabel (void)
@@ -249,11 +249,11 @@ int make_filesystems(void)
 	/* Making new file systems and mounting them*/
 	for (i = 0; i < getmaxpartitions(); i++) {
 		/*
-		 * newfs and mount. For now, process only BSD filesystems. 
-		 * but if this is the  mounted-on root, don't touch it! 
+		 * newfs and mount. For now, process only BSD filesystems.
+		 * but if this is the  mounted-on root, don't touch it!
 		 */
 	  	snprintf(partname, STRSIZE, "%s%c", diskdev, 'a'+i);
-		if (bsdlabel[i].pi_fstype == FS_BSDFFS && 
+		if (bsdlabel[i].pi_fstype == FS_BSDFFS &&
 		    !is_active_rootpart(partname)) {
 			error = do_ffs_newfs(partname, i, fsmount[i]);
 			if (error)
@@ -265,7 +265,7 @@ int make_filesystems(void)
 
 
 /* newfs and mount an ffs filesystem. */
-static int 
+static int
 do_ffs_newfs(const char *partname, int partno, const char *mountpoint)
 {
 	char devname[STRSIZE];
@@ -273,7 +273,7 @@ do_ffs_newfs(const char *partname, int partno, const char *mountpoint)
 
 	error = run_prog(0, 1, MSG_cmdfail,
 	    "/sbin/newfs /dev/r%s", partname);
-	if (*mountpoint && error == 0) { 
+	if (*mountpoint && error == 0) {
 		snprintf(devname, STRSIZE, "/dev/%s", partname);
 		if (partno > 0) {
 			make_target_dir(mountpoint);
@@ -312,7 +312,7 @@ int make_fstab(void)
 		return 1;
 #else
 		f = stdout;
-#endif		
+#endif
 	}
 	(void)fprintf (f, "/dev/%sa / ffs rw 1 1\n", diskdev);
 	if (scripting)
@@ -413,7 +413,7 @@ inode_kind(char *dev)
  * and a positive  non-zero value  if exec'ing fsck returns an error.
  * If the filesystem is an out-of-date version, prompt the user
  * whether to upgrade the filesystem  level.
- * 
+ *
  */
 static int
 do_fsck(const char *diskpart)
@@ -444,7 +444,7 @@ do_fsck(const char *diskpart)
 	err = run_prog(0, 1, NULL, "/sbin/fsck_ffs %s%s", upgr, raw);
 #else
 	err = run_prog(0, 1, NULL, "/sbin/fsck_ffs -f %s%s", upgr, raw);
-#endif	
+#endif
 		wrefresh(stdscr);
 	return err;
 }
@@ -476,7 +476,7 @@ fsck_with_error_menu(const char *diskpart)
  * returns 0 if  the mount completed without indicating errors,
  *  and an nonzero error code from target_mount() otherwise.
  */
-int target_mount_with_error_menu(const char *opt, 
+int target_mount_with_error_menu(const char *opt,
 		 char *diskpart, const char *mntpoint)
 {
 	register int error;
@@ -526,11 +526,11 @@ fsck_root()
 		return (0);
 	}
 
-	/* Mount /dev/<diskdev>a on  target's "".  
-	 * If we pass "" as mount-on, Prefixing will DTRT. 
+	/* Mount /dev/<diskdev>a on  target's "".
+	 * If we pass "" as mount-on, Prefixing will DTRT.
 	 * for now, use no options.
 	 * XXX consider -o remount in case target root is
-	 * current root, still  readonly from single-user? 
+	 * current root, still  readonly from single-user?
 	 */
 	error = target_mount_with_error_menu("", rootdev, "");
 
@@ -556,7 +556,7 @@ fsck_disks(void)
 	}
 
 	/* Check the target /etc/fstab exists before trying to parse it. */
-	if (target_dir_exists_p("/etc") == 0 || 
+	if (target_dir_exists_p("/etc") == 0 ||
 	    target_file_exists_p("/etc/fstab") == 0) {
 		msg_display(MSG_noetcfstab, diskdev);
 		process_menu(MENU_ok);
@@ -586,6 +586,6 @@ fsck_disks(void)
 			return 0;
 		}
 	}
-	
+
 	return 1;
 }

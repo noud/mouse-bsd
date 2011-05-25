@@ -34,7 +34,7 @@
 
 int     rf_ConfigureDebugPrint(RF_ShutdownList_t ** listp);
 void    rf_clear_debug_print_buffer(void);
-void 
+void
 rf_debug_printf(char *s, void *a1, void *a2, void *a3, void *a4,
     void *a5, void *a6, void *a7, void *a8);
 void    rf_print_debug_buffer(void);

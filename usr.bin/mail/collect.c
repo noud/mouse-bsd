@@ -287,7 +287,7 @@ cont:
 			 */
 
 			switch(c) {
-				case 'i':			
+				case 'i':
 					cp = &linebuf[2];
 					while(isspace((unsigned char) *cp))
 						cp++;
@@ -304,7 +304,7 @@ cont:
 			}
 
 			if(*cp && (cp = value(cp)) != NOSTR) {
-				printf("%s\n", cp);			
+				printf("%s\n", cp);
 				if(putline(collf, cp, 1) < 0)
 					goto err;
 			}

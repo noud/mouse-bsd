@@ -15,7 +15,7 @@ Sat Feb 29 00:53:16 1992  K. Richard Pixley  (rich@cygnus.com)
 	  as part of all error messages.
 
 	* mess-dose renaming:
-	  flonum-copy.c -> flo-copy.c 
+	  flonum-copy.c -> flo-copy.c
 	  flonum-const.c -> flo-const.c
 	  config/a.out.gnu.h -> config/aout.h
 	  config/coff.gnu.h -> config/coff.h
@@ -135,12 +135,12 @@ Tue Feb 25 19:54:04 1992    (Eric Youngdale at youngdale@v6550c.nrl.navy.mil)
 
 Mon Feb 24 22:19:10 1992    (Eric Youngdale at youngdale@v6550c.nrl.navy.mil)
 
-	* README-vms: Describe how to get a VMS obj file to a vms machine 
+	* README-vms: Describe how to get a VMS obj file to a vms machine
 	via NFS.
 
 	* configure.in: For i386-sysv*, use gas_host=i386.
 
-	* Makefile.in: Remove continuation line markers when the next line 
+	* Makefile.in: Remove continuation line markers when the next line
 	is blank.
 
 	* read.c (line_comment_chars): Make external.
@@ -154,7 +154,7 @@ Mon Feb 24 22:19:10 1992    (Eric Youngdale at youngdale@v6550c.nrl.navy.mil)
 
 	* config/obj-vms.c: Change bcopy to memcpy throughout.
 	  (VMS_local_stab_Parse): Fix typo.
-	  (VMS_local_stab_Parse, VMS_RSYM_Parse, Define_Local_Symbols, 
+	  (VMS_local_stab_Parse, VMS_RSYM_Parse, Define_Local_Symbols,
 	   Define_Routine, VMS_write_object_file): Allow 'f' for functions
 	   as well as 'F'.
 
@@ -193,7 +193,7 @@ Mon Feb 24 03:27:00 1992  Eric Youngdale (youngdale at v6550c.nrl.navy.mil)
 
 	* expr.c: Add "const" modifier to hex_value.
 
-	* read.c: Add "const" modifier to line_comment_chars, and 
+	* read.c: Add "const" modifier to line_comment_chars, and
 	  line_separator_chars.  Make use of the -1 switch for backward
 	  compatibility with gcc 1.nn.
 	  (s_ignore): remove redundant declaration of is_end_of_line.
@@ -238,7 +238,7 @@ Mon Feb 24 03:27:00 1992  Eric Youngdale (youngdale at v6550c.nrl.navy.mil)
 	  - (obj_crawl_symbol_chain): Clean up (a lot), and remove non-VMS
 	    code.  Add definition for obj_read_begin_hook.
 
-	  - Borrow the stab[s,d,n] routines from obj-aout.c.  
+	  - Borrow the stab[s,d,n] routines from obj-aout.c.
 
 	  - Borrow the seg_N_TYPE and N_TYPE_seg arrays from aout.c
 
@@ -246,7 +246,7 @@ Mon Feb 24 03:27:00 1992  Eric Youngdale (youngdale at v6550c.nrl.navy.mil)
 	    <vms/rabdef.h> and <vms/xabdef.h>, for more consistent results.
 	    (Some peoples <vms/*.h> files are different than others).
 
-	  - Merged vms-dbg.c into obj-vms.c.  Modified to use 
+	  - Merged vms-dbg.c into obj-vms.c.  Modified to use
 	    the S_* macros.  Added code to remove the psect hack from
 	    variable names before writing them to the debugger records.
 
@@ -422,7 +422,7 @@ Mon Feb 17 07:51:06 1992  K. Richard Pixley  (rich at cygnus.com)
 
 	* config/tc-ns32k.c: actually make tc_aout_fix_to_chars work
 	  rather than abort.
-				       
+
 	* nearly everything.  flush ChangeLog, package as gas-1.92.1.
 	  ChangeLog's prior to this are sketchy at best.  I have logs.
 	  They just aren't ChangeLogs.

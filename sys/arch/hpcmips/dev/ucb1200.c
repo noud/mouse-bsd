@@ -64,7 +64,7 @@ struct ucb1200_softc {
 	struct device		sc_dev;
 	struct device		*sc_parent; /* parent (TX39 SIB module) */
 	tx_chipset_tag_t	sc_tc;
-	
+
 	int		sc_snd_rate; /* passed down from SIB module */
 	int		sc_tel_rate;
 
@@ -91,14 +91,14 @@ ucb1200_match(parent, cf, aux)
 {
 	struct txsib_attach_args *sa = aux;
 	u_int16_t reg;
-	
+
 	if (sa->sa_slot != 0) /* UCB1200 must be subframe 0 */
 		return 0;
 	reg = txsibsf0_reg_read(sa->sa_tc, UCB1200_ID_REG);
-	
+
 	if (reg == UCB1200_ID || reg == TC35413F_ID)
 		return 1;
-	else 
+	else
 		return 0;
 }
 
@@ -119,7 +119,7 @@ ucb1200_attach(parent, self, aux)
 	tx39sib_enable1(sc->sc_parent);
 	tx39sib_enable2(sc->sc_parent);
 
-#ifdef UCB1200DEBUG	
+#ifdef UCB1200DEBUG
 	ucb1200_dump(sc);
 #endif
 	printf("\n");
@@ -135,13 +135,13 @@ ucb1200_search(parent, cf, aux)
 {
 	struct ucb1200_softc *sc = (void*)parent;
 	struct ucb1200_attach_args ucba;
-	
+
 	ucba.ucba_tc = sc->sc_tc;
 	ucba.ucba_snd_rate = sc->sc_snd_rate;
 	ucba.ucba_tel_rate = sc->sc_tel_rate;
 	ucba.ucba_sib	   = sc->sc_parent;
 	ucba.ucba_ucb	   = parent;
-	
+
 	if ((*cf->cf_attach->ca_match)(parent, cf, &ucba))
 		config_attach(parent, cf, &ucba, ucb1200_print);
 
@@ -164,7 +164,7 @@ ucb1200_state_install(dev, sfun, sarg, sid)
 	int sid;
 {
 	struct ucb1200_softc *sc = (void*)dev;
-	
+
 	sc->sc_child[sid].cs_busy = sfun;
 	sc->sc_child[sid].cs_arg = sarg;
 }
@@ -182,7 +182,7 @@ ucb1200_state_idle(dev)
 		if (cs->cs_busy)
 			if ((*cs->cs_busy)(cs->cs_arg))
 				return 0;
-		
+
 	return 1; /* idle state */
 }
 

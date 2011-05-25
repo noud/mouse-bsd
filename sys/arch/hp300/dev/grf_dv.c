@@ -445,7 +445,7 @@ dvbox_init(ip)
 	struct ite_data *ip;
 {
 	int i;
-	
+
 	/* XXX */
 	if (ip->regbase == 0) {
 		struct grf_data *gp = ip->grf;
@@ -478,7 +478,7 @@ dvbox_init(ip)
 	 * Lastly, turn on the box.
 	 */
 	REGBASE->interrupt = 0x04;
-	REGBASE->drive     = 0x10;		
+	REGBASE->drive     = 0x10;
  	REGBASE->rep_rule  = RR_COPY << 4 | RR_COPY;
 	REGBASE->opwen     = 0x01;
 	REGBASE->fbwen     = 0x0;
@@ -517,7 +517,7 @@ dvbox_init(ip)
 		REGBASE->rgb[1].blue  = 0xFF;
 	}
 	REGBASE->cmapbank = 0;
-	
+
 	db_waitbusy(ip->regbase);
 
 	ite_fontinfo(ip);
@@ -553,7 +553,7 @@ dvbox_putc(ip, c, dy, dx, mode)
         int dy, dx, c, mode;
 {
         int wrr = ((mode == ATTR_INV) ? RR_COPYINVERTED : RR_COPY);
-	
+
 	dvbox_windowmove(ip, charY(ip, c), charX(ip, c),
 			 dy * ip->ftheight, dx * ip->ftwidth,
 			 ip->ftheight, ip->ftwidth, wrr);
@@ -580,7 +580,7 @@ dvbox_clear(ip, sy, sx, h, w)
 	int sy, sx, h, w;
 {
 	dvbox_windowmove(ip, sy * ip->ftheight, sx * ip->ftwidth,
-			 sy * ip->ftheight, sx * ip->ftwidth, 
+			 sy * ip->ftheight, sx * ip->ftwidth,
 			 h  * ip->ftheight, w  * ip->ftwidth,
 			 RR_CLEAR);
 }
@@ -612,7 +612,7 @@ dvbox_scroll(ip, sy, sx, count, dir)
 		dy = sy;
 		dx = sx - count;
 		width = ip->cols - sx;
-	}		
+	}
 
 	dvbox_windowmove(ip, sy * ip->ftheight, sx * ip->ftwidth,
 			 dy * ip->ftheight, dx * ip->ftwidth,
@@ -628,7 +628,7 @@ dvbox_windowmove(ip, sy, sx, dy, dx, h, w, func)
 	struct dvboxfb *dp = REGBASE;
 	if (h == 0 || w == 0)
 		return;
-	
+
 	db_waitbusy(ip->regbase);
 	dp->rep_rule = func << 4 | func;
 	dp->source_y = sy;

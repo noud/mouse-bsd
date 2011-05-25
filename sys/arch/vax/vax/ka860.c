@@ -91,13 +91,13 @@ struct	cpu_dep	ka860_calls = {
 /*
  * ESPA register is used to address scratch pad registers in the Ebox.
  * To access a register in the scratch pad, write the ESPA with the address
- * and then read the ESPD register.  
+ * and then read the ESPD register.
  *
  * NOTE:  In assmebly code, the mfpr instruction that reads the ESPD
  *	  register must immedately follow the mtpr instruction that setup
  *	  the ESPA register -- per the VENUS processor register spec.
  *
- * The scratchpad registers that are supplied for a single bit ECC 
+ * The scratchpad registers that are supplied for a single bit ECC
  * error are:
  */
 #define SPAD_MSTAT1	0x25		/* scratch pad mstat1 register	*/
@@ -277,7 +277,7 @@ ka860_init(self)
 	printf(": CPU serial number %d(%d), hardware ECO level %d(%d)\n%s: ",
 	    ka86->snr, ka86->plant, ka86->eco >> 4, ka86->eco, self->dv_xname);
 	if (mfpr(PR_ACCS) & 255) {
-		printf("FPA present, type %d, serial number %d, enabling.\n", 
+		printf("FPA present, type %d, serial number %d, enabling.\n",
 		    mfpr(PR_ACCS) & 255, mfpr(PR_ACCS) >> 16);
 		mtpr(0x8000, PR_ACCS);
 	} else
@@ -313,7 +313,7 @@ ka86_clrf()
 
 	/* clear cold start flag */
 	mtpr(GC_CCFL, PR_TXDB);
-	WAIT;        
+	WAIT;
 
 	/* restore old state */
 	mtpr(old|GC_WRT, PR_TXCS);
@@ -326,9 +326,9 @@ ka86_reboot(howto)
 {
 	WAIT;
 
-	/* Enable channel to console */ 
+	/* Enable channel to console */
 	mtpr(GC_LT|GC_WRT, PR_TXCS);
-	WAIT;   
+	WAIT;
 
 	mtpr(GC_BTFL, PR_TXDB);
 	WAIT;
@@ -385,7 +385,7 @@ abus_attach(parent, self, aux)
                 type = tmp & IOA_TYPMSK;
 
                 switch (type) {
-        
+
                 case IOA_SBIA:
                         bp.type = "sbi";
                         bp.num = i;

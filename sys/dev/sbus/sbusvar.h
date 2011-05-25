@@ -98,7 +98,7 @@ struct sbus_attach_args {
 };
 
 /* sbus_attach_internal() is also used from obio.c */
-void	sbus_attach_common __P((struct sbus_softc *, char *, int, 
+void	sbus_attach_common __P((struct sbus_softc *, char *, int,
 				const char * const *));
 int	sbus_print __P((void *, const char *));
 

@@ -50,7 +50,7 @@ main (ac, av)
   enum sim_stop reason;
 
   while ((i = getopt (ac, av, "c:htv")) != EOF)
-    switch (i) 
+    switch (i)
       {
       case 'c':
 	sim_csize (atoi (optarg));
@@ -83,7 +83,7 @@ main (ac, av)
       exit (1);
     }
 
-  if (! bfd_check_format(abfd, bfd_object)) 
+  if (! bfd_check_format(abfd, bfd_object))
     {
       fprintf (stderr, "%s: %s is not a valid executable\n", av[0], name);
       exit (1);
@@ -92,7 +92,7 @@ main (ac, av)
   if (abfd->arch_info->mach == bfd_mach_h8300h)
     set_h8300h (1);
 
-  for (s = abfd->sections; s; s=s->next) 
+  for (s = abfd->sections; s; s=s->next)
     {
       char *buffer = malloc(bfd_section_size(abfd,s));
       bfd_get_section_contents(abfd, s, buffer, 0, bfd_section_size(abfd,s));

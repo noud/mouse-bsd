@@ -99,7 +99,7 @@
 
 #include <machine/autoconf.h>
 #include <machine/cpu.h>
- 
+
 #include <dev/cons.h>
 
 #include <hp300/dev/diovar.h>
@@ -113,7 +113,7 @@
 
 #include <hp300/dev/itevar.h>
 #include <hp300/dev/itereg.h>
- 
+
 #include "ite.h"
 
 #define CRTC_DATA_LENGTH  0x0e
@@ -311,7 +311,7 @@ gb_microcode(gbp)
 	struct gboxfb *gbp;
 {
 	int i;
-	
+
 	for (i = 0; i < CRTC_DATA_LENGTH; i++) {
 		gbp->crtc_address = i;
 		gbp->crtc_data = crtc_init_data[i];
@@ -441,7 +441,7 @@ gbox_init(ip)
 	REGBASE->cmap_blu    = 0x00;
 	REGBASE->cmap_write  = 0x00;
 	gbcm_waitbusy(ip->regbase);
-	
+
 	REGBASE->creg_select = 0x01;
 	REGBASE->cmap_red    = 0xFF;
 	REGBASE->cmap_grn    = 0xFF;
@@ -518,7 +518,7 @@ gbox_clear(ip, sy, sx, h, w)
 	int sy, sx, h, w;
 {
 	gbox_windowmove(ip, sy * ip->ftheight, sx * ip->ftwidth,
-			sy * ip->ftheight, sx * ip->ftwidth, 
+			sy * ip->ftheight, sx * ip->ftwidth,
 			h  * ip->ftheight, w  * ip->ftwidth,
 			RR_CLEAR);
 }
@@ -538,10 +538,10 @@ gbox_scroll(ip, sy, sx, count, dir)
         int sy, dir, sx, count;
 {
 	int height, dy, i;
-	
+
 	tile_mover_waitbusy(ip->regbase);
 	REGBASE->write_protect = 0x0;
-	
+
 	if (dir == SCROLL_UP) {
 		dy = sy - count;
 		height = ip->rows - sy;
@@ -561,7 +561,7 @@ gbox_scroll(ip, sy, sx, count, dir)
 	else {
 		gbox_blockmove(ip, sy, sx, sy, sx - count,
 			       1, ip->cols - sx);
-	}		
+	}
 }
 
 void

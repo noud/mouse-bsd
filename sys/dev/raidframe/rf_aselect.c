@@ -59,7 +59,7 @@ int     rf_SelectAlgorithm(RF_RaidAccessDesc_t *, RF_RaidAccessFlags_t);
  * Create and Initialiaze a dag header and termination node
  *
  *****************************************************************************/
-static int 
+static int
 InitHdrNode(hdr, raidPtr, memChunkEnable)
 	RF_DagHeader_t **hdr;
 	RF_Raid_t *raidPtr;
@@ -86,7 +86,7 @@ InitHdrNode(hdr, raidPtr, memChunkEnable)
 #if defined(__NetBSD__) && defined(_KERNEL)
 /* the function below is not used... so don't define it! */
 #else
-static void 
+static void
 TransferDagMemory(daga, dagb)
 	RF_DagHeader_t *daga;
 	RF_DagHeader_t *dagb;
@@ -155,7 +155,7 @@ TransferDagMemory(daga, dagb)
  * succedents WILL NOT BE EXAMINED.
  *
  ****************************************************************************************/
-static void 
+static void
 UpdateNodeHdrPtr(hdr, node)
 	RF_DagHeader_t *hdr;
 	RF_DagNode_t *node;
@@ -201,7 +201,7 @@ UpdateNodeHdrPtr(hdr, node)
 
 #define MAXNSTRIPES 50
 
-int 
+int
 rf_SelectAlgorithm(desc, flags)
 	RF_RaidAccessDesc_t *desc;
 	RF_RaidAccessFlags_t flags;

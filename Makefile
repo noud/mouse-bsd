@@ -19,7 +19,7 @@
 #	software. It defaults to /. Note that programs are built against
 #	libraries installed in DESTDIR.
 #   MKMAN, if set to `no', will prevent building of manual pages.
-#   MKOBJDIRS, if not set to `no', will build object directories at 
+#   MKOBJDIRS, if not set to `no', will build object directories at
 #	an appropriate point in a build.
 #   MKSHARE, if set to `no', will prevent building and installing
 #	anything in /usr/share.

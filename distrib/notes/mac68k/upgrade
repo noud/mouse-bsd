@@ -70,7 +70,7 @@ that you place the distribution sets on a filesystem you will be able to
 reach from single-user mode.
 .It
 Install the \*V kernel. You may either use the Installer utility
-(included in the 
+(included in the
 .Pa installation/misc
 subdirectory) or install from within
 .Nx
@@ -88,7 +88,7 @@ install. (Unless, of course, you have a backup copy of your older
 binaries and want to revert to them for some reason.) However, you
 might want to keep a backup if you are upgrading from within
 .Nx
-just in case the newer kernel has trouble booting your machine. 
+just in case the newer kernel has trouble booting your machine.
 .It
 If you are installing using the Installer, skip to step 5. Otherwise,
 reboot into
@@ -115,19 +115,19 @@ or
 .Cm sd Ns Ar X Ns Cm e
 slots, slots that often were not available under
 previous releases of NetBSD. If this is the case, you will need to
-manually mount your root partition 
+manually mount your root partition
 .Pq via Sy mount Fl w Cm /
 and edit your
 .Pa /etc/fstab
 file to reflect the new partition layout. Unless you are
-familiar with 
+familiar with
 .Xr ex 1
 or
 .Xr ed 1 .
 the easiest way to fix your
 .Pa /etc/fstab
 file
-is probably to simply do a 
+is probably to simply do a
 .Ic cat \*> /etc/fstab
 and type in the corrected file in its entirety.
 .It
@@ -157,7 +157,7 @@ Ignore the warning message this will cause. Now, use the Installer to
 install the
 .Sy etc No set (it will install into
 .Pa /tmp No instead of the
-.Pa /etc No directory). 
+.Pa /etc No directory).
 .Pp
 If you are in NetBSD, do the following instead:
 .Bd -literal -offset indent
@@ -210,13 +210,13 @@ should be included in the etc set) and perform the following commands:
 Run
 .Ic fsck Fl f
 to make sure that your filesystem is still consistent. If
-fsck reports any errors, fix them by answering 
+fsck reports any errors, fix them by answering
 .Ic y
 to its suggested
-solutions 
+solutions
 .(tag Em Note:
 if there are a large number of errors, you may wish
-to stop and run 
+to stop and run
 .Ic fsck Fl fy
 to automatically answer
 .Ic yes

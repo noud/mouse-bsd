@@ -1,4 +1,4 @@
-.\" $NetBSD: legal,v 1.6 1999/01/13 07:30:05 ross Exp $	
+.\" $NetBSD: legal,v 1.6 1999/01/13 07:30:05 ross Exp $
 .
 .
 .
@@ -46,5 +46,5 @@ for research and education, including but not restricted to
 In the following statement, "This software" refers to the parallel
 port driver:
 
-This software is a component of "386BSD" developed by 
+This software is a component of "386BSD" developed by
 William F. Jolitz, TeleMuse.

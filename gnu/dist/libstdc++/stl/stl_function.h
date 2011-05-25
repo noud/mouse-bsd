@@ -44,7 +44,7 @@ struct binary_function {
     typedef Arg1 first_argument_type;
     typedef Arg2 second_argument_type;
     typedef Result result_type;
-};      
+};
 
 template <class T>
 struct plus : public binary_function<T, T, T> {
@@ -142,8 +142,8 @@ inline unary_negate<Predicate> not1(const Predicate& pred) {
   return unary_negate<Predicate>(pred);
 }
 
-template <class Predicate> 
-class binary_negate 
+template <class Predicate>
+class binary_negate
   : public binary_function<typename Predicate::first_argument_type,
                            typename Predicate::second_argument_type,
                            bool> {
@@ -151,9 +151,9 @@ protected:
   Predicate pred;
 public:
   explicit binary_negate(const Predicate& x) : pred(x) {}
-  bool operator()(const typename Predicate::first_argument_type& x, 
+  bool operator()(const typename Predicate::first_argument_type& x,
                   const typename Predicate::second_argument_type& y) const {
-    return !pred(x, y); 
+    return !pred(x, y);
   }
 };
 
@@ -162,7 +162,7 @@ inline binary_negate<Predicate> not2(const Predicate& pred) {
   return binary_negate<Predicate>(pred);
 }
 
-template <class Operation> 
+template <class Operation>
 class binder1st
   : public unary_function<typename Operation::second_argument_type,
                           typename Operation::result_type> {
@@ -175,7 +175,7 @@ public:
       : op(x), value(y) {}
   typename Operation::result_type
   operator()(const typename Operation::second_argument_type& x) const {
-    return op(value, x); 
+    return op(value, x);
   }
 };
 
@@ -185,7 +185,7 @@ inline binder1st<Operation> bind1st(const Operation& op, const T& x) {
   return binder1st<Operation>(op, arg1_type(x));
 }
 
-template <class Operation> 
+template <class Operation>
 class binder2nd
   : public unary_function<typename Operation::first_argument_type,
                           typename Operation::result_type> {
@@ -194,11 +194,11 @@ protected:
   typename Operation::second_argument_type value;
 public:
   binder2nd(const Operation& x,
-            const typename Operation::second_argument_type& y) 
+            const typename Operation::second_argument_type& y)
       : op(x), value(y) {}
   typename Operation::result_type
   operator()(const typename Operation::first_argument_type& x) const {
-    return op(x, value); 
+    return op(x, value);
   }
 };
 
@@ -223,7 +223,7 @@ public:
 };
 
 template <class Operation1, class Operation2>
-inline unary_compose<Operation1, Operation2> compose1(const Operation1& op1, 
+inline unary_compose<Operation1, Operation2> compose1(const Operation1& op1,
                                                       const Operation2& op2) {
   return unary_compose<Operation1, Operation2>(op1, op2);
 }
@@ -237,7 +237,7 @@ protected:
   Operation2 op2;
   Operation3 op3;
 public:
-  binary_compose(const Operation1& x, const Operation2& y, 
+  binary_compose(const Operation1& x, const Operation2& y,
                  const Operation3& z) : op1(x), op2(y), op3(z) { }
   typename Operation1::result_type
   operator()(const typename Operation2::argument_type& x) const {
@@ -246,7 +246,7 @@ public:
 };
 
 template <class Operation1, class Operation2, class Operation3>
-inline binary_compose<Operation1, Operation2, Operation3> 
+inline binary_compose<Operation1, Operation2, Operation3>
 compose2(const Operation1& op1, const Operation2& op2, const Operation3& op3) {
   return binary_compose<Operation1, Operation2, Operation3>(op1, op2, op3);
 }
@@ -277,7 +277,7 @@ public:
 };
 
 template <class Arg1, class Arg2, class Result>
-inline pointer_to_binary_function<Arg1, Arg2, Result> 
+inline pointer_to_binary_function<Arg1, Arg2, Result>
 ptr_fun(Result (*x)(Arg1, Arg2)) {
   return pointer_to_binary_function<Arg1, Arg2, Result>(x);
 }
@@ -320,7 +320,7 @@ struct constant_void_fun
   result_type val;
   constant_void_fun(const result_type& v) : val(v) {}
   const result_type& operator()() const { return val; }
-};  
+};
 
 #ifndef __STL_LIMITED_DEFAULT_TEMPLATES
 template <class Result, class Argument = Result>
@@ -412,7 +412,7 @@ public:
 //      non-void return type.
 //  (4) Const vs non-const member function.
 
-// Note that choice (4) is not present in the 8/97 draft C++ standard, 
+// Note that choice (4) is not present in the 8/97 draft C++ standard,
 //  which only allows these adaptors to be used with non-const functions.
 //  This is likely to be recified before the standard becomes final.
 // Note also that choice (3) is nothing more than a workaround: according
@@ -580,7 +580,7 @@ private:
 //  mem_fun, mem_fun_ref, mem_fun1, mem_fun1_ref.
 
 template <class S, class T>
-inline mem_fun_t<S,T> mem_fun(S (T::*f)()) { 
+inline mem_fun_t<S,T> mem_fun(S (T::*f)()) {
   return mem_fun_t<S,T>(f);
 }
 
@@ -590,7 +590,7 @@ inline const_mem_fun_t<S,T> mem_fun(S (T::*f)() const) {
 }
 
 template <class S, class T>
-inline mem_fun_ref_t<S,T> mem_fun_ref(S (T::*f)()) { 
+inline mem_fun_ref_t<S,T> mem_fun_ref(S (T::*f)()) {
   return mem_fun_ref_t<S,T>(f);
 }
 
@@ -600,7 +600,7 @@ inline const_mem_fun_ref_t<S,T> mem_fun_ref(S (T::*f)() const) {
 }
 
 template <class S, class T, class A>
-inline mem_fun1_t<S,T,A> mem_fun1(S (T::*f)(A)) { 
+inline mem_fun1_t<S,T,A> mem_fun1(S (T::*f)(A)) {
   return mem_fun1_t<S,T,A>(f);
 }
 
@@ -610,7 +610,7 @@ inline const_mem_fun1_t<S,T,A> mem_fun1(S (T::*f)(A) const) {
 }
 
 template <class S, class T, class A>
-inline mem_fun1_ref_t<S,T,A> mem_fun1_ref(S (T::*f)(A)) { 
+inline mem_fun1_ref_t<S,T,A> mem_fun1_ref(S (T::*f)(A)) {
   return mem_fun1_ref_t<S,T,A>(f);
 }
 

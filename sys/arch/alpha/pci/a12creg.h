@@ -44,9 +44,9 @@
 #define	REGVAL(r)	(*REGADDR(r))
 /*
  *                         --   A  d  d  r  e  s  s     L  i  n  e  --
- * 
+ *
  *                         39 36      29 28  27-13 12 .11 10  9 8-6 5 4 3
- * 
+ *
  * IMALR                   1   1       a  a   a-a   a . a  a  a a-a 0 0
  * IMALR_LB                1   1       a  a   a-a   a . a  a  a a-a 0 1
  * OMALR                   1   1       a  a   a-a   a . a  a  a a-a 1 0
@@ -59,8 +59,8 @@
  * GSR                     1   0       0            1 . 0  1  1       1
  * IETCR                   1   0       0            1 . 1  0  0       1
  * CDR                     1   0       0            1 . 1  0  1       1
- * PMEM                    1   0       0            1 . 1  1  0       1 
- * SOR                     1   0       0            1 . 1  1  1       1 
+ * PMEM                    1   0       0            1 . 1  1  0       1
+ * SOR                     1   0       0            1 . 1  1  1       1
  * PCI Buffer              1   0       1  0   a-a   a . a  a  a     a a a
  * PCI Target              1   0       1  1   a-a   a . a  a  a     a a a
  * Main Memory             0   0       a  a   a-a   a . a  a  a     a a a

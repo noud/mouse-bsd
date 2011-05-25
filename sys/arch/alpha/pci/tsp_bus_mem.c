@@ -54,10 +54,10 @@
 
 #define CHIP_MEM_SYS_START(v)    (((struct tsp_config *)(v))->pc_iobase)
 
-/* 
- * Tsunami core logic appears on EV6.  We require at least EV56          
+/*
+ * Tsunami core logic appears on EV6.  We require at least EV56
  * support for the assembler to emit BWX opcodes.
- */                                                                      
-__asm(".arch ev6");                                                      
+ */
+__asm(".arch ev6");
 
 #include <alpha/pci/pci_bwx_bus_mem_chipdep.c>

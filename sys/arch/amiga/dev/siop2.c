@@ -87,7 +87,7 @@ void siopng_sched __P((struct siop_softc *));
 int  siopng_poll __P((struct siop_softc *, struct siop_acb *));
 void siopngintr __P((struct siop_softc *));
 void scsi_period_to_siopng __P((struct siop_softc *, int));
-void siopng_start __P((struct siop_softc *, int, int, u_char *, int, u_char *, int)); 
+void siopng_start __P((struct siop_softc *, int, int, u_char *, int, u_char *, int));
 void siopng_dump_acb __P((struct siop_acb *));
 
 /* 53C720/770 script */
@@ -541,9 +541,9 @@ siopnginitialize(sc)
 	 * malloc sc_acb to ensure that DS is on a long word boundary.
 	 */
 
-	MALLOC(sc->sc_acb, struct siop_acb *, 
+	MALLOC(sc->sc_acb, struct siop_acb *,
 		sizeof(struct siop_acb) * SIOP_NACB, M_DEVBUF, M_NOWAIT);
-	if (sc->sc_acb == NULL) 
+	if (sc->sc_acb == NULL)
 		panic("siopnginitialize: ACB malloc failed!");
 
 	sc->sc_tcp[1] = 1000 / sc->sc_clock_freq;

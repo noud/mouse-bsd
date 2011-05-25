@@ -133,7 +133,7 @@ labelip6(void)
 	RHD(14,	"mbuf allocation in m_pulldown");
 	RHD(15,	"mbuf copy in m_pulldown");
 }
-	
+
 void
 showip6(void)
 {

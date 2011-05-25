@@ -354,7 +354,7 @@ px_init(fi, slotbase, unit, console)
 	struct px_info *pxi;
 	u_long bufpa;
 	int i;
-	
+
 #if NPX > 1
 	if (px_cons_rbuf_use)
 		/* XXX allocate buffers */;
@@ -389,8 +389,8 @@ px_init(fi, slotbase, unit, console)
 
 	/* We need to do this ASAP so we can disable the co-processor */
 	px_init_stic(pxi, 1);
-	
-	/* 
+
+	/*
 	 * If this is a PXG, use the SRAM and not kernel bss.
 	 * XXX this is a big fat waste of memory.
 	 */
@@ -407,13 +407,13 @@ px_init(fi, slotbase, unit, console)
 
 		if ((i = wsfont_find(NULL, 0, 0, 2)) <= 0)
 			panic("px_init: unable to get font");
-		
-		if (wsfont_lock(i, &pxi->pxi_font, WSDISPLAY_FONTORDER_R2L, 
+
+		if (wsfont_lock(i, &pxi->pxi_font, WSDISPLAY_FONTORDER_R2L,
 		    WSDISPLAY_FONTORDER_L2R) <= 0)
 			panic("px_init: unable to lock font");
-			
+
 		pxi->pxi_wsfcookie = i;
-	} else 
+	} else
 		pxi->pxi_wsfcookie = -1;
 
 	/* Only now can we init the bt459... */
@@ -425,10 +425,10 @@ px_init(fi, slotbase, unit, console)
 
 	/* Connect to rcons if this is the console device */
 	if (console) {
-		pxi->pxi_fontscale = pxi->pxi_font->fontheight * 
+		pxi->pxi_fontscale = pxi->pxi_font->fontheight *
 		    pxi->pxi_font->stride;
 		px_cons_info = pxi;
-		
+
 		/* XXX no multiscreen X support yet */
 		px_qvss_init(pxi);
 
@@ -550,7 +550,7 @@ px_probe_planes(pxi, buf)
 	int buf;
 {
 	int i;
-	
+
 	if (buf == 0) {
 		/*
 		 * For the real framebuffer (# 0), we can cheat and use the
@@ -588,10 +588,10 @@ px_probe_sram(pxi)
 	struct px_info *pxi;
 {
 	volatile int32_t *a, *b;
-	
+
 	a = (int32_t *)(pxi->pxi_slotbase + PXG_SRAM_OFFSET);
 	b = a + (0x20000 >> 1);
-	
+
 	*a = 4321;
 	*b = 1234;
 	tc_wmb();
@@ -615,7 +615,7 @@ px_init_stic(pxi, probe)
 
 	stic = pxi->pxi_stic;
 	stamp = pxi->pxi_stamp;
-	
+
 	/* If this is a 3D board, disable the i860 co-processor. */
 	if (((stic->modcl >> 12) & 3) != 0) {
 		slot = (volatile int32_t *)pxi->pxi_slotbase;
@@ -625,7 +625,7 @@ px_init_stic(pxi, probe)
 		slot[PXG_HOST_INTR_OFFSET >> 2] = 0;
 		tc_wmb();
 		DELAY(40000); /* paranoia */
-	}	
+	}
 
 	/*
 	 * Initialize STIC interface chip registers. Magic sequence from
@@ -667,7 +667,7 @@ px_init_stic(pxi, probe)
 		/* PXG upwards has it's VDAC at a different location */
 		i = (pxi->pxi_option ? PXG_VDAC_OFFSET : PX_VDAC_OFFSET);
 		pxi->pxi_vdac = (struct bt459_regs *) (pxi->pxi_slotbase + i);
-	
+
 		if (pxi->pxi_option == 0) {
 			/* 2D board */
 			pxi->pxi_nplanes = 8;
@@ -704,7 +704,7 @@ px_init_stic(pxi, probe)
 	stic->sticsr = 0x00000008;
 	tc_wmb();
 
-#ifdef notdef	
+#ifdef notdef
 	/* Now enable the i860 and STIC interrupts (PXG only) */
 	if (pxi->pxi_option) {
 		slot = (volatile int32_t *)pxi->pxi_slotbase;
@@ -782,7 +782,7 @@ px_load_cursor_data(pxi, pos, val)
 
 	vdac = pxi->pxi_vdac;
 	val = DUPBYTE0(val);
-		
+
 	for (cnt = 10; cnt; cnt--) {
 		BT459_SELECT(vdac, BT459_IREG_CRAM_BASE + pos);
 		BT459_WRITE_REG(vdac, val);
@@ -859,7 +859,7 @@ px_bt459_flush(pxi)
 	struct bt459_regs *vdac;
 	u_char *cp;
 	int i;
-	
+
 	vdac = pxi->pxi_vdac;
 
 	if (pxi->pxi_dirty & PX_DIRTY_CURSOR_POS) {
@@ -951,12 +951,12 @@ px_intr(xxx_sc)
 	stic = pxi->pxi_stic;
 	caught = 0;
 	state = stic->ipdvint;
-	
+
 #ifdef notdef
 	/* Getting this from the i860? */
 	if (pxi->pxi_option) {
 		hi = (int32_t *)pxi->pxi_slotbase + (PXG_HOST_INTR_OFFSET>>2);
-		
+
 		/* Clear the interrupt condition */
 		i = hi[0] & 15;
 		hi[0] = 0;
@@ -1098,20 +1098,20 @@ px_alloc_pbuf(pxi)
 		return (int32_t *)((caddr_t)pxi->pxi_rbuf +
 		    ((pxi->pxi_lpw & 15) << 12));
 	}
-	
+
 #ifdef notdef
 	/* If this is a PXG, ask the damn i860 which buffer to use */
 	if (pxi->pxi_option) {
 		poll = (volatile int32_t *)pxi->pxi_slotbase;
 		poll += PXG_COPROC_INTR_OFFSET >> 2;
-		
-		/* 
+
+		/*
 		 * XXX these should be defined as constants. 0x30 is
 		 * "pause coprocessor and interrupt."
 		 */
 		*poll = 0x30;
 		tc_wmb();
-	
+
 		for (i = 1000000; i; i--) {
 			DELAY(4);
 
@@ -1122,15 +1122,15 @@ px_alloc_pbuf(pxi)
 				case 1:
 					pxi->pxi_pbuf_select = 0;
 					break;
-				default:	
+				default:
 					if (j == 0x30)
 						continue;
 					break;
 			}
-			
+
 			break;
 		}
-		
+
 		if (j != 1 || j != 2) {
 			/* i860 has gone mad, punish it */
 			px_init_stic(pxi, 0);
@@ -1170,7 +1170,7 @@ px_send_packet(pxi, buf)
 		return (0);
 	}
 
-	/* Convert buffer address to i860 physical address for PXG */ 
+	/* Convert buffer address to i860 physical address for PXG */
 	if (pxi->pxi_option)
 		buf = (int32_t *)(((long)buf-(long)pxi->pxi_rbuf) & ~0x40000);
 
@@ -1189,9 +1189,9 @@ px_send_packet(pxi, buf)
 #ifdef notdef
 			/* Tell the i860 we are done */
 			if (pxi->pxi_option) {
-				poll = (volatile int32_t*)pxi->pxi_slotbase + 
+				poll = (volatile int32_t*)pxi->pxi_slotbase +
 				    (PXG_HOST_INTR_OFFSET >> 2);
-				
+
 				poll[0] = 0;
 				tc_wmb();
 				poll[2] = 0;
@@ -1200,7 +1200,7 @@ px_send_packet(pxi, buf)
 #endif
 			return (0);
 		}
-		
+
 		DELAY(STAMP_DELAY);
 	}
 
@@ -1490,7 +1490,7 @@ px_putchar(cookie, r, c, uc, attr)
 	fr = (u_short *)((caddr_t)font->data + uc);
 	bgcolor = DUPBYTE1(attr);
 	fgcolor = DUPBYTE0(attr);
-	
+
 	i = (16 << 2) - 1;
 	v1 = (c << 19) | ((r << 3) + i);
 	v2 = ((c + font->fontwidth) << 19) | (v1 & 0xffff);
@@ -1888,14 +1888,14 @@ pxmmap(dev, off, prot)
 
 	if ((pxi->pxi_flg & PX_OPEN) == 0)
 		return (EBADF);
-	
-	/* 
+
+	/*
 	 * STIC control registers
-	 */	
+	 */
 	if (off < NBPG)
 		return mips_btop(MIPS_KSEG1_TO_PHYS(pxi->pxi_stic) + off);
 	off -= NBPG;
-	
+
 	/*
 	 * STIC poll registers
 	 */
@@ -1905,7 +1905,7 @@ pxmmap(dev, off, prot)
 
 	/*
 	 * 'struct px_info' and ringbuffer
-	 */ 
+	 */
 	if (off < PXMAP_INFO_SIZE + PXMAP_RBUF_SIZE)
 		return mips_btop(MIPS_KSEG1_TO_PHYS(pxi) + off);
 	off -= (PXMAP_INFO_SIZE + PXMAP_RBUF_SIZE);

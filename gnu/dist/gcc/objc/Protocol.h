@@ -34,7 +34,7 @@ Boston, MA 02111-1307, USA.  */
 @private
         char *protocol_name;
         struct objc_protocol_list *protocol_list;
-        struct objc_method_description_list *instance_methods, *class_methods; 
+        struct objc_method_description_list *instance_methods, *class_methods;
 }
 
 /* Obtaining attributes intrinsic to the protocol */

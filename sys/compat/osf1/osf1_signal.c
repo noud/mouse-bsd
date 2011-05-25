@@ -116,7 +116,7 @@ osf1_sys_sigaction(p, v, retval)
 	return 0;
 }
 
-int 
+int
 osf1_sys_sigaltstack(p, v, retval)
 	struct proc *p;
 	void *v;

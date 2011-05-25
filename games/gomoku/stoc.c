@@ -56,7 +56,7 @@ struct mvstr {
 	const char	*m_text;
 };
 static	const struct	mvstr	mv[] = {
-	{ RESIGN,	"resign" }, 
+	{ RESIGN,	"resign" },
 	{ RESIGN,	"quit" },
 	{ SAVE,		"save" },
 	{ -1,		0 }

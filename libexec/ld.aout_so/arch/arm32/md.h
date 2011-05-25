@@ -252,7 +252,7 @@ void	md_swapout_jmpslot __P((jmpslot_t *, int));
 
 #define MAX_GOTOFF(t)           ((t) == PIC_TYPE_SMALL ? 4092 : LONG_MAX)
 #define MIN_GOTOFF(t)           ((t) == PIC_TYPE_SMALL ? -4092 : LONG_MIN)
-       
+
 #define RELOC_PIC_TYPE(r)		((r)->r_baserel ? \
 						((r)->r_length == 1 ? \
 						PIC_TYPE_SMALL : \

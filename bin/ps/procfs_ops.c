@@ -382,7 +382,7 @@ procfs_getargv(kp, nchr)
 		warnx("procfs_getargv");
 		return NULL;
 	}
-	
+
 	num = 1;
 	args = NULL;
 	name = buf;
@@ -406,7 +406,7 @@ procfs_getargv(kp, nchr)
 	{
 		return (NULL);
 	}
-	
+
 	argv = (char **) malloc(3*sizeof(char *));
 	argv[0] = name;
 	argv[1] = args;

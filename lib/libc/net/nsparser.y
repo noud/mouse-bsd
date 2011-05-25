@@ -135,7 +135,7 @@ Criterion
 	: Status '=' Action
 		{
 			if ($3)		/* if action == RETURN set RETURN bit */
-				cursrc.flags |= $1;  
+				cursrc.flags |= $1;
 			else		/* else unset it */
 				cursrc.flags &= ~$1;
 		}

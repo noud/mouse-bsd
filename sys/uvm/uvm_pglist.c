@@ -1,21 +1,21 @@
 /*	$NetBSD: uvm_pglist.c,v 1.8 1999/07/22 22:58:39 thorpej Exp $	*/
 
 #define VM_PAGE_ALLOC_MEMORY_STATS
- 
+
 /*-
  * Copyright (c) 1997 The NetBSD Foundation, Inc.
  * All rights reserved.
- *  
+ *
  * This code is derived from software contributed to The NetBSD Foundation
  * by Jason R. Thorpe of the Numerical Aerospace Simulation Facility,
- * NASA Ames Research Center.  
+ * NASA Ames Research Center.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright 
+ * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
@@ -25,7 +25,7 @@
  * 4. Neither the name of The NetBSD Foundation nor the names of its
  *    contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- *      
+ *
  * THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
  * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -86,7 +86,7 @@ u_long	uvm_pglistalloc_npages;
  *	low		the low address of the allowed allocation range.
  *	high		the high address of the allowed allocation range.
  *	alignment	memory must be aligned to this power-of-two boundary.
- *	boundary	no segment in the allocation may cross this 
+ *	boundary	no segment in the allocation may cross this
  *			power-of-two boundary (relative to zero).
  */
 
@@ -114,7 +114,7 @@ uvm_pglistalloc(size, low, high, alignment, boundary, rlist, nsegs, waitok)
 	if ((boundary & (boundary - 1)) != 0)
 		panic("vm_page_alloc_memory: boundary must be power of 2");
 #endif
-	
+
 	/*
 	 * Our allocations are always page granularity, so our alignment
 	 * must be, too.
@@ -244,10 +244,10 @@ out:
 	 * the pagedaemon.
 	 * XXX: we read uvm.free without locking
 	 */
-	 
+
 	if (uvmexp.free < uvmexp.freemin ||
 	    (uvmexp.free < uvmexp.freetarg &&
-	    uvmexp.inactive < uvmexp.inactarg)) 
+	    uvmexp.inactive < uvmexp.inactarg))
 		wakeup(&uvm.pagedaemon);
 
 	return (error);

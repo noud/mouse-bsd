@@ -518,7 +518,7 @@ The variable characters are to be repeated @code{fr_offset} times.  If
 have this type.
 
 @item rs_leb128
-This state is used to implement the DWARF ``little endian base 128'' 
+This state is used to implement the DWARF ``little endian base 128''
 variable length number format.  The @code{fr_symbol} is always an expression
 symbol, as constant expressions are emitted directly.  The @code{fr_offset}
 field is used during relaxation to hold the previous size of the number so

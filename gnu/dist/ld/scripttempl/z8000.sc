@@ -3,15 +3,15 @@ OUTPUT_FORMAT("${OUTPUT_FORMAT}")
 OUTPUT_ARCH("${OUTPUT_ARCH}")
 ENTRY(_start)
 
-SECTIONS 				
-{ 					
-.text ${BIG+ ${RELOCATING+ 0x0000000}} : { 					
-	  *(.text) 				
+SECTIONS
+{
+.text ${BIG+ ${RELOCATING+ 0x0000000}} : {
+	  *(.text)
 	  *(.strings)
 	  *(.rdata)
 	}
 
-.ctors ${BIG+ ${RELOCATING+ 0x2000000}}  : 
+.ctors ${BIG+ ${RELOCATING+ 0x2000000}}  :
 	{
 	  ${RELOCATING+ ___ctors = . ;  }
 	  *(.ctors);
@@ -19,13 +19,13 @@ SECTIONS
 	  ___dtors = . ;
 	  *(.dtors);
 	  ${RELOCATING+ ___dtors_end = . ; }
-	} 
+	}
 
 .data ${BIG+ ${RELOCATING+ 0x3000000}} : {
 	*(.data)
 	}
 
-.bss ${BIG+ ${RELOCATING+ 0x4000000}} : 
+.bss ${BIG+ ${RELOCATING+ 0x4000000}} :
   {
     ${RELOCATING+ __start_bss = . ; }
     *(.bss);
@@ -37,14 +37,14 @@ SECTIONS
 	${RELOCATING+ __start_heap = . ; }
 	${RELOCATING+ . = . + 20k  ; }
 	${RELOCATING+ __end_heap = . ; }
-	} 
+	}
 
-.stack ${RELOCATING+ 0xf000 }  : 
+.stack ${RELOCATING+ 0xf000 }  :
 	{
 	${RELOCATING+ _stack = . ; }
 	*(.stack)
 	${RELOCATING+ __stack_top = . ; }
-	} 
+	}
 
 }
 EOF

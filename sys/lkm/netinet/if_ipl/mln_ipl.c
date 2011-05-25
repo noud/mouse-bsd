@@ -82,7 +82,7 @@ static	char	*ipf_devfiles[] = { IPL_NAME, IPL_NAT, IPL_STATE, IPL_AUTH,
 
 #if (defined(NetBSD1_0) && (NetBSD1_0 > 1)) || \
     (defined(NetBSD) && (NetBSD <= 1991011) && (NetBSD >= 199511))
-struct	cdevsw	ipldevsw = 
+struct	cdevsw	ipldevsw =
 {
 	iplopen,		/* open */
 	iplclose,		/* close */
@@ -96,7 +96,7 @@ struct	cdevsw	ipldevsw =
 	NULL			/* strategy */
 };
 #else
-struct	cdevsw	ipldevsw = 
+struct	cdevsw	ipldevsw =
 {
 	iplopen,		/* open */
 	iplclose,		/* close */

@@ -57,7 +57,7 @@ void
 cpu_configure()
 {
 	extern int atari_realconfig;
-	
+
 	atari_realconfig = 1;
 
 	if (config_rootfound("mainbus", "mainbus") == NULL)
@@ -85,8 +85,8 @@ simple_devprint(auxp, pnp)
 
 /*
  * use config_search to find appropriate device, then call that device
- * directly with NULL device variable storage.  A device can then 
- * always tell the difference between the real and console init 
+ * directly with NULL device variable storage.  A device can then
+ * always tell the difference between the real and console init
  * by checking for NULL.
  */
 int
@@ -118,12 +118,12 @@ atari_config_found(pcfp, pdp, auxp, pfn)
 
 /*
  * this function needs to get enough configured to do a console
- * basically this means start attaching the grfxx's that support 
+ * basically this means start attaching the grfxx's that support
  * the console. Kinda hacky but it works.
  */
 void
 config_console()
-{	
+{
 	struct cfdata *cf;
 
 	/*
@@ -152,7 +152,7 @@ config_console()
 extern	struct cfdriver wd_cd;
 #endif
 #if NSD > 0
-extern	struct cfdriver sd_cd;  
+extern	struct cfdriver sd_cd;
 #endif
 #if NCD > 0
 extern	struct cfdriver cd_cd;
@@ -214,7 +214,7 @@ findroot(devpp, partp)
 			if (dkp->dk_driver == NULL ||
 			    dkp->dk_driver->d_strategy == NULL)
 				continue;
-			
+
 			for (maj = 0; maj < nblkdev; maj++)
 				if (bdevsw[maj].d_strategy ==
 				    dkp->dk_driver->d_strategy)
@@ -230,7 +230,7 @@ findroot(devpp, partp)
 				continue;
 			(void)(*bdevsw[maj].d_close)(MAKEDISKDEV(maj,
 			    unit, 0), FREAD|FNONBLOCK, 0, &proc0);
-			
+
 			pp = &dkp->dk_label->d_partitions[*partp];
 			if (pp->p_size != 0 && pp->p_fstype == FS_BSDFFS) {
 				*devpp = devs[unit];
@@ -240,8 +240,8 @@ findroot(devpp, partp)
 	}
 }
 
-/* 
- * mainbus driver 
+/*
+ * mainbus driver
  */
 struct cfattach mainbus_ca = {
 	sizeof(struct device), mbmatch, mbattach

@@ -15,7 +15,7 @@ pcvt_ext.c		Driver, USL-VT Xserver ioctl's and 132 column support
 pcvt_hdr.h		Driver, global include file
 pcvt_ioctl.h		Driver, ioctl's available for the driver
 pcvt_kbd.c		Driver, keyboard handling
-pcvt_kbd.h		Driver, keyboard handling header file 
+pcvt_kbd.h		Driver, keyboard handling header file
 pcvt_out.c		Driver, VT220 emulator state machine and misc
 pcvt_sup.c		Driver, support code for ega's/vga's
 pcvt_tbl.h		Driver, character set to vga charset mapping tables

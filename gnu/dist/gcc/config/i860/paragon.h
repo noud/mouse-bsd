@@ -34,7 +34,7 @@ Boston, MA 02111-1307, USA.  */
     {"noieee", -1},		\
     {"nx", 2},                  \
     { "", TARGET_DEFAULT}}
- 
+
 #undef TARGET_DEFAULT
 #define TARGET_DEFAULT 1
 

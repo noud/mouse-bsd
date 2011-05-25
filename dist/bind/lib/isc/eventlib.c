@@ -386,7 +386,7 @@ evGetNext(evContext opaqueCtx, evEvent *opaqueEv, int options) {
 				 * selects is the total number of bits in
 				 * all masks that are set, and on others it's
 				 * the number of fd's that have some bit set,
-				 * and on others, it's just broken.  We 
+				 * and on others, it's just broken.  We
 				 * always assume that it's the number of
 				 * bits set in all masks, because that's what
 				 * the man page says it should do, and
@@ -539,7 +539,7 @@ evDispatch(evContext opaqueCtx, evEvent opaqueEv) {
 #ifdef EVENTLIB_TIME_CHECKS
 	if (ctx->debug > 0) {
 		interval = evSubTime(evNowTime(), start_time);
-		/* 
+		/*
 		 * Complain if it took longer than 50 milliseconds.
 		 *
 		 * We call getuid() to make an easy to find mark in a kernel
@@ -592,7 +592,7 @@ evDrop(evContext opaqueCtx, evEvent opaqueEv) {
 		 * otherwise set it according to its next interval.
 		 */
 		if (this->inter.tv_sec == 0 && this->inter.tv_nsec == 0L) {
-			opaque.opaque = this;			
+			opaque.opaque = this;
 			(void) evClearTimer(opaqueCtx, opaque);
 		} else {
 			opaque.opaque = this;

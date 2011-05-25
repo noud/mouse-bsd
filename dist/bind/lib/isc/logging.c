@@ -66,7 +66,7 @@ version_rename(log_channel chan) {
 	unsigned int ver;
 	char old_name[PATH_MAX+1];
 	char new_name[PATH_MAX+1];
-	
+
 	ver = chan->out.file.versions;
 	if (ver < 1)
 		return;
@@ -97,7 +97,7 @@ log_open_stream(log_channel chan) {
 		errno = EINVAL;
 		return (NULL);
 	}
-	
+
 	/*
 	 * Don't open already open streams
 	 */
@@ -228,7 +228,7 @@ log_check_channel(log_context lc, int level, log_channel chan) {
 	return (1);
 }
 
-int 
+int
 log_check(log_context lc, int category, int level) {
 	log_channel_list lcl;
 	int debugging;
@@ -259,7 +259,7 @@ log_check(log_context lc, int category, int level) {
 }
 
 void
-log_vwrite(log_context lc, int category, int level, const char *format, 
+log_vwrite(log_context lc, int category, int level, const char *format,
 	   va_list args) {
 	log_channel_list lcl;
 	int pri, debugging, did_vsprintf = 0;
@@ -377,7 +377,7 @@ log_vwrite(log_context lc, int category, int level, const char *format,
 			}
 			if (chan->out.file.max_size != ULONG_MAX) {
 				long pos;
-				
+
 				pos = ftell(stream);
 				if (pos >= 0 &&
 				    (unsigned long)pos >
@@ -395,7 +395,7 @@ log_vwrite(log_context lc, int category, int level, const char *format,
 						break;
 				}
 			}
-			fprintf(stream, "%s%s%s%s\n", 
+			fprintf(stream, "%s%s%s%s\n",
 				(chan->flags & LOG_TIMESTAMP) ?	time_buf : "",
 				(chan->flags & LOG_PRINT_CATEGORY) ?
 				category_name : "",
@@ -596,9 +596,9 @@ log_new_file_channel(unsigned int flags, int level,
 	chan->level = level;
 	if (name != NULL) {
 		size_t len;
-		
+
 		len = strlen(name);
-		/* 
+		/*
 		 * Quantize length to a multiple of 256.  There's space for the
 		 * NUL, since if len is a multiple of 256, the size chosen will
 		 * be the next multiple.
@@ -662,7 +662,7 @@ log_dec_references(log_channel chan) {
 log_channel_type
 log_get_channel_type(log_channel chan) {
 	REQUIRE(chan != NULL);
-	
+
 	return (chan->type);
 }
 

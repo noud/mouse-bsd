@@ -145,7 +145,7 @@ fetch_register (regno)
 /* Copy LEN bytes to or from inferior's memory starting at MEMADDR
    to debugger memory starting at MYADDR.   Copy to inferior if
    WRITE is nonzero.
-  
+
    Returns the length copied, which is either the LEN argument or zero.
    This xfer function does not do partial moves, since child_ops
    doesn't allow memory operations to cross below us in the target stack
@@ -174,7 +174,7 @@ child_xfer_memory (memaddr, myaddr, len, write, target)
 
       if (addr != memaddr || len < (int)sizeof (int)) {
 	/* Need part of initial word -- fetch it.  */
-        buffer[0] = call_ptrace (addr < text_end ? PT_RIUSER : PT_RDUSER, 
+        buffer[0] = call_ptrace (addr < text_end ? PT_RIUSER : PT_RDUSER,
 			    inferior_pid, (PTRACE_ARG3_TYPE) addr, 0);
       }
 
@@ -199,7 +199,7 @@ child_xfer_memory (memaddr, myaddr, len, write, target)
    WIUSER, or do these idiots really expect us to figure out which segment
    the address is in, so we can use a separate system call for it??!  */
 	  errno = 0;
-	  call_ptrace (addr < text_end ? PT_WIUSER : PT_WDUSER, inferior_pid, 
+	  call_ptrace (addr < text_end ? PT_WIUSER : PT_WDUSER, inferior_pid,
 		  (PTRACE_ARG3_TYPE) addr,
 		  buffer[i]);
 	  if (errno)
@@ -212,7 +212,7 @@ child_xfer_memory (memaddr, myaddr, len, write, target)
       for (i = 0; i < count; i++, addr += sizeof (int))
 	{
 	  errno = 0;
-	  buffer[i] = call_ptrace (addr < text_end ? PT_RIUSER : PT_RDUSER, 
+	  buffer[i] = call_ptrace (addr < text_end ? PT_RIUSER : PT_RDUSER,
 			      inferior_pid, (PTRACE_ARG3_TYPE) addr, 0);
 	  if (errno)
 	    return 0;

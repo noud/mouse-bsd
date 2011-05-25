@@ -25,8 +25,8 @@
  * SUCH DAMAGE.
  *
  */
-/* 
- *  TOSHIBA TMPR3912/05, Philips PR31700 Video module register 
+/*
+ *  TOSHIBA TMPR3912/05, Philips PR31700 Video module register
  */
 #define TX3912_VIDEOCTRL1_REG	0x28
 #define TX3912_VIDEOCTRL2_REG	0x2c
@@ -210,7 +210,7 @@
  */
 /* W */
 /*
- * TX3912_VIDEOCTRL5_REDSEL (31:0) 
+ * TX3912_VIDEOCTRL5_REDSEL (31:0)
  */
 
 /*
@@ -218,7 +218,7 @@
  */
 /* W */
 /*
- * TX3912_VIDEOCTRL6_GREENSEL (31:0) 
+ * TX3912_VIDEOCTRL6_GREENSEL (31:0)
  */
 
 /*
@@ -226,7 +226,7 @@
  */
 /* W */
 /*
- * TX3912_VIDEOCTRL6_BLUESEL (31:0) 
+ * TX3912_VIDEOCTRL6_BLUESEL (31:0)
  */
 
 /*

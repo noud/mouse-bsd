@@ -684,7 +684,7 @@ dump_pim_mrt(fp)
 	    fprintf(fp, "Asserted oifs: %-20s\n", asserted_oifs);
 	    fprintf(fp, "Outgoing oifs: %-20s\n", oifs);
 	    fprintf(fp, "Incoming     : %-20s\n", incoming_iif);
-	
+
 	    fprintf(fp, "Upstream nbr: %s\n",
 		    r->upstream ? inet6_fmt(&r->upstream->address.sin6_addr) : "NONE");
 

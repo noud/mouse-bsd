@@ -147,7 +147,7 @@ svr4_sgttyb_to_bsd_sgttyb(ss, bs)
 {
 	bs->sg_ispeed = ss->sg_ispeed;
 	bs->sg_ospeed = ss->sg_ospeed;
-	bs->sg_erase  =	ss->sg_erase;	
+	bs->sg_erase  =	ss->sg_erase;
 	bs->sg_kill   = ss->sg_kill;
 	bs->sg_flags  = ss->sg_flags;
 };
@@ -160,7 +160,7 @@ bsd_sgttyb_to_svr4_sgttyb(bs, ss)
 {
 	ss->sg_ispeed = bs->sg_ispeed;
 	ss->sg_ospeed = bs->sg_ospeed;
-	ss->sg_erase  =	bs->sg_erase;	
+	ss->sg_erase  =	bs->sg_erase;
 	ss->sg_kill   = bs->sg_kill;
 	ss->sg_flags  = bs->sg_flags;
 }

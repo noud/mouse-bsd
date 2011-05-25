@@ -36,7 +36,7 @@
 
 /*
  *	DMAAU (DMA Address UNIT) Registers.
- *		start 0x0B000020 
+ *		start 0x0B000020
  */
 #define	AIUIBAL_REG_W		0x000		/* AIU IN DMA Base Low */
 #define	AIUIBAH_REG_W		0x002		/* AIU IN DMA Base High */

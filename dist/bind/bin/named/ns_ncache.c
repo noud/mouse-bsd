@@ -93,7 +93,7 @@ cache_n_resp(u_char *msg, int msglen, struct sockaddr_in from,
 	case 1:
 		n = dn_expand(msg, eom, cp, dname, sizeof dname);
 		if (n < 0) {
-			ns_debug(ns_log_ncache, 1,	
+			ns_debug(ns_log_ncache, 1,
 				 "Query expand name failed: cache_n_resp");
 			hp->rcode = FORMERR;
 			return;
@@ -172,7 +172,7 @@ cache_n_resp(u_char *msg, int msglen, struct sockaddr_in from,
 			return;
 		}
 		cp += n;
-		
+
 		BOUNDS_CHECK(cp, 3 * INT16SZ + INT32SZ);
 		GETSHORT(atype, cp);		/* type */
 		cp += INT16SZ;			/* class */

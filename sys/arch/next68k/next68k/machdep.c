@@ -256,7 +256,7 @@ consinit()
    *	Can be called from locore.s and init_main.c.
    */
   static int init = 0;
-  
+
   if (!init) {
 
 		cninit();
@@ -269,7 +269,7 @@ consinit()
 		/* Initialize kernel debugger, if compiled in. */
 		{
 			extern int end;
-			extern int *esym; 
+			extern int *esym;
 
 			ddb_init(*(int *)&end, ((int *)&end) + 1, esym);
 		}
@@ -991,7 +991,7 @@ nmihand(frame)
   if (innmihand)
     return;
   innmihand = 1;
-  
+
   printf("Got a NMI");
 
 	if (!INTR_OCCURRED(NEXT_I_NMI)) {
@@ -1010,7 +1010,7 @@ nmihand(frame)
 #endif /* DDB */
 
 	INTR_ENABLE(NEXT_I_NMI);
-  
+
   innmihand = 0;
 }
 
@@ -1018,7 +1018,7 @@ nmihand(frame)
 /*
  * cpu_exec_aout_makecmds():
  *	cpu-dependent a.out format hook for execve().
- * 
+ *
  * Determine of the given exec package refers to something which we
  * understand and, if so, set up the vmcmds for it.
  */

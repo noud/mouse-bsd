@@ -1,16 +1,16 @@
 /*  kid.c -- ARMulator RDP/RDI interface:  ARM6 Instruction Emulator.
     Copyright (C) 1994 Advanced RISC Machines Ltd.
- 
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
- 
+
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
- 
+
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
@@ -84,29 +84,29 @@ void kid() {
   struct Dbg_MCState *MCState;
   char command_line[256];
   struct fd_set readfds;
-  
+
   /* Setup a signal handler for SIGUSR1 */
   action.sa_handler = kid_handlesignal;
   action.sa_mask = 0;
   action.sa_flags = 0;
-  
+
   sigaction(SIGUSR1, &action, (struct sigaction *) 0);
-  
+
   while (1)
   {
     /* Wait for ever */
     FD_ZERO(&readfds);
     FD_SET(mumkid[0], &readfds);
-    
+
     i = select(nfds, &readfds,
 	       (fd_set *) 0,
 	       (fd_set *) 0,
 	       (struct timeval *) 0);
-    
+
     if (i < 0) {
       perror("select");
     }
-    
+
     if (read(mumkid[0], &message, 1) < 1) {
       perror("read");
     }
@@ -159,7 +159,7 @@ void kid() {
       break;
 
     case RDP_Read :
-      /* Read Memory Address */      
+      /* Read Memory Address */
       MYread_word(mumkid[0], &x); /* address */
       MYread_word(mumkid[0], &y); /* nbytes */
       p = (char *) malloc(y);
@@ -260,7 +260,7 @@ void kid() {
       MYwrite_char(kidmum[1], (unsigned char) i);
       free(p);
       break;
-      
+
     case RDP_SetBreak :
       /* Set Breakpoint */
       MYread_word(mumkid[0], &x); /* address */
@@ -270,7 +270,7 @@ void kid() {
       if (!MYrdp_level) BAG_putpair((long) x, (long) point);
       MYwrite_char(kidmum[1], RDP_Return);
       if (MYrdp_level) MYwrite_word(kidmum[1], point);
-      MYwrite_char(kidmum[1], (unsigned char) i);      
+      MYwrite_char(kidmum[1], (unsigned char) i);
       break;
 
     case RDP_ClearBreak :
@@ -308,7 +308,7 @@ void kid() {
 
     case RDP_Execute :
       /* Excecute */
-      
+
       MYread_char(mumkid[0], &c); /* return */
 
 #ifdef DEBUG
@@ -405,7 +405,7 @@ void kid() {
       sprintf(p, "Running on %s:%d\n", localhost, socketnumber);
       MYwrite_string(kidmum[1], p);
       free(p);
-      
+
       break;
     default:
       fprintf (stderr, "Oh dear: Something is seriously wrong :-(\n");
@@ -432,7 +432,7 @@ int wait_for_osreply(ARMword *reply)
   struct Dbg_MCState *MCState;
   char command_line[256];
   struct fd_set readfds;
-  
+
 #ifdef DEBUG
   fprintf(stderr, "wait_for_osreply ().\n");
 #endif
@@ -441,28 +441,28 @@ int wait_for_osreply(ARMword *reply)
   action.sa_handler = kid_handlesignal;
   action.sa_mask = 0;
   action.sa_flags = 0;
-  
+
   sigaction(SIGUSR1, &action, (struct sigaction *) 0);
-  
+
   while (1)
   {
     /* Wait for ever */
     FD_ZERO(&readfds);
     FD_SET(mumkid[0], &readfds);
-    
+
     i = select(nfds, &readfds,
 	       (fd_set *) 0,
 	       (fd_set *) 0,
 	       (struct timeval *) 0);
-    
+
     if (i < 0) {
       perror("select");
     }
-    
+
     if (read(mumkid[0], &message, 1) < 1) {
       perror("read");
     }
-    
+
     switch (message) {
     case RDP_Read :
       /* Read Memory Address */
@@ -493,7 +493,7 @@ int wait_for_osreply(ARMword *reply)
       if (i)
 	MYwrite_word(kidmum[1], y); /* number of bytes sent without error */
       break;
-      
+
     case RDP_OSOpReply :
       /* OS Operation Reply */
       MYread_char(mumkid[0], &c);
@@ -501,7 +501,7 @@ int wait_for_osreply(ARMword *reply)
       if (c == 2) MYread_word(mumkid[0], reply);
       return c;
       break;
-      
+
     default :
       fprintf(stderr, "HELP! Unaccounted-for message during OS request. \n");
       MYwrite_char(kidmum[1], RDP_Fatal);

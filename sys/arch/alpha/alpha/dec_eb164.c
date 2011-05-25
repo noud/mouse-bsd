@@ -5,17 +5,17 @@
  * All rights reserved.
  *
  * Author: Chris G. Demetriou
- * 
+ *
  * Permission to use, copy, modify and distribute this software and
  * its documentation is hereby granted, provided that both the copyright
  * notice and this permission notice appear in all copies of the
  * software, derivative works or modified versions, and any portions
  * thereof, and that both notices appear in supporting documentation.
- * 
- * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" 
- * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND 
+ *
+ * CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
+ * CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND
  * FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
- * 
+ *
  * Carnegie Mellon requests users of this software to return to
  *
  *  Software Distribution Coordinator  or  Software.Distribution@CS.CMU.EDU
@@ -104,7 +104,7 @@ dec_eb164_cons_init()
 	ctb = (struct ctb *)(((caddr_t)hwrpb) + hwrpb->rpb_ctb_off);
 
 	switch (ctb->ctb_term_type) {
-	case 2: 
+	case 2:
 		/* serial console ... */
 		/* XXX */
 		{
@@ -187,7 +187,7 @@ dec_eb164_device_register(dev, aux)
 
 			if ((b->slot / 1000) != pba->pba_bus)
 				return;
-	
+
 			pcidev = dev;
 			DR_VERBOSE(printf("\npcidev = %s\n",
 			    pcidev->dv_xname));
@@ -205,7 +205,7 @@ dec_eb164_device_register(dev, aux)
 				return;
 			if (b->slot % 100 != pa->pa_device)
 				return;
-	
+
 			scsipidev = dev;
 			DR_VERBOSE(printf("\nscsipidev = %s\n",
 			    scsipidev->dv_xname));
@@ -284,7 +284,7 @@ dec_eb164_device_register(dev, aux)
 				return;
 
 			/* XXX function? */
-	
+
 			booted_device = dev;
 			DR_VERBOSE(printf("\nbooted_device = %s\n",
 			    booted_device->dv_xname));

@@ -2,7 +2,7 @@
 
 *	MOTOROLA MICROPROCESSOR & MEMORY TECHNOLOGY GROUP
 *	M68000 Hi-Performance Microprocessor Division
-*	M68040 Software Package 
+*	M68040 Software Package
 *
 *	M68040 Software Package Copyright (c) 1993, 1994 Motorola Inc.
 *	All rights reserved.
@@ -13,7 +13,7 @@
 *	INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
 *	PARTICULAR PURPOSE and any warranty against infringement with
 *	regard to the SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF)
-*	and any accompanying written materials. 
+*	and any accompanying written materials.
 *
 *	To the maximum extent permitted by applicable law,
 *	IN NO EVENT SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER
@@ -21,7 +21,7 @@
 *	PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR
 *	OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
 *	SOFTWARE.  Motorola assumes no responsibility for the maintenance
-*	and support of the SOFTWARE.  
+*	and support of the SOFTWARE.
 *
 *	You are hereby granted a copyright license to use, modify, and
 *	distribute the SOFTWARE so long as this entire notice is retained
@@ -262,10 +262,10 @@ TANCONT:
 	FMUL.X		FP0,FP2	 	...RS(P1+S(P2+SP3))
 
 	FMUL.X		FP3,FP1	 	...S(Q1+S(Q2+S(Q3+SQ4)))
-	
+
 
 	FADD.X		FP2,FP0	 	...R+RS(P1+S(P2+SP3))
-	
+
 
 	FADD.S		#:3F800000,FP1	...1+S(Q1+...)
 
@@ -300,11 +300,11 @@ NODD:
 	FMUL.X		FP1,FP2	 	...RS(P1+S(P2+SP3))
 
 	FMUL.X		FP3,FP0	 	...S(Q1+S(Q2+S(Q3+SQ4)))
-	
+
 
 	FADD.X		FP2,FP1	 	...R+RS(P1+S(P2+SP3))
 	FADD.S		#:3F800000,FP0	...1+S(Q1+...)
-	
+
 
 	FMOVE.X		FP1,-(sp)
 	EORI.L		#$80000000,(sp)
@@ -422,7 +422,7 @@ WORK:
         MOVE.W		D2,FP_SCR2(a6)
 	CLR.W           FP_SCR2+2(a6)
 	MOVE.L		#$C90FDAA2,FP_SCR2+4(a6)
-	CLR.L		FP_SCR2+8(a6)		...FP_SCR2 is  2**(L) * Piby2_1	
+	CLR.L		FP_SCR2+8(a6)		...FP_SCR2 is  2**(L) * Piby2_1
 
 *--FP2 IS READY
 	FSUB.S		TWOTO63(a6),FP2		...FP2 is N
@@ -470,7 +470,7 @@ RESTORE:
 	MOVE.L		(A7)+,D2
 	FMOVEM.X	(A7)+,FP2-FP5
 
-	
+
 	MOVE.L		N(a6),D0
         ROR.L		#1,D0
 

@@ -83,9 +83,9 @@ int hatClkOff(void)
 
 	sequoiaRead(PMC_PMCMCR2_REG, &seqReg);
         sequoiaWrite(PMC_PMCMCR2_REG, seqReg  | (PMCMCR2_M_SWTCHEN));
-        
+
         /* turn off timer 2 */
-        outb(ATSR_REG1_REG, 
+        outb(ATSR_REG1_REG,
 	     inb(ATSR_REG1_REG) & ~((REG1_M_TMR2EN) | (REG1_M_SPKREN)));
 
 	fiq_getregs(&fiqhandler);
@@ -129,7 +129,7 @@ int hatClkOn(int count, void (*hatFn)(int), int arg,
 	hatEnableSWTCH(); /* enable the SWTCH -> PMI logic */
 
         /* turn on timer 2 */
-        outb(ATSR_REG1_REG, 
+        outb(ATSR_REG1_REG,
 	     inb(ATSR_REG1_REG) | (REG1_M_TMR2EN) | (REG1_M_SPKREN));
 
 	/* start timer 2 running */
@@ -154,7 +154,7 @@ int hatClkAdjust(int count)
 	return 0;
 }
 
-static void 
+static void
 hatEnableSWTCH()
 {
     u_int16_t    seqReg;
@@ -188,7 +188,7 @@ void hatUnwedge()
 static void hatClkCount(int count)
 {
         u_int savedints;
-  
+
         savedints = disable_interrupts(I32_bit);
 
 	outb(TIMER_MODE, TIMER_SEL2|TIMER_RATEGEN|TIMER_16BIT);

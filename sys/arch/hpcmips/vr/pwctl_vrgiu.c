@@ -107,7 +107,7 @@ pwctl_vrgiu_attach(parent, self, aux)
 	struct gpbus_attach_args *gpa = aux;
 	int *loc;
 	struct pwctl_vrgiu_softc *sc = (void*)self;
-    
+
 	sc->sc_gc = gpa->gpa_gc;
 	sc->sc_gf = gpa->gpa_gf;
 

@@ -39,4 +39,4 @@ LINKS=	${BINDIR}/grep ${BINDIR}/egrep \
 .include <bsd.info.mk>
 .include <bsd.prog.mk>
 
-.PATH: ${DIST}/grep/doc ${DIST}/grep/intl ${DIST}/grep/po ${DIST}/grep/src 
+.PATH: ${DIST}/grep/doc ${DIST}/grep/intl ${DIST}/grep/po ${DIST}/grep/src

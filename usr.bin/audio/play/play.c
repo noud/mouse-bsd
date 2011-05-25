@@ -253,7 +253,7 @@ main(argc, argv)
 				err(1, "munmap failed");
 
 			close(fd);
-			
+
 		} while (*++argv);
 	} else {
 		play_fd(STDIN_FILENO, "standard input");
@@ -333,7 +333,7 @@ audioctl_write_fromhdr(hdr, fsz, fd)
 	AUDIO_INITINFO(&info);
 	sunhdr = hdr;
 	if (ntohl(sunhdr->magic) == AUDIO_FILE_MAGIC) {
-		if (audio_get_sun_encoding(ntohl(sunhdr->encoding), 
+		if (audio_get_sun_encoding(ntohl(sunhdr->encoding),
 		    &info.play.encoding, &info.play.precision)) {
 			warnx("unknown unsupported Sun audio encoding format %d",
 			    ntohl(sunhdr->encoding));
@@ -344,7 +344,7 @@ audioctl_write_fromhdr(hdr, fsz, fd)
 
 		info.play.sample_rate = ntohl(sunhdr->sample_rate);
 		info.play.channels = ntohl(sunhdr->channels);
-		hdr_len = ntohl(sunhdr->hdr_size); 
+		hdr_len = ntohl(sunhdr->hdr_size);
 
 		goto set_audio_mode;
 	}
@@ -393,7 +393,7 @@ set_audio_mode:
 
 	if (ioctl(fd, AUDIO_SETINFO, &info) < 0)
 		err(1, "failed to set audio info");
-	
+
 	return (hdr_len);
 }
 

@@ -52,7 +52,7 @@ extern int (**sync_vnodeop_p) __P((void *));
 
 #define SYNCER_MAXDELAY       32
 
-extern int syncer_maxdelay;	/* maximum delay time */ 
+extern int syncer_maxdelay;	/* maximum delay time */
 extern time_t syncdelay;	/* max time to delay syncing data */
 extern time_t filedelay;	/* time to delay syncing files */
 extern time_t dirdelay;		/* time to delay syncing directories */

@@ -143,7 +143,7 @@ struct hp_softc {
 
 #if NRND > 0
 	rndsource_element_t rnd_source;
-#endif	
+#endif
 }
         hp_softc[NHP];
 #define	ENBUFSIZE	(sizeof(struct ether_header) + ETHERMTU + 2 + ETHER_MIN_LEN)

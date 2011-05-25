@@ -14,7 +14,7 @@
  * des -d -k key authdes.c.des authdes.c
  *
  * , where key is as above, and rebuild. To restore the distribution
- * to its exportable state, copy this file to authdes.c . 
+ * to its exportable state, copy this file to authdes.c .
  */
 #include <sys/types.h>
 #include "ntp_stdlib.h"

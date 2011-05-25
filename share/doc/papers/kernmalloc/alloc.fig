@@ -37,37 +37,37 @@
 scale=100
 define m0 |
 [ box invis ht 16 wid 32 with .sw at 0,0
-line  from 4,12 to 4,4 
-line  from 8,12 to 8,4 
-line  from 12,12 to 12,4 
-line  from 16,12 to 16,4 
-line  from 20,12 to 20,4 
-line  from 24,12 to 24,4 
-line  from 28,12 to 28,4 
-line  from 0,16 to 0,0 
-line  from 0,8 to 32,8 
+line  from 4,12 to 4,4
+line  from 8,12 to 8,4
+line  from 12,12 to 12,4
+line  from 16,12 to 16,4
+line  from 20,12 to 20,4
+line  from 24,12 to 24,4
+line  from 28,12 to 28,4
+line  from 0,16 to 0,0
+line  from 0,8 to 32,8
 ] |
 
 define m1 |
 [ box invis ht 16 wid 32 with .sw at 0,0
-line  from 8,12 to 8,4 
-line  from 16,12 to 16,4 
-line  from 24,12 to 24,4 
-line  from 0,8 to 32,8 
-line  from 0,16 to 0,0 
+line  from 8,12 to 8,4
+line  from 16,12 to 16,4
+line  from 24,12 to 24,4
+line  from 0,8 to 32,8
+line  from 0,16 to 0,0
 ] |
 
 define m2 |
 [ box invis ht 16 wid 32 with .sw at 0,0
-line  from 0,8 to 32,8 
-line  from 0,16 to 0,0 
+line  from 0,8 to 32,8
+line  from 0,16 to 0,0
 ] |
 
 define m3 |
 [ box invis ht 16 wid 31 with .sw at 0,0
-line  from 15,12 to 15,4 
-line  from 0,8 to 31,8 
-line  from 0,16 to 0,0 
+line  from 15,12 to 15,4
+line  from 0,8 to 31,8
+line  from 0,16 to 0,0
 ] |
 
 box invis ht 212 wid 580 with .sw at 0,0
@@ -81,7 +81,7 @@ box invis ht 212 wid 580 with .sw at 0,0
 "\f1\s10\&{\f1\s0" at 36,43 ljust
 "\f1\s10\&return(kmemsizes[(addr \- kmembase) \- \s-1PAGESIZE\s+1]);\f1" at 66,29 ljust
 "\f1\s10\&}\f1\s0" at 36,8 ljust
-line  from 548,192 to 548,176 
+line  from 548,192 to 548,176
 line  from 548,184 to 580,184 dotted
 "\f1\s10\&1024,\f1\s0" at 116,168
 "\f1\s10\&256,\f1\s0" at 148,168

@@ -161,7 +161,7 @@ mainbus_bs_unmap(t, bsh, size)
 	 */
 }
 
-void    
+void
 mainbus_bs_free(t, bsh, size)
 	void *t;
 	bus_space_handle_t bsh;
@@ -192,6 +192,6 @@ mainbus_bs_barrier(t, bsh, offset, len, flags)
 	bus_size_t offset, len;
 	int flags;
 {
-}	
+}
 
 /* End of mainbus_io.c */

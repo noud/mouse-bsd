@@ -61,7 +61,7 @@ frag_alloc (ob)
  * and begin a new frag. Unless the new frag has nchars chars available
  * do not return. Do not set up any fields of *now_frag.
  */
-void 
+void
 frag_grow (nchars)
      unsigned int nchars;
 {
@@ -105,7 +105,7 @@ frag_grow (nchars)
  * Make a new frag, initialising some components. Link new frag at end
  * of frchain_now.
  */
-void 
+void
 frag_new (old_frags_var_max_size)
      /* Number of chars (already allocated on obstack frags) in
 	variable_length part of frag. */
@@ -266,7 +266,7 @@ frag_variant (type, max_chars, var, subtype, symbol, offset, opcode)
  *
  * Reduce the variable end of a frag to a harmless state.
  */
-void 
+void
 frag_wane (fragP)
      register fragS *fragP;
 {
@@ -282,7 +282,7 @@ frag_wane (fragP)
    the maximum number of characters to skip when doing the alignment,
    or 0 if there is no maximum.  */
 
-void 
+void
 frag_align (alignment, fill_character, max)
      int alignment;
      int fill_character;
@@ -314,7 +314,7 @@ frag_align (alignment, fill_character, max)
    FILL_PATTERN.  MAX is the maximum number of characters to skip when
    doing the alignment, or 0 if there is no maximum.  */
 
-void 
+void
 frag_align_pattern (alignment, fill_pattern, n_fill, max)
      int alignment;
      const char *fill_pattern;

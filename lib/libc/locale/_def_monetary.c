@@ -9,7 +9,7 @@
 #include <limits.h>
 #include <locale.h>
 
-const _MonetaryLocale _DefaultMonetaryLocale = 
+const _MonetaryLocale _DefaultMonetaryLocale =
 {
 	"",
 	"",

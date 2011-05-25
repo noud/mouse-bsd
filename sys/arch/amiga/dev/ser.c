@@ -91,7 +91,7 @@ extern struct cfdriver ser_cd;
 
 void	serstart __P((struct tty *));
 void	ser_shutdown __P((struct ser_softc *));
-int	serparam __P((struct tty *, struct termios *)); 
+int	serparam __P((struct tty *, struct termios *));
 void	serintr __P((void));
 int	serhwiflow __P((struct tty *, int));
 int	sermctl __P((dev_t dev, int, int));
@@ -101,7 +101,7 @@ static	void ser_putchar __P((struct tty *, u_short));
 void	ser_outintr __P((void));
 void	sercnprobe __P((struct consdev *));
 void	sercninit __P((struct consdev *));
-void	serinit __P((int));          
+void	serinit __P((int));
 int	sercngetc __P((dev_t dev));
 void	sercnputc __P((dev_t, int));
 void	sercnpollc __P((dev_t, int));
@@ -128,7 +128,7 @@ static u_short sbcnt;
 static u_short sbovfl;
 static u_char serdcd;
 
-/* 
+/*
  * Since this UART is not particularly bright (to put it nicely), we'll
  * have to do parity stuff on our own.	This table contains the 8th bit
  * in 7bit character mode, for even parity.  If you want odd parity,
@@ -146,7 +146,7 @@ u_char	even_parity[] = {
 	1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1,
 };
 
-/* 
+/*
  * Since we don't get interrupts for changes on the modem control line,
  * we'll have to fake them by comparing current settings to the settings
  * we remembered on last invocation.
@@ -383,7 +383,7 @@ ser_shutdown(sc)
 
 	custom.adkcon = ADKCONF_UARTBRK;	/* clear break */
 #if 0 /* XXX fix: #ifdef KGDB */
-	/* 
+	/*
 	 * do not disable interrupts if debugging
 	 */
 	if (dev != kgdb_dev)
@@ -397,7 +397,7 @@ ser_shutdown(sc)
 	if (tp->t_cflag & HUPCL) {
 		(void)sermctl(tp->t_dev, TIOCM_DTR, DMBIC);
 		/*
-		 * Idea from dev/ic/com.c: 
+		 * Idea from dev/ic/com.c:
 		 * sleep a bit so that other side will notice, even if we
 		 * reopen immediately.
 		 */
@@ -463,10 +463,10 @@ sertty(dev)
 void
 ser_fastint()
 {
-	/* 
+	/*
 	 * We're at RBE-level, which is higher than VBL-level which is used
 	 * to periodically transmit contents of this buffer up one layer,
-	 * so no spl-raising is necessary. 
+	 * so no spl-raising is necessary.
 	 */
 	u_short code;
 
@@ -482,8 +482,8 @@ ser_fastint()
 	if ((code & SERDATRF_RBF) == 0)
 		return;
 
-	/* 
-	 * clear interrupt 
+	/*
+	 * clear interrupt
 	 */
 	custom.intreq = INTF_RBF;
 
@@ -522,7 +522,7 @@ serintr()
 	 * pass along any acumulated information
 	 */
 	while (sbcnt > 0 && (tp->t_state & TS_TBLOCK) == 0) {
-		/* 
+		/*
 		 * no collision with ser_fastint()
 		 */
 		sereint(*sbrpt++);
@@ -708,9 +708,9 @@ serioctl(dev, cmd, data, flag, p)
 		*(int *)data = serswflags;
 		break;
 	case TIOCSFLAGS:
-		error = suser(p->p_ucred, &p->p_acflag); 
+		error = suser(p->p_ucred, &p->p_acflag);
 		if (error != 0)
-			return(EPERM); 
+			return(EPERM);
 
 		serswflags = *(int *)data;
                 serswflags &= /* only allow valid flags */
@@ -729,7 +729,7 @@ serparam(tp, t)
 	struct termios *t;
 {
 	int cflag, ospeed = 0;
-	
+
 	if (t->c_ospeed > 0) {
 		if (t->c_ospeed < 110)
 			return(EINVAL);
@@ -758,7 +758,7 @@ serparam(tp, t)
 
 	/* TODO: support multiple flow control protocols like com.c */
 
-	/* 
+	/*
 	 * copy to tty
 	 */
 	tp->t_ispeed = t->c_ispeed;
@@ -775,7 +775,7 @@ serparam(tp, t)
 	if (t->c_ospeed == 0)
 		(void)sermctl(tp->t_dev, 0, DMSET);	/* hang up line */
 	else {
-		/* 
+		/*
 		 * (re)enable DTR
 		 * and set baud rate. (8 bit mode)
 		 */
@@ -783,7 +783,7 @@ serparam(tp, t)
 		custom.serper = (0 << 15) | ospeed;
 	}
 	(void)(*linesw[tp->t_line].l_modem)(tp, ISDCD(last_ciab_pra));
-	
+
 	return(0);
 }
 
@@ -818,7 +818,7 @@ ser_putchar(tp, c)
 		if (tp->t_cflag & PARODD)
 			c ^= 0x80;
 	}
-	/* 
+	/*
 	 * add stop bit(s)
 	 */
 	if (tp->t_cflag & CSTOPB)
@@ -865,7 +865,7 @@ ser_outintr()
 	/*
 	 * Do hardware flow control here.  if the CTS line goes down, don't
 	 * transmit anything.  That way, we'll be restarted by the periodic
-	 * interrupt when CTS comes back up. 
+	 * interrupt when CTS comes back up.
 	 */
 	if (ISCTS(ciab.pra))
 		ser_putchar(tp, *sob_ptr++);
@@ -883,7 +883,7 @@ serstart(tp)
 #ifdef DIAGNOSTIC
 	int unit;
 #endif
-	
+
 	hiwat = 0;
 
 	if ((tp->t_state & TS_ISOPEN) == 0)
@@ -935,7 +935,7 @@ serstart(tp)
 		/*
 		 * Get first character out, then have TBE-interrupts blow out
 		 * further characters, until buffer is empty, and TS_BUSY gets
-		 * cleared. 
+		 * cleared.
 		 */
 		ser_putchar(tp, *sob_ptr++);
 	}
@@ -1037,13 +1037,13 @@ sercnprobe(cp)
 	struct consdev *cp;
 {
 	int unit;
-	
+
 	/* locate the major number */
 	for (sermajor = 0; sermajor < nchrdev; sermajor++)
 		if (cdevsw[sermajor].d_open == (void *)seropen)
 			break;
 
-	
+
 	unit = CONUNIT;			/* XXX: ick */
 
 	/*
@@ -1052,7 +1052,7 @@ sercnprobe(cp)
 	cp->cn_dev = makedev(sermajor, unit);
 	if (serconsole == unit)
 		cp->cn_pri = CN_REMOTE;
-	else 
+	else
 		cp->cn_pri = CN_NORMAL;
 #ifdef KGDB
 	if (major(kgdb_dev) == 1)	/* XXX */
@@ -1128,7 +1128,7 @@ sercnputc(dev, c)
 	}
 
 	/*
-	 * wait for any pending transmission to finish 
+	 * wait for any pending transmission to finish
 	 */
 	timo = 50000;
 	while (!(custom.serdatr & SERDATRF_TBE) && --timo);
@@ -1138,7 +1138,7 @@ sercnputc(dev, c)
 	 */
 	custom.serdat = (c & 0xff) | 0x100;
 
-	/* 
+	/*
 	 * wait for this transmission to complete
 	 */
 	timo = 1500000;
@@ -1152,7 +1152,7 @@ sercnputc(dev, c)
 	for (timo = 0; timo < 30000; timo++)
 		;
 
-	/* 
+	/*
 	 * clear any interrupts generated by this transmission
 	 */
 	custom.intreq = INTF_TBE;

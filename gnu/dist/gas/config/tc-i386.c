@@ -1951,7 +1951,7 @@ md_assemble (line)
 			p = frag_more (4);
 			insn_size += 4;
 			fix_new_exp (frag_now, p - frag_now->fr_literal, 4,
-					    i.disps[n], 0, 
+					    i.disps[n], 0,
 					    TC_RELOC(i.disp_reloc[n], BFD_RELOC_32));
 		      }
 		  }
@@ -2599,7 +2599,7 @@ md_estimate_size_before_relax (fragP, segment)
 	  fragP->fr_fix += 1 + 4;	/* we've added an opcode byte */
 	  fix_new (fragP, old_fr_fix + 1, 4,
 		   fragP->fr_symbol,
-		   fragP->fr_offset, 1, 
+		   fragP->fr_offset, 1,
 		   (GOT_symbol &&  /* Not quite right - we should switch on
 				     presence of @PLT, but I cannot see how
 				     to get to that from here.  ERY */
@@ -2819,7 +2819,7 @@ md_apply_fix3 (fixP, valp, seg)
       if (!bfd_is_com_section(bfd_get_section(fixP->fx_addsy->bsym)))
 	value =  fixP->fx_offset - bfd_asymbol_value(fixP->fx_addsy->bsym);
     }
-  
+
   switch(fixP->fx_r_type) {
   case BFD_RELOC_386_PLT32:
     break;
@@ -2852,14 +2852,14 @@ md_apply_fix3 (fixP, valp, seg)
  * operands that look like "_GLOBAL_OFFSET_TABLE_+[.-.L284]".  The goal
  * here is to obtain the absolute address of the GOT, and it is strongly
  * preferable from a performance point of view to avoid using a runtime
- * relocation for this.  The actual sequence of instructions often look 
+ * relocation for this.  The actual sequence of instructions often look
  * something like:
- * 
+ *
  * 	call	.L66
  * .L66:
  * 	popl	%ebx
  * 	addl	$_GLOBAL_OFFSET_TABLE_+[.-.L66],%ebx
- * 
+ *
  * 	The call and pop essentially return the absolute address of
  * the label .L66 and store it in %ebx.  The linker itself will
  * ultimately change the first operand of the addl so that %ebx points to
@@ -2869,17 +2869,17 @@ md_apply_fix3 (fixP, valp, seg)
  * treat a GOTPC relocation as asking for a pcrel offset to the GOT to be
  * added in, and the addend of the relocation is stored in the operand
  * field for the instruction itself.
- * 
+ *
  * 	Our job here is to fix the operand so that it would add the correct
  * offset so that %ebx would point to itself.  The thing that is tricky is
  * that .-.L66 will point to the beginning of the instruction, so we need
  * to further modify the operand so that it will point to itself.
  * There are other cases where you have something like:
- * 
+ *
  * 	.long	$_GLOBAL_OFFSET_TABLE_+[.-.L66]
- * 
+ *
  * and here no correction would be required.  Internally in the assembler
- * we treat operands of this form as not being pcrel since the '.' is 
+ * we treat operands of this form as not being pcrel since the '.' is
  * explicitly mentioned, and I wonder whether it would simplify matters
  * to do it this way.  Who knows.  In earlier versions of the PIC patches,
  * the pcrel_adjust field was used to store the correction, but since the
@@ -3099,7 +3099,7 @@ md_undefined_symbol (name)
 	  {
 	    if(!GOT_symbol)
 	      {
-		if(symbol_find(name)) 
+		if(symbol_find(name))
 		  as_bad("GOT already in symbol table");
 #if defined(TE_NetBSD) && defined(OBJ_AOUT)
 		/* gcc generates _GLOBAL_OFFSET_TABLE_, but an old
@@ -3108,10 +3108,10 @@ md_undefined_symbol (name)
 		   was solved this way in NetBSD's old gas. It should
 		   probably be dealt with in libbfd... */
 		GOT_symbol = symbol_new (NBSD_GLOBAL_OFFSET_TABLE_NAME,
-					 undefined_section, 
+					 undefined_section,
 					 (valueT) 0, &zero_address_frag);
 #else
-		GOT_symbol = symbol_new (name, undefined_section, 
+		GOT_symbol = symbol_new (name, undefined_section,
 					 (valueT) 0, &zero_address_frag);
 #endif
 	      };

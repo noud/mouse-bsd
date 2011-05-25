@@ -39,7 +39,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #ifdef __STDC__		/* Forward decls for prototypes */
 struct frame_info;
-struct frame_saved_regs; 
+struct frame_saved_regs;
 struct type;
 struct value;
 #endif
@@ -56,7 +56,7 @@ extern CORE_ADDR d10v_skip_prologue ();
 #define INNER_THAN <
 
 /* for a breakpoint, use "dbt || nop" */
-#define BREAKPOINT {0x2f, 0x90, 0x5e, 0x00} 
+#define BREAKPOINT {0x2f, 0x90, 0x5e, 0x00}
 
 /* If your kernel resets the pc after the trap happens you may need to
    define this before including this file.  */
@@ -91,7 +91,7 @@ extern CORE_ADDR d10v_skip_prologue ();
 #define A0_REGNUM 	35
 
 /* Say how much memory is needed to store a copy of the register set */
-#define REGISTER_BYTES    ((NUM_REGS-2)*2+16) 
+#define REGISTER_BYTES    ((NUM_REGS-2)*2+16)
 
 /* Index within `registers' of the first byte of the space for
    register N.  */
@@ -105,7 +105,7 @@ extern CORE_ADDR d10v_skip_prologue ();
 #define REGISTER_RAW_SIZE(N) ( ((N) >= A0_REGNUM) ? 8 : 2 )
 
 /* Number of bytes of storage in the program's representation
-   for register N.  */   
+   for register N.  */
 #define REGISTER_VIRTUAL_SIZE(N) ( ((N) >= A0_REGNUM) ? 8 : ( ((N) == PC_REGNUM || (N) == SP_REGNUM) ? 4 : 2 ))
 
 /* Largest value REGISTER_RAW_SIZE can have.  */
@@ -144,7 +144,7 @@ extern CORE_ADDR d10v_skip_prologue ();
 #define D10V_MAKE_IADDR(x) ( (x) & 0x3000000 ? (x) : (((x) << 2) | IMEM_START))
 
 /* Store the address of the place in which to copy the structure the
-   subroutine will return.  This is called from call_function. 
+   subroutine will return.  This is called from call_function.
 
    We store structs through a pointer passed in R2 */
 
@@ -153,7 +153,7 @@ extern CORE_ADDR d10v_skip_prologue ();
 
 
 /* Write into appropriate registers a function return value
-   of type TYPE, given in virtual format.  
+   of type TYPE, given in virtual format.
 
    Things always get returned in R2/R3 */
 
@@ -168,7 +168,7 @@ extern CORE_ADDR d10v_skip_prologue ();
 #define EXTRACT_STRUCT_VALUE_ADDRESS(REGBUF) (*(CORE_ADDR *)(REGBUF))
 
 
-/* Define other aspects of the stack frame. 
+/* Define other aspects of the stack frame.
    we keep a copy of the worked out return pc lying around, since it
    is a useful bit of info */
 
@@ -179,7 +179,7 @@ extern CORE_ADDR d10v_skip_prologue ();
     int size;
 
 #define INIT_EXTRA_FRAME_INFO(fromleaf, fi) \
-    d10v_init_extra_frame_info(fromleaf, fi) 
+    d10v_init_extra_frame_info(fromleaf, fi)
 
 extern void d10v_init_extra_frame_info PARAMS (( int fromleaf, struct frame_info *fi ));
 
@@ -193,7 +193,7 @@ extern void d10v_init_extra_frame_info PARAMS (( int fromleaf, struct frame_info
 #define FRAME_CHAIN(FRAME)       d10v_frame_chain(FRAME)
 #define FRAME_CHAIN_VALID(chain,frame)	\
       ((chain) != 0 && (frame) != 0 && (frame)->pc > IMEM_START)
-#define FRAME_SAVED_PC(FRAME)    ((FRAME)->return_pc)   
+#define FRAME_SAVED_PC(FRAME)    ((FRAME)->return_pc)
 #define FRAME_ARGS_ADDRESS(fi)   (fi)->frame
 #define FRAME_LOCALS_ADDRESS(fi) (fi)->frame
 
@@ -202,7 +202,7 @@ extern void d10v_init_extra_frame_info PARAMS (( int fromleaf, struct frame_info
 /*stack and that may not be written yet. */
 
 #define SAVED_PC_AFTER_CALL(frame) ((read_register(LR_REGNUM) << 2) | IMEM_START)
-    
+
 /* Set VAL to the number of args passed to frame described by FI.
    Can set VAL to -1, meaning no way to tell.  */
 /* We can't tell how many args there are */
@@ -226,8 +226,8 @@ extern void d10v_init_extra_frame_info PARAMS (( int fromleaf, struct frame_info
 extern void d10v_frame_find_saved_regs PARAMS ((struct frame_info *, struct frame_saved_regs *));
 
 #define NAMES_HAVE_UNDERSCORE
-      
-/* 
+
+/*
 DUMMY FRAMES.  Need these to support inferior function calls.  They work
 like this on D10V:  First we set a breakpoint at 0 or __start.  Then we push
 all the registers onto the stack.  Then put the function arguments in the proper
@@ -236,9 +236,9 @@ When it hits the breakpoint, clear the break point and pop the old register cont
 off the stack.
 */
 
-#define CALL_DUMMY		{ 0 }  
+#define CALL_DUMMY		{ 0 }
 #define PUSH_DUMMY_FRAME
-#define CALL_DUMMY_START_OFFSET	0	
+#define CALL_DUMMY_START_OFFSET	0
 #define CALL_DUMMY_LOCATION	AT_ENTRY_POINT
 #define CALL_DUMMY_BREAKPOINT_OFFSET (0)
 
@@ -279,7 +279,7 @@ extern void d10v_pop_frame PARAMS((void));
 #  define LONGEST long long
 #else
 #  define LONGEST long
-#endif 
+#endif
 #define ULONGEST unsigned LONGEST
 
 void d10v_write_pc PARAMS ((CORE_ADDR val, int pid));

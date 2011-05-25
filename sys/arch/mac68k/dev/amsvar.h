@@ -57,7 +57,7 @@ struct ams_softc {
 /* EMP device classes */
 #define MSCLASS_TABLET		0
 #define MSCLASS_MOUSE		1
-#define MSCLASS_TRACKBALL	2       
+#define MSCLASS_TRACKBALL	2
 
 void	ms_adbcomplete __P((caddr_t buffer, caddr_t data_area, int adb_command));
 void	ams_handoff __P((adb_event_t *event, struct ams_softc *));

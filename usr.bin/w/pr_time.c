@@ -54,7 +54,7 @@ __RCSID("$NetBSD: pr_time.c,v 1.9 1998/04/02 11:34:23 kleink Exp $");
 
 /*
  * pr_attime --
- *	Print the time since the user logged in. 
+ *	Print the time since the user logged in.
  *
  *	Note: SCCS forces the bizarre string manipulation, things like
  *	%I% get replaced in the source code.

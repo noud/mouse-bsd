@@ -333,8 +333,8 @@ extern unsigned short	fb_gray_pallet_def[];
 #define	FB_DONE			4
 
 /*
-*	Pseudo Frame Buffer 
-*	
+*	Pseudo Frame Buffer
+*
 *	unit no
 *	   0		Console Device and old Interface (/dev/fb)
 *	   1		B/W Display and New Interface	(/dev/mfb)
@@ -352,7 +352,7 @@ extern unsigned short	fb_gray_pallet_def[];
 	(*(fb)->fbbm_op->fb_rop_winit)(fb)
 
 #define	fbbm_rop_write(fb, map, p, width, srp, drp, wplane) \
-	(*(fb)->fbbm_op->fb_rop_write)(fb, map, p, width, srp, drp, wplane) 
+	(*(fb)->fbbm_op->fb_rop_write)(fb, map, p, width, srp, drp, wplane)
 
 #define	fbbm_rop_read(fb, map, p, width, srp, drp, rplane, wplane) \
 	(*(fb)->fbbm_op->fb_rop_read)(fb, map, p, width, srp, drp, rplane, wplane)

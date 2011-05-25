@@ -343,7 +343,7 @@ ibcs2_sys_semsys(p, v, retval)
 			    struct ibcs2_semid_ds *isp, isi;
 			    struct semid_ds14 *sp, s;
 			    caddr_t sg = stackgap_init(p->p_emul);
-  
+
 			    isp = (struct ibcs2_semid_ds *)SCARG(uap, a5);
 			    sp = stackgap_alloc(&sg, sizeof(struct semid_ds14));
 			    SCARG(uap, a5) = (int)sp;
@@ -363,7 +363,7 @@ ibcs2_sys_semsys(p, v, retval)
 			    struct ibcs2_semid_ds isp;
 			    struct semid_ds14 *sp, s;
 			    caddr_t sg = stackgap_init(p->p_emul);
-  
+
 			    error = copyin((caddr_t)SCARG(uap, a5),
 					   (caddr_t)&isp, sizeof(isp));
 			    if (error)
@@ -477,7 +477,7 @@ ibcs2_sys_shmsys(p, v, retval)
 			    struct ibcs2_shmid_ds *isp, is;
 			    struct shmid_ds14 *sp, s;
 			    caddr_t sg = stackgap_init(p->p_emul);
-  
+
 			    isp = (struct ibcs2_shmid_ds *)SCARG(uap, a4);
 			    sp = stackgap_alloc(&sg, sizeof(*sp));
 			    SCARG(uap, a4) = (int)sp;
@@ -497,7 +497,7 @@ ibcs2_sys_shmsys(p, v, retval)
 			    struct ibcs2_shmid_ds is;
 			    struct shmid_ds14 *sp, s;
 			    caddr_t sg = stackgap_init(p->p_emul);
-  
+
 			    error = copyin((caddr_t)SCARG(uap, a4),
 					   (caddr_t)&is, sizeof(is));
 			    if (error)

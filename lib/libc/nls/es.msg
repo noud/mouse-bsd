@@ -14,11 +14,11 @@ $ ENXIO
 $ E2BIG
 7 La lista de argumentos es demasiado amplia
 $ ENOEXEC
-8 Error en el formato del ejecutable 
+8 Error en el formato del ejecutable
 $ EBADF
 9 Descriptor de fichero incorrecto
 $ ECHILD
-10 No hay procesos hijo 
+10 No hay procesos hijo
 $ EDEADLK
 11 Se ha evitado bloqueo del recurso
 $ ENOMEM

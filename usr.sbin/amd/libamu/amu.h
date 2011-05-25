@@ -40,7 +40,7 @@
  *
  *      %W% (Berkeley) %G%
  *
- * Id: amu.h,v 1.2 1999/01/10 21:54:36 ezk Exp 
+ * Id: amu.h,v 1.2 1999/01/10 21:54:36 ezk Exp
  *
  */
 

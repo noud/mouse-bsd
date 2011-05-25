@@ -490,7 +490,7 @@ mips_find_saved_regs (fci)
 	{
 	  int reg;
 	  int sreg_count = (inst >> 6) & 3;
-	  
+
 	  /* Check if the ra register was pushed on the stack.  */
 	  reg_position = fci->frame + PROC_REG_OFFSET (proc_desc);
 	  if (inst & 0x20)
@@ -676,7 +676,7 @@ heuristic_proc_start(pc)
 		  warning("Hit beginning of text section without finding");
 		else
 		  warning("Hit heuristic-fence-post without finding");
-		
+
 		warning("enclosing function for address 0x%s", paddr_nz (pc));
 		if (!blurb_printed)
 		  {
@@ -691,7 +691,7 @@ Otherwise, you told GDB there was a function where there isn't one, or\n\
 		  }
 	      }
 
-	    return 0; 
+	    return 0;
 	  }
 	else if (pc_is_mips16 (start_pc))
 	  {
@@ -1239,7 +1239,7 @@ init_extra_frame_info(fci)
 	      fci->num_args = regnum - A0_REGNUM + 1;
 	      break;
 	    }
-	} 
+	}
     }
 }
 
@@ -1247,7 +1247,7 @@ init_extra_frame_info(fci)
    we basically have to look at symbol information for the function
    that we stopped in, which tells us *which* register (if any) is
    the base of the frame pointer, and what offset from that register
-   the frame itself is at.  
+   the frame itself is at.
 
    This presents a problem when trying to examine a stack in memory
    (that isn't executing at the moment), using the "frame" command.  We
@@ -1287,13 +1287,13 @@ mips_push_arguments(nargs, args, sp, struct_return, struct_addr)
      a power of two. */
 #define ROUND_DOWN(n,a) ((n) & ~((a)-1))
 #define ROUND_UP(n,a) (((n)+(a)-1) & ~((a)-1))
-  
+
   /* First ensure that the stack and structure return address (if any)
      are properly aligned. The stack has to be 64-bit aligned even
      on 32-bit machines, because doubles must be 64-bit aligned. */
   sp = ROUND_DOWN (sp, 8);
   struct_addr = ROUND_DOWN (struct_addr, MIPS_REGSIZE);
-      
+
   /* Now make space on the stack for the args. We allocate more
      than necessary for EABI, because the first few arguments are
      passed in registers, but that's OK. */
@@ -1397,7 +1397,7 @@ mips_push_arguments(nargs, args, sp, struct_return, struct_addr)
 	     where gcc sometimes puts them on the stack.  For maximum
 	     compatibility, we will put them in both places.  */
 
-	  int odd_sized_struct = ((len > MIPS_REGSIZE) && 
+	  int odd_sized_struct = ((len > MIPS_REGSIZE) &&
 				  (len % MIPS_REGSIZE != 0));
 	  while (len > 0)
 	    {
@@ -1421,7 +1421,7 @@ mips_push_arguments(nargs, args, sp, struct_return, struct_addr)
 			     TYPE_LENGTH (arg_type) < MIPS_REGSIZE)
 		      longword_offset = MIPS_REGSIZE - len;
 
-		  write_memory (sp + stack_offset + longword_offset, 
+		  write_memory (sp + stack_offset + longword_offset,
 				val, partial_len);
 		}
 
@@ -1431,7 +1431,7 @@ mips_push_arguments(nargs, args, sp, struct_return, struct_addr)
 		{
 		  CORE_ADDR regval = extract_address (val, partial_len);
 
-		  /* A non-floating-point argument being passed in a 
+		  /* A non-floating-point argument being passed in a
 		     general register.  If a struct or union, and if
 		     the remaining length is smaller than the register
 		     size, we have to adjust the register value on
@@ -1447,28 +1447,28 @@ mips_push_arguments(nargs, args, sp, struct_return, struct_addr)
 		      partial_len < MIPS_REGSIZE &&
 		      (typecode == TYPE_CODE_STRUCT ||
 		       typecode == TYPE_CODE_UNION))
-		    regval <<= ((MIPS_REGSIZE - partial_len) * 
+		    regval <<= ((MIPS_REGSIZE - partial_len) *
 				TARGET_CHAR_BIT);
 
 		  write_register (argreg, regval);
 		  argreg++;
-    
+
 		  /* If this is the old ABI, prevent subsequent floating
 		     point arguments from being passed in floating point
 		     registers.  */
 		  if (!MIPS_EABI)
 		    float_argreg = MIPS_LAST_FP_ARG_REGNUM + 1;
 		}
-    
+
 	      len -= partial_len;
 	      val += partial_len;
 
 	      /* The offset onto the stack at which we will start
-		 copying parameters (after the registers are used up) 
-		 begins at (4 * MIPS_REGSIZE) in the old ABI.  This 
+		 copying parameters (after the registers are used up)
+		 begins at (4 * MIPS_REGSIZE) in the old ABI.  This
 		 leaves room for the "home" area for register parameters.
 
-		 In the new EABI, the 8 register parameters do not 
+		 In the new EABI, the 8 register parameters do not
 		 have "home" stack space reserved for them, so the
 		 stack offset does not get incremented until after
 		 we have used up the 8 parameter registers.  */
@@ -1523,7 +1523,7 @@ mips_push_dummy_frame()
    * procedure calls. Dest_Reg (see tm-mips.h) must also be saved.
    * In addition, we must save the PC, PUSH_FP_REGNUM, MMLO/-HI
    * and FP Control/Status registers.
-   * 
+   *
    *
    * Dummy frame layout:
    *  (high memory)
@@ -1557,7 +1557,7 @@ mips_push_dummy_frame()
       mips_push_register (&sp, ireg);
 
   /* Save floating point registers starting with high order word */
-  PROC_FREG_MASK(proc_desc) = 
+  PROC_FREG_MASK(proc_desc) =
     mips_fpu == MIPS_FPU_DOUBLE ? FLOAT_REG_SAVE_MASK
     : mips_fpu == MIPS_FPU_SINGLE ? FLOAT_SINGLE_REG_SAVE_MASK : 0;
   PROC_FREG_OFFSET(proc_desc) = sp - old_sp; /* offset of (Saved D18) from FP */
@@ -1594,7 +1594,7 @@ mips_pop_frame()
 	  && frame->saved_regs->regs[regnum])
 	write_register (regnum,
 			read_memory_integer (frame->saved_regs->regs[regnum],
-					     MIPS_REGSIZE)); 
+					     MIPS_REGSIZE));
     }
   write_register (SP_REGNUM, new_sp);
   flush_cached_frames ();
@@ -1649,7 +1649,7 @@ mips_print_register (regnum, all)
       && !((regnum-FP0_REGNUM) & 1))
     if (REGISTER_RAW_SIZE(regnum) == 4)	/* this would be silly on MIPS64 */
       {
-	char dbuffer[2 * MAX_REGISTER_RAW_SIZE]; 
+	char dbuffer[2 * MAX_REGISTER_RAW_SIZE];
 
 	read_relative_register_raw_bytes (regnum, dbuffer);
 	read_relative_register_raw_bytes (regnum+1, dbuffer+MIPS_REGSIZE);
@@ -1693,7 +1693,7 @@ mips_print_register (regnum, all)
 			    'x', 0, gdb_stdout);
 }
 
-/* Replacement for generic do_registers_info.  
+/* Replacement for generic do_registers_info.
    Print regs in pretty columns.  */
 
 static int
@@ -1707,7 +1707,7 @@ do_fp_register_row (regnum)
   int LO = (TARGET_BYTE_ORDER != BIG_ENDIAN);
   double doub, flt1, flt2;	/* doubles extracted from raw hex data */
   int inv1, inv2, inv3;
-   
+
   /* Get the data in raw format.  */
   if (read_relative_register_raw_bytes (regnum, raw_buffer[HI]))
     error ("can't read register %d (%s)", regnum, reg_names[regnum]);
@@ -1716,7 +1716,7 @@ do_fp_register_row (regnum)
       /* 4-byte registers: we can fit two registers per row. */
       /* Also print every pair of 4-byte regs as an 8-byte double. */
       if (read_relative_register_raw_bytes (regnum + 1, raw_buffer[LO]))
-	error ("can't read register %d (%s)", 
+	error ("can't read register %d (%s)",
 	       regnum + 1, reg_names[regnum + 1]);
 
       /* copy the two floats into one double, and unpack both */
@@ -1725,11 +1725,11 @@ do_fp_register_row (regnum)
       flt2 = unpack_double (builtin_type_float,  raw_buffer[LO], &inv2);
       doub = unpack_double (builtin_type_double, dbl_buffer,     &inv3);
 
-      printf_filtered (inv1 ? " %-5s: <invalid float>" : 
+      printf_filtered (inv1 ? " %-5s: <invalid float>" :
 		       " %-5s%-17.9g", reg_names[regnum],     flt1);
-      printf_filtered (inv2 ? " %-5s: <invalid float>" : 
+      printf_filtered (inv2 ? " %-5s: <invalid float>" :
 		       " %-5s%-17.9g", reg_names[regnum + 1], flt2);
-      printf_filtered (inv3 ? " dbl: <invalid double>\n" : 
+      printf_filtered (inv3 ? " dbl: <invalid double>\n" :
 		       " dbl: %-24.17g\n", doub);
       /* may want to do hex display here (future enhancement) */
       regnum +=2;
@@ -1739,13 +1739,13 @@ do_fp_register_row (regnum)
       int offset = 4 * (TARGET_BYTE_ORDER == BIG_ENDIAN);
 
       memcpy (dbl_buffer, raw_buffer[HI], sizeof(dbl_buffer));
-      flt1 = unpack_double (builtin_type_float, 
+      flt1 = unpack_double (builtin_type_float,
 			    &raw_buffer[HI][offset], &inv1);
       doub = unpack_double (builtin_type_double, dbl_buffer,    &inv3);
 
-      printf_filtered (inv1 ? " %-5s: <invalid float>" : 
+      printf_filtered (inv1 ? " %-5s: <invalid float>" :
 		       " %-5s flt: %-17.9g", reg_names[regnum], flt1);
-      printf_filtered (inv3 ? " dbl: <invalid double>\n" : 
+      printf_filtered (inv3 ? " dbl: <invalid double>\n" :
 		       " dbl: %-24.17g\n", doub);
       /* may want to do hex display here (future enhancement) */
       regnum++;
@@ -1771,11 +1771,11 @@ do_gp_register_row (regnum)
 	continue;	/* unused register */
       if (TYPE_CODE (REGISTER_VIRTUAL_TYPE (regnum)) == TYPE_CODE_FLT)
 	break;	/* end the row: reached FP register */
-      printf_filtered (MIPS_REGSIZE == 8 ? "%17s" : "%9s", 
+      printf_filtered (MIPS_REGSIZE == 8 ? "%17s" : "%9s",
 		       reg_names[regnum]);
       col++;
     }
-  printf_filtered (start_regnum < MIPS_NUMREGS ? "\n R%-4d" : "\n      ", 
+  printf_filtered (start_regnum < MIPS_NUMREGS ? "\n R%-4d" : "\n      ",
 		   start_regnum);	/* print the R0 to R31 names */
 
   regnum = start_regnum;	/* go back to start of row */
@@ -1925,13 +1925,13 @@ mips32_skip_prologue (pc, lenient)
 		  || (inst & 0xFFE00000) == 0xFFA00000) /* sd reg,n($sp) */
 		 && (inst & 0x001F0000))	/* reg != $zero */
 	    continue;
-						
+
 	else if ((inst & 0xFFE00000) == 0xE7A00000) /* swc1 freg,n($sp) */
 	    continue;
 	else if ((inst & 0xF3E00000) == 0xA3C00000 && (inst & 0x001F0000))
 						/* sx reg,n($s8) */
 	    continue;				/* reg != $zero */
- 
+
         /* move $s8,$sp.  With different versions of gas this will be either
            `addu $s8,$sp,$zero' or `or $s8,$sp,$zero' or `daddu s8,sp,$0'.
 	    Accept any one of these.  */
@@ -2104,7 +2104,7 @@ mips_in_lenient_prologue (startaddr, pc)
 }
 #endif
 
-/* Given a return value in `regbuf' with a type `valtype', 
+/* Given a return value in `regbuf' with a type `valtype',
    extract and copy its value into `valbuf'.  */
 void
 mips_extract_return_value (valtype, regbuf, valbuf)
@@ -2115,7 +2115,7 @@ mips_extract_return_value (valtype, regbuf, valbuf)
   int regnum;
   int offset = 0;
   int len = TYPE_LENGTH (valtype);
-  
+
   regnum = 2;
   if (TYPE_CODE (valtype) == TYPE_CODE_FLT
       && (mips_fpu == MIPS_FPU_DOUBLE
@@ -2136,7 +2136,7 @@ mips_extract_return_value (valtype, regbuf, valbuf)
   REGISTER_CONVERT_TO_TYPE (regnum, valtype, valbuf);
 }
 
-/* Given a return value in `regbuf' with a type `valtype', 
+/* Given a return value in `regbuf' with a type `valtype',
    write it's value into the appropriate register.  */
 void
 mips_store_return_value (valtype, valbuf)
@@ -2147,7 +2147,7 @@ mips_store_return_value (valtype, valbuf)
   int offset = 0;
   int len = TYPE_LENGTH (valtype);
   char raw_buffer[MAX_REGISTER_RAW_SIZE];
-  
+
   regnum = 2;
   if (TYPE_CODE (valtype) == TYPE_CODE_FLT
       && (mips_fpu == MIPS_FPU_DOUBLE
@@ -2166,8 +2166,8 @@ mips_store_return_value (valtype, valbuf)
     }
   memcpy(raw_buffer + offset, valbuf, len);
   REGISTER_CONVERT_FROM_TYPE(regnum, valtype, raw_buffer);
-  write_register_bytes(REGISTER_BYTE (regnum), raw_buffer, 
-		       len > REGISTER_RAW_SIZE (regnum) ? 
+  write_register_bytes(REGISTER_BYTE (regnum), raw_buffer,
+		       len > REGISTER_RAW_SIZE (regnum) ?
 		       len : REGISTER_RAW_SIZE (regnum));
 }
 
@@ -2266,7 +2266,7 @@ mips_set_processor_type_command (args, from_tty)
 
       return;
     }
-  
+
   if (!mips_set_processor_type (tmp_mips_processor_type))
     {
       error ("Unknown processor type `%s'.", tmp_mips_processor_type);
@@ -2365,7 +2365,7 @@ gdb_print_insn_mips (memaddr, info)
 
   /* Round down the instruction address to the appropriate boundary.  */
   memaddr &= (info->mach == 16 ? ~1 : ~3);
-      
+
   /* Call the appropriate disassembler based on the target endian-ness.  */
   if (TARGET_BYTE_ORDER == BIG_ENDIAN)
     return print_insn_big_mips (memaddr, info);
@@ -2443,7 +2443,7 @@ unsigned char *mips_breakpoint_from_pc (pcptr, lenptr)
 /* Test whether the PC points to the return instruction at the
    end of a function.  This implements the ABOUT_TO_RETURN macro.  */
 
-int 
+int
 mips_about_to_return (pc)
      CORE_ADDR pc;
 {
@@ -2667,12 +2667,12 @@ normal floating point support.",
   mips_fpu_string = strsave ("double");
 #else
   mips_fpu = MIPS_DEFAULT_FPU_TYPE;
-  switch (mips_fpu) 
+  switch (mips_fpu)
   {
     case MIPS_FPU_DOUBLE:  mips_fpu_string = strsave ("double");  break;
     case MIPS_FPU_SINGLE:  mips_fpu_string = strsave ("single");  break;
     case MIPS_FPU_NONE:    mips_fpu_string = strsave ("none");    break;
-  }    
+  }
 #endif
 
   c = add_set_cmd ("processor", class_support, var_string_noescape,

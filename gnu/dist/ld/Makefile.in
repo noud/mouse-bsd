@@ -307,7 +307,7 @@ DISTCLEANFILES = site.exp site.bak
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/../mkinstalldirs
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 noinst_PROGRAMS =  ld-new$(EXEEXT)
 PROGRAMS =  $(noinst_PROGRAMS)
 
@@ -318,7 +318,7 @@ LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 ld_new_OBJECTS =  ldgram.o ldlex.o lexsup.o ldlang.o mri.o ldctor.o \
 ldmain.o ldwrite.o ldexp.o ldemul.o ldver.o ldmisc.o ldfile.o ldcref.o
-ld_new_LDFLAGS = 
+ld_new_LDFLAGS =
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LEXLIB = @LEXLIB@
 CFLAGS = @CFLAGS@
@@ -349,7 +349,7 @@ default: all
 
 .SUFFIXES:
 .SUFFIXES: .S .c .dvi .info .l .lo .o .ps .s .texi .texinfo .y
-$(srcdir)/Makefile.in: @MAINT@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/Makefile.in: @MAINT@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --cygnus Makefile
 
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status

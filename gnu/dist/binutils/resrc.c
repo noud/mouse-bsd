@@ -1332,7 +1332,7 @@ write_rc_subdir (e, re, type, name, language, level)
       fprintf (e, "// Level %d: ", level);
       res_id_print (e, re->id, 1);
       fprintf (e, "\n");
-    }		
+    }
 
   write_rc_directory (e, re->u.dir, type, name, language, level + 1);
 }
@@ -1792,7 +1792,7 @@ write_rc_dialog_control (e, control)
     fprintf (e, "%s", ci->name);
   else
     fprintf (e, "CONTROL");
-  
+
   if (control->text.named || control->text.u.id != 0)
     {
       fprintf (e, " ");

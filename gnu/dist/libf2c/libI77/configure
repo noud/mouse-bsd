@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Guess values for system-dependent variables and create Makefiles.
-# Generated automatically using autoconf version 2.12.1 
+# Generated automatically using autoconf version 2.12.1
 # Copyright (C) 1992, 93, 94, 95, 96 Free Software Foundation, Inc.
 #
 # This configure script is free software; the Free Software Foundation
@@ -959,7 +959,7 @@ fi
 
 echo "$ac_t""$g77_cv_header_posix" 1>&6
 
-# We can rely on the GNU library being posix-ish.  I guess checking the 
+# We can rely on the GNU library being posix-ish.  I guess checking the
 # header isn't actually like checking the functions, though...
 echo $ac_n "checking for GNU library""... $ac_c" 1>&6
 echo "configure:966: checking for GNU library" >&5
@@ -1160,7 +1160,7 @@ fi
 echo "$ac_t""$ac_cv_c_const" 1>&6
 if test $ac_cv_c_const = no; then
   cat >> confdefs.h <<\EOF
-#define const 
+#define const
 EOF
 
 fi
@@ -1314,7 +1314,7 @@ if eval "test \"`echo '$ac_cv_func_'$ac_func`\" = yes"; then
   cat >> confdefs.h <<EOF
 #define $ac_tr_func 1
 EOF
- 
+
 else
   echo "$ac_t""no" 1>&6
 fi
@@ -1360,7 +1360,7 @@ echo "$ac_t""$g77_cv_sys_sprintf_ansi" 1>&6
 
 # The cygwin patch takes steps to avoid defining USE_STRLEN here -- I don't
 # understand why.
-if test $g77_cv_sys_sprintf_ansi != yes; then 
+if test $g77_cv_sys_sprintf_ansi != yes; then
   cat >> confdefs.h <<\EOF
 #define USE_STRLEN 1
 EOF

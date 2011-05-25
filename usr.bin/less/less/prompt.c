@@ -10,19 +10,19 @@
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice in the documentation and/or other materials provided with 
+ *    notice in the documentation and/or other materials provided with
  *    the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
- * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN 
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -32,7 +32,7 @@
  * There are three flavors of prompts, SHORT, MEDIUM and LONG,
  * selected by the -m/-M options.
  * There is also the "equals message", printed by the = command.
- * A prompt is a message composed of various pieces, such as the 
+ * A prompt is a message composed of various pieces, such as the
  * name of the file being viewed, the percentage into the file, etc.
  */
 
@@ -184,7 +184,7 @@ curr_byte(where)
 
 /*
  * Return the value of a prototype conditional.
- * A prototype string may include conditionals which consist of a 
+ * A prototype string may include conditionals which consist of a
  * question mark followed by a single letter.
  * Here we decode that letter and return the appropriate boolean value.
  */
@@ -214,7 +214,7 @@ cond(c, where)
 	case 'n':	/* First prompt in a new file? */
 		return (new_file);
 	case 'p':	/* Percent into file known? */
-		return (curr_byte(where) != NULL_POSITION && 
+		return (curr_byte(where) != NULL_POSITION &&
 				ch_length() > 0);
 	case 's':	/* Size of file known? */
 	case 'B':
@@ -333,7 +333,7 @@ protochar(c, where)
 
 /*
  * Skip a false conditional.
- * When a false condition is found (either a false IF or the ELSE part 
+ * When a false condition is found (either a false IF or the ELSE part
  * of a true IF), this routine scans the prototype string to decide
  * where to resume parsing the string.
  * We must keep track of nested IFs and skip them properly.

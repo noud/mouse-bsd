@@ -153,7 +153,7 @@
 			    struct linux_stat *sp); }
 68	STD		{ int linux_sys_lstat(char *path, \
 			    struct linux_stat *sp); }
-69	UNIMPL 
+69	UNIMPL
 70	UNIMPL
 71	NOARGS		{ int linux_sys_mmap(unsigned long addr, size_t len, \
 			    int prot, int flags, int fd, off_t offset); }
@@ -171,7 +171,7 @@
 ;83: Uses int for seconds, and time_t.  so need different itimerval struct.
 83	UNIMPL		osf_setitimer
 84	UNIMPL
-85	UNIMPL	
+85	UNIMPL
 ;86: Uses int for seconds, and time_t.  so need different itimerval struct.
 86	UNIMPL		osf_getitimer
 ; XXX XAX here, check args match.
@@ -529,7 +529,7 @@
 			    linux_sigset_t *set, \
 			    size_t sigsetsize); }
 355	UNIMPL		rt_sigtimedwait
-; XXX XAX int here?  sigset_t here? 
+; XXX XAX int here?  sigset_t here?
 356	STD		{ int linux_sys_rt_queueinfo(int pid, int signum, \
 			    linux_siginfo_t *uinfo); }
 357	STD		{ int linux_sys_rt_sigsuspend(linux_sigset_t *unewset, \

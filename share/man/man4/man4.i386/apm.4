@@ -23,12 +23,12 @@
 .\" STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 .\" ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 .\" POSSIBILITY OF SUCH DAMAGE.
-.\"   
+.\"
 .\"   $NetBSD: apm.4,v 1.8 1999/12/21 11:27:55 drochner Exp $
 .\"
 .Dd May 18, 1996
 .Dt APM 4 i386
-.Os 
+.Os
 .Sh NAME
 .Nm apm
 .Nd
@@ -102,7 +102,7 @@ or manipulated with
 and
 .Xr write 2
 are not supported.
-The 
+The
 .Xr ioctl 2
 calls supported are:
 .Bl -tag -width indent -compact
@@ -128,7 +128,7 @@ struct apm_power_info {
 };
 .Ed
 .Va battery_state
-is one of 
+is one of
 .Dv APM_BATT_HIGH ,
 .Dv APM_BATT_LOW ,
 .Dv APM_BATT_CRITICAL ,
@@ -136,7 +136,7 @@ is one of
 or
 .Dv APM_BATT_UNKNOWN .
 .Va ac_state
-is one of 
+is one of
 .Dv APM_AC_OFF ,
 .Dv APM_AC_ON ,
 .Dv APM_AC_BACKUP ,

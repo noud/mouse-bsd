@@ -9,7 +9,7 @@
 
 
 void load_kmap __P((const char *, int));
-void dump_kmap(); 
+void dump_kmap();
 
 int
 main(argc, argv)
@@ -49,7 +49,7 @@ int		set_sysmap;
 	int	ioc;
 
 	ioc = set_sysmap ? ITEIOCSSKMAP : ITEIOCSKMAP;
-	
+
 	if ((fd = open (file, 0)) >= 0) {
 		if (read (fd, buf, sizeof (buf)) == sizeof (buf)) {
 			if (ioctl (0, ioc, buf) == 0)

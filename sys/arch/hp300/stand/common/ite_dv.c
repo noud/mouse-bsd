@@ -63,7 +63,7 @@ dvbox_init(ip)
 	struct ite_data *ip;
 {
 	int i;
-	
+
 	dv_reset(ip->regbase);
 	DELAY(4000);
 
@@ -74,7 +74,7 @@ dvbox_init(ip)
 	 * Lastly, turn on the box.
 	 */
 	REGBASE->interrupt = 0x04;
-	REGBASE->drive     = 0x10;		
+	REGBASE->drive     = 0x10;
  	REGBASE->rep_rule  = RR_COPY << 4 | RR_COPY;
 	REGBASE->opwen     = 0x01;
 	REGBASE->fbwen     = 0x0;
@@ -113,7 +113,7 @@ dvbox_init(ip)
 		REGBASE->rgb[1].blue  = 0xFF;
 	}
 	REGBASE->cmapbank = 0;
-	
+
 	db_waitbusy(ip->regbase);
 
 	ite_fontinfo(ip);
@@ -166,7 +166,7 @@ dvbox_clear(ip, sy, sx, h, w)
 	register int sy, sx, h, w;
 {
 	dvbox_windowmove(ip, sy * ip->ftheight, sx * ip->ftwidth,
-			 sy * ip->ftheight, sx * ip->ftwidth, 
+			 sy * ip->ftheight, sx * ip->ftwidth,
 			 h  * ip->ftheight, w  * ip->ftwidth,
 			 RR_CLEAR);
 }
@@ -196,7 +196,7 @@ dvbox_windowmove(ip, sy, sx, dy, dx, h, w, func)
 	register struct dvboxfb *dp = REGBASE;
 	if (h == 0 || w == 0)
 		return;
-	
+
 	db_waitbusy(ip->regbase);
 	dp->rep_rule = func << 4 | func;
 	dp->source_y = sy;

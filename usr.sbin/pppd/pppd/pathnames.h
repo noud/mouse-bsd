@@ -3,7 +3,7 @@
 /*
  * define path names
  *
- * Id: pathnames.h,v 1.11 1999/08/13 01:58:05 paulus Exp 
+ * Id: pathnames.h,v 1.11 1999/08/13 01:58:05 paulus Exp
  */
 
 #ifdef HAVE_PATHS_H

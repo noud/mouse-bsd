@@ -327,7 +327,7 @@ number:
 					if ((mp->m_flag & colp->co_mask)
 					    != colp->co_equal)
 						unmark(i);
-			
+
 		}
 		for (mp = &message[0]; mp < &message[msgCount]; mp++)
 			if (mp->m_flag & MMARK)
@@ -745,7 +745,7 @@ matchsubj(str, mesg)
 		lastscan[STRINGLEN - 1] = '\0' ;
 	}
 	mp = &message[mesg-1];
-	
+
 	/*
 	 * Now look, ignoring case, for the word in the string.
 	 */
@@ -840,7 +840,7 @@ metamess(meta, f)
 		return(-1);
 
 	case '.':
-		/* 
+		/*
 		 * Current message.
 		 */
 		m = dot - &message[0] + 1;

@@ -57,7 +57,7 @@ static void set_machine_hook PARAMS ((char *filename));
 
 void h8300_frame_find_saved_regs ();
 
-CORE_ADDR 
+CORE_ADDR
 h8300_skip_prologue (start_pc)
      CORE_ADDR start_pc;
 {
@@ -155,7 +155,7 @@ h8300_frame_chain (thisframe)
   if (PC_IN_CALL_DUMMY(thisframe->pc, thisframe->frame, thisframe->frame))
     { /* initialize the from_pc now */
       thisframe->from_pc = generic_read_register_dummy (thisframe->pc,
-							thisframe->frame, 
+							thisframe->frame,
 							PC_REGNUM);
       return thisframe->frame;
     }
@@ -393,7 +393,7 @@ examine_prologue (ip, limit, after_prolog_fp, fsr, fi)
 
   /* Rememeber any others too */
   in_frame[PC_REGNUM] = 0;
-  
+
   if (have_fp)
     /* We keep the old FP in the SP spot */
     fsr->regs[SP_REGNUM] = read_memory_unsigned_integer (fsr->regs[6], BINWORD);
@@ -480,7 +480,7 @@ frame_args_address (fi)
    Arguments that are smaller than WORDSIZE bytes will still take up a
    whole register or a whole WORDSIZE word on the stack, and will be
    right-justified in the register or the stack word.  This includes
-   chars and small aggregate types.  Note that WORDSIZE depends on the 
+   chars and small aggregate types.  Note that WORDSIZE depends on the
    cpu type.
 
    Arguments that are larger than WORDSIZE bytes will be split between
@@ -499,7 +499,7 @@ frame_args_address (fi)
    optimization.  I suspect this is a compiler bug.  Arguments of
    these odd sizes are left-justified within the word (as opposed to
    arguments smaller than WORDSIZE bytes, which are right-justified).
- 
+
    If the function is to return an aggregate type such as a struct,
    the caller must allocate space into which the callee will copy the
    return value.  In this case, a pointer to the return value location
@@ -539,14 +539,14 @@ h8300_push_arguments(nargs, args, sp, struct_return, struct_addr)
   sp = sp & ~stack_align;
 
   /* Now make sure there's space on the stack */
-  for (argnum = 0, stack_alloc = 0; 
+  for (argnum = 0, stack_alloc = 0;
        argnum < nargs; argnum++)
-    stack_alloc += ((TYPE_LENGTH(VALUE_TYPE(args[argnum])) + stack_align) 
+    stack_alloc += ((TYPE_LENGTH(VALUE_TYPE(args[argnum])) + stack_align)
 		    & ~stack_align);
   sp -= stack_alloc;	/* make room on stack for args */
   /* we may over-allocate a little here, but that won't hurt anything */
 
-  argreg = ARG0_REGNUM; 
+  argreg = ARG0_REGNUM;
   if (struct_return)	/* "struct return" pointer takes up one argreg */
     {
       write_register (argreg++, struct_addr);
@@ -564,7 +564,7 @@ h8300_push_arguments(nargs, args, sp, struct_return, struct_addr)
       if (len < wordsize)
 	{
 	  /* the purpose of this is to right-justify the value within the word */
-	  memcpy(valbuf + (wordsize - len), 
+	  memcpy(valbuf + (wordsize - len),
 		 (char *) VALUE_CONTENTS (args[argnum]), len);
 	  val = valbuf;
 	}
@@ -574,7 +574,7 @@ h8300_push_arguments(nargs, args, sp, struct_return, struct_addr)
       if (len > (ARGLAST_REGNUM+1 - argreg) * REGISTER_RAW_SIZE(ARG0_REGNUM) ||
 	 (len > wordsize && (len & stack_align) != 0))
 	{ /* passed on the stack */
-	  write_memory (sp + stack_offset, val, 
+	  write_memory (sp + stack_offset, val,
 			len < wordsize ? wordsize : len);
 	  stack_offset += (len + stack_align) & ~stack_align;
 	}
@@ -620,11 +620,11 @@ h8300_push_return_address (pc, sp)
 }
 
 /* Function: pop_frame
-   Restore the machine to the state it had before the current frame 
+   Restore the machine to the state it had before the current frame
    was created.  Usually used either by the "RETURN" command, or by
    call_function_by_hand after the dummy_frame is finished. */
 
-void 
+void
 h8300_pop_frame ()
 {
   unsigned regnum;
@@ -644,7 +644,7 @@ h8300_pop_frame ()
 	  /* Don't forget SP_REGNUM is a frame_saved_regs struct is the
 	     actual value we want, not the address of the value we want.  */
 	  if (fsr.regs[regnum] && regnum != SP_REGNUM)
-	    write_register (regnum, 
+	    write_register (regnum,
 			    read_memory_integer(fsr.regs[regnum], BINWORD));
 	  else if (fsr.regs[regnum] && regnum == SP_REGNUM)
 	    write_register (regnum, frame->frame + 2 * BINWORD);
@@ -702,13 +702,13 @@ h8300_extract_return_value (type, regbuf, valbuf)
    Place the appropriate value in the appropriate registers.
    Primarily used by the RETURN command.  */
 
-void 
+void
 h8300_store_return_value (type, valbuf)
      struct type *type;
      char *valbuf;
 {
   int wordsize, len, regval;
-  
+
   if (h8300hmode || h8300smode)
     wordsize = 4;
   else
@@ -751,7 +751,7 @@ get_saved_register (raw_buffer, optimized, addrp, frame, regnum, lval)
      int regnum;
      enum lval_type *lval;
 {
-  generic_get_saved_register (raw_buffer, optimized, addrp, 
+  generic_get_saved_register (raw_buffer, optimized, addrp,
 			      frame, regnum, lval);
 }
 
@@ -782,7 +782,7 @@ h8300s_command(args, from_tty)
 }
 
 
-static void 
+static void
 set_machine (args, from_tty)
      char *args;
      int from_tty;
@@ -807,7 +807,7 @@ set_machine_hook (filename)
       h8300smode = 1;
       h8300hmode = 1;
     }
-  else 
+  else
     if (bfd_get_mach (exec_bfd) == bfd_mach_h8300h)
     {
       h8300smode = 0;
@@ -824,7 +824,7 @@ void
 _initialize_h8300m ()
 {
   add_prefix_cmd ("machine", no_class, set_machine,
-		  "set the machine type", 
+		  "set the machine type",
 		  &setmemorylist, "set machine ", 0,
 		  &setlist);
 

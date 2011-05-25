@@ -59,7 +59,7 @@
 
 /*
 **++
-** 
+**
 **  FACILITY:
 **
 **    Mouse driver.
@@ -67,7 +67,7 @@
 **  ABSTRACT:
 **
 **    The mose driver has been cleand up for use with the PC87307VUL
-**    Super I/O chip.  The main modification has been to change the 
+**    Super I/O chip.  The main modification has been to change the
 **    driver to use the bus_space_ macros.  This allows the mouse
 **    to be configured to any base address.  It relies on the keyboard
 **    passing it's io handle in the isa_attach_args structure.
@@ -80,7 +80,7 @@
 **
 **  AUTHORS:
 **
-**    Unknown.  Modified by Patrick Crilly, and John Court 
+**    Unknown.  Modified by Patrick Crilly, and John Court
 **              Digital Equipment Corporation.
 **
 **  CREATION DATE:
@@ -161,15 +161,15 @@
 #define PMSUNIT(dev)    (minor(dev))
 
 /* Softc structure for the mouse */
-struct pms_softc 
-{               
+struct pms_softc
+{
     struct device      sc_dev;
     void               *sc_ih;
     struct clist       sc_q;
     struct selinfo     sc_rsel;
     u_char             sc_state;        /* mouse driver state */
     u_char             sc_status;       /* mouse button status */
-    u_char             sc_protocol_byte;/* mouse byte that we're waiting on */ 
+    u_char             sc_protocol_byte;/* mouse byte that we're waiting on */
     int                sc_x;
     int                sc_y;            /* accumulated motion in the Y axis */
     bus_space_tag_t    sc_iot;
@@ -179,41 +179,41 @@ struct pms_softc
 /*
 ** Forward routine declarations
 */
-int                  pmsprobe       __P((struct device *, 
-                                         struct cfdata *, 
+int                  pmsprobe       __P((struct device *,
+                                         struct cfdata *,
                                          void *));
-void                 pmsattach      __P((struct device *, 
-                                         struct device *, 
+void                 pmsattach      __P((struct device *,
+                                         struct device *,
                                          void *));
 int                  pmsintr         __P((void *));
 
-/* 
-** Global variables 
+/*
+** Global variables
 */
 
 /* Autoconfiguration data structures */
-struct cfattach opms_ca = 
+struct cfattach opms_ca =
 {
         sizeof(struct pms_softc), pmsprobe, pmsattach,
 };
 
 extern struct cfdriver opms_cd;
 
-/* variable to control which debugs printed if kernel compiled with 
-** option KERNEL_DEBUG. 
+/* variable to control which debugs printed if kernel compiled with
+** option KERNEL_DEBUG.
 */
-int pmsdebug = KERN_DEBUG_WARNING | KERN_DEBUG_ERROR; 
+int pmsdebug = KERN_DEBUG_WARNING | KERN_DEBUG_ERROR;
 
 
 /*
 **++
 **  FUNCTIONAL DESCRIPTION:
-**     
+**
 **     pmsprobe
 **
-**     This is the probe routine for the mouse. It checks to see that 
+**     This is the probe routine for the mouse. It checks to see that
 **     we are attaching to the pc or vt device.  It then resets mouse
-**     and disables interrupts on it.  Interrupts on the mouse are 
+**     and disables interrupts on it.  Interrupts on the mouse are
 **     enabled when the mouse device is opened.
 **
 **  FORMAL PARAMETERS:
@@ -221,7 +221,7 @@ int pmsdebug = KERN_DEBUG_WARNING | KERN_DEBUG_ERROR;
 **     parent  - pointer to the parent device.
 **     match   - not used
 **     aux     - pointer to an isa_attach_args structure.
-**     
+**
 **  IMPLICIT INPUTS:
 **
 **     none.
@@ -233,7 +233,7 @@ int pmsdebug = KERN_DEBUG_WARNING | KERN_DEBUG_ERROR;
 **  FUNCTION VALUE:
 **
 **     0 - Probe failed to find the requested device.
-**     1 - Probe sucessfully talked to the device. 
+**     1 - Probe sucessfully talked to the device.
 **
 **  SIDE EFFECTS:
 **
@@ -248,8 +248,8 @@ pmsprobe(parent, match, aux)
 {
     struct cfdata             *cf     = match;
     int                       probeOk = 0;    /* assume failure */
-    struct isa_attach_args    *ia = aux;                   
-    
+    struct isa_attach_args    *ia = aux;
+
     KERN_DEBUG(pmsdebug, KERN_DEBUG_INFO, ("pmsprobe: entered\n"));
     /*
     ** We only attach to the keyboard controller via
@@ -260,7 +260,7 @@ pmsprobe(parent, match, aux)
         (!strcmp(parent->dv_cfdata->cf_driver->cd_name, "pc") ||
          (!strcmp(parent->dv_cfdata->cf_driver->cd_name, "vt"))))
     {
-        /* 
+        /*
         ** The mouse shares registers with the parent, so
         ** we expect that the parent has mapped the io space.
         ** Check an IRQ has been specified in the configuration
@@ -272,17 +272,17 @@ pmsprobe(parent, match, aux)
             i8042_flush(ia->ia_iot, (bus_space_handle_t)ia->ia_aux);
             /* reset the mouse and check the command is received.
             */
-            if (!i8042_cmd(ia->ia_iot, (bus_space_handle_t)ia->ia_aux, I8042_AUX_CMD, 
+            if (!i8042_cmd(ia->ia_iot, (bus_space_handle_t)ia->ia_aux, I8042_AUX_CMD,
                                I8042_CHECK_RESPONSE, KBR_ACK, PMS_RESET))
             {
-                KERN_DEBUG(pmsdebug, KERN_DEBUG_ERROR, 
+                KERN_DEBUG(pmsdebug, KERN_DEBUG_ERROR,
                            ("pms_reset: reset failed\n"));
             }
             else
             {
                 /*
                 ** Test the mouse port. A value of 0 in the data
-                ** register indicates success. 
+                ** register indicates success.
                 */
                 if ( I8042_AUXTEST(ia->ia_iot, (bus_space_handle_t)ia->ia_aux) )
                 {
@@ -293,17 +293,17 @@ pmsprobe(parent, match, aux)
                     KERN_DEBUG(pmsdebug, KERN_DEBUG_ERROR,
                                ("pmsprobe: aux test failed %x\n", status ));
                 }
-                /* 
-                ** Disable the mouse.  It is enabled when 
+                /*
+                ** Disable the mouse.  It is enabled when
                 ** the pms device is opened.
                 */
-                (void) I8042_WRITECCB(ia->ia_iot, (bus_space_handle_t)ia->ia_aux, 
+                (void) I8042_WRITECCB(ia->ia_iot, (bus_space_handle_t)ia->ia_aux,
                                           NOAUX_CMDBYTE);
             }
         } /* end-if irq set */
     } /* end-if supported console device */
     return (probeOk);
-    
+
 } /* End pmsprobe */
 
 
@@ -349,19 +349,19 @@ pmsattach(parent, self, aux)
 {
     struct pms_softc          *sc = (void *)self;
     int                       irq = self->dv_cfdata->cf_loc[0];
-    struct isa_attach_args    *ia = aux;                   
+    struct isa_attach_args    *ia = aux;
 
     printf(" irq %d\n", irq);
-    /* 
+    /*
     ** Initialise the mouse softc structure.
-    ** Other initialization was done by pmsprobe. 
+    ** Other initialization was done by pmsprobe.
     */
     sc->sc_iot    = ia->ia_iot;
     sc->sc_ioh    = (bus_space_handle_t)ia->ia_aux;
     sc->sc_state  = PMS_INIT;
 
-    
-    sc->sc_ih     = isa_intr_establish(ia->ia_ic, irq, IST_LEVEL, 
+
+    sc->sc_ih     = isa_intr_establish(ia->ia_ic, irq, IST_LEVEL,
                                        IPL_TTY, pmsintr, sc);
     KERN_DEBUG(pmsdebug, KERN_DEBUG_INFO,
                ("pmsattach: IOT 0x%x: IOH 0x%x\n", sc->sc_iot, sc->sc_ioh));
@@ -378,9 +378,9 @@ pmsattach(parent, self, aux)
 **     pmsopen
 **
 **     This routine is to open the mouse device.
-**     It first makes sure that the device unit specified is valid 
+**     It first makes sure that the device unit specified is valid
 **     and not already in use.  It then enables the mouse device
-**     and interrupts on it. 
+**     and interrupts on it.
 **
 **  FORMAL PARAMETERS:
 **
@@ -401,7 +401,7 @@ pmsattach(parent, self, aux)
 **
 **     0       - Success
 **     ENXIO   - invalid device specified for open.
-**     EBUSY   - The unit is already opened for exclusive use and the 
+**     EBUSY   - The unit is already opened for exclusive use and the
 **               current requestor is NOT root.
 **
 **  SIDE EFFECTS:
@@ -418,9 +418,9 @@ pmsopen(dev, flag, mode, p)
 {
     int                 unit = PMSUNIT(dev);
     struct pms_softc    *sc;
-    
+
     /* Sanity check the minor device number we have been instructed
-    ** to open and set up our softc structure pointer. 
+    ** to open and set up our softc structure pointer.
     */
     if (unit >= opms_cd.cd_ndevs)
     {
@@ -431,28 +431,28 @@ pmsopen(dev, flag, mode, p)
     {
         return ENXIO;
     }
-    /* Check to see if the mouse has already been opened. 
+    /* Check to see if the mouse has already been opened.
     */
     if (sc->sc_state & PMS_OPEN)
     {
         return EBUSY;
     }
-    /* Initialise the mouse softc structure 
+    /* Initialise the mouse softc structure
     */
     if (clalloc(&sc->sc_q, PMS_BSIZE, 0) == -1)
     {
         return ENOMEM;
-    } 
+    }
     sc->sc_state |= PMS_OPEN;
     sc->sc_status = 0;
-    sc->sc_x      = 0; 
+    sc->sc_x      = 0;
     sc->sc_y      = 0;
     /* Enable the device both in the mouse and in the keyboard after making
     ** sure there isn't any garbage in the input buffer.
     */
     i8042_flush(sc->sc_iot, sc->sc_ioh);
-    sc->sc_protocol_byte = PMS_RD_BYTE1; 
-    (void) i8042_cmd(sc->sc_iot, sc->sc_ioh, I8042_AUX_CMD, 
+    sc->sc_protocol_byte = PMS_RD_BYTE1;
+    (void) i8042_cmd(sc->sc_iot, sc->sc_ioh, I8042_AUX_CMD,
                          I8042_NO_RESPONSE, NULL, PMS_MOUSE_ENABLE);
     (void) I8042_AUXENABLE(sc->sc_iot, sc->sc_ioh);
     /* Enable interrupts on the axilliary device.
@@ -476,7 +476,7 @@ pmsopen(dev, flag, mode, p)
 **     dev  - Device identifier consisting of major and minor numbers.
 **     flag - Not used.
 **     mode - Not used.
-**     p    - Not used. 
+**     p    - Not used.
 **
 **  IMPLICIT INPUTS:
 **
@@ -509,13 +509,13 @@ pmsclose(dev, flag, mode, p)
     ** disable and hangs the system.
     */
     i8042_flush(sc->sc_iot, sc->sc_ioh);
-    (void) i8042_cmd(sc->sc_iot, sc->sc_ioh, I8042_AUX_CMD, 
+    (void) i8042_cmd(sc->sc_iot, sc->sc_ioh, I8042_AUX_CMD,
                          I8042_NO_RESPONSE, NULL, PMS_MOUSE_DISABLE);
     i8042_flush(sc->sc_iot, sc->sc_ioh);
     (void) I8042_WRITECCB(sc->sc_iot, sc->sc_ioh, NOAUX_CMDBYTE);
     (void) I8042_AUXDISABLE(sc->sc_iot, sc->sc_ioh);
     sc->sc_state &= ~PMS_OPEN;
-    /* Free the event queue 
+    /* Free the event queue
     */
     clfree(&sc->sc_q);
 
@@ -529,13 +529,13 @@ pmsclose(dev, flag, mode, p)
 **
 **      pmsread
 **
-**      This function handles a read on the mouse device.  If there isn't 
+**      This function handles a read on the mouse device.  If there isn't
 **      data immdediatley available sleep until there is or return an error
 **      depending upon the flag parameter.  If data is available pass as
-**      much of it to the user as possible. 
+**      much of it to the user as possible.
 **
 **  FORMAL PARAMETERS:
-**      
+**
 **      dev  - Device identifier consisting of major and minor numbers.
 **      uio  - Pointer to the user I/O information (ie. read buffer).
 **      flag - Information on how the I/O should be done (eg. blocking
@@ -568,16 +568,16 @@ pmsread(dev, uio, flag)
     int error = 0;
     size_t length;
     u_char buffer[PMS_CHUNK];
-    
-    /* 
-    ** Check if there is data to be read. If there isn't 
+
+    /*
+    ** Check if there is data to be read. If there isn't
     ** either sleep until there is or return an error,
     ** depending on whether we're in blocking mode or not.
     */
     s = spltty();
-    while (sc->sc_q.c_cc == 0) 
+    while (sc->sc_q.c_cc == 0)
     {
-        if (flag & IO_NDELAY) 
+        if (flag & IO_NDELAY)
         {
             error = EWOULDBLOCK;
             break;
@@ -586,7 +586,7 @@ pmsread(dev, uio, flag)
         {
             sc->sc_state |= PMS_ASLP;
             error = tsleep((caddr_t)sc, PZERO | PCATCH, "pmsread", 0);
-            if (error) 
+            if (error)
             {
                 sc->sc_state &= ~PMS_ASLP;
                 break;
@@ -594,21 +594,21 @@ pmsread(dev, uio, flag)
         }
     } /* end-if no data in event queue */
     splx(s);
-    /* Transfer as many chunks as possible. 
+    /* Transfer as many chunks as possible.
     */
     if (!error )
     {
-        while (sc->sc_q.c_cc > 0 && uio->uio_resid > 0) 
+        while (sc->sc_q.c_cc > 0 && uio->uio_resid > 0)
         {
             length = min(sc->sc_q.c_cc, uio->uio_resid);
             if (length > sizeof(buffer))
             {
                 length = sizeof(buffer);
             }
-            /* Remove a small chunk from the input queue. 
+            /* Remove a small chunk from the input queue.
             */
             (void) q_to_b(&sc->sc_q, buffer, length);
-            /* Copy the data to the user process. 
+            /* Copy the data to the user process.
             */
             if ((error = uiomove(buffer, length, uio)) != 0)
             {
@@ -633,13 +633,13 @@ pmsread(dev, uio, flag)
 **                     and flushes the mouse event queue.
 **
 **  FORMAL PARAMETERS:
-**      
+**
 **     dev  - device identifier consisting of major and minor numbers.
-**     cmd  - requested ioctl 
+**     cmd  - requested ioctl
 **     addr - address of user buffer for mouse info
 **     flag - unused
 **     p    - pointer to proc structure of user.
-**     
+**
 **  IMPLICIT INPUTS:
 **
 **     none.
@@ -669,21 +669,21 @@ pmsioctl(dev, cmd, addr, flag, p)
     struct mouseinfo     info;
     int                  oldIpl;
     int                  error;
-    
-    switch (cmd) 
+
+    switch (cmd)
     {
 #ifdef  SHARK
         case MOUSEIOC_READ:
 #else
         case MOUSEIOCREAD:
 #endif
-            oldIpl = spltty();  
+            oldIpl = spltty();
             info.status = sc->sc_status;
             if (sc->sc_x || sc->sc_y)
             {
                 info.status |= MOVEMENT;
             }
-            /* Read x co-ordinate 
+            /* Read x co-ordinate
             */
             if (sc->sc_x > 127)
             {
@@ -691,7 +691,7 @@ pmsioctl(dev, cmd, addr, flag, p)
             }
             else if (sc->sc_x < -127)
             {
-                /* Bounding at -127 avoids a bug in XFree86. 
+                /* Bounding at -127 avoids a bug in XFree86.
                 */
                 info.xmotion = -127;
             }
@@ -699,7 +699,7 @@ pmsioctl(dev, cmd, addr, flag, p)
             {
                 info.xmotion = sc->sc_x;
             }
-            /* Read y co-ordinate 
+            /* Read y co-ordinate
             */
             if (sc->sc_y > 127)
             {
@@ -713,22 +713,22 @@ pmsioctl(dev, cmd, addr, flag, p)
             {
                 info.ymotion = sc->sc_y;
             }
-            /* Reset historical information. 
+            /* Reset historical information.
             */
             sc->sc_x = 0;
             sc->sc_y = 0;
             sc->sc_status &= ~BUTCHNGMASK;
             ndflush(&sc->sc_q, sc->sc_q.c_cc);  /* empty event queue */
-        
+
             splx(oldIpl);
             error = copyout(&info, addr, sizeof(struct mouseinfo));
         break;
-        
+
         default:
             error = EINVAL;
         break;
     } /* end-switch cmd */
-    
+
     return error;
 } /* End pmsioctl */
 
@@ -740,14 +740,14 @@ pmsioctl(dev, cmd, addr, flag, p)
 **
 **     pmsintr
 **
-**     This is the interrupt handler routine for the mouse.  The mouse 
+**     This is the interrupt handler routine for the mouse.  The mouse
 **     protocol consists of 3 bytes.  The first byte indicates which
 **     buttons are pressed, the second byte the change to the x-coordinate
 **     and the third byte the change to the y-coordinate.  The interrupt
-**     routine reads a byte from the mouse, using the mouse state to 
-**     keep track of which byte in the protocol we're up to.  After reading 
-**     the third byte, the event is added to the event queue and any 
-**     read waiting is woken.    
+**     routine reads a byte from the mouse, using the mouse state to
+**     keep track of which byte in the protocol we're up to.  After reading
+**     the third byte, the event is added to the event queue and any
+**     read waiting is woken.
 **
 **  FORMAL PARAMETERS:
 **
@@ -762,7 +762,7 @@ pmsioctl(dev, cmd, addr, flag, p)
 **      none.
 **
 **  FUNCTION VALUE:
-** 
+**
 **      0 - Interrupt not handled by the driver.
 **      1 - Interrupt handled by the driver.
 **
@@ -781,34 +781,34 @@ pmsintr(arg)
     u_char               status;
     u_char               buffer[5];
     int                  handledInt;
-    bus_space_tag_t      iot;        
-    bus_space_handle_t   ioh;        
+    bus_space_tag_t      iot;
+    bus_space_handle_t   ioh;
     static signed char   dx;
     static signed char   dy;
     u_char               value = 0;	/* XXX */
-    
+
     iot = sc->sc_iot;
     ioh = sc->sc_ioh;
     handledInt = 0;
-    
-    /* 
-    ** If the mouse isn't open then we shouldn't get an 
+
+    /*
+    ** If the mouse isn't open then we shouldn't get an
     ** interrupt.
     */
-    if (sc->sc_state & PMS_OPEN) 
+    if (sc->sc_state & PMS_OPEN)
     {
-        /* We wait for status to be updated. For some reason the status is 
-        ** updated after the interrupt is generated. I would summise this 
+        /* We wait for status to be updated. For some reason the status is
+        ** updated after the interrupt is generated. I would summise this
         ** is because the H/W waits for an ack on the IRQ to determine
         ** whether to put Keyboard or Aux port data into the buffer and
         ** status information, but that is only a guess.
         */
         I8042_GETAUX_DATA(iot, ioh, status, value);
-        
+
         if ( status )
         {
             handledInt = 1;
-            switch (sc->sc_protocol_byte) 
+            switch (sc->sc_protocol_byte)
             {
                 /* First byte of protocol consists of the following mouse bits
                 ** Bit 7  6  5  4   3  2  1  0
@@ -822,19 +822,19 @@ pmsintr(arg)
                 */
                 case PMS_RD_BYTE1:
                     buttons = value;
-                
+
                     if (buttons & PS2BUTTONBIT)
                     {
                         sc->sc_protocol_byte = PMS_RD_BYTE2;
                     }
                     else
                     {
-                        KERN_DEBUG( pmsdebug, KERN_DEBUG_WARNING, 
+                        KERN_DEBUG( pmsdebug, KERN_DEBUG_WARNING,
                                    ("pmsintr: bad button byte received 0x%x\n",
                                     buttons));
                     }
                 break;
-                /* Second byte of protocol is the amount of movement in the 
+                /* Second byte of protocol is the amount of movement in the
                 ** X axis
                 */
                 case PMS_RD_BYTE2:
@@ -850,13 +850,13 @@ pmsintr(arg)
                     dy = value;
                     dy = (dy == -128) ? -127 : dy;
                     sc->sc_protocol_byte = PMS_RD_BYTE1;
-                    /* 
-                    ** Update changes to buttons. 
+                    /*
+                    ** Update changes to buttons.
                     **
                     ** We need to swap the ordering of which button
                     ** is set.  The ps2 mouse records set buttons with
-                    ** the following ordering (from LSB) 
-                    ** left-right-middle whereas the generic mouse 
+                    ** the following ordering (from LSB)
+                    ** left-right-middle whereas the generic mouse
                     ** (defined in ../include/mouse.h) records
                     ** it as (from LSB) right-middle-left.
                     ** The next three bits in the buttons field
@@ -865,22 +865,22 @@ pmsintr(arg)
                     */
                     buttons       = ((buttons & PS2LBUTMASK) << 2) |
                         ((buttons & (PS2RBUTMASK | PS2MBUTMASK)) >> 1);
-                    changed       = ((buttons ^ sc->sc_status) & BUTSTATMASK) 
+                    changed       = ((buttons ^ sc->sc_status) & BUTSTATMASK)
                         << 3;
-                    sc->sc_status = buttons | 
+                    sc->sc_status = buttons |
                         (sc->sc_status & ~BUTSTATMASK) | changed;
-                    /* 
+                    /*
                     ** If the postion of mouse or state of buttons has
                     ** changed update status info, queue an event
                     ** and wakeup any read that is waiting.
                     */
-                    if (dx || dy || changed) 
+                    if (dx || dy || changed)
                     {
-                        /* Update accumulated movements. 
+                        /* Update accumulated movements.
                         */
                         sc->sc_x += dx;
                         sc->sc_y += dy;
-                        /* Add this event to the queue. 
+                        /* Add this event to the queue.
                         */
                         buffer[0] = 0x80 | (buttons ^ BUTSTATMASK);
                         buffer[1] = dx;
@@ -888,9 +888,9 @@ pmsintr(arg)
                         buffer[3] = 0;
                         buffer[4] = 0;
                         (void) b_to_q(buffer, sizeof buffer, &sc->sc_q);
-                        /* If there is a read blocked, wake it up 
+                        /* If there is a read blocked, wake it up
                         */
-                        if (sc->sc_state & PMS_ASLP) 
+                        if (sc->sc_state & PMS_ASLP)
                         {
                             sc->sc_state &= ~PMS_ASLP;
                             wakeup((caddr_t)sc);
@@ -900,7 +900,7 @@ pmsintr(arg)
                     }
                 break;
                 default :
-                    KERN_DEBUG( pmsdebug, KERN_DEBUG_WARNING, 
+                    KERN_DEBUG( pmsdebug, KERN_DEBUG_WARNING,
                                ("pmsintr: Invalid byte protocol state 0x%x\n",
                                 sc->sc_protocol_byte));
                     sc->sc_protocol_byte = PMS_RD_BYTE1;
@@ -920,9 +920,9 @@ pmsintr(arg)
 **
 **     pmspoll
 **
-**     This routine is used to poll the device for the presence of a set 
-**     of events (e.g. is there data to be read).  If any of the polled 
-**     for events are present on the device, then these events are returned; 
+**     This routine is used to poll the device for the presence of a set
+**     of events (e.g. is there data to be read).  If any of the polled
+**     for events are present on the device, then these events are returned;
 **     otherwise the process is marked as waiting for the set of events
 **
 **  FORMAL PARAMETERS:
@@ -940,8 +940,8 @@ pmsintr(arg)
 **      none.
 **
 **  FUNCTION VALUE:
-** 
-**      Set of events that were polled for and are currently available.  
+**
+**      Set of events that were polled for and are currently available.
 **
 **  SIDE EFFECTS:
 **
@@ -956,10 +956,10 @@ pmspoll(dev, events, p)
 {
     struct pms_softc     *sc     = opms_cd.cd_devs[PMSUNIT(dev)];
     int                  revents = 0;
-    int                  oldIpl; 
+    int                  oldIpl;
 
     oldIpl = spltty();
-    
+
     if (events & (POLLIN | POLLRDNORM))
     {
         if (sc->sc_q.c_cc > 0)
@@ -968,7 +968,7 @@ pmspoll(dev, events, p)
         }
         else
         {
-            /* Record that the process has done a select 
+            /* Record that the process has done a select
             */
             selrecord(p, &sc->sc_rsel);
         }

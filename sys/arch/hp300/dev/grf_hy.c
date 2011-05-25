@@ -423,7 +423,7 @@ hyper_putc(ip, c, dy, dx, mode)
 	int c, dy, dx, mode;
 {
         int wmrr = ((mode == ATTR_INV) ? RR_COPYINVERTED : RR_COPY);
-	
+
 	hyper_windowmove(ip, charY(ip, c), charX(ip, c),
 			 dy * ip->ftheight, dx * ip->ftwidth,
 			 ip->ftheight, ip->ftwidth, wmrr);
@@ -450,7 +450,7 @@ hyper_clear(ip, sy, sx, h, w)
 	int sy, sx, h, w;
 {
 	hyper_windowmove(ip, sy * ip->ftheight, sx * ip->ftwidth,
-			 sy * ip->ftheight, sx * ip->ftwidth, 
+			 sy * ip->ftheight, sx * ip->ftwidth,
 			 h  * ip->ftheight, w  * ip->ftwidth,
 			 RR_CLEAR);
 }
@@ -482,7 +482,7 @@ hyper_scroll(ip, sy, sx, count, dir)
 		dy = sy;
 		dx = sx - count;
 		width = ip->cols - sx;
-	}		
+	}
 
 	hyper_windowmove(ip, sy * ip->ftheight, sx * ip->ftwidth,
 			 dy * ip->ftheight, dx * ip->ftwidth,

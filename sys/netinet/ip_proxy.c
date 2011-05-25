@@ -24,8 +24,8 @@ static const char rcsid[] = "@(#)Id: ip_proxy.c,v 2.2.2.1 1999/09/19 12:18:19 da
 #include <sys/param.h>
 #include <sys/time.h>
 #include <sys/file.h>
-#if !defined(__FreeBSD_version)  
-# include <sys/ioctl.h>      
+#if !defined(__FreeBSD_version)
+# include <sys/ioctl.h>
 #endif
 #include <sys/fcntl.h>
 #include <sys/uio.h>

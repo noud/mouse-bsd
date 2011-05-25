@@ -47,26 +47,26 @@
 #include "bpfilter.h"
 
 #include <sys/param.h>
-#include <sys/systm.h> 
-#include <sys/mbuf.h>   
+#include <sys/systm.h>
+#include <sys/mbuf.h>
 #include <sys/malloc.h>
 #include <sys/kernel.h>
 #include <sys/socket.h>
 #include <sys/ioctl.h>
 #include <sys/errno.h>
 #include <sys/device.h>
- 
+
 #include <net/if.h>
 #include <net/if_dl.h>
 #include <net/if_media.h>
 #include <net/if_ether.h>
 
-#if NBPFILTER > 0 
+#if NBPFILTER > 0
 #include <net/bpf.h>
-#endif 
+#endif
 
 #ifdef INET
-#include <netinet/in.h> 
+#include <netinet/in.h>
 #include <netinet/if_inarp.h>
 #endif
 
@@ -757,7 +757,7 @@ epic_intr(arg)
 				}
 			}
 #endif /* NPBFILTER > 0 */
-			
+
 			/* Pass it on. */
 			(*ifp->if_input)(ifp, m);
 			ifp->if_ipackets++;
@@ -821,7 +821,7 @@ epic_intr(arg)
 				printf("%s: lost carrier\n",
 				    sc->sc_dev.dv_xname);
 		}
-		
+
 		/* Update the dirty transmit buffer pointer. */
 		sc->sc_txdirty = i;
 
@@ -1227,7 +1227,7 @@ epic_read_eeprom(sc, word, wordcnt, data)
 		for (x = 6; x > 0; x--) {
 			reg = EECTL_ENABLE|EECTL_EECS;
 			if ((word + i) & (1 << (x - 1)))
-				reg |= EECTL_EEDI; 
+				reg |= EECTL_EEDI;
 			bus_space_write_4(st, sh, EPIC_EECTL, reg);
 			EEPROM_WAIT_READY(st, sh);
 			bus_space_write_4(st, sh, EPIC_EECTL, reg|EECTL_EESK);
@@ -1265,7 +1265,7 @@ epic_read_eeprom(sc, word, wordcnt, data)
  * Add a receive buffer to the indicated descriptor.
  */
 int
-epic_add_rxbuf(sc, idx)	
+epic_add_rxbuf(sc, idx)
 	struct epic_softc *sc;
 	int idx;
 {

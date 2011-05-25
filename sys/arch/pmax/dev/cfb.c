@@ -180,7 +180,7 @@ cfbattach(parent, self, aux)
 	caddr_t base = 	(caddr_t)(ta->ta_addr);
 	int unit = self->dv_unit;
 	struct fbinfo *fi;
-	
+
 	if (cfb_fi)
 		fi = cfb_fi;
 	else {
@@ -193,7 +193,7 @@ cfbattach(parent, self, aux)
 	printf(": %dx%dx%d%s",
 		fi->fi_type.fb_width,
 		fi->fi_type.fb_height,
-		fi->fi_type.fb_depth, 
+		fi->fi_type.fb_depth,
 		(cfb_fi) ? " console" : "");
 
 	/*
@@ -297,7 +297,7 @@ cfb_intr(sc)
 
 	fi = (struct fbinfo *)sc;
 	slot_addr = (((caddr_t)fi->fi_base) - CFB_OFFSET_VRAM);
-	
+
 	/* reset vertical-retrace interrupt by writing a dont-care */
 	*(int*) (slot_addr + CFB_OFFSET_IREQ) = 0;
 	return (0);

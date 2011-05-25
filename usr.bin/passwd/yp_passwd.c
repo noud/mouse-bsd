@@ -243,12 +243,12 @@ getnewpasswd(pw, old_pass)
 	char *p, *t;
 	static char buf[_PASSWORD_LEN+1];
 	char salt[9];
-	
+
 	(void)printf("Changing YP password for %s.\n", pw->pw_name);
 
 	if (old_pass) {
 		*old_pass = NULL;
-	
+
 		if (pw->pw_passwd[0]) {
 			if (strcmp(crypt(p = getpass("Old password:"),
 					 pw->pw_passwd),  pw->pw_passwd)) {
@@ -302,7 +302,7 @@ ypgetpwnam(nam)
 {
 	char *val;
 	int reason, vallen;
-	
+
 	val = NULL;
 	reason = yp_match(domain, "passwd.byname", nam, strlen(nam),
 			  &val, &vallen);

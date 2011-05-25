@@ -155,13 +155,13 @@ dl_match (parent, cf, aux)
 	if (bus_space_read_2(ua->ua_iot, ua->ua_ioh, DL_UBA_XCSR) !=
 	    (DL_XCSR_TXIE | DL_XCSR_TX_READY)) {
 #ifdef DL_DEBUG
-	        printf("failed (step 1; XCSR = %.4b)\n", 
-		    bus_space_read_2(ua->ua_iot, ua->ua_ioh, DL_UBA_XCSR), 
+	        printf("failed (step 1; XCSR = %.4b)\n",
+		    bus_space_read_2(ua->ua_iot, ua->ua_ioh, DL_UBA_XCSR),
 		    DL_XCSR_BITS);
 #endif
 		return 0;
 	}
-	
+
 	/*
 	 * We have to force an interrupt so the uba driver can work
 	 * out where we are.  Unfortunately, the only way to make a
@@ -184,7 +184,7 @@ dl_match (parent, cf, aux)
 	if (bus_space_read_2(ua->ua_iot, ua->ua_ioh, DL_UBA_XCSR) !=
 	    (DL_XCSR_TXIE | DL_XCSR_TX_READY)) {
 #ifdef DL_DEBUG
-	        printf("failed (step 3; XCSR = %.4b)\n", 
+	        printf("failed (step 3; XCSR = %.4b)\n",
 		    bus_space_read_2(ua->ua_iot, ua->ua_ioh, DL_UBA_XCSR),
 		    DL_XCSR_BITS);
 #endif
@@ -208,14 +208,14 @@ dl_attach (parent, self, aux)
 
 	sc->sc_iot = ua->ua_iot;
 	sc->sc_ioh = ua->ua_ioh;
-	
+
 	/* Tidy up the device */
 
 	DL_WRITE_WORD(DL_UBA_RCSR, DL_RCSR_RXIE);
 	DL_WRITE_WORD(DL_UBA_XCSR, DL_XCSR_TXIE);
 
 	/* Initialize our softc structure. Should be done in open? */
-	
+
 	sc->sc_tty = ttymalloc();
 	tty_attach(sc->sc_tty);
 
@@ -274,14 +274,14 @@ dlxint(arg)
 {
 	struct dl_softc *sc = arg;
 	register struct tty *tp;
-	
+
 	tp = sc->sc_tty;
 	tp->t_state &= ~(TS_BUSY | TS_FLUSH);
 	if (tp->t_line)
 		(*linesw[tp->t_line].l_start)(tp);
 	else
 		dlstart(tp);
-       
+
 	return;
 }
 
@@ -316,10 +316,10 @@ dlopen(dev, flag, mode, p)
 		tp->t_cflag = TTYDEF_CFLAG | CLOCAL;
 		tp->t_lflag = TTYDEF_LFLAG;
 		tp->t_ispeed = tp->t_ospeed = TTYDEF_SPEED;
-		
+
 		dlparam(tp, &tp->t_termios);
 		ttsetwater(tp);
-		
+
 	} else if ((tp->t_state & TS_XCLUDE) && p->p_ucred->cr_uid != 0)
 		return EBUSY;
 
@@ -406,7 +406,7 @@ dlioctl(dev, cmd, data, flag, p)
                 return (error);
 
 	switch (cmd) {
-	       
+
         case TIOCSBRK:
                 dlbrk(sc, 1);
                 break;
@@ -431,7 +431,7 @@ dltty(dev)
 	dev_t dev;
 {
 	register struct dl_softc* sc;
-	
+
 	sc = dl_cd.cd_devs[minor(dev)];
 	return sc->sc_tty;
 }

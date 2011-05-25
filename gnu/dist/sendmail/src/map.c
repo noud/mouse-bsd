@@ -529,19 +529,19 @@ map_close(s, unused)
 
 	if (s->s_type != ST_MAP)
 		return;
-	
+
 	map = &s->s_map;
 
 	if (!bitset(MF_VALID, map->map_mflags) ||
 	    !bitset(MF_OPEN, map->map_mflags) ||
 	    map->map_pid != getpid())
 		return;
-	
+
 	if (tTd(38, 5))
 		printf("closemaps: closing %s (%s)\n",
 		       map->map_mname == NULL ? "NULL" : map->map_mname,
 		       map->map_file == NULL ? "NULL" : map->map_file);
-	
+
 	map->map_class->map_close(map);
 	map->map_mflags &= ~(MF_OPEN|MF_WRITABLE);
 }
@@ -1809,7 +1809,7 @@ db_map_store(map, lhs, rhs)
 
 			bzero(&old, sizeof old);
 
-			old.data = db_map_lookup(map, key.data, 
+			old.data = db_map_lookup(map, key.data,
 						 (char **)NULL, &stat);
 			if (old.data != NULL)
 			{
@@ -2697,7 +2697,7 @@ ldap_map_start(map)
 	ldap_set_option(ld, LDAP_OPT_DEREF, &lmap->deref);
 	ldap_set_option(ld, LDAP_OPT_TIMELIMIT, &lmap->timelimit);
 	ldap_set_option(ld, LDAP_OPT_SIZELIMIT, &lmap->sizelimit);
-	ldap_set_option(ld, LDAP_OPT_REFERRALS, 
+	ldap_set_option(ld, LDAP_OPT_REFERRALS,
 			bitset(LDAP_OPT_REFERRALS, lmap->ldap_options) ?
 			LDAP_OPT_ON : LDAP_OPT_OFF);
 #else
@@ -2710,7 +2710,7 @@ ldap_map_start(map)
 
 #ifdef USE_LDAP_INIT
 	/* ld needs to be cast into the map struct */
-	lmap->ld = ld; 
+	lmap->ld = ld;
 	return TRUE;
 #else
 	if (ldap_bind_s(ld, lmap->binddn,lmap->passwd,lmap->method) != LDAP_SUCCESS)
@@ -5149,7 +5149,7 @@ regex_map_lookup(map, name, av, statp)
 				if (dp < ldp)
 				{
 					if(bslashmode)
-					{ 
+					{
 						*dp++ = *sp;
 						bslashmode = FALSE;
 					}
@@ -5194,7 +5194,7 @@ regex_map_lookup(map, name, av, statp)
 		if (anglecnt != 0 || cmntcnt != 0 || quotemode ||
 		    bslashmode || spacecnt != 0)
 		{
-			sm_syslog(LOG_WARNING, NOQID, 
+			sm_syslog(LOG_WARNING, NOQID,
 				 "Warning: regex may cause prescan() failure map=%s lookup=%s",
 				 map->map_mname, name);
 			return NULL;

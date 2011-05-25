@@ -12,11 +12,11 @@
 ;;; (This is written in as86 syntax.  as86 is part of Bruce Evans'
 ;;; bcc package.)
 ;;;
-;;; Id: bootcode.asm,v 1.3 1997/02/22 16:06:36 peter Exp 
-;;; 
+;;; Id: bootcode.asm,v 1.3 1997/02/22 16:06:36 peter Exp
+;;;
 ;;; This code must be linked to address 0x7c00 in order to function
 ;;; correctly (the BIOS boot address).
-;;; 
+;;;
 ;;; It's 16-bit code, and we don't care for a data segment.
 	use16
 	.text
@@ -24,10 +24,10 @@
 	entry	_begin
 _begin:	jmp	init		; jump to boot prog
 	nop			; historical baggage ;-)
-;;; 
+;;;
 ;;; Reserve space for the "BIOS parameter block".
 ;;; This will be overwritten by the actual formatting routine.
-;;; 
+;;;
 bpb:	.ascii	"BSD  4.4"	; "OEM" name
 	.word	512		; sector size
 	.byte	2		; cluster size
@@ -50,7 +50,7 @@ bpb:	.ascii	"BSD  4.4"	; "OEM" name
 	.ascii	"FAT12   "	; file system ID
 ;;;
 ;;; Executable code starts here.
-;;; 
+;;;
 init:
 	;; First, display our message.
 	mov	si, *message
@@ -100,4 +100,4 @@ message:
 
 	.byte	0x55, 0xaa	; yes, we are bootable (cheating :)
 	end
-	
+

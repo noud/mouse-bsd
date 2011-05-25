@@ -98,7 +98,7 @@ typedef u_long	bus_space_handle_t;
       (-1)))
 
 #define	bus_space_unmap(t, h, s)
-	
+
 #define	bus_space_subregion(t, h, o, s, hp)				\
      (*(hp)=(h)+(o))
 

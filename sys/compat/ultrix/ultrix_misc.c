@@ -76,7 +76,7 @@
  *
  *	@(#)sun_misc.c	8.1 (Berkeley) 6/18/93
  *
- * from: Header: sun_misc.c,v 1.16 93/04/07 02:46:27 torek Exp 
+ * from: Header: sun_misc.c,v 1.16 93/04/07 02:46:27 torek Exp
  */
 
 #include "opt_nfsserver.h"
@@ -257,7 +257,7 @@ ultrix_sys_wait3(p, v, retval)
  * Ultrix binaries pass in FD_MAX as the first arg to select().
  * On Ultrix, FD_MAX is 4096, which is more than the NetBSD sys_select()
  * can handle.
- * Since we can't have more than the (native) FD_MAX descriptors open, 
+ * Since we can't have more than the (native) FD_MAX descriptors open,
  * limit nfds to at most FD_MAX.
  */
 int

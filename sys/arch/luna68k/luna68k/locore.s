@@ -187,9 +187,9 @@ Lstart0:
 	movl	#_C_LABEL(busaddrerr2030),a2@(12)
 	jra	Lstart2
 1:
-	/* Config botch; no hope. */	
+	/* Config botch; no hope. */
 	PANIC("Config botch in locore")
-	
+
 Lstart2:
 /* initialize source/destination control registers for movs */
 	moveq	#FC_USERD,d0		| user space
@@ -288,7 +288,7 @@ Lenab1:
 	jbsr	_C_LABEL(m68881_restore) | restore it (does not kill a1)
 	addql	#4,sp
 Lenab2:
-	pflusha				| flush entire TLB 
+	pflusha				| flush entire TLB
 	cmpl	#MMU_68040,_C_LABEL(mmutype)	| 68040?
 	jeq	Lenab3			| yes, cache already on
 	tstl	_C_LABEL(mmutype)
@@ -363,7 +363,7 @@ ENTRY_NOPROFILE(buserr60)
 	movl	a0,sp@(FR_SP)		|   in the savearea
 	movel	sp@(FR_HW+12),d0	| FSLW
 	btst	#2,d0			| branch prediction error?
-	jeq	Lnobpe			
+	jeq	Lnobpe
 	movc	cacr,d2
 	orl	#IC60_CABC,d2		| clear all branch cache entries
 	movc	d2,cacr
@@ -1043,7 +1043,7 @@ Lsw2:
 	jeq	Lswnofpsave		| yes, all done
 	fmovem	fp0-fp7,a2@(216)	| save FP general registers
 	fmovem	fpcr/fpsr/fpi,a2@(312)	| save FP control registers
-#endif  
+#endif
 Lswnofpsave:
 
 #ifdef DIAGNOSTIC
@@ -1089,7 +1089,7 @@ Lresnot040:
 #endif
 	fmovem	a0@(312),fpcr/fpsr/fpi	| restore FP control registers
 	fmovem	a0@(216),fp0-fp7	| restore FP general registers
-#endif  
+#endif
 Lresfprest:
 	frestore a0@			| restore state
 Lnofprest:
@@ -1294,7 +1294,7 @@ ENTRY_NOPROFILE(doboot)
 #endif
 	movl	#CACHE_OFF,d0
 	movc	d0,cacr			| disable on-chip cache(s)
-	movl	#0,a7@			| value for pmove to TC 
+	movl	#0,a7@			| value for pmove to TC
 	pmove	a7@,tc			| disable MMU
 	lea	_ASM_LABEL(nullrp),a0
 	pmove	a0@,crp			| Invalidate CPU root pointer
@@ -1317,7 +1317,7 @@ Lbootcommon:
 	movc	d3,vbr			| monitor VBR
 #if 0
 	andl	#0,d0			| mask off
-	tstl	d0			| 
+	tstl	d0			|
 	bne	Lsboot			| sboot?
 	tstl	d2
 	beq	Ldoreset

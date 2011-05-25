@@ -40,7 +40,7 @@
 struct esp_softc {
 	struct ncr53c9x_softc sc_ncr53c9x;	/* glue to MI code */
 	struct nextdma_config sc_scsi_dma;
-	bus_space_tag_t	sc_bst;				
+	bus_space_tag_t	sc_bst;
 	bus_space_handle_t sc_bsh;		/* the device registers */
 
 	caddr_t *sc_dmaaddr;					/* saved argument to esp_dma_setup */

@@ -370,7 +370,7 @@ get_dst_line(buffer, pc)
 			last_file = src_loc->file_index;
 			break;
 		case dst_ln_dln1_dpc1:
-			/* 1 byte line delta, 1 byte pc delta */    
+			/* 1 byte line delta, 1 byte pc delta */
 			last_line += (*buffer)[1];
 			last_pc += 2 * (unsigned char) (*buffer)[2];
 			dst_record_line(last_line, last_pc);
@@ -404,7 +404,7 @@ get_dst_line(buffer, pc)
 			size = 2;
 			break;
 		case dst_ln_entry:
-			/* entry escape, next byte is entry number */    
+			/* entry escape, next byte is entry number */
 			size = 2;
 			break;
 		case dst_ln_exit:
@@ -859,7 +859,7 @@ decode_type_desc(objfile, type_desc, base)
 			type = builtin_type_void;
 			break;
 		}
-	} 
+	}
 	return type;
 }
 
@@ -975,7 +975,7 @@ decode_dst_structure(objfile, entry, code, version)
 			fieldoffset *= 8;
 			fieldsize *= 8;
 		}
-		TYPE_FIELDS(type)[i].name = 
+		TYPE_FIELDS(type)[i].name =
 			obstack_copy0 (&objfile->symbol_obstack,
 						field_name, strlen(field_name));
 		TYPE_FIELDS(type)[i].type = decode_type_desc(objfile,
@@ -1296,7 +1296,7 @@ process_dst_symbols(objfile, entry, name, nsyms_ret)
 		}
 		element = (struct symbol_list *)
 				xmalloc(sizeof(struct symbol_list));
-		
+
 		if (attr & (1<<dst_var_attr_global))
 		{
 			element->next = dst_global_symbols;
@@ -1565,7 +1565,7 @@ read_dst_symtab (objfile)
 			record_pending_block (objfile, global_block, NULL);
 
 			complete_symtab(source_file,
-					BLOCK_START(block), 
+					BLOCK_START(block),
 					BLOCK_END(block) - BLOCK_START(block));
 			module_num++;
 			dst_end_symtab(objfile);
@@ -1615,7 +1615,7 @@ init_one_section(chan, secinfo)
   else
 	return 1;
 }
- 
+
 static int
 init_dst_sections (chan)
     int chan;

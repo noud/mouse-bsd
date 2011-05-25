@@ -44,7 +44,7 @@ __RCSID("$NetBSD: uucplock.c,v 1.10 1998/07/12 09:59:30 mrg Exp $");
 #include "pathnames.h"
 #include "tip.h"
 
-/* 
+/*
  * uucp style locking routines
  * return: 0 - success
  * 	  -1 - failure

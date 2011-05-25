@@ -9,7 +9,7 @@
 #include <sys/localedef.h>
 #include <locale.h>
 
-/* 
+/*
  * The localeconv() function constructs a struct lconv from the current
  * monetary and numeric locales.
  */

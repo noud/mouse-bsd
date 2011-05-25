@@ -233,7 +233,7 @@ diff -c -r ./ftp-gw/ftp-gw.c ../../NEW/fwtk/ftp-gw/ftp-gw.c
 +                                 return(1);
 +                         }
 +                 }
-+         }      
++         }
 + 
 +         syslog(LLEV,"permit host=%s/%s connect to %s",rladdr,riaddr,dest);
 + 
@@ -388,7 +388,7 @@ diff -c -r ./http-gw/http-gw.c ../../NEW/fwtk/http-gw/http-gw.c
                         if( can_forward(buf)){
 ***************
 *** 1513,1519 ****
-                                                    parse_vec[0], 
+                                                    parse_vec[0],
                                                     parse_vec[1],
                                                     ourname, ourport);
 !                                   }else{
@@ -396,7 +396,7 @@ diff -c -r ./http-gw/http-gw.c ../../NEW/fwtk/http-gw/http-gw.c
                                                     parse_vec[0], parse_vec[2],
                                                     parse_vec[3], chk_type_ch,
 --- 1529,1541 ----
-                                                    parse_vec[0], 
+                                                    parse_vec[0],
                                                     parse_vec[1],
                                                     ourname, ourport);
 !                                   }

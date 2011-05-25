@@ -15,7 +15,7 @@ Please read the LIMITATIONS and ACKNOWLEDGMENT files.
 
 Read the file POSIX for a discussion of how the standard says comparisons
 should be done vs. how they really should be done and how gawk does them.
-  
+
 To format the documentation with TeX, use at least version 2.151 of
 texinfo.tex. There is a usable copy of texinfo.tex in the doc directory.
 
@@ -36,7 +36,7 @@ If you have neither bison nor yacc, use the awktab.c file here.  It was
 generated with bison, and has no proprietary code in it.  (Note that modifying
 awk.y without bison or yacc will be difficult, at best.  You might want
 to get a copy of bison from the FSF too.)
-  
+
 If you have an MS-DOS or OS/2 system, use the stuff in the `pc' directory.
 Similarly, there are separate directories for Ataris, Amigas, and VMS.
 

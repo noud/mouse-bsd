@@ -6,7 +6,7 @@
  *
  * This code is derived from software contributed to Berkeley by
  * Vern Paxson.
- * 
+ *
  * The United States Government has rights in this work pursuant
  * to contract no. DE-AC03-76SF00098 between the United States
  * Department of Energy and the University of California.
@@ -39,7 +39,7 @@ int value;
 
 	if ( (int) strlen( defname ) > MAXLINE / 2 )
 		{
-		format_pinpoint_message( _( "name \"%s\" ridiculously long" ), 
+		format_pinpoint_message( _( "name \"%s\" ridiculously long" ),
 			defname );
 		return;
 		}

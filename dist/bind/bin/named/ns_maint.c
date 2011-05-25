@@ -8,7 +8,7 @@ static const char rcsid[] = "Id: ns_maint.c,v 8.95 1999/10/13 16:39:09 vixie Exp
 /*
  * Copyright (c) 1986, 1988
  *    The Regents of the University of California.  All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -24,7 +24,7 @@ static const char rcsid[] = "Id: ns_maint.c,v 8.95 1999/10/13 16:39:09 vixie Exp
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -40,14 +40,14 @@ static const char rcsid[] = "Id: ns_maint.c,v 8.95 1999/10/13 16:39:09 vixie Exp
 
 /*
  * Portions Copyright (c) 1993 by Digital Equipment Corporation.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
  * the name of Digital Equipment Corporation not be used in advertising or
  * publicity pertaining to distribution of the document or software without
  * specific, written prior permission.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
  * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
@@ -77,21 +77,21 @@ static const char rcsid[] = "Id: ns_maint.c,v 8.95 1999/10/13 16:39:09 vixie Exp
 
 /*
  * Portions Copyright (c) 1999 by Check Point Software Technologies, Inc.
- * 
+ *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies, and that
- * the name of Check Point Software Technologies Incorporated not be used 
- * in advertising or publicity pertaining to distribution of the document 
+ * the name of Check Point Software Technologies Incorporated not be used
+ * in advertising or publicity pertaining to distribution of the document
  * or software without specific, written prior permission.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS" AND CHECK POINT SOFTWARE TECHNOLOGIES 
- * INCORPORATED DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, 
- * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.   
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND CHECK POINT SOFTWARE TECHNOLOGIES
+ * INCORPORATED DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+ * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.
  * IN NO EVENT SHALL CHECK POINT SOFTWARE TECHNOLOGIES INCORPRATED
- * BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR 
+ * BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR
  * ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
- * IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT 
+ * IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT
  * OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
@@ -172,7 +172,7 @@ zone_maint(struct zoneinfo *zp) {
 #endif
 
 	switch (zp->z_type) {
-			
+
 	case Z_SECONDARY:
 		/*FALLTHROUGH*/
 #ifdef STUBS
@@ -204,13 +204,13 @@ zone_maint(struct zoneinfo *zp) {
 			break;
 		}
 		/*
-		 * If we don't have the zone loaded or dialup is off 
+		 * If we don't have the zone loaded or dialup is off
 		 * or we attempted a qserial_query before and the queue was
 		 * full attempt to verify / load the zone.
 		 */
 		if ((zp->z_serial == 0) || (zp->z_flags & Z_NEED_QSERIAL) ||
-		    (zp->z_dialup == zdialup_no) || 
-		    (zp->z_dialup == zdialup_use_default && 
+		    (zp->z_dialup == zdialup_no) ||
+		    (zp->z_dialup == zdialup_use_default &&
 		     NS_OPTION_P(OPTION_NODIALUP)))
 			qserial_query(zp);
 		else {
@@ -236,7 +236,7 @@ zone_maint(struct zoneinfo *zp) {
 				zp->z_soaincrtime = 0;
 				(void)schedule_soa_update(zp, 0);
 			}
-			
+
 		}
 		if (tt.tv_sec >= zp->z_dumptime &&
 		    zp->z_dumpintvl > 0 &&
@@ -251,7 +251,7 @@ zone_maint(struct zoneinfo *zp) {
 			}
 			if (zp->z_maintain_ixfr_base)
 				ixfr_log_maint(zp);
-		} 
+		}
 		break;
 #endif /* BIND_UPDATE */
 
@@ -275,7 +275,7 @@ do_zone_maint(evContext ctx, void *uap, struct timespec due,
 	struct zoneinfo *zp;
 
 	INSIST(zti != NULL);
-	
+
 	ns_debug(ns_log_maint, 1, "do_zone_maint for zone %s (class %s)",
 		 zti->name, p_class(zti->class));
 	zp = find_zone(zti->name, zti->class);
@@ -312,7 +312,7 @@ sched_zone_maint(struct zoneinfo *zp) {
 		next_maint = zp->z_time;
 #ifdef BIND_UPDATE
 	if (zp->z_type == z_master && (zp->z_flags & Z_DYNAMIC) != 0) {
-		if (zp->z_soaincrintvl > 0 && 
+		if (zp->z_soaincrintvl > 0 &&
 		    (next_maint == 0 || next_maint > zp->z_soaincrtime))
 			next_maint = zp->z_soaincrtime;
 		if (zp->z_dumpintvl > 0 &&
@@ -416,7 +416,7 @@ ns_heartbeat(evContext ctx, void *uap, struct timespec due,
 
 		if ((zt == z_nil) ||
 		    (zp->z_dialup == zdialup_no) ||
-		    (zp->z_dialup == zdialup_use_default && 
+		    (zp->z_dialup == zdialup_use_default &&
 		     NS_OPTION_P(OPTION_NODIALUP)))
 			continue;
 #ifdef BIND_NOTIFY
@@ -733,7 +733,7 @@ startxfer(struct zoneinfo *zp) {
 		}
 	}
 #endif
-	
+
 	if (zp->z_xaddrcnt == 0) {
 		for (zp->z_xaddrcnt = 0;
 		     zp->z_xaddrcnt < zp->z_addrcnt;
@@ -781,7 +781,7 @@ startxfer(struct zoneinfo *zp) {
 		char buffer[1024];
 		char *curr, *last;
 		int len;
-		
+
 		curr = buffer;
 		last = &buffer[sizeof buffer - 1]; /* leave room for \0 */
 		for (i = 0; i < argc; i++) {
@@ -812,10 +812,10 @@ startxfer(struct zoneinfo *zp) {
 		(void)nxfers(zp, -1);
 		return;
 	}
-	
+
 	if ((pid = spawnxfer(argv, zp)) == -1)
 		unlink(tsig_name);
-	
+
 	xferstatus[i].xfer_state = XFER_RUNNING;
 	xferstatus[i].xfer_pid = pid;  /* XXX - small race condition here if we
 					* can't hold signals */
@@ -944,7 +944,7 @@ clean_cache_from(char *dname, struct hashbuf *htp) {
 				np->n_hash = NULL;
 			}
 		}
-		
+
 		if (!root_zone && np->n_hash == NULL && np->n_data == NULL)
 			(void) purge_node(htp, np);
 	}
@@ -974,7 +974,7 @@ clean_cache(struct hashbuf *htp, int all) {
 				if (all && dp->d_zone == DB_Z_CACHE) {
 					dp = rm_datum(dp, np, pdp, NULL);
 					deleted++;
-				} else if (dp->d_zone == DB_Z_CACHE && 
+				} else if (dp->d_zone == DB_Z_CACHE &&
 					   stale(dp)) {
 					delete_all(np, dp->d_class, dp->d_type);
 					deleted++;
@@ -1029,10 +1029,10 @@ purge_node(struct hashbuf *htp, struct namebuf *np) {
 	INSIST(np->n_hash == NULL && np->n_data == NULL);
 
 	/* Walk parent hashtable looking for ourself. */
-	parent = np->n_parent; 
+	parent = np->n_parent;
 	if (parent != NULL)
 		phtp = parent->n_hash;
-	else 
+	else
 		phtp = htp;
 
 	if (phtp == NULL) {
@@ -1116,7 +1116,7 @@ purge_zone(const char *dname, struct hashbuf *htp, int class) {
 				np->n_hash = NULL;
 			}
 		}
-		
+
 		if (!root_zone && np->n_hash == NULL && np->n_data == NULL)
 			(void) purge_node(htp, np);
 	}
@@ -1139,7 +1139,7 @@ purge_z_2(htp, class)
 				     dp != NULL;
 				     (void)NULL) {
 					if (dp->d_class == class)
-						dp = rm_datum(dp, np, pdp, 
+						dp = rm_datum(dp, np, pdp,
 							      NULL);
 					else {
 						pdp = dp;
@@ -1188,7 +1188,7 @@ bottom_of_zone(struct databuf *dp, int class) {
 	ns_debug(ns_log_default, 3, "bottom_of_zone() == %d", ret);
 	return (ret);
 }
-   
+
 /*
  * Handle XFER limit for a nameserver.
  */
@@ -1297,7 +1297,7 @@ reapchild(void) {
  */
 void
 endxfer() {
-    	struct zoneinfo *zp;   
+    	struct zoneinfo *zp;
 	int exitstatus, i;
 	pid_t pid;
 	WAIT_T status;
@@ -1344,7 +1344,7 @@ endxfer() {
 					zp->z_xferpid = XFER_ISAXFR;
 					if (exitstatus == XFER_SUCCESSAXFRIXFRFILE) {
 						zp->z_xferpid = XFER_ISAXFRIXFR;
-					} 
+					}
 					movefile(zp->z_ixfr_tmp, zp->z_source);
 					/* XXX should incorporate loadxfer() */
 					zp->z_flags |= Z_NEED_RELOAD;
@@ -1362,16 +1362,16 @@ endxfer() {
 						ns_notice(ns_log_default,
 							"IXFR Merge success %s",
 							  zp->z_ixfr_tmp);
-							
+
 						(void)unlink(zp->z_updatelog);
 						(void)unlink(zp->z_ixfr_base);
 						movefile(zp->z_ixfr_tmp,
 						       zp->z_ixfr_base);
 						(void)unlink(zp->z_ixfr_tmp);
-						if (zonedump(zp, ISIXFR) < 0) 
+						if (zonedump(zp, ISIXFR) < 0)
 							ns_warning(ns_log_db,
 				"error in write ixfr updates to zone file %s",
-								zp ->z_source); 
+								zp ->z_source);
 					} else
 						ns_notice(ns_log_default,
 							"IXFR Merge failed %s",
@@ -1438,7 +1438,7 @@ tryxfer() {
 		zp = zones;
 	}
 	lastnzones = nzones;
-    
+
 	if (zp == zones)
 		stopzp = &zones[nzones-1];
 	else
@@ -1455,7 +1455,7 @@ tryxfer() {
 		if (!xfers_deferred ||
 		    xfers_running >= server_options->transfers_in)
 			break;
-		
+
 		if ((xfers = nxfers(zp, 0)) != -1 &&
 		    xfers < server_options->transfers_per_ns &&
 		    (zp->z_flags & Z_NEED_XFER)) {
@@ -1484,7 +1484,7 @@ tryxfer() {
  */
 void
 loadxfer(void) {
-    	struct zoneinfo *zp;   
+    	struct zoneinfo *zp;
 	u_int32_t old_serial,new_serial;
 	char *tmpnom;
 	int isixfr;
@@ -1518,9 +1518,9 @@ loadxfer(void) {
 					new_serial= zp ->z_serial;
 						ns_warning(ns_log_db, "ISIXFR");
 						ns_warning(ns_log_db, "error in updating ixfr data base file %s from %s", zp -> z_ixfr_base, zp ->z_ixfr_tmp);
-                                        if (zonedump(zp,ISIXFR)<0) 
-						ns_warning(ns_log_db, "error in write ixfr updates to zone file %s", zp ->z_source); 
-			
+                                        if (zonedump(zp,ISIXFR)<0)
+						ns_warning(ns_log_db, "error in write ixfr updates to zone file %s", zp ->z_source);
+
 				}
 			}
 			zp->z_xferpid = 0;

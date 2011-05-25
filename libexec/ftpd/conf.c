@@ -154,7 +154,7 @@ parse_conf(findclass)
 			p[--len] = '\0';
 		if (EMPTYSTR(p))
 			continue;
-		
+
 		NEXTWORD(p, word);
 		NEXTWORD(p, class);
 		NEXTWORD(p, arg);
@@ -489,7 +489,7 @@ show_chdir_messages(code)
 		return;
 	}
 	if (sl_find(slist, cwd) != NULL)
-		return;	
+		return;
 
 	cp = xstrdup(cwd);
 	if (sl_add(slist, cp) == -1)
@@ -651,7 +651,7 @@ strend(s1, s2)
 
 	if (l2 >= l1)
 		return(NULL);
-	
+
 	strlcpy(buf, s1, sizeof(buf));
 	start = buf + (l1 - l2);
 
@@ -808,7 +808,7 @@ strsuftoi(arg)
  * processes that exist (or frees the slot if it doesn't).
  * Adds getpid() to the first free slot. Truncates the file
  * if possible.
- */ 
+ */
 void
 count_users()
 {

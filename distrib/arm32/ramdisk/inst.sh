@@ -4,7 +4,7 @@
 #
 # Copyright (c) 1995-1997 Mark Brinicombe
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
 # are met:
@@ -116,7 +116,7 @@ Load_Msdos_Fd()
 			cp -rp /mnt2/* .
 			umount /mnt2
 		fi
-	done	
+	done
 }
 
 
@@ -141,7 +141,7 @@ Load_Tar_Fd()
 		if [ "X$foo" = "X" ]; then
 			pax -rf /dev/rfd${which}a
 		fi
-	done	
+	done
 }
 
 
@@ -166,7 +166,7 @@ Load_Tar_Fd1()
 		if [ "X$foo" = "X" ]; then
 			pax -rf /dev/rfd${which}a
 		fi
-	done	
+	done
 }
 
 
@@ -234,7 +234,7 @@ Mount_CDROM()
 	else
 		distribdir="/cdrom/distrib"
 	fi
-	
+
 }
 
 
@@ -257,7 +257,7 @@ Mount_DEV_CDROM()
 	else
 		distribdir="/cdrom/distrib"
 	fi
-	
+
 }
 
 

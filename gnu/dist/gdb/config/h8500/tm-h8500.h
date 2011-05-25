@@ -80,7 +80,7 @@ extern CORE_ADDR saved_pc_after_call PARAMS ((void));
 
 /* Say how much memory is needed to store a copy of the register set */
 
-#define REGISTER_BYTES    (NUM_REGS * 4) 
+#define REGISTER_BYTES    (NUM_REGS * 4)
 
 /* Index within `registers' of the first byte of the space for
    register N.  */
@@ -204,7 +204,7 @@ extern struct type *h8500_register_virtual_type PARAMS ((int regno));
    SAVED FP   <-FP POINTS HERE
    LOCALS0
    LOCALS1    <-SP POINTS HERE
-   
+
    */
 
 #define INIT_EXTRA_FRAME_INFO(fromleaf, fci)  ;

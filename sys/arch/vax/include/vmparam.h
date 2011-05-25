@@ -84,7 +84,7 @@
  */
 #define MMAPSPACE	(8*1024*1024)
 
-/* 
+/*
  * Size of shared memory map
  */
 

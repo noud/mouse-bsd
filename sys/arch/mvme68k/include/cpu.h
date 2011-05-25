@@ -179,7 +179,7 @@ extern	void *ether_data_buff;		/* These two will go when bus_dma */
 extern	u_long ether_data_buff_size;	/* support is added. */
 
 struct frame;
-void	doboot __P((int)) 
+void	doboot __P((int))
 	__attribute__((__noreturn__));
 int	badaddr __P((caddr_t, int));
 void	nmihand __P((struct frame *));

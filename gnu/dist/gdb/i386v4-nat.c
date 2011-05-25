@@ -71,7 +71,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* This is a duplicate of the table in i386-xdep.c. */
 
-static int regmap[] = 
+static int regmap[] =
 {
   EAX, ECX, EDX, EBX,
   UESP, EBP, ESI, EDI,
@@ -131,7 +131,7 @@ fill_gregset (gregsetp, regno)
     (fpregset_t *), unpack the register contents and supply them as gdb's
     idea of the current floating point register values. */
 
-void 
+void
 supply_fpregset (fpregsetp)
      fpregset_t *fpregsetp;
 {

@@ -487,7 +487,7 @@ bad4:
  * close the device.. only called if we are the LAST occurence of an open
  * device.  Convenient now but usually a pain.
  */
-int 
+int
 sdclose(dev, flag, fmt, p)
 	dev_t dev;
 	int flag, fmt;
@@ -655,7 +655,7 @@ done:
  * must be called at the correct (highish) spl level
  * sdstart() is called at splbio from sdstrategy and scsipi_done
  */
-void 
+void
 sdstart(v)
 	register void *v;
 {
@@ -939,7 +939,7 @@ sdioctl(dev, cmd, addr, flag, p)
 	case DIOCLOCK:
 		return (scsipi_prevent(sd->sc_link,
 		    (*(int *)addr) ? PR_PREVENT : PR_ALLOW, 0));
-	
+
 	case DIOCEJECT:
 		if ((sd->sc_link->flags & SDEV_REMOVABLE) == 0)
 			return (ENOTTY);

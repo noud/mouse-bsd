@@ -331,10 +331,10 @@ __PRIVATE:
   };
 private:
 # ifdef __SUNPRO_CC
-    static obj * __VOLATILE free_list[]; 
+    static obj * __VOLATILE free_list[];
         // Specifying a size results in duplicate def for 4.1
 # else
-    static obj * __VOLATILE free_list[__NFREELISTS]; 
+    static obj * __VOLATILE free_list[__NFREELISTS];
 # endif
   static  size_t FREELIST_INDEX(size_t bytes) {
         return (((bytes) + __ALIGN-1)/__ALIGN - 1);
@@ -353,7 +353,7 @@ private:
 
 # ifdef __STL_SGI_THREADS
     static volatile unsigned long __node_allocator_lock;
-    static void __lock(volatile unsigned long *); 
+    static void __lock(volatile unsigned long *);
     static inline void __unlock(volatile unsigned long *);
 # endif
 
@@ -591,7 +591,7 @@ __default_alloc_template<threads, inst>::__node_allocator_lock = 0;
 #endif
 
 template <bool threads, int inst>
-void 
+void
 __default_alloc_template<threads, inst>::__lock(volatile unsigned long *lock)
 {
     const unsigned low_spin_max = 30;  // spin cycles if we suspect uniprocessor
@@ -644,7 +644,7 @@ __default_alloc_template<threads, inst>::__unlock(volatile unsigned long *lock)
         *lock = 0;
 #   elif __mips >= 3 && (defined (_ABIN32) || defined(_ABI64))
         __lock_release(lock);
-#   else 
+#   else
         *lock = 0;
         // This is not sufficient on many multiprocessors, since
         // writes to protected variables and the lock may be reordered.

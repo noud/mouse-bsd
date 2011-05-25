@@ -42,7 +42,7 @@
 
 TWOENTRY(bcopy,ovbcopy)
 	/* switch the source and destination registers */
-	eor     r0, r1, r0 
-	eor     r1, r0, r1 
-	eor     r0, r1, r0 
+	eor     r0, r1, r0
+	eor     r1, r0, r1
+	eor     r0, r1, r0
 	b	__memcpy

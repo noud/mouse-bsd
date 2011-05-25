@@ -197,7 +197,7 @@ getnetanswer(answer, anslen, net_i)
 				cp += n;
 				return (NULL);
 			}
-			cp += n; 
+			cp += n;
 			*ap++ = bp;
 			bp += strlen(bp) + 1;
 			net_entry.n_addrtype =
@@ -232,7 +232,7 @@ getnetanswer(answer, anslen, net_i)
 					paux1 = pauxt;
 				}
 				in = ++st;
-			}		  
+			}
 			net_entry.n_net = inet_network(paux2);
 			break;
 		}

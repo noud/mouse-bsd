@@ -79,7 +79,7 @@ void edit_streambuf::disconnect_gap_from_file(edit_buffer* buffer)
     if (buffer->_writer != this) return;
     flush_to_buffer(buffer);
     setp(pptr(),pptr());
-    buffer->_writer = NULL;    
+    buffer->_writer = NULL;
 }
 
 buf_index edit_buffer::tell(buf_char *ptr)
@@ -508,7 +508,7 @@ int buf_seek(void *arg_cookie, fpos_t * pos, int whence)
 	file->__get_limit =
 	    *buffer->gap_start_ptr; /* what if gap_start_ptr == &bufp ??? */
     } else if () {
-	
+
     }
     *pos = new_pos;
 }
