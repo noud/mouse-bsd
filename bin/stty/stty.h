@@ -55,6 +55,7 @@ struct cchar {
 	u_char def;
 };
 
-enum FMT { STTY_NOTSET, STTY_GFLAG, STTY_BSD, STTY_POSIX };
+enum FMT { STTY_NOTSET, STTY_GFLAG, STTY_BSD, STTY_POSIX,
+	   STTY_SPGRP, STTY_GPGRP };
 
 #define	LINELENGTH	72

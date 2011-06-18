@@ -71,14 +71,15 @@ main(argc, argv)
 	struct info i;
 	enum FMT fmt;
 	int ch;
+	int pgrp;
 
 	fmt = STTY_NOTSET;
 	i.fd = STDIN_FILENO;
 
 	opterr = 0;
 	while (optind < argc &&
-	    strspn(argv[optind], "-aefg") == strlen(argv[optind]) &&
-	    (ch = getopt(argc, argv, "aef:g")) != -1)
+	    strspn(argv[optind], "-aefgGS") == strlen(argv[optind]) &&
+	    (ch = getopt(argc, argv, "aef:gGS:")) != -1)
 		switch(ch) {
 		case 'a':		/* undocumented: POSIX compatibility */
 			fmt = STTY_POSIX;
@@ -92,6 +93,13 @@ main(argc, argv)
 			break;
 		case 'g':
 			fmt = STTY_GFLAG;
+			break;
+		case 'G':
+			fmt = STTY_GPGRP;
+			break;
+		case 'S':
+			fmt = STTY_SPGRP;
+			pgrp = atoi(optarg);
 			break;
 		case '?':
 		default:
@@ -119,6 +127,17 @@ args:	argc -= optind;
 		break;
 	case STTY_GFLAG:
 		gprint(&i.t);
+		break;
+	case STTY_GPGRP:
+		if (ioctl(i.fd,TIOCGPGRP,&pgrp) < 0)
+			err(1,"TIOCGPGRP");
+		printf("%d\n",pgrp);
+		exit(0);
+		break;
+	case STTY_SPGRP:
+		if (ioctl(i.fd,TIOCSPGRP,&pgrp) < 0)
+			err(1,"TIOCSPGRP");
+		exit(0);
 		break;
 	}
 

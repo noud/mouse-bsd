@@ -44,8 +44,14 @@
 .Nd set the options for a terminal device interface
 .Sh SYNOPSIS
 .Nm
-.Op Fl a | Fl e | Fl g
+.Oo
+.Fl a |
+.Fl e |
+.Fl g |
+.Fl G
+.Oc
 .Op Fl f Ar file
+.Op Fl S Ar pg
 .Op operands
 .Sh DESCRIPTION
 The
@@ -88,6 +94,12 @@ in a form that may be used as an argument to a subsequent invocation of
 .Nm
 to restore the current terminal state as per
 .St -p1003.2 .
+.It Fl G
+Instead of normal operation, simply prints the process group identifier
+for the terminal line.
+.It Fl S Ar pg
+Instead of normal operation, simply sets the process group identifier
+for the terminal line to the specified value.
 .El
 .Pp
 The following arguments are available to set the terminal
