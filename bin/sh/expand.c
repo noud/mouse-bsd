@@ -371,7 +371,10 @@ expari(flag)
 	 * have to rescan starting from the beginning since CTLESC
 	 * characters have to be processed left to right.
 	 */
-	CHECKSTRSPACE(8, expdest);
+#if INT_MAX / 1000000000 >= 10 || INT_MIN / 1000000000 <= -10
+#error "integers with more than 10 digits are not supported"
+#endif
+	CHECKSTRSPACE(12-2, expdest);
 	USTPUTC('\0', expdest);
 	start = stackblock();
 	p = expdest - 1;
@@ -393,7 +396,7 @@ expari(flag)
 	if (quotes)
 		rmescapes(p+2);
 	result = arith(p+2);
-	fmtstr(p, 10, "%d", result);
+	fmtstr(p, 12, "%d", result);
 
 	while (*p++)
 		;
