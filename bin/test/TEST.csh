@@ -36,6 +36,9 @@ t -g test.c
 echo 't -g /bin/ps'
 t -g /bin/ps
 
+echo 't -l test.c'
+t -l test.c
+
 echo 't -n ""'
 t -n ""
 echo 't -n "hello"'

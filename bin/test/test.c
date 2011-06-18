@@ -17,6 +17,8 @@ __RCSID("$NetBSD: test.c,v 1.21 1999/04/05 09:48:38 kleink Exp $");
 
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/param.h>
+#include <sys/mount.h>
 #include <unistd.h>
 #include <ctype.h>
 #include <errno.h>
@@ -34,7 +36,7 @@ __RCSID("$NetBSD: test.c,v 1.21 1999/04/05 09:48:38 kleink Exp $");
 		| operand
 		| "(" oexpr ")"
 		;
-	unary-operator ::= "-r"|"-w"|"-x"|"-f"|"-d"|"-c"|"-b"|"-p"|
+	unary-operator ::= "-r"|"-w"|"-x"|"-f"|"-d"|"-c"|"-b"|"-p"|"-l"|
 		"-u"|"-g"|"-k"|"-s"|"-t"|"-z"|"-n"|"-o"|"-O"|"-G"|"-L"|"-S";
 
 	binary-operator ::= "="|"!="|"-eq"|"-ne"|"-ge"|"-gt"|"-le"|"-lt"|
@@ -65,6 +67,7 @@ enum token {
 	FILEQ,
 	FILUID,
 	FILGID,
+	FILLOC,
 	STREZ,
 	STRNZ,
 	STREQ,
@@ -118,6 +121,7 @@ struct t_op {
 	{"-G",	FILGID,	UNOP},
 	{"-L",	FILSYM,	UNOP},
 	{"-S",	FILSOCK,UNOP},
+	{"-l",	FILLOC, UNOP},
 	{"=",	STREQ,	BINOP},
 	{"!=",	STRNE,	BINOP},
 	{"<",	STRLT,	BINOP},
@@ -317,9 +321,12 @@ filstat(nm, mode)
 	char *nm;
 	enum token mode;
 {
+	struct statfs fs;
 	struct stat s;
 
 	if (mode == FILSYM ? lstat(nm, &s) : stat(nm, &s))
+		return 0;
+	if (statfs(nm, &fs) != 0)
 		return 0;
 
 	switch (mode) {
@@ -357,6 +364,8 @@ filstat(nm, mode)
 		return s.st_uid == geteuid();
 	case FILGID:
 		return s.st_gid == getegid();
+	case FILLOC:
+		return (fs.f_flags & MNT_LOCAL) != 0;
 	default:
 		return 1;
 	}
