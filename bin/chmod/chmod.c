@@ -1,5 +1,7 @@
 /*	$NetBSD: chmod.c,v 1.22 2000/01/20 02:50:54 mycroft Exp $	*/
 
+/* mods by mouse: add -F, make -h work, handle moded symlinks */
+
 /*
  * Copyright (c) 1989, 1993, 1994
  *	The Regents of the University of California.  All rights reserved.
@@ -72,17 +74,21 @@ main(argc, argv)
 	FTS *ftsp;
 	FTSENT *p;
 	mode_t *set;
-	int Hflag, Lflag, Rflag, ch, fflag, fts_options, hflag, rval;
+	int Fflag, Hflag, Lflag, Rflag, ch, fflag, fts_options, hflag, rval;
 	char *mode;
 	int (*change_mode) __P((const char *, mode_t));
+	int (*get_mode)(const char *, struct stat *);
 
 	set = NULL;	/* XXX gcc -Wuninitialized */
 
 	(void)setlocale(LC_ALL, "");
 
-	Hflag = Lflag = Rflag = fflag = hflag = 0;
-	while ((ch = getopt(argc, argv, "HLPRXfghorstuwx")) != -1)
+	Fflag = Hflag = Lflag = Rflag = fflag = hflag = 0;
+	while ((ch = getopt(argc, argv, "FHLPRXfghorstuwx")) != -1)
 		switch (ch) {
+		case 'F':
+			Fflag = 1;
+			break;
 		case 'H':
 			Hflag = 1;
 			Lflag = 0;
@@ -131,14 +137,24 @@ main(argc, argv)
 done:	argv += optind;
 	argc -= optind;
 
+	/* If we have a mode beginning with --, like --x--x--x,
+	   getopt will mistake it for a -- end-of-flags indicator. */
+	if ( (argv[-1][0] == '-') &&
+	     (argv[-1][1] == '-') &&
+	     (strlen(argv[-1]) == 9) ) {
+		argc ++;
+		argv --;
+	}
+
 	if (argc < 2)
 		usage();
 
+	if (Fflag) {
+		if (Rflag) errx(1,"-F is incompatible with -R");
+	}
+
 	fts_options = FTS_PHYSICAL;
 	if (Rflag) {
-		if (hflag)
-			errx(1,
-		"the -R and -h options may not be specified together.");
 		if (Hflag)
 			fts_options |= FTS_COMFOLLOW;
 		if (Lflag) {
@@ -146,14 +162,29 @@ done:	argv += optind;
 			fts_options |= FTS_LOGICAL;
 		}
 	}
-	if (hflag)
-		change_mode = lchmod;
-	else
-		change_mode = chmod;
+	change_mode = hflag ? lchmod : chmod;
+	get_mode = hflag ? lstat : stat;
 
 	mode = *argv;
 	if ((set = setmode(mode)) == NULL)
 		errx(1, "invalid file mode: %s", mode);
+
+	if (Fflag) {
+		int i;
+		int rv;
+		rval = 0;
+		for (i=1;argv[i];i++) {
+			struct stat stb;
+			rv = (*get_mode)(argv[i],&stb);
+			if (rv == 0)
+				rv = (change_mode)(argv[i],getmode(set,stb.st_mode));
+			if (rv < 0) {
+				warn(argv[i]);
+				rval = 1;
+			}
+		}
+		exit(rval);
+	}
 
 	if ((ftsp = fts_open(++argv, fts_options, 0)) == NULL)
 		err(1, argv[0]);
@@ -174,7 +205,7 @@ done:	argv += optind;
 			warnx("%s: %s", p->fts_path, strerror(p->fts_errno));
 			rval = 1;
 			continue;
-		case FTS_SL:			/* Ignore. */
+		case FTS_SL:			/* Ignore, unless -h. */
 		case FTS_SLNONE:
 			/*
 			 * The only symlinks that end up here are ones that
@@ -204,7 +235,7 @@ void
 usage()
 {
 	(void)fprintf(stderr,
-	    "usage: chmod [-R [-H | -L | -P]] [-h] mode file ...\n");
+	    "usage: chmod [-R [-H | -L | -P]] [-F] [-h] mode file ...\n");
 	exit(1);
 	/* NOTREACHED */
 }

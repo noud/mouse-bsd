@@ -1,4 +1,5 @@
 .\"	$NetBSD: chmod.1,v 1.12 2000/02/05 11:39:16 enami Exp $
+.\" mods by mouse: document -F and -h, and add ls-style modes.
 .\"
 .\" Copyright (c) 1989, 1990, 1993, 1994
 .\"	The Regents of the University of California.  All rights reserved.
@@ -48,6 +49,7 @@
 .Fl R
 .Op Fl H | Fl L | Fl P
 .Oc
+.Op Fl F
 .Op Fl h
 .Ar mode
 .Ar
@@ -77,6 +79,21 @@ option is specified, no symbolic links are followed.
 .It Fl R
 Change the modes of the file hierarchies rooted in the files
 instead of just the files themselves.
+.It Fl F
+.Sq Force :
+simply make the
+.Xr lchmod 2
+syscall.  (A
+.Xr stat 2
+or
+.Xr lstat 2
+is done first, to determine what symbolic modes are relative to; this
+is done even when the mode does not appear to call for it, as
+.Nm
+simply uses
+.Xr setmode 3
+and
+.Xr getmode 3 . )
 .It Fl h
 If
 .Ar file
@@ -140,7 +157,13 @@ are encoded as described for owner.
 .Pp
 The symbolic mode is described by the following grammar:
 .Bd -literal -offset indent
-mode         ::= clause [, clause ...]
+mode         ::= ls_mode | op_mode
+ls_mode      ::= ls_r ls_w ls_xs ls_r ls_w ls_xs ls_r ls_w ls_xt
+ls_r         ::= r | \- | .
+ls_w         ::= w | \- | .
+ls_xs        ::= x | s | S | \- | .
+ls_xt        ::= x | t | T | \- | .
+op_mode      ::= clause [, clause ...]
 clause       ::= [who ...] [action ...] last_action
 action       ::= op [perm ...]
 last_action  ::= op [perm ...]
@@ -149,13 +172,35 @@ op           ::= + | \- | =
 perm         ::= r | s | t | w | x | X | u | g | o
 .Ed
 .Pp
+If an
+.Ar ls_mode
+is used, it is simply a symbolic mode such as that printed by
+.Xr ls 1
+with the first character (which indicates the file type) stripped,
+and possibly with some characters replaced by dots, indicating that
+.Nm chmod
+should not change the bit(s) corresponding to that character.  (When using
+this style of symbolic mode, there is no way to, for example, specify the
+group-execute bit's state without specifying the setgid bit's state as well.
+Affecting one of a pair of bits that use the same character without
+affecting the other is simply not possible with an
+.Ar ls_mode . )
+.Pp
 The
 .Ar who
-symbols ``u'', ``g'', and ``o'' specify the user, group, and other parts
+symbols
+.Dq u ,
+.Dq g ,
+and
+.Dq o
+specify the user, group, and other parts
 of the mode bits, respectively.
 The
 .Ar who
-symbol ``a'' is equivalent to ``ugo''.
+symbol
+.Dq a
+is equivalent to
+.Dq ugo .
 .Pp
 .ne 1i
 The
@@ -178,9 +223,13 @@ The execute/search bits if the file is a directory or any of the
 execute/search bits are set in the original (unmodified) mode.
 Operations with the
 .Ar perm
-symbol ``X'' are only meaningful in conjunction with the
+symbol
+.Dq X
+are only meaningful in conjunction with the
 .Ar op
-symbol ``+'', and are ignored in all other cases.
+symbol
+.Dq + ,
+and are ignored in all other cases.
 .It u
 The user permission bits in the mode of the original file.
 .It g
@@ -196,7 +245,9 @@ symbols represent the operation performed, as follows:
 .It +
 If no value is supplied for
 .Ar perm ,
-the ``+'' operation has no effect.
+the
+.Dq +
+operation has no effect.
 If no value is supplied for
 .Ar who ,
 each permission bit specified in
@@ -211,7 +262,9 @@ values are set.
 .It \&\-
 If no value is supplied for
 .Ar perm ,
-the ``\-'' operation has no effect.
+the
+.Dq \-
+operation has no effect.
 If no value is supplied for
 .Ar who ,
 each permission bit specified in
@@ -248,15 +301,20 @@ bits, and each operation is applied to the mode bits in the
 order specified.
 .Pp
 Operations upon the other permissions only (specified by the symbol
-``o'' by itself), in combination with the
+.Dq o
+by itself), in combination with the
 .Ar perm
-symbols ``s'' or ``t'', are ignored.
+symbols
+.Dq s
+or
+.Dq t ,
+are ignored.
 .Sh EXAMPLES
 .Bl -tag -width "u=rwx,go=u-w" -compact
 .It Li 644
 make a file readable by anyone and writable by the owner only.
 .Pp
-.It Li go-w
+.It Li go\-w
 deny write permission to group and others.
 .Pp
 .It Li =rw,+X
@@ -269,19 +327,33 @@ already searchable/executable by anyone.
 .Pp
 .It Li 755
 .It Li u=rwx,go=rx
-.It Li u=rwx,go=u-w
+.It Li u=rwx,go=u\-w
 make a file readable/executable by everyone and writable by the owner only.
 .Pp
+.It Li rw.r\-.\-\-.
+make a file readable by owner and group, writeable by owner only, and do
+not touch the execute, set-ID, or sticky bits.
+.Pp
 .It Li go=
+.It Li ...\-\-\-\-\-\-
 clear all mode bits for group and others.
 .Pp
-.It Li g=u-w
+.It Li g=u\-w
 set the group bits equal to the user bits, but clear the group write bit.
 .El
 .Sh BUGS
 There's no
 .Ar perm
 option for the naughty bits.
+.Pp
+The
+.Fl R ,
+.Fl L ,
+and
+.Fl h
+options, when specified together, combine to produce confusing and
+probably incorrect behavior: symlinks' modes will be changed, but they
+will be changed to a mode based on the linked-to object's mode.
 .Sh SEE ALSO
 .Xr install 1 ,
 .Xr chmod 2 ,
@@ -301,5 +373,12 @@ compatible with the exception of the
 symbols
 .Dq t
 and
-.Dq X
-which are not included in that standard.
+.Dq X ,
+the
+.Ar ls_mode
+specifications,
+and the
+.Fl F
+and
+.Fl h
+options, which are not included in that standard.
