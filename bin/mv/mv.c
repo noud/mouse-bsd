@@ -68,7 +68,7 @@ __RCSID("$NetBSD: mv.c,v 1.24 1999/12/14 17:30:11 jdolecek Exp $");
 
 #include "pathnames.h"
 
-int fflg, iflg;
+int fflg, iflg, Rflg;
 int stdin_ok;
 
 int	copy __P((char *, char *));
@@ -90,7 +90,7 @@ main(argc, argv)
 
 	(void)setlocale(LC_ALL, "");
 
-	while ((ch = getopt(argc, argv, "if")) != -1)
+	while ((ch = getopt(argc, argv, "ifR")) != -1)
 		switch (ch) {
 		case 'i':
 			fflg = 0;
@@ -100,6 +100,9 @@ main(argc, argv)
 			iflg = 0;
 			fflg = 1;
 			break;
+		case 'R':
+			Rflg = 1;
+			break;
 		case '?':
 		default:
 			usage();
@@ -107,8 +110,16 @@ main(argc, argv)
 	argc -= optind;
 	argv += optind;
 
-	if (argc < 2)
+	if ((argc < 2) || (Rflg && (argc != 2)))
 		usage();
+
+	if (Rflg) {
+		if (rename(argv[0],argv[1]) < 0) {
+			warn("rename %s to %s",argv[0],argv[1]);
+			exit(1);
+		}
+		exit(0);
+	}
 
 	stdin_ok = isatty(STDIN_FILENO);
 
@@ -370,6 +381,7 @@ usage()
 
 	(void)fprintf(stderr, "usage: mv [-fi] source target\n");
 	(void)fprintf(stderr, "       mv [-fi] source ... directory\n");
+	(void)fprintf(stderr, "       mv -R source target\n");
 	exit(1);
 	/* NOTREACHED */
 }

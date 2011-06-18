@@ -49,6 +49,9 @@
 .Nm ""
 .Op Fl fi
 .Ar source ... directory
+.Nm ""
+.Op Fl R
+.Ar source target
 .Sh DESCRIPTION
 .Pp
 In its first form, the
@@ -84,6 +87,15 @@ to write a prompt to standard error before moving a file that would
 overwrite an existing file.
 If the response from the standard input begins with the character ``y'',
 the move is attempted.
+.It Fl R
+Requires that exactly two arguments be given and simply attempts to
+.Xr rename 2
+the first onto the second.  This suppresses all checks for
+directory-hood and permission bits, and ignores the
+.Fl f
+and
+.Fl i
+options.
 .El
 The last of any
 .Fl f
