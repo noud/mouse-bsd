@@ -87,6 +87,7 @@ readcmd(argc, argv)
 	char **ap;
 	int backslash;
 	char c;
+	int zeroflag;
 	int rflag;
 	char *prompt;
 	char *ifs;
@@ -95,13 +96,21 @@ readcmd(argc, argv)
 	int status;
 	int i;
 
+	zeroflag = 0;
 	rflag = 0;
 	prompt = NULL;
-	while ((i = nextopt("p:r")) != '\0') {
-		if (i == 'p')
+	while ((i = nextopt("0p:r")) != '\0') {
+		switch (i) {
+		case '0':
+			zeroflag = 1;
+			break;
+		case 'p':
 			prompt = optarg;
-		else
+			break;
+		case 'r':
 			rflag = 1;
+			break;
+		}
 	}
 	if (prompt && isatty(0)) {
 		out2str(prompt);
@@ -111,6 +120,12 @@ readcmd(argc, argv)
 		error("arg count");
 	if ((ifs = bltinlookup("IFS", 1)) == NULL)
 		ifs = nullstr;
+	if (zeroflag) {
+		if (ap[1])
+			error("too many variables with -0");
+		rflag = 1;
+		ifs = nullstr;
+	}
 	status = 0;
 	startword = 1;
 	backslash = 0;
@@ -120,8 +135,11 @@ readcmd(argc, argv)
 			status = 1;
 			break;
 		}
-		if (c == '\0')
+		if (c == '\0') {
+			if (zeroflag)
+				break;
 			continue;
+		}
 		if (backslash) {
 			backslash = 0;
 			if (c != '\n')
@@ -132,7 +150,7 @@ readcmd(argc, argv)
 			backslash++;
 			continue;
 		}
-		if (c == '\n')
+		if ((c == '\n') && !zeroflag)
 			break;
 		if (startword && *ifs == ' ' && strchr(ifs, c)) {
 			continue;
@@ -156,8 +174,10 @@ readcmd(argc, argv)
 	}
 	STACKSTRNUL(p);
 	/* Remove trailing blanks */
-	while (stackblock() <= --p && strchr(ifs, *p) != NULL)
-		*p = '\0';
+	if (! zeroflag) {
+		while (stackblock() <= --p && strchr(ifs, *p) != NULL)
+			*p = '\0';
+	}
 	setvar(*ap, stackblock(), 0);
 	while (*++ap != NULL)
 		setvar(*ap, nullstr, 0);
