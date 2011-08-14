@@ -262,6 +262,7 @@ game()
 		msg("Loser (%s) gets first crib", (iwon ? "you" : "me"));
 		compcrib = !iwon;
 	}
+	do_wait();
 
 	pscore = cscore = 0;
 	flag = TRUE;
@@ -642,13 +643,16 @@ int
 score(mycrib)
 	BOOLEAN mycrib;
 {
+	int i;
+
 	sorthand(crib, CINHAND);
 	if (mycrib) {
 		if (plyrhand(phand, "hand"))
 			return (TRUE);
-		if (comphand(chand, "hand"))
-			return (TRUE);
+		i = comphand(chand, "hand");
 		do_wait();
+		if (i)
+			return (TRUE);
 		if (comphand(crib, "crib"))
 			return (TRUE);
 		do_wait();
