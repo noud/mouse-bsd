@@ -61,6 +61,19 @@ extern	BOOLEAN		playing;		/* currently playing game */
 
 extern  char		expl[];			/* string for explanation */
 
+#ifdef NEED_PROTOTYPES
+#ifdef __STDC__
+#define __P(x) x
+#else
+#define __P(x) ()
+#endif
+#endif
+
+#ifdef NEED_STRERROR
+extern char *sys_errlist[];
+#define strerror(x) sys_errlist[x]
+#endif
+
 void	 addmsg __P((const char *, ...));
 int	 adjust __P((const CARD [], CARD));
 int	 anymove __P((const CARD [], int, int));
