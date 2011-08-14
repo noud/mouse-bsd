@@ -582,6 +582,7 @@ redraw_screen()
 # endif
 		first = 0;
 	}
+#if 0
 # if defined(BSD_RELEASE) && BSD_RELEASE >= 44
 	for (i = 0; i < SCREEN_HEIGHT; i++) {
 		int	j;
@@ -595,6 +596,13 @@ redraw_screen()
 	curscr->_cury = cur_row;
 	curscr->_curx = cur_col;
 # endif
+#else
+	for (i = 0; i < SCREEN_HEIGHT; i++) {
+		wmove(curscr,i,0);
+		waddbytes(curscr,&screen[i][0],SCREEN_WIDTH);
+	}
+	wmove(curscr,cur_row,cur_col);
+#endif
 	clearok(curscr, TRUE);
 	touchwin(curscr);
 	wrefresh(curscr);
