@@ -46,7 +46,7 @@ SRCTOP= ..
 .include <bsd.crypto.mk>
 
 TZDIR=		/usr/share/zoneinfo
-LOCALTIME?=	US/Pacific
+LOCALTIME?=	Canada/Eastern
 
 # setting NOOBJ prevents "make obj" from doing anything;
 # an objdir would break the installation stuff below
