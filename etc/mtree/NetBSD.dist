@@ -5,11 +5,6 @@
 # .
 .
 
-# ./altroot
-altroot
-# ./altroot
-..
-
 # ./bin
 bin
 # ./bin
@@ -121,11 +116,6 @@ root
 # ./sbin
 sbin
 # ./sbin
-..
-
-# ./stand
-stand
-# ./stand
 ..
 
 # ./tmp
