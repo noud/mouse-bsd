@@ -30,11 +30,11 @@ static u_char     usermpoint = 0;	/* the user monster pointer */
 /*
 	lexical analyzer for larn
  */
-int
-yylex()
+int yylex(void)
 {
 	char            cc;
 	int             ic;
+
 	if (hit2flag) {
 		hit2flag = 0;
 		yrepcount = 0;
@@ -82,18 +82,19 @@ yylex()
 #endif	/* TIMECHECK */
 
 			}
-		do {		/* if keyboard input buffer is too big, flush
-				 * some of it */
-			ioctl(0, FIONREAD, &ic);
-			if (ic > flushno)
-				read(0, &cc, 1);
-		}
-		while (ic > flushno);
+		if (! autoflag)
+			do {		/* if keyboard input buffer is too
+					 * big, flush some of it */
+				ioctl(0, FIONREAD, &ic);
+				if (ic > flushno)
+					read(0, &cc, 1);
+			} while (ic > flushno);
 
-		if (read(0, &cc, 1) != 1)
+		if (autoread(0, &cc) != 1)
 			return (lastok = -1);
 
-		if (cc == 'Y' - 64) {	/* control Y -- shell escape */
+		if (!autoflag && (cc == 'Y' - 64)) {
+			/* control Y -- shell escape */
 			resetscroll();
 			clear();/* scrolling region, home, clear, no
 				 * attributes */
@@ -122,11 +123,12 @@ yylex()
 /*
  *	flushall()		Function to flush all type-ahead in the input buffer
  */
-void
-flushall()
+void flushall(void)
 {
 	char            cc;
 	int             ic;
+
+	if (autoflag) return;
 	for (;;) {		/* if keyboard input buffer is too big, flush
 				 * some of it */
 		ioctl(0, FIONREAD, &ic);
@@ -143,11 +145,10 @@ flushall()
 	function to set the desired hardness
 	enter with hard= -1 for default hardness, else any desired hardness
  */
-void
-sethard(hard)
-	int             hard;
+void sethard(int hard)
 {
 	int    j, k, i;
+
 	j = c[HARDGAME];
 	hashewon();
 	if (restorflag == 0) {	/* don't set c[HARDGAME] if restoring game */
@@ -175,12 +176,16 @@ sethard(hard)
 /*
 	function to read and process the larn options file
  */
-void
-readopts()
+void readopts(void)
 {
 	char  *i;
 	int    j, k;
 	int             flag;
+
+	if (autoflag) {
+		strcpy(&logname[0],"Autolarn");
+		return;
+	}
 	flag = 1;		/* set to 0 if he specifies a name for his
 				 * character */
 	if (lopen(optsfile) < 0) {
@@ -207,6 +212,15 @@ readopts()
 		case 'i':
 			if (strcmp(i, "inverse-objects") == 0)
 				boldon = 0;
+			else if (strcmp(i, "inventory-sort:") == 0) {
+				if ((i = lgetw()) == 0)
+					break;
+				if (! strcmp(i,"alpha")) {
+					invsort = INVSORT_ALPHA;
+				} else if (! strcmp(i,"type")) {
+					invsort = INVSORT_TYPE;
+				}
+			}
 			break;
 
 		case 'f':

@@ -46,5 +46,5 @@ char  ckpfile[] = "Larn12.0.ckp";	/* the checkpoint filename */
 char *password = "pvnert(x)";		/* the wizards password <=32 */
 char  psname[PSNAMESIZE] = "larn";	/* the process name */
 
-#define	WIZID	1
-int   wisid = 0;	/* the user id of the only person who can be wizard */
+/* the user id of the only person who can be wizard (<0 => anyone) */
+int	wisid = -1;

@@ -1,4 +1,4 @@
-/*	$NetBSD: io.c,v 1.8 1999/10/04 23:27:02 lukem Exp $	*/
+/*	$NetBSD: io.c,v 1.15 2005/02/03 02:23:02 perry Exp $	*/
 
 /*
  * io.c			 Larn is copyrighted 1986 by Noah Morgan.
@@ -7,7 +7,7 @@
  *
  * setupvt100() 	Subroutine to set up terminal in correct mode for game
  * clearvt100()  	Subroutine to clean up terminal when the game is over
- * getchar() 		Routine to read in one character from the terminal
+ * lgetchar() 		Routine to read in one character from the terminal
  * scbr()			Function to set cbreak -echo for the terminal
  * sncbr()			Function to set -cbreak echo for the terminal
  * newgame() 		Subroutine to save the initial time and seed rnd()
@@ -44,25 +44,24 @@
  *
  * Other Routines
  *
- * cursor(x,y)					position cursor at [x,y]
- * cursors()					position cursor at [1,24]
- * (saves memory) cl_line(x,y)         		Clear line at [1,y] and leave
- * cursor at [x,y] cl_up(x,y)    				Clear screen
- * from [x,1] to current line. cl_dn(x,y)
- * lear screen from [1,y] to end of display. standout(str)
- * rint the string in standout mode. set_score_output()
- * alled when output should be literally printed. * xputchar(ch)
- * rint one character in decoded output buffer. * flush_buf()
- * lush buffer with decoded output. * init_term()
- * erminal initialization -- setup termcap info *	char *tmcapcnv(sd,ss)
- * outine to convert VT100 \33's to termcap format beep()
- * e to emit a beep if enabled (see no-beep in .larnopts)
+ * cursor(x,y)		position cursor at [x,y]
+ * cursors()		position cursor at [1,24] (saves memory)
+ * cl_line(x,y)		Clear line at [1,y] and leave cursor at [x,y]
+ * cl_up(x,y)		Clear screen from [x,1] to current line.
+ * cl_dn(x,y)		Clear screen from [1,y] to end of display.
+ * standout(str)	Print the string in standout mode.
+ * set_score_output()	Called when output should be literally printed.
+ * xputchar(ch)		Print one character in decoded output buffer.
+ * flush_buf()		Flush buffer with decoded output.
+ * init_term()		Terminal initialization -- setup termcap info
+ * char *tmcapcnv(sd,ss) Routine to convert VT100 \33's to termcap format
+ * beep()		Emit a beep if enabled (see no-beep in .larnopts)
  *
  * Note: ** entries are available only in termcap mode.
  */
 #include <sys/cdefs.h>
 #ifndef lint
-__RCSID("$NetBSD: io.c,v 1.8 1999/10/04 23:27:02 lukem Exp $");
+__RCSID("$NetBSD: io.c,v 1.15 2005/02/03 02:23:02 perry Exp $");
 #endif /* not lint */
 
 #include "header.h"
@@ -116,11 +115,7 @@ static char     saveeof, saveeol;
 #endif	/* not TERMIO or TERMIOS */
 
 #ifndef NOVARARGS	/* if we have varargs */
-#ifdef __STDC__
 #include <stdarg.h>
-#else
-#include <varargs.h>
-#endif
 #else	/* NOVARARGS */	/* if we don't have varargs */
 typedef char   *va_list;
 #define va_dcl int va_alist;
@@ -142,8 +137,7 @@ static char     lgetwbuf[LINBUFSIZE];	/* get line (word) buffer */
  *
  *	Attributes off, clear screen, set scrolling region, set tty mode
  */
-void
-setupvt100()
+void setupvt100(void)
 {
 	clear();
 	setscroll();
@@ -155,8 +149,7 @@ setupvt100()
  *
  *	Attributes off, clear screen, unset scrolling region, restore tty mode
  */
-void
-clearvt100()
+void clearvt100(void)
 {
 	resetscroll();
 	clear();
@@ -164,17 +157,18 @@ clearvt100()
 }
 
 /*
- *	getchar() 	Routine to read in one character from the terminal
+ *	lgetchar() 	Routine to read in one character from the terminal
  */
-int
-getchar()
+int lgetchar(void)
 {
 	char            byt;
+
 #ifdef EXTRA
 	c[BYTESIN]++;
 #endif
 	lflush();		/* be sure output buffer is flushed */
-	read(0, &byt, 1);	/* get byte from terminal */
+	byt = 0;
+	autoread(0, &byt);	/* get byte from terminal */
 	return (byt);
 }
 
@@ -183,9 +177,9 @@ getchar()
  *
  *	like: system("stty cbreak -echo")
  */
-void
-scbr()
+void scbr(void)
 {
+	if (autoflag) return;
 	gtty(0, &ttx);
 	doraw(ttx);
 	stty(0, &ttx);
@@ -196,9 +190,9 @@ scbr()
  *
  *	like: system("stty -cbreak echo")
  */
-void
-sncbr()
+void sncbr(void)
 {
+	if (autoflag) return;
 	gtty(0, &ttx);
 	unraw(ttx);
 	stty(0, &ttx);
@@ -207,13 +201,13 @@ sncbr()
 /*
  *	newgame() 	Subroutine to save the initial time and seed rnd()
  */
-void
-newgame()
+void newgame(void)
 {
 	long  *p, *pe;
+
 	for (p = c, pe = c + 100; p < pe; *p++ = 0);
 	time(&initialtime);
-	srand(initialtime);
+	seedrand(initialtime);
 	lcreat((char *) 0);	/* open buffering for output to terminal */
 }
 
@@ -249,26 +243,14 @@ sprintf(str)
 }
 #else	/* lint */
 /* VARARGS */
-#ifdef __STDC__
 void lprintf(const char *fmt, ...)
-#else
-void
-lprintf(va_alist)
-va_dcl
-#endif
 {
-	va_list         ap;	/* pointer for variable argument list */
+	va_list         ap;
 	char  *outb, *tmpb;
-	long   wide, left, cont, n;	/* data for lprintf	 */
+	long   wide, left, cont, n;
 	char            db[12];	/* %d buffer in lprintf	 */
-#ifndef __STDC__
-	char  *fmt;
 
-	va_start(ap);		/* initialize the var args pointer */
-	fmt = va_arg(ap, char *);	/* pointer to format string */
-#else
 	va_start(ap, fmt);
-#endif
 	if (lpnt >= lpend)
 		lflush();
 	outb = lpnt;
@@ -278,6 +260,7 @@ va_dcl
 				*outb++ = *fmt++;
 			else {
 				lpnt = outb;
+				va_end(ap);
 				return;
 			}
 		wide = 0;
@@ -286,7 +269,7 @@ va_dcl
 		while (cont)
 			switch (*(++fmt)) {
 			case 'd':
-				n = va_arg(ap, long);
+				n = va_arg(ap, int);
 				if (n < 0) {
 					n = -n;
 					*outb++ = '-';
@@ -361,7 +344,7 @@ va_dcl
 				*outb++ = *fmt;
 				cont = 0;
 				break;
-			};
+			}
 		fmt++;
 	}
 	va_end(ap);
@@ -384,10 +367,9 @@ va_dcl
  *	No checking for output buffer overflow is done, but flushes if needed!
  *	Returns nothing of value.
  */
-void
-lprint(x)
-	long   x;
+void lprint(long int x)
 {
+	if (autoflag) abort();
 	if (lpnt >= lpend)
 		lflush();
 	*lpnt++ = 255 & x;
@@ -404,13 +386,11 @@ lprint(x)
  *	Enter with the address and number of bytes to write out
  *	Returns nothing of value
  */
-void
-lwrite(buf, len)
-	char  *buf;
-	int             len;
+void lwrite(char *buf, int len)
 {
 	char  *str;
 	int    num2;
+
 	if (len > 399) {	/* don't copy data if can just write it */
 #ifdef EXTRA
 		c[BYTESOUT] += len;
@@ -444,10 +424,11 @@ lwrite(buf, len)
  *
  *  Returns 0 if EOF, otherwise the character
  */
-long
-lgetc()
+long lgetc(void)
 {
 	int    i;
+
+	if (autoflag && (fd == 0)) abort();
 	if (ipoint != iepoint)
 		return (inbuffer[ipoint++]);
 	if (iepoint != MAXIBUF)
@@ -476,10 +457,10 @@ lgetc()
  *	The save order is low order first, to high order (4 bytes total)
  *	Returns the int read
  */
-long
-lrint()
+long lrint(void)
 {
 	unsigned long i;
+
 	i = 255 & lgetc();
 	i |= (255 & lgetc()) << 8;
 	i |= (255 & lgetc()) << 16;
@@ -495,13 +476,12 @@ lrint()
  *	Reads "number" bytes into the buffer pointed to by "address".
  *	Returns nothing of value
  */
-void
-lrfill(adr, num)
-	char  *adr;
-	int             num;
+void lrfill(char *adr, int num)
 {
 	char  *pnt;
 	int    num2;
+
+	if (autoflag && (fd == 0)) abort();
 	while (num) {
 		if (iepoint == ipoint) {
 			if (num > 5) {	/* fast way */
@@ -531,11 +511,11 @@ lrfill(adr, num)
  *
  *	Returns pointer to a buffer that contains word.  If EOF, returns a NULL
  */
-char *
-lgetw()
+char *lgetw(void)
 {
 	char  *lgp, cc;
 	int    n = LINBUFSIZE, quote = 0;
+
 	lgp = lgetwbuf;
 	do
 		cc = lgetc();
@@ -559,11 +539,11 @@ lgetw()
  *
  * Returns pointer to a buffer that contains the line.  If EOF, returns NULL
  */
-char *
-lgetl()
+char *lgetl(void)
 {
 	int    i = LINBUFSIZE, ch;
 	char  *str = lgetwbuf;
+
 	for (;; --i) {
 		if ((*str++ = ch = lgetc()) == '\0') {
 			if (str == lgetwbuf + 1)
@@ -583,14 +563,14 @@ lgetl()
  *	lcreat((char*)0); means to the terminal
  *	Returns -1 if error, otherwise the file descriptor opened.
  */
-int
-lcreat(str)
-	char *str;
+int lcreat(char *str)
 {
+	lflush();
 	lpnt = lpbuf;
 	lpend = lpbuf + BUFBIG;
 	if (str == NULL)
 		return (lfd = 1);
+	if (autoflag) abort();
 	if ((lfd = creat(str, 0644)) < 0) {
 		lfd = 1;
 		lprintf("error creating file <%s>: %s\n", str,
@@ -608,9 +588,7 @@ lcreat(str)
  *	lopen(0) means from the terminal
  *	Returns -1 if error, otherwise the file descriptor opened.
  */
-int
-lopen(str)
-	char           *str;
+int lopen(char *str)
 {
 	ipoint = iepoint = MAXIBUF;
 	if (str == NULL)
@@ -631,10 +609,9 @@ lopen(str)
  *	lappend(0) means to the terminal
  *	Returns -1 if error, otherwise the file descriptor opened.
  */
-int
-lappend(str)
-	char           *str;
+int lappend(char *str)
 {
+	if (autoflag) abort();
 	lpnt = lpbuf;
 	lpend = lpbuf + BUFBIG;
 	if (str == NULL)
@@ -652,8 +629,7 @@ lappend(str)
  *
  *	Returns nothing of value.
  */
-void
-lrclose()
+void lrclose(void)
 {
 	if (fd > 0)
 		close(fd);
@@ -664,8 +640,7 @@ lrclose()
  *
  *	Returns nothing of value.
  */
-void
-lwclose()
+void lwclose(void)
 {
 	lflush();
 	if (lfd > 2)
@@ -676,11 +651,10 @@ lwclose()
  *	lprcat(string)	append a string to the output buffer
  *			    	avoids calls to lprintf (time consuming)
  */
-void
-lprcat(str)
-	char  *str;
+void lprcat(char *str)
 {
 	char  *str2;
+
 	if (lpnt >= lpend)
 		lflush();
 	str2 = lpnt;
@@ -713,11 +687,10 @@ static char    *x_num[] = {
 ";70H", ";71H", ";72H", ";73H", ";74H", ";75H", ";76H", ";77H", ";78H", ";79H",
 ";80H"};
 
-void
-cursor(x, y)
-	int             x, y;
+void cursor(int x, int y)
 {
 	char  *p;
+
 	if (lpnt >= lpend)
 		lflush();
 
@@ -733,9 +706,7 @@ cursor(x, y)
 /*
  * cursor(x,y)	  Put cursor at specified coordinates staring at [1,1] (termcap)
  */
-void
-cursor(x, y)
-	int             x, y;
+void cursor(int x, int y)
 {
 	if (lpnt >= lpend)
 		lflush();
@@ -749,8 +720,7 @@ cursor(x, y)
 /*
  *	Routine to position cursor at beginning of 24th line
  */
-void
-cursors()
+void cursors(void)
 {
 	cursor(1, 24);
 }
@@ -764,19 +734,19 @@ cursors()
  */
 
 static char     cap[256];
-char           *CM, *CE, *CD, *CL, *SO, *SE, *AL, *DL;	/* Termcap capabilities */
+char *BC, *CM, *CE, *CD, *CL, *SO, *SE, *AL, *DL; /* Termcap capabilities */
 static char    *outbuf = 0;	/* translated output buffer */
 
 /*
  * init_term()		Terminal initialization -- setup termcap info
  */
-void
-init_term()
+void init_term(void)
 {
 	char            termbuf[1024];
 	char           *capptr = cap + 10;
 	char           *term;
 
+ if (! autoflag) {
 	switch (tgetent(termbuf, term = getenv("TERM"))) {
 	case -1:
 		write(2, "Cannot open termcap file.\n", 26);
@@ -786,7 +756,7 @@ init_term()
 		write(2, term, strlen(term));
 		write(2, " in termcap\n", 12);
 		exit(1);
-	};
+	}
 
 	CM = tgetstr("cm", &capptr);	/* Cursor motion */
 	CE = tgetstr("ce", &capptr);	/* Clear to eoln */
@@ -798,6 +768,13 @@ init_term()
 	SO = tgetstr("so", &capptr);	/* Begin standout mode */
 	SE = tgetstr("se", &capptr);	/* End standout mode */
 	CD = tgetstr("cd", &capptr);	/* Clear to end of display */
+	/* work out backspace, if any */
+	BC = tgetstr("bc", &capptr);
+	if ((BC == 0) && tgetflag("bs")) {
+		BC = malloc(2);
+		BC[0] = '\b';
+		BC[1] = 0;
+	}
 
 	if (!CM) {		/* can't find cursor motion entry */
 		write(2, "Sorry, for a ", 13);
@@ -817,6 +794,7 @@ init_term()
 		write(2, ", I can't find the clear entire screen entry in termcap\n", 56);
 		exit(1);
 	}
+  }
 	if ((outbuf = malloc(BUFBIG + 16)) == 0) {	/* get memory for
 							 * decoded output buffer */
 		write(2, "Error malloc'ing memory for decoded output buffer\n", 50);
@@ -828,9 +806,7 @@ init_term()
 /*
  * cl_line(x,y)  Clear the whole line indicated by 'y' and leave cursor at [x,y]
  */
-void
-cl_line(x, y)
-	int             x, y;
+void cl_line(int x, int y)
 {
 #ifdef VT100
 	cursor(x, y);
@@ -845,9 +821,7 @@ cl_line(x, y)
 /*
  * cl_up(x,y) Clear screen from [x,1] to current position. Leave cursor at [x,y]
  */
-void
-cl_up(x, y)
-	int    x, y;
+void cl_up(int x, int y)
 {
 #ifdef VT100
 	cursor(x, y);
@@ -866,9 +840,7 @@ cl_up(x, y)
 /*
  * cl_dn(x,y) 	Clear screen from [1,y] to end of display. Leave cursor at [x,y]
  */
-void
-cl_dn(x, y)
-	int    x, y;
+void cl_dn(int x, int y)
 {
 #ifdef VT100
 	cursor(x, y);
@@ -893,9 +865,7 @@ cl_dn(x, y)
 /*
  * standout(str)	Print the argument string in inverse video (standout mode).
  */
-void
-standout(str)
-	char  *str;
+void standout(char *str)
 {
 #ifdef VT100
 	setbold();
@@ -913,11 +883,32 @@ standout(str)
 /*
  * set_score_output() 	Called when output should be literally printed.
  */
-void
-set_score_output()
+void set_score_output(void)
 {
 	enable_scroll = -1;
 }
+
+#ifndef VT100
+
+void setscroll(void)
+{
+ enable_scroll = 1;
+ if (autoflag)
+  { lprc(SCROLL);
+    lprc(1);
+  }
+}
+
+void resetscroll(void)
+{
+ enable_scroll = 0;
+ if (autoflag)
+  { lprc(SCROLL);
+    lprc(0);
+  }
+}
+
+#endif
 
 /*
  *	lflush()	Flush the output buffer
@@ -929,13 +920,12 @@ set_score_output()
 #ifndef VT100
 static int      scrline = 18;	/* line # for wraparound instead of scrolling
 				 * if no DL */
-void
-lflush()
+static int curx = 0;
+static int cury = 0;
+void lflush(void)
 {
 	int    lpoint;
 	u_char  *str;
-	static int      curx = 0;
-	static int      cury = 0;
 
 	if ((lpoint = lpnt - lpbuf) > 0) {
 #ifdef EXTRA
@@ -948,6 +938,10 @@ lflush()
 			lpnt = lpbuf;	/* point back to beginning of buffer */
 			return;
 		}
+		if (autoflag) {
+			if (lfd != 1) abort();
+			write(1,lpbuf,lpnt-lpbuf);
+		} else
 		for (str = lpbuf; str < lpnt; str++) {
 			if (*str >= 32) {
 				xputchar(*str);
@@ -979,6 +973,20 @@ lflush()
 					curx = *++str - 1;
 					cury = *++str - 1;
 					tputs(tgoto(CM, curx, cury), 0, xputchar);
+					break;
+
+				case 7:
+					xputchar(7);
+					break;
+
+				case '\b':
+					if (curx > 0) {
+						if (BC)
+							tputs(BC, 1, xputchar);
+						else
+							tputs(tgoto(CM, curx-1, cury), 0, xputchar);
+						curx --;
+					}
 					break;
 
 				case '\n':
@@ -1015,7 +1023,7 @@ lflush()
 				default:
 					xputchar(*str);
 					curx++;
-				};
+				}
 		}
 	}
 	lpnt = lpbuf;
@@ -1027,10 +1035,10 @@ lflush()
  *
  *	Returns nothing of value.
  */
-void
-lflush()
+void lflush(void)
 {
 	int    lpoint;
+
 	if ((lpoint = lpnt - lpbuf) > 0) {
 #ifdef EXTRA
 		c[BYTESOUT] += lpoint;
@@ -1047,10 +1055,9 @@ static int      vindex = 0;
 /*
  * xputchar(ch)		Print one character in decoded output buffer.
  */
-int
-xputchar(c)
-	int             c;
+int xputchar(int c)
 {
+	if (autoflag) abort();
 	outbuf[vindex++] = c;
 	if (vindex >= BUFBIG)
 		flush_buf();
@@ -1060,9 +1067,9 @@ xputchar(c)
 /*
  * flush_buf()			Flush buffer with decoded output.
  */
-void
-flush_buf()
+void flush_buf(void)
 {
+	if (vindex && autoflag) abort();
 	if (vindex)
 		write(lfd, outbuf, vindex);
 	vindex = 0;
@@ -1073,12 +1080,12 @@ flush_buf()
  *	format
  *	Processes only the \33[#m sequence (converts . files for termcap use
  */
-char *
-tmcapcnv(sd, ss)
-	char  *sd, *ss;
+char *tmcapcnv(char *sd, char *ss)
 {
 	int    tmstate = 0;	/* 0=normal, 1=\33 2=[ 3=# */
 	char            tmdigit = 0;	/* the # in \33[#m */
+
+	if (autoflag) abort();
 	while (*ss) {
 		switch (tmstate) {
 		case 0:
@@ -1115,7 +1122,7 @@ tmcapcnv(sd, ss)
 			}
 		default:
 			goto ign;
-		};
+		}
 		ss++;
 	}
 	*sd = 0;		/* NULL terminator */
@@ -1126,9 +1133,35 @@ tmcapcnv(sd, ss)
 /*
  *	beep()	Routine to emit a beep if enabled (see no-beep in .larnopts)
  */
-void
-beep()
+void beep(void)
 {
 	if (!nobeep)
 		*lpnt++ = '\7';
+}
+
+int autoread(int fd, void *buf)
+{
+ if (autoflag)
+  { lprc(READING);
+    lflush();
+    return(read(fd,buf,1));
+  }
+ else
+  { return(read(fd,buf,1));
+  }
+}
+
+void auto_report_score(int score)
+{
+ if (autoflag)
+  { lprc(SCOREIS);
+    lprc( score     &0xff);
+    lprc((score>> 8)&0xff);
+    lprc((score>>16)&0xff);
+    lprc((score>>24)&0xff);
+    lflush();
+  }
+ else
+  { abort();
+  }
 }

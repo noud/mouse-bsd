@@ -1,11 +1,12 @@
-/*	$NetBSD: help.c,v 1.4 1997/10/18 20:03:24 christos Exp $	*/
+/*	$NetBSD: help.c,v 1.5 2001/02/05 00:57:33 christos Exp $	*/
 
 /* help.c		Larn is copyrighted 1986 by Noah Morgan. */
 #include <sys/cdefs.h>
 #ifndef lint
-__RCSID("$NetBSD: help.c,v 1.4 1997/10/18 20:03:24 christos Exp $");
+__RCSID("$NetBSD: help.c,v 1.5 2001/02/05 00:57:33 christos Exp $");
 #endif /* not lint */
 
+#include <stdlib.h>
 #include <unistd.h>
 
 #include "header.h"
@@ -19,14 +20,15 @@ __RCSID("$NetBSD: help.c,v 1.4 1997/10/18 20:03:24 christos Exp $");
  *	page (23 lines) for the introductory message (not counted in above)
  *	pages of help text (23 lines per page)
  */
-void
-help()
+void help(void)
 {
 	int    i, j;
 #ifndef VT100
 	char            tmbuf[128];	/* intermediate translation buffer
 					 * when not a VT100 */
 #endif	/* VT100 */
+
+	if (autoflag) return;
 	if ((j = openhelp()) < 0)
 		return;		/* open the help file and get # pages */
 	for (i = 0; i < 23; i++)
@@ -51,7 +53,7 @@ help()
 			lprcat(" for more help ---- ");
 			i = 0;
 			while ((i != ' ') && (i != '\n') && (i != '\33'))
-				i = getchar();
+				i = lgetchar();
 			if ((i == '\n') || (i == '\33')) {
 				lrclose();
 				setscroll();
@@ -68,14 +70,15 @@ help()
 /*
  *	function to display the welcome message and background
  */
-void
-welcome()
+void welcome(void)
 {
 	int    i;
 #ifndef VT100
 	char            tmbuf[128];	/* intermediate translation buffer
 					 * when not a VT100 */
 #endif	/* VT100 */
+
+	if (autoflag) return;
 	if (openhelp() < 0)
 		return;		/* open the help file */
 	clear();
@@ -95,23 +98,22 @@ welcome()
 /*
  *	function to say press return to continue and reset scroll when done
  */
-void
-retcont()
+void retcont(void)
 {
 	cursor(1, 24);
 	lprcat("Press ");
 	standout("return");
 	lprcat(" to continue: ");
-	while (getchar() != '\n');
+	while (lgetchar() != '\n');
 	setscroll();
 }
 
 /*
  *	routine to open the help file and return the first character - '0'
  */
-int
-openhelp()
+int openhelp(void)
 {
+	if (autoflag) abort();
 	if (lopen(helpfile) < 0) {
 		lprintf("Can't open help file \"%s\" ", helpfile);
 		lflush();

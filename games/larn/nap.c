@@ -6,6 +6,7 @@
 __RCSID("$NetBSD: nap.c,v 1.5 1997/10/18 20:03:36 christos Exp $");
 #endif				/* not lint */
 
+#include <poll.h>
 #include <unistd.h>
 #include "header.h"
 #include "extern.h"
@@ -13,12 +14,11 @@ __RCSID("$NetBSD: nap.c,v 1.5 1997/10/18 20:03:36 christos Exp $");
 /*
  *	routine to take a nap for n milliseconds
  */
-void
-nap(x)
-	int    x;
+void nap(int x)
 {
 	if (x <= 0)
 		return;		/* eliminate chance for infinite loop */
 	lflush();
-	usleep(x * 1000);
+	if (autoflag) return;
+	poll(0,0,x);
 }

@@ -1,4 +1,4 @@
-/*	$NetBSD: bill.c,v 1.5 1997/10/18 20:03:06 christos Exp $	 */
+/*	$NetBSD: bill.c,v 1.7 2003/08/07 09:37:22 agc Exp $	 */
 
 /*-
  * Copyright (c) 1991 The Regents of the University of California.
@@ -12,11 +12,7 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *	This product includes software developed by the University of
- *	California, Berkeley and its contributors.
- * 4. Neither the name of the University nor the names of its contributors
+ * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
@@ -38,21 +34,22 @@
 #if 0
 static char sccsid[] = "@(#)bill.c	5.2 (Berkeley) 5/28/91";
 #else
-__RCSID("$NetBSD: bill.c,v 1.5 1997/10/18 20:03:06 christos Exp $");
+__RCSID("$NetBSD: bill.c,v 1.7 2003/08/07 09:37:22 agc Exp $");
 #endif
 #endif /* not lint */
 
 #include <sys/file.h>
 #include <sys/wait.h>
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <unistd.h>
 #include "header.h"
 #include "extern.h"
 
 /* bill.c		 Larn is copyrighted 1986 by Noah Morgan. */
 
+#if SEND_WIN_EMAIL
 char *mail[] = {
 	"From: the LRS (Larn Revenue Service)\n",
 	"~s undeclared income\n",
@@ -116,36 +113,41 @@ char *mail[] = {
 	"\ncan be your everlasting reward.\n",
 	NULL
 };
+#endif
 
 /*
  * function to mail the letters to the player if a winner
  */
 
-void
-mailbill()
+void mailbill(void)
 {
+#if SEND_WIN_EMAIL
 	int    i;
 	char   fname[32];
 	char   buf[128];
 	char **cp;
 	int    fd;
 
+	if (autoflag) abort();
 	wait(0);
 	if (fork() == 0) {
 		resetscroll();
 		cp = mail;
-		sprintf(fname, "/tmp/#%dlarnmail", getpid());
+		snprintf(fname, sizeof(fname), "/tmp/#%dlarnmail", getpid());
 		for (i = 0; i < 6; i++) {
 			if ((fd = open(fname, O_WRONLY | O_TRUNC | O_CREAT,
 				       0666)) == -1)
 				exit(0);
 			while (*cp != NULL) {
 				if (*cp[0] == '1') {
-					sprintf(buf, "\n%ld gold pieces back with you from your journey.  As the",
+					snprintf(buf, sizeof(buf),
+		"\n%ld gold pieces back with you from your journey.  As the",
 						(long) c[GOLD]);
 					write(fd, buf, strlen(buf));
 				} else if (*cp[0] == '2') {
-					sprintf(buf, "\nin preparing your tax bill.  You owe %ld gold pieces as", (long) c[GOLD] * TAXRATE);
+					snprintf(buf, sizeof(buf),
+		"\nin preparing your tax bill.  You owe %ld gold pieces as",
+					    (long) c[GOLD] * TAXRATE);
 					write(fd, buf, strlen(buf));
 				} else
 					write(fd, *cp, strlen(*cp));
@@ -154,11 +156,12 @@ mailbill()
 			cp++;
 
 			close(fd);
-			sprintf(buf, "mail -I %s < %s > /dev/null",
-				loginname, fname);
+			snprintf(buf, sizeof(buf),
+			    "mail -I %s < %s > /dev/null", loginname, fname);
 			system(buf);
 			unlink(fname);
 		}
 	}
 	exit(0);
+#endif
 }

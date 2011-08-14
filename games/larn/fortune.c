@@ -1,4 +1,4 @@
-/*	$NetBSD: fortune.c,v 1.4 1997/10/18 20:03:18 christos Exp $	*/
+/*	$NetBSD: fortune.c,v 1.5 2003/08/07 09:37:23 agc Exp $	*/
 
 /*-
  * Copyright (c) 1991 The Regents of the University of California.
@@ -12,11 +12,7 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *	This product includes software developed by the University of
- *	California, Berkeley and its contributors.
- * 4. Neither the name of the University nor the names of its contributors
+ * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
@@ -38,7 +34,7 @@
 #if 0
 static char     sccsid[] = "@(#)fortune.c	5.5 (Berkeley) 6/10/91";
 #else
-__RCSID("$NetBSD: fortune.c,v 1.4 1997/10/18 20:03:18 christos Exp $");
+__RCSID("$NetBSD: fortune.c,v 1.5 2003/08/07 09:37:23 agc Exp $");
 #endif
 #endif				/* not lint */
 
@@ -52,7 +48,7 @@ __RCSID("$NetBSD: fortune.c,v 1.4 1997/10/18 20:03:18 christos Exp $");
  * function to return a random fortune from the fortune file
  */
 
-char           *flines[] = {
+char *flines[] = {
 	"gem value = gem * 2 ^ perfection",
 	"sitting down can have unexpected results",
 	"don't pry into the affairs of others",
@@ -68,7 +64,7 @@ char           *flines[] = {
 	"be sure to pay your taxes",
 	"are Vampires afraid of something?",
 	"some dragons can fly",
-	"dos thou strive for perfection?",
+	"dost thou strive for perfection?",
 	"patience is a virtue, unless your daughter dies",
 	"what does the Eye of Larn see in its guardian?",
 	"a level 25 player casts like crazy!",
@@ -81,7 +77,7 @@ char           *flines[] = {
 	"never enter the dungeon naked!  the monsters will laugh at you!",
 	"did someone put itching powder in your armor?",
 	"you klutz!",
-	"avoid opening doors.  you never know whats on the other side.",
+	"avoid opening doors.  you never know what's on the other side.",
 	"infinite regeneration ---> temptation",
 	"the greatest weapon in the game has not the highest Weapon Class",
 	"you can't buy the most powerful scroll",
@@ -91,8 +87,7 @@ char           *flines[] = {
 
 #define NFORTUNES	34
 
-char *
-fortune()
+char *fortune(void)
 {
 	return (flines[random() % NFORTUNES]);
 }
