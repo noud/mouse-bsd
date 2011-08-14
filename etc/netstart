@@ -139,15 +139,16 @@ fi
 # considered not recommended.  Use /etc/ifconfig.xxN if possible.
 #
 if [ -n "$configured_interfaces" ]; then
-	echo 'adding interface aliases:';
+	echo -n 'adding interface aliases:'
 	done_aliases_message=yes
 fi
 for int in $configured_interfaces; do
-	eval `echo 'args=$ifaliases_'$int`
+	eval `echo 'args="$ifaliases_'$int'"'`
 	if [ -n "$args" ]; then
 		set -- $args
 		while [ $# -ge 2 ]; do
 			addr=$1 ; net=$2 ; shift 2
+			echo -n " $int"
 			if [ "$net" = "-" ]; then
 				ifconfig $int inet alias $addr
 			else
@@ -157,6 +158,17 @@ for int in $configured_interfaces; do
 			route add $addr 127.0.0.1
 		done
 	fi
+	num=1
+	while :; do
+		eval `echo 'args=$ifalias_'$int'_'$num`
+		if [ -n "$args" ]; then
+			ifconfig $int $args alias
+			echo -n " $int"_"$num"
+			num=$(($num+1))
+		else
+			break
+		fi
+	done
 done
 
 # /etc/ifaliases, if it exists, contains the names of additional IP
@@ -170,9 +182,10 @@ done
 if [ -f /etc/ifaliases ]; then
 (
 	if [ "$done_aliases_message" != yes ]; then
-		echo 'adding interface aliases:';
+		echo -n 'adding interface aliases:'
 	fi
 	while read addr int net; do
+		echo -n " $int"
 		if [ -z "$net" ]; then
 			ifconfig $int inet alias $addr
 		else
@@ -183,6 +196,8 @@ if [ -f /etc/ifaliases ]; then
 	done
 ) < /etc/ifaliases
 fi
+
+[ "$done_aliases_message" = yes ] && echo .
 
 # /etc/ppp/peers and $ppp_peers contain boot configuration information
 # for pppd.  each value in $ppp_peers that has a file in /etc/ppp/peers
