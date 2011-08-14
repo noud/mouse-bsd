@@ -77,7 +77,7 @@ const char *const cards[] = {
 #define	PRC(card)	(void)printf(" %s", cards[card])
 
 int promode;
-int asked[RANKS], comphand[RANKS], deck[RANKS];
+int asked[RANKS], comphand[RANKS], deck[RANKS*CARDS], deckn;
 int userasked[RANKS], userhand[RANKS];
 
 void	chkwinner __P((int, const int *));
@@ -91,6 +91,7 @@ void	init __P((void));
 void	instructions __P((void));
 int	main __P((int, char *[]));
 int	nrandom __P((int));
+int	pickfromdeck __P((void));
 void	printhand __P((const int *));
 void	printplayer __P((int));
 int	promove __P((void));
@@ -170,7 +171,7 @@ usermove()
 			continue;
 		if (buf[0] == '\n') {
 			(void)printf("%d cards in my hand, %d in the pool.\n",
-			    countcards(comphand), countcards(deck));
+			    countcards(comphand), deckn);
 			(void)printf("My books:");
 			(void)countbooks(comphand);
 			continue;
@@ -264,15 +265,28 @@ promove()
 }
 
 int
+pickfromdeck(void)
+{
+	int i;
+	int card;
+
+	i = nrandom(deckn);
+	card = deck[i];
+	if (i != deckn-1)
+		 deck[i] = deck[deckn-1];
+	deckn --;
+	return(card);
+}
+
+int
 drawcard(player, hand)
 	int player;
 	int *hand;
 {
 	int card;
 
-	while (deck[card = nrandom(RANKS)] == 0);
+	card = pickfromdeck();
 	++hand[card];
-	--deck[card];
 	if (player == USER || hand[card] == CARDS) {
 		printplayer(player);
 		(void)printf("drew %s", cards[card]);
@@ -423,19 +437,16 @@ countbooks(hand)
 void
 init()
 {
-	int i, rank;
+	int i, rank, j;
 
-	for (i = 0; i < RANKS; ++i)
-		deck[i] = CARDS;
+	j = 0;
+	for (rank = 0; rank < RANKS; ++rank)
+		for (i=0;i<CARDS;i++)
+			deck[j++] = rank;
+	deckn = RANKS * CARDS;
 	for (i = 0; i < HANDSIZE; ++i) {
-		while (!deck[rank = nrandom(RANKS)]);
-		++userhand[rank];
-		--deck[rank];
-	}
-	for (i = 0; i < HANDSIZE; ++i) {
-		while (!deck[rank = nrandom(RANKS)]);
-		++comphand[rank];
-		--deck[rank];
+		++userhand[pickfromdeck()];
+		++comphand[pickfromdeck()];
 	}
 }
 
