@@ -33,6 +33,7 @@
 .Op Fl d
 .Op Fl s
 .Op Fl v
+.Op Fl R
 .Ar host
 .Sh DESCRIPTION
 The
@@ -130,6 +131,8 @@ field.  (Default:  UDP datagram.)
 Synonym for the
 .Dq Fl s
 flag.
+.It Fl R
+Turn off the RD (recursion desired) bit in the query.
 .It Ar host
 The name of the host (or domain) of interest.
 .El

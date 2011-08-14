@@ -59,6 +59,7 @@ main(int argc, char *argv[]) {
 	extern char *optarg;
 	HEADER *hp;
 	int stream = 0, debug = 0;
+	int norecursion = 0;
 
 	/* set defaults */
 	len = MAXDNAME;
@@ -73,7 +74,7 @@ main(int argc, char *argv[]) {
 	}
 
 	/* handle args */
-	while ((c = getopt(argc, argv, "c:dh:n:p:r:st:u:v")) != -1) {
+	while ((c = getopt(argc, argv, "c:dh:n:p:r:Rst:u:v")) != -1) {
 		switch (c) {
 
 		case 'r' :	res.retry = atoi(optarg);
@@ -114,6 +115,9 @@ main(int argc, char *argv[]) {
 				break;
 
 		case 'd' :	debug++;
+				break;
+
+		case 'R' :	norecursion++;
 				break;
 
 		case 's' :
@@ -178,6 +182,8 @@ main(int argc, char *argv[]) {
 		res.options |= RES_DEBUG;
 	if (stream)
 	 	res.options |= RES_USEVC;
+	if (norecursion)
+		res.options &= ~RES_RECURSE;
 
 	/* if the -n flag was used, add them to the resolver's list */
 	if (nameservers != 0) {
