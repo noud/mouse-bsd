@@ -145,6 +145,6 @@
 
 #define	CH_MARKDELETE	'\001'		/* used to alter name of deleted players */
 #define	CH_KILL		'\030'		/* kill character (ctrl-X) */
-#define	CH_ERASE	'\010'		/* erase character (ctrl-H) */
+#define	CH_ERASE	'\010': case '\177'/* erase character (ctrl-H/DEL) */
 #define	CH_NEWLINE	'\n'		/* newline */
 #define	CH_REDRAW	'\014'		/* redraw screen character (ctrl-L) */
