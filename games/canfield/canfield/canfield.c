@@ -1167,24 +1167,26 @@ updatebettinginfo()
 	if (status != BETTINGBOX)
 		return;
 	move(tboxrow + 2, boxcol + 13);
-	printw("%4d%8d%9d", this.hand, game.hand, total.hand);
+	printw("%4d%8d%9d", (int)this.hand, (int)game.hand, (int)total.hand);
 	move(tboxrow + 3, boxcol + 13);
-	printw("%4d%8d%9d", this.inspection, game.inspection, total.inspection);
+	printw("%4d%8d%9d", (int)this.inspection, (int)game.inspection,
+		(int)total.inspection);
 	move(tboxrow + 4, boxcol + 13);
-	printw("%4d%8d%9d", this.game, game.game, total.game);
+	printw("%4d%8d%9d", (int)this.game, (int)game.game, (int)total.game);
 	move(tboxrow + 5, boxcol + 13);
-	printw("%4d%8d%9d", this.runs, game.runs, total.runs);
+	printw("%4d%8d%9d", (int)this.runs, (int)game.runs, (int)total.runs);
 	move(tboxrow + 6, boxcol + 13);
-	printw("%4d%8d%9d", this.information, game.information,
-		total.information);
+	printw("%4d%8d%9d", (int)this.information, (int)game.information,
+		(int)total.information);
 	move(tboxrow + 7, boxcol + 13);
-	printw("%4d%8d%9d", this.thinktime, game.thinktime, total.thinktime);
+	printw("%4d%8d%9d", (int)this.thinktime, (int)game.thinktime,
+		(int)total.thinktime);
 	move(tboxrow + 8, boxcol + 13);
-	printw("%4d%8d%9d", thiscosts, gamecosts, totalcosts);
+	printw("%4d%8d%9d", (int)thiscosts, (int)gamecosts, (int)totalcosts);
 	move(tboxrow + 9, boxcol + 13);
-	printw("%4d%8d%9d", this.wins, game.wins, total.wins);
+	printw("%4d%8d%9d", (int)this.wins, (int)game.wins, (int)total.wins);
 	move(tboxrow + 10, boxcol + 13);
-	printw("%4d%8d%9d", this.worth, game.worth, total.worth);
+	printw("%4d%8d%9d", (int)this.worth, (int)game.worth, (int)total.worth);
 	move(tboxrow + 11, boxcol + 13);
 	printw("%4.0f%%%7.1f%%%8.1f%%", thisreturn, gamereturn, totalreturn);
 }
