@@ -89,7 +89,7 @@ prboard()
 	pp = &Player[PLAYER];
 	for (i = 0; i < HAND_SZ; i++)
 		show_card(i + 6, temp, pp->hand[i], &pp->sh_hand[i]);
-	mvprintw(6, COMP_STRT + CARD_STRT, "%2d", Topcard - Deck);
+	mvprintw(6, COMP_STRT + CARD_STRT, "%2d", (int)(Topcard - Deck));
 	show_card(8, COMP_STRT + CARD_STRT, Discard, &Sh_discard);
 	if (End == 1000) {
 		move(EXT_Y, EXT_X);
