@@ -16,6 +16,10 @@ trap : 3	# shouldn't be needed
 export HOME=/
 export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/X11R6/bin
 
+n=`sysctl -n proc.$$.rlimit.maxproc.hard`
+sysctl -w proc.$$.rlimit.maxproc.soft=$n
+sysctl -w proc.1.rlimit.maxproc.soft=$n
+
 # Configure ccd devices.
 if [ -f /etc/ccd.conf ]; then
 	ccdconfig -C
