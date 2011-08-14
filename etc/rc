@@ -430,14 +430,6 @@ if [ "$virecovery" != "/var/tmp/vi.recover/recover.*" ]; then
 	done
 fi
 
-echo clearing /tmp
-
-# Prune quickly with one rm, then use find to clean up /tmp/[lq]* (this
-# is not needed with mfs /tmp, but doesn't hurt anything).
-(cd /tmp && rm -rf [a-km-pr-zA-Z]* &&
-    find . ! -name . ! -name lost+found ! -name quota.user \
-	! -name quota.group -exec rm -rf -- {} \; -type d -prune)
-
 # Update kernel info in /etc/motd
 # Must be done *before* interactive logins are possible to prevent
 # possible race conditions.
