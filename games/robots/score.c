@@ -175,7 +175,7 @@ score(score_wfd)
 		move((scp - Top) + 2, 15);
 		if (!done_show && scp->s_uid == uid && scp->s_score == Score)
 			standout();
-		printw("%5.5d %5.5d %-8.8s %-9.9s %5.5d",
+		printw("%5d %5d %-8.8s %-9.9s %5d",
 		    (int)(scp - Top) + 1, scp->s_score, scp->s_name,
 		    scp->s_auto ? "(autobot)" : "", scp->s_level);
 		if (!done_show && scp->s_uid == uid && scp->s_score == Score) {
@@ -237,7 +237,7 @@ show_score()
 	    " ", "Level");
 	for (scp = Top; scp < &Top[MAXSCORES]; scp++)
 		if (scp->s_score > 0)
-			printf("%5.5d %5.5d %-8.8s %-9.9s %5.5d\n",
+			printf("%5d %5d %-8.8s %-9.9s %5d\n",
 			    inf++, scp->s_score, scp->s_name,
 			    scp->s_auto ? "(autobot)" :  "", scp->s_level);
 }
