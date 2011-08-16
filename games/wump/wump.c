@@ -644,6 +644,8 @@ initialize_things_in_cave()
 	do {
 		player_loc = (random() % room_num) + 1;
 	} while ( (player_loc == wumpus_loc) ||
+		  cave[player_loc].has_a_pit ||
+		  cave[player_loc].has_a_bat ||
 		  ( (level == HARD) &&
 	            ((link_num * 10) < (room_num * 4)) &&
 		    wump_nearby() ) );
