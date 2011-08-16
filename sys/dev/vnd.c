@@ -729,7 +729,15 @@ vndioctl(dev, cmd, data, flag, p)
 	case DIOCSDINFO:
 	case DIOCWDINFO:
 	case DIOCWLABEL:
+	case VNDIOSDEBUG:
 		if ((flag & FWRITE) == 0)
+			return (EBADF);
+	}
+
+	/* ...and open for reads for these. */
+	switch (cmd) {
+	case VNDIOGDEBUG:
+		if ((flag & FREAD) == 0)
 			return (EBADF);
 	}
 
@@ -920,6 +928,20 @@ vndioctl(dev, cmd, data, flag, p)
 
 		vndunlock(vnd);
 
+		break;
+
+	case VNDIOSDEBUG:
+#ifdef DEBUG
+		vnddebug = *(int *)data;
+#endif
+		break;
+
+	case VNDIOGDEBUG:
+#ifdef DEBUG
+		*(int *)data = vnddebug;
+#else
+		*(int *)data = 0;
+#endif
 		break;
 
 	case DIOCGDINFO:

@@ -91,6 +91,10 @@
 .Fl u
 .Op Fl v
 .Ar vnode_disk
+.Nm ""
+.Fl d
+.Ar vnode_disk
+.Op Ar debug-setting
 .Sh DESCRIPTION
 The
 .Nm
@@ -148,6 +152,11 @@ exclusive with the
 argument.
 .It Fl u
 Unconfigures the device.
+.It Fl d
+Set or query the driver's debugging variable.  If
+.Ar debug-setting
+is given, the variable is set; otherwise, it is queried and the value
+printed.
 .It Fl v
 Print messages to stdout describing actions taken.
 .El
@@ -195,6 +204,8 @@ device.
 .Sh BUGS
 This command should really be named
 .Nm vndconfig .
+.Pp
+Should not need a device name in order to set/get the debug variable.
 .Sh SEE ALSO
 .Xr opendisk 3 ,
 .Xr vnd 4 ,

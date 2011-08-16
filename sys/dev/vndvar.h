@@ -139,7 +139,10 @@ struct vnd_softc {
  * Before you can use a unit, it must be configured with VNDIOCSET.
  * The configuration persists across opens and closes of the device;
  * an VNDIOCCLR must be used to reset a configuration.  An attempt to
- * VNDIOCSET an already active unit will return EBUSY.
+ * VNDIOCSET an already active unit will return EBUSY.  VNDIOSDEBUG and
+ * VNDIOGDEBUG set and get the vnddebug variable's value.
  */
 #define VNDIOCSET	_IOWR('F', 0, struct vnd_ioctl)	/* enable disk */
 #define VNDIOCCLR	_IOW('F', 1, struct vnd_ioctl)	/* disable disk */
+#define VNDIOSDEBUG	_IOW('F', 2, int)
+#define VNDIOGDEBUG	_IOR('F', 3, int)

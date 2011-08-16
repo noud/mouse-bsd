@@ -102,6 +102,7 @@
 
 #define VND_CONFIG	1
 #define VND_UNCONFIG	2
+#define VND_DEBUG	3
 
 int	verbose = 0;
 int	readonly = 0;
@@ -113,6 +114,39 @@ int	main __P((int, char **));
 char   *rawdevice __P((char *));
 void	usage __P((void));
 
+static int debugaction(char *dev, const char *setting)
+{
+ char rdev[MAXPATHLEN+1];
+ int fd;
+ int val;
+ int rv;
+
+ if (setting) val = strtol(setting,0,0);
+ fd = opendisk(dev,setting?O_WRONLY:O_RDONLY,rdev,sizeof(rdev),0);
+ if (fd < 0)
+  { warn("%s: opendisk",rdev);
+    return(1);
+  }
+ rv = 0;
+ if (setting)
+  { if (ioctl(fd,VNDIOSDEBUG,&val) < 0)
+     { warn("%s: VNDIOSDEBUG",&rdev[0]);
+       rv = 1;
+     }
+  }
+ else
+  { if (ioctl(fd,VNDIOGDEBUG,&val) < 0)
+     { warn("%s: VNDIOGDEBUG",&rdev[0]);
+       rv = 1;
+     }
+    else
+     { printf("%d\n",val);
+     }
+  }
+ close(fd);
+ return(rv);
+}
+
 int
 main(argc, argv)
 	int argc;
@@ -120,10 +154,13 @@ main(argc, argv)
 {
 	int ch, rv, action = VND_CONFIG;
 
-	while ((ch = getopt(argc, argv, "crt:uv")) != -1) {
+	while ((ch = getopt(argc, argv, "cdrt:uv")) != -1) {
 		switch (ch) {
 		case 'c':
 			action = VND_CONFIG;
+			break;
+		case 'd':
+			action = VND_DEBUG;
 			break;
 		case 'r':
 			readonly = 1;
@@ -146,16 +183,24 @@ main(argc, argv)
 	argc -= optind;
 	argv += optind;
 
-	if (action == VND_CONFIG) {
+	switch (action) {
+	case VND_CONFIG:
 		if ((argc < 2 || argc > 3) ||
 		    (argc == 3 && tabname != NULL))
 			usage();
 		rv = config(argv[0], argv[1], (argc == 3) ? argv[2] : NULL,
 		    action);
-	} else {
+		break;
+	case VND_UNCONFIG:
 		if (argc != 1 || tabname != NULL)
 			usage();
 		rv = config(argv[0], NULL, NULL, action);
+		break;
+	case VND_DEBUG:
+		if ((argc < 1) || (argc > 2))
+			usage();
+		rv = debugaction(argv[0],(argc>1)?argv[1]:0);
+		break;
 	}
 	exit(rv);
 }
@@ -283,9 +328,10 @@ void
 usage()
 {
 
-	(void)fprintf(stderr, "%s%s",
+	(void)fprintf(stderr, "%s%s%s",
 	    "usage: vnconfig [-c] [-r] [-t typename] [-v] special-file"
 		" regular-file [geomspec]\n",
-	    "       vnconfig -u [-v] special-file\n");
+	    "       vnconfig -u [-v] special-file\n",
+	    "       vnconfig -d [-v] special-file [debug-setting]\n");
 	exit(1);
 }
