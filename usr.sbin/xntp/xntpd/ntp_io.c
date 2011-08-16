@@ -930,12 +930,7 @@ open_socket(addr, flags, turn_off_reuse)
       msyslog(LOG_ERR, buff);
       closesocket(fd);
 
-      /*
-       * soft fail if opening a class D address
-       */
-      if (IN_CLASSD(ntohl(addr->sin_addr.s_addr)))
-	return -1;
-      exit(1);
+      return -1;
     }
 #ifdef DEBUG
   if (debug)
