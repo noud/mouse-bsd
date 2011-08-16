@@ -1757,8 +1757,19 @@ ctl_getitem(var_list, data)
 					tp = buf;
 					while (cp < reqend && isspace(*cp))
 						cp++;
-					while (cp < reqend && *cp != ',')
+					while (cp < reqend && *cp != ',') {
 						*tp++ = *cp++;
+						if (tp >= buf+sizeof(buf)-1) {
+							msyslog(LOG_WARNING,
+	"Attempted xntpd exploit, apparently from %d.%d.%d.%d:%d\n",
+	(ntohl(rmt_addr->sin_addr.s_addr) >> 24) & 0xff,
+	(ntohl(rmt_addr->sin_addr.s_addr) >> 16) & 0xff,
+	(ntohl(rmt_addr->sin_addr.s_addr) >>  8) & 0xff,
+	(ntohl(rmt_addr->sin_addr.s_addr)      ) & 0xff,
+	ntohs(rmt_addr->sin_port) );
+							return(0);
+						}
+					}
 					if (cp < reqend)
 						cp++;
 					*tp = '\0';
