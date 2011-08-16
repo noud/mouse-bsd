@@ -104,10 +104,10 @@ static int sigio_block_count = 0;
 /*
  * recvbuf memory management
  */
-#define	RECV_INIT	10	/* 10 buffers initially */
-#define	RECV_LOWAT	3	/* when we're down to three buffers get more */
-#define	RECV_INC	5	/* get 5 more at a time */
-#define	RECV_TOOMANY	30	/* this is way too many buffers */
+#define	RECV_INIT	16	/* # buffers initially */
+#define	RECV_LOWAT	4	/* when we're down to this many get more */
+#define	RECV_INC	8	/* get this many more at a time */
+#define	RECV_TOOMANY	256	/* this is way too many buffers */
 
 /*
  * Memory allocation
