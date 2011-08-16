@@ -711,9 +711,11 @@ vndioctl(dev, cmd, data, flag, p)
 		printf("vndioctl(0x%x, 0x%lx, %p, 0x%x, %p): unit %d\n",
 		    dev, cmd, data, flag, p, unit);
 #endif
+#ifndef VND_NONPRIV
 	error = suser(p->p_ucred, &p->p_acflag);
 	if (error)
 		return (error);
+#endif
 	if (unit >= numvnd)
 		return (ENXIO);
 
