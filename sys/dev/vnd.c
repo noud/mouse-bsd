@@ -314,7 +314,8 @@ vndstrategy(bp)
 	int unit = vndunit(bp->b_dev);
 	struct vnd_softc *vnd = &vnd_softc[unit];
 	struct vndxfer *vnx;
-	int s, bn, bsize, resid;
+	int s, bsize, resid;
+	off_t bn;
 	caddr_t addr;
 	int sz, flags, error, wlabel;
 	struct disklabel *lp;
@@ -437,8 +438,8 @@ vndstrategy(bp)
 			sz = resid;
 #ifdef DEBUG
 		if (vnddebug & VDB_IO)
-			printf("vndstrategy: vp %p/%p bn 0x%x/0x%x sz 0x%x\n",
-			    vnd->sc_vp, vp, bn, nbn, sz);
+			printf("vndstrategy: vp %p/%p bn 0x%llx/0x%x sz 0x%x\n",
+			    vnd->sc_vp, vp, (unsigned long long int)bn, nbn, sz);
 #endif
 
 		s = splbio();
