@@ -844,7 +844,11 @@ vndioctl(dev, cmd, data, flag, p)
 		 * the geometry.
 		 * XXX Should we even bother with this?
 		 */
+/* No we shouldn't!  -dM, 2004-08-27, after being bitten by this
+   making vnd semi-useless for a backup disk image! */
+#if 0
 		vnd->sc_size = geomsize;
+#endif
 
 		if ((error = vndsetcred(vnd, p->p_ucred)) != 0) {
 			(void) vn_close(nd.ni_vp, FREAD|FWRITE, p->p_ucred, p);
