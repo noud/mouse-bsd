@@ -643,8 +643,10 @@ initialize_things_in_cave()
 
 	do {
 		player_loc = (random() % room_num) + 1;
-	} while (player_loc == wumpus_loc || (level == HARD ?
-	    (link_num / room_num < 0.4 ? wump_nearby() : 0) : 0));
+	} while ( (player_loc == wumpus_loc) ||
+		  ( (level == HARD) &&
+	            ((link_num * 10) < (room_num * 4)) &&
+		    wump_nearby() ) );
 }
 
 int
