@@ -104,6 +104,7 @@
 #define VND_UNCONFIG	2
 
 int	verbose = 0;
+int	readonly = 0;
 char	*tabname;
 
 int	config __P((char *, char *, char *, int));
@@ -119,10 +120,13 @@ main(argc, argv)
 {
 	int ch, rv, action = VND_CONFIG;
 
-	while ((ch = getopt(argc, argv, "ct:uv")) != -1) {
+	while ((ch = getopt(argc, argv, "crt:uv")) != -1) {
 		switch (ch) {
 		case 'c':
 			action = VND_CONFIG;
+			break;
+		case 'r':
+			readonly = 1;
 			break;
 		case 't':
 			tabname = optarg;
@@ -208,6 +212,7 @@ config(dev, file, geom, action)
 	 * Configure the device
 	 */
 	if (action == VND_CONFIG) {
+		if (readonly) vndio.vnd_flags |= VNDIOF_READONLY;
 		rv = ioctl(fd, VNDIOCSET, &vndio);
 		if (rv)
 			warn("%s: VNDIOCSET", rdev);
@@ -279,7 +284,7 @@ usage()
 {
 
 	(void)fprintf(stderr, "%s%s",
-	    "usage: vnconfig [-c] [-t typename] [-v] special-file"
+	    "usage: vnconfig [-c] [-r] [-t typename] [-v] special-file"
 		" regular-file [geomspec]\n",
 	    "       vnconfig -u [-v] special-file\n");
 	exit(1);

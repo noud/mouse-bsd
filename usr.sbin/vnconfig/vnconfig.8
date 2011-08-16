@@ -81,6 +81,7 @@
 .Sh SYNOPSIS
 .Nm
 .Op Fl c
+.Op Fl r
 .Op Fl t Ar typename
 .Op Fl v
 .Ar vnode_disk
@@ -131,6 +132,11 @@ is the number of sectors per track.
 is the number of tracks per cylinder.
 .Dq ncylinders
 is the number of cylinders in the device.
+.It Fl r
+When configuring a device, this specifies that it is to be read-only.
+The underlying file is opened read-only and the
+.Pa vnd
+device will be read-only.
 .It Fl t Ar typename
 If configuring the device, look up
 .Ar typename

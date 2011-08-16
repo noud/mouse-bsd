@@ -346,6 +346,15 @@ vndstrategy(bp)
 	}
 
 	/*
+	 * Check if we're read-only.
+	 */
+	if ((vnd->sc_flags & VNF_READONLY) && !(bp->b_flags & B_READ)) {
+		bp->b_error = EACCES;
+		bp->b_flags |= B_ERROR;
+		goto done;
+	}
+
+	/*
 	 * Do bounds checking and adjust transfer.  If there's an error,
 	 * the bounds check will flag that for us.
 	 */
@@ -694,6 +703,7 @@ vndioctl(dev, cmd, data, flag, p)
 	struct nameidata nd;
 	int error, part, pmask;
 	size_t geomsize;
+	int fflags;
 
 #ifdef DEBUG
 	if (vnddebug & VDB_FOLLOW)
@@ -741,21 +751,19 @@ vndioctl(dev, cmd, data, flag, p)
 		if ((error = vndlock(vnd)) != 0)
 			return (error);
 
-		/*
-		 * Always open for read and write.
-		 * This is probably bogus, but it lets vn_open()
-		 * weed out directories, sockets, etc. so we don't
-		 * have to worry about them.
-		 */
+		fflags = FREAD;
+		if (! (vio->vnd_flags & VNDIOF_READONLY)) fflags |= FWRITE;
 		NDINIT(&nd, LOOKUP, FOLLOW, UIO_USERSPACE, vio->vnd_file, p);
-		if ((error = vn_open(&nd, FREAD|FWRITE, 0)) != 0) {
+		if ((error = vn_open(&nd, fflags, 0)) != 0) {
 			vndunlock(vnd);
 			return(error);
 		}
 		error = VOP_GETATTR(nd.ni_vp, &vattr, p->p_ucred, p);
+		if (!error && (nd.ni_vp->v_type != VREG))
+			error = EOPNOTSUPP;
 		if (error) {
 			VOP_UNLOCK(nd.ni_vp, 0);
-			(void) vn_close(nd.ni_vp, FREAD|FWRITE, p->p_ucred, p);
+			(void) vn_close(nd.ni_vp, fflags, p->p_ucred, p);
 			vndunlock(vnd);
 			return(error);
 		}
@@ -824,6 +832,9 @@ vndioctl(dev, cmd, data, flag, p)
 			 */
 			geomsize = 32 * 64 * vnd->sc_geom.vng_ncylinders;
 		}
+
+		if (vio->vnd_flags & VNDIOF_READONLY)
+			vnd->sc_flags |= VNF_READONLY;
 
 		/*
 		 * Truncate the size to that specified by
@@ -1040,15 +1051,18 @@ vndclear(vnd)
 {
 	register struct vnode *vp = vnd->sc_vp;
 	struct proc *p = curproc;		/* XXX */
+	int fflags;
 
 #ifdef DEBUG
 	if (vnddebug & VDB_FOLLOW)
 		printf("vndclear(%p): vp %p\n", vnd, vp);
 #endif
-	vnd->sc_flags &= ~VNF_INITED;
+	fflags = FREAD;
+	if (! (vnd->sc_flags & VNF_READONLY)) fflags |= FWRITE;
+	vnd->sc_flags &= ~(VNF_INITED|VNF_READONLY);
 	if (vp == (struct vnode *)0)
 		panic("vndioctl: null vp");
-	(void) vn_close(vp, FREAD|FWRITE, vnd->sc_cred, p);
+	(void) vn_close(vp, fflags, vnd->sc_cred, p);
 	crfree(vnd->sc_cred);
 	vnd->sc_vp = (struct vnode *)0;
 	vnd->sc_cred = (struct ucred *)0;

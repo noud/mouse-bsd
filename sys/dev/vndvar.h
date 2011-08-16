@@ -102,6 +102,7 @@ struct vnd_ioctl {
 
 /* vnd_flags */
 #define	VNDIOF_HASGEOM	0x01		/* use specified geometry */
+#define VNDIOF_READONLY 0x02		/* as read-only device */
 
 struct vnode;
 struct ucred;
@@ -132,6 +133,7 @@ struct vnd_softc {
 #define	VNF_WANTED	0x08	/* someone is waiting to obtain a lock */
 #define	VNF_LOCKED	0x10	/* unit is locked */
 #define	VNF_BUSY	0x20	/* unit is busy */
+#define VNF_READONLY	0x40	/* unit is read-only */
 
 /*
  * Before you can use a unit, it must be configured with VNDIOCSET.
