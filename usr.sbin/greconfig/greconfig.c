@@ -177,7 +177,7 @@ main(int argc, char **argv)
 		if (err < 0)
 			perror("GREGPROTO");
 		else
-			printf("running IP-Proto %d\n", ifr.ifr_flags);
+			printf("running IP-Proto %d\n", (int)ifr.ifr_flags);
 	}
 	close(s);
 
