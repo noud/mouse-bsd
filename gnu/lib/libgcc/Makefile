@@ -29,6 +29,13 @@ LIB2OBJS=	__gcc_bcmp.o _varargs.o __dummy.o _eprintf.o _bb.o _shtab.o \
     (${MACHINE_ARCH} == "sparc64")
 LIB2OBJS+=	_fixxfdi.o _fixunsxfdi.o _floatdixf.o _fixunsxfsi.o
 .endif
+.if (${MACHINE_ARCH} == "powerpc")
+OBJS+=		tramp.o
+tramp.o: ${DIST}/config/rs6000/tramp.asm
+	ln -s ${DIST}/config/rs6000/tramp.asm tramp.S
+	${COMPILE.c} -I${DIST}/ginclude tramp.S -o tramp.o
+	rm -f tramp.S
+.endif
 OBJS+=		${LIB2OBJS}
 
 # Extra code to include in libgcc2 for C++ support.
