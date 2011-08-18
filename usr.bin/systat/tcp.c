@@ -58,7 +58,7 @@ __RCSID("$NetBSD: tcp.c,v 1.3 2000/01/13 12:39:05 ad Exp $");
 
 #define LHD(row, str)		mvwprintw(wnd, row, 10, str)
 #define RHD(row, str)		mvwprintw(wnd, row, 45, str)
-#define SHOW(row, col, stat)	mvwprintw(wnd, row, col, "%9lu", curstat.stat)
+#define SHOW(row, col, stat)	mvwprintw(wnd, row, col, "%9lu", (unsigned long int)curstat.stat)
 
 static struct tcpstat curstat, oldstat;
 
