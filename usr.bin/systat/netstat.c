@@ -516,8 +516,8 @@ shownetstat()
 		if (p->ni_family == AF_INET6)
 			waddstr(wnd, "6");
 #endif
-		mvwprintw(wnd, p->ni_line, RCVCC, "%6d", p->ni_rcvcc);
-		mvwprintw(wnd, p->ni_line, SNDCC, "%6d", p->ni_sndcc);
+		mvwprintw(wnd, p->ni_line, RCVCC, "%6d", (int)p->ni_rcvcc);
+		mvwprintw(wnd, p->ni_line, SNDCC, "%6d", (int)p->ni_sndcc);
 		if (streq(p->ni_proto, "tcp")) {
 			if (p->ni_state < 0 || p->ni_state >= TCP_NSTATES)
 				mvwprintw(wnd, p->ni_line, STATE, "%d",
