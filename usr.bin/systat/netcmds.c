@@ -292,7 +292,7 @@ showports()
 		if (sp)
 			printw("%s ", sp->s_name);
 		else
-			printw("%d ", p->port);
+			printw("%d ", (int)p->port);
 	}
 }
 
