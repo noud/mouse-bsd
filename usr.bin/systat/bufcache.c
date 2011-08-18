@@ -164,9 +164,9 @@ showbufcache()
 			wprintw(wnd,
 			    "    %6d %3d    %8ld %3d    %8ld %3d     %3d",
 			    ml->ml_count, (100 * ml->ml_count) / nbuf,
-			    ml->ml_valid, (100 * ml->ml_valid) / bufkb,
-			    ml->ml_size, (100 * ml->ml_size) / bufkb,
-			    (100 * ml->ml_valid) / ml->ml_size);
+			    ml->ml_valid, (int)((100 * ml->ml_valid) / bufkb),
+			    ml->ml_size, (int)((100 * ml->ml_size) / bufkb),
+			    (int)((100 * ml->ml_valid) / ml->ml_size));
 			wclrtoeol(wnd);
 			lastrow = i;
 		}
@@ -181,8 +181,9 @@ showbufcache()
 	mvwprintw(wnd, lastrow + 2, 0,
 	    "%-20s    %6d %3d    %8d %3d    %8d %3d     %3d",
 	    "Total:", tbuf, (100 * tbuf) / nbuf,
-	    tvalid, (100 * tvalid) / bufkb,
-	    tsize, (100 * tsize) / bufkb, (100 * tvalid) / tsize);
+	    (int)tvalid, (int)((100 * tvalid) / bufkb),
+	    (int)tsize, (int)((100 * tsize) / bufkb),
+	    (int)((100 * tvalid) / tsize));
 }
 
 int
