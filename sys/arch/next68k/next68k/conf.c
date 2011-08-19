@@ -292,6 +292,8 @@ chrtoblk(dev)
 {
 	int	blkmaj;
 
+	if ((sizeof(chrtoblktbl)/sizeof(chrtoblktbl[0])) < nchrdev)
+		panic("chrtoblktbl too small for cdevsw");
 	if (major(dev) >= nchrdev)
 		return NODEV;
 	blkmaj = chrtoblktab[major(dev)];

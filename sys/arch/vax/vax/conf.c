@@ -581,6 +581,8 @@ dev_t
 chrtoblk(dev)
 	dev_t dev;
 {
+	if ((sizeof(chrtoblktbl)/sizeof(chrtoblktbl[0])) < nchrdev)
+		panic("chrtoblktbl too small for cdevsw");
 	if(major(dev)>=nchrdev) return(NODEV);
 	return chrtoblktbl[major(dev)]==NODEV?NODEV:
 		makedev(chrtoblktbl[major(dev)],minor(dev));
