@@ -360,6 +360,39 @@ struct cdevsw	cdevsw[] =
 	cdev_ugen_init(NUGEN,ugen),	/* 64: USB generic driver */
 	cdev_mouse_init(NWSMUX,	wsmux), /* 65: ws multiplexor */
 	cdev_tty_init(NUCOM, ucom),	/* 66: USB tty */
+	cdev_notdef(),			/* 67 */
+	cdev_notdef(),			/* 68 */
+	cdev_notdef(),			/* 69 */
+	cdev_notdef(),			/* 70 */
+	cdev_notdef(),			/* 71 */
+	cdev_notdef(),			/* 72 */
+	cdev_notdef(),			/* 73 */
+	cdev_notdef(),			/* 74 */
+	cdev_notdef(),			/* 75 */
+	cdev_notdef(),			/* 76 */
+	cdev_notdef(),			/* 77 */
+	cdev_notdef(),			/* 78 */
+	cdev_notdef(),			/* 79 */
+	cdev_notdef(),			/* 80 */
+	cdev_notdef(),			/* 81 */
+	cdev_notdef(),			/* 82 */
+	cdev_notdef(),			/* 83 */
+	cdev_notdef(),			/* 84 */
+	cdev_notdef(),			/* 85 */
+	cdev_notdef(),			/* 86 */
+	cdev_notdef(),			/* 87 */
+	cdev_notdef(),			/* 88 */
+	cdev_notdef(),			/* 89 */
+	cdev_notdef(),			/* 90 */
+	cdev_notdef(),			/* 91 */
+	cdev_notdef(),			/* 92 */
+	cdev_notdef(),			/* 93 */
+	cdev_notdef(),			/* 94 */
+	cdev_notdef(),			/* 95 */
+	cdev_notdef(),			/* 96 */
+	cdev_notdef(),			/* 97 */
+	cdev_notdef(),			/* 98 */
+	cdev_notdef(),			/* 99 */
 };
 int	nchrdev = sizeof(cdevsw) / sizeof(cdevsw[0]);
 
@@ -469,6 +502,38 @@ static int chrtoblktbl[] = {
 	/* 65 */	NODEV,
 	/* 66 */	NODEV,
 	/* 67 */	NODEV,
+	/* 68 */	NODEV,
+	/* 69 */	NODEV,
+	/* 70 */	NODEV,
+	/* 71 */	NODEV,
+	/* 72 */	NODEV,
+	/* 73 */	NODEV,
+	/* 74 */	NODEV,
+	/* 75 */	NODEV,
+	/* 76 */	NODEV,
+	/* 77 */	NODEV,
+	/* 78 */	NODEV,
+	/* 79 */	NODEV,
+	/* 80 */	NODEV,
+	/* 81 */	NODEV,
+	/* 82 */	NODEV,
+	/* 83 */	NODEV,
+	/* 84 */	NODEV,
+	/* 85 */	NODEV,
+	/* 86 */	NODEV,
+	/* 87 */	NODEV,
+	/* 88 */	NODEV,
+	/* 89 */	NODEV,
+	/* 90 */	NODEV,
+	/* 91 */	NODEV,
+	/* 92 */	NODEV,
+	/* 93 */	NODEV,
+	/* 94 */	NODEV,
+	/* 95 */	NODEV,
+	/* 96 */	NODEV,
+	/* 97 */	NODEV,
+	/* 98 */	NODEV,
+	/* 99 */	NODEV,
 };
 
 /*

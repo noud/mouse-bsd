@@ -257,6 +257,33 @@ struct cdevsw	cdevsw[] =
 	cdev_scsibus_init(NSCSIBUS,scsibus), /* 120: SCSI bus */
 	cdev_disk_init(NRAID,raid),	/* 121: RAIDframe disk driver */
 	cdev_fb_init(NPNOZZ,p9100),	/* 122: /dev/cgfourteen */
+	cdev_notdef(),			/* 123 */
+	cdev_notdef(),			/* 124 */
+	cdev_notdef(),			/* 125 */
+	cdev_notdef(),			/* 126 */
+	cdev_notdef(),			/* 127 */
+	cdev_notdef(),			/* 128 */
+	cdev_notdef(),			/* 129 */
+	cdev_notdef(),			/* 130 */
+	cdev_notdef(),			/* 131 */
+	cdev_notdef(),			/* 132 */
+	cdev_notdef(),			/* 133 */
+	cdev_notdef(),			/* 134 */
+	cdev_notdef(),			/* 135 */
+	cdev_notdef(),			/* 136 */
+	cdev_notdef(),			/* 137 */
+	cdev_notdef(),			/* 138 */
+	cdev_notdef(),			/* 139 */
+	cdev_notdef(),			/* 140 */
+	cdev_notdef(),			/* 141 */
+	cdev_notdef(),			/* 142 */
+	cdev_notdef(),			/* 143 */
+	cdev_notdef(),			/* 144 */
+	cdev_notdef(),			/* 145 */
+	cdev_notdef(),			/* 146 */
+	cdev_notdef(),			/* 147 */
+	cdev_notdef(),			/* 148 */
+	cdev_notdef(),			/* 149 */
 };
 int	nchrdev = sizeof(cdevsw) / sizeof(cdevsw[0]);
 
@@ -418,6 +445,34 @@ static int chrtoblktbl[] = {
 	/*119 */	NODEV,
 	/*120 */	NODEV,
 	/*121 */	25,
+	/*122 */	NODEV,
+	/*123 */	NODEV,
+	/*124 */	NODEV,
+	/*125 */	NODEV,
+	/*126 */	NODEV,
+	/*127 */	NODEV,
+	/*128 */	NODEV,
+	/*129 */	NODEV,
+	/*130 */	NODEV,
+	/*131 */	NODEV,
+	/*132 */	NODEV,
+	/*133 */	NODEV,
+	/*134 */	NODEV,
+	/*135 */	NODEV,
+	/*136 */	NODEV,
+	/*137 */	NODEV,
+	/*138 */	NODEV,
+	/*139 */	NODEV,
+	/*140 */	NODEV,
+	/*141 */	NODEV,
+	/*142 */	NODEV,
+	/*143 */	NODEV,
+	/*144 */	NODEV,
+	/*145 */	NODEV,
+	/*146 */	NODEV,
+	/*147 */	NODEV,
+	/*148 */	NODEV,
+	/*149 */	NODEV,
 };
 
 /*

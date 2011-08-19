@@ -296,6 +296,50 @@ struct cdevsw	cdevsw[] =
 	cdev_scsibus_init(NSCSIBUS,scsibus), /* 81: SCSI bus */
 	cdev_disk_init(NRAID,raid), 	/* 82: RAIDframe disk driver */
 	cdev_svr4_net_init(NSVR4_NET,svr4_net), /* 83: svr4 net pseudo-device */
+	cdev_notdef(),			/* 84 */
+	cdev_notdef(),			/* 85 */
+	cdev_notdef(),			/* 86 */
+	cdev_notdef(),			/* 87 */
+	cdev_notdef(),			/* 88 */
+	cdev_notdef(),			/* 89 */
+	cdev_notdef(),			/* 90 */
+	cdev_notdef(),			/* 91 */
+	cdev_notdef(),			/* 92 */
+	cdev_notdef(),			/* 93 */
+	cdev_notdef(),			/* 94 */
+	cdev_notdef(),			/* 95 */
+	cdev_notdef(),			/* 96 */
+	cdev_notdef(),			/* 97 */
+	cdev_notdef(),			/* 98 */
+	cdev_notdef(),			/* 99 */
+	cdev_notdef(),			/* 100 */
+	cdev_notdef(),			/* 101 */
+	cdev_notdef(),			/* 102 */
+	cdev_notdef(),			/* 103 */
+	cdev_notdef(),			/* 104 */
+	cdev_notdef(),			/* 105 */
+	cdev_notdef(),			/* 106 */
+	cdev_notdef(),			/* 107 */
+	cdev_notdef(),			/* 108 */
+	cdev_notdef(),			/* 109 */
+	cdev_notdef(),			/* 110 */
+	cdev_notdef(),			/* 111 */
+	cdev_notdef(),			/* 112 */
+	cdev_notdef(),			/* 113 */
+	cdev_notdef(),			/* 114 */
+	cdev_notdef(),			/* 115 */
+	cdev_notdef(),			/* 116 */
+	cdev_notdef(),			/* 117 */
+	cdev_notdef(),			/* 118 */
+	cdev_notdef(),			/* 119 */
+	cdev_notdef(),			/* 120 */
+	cdev_notdef(),			/* 121 */
+	cdev_notdef(),			/* 122 */
+	cdev_notdef(),			/* 123 */
+	cdev_notdef(),			/* 124 */
+	cdev_notdef(),			/* 125 */
+	cdev_notdef(),			/* 126 */
+	cdev_notdef(),			/* 127 */
 };
 int	nchrdev = sizeof(cdevsw) / sizeof(cdevsw[0]);
 
@@ -420,6 +464,51 @@ static int chrtoblktbl[] = {
 	/* 80 */	NODEV,
 	/* 81 */	NODEV,
 	/* 82 */	25,
+	/* 83 */	NODEV,
+	/* 84 */	NODEV,
+	/* 85 */	NODEV,
+	/* 86 */	NODEV,
+	/* 87 */	NODEV,
+	/* 88 */	NODEV,
+	/* 89 */	NODEV,
+	/* 90 */	NODEV,
+	/* 91 */	NODEV,
+	/* 92 */	NODEV,
+	/* 93 */	NODEV,
+	/* 94 */	NODEV,
+	/* 95 */	NODEV,
+	/* 96 */	NODEV,
+	/* 97 */	NODEV,
+	/* 98 */	NODEV,
+	/* 99 */	NODEV,
+	/* 100 */	NODEV,
+	/* 101 */	NODEV,
+	/* 102 */	NODEV,
+	/* 103 */	NODEV,
+	/* 104 */	NODEV,
+	/* 105 */	NODEV,
+	/* 106 */	NODEV,
+	/* 107 */	NODEV,
+	/* 108 */	NODEV,
+	/* 109 */	NODEV,
+	/* 110 */	NODEV,
+	/* 111 */	NODEV,
+	/* 112 */	NODEV,
+	/* 113 */	NODEV,
+	/* 114 */	NODEV,
+	/* 115 */	NODEV,
+	/* 116 */	NODEV,
+	/* 117 */	NODEV,
+	/* 118 */	NODEV,
+	/* 119 */	NODEV,
+	/* 120 */	NODEV,
+	/* 121 */	NODEV,
+	/* 122 */	NODEV,
+	/* 123 */	NODEV,
+	/* 124 */	NODEV,
+	/* 125 */	NODEV,
+	/* 126 */	NODEV,
+	/* 127 */	NODEV,
 };
 
 /*

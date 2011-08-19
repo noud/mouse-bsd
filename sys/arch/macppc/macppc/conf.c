@@ -194,6 +194,60 @@ struct cdevsw cdevsw[] = {
 	cdev_mouse_init(NWSMUX,wsmux),  /* 43: ws multiplexor */
 	cdev_tty_init(NUCOM,ucom),	/* 44: USB tty */
 	cdev_tty_init(NCOM,com),	/* 45: NS16x50 compatible ports */
+	cdev_notdef(),			/* 46 */
+	cdev_notdef(),			/* 47 */
+	cdev_notdef(),			/* 48 */
+	cdev_notdef(),			/* 49 */
+	cdev_notdef(),			/* 50 */
+	cdev_notdef(),			/* 51 */
+	cdev_notdef(),			/* 52 */
+	cdev_notdef(),			/* 53 */
+	cdev_notdef(),			/* 54 */
+	cdev_notdef(),			/* 55 */
+	cdev_notdef(),			/* 56 */
+	cdev_notdef(),			/* 57 */
+	cdev_notdef(),			/* 58 */
+	cdev_notdef(),			/* 59 */
+	cdev_notdef(),			/* 60 */
+	cdev_notdef(),			/* 61 */
+	cdev_notdef(),			/* 62 */
+	cdev_notdef(),			/* 63 */
+	cdev_notdef(),			/* 64 */
+	cdev_notdef(),			/* 65 */
+	cdev_notdef(),			/* 66 */
+	cdev_notdef(),			/* 67 */
+	cdev_notdef(),			/* 68 */
+	cdev_notdef(),			/* 69 */
+	cdev_notdef(),			/* 70 */
+	cdev_notdef(),			/* 71 */
+	cdev_notdef(),			/* 72 */
+	cdev_notdef(),			/* 73 */
+	cdev_notdef(),			/* 74 */
+	cdev_notdef(),			/* 75 */
+	cdev_notdef(),			/* 76 */
+	cdev_notdef(),			/* 77 */
+	cdev_notdef(),			/* 78 */
+	cdev_notdef(),			/* 79 */
+	cdev_notdef(),			/* 80 */
+	cdev_notdef(),			/* 81 */
+	cdev_notdef(),			/* 82 */
+	cdev_notdef(),			/* 83 */
+	cdev_notdef(),			/* 84 */
+	cdev_notdef(),			/* 85 */
+	cdev_notdef(),			/* 86 */
+	cdev_notdef(),			/* 87 */
+	cdev_notdef(),			/* 88 */
+	cdev_notdef(),			/* 89 */
+	cdev_notdef(),			/* 90 */
+	cdev_notdef(),			/* 91 */
+	cdev_notdef(),			/* 92 */
+	cdev_notdef(),			/* 93 */
+	cdev_notdef(),			/* 94 */
+	cdev_notdef(),			/* 95 */
+	cdev_notdef(),			/* 96 */
+	cdev_notdef(),			/* 97 */
+	cdev_notdef(),			/* 98 */
+	cdev_notdef(),			/* 99 */
 };
 int nchrdev = sizeof cdevsw / sizeof cdevsw[0];
 
@@ -274,6 +328,60 @@ static int chrtoblktbl[] = {
 	/* 43 */	NODEV,
 	/* 44 */	NODEV,
 	/* 45 */	NODEV,
+	/* 46 */	NODEV,
+	/* 47 */	NODEV,
+	/* 48 */	NODEV,
+	/* 49 */	NODEV,
+	/* 50 */	NODEV,
+	/* 51 */	NODEV,
+	/* 52 */	NODEV,
+	/* 53 */	NODEV,
+	/* 54 */	NODEV,
+	/* 55 */	NODEV,
+	/* 56 */	NODEV,
+	/* 57 */	NODEV,
+	/* 58 */	NODEV,
+	/* 59 */	NODEV,
+	/* 60 */	NODEV,
+	/* 61 */	NODEV,
+	/* 62 */	NODEV,
+	/* 63 */	NODEV,
+	/* 64 */	NODEV,
+	/* 65 */	NODEV,
+	/* 66 */	NODEV,
+	/* 67 */	NODEV,
+	/* 68 */	NODEV,
+	/* 69 */	NODEV,
+	/* 70 */	NODEV,
+	/* 71 */	NODEV,
+	/* 72 */	NODEV,
+	/* 73 */	NODEV,
+	/* 74 */	NODEV,
+	/* 75 */	NODEV,
+	/* 76 */	NODEV,
+	/* 77 */	NODEV,
+	/* 78 */	NODEV,
+	/* 79 */	NODEV,
+	/* 80 */	NODEV,
+	/* 81 */	NODEV,
+	/* 82 */	NODEV,
+	/* 83 */	NODEV,
+	/* 84 */	NODEV,
+	/* 85 */	NODEV,
+	/* 86 */	NODEV,
+	/* 87 */	NODEV,
+	/* 88 */	NODEV,
+	/* 89 */	NODEV,
+	/* 90 */	NODEV,
+	/* 91 */	NODEV,
+	/* 92 */	NODEV,
+	/* 93 */	NODEV,
+	/* 94 */	NODEV,
+	/* 95 */	NODEV,
+	/* 96 */	NODEV,
+	/* 97 */	NODEV,
+	/* 98 */	NODEV,
+	/* 99 */	NODEV,
 };
 
 /*
