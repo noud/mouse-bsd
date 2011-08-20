@@ -1,4 +1,4 @@
-/*	$NetBSD: addch.c,v 1.9 1999/04/13 14:08:17 mrg Exp $	*/
+/*	$NetBSD: addch.c,v 1.11 2000/04/15 13:17:02 blymn Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -38,11 +38,50 @@
 #if 0
 static char sccsid[] = "@(#)addch.c	8.2 (Berkeley) 5/4/94";
 #else
-__RCSID("$NetBSD: addch.c,v 1.9 1999/04/13 14:08:17 mrg Exp $");
+__RCSID("$NetBSD: addch.c,v 1.11 2000/04/15 13:17:02 blymn Exp $");
 #endif
 #endif				/* not lint */
 
 #include "curses.h"
+#include "curses_private.h"
+
+#ifndef _CURSES_USE_MACROS
+
+/*
+ * addch --
+ *	Add the character to the current position in stdscr.
+ *
+ */
+int
+addch(chtype ch)
+{
+	return waddch(stdscr, ch);
+}
+
+/*
+ * mvaddch --
+ *      Add the character to stdscr at the given location.
+ */
+int
+mvaddch(int y, int x, chtype ch)
+{
+	return mvwaddch(stdscr, y, x, ch);
+}
+
+/*
+ * mvwaddch --
+ *      Add the character to the given window at the given location.
+ */
+int
+mvwaddch(WINDOW *win, int y, int x, chtype ch)
+{
+	if (wmove(win, y, x) == ERR)
+		return ERR;
+
+	return waddch(win, ch);
+}
+
+#endif
 
 /*
  * waddch --
@@ -50,21 +89,20 @@ __RCSID("$NetBSD: addch.c,v 1.9 1999/04/13 14:08:17 mrg Exp $");
  *
  */
 int
-waddch(win, ch)
-	WINDOW *win;
-	int	 ch;
+waddch(WINDOW *win, chtype ch)
 {
 	__LDATA buf;
 
-	buf.ch = ch;
-	buf.attr = 0;
+	buf.ch = (wchar_t) ch & __CHARTEXT;
+	buf.attr = (attr_t) ch & __ATTRIBUTES;
+#ifdef DEBUG
+	__CTRACE("addch: %d : 0x%x\n", buf.ch, buf.attr);
+#endif
 	return (__waddch(win, &buf));
 }
 
 int
-__waddch(win, dp)
-	WINDOW *win;
-	__LDATA *dp;
+__waddch(WINDOW *win, __LDATA *dp)
 {
 	char	buf[2];
 

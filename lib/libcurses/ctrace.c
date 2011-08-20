@@ -1,4 +1,4 @@
-/*	$NetBSD: ctrace.c,v 1.6 1999/04/13 14:08:17 mrg Exp $	*/
+/*	$NetBSD: ctrace.c,v 1.10 2000/04/20 09:36:11 blymn Exp $	*/
 
 /*-
  * Copyright (c) 1992, 1993
@@ -38,7 +38,7 @@
 #if 0
 static char sccsid[] = "@(#)ctrace.c	8.2 (Berkeley) 10/5/93";
 #else
-__RCSID("$NetBSD: ctrace.c,v 1.6 1999/04/13 14:08:17 mrg Exp $");
+__RCSID("$NetBSD: ctrace.c,v 1.10 2000/04/20 09:36:11 blymn Exp $");
 #endif
 #endif				/* not lint */
 
@@ -51,7 +51,11 @@ __RCSID("$NetBSD: ctrace.c,v 1.6 1999/04/13 14:08:17 mrg Exp $");
 #include <varargs.h>
 #endif
 
+#include <sys/time.h>
+#include <string.h>
+
 #include "curses.h"
+#include "curses_private.h"
 
 #ifndef TFILE
 #define	TFILE	"__curses.out"
@@ -68,6 +72,8 @@ __CTRACE(fmt, va_alist)
 va_dcl
 #endif
 {
+	struct timeval tv;
+        static int seencr = 1;
 	va_list ap;
 #ifdef __STDC__
 	va_start(ap, fmt);
@@ -78,8 +84,24 @@ va_dcl
 		tracefp = fopen(TFILE, "w");
 	if (tracefp == NULL)
 		return;
-	(void) vfprintf(tracefp, fmt, ap);
+	gettimeofday(&tv, NULL);
+        if (seencr) {
+                gettimeofday(&tv, NULL);
+                (void) fprintf(tracefp, "%lu.%06lu: ", tv.tv_sec, tv.tv_usec);
+        }
+        (void) vfprintf(tracefp, fmt, ap);
+        seencr = (strchr(fmt, '\n') != NULL);
 	va_end(ap);
 	(void) fflush(tracefp);
+}
+#else
+/* this kills the empty translation unit message from lint... */
+void
+__cursesi_make_lint_shut_up_if_debug_not_defined(void);
+
+void
+__cursesi_make_lint_shut_up_if_debug_not_defined(void)
+{
+	return;
 }
 #endif

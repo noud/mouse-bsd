@@ -1,4 +1,4 @@
-/*	$NetBSD: initscr.c,v 1.11 1999/06/28 13:32:43 simonb Exp $	*/
+/*	$NetBSD: initscr.c,v 1.19 2000/06/15 21:20:16 jdc Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -38,7 +38,7 @@
 #if 0
 static char sccsid[] = "@(#)initscr.c	8.2 (Berkeley) 5/4/94";
 #else
-__RCSID("$NetBSD: initscr.c,v 1.11 1999/06/28 13:32:43 simonb Exp $");
+__RCSID("$NetBSD: initscr.c,v 1.19 2000/06/15 21:20:16 jdc Exp $");
 #endif
 #endif	/* not lint */
 
@@ -46,13 +46,17 @@ __RCSID("$NetBSD: initscr.c,v 1.11 1999/06/28 13:32:43 simonb Exp $");
 #include <stdlib.h>
 
 #include "curses.h"
+#include "curses_private.h"
+
+/* Window list */
+struct __winlist	*__winlistp;
 
 /*
  * initscr --
  *	Initialize the current and standard screen.
  */
 WINDOW *
-initscr()
+initscr(void)
 {
 	char *sp;
 
@@ -60,7 +64,8 @@ initscr()
 	__CTRACE("initscr\n");
 #endif
 	__echoit = 1;
-        __pfast = __rawmode = __noqch = __endwin = 0;
+        __pfast = __rawmode = __noqch = 0;
+	__nca = A_NORMAL;
 
 	if (gettmode() == ERR)
 		return (NULL);
@@ -70,13 +75,15 @@ initscr()
 	 * use Def_term.
 	 */
 	if (My_term || (sp = getenv("TERM")) == NULL)
-		sp = Def_term;
+		sp = (char *)Def_term;
 	if (setterm(sp) == ERR)
 		return (NULL);
 
 	/* Need either homing or cursor motion for refreshes */
 	if (!HO && !CM)
 		return (NULL);
+
+	__winlistp = NULL;
 
 	if (curscr != NULL)
 		delwin(curscr);
@@ -91,7 +98,17 @@ initscr()
 		return (NULL);
 	}
 
-	__init_getch(sp);
+	if (__virtscr != NULL)
+		delwin(__virtscr);
+	if ((__virtscr = newwin(LINES, COLS, 0, 0)) == ERR) {
+		delwin(curscr);
+		delwin(stdscr);
+		return (NULL);
+	}
+
+	__init_getch();
+
+	__init_acs();
 
 	__set_stophandler();
 

@@ -1,4 +1,4 @@
-/*	$NetBSD: bell.c,v 1.4 2000/04/24 14:09:42 blymn Exp $	*/
+/*	$NetBSD: pause.c,v 1.1 2000/05/11 22:49:13 jdc Exp $	*/
 
 /*-
  * Copyright (c) 1999 The NetBSD Foundation, Inc.
@@ -38,50 +38,50 @@
 
 #include <sys/cdefs.h>
 #ifndef lint
-__RCSID("$NetBSD: bell.c,v 1.4 2000/04/24 14:09:42 blymn Exp $");
+__RCSID("$NetBSD: pause.c,v 1.1 2000/05/11 22:49:13 jdc Exp $");
 #endif				/* not lint */
+
+#include <stdarg.h>
+#include <sys/time.h>
 
 #include "curses.h"
 #include "curses_private.h"
 
 /*
- * beep
- *	Ring the terminal bell
+ * napms --
+ *	Sleep for ms milliseconds.
  */
 int
-beep(void)
+napms(int ms)
 {
-	if (BL != NULL) {
+	struct timespec	ts;
+
 #ifdef DEBUG
-		__CTRACE("beep: bl\n");
+	__CTRACE ("napms: %d\n", ms);
 #endif
-		tputs(BL, 0, __cputchar);
-	} else if (VB != NULL) {
-#ifdef DEBUG
-		__CTRACE("beep: vb\n");
-#endif
-		tputs(VB, 0, __cputchar);
-	}
-	return (1);
+	ts.tv_sec = ms / 1000;
+	ts.tv_nsec = (ms % 1000) * 1000000;
+	(void) nanosleep(&ts, NULL);
+	return(OK);
 }
 
 /*
- * flash
- *	Flash the terminal screen
+ * delay_output --
+ *	Pause output using terminal pad character.
  */
 int
-flash(void)
+delay_output(int ms)
 {
-	if (VB != NULL) {
+	char *delstr;
+
 #ifdef DEBUG
-		__CTRACE("flash: vb\n");
+	__CTRACE ("delay_output: %d\n", ms);
 #endif
-		tputs(VB, 0, __cputchar);
-	} else if (BL != NULL) {
-#ifdef DEBUG
-		__CTRACE("flash: bl\n");
-#endif
-		tputs(BL, 0, __cputchar);
-	}
-	return (1);
+	if (!PC)
+		return(napms(ms));
+
+	if (asprintf(&delstr, "%d", ms) == -1)
+		return (ERR);
+	tputs (delstr, 0, __cputchar);
+	return (OK);
 }

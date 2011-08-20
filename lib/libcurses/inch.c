@@ -1,4 +1,4 @@
-/*	$NetBSD: bell.c,v 1.4 2000/04/24 14:09:42 blymn Exp $	*/
+/*	$NetBSD: inch.c,v 1.4 2000/04/24 14:09:43 blymn Exp $	*/
 
 /*-
  * Copyright (c) 1999 The NetBSD Foundation, Inc.
@@ -38,50 +38,60 @@
 
 #include <sys/cdefs.h>
 #ifndef lint
-__RCSID("$NetBSD: bell.c,v 1.4 2000/04/24 14:09:42 blymn Exp $");
+__RCSID("$NetBSD: inch.c,v 1.4 2000/04/24 14:09:43 blymn Exp $");
 #endif				/* not lint */
 
 #include "curses.h"
 #include "curses_private.h"
 
+#ifndef _CURSES_USE_MACROS
+
 /*
- * beep
- *	Ring the terminal bell
+ * inch --
+ *	Return character at cursor position from stdscr.
  */
-int
-beep(void)
+chtype
+inch(void)
 {
-	if (BL != NULL) {
-#ifdef DEBUG
-		__CTRACE("beep: bl\n");
-#endif
-		tputs(BL, 0, __cputchar);
-	} else if (VB != NULL) {
-#ifdef DEBUG
-		__CTRACE("beep: vb\n");
-#endif
-		tputs(VB, 0, __cputchar);
-	}
-	return (1);
+	return winch(stdscr);
 }
 
 /*
- * flash
- *	Flash the terminal screen
+ * mvinch --
+ *      Return character at position (y, x) from stdscr.
  */
-int
-flash(void)
+chtype
+mvinch(int y, int x)
 {
-	if (VB != NULL) {
-#ifdef DEBUG
-		__CTRACE("flash: vb\n");
+	return mvwinch(stdscr, y, x);
+}
+
+/*
+ * mvwinch --
+ *      Return character at position (y, x) from the given window.
+ */
+chtype
+mvwinch(WINDOW *win, int y, int x)
+{
+	if (wmove(win, y, x) == ERR)
+		return ERR;
+
+	return winch(win);
+}
+
 #endif
-		tputs(VB, 0, __cputchar);
-	} else if (BL != NULL) {
-#ifdef DEBUG
-		__CTRACE("flash: bl\n");
-#endif
-		tputs(BL, 0, __cputchar);
-	}
-	return (1);
+
+/*
+ * winch --
+ *	Return character at cursor position.
+ */
+chtype
+winch(WINDOW *win)
+{
+
+	chtype	 ch;
+
+	ch = (chtype) (((win)->lines[(win)->cury]->line[(win)->curx].ch & __CHARTEXT) |
+	  (chtype) ((win)->lines[(win)->cury]->line[(win)->curx].attr & __ATTRIBUTES));
+	return (ch);
 }

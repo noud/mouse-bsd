@@ -1,4 +1,4 @@
-/*	$NetBSD: insertln.c,v 1.10 1999/04/13 14:08:18 mrg Exp $	*/
+/*	$NetBSD: insertln.c,v 1.12 2000/04/15 13:17:04 blymn Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -38,55 +38,33 @@
 #if 0
 static char sccsid[] = "@(#)insertln.c	8.2 (Berkeley) 5/4/94";
 #else
-__RCSID("$NetBSD: insertln.c,v 1.10 1999/04/13 14:08:18 mrg Exp $");
+__RCSID("$NetBSD: insertln.c,v 1.12 2000/04/15 13:17:04 blymn Exp $");
 #endif
 #endif				/* not lint */
 
-#include <string.h>
-
 #include "curses.h"
+#include "curses_private.h"
+
+#ifndef _CURSES_USE_MACROS
+
+/*
+ * insertln --
+ *	Do an insert-line on stdscr, leaving (cury, curx) unchanged.
+ */
+int
+insertln(void)
+{
+	return(winsdelln(stdscr, 1));
+}
+
+#endif
 
 /*
  * winsertln --
  *	Do an insert-line on the window, leaving (cury, curx) unchanged.
  */
 int
-winsertln(win)
-	WINDOW *win;
+winsertln(WINDOW *win)
 {
-
-	int     y, i;
-	__LINE *temp;
-
-#ifdef DEBUG
-	__CTRACE("insertln: (%0.2o)\n", win);
-#endif
-#ifdef __GNUC__
-	temp = NULL;		/* XXX gcc -Wuninitialized */
-#endif
-	if (win->orig == NULL)
-		temp = win->lines[win->maxy - 1];
-	for (y = win->maxy - 1; y > win->cury; --y) {
-		win->lines[y]->flags &= ~__ISPASTEOL;
-		win->lines[y - 1]->flags &= ~__ISPASTEOL;
-		if (win->orig == NULL)
-			win->lines[y] = win->lines[y - 1];
-		else
-			(void) memcpy(win->lines[y]->line,
-			    win->lines[y - 1]->line,
-			    win->maxx * __LDATASIZE);
-		__touchline(win, y, 0, (int) win->maxx - 1, 0);
-	}
-	if (win->orig == NULL)
-		win->lines[y] = temp;
-	else
-		temp = win->lines[y];
-	for (i = 0; i < win->maxx; i++) {
-		temp->line[i].ch = ' ';
-		temp->line[i].attr = 0;
-	}
-	__touchline(win, y, 0, (int) win->maxx - 1, 0);
-	if (win->orig == NULL)
-		__id_subwins(win);
-	return (OK);
+	return(winsdelln(win, 1));
 }

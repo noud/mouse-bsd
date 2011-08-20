@@ -1,4 +1,4 @@
-/*	$NetBSD: clrtobot.c,v 1.10 1999/04/13 14:08:17 mrg Exp $	*/
+/*	$NetBSD: clrtobot.c,v 1.14 2000/05/20 15:12:15 mycroft Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -38,22 +38,36 @@
 #if 0
 static char sccsid[] = "@(#)clrtobot.c	8.2 (Berkeley) 5/4/94";
 #else
-__RCSID("$NetBSD: clrtobot.c,v 1.10 1999/04/13 14:08:17 mrg Exp $");
+__RCSID("$NetBSD: clrtobot.c,v 1.14 2000/05/20 15:12:15 mycroft Exp $");
 #endif
 #endif				/* not lint */
 
 #include "curses.h"
+#include "curses_private.h"
+
+#ifndef _CURSES_USE_MACROS
+
+/*
+ * clrtobot --
+ *	Erase everything on stdscr.
+ */
+int
+clrtobot(void)
+{
+	return wclrtobot(stdscr);
+}
+
+#endif
 
 /*
  * wclrtobot --
  *	Erase everything on the window.
  */
 int
-wclrtobot(win)
-	WINDOW *win;
+wclrtobot(WINDOW *win)
 {
-	int     minx, startx, starty, y;
-	__LDATA *sp, *end, *maxx;
+	int	 minx, startx, starty, y;
+	__LDATA	*sp, *end, *maxx;
 
 #ifdef __GNUC__
 	maxx = NULL;		/* XXX gcc -Wuninitialized */
@@ -69,16 +83,18 @@ wclrtobot(win)
 		minx = -1;
 		end = &win->lines[y]->line[win->maxx];
 		for (sp = &win->lines[y]->line[startx]; sp < end; sp++)
-			if (sp->ch != ' ' || sp->attr != 0) {
+			if (sp->ch != ' ' || sp->attr != 0 ||
+			    sp->bch != win->bch || sp->battr != win->battr) {
 				maxx = sp;
 				if (minx == -1)
 					minx = sp - win->lines[y]->line;
 				sp->ch = ' ';
+				sp->bch = win->bch;
 				sp->attr = 0;
+				sp->battr = win->battr;
 			}
 		if (minx != -1)
-			__touchline(win, y, minx, maxx - win->lines[y]->line,
-			    0);
+			__touchline(win, y, minx, maxx - win->lines[y]->line);
 		startx = 0;
 	}
 	return (OK);

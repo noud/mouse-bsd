@@ -1,7 +1,7 @@
-/*	$NetBSD: bell.c,v 1.4 2000/04/24 14:09:42 blymn Exp $	*/
+/*	$NetBSD: getyx.c,v 1.3 2000/04/24 14:09:43 blymn Exp $	*/
 
-/*-
- * Copyright (c) 1999 The NetBSD Foundation, Inc.
+/*
+ * Copyright (c) 2000 The NetBSD Foundation, Inc.
  * All rights reserved.
  *
  * This code is derived from software contributed to The NetBSD Foundation
@@ -38,50 +38,70 @@
 
 #include <sys/cdefs.h>
 #ifndef lint
-__RCSID("$NetBSD: bell.c,v 1.4 2000/04/24 14:09:42 blymn Exp $");
+__RCSID("$NetBSD: getyx.c,v 1.3 2000/04/24 14:09:43 blymn Exp $");
 #endif				/* not lint */
+
+#include <stdlib.h>
 
 #include "curses.h"
 #include "curses_private.h"
 
 /*
- * beep
- *	Ring the terminal bell
+ * getcury --
+ *	Get current y position on window.
  */
 int
-beep(void)
+getcury(WINDOW *win)
 {
-	if (BL != NULL) {
-#ifdef DEBUG
-		__CTRACE("beep: bl\n");
-#endif
-		tputs(BL, 0, __cputchar);
-	} else if (VB != NULL) {
-#ifdef DEBUG
-		__CTRACE("beep: vb\n");
-#endif
-		tputs(VB, 0, __cputchar);
-	}
-	return (1);
+	return(win->cury);
 }
 
 /*
- * flash
- *	Flash the terminal screen
+ * getcurx --
+ *	Get current x position on window.
  */
 int
-flash(void)
+getcurx(WINDOW *win)
 {
-	if (VB != NULL) {
-#ifdef DEBUG
-		__CTRACE("flash: vb\n");
-#endif
-		tputs(VB, 0, __cputchar);
-	} else if (BL != NULL) {
-#ifdef DEBUG
-		__CTRACE("flash: bl\n");
-#endif
-		tputs(BL, 0, __cputchar);
-	}
-	return (1);
+	return(win->curx);
+}
+
+/*
+ * getbegy --
+ *	Get begin y position on window.
+ */
+int
+getbegy(WINDOW *win)
+{
+	return(win->begy);
+}
+
+/*
+ * getbegx --
+ *	Get begin x position on window.
+ */
+int
+getbegx(WINDOW *win)
+{
+	return(win->begx);
+}
+
+/*
+ * getmaxy --
+ *	Get maximum y position on window.
+ */
+int
+getmaxy(WINDOW *win)
+{
+	return(win->maxy);
+}
+
+/*
+ * getmaxx --
+ *	Get maximum x position on window.
+ */
+int
+getmaxx(WINDOW *win)
+{
+	return(win->maxx);
 }

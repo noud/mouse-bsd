@@ -1,4 +1,4 @@
-/*	$NetBSD: delch.c,v 1.10 1999/04/13 14:08:18 mrg Exp $	*/
+/*	$NetBSD: delch.c,v 1.14 2000/05/20 15:12:15 mycroft Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -38,21 +38,57 @@
 #if 0
 static char sccsid[] = "@(#)delch.c	8.2 (Berkeley) 5/4/94";
 #else
-__RCSID("$NetBSD: delch.c,v 1.10 1999/04/13 14:08:18 mrg Exp $");
+__RCSID("$NetBSD: delch.c,v 1.14 2000/05/20 15:12:15 mycroft Exp $");
 #endif
 #endif				/* not lint */
 
 #include <string.h>
 
 #include "curses.h"
+#include "curses_private.h"
+
+#ifndef _CURSES_USE_MACROS
+/*
+ * delch --
+ *	Do an insert-char on the line, leaving (cury, curx) unchanged.
+ */
+int
+delch(void)
+{
+	return wdelch(stdscr);
+}
+
+/*
+ * mvdelch --
+ *      Do an insert-char on the line at (y, x) on stdscr.
+ */
+int
+mvdelch(int y, int x)
+{
+	return mvwdelch(stdscr, y, x);
+}
+
+/*
+ * mvwdelch --
+ *      Do an insert-char on the line at (y, x) of the given window.
+ */
+int
+mvwdelch(WINDOW *win, int y, int x)
+{
+	if (wmove(win, y, x) == ERR)
+		return ERR;
+
+	return wdelch(win);
+}
+
+#endif
 
 /*
  * wdelch --
  *	Do an insert-char on the line, leaving (cury, curx) unchanged.
  */
 int
-wdelch(win)
-	WINDOW *win;
+wdelch(WINDOW *win)
 {
 	__LDATA *end, *temp1, *temp2;
 
@@ -64,7 +100,9 @@ wdelch(win)
 		temp1++, temp2++;
 	}
 	temp1->ch = ' ';
+	temp1->bch = win->bch;
 	temp1->attr = 0;
-	__touchline(win, (int) win->cury, (int) win->curx, (int) win->maxx - 1, 0);
+	temp1->battr = win->battr;
+	__touchline(win, (int) win->cury, (int) win->curx, (int) win->maxx - 1);
 	return (OK);
 }

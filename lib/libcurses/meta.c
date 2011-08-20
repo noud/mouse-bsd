@@ -1,8 +1,11 @@
-/*	$NetBSD: keypad.c,v 1.6 2000/05/25 06:46:26 jdc Exp $  */
+/*	$NetBSD: meta.c,v 1.2 2000/04/24 14:09:44 blymn Exp $	*/
 
 /*-
- * Copyright (c) 1998-1999 Brett Lymn (blymn@baea.com.au, brett_lymn@yahoo.com)
+ * Copyright (c) 1998-2000 Brett Lymn
+ *                         (blymn@baea.com.au, brett_lymn@yahoo.com.au)
  * All rights reserved.
+ *
+ * This code has been donated to The NetBSD Foundation by the Author.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -28,29 +31,49 @@
 
 #include <sys/cdefs.h>
 #ifndef lint
-__RCSID("$NetBSD: keypad.c,v 1.6 2000/05/25 06:46:26 jdc Exp $");
+__RCSID("$NetBSD: meta.c,v 1.2 2000/04/24 14:09:44 blymn Exp $");
 #endif				/* not lint */
 
 #include "curses.h"
 #include "curses_private.h"
 
+static int meta_state = FALSE;
+
 /*
- * keypad --
- *	Turn on and off interpretation of function/keypad keys in the
- *	given window.
+ * meta --
+ *    Turn on or off the terminal meta mode.
+ */
+int
+meta(/*ARGSUSED*/ WINDOW *win, bool bf)
+{
+	if (bf == TRUE) {
+		if (MM != NULL) {
+#ifdef DEBUG
+			__CTRACE("meta: TRUE\n");
+#endif
+			tputs(MM, 0, __cputchar);
+			meta_state = TRUE;
+		}
+	} else {
+		if (MO != NULL) {
+#ifdef DEBUG
+			__CTRACE("meta: FALSE\n");
+#endif
+			tputs(MO, 0, __cputchar);
+			meta_state = FALSE;
+		}
+	}
+
+	return OK;
+}
+
+/*
+ * __restore_meta_state --
+ *    Restore old meta state.
  */
 void
-keypad(WINDOW *win, bool bf)
+__restore_meta_state(void)
 {
-#ifdef DEBUG
-	__CTRACE("keypad: win %0.2o, %s\n", win, bf ? "TRUE" : "FALSE");
-#endif
-	if (bf) {
-		win->flags |= __KEYPAD;
-		if (!(curscr->flags & __KEYPAD)) {
-			tputs (KS, 0, __cputchar);
-			curscr->flags |= __KEYPAD;
-		}
-	} else
-		win->flags &= ~__KEYPAD;
+	meta(NULL, meta_state);
 }
+

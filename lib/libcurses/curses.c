@@ -1,4 +1,4 @@
-/*	$NetBSD: curses.c,v 1.11 1999/06/28 13:32:43 simonb Exp $	*/
+/*	$NetBSD: curses.c,v 1.16 2000/04/27 00:21:22 jdc Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -38,7 +38,7 @@
 #if 0
 static char sccsid[] = "@(#)curses.c	8.3 (Berkeley) 5/4/94";
 #else
-__RCSID("$NetBSD: curses.c,v 1.11 1999/06/28 13:32:43 simonb Exp $");
+__RCSID("$NetBSD: curses.c,v 1.16 2000/04/27 00:21:22 jdc Exp $");
 #endif
 #endif				/* not lint */
 
@@ -53,15 +53,17 @@ int	__noqch = 0;			/*
 					 * insert/delete line capabilities
 					 * for quick change on refresh.
 					 */
-char	AM, BS, CA, DA, EO, HC, IN, MI, MS, NC, NS, OS, PC, UL, XB, XN,
-	XT, XS, XX;
-char	*AL, *BC, *BL, *BT, *CD, *CE, *CL, *CM, *CR, *CS, *DC, *DL, *DM,
-	*DO, *ED, *EI, *K0, *K1, *K2, *K3, *K4, *K5, *K6, *K7, *K8, *K9,
-	*HO, *IC, *IM, *IP, *KD, *KE, *KH, *KL, *KR, *KS, *KU, *LL, *MA,
-	*MB, *MD, *ME, *MH, *MK, *MP, *MR, *ND, *NL, *RC, *SC, *SE, *SF,
-	*SO, *SR, *TA, *TE, *TI, *UC, *UE, *UP, *US, *VB, *VS, *VE, *al,
-	*dl, *sf, *sr, *AL_PARM, *DL_PARM, *UP_PARM, *DOWN_PARM, *LEFT_PARM,
-	*RIGHT_PARM;
+char	AM, UT, BS, CA, CC, DA, EO, HC, HL, IN, MI, MS, NC, NS, OS, PC,
+	UL, XB, XN, XT, XS, XX;
+int	PA, cO, nc;
+char	*AC, *AE, *AL, *AS, *BC, *BL, *BT, *CD, *CE, *CL, *CM, *CR, *CS,
+	*DC, *DL, *DM, *DO, *Ea, *ED, *EI, *K0, *K1, *K2, *K3, *K4, *K5,
+	*K6, *K7, *K8, *K9, *HO, *IC, *IM, *IP, *KD, *KE, *KH, *KL, *KR,
+	*KS, *KU, *LL, *MA, *MB, *MD, *ME, *MH, *MK, *MM, *MO, *MP, *MR,
+	*ND, *NL, *OC, *OP, *RC, *SC, *SE, *SF, *SO, *SP, *SR, *TA, *TE,
+	*TI, *UC, *UE, *UP, *US, *VB, *VI, *VS, *VE, *ab, *af, *al, *dl, *iC,
+	*iP, *sB, *sF, *sf, *sr, *AL_PARM, *DL_PARM, *UP_PARM, *DOWN_PARM,
+	*LEFT_PARM, *RIGHT_PARM;
 /*
  * Public.
  *
@@ -71,10 +73,13 @@ char	*AL, *BC, *BL, *BT, *CD, *CE, *CL, *CM, *CR, *CS, *DC, *DL, *DM,
  */
 WINDOW	*curscr;			/* Current screen. */
 WINDOW	*stdscr;			/* Standard screen. */
+WINDOW	*__virtscr;			/* Virtual screen (for doupdate()). */
 int	 COLS;				/* Columns on the screen. */
 int	 LINES;				/* Lines on the screen. */
+int	 COLORS;			/* Maximum colors on the screen */
+int	 COLOR_PAIRS;			/* Maximum color pairs on the screen */
 int	 My_term = 0;			/* Use Def_term regardless. */
-char	*Def_term = "unknown";		/* Default terminal type. */
+const char	*Def_term = "unknown";		/* Default terminal type. */
 char	 GT;				/* Gtty indicates tabs. */
 char	 NONL;				/* Term can't hack LF doing a CR. */
 char	 UPPERCASE;			/* Terminal is uppercase only. */

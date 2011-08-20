@@ -1,7 +1,7 @@
-/*	$NetBSD: bell.c,v 1.4 2000/04/24 14:09:42 blymn Exp $	*/
+/*	$NetBSD: acs.c,v 1.7 2000/04/24 14:09:42 blymn Exp $	*/
 
-/*-
- * Copyright (c) 1999 The NetBSD Foundation, Inc.
+/*
+ * Copyright (c) 2000 The NetBSD Foundation, Inc.
  * All rights reserved.
  *
  * This code is derived from software contributed to The NetBSD Foundation
@@ -38,50 +38,78 @@
 
 #include <sys/cdefs.h>
 #ifndef lint
-__RCSID("$NetBSD: bell.c,v 1.4 2000/04/24 14:09:42 blymn Exp $");
+__RCSID("$NetBSD: acs.c,v 1.7 2000/04/24 14:09:42 blymn Exp $");
 #endif				/* not lint */
 
 #include "curses.h"
 #include "curses_private.h"
 
-/*
- * beep
- *	Ring the terminal bell
- */
-int
-beep(void)
-{
-	if (BL != NULL) {
-#ifdef DEBUG
-		__CTRACE("beep: bl\n");
-#endif
-		tputs(BL, 0, __cputchar);
-	} else if (VB != NULL) {
-#ifdef DEBUG
-		__CTRACE("beep: vb\n");
-#endif
-		tputs(VB, 0, __cputchar);
-	}
-	return (1);
-}
+chtype _acs_char[NUM_ACS];
 
 /*
- * flash
- *	Flash the terminal screen
+ * __init_acs --
+ *	Fill in the ACS characters.  The 'ac' termcap entry is a list of
+ *	character pairs - ACS definition then terminal representation.
  */
-int
-flash(void)
+void
+__init_acs(void)
 {
-	if (VB != NULL) {
+	int		count;
+	char		*aofac;	/* Address of 'ac' */
+	unsigned char	acs, term;
+
+	/* Default value '+' for all ACS characters */
+	for (count=0; count < NUM_ACS; count++)
+		_acs_char[count]= '+';
+
+	/* Add the SUSv2 defaults (those that are not '+') */
+	ACS_RARROW = '>';
+	ACS_LARROW = '<';
+	ACS_UARROW = '^';
+	ACS_DARROW = 'v';
+	ACS_BLOCK = '#';
+/*	ACS_DIAMOND = '+';	*/
+	ACS_CKBOARD = ':';
+	ACS_DEGREE = 39;	/* ' */
+	ACS_PLMINUS = '#';
+	ACS_BOARD = '#';
+	ACS_LANTERN = '#';
+/*	ACS_LRCORNER = '+';	*/
+/*	ACS_URCORNER = '+';	*/
+/*	ACS_ULCORNER = '+';	*/
+/*	ACS_LLCORNER = '+';	*/
+/*	ACS_PLUS = '+';		*/
+	ACS_HLINE = '-';
+	ACS_S1 = '-';
+	ACS_S9 = '_';
+/*	ACS_LTEE = '+';		*/
+/*	ACS_RTEE = '+';		*/
+/*	ACS_BTEE = '+';		*/
+/*	ACS_TTEE = '+';		*/
+	ACS_VLINE = '|';
+	ACS_BULLET = 'o';
+
+	if (AC == NULL)
+		return;
+
+	aofac = AC;
+
+	while (*aofac != '\0') {
+		if ((acs = *aofac) == '\0')
+			return;
+		if (++aofac == '\0')
+			return;
+		if ((term = *aofac) == '\0')
+			return;
+	 	/* Only add characters 1 to 127 */
+		if (acs < NUM_ACS)
+			_acs_char[acs] = term | __ALTCHARSET;
+		aofac++;
 #ifdef DEBUG
-		__CTRACE("flash: vb\n");
+		__CTRACE("__init_acs: %c = %c\n", acs, term);
 #endif
-		tputs(VB, 0, __cputchar);
-	} else if (BL != NULL) {
-#ifdef DEBUG
-		__CTRACE("flash: bl\n");
-#endif
-		tputs(BL, 0, __cputchar);
 	}
-	return (1);
+
+	if (Ea != NULL)
+		tputs(Ea, 0, __cputchar);
 }

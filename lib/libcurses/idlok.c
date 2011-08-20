@@ -1,4 +1,4 @@
-/*	$NetBSD: idlok.c,v 1.8 1999/04/13 14:08:18 mrg Exp $	*/
+/*	$NetBSD: idlok.c,v 1.10 2000/04/15 13:17:04 blymn Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -38,24 +38,24 @@
 #if 0
 static char sccsid[] = "@(#)idlok.c	8.2 (Berkeley) 5/4/94";
 #else
-__RCSID("$NetBSD: idlok.c,v 1.8 1999/04/13 14:08:18 mrg Exp $");
+__RCSID("$NetBSD: idlok.c,v 1.10 2000/04/15 13:17:04 blymn Exp $");
 #endif
 #endif				/* not lint */
 
 #include "curses.h"
+#include "curses_private.h"
 
 /*
  * idlok --
  *	Turn on and off using insert/deleteln sequences for the
  *	given window.
  */
-void
-idlok(win, bf)
-	WINDOW *win;
-	int     bf;
+int
+idlok(WINDOW *win, bool bf)
 {
 	if (bf)
 		win->flags |= __IDLINE;
 	else
 		win->flags &= ~__IDLINE;
+	return (OK);
 }

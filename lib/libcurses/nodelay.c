@@ -1,4 +1,4 @@
-/*      $Id: nodelay.c,v 1.1 1999/04/13 14:08:18 mrg Exp $  */
+/*      $NetBSD: nodelay.c,v 1.4 2000/04/24 14:09:44 blymn Exp $  */
 
 /*-
  * Copyright (c) 1998-1999 Brett Lymn (blymn@baea.com.au, brett_lymn@yahoo.com)
@@ -28,14 +28,11 @@
 
 #include <sys/cdefs.h>
 #ifndef lint
-#if 0
-static char sccsid[] = "@(#)initscr.c	8.2 (Berkeley) 5/4/94";
-#else
-__RCSID("$NetBSD: nodelay.c,v 1.1 1999/04/13 14:08:18 mrg Exp $");
-#endif
+__RCSID("$NetBSD: nodelay.c,v 1.4 2000/04/24 14:09:44 blymn Exp $");
 #endif				/* not lint */
 
 #include "curses.h"
+#include "curses_private.h"
 
 /*
  * nodelay --
@@ -43,9 +40,7 @@ __RCSID("$NetBSD: nodelay.c,v 1.1 1999/04/13 14:08:18 mrg Exp $");
  *	given window.
  */
 void
-nodelay(win, bf)
-	WINDOW *win;
-	int     bf;
+nodelay(WINDOW *win, bool bf)
 {
 	if (bf)
 		win->delay = 0;

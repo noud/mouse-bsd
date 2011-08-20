@@ -1,4 +1,4 @@
-/*	$NetBSD: addbytes.c,v 1.14 1999/06/28 13:32:43 simonb Exp $	*/
+/*	$NetBSD: addbytes.c,v 1.20 2000/04/28 22:44:33 mycroft Exp $	*/
 
 /*
  * Copyright (c) 1987, 1993, 1994
@@ -38,37 +38,81 @@
 #if 0
 static char sccsid[] = "@(#)addbytes.c	8.4 (Berkeley) 5/4/94";
 #else
-__RCSID("$NetBSD: addbytes.c,v 1.14 1999/06/28 13:32:43 simonb Exp $");
+__RCSID("$NetBSD: addbytes.c,v 1.20 2000/04/28 22:44:33 mycroft Exp $");
 #endif
 #endif				/* not lint */
 
 #include "curses.h"
+#include "curses_private.h"
 
 #define	SYNCH_IN	{y = win->cury; x = win->curx;}
 #define	SYNCH_OUT	{win->cury = y; win->curx = x;}
+
+#ifndef _CURSES_USE_MACROS
+
+/*
+ * addbytes --
+ *      Add the character to the current position in stdscr.
+ */
+int
+addbytes(const char *bytes, int count)
+{
+	return __waddbytes(stdscr, bytes, count, 0);
+}
+
+/*
+ * waddbytes --
+ *      Add the character to the current position in the given window.
+ */
+int
+waddbytes(WINDOW *win, const char *bytes, int count)
+{
+	return __waddbytes(win, bytes, count, 0);
+}
+
+/*
+ * mvaddbytes --
+ *      Add the characters to stdscr at the location given.
+ */
+int
+mvaddbytes(int y, int x, const char *bytes, int count)
+{
+	return mvwaddbytes(stdscr, y, x, bytes, count);
+}
+
+/*
+ * mvwaddbytes --
+ *      Add the characters to the given window at the location given.
+ */
+int
+mvwaddbytes(WINDOW *win, int y, int x, const char *bytes, int count)
+{
+	if (wmove(win, y, x) == ERR)
+		return ERR;
+
+	return __waddbytes(win, bytes, count, 0);
+}
+
+#endif
 
 /*
  * waddbytes --
  *	Add the character to the current position in the given window.
  */
 int
-__waddbytes(win, bytes, count, attr)
-	WINDOW	*win;
-	const char	*bytes;
-	int	count;
-	int	attr;
+__waddbytes(WINDOW *win, const char *bytes, int count, attr_t attr)
 {
-	static char	blanks[] = "        ";
-	int	c, newx, x, y;
-	char	attributes;
-	__LINE	*lp;
+	static char	 blanks[] = "        ";
+	int		 c, newx, x, y;
+	attr_t		 attributes;
+	__LINE		*lp;
 
 	SYNCH_IN;
 
 	while (count--) {
 		c = *bytes++;
 #ifdef DEBUG
-		__CTRACE("ADDBYTES('%c') at (%d, %d)\n", c, y, x);
+		__CTRACE("ADDBYTES('%c', %x) at (%d, %d)\n", c, attr, y, x);
 #endif
 		switch (c) {
 		case '\t':
@@ -104,40 +148,31 @@ __waddbytes(win, bytes, count, attr)
 					break;
 			}
 
-			attributes = '\0';
-			if (win->flags & __WSTANDOUT || attr & __STANDOUT)
-				attributes |= __STANDOUT;
-			if (win->flags & __WUNDERSCORE || attr & __UNDERSCORE)
-				attributes |= __UNDERSCORE;
-			if (win->flags & __WREVERSE || attr & __REVERSE)
-				attributes |= __REVERSE;
-			if (win->flags & __WBLINK || attr & __BLINK)
-				attributes |= __BLINK;
-			if (win->flags & __WDIM || attr & __DIM)
-				attributes |= __DIM;
-			if (win->flags & __WBOLD || attr & __BOLD)
-				attributes |= __BOLD;
-			if (win->flags & __WBLANK || attr & __BLANK)
-				attributes |= __BLANK;
-			if (win->flags & __WPROTECT || attr & __PROTECT)
-				attributes |= __PROTECT;
+			attributes = (win->wattr | attr) &
+			    (__ATTRIBUTES & ~__COLOR);
+			if (attr & __COLOR)
+				attributes |= attr & __COLOR;
+			else if (win->wattr & __COLOR)
+				attributes |= win->wattr & __COLOR;
 #ifdef DEBUG
 			__CTRACE("ADDBYTES: 1: y = %d, x = %d, firstch = %d, lastch = %d\n",
 			    y, x, *win->lines[y]->firstchp,
 			    *win->lines[y]->lastchp);
 #endif
 			if (lp->line[x].ch != c ||
-			    !(lp->line[x].attr & attributes)) {
+			    lp->line[x].attr != attributes ||
+			    lp->line[x].bch != win->bch ||
+			    lp->line[x].battr != win->battr) {
 				newx = x + win->ch_off;
-				if (!(lp->flags & __ISDIRTY)) {
-					lp->flags |= __ISDIRTY;
-					*lp->firstchp = *lp->lastchp = newx;
-				} else
-					if (newx < *lp->firstchp)
-						*lp->firstchp = newx;
-					else
-						if (newx > *lp->lastchp)
-							*lp->lastchp = newx;
+				lp->flags |= __ISDIRTY;
+				/*
+				 * firstchp/lastchp are shared between
+				 * parent window and sub-window.
+				 */
+				if (newx < *lp->firstchp)
+					*lp->firstchp = newx;
+				if (newx > *lp->lastchp)
+					*lp->lastchp = newx;
 #ifdef DEBUG
 				__CTRACE("ADDBYTES: change gives f/l: %d/%d [%d/%d]\n",
 				    *lp->firstchp, *lp->lastchp,
@@ -146,38 +181,9 @@ __waddbytes(win, bytes, count, attr)
 #endif
 			}
 			lp->line[x].ch = c;
-			if (attributes & __STANDOUT)
-				lp->line[x].attr |= __STANDOUT;
-			else
-				lp->line[x].attr &= ~__STANDOUT;
-			if (attributes & __UNDERSCORE)
-				lp->line[x].attr |= __UNDERSCORE;
-			else
-				lp->line[x].attr &= ~__UNDERSCORE;
-			if (attributes & __REVERSE)
-				lp->line[x].attr |= __REVERSE;
-			else
-				lp->line[x].attr &= ~__REVERSE;
-			if (attributes & __BLINK)
-				lp->line[x].attr |= __BLINK;
-			else
-				lp->line[x].attr &= ~__BLINK;
-			if (attributes & __DIM)
-				lp->line[x].attr |= __DIM;
-			else
-				lp->line[x].attr &= ~__DIM;
-			if (attributes & __BOLD)
-				lp->line[x].attr |= __BOLD;
-			else
-				lp->line[x].attr &= ~__BOLD;
-			if (attributes & __BLANK)
-				lp->line[x].attr |= __BLANK;
-			else
-				lp->line[x].attr &= ~__BLANK;
-			if (attributes & __PROTECT)
-				lp->line[x].attr |= __PROTECT;
-			else
-				lp->line[x].attr &= ~__PROTECT;
+			lp->line[x].bch = win->bch;
+			lp->line[x].attr = attributes;
+			lp->line[x].battr = win->battr;
 			if (x == win->maxx - 1)
 				lp->flags |= __ISPASTEOL;
 			else

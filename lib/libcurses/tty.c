@@ -1,4 +1,4 @@
-/*	$NetBSD: tty.c,v 1.12 1999/06/28 13:32:43 simonb Exp $	*/
+/*	$NetBSD: tty.c,v 1.23 2000/06/16 06:32:19 jdc Exp $	*/
 
 /*-
  * Copyright (c) 1992, 1993, 1994
@@ -38,19 +38,20 @@
 #if 0
 static char sccsid[] = "@(#)tty.c	8.6 (Berkeley) 1/10/95";
 #else
-__RCSID("$NetBSD: tty.c,v 1.12 1999/06/28 13:32:43 simonb Exp $");
+__RCSID("$NetBSD: tty.c,v 1.23 2000/06/16 06:32:19 jdc Exp $");
 #endif
 #endif				/* not lint */
 
 #include <sys/types.h>
-#include <sys/fcntl.h>
-#include <sys/ioctl.h>
 
 #include <stdlib.h>
 #include <termios.h>
 #include <unistd.h>
+#include <sys/fcntl.h>
+#include <sys/ioctl.h>
 
 #include "curses.h"
+#include "curses_private.h"
 
 /*
  * In general, curses should leave tty hardware settings alone (speed, parity,
@@ -65,12 +66,12 @@ int	__tcaction = 1;			/* Ignore hardware settings. */
 int	__tcaction = 0;
 #endif
 
-struct termios __orig_termios, __baset;
-int	__endwin;
-static struct termios cbreakt, rawt, *curt;
-static int useraw;
-static int ovmin = 1;
-static int ovtime = 0;
+struct termios	__orig_termios, __baset;
+int		__endwin;
+static struct	termios cbreakt, rawt, *curt;
+static int	useraw;
+static int	ovmin = 1;
+static int	ovtime = 0;
 
 #ifndef	OXTABS
 #ifdef	XTABS			/* SMI uses XTABS. */
@@ -85,7 +86,7 @@ static int ovtime = 0;
  *	Do terminal type initialization.
  */
 int
-gettmode()
+gettmode(void)
 {
 	useraw = 0;
 
@@ -107,14 +108,14 @@ gettmode()
 	 * default VMIN is 4.  Majorly stupid.
 	 */
 	cbreakt = __baset;
-	cbreakt.c_lflag &= ~ICANON;
+	cbreakt.c_lflag &= ~(ECHO | ECHONL | ICANON);
 	cbreakt.c_cc[VMIN] = 1;
 	cbreakt.c_cc[VTIME] = 0;
 
 	rawt = cbreakt;
 	rawt.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | INLCR | IGNCR | ICRNL | IXON);
 	rawt.c_oflag &= ~OPOST;
-	rawt.c_lflag &= ~(ECHO | ECHONL | ICANON | ISIG | IEXTEN);
+	rawt.c_lflag &= ~(ISIG | IEXTEN);
 
 	/*
 	 * In general, curses should leave hardware-related settings alone.
@@ -136,13 +137,11 @@ gettmode()
 }
 
 int
-raw()
+raw(void)
 {
 	/* Check if we need to restart ... */
-	if (__endwin) {
-		__endwin = 0;
+	if (__endwin)
 		__restartwin();
-	}
 
 	useraw = __pfast = __rawmode = 1;
 	curt = &rawt;
@@ -151,13 +150,11 @@ raw()
 }
 
 int
-noraw()
+noraw(void)
 {
 	/* Check if we need to restart ... */
-	if (__endwin) {
-		__endwin = 0;
+	if (__endwin)
 		__restartwin();
-	}
 
 	useraw = __pfast = __rawmode = 0;
 	curt = &__baset;
@@ -166,13 +163,11 @@ noraw()
 }
 
 int
-cbreak()
+cbreak(void)
 {
 	/* Check if we need to restart ... */
-	if (__endwin) {
-		__endwin = 0;
+	if (__endwin)
 		__restartwin();
-	}
 
 	__rawmode = 1;
 	curt = useraw ? &rawt : &cbreakt;
@@ -181,13 +176,11 @@ cbreak()
 }
 
 int
-nocbreak()
+nocbreak(void)
 {
 	/* Check if we need to restart ... */
-	if (__endwin) {
-		__endwin = 0;
+	if (__endwin)
 		__restartwin();
-	}
 
 	__rawmode = 0;
 	curt = useraw ? &rawt : &__baset;
@@ -196,13 +189,11 @@ nocbreak()
 }
 
 int
-__delay()
+__delay(void)
  {
 	/* Check if we need to restart ... */
-	if (__endwin) {
-		__endwin = 0;
+	if (__endwin)
 		__restartwin();
-	}
 
 	rawt.c_cc[VMIN] = 1;
 	rawt.c_cc[VTIME] = 0;
@@ -216,13 +207,11 @@ __delay()
 }
 
 int
-__nodelay()
+__nodelay(void)
 {
 	/* Check if we need to restart ... */
-	if (__endwin) {
-		__endwin = 0;
+	if (__endwin)
 		__restartwin();
-	}
 
 	rawt.c_cc[VMIN] = 0;
 	rawt.c_cc[VTIME] = 0;
@@ -236,26 +225,22 @@ __nodelay()
 }
 
 void
-__save_termios()
+__save_termios(void)
 {
 	/* Check if we need to restart ... */
-	if (__endwin) {
-		__endwin = 0;
+	if (__endwin)
 		__restartwin();
-	}
 
 	ovmin = cbreakt.c_cc[VMIN];
 	ovtime = cbreakt.c_cc[VTIME];
 }
 
 void
-__restore_termios()
+__restore_termios(void)
 {
 	/* Check if we need to restart ... */
-	if (__endwin) {
-		__endwin = 0;
+	if (__endwin)
 		__restartwin();
-	}
 
 	rawt.c_cc[VMIN] = ovmin;
 	rawt.c_cc[VTIME] = ovtime;
@@ -266,14 +251,11 @@ __restore_termios()
 }
 
 int
-__timeout(delay)
-	int	delay;
+__timeout(int delay)
 {
 	/* Check if we need to restart ... */
-	if (__endwin) {
-		__endwin = 0;
+	if (__endwin)
 		__restartwin();
-	}
 
 	ovmin = cbreakt.c_cc[VMIN];
 	ovtime = cbreakt.c_cc[VTIME];
@@ -289,13 +271,11 @@ __timeout(delay)
 }
 
 int
-__notimeout()
+__notimeout(void)
 {
 	/* Check if we need to restart ... */
-	if (__endwin) {
-		__endwin = 0;
+	if (__endwin)
 		__restartwin();
-	}
 
 	rawt.c_cc[VMIN] = 1;
 	rawt.c_cc[VTIME] = 0;
@@ -309,49 +289,33 @@ __notimeout()
 }
 
 int
-echo()
+echo(void)
 {
 	/* Check if we need to restart ... */
-	if (__endwin) {
-		__endwin = 0;
+	if (__endwin)
 		__restartwin();
-	}
-
-	rawt.c_lflag |= ECHO;
-	cbreakt.c_lflag |= ECHO;
-	__baset.c_lflag |= ECHO;
 
 	__echoit = 1;
-	return (tcsetattr(STDIN_FILENO, __tcaction ?
-	    TCSASOFT | TCSADRAIN : TCSADRAIN, curt) ? ERR : OK);
+	return (OK);
 }
 
 int
-noecho()
+noecho(void)
 {
 	/* Check if we need to restart ... */
-	if (__endwin) {
-		__endwin = 0;
+	if (__endwin)
 		__restartwin();
-	}
-
-	rawt.c_lflag &= ~ECHO;
-	cbreakt.c_lflag &= ~ECHO;
-	__baset.c_lflag &= ~ECHO;
 
 	__echoit = 0;
-	return (tcsetattr(STDIN_FILENO, __tcaction ?
-	    TCSASOFT | TCSADRAIN : TCSADRAIN, curt) ? ERR : OK);
+	return (OK);
 }
 
 int
-nl()
+nl(void)
 {
 	/* Check if we need to restart ... */
-	if (__endwin) {
-		__endwin = 0;
+	if (__endwin)
 		__restartwin();
-	}
 
 	rawt.c_iflag |= ICRNL;
 	rawt.c_oflag |= ONLCR;
@@ -366,13 +330,11 @@ nl()
 }
 
 int
-nonl()
+nonl(void)
 {
 	/* Check if we need to restart ... */
-	if (__endwin) {
-		__endwin = 0;
+	if (__endwin)
 		__restartwin();
-	}
 
 	rawt.c_iflag &= ~ICRNL;
 	rawt.c_oflag &= ~ONLCR;
@@ -386,8 +348,30 @@ nonl()
 	    TCSASOFT | TCSADRAIN : TCSADRAIN, curt) ? ERR : OK);
 }
 
+int
+intrflush(WINDOW *win, bool bf)	/*ARGSUSED*/
+{
+	/* Check if we need to restart ... */
+	if (__endwin)
+		__restartwin();
+
+	if (bf) {
+		rawt.c_lflag &= ~NOFLSH;
+		cbreakt.c_lflag &= ~NOFLSH;
+		__baset.c_lflag &= ~NOFLSH;
+	} else {
+		rawt.c_lflag |= NOFLSH;
+		cbreakt.c_lflag |= NOFLSH;
+		__baset.c_lflag |= NOFLSH;
+	}
+
+	__pfast = 1;
+	return (tcsetattr(STDIN_FILENO, __tcaction ?
+	    TCSASOFT | TCSADRAIN : TCSADRAIN, curt) ? ERR : OK);
+}
+
 void
-__startwin()
+__startwin(void)
 {
 	static char *stdbuf;
 	static size_t len;
@@ -411,27 +395,27 @@ __startwin()
 
 	tputs(TI, 0, __cputchar);
 	tputs(VS, 0, __cputchar);
-	tputs(KS, 0, __cputchar);
+	if (curscr->flags & __KEYPAD)
+		tputs(KS, 0, __cputchar);
+	__endwin = 0;
 }
 
 int
-endwin()
+endwin(void)
 {
-	__endwin = 1;
 	return __stopwin();
 }
 
-int
-isendwin()
+bool
+isendwin(void)
 {
-	return (__endwin);
+	return (__endwin ? TRUE : FALSE);
 }
 
 int
-flushinp()
+flushinp(void)
 {
-	int what = FREAD;
-	(void) ioctl(STDIN_FILENO, TIOCFLUSH, &what);
+	(void) fpurge(stdin);
 	return (OK);
 }
 
@@ -442,14 +426,35 @@ flushinp()
  */
 static struct termios savedtty;
 int
-savetty()
+savetty(void)
 {
 	return (tcgetattr(STDIN_FILENO, &savedtty) ? ERR : OK);
 }
 
 int
-resetty()
+resetty(void)
 {
 	return (tcsetattr(STDIN_FILENO, __tcaction ?
 	    TCSASOFT | TCSADRAIN : TCSADRAIN, &savedtty) ? ERR : OK);
+}
+
+/*
+ * erasechar --
+ *     Return the character of the erase key.
+ *
+ */
+char
+erasechar(void)
+{
+	return __baset.c_cc[VERASE];
+}
+
+/*
+ * killchar --
+ *     Return the character of the kill key.
+ */
+char
+killchar(void)
+{
+	return __baset.c_cc[VKILL];
 }

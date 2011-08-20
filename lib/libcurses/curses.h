@@ -1,4 +1,4 @@
-/*	$NetBSD: curses.h,v 1.29 1999/12/07 03:22:10 simonb Exp $	*/
+/*	$NetBSD: curses.h,v 1.48 2000/05/11 22:50:23 jdc Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -40,20 +40,21 @@
 
 #include <sys/types.h>
 #include <sys/cdefs.h>
+#include <wchar.h>
 
 #include <stdio.h>
 #include <termcap.h>
 
 /*
- * The following #defines and #includes are present for backward
- * compatibility only.  They should not be used in future code.
- *
- * START BACKWARD COMPATIBILITY ONLY.
+ * attr_t must be the same size as wchar_t (see <wchar.h>) to avoid padding
+ * in __LDATA.
  */
-#ifndef _CURSES_PRIVATE
+typedef wchar_t	chtype;
+typedef wchar_t	attr_t;
+
+/* C++ already defines bool. */
 #ifndef __cplusplus
-#define	bool	char
-#define	reg	register
+typedef	char	bool;
 #endif
 
 #ifndef TRUE
@@ -63,14 +64,20 @@
 #define	FALSE	(/*CONSTCOND*/0)
 #endif
 
+/*
+ * The following #defines and #includes are present for backward
+ * compatibility only.  They should not be used in future code.
+ *
+ * START BACKWARD COMPATIBILITY ONLY.
+ */
+#ifndef _CURSES_PRIVATE
+
 #define	_puts(s)	tputs(s, 0, __cputchar)
 #define	_putchar(c)	__cputchar(c)
 
 /* Old-style terminal modes access. */
 #define	baudrate()	(cfgetospeed(&__baset))
 #define	crmode()	cbreak()
-#define	erasechar()	(__baset.c_cc[VERASE])
-#define	killchar()	(__baset.c_cc[VKILL])
 #define	nocrmode()	nocbreak()
 #define	ospeed		(cfgetospeed(&__baset))
 #endif /* _CURSES_PRIVATE */
@@ -80,19 +87,21 @@ extern char	 NONL;			/* Term can't hack LF doing a CR. */
 extern char	 UPPERCASE;		/* Terminal is uppercase only. */
 
 extern int	 My_term;		/* Use Def_term regardless. */
-extern char	*Def_term;		/* Default terminal type. */
+extern const char	*Def_term;		/* Default terminal type. */
 
 /* Termcap capabilities. */
-extern char	AM, BS, CA, DA, EO, HC, IN, MI, MS, NC, NS, OS,
-		PC, UL, XB, XN, XT, XS, XX;
-extern char	*AL, *BC, *BL, *BT, *CD, *CE, *CL, *CM, *CR, *CS, *DC,
-		*DL, *DM, *DO, *ED, *EI, *K0, *K1, *K2, *K3, *K4, *K5,
-		*K6, *K7, *K8, *K9, *HO, *IC, *IM, *IP, *KD, *KE, *KH,
-		*KL, *KR, *KS, *KU, *LL, *MA, *MB, *MD, *ME, *MH, *MK,
-		*MP, *MR, *ND, *NL, *RC, *SC, *SE, *SF, *SO, *SR, *TA,
-		*TE, *TI, *UC, *UE, *UP, *US, *VB, *VS, *VE, *al, *dl,
-		*sf, *sr, *AL_PARM, *DL_PARM, *UP_PARM, *DOWN_PARM,
-		*LEFT_PARM, *RIGHT_PARM;
+extern char	AM, UT, BS, CA, CC, DA, EO, HC, HL, IN, MI, MS, NC, NS,
+		OS, PC, UL, XB, XN, XT, XS, XX;
+extern int	PA, cO, nc;
+extern char	*AC, *AE, *AL, *AS, *BC, *BL, *BT, *CD, *CE, *CL, *CM,
+		*CR, *CS, *DC, *DL, *DM, *DO, *Ea, *ED, *EI, *K0, *K1,
+		*K2, *K3, *K4, *K5, *K6, *K7, *K8, *K9, *HO, *IC, *IM,
+		*IP, *KD, *KE, *KH, *KL, *KR, *KS, *KU, *LL, *MA, *MB,
+		*MD, *ME, *MH, *MK, *MM, *MO, *MP, *MR, *ND, *NL, *OC,
+		*OP, *RC, *SC, *SE, *SF, *SO, *SP, *SR, *TA, *TE, *TI,
+		*UC, *UE, *UP, *US, *VB, *VI, *VS, *VE, *ab, *af, *al, *dl,
+		*iC, *iP, *sB, *sF, *sf, *sr, *AL_PARM, *DL_PARM, *UP_PARM,
+		*DOWN_PARM, *LEFT_PARM, *RIGHT_PARM;
 
 /* END BACKWARD COMPATIBILITY ONLY. */
 
@@ -196,13 +205,14 @@ extern char	*AL, *BC, *BL, *BT, *CD, *CE, *CL, *CM, *CR, *CS, *DC,
 #define    KEY_SREDO      0x190    /* Shift Redo key */
 #define    KEY_SREPLACE   0x191    /* Shift Replace key */
 #define    KEY_SRIGHT     0x192    /* Shift Right Arrow key */
-#define    KEY_SRESUME    0x193    /* Shift Resume key */
+#define    KEY_SRSUME     0x193    /* Shift Resume key */
 #define    KEY_SSAVE      0x194    /* Shift Save key */
 #define    KEY_SSUSPEND   0x195    /* Shift Suspend key */
 #define    KEY_SUNDO      0x196    /* Shift Undo key */
 #define    KEY_SUSPEND    0x197    /* Suspend key */
-#define    KEY_UNDO       0x198    /* Undo key  */
-#define    KEY_MAX        0x198    /* maximum extended key value */
+#define    KEY_UNDO       0x198    /* Undo key */
+#define    KEY_MOUSE      0x199    /* Mouse event has occured */
+#define    KEY_MAX        0x199    /* maximum extended key value */
 
 /* 8-bit ASCII characters. */
 #define	unctrl(c)		__unctrl[((unsigned)c) & 0xff]
@@ -214,78 +224,110 @@ extern char	 __unctrllen[256];	/* Control strings length. */
 /*
  * A window an array of __LINE structures pointed to by the 'lines' pointer.
  * A line is an array of __LDATA structures pointed to by the 'line' pointer.
- *
- * IMPORTANT: the __LDATA structure must NOT induce any padding, so if new
- * fields are added -- padding fields with *constant values* should ensure
- * that the compiler will not generate any padding when storing an array of
- *  __LDATA structures.  This is to enable consistent use of memcmp, and memcpy
- * for comparing and copying arrays.
  */
-typedef struct {
-	int	ch;			/* the actual character */
 
-#define	__NORMAL	0x00  		/* Added characters are normal. */
-#define	__STANDOUT	0x01  		/* Added characters are standout. */
-#define	__UNDERSCORE	0x02  		/* Added characters are underscored. */
-#define	__REVERSE	0x04  		/* Added characters are reverse \
-						video. */
-#define	__BLINK		0x08  		/* Added characters are blinking. */
-#define	__DIM		0x10  		/* Added characters are dim. */
-#define	__BOLD		0x20  		/* Added characters are bold. */
-#define	__BLANK		0x40  		/* Added characters are blanked. */
-#define	__PROTECT	0x80  		/* Added characters are protected. */
-#define	__ATTRIBUTES	0xfe  		/* All character attributes
-						(excluding standout). */
-	int	attr;			/* attributes of character */
-} __LDATA;
+/*
+ * Definitions for characters and attributes in __LDATA
+ */
+#define __CHARTEXT	0x000000ff	/* bits for 8-bit characters */
+#define __NORMAL	0x00000000	/* Added characters are normal. */
+#define __STANDOUT	0x00010000	/* Added characters are standout. */
+#define __UNDERSCORE	0x00020000	/* Added characters are underscored. */
+#define __REVERSE	0x00040000	/* Added characters are reverse
+					   video. */
+#define __BLINK		0x00080000	/* Added characters are blinking. */
+#define __DIM		0x00100000	/* Added characters are dim. */
+#define __BOLD		0x00200000	/* Added characters are bold. */
+#define __BLANK		0x00400000	/* Added characters are blanked. */
+#define __PROTECT	0x00800000	/* Added characters are protected. */
+#define __ALTCHARSET	0x01000000	/* Added characters are ACS */
+#define __COLOR		0x7e000000	/* Color bits */
+#define __ATTRIBUTES	0x7fff0000	/* All 8-bit attribute bits */
 
-#define __LDATASIZE	(sizeof(__LDATA))
+typedef struct __ldata __LDATA;
+typedef struct __line  __LINE;
+typedef struct __window  WINDOW;
 
-typedef struct {
-#define	__ISDIRTY	0x01		/* Line is dirty. */
-#define __ISPASTEOL	0x02		/* Cursor is past end of line */
-#define __FORCEPAINT	0x04		/* Force a repaint of the line */
-	unsigned int flags;
-	unsigned int hash;		/* Hash value for the line. */
-	size_t *firstchp, *lastchp;	/* First and last chngd columns ptrs */
-	size_t firstch, lastch;		/* First and last changed columns. */
-	__LDATA *line;			/* Pointer to the line text. */
-} __LINE;
+/*
+ * Attribute definitions
+ */
+#define	A_NORMAL	__NORMAL
+#define	A_STANDOUT	__STANDOUT
+#define	A_UNDERLINE	__UNDERSCORE
+#define	A_REVERSE	__REVERSE
+#define	A_BLINK		__BLINK
+#define	A_DIM		__DIM
+#define	A_BOLD		__BOLD
+#define	A_BLANK		__BLANK
+#define	A_PROTECT	__PROTECT
+#define	A_ALTCHARSET	__ALTCHARSET
+#define	A_ATTRIBUTES	__ATTRIBUTES
+#define	A_CHARTEXT	__CHARTEXT
+#define	A_COLOR		__COLOR
 
-typedef struct __window {		/* Window structure. */
-	struct __window	*nextp, *orig;	/* Subwindows list and parent. */
-	size_t begy, begx;		/* Window home. */
-	size_t cury, curx;		/* Current x, y coordinates. */
-	size_t maxy, maxx;		/* Maximum values for curx, cury. */
-	short ch_off;			/* x offset for firstch/lastch. */
-	__LINE **lines;			/* Array of pointers to the lines */
-	__LINE  *lspace;		/* line space (for cleanup) */
-	__LDATA *wspace;		/* window space (for cleanup) */
+/*
+ * Alternate character set definitions
+ */
 
-#define	__ENDLINE	0x00001		/* End of screen. */
-#define	__FLUSH		0x00002		/* Fflush(stdout) after refresh. */
-#define	__FULLWIN	0x00004		/* Window is a screen. */
-#define	__IDLINE	0x00008		/* Insert/delete sequences. */
-#define	__SCROLLWIN	0x00010		/* Last char will scroll window. */
-#define	__SCROLLOK	0x00020		/* Scrolling ok. */
-#define	__CLEAROK	0x00040		/* Clear on next refresh. */
-#define	__WSTANDOUT	0x00080		/* Standout window */
-#define	__LEAVEOK	0x00100		/* If curser left */
-#define	__WUNDERSCORE	0x00200 	/* Underscored window */
-#define	__WREVERSE	0x00400		/* Reverse video window */
-#define	__WBLINK	0x00800		/* Blinking window */
-#define	__WDIM		0x01000		/* Dim window */
-#define	__WBOLD		0x02000		/* Bold window */
-#define	__WBLANK	0x04000		/* Blanked window */
-#define	__WPROTECT	0x08000		/* Protected window */
-#define	__WATTRIBUTES	0x0fc00		/* All character attributes
-						(excluding standout). */
-#define	__KEYPAD	0x10000		/* If interpreting keypad codes */
-#define	__NOTIMEOUT	0x20000		/* Wait indefinitely for func keys */
-	unsigned int flags;
+#define	NUM_ACS	128
 
-	int	delay;			/* delay for getch() */
-} WINDOW;
+extern chtype _acs_char[NUM_ACS];
+
+#define	ACS_RARROW	_acs_char['+']
+#define	ACS_LARROW	_acs_char[',']
+#define	ACS_UARROW	_acs_char['-']
+#define	ACS_DARROW	_acs_char['.']
+#define	ACS_BLOCK	_acs_char['0']
+#define	ACS_DIAMOND	_acs_char['`']
+#define	ACS_CKBOARD	_acs_char['a']
+#define	ACS_DEGREE	_acs_char['f']
+#define	ACS_PLMINUS	_acs_char['g']
+#define	ACS_BOARD	_acs_char['h']
+#define	ACS_LANTERN	_acs_char['i']
+#define	ACS_LRCORNER	_acs_char['j']
+#define	ACS_URCORNER	_acs_char['k']
+#define	ACS_ULCORNER	_acs_char['l']
+#define	ACS_LLCORNER	_acs_char['m']
+#define	ACS_PLUS	_acs_char['n']
+#define	ACS_HLINE	_acs_char['q']
+#define	ACS_S1		_acs_char['o']
+#define	ACS_S9		_acs_char['s']
+#define	ACS_LTEE	_acs_char['t']
+#define	ACS_RTEE	_acs_char['u']
+#define	ACS_BTEE	_acs_char['v']
+#define	ACS_TTEE	_acs_char['w']
+#define	ACS_VLINE	_acs_char['x']
+#define	ACS_BULLET	_acs_char['~']
+
+/* System V compatability */
+#define	ACS_SBBS	ACS_LRCORNER
+#define	ACS_BBSS	ACS_URCORNER
+#define	ACS_BSSB	ACS_ULCORNER
+#define	ACS_SSBB	ACS_LLCORNER
+#define	ACS_SSSS	ACS_PLUS
+#define	ACS_BSBS	ACS_HLINE
+#define	ACS_SSSB	ACS_LTEE
+#define	ACS_SBSS	ACS_RTEE
+#define	ACS_SSBS	ACS_BTEE
+#define	ACS_BSSS	ACS_TTEE
+#define	ACS_SBSB	ACS_VLINE
+#define	_acs_map	_acs_char
+
+/*
+ * Colour definitions (ANSI colour numbers)
+ */
+
+#define	COLOR_BLACK	0x00
+#define	COLOR_RED	0x01
+#define	COLOR_GREEN	0x02
+#define	COLOR_YELLOW	0x03
+#define	COLOR_BLUE	0x04
+#define	COLOR_MAGENTA	0x05
+#define	COLOR_CYAN	0x06
+#define	COLOR_WHITE	0x07
+
+#define	COLOR_PAIR(n)	(((n) << 25) & A_COLOR)
+#define	PAIR_NUMBER(n)	(((n) & A_COLOR) >> 25)
 
 /* Curses external declarations. */
 extern WINDOW	*curscr;		/* Current screen. */
@@ -297,17 +339,28 @@ extern int	__tcaction;		/* If terminal hardware set. */
 
 extern int	 COLS;			/* Columns on the screen. */
 extern int	 LINES;			/* Lines on the screen. */
+extern int	 COLORS;		/* Max colours on the screen. */
+extern int	 COLOR_PAIRS;		/* Max colour pairs on the screen. */
 
 extern char	*ttytype;		/* Full name of current terminal. */
 
 #define	ERR	(0)			/* Error return. */
 #define	OK	(1)			/* Success return. */
 
+/*
+ * The following have, traditionally, been macros but X/Open say they
+ * need to be functions.  Keep the old macros for debugging.
+ */
+#ifdef _CURSES_USE_MACROS
 /* Standard screen pseudo functions. */
 #define	addbytes(s, n)			__waddbytes(stdscr, s, n, 0)
 #define	addch(ch)			waddch(stdscr, ch)
 #define	addnstr(s, n)			waddnstr(stdscr, s, n)
 #define	addstr(s)			waddnstr(stdscr, s, -1)
+#define bkgd(ch)			wbkgd(stdscr, ch)
+#define bkgdset(ch)			wbkgdset(stdscr, ch)
+#define	border(l, r, t, b, tl, tr, bl, br) \
+	wborder(stdscr, l, r, t, b, tl, tr, bl, br)
 #define	clear()				wclear(stdscr)
 #define	clrtobot()			wclrtobot(stdscr)
 #define	clrtoeol()			wclrtoeol(stdscr)
@@ -318,9 +371,11 @@ extern char	*ttytype;		/* Full name of current terminal. */
 #define	getstr(s)			wgetstr(stdscr, s)
 #define	inch()				winch(stdscr)
 #define	insch(ch)			winsch(stdscr, ch)
+#define	insdelln(n)			winsdelln(stdscr, n)
 #define	insertln()			winsertln(stdscr)
 #define	move(y, x)			wmove(stdscr, y, x)
 #define	refresh()			wrefresh(stdscr)
+#define	scrl(n)				wscrl(stdscr, n)
 #define	standend()			wstandend(stdscr)
 #define	standout()			wstandout(stdscr)
 #define	timeout(delay)			wtimeout(stdscr, delay)
@@ -331,18 +386,6 @@ extern char	*ttytype;		/* Full name of current terminal. */
 #define	attrset(attr)			wattrset(stdscr, attr)
 #define	waddbytes(w, s, n)		__waddbytes(w, s, n, 0)
 #define	waddstr(w, s)			waddnstr(w, s, -1)
-
-/* Attributes */
-#define A_NORMAL	__NORMAL
-#define	A_STANDOUT	__UNDERSCORE
-#define	A_UNDERLINE	__UNDERSCORE
-#define	A_REVERSE	__REVERSE
-#define	A_BLINK		__BLINK
-#define	A_DIM		__DIM
-#define	A_BOLD		__BOLD
-#define	A_BLANK		__BLANK
-#define	A_PROTECT	__PROTECT
-#define A_ATTRIBUTES	__ATTRIBUTES
 
 /* Standard screen plus movement pseudo functions. */
 #define	mvaddbytes(y, x, s, n)		mvwaddbytes(stdscr, y, x, s, n)
@@ -373,147 +416,214 @@ extern char	*ttytype;		/* Full name of current terminal. */
 #define	mvwinsch(w, y, x, c) \
 	(wmove(w, y, x) == ERR ? ERR : winsch(w, c))
 
-
-/* Psuedo functions. */
-#define	clearok(w, bf) \
-((/* CONSTCOND */ bf) ? ((w)->flags |= __CLEAROK) : ((w)->flags &= ~__CLEAROK))
-#define	flushok(w, bf) \
-	((bf) ? ((w)->flags |= __FLUSH) : ((w)->flags &= ~__FLUSH))
-#define	leaveok(w, bf) \
-	((bf) ? ((w)->flags |= __LEAVEOK) : ((w)->flags &= ~__LEAVEOK))
-#define	scrollok(w, bf) \
-	((bf) ? ((w)->flags |= __SCROLLOK) : ((w)->flags &= ~__SCROLLOK))
-#define	winch(w) \
-	((w)->lines[(w)->cury]->line[(w)->curx].ch & 0177)
-
 #define	getyx(w, y, x)		(y) = getcury(w), (x) = getcurx(w)
 #define getbegyx(w, y, x)	(y) = getbegy(w), (x) = getbegx(w)
 #define getmaxyx(w, y, x)	(y) = getmaxy(w), (x) = getmaxx(w)
-#define getcury(w)		((w)->cury)
-#define getcurx(w)		((w)->curx)
-#define getbegy(w)		((w)->begy)
-#define getbegx(w)		((w)->begx)
-#define getmaxy(w)		((w)->maxy)
-#define getmaxx(w)		((w)->maxx)
+
+#else
+/* Use functions not macros... */
+__BEGIN_DECLS
+int	 addbytes(const char *, int);
+int	 addch(chtype);
+int	 addnstr(const char *, int);
+int	 addstr(const char *);
+int	 bkgd(chtype);
+void	 bkgdset(chtype);
+int	 border(chtype, chtype, chtype, chtype,
+	   chtype, chtype, chtype, chtype);
+int	 clear(void);
+int	 clrtobot(void);
+int	 clrtoeol(void);
+int	 delch(void);
+int	 deleteln(void);
+int	 erase(void);
+int	 getch(void);
+int	 getstr(char *);
+chtype	 inch(void);
+int	 insch(chtype);
+int	 insdelln(int);
+int	 insertln(void);
+int	 move(int, int);
+int	 refresh(void);
+int	 scrl(int);
+int	 standend(void);
+int	 standout(void);
+void	 timeout(int);
+int	 underscore(void);
+int	 underend(void);
+int	 attron(int);
+int	 attroff(int);
+int	 attrset(int);
+int	 waddbytes(WINDOW *, const char *, int);
+int	 waddstr(WINDOW *, const char *);
+
+/* Standard screen plus movement functions. */
+int	 mvaddbytes(int, int, const char *, int);
+int	 mvaddch(int, int, chtype);
+int	 mvaddnstr(int, int, const char *, int);
+int	 mvaddstr(int, int, const char *);
+int	 mvdelch(int, int);
+int	 mvgetch(int, int);
+int	 mvgetstr(int, int, char *);
+chtype	 mvinch(int, int);
+int	 mvinsch(int, int, chtype);
+
+int	 mvwaddbytes(WINDOW *, int, int, const char *, int);
+int	 mvwaddch(WINDOW *, int, int, chtype);
+int	 mvwaddnstr(WINDOW *, int, int, const char *, int);
+int	 mvwaddstr(WINDOW *, int, int, const char *);
+int	 mvwdelch(WINDOW *, int, int);
+int	 mvwgetch(WINDOW *, int, int);
+int	 mvwgetstr(WINDOW *, int, int, char *);
+chtype	 mvwinch(WINDOW *, int, int);
+int	 mvwinsch(WINDOW *, int, int, chtype);
+__END_DECLS
+#endif /* _CURSES_USE_MACROS */
+
+#define	getyx(w, y, x)		(y) = getcury(w), (x) = getcurx(w)
+#define	getbegyx(w, y, x)	(y) = getbegy(w), (x) = getbegx(w)
+#define	getmaxyx(w, y, x)	(y) = getmaxy(w), (x) = getmaxx(w)
 
 /* Public function prototypes. */
 __BEGIN_DECLS
-int	 beep __P((void));
-int	 box __P((WINDOW *, int, int));
-int	 cbreak __P((void));
-int	 delwin __P((WINDOW *));
-int	 echo __P((void));
-int	 endwin __P((void));
-int	 flash __P((void));
-int	 flushinp __P((void));
-char	*fullname __P((char *, char *));
-char	*getcap __P((char *));
-int	 gettmode __P((void));
-void	 idlok __P((WINDOW *, int));
-WINDOW	*initscr __P((void));
-int	 isendwin __P((void));
-void	 keypad __P((WINDOW *, int));
-char	*longname __P((char *, char *));
-int	 mvcur __P((int, int, int, int));
-int	 mvprintw __P((int, int, const char *, ...));
-int	 mvscanw __P((int, int, const char *, ...));
-int	 mvwin __P((WINDOW *, int, int));
-int	 mvwprintw __P((WINDOW *, int, int, const char *, ...));
-int	 mvwscanw __P((WINDOW *, int, int, const char *, ...));
-WINDOW	*newwin __P((int, int, int, int));
-int	 nl __P((void));
-int	 nocbreak __P((void));
-void     nodelay __P((WINDOW *, int));
-int	 noecho __P((void));
-int	 nonl __P((void));
-int	 noraw __P((void));
-void     notimeout __P((WINDOW *, int));
-int	 overlay __P((WINDOW *, WINDOW *));
-int	 overwrite __P((WINDOW *, WINDOW *));
-int	 printw __P((const char *, ...));
-int	 raw __P((void));
-int	 resetty __P((void));
-int	 savetty __P((void));
-int	 scanw __P((const char *, ...));
-int	 scroll __P((WINDOW *));
-int	 setterm __P((char *));
-int	 sscans __P((WINDOW *, const char *, ...));
-WINDOW	*subwin __P((WINDOW *, int, int, int, int));
-int	 suspendwin __P((void));
-int	 touchline __P((WINDOW *, int, int, int));
-int	 touchoverlap __P((WINDOW *, WINDOW *));
-int	 touchwin __P((WINDOW *));
-int	 vwprintw __P((WINDOW *, const char *, _BSD_VA_LIST_));
-int	 vwscanw __P((WINDOW *, const char *, _BSD_VA_LIST_));
-int	 waddch __P((WINDOW *, int));
-int	 waddnstr __P((WINDOW *, const char *, int));
-int	 wattron __P((WINDOW *, int));
-int	 wattroff __P((WINDOW *, int));
-int	 wattrset __P((WINDOW *, int));
-int	 wclear __P((WINDOW *));
-int	 wclrtobot __P((WINDOW *));
-int	 wclrtoeol __P((WINDOW *));
-int	 wdelch __P((WINDOW *));
-int	 wdeleteln __P((WINDOW *));
-int	 werase __P((WINDOW *));
-int	 wgetch __P((WINDOW *));
-int	 wgetstr __P((WINDOW *, char *));
-int	 winsch __P((WINDOW *, int));
-int	 winsertln __P((WINDOW *));
-int	 wmove __P((WINDOW *, int, int));
-int	 wprintw __P((WINDOW *, const char *, ...));
-int	 wrefresh __P((WINDOW *));
-int	 wscanw __P((WINDOW *, const char *, ...));
-int	 wstandend __P((WINDOW *));
-int	 wstandout __P((WINDOW *));
-void	 wtimeout __P((WINDOW *, int));
-int	 wunderscore __P((WINDOW *));
-int	 wunderend __P((WINDOW *));
-int	 vwprintw __P((WINDOW *, const char *, _BSD_VA_LIST_));
+int	 beep(void);
+int	 box(WINDOW *, chtype, chtype);
+bool	 can_change_colors(void);
+int	 cbreak(void);
+int	 clearok(WINDOW *, bool);
+int	 color_content(short, short *, short *, short *);
+int	 copywin(const WINDOW *, WINDOW *, int, int, int, int, int, int, int);
+int	 curs_set(int);
+int	 delay_output(int);
+int	 def_prog_mode(void);
+int	 def_shell_mode(void);
+int	 delwin(WINDOW *);
+WINDOW	*derwin(WINDOW *, int, int, int, int);
+WINDOW	*dupwin(WINDOW *);
+int	 doupdate(void);
+int	 echo(void);
+int	 endwin(void);
+char     erasechar(void);
+int	 flash(void);
+int	 flushinp(void);
+int	 flushok(WINDOW *, bool);
+char	*fullname(const char *, char *);
+chtype	 getattrs(WINDOW *);
+chtype	 getbkgd(WINDOW *);
+char	*getcap(char *);
+int	 getcury(WINDOW *);
+int	 getcurx(WINDOW *);
+int	 getbegy(WINDOW *);
+int	 getbegx(WINDOW *);
+int	 getmaxy(WINDOW *);
+int	 getmaxx(WINDOW *);
+int	 gettmode(void);
+bool	 has_colors(void);
+int	 hline(chtype, int);
+int	 idlok(WINDOW *, bool);
+int	 init_color(short, short, short, short);
+int	 init_pair(short, short, short);
+WINDOW	*initscr(void);
+int	 intrflush(WINDOW *, bool);
+bool	 isendwin(void);
+bool	 is_linetouched(WINDOW *, int);
+bool	 is_wintouched(WINDOW *);
+void	 keypad(WINDOW *, bool);
+char     killchar(void);
+int	 leaveok(WINDOW *, bool);
+char	*longname(void);
+int	 meta(WINDOW *, bool);
+int	 mvcur(int, int, int, int);
+int	 mvhline(int, int, chtype, int);
+int	 mvprintw(int, int, const char *, ...)
+		__attribute__((__format__(__printf__, 3, 4)));
+int	 mvscanw(int, int, const char *, ...)
+		__attribute__((__format__(__scanf__, 3, 4)));
+int	 mvvline(int, int, chtype, int);
+int	 mvwhline(WINDOW *, int, int, chtype, int);
+int	 mvwvline(WINDOW *, int, int, chtype, int);
+int	 mvwin(WINDOW *, int, int);
+int	 mvwprintw(WINDOW *, int, int, const char *, ...)
+		__attribute__((__format__(__printf__, 4, 5)));
+int	 mvwscanw(WINDOW *, int, int, const char *, ...)
+		__attribute__((__format__(__scanf__, 4, 5)));
+int	 napms(int);
+WINDOW	*newwin(int, int, int, int);
+int	 nl(void);
+int	 nocbreak(void);
+void	 nodelay(WINDOW *, bool);
+int	 noecho(void);
+int	 nonl(void);
+int	 noraw(void);
+int	 notimeout(WINDOW *, bool);
+int	 overlay(const WINDOW *, WINDOW *);
+int	 overwrite(const WINDOW *, WINDOW *);
+int	 pair_content(short, short *, short *);
+int	 printw(const char *, ...)
+		__attribute__((__format__(__printf__, 1, 2)));
+int	 raw(void);
+int	 reset_prog_mode(void);
+int	 reset_shell_mode(void);
+int	 resetty(void);
+int	 savetty(void);
+int	 scanw(const char *, ...)
+		__attribute__((__format__(__scanf__, 1, 2)));
+int	 scroll(WINDOW *);
+int	 scrollok(WINDOW *, bool);
+int	 setterm(char *);
+int	 start_color(void);
+WINDOW	*subwin(WINDOW *, int, int, int, int);
+int	 touchline(WINDOW *, int, int);
+int	 touchoverlap(WINDOW *, WINDOW *);
+int	 touchwin(WINDOW *);
+int	 ungetch(int);
+int	 untouchwin(WINDOW *);
+int	 vline(chtype, int);
+int	 vwprintw(WINDOW *, const char *, _BSD_VA_LIST_)
+		__attribute__((__format__(__printf__, 2, 0)));
+int	 vwscanw(WINDOW *, const char *, _BSD_VA_LIST_)
+		__attribute__((__format__(__scanf__, 2, 0)));
+int	 waddch(WINDOW *, chtype);
+int	 waddnstr(WINDOW *, const char *, int);
+int	 wattron(WINDOW *, int);
+int	 wattroff(WINDOW *, int);
+int	 wattrset(WINDOW *, int);
+int	 wbkgd(WINDOW *, chtype);
+void	 wbkgdset(WINDOW *, chtype);
+int	 wborder(WINDOW *, chtype, chtype, chtype, chtype, chtype, chtype,
+		chtype, chtype);
+int	 wclear(WINDOW *);
+int	 wclrtobot(WINDOW *);
+int	 wclrtoeol(WINDOW *);
+int	 wdelch(WINDOW *);
+int	 wdeleteln(WINDOW *);
+int	 werase(WINDOW *);
+int	 wgetch(WINDOW *);
+int	 wgetstr(WINDOW *, char *);
+int	 whline(WINDOW *, chtype, int);
+chtype	 winch(WINDOW *);
+int	 winsch(WINDOW *, chtype);
+int	 winsdelln(WINDOW *, int);
+int	 winsertln(WINDOW *);
+int	 wmove(WINDOW *, int, int);
+int	 wnoutrefresh(WINDOW *);
+int	 wprintw(WINDOW *, const char *, ...)
+		__attribute__((__format__(__printf__, 2, 3)));
+int	 wrefresh(WINDOW *);
+int	 wscanw(WINDOW *, const char *, ...)
+		__attribute__((__format__(__scanf__, 2, 3)));
+int	 wscrl(WINDOW *, int);
+int	 wstandend(WINDOW *);
+int	 wstandout(WINDOW *);
+void	 wtimeout(WINDOW *, int);
+int	 wtouchln(WINDOW *, int, int, int);
+int	 wunderend(WINDOW *);
+int	 wunderscore(WINDOW *);
+int	 wvline(WINDOW *, chtype, int);
 
 /* Private functions that are needed for user programs prototypes. */
-int	 __cputchar __P((int));
-int	 __waddbytes __P((WINDOW *, const char *, int, int));
+int	 __cputchar(int);
+int	 __waddbytes(WINDOW *, const char *, int, attr_t);
 __END_DECLS
-
-/* Private functions. */
-#ifdef _CURSES_PRIVATE
-#ifdef DEBUG
-void	 __CTRACE __P((const char *, ...));
-#endif
-int	 __delay __P((void));
-unsigned int __hash __P((char *, int));
-void	 __id_subwins __P((WINDOW *));
-void     __init_getch __P((char *));
-int	 __mvcur __P((int, int, int, int, int));
-int	 __nodelay __P((void));
-int	 __notimeout __P((void));
-void	 __restore_termios __P((void));
-void	 __restore_stophandler __P((void));
-void	 __save_termios __P((void));
-void	 __set_stophandler __P((void));
-void	 __set_subwin __P((WINDOW *, WINDOW *));
-void	 __startwin __P((void));
-void	 __stop_signal_handler __P((int));
-void	 __swflags __P((WINDOW *));
-int	 __timeout __P((int));
-int	 __touchline __P((WINDOW *, int, int, int, int));
-int	 __touchwin __P((WINDOW *));
-char	*__tscroll __P((const char *, int, int));
-int	 __waddch __P((WINDOW *, __LDATA *));
-int	 __stopwin __P((void));
-void	 __restartwin __P((void));
-
-/* Private #defines. */
-#define	min(a,b)	(a < b ? a : b)
-#define	max(a,b)	(a > b ? a : b)
-
-/* Private externs. */
-extern int	 __echoit;
-extern int	 __endwin;
-extern int	 __pfast;
-extern int	 __rawmode;
-extern int	 __noqch;
-#endif
 
 #endif /* !_CURSES_H_ */

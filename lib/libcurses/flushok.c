@@ -1,4 +1,4 @@
-/*	$NetBSD: bell.c,v 1.4 2000/04/24 14:09:42 blymn Exp $	*/
+/*	$NetBSD: flushok.c,v 1.4 2000/04/24 14:09:43 blymn Exp $	*/
 
 /*-
  * Copyright (c) 1999 The NetBSD Foundation, Inc.
@@ -38,50 +38,22 @@
 
 #include <sys/cdefs.h>
 #ifndef lint
-__RCSID("$NetBSD: bell.c,v 1.4 2000/04/24 14:09:42 blymn Exp $");
+__RCSID("$NetBSD: flushok.c,v 1.4 2000/04/24 14:09:43 blymn Exp $");
 #endif				/* not lint */
 
 #include "curses.h"
 #include "curses_private.h"
 
 /*
- * beep
- *	Ring the terminal bell
+ * flushok --
+ *	Turn on and off Fflush(stdout) after refresh for the given window.
  */
 int
-beep(void)
+flushok(WINDOW *win, bool bf)
 {
-	if (BL != NULL) {
-#ifdef DEBUG
-		__CTRACE("beep: bl\n");
-#endif
-		tputs(BL, 0, __cputchar);
-	} else if (VB != NULL) {
-#ifdef DEBUG
-		__CTRACE("beep: vb\n");
-#endif
-		tputs(VB, 0, __cputchar);
-	}
-	return (1);
-}
-
-/*
- * flash
- *	Flash the terminal screen
- */
-int
-flash(void)
-{
-	if (VB != NULL) {
-#ifdef DEBUG
-		__CTRACE("flash: vb\n");
-#endif
-		tputs(VB, 0, __cputchar);
-	} else if (BL != NULL) {
-#ifdef DEBUG
-		__CTRACE("flash: bl\n");
-#endif
-		tputs(BL, 0, __cputchar);
-	}
-	return (1);
+	if (bf)
+		win->flags |= __FLUSH;
+	else
+		win->flags &= ~__FLUSH;
+	return (OK);
 }

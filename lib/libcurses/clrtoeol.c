@@ -1,4 +1,4 @@
-/*	$NetBSD: clrtoeol.c,v 1.10 1999/04/13 14:08:17 mrg Exp $	*/
+/*	$NetBSD: clrtoeol.c,v 1.14 2000/05/20 15:12:15 mycroft Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -38,19 +38,33 @@
 #if 0
 static char sccsid[] = "@(#)clrtoeol.c	8.2 (Berkeley) 5/4/94";
 #else
-__RCSID("$NetBSD: clrtoeol.c,v 1.10 1999/04/13 14:08:17 mrg Exp $");
+__RCSID("$NetBSD: clrtoeol.c,v 1.14 2000/05/20 15:12:15 mycroft Exp $");
 #endif
 #endif				/* not lint */
 
 #include "curses.h"
+#include "curses_private.h"
+
+#ifndef _CURSES_USE_MACROS
+
+/*
+ * clrtoeol --
+ *	Clear up to the end of line.
+ */
+int
+clrtoeol(void)
+{
+	return wclrtoeol(stdscr);
+}
+
+#endif
 
 /*
  * wclrtoeol --
  *	Clear up to the end of line.
  */
 int
-wclrtoeol(win)
-	WINDOW *win;
+wclrtoeol(WINDOW *win)
 {
 	int     minx, x, y;
 	__LDATA *end, *maxx, *sp;
@@ -68,12 +82,15 @@ wclrtoeol(win)
 	minx = -1;
 	maxx = &win->lines[y]->line[x];
 	for (sp = maxx; sp < end; sp++)
-		if (sp->ch != ' ' || sp->attr != 0) {
+		if (sp->ch != ' ' || sp->attr != 0 ||
+		    sp->bch != win->bch || sp->battr != win->battr) {
 			maxx = sp;
 			if (minx == -1)
 				minx = sp - win->lines[y]->line;
 			sp->ch = ' ';
+			sp->bch = win->bch;
 			sp->attr = 0;
+			sp->battr = win->battr;
 		}
 #ifdef DEBUG
 	__CTRACE("CLRTOEOL: minx = %d, maxx = %d, firstch = %d, lastch = %d\n",
@@ -81,5 +98,5 @@ wclrtoeol(win)
 	    *win->lines[y]->lastchp);
 #endif
 	/* Update firstch and lastch for the line. */
-	return (__touchline(win, y, x, (int) win->maxx - 1, 0));
+	return (__touchline(win, y, x, (int) win->maxx - 1));
 }

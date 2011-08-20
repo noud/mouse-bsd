@@ -1,4 +1,4 @@
-/*	$NetBSD: printw.c,v 1.11 1999/04/13 14:08:18 mrg Exp $	*/
+/*	$NetBSD: printw.c,v 1.15 2000/04/15 13:17:04 blymn Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -38,7 +38,7 @@
 #if 0
 static char sccsid[] = "@(#)printw.c	8.3 (Berkeley) 5/4/94";
 #else
-__RCSID("$NetBSD: printw.c,v 1.11 1999/04/13 14:08:18 mrg Exp $");
+__RCSID("$NetBSD: printw.c,v 1.15 2000/04/15 13:17:04 blymn Exp $");
 #endif
 #endif				/* not lint */
 
@@ -49,6 +49,7 @@ __RCSID("$NetBSD: printw.c,v 1.11 1999/04/13 14:08:18 mrg Exp $");
 #endif
 
 #include "curses.h"
+#include "curses_private.h"
 
 /*
  * printw and friends.
@@ -68,7 +69,7 @@ int
 printw(const char *fmt,...)
 #else
 printw(fmt, va_alist)
-	char   *fmt;
+	const char   *fmt;
 va_dcl
 #endif
 {
@@ -90,11 +91,11 @@ va_dcl
  */
 int
 #ifdef __STDC__
-wprintw(WINDOW * win, const char *fmt,...)
+wprintw(WINDOW *win, const char *fmt,...)
 #else
 wprintw(win, fmt, va_alist)
 	WINDOW *win;
-	char   *fmt;
+	const char   *fmt;
 va_dcl
 #endif
 {
@@ -121,7 +122,7 @@ mvprintw(int y, int x, const char *fmt,...)
 #else
 mvprintw(y, x, fmt, va_alist)
 	int     y, x;
-	char   *fmt;
+	const char   *fmt;
 va_dcl
 #endif
 {
@@ -142,13 +143,12 @@ va_dcl
 
 int
 #ifdef __STDC__
-mvwprintw(WINDOW * win, int y, int x,
-    const char *fmt,...)
+mvwprintw(WINDOW * win, int y, int x, const char *fmt,...)
 #else
 mvwprintw(win, y, x, fmt, va_alist)
 	WINDOW *win;
 	int     y, x;
-	char   *fmt;
+	const char   *fmt;
 va_dcl
 #endif
 {
@@ -180,8 +180,13 @@ __winwrite(cookie, buf, n)
 	int     c;
 
 	for (c = n, win = cookie; --c >= 0;)
-		if (waddch(win, *buf++) == ERR)
+	{
+#ifdef DEBUG
+		__CTRACE("__winwrite: %c\n", *buf);
+#endif
+		if (waddch(win, (chtype) (*buf++ & __CHARTEXT)) == ERR)
 			return (-1);
+	}
 	return (n);
 }
 /*
@@ -189,10 +194,7 @@ __winwrite(cookie, buf, n)
  *	This routine actually executes the printf and adds it to the window.
  */
 int
-vwprintw(win, fmt, ap)
-	WINDOW *win;
-	const char *fmt;
-	va_list ap;
+vwprintw(WINDOW *win, const char *fmt, va_list ap)
 {
 	FILE   *f;
 

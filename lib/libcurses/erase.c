@@ -1,4 +1,4 @@
-/*	$NetBSD: erase.c,v 1.11 1999/04/13 14:08:18 mrg Exp $	*/
+/*	$NetBSD: erase.c,v 1.15 2000/05/20 15:12:15 mycroft Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -38,19 +38,33 @@
 #if 0
 static char sccsid[] = "@(#)erase.c	8.2 (Berkeley) 5/4/94";
 #else
-__RCSID("$NetBSD: erase.c,v 1.11 1999/04/13 14:08:18 mrg Exp $");
+__RCSID("$NetBSD: erase.c,v 1.15 2000/05/20 15:12:15 mycroft Exp $");
 #endif
 #endif				/* not lint */
 
 #include "curses.h"
+#include "curses_private.h"
+
+#ifndef _CURSES_USE_MACROS
+
+/*
+ * erase --
+ *	Erases everything on stdscr.
+ */
+int
+erase(void)
+{
+	return werase(stdscr);
+}
+
+#endif
 
 /*
  * werase --
  *	Erases everything on the window.
  */
 int
-werase(win)
-	WINDOW *win;
+werase(WINDOW *win)
 {
 
 	int     minx, y;
@@ -67,16 +81,18 @@ werase(win)
 		start = win->lines[y]->line;
 		end = &start[win->maxx];
 		for (sp = start; sp < end; sp++)
-			if (sp->ch != ' ' || sp->attr != 0) {
+			if (sp->ch != ' ' || sp->attr != 0 ||
+			    sp->bch != win->bch || sp->battr != win->battr) {
 				maxx = sp;
 				if (minx == -1)
 					minx = sp - start;
 				sp->ch = ' ';
+				sp->bch = win->bch;
 				sp->attr = 0;
+				sp->battr = win->battr;
 			}
 		if (minx != -1)
-			__touchline(win, y, minx, maxx - win->lines[y]->line,
-			    0);
+			__touchline(win, y, minx, maxx - win->lines[y]->line);
 	}
 	wmove(win, 0, 0);
 	return (OK);

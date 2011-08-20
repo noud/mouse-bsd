@@ -1,4 +1,4 @@
-/*	$NetBSD: insch.c,v 1.11 1999/04/13 14:08:18 mrg Exp $	*/
+/*	$NetBSD: insch.c,v 1.15 2000/05/20 15:12:15 mycroft Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -38,25 +38,61 @@
 #if 0
 static char sccsid[] = "@(#)insch.c	8.2 (Berkeley) 5/4/94";
 #else
-__RCSID("$NetBSD: insch.c,v 1.11 1999/04/13 14:08:18 mrg Exp $");
+__RCSID("$NetBSD: insch.c,v 1.15 2000/05/20 15:12:15 mycroft Exp $");
 #endif
 #endif				/* not lint */
 
 #include <string.h>
 
 #include "curses.h"
+#include "curses_private.h"
+
+#ifndef _CURSES_USE_MACROS
+
+/*
+ * insch --
+ *	Do an insert-char on the line, leaving (cury, curx) unchanged.
+ */
+int
+insch(chtype ch)
+{
+	return winsch(stdscr, ch);
+}
+
+/*
+ * mvinsch --
+ *      Do an insert-char on the line at (y, x).
+ */
+int
+mvinsch(int y, int x, chtype ch)
+{
+	return mvwinsch(stdscr, y, x, ch);
+}
+
+/*
+ * mvwinsch --
+ *      Do an insert-char on the line at (y, x) in the given window.
+ */
+int
+mvwinsch(WINDOW *win, int y, int x, chtype ch)
+{
+	if (wmove(win, y, x) == ERR)
+		return ERR;
+
+	return winsch(stdscr, ch);
+}
+
+#endif
 
 /*
  * winsch --
  *	Do an insert-char on the line, leaving (cury, curx) unchanged.
  */
 int
-winsch(win, ch)
-	WINDOW *win;
-	int     ch;
+winsch(WINDOW *win, chtype ch)
 {
 
-	__LDATA *end, *temp1, *temp2;
+	__LDATA	*end, *temp1, *temp2;
 
 	end = &win->lines[win->cury]->line[win->curx];
 	temp1 = &win->lines[win->cury]->line[win->maxx - 1];
@@ -65,12 +101,16 @@ winsch(win, ch)
 		(void) memcpy(temp1, temp2, sizeof(__LDATA));
 		temp1--, temp2--;
 	}
-	temp1->ch = ch;
-	temp1->attr &= ~__STANDOUT;
-	__touchline(win, (int) win->cury, (int) win->curx, (int) win->maxx - 1, 0);
+	temp1->ch = (wchar_t) ch & __CHARTEXT;
+	temp1->bch = win->bch;
+	temp1->attr = (attr_t) ch & __ATTRIBUTES;
+	temp1->battr = win->battr;
+	__touchline(win, (int) win->cury, (int) win->curx, (int) win->maxx - 1);
 	if (win->cury == LINES - 1 &&
 	    (win->lines[LINES - 1]->line[COLS - 1].ch != ' ' ||
-		win->lines[LINES - 1]->line[COLS - 1].attr != 0)) {
+	        win->lines[LINES - 1]->line[COLS - 1].bch != ' ' ||
+		win->lines[LINES - 1]->line[COLS - 1].attr != 0 ||
+		win->lines[LINES - 1]->line[COLS - 1].battr != 0)) {
 		if (win->flags & __SCROLLOK) {
 			wrefresh(win);
 			scroll(win);

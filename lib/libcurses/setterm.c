@@ -1,4 +1,4 @@
-/*	$NetBSD: setterm.c,v 1.13 1999/12/07 03:18:52 simonb Exp $	*/
+/*	$NetBSD: setterm.c,v 1.26 2000/06/12 21:04:08 jdc Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -38,7 +38,7 @@
 #if 0
 static char sccsid[] = "@(#)setterm.c	8.8 (Berkeley) 10/25/94";
 #else
-__RCSID("$NetBSD: setterm.c,v 1.13 1999/12/07 03:18:52 simonb Exp $");
+__RCSID("$NetBSD: setterm.c,v 1.26 2000/06/12 21:04:08 jdc Exp $");
 #endif
 #endif /* not lint */
 
@@ -50,50 +50,64 @@ __RCSID("$NetBSD: setterm.c,v 1.13 1999/12/07 03:18:52 simonb Exp $");
 #include <unistd.h>
 
 #include "curses.h"
+#include "curses_private.h"
 
-static void zap __P((void));
+static int zap(struct tinfo *tinfo);
+
+struct tinfo *_cursesi_genbuf;
 
 static char	*sflags[] = {
-		/*       am   bs   da   eo   hc   in   mi   ms  */
-			&AM, &BS, &DA, &EO, &HC, &IN, &MI, &MS,
-		/*	 nc   ns   os   ul   xb   xn   xt   xs   xx  */
-			&NC, &NS, &OS, &UL, &XB, &XN, &XT, &XS, &XX
+		/*	 am   ut   bs   cc   da   eo   hc   hl  */
+			&AM, &UT, &BS, &CC, &DA, &EO, &HC, &HL,
+		/*	 in   mi   ms   nc   ns   os   ul   xb  */
+			&IN, &MI, &MS, &NC, &NS, &OS, &UL, &XB,
+		/*	 xn   xt   xs   xx  */
+			&XN, &XT, &XS, &XX
 		};
 
+static int	*svals[] = {
+		/*	 pa   Co */
+			&PA, &cO, &nc
+		};
 static char	*_PC,
 		**sstrs[] = {
-		/*	 AL   bc   bl   bt   cd   ce   cl   cm   cr  */
-			&AL, &BC, &BL, &BT, &CD, &CE, &CL, &CM, &CR,
-		/*	 cs   dc   DL   dm   do   ed   ei   k0   k1  */
-			&CS, &DC, &DL, &DM, &DO, &ED, &EI, &K0, &K1,
-		/*	 k2   k3   k4   k5   k6   k7   k8   k9   ho  */
-			&K2, &K3, &K4, &K5, &K6, &K7, &K8, &K9, &HO,
-		/*	 ic   im   ip   kd   ke   kh   kl   kr   ks  */
-			&IC, &IM, &IP, &KD, &KE, &KH, &KL, &KR, &KS,
-		/*	 ku   ll   ma   mb   md   me   mh   mk   mp  */
-			&KU, &LL, &MA, &MB, &MD, &ME, &MH, &MK, &MP,
-		/*	 mr   nd   nl    pc   rc   sc   se   SF  so  */
-			&MR, &ND, &NL, &_PC, &RC, &SC, &SE, &SF, &SO,
+		/*	 AC   AE   AL   AS   bc   bl   bt   cd   ce  */
+			&AC, &AE, &AL, &AS, &BC, &BL, &BT, &CD, &CE,
+		/*	 cl   cm   cr   cs   dc   DL   dm   do   eA  */
+			&CL, &CM, &CR, &CS, &DC, &DL, &DM, &DO, &Ea,
+		/*	 ed   ei   k0   k1   k2   k3   k4   k5   k6  */
+			&ED, &EI, &K0, &K1, &K2, &K3, &K4, &K5, &K6,
+		/*	 k7   k8   k9   ho   ic   im   ip   kd   ke  */
+			&K7, &K8, &K9, &HO, &IC, &IM, &IP, &KD, &KE,
+		/*	 kh   kl   kr   ks   ku   ll   ma   mb   md  */
+			&KH, &KL, &KR, &KS, &KU, &LL, &MA, &MB, &MD,
+		/*	 me   mh   mk   mm   mo   mp   mr   nd   nl  */
+			&ME, &MH, &MK, &MM, &MO, &MP, &MR, &ND, &NL,
+		/*	 oc   op    pc   rc   sc   se   SF   so   sp */
+			&OC, &OP, &_PC, &RC, &SC, &SE, &SF, &SO, &SP,
 		/*	 SR   ta   te   ti   uc   ue   up   us   vb  */
 			&SR, &TA, &TE, &TI, &UC, &UE, &UP, &US, &VB,
-		/*	 vs   ve   al   dl   sf   sr   AL	 DL  */
-			&VS, &VE, &al, &dl, &sf, &sr, &AL_PARM, &DL_PARM,
-		/*	 UP	     DO	       LE	   RI	     */
-			&UP_PARM, &DOWN_PARM, &LEFT_PARM, &RIGHT_PARM,
+		/*	 vi   vs   ve   AB   AF   al   dl   Ic   Ip  */
+			&VI, &VS, &VE, &ab, &af, &al, &dl, &iC, &iP,
+		/*	 Sb   Sf   sf   sr   AL        DL        UP  */
+			&sB, &sF, &sf, &sr, &AL_PARM, &DL_PARM, &UP_PARM,
+		/*	   DO        LE          RI                  */
+			&DOWN_PARM, &LEFT_PARM, &RIGHT_PARM,
 		};
 
 static char	*aoftspace;		/* Address of _tspace for relocation */
-static char	tspace[2048];		/* Space for capability strings */
+static char	*tspace;		/* Space for capability strings */
+static size_t   tspace_size;            /* size of tspace */
 
-char *ttytype;
+char	*ttytype;
+attr_t	 __mask_OP, __mask_ME, __mask_UE, __mask_SE;
 
 int
-setterm(type)
-	char *type;
+setterm(char *type)
 {
-	static char genbuf[1024];
-	static char __ttytype[1024];
+	static char __ttytype[128], cm_buff[1024], tc[1024], *tcptr;
 	int unknown;
+	size_t limit;
 	struct winsize win;
 	char *p;
 
@@ -104,9 +118,8 @@ setterm(type)
 	if (type[0] == '\0')
 		type = "xx";
 	unknown = 0;
-	if (tgetent(genbuf, type) != 1) {
+	if (t_getent(&_cursesi_genbuf, type) != 1) {
 		unknown++;
-		(void)strncpy(genbuf, "xx|dumb:", sizeof(genbuf) - 1);
 	}
 #ifdef DEBUG
 	__CTRACE("setterm: tty = %s\n", type);
@@ -118,8 +131,14 @@ setterm(type)
 		LINES = win.ws_row;
 		COLS = win.ws_col;
 	}  else {
-		LINES = tgetnum("li");
-		COLS = tgetnum("co");
+		if (unknown) {
+			LINES = -1;
+			COLS = -1;
+		} else {
+			LINES = t_getnum(_cursesi_genbuf, "li");
+			COLS = t_getnum(_cursesi_genbuf, "co");
+		}
+
 	}
 
 	/* POSIX 1003.2 requires that the environment override. */
@@ -137,22 +156,20 @@ setterm(type)
 #ifdef DEBUG
 	__CTRACE("setterm: LINES = %d, COLS = %d\n", LINES, COLS);
 #endif
-	aoftspace = tspace;
-	zap();			/* Get terminal description. */
+	if (!unknown) {
+		if (zap(_cursesi_genbuf) == ERR) /* Get terminal description.*/
+			return ERR;
+	}
 
 	/* If we can't tab, we can't backtab, either. */
 	if (!GT)
 		BT = NULL;
 
 	/*
-	 * Test for cursor motion capbility.
+	 * Test for cursor motion capability.
 	 *
-	 * XXX
-	 * This is truly stupid -- historically, tgoto returns "OOPS" if it
-	 * can't do cursor motions.  Some systems have been fixed to return
-	 * a NULL pointer.
 	 */
-	if ((p = tgoto(CM, 0, 0)) == NULL || *p == 'O') {
+	if (t_goto(NULL, CM, 0, 0, cm_buff, 1023) < 0) {
 		CA = 0;
 		CM = 0;
 	} else
@@ -160,13 +177,59 @@ setterm(type)
 
 	PC = _PC ? _PC[0] : 0;
 	aoftspace = tspace;
-	ttytype = longname(genbuf, __ttytype);
+	if (unknown) {
+		strcpy(ttytype, "dumb");
+	} else {
+		tcptr = tc;
+		limit = 1023;
+		if (t_getterm(_cursesi_genbuf, &tcptr, &limit) < 0)
+			return ERR;
+		ttytype = __longname(tc, __ttytype);
+	}
 
 	/* If no scrolling commands, no quick change. */
 	__noqch =
-	    (CS == NULL || HO == NULL ||
+  	    (CS == NULL || HO == NULL ||
 	    (SF == NULL && sf == NULL) || (SR == NULL && sr == NULL)) &&
 	    ((AL == NULL && al == NULL) || (DL == NULL && dl == NULL));
+
+	/* Precalculate conflict info for color/attribute end commands. */
+	__mask_OP = __ATTRIBUTES & ~__COLOR;
+	if (OP != NULL) {
+		if (SE != NULL && !strcmp(OP, SE))
+			__mask_OP &= ~__STANDOUT;
+		if (UE != NULL && !strcmp(OP, UE))
+			__mask_OP &= ~__UNDERSCORE;
+		if (ME != NULL && !strcmp(OP, ME))
+			__mask_OP &= ~__TERMATTR;
+	}
+	__mask_ME = __ATTRIBUTES & ~__TERMATTR;
+	if (ME != NULL) {
+		if (SE != NULL && !strcmp(ME, SE))
+			__mask_ME &= ~__STANDOUT;
+		if (UE != NULL && !strcmp(ME, UE))
+			__mask_ME &= ~__UNDERSCORE;
+		if (OP != NULL && !strcmp(ME, OP))
+			__mask_ME &= ~__COLOR;
+	}
+	__mask_UE = __ATTRIBUTES & ~__UNDERSCORE;
+	if (UE != NULL) {
+		if (SE != NULL && !strcmp(UE, SE))
+			__mask_UE &= ~__STANDOUT;
+		if (ME != NULL && !strcmp(UE, ME))
+			__mask_UE &= ~__TERMATTR;
+		if (OP != NULL && !strcmp(UE, OP))
+			__mask_UE &= ~__COLOR;
+	}
+	__mask_SE = __ATTRIBUTES & ~__STANDOUT;
+	if (SE != NULL) {
+		if (UE != NULL && !strcmp(SE, UE))
+			__mask_SE &= ~__UNDERSCORE;
+		if (ME != NULL && !strcmp(SE, ME))
+			__mask_SE &= ~__TERMATTR;
+		if (OP != NULL && !strcmp(SE, OP))
+			__mask_SE &= ~__COLOR;
+	}
 
 	return (unknown ? ERR : OK);
 }
@@ -175,35 +238,71 @@ setterm(type)
  * zap --
  *	Gets all the terminal flags from the termcap database.
  */
-static void
-zap()
+static int
+zap(struct tinfo *tinfo)
 {
-	char *namp, ***sp;
+	const char *nampstr, *namp;
+        char ***sp;
+	int  **vp;
 	char **fp;
 	char tmp[3];
+	size_t i;
 #ifdef DEBUG
 	char	*cp;
 #endif
 	tmp[2] = '\0';
 
-	namp = "ambsdaeohcinmimsncnsosulxbxnxtxsxx";
+	namp = "amutbsccdaeohchlinmimsncnsosulxbxnxtxsxx";
 	fp = sflags;
 	do {
 		*tmp = *namp;
 		*(tmp + 1) = *(namp + 1);
-		*(*fp++) = tgetflag(tmp);
+		*(*fp++) = t_getflag(tinfo, tmp);
 #ifdef DEBUG
 		__CTRACE("%2.2s = %s\n", namp, *fp[-1] ? "TRUE" : "FALSE");
 #endif
 		namp += 2;
 
 	} while (*namp);
-	namp = "ALbcblbtcdceclcmcrcsdcDLdmdoedeik0k1k2k3k4k5k6k7k8k9hoicimipkdkekhklkrkskullmambmdmemhmkmpmrndnlpcrcscseSFsoSRtatetiucueupusvbvsvealdlsfsrALDLUPDOLERI";
+	namp = "paCoNC";
+	vp = svals;
+	do {
+		*tmp = *namp;
+		*(tmp + 1) = *(namp + 1);
+		*(*vp++) = t_getnum(tinfo, tmp);
+#ifdef DEBUG
+		__CTRACE("%2.2s = %d\n", namp, *vp[-1]);
+#endif
+		namp += 2;
+
+	} while (*namp);
+
+	  /* calculate the size of tspace.... */
+	nampstr = "acaeALasbcblbtcdceclcmcrcsdcDLdmdoeAedeik0k1k2k3k4k5k6k7k8k9hoicimipkdkekhklkrkskullmambmdmemhmkmmmompmrndnlocoppcprscseSFsospSRtatetiucueupusvbvivsveABAFaldlIcIpSbSfsfsrALDLUPDOLERI";
+	namp = nampstr;
+	tspace_size = 0;
+	do {
+		*tmp = *namp;
+		*(tmp + 1) = *(namp + 1);
+		t_getstr(tinfo, tmp, NULL, &i);
+		tspace_size += i + 1;
+		namp += 2;
+	} while (*namp);
+
+	if ((tspace = (char *) malloc(tspace_size)) == NULL)
+		return ERR;
+#ifdef DEBUG
+	__CTRACE("Allocated %d (0x%x) size buffer for tspace\n", tspace_size,
+		 tspace_size);
+#endif
+	aoftspace = tspace;
+
+	namp = nampstr;
 	sp = sstrs;
 	do {
 		*tmp = *namp;
 		*(tmp + 1) = *(namp + 1);
-		*(*sp++) = tgetstr(tmp, &aoftspace);
+		*(*sp++) = t_getstr(tinfo, tmp, &aoftspace, NULL);
 #ifdef DEBUG
 		__CTRACE("%2.2s = %s", namp, *sp[-1] == NULL ? "NULL\n" : "\"");
 		if (*sp[-1] != NULL) {
@@ -217,15 +316,17 @@ zap()
 	if (XS)
 		SO = SE = NULL;
 	else {
-		if (tgetnum("sg") > 0)
+		if (t_getnum(tinfo, "sg") > 0)
 			SO = NULL;
-		if (tgetnum("ug") > 0)
+		if (t_getnum(tinfo, "ug") > 0)
 			US = NULL;
 		if (!SO && US) {
 			SO = US;
 			SE = UE;
 		}
 	}
+
+	return OK;
 }
 
 /*
@@ -233,8 +334,21 @@ zap()
  *	Return a capability from termcap.
  */
 char	*
-getcap(name)
-	char	*name;
+getcap(char *name)
 {
-	return (tgetstr(name, &aoftspace));
+	size_t ent_size, offset;
+	char *new_tspace;
+
+	  /* verify cap exists and grab size of it at the same time */
+	t_getstr(_cursesi_genbuf, name, NULL, &ent_size);
+
+	  /* grow tspace to hold the new cap */
+	if ((new_tspace = realloc(tspace, ent_size + tspace_size)) == NULL)
+		return NULL;
+
+	  /* point aoftspace to the same place in the newly allocated buffer */
+	offset = aoftspace - tspace;
+	tspace = new_tspace + offset;
+
+	return (t_getstr(_cursesi_genbuf, name, &aoftspace, NULL));
 }

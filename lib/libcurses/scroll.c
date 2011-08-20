@@ -1,4 +1,4 @@
-/*	$NetBSD: scroll.c,v 1.10 1999/04/13 14:08:19 mrg Exp $	*/
+/*	$NetBSD: scroll.c,v 1.12.4.1 2000/08/03 11:46:12 itojun Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -38,36 +38,62 @@
 #if 0
 static char sccsid[] = "@(#)scroll.c	8.3 (Berkeley) 5/4/94";
 #else
-__RCSID("$NetBSD: scroll.c,v 1.10 1999/04/13 14:08:19 mrg Exp $");
+__RCSID("$NetBSD: scroll.c,v 1.12.4.1 2000/08/03 11:46:12 itojun Exp $");
 #endif
 #endif				/* not lint */
 
 #include "curses.h"
+#include "curses_private.h"
 
 /*
  * scroll --
  *	Scroll the window up a line.
  */
 int
-scroll(win)
-	WINDOW *win;
+scroll(WINDOW *win)
+{
+	return(wscrl(win, 1));
+}
+
+#ifndef _CURSES_USE_MACROS
+
+/*
+ * scrl --
+ *	Scroll stdscr n lines - up if n is positive, down if n is negative.
+ */
+int
+scrl(int lines)
+{
+	return wscrl(stdscr, lines);
+}
+
+#endif
+
+/*
+ * wscrl --
+ *	Scroll a window n lines - up if n is positive, down if n is negative.
+ */
+int
+wscrl(WINDOW *win, int lines)
 {
 	int     oy, ox;
 
 #ifdef DEBUG
-	__CTRACE("scroll: (%0.2o)\n", win);
+	__CTRACE("wscrl: (%0.2o) lines=%d\n", win, lines);
 #endif
 
 	if (!(win->flags & __SCROLLOK))
 		return (ERR);
+	if (!lines)
+		return (OK);
 
 	getyx(win, oy, ox);
 	wmove(win, 0, 0);
-	wdeleteln(win);
+	winsdelln(win, 0 - lines);
 	wmove(win, oy, ox);
 
 	if (win == curscr) {
-		putchar('\n');
+		__cputchar('\n');
 		if (!NONL)
 			win->curx = 0;
 #ifdef DEBUG

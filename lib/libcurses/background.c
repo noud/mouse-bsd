@@ -1,7 +1,7 @@
-/*	$NetBSD: bell.c,v 1.4 2000/04/24 14:09:42 blymn Exp $	*/
+/*	$NetBSD: background.c,v 1.6 2000/04/24 14:09:42 blymn Exp $	*/
 
 /*-
- * Copyright (c) 1999 The NetBSD Foundation, Inc.
+ * Copyright (c) 2000 The NetBSD Foundation, Inc.
  * All rights reserved.
  *
  * This code is derived from software contributed to The NetBSD Foundation
@@ -38,50 +38,75 @@
 
 #include <sys/cdefs.h>
 #ifndef lint
-__RCSID("$NetBSD: bell.c,v 1.4 2000/04/24 14:09:42 blymn Exp $");
+__RCSID("$NetBSD: background.c,v 1.6 2000/04/24 14:09:42 blymn Exp $");
 #endif				/* not lint */
 
 #include "curses.h"
 #include "curses_private.h"
 
 /*
- * beep
- *	Ring the terminal bell
+ * bkgdset
+ *	Set new background attributes on stdscr.
  */
-int
-beep(void)
+void
+bkgdset(chtype ch)
 {
-	if (BL != NULL) {
-#ifdef DEBUG
-		__CTRACE("beep: bl\n");
-#endif
-		tputs(BL, 0, __cputchar);
-	} else if (VB != NULL) {
-#ifdef DEBUG
-		__CTRACE("beep: vb\n");
-#endif
-		tputs(VB, 0, __cputchar);
-	}
-	return (1);
+	wbkgdset(stdscr, ch);
 }
 
 /*
- * flash
- *	Flash the terminal screen
+ * bkgd --
+ *	Set new background and new background attributes on stdscr.
  */
 int
-flash(void)
+bkgd(chtype ch)
 {
-	if (VB != NULL) {
+	return(wbkgd(stdscr, ch));
+}
+
+/*
+ * wbkgdset
+ *	Set new background attributes.
+ */
+void
+wbkgdset(WINDOW *win, chtype ch)
+{
+	if (ch & __CHARTEXT)
+		win->bch = (wchar_t) ch & __CHARTEXT;
+	win->battr = (attr_t) ch & __ATTRIBUTES;
 #ifdef DEBUG
-		__CTRACE("flash: vb\n");
+	__CTRACE("wbkgdset: (%0.2o), '%s', %08x\n",
+	    win, unctrl(win->bch), win->battr);
 #endif
-		tputs(VB, 0, __cputchar);
-	} else if (BL != NULL) {
-#ifdef DEBUG
-		__CTRACE("flash: bl\n");
-#endif
-		tputs(BL, 0, __cputchar);
-	}
-	return (1);
+}
+
+/*
+ * wbkgd --
+ *	Set new background and new background attributes.
+ */
+int
+wbkgd(WINDOW *win, chtype ch)
+{
+	int	y, x;
+
+	wbkgdset(win, ch);
+	for (y = 0; y < win->maxy; y++)
+		for (x = 0; x < win->maxx; x++) {
+			if (ch & A_CHARTEXT)
+				win->lines[y]->line[x].bch = ch & __CHARTEXT;
+			win->lines[y]->line[x].battr = ch & __ATTRIBUTES;
+		}
+	__touchwin(win);
+	return(OK);
+}
+
+/*
+ * getbkgd --
+ *	Get current background attributes.
+ */
+chtype
+getbkgd(WINDOW *win)
+{
+	return ((chtype) ((win->bch & A_CHARTEXT) |
+	    (win->battr & A_ATTRIBUTES)));
 }

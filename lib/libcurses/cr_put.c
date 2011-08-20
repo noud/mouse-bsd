@@ -1,4 +1,4 @@
-/*	$NetBSD: cr_put.c,v 1.14 1999/10/04 23:21:18 lukem Exp $	*/
+/*	$NetBSD: cr_put.c,v 1.18.4.1 2000/08/03 11:46:12 itojun Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -38,13 +38,17 @@
 #if 0
 static char sccsid[] = "@(#)cr_put.c	8.3 (Berkeley) 5/4/94";
 #else
-__RCSID("$NetBSD: cr_put.c,v 1.14 1999/10/04 23:21:18 lukem Exp $");
+__RCSID("$NetBSD: cr_put.c,v 1.18.4.1 2000/08/03 11:46:12 itojun Exp $");
 #endif
 #endif				/* not lint */
 
 #include <string.h>
 
 #include "curses.h"
+#include "curses_private.h"
+
+/* the following is defined and set up in setterm.c */
+extern struct tinfo *_cursesi_genbuf;
 
 #define	HARDTABS	8
 
@@ -56,8 +60,7 @@ __RCSID("$NetBSD: cr_put.c,v 1.14 1999/10/04 23:21:18 lukem Exp $");
 
 /* Stub function for the users. */
 int
-mvcur(ly, lx, y, x)
-	int     ly, lx, y, x;
+mvcur(int ly, int lx, int y, int x)
 {
 	return (__mvcur(ly, lx, y, x, 0));
 }
@@ -75,8 +78,7 @@ static int outcol, outline, destcol, destline;
  * the lack thereof and rolling up the screen to get destline on the screen.
  */
 int
-__mvcur(ly, lx, y, x, in_refresh)
-	int     ly, lx, y, x, in_refresh;
+__mvcur(int ly, int lx, int y, int x, int in_refresh)
 {
 #ifdef DEBUG
 	__CTRACE("mvcur: moving cursor from (%d, %d) to (%d, %d)\n",
@@ -95,7 +97,7 @@ fgoto(in_refresh)
 	int     in_refresh;
 {
 	int     c, l;
-	char   *cgp;
+	char   cgp[1024];
 
 	if (destcol >= COLS) {
 		destline += destcol / COLS;
@@ -111,12 +113,12 @@ fgoto(in_refresh)
 					if (CR)
 						tputs(CR, 0, __cputchar);
 					else
-						putchar('\r');
+						__cputchar('\r');
 				}
 				if (NL)
 					tputs(NL, 0, __cputchar);
 				else
-					putchar('\n');
+					__cputchar('\n');
 				l--;
 			}
 			outcol = 0;
@@ -156,7 +158,7 @@ fgoto(in_refresh)
 			if (NL /* && !XB */ && __pfast)
 				tputs(NL, 0, __cputchar);
 			else
-				putchar('\n');
+				__cputchar('\n');
 			l--;
 			if (__pfast == 0)
 				outcol = 0;
@@ -165,7 +167,7 @@ fgoto(in_refresh)
 	if (destline < outline && !(CA || UP))
 		destline = outline;
 	if (CA) {
-		cgp = tgoto(CM, destcol, destline);
+		t_goto(NULL, CM, destcol, destline, cgp, 1023);
 
 		/*
 		 * Need this condition due to inconsistent behavior
@@ -196,7 +198,7 @@ plodput(c)
 	if (plodflg)
 		--plodcnt;
 	else
-		putchar(c);
+		__cputchar(c);
 	return (0);
 }
 
@@ -335,7 +337,7 @@ dontcr:while (outline < destline) {
 			outcol = 0;
 	}
 	if (BT)
-		k = strlen(BT);
+		k = (int) strlen(BT);
 	while (outcol > destcol) {
 		if (plodcnt < 0)
 			goto out;
@@ -394,11 +396,11 @@ dontcr:while (outline < destline) {
 			if (plodflg)	/* Avoid a complex calculation. */
 				plodcnt--;
 			else {
-				i = curscr->lines[outline]->line[outcol].ch;
-				if ((curscr->lines[outline]->line[outcol].attr
-					& __STANDOUT) ==
-				    (curscr->flags & __WSTANDOUT))
-					putchar(i);
+				i = curscr->lines[outline]->line[outcol].ch
+				    & __CHARTEXT;
+				if (curscr->lines[outline]->line[outcol].attr
+				    == curscr->wattr)
+					__cputchar(i);
 				else
 					goto nondes;
 			}

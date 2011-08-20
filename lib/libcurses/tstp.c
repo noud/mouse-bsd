@@ -1,4 +1,4 @@
-/*	$NetBSD: tstp.c,v 1.13 1999/04/13 14:08:19 mrg Exp $	*/
+/*	$NetBSD: tstp.c,v 1.21 2000/06/15 21:20:16 jdc Exp $	*/
 
 /*
  * Copyright (c) 1981, 1993, 1994
@@ -38,7 +38,7 @@
 #if 0
 static char sccsid[] = "@(#)tstp.c	8.3 (Berkeley) 5/4/94";
 #else
-__RCSID("$NetBSD: tstp.c,v 1.13 1999/04/13 14:08:19 mrg Exp $");
+__RCSID("$NetBSD: tstp.c,v 1.21 2000/06/15 21:20:16 jdc Exp $");
 #endif
 #endif				/* not lint */
 
@@ -48,14 +48,14 @@ __RCSID("$NetBSD: tstp.c,v 1.13 1999/04/13 14:08:19 mrg Exp $");
 #include <unistd.h>
 
 #include "curses.h"
+#include "curses_private.h"
 
 /*
  * stop_signal_handler --
  *	Handle stop signals.
  */
 void
-__stop_signal_handler(/*ARGSUSED*/signo)
-	int	signo;
+__stop_signal_handler(/*ARGSUSED*/int signo)
 {
 	sigset_t oset, set;
 
@@ -98,7 +98,7 @@ __P((int)) = SIG_DFL;
  * Set the TSTP handler.
  */
 void
-__set_stophandler()
+__set_stophandler(void)
 {
 	otstpfn = signal(SIGTSTP, __stop_signal_handler);
 }
@@ -107,7 +107,7 @@ __set_stophandler()
  * Restore the TSTP handler.
  */
 void
-__restore_stophandler()
+__restore_stophandler(void)
 {
 	(void) signal(SIGTSTP, otstpfn);
 }
@@ -119,7 +119,7 @@ __restore_stophandler()
 static struct termios save_termios;
 
 int
-__stopwin()
+__stopwin(void)
 {
 	/* Get the current terminal state (which the user may have changed). */
 	(void) tcgetattr(STDIN_FILENO, &save_termios);
@@ -127,36 +127,21 @@ __stopwin()
 	__restore_stophandler();
 
 	if (curscr != NULL) {
-		if (curscr->flags & __WSTANDOUT) {
-			tputs(SE, 0, __cputchar);
-			curscr->flags &= ~__WSTANDOUT;
-			if (*SE == *UE) {
-				curscr->flags &= ~__WUNDERSCORE;
-			}
-			if (*SE == *ME) {
-				curscr->flags &= ~__WATTRIBUTES;
-			}
-
-		}
-		if (curscr->flags & __WUNDERSCORE) {
-			tputs(SE, 0, __cputchar);
-			curscr->flags &= ~__WUNDERSCORE;
-			if (*UE == *ME) {
-				curscr->flags &= ~__WATTRIBUTES;
-			}
-		}
-		if (curscr->flags & __WATTRIBUTES) {
-			tputs(SE, 0, __cputchar);
-			curscr->flags &= ~__WATTRIBUTES;
-		}
+		__unsetattr(0);
 		__mvcur((int) curscr->cury, (int) curscr->curx, (int) curscr->maxy - 1, 0, 0);
 	}
 
-	(void) tputs(KE, 0, __cputchar);
+	if (MO != NULL)
+		(void) tputs(MO, 0, __cputchar);
+
+	if (curscr->flags & __KEYPAD)
+		(void) tputs(KE, 0, __cputchar);
 	(void) tputs(VE, 0, __cputchar);
 	(void) tputs(TE, 0, __cputchar);
 	(void) fflush(stdout);
-	(void) setvbuf(stdout, NULL, _IOLBF, 0);
+	(void) setvbuf(stdout, NULL, _IOLBF, (size_t) 0);
+
+	__endwin = 1;
 
 	return (tcsetattr(STDIN_FILENO, __tcaction ?
 	    TCSASOFT | TCSADRAIN : TCSADRAIN, &__orig_termios) ? ERR : OK);
@@ -164,7 +149,7 @@ __stopwin()
 
 
 void
-__restartwin()
+__restartwin(void)
 {
 	/* Reset the curses SIGTSTP signal handler. */
 	__set_stophandler();
@@ -176,9 +161,43 @@ __restartwin()
 	(void) tcsetattr(STDIN_FILENO, __tcaction ?
 	    TCSASOFT | TCSADRAIN : TCSADRAIN, &save_termios);
 
+	/* Restore colours */
+	__restore_colors();
+
+	/* Reset meta */
+	__restore_meta_state();
+
+	/* Reset cursor visibility */
+	__restore_cursor_vis();
+
 	/* Restart the screen. */
 	__startwin();
 
 	/* Repaint the screen. */
 	wrefresh(curscr);
+}
+
+int
+def_prog_mode(void)
+{
+	return (tcgetattr(STDIN_FILENO, &save_termios) ? ERR : OK);
+}
+
+int
+reset_prog_mode(void)
+{
+	__restartwin();
+	return(OK);
+}
+
+int
+def_shell_mode(void)
+{
+	return (tcgetattr(STDIN_FILENO, &__orig_termios) ? ERR : OK);
+}
+
+int
+reset_shell_mode(void)
+{
+	return (__stopwin());
 }
