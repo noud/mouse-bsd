@@ -1984,24 +1984,35 @@ reply(n, fmt, va_alist)
         va_dcl
 #endif
 {
-	off_t b;
-	va_list ap;
+ va_list ap;
+ FILE *f;
+ int ml;
+ char msg[MAXPATHLEN*2+100];
+
+ static int w(void *cookie __attribute__((__unused__)), const char *s, int l)
+  { if (l > sizeof(msg)-1-ml) l = sizeof(msg) - 1 - ml;
+    if (l < 1) return(0);
+    bcopy(s,&msg[ml],l);
+    ml += l;
+    return(l);
+  }
+
 #ifdef __STDC__
-	va_start(ap, fmt);
+ va_start(ap, fmt);
 #else
-	va_start(ap);
+ va_start(ap);
 #endif
-	b = 0;
-	b += printf("%d ", n);
-	b += vprintf(fmt, ap);
-	b += printf("\r\n");
-	total_bytes += b;
-	total_bytes_out += b;
-	(void)fflush(stdout);
-	if (debug) {
-		syslog(LOG_DEBUG, "<--- %d ", n);
-		vsyslog(LOG_DEBUG, fmt, ap);
-	}
+ ml = 0;
+ f = fwopen(0,&w);
+ fprintf(f,"%d ",n);
+ vfprintf(f,fmt,ap);
+ fclose(f);
+ msg[ml] = '\0';
+ total_bytes += ml + 2;
+ total_bytes_out += ml + 2;
+ printf("%s\r\n",&msg[0]);
+ fflush(stdout);
+ if (debug) syslog(LOG_DEBUG,"<--- %s",&msg[0]);
 }
 
 void
