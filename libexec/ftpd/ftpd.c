@@ -939,19 +939,23 @@ skip:
 	home = "/";
 	switch (curclass.type) {
 	case CLASS_GUEST:
-		/*
-		 * We MUST do a chdir() after the chroot. Otherwise
-		 * the old current directory will be accessible as "."
-		 * outside the new root!
-		 */
-		if (chroot(anondir ? anondir : pw->pw_dir) < 0 ||
-		    chdir("/") < 0) {
-			reply(550, "Can't set guest privileges.");
-			goto bad;
+		{	char *d;
+			d = anondir ? anondir : pw->pw_dir;
+			/*
+			 * We MUST do a chdir() after the chroot. Otherwise
+			 * the old current directory will be accessible as "."
+			 * outside the new root!
+			 */
+			if ( strcmp(d,"/") &&
+			     ((chroot(d) < 0) || (chdir("/") < 0)) ) {
+				reply(550, "Can't set guest privileges.");
+				goto bad;
+			}
 		}
 		break;
 	case CLASS_CHROOT:
-		if (chroot(pw->pw_dir) < 0 || chdir("/") < 0) {
+		if ( strcmp(pw->pw_dir,"/") &&
+		     (chroot(pw->pw_dir) < 0 || chdir("/") < 0) ) {
 			reply(550, "Can't change root.");
 			goto bad;
 		}
