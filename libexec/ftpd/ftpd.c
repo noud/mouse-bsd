@@ -540,8 +540,7 @@ static char curname[10];	/* current USER name */
  * need to reset state.  If name is "ftp" or "anonymous", the name is not in
  * _PATH_FTPUSERS, and ftp account exists, set guest and pw, then just return.
  * If account doesn't exist, ask for passwd anyway.  Otherwise, check user
- * requesting login privileges.  Disallow anyone who does not have a standard
- * shell as returned by getusershell().  Disallow anyone mentioned in the file
+ * requesting login privileges.  Disallow anyone mentioned in the file
  * _PATH_FTPUSERS to allow people such as root and uucp to be avoided.
  */
 void
@@ -794,7 +793,7 @@ pass(passwd)
 	const char *passwd;
 {
 	int		 rval;
-	const char	*cp, *shell, *home;
+	const char	*home;
 	char		*class;
 
 	class = NULL;
@@ -867,20 +866,6 @@ skip:
 
 	/* password was ok; see if anything else prevents login */
 	if (! checkuser(_PATH_FTPUSERS, pw->pw_name, 1, 0, &class)) {
-		reply(530, "User %s may not use FTP.", pw->pw_name);
-		if (logging)
-			syslog(LOG_NOTICE, "FTP LOGIN REFUSED FROM %s, %s",
-			    remotehost, pw->pw_name);
-		goto bad;
-	}
-	/* check for valid shell, if not guest user */
-	if ((shell = pw->pw_shell) == NULL || *shell == 0)
-		shell = _PATH_BSHELL;
-	while ((cp = getusershell()) != NULL)
-		if (strcmp(cp, shell) == 0)
-			break;
-	endusershell();
-	if (cp == NULL && curclass.type != CLASS_GUEST) {
 		reply(530, "User %s may not use FTP.", pw->pw_name);
 		if (logging)
 			syslog(LOG_NOTICE, "FTP LOGIN REFUSED FROM %s, %s",
