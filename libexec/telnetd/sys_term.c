@@ -1803,7 +1803,7 @@ start_login(host, autologin, name)
 		 * fails, and the user then specifies a different
 		 * account name, he can get logged in with both
 		 * LOGNAME and USER in his environment, but the
-		 * USER value will be wrong.
+		 * USER value will be wrong.)
 		 */
 		unsetenv("USER");
 	}
