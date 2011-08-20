@@ -98,9 +98,15 @@ static int pim6_cksum __P((u_short *, struct in6_addr *,
 void
 init_pim6()
 {
-	static u_char sndcmsgbuf[CMSG_SPACE(sizeof(struct in6_pktinfo))];
-	struct cmsghdr *cmsgp = (struct cmsghdr *)sndcmsgbuf;
+	static u_char *sndcmsgbuf = 0;
+	static int sndcmsglen;
+	struct cmsghdr *cmsgp;
 
+ if (sndcmsgbuf == 0)
+  { sndcmsglen = CMSG_SPACE(sizeof(struct in6_pktinfo));
+    sndcmsgbuf = malloc(sndcmsglen);
+  }
+ cmsgp = (struct cmsghdr *)sndcmsgbuf;
 	if ((pim6_socket = socket(AF_INET6, SOCK_RAW, IPPROTO_PIM)) < 0)
 		log(LOG_ERR, errno, "PIM6 socket");
 

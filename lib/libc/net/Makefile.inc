@@ -11,7 +11,8 @@ SRCS+=	base64.c ethers.c gethnamaddr.c getnetnamadr.c getnetent.c getproto.c \
 	inet_netof.c inet_network.c inet_ntoa.c iso_addr.c linkaddr.c \
 	nsdispatch.c nslexer.c nsparser.c ns_addr.c ns_ntoa.c nsap_addr.c \
 	rcmd.c recv.c res_comp.c res_data.c res_debug.c res_init.c \
-	res_mkquery.c res_query.c res_send.c send.c sethostent.c
+	res_mkquery.c res_query.c res_send.c send.c sethostent.c \
+	__cmsg_alignbytes.c
 
 SRCS+=	__dn_comp.c __res_close.c __res_send.c _inet_aton.c _inet_pton.c
 CPPFLAGS+=-DRESOLVSORT -I.

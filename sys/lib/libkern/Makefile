@@ -23,7 +23,7 @@ SRCS+=	adddi3.c anddi3.c ashldi3.c ashrdi3.c cmpdi2.c divdi3.c iordi3.c \
 .endif
 
 # Other stuff
-SRCS+=	inet_addr.c intoa.c md5c.c sha1.c pmatch.c
+SRCS+=	inet_addr.c intoa.c md5c.c sha1.c pmatch.c __cmsg_alignbytes.c
 
 # Files to clean up
 CLEANFILES+= lib${LIB}.o lib${LIB}.po

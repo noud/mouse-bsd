@@ -381,8 +381,7 @@ main(argc, argv)
 	extern char *optarg;
 	extern int optind;
 	int ch, i, on, probe, seq, hops;
-	static u_char rcvcmsgbuf[CMSG_SPACE(sizeof(struct in6_pktinfo))
-				+ CMSG_SPACE(sizeof(int))];
+	static u_char *rcvcmsgbuf = 0;
 	char hbuf[NI_MAXHOST];
 
 	on = 1;
@@ -541,6 +540,7 @@ main(argc, argv)
 		perror("traceroute6: icmp socket");
 		exit(5);
 	}
+ if (rcvcmsgbuf == 0) rcvcmsgbuf = malloc(CMSG_SPACE(sizeof(struct in6_pktinfo))+CMSG_SPACE(sizeof(int)));
 	/* initialize msghdr for receiving packets */
 	rcviov[0].iov_base = (caddr_t)packet;
 	rcviov[0].iov_len = sizeof(packet);
@@ -549,7 +549,7 @@ main(argc, argv)
 	rcvmhdr.msg_iov = rcviov;
 	rcvmhdr.msg_iovlen = 1;
 	rcvmhdr.msg_control = (caddr_t) rcvcmsgbuf;
-	rcvmhdr.msg_controllen = sizeof(rcvcmsgbuf);
+	rcvmhdr.msg_controllen = CMSG_SPACE(sizeof(struct in6_pktinfo)) + CMSG_SPACE(sizeof(int));
 
 	/* specify to tell receiving interface */
 #ifdef IPV6_RECVPKTINFO

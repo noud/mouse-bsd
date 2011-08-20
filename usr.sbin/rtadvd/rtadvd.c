@@ -60,8 +60,7 @@
 #include "config.h"
 
 struct msghdr rcvmhdr;
-static u_char rcvcmsgbuf[CMSG_SPACE(sizeof(struct in6_pktinfo)) +
-			CMSG_SPACE(sizeof(int))];
+static u_char *rcvcmsgbuf_ = 0;
 struct msghdr sndmhdr;
 struct iovec rcviov[2];
 struct iovec sndiov[2];
@@ -127,6 +126,17 @@ static void ra_output __P((struct rainfo *));
 static void rtmsg_input __P((void));
 struct prefix *find_prefix __P((struct rainfo *, struct in6_addr *, int));
 
+
+static int rcvcmsglen(void)
+{
+ return(CMSG_SPACE(sizeof(struct in6_pktinfo))+CMSG_SPACE(sizeof(int)));
+}
+
+static u_char *rcvcmsgbuf(void)
+{
+ if (rcvcmsgbuf_ == 0) rcvcmsgbuf_ = malloc(rcvcmsglen());
+ return(rcvcmsgbuf_);
+}
 
 int
 main(argc, argv)
@@ -463,7 +473,7 @@ rtadvd_input()
 	 * be modified if we had received a message before setting
 	 * receive options.
 	 */
-	rcvmhdr.msg_controllen = sizeof(rcvcmsgbuf);
+	rcvmhdr.msg_controllen = rcvcmsglen();
 	if ((i = recvmsg(sock, &rcvmhdr, 0)) < 0)
 		return;
 
@@ -1076,8 +1086,7 @@ sock_open()
 	int on;
 	/* XXX: should be max MTU attached to the node */
 	static u_char answer[1500];
-	static u_char sndcmsgbuf[CMSG_SPACE(sizeof(struct in6_pktinfo)) +
-				CMSG_SPACE(sizeof(int))];
+	static u_char *sndcmsgbuf = 0;
 
 	if ((sock = socket(AF_INET6, SOCK_RAW, IPPROTO_ICMPV6)) < 0) {
 		syslog(LOG_ERR, "<%s> socket: %s", __FUNCTION__,
@@ -1161,15 +1170,17 @@ sock_open()
 	rcvmhdr.msg_namelen = sizeof(from);
 	rcvmhdr.msg_iov = rcviov;
 	rcvmhdr.msg_iovlen = 1;
-	rcvmhdr.msg_control = (caddr_t) rcvcmsgbuf;
-	rcvmhdr.msg_controllen = sizeof(rcvcmsgbuf);
+	rcvmhdr.msg_control = (caddr_t) rcvcmsgbuf();
+	rcvmhdr.msg_controllen = rcvcmsglen();
+
+ if (sndcmsgbuf == 0) sndcmsgbuf = malloc(CMSG_SPACE(sizeof(struct in6_pktinfo))+CMSG_SPACE(sizeof(int)));
 
 	/* initialize msghdr for sending packets */
 	sndmhdr.msg_namelen = sizeof(struct sockaddr_in6);
 	sndmhdr.msg_iov = sndiov;
 	sndmhdr.msg_iovlen = 1;
 	sndmhdr.msg_control = (caddr_t)sndcmsgbuf;
-	sndmhdr.msg_controllen = sizeof(sndcmsgbuf);
+	sndmhdr.msg_controllen = CMSG_SPACE(sizeof(struct in6_pktinfo)) + CMSG_SPACE(sizeof(int));
 
 	return;
 }

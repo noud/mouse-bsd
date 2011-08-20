@@ -397,27 +397,41 @@ struct cmsghdr {
 
 /* given pointer to struct cmsghdr, return pointer to data */
 #define	CMSG_DATA(cmsg) \
-	((u_char *)(cmsg) + CMSG_ALIGN(sizeof(struct cmsghdr)))
+	((u_char *)(cmsg) + __CMSG_ALIGN(sizeof(struct cmsghdr)))
 
 /*
  * Alignment requirement for CMSG struct manipulation.
- * This is different from ALIGN() defined in ARCH/include/param.h.
- * XXX think again carefully about architecture dependencies.
+ * This basically behaves the same as ALIGN() ARCH/include/param.h.
+ * We declare it separately for two reasons:
+ * (1) avoid dependency between machine/param.h, and (2) to sync with kernel's
+ * idea of ALIGNBYTES at runtime.
+ * without (2), we can't guarantee binary compatibility in case of future
+ * changes in ALIGNBYTES.
  */
-#define CMSG_ALIGN(n)	(((n) + (sizeof(long) - 1)) & ~(sizeof(long) - 1))
+#define __CMSG_ALIGN(n)	(((n) + __cmsg_alignbytes()) & ~__cmsg_alignbytes())
+#ifdef _KERNEL
+#define CMSG_ALIGN(n) __CMSG_ALIGN(n)
+#endif
 
 /* given pointer to struct cmsghdr, return pointer to next cmsghdr */
 #define	CMSG_NXTHDR(mhdr, cmsg)	\
-	(((caddr_t)(cmsg) + CMSG_ALIGN((cmsg)->cmsg_len) + \
-			    CMSG_ALIGN(sizeof(struct cmsghdr)) > \
+	(((caddr_t)(cmsg) + __CMSG_ALIGN((cmsg)->cmsg_len) + \
+			    __CMSG_ALIGN(sizeof(struct cmsghdr)) > \
 	    (((caddr_t)(mhdr)->msg_control) + (mhdr)->msg_controllen)) ? \
-	    (struct cmsghdr *)NULL : \
-	    (struct cmsghdr *)((caddr_t)(cmsg) + CMSG_ALIGN((cmsg)->cmsg_len)))
+	    (struct cmsghdr *)0 : \
+	    (struct cmsghdr *)((caddr_t)(cmsg) + __CMSG_ALIGN((cmsg)->cmsg_len)))
 
-#define	CMSG_FIRSTHDR(mhdr)	((struct cmsghdr *)(mhdr)->msg_control)
+/*
+ * RFC 2292 requires checking msg_controllen, in case the kernel returns
+ * an empty list for some reason.
+ */
+#define CMSG_FIRSTHDR(mhdr) \
+	((mhdr)->msg_controllen >= sizeof(struct cmsghdr) ? \
+	 (struct cmsghdr *)(mhdr)->msg_control : \
+	 (struct cmsghdr *)0)
 
-#define CMSG_SPACE(l)	(CMSG_ALIGN(sizeof(struct cmsghdr)) + CMSG_ALIGN(l))
-#define CMSG_LEN(l)	(CMSG_ALIGN(sizeof(struct cmsghdr)) + (l))
+#define CMSG_SPACE(l)	(__CMSG_ALIGN(sizeof(struct cmsghdr)) + __CMSG_ALIGN(l))
+#define CMSG_LEN(l)	(__CMSG_ALIGN(sizeof(struct cmsghdr)) + (l))
 
 /* "Socket"-level control message types: */
 #define	SCM_RIGHTS	0x01		/* access rights (array of int) */
@@ -455,9 +469,13 @@ struct omsghdr {
 };
 #endif
 
-#ifndef	_KERNEL
-
 #include <sys/cdefs.h>
+
+__BEGIN_DECLS
+int	__cmsg_alignbytes __P((void));
+__END_DECLS
+
+#ifndef	_KERNEL
 
 __BEGIN_DECLS
 int	accept __P((int, struct sockaddr *, socklen_t *));

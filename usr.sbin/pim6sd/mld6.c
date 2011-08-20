@@ -118,8 +118,7 @@ static struct msghdr 		sndmh,
 static struct iovec 		sndiov[2];
 static struct iovec 		rcviov[2];
 static struct sockaddr_in6 	from;
-static u_char   		rcvcmsgbuf[CMSG_SPACE(sizeof(struct in6_pktinfo)) +
-			   	CMSG_SPACE(sizeof(int))];
+static u_char   		*rcvcmsgbuf_ = 0;
 #ifndef USE_RFC2292BIS
 u_int8_t raopt[IP6OPT_RTALERT_LEN];
 #endif
@@ -128,6 +127,17 @@ static int ctlbuflen = 0;
 static u_short rtalert_code;
 
 /* local functions */
+
+static int rcvcmsglen(void)
+{
+ return(CMSG_SPACE(sizeof(struct in6_pktinfo))+CMSG_SPACE(sizeof(int)));
+}
+
+static u_char *rcvcmsgbuf(void)
+{
+ if (rcvcmsgbuf_ == 0) rcvcmsgbuf_ = malloc(rcvcmsglen());
+ return(rcvcmsgbuf_);
+}
 
 static void mld6_read __P((int i, fd_set * fds));
 static void accept_mld6 __P((int len));
@@ -212,8 +222,8 @@ init_mld6()
     rcvmh.msg_namelen = sizeof(from);
     rcvmh.msg_iov = rcviov;
     rcvmh.msg_iovlen = 1;
-    rcvmh.msg_control = (caddr_t) rcvcmsgbuf;
-    rcvmh.msg_controllen = sizeof(rcvcmsgbuf);
+    rcvmh.msg_control = (caddr_t) rcvcmsgbuf();
+    rcvmh.msg_controllen = rcvcmsglen();
 
     /* initialize msghdr for sending packets */
     sndiov[0].iov_base = (caddr_t)mld6_send_buf;
@@ -277,7 +287,7 @@ int recvlen;
 	 */
 	if (rcvmh.msg_controllen == 0) {
 		/* XXX: msg_controllen must be reset in this case. */
-		rcvmh.msg_controllen = sizeof(rcvcmsgbuf);
+		rcvmh.msg_controllen = rcvcmsglen();
 
 		process_kernel_call();
 		return;
