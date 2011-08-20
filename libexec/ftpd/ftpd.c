@@ -186,6 +186,7 @@ int	connections = 1;
 struct	passwd *pw;
 int	debug;
 int	sflag;
+int	nonpriv_data_port;
 int	logging;
 int	type;
 int	form;
@@ -285,10 +286,11 @@ main(argc, argv)
 	debug = 0;
 	logging = 0;
 	sflag = 0;
+	nonpriv_data_port = 0;
 	(void)strcpy(confdir, _DEFAULT_CONFDIR);
 	hostname[0] = '\0';
 
-	while ((ch = getopt(argc, argv, "a:c:C:dh:lst:T:u:Uv")) != -1) {
+	while ((ch = getopt(argc, argv, "a:c:C:dh:lpst:T:u:Uv")) != -1) {
 		switch (ch) {
 		case 'a':
 			anondir = optarg;
@@ -314,6 +316,10 @@ main(argc, argv)
 
 		case 'l':
 			logging++;	/* > 1 == extra logging */
+			break;
+
+		case 'p':
+			nonpriv_data_port = 1;
 			break;
 
 		case 's':
@@ -405,7 +411,8 @@ main(argc, argv)
 			syslog(LOG_WARNING, "setsockopt (IP_TOS): %m");
 	}
 #endif
-	data_source.su_port = htons(ntohs(ctrl_addr.su_port) - 1);
+	data_source.su_port =
+		nonpriv_data_port ? 0 : htons(ntohs(ctrl_addr.su_port) - 1);
 
 	/* if the hostname hasn't been given, attempt to determine it */
 	if (hostname[0] == '\0') {
@@ -1247,6 +1254,7 @@ getdatasock(mode)
 	const char *mode;
 {
 	int on = 1, s, t, tries;
+	int p;
 
 	if (data >= 0)
 		return (fdopen(data, mode));
@@ -1261,8 +1269,9 @@ getdatasock(mode)
 	    (char *) &on, sizeof(on)) < 0)
 		goto bad;
 	/* anchor socket to avoid multi-homing problems */
+	p = data_source.su_port;
 	data_source = ctrl_addr;
-	data_source.su_port = htons(20); /* ftp-data port */
+	data_source.su_port = p;
 	for (tries = 1; ; tries++) {
 		if (bind(s, (struct sockaddr *)&data_source,
 		    data_source.su_len) >= 0)
