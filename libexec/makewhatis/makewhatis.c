@@ -95,6 +95,7 @@ char *default_manpath[] = {
 
 char sectionext[] = "0123456789ln";
 char whatisdb[]   = "whatis.db";
+char whatistmp[]   = "whatis.db.tmp";
 
 extern char *__progname;
 
@@ -147,13 +148,18 @@ main(int argc,char **argv)
 	if (chdir(manpath[0]) < 0)
 		errx(EXIT_FAILURE, "%s: %s", manpath[0], strerror(errno));
 
-	if ((out = fopen(whatisdb, "w")) == NULL)
-		errx(EXIT_FAILURE, "%s: %s", whatisdb, strerror(errno));
+	if ((unlink(whatistmp) < 0) && (errno != ENOENT))
+		errx(EXIT_FAILURE, "%s: %s", whatistmp, strerror(errno));
 
-	if (!(dumpwhatis(out, dest) ||
-	    (fclose(out) < 0)) ||
-	    (chmod(whatisdb, S_IRUSR|S_IRGRP|S_IROTH) < 0))
-		errx(EXIT_FAILURE, "%s: %s", whatisdb, strerror(errno));
+	if (((out = fopen(whatistmp, "w")) == NULL) ||
+	    !dumpwhatis(out, dest) ||
+	    (fclose(out) < 0))
+		errx(EXIT_FAILURE, "%s: %s", whatistmp, strerror(errno));
+
+	if (rename(whatistmp, whatisdb) < 0)
+		errx(EXIT_FAILURE, "rename %s -> %s: %s", whatistmp, whatisdb, strerror(errno));
+	if (chmod(whatisdb, S_IRUSR|S_IRGRP|S_IROTH) < 0)
+		errx(EXIT_FAILURE, "chmod %s: %s", whatisdb, strerror(errno));
 
 	return EXIT_SUCCESS;
 }
