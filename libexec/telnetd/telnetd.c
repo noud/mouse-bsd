@@ -1620,8 +1620,15 @@ recv_ayt()
 		return;
 	}
 #endif
-	(void) strcpy(nfrontp, "\r\n[Yes]\r\n");
-	nfrontp += 9;
+	/* Flush outstanding data if possible. If not, and buffers are
+	   full, break protocol and send no reply, rather than overflow
+	   the buffer.
+	 */
+	netflush();
+	if ( (BUFSIZ - (nfrontp - netobuf)) > 9 ) {
+		(void) strcpy(nfrontp, "\r\n[Yes]\r\n");
+		nfrontp += 9;
+	}
 }
 
 	void
