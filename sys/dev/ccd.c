@@ -109,6 +109,11 @@
 #include <sys/lock.h>
 #include <sys/queue.h>
 
+#include "diskwatch.h"
+#if NDISKWATCH > 0
+#include <dev/pseudo/diskwatch-kern.h>
+#endif
+
 #include <dev/ccdvar.h>
 
 #if defined(CCDDEBUG) && !defined(DEBUG)
@@ -207,7 +212,22 @@ ccdattach(num)
 		sprintf(cs->sc_xname, "ccd%d", i);	/* XXX */
 		cs->sc_dkdev.dk_name = cs->sc_xname;	/* XXX */
 		lockinit(&cs->sc_lock, PRIBIO, "ccdlk", 0, 0);
+		cs->watchunit = 0;
 	}
+
+#if NDISKWATCH > 0
+	{	int *v;
+		v = malloc(num*MAXPARTITIONS*sizeof(int),M_DEVBUF,M_NOWAIT);
+		if (v == 0) {
+			printf("WARNING: no space for ccd diskwatch units\n");
+			return;
+		}
+		for (i=0;i<num;i++) {
+			ccd_softc[i].watchunit = v;
+			v += MAXPARTITIONS;
+		}
+	}
+#endif
 }
 
 static int
@@ -368,6 +388,14 @@ ccdinit(cs, cpaths, vpp, p)
 	ccg->ccg_ntracks = 1;
 	ccg->ccg_nsectors = 1024 * (1024 / ccg->ccg_secsize);
 	ccg->ccg_ncylinders = cs->sc_size / ccg->ccg_nsectors;
+
+#if NDISKWATCH > 0
+	if (cs->watchunit) {
+		int i;
+		for (i=0;i<MAXPARTITIONS;i++)
+			cs->watchunit[i] = -1;
+	}
+#endif
 
 	cs->sc_flags |= CCDF_INITED;
 
@@ -621,6 +649,16 @@ ccdstrategy(bp)
 	if (DISKPART(bp->b_dev) != RAW_PART)
 		if (bounds_check_with_label(bp, lp, wlabel) <= 0)
 			goto done;
+
+#if NDISKWATCH > 0
+	if ( cs->watchunit &&
+	     ((bp->b_flags & (B_READ|B_WRITE)) == B_WRITE) ) {
+		int p;
+		p = DISKPART(bp->b_dev);
+		if (cs->watchunit[p] >= 0)
+			diskwatch_watch(cs->watchunit[p],bp);
+	}
+#endif
 
 	bp->b_resid = bp->b_bcount;
 
@@ -951,6 +989,30 @@ ccdioctl(dev, cmd, data, flag, p)
 		return (ENXIO);
 	cs = &ccd_softc[unit];
 
+#if NDISKWATCH > 0
+	/* These need to work even if the device is closed.
+	   The test for p makes sure they can't be abused by userland
+	   (which is a necessary check anyway). */
+	switch (cmd) {
+	case DWIOCSET:
+		part = DISKPART(dev);
+		if (p || !cs->watchunit)
+			return(EINVAL);
+		if (cs->watchunit[part] >= 0)
+			return(EBUSY);
+		cs->watchunit[part] = *(int *)data;
+		return (0);
+	case DWIOCCLR:
+		part = DISKPART(dev);
+		if (p || !cs->watchunit)
+			return(EINVAL);
+		if (cs->watchunit[part] != *(int *)data)
+			return(EBUSY);
+		cs->watchunit[part] = -1;
+		return (0);
+	}
+#endif
+
 	/* Must be open for writes for these commands... */
 	switch (cmd) {
 	case CCDIOCSET:
@@ -1115,6 +1177,14 @@ ccdioctl(dev, cmd, data, flag, p)
 		free(cs->sc_cinfo, M_DEVBUF);
 		free(cs->sc_itable, M_DEVBUF);
 		cs->sc_flags &= ~CCDF_INITED;
+
+#if NDISKWATCH > 0
+		/* Stop watching. */
+		if (cs->watchunit)
+			for (i=0;i<MAXPARTITIONS;i++)
+				if (cs->watchunit[i] >= 0)
+					diskwatch_detach(cs->watchunit[i]);
+#endif
 
 		/* Detatch the disk. */
 		disk_detach(&cs->sc_dkdev);

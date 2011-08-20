@@ -966,3 +966,6 @@ file uvm/uvm_swap.c
 file uvm/uvm_unix.c
 file uvm/uvm_user.c
 file uvm/uvm_vnode.c
+
+defpseudo diskwatch
+file dev/pseudo/diskwatch.c diskwatch needs-flag

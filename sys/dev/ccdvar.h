@@ -173,6 +173,21 @@ struct ccd_softc {
 	char		 sc_xname[8];		/* XXX external name */
 	struct disk	 sc_dkdev;		/* generic disk device info */
 	struct lock	 sc_lock;		/* lock on this structure */
+/* This is done the way it is because two interface botches conspire to
+   break things otherwise.  ccdconfig(8) reads the array of ccd softcs
+   directly out of the kernel via /dev/kmem rather than using an ioctl with
+   a defined interface (first botch) and the array is an array of struct
+   ccd_softc, rather than of struct ccd_softc * (second botch).  This means
+   that the size of this struct must not depend on anything that might differ
+   between the kernel build and userland ccdconfig build, or we get some
+   rather unpleasant mismatches.  Normally we would do
+	#if NDISKWATCH > 0
+		int		 watchunit[MAXPARTITIONS];
+	#endif
+   but NDISKWATCH>0 depends on the kernel config.  So instead we accept a
+   price of one pointer even for non-diskwatch kernels and set it at run
+   time in diskwatch kernels. */
+	int		*watchunit;
 };
 
 /* sc_flags */

@@ -91,6 +91,11 @@
 #include <sys/rnd.h>
 #endif
 
+#include "diskwatch.h"
+#if NDISKWATCH > 0
+#include <dev/pseudo/diskwatch-kern.h>
+#endif
+
 #include <vm/vm.h>
 
 #include <machine/intr.h>
@@ -164,6 +169,9 @@ struct wd_softc {
 
 #if NRND > 0
 	rndsource_element_t	rnd_source;
+#endif
+#if NDISKWATCH > 0
+	int watchunit[MAXPARTITIONS];
 #endif
 };
 
@@ -350,6 +358,12 @@ wdattach(parent, self, aux)
 	rnd_attach_source(&wd->rnd_source, wd->sc_dev.dv_xname,
 			  RND_TYPE_DISK, 0);
 #endif
+#if NDISKWATCH > 0
+	{	int i;
+		for (i=0;i<MAXPARTITIONS;i++)
+			wd->watchunit[i] = -1;
+	}
+#endif
 }
 
 int
@@ -420,6 +434,14 @@ wddetach(self, flags)
 	rnd_detach_source(&sc->rnd_source);
 #endif
 
+#if NDISKWATCH > 0
+	{	int i;
+		for (i=0;i<MAXPARTITIONS;i++)
+			if (sc->watchunit[i] >= 0)
+				diskwatch_detach(sc->watchunit[i]);
+	}
+#endif
+
 	return (0);
 }
 
@@ -465,6 +487,15 @@ wdstrategy(bp)
 	    bounds_check_with_label(bp, wd->sc_dk.dk_label,
 	    (wd->sc_flags & (WDF_WLABEL|WDF_LABELLING)) != 0) <= 0)
 		goto done;
+
+#if NDISKWATCH > 0
+	if ((bp->b_flags & (B_READ|B_WRITE)) == B_WRITE) {
+		int p;
+		p = WDPART(bp->b_dev);
+		if (wd->watchunit[p] >= 0)
+			diskwatch_watch(wd->watchunit[p],bp);
+	}
+#endif
 
 	/*
 	 * Now convert the block number to absolute and put it in
@@ -928,6 +959,28 @@ wdioctl(dev, xfer, addr, flag, p)
 	int error;
 
 	WDCDEBUG_PRINT(("wdioctl\n"), DEBUG_FUNCS);
+
+#if NDISKWATCH > 0
+	/* These need to work even if the !WDF_LOADED.  The test for p
+	   makes sure they can't be abused by userland (which is a
+	   necessary check anyway). */
+	switch (xfer) {
+	case DWIOCSET:
+		if (p)
+			return(EINVAL);
+		if (wd->watchunit[WDPART(dev)] >= 0)
+			return(EBUSY);
+		wd->watchunit[WDPART(dev)] = *(int *)addr;
+		return (0);
+	case DWIOCCLR:
+		if (p)
+			return(EINVAL);
+		if (wd->watchunit[WDPART(dev)] != *(int *)addr)
+			return(EBUSY);
+		wd->watchunit[WDPART(dev)] = -1;
+		return (0);
+	}
+#endif
 
 	if ((wd->sc_flags & WDF_LOADED) == 0)
 		return EIO;

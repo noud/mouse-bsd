@@ -93,6 +93,9 @@ struct sd_softc {
 #if NRND > 0
 	rndsource_element_t rnd_source;
 #endif
+#if NDISKWATCH > 0
+	int watchunit[MAXPARTITIONS];
+#endif
 };
 
 struct sd_ops {

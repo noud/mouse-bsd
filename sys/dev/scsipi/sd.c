@@ -78,6 +78,11 @@
 #include <sys/rnd.h>
 #endif
 
+#include "diskwatch.h"
+#if NDISKWATCH > 0
+#include <dev/pseudo/diskwatch-kern.h>
+#endif
+
 #include <dev/scsipi/scsipi_all.h>
 #include <dev/scsipi/scsi_all.h>
 #include <dev/scsipi/scsipi_disk.h>
@@ -223,6 +228,12 @@ sdattach(parent, sd, sc_link, ops)
 	rnd_attach_source(&sd->rnd_source, sd->sc_dev.dv_xname,
 			  RND_TYPE_DISK, 0);
 #endif
+#if NDISKWATCH > 0
+	{	int i;
+		for (i=0;i<MAXPARTITIONS;i++)
+			sd->watchunit[i] = -1;
+	}
+#endif
 }
 
 int
@@ -293,6 +304,14 @@ sddetach(self, flags)
 #if NRND > 0
 	/* Unhook the entropy source. */
 	rnd_detach_source(&sd->rnd_source);
+#endif
+
+#if NDISKWATCH > 0
+	{	int i;
+		for (i=0;i<MAXPARTITIONS;i++)
+			if (sd->watchunit[i] >= 0)
+				diskwatch_detach(sd->watchunit[i]);
+	}
 #endif
 
 	return (0);
@@ -599,6 +618,15 @@ sdstrategy(bp)
 	    (sd->flags & (SDF_WLABEL|SDF_LABELLING)) != 0) <= 0)
 		goto done;
 
+#if NDISKWATCH > 0
+	if ((bp->b_flags & (B_READ|B_WRITE)) == B_WRITE) {
+		int p;
+		p = SDPART(bp->b_dev);
+		if (sd->watchunit[p] >= 0)
+			diskwatch_watch(sd->watchunit[p],bp);
+	}
+#endif
+
 	/*
 	 * Now convert the block number to absolute and put it in
 	 * terms of the device's logical block size.
@@ -859,6 +887,28 @@ sdioctl(dev, cmd, addr, flag, p)
 
 	if ((sd->sc_dev.dv_flags & DVF_ACTIVE) == 0)
 		return (ENODEV);
+
+#if NDISKWATCH > 0
+	/* These need to work even if the device is closed and thus
+	   !SDEV_MEDIA_LOADED.  The test for p makes sure they can't be
+	   abused by userland (which is a necessary check anyway). */
+	switch (cmd) {
+	case DWIOCSET:
+		if (p)
+			return(EINVAL);
+		if (sd->watchunit[part] >= 0)
+			return(EBUSY);
+		sd->watchunit[part] = *(int *)addr;
+		return (0);
+	case DWIOCCLR:
+		if (p)
+			return(EINVAL);
+		if (sd->watchunit[part] != *(int *)addr)
+			return(EBUSY);
+		sd->watchunit[part] = -1;
+		return (0);
+	}
+#endif
 
 	/*
 	 * If the device is not valid, some IOCTLs can still be
