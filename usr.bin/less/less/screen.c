@@ -1728,7 +1728,7 @@ check_winch()
 		if (!no_init && con_out_ours == con_out)
 			SetConsoleScreenBufferSize(con_out, size);
 		pos_init();
-		wscroll = (sc_height + 1) / 2;
+		reset_wscroll();
 		screen_trashed = 1;
 	}
 #endif

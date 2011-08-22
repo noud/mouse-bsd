@@ -51,6 +51,7 @@ public void dispversion __P((void));
 public int getcc __P((void));
 public void ungetcc __P((int));
 public void ungetsc __P((char *));
+public void reset_wscroll __P((void));
 public void commands __P((void));
 
 /* decode.c */

@@ -714,6 +714,16 @@ multi_search(pattern, n)
 }
 
 /*
+ * Reset wscroll based on sc_height.
+ */
+	public void
+reset_wscroll()
+{
+	wscroll = (sc_height + 1) / 2;
+	if (wscroll > 10) wscroll = 10;
+}
+
+/*
  * Main command processor.
  * Accept and execute commands until a quit command.
  */
@@ -730,7 +740,7 @@ commands()
 	PARG parg;
 
 	search_type = SRCH_FORW;
-	wscroll = (sc_height + 1) / 2;
+	reset_wscroll();
 	newaction = A_NOACTION;
 
 	for (;;)

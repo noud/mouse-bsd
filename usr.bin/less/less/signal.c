@@ -264,7 +264,7 @@ psignals()
 		get_term();
 		if (sc_width != old_width || sc_height != old_height)
 		{
-			wscroll = (sc_height + 1) / 2;
+			reset_wscroll();
 			screen_trashed = 1;
 		}
 	}
