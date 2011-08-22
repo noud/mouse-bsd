@@ -130,6 +130,11 @@ static struct option option[] =
 		"Backwards scroll limit is %d lines",
 		NULL }
 	},
+	{ 'H', BOOL|NO_TOGGLE, OPT_OFF, &know_dumb, NULL,
+		{ "Warn if the terminal type is too dumb",
+		"Shut up about dumb terminal types",
+		NULL }
+	},
 	{ 'i', TRIPLE|HL_REPAINT, OPT_OFF, &caseless, opt_i,
 		{ "Case is significant in searches",
 		"Ignore case in searches",
