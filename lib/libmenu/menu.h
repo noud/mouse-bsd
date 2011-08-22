@@ -32,12 +32,6 @@
 #include <curses.h>
 #include <eti.h>
 
-/* the following is a hack to define attr_t until the curses lib
-   does it officially */
-#ifndef CURSES_V3
-typedef char attr_t;
-#endif
-
 /* requests for the menu_driver call */
 #define REQ_BASE_NUM      (0x100)
 #define REQ_LEFT_ITEM     (0x101)
