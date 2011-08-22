@@ -64,6 +64,7 @@ extern int bs_mode;
 extern int tabstop;
 extern int linenums;
 extern int ctldisp;
+extern int no_crlf;
 extern int twiddle;
 extern int binattr;
 extern int auto_wrap, ignaw;
@@ -338,7 +339,7 @@ pappend(c, pos)
 		pendc = '\0';
 	}
 
-	if (c == '\r' && bs_mode == BS_SPECIAL)
+	if (c == '\r' && bs_mode == BS_SPECIAL && !no_crlf)
 	{
 		/*
 		 * Don't put the CR into the buffer until we see
@@ -471,7 +472,7 @@ do_append(c, pos)
 pdone(endline)
 	int endline;
 {
-	if (pendc && (pendc != '\r' || !endline))
+	if (pendc && (pendc != '\r' || !endline || no_crlf))
 		/*
 		 * If we had a pending character, put it in the buffer.
 		 * But discard a pending CR if we are at end of line

@@ -64,6 +64,7 @@ public int show_attn;		/* Hilite first unread line */
 #if HILITE_SEARCH
 public int hilite_search;	/* Highlight matched search patterns? */
 #endif
+public int no_crlf;		/* Don't let LF swallow preceding CR */
 
 /*
  * Table of all options and their semantics.
@@ -185,6 +186,11 @@ static struct option option[] =
 	{ 'r', BOOL|REPAINT, OPT_ON, &ctldisp, NULL,
 		{ "Display control characters directly",
 		"Display control characters as ^X",
+		NULL }
+	},
+	{ 'R', BOOL|REPAINT, OPT_OFF, &no_crlf, NULL,
+		{ "Consider CRLF as a line break",
+		"CR is a control character even when followed by LF",
 		NULL }
 	},
 	{ 's', BOOL|REPAINT, OPT_OFF, &squeeze, NULL,
