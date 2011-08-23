@@ -1015,13 +1015,12 @@ static format_char_info print_char_table[] = {
   { "di",	0,	T_I,	T_I,	T_I,	T_L,	T_LL,	T_LL,	T_ST,	"-wp0 +"	},
   { "oxX",	0,	T_UI,	T_UI,	T_UI,	T_UL,	T_ULL,	T_ULL,	T_ST,	"-wp0#"		},
   { "u",	0,	T_UI,	T_UI,	T_UI,	T_UL,	T_ULL,	T_ULL,	T_ST,	"-wp0"		},
-/* A GNU extension.  */
-  { "m",	0,	T_V,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	"-wp"		},
-  { "feEgGaA",	0,	T_D,	NULL,	NULL,	NULL,	NULL,	T_LD,	NULL,	"-wp0 +#"	},
+/* For printf, %m is apparently a GNU extension.
+   It's here, even though we don't use GNU printf, because of syslog. */
+  { "m",	0,	T_V,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	"-wp"	},
+  { "feEgG",	0,	T_D,	NULL,	NULL,	NULL,	NULL,	T_LD,	NULL,	"-wp0 +#"	},
   { "c",	0,	T_I,	NULL,	NULL,	T_W,	NULL,	NULL,	NULL,	"-w"		},
-  { "C",	0,	T_W,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	"-w"		},
   { "s",	1,	T_C,	NULL,	NULL,	T_W,	NULL,	NULL,	NULL,	"-wp"		},
-  { "S",	1,	T_W,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	"-wp"		},
   { "p",	1,	T_V,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	"-w"		},
   { "n",	1,	T_I,	NULL,	T_S,	T_L,	T_LL,	NULL,	NULL,	""		},
   { NULL }
@@ -1030,39 +1029,24 @@ static format_char_info print_char_table[] = {
 static format_char_info scan_char_table[] = {
   { "di",	1,	T_I,	T_C,	T_S,	T_L,	T_LL,	T_LL,	NULL,	"*"	},
   { "ouxX",	1,	T_UI,	T_UC,	T_US,	T_UL,	T_ULL,	T_ULL,	NULL,	"*"	},
-  { "efgEGaA",	1,	T_F,	NULL,	NULL,	T_D,	NULL,	T_LD,	NULL,	"*"	},
+  { "efgEG",	1,	T_F,	NULL,	NULL,	T_D,	NULL,	T_LD,	NULL,	"*"	},
   { "c",	1,	T_C,	NULL,	NULL,	T_W,	NULL,	NULL,	NULL,	"*"	},
   { "s",	1,	T_C,	NULL,	NULL,	T_W,	NULL,	NULL,	NULL,	"*a"	},
   { "[",	1,	T_C,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	"*a"	},
-  { "C",	1,	T_W,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	"*"	},
-  { "S",	1,	T_W,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	"*a"	},
   { "p",	2,	T_V,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	"*"	},
   { "n",	1,	T_I,	T_C,	T_S,	T_L,	T_LL,	NULL,	NULL,	""	},
   { NULL }
 };
 
-/* Handle format characters recognized by glibc's strftime.c.
+/* Handle format characters recognized by NetBSD's strftime.
    '2' - MUST do years as only two digits
-   '3' - MAY do years as only two digits (depending on locale)
-   'E' - E modifier is acceptable
-   'O' - O modifier is acceptable to Standard C
-   'o' - O modifier is acceptable as a GNU extension
-   'G' - other GNU extensions  */
+   '3' - MAY do years as only two digits (depending on locale) */
 
 static format_char_info time_char_table[] = {
-  { "y", 		0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "2EO-_0w" },
-  { "D", 		0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "2" },
-  { "g", 		0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "2O-_0w" },
-  { "cx", 		0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "3E" },
-  { "%RTXnrt",		0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "" },
-  { "P",		0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "G" },
-  { "HIMSUWdemw",	0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "-_0Ow" },
-  { "Vju",		0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "-_0Oow" },
-  { "Gklsz",		0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "-_0OGw" },
-  { "ABZa",		0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "^#" },
-  { "p",		0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "#" },
-  { "bh",		0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "^" },
-  { "CY",		0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "-_0EOw" },
+  { "Dgy", 		0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "2" },
+  { "cx", 		0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "3" },
+  { "%ABCFGHIMRSTUVWXYZabdehjklmnprstuw",
+			0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "" },
   { NULL }
 };
 
@@ -1364,7 +1348,6 @@ check_format_info (info, params)
   first_fillin_param = params;
   while (1)
     {
-      int aflag;
       if (*format_chars == 0)
 	{
 	  if (format_chars - TREE_STRING_POINTER (format_tree) != format_length)
@@ -1394,46 +1377,6 @@ check_format_info (info, params)
 	    ++format_chars;
 	  while (ISDIGIT (*format_chars))
 	    ++format_chars;
-	}
-      else if (info->format_type == strftime_format_type)
-        {
-	  while (*format_chars != 0 && index ("_-0^#", *format_chars) != 0)
-	    {
-	      if (pedantic)
-		warning ("ANSI C does not support the strftime `%c' flag",
-			 *format_chars);
-	      if (index (flag_chars, *format_chars) != 0)
-		{
-		  warning ("repeated `%c' flag in format",
-			   *format_chars);
-		  ++format_chars;
-		}
-	      else
-		{
-		  i = strlen (flag_chars);
-		  flag_chars[i++] = *format_chars++;
-		  flag_chars[i] = 0;
-		}
-	    }
-	  while (ISDIGIT ((unsigned char) *format_chars))
-	    {
-	      wide = TRUE;
-              ++format_chars;
-	    }
-	  if (wide && pedantic)
-	    warning ("ANSI C does not support strftime format width");
-	  if (*format_chars == 'E' || *format_chars == 'O')
-	    {
-	      i = strlen (flag_chars);
-	      flag_chars[i++] = *format_chars++;
-	      flag_chars[i] = 0;
-	      if (*format_chars == 'E' || *format_chars == 'O')
-	        {
-		  warning ("multiple E/O modifiers in format");
-		  while (*format_chars == 'E' || *format_chars == 'O')
-		    ++format_chars;
-		}
-	    }
 	}
       else if ((info->format_type == printf_format_type) ||
 	       (info->format_type == kprintf_format_type))
@@ -1624,8 +1567,6 @@ check_format_info (info, params)
 	    }
 	}
 
-      aflag = 0;
-
       if (info->format_type != strftime_format_type)
 	{
 	  if (*format_chars == 'h' || *format_chars == 'l')
@@ -1659,16 +1600,6 @@ check_format_info (info, params)
 	      if (pedantic)
 		warning ("ANSI C does not support the `hh' length modifier");
 	    }
-	  if (*format_chars == 'a' && info->format_type == scanf_format_type)
-	    {
-	      if (format_chars[1] == 's' || format_chars[1] == 'S'
-		  || format_chars[1] == '[')
-		{
-		  /* `a' is used as a flag.  */
-		  aflag = 1;
-		  format_chars++;
-		}
-	    }
 	  if (suppressed && length_char != 0)
 	    warning ("use of `*' and `%c' together in format", length_char);
 	}
@@ -1679,15 +1610,8 @@ check_format_info (info, params)
 	  warning ("conversion lacks type at end of format");
 	  continue;
 	}
-      /* The m, C, and S formats are GNU extensions.  */
-      if (pedantic && info->format_type != strftime_format_type
-	  && (format_char == 'm' || format_char == 'C' || format_char == 'S'))
-	warning ("ANSI C does not support the `%c' format", format_char);
       /* ??? The a and A formats are C9X extensions, and should be allowed
 	 when a C9X option is added.  */
-      if (pedantic && info->format_type != strftime_format_type
-	  && (format_char == 'a' || format_char == 'A'))
-	warning ("ANSI C does not support the `%c' format", format_char);
       format_chars++;
       switch (info->format_type)
 	{
@@ -1719,14 +1643,6 @@ check_format_info (info, params)
 		     format_char);
 	  continue;
 	}
-      if (pedantic)
-	{
-	  if (index (fci->flag_chars, 'G') != 0)
-	    warning ("ANSI C does not support `%%%c'", format_char);
-	  if (index (fci->flag_chars, 'o') != 0
-	      && index (flag_chars, 'O') != 0)
-	    warning ("ANSI C does not support `%%O%c'", format_char);
-	}
       if (wide && index (fci->flag_chars, 'w') == 0)
 	warning ("width used with `%c' format", format_char);
       if (warn_format_y2k) {
@@ -1738,15 +1654,6 @@ check_format_info (info, params)
       }
       if (precise && index (fci->flag_chars, 'p') == 0)
 	warning ("precision used with `%c' format", format_char);
-      if (aflag && index (fci->flag_chars, 'a') == 0)
-	{
-	  warning ("`a' flag used with `%c' format", format_char);
-	  /* To simplify the following code.  */
-	  aflag = 0;
-	}
-      /* The a flag is a GNU extension.  */
-      else if (pedantic && aflag)
-	warning ("ANSI C does not support the `a' flag");
       if (info->format_type == scanf_format_type && format_char == '[')
 	{
 	  /* Skip over scan set, in case it happens to have '%' in it.  */
@@ -1816,7 +1723,7 @@ check_format_info (info, params)
 
       /* Check the types of any additional pointer arguments
 	 that precede the "real" argument.  */
-      for (i = 0; i < fci->pointer_count + aflag; ++i)
+      for (i = 0; i < fci->pointer_count; ++i)
 	{
 	  if (TREE_CODE (cur_type) == POINTER_TYPE)
 	    {
@@ -1831,7 +1738,7 @@ check_format_info (info, params)
 	    }
 	  if (TREE_CODE (cur_type) != ERROR_MARK)
 	    warning ("format argument is not a %s (arg %d)",
-		     ((fci->pointer_count + aflag == 1)
+		     ((fci->pointer_count == 1)
 		      ? "pointer" : "pointer to a pointer"),
 		     arg_num);
 	  break;
@@ -1842,7 +1749,7 @@ check_format_info (info, params)
       if ((info->format_type == scanf_format_type
 	   || (info->format_type == printf_format_type
 	       && format_char == 'n'))
-	  && i == fci->pointer_count + aflag
+	  && i == fci->pointer_count
 	  && wanted_type != 0
 	  && TREE_CODE (cur_type) != ERROR_MARK
 	  && (TYPE_READONLY (cur_type)
@@ -1853,7 +1760,7 @@ check_format_info (info, params)
 	warning ("writing into constant object (arg %d)", arg_num);
 
       /* Check the type of the "real" argument, if there's a type we want.  */
-      if (i == fci->pointer_count + aflag && wanted_type != 0
+      if (i == fci->pointer_count && wanted_type != 0
 	  && TREE_CODE (cur_type) != ERROR_MARK
 	  && wanted_type != TYPE_MAIN_VARIANT (cur_type)
 	  /* If we want `void *', allow any pointer type.
