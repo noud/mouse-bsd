@@ -1486,11 +1486,15 @@ component_decl:
 		  prefix_attributes = TREE_PURPOSE (declspec_stack);
 		  declspec_stack = TREE_CHAIN (declspec_stack);
 		  resume_momentary ($2); }
-	| typed_typespecs
+	| typed_typespecs setspecs save_filename save_lineno
 		{ if (pedantic)
-		    pedwarn ("ANSI C forbids member declarations with no members");
-		  shadow_tag($1);
-		  $$ = NULL_TREE; }
+		    pedwarn ("ANSI C forbids anonymous members");
+		  $$ = grokfield($3,$4,NULL_TREE,current_declspecs,NULL_TREE);
+		  decl_attributes($$,NULL_TREE,prefix_attributes);
+		  current_declspecs = TREE_VALUE (declspec_stack);
+		  prefix_attributes = TREE_PURPOSE (declspec_stack);
+		  declspec_stack = TREE_CHAIN (declspec_stack);
+		  resume_momentary ($2); }
 	| nonempty_type_quals setspecs components
 		{ $$ = $3;
 		  current_declspecs = TREE_VALUE (declspec_stack);

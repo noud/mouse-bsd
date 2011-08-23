@@ -5714,6 +5714,13 @@ grokfield (filename, line, declarator, declspecs, width)
   /* The corresponding pop_obstacks is in finish_decl.  */
   push_obstacks_nochange ();
 
+ if ( declarator &&
+      (TREE_CODE(declarator) == IDENTIFIER_NODE) &&
+      (IDENTIFIER_LENGTH(declarator) == 15) &&
+      !bcmp(IDENTIFIER_POINTER(declarator),"__transparent__",15) )
+  { declarator = NULL_TREE;
+  }
+
   value = grokdeclarator (declarator, declspecs, width ? BITFIELD : FIELD, 0);
 
   finish_decl (value, NULL_TREE, NULL_TREE);

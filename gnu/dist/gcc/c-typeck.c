@@ -1147,60 +1147,59 @@ lookup_field (type, component, indirect)
   /* If TYPE_LANG_SPECIFIC is set, then it is a sorted array of pointers
      to the field elements.  Use a binary search on this array to quickly
      find the element.  Otherwise, do a linear search.  TYPE_LANG_SPECIFIC
-     will always be set for structures which have many elements.  */
+     will always be set for structures which have many elements.  Note that
+     anon unions will be at the beginning of the array; search them only if
+     the member isn't found elsewhere. */
 
   if (TYPE_LANG_SPECIFIC (type))
     {
       int bot, top, half;
       tree *field_array = &TYPE_LANG_SPECIFIC (type)->elts[0];
 
-      field = TYPE_FIELDS (type);
+      field = 0;
       bot = 0;
       top = TYPE_LANG_SPECIFIC (type)->len;
-      while (top - bot > 1)
+      while ((bot < top) && (DECL_NAME (field_array[bot]) == NULL_TREE))
+	bot ++;
+      if (bot < top)
 	{
-	  half = (top - bot + 1) >> 1;
-	  field = field_array[bot+half];
-
-	  if (DECL_NAME (field) == NULL_TREE)
+	  while (top - bot > 1)
 	    {
-	      /* Step through all anon unions in linear fashion.  */
-	      while (DECL_NAME (field_array[bot]) == NULL_TREE)
-		{
-		  tree anon = 0, junk;
+	      half = (top - bot + 1) >> 1;
+	      field = field_array[bot+half];
 
-		  field = field_array[bot++];
-		  if (TREE_CODE (TREE_TYPE (field)) == RECORD_TYPE
-		      || TREE_CODE (TREE_TYPE (field)) == UNION_TYPE)
-		    anon = lookup_field (TREE_TYPE (field), component, &junk);
-
-		  if (anon != NULL_TREE)
-		    {
-		      *indirect = field;
-		      return anon;
-		    }
-		}
-
-	      /* Entire record is only anon unions.  */
-	      if (bot > top)
-		return NULL_TREE;
-
-	      /* Restart the binary search, with new lower bound.  */
-	      continue;
+	      if (DECL_NAME (field) == component)
+		break;
+	      if (DECL_NAME (field) < component)
+		bot += half;
+	      else
+		top = bot + half;
 	    }
-
-	  if (DECL_NAME (field) == component)
-	    break;
-	  if (DECL_NAME (field) < component)
-	    bot += half;
-	  else
-	    top = bot + half;
+	  if (DECL_NAME (field_array[bot]) == component)
+	    field = field_array[bot];
+	  else if (DECL_NAME (field) != component)
+	    field = 0;
 	}
+      if (field == 0)
+	{
+	  top = TYPE_LANG_SPECIFIC (type)->len;
+	  for (bot = 0; (bot < top)
+			&& (DECL_NAME (field_array[bot]) == NULL_TREE); bot ++)
+	    {
+	      tree anon = 0, junk;
 
-      if (DECL_NAME (field_array[bot]) == component)
-	field = field_array[bot];
-      else if (DECL_NAME (field) != component)
-	field = 0;
+	      field = field_array[bot++];
+	      if (TREE_CODE (TREE_TYPE (field)) == RECORD_TYPE
+		  || TREE_CODE (TREE_TYPE (field)) == UNION_TYPE)
+		anon = lookup_field (TREE_TYPE (field), component, &junk);
+
+	      if (anon != NULL_TREE)
+		{
+		  *indirect = field;
+		  return anon;
+		}
+	    }
+	}
     }
   else
     {
@@ -1288,9 +1287,11 @@ build_component_ref (datum, component)
       if (TREE_TYPE (field) == error_mark_node)
 	return error_mark_node;
 
-      /* If FIELD was found buried within an anonymous union,
-	 make one COMPONENT_REF to get that anonymous union,
-	 then fall thru to make a second COMPONENT_REF to get FIELD.  */
+      /* If FIELD was found buried within an anonymous union, make one
+	 COMPONENT_REF to get that anonymous union, then recurse to get
+	 FIELD.  We have to recurse rather than falling through in case
+	 the field was found inside an anonymous union inside another
+	 anonymous union. */
       if (indirect != 0)
 	{
 	  ref = build (COMPONENT_REF, TREE_TYPE (indirect), datum, indirect);
@@ -1298,7 +1299,7 @@ build_component_ref (datum, component)
 	    TREE_READONLY (ref) = 1;
 	  if (TREE_THIS_VOLATILE (datum) || TREE_THIS_VOLATILE (indirect))
 	    TREE_THIS_VOLATILE (ref) = 1;
-	  datum = ref;
+	  return(build_component_ref(ref,component));
 	}
 
       ref = build (COMPONENT_REF, TREE_TYPE (field), datum, field);
