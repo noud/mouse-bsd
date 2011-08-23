@@ -201,6 +201,8 @@ struct nesting
 {
   struct nesting *all;
   struct nesting *next;
+  /* For labeled break and continue.  See set_nesting_name. */
+  tree name;
   int depth;
   rtx exit_label;
   union
@@ -444,7 +446,8 @@ static int node_has_high_bound		PROTO((case_node_ptr, tree));
 static int node_is_bounded		PROTO((case_node_ptr, tree));
 static void emit_jump_if_reachable	PROTO((rtx));
 static void emit_case_nodes		PROTO((rtx, case_node_ptr, rtx, tree));
-static int add_case_node		PROTO((tree, tree, tree, tree *));
+static int add_case_node		PROTO((struct nesting *,
+					       tree, tree, tree, tree *));
 static struct case_node *case_tree2list	PROTO((case_node *, case_node *));
 
 void
@@ -1779,6 +1782,7 @@ expand_start_cond (cond, exitflag)
 
   thiscond->next = cond_stack;
   thiscond->all = nesting_stack;
+  thiscond->name = NULL_TREE;
   thiscond->depth = ++nesting_depth;
   thiscond->data.cond.next_label = gen_label_rtx ();
   /* Before we encounter an `else', we don't need a separate exit label
@@ -1869,6 +1873,7 @@ expand_start_loop (exit_flag)
 
   thisloop->next = loop_stack;
   thisloop->all = nesting_stack;
+  thisloop->name = NULL_TREE;
   thisloop->depth = ++nesting_depth;
   thisloop->data.loop.start_label = gen_label_rtx ();
   thisloop->data.loop.end_label = gen_label_rtx ();
@@ -1884,6 +1889,15 @@ expand_start_loop (exit_flag)
   emit_label (thisloop->data.loop.start_label);
 
   return thisloop;
+}
+
+/* Set the current nesting's name. */
+
+void
+set_nesting_name (name)
+     tree name;
+{
+  nesting_stack->name = name;
 }
 
 /* Like expand_start_loop but for a loop where the continuation point
@@ -2134,6 +2148,68 @@ expand_end_loop ()
   last_expr_type = 0;
 }
 
+/* Check whether nestname, a nesting name from set_nesting_name, matches
+   arg, the thing passed to find_labeled_loop and similar.
+
+   NULL_TREE arg matches anything.
+   String constants with equal contents match.
+   Nothing else does. */
+
+int
+nesting_name_match (nestname, arg)
+     tree nestname;
+     tree arg;
+{
+  return( (arg == NULL_TREE) ||
+	  ( (nestname != NULL_TREE) &&
+	    (TREE_CODE (nestname) == STRING_CST) &&
+	    (TREE_CODE (arg) == STRING_CST) &&
+	    (TREE_STRING_LENGTH (nestname) == TREE_STRING_LENGTH (arg)) &&
+	    !bcmp (TREE_STRING_POINTER (nestname),
+		   TREE_STRING_POINTER (arg),
+		   TREE_STRING_LENGTH (nestname)) ) );
+}
+
+/* Find the enclosing loop with the specified name.  Matches only loops. */
+
+struct nesting *
+find_labeled_loop (lab)
+     tree lab;
+{
+  struct nesting *n;
+
+  if (lab == NULL_TREE)
+    return (0);
+
+  for (n = loop_stack; n; n = n->next)
+    if (nesting_name_match (n->name, lab))
+      return n;
+
+  error ("no enclosing loop tagged `%s'", TREE_STRING_POINTER (lab));
+
+  return (0);
+}
+
+/* Find the enclosing switch with the specified name.  Matches only switches. */
+
+struct nesting *
+find_labeled_switch (lab)
+     tree lab;
+{
+  struct nesting *n;
+
+  if (lab == NULL_TREE)
+    return (0);
+
+  for (n = case_stack; n; n = n->next)
+    if (nesting_name_match (n->name, lab))
+      return n;
+
+  error ("no enclosing switch tagged `%s'", TREE_STRING_POINTER (lab));
+
+  return (0);
+}
+
 /* Generate a jump to the current loop's continue-point.
    This is usually the top of the loop, but may be specified
    explicitly elsewhere.  If not currently inside a loop,
@@ -2238,12 +2314,13 @@ preserve_subexpressions_p ()
    return 0 and do nothing; caller will print an error message.  */
 
 int
-expand_exit_something ()
+expand_exit_something (lab)
+     tree lab;
 {
   struct nesting *n;
   last_expr_type = 0;
   for (n = nesting_stack; n; n = n->all)
-    if (n->exit_label != 0)
+    if ((n->exit_label != 0) && nesting_name_match (n->name, lab))
       {
 	expand_goto_internal (NULL_TREE, n->exit_label, NULL_RTX);
 	return 1;
@@ -2772,6 +2849,7 @@ expand_start_bindings (exit_flag)
 
   thisblock->next = block_stack;
   thisblock->all = nesting_stack;
+  thisblock->name = NULL_TREE;
   thisblock->depth = ++nesting_depth;
   thisblock->data.block.stack_level = 0;
   thisblock->data.block.cleanups = 0;
@@ -3865,6 +3943,7 @@ expand_start_case (exit_flag, expr, type, printname)
 
   thiscase->next = case_stack;
   thiscase->all = nesting_stack;
+  thiscase->name = NULL_TREE;
   thiscase->depth = ++nesting_depth;
   thiscase->exit_label = exit_flag ? gen_label_rtx () : 0;
   thiscase->data.case_stmt.case_list = 0;
@@ -3904,6 +3983,7 @@ expand_start_case_dummy ()
 
   thiscase->next = case_stack;
   thiscase->all = nesting_stack;
+  thiscase->name = NULL_TREE;
   thiscase->depth = ++nesting_depth;
   thiscase->exit_label = 0;
   thiscase->data.case_stmt.case_list = 0;
@@ -3989,25 +4069,30 @@ check_seenlabel ()
    Extended to handle range statements.  */
 
 int
-pushcase (value, converter, label, duplicate)
+pushcase (value, tag, converter, label, duplicate)
      register tree value;
+     tree tag;
      tree (*converter) PROTO((tree, tree));
      register tree label;
      tree *duplicate;
 {
   tree index_type;
   tree nominal_type;
+  struct nesting *case_stmt;
 
   /* Fail if not inside a real case statement.  */
-  if (! (case_stack && case_stack->data.case_stmt.start))
+  case_stmt = find_labeled_switch (tag);
+  if (! case_stmt)
+    case_stmt = case_stack;
+  if (! (case_stmt && case_stmt->data.case_stmt.start))
     return 1;
 
   if (stack_block_stack
-      && stack_block_stack->depth > case_stack->depth)
+      && stack_block_stack->depth > case_stmt->depth)
     return 5;
 
-  index_type = TREE_TYPE (case_stack->data.case_stmt.index_expr);
-  nominal_type = case_stack->data.case_stmt.nominal_type;
+  index_type = TREE_TYPE (case_stmt->data.case_stmt.index_expr);
+  nominal_type = case_stmt->data.case_stmt.nominal_type;
 
   /* If the index is erroneous, avoid more problems: pretend to succeed.  */
   if (index_type == error_mark_node)
@@ -4027,15 +4112,15 @@ pushcase (value, converter, label, duplicate)
   /* Fail if this is a duplicate or overlaps another entry.  */
   if (value == 0)
     {
-      if (case_stack->data.case_stmt.default_label != 0)
+      if (case_stmt->data.case_stmt.default_label != 0)
 	{
-	  *duplicate = case_stack->data.case_stmt.default_label;
+	  *duplicate = case_stmt->data.case_stmt.default_label;
 	  return 2;
 	}
-      case_stack->data.case_stmt.default_label = label;
+      case_stmt->data.case_stmt.default_label = label;
     }
   else
-    return add_case_node (value, value, label, duplicate);
+    return add_case_node (case_stmt, value, value, label, duplicate);
 
   expand_label (label);
   return 0;
@@ -4051,25 +4136,30 @@ pushcase (value, converter, label, duplicate)
    additional error code: 4 means the specified range was empty.  */
 
 int
-pushcase_range (value1, value2, converter, label, duplicate)
+pushcase_range (value1, value2, tag, converter, label, duplicate)
      register tree value1, value2;
+     tree tag;
      tree (*converter) PROTO((tree, tree));
      register tree label;
      tree *duplicate;
 {
   tree index_type;
   tree nominal_type;
+  struct nesting *case_stmt;
 
   /* Fail if not inside a real case statement.  */
-  if (! (case_stack && case_stack->data.case_stmt.start))
+  case_stmt = find_labeled_switch (tag);
+  if (! case_stmt)
+    case_stmt = case_stack;
+  if (! (case_stmt && case_stmt->data.case_stmt.start))
     return 1;
 
   if (stack_block_stack
-      && stack_block_stack->depth > case_stack->depth)
+      && stack_block_stack->depth > case_stmt->depth)
     return 5;
 
-  index_type = TREE_TYPE (case_stack->data.case_stmt.index_expr);
-  nominal_type = case_stack->data.case_stmt.nominal_type;
+  index_type = TREE_TYPE (case_stmt->data.case_stmt.index_expr);
+  nominal_type = case_stmt->data.case_stmt.nominal_type;
 
   /* If the index is erroneous, avoid more problems: pretend to succeed.  */
   if (index_type == error_mark_node)
@@ -4107,22 +4197,23 @@ pushcase_range (value1, value2, converter, label, duplicate)
       || ! int_fits_type_p (value2, index_type))
     return 3;
 
-  return add_case_node (value1, value2, label, duplicate);
+  return add_case_node (case_stmt, value1, value2, label, duplicate);
 }
 
 /* Do the actual insertion of a case label for pushcase and pushcase_range
-   into case_stack->data.case_stmt.case_list.  Use an AVL tree to avoid
+   into into->data.case_stmt.case_list.  Use an AVL tree to avoid
    slowdown for large switch statements.  */
 
 static int
-add_case_node (low, high, label, duplicate)
+add_case_node (into, low, high, label, duplicate)
+     struct nesting *into;
      tree low, high;
      tree label;
      tree *duplicate;
 {
   struct case_node *p, **q, *r;
 
-  q = &case_stack->data.case_stmt.case_list;
+  q = &into->data.case_stmt.case_list;
   p = *q;
 
   while ((r = *q))
@@ -4159,7 +4250,7 @@ add_case_node (low, high, label, duplicate)
   else
     {
       r->high = copy_node (high);
-      case_stack->data.case_stmt.num_ranges++;
+      into->data.case_stmt.num_ranges++;
     }
 
   r->code_label = label;
@@ -4204,7 +4295,7 @@ add_case_node (low, high, label, duplicate)
 			s->right = r;
 		    }
 		  else
-		    case_stack->data.case_stmt.case_list = r;
+		    into->data.case_stmt.case_list = r;
 		}
 	      else
 		/* r->balance == +1 */
@@ -4240,7 +4331,7 @@ add_case_node (low, high, label, duplicate)
 			s->right = t;
 		    }
 		  else
-		    case_stack->data.case_stmt.case_list = t;
+		    into->data.case_stmt.case_list = t;
 		}
 	      break;
 	    }
@@ -4283,7 +4374,7 @@ add_case_node (low, high, label, duplicate)
 		    }
 
 		  else
-		    case_stack->data.case_stmt.case_list = r;
+		    into->data.case_stmt.case_list = r;
 		}
 
 	      else
@@ -4321,7 +4412,7 @@ add_case_node (low, high, label, duplicate)
 		    }
 
 		  else
-		    case_stack->data.case_stmt.case_list = t;
+		    into->data.case_stmt.case_list = t;
 		}
 	      break;
 	    }

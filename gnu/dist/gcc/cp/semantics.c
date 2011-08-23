@@ -452,7 +452,7 @@ finish_break_stmt ()
   emit_line_note (input_filename, lineno);
   if (processing_template_decl)
     add_tree (build_min_nt (BREAK_STMT));
-  else if ( ! expand_exit_something ())
+  else if ( ! expand_exit_something (NULL_TREE))
     cp_error ("break statement not within loop or switch");
 }
 

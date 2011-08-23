@@ -691,7 +691,7 @@ ffestd_stmt_pass_ ()
 		 what it gets!  */
 	      label = build_decl (LABEL_DECL, NULL_TREE, NULL_TREE);
 
-	      pushok = pushcase (value, convert, label, &duplicate);
+	      pushok = pushcase (value, 0, convert, label, &duplicate);
 	      assert (pushok == 0);
 
 	      label = ffecom_temp_label ();

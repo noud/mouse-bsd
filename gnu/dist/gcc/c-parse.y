@@ -177,6 +177,7 @@ char *language_string = "GNU C";
 %type <ttype> any_word
 
 %type <ttype> compstmt
+%type <ttype> label_construct
 
 %type <ttype> declarator
 %type <ttype> notype_declarator after_type_declarator
@@ -1628,8 +1629,24 @@ do_stmt_start:
 		  emit_nop ();
 		  expand_start_loop_continue_elsewhere (1);
 		  position_after_white_space (); }
+	  label_construct
+		{ set_nesting_name ($3); }
 	  lineno_labeled_stmt WHILE
 		{ expand_loop_continue_here (); }
+	;
+
+label_construct:
+	  /* empty */
+		{ $$ = NULL_TREE; }
+	| ARITHCOMPARE STRING ARITHCOMPARE
+		{ if (($1 == LT_EXPR) && ($3 == GT_EXPR))
+		   { if (pedantic)
+			pedwarn ("ANSI C forbids labeled control structure");
+		     $$ = $2;
+		   }
+		  else
+		     YYERROR1;
+		}
 	;
 
 save_filename:
@@ -1716,14 +1733,15 @@ stmt:
 		     I think it ought to work to put the nop after the line number.
 		     We will see.  --rms, July 15, 1991.  */
 		  emit_nop (); }
-	  '(' expr ')'
+	  label_construct '(' expr ')'
 		{ /* Don't start the loop till we have succeeded
 		     in parsing the end test.  This is to make sure
 		     that we end every loop we start.  */
 		  expand_start_loop (1);
+		  set_nesting_name ($3);
 		  emit_line_note (input_filename, lineno);
 		  expand_exit_loop_if_false (NULL_PTR,
-					     truthvalue_conversion ($4));
+					     truthvalue_conversion ($5));
 		  position_after_white_space (); }
 	  lineno_labeled_stmt
 		{ expand_end_loop (); }
@@ -1738,13 +1756,12 @@ stmt:
 	| do_stmt_start error
 		{ expand_end_loop ();
 		  clear_momentary (); }
-	| FOR
-	  '(' xexpr ';'
+	| FOR label_construct '(' xexpr ';'
 		{ stmt_count++;
 		  emit_line_note ($<filename>-1, $<lineno>0);
 		  /* See comment in `while' alternative, above.  */
 		  emit_nop ();
-		  if ($3) c_expand_expr_stmt ($3);
+		  if ($4) c_expand_expr_stmt ($4);
 		  /* Next step is to call expand_start_loop_continue_elsewhere,
 		     but wait till after we parse the entire for (...).
 		     Otherwise, invalid input might cause us to call that
@@ -1752,59 +1769,71 @@ stmt:
 		}
 	  xexpr ';'
 		/* Can't emit now; wait till after expand_start_loop...  */
-		{ $<lineno>7 = lineno;
+		{ $<lineno>8 = lineno;
 		  $<filename>$ = input_filename; }
 	  xexpr ')'
 		{
 		  /* Start the loop.  Doing this after parsing
 		     all the expressions ensures we will end the loop.  */
 		  expand_start_loop_continue_elsewhere (1);
+		  set_nesting_name ($2);
 		  /* Emit the end-test, with a line number.  */
-		  emit_line_note ($<filename>8, $<lineno>7);
-		  if ($6)
+		  emit_line_note ($<filename>9, $<lineno>8);
+		  if ($7)
 		    expand_exit_loop_if_false (NULL_PTR,
-					       truthvalue_conversion ($6));
-		  /* Don't let the tree nodes for $9 be discarded by
+					       truthvalue_conversion ($7));
+		  /* Don't let the tree nodes for $10 be discarded by
 		     clear_momentary during the parsing of the next stmt.  */
 		  push_momentary ();
-		  $<lineno>7 = lineno;
-		  $<filename>8 = input_filename;
+		  $<lineno>8 = lineno;
+		  $<filename>9 = input_filename;
 		  position_after_white_space (); }
 	  lineno_labeled_stmt
 		{ /* Emit the increment expression, with a line number.  */
-		  emit_line_note ($<filename>8, $<lineno>7);
+		  emit_line_note ($<filename>9, $<lineno>8);
 		  expand_loop_continue_here ();
-		  if ($9)
-		    c_expand_expr_stmt ($9);
+		  if ($10)
+		    c_expand_expr_stmt ($10);
 		  if (yychar == CONSTANT || yychar == STRING)
 		    pop_momentary_nofree ();
 		  else
 		    pop_momentary ();
 		  expand_end_loop (); }
-	| SWITCH '(' expr ')'
+	| SWITCH label_construct '(' expr ')'
 		{ stmt_count++;
 		  emit_line_note ($<filename>-1, $<lineno>0);
-		  c_expand_start_case ($3);
-		  /* Don't let the tree nodes for $3 be discarded by
+		  c_expand_start_case ($4);
+		  set_nesting_name ($2);
+		  /* Don't let the tree nodes for $4 be discarded by
 		     clear_momentary during the parsing of the next stmt.  */
 		  push_momentary ();
 		  position_after_white_space (); }
 	  lineno_labeled_stmt
-		{ expand_end_case ($3);
+		{ expand_end_case ($4);
 		  if (yychar == CONSTANT || yychar == STRING)
 		    pop_momentary_nofree ();
 		  else
 		    pop_momentary (); }
-	| BREAK ';'
+	| BREAK label_construct ';'
 		{ stmt_count++;
 		  emit_line_note ($<filename>-1, $<lineno>0);
-		  if ( ! expand_exit_something ())
-		    error ("break statement not within loop or switch"); }
-	| CONTINUE ';'
+		  if ( ! expand_exit_something ($2))
+		    { if ($2 == NULL_TREE)
+			error ("break statement not within loop or switch");
+		      else
+			error ("break label not found");
+		    }
+		}
+	| CONTINUE label_construct ';'
 		{ stmt_count++;
 		  emit_line_note ($<filename>-1, $<lineno>0);
-		  if (! expand_continue_loop (NULL_PTR))
-		    error ("continue statement not within a loop"); }
+		  if (! expand_continue_loop (find_labeled_loop ($2)))
+		    { if ($2 == NULL_TREE)
+			error ("continue statement not within a loop");
+		      else
+			error ("continue label not found");
+		    }
+		}
 	| RETURN ';'
 		{ stmt_count++;
 		  emit_line_note ($<filename>-1, $<lineno>0);
@@ -1871,48 +1900,49 @@ all_iter_stmt:
 	;
 
 all_iter_stmt_simple:
-	  FOR '(' primary ')'
+	  FOR label_construct '(' primary ')'
 	  {
 	    /* The value returned by this action is  */
 	    /*      1 if everything is OK */
 	    /*      0 in case of error or already bound iterator */
 
 	    $<itype>$ = 0;
-	    if (TREE_CODE ($3) != VAR_DECL)
+	    if (TREE_CODE ($4) != VAR_DECL)
 	      error ("invalid `for (ITERATOR)' syntax");
-	    else if (! ITERATOR_P ($3))
+	    else if (! ITERATOR_P ($4))
 	      error ("`%s' is not an iterator",
-		     IDENTIFIER_POINTER (DECL_NAME ($3)));
-	    else if (ITERATOR_BOUND_P ($3))
+		     IDENTIFIER_POINTER (DECL_NAME ($4)));
+	    else if (ITERATOR_BOUND_P ($4))
 	      error ("`for (%s)' inside expansion of same iterator",
-		     IDENTIFIER_POINTER (DECL_NAME ($3)));
+		     IDENTIFIER_POINTER (DECL_NAME ($4)));
 	    else
 	      {
 		$<itype>$ = 1;
-		iterator_for_loop_start ($3);
+		iterator_for_loop_start ($4);
+		set_nesting_name ($2);
 	      }
 	  }
 	  lineno_labeled_stmt
 	  {
-	    if ($<itype>5)
-	      iterator_for_loop_end ($3);
+	    if ($<itype>6)
+	      iterator_for_loop_end ($4);
 	  }
 
 /*  This really should allow any kind of declaration,
     for generality.  Fix it before turning it back on.
 
 all_iter_stmt_with_decl:
-	  FOR '(' ITERATOR pushlevel setspecs iterator_spec ')'
+	  FOR label_construct '(' ITERATOR pushlevel setspecs iterator_spec ')'
 	  {
 */	    /* The value returned by this action is  */
 	    /*      1 if everything is OK */
 	    /*      0 in case of error or already bound iterator */
 /*
-	    iterator_for_loop_start ($6);
+	    iterator_for_loop_start ($7);
 	  }
 	  lineno_labeled_stmt
 	  {
-	    iterator_for_loop_end ($6);
+	    iterator_for_loop_end ($7);
 	    emit_line_note (input_filename, lineno);
 	    expand_end_bindings (getdecls (), 1, 0);
 	    $<ttype>$ = poplevel (1, 1, 0);
@@ -1927,8 +1957,8 @@ all_iter_stmt_with_decl:
    ANSI C accepts labels only before statements, but we allow them
    also at the end of a compound statement.  */
 
-label:	  CASE expr_no_commas ':'
-		{ register tree value = check_case_value ($2);
+label:	  CASE label_construct expr_no_commas ':'
+		{ register tree value = check_case_value ($3);
 		  register tree label
 		    = build_decl (LABEL_DECL, NULL_TREE, NULL_TREE);
 
@@ -1942,7 +1972,7 @@ label:	  CASE expr_no_commas ':'
 		      if (pedantic && ! INTEGRAL_TYPE_P (TREE_TYPE (value)))
 			pedwarn ("label must have integral type in ANSI C");
 
-		      success = pushcase (value, convert_and_check,
+		      success = pushcase (value, $2, convert_and_check,
 					  label, &duplicate);
 
 		      if (success == 1)
@@ -1958,9 +1988,9 @@ label:	  CASE expr_no_commas ':'
 			error ("case label within scope of cleanup or variable array");
 		    }
 		  position_after_white_space (); }
-	| CASE expr_no_commas ELLIPSIS expr_no_commas ':'
-		{ register tree value1 = check_case_value ($2);
-		  register tree value2 = check_case_value ($4);
+	| CASE label_construct expr_no_commas ELLIPSIS expr_no_commas ':'
+		{ register tree value1 = check_case_value ($3);
+		  register tree value2 = check_case_value ($5);
 		  register tree label
 		    = build_decl (LABEL_DECL, NULL_TREE, NULL_TREE);
 
@@ -1971,7 +2001,7 @@ label:	  CASE expr_no_commas ':'
 		  if (value1 != error_mark_node && value2 != error_mark_node)
 		    {
 		      tree duplicate;
-		      int success = pushcase_range (value1, value2,
+		      int success = pushcase_range (value1, value2, $2,
 						    convert_and_check, label,
 						    &duplicate);
 		      if (success == 1)
@@ -1989,12 +2019,12 @@ label:	  CASE expr_no_commas ':'
 			error ("case label within scope of cleanup or variable array");
 		    }
 		  position_after_white_space (); }
-	| DEFAULT ':'
+	| DEFAULT label_construct ':'
 		{
 		  tree duplicate;
 		  register tree label
 		    = build_decl (LABEL_DECL, NULL_TREE, NULL_TREE);
-		  int success = pushcase (NULL_TREE, 0, label, &duplicate);
+		  int success = pushcase (NULL_TREE, $2, 0, label, &duplicate);
 		  stmt_count++;
 		  if (success == 1)
 		    error ("default label not within a switch statement");

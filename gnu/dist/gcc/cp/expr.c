@@ -356,12 +356,12 @@ do_case (start, end)
       int success;
 
       if (end)
-	success = pushcase_range (value1, value2, convert_and_check,
+	success = pushcase_range (value1, value2, 0, convert_and_check,
 				  label, &duplicate);
       else if (start)
-	success = pushcase (value1, convert_and_check, label, &duplicate);
+	success = pushcase (value1, 0, convert_and_check, label, &duplicate);
       else
-	success = pushcase (NULL_TREE, 0, label, &duplicate);
+	success = pushcase (NULL_TREE, 0, 0, label, &duplicate);
 
       if (success == 1)
 	{

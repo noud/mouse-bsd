@@ -2453,7 +2453,7 @@ ffeste_R810 (ffestw block, unsigned long casenum)
       }
 
     if (ffestw_select_break (block))
-      expand_exit_something ();
+      expand_exit_something (NULL_TREE);
     else
       ffestw_set_select_break (block, TRUE);
 
@@ -2461,7 +2461,7 @@ ffeste_R810 (ffestw block, unsigned long casenum)
       {
 	if (casenum == 0)	/* Intentional CASE DEFAULT. */
 	  {
-	    pushok = pushcase (NULL_TREE, 0, tlabel, &duplicate);
+	    pushok = pushcase (NULL_TREE, 0, 0, tlabel, &duplicate);
 	    assert (pushok == 0);
 	  }
       }
@@ -2476,11 +2476,11 @@ ffeste_R810 (ffestw block, unsigned long casenum)
 	      texprhigh = (c->high == NULL) ? NULL_TREE
 		: ffecom_constantunion (&ffebld_constant_union (c->high),
 	      s->type, s->kindtype, ffecom_tree_type[s->type][s->kindtype]);
-	      pushok = pushcase_range (texprlow, texprhigh, convert,
+	      pushok = pushcase_range (texprlow, texprhigh, 0, convert,
 				       tlabel, &duplicate);
 	    }
 	  else
-	    pushok = pushcase (texprlow, convert, tlabel, &duplicate);
+	    pushok = pushcase (texprlow, 0, convert, tlabel, &duplicate);
 	  assert (pushok == 0);
 	  c = c->next_stmt;
 	  /* Unlink prev.  */
@@ -2761,7 +2761,7 @@ ffeste_R837 (ffelab *labels, int count, ffebld expr)
 	value = build_int_2 (i + 1, 0);
 	tlabel = build_decl (LABEL_DECL, NULL_TREE, NULL_TREE);
 
-	pushok = pushcase (value, convert, tlabel, &duplicate);
+	pushok = pushcase (value, 0, convert, tlabel, &duplicate);
 	assert (pushok == 0);
 	tlabel = ffecom_lookup_label (labels[i]);
 	if ((tlabel == NULL_TREE)
@@ -4737,7 +4737,7 @@ ffeste_R1212 (ffebld expr)
 	    value = build_int_2 (caseno, 0);
 	    tlabel = build_decl (LABEL_DECL, NULL_TREE, NULL_TREE);
 
-	    pushok = pushcase (value, convert, tlabel, &duplicate);
+	    pushok = pushcase (value, 0, convert, tlabel, &duplicate);
 	    assert (pushok == 0);
 	    tlabel
 	      = ffecom_lookup_label (ffebld_labter (ffebld_head (labels)));

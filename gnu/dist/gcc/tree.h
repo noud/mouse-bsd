@@ -1863,11 +1863,13 @@ extern struct nesting *expand_start_loop 	PROTO((int));
 extern struct nesting *expand_start_loop_continue_elsewhere 	PROTO((int));
 extern void expand_loop_continue_here		PROTO((void));
 extern void expand_end_loop			PROTO((void));
+extern void set_nesting_name			PROTO((tree));
 extern int expand_continue_loop			PROTO((struct nesting *));
 extern int expand_exit_loop			PROTO((struct nesting *));
 extern int expand_exit_loop_if_false		PROTO((struct nesting *,
 						       tree));
-extern int expand_exit_something		PROTO((void));
+extern int expand_exit_something		PROTO((tree));
+extern struct nesting *find_labeled_loop	PROTO((tree));
 
 extern void expand_null_return			PROTO((void));
 extern void expand_return			PROTO((tree));
@@ -1885,10 +1887,10 @@ extern int expand_dcc_cleanup			PROTO((tree));
 extern void expand_start_case			PROTO((int, tree, tree,
 						       char *));
 extern void expand_end_case			PROTO((tree));
-extern int pushcase				PROTO((tree,
+extern int pushcase				PROTO((tree, tree,
 						       tree (*) (tree, tree),
 						       tree, tree *));
-extern int pushcase_range			PROTO((tree, tree,
+extern int pushcase_range			PROTO((tree, tree, tree,
 						       tree (*) (tree, tree),
 						       tree, tree *));
 extern void using_eh_for_cleanups		PROTO((void));
