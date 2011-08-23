@@ -4724,6 +4724,11 @@ grokdeclarator (declarator, declspecs, decl_context, initialized)
 	error ("iterator `%s' has noninteger type", name);
 	type = error_mark_node;
       }
+
+    /* Any function definition not at top level gets set `static',
+       that being the easiest way to shut up -Wmissing-prototypes. */
+    if (funcdef_flag && (current_binding_level != global_binding_level))
+      specbits |= 1 << (int) RID_STATIC;
   }
 
   /* Now figure out the structure of the declarator proper.
