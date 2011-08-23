@@ -1329,9 +1329,11 @@ check_format_info (info, params)
     return;
   format_chars = TREE_STRING_POINTER (format_tree);
   format_length = TREE_STRING_LENGTH (format_tree);
+#if 0
   if (format_length <= 1)
     warning ("zero-length format string");
-  if (format_chars[--format_length] != 0)
+#endif
+  if ((format_length > 0) && (format_chars[--format_length] != 0))
     {
       warning ("unterminated format string");
       return;
