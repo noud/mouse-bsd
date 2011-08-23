@@ -582,6 +582,11 @@ int warn_unknown_pragmas = 0; /* Tri state variable.  */
 
 int warn_sign_compare = -1;
 
+/* Warn about missing elements in initializers.
+   If -1, neither -Wmissing-init nor -Wno-missing-init has been specified.  */
+
+int warn_missing_init = -1;
+
 /* Nonzero means warn about use of multicharacter literals.  */
 
 int warn_multichar = 1;
@@ -807,6 +812,10 @@ c_decode_option (argc, argv)
     warn_sign_compare = 1;
   else if (!strcmp (p, "-Wno-sign-compare"))
     warn_sign_compare = 0;
+  else if (!strcmp (p, "-Wmissing-init"))
+    warn_missing_init = 1;
+  else if (!strcmp (p, "-Wno-missing-init"))
+    warn_missing_init = 0;
   else if (!strcmp (p, "-Wmultichar"))
     warn_multichar = 1;
   else if (!strcmp (p, "-Wno-multichar"))

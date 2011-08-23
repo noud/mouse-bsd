@@ -1022,6 +1022,8 @@ documented_lang_options[] =
   { "-Wno-redundant-decls", "" },
   { "-Wsign-compare", "Warn about signed/unsigned comparisons" },
   { "-Wno-sign-compare", "" },
+  { "-Wmissing-init", "Warn about missing elements in initializers" },
+  { "-Wno-missing-init", "" },
   { "-Wunknown-pragmas", "Warn about unrecognised pragmas" },
   { "-Wno-unknown-pragmas", "" },
   { "-Wstrict-prototypes", "Warn about non-prototyped function decls" },

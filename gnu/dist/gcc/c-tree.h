@@ -506,6 +506,10 @@ extern int warn_missing_braces;
 
 extern int warn_sign_compare;
 
+/* Warn about missing elements in initializers.  */
+
+extern int warn_missing_init;
+
 /* Warn about multicharacter constants.  */
 
 extern int warn_multichar;
