@@ -2023,7 +2023,7 @@ expand_end_loop ()
 				}
 			      } catch (...) {
 				1;
-			      } )) {
+			      } } )) {
 		     body;
 		  }
 
