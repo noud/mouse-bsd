@@ -70,6 +70,11 @@ typedef struct {
 	int (*gl_lstat) __P((const char *, struct stat *));
 	int (*gl_stat) __P((const char *, struct stat *));
 #endif
+
+	/*
+	 * Alternative sort order support.
+	 */
+	int (*gl_namecmp) __P((const void *, const void *));
 } glob_t;
 
 #define	GLOB_APPEND	0x0001	/* Append to output from previous call. */
@@ -94,6 +99,7 @@ typedef struct {
 /* 0x1000 defined above */
 #define	GLOB_PERIOD	0x2000	/* Allow metachars to match leading periods. */
 #define	GLOB_NO_DOTDIRS	0x4000	/* Make . and .. vanish from wildcards. */
+#define	GLOB_ALTCMPFUNC	0x8000	/* Use alternative sort order. */
 #define	GLOB_QUOTE	0		/* source compatibility */
 
 #define	GLOB_ABEND	GLOB_ABORTED	/* source compatibility */

@@ -200,7 +200,7 @@ The following values may also be included in
 .Fa flags ,
 however, they are non-standard extensions to
 .St -p1003.2 .
-.Bl -tag -width GLOB_ALTDIRFUNC
+.Bl -tag -width GLOB_ALTCMPFUNC
 .It Dv GLOB_ALTDIRFUNC
 The following additional fields in the pglob structure have been
 initialized with alternate functions for glob to use to open, read,
@@ -217,6 +217,30 @@ in those directories.
 This extension is provided to allow programs such as
 .Xr restore 8
 to provide globbing from directories stored on tape.
+.It Dv GLOB_ALTCMPFUNC
+An additional field in the pglob structure has been initialized with an
+alternative comparison function for glob to use to sort names.
+.Bd -literal
+	void *(*gl_namecmp)(const void *n1, const void *n2);
+.Ed
+.Pp
+The comparison function is passed pointers to
+.Sq cosnt char *
+string pointers; its return value must be compatible with the semantics
+.Xr qsort 3
+expects.  The default comparison function is semantically equivalent to
+.Bd -literal
+static int cmp(const void *a, const void *b)
+{
+ return(strcoll(*(const char * const *)a, *(const char * const *)b));
+}
+.Ed
+.Pp
+If
+.Dv GLOB_NOSORT
+is specified,
+.Dv GLOB_ALTCMPFUNC
+does not affect anything.
 .It Dv GLOB_BRACE
 Pre-process the pattern string to expand
 .Ql {pat,pat,...}
