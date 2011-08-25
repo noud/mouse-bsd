@@ -100,7 +100,7 @@ build: beforeinstall
 .if ${MKSHARE} != "no"
 	(cd ${.CURDIR}/share/mk && ${MAKE} install)
 .endif
-.if !defined(UPDATE)
+.if !defined(UPDATE) && !defined(BUILD_NO_CLEANDIR)
 	${MAKE} cleandir
 .endif
 .if ${MKOBJDIRS} != "no"
