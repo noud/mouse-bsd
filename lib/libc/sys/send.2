@@ -99,10 +99,20 @@ send more data.
 The
 .Fa flags
 parameter may include one or more of the following:
-.Bd -literal
-#define	MSG_OOB        0x1  /* process out-of-band data */
-#define	MSG_DONTROUTE  0x4  /* bypass routing, use direct interface */
-.Ed
+.Bl -tag -width indent
+.It Dv MSG_OOB
+Process out-of-band data.
+.It Dv MSG_DONTROUTE
+Bypass routing, sending directly to the internface.
+.It Dv MSG_NOSIGNAL
+Don't generate
+.Dv SIGPIPE
+for broken connections.
+.Pf ( Dv EPIPE
+is still returned, just as if
+.Dv SIGPIPE
+were ignored or blocked.)
+.El
 .Pp
 The flag
 .Dv MSG_OOB

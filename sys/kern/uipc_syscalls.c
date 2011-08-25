@@ -563,7 +563,7 @@ sendit(p, s, mp, flags, retsize)
 		if (auio.uio_resid != len && (error == ERESTART ||
 		    error == EINTR || error == EWOULDBLOCK))
 			error = 0;
-		if (error == EPIPE)
+		if ((error == EPIPE) && !(flags & MSG_NOSIGNAL))
 			psignal(p, SIGPIPE);
 	}
 	if (error == 0)
