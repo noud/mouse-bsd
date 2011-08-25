@@ -668,8 +668,9 @@ glob3(pathbuf, pathend, pattern, restpattern, pglob)
 		u_char *sc;
 		Char *dc;
 
-		/* Initial DOT must be matched literally. */
-		if (dp->d_name[0] == DOT && *pattern != DOT)
+		/* Initial DOT must be matched literally, unless GLOB_PERIOD. */
+		if (dp->d_name[0] == DOT && *pattern != DOT &&
+		    !(pglob->gl_flags & GLOB_PERIOD))
 			continue;
 		for (sc = (u_char *) dp->d_name, dc = pathend;
 		     (*dc++ = *sc++) != EOS;)

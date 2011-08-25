@@ -91,6 +91,8 @@ typedef struct {
 #define	GLOB_MAGCHAR	0x0100	/* Pattern had globbing characters. */
 #define	GLOB_NOMAGIC	0x0200	/* GLOB_NOCHECK without magic chars (csh). */
 #define	GLOB_TILDE	0x0800	/* Expand tilde names from the passwd file. */
+/* 0x1000 defined above */
+#define	GLOB_PERIOD	0x2000	/* Allow metachars to match leading periods. */
 #define	GLOB_QUOTE	0		/* source compatibility */
 
 #define	GLOB_ABEND	GLOB_ABORTED	/* source compatibility */
