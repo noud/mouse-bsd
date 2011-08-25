@@ -672,6 +672,12 @@ glob3(pathbuf, pathend, pattern, restpattern, pglob)
 		if (dp->d_name[0] == DOT && *pattern != DOT &&
 		    !(pglob->gl_flags & GLOB_PERIOD))
 			continue;
+		/* If GLOB_NO_DOTDIRS, . and .. vanish. */
+		if ((pglob->gl_flags & GLOB_NO_DOTDIRS) &&
+		    (dp->d_name[0] == DOT) &&
+		    ((dp->d_name[1] == EOS) ||
+		     ((dp->d_name[1] == DOT) && (dp->d_name[2] == EOS))))
+				continue;
 		for (sc = (u_char *) dp->d_name, dc = pathend;
 		     (*dc++ = *sc++) != EOS;)
 			continue;

@@ -261,6 +261,14 @@ Normally, a dot at the beginning of a pathname component must be
 matched literally.  This flag suppresses this special treatment, making
 a dot an ordinary characters even at the beginning of a pathname
 component.
+.It Dv GLOB_NO_DOTDIRS
+Normally, the special names
+.Pa \&.
+and
+.Pa \&..
+are returned when they match the provided pattern.  This flag
+suppresses them; even if they match the pattern, they will not be
+returned.
 .El
 .Pp
 If, during the search, a directory is encountered that cannot be opened

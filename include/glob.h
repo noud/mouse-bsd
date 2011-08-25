@@ -93,6 +93,7 @@ typedef struct {
 #define	GLOB_TILDE	0x0800	/* Expand tilde names from the passwd file. */
 /* 0x1000 defined above */
 #define	GLOB_PERIOD	0x2000	/* Allow metachars to match leading periods. */
+#define	GLOB_NO_DOTDIRS	0x4000	/* Make . and .. vanish from wildcards. */
 #define	GLOB_QUOTE	0		/* source compatibility */
 
 #define	GLOB_ABEND	GLOB_ABORTED	/* source compatibility */
