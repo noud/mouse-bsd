@@ -431,7 +431,7 @@ sys_wait4(q, v, retval)
 
 	if (SCARG(uap, pid) == 0)
 		SCARG(uap, pid) = -q->p_pgid;
-	if (SCARG(uap, options) &~ (WUNTRACED|WNOHANG|WALTSIG))
+	if (SCARG(uap, options) &~ (WUNTRACED|WNOHANG|WALTSIG|WNOREAP))
 		return (EINVAL);
 
 loop:
@@ -462,6 +462,8 @@ loop:
 				if (error)
 					return (error);
 			}
+			if (SCARG(uap, options) & WNOREAP)
+				return(0);
 			if (SCARG(uap, rusage) &&
 			    (error = copyout((caddr_t)p->p_ru,
 			    (caddr_t)SCARG(uap, rusage),
@@ -528,7 +530,8 @@ loop:
 		}
 		if (p->p_stat == SSTOP && (p->p_flag & P_WAITED) == 0 &&
 		    (p->p_flag & P_TRACED || SCARG(uap, options) & WUNTRACED)) {
-			p->p_flag |= P_WAITED;
+			if (! (SCARG(uap, options) & WNOREAP))
+				p->p_flag |= P_WAITED;
 			retval[0] = p->p_pid;
 
 			if (SCARG(uap, status)) {

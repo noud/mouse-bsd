@@ -121,6 +121,15 @@ or
 .Dv SIGSTOP
 signal also have
 their status reported.
+If the
+.Dv WNOREAP
+option is set, no status is actually changed by the call; it provides a
+nondestructive peek at what a normal call would have returned, but does
+not actually reap a zombie process or mark a stopped child as having
+been waited for.  (It is not guaranteed that a following call will return
+the same process ID or status; if there are multiple children ready to
+report status which match the arguments, there is no guarantee which one
+will actually be reported.)
 .Pp
 If
 .Fa rusage
@@ -301,10 +310,11 @@ function conforms to
 is an extension.
 The
 .Fn WCOREDUMP
-macro
-and the ability to restart a pending
+macro, the ability to restart a pending
 .Fn wait
-call are extensions to the POSIX interface.
+call, and the
+.Dv WNOREAP
+option bit are extensions to the POSIX interface.
 .Sh SEE ALSO
 .Xr _exit 2 ,
 .Xr sigaction 2

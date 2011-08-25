@@ -85,6 +85,7 @@
 #define	WALTSIG		0x00000004	/* wait for processes that exit
 					   with an alternate signal (i.e.
 					   not SIGCHLD) */
+#define WNOREAP		0x00000008	/* don't actually collect it */
 #endif
 
 #ifndef _POSIX_SOURCE
