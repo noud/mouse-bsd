@@ -144,7 +144,7 @@ main(argc, argv)
 	if (tcsetattr(fd, TCSADRAIN, &tty) < 0)
 		err(1, "tcsetattr");
 	if (ioctl(fd, TIOCSDTR, 0) < 0)
-		err(1, "TIOCSDTR");
+		warn("TIOCSDTR");
 	if (ioctl(fd, TIOCSETD, &slipdisc) < 0)
 		err(1, "TIOCSETD");
 	if (opt_detach && daemon(0, 0) != 0)
