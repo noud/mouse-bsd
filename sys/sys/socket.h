@@ -67,6 +67,8 @@
 #ifndef _SYS_SOCKET_H_
 #define	_SYS_SOCKET_H_
 
+#include <sys/types.h>
+
 /*
  * Definitions related to sockets: types, address families, options.
  */
