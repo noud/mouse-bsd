@@ -18,7 +18,7 @@ INCS=	a.out.h ar.h assert.h bitstring.h bm.h cpio.h ctype.h db.h dirent.h \
 	resolv.h rmt.h search.h setjmp.h sgtty.h signal.h stab.h stddef.h \
 	stdio.h stdlib.h string.h strings.h stringlist.h struct.h sysexits.h \
 	tar.h time.h ttyent.h tzfile.h ulimit.h unistd.h util.h utime.h \
-	utmp.h vis.h
+	utmp.h vis.h wchar.h
 INCS+=	arpa/ftp.h arpa/inet.h arpa/nameser.h arpa/telnet.h arpa/tftp.h
 INCS+=	protocols/dumprestore.h protocols/routed.h protocols/rwhod.h \
 	protocols/talkd.h protocols/timed.h
