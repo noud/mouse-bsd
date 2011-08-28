@@ -108,6 +108,16 @@ mnt
 # ./mnt
 ..
 
+# ./mnt2
+mnt2
+# ./mnt2
+..
+
+# ./mnt3
+mnt3
+# ./mnt3
+..
+
 # ./root
 root
 # ./root
