@@ -38,6 +38,8 @@
 #ifndef _VIS_H_
 #define	_VIS_H_
 
+#include <stddef.h> /* XXX */
+
 /*
  * to select alternate encoding format
  */
