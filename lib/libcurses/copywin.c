@@ -89,4 +89,3 @@ int copywin(const WINDOW *srcwin, WINDOW *dstwin, int sminrow,
 	}
 	return (OK);
 }
-

@@ -56,4 +56,3 @@ COPY	${ARCHDIR}/install.md		install.md
 
 # create a mount-point for the kernel fs
 SPECIAL	/bin/mkdir			kern
-

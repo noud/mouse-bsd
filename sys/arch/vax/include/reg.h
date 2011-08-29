@@ -52,4 +52,3 @@ struct  reg {
 	int	pc;     /* User pc */
 	int	psl;    /* User psl */
 };
-

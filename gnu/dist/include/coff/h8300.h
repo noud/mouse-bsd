@@ -198,7 +198,3 @@ struct external_reloc {
 
 #define RELOC struct external_reloc
 #define RELSZ 16
-
-
-
-

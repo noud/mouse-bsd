@@ -6,4 +6,3 @@ SRCS=   boot.c conf.c rawfs.c dev_tape.c
 all:	${SA_PROG}.bin
 
 .include <bsd.prog.mk>
-

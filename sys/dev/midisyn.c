@@ -424,4 +424,3 @@ midisyn_finetune(base_freq, bend, range, vibrato_cents)
 	else
 		return (base_freq * amount / 10000);	/* Bend up */
 }
-

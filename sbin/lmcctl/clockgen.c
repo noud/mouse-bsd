@@ -120,4 +120,3 @@ lmc_av9110_freq(u_int32_t target, lmc_av9110_t *av)
 					}
 	av->f /= 16;
 }
-

@@ -369,4 +369,3 @@
 			    unsigned nbytes, int *start, char *arg); }
 257	STD		{ int ultrix_sys_setsysinfo(unsigned op, char *buffer, \
 			    unsigned nbytes, unsigned arg, unsigned flag); }
-

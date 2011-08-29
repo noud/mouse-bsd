@@ -36,4 +36,3 @@
   =, ^G           Print current file name and stats.
 
   q, :q, or ZZ    Exit.
-

@@ -260,7 +260,3 @@ SOP("xorc"), {IMM8, CCR,E}, { Hex0, Hex5, IMM8,IGNORE,E} EOP,
 #else
 extern struct h8_opcode h8_opcodes[] ;
 #endif
-
-
-
-

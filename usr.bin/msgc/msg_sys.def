@@ -377,4 +377,3 @@ void msg_table_add(msg msg_no, ...)
 	(void)_msg_vprintf(0, msg_string(msg_no), ap);
 	va_end (ap);
 }
-

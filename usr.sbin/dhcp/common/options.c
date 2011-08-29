@@ -634,4 +634,3 @@ void do_packet (interface, packet, len, from_port, from, hfrom)
 			dfree (tp.options [i].data, "do_packet");
 	}
 }
-

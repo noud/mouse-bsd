@@ -528,4 +528,3 @@ extern boolean _bfd_sh_align_load_span
 	   PTR, bfd_vma **, bfd_vma *, bfd_vma, bfd_vma, boolean *));
 
 /* And more follows */
-

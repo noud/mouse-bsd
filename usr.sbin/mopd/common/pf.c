@@ -261,4 +261,3 @@ pfWrite(fd, buf, len, trans)
 
 	return(-1);
 }
-

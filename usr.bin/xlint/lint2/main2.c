@@ -189,4 +189,3 @@ usage()
 		      "usage: lint2 -hpstxuHF -Clib -l lib ... src1 ...\n");
 	exit(1);
 }
-

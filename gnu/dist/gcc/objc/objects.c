@@ -88,5 +88,3 @@ id __objc_object_copy(id object)
   memcpy(copy, object, object->class_pointer->instance_size);
   return copy;
 }
-
-

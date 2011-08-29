@@ -75,4 +75,3 @@ struct imageinfo {
 	    char  boot_name[16];    /* A title for the image. */
 	} ii_images[MAXIMAGES];
 };
-

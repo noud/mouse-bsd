@@ -193,4 +193,3 @@ struct mvmeprom_args {
 #ifndef RB_SBOOT
 #define RB_SBOOT 0x800
 #endif
-

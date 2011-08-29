@@ -36,4 +36,3 @@
  *	from: @(#)reloc.h	8.1 (Berkeley) 6/10/93
  *	from: Header: reloc.h,v 1.6 92/06/20 09:59:37 torek Exp
  */
-

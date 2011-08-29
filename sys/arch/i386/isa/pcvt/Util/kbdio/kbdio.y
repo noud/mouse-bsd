@@ -340,4 +340,3 @@ int main(int argc, char **argv) {
 	(void)ioctl(fd, KDDISABIO, 0);
 	return 0;
 }
-

@@ -16,4 +16,3 @@ ALLOCA		= alloca.o
 # The bison output files are machine-indep,
 # so different flags for a particular machine are not useful.
 #BISONFLAGS	= -l
-

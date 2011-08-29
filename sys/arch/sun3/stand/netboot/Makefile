@@ -24,4 +24,3 @@ DEFS+=  -DSUN_BOOTPARAMS
 # but gets a define so it knows which it is.
 boot.o : ${SRCxx}
 	${COMPILE.c} -DXX='"net"' -o $@ ${SRCxx}
-

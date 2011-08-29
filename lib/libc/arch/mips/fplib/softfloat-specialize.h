@@ -493,4 +493,3 @@ static float128 propagateFloat128NaN( float128 a, float128 b )
 }
 
 #endif
-

@@ -557,4 +557,3 @@ struct sysent ibcs2_sysent[] = {
 	{ 0, 0,
 	    sys_nosys },			/* 259 = unimplemented setregid */
 };
-

@@ -475,4 +475,3 @@ _initialize_m32r_tdep ()
 {
   tm_print_insn = print_insn_m32r;
 }
-

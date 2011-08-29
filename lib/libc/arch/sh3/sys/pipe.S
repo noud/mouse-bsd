@@ -52,4 +52,3 @@ SYSCALL(pipe)
 	xor	r0, r0
 	rts
 	nop
-

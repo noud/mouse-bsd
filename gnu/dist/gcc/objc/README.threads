@@ -46,5 +46,3 @@ Changes from prior releases (in revered chronological order):
 * Fixed bugs in Win32 support as per report from Scott Christley.
 
 * Fixed bug in sarray_get as per report from Scott Christley.
-
-

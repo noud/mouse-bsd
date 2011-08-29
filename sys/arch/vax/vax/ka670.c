@@ -217,4 +217,3 @@ ka670_reboot(arg)
 {
 	asm("halt");
 }
-

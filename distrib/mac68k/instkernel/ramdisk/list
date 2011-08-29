@@ -90,4 +90,3 @@ COPY	${OBJDIR}/INSTALL.more			INSTALL.more
 
 #the lists of obsolete files used by sysinst
 SPECIAL sh ${CURDIR}/../../../../distrib/sets/makeobsolete -b -s ${CURDIR}/../../../../distrib/sets -t ./dist
-

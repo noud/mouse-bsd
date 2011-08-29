@@ -45,5 +45,3 @@ struct pcibr_softc {
 	struct pcibr_config *sc_pcibr;
 	struct arc_bus_space sc_bus_space;	/* Same for I/O and Mem */
 };
-
-

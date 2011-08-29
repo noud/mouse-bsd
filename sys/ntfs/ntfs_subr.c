@@ -1993,4 +1993,3 @@ ntfs_u28(unichar)
 {
 	return (char) NTFS_U28(unichar);
 }
-

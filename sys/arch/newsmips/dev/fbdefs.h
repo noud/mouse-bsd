@@ -528,4 +528,3 @@ extern void font_ascii24 __P((void));
 extern void setup_fnt24 __P((void));
 
 #endif /* _KERNEL */
-

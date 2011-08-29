@@ -50,4 +50,3 @@
 
 /* Address of this register in control space. */
 #define ENA_REG_ADDR	0x40000000
-

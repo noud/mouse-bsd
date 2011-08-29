@@ -137,4 +137,3 @@ vrcmu_supply(cc, mask, onoff)
 #endif
 	return 0;
 }
-

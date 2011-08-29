@@ -55,4 +55,3 @@ struct keytab keywords[] = {
 	{"xresolve", K_XRESOLVE},
 	{0, 0}
 };
-

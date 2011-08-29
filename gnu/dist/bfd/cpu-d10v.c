@@ -37,4 +37,3 @@ const bfd_arch_info_type bfd_d10v_arch =
     bfd_default_scan,
     0,
 };
-

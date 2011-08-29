@@ -207,4 +207,3 @@ extern	int vax_siedata;	/* contents of the SIE register */
 extern	int vax_bustype;	/* HW-dep., setup at consinit() in ka???.c */
 extern	int vax_boardtype;	/* HW-dep., msb of SID | SIE (SID-extension) */
 extern	int vax_confdata;	/* HW-dep., hardware dependent config-data   */
-

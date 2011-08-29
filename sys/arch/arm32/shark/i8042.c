@@ -406,5 +406,3 @@ i8042_cmd(bus_space_tag_t    iot,
 
     return (status);
 } /* End i8042_cmd */
-
-

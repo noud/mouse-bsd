@@ -210,4 +210,3 @@ extern u_char vm_rfc1048[4];
 extern hash_tbl *hwhashtable;
 extern hash_tbl *iphashtable;
 extern hash_tbl *nmhashtable;
-

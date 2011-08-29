@@ -270,5 +270,3 @@ L$0007
 	copy %r21,%r30
 	.EXIT
 	.PROCEND
-
-

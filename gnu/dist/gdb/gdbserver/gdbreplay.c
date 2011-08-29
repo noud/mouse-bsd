@@ -314,4 +314,3 @@ main (argc, argv)
   remote_close ();
   exit (0);
 }
-

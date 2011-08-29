@@ -102,4 +102,3 @@ Lst_FindFrom (l, ln, d, cProc)
 	return (NILLNODE);
     }
 }
-

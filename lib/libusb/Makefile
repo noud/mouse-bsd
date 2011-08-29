@@ -23,4 +23,3 @@ FILESDIR=/usr/share/misc
 .endif
 
 .include <bsd.lib.mk>
-

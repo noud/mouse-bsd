@@ -770,4 +770,3 @@ void scrToggleTestPin (void)
     restore_interrupts(savedints);
 #endif
 }
-

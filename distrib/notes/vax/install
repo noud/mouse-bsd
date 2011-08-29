@@ -78,4 +78,3 @@ for sysinst that follows can be easily adopted to vax.
 
 .\" Sad that the sysinst install instructions is so i386-specific.
 .so ../common/sysinst
-

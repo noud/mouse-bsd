@@ -764,4 +764,3 @@ esh_tuning_stats()
 	printf("rt_driver_param = %x\n", rr_tune.rt_driver_param);
 
 }
-

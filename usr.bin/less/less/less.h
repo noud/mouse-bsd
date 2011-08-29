@@ -379,4 +379,3 @@ struct textlist
 #define	FAKE_HELPFILE	"@/\\less/\\help/\\file/\\@"
 
 #include "funcs.h"
-

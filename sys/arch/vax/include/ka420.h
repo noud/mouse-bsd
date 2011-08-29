@@ -169,4 +169,3 @@
 #define	KA420_CACR_TGV		0x00040000	/* valid flag */
 #define	KA420_CACR_TPE		0x00000020	/* tag parity error */
 #define	KA420_CACR_CEN		0x00000010	/* cache enable */
-

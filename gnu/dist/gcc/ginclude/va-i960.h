@@ -76,4 +76,3 @@ void va_end (__gnuc_va_list);		/* Defined in libgcc.a */
 #define __va_copy(dest, src) (dest) = (src)
 
 #endif /* defined (_STDARG_H) || defined (_VARARGS_H) */
-

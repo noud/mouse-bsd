@@ -138,5 +138,3 @@
 
 #define	CPUREG_A0	4
 #define CPUREG_T0	8
-
-

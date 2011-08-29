@@ -336,4 +336,3 @@ g++FAQ.html:	$(srcdir)/g++FAQ.texi
 g++FAQ.txt:	$(srcdir)/g++FAQ.texi
 	$(MAKEINFO) --no-split --no-headers -o - $(srcdir)/g++FAQ.texi |\
 		sed '/^Concept Index/,$$d' > g++FAQ.txt
-

@@ -159,4 +159,3 @@ struct ess_softc
 
 int	essmatch __P((struct ess_softc *));
 void	essattach __P((struct ess_softc *));
-

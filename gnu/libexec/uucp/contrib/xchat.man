@@ -625,4 +625,3 @@ Hanrahan, et. al.
 .SH BUGS
 This version (1.1) does not support BSD terminal facilities. Anyone
 volunteer to add this?
-

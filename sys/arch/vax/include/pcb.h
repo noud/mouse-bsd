@@ -69,4 +69,3 @@ struct	md_coredump {
 };
 
 #endif /* _VAX_PCB_H_ */
-

@@ -1936,4 +1936,3 @@ void yyerror(const char *s)
       error_with_file_and_line(filename, lineno, "%1 at end of picture", s);
   }
 }
-

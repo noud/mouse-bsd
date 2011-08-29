@@ -295,4 +295,3 @@ struct hme_xd {
 	(((sz) << 0) & HME_XD_TXLENMSK)
 #define HME_XD_DECODE_TSIZE(flags)	\
 	(((flags) & HME_XD_TXLENMSK) >> 0)
-

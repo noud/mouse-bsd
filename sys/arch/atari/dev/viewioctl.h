@@ -54,4 +54,3 @@ struct view_size {
 #define VIOCGBMAP	_IOR('V', 0x4, bmap_t)
 #define VIOCSCMAP 	_IOW('V', 0x5, colormap_t)
 #define VIOCGCMAP 	_IOWR('V', 0x6, colormap_t)
-

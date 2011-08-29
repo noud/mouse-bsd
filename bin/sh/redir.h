@@ -48,4 +48,3 @@ void popredir __P((void));
 int fd0_redirected_p __P((void));
 void clearredir __P((void));
 int copyfd __P((int, int));
-

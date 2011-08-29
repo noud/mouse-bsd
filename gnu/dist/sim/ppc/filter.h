@@ -40,4 +40,3 @@ extern int is_filtered_out
 extern int it_is
 (const char *flag,
  const char *flags);
-

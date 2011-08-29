@@ -26,4 +26,3 @@ extern void gen_support_h
 extern void gen_support_c
 (insn_table *table,
  lf *file);
-

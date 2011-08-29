@@ -449,4 +449,3 @@ vrip_giu_function_register(vc, func, arg)
 	sc->sc_gf = func;
 	sc->sc_gc = arg;
 }
-

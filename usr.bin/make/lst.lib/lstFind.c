@@ -78,4 +78,3 @@ Lst_Find (l, d, cProc)
 {
     return (Lst_FindFrom (l, Lst_First(l), d, cProc));
 }
-

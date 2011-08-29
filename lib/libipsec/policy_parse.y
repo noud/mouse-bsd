@@ -421,4 +421,3 @@ ipsec_set_policy(msg, msglen)
 	ipsec_errcode = EIPSEC_NO_ERROR;
 	return policy;
 }
-

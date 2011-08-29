@@ -139,4 +139,3 @@
 #define CNW_CMD_SAPD		0x0c
 #define CNW_CMD_SSS		0x11
 #define CNW_CMD_EOC		0x00		/* End-of-command marker */
-

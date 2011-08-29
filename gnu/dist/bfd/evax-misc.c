@@ -1042,4 +1042,3 @@ _bfd_evax_length_hash_symbol (abfd, in, maxlen)
 
   return outbuf;
 }
-

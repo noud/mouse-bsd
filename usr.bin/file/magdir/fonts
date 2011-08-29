@@ -45,4 +45,3 @@
 7	belong		0x00454741	DOS code page font data
 7	belong		0x00564944	DOS code page font data (from Linux?)
 4098	string		DOSFONT		DOSFONT2 encrypted font data
-

@@ -10,4 +10,3 @@ XM_CLIBS = -lsysv -ljobs -ltermlib
 
 NAT_FILE= nm-ultra3.h
 NATDEPFILES= infptrace.o inftarg.o fork-child.o ultra3-nat.o
-

@@ -67,4 +67,3 @@ OSFpal()
 	    sizeof(p->pcs_pal_rev));
 	printf("Switch to OSF PAL code succeeded.\n");
 }
-

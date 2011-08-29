@@ -371,4 +371,3 @@ k_req_incoming(source, rpfcinfo)
 }
 
 #endif	/* HAVE_ROUTING_SOCKETS */
-

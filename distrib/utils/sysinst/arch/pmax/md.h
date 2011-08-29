@@ -116,4 +116,3 @@ EXTERN distinfo dist_list[]
  * SCSI floppy drives, so we can't recognize floppies by name.
  */
 EXTERN char *fdtype INIT("");
-

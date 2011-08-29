@@ -433,4 +433,3 @@ RGfx(ba, idx)
 }
 
 #endif /* _GRF_RHREG_H */
-

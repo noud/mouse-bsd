@@ -65,4 +65,3 @@
 #ifdef	_KERNEL
 extern volatile short *enable_reg;
 #endif
-

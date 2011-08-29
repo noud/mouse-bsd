@@ -48,4 +48,3 @@ double G77_secnds_0 (real *r)
 	    (real)lt->tm_sec - *r);
     return f;
 }
-

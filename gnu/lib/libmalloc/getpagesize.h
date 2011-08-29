@@ -36,4 +36,3 @@
 #endif /* no _SC_PAGESIZE */
 
 #endif /* not HAVE_GETPAGESIZE */
-

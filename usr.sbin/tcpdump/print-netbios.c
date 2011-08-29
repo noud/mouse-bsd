@@ -103,4 +103,3 @@ netbios_print(struct p8022Hdr *nb, u_int length)
 
 	ipx_decode(ipx, (u_char *)ipx + ipxSize, length - ipxSize);
 #endif
-

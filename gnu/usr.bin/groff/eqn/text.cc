@@ -525,4 +525,3 @@ box *split_text(char *text)
   else
     return new quoted_text_box(0);
 }
-

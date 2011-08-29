@@ -214,4 +214,3 @@ int lookup_variable(const char *name, double *val);
 void define_variable(const char *name, double val);
 
 void print_picture(object *);
-

@@ -1654,4 +1654,3 @@ tc_coff_sizemachdep (frag)
 }
 
 /* end of tc-h8500.c */
-

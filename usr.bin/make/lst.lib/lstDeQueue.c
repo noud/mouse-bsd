@@ -89,4 +89,3 @@ Lst_DeQueue (l)
 	return (rd);
     }
 }
-

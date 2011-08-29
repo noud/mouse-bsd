@@ -349,4 +349,3 @@ extern void frame_find_saved_regs();		/* See arc-tdep.c */
         *((char *)(dummyname) + 3) = ((delta >> 9) & 0xff); \
         *((char *)(dummyname) + 4) = ((delta >> 17) & 0x7); \
 }
-

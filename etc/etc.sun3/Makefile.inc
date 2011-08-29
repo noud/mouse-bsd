@@ -42,4 +42,3 @@ snap_md_post:
 .endif
 	cd ${.CURDIR}/../distrib/sun3 && \
 	  ${MAKE} depend && ${MAKE} ${_J} && ${MAKE} release
-

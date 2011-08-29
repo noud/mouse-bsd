@@ -317,4 +317,3 @@ leap_actual(l)
 		return l;
 	}
 }
-

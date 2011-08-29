@@ -3974,4 +3974,3 @@ match_name(const struct namebuf *np, const char *name, size_t namelen)
 
 	return (matched);
 }
-

@@ -93,4 +93,3 @@ nologin:
 nopasswd:
 	logerr	No VMS Password: prompt.
 	failed
-

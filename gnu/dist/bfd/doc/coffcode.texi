@@ -636,4 +636,3 @@ and 960 use the @code{r_type} to directly produce an index
 into a howto table vector; the 88k subtracts a number from the
 @code{r_type} field and creates an addend field.
 @end itemize
-

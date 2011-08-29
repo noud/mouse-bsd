@@ -33,4 +33,3 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /* Number of registers in a ptrace_getfpregs call. */
 
 /* #define VX_SIZE_FPREGS (don't know how many) */
-

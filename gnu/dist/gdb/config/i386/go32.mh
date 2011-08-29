@@ -5,5 +5,3 @@ TERMCAP=
 HOST_IPC=-DDOS_IPC
 SER_HARDWIRE= ser-go32.o
 CC=i386-go32-gcc -O2 -fno-omit-frame-pointer
-
-

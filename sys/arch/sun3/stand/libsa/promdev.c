@@ -150,4 +150,3 @@ prom_iclose(si)
 
 	promdev_inuse = 0;
 }
-

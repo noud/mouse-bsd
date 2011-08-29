@@ -19,4 +19,3 @@ X11_EXTRA_LIBS = -lnsl
 # from angela
 # no debugging due to broken compiler, use BSD style timeofday
 CFLAGS=-O -D_BSD_TIMEOFDAY_FLAVOR
-

@@ -85,5 +85,3 @@ SEL  __sel_register_typed_name (const char*, const char*,
 				struct objc_selector*, BOOL is_const);
 
 #endif /* not __objc_runtime_INCLUDE_GNU */
-
-

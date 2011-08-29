@@ -317,4 +317,3 @@ mopDumpRC(fd, pkt, trans)
 		break;
 	}
 }
-

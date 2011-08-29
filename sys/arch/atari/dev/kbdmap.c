@@ -202,5 +202,3 @@ unsigned char acctable[KBD_NUM_ACC][64] = {
   {	"@ÄBCDËFGHÏJKLMNÖPQRSTÜVWXYZ[\\]^_"
 	"`äbcdëfghïjklmnöpqrstüvwxyz{|}~\177"},	/* KBD_ACC_DIER */
 };
-
-

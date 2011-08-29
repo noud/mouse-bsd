@@ -11,4 +11,3 @@ INCS=	soundcard.h
 INCSDIR=/usr/include
 
 .include <bsd.lib.mk>
-

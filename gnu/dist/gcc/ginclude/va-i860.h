@@ -211,4 +211,3 @@ __extension__								\
 #define __va_copy(dest, src) (dest) = (src)
 
 #endif /* defined (_STDARG_H) || defined (_VARARGS_H) */
-

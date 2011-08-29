@@ -90,4 +90,3 @@ ENTRY(romwrite_uvax, 0xFFE)
 	pushl   12(ap)                  # buffer-address
 	calls   $6, (r6)        # call the qio-routine
 	ret                     # r0 holds the result
-

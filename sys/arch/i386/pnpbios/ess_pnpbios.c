@@ -131,4 +131,3 @@ ess_pnpbios_attach(parent, self, aux)
 
 	essattach(sc);
 }
-

@@ -206,4 +206,3 @@ consinit()
 
 	/* Defer the rest to the device attach */
 }
-

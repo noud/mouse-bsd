@@ -475,4 +475,3 @@ const char **bfd_target_list(void);
 Return a freshly malloced NULL-terminated
 vector of the names of all the valid BFD targets. Do not
 modify the names.
-

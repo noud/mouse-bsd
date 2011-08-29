@@ -167,4 +167,3 @@ gvpbusprint(auxp, pnp)
 		printf("gtsc at %s", pnp);
 	return(UNCONF);
 }
-

@@ -278,4 +278,3 @@ check:	gawk
 	cd test; $(MAKE) -k
 
 test:	check
-

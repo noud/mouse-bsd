@@ -411,6 +411,3 @@ k_get_sg_cnt(socket, source, group, retval)
     retval->wrong_if = sgreq.wrong_if;
     return(0);
 }
-
-
-

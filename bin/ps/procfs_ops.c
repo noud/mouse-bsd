@@ -414,4 +414,3 @@ procfs_getargv(kp, nchr)
 
 	return argv;
 }
-

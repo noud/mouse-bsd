@@ -28,4 +28,3 @@ struct ipxHdr {
 } ipx_hdr_t;
 
 #define ipxSize	30
-

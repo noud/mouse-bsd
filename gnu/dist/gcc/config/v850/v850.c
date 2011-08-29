@@ -2281,4 +2281,3 @@ construct_save_jarl (op)
 
   return buff;
 }
-

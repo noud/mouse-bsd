@@ -430,5 +430,3 @@ cma__is_open (int fd);
 
 
 #endif
-
-

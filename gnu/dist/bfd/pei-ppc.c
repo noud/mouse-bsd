@@ -41,6 +41,3 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
 /* FIXME: Verify PCRELOFFSET is always false */
 
 #include "coff-ppc.c"
-
-
-

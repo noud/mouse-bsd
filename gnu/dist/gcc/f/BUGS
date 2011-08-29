@@ -208,4 +208,3 @@ port, build, and install `g77', see "Problems Installing" in
 
      However, these modifications have reduced performance on targets
      such as x86, due to the extra copies of operands involved.
-

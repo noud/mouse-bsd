@@ -10,5 +10,3 @@ copy config\objcoff-bfd.c obj-format.c
 copy config\atof-ieee.c atof-targ.c
 
 copy Makefile.dos Makefile
-
-

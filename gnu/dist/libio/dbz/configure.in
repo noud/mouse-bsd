@@ -14,4 +14,3 @@ files="dbz.c dbzmain.c"
 links="rdbz.c rdbzmain.c"
 
 # post-target:
-

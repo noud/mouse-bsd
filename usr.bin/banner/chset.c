@@ -2127,4 +2127,3 @@ char scnkey[][HEIGHT] =	/* this is relatively easy to modify */
 	}			/* rub-out */
 #endif /* LPD_CHSET */
 };
-

@@ -759,4 +759,3 @@ se_dma_poll(ncr_sc)
 	}
 #endif
 }
-

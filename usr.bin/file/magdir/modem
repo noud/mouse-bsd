@@ -30,4 +30,3 @@
 #
 0    string    PVF2\n         portable voice format
 >5   string >\0          (ascii %s)
-

@@ -547,4 +547,3 @@ coff_load_shlib(p, path, epp)
 	return 0;
 }
 #endif
-

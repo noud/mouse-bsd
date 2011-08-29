@@ -122,11 +122,3 @@ typedef unsigned int Kern_Debug_Flags;
 #endif /* end else KERNEL_DEBUG not defined */
 
 #endif /* _KERNDEBUG_H_ */
-
-
-
-
-
-
-
-

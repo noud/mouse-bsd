@@ -103,4 +103,3 @@ aix_resizewindow ()				\
 /* setpgrp() messes up controling terminal. The other version of it
    requires libbsd.a. */
 #define	setpgrp(XX,YY)		setpgid (XX, YY)
-

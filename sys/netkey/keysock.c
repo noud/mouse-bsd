@@ -486,4 +486,3 @@ struct protosw keysw[] = {
 struct domain keydomain =
     { PF_KEY, "key", key_init, 0, 0,
       keysw, &keysw[sizeof(keysw)/sizeof(keysw[0])] };
-

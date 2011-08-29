@@ -18,4 +18,3 @@ extern void readtab P((int));
 extern void rdtab_init P((void));
 
 #undef P
-

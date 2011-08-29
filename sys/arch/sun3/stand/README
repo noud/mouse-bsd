@@ -35,4 +35,3 @@ installboot would find the inumber for the 2nd stage boot program
 without having the filesystem mounted so this command can work
 with securelevel==1 (the default).  Doing this requies adding
 code to read and do a directory lookup in the root...
-

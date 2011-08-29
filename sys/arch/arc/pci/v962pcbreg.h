@@ -310,4 +310,3 @@ static char * const _v96xp = (char *)P4032_V96x;
 #define V96X_SYSTEM_PCI_RD_LB1		0x0004
 #define V96X_SYSTEM_PCI_RD_LB0		0x0002
 #define V96X_SYSTEM_PC_WR_LBI		0x0001
-

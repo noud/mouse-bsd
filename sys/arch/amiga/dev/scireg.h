@@ -147,4 +147,3 @@ typedef struct {
 #define SCI_CSR_PERR		0x20		/* r:  Parity error */
 #define SCI_CSR_DREQ		0x40		/* r:  DMA request */
 #define SCI_CSR_DONE		0x80		/* r:  DMA count is zero */
-

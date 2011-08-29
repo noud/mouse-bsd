@@ -47,4 +47,3 @@ SPECIAL chmod 644 install.md install.sub
 COPY	${TOPDIR}/../miniroot/install.sh install
 COPY	${TOPDIR}/../miniroot/upgrade.sh upgrade
 SPECIAL chmod 755 install upgrade
-

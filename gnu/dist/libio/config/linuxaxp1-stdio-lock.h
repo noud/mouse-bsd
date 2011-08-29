@@ -33,4 +33,3 @@ typedef pthread_mutex_t _IO_lock_t;
      __libc_lock_init_recursive (_name)
 #define _IO_lock_fini(_name) \
      __libc_lock_fini_recursive (_name)
-

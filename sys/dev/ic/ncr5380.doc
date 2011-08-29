@@ -145,4 +145,3 @@ Timeouts in the driver are EXTREMELY sensitive to the characteristics of the
 local implementation of delay().  The Sun3 version delays for a minimum of 5us.
 However, the driver must assume that delay(1) will delay only 1us.  For this
 reason, performance on the Sun3 sucks in some places.
-

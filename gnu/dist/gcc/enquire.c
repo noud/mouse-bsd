@@ -2884,4 +2884,3 @@ Procedure EPROP(fprec, dprec, lprec) int fprec, dprec, lprec; {}
 #include FILENAME  /* if this line fails to compile, define NO_FILE */
 #endif
 #endif /* PASS */
-

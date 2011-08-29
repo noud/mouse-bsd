@@ -109,4 +109,3 @@
 #define __libc_mutex_unlock __pthread_mutex_unlock
 
 #endif        /* libc-lock.h */
-

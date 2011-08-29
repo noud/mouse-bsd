@@ -46,4 +46,3 @@ bcmp (from, to, count)
     }
   return (rtnval);
 }
-

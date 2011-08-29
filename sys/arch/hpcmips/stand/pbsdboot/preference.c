@@ -186,4 +186,3 @@ pref_write(TCHAR* filename, struct preference_s* buf)
 	CloseHandle(file);
 	return (0);
 }
-

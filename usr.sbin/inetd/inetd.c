@@ -2466,4 +2466,3 @@ port_good_dg(sa)
 	} else
 		return (1);
 }
-

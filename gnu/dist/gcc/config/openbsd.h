@@ -299,4 +299,3 @@ do {									 \
 /* Otherwise, since we support weak, gthr.h erroneously tries to use
    #pragma weak.  */
 #define GTHREAD_USE_WEAK 0
-

@@ -282,4 +282,3 @@ ypprot_err(incode)
 	}
 	return YPERR_YPERR;
 }
-

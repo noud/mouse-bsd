@@ -590,4 +590,3 @@ mk_ns(name, vals)
 	}
 	return vals;
 }
-

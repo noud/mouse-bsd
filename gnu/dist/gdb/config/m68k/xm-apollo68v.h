@@ -41,4 +41,3 @@ on those where it does, it occurs quite reliably.  */
 #define USG
 
 #define HAVE_TERMIO
-

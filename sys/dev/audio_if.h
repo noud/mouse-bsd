@@ -159,4 +159,3 @@ int	audioprint __P((void *, const char *));
 #endif
 
 #endif /* _SYS_DEV_AUDIO_IF_H_ */
-

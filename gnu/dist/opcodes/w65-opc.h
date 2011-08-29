@@ -545,4 +545,3 @@ struct opinfo optable[257]={
 	case ADDR_ABS_IND: size = 2;type=R_W65_ABS16;pcrel=0;break;\
 	case ADDR_ABS_IND_IDX: size = 2;type=R_W65_ABS16;pcrel=0;break;\
 	case ADDR_BLOCK_MOVE: size = 2;type=-1;pcrel=0;break;\
-

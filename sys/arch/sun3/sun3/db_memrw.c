@@ -210,4 +210,3 @@ db_write_bytes(addr, size, data)
 		*dst++ = *data++;
 	}
 }
-

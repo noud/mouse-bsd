@@ -550,4 +550,3 @@ the BL instruction to point to the real start of call():
 	  40:	1c21      	1c21	add	r1, r4, #0
 	  42:	fffef7ff 	f7ff	bl	42 <_main+0x1a>
 	  46:	bd30      	bd30	pop	{r4, r5, pc}
-

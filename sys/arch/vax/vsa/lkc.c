@@ -170,4 +170,3 @@ lkc_decode(ch)
 
 	return hej;
 }
-

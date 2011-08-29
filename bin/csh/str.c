@@ -470,4 +470,3 @@ vis_str(cp)
     (void) strvis(sdst, short2str(cp), VIS_NOSLASH);
     return (sdst);
 }
-

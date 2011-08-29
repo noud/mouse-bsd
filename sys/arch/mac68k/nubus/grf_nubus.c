@@ -712,4 +712,3 @@ grfmv_intr_radius_gsc(vsc)
 	dummy = bus_space_read_1(sc->sc_tag, sc->sc_handle, 0xfb802);
 	bus_space_write_1(sc->sc_tag, sc->sc_handle, 0xfb802, 0xff);
 }
-

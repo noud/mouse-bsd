@@ -2,4 +2,3 @@
 
 XM_FILE= xm-altos.h
 XDEPFILES= infptrace.o inftarg.o fork-child.o altos-xdep.o
-

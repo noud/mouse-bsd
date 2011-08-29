@@ -451,4 +451,3 @@ EtherReceive(pkt, maxlen)
 
 	return (len);
 }
-

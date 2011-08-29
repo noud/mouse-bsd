@@ -68,4 +68,3 @@ COPY	${CURDIR}/rd.passwd	etc/passwd
 # and the RC file
 COPY	${CURDIR}/rd.sshrc	.sshrc
 COPY	${CURDIR}/rd.welcome	.welcome
-

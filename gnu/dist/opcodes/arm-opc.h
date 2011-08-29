@@ -277,4 +277,3 @@ static struct thumb_opcode thumb_opcodes[] =
 
 #define BDISP23(x) ((((((x) & 0x07ff) << 11) | (((x) & 0x07ff0000) >> 16)) \
                      ^ 0x200000) - 0x200000) /* 23bit */
-

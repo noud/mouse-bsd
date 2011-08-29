@@ -624,4 +624,3 @@ bvme410_zerobuf(sc, boff, len)
  			*buf = '\0';
 		} while (*buf != '\0');
 }
-

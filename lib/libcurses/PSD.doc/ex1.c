@@ -98,7 +98,3 @@ quit()
 	putchar('\n');
 	exit(0);
 }
-
-
-
-

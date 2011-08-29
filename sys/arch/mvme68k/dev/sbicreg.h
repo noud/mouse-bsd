@@ -434,4 +434,3 @@ typedef volatile sbic_padded_ind_regmap_t *sbic_regmap_p;
         SBIC_WAIT(regs, SBIC_ASR_DBR, 0);                       \
         GET_SBIC_data(regs, ch);                                \
     } while (0)
-

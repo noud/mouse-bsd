@@ -300,5 +300,3 @@ extern CORE_ADDR h8300_push_return_address PARAMS ((CORE_ADDR, CORE_ADDR));
 /* override the standard get_saved_register function with
    one that takes account of generic CALL_DUMMY frames */
 #define GET_SAVED_REGISTER
-
-

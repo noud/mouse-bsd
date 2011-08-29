@@ -447,4 +447,3 @@ Lmemcpy_bsrcul1loop4:
 Lmemcpy_bsrcul1l4:
 	add	r1, r1, #1
 	b	Lmemcpy_bl4
-

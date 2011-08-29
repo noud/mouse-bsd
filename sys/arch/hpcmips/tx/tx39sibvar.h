@@ -42,4 +42,3 @@ int	tx39sib_clock __P((struct device*));
 void		txsibsf0_reg_write __P((tx_chipset_tag_t, int, u_int16_t));
 u_int16_t	txsibsf0_reg_read __P((tx_chipset_tag_t, int));
 u_int32_t	txsibsf0_read __P((tx_chipset_tag_t, int));
-

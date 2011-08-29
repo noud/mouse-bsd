@@ -32,4 +32,3 @@ extern struct Object *CurrentEvent;
 
 extern struct Object *Lookup();
 extern struct Object *defineset();
-

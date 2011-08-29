@@ -142,4 +142,3 @@ __policy__strbuffer__init__(msg)
 
 	return;
 }
-

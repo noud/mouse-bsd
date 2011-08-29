@@ -506,4 +506,3 @@ struct qdinput {
 
 #define T_BARREL_BUTTON T_LEFT_BUTTON		/* stylus buttons */
 #define T_TIP_BUTTON	T_FRONT_BUTTON
-

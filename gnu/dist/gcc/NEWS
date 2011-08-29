@@ -1060,4 +1060,3 @@ Newly documented compiler options:
 +eN
 	Control how C++ virtual function definitions are used
 	(like cfront 1.x).
-

@@ -208,4 +208,3 @@ in_cksum(m, len)
 	ADDCARRY;
 	return (sum ^ 0xffff);
 }
-

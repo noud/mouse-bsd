@@ -290,4 +290,3 @@ printf("POP_FRAME\n");							\
 { int temp = (int) fun;				\
   *((char *) dummyname + 1) = nargs;		\
   memcpy((char *)dummyname+3,&temp,4); }
-

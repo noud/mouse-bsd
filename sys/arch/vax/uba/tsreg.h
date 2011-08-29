@@ -254,5 +254,3 @@ struct tsmsg {			/* message packet */
 #define TS_SF_WRC	0x00FF	/* Write Retry Count Statistics */
 
 #define TS_XST4_BITS	"\20\20HSP\17RCX"
-
-

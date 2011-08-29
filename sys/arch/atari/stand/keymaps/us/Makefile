@@ -5,4 +5,3 @@ MAP=us.map
 MAN=
 
 .include <bsd.prog.mk>
-

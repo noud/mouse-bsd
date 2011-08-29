@@ -10,5 +10,3 @@ LDADD=	-lcurses
 HIDEGAME=hidegame
 
 .include <bsd.prog.mk>
-
-

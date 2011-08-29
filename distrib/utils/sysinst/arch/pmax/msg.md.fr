@@ -77,4 +77,3 @@ message askfspart
 {La partition suivante est /dev/%s%c . Il vous reste %d %s de libre sur votre
 disque.
 Taille de la partition ? }
-

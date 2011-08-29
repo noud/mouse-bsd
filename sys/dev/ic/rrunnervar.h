@@ -269,4 +269,3 @@ int	eshintr __P((void *));
 #define PREV_SEND(i)  (((i) + RR_SEND_RING_SIZE - 1) & (RR_SEND_RING_SIZE - 1))
 #define PREV_RECV(i)  \
 	(((i) + RR_SNAP_RECV_RING_SIZE - 1) & (RR_SNAP_RECV_RING_SIZE - 1))
-

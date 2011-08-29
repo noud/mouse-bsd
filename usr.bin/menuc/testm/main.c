@@ -124,4 +124,3 @@ void do_dynamic(void)
 	process_menu (menu_no);
 	free_menu (menu_no);
 }
-

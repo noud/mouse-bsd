@@ -22,4 +22,3 @@ $NetBSD: TODO,v 1.5 1998/03/05 04:36:07 scottb Exp $
     xenix_sdgetv(217), xenix_sdwaitv(218), xenix_proctl(232),
     xenix_execseg(233), xenix_unexecseg(234), xenix_paccess(238),
     getitimer(255), setitimer(256), setreuid(258), setregid(259)
-

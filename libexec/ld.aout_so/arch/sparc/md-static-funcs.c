@@ -35,4 +35,3 @@ md_relocate_simple(r, relocation, addr)
 	*(long *) (addr) &= ~mask;
 	*(long *) (addr) |= relocation;
 }
-

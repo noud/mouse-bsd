@@ -186,4 +186,3 @@ va_dcl
 #endif
 	exit(2);
 }
-

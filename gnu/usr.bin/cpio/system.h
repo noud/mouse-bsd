@@ -136,4 +136,3 @@ typedef int gid_t;
 #else
 #define UMASKED_SYMLINK(name1,name2,mode)    umasked_symlink(name1,name2,mode)
 #endif /* SYMLINK_USES_UMASK */
-

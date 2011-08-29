@@ -227,4 +227,3 @@ tpro_poll(unit, peer)
 #else /* not (REFCLOCK && TPRO) */
 int refclock_tpro_bs;
 #endif /* not (REFCLOCK && TPRO) */
-

@@ -61,4 +61,3 @@ enum view_unit_flags {
     VUF_DISPLAY = 1<<VUB_DISPLAY,
     VUF_MASK = ((1<<VUB_LAST_BIT)-1)
 };
-

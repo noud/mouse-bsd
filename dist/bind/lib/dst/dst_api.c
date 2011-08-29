@@ -1067,4 +1067,3 @@ dst_random(const int mode, int wanted, u_char *outran)
 		return (0);
 	}
 }
-

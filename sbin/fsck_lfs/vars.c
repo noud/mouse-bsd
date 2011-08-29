@@ -66,4 +66,3 @@ daddr_t	n_blks;		/* number of blocks in use */
 daddr_t	n_files;	/* number of files in use */
 
 struct	dinode zino;
-

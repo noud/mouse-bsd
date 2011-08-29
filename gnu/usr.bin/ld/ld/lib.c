@@ -868,4 +868,3 @@ dot_a:
 	(void)free(fname);
 	return fd;
 }
-

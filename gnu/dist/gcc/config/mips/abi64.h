@@ -238,6 +238,3 @@ extern struct rtx_def *mips_function_value ();
 /* ??? Could optimize structure passing by putting the right register rtx
    into the field decl, so that if we use the field, we can take the value from
    a register instead of from memory.  */
-
-
-

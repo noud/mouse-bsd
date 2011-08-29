@@ -219,4 +219,3 @@ ipx_rip_print(const u_short *ipx, u_int length)
 trunc:
 	printf("[|ipx %d]", length);
 }
-

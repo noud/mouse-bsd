@@ -85,4 +85,3 @@ long		position;
 	} else
 		fseek (dw->dvi.file, position, 0);
 }
-

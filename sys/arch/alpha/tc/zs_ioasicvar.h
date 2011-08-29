@@ -42,4 +42,3 @@
  * are the flags.
  */
 #define	ZIP_FLAGS_DCDCTS	0x01	/* channel has DCD and CTS signals */
-

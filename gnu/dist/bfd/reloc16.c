@@ -331,4 +331,3 @@ bfd_coff_reloc16_get_relocated_section_contents(in_abfd,
   free((char *)reloc_vector);
   return data;
 }
-

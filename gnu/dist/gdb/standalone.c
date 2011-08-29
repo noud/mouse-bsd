@@ -590,4 +590,3 @@ _initialize_standalone ()
 
   memory_limit = heap + sizeof heap;
 }
-

@@ -306,4 +306,3 @@ void	md_swapout_jmpslot __P((jmpslot_t *, int));
 #define put_long(where,what)		(*(long *)(where) = (what))
 
 #endif /* CROSS_LINKER */
-

@@ -137,4 +137,3 @@ struct fbcontrol {
 #define		FBS_ID_COLOR	0x01
 #define		FBS_ID_MONO	0x02
 #define		FBS_ID_MONO_ECL	0x03	/* ? */
-

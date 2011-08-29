@@ -463,4 +463,3 @@ must_fopen (filename, mode)
 
   return (stream);
 }
-

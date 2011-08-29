@@ -238,4 +238,3 @@ grf_cc_on(gp)
 	viewioctl(0, VIOCDISPLAY, NULL, -1, NULL);
 }
 #endif
-

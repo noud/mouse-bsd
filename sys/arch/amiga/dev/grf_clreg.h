@@ -310,4 +310,3 @@ int grfcl_cnprobe __P((void));
 void grfcl_iteinit __P((struct grf_softc *gp));
 
 #endif /* _GRF_RHREG_H */
-

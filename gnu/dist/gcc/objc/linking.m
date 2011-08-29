@@ -37,4 +37,3 @@ void __objc_linking (void)
   [Object name];
   [NXConstantString name];
 }
-

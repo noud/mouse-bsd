@@ -14,4 +14,3 @@ built-in console is the monochrome graphics on some VS3100's. If you
 have another graphic card or machine you
 .Em must
 have a serial console.
-

@@ -85,4 +85,3 @@ linux_sys_old_mmap(p, v, retval)
 
 	return linux_sys_mmap(p, &nlmap, retval);
 }
-

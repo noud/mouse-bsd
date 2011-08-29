@@ -131,4 +131,3 @@
 	bne a3,zero,err; j ra;						\
 err:	PIC_CALL(__cerror,t9);						\
 	END(x)
-

@@ -75,4 +75,3 @@ spaces (count)
     }
   return (const char *) (buf + maxsize - count);
 }
-

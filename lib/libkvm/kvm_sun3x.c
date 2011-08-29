@@ -187,4 +187,3 @@ _kvm_sun3x_pa2off(kd, pa)
 	}
 	return (kd->dump_off + off + pa);
 }
-

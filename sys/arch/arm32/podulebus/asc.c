@@ -506,4 +506,3 @@ asc_minphys(bp)
 #endif
 	minphys(bp);
 }
-

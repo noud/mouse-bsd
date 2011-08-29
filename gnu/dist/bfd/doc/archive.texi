@@ -92,4 +92,3 @@ Subsequent calls should pass
 the archive and the previous return value to return a created
 BFD to the next contained element. NULL is returned when there
 are no more.
-

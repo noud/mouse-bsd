@@ -14,4 +14,3 @@ md_relocate_simple(r, relocation, addr)
 	if (r->r_relative)
 		*(long *)addr += relocation;
 }
-

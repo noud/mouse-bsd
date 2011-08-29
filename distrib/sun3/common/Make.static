@@ -8,4 +8,3 @@ STRIP_CMD=strip
 ${OUTDIR}/${PROG} : ${OBJS} ${LIBC} ${DPADD}
 	${CC} -static ${LDFLAGS} -o ${OUTDIR}/${PROG} ${OBJS} ${LDADD}
 	${STRIP_CMD} ${OUTDIR}/${PROG}
-

@@ -43,4 +43,3 @@ floppy5|5in|5.25in High Density Floppy:\
 	:pa#2400:oa#0:ba#4096:fa#512:ta=4.2BSD:\
 	:pb#2400:ob#0:bb#4096:fb#512:\
 	:pc#2400:oc#0:bc#4096:fc#512:
-

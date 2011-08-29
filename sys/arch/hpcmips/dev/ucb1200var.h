@@ -41,4 +41,3 @@ struct ucb1200_attach_args {
 
 void	ucb1200_state_install __P((struct device*, int (*)__P((void*)), void*, int));
 int	ucb1200_state_idle __P((struct device*));
-

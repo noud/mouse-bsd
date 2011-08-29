@@ -11,4 +11,3 @@ __umodsi3 (long a, long b)
 {
   return udivmodsi4 (a, b, 1);
 }
-

@@ -40,4 +40,3 @@ struct rsrr_cache {
     int client_length;			/* Length of client */
     struct rsrr_cache *next;		/* next cache item */
 };
-

@@ -1254,4 +1254,3 @@ db_show_arptab()
 }
 #endif
 #endif /* INET */
-

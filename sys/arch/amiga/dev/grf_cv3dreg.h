@@ -632,4 +632,3 @@ RGfx(ba, idx)
 }
 
 #endif /* _GRF_CV3DREG_H */
-

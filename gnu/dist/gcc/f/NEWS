@@ -1620,4 +1620,3 @@ In 0.5.14:
 
    * Speed up lexing somewhat (this makes the compilation phase
      noticeably faster).
-

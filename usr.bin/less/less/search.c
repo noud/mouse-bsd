@@ -1290,4 +1290,3 @@ strchr(s, c)
 	return (NULL);
 }
 #endif
-

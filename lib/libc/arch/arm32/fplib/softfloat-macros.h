@@ -751,4 +751,3 @@ INLINE flag ne64( bits32 a0, bits32 a1, bits32 b0, bits32 b1 )
 
 }
 #endif
-

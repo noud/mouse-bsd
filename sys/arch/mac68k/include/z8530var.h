@@ -130,5 +130,3 @@ int	zsmdioctl __P((struct zs_chanstate *cs, u_long cmd, caddr_t data));
 /* Callback for "external" clock sources */
 void zsmd_setclock  __P((struct zs_chanstate *cs));
 #define ZS_MD_SETCLK(cs) zsmd_setclock(cs)
-
-

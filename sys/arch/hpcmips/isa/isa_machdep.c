@@ -245,5 +245,3 @@ __find_pcic(void)
 	}
 }
 #endif
-
-

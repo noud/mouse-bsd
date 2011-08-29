@@ -967,4 +967,3 @@ int n;
     /* this is only used in batch mode to break out of the pause() */
     /* return; */
 }
-

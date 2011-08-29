@@ -59,4 +59,3 @@ _free:
 	jsr	a6@(-0x2b2)	| FreeVec
 	movl	sp@+,a6
 	rts
-

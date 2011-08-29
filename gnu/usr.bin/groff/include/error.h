@@ -55,4 +55,3 @@ extern void warning(const char *,
 extern const char *program_name;
 extern int current_lineno;
 extern const char *current_filename;
-

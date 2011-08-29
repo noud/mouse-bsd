@@ -1078,5 +1078,3 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 
 	return (0);
 }
-
-

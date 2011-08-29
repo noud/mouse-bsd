@@ -96,4 +96,3 @@ ENTRY(getextmem1)
 	popl	%ebx
 	popl	%ebp
 	ret
-

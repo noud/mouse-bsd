@@ -725,4 +725,3 @@ struct sysent hpux_sysent[] = {
 	{ 0, 0,
 	    sys_nosys },			/* 324 = unimplemented msem_remove */
 };
-

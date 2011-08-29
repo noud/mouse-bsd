@@ -46,4 +46,3 @@ get_longjmp_target PARAMS ((CORE_ADDR *));
 #define GET_LONGJMP_TARGET(ADDR) get_longjmp_target(ADDR)
 
 #endif  /* ifndef TM_I386NW_H */
-

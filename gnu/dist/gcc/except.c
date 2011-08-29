@@ -2691,4 +2691,3 @@ in_same_eh_region (insn1, insn2)
   ret = (insn_eh_region[uid1] == insn_eh_region[uid2]);
   return ret;
 }
-

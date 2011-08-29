@@ -771,4 +771,3 @@ do_warnings(outfile)
 
 	return 1;
 }
-

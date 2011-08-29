@@ -1464,10 +1464,3 @@ static void ttpar(mode)
 
   ioctl(0, TCSETA, &new);
 }
-
-
-
-
-
-
-

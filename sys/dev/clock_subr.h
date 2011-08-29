@@ -61,4 +61,3 @@ void clock_secs_to_ymdhms __P((time_t, struct clock_ymdhms *));
 /* Some handy constants. */
 #define SECDAY		86400L
 #define SECYR		(SECDAY * 365)
-

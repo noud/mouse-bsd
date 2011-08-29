@@ -512,4 +512,3 @@ linux_fakedev(dev)
 {
 	return dev;
 }
-

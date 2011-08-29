@@ -18,4 +18,3 @@ extern int column;
 #define ENDDEBUG	 STAR/*end of comment*//
 
 #endif DEBUG
-

@@ -891,4 +891,3 @@ rn_init(void)
 	if (rn_inithead((void **)&mask_rnhead, 0) == 0)
 		panic("rn_init 2");
 }
-

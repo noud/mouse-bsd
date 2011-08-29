@@ -318,4 +318,3 @@ switch (regno) { \
 #define SIGCONTEXT_PC_OFFSET 16
 
 #endif	/* ifndef TM_SYMMETRY_H */
-

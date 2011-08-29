@@ -58,4 +58,3 @@ __tx_sound_mute(arg, onoff)
 	int onoff;
 {
 }
-

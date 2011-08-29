@@ -6,4 +6,3 @@ MKMAN=	no
 HIDEGAME=hidegame
 
 .include <bsd.prog.mk>
-

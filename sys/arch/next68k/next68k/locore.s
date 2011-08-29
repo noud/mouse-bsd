@@ -1930,4 +1930,3 @@ GLOBAL(eintrnames)
 GLOBAL(intrcnt)
 	.long	0,0,0,0,0,0,0,0,0
 GLOBAL(eintrcnt)
-

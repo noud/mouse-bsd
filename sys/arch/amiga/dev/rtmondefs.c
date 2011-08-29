@@ -195,4 +195,3 @@ static const char *monitor_descr[] = {
   "128x128 (1024x1024) 79.0kHz 73Hz ***EXCEEDS CHIP LIMIT!!!***",
   "128x128 (1024x1024) 86.2kHz 80Hz ***EXCEEDS CHIP LIMIT!!!***",
 };
-

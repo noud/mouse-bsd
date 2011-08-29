@@ -156,5 +156,3 @@ usage()
   fprintf (stderr, "usage: run [-tv][-m size] program\n");
   exit (1);
 }
-
-

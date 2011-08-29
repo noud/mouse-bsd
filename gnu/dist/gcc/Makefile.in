@@ -2982,4 +2982,3 @@ float.h-cross:
 	echo "#error float.h values not known for cross-compiler" >> t-float.h-cross
 	echo "#endif" >> t-float.h-cross
 	mv t-float.h-cross float.h-cross
-

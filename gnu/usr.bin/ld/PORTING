@@ -201,5 +201,3 @@ md_set_breakpoint(long where, long *savep)
 	Set a breakpoint. Used when run under a debugger. The breakpoint
 	instruction is to be set at location WHERE. The original contents
 	of *WHERE is to be saved in *SAVEP.
-
-

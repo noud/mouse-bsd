@@ -505,4 +505,3 @@ fp_reg_operand (op, mode)
 	  (GET_CODE (op) != SUBREG ||
 	   GET_MODE_CLASS (GET_MODE (SUBREG_REG (op))) == MODE_FLOAT));
 }
-

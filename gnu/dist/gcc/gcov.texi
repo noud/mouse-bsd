@@ -341,4 +341,3 @@ them instead.
 All three of these files use the functions in @code{gcov-io.h} to store
 integers; the functions in this header provide a machine-independent
 mechanism for storing and retrieving data from a stream.
-

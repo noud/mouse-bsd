@@ -34,4 +34,3 @@ int wait_for_osreply(ARMword *reply);  /* from kid.c */
 /* The pipes between the two processes */
 extern int mumkid[2];
 extern int kidmum[2];
-

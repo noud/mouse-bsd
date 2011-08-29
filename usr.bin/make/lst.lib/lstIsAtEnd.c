@@ -89,4 +89,3 @@ Lst_IsAtEnd (l)
     return (!LstValid (l) || !list->isOpen ||
 	    (list->atEnd == Head) || (list->atEnd == Tail));
 }
-

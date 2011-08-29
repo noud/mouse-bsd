@@ -128,5 +128,3 @@ unpost_menu(menu)
 	wrefresh(menu->menu_win);
 	return E_OK;
 }
-
-

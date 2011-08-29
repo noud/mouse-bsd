@@ -63,5 +63,3 @@ err:
 L_errno:	.long	_errno
 LSYS_ptrace:	.long	SYS_ptrace
 Lcerror:	.long	cerror
-
-

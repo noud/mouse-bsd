@@ -855,4 +855,3 @@ struct vnodeop_desc *vfs_op_descs[] = {
 	&vop_whiteout_desc,
 	NULL
 };
-

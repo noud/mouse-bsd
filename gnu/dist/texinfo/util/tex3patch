@@ -67,5 +67,3 @@ else
 	echo "Patch failed.  Sorry."
 fi
 ----------------------------------------tex3patch ends
-
-

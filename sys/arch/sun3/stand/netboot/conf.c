@@ -16,4 +16,3 @@ struct devsw devsw[] = {
 	{ "net",  net_strategy,  net_open,  net_close,  net_ioctl },
 };
 int	ndevs = 1;
-

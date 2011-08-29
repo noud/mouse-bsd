@@ -224,4 +224,3 @@ EXTERN char *fdtype INIT("msdos");
 /*
  *  prototypes for MD code.
  */
-

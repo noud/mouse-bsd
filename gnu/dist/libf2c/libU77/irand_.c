@@ -49,9 +49,3 @@ integer G77_irand_0 (integer *flag)
   }
   return rand ();
 }
-
-
-
-
-
-

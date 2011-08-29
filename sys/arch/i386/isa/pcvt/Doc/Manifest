@@ -163,8 +163,3 @@ vgaio		A program to read and write VGA registers.
 
 vttest		A VT100 compatibility tester. This is a test tool for
 		VT100 emulation writers and terminal buyers.
-
-
-
-
-

@@ -92,4 +92,3 @@
 
 #define	OBIO_FDC    		0x6e000000	/* 3/80 only */
 #define	OBIO_PRINTER_PORT	0x6f00003c	/* 3/80 only */
-

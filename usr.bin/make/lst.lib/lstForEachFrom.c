@@ -120,4 +120,3 @@ Lst_ForEachFrom (l, ln, proc, d)
     } while (!result && !LstIsEmpty(list) && !done);
 
 }
-

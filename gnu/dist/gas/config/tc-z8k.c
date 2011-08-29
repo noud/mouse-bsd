@@ -1610,4 +1610,3 @@ tc_reloc_mangle (fix_ptr, intr, base)
   else
     intr->r_symndx = -1;
 }
-

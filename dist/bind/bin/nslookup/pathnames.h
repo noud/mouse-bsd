@@ -70,4 +70,3 @@
 #define _PATH_HELPFILE		"/usr/lib/nslookup.help"
 #endif
 #endif
-

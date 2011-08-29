@@ -226,4 +226,3 @@ plumvideo_dump(sc)
 		}
 	}
 }
-

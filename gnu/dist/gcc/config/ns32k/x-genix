@@ -3,4 +3,3 @@ ALLOCA=alloca.o
 MALLOC = malloc.o
 
 # You must get malloc.c and getpagesize.h from GNU Emacs.
-

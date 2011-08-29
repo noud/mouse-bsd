@@ -39,5 +39,3 @@ Boston, MA 02111-1307, USA.  */
 
 #undef CPP_APCS_PC_DEFAULT_SPEC
 #define CPP_APCS_PC_DEFAULT_SPEC "-D__APCS_32__"
-
-

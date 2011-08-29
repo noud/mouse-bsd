@@ -86,4 +86,3 @@ struct rsp {
 #define	RSP_MOD_STOP		-33	/* Motor stopped */
 #define	RSP_MOD_INVAL		-48	/* Invalid opcode */
 #define	RSP_MOD_INVBLK		-55	/* Invalid bloch number */
-

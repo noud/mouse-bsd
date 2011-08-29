@@ -757,4 +757,3 @@ ac97_mixer_get_port(codec_if, cp)
 
 	return (0);
 }
-

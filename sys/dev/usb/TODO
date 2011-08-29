@@ -55,4 +55,3 @@ Add threads to the Ethernet drivers.
 Change uses of LE macro to the standard functions.
 
 Add events for HC attach/detach and driver attach/detach.
-

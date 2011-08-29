@@ -799,4 +799,3 @@ cat(srcs, dest)
 	(void)close(ofd);
 	free(buf);
 }
-

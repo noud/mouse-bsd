@@ -67,4 +67,3 @@ menu md_distcustom, x=26, y=5, exit, title "Sélection des composants";
 	option  "X11 serveurs",		 action { toggle_getit (10); };
 	option  "X11 clients contribués", action { toggle_getit (11); };
 	option  "X11 développement",	 action { toggle_getit (12); };
-

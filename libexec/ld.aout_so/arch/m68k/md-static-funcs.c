@@ -15,4 +15,3 @@ char			*addr;
 		_cachectl (addr, 4);		/* maintain cache coherency */
 	}
 }
-

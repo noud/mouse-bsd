@@ -182,4 +182,3 @@ int	findroot __P((void));
 int	findnode __P((int, const char *));
 int	opennode __P((char *));
 int	node_has_property __P((int, const char *));
-

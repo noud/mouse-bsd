@@ -36,4 +36,3 @@ struct mbuf *xdr_inaddr_decode __P((struct mbuf *m, struct in_addr *ia));
 #define	BOOTPARAM_VERS		1
 #define BOOTPARAM_WHOAMI	1
 #define BOOTPARAM_GETFILE	2
-

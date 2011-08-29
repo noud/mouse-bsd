@@ -289,4 +289,3 @@ strtcpy(to, from, len)
 	(void)strncpy(to, from, (int)len);
 	to[len-1] = '\0';
 }
-

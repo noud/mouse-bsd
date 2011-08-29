@@ -53,4 +53,3 @@ void *OF_claim __P((void *virt, u_int size, u_int align));
 void OF_release __P((void *virt, u_int size));
 int OF_milliseconds __P((void));
 void OF_chain __P((void *addr, u_int size, void (*entry)(), void *parm, u_int parmlen));
-

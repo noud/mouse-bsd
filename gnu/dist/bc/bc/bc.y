@@ -634,4 +634,3 @@ named_expression	: NAME
 			;
 
 %%
-

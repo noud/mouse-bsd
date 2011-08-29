@@ -1224,4 +1224,3 @@ int next_size(int n)
   assert(*p != 0);
   return *p;
 }
-

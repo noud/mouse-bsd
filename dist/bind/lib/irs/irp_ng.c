@@ -265,4 +265,3 @@ ng_minimize(struct irs_ng *this) {
 
 
 /* Private */
-

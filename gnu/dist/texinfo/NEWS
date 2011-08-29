@@ -332,4 +332,3 @@ Changes since 2.0:
 * Scrolling in redisplay is implemented.
 * Recursive uses of the echo area made more robust.
 * Garbage collection of unreferenced nodes.
-

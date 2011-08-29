@@ -82,4 +82,3 @@ int nfs_boot_sendrecv __P((struct socket *, struct mbuf *,
 
 int nfs_bootdhcp  __P((struct nfs_diskless *, struct proc *));
 int nfs_bootparam __P((struct nfs_diskless *, struct proc *));
-

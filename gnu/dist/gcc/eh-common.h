@@ -121,5 +121,3 @@ enum exception_source_language
   };
 
 #endif  /* EH_TABLE_LOOKUP */
-
-

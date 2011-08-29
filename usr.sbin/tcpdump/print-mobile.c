@@ -136,4 +136,3 @@ static u_int16_t mob_in_cksum(u_short *p, int len)
 	sum += (sum >> 16);
 	return (~sum);
 }
-

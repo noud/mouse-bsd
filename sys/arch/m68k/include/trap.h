@@ -66,4 +66,3 @@
 #define T_FPEMULD	17
 
 #define	T_USER		0x80		/* user-mode flag or'ed with type */
-

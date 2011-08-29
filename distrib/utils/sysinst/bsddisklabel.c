@@ -252,4 +252,3 @@ make_bsd_partitions(void)
 	/* Everything looks OK. */
 	return (1);
 }
-

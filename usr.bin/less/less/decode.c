@@ -721,4 +721,3 @@ editchar(c, flags)
 	}
 	return action;
 }
-

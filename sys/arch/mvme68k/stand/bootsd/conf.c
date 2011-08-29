@@ -16,5 +16,3 @@ struct devsw devsw[] = {
         { "bugsc", bugscstrategy, bugscopen, bugscclose, bugscioctl },
 };
 int     ndevs = (sizeof(devsw)/sizeof(devsw[0]));
-
-

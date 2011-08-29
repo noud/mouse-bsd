@@ -80,4 +80,3 @@ Lst_ForEach (l, proc, d)
 {
     Lst_ForEachFrom(l, Lst_First(l), proc, d);
 }
-

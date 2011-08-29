@@ -163,4 +163,3 @@ typedef struct file_node {
 	char *name;
 	struct file_node *next;
 } file_node;
-

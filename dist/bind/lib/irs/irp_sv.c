@@ -367,5 +367,3 @@ free_service(struct servent *sv) {
 		free(sv->s_proto);
 	}
 }
-
-

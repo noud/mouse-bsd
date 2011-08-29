@@ -831,4 +831,3 @@ bfd_default_scan PARAMS ((const struct bfd_arch_info *info, const char *string))
 
 struct elf_internal_shdr *
 bfd_elf_find_section  PARAMS ((bfd *abfd, char *name));
-

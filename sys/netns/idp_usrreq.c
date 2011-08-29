@@ -530,4 +530,3 @@ idp_raw_usrreq(so, req, m, nam, control, p)
 	}
 	return (error);
 }
-

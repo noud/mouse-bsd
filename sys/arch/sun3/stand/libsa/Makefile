@@ -68,4 +68,3 @@ ctrlsp.o : ${S}/arch/sun3/sun3/ctrlsp.S
 # This is for programs using ../Makefile.inc
 echo_objdir:
 	@echo ${.OBJDIR}
-

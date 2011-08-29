@@ -2595,4 +2595,3 @@ Do \"help tracepoints\" for info on other tracepoint commands.");
   add_com_alias ("tra",  "trace", class_alias, 1);
   add_com_alias ("trac", "trace", class_alias, 1);
 }
-

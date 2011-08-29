@@ -501,4 +501,3 @@ FPRINTF((stderr, " index=%d\n", r_index));
 	 | (r_length <<  RELOC_STD_BITS_LENGTH_SH_LITTLE));
     }
 }
-

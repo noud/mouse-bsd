@@ -714,4 +714,3 @@ mostek_set_dt(struct clock_ymdhms *dt)
 	cl->cl_csr &= ~CLK_WRITE;
 	splx(s);
 }
-

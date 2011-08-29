@@ -823,4 +823,3 @@ struct sysent netbsd32_sysent[] = {
 	    sys_nosys },			/* 303 = excluded __shmctl13 */
 #endif
 };
-

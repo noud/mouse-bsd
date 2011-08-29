@@ -71,4 +71,3 @@ struct	ether_header {
 
 #define	ETHERMTU	1500
 #define	ETHERMIN	(60-14)
-

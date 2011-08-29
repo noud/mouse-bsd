@@ -110,6 +110,3 @@ West Germany
   	    } else if(!u.uinshop){
   		if(!ESHK(shopkeeper)->visitct ||
 /* ---------- */
-
-
-

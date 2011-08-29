@@ -912,4 +912,3 @@ using_fieldwidths()
 {
 	return 	parse_field == fw_parse_field;
 }
-

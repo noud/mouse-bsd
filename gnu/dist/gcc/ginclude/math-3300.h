@@ -458,4 +458,3 @@ __inline static double modf (double x, double *ip)
   *ip = temp;
   return x - temp;
 }
-

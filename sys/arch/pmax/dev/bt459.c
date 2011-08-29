@@ -591,4 +591,3 @@ bt459_read_reg(regs, regno)
 	wbflush();
 	return (regs->addr_reg);
 }
-

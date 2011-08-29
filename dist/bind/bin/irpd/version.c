@@ -24,4 +24,3 @@ char rcsid[] = "Id: version.c,v 1.1 1999/01/18 07:47:17 vixie Exp";
 
 char Version[] = "named %VERSION% %WHEN%\n\t%WHOANDWHERE%";
 char ShortVersion[] = "%VERSION%";
-

@@ -616,4 +616,3 @@ db_stack_trace_cmd(addr, have_addr, count, modif)
 			break;
 	}
 }
-

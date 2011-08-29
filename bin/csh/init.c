@@ -138,4 +138,3 @@ struct srch srchn[] =
     { "while", 		T_WHILE		}
 };
 int     nsrchn = sizeof srchn / sizeof *srchn;
-

@@ -251,4 +251,3 @@ struct stat *sb;
 	}
 	return 0;
 }
-

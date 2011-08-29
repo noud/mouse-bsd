@@ -6681,4 +6681,3 @@ if (! TARGET_ARCH64)
   "TARGET_V9"
   "t%C0 %%xcc,%1"
   [(set_attr "type" "misc")])
-

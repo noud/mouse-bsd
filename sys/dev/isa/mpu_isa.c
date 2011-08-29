@@ -111,4 +111,3 @@ mpu_isa_attach(parent, self, aux)
 	sc->sc_mpu.model = "Roland MPU-401 MIDI UART";
 	mpu_attach(&sc->sc_mpu);
 }
-

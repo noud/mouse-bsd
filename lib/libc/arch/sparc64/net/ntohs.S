@@ -55,4 +55,3 @@ ENTRY(ntohs)
 	signx	%o1, %o1
 	retl
 	 andn	%o0, %o1, %o0
-

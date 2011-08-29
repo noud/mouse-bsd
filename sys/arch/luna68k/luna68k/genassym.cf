@@ -202,4 +202,3 @@ define	SVR4_SYS_context	SVR4_SYS_context
 define	SVR4_SYS_exit		SVR4_SYS_exit
 define	SVR4_SETCONTEXT		SVR4_SETCONTEXT
 endif
-

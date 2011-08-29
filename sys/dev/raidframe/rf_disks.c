@@ -1053,5 +1053,3 @@ rf_remove_hot_spare(raidPtr,sparePtr)
 	return(0);
 #endif
 }
-
-

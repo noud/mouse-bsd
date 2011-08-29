@@ -76,4 +76,3 @@ __restore_meta_state(void)
 {
 	meta(NULL, meta_state);
 }
-

@@ -279,4 +279,3 @@ _gethtbyaddr(addr, len, type)
 		h_errno = HOST_NOT_FOUND;
 	return (p);
 }
-

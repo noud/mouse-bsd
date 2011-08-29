@@ -417,4 +417,3 @@ free_host(struct hostent *ho) {
 		free(ho->h_addr_list);
 	}
 }
-

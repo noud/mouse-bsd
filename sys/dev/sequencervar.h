@@ -107,4 +107,3 @@ void seq_event_intr __P((void *, seq_event_rec *));
 
 #define SEQUENCERUNIT(d) ((d) & 0x7f)
 #define SEQ_IS_OLD(d) ((d) & 0x80)
-

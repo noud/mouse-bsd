@@ -580,6 +580,3 @@ irp_close(struct irs_acc *this) {
 
 	memput(this, sizeof *this);
 }
-
-
-

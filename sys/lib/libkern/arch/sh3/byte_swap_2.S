@@ -33,4 +33,3 @@ ALTENTRY(ntohs)
 ALTENTRY(htons)
 	rts
 	swap.b	r4,r0
-

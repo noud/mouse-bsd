@@ -122,4 +122,3 @@ Lst_Next (l)
 
     return ((LstNode)tln);
 }
-

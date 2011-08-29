@@ -150,4 +150,3 @@ __END_DECLS
 extern int (**ext2fs_vnodeop_p) __P((void *));
 extern int (**ext2fs_specop_p) __P((void *));
 extern int (**ext2fs_fifoop_p) __P((void *));
-

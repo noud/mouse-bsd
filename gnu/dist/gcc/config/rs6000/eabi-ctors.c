@@ -89,4 +89,3 @@ __do_global_dtors (void)
     if (*ptr)
       (*ptr)();
 }
-

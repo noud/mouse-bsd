@@ -73,4 +73,3 @@ _rtld_bind_start:	# (obj, reloff)
 	restore				/* get rid of our context */
 	 jmp	%g1			/* and the jmpslot context, then go. */
 	restore
-

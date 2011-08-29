@@ -555,4 +555,3 @@ struct sysent ultrix_sysent[] = {
 	{ 5, s(struct ultrix_sys_setsysinfo_args),
 	    ultrix_sys_setsysinfo },		/* 257 = setsysinfo */
 };
-

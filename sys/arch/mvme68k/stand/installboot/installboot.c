@@ -384,4 +384,3 @@ int	devfd;
 
 	return 0;
 }
-

@@ -144,4 +144,3 @@ extern bc_num _one_;
 
 /* For use with getopt.  Do not declare them here.*/
 extern int optind;
-

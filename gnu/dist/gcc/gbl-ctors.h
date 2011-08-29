@@ -89,4 +89,3 @@ do {									\
     __CTOR_LIST__[i] ();						\
 } while (0)
 #endif
-

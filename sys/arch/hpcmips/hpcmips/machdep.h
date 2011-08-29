@@ -36,4 +36,3 @@ extern char cpu_model[];
 
 /* others.. */
 extern char cpu_name[];
-

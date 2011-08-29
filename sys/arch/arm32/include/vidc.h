@@ -282,4 +282,3 @@ struct vidc_info
 #endif	/* !_ARM32_VIDC_H */
 
 /* End of vidc.h */
-

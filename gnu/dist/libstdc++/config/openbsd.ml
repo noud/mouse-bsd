@@ -4,4 +4,3 @@ LIBS    = $(ARLIB) $(SHLIB) $(SHLINK) mshlink
 SHFLAGS = -nostdlib -Wl,-Bshareable,-Bforcearchive
 SHDEPS  = -lm
 DEPLIBS = ../$(SHLIB)
-

@@ -43,4 +43,3 @@ extern void errprint(const char *,
 		     const errarg &arg1 = empty_errarg,
 		     const errarg &arg2 = empty_errarg,
 		     const errarg &arg3 = empty_errarg);
-

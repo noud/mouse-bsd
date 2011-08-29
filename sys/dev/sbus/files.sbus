@@ -89,4 +89,3 @@ file	dev/sbus/magma.c		magma | mtty | mbpp needs-flag
 device	nell: pcmciabus
 attach	nell at sbus
 file	dev/sbus/stp4020.c		nell
-

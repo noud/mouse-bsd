@@ -170,4 +170,3 @@ do {									 \
     }						\
   fputc ('\n', FILE);				\
  } while (0)
-

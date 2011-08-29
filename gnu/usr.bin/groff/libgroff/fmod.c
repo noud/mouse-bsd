@@ -25,4 +25,3 @@ double fmod(x, y)
   double quot = x/y;
   return x - (quot < 0.0 ? ceil(quot) : floor(quot)) * y;
 }
-

@@ -23,4 +23,3 @@ INCLUDES = -I../intl -DLOCALEDIR=\"$(localedir)\"
 EXTRA_DIST = regex.h regex.c \
              dosbuf.c \
              vms_fab.c vms_fab.h
-

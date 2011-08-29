@@ -598,7 +598,3 @@ struct h8_opcode h8_opcodes[] =
 #else
 extern struct h8_opcode h8_opcodes[] ;
 #endif
-
-
-
-

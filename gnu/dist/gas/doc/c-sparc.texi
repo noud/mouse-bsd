@@ -176,4 +176,3 @@ instead of the 16 bit values it produces on many other machines.
 On the Sparc V9 processor, the @code{.xword} directive produces
 64 bit values.
 @end table
-

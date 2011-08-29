@@ -543,4 +543,3 @@ struct sysent svr4_sysent[] = {
 	{ 1, s(struct sys_ntp_adjtime_args),
 	    sys_ntp_adjtime },			/* 249 = ntp_adjtime */
 };
-

@@ -88,4 +88,3 @@ _TMP_6:
 	movem.l	USER_D0(a6),d0-d1
 	unlk	a6
 	rts
-

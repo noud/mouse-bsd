@@ -86,4 +86,3 @@ void		usb_freemem  __P((usbd_bus_handle, usb_dma_t *));
 #endif
 #define KERNADDR(dma)	((void *) *(dma))
 #endif
-

@@ -1202,4 +1202,3 @@ bfd_generic_is_local_label_name (abfd, name)
 
   return (name[0] == locals_prefix);
 }
-

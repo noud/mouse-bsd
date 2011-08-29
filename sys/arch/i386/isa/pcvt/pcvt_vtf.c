@@ -2213,4 +2213,3 @@ selective_erase(struct video_state *svsp, u_short *pcrtat, int length)
 }
 
 /* ------------------------- E O F ------------------------------------------*/
-

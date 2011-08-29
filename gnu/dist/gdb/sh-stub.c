@@ -1550,4 +1550,3 @@ handleError (char theSSR)
 {
   SSR1 &= ~(SCI_ORER | SCI_PER | SCI_FER);
 }
-

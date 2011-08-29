@@ -457,4 +457,3 @@ am_cv_mingw32=yes, am_cv_mingw32=no)
 rm -f conftest*])
 MINGW32=
 test "$am_cv_mingw32" = yes && MINGW32=yes])
-

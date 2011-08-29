@@ -173,5 +173,3 @@ This text @@silly@{@@silly@{some text@}@} is ``some text''.
 How to use @texinfo{} macros as arguments to other @texinfo{} macros.
 
 @bye
-
-

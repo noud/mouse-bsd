@@ -265,4 +265,3 @@ extern long md_pcrel_from_section PARAMS ((struct fix *, segT));
 extern int ppc_parse_name PARAMS ((const char *, struct expressionS *));
 
 #define md_operand(x)
-

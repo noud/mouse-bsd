@@ -293,5 +293,3 @@ program YPBINDPROG {
 		YPBINDPROC_SETDOM(ypbind_setdom) = 2;
 	} = 2;
 } = 100007;
-
-

@@ -14,4 +14,3 @@ XM_CLIBS= -lPW -lsocket
 NAT_FILE= nm-i386sco5.h
 NATDEPFILES= infptrace.o inftarg.o fork-child.o corefile.o core-aout.o \
 	corelow.o i386v-nat.o solib.o
-

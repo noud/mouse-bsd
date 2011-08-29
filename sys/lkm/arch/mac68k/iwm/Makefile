@@ -27,5 +27,3 @@ AFLAGS=		-x assembler-with-cpp -traditional-cpp -D_LOCORE -I$S/arch
 
 
 .include <bsd.kmod.mk>
-
-

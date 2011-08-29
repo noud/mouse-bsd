@@ -679,4 +679,3 @@ getrdbmap(dev, strat, lp, clp)
 	brelse(bp);
 	return(NULL);
 }
-

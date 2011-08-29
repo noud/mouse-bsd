@@ -24,4 +24,3 @@ putchar(c)
 		(*romVectorPtr->putChar)('\r');
 	(*romVectorPtr->putChar)(c);
 }
-

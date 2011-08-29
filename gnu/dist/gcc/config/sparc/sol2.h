@@ -229,4 +229,3 @@ Boston, MA 02111-1307, USA.  */
 	       "ta	0x21\n\t"			\
 	       : /* no outputs */			\
 	       : "r" (ms_flags), "r" (ms_saveret));
-

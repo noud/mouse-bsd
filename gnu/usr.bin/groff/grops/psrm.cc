@@ -1096,4 +1096,3 @@ void resource_manager::print_language_level_comment(FILE *outfp)
   if (language_level)
     fprintf(outfp, "%%%%LanguageLevel: %u\n", language_level);
 }
-

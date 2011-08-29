@@ -52,4 +52,3 @@ later snapshot.  Please log all such imports here.
 Updated these files via import with tags: FSF cygnus970817
 	dist/gdb/alpha-tdep.c
 	dist/gdb/config/alpha/tm-alpha.h
-

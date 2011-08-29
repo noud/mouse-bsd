@@ -730,5 +730,3 @@ which_bit (x)
 
   return b;
 }
-
-

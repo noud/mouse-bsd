@@ -69,4 +69,3 @@ db_show_regs(addr, have_addr, count, modif)
 	}
 	db_print_loc_and_inst(PC_REGS(DDB_REGS));
 }
-

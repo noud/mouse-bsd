@@ -215,4 +215,3 @@ struct grf_bitblt {
 };
 
 #define GRFIOCBITBLT	_IOR('G', 57, struct grf_bitblt)
-

@@ -1043,4 +1043,3 @@ filesize(f)
 #endif
 	return (POSITION) 0;
 }
-

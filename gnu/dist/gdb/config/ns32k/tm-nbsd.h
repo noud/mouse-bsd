@@ -142,4 +142,3 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define REGISTER_BYTE(N) (((N) < LP0_REGNUM? (N)\
 			   : ((N) - LP0_REGNUM) & 1? (N) - 1 \
 			   : ((N) - LP0_REGNUM + FP0_REGNUM)) * 4)
-

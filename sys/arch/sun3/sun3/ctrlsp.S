@@ -94,4 +94,3 @@ ENTRY(set_control_word)
 	movsl d0, a0@			| set long
 	movc d1, dfc			| restore dfc
 	rts
-

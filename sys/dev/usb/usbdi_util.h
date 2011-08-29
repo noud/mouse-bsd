@@ -95,4 +95,3 @@ usbd_status usbd_bulk_transfer
 
 void usb_detach_wait __P((device_ptr_t));
 void usb_detach_wakeup __P((device_ptr_t));
-

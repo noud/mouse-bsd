@@ -54,4 +54,3 @@ Example of making bootable floppy disk:
 			% elf2pef/elf2pef boot/boot /tmp/boot.pef /tmp/netbsd.gz
 	[insert formatted floppy disk]
 	% mkbootimage/mkbootimage /tmp/boot.pef > /dev/rfd0a
-

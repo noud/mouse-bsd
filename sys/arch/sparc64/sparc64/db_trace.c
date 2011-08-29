@@ -349,5 +349,3 @@ db_dump_trap(addr, have_addr, count, modif)
 	}
 #endif
 }
-
-

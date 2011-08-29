@@ -47,4 +47,3 @@ void setterm __P((const char *));
 int histcmd __P((int, char **));
 int not_fcnumber __P((char *));
 int str_to_event __P((const char *, int));
-

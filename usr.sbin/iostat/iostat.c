@@ -497,4 +497,3 @@ selectdrives(argc, argv)
 			++ndrives;
 		}
 }
-

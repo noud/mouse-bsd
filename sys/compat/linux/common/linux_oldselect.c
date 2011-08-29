@@ -79,4 +79,3 @@ linux_sys_oldselect(p, v, retval)
 	return linux_select1(p, retval, ls.nfds, ls.readfds, ls.writefds,
 	    ls.exceptfds, ls.timeout);
 }
-

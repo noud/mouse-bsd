@@ -781,4 +781,3 @@ got_result:
 	mov %o3, %o0
 
 #endif
-

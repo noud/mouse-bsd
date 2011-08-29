@@ -1052,4 +1052,3 @@ kbd_update_leds(k)
 
 	kbd_set_leds(k, leds);
 }
-

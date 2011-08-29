@@ -242,4 +242,3 @@ the a.out backend linker hash table, which is derived from the
 linker hash table, uses macros for the lookup and traversal
 routines.  These are @code{aout_link_hash_lookup} and
 @code{aout_link_hash_traverse} in aoutx.h.
-

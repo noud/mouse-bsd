@@ -200,4 +200,3 @@ extern struct mount *devtomp(dev_t dev);
 #define CODA_RDWR ((u_long) 31)
 
 #endif	/* _CNODE_H_ */
-

@@ -44,4 +44,3 @@ int operator!=(const position &, const position &);
 double hypot(const position &a);
 
 typedef position distance;
-

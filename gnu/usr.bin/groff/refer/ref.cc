@@ -1157,4 +1157,3 @@ const char *reference::get_sort_field(int i, int si, int ssi,
   *endp = end;
   return start;
 }
-

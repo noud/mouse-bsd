@@ -275,4 +275,3 @@ tx39biu_dump(tc)
 	}
 	printf("\n");
 }
-

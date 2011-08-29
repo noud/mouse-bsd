@@ -11,4 +11,3 @@ ${FILES}: ${PROG}
 
 # don't install ${PROG}
 proginstall::
-

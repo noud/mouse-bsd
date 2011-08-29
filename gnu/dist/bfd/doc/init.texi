@@ -10,4 +10,3 @@ void bfd_init(void);
 @strong{Description}@*
 This routine must be called before any other BFD function to
 initialize magical internal data structures.
-

@@ -182,4 +182,3 @@ inline void edit_streambuf::flush_to_buffer()
 }
 } // extern "C++"
 #endif /* !_EDITBUF_H*/
-

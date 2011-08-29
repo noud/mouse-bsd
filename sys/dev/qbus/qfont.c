@@ -3290,4 +3290,3 @@ unsigned short q_cursor[] = {
 	0x0000,
 	0x0000
 };
-

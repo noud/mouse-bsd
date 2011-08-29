@@ -407,4 +407,3 @@ usage()
 	    __progname);
 	exit(1);
 }
-

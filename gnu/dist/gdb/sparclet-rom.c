@@ -297,4 +297,3 @@ Specify the serial device it is connected to (e.g. /dev/ttya).";
   sparclet_ops.to_open = sparclet_open;
   add_target (&sparclet_ops);
 }
-

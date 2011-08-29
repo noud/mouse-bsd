@@ -13,4 +13,3 @@ struct devsw devsw[] = {
 	{ "disk", disk_strategy, disk_open, disk_close, disk_ioctl },
 };
 int	ndevs = 1;
-

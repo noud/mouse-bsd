@@ -59,4 +59,3 @@ struct view_size {
 int viewioctl __P((dev_t, u_long, caddr_t, int, struct proc *));
 void viewprobe __P((void));
 #endif
-

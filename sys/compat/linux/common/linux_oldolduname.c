@@ -88,4 +88,3 @@ linux_sys_oldolduname(p, v, retval)
 
 	return copyout(&luts, SCARG(uap, up), sizeof(luts));
 }
-

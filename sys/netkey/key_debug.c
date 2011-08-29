@@ -718,4 +718,3 @@ ipsec_hexdump(buf, len)
 
 	return;
 }
-

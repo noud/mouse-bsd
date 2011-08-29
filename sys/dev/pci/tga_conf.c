@@ -180,4 +180,3 @@ tga_getconf(type)
 
 	return (NULL);
 }
-

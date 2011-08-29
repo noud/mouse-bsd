@@ -36,4 +36,3 @@ extern void sdbout_end_epilogue		PROTO ((void));
 extern void sdbout_start_new_source_file 	PROTO ((char *));
 extern void sdbout_resume_previous_source_file	PROTO ((void));
 extern void sdbout_mark_begin_function	PROTO ((void));
-

@@ -60,4 +60,3 @@ struct sv_softc {
 	struct pci_attach_args sc_pa;
 	char	sc_dmaset;
 };
-

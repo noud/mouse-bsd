@@ -154,4 +154,3 @@ usage()
 	fprintf(stderr,"       -e <line>     ending scan line (bottom scan line)\n\n");
 	exit(1);
 }
-

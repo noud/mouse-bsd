@@ -108,4 +108,3 @@ usage()
 	fprintf(stderr,"       -d <delay>      delay between characters\n");
 	exit(1);
 }
-

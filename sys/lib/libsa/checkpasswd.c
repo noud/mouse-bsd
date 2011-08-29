@@ -121,4 +121,3 @@ checkpasswd()
 	/* failed */
 	return (0);
 }
-

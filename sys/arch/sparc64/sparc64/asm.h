@@ -193,5 +193,3 @@
 	__asm __volatile("ldstub [%1],%0" : "=r" (_v) : "r" (loc) : "memory"); \
 	_v; \
 })
-
-

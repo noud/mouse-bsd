@@ -44,4 +44,3 @@
 
 #define	OBMEM_CG4_ADDR	0xff300000
 #define	OBMEM_CG4_SIZE	  0x100000
-

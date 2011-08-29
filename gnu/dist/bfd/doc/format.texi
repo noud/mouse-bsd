@@ -105,4 +105,3 @@ CONST char *bfd_format_string(bfd_format format);
 Return a pointer to a const string
 @code{invalid}, @code{object}, @code{archive}, @code{core}, or @code{unknown},
 depending upon the value of @var{format}.
-

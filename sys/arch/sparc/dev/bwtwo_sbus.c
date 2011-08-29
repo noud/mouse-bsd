@@ -243,4 +243,3 @@ bwtwo_get_video_sun4c(sc)
 
 	return ((sc->sc_reg->fbc_ctrl & FBC_VENAB) != 0);
 }
-

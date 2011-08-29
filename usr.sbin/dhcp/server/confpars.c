@@ -1372,5 +1372,3 @@ void parse_address_range (cfile, subnet)
 	/* Create the new address range... */
 	new_address_range (low, high, subnet, dynamic);
 }
-
-

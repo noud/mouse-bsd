@@ -144,4 +144,3 @@ null_if_print(u_char *user, const struct pcap_pkthdr *h, const u_char *p)
 		default_print((const u_char *)ip, caplen - NULL_HDRLEN);
 	putchar('\n');
 }
-

@@ -487,5 +487,3 @@ static struct i860_opcode i860_opcodes[] =
 };
 
 #define NUMOPCODES ((sizeof i860_opcodes)/(sizeof i860_opcodes[0]))
-
-

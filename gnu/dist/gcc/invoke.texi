@@ -6231,4 +6231,3 @@ exist, because otherwise they won't get converted.
 
 @xref{Protoize Caveats}, for more information on how to use
 @code{protoize} successfully.
-

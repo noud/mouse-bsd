@@ -299,4 +299,3 @@ intr_establish(level, ih)
 		panic("intr_establish: bad intr number %d", ih->ih_number);
 	splx(s);
 }
-

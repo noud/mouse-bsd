@@ -139,4 +139,3 @@ char *ngets ( char * str, int size )
   str[i] = '\0';
   return(&str[i]);
 }
-

@@ -351,4 +351,3 @@ Return a printable string representing the architecture and
 machine type.
 
 This routine is depreciated.
-

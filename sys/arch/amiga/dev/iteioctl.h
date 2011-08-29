@@ -79,4 +79,3 @@ struct iterepeat {
 
 
 #define ITESWITCH	_IOW('Z',0x69, int)	/* XXX */
-

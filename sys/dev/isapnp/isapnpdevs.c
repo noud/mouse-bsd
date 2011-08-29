@@ -266,4 +266,3 @@ const struct isapnp_devinfo isapnp_ym_devinfo = {
 	isapnp_ym_devlogic, 1,
 	NULL, 0,
 };
-

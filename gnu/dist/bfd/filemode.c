@@ -190,5 +190,3 @@ setst (bits, chars)
     }
 #endif
 }
-
-

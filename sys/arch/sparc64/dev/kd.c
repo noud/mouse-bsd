@@ -574,4 +574,3 @@ kdcnpollc(dev, on)
 	}
 	(*cn_hw->cn_pollc)(dev, on);
 }
-

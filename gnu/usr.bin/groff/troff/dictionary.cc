@@ -209,4 +209,3 @@ int object_dictionary::alias(symbol newnm, symbol oldnm)
   }
   return 0;
 }
-

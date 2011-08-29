@@ -1420,4 +1420,3 @@ pfkey_setsadblifetime(buf, type, l_alloc, l_bytes, l_addtime, l_usetime)
 
 	return buf + len;
 }
-

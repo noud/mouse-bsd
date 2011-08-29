@@ -72,4 +72,3 @@ clock ()
 #endif /* HAVE_TIMES */
 #endif /* HAVE_GETRUSAGE */
 }
-

@@ -35,4 +35,3 @@
  * log files.
  */
 #define LOG_DIR "/usr/spool/uucp/" 	   /* MUST HAVE TRAILING "/" */
-

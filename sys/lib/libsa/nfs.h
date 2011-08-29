@@ -42,4 +42,3 @@ int	nfs_write __P((struct open_file *f, void *buf,
 off_t	nfs_seek __P((struct open_file *f, off_t offset, int where));
 int	nfs_stat __P((struct open_file *f, struct stat *sb));
 int	nfs_mount __P((int, struct in_addr, char *));
-

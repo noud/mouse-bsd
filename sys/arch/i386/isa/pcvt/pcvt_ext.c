@@ -2844,4 +2844,3 @@ usl_vt_ioctl(Dev_t dev, int cmd, caddr_t data, int flag, struct proc *p)
 }
 
 /* ------------------------- E O F ------------------------------------------*/
-

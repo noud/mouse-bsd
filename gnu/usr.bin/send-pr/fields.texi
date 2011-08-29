@@ -516,4 +516,3 @@ by @sc{gnats} related to this PR, in the order received.
 (@sc{MultiText}) Any random text found outside the fields in the
 original Problem Report.
 @end table
-

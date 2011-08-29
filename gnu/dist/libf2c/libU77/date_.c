@@ -36,4 +36,3 @@ static integer c__5 = 5;
     s_cat(buf, a__1, i__2, &c__5, buf_len);
     return 0;
 } /* date_ */
-

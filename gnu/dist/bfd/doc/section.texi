@@ -647,4 +647,3 @@ Not enough memory exists to create private data for @var{osec}.
      BFD_SEND (obfd, _bfd_copy_private_section_data, \
                (ibfd, isection, obfd, osection))
 @end example
-

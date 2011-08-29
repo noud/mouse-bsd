@@ -89,4 +89,3 @@ extern int kbd_code_to_keysym __P((struct kbd_state *ks, int c));
 extern int kbd_iopen __P((int unit));
 extern void kd_init __P((int unit));
 extern void kd_input __P((int c));
-

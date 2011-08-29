@@ -594,4 +594,3 @@ extern bfd_byte *bfd_get_relocated_section_contents
                  boolean, asymbol **));
 
 @end example
-

@@ -38,4 +38,3 @@
 #define	_PATH_MAIL	"/usr/bin/mail"
 #define	_PATH_QUEST	"/var/games/questdir"
 #define	_PATH_HACK	"/var/games/hackdir"
-

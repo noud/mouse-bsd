@@ -94,4 +94,3 @@ struct LoaderHeader
    	unsigned long hashSlotTableSize;
    	unsigned long numExportSyms;
    };
-

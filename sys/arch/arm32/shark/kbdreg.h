@@ -27,6 +27,3 @@
 #define	KBR_ECHO	0xEE	/* echo response */
 
 #endif
-
-
-

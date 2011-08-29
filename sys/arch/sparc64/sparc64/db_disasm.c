@@ -1051,4 +1051,3 @@ db_disasm(loc, altfmt)
 
 	return (loc + 4);
 }
-

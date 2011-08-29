@@ -111,4 +111,3 @@ GLOBAL(svr4_sigcode)
 	.align	2
 GLOBAL(svr4_esigcode)
 #endif /* COMPAT_SVR4 */
-

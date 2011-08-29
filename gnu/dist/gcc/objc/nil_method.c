@@ -34,7 +34,3 @@ nil_method(id receiver, SEL op, ...)
 {
   return receiver;
 }
-
-
-
-

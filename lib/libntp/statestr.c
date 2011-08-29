@@ -259,4 +259,3 @@ clockstatstr(status)
 {
   return statustoa(TYPE_CLOCK, status);
 }
-

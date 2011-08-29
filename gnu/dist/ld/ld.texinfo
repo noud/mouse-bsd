@@ -3696,5 +3696,3 @@ If you have more than one @code{SECT} statement for the same
 
 @contents
 @bye
-
-

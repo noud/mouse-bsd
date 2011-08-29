@@ -67,4 +67,3 @@ struct option
 	    __P((int, char *));
 	char *odesc[3];		/* Description of each value */
 };
-

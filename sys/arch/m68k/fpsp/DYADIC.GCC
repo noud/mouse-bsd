@@ -157,4 +157,3 @@ _OPx_:
 	fmovem.x USER_FP1(a6),fp1-fp3	; note: FP0 not restored
 	unlk	a6
 	rts
-

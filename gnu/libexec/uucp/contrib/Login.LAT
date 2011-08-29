@@ -134,4 +134,3 @@ nologin:
 nopasswd:
 	logerr	No VMS Password: prompt. Invalid password?
 	failed
-

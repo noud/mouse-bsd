@@ -104,4 +104,3 @@ void	fbrcons_init __P((struct fbdevice *));
 int	fbrcons_rows __P((void));
 int	fbrcons_cols __P((void));
 #endif
-

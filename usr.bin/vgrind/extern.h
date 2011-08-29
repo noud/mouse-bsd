@@ -64,4 +64,3 @@ extern int      STRNCMP __P((char *, char *, int));
 extern char    *convexp __P((char *));
 extern char    *expmatch __P((char *, char *, char *));
 __END_DECLS
-

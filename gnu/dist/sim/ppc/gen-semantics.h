@@ -78,4 +78,3 @@ extern void print_semantic_body
  insn *instruction,
  insn_bits *expanded_bits,
  opcode_field *opcodes);
-

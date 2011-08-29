@@ -36,4 +36,3 @@ struct request_info *request;
     clean_exit(request);
     /* NOTREACHED */
 }
-

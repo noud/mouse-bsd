@@ -170,4 +170,3 @@ static float64 propagateFloat64NaN( float64 a, float64 b )
     return z;
 
 }
-

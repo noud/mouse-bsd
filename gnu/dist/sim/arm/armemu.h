@@ -378,4 +378,3 @@ extern ARMword ARMul_Align(ARMul_State *state, ARMword address, ARMword data) ;
 #define UNDEF_IllegalMode
 #define UNDEF_Prog32SigChange
 #define UNDEF_Data32SigChange
-

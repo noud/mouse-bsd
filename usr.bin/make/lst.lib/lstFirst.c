@@ -79,4 +79,3 @@ Lst_First (l)
 	return ((LstNode)((List)l)->firstPtr);
     }
 }
-

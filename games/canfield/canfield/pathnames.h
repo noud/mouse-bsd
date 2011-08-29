@@ -36,4 +36,3 @@
  */
 
 #define	_PATH_SCORE	"/var/games/cfscores"
-

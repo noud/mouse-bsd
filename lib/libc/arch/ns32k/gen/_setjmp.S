@@ -63,4 +63,3 @@ ENTRY(_longjmp)
 	bne	0f
 	movqd	1,r0
 0:	ret	0
-

@@ -84,4 +84,3 @@ void walk __P((char *, size_t, struct lookfor *, int));
 
 /* Maximum number of matched data elements per line! */
 #define MAXDATA 20
-

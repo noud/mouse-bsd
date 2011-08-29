@@ -672,4 +672,3 @@ emit_ap_optimizations ()
 {
   /* Removed for now. */
 }
-

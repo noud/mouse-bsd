@@ -171,4 +171,3 @@ linux_sys_pause(p, v, retval)
 
 	return (sigsuspend1(p, 0));
 }
-

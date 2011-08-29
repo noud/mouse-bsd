@@ -687,4 +687,3 @@ ef_port_check(iot, ioh)
 struct cfattach ef_ca = {
 	sizeof(struct ef_softc), ef_match, ef_attach
 };
-

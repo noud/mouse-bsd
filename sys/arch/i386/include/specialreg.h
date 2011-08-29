@@ -153,4 +153,3 @@
 #define NCR_SIZE_16M	13
 #define NCR_SIZE_32M	14
 #define NCR_SIZE_4G	15
-

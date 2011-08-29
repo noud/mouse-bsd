@@ -1345,4 +1345,3 @@ enum reg_class { NO_REGS, R2, R0_1, INDEX_REGS, BASE_REGS, ALL_REGS, LIM_REG_CLA
 /* 1750A: see file aux-output.c */
 #define PRINT_OPERAND(FILE, X, CODE)  print_operand(FILE,X,CODE)
 #define PRINT_OPERAND_ADDRESS(FILE, ADDR)  print_operand_address(FILE,ADDR)
-

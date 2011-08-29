@@ -14,4 +14,3 @@ char			*addr;
 if (r->r_relative)
 	*(long *)addr += relocation;
 }
-

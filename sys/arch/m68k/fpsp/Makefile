@@ -335,4 +335,3 @@ clean:
 	rm -f $(LIB_TARGET)
 
 clobber:	clean
-

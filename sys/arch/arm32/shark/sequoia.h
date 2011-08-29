@@ -5120,11 +5120,3 @@ void ledSetDebug    __P((int command));
 #endif /* __LANGUAGE_ASM__ */
 
 #endif /* SEQUOIAH */
-
-
-
-
-
-
-
-

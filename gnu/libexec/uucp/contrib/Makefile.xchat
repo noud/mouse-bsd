@@ -24,8 +24,3 @@ install: $(PROGS)
 
 clean:
 	rm -f $(PROGS) core
-
-
-
-
-

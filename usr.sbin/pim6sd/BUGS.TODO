@@ -122,4 +122,3 @@ rp.c
 ================DONE=====================
 
   * When receive PIM_REGISTER, check whether I am the chosen RP
-

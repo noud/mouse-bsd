@@ -79,4 +79,3 @@ typedef struct _oasys_data {
 
 #define OASYS_DATA(abfd)	((abfd)->tdata.oasys_obj_data)
 #define OASYS_AR_DATA(abfd)	((abfd)->tdata.oasys_ar_data)
-

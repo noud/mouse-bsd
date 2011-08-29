@@ -221,5 +221,3 @@
 #define RCV_DONE	0x0008
 #define RX_OK		0x2000
 #define RX_ERR		0x0d81
-
-

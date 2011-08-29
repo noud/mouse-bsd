@@ -100,4 +100,3 @@ db_write_cmd(address, have_addr, count, modif)
 
 	db_skip_to_eol();
 }
-

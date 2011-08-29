@@ -67,4 +67,3 @@ public:
 
 int compute_arc_center(const position &start, const position &cent,
 		       const position &end, position *result);
-

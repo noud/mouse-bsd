@@ -83,4 +83,3 @@ ENTRY(siglongjmp)
 	bne	2f
 	movqd	1,r0
 2:	ret	0
-

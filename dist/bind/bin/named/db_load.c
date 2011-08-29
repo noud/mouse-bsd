@@ -2599,4 +2599,3 @@ parse_sec_rdata(char *buf, int buf_len, int buf_full, u_char *data,
 	endline(fp);
 	return (ret);
 }
-

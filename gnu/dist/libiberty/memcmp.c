@@ -35,4 +35,3 @@ DEFUN(memcmp, (str1, str2, count),
     }
   return 0;
 }
-

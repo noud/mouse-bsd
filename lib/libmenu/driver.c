@@ -254,8 +254,3 @@ menu_driver(menu, c)
 
 	return status;
 }
-
-
-
-
-

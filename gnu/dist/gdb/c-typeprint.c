@@ -786,4 +786,3 @@ c_type_print_base (type, stream, show, level)
       break;
     }
 }
-

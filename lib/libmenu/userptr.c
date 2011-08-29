@@ -97,4 +97,3 @@ set_menu_userptr(menu, userptr)
 
         return E_OK;
 }
-

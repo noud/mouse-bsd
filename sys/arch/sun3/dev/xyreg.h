@@ -223,5 +223,3 @@ struct xy_iopb {
 #define XY_ERA_HARD 0x40         /* hard error: retry */
 #define XY_ERA_RSET 0x60         /* hard error: reset, then retry */
 #define XY_ERA_WPRO 0x90         /* write protected */
-
-

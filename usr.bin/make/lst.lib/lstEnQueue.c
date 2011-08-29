@@ -81,4 +81,3 @@ Lst_EnQueue (l, d)
 
     return (Lst_Append (l, Lst_Last(l), d));
 }
-

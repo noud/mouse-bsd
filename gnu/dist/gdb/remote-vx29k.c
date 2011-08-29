@@ -185,4 +185,3 @@ get_fp_contents (chain, thisframe)
    read_memory ((CORE_ADDR)(chain + 4), (char *) &fp_contents, 4);
    return (fp_contents != 0);
 }
-

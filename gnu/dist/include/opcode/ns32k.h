@@ -488,4 +488,3 @@ static const struct ns32k_opcode *const endop = ns32k_opcodes+sizeof(ns32k_opcod
 
 #define MAX_ARGS 4
 #define ARG_LEN 50
-

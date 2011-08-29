@@ -39,4 +39,3 @@ Bag_error BAG_killpair_bysecond(long second);
 
 Bag_error BAG_getfirst(long *first, long second);
 Bag_error BAG_getsecond(long first, long *second);
-

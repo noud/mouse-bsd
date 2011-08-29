@@ -533,4 +533,3 @@ get_swindow()
 		return (swindow);
 	return (sc_height + swindow);
 }
-

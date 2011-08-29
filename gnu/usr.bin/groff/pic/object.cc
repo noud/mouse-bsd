@@ -1830,4 +1830,3 @@ void print_picture(object *obj)
   print_object_list(obj);
   out->finish_picture();
 }
-

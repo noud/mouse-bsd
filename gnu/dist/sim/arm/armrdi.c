@@ -1041,4 +1041,3 @@ const struct RDIProcVec armul_rdi = {
 
     RDI_cpunames
 };
-

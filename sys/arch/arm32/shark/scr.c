@@ -4234,6 +4234,3 @@ char * getText(int x)
 }
 
 #endif /*  SCR_DEBUG */
-
-
-

@@ -581,4 +581,3 @@ filesys_error_string (filename, error_num)
   sprintf (errmsg_buf, "%s: %s", filename, result);
   return (errmsg_buf);
 }
-

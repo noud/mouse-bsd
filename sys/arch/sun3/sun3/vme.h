@@ -53,4 +53,3 @@
 
 #define VME32_MASK	(~0)
 #define	VME32_BASE	0
-

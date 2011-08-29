@@ -201,4 +201,3 @@ utmpcmp(v1, v2)
 		return (rc);
 	return (strncmp(u1->myutmp.out_line, u2->myutmp.out_line, 8));
 }
-

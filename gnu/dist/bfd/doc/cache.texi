@@ -92,4 +92,3 @@ quick answer.  Find a file descriptor for @var{abfd}.  If
 necessary, it open it.  If there are already more than
 @code{BFD_CACHE_MAX_OPEN} files open, it tries to close one first, to
 avoid running out of file descriptors.
-

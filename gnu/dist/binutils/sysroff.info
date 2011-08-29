@@ -501,4 +501,3 @@
 	     (("intra page JMP") (1 bit) ("intrpagejmp"))
 	     (("spare") (4 bits) ("spare")))
        (("neg number") (2 bytes) ("neg"))))
-

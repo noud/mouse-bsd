@@ -2219,4 +2219,3 @@ emit_cond_move (operands, insn)
 
   return buffer;
 }
-

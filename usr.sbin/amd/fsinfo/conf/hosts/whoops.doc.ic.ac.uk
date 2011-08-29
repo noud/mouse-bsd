@@ -18,4 +18,3 @@ mount /vol/export/misc/crash/HOST as /var/crash/HOST from EXEC opts rw,nosuid,gr
 mount /vol/export/misc/tmp/HOST as /tmp from EXEC opts rw,nosuid,grpid,hard,intr
 mount /vol/export/misc/usr.tmp/HOST as /var/tmp from EXEC opts rw,nosuid,grpid,hard,intr
 mount /var/mmdf from MAIL opts rw,nosuid,grpid,hard,intr
-

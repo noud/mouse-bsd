@@ -435,4 +435,3 @@ ims332LoadCursor(fi, cursor)
 	/*  The cursor pattern is loaded, so turn on the hardware sprite. */
 	ims332_cursor_on(fi);
 }
-

@@ -190,4 +190,3 @@ tdesc_section ()							\
       in_section = in_tdesc;						\
     }									\
 }
-

@@ -39,4 +39,3 @@ do_umount:
 	@df -i ${MOUNT_POINT}
 	@echo ""
 	-umount ${MOUNT_POINT}
-

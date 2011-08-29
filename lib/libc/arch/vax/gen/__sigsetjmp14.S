@@ -64,5 +64,3 @@ ENTRY(__siglongjmp14, 0)
 	beql	L2
 	jmp	___longjmp14+2		# yep, do full longjmp
 L2:	jmp	__longjmp+2		# nope, skip to _longjmp
-
-

@@ -15,4 +15,3 @@ struct p8022Hdr {
 #define	p8022Size	3		/* min 802.2 header size */
 
 #define UI		0x03		/* 802.2 flags */
-

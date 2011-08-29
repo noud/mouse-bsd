@@ -1660,4 +1660,3 @@ getkeyid(prompt)
 		fclose(fi);
 	return (u_int32)atoi(pbuf);
 }
-

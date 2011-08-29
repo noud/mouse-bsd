@@ -32,4 +32,3 @@ stamp-streamlib:
 
 stdio.list: stamp-picdir $(STDIO_OBJECTS)
 	@echo "$(STDIO_OBJECTS)" >stdio.list
-

@@ -44,4 +44,3 @@
    Not yet. We should also hack the other part of system as 8 bit
    clean. As far as I know, if you export the cdrom by NFS, the client
    can access the 8 bit clean (ie. Solaris Japanese with EUC code )
-

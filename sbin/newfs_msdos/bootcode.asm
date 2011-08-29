@@ -100,4 +100,3 @@ message:
 
 	.byte	0x55, 0xaa	; yes, we are bootable (cheating :)
 	end
-

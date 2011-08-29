@@ -154,4 +154,3 @@ MAKEPEF_TOOL_FLAGS = -ft MPST -fc 'MPS '
 REZ_68K = Rez
 
 REZ_PPC = Rez -d WANT_CFRG
-

@@ -324,4 +324,3 @@ ring_consume_data(ring, buffer, count)
     }
 }
 #endif
-

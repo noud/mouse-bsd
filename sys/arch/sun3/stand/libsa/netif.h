@@ -14,4 +14,3 @@ int		netif_open __P((void *));
 int		netif_close __P((int));
 
 struct iodesc	*socktodesc __P((int));
-

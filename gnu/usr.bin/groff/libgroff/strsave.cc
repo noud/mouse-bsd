@@ -28,4 +28,3 @@ char *strsave(const char *s)
   strcpy(p, s);
   return p;
 }
-

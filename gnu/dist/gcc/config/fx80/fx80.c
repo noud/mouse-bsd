@@ -297,4 +297,3 @@ standard_SunFPA_constant_p (x)
 {
   return( 0 );
 }
-

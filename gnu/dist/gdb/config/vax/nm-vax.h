@@ -24,5 +24,3 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
   if (regno == FP_REGNUM) addr = blockend - 0120;	\
   if (regno == AP_REGNUM) addr = blockend - 0124;	\
   if (regno == SP_REGNUM) addr = blockend - 20; }
-
-

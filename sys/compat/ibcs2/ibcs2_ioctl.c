@@ -558,4 +558,3 @@ ibcs2_sys_ioctl(p, v, retval)
 	}
 	return ENOSYS;
 }
-

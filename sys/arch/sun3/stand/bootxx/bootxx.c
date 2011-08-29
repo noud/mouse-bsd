@@ -146,4 +146,3 @@ copyboot(fp, addr)
 
 	return 0;
 }
-

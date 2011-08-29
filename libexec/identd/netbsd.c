@@ -256,4 +256,3 @@ int k_getuid(faddr, fport, laddr, lport, uid
 
   return -1;
 }
-

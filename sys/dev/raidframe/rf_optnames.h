@@ -101,4 +101,3 @@ RF_DBG_OPTION(totalInCoreLogCapacity, 1024 * 1024)	/* target bytes
 							 * available for in-core
 							 * logs */
 #endif				/* RF_INCLUDE_PARITYLOGGING > 0 */
-

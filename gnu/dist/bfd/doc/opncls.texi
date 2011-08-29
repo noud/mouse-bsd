@@ -125,4 +125,3 @@ PTR bfd_alloc (bfd *abfd, size_t wanted);
 @strong{Description}@*
 Allocate a block of @var{wanted} bytes of memory attached to
 @code{abfd} and return a pointer to it.
-

@@ -102,4 +102,3 @@ struct netif_driver *netif_drivers[] = {
 	&ze_driver,
 };
 int     n_netif_drivers = (sizeof(netif_drivers) / sizeof(netif_drivers[0]));
-

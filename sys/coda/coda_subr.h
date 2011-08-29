@@ -43,5 +43,3 @@ void coda_debugoff(void);
 int  coda_kill(struct mount *whoIam, enum dc_status dcstat);
 void coda_save(struct cnode *cp);
 void coda_unsave(struct cnode *cp);
-
-

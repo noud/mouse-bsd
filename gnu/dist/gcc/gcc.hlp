@@ -400,4 +400,3 @@
  pointer to the data type that you  specify.   This  is  necessary  in
  order   to  make  the  compiler  correctly  address  the  globalvalue
  variables.
-

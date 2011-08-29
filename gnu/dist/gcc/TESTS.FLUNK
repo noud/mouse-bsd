@@ -36,4 +36,3 @@ ANSI C requires a "diagnostic" message for certain kinds of invalid
 programs, but a warning counts as a diagnostic.  If GCC produces
 a warning but not an error, that is correct ANSI support.
 When test suites call this "failure", the tests are broken.
-

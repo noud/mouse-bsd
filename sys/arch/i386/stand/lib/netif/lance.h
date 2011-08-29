@@ -111,4 +111,3 @@ typedef struct {
 #define TMDE_LCAR	0x0800
 #define TMDE_RTRY	0x0400
 #define TMDE_TDR	0x003F	/* mask for TDR */
-

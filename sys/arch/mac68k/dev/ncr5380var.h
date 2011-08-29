@@ -75,4 +75,3 @@ scsi_idisable __P((void))
 void	pdma_stat __P((void));
 void	pdma_cleanup __P((void));
 void	scsi_show __P((void));
-

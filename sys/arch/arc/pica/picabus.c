@@ -348,4 +348,3 @@ pica_clkintr(mask, cf)
 
 	return(~MIPS_INT_MASK_4); /* Keep clock interrupts enabled */
 }
-

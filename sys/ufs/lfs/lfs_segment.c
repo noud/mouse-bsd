@@ -1722,4 +1722,3 @@ lfs_vunref_head(vp)
 	simple_unlock(&vnode_free_list_slock);
 	simple_unlock(&vp->v_interlock);
 }
-

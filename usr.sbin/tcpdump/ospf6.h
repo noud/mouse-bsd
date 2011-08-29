@@ -279,4 +279,3 @@ struct ospf6hdr {
 #define	ospf6_lsr	ospf6_un.un_lsr
 #define	ospf6_lsu	ospf6_un.un_lsu
 #define	ospf6_lsa	ospf6_un.un_lsa
-

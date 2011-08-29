@@ -315,5 +315,3 @@ mopDumpDL(fd, pkt, trans)
 		break;
 	}
 }
-
-

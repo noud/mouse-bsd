@@ -95,4 +95,3 @@ struct vme_softc {
 
 	vme_chipset_tag_t sc_vc;
 };
-

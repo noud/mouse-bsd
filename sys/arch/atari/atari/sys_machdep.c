@@ -297,4 +297,3 @@ sys_sysarch(p, v, retval)
 
 	return (ENOSYS);
 }
-

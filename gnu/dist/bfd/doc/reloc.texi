@@ -995,4 +995,3 @@ bfd_generic_get_relocated_section_contents (bfd *abfd,
 @strong{Description}@*
 Provides default handling of relocation effort for back ends
 which can't be bothered to do it efficiently.
-

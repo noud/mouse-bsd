@@ -430,4 +430,3 @@ struct sysent sunos_sysent[] = {
 	{ 1, s(struct sunos_sys_uname_args),
 	    sunos_sys_uname },			/* 189 = uname */
 };
-

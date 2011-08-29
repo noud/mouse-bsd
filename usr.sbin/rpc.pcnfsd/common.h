@@ -177,5 +177,3 @@
     {char asstmp[256];(void)sprintf(asstmp,"rpc.pcnfsd: Assertion failed: line %d of %s: \"%s\"\n", \
     __LINE__, __FILE__, "ex"); (void)msg_out(asstmp); \
     sleep (10); exit(1);}}
-
-

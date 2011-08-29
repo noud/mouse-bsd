@@ -61,4 +61,3 @@ menu md_distcustom, x=26, y=5, exit, title "Sélection des composants";
 	option  "Pages de manuel", 	 action { toggle_getit (5); };
 	option  "Divers", 	 action { toggle_getit (6); };
 	option  "Outils de manipulation de textes", action { toggle_getit (7); };
-

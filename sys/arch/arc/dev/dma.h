@@ -156,4 +156,3 @@ void picaDmaFlush __P((struct dma_softc *, char *, size_t, int));
 void asc_dma_init __P((struct dma_softc *));
 void fdc_dma_init __P((struct dma_softc *));
 void sn_dma_init __P((struct dma_softc *, int));
-

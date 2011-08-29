@@ -265,4 +265,3 @@ ESC&j<parm>	function key operations
 	parm = 'R'	enable usr/sys and menu and label modes
 
 	parm = 'S'	disable usr/sys and menu and label modes
-

@@ -41,4 +41,3 @@
 void*	plum_power_establish __P((plum_chipset_tag_t, int));
 void	plum_power_disestablish __P((plum_chipset_tag_t, int));
 void	plum_power_ioreset __P((plum_chipset_tag_t));
-

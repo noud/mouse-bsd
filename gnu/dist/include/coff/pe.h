@@ -164,6 +164,3 @@ typedef struct
 #undef  E_FILNMLEN
 #define E_FILNMLEN	18	/* # characters in a file name		*/
 #endif
-
-
-

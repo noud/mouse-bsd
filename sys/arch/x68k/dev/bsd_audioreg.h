@@ -67,5 +67,3 @@
 
 #define ADPCM_PAN_LEFT_OFF	0x01
 #define ADPCM_PAN_RIGHT_OFF	0x02
-
-

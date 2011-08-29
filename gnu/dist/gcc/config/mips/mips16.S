@@ -737,4 +737,3 @@ STARTFN (__mips16_call_stub_df_10)
 	ENDFN (__mips16_call_stub_df_10)
 #endif
 #endif /* !__mips_single_float */
-

@@ -466,4 +466,3 @@ cpu_coredump(p, vp, cred, chdr)
 
 	return error;
 }
-

@@ -180,4 +180,3 @@ struct eeprom {
 extern	char *eeprom_va;
 int	eeprom_uio __P((struct uio *));
 #endif	/* _KERNEL */
-

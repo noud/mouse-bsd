@@ -239,5 +239,3 @@ const bfd_target i386msdos_vec =
 
   (PTR) 0
 };
-
-

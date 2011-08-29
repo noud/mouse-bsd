@@ -491,4 +491,3 @@ const struct v850_opcode v850_opcodes[] =
 
 const int v850_num_opcodes =
   sizeof (v850_opcodes) / sizeof (v850_opcodes[0]);
-

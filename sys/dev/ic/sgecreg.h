@@ -238,4 +238,3 @@ struct ze_tdes {
 #define ZE_TDES1_LS 0x0200		/* last segment */
 #define ZE_TDES1_IC 0x0100		/* interrupt on completion */
 #define ZE_TDES1_VT 0x0080		/* virtual(1)/phys PTE address */
-

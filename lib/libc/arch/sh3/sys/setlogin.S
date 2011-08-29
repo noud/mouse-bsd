@@ -55,4 +55,3 @@ SYSCALL(setlogin)
 
 	.align 2
 L___logname_valid:	.long	___logname_valid
-

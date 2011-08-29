@@ -74,4 +74,3 @@ int getskeyprompt __ARGS ((struct skey *, char *, char *));
 int atob8 __ARGS((char *, const char *));
 int btoa8 __ARGS((char *, const char *));
 int htoi __ARGS((int));
-

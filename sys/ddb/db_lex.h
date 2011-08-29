@@ -67,7 +67,3 @@ int	db_radix;
 #define	tSHIFT_L	18
 #define	tSHIFT_R	19
 #define	tDOTDOT		20
-
-
-
-

@@ -573,5 +573,3 @@ h# 5000 constant loader-base
 \ true to boot-debug?
 
 " /ofwboot" do-boot
-
-

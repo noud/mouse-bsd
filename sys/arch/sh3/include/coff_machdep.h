@@ -199,4 +199,3 @@ struct external_syment {
 };
 
 #endif /* !_SH3_COFF_MACHDEP_H_ */
-

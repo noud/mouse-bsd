@@ -10,4 +10,3 @@
 @node Machine Dependencies
 @chapter M32R Dependent Features
 @end ifclear
-

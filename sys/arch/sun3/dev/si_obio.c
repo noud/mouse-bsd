@@ -562,4 +562,3 @@ out:
 	*ncr_sc->sci_mode &= ~(SCI_MODE_DMA | SCI_MODE_DMA_IE);
 	*ncr_sc->sci_icmd = 0;
 }
-

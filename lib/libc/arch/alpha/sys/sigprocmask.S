@@ -44,4 +44,3 @@ Lret:	mov	zero, v0
 	RET
 
 	END(sigprocmask)
-

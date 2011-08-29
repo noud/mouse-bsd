@@ -121,4 +121,3 @@ struct ka630clock {
 #endif
 
 #endif /* _VAX_INCLUDE_KA630_H_ */
-

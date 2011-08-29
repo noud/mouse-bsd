@@ -74,5 +74,3 @@ struct domain		atalkdomain = {
     32,
     sizeof(struct sockaddr_at)
 };
-
-

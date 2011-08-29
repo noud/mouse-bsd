@@ -79,4 +79,3 @@ struct hyboxfb {
   u_char	f2[0x4000-0x5f-1];
   vu_char	nblank;			/* display enable planes      0x4000 */
 };
-

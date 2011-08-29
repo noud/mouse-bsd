@@ -37,4 +37,3 @@ and mv.  If this happens, use `ar x' to extract alloca.o from libPW.a
 and `ar rc' to put it in a library liballoca.a, and put that in LIBS
 instead of -lPW.  This problem does not occur when using gcc, which
 has alloca built in.
-

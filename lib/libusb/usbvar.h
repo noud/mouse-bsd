@@ -30,4 +30,3 @@ struct report_desc {
 	unsigned int size;
 	unsigned char data[1];
 };
-

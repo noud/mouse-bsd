@@ -297,5 +297,3 @@ plumpower_dump(sc)
 	       reg & PLUM_POWER_RESETC_IO5CL1 ? "CLRH" : "");
 	printf("\n");
 }
-
-

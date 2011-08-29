@@ -81,4 +81,3 @@ Lst_Succ (ln)
 	return ((LstNode) ((ListNode) ln)->nextPtr);
     }
 }
-

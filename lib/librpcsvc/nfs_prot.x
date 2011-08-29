@@ -355,4 +355,3 @@ program NFS_PROGRAM {
 		NFSPROC_STATFS(nfs_fh) = 17;
 	} = 2;
 } = 100003;
-

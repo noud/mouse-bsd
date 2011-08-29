@@ -30,4 +30,3 @@ typedef	struct	{
 	int	ss_hits;
 	u_long	ss_ports;
 } ipss_t;
-

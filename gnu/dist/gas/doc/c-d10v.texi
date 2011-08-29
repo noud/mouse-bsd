@@ -247,4 +247,3 @@ For detailed information on the D10V machine instruction set, see
 (Mitsubishi Electric Corp.).
 @code{@value{AS}} implements all the standard D10V opcodes.  The only changes are those
 described in the section on size modifiers
-

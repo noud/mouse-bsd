@@ -77,4 +77,3 @@ Lst_IsEmpty (l)
 {
     return ( ! LstValid (l) || LstIsEmpty(l));
 }
-

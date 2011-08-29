@@ -965,5 +965,3 @@ sleep(u_int n)
 {
 	(void)TimeDelay(0L, n, 0L);
 }
-
-

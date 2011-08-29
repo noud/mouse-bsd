@@ -363,4 +363,3 @@ memory_error_and_abort ()
   abort ();
 }
 #endif /* TEST */
-

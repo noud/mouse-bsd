@@ -581,4 +581,3 @@ kdcnpollc(dev, on)
 		/* Resuming kernel. */
 	}
 }
-

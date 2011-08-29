@@ -19,4 +19,3 @@ Since BFD hides string tables from callers, GDB needs to use an
 internal hook to find them.  Sun's .stabstr, in particular,
 isn't even pointed to by the .stab section, so ordinary
 mechanisms wouldn't work to find it, even if we had some.
-

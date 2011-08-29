@@ -131,4 +131,3 @@ wss_pnpbios_attach(parent, self, aux)
 	arg.hdl = 0;
 	(void)config_found(self, &arg, audioprint);
 }
-

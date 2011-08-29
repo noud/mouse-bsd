@@ -362,4 +362,3 @@ reloceatable or final link.
        BFD_SEND (abfd, _bfd_link_split_section, (abfd, sec))
 
 @end example
-

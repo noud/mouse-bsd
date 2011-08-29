@@ -558,4 +558,3 @@ trunc:
 	if (ch != '\0')
 		putchar('>');
 }
-

@@ -82,4 +82,3 @@ typedef unsigned int u_int;
 #endif
 
 #endif /* _NTP_TYPES_ */
-

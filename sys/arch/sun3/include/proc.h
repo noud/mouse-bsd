@@ -49,4 +49,3 @@ struct mdproc {
 				   undo when system call returns
 				   ERESTART. */
 #define	MDP_HPUXTRACE	0x0004	/* being traced by HP-UX process */
-

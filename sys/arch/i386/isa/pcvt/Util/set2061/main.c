@@ -109,4 +109,3 @@ usage()
 	fprintf(stderr,"       -n <no>       clock generator number\n");
 	exit(1);
 }
-

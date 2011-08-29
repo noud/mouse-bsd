@@ -59,4 +59,3 @@ struct esp_softc {
 };
 
 #define D_WRITE 1
-

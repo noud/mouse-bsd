@@ -691,5 +691,3 @@ SYM (_interwork_call_via_\register):
 	interwork lr
 
 #endif /* L_interwork_call_via_rX */
-
-

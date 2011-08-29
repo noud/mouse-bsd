@@ -73,4 +73,3 @@ file arch/sun3/dev/kd.c 		kbd
 
 device ms at zsc: zsevent
 file dev/sun/ms.c			ms needs-flag
-

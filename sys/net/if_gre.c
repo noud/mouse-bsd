@@ -569,4 +569,3 @@ gre_inet_ntoa(struct in_addr in)
 
 #endif
 #endif
-

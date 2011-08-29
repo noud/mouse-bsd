@@ -497,4 +497,3 @@ fxp_read_eeprom(data, offset, words)
 		DELAY(1);
 	}
 }
-

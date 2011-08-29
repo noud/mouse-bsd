@@ -192,5 +192,3 @@ struct hdc9224_UDCreg { /* internal disk controller registers */
 #define UDC_DS_WRPROT	(1<<2)	/* write protect (floppy only!) */
 #define UDC_DS_READY	(1<<1)	/* drive ready bit */
 #define UDC_DS_WRFAULT	(1<<0)	/* write fault */
-
-

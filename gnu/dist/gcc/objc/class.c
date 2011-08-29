@@ -354,5 +354,3 @@ class_pose_as (Class impostor, Class super_class)
 
   return impostor;
 }
-
-

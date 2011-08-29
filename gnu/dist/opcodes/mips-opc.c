@@ -756,4 +756,3 @@ struct mips_opcode *mips_opcodes =
   (struct mips_opcode *) mips_builtin_opcodes;
 int bfd_mips_num_opcodes = MIPS_NUM_OPCODES;
 #undef MIPS_NUM_OPCODES
-

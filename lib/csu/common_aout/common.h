@@ -117,4 +117,3 @@ struct ps_strings	*__ps_strings = 0;
 
 extern unsigned char	etext;
 extern unsigned char	eprol asm ("eprol");
-

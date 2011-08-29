@@ -163,5 +163,3 @@ void disp_bootsel __P((struct mbr_partition *, struct mbr_bootsel *));
 /*
  *  prototypes for MD code.
  */
-
-

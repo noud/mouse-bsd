@@ -56,4 +56,3 @@ class opfstream : public ofstream {
 };
 } // extern "C++"
 #endif /*!_PFSTREAM_H*/
-

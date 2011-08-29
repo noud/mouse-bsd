@@ -115,4 +115,3 @@ void putShort (obuf, val)
 	int16_t tmp = htons (val);
 	memcpy (obuf, &tmp, sizeof tmp);
 }
-

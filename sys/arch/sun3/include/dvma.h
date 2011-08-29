@@ -66,4 +66,3 @@ void dvma_mapout __P((void *dvma_addr, int len));
 
 /* Convert a kernel DVMA pointer to a slave address. */
 u_long dvma_kvtopa __P((void *kva, int bus));
-

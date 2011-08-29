@@ -330,5 +330,3 @@ const struct d10v_opcode d10v_opcodes[] = {
   { "xor3", LONG_L, 1, MU, SEQ, 0x5000000, 0x3f000000, { RDST, RSRC, NUM16 } },
   { 0, 0, 0, 0, 0, 0, 0, { 0 } },
 };
-
-

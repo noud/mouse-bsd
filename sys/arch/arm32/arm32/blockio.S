@@ -484,4 +484,3 @@ outswm8_l1:
 	ldmfd	sp!, {r4-r10}
 
 	mov	pc, lr
-

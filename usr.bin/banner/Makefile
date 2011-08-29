@@ -14,4 +14,3 @@ SRCS=	$(PROG).c chset.c
 #CPPFLAGS+= -DLPD_CHSET
 
 .include <bsd.prog.mk>
-

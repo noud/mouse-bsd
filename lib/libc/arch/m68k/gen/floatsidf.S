@@ -56,4 +56,3 @@ ENTRY(__floatsidf)
 	movel	%sp@+,%d1
 #endif
 	rts
-

@@ -105,4 +105,3 @@ _binder_entry:
 	nop
 
 	.seg	"data"			! [internal]
-

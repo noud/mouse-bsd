@@ -128,4 +128,3 @@ auxregbisc(bis, bic)
 	splx(s);
 	return v;
 }
-

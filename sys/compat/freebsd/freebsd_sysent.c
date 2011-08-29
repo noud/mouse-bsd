@@ -790,4 +790,3 @@ struct sysent freebsd_sysent[] = {
 	{ 0, 0,
 	    sys_nosys },			/* 337 = unimplemented kldsym */
 };
-

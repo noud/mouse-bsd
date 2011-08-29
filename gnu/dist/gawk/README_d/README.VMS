@@ -100,4 +100,3 @@ time to execute, but at least it provides incremental feedback as it
 runs.
 
      Tested with VAX/VMS V6.2 + VMS POSIX V2.0 + DEC C V5.2.
-

@@ -752,4 +752,3 @@ encode_instr(struct inst *ip, operand ops, int *spec, u_int16_t *iwords)
 	iwords[0] = opc;
 	return nw;
 }
-

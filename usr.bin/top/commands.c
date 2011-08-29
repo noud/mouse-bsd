@@ -522,4 +522,3 @@ char *str;
     /* return appropriate error string */
     return(err_string());
 }
-

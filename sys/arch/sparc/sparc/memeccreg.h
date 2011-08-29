@@ -97,4 +97,3 @@
 #define ECC_DR_BITS	"\177\020"					\
 			"f\12\2DMODE\0=\0NORMAL\0=\1GEN\0=\2DETECT\0"	\
 			"f\0\8CHECK BITS\0"
-

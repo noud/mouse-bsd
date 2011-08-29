@@ -165,4 +165,3 @@ int PTABLE_ITERATOR(T)::next(const char **keyp, T **valp)		      \
     }									      \
   return 0;								      \
 }
-

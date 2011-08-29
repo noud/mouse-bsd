@@ -77,4 +77,3 @@
 volatile u_char *auxio_reg;
 unsigned int auxregbisc __P((int, int));
 #endif
-

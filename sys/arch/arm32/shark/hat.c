@@ -197,4 +197,3 @@ static void hatClkCount(int count)
 
 	restore_interrupts(savedints);
 }
-

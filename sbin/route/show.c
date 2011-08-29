@@ -361,4 +361,3 @@ p_flags(f, format)
 	*flags = '\0';
 	printf(format, name);
 }
-

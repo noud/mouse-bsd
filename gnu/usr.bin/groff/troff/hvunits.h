@@ -337,4 +337,3 @@ inline units points_to_units(units n)
 {
   return scale(n, units_per_inch, 72);
 }
-

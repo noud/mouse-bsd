@@ -54,4 +54,3 @@ extern char *kwsexec PARAMS((kwset_t, char *, size_t, struct kwsmatch *));
 
 /* Deallocate the given keyword set and all its associated storage. */
 extern void kwsfree PARAMS((kwset_t));
-

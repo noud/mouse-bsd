@@ -724,4 +724,3 @@ DECLARE_INFO_COMMAND (info_index_apropos,
   if (!info_error_was_printed)
     window_clear_echo_area ();
 }
-

@@ -2125,4 +2125,3 @@ child_return(arg)
 			  (p->p_flag & P_PPWAIT) ? SYS_vfork : SYS_fork, 0, 0);
 #endif
 }
-

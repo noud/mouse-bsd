@@ -251,4 +251,3 @@
 
 #define MIDI_FIFO_STATUS		0x1B89		/* R W  MIDI		Midi fifo status				*/
 #define MIDI_DATA			0x178A		/* R W  MIDI		Midi data register				*/
-

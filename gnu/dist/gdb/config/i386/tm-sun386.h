@@ -202,4 +202,3 @@ double_to_i387 PARAMS ((char *, char *));
 }
 
 #endif /* !defined (TM_SUN386_H) */
-

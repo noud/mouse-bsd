@@ -55,7 +55,3 @@ SECTIONS
   }
 }
 EOF
-
-
-
-

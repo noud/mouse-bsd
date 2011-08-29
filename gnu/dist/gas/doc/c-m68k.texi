@@ -500,4 +500,3 @@ line-comment character is @samp{|} (unless the @samp{--bitwise-or}
 option is used).  If a @samp{#} appears at the beginning of a line, it
 is treated as a comment unless it looks like @samp{# line file}, in
 which case it is treated normally.
-

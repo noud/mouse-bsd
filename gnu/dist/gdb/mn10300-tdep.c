@@ -745,4 +745,3 @@ _initialize_mn10300_tdep ()
 
   tm_print_insn = print_insn_mn10300;
 }
-

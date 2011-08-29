@@ -114,9 +114,3 @@ extern int log_nmsgs;
 
 
 #define DEBUG_DEFAULT   0xffffffff/*  default if "-d" given without value */
-
-
-
-
-
-

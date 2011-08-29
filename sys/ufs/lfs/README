@@ -134,4 +134,3 @@ Some differences from the Sprite LFS implementation.
 5. The cleaner runs in user space, as opposed to kernel space.  It shares
    information with the kernel by reading/writing the IFILE and through
    cleaner specific system calls.
-

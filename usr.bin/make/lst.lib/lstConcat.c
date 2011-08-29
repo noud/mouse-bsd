@@ -184,4 +184,3 @@ Lst_Concat (l1, l2, flags)
 
     return (SUCCESS);
 }
-

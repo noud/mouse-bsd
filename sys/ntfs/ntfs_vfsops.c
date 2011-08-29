@@ -1052,5 +1052,3 @@ static struct vfsops ntfs_vfsops = {
 };
 VFS_SET(ntfs_vfsops, ntfs, MOUNT_NTFS, 0);
 #endif
-
-

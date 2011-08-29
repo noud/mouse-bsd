@@ -377,4 +377,3 @@ set addr(rd),imm4       subl rrd,addr(rs)
 @endgroup
 @end iftex
 @end ifset
-

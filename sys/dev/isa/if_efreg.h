@@ -130,4 +130,3 @@
 
 #define EF_CARD_BNC	0	/* regular AUI/BNC 3C507 */
 #define EF_CARD_TP	1	/* 3C507-TP -- no AUI/BNC */
-

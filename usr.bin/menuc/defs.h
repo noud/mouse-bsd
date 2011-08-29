@@ -97,4 +97,3 @@ int insert_id (id_rec **root, id_rec *new_id);
 id_rec *get_menu (char *);
 void check_defined (void);
 void write_menu_file (char *);
-

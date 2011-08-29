@@ -533,4 +533,3 @@ etoff(dev)
 {
 	return(0);
 }
-

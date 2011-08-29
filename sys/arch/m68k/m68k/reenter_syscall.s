@@ -53,4 +53,3 @@ Ladjzero:
 	moveml	%sp@+,#0x7FFF		| restore user registers
 	addql	#8,%sp			| pop SP and stack adjust
 	jra	_ASM_LABEL(rei)		| rte
-

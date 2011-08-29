@@ -699,4 +699,3 @@ AC_DEFUN(jm_INCLUDED_REGEX,
     )
   ]
 )
-

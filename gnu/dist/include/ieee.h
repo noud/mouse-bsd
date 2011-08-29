@@ -136,4 +136,3 @@ typedef struct ieee_section {
 #define IEEE_REFERENCE_BASE 11
 #define IEEE_PUBLIC_BASE 32
 #define IEEE_SECTION_NUMBER_BASE 1
-

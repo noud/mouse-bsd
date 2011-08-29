@@ -101,4 +101,3 @@ union lpt_regs {
 #define	LPS_SELECT	(1 << 5)
 #define	LPS_FAULT	(1 << 6)
 #define	LPS_ACK		(1 << 7)
-

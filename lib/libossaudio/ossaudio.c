@@ -706,4 +706,3 @@ setblocksize(int fd, struct audio_info *info)
 		ioctl(fd, AUDIO_GETINFO, info);
 	}
 }
-

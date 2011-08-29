@@ -54,4 +54,3 @@ recompile programs that were incorrectly compiled by g++.
 
 * Functions that do printf-style formatting to the unbuffered
 streams have been optimized to write to a temporary buffer.
-

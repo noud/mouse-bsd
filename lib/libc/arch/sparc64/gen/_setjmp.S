@@ -92,4 +92,3 @@ Lbotch:
 	ldx	[%g1+0x8], %o3	! fetch pc
 	jmp	%o3 + 8		! success, return %g6
 	 mov	%g6, %o0
-

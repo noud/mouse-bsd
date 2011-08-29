@@ -1510,4 +1510,3 @@ md_operand (expressionP)
       expression (expressionP);
     }
 }
-

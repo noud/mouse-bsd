@@ -51,5 +51,3 @@ Gcc also allows dollar signs in identifiers.  (This may also be an issue
 for the -pedantic option.)
 
 ---------------------------------------------------------------------------
-
-

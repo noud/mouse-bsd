@@ -152,4 +152,3 @@ usage()
 	(void)fprintf(stderr, "usage: dirname path\n");
 	exit(1);
 }
-

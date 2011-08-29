@@ -704,4 +704,3 @@ mopPrintInfo(fd, pkt, index, moplen, mopcode, trans)
 		itype = mopGetShort(pkt,index);
         }
 }
-

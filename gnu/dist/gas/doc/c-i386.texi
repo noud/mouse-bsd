@@ -453,4 +453,3 @@ is an immediate mode expression and the second operand is a register.
 This is just a shorthand, so that, multiplying @samp{%eax} by 69, for
 example, can be done with @samp{imul $69, %eax} rather than @samp{imul
 $69, %eax, %eax}.
-

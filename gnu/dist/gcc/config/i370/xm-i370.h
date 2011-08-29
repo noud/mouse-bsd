@@ -50,4 +50,3 @@ Boston, MA 02111-1307, USA.  */
 #define FATAL_EXIT_CODE		12
 
 #define NO_DBX_FORMAT
-

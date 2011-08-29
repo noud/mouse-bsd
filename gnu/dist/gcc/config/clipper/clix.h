@@ -158,5 +158,3 @@ do {								\
      (*f) ();							\
      f-= 2;				/* skip over alignment 0 */	\
     }
-
-

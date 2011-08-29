@@ -284,4 +284,3 @@ int sim_z8001_mode;
   z8k_set_pointer_size(objfile->obfd->arch_info->bits_per_address);
 
 #define REGISTER_SIZE 4
-

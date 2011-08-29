@@ -765,4 +765,3 @@ struct sysent aout_sysent[] = {
 	    sys_nosys },			/* 303 = excluded __shmctl13 */
 #endif
 };
-

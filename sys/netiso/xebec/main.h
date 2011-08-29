@@ -28,4 +28,3 @@ extern char *synonyms[];
 extern int transno;
 extern int print_trans;
 extern char *stash();
-

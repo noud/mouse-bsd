@@ -73,4 +73,3 @@ ENTRY(prom_read)
 	stmdb	sp!, {lr}
 	swi	0x0d
 	ldmia	sp!, {pc}
-

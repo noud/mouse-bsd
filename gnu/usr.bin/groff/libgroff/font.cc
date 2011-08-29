@@ -908,4 +908,3 @@ font::set_unknown_desc_command_handler(FONT_COMMAND_HANDLER func)
   unknown_desc_command_handler = func;
   return prev;
 }
-

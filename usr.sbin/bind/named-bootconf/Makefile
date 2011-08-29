@@ -9,4 +9,3 @@ SCRIPTS=	named-bootconf.sh
 
 .include "../../Makefile.inc"
 .include <bsd.prog.mk>
-

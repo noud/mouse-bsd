@@ -618,4 +618,3 @@ int main(int argc, char **argv)
     fatal("output error");
   return had_parse_error;
 }
-

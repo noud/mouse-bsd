@@ -118,4 +118,3 @@ struct  mbaunit {
 
 /* Common prototypes */
 void	mbaqueue __P((struct mba_device *));
-

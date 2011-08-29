@@ -1180,6 +1180,3 @@ pm_adb_poll_next_device_pm1(pmdata)
 	tmp_pmdata.data[2] = 0x00;
 	rval = pmgrop(&tmp_pmdata);
 }
-
-
-

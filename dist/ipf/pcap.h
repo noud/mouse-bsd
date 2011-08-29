@@ -34,4 +34,3 @@ typedef	struct	pcap_pkthdr	{
 	u_int	ph_clen;
 	u_int	ph_len;
 } pcappkt_t;
-

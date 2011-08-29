@@ -808,5 +808,3 @@ diff -c -r ./tn-gw/tn-gw.c ../../NEW/fwtk/tn-gw/tn-gw.c
         return(2);
   }
   
-
-

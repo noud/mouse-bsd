@@ -548,4 +548,3 @@ amiga_interleaved_wordaccess_copy_region_2(t, srch, srco, dsth, dsto, s)
 		p += step;
 	}
 }
-

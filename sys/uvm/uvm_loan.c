@@ -758,4 +758,3 @@ uvm_unloanpage(ploans, npages)
 
 	uvm_unlock_pageq();
 }
-

@@ -411,4 +411,3 @@ clock_set(dev, ct)
 	bus_space_write_2(sc->sc_iot, sc->sc_ioh, ETIME_L_REG_W, timel);
 
 }
-

@@ -507,4 +507,3 @@ key_setsadbextbuf(dst, off, ebuf, elen, vbuf, vlen)
 
 	return;
 }
-

@@ -56,4 +56,3 @@ ${DESTDIR}${MELIB}/revisions: .MADE
 ${DESTDIR}${MELIB}/revisions: revisions
 	${INSTALL} ${INSTPRIV} -c -o ${BINOWN} -g ${BINGRP} -m 444 \
 	    ${.ALLSRC} ${.TARGET}
-

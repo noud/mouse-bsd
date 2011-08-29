@@ -545,4 +545,3 @@ struct sysent osf1_sysent[] = {
 	{ 0, 0,
 	    sys_nosys },			/* 261 = unimplemented fdatasync */
 };
-

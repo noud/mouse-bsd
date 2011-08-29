@@ -49,4 +49,3 @@
 #define IPL_CLOCK	8	/* clock */
 #define IPL_SERIAL	9	/* serial */
 #define IPL_HIGH	10	/* everything */
-

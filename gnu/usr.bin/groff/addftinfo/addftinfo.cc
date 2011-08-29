@@ -193,4 +193,3 @@ static void convert_font(const font_params &param, FILE *infp, FILE *outfp)
     fputs(p, outfp);
   }
 }
-

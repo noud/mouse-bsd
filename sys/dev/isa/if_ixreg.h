@@ -87,4 +87,3 @@
 
 #define IX_EEPROM_MEDIA		0x05	/* Selects between TP/BNC */
 #define IX_EEPROM_MEDIA_TP	0x01	/* if ON, using TP, else BNC */
-

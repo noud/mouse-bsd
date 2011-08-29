@@ -61,4 +61,3 @@ __RCSID("$NetBSD: encrypt.c,v 1.6 1998/02/27 10:33:46 christos Exp $");
  * this software for any purpose.  It is provided "as is" without express
  * or implied warranty.
  */
-

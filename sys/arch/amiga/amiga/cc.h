@@ -212,4 +212,3 @@ void vbl_handler __P((void));
 void *chipmem_steal __P((long));
 
 #endif /* _CC_H */
-

@@ -1656,4 +1656,3 @@ objc_get_stream_class_version (TypedStream* stream, Class class)
   else
     return class_get_version (class);
 }
-

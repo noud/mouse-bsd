@@ -177,4 +177,3 @@ int		uhci_intr __P((void *));
 int		uhci_detach __P((uhci_softc_t *, int));
 int		uhci_activate __P((device_ptr_t, enum devact));
 #endif
-

@@ -200,4 +200,3 @@ str2vc(char *str, int *vpi, int *vci)
 	*vci = strtol(str, NULL, 0);
 	return (0);
 }
-

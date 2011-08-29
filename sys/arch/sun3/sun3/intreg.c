@@ -192,4 +192,3 @@ void isr_soft_clear(level)
 	bit = 1 << level;
 	single_inst_bclr_b(*interrupt_reg, bit);
 }
-

@@ -52,4 +52,3 @@ bootcode.h: ## bootcode.bin
 	< bootcode.bin > ${.CURDIR}/bootcode.h
 
 .include <bsd.prog.mk>
-

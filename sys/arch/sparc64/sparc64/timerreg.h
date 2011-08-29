@@ -152,6 +152,3 @@ struct counter_4m {		/* counter that interrupts at ipl 14 */
 
 /*efine	TMR_SHIFT4M	9		-* shift to obtain microseconds */
 /*efine tmr_ustolim(n)	(((2*(n)) + 1) << TMR_SHIFT4M)*/
-
-
-

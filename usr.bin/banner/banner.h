@@ -30,4 +30,3 @@
 #define DROP	0		/* offset to drop characters with descenders */
 #endif
 #define WIDTH	8		/* width of characters */
-

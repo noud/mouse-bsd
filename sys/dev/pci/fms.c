@@ -949,5 +949,3 @@ fms_trigger_input(addr, start, end, blksize, intr, arg, param)
 			  FM_REC_START | FM_REC_STOPNOW | sc->sc_rec_reg);
 	return 0;
 }
-
-

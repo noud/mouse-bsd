@@ -49,4 +49,3 @@ stty intr '^C' kill '^U' erase '^?' werase '^W' newcrt
 echo 'To install NetBSD, enter the command:  install'
 echo 'Otherwise, enter the command:  halt'
 # /install  XXX - Not yet...
-

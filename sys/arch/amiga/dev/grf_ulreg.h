@@ -112,4 +112,3 @@ void gsp_write(struct gspregs *gsp, u_int16_t *data, size_t size);
 int grful_cnprobe(void);
 void grful_iteinit(struct grf_softc *gp);
 #endif
-

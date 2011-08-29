@@ -625,5 +625,3 @@ chill_value_print (val, stream, format, pretty)
   return (val_print (type, VALUE_CONTENTS (val),
 		     VALUE_ADDRESS (val), stream, format, 1, 0, pretty));
 }
-
-

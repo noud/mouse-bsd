@@ -40,4 +40,3 @@ Boston, MA 02111-1307, USA.  */
 /* #define DEFAULT_GDB_EXTENSIONS 0 */
 /* RISCiX dbx doesn't accept xrefs */
 /* #define DBX_NO_XREFS 1 */
-

@@ -69,4 +69,3 @@ extern struct tc_builtin tc_3000_300_builtins[];
 #endif /* DEC_3000_300 */
 
 extern int	tc_fb_cnattach __P((tc_addr_t));
-

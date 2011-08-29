@@ -308,4 +308,3 @@ string as_string(int i)
   sprintf(buf, "%d", i);
   return string(buf);
 }
-

@@ -1148,4 +1148,3 @@ nlm4_free_all_4_svc(arg, rqstp)
 		log_from_addr("nlm4_free_all", rqstp);
 	return (&dummy);
 }
-

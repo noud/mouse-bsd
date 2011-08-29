@@ -598,4 +598,3 @@ void vcenter_box::debug_print()
   p->debug_print();
   fprintf(stderr, " }");
 }
-

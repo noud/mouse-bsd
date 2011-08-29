@@ -173,4 +173,3 @@ disk_ioctl()
 {
 	return EIO;
 }
-

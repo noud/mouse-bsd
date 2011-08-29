@@ -26,4 +26,3 @@ If you compiled report.c with LOG_LOCAL2 (defined in the Makefile)
 then you may want to capture syslog messages from BOOTP by changing
 your syslog.conf file.  (See the sample syslog.conf file here).
 Test the change with:  logger -t test -p local2.info "message"
-

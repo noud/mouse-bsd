@@ -121,6 +121,3 @@ sim_read_short (context, where)
   what = (ptr[offset] << 8) | ptr[offset + 1];
   return what;
 }
-
-
-

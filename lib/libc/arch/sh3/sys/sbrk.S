@@ -75,5 +75,3 @@ err:
 Lcurbrk:	.long	curbrk
 LSYS_break:	.long	SYS_break
 Lcerror:	.long	cerror
-
-

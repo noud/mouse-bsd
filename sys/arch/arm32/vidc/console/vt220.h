@@ -114,4 +114,3 @@ struct vt220_info {
 	int lastpos;
 	int irm;
 };
-

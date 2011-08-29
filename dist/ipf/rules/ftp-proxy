@@ -42,4 +42,3 @@ ipaddr-c-net = 203.45.67.91
 
 The "map" rule for this proxy should precede any other NAT rules you are
 using.
-

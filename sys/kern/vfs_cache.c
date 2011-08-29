@@ -465,4 +465,3 @@ cache_purgevfs(mp)
 		TAILQ_INSERT_HEAD(&nclruhead, ncp, nc_lru);
 	}
 }
-

@@ -290,4 +290,3 @@ void column::debug_print(const char *s)
   list_debug_print(" above ");
   fprintf(stderr, " }");
 }
-

@@ -89,4 +89,3 @@ extern FILE *yyin;
 /* from mdb.c */
 void define_msg (char *, char *);
 void write_msg_file (void);
-

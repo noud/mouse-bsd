@@ -122,5 +122,3 @@ struct ecoff_extsym {
 	unsigned	:1;
 	unsigned	es_symauxindex:20;
 };
-
-

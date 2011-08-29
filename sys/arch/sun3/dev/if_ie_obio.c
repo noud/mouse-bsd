@@ -208,4 +208,3 @@ ie_obrun(sc)
 {
 	/* do it all in reset */
 }
-

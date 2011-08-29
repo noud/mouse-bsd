@@ -305,4 +305,3 @@ the offsets are signed).
 For information on the V850 instruction set, see @cite{V850
 Family 32-/16-Bit single-Chip Microcontroller Architecture Manual} from NEC.
 Ltd.
-

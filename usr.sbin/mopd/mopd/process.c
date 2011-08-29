@@ -651,4 +651,3 @@ mopProcessRC(fd, ii, pkt, index, dst, src, trans, len)
 		break;
 	}
 }
-

@@ -1473,5 +1473,3 @@ extern int pattern_is_ok_for_epilogue();
 extern int register_is_ok_for_epilogue ();
 extern char *construct_save_jarl ();
 extern char *construct_restore_jr ();
-
-

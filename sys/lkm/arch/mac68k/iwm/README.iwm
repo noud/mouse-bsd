@@ -82,4 +82,3 @@ about a disk driver which has to supply (patch) a character device switch
 as well as a block device switch, we have to roll our own. It's not that
 difficult, though... see {load,unload}Module() in iwmModule.c for the patch
 code.
-

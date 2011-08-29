@@ -711,4 +711,3 @@ iskw(s)
 			return (i);
 	return (0);
 }
-

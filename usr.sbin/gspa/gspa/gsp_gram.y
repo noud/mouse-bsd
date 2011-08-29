@@ -126,4 +126,3 @@ expr		: ID			{ $$ = id_expr($1); }
 		| expr LEFT_SHIFT expr	{ $$ = bexpr(LEFT_SHIFT, $1, $3); }
 		| expr RIGHT_SHIFT expr	{ $$ = bexpr(RIGHT_SHIFT, $1, $3); }
 		;
-

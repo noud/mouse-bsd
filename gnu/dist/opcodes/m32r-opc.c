@@ -2102,4 +2102,3 @@ m32r_cgen_get_operand (opindex, fields)
 
   return value;
 }
-

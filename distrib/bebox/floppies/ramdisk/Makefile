@@ -66,4 +66,3 @@ clean cleandir:
 
 .include <bsd.obj.mk>
 .include <bsd.subdir.mk>
-

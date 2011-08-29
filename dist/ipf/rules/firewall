@@ -36,4 +36,3 @@ where
 * "ext-service" is the service to which you wish to connect or if it doesn't
   have a proper name, a number can be used.  The translation of "ext-service"
   as a name to a number is controlled with the /etc/services file.
-

@@ -741,4 +741,3 @@ u_int16_t adv_asc38C0800_mcode_size = sizeof(adv_asc38C0800_mcode); /* 0x14F1 */
  * This is performed to ensure the uCode is correctly loaded into the Lram.
  */
 u_int32_t adv_asc38C0800_mcode_chksum = 0x053503A5;
-

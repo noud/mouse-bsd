@@ -167,4 +167,3 @@ name:
 GLUE(.L,name): \
 	.size name,GLUE(.L,name)-name
 #endif
-

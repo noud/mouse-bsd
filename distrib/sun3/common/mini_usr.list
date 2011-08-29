@@ -47,4 +47,3 @@ LINK		   usr/bin/gzip 		usr/bin/gzcat
 
 # install.md still uses sort
 COPY	${DESTDIR}/usr/bin/sort			usr/bin
-

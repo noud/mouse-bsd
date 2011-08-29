@@ -63,4 +63,3 @@
 #define EXCLPE		117	/* Clear: local procedure error		*/
 #define EXCNCG		118	/* Clear: network congestion		*/
 #define EXCNOB		119	/* Clear: not obtainable		*/
-

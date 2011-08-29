@@ -78,4 +78,3 @@ int	setusercontext __P((login_cap_t *, struct passwd *, uid_t, u_int));
 __END_DECLS
 
 #endif
-

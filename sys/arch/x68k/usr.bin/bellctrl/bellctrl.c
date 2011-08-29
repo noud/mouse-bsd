@@ -252,4 +252,3 @@ char *message;
     fprintf(stderr, "%s: %s\n", progName, message);
     exit(1);
 }
-

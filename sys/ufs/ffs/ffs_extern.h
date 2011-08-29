@@ -162,5 +162,3 @@ int	softdep_sync_metadata __P((void *));
 extern int (**ffs_vnodeop_p) __P((void *));
 extern int (**ffs_specop_p) __P((void *));
 extern int (**ffs_fifoop_p) __P((void *));
-
-

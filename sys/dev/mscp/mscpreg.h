@@ -122,4 +122,3 @@ struct	mscp_pack {
 
 #define STEP3MASK	ALLSTEPS
 #define STEP3GOOD	MP_STEP4
-

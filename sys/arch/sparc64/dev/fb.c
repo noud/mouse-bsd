@@ -304,4 +304,3 @@ fbrcons_cols()
 	return (devfb ? devfb->fb_rcons.rc_maxcol : 0);
 }
 #endif /* RASTERCONSOLE */
-

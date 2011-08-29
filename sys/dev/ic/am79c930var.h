@@ -74,5 +74,3 @@ u_int8_t am79c930_gcr_read __P((struct am79c930_softc *sc));
 
 #define am79c930_hard_reset(sc) am79c930_gcr_setbits(sc, AM79C930_GCR_CORESET)
 #define am79c930_hard_reset_off(sc) am79c930_gcr_clearbits(sc, AM79C930_GCR_CORESET)
-
-

@@ -77,4 +77,3 @@ SECTIONS
   .stabstr 0 : { *(.stabstr) }
   /* These must appear regardless of  .  */
 }
-

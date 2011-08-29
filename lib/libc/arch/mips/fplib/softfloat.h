@@ -287,4 +287,3 @@ flag float128_lt_quiet( float128, float128 );
 flag float128_is_signaling_nan( float128 );
 
 #endif
-

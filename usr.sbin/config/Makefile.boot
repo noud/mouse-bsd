@@ -49,4 +49,3 @@ lex.yy.o : gram.h
 
 clean:
 	rm -f *.o config lex.yy.c y.tab.[ch] gram.[ch]
-

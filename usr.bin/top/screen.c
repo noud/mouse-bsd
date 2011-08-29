@@ -498,4 +498,3 @@ int ch;
 {
     return (putchar(ch));
 }
-

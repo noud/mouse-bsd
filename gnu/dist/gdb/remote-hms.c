@@ -1460,4 +1460,3 @@ _initialize_remote_hms ()
   dev_name = NULL;
 }
 #endif
-

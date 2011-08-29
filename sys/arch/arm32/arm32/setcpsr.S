@@ -75,4 +75,3 @@ ENTRY_NP(GetCPSR)
         mrs     r0, cpsr_all		/* Get the CPSR */
 
 	mov	pc, lr
-

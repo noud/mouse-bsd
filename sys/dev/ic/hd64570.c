@@ -2116,4 +2116,3 @@ sca_print_clock_info(struct sca_softc *sc)
 			    scp->sp_if.if_xname);
 	}
 }
-

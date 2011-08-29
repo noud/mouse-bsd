@@ -425,4 +425,3 @@ extern	char *	getpass		P((char *));
 
 #endif /* 0 */
 #endif /* l_stdlib_h */
-

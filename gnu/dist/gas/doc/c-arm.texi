@@ -144,4 +144,3 @@ interworking is not going to be performed.
 For information on the ARM or Thumb instruction sets, see @cite{ARM
 Software Development Toolkit Reference Manual}, Advanced RISC Machines
 Ltd.
-

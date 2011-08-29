@@ -326,4 +326,3 @@ moncontrol(mode)
 	profiling = 3;
     }
 }
-

@@ -241,4 +241,3 @@ lpt_isa_attach(parent, self, aux)
 		lsc->sc_ih = isa_intr_establish(ia->ia_ic, ia->ia_irq, IST_EDGE,
 		    IPL_TTY, lptintr, lsc);
 }
-

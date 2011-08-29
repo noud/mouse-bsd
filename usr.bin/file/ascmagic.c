@@ -129,5 +129,3 @@ int nbytes;	/* size actually read */
 	}
 	return 1;
 }
-
-

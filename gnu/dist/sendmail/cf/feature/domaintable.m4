@@ -20,4 +20,3 @@ define(`DOMAIN_TABLE', ifelse(_ARG_, `',
 				    DATABASE_MAP_TYPE` -o /etc/mail/domaintable',
 				    DATABASE_MAP_TYPE` -o /etc/domaintable'),
 			      `_ARG_'))dnl
-

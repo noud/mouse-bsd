@@ -91,4 +91,3 @@ struct arc_pci_chipset {
     (*(c)->pc_ether_hw_addr)((p))
 
 vm_offset_t vtophys __P((void *));
-

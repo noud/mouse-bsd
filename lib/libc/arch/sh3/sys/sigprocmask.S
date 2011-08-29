@@ -78,4 +78,3 @@ LSYS_sigprocmask13:
 	.long	SYS_compat_13_sigprocmask
 Lcerror:
 	.long	cerror
-

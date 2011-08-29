@@ -47,4 +47,3 @@ struct callsframe {
 
 /* Offset to beginning of calls frame from first arg */
 #define	FRAMEOFFSET(arg1) ((struct callsframe *)((unsigned int)&(arg1) - 24))
-

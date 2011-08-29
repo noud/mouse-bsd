@@ -72,4 +72,3 @@
 #define  SFB_TCCLK		0x100078	/* TCCLK count */
 #define  SFB_VIDCLK		0x10007C	/* VIDCLK count */
 #define SFB_FB_SIZE		0x1FF000	/* frame buffer size */
-

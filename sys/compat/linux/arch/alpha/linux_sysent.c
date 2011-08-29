@@ -807,4 +807,3 @@ struct sysent linux_sysent[] = {
 	{ 0, 0,
 	    sys_nosys },			/* 370 = unimplemented sendfile */
 };
-

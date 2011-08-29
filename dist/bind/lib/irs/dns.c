@@ -150,4 +150,3 @@ dns_close(struct irs_acc *this) {
 	memput(dns, sizeof *dns);
 	memput(this, sizeof *this);
 }
-

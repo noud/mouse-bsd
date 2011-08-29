@@ -418,4 +418,3 @@ vunmapbuf(bp, len)
 	bp->b_data = bp->b_saveaddr;
 	bp->b_saveaddr = NULL;
 }
-

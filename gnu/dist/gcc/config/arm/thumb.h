@@ -1135,4 +1135,3 @@ extern char * thumb_load_double_from_address ();
 extern char * output_return ();
 extern int    far_jump_used_p();
 extern int    is_called_in_ARM_mode ();
-

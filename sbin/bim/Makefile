@@ -9,4 +9,3 @@ MAN  = bim.8
 MANSUBDIR = /pc532
 
 .include <bsd.prog.mk>
-

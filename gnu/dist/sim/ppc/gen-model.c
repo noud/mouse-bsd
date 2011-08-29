@@ -390,4 +390,3 @@ gen_model_c(insn_table *table, lf *file)
 
   lf_printf(file, "}\n");
 }
-

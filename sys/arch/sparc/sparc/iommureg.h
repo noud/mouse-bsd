@@ -86,4 +86,3 @@ typedef u_int32_t iopte_t;
 #define IOPTE_PPNPASHFT	4		/* shift to get pa from ioppn */
 
 #define IOPTE_BITS "\20\10C\3W\2V\1WAZ"
-

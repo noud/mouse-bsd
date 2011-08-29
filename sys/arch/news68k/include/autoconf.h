@@ -34,4 +34,3 @@ struct mainbus_attach_args {
 	char	*ma_name;	/* name of bus */
 	int	ma_systype;	/* system type */
 };
-

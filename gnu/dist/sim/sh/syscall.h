@@ -29,5 +29,3 @@
 #define	SYS_execve	59
 #define SYS_utime       201 /* not really a system call */
 #define SYS_wait        202 /* nor is this */
-
-

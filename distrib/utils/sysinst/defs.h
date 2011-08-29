@@ -335,4 +335,3 @@ int	target_test __P((const char*, const char*));
 int	target_dir_exists_p __P((const char *path));
 int	target_file_exists_p __P((const char *path));
 void	unwind_mounts __P((void));
-

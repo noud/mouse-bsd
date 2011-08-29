@@ -102,4 +102,3 @@ __restore_cursor_vis(void)
 {
 	curs_set(old_mode);
 }
-

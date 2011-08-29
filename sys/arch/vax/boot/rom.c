@@ -120,4 +120,3 @@ romstrategy (rsc, func, dblk, size, buf, rsize)
 	*rsize = size;
 	return 0;
 }
-

@@ -1404,4 +1404,3 @@ char *emit_a_shift ();
 int h8300_funcvec_function_p ();
 char *output_adds_subs ();
 char * output_simode_bld ();
-

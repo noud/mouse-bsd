@@ -357,4 +357,3 @@ char **argv;
     }
   display_problems ();
 }
-

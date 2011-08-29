@@ -285,11 +285,3 @@ extern int  i8042_wait_input  __P((bus_space_tag_t,
 }
 
 #endif
-
-
-
-
-
-
-
-

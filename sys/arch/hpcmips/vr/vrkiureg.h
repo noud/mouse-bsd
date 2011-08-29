@@ -53,4 +53,3 @@
 
 #define KIU_NSCANLINE	12
 #define KIUDATP		0x00
-

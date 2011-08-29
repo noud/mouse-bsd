@@ -444,4 +444,3 @@ mit/clients/twm/Imakefile -- fix bad decls of malloc, realloc in gram.c.
   
   clean::
         $(RM) y.tab.h y.tab.c lex.yy.c gram.h gram.c lex.c deftwmrc.c
-

@@ -7,4 +7,3 @@ HOST_CPPFLAGS+=-I${.CURDIR}/../mkhits
 .PATH: ${.CURDIR}/../mkhits
 
 .include <bsd.hostprog.mk>
-

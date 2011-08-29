@@ -232,4 +232,3 @@ struct ibcs2_winsize {
 };
 
 #endif /* _IBCS2_H_ */
-

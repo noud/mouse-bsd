@@ -831,4 +831,3 @@ db_next(struct databuf *dp) {
 
 	return (next);
 }
-

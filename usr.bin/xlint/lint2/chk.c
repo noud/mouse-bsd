@@ -1482,4 +1482,3 @@ mnoarg(tp, warn)
 	}
 	return (1);
 }
-

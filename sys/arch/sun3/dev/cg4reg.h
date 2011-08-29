@@ -88,4 +88,3 @@ struct amd_regs {
 #define CG4B_OFF_OVERLAY 0x100000
 #define CG4B_OFF_ENABLE  0x300000
 #define CG4B_OFF_PIXMAP  0x500000
-

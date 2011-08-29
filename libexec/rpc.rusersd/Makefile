@@ -19,4 +19,3 @@ XLIBDIR=	/usr/X11R6/lib
 #.endif
 
 .include <bsd.prog.mk>
-

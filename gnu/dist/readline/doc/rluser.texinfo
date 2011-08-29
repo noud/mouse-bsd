@@ -563,4 +563,3 @@ mode, as if you had typed an `i'.  Pressing @key{ESC} switches you into
 `edit' mode, where you can edit the text of the line with the standard
 @code{vi} movement keys, move to previous history lines with `k', and following
 lines with `j', and so forth.
-

@@ -269,5 +269,3 @@ table_entry_print_cpp_line_nr(lf *file,
 {
   lf_print__external_reference(file, entry->line_nr, entry->file_name);
 }
-
-

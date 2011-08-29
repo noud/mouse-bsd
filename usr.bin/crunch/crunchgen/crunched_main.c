@@ -105,4 +105,3 @@ int crunched_usage()
 }
 
 /* end of crunched_main.c */
-

@@ -132,4 +132,3 @@
 #define void int		/* is void to be avoided? */
 #define M_VOID		/* Xenix strikes again */
 #endif
-

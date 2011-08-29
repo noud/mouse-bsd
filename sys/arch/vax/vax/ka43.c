@@ -368,4 +368,3 @@ ka43_reboot(arg)
         asm("movl $0xc, (%0)"::"r"((int)clk_page + 0x38)); /* Don't ask */
         asm("halt");
 }
-

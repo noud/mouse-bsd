@@ -90,4 +90,3 @@
 >8	string		ACON		\b, animated cursor
 # Notation Interchange File Format (big-endian only)
 >8	string		NIFF		\b, Notation Interchange File Format
-

@@ -13,4 +13,3 @@ pcs750.bin:
 	(cd etc.vax;uudecode pcs750.bin.uu)
 	(cd etc.vax; install -c -o ${BINOWN} -g ${BINGRP} -m 444 ${PCS} \
 	    ${DESTDIR}/)
-

@@ -94,4 +94,3 @@ enable_video(on)
 	*enable_reg = ena;
 	splx(s);
 }
-

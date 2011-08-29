@@ -671,4 +671,3 @@ coda_call(mntinfo, inSize, outSize, buffer)
 		error = ((struct coda_out_hdr *)buffer)->result;
 	return(error);
 }
-

@@ -208,4 +208,3 @@ boolean aout_@var{size}_new_section_hook,
 @strong{Description}@*
 Called by the BFD in response to a @code{bfd_make_section}
 request.
-

@@ -1157,4 +1157,3 @@ child_return(arg)
 		ktrsysret(p->p_tracep, SYS_fork, 0, 0);
 #endif
 }
-

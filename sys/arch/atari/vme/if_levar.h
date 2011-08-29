@@ -106,4 +106,3 @@ struct le_softc {
 #define	BVME410_CS_SHIFT	1
 #define	BVME410_CLK_SHIFT	2
 #define	BVME410_DIN_SHIFT	3
-

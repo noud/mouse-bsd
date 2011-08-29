@@ -147,4 +147,3 @@ symbol concat(symbol s1, symbol s2)
   a_delete buf;
   return res;
 }
-

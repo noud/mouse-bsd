@@ -35,4 +35,3 @@ Boston, MA 02111-1307, USA.  */
 /* Arguments to use with `exit'.  */
 #define SUCCESS_EXIT_CODE 0
 #define FATAL_EXIT_CODE 33
-

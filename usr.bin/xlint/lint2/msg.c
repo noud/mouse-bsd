@@ -156,4 +156,3 @@ mkpos(posp)
 
 	return (buf);
 }
-

@@ -9,4 +9,3 @@ for f in *.lo
 do
 	nm -p $f | grep "$1" && echo $f
 done
-

@@ -84,4 +84,3 @@ typedef		struct  {
 		}		CARD;
 
 typedef		char		BOOLEAN;
-

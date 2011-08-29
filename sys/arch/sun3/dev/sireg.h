@@ -100,4 +100,3 @@ struct si_regs {
 #define SI_CSR_INTR_EN		0x0004	/* (rw,b) interrupts enable */
 #define SI_CSR_FIFO_RES		0x0002	/* (rw,b) inits fifo, 0=reset */
 #define SI_CSR_SCSI_RES		0x0001	/* (rw,b) reset sbc and udc, 0=reset */
-

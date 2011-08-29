@@ -10,4 +10,3 @@ MAN=	mille.6
 HIDEGAME=hidegame
 
 .include <bsd.prog.mk>
-

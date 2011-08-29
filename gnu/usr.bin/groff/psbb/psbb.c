@@ -166,4 +166,3 @@ struct bounding_box *bb;
   }
   return 0;
 }
-

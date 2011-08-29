@@ -265,4 +265,3 @@ struct oss_synth_info {
 #  define OSS_TMR_MODE_SMPTE		0x00000080
 #define OSS_TMR_METRONOME		_OSS_IOW ('T', 7, int)
 #define OSS_TMR_SELECT			_OSS_IOW ('T', 8, int)
-

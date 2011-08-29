@@ -138,5 +138,3 @@ struct ne7_fd_formb {
 # define fd_formb_headno(i)  format_info.structured.idfields[i].headno
 # define fd_formb_secno(i)   format_info.structured.idfields[i].secno
 # define fd_formb_secsize(i) format_info.structured.idfields[i].secsize
-
-

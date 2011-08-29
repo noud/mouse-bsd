@@ -449,4 +449,3 @@ _eintrcnt:
 	.data
 _scb:	.long 0
 	.globl _scb
-

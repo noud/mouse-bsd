@@ -176,4 +176,3 @@ PLAY	Player[2];		/* Player descriptions			*/
 WINDOW	*Board,			/* Playing field screen			*/
 	*Miles,			/* Mileage screen			*/
 	*Score;			/* Score screen				*/
-

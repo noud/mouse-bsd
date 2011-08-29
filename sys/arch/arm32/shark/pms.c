@@ -976,4 +976,3 @@ pmspoll(dev, events, p)
     splx(oldIpl);
     return (revents);
 } /* End pmspoll */
-

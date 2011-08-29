@@ -840,4 +840,3 @@ terminal_unprep_terminal ()
 #endif /* !HAVE_TERMIOS_H */
   terminal_end_using_terminal ();
 }
-

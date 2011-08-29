@@ -473,4 +473,3 @@ void skip_line()
       break;
     }
 }
-

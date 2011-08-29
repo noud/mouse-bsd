@@ -884,4 +884,3 @@ typedef struct
         ((coff_backend_info (a)->_bfd_coff_link_output_has_begun) (a))
 #define bfd_coff_final_link_postscript(a,p) \
         ((coff_backend_info (a)->_bfd_coff_final_link_postscript) (a,p))
-

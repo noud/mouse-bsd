@@ -933,4 +933,3 @@ eeprom_uio(uio)
 {
 	return (ENODEV);
 }
-

@@ -86,4 +86,3 @@ extern void *alloca ();
 /* SYSTEM_INCLUDE_DIR is the location for system specific, non-POSIX headers. */
 
 #define SYSTEM_INCLUDE_DIR	"/boot/develop/headers/be"
-

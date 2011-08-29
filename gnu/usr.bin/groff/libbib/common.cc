@@ -35,4 +35,3 @@ unsigned hash(const char *s, int len)
     h = *s++ + 65587*h;
   return h;
 }
-

@@ -968,4 +968,3 @@ clear_function_list()
   saved_function_list = NULL;
 }
 #endif
-

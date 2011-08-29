@@ -67,4 +67,3 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #define CORE_REGISTER_ADDR(regno, reg_ptr) \
    m88k_harris_core_register_addr(regno, reg_ptr)
-

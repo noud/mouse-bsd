@@ -340,4 +340,3 @@ pascal void SpinCursor(short increment);        /* copied from CursorCtl.h */
 # define HOURGLASS           SpinCursor( 1 )
 # define HOURGLASS_RATE      1023   /* 2^n - 1 */
 #endif
-

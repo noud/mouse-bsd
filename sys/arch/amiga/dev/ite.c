@@ -2282,4 +2282,3 @@ iteputchar(c, ip)
 		break;
 	}
 }
-

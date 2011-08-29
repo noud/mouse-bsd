@@ -160,4 +160,3 @@ vx_write_register (regno)
                            PTRACE_SETFPREGS);
     }
 }
-

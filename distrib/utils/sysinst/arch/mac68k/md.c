@@ -886,4 +886,3 @@ md_cleanup_install(void)
 	run_prog(0, 0, NULL, "rm -f %s", target_expand("/.termcap"));
 	run_prog(0, 0, NULL, "rm -f %s", target_expand("/.profile"));
 }
-

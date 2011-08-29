@@ -437,4 +437,3 @@ lf_print_function_type(lf *file,
 #endif
   return nr;
 }
-

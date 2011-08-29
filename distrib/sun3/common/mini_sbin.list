@@ -34,4 +34,3 @@ COPY	${DESTDIR}/sbin/shutdown	sbin
 COPY	${DESTDIR}/sbin/slattach	sbin
 COPY	${DESTDIR}/sbin/swapctl		sbin
 COPY	${DESTDIR}/sbin/umount		sbin
-

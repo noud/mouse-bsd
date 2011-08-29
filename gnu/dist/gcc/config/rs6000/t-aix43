@@ -45,4 +45,3 @@ MULTILIB_MATCHES	= msoft-float=mcpu?403 \
 
 LIBGCC = stmp-multilib
 INSTALL_LIBGCC = install-multilib
-

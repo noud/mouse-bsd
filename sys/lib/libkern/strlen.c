@@ -57,4 +57,3 @@ strlen(str)
 	for (s = str; *s; ++s);
 	return(s - str);
 }
-

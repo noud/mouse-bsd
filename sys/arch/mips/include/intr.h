@@ -43,4 +43,3 @@ extern	int (*mips_hardware_intr) __P((u_int mask, u_int pc,
 		   		       u_int statusReg, u_int causeReg));
 
 #endif /* __MIPS_INTR_H */
-

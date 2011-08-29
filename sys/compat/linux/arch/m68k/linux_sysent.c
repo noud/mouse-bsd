@@ -441,4 +441,3 @@ struct sysent linux_sysent[] = {
 	{ 0, 0,
 	    sys___vfork14 },			/* 190 = __vfork14 */
 };
-

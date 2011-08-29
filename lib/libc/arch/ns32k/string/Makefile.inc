@@ -7,4 +7,3 @@ ASSRCS+=bcmp.S bcopy.S bzero.S ffs.S index.S memchr.S memcmp.S memcpy.S \
 
 # objects built from C sources
 SRCS+=	strcspn.c strpbrk.c strsep.c strspn.c strstr.c swab.c
-

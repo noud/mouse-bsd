@@ -375,4 +375,3 @@ static int bw2svideo(fb, data)
 
 	return(0);
 }
-

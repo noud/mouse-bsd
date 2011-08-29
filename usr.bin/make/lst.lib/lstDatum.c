@@ -79,4 +79,3 @@ Lst_Datum (ln)
 	return ((ClientData) NIL);
     }
 }
-

@@ -252,4 +252,3 @@ scb_stray(arg)
 	printf("stray interrupt: pc %x vector 0x%x, ipl %d\n",
 	    cf->ca_pc, vector, ipl);
 }
-

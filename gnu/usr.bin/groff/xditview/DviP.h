@@ -229,5 +229,3 @@ extern DeviceFont	*QueryDeviceFont ();
 
 extern char *GetWord(), *GetLine();
 #endif /* _XtDviP_h */
-
-

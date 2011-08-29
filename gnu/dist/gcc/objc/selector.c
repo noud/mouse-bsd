@@ -455,4 +455,3 @@ sel_register_typed_name (const char *name, const char *type)
 
   return ret;
 }
-

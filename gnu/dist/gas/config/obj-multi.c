@@ -1,4 +1,3 @@
 /* foo */
 
 #include "as.h"
-

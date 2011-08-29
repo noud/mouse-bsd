@@ -473,4 +473,3 @@ netbsd32_elf32_copyargs(pack, arginfo, stack, argp)
 
 	return stack;
 }
-

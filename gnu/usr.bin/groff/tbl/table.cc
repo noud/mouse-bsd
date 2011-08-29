@@ -2775,4 +2775,3 @@ void printfs(const char *s, const string &arg1, const string &arg2,
     }
   }
 }
-

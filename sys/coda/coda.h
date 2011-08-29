@@ -758,4 +758,3 @@ struct PioctlData {
 				 (fidp)->Vnode == CTL_VNO &&\
 				 (fidp)->Unique == CTL_UNI)
 #endif
-

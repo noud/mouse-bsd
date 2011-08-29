@@ -222,4 +222,3 @@ esh_pci_bist_write(sc, value)
 
     bus_space_write_4(iot, ioh, RR_PCI_BIST, new_bist);
 }
-

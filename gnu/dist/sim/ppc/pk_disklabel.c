@@ -398,4 +398,3 @@ pk_disklabel_create_instance(device_instance *raw_disk,
 
 
 #endif /* _PK_DISKLABEL_C_ */
-

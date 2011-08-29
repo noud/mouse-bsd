@@ -94,4 +94,3 @@ extern void ipsec_hexdump __P((caddr_t, int));
 extern void ipsec_bindump __P((caddr_t, int));
 
 #endif /* _NETKEY_KEY_DEBUG_H_ */
-

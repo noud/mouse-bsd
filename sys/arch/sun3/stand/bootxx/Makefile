@@ -11,4 +11,3 @@ proginstall: ${SA_PROG}
 	  ${SA_PROG} ${DESTDIR}${MDEC_DIR}/${SA_PROG}
 
 .include <bsd.prog.mk>
-

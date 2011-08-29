@@ -80,4 +80,3 @@ struct udc_table {
 #define UDC_SR_MC		0x0004	/* match condition ended dma */
 #define UDC_SR_EOP		0x0002	/* eop condition ended dma */
 #define UDC_SR_TC		0x0001	/* termination of count ended dma */
-

@@ -398,5 +398,3 @@ void am79c930_chip_init (sc, how)
 	else
 	  	sc->sc_ops = &iospace_ops;
 }
-
-

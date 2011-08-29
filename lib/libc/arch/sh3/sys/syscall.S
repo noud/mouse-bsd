@@ -59,5 +59,3 @@ err:
 
 	.align 2
 Lcerror:	.long	cerror
-
-

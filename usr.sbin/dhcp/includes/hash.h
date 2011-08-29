@@ -53,4 +53,3 @@ struct hash_table {
 	int hash_count;
 	struct hash_bucket *buckets [DEFAULT_HASH_SIZE];
 };
-

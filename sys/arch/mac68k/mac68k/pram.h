@@ -81,4 +81,3 @@ unsigned long	getPramTimeII __P((void));
 void		setPramTimeII __P((unsigned long));
 
 #endif /* !MRG_ADB */
-

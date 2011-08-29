@@ -209,7 +209,3 @@ do_get_file ()
   printf("\n");
   return 0;
 }
-
-
-
-

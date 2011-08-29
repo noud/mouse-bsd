@@ -147,4 +147,3 @@ struct tcx_tec {
 	u_int	tec_vds;	/* */
 	u_int	tec_vde;	/* */
 };
-

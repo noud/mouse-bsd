@@ -41,4 +41,3 @@ the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
 /* isinf isn't there, but finite is. */
 #define isinf(x) (!finite(x))
-

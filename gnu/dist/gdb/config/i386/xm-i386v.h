@@ -42,4 +42,3 @@ on those where it does, it occurs quite reliably.  */
    to get the offset in the core file of the register values.  */
 
 #define KERNEL_U_ADDR 0xe0000000
-

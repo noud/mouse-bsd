@@ -88,4 +88,3 @@ rvdshut(8), rvdsrv(8), savervd(8),
 spinup(8), vddb(8), vdstats(8)
 .br
 ``The Remote Virtual Disk System'' in Volume II, Supplementary Documents
-

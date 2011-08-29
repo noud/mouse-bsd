@@ -420,4 +420,3 @@ interrupt:
 	splx(s);
 	return(datalen - resid);
 }
-

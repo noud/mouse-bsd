@@ -93,4 +93,3 @@ extern daddr_t	n_blks;		/* number of blocks in use */
 extern daddr_t	n_files;	/* number of files in use */
 
 extern struct	dinode zino;
-

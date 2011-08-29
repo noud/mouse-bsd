@@ -277,4 +277,3 @@ cksum128_tail:
 	mov	#0,reg_tmp0
 	rts
 	addc	reg_tmp0,reg_sum
-

@@ -24,4 +24,3 @@ MULTILIB_EXCEPTIONS = mint32
 
 LIBGCC = stmp-multilib
 INSTALL_LIBGCC = install-multilib
-

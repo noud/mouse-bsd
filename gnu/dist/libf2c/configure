@@ -1572,5 +1572,3 @@ if test "$no_recursion" != yes; then
     cd $ac_popdir
   done
 fi
-
-

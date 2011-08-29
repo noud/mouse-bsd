@@ -237,4 +237,3 @@ stoi(s)
 
 	return n;
 }
-

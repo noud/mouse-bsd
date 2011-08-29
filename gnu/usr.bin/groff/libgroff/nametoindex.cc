@@ -115,4 +115,3 @@ int font::name_to_index(const char *s)
   }
   return indexer.named_char_index(s);
 }
-

@@ -45,4 +45,3 @@
 
 
 #define UDILatestVersion 0x120	/* UDI 1.2.0, can be used in DFE and TIP desired UDI params */
-

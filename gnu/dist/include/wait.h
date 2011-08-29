@@ -60,4 +60,3 @@
 #ifndef	WSETSTOP
 #define WSETSTOP(w,sig)	   ((w) = (0177 | ((sig) << 8)))
 #endif
-

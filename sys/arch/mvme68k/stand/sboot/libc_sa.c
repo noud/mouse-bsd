@@ -345,4 +345,3 @@ reswitch:	switch (ch = *fmt++) {
 	}
 	va_end(ap);
 }
-

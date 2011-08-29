@@ -79,4 +79,3 @@ Lst_Last (l)
 	return ((LstNode)((List)l)->lastPtr);
     }
 }
-

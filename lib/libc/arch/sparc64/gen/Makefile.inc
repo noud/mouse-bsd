@@ -10,4 +10,3 @@ SRCS+=	_setjmp.S
 SRCS+=	sigsetjmp.S __sigsetjmp14.S
 
 SRCS+=	fixunsdfsi.S mul.S umul.S saveregs.S
-

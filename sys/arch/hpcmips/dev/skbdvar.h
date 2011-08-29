@@ -59,5 +59,3 @@ struct skbd_attach_args {
 
 int	skbd_print __P((void*, const char*));
 int	skbd_cnattach __P((struct skbd_controller*));
-
-

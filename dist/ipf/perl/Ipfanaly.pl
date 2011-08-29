@@ -634,6 +634,3 @@ while(($key2,$value2)=each %unknownsrcports)
 
 } # end of all IPs loop
 } # end of if verbose option set block
-
-
-

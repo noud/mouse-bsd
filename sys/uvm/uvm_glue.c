@@ -638,4 +638,3 @@ uvm_swapout(p)
 	p->p_swtime = 0;
 	++uvmexp.swapouts;
 }
-

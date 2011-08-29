@@ -47,5 +47,3 @@ using __STD::bit_vector;
 // Local Variables:
 // mode:C++
 // End:
-
-

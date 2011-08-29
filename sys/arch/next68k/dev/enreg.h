@@ -90,4 +90,3 @@ struct en_regs {
 #define ENRX_EOP 0x80000000 /* end-of-packet flag */
 #define ENRX_BOP 0x40000000 /* beginning-of-packet flag */
 #define ENTX_EOP 0x80000000 /* end-of-packet flag */
-

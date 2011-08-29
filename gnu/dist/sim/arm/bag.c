@@ -134,8 +134,3 @@ void BAG_newbag() {
     lookupbyfirst[i] = lookupbysecond[i] = (Hashentry *) 0;
   }
 }
-
-
-
-
-

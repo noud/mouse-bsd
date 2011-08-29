@@ -48,4 +48,3 @@
 /* We do relaxing in the assembler as well as the linker.  */
 extern const struct relax_type md_relax_table[];
 #define TC_GENERIC_RELAX_TABLE md_relax_table
-

@@ -16,4 +16,3 @@ LIB_BIND!=	cd ${BIND_DIR}/lib; \
 		${MAKE} -s -f -
 INCLUDE?=	-I${LIB_BIND} -I${.OBJDIR} -I${BIND_DIR}/include -I${BIND_DIST_DIR}/include
 LIBRARY?=	-L${LIB_BIND} -lbind
-

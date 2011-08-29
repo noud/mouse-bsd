@@ -39,4 +39,3 @@
 #define CHKSUMOFFS 1
 
 u_int32_t chksum __P((u_int32_t *, int));
-

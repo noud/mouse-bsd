@@ -1378,4 +1378,3 @@ midi_writebytes(unit, buf, cc)
 #endif /* NMIDI == 0 */
 
 #endif /* NSEQUENCER > 0 */
-

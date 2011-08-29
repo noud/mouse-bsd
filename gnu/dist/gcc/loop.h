@@ -188,4 +188,3 @@ extern int *loop_unroll_factor;
    the insertion of branch-on-count instruction. */
 extern rtx *loop_start_value;
 #endif  /* HAIFA */
-

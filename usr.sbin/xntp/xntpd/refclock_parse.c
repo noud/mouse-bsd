@@ -4368,4 +4368,3 @@ int refclock_parse_bs;
  * Revision information 3.1 - 3.79 from log deleted 1996/06/01 kardel
  *
  */
-

@@ -56,5 +56,3 @@ DESauth_parity(key)
 	 */
 	return (parity_err == 0);
 }
-
-

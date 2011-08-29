@@ -19,4 +19,3 @@
 #define SEGMENT_SIZE TARGET_PAGE_SIZE
 #endif
 #endif /*!defined(SEGMENT_SIZE)*/
-

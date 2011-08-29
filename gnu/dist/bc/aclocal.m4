@@ -142,4 +142,3 @@ AC_DEFUN(AM_PROG_LEX,
 AC_CHECK_PROGS(LEX, flex lex, "$missing_dir/missing flex")
 AC_PROG_LEX
 AC_DECL_YYTEXT])
-

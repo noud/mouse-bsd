@@ -2338,4 +2338,3 @@ uaudio_set_speed(sc, endpt, speed)
 
 	return (usbd_do_request(sc->sc_udev, &req, &data));
 }
-

@@ -881,4 +881,3 @@ find_solib_trampoline_target (pc)
     }
   return 0;
 }
-

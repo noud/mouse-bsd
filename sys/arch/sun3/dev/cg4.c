@@ -675,4 +675,3 @@ cg4b_ldcmap(sc)
 	}
 #endif	/* SUN3 */
 }
-

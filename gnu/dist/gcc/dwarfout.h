@@ -37,4 +37,3 @@ extern void dwarfout_end_block		PROTO ((unsigned));
 
 extern void dwarfout_label		PROTO ((rtx));
 extern void dwarfout_line		PROTO ((char *, unsigned));
-

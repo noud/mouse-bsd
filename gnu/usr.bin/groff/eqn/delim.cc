@@ -378,4 +378,3 @@ void delim_box::debug_print()
   if (right)
     fprintf(stderr, " right \"%s\"", right);
 }
-

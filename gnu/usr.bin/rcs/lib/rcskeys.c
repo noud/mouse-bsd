@@ -114,4 +114,3 @@ trymatch(string)
         }
         return(Nomatch);
 }
-

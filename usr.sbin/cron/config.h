@@ -92,5 +92,3 @@
 			 * places.
 			 */
 #define SYSLOG	 			/*-*/
-
-

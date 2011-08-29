@@ -1006,4 +1006,3 @@ bah_watchdog(ifp)
 	PUTREG(BAHCMD, BAH_TXDIS);
 	return;
 }
-

@@ -32,4 +32,3 @@
 
 #define MIOCS3B_EMUL	_IOW('M', 0x0, int)	/* Set/clear 3But emulation */
 #define MIOCG3B_EMUL	_IOR('M', 0x1, int)	/* Get 3But emulation state */
-

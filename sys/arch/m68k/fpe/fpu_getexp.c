@@ -73,4 +73,3 @@ fpu_getman(fe)
   } /* else if fp == zero or fp == quiet NaN, return itself */
   return fp;
 }
-

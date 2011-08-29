@@ -85,4 +85,3 @@ Lst_Close (l)
 	list->atEnd = Unknown;
     }
 }
-

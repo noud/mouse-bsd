@@ -47,5 +47,3 @@
 #define ENETR_DMA_INTR	(1<<27)	/* I_BIT(I_ENETR_DMA) */
 #define ENETX_INTR	(1<<10)	/* I_BIT(I_ENETX) */
 #define ENETR_INTR	(1<<9)	/* I_BIT(I_ENETR) */
-
-
