@@ -1030,7 +1030,7 @@ pr_pack(buf, cc, mhdr)
 		return;
 	}
 	if ((pktinfo = get_rcvpktinfo(mhdr)) == NULL) {
-		warnx("failed to get receiving pakcet information");
+		warnx("failed to get receiving packet information");
 		return;
 	}
 
