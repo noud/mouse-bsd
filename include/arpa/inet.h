@@ -70,6 +70,7 @@
 # include <sys/types.h>
 #endif
 #include <sys/cdefs.h>
+#include <netinet/in.h>
 
 __BEGIN_DECLS
 unsigned long	 inet_addr __P((const char *));
