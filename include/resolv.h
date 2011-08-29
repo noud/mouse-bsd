@@ -93,6 +93,7 @@
 #include <sys/cdefs.h>
 #include <sys/socket.h>
 #include <stdio.h>
+#include <netinet/in.h>
 
 /*
  * Revision information.  This is the release date in YYYYMMDD format.
