@@ -46,6 +46,11 @@ device	bpp {}: lsi64854
 attach	bpp at sbus
 file	dev/sbus/bpp.c			bpp	needs-flag
 
+# SPARCprinter interface
+device	lpvi {}
+attach	lpvi at sbus
+file	dev/sbus/lpvi.c			lpvi	needs-flag
+
 # Efficient Networks, Inc. ATM interface
 # device declaration in sys/conf/files
 attach	en at sbus with en_sbus

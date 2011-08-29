@@ -98,6 +98,7 @@
 #include "rnd.h"
 #include "scsibus.h"
 #include "diskwatch.h"
+#include "lpvi.h"
 
 #include "vcoda.h"
 cdev_decl(vc_nb_);
@@ -283,7 +284,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 135 */
 	cdev_notdef(),			/* 136 */
 	cdev_notdef(),			/* 137 */
-	cdev_notdef(),			/* 138 */
+	cdev__ocrwip_init(NLPVI,lpvi),	/* 138: SPARCprinter interface */
 	cdev_notdef(),			/* 139 */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 140: disk watching */
 	cdev_notdef(),			/* 141 */

@@ -77,6 +77,7 @@
 #	random	Random number generator
 #	scsibus* SCSI busses, see scsi(4), scsictl(8)
 #	diskwatch* Live-backup disk watching
+#	lpvi*	SUNW,lpvi SPARCprinter interface
 
 dialin=0
 dialout=524288		# high bit of the minor number
@@ -102,6 +103,7 @@ all)
 	sh -$- $0 scsibus0 scsibus1 scsibus2 scsibus3
 	sh -$- $0 lkm random local ipl cfs0 apm apmctl tctrl0
 	sh -$- $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
+	sh -$- $0 lpvi0
 	;;
 floppy)
 	sh -$- $0 std ttya ttyb ttyc ttyd pty0
@@ -476,6 +478,14 @@ tctrl*)
 	mknod tctrl$unit	c 71 $unit
 	chown root:wheel tctrl$unit
 	chmod 666 tctrl$unit
+	;;
+
+lpvi*)
+	unit=${i#lpvi}
+	rm -f lpvi$unit
+	mknod lpvi$unit c 138 $unit
+	chown root:wheel lpvi$unit
+	chmod 600 lpvi$unit
 	;;
 
 local)

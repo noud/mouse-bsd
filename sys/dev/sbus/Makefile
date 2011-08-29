@@ -2,6 +2,6 @@
 
 INCSDIR= /usr/include/dev/sbus
 
-INCS=	mbppio.h
+INCS=	mbppio.h lpviio.h
 
 .include <bsd.kinc.mk>

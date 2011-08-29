@@ -119,3 +119,5 @@ cdev_decl(bpp);
 cdev_decl(scsibus);
 
 cdev_decl(diskwatch);
+
+cdev_decl(lpvi);
