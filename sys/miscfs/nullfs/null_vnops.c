@@ -121,7 +121,7 @@
  * The bypass routine accepts arbitrary vnode operations for
  * handling by the lower layer.  It begins by examing vnode
  * operation arguments and replacing any null-nodes by their
- * lower-layer equivlants.  It then invokes the operation
+ * lower-layer equivalents.  It then invokes the operation
  * on the lower layer.  Finally, it replaces the null-nodes
  * in the arguments and, if a vnode is return by the operation,
  * stacks a null-node on top of the returned vnode.
