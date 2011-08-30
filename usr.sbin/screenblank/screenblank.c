@@ -107,6 +107,8 @@ main(argc, argv)
 	struct sigaction sa;
 	struct stat st;
 	int ch, change, fflag = 0, kflag = 0, mflag = 0, state;
+	int bflag = 0;
+	int uflag = 0;
 	const char *kbd, *mouse, *display;
 
 	LIST_INIT(&ds_list);
@@ -119,8 +121,13 @@ main(argc, argv)
 	timo_off.tv_sec = 0;
 	timo_off.tv_usec = 250000;
 
-	while ((ch = getopt(argc, argv, "d:e:f:km")) != -1) {
+	while ((ch = getopt(argc, argv, "bd:e:f:kmu")) != -1) {
 		switch (ch) {
+		case 'b':
+			bflag = 1;
+			uflag = 0;
+			break;
+
 		case 'd':
 			cvt_arg(optarg, &timo_on);
 			break;
@@ -144,6 +151,11 @@ main(argc, argv)
 			if (kflag || mflag)
 				usage();
 			mflag = 1;
+			break;
+
+		case 'u':
+			uflag = 1;
+			bflag = 0;
 			break;
 
 		default:
@@ -188,6 +200,14 @@ main(argc, argv)
 #endif
 
 	/*
+	 * Handle -b and -u modes.
+	 */
+	if (bflag || uflag) {
+		change_state(bflag?videooff:videoon);
+		exit(0);
+	}
+
+	/*
 	 * Add the keyboard, mouse, and default framebuffer devices
 	 * as necessary.  We _always_ check the console device.
 	 */
@@ -208,7 +228,7 @@ main(argc, argv)
 	 * Make sure the framebuffer gets turned back on when we're
 	 * killed.
 	 */
-	sa.sa_handler = sighandler;
+	sa.sa_handler = (typeof(sa.sa_handler)) sighandler;
 	sa.sa_flags = SA_NOCLDSTOP;
 	if (sigemptyset(&sa.sa_mask))
 		err(1, "sigemptyset");
@@ -376,7 +396,7 @@ static void
 usage()
 {
 
-	fprintf(stderr, "usage: %s [-k | -m] [-d timeout] [-e timeout] %s\n",
+	fprintf(stderr, "usage: %s [-b | -u] [-k | -m] [-d timeout] [-e timeout] %s\n",
 	    __progname, "[-f framebuffer]");
 	exit(1);
 }

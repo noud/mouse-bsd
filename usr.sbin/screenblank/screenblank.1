@@ -42,6 +42,7 @@
 .Nd screen saver daemon for wscons and FBIO machines
 .Sh SYNOPSIS
 .Nm screenblank
+.Op Fl u | Fl b
 .Op Fl k | Fl m
 .Op Fl d Ar timeout
 .Op Fl e Ar timeout
@@ -78,6 +79,12 @@ Use the framebuffer device
 .Ar framebuffer
 instead of the default
 .Pa /dev/fb .
+.It Fl u
+Overriding the other options, simply try (once) to unblank the
+framebuffer, then exit.
+.It Fl b
+Overriding the other options, simply try (once) to blank the
+framebuffer, then exit.
 .El
 .Pp
 Note that the
