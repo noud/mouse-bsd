@@ -303,11 +303,11 @@ qeattach(parent, self, aux)
 	ifp->if_flags = IFF_BROADCAST | IFF_SIMPLEX | IFF_NOTRAILERS |
 	    IFF_MULTICAST;
 
+	printf(" address %s\n", ether_sprintf(sc->sc_enaddr));
+
 	/* Attach the interface. */
 	if_attach(ifp);
 	ether_ifattach(ifp, sc->sc_enaddr);
-
-	printf(" address %s\n", ether_sprintf(sc->sc_enaddr));
 
 #if NBPFILTER > 0
 	bpfattach(&ifp->if_bpf, ifp, DLT_EN10MB,
