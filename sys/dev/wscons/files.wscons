@@ -13,7 +13,7 @@
 #
 
 defopt	opt_wsemul.h	WSEMUL_DEFAULT WSEMUL_NO_DUMB
-	WSEMUL_SUN WSEMUL_VT100
+	WSEMUL_SUN WSEMUL_VT100 WSEMUL_MTERM
 defopt	opt_wskernattr.h WS_KERNEL_FG WS_KERNEL_BG
 	WS_KERNEL_COLATTR WS_KERNEL_MONOATTR
 defopt	opt_wsdisplay_compat.h WSDISPLAY_COMPAT_USL WSCOMPAT_USL_SYNCTIMEOUT
@@ -40,6 +40,7 @@ file	dev/wscons/wsemul_vt100.c	wsdisplay & wsemul_vt100
 file	dev/wscons/wsemul_vt100_subr.c	wsdisplay & wsemul_vt100
 file	dev/wscons/wsemul_vt100_chars.c	wsdisplay & wsemul_vt100
 file	dev/wscons/wsemul_vt100_keys.c	wsdisplay & wsemul_vt100
+file	dev/wscons/wsemul_mterm.c	wsdisplay & wsemul_mterm
 file	dev/wscons/wsevent.c	wskbd | wsmouse
 file	dev/wscons/wskbd.c	wskbd needs-flag
 file	dev/wscons/wskbdutil.c	wskbd needs-flag
