@@ -77,6 +77,7 @@
 #if !defined(_XOPEN_SOURCE)
 
 #include <sys/queue.h>
+#include <sys/socket.h>
 
 /*
  * Structures defining a network interface, providing a packet
