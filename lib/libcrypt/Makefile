@@ -10,10 +10,10 @@ SRCTOP=	../..
 
 LIB=	crypt
 
-SRCS=	crypt.c
+SRCS=	crypt.c realcrypt.c md5crypt.c
 
 MAN=	crypt.3
-MLINKS= crypt.3 encrypt.3 crypt.3 setkey.3
+MLINKS= crypt.3 encrypt.3 crypt.3 setkey.3 crypt.3 crypt_makesalt.3 crypt.3 des_crypt.3 crypt.3 md5_crypt.3
 
 .if defined(CRYPTOPATH)
 .sinclude "${CRYPTOPATH}/lib/libcrypt/Makefile.frag"

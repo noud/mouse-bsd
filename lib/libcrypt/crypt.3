@@ -38,17 +38,26 @@
 .Os
 .Sh NAME
 .Nm crypt ,
+.Nm crypt_makesalt ,
+.Nm md5_crypt ,
+.Nm des_crypt ,
 .Nm setkey ,
 .Nm encrypt ,
 .Nm des_setkey ,
 .Nm des_cipher
-.Nd DES encryption
+.Nd password hashing and DES encryption
 .Sh LIBRARY
 .Lb libcrypt
 .Sh SYNOPSIS
 .Fd #include <unistd.h>
 .Ft char
-.Fn *crypt "const char *key" "const char *setting"
+.Fn *crypt_makesalt "void"
+.Ft char
+.Fn *crypt "const char *key" "const char *hash"
+.Ft char
+.Fn *md5_crypt "const char *key" "const char *hash"
+.Ft char
+.Fn *des_crypt "const char *key" "const char *setting"
 .Ft int
 .Fn encrypt "char *block" "int flag"
 .Ft int
@@ -61,15 +70,79 @@
 .Sh DESCRIPTION
 The
 .Fn crypt
+function performs password hashing.  It is based on the MD5
+message-digest algorithm (see RFC1321).  The first argument to
+.Fn crypt
+is a
+.Dv NUL Ns -terminated
+cleartext password (normally obtained from the user).  The second is
+either a hashed password (obtained from wherever it was stored when it
+was initially set) or a salt string, typically returned by
+.Fn crypt_makesalt ,
+though you can pass your own salt string; see below.  (The first form
+is normally used when checking a password, the second when setting
+one.)
+.Fn crypt
+understands three types of hashed passwords: old
+.Dq traditional
+DES-style hashed passwords, such as most other UNIX-related systems
+use, new DES-style hashed passwords, such as previous versions of
+NetBSD used, and new MD5-style hashed passwords.
+This is done by testing the
+.Fa hash
+argument; if it fits the syntax of either of the two DES-style hashed
+passwords, or the salt strings typically used with them,
+.Fn crypt
+simply calls
+.Fn des_crypt
+and returns the result.  Otherwise,
+.Fn crypt
+calls
+.Fn md5_crypt
+and returns the result.
+.Pp
+.Fn md5_crypt
+is just like
+.Fn crypt ,
+except that it does not check its salt string to see if it's a
+DES-style hashed password.
+.Pp
+.Fn crypt_makesalt
+constructs and returns a salt string suitable for passing to
+.Fn crypt
+as the
+.Fa hash
+argument; it obtains the salt values from the exact time of day, the
+process ID, and any other convenient values it thinks may be useful in
+producing a
+.Dq random
+string.  If you have on hand other strings you feel may help make the
+salt string even more
+.Dq random ,
+you can build a longer string yourself, including them, and pass that
+to
+.Fn crypt .
+The only restriction is that the string you ultimately pass to
+.Fn crypt
+must not be confusable with a hashed password.  The simplest way to
+ensure this is to pass a string including a
+.Dq \&: ,
+because colons can never appear in a hashed password.
+Any string beginning with a string returned by
+.Fn crypt_makesalt
+will always be suitable.
+.Pp
+The
+.Xr des_crypt
 function
-performs password encryption.
+performs old-style password encryption.
 It is derived from the
 .Tn NBS
 Data Encryption Standard.
 Additional code has been added to deter
 key search attempts.
 The first argument to
-.Nm crypt
+.Nm des_crypt
 is
 a
 .Dv NUL Ns -terminated
@@ -102,7 +175,8 @@ and
 .Em i+24
 are swapped in the
 .Tn DES
-``E'' box output).
+.Dq E
+box output).
 The
 .Ar key
 is divided into groups of 8 characters (a short final group is null-padded)
@@ -210,9 +284,11 @@ specifies perturbations to
 .Tn DES
 as described above.
 .Pp
-The function
+The functions
 .Fn crypt
-returns a pointer to the encrypted value on success and NULL on failure.
+and
+.Fn des_crypt
+return a pointer to the encrypted value on success and NULL on failure.
 The functions
 .Fn setkey ,
 .Fn encrypt ,
@@ -220,6 +296,10 @@ The functions
 and
 .Fn des_cipher
 return 0 on success and 1 on failure.
+The function
+.Fn crypt_makesalt
+returns a pointer to the generated salt string; it
+.Dq cannot fail .
 Historically, the functions
 .Fn setkey
 and
@@ -263,21 +343,31 @@ A rotor-based
 .Fn crypt
 function appeared in
 .At v6 .
-The current style
+DES-based
 .Fn crypt
 first appeared in
 .At v7 .
+The current MD5-based
+.Fn crypt
+first appeared post-1.0 NetBSD.
 .Sh BUGS
+.Fn crypt_makesalt ,
+.Fn des_crypt ,
+and
+.Fn md5_crypt
+return pointers to internal static strings.  The string returned by one
+of these functions is valid only until the next time that function is
+called again, at which point the string will be modified by the return
+string from the later call.  (Note that since
+.Fn crypt
+always simply calls either
+.Fn md5_crypt
+or
+.Fn des_crypt ,
+similar remarks apply to it as well.)
+.Pp
 Dropping the
 .Em least
 significant bit in each character of the argument to
 .Fn des_setkey
 is ridiculous.
-.Pp
-The
-.Fn crypt
-function leaves its result in an internal static object and returns
-a pointer to that object.
-Subsequent calls to
-.Fn crypt
-will modify the same object.

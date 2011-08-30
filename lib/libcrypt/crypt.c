@@ -50,6 +50,8 @@ __RCSID("$NetBSD: crypt.c,v 1.13 1998/10/20 02:02:30 matt Exp $");
 #include <stdlib.h>
 #include <unistd.h>
 
+#include "internal.h"
+
 /*
  * UNIX password, and DES, encryption.
  * By Tom Truscott, trt@rti.rti.org,
@@ -476,9 +478,7 @@ static char	cryptresult[1+4+4+11+1];	/* encrypted result */
  * followed by an encryption produced by the "key" and "setting".
  */
 char *
-crypt(key, setting)
-	const char *key;
-	const char *setting;
+des_crypt(const char *key, const char *setting)
 {
 	char *encp;
 	int32_t i;

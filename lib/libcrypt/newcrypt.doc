@@ -1,0 +1,114 @@
+A new-style hashed password begins with an = sign.  This must be
+immediately followed by a version number, in decimal, and a dot.
+Following the dot are zero or more characters drawn from the set
+consisting of ASCII letters, digits, dot, and slash.
+
+Currently only version 1 is defined.  This version is described by the
+rest of this document.
+
+Following the dot after the version number are three pieces, in this
+order:
+- A round count, in decimal followed by a dot.
+- A salt string, 22 characters long.
+- A hash string, 22 characters long.
+
+If the salt argument to crypt() appears to match this format, the salt
+string is extracted and used; otherwise, the salt argument is run
+through MD5 and converted to base 64 to generate a salt string, and a
+default round count is used.  (This default is determined at compile
+time.)
+
+Given a salt string S and a round count R (either extracted from a hash
+passed in or generated/defaulted as described above), and a cleartext
+password P, a hash H is generated as follows.  Note that S is always 22
+bytes and P can be zero to "a very large number".
+
+	Set D to P.
+	Repeat R times:
+		Set D to the MD5 hash of the concatenation, in order,
+		of D, S, D, P, and D, this hash converted from 128-bit
+		binary to 22-character base-64.
+	H is the concatenation of
+		- the literal "=1."
+		- the round count R, in decimal
+		- a literal "."
+		- S
+		- the value of D after the final iteration of the loop
+
+Conversion to base-64 is done by treating the value to be converted as
+a string of (8-bit) bytes.  These are taken as a single very large
+number in base 256, with the least-sigificant byte being the first one
+in the string.  This number is expressed in base 64, which produces 22
+base-64 digits; these are ordered with the least-sigificant first, with
+the character<->digit correspondence
+
+	digit	char		digit	char		digit	char
+	 0	.		22	a		44	U
+	 1	/		23	s		45	I
+	 2	1		24	d		46	O
+	 3	2		25	f		47	P
+	 4	3		26	g		48	A
+	 5	4		27	h		49	S
+	 6	5		28	j		50	D
+	 7	6		29	k		51	F
+	 8	7		30	l		52	G
+	 9	8		31	z		53	H
+	10	9		32	x		54	J
+	11	0		33	c		55	K
+	12	q		34	v		56	L
+	13	w		35	b		57	Z
+	14	e		36	n		58	X
+	15	r		37	m		59	C
+	16	t		38	Q		60	V
+	17	y		39	W		61	B
+	18	u		40	E		62	N
+	19	i		41	R		63	M
+	20	o		42	T
+	21	p		43	Y
+
+For example, if R=2, and the salt passed in is the string "foo" (since
+this does not fit the pattern of a hashed password, the string S is
+derived from it by MD5 hashing it (giving
+acbd18db4cc2f85cedef654fccc4a4d8, expressed in the conventional hex
+notation) and converting to base-64 (giving UJ05hFnALFpCPsJiqiqRd2 -
+note that the least-sigificant "digit" is given first in both the
+base-256 hash and the base-64 text form)), and P is "secret", then
+
+	D = "secret"
+	First iteration:
+		MD5 argument is D+S+D+P+D, or
+		"secretUJ05hFnALFpCPsJiqiqRd2secretsecretsecret"
+		MD5 result is ec57d708171f2e03f6fcef73c159a3d9,
+		converted to base-64 is "UzHH7jS6OqxBVMNj/WHEf2"
+		D is set to this value.
+	Second iteration:
+		MD5 argument is D+S+D+P+D, or (broken for readability)
+		"UzHH7jS6OqxBVMNj/WHEf2UJ05hFnALFpCPsJiqiqRd2
+		UzHH7jS6OqxBVMNj/WHEf2secretUzHH7jS6OqxBVMNj/WHEf2"
+		MD5 result is 82ff792f64bf0bf5655636ca7727c630,
+		converted to base-64 is "1NzlPtJP0ozfafbDKkvSA."
+		D is set to this value.
+	H is "=1.2.UJ05hFnALFpCPsJiqiqRd21NzlPtJP0ozfafbDKkvSA."
+
+This example uses an artifically small value of R.  Normally the
+default value of R will be at least a few hundred; at this writing, I'm
+using 512.  But since the value of R is part of the resulting hash
+string, a hash generated with one value of R will be usable regardless
+of the default value of R at the time the check is done.  The code does
+impose a maximum on the value of R it will use with; at this writing,
+this maximum is 32768.  (This is done largely to keep garbage that
+happens to look like a valid hash string with a very large R value from
+throwing password-checking programs into a very long-running loop.)
+Note also that actual salt strings are derived from somewhat
+higher-entropy sources.  Currently the default salt string is generated
+based on the time of day (seconds and microseconds), the process ID,
+and the parent process ID.  But the interface explicitly supports the
+addition of other sources of entropy to the salt string, since any
+string can be passed as the "salt" string to crypt(); if it does not
+appear to be a hashed password, it is shoved through MD5 to generate a
+salt.  (To ensure it is never mistaken for a hashed password, it is
+advisable to generate it by calling crypt_makesalt() and suffixing data
+from whatever other sources of entropy happen to be on hand.  The
+interface for crypt() and crypt_makesalt() commits to this, stating
+that any string beginning with a string returned from crypt_makesalt()
+will never be mistaken for a valid hashed password.)
