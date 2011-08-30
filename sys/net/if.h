@@ -244,22 +244,22 @@ struct ifnet {				/* and the entries */
 #define	if_noproto	if_data.ifi_noproto
 #define	if_lastchange	if_data.ifi_lastchange
 
-#define	IFF_UP		0x1		/* interface is up */
-#define	IFF_BROADCAST	0x2		/* broadcast address valid */
-#define	IFF_DEBUG	0x4		/* turn on debugging */
-#define	IFF_LOOPBACK	0x8		/* is a loopback net */
-#define	IFF_POINTOPOINT	0x10		/* interface is point-to-point link */
-#define	IFF_NOTRAILERS	0x20		/* avoid use of trailers */
-#define	IFF_RUNNING	0x40		/* resources allocated */
-#define	IFF_NOARP	0x80		/* no address resolution protocol */
-#define	IFF_PROMISC	0x100		/* receive all packets */
-#define	IFF_ALLMULTI	0x200		/* receive all multicast packets */
-#define	IFF_OACTIVE	0x400		/* transmission in progress */
-#define	IFF_SIMPLEX	0x800		/* can't hear own transmissions */
-#define	IFF_LINK0	0x1000		/* per link layer defined bit */
-#define	IFF_LINK1	0x2000		/* per link layer defined bit */
-#define	IFF_LINK2	0x4000		/* per link layer defined bit */
-#define	IFF_MULTICAST	0x8000		/* supports multicast */
+#define IFF_UP          0x00000001 /* interface is up */
+#define IFF_BROADCAST   0x00000002 /* broadcast address valid */
+#define IFF_DEBUG       0x00000004 /* turn on debugging */
+#define IFF_LOOPBACK    0x00000008 /* is a loopback net */
+#define IFF_POINTOPOINT 0x00000010 /* interface is point-to-point link */
+#define IFF_NOTRAILERS  0x00000020 /* avoid use of trailers */
+#define IFF_RUNNING     0x00000040 /* resources allocated */
+#define IFF_NOARP       0x00000080 /* no address resolution protocol */
+#define IFF_PROMISC     0x00000100 /* receive all packets */
+#define IFF_ALLMULTI    0x00000200 /* receive all multicast packets */
+#define IFF_OACTIVE     0x00000400 /* transmission in progress */
+#define IFF_SIMPLEX     0x00000800 /* can't hear own transmissions */
+#define IFF_LINK0       0x00001000 /* per link layer defined bit */
+#define IFF_LINK1       0x00002000 /* per link layer defined bit */
+#define IFF_LINK2       0x00004000 /* per link layer defined bit */
+#define IFF_MULTICAST   0x00008000 /* supports multicast */
 
 /* flags set internally only: */
 #define	IFF_CANTCHANGE \
