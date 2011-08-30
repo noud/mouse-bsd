@@ -94,6 +94,8 @@ cdev_decl(tcx);
 
 cdev_decl(cgfourteen);
 
+cdev_decl(zx);
+
 cdev_decl(p9100);	/* pnozz */
 
 bdev_decl(xd);

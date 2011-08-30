@@ -87,6 +87,7 @@
 #include "cgeight.h"
 #include "tcx.h"
 #include "cgfourteen.h"
+#include "zx.h"
 #include "pnozz.h"
 #include "fb.h"
 #include "tctrl.h"
@@ -214,7 +215,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 65 */
 	cdev_notdef(),			/* 66 */
 	cdev_fb_init(NCGSIX,cgsix),	/* 67: /dev/cgsix */
-	cdev_notdef(),			/* 68 */
+	cdev_fb_init(NZX,zx),		/* 68: /dev/zx */
 	cdev_gen_init(NAUDIO,audio),	/* 69: /dev/audio */
 	cdev_openprom_init(1,openprom),	/* 70: /dev/openprom */
 	cdev_tctrl_init(NTCTRL,tctrl),	/* 71: /dev/tctrl */

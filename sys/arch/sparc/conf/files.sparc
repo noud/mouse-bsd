@@ -196,6 +196,11 @@ device pnozz: fb, bt_dac, rasops8, rasops16, rasops32
 attach pnozz at sbus
 file	arch/sparc/dev/p9100.c		pnozz needs-flag
 
+device zx: fb, rasops32
+attach zx at sbus with zx_sbus
+file	arch/sparc/dev/zx.c		zx needs-flag
+file	arch/sparc/dev/zx_sbus.c	zx_sbus & sbus
+
 file	arch/sparc/dev/bt_subr.c	bt_dac
 file	arch/sparc/dev/fb.c		fb needs-flag
 
