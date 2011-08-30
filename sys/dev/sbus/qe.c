@@ -412,7 +412,7 @@ qe_read(sc, idx, len)
 	struct mbuf *m;
 
 	if (len <= sizeof(struct ether_header) ||
-	    len > ETHERMTU + sizeof(struct ether_header)) {
+	    len > ETHERMTU + 4 + sizeof(struct ether_header)) {
 
 		printf("%s: invalid packet size %d; dropping\n",
 			ifp->if_xname, len);
