@@ -2,6 +2,6 @@
 
 INCSDIR = /usr/include/dev/pseudo
 
-INCS =
+INCS = if_vlan.h
 
 .include <bsd.kinc.mk>

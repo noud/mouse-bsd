@@ -1,0 +1,137 @@
+.Dd November 3, 2000
+.Dt VLAN 4
+.Os
+.Sh NAME
+.Nm vlan
+.Nd IEEE 802.1q VLAN layer
+.Sh SYNOPSIS
+.Cd pseudo-device vlan Op Ar count
+.Sh DESCRIPTION
+The
+.Nm
+interface is a layer designed to support IEEE 802.1q VLAN tags.  One or
+more
+.Nm
+interfaces are layered atop a real interface.  On input, the incoming
+packet's VLAN tag is examined and the packet is routed to the
+appropriate
+.Nm
+interface; on output, the
+.Nm
+interface adds a tag appropriate to its configuration and passes the
+packet on to the underlying interface.
+.Pp
+The
+.Nm
+driver provides two interfaces: a network interface driver, for
+interfaces named
+.Sy vlan Ns Ar 0 ,
+.Sy vlan Ns Ar 1 ,
+etc, as many in all as the
+.Ar count
+figure given on the
+.Sy pseudo-device
+line.  At the same time, it presents its other interface, a
+character-special
+.Dq control
+interface, which has entries in
+.Pa /dev
+like any other special device.  The network interfaces look like
+Ethernet devices, supporting most of the interfaces any Ethernet device
+does (the major exception is media selection, which must be done on the
+underlying interface).
+.Pp
+The control interface is minimal, limited to two ioctls:
+.Dv VLANIOC_SCONF
+and
+.Dv VLANIOC_GCONF ,
+which set and get, respectively, the
+.Nm
+interface's configuration.  As one would expect, the device must be
+opened read/write to set the configuration, but read-only access is
+sufficient to get it.  The configuration is represented as a
+.Sq Li struct vlan_config ,
+which contains the following members:
+.\" Growl, why does a .Bd display produce space above but not below?!
+.Bd -literal
+int tag;
+union {
+  struct ifnet *dstifp;
+  char dstifn[IFNAMSIZ];
+  } u;
+
+.Ed
+The
+.Li dstifn
+array holds the underlying interface name; the
+.Li tag
+member holds the VLAN tag.  (The
+.Li dstifp
+member is used internally and is of no use to user-land; it is
+documented here solely because of namespace issues.)  An unconfigured
+interface corresponds to
+.Li dstifn[0]=='\e0' ;
+the
+.Li tag
+is irrelevant in this case.  There are two special values for
+.Li tag ,
+.Dv VLAN_NONE
+and
+.Dv VLAN_OTHER .
+.Dv VLAN_NONE
+receives packets with no VLAN tag at all (ie, not encapsulated) and
+does not encapsulate on output;
+.Dv VLAN_OTHER
+receives packets that would otherwise be discarded through failure to
+match any other
+.Nm
+interface and silently discards packets on output (since there is no
+well-defined way to determine whether to encapsulate, and if so what
+VLAN tag to use).
+.Pp
+Each
+.Nm
+interface can be layered atop any Ethernet interface.  When a real
+interface first has a
+.Nm
+interface configured atop it, the underlying interface has its
+.Dv IFF_DOT1Q
+flag set, which routes all received packets to the
+.Nm
+driver (thereby inhibiting normal packet reception on the underlying
+interface).  This remains set as long as any
+.Nm
+interfaces are configured over the real interface; once this is no
+longer true, the real interface has its
+.Dv IFF_DOT1Q
+flag cleared, allowing it to resume normal operation.  Each
+.Nm
+interface can be associated with any real interface.
+.Sh SEE ALSO
+.Xr intro 4 ,
+.Xr inet 4 ,
+.Xr ethersubr 9 ,
+.Xr vlanconfig 8
+.Sh BUGS
+Encapsulated packets are 4 bytes longer than the
+.Sq inner
+packet; this means that the underlying interface must be willing to
+transmit and receive packets 4 bytes longer than the usual Ethernet
+MTU.  (It may be possible to work around this on output by configuring
+the
+.Nm
+interface with a lower MTU than usual (see
+.Xr ifconfig 8 Ap s
+.Ar mtu
+option); no workaround is known for input.)
+.Pp
+It is possible to layer one
+.Nm
+interface atop another, or atop other layered interfaces.  This raises
+the possibility of creating a loop in the tree of interface layering;
+such configurations have not been tested, and the possibility exists
+that some such configurations can lock up or crash the machine.  Since
+the
+.Pa /dev
+entries for the control devices will normally be writable only by root,
+this usually is not an issue.

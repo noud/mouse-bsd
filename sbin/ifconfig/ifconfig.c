@@ -1277,6 +1277,7 @@ int carrier()
 \16LINK1\
 \17LINK2\
 \20MULTICAST\
+\24DOT1Q\
 "
 
 const int ifm_status_valid_list[] = IFM_STATUS_VALID_LIST;

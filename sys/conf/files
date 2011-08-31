@@ -967,5 +967,8 @@ file uvm/uvm_unix.c
 file uvm/uvm_user.c
 file uvm/uvm_vnode.c
 
+defpseudo vlan: arp, ether, ifnet
+file dev/pseudo/if_vlan.c vlan needs-flag
+
 defpseudo diskwatch
 file dev/pseudo/diskwatch.c diskwatch needs-flag

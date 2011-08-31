@@ -147,6 +147,11 @@ extern u_char	at_org_code[3];
 extern u_char	aarp_org_code[3];
 #endif /* NETATALK */
 
+#include "vlan.h"
+#if NVLAN > 0
+#include <dev/pseudo/dot1qint.h>
+#endif
+
 u_char	etherbroadcastaddr[6] = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };
 #define senderr(e) { error = (e); goto bad;}
 
@@ -525,6 +530,13 @@ ether_input(ifp, m)
 	}
 	if (m->m_flags & (M_BCAST|M_MCAST))
 		ifp->if_imcasts++;
+
+#if NVLAN > 0
+	if (ifp->if_flags & IFF_DOT1Q) {
+		dot1q_input(ifp,m);
+		return;
+	}
+#endif
 
 	etype = ntohs(eh->ether_type);
 
