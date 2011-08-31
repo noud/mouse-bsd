@@ -182,6 +182,9 @@ cdev_decl(scsibus);
 #include "diskwatch.h"
 cdev_decl(diskwatch);
 
+#include "vlan.h"
+cdev_decl(vlan);
+
 struct cdevsw	cdevsw[] =
 {
 	cdev_cn_init(1,cn),		/* 0: virtual console */
@@ -234,7 +237,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 47 */
 	cdev_notdef(),			/* 48 */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch),/* 49: disk watching */
-	cdev_notdef(),			/* 50 */
+	cdev__oci_init(NVLAN,vlan),	/* 50: vlan interfaces */
 	cdev_notdef(),			/* 51 */
 	cdev_notdef(),			/* 52 */
 	cdev_notdef(),			/* 53 */

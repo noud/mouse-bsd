@@ -243,6 +243,8 @@ cdev_decl(wsmux);
 cdev_decl(esh_fp);
 #include "scsibus.h"
 cdev_decl(scsibus);
+#include "vlan.h"
+cdev_decl(vlan);
 
 #ifdef __I4B_IS_INTEGRATED
 /* open, close, ioctl */
@@ -392,7 +394,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 76 */
 	cdev_notdef(),			/* 77 */
 	cdev_notdef(),			/* 78 */
-	cdev_notdef(),			/* 79 */
+	cdev__oci_init(NVLAN,vlan),	/* 79: vlan interfaces */
 	cdev_notdef(),			/* 80 */
 	cdev_notdef(),			/* 81 */
 	cdev_notdef(),			/* 82 */

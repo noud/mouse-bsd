@@ -200,6 +200,9 @@ cdev_decl(spkr);
 #include "scsibus.h"
 cdev_decl(scsibus);
 
+#include "vlan.h"
+cdev_decl(vlan);
+
 #include "esh.h"
 cdev_decl(esh_fp);
 
@@ -364,7 +367,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 76 */
 	cdev_notdef(),			/* 77 */
 	cdev_notdef(),			/* 78 */
-	cdev_notdef(),			/* 79 */
+	cdev__oci_init(NVLAN,vlan),	/* 79: vlan interfaces */
 	cdev_notdef(),			/* 80 */
 	cdev_notdef(),			/* 81 */
 	cdev_notdef(),			/* 82 */

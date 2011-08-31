@@ -104,6 +104,7 @@
 #	ch*	SCSI changer
 #	cfs*	Coda file system device
 #	diskwatch* Live-backup disk watching
+#	vlan*	802.1q VLAN interfaces
 #
 
 dialin=0
@@ -144,6 +145,7 @@ all)
 	sh $0 music rmidi0 rmidi1 rmidi2 rmidi3 rmidi4 rmidi5 rmidi6 rmidi7
 	sh $0 scsibus0 scsibus1 scsibus2 scsibus3
 	sh $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
+	sh $0 vlan0 vlan1 vlan2 vlan3 vlan4 vlan5 vlan6 vlan7
 	sh $0 wscons
 	;;
 
@@ -631,6 +633,14 @@ diskwatch*)
 		chown root:wheel diskwatch$unit${x%.*}
 		chmod 600 diskwatch$unit${x%.*}
 	done
+	;;
+
+vlan*)
+	unit=${i#vlan};
+	rm -f vlan$unit
+	mknod vlan$unit c 79 $unit
+	chown root:wheel vlan$unit
+	chmod 600 vlan$unit
 	;;
 
 local)

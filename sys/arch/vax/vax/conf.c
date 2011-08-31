@@ -415,6 +415,8 @@ cdev_decl(scsibus);
 
 #include "diskwatch.h"
 cdev_decl(diskwatch);
+#include "vlan.h"
+cdev_decl(vlan);
 
 struct cdevsw	cdevsw[] =
 {
@@ -496,7 +498,7 @@ struct cdevsw	cdevsw[] =
 	cdev_scsibus_init(NSCSIBUS,scsibus), /* 72: SCSI bus */
 	cdev_disk_init(NRAID,raid),	/* 73: RAIDframe disk driver */
 	cdev_mouse_init(NWSMUX, wsmux),	/* 74: ws multiplexor */
-	cdev_notdef(),			/* 75 */
+	cdev__oci_init(NVLAN,vlan),	/* 75: vlan interfaces */
 	cdev_notdef(),			/* 76 */
 	cdev_notdef(),			/* 77 */
 	cdev_notdef(),			/* 78 */

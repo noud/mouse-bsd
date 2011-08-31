@@ -86,6 +86,7 @@
 #	uk*	SCSI unknown
 #	ch*	SCSI changer
 #	diskwatch* Live-backup disk watching
+#	vlan*	802.1q VLAN interfaces
 #
 
 dialin=0
@@ -107,6 +108,7 @@ all)
 	sh $0 lkm nvram local raid0 raid1 raid2 raid3
 	sh $0 scsibus0 scsibus1 scsibus2 scsibus3
 	sh $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
+	sh $0 vlan0 vlan1 vlan2 vlan3 vlan4 vlan5 vlan6 vlan7
 	;;
 
 floppy)
@@ -494,6 +496,16 @@ diskwatch*)
 		chown root:wheel diskwatch$unit${x%.*}
 		chmod 600 diskwatch$unit${x%.*}
 	done
+	;;
+
+vlan*)
+	unit=${i#vlan}
+	vlan=vlan$unit
+	major=49
+	rm -f $vlan
+	mknod $vlan c $major $unit
+	chown root.wheel $vlan
+	chmod 600 $vlan
 	;;
 
 local)

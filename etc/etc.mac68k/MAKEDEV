@@ -80,6 +80,7 @@
 #	asc*	Apple Sound Chip
 #	cfs*	Venus cache driver, for Coda
 #	diskwatch* Live-backup disk watching
+#	vlan*	802.1q VLAN interfaces
 #
 
 dialin=0
@@ -101,6 +102,7 @@ all)
 	sh $0 tun0 tun1 tun2 tun3 asc0 lkm ipl local
 	sh $0 scsibus0 scsibus1 scsibus2 scsibus3 cfs0
 	sh $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
+	sh $0 vlan0 vlan1 vlan2 vlan3 vlan4 vlan5 vlan6 vlan7
 	sh $0 wscons
 	;;
 
@@ -418,6 +420,16 @@ diskwatch*)
 		chown root:wheel diskwatch$unit${x%.*}
 		chmod 600 diskwatch$unit${x%.*}
 	done
+	;;
+
+vlan*)
+	unit=${i#vlan}
+	vlan=vlan$unit
+	major=53
+	rm -f $vlan
+	mknod $vlan c $major $unit
+	chown root.wheel $vlan
+	chmod 600 $vlan
 	;;
 
 local)

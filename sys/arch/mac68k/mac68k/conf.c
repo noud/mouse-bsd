@@ -134,6 +134,7 @@ int	nblkdev = sizeof(bdevsw) / sizeof(bdevsw[0]);
 #include "zstty.h"
 #include "scsibus.h"
 #include "diskwatch.h"
+#include "vlan.h"
 
 cdev_decl(aed);
 cdev_decl(asc);
@@ -177,6 +178,7 @@ cdev_decl(zsc);
 cdev_decl(scsibus);
 cdev_decl(vc_nb_);
 cdev_decl(diskwatch);
+cdev_decl(vlan);
 
 dev_decl(filedesc,open);
 
@@ -235,7 +237,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 50 */
 	cdev_notdef(),			/* 51 */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 52: disk watching */
-	cdev_notdef(),			/* 53 */
+	cdev__oci_init(NVLAN,vlan),	/* 53: vlan interfaces */
 	cdev_notdef(),			/* 54 */
 	cdev_notdef(),			/* 55 */
 	cdev_notdef(),			/* 56 */

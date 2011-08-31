@@ -78,6 +78,7 @@
 #	scsibus* SCSI busses, see scsi(4), scsictl(8)
 #	diskwatch* Live-backup disk watching
 #	lpvi*	SUNW,lpvi SPARCprinter interface
+#	vlan*	802.1q VLAN interfaces
 
 dialin=0
 dialout=524288		# high bit of the minor number
@@ -104,6 +105,7 @@ all)
 	sh -$- $0 lkm random local ipl cfs0 apm apmctl tctrl0
 	sh -$- $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
 	sh -$- $0 lpvi0
+	sh -$- $0 vlan0 vlan1 vlan2 vlan3 vlan4 vlan5 vlan6 vlan7
 	;;
 floppy)
 	sh -$- $0 std ttya ttyb ttyc ttyd pty0
@@ -167,6 +169,12 @@ diskwatch*)
 		chown root:wheel diskwatch$unit${x%.*}
 		chmod 600 diskwatch$unit${x%.*}
 	done
+	;;
+
+vlan*)
+	unit=${i#vlan}
+	rm -f vlan$unit
+	(umask 077; mknod vlan$unit c 134 $unit)
 	;;
 
 fd)
