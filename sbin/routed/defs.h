@@ -280,7 +280,7 @@ struct interface {
 	naddr	int_std_net;		/* class A/B/C network (h) */
 	naddr	int_std_mask;		/* class A/B/C netmask (h) */
 	int	int_rip_sock;		/* for queries */
-	int	int_if_flags;		/* some bits copied from kernel */
+	unsigned long int int_if_flags;	/* some bits copied from kernel */
 	u_int	int_state;
 	time_t	int_act_time;		/* last thought healthy */
 	time_t	int_query_time;

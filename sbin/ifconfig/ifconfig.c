@@ -261,7 +261,7 @@ int	carrier __P((void));
 void	getsock __P((int));
 void	printall __P((void));
 void	printalias __P((const char *, int));
-void 	printb __P((char *, unsigned short, char *));
+void 	printb __P((char *, unsigned long int, char *));
 int	prefix __P((void *, int));
 void 	status __P((const u_int8_t *, int));
 void 	usage __P((void));
@@ -1897,8 +1897,8 @@ in_getaddr(s, which)
 void
 printb(s, v, bits)
 	char *s;
+	unsigned long int v;
 	char *bits;
-	unsigned short v;
 {
 	int i, any = 0;
 	char c;

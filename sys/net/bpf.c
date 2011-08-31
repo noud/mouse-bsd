@@ -1414,7 +1414,7 @@ ifpromisc(ifp, pswitch)
 	register int pswitch;
 {
 	register int pcount, ret;
-	register short flags;
+	register unsigned long int flags;
 	struct ifreq ifr;
 
 	pcount = ifp->if_pcount;

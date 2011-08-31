@@ -192,8 +192,7 @@ struct ifnet {				/* and the entries */
 	caddr_t	if_bpf;			/* packet filter structure */
 	u_short	if_index;		/* numeric abbreviation for this if */
 	short	if_timer;		/* time 'til if_watchdog called */
-	short	if_flags;		/* up/down, broadcast, etc. */
-	short	if__pad1;		/* be nice to m68k ports */
+	unsigned long int if_flags;	/* up/down, broadcast, etc. */
 	struct	if_data if_data;	/* statistics and other data about if */
 	/*
 	 * Procedure handles.  If you add more of these, don't forget the
@@ -401,7 +400,7 @@ struct	ifreq {
 		struct	sockaddr ifru_addr;
 		struct	sockaddr ifru_dstaddr;
 		struct	sockaddr ifru_broadaddr;
-		short	ifru_flags;
+		unsigned long int ifru_flags;
 		int	ifru_metric;
 		int	ifru_mtu;
 		u_int	ifru_value;
