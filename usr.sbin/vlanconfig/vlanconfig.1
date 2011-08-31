@@ -1,0 +1,65 @@
+.\" This file is in the public domain.
+.Dd November 3, 2000
+.Dt VLANCONFIG 1
+.Os NetBSD 1.4T
+.Sh NAME
+.Nm vlanconfig
+.Nd configure vlan interfaces
+.Sh SYNOPSIS
+.Nm
+.Ar vlanX
+.br
+.Nm
+.Ar vlanX
+.Ar iface
+.Ar vlan
+.br
+.Nm
+.Ar vlanX
+.Dv down
+.Sh DESCRIPTION
+.Nm
+configures, or queries the configuration of,
+.Xr vlan 4
+interfaces.  A
+.Xr vlan 4
+interface layers 801.1Q VLAN encapsulation on top of a normal Ethernet
+interface.
+.Pp
+When run with only one argument,
+.Nm
+prints the settings for the specified interface.
+.Pp
+When run with three arguments,
+.Nm
+sets the underlying interface and vlan number for the specified
+interface.
+To receive packets with no VLAN tag, the
+.Ar vlan
+argument should be the word
+.Sq none ;
+to receive packets which would otherwise not be received, the
+.Ar vlan
+argument should be the word
+.Sq other .
+(A
+.Xr vlan 4
+interface configured as
+.Sq other
+silently drops output packets, since there is no vlan number to put in
+outgoing packets.)
+.Pp
+When run with two arguments, the second of which is the word
+.Sq down ,
+.Nm
+unconfigures the interface, returning it to the state it is in at boot
+time.
+.Pp
+For packet transport to actually work, the underlying interface has to
+be up, but it does not have to have any addresses (except the
+link-layer address it always has).
+.Sh SEE ALSO
+.Xr vlan 4
+.Sh AUTHOR
+der Mouse,
+.Aq mouse@rodents.montreal.qc.ca .
