@@ -68,6 +68,11 @@ __KERNEL_RCSID(0, "$NetBSD: wsfont.c,v 1.12 2000/01/07 03:25:46 enami Exp $");
 #include <dev/wsfont/lucida16x29.h>
 #endif
 
+#ifdef FONT_BOLD8x16
+#define HAVE_FONT 1
+#include <dev/wsfont/bold8x16.h>
+#endif
+
 #ifdef FONT_VT220L8x8
 #define HAVE_FONT 1
 #include <dev/wsfont/vt220l8x8.h>
@@ -81,11 +86,11 @@ __KERNEL_RCSID(0, "$NetBSD: wsfont.c,v 1.12 2000/01/07 03:25:46 enami Exp $");
 /* Make sure we always have at least one font. */
 #ifndef HAVE_FONT
 #define HAVE_FONT 1
-#define FONT_BOLD8x16 1
+#define FONT_FIXED6x13 1
 #endif
 
-#ifdef FONT_BOLD8x16
-#include <dev/wsfont/bold8x16.h>
+#ifdef FONT_FIXED6x13
+#include <dev/wsfont/fixed6x13.h>
 #endif
 
 /* Placeholder struct used for linked list */
@@ -123,6 +128,9 @@ static struct font *list, builtin_fonts[] = {
 #endif
 #ifdef FONT_VT220L8x10
 	{ NULL, NULL, &vt220l8x10, 0, 8, WSFONT_STATIC | WSFONT_BUILTIN },
+#endif
+#ifdef FONT_FIXED6x13
+	{ NULL, NULL, &fixed6x13, 0, 7, WSFONT_STATIC | WSFONT_BUILTIN },
 #endif
 	{ NULL, NULL, NULL, 0 },
 };
