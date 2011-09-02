@@ -103,7 +103,7 @@ rcons_init(rc, mrow, mcol)
 	struct raster *rp = rc->rc_sp;
 	int i;
 
-	rcons_initfont(rc, &gallant19);
+	rcons_initfont(rc, &default_wsfont);
 
 	i = rp->height / rc->rc_font->height;
 	rc->rc_maxrow = min(i, mrow);
