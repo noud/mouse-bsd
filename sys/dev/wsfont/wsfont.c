@@ -98,7 +98,7 @@ struct font {
 	u_short	flg;
 };
 
-/* Our list of built-in fonts */
+/* Our list of built-in fonts.  The last font compiled into this list is the default. */
 static struct font *list, builtin_fonts[] = {
 #ifdef FONT_BOLD8x16
 	{ NULL, NULL, &bold8x16, 0, 1, WSFONT_STATIC | WSFONT_BUILTIN  },
