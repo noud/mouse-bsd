@@ -44,6 +44,10 @@
 #ifndef _NET_BPF_H_
 #define _NET_BPF_H_
 
+#include <sys/mbuf.h>
+#include <sys/time.h>
+#include <sys/types.h>
+
 /* BSD style release date */
 #define BPF_RELEASE 199606
 
