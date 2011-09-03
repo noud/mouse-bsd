@@ -29,3 +29,8 @@ ${PROG}: ${OBJS} ${LIBSA}
 	rm -f a.out
 
 .include <bsd.prog.mk>
+
+cleandir distclean: cleanlibdir
+
+cleanlibdir:
+	rm -rf lib
