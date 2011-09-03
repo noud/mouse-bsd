@@ -31,6 +31,7 @@
 #ifndef _NET_PFIL_H_
 #define _NET_PFIL_H_
 
+#include <sys/cdefs.h>
 #include <sys/queue.h>
 
 struct protosw;
