@@ -35,6 +35,8 @@
  *	@(#)ns.h	8.1 (Berkeley) 6/10/93
  */
 
+#include <sys/types.h>
+
 /*
  * Constants and Structures defined by the Xerox Network Software
  * per "Internet Transport Protocols", XSIS 028112, December 1981
