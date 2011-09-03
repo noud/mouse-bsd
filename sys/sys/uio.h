@@ -40,6 +40,8 @@
 
 #include <sys/featuretest.h>
 
+#include <sys/types.h>
+
 struct iovec {
 	void	*iov_base;	/* Base address. */
 	size_t	 iov_len;	/* Length. */
