@@ -53,7 +53,8 @@ struct	sockaddr_un {
  * Socket options for UNIX IPC domain.
  */
 #if !defined(_XOPEN_SOURCE)
-#define	LOCAL_CREDS	0x0001		/* pass credentials to receiver */
+#define	LOCAL_CREDS		0x0001	/* pass credentials to receiver */
+#define	LOCAL_CREDS_STICKY	0x0002	/* LOCAL_CREDS is sticky */
 #endif
 
 #ifdef _KERNEL

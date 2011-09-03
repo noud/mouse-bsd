@@ -86,6 +86,7 @@ struct	unpcb {
 
 /* unp_flags */
 #define	UNP_WANTCRED	0x0001		/* credentials wanted */
+#define	UNP_STICKYCRED	0x0002		/* UNP_WANTCRED is sticky */
 
 #define	sotounpcb(so)	((struct unpcb *)((so)->so_pcb))
 

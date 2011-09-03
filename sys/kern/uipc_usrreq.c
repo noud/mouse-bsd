@@ -307,9 +307,10 @@ uipc_usrreq(so, req, m, nam, control, p)
 			if (unp->unp_conn->unp_flags & UNP_WANTCRED) {
 				/*
 				 * Credentials are passed only once on
-				 * SOCK_STREAM.
+				 * SOCK_STREAM, unless sticky.
 				 */
-				unp->unp_conn->unp_flags &= ~UNP_WANTCRED;
+				if (! (unp->unp_conn->unp_flags & UNP_STICKYCRED))
+					unp->unp_conn->unp_flags &= ~UNP_WANTCRED;
 				control = unp_addsockcred(p, control);
 			}
 			/*
@@ -411,6 +412,7 @@ uipc_ctloutput(op, so, level, optname, mp)
 	case PRCO_SETOPT:
 		switch (optname) {
 		case LOCAL_CREDS:
+		case LOCAL_CREDS_STICKY:
 			if (m == NULL || m->m_len != sizeof(int))
 				error = EINVAL;
 			else {
@@ -424,6 +426,10 @@ uipc_ctloutput(op, so, level, optname, mp)
 
 				case LOCAL_CREDS:
 					OPTSET(UNP_WANTCRED);
+					break;
+
+				case LOCAL_CREDS_STICKY:
+					OPTSET(UNP_STICKYCRED);
 					break;
 				}
 			}
@@ -441,6 +447,7 @@ uipc_ctloutput(op, so, level, optname, mp)
 	case PRCO_GETOPT:
 		switch (optname) {
 		case LOCAL_CREDS:
+		case LOCAL_CREDS_STICKY:
 			*mp = m = m_get(M_WAIT, MT_SOOPTS);
 			m->m_len = sizeof(int);
 			switch (optname) {
@@ -449,6 +456,10 @@ uipc_ctloutput(op, so, level, optname, mp)
 
 			case LOCAL_CREDS:
 				optval = OPTBIT(UNP_WANTCRED);
+				break;
+
+			case LOCAL_CREDS_STICKY:
+				optval = OPTBIT(UNP_STICKYCRED);
 				break;
 			}
 			*mtod(m, int *) = optval;
