@@ -47,71 +47,77 @@ char *from, *to;
 	return 0;
     }
 
-    if (origprae) {
-	Strcpy(bakname, origprae);
-	Strcat(bakname, to);
+    if (backup_type == none) {
+	/* "while" for the benefit of versioning filesystems
+	   such as the VMS filesystem underneath Eunice. */
+	while ((stat(to,&filestat) >= 0) && (unlink(to) >= 0)) ;
     } else {
+	if (origprae) {
+	    Strcpy(bakname, origprae);
+	    Strcat(bakname, to);
+	} else {
 #ifndef NODIR
-	char *backupname = find_backup_file_name(to);
-	if (backupname == (char *) 0)
-	    fatal1("out of memory\n");
-	Strcpy(bakname, backupname);
-	free(backupname);
+	    char *backupname = find_backup_file_name(to);
+	    if (backupname == (char *) 0)
+		fatal1("out of memory\n");
+	    Strcpy(bakname, backupname);
+	    free(backupname);
 #else /* NODIR */
-	Strcpy(bakname, to);
-    	Strcat(bakname, simple_backup_suffix);
+	    Strcpy(bakname, to);
+    	    Strcat(bakname, simple_backup_suffix);
 #endif /* NODIR */
-    }
-
-    if (stat(to, &filestat) == 0) {	/* output file exists */
-	dev_t to_device = filestat.st_dev;
-	ino_t to_inode  = filestat.st_ino;
-	char *simplename = bakname;
-
-	for (s=bakname; *s; s++) {
-	    if (*s == '/')
-		simplename = s+1;
 	}
-	/* Find a backup name that is not the same file.
-	   Change the first lowercase char into uppercase;
-	   if that isn't sufficient, chop off the first char and try again.  */
-	while (stat(bakname, &filestat) == 0 &&
-		to_device == filestat.st_dev && to_inode == filestat.st_ino) {
-	    /* Skip initial non-lowercase chars.  */
-	    for (s=simplename; *s && !islower((unsigned char)*s); s++) ;
-	    if (*s)
-		*s = toupper(*s);
-	    else
-		Strcpy(simplename, simplename+1);
-	}
-	while (unlink(bakname) >= 0) ;	/* while() is for benefit of Eunice */
-#ifdef DEBUGGING
-	if (debug & 4)
-	    say3("Moving %s to %s.\n", to, bakname);
-#endif
-	if (link(to, bakname) < 0) {
-	    /* Maybe `to' is a symlink into a different file system.
-	       Copying replaces the symlink with a file; using rename
-	       would be better.  */
-	    Reg4 int tofd;
-	    Reg5 int bakfd;
 
-	    bakfd = creat(bakname, 0666);
-	    if (bakfd < 0) {
-		say4("Can't backup %s, output is in %s: %s\n", to, from,
-		     strerror(errno));
-		return -1;
+	if (stat(to, &filestat) == 0) {	/* output file exists */
+	    dev_t to_device = filestat.st_dev;
+	    ino_t to_inode  = filestat.st_ino;
+	    char *simplename = bakname;
+
+	    for (s=bakname; *s; s++) {
+		if (*s == '/')
+		    simplename = s+1;
 	    }
-	    tofd = open(to, 0);
-	    if (tofd < 0)
-		pfatal2("internal error, can't open %s", to);
-	    while ((i=read(tofd, buf, sizeof buf)) > 0)
-		if (write(bakfd, buf, i) != i)
-		    pfatal1("write failed");
-	    Close(tofd);
-	    Close(bakfd);
+	    /* Find a backup name that is not the same file.
+	       Change the first lowercase char into uppercase;
+	       if that isn't sufficient, chop off the first char and try again.  */
+	    while (stat(bakname, &filestat) == 0 &&
+		    to_device == filestat.st_dev && to_inode == filestat.st_ino) {
+		/* Skip initial non-lowercase chars.  */
+		for (s=simplename; *s && !islower((unsigned char)*s); s++) ;
+		if (*s)
+		    *s = toupper(*s);
+		else
+		    Strcpy(simplename, simplename+1);
+	    }
+	    while (unlink(bakname) >= 0) ;	/* while() is for benefit of Eunice */
+#ifdef DEBUGGING
+	    if (debug & 4)
+		say3("Moving %s to %s.\n", to, bakname);
+#endif
+	    if (link(to, bakname) < 0) {
+		/* Maybe `to' is a symlink into a different file system.
+		   Copying replaces the symlink with a file; using rename
+		   would be better.  */
+		Reg4 int tofd;
+		Reg5 int bakfd;
+
+		bakfd = creat(bakname, 0666);
+		if (bakfd < 0) {
+		    say4("Can't backup %s, output is in %s: %s\n", to, from,
+			 strerror(errno));
+		    return -1;
+		}
+		tofd = open(to, 0);
+		if (tofd < 0)
+		    pfatal2("internal error, can't open %s", to);
+		while ((i=read(tofd, buf, sizeof buf)) > 0)
+		    if (write(bakfd, buf, i) != i)
+			pfatal1("write failed");
+		Close(tofd);
+		Close(bakfd);
+	    }
+	    while (unlink(to) >= 0) ;
 	}
-	while (unlink(to) >= 0) ;
     }
 #ifdef DEBUGGING
     if (debug & 4)

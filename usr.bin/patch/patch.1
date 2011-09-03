@@ -66,6 +66,11 @@ switches.
 The extension used for making backup files may also be specified in the
 .B SIMPLE_BACKUP_SUFFIX
 environment variable, which is overridden by above switches.
+.B SIMPLE_BACKUP_SUFFIX
+may also have a zero-length value, which works like a zero-length
+argument to
+.B \-b
+(see below).
 .PP
 If the backup file already exists,
 .B patch
@@ -207,7 +212,11 @@ recognizes the following switches:
 .TP 5
 .B \-b or \-\-suffix
 causes the next argument to be interpreted as the backup extension, to be
-used in place of \*(L".orig\*(R" or \*(L"~\*(R".
+used in place of \*(L".orig\*(R" or \*(L"~\*(R".  However, if the
+argument is zero-length (that is, is \*(L"\*(R"), suppress backups
+entirely, like
+.B \-V
+.BR none .
 .TP 5
 .B \-B or \-\-prefix
 causes the next argument to be interpreted as a prefix to the backup file
@@ -407,8 +416,8 @@ environment variable and the argument to the
 .B -V
 option are like the GNU
 Emacs `version-control' variable; they also recognize synonyms that
-are more descriptive.  The valid values are (unique abbreviations are
-accepted):
+are more descriptive, and provide one additional option.
+The valid values are (unique abbreviations are accepted):
 .RS
 .TP
 `t' or `numbered'
@@ -421,6 +430,9 @@ This is the default.
 .TP
 `never' or `simple'
 Always make simple backups.
+.TP
+`none'
+Don't make backups at all.
 .RE
 .TP 5
 .B \-x<number> or \-\-debug <number>

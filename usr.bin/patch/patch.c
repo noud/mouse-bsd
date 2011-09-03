@@ -119,9 +119,16 @@ char **argv;
 
       v = getenv ("SIMPLE_BACKUP_SUFFIX");
       if (v)
-	simple_backup_suffix = v;
+       { if (! *v)
+	  { backup_type = none;
+	  }
+	 else
+	  { simple_backup_suffix = v;
+	  }
+       }
       else
-	simple_backup_suffix = ORIGEXT;
+       { simple_backup_suffix = ORIGEXT;
+       }
 #ifndef NODIR
       v = getenv ("VERSION_CONTROL");
       backup_type = get_version (v); /* OK to pass NULL. */
