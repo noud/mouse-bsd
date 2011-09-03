@@ -1,0 +1,40 @@
+.\" This file is in the public domain.
+.Dd September 2, 1996
+.Dt MOTP-ADD 1
+.Os NetBSD 1.2BETA
+.Sh NAME
+.Nm motp-add
+.Nd add one-time passwords
+.Sh SYNOPSIS
+.Nm
+.Op Fl dir Pa directory
+.Sh DESCRIPTION
+.Nm
+adds one-time passwords for use by
+.Xr login 1
+when given the
+.Sq motp
+special response to the password prompt.  Its operation is simple: it
+prompts for new passwords; as each new password is entered, it is
+recorded for later use by
+.Xr login 1 .
+.Pp
+The
+.Fl dir
+option allows specification of a directory other than
+.Pa \&~/.motp
+as the directory to keep the database of passwords in.
+.Pp
+Echoing is not turned off, nor are passwords prompted for twice.
+.Nm
+assumes that new password entry is done from a
+.Sq secure
+session, so shoulder-surfers and session sniffers are not a concern.
+Passwords are read from standard input, one per line; input can be
+redirected from a file if desired, though ever keeping passwords in
+cleartext form in a file is a very bad idea in almost all environments.
+.Sh FILES
+.Pa \&~/.motp/passwords
+.Sh AUTHOR
+der Mouse,
+.Aq mouse@rodents.montreal.qc.ca .

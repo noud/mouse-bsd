@@ -15,6 +15,8 @@ CPPFLAGS+=-DLOGIN_CAP
 
 .include <bsd.own.mk>
 
+CPPFLAGS += -DMOTP
+
 .ifdef SKEY
 CPPFLAGS+=-DSKEY
 DPADD+= ${LIBSKEY}

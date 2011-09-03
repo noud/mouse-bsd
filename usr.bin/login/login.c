@@ -131,6 +131,9 @@ extern krb5_context kcontext;
 extern int	have_forward;
 extern int	use_krb5;
 #endif
+#ifdef MOTP
+char	motppw[] = "motp";
+#endif
 
 struct	passwd *pwd;
 int	failures;
@@ -141,6 +144,77 @@ Copyright (c) 1996, 1997, 1998, 1999, 2000
 \tThe NetBSD Foundation, Inc.  All rights reserved.
 Copyright (c) 1980, 1983, 1986, 1988, 1990, 1991, 1993, 1994
 \tThe Regents of the University of California.  All rights reserved.\n\n";
+
+#ifdef MOTP
+static int
+motp_authenticate(struct passwd *pw)
+{
+	char           *p;
+	char           *tmp;
+	int             rfd;
+	int             wfd;
+	FILE           *f;
+	char            hbuf[256];
+	int             hbx;
+	int             c;
+
+	p = getpass("Password:");
+	tmp = malloc(strlen(pw->pw_dir) + 17);
+	if (tmp == 0)
+		goto bail;
+	sprintf(tmp, "%s/.motp/passwords", pw->pw_dir);
+	seteuid(pw->pw_uid);
+	rfd = open(tmp, O_RDONLY, 0);
+	wfd = -1; /* pacify gcc -Wunused */
+	if (rfd >= 0)
+		wfd = open(tmp, O_WRONLY, 0);
+	seteuid(0);
+	free(tmp);
+	if (rfd < 0)
+		goto bail;
+	if (wfd < 0) {
+		close(rfd);
+		goto bail;
+	}
+	if (flock(wfd, LOCK_EX) < 0) {
+		close(rfd);
+		close(wfd);
+		goto bail;
+	}
+	f = fdopen(rfd, "r");
+	hbx = 0;
+	while (1) {
+		c = getc(f);
+		if ((c == EOF) || (hbx >= sizeof(hbuf)))
+			break;
+		hbuf[hbx++] = c;
+		if (c == '\0') {
+			if (!strcmp(crypt(p, &hbuf[0]), &hbuf[0])) {
+				bzero(p, strlen(p));
+				while (1) {
+					c = fread(&hbuf[0], 1, sizeof(hbuf), f);
+					if (c < 1)
+						break;
+					write(wfd, &hbuf[0], c);
+				}
+				ftruncate(wfd, lseek(wfd, 0, SEEK_CUR));
+				flock(wfd, LOCK_UN);
+				close(wfd);
+				fclose(f);
+				return (1);
+			}
+			hbx = 0;
+		}
+	}
+	flock(wfd, LOCK_UN);
+	close(wfd);
+	fclose(f);
+	return (0);
+bail:	;
+	crypt(":abcdefgh", ":ijklmnop");
+	return (0);
+}
+#endif
 
 int
 main(argc, argv)
@@ -395,6 +469,11 @@ main(argc, argv)
 			goto skip;
 		}
 #endif
+		if (!strcmp(p,&motppw[0]) &&
+		    motp_authenticate(pwd)) {
+			rval = 0;
+			goto skip;
+		}
 		if (!sflag && *pwd->pw_passwd != '\0' &&
 		    !strcmp(crypt(p, pwd->pw_passwd), pwd->pw_passwd)) {
 			rval = 0;

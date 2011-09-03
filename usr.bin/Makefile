@@ -25,7 +25,7 @@ SUBDIR=	apply apropos asa at audio banner basename biff \
 	uudecode uuencode vacation vgrind vi vis vmstat w \
 	wall wc what whatis whereis which who whois window \
 	write xargs xinstall xlint xstr yacc yes ypcat \
-	ypmatch ypwhich
+	ypmatch ypwhich motp-add
 
 .if defined(CRYPTOPATH)
 .sinclude "${CRYPTOPATH}/usr.bin/Makefile.frag"
