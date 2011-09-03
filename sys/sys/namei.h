@@ -38,6 +38,7 @@
 #ifndef _SYS_NAMEI_H_
 #define	_SYS_NAMEI_H_
 
+#include <sys/uio.h>
 #include <sys/queue.h>
 
 /*
