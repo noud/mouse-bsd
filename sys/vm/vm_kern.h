@@ -66,6 +66,8 @@
 
 /* Kernel memory management definitions. */
 
+#include <vm/vm.h>
+
 extern vm_map_t	buffer_map;
 extern vm_map_t	exec_map;
 extern vm_map_t	kernel_map;
