@@ -39,6 +39,10 @@
 #ifndef _SBUS_VAR_H
 #define _SBUS_VAR_H
 
+#include <sys/cdefs.h>
+#include <sys/types.h>
+#include <machine/bus.h>
+
 struct sbus_softc;
 
 /*
