@@ -87,6 +87,8 @@
 #include "opt_multiprocessor.h"
 #endif
 
+#include <sys/cdefs.h>
+#include <sys/types.h>
 #include <sys/queue.h>
 
 /*
