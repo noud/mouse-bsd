@@ -47,6 +47,8 @@
 #ifndef _SYS_DEVICE_H_
 #define	_SYS_DEVICE_H_
 
+#include <sys/cdefs.h>
+#include <sys/types.h>
 #include <sys/queue.h>
 
 /*
