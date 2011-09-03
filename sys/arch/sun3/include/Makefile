@@ -10,6 +10,6 @@ INCS=	ansi.h aout_machdep.h asm.h autoconf.h bswap.h cdefs.h cg2reg.h cpu.h \
 	param.h param3.h param3x.h pcb.h pmap.h pmap3.h pmap3x.h proc.h \
 	profile.h psl.h pte.h pte3.h pte3x.h ptrace.h reg.h setjmp.h signal.h \
 	stdarg.h svr4_machdep.h trap.h types.h varargs.h vmparam.h vmparam3.h \
-	vmparam3x.h vuid_event.h z8530var.h
+	vmparam3x.h vuid_event.h z8530var.h intr.h
 
 .include <bsd.kinc.mk>
