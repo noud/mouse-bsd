@@ -925,6 +925,8 @@ get_port(ai, servname, matchonly)
 		if (port < 0 || port > 65535)
 			return EAI_SERVICE;
 	} else {
+		if (ai->ai_flags & AI_NUMERICSERV)
+			return EAI_NONAME;
 		switch (ai->ai_socktype) {
 		case SOCK_DGRAM:
 			proto = "udp";

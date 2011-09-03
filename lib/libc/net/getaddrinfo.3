@@ -74,7 +74,7 @@ structure is defined as a result of including the
 header:
 .Bd -literal -offset
 struct addrinfo {                                                  *
-     int     ai_flags;     /* AI_PASSIVE, AI_CANONNAME, AI_NUMERICHOST */
+     int     ai_flags;     /* AI_PASSIVE, AI_CANONNAME, AI_NUMERICHOST, AI_NUMERICSERV */
      int     ai_family;    /* PF_xxx */
      int     ai_socktype;  /* SOCK_xxx */
      int     ai_protocol;  /* 0 or IPPROTO_xxx for IPv4 and IPv6 */
@@ -268,6 +268,20 @@ Otherwise an error of
 is returned.
 This flag prevents any type of name resolution service (e.g., the DNS)
 from being called.
+.Pp
+Similarly, the
+.Dv AI_NUMERICSERV
+bit requires a
+.Pf non Dv -NULL
+.Fa servname
+to be
+.Sq numeric ,
+whatever that means for the protocol suite in question (for example,
+for TCP it must be a numeric port number rather than a service name).
+Otherwise an error of
+.Dv EAI_NONAME
+is returned.  This flag prevents service name resolution from being
+performed.
 .Pp
 All of the information returned by
 .Fn getaddrinfo
