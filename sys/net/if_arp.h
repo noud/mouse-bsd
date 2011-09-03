@@ -37,6 +37,9 @@
 
 #ifndef _NET_IF_ARP_H_
 #define _NET_IF_ARP_H_
+
+#include <sys/socket.h>
+
 /*
  * Address Resolution Protocol.
  *
