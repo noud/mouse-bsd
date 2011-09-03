@@ -38,6 +38,8 @@
 #ifndef _SYS_UN_H_
 #define _SYS_UN_H_
 
+#include <sys/types.h>
+
 /*
  * Definitions for UNIX IPC domain.
  */
