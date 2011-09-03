@@ -123,7 +123,7 @@ uvm_unlock_fpageq(s)
 struct vm_page *
 uvm_pagelookup(obj, off)
 	struct uvm_object *obj;
-	vaddr_t off;
+	voff_t off;
 {
 	struct vm_page *pg;
 	struct pglist *buck;

@@ -49,11 +49,12 @@
  *   (struct vnode *) == (struct uvm_vnode *) == (struct uvm_object *)
  */
 
+#include <uvm/uvm_voff_t.h>
 struct uvm_vnode {
 	struct uvm_object u_obj;	/* the actual VM object */
 	int u_flags;			/* flags */
 	int u_nio;			/* number of running I/O requests */
-	vsize_t u_size;		/* size of object */
+	voff_t u_size;			/* size of object */
 
 	/* the following entry is locked by uvn_wl_lock */
 	LIST_ENTRY(uvm_vnode) u_wlist;	/* list of writeable vnode objects */

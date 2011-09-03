@@ -117,7 +117,7 @@ PAGE_INLINE void uvm_pagecopy __P((struct vm_page *, struct vm_page *));
 PAGE_INLINE void uvm_pagedeactivate __P((struct vm_page *));
 void uvm_pagefree __P((struct vm_page *));
 PAGE_INLINE struct vm_page *uvm_pagelookup
-					__P((struct uvm_object *, vaddr_t));
+					__P((struct uvm_object *, voff_t));
 void uvm_pageremove __P((struct vm_page *));
 /* uvm_pagerename: not needed */
 PAGE_INLINE void uvm_pageunwire __P((struct vm_page *));

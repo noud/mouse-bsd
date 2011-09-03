@@ -69,14 +69,14 @@ static simple_lock_data_t udv_lock;
  */
 
 static void		udv_init __P((void));
-struct uvm_object 	*udv_attach __P((void *, vm_prot_t, vaddr_t, vsize_t));
+struct uvm_object 	*udv_attach __P((void *, vm_prot_t, voff_t, vsize_t));
 static void             udv_reference __P((struct uvm_object *));
 static void             udv_detach __P((struct uvm_object *));
 static int		udv_fault __P((struct uvm_faultinfo *, vaddr_t,
 				       vm_page_t *, int, int, vm_fault_t,
 				       vm_prot_t, int));
-static boolean_t        udv_flush __P((struct uvm_object *, vaddr_t,
-					 vaddr_t, int));
+static boolean_t        udv_flush __P((struct uvm_object *, voff_t,
+					 voff_t, int));
 static int		udv_asyncget __P((struct uvm_object *, vaddr_t,
 					    int));
 static int		udv_put __P((struct uvm_object *, vm_page_t *,
@@ -133,7 +133,7 @@ struct uvm_object *
 udv_attach(arg, accessprot, off, size)
 	void *arg;
 	vm_prot_t accessprot;
-	vaddr_t off;			/* used only for access check */
+	voff_t off;			/* used only for access check */
 	vsize_t size;			/* used only for access check */
 {
 	dev_t device = *((dev_t *) arg);
@@ -151,6 +151,9 @@ udv_attach(arg, accessprot, off, size)
 	if (mapfn == NULL ||
 			mapfn == (int (*) __P((dev_t, int, int))) enodev ||
 			mapfn == (int (*) __P((dev_t, int, int))) nullop)
+		return(NULL);
+
+	if (off < 0)
 		return(NULL);
 
 	/*
@@ -375,7 +378,7 @@ udv_detach(uobj)
 
 static boolean_t udv_flush(uobj, start, stop, flags)
 	struct uvm_object *uobj;
-	vaddr_t start, stop;
+	voff_t start, stop;
 	int flags;
 {
 

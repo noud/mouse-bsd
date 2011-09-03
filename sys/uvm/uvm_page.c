@@ -852,7 +852,7 @@ uvm_page_physdump()
 struct vm_page *
 uvm_pagealloc_strat(obj, off, anon, flags, strat, free_list)
 	struct uvm_object *obj;
-	vaddr_t off;
+	voff_t off;
 	int flags;
 	struct vm_anon *anon;
 	int strat, free_list;
@@ -977,7 +977,7 @@ void
 uvm_pagerealloc(pg, newobj, newoff)
 	struct vm_page *pg;
 	struct uvm_object *newobj;
-	vaddr_t newoff;
+	voff_t newoff;
 {
 	/*
 	 * remove it from the old object

@@ -93,12 +93,12 @@ lock_data_t uvn_sync_lock;			/* locks sync operation */
 static int		   uvn_asyncget __P((struct uvm_object *, vaddr_t,
 					    int));
 struct uvm_object 	  *uvn_attach __P((void *, vm_prot_t));
-static void		   uvn_cluster __P((struct uvm_object *, vaddr_t,
-					   vaddr_t *, vaddr_t *));
+static void		   uvn_cluster __P((struct uvm_object *, voff_t,
+					   voff_t *, voff_t *));
 static void                uvn_detach __P((struct uvm_object *));
-static boolean_t           uvn_flush __P((struct uvm_object *, vaddr_t,
-					 vaddr_t, int));
-static int                 uvn_get __P((struct uvm_object *, vaddr_t,
+static boolean_t           uvn_flush __P((struct uvm_object *, voff_t,
+					 voff_t, int));
+static int                 uvn_get __P((struct uvm_object *, voff_t,
 					vm_page_t *, int *, int,
 					vm_prot_t, int, int));
 static void		   uvn_init __P((void));
@@ -281,22 +281,6 @@ uvn_attach(arg, accessprot)
 		simple_unlock(&uvn->u_obj.vmobjlock); /* drop lock */
 		UVMHIST_LOG(maphist,"<- done (VOP_GETATTR FAILED!)", 0,0,0,0);
 		return(NULL);
-	}
-
-	/*
-	 * make sure that the newsize fits within a vaddr_t
-	 * XXX: need to revise addressing data types
-	 */
-#ifdef DEBUG
-	if (vp->v_type == VBLK)
-		printf("used_vnode_size = %qu\n", (long long)used_vnode_size);
-#endif
-	if (used_vnode_size > (vaddr_t) -PAGE_SIZE) {
-#ifdef DEBUG
-		printf("uvn_attach: vn %p size truncated %qx->%x\n", vp,
-		    (long long)used_vnode_size, -PAGE_SIZE);
-#endif
-		used_vnode_size = (vaddr_t) -PAGE_SIZE;
 	}
 
 	/*
@@ -834,7 +818,7 @@ uvn_releasepg(pg, nextpgp)
 static boolean_t
 uvn_flush(uobj, start, stop, flags)
 	struct uvm_object *uobj;
-	vaddr_t start, stop;
+	voff_t start, stop;
 	int flags;
 {
 	struct uvm_vnode *uvn = (struct uvm_vnode *) uobj;
@@ -842,7 +826,7 @@ uvn_flush(uobj, start, stop, flags)
 	struct vm_page *pps[MAXBSIZE >> PAGE_SHIFT], **ppsp;
 	int npages, result, lcv;
 	boolean_t retval, need_iosync, by_list, needs_clean;
-	vaddr_t curoff;
+	voff_t curoff;
 	u_short pp_version;
 	UVMHIST_FUNC("uvn_flush"); UVMHIST_CALLED(maphist);
 
@@ -870,8 +854,8 @@ uvn_flush(uobj, start, stop, flags)
 	}
 
 	UVMHIST_LOG(maphist,
-	    " flush start=0x%x, stop=0x%x, by_list=%d, flags=0x%x",
-	    start, stop, by_list, flags);
+	    " flush start=0x%llx, stop=0x%llx, by_list=%d, flags=0x%x",
+	    (unsigned long long int)start, (unsigned long long int)stop, by_list, flags);
 
 	/*
 	 * PG_CLEANCHK: this bit is used by the pgo_mk_pcluster function as
@@ -1202,9 +1186,9 @@ ReTry:
 				} else {
 					if (result != VM_PAGER_OK) {
 						printf("uvn_flush: obj=%p, "
-						   "offset=0x%lx.  error "
+						   "offset=0x%llx.  error "
 						   "during pageout.\n",
-						    pp->uobject, pp->offset);
+						    pp->uobject, (unsigned long long int)pp->offset);
 						printf("uvn_flush: WARNING: "
 						    "changes to page may be "
 						    "lost!\n");
@@ -1259,8 +1243,8 @@ ReTry:
 static void
 uvn_cluster(uobj, offset, loffset, hoffset)
 	struct uvm_object *uobj;
-	vaddr_t offset;
-	vaddr_t *loffset, *hoffset; /* OUT */
+	voff_t offset;
+	voff_t *loffset, *hoffset; /* OUT */
 {
 	struct uvm_vnode *uvn = (struct uvm_vnode *) uobj;
 	*loffset = offset;
@@ -1319,13 +1303,13 @@ uvn_put(uobj, pps, npages, flags)
 static int
 uvn_get(uobj, offset, pps, npagesp, centeridx, access_type, advice, flags)
 	struct uvm_object *uobj;
-	vaddr_t offset;
+	voff_t offset;
 	struct vm_page **pps;		/* IN/OUT */
 	int *npagesp;			/* IN (OUT if PGO_LOCKED) */
 	int centeridx, advice, flags;
 	vm_prot_t access_type;
 {
-	vaddr_t current_offset;
+	voff_t current_offset;
 	struct vm_page *ptmp;
 	int lcv, result, gotpages;
 	boolean_t done;
@@ -1596,7 +1580,8 @@ uvn_io(uvn, pps, npages, flags, rw)
 	struct vnode *vn;
 	struct uio uio;
 	struct iovec iov;
-	vaddr_t kva, file_offset;
+	vaddr_t kva;
+	voff_t file_offset;
 	int waitf, result, got, wanted;
 	UVMHIST_FUNC("uvn_io"); UVMHIST_CALLED(maphist);
 
@@ -1940,7 +1925,7 @@ uvm_vnp_setsize(vp, newsize)
 			(void)uvn_flush(&uvn->u_obj, (vaddr_t) newsize,
 			    uvn->u_size, PGO_FREE);
 		}
-		uvn->u_size = (vaddr_t)newsize;
+		uvn->u_size = newsize;
 	}
 	simple_unlock(&uvn->u_obj.vmobjlock);
 

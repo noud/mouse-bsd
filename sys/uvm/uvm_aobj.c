@@ -178,10 +178,10 @@ static struct uao_swhash_elt	*uao_find_swhash_elt __P((struct uvm_aobj *,
 static int			 uao_find_swslot __P((struct uvm_aobj *,
 						      int));
 static boolean_t		 uao_flush __P((struct uvm_object *,
-						vaddr_t, vaddr_t,
+						voff_t, voff_t,
 						int));
 static void			 uao_free __P((struct uvm_aobj *));
-static int			 uao_get __P((struct uvm_object *, vaddr_t,
+static int			 uao_get __P((struct uvm_object *, voff_t,
 					      vm_page_t *, int *, int,
 					      vm_prot_t, int, int));
 static boolean_t		 uao_releasepg __P((struct vm_page *,
@@ -798,13 +798,13 @@ uao_detach_locked(uobj)
 boolean_t
 uao_flush(uobj, start, stop, flags)
 	struct uvm_object *uobj;
-	vaddr_t start, stop;
+	voff_t start, stop;
 	int flags;
 {
 	struct uvm_aobj *aobj = (struct uvm_aobj *) uobj;
 	struct vm_page *pp, *ppnext;
 	boolean_t retval, by_list;
-	vaddr_t curoff;
+	voff_t curoff;
 	UVMHIST_FUNC("uao_flush"); UVMHIST_CALLED(maphist);
 
 	curoff = 0;	/* XXX: shut up gcc */
@@ -813,23 +813,23 @@ uao_flush(uobj, start, stop, flags)
 
 	if (flags & PGO_ALLPAGES) {
 		start = 0;
-		stop = aobj->u_pages << PAGE_SHIFT;
+		stop = (voff_t)aobj->u_pages << PAGE_SHIFT;
 		by_list = TRUE;		/* always go by the list */
 	} else {
 		start = trunc_page(start);
 		stop = round_page(stop);
-		if (stop > (aobj->u_pages << PAGE_SHIFT)) {
+		if (stop > ((voff_t)aobj->u_pages << PAGE_SHIFT)) {
 			printf("uao_flush: strange, got an out of range "
 			    "flush (fixed)\n");
-			stop = aobj->u_pages << PAGE_SHIFT;
+			stop = (voff_t)aobj->u_pages << PAGE_SHIFT;
 		}
 		by_list = (uobj->uo_npages <=
 		    ((stop - start) >> PAGE_SHIFT) * UAO_HASH_PENALTY);
 	}
 
 	UVMHIST_LOG(maphist,
-	    " flush start=0x%lx, stop=0x%x, by_list=%d, flags=0x%x",
-	    start, stop, by_list, flags);
+	    " flush start=0x%llx, stop=0x%llx, by_list=%d, flags=0x%x",
+	    (unsigned long long int) start, (unsigned long long int) stop, by_list, flags);
 
 	/*
 	 * Don't need to do any work here if we're not freeing
@@ -966,21 +966,21 @@ uao_flush(uobj, start, stop, flags)
 static int
 uao_get(uobj, offset, pps, npagesp, centeridx, access_type, advice, flags)
 	struct uvm_object *uobj;
-	vaddr_t offset;
+	voff_t offset;
 	struct vm_page **pps;
 	int *npagesp;
 	int centeridx, advice, flags;
 	vm_prot_t access_type;
 {
 	struct uvm_aobj *aobj = (struct uvm_aobj *)uobj;
-	vaddr_t current_offset;
+	voff_t current_offset;
 	vm_page_t ptmp;
 	int lcv, gotpages, maxpages, swslot, rv, pageidx;
 	boolean_t done;
 	UVMHIST_FUNC("uao_get"); UVMHIST_CALLED(pdhist);
 
-	UVMHIST_LOG(pdhist, "aobj=%p offset=%d, flags=%d",
-		    aobj, offset, flags,0);
+	UVMHIST_LOG(pdhist, "aobj=%p offset=%lld, flags=%d",
+		    aobj, (long long int)offset, flags,0);
 
 	/*
  	 * get number of pages

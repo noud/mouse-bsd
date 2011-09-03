@@ -573,7 +573,9 @@ uvm_fault(orig_map, vaddr, fault_type, access_type)
 	vm_prot_t enter_prot;
 	boolean_t wired, narrow, promote, locked, shadowed;
 	int npages, nback, nforw, centeridx, result, lcv, gotpages;
-	vaddr_t startva, objaddr, currva, offset;
+	vaddr_t startva, currva;
+	voff_t offset;
+	voff_t objaddr;
 	paddr_t pa;
 	struct vm_amap *amap;
 	struct uvm_object *uobj;

@@ -357,7 +357,7 @@ void uvm_map_clip_start(map, entry, start)
 	vaddr_t    start;
 {
 	vm_map_entry_t new_entry;
-	vaddr_t new_adj;
+	voff_t new_adj;
 
 	/* uvm_map_simplify_entry(map, entry); */ /* XXX */
 
@@ -371,7 +371,7 @@ void uvm_map_clip_start(map, entry, start)
 	uvm_mapent_copy(entry, new_entry); /* entry -> new_entry */
 
 	new_entry->end = start;
-	new_adj = start - new_entry->start;
+	new_adj = (voff_t)start - (voff_t)new_entry->start;
 	if (entry->object.uvm_obj)
 		entry->offset += new_adj;	/* shift start over */
 	entry->start = start;
@@ -410,7 +410,7 @@ uvm_map_clip_end(map, entry, end)
 	vaddr_t	end;
 {
 	vm_map_entry_t	new_entry;
-	vaddr_t new_adj; /* #bytes we move start forward */
+	voff_t new_adj; /* #bytes we move start forward */
 
 	/*
 	 *	Create a new entry and insert it
@@ -421,7 +421,7 @@ uvm_map_clip_end(map, entry, end)
 	uvm_mapent_copy(entry, new_entry); /* entry -> new_entry */
 
 	new_entry->start = entry->end = end;
-	new_adj = end - entry->start;
+	new_adj = (voff_t)end - (voff_t)entry->start;
 	if (new_entry->object.uvm_obj)
 		new_entry->offset += new_adj;
 
@@ -472,7 +472,7 @@ uvm_map(map, startp, size, uobj, uoffset, flags)
 	vaddr_t *startp;	/* IN/OUT */
 	vsize_t size;
 	struct uvm_object *uobj;
-	vaddr_t uoffset;
+	voff_t uoffset;
 	uvm_flag_t flags;
 {
 	vm_map_entry_t prev_entry, new_entry;
@@ -485,7 +485,7 @@ uvm_map(map, startp, size, uobj, uoffset, flags)
 
 	UVMHIST_LOG(maphist, "(map=0x%x, *startp=0x%x, size=%d, flags=0x%x)",
 	    map, *startp, size, flags);
-	UVMHIST_LOG(maphist, "  uobj/offset 0x%x/%d", uobj, uoffset,0,0);
+	UVMHIST_LOG(maphist, "  uobj/offset 0x%x/%d", uobj, (int)uoffset,0,0);
 
 	/*
 	 * step 0: sanity check of protection code
@@ -801,7 +801,7 @@ uvm_map_findspace(map, hint, length, result, uobj, uoffset, fixed)
 	vsize_t length;
 	vaddr_t *result; /* OUT */
 	struct uvm_object *uobj;
-	vaddr_t uoffset;
+	voff_t uoffset;
 	boolean_t fixed;
 {
 	vm_map_entry_t entry, next, tmp;
@@ -3230,9 +3230,9 @@ uvm_map_printit(map, full, pr)
 		return;
 	for (entry = map->header.next; entry != &map->header;
 	    entry = entry->next) {
-		(*pr)(" - %p: 0x%lx->0x%lx: obj=%p/0x%x, amap=%p/%d\n",
+		(*pr)(" - %p: 0x%lx->0x%lx: obj=%p/0x%llx, amap=%p/%d\n",
 		    entry, entry->start, entry->end, entry->object.uvm_obj,
-		    entry->offset, entry->aref.ar_amap, entry->aref.ar_pageoff);
+		    (unsigned long long int)entry->offset, entry->aref.ar_amap, entry->aref.ar_pageoff);
 		(*pr)(
 "\tsubmap=%c, cow=%c, nc=%c, prot(max)=%d/%d, inh=%d, wc=%d, adv=%d\n",
 		    (entry->etype & UVM_ET_SUBMAP) ? 'T' : 'F',
@@ -3279,7 +3279,7 @@ uvm_object_printit(uobj, full, pr)
 	if (!full) return;
 	(*pr)("  PAGES <pg,offset>:\n  ");
 	for (pg = uobj->memq.tqh_first ; pg ; pg = pg->listq.tqe_next, cnt++) {
-		(*pr)("<%p,0x%lx> ", pg, pg->offset);
+		(*pr)("<%p,0x%llx> ", pg, (unsigned long long int)pg->offset);
 		if ((cnt % 3) == 2) (*pr)("\n  ");
 	}
 	if ((cnt % 3) != 2) (*pr)("\n");
@@ -3315,8 +3315,8 @@ uvm_page_printit(pg, full, pr)
 	(*pr)("PAGE %p:\n", pg);
 	(*pr)("  flags=0x%x, pqflags=0x%x, vers=%d, wire_count=%d, pa=0x%lx\n",
 	pg->flags, pg->pqflags, pg->version, pg->wire_count, (long)pg->phys_addr);
-	(*pr)("  uobject=%p, uanon=%p, offset=0x%lx loan_count=%d\n",
-	pg->uobject, pg->uanon, pg->offset, pg->loan_count);
+	(*pr)("  uobject=%p, uanon=%p, offset=0x%llx loan_count=%d\n",
+	pg->uobject, pg->uanon, (unsigned long long int)pg->offset, pg->loan_count);
 #if defined(UVM_PAGE_TRKOWN)
 	if (pg->flags & PG_BUSY)
 		(*pr)("  owning process = %d, tag=%s\n",

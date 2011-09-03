@@ -110,13 +110,14 @@
 #include <uvm/uvm_extern.h>
 #include <vm/pglist.h>
 
+#include <uvm/uvm_voff_t.h>
 struct vm_page {
   TAILQ_ENTRY(vm_page)	pageq;		/* queue info for FIFO
 					 * queue or free list (P) */
   TAILQ_ENTRY(vm_page)	hashq;		/* hash table links (O)*/
   TAILQ_ENTRY(vm_page)	listq;		/* pages in same object (O)*/
 
-  vaddr_t		offset;		/* offset into object (O,P) */
+  voff_t		offset;		/* offset into object (O,P) */
 
   struct uvm_object	*uobject;	/* object (O,P) */
   struct vm_anon	*uanon;		/* anon (O,P) */

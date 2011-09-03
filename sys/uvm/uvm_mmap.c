@@ -344,18 +344,6 @@ sys_mmap(p, v, retval)
 		return (EINVAL);
 
 	/*
-	 * make sure that the newsize fits within a vaddr_t
-	 * XXX: need to revise addressing data types
-	 */
-	if (pos + size > (vaddr_t)-PAGE_SIZE) {
-#ifdef DEBUG
-		printf("mmap: pos=%qx, size=%lx too big\n", (long long)pos,
-		       (long)size);
-#endif
-		return (EINVAL);
-	}
-
-	/*
 	 * align file position and save offset.  adjust size.
 	 */
 
@@ -414,6 +402,12 @@ sys_mmap(p, v, retval)
 		if (vp->v_type != VREG && vp->v_type != VCHR &&
 		    vp->v_type != VBLK)
 			return (ENODEV);  /* only REG/CHR/BLK support mmap */
+
+		if (vp->v_type != VCHR && pos < 0)
+			return (EINVAL);
+
+		if (vp->v_type != VCHR && (pos + size) < pos)
+			return (EINVAL);
 
 		/* special case: catch SunOS style /dev/zero */
 		if (vp->v_type == VCHR && iszerodev(vp->v_rdev)) {
@@ -1112,7 +1106,7 @@ uvm_mmap(map, addr, size, prot, maxprot, flags, handle, foff, locklimit)
 	vm_prot_t prot, maxprot;
 	int flags;
 	caddr_t handle;		/* XXX: VNODE? */
-	vaddr_t foff;
+	voff_t foff;
 	vsize_t locklimit;
 {
 	struct uvm_object *uobj;

@@ -100,13 +100,14 @@ union vm_map_object {
  *	and user-exported inheritance and protection information.
  *	Also included is control information for virtual copy operations.
  */
+#include <uvm/uvm_voff_t.h>
 struct vm_map_entry {
 	struct vm_map_entry	*prev;		/* previous entry */
 	struct vm_map_entry	*next;		/* next entry */
 	vaddr_t			start;		/* start address */
 	vaddr_t			end;		/* end address */
 	union vm_map_object	object;		/* object I point to */
-	vsize_t			offset;		/* offset into object */
+	voff_t			offset;		/* offset into object */
 	int			etype;		/* entry type */
 	vm_prot_t		protection;	/* protection code */
 	vm_prot_t		max_protection;	/* maximum protection */
