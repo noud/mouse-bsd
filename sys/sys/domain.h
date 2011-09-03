@@ -38,6 +38,8 @@
 #ifndef _SYS_DOMAIN_H_
 #define _SYS_DOMAIN_H_
 
+#include <sys/cdefs.h>
+
 /*
  * Structure per communications domain.
  */
