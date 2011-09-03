@@ -43,6 +43,8 @@
 #ifndef _SYS_KERNEL_H_
 #define _SYS_KERNEL_H_
 
+#include <sys/param.h>
+
 /* Global variables for the kernel. */
 
 extern long hostid;
