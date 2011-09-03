@@ -120,6 +120,7 @@ typedef	_BSD_SIZE_T_	size_t;
 #ifndef _KERNEL
 
 #include <sys/cdefs.h>
+#include <sys/types.h>
 
 __BEGIN_DECLS
 void   *mmap __P((void *, size_t, int, int, int, off_t));
