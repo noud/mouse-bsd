@@ -56,6 +56,8 @@
 #ifndef _NET_IF_DL_H_
 #define _NET_IF_DL_H_
 
+#include <sys/types.h>
+
 /*
  * Structure of a Link-Level sockaddr:
  */
