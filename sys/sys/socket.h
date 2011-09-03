@@ -173,8 +173,9 @@ struct	linger {
 #define	pseudo_AF_HDRCMPLT 30		/* Used by BPF to not rewrite hdrs
 					   in interface output routine */
 #endif
+#define AF_TIMER        31
 
-#define	AF_MAX		31
+#define	AF_MAX		32
 
 /*
  * Structure used by kernel to store most
@@ -260,6 +261,7 @@ struct sockaddr_storage {
 #if !defined(_XOPEN_SOURCE)
 #define PF_KEY 		pseudo_AF_KEY	/* like PF_ROUTE, only for key mgmt */
 #endif
+#define PF_TIMER	AF_TIMER
 
 #define	PF_MAX		AF_MAX
 

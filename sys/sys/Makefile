@@ -20,7 +20,7 @@ INCS=	acct.h ataio.h audioio.h buf.h bswap.h callout.h cdefs.h cdefs_aout.h \
 	tablet.h termios.h time.h timeb.h timepps.h times.h timex.h \
 	tprintf.h trace.h tty.h ttychars.h ttycom.h ttydefaults.h ttydev.h \
 	types.h ucred.h uio.h un.h unistd.h unpcb.h user.h utsname.h \
-	vadvise.h vmmeter.h vnode.h vnode_if.h vsio.h wait.h
+	vadvise.h vmmeter.h vnode.h vnode_if.h vsio.h wait.h timersock.h
 
 SYMLINKS= sys/exec_elf.h /usr/include/elf.h \
 	sys/fcntl.h /usr/include/fcntl.h \

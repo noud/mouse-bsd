@@ -86,6 +86,7 @@ domaininit()
 	 */
 #ifndef lint
 	ADDDOMAIN(unix);
+	ADDDOMAIN(timer);
 #ifdef INET
 	ADDDOMAIN(inet);
 #endif
