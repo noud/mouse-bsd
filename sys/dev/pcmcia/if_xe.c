@@ -1252,7 +1252,7 @@ xe_ether_ioctl(ifp, cmd, data)
 #ifdef INET
 		case AF_INET:
 			xe_init(sc);
-			arp_ifinit(&sc->sc_arpcom, ifa);
+			arp_ifinit(ifp, ifa);
 			break;
 #endif	/* INET */
 
