@@ -44,6 +44,7 @@
 #define	_SYS_SIGNAL_H_
 
 #include <sys/featuretest.h>
+#include <sys/types.h>
 
 #define _NSIG		33
 
