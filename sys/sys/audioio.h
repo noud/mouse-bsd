@@ -37,6 +37,9 @@
 #ifndef _SYS_AUDIOIO_H_
 #define _SYS_AUDIOIO_H_
 
+#include <sys/types.h>
+#include <sys/ioctl.h>
+
 /*
  * Audio device
  */
