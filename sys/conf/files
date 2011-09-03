@@ -968,6 +968,9 @@ file uvm/uvm_unix.c
 file uvm/uvm_user.c
 file uvm/uvm_vnode.c
 
+defpseudo srt: ifnet
+file dev/pseudo/if_srt.c srt needs-flag
+
 defpseudo vlan: arp, ether, ifnet
 file dev/pseudo/if_vlan.c vlan needs-flag
 
