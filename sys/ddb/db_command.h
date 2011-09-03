@@ -29,6 +29,9 @@
  *	Date:	7/90
  */
 
+#include <sys/cdefs.h>
+#include <machine/db_machdep.h>
+
 /*
  * Command loop declarations.
  */
