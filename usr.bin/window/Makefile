@@ -18,5 +18,6 @@ SRCS=	char.c cmd.c cmd1.c cmd2.c cmd3.c cmd4.c cmd5.c cmd6.c cmd7.c \
 MAN=	window.1
 DPADD=	${LIBTERMCAP}
 LDADD=	-ltermcap
+CFLAGS+=-funsigned-char
 
 .include <bsd.prog.mk>
