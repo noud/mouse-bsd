@@ -212,6 +212,16 @@ uipc_usrreq(so, req, m, nam, control, p)
 
 	case PRU_CONNECT:
 		error = unp_connect(so, nam, p);
+		if ((error == 0) &&
+		    (so->so_type == SOCK_STREAM) &&
+		    (unp->unp_conn->unp_flags & UNP_WANTCRED)) {
+			/* Do a zero-length send to get creds sent. */
+			MGETHDR(m, M_WAIT, MT_DATA);
+			m->m_pkthdr.len = 0;
+			m->m_pkthdr.rcvif = 0;
+			m->m_len = 0;
+			error = uipc_usrreq(so, PRU_SEND, m, 0, 0, p);
+		}
 		break;
 
 	case PRU_CONNECT2:
