@@ -38,6 +38,8 @@
 #ifndef _NETINET_IF_INARP_H_
 #define _NETINET_IF_INARP_H_
 
+#include <netinet/in.h>
+
 struct llinfo_arp {
 	LIST_ENTRY(llinfo_arp) la_list;
 	struct	rtentry *la_rt;
