@@ -49,9 +49,10 @@
  * related kernel definitions.
  */
 
+#include <sys/types.h>
+
 #ifndef _KERNEL
 #include <sys/featuretest.h>
-#include <sys/types.h>
 #if !defined(_POSIX_C_SOURCE) || defined(_XOPEN_SOURCE)
 #include <sys/stat.h>
 #endif /* !_POSIX_C_SOURCE */
