@@ -72,6 +72,7 @@
 #define	_VM_MAP_
 
 #include <uvm/uvm_anon.h>
+#include <machine/intr.h>
 
 /*
  *	Types defined:
