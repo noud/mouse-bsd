@@ -46,6 +46,7 @@
 #ifndef _SYS_VNODE_IF_H_
 #define _SYS_VNODE_IF_H_
 
+#include "vnode.h"
 extern struct vnodeop_desc vop_default_desc;
 
 
