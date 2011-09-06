@@ -91,6 +91,9 @@ struct sequencer_softc {
 
 	char	doingsysex;	/* doing a SEQ_SYSEX */
 
+	int *midivec;		/* what MIDI devices to use */
+	int midiveclen;		/* length of midivec, -1 -> use all */
+
 	int	nmidi;		/* number of MIDI devices */
 	struct	midi_dev **devs;
 	struct	syn_timer timer;

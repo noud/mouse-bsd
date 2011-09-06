@@ -1,0 +1,73 @@
+.\" This file is in the public domain.
+.Dd July 19, 2003
+.Dt SEQCTL 1
+.Os NetBSD 1.4T
+.Sh NAME
+.Nm seqctl
+.Nd configure sequencer devices
+.Sh SYNOPSIS
+.Nm
+.Op Fl d Ar device
+.Fl midi
+.Op Fl q \&| Fl d \&| Op Ar N Op Ar N ...
+.br
+.Nm
+.Op Fl d Ar device
+.Fl debug
+.Op Ar N
+.Sh DESCRIPTION
+.Nm
+configures, or queries the configuration of,
+.Xr sequencer 4
+MIDI sequencer devices.
+.Pp
+.Fl d
+specifies the sequencer device to use; by default,
+.Pa /dev/sequencer
+is used.  (This option is of use only if multiple sequencer devices are
+configured; this is not normally true.)
+.Pp
+A flag specifying what is to be queried or set must be specified.
+.Pp
+.Bl -tag -width indent
+.It Fl midi
+Set or query the sequencer's list of MIDI device unit numbers.  When a
+sequencer device is opened, it normally opens all available MIDI
+devices, making the MIDI interface behind
+.Pa /dev/rmidi Ar N
+available as unit
+.Ar N .
+This is not always desirable, and each sequencer device can have a list
+of underlying MIDI device units that it should use.  If this list is M
+entries long, then sequencer units run from 0 through M\&-1, and the
+Ith element of the list is the unit number of the MIDI device used as
+sequencer unit I.  If
+.Fl q
+is given, the current configuration is printed without changing it; if
+.Fl d
+is given, the configuration is reset to the default (ie, to use all
+available MIDI devices at open time).  Otherwise, the provided list of
+numbers replaces the current list.  (If no numbers are given, the list
+will contain zero entries.  This is not normally useful, as there then
+will be no underlying devices for the sequencer device to use.)
+.It Fl debug
+Set or query the kernel debugging setting.  There is a kernel variable
+.Va sequencerdebug ,
+which controls various kernel debugging messages.  It can be set to any
+non-negative
+.Va int
+value.  Exactly what this controls is not documented here; see the
+kernel source code (you will have to anyway to make sense out of the
+resulting messages).  When given with no argument, this prints the
+kernel debugging setting without disturbing it.  When an argument is
+given, it must be nonnegative, and the kernel debugging variable is set
+to that value.
+.El
+.Sh BUGS
+In order to perform its operation,
+.Nm
+must open the sequencer device, which has some side effects.  A way to
+avoid them for configuration purposes should be developed.
+.Sh AUTHOR
+der Mouse,
+.Aq mouse@rodents.montreal.qc.ca .

@@ -94,6 +94,19 @@ typedef struct {
 /*#define SEQUENCER_ID			_IOWR('Q',20, struct synth_info)*/
 /*#define SEQUENCER_CONTROL		_IOWR('Q',21, struct synth_control)*/
 /*#define SEQUENCER_REMOVESAMPLE		_IOWR('Q',22, struct remove_sample)*/
+#define SEQUENCER_DEBUG			_IOWR('Q',23, int)
+#define SEQUENCER_MIDICONF		_IOWR('Q',24, struct seq_midicsg)
+
+struct seq_midiconf {
+	int nunits;
+	int maxunits;
+	int *units;
+};
+
+struct seq_midicsg {
+	struct seq_midiconf *old;
+	struct seq_midiconf *new;
+};
 
 #if 0
 typedef struct synth_control {

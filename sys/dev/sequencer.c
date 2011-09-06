@@ -105,9 +105,14 @@ int	sequencerdebug = 0;
 #define SEQ_NOTE_XXX 255
 #define SEQ_VEL_OFF 0
 
+#ifndef SEQUENCER_MAXUNITS
+#define SEQUENCER_MAXUNITS 256
+#endif
+
 #define RECALC_TICK(t) ((t)->tick = 60 * 1000000L / ((t)->tempo * (t)->timebase))
 
-struct sequencer_softc seqdevs[NSEQUENCER];
+static int nsequencer;
+static struct sequencer_softc *seqdevs;
 
 void sequencerattach __P((int));
 void seq_reset __P((struct sequencer_softc *));
@@ -151,6 +156,16 @@ void
 sequencerattach(n)
 	int n;
 {
+ int i;
+
+ seqdevs = malloc(n*sizeof(*seqdevs),M_DEVBUF,M_NOWAIT);
+ if (seqdevs == 0)
+  { printf("sequencerattach: no memory\n");
+    nsequencer = 0;
+    return;
+  }
+ nsequencer = n;
+ for (i=nsequencer-1;i>=0;i--) seqdevs[i].midiveclen = -1;
 }
 
 int
@@ -163,10 +178,11 @@ sequenceropen(dev, flags, ifmt, p)
 	struct sequencer_softc *sc;
 	struct midi_dev *md;
 	int nmidi;
+	int maxmidi;
 
 	DPRINTF(("sequenceropen\n"));
 
-	if (unit >= NSEQUENCER)
+	if (unit >= nsequencer)
 		return (ENXIO);
 	sc = &seqdevs[unit];
 	if (sc->isopen)
@@ -184,15 +200,20 @@ sequenceropen(dev, flags, ifmt, p)
 	sc->input_stamp = ~0;
 
 	sc->nmidi = 0;
-	nmidi = midi_unit_count();
+	maxmidi = midi_unit_count();
+	nmidi = (sc->midiveclen < 0) ? maxmidi : sc->midiveclen;
 
 	sc->devs = malloc(nmidi * sizeof(struct midi_dev *),
 			  M_DEVBUF, M_WAITOK);
 	for (unit = 0; unit < nmidi; unit++) {
-		md = midiseq_open(unit, flags);
-		if (md) {
-			sc->devs[sc->nmidi++] = md;
-			md->seq = sc;
+		int u;
+		u = (sc->midiveclen < 0) ? unit : sc->midivec[unit];
+		if (u < maxmidi) {
+			md = midiseq_open(u, flags);
+			if (md) {
+				sc->devs[sc->nmidi++] = md;
+				md->seq = sc;
+			}
 		}
 	}
 
@@ -614,6 +635,86 @@ sequencerioctl(dev, cmd, addr, flag, p)
 		t = now.tv_sec * 1000000 + now.tv_usec;
 		t /= sc->timer.tick;
 		*(int *)addr = t;
+		break;
+	}
+
+	case SEQUENCER_DEBUG:
+	{
+		int newdbg;
+		newdbg = *(int *)addr;
+#ifdef AUDIO_DEBUG
+		*(int *)addr = sequencerdebug;
+		if (newdbg >= 0) sequencerdebug = newdbg;
+#else
+		if (newdbg >= 0) return(EINVAL);
+		*(int *)addr = 0;
+#endif
+		break;
+	}
+
+	case SEQUENCER_MIDICONF:
+	{
+		struct seq_midicsg *csg;
+		struct seq_midiconf old;
+		struct seq_midiconf new;
+		int *v;
+		csg = (void *) addr;
+		v = 0;
+		/* This do-while exists solely to catch break statements,
+		   so we can centralize the "if (v) free(v,M_DEVBUF);" below
+		   in error cases. */
+		do {
+			if (csg->new) {
+				error = copyin(csg->new,&new,sizeof(struct seq_midiconf));
+				if (error)
+					break;
+			}
+			if (csg->old) {
+				error = copyin(csg->old,&old,sizeof(struct seq_midiconf));
+				if (error)
+					break;
+			}
+			if (csg->new) {
+				if (new.nunits == -1)
+					;
+				else if ((new.nunits > SEQUENCER_MAXUNITS) || (new.nunits < 0))
+					return(EINVAL);
+				else if (new.nunits > 0) {
+					v = malloc(new.nunits*sizeof(int),M_DEVBUF,M_WAITOK);
+					error = copyin(new.units,v,new.nunits*sizeof(int));
+					if (error)
+						break;
+					new.units = v;
+				}
+			}
+			if (csg->old) {
+				if (sc->midiveclen < 0) {
+					old.nunits = -1;
+				} else if (sc->midiveclen > 0) {
+					int cn;
+					cn = sc->midiveclen;
+					if (old.nunits < cn) cn = old.nunits;
+					error = copyout(sc->midivec,old.units,cn*sizeof(int));
+					if (error)
+						break;
+					old.nunits = sc->midiveclen;
+				} else /* if sc->midiveclen == 0 */
+					old.nunits = 0;
+				old.maxunits = midi_unit_count();
+				error = copyout(&old,csg->old,sizeof(struct seq_midiconf));
+				if (error)
+					break;
+			}
+			if (csg->new) {
+				if (sc->midiveclen > 0)
+					free(sc->midivec,M_DEVBUF);
+				sc->midiveclen = new.nunits;
+				sc->midivec = v;
+				v = 0;
+			}
+		} while (0);
+		if (v)
+			free(v,M_DEVBUF);
 		break;
 	}
 
