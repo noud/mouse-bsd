@@ -22,18 +22,15 @@
 #ifdef _KERNEL
 struct tun_softc {
 	u_short	tun_flags;		/* misc flags */
-#define	TUN_OPEN	0x0001
-#define	TUN_INITED	0x0002
-#define	TUN_RCOLL	0x0004
-#define	TUN_IASET	0x0008
-#define	TUN_DSTADDR	0x0010
-#define	TUN_RWAIT	0x0040
-#define	TUN_ASYNC	0x0080
-#define	TUN_NBIO	0x0100
-#define	TUN_PREPADDR	0x0200
-
-#define	TUN_READY	(TUN_OPEN | TUN_INITED | TUN_IASET)
-
+#define TUN_OPEN     0x0001
+#define TUN_INITED   0x0002
+#define TUN_RCOLL    0x0004
+#define TUN_DSTADDR  0x0008
+#define TUN_RWAIT    0x0010
+#define TUN_ASYNC    0x0020
+#define TUN_NBIO     0x0040
+#define TUN_PREPADDR 0x0080
+#define TUN_READY (TUN_OPEN|TUN_INITED)
 	struct	ifnet tun_if;		/* the interface */
 	int	tun_pgrp;		/* the process group - if any */
 	struct	selinfo	tun_rsel;	/* read select */

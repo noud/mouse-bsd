@@ -843,6 +843,7 @@ in6_control(so, cmd, data, ifp, p)
 		case IFT_FAITH:
 		case IFT_GIF:
 		case IFT_LOOP:
+		case IFT_TUN:
 		default:
 			break;
 		}
@@ -1971,6 +1972,7 @@ in6_if_up(ifp)
 	case IFT_PPP:
 	case IFT_GIF:
 	case IFT_FAITH:
+	case IFT_TUN:
 		type = IN6_IFT_P2P;
 		in6_ifattach(ifp, type, 0, 1);
 		break;

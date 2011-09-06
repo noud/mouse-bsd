@@ -40,16 +40,19 @@
 
 #include <net/if.h>
 #include <net/if_ether.h>
+#include <net/if_types.h>
 #include <net/netisr.h>
 #include <net/route.h>
 
-
-#ifdef INET
+#if defined(INET) || defined(INET6)
 #include <netinet/in.h>
 #include <netinet/in_systm.h>
 #include <netinet/in_var.h>
 #include <netinet/ip.h>
 #include <netinet/if_inarp.h>
+#ifdef INET6
+#include <netinet/ip6.h>
+#endif
 #endif
 
 #ifdef NS
@@ -76,8 +79,6 @@ int	tun_ioctl __P((struct ifnet *, u_long, caddr_t));
 int	tun_output __P((struct ifnet *, struct mbuf *, struct sockaddr *,
 		       struct rtentry *rt));
 
-static void tuninit __P((struct tun_softc *));
-
 void
 tunattach(unused)
 	int unused;
@@ -94,7 +95,8 @@ tunattach(unused)
 		ifp->if_mtu = TUNMTU;
 		ifp->if_ioctl = tun_ioctl;
 		ifp->if_output = tun_output;
-		ifp->if_flags = IFF_POINTOPOINT;
+		ifp->if_flags = IFF_POINTOPOINT | IFF_MULTICAST;
+		ifp->if_type = IFT_TUN;
 		ifp->if_snd.ifq_maxlen = ifqmaxlen;
 		ifp->if_collisions = 0;
 		ifp->if_ierrors = 0;
@@ -129,7 +131,7 @@ tunopen(dev, flag, mode, p)
 		return (ENXIO);
 	tp = &tunctl[unit];
 	if (tp->tun_flags & TUN_OPEN)
-		return ENXIO;
+		return(EBUSY);
 	ifp = &tp->tun_if;
 	tp->tun_flags |= TUN_OPEN;
 	TUNDEBUG("%s: open\n", ifp->if_xname);
@@ -137,8 +139,7 @@ tunopen(dev, flag, mode, p)
 }
 
 /*
- * tunclose - close the device - mark i/f down & delete
- * routing info
+ * tunclose - close the device
  */
 int
 tunclose(dev, flag, mode, p)
@@ -165,65 +166,11 @@ tunclose(dev, flag, mode, p)
 			m_freem(m);
 	} while (m);
 
-	if (ifp->if_flags & IFF_UP) {
-		s = splimp();
-		if_down(ifp);
-		if (ifp->if_flags & IFF_RUNNING) {
-			/* find internet addresses and delete routes */
-			register struct ifaddr *ifa;
-			for (ifa = ifp->if_addrlist.tqh_first; ifa != 0;
-			    ifa = ifa->ifa_list.tqe_next) {
-#ifdef INET
-				if (ifa->ifa_addr->sa_family == AF_INET) {
-					rtinit(ifa, (int)RTM_DELETE,
-					       tp->tun_flags & TUN_DSTADDR
-							? RTF_HOST
-							: 0);
-				}
-#endif
-			}
-		}
-		splx(s);
-	}
 	tp->tun_pgrp = 0;
 	selwakeup(&tp->tun_rsel);
 
 	TUNDEBUG ("%s: closed\n", ifp->if_xname);
 	return (0);
-}
-
-static void
-tuninit(tp)
-	struct tun_softc *tp;
-{
-	struct ifnet	*ifp = &tp->tun_if;
-	register struct ifaddr *ifa;
-
-	TUNDEBUG("%s: tuninit\n", ifp->if_xname);
-
-	ifp->if_flags |= IFF_UP | IFF_RUNNING;
-
-	tp->tun_flags &= ~(TUN_IASET|TUN_DSTADDR);
-	for (ifa = ifp->if_addrlist.tqh_first; ifa != 0;
-	     ifa = ifa->ifa_list.tqe_next) {
-#ifdef INET
-		if (ifa->ifa_addr->sa_family == AF_INET) {
-			struct sockaddr_in *sin;
-
-			sin = satosin(ifa->ifa_addr);
-			if (sin && sin->sin_addr.s_addr)
-				tp->tun_flags |= TUN_IASET;
-
-			if (ifp->if_flags & IFF_POINTOPOINT) {
-				sin = satosin(ifa->ifa_dstaddr);
-				if (sin && sin->sin_addr.s_addr)
-					tp->tun_flags |= TUN_DSTADDR;
-			}
-		}
-#endif
-	}
-
-	return;
 }
 
 /*
@@ -235,58 +182,113 @@ tun_ioctl(ifp, cmd, data)
 	u_long cmd;
 	caddr_t	data;
 {
-	int		error = 0, s;
+ int error;
+ int s;
 
-	s = splimp();
-	switch(cmd) {
-	case SIOCSIFADDR:
-		tuninit((struct tun_softc *)(ifp->if_softc));
-		TUNDEBUG("%s: address set\n", ifp->if_xname);
-		break;
-	case SIOCSIFDSTADDR:
-		tuninit((struct tun_softc *)(ifp->if_softc));
-		TUNDEBUG("%s: destination address set\n", ifp->if_xname);
-		break;
-	case SIOCSIFBRDADDR:
-		TUNDEBUG("%s: broadcast address set\n", ifp->if_xname);
-		break;
-	case SIOCSIFMTU: {
-		struct ifreq *ifr = (struct ifreq *) data;
-		if (ifr->ifr_mtu > TUNMTU || ifr->ifr_mtu < 576) {
-		    error = EINVAL;
-		    break;
-		}
-		TUNDEBUG("%s: interface mtu set\n", ifp->if_xname);
-		ifp->if_mtu = ifr->ifr_mtu;
-		break;
-	}
-	case SIOCADDMULTI:
-	case SIOCDELMULTI: {
-		struct ifreq *ifr = (struct ifreq *) data;
-		if (ifr == 0) {
-	        	error = EAFNOSUPPORT;           /* XXX */
-			break;
-		}
-		switch (ifr->ifr_addr.sa_family) {
-
+ error = 0;
+ s = splimp();
+ switch (cmd)
+  { case SIOCSIFADDR:
+#define ifa ((struct ifaddr *)data)
+       switch (ifa->ifa_addr->sa_family)
+	{
 #ifdef INET
-		case AF_INET:
-			break;
+	  case AF_INET:
+	     ifp->if_flags |= IFF_UP;
+	     break;
 #endif
-
-		default:
-			error = EAFNOSUPPORT;
-			break;
-		}
-		break;
+#ifdef INET6
+	  case AF_INET6:
+	     ifp->if_flags |= IFF_UP;
+	     if (ifp->if_mtu < IPV6_MMTU) ifp->if_mtu = IPV6_MMTU;
+	     break;
+#endif
+	  default:
+	     error = EAFNOSUPPORT;
+	     break;
 	}
-	case SIOCSIFFLAGS:
-		break;
-	default:
-		error = EINVAL;
+#undef ifa
+       break;
+    case SIOCSIFDSTADDR:
+    case SIOCSIFBRDADDR:
+#define ifa ((struct ifaddr *)data)
+       switch (ifa->ifa_addr->sa_family)
+	{
+#ifdef INET
+	  case AF_INET:
+	     break;
+#endif
+#ifdef INET6
+	  case AF_INET6:
+	     break;
+#endif
+	  default:
+	     error = EAFNOSUPPORT;
+	     break;
 	}
-	splx(s);
-	return (error);
+#undef ifa
+       break;
+    case SIOCSIFMTU:
+#define ifr ((struct ifreq *)data)
+       if (ifr->ifr_mtu < 576)
+	{ error = EINVAL;
+	  break;
+	}
+#ifdef INET6
+       if (ifr->ifr_mtu < IPV6_MMTU)
+	{ struct ifaddr *ifa;
+	  for ( ifa = ifp->if_addrlist.tqh_first;
+		ifa;
+		ifa = ifa->ifa_list.tqe_next )
+	   { switch (((struct sockaddr *)ifa->ifa_addr)->sa_family)
+	      { case AF_INET6:
+		   error = EINVAL;
+		   goto done; /* break switch, for, switch */
+	      }
+	   }
+	}
+#endif
+       ifp->if_mtu = ifr->ifr_mtu;
+#undef ifr
+       break;
+    case SIOCGIFMTU:
+#define ifr ((struct ifreq *)data)
+       ifr->ifr_mtu = ifp->if_mtu;
+#undef ifr
+       break;
+    case SIOCADDMULTI:
+    case SIOCDELMULTI:
+#define ifr ((struct ifreq *)data)
+       if (ifr == 0)
+	{ error = EAFNOSUPPORT;				/* XXX */
+	  break;
+	}
+       switch (ifr->ifr_addr.sa_family)
+	{
+#ifdef INET
+	  case AF_INET:
+	     break;
+#endif
+#ifdef INET6
+	  case AF_INET6:
+	     break;
+#endif
+	  default:
+	     error = EAFNOSUPPORT;
+	     break;
+	}
+       break;
+    case SIOCSIFFLAGS:
+       break;
+    default:
+       error = EINVAL;
+       break;
+  }
+#ifdef INET6 /* used only inside INET6 above */
+done:;
+#endif
+ splx(s);
+ return(error);
 }
 
 /*
@@ -307,11 +309,23 @@ tun_output(ifp, m0, dst, rt)
 
 	TUNDEBUG ("%s: tun_output\n", ifp->if_xname);
 
-	if ((tp->tun_flags & TUN_READY) != TUN_READY) {
-		TUNDEBUG ("%s: not ready 0%o\n", ifp->if_xname,
-			  tp->tun_flags);
-		m_freem (m0);
-		return (EHOSTDOWN);
+	switch (dst->sa_family) {
+#ifdef INET
+		case AF_INET:
+			break;
+#endif
+#ifdef INET6
+		case AF_INET6:
+			break;
+#endif
+		default:
+			printf("%s: af%d not supported\n",ifp->if_xname,dst->sa_family);
+			m_freem(m0);
+			return(EAFNOSUPPORT);
+			break;
+	}
+	if (! (tp->tun_flags & TUN_OPEN)) {
+		return(ENETDOWN);
 	}
 
 #if NBPFILTER > 0
@@ -334,36 +348,41 @@ tun_output(ifp, m0, dst, rt)
 	}
 #endif
 
-	switch(dst->sa_family) {
+	switch (dst->sa_family) {
 #ifdef INET
-	case AF_INET:
-		if (tp->tun_flags & TUN_PREPADDR) {
-			/* Simple link-layer header */
-			M_PREPEND(m0, dst->sa_len, M_DONTWAIT);
-			if (m0 == NULL) {
+		case AF_INET:
+#endif
+#ifdef INET6
+		case AF_INET6:
+#endif
+#if defined(INET) || defined(INET6)
+			if (tp->tun_flags & TUN_PREPADDR) {
+				/* Simple link-layer header */
+				M_PREPEND(m0, dst->sa_len, M_DONTWAIT);
+				if (m0 == NULL) {
+					IF_DROP(&ifp->if_snd);
+					return (ENOBUFS);
+				}
+				bcopy(dst, mtod(m0, char *), dst->sa_len);
+			}
+			/* FALLTHROUGH */
+#endif
+		case AF_UNSPEC:
+			s = splimp();
+			if (IF_QFULL(&ifp->if_snd)) {
 				IF_DROP(&ifp->if_snd);
+				m_freem(m0);
+				splx(s);
+				ifp->if_collisions++;
 				return (ENOBUFS);
 			}
-			bcopy(dst, mtod(m0, char *), dst->sa_len);
-		}
-		/* FALLTHROUGH */
-	case AF_UNSPEC:
-		s = splimp();
-		if (IF_QFULL(&ifp->if_snd)) {
-			IF_DROP(&ifp->if_snd);
-			m_freem(m0);
+			IF_ENQUEUE(&ifp->if_snd, m0);
 			splx(s);
-			ifp->if_collisions++;
-			return (ENOBUFS);
-		}
-		IF_ENQUEUE(&ifp->if_snd, m0);
-		splx(s);
-		ifp->if_opackets++;
-		break;
-#endif
-	default:
-		m_freem(m0);
-		return (EAFNOSUPPORT);
+			ifp->if_opackets++;
+			break;
+		default:
+			m_freem(m0);
+			return (EAFNOSUPPORT);
 	}
 
 	if (tp->tun_flags & TUN_RWAIT) {
@@ -404,7 +423,7 @@ tunioctl(dev, cmd, data, flag, p)
 		break;
 
 	case TUNSIFMODE:
-		switch (*(int *)data & (IFF_POINTOPOINT|IFF_BROADCAST)) {
+		switch (*(int *)data) {
 		case IFF_POINTOPOINT:
 		case IFF_BROADCAST:
 			s = splimp();
@@ -413,7 +432,7 @@ tunioctl(dev, cmd, data, flag, p)
 				return (EBUSY);
 			}
 			tp->tun_if.if_flags &=
-				~(IFF_BROADCAST|IFF_POINTOPOINT|IFF_MULTICAST);
+				~(IFF_BROADCAST|IFF_POINTOPOINT);
 			tp->tun_if.if_flags |= *(int *)data;
 			splx(s);
 			break;
@@ -540,28 +559,24 @@ tunwrite(dev, uio, ioflag)
 	struct ifnet	*ifp = &tp->tun_if;
 	struct mbuf	*top, **mp, *m;
 	struct ifqueue	*ifq;
-	struct sockaddr	dst;
 	int		isr, error=0, s, tlen, mlen;
+ struct sockaddr_storage dst;
 
 	TUNDEBUG("%s: tunwrite\n", ifp->if_xname);
 
-	if (tp->tun_flags & TUN_PREPADDR) {
-		if (uio->uio_resid < sizeof(dst))
-			return (EIO);
-		error = uiomove((caddr_t)&dst, sizeof(dst), uio);
-		if (dst.sa_len > sizeof(dst)) {
-			/* Duh.. */
-			char discard;
-			int n = dst.sa_len - sizeof(dst);
-			while (n--)
-				if ((error = uiomove(&discard, 1, uio)) != 0)
-					return (error);
-		}
-	} else {
-#ifdef INET
-		dst.sa_family = AF_INET;
-#endif
-	}
+ if (tp->tun_flags & TUN_PREPADDR)
+  { /* XXX this code depends on ss_len being first! */
+    if (uio->uio_resid < sizeof(dst.ss_len)) return(EIO);
+    error = uiomove(&dst.ss_len,sizeof(dst.ss_len),uio);
+    if (error) return(error);
+    if (dst.ss_len <= sizeof(dst.ss_len)) return(EINVAL);
+    error = uiomove(sizeof(dst.ss_len)+(char *)&dst,dst.ss_len-sizeof(dst.ss_len),uio);
+    if (error) return(error);
+  }
+ else
+  { dst.ss_len = sizeof(struct sockaddr_in);
+    dst.ss_family = AF_INET;
+  }
 
 	if (uio->uio_resid < 0 || uio->uio_resid > TUNMTU) {
 		TUNDEBUG("%s: len=%lu!\n", ifp->if_xname,
@@ -569,20 +584,26 @@ tunwrite(dev, uio, ioflag)
 		return (EIO);
 	}
 
-	switch (dst.sa_family) {
+	switch (dst.ss_family) {
 #ifdef INET
 	case AF_INET:
 		ifq = &ipintrq;
 		isr = NETISR_IP;
 		break;
 #endif
+#ifdef INET6
+	case AF_INET6:
+		ifq = &ip6intrq;
+		isr = NETISR_IPV6;
+		break;
+#endif
 	default:
-		return (EAFNOSUPPORT);
+		ifp->if_ierrors ++;
+		return(EAFNOSUPPORT);
 	}
 
 	tlen = uio->uio_resid;
 
-	/* get a header mbuf */
 	MGETHDR(m, M_DONTWAIT, MT_DATA);
 	if (m == NULL)
 		return (ENOBUFS);
@@ -624,7 +645,7 @@ tunwrite(dev, uio, ioflag)
 		 * try to free it or keep a pointer to it).
 		 */
 		struct mbuf m;
-		u_int32_t af = AF_INET;
+		u_int32_t af = dst.ss_family;
 
 		m.m_next = top;
 		m.m_len = sizeof(af);
