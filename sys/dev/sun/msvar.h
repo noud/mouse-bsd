@@ -44,6 +44,8 @@
  *	@(#)ms.c	8.1 (Berkeley) 6/11/93
  */
 
+#include <dev/sun/event_var.h>
+
 /*
  * How many input characters we can buffer.
  * The port-specific var.h may override this.
@@ -79,7 +81,7 @@
  */
 struct ms_softc {
 	struct	device ms_dev;		/* required first: base device */
-	struct	zs_chanstate *ms_cs;
+	void	*ms_private;
 
 	/* Flags to communicate with ms_softintr() */
 	volatile int ms_intr_flags;

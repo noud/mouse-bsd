@@ -137,7 +137,7 @@ ms_zs_attach(parent, self, aux)
 	cs = zsc->zsc_cs[channel];
 	cs->cs_private = ms;
 	cs->cs_ops = &zsops_ms;
-	ms->ms_cs = cs;
+	ms->ms_private = cs;
 
 	printf("\n");
 

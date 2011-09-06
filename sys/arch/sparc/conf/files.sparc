@@ -109,9 +109,14 @@ file arch/sparc/dev/zs_kgdb.c		kgdb
 define zsevent
 file dev/sun/event.c			zsevent
 
+device kmmux { [bond = -1] }
+attach kmmux at zs with kmmux_zs
+file dev/sun/kmmux.c			kmmux needs-count
+
 device kbd: zsevent
 attach kbd at zs with kbd_zs
 file dev/sun/kbd_zs.c			kbd_zs
+attach kbd at kmmux with kbd_kmmux
 file dev/sun/kbd.c			kbd needs-flag
 file dev/sun/kbd_tables.c 		kbd
 file arch/sparc/dev/kd.c 		kbd
@@ -119,6 +124,7 @@ file arch/sparc/dev/kd.c 		kbd
 device ms: zsevent
 attach ms at zs with ms_zs
 file dev/sun/ms_zs.c			ms_zs
+attach ms at kmmux with ms_kmmux
 file dev/sun/ms.c			ms needs-flag
 
 #
