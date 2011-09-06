@@ -89,3 +89,11 @@ file	dev/sbus/magma.c		magma | mtty | mbpp needs-flag
 device	nell: pcmciabus
 attach	nell at sbus
 file	dev/sbus/stp4020.c		nell
+
+device	spif { unit = -1 }
+attach	spif at sbus
+device	sptty: tty
+attach	sptty at spif
+device	spbpp
+attach	spbpp at spif
+file	dev/sbus/spif.c			spif | sptty | spbpp needs-flag

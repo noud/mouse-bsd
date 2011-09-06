@@ -124,3 +124,6 @@ cdev_decl(diskwatch);
 cdev_decl(vlan);
 cdev_decl(srt);
 cdev_decl(lpvi);
+
+cdev_decl(sptty);
+cdev_decl(spbpp);
