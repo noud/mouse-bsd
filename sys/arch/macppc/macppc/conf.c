@@ -56,6 +56,8 @@ bdev_decl(cd);
 bdev_decl(md);
 #include "wd.h"
 bdev_decl(wd);
+#include "pdisk.h"
+bdev_decl(pdisks);
 
 struct bdevsw bdevsw[] = {
 	bdev_notdef(),			/* 0: Openfirmware disk */
@@ -71,7 +73,7 @@ struct bdevsw bdevsw[] = {
 	bdev_disk_init(NWD,wd),		/* 10: IDE disk driver */
 	bdev_lkm_dummy(),		/* 11 */
 	bdev_disk_init(NRAID,raid),	/* 12: RAIDframe disk driver */
-	bdev_notdef(),			/* 13 */
+	bdev_disk_init(NPDISK,pdisks),	/* 13: pseudo disk driver */
 	bdev_notdef(),			/* 14 */
 	bdev_notdef(),			/* 15 */
 	bdev_notdef(),			/* 16 */
@@ -143,6 +145,8 @@ cdev_decl(aed);
 cdev_decl(wd);
 cdev_decl(ofc);
 cdev_decl(nvram);
+cdev_decl(pdisks);
+cdev_decl(pdiskm);
 
 #include "diskwatch.h"
 cdev_decl(diskwatch);
@@ -229,8 +233,8 @@ struct cdevsw cdevsw[] = {
 	cdev_mouse_init(NWSMUX,wsmux),  /* 43: ws multiplexor */
 	cdev_tty_init(NUCOM,ucom),	/* 44: USB tty */
 	cdev_tty_init(NCOM,com),	/* 45: NS16x50 compatible ports */
-	cdev_notdef(),			/* 46 */
-	cdev_notdef(),			/* 47 */
+	cdev_disk_init(NPDISK,pdisks),	/* 46: pseudo disk */
+	cdev__ocrwip_init(NPDISK,pdiskm), /* 47: pseudo disk controller */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 48: disk watching */
 	cdev__oci_init(NVLAN,vlan),	/* 49: vlan interfaces */
 	cdev_tape_init(NPTAPE,ptapes),	/* 50: pseudo tape */
@@ -363,7 +367,7 @@ static int chrtoblktbl[] = {
 	/* 43 */	NODEV,
 	/* 44 */	NODEV,
 	/* 45 */	NODEV,
-	/* 46 */	NODEV,
+	/* 46 */	13,
 	/* 47 */	NODEV,
 	/* 48 */	NODEV,
 	/* 49 */	NODEV,

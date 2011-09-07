@@ -64,6 +64,8 @@ bdev_decl(st);
 bdev_decl(md);
 #include "raid.h"
 bdev_decl(raid);
+#include "pdisk.h"
+bdev_decl(pdisks);
 
 struct bdevsw	bdevsw[] =
 {
@@ -92,7 +94,7 @@ struct bdevsw	bdevsw[] =
 	bdev_notdef(),			/* 22 */
 	bdev_notdef(),			/* 23 */
 	bdev_notdef(),			/* 24 */
-	bdev_notdef(),			/* 25 */
+	bdev_disk_init(NPDISK,pdisks),	/* 25: pseudo disk */
 	bdev_notdef(),			/* 26 */
 	bdev_notdef(),			/* 27 */
 	bdev_notdef(),			/* 28 */
@@ -164,6 +166,8 @@ cdev_decl(vnd);
 cdev_decl(st);
 cdev_decl(fd);
 cdev_decl(md);
+cdev_decl(pdisks);
+cdev_decl(pdiskm);
 dev_decl(filedesc,open);
 #include "bpfilter.h"
 cdev_decl(bpf);
@@ -247,8 +251,8 @@ struct cdevsw	cdevsw[] =
 	cdev__oci_init(NVLAN,vlan),	/* 50: vlan interfaces */
 	cdev_tape_init(NPTAPE,ptapes),  /* 51: pseudo tape */
 	cdev__ocrwip_init(NPTAPE,ptapem),/* 52: pseudo tape controller */
-	cdev_notdef(),			/* 53 */
-	cdev_notdef(),			/* 54 */
+	cdev_disk_init(NPDISK,pdisks),	/* 53: pseudo disk */
+	cdev__ocrwip_init(NPDISK,pdiskm),/* 54: pseudo disk controller */
 	cdev_notdef(),			/* 55 */
 	cdev_notdef(),			/* 56 */
 	cdev__oci_init(NSRT,srt),	/* 57: srt interfaces */
@@ -388,7 +392,7 @@ static int chrtoblktbl[] = {
 	/* 50 */	NODEV,
 	/* 51 */	NODEV,
 	/* 52 */	NODEV,
-	/* 53 */	NODEV,
+	/* 53 */	25,
 	/* 54 */	NODEV,
 	/* 55 */	NODEV,
 	/* 56 */	NODEV,

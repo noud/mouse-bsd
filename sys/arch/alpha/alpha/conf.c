@@ -70,6 +70,8 @@ bdev_decl(raid);
 bdev_decl(ccd);
 #include "md.h"
 bdev_decl(md);
+#include "pdisk.h"
+bdev_decl(pdisks);
 
 struct bdevsw	bdevsw[] =
 {
@@ -90,7 +92,7 @@ struct bdevsw	bdevsw[] =
 	bdev_lkm_dummy(),		/* 14 */
 	bdev_lkm_dummy(),		/* 15 */
 	bdev_disk_init(NRAID,raid),	/* 16 */
-	bdev_notdef(),			/* 17 */
+	bdev_disk_init(NPDISK,pdisks),	/* 17: pseudo disk */
 	bdev_notdef(),			/* 18 */
 	bdev_notdef(),			/* 19 */
 	bdev_notdef(),			/* 20 */
@@ -144,6 +146,8 @@ cdev_decl(tun);
 cdev_decl(sd);
 cdev_decl(vnd);
 cdev_decl(ccd);
+cdev_decl(pdisks);
+cdev_decl(pdiskm);
 dev_type_open(filedescopen);
 #include "bpfilter.h"
 cdev_decl(bpf);
@@ -376,8 +380,8 @@ struct cdevsw	cdevsw[] =
 	cdev__oci_init(NSRT,srt),	/* 78: srt interfaces */
 	cdev__oci_init(NVLAN,vlan),	/* 79: vlan interfaces */
 	cdev_notdef(),			/* 80 */
-	cdev_notdef(),			/* 81 */
-	cdev_notdef(),			/* 82 */
+	cdev_disk_init(NPDISK,pdisks),	/* 81: pseudo disk */
+	cdev__ocrwip_init(NPDISK,pdiskm),/* 82: pseudo disk controller */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch),/* 83: disk watching */
 	cdev_notdef(),			/* 84 */
 	cdev_notdef(),			/* 85 */
@@ -517,7 +521,7 @@ static int chrtoblktbl[] = {
 	/* 78 */	NODEV,
 	/* 79 */	NODEV,
 	/* 80 */	NODEV,
-	/* 81 */	NODEV,
+	/* 81 */	17,
 	/* 82 */	NODEV,
 	/* 83 */	NODEV,
 	/* 84 */	NODEV,

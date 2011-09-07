@@ -100,6 +100,7 @@
 #include "scsibus.h"
 #include "diskwatch.h"
 #include "ptape.h"
+#include "pdisk.h"
 #include "vlan.h"
 #include "srt.h"
 #include "lpvi.h"
@@ -136,7 +137,7 @@ struct bdevsw	bdevsw[] =
 	bdev_lkm_dummy(),		/* 23 */
 	bdev_lkm_dummy(),		/* 24 */
 	bdev_disk_init(NRAID,raid),	/* 25: RAIDframe disk driver */
-	bdev_notdef(),			/* 26 */
+	bdev_disk_init(NPDISK,pdisks),	/* 26: pseudo disk */
 	bdev_notdef(),			/* 27 */
 	bdev_notdef(),			/* 28 */
 	bdev_notdef(),			/* 29 */
@@ -287,8 +288,8 @@ struct cdevsw	cdevsw[] =
 	cdev__oci_init(NSRT,srt),	/* 133: srt interfaces */
 	cdev__oci_init(NVLAN,vlan),	/* 134: vlan interfaces */
 	cdev_notdef(),			/* 135 */
-	cdev_notdef(),			/* 136 */
-	cdev_notdef(),			/* 137 */
+	cdev_disk_init(NPDISK,pdisks),	/* 136: pseudo disk */
+	cdev__ocrwip_init(NPDISK,pdiskm), /* 137: pseudo disk controller */
 	cdev__ocrwip_init(NLPVI,lpvi),	/* 138: SPARCprinter interface */
 	cdev_notdef(),			/* 139 */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 140: disk watching */
@@ -476,7 +477,7 @@ static int chrtoblktbl[] = {
 	/*133 */	NODEV,
 	/*134 */	NODEV,
 	/*135 */	NODEV,
-	/*136 */	NODEV,
+	/*136 */	26,
 	/*137 */	NODEV,
 	/*138 */	NODEV,
 	/*139 */	NODEV,

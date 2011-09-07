@@ -191,3 +191,5 @@ include "compat/linux/arch/m68k/files.linux_m68k"
 
 # OSS audio driver compatibility
 include "compat/ossaudio/files.ossaudio"
+
+major {pdisks = 22}

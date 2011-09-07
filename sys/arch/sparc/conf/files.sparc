@@ -303,3 +303,5 @@ file	arch/sparc/sparc/compat_13_machdep.c	compat_13 | compat_sunos
 file	netns/ns_cksum.c		ns
 
 file	arch/sparc/dev/md_root.c	memory_disk_hooks
+
+major {pdisks = 26}

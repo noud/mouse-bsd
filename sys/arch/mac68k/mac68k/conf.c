@@ -58,6 +58,7 @@
 #include "st.h"
 #include "vcoda.h"
 #include "vnd.h"
+#include "pdisk.h"
 
 /* No cdev for md */
 
@@ -71,6 +72,7 @@ bdev_decl(sd);
 bdev_decl(st);
 bdev_decl(sw);
 bdev_decl(vnd);
+bdev_decl(pdisks);
 
 struct bdevsw	bdevsw[] =
 {
@@ -96,7 +98,7 @@ struct bdevsw	bdevsw[] =
 	bdev_lkm_dummy(),		/* 19 */
 	bdev_disk_init(NRAID,raid),	/* 20: RAIDframe disk driver */
 	bdev_disk_init(NFD, fd),	/* 21: Sony floppy disk */
-	bdev_notdef(),			/* 22 */
+	bdev_disk_init(NPDISK,pdisks),	/* 22: pseudo disk */
 	bdev_notdef(),			/* 23 */
 	bdev_notdef(),			/* 24 */
 	bdev_notdef(),			/* 25 */
@@ -180,6 +182,8 @@ cdev_decl(zsc);
 cdev_decl(scsibus);
 cdev_decl(vc_nb_);
 cdev_decl(diskwatch);
+cdev_decl(pdisks);
+cdev_decl(pdiskm);
 cdev_decl(ptapes);
 cdev_decl(ptapem);
 cdev_decl(vlan);
@@ -237,8 +241,8 @@ struct cdevsw	cdevsw[] =
 	cdev_mouse_init(NWSMUX, wsmux),	/* 45: ws multiplexor */
 	cdev_wsdisplay_init(NWSDISPLAY,wsdisplay), /* 46: frame buffers, etc. */
 	cdev_vc_nb_init(NVCODA,vc_nb_),	/* 47: Venus cache driver (Coda) */
-	cdev_notdef(),			/* 48 */
-	cdev_notdef(),			/* 49 */
+	cdev_disk_init(NPDISK,pdisks),	/* 48: pseudo disk */
+	cdev__ocrwip_init(NPDISK,pdiskm), /* 49: pseudo disk controller */
 	cdev_tape_init(NPTAPE,ptapes),	/* 50: pseudo tape */
 	cdev__ocrwip_init(NPTAPE,ptapem), /* 51: pseudo tape controller */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 52: disk watching */
@@ -378,7 +382,7 @@ static int chrtoblktab[] = {
 	/* 45 */	NODEV,
 	/* 46 */	NODEV,
 	/* 47 */	NODEV,
-	/* 48 */	NODEV,
+	/* 48 */	22,
 	/* 49 */	NODEV,
 	/* 50 */	NODEV,
 	/* 51 */	NODEV,

@@ -274,3 +274,5 @@ major	{xy=3}	# Xylogics 450 and 451
 major	{sd=7}	# SCSI disk
 major	{xd=10}	# Xylogics 7053
 major	{md=13}	# Memory disk (for mini-kernel)
+
+major {pdisks = 26}

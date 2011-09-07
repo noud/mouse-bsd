@@ -371,3 +371,5 @@ include "compat/vax1k/files.vax1k"
 #arch/vax/if/if_pcl.c         optional pcl device-driver
 #arch/vax/if/if_vv.c          optional vv device-driver
 #arch/vax/if/raw_hy.c         optional hy device-driver
+
+major {pdisks = 30}

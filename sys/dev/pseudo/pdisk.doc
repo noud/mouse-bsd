@@ -1,0 +1,62 @@
+Master device minor 0 exists only for PDISKIOC_FREEUNIT ioctl
+
+Master device 1 is pdisk0, 2 is pdisk1, etc.
+Slave minor number is broken up like any disk device; DISKUNIT 0 is
+pdisk0, DISKUNIT 1 is pdisk1, etc.
+
+Master device protocol:
+
+Data read from master device is a stream of packets; data written,
+likewise (though the packet format is different).  Conceptually, the
+device uses the userland program as a request server, sending requests
+when userland reads and getting replies when it writes.  Everything is
+done in units of "sectors", which are DEV_BSIZE bytes each.
+
+device->program (request) packet format:
+	opcode (1 byte)
+	opcode-specific data (0 or more bytes)
+
+Multi-byte quantities are always in machine-native byte-order.
+
+program->device packet format:
+	request-specific data (0 or more bytes)
+
+Requests (and their replies, for those that need them):
+
+Opcode 'o'
+	Open: indicates that someone is trying to open the
+	slave device.
+Request-specific data:
+	Rwflag (1 byte)
+		This is 'r' if the open is for read-only, 'w' if for
+		write-only, or 'b' if for read/write ("both").
+	Partition (1 byte)
+		This is a single byte containing the partition number
+		of the partition being opened, in raw binary.
+Reply is an int.  This is an errno, or 0 for success.
+
+Opcode 'c'
+	Close: indicates that the slave device has just experienced
+	last close.
+No reply
+
+Opcode 'r'
+	Read: read a sector.
+Request-specific data:
+	Sector number of sector (unsigned int)
+Reply is an int, which is an errno, or 0 for success.  It is always
+followed by a sector's worth of data, which is meaningless and ignored
+if the int is not 0.
+
+Opcode 'w'
+	Write: write a sector.
+Request-specific data:
+	Sector number of sector (unsigned int)
+	Sector data
+Reply is an int, which is an errno, or 0 for success.
+
+Opcode 'z'
+	Size: query unit size
+No request-specific data.
+Reply is an int, which is the size, or the negative of an errno on
+error.

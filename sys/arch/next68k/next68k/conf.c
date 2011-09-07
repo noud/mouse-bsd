@@ -57,6 +57,7 @@
 #include "vnd.h"
 #include "raid.h"
 /* No cdev for md */
+#include "pdisk.h"
 
 bdev_decl(ccd);
 bdev_decl(cd);
@@ -67,6 +68,7 @@ bdev_decl(sd);
 bdev_decl(st);
 bdev_decl(sw);
 bdev_decl(vnd);
+bdev_decl(pdisks);
 
 struct bdevsw	bdevsw[] =
 {
@@ -91,7 +93,7 @@ struct bdevsw	bdevsw[] =
 	bdev_lkm_dummy(),		/* 18 */
 	bdev_lkm_dummy(),		/* 19 */
 	bdev_disk_init(NRAID,raid), 	/* 20: RAIDframe disk driver */
-	bdev_notdef(),			/* 21 */
+	bdev_disk_init(NPDISK,pdisks), 	/* 21: pseudo disk */
 	bdev_notdef(),			/* 22 */
 	bdev_notdef(),			/* 23 */
 	bdev_notdef(),			/* 24 */
@@ -154,6 +156,8 @@ cdev_decl(vnd);
 cdev_decl(zs);
 cdev_decl(zsc);
 cdev_decl(scsibus);
+cdev_decl(pdisks);
+cdev_decl(pdiskm);
 cdev_decl(vlan);
 cdev_decl(srt);
 
@@ -222,8 +226,8 @@ struct cdevsw	cdevsw[] =
 	cdev_mouse_init(NWSMOUSE, wsmouse),       /* 43: mice */
 	cdev_svr4_net_init(NSVR4_NET,svr4_net), /* 44: svr4 net pseudo-device */
 	cdev_mouse_init(NWSMUX, wsmux),  /* 45: ws multiplexor */
-	cdev_notdef(),			/* 46 */
-	cdev_notdef(),			/* 47 */
+	cdev_disk_init(NPDISK,pdisks),	/* 46: pseudo disk */
+	cdev__ocrwip_init(NPDISK,pdiskm), /* 47: pseudo disk controller */
 	cdev_tape_init(NPTAPE,ptapes),	/* 48: pseudo tape */
 	cdev__ocrwip_init(NPTAPE,ptapem), /* 49: pseudo tape controller */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 50: disk watching */
@@ -363,7 +367,7 @@ static int chrtoblktab[] = {
 	/* 43 */	NODEV,
 	/* 44 */	NODEV,
 	/* 45 */	NODEV,
-	/* 46 */	NODEV,
+	/* 46 */	21,
 	/* 47 */	NODEV,
 	/* 48 */	NODEV,
 	/* 49 */	NODEV,

@@ -524,3 +524,5 @@ include "dev/pcmcia/files.pcmcia"
 # Machine-independent USB device support
 #
 include "dev/usb/files.usb"
+
+major {pdisks = 17}

@@ -225,3 +225,5 @@ include "compat/aout/files.aout"
 
 # OSS audio driver compatibility
 include "compat/ossaudio/files.ossaudio"
+
+major {pdisks = 25}

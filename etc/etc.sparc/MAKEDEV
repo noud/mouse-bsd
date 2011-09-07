@@ -79,6 +79,7 @@
 #	diskwatch* Live-backup disk watching
 #	lpvi*	SUNW,lpvi SPARCprinter interface
 #	ptape*	Pseudo-tape devices
+#	pdisk*	Pseudo-disk devices
 #	vlan*	802.1q VLAN interfaces
 #	srt*	Source-address-routing interfaces
 
@@ -108,6 +109,7 @@ all)
 	sh -$- $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
 	sh -$- $0 lpvi0
 	sh -$- $0 ptape ptape0 ptape1 ptape2 ptape3
+	sh -$- $0 pdisk0 pdisk1 pdiskm
 	sh -$- $0 vlan0 vlan1 vlan2 vlan3 vlan4 vlan5 vlan6 vlan7
 	sh -$- $0 srt0 srt1 srt2 srt3
 	;;
@@ -306,7 +308,7 @@ md*)
 	chmod 640 md${unit}? #rmd${unit}?
 	;;
 
-ccd*|fd*|sd*|xd*|xy*|cd*|vnd*|raid*)
+ccd*|fd*|sd*|xd*|xy*|cd*|vnd*|raid*|pdisks*)
 	case $i in
 	ccd*)	name=ccd;	unit=${i#ccd};	blk=9;	chr=23;;
 	fd*)	name=fd;	unit=${i#fd};	blk=16;	chr=54;;
@@ -316,6 +318,7 @@ ccd*|fd*|sd*|xd*|xy*|cd*|vnd*|raid*)
 	cd*)	name=cd;	unit=${i#cd};	blk=18;	chr=58;;
 	raid*)	name=raid;	unit=${i#raid};	blk=25;	chr=121;;
 	vnd*)	name=vnd;	unit=${i#vnd};	blk=8;	chr=110;;
+	pdisks*)name=pdisks;	unit=${i#pdisks};blk=26;chr=136;;
 	esac
 	case $unit in
 	0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|\
@@ -344,6 +347,21 @@ ccd*|fd*|sd*|xd*|xy*|cd*|vnd*|raid*)
 		echo bad unit for disk in: $i
 		;;
 	esac
+	;;
+
+pdiskm)	mknod pdiskm c 137 0
+	chmod 600 pdiskm
+	;;
+
+pdiskm*)
+	unit=${i#pdiskm}
+	mknod pdiskm$unit c 137 $(($unit+1))
+	chmod 600 pdiskm$unit
+	;;
+
+pdisk[0-9]*)
+	unit=${i#pdisk}
+	sh -$- $0 pdisks$unit pdiskm$unit
 	;;
 
 st*)

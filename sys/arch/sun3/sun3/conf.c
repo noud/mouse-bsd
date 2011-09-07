@@ -190,6 +190,11 @@ cdev_decl(vlan);
 #include "srt.h"
 cdev_decl(srt);
 
+#include "pdisk.h"
+bdev_decl(pdisks);
+cdev_decl(pdisks);
+cdev_decl(pdiskm);
+
 /* Block devices */
 struct bdevsw	bdevsw[] =
 {
@@ -219,7 +224,7 @@ struct bdevsw	bdevsw[] =
 	bdev_lkm_dummy(),		/* 23 */
 	bdev_lkm_dummy(),		/* 24 */
 	bdev_disk_init(NRAID,raid),	/* 25: RAIDframe disk driver */
-	bdev_notdef(),			/* 26 */
+	bdev_disk_init(NPDISK,pdisks),	/* 26: pseudo disk */
 	bdev_notdef(),			/* 27 */
 	bdev_notdef(),			/* 28 */
 	bdev_notdef(),			/* 29 */
@@ -337,8 +342,8 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 99 */
 	cdev_tape_init(NPTAPE,ptapes),	/* 100: pseudo tape */
 	cdev__ocrwip_init(NPTAPE,ptapem), /* 101: pseudo tape controller */
-	cdev_notdef(),			/* 102 */
-	cdev_notdef(),			/* 103 */
+	cdev_disk_init(NPDISK,pdisks),	/* 102: pseudo disk */
+	cdev__ocrwip_init(NPDISK,pdiskm), /* 103: pseudo disk controller */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 104: disk watching */
 	cdev__oci_init(NVLAN,vlan),	/* 105: vlan interfaces */
 	cdev_notdef(),			/* 106 */
@@ -506,7 +511,7 @@ static int chrtoblktbl[] = {
 	/* 99 */	NODEV,
 	/* 100 */	NODEV,
 	/* 101 */	NODEV,
-	/* 102 */	NODEV,
+	/* 102 */	26,
 	/* 103 */	NODEV,
 	/* 104 */	NODEV,
 	/* 105 */	NODEV,

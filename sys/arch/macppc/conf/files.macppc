@@ -191,3 +191,5 @@ include "dev/cardbus/files.cardbus"
 include "dev/pcmcia/files.pcmcia"
 
 file arch/macppc/macppc/rbus_machdep.c		cardbus
+
+major {pdisks = 13}

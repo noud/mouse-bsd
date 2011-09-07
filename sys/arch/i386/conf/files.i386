@@ -365,3 +365,5 @@ include "dev/pcmcia/files.pcmcia"
 include "dev/usb/files.usb"
 
 include "arch/i386/pnpbios/files.pnpbios"
+
+major {pdisks = 19}

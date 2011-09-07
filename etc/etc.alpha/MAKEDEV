@@ -102,6 +102,7 @@
 #	uk*	SCSI unknown
 #	diskwatch* Live-backup disk watching
 #	ptape*	Pseudo-tape devices
+#	pdisk*	Pseudo-disk devices
 #	vlan*	802.1q VLAN interfaces
 #	srt*	Source-address-routing interfaces
 
@@ -131,6 +132,7 @@ all)
 	sh $0 music rmidi0 rmidi1 rmidi2 rmidi3 rmidi4 rmidi5 rmidi6 rmidi7
 	sh $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
 	sh $0 ptape ptape0 ptape1 ptape2 ptape3
+	sh $0 pdisk0 pdisk1 pdiskm
 	sh $0 vlan0 vlan1 vlan2 vlan3 vlan4 vlan5 vlan6 vlan7
 	sh $0 srt0 srt1 srt2 srt3
 	;;
@@ -177,6 +179,21 @@ ptape*)
 	rm -f $s $m
 	mknod $s c 75 $(($unit+1)) ; chgrp operator $s ; chmod 660 $s
 	mknod $m c 76 $(($unit+1)) ; chgrp operator $m ; chmod 660 $m
+	;;
+
+pdiskm)
+	rm -f pdiskm
+	mknod pdiskm c 82 0 ; chgrp operator pdiskm ; chmod 660 pdiskm
+	;;
+
+pdiskm*)
+	unit=${i#pdiskm}
+	mknod pdiskm$unit c 82 $(($unit+1)) ; chgrp operator pdiskm$unit ; chmod 660 pdiskm$unit
+	;;
+
+pdisk[0-9]*)
+	unit=${i#pdisk}
+	sh $0 pdiskm$unit pdisks$unit
 	;;
 
 std)
@@ -276,7 +293,7 @@ md*)
 	chmod 640 md${unit}? #rmd${unit}?
 	;;
 
-ccd*|cd*|fd*|raid*|sd*|vnd*|wd*)
+ccd*|cd*|fd*|raid*|sd*|vnd*|wd*|pdisks*)
 	case $i in
 	ccd*)	name=ccd;	unit=${i#ccd};	blk=7; chr=27;;
 	cd*)	name=cd;	unit=${i#cd};	blk=3; chr=13;;
@@ -285,6 +302,7 @@ ccd*|cd*|fd*|raid*|sd*|vnd*|wd*)
 	sd*)	name=sd;	unit=${i#sd};	blk=8; chr=8;;
 	vnd*)	name=vnd;	unit=${i#vnd};	blk=9; chr=9;;
 	wd*)	name=wd;	unit=${i#wd};	blk=4; chr=36;;
+	pdisks*)name=pdisks;	unit=${i#pdisks};blk=17;chr=81;;
 	esac
 	rm -f $name$unit? r$name$unit?
 	mknod ${name}${unit}a	b $blk $(($unit * 8 + 0))
