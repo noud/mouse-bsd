@@ -153,6 +153,8 @@ int	audioprint __P((void *, const char *));
 #define ISDEVAUDIOCTL(x)	(AUDIODEV((x)) == AUDIOCTL_DEVICE)
 #define ISDEVMIXER(x)		(AUDIODEV((x)) == MIXER_DEVICE)
 
+#include <machine/intr.h>
+
 #if !defined(__i386__) && !defined(__arm32__) && !defined(IPL_AUDIO)
 #define splaudio splbio		/* XXX */
 #define IPL_AUDIO IPL_BIO	/* XXX */
