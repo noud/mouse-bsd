@@ -38,6 +38,10 @@
 #ifndef _NET_IF_ETHER_H_
 #define _NET_IF_ETHER_H_
 
+#include <net/if.h>
+#include <sys/types.h>
+#include <sys/queue.h>
+
 /*
  * Some basic Ethernet constants.
  */
