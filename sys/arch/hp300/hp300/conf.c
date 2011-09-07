@@ -188,6 +188,10 @@ cdev_decl(vlan);
 #include "srt.h"
 cdev_decl(srt);
 
+#include "ptape.h"
+cdev_decl(ptapes);
+cdev_decl(ptapem);
+
 struct cdevsw	cdevsw[] =
 {
 	cdev_cn_init(1,cn),		/* 0: virtual console */
@@ -241,8 +245,8 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 48 */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch),/* 49: disk watching */
 	cdev__oci_init(NVLAN,vlan),	/* 50: vlan interfaces */
-	cdev_notdef(),			/* 51 */
-	cdev_notdef(),			/* 52 */
+	cdev_tape_init(NPTAPE,ptapes),  /* 51: pseudo tape */
+	cdev__ocrwip_init(NPTAPE,ptapem),/* 52: pseudo tape controller */
 	cdev_notdef(),			/* 53 */
 	cdev_notdef(),			/* 54 */
 	cdev_notdef(),			/* 55 */

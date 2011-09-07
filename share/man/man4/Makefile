@@ -45,7 +45,7 @@ MAN+=	si.4
 MAN+=	faith.4 gif.4 inet6.4 icmp6.4 ip6.4 ipsec.4
 
 # Mouse's stuff
-MAN+=	vlan.4
+MAN+=	ptape.4 vlan.4
 
 MLINKS+=bha.4 bt.4
 MLINKS+=cardbus.4 cbb.4

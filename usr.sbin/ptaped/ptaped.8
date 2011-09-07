@@ -1,0 +1,80 @@
+.\" This file is in the public domain.
+.Dd May 4, 1999
+.Dt PTAPED 8
+.Os NetBSD 1.4
+.Sh NAME
+.Nm ptaped
+.Nd pseudo-tape daemon
+.Sh SYNOPSIS
+.Nm
+.Op Fl v
+.Op Fl ro
+.Op Fl bg
+.Ar master-device
+.Ar backing-file
+.Sh DESCRIPTION
+.Nm
+interfaces to the
+.Xr ptape 4
+driver, implementing a pseudo-tape whose contents are kept in a file.
+The file format is private to
+.Nm
+and is not documented here; see the source code.  Reading such files is
+normally done with
+.Nm
+rather than directly.
+.Pp
+Starting
+.Nm
+is equivalent to inserting a tape in the drive;
+.Nm
+normally runs until the tape is ejected (with
+.Xr mt 1
+.Ar offline
+or equivalent), at which point it exits.  Killing
+.Nm
+is the analog of manually removing the tape from the drive.
+.Pp
+The
+.Ar master-device
+argument is the name of the
+.Xr ptape 4
+master device; this will normally be something of the form
+.Pa /dev/ptapem Ns Ar N .
+.Ar backing-file
+is the name of the file holding the pseudo-tape's contents.  It must
+already exist; if it is empty, the pseudo-tape will initially be blank.
+.Bl -tag -width indent
+.It Fl v
+Verbose operation: produces various output on stdout as it operates.
+This is primarily for debugging, but may be of interest to the curious.
+.It Fl ro
+Force the tape to be read-only.  Normally,
+.Nm
+tries to open the
+.Ar backing-file
+read/write, and if successful, the virtual tape is writeable; if not, a
+read-only open is tried, and if that succeeds, the virtual tape is
+read-only.  (If the
+.Ar backing-file
+cannot be opened even read-only,
+.Nm
+prints an error and doesn't start.)  This option skips the read/write
+attempt, going directly to the read-only attempt.
+.It Fl bg
+Causes
+.Nm
+to background itself once its startup is complete and it's about to
+start processing requests from the
+.Xr ptape 4
+driver.
+.El
+.Sh DIAGNOSTICS
+Various complaints about inability to open devices or files, fork, etc.
+.Sh SEE ALSO
+.Xr ptape 4
+.Sh HISTORY
+The
+.Nm
+command first appeared in
+.Nx 1.4 .

@@ -165,6 +165,9 @@ cdev_decl(wskbd);
 cdev_decl(wsmouse);
 #include "wsmux.h"
 cdev_decl(wsmux);
+#include "ptape.h"
+cdev_decl(ptapes);
+cdev_decl(ptapem);
 
 #include "diskwatch.h"
 cdev_decl(diskwatch);
@@ -221,8 +224,8 @@ struct cdevsw	cdevsw[] =
 	cdev_mouse_init(NWSMUX, wsmux),  /* 45: ws multiplexor */
 	cdev_notdef(),			/* 46 */
 	cdev_notdef(),			/* 47 */
-	cdev_notdef(),			/* 48 */
-	cdev_notdef(),			/* 49 */
+	cdev_tape_init(NPTAPE,ptapes),	/* 48: pseudo tape */
+	cdev__ocrwip_init(NPTAPE,ptapem), /* 49: pseudo tape controller */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 50: disk watching */
 	cdev__oci_init(NVLAN,vlan),	/* 51: vlan interfaces */
 	cdev_notdef(),			/* 52 */

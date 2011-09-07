@@ -134,6 +134,7 @@ int	nblkdev = sizeof(bdevsw) / sizeof(bdevsw[0]);
 #include "zstty.h"
 #include "scsibus.h"
 #include "diskwatch.h"
+#include "ptape.h"
 #include "vlan.h"
 #include "srt.h"
 
@@ -179,6 +180,8 @@ cdev_decl(zsc);
 cdev_decl(scsibus);
 cdev_decl(vc_nb_);
 cdev_decl(diskwatch);
+cdev_decl(ptapes);
+cdev_decl(ptapem);
 cdev_decl(vlan);
 cdev_decl(srt);
 
@@ -236,8 +239,8 @@ struct cdevsw	cdevsw[] =
 	cdev_vc_nb_init(NVCODA,vc_nb_),	/* 47: Venus cache driver (Coda) */
 	cdev_notdef(),			/* 48 */
 	cdev_notdef(),			/* 49 */
-	cdev_notdef(),			/* 50 */
-	cdev_notdef(),			/* 51 */
+	cdev_tape_init(NPTAPE,ptapes),	/* 50: pseudo tape */
+	cdev__ocrwip_init(NPTAPE,ptapem), /* 51: pseudo tape controller */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 52: disk watching */
 	cdev__oci_init(NVLAN,vlan),	/* 53: vlan interfaces */
 	cdev_notdef(),			/* 54 */

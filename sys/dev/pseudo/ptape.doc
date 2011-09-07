@@ -1,0 +1,119 @@
+master device minor 0 exists only for PTAPEIOC_FREEUNIT ioctl
+
+master device protocol:
+
+data read from master device is a stream of packets; data written,
+likewise (though the packet format is different).  Conceptually, the
+device uses the userland program as a request server, sending requests
+when userland reads and getting replies when it writes.
+
+device->program (request) packet format:
+	opcode (1 byte)
+	opcode-specific data (0 or more bytes)
+
+Multi-byte quantities are always in machine-native byte-order.
+
+program->device packet format:
+	request-specific data (0 or more bytes)
+
+Requests (and their replies, for those that need them):
+
+Opcode 'o'
+	Open: indicates that someone is trying to open the
+	slave device.
+Request-specific data:
+	Rwflag (1 byte)
+		This is 'r' if the open is for read-only, 'w' if for
+		write-only, or 'b' if for read/write ("both").
+Reply is an int.  This is an errno, or 0 for success.
+
+Opcode 'c'
+	Close: indicates that the slave device has just experienced
+	last close.
+No request-specific data
+No reply
+
+Opcode 'r'
+	Read: has subrequests for implementing a read call.
+Request-specific data:
+	Subcommand (1 byte)
+	Subcommand-specific data (0 or more bytes)
+Multiple requests are involved in implementing a single read.  The
+subcommand distinguishes them; it can be
+	'o'	"Open": Begin the read.
+		No subcommand-specific data.
+		Response: one "int".  If positive, it is the length of
+		the tape record, and 'r'-subcommand calls may be made
+		to handle the data.  If zero, the read corresponds to
+		tape mark.  If negative, it is the negation of an errno
+		value, and the read returns indicating that error.
+	'r'	"Read": Get some data.
+		Subcommand-specific data: one "int".  This is the
+		number of bytes of the tape record that must be
+		returned.
+		Response: that many bytes.
+	'c'	"Close": Finish read.
+		No subcommand-specific data.
+		No response.
+		This call indicates that the read is done.  The total
+		number of bytes collected by 'r' subcommands may be
+		less than the size returned in response to the 'o'
+		subcommand, if userland's buffer is smaller on the
+		other side; the 'c' call (which is always made when 'o'
+		produces a result greater than zero) indicates that the
+		read is done, and any partial record unread (if any) is
+		to be discarded.
+
+Opcode 'w'
+	Write: has subrequests for implementing a write call.
+Request-specific data:
+	Subcommand (1 byte)
+	Subcommand-specific data (0 or more bytes)
+Multiple requests are involved in implementing a single write.  The
+subcommand distinguishes them; it can be
+	'o'	"Open": Begin the write.
+		Subcommand-specific data: one "int".  This is the
+		length of the record being attempted.
+		Response: one "int".  If nonnegative, it is the length
+		of the record written, and 'w'-subcommand calls may be
+		made to provide the data.  If negative, it is the
+		negation of an errno value, and the write returns
+		indicating that error.
+	'w'	"Write": Pass some data.
+		Subcommand-specific data: one "int", then that many
+		more bytes.  This passes in (part of) the record being
+		written; the int gives the length of the portion.
+		Response: one "int".  This is an errno, or zero for
+		success.  A nonzero errno aborts the write; no 'c'
+		subcommand call will be made.
+		No response.
+	'c'	"Close": Finish write.
+		No subcommand-specific data.
+		This call indicates that the write is done.
+		Response: one "int".  This is a final errno, or zero
+		for no error.
+
+Opcode 'i'
+	Ioctl: has subrequests for implementing ioctl calls.
+Request-specific data:
+	Subcommand (1 byte)
+	Subcommand-specific data (0 or more bytes)
+The subcommand distinguishes different operations:
+	'o'	"Open": begin an ioctl.
+		Subcommand-specific data:
+			Operation (an unsigned long int)
+			Operation-specific data
+		The operation is the raw ioctl operation value.  If it
+		has the IOC_IN bit set, there will be a number of
+		following bytes equal to the IOCPARM_LEN() value;
+		otherwise, there will be no following data.  Response:
+		one int.  If nonzero, this is an errno value, and the
+		ioctl returns showing that error.  Otherwise, the ioctl
+		is successful.  If the operation has the IOC_OUT bit
+		set, 'd' calls will be made to pick up the response;
+		otherwise, the call ends at this point.
+	'd'	"Data": return data from an ioctl
+		Subcommand-specific data: a number of bytes.
+		Response: that many bytes.
+		This call is used to collect the data for an IOC_OUT
+		ioctl.

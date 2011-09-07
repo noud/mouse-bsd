@@ -15,7 +15,7 @@ SUBDIR=	ac accton amd apm apmd arp bad144 bind bootp catman \
 	mdconfig mdsetimage \
 	srtconfig vlanconfig \
 	memswitch mopd mountd mrinfo mrouted mtrace mtree \
-	netgroup_mkdb nfsd nfsiod pkg_install portmap pppd pstat \
+	netgroup_mkdb nfsd nfsiod pkg_install portmap pppd pstat ptaped \
 	pwd_mkdb quot quotacheck quotaon rarpd rbootd rdate \
 	repquota rmt rpc.bootparamd rpc.lockd rpc.pcnfsd \
 	rpc.statd rpc.yppasswdd rwhod sa screenblank \

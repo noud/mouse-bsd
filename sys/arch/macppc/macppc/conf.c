@@ -150,6 +150,10 @@ cdev_decl(diskwatch);
 #include "scsibus.h"
 cdev_decl(scsibus);
 
+#include "ptape.h"
+cdev_decl(ptapes);
+cdev_decl(ptapem);
+
 #include "vlan.h"
 cdev_decl(vlan);
 #include "srt.h"
@@ -229,8 +233,8 @@ struct cdevsw cdevsw[] = {
 	cdev_notdef(),			/* 47 */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 48: disk watching */
 	cdev__oci_init(NVLAN,vlan),	/* 49: vlan interfaces */
-	cdev_notdef(),			/* 50 */
-	cdev_notdef(),			/* 51 */
+	cdev_tape_init(NPTAPE,ptapes),	/* 50: pseudo tape */
+	cdev__ocrwip_init(NPTAPE,ptapem), /* 51: pseudo tape controller */
 	cdev_notdef(),			/* 52 */
 	cdev_notdef(),			/* 53 */
 	cdev_notdef(),			/* 54 */

@@ -415,6 +415,11 @@ cdev_decl(scsibus);
 
 #include "diskwatch.h"
 cdev_decl(diskwatch);
+
+#include "ptape.h"
+cdev_decl(ptapes);
+cdev_decl(ptapem);
+
 #include "vlan.h"
 cdev_decl(vlan);
 
@@ -502,8 +507,8 @@ struct cdevsw	cdevsw[] =
 	cdev_disk_init(NRAID,raid),	/* 73: RAIDframe disk driver */
 	cdev_mouse_init(NWSMUX, wsmux),	/* 74: ws multiplexor */
 	cdev__oci_init(NVLAN,vlan),	/* 75: vlan interfaces */
-	cdev_notdef(),			/* 76 */
-	cdev_notdef(),			/* 77 */
+	cdev_tape_init(NPTAPE,ptapes),	/* 76: pseudo tape */
+	cdev__ocrwip_init(NPTAPE,ptapem), /* 77: pseudo tape controller */
 	cdev_notdef(),			/* 78 */
 	cdev_notdef(),			/* 79 */
 	cdev_notdef(),			/* 80 */

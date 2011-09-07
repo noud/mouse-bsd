@@ -1,0 +1,221 @@
+.\" This file is in the public domain.
+.\" Grr, why do .Bl/.El produce a blank line before but not after?!
+.\" It seems damn near impossible to get a blank line.
+.\" .D1 and .Dl with no argument produce a whine.
+.\" Neither of
+.\" .D1 \&
+.\" .D1 \&\ \&
+.\" work.
+.de bL
+.nf
+\&\ \&
+.br
+.fi
+..
+.Dd May 5, 1999
+.Dt PTAPE 4
+.Os NetBSD 1.4
+.Sh NAME
+.Nm ptape
+.Nd pseudo-tape (software) driver
+.Sh SYNOPSIS
+.Cd pseudo-device ptape Op Ar count
+.Sh DESCRIPTION
+The
+.Nm ptape
+interface is a software loopback mechanism that can be loosely
+described as doing for tape drives what the
+.Xr pty 4
+driver does for terminals or the
+.Xr tun 4
+driver does for network interfaces.
+.Pp
+The
+.Nm
+driver provides two interfaces: an interface that looks like a tape
+drive to software and a character-special device
+.Dq control
+interface.  I/O to the virtual tape drive produces interaction between
+the control interface and the process controlling it; the paradigm is a
+client/server one, where the
+.Nm
+driver (in the form of the control device) is the client and the
+controlling process is the server.
+.Pp
+Data read from the control device takes the form of a stream of
+self-delimiting request packets, each of which consists of a one-byte
+opcode value followed by zero or more bytes of opcode-specific data.
+Data written to the control device is always taken as a reply to the
+most recently read request; the amount of data expected depends on the
+request.  Attempts to write less data than expected will succeed, but
+continue waiting until the deficit is made up; attempts to write more
+than expected will produce
+.Sq short
+writes, ie, the return value from
+.Xr write 2
+will be only as much as expected, ignoring the excess.  (If no reply is
+needed, or if a reply was needed but it has been fully provided, writes
+will fail with an error.)  The details of the requests and replies are
+given below.
+.Pp
+The SYNOPSIS line configures
+.Ar count
+control/pseudo-drive pairs.  The
+.Pa /dev
+nodes for them must use minor numbers from 1 through
+.Ar count
+(not 0 through
+.Ar count Ns \&-1 ) .
+Minor number 0 is special.  No pseudo-drive exists for minor number
+zero; attempts to access it (if a device node for it is created) will
+always fail.  The control device at minor number 0 is special; unlike
+the other control devices, it is not exclusive-open, and when read
+from, it always returns one
+.Dv int
+(in host-native byte order), whose value is a unit number of a free
+control/drive pair (starting with zero, since that's now the device
+nodes are normally named), or \&-1 if there are no free pairs.  Writes
+to control device minor 0 always fail.
+.Sh REQUEST/REPLY FORMAT
+Five opcodes are defined.  The opcode byte is a single character:
+.Bl -tag -width indent
+.It 'o'
+Open: this request is generated when a process attempts to open the
+virtual tape drive.  One byte of additional data is passed, that being
+'r', 'w', or 'b', according as the open is read-only, write-only, or
+read/write.  The reply must be a single int, which is zero for success
+or an error number (see
+.Xr errno 2 )
+for failure.
+.It 'c'
+Close: this request is generated on the last close of the virtual tape
+drive.  (Note that open and close requests do not necessarily pair up:
+each open generates an open request, but only the last close generates
+a close request.)  No additional data is passed and no reply is
+expected.
+.It 'r'
+Read: this request is used to implement read calls on the virtual tape
+drive.  The amount of following data is variable; the first following
+byte acts as a
+.Sq sub-opcode ,
+specifying more precisely what the request is:
+.Bl -tag -width indent
+.It 'o'
+Open a read request: this indicates that a
+.Xr read 2
+has been done.  No further data appear in the request; the reply
+consists of a single int, which in the normal case is greater than zero
+and gives the length of the tape record being read.  If it's less than
+zero, it indicates an error; in this case, it is taken as the negative
+of an
+.Xr errno 2
+value.  It also can be zero, in which case the read returns zero,
+indicating EOF (a
+.Sq tape mark ) .
+.It 'c'
+Close a read request: no further data in the request, no reply
+expected.  This subrequest indicates that the current read operation is
+finished; in particular, no further 'r' subrequests will be made for it.
+.It 'r'
+Read data: following data in the request consists of a single int,
+which gives a byte count.  The reply consists of that many bytes from
+the tape record.
+.El
+.bL
+When a
+.Xr read 2
+is done on the virtual tape drive, an 'r'/'o' request is generated.  If
+it indicates an error, or a zero-length record, that's the end of it.
+Otherwise, zero or more 'r'/'r' requests are generated to collect the
+data, followed by an 'r'/'c' request.  The data should be passed back
+in order in response to the 'r'/'r' requests, starting at the beginning
+of the record, with each 'r'/'r' request picking up where the previous
+one left off.
+.It 'w'
+Write: this request is used to implement write calls on the virtual
+tape drive.  The amount of following data is variable; the first
+following byte acts as a
+.Sq sub-opcode ,
+specifying more precisely what the request is:
+.Bl -tag -width indent
+.It 'o'
+Open a write request: this indicates that a
+.Xr write 2
+has been done.  Following the sub-opcode is one int, which is the size
+(in bytes) of the attempted write.  The reply consists of a single int,
+which in the normal case is greater than zero and gives the length of
+the tape record actually written (most often, but not necessarily,
+equal to the length attempted).  If it's less than zero, it indicates
+an error; in this case, it is taken as the negative of an
+.Xr errno 2
+value.  It can be zero, in which case the write returns zero, though
+this is not a normal case.
+.It 'c'
+Close a write request: no further data in the request, no reply
+expected.  This subrequest indicates that the current write operation
+is finished; in particular, no further 'w' subrequests will be made for
+it.  This normally will not be done until the entire record is written,
+but it can occur earlier in certain error conditions.
+.It 'w'
+Write data: following data in the request consists of a portion of the
+tape record to be written, in the form of an int length followed by
+that many bytes.
+.El
+.bL
+When a
+.Xr write 2
+is done on the virtual tape drive, a 'w'/'o' request is generated.  If
+it indicates an error, or a zero-length write, that's the end of it.
+Otherwise, zero or more 'w'/'w' requests are done to pass the record's
+data, followed by a 'w'/'c' request.  The data are passed in order in
+the 'w'/'w' requests, starting at the beginning of the record, with
+each 'w'/'w' request picking up where the previous one left off.
+.It 'i'
+Ioctl: this request is used to implement ioctl calls on the virtual
+tape drive.  The amount of following data is variable; the first
+following byte acts as a
+.Sq sub-opcode ,
+specifying more precisely what the request is:
+.Bl -tag -width indent
+.It 'o'
+Open an ioctl request: this indicates that an
+.Xr ioctl 2
+has been done.  Following the sub-opcode is an unsigned long int, which
+is the command (the second argument to
+.Xr ioctl 2 ) ,
+then, if the command indicates that data are to be passed in, the
+appropriate amount of data.  (Whether the ioctl includes such data, and
+if so how much, are encoded in the command; see
+.Xr ioctl 2 ,
+and
+.Aq Pa sys/ioctl.h . )
+The reply consists of a single int, which if zero indicates that the
+call succeeded or otherwise is an
+.Xr errno 2
+value.
+.It 'd'
+Return data: if an ioctl that indicates that data are to be passed out
+is done and succeeds, this call will be made to retrieve the data.
+Following the sub-opcode is a single int, giving the number of bytes
+expected (which will always be equal to the length encoded in the
+command); the response must consist of that many bytes.
+.El
+.bL
+When an
+.Xr ioctl 2
+is done on the virtual tape drive, an 'i'/'o' request is generated.  If
+it indicates an error, or if the ioctl does not call for any data to be
+passed back, that's the end of it.  Otherwise, an 'i'/'d' requests is
+done to get the returned data.
+.El
+.Pp
+All multi-byte quantities are in machine-native byte order, since the
+controlling process and the control device are perforce on the same
+machine.  (This does not normally matter, but it does mean that one
+cannot simply pass data streams between the control device and a
+network connection without taking care to avoid or compensate for type
+size and byte order differences.)
+.Sh SEE ALSO
+.Xr pty 4 ,
+.Xr tun 4 ,
+.Xr ptaped 8

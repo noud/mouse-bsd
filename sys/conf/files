@@ -968,6 +968,9 @@ file uvm/uvm_unix.c
 file uvm/uvm_user.c
 file uvm/uvm_vnode.c
 
+defpseudo ptape: tape
+file dev/pseudo/ptape.c ptape needs-count
+
 defpseudo srt: ifnet
 file dev/pseudo/if_srt.c srt needs-flag
 
