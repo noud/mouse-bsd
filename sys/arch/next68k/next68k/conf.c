@@ -91,6 +91,21 @@ struct bdevsw	bdevsw[] =
 	bdev_lkm_dummy(),		/* 18 */
 	bdev_lkm_dummy(),		/* 19 */
 	bdev_disk_init(NRAID,raid), 	/* 20: RAIDframe disk driver */
+	bdev_notdef(),			/* 21 */
+	bdev_notdef(),			/* 22 */
+	bdev_notdef(),			/* 23 */
+	bdev_notdef(),			/* 24 */
+	bdev_notdef(),			/* 25 */
+	bdev_notdef(),			/* 26 */
+	bdev_notdef(),			/* 27 */
+	bdev_notdef(),			/* 28 */
+	bdev_notdef(),			/* 29 */
+	bdev_notdef(),			/* 30 */
+	bdev_notdef(),			/* 31 */
+	bdev_notdef(),			/* 32 */
+	bdev_notdef(),			/* 33 */
+	bdev_notdef(),			/* 34 */
+	bdev_notdef(),			/* 35 */
 };
 int	nblkdev = sizeof(bdevsw) / sizeof(bdevsw[0]);
 
