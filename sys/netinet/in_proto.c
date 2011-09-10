@@ -141,6 +141,11 @@
 #include <netinet/ip_ipip.h>
 #endif /* NIPIP > 0 || MROUTING */
 
+#include "encap.h"
+#if NENCAP > 0
+#include <dev/pseudo/if_encap.h>
+#endif
+
 #include "gre.h"
 #if NGRE > 0
 #include <netinet/ip_gre.h>
@@ -227,6 +232,13 @@ struct protosw inetsw[] = {
   0,		0,		0,		0,
 },
 #endif /* NGRE > 0 */
+#if NENCAP > 0
+{ SOCK_RAW,	&inetdomain,	IPPROTO_ENCAP,	PR_ATOMIC|PR_ADDR,
+  encap_input,	rip_output,	0,		rip_ctloutput,
+  rip_usrreq,
+  0,		0,		0,		0,
+},
+#endif
 { SOCK_RAW,	&inetdomain,	IPPROTO_IGMP,	PR_ATOMIC|PR_ADDR,
   igmp_input,	rip_output,	0,		rip_ctloutput,
   rip_usrreq,

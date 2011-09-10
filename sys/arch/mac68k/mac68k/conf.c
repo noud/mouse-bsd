@@ -137,6 +137,7 @@ int	nblkdev = sizeof(bdevsw) / sizeof(bdevsw[0]);
 #include "scsibus.h"
 #include "diskwatch.h"
 #include "ptape.h"
+#include "encap.h"
 #include "vlan.h"
 #include "srt.h"
 
@@ -182,6 +183,7 @@ cdev_decl(zsc);
 cdev_decl(scsibus);
 cdev_decl(vc_nb_);
 cdev_decl(diskwatch);
+cdev_decl(encap);
 cdev_decl(pdisks);
 cdev_decl(pdiskm);
 cdev_decl(ptapes);
@@ -250,7 +252,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 54 */
 	cdev_notdef(),			/* 55 */
 	cdev_notdef(),			/* 56 */
-	cdev_notdef(),			/* 57 */
+	cdev__oci_init(NENCAP,encap),	/* 57: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 58: srt interfaces */
 	cdev_notdef(),			/* 59 */
 	cdev_notdef(),			/* 60 */

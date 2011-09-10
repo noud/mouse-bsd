@@ -158,6 +158,8 @@ cdev_decl(scsibus);
 cdev_decl(ptapes);
 cdev_decl(ptapem);
 
+#include "encap.h"
+cdev_decl(encap);
 #include "vlan.h"
 cdev_decl(vlan);
 #include "srt.h"
@@ -242,7 +244,7 @@ struct cdevsw cdevsw[] = {
 	cdev_notdef(),			/* 52 */
 	cdev_notdef(),			/* 53 */
 	cdev_notdef(),			/* 54 */
-	cdev_notdef(),			/* 55 */
+	cdev__oci_init(NENCAP,encap),	/* 55: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 56: srt interfaces */
 	cdev_notdef(),			/* 57 */
 	cdev_notdef(),			/* 58 */

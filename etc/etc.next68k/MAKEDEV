@@ -77,6 +77,7 @@
 #	diskwatch* Live-backup disk watching
 #	ptape*	Pseudo-tape devices
 #	pdisk*	Pseudo-disk devices
+#	encap*	IP-proto-98 encapsulation
 #	vlan*	802.1q VLAN interfaces
 #	srt*	Source-address-routing interfaces
 #
@@ -98,6 +99,7 @@ all)
 	sh $0 scsibus0 scsibus1 scsibus2 scsibus3
 	sh $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
 	sh $0 ptape ptape0 ptape1 ptape2 ptape3
+	sh $0 encap0 encap1 encap2 encap3
 	sh $0 pdisk0 pdisk1 pdiskm
 	sh $0 vlan0 vlan1 vlan2 vlan3 vlan4 vlan5 vlan6 vlan7
 	sh $0 srt0 srt1 srt2 srt3
@@ -417,6 +419,14 @@ pdiskm*)
 pdisk[0-9]*)
 	unit=${i#pdisk}
 	sh $0 pdiskm$unit pdisks$unit
+	;;
+
+encap*)
+	unit=${i#encap};
+	rm -f encap$unit
+	mknod encap$unit c 55 $unit
+	chown root:wheel encap$unit
+	chmod 600 encap$unit
 	;;
 
 vlan*)

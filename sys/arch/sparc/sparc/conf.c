@@ -101,6 +101,7 @@
 #include "diskwatch.h"
 #include "ptape.h"
 #include "pdisk.h"
+#include "encap.h"
 #include "vlan.h"
 #include "srt.h"
 #include "lpvi.h"
@@ -284,7 +285,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 129 */
 	cdev_tape_init(NPTAPE,ptapes),	/* 130: pseudo tape */
 	cdev__ocrwip_init(NPTAPE,ptapem), /* 131: pseudo tape controller */
-	cdev_notdef(),			/* 132 */
+	cdev__oci_init(NENCAP,encap),	/* 132: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 133: srt interfaces */
 	cdev__oci_init(NVLAN,vlan),	/* 134: vlan interfaces */
 	cdev_notdef(),			/* 135 */

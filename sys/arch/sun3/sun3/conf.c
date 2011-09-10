@@ -184,6 +184,9 @@ cdev_decl(diskwatch);
 cdev_decl(ptapes);
 cdev_decl(ptapem);
 
+#include "encap.h"
+cdev_decl(encap);
+
 #include "vlan.h"
 cdev_decl(vlan);
 
@@ -348,7 +351,7 @@ struct cdevsw	cdevsw[] =
 	cdev__oci_init(NVLAN,vlan),	/* 105: vlan interfaces */
 	cdev_notdef(),			/* 106 */
 	cdev_notdef(),			/* 107 */
-	cdev_notdef(),			/* 108 */
+	cdev__oci_init(NENCAP,encap),	/* 108: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 109: srt interfaces */
 	cdev_notdef(),			/* 110 */
 	cdev_notdef(),			/* 111 */

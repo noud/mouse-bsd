@@ -123,6 +123,7 @@ int	nblkdev = sizeof(bdevsw) / sizeof(bdevsw[0]);
 #include "zsc.h"
 #include "zstty.h"
 #include "scsibus.h"
+#include "encap.h"
 #include "vlan.h"
 #include "srt.h"
 
@@ -158,6 +159,7 @@ cdev_decl(zsc);
 cdev_decl(scsibus);
 cdev_decl(pdisks);
 cdev_decl(pdiskm);
+cdev_decl(encap);
 cdev_decl(vlan);
 cdev_decl(srt);
 
@@ -235,7 +237,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 52 */
 	cdev_notdef(),			/* 53 */
 	cdev_notdef(),			/* 54 */
-	cdev_notdef(),			/* 55 */
+	cdev__oci_init(NENCAP,encap),	/* 55: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 56: srt interfaces */
 	cdev_notdef(),			/* 57 */
 	cdev_notdef(),			/* 58 */

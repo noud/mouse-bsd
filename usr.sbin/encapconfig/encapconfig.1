@@ -1,0 +1,187 @@
+.\" This file is in the public domain.
+.Dd November 27, 1999
+.Dt ENCAPCONFIG 1
+.Os NetBSD 1.4J
+.Sh NAME
+.Nm encapconfig
+.Nd configure encap interfaces
+.Sh SYNOPSIS
+.Nm
+.Ar encapX
+.br
+.Nm
+.Ar encapX
+.Ar N
+.br
+.Nm
+.Ar encapX
+del
+.Ar N
+.br
+.Nm
+.Ar encapX
+send
+.Ar N
+.br
+.Nm
+.Ar encapX
+reboot
+.Ar N
+.br
+.Nm
+.Ar encapX
+block
+.Op Ar addr Op /mask ...
+.br
+.Nm
+.Ar encapX
+poison
+.Op Ar addr Op /mask ...
+.br
+.Nm
+.Ar encapX
+add
+.Ar srcaddr
+.Ar mask
+.Ar src
+.Ar dst
+.Ar id
+.Ar ttl
+.Ar secret
+.br
+.Nm
+.Ar encapX
+set
+.Ar N
+.Ar srcaddr
+.Ar mask
+.Ar src
+.Ar dst
+.Ar id
+.Ar ttl
+.Ar secret
+.Sh DESCRIPTION
+.Nm
+configures, or queries the configuration of,
+.Xr encap 4
+interfaces' tunnel settings; there are also a few non-configuration
+operations possible.  A single
+.Xr encap 4
+interface can support multiple tunnels, distinguished by the source
+addresses on the packets (selecting tunnels based on destination
+addresses is done by using multiple
+.Xr encap 4
+interfaces, with the usual routing mechanisms).
+.Pp
+When run with only one argument,
+.Nm
+prints the settings for all the tunnels configured for that interface.
+.Pp
+When run with two arguments,
+.Nm
+prints the settings for the tunnel whose number is given as the second
+argument.
+.Pp
+The form with
+.Sq del
+deletes a tunnel, identified by its number.  Other tunnels with higher
+numbers, if any, will be renumbered accordingly.
+.Pp
+The forms with
+.Sq send
+and
+.Sq reboot
+send magic packets along a route.
+.Sq send
+sends a packet with no particular function; its purpose is to provoke
+peer address learning, as described below (if the peer's tunnel is
+configured with 0.0.0.0 as its destination address).
+.Sq reboot
+sends a packet that, if the peer is configured to obey remote reboot
+requests, causes a reboot.  (This configuration is done at kernel build
+time; there is no
+.Nm
+option to enable or disable it.)
+.Pp
+The
+.Sq block
+form sets blocking.  Blocking info is printed when using the first
+form, with no arguments; also, by adding the string
+.Sq query
+as one of the arguments, a get-and-set operation can be performed.
+Networks to be blocked are listed as net/mask, where the mask can be
+either a CIDR-style width or a dotted-quad mask.  Blocking is performed
+per-interface, not per-tunnel.  If the mask is omitted, only one
+address is blocked (/32).
+.Pp
+.Sq poison
+is just like
+.Sq block
+except that it sets the poison list rather than the blocking list.  If
+an external host sends a packet to an address on the poison list, that
+external address is poisoned, is blocked for the next 24 hours.
+.Pp
+The
+.Sq add
+form adds a tunnel; the other arguments describe the tunnel, and are
+documented below.  The new tunnel is added at the end of the list.
+.Pp
+The
+.Sq set
+form replaces an existing tunnel, given its number.  The other
+arguments describe the new tunnel which is to replace whatever
+currently exists at the given number
+.Ar N .
+.Pp
+A tunnel is described by seven pieces of information: a source address
+and mask, which are used to determine which of an interface's tunnels
+outgoing packets use; source and destination addresses for the
+encapsulated packets; a tunnel ID; a TTL value; and a shared secret.
+The source address and mask, and encapsulation source and destination
+addresses, are specified like any Internet addresses (for convenience,
+the mask may instead be specified as a
+.Sq /
+followed by a small integer, CIDR-style; note that in this case the
+mask must still be a separate argument; it cannot be appended to the
+end of the source address argument).  The id is an integer from 0 to
+255 and must be the same on both ends of the tunnel (this is used to
+disambiguate when multiple tunnels with destination address 0.0.0.0
+exist; vide infra).  The TTL value provides the TTL for outgoing
+packets on this tunnel, and can be from 0 to 255; if 0 is specified,
+the kernel will replace it with its default.  The secret can be any
+string (up to some maximum length, at this writing 1024 characters); it
+must be shared by both ends of the tunnel and is used to sign packets.
+Anyone knowing this secret can forge packets for injection into the
+tunnel, so it should be kept secret.
+.Pp
+The destination address of a tunnel can be configured to 0.0.0.0.  If
+this is done, the address actually used for outgoing packets will be
+the address from which a packet was most recently received on that
+tunnel (if no such packet has been received since the tunnel was
+configured, outgoing packets on it will be silently dropped).  When
+multiple such tunnels are present, there needs to be some way to tell
+which one incoming packets should be associated with; this is why the
+tunnel ID exists.  (In principle this could be done by checking the
+packet's signature, but signature checking is comparatively expensive,
+whereas checking the tunnel ID is cheap and fast.)  When querying a
+tunnel's configuration, if the destination address is configured to
+0.0.0.0 and there is an actual address recorded, it is printed in
+parentheses.
+.Pp
+Each encap interface also has ordinary source and distination addresses
+which are set with
+.Xr ifconfig 8
+like any other interface; these should not be confused with the
+.Ar src
+and
+.Ar dst
+arguments above, which are the addresses used for the
+.Sq outer
+addresses of encapsulated packets.
+.Sh BUGS
+Though the kernel interface supports it, there is no way to use
+.Nm
+to set a shared secret containing a NUL.
+.Sh AUTHOR
+der Mouse,
+.Aq mouse@rodents.montreal.qc.ca .

@@ -279,6 +279,9 @@ cdev_decl(diskwatch);
 cdev_decl(ptapes);
 cdev_decl(ptapem);
 
+#include "encap.h"
+cdev_decl(encap);
+
 struct cdevsw	cdevsw[] =
 {
 	cdev_cn_init(1,cn),		/* 0: virtual console */
@@ -376,7 +379,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 74 */
 	cdev_tape_init(NPTAPE,ptapes),	/* 75: pseudo tape */
 	cdev__ocrwip_init(NPTAPE,ptapem),/* 76: pseudo tape controller */
-	cdev_notdef(),			/* 77 */
+	cdev__oci_init(NENCAP,encap),	/* 77: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 78: srt interfaces */
 	cdev__oci_init(NVLAN,vlan),	/* 79: vlan interfaces */
 	cdev_notdef(),			/* 80 */

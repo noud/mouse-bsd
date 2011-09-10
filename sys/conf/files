@@ -974,6 +974,9 @@ file dev/pseudo/ptape.c ptape needs-count
 defpseudo pdisk: disk
 file dev/pseudo/pdisk.c pdisk needs-count
 
+defpseudo encap: ifnet
+file dev/pseudo/if_encap.c encap needs-flag
+
 defpseudo srt: ifnet
 file dev/pseudo/if_srt.c srt needs-flag
 
