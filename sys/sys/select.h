@@ -38,6 +38,8 @@
 #ifndef _SYS_SELECT_H_
 #define	_SYS_SELECT_H_
 
+#include <sys/types.h>
+
 /*
  * Used to maintain information about processes that wish to be
  * notified when I/O becomes possible.
