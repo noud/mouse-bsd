@@ -71,6 +71,10 @@
 #ifndef _SPARC_BUS_H_
 #define _SPARC_BUS_H_
 
+#include <sys/null.h>
+#include <sys/types.h>
+#include <sys/cdefs.h>
+
 #define	SPARC_BUS_SPACE	0
 
 /*
