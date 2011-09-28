@@ -46,6 +46,8 @@
 
 #ifndef PSR_IMPL
 
+#include <sys/cdefs.h>
+
 /*
  * SPARC Process Status Register (in psl.h for hysterical raisins).
  *
