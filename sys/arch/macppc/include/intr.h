@@ -62,6 +62,8 @@
 
 #ifndef _LOCORE
 
+#include <machine/psl.h>
+
 /*
  * Interrupt handler chains.  intr_establish() inserts a handler into
  * the list.  The handler is called with its (single) argument.
