@@ -1113,6 +1113,11 @@ sogetopt(so, level, optname, mp)
 			break;
 		    }
 
+		/* no SO_RCVQLEN - use FIONREAD ioctl */
+		case SO_SNDQLEN:
+			*mtod(m, int *) = so->so_snd.sb_cc;
+			break;
+
 		default:
 			(void)m_free(m);
 			return (ENOPROTOOPT);
