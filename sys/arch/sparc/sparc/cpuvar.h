@@ -43,6 +43,7 @@
 #include <sys/lock.h>
 
 #include <sparc/sparc/cache.h>	/* for cacheinfo */
+#include <sparc/sparc/memreg.h>	/* for trapframe */
 
 /*
  * CPU/MMU module information.
