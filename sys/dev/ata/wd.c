@@ -147,18 +147,18 @@ struct wd_softc {
 	int openings;
 	struct ataparams sc_params;/* drive characteistics found */
 	int sc_flags;
-#define WDF_LOCKED	  0x01
-#define WDF_WANTED	  0x02
-#define WDF_WLABEL	  0x04 /* label is writable */
-#define WDF_LABELLING   0x08 /* writing label */
+#define WDF_LOCKED    0x001
+#define WDF_WANTED    0x002
+#define WDF_WLABEL    0x004 /* label is writable */
+#define WDF_LABELLING 0x008 /* writing label */
 /*
  * XXX Nothing resets this yet, but disk change sensing will when ATA-4 is
  * more fully implemented.
  */
-#define WDF_LOADED	  0x10 /* parameters loaded */
-#define WDF_WAIT	0x20 /* waiting for resources */
-#define WDF_LBA	 0x40 /* using LBA mode */
-#define WDF_KLABEL	 0x80 /* retain label after 'full' close */
+#define WDF_LOADED    0x010 /* parameters loaded */
+#define WDF_WAIT      0x020 /* waiting for resources */
+#define WDF_LBA       0x040 /* using LBA mode */
+#define WDF_KLABEL    0x080 /* retain label after 'full' close */
 	int sc_capacity;
 	int cyl; /* actual drive parameters */
 	int heads;
