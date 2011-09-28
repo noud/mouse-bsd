@@ -83,6 +83,7 @@
 #ifndef _SBUS_VAR_SPARC_H
 #define _SBUS_VAR_SPARC_H
 
+#include <sys/device.h>
 
 /* variables per Sbus */
 struct sbus_softc {
