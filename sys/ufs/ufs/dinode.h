@@ -1,3 +1,6 @@
+#ifndef _DINODE_H_c23ec9ef_
+#define _DINODE_H_c23ec9ef_
+
 /*	$NetBSD: dinode.h,v 1.12 1999/11/15 18:49:15 fvdl Exp $	*/
 
 /*
@@ -128,3 +131,5 @@ struct dinode {
 
 /* Size of the on-disk inode. */
 #define	DINODE_SIZE	(sizeof(struct dinode))		/* 128 */
+
+#endif
