@@ -46,6 +46,12 @@
 #ifndef _NET_IF_PPPVAR_H_
 #define _NET_IF_PPPVAR_H_
 
+#include "ppp.h"
+#include <net/if.h>
+#include <sys/cdefs.h>
+#include <sys/types.h>
+#include <net/ppp_defs.h>
+
 /*
  * Supported network protocols.  These values are used for
  * indexing sc_npmode.
