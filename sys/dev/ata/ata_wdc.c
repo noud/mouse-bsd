@@ -174,6 +174,19 @@ wdc_ata_bio_start(chp, xfer)
 	_wdc_ata_bio_start(chp, xfer);
 }
 
+static int to48cmd(int cmd)
+{
+ switch (cmd)
+  { case WDCC_READ: return(WDCC_READ_EXT); break;
+    case WDCC_WRITE: return(WDCC_WRITE_EXT); break;
+    case WDCC_READMULTI: return(WDCC_READMULTI_EXT); break;
+    case WDCC_WRITEMULTI: return(WDCC_WRITEMULTI_EXT); break;
+    case WDCC_READDMA: return(WDCC_READDMA_EXT); break;
+    case WDCC_WRITEDMA: return(WDCC_WRITEDMA_EXT); break;
+  }
+ panic("ata_wdc: converting unrecognized command %d",cmd);
+}
+
 void
 _wdc_ata_bio_start(chp, xfer)
 	struct channel_softc *chp;
@@ -266,7 +279,11 @@ again:
 			}
 		/* Transfer is okay now. */
 		}
-		if (ata_bio->flags & ATA_LBA) {
+		if (ata_bio->flags & ATA_LBA48) {
+			sect = 0;
+			cyl = 0;
+			head = 0;
+		} else if (ata_bio->flags & ATA_LBA) {
 			sect = (ata_bio->blkno >> 0) & 0xff;
 			cyl = (ata_bio->blkno >> 8) & 0xffff;
 			head = (ata_bio->blkno >> 24) & 0x0f;
@@ -302,8 +319,12 @@ again:
 			    WDSD_IBM | (xfer->drive << 4));
 			if (wait_for_ready(chp, ata_delay) < 0)
 				goto timeout;
-			wdccommand(chp, xfer->drive, cmd, cyl,
-			    head, sect, nblks, 0);
+			if (ata_bio->flags & ATA_LBA48)
+				wdccommand48(chp,xfer->drive,to48cmd(cmd),
+				    ata_bio->blkno,nblks);
+			else
+				wdccommand(chp, xfer->drive, cmd, cyl,
+				    head, sect, nblks, 0);
 			/* start the DMA channel */
 			(*chp->wdc->dma_start)(chp->wdc->dma_arg,
 			    chp->channel, xfer->drive, dma_flags);
@@ -324,10 +345,14 @@ again:
 		    WDSD_IBM | (xfer->drive << 4));
 		if (wait_for_ready(chp, ata_delay) < 0)
 			goto timeout;
-		wdccommand(chp, xfer->drive, cmd, cyl,
-		    head, sect, nblks,
-		    (ata_bio->lp->d_type == DTYPE_ST506) ?
-		    ata_bio->lp->d_precompcyl / 4 : 0);
+		if (ata_bio->flags & ATA_LBA48)
+			wdccommand48(chp,xfer->drive,to48cmd(cmd),
+			    ata_bio->blkno,nblks);
+		else
+			wdccommand(chp, xfer->drive, cmd, cyl,
+			    head, sect, nblks,
+			    (ata_bio->lp->d_type == DTYPE_ST506) ?
+			    ata_bio->lp->d_precompcyl / 4 : 0);
 	} else if (ata_bio->nblks > 1) {
 		/* The number of blocks in the last stretch may be smaller. */
 		nblks = xfer->c_bcount / ata_bio->lp->d_secsize;

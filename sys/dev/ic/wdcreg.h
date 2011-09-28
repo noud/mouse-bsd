@@ -55,6 +55,9 @@
 #define	wd_sdh		6	/* sector size/drive/head (R/W) */
 #define	wd_command	7	/* command register (W)	*/
 #define	wd_status	7	/* immediate status (R)	*/
+#define wd_lba_lo	3	/* lba address, low byte (R/W) */
+#define wd_lba_mi	4	/* lba address, middle byte (R/W) */
+#define wd_lba_hi	5	/* lba address, high byte (R/W) */
 
 /* offsets of registers in the auxiliary register region */
 #define	wd_aux_altsts	0	/* alternate fixed disk status (R) */
@@ -95,39 +98,50 @@
 /*
  * Commands for Disk Controller.
  */
-#define WDCC_NOP	0x00	/* NOP - Always fail with "aborted command" */
-#define	WDCC_RECAL	0x10	/* disk restore code -- resets cntlr */
+#define WDCC_NOP		0x00	/* Always fail with "aborted command" */
+#define	WDCC_RECAL		0x10	/* disk restore code -- resets cntlr */
 
-#define	WDCC_READ	0x20	/* disk read code */
-#define	WDCC_WRITE	0x30	/* disk write code */
-#define	 WDCC__LONG	 0x02	 /* modifier -- access ecc bytes */
-#define	 WDCC__NORETRY	 0x01	 /* modifier -- no retrys */
+#define	WDCC_READ		0x20	/* disk read code */
+#define	WDCC_WRITE		0x30	/* disk write code */
+#define	 WDCC__LONG		 0x02	 /* modifier -- access ecc bytes */
+#define	 WDCC__NORETRY		 0x01	 /* modifier -- no retries */
 
-#define	WDCC_FORMAT	0x50	/* disk format code */
-#define	WDCC_DIAGNOSE	0x90	/* controller diagnostic */
-#define	WDCC_IDP	0x91	/* initialize drive parameters */
+#define	WDCC_FORMAT		0x50	/* disk format code */
+#define	WDCC_DIAGNOSE		0x90	/* controller diagnostic */
+#define	WDCC_IDP		0x91	/* initialize drive parameters */
 
-#define	WDCC_READMULTI	0xc4	/* read multiple */
-#define	WDCC_WRITEMULTI	0xc5	/* write multiple */
-#define	WDCC_SETMULTI	0xc6	/* set multiple mode */
+#define	WDCC_READMULTI		0xc4	/* read multiple */
+#define	WDCC_WRITEMULTI		0xc5	/* write multiple */
+#define	WDCC_SETMULTI		0xc6	/* set multiple mode */
 
-#define	WDCC_READDMA	0xc8	/* read with DMA */
-#define	WDCC_WRITEDMA	0xca	/* write with DMA */
+#define	WDCC_READDMA		0xc8	/* read with DMA */
+#define	WDCC_WRITEDMA		0xca	/* write with DMA */
 
-#define	WDCC_ACKMC	0xdb	/* acknowledge media change */
-#define	WDCC_LOCK	0xde	/* lock drawer */
-#define	WDCC_UNLOCK	0xdf	/* unlock drawer */
+#define	WDCC_ACKMC		0xdb	/* acknowledge media change */
+#define	WDCC_LOCK		0xde	/* lock drawer */
+#define	WDCC_UNLOCK		0xdf	/* unlock drawer */
 
-#define	WDCC_FLUSHCACHE	0xe7	/* Flush cache */
-#define	WDCC_IDENTIFY	0xec	/* read parameters from controller */
-#define	SET_FEATURES	0xef	/* set features */
+#define	WDCC_FLUSHCACHE		0xe7	/* Flush cache */
+#define WDCC_FLUSHCACHE_EXT	0xea	/* Flush cache ext */
+#define	WDCC_IDENTIFY		0xec	/* read parameters from controller */
+#define	SET_FEATURES		0xef	/* set features */
 
-#define WDCC_IDLE	0xe3	/* set idle timer & enter idle mode */
-#define WDCC_IDLE_IMMED	0xe1	/* enter idle mode */
-#define WDCC_SLEEP	0xe6	/* enter sleep mode */
-#define WDCC_STANDBY	0xe2	/* set standby timer & enter standby mode */
-#define WDCC_STANDBY_IMMED 0xe0	/* enter standby mode */
-#define WDCC_CHECK_PWR	0xe5	/* check power mode */
+#define WDCC_IDLE		0xe3	/* set idle timer & enter idle mode */
+#define WDCC_IDLE_IMMED		0xe1	/* enter idle mode */
+#define WDCC_SLEEP		0xe6	/* enter sleep mode */
+#define WDCC_STANDBY		0xe2	/* set standby timer & enter standby mode */
+#define WDCC_STANDBY_IMMED	0xe0	/* enter standby mode */
+#define WDCC_CHECK_PWR		0xe5	/* check power mode */
+
+/* Big Drive support */
+#define WDCC_READ_EXT		0x24	/* read, 48-bit addressing */
+#define WDCC_WRITE_EXT		0x34	/* write, 48-bit addressing */
+
+#define WDCC_READMULTI_EXT	0x29	/* read multiple, 48-bit addressing */
+#define WDCC_WRITEMULTI_EXT	0x39	/* write multiple, 48-bit addressing */
+
+#define WDCC_READDMA_EXT	0x25	/* read with DMA, 48-bit addressing */
+#define WDCC_WRITEDMA_EXT	0x35	/* write with DMA, 48-bit addressing */
 
 /* Subcommands for SET_FEATURES (features register ) */
 #define WDSF_EN_WR_CACHE	0x02

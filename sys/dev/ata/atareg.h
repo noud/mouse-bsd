@@ -120,6 +120,8 @@ struct ataparams {
 #define WDC_CMD1_SEC	0x0002
 #define WDC_CMD1_SMART	0x0001
     u_int16_t	atap_cmd_set2;    	/* 83: command set suported */
+#define ATA_CMD2_FCE	0x2000
+#define ATA_CMD2_LBA48	0x0400
 #define WDC_CMD2_RMSN	0x0010
 #define WDC_CMD2_DM	0x0001
 #define ATA_CMD2_APM	0x0008

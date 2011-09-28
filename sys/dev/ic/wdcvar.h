@@ -174,6 +174,7 @@ int   wdcwait __P((struct channel_softc *, int, int, int));
 void  wdcbit_bucket __P(( struct channel_softc *, int));
 void  wdccommand __P((struct channel_softc *, u_int8_t, u_int8_t, u_int16_t,
 	                  u_int8_t, u_int8_t, u_int8_t, u_int8_t));
+void wdccommand48(struct channel_softc *, u_int8_t, u_int8_t, u_int64_t, u_int16_t);
 void   wdccommandshort __P((struct channel_softc *, int, int));
 void  wdctimeout	__P((void *arg));
 

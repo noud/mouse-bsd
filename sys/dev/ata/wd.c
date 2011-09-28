@@ -108,6 +108,8 @@
 #include <sys/ataio.h>
 #include "locators.h"
 
+#define LBA48_THRESHOLD		0x0fffffff	/* (128G/DEV_BSIZE)-1 */
+
 #define	WAITTIME	(4 * hz)	/* time to wait for a completion */
 #define	WDIORETRIES_SINGLE 4	/* number of retries before single-sector */
 #define	WDIORETRIES	5	/* number of retries before giving up */
@@ -159,6 +161,7 @@ struct wd_softc {
 #define WDF_WAIT      0x020 /* waiting for resources */
 #define WDF_LBA       0x040 /* using LBA mode */
 #define WDF_KLABEL    0x080 /* retain label after 'full' close */
+#define WDF_LBA48     0x100 /* using 48-bit LBA mode */
 	int sc_capacity;
 	int cyl; /* actual drive parameters */
 	int heads;
@@ -310,6 +313,10 @@ wdattach(parent, self, aux)
 	printf("%s: drive supports %d-sector pio transfers,",
 	    wd->sc_dev.dv_xname, wd->sc_multi);
 
+	/* Check for 48-bit LBA support */
+	if ((wd->sc_params.atap_cmd2_en & ATA_CMD2_LBA48) != 0)
+		wd->sc_flags |= WDF_LBA48;
+
 	/* Prior to ATA-4, LBA was optional. */
 	if ((wd->sc_params.atap_capabilities1 & WDC_CAP_LBA) != 0)
 		wd->sc_flags |= WDF_LBA;
@@ -320,7 +327,14 @@ wdattach(parent, self, aux)
 		wd->sc_flags |= WDF_LBA;
 #endif
 
-	if ((wd->sc_flags & WDF_LBA) != 0) {
+	if ((wd->sc_flags & WDF_LBA48) != 0) {
+		printf(" lba48 addressing\n");
+		wd->sc_capacity =
+		    (wd->sc_params.__reserved6[11] * 0x0001000000000000ULL) |
+		    (wd->sc_params.__reserved6[10] * 0x0000000100000000ULL) |
+		    (wd->sc_params.__reserved6[ 9] * 0x0000000000010000ULL) |
+		    (wd->sc_params.__reserved6[ 8] * 0x0000000000000001ULL);
+	} else if ((wd->sc_flags & WDF_LBA) != 0) {
 		printf(" lba addressing\n");
 		wd->sc_capacity =
 		    (wd->sc_params.atap_capacity[1] << 16) |
@@ -572,6 +586,13 @@ __wdstart(wd, bp)
 		wd->sc_wdc_bio.flags = ATA_SINGLE;
 	else
 		wd->sc_wdc_bio.flags = 0;
+	/* >= rather than > because (a) at least one drive needs it and (b)
+	   because a drive that claims only 0x0fffffff sectors via the LBA
+	   interfaces shouldn't be addressed the LBA way for a sector that,
+	   according to the LBA way, is past the end of the disk. */
+	if ( (wd->sc_flags & WDF_LBA48) &&
+	     (wd->sc_wdc_bio.blkno >= LBA48_THRESHOLD) )
+		wd->sc_wdc_bio.flags |= ATA_LBA48;
 	if (wd->sc_flags & WDF_LBA)
 		wd->sc_wdc_bio.flags |= ATA_LBA;
 	if (bp->b_flags & B_READ)
@@ -1245,6 +1266,9 @@ again:
 		wd->sc_wdc_bio.flags = ATA_POLL;
 		if (wddumpmulti == 1)
 			wd->sc_wdc_bio.flags |= ATA_SINGLE;
+		if ( (wd->sc_flags & WDF_LBA48) &&
+		     (blkno >= LBA48_THRESHOLD) )
+			wd->sc_wdc_bio.flags |= ATA_LBA48;
 		if (wd->sc_flags & WDF_LBA)
 			wd->sc_wdc_bio.flags |= ATA_LBA;
 		wd->sc_wdc_bio.bcount =
@@ -1397,7 +1421,11 @@ wd_flushcache(wd, flags)
 	if (wd->drvp->ata_vers < 4) /* WDCC_FLUSHCACHE is here since ATA-4 */
 		return;
 	memset(&wdc_c, 0, sizeof(struct wdc_command));
-	wdc_c.r_command = WDCC_FLUSHCACHE;
+	if ( (wd->sc_params.atap_cmd2_en & ATA_CMD2_LBA48) &&
+	     (wd->sc_params.atap_cmd2_en & ATA_CMD2_FCE) )
+		wdc_c.r_command = WDCC_FLUSHCACHE_EXT;
+	else
+		wdc_c.r_command = WDCC_FLUSHCACHE;
 	wdc_c.r_st_bmask = WDCS_DRDY;
 	wdc_c.r_st_pmask = WDCS_DRDY;
 	wdc_c.flags = flags;

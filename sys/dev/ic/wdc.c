@@ -1374,6 +1374,40 @@ wdccommand(chp, drive, command, cylin, head, sector, count, precomp)
 }
 
 /*
+ * Send a 48-bit-addressing command.  The drive must be ready.
+ * Assumes interrupts are blocked.
+ */
+void wdccommand48(struct channel_softc *chp, u_int8_t drive, u_int8_t
+command, u_int64_t blkno, u_int16_t count)
+{
+	WDCDEBUG_PRINT(("wdccommandext %s:%d:%d: command=0x%x blk=%lld count=%d\n",
+		chp->wdc->sc_dev.dv_xname, chp->channel, drive, command, (long long int)blkno, count),
+	    DEBUG_FUNCS);
+
+	/* Select drive, head, and addressing mode. */
+	bus_space_write_1(chp->cmd_iot, chp->cmd_ioh, wd_sdh,
+	    WDSD_LBA | (drive << 4));
+
+	/* previous */
+	bus_space_write_1(chp->cmd_iot, chp->cmd_ioh, wd_features, 0);
+	bus_space_write_1(chp->cmd_iot, chp->cmd_ioh, wd_seccnt, count >> 8);
+	bus_space_write_1(chp->cmd_iot, chp->cmd_ioh, wd_lba_hi, blkno >> 40);
+	bus_space_write_1(chp->cmd_iot, chp->cmd_ioh, wd_lba_mi, blkno >> 32);
+	bus_space_write_1(chp->cmd_iot, chp->cmd_ioh, wd_lba_lo, blkno >> 24);
+
+	/* current */
+	bus_space_write_1(chp->cmd_iot, chp->cmd_ioh, wd_features, 0);
+	bus_space_write_1(chp->cmd_iot, chp->cmd_ioh, wd_seccnt, count);
+	bus_space_write_1(chp->cmd_iot, chp->cmd_ioh, wd_lba_hi, blkno >> 16);
+	bus_space_write_1(chp->cmd_iot, chp->cmd_ioh, wd_lba_mi, blkno >>  8);
+	bus_space_write_1(chp->cmd_iot, chp->cmd_ioh, wd_lba_lo, blkno      );
+
+	/* Send command. */
+	bus_space_write_1(chp->cmd_iot, chp->cmd_ioh, wd_command, command);
+	return;
+}
+
+/*
  * Simplified version of wdccommand().  Unbusy/ready/drq must be
  * tested by the caller.
  */
@@ -1435,7 +1469,8 @@ wdc_get_xfer(flags)
 	xfer = pool_get(&wdc_xfer_pool,
 	    ((flags & WDC_NOSLEEP) != 0 ? PR_NOWAIT : PR_WAITOK));
 	splx(s);
-	memset(xfer, 0, sizeof(struct wdc_xfer));
+	if (xfer)
+		memset(xfer, 0, sizeof(struct wdc_xfer));
 	return xfer;
 }
 
