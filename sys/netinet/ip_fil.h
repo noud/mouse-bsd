@@ -14,6 +14,9 @@
 #ifndef _NETINET_IP_FIL_H_
 #define _NETINET_IP_FIL_H_
 
+#include <sys/param.h>
+#include <netinet/ip_compat.h>
+
 #if defined(__NetBSD__) && defined(_KERNEL) && !defined(_LKM) && \
     (NetBSD >= 199905) && !defined(IPFILTER_LKM)
 # include "opt_ipfilter_log.h"
