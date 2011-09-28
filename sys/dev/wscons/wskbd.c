@@ -113,6 +113,7 @@ __KERNEL_RCSID(0, "$NetBSD: wskbd.c,v 1.36 2000/01/22 15:09:00 drochner Exp $");
 
 #include "wsdisplay.h"
 #include "wsmux.h"
+#include "rwkm.h"
 
 #ifdef WSKBD_DEBUG
 #define DPRINTF(x)	if (wskbddebug) printf x
@@ -123,6 +124,10 @@ int	wskbddebug = 0;
 
 #if NWSMUX > 0 || NWSDISPLAY > 0
 #include <dev/wscons/wsmuxvar.h>
+#endif
+
+#if NRWKM > 0
+#include <dev/wscons/rwkmint.h>
 #endif
 
 struct wskbd_internal {
@@ -178,6 +183,9 @@ struct wskbd_softc {
 
 #if NWSMUX > 0 || NWSDISPLAY > 0
 	struct wsmux_softc *sc_mux;
+#endif
+#if NRWKM > 0
+	struct wseventvar *rwkmq;
 #endif
 };
 
@@ -416,7 +424,9 @@ wskbd_attach(parent, self, aux)
 		wsmux_attach(mux, WSMUX_KBD, &sc->sc_dv, &sc->sc_events,
 			     &sc->sc_mux, &wskbd_muxops);
 #endif
-
+#if NRWKM > 0
+	sc->rwkmq = 0;
+#endif
 }
 
 void
@@ -562,6 +572,14 @@ wskbd_input(dev, type, value)
 #endif
 	int put;
 
+#if NRWKM > 0
+ if (sc->rwkmq)
+  { evar = sc->rwkmq;
+  }
+ else
+  {
+#endif
+
 #if NWSDISPLAY > 0
 	if (sc->sc_repeating) {
 		sc->sc_repeating = 0;
@@ -605,6 +623,10 @@ wskbd_input(dev, type, value)
 	else
 #endif
 		evar = &sc->sc_events;
+
+#if NRWKM > 0
+  }
+#endif
 
 	put = evar->put;
 	ev = &evar->q[put];
@@ -1510,3 +1532,24 @@ wskbd_translate(id, type, value)
 	id->t_symbols[0] = res;
 	return (1);
 }
+
+#if NRWKM > 0
+
+int wskbd_rwkm_open(int unit, struct wseventvar *evq)
+{
+ struct wskbd_softc *sc;
+
+ if ((unit < 0) || (unit >= wskbd_cd.cd_ndevs)) return(ENXIO);
+ sc = wskbd_cd.cd_devs[unit];
+ if (! sc) return(ENXIO);
+ if (sc->rwkmq) return(EBUSY);
+ sc->rwkmq = evq;
+ return(0);
+}
+
+void wskbd_rwkm_close(int unit)
+{
+ ((struct wskbd_softc *)wskbd_cd.cd_devs[unit])->rwkmq = 0;
+}
+
+#endif

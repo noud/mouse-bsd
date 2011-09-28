@@ -308,6 +308,9 @@ cdev_decl(i4btel);
 #include "diskwatch.h"
 cdev_decl(diskwatch);
 
+#include "rwkm.h"
+cdev_decl(rwkm);
+
 struct cdevsw	cdevsw[] =
 {
 	cdev_cn_init(1,cn),		/* 0: virtual console */
@@ -412,7 +415,7 @@ struct cdevsw	cdevsw[] =
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 83: disk watching */
 	cdev_notdef(),			/* 84 */
 	cdev_notdef(),			/* 85 */
-	cdev_notdef(),			/* 86 */
+	cdev__ocrwip_init(NRWKM,rwkm),	/* 86: raw wskbd/wsmouse access */
 	cdev_notdef(),			/* 87 */
 	cdev_notdef(),			/* 88 */
 	cdev_notdef(),			/* 89 */

@@ -106,6 +106,7 @@
 #	encap*	IP-proto-98 encapsulation
 #	vlan*	802.1q VLAN interfaces
 #	srt*	Source-address-routing interfaces
+#	rwkm*	Raw wskbd/wsmouse access
 
 dialin=0
 dialout=524288
@@ -137,6 +138,7 @@ all)
 	sh $0 pdisk0 pdisk1 pdiskm
 	sh $0 vlan0 vlan1 vlan2 vlan3 vlan4 vlan5 vlan6 vlan7
 	sh $0 srt0 srt1 srt2 srt3
+	sh $0 rwkm0
 	;;
 
 minimal)
@@ -591,6 +593,14 @@ srt*)
 	mknod srt$unit c 78 $unit
 	chown root:wheel srt$unit
 	chmod 600 srt$unit
+	;;
+
+rwkm*)
+	unit=${i#rwkm};
+	rm -f rwkm$unit
+	mknod rwkm$unit c 74 $unit
+	chown root:wheel rwkm$unit
+	chmod 600 rwkm$unit
 	;;
 
 local)

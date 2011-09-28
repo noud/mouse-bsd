@@ -102,6 +102,7 @@ __KERNEL_RCSID(0, "$NetBSD: wsmouse.c,v 1.11 2000/01/08 02:57:24 takemura Exp $"
 #include "wsmux.h"
 #include "wsdisplay.h"
 #include "wskbd.h"
+#include "rwkm.h"
 
 #if NWSMUX > 0
 #include <dev/wscons/wsmuxvar.h>
@@ -110,6 +111,10 @@ __KERNEL_RCSID(0, "$NetBSD: wsmouse.c,v 1.11 2000/01/08 02:57:24 takemura Exp $"
 #define INVALID_X	INT_MAX
 #define INVALID_Y	INT_MAX
 #define INVALID_Z	INT_MAX
+
+#if NRWKM > 0
+#include <dev/wscons/rwkmint.h>
+#endif
 
 struct wsmouse_softc {
 	struct device	sc_dv;
@@ -134,6 +139,9 @@ struct wsmouse_softc {
 
 #if NWSMUX > 0
 	struct wsmux_softc *sc_mux;
+#endif
+#if NRWKM > 0
+	struct wseventvar *rwkmq;
 #endif
 };
 
@@ -214,6 +222,10 @@ wsmouse_attach(parent, self, aux)
 #endif
 
 	printf("\n");
+
+#if NRWKM > 0
+	sc->rwkmq = 0;
+#endif
 }
 
 int
@@ -294,6 +306,14 @@ wsmouse_input(wsmousedev, btns, x, y, z, flags)
 	struct wseventvar *evar;
 	int mb, ub, d, get, put, any;
 
+#if NRWKM > 0
+ if (sc->rwkmq)
+  { evar = sc->rwkmq;
+  }
+ else
+  {
+#endif
+
         /*
          * Discard input if not ready.
          */
@@ -306,6 +326,10 @@ wsmouse_input(wsmousedev, btns, x, y, z, flags)
 	else
 #endif
 		evar = &sc->sc_events;
+
+#if NRWKM > 0
+  }
+#endif
 
 	sc->sc_mb = btns;
 	if (!(flags & WSMOUSE_INPUT_ABSOLUTE_X))
@@ -434,6 +458,37 @@ out:
 	}
 }
 
+/* call maybe_enable _before_ changing vars to enable */
+static int maybe_enable(struct wsmouse_softc *sc)
+{
+ int err;
+
+ if (!sc->sc_ready
+#if NRWKM > 0
+		   && !sc->rwkmq
+#endif
+				)
+  { sc->sc_x = INVALID_X;
+    sc->sc_y = INVALID_Y;
+    sc->sc_z = INVALID_Z;
+    err = (*sc->sc_accessops->enable)(sc->sc_accesscookie);
+    return(err);
+  }
+ return(0);
+}
+
+/* call maybe_disable _after_ changing vars to disable */
+static void maybe_disable(struct wsmouse_softc *sc)
+{
+ if (!sc->sc_ready
+#if NRWKM > 0
+		   && !sc->rwkmq
+#endif
+				)
+  { (*sc->sc_accessops->disable)(sc->sc_accesscookie);
+  }
+}
+
 int
 wsmouseopen(dev, flags, mode, p)
 	dev_t dev;
@@ -467,19 +522,13 @@ wsmouseopen(dev, flags, mode, p)
 	sc->sc_events.io = p;
 	wsevent_init(&sc->sc_events);		/* may cause sleep */
 
-	sc->sc_ready = 1;			/* start accepting events */
-	sc->sc_x = INVALID_X;
-	sc->sc_y = INVALID_Y;
-	sc->sc_z = INVALID_Z;
-
-	/* enable the device, and punt if that's not possible */
-	error = (*sc->sc_accessops->enable)(sc->sc_accesscookie);
+	error = maybe_enable(sc);
 	if (error) {
-		sc->sc_ready = 0;		/* stop accepting events */
 		wsevent_fini(&sc->sc_events);
 		sc->sc_events.io = NULL;
 		return (error);
 	}
+	sc->sc_ready = 1;
 
 	return (0);
 #else
@@ -513,9 +562,8 @@ wsmousedoclose(dv, flags, mode, p)
 	if ((flags & (FREAD | FWRITE)) == FWRITE)
 		return (0);			/* see wsmouseopen() */
 
-	(*sc->sc_accessops->disable)(sc->sc_accesscookie);
-
 	sc->sc_ready = 0;			/* stop accepting events */
+	maybe_disable(sc);
 	wsevent_fini(&sc->sc_events);
 	sc->sc_events.io = NULL;
 	return (0);
@@ -669,6 +717,31 @@ wsmouse_rem_mux(unit, muxsc)
 		return (ENXIO);
 
 	return (wsmux_detach_sc(muxsc, &sc->sc_dv));
+}
+#endif
+
+#if NRWKM > 0
+
+int wsmouse_rwkm_open(int unit, struct wseventvar *evq)
+{
+ struct wsmouse_softc *sc;
+
+ if ((unit < 0) || (unit >= wsmouse_cd.cd_ndevs)) return(ENXIO);
+ sc = wsmouse_cd.cd_devs[unit];
+ if (! sc) return(ENXIO);
+ if (sc->rwkmq) return(EBUSY);
+ maybe_enable(sc);
+ sc->rwkmq = evq;
+ return(0);
+}
+
+void wsmouse_rwkm_close(int unit)
+{
+ struct wsmouse_softc *sc;
+
+ sc = wsmouse_cd.cd_devs[unit];
+ sc->rwkmq = 0;
+ maybe_disable(sc);
 }
 
 #endif

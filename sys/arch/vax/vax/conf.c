@@ -434,6 +434,9 @@ cdev_decl(vlan);
 #include "srt.h"
 cdev_decl(srt);
 
+#include "rwkm.h"
+cdev_decl(rwkm);
+
 struct cdevsw	cdevsw[] =
 {
 	cdev_cn_init(1,cn),		/* 0: virtual console */
@@ -519,7 +522,7 @@ struct cdevsw	cdevsw[] =
 	cdev__ocrwip_init(NPTAPE,ptapem), /* 77: pseudo tape controller */
 	cdev_disk_init(NPDISK,pdisks),	/* 78: pseudo disk */
 	cdev__ocrwip_init(NPDISK,pdiskm), /* 79: pseudo disk controller */
-	cdev_notdef(),			/* 80 */
+	cdev__ocrwip_init(NRWKM,rwkm),	/* 80: raw wskbd/wsmouse access */
 	cdev_notdef(),			/* 81 */
 	cdev_notdef(),			/* 82 */
 	cdev__oci_init(NENCAP,encap),	/* 83: encap interfaces */

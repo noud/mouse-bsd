@@ -57,3 +57,6 @@ file	dev/wscons/wscons_rops.c		wsrasteremulops
 
 defpseudo	wsmux
 file	dev/wscons/wsmux.c			wsmux | wsdisplay needs-flag
+
+defpseudo	rwkm
+file	dev/wscons/rwkm.c			rwkm needs-count
