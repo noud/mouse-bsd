@@ -38,8 +38,9 @@
 #ifndef _SYS_MOUNT_H_
 #define _SYS_MOUNT_H_
 
-#ifndef _KERNEL
 #include <sys/ucred.h>
+
+#ifndef _KERNEL
 #if !defined(_POSIX_C_SOURCE) && !defined(_XOPEN_SOURCE)
 #include <sys/stat.h>
 #endif /* !_POSIX_C_SOURCE */
