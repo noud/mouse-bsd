@@ -176,7 +176,7 @@ long	dev_bsize;		/* computed value of DEV_BSIZE */
 long	secsize;		/* actual disk sector size */
 char	nflag;			/* assume a no response */
 char	yflag;			/* assume a yes response */
-int	bflag;			/* location of alternate super block */
+int	bflag;			/* location of alternative super block */
 int	debug;			/* output debugging info */
 int	cvtlevel;		/* convert to newer file system format */
 int	doinglevel1;		/* converting to new cylinder group format */

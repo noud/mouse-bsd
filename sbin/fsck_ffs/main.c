@@ -110,7 +110,7 @@ main(argc, argv)
 		case 'b':
 			skipclean = 0;
 			bflag = argtoi('b', "number", optarg, 10);
-			printf("Alternate super block location: %d\n", bflag);
+			printf("Alternative super block location: %d\n", bflag);
 			break;
 
 		case 'c':

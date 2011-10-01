@@ -76,7 +76,7 @@ static struct disklabel *getdisklabel __P((const char *, int));
 static int readsb __P((int));
 
 /*
- * Read in a superblock finding an alternate if necessary.
+ * Read in a superblock finding an alternative if necessary.
  * Return 1 if successful, 0 if unsuccessful, -1 if filesystem
  * is already clean (preen mode only).
  */
@@ -135,7 +135,7 @@ setup(dev)
 	else
 		dev_bsize = secsize = DEV_BSIZE;
 	/*
-	 * Read in the superblock, looking for alternates if necessary
+	 * Read in the superblock, looking for alternatives if necessary
 	 */
 	if (readsb(1) == 0) {
 #ifdef LITE2BORKEN
@@ -143,7 +143,7 @@ setup(dev)
 #endif
 		if (bflag || preen || calcsb(dev, fsreadfd, &proto) == 0)
 			return(0);
-		if (reply("LOOK FOR ALTERNATE SUPERBLOCKS") == 0)
+		if (reply("LOOK FOR ALTERNATIVE SUPERBLOCKS") == 0)
 			return (0);
 		for (cg = 0; cg < proto.fs_ncg; cg++) {
 			bflag = fsbtodb(&proto, cgsblock(&proto, cg));
@@ -152,16 +152,16 @@ setup(dev)
 		}
 		if (cg >= proto.fs_ncg) {
 			printf("%s %s\n%s %s\n%s %s\n",
-				"SEARCH FOR ALTERNATE SUPER-BLOCK",
+				"SEARCH FOR ALTERNATIVE SUPER-BLOCK",
 				"FAILED. YOU MUST USE THE",
 				"-b OPTION TO FSCK_FFS TO SPECIFY THE",
-				"LOCATION OF AN ALTERNATE",
+				"LOCATION OF AN ALTERNATIVE",
 				"SUPER-BLOCK TO SUPPLY NEEDED",
 				"INFORMATION; SEE fsck_ffs(8).");
 			return(0);
 		}
 		doskipclean = 0;
-		pwarn("USING ALTERNATE SUPERBLOCK AT %d\n", bflag);
+		pwarn("USING ALTERNATIVE SUPERBLOCK AT %d\n", bflag);
 	}
 	if (debug)
 		printf("clean = %d\n", sblock->fs_clean);
@@ -520,7 +520,7 @@ readsb(listerr)
 	/*
 	 * Compute block size that the filesystem is based on,
 	 * according to fsbtodb, and adjust superblock block number
-	 * so we can tell if this is an alternate later.
+	 * so we can tell if this is an alternative later.
 	 */
 	super *= dev_bsize;
 	dev_bsize = sblock->fs_fsize / fsbtodb(sblock, 1);
@@ -532,8 +532,8 @@ readsb(listerr)
 	}
 	/*
 	 * Set all possible fields that could differ, then do check
-	 * of whole super block against an alternate super block.
-	 * When an alternate super-block is specified this check is skipped.
+	 * of whole super block against an alternative super block.
+	 * When an alternative super-block is specified this check is skipped.
 	 */
 	getblk(&asblk, cgsblock(sblock, sblock->fs_ncg - 1), sblock->fs_sbsize);
 	if (asblk.b_errs)
@@ -588,12 +588,12 @@ readsb(listerr)
 			for ( ; olp < endlp; olp++, nlp++) {
 				if (*olp == *nlp)
 					continue;
-				printf("offset %ld, original %lx, alternate %lx\n",
+				printf("offset %ld, original %lx, alternative %lx\n",
 				    (long)(olp - (long *)sblock), *olp, *nlp);
 			}
 		}
 		badsb(listerr,
-		"VALUES IN SUPER BLOCK DISAGREE WITH THOSE IN FIRST ALTERNATE");
+		"VALUES IN SUPER BLOCK DISAGREE WITH THOSE IN FIRST ALTERNATIVE");
 		return (0);
 	}
 	/* Now we know the SB is valid, we can write it back if needed */
