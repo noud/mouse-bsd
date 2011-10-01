@@ -92,6 +92,9 @@ file arch/sun3/dev/if_ie.c		ie
 device si: scsi, ncr5380sbc
 file	arch/sun3/dev/si.c		si
 
+#device sc: scsi
+#file	arch/sun3/dev/sc.c		sc
+
 define fb
 file arch/sun3/dev/fb.c			fb needs-flag
 
@@ -156,6 +159,8 @@ file arch/sun3/dev/if_le.c		le
 # Sun3/60 on-board SCSI
 attach si at obio with si_obio
 file	arch/sun3/dev/si_obio.c		si_obio
+
+#attach sc at vmes
 
 # Sun3/80 on-board SCSI
 device esp: scsi, ncr53c9x

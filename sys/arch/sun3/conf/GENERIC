@@ -160,6 +160,11 @@ si0 at obio0 addr 0x140000 ipl 2
 si0 at vme2  addr 0x200000 ipl 2 vect 0x40
 si1 at vme2  addr 0x204000 ipl 2 vect 0x41
 
+# Old Sun2 "sc" SCSI controller
+#sc0 at vmes0 addr 0xff200000 level 2 vect 0x50
+#sc1 at vmes0 addr 0xff204000 level 2 vect 0x51
+#sc2 at vmes0 addr 0xff208000 level 2 vect 0x52
+
 # Xylogics 450/451 controllers (VME A16/D16)
 xyc0 at vme0 addr 0xee40 ipl 2 vect 0x48
 xyc1 at vme0 addr 0xee48 ipl 2 vect 0x49
