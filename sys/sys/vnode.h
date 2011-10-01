@@ -38,7 +38,9 @@
 #ifndef _SYS_VNODE_H_
 #define _SYS_VNODE_H_
 
+#include <sys/uio.h>
 #include <sys/lock.h>
+#include <sys/time.h>
 #include <sys/queue.h>
 
 /* XXX: clean up includes later */
