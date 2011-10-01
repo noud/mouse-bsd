@@ -239,6 +239,10 @@ file	dev/ic/isp_target.c		isp
 device	uha: scsi
 file	dev/ic/uha.c			uha
 
+# Aironet PC4500/PC4800
+device	an: arp, ether, ifnet
+file	dev/ic/an.c			an
+
 # 3Com Etherlink-III Ethernet controller
 device	ep: arp, ether, ifnet, mii, mii_bitbang
 file	dev/ic/elink3.c			ep

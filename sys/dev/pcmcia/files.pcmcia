@@ -37,6 +37,10 @@ file	dev/pcmcia/if_wl_pcmcia.c		wl_pcmcia
 defopt	opt_wl_pcmcia.h		WL_TIMER WLP_CC_DEBUG WL_DEBUG MMC_STATUS
 				WL_IFCNTRS WL_TIMING
 
+# Aironet PC4500/PC4800
+attach	an at pcmcia with an_pcmcia
+file	dev/pcmcia/if_an_pcmcia.c		an_pcmcia
+
 # PCMCIA IDE controller
 attach	wdc at pcmcia with wdc_pcmcia
 file	dev/pcmcia/wdc_pcmcia.c			wdc_pcmcia
