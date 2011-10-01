@@ -1,0 +1,47 @@
+.Dd August 4, 2002
+.Dt MOUNT_PFS 8
+.Os NetBSD 1.4T
+.Sh NAME
+.Nm mount_pfs
+.Nd mount the pseudo filesystem
+.Sh SYNOPSIS
+.Nm ""
+.Op Fl o Ar options
+.Ar arg
+.Ar mount_point
+.Sh DESCRIPTION
+The
+.Nm
+command attaches an instance of the pseudo filesystem to the global
+filesystem namespace.  This command is not normally executed, as it is
+a very rudimentary example of use of the pseudo-filesystem, not
+anything practical at all.  A serious form of it would normally be run
+at boot time, perhaps via
+.Xr mount 8
+under some other name.
+.Pp
+The options are as follows:
+.Bl -tag -width indent
+.It Fl o
+Options are specified with a
+.Fl o
+flag followed by a comma separated string of options.
+See the
+.Xr mount 8
+man page for possible options and their meanings.
+.El
+.Pp
+The pseudo filesystem is still highly experimental and is not
+documented here, as it is in too great a state of flux.
+.Sh SEE ALSO
+.Xr mount 2 ,
+.Xr unmount 2 ,
+.Xr fstab 5 ,
+.Xr mount 8
+.Sh CAVEATS
+This filesystem may not be NFS-exported.
+.Sh HISTORY
+The
+.Nm
+utility first appeared in
+.Nx 1.4T .

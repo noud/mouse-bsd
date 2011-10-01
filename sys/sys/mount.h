@@ -115,6 +115,7 @@ struct statfs {
 #define	MOUNT_CODA	"coda"		/* Coda Filesystem */
 #define	MOUNT_FILECORE	"filecore"	/* Acorn Filecore Filesystem */
 #define	MOUNT_NTFS	"ntfs"		/* Windows/NT Filesystem */
+#define	MOUNT_PFS	"pfs"		/* pseudo filesystem */
 
 /*
  * Structure per mounted file system.  Each mounted file system has an
@@ -133,7 +134,7 @@ struct mount {
 	int		mnt_flag;		/* flags */
 	int		mnt_maxsymlinklen;	/* max size of short symlink */
 	struct statfs	mnt_stat;		/* cache of filesystem stats */
-	qaddr_t		mnt_data;		/* private data */
+	void *		mnt_data;		/* private data */
 	int		mnt_wcnt;		/* count of vfs_busy waiters */
 	struct proc	*mnt_unmounter;		/* who is unmounting */
 };
@@ -255,6 +256,7 @@ struct mount {
 	{ MOUNT_EXT2FS, CTLTYPE_NODE }, \
 	{ MOUNT_CODA, CTLTYPE_NODE }, \
 	{ MOUNT_FILECORE, CTLTYPE_NODE }, \
+	{ 0, 0 },			/* MOUNT_PFS */ \
 }
 
 #define	VFS_MAXID	20		/* number of valid vfs ids */

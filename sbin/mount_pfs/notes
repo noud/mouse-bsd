@@ -1,0 +1,25 @@
+id usage:
+PFS_ROOT_ID:
+	dr-xr-xr-x /
+PFS_MIN_ID+0:
+	dr-xr-xr-x dir/
+PFS_MIN_ID+1:
+	-r--r--r-- file
+PFS_MIN_ID+2:
+	-r--r--r-- dir/file2
+PFS_MIN_ID+3:
+	lr-xr-xr-x link
+PFS_MIN_ID+4:
+	drwxr-xr-x wdir/
+PFS_MIN_ID+5:
+	dr-xr-xr-x file/
+PFS_MIN_ID+6:
+	-r--r--r-- file/sub1
+PFS_MIN_ID+7:
+	-r--r--r-- file/sub2
+PFS_MIN_ID+8 (NWBASE):
+	????????? wdir/(first name)
+PFS_MIN_ID+9 (NWBASE+1):
+	????????? wdir/(second name)
+PFS_MIN_ID+10 (NWBASE+2):
+	????????? wdir/(third name)
