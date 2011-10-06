@@ -193,6 +193,9 @@ cdev_decl(vlan);
 #include "srt.h"
 cdev_decl(srt);
 
+#include "ethc.h"
+cdev_decl(ethc);
+
 #include "pdisk.h"
 bdev_decl(pdisks);
 cdev_decl(pdisks);
@@ -349,7 +352,7 @@ struct cdevsw	cdevsw[] =
 	cdev__ocrwip_init(NPDISK,pdiskm), /* 103: pseudo disk controller */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 104: disk watching */
 	cdev__oci_init(NVLAN,vlan),	/* 105: vlan interfaces */
-	cdev_notdef(),			/* 106 */
+	cdev__oci_init(NETHC,ethc),	/* 106: ethc interfaces */
 	cdev_notdef(),			/* 107 */
 	cdev__oci_init(NENCAP,encap),	/* 108: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 109: srt interfaces */

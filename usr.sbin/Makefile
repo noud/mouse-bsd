@@ -13,7 +13,7 @@ SUBDIR=	ac accton amd apm apmd arp bad144 bind bootp catman \
 	grfconfig grfinfo gspa hilinfo inetd iostat ipf iteconfig kgmon \
 	kvm_mkdb lastlogin link lpr mailwrapper map-mbone mbrlabel \
 	mdconfig mdsetimage \
-	encapconfig srtconfig vlanconfig \
+	encapconfig ethcconfig srtconfig vlanconfig \
 	memswitch mopd mountd mrinfo mrouted mtrace mtree \
 	netgroup_mkdb nfsd nfsiod pkg_install portmap pppd pstat ptaped \
 	pwd_mkdb quot quotacheck quotaon rarpd rbootd rdate \

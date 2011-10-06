@@ -129,6 +129,7 @@ cdev_decl(pdiskm);
 cdev_decl(encap);
 cdev_decl(vlan);
 cdev_decl(srt);
+cdev_decl(ethc);
 cdev_decl(lpvi);
 
 cdev_decl(sptty);

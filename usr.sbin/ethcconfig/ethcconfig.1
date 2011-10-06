@@ -1,0 +1,54 @@
+.\" This file is in the public domain.
+.Dd September 7, 2000
+.Dt ETHCCONFIG 1
+.Os NetBSD 1.4J
+.Sh NAME
+.Nm ethcconfig
+.Nd configure ethc interfaces
+.Sh SYNOPSIS
+.Nm
+.Ar ethcX
+.Fl q
+.br
+.Nm
+.Ar ethcX
+.Fl set
+.Op Ar if1 Op Ar if2 ...
+.Sh DESCRIPTION
+.Nm
+configures, or queries the configuration of,
+.Xr ethc 4
+interfaces.  The
+.Xr ethc 4
+interface looks like an Ethernet to most software, but simply
+distributes outgoing packets to underlying
+.Sq real
+Ethernet interfaces; it never receives packets.  It is designed to talk
+to Cisco's EtherChannel (and compatible setups).  Incoming packets are
+received by the "real" interfaces as usual; the
+.Xr ethc
+interface is needed only to load-share outgoing packets.
+.Pp
+There is very little configuration.  All that needs to be done is
+identifying the
+.Sq underlying
+interfaces.
+.Pp
+With the
+.Fl q
+option,
+.Nm
+queries the setting of an
+.Xr ethc 4 ;
+with the
+.Fl set
+option, it sets it.
+.Sh BUGS
+The
+.Fl q
+or
+.Fl set
+must come after the interface name; this is arguably wrong.
+.Sh AUTHOR
+der Mouse,
+.Aq mouse@rodents.montreal.qc.ca .

@@ -256,6 +256,8 @@ cdev_decl(encap);
 cdev_decl(vlan);
 #include "srt.h"
 cdev_decl(srt);
+#include "ethc.h"
+cdev_decl(ethc);
 
 #ifdef __I4B_IS_INTEGRATED
 /* open, close, ioctl */
@@ -409,7 +411,7 @@ struct cdevsw	cdevsw[] =
 	cdev__oci_init(NENCAP,encap),	/* 77: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 78: srt interfaces */
 	cdev__oci_init(NVLAN,vlan),	/* 79: vlan interfaces */
-	cdev_notdef(),			/* 80 */
+	cdev__oci_init(NETHC,ethc),	/* 80: ethc interfaces */
 	cdev_disk_init(NPDISK,pdisks),	/* 81: pseudo disk */
 	cdev__ocrwip_init(NPDISK,pdiskm), /* 82: pseudo disk controller */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 83: disk watching */

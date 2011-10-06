@@ -140,6 +140,7 @@ int	nblkdev = sizeof(bdevsw) / sizeof(bdevsw[0]);
 #include "encap.h"
 #include "vlan.h"
 #include "srt.h"
+#include "ethc.h"
 #include "rwkm.h"
 
 cdev_decl(aed);
@@ -185,6 +186,7 @@ cdev_decl(scsibus);
 cdev_decl(vc_nb_);
 cdev_decl(diskwatch);
 cdev_decl(encap);
+cdev_decl(ethc);
 cdev_decl(pdisks);
 cdev_decl(pdiskm);
 cdev_decl(ptapes);
@@ -252,7 +254,7 @@ struct cdevsw	cdevsw[] =
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 52: disk watching */
 	cdev__oci_init(NVLAN,vlan),	/* 53: vlan interfaces */
 	cdev__ocrwip_init(NRWKM,rwkm),	/* 54: raw wskbd/wsmouse access */
-	cdev_notdef(),			/* 55 */
+	cdev__oci_init(NETHC,ethc),	/* 55: ethc interfaces */
 	cdev_notdef(),			/* 56 */
 	cdev__oci_init(NENCAP,encap),	/* 57: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 58: srt interfaces */

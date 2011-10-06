@@ -195,6 +195,9 @@ cdev_decl(vlan);
 #include "srt.h"
 cdev_decl(srt);
 
+#include "ethc.h"
+cdev_decl(ethc);
+
 #include "ptape.h"
 cdev_decl(ptapes);
 cdev_decl(ptapem);
@@ -256,7 +259,7 @@ struct cdevsw	cdevsw[] =
 	cdev__ocrwip_init(NPTAPE,ptapem),/* 52: pseudo tape controller */
 	cdev_disk_init(NPDISK,pdisks),	/* 53: pseudo disk */
 	cdev__ocrwip_init(NPDISK,pdiskm),/* 54: pseudo disk controller */
-	cdev_notdef(),			/* 55 */
+	cdev__oci_init(NETHC,ethc),	/* 55: ethc interfaces */
 	cdev_notdef(),			/* 56 */
 	cdev__oci_init(NSRT,srt),	/* 57: srt interfaces */
 	cdev_notdef(),			/* 58 */

@@ -104,6 +104,7 @@
 #include "encap.h"
 #include "vlan.h"
 #include "srt.h"
+#include "ethc.h"
 #include "lpvi.h"
 #include "spif.h"
 
@@ -288,7 +289,7 @@ struct cdevsw	cdevsw[] =
 	cdev__oci_init(NENCAP,encap),	/* 132: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 133: srt interfaces */
 	cdev__oci_init(NVLAN,vlan),	/* 134: vlan interfaces */
-	cdev_notdef(),			/* 135 */
+	cdev__oci_init(NETHC,ethc),	/* 135: ethc interfaces */
 	cdev_disk_init(NPDISK,pdisks),	/* 136: pseudo disk */
 	cdev__ocrwip_init(NPDISK,pdiskm), /* 137: pseudo disk controller */
 	cdev__ocrwip_init(NLPVI,lpvi),	/* 138: SPARCprinter interface */
