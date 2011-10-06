@@ -784,7 +784,8 @@ tcp_drop(tp, errno)
 
 	if (TCPS_HAVERCVDSYN(tp->t_state)) {
 		tp->t_state = TCPS_CLOSED;
-		(void) tcp_output(tp);
+		if (! (tp->t_flags & TF_QUIETDROP))
+			(void) tcp_output(tp);
 		tcpstat.tcps_drops++;
 	} else
 		tcpstat.tcps_conndrops++;
