@@ -64,6 +64,12 @@ getpoints(s)
 		case 'c':
 			facs |= KTRFAC_SYSCALL | KTRFAC_SYSRET;
 			break;
+		case 'C':
+			facs |= KTRFAC_SYSCALL;
+			break;
+		case 'R':
+			facs |= KTRFAC_SYSRET;
+			break;
 		case 'e':
 			facs |= KTRFAC_EMUL;
 			break;

@@ -124,7 +124,15 @@ The following table equates the letters with the tracepoints:
 .Pp
 .Bl -tag -width flag -compact
 .It Cm c
-trace system calls
+trace system calls (like
+.Cm C
+and
+.Cm R
+both)
+.It Cm C
+trace system call entry (but not return)
+.It Cm R
+trace system call return (but not entry)
 .It Cm e
 trace emulation changes
 .It Cm n
