@@ -1321,10 +1321,7 @@ ip_forward(m, srcrt)
 	int error, type = 0, code = 0;
 	struct mbuf *mcopy;
 	n_long dest;
-	struct ifnet *destifp;
-#ifdef IPSEC
-	struct ifnet dummyifp;
-#endif
+	int pathmtu;
 
 	dest = 0;
 #ifdef DIAGNOSTIC
@@ -1426,7 +1423,7 @@ ip_forward(m, srcrt)
 	}
 	if (mcopy == NULL)
 		return;
-	destifp = NULL;
+	pathmtu = 0;
 
 	switch (error) {
 
@@ -1448,7 +1445,7 @@ ip_forward(m, srcrt)
 		code = ICMP_UNREACH_NEEDFRAG;
 #ifndef IPSEC
 		if (ipforward_rt.ro_rt)
-			destifp = ipforward_rt.ro_rt->rt_ifp;
+			pathmtu = ipforward_rt.ro_rt->rt_rmx.rmx_mtu;
 #else
 		/*
 		 * If the packet is routed over IPsec tunnel, tell the
@@ -1468,7 +1465,7 @@ ip_forward(m, srcrt)
 			                            &ipsecerror);
 
 			if (sp == NULL)
-				destifp = ipforward_rt.ro_rt->rt_ifp;
+				pathmtu = ipforward_rt.ro_rt->rt_rmx.rmx_mtu;
 			else {
 				/* count IPsec header size */
 				ipsechdr = ipsec4_hdrsiz(mcopy,
@@ -1478,22 +1475,17 @@ ip_forward(m, srcrt)
 				/*
 				 * find the correct route for outer IPv4
 				 * header, compute tunnel MTU.
-				 *
-				 * XXX BUG ALERT
-				 * The "dummyifp" code relies upon the fact
-				 * that icmp_error() touches only ifp->if_mtu.
 				 */
 				/*XXX*/
-				destifp = NULL;
+				pathmtu = 0;
 				if (sp->req != NULL
 				 && sp->req->sav != NULL
 				 && sp->req->sav->sah != NULL) {
 					ro = &sp->req->sav->sah->sa_route;
 					if (ro->ro_rt && ro->ro_rt->rt_ifp) {
-						dummyifp.if_mtu =
-						    ro->ro_rt->rt_ifp->if_mtu;
-						dummyifp.if_mtu -= ipsechdr;
-						destifp = &dummyifp;
+						pathmtu =
+						   ro->ro_rt->rt_rmx.rmx_mtu -
+						      ipsechdr;
 					}
 				}
 
@@ -1509,7 +1501,7 @@ ip_forward(m, srcrt)
 		code = 0;
 		break;
 	}
-	icmp_error(mcopy, type, code, dest, destifp);
+	icmp_error(mcopy, type, code, dest, pathmtu);
 }
 
 void

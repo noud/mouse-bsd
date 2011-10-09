@@ -1198,7 +1198,7 @@ frdest_t *fdp;
 		if (mcopy) {
 			mcopy->m_pkthdr.rcvif = (struct ifnet *)ifp;
 			icmp_error(mcopy, ICMP_UNREACH, ICMP_UNREACH_NEEDFRAG,
-			    ip->ip_dst.s_addr, ifp);
+			    ip->ip_dst.s_addr, ifp->if_mtu);
 		}
 		error = EMSGSIZE;
 		goto bad;
