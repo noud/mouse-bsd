@@ -186,5 +186,4 @@ void	icmp_send __P((struct mbuf *, struct mbuf *));
 int	icmp_sysctl __P((int *, u_int, void *, size_t *, void *, size_t));
 #endif
 
-
 #endif /* _NETINET_IP_ICMP_H_ */
