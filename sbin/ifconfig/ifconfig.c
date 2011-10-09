@@ -213,6 +213,10 @@ struct	cmd {
 	{ "-debug",	-IFF_DEBUG,	0,		setifflags },
 	{ "bpfonly",	IFF_BPFONLY,	0,		setifflags },
 	{ "-bpfonly",	-IFF_BPFONLY,	0,		setifflags },
+	{ "nofwfrom",	IFF_NOFWFROM,	0,		setifflags },
+	{ "-nofwfrom",	-IFF_NOFWFROM,	0,		setifflags },
+	{ "nofwto",	IFF_NOFWTO,	0,		setifflags },
+	{ "-nofwto",	-IFF_NOFWTO,	0,		setifflags },
 	{ "alias",	IFF_UP,		0,		notealias },
 	{ "-alias",	-IFF_UP,	0,		notealias },
 	{ "delete",	-IFF_UP,	0,		notealias },
@@ -1281,6 +1285,8 @@ int carrier()
 \17LINK2\
 \20MULTICAST\
 \21BPFONLY\
+\22NOFWFROM\
+\23NOFWTO\
 \24DOT1Q\
 "
 

@@ -1341,6 +1341,11 @@ ip_forward(m, srcrt)
 	}
 	ip->ip_ttl -= IPTTLDEC;
 
+	if (m->m_pkthdr.rcvif->if_flags & IFF_NOFWFROM) {
+		icmp_error(m,ICMP_UNREACH,ICMP_UNREACH_ADMIN_PROHIBIT,dest,0);
+		return;
+	}
+
 	sin = satosin(&ipforward_rt.ro_dst);
 	if ((rt = ipforward_rt.ro_rt) == 0 ||
 	    !in_hosteq(ip->ip_dst, sin->sin_addr)) {
@@ -1358,6 +1363,11 @@ ip_forward(m, srcrt)
 			return;
 		}
 		rt = ipforward_rt.ro_rt;
+	}
+
+	if (rt->rt_ifp->if_flags & IFF_NOFWTO) {
+		icmp_error(m,ICMP_UNREACH,ICMP_UNREACH_ADMIN_PROHIBIT,dest,0);
+		return;
 	}
 
 	/*

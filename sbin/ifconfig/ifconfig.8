@@ -180,6 +180,17 @@ filters but nothing else.
 Turn off BPF-only mode (receive packets as usual, by
 .Xr bpf 4
 or otherwise).
+.It Cm nofwfrom
+Prevent packet forwarding of packets received on this interface.
+.It Fl nofwfrom
+Allow packets received on this interface to be forwarded as normal.
+.It Cm nofwto
+Prevent packet forwarding of packets which would normally be forwarded
+to this interface.
+.It Fl nofwto
+Allow packets to be forwarded to this interface as normal.
+.Xr bpf 4
+or otherwise).
 .ne 1i
 .It Cm delete
 Remove the network address specified.

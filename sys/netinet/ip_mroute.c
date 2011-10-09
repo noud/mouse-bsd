@@ -965,6 +965,9 @@ ip_mforward(m, ifp)
 	log(LOG_DEBUG, "ip_mforward: src %x, dst %x, ifp %p\n",
 	    ntohl(ip->ip_src.s_addr), ntohl(ip->ip_dst.s_addr), ifp);
 
+    if (ifp->if_flags & IFF_NOFWFROM)
+	return(1);
+
     if (ip->ip_hl < (IP_HDR_LEN + TUNNEL_LEN) >> 2 ||
 	(ipoptions = (u_char *)(ip + 1))[1] != IPOPT_LSRR) {
 	/*
