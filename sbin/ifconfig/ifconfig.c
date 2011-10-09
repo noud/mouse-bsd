@@ -200,7 +200,7 @@ int	actions;			/* Actions performed */
 struct	cmd {
 	char	*c_name;
 	int	c_parameter;		/* NEXTARG means next argv */
-	int	c_action;	/* defered action */
+	int	c_action;	/* deferred action */
 	void	(*c_func) __P((char *, int));
 } cmds[] = {
 	{ "up",		IFF_UP,		0,		setifflags } ,
