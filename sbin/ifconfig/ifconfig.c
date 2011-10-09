@@ -211,6 +211,8 @@ struct	cmd {
 	{ "-arp",	IFF_NOARP,	0,		setifflags },
 	{ "debug",	IFF_DEBUG,	0,		setifflags },
 	{ "-debug",	-IFF_DEBUG,	0,		setifflags },
+	{ "bpfonly",	IFF_BPFONLY,	0,		setifflags },
+	{ "-bpfonly",	-IFF_BPFONLY,	0,		setifflags },
 	{ "alias",	IFF_UP,		0,		notealias },
 	{ "-alias",	-IFF_UP,	0,		notealias },
 	{ "delete",	-IFF_UP,	0,		notealias },
@@ -1259,6 +1261,7 @@ int carrier()
 }
 
 
+/* XXX should we arrange to keep this in sync with <net/if.h> via make? */
 #define	IFFBITS \
 "\020\
 \1UP\
@@ -1277,6 +1280,7 @@ int carrier()
 \16LINK1\
 \17LINK2\
 \20MULTICAST\
+\21BPFONLY\
 \24DOT1Q\
 "
 

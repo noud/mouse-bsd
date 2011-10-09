@@ -259,6 +259,7 @@ struct ifnet {				/* and the entries */
 #define IFF_LINK1       0x00002000 /* per link layer defined bit */
 #define IFF_LINK2       0x00004000 /* per link layer defined bit */
 #define IFF_MULTICAST   0x00008000 /* supports multicast */
+#define IFF_BPFONLY     0x00010000 /* don't receive, just call bpf */
 #define IFF_DOT1Q       0x00080000 /* using 801.1q - see if_vlan.c */
 
 /* flags set internally only: */

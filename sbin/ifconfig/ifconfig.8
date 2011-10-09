@@ -172,6 +172,14 @@ Enable driver dependent debugging code; usually, this turns on
 extra console error logging.
 .It Fl debug
 Disable driver dependent debugging code.
+.It Cm bpfonly
+Turn on BPF-only mode.  In this mode, packets can be received by
+.Xr bpf 4
+filters but nothing else.
+.It Fl bpfonly
+Turn off BPF-only mode (receive packets as usual, by
+.Xr bpf 4
+or otherwise).
 .ne 1i
 .It Cm delete
 Remove the network address specified.

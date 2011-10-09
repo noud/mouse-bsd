@@ -531,6 +531,11 @@ ether_input(ifp, m)
 	if (m->m_flags & (M_BCAST|M_MCAST))
 		ifp->if_imcasts++;
 
+	if (ifp->if_flags & IFF_BPFONLY) {
+		m_freem(m);
+		return;
+	}
+
 #if NVLAN > 0
 	if (ifp->if_flags & IFF_DOT1Q) {
 		dot1q_input(ifp,m);
