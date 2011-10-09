@@ -1918,27 +1918,31 @@ printb(s, v, bits)
 {
 	int i, any = 0;
 	char c;
+	const char *valfmt;
 
-	if (bits && *bits == 8)
-		printf("%s=%o", s, v);
-	else
-		printf("%s=%x", s, v);
-	bits++;
-	if (bits) {
-		putchar('<');
-		while ((i = *bits++) != 0) {
-			if (v & (1 << (i-1))) {
-				if (any)
-					putchar(',');
-				any = 1;
-				for (; (c = *bits) > 32; bits++)
-					putchar(c);
-			} else
-				for (; *bits > 32; bits++)
-					;
-		}
-		putchar('>');
+	valfmt = (*bits == 8) ? "%o" : "%x";
+	printf("%s=", s);
+	printf(valfmt, v);
+	bits ++;
+	putchar('<');
+	while ((i = *bits++)) {
+		if (v & (1UL << (i-1))) {
+			v &= ~(1UL << (i-1));
+			if (any)
+				putchar(',');
+			any = 1;
+			for (; (c = *bits) > 32; bits++)
+				putchar(c);
+		} else
+			for (; *bits > 32; bits++)
+				;
 	}
+	if (v) {
+		if (any)
+			putchar(',');
+		printf(valfmt, v);
+	}
+	putchar('>');
 }
 
 #ifdef INET6
