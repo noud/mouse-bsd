@@ -663,7 +663,7 @@ printall()
 	struct ifconf ifc;
 	struct ifreq ifreq, *ifr;
 	int i, siz, idx;
-	char ifrbuf[8192];
+	char ifrbuf[8192] __attribute__((__aligned__(__alignof__(struct ifreq))));
 
 	ifc.ifc_len = sizeof(inbuf);
 	ifc.ifc_buf = inbuf;
@@ -675,17 +675,17 @@ printall()
 	ifr = ifc.ifc_req;
 	ifreq.ifr_name[0] = '\0';
 	for (i = 0, idx = 0; i < ifc.ifc_len; ) {
-		ifr = (struct ifreq *)((caddr_t)ifc.ifc_req + i);
-		memcpy(ifrbuf, ifr, sizeof(*ifr));
-		siz = ((struct ifreq *)ifrbuf)->ifr_addr.sa_len;
+		memcpy(ifrbuf, (caddr_t)ifc.ifc_req + i, sizeof(struct ifreq));
+		ifr = (struct ifreq *) &ifrbuf[0];
+		siz = ifr->ifr_addr.sa_len;
 		if (siz < sizeof(ifr->ifr_addr))
 			siz = sizeof(ifr->ifr_addr);
 		siz += sizeof(ifr->ifr_name);
-		i += siz;
 		/* avoid alignment issue */
 		if (sizeof(ifrbuf) < siz)
 			errx(1, "ifr too big");
-		memcpy(ifrbuf, ifr, siz);
+		memcpy(ifrbuf, (caddr_t)ifc.ifc_req + i, siz);
+		i += siz;
 		ifr = (struct ifreq *)ifrbuf;
 		if (ifr->ifr_addr.sa_family == AF_LINK)
 			sdl = (const struct sockaddr_dl *) &ifr->ifr_addr;
