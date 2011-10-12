@@ -242,6 +242,8 @@ extern void null_if_print(u_char *, const struct pcap_pkthdr *, const u_char *);
 extern void ospf_print(const u_char *, u_int, const u_char *);
 extern void igmp_pim_print(const u_char *, u_int);
 extern void pim_print(const u_char *, u_int);
+extern void pppoe_print(const u_char *, u_int, u_int);
+extern void ppp_contents_print(const u_char *, u_int, u_int, u_int);
 extern void ppp_if_print(u_char *, const struct pcap_pkthdr *, const u_char *);
 extern void ppp_bsdos_if_print(u_char *, const struct pcap_pkthdr *,
 	const u_char *);

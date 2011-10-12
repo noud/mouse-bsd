@@ -188,6 +188,11 @@ ether_encap_print(u_short ethertype, const u_char *p,
 		arp_print(p, length, caplen);
 		return (1);
 
+	case ETHERTYPE_PPPOEDISC:
+	case ETHERTYPE_PPPOE:
+		pppoe_print(p, length, caplen);
+		return (1);
+
 	case ETHERTYPE_DN:
 		decnet_print(p, length, caplen);
 		return (1);

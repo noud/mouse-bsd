@@ -73,31 +73,46 @@ ppp_if_print(u_char *user, const struct pcap_pkthdr *h,
 {
 	register u_int length = h->len;
 	register u_int caplen = h->caplen;
-	const struct ip *ip;
 	u_int proto;
 
 	ts_print(&h->ts);
 
 	if (caplen < PPP_HDRLEN) {
-		printf("[|ppp]");
-		goto out;
+		printf("[|ppp]\n");
+		return;
 	}
 
 	/*
 	 * Some printers want to get back at the link level addresses,
 	 * and/or check that they're not walking off the end of the packet.
 	 * Rather than pass them all the way down, we set these globals.
+	 * But we can't provide a reliable packetp, so we set it to 0 to
+	 * catch uses of it.  All protocols known to use it are specific
+	 * to Ethernet, so this is ok.
 	 */
-	proto = ntohs(*(u_short *)&p[2]);
 	packetp = p;
 	snapend = p + caplen;
 
+	proto = ntohs(*(u_short *)&p[2]);
+
 	if (eflag)
 		printf("%c %4d %02x %04x: ", p[0] ? 'O' : 'I', length,
-		       p[1], ntohs(*(u_short *)&p[2]));
+		       p[1], proto);
 
-	length -= PPP_HDRLEN;
-	ip = (struct ip *)(p + PPP_HDRLEN);
+	ppp_contents_print(p+4,length-4,caplen-4,proto);
+
+	if (xflag)
+		default_print(p+4, caplen - PPP_HDRLEN);
+
+	putchar('\n');
+}
+
+void
+ppp_contents_print(const u_char *p, u_int length, u_int caplen, u_int proto)
+{
+	const struct ip *ip;
+
+	ip = (struct ip *) p;
 	switch (proto) {
 	case ETHERTYPE_IP:
 	case PPP_IP:
@@ -110,10 +125,6 @@ ppp_if_print(u_char *user, const struct pcap_pkthdr *h,
 		break;
 #endif
 	}
-	if (xflag)
-		default_print((const u_char *)ip, caplen - PPP_HDRLEN);
-out:
-	putchar('\n');
 }
 
 /* proto type to string mapping */
