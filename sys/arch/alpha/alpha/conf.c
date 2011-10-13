@@ -285,6 +285,9 @@ cdev_decl(encap);
 #include "ethc.h"
 cdev_decl(ethc);
 
+#include "pfw.h"
+cdev_decl(pfw);
+
 #include "rwkm.h"
 cdev_decl(rwkm);
 
@@ -394,7 +397,7 @@ struct cdevsw	cdevsw[] =
 	cdev__ocrwip_init(NDISKWATCH,diskwatch),/* 83: disk watching */
 	cdev_notdef(),			/* 84 */
 	cdev_notdef(),			/* 85 */
-	cdev_notdef(),			/* 86 */
+	cdev__ocrwip_init(NPFW,pfw),	/* 86: reflex packet filtering */
 	cdev_notdef(),			/* 87 */
 	cdev_notdef(),			/* 88 */
 	cdev_notdef(),			/* 89 */

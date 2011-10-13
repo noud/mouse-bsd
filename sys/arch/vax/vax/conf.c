@@ -437,6 +437,9 @@ cdev_decl(srt);
 #include "ethc.h"
 cdev_decl(ethc);
 
+#include "pfw.h"
+cdev_decl(pfw);
+
 #include "rwkm.h"
 cdev_decl(rwkm);
 
@@ -527,7 +530,7 @@ struct cdevsw	cdevsw[] =
 	cdev__ocrwip_init(NPDISK,pdiskm), /* 79: pseudo disk controller */
 	cdev__ocrwip_init(NRWKM,rwkm),	/* 80: raw wskbd/wsmouse access */
 	cdev__oci_init(NETHC,ethc),	/* 81: ethc interfaces */
-	cdev_notdef(),			/* 82 */
+	cdev__ocrwip_init(NPFW,pfw),	/* 82: reflex packet filtering */
 	cdev__oci_init(NENCAP,encap),	/* 83: encap interfaces */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 84: disk watching */
 	cdev__oci_init(NSRT,srt),	/* 85: srt interfaces */

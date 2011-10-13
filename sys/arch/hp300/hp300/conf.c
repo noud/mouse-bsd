@@ -198,6 +198,9 @@ cdev_decl(srt);
 #include "ethc.h"
 cdev_decl(ethc);
 
+#include "pfw.h"
+cdev_decl(pfw);
+
 #include "ptape.h"
 cdev_decl(ptapes);
 cdev_decl(ptapem);
@@ -260,7 +263,7 @@ struct cdevsw	cdevsw[] =
 	cdev_disk_init(NPDISK,pdisks),	/* 53: pseudo disk */
 	cdev__ocrwip_init(NPDISK,pdiskm),/* 54: pseudo disk controller */
 	cdev__oci_init(NETHC,ethc),	/* 55: ethc interfaces */
-	cdev_notdef(),			/* 56 */
+	cdev__ocrwip_init(NPFW,pfw),	/* 56: reflex packet filtering */
 	cdev__oci_init(NSRT,srt),	/* 57: srt interfaces */
 	cdev_notdef(),			/* 58 */
 	cdev_notdef(),			/* 59 */

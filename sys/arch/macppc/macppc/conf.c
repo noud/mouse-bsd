@@ -168,6 +168,9 @@ cdev_decl(srt);
 #include "ethc.h"
 cdev_decl(ethc);
 
+#include "pfw.h"
+cdev_decl(pfw);
+
 #include "rwkm.h"
 cdev_decl(rwkm);
 
@@ -249,7 +252,7 @@ struct cdevsw cdevsw[] = {
 	cdev__ocrwip_init(NPTAPE,ptapem), /* 51: pseudo tape controller */
 	cdev__ocrwip_init(NRWKM,rwkm),	/* 52: raw wskbd/wsmouse access */
 	cdev__oci_init(NETHC,ethc),	/* 53: ethc interfaces */
-	cdev_notdef(),			/* 54 */
+	cdev__ocrwip_init(NPFW,pfw),	/* 54: reflex packet filtering */
 	cdev__oci_init(NENCAP,encap),	/* 55: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 56: srt interfaces */
 	cdev_notdef(),			/* 57 */

@@ -105,6 +105,7 @@
 #include "vlan.h"
 #include "srt.h"
 #include "ethc.h"
+#include "pfw.h"
 #include "lpvi.h"
 #include "spif.h"
 
@@ -293,7 +294,7 @@ struct cdevsw	cdevsw[] =
 	cdev_disk_init(NPDISK,pdisks),	/* 136: pseudo disk */
 	cdev__ocrwip_init(NPDISK,pdiskm), /* 137: pseudo disk controller */
 	cdev__ocrwip_init(NLPVI,lpvi),	/* 138: SPARCprinter interface */
-	cdev_notdef(),			/* 139 */
+	cdev__ocrwip_init(NPFW,pfw),	/* 139: reflex packet filtering */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 140: disk watching */
 	cdev_notdef(),			/* 141 */
 	cdev_notdef(),			/* 142 */

@@ -990,5 +990,8 @@ file dev/pseudo/if_vlan.c vlan needs-flag
 defpseudo ethc: arp, ether, ifnet
 file dev/pseudo/if_ethc.c ethc needs-flag
 
+defpseudo pfw
+file dev/pseudo/pfw.c pfw needs-flag
+
 defpseudo diskwatch
 file dev/pseudo/diskwatch.c diskwatch needs-flag

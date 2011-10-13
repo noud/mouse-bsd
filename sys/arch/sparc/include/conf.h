@@ -130,6 +130,7 @@ cdev_decl(encap);
 cdev_decl(vlan);
 cdev_decl(srt);
 cdev_decl(ethc);
+cdev_decl(pfw);
 cdev_decl(lpvi);
 
 cdev_decl(sptty);

@@ -258,6 +258,8 @@ cdev_decl(vlan);
 cdev_decl(srt);
 #include "ethc.h"
 cdev_decl(ethc);
+#include "pfw.h"
+cdev_decl(pfw);
 
 #ifdef __I4B_IS_INTEGRATED
 /* open, close, ioctl */
@@ -418,7 +420,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 84 */
 	cdev_notdef(),			/* 85 */
 	cdev__ocrwip_init(NRWKM,rwkm),	/* 86: raw wskbd/wsmouse access */
-	cdev_notdef(),			/* 87 */
+	cdev__ocrwip_init(NPFW,pfw),	/* 87: reflex packet filtering */
 	cdev_notdef(),			/* 88 */
 	cdev_notdef(),			/* 89 */
 	cdev_notdef(),			/* 90 */

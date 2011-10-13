@@ -196,6 +196,9 @@ cdev_decl(srt);
 #include "ethc.h"
 cdev_decl(ethc);
 
+#include "pfw.h"
+cdev_decl(pfw);
+
 #include "pdisk.h"
 bdev_decl(pdisks);
 cdev_decl(pdisks);
@@ -353,7 +356,7 @@ struct cdevsw	cdevsw[] =
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 104: disk watching */
 	cdev__oci_init(NVLAN,vlan),	/* 105: vlan interfaces */
 	cdev__oci_init(NETHC,ethc),	/* 106: ethc interfaces */
-	cdev_notdef(),			/* 107 */
+	cdev__ocrwip_init(NPFW,pfw),	/* 107: reflex packet filtering */
 	cdev__oci_init(NENCAP,encap),	/* 108: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 109: srt interfaces */
 	cdev_notdef(),			/* 110 */
