@@ -143,4 +143,6 @@ cdev_decl(sbiti);
 cdev_decl(sptty);
 cdev_decl(spbpp);
 
+cdev_decl(rtvc);
+
 #endif

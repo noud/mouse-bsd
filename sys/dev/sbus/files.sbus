@@ -102,3 +102,7 @@ attach	sptty at spif
 device	spbpp
 attach	spbpp at spif
 file	dev/sbus/spif.c			spif | sptty | spbpp needs-flag
+
+device	rtvc { unit = 1 }
+attach	rtvc at sbus
+file	dev/sbus/rtvc.c			rtvc needs-flag

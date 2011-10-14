@@ -109,6 +109,7 @@
 #include "lpvi.h"
 #include "sbiti.h"
 #include "spif.h"
+#include "rtvc.h"
 
 #include "vcoda.h"
 cdev_decl(vc_nb_);
@@ -304,7 +305,7 @@ struct cdevsw	cdevsw[] =
 	cdev__ocrwip_init(NSBITI,sbiti),/* 145: IOtech,sbiti IEEE488 card */
 	cdev_tty_init(NSPTTY,sptty),	/* 146: spif tty */
 	cdev_gen_init(NSPBPP,spbpp),	/* 147: spif bpp */
-	cdev_notdef(),			/* 148 */
+	cdev__ocrwipm_init(NRTVC,rtvc),	/* 148: rtvc */
 	cdev_notdef(),			/* 149 */
 };
 int	nchrdev = sizeof(cdevsw) / sizeof(cdevsw[0]);

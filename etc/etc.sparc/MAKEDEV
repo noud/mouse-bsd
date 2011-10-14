@@ -79,6 +79,7 @@
 #	diskwatch* Live-backup disk watching
 #	lpvi*	SUNW,lpvi SPARCprinter interface
 #	sbiti*	IOtech,sbiti IEEE488 interface
+#	rtvc*	SUNW,rtvc video capture card
 #	ptape*	Pseudo-tape devices
 #	pdisk*	Pseudo-disk devices
 #	encap*	IP-proto-98 encapsulation
@@ -113,6 +114,7 @@ all)
 	sh -$- $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
 	sh -$- $0 lpvi0
 	sh -$- $0 sbiti0
+	sh -$- $0 rtvc0
 	sh -$- $0 ptape ptape0 ptape1 ptape2 ptape3
 	sh -$- $0 encap0 encap1 encap2 encap3
 	sh -$- $0 pdisk0 pdisk1 pdiskm
@@ -577,6 +579,14 @@ sbiti*)
 	mknod sbiti$unit c 145 $unit
 	chown root:wheel sbiti$unit
 	chmod 600 sbiti$unit
+	;;
+
+rtvc*)
+	unit=${i#rtvc}
+	rm -f rtvc$unit
+	mknod rtvc$unit c 148 $unit
+	chown root:wheel rtvc$unit
+	chmod 600 rtvc$unit
 	;;
 
 local)
