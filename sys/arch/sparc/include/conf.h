@@ -36,6 +36,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef _SPARC_CONF_H_
+#define _SPARC_CONF_H_
+
 #define mmread mmrw
 #define mmwrite mmrw
 cdev_decl(mm);
@@ -137,3 +140,5 @@ cdev_decl(sbiti);
 
 cdev_decl(sptty);
 cdev_decl(spbpp);
+
+#endif
