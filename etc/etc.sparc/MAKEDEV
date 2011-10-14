@@ -78,6 +78,7 @@
 #	scsibus* SCSI busses, see scsi(4), scsictl(8)
 #	diskwatch* Live-backup disk watching
 #	lpvi*	SUNW,lpvi SPARCprinter interface
+#	sbiti*	IOtech,sbiti IEEE488 interface
 #	ptape*	Pseudo-tape devices
 #	pdisk*	Pseudo-disk devices
 #	encap*	IP-proto-98 encapsulation
@@ -111,6 +112,7 @@ all)
 	sh -$- $0 lkm random local ipl cfs0 apm apmctl tctrl0
 	sh -$- $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
 	sh -$- $0 lpvi0
+	sh -$- $0 sbiti0
 	sh -$- $0 ptape ptape0 ptape1 ptape2 ptape3
 	sh -$- $0 encap0 encap1 encap2 encap3
 	sh -$- $0 pdisk0 pdisk1 pdiskm
@@ -567,6 +569,14 @@ lpvi*)
 	mknod lpvi$unit c 138 $unit
 	chown root:wheel lpvi$unit
 	chmod 600 lpvi$unit
+	;;
+
+sbiti*)
+	unit=${i#sbiti}
+	rm -f sbiti$unit
+	mknod sbiti$unit c 145 $unit
+	chown root:wheel sbiti$unit
+	chmod 600 sbiti$unit
 	;;
 
 local)

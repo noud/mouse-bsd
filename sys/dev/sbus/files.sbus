@@ -51,6 +51,11 @@ device	lpvi {}
 attach	lpvi at sbus
 file	dev/sbus/lpvi.c			lpvi	needs-flag
 
+# IOtech,sbiti
+device	sbiti {}
+attach	sbiti at sbus
+file	dev/sbus/sbiti.c		sbiti	needs-flag
+
 # Efficient Networks, Inc. ATM interface
 # device declaration in sys/conf/files
 attach	en at sbus with en_sbus

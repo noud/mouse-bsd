@@ -133,5 +133,7 @@ cdev_decl(ethc);
 cdev_decl(pfw);
 cdev_decl(lpvi);
 
+cdev_decl(sbiti);
+
 cdev_decl(sptty);
 cdev_decl(spbpp);

@@ -107,6 +107,7 @@
 #include "ethc.h"
 #include "pfw.h"
 #include "lpvi.h"
+#include "sbiti.h"
 #include "spif.h"
 
 #include "vcoda.h"
@@ -300,7 +301,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 142 */
 	cdev_notdef(),			/* 143 */
 	cdev_notdef(),			/* 144 */
-	cdev_notdef(),			/* 145 */
+	cdev__ocrwip_init(NSBITI,sbiti),/* 145: IOtech,sbiti IEEE488 card */
 	cdev_tty_init(NSPTTY,sptty),	/* 146: spif tty */
 	cdev_gen_init(NSPBPP,spbpp),	/* 147: spif bpp */
 	cdev_notdef(),			/* 148 */
