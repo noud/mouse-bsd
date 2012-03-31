@@ -65,7 +65,6 @@ __RCSID("$NetBSD: printf.c,v 1.21 1998/12/19 20:21:44 christos Exp $");
 static int	 print_escape_str __P((const char *));
 static size_t	 print_escape __P((const char *));
 
-static int	 getchr __P((void));
 static double	 getdouble __P((void));
 static int	 getint __P((void));
 static long	 getlong __P((void));
@@ -225,7 +224,7 @@ main(argc, argv)
 				*(fmt + 1) = '\0';
 				switch(convch) {
 				case 'c': {
-					char p = getchr();
+					char p = getlong();
 					PF(start, p);
 					break;
 				}
@@ -437,14 +436,6 @@ mklong(str, ch)
 	copy[len - 2] = ch;
 	copy[len - 1] = '\0';
 	return (copy);
-}
-
-static int
-getchr()
-{
-	if (!*gargv)
-		return ('\0');
-	return ((int)**gargv++);
 }
 
 static char *
