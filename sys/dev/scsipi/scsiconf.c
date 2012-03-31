@@ -595,6 +595,8 @@ struct scsi_quirk_inquiry_pattern scsi_quirk_patterns[] = {
 	{{T_DIRECT, T_FIXED,
 	 "SEAGATE ", "ST336607LC      ", ""},     SDEV_NOLUNS},
 	{{T_DIRECT, T_FIXED,
+	 "SEAGATE ", "ST173404LC      ", ""},     SDEV_NOLUNS},
+	{{T_DIRECT, T_FIXED,
 	 "SEAGATE ", "ST19171",          ""},     SDEV_NOMODESENSE},
 	{{T_DIRECT, T_FIXED,
 	 "SEAGATE ", "ST34501FC       ", ""},     SDEV_NOMODESENSE},
