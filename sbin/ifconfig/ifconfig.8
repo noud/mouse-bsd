@@ -173,24 +173,28 @@ extra console error logging.
 .It Fl debug
 Disable driver dependent debugging code.
 .It Cm bpfonly
-Turn on BPF-only mode.  In this mode, packets can be received by
-.Xr bpf 4
-filters but nothing else.
+Disable reception of packets on the interface for all purposes except
+.Xr bpf 4 .
+Packets will be received by the hardware as normal; however, they will not be
+passed to protocol stacks.
 .It Fl bpfonly
-Turn off BPF-only mode (receive packets as usual, by
-.Xr bpf 4
-or otherwise).
+Negate
+.Cm bpfonly ;
+that is, receive packets normally.
 .It Cm nofwfrom
-Prevent packet forwarding of packets received on this interface.
+Never forward packets received on this interface.  (Note that currently this
+affects only IPv4 packets.)
 .It Fl nofwfrom
-Allow packets received on this interface to be forwarded as normal.
+Negate
+.Cm nofwfrom ;
+that is, forward packets received on this interface normally.
 .It Cm nofwto
-Prevent packet forwarding of packets which would normally be forwarded
-to this interface.
+Never forward packets out this interface.  (Note that currently this affects
+affects only unicast IPv4 packets.)
 .It Fl nofwto
-Allow packets to be forwarded to this interface as normal.
-.Xr bpf 4
-or otherwise).
+Negate
+.Cm nofwto ;
+that is, forward packets out this interface normally.
 .ne 1i
 .It Cm delete
 Remove the network address specified.
