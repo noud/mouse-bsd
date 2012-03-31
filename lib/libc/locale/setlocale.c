@@ -164,18 +164,22 @@ setlocale(category, locale)
 			if (!r[1])
 				return (NULL);	/* Hmm, just slashes... */
 			do {
+				if (i == _LC_LAST)
+					return (NULL); /* too many slashes. */
 				len = r - locale > 31 ? 31 : r - locale;
-				(void)strncpy(new_categories[i++], locale, len);
-				new_categories[i++][len] = 0;
+				(void)strlcpy(new_categories[i], locale, len+1);
+				i++;
 				locale = r;
 				while (*locale == '/')
 				    ++locale;
 				while (*++r && *r != '/');
 			} while (*locale);
-			while (i < _LC_LAST)
-				(void)strncpy(new_categories[i],
+			while (i < _LC_LAST) {
+				(void)strlcpy(new_categories[i],
 				    new_categories[i-1],
-				    sizeof(new_categories[i]) - 1);
+				    sizeof(new_categories[i]));
+				i++;
+			}
 		}
 	}
 
