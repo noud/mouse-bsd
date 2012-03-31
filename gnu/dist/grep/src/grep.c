@@ -52,6 +52,9 @@ static struct stats stats_base;
 /* if non-zero, display usage information and exit */
 static int show_help;
 
+/* if non-zero, line-buffer stdout */
+static int line_buffered;
+
 /* If non-zero, print the version on standard output and exit.  */
 static int show_version;
 
@@ -73,6 +76,7 @@ static struct option long_options[] =
   {"fixed-strings", no_argument, NULL, 'F'},
   {"help", no_argument, &show_help, 1},
   {"ignore-case", no_argument, NULL, 'i'},
+  {"line-buffered", no_argument, &line_buffered, 1},
   {"line-number", no_argument, NULL, 'n'},
   {"line-regexp", no_argument, NULL, 'x'},
   {"no-filename", no_argument, NULL, 'h'},
@@ -1254,6 +1258,8 @@ main (argc, argv)
     out_after = default_context;
   if (out_before < 0)
     out_before = default_context;
+
+  if (line_buffered) setlinebuf(stdout);
 
   if (show_version)
     {

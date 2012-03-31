@@ -14,6 +14,7 @@ grep, egrep, fgrep \- print lines matching a pattern
 [--regexp=PATTERN] [--file=FILE] [--ignore-case] [--word-regexp]
 [--line-regexp] [--line-regexp] [--no-messages] [--revert-match]
 [--version] [--help] [--byte-offset] [--line-number]
+[--line-buffered]
 [--with-filename] [--no-filename] [--quiet] [--silent] [--text]
 [--files-without-match] [--files-with-matcces] [--count]
 [--before-context=NUM] [--after-context=NUM] [--context]
@@ -171,6 +172,10 @@ stop on the first match.
 .B \-n, --line-number
 Prefix each line of output with the line number
 within its input file.
+.TP
+.B \--line-buffered
+Line-buffer standard output, even if it is not going to a tty.
+This will usually incur a performance penalty.
 .TP
 .B \-q, --quiet, --silent
 Quiet; suppress normal output. The scanning will stop
