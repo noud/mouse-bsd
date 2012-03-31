@@ -115,11 +115,12 @@ xprt_register(xprt)
 	sock = xprt->xp_sock;
 
 	if (xports == NULL) {
+		int i;
 		xports = (SVCXPRT **)
 			mem_alloc(FD_SETSIZE * sizeof(SVCXPRT *));
 		if (xports == NULL)
 			return;
-		memset(xports, '\0', FD_SETSIZE * sizeof(SVCXPRT *));
+		for (i=0;i<FD_SETSIZE;i++) xports[i] = 0;
 	}
 	if (sock < FD_SETSIZE) {
 		xports[sock] = xprt;
