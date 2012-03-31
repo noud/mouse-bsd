@@ -78,11 +78,8 @@ call will return an error
 .Pq Er EHOSTDOWN
 if the interface is not
 .Dq ready
-.Po
-which means that the control device is open and the interface's
-address has been set
-.Pc .
-Once the interface is ready,
+(which means that the control device is open and the interface's
+address has been set).  Once the interface is ready,
 .Fn read
 will return a packet if one is available; if not, it will either block
 until one is or return
@@ -121,7 +118,7 @@ is on
 .Pq see Dv TUNSLMODE No below ,
 the actual packet data must be preceded by a
 .Sq Li struct sockaddr .
-The driver currently only inspects the
+The driver currently inspects only the
 .Sq Li sa_family
 field.
 The following
@@ -162,7 +159,7 @@ The argument should be a pointer to an
 a non-zero value turns on
 .Dq link-layer
 mode, causing packets read from the tunnel device to be prepended with
-network destination address.
+network destination addresses.
 .It Dv FIONBIO
 Turn non-blocking I/O for reads off or on, according as the argument
 .Va int Ns 's
