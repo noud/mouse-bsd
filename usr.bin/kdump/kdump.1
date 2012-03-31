@@ -45,6 +45,7 @@
 .Op Fl e Ar emulation
 .Op Fl f Ar file
 .Op Fl m Ar maxdata
+.Op Fl p Ar pid
 .Op Fl t Op cenis
 .Sh DESCRIPTION
 .Nm
@@ -86,6 +87,15 @@ values are replaced with the
 string.
 Suppressing this feature yields a more consistent output format and is
 easily amenable to further processing.
+.It Fl p
+Specify process IDs.  Normally,
+.Nm
+prints output for all processes being traced.  This option limits the
+output based on process ID.  Each
+.Fl p
+option gives one process ID for which output should be produced;
+.Fl p
+may be given multiple times to get output for multiple processes.
 .It Fl R
 Display relative timestamps (time since previous entry).
 .It Fl T

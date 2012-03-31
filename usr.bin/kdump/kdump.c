@@ -172,10 +172,15 @@ main(argc, argv)
 	int ch, ktrlen, size;
 	void *m;
 	int trpoints = ALL_POINTS;
+	int *pidlist;
+	int pidn;
+	int printit;
 
 	current = &emulations[0];	/* NetBSD */
+	pidlist = 0;
+	pidn = 0;
 
-	while ((ch = getopt(argc, argv, "e:f:dlm:nRTt:x")) != -1)
+	while ((ch = getopt(argc, argv, "e:f:dlm:np:RTt:x")) != -1)
 		switch (ch) {
 		case 'e':
 			setemul(optarg);
@@ -194,6 +199,10 @@ main(argc, argv)
 			break;
 		case 'n':
 			fancy = 0;
+			break;
+		case 'p':
+			pidlist = realloc(pidlist,(pidn+1)*sizeof(int));
+			pidlist[pidn++] = atoi(optarg);
 			break;
 		case 'R':
 			timestamp = 2;	/* relative timestamp */
@@ -223,8 +232,19 @@ main(argc, argv)
 		errx(1, "%s", strerror(ENOMEM));
 	if (!freopen(tracefile, "r", stdin))
 		err(1, "%s", tracefile);
+	printit = 1;
 	while (fread_tail((char *)&ktr_header, sizeof(struct ktr_header), 1)) {
-		if (trpoints & (1<<ktr_header.ktr_type))
+		if (pidn) {
+			int i;
+			printit = 0;
+			for ( i = pidn - 1;
+			      (i >= 0) &&
+				(ktr_header.ktr_pid != pidlist[i]);
+			      i -- ) ;
+			if (i >= 0)
+				printit = 1;
+		}
+		if (printit && (trpoints & (1<<ktr_header.ktr_type)))
 			dumpheader(&ktr_header);
 		if ((ktrlen = ktr_header.ktr_len) < 0)
 			errx(1, "bogus length 0x%x", ktrlen);
@@ -236,7 +256,8 @@ main(argc, argv)
 		}
 		if (ktrlen && fread_tail(m, ktrlen, 1) == 0)
 			errx(1, "data too short");
-		if ((trpoints & (1<<ktr_header.ktr_type)) == 0)
+		if ( !printit ||
+		     !(trpoints & (1<<ktr_header.ktr_type)) )
 			continue;
 		switch (ktr_header.ktr_type) {
 		case KTR_SYSCALL:
