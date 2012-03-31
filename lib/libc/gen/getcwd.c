@@ -95,7 +95,7 @@ realpath(path, resolved)
 
 	/* Save the starting point. */
 	if ((fd = open(".", O_RDONLY)) < 0) {
-		(void)strcpy(resolved, ".");
+		(void)strlcpy(resolved, ".", MAXPATHLEN);
 		return (NULL);
 	}
 
@@ -107,8 +107,10 @@ realpath(path, resolved)
 	 *     if it is a directory, then change to that directory.
 	 * get the current directory name and append the basename.
 	 */
-	(void)strncpy(resolved, path, MAXPATHLEN - 1);
-	resolved[MAXPATHLEN - 1] = '\0';
+	if (strlcpy(resolved, path, MAXPATHLEN) >= MAXPATHLEN) {
+		errno = ENAMETOOLONG;
+		goto err1;
+	}
 loop:
 	q = strrchr(resolved, '/');
 	if (q != NULL) {
@@ -151,7 +153,10 @@ loop:
 	 * Save the last component name and get the full pathname of
 	 * the current directory.
 	 */
-	(void)strncpy(wbuf, p, (sizeof(wbuf) - 1));
+	if (strlcpy(wbuf, p, sizeof(wbuf)) >= sizeof(wbuf)) {
+		errno = ENAMETOOLONG;
+		goto err1;
+	}
 
 	/*
 	 * Call the inernal internal version of getcwd which
@@ -170,13 +175,20 @@ loop:
 		rootd = 0;
 
 	if (*wbuf) {
-		if (strlen(resolved) + strlen(wbuf) + rootd + 1 > MAXPATHLEN) {
+		if (strlen(resolved) + strlen(wbuf) + (rootd ? 0 : 1) + 1 >
+		    MAXPATHLEN) {
 			errno = ENAMETOOLONG;
 			goto err1;
 		}
 		if (rootd == 0)
-			(void)strcat(resolved, "/"); /* XXX: strcat is safe */
-		(void)strcat(resolved, wbuf);	/* XXX: strcat is safe */
+			if (strlcat(resolved, "/", MAXPATHLEN) >= MAXPATHLEN ) {
+				errno = ENAMETOOLONG;
+				goto err1;
+			}
+		if (strlcat(resolved, wbuf, MAXPATHLEN) >= MAXPATHLEN) {
+			errno = ENAMETOOLONG;
+			goto err1;
+		}
 	}
 
 	/* Go back to where we came from. */
