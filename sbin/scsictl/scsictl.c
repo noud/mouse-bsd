@@ -232,8 +232,8 @@ device_format(argc, argv)
 /*
  * device_identify:
  *
- *	Display the identity of the device, including it's SCSI bus,
- *	target, lun, and it's vendor/product/revision information.
+ *	Display the identity of the device, including its SCSI bus,
+ *	target, lun, and its vendor/product/revision information.
  */
 void
 device_identify(argc, argv)
