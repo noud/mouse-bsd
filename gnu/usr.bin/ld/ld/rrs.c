@@ -306,7 +306,8 @@ claim_rrs_reloc(entry, rp, sp, relocation)
 {
 	struct relocation_info	*r = rrs_next_reloc();
 
-#if !defined(__arm32__) && 1	/* prints too much on arm32 */
+/* prints too much on arm32 & vax */
+#if ! (defined(__arm32__) || defined(__vax__))
 	if (rp->r_address < text_start + text_size)
 		warnx("%s: RRS text relocation at %#x for \"%s\"",
 			get_file_name(entry), rp->r_address, sp->name);
