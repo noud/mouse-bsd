@@ -531,6 +531,9 @@ int *stats;
     /* format and print the memory summary */
     summary_format(memory_buffer, stats, memory_names);
     fputs(memory_buffer, stdout);
+
+    /* This line wraps far too often. */
+    if (strlen(memory_buffer) >= screen_width-x_mem) Move_to(x_mem,y_mem);
 }
 
 void
@@ -544,6 +547,9 @@ int *stats;
     /* format the new line */
     summary_format(new, stats, memory_names);
     line_update(memory_buffer, new, x_mem, y_mem);
+
+    /* This line wraps far too often. */
+    if (strlen(memory_buffer) >= screen_width-x_mem) Move_to(x_mem,y_mem);
 }
 
 /*
