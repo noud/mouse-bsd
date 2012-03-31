@@ -12,6 +12,7 @@
 .Op Fl V
 .Op Fl q Ar queue
 .Op Fl f Ar file
+.Op Fl j Ar jobname
 .Op Fl mldrbv
 .Ar time
 .Nm at
@@ -203,6 +204,9 @@ output.
 Reads the job from
 .Ar file
 rather than standard input.
+.It Fl j Ar jobname
+Sets the job's name.  The job name is saved in the job file and is printed by
+.Nm atq .
 .It Fl l
 Is an alias for
 .Nm atq .

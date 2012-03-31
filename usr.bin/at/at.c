@@ -67,6 +67,7 @@
 #define ALARMC 10		/* Number of seconds to wait for timeout */
 
 #define TIMESIZE 50
+#define ATJOB_COMMENT "# jobname "
 
 enum { ATQ, ATRM, AT, BATCH, CAT };	/* what program we want to run */
 
@@ -93,6 +94,7 @@ char *namep;
 char atfile[FILENAME_MAX];
 
 char *atinput = (char *)0;	/* where to get input from */
+char *jobname = 0;		/* name of job */
 char atqueue = 0;		/* which queue to examine for jobs (atq) */
 char atverify = 0;		/* verify time instead of queuing job */
 
@@ -312,6 +314,7 @@ writefile(runtimer, queue)
 			"# mail %*s %d\n",
 		real_uid, real_gid,
 		LOGNAMESIZE, mailname, send_mail );
+	if (jobname) fprintf(fp,"%s%s\n",ATJOB_COMMENT,jobname);
 
 	/* Write out the umask at the time of invocation */
 	(void)fprintf(fp, "umask %o\n", cmask);
@@ -438,6 +441,7 @@ list_jobs()
 	time_t runtimer;
 	char timestr[TIMESIZE];
 	int first = 1;
+	FILE *fp;
 
 	PRIV_START
 
@@ -471,17 +475,62 @@ list_jobs()
 		runtime = *localtime(&runtimer);
 		strftime(timestr, TIMESIZE, "%X %x", &runtime);
 		if (first) {
-			(void)printf("Date\t\t\tOwner\tQueue\tJob#\n");
+			(void)printf("Date\t\t\tOwner\tQueue\tJob#\tName\n");
 			first = 0;
 		}
 		pw = getpwuid(buf.st_uid);
 
-		(void)printf("%s\t%s\t%c%s\t%d\n",
+		(void)printf("%s\t%s\t%c%s\t%d",
 		    timestr,
 		    pw ? pw->pw_name : "???",
 		    queue,
 		    (S_IXUSR & buf.st_mode) ? "" : "(done)",
 		    jobno);
+		fp = fopen(dirent->d_name,"r");
+		if (! fp)
+		    printf("\t[can't get jobname: %s]\n",strerror(errno));
+		else {
+		    /* The jobname is the first line beginning with
+		       ATJOB_COMMENT.  If a line not beginning with a # is
+		       reached, there is no jobname. */
+		    int atnl;
+		    int c;
+		    int x;
+		    atnl = 1;
+		    while (1) {
+			c = getc(fp);
+			if (c == EOF) {
+			    printf("\n");
+			    break;
+			}
+			if (atnl) {
+			    if (c != '#') {
+				printf("\n");
+				break;
+			    } else
+				x = 0;
+			}
+			if (c == '\n')
+			    atnl = 1;
+			else if (x >= 0) {
+			    atnl = 0;
+			    if (ATJOB_COMMENT[x]) {
+				if (c == ATJOB_COMMENT[x])
+				    x ++;
+				else
+				    x = -1;
+			    } else {
+				printf("\t");
+				while ((c != '\n') && (c != EOF)) {
+				    putchar(c);
+				    c = getc(fp);
+				}
+				printf("\n");
+				break;
+			    }
+			}
+		    }
+		}
 	}
 	PRIV_END
 }
@@ -587,7 +636,7 @@ main(argc, argv)
 		ATQ, ATRM, AT, BATCH, CAT
 	};				/* what program we want to run */
 	int program = AT;		/* our default program */
-	char *options = "q:f:mvldbrVc";	/* default options for at */
+	char *options = "q:f:mvj:ldbrVc";	/* default options for at */
 	int disp_version = 0;
 	time_t timer;
 
@@ -625,8 +674,14 @@ main(argc, argv)
 			send_mail = 1;
 			break;
 
+		case 'j':
+			jobname = optarg;
+			break;
+
 		case 'f':
 			atinput = optarg;
+			if (! jobname)
+			    jobname = optarg;
 			break;
 
 		case 'q':	/* specify queue */
