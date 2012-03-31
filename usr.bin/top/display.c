@@ -328,7 +328,7 @@ int *brkdn;
     if (ltotal != total)
     {
 	/* move and overwrite */
-#if (x_procstate == 0)
+#if (x_procstate != 0)
 	Move_to(x_procstate, y_procstate);
 #else
 	/* cursor is already there...no motion needed */
