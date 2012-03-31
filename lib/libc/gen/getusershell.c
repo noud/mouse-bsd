@@ -88,6 +88,10 @@ static StringList	 *sl;
 
 static const char *const *initshells __P((void));
 
+__warn_references(getusershell,"warning: this program uses getusershell(), which is a broken interface.")
+__warn_references(endusershell,"warning: this program uses endusershell(), which is a broken interface.")
+__warn_references(setusershell,"warning: this program uses setusershell(), which is a broken interface.")
+
 /*
  * Get a list of shells from "shells" nsswitch database
  */
