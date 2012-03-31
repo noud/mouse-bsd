@@ -58,7 +58,7 @@ __RCSID("$NetBSD: touch.c,v 1.26 2006/03/18 11:15:00 dsl Exp $");
 #include <unistd.h>
 
 int	main __P((int, char **));
-int	rw __P((char *, struct stat *, int));
+int	rw __P((const char *, struct stat *, int));
 void	stime_arg1 __P((char *, struct timeval *));
 void	stime_arg2 __P((char *, int, struct timeval *));
 void	stime_file __P((char *, struct timeval *));
@@ -316,7 +316,7 @@ stime_file(fname, tvp)
 
 int
 rw(fname, sbp, force)
-	char *fname;
+	const char *fname;
 	struct stat *sbp;
 	int force;
 {
