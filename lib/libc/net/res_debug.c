@@ -984,6 +984,7 @@ const struct res_sym __p_type_syms[] = {
 	{T_UID,		"UID",		"user ID (nonstandard)"},
 	{T_GID,		"GID",		"group ID (nonstandard)"},
 	{T_NAPTR,	"NAPTR",	"URN Naming Authority"},
+	{T_DNAME,	"DNAME",	"domain renaming"},
 #ifdef ALLOW_T_UNSPEC
 	{T_UNSPEC,	"UNSPEC",	"unspecified data (nonstandard)"},
 #endif /* ALLOW_T_UNSPEC */
