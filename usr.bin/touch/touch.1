@@ -43,6 +43,7 @@
 .Op Fl acfhm
 .Op Fl r Ar file
 .Op Fl t Ar [[CC]YY]MMDDhhmm[.SS]
+.Op Fl d Ar inc
 .Ar file ...
 .Sh DESCRIPTION
 The
@@ -64,6 +65,27 @@ The
 .Nm
 utility does not treat this as an error.
 No error messages are displayed and the exit value is not affected.
+.It Fl d Ar inc
+Specify
+.Ar inc ,
+a time increment
+.\" This should be just
+.\"	.Pf ( Sq d Ns
+.\"	elta) in seconds...
+.\" but that doesn't work with 1.4T's -mandoc.  (It does work with 4.0.1's.)
+.Sm off
+.Xo
+.Pf ( Sq d
+.No elta)
+.Xc
+.Sm on
+in seconds, which is added to the time used for each file to give
+the time used for the next file; other options which control the
+timestamp to be used specify the time for the first-affected file.
+This has no effect unless multiple files are affected.
+.Ar inc
+must be an integer, and may be negative (producing progressively
+earlier times).
 .It Fl f
 Attempt to force the update, even if the file permissions do not
 currently permit it.
@@ -163,11 +185,23 @@ The
 .Nm
 utility is expected to be a superset of the
 .St -p1003.2
-specification.
+specification.  The
+.Fl d
+option is a
+.Nx
+extensions.
 .Sh HISTORY
 A
 .Nm
 utility appeared in
 .At v7 .
 .Sh BUGS
-A symbolic link can't be a reference file of access and/or modification time.
+A symbolic link can't be a reference file of access and/or modification
+time.
+.Pp
+Invalid arguments to
+.Fl d
+(eg, non-numbers) do not produce warning messages, instead silently
+using whatever
+.Xr atol 3
+returns.

@@ -79,16 +79,20 @@ main(argc, argv)
 	setlocale(LC_ALL, "");
 
 	aflag = cflag = fflag = hflag = mflag = timeset = 0;
+	inc = 0;
 	if (gettimeofday(&tv[0], NULL))
 		err(1, "gettimeofday");
 
-	while ((ch = getopt(argc, argv, "acfhmr:t:")) != -1)
+	while ((ch = getopt(argc, argv, "acd:fhmr:t:")) != -1)
 		switch(ch) {
 		case 'a':
 			aflag = 1;
 			break;
 		case 'c':
 			cflag = 1;
+			break;
+		case 'd':
+			inc = atol(optarg);
 			break;
 		case 'f':
 			fflag = 1;
@@ -147,7 +151,7 @@ main(argc, argv)
 	if (*argv == NULL)
 		usage();
 
-	for (rval = 0; *argv; ++argv) {
+	for (rval = 0; *argv; ++argv, tv[0].tv_sec+=inc, tv[1].tv_sec+=inc) {
 		/* See if the file exists. */
 		if ((*get_file_status)(*argv, &sb)) {
 			if (!cflag) {
@@ -370,6 +374,6 @@ __dead void
 usage()
 {
 	(void)fprintf(stderr,
-	    "usage: touch [-acfhm] [-r file] [-t time] file ...\n");
+	    "usage: touch [-acfhm] [-r file] [-t time] [-d delta] file ...\n");
 	exit(1);
 }
