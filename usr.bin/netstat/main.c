@@ -306,7 +306,7 @@ main(argc, argv)
 	af = AF_UNSPEC;
 	pcbaddr = 0;
 
-	while ((ch = getopt(argc, argv, "Aabdf:ghI:LliM:mN:nP:p:rstTuvw:")) != -1)
+	while ((ch = getopt(argc, argv, "Aabdf:ghI:LliM:mN:nP:p:qrstTuvw:")) != -1)
 		switch(ch) {
 		case 'A':
 			Aflag = 1;
@@ -380,6 +380,9 @@ main(argc, argv)
 				errx(1, "%s: unknown or uninstrumented protocol",
 				    optarg);
 			pflag = 1;
+			break;
+		case 'q':
+			qflag = 1;
 			break;
 		case 'r':
 			rflag = 1;

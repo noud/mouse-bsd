@@ -51,6 +51,7 @@ int	mflag;		/* show memory stats */
 int	nflag;		/* show addresses numerically */
 int	Pflag;		/* dump a PCB */
 int	pflag;		/* show given protocol */
+int	qflag;		/* just data, no headers */
 int	rflag;		/* show routing tables (or routing stats) */
 int	sflag;		/* show protocol statistics */
 int	tflag;		/* show i/f watchdog timers */

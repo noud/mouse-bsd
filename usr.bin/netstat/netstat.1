@@ -66,7 +66,7 @@
 .Op Fl N Ar system
 .Fl P Ar pcbaddr
 .Nm ""
-.Op Fl T
+.Op Fl qT
 .Op Fl p Ar protocol
 .Op Fl i
 .Op Fl I Ar Interface
@@ -190,6 +190,13 @@ or
 respectively.
 .It Fl L
 Don't show link-level routes (e.g., IPv4 ARP or IPv6 neighbour cache).
+.It Fl q
+Don't print headers or other commentary, just the data.  (This
+presently works only for
+.Fl i
+or
+.Fl I
+output.)
 .It Fl T
 Print all traffic stats for an interface and nothing else.  This is
 ignored except for
