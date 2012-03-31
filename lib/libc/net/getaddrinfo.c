@@ -415,9 +415,9 @@ getaddrinfo(hostname, servname, hints, res)
 	if (sentinel.ai_next)
 		goto good;
 
-	if (pai->ai_flags & AI_NUMERICHOST)
-		ERR(EAI_NONAME);
 	if (hostname == NULL)
+		ERR(EAI_NONAME);
+	if (pai->ai_flags & AI_NUMERICHOST)
 		ERR(EAI_NONAME);
 
 	/*
