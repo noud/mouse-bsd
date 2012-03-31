@@ -416,7 +416,7 @@ getaddrinfo(hostname, servname, hints, res)
 		goto good;
 
 	if (hostname == NULL)
-		ERR(EAI_NONAME);
+		ERR(EAI_NODATA);
 	if (pai->ai_flags & AI_NUMERICHOST)
 		ERR(EAI_NONAME);
 
