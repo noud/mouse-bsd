@@ -1507,7 +1507,7 @@ Parse_DoVar (line, ctxt)
 	if (!Var_Exists(line, ctxt))
 	    Var_Set(line, "", ctxt);
 
-	cp = Var_Subst(NULL, cp, ctxt, FALSE);
+	cp = Var_Subst(NULL, cp, VAR_CMD, FALSE);
 	oldVars = oldOldVars;
 
 	Var_Set(line, cp, ctxt);
