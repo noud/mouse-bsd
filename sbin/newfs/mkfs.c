@@ -44,6 +44,7 @@ __RCSID("$NetBSD: mkfs.c,v 1.37 1999/07/30 17:44:01 wrstuden Exp $");
 
 #include <sys/param.h>
 #include <sys/time.h>
+#include <sys/mman.h>
 #include <sys/resource.h>
 #include <ufs/ufs/dinode.h>
 #include <ufs/ufs/dir.h>
@@ -100,6 +101,7 @@ static int count_digits __P((int));
  * variables set up by front end.
  */
 extern int	mfs;		/* run as the memory based filesystem */
+extern int	mfslock;	/* if mfs, mlock() the memory */
 extern int	Nflag;		/* run mkfs without writing file system */
 extern int	Oflag;		/* format as an 4.3BSD file system */
 extern int	fssize;		/* file system size */
@@ -175,6 +177,9 @@ mkfs(pp, fsys, fi, fo)
 			fssize = (memleft - 16384) / sectorsize;
 		if ((membase = malloc(fssize * sectorsize)) == 0)
 			exit(12);
+		if (mfslock)
+			if (mlock(membase, fssize * sectorsize) < 0)
+				perror("warning, mlock failed");
 	}
 	fsi = fi;
 	fso = fo;

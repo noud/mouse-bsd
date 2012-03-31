@@ -66,6 +66,7 @@
 .Op Fl x Ar sectors
 .Ar special
 .Nm mount_mfs
+.Op Fl L
 .Op Fl N
 .Op Fl T Ar disktype
 .Op Fl a Ar maxcontig
@@ -271,10 +272,17 @@ command are as described for the
 .Nm
 command, except for the
 .Fl o
-option.
+and
+.Fl L
+options.
 .Pp
-That option is as follows:
+These options are as follows:
 .Bl -tag -width indent
+.It Fl L
+Specifies that the allocated memory is to be locked in-core with
+.Xr mlock 2 .
+This has the additional side effect of causing all the required RAM to
+be allocated immediately.
 .It Fl o
 Options are specified with a
 .Fl o

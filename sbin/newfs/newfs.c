@@ -149,6 +149,7 @@ int	main __P((int, char *[]));
 
 
 int	mfs;			/* run as the memory based filesystem */
+int	mfslock;		/* if mfs, mlock() the memory */
 int	Nflag;			/* run without writing file system */
 int	Oflag;			/* format as an 4.3BSD file system */
 int	fssize;			/* file system size */
@@ -220,7 +221,7 @@ main(argc, argv)
 		errx(1, "insane maxpartitions value %d", maxpartitions);
 
 	opstring = mfs ?
-	    "NT:a:b:c:d:e:f:i:m:o:s:" :
+	    "LNT:a:b:c:d:e:f:i:m:o:s:" :
 	    "B:NOS:T:a:b:c:d:e:f:i:k:l:m:n:o:p:r:s:t:u:x:";
 	while ((ch = getopt(argc, argv, opstring)) != -1)
 		switch (ch) {
@@ -235,6 +236,9 @@ main(argc, argv)
 #endif
 			} else
 				usage();
+			break;
+		case 'L':
+			mfslock = 1;
 			break;
 		case 'N':
 			Nflag = 1;
