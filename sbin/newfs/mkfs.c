@@ -672,10 +672,12 @@ next:
 	 * Update information about this partion in pack
 	 * label, so that it may be updated on disk.
 	 */
-	pp->p_fstype = FS_BSDFFS;
-	pp->p_fsize = sblock.fs_fsize;
-	pp->p_frag = sblock.fs_frag;
-	pp->p_cpg = sblock.fs_cpg;
+	if (pp) {
+		pp->p_fstype = FS_BSDFFS;
+		pp->p_fsize = sblock.fs_fsize;
+		pp->p_frag = sblock.fs_frag;
+		pp->p_cpg = sblock.fs_cpg;
+	}
 }
 
 /*

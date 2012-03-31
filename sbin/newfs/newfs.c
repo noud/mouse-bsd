@@ -444,19 +444,37 @@ main(argc, argv)
 			disktype = argv[1];
 #endif
 		lp = getdisklabel(special, fsi);
-		if (isdigit(*cp))
-			pp = &lp->d_partitions[0];
-		else
-			pp = &lp->d_partitions[*cp - 'a'];
-		if (pp->p_size == 0)
-			errx(1, "`%c' partition is unavailable", *cp);
-		if (pp->p_fstype == FS_BOOT)
-			errx(1, "`%c' partition overlaps boot program", *cp);
+		pp = 0;
+		if (lp) {
+			if (isdigit(*cp))
+				pp = &lp->d_partitions[0];
+			else
+				pp = &lp->d_partitions[*cp - 'a'];
+			if (pp->p_size == 0)
+				errx(1, "`%c' partition is unavailable", *cp);
+			if (pp->p_fstype == FS_BOOT)
+				errx(1, "`%c' partition overlaps boot program", *cp);
+		}
 	}
 havelabel:
+	if (! pp) {
+		if ( (fssize == 0) ||
+		     (ntracks == 0) ||
+		     (nsectors == 0) )
+			errx(1, "no label; must specify -s, -t, and -u");
+		if (sectorsize == 0) sectorsize = 512;
+		if (rpm == 0) rpm = 3600;
+		if (trackskew < 0) trackskew = 0;
+		if (interleave == 0) interleave = 1;
+		if (fsize == 0) fsize = DFL_FRAGSIZE;
+		if (bsize == 0) bsize = DFL_BLKSIZE;
+		if (trackspares < 0) trackspares = 0;
+		if (cylspares < 0) cylspares = 0;
+		cpgflg = 1; /* use default if nothing else */
+	}
 	if (fssize == 0)
 		fssize = pp->p_size;
-	if (fssize > pp->p_size && !mfs)
+	if (pp && fssize > pp->p_size && !mfs)
 		errx(1, "maximum file system size on the `%c' partition is %d",
 		    *cp, pp->p_size);
 	if (rpm == 0) {
@@ -530,21 +548,21 @@ havelabel:
 			cylspares = 0;
 	}
 	secpercyl = nsectors * ntracks - cylspares;
-	if (secpercyl != lp->d_secpercyl)
+	if (lp && (secpercyl != lp->d_secpercyl))
 		warnx("%s (%d) %s (%u)\n",
 			"Warning: calculated sectors per cylinder", secpercyl,
 			"disagrees with disk label", lp->d_secpercyl);
 	if (maxbpg == 0)
 		maxbpg = MAXBLKPG(bsize);
-	headswitch = lp->d_headswitch;
-	trackseek = lp->d_trkseek;
+	headswitch = lp ? lp->d_headswitch : 0; /* XXX should have flag */
+	trackseek = lp ? lp->d_trkseek : 0; /* XXX should have flag */
 #ifdef notdef /* label may be 0 if faked up by kernel */
 	bbsize = lp->d_bbsize;
 	sbsize = lp->d_sbsize;
 #endif
-	oldpartition = *pp;
+	if (pp) oldpartition = *pp;
 	mkfs(pp, special, fsi, fso);
-	if (!Nflag && memcmp(pp, &oldpartition, sizeof(oldpartition)))
+	if (!Nflag && pp && memcmp(pp, &oldpartition, sizeof(oldpartition)))
 		rewritelabel(special, fso, lp);
 	if (!Nflag)
 		close(fso);
@@ -647,7 +665,7 @@ getdisklabel(s, fd)
 		}
 #endif
 		warn("ioctl (GDINFO)");
-		errx(1, lmsg, s);
+		return(0);
 	}
 	return (&lab);
 }
