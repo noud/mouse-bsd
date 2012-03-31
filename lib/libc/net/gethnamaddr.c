@@ -1,4 +1,4 @@
-/*	$NetBSD: gethnamaddr.c,v 1.30 2000/01/22 23:30:27 mycroft Exp $	*/
+/*	$NetBSD: gethnamaddr.c,v 1.33 2000/05/23 07:03:10 tron Exp $	*/
 
 /*
  * ++Copyright++ 1985, 1988, 1993
@@ -61,7 +61,7 @@
 static char sccsid[] = "@(#)gethostnamadr.c	8.1 (Berkeley) 6/4/93";
 static char rcsid[] = "Id: gethnamaddr.c,v 8.21 1997/06/01 20:34:37 vixie Exp ";
 #else
-__RCSID("$NetBSD: gethnamaddr.c,v 1.30 2000/01/22 23:30:27 mycroft Exp $");
+__RCSID("$NetBSD: gethnamaddr.c,v 1.33 2000/05/23 07:03:10 tron Exp $");
 #endif
 #endif /* LIBC_SCCS and not lint */
 
@@ -153,7 +153,7 @@ static void dprintf __P((char *, int));
 static struct hostent *getanswer __P((const querybuf *, int,
     const char *, int));
 static void map_v4v6_address __P((const char *, char *));
-static void map_v4v6_hostent __P((struct hostent *, char **, int *));
+static void map_v4v6_hostent __P((struct hostent *, char **, char *));
 #ifdef RESOLVSORT
 static void addrsort __P((char **, int));
 #endif
@@ -209,6 +209,23 @@ dprintf(msg, num)
 # define dprintf(msg, num) /*nada*/
 #endif
 
+#define BOUNDED_INCR(x) \
+	do { \
+		cp += x; \
+		if (cp > eom) { \
+			h_errno = NO_RECOVERY; \
+			return (NULL); \
+		} \
+	} while (0)
+
+#define BOUNDS_CHECK(ptr, count) \
+	do { \
+		if ((ptr) + (count) > eom) { \
+			h_errno = NO_RECOVERY; \
+			return (NULL); \
+		} \
+	} while (0)
+
 static struct hostent *
 getanswer(answer, anslen, qname, qtype)
 	const querybuf *answer;
@@ -219,9 +236,9 @@ getanswer(answer, anslen, qname, qtype)
 	const HEADER *hp;
 	const u_char *cp;
 	int n;
-	const u_char *eom;
-	char *bp, **ap, **hap;
-	int type, class, buflen, ancount, qdcount;
+	const u_char *eom, *erdata;
+	char *bp, **ap, **hap, *ep;
+	int type, class, ancount, qdcount;
 	int haveanswer, had_error;
 	int toobig = 0;
 	char tbuf[MAXDNAME];
@@ -252,18 +269,19 @@ getanswer(answer, anslen, qname, qtype)
 	ancount = ntohs(hp->ancount);
 	qdcount = ntohs(hp->qdcount);
 	bp = hostbuf;
-	buflen = sizeof hostbuf;
-	cp = answer->buf + HFIXEDSZ;
+	ep = hostbuf + sizeof hostbuf;
+	cp = answer->buf;
+	BOUNDED_INCR(HFIXEDSZ);
 	if (qdcount != 1) {
 		h_errno = NO_RECOVERY;
 		return (NULL);
 	}
-	n = dn_expand(answer->buf, eom, cp, bp, buflen);
+	n = dn_expand(answer->buf, eom, cp, bp, ep - bp);
 	if ((n < 0) || !(*name_ok)(bp)) {
 		h_errno = NO_RECOVERY;
 		return (NULL);
 	}
-	cp += n + QFIXEDSZ;
+	BOUNDED_INCR(n + QFIXEDSZ);
 	if (qtype == T_A || qtype == T_AAAA) {
 		/* res_send() has already verified that the query name is the
 		 * same as the one we sent; this just gets the expanded name
@@ -276,7 +294,6 @@ getanswer(answer, anslen, qname, qtype)
 		}
 		host.h_name = bp;
 		bp += n;
-		buflen -= n;
 		/* The qname can be abbreviated, but h_name is now absolute. */
 		qname = host.h_name;
 	}
@@ -289,18 +306,21 @@ getanswer(answer, anslen, qname, qtype)
 	haveanswer = 0;
 	had_error = 0;
 	while (ancount-- > 0 && cp < eom && !had_error) {
-		n = dn_expand(answer->buf, eom, cp, bp, buflen);
+		n = dn_expand(answer->buf, eom, cp, bp, ep - bp);
 		if ((n < 0) || !(*name_ok)(bp)) {
 			had_error++;
 			continue;
 		}
 		cp += n;			/* name */
+		BOUNDS_CHECK(cp, 3 * INT16SZ + INT32SZ);
 		type = _getshort(cp);
  		cp += INT16SZ;			/* type */
 		class = _getshort(cp);
  		cp += INT16SZ + INT32SZ;	/* class, TTL */
 		n = _getshort(cp);
 		cp += INT16SZ;			/* len */
+		BOUNDS_CHECK(cp, n);
+		erdata = cp + n;
 		if (class != C_IN) {
 			/* XXX - debug? syslog? */
 			cp += n;
@@ -315,6 +335,10 @@ getanswer(answer, anslen, qname, qtype)
 				continue;
 			}
 			cp += n;
+			if (cp != erdata) {
+				h_errno = NO_RECOVERY;
+				return (NULL);
+			}
 			/* Store alias. */
 			*ap++ = bp;
 			n = strlen(bp) + 1;	/* for the \0 */
@@ -323,17 +347,15 @@ getanswer(answer, anslen, qname, qtype)
 				continue;
 			}
 			bp += n;
-			buflen -= n;
 			/* Get canonical name. */
 			n = strlen(tbuf) + 1;	/* for the \0 */
-			if (n > buflen || n >= MAXHOSTNAMELEN) {
+			if (n > ep - bp || n >= MAXHOSTNAMELEN) {
 				had_error++;
 				continue;
 			}
 			strcpy(bp, tbuf);
 			host.h_name = bp;
 			bp += n;
-			buflen -= n;
 			continue;
 		}
 		if (qtype == T_PTR && type == T_CNAME) {
@@ -343,20 +365,23 @@ getanswer(answer, anslen, qname, qtype)
 				continue;
 			}
 			cp += n;
+			if (cp != erdata) {
+				h_errno = NO_RECOVERY;
+				return (NULL);
+			}
 			/* Get canonical name. */
 			n = strlen(tbuf) + 1;	/* for the \0 */
-			if (n > buflen || n >= MAXHOSTNAMELEN) {
+			if (n > ep - bp || n >= MAXHOSTNAMELEN) {
 				had_error++;
 				continue;
 			}
 			strcpy(bp, tbuf);
 			tname = bp;
 			bp += n;
-			buflen -= n;
 			continue;
 		}
 		if (type != qtype) {
-			if (type != T_KEY && type != T_SIG)
+			if (type != T_KEY && type != T_SIG && type != T_DNAME)
 				syslog(LOG_NOTICE|LOG_AUTH,
 	       "gethostby*.getanswer: asked for \"%s %s %s\", got type \"%s\"",
 				       qname, p_class(C_IN), p_type(qtype),
@@ -372,13 +397,17 @@ getanswer(answer, anslen, qname, qtype)
 				cp += n;
 				continue;	/* XXX - had_error++ ? */
 			}
-			n = dn_expand(answer->buf, eom, cp, bp, buflen);
+			n = dn_expand(answer->buf, eom, cp, bp, ep - bp);
 			if ((n < 0) || !res_hnok(bp)) {
 				had_error++;
 				break;
 			}
 #if MULTI_PTRS_ARE_ALIASES
 			cp += n;
+			if (cp != erdata) {
+				h_errno = NO_RECOVERY;
+				return (NULL);
+			}
 			if (!haveanswer)
 				host.h_name = bp;
 			else if (ap < &host_aliases[MAXALIASES-1])
@@ -392,7 +421,6 @@ getanswer(answer, anslen, qname, qtype)
 					break;
 				}
 				bp += n;
-				buflen -= n;
 			}
 			break;
 #else
@@ -404,8 +432,7 @@ getanswer(answer, anslen, qname, qtype)
 					break;
 				}
 				bp += n;
-				buflen -= n;
-				map_v4v6_hostent(&host, &bp, &buflen);
+				map_v4v6_hostent(&host, &bp, ep);
 			}
 			h_errno = NETDB_SUCCESS;
 			return (&host);
@@ -428,7 +455,6 @@ getanswer(answer, anslen, qname, qtype)
 				host.h_name = bp;
 				nn = strlen(bp) + 1;	/* for the \0 */
 				bp += nn;
-				buflen -= nn;
 			}
 
 			bp += sizeof(align) -
@@ -448,8 +474,11 @@ getanswer(answer, anslen, qname, qtype)
 			}
 			(void)memcpy(*hap++ = bp, cp, (size_t)n);
 			bp += n;
-			buflen -= n;
 			cp += n;
+			if (cp != erdata) {
+				h_errno = NO_RECOVERY;
+				return (NULL);
+			}
 			break;
 		default:
 			abort();
@@ -471,15 +500,14 @@ getanswer(answer, anslen, qname, qtype)
 # endif /*RESOLVSORT*/
 		if (!host.h_name) {
 			n = strlen(qname) + 1;	/* for the \0 */
-			if (n > buflen || n >= MAXHOSTNAMELEN)
+			if (n > ep - bp || n >= MAXHOSTNAMELEN)
 				goto no_recovery;
 			strcpy(bp, qname);
 			host.h_name = bp;
 			bp += n;
-			buflen -= n;
 		}
 		if (_res.options & RES_USE_INET6)
-			map_v4v6_hostent(&host, &bp, &buflen);
+			map_v4v6_hostent(&host, &bp, ep);
 		h_errno = NETDB_SUCCESS;
 		return (&host);
 	}
@@ -514,8 +542,8 @@ gethostbyname2(name, af)
 	int af;
 {
 	const char *cp;
-	char *bp;
-	int size, len;
+	char *bp, *ep;
+	int size;
 	struct hostent *hp;
 	static const ns_dtab dtab[] = {
 		NS_FILES_CB(_gethtbyname, NULL)
@@ -565,22 +593,22 @@ gethostbyname2(name, af)
 				 * done a lookup.
 				 */
 				if (inet_pton(af, name,
-				    (char *)host_addr) <= 0) {
+				    (char *)(void *)host_addr) <= 0) {
 					h_errno = HOST_NOT_FOUND;
 					return (NULL);
 				}
 				strncpy(hostbuf, name, MAXDNAME);
 				hostbuf[MAXDNAME] = '\0';
 				bp = hostbuf + MAXDNAME;
-				len = sizeof hostbuf - MAXDNAME;
+				ep = hostbuf + sizeof hostbuf;
 				host.h_name = hostbuf;
 				host.h_aliases = host_aliases;
 				host_aliases[0] = NULL;
-				h_addr_ptrs[0] = (char *)host_addr;
+				h_addr_ptrs[0] = (char *)(void *)host_addr;
 				h_addr_ptrs[1] = NULL;
 				host.h_addr_list = h_addr_ptrs;
 				if (_res.options & RES_USE_INET6)
-					map_v4v6_hostent(&host, &bp, &len);
+					map_v4v6_hostent(&host, &bp, ep);
 				h_errno = NETDB_SUCCESS;
 				return (&host);
 			}
@@ -599,18 +627,18 @@ gethostbyname2(name, af)
 				 * done a lookup.
 				 */
 				if (inet_pton(af, name,
-				    (char *)host_addr) <= 0) {
+				    (char *)(void *)host_addr) <= 0) {
 					h_errno = HOST_NOT_FOUND;
 					return (NULL);
 				}
 				strncpy(hostbuf, name, MAXDNAME);
 				hostbuf[MAXDNAME] = '\0';
 				bp = hostbuf + MAXDNAME;
-				len = sizeof hostbuf - MAXDNAME;
+				ep = hostbuf + sizeof hostbuf;
 				host.h_name = hostbuf;
 				host.h_aliases = host_aliases;
 				host_aliases[0] = NULL;
-				h_addr_ptrs[0] = (char *)host_addr;
+				h_addr_ptrs[0] = (char *)(void *)host_addr;
 				h_addr_ptrs[1] = NULL;
 				host.h_addr_list = h_addr_ptrs;
 				h_errno = NETDB_SUCCESS;
@@ -623,7 +651,7 @@ gethostbyname2(name, af)
 	hp = (struct hostent *)NULL;
 	h_errno = NETDB_INTERNAL;
 	if (nsdispatch(&hp, dtab, NSDB_HOSTS, "gethostbyname",
-	    default_dns_files, name, len, af) != NS_SUCCESS)
+	    default_dns_files, name, strlen(name), af) != NS_SUCCESS)
 		return (struct hostent *)NULL;
 	h_errno = NETDB_SUCCESS;
 	return (hp);
@@ -647,8 +675,8 @@ gethostbyaddr(addr, len, af)
 	_DIAGASSERT(addr != NULL);
 
 	if (af == AF_INET6 && len == IN6ADDRSZ &&
-	    (IN6_IS_ADDR_V4MAPPED((const struct in6_addr *)uaddr) ||
-	     IN6_IS_ADDR_V4COMPAT((const struct in6_addr *)uaddr))) {
+	    (IN6_IS_ADDR_V4MAPPED((const struct in6_addr *)(const void *)uaddr) ||
+	     IN6_IS_ADDR_V4COMPAT((const struct in6_addr *)(const void *)uaddr))) {
 		/* Unmap. */
 		addr += IN6ADDRSZ - INADDRSZ;
 		uaddr += IN6ADDRSZ - INADDRSZ;
@@ -725,12 +753,13 @@ _gethtent()
 	if (!(cp = strpbrk(p, " \t")))
 		goto again;
 	*cp++ = '\0';
-	if (inet_pton(AF_INET6, p, (char *)host_addr) > 0) {
+	if (inet_pton(AF_INET6, p, (char *)(void *)host_addr) > 0) {
 		af = AF_INET6;
 		len = IN6ADDRSZ;
-	} else if (inet_pton(AF_INET, p, (char *)host_addr) > 0) {
+	} else if (inet_pton(AF_INET, p, (char *)(void *)host_addr) > 0) {
 		if (_res.options & RES_USE_INET6) {
-			map_v4v6_address((char *)host_addr, (char *)host_addr);
+			map_v4v6_address((char *)(void *)host_addr,
+			    (char *)(void *)host_addr);
 			af = AF_INET6;
 			len = IN6ADDRSZ;
 		} else {
@@ -745,7 +774,7 @@ _gethtent()
 		goto again;
 	if (host.h_length != len)
 		goto again;
-	h_addr_ptrs[0] = (char *)host_addr;
+	h_addr_ptrs[0] = (char *)(void *)host_addr;
 	h_addr_ptrs[1] = NULL;
 	host.h_addr_list = h_addr_ptrs;
 	host.h_length = len;
@@ -854,7 +883,7 @@ _gethtbyname2(name, af)
 			}
 			*ptr++ = '\0';
 
-			ptr = (char *)ALIGN(ptr);
+			ptr = (char *)(void *)ALIGN(ptr);
 		}
 
 		(void)memcpy(ptr, p->h_addr_list[0], (size_t)p->h_length);
@@ -865,13 +894,13 @@ _gethtbyname2(name, af)
 	if (num == 0) return NULL;
 
 	len = ptr - tmpbuf;
-	if (len > sizeof(hostbuf)) {
+	if (len > (sizeof(hostbuf) - ALIGNBYTES)) {
 		free(tmpbuf);
 		errno = ENOSPC;
 		h_errno = NETDB_INTERNAL;
 		return NULL;
 	}
-	ptr = memcpy(hostbuf, tmpbuf, len);
+	ptr = memcpy((void *)ALIGN(hostbuf), tmpbuf, len);
 	free(tmpbuf);
 
 	host.h_name = ptr;
@@ -885,7 +914,7 @@ _gethtbyname2(name, af)
 	ptr++;
 	*cp = NULL;
 
-	ptr = (char *)ALIGN(ptr);
+	ptr = (char *)(void *)ALIGN(ptr);
 	cp = h_addr_ptrs;
 	while (num--) {
 		*cp++ = ptr;
@@ -954,10 +983,10 @@ map_v4v6_address(src, dst)
 }
 
 static void
-map_v4v6_hostent(hp, bpp, lenp)
+map_v4v6_hostent(hp, bpp, ep)
 	struct hostent *hp;
 	char **bpp;
-	int *lenp;
+	char *ep;
 {
 	char **ap;
 
@@ -972,17 +1001,15 @@ map_v4v6_hostent(hp, bpp, lenp)
 	for (ap = hp->h_addr_list; *ap; ap++) {
 		int i = sizeof(align) - (size_t)((u_long)*bpp % sizeof(align));
 
-		if (*lenp < (i + IN6ADDRSZ)) {
+		if (ep - *bpp < (i + IN6ADDRSZ)) {
 			/* Out of memory.  Truncate address list here.  XXX */
 			*ap = NULL;
 			return;
 		}
 		*bpp += i;
-		*lenp -= i;
 		map_v4v6_address(*ap, *bpp);
 		*ap = *bpp;
 		*bpp += IN6ADDRSZ;
-		*lenp -= IN6ADDRSZ;
 	}
 }
 
@@ -1192,10 +1219,11 @@ _dns_gethtbyaddr(rv, cb_data, ap)
 	hp->h_addrtype = af;
 	hp->h_length = len;
 	(void)memcpy(host_addr, uaddr, (size_t)len);
-	h_addr_ptrs[0] = (char *)host_addr;
-	h_addr_ptrs[1] = (char *)0;
+	h_addr_ptrs[0] = (char *)(void *)host_addr;
+	h_addr_ptrs[1] = NULL;
 	if (af == AF_INET && (_res.options & RES_USE_INET6)) {
-		map_v4v6_address((char *)host_addr, (char *)host_addr);
+		map_v4v6_address((char *)(void *)host_addr,
+		    (char *)(void *)host_addr);
 		hp->h_addrtype = AF_INET6;
 		hp->h_length = IN6ADDRSZ;
 	}
