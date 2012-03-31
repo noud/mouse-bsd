@@ -487,6 +487,36 @@ swapdrum_getsdp(pgno)
 
 
 /*
+ * ddb_swapctl: a "swapctl -l" callable from ddb.
+ */
+#include <machine/db_machdep.h>
+db_expr_t ddb_swapctl_l(db_expr_t, ...) __attribute__((__unused__));
+db_expr_t ddb_swapctl_l(db_expr_t arg0 __attribute__((__unused__)), ...)
+{
+ struct swappri *p;
+ struct swapdev *d;
+ int n;
+
+ printf("%3s %20s %8s %8s %8s %8s\n","Pri","Path","Total","Busy","Bad","Avail");
+ n = 0;
+ for (p=LIST_FIRST(&swap_priority);p;p=LIST_NEXT(p,spi_swappri))
+  { for ( d = CIRCLEQ_FIRST(&p->spi_swapdev);
+	  d != (void *)&p->spi_swapdev;
+	  d = CIRCLEQ_NEXT(d,swd_next) )
+     { printf("%3d %20.*s %8d %8d %8d %8d\n",
+		p->spi_priority,
+		d->swd_pathlen, d->swd_path,
+		d->swd_npages,
+		d->swd_npginuse,
+		d->swd_npgbad,
+		d->swd_npages - d->swd_npginuse - d->swd_npgbad );
+       if (n++ > 100) return(0);
+     }
+  }
+ return(0);
+}
+
+/*
  * sys_swapctl: main entry point for swapctl(2) system call
  * 	[with two helper functions: swap_on and swap_off]
  */
