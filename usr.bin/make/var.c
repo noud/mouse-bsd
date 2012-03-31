@@ -1787,7 +1787,7 @@ Var_Parse (str, ctxt, err, lengthPtr, freePtr)
      *  	  	    	each word
      *  	  :R	    	Substitute the root of each word
      *  	  	    	(pathname minus the suffix).
-     *		  :O		Sort words in variable.
+     *		  :O		("Order") Sort words in variable.
      *		  :U		("Uniq") Remove adjacent duplicate words.
      *		  :?<true-value>:<false-value>
      *				If the variable evaluates to true, return
