@@ -27,10 +27,11 @@ CC?=		cc
     ${MACHINE_ARCH} == "mipsel" || ${MACHINE_ARCH} == "mipseb" || \
     ${MACHINE_ARCH} == "sparc" || \
     ${MACHINE_ARCH} == "vax"
-CFLAGS?=	-O2
+CFLAG_OPT?=	-O2
 .else
-CFLAGS?=	-O
+CFLAG_OPT?=	-O
 .endif
+CFLAGS?=	${CFLAG_OPT}
 COMPILE.c?=	${CC} ${CFLAGS} ${CPPFLAGS} -c
 LINK.c?=	${CC} ${CFLAGS} ${CPPFLAGS} ${LDFLAGS}
 
