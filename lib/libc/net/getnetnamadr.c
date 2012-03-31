@@ -139,9 +139,9 @@ getnetanswer(answer, anslen, net_i)
 	u_char *cp;
 	int n;
 	u_char *eom;
-	int type, class, buflen, ancount, qdcount, haveanswer, i, nchar;
+	int type, class, ancount, qdcount, haveanswer, i, nchar;
 	char aux1[30], aux2[30], ans[30], *in, *st, *pauxt, *bp, **ap,
-		*paux1 = &aux1[0], *paux2 = &aux2[0], flag = 0;
+		*paux1 = &aux1[0], *paux2 = &aux2[0], flag = 0, *ep;
 	static	char netbuf[PACKETSZ];
 
 	_DIAGASSERT(answer != NULL);
@@ -165,7 +165,7 @@ getnetanswer(answer, anslen, net_i)
 	ancount = ntohs(hp->ancount); /* #/records in the answer section */
 	qdcount = ntohs(hp->qdcount); /* #/entries in the question section */
 	bp = netbuf;
-	buflen = sizeof(netbuf);
+	ep = netbuf + sizeof(netbuf);
 	cp = answer->buf + HFIXEDSZ;
 	if (!qdcount) {
 		if (hp->aa)
@@ -181,7 +181,7 @@ getnetanswer(answer, anslen, net_i)
 	net_entry.n_aliases = net_aliases;
 	haveanswer = 0;
 	while (--ancount >= 0 && cp < eom) {
-		n = dn_expand(answer->buf, eom, cp, bp, buflen);
+		n = dn_expand(answer->buf, eom, cp, bp, ep - bp);
 		if ((n < 0) || !res_dnok(bp))
 			break;
 		cp += n;
@@ -192,7 +192,7 @@ getnetanswer(answer, anslen, net_i)
 		cp += INT32SZ;		/* TTL */
 		GETSHORT(n, cp);
 		if (class == C_IN && type == T_PTR) {
-			n = dn_expand(answer->buf, eom, cp, bp, buflen);
+			n = dn_expand(answer->buf, eom, cp, bp, ep - bp);
 			if ((n < 0) || !res_hnok(bp)) {
 				cp += n;
 				return (NULL);
