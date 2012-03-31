@@ -842,6 +842,7 @@ ParseDoDependency (line)
 			     "Error in archive specification: \"%s\"", line);
 		return;
 	    } else {
+		cp = line;
 		continue;
 	    }
 	}
