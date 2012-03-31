@@ -77,6 +77,8 @@ static	char		*getnewpasswd __P((struct passwd *, char **));
 static	int		 ypgetpwnam __P((const char *));
 static	void		 pw_error __P((char *, int, int));
 
+extern char *crypt_makesalt(void);
+
 static uid_t uid;
 char *domain;
 
@@ -284,13 +286,11 @@ getnewpasswd(pw, old_pass)
 			break;
 		(void)printf("Mismatch; try again, EOF to quit.\n");
 	}
+#ifdef NEW_YP_ENTRIES
+	salt = crypt_makesalt();
+#else
 	/* grab a random printable character that isn't a colon */
 	(void)srandom((int)time((time_t *)NULL));
-#ifdef NEWSALT
-	salt[0] = _PASSWORD_EFMT1;
-	to64(&salt[1], (long)(29 * 25), 4);
-	to64(&salt[5], random(), 4);
-#else
 	to64(&salt[0], random(), 2);
 #endif
 	return(strdup(crypt(buf, salt)));

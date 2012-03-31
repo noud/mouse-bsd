@@ -59,6 +59,8 @@ __RCSID("$NetBSD: local_passwd.c,v 1.19 2000/02/14 04:36:21 aidan Exp $");
 
 #include "extern.h"
 
+extern char *crypt_makesalt(void);
+
 static	char   *getnewpasswd __P((struct passwd *, int));
 
 static uid_t uid;
@@ -88,7 +90,7 @@ getnewpasswd(pw, min_pw_len)
 {
 	int tries;
 	char *p, *t;
-	char buf[_PASSWORD_LEN+1], salt[9];
+	char buf[_PASSWORD_LEN+1];
 
 	(void)printf("Changing local password for %s.\n", pw->pw_name);
 
@@ -127,16 +129,7 @@ getnewpasswd(pw, min_pw_len)
 			break;
 		(void)printf("Mismatch; try again, EOF to quit.\n");
 	}
-	/* grab a random printable character that isn't a colon */
-	(void)srandom((int)time((time_t *)NULL));
-#ifdef NEWSALT
-	salt[0] = _PASSWORD_EFMT1;
-	to64(&salt[1], (long)(29 * 25), 4);
-	to64(&salt[5], random(), 4);
-#else
-	to64(&salt[0], random(), 2);
-#endif
-	return(crypt(buf, salt));
+	return(crypt(buf, crypt_makesalt()));
 }
 
 int
