@@ -66,6 +66,7 @@
 .Op Fl N Ar system
 .Fl P Ar pcbaddr
 .Nm ""
+.Op Fl T
 .Op Fl p Ar protocol
 .Op Fl i
 .Op Fl I Ar Interface
@@ -189,6 +190,15 @@ or
 respectively.
 .It Fl L
 Don't show link-level routes (e.g., IPv4 ARP or IPv6 neighbour cache).
+.It Fl T
+Print all traffic stats for an interface and nothing else.  This is
+ignored except for
+.Fl i
+or
+.Fl I ;
+for them, it omits the MTU and addressing information, but includes
+eight numbers: packets, bytes, and errors, for both input and output,
+plus collsions and dropped packets.
 .It Fl M
 Extract values associated with the name list from the specified core
 instead of the default

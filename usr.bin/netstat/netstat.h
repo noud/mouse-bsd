@@ -54,6 +54,7 @@ int	pflag;		/* show given protocol */
 int	rflag;		/* show routing tables (or routing stats) */
 int	sflag;		/* show protocol statistics */
 int	tflag;		/* show i/f watchdog timers */
+int	Tflag;		/* show i/f traffic values */
 int	vflag;		/* verbose route information */
 
 int	interval;	/* repeat interval for i/f stats */

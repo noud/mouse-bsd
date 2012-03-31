@@ -306,7 +306,7 @@ main(argc, argv)
 	af = AF_UNSPEC;
 	pcbaddr = 0;
 
-	while ((ch = getopt(argc, argv, "Aabdf:ghI:LliM:mN:nP:p:rstuvw:")) != -1)
+	while ((ch = getopt(argc, argv, "Aabdf:ghI:LliM:mN:nP:p:rstTuvw:")) != -1)
 		switch(ch) {
 		case 'A':
 			Aflag = 1;
@@ -389,6 +389,9 @@ main(argc, argv)
 			break;
 		case 't':
 			tflag = 1;
+			break;
+		case 'T':
+			Tflag = 1;
 			break;
 		case 'u':
 			af = AF_LOCAL;

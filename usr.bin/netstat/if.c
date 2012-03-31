@@ -127,8 +127,19 @@ intpr(interval, ifnetaddr, pfunc)
 		return;
 	ifnetaddr = (u_long)ifhead.tqh_first;
 
-	if (!sflag & !pflag) {
-		if (bflag) {
+	if (Tflag)
+		dflag = 0;
+	if (!sflag && !pflag) {
+		if (Tflag) {
+			printf("%-5.5s "
+			       "%10.10s %8.8s %12.12s "
+			       "%10.10s %8.8s %12.12s "
+			       "%8.8s %5.5s",
+			       "Name",
+			       "Ipkts", "Ierrs", "Ibytes",
+			       "Opkts", "Oerrs", "Obytes",
+			       "Colls", "Drops");
+		} else if (bflag) {
 			printf("%-5.5s %-5.5s %-13.13s %-17.17s "
 			       "%10.10s %10.10s",
 			       "Name", "Mtu", "Network", "Address",
@@ -174,195 +185,211 @@ intpr(interval, ifnetaddr, pfunc)
 			*cp = '\0';
 			ifaddraddr = (u_long)ifnet.if_addrlist.tqh_first;
 		}
-		printf("%-5.5s %-5llu ", name,
-		    (unsigned long long)ifnet.if_mtu);
-		if (ifaddraddr == 0) {
-			printf("%-13.13s ", "none");
-			printf("%-17.17s ", "none");
-		} else {
-			char hexsep = '.';		/* for hexprint */
-			const char *hexfmt = "%x%c";	/* for hexprint */
-			if (kread(ifaddraddr, (char *)&ifaddr, sizeof ifaddr)) {
-				ifaddraddr = 0;
-				continue;
-			}
-#define CP(x) ((char *)(x))
-			cp = (CP(ifaddr.ifa.ifa_addr) - CP(ifaddraddr)) +
-				CP(&ifaddr); sa = (struct sockaddr *)cp;
-			switch (sa->sa_family) {
-			case AF_UNSPEC:
+		printf("%-5.5s ", name);
+		if (! Tflag) {
+			printf("%-5llu ", (unsigned long long)ifnet.if_mtu);
+			if (ifaddraddr == 0) {
 				printf("%-13.13s ", "none");
 				printf("%-17.17s ", "none");
-				break;
-			case AF_INET:
-				sin = (struct sockaddr_in *)sa;
+			} else {
+				char hexsep = '.';		/* for hexprint */
+				const char *hexfmt = "%x%c";	/* for hexprint */
+				if (kread(ifaddraddr, (char *)&ifaddr, sizeof ifaddr)) {
+					ifaddraddr = 0;
+					continue;
+				}
+#define CP(x) ((char *)(x))
+				cp = (CP(ifaddr.ifa.ifa_addr) - CP(ifaddraddr)) +
+					CP(&ifaddr); sa = (struct sockaddr *)cp;
+				switch (sa->sa_family) {
+				case AF_UNSPEC:
+					printf("%-13.13s ", "none");
+					printf("%-17.17s ", "none");
+					break;
+				case AF_INET:
+					sin = (struct sockaddr_in *)sa;
 #ifdef notdef
-				/*
-				 * can't use inet_makeaddr because kernel
-				 * keeps nets unshifted.
-				 */
-				in = inet_makeaddr(ifaddr.in.ia_subnet,
-					INADDR_ANY);
-				cp = netname(in.s_addr,
-					ifaddr.in.ia_subnetmask);
+					/*
+					 * can't use inet_makeaddr because kernel
+					 * keeps nets unshifted.
+					 */
+					in = inet_makeaddr(ifaddr.in.ia_subnet,
+						INADDR_ANY);
+					cp = netname(in.s_addr,
+						ifaddr.in.ia_subnetmask);
 #else
-				cp = netname(ifaddr.in.ia_subnet,
-					ifaddr.in.ia_subnetmask);
+					cp = netname(ifaddr.in.ia_subnet,
+						ifaddr.in.ia_subnetmask);
 #endif
-				if (vflag)
-					n = strlen(cp) < 13 ? 13 : strlen(cp);
-				else
-					n = 13;
-				printf("%-*.*s ", n, n, cp);
-				cp = routename(sin->sin_addr.s_addr);
-				if (vflag)
-					n = strlen(cp) < 17 ? 17 : strlen(cp);
-				else
-					n = 17;
-				printf("%-*.*s ", n, n, cp);
-				if (aflag) {
-					u_long multiaddr;
-					struct in_multi inm;
+					if (vflag)
+						n = strlen(cp) < 13 ? 13 : strlen(cp);
+					else
+						n = 13;
+					printf("%-*.*s ", n, n, cp);
+					cp = routename(sin->sin_addr.s_addr);
+					if (vflag)
+						n = strlen(cp) < 17 ? 17 : strlen(cp);
+					else
+						n = 17;
+					printf("%-*.*s ", n, n, cp);
+					if (aflag) {
+						u_long multiaddr;
+						struct in_multi inm;
 
-					multiaddr = (u_long)
-					    ifaddr.in.ia_multiaddrs.lh_first;
-					while (multiaddr != 0) {
-						kread(multiaddr, (char *)&inm,
-						   sizeof inm);
-						printf("\n%25s %-17.17s ", "",
-						   routename(
-						      inm.inm_addr.s_addr));
-						multiaddr =
-						   (u_long)inm.inm_list.le_next;
-					}
-				}
-				break;
-#ifdef INET6
-			case AF_INET6:
-				sin6 = (struct sockaddr_in6 *)sa;
-#ifdef KAME_SCOPEID
-				if (IN6_IS_ADDR_LINKLOCAL(&sin6->sin6_addr)) {
-					sin6->sin6_scope_id =
-						ntohs(*(u_int16_t *)
-						  &sin6->sin6_addr.s6_addr[2]);
-					/* too little width */
-					if (!vflag)
-						sin6->sin6_scope_id = 0;
-					sin6->sin6_addr.s6_addr[2] = 0;
-					sin6->sin6_addr.s6_addr[3] = 0;
-				}
-#endif
-				cp = netname6(&ifaddr.in6.ia_addr,
-					&ifaddr.in6.ia_prefixmask.sin6_addr);
-				if (vflag)
-					n = strlen(cp) < 13 ? 13 : strlen(cp);
-				else
-					n = 13;
-				printf("%-*.*s ", n, n, cp);
-				if (getnameinfo((struct sockaddr *)sin6,
-						sin6->sin6_len,
-						hbuf, sizeof(hbuf), NULL, 0,
-						niflag) != 0) {
-					cp = "?";
-				} else
-					cp = hbuf;
-				if (vflag)
-					n = strlen(cp) < 17 ? 17 : strlen(cp);
-				else
-					n = 17;
-				printf("%-*.*s ", n, n, cp);
-				if (aflag) {
-					u_long multiaddr;
-					struct in6_multi inm;
-					struct sockaddr_in6 sin6;
-
-					multiaddr = (u_long)
-					    ifaddr.in6.ia6_multiaddrs.lh_first;
-					while (multiaddr != 0) {
-						kread(multiaddr, (char *)&inm,
-						   sizeof inm);
-						memset(&sin6, 0, sizeof(sin6));
-						sin6.sin6_len = sizeof(struct sockaddr_in6);
-						sin6.sin6_family = AF_INET6;
-						sin6.sin6_addr = inm.in6m_addr;
-						sin6.sin6_scope_id =
-						    ntohs(*(u_int16_t *)
-							&sin6.sin6_addr.s6_addr[2]);
-						sin6.sin6_addr.s6_addr[2] = 0;
-						sin6.sin6_addr.s6_addr[3] = 0;
-						if (getnameinfo((struct sockaddr *)&sin6,
-						    sin6.sin6_len, hbuf,
-						    sizeof(hbuf), NULL, 0,
-						    niflag) != 0) {
-							strcpy(hbuf, "??");
+						multiaddr = (u_long)
+						    ifaddr.in.ia_multiaddrs.lh_first;
+						while (multiaddr != 0) {
+							kread(multiaddr, (char *)&inm,
+							   sizeof inm);
+							printf("\n%25s %-17.17s ", "",
+							   routename(
+							      inm.inm_addr.s_addr));
+							multiaddr =
+							   (u_long)inm.inm_list.le_next;
 						}
-						cp = hbuf;
-						if (vflag)
-						    n = strlen(cp) < 17
-							? 17 : strlen(cp);
-						else
-						    n = 17;
-						printf("\n%25s %-*.*s ", "",
-						    n, n, cp);
-						multiaddr =
-						   (u_long)inm.in6m_entry.le_next;
 					}
-				}
-				break;
+					break;
+#ifdef INET6
+				case AF_INET6:
+					sin6 = (struct sockaddr_in6 *)sa;
+#ifdef KAME_SCOPEID
+					if (IN6_IS_ADDR_LINKLOCAL(&sin6->sin6_addr)) {
+						sin6->sin6_scope_id =
+							ntohs(*(u_int16_t *)
+							  &sin6->sin6_addr.s6_addr[2]);
+						/* too little width */
+						if (!vflag)
+							sin6->sin6_scope_id = 0;
+						sin6->sin6_addr.s6_addr[2] = 0;
+						sin6->sin6_addr.s6_addr[3] = 0;
+					}
+#endif
+					cp = netname6(&ifaddr.in6.ia_addr,
+						&ifaddr.in6.ia_prefixmask.sin6_addr);
+					if (vflag)
+						n = strlen(cp) < 13 ? 13 : strlen(cp);
+					else
+						n = 13;
+					printf("%-*.*s ", n, n, cp);
+					if (getnameinfo((struct sockaddr *)sin6,
+							sin6->sin6_len,
+							hbuf, sizeof(hbuf), NULL, 0,
+							niflag) != 0) {
+						cp = "?";
+					} else
+						cp = hbuf;
+					if (vflag)
+						n = strlen(cp) < 17 ? 17 : strlen(cp);
+					else
+						n = 17;
+					printf("%-*.*s ", n, n, cp);
+					if (aflag) {
+						u_long multiaddr;
+						struct in6_multi inm;
+						struct sockaddr_in6 sin6;
+
+						multiaddr = (u_long)
+						    ifaddr.in6.ia6_multiaddrs.lh_first;
+						while (multiaddr != 0) {
+							kread(multiaddr, (char *)&inm,
+							   sizeof inm);
+							memset(&sin6, 0, sizeof(sin6));
+							sin6.sin6_len = sizeof(struct sockaddr_in6);
+							sin6.sin6_family = AF_INET6;
+							sin6.sin6_addr = inm.in6m_addr;
+							sin6.sin6_scope_id =
+							    ntohs(*(u_int16_t *)
+								&sin6.sin6_addr.s6_addr[2]);
+							sin6.sin6_addr.s6_addr[2] = 0;
+							sin6.sin6_addr.s6_addr[3] = 0;
+							if (getnameinfo((struct sockaddr *)&sin6,
+							    sin6.sin6_len, hbuf,
+							    sizeof(hbuf), NULL, 0,
+							    niflag) != 0) {
+								strcpy(hbuf, "??");
+							}
+							cp = hbuf;
+							if (vflag)
+							    n = strlen(cp) < 17
+								? 17 : strlen(cp);
+							else
+							    n = 17;
+							printf("\n%25s %-*.*s ", "",
+							    n, n, cp);
+							multiaddr =
+							   (u_long)inm.in6m_entry.le_next;
+						}
+					}
+					break;
 #endif /*INET6*/
 #ifndef SMALL
-			case AF_APPLETALK:
-				printf("atalk:%-7.7s ",
-				       atalk_print(sa,0x10));
-				printf("%-17.17s ", atalk_print(sa,0x0b));
-				break;
-			case AF_NS:
-				{
-				struct sockaddr_ns *sns =
-					(struct sockaddr_ns *)sa;
-				u_long net;
-				char netnum[8];
+				case AF_APPLETALK:
+					printf("atalk:%-7.7s ",
+					       atalk_print(sa,0x10));
+					printf("%-17.17s ", atalk_print(sa,0x0b));
+					break;
+				case AF_NS:
+					{
+					struct sockaddr_ns *sns =
+						(struct sockaddr_ns *)sa;
+					u_long net;
+					char netnum[8];
 
-				*(union ns_net *)&net = sns->sns_addr.x_net;
-				(void)sprintf(netnum, "%xH",
-				    (u_int32_t)ntohl(net));
-				upHex(netnum);
-				printf("ns:%-10s ", netnum);
-				printf("%-17.17s ",
-				    ns_phost((struct sockaddr *)sns));
-				}
-				break;
+					*(union ns_net *)&net = sns->sns_addr.x_net;
+					(void)sprintf(netnum, "%xH",
+					    (u_int32_t)ntohl(net));
+					upHex(netnum);
+					printf("ns:%-10s ", netnum);
+					printf("%-17.17s ",
+					    ns_phost((struct sockaddr *)sns));
+					}
+					break;
 #endif
-			case AF_LINK:
-				{
-				struct sockaddr_dl *sdl =
-					(struct sockaddr_dl *)sa;
-				    cp = (char *)LLADDR(sdl);
-				    if (sdl->sdl_type == IFT_FDDI
-					|| sdl->sdl_type == IFT_ETHER)
-					    hexsep = ':', hexfmt = "%02x%c";
-				    n = sdl->sdl_alen;
+				case AF_LINK:
+					{
+					struct sockaddr_dl *sdl =
+						(struct sockaddr_dl *)sa;
+					    cp = (char *)LLADDR(sdl);
+					    if (sdl->sdl_type == IFT_FDDI
+						|| sdl->sdl_type == IFT_ETHER)
+						    hexsep = ':', hexfmt = "%02x%c";
+					    n = sdl->sdl_alen;
+					}
+					m = printf("%-13.13s ", "<Link>");
+					goto hexprint;
+				default:
+					m = printf("(%d)", sa->sa_family);
+					for (cp = sa->sa_len + (char *)sa;
+						--cp > sa->sa_data && (*cp == 0);) {}
+					n = cp - sa->sa_data + 1;
+					cp = sa->sa_data;
+				hexprint:
+					while (--n >= 0)
+						m += printf(hexfmt, *cp++ & 0xff,
+							    n > 0 ? hexsep : ' ');
+					m = 32 - m;
+					while (m-- > 0)
+						putchar(' ');
+					break;
 				}
-				m = printf("%-13.13s ", "<Link>");
-				goto hexprint;
-			default:
-				m = printf("(%d)", sa->sa_family);
-				for (cp = sa->sa_len + (char *)sa;
-					--cp > sa->sa_data && (*cp == 0);) {}
-				n = cp - sa->sa_data + 1;
-				cp = sa->sa_data;
-			hexprint:
-				while (--n >= 0)
-					m += printf(hexfmt, *cp++ & 0xff,
-						    n > 0 ? hexsep : ' ');
-				m = 32 - m;
-				while (m-- > 0)
-					putchar(' ');
-				break;
+				ifaddraddr = (u_long)ifaddr.ifa.ifa_list.tqe_next;
 			}
-			ifaddraddr = (u_long)ifaddr.ifa.ifa_list.tqe_next;
 		}
-		if (bflag) {
+		if (Tflag) {
+			printf("%10llu %8llu %12llu "
+			       "%10llu %8llu %12llu "
+			       "%8llu %5llu",
+			       (unsigned long long)ifnet.if_ipackets,
+			       (unsigned long long)ifnet.if_ierrors,
+			       (unsigned long long)ifnet.if_ibytes,
+			       (unsigned long long)ifnet.if_opackets,
+			       (unsigned long long)ifnet.if_oerrors,
+			       (unsigned long long)ifnet.if_obytes,
+			       (unsigned long long)ifnet.if_collisions,
+			       (unsigned long long)ifnet.if_snd.ifq_drops);
+			ifnetaddr = 0;
+			ifaddraddr = 0;
+		} else if (bflag) {
 			printf("%10llu %10llu",
 				(unsigned long long)ifnet.if_ibytes,
 				(unsigned long long)ifnet.if_obytes);
