@@ -427,7 +427,7 @@ YY_MALLOC_DECL
  */
 #ifndef YY_DECL
 %- Standard (non-C++) definition
-#define YY_DECL int yylex YY_PROTO(( void ))
+#define YY_DECL extern int yylex YY_PROTO((void)); int yylex YY_PROTO((void))
 %+ C++ definition
 #define YY_DECL int yyFlexLexer::yylex()
 %*
@@ -1540,7 +1540,8 @@ void *ptr;
 	}
 
 #if YY_MAIN
-int main()
+int main(void);
+int main(void)
 	{
 	yylex();
 	return 0;
