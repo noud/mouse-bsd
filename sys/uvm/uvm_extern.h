@@ -49,6 +49,16 @@
  */
 
 /*
+ * This is *really* *gross*.  This file uses vm_prot_t and vsize_t and
+ *  such, so we need to include a bunch of other files.  But at least
+ *  one of the files that end up getting included has inline functions
+ *  that depend on uvmexp.  So the include files can't go at the top of
+ *  the file, but have to go after we declare uvmexp.  Fortunately,
+ *  nothing depending on having those vm types defined occurs before
+ *  uvmexp (it's mostly #defines)....
+ */
+
+/*
  * defines
  */
 
@@ -274,6 +284,14 @@ typedef int vm_fault_t;
 #include <uvm/uvm_voff_t.h>
 
 #ifdef _KERNEL
+
+/*
+ * This file uses vm_prot_t and vaddr_t and such, so it needs these.
+ *  Normally they'd be at the top of the file, but that won't work in
+ *  this case; see the comment above (search for "gross").
+ */
+#include <vm/vm.h>
+#include <machine/types.h>
 
 /* uvm_aobj.c */
 struct uvm_object	*uao_create __P((vsize_t, int));
