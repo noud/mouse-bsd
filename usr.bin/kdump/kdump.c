@@ -64,10 +64,11 @@ __RCSID("$NetBSD: kdump.c,v 1.25 1999/12/31 22:27:59 eeh Exp $");
 #include <string.h>
 #include <unistd.h>
 #include <vis.h>
+#include <ctype.h>
 
 #include "ktrace.h"
 
-int timestamp, decimal, fancy = 1, tail, maxdata;
+int timestamp, decimal, fancy = 1, tail, maxdata, hexdata;
 char *tracefile = DEF_TRACEFILE;
 struct ktr_header ktr_header;
 
@@ -174,7 +175,7 @@ main(argc, argv)
 
 	current = &emulations[0];	/* NetBSD */
 
-	while ((ch = getopt(argc, argv, "e:f:dlm:nRTt:")) != -1)
+	while ((ch = getopt(argc, argv, "e:f:dlm:nRTt:x")) != -1)
 		switch (ch) {
 		case 'e':
 			setemul(optarg);
@@ -204,6 +205,9 @@ main(argc, argv)
 			trpoints = getpoints(optarg);
 			if (trpoints < 0)
 				errx(1, "unknown trace point in %s", optarg);
+			break;
+		case 'x':
+			hexdata = 1;
 			break;
 		default:
 			usage();
@@ -504,6 +508,75 @@ ktremul(cp, len)
 	setemul(name);
 }
 
+static void print_data_text(const void *data, int len, int maxlen, int screenwidth)
+{
+ int n;
+ const char *dp;
+ char visbuf[5];
+ char *cp;
+ int width;
+ int col;
+
+ n = (maxlen && (len > maxlen)) ? maxlen : len;
+ printf("       \"");
+ col = 8;
+ for (dp=data;n>0;n--,dp++)
+  { vis(&visbuf[0],*dp,VIS_CSTYLE,dp[1]);
+    cp = &visbuf[0];
+    if (col == 0)
+     { putchar('\t');
+       col = 8;
+     }
+    switch (*cp)
+     { case '\n':
+	  col = 0;
+	  putchar('\n');
+	  continue;
+	  break;
+       case '\t':
+	  width = 8 - (col & 7);
+	  break;
+       default:
+	  width = strlen(cp);
+     }
+    if (col+width > (screenwidth-2))
+     { printf("\\\n\t");
+       col = 8;
+     }
+    col += width;
+    do { putchar(*cp++); } while (*cp);
+  }
+ if (col == 0) printf("       ");
+ printf("\"");
+ if (maxlen && (len > maxlen)) printf("...");
+ printf("\n");
+}
+
+static void print_data_hex(const void *data, int len, int maxlen, int screenwidth)
+{
+ int npl;
+ int l0;
+ int i;
+ int n;
+ const unsigned char *dp;
+
+ n = (maxlen && (len > maxlen)) ? maxlen : len;
+ npl = (screenwidth - 8 - 1 - 6) / 4;
+ if (npl < 1) npl = 1;
+ l0 = 0;
+ while (l0 < n)
+  { dp = ((const unsigned char *)data) + l0;
+    printf("\t");
+    for (i=0;(i<npl)&&(l0+i<n);i++) printf(" %02x",dp[i]);
+    printf("%s",((n<len)&&(l0+i==n))?"...":"   ");
+    for (;i<npl;i++) printf("   ");
+    printf(" |");
+    for (i=0;(i<npl)&&(l0+i<n);i++) putchar(isprint(dp[i])?dp[i]:'.');
+    printf("|\n");
+    l0 += i;
+  }
+}
+
 void
 ktrgenio(ktr, len)
 	struct ktr_genio *ktr;
@@ -511,10 +584,6 @@ ktrgenio(ktr, len)
 {
 	int datalen = len - sizeof (struct ktr_genio);
 	char *dp = (char *)ktr + sizeof (struct ktr_genio);
-	char *cp;
-	int col = 0;
-	int width;
-	char visbuf[5];
 	static int screenwidth = 0;
 
 	if (screenwidth == 0) {
@@ -528,44 +597,10 @@ ktrgenio(ktr, len)
 	}
 	printf("fd %d %s %d bytes\n", ktr->ktr_fd,
 		ktr->ktr_rw == UIO_READ ? "read" : "wrote", datalen);
-	if (maxdata && datalen > maxdata)
-		datalen = maxdata;
-	(void)printf("       \"");
-	col = 8;
-	for (; datalen > 0; datalen--, dp++) {
-		(void) vis(visbuf, *dp, VIS_CSTYLE, *(dp+1));
-		cp = visbuf;
-		/*
-		 * Keep track of printables and
-		 * space chars (like fold(1)).
-		 */
-		if (col == 0) {
-			(void)putchar('\t');
-			col = 8;
-		}
-		switch(*cp) {
-		case '\n':
-			col = 0;
-			(void)putchar('\n');
-			continue;
-		case '\t':
-			width = 8 - (col&07);
-			break;
-		default:
-			width = strlen(cp);
-		}
-		if (col + width > (screenwidth-2)) {
-			(void)printf("\\\n\t");
-			col = 8;
-		}
-		col += width;
-		do {
-			(void)putchar(*cp++);
-		} while (*cp);
-	}
-	if (col == 0)
-		(void)printf("       ");
-	(void)printf("\"\n");
+	if (hexdata)
+		print_data_hex(dp,datalen,maxdata,screenwidth);
+	else
+		print_data_text(dp,datalen,maxdata,screenwidth);
 }
 
 void
@@ -608,7 +643,7 @@ usage()
 {
 
 	(void)fprintf(stderr,
-"usage: kdump [-dnlRT] [-e emulation] [-f trfile] [-m maxdata] [-t [cnis]]\n");
+"usage: kdump [-dnlRTx] [-e emulation] [-f trfile] [-m maxdata] [-t [cnis]]\n");
 	exit(1);
 }
 

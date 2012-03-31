@@ -41,7 +41,7 @@
 .Nd display kernel trace data
 .Sh SYNOPSIS
 .Nm
-.Op Fl dnlRT
+.Op Fl dnlRTx
 .Op Fl e Ar emulation
 .Op Fl f Ar file
 .Op Fl m Ar maxdata
@@ -95,6 +95,13 @@ See the
 .Fl t
 option of
 .Xr ktrace 1 .
+.It Fl x
+Print
+.Tn I/O
+data in hex.  The default is to use the
+.Dv VIS_CSTYLE
+style of
+.Xr vis 3 .
 .El
 .Sh SEE ALSO
 .Xr ktrace 1
