@@ -46,7 +46,7 @@
 .Fd #include <sys/types.h>
 .Fd #include <dirent.h>
 .Ft int
-.Fn scandir "const char *dirname" "struct dirent ***namelist" "int \\*(lp*select\\*(rp\\*(lpstruct dirent *\\*(rp" "int \\*(lp*compar\\*(rp\\*(lpconst void *, const void *\\*(rp"
+.Fn scandir "const char *dirname" "struct dirent ***namelist" "int \\*(lp*select\\*(rp\\*(lpconst struct dirent *\\*(rp" "int \\*(lp*compar\\*(rp\\*(lpconst void *, const void *\\*(rp"
 .Ft int
 .Fn alphasort "const void *d1" "const void *d2"
 .Sh DESCRIPTION

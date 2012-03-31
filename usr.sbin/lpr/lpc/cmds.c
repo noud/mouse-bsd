@@ -74,7 +74,7 @@ static void	abortpr __P((int));
 static void	cleanpr __P((void));
 static void	disablepr __P((void));
 static int	doarg __P((char *));
-static int	doselect __P((struct dirent *));
+static int	doselect __P((const struct dirent *));
 static void	enablepr __P((void));
 static void	prstat __P((void));
 static void	putmsg __P((int, char **));
@@ -267,7 +267,7 @@ clean(argc, argv)
 
 static int
 doselect(d)
-	struct dirent *d;
+	const struct dirent *d;
 {
 	int c = d->d_name[0];
 

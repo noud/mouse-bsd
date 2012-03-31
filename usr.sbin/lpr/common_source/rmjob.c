@@ -404,7 +404,7 @@ alarmer(s)
  */
 int
 iscf(d)
-	struct dirent *d;
+	const struct dirent *d;
 {
 	return(d->d_name[0] == 'c' && d->d_name[1] == 'f');
 }

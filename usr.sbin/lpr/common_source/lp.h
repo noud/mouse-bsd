@@ -116,7 +116,7 @@ int	 getq __P((struct queue *(*[])));
 void     header __P((void));
 void     inform __P((char *));
 int      inlist __P((char *, char *));
-int      iscf __P((struct dirent *));
+int      iscf __P((const struct dirent *));
 int      isowner __P((char *, char *));
 void     ldump __P((char *, char *, int));
 int      lockchk __P((char *));

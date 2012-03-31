@@ -99,7 +99,7 @@ long telldir __P((const DIR *));
 DIR *__opendir2 __P((const char *, int));
 void __seekdir __P((DIR *, long));
 int scandir __P((const char *, struct dirent ***,
-    int (*)(struct dirent *), int (*)(const void *, const void *)));
+    int (*)(const struct dirent *), int (*)(const void *, const void *)));
 int alphasort __P((const void *, const void *));
 int getdirentries __P((int, char *, int, long *));
 int getdents __P((int, char *, size_t));
