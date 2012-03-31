@@ -501,7 +501,7 @@ z_cpustates()
 	}
     }
 
-    /* fill the "last" array with all -1s, to insure correct updating */
+    /* fill the "last" array with all -1s, to ensure correct updating */
     lp = lcpustates;
     i = num_cpustates;
     while (--i >= 0)
