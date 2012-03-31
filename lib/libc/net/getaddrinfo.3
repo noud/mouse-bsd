@@ -371,9 +371,14 @@ int error;
 int s;
 const char *cause = NULL;
 
-memset(&hints, 0, sizeof(hints));
+hints.ai_flags = 0;
 hints.ai_family = PF_UNSPEC;
 hints.ai_socktype = SOCK_STREAM;
+hints.ai_protocol = 0;
+hints.ai_addrlen = 0;
+hints.ai_canonname = 0;
+hints.ai_addr = 0;
+hints.ai_next = 0;
 error = getaddrinfo("www.kame.net", "http", &hints, &res0);
 if (error) {
 	err1(1, "%s", gai_strerror(error));
@@ -414,10 +419,13 @@ int s[MAXSOCK];
 int nsock;
 const char *cause = NULL;
 
-memset(&hints, 0, sizeof(hints));
 hints.ai_family = PF_UNSPEC;
 hints.ai_socktype = SOCK_STREAM;
 hints.ai_flags = AI_PASSIVE;
+hints.ai_addrlen = 0;
+hints.ai_canonname = 0;
+hints.ai_addr = 0;
+hints.ai_next = 0;
 error = getaddrinfo(NULL, "http", &hints, &res0);
 if (error) {
 	err1(1, "%s", gai_strerror(error));
