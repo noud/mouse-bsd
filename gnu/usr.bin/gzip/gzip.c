@@ -1005,7 +1005,14 @@ local int get_istat(iname, sbuf)
 #ifdef NO_MULTIPLE_DOTS
     char *dot; /* pointer to ifname extension, or NULL */
 #endif
+    int max_suffix_len = (z_len > 3 ? z_len : 3);
 
+    /* Leave enough room in ifname or ofname for suffix: */
+    if (strlen(iname) >= sizeof(ifname) - max_suffix_len) {
+	strncpy(ifname, iname, sizeof(ifname) - 1);
+	/* last byte of ifname is already zero and never overwritten */
+	error("file name too long");
+    }
     strcpy(ifname, iname);
 
     /* If input file exists, return OK. */
