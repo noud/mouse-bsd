@@ -1,4 +1,4 @@
-/*	$NetBSD: ld.c,v 1.68 2000/01/13 00:05:32 mycroft Exp $	*/
+/*	$NetBSD: ld.c,v 1.72 2000/11/02 16:14:37 matt Exp $	*/
 /*-
  * Copyright (c) 1998 The NetBSD Foundation, Inc.
  * All rights reserved.
@@ -88,7 +88,7 @@
 
 #ifndef lint
 /* from: "@(#)ld.c	6.10 (Berkeley) 5/22/91"; */
-__RCSID("$NetBSD: ld.c,v 1.68 2000/01/13 00:05:32 mycroft Exp $");
+__RCSID("$NetBSD: ld.c,v 1.72 2000/11/02 16:14:37 matt Exp $");
 #endif /* not lint */
 
 #define GNU_BINUTIL_COMPAT	/* forwards compatiblity with binutils 2.x */
@@ -690,8 +690,9 @@ classify_arg(arg)
 
 	/* GNU binutils 2.x  forward-compatible flags. */
 	case 'r':
-		/* Ignore "-rpath" and hope ld.so.conf will cover our sins. */
-		if (!strcmp(&arg[1], "rpath"))
+		/* Ignore "-rpath" and "-rpath-link" hope ld.so.conf will cover
+		   our sins. */
+		if (!strcmp(&arg[1], "rpath") || !strcmp(&arg[1], "rpath-link"))
 			return 2;
 		return 1;
 
@@ -917,7 +918,8 @@ decode_option(swt, arg)
 			warnx("-soname %s ignored", arg);
 		return;
 	}
-	if (strcmp(swt + 1, "rpath") == 0) {
+	if (strcmp(swt + 1, "rpath") == 0 ||
+	    strcmp(swt + 1, "rpath-link") == 0) {
 		if (warn_forwards_compatible_inexact)
 			warnx("%s %s ignored", swt, arg);
 		goto do_rpath;
@@ -2278,7 +2280,7 @@ digest_pass1()
 		}
 		if (sp->def_lsp) {
 #ifdef DEBUG
-printf("pass1: SO definition for %s, type %x in %s at %#x\n",
+printf("pass1: SO definition for %s, type %x in %s at %#lx\n",
 	sp->name, sp->so_defined, get_file_name(sp->def_lsp->entry),
 	sp->def_lsp->nzlist.nz_value);
 #endif
@@ -2382,10 +2384,6 @@ consider_relocation(entry, dataseg)
 
 			if (!RELOC_EXTERN_P(reloc))
 				continue;
-#if !RELOC_SYMBOLICS_THROUGH_JMPSLOT
-			if (link_mode & SYMBOLIC)
-				continue;
-#endif
 
 			lsp = &entry->symbols[reloc->r_symbolnum];
 			sp = lsp->symbol;
@@ -2408,7 +2406,7 @@ consider_relocation(entry, dataseg)
 			pic_type = RELOC_PIC_TYPE(reloc);
 
 #ifdef DEBUG
-			printf("consider_relocation: baserel symbolnum=%d offset=%#x\n",
+			printf("consider_relocation: baserel symbolnum=%d offset=%#lx\n",
 				reloc->r_symbolnum, lsp->nzlist.nz_value);
 #endif
 
@@ -3160,13 +3158,15 @@ perform_relocation(data, data_size, reloc, nreloc, entry, dataseg)
 			} else if (!RELOC_EXTERN_P(r)) {
 #if JMPSLOT_NONEXTERN_ARE_INTERMODULE
 				relocation = addend + sp->value;
+#ifdef DEBUG
+				printf("perform_relocation: jmpslot: %#x=%#lx (addend=%#lx %s=%#lx)\n",
+					pc_relocation + addr,
+					relocation - pc_relocation,
+					addend, sp->name, sp->value);
+#endif
 #else
 				relocation = addend +
 					data_relocation - text_relocation;
-#endif
-#if !RELOC_SYMBOLICS_THROUGH_JMPSLOT
-			} else if (link_mode & SYMBOLIC) {
-				relocation = addend + sp->value;
 #endif
 			} else {
 #if defined (__arm32__) && 1 /* XXX MAGIC */
@@ -3188,7 +3188,7 @@ perform_relocation(data, data_size, reloc, nreloc, entry, dataseg)
 					get_file_name(entry));
 
 #ifdef DEBUG
-			printf("perform_relocation: baserel symbolnum=%d addend=%#x offset=%#x\n",
+			printf("perform_relocation: baserel symbolnum=%d addend=%#lx offset=%#lx\n",
 				symindex, addend, lsp->nzlist.nz_value);
 #endif
 
@@ -3470,7 +3470,7 @@ coptxtrel(entry)
 		symindex = RELOC_SYMBOL(r);
 		lsp = &entry->symbols[symindex];
 
-		if (!RELOC_EXTERN_P(r)) {
+		if (!RELOC_EXTERN_P(r) && !RELOC_JMPTAB_P(r)) {
 			if (!pic_code_seen)
 				continue;
 			if (RELOC_BASEREL_P(r))
