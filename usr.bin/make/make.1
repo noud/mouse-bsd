@@ -600,6 +600,12 @@ potentially affected, the latter whether multiple substitutions can
 potentially occur within each affected word.
 .It Cm T
 Replaces each word in the variable with its last component.
+.It Cm U
+Whenever the variable contains multiple consecutive identical words,
+drop all but one of them.  (The use of
+.Sq U
+for this is an allusion to
+.Xr uniq 1 . )
 .It Cm ? Ar true_string Ar \: Ar false_string
 If the variable evaluates to true, return as its value the
 .Ar true_string,

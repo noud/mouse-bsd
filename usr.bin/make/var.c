@@ -201,6 +201,7 @@ static char *VarModify __P((char *, Boolean (*)(char *, Boolean, Buffer,
 						ClientData),
 			    ClientData));
 static char *VarSort __P((char *));
+static char *VarUniq __P((char *));
 static int VarWordCompare __P((const void *, const void *));
 static void VarPrintVar __P((ClientData));
 
@@ -1291,6 +1292,57 @@ VarSort (str)
 
 /*-
  *-----------------------------------------------------------------------
+ * VarUniq --
+ *	Remove adjacent duplicate words.
+ *
+ * Results:
+ *	A string containing the resulting words.
+ *
+ * Side Effects:
+ *	None.
+ *
+ *-----------------------------------------------------------------------
+ */
+static char *
+VarUniq (str)
+    char    	  *str;	    	    /* String whose words should be sorted */
+				    /* Function to use to modify them */
+{
+    Buffer buf;		    	    /* Buffer for new string */
+    char **av;			    /* List of words to affect */
+    char *as;			    /* Word list memory */
+    int ac;
+    int i;
+    int j;
+
+    buf = Buf_Init (0);
+
+    av = brk_string(str, &ac, FALSE, &as);
+
+    if (ac > 1) {
+	j = 0;
+	for (i=1;i<ac;i++) if (strcmp(av[i],av[j]) && (++j != i)) av[j] = av[i];
+	ac = j + 1;
+    }
+
+    for (i = 0; i < ac; i++) {
+	Buf_AddBytes(buf, strlen(av[i]), (Byte *) av[i]);
+	if (i != ac - 1)
+	    Buf_AddByte (buf, ' ');
+    }
+
+    free(as);
+    free(av);
+
+    Buf_AddByte (buf, '\0');
+    str = (char *)Buf_GetAll (buf, (int *)NULL);
+    Buf_Destroy (buf, FALSE);
+    return (str);
+}
+
+
+/*-
+ *-----------------------------------------------------------------------
  * VarGetPattern --
  *	Pass through the tstr looking for 1) escaped delimiters,
  *	'$'s and backslashes (place the escaped character in
@@ -1736,6 +1788,7 @@ Var_Parse (str, ctxt, err, lengthPtr, freePtr)
      *  	  :R	    	Substitute the root of each word
      *  	  	    	(pathname minus the suffix).
      *		  :O		Sort words in variable.
+     *		  :U		("Uniq") Remove adjacent duplicate words.
      *		  :?<true-value>:<false-value>
      *				If the variable evaluates to true, return
      *				true value, else return the second value.
@@ -2007,6 +2060,15 @@ Var_Parse (str, ctxt, err, lengthPtr, freePtr)
 			termc = *cp;
 			break;
 		    }
+		    /*FALLTHRU*/
+		case 'U':
+		    if (tstr[1] == endc || tstr[1] == ':') {
+			newStr = VarUniq (str);
+			cp = tstr + 1;
+			termc = *cp;
+			break;
+		    }
+		    /*FALLTHRU*/
 #ifdef SUNSHCMD
 		case 's':
 		    if (tstr[1] == 'h' && (tstr[2] == endc || tstr[2] == ':')) {
