@@ -82,6 +82,8 @@ __RCSID("$NetBSD: cond.c,v 1.11 1998/09/18 20:35:11 christos Exp $");
  *	T -> $(varspec) op value
  *	T -> $(varspec) == "string"
  *	T -> $(varspec) != "string"
+ *	T -> "string" == "string"
+ *	T -> "string" != "string"
  *	T -> ( E )
  *	T -> ! T
  *	op -> == | != | > | < | >= | <=
@@ -570,6 +572,60 @@ CondToken(doEval)
 		    Buf_Destroy(buf, FALSE);
 
 		    doFree = TRUE;
+		}
+
+		if (0) {
+		    char    *cp, *cp2;
+		    int	    qt;
+		    Buffer  buf;
+	    case '"':
+		    /*
+		     * Collect quoted lhs.
+		     */
+
+		    buf = Buf_Init(0);
+		    qt = 1;
+
+		    for (cp = &condExpr[qt];
+			 (qt ? (*cp != '"')
+			     : (strchr(" \t)", *cp) == NULL)) &&
+			 (*cp != '\0'); cp++) {
+			if ((*cp == '\\') && (cp[1] != '\0')) {
+			    /*
+			     * Backslash escapes things -- skip over next
+			     * character, if it exists.
+			     */
+			    cp++;
+			    Buf_AddByte(buf, (Byte)*cp);
+			} else if (*cp == '$') {
+			    int	len;
+			    Boolean freeIt;
+
+			    cp2 = Var_Parse(cp, VAR_CMD, doEval,&len, &freeIt);
+			    if (cp2 != var_Error) {
+				Buf_AddBytes(buf, strlen(cp2), (Byte *)cp2);
+				if (freeIt) {
+				    free(cp2);
+				}
+				cp += len - 1;
+			    } else {
+				Buf_AddByte(buf, (Byte)*cp);
+			    }
+			} else {
+			    Buf_AddByte(buf, (Byte)*cp);
+			}
+		    }
+
+		    /*
+		     * At first blush we want to use qt?cp+1:cp here,
+		     *  but *cp is skippable either way.
+		     */
+		    condExpr = cp + 1;
+
+		    Buf_AddByte(buf, (Byte)0);
+
+		    lhs = (char *)Buf_GetAll(buf, (int *)0);
+		    Buf_Destroy(buf, FALSE);
 		}
 
 		/*
