@@ -93,11 +93,13 @@ struct command device_commands[] = {
 
 void	bus_reset __P((int, char *[]));
 void	bus_scan __P((int, char *[]));
+void	bus_detach __P((int, char *[]));
 
 struct command bus_commands[] = {
 	{ "reset",	"",			bus_reset },
 	{ "scan",	"target lun",		bus_scan },
-	{ NULL,		NULL,				NULL },
+	{ "detach",	"target lun",		bus_detach },
+	{ NULL,		NULL,			NULL },
 };
 
 int
@@ -413,4 +415,37 @@ bus_scan(argc, argv)
 		err(1, "SCBUSIOSCAN");
 
 	return;
+}
+
+/*
+ * bus_detach:
+ *
+ *	Detach a device from a SCSI bus.
+ *	In a sense this should be a device command, but doing it this way
+ *	  (a) makes it possible to detach devices that can't be opened
+ *	  and (b) is necessary because to ioctl the device, it has to be
+ *	  open, and detaching open devices is Hard.
+ */
+void
+bus_detach(argc, argv)
+	int argc;
+	char *argv[];
+{
+	struct scbusiodetach_args args;
+	char *cp;
+
+	/* Must have two args: target lun */
+	if (argc != 2)
+		usage();
+
+	args.sa_target = strtol(argv[0], &cp, 10);
+	if (*cp != '\0' || args.sa_target < 0)
+		errx(1, "invalid target: %s\n", argv[0]);
+
+	args.sa_lun = strtol(argv[1], &cp, 10);
+	if (*cp != '\0' || args.sa_lun < 0)
+		errx(1, "invalid lun: %s\n", argv[1]);
+
+	if (ioctl(fd, SCBUSIODETACH, &args) != 0)
+		err(1, "SCBUSIODETACH");
 }

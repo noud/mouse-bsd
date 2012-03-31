@@ -91,6 +91,7 @@
  */
 int scsi_probedev __P((struct scsibus_softc *, int, int));
 int scsi_probe_bus __P((int bus, int target, int lun));
+int scsi_detach_device __P((int bus, int target, int lun));
 
 struct scsipi_device probe_switch = {
 	NULL,
@@ -840,6 +841,58 @@ bad:
 	return (docontinue);
 }
 
+/*
+ * (Try to) detach a device from its scsibus.
+ * All three numbers must be specified; no wildcards here!
+ *
+ * ENXIO if it ain't there
+ * EIO for attempts to detach the adapter itself
+ */
+int
+scsi_detach_device(bus, target, lun)
+	int bus, target, lun;
+{
+	struct scsibus_softc *scsi;
+	struct scsipi_link *link;
+	int err;
+
+	/* Check the bus number, get the softc */
+	if ((bus < 0) || (bus >= scsibus_cd.cd_ndevs))
+		return(ENXIO);
+	scsi = scsibus_cd.cd_devs[bus];
+	if (scsi == 0)
+		return(ENXIO);
+
+	/* Basic sanity check */
+	if ((target < 0) || (lun < 0))
+		return(ENXIO);
+
+	/* Can't detach the adapter! */
+	if (target == scsi->adapter_link->scsipi_scsi.adapter_target)
+		return(EIO);
+
+	/* Target ID/LUN in range? */
+	if ((target > scsi->sc_maxtarget) || (lun > scsi->sc_maxlun))
+		return(ENXIO);
+
+	/* Get the link, make sure there's something there */
+	link = scsi->sc_link[target][lun];
+	if (link == 0)
+		return(ENXIO);
+
+	/* Try to do the detach */
+	err = config_detach(link->device_softc,0);
+	if (err)
+		return(err);
+
+	/* Clear the bus's pointer, and free */
+	scsi->sc_link[target][lun] = 0;
+	free(link,M_DEVBUF);
+
+	/* Done; return success */
+	return(0);
+}
+
 /****** Entry points for user control of the SCSI bus. ******/
 
 int
@@ -901,6 +954,7 @@ scsibusioctl(dev, cmd, addr, flag, p)
 	switch (cmd) {
 	case SCBUSIOSCAN:
 	case SCBUSIORESET:
+	case SCBUSIODETACH:
 		if ((flag & FWRITE) == 0)
 			return (EBADF);
 	}
@@ -914,6 +968,15 @@ scsibusioctl(dev, cmd, addr, flag, p)
 		/* XXX Change interface to this function. */
 		error = scsi_probe_busses(minor(dev), a->sa_target,
 		    a->sa_lun);
+		break;
+	    }
+
+	case SCBUSIODETACH:
+	    {
+		struct scbusiodetach_args *a =
+		    (struct scbusiodetach_args *)addr;
+
+		error = scsi_detach_device(minor(dev),a->sa_target,a->sa_lun);
 		break;
 	    }
 

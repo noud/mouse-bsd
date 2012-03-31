@@ -120,6 +120,22 @@ Either may be wildcarded by specifying the keyword
 .Dq any
 or
 .Dq all .
+.Pp
+.Nm detach
+.Ar target
+.Ar lun
+.Pp
+Detach the device at the specified
+.Ar target
+and
+.Ar lun
+(which must be fully specified; no wildcarding is supported).
+.Pp
+.Sq detach
+is a bus command, rather than a device command, both to allow detaching
+devices that refuse to allow themselves to be opened and because to
+detach the device itself, it would have to be opened, and detaching
+open devices is Hard.
 .Sh FILES
 /dev/scsibus* - for commands operating on SCSI busses
 .Sh SEE ALSO

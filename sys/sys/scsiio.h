@@ -90,4 +90,11 @@ struct scbusioscan_args {
 
 #define	SCBUSIORESET	_IO('U', 1)	/* reset SCSI bus */
 
+/* (Try to) detach a device. */
+struct scbusiodetach_args {
+	int	sa_target;	/* target to detach */
+	int	sa_lun;		/* lun to detach */
+};
+#define SCBUSIODETACH	_IOW('U', 2, struct scbusiodetach_args)
+
 #endif /* _SYS_SCSIIO_H_ */
