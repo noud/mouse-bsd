@@ -98,6 +98,90 @@ int	main __P((int, char **));
 static void setup __P((int *, char *, STR *, int));
 static void usage __P((void));
 
+static unsigned char iobuf[65536];
+
+static int proc_ds(unsigned char *buf, int len, int *prevp)
+{
+ int prev;
+ int i;
+ int j;
+ int ch;
+
+ prev = *prevp;
+ j = 0;
+ for (i=0;i<len;i++)
+  { ch = buf[i];
+    if (!string1[ch] && (!string2[ch] || (ch != prev)))
+     { prev = ch;
+       buf[j++] = ch;
+     }
+  }
+ *prevp = prev;
+ return(j);
+}
+
+static int proc_d(unsigned char *buf, int len, int *prevp __attribute__((__unused__)))
+{
+ int i;
+ int j;
+ int ch;
+
+ j = 0;
+ for (i=0;i<len;i++)
+  { ch = buf[i];
+    if (!string1[ch]) buf[j++] = ch;
+  }
+ return(j);
+}
+
+static int proc_s1(unsigned char *buf, int len, int *prevp)
+{
+ int prev;
+ int i;
+ int j;
+ int ch;
+
+ prev = *prevp;
+ j = 0;
+ for (i=0;i<len;i++)
+  { ch = buf[i];
+    if (!string1[ch] || (ch != prev))
+     { prev = ch;
+       buf[j++] = ch;
+     }
+  }
+ *prevp = prev;
+ return(j);
+}
+
+static int proc_s2(unsigned char *buf, int len, int *prevp)
+{
+ int prev;
+ int i;
+ int j;
+ int ch;
+
+ prev = *prevp;
+ j = 0;
+ for (i=0;i<len;i++)
+  { ch = string1[buf[i]];
+    if (!string2[ch] || (ch != prev))
+     { prev = ch;
+       buf[j++] = ch;
+     }
+  }
+ *prevp = prev;
+ return(j);
+}
+
+static int proc_2(unsigned char *buf, int len, int *prevp __attribute__((__unused__)))
+{
+ int i;
+
+ for (i=0;i<len;i++) buf[i] = string1[buf[i]];
+ return(len);
+}
+
 int
 main(argc, argv)
 	int argc;
@@ -105,6 +189,7 @@ main(argc, argv)
 {
 	int ch, cnt, lastch, *p;
 	int cflag, dflag, sflag, isstring2;
+	int (*process)(unsigned char *, int, int *);
 
 	cflag = dflag = sflag = 0;
 	while ((ch = getopt(argc, argv, "cds")) != -1)
@@ -138,105 +223,99 @@ main(argc, argv)
 		break;
 	}
 
-	/*
-	 * tr -ds [-c] string1 string2
-	 * Delete all characters (or complemented characters) in string1.
-	 * Squeeze all characters in string2.
-	 */
 	if (dflag && sflag) {
+		/*
+		 * tr -ds [-c] string1 string2
+		 * Delete all characters in string1 (complemented if -c).
+		 * Squeeze all characters in string2.
+		 */
 		if (!isstring2)
 			usage();
 
 		setup(string1, argv[0], &s1, cflag);
 		setup(string2, argv[1], &s2, 0);
-
-		for (lastch = OOBCH; (ch = getchar()) != EOF;)
-			if (!string1[ch] && (!string2[ch] || lastch != ch)) {
-				lastch = ch;
-				(void)putchar(ch);
-			}
-		exit(0);
-	}
-
-	/*
-	 * tr -d [-c] string1
-	 * Delete all characters (or complemented characters) in string1.
-	 */
-	if (dflag) {
+		process = &proc_ds;
+	} else if (dflag) {
+		/*
+		 * tr -d [-c] string1
+		 * Delete all characters in string1 (complemented if -c).
+		 */
 		if (isstring2)
 			usage();
 
 		setup(string1, argv[0], &s1, cflag);
-
-		while ((ch = getchar()) != EOF)
-			if (!string1[ch])
-				(void)putchar(ch);
-		exit(0);
-	}
-
-	/*
-	 * tr -s [-c] string1
-	 * Squeeze all characters (or complemented characters) in string1.
-	 */
-	if (sflag && !isstring2) {
+		process = &proc_d;
+	} else if (sflag && !isstring2) {
+		/*
+		 * tr -s [-c] string1
+		 * Squeeze all characters in string1 (complemented if -c).
+		 */
 		setup(string1, argv[0], &s1, cflag);
+		process = &proc_s1;
+	} else {
+		/*
+		 * tr [-cs] string1 string2
+		 * Replace all characters in string1 (complemented if -c) with
+		 * the character in the same position in string2.  If the -s
+		 * option is specified, squeeze all the characters in string2.
+		 */
+		if (!isstring2)
+			usage();
 
-		for (lastch = OOBCH; (ch = getchar()) != EOF;)
-			if (!string1[ch] || lastch != ch) {
-				lastch = ch;
-				(void)putchar(ch);
+		s1.str = argv[0];
+		s2.str = argv[1];
+
+		if (cflag)
+			for (cnt = NCHARS, p = string1; cnt--;)
+				*p++ = OOBCH;
+
+		if (!next(&s2))
+			errx(1, "empty string2");
+
+		/* If string2 runs out, use the last character specified. */
+		if (sflag) {
+			while (next(&s1)) {
+				string1[s1.lastch] = ch = s2.lastch;
+				string2[ch] = 1;
+				(void)next(&s2);
 			}
-		exit(0);
+			process = &proc_s2;
+		} else {
+			while (next(&s1)) {
+				string1[s1.lastch] = s2.lastch;
+				(void)next(&s2);
+			}
+			process = &proc_2;
+		}
+
+		if (cflag)
+			for (cnt = 0, p = string1; cnt < NCHARS; ++p, ++cnt)
+				*p = *p == OOBCH ? s2.lastch : cnt;
 	}
 
-	/*
-	 * tr [-cs] string1 string2
-	 * Replace all characters (or complemented characters) in string1 with
-	 * the character in the same position in string2.  If the -s option is
-	 * specified, squeeze all the characters in string2.
-	 */
-	if (!isstring2)
-		usage();
-
-	s1.str = argv[0];
-	s2.str = argv[1];
-
-	if (cflag)
-		for (cnt = NCHARS, p = string1; cnt--;)
-			*p++ = OOBCH;
-
-	if (!next(&s2))
-		errx(1, "empty string2");
-
-	/* If string2 runs out of characters, use the last one specified. */
-	if (sflag)
-		while (next(&s1)) {
-			string1[s1.lastch] = ch = s2.lastch;
-			string2[ch] = 1;
-			(void)next(&s2);
+	lastch = OOBCH;
+	while (1) {
+		int n;
+		int w;
+		int o;
+		n = read(0,&iobuf[0],sizeof(iobuf));
+		if (n < 0)
+			err(1,"input read error");
+		if (n == 0)
+			break;
+		n = (*process)(&iobuf[0],n,&lastch);
+		o = 0;
+		while (n > 0) {
+			w = write(1,&iobuf[o],n);
+			if (w < 0)
+				err(1,"output write error");
+			if (w == 0)
+				errx(1,"output zero write");
+			o += w;
+			n -= w;
 		}
-	else
-		while (next(&s1)) {
-			string1[s1.lastch] = ch = s2.lastch;
-			(void)next(&s2);
-		}
-
-	if (cflag)
-		for (cnt = 0, p = string1; cnt < NCHARS; ++p, ++cnt)
-			*p = *p == OOBCH ? ch : cnt;
-
-	if (sflag)
-		for (lastch = OOBCH; (ch = getchar()) != EOF;) {
-			ch = string1[ch];
-			if (!string2[ch] || lastch != ch) {
-				lastch = ch;
-				(void)putchar(ch);
-			}
-		}
-	else
-		while ((ch = getchar()) != EOF)
-			(void)putchar(string1[ch]);
-	exit (0);
+	}
+	exit(0);
 }
 
 static void
