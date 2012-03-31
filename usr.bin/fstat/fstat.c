@@ -130,6 +130,7 @@ int 	fsflg,	/* show files on same filesystem as file(s) argument */
 	uflg;	/* show files open by a particular (effective) user */
 int 	checkfile; /* true if restricting to particular files or filesystems */
 int	nflg;	/* (numerical) display f.s. and rdev as dev_t */
+int	oflg;	/* show offset, not size, for open fds */
 int	vflg;	/* display errors in locating kernel data objects etc... */
 
 struct file **ofiles;	/* buffer of pointers to file structures */
@@ -161,7 +162,7 @@ static const char *inet6_addrstr __P((struct in6_addr *));
 void	socktrans __P((struct socket *, int));
 int	ufs_filestat __P((struct vnode *, struct filestat *));
 void	usage __P((void));
-void	vtrans __P((struct vnode *, int, int));
+void	vtrans __P((struct vnode *, int, int, int, off_t));
 
 int
 main(argc, argv)
@@ -180,7 +181,7 @@ main(argc, argv)
 	arg = 0;
 	what = KERN_PROC_ALL;
 	nlistf = memf = NULL;
-	while ((ch = getopt(argc, argv, "fnp:u:vN:M:")) != -1)
+	while ((ch = getopt(argc, argv, "fnop:u:vN:M:")) != -1)
 		switch((char)ch) {
 		case 'f':
 			fsflg = 1;
@@ -193,6 +194,9 @@ main(argc, argv)
 			break;
 		case 'n':
 			nflg = 1;
+			break;
+		case 'o':
+			oflg = 1;
 			break;
 		case 'p':
 			if (pflg++)
@@ -260,12 +264,16 @@ main(argc, argv)
 	if ((p = kvm_getprocs(kd, what, arg, &cnt)) == NULL) {
 		errx(1, "%s", kvm_geterr(kd));
 	}
+	printf("USER     CMD          PID   FD ");
 	if (nflg)
-		printf("%s",
-"USER     CMD          PID   FD  DEV    INUM       MODE SZ|DV R/W");
+		printf(" DEV    INUM       MODE ");
 	else
-		printf("%s",
-"USER     CMD          PID   FD MOUNT      INUM MODE         SZ|DV R/W");
+		printf("MOUNT      INUM MODE         ");
+	if (oflg)
+		printf("OF|DV");
+	else
+		printf("SZ|DV");
+	printf(" R/W");
 	if (checkfile && fsflg == 0)
 		printf(" NAME\n");
 	else
@@ -339,16 +347,16 @@ dofiles(kp)
 	 * root directory vnode, if one
 	 */
 	if (cwdi.cwdi_rdir)
-		vtrans(cwdi.cwdi_rdir, RDIR, FREAD);
+		vtrans(cwdi.cwdi_rdir, RDIR, FREAD, 0, 0);
 	/*
 	 * current working directory vnode
 	 */
-	vtrans(cwdi.cwdi_cdir, CDIR, FREAD);
+	vtrans(cwdi.cwdi_cdir, CDIR, FREAD, 0, 0);
 	/*
 	 * ktrace vnode, if one
 	 */
 	if (p->p_tracep)
-		vtrans(p->p_tracep, TRACE, FREAD|FWRITE);
+		vtrans(p->p_tracep, TRACE, FREAD|FWRITE, 0, 0);
 	/*
 	 * open files
 	 */
@@ -373,7 +381,8 @@ dofiles(kp)
 			continue;
 		}
 		if (file.f_type == DTYPE_VNODE)
-			vtrans((struct vnode *)file.f_data, i, file.f_flag);
+			vtrans((struct vnode *)file.f_data, i, file.f_flag,
+				1, file.f_offset);
 		else if (file.f_type == DTYPE_SOCKET) {
 			if (checkfile == 0)
 				socktrans((struct socket *)file.f_data, i);
@@ -386,10 +395,12 @@ dofiles(kp)
 }
 
 void
-vtrans(vp, i, flag)
+vtrans(vp, i, flag, haveoff, off)
 	struct vnode *vp;
 	int i;
 	int flag;
+	int haveoff;
+	off_t off;
 {
 	struct vnode vn;
 	struct filestat fst;
@@ -474,19 +485,25 @@ vtrans(vp, i, flag)
 		strmode(fst.mode, mode);
 	(void)printf(" %6ld %10s", (long)fst.fileid, mode);
 	switch (vn.v_type) {
-	case VBLK:
-	case VCHR: {
-		char *name;
+		case VBLK:
+		case VCHR: {
+			char *name;
 
-		if (nflg || ((name = devname(fst.rdev, vn.v_type == VCHR ?
-		    S_IFCHR : S_IFBLK)) == NULL))
-			printf("  %2d,%-2d", major(fst.rdev), minor(fst.rdev));
-		else
-			printf(" %6s", name);
-		break;
-	}
+			if (nflg || ((name = devname(fst.rdev, vn.v_type == VCHR ?
+			    S_IFCHR : S_IFBLK)) == NULL))
+				printf("  %2d,%-2d", major(fst.rdev), minor(fst.rdev));
+			else
+				printf(" %6s", name);
+			break;
+		}
 	default:
-		printf(" %6qd", (long long)fst.size);
+		if (oflg)
+			if (haveoff)
+				printf(" %6qu", (unsigned long long int)off);
+			else
+				printf(" *%5qu", (unsigned long long int)fst.size);
+		else
+			printf(" %6qu", (unsigned long long int)fst.size);
 	}
 	rw[0] = '\0';
 	if (flag & FREAD)
