@@ -361,10 +361,11 @@ ioctldecode(cmd)
 		*dir++ = 'R';
 	*dir = '\0';
 
+	/* XXX "cmd & 0xff" should be some #define from <sys/ioccom.h> */
 	printf(decimal ? ",_IO%s('%c',%ld" : ",_IO%s('%c',%#lx",
-	    dirbuf, (cmd >> 8) & 0xff, cmd & 0xff);
+	    dirbuf, (int)IOCGROUP(cmd), cmd & 0xff);
 	if ((cmd & IOC_VOID) == 0)
-		printf(decimal ? ",%ld)" : ",%#lx)", (cmd >> 16) & 0xff);
+		printf(decimal ? ",%ld)" : ",%#lx)", IOCPARM_LEN(cmd));
 	else
 		printf(")");
 }
