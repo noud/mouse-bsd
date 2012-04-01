@@ -87,9 +87,13 @@ main(argc, argv)
 	int ch;
 	char *p, *nlistpath, *nlistname;
 	int docheck = 0;
+	int force = 0;
 
-	while ((ch = getopt(argc, argv, "o:")) != -1)
+	while ((ch = getopt(argc, argv, "fo:")) != -1)
 		switch (ch) {
+		case 'f':
+			force = 1;
+			break;
 		case 'o':
 			dbname = optarg;
 			break;
@@ -110,7 +114,7 @@ main(argc, argv)
 	} else 	if (strncmp(_PATH_KVMDB, dbname, sizeof(_PATH_KVMDB)) == 0) {
 		docheck = 1;
 	}
-	if (docheck) {
+	if (docheck && !force) {
 		/*
 		 * If the existing db file matches the currently running
 		 * kernel, exit

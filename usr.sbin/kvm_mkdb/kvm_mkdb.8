@@ -41,6 +41,7 @@
 .Nd create kernel database
 .Sh SYNOPSIS
 .Nm
+.Op Fl f
 .Op Fl o Ar database
 .Op file
 .Sh DESCRIPTION
@@ -56,6 +57,9 @@ do not already describe the running kernel.
 .Pp
 The options are as follows:
 .Bl -tag -width indent
+.It Fl f
+Always recreate the database, whether or not it appears to match the
+running kernel.
 .It Fl o Ar database
 Put the output databases in the named file.
 .El
