@@ -199,8 +199,18 @@ op_notsupp(exent, opiop, arg)
 	struct opiocdesc *opiop;
 	char *arg;
 {
-
-	warnx("property `%s' not yet supported", exent->ex_keyword);
+ if (arg)
+  { warnx("setting `%s' not yet supported",exent->ex_keyword);
+    /* set opiop->op_buf and ->op_buflen  */
+  }
+ else
+  { int i;
+    printf("%s: %d:",exent->ex_keyword,opiop->op_buflen);
+    for (i=0;i<opiop->op_buflen;i++)
+     { printf(" %02x",((const unsigned char *)opiop->op_buf)[i]);
+     }
+    printf("\n");
+  }
 }
 
 /*
