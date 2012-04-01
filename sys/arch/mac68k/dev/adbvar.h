@@ -54,12 +54,6 @@ extern int	adb_traceq_tail;
 extern int	adb_traceq_len;
 extern int	adb_polling;
 
-#ifdef DEBUG
-#ifndef ADB_DEBUG
-#define ADB_DEBUG
-#endif
-#endif
-
 #ifdef ADB_DEBUG
 extern int	adb_debug;
 #endif
