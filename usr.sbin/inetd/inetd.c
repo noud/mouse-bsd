@@ -1791,6 +1791,20 @@ bump_nofile()
 }
 
 /*
+ * Enable keepalives on a socket.  Used by internal services that might
+ *  otherwise hang forever if the remote end dies without telling us.
+ */
+static void
+enable_keepalives(int s)
+{
+	int on;
+
+	on = 1;
+	/* ignore errors - if it doesn't work, well, we did our best. */
+	setsockopt(s, SOL_SOCKET, SO_KEEPALIVE, &on, sizeof(on));
+}
+
+/*
  * Internet services provided internally by inetd:
  */
 #define	BUFSIZE	4096
@@ -1805,6 +1819,7 @@ echo_stream(s, sep)		/* Echo service -- echo data back */
 	int i;
 
 	inetd_setproctitle(sep->se_service, s);
+	enable_keepalives(s);
 	while ((i = read(s, buffer, sizeof(buffer))) > 0 &&
 	    write(s, buffer, i) > 0)
 		;
@@ -1838,6 +1853,7 @@ discard_stream(s, sep)		/* Discard service -- ignore data */
 	char buffer[BUFSIZE];
 
 	inetd_setproctitle(sep->se_service, s);
+	enable_keepalives(s);
 	while ((errno = 0, read(s, buffer, sizeof(buffer)) > 0) ||
 			errno == EINTR)
 		;
