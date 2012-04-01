@@ -1,0 +1,21 @@
+This is a gitification of my patches to NetBSD 1.4T.
+
+It is a work in progress.  Until this file disappears (or is updated to
+say otherwise), this tree is liable to be reworked in relatively
+drastic ways, such as rewinding and replaying large numbers of commits
+or other things not generally good practice for published git repos.
+Of course, like all my stuff, any use of it is strictly at your own
+risk, but in this case I am not taking anyone else's concerns into
+account at all until I've got a git repo I'm happy with with all my
+1.4T patches (or at least all the ones I decide to keep - I've already
+found a few I have decided to discard).  Tracking it is perhaps
+appropriate for the curious, but is unlikely to be appropriate for
+anyone else.
+
+Until, that is, this file disappears or states otherwise, as I said
+above.
+
+/~\ The ASCII				  Mouse
+\ / Ribbon Campaign
+ X  Against HTML		mouse@rodents-montreal.org
+/ \ Email!	     7D C8 61 52 5D E7 2D 39  4E F1 31 3E E8 B3 27 4B
