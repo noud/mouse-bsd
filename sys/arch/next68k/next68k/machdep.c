@@ -942,10 +942,8 @@ straytrap(pc, evec)
 
 int	*nofault;
 
-int
-badaddr(addr, nbytes)
-	caddr_t addr;
-	int nbytes;
+int badaddr(caddr_t, int); /* XXX where is this declared? */
+int badaddr(caddr_t addr, int nbytes)
 {
 	int i;
 	label_t faultbuf;
