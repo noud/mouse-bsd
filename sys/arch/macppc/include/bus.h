@@ -363,11 +363,11 @@ bus_space_read_region_stream_4(tag, bsh, offset, addr, count)
 	} while (0)
 
 #define bus_space_write_multi_2(t, h, o, a, c) do {			\
-		outsw(__BA(t, h, o), (a), (c));				\
+		outswrb(__BA(t, h, o), (a), (c));			\
 	} while (0)
 
 #define bus_space_write_multi_4(t, h, o, a, c) do {			\
-		outsl(__BA(t, h, o), (a), (c));				\
+		outslrb(__BA(t, h, o), (a), (c));			\
 	} while (0)
 
 #if 0
