@@ -927,19 +927,12 @@ kbd_was_reset(k)
 		break;
 
 	case KB_SUN3:
-		/* Type 3 keyboards come up with keyclick on */
-		if (!ks->kbd_click) {
-			/* turn off the click */
-			kbd_output(k, KBD_CMD_NOCLICK);
-			kbd_start_tx(k);
-		}
-		break;
-
 	case KB_SUN4:
-		/* Type 4 keyboards come up with keyclick off */
 		if (ks->kbd_click) {
-			/* turn on the click */
 			kbd_output(k, KBD_CMD_CLICK);
+			kbd_start_tx(k);
+		} else {
+			kbd_output(k, KBD_CMD_NOCLICK);
 			kbd_start_tx(k);
 		}
 		break;
