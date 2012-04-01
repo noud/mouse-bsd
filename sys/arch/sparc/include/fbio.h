@@ -39,6 +39,9 @@
  * 	@(#)fbio.h	7.2 (Berkeley) 4/1/92
  */
 
+#ifndef ARCH_SPARC_INCLUDE_FBIO_H
+#define ARCH_SPARC_INCLUDE_FBIO_H
+
 /*
  * Frame buffer ioctls (from Sprite, trimmed to essentials for X11).
  */
@@ -186,3 +189,5 @@ struct fbcursor {
 
 /* get max cursor size */
 #define FBIOGCURMAX	_IOR('F', 28, struct fbcurpos)
+
+#endif
