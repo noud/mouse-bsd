@@ -137,7 +137,7 @@ labelip(void)
 void
 showip(void)
 {
-	u_quad_t totalout;
+	unsigned long long int totalout;
 
 	totalout = curstat.i.ips_forward + curstat.i.ips_localout;
 
