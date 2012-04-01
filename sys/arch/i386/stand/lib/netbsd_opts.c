@@ -49,7 +49,7 @@ static struct optent {
 } opttab[] = {
 	{'a', RB_ASKNAME},
 	{'s', RB_SINGLE},
-	{'r', RB_DFLTROOT},
+	{'r', RB_CHROOT},
 	{'d', RB_KDB},
 };
 
