@@ -179,6 +179,12 @@ struct ipflow {
 #define	IP_ROUTETOIF		SO_DONTROUTE	/* bypass routing tables */
 #define	IP_ALLOWBROADCAST	SO_BROADCAST	/* can send broadcast packets */
 
+#ifdef __NO_STRICT_ALIGNMENT
+#define IP_HDR_ALIGNED_P(ip)	1
+#else
+#define IP_HDR_ALIGNED_P(ip)	((((vaddr_t) (ip)) & 3) == 0)
+#endif
+
 extern struct ipstat ipstat;		/* ip statistics */
 extern LIST_HEAD(ipqhead, ipq) ipq;	/* ip reass. queue */
 extern u_int16_t ip_id;			/* ip packet ctr, for ids */

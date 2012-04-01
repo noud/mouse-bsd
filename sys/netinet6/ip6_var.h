@@ -180,6 +180,12 @@ struct	ip6stat {
 #define	IPV6_DADOUTPUT		0x01	/* DAD */
 #define	IPV6_FORWARDING		0x02	/* most of IPv6 header exists */
 
+#ifdef __NO_STRICT_ALIGNMENT
+#define IP6_HDR_ALIGNED_P(ip)	1
+#else
+#define IP6_HDR_ALIGNED_P(ip)	((((vaddr_t) (ip)) & 3) == 0)
+#endif
+
 extern struct	ip6stat ip6stat;	/* statistics */
 extern u_int32_t ip6_id;		/* fragment identifier */
 extern int	ip6_defhlim;		/* default hop limit */
