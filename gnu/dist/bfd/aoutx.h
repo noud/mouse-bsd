@@ -2315,6 +2315,13 @@ NAME(aout,swap_std_reloc_in) (abfd, bytes, cache_ptr, symbols, symcount)
   if (r_baserel)
     r_extern = 1;
 
+  /* jmptable relocs are always against the symbol table,
+     regardless of the setting of r_extern.  r_extern just reflects
+     whether the type of the symbol the reloc is against.  */
+  if (r_jmptable)
+    r_extern = 1;
+
+  BFD_ASSERT (!r_extern || r_index <= symcount);
   if (r_extern && r_index > symcount)
     {
       /* We could arrange to return an error, but it might be useful
