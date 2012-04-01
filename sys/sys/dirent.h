@@ -85,7 +85,7 @@ struct dirent {
 #define	DTTOIF(dirtype)	((dirtype) << 12)
 #endif /* !defined(_POSIX_C_SOURCE) && !defined(_XOPEN_SOURCE) */
 
-#ifdef _KERNEL
+#if defined(_KERNEL) || defined(DEFINE_DIRENT_SIZE)
 /*
  * The DIRENT_SIZE macro gives the minimum record length which will hold
  * the directory entry.  This requires the amount of space in struct dirent
@@ -95,6 +95,6 @@ struct dirent {
 #define	DIRENT_SIZE(dp) \
     ((sizeof (struct dirent) - (MAXNAMLEN+1)) + (((dp)->d_namlen+1 + 3) &~ 3))
 
-#endif	/* !_KERNEL */
+#endif	/* _KERNEL || DEFINE_DIRENT_SIZE */
 
 #endif	/* !_SYS_DIRENT_H_ */
