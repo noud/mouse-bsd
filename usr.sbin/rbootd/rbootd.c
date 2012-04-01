@@ -105,10 +105,13 @@ main(argc, argv)
 	/*
 	 *  Parse any arguments.
 	 */
-	while ((c = getopt(argc, argv, "adi:")) != -1)
+	while ((c = getopt(argc, argv, "ab:di:")) != -1)
 		switch(c) {
 		    case 'a':
 			BootAny++;
+			break;
+		    case 'b':
+			BootDir = optarg;
 			break;
 		    case 'd':
 			DebugFlg++;

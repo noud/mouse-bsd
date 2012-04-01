@@ -54,6 +54,7 @@
 .Nm
 .Op Fl ad
 .Op Fl i Ar interface
+.Op Fl b Ar bootfiledir
 .Op config_file
 .Sh DESCRIPTION
 The
@@ -73,6 +74,11 @@ The options are as follows:
 .It Fl a
 Respond to boot requests from any machine.
 The configuration file is ignored if this option is specified.
+.It Fl b Ar bootfiledir
+Find the boot files in
+.Ar bootfiledir ,
+rather than the default,
+.Pa /usr/mdec/rbootd .
 .It Fl d
 Run
 .Nm
