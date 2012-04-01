@@ -33,6 +33,7 @@ file	arch/next68k/dev/zs_kgdb.c		kgdb
 
 #file	arch/m68k/m68k/db_memrw.c	ddb | kgdb
 file	arch/next68k/next68k/db_memrw.c	ddb | kgdb
+file	arch/next68k/next68k/db_machdep.c	ddb
 
 file	arch/m68k/m68k/cacheops.c
 

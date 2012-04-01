@@ -266,6 +266,7 @@ consinit()
 #endif
 
 #ifdef  DDB
+		db_machine_init();
 		/* Initialize kernel debugger, if compiled in. */
 		{
 			extern int end;
@@ -655,6 +656,7 @@ cpu_reboot(howto, bootstr)
 #endif
 
 	if ((howto & RB_POWERDOWN) == RB_POWERDOWN) {
+		extern void poweroff(void); /* rtc.c */
 		poweroff();
 	}
 
