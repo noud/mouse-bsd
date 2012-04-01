@@ -68,13 +68,12 @@ static int rssock;
 static struct sockaddr_in6 sin6_allrouters = {sizeof(sin6_allrouters), AF_INET6};
 
 int
-sockopen()
+sockopen(void)
 {
-	int on;
-	struct icmp6_filter filt;
 	static u_char *rcvcmsgbuf = 0, *sndcmsgbuf = 0;
-	int rcvcmsglen, sndcmsglen;
+	int rcvcmsglen, sndcmsglen, on;
 	static u_char answer[1500];
+	struct icmp6_filter filt;
 
 	sndcmsglen = rcvcmsglen = CMSG_SPACE(sizeof(struct in6_pktinfo)) +
 	    CMSG_SPACE(sizeof(int));
@@ -170,9 +169,10 @@ sockopen()
 void
 sendpacket(struct ifinfo *ifinfo)
 {
-	int i;
-	struct cmsghdr *cm;
 	struct in6_pktinfo *pi;
+	struct cmsghdr *cm;
+	int hoplimit = 255;
+	int i;
 
 	sndmhdr.msg_name = (caddr_t)&sin6_allrouters;
 	sndmhdr.msg_iov[0].iov_base = (caddr_t)ifinfo->rs_data;
@@ -188,15 +188,11 @@ sendpacket(struct ifinfo *ifinfo)
 	pi->ipi6_ifindex = ifinfo->sdl->sdl_index;
 
 	/* specify the hop limit of the packet */
-	{
-		int hoplimit = 255;
-
-		cm = CMSG_NXTHDR(&sndmhdr, cm);
-		cm->cmsg_level = IPPROTO_IPV6;
-		cm->cmsg_type = IPV6_HOPLIMIT;
-		cm->cmsg_len = CMSG_LEN(sizeof(int));
-		memcpy(CMSG_DATA(cm), &hoplimit, sizeof(int));
-	}
+	cm = CMSG_NXTHDR(&sndmhdr, cm);
+	cm->cmsg_level = IPPROTO_IPV6;
+	cm->cmsg_type = IPV6_HOPLIMIT;
+	cm->cmsg_len = CMSG_LEN(sizeof(int));
+	memcpy(CMSG_DATA(cm), &hoplimit, sizeof(int));
 
 	warnmsg(LOG_DEBUG,
 	       __FUNCTION__, "send RS on %s, whose state is %d",

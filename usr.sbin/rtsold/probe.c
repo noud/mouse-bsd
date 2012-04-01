@@ -61,7 +61,7 @@ static int probesock;
 static void sendprobe __P((struct in6_addr *addr, int ifindex));
 
 int
-probe_init()
+probe_init(void)
 {
 	int scmsglen = CMSG_SPACE(sizeof(struct in6_pktinfo)) +
 	    CMSG_SPACE(sizeof(int));
@@ -90,7 +90,6 @@ probe_init()
 	sndmhdr.msg_iovlen = 1;
 	sndmhdr.msg_control = (caddr_t)sndcmsgbuf;
 	sndmhdr.msg_controllen = scmsglen;
-
 	return(0);
 }
 
@@ -144,7 +143,8 @@ sendprobe(struct in6_addr *addr, int ifindex)
 	struct sockaddr_in6 sa6_probe;
 	struct in6_pktinfo *pi;
 	struct cmsghdr *cm;
-	u_char ntopbuf[INET6_ADDRSTRLEN], ifnamebuf[IFNAMSIZ];;
+	u_char ntopbuf[INET6_ADDRSTRLEN], ifnamebuf[IFNAMSIZ];
+	int hoplimit = 1;
 
 	bzero(&sa6_probe, sizeof(sa6_probe));
 	sa6_probe.sin6_family = AF_INET6;
@@ -165,15 +165,11 @@ sendprobe(struct in6_addr *addr, int ifindex)
 	pi->ipi6_ifindex = ifindex;
 
 	/* specify the hop limit of the packet for safety */
-	{
-		int hoplimit = 1;
-
-		cm = CMSG_NXTHDR(&sndmhdr, cm);
-		cm->cmsg_level = IPPROTO_IPV6;
-		cm->cmsg_type = IPV6_HOPLIMIT;
-		cm->cmsg_len = CMSG_LEN(sizeof(int));
-		memcpy(CMSG_DATA(cm), &hoplimit, sizeof(int));
-	}
+	cm = CMSG_NXTHDR(&sndmhdr, cm);
+	cm->cmsg_level = IPPROTO_IPV6;
+	cm->cmsg_type = IPV6_HOPLIMIT;
+	cm->cmsg_len = CMSG_LEN(sizeof(int));
+	memcpy(CMSG_DATA(cm), &hoplimit, sizeof(int));
 
 	warnmsg(LOG_DEBUG, __FUNCTION__, "probe a router %s on %s",
 	       inet_ntop(AF_INET6, addr, ntopbuf, INET6_ADDRSTRLEN),
