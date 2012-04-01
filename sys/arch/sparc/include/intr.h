@@ -36,6 +36,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef _SPARC_INCLUDE_INTR_H_
+#define _SPARC_INCLUDE_INTR_H_
+
 /* XXX - arbitrary numbers; no interpretation is defined yet */
 #define IPL_NONE	0	/* nothing */
 #define IPL_SOFTCLOCK	1	/* timeouts */
@@ -49,3 +52,4 @@
 #define IPL_CLOCK	8	/* clock */
 #define IPL_SERIAL	9	/* serial */
 #define IPL_HIGH	10	/* everything */
+#endif
