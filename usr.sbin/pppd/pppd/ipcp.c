@@ -1304,8 +1304,11 @@ ip_check_options()
     /*
      * Default our local IP address based on our hostname.
      * If local IP address already given, don't bother.
+     *
+     * But don't do this if disable_defaultip is set, as we then
+     * won't use the result, and the resulting delay is a problem.
      */
-    if (wo->ouraddr == 0) {
+    if (wo->ouraddr == 0 && !disable_defaultip) {
 	/*
 	 * Look up our hostname (possibly with domain name appended)
 	 * and take the first IP address as our local IP address.
