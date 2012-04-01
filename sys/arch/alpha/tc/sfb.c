@@ -46,6 +46,7 @@ __KERNEL_RCSID(0, "$NetBSD: sfb.c,v 1.23 1999/12/06 19:25:56 drochner Exp $");
 #include <dev/tc/tcvar.h>
 #include <machine/sfbreg.h>
 #include <alpha/tc/sfbvar.h>
+#include <alpha/tc/sfbreg.h>
 #include <alpha/tc/bt459reg.h>
 
 #include <dev/rcons/raster.h>
@@ -67,22 +68,495 @@ void	sfb_getdevconfig __P((tc_addr_t dense_addr, struct sfb_devconfig *dc));
 struct sfb_devconfig sfb_console_dc;
 tc_addr_t sfb_consaddr;
 
+#if 0
+/* kept here in case they ever decide to fix the auto-swap
+   of font data in wscons_rinit.c */
+static __inline__ unsigned int bitrev32(unsigned int) __attribute__((__const__));
+static __inline__ unsigned int bitrev32(unsigned int v)
+{
+ v = (v << 16) | (v >> 16);
+ v = ((v & 0x00ff00ff) << 8) | ((v >> 8) & 0x00ff00ff);
+ v = ((v & 0x0f0f0f0f) << 4) | ((v >> 4) & 0x0f0f0f0f);
+ v = ((v & 0x33333333) << 2) | ((v >> 2) & 0x33333333);
+ v = ((v & 0x55555555) << 1) | ((v >> 1) & 0x55555555);
+ return(v);
+}
+#else
+#define bitrev32(x) (x)
+#endif
+
+static void sfb_docopy_fwd(struct sfb_devconfig *dc, int fx, int fy, int tx, int ty, int w, int h)
+{
+ volatile unsigned int *lp;
+ volatile unsigned int *fp;
+ volatile unsigned int *tp;
+ volatile unsigned int *fp0;
+ volatile unsigned int *tp0;
+ int fxa;
+ int fxo;
+ int txa;
+ int txo;
+ int i;
+ int y;
+ int pxs;
+ unsigned int m1;
+ unsigned int m2;
+ volatile struct sfb_asic *asic;
+ int rowints;
+
+ rowints = dc->dc_rowbytes >> 2;
+ asic = (void *) (SFB_ASIC_OFFSET + (char *)dc->dc_vaddr);
+ tc_wmb();
+ asic->mode = SFB_MODE_COPY;
+ asic->rop = SFB_ROP_SRC;
+ asic->planemask = ~0U;
+ lp = (volatile unsigned int *) dc->dc_videobase;
+ fxa = fx & ~7;
+ fxo = fx & 7;
+ txa = tx & ~7;
+ txo = tx & 7;
+ if (txo < fxo)
+  { txa -= 2;
+    txo += 8;
+  }
+ pxs = txo - fxo;
+ asic->pixelshift = pxs;
+ fp = lp + (fy * rowints) + (fxa>>2);
+ tp = lp + (ty * rowints) + (txa>>2);
+ if (txo+w <= 32)
+  { m1 = ((1UL << w) - 1) << txo;
+    tc_wmb();
+    for (i=0;i<h;i++)
+     { *fp = ~0U;
+       tc_wmb();
+       *tp = m1;
+       tc_wmb();
+       fp += rowints;
+       tp += rowints;
+     }
+  }
+ else
+  { m1 = (~0U) << txo;
+    m2 = ~((~0U) << ((w+txo) & 31));
+    if (! m2) m2 = ~0U;
+    fp0 = fp;
+    tp0 = tp;
+    for (y=0;y<h;y++)
+     { fp[0] = ~0U;
+       tc_wmb();
+       tp[0] = m1;
+       tc_wmb();
+       for (i=w+txo-32;i>32;i-=32)
+	{ *(fp+=8) = ~0U;
+	  tc_wmb();
+	  *(tp+=8) = ~0U;
+	  tc_wmb();
+	}
+       *(fp+=8) = ~0U;
+       tc_wmb();
+       *(tp+=8) = m2;
+       tc_wmb();
+       fp = fp0 += rowints;
+       tp = tp0 += rowints;
+     }
+  }
+ asic->mode = SFB_MODE_SIMPLE;
+ tc_wmb();
+}
+
+static void sfb_docopy_rev(struct sfb_devconfig *dc, int fx, int fy, int tx, int ty, int w, int h)
+{
+ volatile unsigned int *lp;
+ volatile unsigned int *fp;
+ volatile unsigned int *tp;
+ volatile unsigned int *fp0;
+ volatile unsigned int *tp0;
+ int fxa;
+ int fxo;
+ int txa;
+ int txo;
+ int i;
+ int y;
+ int pxs;
+ unsigned int m1;
+ unsigned int m2;
+ volatile struct sfb_asic *asic;
+ int rowints;
+
+ rowints = dc->dc_rowbytes >> 2;
+ asic = (void *) (SFB_ASIC_OFFSET + (char *)dc->dc_vaddr);
+ tc_wmb();
+ asic->mode = SFB_MODE_COPY;
+ asic->rop = SFB_ROP_SRC;
+ asic->planemask = ~0U;
+ lp = (volatile unsigned int *) dc->dc_videobase;
+ fxa = fx & ~7;
+ fxo = fx & 7;
+ txa = tx & ~7;
+ txo = tx & 7;
+ if (txo < fxo)
+  { txa -= 2;
+    txo += 8;
+  }
+ pxs = txo - fxo;
+ asic->pixelshift = pxs;
+ fp = lp + (fy * rowints) + (fxa>>2);
+ tp = lp + (ty * rowints) + (txa>>2);
+ if (txo+w <= 32)
+  { m1 = ((1UL << w) - 1) << txo;
+    fp += rowints * (h-1);
+    tp += rowints * (h-1);
+    tc_wmb();
+    for (i=0;i<h;i++)
+     { *fp = ~0U;
+       tc_wmb();
+       *tp = m1;
+       tc_wmb();
+       fp -= rowints;
+       tp -= rowints;
+     }
+  }
+ else
+  { m1 = (~0U) << txo;
+    m2 = ~((~0U) << ((w+txo) & 31));
+    if (! m2) m2 = ~0U;
+    fp0 = fp += (rowints * (h-1)) + (((w+txo+31) >> 2) & ~7);
+    tp0 = tp += (rowints * (h-1)) + (((w+txo+31) >> 2) & ~7);
+    for (y=0;y<h;y++)
+     { *(fp-=8) = ~0U;
+       tc_wmb();
+       *(tp-=8) = m2;
+       tc_wmb();
+       for (i=w+txo-32;i>32;i-=32)
+	{ *(fp-=8) = ~0U;
+	  tc_wmb();
+	  *(tp-=8) = ~0U;
+	  tc_wmb();
+	}
+       *(fp-=8) = ~0U;
+       tc_wmb();
+       *(tp-=8) = m1;
+       tc_wmb();
+       fp = fp0 -= rowints;
+       tp = tp0 -= rowints;
+     }
+  }
+ asic->mode = SFB_MODE_SIMPLE;
+ tc_wmb();
+}
+
+static void sfb_fillrect(struct sfb_devconfig *dc, int x, int y, int w, int h, int rop, int val)
+{
+ volatile unsigned int *lp;
+ volatile unsigned int *p;
+ volatile unsigned int *p0;
+ volatile struct sfb_asic *asic;
+ int rowints;
+ int xa;
+ int xo;
+ unsigned int m;
+ int i;
+
+ rowints = dc->dc_rowbytes >> 2;
+ asic = (void *) (SFB_ASIC_OFFSET + (char *)dc->dc_vaddr);
+ tc_wmb();
+ asic->mode = SFB_MODE_STIPPLE_TRANSP;
+ asic->rop = rop;
+ asic->planemask = ~0U;
+ asic->fg = (val & 0xff) * 0x01010101U;
+ tc_wmb();
+ lp = (volatile unsigned int *) dc->dc_videobase;
+ xa = x & ~7;
+ xo = x & 7;
+ p0 = lp + (y * rowints) + (xa>>2);
+ if (xo+w <= 32)
+  { m = ((1UL << w) - 1) << xo;
+    for (i=0;i<h;i++)
+     { *p0 = m;
+       tc_wmb();
+       p0 += rowints;
+     }
+  }
+ else
+  { m = (~0U) << xo;
+    p = p0;
+    for (i=0;i<h;i++)
+     { *p = m;
+       tc_wmb();
+       p += rowints;
+     }
+    w -= 32 - xo;
+    while (w > 32)
+     { p = p0 += 8;
+       for (i=0;i<h;i++)
+	{ *p = ~0U;
+	  tc_wmb();
+	  p += rowints;
+	}
+       w -= 32;
+     }
+    m = (1UL << w) - 1;
+    p = p0 += 8;
+    for (i=0;i<h;i++)
+     { *p = m;
+       tc_wmb();
+       p += rowints;
+     }
+  }
+ asic->mode = SFB_MODE_SIMPLE;
+ tc_wmb();
+}
+
+static void sfb_drawraster(struct sfb_devconfig *dc, int x, int y, struct raster *r, int rop, int fg, int bg)
+{
+ volatile unsigned int *lp;
+ volatile unsigned int *p;
+ volatile unsigned int *p0;
+ volatile struct sfb_asic *asic;
+ u_int32_t *rpix;
+ u_int32_t *rpix0;
+ unsigned long int pixbuf;
+ int rowints;
+ int xa;
+ int xo;
+ unsigned int m;
+ int w;
+ int i;
+
+ rowints = dc->dc_rowbytes >> 2;
+ asic = (void *) (SFB_ASIC_OFFSET + (char *)dc->dc_vaddr);
+ tc_wmb();
+ asic->mode = SFB_MODE_STIPPLE_OPAQUE;
+ asic->rop = rop;
+ asic->planemask = ~0U;
+ asic->fg = (fg & 0xff) * 0x01010101U;
+ asic->bg = (bg & 0xff) * 0x01010101U;
+ tc_wmb();
+ lp = (volatile unsigned int *) dc->dc_videobase;
+ xa = x & ~7;
+ xo = x & 7;
+ p0 = lp + (y * rowints) + (xa>>2);
+ rpix = r->pixels;
+ if (xo+r->width <= 32)
+  { m = ((1UL << r->width) - 1) << xo;
+    for (i=r->height;i>0;i--)
+     { asic->pixelmask = m;
+       tc_wmb();
+       *p0 = bitrev32(*rpix) << xo;
+       tc_wmb();
+       p0 += rowints;
+       rpix += r->linelongs;
+     }
+  }
+ else
+  { rpix0 = rpix;
+    for (i=r->height;i>0;i--)
+     { asic->pixelmask = ((1UL << r->width) - 1) << xo;
+       tc_wmb();
+       pixbuf = *rpix++;
+       p = p0;
+       *p = bitrev32(pixbuf>>xo);
+       tc_wmb();
+       for (w=xo+r->width-32;w>32;w-=32)
+	{ pixbuf = (pixbuf << 32) | *rpix++;
+	  *(p+=8) = bitrev32(pixbuf>>xo);
+	  tc_wmb();
+	}
+       if (w > xo) pixbuf = (pixbuf << 32) | *rpix;
+       if (w < 32)
+	{ asic->pixelmask = (1UL << w) - 1;
+	  tc_wmb();
+	}
+       *(p+=8) = bitrev32(pixbuf>>xo);
+       tc_wmb();
+       p0 += rowints;
+       rpix = rpix0 += r->linelongs;
+     }
+  }
+ asic->mode = SFB_MODE_SIMPLE;
+ tc_wmb();
+}
+
+static void sfb_copyrows(void *cookie, int src, int dst, int n)
+{
+ struct sfb_devconfig *dc;
+
+ dc = cookie;
+ if (dst == src) return;
+ if (src < 0)
+  { n += src;
+    src = 0;
+  }
+ if (src+n > dc->dc_rcons.rc_maxrow) n = dc->dc_rcons.rc_maxrow - src;
+ if (dst < 0)
+  { n += dst;
+    dst = 0;
+  }
+ if (dst+n > dc->dc_rcons.rc_maxrow) n = dc->dc_rcons.rc_maxrow - dst;
+ if (n <= 0) return;
+ if (dst < src)
+  { if (src+n == dc->dc_rcons.rc_maxrow)
+     { sfb_docopy_fwd( dc,
+		       0, src*dc->dc_rcons.rc_font->height,
+		       0, dst*dc->dc_rcons.rc_font->height,
+		       dc->dc_wid, dc->dc_ht-(src*dc->dc_rcons.rc_font->height) );
+     }
+    else
+     { sfb_docopy_fwd( dc,
+		       0, src*dc->dc_rcons.rc_font->height,
+		       0, dst*dc->dc_rcons.rc_font->height,
+		       dc->dc_wid, n*dc->dc_rcons.rc_font->height );
+     }
+  }
+ else
+  { sfb_docopy_rev( dc,
+		    0, dc->dc_rcons.rc_font->height*--src,
+		    0, dc->dc_rcons.rc_font->height*--dst,
+		    dc->dc_wid, n*dc->dc_rcons.rc_font->height );
+  }
+}
+
+static void sfb_copycols(void *cookie, int row, int src, int dst, int n)
+{
+ struct sfb_devconfig *dc;
+
+ dc = cookie;
+ if (dst == src) return;
+ if (src < 0)
+  { n += src;
+    src = 0;
+  }
+ if (src+n > dc->dc_rcons.rc_maxcol) n = dc->dc_rcons.rc_maxcol - src;
+ if (dst < 0)
+  { n += dst;
+    dst = 0;
+  }
+ if (dst+n > dc->dc_rcons.rc_maxcol) n = dc->dc_rcons.rc_maxcol - dst;
+ if (n <= 0) return;
+ row *= dc->dc_rcons.rc_font->height;
+ if (dst < src)
+  { sfb_docopy_fwd( dc,
+		    src*dc->dc_rcons.rc_font->width, row,
+		    dst*dc->dc_rcons.rc_font->width, row,
+		    n*dc->dc_rcons.rc_font->width, dc->dc_rcons.rc_font->height );
+  }
+ else
+  { sfb_docopy_rev( dc,
+		    src*dc->dc_rcons.rc_font->width, row,
+		    dst*dc->dc_rcons.rc_font->width, row,
+		    n*dc->dc_rcons.rc_font->width, dc->dc_rcons.rc_font->height );
+  }
+}
+
+static void sfb_erasecols(void *cookie, int row, int col, int n, long int attr)
+{
+ struct sfb_devconfig *dc;
+
+ dc = cookie;
+ if ((row < 0) || (row >= dc->dc_rcons.rc_maxrow)) return;
+ if (col < 0)
+  { n += col;
+    col = 0;
+  }
+ if (col+n > dc->dc_rcons.rc_maxcol) n = dc->dc_rcons.rc_maxcol - col;
+ if (n < 0) return;
+ sfb_fillrect( dc,
+	       col*dc->dc_rcons.rc_font->width, row*dc->dc_rcons.rc_font->height,
+	       n*dc->dc_rcons.rc_font->width, dc->dc_rcons.rc_font->height,
+	       SFB_ROP_SRC, attr?0xff:0x00 );
+}
+
+static void sfb_eraserows(void *cookie, int row, int n, long int attr)
+{
+ struct sfb_devconfig *dc;
+
+ dc = cookie;
+ if (row < 0)
+  { n += row;
+    row = 0;
+  }
+ if (row+n > dc->dc_rcons.rc_maxrow) n = dc->dc_rcons.rc_maxrow -= row;
+ if (row+n == dc->dc_rcons.rc_maxrow)
+  { sfb_fillrect( dc,
+		  0, row*dc->dc_rcons.rc_font->height,
+		  dc->dc_wid, dc->dc_ht-(row*dc->dc_rcons.rc_font->height),
+		  SFB_ROP_SRC, attr?0xff:0x00 );
+  }
+ else
+  { sfb_fillrect( dc,
+		  0, row*dc->dc_rcons.rc_font->height,
+		  dc->dc_wid, n*dc->dc_rcons.rc_font->height,
+		  SFB_ROP_SRC, attr?0xff:0x00 );
+  }
+}
+
+static void sfb_cursor(void *cookie, int on, int row, int col)
+{
+ struct sfb_devconfig *dc;
+
+ dc = cookie;
+ if (on)
+  { dc->dc_soft_curs_r = row;
+    dc->dc_soft_curs_c = col;
+    dc->dc_soft_curs_up = 1;
+  }
+ else
+  { if (! dc->dc_soft_curs_up) return;
+    row = dc->dc_soft_curs_r;
+    col = dc->dc_soft_curs_c;
+    dc->dc_soft_curs_up = 0;
+  }
+ if ( (row < 0) || (row >= dc->dc_rcons.rc_maxrow) ||
+      (col < 0) || (col >= dc->dc_rcons.rc_maxcol) ) return;
+ sfb_fillrect( dc,
+	       col*dc->dc_rcons.rc_font->width, row*dc->dc_rcons.rc_font->height,
+	       dc->dc_rcons.rc_font->width, dc->dc_rcons.rc_font->height,
+	       SFB_ROP_NOT(SFB_ROP_DST), 0 );
+}
+
+static int sfb_mapchar(void *cookie, int chr, unsigned int *inxp)
+{
+ *inxp = chr & 0xff;
+ return(0);
+}
+
+static void sfb_putchar(void *cookie, int row, int col, u_int chr, long int attr)
+{
+ struct sfb_devconfig *dc;
+
+ dc = cookie;
+ if ( (row < 0) || (row >= dc->dc_rcons.rc_maxrow) ||
+      (col < 0) || (col >= dc->dc_rcons.rc_maxcol) ) return;
+ sfb_drawraster( dc,
+		 col*dc->dc_rcons.rc_font->width, row*dc->dc_rcons.rc_font->height,
+		 dc->dc_rcons.rc_font->chars[chr&0xff].r,
+		 attr?SFB_ROP_NOT(SFB_ROP_SRC):SFB_ROP_SRC, 0xff, 0x00 );
+}
+
+static int sfb_alloc_attr(void *cookie, int fg, int bg, int flags, long int *attr)
+{
+ if (flags & (WSATTR_HILIT|WSATTR_BLINK|WSATTR_UNDERLINE|WSATTR_WSCOLORS)) return(EINVAL);
+ *attr = (flags & WSATTR_REVERSE) ? 1 : 0;
+ return(0);
+}
+
 struct wsdisplay_emulops sfb_emulfuncs = {
-	rcons_cursor,			/* could use hardware cursor; punt */
-	rcons_mapchar,
-	rcons_putchar,
-	rcons_copycols,
-	rcons_erasecols,
-	rcons_copyrows,
-	rcons_eraserows,
-	rcons_alloc_attr
+	sfb_cursor,
+	sfb_mapchar,
+	sfb_putchar,
+	sfb_copycols,
+	sfb_erasecols,
+	sfb_copyrows,
+	sfb_eraserows,
+	sfb_alloc_attr
 };
 
 struct wsscreen_descr sfb_stdscreen = {
 	"std",
 	0, 0,	/* will be filled in -- XXX shouldn't, it's global */
 	&sfb_emulfuncs,
-	0, 0
+	0, 0,
+	WSSCREEN_REVERSE
 };
 
 const struct wsscreen_descr *_sfb_scrlist[] = {
@@ -316,10 +790,12 @@ sfb_getdevconfig(dense_addr, dc)
 	rcp->rc_crow = rcp->rc_ccol = -1;
 	rcp->rc_crowp = &rcp->rc_crow;
 	rcp->rc_ccolp = &rcp->rc_ccol;
-	rcons_init(rcp, 34, 80);
+	rcons_init(rcp, 9999, 9999);
 
 	sfb_stdscreen.nrows = dc->dc_rcons.rc_maxrow;
 	sfb_stdscreen.ncols = dc->dc_rcons.rc_maxcol;
+
+	dc->dc_soft_curs_up = 0;
 }
 
 void
@@ -425,6 +901,7 @@ sfbioctl(v, cmd, data, flag, p)
 
 	case FBIOGCURMAX:
 		return sfb_get_curmax(dc, (struct fbcurpos *)data);
+
 	}
 	return (-1);
 }
@@ -501,8 +978,7 @@ sfb_cnattach(addr)
 
 	rcons_alloc_attr(&dcp->dc_rcons, 0, 0, 0, &defattr);
 
-	wsdisplay_cnattach(&sfb_stdscreen, &dcp->dc_rcons,
-			   0, 0, defattr);
+	wsdisplay_cnattach(&sfb_stdscreen, dcp, 0, 0, defattr);
 	sfb_consaddr = addr;
 	return(0);
 }

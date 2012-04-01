@@ -69,6 +69,10 @@ struct sfb_devconfig {
 	int	dc_cursor_blue[3];
 
 	char	dc_cursor_bitmap[1024];
+
+	int dc_soft_curs_r;
+	int dc_soft_curs_c;
+	int dc_soft_curs_up;
 };
 
 struct sfb_softc {
