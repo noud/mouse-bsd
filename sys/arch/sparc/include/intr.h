@@ -39,6 +39,8 @@
 #ifndef _SPARC_INCLUDE_INTR_H_
 #define _SPARC_INCLUDE_INTR_H_
 
+#include <machine/psl.h> /* machine/intr.h is supposed to prototype spl*() */
+
 /* XXX - arbitrary numbers; no interpretation is defined yet */
 #define IPL_NONE	0	/* nothing */
 #define IPL_SOFTCLOCK	1	/* timeouts */
