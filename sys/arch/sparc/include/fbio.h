@@ -46,6 +46,9 @@
  * Frame buffer ioctls (from Sprite, trimmed to essentials for X11).
  */
 
+#include <sys/types.h>
+#include <sys/ioccom.h>
+
 /*
  * Frame buffer type codes.
  */
