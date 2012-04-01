@@ -76,10 +76,12 @@
 #ifndef _SYS_MBUF_H_
 #define _SYS_MBUF_H_
 
+#include <sys/types.h>
 #ifndef M_WAITOK
 #include <sys/malloc.h>
 #endif
 #include <sys/pool.h>
+#include <machine/param.h>
 
 /*
  * Mbufs are of a single size, MSIZE (machine/param.h), which
