@@ -410,16 +410,7 @@ pr_header(nowp, nusers)
 			if (days > 0)
 				(void)printf(" %d day%s,", days,
 				    days > 1 ? "s" : "");
-			if (hrs > 0 && mins > 0)
-				(void)printf(" %2d:%02d,", hrs, mins);
-			else {
-				if (hrs > 0)
-					(void)printf(" %d hr%s,",
-					    hrs, hrs > 1 ? "s" : "");
-				if (mins > 0)
-					(void)printf(" %d min%s,",
-					    mins, mins > 1 ? "s" : "");
-			}
+			(void)printf(" %2d:%02d,", hrs, mins);
 		}
 	}
 
