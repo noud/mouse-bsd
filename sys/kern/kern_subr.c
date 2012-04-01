@@ -112,7 +112,6 @@ static const char *findblkname __P((int));
 static struct device *finddevice __P((const char *));
 static struct device *getdisk __P((char *, int, int, dev_t *, int));
 static struct device *parsedisk __P((char *, int, int, dev_t *));
-static int getstr __P((char *, int));
 
 int
 uiomove(buf, n, uio)
@@ -1012,10 +1011,7 @@ parsedisk(str, len, defpart, devp)
 	return (dv);
 }
 
-/*
- * XXX shouldn't this be a common function?
- */
-static int
+int
 getstr(cp, size)
 	char *cp;
 	int size;

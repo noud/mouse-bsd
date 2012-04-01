@@ -281,6 +281,7 @@ void	exechook_disestablish __P((void *));
 void	doexechooks __P((struct proc *));
 
 int	uiomove __P((void *, int, struct uio *));
+int	getstr __P((char *, int));
 
 #ifdef _KERNEL
 caddr_t	allocsys __P((caddr_t, caddr_t (*)(caddr_t)));
