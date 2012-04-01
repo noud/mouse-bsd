@@ -38,6 +38,7 @@
 #ifndef _SYS_FILE_H_
 #define _SYS_FILE_H_
 
+#include <sys/types.h>
 #include <sys/fcntl.h>
 #include <sys/unistd.h>
 
