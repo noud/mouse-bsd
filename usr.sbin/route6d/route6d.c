@@ -2155,6 +2155,7 @@ addroute(rrt, gw, ifcp)
 	struct	rt_msghdr	*rtm;
 	struct	sockaddr_in6	*sin;
 	int	len;
+	unsigned short int rtmflags;
 
 	np = &rrt->rrt_info;
 	inet_ntop(AF_INET6, (void *)gw, (char *)buf1, sizeof(buf1));
@@ -2175,7 +2176,18 @@ addroute(rrt, gw, ifcp)
 	rtm->rtm_version = RTM_VERSION;
 	rtm->rtm_seq = ++seq;
 	rtm->rtm_pid = pid;
-	rtm->rtm_flags = rrt->rrt_flags & RTF_ROUTE_H;
+	rtmflags = RTF_UP | RTF_GATEWAY;
+	if (np->rip6_plen == 128)
+		rtmflags |= RTF_HOST;
+	if (rtmflags != (rrt->rrt_flags & RTF_ROUTE_H)) {
+		if (rtlog)
+			fprintf(rtlog, "%s: WARNING: rtm_flags %04x, rtmflags %04x\n",
+			    hms(), rtm->rtm_flags, rtmflags);
+		tracet(0, "WARNING: rtm_flags %04x, rtmflags %04x, for %s/%d\n",
+		    rtm->rtm_flags, rtmflags,
+		    inet6_n2p(&np->rip6_dest), np->rip6_plen);
+	}
+	rtm->rtm_flags = rtmflags;
 	rtm->rtm_addrs = RTA_DST | RTA_GATEWAY | RTA_NETMASK;
 	rtm->rtm_rmx.rmx_hopcount = np->rip6_metric - 1;
 	rtm->rtm_inits = RTV_HOPCOUNT;
@@ -2243,6 +2255,8 @@ delroute(np, gw)
 	rtm->rtm_seq = ++seq;
 	rtm->rtm_pid = pid;
 	rtm->rtm_flags = RTF_UP | RTF_GATEWAY;
+	if (np->rip6_plen == 128)
+		rtm->rtm_flags |= RTF_HOST;
 	rtm->rtm_addrs = RTA_DST | RTA_GATEWAY | RTA_NETMASK;
 	sin = (struct sockaddr_in6 *)&buf[sizeof(struct rt_msghdr)];
 	/* Destination */
