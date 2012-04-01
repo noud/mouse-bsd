@@ -336,6 +336,17 @@ in_cksum(const struct ip *ip)
 	return (sum);
 }
 
+static void proto_98_print(const u_char *cp, u_int len)
+{
+ if (len < 8)
+  { printf("[|proto98]");
+    return;
+  }
+ if (vflag) printf("sig %02x%02x%02x%02x ",cp[0],cp[1],cp[2],cp[3]);
+ printf("id %02x: ",cp[4]);
+ ip_print(cp+8,len-8);
+}
+
 /*
  * print an IP datagram.
  */
@@ -560,6 +571,10 @@ again:
 				printf(" (mobile encap)");
 				return;
 			}
+			break;
+
+		case 98:
+			proto_98_print(cp,len);
 			break;
 
 		default:
