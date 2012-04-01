@@ -43,6 +43,9 @@
 #ifndef _SYS_CONF_H_
 #define _SYS_CONF_H_
 
+#include <sys/cdefs.h>
+#include <sys/types.h>
+
 /*
  * Definitions of device driver entry switches
  */
