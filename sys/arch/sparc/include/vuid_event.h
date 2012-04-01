@@ -44,6 +44,9 @@
  *	@(#)vuid_event.h	8.1 (Berkeley) 6/11/93
  */
 
+#include <sys/time.h>
+#include <sys/types.h>
+
 /*
  * The following is a minimal emulation of Sun's `Firm_event' structures
  * and related operations necessary to make X11 happy (i.e., make it
