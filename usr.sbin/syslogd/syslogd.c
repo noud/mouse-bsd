@@ -72,7 +72,7 @@ __RCSID("$NetBSD: syslogd.c,v 1.34 2000/02/18 09:44:46 lukem Exp $");
 #define	MAXLINE		1024		/* maximum line length */
 #define	MAXSVLINE	120		/* maximum saved line length */
 #define DEFUPRI		(LOG_USER|LOG_NOTICE)
-#define DEFSPRI		(LOG_KERN|LOG_CRIT)
+#define DEFSPRI		(LOG_KERN|LOG_WARNING)
 #define TIMERINTVL	30		/* interval for checking flush, mark */
 #define TTYMSGTIME	1		/* timeout passed to ttymsg */
 
