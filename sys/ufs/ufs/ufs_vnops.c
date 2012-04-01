@@ -1939,7 +1939,8 @@ ufs_vinit(mntp, specops, fifoops, vpp)
 	case VREG:
 		break;
 	}
-	if (ip->i_number == ROOTINO)
+	/* Do we want "|| (ip->i_number == ROOTINO)" here? */
+	if (ip->i_number == VFSTOUFS(mntp)->um_rootino)
                 vp->v_flag |= VROOT;
 	/*
 	 * Initialize modrev times

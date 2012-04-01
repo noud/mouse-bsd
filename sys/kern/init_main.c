@@ -138,6 +138,7 @@ int	boothowto;
 int	cold = 1;			/* still working on startup */
 struct	timeval boottime;
 struct	timeval runtime;
+struct	vnode *rootmountpoint;
 
 __volatile int start_init_exec;		/* semaphore for start_init() */
 
@@ -433,7 +434,8 @@ main()
 
 	/*
 	 * Get the vnode for '/'.  Set filedesc0.fd_fd.fd_cdir to
-	 * reference it.
+	 * reference it.  If RB_CHROOT, prompt for root (but set fd_cdir
+	 * first, for namei()).
 	 */
 	if (VFS_ROOT(mountlist.cqh_first, &rootvnode))
 		panic("cannot find root vnode");
@@ -441,6 +443,33 @@ main()
 	VREF(cwdi0.cwdi_cdir);
 	VOP_UNLOCK(rootvnode, 0);
 	cwdi0.cwdi_rdir = NULL;
+	rootmountpoint = 0;
+	if (boothowto & RB_CHROOT) {
+		struct nameidata nd;
+		int error;
+		int len;
+		char buf[512];
+		while (1) {
+			printf("root directory: ");
+			len = getstr(&buf[0], sizeof(buf));
+			if (len == 0)
+				continue;
+			NDINIT(&nd, LOOKUP, FOLLOW, UIO_SYSSPACE, &buf[0], p);
+			error = namei(&nd);
+			if (error == 0)
+				break;
+			printf("%s: error %d\n", &buf[0], error);
+		}
+		if (nd.ni_vp == rootvnode)
+			vrele(nd.ni_vp);
+		else {
+			rootmountpoint = rootvnode;
+			rootvnode = nd.ni_vp;
+			cwdi0.cwdi_cdir = rootvnode;
+			VREF(rootvnode);
+			VOP_UNLOCK(rootvnode, 0);
+		}
+	}
 
 	/*
 	 * Now that root is mounted, we can fixup initproc's CWD

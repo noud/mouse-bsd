@@ -56,6 +56,7 @@
 #define	RB_MINIROOT	0x200	/* mini-root present in memory at boot time */
 #define	RB_STRING	0x400	/* use provided bootstr */
 #define	RB_POWERDOWN	(RB_HALT|0x800) /* turn power off (or at least halt) */
+#define RB_CHROOT       0x1000	/* prompt for alternative root dir */
 
 /*
  * Constants for converting boot-style device number to type,

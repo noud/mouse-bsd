@@ -121,6 +121,8 @@ const char *mountcompatnames[] = {
 const int nmountcompatnames = sizeof(mountcompatnames) /
     sizeof(mountcompatnames[0]);
 
+extern struct vnode *rootmountpoint; /* XXX belongs in a .h */
+
 /* ARGSUSED */
 int
 sys_mount(p, v, retval)
@@ -152,6 +154,11 @@ sys_mount(p, v, retval)
 	if ((error = namei(&nd)) != 0)
 		return (error);
 	vp = nd.ni_vp;
+	if ((vp == rootvnode) && rootmountpoint) {
+		vrele(vp);
+		vp = rootmountpoint;
+		VREF(vp);
+	}
 	/*
 	 * A lookup in VFS_MOUNT might result in an attempt to
 	 * lock this vnode again, so make the lock resursive.
