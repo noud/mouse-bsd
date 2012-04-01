@@ -61,6 +61,26 @@ __RCSID("$NetBSD: termin.c,v 1.5 1998/11/06 20:05:12 christos Exp $");
 
 #include "../general/globals.h"
 
+#ifdef	USE_TERMIO
+# ifndef	VINTR
+#  ifdef SYSV_TERMIO
+#   include <sys/termio.h>
+#  else
+#   include <sys/termios.h>
+#   define termio termios
+#  endif
+# endif
+#endif
+#if defined(NO_CC_T) || !defined(USE_TERMIO)
+# if !defined(USE_TERMIO)
+typedef char cc_t;
+# else
+typedef unsigned char cc_t;
+# endif
+#endif
+
+extern cc_t escape;
+
 #define IsControl(c)	(!isprint((unsigned char)c) || (isspace((unsigned char)c) && ((c) != ' ')))
 
 #define NextState(x)	(x->next)
@@ -202,7 +222,7 @@ char	*buffer;		/* the data read in */
 int	count;			/* how many bytes in this buffer */
 {
     state *regControlPointer;
-    char c;
+    int c;
     int result;
     int origCount;
     extern int bellwinup;
@@ -237,6 +257,17 @@ int	count;			/* how many bytes in this buffer */
     while (count) {
 	c = *buffer++&0x7f;
 	count--;
+
+	if (c == escape) {
+		if (count && (*buffer&0x7f) == escape) {
+			buffer++;
+			count--;
+		} else {
+			command(0, (char *)0, 0);
+			RefreshScreen();
+			continue;
+		}
+	}
 
 	if (!InControl && !IsControl(c)) {
 	    AddChar(c);			/* add ascii character */
