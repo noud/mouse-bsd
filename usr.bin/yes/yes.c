@@ -51,13 +51,11 @@ __RCSID("$NetBSD: yes.c,v 1.5 1997/10/19 14:28:27 mrg Exp $");
 int main __P((int, char **));
 
 int
-main(argc, argv)
-	int argc;
-	char **argv;
+main(int argc, char **argv)
 {
 	if (argc > 1)
-		for(;;)
-			(void)puts(argv[1]);
-	else for (;;)
-		(void)puts("y");
+		while (puts(argv[1]) >= 0) ;
+	else
+		while (puts("y") >= 0) ;
+	return(1);
 }
