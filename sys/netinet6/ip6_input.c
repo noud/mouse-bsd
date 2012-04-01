@@ -287,10 +287,33 @@ ip6_input(m)
 	IP6_EXTHDR_CHECK(m, 0, sizeof(struct ip6_hdr), /*nothing*/);
 #endif
 
-	if (m->m_len < sizeof(struct ip6_hdr)) {
-		struct ifnet *inifp;
-		inifp = m->m_pkthdr.rcvif;
-		if ((m = m_pullup(m, sizeof(struct ip6_hdr))) == 0) {
+	/*
+	 * If the IPv6 header is not aligned, slurp it up into a new
+	 * mbuf with space for link headers, in the event we forward
+	 * it.  OTherwise, if it is aligned, make sure the entire base
+	 * IPv6 header is in the first mbuf of the chain.
+	 *
+	 * We really should be able to copyup() just sizeof(ip6_hdr)
+	 *  here, but if we do, the IP6_EXTHDR_CHECK call in
+	 *  icmp6_input() (possibly among others) fails.  So, instead,
+	 *  we copy up as much as we can: either the whole packet or a
+	 *  full internal mbuf worth, whichever is less.  I don't like
+	 *  the (at least partially unnecessary) copying, but I prefer
+	 *  inefficient to broken.
+	 */
+	if (IP6_HDR_ALIGNED_P(mtod(m, caddr_t)) == 0) {
+		struct ifnet *inifp = m->m_pkthdr.rcvif;
+		int n;
+		n = (max_linkhdr + 3) & ~3;
+		if ((m = m_copyup(m,min(m->m_pkthdr.len,MHLEN-n),n)) == 0) {
+			/* XXXJRT new stat, please */
+			ip6stat.ip6s_toosmall++;
+			in6_ifstat_inc(inifp, ifs6_in_hdrerr);
+			return;
+		}
+	} else if (m->m_len < sizeof(struct ip6_hdr)) {
+		struct ifnet *inifp = m->m_pkthdr.rcvif;
+		if ((m = m_pullup(m, sizeof(struct ip6_hdr))) == NULL) {
 			ip6stat.ip6s_toosmall++;
 			in6_ifstat_inc(inifp, ifs6_in_hdrerr);
 			return;
