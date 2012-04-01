@@ -47,12 +47,16 @@
 #include "opt_multiprocessor.h"
 #endif
 
+#include <sys/types.h>
 #if defined(MULTIPROCESSOR)
 #include <machine/cpu.h>		/* curcpu() and cpu_info */
 #endif
 #include <machine/proc.h>		/* Machine-dependent proc substruct. */
 #include <sys/lock.h>
 #include <sys/queue.h>
+#include <sys/param.h>
+#include <sys/cdefs.h>
+#include <sys/time.h>
 
 /*
  * One structure allocated per session.
