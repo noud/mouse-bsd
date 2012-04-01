@@ -175,15 +175,30 @@ kbdread(dev, uio, flags)
 	return (ev_read(&k->k_events, uio, flags));
 }
 
-/* this routine should not exist, but is convenient to write here for now */
 int
 kbdwrite(dev, uio, flags)
 	dev_t dev;
 	struct uio *uio;
 	int flags;
 {
+	struct kbd_softc *k;
+	char c;
+	int error;
+	int s;
 
-	return (EOPNOTSUPP);
+	s = spltty();
+	k = kbd_cd.cd_devs[minor(dev)];
+	error = kbd_drain_tx(k);
+	if (error) goto out;
+	while (uio->uio_resid) {
+		error = uiomove(&c,1,uio);
+		if (error) goto out;
+		kbd_output(k,c);
+		kbd_start_tx(k);
+	}
+out:;
+	splx(s);
+	return(error);
 }
 
 int
