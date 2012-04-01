@@ -38,6 +38,12 @@
 #ifndef _SYS_KTRACE_H_
 #define _SYS_KTRACE_H_
 
+#include <sys/uio.h>
+#include <sys/time.h>
+#include <sys/types.h>
+#include <sys/param.h>
+#include <sys/signal.h>
+
 /*
  * operations to ktrace system call  (KTROP(op))
  */
