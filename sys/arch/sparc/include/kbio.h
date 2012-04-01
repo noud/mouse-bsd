@@ -114,6 +114,8 @@ struct kiockeymap {
 #define	KIOCGLED	_IOR('k', 15, char)	/* get LED state */
 #define	KIOCLAYOUT	_IOR('k', 20, int)	/* get keyboard layout */
 
+#define KIOCBELL        _IOW('k',100,int)	/* arg is duration, in ms */
+
 #define	TR_NONE			0	/* X compat, unsupported */
 #define	TR_ASCII		1	/* X compat, unsupported */
 #define	TR_EVENT		2	/* X compat, unsupported */

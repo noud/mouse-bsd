@@ -209,6 +209,15 @@ static int kbd_oldkeymap __P((struct kbd_state *ks,
 	u_long cmd, struct okiockey *okio));
 #endif
 
+#ifdef KIOCBELL
+static int ringing = 0;
+static void kiocbell_stop(void *arg __attribute__((__unused__)))
+{
+ kbd_docmd(KBD_CMD_NOBELL,0);
+ ringing = 0;
+}
+#endif
+
 int
 kbdioctl(dev, cmd, data, flag, p)
 	dev_t dev;
@@ -272,6 +281,25 @@ kbdioctl(dev, cmd, data, flag, p)
 	case KIOCGLED:
 		*(char *)data = ks->kbd_leds;
 		break;
+
+#ifdef KIOCBELL
+	case KIOCBELL:
+		{
+			int s;
+			int ms;
+			ms = * (int *) data;
+			s = splsoftclock();
+			error = kbd_docmd(KBD_CMD_BELL,1);
+			if (! error) {
+				if (ringing)
+					untimeout(kiocbell_stop,0);
+				timeout(kiocbell_stop,0,((ms*hz)+999)/1000);
+				ringing = 1;
+			}
+			splx(s);
+		}
+		break;
+#endif
 
 	case FIONBIO:		/* we will remove this someday (soon???) */
 		break;
