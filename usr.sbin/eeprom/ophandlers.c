@@ -57,6 +57,8 @@ extern	int verbose;
 
 static	char err_str[BUFSIZE];
 
+static	void op_secpass __P((struct extabent *, struct opiocdesc *, char *));
+static	void op_secmode __P((struct extabent *, struct opiocdesc *, char *));
 static	void op_notsupp __P((struct extabent *, struct opiocdesc *, char *));
 
 /*
@@ -64,8 +66,8 @@ static	void op_notsupp __P((struct extabent *, struct opiocdesc *, char *));
  * deal with or require special treatment.
  */
 static	struct extabent opextab[] = {
-	{ "security-password",		op_notsupp },
-	{ "security-mode",		op_notsupp },
+	{ "security-password",		op_secpass },
+	{ "security-mode",		op_secmode },
 	{ "oem-logo",			op_notsupp },
 	{ NULL,				op_notsupp },
 };
@@ -159,6 +161,35 @@ op_handler(keyword, arg)
 
 	(void)close(fd);
 	return (NULL);
+}
+
+static void op_secpass(struct extabent *exent, struct opiocdesc *opiop, char *arg)
+{
+ if (arg)
+  { opiop->op_buf = arg;
+    opiop->op_buflen = strlen(arg);
+  }
+ else
+  { warnx("security-password not readable");
+  }
+}
+
+static void op_secmode(struct extabent *exent, struct opiocdesc *opiop, char *arg)
+{
+ if (arg)
+  { if ( !strcmp(arg,"none") ||
+	 !strcmp(arg,"command") ||
+	 !strcmp(arg,"full") )
+     { opiop->op_buf = arg;
+       opiop->op_buflen = strlen(arg);
+     }
+    else
+     { warnx("security-mode must be \"none\", \"command\", or \"full\"");
+     }
+  }
+ else
+  { printf("%s=%s\n",exent->ex_keyword,opiop->op_buf);
+  }
 }
 
 /* ARGSUSED */
