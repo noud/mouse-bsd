@@ -69,7 +69,7 @@ static	struct extabent opextab[] = {
 	{ "security-password",		op_secpass },
 	{ "security-mode",		op_secmode },
 	{ "oem-logo",			op_notsupp },
-	{ NULL,				op_notsupp },
+	{ NULL,				0 },
 };
 
 #define BARF(str1, str2) {						\
