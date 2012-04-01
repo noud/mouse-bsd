@@ -782,6 +782,11 @@ nobootinfo:
 			boothowto |= RB_ASKNAME;
 			break;
 
+		case 'r': /* chrooted boot */
+		case 'R':
+			boothowto |= RB_CHROOT;
+			break;
+
 		case 's': /* single-user (default, supported for sanity) */
 		case 'S':
 			boothowto |= RB_SINGLE;
