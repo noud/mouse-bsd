@@ -43,6 +43,8 @@
 mount requests
 .Sh SYNOPSIS
 .Nm
+.Op Fl a Ar addr
+.Op Fl p Ar port
 .Op Fl dn
 .Op Ar exportsfile
 .Sh DESCRIPTION
@@ -51,7 +53,7 @@ is the server for
 .Tn NFS
 mount requests from other client machines.
 .Nm
-listens for service requests at the port indicated in the
+listens for service requests to the service indicated in the
 .Tn NFS
 server specification; see
 .%T "Network File System Protocol Specification" ,
@@ -73,6 +75,22 @@ from reserved ports, but it is now no longer functional. It
 is only provided for backwards compatibility. Requests
 are checked for reserved ports on a per-export basis, see
 .Xr exports 5 .
+.It Fl a Ar addr
+Specifies an alternative
+.Ar addr Ns ess
+that the server is to listen on; the default is
+.Dv INADDR_ANY ,
+meaning
+.Sq all local addresses .
+.It Fl p Ar port
+Specifies an alternative
+.Ar port
+number that the server is to listen on; the default is for the OS to
+assign one, in the reserved port range if possible, or any free port if
+not.  (When
+.Fl p
+is used, the same port number is used for both TCP and UDP, which is
+often not the case otherwise.)
 .It Ar exportsfile
 The
 .Ar exportsfile

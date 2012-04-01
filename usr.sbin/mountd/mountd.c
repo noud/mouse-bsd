@@ -255,6 +255,63 @@ static void SYSLOG __P((int, const char *,...));
 #endif
 int main __P((int, char *[]));
 
+/* Create RPC transports. */
+static void create_transports(struct in_addr bindaddr, int bindport, SVCXPRT **udpp, SVCXPRT **tcpp)
+{
+ struct sockaddr_in sin;
+ int usock;
+ int tsock;
+ SVCXPRT *ux;
+ SVCXPRT *tx;
+
+ if ((bindaddr.s_addr != INADDR_ANY) || (bindport != 0))
+  { bzero(&sin,sizeof(sin));
+    sin.sin_family = AF_INET;
+    sin.sin_len = sizeof(sin);
+    sin.sin_addr = bindaddr;
+    sin.sin_port = bindport;
+    usock = socket(AF_INET,SOCK_DGRAM,IPPROTO_UDP);
+    if (usock < 0)
+     { syslog(LOG_ERR,"Can't create UDP socket");
+       exit(1);
+     }
+    if (bind(usock,(void *)&sin,sizeof(sin)) < 0)
+     { syslog(LOG_ERR,"Can't bind UDP socket");
+       exit(1);
+     }
+    bzero(&sin,sizeof(sin));
+    sin.sin_family = AF_INET;
+    sin.sin_len = sizeof(sin);
+    sin.sin_addr = bindaddr;
+    sin.sin_port = bindport;
+    tsock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
+    if (tsock < 0)
+     { syslog(LOG_ERR,"Can't create TCP socket");
+       exit(1);
+     }
+    if (bind(tsock,(void *)&sin,sizeof(sin)) < 0)
+     { syslog(LOG_ERR,"Can't bind TCP socket");
+       exit(1);
+     }
+  }
+ else
+  { usock = RPC_ANYSOCK;
+    tsock = RPC_ANYSOCK;
+  }
+ ux = svcudp_create(usock);
+ if (ux == 0)
+  { syslog(LOG_ERR,"Can't svcudp_create");
+    exit(1);
+  }
+ tx = svctcp_create(tsock,0,0);
+ if (tx == 0)
+  { syslog(LOG_ERR,"Can't svctcp_create");
+    exit(1);
+  }
+ *udpp = ux;
+ *tcpp = tx;
+}
+
 /*
  * Mountd server for NFS mount protocol as described in:
  * NFS: Network File System Protocol Specification, RFC1094, Appendix A
@@ -269,10 +326,27 @@ main(argc, argv)
 	char **argv;
 {
 	SVCXPRT *udptransp, *tcptransp;
+	struct in_addr bindaddr;
+	int bindport;
 	int c;
 
-	while ((c = getopt(argc, argv, "dnr")) != -1)
+	bindaddr.s_addr = INADDR_ANY;
+	bindport = 0;
+	while ((c = getopt(argc, argv, "a:p:dnr")) != -1)
 		switch (c) {
+		case 'a':
+			if (! inet_aton(optarg,&bindaddr)) {
+				fprintf(stderr, "Bad -a argument `%s'\n",optarg);
+				exit(1);
+			}
+			break;
+		case 'p':
+			bindport = atoi(optarg);
+			if ((bindport < 0) || (bindport > 65535)) {
+				fprintf(stderr, "Bad -p argument `%s'\n",optarg);
+				exit(1);
+			}
+			break;
 		case 'd':
 			debug = 1;
 			break;
@@ -281,7 +355,7 @@ main(argc, argv)
 		case 'r':
 			break;
 		default:
-			fprintf(stderr, "Usage: mountd [-d] [export_file]\n");
+			fprintf(stderr, "Usage: mountd [-a addr] [-d] [export_file]\n");
 			exit(1);
 		};
 	argc -= optind;
@@ -310,11 +384,7 @@ main(argc, argv)
 	(void)signal(SIGHUP, get_exportlist);
 	(void)signal(SIGTERM, send_umntall);
 	pidfile(NULL);
-	if ((udptransp = svcudp_create(RPC_ANYSOCK)) == NULL ||
-	    (tcptransp = svctcp_create(RPC_ANYSOCK, 0, 0)) == NULL) {
-		syslog(LOG_ERR, "Can't create socket");
-		exit(1);
-	}
+	create_transports(bindaddr, bindport, &udptransp, &tcptransp);
 	pmap_unset(RPCPROG_MNT, RPCMNT_VER1);
 	pmap_unset(RPCPROG_MNT, RPCMNT_VER3);
 	if (!svc_register(udptransp, RPCPROG_MNT, RPCMNT_VER1, mntsrv,
@@ -1772,13 +1842,6 @@ do_mount(line, lineno, ep, grp, exflags, anoncrp, dirp, dirplen, fsb)
 				    (grp->gr_type == GT_NET) ?
 				    grp->gr_ptr.gt_net.nt_name :
 				    "Unknown");
-				return (1);
-			}
-			if (opt_flags & OP_ALLDIRS) {
-				syslog(LOG_ERR,
-				"\"%s\", line %ld: Could not remount %s: %m",
-				    line, (unsigned long)lineno,
-				    dirp);
 				return (1);
 			}
 			/* back up over the last component */
