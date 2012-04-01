@@ -49,6 +49,11 @@
  * following in order to participate.
  */
 
+#ifndef ARCH_SPARC_INCLUDE_FBVAR_H
+#define ARCH_SPARC_INCLUDE_FBVAR_H
+
+#include <machine/fbio.h>
+
 #ifdef RASTERCONSOLE
 #include <dev/rcons/rcons.h>
 #include <dev/wscons/wsdisplayvar.h>
@@ -109,3 +114,5 @@ int	fbrcons_cols __P((void));
 int	fb_pfour_id __P((volatile void *));
 int	fb_pfour_get_video __P((struct fbdevice *));
 void	fb_pfour_set_video __P((struct fbdevice *, int));
+
+#endif
