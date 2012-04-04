@@ -620,8 +620,14 @@ nfssvc_nfsd(nsd, argp, p)
 				 * locking errors (usually, it's due to
 				 * forgetting to vput() something).
 				 */
-				panic("nfsd: locking botch in op %d",
-				    nd ? nd->nd_procnum : -1);
+#ifdef DEBUG
+				extern void printlockedvnodes(void);
+				printlockedvnodes();
+#endif
+				printf("nfsd: locking botch in op %d"
+				    " (before %d, after %d)\n",
+				    nd ? nd->nd_procnum : -1,
+				    lockcount, p->p_locks);
 			}
 #endif
 			if (mreq == NULL)
