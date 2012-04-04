@@ -2017,6 +2017,9 @@ nfsrv_getstream(slp, waitflag)
 
 	    /*
 	     * Now get the record part.
+	     *
+	     * Note that slp->ns_reclen may be 0.  Linux sometimes
+	     * generates 0-length records.
 	     */
 	    if (slp->ns_cc == slp->ns_reclen) {
 		recm = slp->ns_raw;
