@@ -542,17 +542,18 @@ check_console(p)
 }
 
 /*
- * List of paths to try when searching for "init".
+ * List of paths to try when searching for init.
  */
 static char *initpaths[] = {
 	"/sbin/init",
 	"/sbin/oinit",
 	"/sbin/init.bak",
-	NULL,
+	0
 };
+static char initpath[512];
 
 /*
- * Start the initial user process; try exec'ing each pathname in "initpaths".
+ * Start the initial user process.
  * The program is invoked with one argument containing the boot flags.
  */
 static void
@@ -569,7 +570,8 @@ start_init(arg)
 	int options, i, error;
 	register_t retval[2];
 	char flags[4], *flagsp;
-	char **pathp, *path, *slash, *ucp, **uap, *arg0, *arg1 = NULL;
+	int initpathx;
+	char *slash, *ucp, **uap, *arg0, *arg1 = NULL;
 
 	/*
 	 * Now in process 1.
@@ -603,7 +605,31 @@ start_init(arg)
 		panic("init: couldn't allocate argument space");
 	p->p_vmspace->vm_maxsaddr = (caddr_t)addr;
 
-	for (pathp = &initpaths[0]; (path = *pathp) != NULL; pathp++) {
+	initpathx = 0;
+	while (1) {
+		/* The only way the initpaths[initpathx] test can matter
+		   here is if initpaths[] has no entries, because a failed
+		   exec sets RB_INITPATH.  I'm not sure this is really a
+		   necessary test, but this is not performance-critical. */
+		if ((boothowto & RB_INITPATH) || !initpaths[initpathx]) {
+			char ipath[sizeof(initpath)];
+			int len;
+			printf("init path");
+			if (initpaths[initpathx])
+				printf(" [%s]",initpaths[initpathx]);
+			printf(": ");
+			len = getstr(&ipath[0], sizeof(ipath));
+			if (len > 0)
+				strcpy(&initpath[0], &ipath[0]);
+			else {
+				if (initpaths[initpathx])
+					strcpy(&initpath[0], initpaths[initpathx++]);
+				else
+					continue;
+			}
+		} else
+			strcpy(&initpath[0], initpaths[initpathx++]);
+
 		ucp = (char *)(addr + PAGE_SIZE);
 
 		/*
@@ -640,11 +666,11 @@ start_init(arg)
 		/*
 		 * Move out the file name (also arg 0).
 		 */
-		i = strlen(path) + 1;
+		i = strlen(&initpath[0]) + 1;
 #ifdef DEBUG
-		printf("init: copying out path `%s' %d\n", path, i);
+		printf("init: copying out path `%s' %d\n", &initpath[0], i);
 #endif
-		(void)copyout((caddr_t)path, (caddr_t)(ucp -= i), i);
+		(void)copyout((caddr_t)&initpath[0], (caddr_t)(ucp -= i), i);
 		arg0 = ucp;
 
 		/*
@@ -654,10 +680,10 @@ start_init(arg)
 		(void)suword((caddr_t)--uap, 0);	/* terminator */
 		if (options != 0)
 			(void)suword((caddr_t)--uap, (long)arg1);
-		slash = strrchr(path, '/');
+		slash = strrchr(&initpath[0], '/');
 		if (slash)
 			(void)suword((caddr_t)--uap,
-			    (long)arg0 + (slash + 1 - path));
+			    (long)arg0 + (slash + 1 - &initpath[0]));
 		else
 			(void)suword((caddr_t)--uap, (long)arg0);
 
@@ -669,17 +695,14 @@ start_init(arg)
 		SCARG(&args, envp) = NULL;
 
 		/*
-		 * Now try to exec the program.  If can't for any reason
-		 * other than it doesn't exist, complain.
+		 * Now try to exec the program.  If can't, complain.
 		 */
 		error = sys_execve(p, &args, retval);
 		if (error == 0 || error == EJUSTRETURN)
 			return;
-		if (error != ENOENT)
-			printf("exec %s: error %d\n", path, error);
+		printf("exec %s: error %d\n", &initpath[0], error);
+		boothowto |= RB_INITPATH;
 	}
-	printf("init: not found\n");
-	panic("no init");
 }
 
 /* ARGSUSED */

@@ -57,6 +57,7 @@
 #define	RB_STRING	0x400	/* use provided bootstr */
 #define	RB_POWERDOWN	(RB_HALT|0x800) /* turn power off (or at least halt) */
 #define RB_CHROOT       0x1000	/* prompt for alternative root dir */
+#define RB_INITPATH     0x2000	/* prompt for alternative path for init */
 
 /*
  * Constants for converting boot-style device number to type,
