@@ -433,6 +433,10 @@ bootpath_build()
 #endif
 			break;
 
+		case 'i':
+			boothowto |= RB_INITPATH;
+			break;
+
 		case 'r':
 			boothowto |= RB_CHROOT;
 			break;
