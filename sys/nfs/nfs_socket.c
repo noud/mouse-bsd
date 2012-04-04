@@ -1972,7 +1972,7 @@ nfsrv_getstream(slp, waitflag)
 	register struct mbuf *m, **mpp;
 	register char *cp1, *cp2;
 	register int len;
-	struct mbuf *om, *m2, *recm = NULL;
+	struct mbuf *om, *m2, *recm;
 	u_int32_t recmark;
 
 	if (slp->ns_flag & SLP_GETSTREAM)
@@ -2028,7 +2028,7 @@ nfsrv_getstream(slp, waitflag)
 	    } else if (slp->ns_cc > slp->ns_reclen) {
 		len = 0;
 		m = slp->ns_raw;
-		om = (struct mbuf *)0;
+		recm = om = NULL;
 		while (len < slp->ns_reclen) {
 			if ((len + m->m_len) > slp->ns_reclen) {
 				size_t left = slp->ns_reclen - len;
