@@ -1500,7 +1500,7 @@ ntfs_readntvattr_plain(
 	struct uio *uio)
 {
 	int             error = 0;
-	int             off;
+	off_t           off;
 
 	*initp = 0;
 	if (vap->va_flag & NTFS_AF_INRUN) {
@@ -1523,9 +1523,9 @@ ntfs_readntvattr_plain(
 			ccl = vap->va_vruncl[cnt];
 
 			ddprintf(("ntfs_readntvattr_plain: " \
-				 "left %d, cn: 0x%x, cl: %d, off: %d\n", \
-				 (u_int32_t) left, (u_int32_t) ccn, \
-				 (u_int32_t) ccl, (u_int32_t) off));
+				 "left %d, cn: 0x%x, cl: %d, off: %lld\n", \
+				 (int) left, (unsigned int) ccn, \
+				 (int) ccl, (unsigned long long int) off));
 
 			if (ntfs_cntob(ccl) < off) {
 				off -= ntfs_cntob(ccl);
@@ -1551,12 +1551,12 @@ ntfs_readntvattr_plain(
 					cl = ntfs_btocl(tocopy + off);
 					ddprintf(("ntfs_readntvattr_plain: " \
 						"read: cn: 0x%x cl: %d, " \
-						"off: %d len: %d, left: %d\n",
-						(u_int32_t) cn,
-						(u_int32_t) cl,
-						(u_int32_t) off,
-						(u_int32_t) tocopy,
-						(u_int32_t) left));
+						"off: %lld len: %d, left: %d\n",
+						(unsigned int) cn,
+						(int) cl,
+						(long long int) off,
+						(int) tocopy,
+						(int) left));
 					error = bread(ntmp->ntm_devvp,
 						      ntfs_cntobn(cn),
 						      ntfs_cntob(cl),
@@ -1585,9 +1585,9 @@ ntfs_readntvattr_plain(
 				ddprintf(("ntfs_readntvattr_plain: "
 					"hole: ccn: 0x%x ccl: %d, off: %d, " \
 					" len: %d, left: %d\n",
-					(u_int32_t) ccn, (u_int32_t) ccl,
-					(u_int32_t) off, (u_int32_t) tocopy,
-					(u_int32_t) left));
+					(unsigned int) ccn, (int) ccl,
+					(long long int) off, (int) tocopy,
+					(int) left));
 				left -= tocopy;
 				off = 0;
 				if (uio) {

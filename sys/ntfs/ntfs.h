@@ -274,12 +274,12 @@ struct ntfsmount {
 #define	VTOF(v)		((struct fnode *)((v)->v_data))
 #define	FTOV(f)		((f)->f_vp)
 #define	FTONT(f)	((f)->f_ip)
-#define ntfs_cntobn(cn)	(daddr_t)((cn) * (ntmp->ntm_spc))
-#define ntfs_cntob(cn)	(off_t)((cn) * (ntmp)->ntm_spc * (ntmp)->ntm_bps)
-#define ntfs_btocn(off)	(cn_t)((off) / ((ntmp)->ntm_spc * (ntmp)->ntm_bps))
-#define ntfs_btocl(off)	(cn_t)((off + ntfs_cntob(1) - 1) / ((ntmp)->ntm_spc * (ntmp)->ntm_bps))
-#define ntfs_btocnoff(off)	(off_t)((off) % ((ntmp)->ntm_spc * (ntmp)->ntm_bps))
-#define ntfs_bntob(bn)	(daddr_t)((bn) * (ntmp)->ntm_bps)
+#define ntfs_cntobn(cn)	(daddr_t)((cn) * (daddr_t)(ntmp->ntm_spc))
+#define ntfs_cntob(cn)	(off_t)((cn) * (off_t)(ntmp)->ntm_spc * (ntmp)->ntm_bps)
+#define ntfs_btocn(off)	(cn_t)((off) / ((ntmp)->ntm_spc * (cn_t)(ntmp)->ntm_bps))
+#define ntfs_btocl(off)	(cn_t)((off + ntfs_cntob(1) - 1) / ((ntmp)->ntm_spc * (cn_t)(ntmp)->ntm_bps))
+#define ntfs_btocnoff(off)	(off_t)((off) % ((ntmp)->ntm_spc * (off_t)(ntmp)->ntm_bps))
+#define ntfs_bntob(bn)	(daddr_t)((bn) * (daddr_t)(ntmp)->ntm_bps)
 
 #define	ntfs_bpbl	(daddr_t)((ntmp)->ntm_bps)
 
