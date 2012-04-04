@@ -84,7 +84,11 @@ pass4()
 						zlnp = zlnhead;
 						zlnhead = zlnhead->next;
 						free((char *)zlnp);
-						clri(&idesc, "UNREF", 1);
+						if ( !zflag ||
+						     ((dp=ginode(inumber))->di_size == 0) ||
+						     !linkup(inumber,(ino_t)0) ||
+						     ((dp->di_nlink=iswap16(1)),inodirty(),0) )
+							clri(&idesc, "UNREF", 1);
 						break;
 					}
 			}

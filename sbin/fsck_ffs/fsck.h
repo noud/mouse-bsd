@@ -176,6 +176,7 @@ long	dev_bsize;		/* computed value of DEV_BSIZE */
 long	secsize;		/* actual disk sector size */
 char	nflag;			/* assume a no response */
 char	yflag;			/* assume a yes response */
+char	zflag;			/* relink nlink==0 size!=0 files */
 int	bflag;			/* location of alternative super block */
 int	debug;			/* output debugging info */
 int	cvtlevel;		/* convert to newer file system format */

@@ -97,7 +97,7 @@ main(argc, argv)
 	skipclean = 1;
 	markclean = 1;
 	endian = 0;
-	while ((ch = getopt(argc, argv, "B:b:c:dfm:npy")) != -1) {
+	while ((ch = getopt(argc, argv, "B:b:c:dfm:npyz")) != -1) {
 		switch (ch) {
 		case 'B':
 			if (strcmp(optarg, "be") == 0)
@@ -145,6 +145,10 @@ main(argc, argv)
 		case 'y':
 			yflag++;
 			nflag = 0;
+			break;
+
+		case 'z':
+			zflag++;
 			break;
 
 		default:
