@@ -180,6 +180,25 @@ extern struct cdevsw cdevsw[];
 #define	dev_type_poll(n)	int n __P((dev_t, int, struct proc *))
 #define	dev_type_mmap(n)	int n __P((dev_t, int, int))
 
+/* open, close, read, write, ioctl, poll, mmap */
+#define cdev__ocrwipm_init(c,n) { \
+	dev_init(c,n,open), dev_init(c,n,close), dev_init(c,n,read), \
+	dev_init(c,n,write), dev_init(c,n,ioctl), \
+	(dev_type_stop((*))) enodev, 0, dev_init(c,n,poll), \
+	dev_init(c,n,mmap) }
+/* open, close, ioctl */
+#define	cdev__oci_init(c,n) { \
+	dev_init(c,n,open), dev_init(c,n,close), (dev_type_read((*))) enodev, \
+	(dev_type_write((*))) enodev, dev_init(c,n,ioctl), \
+	(dev_type_stop((*))) enodev, 0, (dev_type_poll((*))) enodev, \
+	(dev_type_mmap((*))) enodev }
+/* open, close, read, write, ioctl, poll */
+#define cdev__ocrwip_init(c,n) { \
+	dev_init(c,n,open), dev_init(c,n,close), dev_init(c,n,read), \
+	dev_init(c,n,write), dev_init(c,n,ioctl), \
+	(dev_type_stop((*))) enodev, 0, dev_init(c,n,poll), \
+	(dev_type_mmap((*))) enodev }
+
 #define	cdev_decl(n) \
 	dev_decl(n,open); dev_decl(n,close); dev_decl(n,read); \
 	dev_decl(n,write); dev_decl(n,ioctl); dev_decl(n,stop); \
@@ -286,12 +305,6 @@ extern struct cdevsw cdevsw[];
 	dev_init(c,n,write), dev_init(c,n,ioctl), (dev_type_stop((*))) enodev, \
 	0, dev_init(c,n,poll), (dev_type_mmap((*))) enodev }
 
-/* open, close, ioctl */
-#define	cdev__oci_init(c,n) { \
-	dev_init(c,n,open), dev_init(c,n,close), (dev_type_read((*))) enodev, \
-	(dev_type_write((*))) enodev, dev_init(c,n,ioctl), \
-	(dev_type_stop((*))) enodev, 0, (dev_type_poll((*))) enodev, \
-	(dev_type_mmap((*))) enodev }
 #define	cdev_lkm_init(c,n)	cdev__oci_init(c,n)
 #define	cdev_uk_init(c,n)	cdev__oci_init(c,n)
 #define	cdev_scsibus_init(c,n)	cdev__oci_init(c,n)
@@ -304,12 +317,6 @@ extern struct cdevsw cdevsw[];
 	(dev_type_stop((*))) enodev, 0, dev_init(c,n,poll), \
 	(dev_type_mmap((*))) enodev }
 
-/* open, close, read, write, ioctl, poll */
-#define cdev__ocrwip_init(c,n) { \
-	dev_init(c,n,open), dev_init(c,n,close), dev_init(c,n,read), \
-	dev_init(c,n,write), dev_init(c,n,ioctl), \
-	(dev_type_stop((*))) enodev, 0, dev_init(c,n,poll), \
-	(dev_type_mmap((*))) enodev }
 #define cdev_rnd_init(c,n)	cdev__ocrwip_init(c,n)
 #define	cdev_usbdev_init(c,n)	cdev__ocrwip_init(c,n)
 #define	cdev_ugen_init(c,n)	cdev__ocrwip_init(c,n)
@@ -322,10 +329,7 @@ extern struct cdevsw cdevsw[];
 	dev_init(c,n,mmap) }
 
 /* open, close, read, write, ioctl, poll, mmap */
-#define cdev_audio_init(c,n) { \
-	dev_init(c,n,open), dev_init(c,n,close), dev_init(c,n,read), \
-	dev_init(c,n,write), dev_init(c,n,ioctl), (dev_type_stop((*))) enodev, \
-	0, dev_init(c,n,poll), dev_init(c,n,mmap) }
+#define cdev_audio_init(c,n)	cdev__ocrwipm_init(c,n)
 
 /* open, close, read, write, ioctl, poll */
 #define cdev_midi_init(c,n) { \
