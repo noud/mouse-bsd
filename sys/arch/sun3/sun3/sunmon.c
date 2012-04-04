@@ -284,6 +284,9 @@ sunmon_init()
 			case 'a':
 				boothowto |= RB_ASKNAME;
 				break;
+			case 'i':
+				boothowto |= RB_INITPATH;
+				break;
 			case 'r':
 				boothowto |= RB_CHROOT;
 				break;
