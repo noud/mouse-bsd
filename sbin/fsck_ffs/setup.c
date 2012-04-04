@@ -593,7 +593,7 @@ readsb(listerr)
 			}
 		}
 		badsb(listerr,
-		"VALUES IN SUPER BLOCK DISAGREE WITH THOSE IN FIRST ALTERNATIVE");
+		"VALUES IN SUPER BLOCK DISAGREE WITH THOSE IN LAST ALTERNATIVE");
 		return (0);
 	}
 	/* Now we know the SB is valid, we can write it back if needed */
