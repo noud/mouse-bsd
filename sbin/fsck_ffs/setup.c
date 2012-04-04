@@ -503,7 +503,7 @@ readsb(listerr)
 
 	memmove(sblock, sblk.b_un.b_fs, SBSIZE);
 	if (needswap)
-		ffs_sb_swap(sblk.b_un.b_fs, sblock, 0);
+		ffs_sb_swap(sblk.b_un.b_fs, sblock, !doswap);
 
 	/*
 	 * run a few consistency checks of the super block
@@ -544,7 +544,7 @@ readsb(listerr)
 
 	memmove(altsblock, asblk.b_un.b_fs, sblock->fs_sbsize);
 	if (needswap)
-		ffs_sb_swap(asblk.b_un.b_fs, altsblock, 0);
+		ffs_sb_swap(asblk.b_un.b_fs, altsblock, !doswap);
 	altsblock->fs_firstfield = sblock->fs_firstfield;
 	altsblock->fs_fscktime = sblock->fs_fscktime;
 	altsblock->fs_unused_1 = sblock->fs_unused_1;
