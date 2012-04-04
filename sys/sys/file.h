@@ -79,7 +79,7 @@ struct file {
 		int	(*fo_close)	__P((struct file *fp, struct proc *p));
 	} *f_ops;
 	off_t	f_offset;
-	caddr_t	f_data;		/* vnode or socket */
+	void *	f_data;		/* vnode or socket */
 	int	f_iflags;	/* internal flags */
 	int	f_usecount;	/* number active users */
 };
