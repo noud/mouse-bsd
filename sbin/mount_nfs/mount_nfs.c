@@ -169,6 +169,9 @@ int nfsproto = IPPROTO_UDP;
 int mnttcp_ok = 1;
 int force2 = 0;
 int force3 = 0;
+char *havehandle = 0;
+int showhandle = 0;
+int nfsport = 0;
 
 #ifdef NFSKERB
 char inst[INST_SZ];
@@ -226,7 +229,7 @@ main(argc, argv)
 	nfsargs = nfsdefargs;
 	nfsargsp = &nfsargs;
 	while ((c = getopt(argc, argv,
-	    "23a:bcCdD:g:I:iKL:lm:o:PpqR:r:sTt:w:x:UX")) != -1)
+	    "23a:bcCdD:g:hH:I:iKL:lm:o:PpQ:qR:r:sTt:w:x:UX")) != -1)
 		switch (c) {
 		case '3':
 			if (force2)
@@ -275,6 +278,12 @@ main(argc, argv)
 			nfsargsp->flags |= NFSMNT_MAXGRPS;
 			break;
 #endif
+		case 'h':
+			showhandle = 1;
+			break;
+		case 'H':
+			havehandle = optarg;
+			break;
 		case 'I':
 			num = strtol(optarg, &p, 10);
 			if (*p || num <= 0)
@@ -361,6 +370,11 @@ main(argc, argv)
 		case 'p':
 			nfsargsp->flags &= ~NFSMNT_RESVPORT;
 			break;
+		case 'Q':
+			nfsport = strtol(optarg,&p,0);
+			if (*p || (nfsport <= 0) || (nfsport > 65535))
+				errx(1,"illegal -Q value -- %s", optarg);
+			break;
 		case 'q':
 			if (force2)
 				errx(1,"nqnfs only available with v3");
@@ -437,6 +451,10 @@ main(argc, argv)
 
 	if (!getnfsargs(spec, nfsargsp))
 		exit(1);
+	if (showhandle) {
+		for (i=0;i<nfsargsp->fhsize;i++) printf("%02x",((unsigned char *)nfsargsp->fh)[i]);
+		printf("\n");
+	}
 	if (mount(MOUNT_NFS, name, mntflags, nfsargsp))
 		err(1, "%s on %s", ospec, name);
 	if (nfsargsp->flags & (NFSMNT_NQNFS | NFSMNT_KERB)) {
@@ -642,16 +660,36 @@ getnfsargs(spec, nfsargsp)
 		nfsvers = NFS_VER3;
 		mntvers = RPCMNT_VER3;
 	}
+
+	if (havehandle) {
+		if (!force2 && !force3) {
+			warnx("-H requires -2 or -3");
+			return(0);
+		}
+	}
+
 	orgcnt = retrycnt;
 tryagain:
 	nfhret.stat = EACCES;	/* Mark not yet successful */
 	while (retrycnt > 0) {
 		saddr.sin_family = AF_INET;
 		saddr.sin_port = htons(PMAPPORT);
-		if ((tport = pmap_getport(&saddr, RPCPROG_NFS,
-		    nfsvers, nfsproto )) == 0) {
+		tport = nfsport ?: pmap_getport(&saddr, RPCPROG_NFS, nfsvers, nfsproto);
+		if (tport == 0) {
 			if ((opflags & ISBGRND) == 0)
 				clnt_pcreateerror("NFS Portmap");
+		} else if (havehandle) {
+			nfhret.fhsize = strlen(havehandle) / 2;
+			for (i=0;i<nfhret.fhsize;i++) {
+				int v;
+				if (sscanf(havehandle+i+i,"%2x",&v) != 1) {
+					warnx("invalid -H argument");
+					return(0);
+				}
+				nfhret.nfh[i] = v;
+			}
+			nfhret.stat = 0;
+			retrycnt = 0;
 		} else {
 			saddr.sin_port = 0;
 			pertry.tv_sec = 10;

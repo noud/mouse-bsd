@@ -42,7 +42,7 @@
 .Sh SYNOPSIS
 .Nm ""
 .Bk -words
-.Op Fl 23KPTUbcCdilqs
+.Op Fl 23KPTUbcCdilqsh
 .Ek
 .Bk -words
 .Op Fl D Ar deadthresh
@@ -76,6 +76,12 @@
 .Ek
 .Bk -words
 .Op Fl w Ar writesize
+.Ek
+.Bk -words
+.Op Fl H Ar handle
+.Ek
+.Bk -words
+.Op Fl Q Ar port
 .Ek
 .Bk -words
 .Op Fl x Ar retrans
@@ -207,6 +213,15 @@ Set the Kerberos realm to the string argument.
 Used with the
 .Fl K
 option for mounts to other realms.
+.It Fl h
+Print out the filehandle being used for the mount.
+.It Fl H
+Explicitly specify the filehandle to be used, in the same format as output by
+.Fl h ,
+rather than doing the usual mount RPC.
+.It Fl Q
+Explicitly specify the port number to be used for NFS traffic, rather than
+querying the portmapper on the target host.
 .It Fl o
 Options are specified with a
 .Fl o
