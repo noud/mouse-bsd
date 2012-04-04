@@ -468,6 +468,8 @@ hw_sysctl(name, namelen, oldp, oldlenp, newp, newlen, p)
 		    ctob(physmem - uvmexp.wired)));
 	case HW_PAGESIZE:
 		return (sysctl_rdint(oldp, oldlenp, newp, PAGE_SIZE));
+	case HW_ALIGNBYTES:
+		return (sysctl_rdint(oldp, oldlenp, newp, ALIGNBYTES));
 	default:
 		return (EOPNOTSUPP);
 	}

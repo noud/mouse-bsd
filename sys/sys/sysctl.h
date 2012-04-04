@@ -266,7 +266,8 @@ struct kinfo_proc {
 #define	HW_DISKNAMES	 8		/* strings: disk drive names */
 #define	HW_DISKSTATS	 9		/* struct: diskstats[] */
 #define	HW_MACHINE_ARCH	10		/* string: machine architecture */
-#define	HW_MAXID	11		/* number of valid hw ids */
+#define HW_ALIGNBYTES	11		/* int: ALIGNBYTES for the kernel */
+#define	HW_MAXID	12		/* number of valid hw ids */
 
 #define CTL_HW_NAMES { \
 	{ 0, 0 }, \
@@ -280,6 +281,7 @@ struct kinfo_proc {
 	{ "disknames", CTLTYPE_STRUCT }, \
 	{ "diskstats", CTLTYPE_STRUCT }, \
 	{ "machine_arch", CTLTYPE_STRING }, \
+	{ "alignbytes", CTLTYPE_INT }, \
 }
 
 /*
