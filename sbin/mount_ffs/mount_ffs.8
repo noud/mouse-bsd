@@ -43,6 +43,7 @@
 .Sh SYNOPSIS
 .Nm ""
 .Op Fl o Ar options
+.Op Fl p Ar path
 .Ar special node
 .Sh DESCRIPTION
 The
@@ -75,6 +76,11 @@ flag followed by a comma separated string of options.
 See the
 .Xr mount 8
 man page for possible options and their meanings.
+.It Fl p Ar Pa path
+The root of the mounted filesystem is actually
+.Pa path
+within the filesystem.  This allows making only a portion of what's
+actually in the filesystem accessible through the mount.
 .El
 .Sh SEE ALSO
 .Xr mount 2 ,

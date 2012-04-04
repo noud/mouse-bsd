@@ -86,13 +86,18 @@ main(argc, argv)
 	int ch, mntflags;
 	char *fs_name;
 	const char *errcause;
+	char *rootpath;
 
 	mntflags = 0;
+	rootpath = 0;
 	optind = optreset = 1;		/* Reset for parse of new argv. */
-	while ((ch = getopt(argc, argv, "o:")) != -1)
+	while ((ch = getopt(argc, argv, "o:p:")) != -1)
 		switch (ch) {
 		case 'o':
 			getmntopts(optarg, mopts, &mntflags, 0);
+			break;
+		case 'p':
+			rootpath = optarg;
 			break;
 		case '?':
 		default:
@@ -104,6 +109,7 @@ main(argc, argv)
 	if (argc != 2)
 		ffs_usage();
 
+	args.subpath = rootpath;
         args.fspec = argv[0];		/* The name of the device file. */
 	fs_name = argv[1];		/* The mount point. */
 

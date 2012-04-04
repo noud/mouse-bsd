@@ -41,6 +41,7 @@
 struct ufs_args {
 	char	*fspec;			/* block special device to mount */
 	struct	export_args export;	/* network export information */
+	char	*subpath;		/* subpath of root */
 };
 
 /*
@@ -81,6 +82,7 @@ struct ufsmount {
 
 	struct	vnode *um_quotas[MAXQUOTAS];	/* pointer to quota files */
 	struct	ucred *um_cred[MAXQUOTAS];	/* quota file access cred */
+	u_long	um_rootino;			/* root inumber */
 	u_long	um_nindir;			/* indirect ptrs per block */
 	u_long	um_bptrtodb;			/* indir ptr to disk block */
 	u_long	um_seqinc;			/* inc between seq blocks */

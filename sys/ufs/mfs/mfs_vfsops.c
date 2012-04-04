@@ -144,7 +144,7 @@ mfs_mountroot()
 	mfsp->mfs_vnode = rootvp;
 	mfsp->mfs_pid = p->p_pid;
 	BUFQ_INIT(&mfsp->mfs_buflist);
-	if ((error = ffs_mountfs(rootvp, mp, p)) != 0) {
+	if ((error = ffs_mountfs(rootvp, mp, p, 0)) != 0) {
 		mp->mnt_op->vfs_refcount--;
 		vfs_unbusy(mp);
 		free(mp, M_MOUNT);
@@ -247,7 +247,7 @@ mfs_mount(mp, path, data, ndp, p)
 	mfsp->mfs_vnode = devvp;
 	mfsp->mfs_pid = p->p_pid;
 	BUFQ_INIT(&mfsp->mfs_buflist);
-	if ((error = ffs_mountfs(devvp, mp, p)) != 0) {
+	if ((error = ffs_mountfs(devvp, mp, p, 0)) != 0) {
 		BUFQ_FIRST(&mfsp->mfs_buflist) = (struct buf *) -1;
 		vrele(devvp);
 		return (error);

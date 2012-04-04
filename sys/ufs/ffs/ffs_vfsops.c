@@ -137,7 +137,7 @@ ffs_mountroot()
 		vrele(rootvp);
 		return (error);
 	}
-	if ((error = ffs_mountfs(rootvp, mp, p)) != 0) {
+	if ((error = ffs_mountfs(rootvp, mp, p, 0)) != 0) {
 		mp->mnt_op->vfs_refcount--;
 		vfs_unbusy(mp);
 		free(mp, M_MOUNT);
@@ -283,7 +283,13 @@ ffs_mount(mp, path, data, ndp, p)
 		}
 	}
 	if ((mp->mnt_flag & MNT_UPDATE) == 0) {
-		error = ffs_mountfs(devvp, mp, p);
+		if (args.subpath) {
+			char subpath[MAXPATHLEN+1];
+			(void) copyinstr(args.subpath,&subpath[0],MAXPATHLEN,&size);
+			memset(&subpath[size],0,MAXPATHLEN+1-size);
+			error = ffs_mountfs(devvp, mp, p, &subpath[0]);
+		} else
+			error = ffs_mountfs(devvp, mp, p, 0);
 		if (!error && (mp->mnt_flag & (MNT_SOFTDEP | MNT_ASYNC)) ==
 		    (MNT_SOFTDEP | MNT_ASYNC)) {
 			printf("%s fs uses soft updates, ignoring async mode\n",
@@ -292,9 +298,14 @@ ffs_mount(mp, path, data, ndp, p)
 		}
 	}
 	else {
-		if (devvp != ump->um_devvp)
-			error = EINVAL;	/* needs translation */
-		else
+		if (devvp != ump->um_devvp) {
+			if (devvp->v_rdev != ump->um_devvp->v_rdev)
+				error = EINVAL;
+			else {
+				vrele(devvp);
+				devvp = ump->um_devvp;
+			}
+		} else
 			vrele(devvp);
 	}
 	if (error) {
@@ -494,10 +505,11 @@ loop:
  * Common code for mount and mountroot
  */
 int
-ffs_mountfs(devvp, mp, p)
+ffs_mountfs(devvp, mp, p, rootpath)
 	register struct vnode *devvp;
 	struct mount *mp;
 	struct proc *p;
+	const char *rootpath;
 {
 	struct ufsmount *ump;
 	struct buf *bp;
@@ -515,6 +527,7 @@ ffs_mountfs(devvp, mp, p)
 	extern struct vnode *rootvp;
 	u_int64_t maxfilesize;					/* XXX */
 	u_int32_t sbsize;
+	struct vnode *root;
 
 	dev = devvp->v_rdev;
 	cred = p ? p->p_ucred : NOCRED;
@@ -657,6 +670,7 @@ ffs_mountfs(devvp, mp, p)
 	ump->um_seqinc = fs->fs_frag;
 	for (i = 0; i < MAXQUOTAS; i++)
 		ump->um_quotas[i] = NULLVP;
+	ump->um_rootino = ROOTINO;
 	devvp->v_specmountpoint = mp;
 	ump->um_savedmaxfilesize = fs->fs_maxfilesize;		/* XXX */
 	maxfilesize = (u_int64_t)0x80000000 * fs->fs_bsize - 1;	/* XXX */
@@ -668,6 +682,42 @@ ffs_mountfs(devvp, mp, p)
 			free(base, M_UFSMNT);
 			goto out;
 		}
+	}
+	if (rootpath) {
+		struct vnode *newroot;
+		struct componentname cn;
+		const char *rp;
+		ufs_root(mp,&root);
+		root->v_flag &= ~VROOT;
+		rp = rootpath;
+		while (1) {
+			while (*rp == '/') rp ++;
+			if (! *rp) break;
+			cn.cn_nameiop = LOOKUP;
+			cn.cn_flags = NOCACHE; /* is this necessary? */
+			cn.cn_proc = p;
+			cn.cn_cred = p->p_ucred;
+			/* cn_pnbuf not used by ufs_lookup */
+			cn.cn_nameptr = rp;
+			while (*rp && (*rp != '/')) rp ++;
+			cn.cn_namelen = rp - cn.cn_nameptr;
+			if ( (cn.cn_namelen == 2) &&
+			     (rp[-1] == '.') &&
+			     (rp[-2] == '.') ) cn.cn_flags |= ISDOTDOT;
+			if (! *rp) cn.cn_flags |= ISLASTCN;
+			/* cn_hash not used by ufs_lookup */
+			/* cn_consume not used by ufs_lookup */
+			error = VOP_LOOKUP(root,&newroot,&cn);
+			if (error) {
+				vrele(root);
+				goto out2;
+			}
+			vput(root);
+			root = newroot;
+		}
+		root->v_flag |= VROOT;
+		ump->um_rootino = VTOI(root)->i_number;
+		vput(root);
 	}
 	return (0);
 out2:

@@ -115,7 +115,7 @@ int ffs_mountroot __P((void));
 int ffs_mount __P((struct mount *, const char *, void *, struct nameidata *,
 		   struct proc *));
 int ffs_reload __P((struct mount *, struct ucred *, struct proc *));
-int ffs_mountfs __P((struct vnode *, struct mount *, struct proc *));
+int ffs_mountfs __P((struct vnode *, struct mount *, struct proc *, const char *));
 int ffs_oldfscompat __P((struct fs *));
 int ffs_unmount __P((struct mount *, int, struct proc *));
 int ffs_flushfiles __P((struct mount *, int, struct proc *));
