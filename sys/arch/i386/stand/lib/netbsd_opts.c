@@ -51,6 +51,7 @@ static struct optent {
 	{'s', RB_SINGLE},
 	{'r', RB_CHROOT},
 	{'d', RB_KDB},
+	{'i', RB_INITPATH},
 };
 
 #define OPTTABSIZE (sizeof(opttab)/sizeof(struct optent))
