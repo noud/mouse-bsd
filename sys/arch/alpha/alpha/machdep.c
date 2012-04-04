@@ -770,6 +770,11 @@ nobootinfo:
 			boothowto |= RB_HALT;
 			break;
 
+		case 'i': /* ask where init lives */
+		case 'I':
+			boothowto |= RB_INITPATH;
+			break;
+
 #if 0
 		case 'm': /* mini root present in memory */
 		case 'M':
