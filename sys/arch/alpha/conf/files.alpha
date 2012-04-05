@@ -3,7 +3,7 @@
 # alpha-specific configuration info
 
 # maxpartitions must be first item in files.${ARCH}.newconf
-maxpartitions 8
+maxpartitions 16
 
 maxusers 8 16 64
 

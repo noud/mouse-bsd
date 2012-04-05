@@ -277,7 +277,7 @@ bounds_check_with_label(bp, lp, wlabel)
 	struct disklabel *lp;
 	int wlabel;
 {
-#define dkpart(dev) (minor(dev) & 7)
+#define dkpart(dev) (((unsigned int)minor(dev)) % MAXPARTITIONS)
 
 	struct partition *p = lp->d_partitions + dkpart(bp->b_dev);
 	int labelsect = lp->d_partitions[RAW_PART].p_offset;
