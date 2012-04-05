@@ -995,3 +995,7 @@ file dev/pseudo/pfw.c pfw needs-flag
 
 defpseudo diskwatch
 file dev/pseudo/diskwatch.c diskwatch needs-flag
+
+define pseudo { }
+device pseudo
+file dev/pseudo/pseudo.c pseudo needs-flag
