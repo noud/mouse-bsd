@@ -47,6 +47,7 @@
 #include "isa.h"
 #include "apm.h"
 #include "pnpbios.h"
+#include "pseudo.h"
 
 #if NAPM > 0
 #include <machine/bioscall.h>
@@ -55,6 +56,10 @@
 
 #if NPNPBIOS > 0
 #include <arch/i386/pnpbios/pnpbiosvar.h>
+#endif
+
+#if NPSEUDO > 0
+#include <dev/pseudo/pseudo-kern.h>
 #endif
 
 int	mainbus_match __P((struct device *, struct cfdata *, void *));
@@ -171,6 +176,10 @@ mainbus_attach(parent, self, aux)
 		mba.mba_aaa.aaa_busname = "apm";
 		config_found(self, &mba.mba_aaa, mainbus_print);
 	}
+#endif
+
+#if NPSEUDO > 0
+	config_found_sm(self,0,0,&pseudo_submatch);
 #endif
 }
 
