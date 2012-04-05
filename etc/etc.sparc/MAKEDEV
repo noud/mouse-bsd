@@ -356,27 +356,16 @@ ccd*|fd*|sd*|xd*|xy*|cd*|vnd*|raid*|pdisks*)
 	pdisks*)name=pdisks;	unit=${i#pdisks};blk=26;chr=136;;
 	esac
 	case $unit in
-	0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|\
-	17|18|19|20|21|22|23|24|25|26|27|28|29|30|31)
-		rm -f ${name}${unit}[a-h] r${name}${unit}[a-h]
-		mknod ${name}${unit}c	b $blk $(($unit * 8 + 2))
-		mknod ${name}${unit}a	b $blk $(($unit * 8 + 0))
-		mknod ${name}${unit}b	b $blk $(($unit * 8 + 1))
-		mknod ${name}${unit}d	b $blk $(($unit * 8 + 3))
-		mknod ${name}${unit}e	b $blk $(($unit * 8 + 4))
-		mknod ${name}${unit}f	b $blk $(($unit * 8 + 5))
-		mknod ${name}${unit}g	b $blk $(($unit * 8 + 6))
-		mknod ${name}${unit}h	b $blk $(($unit * 8 + 7))
-		mknod r${name}${unit}a	c $chr $(($unit * 8 + 0))
-		mknod r${name}${unit}b	c $chr $(($unit * 8 + 1))
-		mknod r${name}${unit}c	c $chr $(($unit * 8 + 2))
-		mknod r${name}${unit}d	c $chr $(($unit * 8 + 3))
-		mknod r${name}${unit}e	c $chr $(($unit * 8 + 4))
-		mknod r${name}${unit}f	c $chr $(($unit * 8 + 5))
-		mknod r${name}${unit}g	c $chr $(($unit * 8 + 6))
-		mknod r${name}${unit}h	c $chr $(($unit * 8 + 7))
-		chgrp operator ${name}${unit}[a-h] r${name}${unit}[a-h]
-		chmod 640 ${name}${unit}[a-h] r${name}${unit}[a-h]
+	0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15)
+		rm -f ${name}${unit}[a-p] r${name}${unit}[a-p]
+		off=0
+		for suf in a b c d e f g h i j k l m n o p; do
+			mknod ${name}${unit}${suf}	b $blk $(($unit * 16 + $off))
+			mknod r${name}${unit}${suf}	c $chr $(($unit * 16 + $off))
+			off=$(($off + 1))
+		done
+		chgrp operator ${name}${unit}[a-p] r${name}${unit}[a-p]
+		chmod 640 ${name}${unit}[a-p] r${name}${unit}[a-p]
 		;;
 	*)
 		echo bad unit for disk in: $i
