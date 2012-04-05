@@ -88,7 +88,17 @@ struct sun_dkpart {
 
 struct sun_disklabel {			/* total size = 512 bytes */
 	char	sl_text[128];
-	char	sl_xxx1[292];
+#if MAXPARTITIONS > 8
+#define SUNXPART (MAXPARTITIONS-8)
+	u_long  sl_xpsum;		/* additive cksum, [sl_xpmag,sl_xxx1) */
+	u_long  sl_xpmag;		/* "extended" magic number */
+#define SL_XPMAG (0x199d1fe2+SUNXPART)
+	struct sun_dkpart sl_xpart[SUNXPART];	/* "extended" partitions, i through p */
+	char	sl_xxx1[292-8-(8*SUNXPART)]; /* [292] including sl_x* */
+#else
+#define SUNXPART 0
+	char    sl_xxx1[292];
+#endif
 #define sl_bsdlabel	sl_xxx1		/* Embedded NetBSD label */
 	u_short sl_rpm;			/* rotational speed */
 	u_short	sl_pcylinders;		/* number of physical cyls */
