@@ -73,6 +73,8 @@
 #define	WRITE_MODE	(S_IWUSR|S_IRUSR|S_IRGRP|S_IROTH)
 #define DIR_MODE	(S_IRUSR|S_IXUSR|S_IRGRP|S_IXGRP|S_IROTH|S_IXOTH)
 
+extern int tickadj;
+
 struct kern_target kern_targets[] = {
 /* NOTE: The name must be less than UIO_MX-16 chars in length */
 #define N(s) sizeof(s)-1, s
@@ -83,6 +85,7 @@ struct kern_target kern_targets[] = {
      { DT_REG, N("copyright"), copyright,    KTT_STRING,   VREG, READ_MODE  },
      { DT_REG, N("hostname"),  0,            KTT_HOSTNAME, VREG, WRITE_MODE },
      { DT_REG, N("hz"),        &hz,          KTT_INT,      VREG, READ_MODE  },
+     { DT_REG, N("tickadj"),   &tickadj,     KTT_INT,      VREG, WRITE_MODE },
      { DT_REG, N("loadavg"),   0,            KTT_AVENRUN,  VREG, READ_MODE  },
      { DT_REG, N("msgbuf"),    0,	     KTT_MSGBUF,   VREG, READ_MODE  },
      { DT_REG, N("pagesize"),  &uvmexp.pagesize, KTT_INT,  VREG, READ_MODE  },
@@ -295,6 +298,16 @@ kernfs_xwrite(kt, buf, len)
 {
 
 	switch (kt->kt_tag) {
+	case KTT_INT:
+		{	int i;
+			int v;
+			v = 0;
+			for (i=0;(i<len)&&(buf[i]>='0')&&(buf[i]<='9');i++)
+				v = (10 * v) + (buf[i] - '0');
+			*(int *)kt->kt_data = v;
+		}
+		return(0);
+
 	case KTT_HOSTNAME:
 		if (buf[len-1] == '\n')
 			--len;
