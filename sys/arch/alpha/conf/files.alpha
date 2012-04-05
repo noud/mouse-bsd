@@ -527,3 +527,4 @@ include "dev/usb/files.usb"
 
 # Removed pending figuring out how to do pdisk/pdisks/pdiskm right.
 # major {pdisks = 17}
+attach pseudo at mainbus

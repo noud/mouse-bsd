@@ -40,6 +40,11 @@ __KERNEL_RCSID(0, "$NetBSD: mainbus.c,v 1.27 1998/06/24 01:10:35 ross Exp $");
 #include <machine/rpb.h>
 #include <machine/conf.h>
 
+#include "pseudo.h"
+#if NPSEUDO > 0
+#include <dev/pseudo/pseudo-kern.h>
+#endif
+
 /* Definition of the mainbus driver. */
 static int	mbmatch __P((struct device *, struct cfdata *, void *));
 static void	mbattach __P((struct device *, struct device *, void *));
@@ -103,6 +108,10 @@ mbattach(parent, self, aux)
 		ma.ma_slot = 0;			/* meaningless */
 		config_found(self, &ma, mbprint);
 	}
+
+#if NPSEUDO > 0
+	config_found_sm(self,0,0,&pseudo_submatch);
+#endif
 }
 
 static int
