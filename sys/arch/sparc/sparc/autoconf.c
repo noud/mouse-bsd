@@ -1020,7 +1020,7 @@ extern struct sparc_bus_space_tag mainbus_space_tag;
 #endif
 
 /*
- * The rest of this routine is for OBP machines exclusively.
+ * Most of the rest of this routine is for OBP machines exclusively.
  */
 #if defined(SUN4C) || defined(SUN4M)
 
