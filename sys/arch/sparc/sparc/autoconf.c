@@ -48,6 +48,7 @@
  */
 #include "opt_ddb.h"
 #include "opt_multiprocessor.h"
+#include "pseudo.h"
 
 #include <sys/param.h>
 #include <sys/systm.h>
@@ -91,6 +92,10 @@
 #include <machine/db_machdep.h>
 #include <ddb/db_sym.h>
 #include <ddb/db_extern.h>
+#endif
+
+#if NPSEUDO > 0
+#include <dev/pseudo/pseudo-kern.h>
 #endif
 
 
@@ -1139,6 +1144,10 @@ extern struct sparc_bus_space_tag mainbus_space_tag;
 		(void) config_found(dev, (void *)&ma, mbprint);
 	}
 #endif /* SUN4C || SUN4M */
+
+#if NPSEUDO > 0
+	config_found_sm(dev,0,0,&pseudo_submatch);
+#endif
 }
 
 struct cfattach mainbus_ca = {
