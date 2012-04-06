@@ -1,0 +1,37 @@
+.\" This file is in the public domain.
+.Dd September 6, 2004
+.Dt ENCAPCONFIG 1
+.Os NetBSD 1.4T
+.Sh NAME
+.Nm edconfig
+.Nd configure encrypted disks
+.Sh SYNOPSIS
+.Nm
+.Op Fl key Ar edX Ar keystring
+.Op Fl prompt Ar edX
+.Op Fl dev Ar edX Ar device
+.Op Fl reset Ar edX
+.Sh DESCRIPTION
+.Nm
+configures
+.Xr ed 4
+encrypted-disk units.
+.Pp
+The first argument specifies the operation mode; it can be
+.Bl -tag -width indent
+.It Fl key
+Sets the encryption key for the specified unit to the specified string.
+.It Fl prompt
+Sets the specified unit to prompt on the console for its key when it is
+next required.
+.It Fl dev
+Sets the specified unit's underlying disk device.
+.It Fl reset
+Resets the specified unit's settings, forgetting the key settings and
+any underlying device setting.
+.El
+.Sh "SEE ALSO"
+.Xr ed 4
+.Sh AUTHOR
+der Mouse,
+.Aq mouse@rodents.montreal.qc.ca .

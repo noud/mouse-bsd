@@ -999,3 +999,7 @@ file dev/pseudo/diskwatch.c diskwatch needs-flag
 define pseudo { }
 device pseudo
 file dev/pseudo/pseudo.c pseudo needs-flag
+
+device ed: disk
+attach ed at pseudo
+file dev/pseudo/ed.c ed needs-flag
