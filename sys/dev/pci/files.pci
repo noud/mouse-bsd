@@ -253,3 +253,8 @@ file	dev/pci/if_sf_pci.c		sf_pci
 device  cbb: pcmciaslot
 attach	cbb at pci with cbb_pci
 file	dev/pci/pccbb.c			cbb
+
+# Digium telephony cards
+device	zap
+attach	zap at pci
+file	dev/pci/zap.c			zap
