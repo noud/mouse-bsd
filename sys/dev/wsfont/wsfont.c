@@ -130,7 +130,7 @@ static struct font *list, builtin_fonts[] = {
 	{ NULL, NULL, &vt220l8x10, 0, 8, WSFONT_STATIC | WSFONT_BUILTIN },
 #endif
 #ifdef FONT_FIXED6x13
-	{ NULL, NULL, &fixed6x13, 0, 7, WSFONT_STATIC | WSFONT_BUILTIN },
+	{ NULL, NULL, &fixed6x13, 0, 9, WSFONT_STATIC | WSFONT_BUILTIN },
 #endif
 	{ NULL, NULL, NULL, 0 },
 };
