@@ -93,9 +93,12 @@
 #include <machine/fbvar.h>
 #include <machine/cpu.h>
 #include <machine/conf.h>
+#include <machine/db_enterleave.h>
 
 #include <sparc/dev/cgfourteenreg.h>
 #include <sparc/dev/cgfourteenvar.h>
+
+#include "opt_ddb.h"
 
 /* autoconfiguration driver */
 static void	cgfourteenattach(struct device *, struct device *, void *);
@@ -158,6 +161,57 @@ cgfourteenmatch(parent, cf, aux)
 }
 
 /*
+ * Set COLOUR_OFFSET to the offset of the video RAM.  This is to provide
+ *  space for faked overlay junk for the cg8 emulation.
+ *
+ * As it happens, this value is correct for both cg3 and cg8 emulation!
+ */
+#define COLOUR_OFFSET (256*1024)
+
+static void cg14_set_rcons_luts(struct cgfourteen_softc *sc)
+{
+ int i;
+
+ for (i=0;i<CG14_CLUT_SIZE;i++) sc->sc_xlut->xlut_lut[i] = 0x22;
+ for (i=0;i<CG14_CLUT_SIZE;i++) sc->sc_clut2->clut_lut[i] = 0x00000070;
+ sc->sc_clut2->clut_lut[0] = 0;
+ sc->sc_clut2->clut_lut[255] = 0x00ffffff;
+}
+
+static void cg14_shutdownhook(void *arg)
+{
+ struct cgfourteen_softc *sc;
+
+ sc = arg;
+ sc->sc_ctl->ctl_mctl = CG14_MCTL_ENABLEVID | CG14_MCTL_PIXMODE_8 | CG14_MCTL_POWERCTL;
+}
+
+#ifdef DDB
+static void cg14_debug_enter(void *arg)
+{
+ struct cgfourteen_softc *sc;
+
+ sc = arg;
+ sc->sc_ctl->ctl_mctl = CG14_MCTL_ENABLEVID | CG14_MCTL_PIXMODE_8 | CG14_MCTL_POWERCTL;
+}
+#endif
+
+#ifdef DDB
+static void cg14_debug_leave(void *arg)
+{
+ struct cgfourteen_softc *sc;
+
+ sc = arg;
+ cg14_set_rcons_luts(sc);
+#ifdef CG14_CG8
+ sc->sc_ctl->ctl_mctl = CG14_MCTL_ENABLEVID | CG14_MCTL_PIXMODE_32 | CG14_MCTL_POWERCTL;
+#else
+ sc->sc_ctl->ctl_mctl = CG14_MCTL_ENABLEVID | CG14_MCTL_PIXMODE_8 | CG14_MCTL_POWERCTL;
+#endif
+}
+#endif
+
+/*
  * Attach a display.  We need to notice if it is the console, too.
  */
 void
@@ -171,7 +225,6 @@ cgfourteenattach(parent, self, aux)
 	struct fbdevice *fb = &sc->sc_fb;
 	bus_space_handle_t bh;
 	int node, ramsize;
-	u_int32_t *lut;
 	int i, isconsole;
 
 	node = sa->sa_node;
@@ -185,20 +238,21 @@ cgfourteenattach(parent, self, aux)
 	fb->fb_flags = sc->sc_dev.dv_cfdata->cf_flags & FB_USERMASK;
 
 	/*
-	 * We're emulating a cg3/8, so represent ourselves as one
+	 * Represent ourselves as whatever we're emulating.
 	 */
 #ifdef CG14_CG8
 	fb->fb_type.fb_type = FBTYPE_MEMCOLOR;
 	fb->fb_type.fb_depth = 32;
+	fb_setsize_obp(fb, sc->sc_fb.fb_type.fb_depth, 1152, 900, node);
+	ramsize = roundup(fb->fb_type.fb_height * fb->fb_linebytes, NBPG);
 #else
 	fb->fb_type.fb_type = FBTYPE_SUN3COLOR;
 	fb->fb_type.fb_depth = 8;
-#endif
 	fb_setsize_obp(fb, sc->sc_fb.fb_type.fb_depth, 1152, 900, node);
-
 	ramsize = roundup(fb->fb_type.fb_height * fb->fb_linebytes, NBPG);
+#endif
 	fb->fb_type.fb_cmsize = CG14_CLUT_SIZE;
-	fb->fb_type.fb_size = ramsize;
+	fb->fb_type.fb_size = ramsize + COLOUR_OFFSET;
 
 	if (sa->sa_nreg < 2) {
 		printf(": only %d register sets\n",sa->sa_nreg);
@@ -251,31 +305,65 @@ cgfourteenattach(parent, self, aux)
 		fb->fb_type.fb_width, fb->fb_type.fb_height);
 #endif
 	/*
-	 * Enable the video, but don't change the pixel depth.
+	 * Enable the video.
 	 */
 	cg14_set_video(sc, 1);
 
 	/*
-	 * Grab the initial colormap
+	 * Set up initial colormap
 	 */
-	lut = (u_int32_t *) sc->sc_clut1->clut_lut;
-	for (i = 0; i < CG14_CLUT_SIZE; i++)
-		sc->sc_cmap.cm_chip[i] = lut[i];
+#if 1
+	/* Do what bt_initcmap does (can't use it 'cause we don't use bt_subr) */
+	sc->sc_cmap.cm_chip[0] = 0;
+	for (i=1;i<CG14_CLUT_SIZE;i++) sc->sc_cmap.cm_chip[i] = ~0U;
+	cg14_load_hwcmap(sc,0,CG14_CLUT_SIZE);
+#else
+	{	u_int32_t *lut;
+		lut = (u_int32_t *) sc->sc_clut1->clut_lut;
+		for (i = 0; i < CG14_CLUT_SIZE; i++)
+			sc->sc_cmap.cm_chip[i] = lut[i];
+	}
+#endif
 
 	/* See if we're the console */
 	isconsole = node == fbnode && fbconstty != NULL;
 
 	if (isconsole) {
 		printf(" (console)\n");
-#ifdef notdef
-		/*
-		 * We don't use the raster console since the cg14 is
-		 * fast enough already.
-		 */
 #ifdef RASTERCONSOLE
-		fbrcons_init(fb);
+		/* *sbus*_bus_map?  but that's how we map the regs... */
+/* ugh.  sbus_bus_map is a macro, so we can't do #ifdef inside its args! */
+#ifdef CG14_CG8
+#define VIDEO_OFFSET 0x03800000
+#else
+#define VIDEO_OFFSET 0
 #endif
-#endif /* notdef */
+		if (sbus_bus_map( sc->sc_bustag,
+				  sc->sc_physadr[CG14_PXL_IDX].sbr_slot,
+				  sc->sc_physadr[CG14_PXL_IDX].sbr_offset + VIDEO_OFFSET,
+				  fb->fb_type.fb_width*fb->fb_type.fb_height,
+				  BUS_SPACE_MAP_LINEAR,
+				  0, &bh) != 0) {
+			printf("%s: cannot map pixels\n",&self->dv_xname[0]);
+		} else {
+			sc->sc_fb.fb_type.fb_type = FBTYPE_SUN3COLOR;
+			sc->sc_fb.fb_type.fb_depth = 8;
+			sc->sc_fb.fb_linebytes = fb->fb_type.fb_width;
+			sc->sc_fb.fb_type.fb_size = roundup(fb->fb_type.fb_width*fb->fb_type.fb_height,NBPG);
+			sc->sc_fb.fb_pixels = (void *)bh;
+			fbrcons_init(&sc->sc_fb);
+			cg14_set_rcons_luts(sc);
+#ifdef CG14_CG8
+			sc->sc_ctl->ctl_mctl = CG14_MCTL_ENABLEVID | CG14_MCTL_PIXMODE_32 | CG14_MCTL_POWERCTL;
+#else
+			sc->sc_ctl->ctl_mctl = CG14_MCTL_ENABLEVID | CG14_MCTL_PIXMODE_8 | CG14_MCTL_POWERCTL;
+#endif
+			shutdownhook_establish(&cg14_shutdownhook,sc);
+#ifdef DDB
+			register_debugger_enterleave(&cg14_debug_enter,&cg14_debug_leave,sc);
+#endif
+		}
+#endif
 	} else
 		printf("\n");
 
@@ -298,14 +386,16 @@ cgfourteenopen(dev, flags, mode, p)
 	int flags, mode;
 	struct proc *p;
 {
-	struct cgfourteen_softc *sc = cgfourteen_cd.cd_devs[minor(dev)];
-	int unit = minor(dev);
+	struct cgfourteen_softc *sc;
+	int unit;
 	int s, oldopens;
 
-	if (unit >= cgfourteen_cd.cd_ndevs ||
-	    cgfourteen_cd.cd_devs[unit] == NULL)
-		return (ENXIO);
-
+	unit = minor(dev);
+	if (unit >= cgfourteen_cd.cd_ndevs)
+		return(ENXIO);
+	sc = cgfourteen_cd.cd_devs[minor(dev)];
+	if (sc == NULL)
+		return(ENXIO);
 	s = splhigh();
 	oldopens = cg14_opens++;
 	splx(s);
@@ -526,83 +616,97 @@ cgfourteenunblank(dev)
  * Return the address that would map the given device at the given
  * offset, allowing for the given protection, or return -1 for error.
  *
- * The cg14 frame buffer can be mapped in either 8-bit or 32-bit mode
- * starting at the address stored in the PROM. In 8-bit mode, the X
- * channel is not present, and can be ignored. In 32-bit mode, mapping
- * at 0K delivers a 32-bpp buffer where the upper 8 bits select the X
- * channel information. We hardwire the Xlut to all zeroes to insure
- * that, regardless of this value, direct 24-bit color access will be
- * used.
+ * Since we're pretending to be a cg8, we put the main video RAM at the
+ *  same place the cg8 does, at offset 256k.  The cg8 has an enable
+ *  plane in the 256k space; our "enable" plane works differently.  We
+ *  can't emulate the enable plane very well, but all X uses it for is
+ *  to clear it at startup - so we map the first page of video RAM over
+ *  and over to fill that 256k space.  We also map some other views of
+ *  the video RAM space.
  *
- * Alternatively, mapping the frame buffer at an offset of 16M seems to
- * tell the chip to ignore the X channel. XXX where does it get the X value
- * to use?
+ * Views of video RAM have to be sized according to the framebuffer's
+ *  dimensions (or at least they should be); in the table below, a
+ *  "size" of "fb8" is width*height bytes, "fb16" for width*height*2
+ *  bytes, and "fb32" is width*height*4 bytes (8bpp, 16bpp, and 32bpp
+ *  views).  The actual numbers for these depend on the resolution;
+ *  here are values for the standard resolutions:
+ *
+ *	size		fb8		fb16		fb32
+ *	1024x768	000c0000	00180000	00300000
+ *	1152x900	000fd200	001fa400	003f4800
+ *	1280x1024	00140000	00280000	00500000
+ *	1600x1280	001f4000	003e8000	007d0000
+ *	1920x1080	001fa400	003f4800	007e9000
+ *
+ * Our memory map thus looks like
+ *
+ *	base		size		space	card offset
+ *	00000000	00040000	vram	0 (see above)
+ *	00040000	fb32		vram	00000000
+ *	01000000	fb32		vram	01000000
+ *	02000000	fb16		vram	02000000
+ *	02800000	fb16		vram	02800000
+ *	03000000	fb8		vram	03000000
+ *	03400000	fb8		vram	03400000
+ *	03800000	fb8		vram	03800000
+ *	03c00000	fb8		vram	03c00000
+ *	10000000	00010000	regs	00000000 (iff CG14_MAP_REGS)
  */
 int
-cgfourteenmmap(dev, off, prot)
-	dev_t dev;
-	int off, prot;
+cgfourteenmmap(dev_t dev, int off, int prot)
 {
-	struct cgfourteen_softc *sc = cgfourteen_cd.cd_devs[minor(dev)];
-	bus_space_handle_t bh;
+ struct cgfourteen_softc *sc;
+ bus_space_handle_t bh;
+ unsigned int sz;
 
-#define CG3START	(128*1024 + 128*1024)
-#define CG8START	(256*1024)
-#define NOOVERLAY	(0x04000000)
-
-	if (off & PGOFSET)
-		panic("cgfourteenmmap");
-
-	if (off < 0)
-		return (-1);
-
-#if defined(DEBUG) && defined(CG14_MAP_REGS) /* XXX: security hole */
-	/*
-	 * Map the control registers into user space. Should only be
-	 * used for debugging!
-	 */
-	if ((u_int)off >= 0x10000000 && (u_int)off < 0x10000000 + 16*4096) {
-		off -= 0x10000000;
-		if (bus_space_mmap(sc->sc_bustag,
-				   sc->sc_physadr[CG14_CTL_IDX].sbr_slot,
-				   sc->sc_physadr[CG14_CTL_IDX].sbr_offset+off,
-				   BUS_SPACE_MAP_LINEAR, &bh))
-			return (-1);
-
-		return ((int)bh);
-	}
+ sc = cgfourteen_cd.cd_devs[minor(dev)];
+ if (off & PGOFSET) panic("cgfourteenmmap");
+ if (off < 0) return(-1);
+ sz = sc->sc_fb.fb_type.fb_width * sc->sc_fb.fb_type.fb_height;
+ switch (off >> 22)
+  { case 0x000: case 0x001: case 0x002: case 0x003:
+       /* 0x00000000 - fb32, with special case for COLOUR_OFFSET */
+       if (off < COLOUR_OFFSET) off = 0; else off -= COLOUR_OFFSET;
+       sz <<= 2;
+       break;
+    case 0x004 ... 0x007: /* 0x01000000 - fb32 */
+       sz <<= 2;
+       break;
+    case 0x008: case 0x009: /* 0x02000000 - fb16 */
+    case 0x00a: case 0x00b: /* 0x02800000 - fb16 */
+       sz <<= 1;
+       break;
+    case 0x00c: /* 0x03000000 - fb8 */
+    case 0x00d: /* 0x03400000 - fb8 */
+    case 0x00e: /* 0x03800000 - fb8 */
+    case 0x00f: /* 0x03c00000 - fb8 */
+       break;
+#if defined(CG14_MAP_REGS)
+    case 0x040: /* 0x10000000 - 0x00010000 */
+       /*
+	* I am told this opens up a security hole and thus should be
+	*  used only for debugging.  While I am inclined to believe
+	*  this, I also have found no information on the details, only
+	*  vague handwaving about giving access to blitters and such.
+	*/
+       if ((off & 0x003fffff) >= 0x00010000) return(-1);
+       if (bus_space_mmap( sc->sc_bustag,
+			   sc->sc_physadr[CG14_CTL_IDX].sbr_slot,
+			   sc->sc_physadr[CG14_CTL_IDX].sbr_offset+(off&0x003fffff),
+			   BUS_SPACE_MAP_LINEAR, &bh)) return(-1);
+       return(bh);
+       break;
 #endif
-
-	if ((u_int)off >= NOOVERLAY)
-		off -= NOOVERLAY;
-#ifdef CG14_CG8
-	else if ((u_int)off >= CG8START) {
-		off -= CG8START;
-	}
-#else
-	else if ((u_int)off >= CG3START)
-		off -= CG3START;
-#endif
-	else
-		off = 0;
-
-	if ((unsigned)off >= sc->sc_fb.fb_type.fb_size *
-		sc->sc_fb.fb_type.fb_depth/8) {
-#ifdef DEBUG
-		printf("\nmmap request out of bounds: request 0x%x, "
-		    "bound 0x%x\n", (unsigned) off,
-		    (unsigned)sc->sc_fb.fb_type.fb_size);
-#endif
-		return (-1);
-	}
-
-	if (bus_space_mmap(sc->sc_bustag,
-			   sc->sc_physadr[CG14_PXL_IDX].sbr_slot,
-			   sc->sc_physadr[CG14_PXL_IDX].sbr_offset + off,
-			   BUS_SPACE_MAP_LINEAR, &bh))
-		return (-1);
-
-	return ((int)bh);
+    default:
+       return(-1);
+       break;
+  }
+ if ((off & 0x003fffff) >= sz) return(-1);
+ if (bus_space_mmap( sc->sc_bustag,
+		     sc->sc_physadr[CG14_PXL_IDX].sbr_slot,
+		     sc->sc_physadr[CG14_PXL_IDX].sbr_offset+off,
+		     BUS_SPACE_MAP_LINEAR, &bh)) return(-1);
+ return(bh);
 }
 
 int
