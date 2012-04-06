@@ -72,10 +72,8 @@
  * The following enables 24-bit operation: when opened, the framebuffer
  * will switch to 24-bit mode (actually 32-bit mode), and provide a
  * simple cg8 emulation.
- *
- * XXX Note that the code enabled by this define is currently untested/broken.
  */
-#undef CG14_CG8
+/* do this in the kernel config if at all... #define CG14_CG8 */
 
 #include <sys/param.h>
 #include <sys/systm.h>
