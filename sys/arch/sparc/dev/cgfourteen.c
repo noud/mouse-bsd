@@ -203,8 +203,7 @@ cgfourteenattach(parent, self, aux)
 	fb->fb_type.fb_size = ramsize;
 
 	if (sa->sa_nreg < 2) {
-		printf("%s: only %d register sets\n",
-			self->dv_xname, sa->sa_nreg);
+		printf(": only %d register sets\n",sa->sa_nreg);
 		return;
 	}
 	bcopy(sa->sa_reg, sc->sc_physadr,
@@ -224,7 +223,7 @@ cgfourteenattach(parent, self, aux)
 			 sa->sa_size,
 			 BUS_SPACE_MAP_LINEAR,
 			 0, &bh) != 0) {
-		printf("%s: cannot map control registers\n", self->dv_xname);
+		printf(": cannot map control registers\n");
 		return;
 	}
 
@@ -240,6 +239,12 @@ cgfourteenattach(parent, self, aux)
 	/*
 	 * Let the user know that we're here
 	 */
+ printf(": rev %d impl %d\n%s",
+	(sc->sc_ctl->ctl_rsr & CG14_RSR_REVMASK) /
+	  (CG14_RSR_REVMASK & ~(CG14_RSR_REVMASK-1)),
+	(sc->sc_ctl->ctl_rsr & CG14_RSR_IMPLMASK) /
+	  (CG14_RSR_IMPLMASK & ~(CG14_RSR_IMPLMASK-1)),
+	&self->dv_xname[0] );
 #ifdef CG14_CG8
 	printf(": cgeight emulated at %dx%dx24bpp",
 		fb->fb_type.fb_width, fb->fb_type.fb_height);
