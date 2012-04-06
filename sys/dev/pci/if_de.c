@@ -172,6 +172,7 @@
 #define	TULIP_HZ	10
 
 #include DEVAR_INCLUDE
+#include <dev/pci/if_deioc.h>
 /*
  * This module supports
  *	the DEC 21040 PCI Ethernet Controller.
@@ -5938,3 +5939,26 @@ tulip_pci_attach(
 	TULIP_RESTORESPL(s);
     }
 }
+
+/*
+
+
+	case DEIOC_GETMAC: {
+	    error = copyout(sc->tulip_enaddr,ifr->ifr_data,6);
+	    break;
+	}
+
+	case DEIOC_SETMAC: {
+	    unsigned char mac[6];
+	    error = copyin(ifr->ifr_data,&mac[0],6);
+	    if (error) break;
+	    if (mac[0] & 1) {
+		error = EINVAL;
+		break;
+	    }
+	    bcopy(&mac[0],sc->tulip_enaddr,6);
+	    tulip_addr_filter(sc);
+	    tulip_init(sc);
+	    break;
+	}
+*/
