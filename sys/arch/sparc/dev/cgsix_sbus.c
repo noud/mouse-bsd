@@ -174,6 +174,16 @@ cgsixattach(parent, self, aux)
 	}
 	sc->sc_tec = (struct cg6_tec_xxx *)bh;
 
+	if (sbus_bus_map(sa->sa_bustag, sa->sa_slot,
+			 sa->sa_offset + CGSIX_FBC_OFFSET,
+			 sizeof(*sc->sc_fbc),
+			 BUS_SPACE_MAP_LINEAR,
+			 0, &bh) != 0) {
+		printf("%s: cannot map FBC registers\n", self->dv_xname);
+		return;
+	}
+	sc->sc_fbc = (struct cg6_fbc *)bh;
+
 	sbus_establish(&sc->sc_sd, &sc->sc_dev);
 	name = getpropstring(node, "model");
 
