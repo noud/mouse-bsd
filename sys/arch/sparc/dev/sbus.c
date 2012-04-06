@@ -201,6 +201,8 @@ sbus_print(args, busname)
 
 	if (busname)
 		printf("%s at %s", sa->sa_name, busname);
+	if (getpropint(sa->sa_node, "slave-only", 0))
+		printf(" slave-only");
 	printf(" slot %d offset 0x%x", sa->sa_slot, sa->sa_offset);
 	for (i = 0; i < sa->sa_nintr; i++) {
 		u_int32_t level = sa->sa_intr[i].sbi_pri;
