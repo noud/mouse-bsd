@@ -107,10 +107,36 @@ db_write_bytes(addr, size, data)
 /*
  * Data and functions used by DDB only.
  */
+
+#include "machine/db_enterleave.h"
+
+#define MAXENTERLEAVE 16
+
+typedef struct enterleave ENTERLEAVE;
+
+struct enterleave {
+  void (*enter)(void *);
+  void (*leave)(void *);
+  void *arg;
+  } ;
+
+static ENTERLEAVE enterleave[MAXENTERLEAVE];
+static int nenterleave = 0;
+
+void register_debugger_enterleave(void (*enter)(void *), void (*leave)(void *), void *arg)
+{
+ if (nenterleave >= MAXENTERLEAVE) panic("too many debugger enter/leave functions\n");
+ enterleave[nenterleave++] = (ENTERLEAVE) { .enter=enter, .leave=leave, .arg=arg };
+}
+
 void
 cpu_Debugger()
 {
+ int i;
+
+ for (i=nenterleave-1;i>=0;i--) (*enterleave[i].enter)(enterleave[i].arg);
 	asm("ta 0x81");
+ for (i=0;i<nenterleave;i++) (*enterleave[i].leave)(enterleave[i].arg);
 }
 
 static int nil;
