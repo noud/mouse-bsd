@@ -83,6 +83,11 @@ __KERNEL_RCSID(0, "$NetBSD: wsfont.c,v 1.12 2000/01/07 03:25:46 enami Exp $");
 #include <dev/wsfont/vt220l8x10.h>
 #endif
 
+#ifdef FONT_VS4K60_12x21
+#define HAVE_FONT 1
+#include <dev/wsfont/vs4k60_12x21.h>
+#endif
+
 /* Make sure we always have at least one font. */
 #ifndef HAVE_FONT
 #define HAVE_FONT 1
@@ -129,8 +134,11 @@ static struct font *list, builtin_fonts[] = {
 #ifdef FONT_VT220L8x10
 	{ NULL, NULL, &vt220l8x10, 0, 8, WSFONT_STATIC | WSFONT_BUILTIN },
 #endif
+#ifdef FONT_VS4K60_12x21
+	{ NULL, NULL, &vs4k60_12x21, 0, 9, WSFONT_STATIC | WSFONT_BUILTIN },
+#endif
 #ifdef FONT_FIXED6x13
-	{ NULL, NULL, &fixed6x13, 0, 9, WSFONT_STATIC | WSFONT_BUILTIN },
+	{ NULL, NULL, &fixed6x13, 0, 10, WSFONT_STATIC | WSFONT_BUILTIN },
 #endif
 	{ NULL, NULL, NULL, 0 },
 };

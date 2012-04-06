@@ -9,3 +9,4 @@ defopt	opt_wsfont.h		FONT_BOLD8x16
 				FONT_FIXED6x13
 				FONT_VT220L8x8
 				FONT_VT220L8x10
+				FONT_VS4K60_12x21
