@@ -66,7 +66,7 @@
  * enabled by allowing any user to map the control registers for the
  * cg14 into their space.
  */
-#undef CG14_MAP_REGS
+#define CG14_MAP_REGS
 
 /*
  * The following enables 24-bit operation: when opened, the framebuffer
