@@ -141,8 +141,11 @@ main(argc, argv)
 			else
 				if (strcmp(argv[index], "-p") == 0)
 					pflag = 1;
-				else
+				else {
+					if (strcmp(argv[index], "--") == 0)
+						index ++;
 					break;
+				}
 
 	argc -= index;
 	argv += index;
