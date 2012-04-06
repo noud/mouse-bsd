@@ -653,7 +653,8 @@ cg14_init(sc)
 	/*
 	 * Zero the xlut to enable direct-color mode
 	 */
-	bzero(sc->sc_xlut, CG14_CLUT_SIZE);
+	for (i = 0; i < CG14_CLUT_SIZE; i++)
+		sc->sc_xlut->xlut_lut[i] = 0;
 #else
 	/*
 	 * Enable the video and put it in 8 bit mode
