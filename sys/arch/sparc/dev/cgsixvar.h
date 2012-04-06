@@ -115,6 +115,7 @@ struct cgsix_softc {
 	short	sc_blanked;		/* true if blanked */
 	struct	cg6_cursor sc_cursor;	/* software cursor info */
 	union	bt_cmap sc_cmap;	/* Brooktree color map */
+	unsigned int quirks;
 };
 
 #ifdef RASTERCONSOLE

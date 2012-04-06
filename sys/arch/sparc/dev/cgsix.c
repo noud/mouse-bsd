@@ -124,6 +124,18 @@
 #include <dev/rasops/rasops.h>
 #include <dev/wscons/wsconsio.h>
 
+typedef struct quirk QUIRK;
+
+struct quirk {
+  char *name;
+  unsigned int quirks;
+#define QUIRK_LEAVE_SYNC 0x00000001 /* always leave THC_MISC_SYNCEN set */
+  } ;
+
+static QUIRK quirks[]
+ = { { "SUNW,501-2393", QUIRK_LEAVE_SYNC },
+     { 0 } };
+
 static void	cg6_unblank __P((struct device *));
 
 /* cdevsw prototypes */
@@ -446,6 +458,7 @@ cg6attach(sc, name, isconsole, isfb)
 	int isfb;
 {
 	struct fbdevice *fb = &sc->sc_fb;
+	int i;
 
 	fb->fb_driver = &cg6_fbdriver;
 
@@ -456,6 +469,14 @@ cg6attach(sc, name, isconsole, isfb)
 	fb->fb_type.fb_size = fb->fb_type.fb_height * fb->fb_linebytes;
 	printf(": %s, %d x %d", name,
 	       fb->fb_type.fb_width, fb->fb_type.fb_height);
+
+	sc->quirks = 0;
+	for (i=0; quirks[i].name; i++) {
+		if (!strcmp(name,quirks[i].name)) {
+			sc->quirks = quirks[i].quirks;
+			break;
+		}
+	}
 
 	sc->sc_fhcrev = (*sc->sc_fhc >> FHC_REV_SHIFT) &
 			(FHC_REV_MASK >> FHC_REV_SHIFT);
@@ -521,7 +542,12 @@ cgsixclose(dev, flags, mode, p)
 
 static void cgsix_video_off(struct cgsix_softc *sc)
 {
- sc->sc_thc->thc_misc &= ~(THC_MISC_VIDEN|THC_MISC_SYNCEN);
+ if (sc->quirks & QUIRK_LEAVE_SYNC)
+  { sc->sc_thc->thc_misc &= ~THC_MISC_VIDEN;
+  }
+ else
+  { sc->sc_thc->thc_misc &= ~(THC_MISC_VIDEN|THC_MISC_SYNCEN);
+  }
 }
 
 static void cgsix_video_on(struct cgsix_softc *sc)
