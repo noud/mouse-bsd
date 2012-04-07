@@ -85,6 +85,7 @@
 #	ss*	SCSI scanner
 #	uk*	SCSI unknown
 #	ch*	SCSI changer
+#	diskwatch* Live-backup disk watching
 #
 
 dialin=0
@@ -105,6 +106,7 @@ all)
 	sh $0 tun0 tun1 ipl usbs
 	sh $0 lkm nvram local raid0 raid1 raid2 raid3
 	sh $0 scsibus0 scsibus1 scsibus2 scsibus3
+	sh $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
 	;;
 
 floppy)
@@ -481,6 +483,16 @@ ugen*)
 		mknod $ugenj c $major $(($unit * 16 + $j))
 		chown root.wheel $ugenj
 		chmod 600 $ugenj
+	done
+	;;
+
+diskwatch*)
+	unit=${i#diskwawtch};
+	for x in ctl.0 data.1 dbg.2; do
+		rm -f diskwatch$unit${x%.*}
+		mknod diskwatch$unit${x%.*} c 48 $((($unit*4)+${x#*.}))
+		chown root:wheel diskwatch$unit${x%.*}
+		chmod 600 diskwatch$unit${x%.*}
 	done
 	;;
 

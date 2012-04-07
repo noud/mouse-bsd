@@ -144,6 +144,9 @@ cdev_decl(wd);
 cdev_decl(ofc);
 cdev_decl(nvram);
 
+#include "diskwatch.h"
+cdev_decl(diskwatch);
+
 #include "scsibus.h"
 cdev_decl(scsibus);
 
@@ -219,7 +222,7 @@ struct cdevsw cdevsw[] = {
 	cdev_tty_init(NCOM,com),	/* 45: NS16x50 compatible ports */
 	cdev_notdef(),			/* 46 */
 	cdev_notdef(),			/* 47 */
-	cdev_notdef(),			/* 48 */
+	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 48: disk watching */
 	cdev_notdef(),			/* 49 */
 	cdev_notdef(),			/* 50 */
 	cdev_notdef(),			/* 51 */
