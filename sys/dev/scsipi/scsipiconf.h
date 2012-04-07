@@ -199,6 +199,7 @@ struct scsipi_link {
 #define ADEV_NOTUR		0x1000	/* no TEST_UNIT_READY command */
 #define ADEV_NODOORLOCK		0x2000	/* device can't lock door */
 #define ADEV_NOSENSE		0x4000	/* device can't handle request sense */
+#define SDEV_FORCEBIG           0x8000	/* always use 10-byte read/write */
 
 	struct	scsipi_device *device;	/* device entry points etc. */
 	void	*device_softc;		/* needed for call to foo_start */

@@ -745,8 +745,10 @@ sdstart(v)
 		 *  Fill out the scsi command.  If the transfer will
 		 *  fit in a "small" cdb, use it.
 		 */
-		if (((bp->b_rawblkno & 0x1fffff) == bp->b_rawblkno) &&
-		    ((nblks & 0xff) == nblks) && sc_link->type == BUS_SCSI) {
+		if ( ((bp->b_rawblkno & 0x1fffff) == bp->b_rawblkno) &&
+		     ((nblks & 0xff) == nblks) &&
+		     (sc_link->type == BUS_SCSI) &&
+		     !(sc_link->quirks & SDEV_FORCEBIG) ) {
 			/*
 			 * We can fit in a small cdb.
 			 */
