@@ -179,6 +179,9 @@ cdev_decl(tun);
 #endif
 cdev_decl(scsibus);
 
+#include "diskwatch.h"
+cdev_decl(diskwatch);
+
 struct cdevsw	cdevsw[] =
 {
 	cdev_cn_init(1,cn),		/* 0: virtual console */
@@ -230,7 +233,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 46 */
 	cdev_notdef(),			/* 47 */
 	cdev_notdef(),			/* 48 */
-	cdev_notdef(),			/* 49 */
+	cdev__ocrwip_init(NDISKWATCH,diskwatch),/* 49: disk watching */
 	cdev_notdef(),			/* 50 */
 	cdev_notdef(),			/* 51 */
 	cdev_notdef(),			/* 52 */

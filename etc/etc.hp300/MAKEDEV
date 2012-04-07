@@ -73,6 +73,7 @@
 #	ipl	IPilter control
 #	random	Random number generator
 #	scsibus* SCSI busses, see scsictl(8), scsi(4)
+#	diskwatch* Live-backup disk watching
 #
 
 PATH=/sbin:/bin/:/usr/bin:/usr/sbin
@@ -88,6 +89,7 @@ all)
 	sh $0 bpf0 bpf1 bpf2 bpf3 bpf4 bpf5 bpf6 bpf7
 	sh $0 tun0 tun1 tun2 tun3 lkm ipl random
 	sh $0 scsibus0 scsibus1 scsibus2 scsibus3
+	sh $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
 	sh $0 local
 	;;
 
@@ -407,6 +409,16 @@ scsibus*)
 	mknod scsibus$unit c 34 $unit
 	chown root:wheel scsibus$unit
 	chmod 644 scsibus$unit
+	;;
+
+diskwatch*)
+	unit=${i#diskwawtch};
+	for x in ctl.0 data.1 dbg.2; do
+		rm -f diskwatch$unit${x%.*}
+		mknod diskwatch$unit${x%.*} c 49 $((($unit*4)+${x#*.}))
+		chown root:wheel diskwatch$unit${x%.*}
+		chmod 600 diskwatch$unit${x%.*}
+	done
 	;;
 
 local)
