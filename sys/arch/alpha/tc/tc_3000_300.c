@@ -69,17 +69,19 @@ int	tc_3000_300_intrnull __P((void *));
 struct tc_slotdesc tc_3000_300_slots[] = {
 	{ KV(0x100000000), C(TC_3000_300_DEV_OPT0), },	/* 0 - opt slot 0 */
 	{ KV(0x120000000), C(TC_3000_300_DEV_OPT1), },	/* 1 - opt slot 1 */
-	{ KV(0x180000000), C(TC_3000_300_DEV_BOGUS), },	/* 2 - TCDS ASIC */
-	{ KV(0x1a0000000), C(TC_3000_300_DEV_BOGUS), },	/* 3 - IOCTL ASIC */
-	{ KV(0x1c0000000), C(TC_3000_300_DEV_CXTURBO), }, /* 4 - CXTurbo */
+	{ KV(0x140000000), C(TC_3000_300_DEV_BOGUS), },	/* 2 - unused */
+	{ KV(0x160000000), C(TC_3000_300_DEV_BOGUS), },	/* 3 - unused */
+	{ KV(0x180000000), C(TC_3000_300_DEV_BOGUS), },	/* 4 - TCDS ASIC */
+	{ KV(0x1a0000000), C(TC_3000_300_DEV_BOGUS), },	/* 5 - IOCTL ASIC */
+	{ KV(0x1c0000000), C(TC_3000_300_DEV_CXTURBO), }, /* 6 - CXTurbo */
 };
 int tc_3000_300_nslots =
     sizeof(tc_3000_300_slots) / sizeof(tc_3000_300_slots[0]);
 
 struct tc_builtin tc_3000_300_builtins[] = {
-	{ "PMAGB-BA",	4, 0x02000000, C(TC_3000_300_DEV_CXTURBO),	},
-	{ "FLAMG-IO",	3, 0x00000000, C(TC_3000_300_DEV_IOASIC),	},
-	{ "PMAZ-DS ",	2, 0x00000000, C(TC_3000_300_DEV_TCDS),		},
+	{ "PMAGB-BA",	6, 0x02000000, C(TC_3000_300_DEV_CXTURBO),	},
+	{ "FLAMG-IO",	5, 0x00000000, C(TC_3000_300_DEV_IOASIC),	},
+	{ "PMAZ-DS ",	4, 0x00000000, C(TC_3000_300_DEV_TCDS),		},
 };
 int tc_3000_300_nbuiltins =
     sizeof(tc_3000_300_builtins) / sizeof(tc_3000_300_builtins[0]);
