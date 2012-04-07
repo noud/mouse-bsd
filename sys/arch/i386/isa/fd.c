@@ -1585,7 +1585,7 @@ fdformat(dev, finfo, p)
 	bp->b_bcount = sizeof(struct fd_idfield_data) * finfo->fd_formb_nsecs;
 	bp->b_data = (caddr_t)finfo;
 
-#ifdef DEBUG
+#if defined(DEBUG) && defined(FD_VERBOSE_FORMAT)
 	printf("fdformat: blkno %x count %lx\n", bp->b_blkno, bp->b_bcount);
 #endif
 
