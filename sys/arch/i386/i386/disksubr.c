@@ -152,6 +152,10 @@ readdisklabel(dev, strat, lp, osdep)
 		lp->d_secsize = DEV_BSIZE;
 	if (lp->d_secperunit == 0)
 		lp->d_secperunit = 0x1fffffff;
+	/* XXX would it be better to return failure?
+	   Leaving secpercyl zero guarantees a divide-by-zero trap below. */
+	if (lp->d_secpercyl == 0)
+		lp->d_secpercyl = 63 * 16;
 #if 0
 	if (lp->d_ncylinders == 16383) {
 		printf("disklabel: Disk > 8G ... readjusting chs %d/%d/%d to ",
