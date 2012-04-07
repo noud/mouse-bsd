@@ -73,6 +73,10 @@
 #include <machine/reg.h>
 #include <m68k/cacheops.h>
 
+/* XXX these belong in an include file! */
+void *iomap(u_long, size_t);
+void iounmap(void *, size_t);
+
 /*
  * Finish a fork operation, with process p2 nearly set up.
  * Copy and update the pcb and trap frame, making the child ready to run.
@@ -91,16 +95,16 @@
  * accordingly.
  */
 void
-cpu_fork(p1, p2, stack, stacksize)
-	struct proc *p1, *p2;
-	void *stack;
-	size_t stacksize;
+cpu_fork(struct proc *p1, struct proc *p2, void *stack, size_t stacksize)
 {
 	struct pcb *pcb = &p2->p_addr->u_pcb;
 	struct trapframe *tf;
 	struct switchframe *sf;
 	extern struct pcb *curpcb;
-	extern void proc_trampoline();
+	/* Prototyping proc_trampline is a bit of a lie; it does not obey
+	   normal calling conventions.  But all we actually use is a
+	   pointer to it, so this is good enough. */
+	extern void proc_trampoline(void);
 
 	p2->p_md.md_flags = p1->p_md.md_flags & ~MDP_HPUXTRACE;
 
@@ -313,9 +317,7 @@ physunaccess(vaddr, size)
  * space mapping the indicated physical range [pa - pa+size].
  */
 void *
-iomap(paddr, size)
-	u_long paddr;
-	size_t size;
+iomap(u_long paddr, size_t size)
 {
 	u_long pa, off;
 	vaddr_t va, rval;
@@ -338,9 +340,7 @@ iomap(paddr, size)
 }
 
 void
-iounmap(kva, size)
-	void *kva;
-	size_t size;
+iounmap(void *kva, size_t size)
 {
 	vaddr_t va;
 
@@ -374,7 +374,7 @@ setredzone(pte, vaddr)
 /*
  * Convert kernel VA to physical address
  */
-kvtop(addr)
+int kvtop(addr)
 	caddr_t addr;
 {
 	paddr_t pa;
