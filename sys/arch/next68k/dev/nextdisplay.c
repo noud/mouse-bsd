@@ -168,10 +168,10 @@ nextdisplay_init(dc, color)
 	dc->dc_paddr = color ? COLORP(addr) : MONOP(addr);
 	dc->dc_size = color ? NEXT_P_C16_VIDEOSIZE : NEXT_P_VIDEOSIZE;
 
-	dc->dc_wid = 1152; /* XXX color */
+	dc->dc_wid = 1120; /* XXX color */
 	dc->dc_ht = 832; /* XXX color */
 	dc->dc_depth = color ? 8 : 2;
-	dc->dc_rowbytes = dc->dc_wid * dc->dc_depth / 8;
+	dc->dc_rowbytes = 1152 * dc->dc_depth / 8;
 
 	dc->dc_videobase = dc->dc_vaddr;
 
