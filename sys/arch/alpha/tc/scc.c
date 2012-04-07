@@ -1505,3 +1505,180 @@ rr(msg, regs)
 }
 #endif /* SCC_DEBUG */
 #endif /* NSCC */
+
+
+int sccdbgopen(dev_t, int, int, struct proc *);
+int sccdbgopen(dev_t dev, int flag, int mode, struct proc *p)
+{
+ dev=dev;
+ flag=flag;
+ mode=mode;
+ p=p;
+ return(0);
+}
+
+int sccdbgclose(dev_t, int, int, struct proc *);
+int sccdbgclose(dev_t dev, int flag, int mode, struct proc *p)
+{
+ dev=dev;
+ flag=flag;
+ mode=mode;
+ p=p;
+ return(0);
+}
+
+int sccdbgread(dev_t, struct uio *, int);
+int sccdbgread(dev_t dev, struct uio *uio, int flag)
+{
+ int m;
+ int d;
+ int u;
+ int l;
+ char obuf[256];
+ char *obp;
+ int len;
+ struct scc_softc *sc;
+ struct tty *tp;
+
+ if (uio->uio_offset < 0) return(EINVAL);
+ m = minor(dev) >> 8;
+ d = minor(dev) & 255;
+ u = SCCUNIT(m);
+ l = SCCLINE(m);
+ len = -1;
+#define ADV() do { obp += strlen(obp); } while (0)
+ switch (d)
+  { case 0:
+       sprintf(&obuf[0],"minor %d: unit %d line %d [NSCC %d]\n",m,u,l,NSCC);
+       break;
+    case 1:
+       if (u >= scc_cd.cd_ndevs)
+	{ strcpy(&obuf[0],"ENXIO (>ndevs)\n");
+	}
+       else
+	{ sc = scc_cd.cd_devs[u];
+	  if (! sc)
+	   { strcpy(&obuf[0],"ENXIO (no dev)\n");
+	   }
+	  else if (! sc->scc_pdma[l].p_addr)
+	   { strcpy(&obuf[0],"ENXIO (no p_addr)\n");
+	   }
+	  else
+	   { tp = sc->scc_tty[l];
+	     if (! tp)
+	      { strcpy(&obuf[0],"no tty\n");
+	      }
+	     else
+	      { obp = &obuf[0];
+		if ((tp->t_state&TS_ISOPEN) || tp->t_wopen)
+		 { strcpy(obp,"tty open");
+		   ADV();
+		   if (tp->t_state & TS_XCLUDE)
+		    { strcpy(obp," exclusive");
+		      ADV();
+		    }
+		   strcpy(obp,"\n");
+		 }
+		else
+		 { strcpy(obp,"tty closed\n");
+		 }
+		ADV();
+		if (tp->t_state & TS_CARR_ON)
+		 { strcpy(obp,"carrier on\n");
+		 }
+		else
+		 { strcpy(obp,"no carrier\n");
+		 }
+		ADV();
+		sprintf(obp,"t_state %x t_flags %x t_outq.c_cc %d\n",tp->t_state,tp->t_flags,tp->t_outq.c_cc);
+		ADV();
+	      }
+	   }
+	}
+       break;
+    case 2:
+       obuf[0] = kb_output_to_console ? '1' : '0';
+       obuf[1] = '\n';
+       len = 2;
+       break;
+    default:
+       len = 0;
+       break;
+  }
+ obp = &obuf[0];
+ if (len < 0) len = strlen(obp);
+ if (uio->uio_offset >= len) return(0);
+ obp += uio->uio_offset;
+ len -= uio->uio_offset;
+ return(uiomove(obp,len,uio));
+}
+
+int sccdbgwrite(dev_t, struct uio *, int);
+int sccdbgwrite(dev_t dev, struct uio *uio, int flag)
+{
+ int m;
+ int d;
+ int u;
+ int l;
+ char obuf[256];
+ int len;
+ int rv;
+ struct scc_softc *sc;
+ int s;
+
+ if (uio->uio_offset < 0) return(EINVAL);
+ m = minor(dev) >> 8;
+ d = minor(dev) & 255;
+ u = SCCUNIT(m);
+ l = SCCLINE(m);
+ switch (d)
+  { case 2:
+       if (uio->uio_resid > 2) return(EMSGSIZE);
+       len = uio->uio_resid;
+       uiomove(&obuf[0],len,uio);
+       if ((len == 2) && (obuf[1] != '\n')) return(EINVAL);
+       switch (obuf[0])
+	{ case '0':
+	     kb_output_to_console = 0;
+	     break;
+	  case '1':
+	     kb_output_to_console = 1;
+	     break;
+	  default:
+	     return(EINVAL);
+	     break;
+	}
+       break;
+    case 3:
+       if (u >= scc_cd.cd_ndevs) return(ENXIO);
+       sc = scc_cd.cd_devs[u];
+       if (! sc) return(ENXIO);
+       if (! sc->scc_pdma[l].p_addr) return(ENXIO);
+       s = spltty();
+       rv = sccintr(sc);
+       splx(s);
+       uio->uio_resid = 0;
+       return(0);
+       break;
+  }
+ return(EINVAL);
+}
+
+int sccdbgioctl(dev_t, u_long, caddr_t, int, struct proc *);
+int sccdbgioctl(dev_t dev, u_long cmd, caddr_t data, int flag, struct proc *p)
+{
+ dev=dev;
+ cmd=cmd;
+ data=data;
+ flag=flag;
+ p=p;
+ return(ENOTTY);
+}
+
+int sccdbgpoll(dev_t, int, struct proc *);
+int sccdbgpoll(dev_t dev, int events, struct proc *p)
+{
+ dev=dev;
+ p=p;
+ return(events);
+}
