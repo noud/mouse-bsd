@@ -490,7 +490,7 @@ zshard(arg)
 #endif
 			ienab_bis(IE_ZSSOFT);
 	}
-	return (rval);
+	return (1);
 }
 
 /*
@@ -551,7 +551,7 @@ zs_set_speed(cs, bps)
 	struct zs_chanstate *cs;
 	int bps;	/* bits per second */
 {
-	int tconst, real_bps;
+	int tconst, clk, bits;
 
 	if (bps == 0)
 		return (0);
@@ -561,17 +561,32 @@ zs_set_speed(cs, bps)
 		panic("zs_set_speed");
 #endif
 
-	tconst = BPS_TO_TCONST(cs->cs_brg_clk, bps);
-	if (tconst < 0)
-		return (EINVAL);
+	/* Try to find a divisor we can do it with. */
+	/* Arguably we should try X64 and X32, but with X16 we can reach
+	   as low as 2.3437+ bps; just punt below that - after all, bps
+	   is an int, not the float it would more or less have to be to
+	   make sense at speeds that slow. */
+	clk = PCLK / 16;
+	bits = ZSWR4_CLK_X16;
+	tconst = BPS_TO_TCONST(PCLK/16, bps);
+	if (tconst > 65535)
+		return (EINVAL); /* Too slow! */
+	if ((tconst < 0) || (TCONST_TO_BPS(PCLK/16, tconst) != bps)) {
+		/* Too fast for PCLK/16, or not a baudrate it can do.
+		   Try with PCLK/1. */
+		tconst = BPS_TO_TCONST(PCLK, bps);
+		if ( (tconst < 0) || /* Still too fast! */
+		     (tconst > 65535) || /* Too slow for PCLK/1 - but
+					    not a baudrate PCLK/16 can do,
+					    or we wouldn't be here */
+		     (TCONST_TO_BPS(PCLK, tconst) != bps) ) /* No can do */
+			return (EINVAL);
+		clk = PCLK;
+		bits = ZSWR4_CLK_X1;
+	}
 
-	/* Convert back to make sure we can do it. */
-	real_bps = TCONST_TO_BPS(cs->cs_brg_clk, tconst);
-
-	/* XXX - Allow some tolerance here? */
-	if (real_bps != bps)
-		return (EINVAL);
-
+	cs->cs_brg_clk = clk;
+	cs->cs_preg[4] = (cs->cs_preg[4] & ~ZSWR4_CLK_MASK) | bits;
 	cs->cs_preg[12] = tconst;
 	cs->cs_preg[13] = tconst >> 8;
 
