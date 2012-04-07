@@ -246,11 +246,19 @@ ext2fs_write(v)
 		xfersize = fs->e2fs_bsize - blkoffset;
 		if (uio->uio_resid < xfersize)
 			xfersize = uio->uio_resid;
+		/*
+		 * Avoid a data-consistency race between write() and mmap()
+		 * by ensuring that newly allocated blocks are zerod.  The
+		 * race can occur even in the case where the write covers
+		 * the entire block.
+		 */
+		flags |= B_CLRBUF;
+#if 0
 		if (fs->e2fs_bsize > xfersize)
 			flags |= B_CLRBUF;
 		else
 			flags &= ~B_CLRBUF;
-
+#endif
 		error = ext2fs_balloc(ip,
 			lbn, blkoffset + xfersize, ap->a_cred, &bp, flags);
 		if (error)
