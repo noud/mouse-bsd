@@ -41,7 +41,7 @@ RELOC=		6c0000
 
 ENTRY=		_start
 
-CLEANFILES+=	vers.c vers.o ${PROG}.elf
+CLEANFILES+=	vers.c vers.o ${PROG}.elf ${PROG}.mrg ${PROG}.xcf
 
 CPPFLAGS+=	-I. -I${.CURDIR}/../../.. -I${.CURDIR}/../../../..
 CPPFLAGS+=	-DRELOC=0x${RELOC}
@@ -83,5 +83,10 @@ ${PROG}: ${OBJS} ${XCOFFXTRAOBJ} ${LIBSA} ${LIBZ} ${LIBKERN} ${FIXCOFFTARG}
 	${OBJCOPY} -O aixcoff-rs6000 -R .comment -R .note \
 	    ${PROG}.mrg ${PROG}.xcf
 	${FIXCOFF} ${PROG}.xcf
+
+cleandir distclean: cleanlibdir
+
+cleanlibdir:
+	rm -rf lib
 
 .include <bsd.prog.mk>

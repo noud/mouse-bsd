@@ -2,4 +2,8 @@
 
 SUBDIR=	bootxx installboot ofwboot
 
+.ifmake cleandir
+SUBDIR += fixcoff
+.endif
+
 .include <bsd.subdir.mk>
