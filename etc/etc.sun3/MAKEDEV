@@ -65,6 +65,7 @@
 #	tun*	network tunnel driver
 #	random	Random number generator
 #	scsibus* SCSI busses, see scsictl(8), scsi(4)
+#	diskwatch* Live-backup disk watching
 
 # XXX - Keep /usr/etc so SunOS can find chown
 PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/etc
@@ -102,6 +103,7 @@ all)
 	sh $0 tun0 tun1
 	sh $0 lkm random
 	sh $0 scsibus0 scsibus1 scsibus2 scsibus3
+	sh $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
 	sh $0 local
 	;;
 
@@ -258,6 +260,14 @@ random)
 
 scsibus*)
 	mk scsibus${unit} c 81 $unit 644 wheel
+	;;
+
+diskwatch*)
+	unit=${i#diskwawtch};
+	for x in ctl.0 data.1 dbg.2; do
+		rm -f diskwatch$unit${x%.*}
+		mk diskwatch$unit${x%.*} c 104 $((($unit*4)+${x#*.})) 600 wheel
+	done
 	;;
 
 local)

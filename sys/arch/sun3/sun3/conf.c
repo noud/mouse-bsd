@@ -177,6 +177,9 @@ cdev_decl(zs);
 #include "scsibus.h"
 cdev_decl(scsibus);
 
+#include "diskwatch.h"
+cdev_decl(diskwatch);
+
 /* Block devices */
 struct bdevsw	bdevsw[] =
 {
@@ -326,7 +329,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 101 */
 	cdev_notdef(),			/* 102 */
 	cdev_notdef(),			/* 103 */
-	cdev_notdef(),			/* 104 */
+	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 104: disk watching */
 	cdev_notdef(),			/* 105 */
 	cdev_notdef(),			/* 106 */
 	cdev_notdef(),			/* 107 */
