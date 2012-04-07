@@ -413,6 +413,9 @@ cdev_decl(wsmux);
 #include "scsibus.h"
 cdev_decl(scsibus);
 
+#include "diskwatch.h"
+cdev_decl(diskwatch);
+
 struct cdevsw	cdevsw[] =
 {
 	cdev_cn_init(1,cn),		/* 0: virtual console */
@@ -502,7 +505,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 81 */
 	cdev_notdef(),			/* 82 */
 	cdev_notdef(),			/* 83 */
-	cdev_notdef(),			/* 84 */
+	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 84: disk watching */
 	cdev_notdef(),			/* 85 */
 	cdev_notdef(),			/* 86 */
 	cdev_notdef(),			/* 87 */
