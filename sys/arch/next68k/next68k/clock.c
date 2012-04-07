@@ -131,7 +131,7 @@ clock_intr(arg)
   if (!INTR_OCCURRED(NEXT_I_TIMER)) return(0);
 
 	{
-		volatile struct timer_reg *timer = IIOV(NEXT_P_TIMER);
+		volatile struct timer_reg *timer = (volatile struct timer_reg *) IIOV(NEXT_P_TIMER);
 		timer->csr |= TIMER_UPDATE;
 	}
 
@@ -158,7 +158,7 @@ cpu_initclocks()
     s = splclock();
 
     {
-      volatile struct timer_reg *timer = IIOV(NEXT_P_TIMER);
+      volatile struct timer_reg *timer = (volatile struct timer_reg *) IIOV(NEXT_P_TIMER);
       int cnt = 1000000/hz;          /* usec timer */
       timer->csr = 0;
       timer->msb = (cnt>>8);
