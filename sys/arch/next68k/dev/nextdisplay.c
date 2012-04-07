@@ -209,7 +209,7 @@ nextdisplay_init(dc, color)
 	rcp->rc_crow = rcp->rc_ccol = -1;
 	rcp->rc_crowp = &rcp->rc_crow;
 	rcp->rc_ccolp = &rcp->rc_ccol;
-	rcons_init(rcp, 34, 80);
+	rcons_init(rcp, 37, 93);
 
 	if (color) {
 		nextdisplay_color.nrows = dc->dc_rcons.rc_maxrow;
