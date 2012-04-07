@@ -122,3 +122,8 @@ SA_AS=		library
 SAMISCMAKEFLAGS+="SA_USE_LOADFILE=yes"
 .include "${S}/lib/libsa/Makefile.inc"
 LIBSA=		${SALIB}
+
+cleandir distclean: cleanlibdir
+
+cleanlibdir:
+	rm -rf lib
