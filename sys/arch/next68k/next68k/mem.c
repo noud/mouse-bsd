@@ -65,14 +65,18 @@
 
 #include <uvm/uvm_extern.h>
 
+/* XXX these should come from an include file! */
+int mmopen(dev_t, int, int);
+int mmclose(dev_t, int, int);
+int mmrw(dev_t, struct uio *, int);
+int mmmmap(dev_t, int, int);
+
 extern u_int lowram;
 static caddr_t devzeropage;
 
 /*ARGSUSED*/
 int
-mmopen(dev, flag, mode)
-	dev_t dev;
-	int flag, mode;
+mmopen(dev_t dev, int flag, int mode)
 {
 
 	return (0);
@@ -80,9 +84,7 @@ mmopen(dev, flag, mode)
 
 /*ARGSUSED*/
 int
-mmclose(dev, flag, mode)
-	dev_t dev;
-	int flag, mode;
+mmclose(dev_t dev, int flag, int mode)
 {
 
 	return (0);
@@ -90,10 +92,7 @@ mmclose(dev, flag, mode)
 
 /*ARGSUSED*/
 int
-mmrw(dev, uio, flags)
-	dev_t dev;
-	struct uio *uio;
-	int flags;
+mmrw(dev_t dev, struct uio *uio, int flags)
 {
 	vaddr_t o, v;
 	int c;
@@ -202,9 +201,7 @@ unlock:
 }
 
 int
-mmmmap(dev, off, prot)
-	dev_t dev;
-	int off, prot;
+mmmmap(dev_t dev, int off, int prot)
 {
 	/*
 	 * /dev/mem is the only one that makes sense through this
