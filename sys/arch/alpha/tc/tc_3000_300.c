@@ -182,7 +182,7 @@ tc_3000_300_intrnull(val)
 	void *val;
 {
 
-	panic("tc_3000_300_intrnull: uncaught TC intr for cookie %ld\n",
+	panic("tc_3000_300_intrnull: uncaught TC intr for cookie %ld",
 	    (u_long)val);
 }
 
