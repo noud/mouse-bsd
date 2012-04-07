@@ -133,6 +133,7 @@ int	nblkdev = sizeof(bdevsw) / sizeof(bdevsw[0]);
 #include "zsc.h"
 #include "zstty.h"
 #include "scsibus.h"
+#include "diskwatch.h"
 
 cdev_decl(aed);
 cdev_decl(asc);
@@ -175,6 +176,7 @@ cdev_decl(zs);
 cdev_decl(zsc);
 cdev_decl(scsibus);
 cdev_decl(vc_nb_);
+cdev_decl(diskwatch);
 
 dev_decl(filedesc,open);
 
@@ -232,7 +234,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 49 */
 	cdev_notdef(),			/* 50 */
 	cdev_notdef(),			/* 51 */
-	cdev_notdef(),			/* 52 */
+	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 52: disk watching */
 	cdev_notdef(),			/* 53 */
 	cdev_notdef(),			/* 54 */
 	cdev_notdef(),			/* 55 */
