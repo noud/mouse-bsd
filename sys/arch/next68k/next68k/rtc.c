@@ -66,6 +66,7 @@ rtc_init(void)
 {
 	u_char val;
 
+	if (scr2 != (u_int *)NEXT_P_SCR2) return;
 	scr2 = (u_int *)IIOV(NEXT_P_SCR2);
 	val = rtc_read(RTC_STATUS);
 	new_clock = (val & RTC_NEW_CLOCK) ? 1 : 0;
