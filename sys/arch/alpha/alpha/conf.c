@@ -262,6 +262,9 @@ cdev_decl(i4brbch);
 cdev_decl(i4btel);
 #endif
 
+#include "diskwatch.h"
+cdev_decl(diskwatch);
+
 struct cdevsw	cdevsw[] =
 {
 	cdev_cn_init(1,cn),		/* 0: virtual console */
@@ -365,7 +368,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 80 */
 	cdev_notdef(),			/* 81 */
 	cdev_notdef(),			/* 82 */
-	cdev_notdef(),			/* 83 */
+	cdev__ocrwip_init(NDISKWATCH,diskwatch),/* 83: disk watching */
 	cdev_notdef(),			/* 84 */
 	cdev_notdef(),			/* 85 */
 	cdev_notdef(),			/* 86 */
