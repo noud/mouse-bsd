@@ -169,6 +169,12 @@ device	eso { }: audio, auconv, mulaw, midibus
 attach	eso at pci
 file	dev/pci/eso.c			eso
 
+# VIA VT82C686A/VT8233/VT8235 AC'97 Audio
+#device	auvia: audiobus, auconv, mulaw, ac97, aurateconv
+device	auvia: auconv, mulaw, ac97
+attach	auvia at pci
+file	dev/pci/auvia.c			auvia
+
 attach	opl at eso with opl_eso
 file	dev/pci/opl_eso.c		opl_eso
 
