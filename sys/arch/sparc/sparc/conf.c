@@ -109,6 +109,7 @@
 #include "pfw.h"
 #include "lpvi.h"
 #include "sbiti.h"
+#include "pev.h"
 #include "spif.h"
 #include "rtvc.h"
 
@@ -299,8 +300,8 @@ struct cdevsw	cdevsw[] =
 	cdev__ocrwip_init(NLPVI,lpvi),	/* 138: SPARCprinter interface */
 	cdev__ocrwip_init(NPFW,pfw),	/* 139: reflex packet filtering */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 140: disk watching */
-	cdev_notdef(),			/* 141 */
-	cdev_notdef(),			/* 142 */
+	cdev__ocrwip_init(NPEV,pevs),	/* 141: pseudo-event slave */
+	cdev__ocrwip_init(NPEV,pevm),	/* 142: pseudo-event master */
 	cdev__ocrwip_init(NED,edctl),	/* 143: encrypted disk control */
 	cdev_disk_init(NED,ed),		/* 144: encrypted disk */
 	cdev__ocrwip_init(NSBITI,sbiti),/* 145: IOtech,sbiti IEEE488 card */

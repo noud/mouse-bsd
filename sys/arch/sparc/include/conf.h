@@ -143,6 +143,9 @@ cdev_decl(lpvi);
 
 cdev_decl(sbiti);
 
+cdev_decl(pevs);
+cdev_decl(pevm);
+
 cdev_decl(sptty);
 cdev_decl(spbpp);
 

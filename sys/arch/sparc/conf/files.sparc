@@ -304,6 +304,11 @@ file	netns/ns_cksum.c		ns
 
 file	arch/sparc/dev/md_root.c	memory_disk_hooks
 
+# XXX pev.c doesn't really need the flag, but conf.c does, and config
+#  doesn't write pev.h if nobody is declared as needing it.
+defpseudo pev
+file	dev/pseudo/sun/pev.c		pev needs-flag
+
 major {ed = 27}
 # Removed pending figuring out how to do pdisk/pdisks/pdiskm right.
 # major {pdisks = 26}
