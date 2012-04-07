@@ -40,6 +40,11 @@
 
 #include <next68k/dev/clockreg.h>
 
+#include "isr.h"
+extern void rtc_init(void); /* rtc.c */
+extern void setsecs(time_t); /* rtc.c */
+extern time_t getsecs(void); /* rtc.c */
+
 /* @@@ This is pretty bogus and will need fixing once
  * things are working better.
  * -- jewell@mit.edu
