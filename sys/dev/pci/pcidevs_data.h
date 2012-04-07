@@ -1,10 +1,10 @@
-/*	$NetBSD: pcidevs_data.h,v 1.197 2000/02/16 04:29:32 soren Exp $	*/
+/*	$NetBSD$	*/
 
 /*
  * THIS FILE AUTOMATICALLY GENERATED.  DO NOT EDIT.
  *
  * generated from:
- *	NetBSD: pcidevs,v 1.192 2000/02/16 04:29:20 soren Exp
+ *	NetBSD: pcidevs,v 1.192 2000/02/16 04:29:20 soren Exp 
  */
 
 /*
@@ -1474,10 +1474,22 @@ struct pci_knowndev pci_knowndevs[] = {
 	    "Viper/PCI",
 	},
 	{
+	    PCI_VENDOR_DIGIUM, PCI_PRODUCT_DIGIUM_TDM400P,
+	    0,
+	    "Digium",
+	    "FXO/FXS interface",
+	},
+	{
 	    PCI_VENDOR_DLINK, PCI_PRODUCT_DLINK_DFE550TX,
 	    0,
 	    "D-Link Systems",
 	    "DFE-550TX 10/100 Ethernet",
+	},
+	{
+	    PCI_VENDOR_DLINK, PCI_PRODUCT_DLINK_DFE530TXPLUS,
+	    0,
+	    "D-Link Systems",
+	    "DFE-530TXPLUS 10/100 Ethernet",
 	},
 	{
 	    PCI_VENDOR_DPT, PCI_PRODUCT_DPT_SC_RAID,
@@ -2296,6 +2308,12 @@ struct pci_knowndev pci_knowndevs[] = {
 	    "MPC106 \"Grackle\" Host Bridge",
 	},
 	{
+	    PCI_VENDOR_MOT, PCI_PRODUCT_MOT_MPC107,
+	    0,
+	    "Motorola",
+	    "MPC107 \"Chaparral\" Host Bridge",
+	},
+	{
 	    PCI_VENDOR_MYLEX, PCI_PRODUCT_MYLEX_960P,
 	    0,
 	    "Mylex",
@@ -2548,22 +2566,160 @@ struct pci_knowndev pci_knowndevs[] = {
 	    "Ethernet",
 	},
 	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20246,
+	    0,
+	    "Promise Technology",
+	    "PDC20246 Ultra/33 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20262,
+	    0,
+	    "Promise Technology",
+	    "PDC20262 Ultra/66 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20263,
+	    0,
+	    "Promise Technology",
+	    "PDC20263 Ultra/66 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20265,
+	    0,
+	    "Promise Technology",
+	    "PDC20265 Ultra/100 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20267,
+	    0,
+	    "Promise Technology",
+	    "PDC20267 Ultra/100 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20268,
+	    0,
+	    "Promise Technology",
+	    "PDC20268 Ultra/100 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20269,
+	    0,
+	    "Promise Technology",
+	    "PDC20269 Ultra/133 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20270,
+	    0,
+	    "Promise Technology",
+	    "PDC20270 Ultra/100 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20271,
+	    0,
+	    "Promise Technology",
+	    "PDC20271 Ultra/133 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20275,
+	    0,
+	    "Promise Technology",
+	    "PDC20275 Ultra/133 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20276,
+	    0,
+	    "Promise Technology",
+	    "PDC20276 Ultra/133 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20277,
+	    0,
+	    "Promise Technology",
+	    "PDC20277 Ultra/133 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20318,
+	    0,
+	    "Promise Technology",
+	    "PDC20318 SATA/150 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20319,
+	    0,
+	    "Promise Technology",
+	    "PDC20319 SATA/150 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20371,
+	    0,
+	    "Promise Technology",
+	    "PDC20371 SATA/150 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20375,
+	    0,
+	    "Promise Technology",
+	    "PDC20375 SATA/150 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20376,
+	    0,
+	    "Promise Technology",
+	    "PDC20376 SATA/150 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20377,
+	    0,
+	    "Promise Technology",
+	    "PDC20377 SATA/150 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20378,
+	    0,
+	    "Promise Technology",
+	    "PDC20378 SATA/150 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20379,
+	    0,
+	    "Promise Technology",
+	    "PDC20379 SATA/150 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20617,
+	    0,
+	    "Promise Technology",
+	    "PDC20617 dual Ultra/133 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20618,
+	    0,
+	    "Promise Technology",
+	    "PDC20618 dual Ultra/133 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20619,
+	    0,
+	    "Promise Technology",
+	    "PDC20619 dual Ultra/133 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20620,
+	    0,
+	    "Promise Technology",
+	    "PDC20620 dual Ultra/133 IDE controller",
+	},
+	{
+	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_PDC20621,
+	    0,
+	    "Promise Technology",
+	    "PDC20621 dual Ultra/133 IDE controller",
+	},
+	{
 	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_DC5030,
 	    0,
 	    "Promise Technology",
 	    "DC5030",
-	},
-	{
-	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_ULTRA33,
-	    0,
-	    "Promise Technology",
-	    "Ultra33/ATA Bus Master IDE Accelerator",
-	},
-	{
-	    PCI_VENDOR_PROMISE, PCI_PRODUCT_PROMISE_ULTRA66,
-	    0,
-	    "Promise Technology",
-	    "Ultra66/ATA Bus Master IDE Accelerator",
 	},
 	{
 	    PCI_VENDOR_QLOGIC, PCI_PRODUCT_QLOGIC_ISP1020,
@@ -3584,6 +3740,24 @@ struct pci_knowndev pci_knowndevs[] = {
 	    0,
 	    "VIA Technologies",
 	    "VT3043 (Rhine) 10/100 Ethernet",
+	},
+	{
+	    PCI_VENDOR_VIATECH, PCI_PRODUCT_VIATECH_VT8233_AC97,
+	    0,
+	    "VIA Technologies",
+	    "VT8233/VT8235 AC-97 Audio Controller",
+	},
+	{
+	    PCI_VENDOR_VIATECH, PCI_PRODUCT_VIATECH_VT6102,
+	    0,
+	    "VIA Technologies",
+	    "VT6102 (Rhine II) 10/100 Ethernet",
+	},
+	{
+	    PCI_VENDOR_VIATECH, PCI_PRODUCT_VIATECH_VT6105,
+	    0,
+	    "VIA Technologies",
+	    "VT6105 (Rhine III) 10/100 Ethernet",
 	},
 	{
 	    PCI_VENDOR_VIATECH, PCI_PRODUCT_VIATECH_VT86C100A,
@@ -6769,6 +6943,12 @@ struct pci_knowndev pci_knowndevs[] = {
 	    PCI_VENDOR_ATRONICS, 0,
 	    PCI_KNOWNDEV_NOPROD,
 	    "Atronics",
+	    NULL,
+	},
+	{
+	    PCI_VENDOR_DIGIUM, 0,
+	    PCI_KNOWNDEV_NOPROD,
+	    "Digium",
 	    NULL,
 	},
 	{

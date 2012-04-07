@@ -543,6 +543,7 @@ vendor KTI		0x8e2e	KTI
 vendor ADP		0x9004	Adaptec
 vendor ADP2		0x9005	Adaptec (2nd PCI Vendor ID)
 vendor ATRONICS		0x907f	Atronics
+vendor DIGIUM		0xe159	Digium
 vendor ARC		0xedd8	ARC Logic
 vendor INVALID		0xffff	INVALID VENDOR ID
 
@@ -884,8 +885,12 @@ product DELTA 8139	0x1360	8139 Ethernet
 /* Diamond products */
 product DIAMOND VIPER	0x9001	Viper/PCI
 
+/* Digium products */
+product DIGIUM TDM400P	0x0001 FXO/FXS interface
+
 /* D-Link Systems products */
 product DLINK DFE550TX	0x1002	DFE-550TX 10/100 Ethernet
+product DLINK DFE530TXPLUS	0x1300	DFE-530TXPLUS 10/100 Ethernet
 
 /* Distributed Processing Technology products */
 product DPT SC_RAID	0xa400	SmartCache/SmartRAID
@@ -1088,6 +1093,7 @@ product MATROX G100_AGP		0x1001	MGA G100 AGP
 /* Motorola products */
 product MOT MPC105	0x0001	MPC105 \"Eagle\" Host Bridge
 product MOT MPC106	0x0002	MPC106 \"Grackle\" Host Bridge
+product MOT MPC107	0x0004	MPC107 \"Chaparral\" Host Bridge
 
 /* Mylex products */
 product MYLEX 960P	0x0001	DAC960P RAID controller
@@ -1172,9 +1178,33 @@ product PCTECH RZ1000	0x1000	RZ1000
 product PROLAN NE2KETHER 0x1980 Ethernet
 
 /* Promise products */
-product PROMISE DC5030	0x5300	DC5030
-product PROMISE ULTRA33	0x4d33	Ultra33/ATA Bus Master IDE Accelerator
-product PROMISE ULTRA66	0x4d38	Ultra66/ATA Bus Master IDE Accelerator
+product PROMISE PDC20246	0x4d33	PDC20246 Ultra/33 IDE controller
+product PROMISE PDC20262	0x4d38	PDC20262 Ultra/66 IDE controller
+product PROMISE PDC20263	0x0d38	PDC20263 Ultra/66 IDE controller
+product PROMISE PDC20265	0x0d30	PDC20265 Ultra/100 IDE controller
+product PROMISE PDC20267	0x4d30	PDC20267 Ultra/100 IDE controller
+product PROMISE PDC20268	0x4d68	PDC20268 Ultra/100 IDE controller
+product PROMISE PDC20269	0x4d69	PDC20269 Ultra/133 IDE controller
+product PROMISE PDC20270	0x6268	PDC20270 Ultra/100 IDE controller
+product PROMISE PDC20271	0x6269	PDC20271 Ultra/133 IDE controller
+product PROMISE PDC20275	0x1275	PDC20275 Ultra/133 IDE controller
+product PROMISE PDC20276	0x5275	PDC20276 Ultra/133 IDE controller
+product PROMISE PDC20277	0x7275	PDC20277 Ultra/133 IDE controller
+product PROMISE PDC20318	0x3318	PDC20318 SATA/150 IDE controller
+product PROMISE PDC20319	0x3319	PDC20319 SATA/150 IDE controller
+product PROMISE PDC20371	0x3371	PDC20371 SATA/150 IDE controller
+product PROMISE PDC20375	0x3375	PDC20375 SATA/150 IDE controller
+product PROMISE PDC20376	0x3376	PDC20376 SATA/150 IDE controller
+product PROMISE PDC20377	0x3377	PDC20377 SATA/150 IDE controller
+product PROMISE PDC20378	0x3373	PDC20378 SATA/150 IDE controller
+product PROMISE PDC20379	0x3372	PDC20379 SATA/150 IDE controller
+product PROMISE PDC20617	0x6617	PDC20617 dual Ultra/133 IDE controller
+product PROMISE PDC20618	0x6626	PDC20618 dual Ultra/133 IDE controller
+product PROMISE PDC20619	0x6629	PDC20619 dual Ultra/133 IDE controller
+product PROMISE PDC20620	0x6620	PDC20620 dual Ultra/133 IDE controller
+product PROMISE PDC20621	0x6621	PDC20621 dual Ultra/133 IDE controller
+/* Does any code use the DC5030 number? */
+product PROMISE DC5030		0x5300	DC5030
 
 /* QLogic products */
 product QLOGIC ISP1020	0x1020	ISP1020
@@ -1409,6 +1439,9 @@ product VIATECH VT82C595_2	0x1595	VT82C595 (Apollo VP2) Host-PCI Bridge
 product VIATECH VT83C572	0x3038	VT83C572 USB Controller
 product VIATECH VT82C586_PWR	0x3040	VT82C586 (Apollo VP) Power Management Controller
 product VIATECH VT3043		0x3043	VT3043 (Rhine) 10/100 Ethernet
+product VIATECH VT8233_AC97	0x3059	VT8233/VT8235 AC-97 Audio Controller
+product VIATECH VT6102          0x3065  VT6102 (Rhine II) 10/100 Ethernet
+product VIATECH VT6105          0x3106  VT6105 (Rhine III) 10/100 Ethernet
 product VIATECH VT86C100A	0x6100	VT86C100A (Rhine-II) 10/100 Ethernet
 product VIATECH VT82C597AGP	0x8597	VT82C597 (Apollo VP3) PCI-AGP
 product VIATECH VT82C598AGP	0x8598	VT82C598 (Apollo MVP3) PCI-AGP
