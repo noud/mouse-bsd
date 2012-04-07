@@ -519,8 +519,10 @@ trap(a0, a1, a2, entry, framep)
 		goto dopanic;
 	}
 
+#if 0
 #ifdef DEBUG
 	printtrap(a0, a1, a2, entry, framep, 1, user);
+#endif
 #endif
 	trapsignal(p, i, ucode);
 out:
