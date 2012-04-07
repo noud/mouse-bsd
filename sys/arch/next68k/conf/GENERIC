@@ -127,7 +127,7 @@ options 	FPSP
 #options 	FPU_EMULATE
 
 options         ZS_CONSOLE_ABORT
-#options        SERCONSOLE
+options 	SERCONSOLE
 
 options 	NFS_BOOT_BOOTP
 options 	NFS_BOOT_DHCP
