@@ -654,7 +654,7 @@ mesh_msgin(sc, scb)
 	return;
 
 gotit:
-#ifdef DEBUG
+#if 0 /* was ifdef DEBUG */
 	printf("msgin:");
 	for (i = 0; i < sc->sc_imsglen; i++)
 		printf(" 0x%02x", sc->sc_imsg[i]);
