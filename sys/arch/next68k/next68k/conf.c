@@ -162,6 +162,9 @@ cdev_decl(wsmouse);
 #include "wsmux.h"
 cdev_decl(wsmux);
 
+#include "diskwatch.h"
+cdev_decl(diskwatch);
+
 dev_decl(filedesc,open);
 
 struct cdevsw	cdevsw[] =
@@ -216,7 +219,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 47 */
 	cdev_notdef(),			/* 48 */
 	cdev_notdef(),			/* 49 */
-	cdev_notdef(),			/* 50 */
+	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 50: disk watching */
 	cdev_notdef(),			/* 51 */
 	cdev_notdef(),			/* 52 */
 	cdev_notdef(),			/* 53 */
