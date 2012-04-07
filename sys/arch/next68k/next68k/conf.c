@@ -190,6 +190,8 @@ cdev_decl(diskwatch);
 
 dev_decl(filedesc,open);
 
+cdev_decl(nk_);
+
 struct cdevsw	cdevsw[] =
 {
 	cdev_cn_init(1,cn),		/* 0: virtual console */
@@ -200,7 +202,7 @@ struct cdevsw	cdevsw[] =
 	cdev_ptc_init(NPTY,ptc),	/* 5: pseudo-tty master */
 	cdev_log_init(1,log),		/* 6: /dev/klog */
 	cdev_notdef(),			/* 7 */
-	cdev_notdef(),			/* 8 */
+	cdev__ocrwipm_init(1,nk_),	/* 8: direct keyboard access */
 	cdev_notdef(),			/* 9 */
 	cdev_notdef(),			/* 10 */
 	cdev_notdef(),			/* 11 */

@@ -40,6 +40,10 @@
 #include <sys/errno.h>
 #include <sys/queue.h>
 #include <sys/lock.h>
+#include <sys/fcntl.h>
+#include <sys/filio.h>
+#include <sys/ttycom.h>
+#include <sys/signalvar.h>
 
 #include <machine/autoconf.h>
 #include <machine/cpu.h>
@@ -111,7 +115,193 @@ static int nextkbd_decode __P((struct nextkbd_internal *, int, u_int *, int *));
 static struct nextkbd_internal nextkbd_consdata;
 static int nextkbd_is_console __P((bus_space_tag_t bst));
 
+#define NK_RINGSIZE 1024
+#define NK_RINGMASK 1023
+static volatile unsigned int nk_ring[NK_RINGSIZE];
+static volatile int nk_ring_h = 0;
+static volatile int nk_ring_t = 0;
+#define NK_RING_ADV(x) (((x)+1)&NK_RINGMASK)
+static volatile int nk_ring_waiting = 0;
+static char nk_wchan;
+static struct selinfo nk_selr;
+static int nk_flags = 0;
+#define NK_F_ISOPEN 0x00000001
+#define NK_F_ASYNC  0x00000002
+#define NK_F_NBLOCK 0x00000004
+static int nk_pgrp = 0;
+
 int nextkbdhard __P((void *));
+
+#include <sys/conf.h>
+#include <sys/poll.h>
+#include <sys/select.h>
+cdev_decl(nk_);
+
+int nk_open(dev_t dev, int flag, int mode, struct proc *p)
+{
+ int s;
+
+ if (minor(dev) != 0) return(ENXIO);
+ s = splhigh();
+ if (! (nk_flags & NK_F_ISOPEN))
+  { nk_flags |= NK_F_ISOPEN;
+    nk_flags &= ~NK_F_ASYNC;
+    nk_pgrp = 0;
+    /* It's arguably wrong to ignore NONBLOCK on non-first opens, but it's
+       also arguably wrong to have the latest open's setting override all
+       previous opens' settings. */
+    if (flag & FNONBLOCK) nk_flags |= NK_F_NBLOCK; else nk_flags &= ~NK_F_NBLOCK;
+  }
+ splx(s);
+ return(0);
+}
+
+int nk_close(dev_t dev, int flag, int mode, struct proc *p)
+{
+ nk_flags = 0;
+ nk_pgrp = 0;
+ return(0);
+}
+
+int nk_read(dev_t dev, struct uio *uio, int ioflag)
+{
+ int s;
+ int err;
+ int n;
+ unsigned int buf[32];
+ int f;
+ int h;
+ int t;
+
+ n = uio->uio_resid;
+ if (n < 1) return(0);
+ if (n < sizeof(buf[0])) return(EIO);
+ n /= sizeof(buf[0]);
+ if (n > 32) n = 32;
+ s = splhigh();
+ while (1)
+  { h = nk_ring_h;
+    t = nk_ring_t;
+    if (h != t) break;
+    if (nk_flags & NK_F_NBLOCK)
+     { splx(s);
+       return(EWOULDBLOCK);
+     }
+    nk_ring_waiting = 1;
+    err = tsleep(&nk_wchan,PZERO|PCATCH,"nk_read",0);
+    if (err)
+     { splx(s);
+       return(err);
+     }
+  }
+ for (f=0;(f<n)&&(t!=h);f++)
+  { buf[f] = nk_ring[t];
+    t = NK_RING_ADV(t);
+  }
+ nk_ring_t = t;
+ splx(s);
+ return(uiomove(&buf[0],f*sizeof(buf[0]),uio));
+}
+
+int nk_write(dev_t dev, struct uio *uio, int ioflag)
+{
+ return(EIO);
+}
+
+int nk_ioctl(dev_t dev, u_long cmd, caddr_t arg, int flag, struct proc *p)
+{
+ switch (cmd)
+  { case FIONBIO:
+       if (*(int *)arg) nk_flags |= NK_F_NBLOCK; else nk_flags &= ~NK_F_NBLOCK;
+       return(0);
+       break;
+    case FIOASYNC:
+       if (*(int *)arg) nk_flags |= NK_F_ASYNC; else nk_flags &= ~NK_F_ASYNC;
+       return(0);
+       break;
+    case TIOCGPGRP:
+       *(int *)arg = nk_pgrp;
+       return(0);
+       break;
+    case TIOCSPGRP:
+	{ int v;
+	  struct pgrp *pg;
+	  v = *(int *)arg;
+	  if (v == 0)
+	   { nk_pgrp = 0;
+	   }
+	  else
+	   { pg = pgfind(v);
+	     if (pg != p->p_pgrp) return(EPERM);
+	     nk_pgrp = v;
+	   }
+	  return(0);
+	}
+       break;
+  }
+ return(ENOTTY);
+}
+
+int nk_poll(dev_t dev, int events, struct proc *p)
+{
+ int s;
+ int can;
+ int revents;
+
+ revents = 0;
+ if (events & (POLLIN|POLLRDNORM))
+  { s = splhigh();
+    can = (nk_ring_h != nk_ring_t);
+    splx(s);
+    if (can)
+     { revents |= events & (POLLIN | POLLRDNORM);
+     }
+    else
+     { selrecord(p,&nk_selr);
+     }
+  }
+ return(revents);
+}
+
+int nk_mmap(dev_t dev, int off, int prot)
+{
+ return(-1);
+}
+
+/*
+ * There is some risk of gsignal()ing a pgrp unrelated to any that's
+ *  got the nk driver open, despite the checks above in nk_ioctl().  If
+ *  a process sets the pgrp, then all processes in that pgrp die (with
+ *  the open fd preserved either by forking and leaving the pgrp or by
+ *  passing it to another process, eg through an AF_LOCAL socket), the
+ *  pgrp is later reused, and an event then arrives, we will gsignal()
+ *  unrelated processes.  However, AFAICT there is no way to avoid
+ *  this, and it's basically what the rest of the places that do SIGIO
+ *  generation do.
+ */
+static int nk_data(unsigned int val)
+{
+ int s;
+ int h;
+ int h2;
+
+ if (! (nk_flags & NK_F_ISOPEN)) return(1);
+ s = splhigh();
+ h = nk_ring_h;
+ h2 = NK_RING_ADV(h);
+ if (h2 != nk_ring_t)
+  { nk_ring[h] = val;
+    nk_ring_h = h2;
+    if (nk_ring_waiting)
+     { nk_ring_waiting = 0;
+       wakeup(&nk_wchan);
+     }
+    selwakeup(&nk_selr);
+    if ((nk_flags & NK_F_ASYNC) && (nk_pgrp != 0)) gsignal(nk_pgrp,SIGIO);
+  }
+ splx(s);
+ return(0);
+}
 
 static int
 nextkbd_is_console(bst)
@@ -228,7 +418,8 @@ nextkbdhard(arg)
 	void *arg;
 {
 	register struct nextkbd_softc *sc = arg;
-	int type, key, val;
+	int type, key;
+	unsigned int val;
 
 	if (!INTR_OCCURRED(NEXT_I_KYBD_MOUSE)) return 0;
 
@@ -248,7 +439,9 @@ nextkbdhard(arg)
 #define KD_MODS					0x4f00
 
 	val = nextkbd_read_data(sc->id);
-	if ((val != -1) && nextkbd_decode(sc->id, val, &type, &key)) {
+	if ( nk_data(val) &&
+	     ((val >> 28) == 1) &&
+	     nextkbd_decode(sc->id, val&0xffff, &type, &key) ) {
 		wskbd_input(sc->sc_wskbddev, type, key);
 	}
 	return(1);
@@ -283,12 +476,12 @@ nextkbd_cngetc(v, type, data)
 	int *data;
 {
 	struct nextkbd_internal *t = v;
-	int val;
+	unsigned int val;
 
 	for (;;) {
 		if (INTR_OCCURRED(NEXT_I_KYBD_MOUSE)) {
 			val = nextkbd_read_data(t);
-			if ((val != -1) && nextkbd_decode(t, val, type, data))
+			if (((val >> 28) == 1) && nextkbd_decode(t, val&0xffff, type, data))
 				return;
 		}
 	}
@@ -313,7 +506,6 @@ nextkbd_cnpollc(v, on)
 static int
 nextkbd_read_data(struct nextkbd_internal *id)
 {
-	unsigned char device;
 	struct mon_regs stat;
 
 	bus_space_read_region_4(id->iot, id->ioh, 0, &stat, 3);
@@ -321,9 +513,7 @@ nextkbd_read_data(struct nextkbd_internal *id)
 		stat.mon_csr &= ~CSR_INT;
 		id->num_ints++;
 		bus_space_write_4(id->iot, id->ioh, 0, stat.mon_csr);
-		device = stat.mon_data >> 28;
-		if (device != 1) return (-1); /* XXX: mouse */
-		return (stat.mon_data & 0xffff);
+		return(stat.mon_data);
 	}
 	return (-1);
 }
