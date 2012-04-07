@@ -59,6 +59,9 @@
 
 #include <vm/vm.h>
 
+/* XXX belongs in an include file */
+void pmap_bootstrap(paddr_t, paddr_t);
+
 #define RELOC(v, t)	*((t*)((u_int)&(v) + firstpa))
 
 extern char *kernel_text, *etext;
@@ -105,9 +108,7 @@ extern void *ledatabuf; /* XXXCDC */
  * XXX a PIC compiler would make this much easier.
  */
 void
-pmap_bootstrap(nextpa, firstpa)
-	paddr_t nextpa;
-	paddr_t firstpa;
+pmap_bootstrap(paddr_t nextpa, paddr_t firstpa)
 {
 	paddr_t kstpa, kptpa, eiiopa, iiopa, kptmpa, lkptpa, p0upa;
         paddr_t emonopa, monopa;
