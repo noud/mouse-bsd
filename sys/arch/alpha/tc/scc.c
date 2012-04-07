@@ -137,6 +137,7 @@ extern int pending_remcons;
 #define CONSOLE_ON_UNIT(unit) 0	/* No raster console on Alphas */
 #endif
 
+static int kb_output_to_console;
 
 #define	NSCCLINE	(NSCC*2)
 #define	SCCUNIT(dev)	(minor(dev) >> 1)
@@ -1168,7 +1169,9 @@ sccstart(tp)
 	if (tp->t_outq.c_cc == 0)
 		goto out;
 	/* handle console specially */
-	if (tp == scctty(makedev(SCCDEV,SCCKBD_PORT)) && raster_console()) {
+	if ( kb_output_to_console &&
+	     (tp == scctty(makedev(SCCDEV,SCCKBD_PORT))) &&
+	     raster_console() ) {
 		while (tp->t_outq.c_cc > 0) {
 			cc = getc(&tp->t_outq) & 0x7f;
 			cnputc(cc);
