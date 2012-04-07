@@ -33,12 +33,6 @@
 
 #include "opt_adb.h"
 
-#ifdef DEBUG
-#ifndef ADB_DEBUG
-#define ADB_DEBUG
-#endif
-#endif
-
 /* #define	PM_GRAB_SI	1 */
 
 #include <sys/types.h>
