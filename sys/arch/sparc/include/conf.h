@@ -117,3 +117,5 @@ cdev_decl(mbpp);
 cdev_decl(bpp);
 
 cdev_decl(scsibus);
+
+cdev_decl(diskwatch);

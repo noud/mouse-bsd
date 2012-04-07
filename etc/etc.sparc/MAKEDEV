@@ -76,6 +76,7 @@
 #	ipl	IP filter
 #	random	Random number generator
 #	scsibus* SCSI busses, see scsi(4), scsictl(8)
+#	diskwatch* Live-backup disk watching
 
 dialin=0
 dialout=524288		# high bit of the minor number
@@ -100,6 +101,7 @@ all)
 	sh -$- $0 cgeight0 tcx0
 	sh -$- $0 scsibus0 scsibus1 scsibus2 scsibus3
 	sh -$- $0 lkm random local ipl cfs0 apm apmctl tctrl0
+	sh -$- $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
 	;;
 floppy)
 	sh -$- $0 std ttya ttyb ttyc ttyd pty0
@@ -153,6 +155,16 @@ ttyC*)
         mknod ttyC$unit c 36 $(($unit + $dialin ))
         mknod dtyC$unit c 36 $(($unit + $dialout))
         chown uucp.wheel ttyC$unit dtyC$unit
+	;;
+
+diskwatch*)
+	unit=${i#diskwawtch};
+	for x in ctl.0 data.1 dbg.2; do
+		rm -f diskwatch$unit${x%.*}
+		mknod diskwatch$unit${x%.*} c 140 $((($unit*4)+${x#*.}))
+		chown root:wheel diskwatch$unit${x%.*}
+		chmod 600 diskwatch$unit${x%.*}
+	done
 	;;
 
 fd)
