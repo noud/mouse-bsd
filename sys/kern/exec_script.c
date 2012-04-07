@@ -146,8 +146,9 @@ exec_script_makecmds(p, epp)
 check_shell:
 #ifdef SETUIDSCRIPTS
 	/*
-	 * MNT_NOSUID and STRC are already taken care of by check_exec,
-	 * so we don't need to worry about them now or later.
+	 * MNT_NOSUID has already been taken care of by check_exec,
+	 * so we don't need to worry about it now or later.  We
+	 * will need to check P_TRACED later, however.
 	 */
 	script_sbits = epp->ep_vap->va_mode & (S_ISUID | S_ISGID);
 	if (script_sbits != 0) {
@@ -262,7 +263,9 @@ check_shell:
 #ifdef SETUIDSCRIPTS
 		/*
 		 * set thing up so that set-id scripts will be
-		 * handled appropriately
+		 * handled appropriately.  P_TRACED will be
+		 * checked later when the shell is actually
+		 * execed.
 		 */
 		epp->ep_vap->va_mode |= script_sbits;
 		if (script_sbits & S_ISUID)
