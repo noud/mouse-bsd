@@ -614,6 +614,7 @@ do_pending_int()
 	int irq;
 	int pcpl;
 	int hwpend;
+	int allpend;
 	int emsr, dmsr;
 	static int processing;
 
@@ -626,12 +627,13 @@ do_pending_int()
 	asm volatile("mtmsr %0" :: "r"(dmsr));
 
 	pcpl = splhigh();		/* Turn off all */
-	hwpend = ipending & ~pcpl;	/* Do now unmasked pendings */
+	allpend = ipending & ~pcpl;	/* Do now unmasked pendings */
+	ipending &= pcpl;
 	if (!have_openpic) {
-		imen &= ~hwpend;
+		imen &= ~allpend;
 		enable_irq(~imen);
 	}
-	hwpend &= HWIRQ_MASK;
+	hwpend = allpend & HWIRQ_MASK;
 	while (hwpend) {
 		irq = 31 - cntlzw(hwpend);
 		hwpend &= ~(1L << irq);
@@ -648,22 +650,18 @@ do_pending_int()
 
 	/*out32rb(INT_ENABLE_REG, ~imen);*/
 
-	if ((ipending & ~pcpl) & (1 << SIR_CLOCK)) {
-		ipending &= ~(1 << SIR_CLOCK);
+	if ((allpend & ~pcpl) & (1 << SIR_CLOCK)) {
 		softclock();
 		intrcnt[CNT_SOFTCLOCK]++;
 	}
-	if ((ipending & ~pcpl) & (1 << SIR_NET)) {
-		ipending &= ~(1 << SIR_NET);
+	if ((allpend & ~pcpl) & (1 << SIR_NET)) {
 		softnet();
 		intrcnt[CNT_SOFTNET]++;
 	}
-	if ((ipending & ~pcpl) & (1 << SIR_SERIAL)) {
-		ipending &= ~(1 << SIR_SERIAL);
+	if ((allpend & ~pcpl) & (1 << SIR_SERIAL)) {
 		softserial();
 		intrcnt[CNT_SOFTSERIAL]++;
 	}
-	ipending &= pcpl;
 	cpl = pcpl;	/* Don't use splx... we are here already! */
 	asm volatile("mtmsr %0" :: "r"(emsr));
 	processing = 0;
