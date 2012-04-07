@@ -313,10 +313,11 @@ nextdisplay_mmap(v, offset, prot)
 	off_t offset;
 	int prot;
 {
+ struct nextdisplay_softc *sc;
 
-	/* XXX */
-	printf("nextdisplay_mmap: failed\n");
-	return -1;
+ sc = v;
+ if ((offset < 0) || (offset >= sc->sc_dc->dc_size)) return(-1);
+ return((sc->sc_dc->dc_paddr+offset)>>PGSHIFT);
 }
 
 int
