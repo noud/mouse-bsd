@@ -192,7 +192,9 @@ mmrw(dev_t dev, struct uio *uio, int flags)
 		uio->uio_resid -= c;
 	}
 	if (minor(dev) == 0) {
+#ifndef DEBUG
 unlock:
+#endif
 		if (physlock > 1)
 			wakeup((caddr_t)&physlock);
 		physlock = 0;
