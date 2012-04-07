@@ -181,7 +181,7 @@ extern struct cfdriver zsc_cd;
 
 /* Interrupt handlers. */
 static int zshard __P((void *));
-static int zssoft __P((void *));
+static void zssoft __P((void *));
 
 static int zs_get_speed __P((struct zs_chanstate *));
 
@@ -361,7 +361,7 @@ zshard(arg)
 /*
  * Similar scheme as for zshard (look at all of them)
  */
-static int
+static void
 zssoft(arg)
 	void *arg;
 {
@@ -370,7 +370,7 @@ zssoft(arg)
 
 	/* This is not the only ISR on this IPL. */
 	if (zssoftpending == 0)
-		return (0);
+		return;
 
 	/*
 	 * The soft intr. bit will be set by zshard only if
@@ -390,7 +390,6 @@ zssoft(arg)
 		(void)zsc_intr_soft(zsc);
 	}
 	splx(s);
-	return (1);
 }
 
 
