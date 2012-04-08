@@ -170,7 +170,7 @@ cachectl1(req, addr, len, p)
 		    (req & CC_IPURGE) ||
 #endif
 #endif
-		    (req & ~CC_EXTPURGE) != CC_PURGE && len > 2*NBPG)
+		    ((req & ~CC_EXTPURGE) != CC_PURGE && len > 2*NBPG))
 			doall = 1;
 
 		if (!doall) {
