@@ -835,6 +835,19 @@ myetheraddr(cp)
 		idp = &idprom;
 #endif
 
+#ifdef HOSTID_EA
+  { static int count = 0;
+    if (count++ != 0)
+     { cp[0] = 2;
+       cp[1] = count >> 8;
+       cp[2] = count & 0xff;
+       cp[3] = (hostid >> 16) & 0xff;
+       cp[4] = (hostid >> 8) & 0xff;
+       cp[5] = hostid & 0xff;
+       return;
+     }
+  }
+#endif
 	cp[0] = idp->id_ether[0];
 	cp[1] = idp->id_ether[1];
 	cp[2] = idp->id_ether[2];
