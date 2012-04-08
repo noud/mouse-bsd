@@ -994,7 +994,8 @@ mem_access_fault4m(type, sfsr, sfva, tf)
 	 * Q: test SFSR_FAV in the locore stubs too?
 	 */
 	if ((sfsr & SFSR_FAV) == 0) {
-		if (type == T_TEXTFAULT)
+		/* note: T_TEXTERROR == T_TEXTFAULT | 0x20 */
+		if ((type & ~0x20) == T_TEXTFAULT)
 			sfva = pc;
 		else {
 			rv = KERN_PROTECTION_FAILURE;
