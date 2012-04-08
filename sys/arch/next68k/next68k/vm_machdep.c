@@ -362,12 +362,14 @@ iounmap(kva, size)
  * gone too far (i.e. into the "redzone" page) and if so, panic.
  * Look at _lev6intr in locore.s for more details.
  */
+#if 0 /* As far as I can tell this is not actually used */
 /*ARGSUSED*/
 setredzone(pte, vaddr)
 	pt_entry_t *pte;
 	caddr_t vaddr;
 {
 }
+#endif
 
 /*
  * Convert kernel VA to physical address
