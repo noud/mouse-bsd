@@ -368,7 +368,10 @@ fbrcons_init(fb)
 {
 	struct rconsole	*rc = &fb->fb_rcons;
 	struct rasops_info *ri = &fb->fb_rinfo;
-	int maxrow, maxcol, *row, *col;
+	int maxrow, maxcol;
+#if !defined(RASTERCONS_FULLSCREEN)
+	int *row, *col;
+#endif
 
 	/* Set up what rasops needs to know about */
 	bzero(ri, sizeof *ri);
