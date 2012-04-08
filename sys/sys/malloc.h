@@ -41,6 +41,7 @@
 #if defined(_KERNEL) && !defined(_LKM)
 #include "opt_kmemstats.h"
 #include "opt_malloclog.h"
+#include "opt_mallocloc.h"
 #endif
 
 /*
@@ -376,12 +377,14 @@ struct kmembuckets {
  * Macro versions for the usual cases of malloc/free
  */
 #if defined(KMEMSTATS) || defined(DIAGNOSTIC) || defined(_LKM) || \
-    defined(MALLOCLOG)
+    defined(MALLOCLOG) || defined(MALLOCLOC)
+
 #define	MALLOC(space, cast, size, type, flags) \
 	(space) = (cast)malloc((u_long)(size), type, flags)
 #define	FREE(addr, type) free((caddr_t)(addr), type)
 
-#else /* do not collect statistics */
+#else
+
 #define	MALLOC(space, cast, size, type, flags) do { \
 	register struct kmembuckets *kbp = &bucket[BUCKETINDX(size)]; \
 	long s = splmem(); \
@@ -411,14 +414,15 @@ struct kmembuckets {
 	} \
 	splx(s); \
 } while(0)
-#endif /* do not collect statistics */
+
+#endif
 
 extern struct kmemstats kmemstats[];
 extern struct kmemusage *kmemusage;
 extern char *kmembase;
 extern struct kmembuckets bucket[];
 
-#ifdef MALLOCLOG
+#if defined(MALLOCLOG) || defined(MALLOCLOC)
 extern void *_malloc __P((unsigned long size, int type, int flags,
 	const char *file, long line));
 extern void _free __P((void *addr, int type, const char *file, long line));
@@ -429,9 +433,13 @@ extern void _free __P((void *addr, int type, const char *file, long line));
 #else
 extern void *malloc __P((unsigned long size, int type, int flags));
 extern void free __P((void *addr, int type));
-#endif /* MALLOCLOG */
+#endif /* MALLOCLOG || MALLOCLOC */
 
 extern void *realloc __P((void *curaddr, unsigned long newsize, int type,
 			int flags));
+
+extern void malloc_counts(unsigned long int *,
+	unsigned long long int *, unsigned long int *);
+
 #endif /* _KERNEL */
 #endif /* !_SYS_MALLOC_H_ */

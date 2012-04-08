@@ -198,6 +198,25 @@ mmrw(dev, uio, flags)
 			error = uiomove(zeropage, c, uio);
 			break;
 
+		case 32:
+			if (uio->uio_rw == UIO_READ) {
+				unsigned long int cur;
+				unsigned long long int tot;
+				unsigned long int cnt;
+				unsigned char buf[sizeof(cur)+sizeof(tot)+sizeof(cnt)];
+				if (uio->uio_offset < 0) return(EIO);
+				if (uio->uio_offset >= sizeof(buf)) return(0);
+				c = sizeof(buf) - uio->uio_offset;
+				c = min(c,uio->uio_resid);
+				malloc_counts(&cur,&tot,&cnt);
+				bcopy(&cur,&buf[0],sizeof(cur));
+				bcopy(&tot,&buf[sizeof(cur)],sizeof(tot));
+				bcopy(&cnt,&buf[sizeof(cur)+sizeof(tot)],sizeof(cnt));
+				uiomove(&buf[uio->uio_offset],c,uio);
+			} else
+				return(EIO);
+			break;
+
 		default:
 			return (ENXIO);
 		}

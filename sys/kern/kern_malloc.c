@@ -53,6 +53,7 @@
 static struct vm_map_intrsafe kmem_map_store;
 vm_map_t kmem_map = NULL;
 
+#include "opt_ddb.h"
 #include "opt_kmempages.h"
 
 #ifdef NKMEMCLUSTERS
@@ -83,6 +84,13 @@ int	nkmempages = NKMEMPAGES;
 
 #include "opt_kmemstats.h"
 #include "opt_malloclog.h"
+#include "opt_mallocloc.h"
+
+#if defined(MALLOCLOG) || defined(MALLOCLOC)
+#define FILE_AND_LINE
+#else
+#undef FILE_AND_LINE
+#endif
 
 struct kmembuckets bucket[MINBUCKET + 16];
 struct kmemstats kmemstats[M_LAST];
@@ -176,6 +184,21 @@ long addrmask[] = { 0,
 #define WEIRD_ADDR	((unsigned) 0xdeadbeef)
 #define MAX_COPY	32
 
+static unsigned long int curallocs = 0;
+static unsigned long long int totallocs = 0;
+static unsigned long int cntallocs = 0;
+
+void malloc_counts(unsigned long int *curp, unsigned long long int *totp, unsigned long int *cntp)
+{
+ int s;
+
+ s = splmem();
+ *curp = curallocs;
+ *totp = totallocs;
+ *cntp = cntallocs;
+ splx(s);
+}
+
 /*
  * Normally the freelist structure is used only to hold the list pointer
  * for free objects.  However, when running with diagnostics, the first
@@ -199,7 +222,7 @@ struct freelist {
 /*
  * Allocate a block of memory
  */
-#ifdef MALLOCLOG
+#ifdef FILE_AND_LINE
 void *
 _malloc(size, type, flags, file, line)
 	unsigned long size;
@@ -268,7 +291,7 @@ malloc(size, type, flags)
 			 * with too many free elements.)
 			 */
 			if ((flags & M_NOWAIT) == 0)
-				panic("malloc: out of space in kmem_map");
+				panic("malloc: out of space in kmem_map (remember dump_kmemstats)");
 			splx(s);
 			return ((void *) NULL);
 		}
@@ -398,6 +421,9 @@ out:
 #ifdef MALLOCLOG
 	domlog(va, size, type, 1, file, line);
 #endif
+ curallocs ++;
+ totallocs += curallocs;
+ cntallocs ++;
 	splx(s);
 	return ((void *) va);
 }
@@ -405,7 +431,7 @@ out:
 /*
  * Free a block of memory allocated by malloc.
  */
-#ifdef MALLOCLOG
+#ifdef FILE_AND_LINE
 void
 _free(addr, type, file, line)
 	void *addr;
@@ -448,6 +474,9 @@ free(addr, type)
 	size = 1 << kup->ku_indx;
 	kbp = &bucket[kup->ku_indx];
 	s = splmem();
+ curallocs --;
+ totallocs += curallocs;
+ cntallocs ++;
 #ifdef MALLOCLOG
 	domlog(addr, 0, type, 2, file, line);
 #endif
@@ -721,16 +750,25 @@ void
 dump_kmemstats()
 {
 #ifdef KMEMSTATS
+{
 	const char *name;
 	int i;
+	unsigned long int cumul;
 
+	db_printf("%2s %-16s %8s %8s %8s %8s %8s\n",
+		"#", "Name", "Calls", "Memused", "Blkused", "Maxused", "Cumul");
+	cumul = 0;
 	for (i = 0; i < M_LAST; i++) {
 		name = memname[i] ? memname[i] : "";
-
-		db_printf("%2d %s%.*s %ld\n", i, name,
-		    (int)(20 - strlen(name)), "                    ",
-		    kmemstats[i].ks_memuse);
+		cumul += kmemstats[i].ks_memuse;
+		db_printf("%2d %-16s %8ld %8ld %8ld %8ld %8lu\n", i, name,
+		    kmemstats[i].ks_calls,
+		    kmemstats[i].ks_memuse,
+		    kmemstats[i].ks_inuse,
+		    kmemstats[i].ks_maxused,
+		    cumul);
 	}
+}
 #else
 	db_printf("Kmem stats are not being collected.\n");
 #endif /* KMEMSTATS */

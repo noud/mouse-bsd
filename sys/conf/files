@@ -26,6 +26,7 @@ defopt	NFSSERVER
 
 defopt	opt_kmempages.h	NKMEMPAGES NKMEMPAGES_MIN NKMEMPAGES_MAX
 defopt	opt_malloclog.h	MALLOCLOG MALLOCLOGSIZE
+defopt	opt_mallocloc.h	MALLOCLOC
 defopt	opt_pool.h	POOL_DIAGNOSTIC
 defopt	opt_poollog.h	POOL_LOGSIZE
 
