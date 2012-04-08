@@ -69,6 +69,11 @@ newvers:
 
 # utilities
 
+cleandir distclean: cleanlibdir
+
+cleanlibdir:
+	rm -rf lib
+
 links:
 	rm -f machine
 	ln -s ${S}/arch/${MACHINE}/include machine
@@ -77,9 +82,6 @@ links:
 	rm -f limits.h
 	ln -s machine/limits.h limits.h
 
-clean:
-	rm -f *.o errs core make.out
-	rm -f a.out boot cat ls
-	rm -f machine ${MACHINE_ARCH} limits.h
+CLEANFILES += machine ${MACHINE_ARCH} limits.h srt0.o vers.c vers.o version
 
 .include <bsd.prog.mk>
