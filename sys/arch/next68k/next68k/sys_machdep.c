@@ -278,10 +278,11 @@ sys_sysarch(p, v, retval)
 	void *v;
 	int *retval;
 {
+#if 0
 	struct sysarch_args /* {
 		syscallarg(int) op;
 		syscallarg(void *) parms;
 	} */ *uap = v;
-
+#endif
 	return (ENOSYS);
 }
