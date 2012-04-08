@@ -1201,7 +1201,8 @@ inittodr(base)
 #if defined(SUN4)
 forward:
 #endif
-	if (time.tv_sec == 0) {
+	if ( ((unsigned long int)time.tv_sec < SECYR) ||
+	     ((unsigned long int)time.tv_sec > (unsigned long int)-SECYR) ) {
 		printf("WARNING: bad date in battery clock");
 		/*
 		 * Believe the time in the file system for lack of
