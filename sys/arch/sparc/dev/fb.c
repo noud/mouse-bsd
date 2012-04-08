@@ -422,7 +422,8 @@ fbrcons_init(fb)
 		ri->ri_devcmap[1] = 0xffffffff;
 	}
 
-	rc->rc_row = rc->rc_col = 0;
+	rc->rc_row = ri->ri_rows - 1;
+	rc->rc_col = 0;
 #if !defined(RASTERCONS_FULLSCREEN)
 	/* Determine addresses of prom emulator row and column */
 	if (!CPU_ISSUN4 && !romgetcursoraddr(&row, &col)) {

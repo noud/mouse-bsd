@@ -215,7 +215,7 @@ rasops_reconfig(ri, wantrows, wantcols)
 	ri->ri_emustride = ri->ri_emuwidth * bpp >> 3;
 	ri->ri_delta = ri->ri_stride - ri->ri_emustride;
 	ri->ri_ccol = 0;
-	ri->ri_crow = 0;
+	ri->ri_crow = ri->ri_rows - 1;
 	ri->ri_pelbytes = bpp >> 3;
 
 	ri->ri_xscale = (ri->ri_font->fontwidth * bpp) >> 3;
