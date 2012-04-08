@@ -140,45 +140,12 @@ kd_init(unit)
 	tty_attach(tp);
 	kd->kd_tty = tp;
 
-	/*
-	 * get the console struct winsize.
-	 */
 	if (kd_is_console) {
 		fbconstty = tp;
-#ifdef RASTERCONSOLE
-		kd->rows = fbrcons_rows();
-		kd->cols = fbrcons_cols();
-#endif
-	}
-
-	if (CPU_ISSUN4COR4M) {
-		int i;
-		char *prop;
-
-		if (kd->rows == 0 &&
-		    (prop = getpropstring(optionsnode, "screen-#rows"))) {
-			i = 0;
-			while (*prop != '\0')
-				i = i * 10 + *prop++ - '0';
-			kd->rows = (unsigned short)i;
-		}
-		if (kd->cols == 0 &&
-		    (prop = getpropstring(optionsnode, "screen-#columns"))) {
-			i = 0;
-			while (*prop != '\0')
-				i = i * 10 + *prop++ - '0';
-			kd->cols = (unsigned short)i;
-		}
-	}
-	if (CPU_ISSUN4) {
-		struct eeprom *ep = (struct eeprom *)eeprom_va;
-
-		if (ep) {
-			if (kd->rows == 0)
-				kd->rows = (u_short)ep->eeTtyRows;
-			if (kd->cols == 0)
-				kd->cols = (u_short)ep->eeTtyCols;
-		}
+		/* Don't fetch rasterconsole tty size here, because the
+		   fb quite likely hasn't attached yet!  Instead, stuff
+		   a sentinel value in ->rows; see kdopen. */
+		kd->rows = -1;
 	}
 
 	return;
@@ -237,6 +204,47 @@ kdopen(dev, flag, mode, p)
 		tp->t_ispeed = tp->t_ospeed = TTYDEF_SPEED;
 		(void) kdparam(tp, &tp->t_termios);
 		ttsetwater(tp);
+		/* Call fbrcons_*() here rather than in kd_init because
+		   if the kd attaches before the fb, the fb won't have
+		   a size at kd_init time.  By now, any rcons fb that's
+		   going to attach already has. */
+		if (kd->rows < 0) {
+			/* ie, if we have no size yet */
+#ifdef RASTERCONSOLE
+			kd->rows = fbrcons_rows();
+			kd->cols = fbrcons_cols();
+#else
+			kd->rows = 0;
+			kd->cols = 0;
+#endif
+			if (CPU_ISSUN4COR4M) {
+				int i;
+				char *prop;
+				if (kd->rows == 0 &&
+				    (prop = getpropstring(optionsnode, "screen-#rows"))) {
+					i = 0;
+					while (*prop != '\0')
+						i = i * 10 + *prop++ - '0';
+					kd->rows = (unsigned short)i;
+				}
+				if (kd->cols == 0 &&
+				    (prop = getpropstring(optionsnode, "screen-#columns"))) {
+					i = 0;
+					while (*prop != '\0')
+						i = i * 10 + *prop++ - '0';
+					kd->cols = (unsigned short)i;
+				}
+			}
+			if (CPU_ISSUN4) {
+				struct eeprom *ep = (struct eeprom *)eeprom_va;
+				if (ep) {
+					if (kd->rows == 0)
+						kd->rows = (u_short)ep->eeTtyRows;
+					if (kd->cols == 0)
+						kd->cols = (u_short)ep->eeTtyCols;
+				}
+			}
+		}
 		tp->t_winsize.ws_row = kd->rows;
 		tp->t_winsize.ws_col = kd->cols;
 		/* Flush pending input?  Clear translator? */
