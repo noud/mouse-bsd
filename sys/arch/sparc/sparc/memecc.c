@@ -141,7 +141,7 @@ memecc_error()
 		bitmask_snprintf(efsr, ECC_FSR_BITS, bits, sizeof(bits)));
 	printf("\tMBus transaction: %s\n",
 		bitmask_snprintf(efar0, ECC_AFR_BITS, bits, sizeof(bits)));
-	printf("\taddress: 0x%x%x\n", efar0 & ECC_AFR_PAH, efar1);
+	printf("\taddress: 0x%x%08x\n", efar0 & ECC_AFR_PAH, efar1);
 
 	/* Unlock registers and clear interrupt */
 	bus_space_write_4(memecc_sc->sc_bt, bh, ECC_FSR_REG, efsr);
