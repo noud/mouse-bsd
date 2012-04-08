@@ -59,17 +59,17 @@ static int base_va;
 void
 dvma_init()
 {
-	int segva, dmava;
+	int segva, dmao;
 	extern int start;
 
 	/* Align our address base with the DVMA segment */
 	base_va = segva = ((int)&start) & DVMA_BASE;
 
 	/* Then double-map the DVMA adresses */
-	for (dmava = DVMA_BASE; dmava < DVMA_BASE + DVMA_MAPLEN; ) {
-		setsegmap(dmava, getsegmap(segva));
+	for (dmao = 0; dmao < DVMA_MAPLEN; ) {
+		setsegmap(dmao+DVMA_BASE, getsegmap(segva));
 		segva += NBPSG;
-		dmava += NBPSG;
+		dmao += NBPSG;
 	}
 }
 
