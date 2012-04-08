@@ -886,17 +886,19 @@ cpu_initclocks()
 	}
 #endif /* SUN4 */
 
+	if (stathz == 0)
+		stathz = hz;
+#ifndef FORCE_HZ
 	if (1000000 % hz) {
 		printf("cannot get %d Hz clock; using 100 Hz\n", hz);
 		hz = 100;
 		tick = 1000000 / hz;
 	}
-	if (stathz == 0)
-		stathz = hz;
 	if (1000000 % stathz) {
 		printf("cannot get %d Hz statclock; using 100 Hz\n", stathz);
 		stathz = 100;
 	}
+#endif
 	profhz = stathz;		/* always */
 
 	statint = 1000000 / stathz;
