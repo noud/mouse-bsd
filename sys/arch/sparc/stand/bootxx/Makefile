@@ -13,4 +13,9 @@ ${PROG}: ${OBJS} ${LIBSA} ${LIBKERN}
 	${LD} -o ${.TARGET} ${LINKFLAGS} ${OBJS} ${LIBSA} ${LIBKERN}
 	@${SIZE} ${.TARGET}
 
+cleandir distclean: cleanlibdir
+
+cleanlibdir:
+	rm -rf lib
+
 .include <bsd.prog.mk>

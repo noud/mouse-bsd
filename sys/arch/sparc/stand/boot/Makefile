@@ -36,4 +36,9 @@ ${PROG}: ${OBJS} ${LIBSA} ${LIBZ} ${LIBKERN}
 ${FILES}: ${PROG}
 	(printf '\01\03\01\07\060\200\0\07\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0'; cat ${.ALLSRC} ) > ${.TARGET}
 
+cleandir distclean: cleanlibdir
+
+cleanlibdir:
+	rm -rf lib
+
 .include <bsd.prog.mk>
