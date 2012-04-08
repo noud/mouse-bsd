@@ -932,6 +932,12 @@ mem_access_fault4m(type, sfsr, sfva, tf)
 	pc = tf->tf_pc;			/* These are needed below */
 	psr = tf->tf_psr;
 
+#if 1 /* #ifdef DIAGNOSTICS */
+	if (type == T_DATAERROR || type == T_TEXTERROR)
+		printf("%s[%d]: trap 0x%x: pc=0x%x sfsr=0x%x sfva=0x%x\n",
+			p->p_comm, p->p_pid, type, pc, sfsr, sfva);
+#endif
+
 	/*
 	 * Our first priority is handling serious faults, such as
 	 * parity errors or async faults that might have come through here.
