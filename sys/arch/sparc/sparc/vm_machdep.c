@@ -145,6 +145,7 @@ vmapbuf(bp, len)
 		kva += PAGE_SIZE;
 		len -= PAGE_SIZE;
 	} while (len);
+	pmap_update();
 }
 
 /*
@@ -164,8 +165,8 @@ vunmapbuf(bp, len)
 	kva = trunc_page(bp->b_data);
 	off = (vaddr_t)bp->b_data - kva;
 	len = round_page(off + len);
-
-	/* This will call pmap_remove() for us. */
+	pmap_remove(vm_map_pmap(kernel_map), kva, kva + len);
+	pmap_update();
 	uvm_km_free_wakeup(kernel_map, kva, len);
 	bp->b_data = bp->b_saveaddr;
 	bp->b_saveaddr = NULL;
