@@ -78,12 +78,16 @@ struct tcx_softc {
 	struct device	sc_dev;		/* base device */
 	struct sbusdev	sc_sd;		/* sbus device */
 	struct fbdevice	sc_fb;		/* frame buffer device */
+#ifdef RASTERCONSOLE
+	struct fbdevice	sc_rcfb;	/* fb for rasterconsole */
+#endif
 	bus_space_tag_t	sc_bustag;
 	struct sbus_reg	sc_physadr[TCX_NREG];	/* phys addr of h/w */
 
 	volatile struct bt_regs *sc_bt;	/* Brooktree registers */
 	volatile struct tcx_thc *sc_thc;/* THC registers */
 	short	sc_blanked;		/* true if blanked */
+	short	sc_8bit;		/* true if 8-bit-only */
 	union	bt_cmap sc_cmap;	/* Brooktree color map */
 };
 
@@ -110,6 +114,10 @@ extern int fbnode;
 
 static void tcx_reset __P((struct tcx_softc *));
 static void tcx_loadcmap __P((struct tcx_softc *, int, int));
+
+#ifdef RASTERCONSOLE
+int tcx_use_rasterconsole = 1;
+#endif
 
 #define OBPNAME	"SUNW,tcx"
 /*
@@ -146,44 +154,48 @@ tcxattach(parent, self, args)
 	sc->sc_bustag = sa->sa_bustag;
 	node = sa->sa_node;
 
+	sc->sc_8bit = node_has_property(node, "tcx-8-bit") ? 1 : 0;
+
 	fb->fb_driver = &tcx_fbdriver;
 	fb->fb_device = &sc->sc_dev;
 	/* Mask out invalid flags from the user. */
 	fb->fb_flags = sc->sc_dev.dv_cfdata->cf_flags & FB_USERMASK;
-	fb->fb_type.fb_depth = node_has_property(node, "tcx-24-bit")
-		? 24
-		: (node_has_property(node, "tcx-8-bit")
-			? 8
-			: 8);
+	fb->fb_type.fb_depth = sc->sc_8bit ? 8 : 32;
 
 	fb_setsize_obp(fb, fb->fb_type.fb_depth, 1152, 900, node);
 
+	fb->fb_linebytes = (fb->fb_type.fb_width * fb->fb_type.fb_depth) >> 3;
 	ramsize = fb->fb_type.fb_height * fb->fb_linebytes;
 	fb->fb_type.fb_cmsize = 256;
 	fb->fb_type.fb_size = ramsize;
-	printf(": %s, %d x %d", OBPNAME,
+	printf(": %s, %d x %d (%dbpp)", OBPNAME,
 		fb->fb_type.fb_width,
-		fb->fb_type.fb_height);
+		fb->fb_type.fb_height,
+		sc->sc_8bit?8:24);
 
 	/*
-	 * XXX - should be set to FBTYPE_TCX.
+	 * XXX - should be set to FBTYPE_TCX (which doesn't exist).
 	 * XXX For CG3 emulation to work in current (96/6) X11 servers,
-	 * XXX `fbtype' must point to an "unregocnised" entry.
+	 * XXX fb_type must point to an "unrecognised" entry.
 	 */
 	fb->fb_type.fb_type = FBTYPE_RESERVED3;
 
-
 	if (sa->sa_nreg != TCX_NREG) {
-		printf("%s: only %d register sets\n",
+		printf("\n%s: only %d register sets\n",
 			self->dv_xname, sa->sa_nreg);
 		return;
 	}
 	bcopy(sa->sa_reg, sc->sc_physadr,
 	      sa->sa_nreg * sizeof(struct sbus_reg));
 
+	/* I don't know what's with this.  Perhaps 8bit tcxen have
+	   sbr_offset values one page too low or something.  But for
+	   the s24, this is definitely wrong. */
+#if 0
 	/* XXX - fix THC and TEC offsets */
 	sc->sc_physadr[TCX_REG_TEC].sbr_offset += 0x1000;
 	sc->sc_physadr[TCX_REG_THC].sbr_offset += 0x1000;
+#endif
 
 	/* Map the register banks we care about */
 	if (sbus_bus_map(sa->sa_bustag,
@@ -229,6 +241,25 @@ tcxattach(parent, self, args)
 
 	if (isconsole) {
 		printf(" (console)\n");
+#ifdef RASTERCONSOLE
+		if (tcx_use_rasterconsole) {
+			if (sbus_bus_map( sc->sc_bustag,
+					  sc->sc_physadr[TCX_REG_DFB8].sbr_slot,
+					  sc->sc_physadr[TCX_REG_DFB8].sbr_offset,
+					  1152*900, BUS_SPACE_MAP_LINEAR,
+					  0, &bh) != 0) {
+				printf("%s: cannot map pixels\n",&sc->sc_dev.dv_xname[0]);
+			} else {
+				sc->sc_rcfb = sc->sc_fb;
+				sc->sc_rcfb.fb_type.fb_type = FBTYPE_SUN3COLOR;
+				sc->sc_rcfb.fb_type.fb_depth = 8;
+				sc->sc_rcfb.fb_linebytes = 1152;
+				sc->sc_rcfb.fb_type.fb_size = roundup(1152*900,NBPG);
+				sc->sc_rcfb.fb_pixels = (void *)bh;
+				fbrcons_init(&sc->sc_rcfb);
+			}
+		}
+#endif
 	} else
 		printf("\n");
 
@@ -421,7 +452,10 @@ tcx_unblank(dev)
 
 struct mmo {
 	u_int	mo_uaddr;	/* user (virtual) address */
-	u_int	mo_size;	/* size, or 0 for video ram size */
+	u_int	mo_size;	/* size, or TCX_SZ_* value for video ram */
+#define TCX_SZ_8  (-1) /* framebuffer size at 8bpp */
+#define TCX_SZ_32 (-2) /* framebuffer size at 32bpp */
+#define TCX_SZ_64 (-3) /* framebuffer size at 64bpp */
 	u_int	mo_bank;	/* register bank number */
 };
 
@@ -442,15 +476,14 @@ tcxmmap(dev, off, prot)
 	struct mmo *mo;
 	u_int u, sz;
 	static struct mmo mmo[] = {
-		{ TCX_USER_RAM, 0, TCX_REG_DFB8 },
-		{ TCX_USER_RAM24, 0, TCX_REG_DFB24 },
-		{ TCX_USER_RAM_COMPAT, 0, TCX_REG_DFB8 },
-
-		{ TCX_USER_STIP, 1, TCX_REG_STIP },
-		{ TCX_USER_BLIT, 1, TCX_REG_BLIT },
-		{ TCX_USER_RDFB32, 1, TCX_REG_RDFB32 },
-		{ TCX_USER_RSTIP, 1, TCX_REG_RSTIP },
-		{ TCX_USER_RBLIT, 1, TCX_REG_RBLIT },
+		{ TCX_USER_RAM, TCX_SZ_8, TCX_REG_DFB8 },
+		{ TCX_USER_RAM24, TCX_SZ_32, TCX_REG_DFB24 },
+		{ TCX_USER_RAM_COMPAT, TCX_SZ_8, TCX_REG_DFB8 },
+		{ TCX_USER_STIP, TCX_SZ_64, TCX_REG_STIP },
+		{ TCX_USER_BLIT, TCX_SZ_64, TCX_REG_BLIT },
+		{ TCX_USER_RDFB32, TCX_SZ_32, TCX_REG_RDFB32 },
+		{ TCX_USER_RSTIP, TCX_SZ_64, TCX_REG_RSTIP },
+		{ TCX_USER_RBLIT, TCX_SZ_64, TCX_REG_RBLIT },
 		{ TCX_USER_TEC, 1, TCX_REG_TEC },
 		{ TCX_USER_BTREGS, 8192 /* XXX */, TCX_REG_CMAP },
 		{ TCX_USER_THC, sizeof(struct tcx_thc), TCX_REG_THC },
@@ -474,7 +507,25 @@ tcxmmap(dev, off, prot)
 		if ((u_int)off < mo->mo_uaddr)
 			continue;
 		u = off - mo->mo_uaddr;
-		sz = mo->mo_size ? mo->mo_size : sc->sc_fb.fb_type.fb_size;
+		sz = mo->mo_size;
+		switch (sz) {
+			case TCX_SZ_8:
+				if (sc->sc_8bit)
+					sz = sc->sc_fb.fb_type.fb_size;
+				else
+					sz = sc->sc_fb.fb_type.fb_size >> 2;
+				break;
+			case TCX_SZ_32:
+				if (sc->sc_8bit)
+					continue;
+				sz = sc->sc_fb.fb_type.fb_size;
+				break;
+			case TCX_SZ_64:
+				if (sc->sc_8bit)
+					continue;
+				sz = sc->sc_fb.fb_type.fb_size << 1;
+				break;
+		}
 		if (u < sz) {
 			bus_type_t t = (bus_type_t)rr[mo->mo_bank].sbr_slot;
 			bus_addr_t a = (bus_addr_t)rr[mo->mo_bank].sbr_offset;
