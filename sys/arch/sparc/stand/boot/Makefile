@@ -21,6 +21,7 @@ OBJCOPY?=	objcopy
 LINKFLAGS=-N -Ttext ${RELOC} -e start
 
 all: ${FILES}
+realall: ${FILES}
 
 ${PROG}: ${OBJS} ${LIBSA} ${LIBZ} ${LIBKERN}
 	sh ${.CURDIR}/../common/newvers.sh ${.CURDIR}/version ${NEWVERSWHAT}
