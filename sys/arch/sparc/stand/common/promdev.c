@@ -257,7 +257,7 @@ obp_v2_strategy(devdata, flag, dblk, size, buf, rsize)
 #ifndef BOOTXX	/* We know it's a block device, so save some space */
 	if (pd->devtype == DT_BLOCK)
 #endif
-		prom_seek(fd, dbtob(dblk));
+		prom_seek(fd, dbtob((u_quad_t)dblk));
 
 	*rsize = (flag == F_READ)
 		? prom_read(fd, buf, size)
