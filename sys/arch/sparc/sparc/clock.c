@@ -1172,7 +1172,7 @@ inittodr(base)
 	if (base < 5 * SECYR) {
 		/*
 		 * If base is 0, assume filesystem time is just unknown
-		 * in stead of preposterous. Don't bark.
+		 * instead of preposterous.  Don't bark.
 		 */
 		if (base != 0)
 			printf("WARNING: preposterous time in file system\n");
