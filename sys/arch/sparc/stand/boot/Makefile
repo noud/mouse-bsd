@@ -12,7 +12,7 @@ SAMISCMAKEFLAGS= SA_USE_CREAD=yes
 
 .include "../Makefile.buildboot"
 
-RELOC=		0x700000
+RELOC=		0x380000
 
 .include <bsd.own.mk>
 
