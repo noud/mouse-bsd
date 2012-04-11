@@ -468,7 +468,7 @@ lance_read(sc, boff, len)
 	struct ether_header *eh;
 
 	if (len <= sizeof(struct ether_header) ||
-	    len > ETHERMTU + sizeof(struct ether_header)) {
+	    len > ETHERMTU + 4 + sizeof(struct ether_header)) {
 #ifdef LEDEBUG
 		printf("%s: invalid packet size %d; dropping\n",
 		    sc->sc_dev.dv_xname, len);
@@ -691,7 +691,7 @@ lance_ioctl(ifp, cmd, data)
 		break;
 
 	case SIOCSIFMTU:
-		if ((ifr->ifr_mtu > ETHERMTU) || (ifr->ifr_mtu < ETHERMIN))
+		if ((ifr->ifr_mtu > ETHERMTU+4) || (ifr->ifr_mtu < ETHERMIN))
 			error = EINVAL;
 		else
 			ifp->if_mtu = ifr->ifr_mtu;
