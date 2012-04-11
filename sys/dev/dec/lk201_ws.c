@@ -72,6 +72,8 @@ lk201_init(lks)
 	send(lks, LK_LED_ALL);
 	lks->leds_state = 0;
 
+send(lks,LK_ENABLE_401);
+
 	return (0);
 }
 
