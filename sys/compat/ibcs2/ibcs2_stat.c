@@ -107,6 +107,11 @@ cvt_statvfs(sp, buf, len)
 {
 	struct ibcs2_statvfs ssvfs;
 
+	if (len < 0)
+		return (EINVAL);
+	if (len > sizeof(ssvfs))
+		len = sizeof(ssvfs);
+
 	memset(&ssvfs, 0, sizeof ssvfs);
 	ssvfs.f_frsize = ssvfs.f_bsize = sp->f_bsize;
 	ssvfs.f_blocks = sp->f_blocks;
