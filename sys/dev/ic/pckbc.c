@@ -110,7 +110,7 @@ const char *pckbc_slot_names[] = { "kbd", "aux" };
 #define KBC_DEVCMD_ACK 0xfa
 #define KBC_DEVCMD_RESEND 0xfe
 
-#define	KBD_DELAY	DELAY(8)
+#define	KBD_DELAY	DELAY(32)
 
 static inline int
 pckbc_wait_output(iot, ioh_c)
