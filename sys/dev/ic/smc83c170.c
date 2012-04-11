@@ -201,6 +201,11 @@ epic_attach(sc)
 	 * Read the Ethernet address from the EEPROM.
 	 */
 	epic_read_eeprom(sc, 0, (sizeof(myea) / sizeof(myea[0])), myea);
+#ifdef EPIC_FORCE_EADDR
+	{ static const char forced_addr[6] = EPIC_FORCE_EADDR;
+	  bcopy(&forced_addr[0],myea,6);
+	}
+#endif
 	bcopy(myea, enaddr, sizeof(myea));
 
 	/*
