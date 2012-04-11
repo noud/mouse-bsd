@@ -155,6 +155,8 @@ static struct rl_type rl_devs[] = {
 		"Delta Electronics 8139 10/100BaseTX" },
 	{ PCI_VENDOR_ADDTRON, PCI_PRODUCT_ADDTRON_8139,
 		"Addtron Technology 8139 10/100BaseTX" },
+	{ PCI_VENDOR_DLINK, PCI_PRODUCT_DLINK_DFE530TXPLUS,
+		"D-Link Systems DFE 530TX+" },
 #if 0
 	{ SIS_VENDORID, SIS_DEVICEID_8139,
 		"SiS 900 10/100BaseTX" },
@@ -837,7 +839,8 @@ rl_attach(parent, self, aux)
 	if (rl_did == PCI_PRODUCT_REALTEK_RT8139 ||
 	    rl_did == PCI_PRODUCT_ACCTON_MPX5030 ||
 	    rl_did == PCI_PRODUCT_DELTA_8139 ||
-	    rl_did == PCI_PRODUCT_ADDTRON_8139
+	    rl_did == PCI_PRODUCT_ADDTRON_8139 ||
+	    rl_did == PCI_PRODUCT_DLINK_DFE530TXPLUS
 #if 0
 	    || rl_did == SIS_DEVICEID_8139
 #endif
