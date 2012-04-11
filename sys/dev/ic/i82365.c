@@ -76,8 +76,8 @@ int	pcic_print  __P((void *arg, const char *pnp));
 int	pcic_intr_socket __P((struct pcic_handle *));
 void	pcic_poll_intr __P((void *));
 
-void	pcic_attach_card __P((struct pcic_handle *));
-void	pcic_detach_card __P((struct pcic_handle *, int));
+static void	pcic_attach_card __P((struct pcic_handle *));
+static void	pcic_detach_card __P((struct pcic_handle *, int));
 void	pcic_deactivate_card __P((struct pcic_handle *));
 
 void	pcic_chip_do_mem_map __P((struct pcic_handle *, int));
@@ -753,11 +753,41 @@ pcic_queue_event(h, event)
 	wakeup(&h->events);
 }
 
-void
+static volatile int pcic_attach_detach_locked = 0;
+static volatile int pcic_attach_detach_asleep = 0;
+static char pcic_attach_detach_wchan;
+
+static void pcic_attach_detach_lock(void)
+{
+ int s;
+
+ s = splhigh();
+ while (pcic_attach_detach_locked)
+  { pcic_attach_detach_asleep = 1;
+    tsleep(&pcic_attach_detach_wchan,PWAIT,"pcicadlk",0);
+  }
+ pcic_attach_detach_locked = 1;
+ splx(s);
+}
+
+static void pcic_attach_detach_unlock(void)
+{
+ int s;
+
+ s = splhigh();
+ pcic_attach_detach_locked = 0;
+ if (pcic_attach_detach_asleep)
+  { pcic_attach_detach_asleep = 0;
+    wakeup(&pcic_attach_detach_wchan);
+  }
+ splx(s);
+}
+
+static void
 pcic_attach_card(h)
 	struct pcic_handle *h;
 {
-
+	pcic_attach_detach_lock();
 	if (!(h->flags & PCIC_FLAG_CARDP)) {
 		/* call the MI attach function */
 		pcmcia_card_attach(h->pcmcia);
@@ -766,14 +796,15 @@ pcic_attach_card(h)
 	} else {
 		DPRINTF(("pcic_attach_card: already attached"));
 	}
+	pcic_attach_detach_unlock();
 }
 
-void
+static void
 pcic_detach_card(h, flags)
 	struct pcic_handle *h;
 	int flags;		/* DETACH_* */
 {
-
+	pcic_attach_detach_lock();
 	if (h->flags & PCIC_FLAG_CARDP) {
 		h->flags &= ~PCIC_FLAG_CARDP;
 
@@ -782,6 +813,7 @@ pcic_detach_card(h, flags)
 	} else {
 		DPRINTF(("pcic_detach_card: already detached"));
 	}
+	pcic_attach_detach_unlock();
 }
 
 void
