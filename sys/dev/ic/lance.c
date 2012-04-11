@@ -690,6 +690,13 @@ lance_ioctl(ifp, cmd, data)
 		error = ifmedia_ioctl(ifp, ifr, &sc->sc_media, cmd);
 		break;
 
+	case SIOCSIFMTU:
+		if ((ifr->ifr_mtu > ETHERMTU) || (ifr->ifr_mtu < ETHERMIN))
+			error = EINVAL;
+		else
+			ifp->if_mtu = ifr->ifr_mtu;
+		break;
+
 	default:
 		error = EINVAL;
 		break;
