@@ -45,6 +45,8 @@
  *	@(#)zsvar.h	8.1 (Berkeley) 6/11/93
  */
 
+#ifndef _DEV_IC_Z8530SC_H_
+#define _DEV_IC_Z8530SC_H_
 
 /*
  * Function vector - per channel
@@ -138,3 +140,4 @@ int 	zs_set_modes __P((struct zs_chanstate *, int));
 extern int zs_major;
 
 int zs_check_kgdb __P((struct zs_chanstate *, int));
+#endif
