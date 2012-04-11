@@ -126,6 +126,25 @@ struct pv_entry *get_pventry __P((void));
 void free_pventry __P((struct pv_entry *));
 void more_pventries __P((void));
 
+static void pcc(unsigned char c)
+{
+ while ((mfpr(PR_TXCS) & 0x80) == 0) ;
+ mtpr(c,PR_TXDB);
+ while ((mfpr(PR_TXCS) & 0x80) == 0) ;
+}
+
+static void pc8x(unsigned int v)
+{
+ int i;
+
+ for (i=28;i>=0;i-=4) pcc("0123456789abcdef"[(v>>i)&15]);
+}
+
+static void pcs(const char *s)
+{
+ for (;*s;s++) pcc(*s);
+}
+
 /*
  * pmap_bootstrap().
  * Called as part of vm bootstrap, allocates internal pmap structures.
@@ -194,6 +213,23 @@ pmap_bootstrap()
 	istack = (unsigned)Sysmap + ROUND_PAGE(sysptsize * 4);
 	mtpr(istack + ISTACK_SIZE, PR_ISP);
 	kvtopte(istack)->pg_v = 0;
+ pcs("avail ");
+ pc8x((unsigned int)avail_start);
+ pcs("-");
+ pc8x((unsigned int)avail_end);
+ pcs("\r\nphysmem=");
+ pc8x((unsigned int)physmem);
+ pcs("\r\nsysptsize=");
+ pc8x((unsigned int)sysptsize);
+ pcs("\r\nvirtual avail=");
+ pc8x((unsigned int)virtual_avail);
+ pcs(" end=");
+ pc8x((unsigned int)virtual_end);
+ pcs("\r\nISP=");
+ pc8x((unsigned int)mfpr(PR_ISP));
+ pcs(", RZ=");
+ pc8x((unsigned int)istack);
+ pcs("\r\n");
 
 	/* Some scratch pages */
 	scratch = (void *)((u_int)istack + ISTACK_SIZE);
