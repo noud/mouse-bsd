@@ -1503,10 +1503,6 @@ again:
 				 * while we were trying to select
 				 * another target.
 				 */
-#ifdef DEBUG
-				printf("%s: ESP100 work-around activated\n",
-					sc->sc_dev.dv_xname);
-#endif
 				sc->sc_flags &= ~NCR_EXPECT_ILLCMD;
 				return (1);
 			}
