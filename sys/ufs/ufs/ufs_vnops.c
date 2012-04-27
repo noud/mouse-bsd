@@ -1917,6 +1917,9 @@ ufs_vinit(mntp, specops, fifoops, vpp)
 			 */
 			nvp->v_data = vp->v_data;
 			vp->v_data = NULL;
+			/* With v_op bashed, vput's VOP_UNLOCK is a noop.
+			   But at this point vp is locked, so.... */
+			VOP_UNLOCK(vp,0);
 			vp->v_op = spec_vnodeop_p;
 			vput(vp);
 			vgone(vp);
