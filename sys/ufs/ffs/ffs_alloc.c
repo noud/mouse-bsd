@@ -251,8 +251,10 @@ ffs_realloccg(ip, lbprev, bpref, osize, nsize, cred, bpp)
 		    fs->fs_cstotal.cs_nffree >
 		    fs->fs_dsize * fs->fs_minfree / (2 * 100))
 			break;
+#ifdef FFS_LOG_OPTCHG
 		log(LOG_NOTICE, "%s: optimization changed from SPACE to TIME\n",
 			fs->fs_fsmnt);
+#endif
 		fs->fs_optim = FS_OPTTIME;
 		break;
 	case FS_OPTTIME:
@@ -270,8 +272,10 @@ ffs_realloccg(ip, lbprev, bpref, osize, nsize, cred, bpp)
 		if (fs->fs_cstotal.cs_nffree <
 		    fs->fs_dsize * (fs->fs_minfree - 2) / 100)
 			break;
+#ifdef FFS_LOG_OPTCHG
 		log(LOG_NOTICE, "%s: optimization changed from TIME to SPACE\n",
 			fs->fs_fsmnt);
+#endif
 		fs->fs_optim = FS_OPTSPACE;
 		break;
 	default:
