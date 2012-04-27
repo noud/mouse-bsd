@@ -1014,6 +1014,7 @@ ttioctl(tp, cmd, data, flag, p)
 			return (EPERM);
 		tp->t_session = p->p_session;
 		tp->t_pgrp = p->p_pgrp;
+		CLR(tp->t_state, TS_ASYNC);
 		p->p_session->s_ttyp = tp;
 		p->p_flag |= P_CONTROLT;
 		break;
@@ -1027,6 +1028,7 @@ ttioctl(tp, cmd, data, flag, p)
 		else if (pgrp->pg_session != p->p_session)
 			return (EPERM);
 		tp->t_pgrp = pgrp;
+		CLR(tp->t_state, TS_ASYNC);
 		break;
 	}
 	case TIOCSTAT:			/* get load avg stats */
