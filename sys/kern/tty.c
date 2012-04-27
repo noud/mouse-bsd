@@ -360,13 +360,6 @@ parmrk:				(void)putc(0377 | TTY_QUOTE, &tp->t_rawq);
 				c = 0;
 		}
 	}
-	else if (c == 0377 &&
-	    ISSET(iflag, ISTRIP|IGNPAR|INPCK|PARMRK) == (INPCK|PARMRK)) {
-		/* "Escape" a valid character of '\377'. */
-		(void)putc(0377 | TTY_QUOTE, &tp->t_rawq);
-		(void)putc(0377 | TTY_QUOTE, &tp->t_rawq);
-		goto endcase;
-	}
 
 	/*
 	 * In tandem mode, check high water mark.
@@ -584,6 +577,11 @@ parmrk:				(void)putc(0377 | TTY_QUOTE, &tp->t_rawq);
 	 * Put data char in q for user and
 	 * wakeup on seeing a line delimiter.
 	 */
+	if ((c == 0377) && (ISSET(iflag,ISTRIP|IGNPAR|PARMRK) == PARMRK)) {
+		/* "Escape" a valid character of '\377'. */
+		(void)putc(0377 | TTY_QUOTE, &tp->t_rawq);
+		c = 0377 | TTY_QUOTE;
+	}
 	if (putc(c, &tp->t_rawq) >= 0) {
 		if (!ISSET(lflag, ICANON)) {
 			ttwakeup(tp);
