@@ -61,6 +61,8 @@
 #include <sys/signalvar.h>
 #include <sys/resourcevar.h>
 #include <sys/poll.h>
+#include <sys/filedesc.h>
+#include <miscfs/specfs/specdev.h>
 
 #include <vm/vm.h>
 
@@ -823,6 +825,39 @@ ttioctl(tp, cmd, data, flag, p)
 			constty = tp;
 		} else if (tp == constty)
 			constty = NULL;
+		break;
+	case TIOCCONSOLE:
+		 { int fd;
+		   struct file *fp;
+		   struct vnode *v;
+		   fd = *(int *)data;
+		   /* Disallow on /dev/tty */
+		   if (cdevsw[major(tp->t_dev)].d_open == cttyopen) return(EINVAL);
+		   /* Check for console already busy */
+		   if ( constty && (constty != tp) &&
+			(constty->t_state & (TS_CARR_ON|TS_ISOPEN)) ==
+			    (TS_CARR_ON|TS_ISOPEN) ) return (EBUSY);
+		   /* Validate argument fd */
+		   if ( (fd < 0) ||
+			(fd >= p->p_fd->fd_nfiles) ) return(EBADF);
+		   fp = p->p_fd->fd_ofiles[fd];
+		   if ( !fp ||
+			(fp->f_iflags & FIF_WANTCLOSE) ||
+			((fp->f_flag & (FREAD|FWRITE)) != (FREAD|FWRITE)) )
+		    { return(EBADF);
+		    }
+		   if (fp->f_type != DTYPE_VNODE) return(EINVAL);
+		   v = (void *) fp->f_data;
+		   vn_lock(v,LK_SHARED|LK_RETRY);
+		   if ( (v->v_type != VCHR) ||
+			(cdevsw[major(v->v_rdev)].d_open != cnopen) )
+		    { VOP_UNLOCK(v,0);
+		      return(EINVAL);
+		    }
+		   VOP_UNLOCK(v,0);
+		   /* Do it. */
+		   constty = tp;
+		 }
 		break;
 	case TIOCDRAIN:			/* wait till output drained */
 		if ((error = ttywait(tp)) != 0)

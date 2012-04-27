@@ -118,6 +118,7 @@ struct winsize {
 #define		UIOCCMD(n)	_IO('u', n)	/* usr cntl op "n" */
 #define	TIOCGSID	_IOR('t', 99, int)	/* get session id */
 #define	TIOCCONS	_IOW('t', 98, int)	/* become virtual console */
+#define	TIOCCONSOLE	_IOW('t', 3, int)	/* TIOCCONS done right */
 #define	TIOCSCTTY	 _IO('t', 97)		/* become controlling tty */
 #define	TIOCEXT		_IOW('t', 96, int)	/* pty: external processing */
 #define	TIOCSIG		 _IO('t', 95)		/* pty: generate signal */
