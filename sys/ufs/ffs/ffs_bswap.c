@@ -49,10 +49,21 @@ ffs_sb_swap(o, n, ns)
 	struct fs *o, *n;
 	int ns;
 {
-	int i;
+	int i, len;
 	u_int32_t *o32, *n32;
 	u_int16_t *o16, *n16;
+	u_int32_t postbloff, postblfmt;
 
+	postbloff = ufs_rw32(o->fs_postbloff, ns);
+	postblfmt = ufs_rw32(o->fs_postblformat, ns);
+	/* Compute these before swapping, in case o==n. */
+	o16 = (postblfmt == FS_42POSTBLFMT) ? o->fs_opostbl[0] :
+	    (int16_t *)((u_int8_t *)o + postbloff);
+	n16 = (postblfmt == FS_42POSTBLFMT) ? n->fs_opostbl[0] :
+	    (int16_t *)((u_int8_t *)n + postbloff);
+	len = (postblfmt == FS_42POSTBLFMT) ?
+	    128 /* fs_opostbl[16][8] */ :
+	    ufs_rw32(o->fs_cpc, ns) * ufs_rw32(o->fs_nrpos, ns);
 	/* in order to avoid a lot of lines, as the first 52 fields of
 	 * the superblock are u_int32_t, we loop here to convert it.
 	 */
@@ -76,17 +87,7 @@ ffs_sb_swap(o, n, ns)
 	n->fs_rotbloff = bswap32(o->fs_rotbloff);
 	n->fs_magic = bswap32(o->fs_magic);
 	/* byteswap the postbl */
-	o16 = (ufs_rw32(o->fs_postblformat, ns) == FS_42POSTBLFMT)
-	    ? o->fs_opostbl[0]
-	    : (int16_t *)((u_int8_t *)o + ufs_rw32(o->fs_postbloff, ns));
-	n16 = (ufs_rw32(o->fs_postblformat, ns) == FS_42POSTBLFMT)
-	    ? n->fs_opostbl[0]
-	    : (int16_t *)((u_int8_t *)n + ufs_rw32(n->fs_postbloff, ns));
-	for (i = 0; i < (
-	         (ufs_rw32(o->fs_postblformat, ns) == FS_42POSTBLFMT) ?
-	         168 : /* fs_opostbl[16][8] */
-	         ufs_rw32(o->fs_cpc, ns) * ufs_rw32(o->fs_nrpos, ns));
-	     i++)
+	for (i = 0; i < len; i++)
 		n16[i] = bswap16(o16[i]);
 }
 
