@@ -874,12 +874,12 @@ ttioctl(tp, cmd, data, flag, p)
 		*(struct winsize *)data = tp->t_winsize;
 		break;
 	case TIOCGPGRP:			/* get pgrp of tty */
-		if (!isctty(p, tp))
+		if (!isctty(p,tp) && !suser(p->p_ucred,&p->p_acflag))
 			return (ENOTTY);
 		*(int *)data = tp->t_pgrp ? tp->t_pgrp->pg_id : NO_PID;
 		break;
 	case TIOCGSID:			/* get sid of tty */
-		if (!isctty(p, tp))
+		if (!isctty(p,tp) && !suser(p->p_ucred,&p->p_acflag))
 			return (ENOTTY);
 		*(int *)data = tp->t_session->s_sid;
 		break;
