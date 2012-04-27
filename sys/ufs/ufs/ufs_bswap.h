@@ -33,6 +33,9 @@
  *
  */
 
+#ifndef UFS_UFS_BSWAP_H
+#define UFS_UFS_BSWAP_H
+
 #if defined(_KERNEL) && !defined(_LKM)
 #include "opt_ffs.h"
 #endif
@@ -89,3 +92,5 @@ ufs_rw64(a, ns)
 	(a) = ufs_rw32(ufs_rw32((a), (ns)) + (b), (ns))
 #define ufs_add64(a, b, ns) \
 	(a) = ufs_rw64(ufs_rw64((a), (ns)) + (b), (ns))
+
+#endif
