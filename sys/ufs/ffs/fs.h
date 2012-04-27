@@ -35,6 +35,10 @@
  *	@(#)fs.h	8.13 (Berkeley) 3/21/95
  */
 
+#include <sys/param.h>
+#include <ufs/ufs/dinode.h> /* for ufs_daddr_t */
+#include <ufs/ufs/ufs_bswap.h> /* for ufs_rw32 */
+
 /*
  * Each disk drive contains some number of file systems.
  * A file system consists of a number of cylinder groups.
