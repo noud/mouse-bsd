@@ -35,6 +35,9 @@
  *	@(#)libkern.h	8.2 (Berkeley) 8/5/94
  */
 
+#ifndef _SYS_LIB_LIBKERN_H_
+#define _SYS_LIB_LIBKERN_H_
+
 #include <sys/types.h>
 
 #ifndef LIBKERN_INLINE
@@ -177,3 +180,5 @@ int	 strncmp __P((const char *, const char *, size_t));
 char	*strncpy __P((char *, const char *, size_t));
 char	*strrchr __P((const char *, int));
 u_long	 strtoul __P((const char *, char **, int));
+
+#endif
