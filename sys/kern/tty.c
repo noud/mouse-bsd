@@ -1020,7 +1020,7 @@ ttioctl(tp, cmd, data, flag, p)
 	case TIOCSPGRP: {		/* set pgrp of tty */
 		register struct pgrp *pgrp = pgfind(*(int *)data);
 
-		if (!isctty(p, tp))
+		if (tp->t_session && !isctty(p, tp))
 			return (ENOTTY);
 		else if (pgrp == NULL)
 			return (EINVAL);
