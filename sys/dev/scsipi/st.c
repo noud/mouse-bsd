@@ -2298,7 +2298,8 @@ st_interpret_sense(xs)
 	if (sense->error_code & SSD_ERRCODE_VALID)
 		info = _4btol(sense->info);
 	else
-		info = xs->datalen;	/* bad choice if fixed blocks */
+		info = (st->flags & ST_FIXEDBLOCKS) ?
+		    xs->datalen / st->blksize : xs->datalen;
 	key = sense->flags & SSD_KEY;
 	st->mt_erreg = key;
 	st->asc = sense->add_sense_code;
