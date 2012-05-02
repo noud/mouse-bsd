@@ -1490,6 +1490,15 @@ sys_symlink(p, v, retval)
 	if ((error = namei(&nd)) != 0)
 		goto out;
 	if (nd.ni_vp) {
+#if 0 /* XXX if write access to link, should replace it atomically */
+		if (nd.ni_vp->v_type == VLNK) {
+			error = vn_writechk(nd.ni_vp);
+			if (error == 0)
+				error = VOP_ACCESS(nd.ni_vp, VWRITE,
+							p->p_ucred, p);
+			if (error == 0) goto good;
+		} else {
+#endif
 		VOP_ABORTOP(nd.ni_dvp, &nd.ni_cnd);
 		if (nd.ni_dvp == nd.ni_vp)
 			vrele(nd.ni_dvp);
@@ -1498,7 +1507,13 @@ sys_symlink(p, v, retval)
 		vrele(nd.ni_vp);
 		error = EEXIST;
 		goto out;
+#if 0
+		}
+#endif
 	}
+#if 0
+good:;
+#endif
 	VATTR_NULL(&vattr);
 	vattr.va_mode = ACCESSPERMS &~ p->p_cwdi->cwdi_cmask;
 	VOP_LEASE(nd.ni_dvp, p, p->p_ucred, LEASE_WRITE);
