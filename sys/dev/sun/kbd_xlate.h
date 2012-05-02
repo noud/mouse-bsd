@@ -44,6 +44,9 @@
  *	@(#)kbd.c	8.2 (Berkeley) 10/30/93
  */
 
+#ifndef _DEV_SUN_KBD_XLATE_H_
+#define _DEV_SUN_KBD_XLATE_H_
+
 /*
  * This defines the interface provided by kbd_xlate()
  */
@@ -89,3 +92,5 @@ extern int kbd_code_to_keysym __P((struct kbd_state *ks, int c));
 extern int kbd_iopen __P((int unit));
 extern void kd_init __P((int unit));
 extern void kd_input __P((int c));
+
+#endif
