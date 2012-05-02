@@ -67,7 +67,7 @@ int	midi_unit_count __P((void));
 void	midi_getinfo __P((dev_t, struct midi_info *));
 int	midi_writebytes __P((int, u_char *, int));
 
-#if !defined(__i386__) && !defined(__arm32__)
+#ifndef IPL_AUDIO
 #define splaudio splbio		/* XXX */
 #define IPL_AUDIO IPL_BIO	/* XXX */
 #endif
