@@ -213,6 +213,9 @@ cd_scsibus_set_pa_immed(cd, flags)
 	struct cd_softc *cd;
 	int flags;
 {
+#if 1
+	return(0);
+#else
 	struct scsi_cd_mode_data data;
 	int error;
 
@@ -222,6 +225,7 @@ cd_scsibus_set_pa_immed(cd, flags)
 	data.page.audio.flags &= ~CD_PA_SOTC;
 	data.page.audio.flags |= CD_PA_IMMED;
 	return (cd_scsibus_set_mode(cd, &data, AUDIOPAGESIZE, flags));
+#endif
 }
 
 int
