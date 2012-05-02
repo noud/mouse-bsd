@@ -74,6 +74,9 @@
  *	@(#)event_var.h	8.1 (Berkeley) 6/11/93
  */
 
+#ifndef _DEV_WSCONS_WSEVENTVAR_H
+#define _DEV_WSCONS_WSEVENTVAR_H
+
 /*
  * Internal "wscons_event" queue interface for the keyboard and mouse drivers.
  * The drivers are expected not to place events in the queue above spltty(),
@@ -115,3 +118,5 @@ int	wsevent_poll __P((struct wseventvar *, int, struct proc *));
  * theory that mouse and keyboard `user' input should be quick.
  */
 #define	PWSEVENT	23
+
+#endif
