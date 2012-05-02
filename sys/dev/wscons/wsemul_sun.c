@@ -90,6 +90,7 @@ struct wsemul_sun_emuldata {
 	int rendflags;
 #define REND_BOW 1
 #define REND_SO 2
+	long nsoattr;			/* non-REND_SO attribute */
 	long curattr;			/* currently used attribute */
 	long kernattr;			/* attribute for kernel output */
 #ifdef DIAGNOSTIC
@@ -132,7 +133,9 @@ wsemul_sun_cnattach(type, cookie, ccol, crow, defattr)
 	edp->ncols = type->ncols;
 	edp->crow = crow;
 	edp->ccol = ccol;
-	edp->curattr = edp->defattr = defattr;
+	edp->nsoattr = defattr;
+	edp->curattr = defattr;
+	edp->defattr = defattr;
 #if defined(WS_KERNEL_FG) || defined(WS_KERNEL_BG) || \
   defined(WS_KERNEL_COLATTR) || defined(WS_KERNEL_MONOATTR)
 #ifndef WS_KERNEL_FG
@@ -221,6 +224,7 @@ wsemul_sun_attach(console, type, cookie, ccol, crow, cbcookie, defattr)
 					    &edp->bowattr)))
 		edp->bowattr = edp->defattr;
 
+	edp->nsoattr = edp->defattr;
 	edp->curattr = edp->defattr;
 	edp->rendflags = 0;
 
@@ -260,7 +264,7 @@ wsemul_sun_output_normal(edp, c, kernel)
 
 	case ASCII_FF:		/* "Form Feed (FF)" */
 		(*edp->emulops->eraserows)(edp->emulcookie, 0, edp->nrows,
-				kernel ? edp->kernattr : edp->curattr);
+				kernel ? edp->kernattr : edp->nsoattr);
 				/* XXX possible in kernel output? */
 		edp->ccol = 0;
 		edp->crow = 0;
@@ -311,7 +315,7 @@ wsemul_sun_output_normal(edp, c, kernel)
 		if (edp->scrolldist == 0) {
 			edp->crow = 0;
 			(*edp->emulops->eraserows)(edp->emulcookie, 0, 1,
-						   edp->curattr);
+						   edp->nsoattr);
 			break;
 		}
 
@@ -320,7 +324,7 @@ wsemul_sun_output_normal(edp, c, kernel)
 		    edp->nrows - edp->scrolldist);
 		(*edp->emulops->eraserows)(edp->emulcookie,
 		    edp->nrows - edp->scrolldist, edp->scrolldist,
-					   edp->curattr);
+					   edp->nsoattr);
 		edp->crow -= edp->scrolldist - 1;
 		break;
 	}
@@ -368,7 +372,7 @@ wsemul_sun_control(edp, c)
 			    src, dst, edp->ncols - dst);
 		}
 		(*edp->emulops->erasecols)(edp->emulcookie, edp->crow,
-		    src, dst - src, edp->curattr);
+		    src, dst - src, edp->nsoattr);
 		break;
 
 	case 'A':		/* "Cursor Up (CUU)" */
@@ -399,12 +403,12 @@ wsemul_sun_control(edp, c)
 	case 'J':		/* "Erase in Display (ED)" */
 		if (ROWS_LEFT > 0) {
 			(*edp->emulops->eraserows)(edp->emulcookie,
-			     edp->crow + 1, ROWS_LEFT, edp->curattr);
+			     edp->crow + 1, ROWS_LEFT, edp->nsoattr);
 		}
 		/* FALLTHRU */
 	case 'K':		/* "Erase in Line (EL)" */
 		(*edp->emulops->erasecols)(edp->emulcookie, edp->crow,
-		    edp->ccol, COLS_LEFT + 1, edp->curattr);
+		    edp->ccol, COLS_LEFT + 1, edp->nsoattr);
 		break;
 
 	case 'L':		/* "Insert Line (IL)" */
@@ -416,7 +420,7 @@ wsemul_sun_control(edp, c)
 			    src, dst, edp->nrows - dst);
 		}
 		(*edp->emulops->eraserows)(edp->emulcookie,
-		    src, dst - src, edp->curattr);
+		    src, dst - src, edp->nsoattr);
 		break;
 
 	case 'M':		/* "Delete Line (DL)" */
@@ -428,7 +432,7 @@ wsemul_sun_control(edp, c)
 			    src, dst, edp->nrows - src);
 		}
 		(*edp->emulops->eraserows)(edp->emulcookie,
-		    dst + edp->nrows - src, src - dst, edp->curattr);
+		    dst + edp->nrows - src, src - dst, edp->nsoattr);
 		break;
 
 	case 'P':		/* "Delete Character (DCH)" */
@@ -440,7 +444,7 @@ wsemul_sun_control(edp, c)
 			    src, dst, edp->ncols - src);
 		}
 		(*edp->emulops->erasecols)(edp->emulcookie, edp->crow,
-		    dst + edp->ncols - src, src - dst, edp->curattr);
+		    dst + edp->ncols - src, src - dst, edp->nsoattr);
 		break;
 
 	case 'm':		/* "Select Graphic Rendition (SGR)" */
@@ -466,12 +470,11 @@ wsemul_sun_control(edp, c)
 		edp->scrolldist = 1;
 		edp->rendflags = 0;
 setattr:
-		if (((edp->rendflags & REND_BOW) != 0) ^
-		    ((edp->rendflags & REND_SO) != 0))
-			edp->curattr = edp->bowattr;
-		else
-			edp->curattr = edp->defattr;
-		break;
+		edp->nsoattr = (edp->rendflags & REND_BOW)
+					? edp->bowattr : edp->defattr;
+		edp->curattr = (edp->rendflags & REND_SO)
+			? (edp->nsoattr ^ edp->bowattr ^ edp->defattr)
+				: edp->nsoattr;
 	}
 }
 
@@ -652,6 +655,7 @@ wsemul_sun_resetop(cookie, op)
 		edp->state = SUN_EMUL_STATE_NORMAL;
 		edp->scrolldist = 1;
 		edp->rendflags = 0;
+		edp->nsoattr = edp->defattr;
 		edp->curattr = edp->defattr;
 		break;
 	case WSEMUL_CLEARSCREEN:
