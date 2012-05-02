@@ -129,9 +129,7 @@ rasops_init(ri, wantrows, wantcols)
 
 		wsfont_init();
 
-		/* Want 8 pixel wide, don't care about aestethics */
-		if ((cookie = wsfont_find(NULL, 8, 0, 0)) <= 0)
-			cookie = wsfont_find(NULL, 0, 0, 0);
+		cookie = wsfont_find(NULL, 0, 0, 0);
 
 		if (cookie <= 0) {
 			printf("rasops_init: font table is empty\n");
