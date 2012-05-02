@@ -330,6 +330,11 @@ typedef struct {
     } \
 } while (0)
 
+/* We want big-packet support, when we can get it. */
+#ifndef TULIP_COPY_RXDATA
+#define BIG_PACKET
+#endif
+
 #define	TULIP_MII_NOPHY		32
 /*
  * Some boards need to treated specially.  The following enumeration
