@@ -48,6 +48,8 @@
 #ifndef _DEV_SUN_EVENT_VAR_H_
 #define _DEV_SUN_EVENT_VAR_H_
 
+#include <sys/select.h>
+
 /*
  * Internal `Firm_event' interface for the keyboard and mouse drivers.
  * The drivers are expected not to place events in the queue above spltty(),
