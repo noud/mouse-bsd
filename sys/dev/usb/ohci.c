@@ -964,7 +964,7 @@ ohci_intr(p)
 	/* If we get an interrupt while polling, then just ignore it. */
 	if (sc->sc_bus.use_polling) {
 #ifdef DIAGNOSTIC
-		printf("ohci_intr: ignored interrupt while polling\n");
+		/*printf("ohci_intr: ignored interrupt while polling\n");*/
 #endif
 		return (0);
 	}
