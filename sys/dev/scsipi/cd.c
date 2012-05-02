@@ -344,7 +344,7 @@ cdopen(dev, flag, fmt, p)
 	if ((sc_link->flags & SDEV_OPEN) != 0) {
 		/*
 		 * If any partition is open, but the disk has been invalidated,
-		 * disallow further opens.
+		 * disallow further opens, except for the raw partition.
 		 */
 		if ((sc_link->flags & SDEV_MEDIA_LOADED) == 0 &&
 			(part != RAW_PART || fmt != S_IFCHR )) {
@@ -380,13 +380,18 @@ cdopen(dev, flag, fmt, p)
 
 		sc_link->flags |= SDEV_OPEN;
 
-		/* Lock the pack in. */
+		/* Lock the pack in.
+		   Again, ignore errors if opening the raw partition. */
 		error = scsipi_prevent(sc_link, PR_PREVENT,
 		    XS_CTL_IGNORE_ILLEGAL_REQUEST | XS_CTL_IGNORE_MEDIA_CHANGE);
 		SC_DEBUG(sc_link, SDEV_DB1,
 		    ("cdopen: scsipi_prevent, error=%d\n", error));
-		if (error)
-			goto bad;
+		if (error) {
+			if (part != RAW_PART || fmt != S_IFCHR)
+				goto bad;
+			else
+				goto out;
+		}
 
 		if ((sc_link->flags & SDEV_MEDIA_LOADED) == 0) {
 			sc_link->flags |= SDEV_MEDIA_LOADED;
