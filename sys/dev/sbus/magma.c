@@ -427,12 +427,20 @@ magma_attach(parent, self, aux)
 
 	/* init the cd1400 chips */
 	for( chip = 0 ; chip < card->mb_ncd1400 ; chip++ ) {
+		char *clockstr;
 		struct cd1400 *cd = &sc->ms_cd1400[chip];
 
 		cd->cd_reg = (caddr_t)bh + card->mb_cd1400[chip];
 
-		/* XXX getpropstring(node, "clock") */
-		cd->cd_clock = 25;
+		clockstr = getpropstring(node, "clock");
+		if (!clockstr || !*clockstr)
+			cd->cd_clock = 25;
+		else {
+			cd->cd_clock = 0;
+			while (*clockstr)
+				cd->cd_clock = (cd->cd_clock * 10) +
+							(*clockstr++ - '0');
+		}
 
 		/* getpropstring(node, "chiprev"); */
 		/* seemingly the Magma drivers just ignore the propstring */
