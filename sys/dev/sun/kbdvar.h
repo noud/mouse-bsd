@@ -44,6 +44,9 @@
  *	@(#)kbd.c	8.2 (Berkeley) 10/30/93
  */
 
+#include <dev/sun/event_var.h>
+#include <dev/sun/kbd_xlate.h>
+
 /*
  * How many input characters we can buffer.
  * The port-specific var.h may override this.
