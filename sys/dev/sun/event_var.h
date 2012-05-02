@@ -45,6 +45,9 @@
  *	from: Hdr: event_var.h,v 1.5 92/11/26 01:11:51 torek Exp  (LBL)
  */
 
+#ifndef _DEV_SUN_EVENT_VAR_H_
+#define _DEV_SUN_EVENT_VAR_H_
+
 /*
  * Internal `Firm_event' interface for the keyboard and mouse drivers.
  * The drivers are expected not to place events in the queue above spltty(),
@@ -86,3 +89,5 @@ int	ev_poll __P((struct evvar *, int, struct proc *));
  * theory that mouse and keyboard `user' input should be quick.
  */
 #define	PEVENT	23
+
+#endif
