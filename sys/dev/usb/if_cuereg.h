@@ -176,6 +176,7 @@ struct cue_softc {
 #define GET_IFP(sc) (&(sc)->arpcom.ac_if)
 #elif defined(__NetBSD__)
 	struct ethercom		cue_ec;
+	int *ticker_flag;
 #if NRND > 0
 	rndsource_element_t	rnd_source;
 #endif

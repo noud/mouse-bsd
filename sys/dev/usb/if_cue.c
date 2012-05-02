@@ -126,6 +126,8 @@
 #endif
 
 #include <dev/usb/if_cuereg.h>
+#include <sys/kthread.h>
+#include <sys/proc.h>
 
 #ifdef CUE_DEBUG
 #define DPRINTF(x)	if (cuedebug) logprintf x
@@ -135,6 +137,13 @@ int	cuedebug = 0;
 #define DPRINTF(x)
 #define DPRINTFN(n,x)
 #endif
+
+typedef struct cue_ticker_block CTB;
+
+struct cue_ticker_block {
+  struct cue_softc *sc;
+  int flag;
+  } ;
 
 /*
  * Various supported device vendors/products.
@@ -157,7 +166,6 @@ static void cue_rxeof		__P((usbd_xfer_handle,
 				    usbd_private_handle, usbd_status));
 static void cue_txeof		__P((usbd_xfer_handle,
 				    usbd_private_handle, usbd_status));
-static void cue_tick		__P((void *));
 static void cue_start		__P((struct ifnet *));
 static int cue_ioctl		__P((struct ifnet *, u_long, caddr_t));
 static void cue_init		__P((void *));
@@ -170,7 +178,9 @@ static void cue_reset		__P((struct cue_softc *));
 
 static int csr_read_1		__P((struct cue_softc *, int));
 static int csr_write_1		__P((struct cue_softc *, int, int));
+#ifdef CUE_USE_TICKER
 static int csr_read_2		__P((struct cue_softc *, int));
+#endif
 #ifdef notdef
 static int csr_write_2		__P((struct cue_softc *, int, int));
 #endif
@@ -245,6 +255,7 @@ csr_read_1(sc, reg)
 	return (val);
 }
 
+#ifdef CUE_USE_TICKER /* the ticker is all that uses this */
 static int
 csr_read_2(sc, reg)
 	struct cue_softc	*sc;
@@ -252,7 +263,7 @@ csr_read_2(sc, reg)
 {
 	usb_device_request_t	req;
 	usbd_status		err;
-	u_int16_t		val = 0;
+	uWord			val;
 	int			s;
 
 	s = splusb();
@@ -270,8 +281,9 @@ csr_read_2(sc, reg)
 	if (err)
 		return (0);
 
-	return (val);
+	return (UGETW(val));
 }
+#endif
 
 static int
 csr_write_1(sc, reg, val)
@@ -526,6 +538,8 @@ USB_ATTACH(cue)
 	bzero(sc, sizeof(struct cue_softc));
 #endif
 
+	sc->ticker_flag = 0;
+
 	DPRINTFN(5,(" : cue_attach: sc=%p, dev=%p", sc, dev));
 
 	usbd_devinfo(dev, 0, devinfo);
@@ -555,11 +569,10 @@ USB_ATTACH(cue)
 
 	/* Find endpoints. */
 	for (i = 0; i < id->bNumEndpoints; i++) {
-		ed = usbd_interface2endpoint_descriptor(uaa->iface, i);
+		ed = usbd_interface2endpoint_descriptor(iface, i);
 		if (ed == NULL) {
 			printf("%s: couldn't get ep %d\n",
 			    USBDEVNAME(sc->cue_dev), i);
-			splx(s);
 			USB_ATTACH_ERROR_RETURN;
 		}
 		if (UE_GET_DIR(ed->bEndpointAddress) == UE_DIR_IN &&
@@ -659,6 +672,87 @@ USB_ATTACH(cue)
 	USB_ATTACH_SUCCESS_RETURN;
 }
 
+#ifdef CUE_USE_TICKER
+
+/*
+ * I don't know why, but I keep getting "usbd_transfer_cb: short transfer 1<2"
+ *  if I let the stats ticker run.  That's why this isn't always on.
+ *
+ * Oh well, it's only a minor loss.
+ */
+
+static void ticker_done(CTB *b, int checksc)
+{
+ int s;
+
+ s = splimp();
+ if (checksc && (b->sc->ticker_flag == &b->flag)) b->sc->ticker_flag = 0;
+ free(b,M_DEVBUF);
+ splx(s);
+ kthread_exit(0);
+}
+
+static void cue_ticker(void *ctbv)
+{
+ CTB *b;
+ struct cue_softc *sc;
+ int s;
+ struct ifnet *i;
+
+ b = ctbv;
+ sc = b->sc;
+ s = splimp();
+ while (1)
+  { if (! b->flag) ticker_done(b,0);
+    if (sc->cue_dying) ticker_done(b,1);
+    i = GET_IFP(sc);
+    i->if_collisions += csr_read_2(sc,CUE_TX_SINGLECOLL);
+    i->if_collisions += csr_read_2(sc,CUE_TX_MULTICOLL);
+    i->if_collisions += csr_read_2(sc,CUE_TX_EXCESSCOLL);
+    if (csr_read_2(sc,CUE_RX_FRAMEERR)) i->if_ierrors ++;
+    /* Using hz here means one loop per second, which means at most one
+       input error noticed per second.  This is arguably wrong, but it's
+       clearly what the original code intended to do. */
+    tsleep(b,PZERO,"cuetick",hz);
+  }
+}
+
+static void cue_stop_ticker(struct cue_softc *sc)
+{
+ int s;
+
+ s = splimp();
+ if (sc->ticker_flag)
+  { *sc->ticker_flag = 0;
+    sc->ticker_flag = 0;
+  }
+ splx(s);
+}
+
+static void cue_start_ticker(struct cue_softc *sc)
+{
+ int s;
+
+ s = splimp();
+ if (! sc->ticker_flag)
+  { CTB *b;
+    b = malloc(sizeof(CTB),M_DEVBUF,M_NOWAIT);
+    if (b == 0) panic("can't malloc cue ticker block");
+    b->sc = sc;
+    b->flag = 1;
+    sc->ticker_flag = &b->flag;
+    if (kthread_create1(&cue_ticker,b,0,"%stick",&sc->cue_dev.dv_xname[0])) panic("can't fork %s ticker",&sc->cue_dev.dv_xname[0]);
+  }
+ splx(s);
+}
+
+#else
+
+#define cue_stop_ticker(x) /* nothing */
+#define cue_start_ticker(x) /* nothing */
+
+#endif
+
 USB_DETACH(cue)
 {
 	USB_DETACH_START(cue, sc);
@@ -667,7 +761,7 @@ USB_DETACH(cue)
 
 	s = splusb();
 
-	usb_untimeout(cue_tick, sc, sc->cue_stat_ch);
+	cue_stop_ticker(sc);
 
 	if (!sc->cue_attached) {
 		/* Detached before attached finished, so just bail out. */
@@ -1021,36 +1115,6 @@ cue_txeof(xfer, priv, status)
 	splx(s);
 }
 
-static void
-cue_tick(xsc)
-	void			*xsc;
-{
-	struct cue_softc	*sc = xsc;
-	struct ifnet		*ifp;
-	int			s;
-
-	if (sc == NULL)
-		return;
-
-	if (sc->cue_dying)
-		return;
-
-	s = splimp();
-
-	ifp = GET_IFP(sc);
-
-	ifp->if_collisions += csr_read_2(sc, CUE_TX_SINGLECOLL);
-	ifp->if_collisions += csr_read_2(sc, CUE_TX_MULTICOLL);
-	ifp->if_collisions += csr_read_2(sc, CUE_TX_EXCESSCOLL);
-
-	if (csr_read_2(sc, CUE_RX_FRAMEERR))
-		ifp->if_ierrors++;
-
-	usb_timeout(cue_tick, sc, hz, sc->cue_stat_ch);
-
-	splx(s);
-}
-
 static int
 cue_send(sc, m, idx)
 	struct cue_softc	*sc;
@@ -1241,7 +1305,7 @@ cue_init(xsc)
 
 	splx(s);
 
-	usb_timeout(cue_tick, sc, hz, sc->cue_stat_ch);
+	cue_start_ticker(sc);
 }
 
 static int
@@ -1389,7 +1453,7 @@ cue_stop(sc)
 
 	csr_write_1(sc, CUE_ETHCTL, 0);
 	cue_reset(sc);
-	usb_untimeout(cue_tick, sc, sc->cue_stat_ch);
+	cue_stop_ticker(sc);
 
 	/* Stop transfers. */
 	if (sc->cue_ep[CUE_ENDPT_RX] != NULL) {
