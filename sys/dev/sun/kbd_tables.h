@@ -30,6 +30,9 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef _DEV_SUN_KBD_TABLES_H_
+#define _DEV_SUN_KBD_TABLES_H_
+
 /*
  * Keyboard translation tables.  These tables contain
  * "Key symbols" (or "keysyms", to use X terminology).
@@ -144,3 +147,5 @@ extern int kbd_max_type;
 #define	KBD_MIN_TYPE 2
 
 #endif	/* _KERNEL */
+
+#endif
