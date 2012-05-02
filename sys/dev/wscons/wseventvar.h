@@ -77,6 +77,9 @@
 #ifndef _DEV_WSCONS_WSEVENTVAR_H
 #define _DEV_WSCONS_WSEVENTVAR_H
 
+#include <sys/select.h>
+#include <sys/signalvar.h>
+
 /*
  * Internal "wscons_event" queue interface for the keyboard and mouse drivers.
  * The drivers are expected not to place events in the queue above spltty(),
