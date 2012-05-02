@@ -438,9 +438,9 @@ magma_attach(parent, self, aux)
 		/* seemingly the Magma drivers just ignore the propstring */
 		cd->cd_chiprev = cd1400_read_reg(cd, CD1400_GFRCR);
 
-		dprintf(("%s attach CD1400 %d addr %p rev %x clock %dMhz\n",
+		printf("%s: CD1400 %d addr %p rev %x clock %dMhz\n",
 			sc->ms_dev.dv_xname, chip,
-			cd->cd_reg, cd->cd_chiprev, cd->cd_clock));
+			(void *)cd->cd_reg, cd->cd_chiprev, cd->cd_clock);
 
 		/* clear GFRCR */
 		cd1400_write_reg(cd, CD1400_GFRCR, 0x00);
@@ -472,9 +472,10 @@ magma_attach(parent, self, aux)
 		struct cd1190 *cd = &sc->ms_cd1190[chip];
 
 		cd->cd_reg = (caddr_t)bh + card->mb_cd1190[chip];
-		dprintf(("%s attach CD1190 %d addr %p (failed)\n",
-			self->dv_xname, chip, cd->cd_reg));
+
 		/* XXX don't know anything about these chips yet */
+		printf("%s: CD1190 %d addr %p (failed)\n",
+			self->dv_xname, chip, cd->cd_reg);
 	}
 
 	sbus_establish(&sc->ms_sd, &sc->ms_dev);
