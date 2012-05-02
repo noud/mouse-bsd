@@ -552,6 +552,15 @@ const struct puc_device_description puc_devices[] = {
 	    },
 	},
 
+	/* Lava Semiconductor 2-port */
+	{   "Lava Semiconductor 2-port",
+	    {	0x1407,	0x0110,	0,	0	},
+	    {	0xffff,	0xfffe,	0,	0	},
+	    {
+		{ PUC_PORT_TYPE_COM, 0x10, 0x00 },
+	    },
+	},
+
 	/* US Robotics (3Com) PCI Modems */
 	{   "US Robotics (3Com) 3CP5609 PCI 16550 Modem",
 	    {	0x12b9,	0x1008,	0,	0	},
