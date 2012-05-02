@@ -565,6 +565,13 @@ kbd_code_to_keysym(ks, c)
 		 * Do not know how to translate yet.
 		 * We will find out when a RESET comes along.
 		 */
+/* If a RESET doesn't come along in a little while, fake enough of it
+   to at least get keystrokes. */
+static int n = 0;
+if (++n > 10)
+{ kbd_xlate_init(ks);
+printf("[kbd_code_to_keysym: faking RESET]\n");
+}
 		return (KEYSYM_NOP);
 	}
 	keysym = km[KEY_CODE(c)];
