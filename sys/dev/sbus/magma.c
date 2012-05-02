@@ -210,23 +210,62 @@ extern struct cfdriver mbpp_cd;
 /*
  * compute the bpr/cor pair for any baud rate
  * returns 0 for success, 1 for failure
+ * speedp is value-result parameter, pointing to
+ *  desired speed on input, actual speed on output
+ * *speedp is unchanged on failure
  */
-int
-cd1400_compute_baud(speed, clock, cor, bpr)
-	speed_t speed;
-	int clock;
-	int *cor, *bpr;
+static int
+cd1400_compute_baud(speed_t *speedp, int clock, int *cor, int *bpr)
 {
 	int c, co, br;
+	speed_t speed;
+	int minspeed;
+	int maxspeed;
 
-	if( speed < 50 || speed > 150000 )
+	speed = *speedp;
+
+	/*
+	 * clock is in MHz on input, but we want Hz below.
+	 */
+	clock *= 1000000;
+
+	/*
+	 * At 20MHz, lowest baudrate we can get is
+	 *     20e6 / (255 * 2048) = 38.3-
+	 * At 25MHz, highest baudrate we can get is
+	 *     25e6 / (1 * 8) = 3125000
+	 * However, to prevent the arithmetic below from overflowing, we
+	 *  need to limit it to (2^31 - 25000000) / 2048, about 10363368.
+	 *  We actually cut off at one megabaud.
+	 */
+	if ((speed < 38) || (speed > 1000000))
 		return(1);
 
+	/*
+	 * Allow up to one part in 128 error in actual speed
+	 */
+	minspeed = speed - (speed >> 7);
+	maxspeed = speed + (speed >> 7);
+
+	/*
+	 * Try the possible cor values, smallest first; for each one,
+	 *  work out the necessary bpr value.  First cor value for which
+	 *  the bpr value is within range is the one we want.
+	 */
 	for( c = 0, co = 8 ; co <= 2048 ; co <<= 2, c++ ) {
-		br = ((clock * 1000000) + (co * speed) / 2) / (co * speed);
+		br = (clock + ((co * speed) >> 1)) / (co * speed);
 		if( br < 0x100 ) {
+			int abr;
+			abr = clock / (br * co);
+			/*
+			 * If the error is too great, fail now; no later
+			 *  cor value can do any better.
+			 */
+			if ((abr < minspeed) || (abr > maxspeed))
+				return(1);
 			*bpr = br;
 			*cor = c;
+			*speedp = abr;
 			return(0);
 		}
 	}
@@ -1292,10 +1331,10 @@ mtty_param(tp, t)
 	u_char mcor1 = 0, mcor2 = 0;
 	int s, opt;
 
-	if( t->c_ospeed && cd1400_compute_baud(t->c_ospeed, cd->cd_clock, &tcor, &tbpr) )
+	if( t->c_ospeed && cd1400_compute_baud(&t->c_ospeed, cd->cd_clock, &tcor, &tbpr) )
 		return(EINVAL);
 
-	if( t->c_ispeed && cd1400_compute_baud(t->c_ispeed, cd->cd_clock, &rcor, &rbpr) )
+	if( t->c_ispeed && cd1400_compute_baud(&t->c_ispeed, cd->cd_clock, &rcor, &rbpr) )
 		return(EINVAL);
 
 	s = spltty();
@@ -1808,12 +1847,14 @@ mbpp_recv(mp, ptr, len)
 	/* start receiving */
 	s = spltty();
 	if( cd ) {
-	int rcor, rbpr;
+		int rcor, rbpr;
+		speed_t strobespeed;
 
 		cd1400_write_reg(cd, CD1400_CAR, 0);
 
 		/* input strobe at 100kbaud (10microseconds) */
-		cd1400_compute_baud(100000, cd->cd_clock, &rcor, &rbpr);
+		strobespeed = 100000;
+		cd1400_compute_baud(&strobespeed, cd->cd_clock, &rcor, &rbpr);
 		cd1400_write_reg(cd, CD1400_RCOR, rcor);
 		cd1400_write_reg(cd, CD1400_RBPR, rbpr);
 

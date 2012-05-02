@@ -198,7 +198,6 @@ struct mbpp_softc {
 
 /* internal function prototypes */
 
-int cd1400_compute_baud __P((speed_t, int, int *, int *));
 __inline void cd1400_write_ccr __P((struct cd1400 *, u_char));
 __inline u_char cd1400_read_reg __P((struct cd1400 *, int));
 __inline void cd1400_write_reg __P((struct cd1400 *, int, u_char));
