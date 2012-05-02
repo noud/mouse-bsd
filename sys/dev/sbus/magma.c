@@ -165,7 +165,12 @@ static struct magma_board_info supported_cards[] = {
 		2, { 0x4000, 0x8000 }
 	},
 	{
-		NULL, NULL, 0, 0,
+		"MAGMA 2+1HS Sp", "", "Magma 2+1HS Sp", 2, 0,
+		1, 0xa000, 0xc000, 0xe000, { 0x4000, 0, 0, 0 },
+		1, { 0x8000, 0 }
+	},
+	{
+		0, 0, 0, 0, 0,
 		0, 0, 0, 0, { 0, 0, 0, 0 },
 		0, { 0, 0 }
 	}
