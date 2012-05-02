@@ -83,12 +83,7 @@ struct kbd_softc {
 	struct	device k_dev;		/* required first: base device */
 
 	/* Stuff our parent setup */
-	union {
-		struct	zs_chanstate *ku_zcs;
-		struct	ucom_softc *ku_usc;
-	} k_cs_u;
-#define	k_cs k_cs_u.ku_zcs
-#define	k_usc k_cs_u.ku_usc
+	void	*k_private;
 	void	(*k_write_data) __P((struct kbd_softc *, int));
 
 	/* Flags to communicate with kbd_softint() */

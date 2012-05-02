@@ -139,7 +139,7 @@ kbd_zs_attach(parent, self, aux)
 	cs = zsc->zsc_cs[channel];
 	cs->cs_private = k;
 	cs->cs_ops = &zsops_kbd;
-	k->k_cs = cs;
+	k->k_private = cs;
 	k->k_write_data = kbd_zs_write_data;
 
 	if (args->hwflags & ZS_HWFLAG_CONSOLE) {
@@ -190,7 +190,7 @@ kbd_zs_write_data(k, c)
 
 	/* Need splzs to avoid interruption of the delay. */
 	s = splzs();
-	zs_write_data(k->k_cs, c);
+	zs_write_data(k->k_private, c);
 	splx(s);
 }
 
