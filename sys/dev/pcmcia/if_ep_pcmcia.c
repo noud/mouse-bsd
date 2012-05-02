@@ -315,9 +315,23 @@ ep_pcmcia_attach(parent, self, aux)
 			goto ioalloc_failed;
 		}
 	} else {
+		/*
+		 * Why the dummy allocation makes any difference I have
+		 *  no idea, but without it, the second card loses bigtime:
+		 *  the large-packet test in elink3.c reads 0xfcfc when it
+		 *  should get 0x07fc, and its MAC address shows up as not
+		 *  uu:vv:ww:xx:yy:zz but vv:vv:xx:xx:zz:zz, and other
+		 *  problems arise too (probably all from the same cause).
+		 */
+		struct pcmcia_io_handle dummy;
 		if (pcmcia_io_alloc(pa->pf, 0, cfe->iospace[0].length,
 		    cfe->iospace[0].length, &psc->sc_pcioh)) {
 			printf(": can't allocate i/o space\n");
+			goto ioalloc_failed;
+		}
+		if (pcmcia_io_alloc(pa->pf, 0, cfe->iospace[0].length,
+		    cfe->iospace[0].length, &dummy)) {
+			printf(": can't allocate dummy i/o space\n");
 			goto ioalloc_failed;
 		}
 	}
