@@ -671,9 +671,11 @@ nd6_lookup(addr6, create, ifp)
 				      (ifa->ifa_flags |
 				       RTF_HOST | RTF_LLINFO) & ~RTF_CLONING,
 				      &rt))
+#if 0
 				log(LOG_ERR,
 				    "nd6_lookup: failed to add route for a "
 				    "neighbor(%s)\n", ip6_sprintf(addr6));
+#endif
 			if (rt == NULL)
 				return(NULL);
 			if (rt->rt_llinfo) {
