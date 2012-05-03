@@ -604,6 +604,7 @@ extern	u_char	ip6_protox[];
 #define	satosin6(sa)	((struct sockaddr_in6 *)(sa))
 #define	sin6tosa(sin6)	((struct sockaddr *)(sin6))
 #define	ifatoia6(ifa)	((struct in6_ifaddr *)(ifa))
+
 #endif /* _KERNEL */
 
 __BEGIN_DECLS
