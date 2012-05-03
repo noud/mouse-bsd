@@ -1485,12 +1485,14 @@ icmp6_redirect_input(m, off)
 	if (rt) {
 		gw6 = &(((struct sockaddr_in6 *)rt->rt_gateway)->sin6_addr);
 		if (bcmp(&src6, gw6, sizeof(struct in6_addr)) != 0) {
+#if 0
 			log(LOG_ERR,
 				"ICMP6 redirect rejected; "
 				"not equal to gw-for-src=%s (must be same): "
 				"%s\n",
 				ip6_sprintf(gw6),
 				icmp6_redirect_diag(&src6, &reddst6, &redtgt6));
+#endif
 			RTFREE(rt);
 			return;
 		}
