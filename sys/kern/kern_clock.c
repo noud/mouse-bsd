@@ -344,6 +344,31 @@ initclocks()
 	case 1024:
 		shifthz = SHIFT_SCALE - 10;
 		break;
+	case 2000:
+	case 2048:
+		shifthz = SHIFT_SCALE - 11;
+		break;
+	case 2500:
+	case 4000:
+	case 4096:
+		shifthz = SHIFT_SCALE - 12;
+		break;
+	case 8192:
+		shifthz = SHIFT_SCALE - 13;
+		break;
+	case 16384:
+		shifthz = SHIFT_SCALE - 14;
+		break;
+	case 32768:
+		shifthz = SHIFT_SCALE - 15;
+		break;
+	case 65536:
+		shifthz = SHIFT_SCALE - 16;
+		break;
+	case 100000:
+	case 131072:
+		shifthz = SHIFT_SCALE - 17;
+		break;
 	default:
 		panic("weird hz");
 	}
