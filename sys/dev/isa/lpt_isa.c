@@ -72,9 +72,6 @@
 #include <dev/ic/lptreg.h>
 #include <dev/ic/lptvar.h>
 
-#define	LPTPRI		(PZERO+8)
-#define	LPT_BSIZE	1024
-
 #ifndef LPTDEBUG
 #define LPRINTF(a)
 #else
