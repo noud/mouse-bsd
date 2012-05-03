@@ -587,6 +587,9 @@ struct in6_pktinfo {
 #endif /* !_XOPEN_SOURCE */
 
 #ifdef _KERNEL
+
+#include <sys/mbuf.h>
+
 struct cmsghdr;
 
 int	in6_canforward __P((struct in6_addr *, struct in6_addr *));
