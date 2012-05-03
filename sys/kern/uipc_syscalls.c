@@ -671,6 +671,27 @@ done:
 	return (error);
 }
 
+/*
+ * Adjust for a truncated SCM_RIGHTS control message.  This means
+ *  closing any file descriptors that aren't entirely present in the
+ *  returned buffer.  m is the mbuf holding the (already externalized)
+ *  SCM_RIGHTS message; len is the length it is being truncated to.  p
+ *  is the affected process.
+ */
+static void adjust_rights(struct mbuf *m, int len, struct proc *p)
+{
+ int nfd;
+ int i;
+ int nok;
+ int *fdv;
+
+ nfd = (m->m_len - sizeof(struct cmsghdr)) / sizeof(int);
+ if (len < sizeof(struct cmsghdr)) len = sizeof(struct cmsghdr);
+ nok = (len - sizeof(struct cmsghdr)) / sizeof(int);
+ fdv = (int *)(mtod(m,struct cmsghdr *)+1);
+ for (i=nok;i<nfd;i++) fdrelease(p,fdv[i]);
+}
+
 int
 recvit(p, s, mp, namelenp, retsize)
 	register struct proc *p;
@@ -803,24 +824,32 @@ recvit(p, s, mp, namelenp, retsize)
 			len = 0;
 		else {
 			struct mbuf *m = control;
-			caddr_t p = (caddr_t)mp->msg_control;
+			caddr_t cp = (caddr_t)mp->msg_control;
 
 			do {
 				i = m->m_len;
 				if (len < i) {
 					mp->msg_flags |= MSG_CTRUNC;
 					i = len;
+					if (mtod(m,struct cmsghdr *)->cmsg_type == SCM_RIGHTS)
+						adjust_rights(m,len,p);
 				}
-				error = copyout(mtod(m, caddr_t), p,
+				error = copyout(mtod(m, caddr_t), cp,
 				    (unsigned)i);
-				if (m->m_next)
+				m = m->m_next;
+				if (m)
 					i = ALIGN(i);
-				p += i;
+				cp += i;
 				len -= i;
 				if (error != 0 || len <= 0)
 					break;
-			} while ((m = m->m_next) != NULL);
-			len = p - (caddr_t)mp->msg_control;
+			} while (m != NULL);
+			while (m) {
+				if (mtod(m,struct cmsghdr *)->cmsg_type == SCM_RIGHTS)
+					adjust_rights(m,0,p);
+				m = m->m_next;
+			}
+			len = cp - (caddr_t)mp->msg_control;
 		}
 		mp->msg_controllen = len;
 	}
