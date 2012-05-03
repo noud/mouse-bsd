@@ -469,7 +469,10 @@ tcp_timers(tp, timer)
 		else if (tp->t_in6pcb)
 			so = tp->t_in6pcb->in6p_socket;
 #endif
-		if (so->so_options & SO_KEEPALIVE &&
+		if (
+#ifndef FORCE_TCP_KEEPALIVES
+		    so->so_options & SO_KEEPALIVE &&
+#endif
 		    tp->t_state <= TCPS_CLOSE_WAIT) {
 		    	if ((tcp_maxidle > 0) &&
 			    (tp->t_idle >= tcp_keepidle + tcp_maxidle))
