@@ -1114,9 +1114,10 @@ sockargs(mp, buf, buflen, type)
 
 	/*
 	 * We can't allow socket names > UCHAR_MAX in length, since that
-	 * will overflow sa_len.
+	 * will overflow sa_len.   Control data more than a page size in
+	 * length is just too much.
 	 */
-	if (type == MT_SONAME && (u_int)buflen > UCHAR_MAX)
+	if ((u_int)buflen > (type == MT_SONAME ? UCHAR_MAX : PAGE_SIZE))
 		return (EINVAL);
 
 	/* Allocate an mbuf to hold the arguments. */
