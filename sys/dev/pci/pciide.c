@@ -320,12 +320,12 @@ const struct pciide_product_desc pciide_acer_products[] =  {
 };
 
 const struct pciide_product_desc pciide_promise_products[] =  {
-	{ PCI_PRODUCT_PROMISE_ULTRA33,
+	{ PCI_PRODUCT_PROMISE_PDC20246,
 	  IDE_PCI_CLASS_OVERRIDE,
 	  "Promise Ultra33/ATA Bus Master IDE Accelerator",
 	  pdc202xx_chip_map,
 	},
-	{ PCI_PRODUCT_PROMISE_ULTRA66,
+	{ PCI_PRODUCT_PROMISE_PDC20262,
 	  IDE_PCI_CLASS_OVERRIDE,
 	  "Promise Ultra66/ATA Bus Master IDE Accelerator",
 	  pdc202xx_chip_map,
@@ -2445,8 +2445,18 @@ acer_pci_intr(arg)
 	return rv;
 }
 
-/* A macro to test product */
-#define PDC_IS_262(sc) (sc->sc_pp->ide_product == PCI_PRODUCT_PROMISE_ULTRA66)
+/* Macros to test product */
+#define PDC_IS_262(sc)							\
+	((sc)->sc_pp->ide_product == PCI_PRODUCT_PROMISE_PDC20262 ||	\
+	(sc)->sc_pp->ide_product == PCI_PRODUCT_PROMISE_PDC20267 ||	\
+	(sc)->sc_pp->ide_product == PCI_PRODUCT_PROMISE_PDC20265 ||	\
+	(sc)->sc_pp->ide_product == PCI_PRODUCT_PROMISE_PDC20268 ||	\
+	(sc)->sc_pp->ide_product == PCI_PRODUCT_PROMISE_PDC20270 || \
+	(sc)->sc_pp->ide_product == PCI_PRODUCT_PROMISE_PDC20269 ||	\
+	(sc)->sc_pp->ide_product == PCI_PRODUCT_PROMISE_PDC20276 ||	\
+	(sc)->sc_pp->ide_product == PCI_PRODUCT_PROMISE_PDC20275 || \
+	(sc)->sc_pp->ide_product == PCI_PRODUCT_PROMISE_PDC20271 || \
+	(sc)->sc_pp->ide_product == PCI_PRODUCT_PROMISE_PDC20277)
 
 void
 pdc202xx_chip_map(sc, pa)
