@@ -840,10 +840,23 @@ pppasyncstart(sc)
      * because the pty code doesn't call pppstart after it has
      * drained the t_outq.
      */
+#if 0
     if (!idle && (sc->sc_flags & SC_TIMEOUT) == 0) {
 	timeout(ppp_timeout, (void *) sc, 1);
 	sc->sc_flags |= SC_TIMEOUT;
     }
+#else
+ if (! idle)
+  { static __typeof__(time.tv_sec) oldsec = 0;
+    static __typeof__(time.tv_sec) nowsec;
+    nowsec = time.tv_sec;
+    if (!(sc->sc_flags & SC_TIMEOUT) || (nowsec != oldsec))
+     { oldsec = nowsec;
+       timeout(ppp_timeout,sc,1);
+       sc->sc_flags |= SC_TIMEOUT;
+     }
+  }
+#endif
 
     splx(s);
 }
