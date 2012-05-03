@@ -192,7 +192,10 @@ in6_ifattach_getifid(ifp0)
 		}
 	}
 #ifdef DEBUG
-	printf("in6_ifattach_getifid: failed to get EUI64");
+	if (ifp0)
+		printf("in6_ifattach_getifid: failed to get EUI64 for %s\n",&ifp0->if_xname[0]);
+	else
+		printf("in6_ifattach_getifid: failed to get EUI64 (no specific interface)\n");
 #endif
 	return EADDRNOTAVAIL;
 
@@ -215,7 +218,10 @@ found:
 		return 0;
 	} else {
 #ifdef DEBUG
-		printf("in6_ifattach_getifid: failed to get EUI64");
+		if (ifp0)
+			printf("in6_ifattach_getifid: failed to get EUI64 for %s\n",&ifp0->if_xname[0]);
+		else
+			printf("in6_ifattach_getifid: failed to get EUI64 (no specific interface)\n");
 #endif
 		return EADDRNOTAVAIL;
 	}
