@@ -502,10 +502,10 @@ tcp_respond(tp, template, m, th0, ack, seq, flags)
 	th->th_ack = htonl(ack);
 	th->th_x2 = 0;
 	if ((flags & TH_SYN) == 0) {
-		if (tp)
+		if (tp && ((flags & TH_RST) == 0))
 			th->th_win = htons((u_int16_t) (win >> tp->rcv_scale));
 		else
-			th->th_win = htons((u_int16_t)win);
+			th->th_win = 0;
 		th->th_off = sizeof (struct tcphdr) >> 2;
 		tlen += sizeof (struct tcphdr);
 	} else
