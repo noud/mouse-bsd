@@ -184,11 +184,12 @@ fork1(p1, flags, exitsig, stack, stacksize, retval, rnewprocp)
 retry:
 	/*
 	 * If the process ID prototype has wrapped around,
-	 * restart somewhat above 0, as the low-numbered procs
-	 * tend to include daemons that don't exit.
+	 * restart at 2, since we _know_ 0 and 1 are taken.  A bunch of
+	 * long-running processes are probably in low PID space, but we
+	 * we don't know where.
 	 */
 	if (nextpid >= PID_MAX) {
-		nextpid = 100;
+		nextpid = 2;
 		pidchecked = 0;
 	}
 	if (nextpid >= pidchecked) {
