@@ -41,6 +41,22 @@
  * Encapsulate for and decapsulate packets received on an IP-in-IP tunnel.
  *
  * See: RFC 2003.
+ *
+ * Setting LINK0 puts it into "sane" mode; when this is set:
+ *	- If LINK1 is set, SIOCSIFADDR and SIOCSIFDSTADDR set the
+ *	   tunnel src and dst addresses (and keep the interface down);
+ *	   if LINK1 is clear, they set the interface addresses as
+ *	   usual.
+ *	- The silly kludge to get a "less specific" route is disabled,
+ *	   on the assumption that the routing tables contain, or will
+ *	   contain, something sensible for the specified tunnel dst
+ *	   address.
+ *	- The ipip interface does not hold onto the destination route
+ *	   that was present at configuration time, so you can change
+ *	   routes live and have it notice.
+ *	- The MTU of the interface is not meddled with, except that if
+ *	   it's zero when IFF_UP is set, it's then set to IP_MSS minus
+ *	   the encapsulating header size.
  */
 
 #include "ipip.h"
@@ -248,6 +264,9 @@ ipip_output(ifp, m0, dst, rt)
 		return (EAFNOSUPPORT);
 	}
 
+	if (! (ifp->if_flags & IFF_UP))
+		return (ENETDOWN);
+
 	ip = mtod(m0, struct ip *);
 
 	/* Add the new IP header. */
@@ -306,8 +325,15 @@ ipip_ioctl(ifp, cmd, data)
 			break;
 		}
 
-		sc->sc_src = (satosin(ifa->ifa_addr))->sin_addr;
-		sc->sc_dst = ia->ia_dstaddr.sin_addr;
+		if (ifp->if_flags & IFF_LINK0) {
+			if (ifp->if_flags & IFF_LINK1) {
+				sc->sc_src = (satosin(ifa->ifa_addr))->sin_addr;
+				sc->sc_dst = ia->ia_dstaddr.sin_addr;
+				ifp->if_flags &= ~IFF_UP;
+			}
+			break;
+		}
+
 		ifp->if_mtu = 0;
 		ifp->if_flags &= ~IFF_UP;
 
@@ -332,25 +358,36 @@ ipip_ioctl(ifp, cmd, data)
 		if (in_nullhost(sc->sc_src) || in_nullhost(sc->sc_dst))
 			ifp->if_flags &= ~IFF_UP;
 
-		if (ifp->if_flags & IFF_UP) {
-			if (sc->sc_route.ro_rt == NULL) {
-				struct rtentry *rt;
+		if (ifp->if_flags & IFF_LINK0) {
+			if (ifp->if_flags & IFF_UP) {
+				if (sc->sc_route.ro_rt) {
+					RTFREE(sc->sc_route.ro_rt);
+					sc->sc_route.ro_rt = 0;
+				}
+				if (ifp->if_mtu == 0)
+					ifp->if_mtu = IP_MSS - ifp->if_hdrlen;
+			}
+		} else {
+			if (ifp->if_flags & IFF_UP) {
+				if (sc->sc_route.ro_rt == NULL) {
+					struct rtentry *rt;
 
-				ipip_compute_route(sc);
-				rt = sc->sc_route.ro_rt;
-				if (rt != NULL)
-					ifp->if_mtu = rt->rt_ifp->if_mtu -
-						      ifp->if_hdrlen;
-				else
-					ifp->if_flags &= ~IFF_UP;
+					ipip_compute_route(sc);
+					rt = sc->sc_route.ro_rt;
+					if (rt != NULL)
+						ifp->if_mtu = rt->rt_ifp->if_mtu -
+							      ifp->if_hdrlen;
+					else
+						ifp->if_flags &= ~IFF_UP;
+				}
 			}
-		}
-		else {
-			if (sc->sc_route.ro_rt != NULL) {
-				RTFREE(sc->sc_route.ro_rt);
-				sc->sc_route.ro_rt = NULL;
+			else {
+				if (sc->sc_route.ro_rt != NULL) {
+					RTFREE(sc->sc_route.ro_rt);
+					sc->sc_route.ro_rt = NULL;
+				}
+				ifp->if_mtu = 0;
 			}
-			ifp->if_mtu = 0;
 		}
 		break;
 
