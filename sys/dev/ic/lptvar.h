@@ -70,10 +70,11 @@ struct lpt_softc {
 #define	LPT_OPEN	0x01	/* device is open */
 #define	LPT_OBUSY	0x02	/* printer is busy doing output */
 #define	LPT_INIT	0x04	/* waiting to initialize for open */
-	u_char sc_flags;
-#define	LPT_AUTOLF	0x20	/* automatic LF on CR */
-#define	LPT_NOPRIME	0x40	/* don't prime on open */
-#define	LPT_NOINTR	0x80	/* do not use interrupt */
+	unsigned short int sc_flags;
+#define	LPT_AUTOLF	0x0020	/* automatic LF on CR */
+#define	LPT_NOPRIME	0x0040	/* don't prime on open */
+#define	LPT_NOINTR	0x0080	/* do not use interrupt */
+#define LPT_RAW         0x0100	/* parallel port, not printer interface */
 	u_char sc_control;
 	u_char sc_laststatus;
 };

@@ -129,6 +129,12 @@ int	nblkdev = sizeof(bdevsw) / sizeof(bdevsw[0]);
 	dev_init(c,n,write), dev_init(c,n,ioctl), (dev_type_stop((*))) enodev, \
 	0, seltrue, (dev_type_mmap((*))) enodev }
 
+/* open, close, read, write, ioctl */
+#define	cdev_rwlpt_init(c,n) { \
+	dev_init(c,n,open), dev_init(c,n,close), dev_init(c,n,read), \
+	dev_init(c,n,write), dev_init(c,n,ioctl), (dev_type_stop((*))) enodev, \
+	0, seltrue, (dev_type_mmap((*))) enodev }
+
 /* open, close, read, ioctl */
 #define cdev_joy_init(c,n) { \
 	dev_init(c,n,open), dev_init(c,n,close), dev_init(c,n,read), \
@@ -337,7 +343,7 @@ struct cdevsw	cdevsw[] =
 	cdev_disk_init(NSD,sd),		/* 13: SCSI disk */
 	cdev_tape_init(NST,st),		/* 14: SCSI tape */
 	cdev_disk_init(NCD,cd),		/* 15: SCSI CD-ROM */
-	cdev_lpt_init(NLPT,lpt),	/* 16: parallel printer */
+	cdev_rwlpt_init(NLPT,lpt),	/* 16: parallel printer */
 	cdev_ch_init(NCH,ch),		/* 17: SCSI autochanger */
 	cdev_disk_init(NCCD,ccd),	/* 18: concatenated disk driver */
 	cdev_scanner_init(NSS,ss),	/* 19: SCSI scanner */

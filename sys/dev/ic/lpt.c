@@ -75,7 +75,9 @@
 #define	STEP		hz/4
 
 #define	LPTPRI		(PZERO+8)
+#ifndef LPT_BSIZE
 #define	LPT_BSIZE	1024
+#endif
 
 #define LPTDEBUG
 
@@ -92,7 +94,7 @@ cdev_decl(lpt);
 extern struct cfdriver lpt_cd;
 
 #define	LPTUNIT(s)	(minor(s) & 0x1f)
-#define	LPTFLAGS(s)	(minor(s) & 0xe0)
+#define	LPTFLAGS(s)	(minor(s) & ~0x1f)
 
 void
 lpt_attach_subr(sc)
@@ -122,7 +124,7 @@ lptopen(dev, flag, mode, p)
 	struct proc *p;
 {
 	int unit = LPTUNIT(dev);
-	u_char flags = LPTFLAGS(dev);
+	unsigned short int flags = LPTFLAGS(dev);
 	struct lpt_softc *sc;
 	bus_space_tag_t iot;
 	bus_space_handle_t ioh;
@@ -135,6 +137,14 @@ lptopen(dev, flag, mode, p)
 	sc = lpt_cd.cd_devs[unit];
 	if (!sc || !sc->sc_dev_ok)
 		return ENXIO;
+
+ if (flags & LPT_RAW)
+  { if (sc->sc_state) return(EBUSY);
+    sc->sc_state = LPT_OPEN;
+    sc->sc_flags = flags;
+    bus_space_write_1(sc->sc_iot,sc->sc_ioh,lpt_control,0);
+    return(0);
+  }
 
 #if 0	/* XXX what to do? */
 	if (sc->sc_irq == IRQUNK && (flags & LPT_NOINTR) == 0)
@@ -254,6 +264,12 @@ lptclose(dev, flag, mode, p)
 	bus_space_tag_t iot = sc->sc_iot;
 	bus_space_handle_t ioh = sc->sc_ioh;
 
+ if (sc->sc_flags & LPT_RAW)
+  { sc->sc_flags = 0;
+    sc->sc_state = 0;
+    return(0);
+  }
+
 	if (sc->sc_count)
 		(void) lptpushbytes(sc);
 
@@ -347,6 +363,16 @@ lptwrite(dev, uio, flags)
 	size_t n;
 	int error = 0;
 
+ if (sc->sc_flags & LPT_RAW)
+  { unsigned char c[2];
+    if (uio->uio_resid < 2) return(EINVAL);
+    uiomove(&c[0],2,uio);
+    c[1] &= LPC_STROBE | LPC_AUTOLF | LPC_NINIT | LPC_SELECT;
+    bus_space_write_1(sc->sc_iot,sc->sc_ioh,lpt_data,c[0]);
+    bus_space_write_1(sc->sc_iot,sc->sc_ioh,lpt_control,c[1]);
+    return(0);
+  }
+
 	while ((n = min(LPT_BSIZE, uio->uio_resid)) != 0) {
 		uiomove(sc->sc_cp = sc->sc_inbuf, n, uio);
 		sc->sc_count = n;
@@ -381,6 +407,8 @@ lptintr(arg)
 		return 0;
 #endif
 
+ if (sc->sc_flags & LPT_RAW) return(1);
+
 	/* is printer online and ready for output */
 	if (NOT_READY() && NOT_READY_ERR())
 		return 0;
@@ -406,6 +434,104 @@ lptintr(arg)
 	return 1;
 }
 
+struct rrblk {
+  unsigned int len;
+  unsigned char *buf;
+  } ;
+
+static int lpt_rawread(dev_t dev, const struct rrblk *rbp)
+{
+ struct lpt_softc *sc;
+ int i;
+ int n;
+ unsigned char buf[256];
+
+ sc = lpt_cd.cd_devs[LPTUNIT(dev)];
+ if (! (sc->sc_flags & LPT_RAW)) return(ENOTTY);
+ if (rbp->len < 1) return(0);
+ if (rbp->len > 256) return(EMSGSIZE);
+ n = rbp->len;
+ i = copyin(rbp->buf,&buf[0],n);
+ if (i) return(i);
+ for (i=0;i<n;i++)
+  { bus_space_write_1(sc->sc_iot,sc->sc_ioh,lpt_data,buf[i]);
+    buf[i] = bus_space_read_1(sc->sc_iot,sc->sc_ioh,lpt_status) ^ LPS_NBSY;
+  }
+ return(copyout(&buf[0],rbp->buf,n));
+}
+
+static void sendrecv(struct lpt_softc *sc, unsigned char s, unsigned char *rp)
+{
+ unsigned char r;
+ int i;
+
+ r = 0;
+ bus_space_write_1(sc->sc_iot,sc->sc_ioh,lpt_data,0xf3);
+ for (i=0;i<8;i++)
+  { DELAY(10);
+    bus_space_write_1(sc->sc_iot,sc->sc_ioh,lpt_data,(s&1)?0xfa:0xf8);
+    DELAY(10);
+    r >>= 1;
+    if (bus_space_read_1(sc->sc_iot,sc->sc_ioh,lpt_status) & LPS_NOPAPER) r |= 0x80;
+    bus_space_write_1(sc->sc_iot,sc->sc_ioh,lpt_data,(s&1)?0xfb:0xf9);
+    s >>= 1;
+  }
+ DELAY(10);
+ if (rp) *rp = r;
+}
+
+static int getack(struct lpt_softc *sc)
+{
+ int i;
+
+ for (i=100;i>0;i--)
+  { if (! (bus_space_read_1(sc->sc_iot,sc->sc_ioh,lpt_status) & LPS_NACK)) break;
+    DELAY(1);
+  }
+ if (! i)
+  { printf("lpt getack: no response\n");
+    return(1);
+  }
+ bus_space_write_1(sc->sc_iot,sc->sc_ioh,lpt_data,0xf3);
+ bus_space_write_1(sc->sc_iot,sc->sc_ioh,lpt_data,0xfb);
+ for (i=100;i>0;i--)
+  { if (bus_space_read_1(sc->sc_iot,sc->sc_ioh,lpt_status) & LPS_NACK) break;
+    DELAY(1);
+  }
+ if (! i) printf("lpt getack: NACK stuck low\n");
+ return(0);
+}
+
+static int lpt_psxread(dev_t dev, char * const *dpp)
+{
+ struct lpt_softc *sc;
+ int n;
+ int rx;
+ unsigned char rbuf[32];
+
+ sc = lpt_cd.cd_devs[LPTUNIT(dev)];
+ if (! (sc->sc_flags & LPT_RAW)) return(ENOTTY);
+ bus_space_write_1(sc->sc_iot,sc->sc_ioh,lpt_data,0xf3);
+ sendrecv(sc,0x01,0);
+ if (getack(sc)) return(EHOSTDOWN);
+ sendrecv(sc,0x42,&rbuf[1]);
+ switch (rbuf[1])
+  { case 0x41: n = 3; break;
+    case 0x23: n = 7; break;
+    case 0x73: n = 7; break;
+    case 0x53: n = 7; break;
+    default: n = 0; break;
+  }
+ rbuf[0] = n + 1;
+ rx = 2;
+ for (;n>0;n--)
+  { if (getack(sc)) return(EHOSTDOWN);
+    sendrecv(sc,0xff,&rbuf[rx++]);
+  }
+ bus_space_write_1(sc->sc_iot,sc->sc_ioh,lpt_data,0xff);
+ return(copyout(&rbuf[0],*dpp,rbuf[0]+1));
+}
+
 int
 lptioctl(dev, cmd, data, flag, p)
 	dev_t dev;
@@ -417,9 +543,41 @@ lptioctl(dev, cmd, data, flag, p)
 	int error = 0;
 
 	switch (cmd) {
+	case _IOW('P', 0x3, struct rrblk):
+		return(lpt_rawread(dev,(const void *)data));
+		break;
+	case _IOW('P', 0x4, char *):
+		return(lpt_psxread(dev,(const void *)data));
+		break;
 	default:
 		error = ENODEV;
 	}
 
 	return error;
+}
+
+int lptread(dev_t dev, struct uio *uio, int flags)
+{
+ unsigned char buf[256];
+ struct lpt_softc *sc;
+ int i;
+ int n;
+
+ sc = lpt_cd.cd_devs[LPTUNIT(dev)];
+ if (! (sc->sc_flags & LPT_RAW)) return(0);
+ n = uio->uio_resid;
+ if (n < 1) return(EINVAL);
+ if (sc->sc_flags & LPT_AUTOLF)
+  { if (n > 256) n = 256;
+    for (i=0;i<n;i++)
+     { bus_space_write_1(sc->sc_iot,sc->sc_ioh,lpt_data,i);
+       buf[i] = bus_space_read_1(sc->sc_iot,sc->sc_ioh,lpt_status);
+     }
+  }
+ else
+  { buf[0] = bus_space_read_1(sc->sc_iot,sc->sc_ioh,lpt_status);
+    n = 1;
+  }
+ uiomove(&buf[0],n,uio);
+ return(0);
 }
