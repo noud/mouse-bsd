@@ -123,7 +123,7 @@ check_exec(p, epp)
 		error = EACCES;
 		goto bad1;
 	}
-	if ((vp->v_mount->mnt_flag & MNT_NOSUID) || (p->p_flag & P_TRACED))
+	if (vp->v_mount->mnt_flag & MNT_NOSUID)
 		epp->ep_vap->va_mode &= ~(S_ISUID | S_ISGID);
 
 	/* try to open it */
@@ -449,10 +449,20 @@ sys_execve(p, v, retval)
 
 	/*
 	 * deal with set[ug]id.
-	 * MNT_NOSUID and P_TRACED have already been used to disable s[ug]id.
+	 * MNT_NOSUID has already been used to disable s[ug]id.
 	 */
-	if (((attr.va_mode & S_ISUID) != 0 && p->p_ucred->cr_uid != attr.va_uid)
-	 || ((attr.va_mode & S_ISGID) != 0 && p->p_ucred->cr_gid != attr.va_gid)){
+	if ( ( ((p->p_flag & P_TRACED) == 0) ||
+	       suser(p->p_pptr->p_ucred,&p->p_pptr->p_acflag) ) &&
+	     ( ( ((attr.va_mode & S_ISUID) != 0) &&
+		 p->p_ucred->cr_uid != attr.va_uid ) ||
+	       ( ((attr.va_mode & S_ISGID) != 0) &&
+		 p->p_ucred->cr_gid != attr.va_gid ) ) ) {
+		/*
+		 * Mark the process as SUGID before we do
+		 * anything that might block.
+		 */
+		p_sugid(p);
+
 		p->p_ucred = crcopy(cred);
 #ifdef KTRACE
 		/*
@@ -466,7 +476,6 @@ sys_execve(p, v, retval)
 			p->p_ucred->cr_uid = attr.va_uid;
 		if (attr.va_mode & S_ISGID)
 			p->p_ucred->cr_gid = attr.va_gid;
-		p_sugid(p);
 	} else
 		p->p_flag &= ~P_SUGID;
 	p->p_cred->p_svuid = p->p_ucred->cr_uid;
