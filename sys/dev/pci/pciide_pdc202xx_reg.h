@@ -68,11 +68,11 @@
 #define PDC2xx_TIM_IORDYp	0x00400000
 #define PDC2xx_TIM_DMARQp	0x00800000
 
-/* The following are extentions of the DMA registers */
+/* The following are extensions of the DMA registers */
 
 /* Ultra-DMA mode 3/4 control (PDC20262 only, 1 byte) */
 #define PDC262_U66	0x11
-#define PDC262_U66_EN(chan) (0x1 << ((chan) *2))
+#define PDC262_U66_EN(chan) (0x2 << ((chan) *2))
 /* primary mode (1 byte) */
 #define PDC2xx_PM	0x1a
 /* secondary mode (1 byte) */
@@ -94,6 +94,7 @@
 #define PDC2xx_SCR_TST		0x20000000
 /* Values for "General Purpose Register" (PDC20262 only) */
 #define PDC262_SCR_GEN_LAT	0x20
+#define PDC265_SCR_GEN_LAT	0x03
 
 /* ATAPI port ((PDC20262 only) (4 bytes) */
 #define PDC262_ATAPI(chan) (0x20 + (4 * (chan)))
@@ -104,7 +105,7 @@
 
 /*
  * The timings provided here cmoes from the PDC20262 docs. I hope they are
- * rigth for the PDC20246 too ...
+ * right for the PDC20246 too ...
  */
 
 static int8_t pdc2xx_pa[] = {0x9, 0x5, 0x3, 0x2, 0x1};
