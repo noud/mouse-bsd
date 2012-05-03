@@ -143,7 +143,7 @@ int
 ipflow_fastforward(
 	struct mbuf *m)
 {
-	struct ip *ip;
+	struct ip *ip, ip_store;
 	struct ipflow *ipf;
 	struct rtentry *rt;
 	int error;
@@ -165,7 +165,12 @@ ipflow_fastforward(
 	/*
 	 * IP header with no option and valid version and length
 	 */
-	ip = mtod(m, struct ip *);
+	if (IP_HDR_ALIGNED_P(mtod(m, caddr_t)))
+		ip = mtod(m, struct ip *);
+	else {
+		memcpy(&ip_store, mtod(m, caddr_t), sizeof(ip_store));
+		ip = &ip_store;
+	}
 	iplen = ntohs(ip->ip_len);
 	if (ip->ip_v != IPVERSION || ip->ip_hl != (sizeof(struct ip) >> 2) ||
 	    iplen < sizeof(struct ip) || iplen > m->m_pkthdr.len)
@@ -209,6 +214,12 @@ ipflow_fastforward(
 		ip->ip_sum -= ~htons(IPTTLDEC << 8);
 	else
 		ip->ip_sum += htons(IPTTLDEC << 8);
+
+	/*
+	 * Done modifying the header; copy it back, if necessary.
+	 */
+	if (IP_HDR_ALIGNED_P(mtod(m, caddr_t)) == 0)
+		memcpy(mtod(m, caddr_t), &ip_store, sizeof(ip_store));
 
 	/*
 	 * Trim the packet in case it's too long..
