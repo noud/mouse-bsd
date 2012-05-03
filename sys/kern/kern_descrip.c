@@ -285,9 +285,8 @@ sys_fcntl(p, v, retval)
 			*retval = ((struct socket *)fp->f_data)->so_pgid;
 			goto out;
 		}
-		error = (*fp->f_ops->fo_ioctl)
-			(fp, TIOCGPGRP, (caddr_t)retval, p);
-		*retval = -*retval;
+		error = (*fp->f_ops->fo_ioctl)(fp, TIOCGPGRP, (void *)&tmp, p);
+		*retval = - tmp;
 		break;
 
 	case F_SETOWN:
