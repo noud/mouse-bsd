@@ -313,6 +313,7 @@ ip_init()
 
 struct	sockaddr_in ipaddr = { sizeof(ipaddr), AF_INET };
 struct	route ipforward_rt;
+typeof(time.tv_sec) ipforward_rt_stamp;
 
 /*
  * IP software interrupt routine
@@ -1154,6 +1155,42 @@ bad:
 }
 
 /*
+ * Get, into ipforward_rt, the route to *to.  If there is no route
+ *  already in ipforward_rt, or it's not to the same place, or it's too
+ *  old, toss it and re-lookup.  (The last clause is to limit the
+ *  damage done by caching a route and then having the routing tables
+ *  change.  Without a timeout here, or clearing this route when the
+ *  routing tables change, a route can be cached and then used much
+ *  later, long after it's been rendered bogus by a change to the
+ *  tables.)
+ */
+static void
+get_forward_rt(struct in_addr *to)
+{
+	register struct sockaddr_in *sin;
+
+	sin = satosin(&ipforward_rt.ro_dst);
+
+	if ((ipforward_rt.ro_rt == 0) ||
+	    !in_hosteq(*to, sin->sin_addr) ||
+	    (ipforward_rt_stamp != time.tv_sec)) {
+
+		if (ipforward_rt.ro_rt) {
+			RTFREE(ipforward_rt.ro_rt);
+			ipforward_rt.ro_rt = 0;
+		}
+
+		sin->sin_family = AF_INET;
+		sin->sin_len = sizeof(*sin);
+		sin->sin_addr = *to;
+
+		rtalloc(&ipforward_rt);
+
+		ipforward_rt_stamp = time.tv_sec;
+	}
+}
+
+/*
  * Given address of next destination (final or next hop),
  * return internet address info of interface to be used to get there.
  */
@@ -1161,21 +1198,8 @@ struct in_ifaddr *
 ip_rtaddr(dst)
 	 struct in_addr dst;
 {
-	register struct sockaddr_in *sin;
+	get_forward_rt(&dst);
 
-	sin = satosin(&ipforward_rt.ro_dst);
-
-	if (ipforward_rt.ro_rt == 0 || !in_hosteq(dst, sin->sin_addr)) {
-		if (ipforward_rt.ro_rt) {
-			RTFREE(ipforward_rt.ro_rt);
-			ipforward_rt.ro_rt = 0;
-		}
-		sin->sin_family = AF_INET;
-		sin->sin_len = sizeof(*sin);
-		sin->sin_addr = dst;
-
-		rtalloc(&ipforward_rt);
-	}
 	if (ipforward_rt.ro_rt == 0)
 		return ((struct in_ifaddr *)0);
 	return (ifatoia(ipforward_rt.ro_rt->rt_ifa));
@@ -1330,7 +1354,6 @@ ip_forward(m, srcrt)
 	int srcrt;
 {
 	register struct ip *ip = mtod(m, struct ip *);
-	register struct sockaddr_in *sin;
 	register struct rtentry *rt;
 	int error, type = 0, code = 0;
 	struct mbuf *mcopy;
@@ -1360,23 +1383,12 @@ ip_forward(m, srcrt)
 		return;
 	}
 
-	sin = satosin(&ipforward_rt.ro_dst);
-	if ((rt = ipforward_rt.ro_rt) == 0 ||
-	    !in_hosteq(ip->ip_dst, sin->sin_addr)) {
-		if (ipforward_rt.ro_rt) {
-			RTFREE(ipforward_rt.ro_rt);
-			ipforward_rt.ro_rt = 0;
-		}
-		sin->sin_family = AF_INET;
-		sin->sin_len = sizeof(struct sockaddr_in);
-		sin->sin_addr = ip->ip_dst;
+	get_forward_rt(&ip->ip_dst);
+	rt = ipforward_rt.ro_rt;
 
-		rtalloc(&ipforward_rt);
-		if (ipforward_rt.ro_rt == 0) {
-			icmp_error(m, ICMP_UNREACH, ICMP_UNREACH_HOST, dest, 0);
-			return;
-		}
-		rt = ipforward_rt.ro_rt;
+	if (rt == 0) {
+		icmp_error(m, ICMP_UNREACH, ICMP_UNREACH_HOST, dest, 0);
+		return;
 	}
 
 	if (rt->rt_ifp->if_flags & IFF_NOFWTO) {
