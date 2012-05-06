@@ -61,6 +61,8 @@
 #include <dev/sbus/sbusvar.h>
 #include <dev/sbus/bppreg.h>
 
+#define BPPPRI (PZERO+1)
+
 #define splbpp()	spltty()	/* XXX */
 
 #if 0
@@ -104,18 +106,23 @@ struct bpp_softc {
 	struct hwstate		sc_hwcurrent;
 };
 
-static int	bppmatch	__P((struct device *, struct cfdata *, void *));
-static void	bppattach	__P((struct device *, struct device *, void *));
-static int	bppintr		__P((void *));
-static void	bpp_setparams	__P((struct bpp_softc *, struct hwstate *));
+static void	bpp_disable_intr(struct bpp_softc *);
+static int	bpp_tcr_wait	(struct bpp_softc *, unsigned int,
+				    unsigned int, const char *);
+static int	bppmatch	(struct device *, struct cfdata *, void *);
+static void	bppattach	(struct device *, struct device *, void *);
+static int	bppintr		(void *);
+static void	bpp_setparams	(struct bpp_softc *, struct hwstate *);
 
 struct cfattach bpp_ca = {
 	sizeof(struct bpp_softc), bppmatch, bppattach
 };
 
 extern struct cfdriver bpp_cd;
-#define BPPUNIT(dev)	(minor(dev))
+#define BPPUNIT(dev)	(minor(dev) & 0x1f)
+#define BPPFLAGS(dev)	(minor(dev) & ~0x1f)
 
+#define BPPF_RAW 0x20
 
 int
 bppmatch(parent, cf, aux)
@@ -128,6 +135,18 @@ bppmatch(parent, cf, aux)
 	return (strcmp("SUNW,bpp", sa->sa_name) == 0);
 }
 
+static void
+bpp_disable_intr(sc)
+	struct bpp_softc *sc;
+{
+	u_int16_t irq;
+	struct lsi64854_softc *lsc;
+
+	irq = (sc->sc_hwdefault.hw_irq | BPP_ALLIRQ) & ~BPP_ALLEN;
+	lsc = &sc->sc_lsi64854;
+	bus_space_write_2(lsc->sc_bustag, lsc->sc_regs, L64854_REG_ICR, irq);
+}
+
 void
 bppattach(parent, self, aux)
 	struct device *parent, *self;
@@ -136,6 +155,8 @@ bppattach(parent, self, aux)
 	struct sbus_attach_args *sa = aux;
 	struct bpp_softc *dsc = (void *)self;
 	struct lsi64854_softc *sc = &dsc->sc_lsi64854;
+	bus_space_handle_t h;
+	struct hwstate *hw;
 	int burst, sbusburst;
 	int node;
 
@@ -194,14 +215,16 @@ bppattach(parent, self, aux)
 	dsc->sc_buf = malloc(dsc->sc_bufsz, M_DEVBUF, M_NOWAIT);
 
 	/* XXX read default state */
-	{
-	bus_space_handle_t h = sc->sc_regs;
-	struct hwstate *hw = &dsc->sc_hwdefault;
+	h = sc->sc_regs;
+	hw = &dsc->sc_hwdefault;
+
 	hw->hw_hcr = bus_space_read_2(sc->sc_bustag, h, L64854_REG_HCR);
 	hw->hw_ocr = bus_space_read_2(sc->sc_bustag, h, L64854_REG_OCR);
 	hw->hw_tcr = bus_space_read_1(sc->sc_bustag, h, L64854_REG_TCR);
 	hw->hw_or = bus_space_read_1(sc->sc_bustag, h, L64854_REG_OR);
-	}
+
+	/* Turn off interrupts; we don't need or want them */
+	bpp_disable_intr(dsc);
 }
 
 void
@@ -225,6 +248,34 @@ bpp_setparams(sc, hw)
 	bus_space_write_2(t, h, L64854_REG_ICR, irq);
 }
 
+/* returns true on failure */
+static int
+bpp_tcr_wait(sc, set, clr, wchan)
+	struct bpp_softc *sc;
+	unsigned int set;
+	unsigned int clr;
+	const char *wchan;
+{
+	int spin;
+	u_int8_t tcr;
+	bus_space_tag_t t;
+	bus_space_handle_t h;
+
+	t = sc->sc_lsi64854.sc_bustag;
+	h = sc->sc_lsi64854.sc_regs;
+	for (spin = 100; spin > 0; spin--) {
+		tcr = bus_space_read_1(t, h, L64854_REG_TCR);
+		if (((tcr & set) == set) && ((tcr & clr) == 0))
+			break;
+	}
+	while (((tcr & set) != set) || ((tcr & clr) != 0)) {
+		if (tsleep((caddr_t)sc, BPPPRI|PCATCH, wchan, 1) == EINTR)
+			return (1);
+		tcr = bus_space_read_1(t, h, L64854_REG_TCR);
+	}
+	return(0);
+}
+
 int
 bppopen(dev, flags, mode, p)
 	dev_t dev;
@@ -232,10 +283,11 @@ bppopen(dev, flags, mode, p)
 	struct proc *p;
 {
 	int unit = BPPUNIT(dev);
+	unsigned short int dflags = BPPFLAGS(dev);
 	struct bpp_softc *sc;
 	struct lsi64854_softc *lsi;
-	u_int16_t irq;
-	int s;
+	u_int8_t tcr;
+	int s, err;
 
 	if (unit >= bpp_cd.cd_ndevs)
 		return (ENXIO);
@@ -243,6 +295,8 @@ bppopen(dev, flags, mode, p)
 
 	if ((sc->sc_flags & (BPP_OPEN|BPP_XCLUDE)) == (BPP_OPEN|BPP_XCLUDE))
 		return (EBUSY);
+
+ if (dflags & BPPF_RAW) return(0);
 
 	lsi = &sc->sc_lsi64854;
 
@@ -252,10 +306,26 @@ bppopen(dev, flags, mode, p)
 	bpp_setparams(sc, &sc->sc_hwdefault);
 	splx(s);
 
-	/* Enable interrupts */
-	irq = BPP_ALLEN;
-	irq |= sc->sc_hwdefault.hw_irq;
-	bus_space_write_2(lsi->sc_bustag, lsi->sc_regs, L64854_REG_ICR, irq);
+	bpp_disable_intr(sc);
+
+	/* Assert INIT for 100ms, and assert SELECT */
+	bus_space_write_1(lsi->sc_bustag, lsi->sc_regs, L64854_REG_OR,
+	    BPP_OR_SLCTIN|BPP_OR_INIT);
+	err = tsleep((caddr_t)sc, BPPPRI|PCATCH, "bppopen1", hz/10);
+	if (err && (err != EWOULDBLOCK))
+		return(err);
+
+	/* Deassert INIT, wait until ready */
+	bus_space_write_1(lsi->sc_bustag, lsi->sc_regs, L64854_REG_OR,
+	    BPP_OR_SLCTIN);
+	if (bpp_tcr_wait(sc, 0, BPP_TCR_BUSY, "bppopen2"))
+		return (EINTR);
+
+	/* Clear direction control bit (is this actually necessary?) */
+	tcr = bus_space_read_1(lsi->sc_bustag, lsi->sc_regs, L64854_REG_TCR);
+	tcr &= ~BPP_TCR_DIR;
+	bus_space_write_1(lsi->sc_bustag, lsi->sc_regs, L64854_REG_TCR, tcr);
+
 	return (0);
 }
 
@@ -267,12 +337,9 @@ bppclose(dev, flags, mode, p)
 {
 	struct bpp_softc *sc = bpp_cd.cd_devs[BPPUNIT(dev)];
 	struct lsi64854_softc *lsi = &sc->sc_lsi64854;
-	u_int16_t irq;
 
-	/* Turn off all interrupt enables */
-	irq = sc->sc_hwdefault.hw_irq | BPP_ALLIRQ;
-	irq &= ~BPP_ALLEN;
-	bus_space_write_2(lsi->sc_bustag, lsi->sc_regs, L64854_REG_ICR, irq);
+	/* Deassert SELECT */
+	bus_space_write_2(lsi->sc_bustag, lsi->sc_regs, L64854_REG_OR, 0);
 
 	sc->sc_asyncproc = NULL;
 	sc->sc_flags = 0;
@@ -285,7 +352,6 @@ bppread(dev, uio, flags)
 	struct uio *uio;
 	int flags;
 {
-
 	return (ENXIO);
 }
 
@@ -300,8 +366,27 @@ bppwrite(dev, uio, flags)
 	int error = 0;
 	int s;
 
+ if (BPPFLAGS(dev) & BPPF_RAW)
+  { unsigned char c[2];
+    unsigned char tcr;
+    unsigned short int ocr;
+    if (uio->uio_resid < 2) return(EINVAL);
+    uiomove(&c[0],2,uio);
+    c[1] &= 0x0f /* LPC_STROBE | LPC_AUTOLF | LPC_NINIT | LPC_SELECT */;
+    tcr = bus_space_read_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_TCR);
+    tcr &= ~BPP_TCR_DIR;
+    if (c[1] & 1/*LPC_STROBE*/) tcr |= BPP_TCR_DS; else tcr &= ~BPP_TCR_DS;
+    bus_space_write_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_TCR,tcr);
+    ocr = bus_space_read_2(lsi->sc_bustag,lsi->sc_regs,L64854_REG_OCR);
+    ocr &= ~( BPP_OCR_SRST | BPP_OCR_ACK_OP | BPP_OCR_BUSY_OP | BPP_OCR_EN_DIAG |
+	      BPP_OCR_ACK_DSEL | BPP_OCR_BUSY_DSEL | BPP_OCR_DS_DSEL );
+    bus_space_write_2(lsi->sc_bustag,lsi->sc_regs,L64854_REG_OCR,ocr);
+    bus_space_write_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_DR,c[0]);
+    bus_space_write_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_OR,(c[1]&6)|((c[1]>>3)&1));
+    return(0);
+  }
 	/*
-	 * Wait until the DMA engibe is free.
+	 * Wait until free.
 	 */
 	s = splbpp();
 	while ((sc->sc_flags & BPP_LOCKED) != 0) {
@@ -322,36 +407,30 @@ bppwrite(dev, uio, flags)
 
 	/*
 	 * Move data from user space into our private buffer
-	 * and start DMA.
+	 * and ship it out, a byte at a time (sigh).
 	 */
 	while (uio->uio_resid > 0) {
 		caddr_t bp = sc->sc_buf;
 		size_t len = min(sc->sc_bufsz, uio->uio_resid);
+		int x;
 
 		if ((error = uiomove(bp, len, uio)) != 0)
 			break;
-
+		x = 0;
 		while (len > 0) {
-			u_int8_t tcr;
-			size_t size = len;
-			DMA_SETUP(lsi, &bp, &len, 0, &size);
-
-			/* Clear direction control bit */
-			tcr = bus_space_read_1(lsi->sc_bustag, lsi->sc_regs,
-						L64854_REG_TCR);
-			tcr &= ~BPP_TCR_DIR;
+			if (bpp_tcr_wait(sc, 0, BPP_TCR_BUSY|BPP_TCR_ACK,
+			    "bppwr1"))
+				goto out;
 			bus_space_write_1(lsi->sc_bustag, lsi->sc_regs,
-					  L64854_REG_TCR, tcr);
-
-			/* Enable DMA */
-			DMA_GO(lsi);
-			error = tsleep(sc, PZERO|PCATCH, "bppdma", 0);
-			if (error != 0)
+				L64854_REG_DR, ((unsigned char *)bp)[x]);
+			bus_space_write_1(lsi->sc_bustag, lsi->sc_regs,
+				L64854_REG_TCR, 0);
+			if (bpp_tcr_wait(sc, BPP_TCR_BUSY, 0, "bppwr2"))
 				goto out;
-
-			/* Bail out if bottom half reported an error */
-			if ((error = sc->sc_error) != 0)
-				goto out;
+			bus_space_write_1(lsi->sc_bustag, lsi->sc_regs,
+				L64854_REG_TCR, BPP_TCR_DS);
+			x++;
+			len--;
 		}
 	}
 
@@ -369,6 +448,128 @@ out:
 /* move to header: */
 #define BPPIOCSPARAM	_IOW('P', 0x1, struct hwstate)
 #define BPPIOCGPARAM	_IOR('P', 0x2, struct hwstate)
+struct rrblk {
+  unsigned int len;
+  unsigned char *buf;
+  } ;
+#define BPPIOCRAWREAD	_IOW('P', 0x3, struct rrblk)
+#define BPPIOCPSREAD	_IOW('P', 0x4, char *)
+
+static int bpp_rawread(dev_t dev, struct bpp_softc *sc, const struct rrblk *rbp)
+{
+ struct lsi64854_softc *lsi;
+ int i;
+ int n;
+ unsigned char tcr;
+ unsigned char ir;
+ unsigned short int ocr;
+ unsigned char buf[256];
+
+ if (! (BPPFLAGS(dev) & BPPF_RAW)) return(ENOTTY);
+ if (rbp->len < 1) return(0);
+ if (rbp->len > 256) return(EMSGSIZE);
+ n = rbp->len;
+ i = copyin(rbp->buf,&buf[0],n);
+ if (i) return(i);
+ lsi = &sc->sc_lsi64854;
+ tcr = bus_space_read_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_TCR);
+ tcr &= ~BPP_TCR_DIR;
+ bus_space_write_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_TCR,tcr);
+ ocr = bus_space_read_2(lsi->sc_bustag,lsi->sc_regs,L64854_REG_OCR);
+ ocr &= ~( BPP_OCR_SRST | BPP_OCR_ACK_OP | BPP_OCR_BUSY_OP | BPP_OCR_EN_DIAG |
+	   BPP_OCR_ACK_DSEL | BPP_OCR_BUSY_DSEL | BPP_OCR_DS_DSEL );
+ bus_space_write_2(lsi->sc_bustag,lsi->sc_regs,L64854_REG_OCR,ocr|BPP_OCR_SRST);
+ bus_space_write_2(lsi->sc_bustag,lsi->sc_regs,L64854_REG_OCR,ocr);
+ for (i=0;i<n;i++)
+  { bus_space_write_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_DR,buf[i]);
+    tcr = bus_space_read_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_TCR);
+    ir = bus_space_read_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_IR);
+    buf[i] = (((tcr & 0x06) << 5) | ((ir & 0x07) << 3)) ^ 0xf8;
+  }
+ return(copyout(&buf[0],rbp->buf,n));
+}
+
+static void sendrecv(struct lsi64854_softc *lsi, unsigned char s, unsigned char *rp)
+{
+ unsigned char r;
+ int i;
+
+ r = 0;
+ bus_space_write_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_DR,0xf3);
+ for (i=0;i<8;i++)
+  { DELAY(10);
+    bus_space_write_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_DR,0xf8|((s&1)<<1));
+    DELAY(10);
+    r >>= 1;
+    if (! (bus_space_read_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_IR) & BPP_IR_PE)) r |= 0x80;
+    bus_space_write_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_DR,0xf9|((s&1)<<1));
+    s >>= 1;
+  }
+ DELAY(10);
+ if (rp) *rp = r;
+}
+
+static int getack(struct lsi64854_softc *lsi)
+{
+ int i;
+
+ for (i=100;i>0;i--)
+  { if (bus_space_read_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_TCR) & BPP_TCR_ACK) break;
+    DELAY(1);
+  }
+ if (! i)
+  { printf("bpp getack: no response\n");
+    return(1);
+  }
+ bus_space_write_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_DR,0xf3);
+ bus_space_write_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_DR,0xfb);
+ for (i=100;i>0;i--)
+  { if (! (bus_space_read_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_TCR) & BPP_TCR_ACK)) break;
+    DELAY(1);
+  }
+ if (! i) printf("bpp getack: ACK stuck high\n");
+ return(0);
+}
+
+static int bpp_psread(dev_t dev, struct bpp_softc *sc, char * const *rbpp)
+{
+ struct lsi64854_softc *lsi;
+ int i;
+ int n;
+ unsigned char tcr;
+ unsigned short int ocr;
+ unsigned char buf[256];
+
+ if (! (BPPFLAGS(dev) & BPPF_RAW)) return(ENOTTY);
+ lsi = &sc->sc_lsi64854;
+ tcr = bus_space_read_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_TCR);
+ tcr &= ~BPP_TCR_DIR;
+ bus_space_write_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_TCR,tcr);
+ ocr = bus_space_read_2(lsi->sc_bustag,lsi->sc_regs,L64854_REG_OCR);
+ ocr &= ~( BPP_OCR_SRST | BPP_OCR_ACK_OP | BPP_OCR_BUSY_OP | BPP_OCR_EN_DIAG |
+	   BPP_OCR_ACK_DSEL | BPP_OCR_BUSY_DSEL | BPP_OCR_DS_DSEL );
+ bus_space_write_2(lsi->sc_bustag,lsi->sc_regs,L64854_REG_OCR,ocr|BPP_OCR_SRST);
+ bus_space_write_2(lsi->sc_bustag,lsi->sc_regs,L64854_REG_OCR,ocr);
+ bus_space_write_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_DR,0xf3);
+ sendrecv(lsi,0x01,0);
+ if (getack(lsi)) return(EHOSTDOWN);
+ sendrecv(lsi,0x42,&buf[1]);
+ switch (buf[1])
+  { case 0x41: n = 3; break;
+    case 0x23: n = 7; break;
+    case 0x73: n = 7; break;
+    case 0x53: n = 7; break;
+    default: n = 0; break;
+  }
+ buf[0] = n + 1;
+ i = 2;
+ for (;n>0;n--)
+  { if (getack(lsi)) return(EHOSTDOWN);
+    sendrecv(lsi,0xff,&buf[i++]);
+  }
+ bus_space_write_1(lsi->sc_bustag,lsi->sc_regs,L64854_REG_DR,0xff);
+ return(copyout(&buf[0],*rbpp,buf[0]+1));
+}
 
 int
 bppioctl(dev, cmd, data, flag, p)
@@ -384,6 +585,12 @@ bppioctl(dev, cmd, data, flag, p)
 	int s;
 
 	switch(cmd) {
+	case BPPIOCRAWREAD:
+		return(bpp_rawread(dev,sc,(const void *)data));
+		break;
+	case BPPIOCPSREAD:
+		return(bpp_psread(dev,sc,(const void *)data));
+		break;
 	case BPPIOCSPARAM:
 		chw = &sc->sc_hwcurrent;
 		hw = (struct hwstate *)data;
@@ -483,15 +690,9 @@ bppintr(arg)
 	if ((irq & BPP_ALLIRQ) == 0)
 		return (0);
 
-	if ((sc->sc_flags & BPP_LOCKED) != 0)
-		wakeup(sc);
-	else if ((sc->sc_flags & BPP_WANT) != 0) {
-		sc->sc_flags &= ~BPP_WANT;
-		wakeup(sc->sc_buf);
-	} else {
-		selwakeup(&sc->sc_wsel);
-		if (sc->sc_asyncproc != NULL)
-			psignal(sc->sc_asyncproc, SIGIO);
-	}
-	return (1);
+	/* We shouldn't be *getting* any interrupts! */
+	printf("bpp: unexpected interrupt\n");
+	bpp_disable_intr(sc);
+
+	return(1);
 }
