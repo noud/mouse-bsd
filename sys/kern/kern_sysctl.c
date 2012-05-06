@@ -119,7 +119,7 @@ sys___sysctl(p, v, retval)
 	/*
 	 * For all but CTL_PROC, must be root to change a value.
 	 * For CTL_PROC, must be root, or owner of the proc (and not suid),
-	 * this is checked in proc_sysctl() (once we know the targer proc).
+	 * this is checked in proc_sysctl() (once we know the target proc).
 	 */
 	if (SCARG(uap, new) != NULL && name[0] != CTL_PROC &&
 		    (error = suser(p->p_ucred, &p->p_acflag)))
