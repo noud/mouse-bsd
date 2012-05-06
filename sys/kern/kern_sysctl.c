@@ -646,7 +646,8 @@ cleanup:
 		return (error);
 	}
 	if (name[1] == PROC_PID_LIMIT) {
-		if (namelen != 4 || name[2] >= PROC_PID_LIMIT_MAXID)
+		if (namelen != 4 || name[2] < 1 ||
+		    name[2] >= PROC_PID_LIMIT_MAXID)
 			return EINVAL;
 		memcpy(&alim, &ptmp->p_rlimit[name[2] - 1], sizeof(alim));
 		if (name[3] == PROC_PID_LIMIT_TYPE_HARD)
