@@ -1090,7 +1090,8 @@ in6_pcblookup_bind(head, laddr6, lport_arg, faith)
 		 * against wildcard match.
 		 */
 #if defined(NFAITH) && NFAITH > 0
-		if (faith && (in6p->in6p_flags & IN6P_FAITH) == 0)
+		if ( faith ? !(in6p->in6p_flags & IN6P_FAITH)
+			   : (in6p->in6p_flags & IN6P_FAITHONLY) )
 			continue;
 #endif
 		if (in6p->in6p_fport != 0)
