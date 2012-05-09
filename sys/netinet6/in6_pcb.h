@@ -132,6 +132,7 @@ struct	in6pcb {
 #define IN6P_FAITH		0x08000000 /* accept FAITH'ed connections */
 #define IN6P_BINDV6ONLY		0x10000000 /* do not grab IPv4 traffic */
 #define IN6P_FAITHONLY		0x20000000 /* FAITH traffic only */
+#define IN6P_FAITHALL		0x40000000 /* FAITH traffic ignores port */
 
 #define IN6P_CONTROLOPTS	(IN6P_PKTINFO|IN6P_HOPLIMIT|IN6P_HOPOPTS|\
 				 IN6P_DSTOPTS|IN6P_RTHDR|IN6P_RTHDRDSTOPTS)

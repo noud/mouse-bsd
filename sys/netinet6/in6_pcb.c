@@ -1096,7 +1096,12 @@ in6_pcblookup_bind(head, laddr6, lport_arg, faith)
 #endif
 		if (in6p->in6p_fport != 0)
 			continue;
-		if (in6p->in6p_lport != lport)
+		if ( (in6p->in6p_lport != lport)
+#if defined(NFAITH) && (NFAITH > 0)
+		     && ( (in6p->in6p_flags & (IN6P_FAITH|IN6P_FAITHALL)) !=
+			  (IN6P_FAITH|IN6P_FAITHALL) )
+#endif
+		     )
 			continue;
 		if (IN6_IS_ADDR_UNSPECIFIED(&in6p->in6p_laddr)) {
 			if (IN6_IS_ADDR_V4MAPPED(laddr6)) {

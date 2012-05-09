@@ -1214,6 +1214,7 @@ ip6_ctloutput(op, so, level, optname, mp)
 			case IPV6_CHECKSUM:
 			case IPV6_FAITH:
 			case IPV6_FAITHONLY:
+			case IPV6_FAITHALL:
 #ifndef INET6_BINDV6ONLY
 			case IPV6_BINDV6ONLY:
 #endif
@@ -1279,6 +1280,10 @@ ip6_ctloutput(op, so, level, optname, mp)
 
 					case IPV6_FAITHONLY:
 						OPTSET(IN6P_FAITHONLY);
+						break;
+
+					case IPV6_FAITHALL:
+						OPTSET(IN6P_FAITHALL);
 						break;
 
 #ifndef INET6_BINDV6ONLY
@@ -1401,6 +1406,7 @@ ip6_ctloutput(op, so, level, optname, mp)
 			case IPV6_CHECKSUM:
 			case IPV6_FAITH:
 			case IPV6_FAITHONLY:
+			case IPV6_FAITHALL:
 #ifndef INET6_BINDV6ONLY
 			case IPV6_BINDV6ONLY:
 #endif
@@ -1469,6 +1475,10 @@ ip6_ctloutput(op, so, level, optname, mp)
 
 				case IPV6_FAITHONLY:
 					optval = OPTBIT(IN6P_FAITHONLY);
+					break;
+
+				case IPV6_FAITHALL:
+					optval = OPTBIT(IN6P_FAITHALL);
 					break;
 
 #ifndef INET6_BINDV6ONLY
