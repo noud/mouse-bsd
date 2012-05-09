@@ -21,11 +21,8 @@ provides tracing and debugging facilities.  It allows one process (the
 process) to control another (the
 .Em traced
 process).  Most of the time, the traced process runs normally, but when
-it receives a signal
-.Po
-see
-.Xr sigaction 2
-.Pc ,
+it receives a signal (see
+.Xr sigaction 2 ) ,
 it stops.  The tracing process is expected to notice this via
 .Xr wait 2
 or the delivery of a
@@ -53,16 +50,11 @@ that the process expects to be traced by its parent.  All the other
 arguments are ignored.  (If the parent process does not expect to trace
 the child, it will probably be rather confused by the results; once the
 traced process stops, it cannot be made to continue except via
-.Eo \&
-.Fn ptrace
-.Ec \&.)
+.Fn ptrace . )
 When a process has used this request and calls
 .Xr execve 2
-or any of the routines built on it
-.Po
-such as
-.Xr execv 3
-.Pc ,
+or any of the routines built on it (such as
+.Xr execv 3 ) ,
 it will stop before executing the first instruction of the new image.
 Also, any setuid or setgid bits on the executable being executed will
 be ignored.
@@ -85,9 +77,7 @@ argument specifies the address (in the traced process' virtual address
 space) at which the read is to be done.  This address does not have to
 meet any alignment constraints.  The value read is returned as the
 return value from
-.Eo \&
-.Fn ptrace
-.Ec .
+.Fn ptrace .
 .It Dv PT_WRITE_I , Dv PT_WRITE_D
 These requests parallel
 .Dv PT_READ_I
@@ -329,15 +319,15 @@ on itself.
 The
 .Fa request
 was not one of the legal requests.
-.\" .It
-.\" The
-.\" .Fa addr
-.\" to
-.\" .Dv PT_READ_U
-.\" or
-.\" .Dv PT_WRITE_U
-.\" was not
-.\" .Li int Ns \&-aligned.
+.It
+The
+.Fa addr
+to
+.Dv PT_READ_U
+or
+.Dv PT_WRITE_U
+was not
+.Li int Ns \&-aligned.
 .It
 The signal number (in
 .Fa data )
@@ -396,9 +386,7 @@ and
 to modify the PC, passing
 .Li (caddr_t)1
 to
-.Eo \&
-.Fn ptrace
-.Ec ,
+.Fn ptrace ,
 should be able to sidestep this.
 .Pp
 Single-stepping is not available.
