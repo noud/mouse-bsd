@@ -712,7 +712,6 @@ in_arpinput(m)
 	struct mbuf *mold;
 	int s;
 
-
 	ah = mtod(m, struct arphdr *);
 	op = ntohs(ah->ar_op);
 	bcopy((caddr_t)ar_spa(ah), (caddr_t)&isaddr, sizeof (isaddr));
