@@ -143,7 +143,7 @@ static	void arprequest __P((struct ifnet *,
 	    struct in_addr *, struct in_addr *, u_int8_t *));
 static	void arptfree __P((struct llinfo_arp *));
 static	void arptimer __P((void *));
-static	struct llinfo_arp *arplookup __P((struct in_addr *, int, int));
+static	struct llinfo_arp *arplookup __P((struct in_addr *, int, struct ifnet *));
 static	void in_arpinput __P((struct mbuf *));
 
 #if NLOOP > 0
@@ -872,7 +872,7 @@ reply:
 		bcopy((caddr_t)ar_sha(ah), (caddr_t)ar_tha(ah), ah->ar_hln);
 		bcopy(LLADDR(ifp->if_sadl), (caddr_t)ar_sha(ah), ah->ar_hln);
 	} else {
-		la = arplookup(&itaddr, 0, SIN_PROXY);
+		la = arplookup(&itaddr, 0, ifp);
 		if (la == 0)
 			goto out;
 		rt = la->la_rt;
@@ -922,10 +922,7 @@ arptfree(la)
 /*
  * Lookup or enter a new address in arptab.
  */
-static struct llinfo_arp *
-arplookup(addr, create, proxy)
-	struct in_addr *addr;
-	int create, proxy;
+static struct llinfo_arp *arplookup(struct in_addr *addr, int create, struct ifnet *proxyif)
 {
 	register struct rtentry *rt;
 	static struct sockaddr_inarp sin;
@@ -934,21 +931,23 @@ arplookup(addr, create, proxy)
 	sin.sin_len = sizeof(sin);
 	sin.sin_family = AF_INET;
 	sin.sin_addr = *addr;
-	sin.sin_other = proxy ? SIN_PROXY : 0;
+	sin.sin_other = proxyif ? proxyif->if_index : 0;
 	rt = rtalloc1(sintosa(&sin), create);
 	if (rt == 0)
-		return (0);
-	rt->rt_refcnt--;
-
-	if (rt->rt_flags & RTF_GATEWAY)
-		why = "host is not on local network";
-	else if ((rt->rt_flags & RTF_LLINFO) == 0)
-		why = "could not allocate llinfo";
-	else if (rt->rt_gateway->sa_family != AF_LINK)
-		why = "gateway route is not ours";
-	else
-		return ((struct llinfo_arp *)rt->rt_llinfo);
-
+		why = "rtalloc1 failed";
+	else {
+		rt->rt_refcnt--;
+		if (rt->rt_flags & RTF_GATEWAY)
+			why = "host is not on local network";
+		else if ((rt->rt_flags & RTF_LLINFO) == 0)
+			why = "could not allocate llinfo";
+		else if (rt->rt_gateway->sa_family != AF_LINK)
+			why = "gateway route is not ours";
+		else if (proxyif && (rt->rt_ifp != proxyif))
+			why = "wrong interface";
+		else
+			return ((struct llinfo_arp *)rt->rt_llinfo);
+	}
 	if (create)
 		log(LOG_DEBUG, "arplookup: unable to enter address"
 		    " for %s (%s)\n",
