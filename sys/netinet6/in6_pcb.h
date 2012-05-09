@@ -116,20 +116,20 @@ struct	in6pcb {
  * We define KAME's original flags in higher 16 bits as much as possible
  * for compatibility with *bsd*s.
  */
-#define IN6P_RECVOPTS		0x001000 /* receive incoming IP6 options */
-#define IN6P_RECVRETOPTS	0x002000 /* receive IP6 options for reply */
-#define IN6P_RECVDSTADDR	0x004000 /* receive IP6 dst address */
-#define IN6P_PKTINFO		0x010000 /* receive IP6 dst and I/F */
-#define IN6P_HOPLIMIT		0x020000 /* receive hoplimit */
-#define IN6P_HOPOPTS		0x040000 /* receive hop-by-hop options */
-#define IN6P_DSTOPTS		0x080000 /* receive dst options after rthdr */
-#define IN6P_RTHDR		0x100000 /* receive routing header */
-#define IN6P_RTHDRDSTOPTS	0x200000 /* receive dstoptions before rthdr */
+#define IN6P_RECVOPTS		0x00001000 /* receive incoming IP6 options */
+#define IN6P_RECVRETOPTS	0x00002000 /* receive IP6 options for reply */
+#define IN6P_RECVDSTADDR	0x00004000 /* receive IP6 dst address */
+#define IN6P_PKTINFO		0x00010000 /* receive IP6 dst and I/F */
+#define IN6P_HOPLIMIT		0x00020000 /* receive hoplimit */
+#define IN6P_HOPOPTS		0x00040000 /* receive hop-by-hop options */
+#define IN6P_DSTOPTS		0x00080000 /* receive dst options after rthdr */
+#define IN6P_RTHDR		0x00100000 /* receive routing header */
+#define IN6P_RTHDRDSTOPTS	0x00200000 /* receive dstoptions before rthdr */
 
-#define IN6P_HIGHPORT		0x1000000 /* user wants "high" port binding */
-#define IN6P_LOWPORT		0x2000000 /* user wants "low" port binding */
-#define IN6P_ANONPORT		0x4000000 /* port chosen for user */
-#define IN6P_FAITH		0x8000000 /* accept FAITH'ed connections */
+#define IN6P_HIGHPORT		0x01000000 /* user wants "high" port binding */
+#define IN6P_LOWPORT		0x02000000 /* user wants "low" port binding */
+#define IN6P_ANONPORT		0x04000000 /* port chosen for user */
+#define IN6P_FAITH		0x08000000 /* accept FAITH'ed connections */
 #define IN6P_BINDV6ONLY		0x10000000 /* do not grab IPv4 traffic */
 
 #define IN6P_CONTROLOPTS	(IN6P_PKTINFO|IN6P_HOPLIMIT|IN6P_HOPOPTS|\
