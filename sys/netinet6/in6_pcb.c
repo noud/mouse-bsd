@@ -1055,10 +1055,6 @@ in6_pcblookup_connect(head, faddr6, fport_arg, laddr6, lport_arg, faith)
 	u_int16_t fport = fport_arg, lport = lport_arg;
 
 	for (in6p = head->in6p_next; in6p != head; in6p = in6p->in6p_next) {
-#if defined(NFAITH) && NFAITH > 0
-		if (faith && (in6p->in6p_flags & IN6P_FAITH) == 0)
-			continue;
-#endif
 		/* find exact match on both source and dest */
 		if (in6p->in6p_fport != fport)
 			continue;
