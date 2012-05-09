@@ -361,7 +361,7 @@ in_control(so, cmd, data, ifp, p)
 				    ifra->ifra_addr.sin_addr))
 					break;
 			}
-		if (cmd == SIOCDIFADDR && ia == 0)
+		if ((ia == 0) && ((cmd == SIOCDIFADDR) || (cmd == SIOCGIFALIAS)))
 			return (EADDRNOTAVAIL);
 		/* FALLTHROUGH */
 	case SIOCSIFADDR:
