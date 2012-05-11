@@ -237,7 +237,14 @@ sys_ptrace(p, v, retval)
 		uio.uio_segflg = UIO_SYSSPACE;
 		uio.uio_rw = write ? UIO_WRITE : UIO_READ;
 		uio.uio_procp = p;
-		return (procfs_domem(p, t, NULL, &uio));
+		while (1) {
+			error = procfs_domem(p, t, NULL, &uio);
+			if (error != ENOMEM) break;
+			error = tsleep(p,PZERO|PCATCH,"ptmem",1);
+			if (error != EWOULDBLOCK) break;
+		}
+		return(error);
+		break;
 
 #ifdef PT_STEP
 	case  PT_STEP:
