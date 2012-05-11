@@ -10,6 +10,7 @@ INCS=	ansi.h aout_machdep.h asm.h \
 	elf_machdep.h endian.h \
 	float.h frame.h \
 	ibcs2_machdep.h ioa.h \
+	intr.h \
 	ka410.h ka420.h ka43.h ka630.h ka650.h ka750.h ka820.h \
 	limits.h \
 	macros.h math.h mtpr.h \
