@@ -109,6 +109,20 @@ struct	emul {
 };
 
 /*
+ * Struct for PT_SYSCALL interface.  PTSYSCALL_NARGS is the max number of
+ *  ints needed to represent a syscall argument list.
+ */
+#define PTSYSCALL_NARGS 8 /* is this actually right for all ports? */
+struct	pt_syscall {
+	char	syscall_emul[sizeof(((struct emul *)0)->e_name)+1];
+	int	syscall_num;
+	int	syscall_argsize;
+	register_t syscall_args[PTSYSCALL_NARGS];
+	int	syscall_err;
+	register_t syscall_rv[2];
+};
+
+/*
  * Description of a process.
  *
  * This structure contains the information needed to manage a thread of
@@ -208,6 +222,7 @@ struct	proc {
 	void	*p_thread;	/* Id for this "thread"; Mach glue. XXX */
 	struct	user *p_addr;	/* Kernel virtual addr of u-area (PROC ONLY). */
 	struct	mdproc p_md;	/* Any machine-dependent fields. */
+	struct	pt_syscall p_syscall;	/* PT_SYSCALL interface */
 
 	u_short	p_xstat;	/* Exit status for wait; also stop signal. */
 	u_short	p_acflag;	/* Accounting flags. */
@@ -247,6 +262,7 @@ struct	proc {
 #define	P_FSTRACE	0x10000	/* Debugger process being traced by procfs */
 #define	P_NOCLDWAIT	0x20000	/* No zombies if child dies */
 #define	P_32		0x40000	/* 32-bit process -- only used on 64-bit kernels */
+#define	P_PTSYSCALL	0x80000	/* ptrace(PT_SYSCALL): stop in syscall */
 
 /*
  * Macro to compute the exit signal to be delivered.

@@ -75,6 +75,10 @@
 #define	CLR(t, f)	(t) &= ~(f)
 #define	ISSET(t, f)	((t) & (f))
 
+/* These belong in an include file, but figuring out which one is more than I'm into just now */
+extern void traced_syscall_entry(struct proc *, int, int, register_t *, register_t *);
+extern void traced_syscall_exit(struct proc *, int, register_t *);
+
 /*
  * Process debugging system call.
  */
@@ -94,6 +98,7 @@ sys_ptrace(p, v, retval)
 	struct uio uio;
 	struct iovec iov;
 	int error, write;
+	int flg;
 	struct pt_blk blk;
 
 	/* "A foolish consistency..." XXX */
@@ -161,6 +166,9 @@ sys_ptrace(p, v, retval)
 	case  PT_KILL:
 	case  PT_DETACH:
 	case  PT_BLK:
+	case  PT_SYSCALL:
+	case  PT_RSYSCALL:
+	case  PT_WSYSCALL:
 #ifdef PT_STEP
 	case  PT_STEP:
 #endif
@@ -212,6 +220,7 @@ sys_ptrace(p, v, retval)
 
 	/* Now do the operation. */
 	write = 0;
+	flg = 0;
 	*retval = 0;
 
 	switch (SCARG(uap, req)) {
@@ -246,6 +255,8 @@ sys_ptrace(p, v, retval)
 		return(error);
 		break;
 
+	case  PT_SYSCALL:
+		flg = P_PTSYSCALL;
 #ifdef PT_STEP
 	case  PT_STEP:
 		/*
@@ -307,6 +318,7 @@ sys_ptrace(p, v, retval)
 
 	sendsig:
 		/* Finally, deliver the requested signal (or none). */
+		t->p_flag |= flg;
 		if (t->p_stat == SSTOP) {
 			t->p_xstat = SCARG(uap, data);
 			setrunnable(t);
@@ -417,6 +429,23 @@ sys_ptrace(p, v, retval)
 				break;
 		}
 		break;
+	case  PT_RSYSCALL:
+		{
+			struct pt_syscall pts;
+			pts = t->p_syscall;
+			error = copyout(&pts,SCARG(uap,addr),sizeof(pts));
+			return(error);
+		}
+		break;
+	case  PT_WSYSCALL:
+		{
+			struct pt_syscall pts;
+			error = copyin(SCARG(uap,addr),&pts,sizeof(pts));
+			if (error) return(error);
+			t->p_syscall = pts;
+			return(0);
+		}
+		break;
 	}
 
 #ifdef DIAGNOSTIC
@@ -432,4 +461,54 @@ trace_req(a1)
 
 	/* just return 1 to keep other parts of the system happy */
 	return (1);
+}
+
+static void
+ptrace_syscall(struct proc * p)
+{
+	int             sn;
+
+	p->p_flag &= ~P_PTSYSCALL;
+	if (!(p->p_flag & P_TRACED))
+		return;
+	if (p != curproc)
+		panic("ptrace_syscall");
+	psignal(p, SIGTRAP);
+	while ((sn = CURSIG(curproc)))
+		postsig(sn);
+}
+
+void
+traced_syscall_entry(
+	struct proc *p,
+	int code,
+	int argsize,
+	register_t *args,
+	register_t *rval
+)
+{
+	bcopy(&p->p_emul->e_name[0],&p->p_syscall.syscall_emul[0],sizeof(p->p_emul->e_name));
+	p->p_syscall.syscall_emul[sizeof(p->p_emul->e_name)] = '\0';
+	p->p_syscall.syscall_num = code;
+	p->p_syscall.syscall_argsize = argsize;
+	bzero(&p->p_syscall.syscall_args[0],sizeof(p->p_syscall.syscall_args));
+	bcopy(args,&p->p_syscall.syscall_args[0],p->p_syscall.syscall_argsize);
+	p->p_syscall.syscall_err = 0;
+	p->p_syscall.syscall_rv[0] = rval[0];
+	p->p_syscall.syscall_rv[1] = rval[1];
+	ptrace_syscall(p);
+	rval[0] = p->p_syscall.syscall_rv[0];
+	rval[1] = p->p_syscall.syscall_rv[1];
+}
+
+void
+traced_syscall_exit(struct proc *p, int err, register_t *rval)
+{
+	p->p_syscall.syscall_err = err;
+	p->p_syscall.syscall_rv[0] = rval[0];
+	p->p_syscall.syscall_rv[1] = rval[1];
+	p->p_syscall.syscall_num = -1;
+	ptrace_syscall(p);
+	rval[0] = p->p_syscall.syscall_rv[0];
+	rval[1] = p->p_syscall.syscall_rv[1];
 }

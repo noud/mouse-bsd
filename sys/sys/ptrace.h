@@ -64,6 +64,9 @@ struct pt_blk {
 #define	PT_ATTACH	9	/* attach to running process */
 #define	PT_DETACH	10	/* detach from running process */
 #define	PT_BLK		11	/* read/write I/D block request */
+#define	PT_SYSCALL	12	/* continue until syscall/signal */
+#define	PT_RSYSCALL	13	/* read syscall interface */
+#define	PT_WSYSCALL	14	/* write syscall interface */
 
 #define	PT_FIRSTMACH	32	/* for machine-specific requests */
 #include <machine/ptrace.h>	/* machine-specific requests, if any */

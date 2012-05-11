@@ -100,6 +100,10 @@ extern struct emul emul_sunos;
 extern struct emul emul_netbsd_aout;
 #endif /* COMPAT_AOUT */
 
+/* These belong in an include file, but figuring out which one is more than I'm into just now */
+extern void traced_syscall_entry(struct proc *, int, int, register_t *, register_t *);
+extern void traced_syscall_exit(struct proc *, int, register_t *);
+
 #ifdef DEBUG
 int	rwindow_debug = 0;
 #endif
@@ -1254,7 +1258,29 @@ syscall(code, tf, pc)
 #endif
 	rval[0] = 0;
 	rval[1] = tf->tf_out[1];
-	error = (*callp->sy_call)(p, &args, rval);
+
+	if (p->p_flag & P_PTSYSCALL) {
+		traced_syscall_entry(p,code,callp->sy_argsize,&args.i[0],&rval[0]);
+		/* Allow changing emulation somehow here? */
+		code = p->p_syscall.syscall_num;
+		if (code == 0)
+			error = p->p_syscall.syscall_err;
+		else {
+			if ( (code < 0) ||
+			     (code >= p->p_emul->e_nsysent) ||
+			     (code == SYS_syscall) ||
+			     (code == SYS___syscall) )
+				code = p->p_emul->e_nosys;
+			callp = p->p_emul->e_sysent + code;
+			bcopy(&p->p_syscall.syscall_args[0],&args.i[0],p->p_emul->e_sysent[code].sy_argsize);
+			error = (*callp->sy_call)(p, &args, rval);
+			if (curproc == p) {
+				traced_syscall_exit(p,error,rval);
+				error = p->p_syscall.syscall_err;
+			}
+		}
+	} else
+		error = (*callp->sy_call)(p, &args, rval);
 
 	switch (error) {
 	case 0:
