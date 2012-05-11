@@ -704,6 +704,9 @@ ip6_input(m)
 			goto bad;
 		}
 
+		if (deliverifp)
+			m->m_pkthdr.rcvif = deliverifp;
+
 		nxt = (*inet6sw[ip6_protox[nxt]].pr_input)(&m, &off, nxt);
 	}
 	return;
