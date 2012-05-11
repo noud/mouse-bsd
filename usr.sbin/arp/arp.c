@@ -56,8 +56,10 @@ __RCSID("$NetBSD: arp.c,v 1.23 1998/02/10 03:45:06 mrg Exp $");
 
 #include <sys/param.h>
 #include <sys/file.h>
+#include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <sys/sysctl.h>
+#include <sys/sockio.h>
 
 #include <net/if.h>
 #include <net/if_dl.h>
@@ -148,7 +150,7 @@ main(argc, argv)
 		(void)delete(argv[0], argv[1]);
 		break;
 	case 's':
-		if (argc < 2 || argc > 5)
+		if (argc < 2)
 			usage();
 		return (set(argc, argv) ? 1 : 0);
 	case 'f':
@@ -217,6 +219,57 @@ struct	{
 	char	m_space[512];
 }	m_rtmsg;
 
+/* Find the index value for an interface.
+   Using SIOCGIFCONF is gross; SIOCGIFADDR on AF_LINK, or at least AF_ARP,
+   should give us the AF_LINK address.  As it stands, there seems to be no
+   way to find out the index of an interface without assuming something about
+   some address family - fortunately, it's enough to assume we can create an
+   AF_INET/SOCK_DGRAM socket.  On success, stores the sdl_type and sdl_index
+   values through the second argument and returns nonzero; on error, doesn't
+   store anything through the second argument, and returns zero. */
+static int get_if_index(const char *name, struct sockaddr_dl *sdl)
+{
+ int s;
+ int i;
+ int n;
+ struct ifconf ifc;
+ struct ifreq *ifr;
+ char confbuf[8192]; /* XXX on fixed size */
+ char ifrbuf[8192] __attribute__((__aligned__(__alignof__(struct ifreq))));
+
+ ifc.ifc_len = sizeof(confbuf);
+ ifc.ifc_buf = &confbuf[0];
+ s = socket(AF_INET,SOCK_DGRAM,0);
+ if (s < 0)
+  { fprintf(stderr,"can't create AF_INET socket: %s\n",strerror(errno));
+    exit(1);
+  }
+ if (ioctl(s,SIOCGIFCONF,&ifc) < 0)
+  { fprintf(stderr,"can't SIOCGIFCONF: %s\n",strerror(errno));
+    exit(1);
+  }
+ i = 0;
+ close(s);
+ ifr = (void *)&ifrbuf[0];
+ while (i < ifc.ifc_len)
+  { bcopy(i+(char *)ifc.ifc_req,&ifrbuf[0],sizeof(struct ifreq));
+    n = ifr->ifr_addr.sa_len;
+    if (n < sizeof(ifr->ifr_addr)) n = sizeof(ifr->ifr_addr);
+    n += sizeof(ifr->ifr_name);
+    if (n > sizeof(ifrbuf)) abort();
+    bcopy(i+(char *)ifc.ifc_req,&ifrbuf[0],n);
+    i += n;
+    if (i > ifc.ifc_len) abort();
+    if ( (ifr->ifr_addr.sa_family == AF_LINK) &&
+	 !strncmp(&ifr->ifr_name[0],name,sizeof(ifr->ifr_name)) )
+     { sdl->sdl_type = ((struct sockaddr_dl *)&ifr->ifr_addr)->sdl_type;
+       sdl->sdl_index = ((struct sockaddr_dl *)&ifr->ifr_addr)->sdl_index;
+       return(1);
+     }
+  }
+ return(0);
+}
+
 /*
  * Set an individual arp entry
  */
@@ -230,6 +283,7 @@ set(argc, argv)
 	struct rt_msghdr *rtm;
 	char *host = argv[0], *eaddr;
 	int rval;
+	int have_index;
 
 	sin = &sin_m;
 	rtm = &(m_rtmsg.m_rtm);
@@ -245,6 +299,7 @@ set(argc, argv)
 	if (atosdl(eaddr, &sdl_m))
 		warnx("invalid link-level address '%s'", eaddr);
 	doing_proxy = flags = export_only = expire_time = 0;
+	have_index = 0;
 	while (argc-- > 0) {
 		if (strncmp(argv[0], "temp", 4) == 0) {
 			struct timeval time;
@@ -253,13 +308,34 @@ set(argc, argv)
 		}
 		else if (strncmp(argv[0], "pub", 3) == 0) {
 			flags |= RTF_ANNOUNCE;
-			doing_proxy = SIN_PROXY;
+			doing_proxy = 1;
 		} else if (strncmp(argv[0], "trail", 5) == 0) {
 			(void)printf(
 			    "%s: Sending trailers is no longer supported\n",
 			     host);
+		} else if (!strcmp(argv[0],"proxy")) {
+			doing_proxy = 1;
+			export_only = 1;
+		} else if (!strcmp(argv[0],"if")) {
+			if (! argv[1]) {
+				printf("missing interface name\n");
+				return(1);
+			}
+			if (! get_if_index(argv[1],&sdl_m)) {
+				printf("can't find interface %s\n",argv[1]);
+				return(1);
+			}
+			have_index = 1;
+			argc --;
+			argv ++;
 		}
 		argv++;
+	}
+	if (have_index)
+		goto justadd;
+	if (doing_proxy) {
+		printf("proxy entries require interface to be specified\n");
+		return(1);
 	}
 tryagain:
 	if (rtmsg(RTM_GET) < 0) {
@@ -280,12 +356,11 @@ tryagain:
 			(void)printf("set: can only proxy for %s\n", host);
 			return (1);
 		}
-		if (sin_m.sin_other & SIN_PROXY) {
+		if (sin_m.sin_other) {
 			(void)printf(
 			    "set: proxy entry exists for non 802 device\n");
 			return (1);
 		}
-		sin_m.sin_other = SIN_PROXY;
 		export_only = 1;
 		goto tryagain;
 	}
@@ -297,6 +372,7 @@ overwrite:
 	}
 	sdl_m.sdl_type = sdl->sdl_type;
 	sdl_m.sdl_index = sdl->sdl_index;
+justadd:;
 	rval = rtmsg(RTM_ADD);
 	if (vflag)
 		(void)printf("%s (%s) added\n", host, eaddr);
@@ -555,7 +631,7 @@ rtmsg(cmd)
 		sin_m.sin_other = 0;
 		if (doing_proxy) {
 			if (export_only)
-				sin_m.sin_other = SIN_PROXY;
+				sin_m.sin_other = sdl_m.sdl_index;
 			else {
 				rtm->rtm_addrs |= RTA_NETMASK;
 				rtm->rtm_flags &= ~RTF_HOST;

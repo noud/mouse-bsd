@@ -53,6 +53,8 @@
 .Fl s Ar hostname ether_addr
 .Op Ar temp
 .Op Ar pub
+.Op Ar proxy
+.Op Ar if ifname
 .Nm ""
 .Fl f Ar filename
 .Sh DESCRIPTION
@@ -104,6 +106,17 @@ server,
 responding to requests for
 .Ar hostname
 even though the host address is not its own.
+The word
+.Ar if ,
+followed by an interface name, may be given to specify which interface
+the entry is to be installed for.
+If the word
+.Ar proxy
+is given, the entry will be a "proxy" entry; this normally is set when
+appropriate, but if the
+.Ar if
+argument is used to specify an interface for a proxy entry, this may be
+needed.
 .It Fl f
 Causes the file
 .Ar filename
