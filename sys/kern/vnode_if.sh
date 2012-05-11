@@ -161,6 +161,7 @@ echo ''
 echo '#ifndef _SYS_VNODE_IF_H_'
 echo '#define _SYS_VNODE_IF_H_'
 echo '
+#include "vnode.h"
 extern struct vnodeop_desc vop_default_desc;
 '
 
