@@ -94,6 +94,7 @@ sys_ptrace(p, v, retval)
 	struct uio uio;
 	struct iovec iov;
 	int error, write;
+	struct pt_blk blk;
 
 	/* "A foolish consistency..." XXX */
 	if (SCARG(uap, req) == PT_TRACE_ME)
@@ -159,6 +160,7 @@ sys_ptrace(p, v, retval)
 	case  PT_CONTINUE:
 	case  PT_KILL:
 	case  PT_DETACH:
+	case  PT_BLK:
 #ifdef PT_STEP
 	case  PT_STEP:
 #endif
@@ -381,6 +383,33 @@ sys_ptrace(p, v, retval)
 			return (procfs_dofpregs(p, t, NULL, &uio));
 		}
 #endif
+	case  PT_BLK:
+		error = copyin(SCARG(uap,addr),&blk,sizeof(blk));
+		if (error) return(error);
+		switch (blk.op) {
+			default:
+				return(EINVAL);
+				break;
+			case PT_OP_W_I:
+			case PT_OP_W_D:
+				uio.uio_rw = UIO_WRITE;
+				if (0) {
+			case PT_OP_R_I:
+			case PT_OP_R_D:
+					uio.uio_rw = UIO_READ;
+				}
+				iov.iov_base = blk.buf;
+				iov.iov_len = blk.size;
+				uio.uio_iov = &iov;
+				uio.uio_iovcnt = 1;
+				uio.uio_offset = (off_t) (u_long) blk.addr;
+				uio.uio_resid = blk.size;
+				uio.uio_segflg = UIO_USERSPACE;
+				uio.uio_procp = p;
+				return(procfs_domem(p,t,0,&uio));
+				break;
+		}
+		break;
 	}
 
 #ifdef DIAGNOSTIC

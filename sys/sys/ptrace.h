@@ -38,6 +38,22 @@
 #ifndef	_SYS_PTRACE_H_
 #define	_SYS_PTRACE_H_
 
+#include <sys/types.h>
+
+enum pt_blk_op {
+  PT_OP_R_I = 1, /* make sure 0 is not a legal op */
+  PT_OP_R_D,
+  PT_OP_W_I,
+  PT_OP_W_D
+  } ;
+
+struct pt_blk {
+  enum pt_blk_op op;
+  caddr_t addr;
+  caddr_t buf;
+  size_t size;
+  } ;
+
 #define	PT_TRACE_ME	0	/* child declares it's being traced */
 #define	PT_READ_I	1	/* read word in child's I space */
 #define	PT_READ_D	2	/* read word in child's D space */
@@ -47,6 +63,7 @@
 #define	PT_KILL		8	/* kill the child process */
 #define	PT_ATTACH	9	/* attach to running process */
 #define	PT_DETACH	10	/* detach from running process */
+#define	PT_BLK		11	/* read/write I/D block request */
 
 #define	PT_FIRSTMACH	32	/* for machine-specific requests */
 #include <machine/ptrace.h>	/* machine-specific requests, if any */
