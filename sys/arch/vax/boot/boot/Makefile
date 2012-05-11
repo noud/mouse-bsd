@@ -35,3 +35,8 @@ ${PROG}: ${OBJS} ${LIBSA} ${LIBZ} ${LIBKERN}
 	size ${PROG}
 
 .include <bsd.prog.mk>
+
+cleandir distclean: cleanlibdir
+
+cleanlibdir:
+	rm -rf lib
