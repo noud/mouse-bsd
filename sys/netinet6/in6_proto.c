@@ -320,7 +320,7 @@ u_long	rip6_sendspace = RIPV6SNDQ;
 u_long	rip6_recvspace = RIPV6RCVQ;
 
 /* ICMPV6 parameters */
-int	icmp6_rediraccept = 1;		/* accept and process redirects */
+int	icmp6_rediraccept = 0;		/* accept and process redirects */
 int	icmp6_redirtimeout = 10 * 60;	/* 10 minutes */
 struct timeval icmp6errratelim = { 0, 1000 }; /* 1000usec = 1msec */
 int	icmp6_nodeinfo = 1;		/* enable/disable NI response */
