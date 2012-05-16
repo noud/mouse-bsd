@@ -183,6 +183,9 @@ cdev_decl(diskwatch);
 #include "vlan.h"
 cdev_decl(vlan);
 
+#include "srt.h"
+cdev_decl(srt);
+
 /* Block devices */
 struct bdevsw	bdevsw[] =
 {
@@ -337,7 +340,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 106 */
 	cdev_notdef(),			/* 107 */
 	cdev_notdef(),			/* 108 */
-	cdev_notdef(),			/* 109 */
+	cdev__oci_init(NSRT,srt),	/* 109: srt interfaces */
 	cdev_notdef(),			/* 110 */
 	cdev_notdef(),			/* 111 */
 	cdev_notdef(),			/* 112 */

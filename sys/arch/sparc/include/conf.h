@@ -122,4 +122,5 @@ cdev_decl(scsibus);
 
 cdev_decl(diskwatch);
 cdev_decl(vlan);
+cdev_decl(srt);
 cdev_decl(lpvi);

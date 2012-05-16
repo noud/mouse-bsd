@@ -135,6 +135,7 @@ int	nblkdev = sizeof(bdevsw) / sizeof(bdevsw[0]);
 #include "scsibus.h"
 #include "diskwatch.h"
 #include "vlan.h"
+#include "srt.h"
 
 cdev_decl(aed);
 cdev_decl(asc);
@@ -179,6 +180,7 @@ cdev_decl(scsibus);
 cdev_decl(vc_nb_);
 cdev_decl(diskwatch);
 cdev_decl(vlan);
+cdev_decl(srt);
 
 dev_decl(filedesc,open);
 
@@ -242,7 +244,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 55 */
 	cdev_notdef(),			/* 56 */
 	cdev_notdef(),			/* 57 */
-	cdev_notdef(),			/* 58 */
+	cdev__oci_init(NSRT,srt),	/* 58: srt interfaces */
 	cdev_notdef(),			/* 59 */
 	cdev_notdef(),			/* 60 */
 	cdev_notdef(),			/* 61 */

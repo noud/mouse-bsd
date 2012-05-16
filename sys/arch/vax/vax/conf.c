@@ -418,6 +418,9 @@ cdev_decl(diskwatch);
 #include "vlan.h"
 cdev_decl(vlan);
 
+#include "srt.h"
+cdev_decl(srt);
+
 struct cdevsw	cdevsw[] =
 {
 	cdev_cn_init(1,cn),		/* 0: virtual console */
@@ -508,7 +511,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 82 */
 	cdev_notdef(),			/* 83 */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 84: disk watching */
-	cdev_notdef(),			/* 85 */
+	cdev__oci_init(NSRT,srt),	/* 85: srt interfaces */
 	cdev_notdef(),			/* 86 */
 	cdev_notdef(),			/* 87 */
 	cdev_notdef(),			/* 88 */

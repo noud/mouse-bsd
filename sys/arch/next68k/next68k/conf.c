@@ -122,6 +122,7 @@ int	nblkdev = sizeof(bdevsw) / sizeof(bdevsw[0]);
 #include "zstty.h"
 #include "scsibus.h"
 #include "vlan.h"
+#include "srt.h"
 
 cdev_decl(bpf);
 cdev_decl(ccd);
@@ -154,6 +155,7 @@ cdev_decl(zs);
 cdev_decl(zsc);
 cdev_decl(scsibus);
 cdev_decl(vlan);
+cdev_decl(srt);
 
 #include "wsdisplay.h"
 cdev_decl(wsdisplay);
@@ -227,7 +229,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 53 */
 	cdev_notdef(),			/* 54 */
 	cdev_notdef(),			/* 55 */
-	cdev_notdef(),			/* 56 */
+	cdev__oci_init(NSRT,srt),	/* 56: srt interfaces */
 	cdev_notdef(),			/* 57 */
 	cdev_notdef(),			/* 58 */
 	cdev_notdef(),			/* 59 */

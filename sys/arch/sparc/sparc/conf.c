@@ -100,6 +100,7 @@
 #include "scsibus.h"
 #include "diskwatch.h"
 #include "vlan.h"
+#include "srt.h"
 #include "lpvi.h"
 
 #include "vcoda.h"
@@ -281,7 +282,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 130 */
 	cdev_notdef(),			/* 131 */
 	cdev_notdef(),			/* 132 */
-	cdev_notdef(),			/* 133 */
+	cdev__oci_init(NSRT,srt),	/* 133: srt interfaces */
 	cdev__oci_init(NVLAN,vlan),	/* 134: vlan interfaces */
 	cdev_notdef(),			/* 135 */
 	cdev_notdef(),			/* 136 */

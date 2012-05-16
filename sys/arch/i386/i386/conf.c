@@ -245,6 +245,8 @@ cdev_decl(esh_fp);
 cdev_decl(scsibus);
 #include "vlan.h"
 cdev_decl(vlan);
+#include "srt.h"
+cdev_decl(srt);
 
 #ifdef __I4B_IS_INTEGRATED
 /* open, close, ioctl */
@@ -393,7 +395,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 75 */
 	cdev_notdef(),			/* 76 */
 	cdev_notdef(),			/* 77 */
-	cdev_notdef(),			/* 78 */
+	cdev__oci_init(NSRT,srt),	/* 78: srt interfaces */
 	cdev__oci_init(NVLAN,vlan),	/* 79: vlan interfaces */
 	cdev_notdef(),			/* 80 */
 	cdev_notdef(),			/* 81 */

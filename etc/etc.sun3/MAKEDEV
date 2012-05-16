@@ -67,6 +67,7 @@
 #	scsibus* SCSI busses, see scsictl(8), scsi(4)
 #	diskwatch* Live-backup disk watching
 #	vlan*	802.1q VLAN interfaces
+#	srt*	Source-address-routing interfaces
 
 # XXX - Keep /usr/etc so SunOS can find chown
 PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/etc
@@ -106,6 +107,7 @@ all)
 	sh $0 scsibus0 scsibus1 scsibus2 scsibus3
 	sh $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
 	sh $0 vlan0 vlan1 vlan2 vlan3 vlan4 vlan5 vlan6 vlan7
+	sh $0 srt0 srt1 srt2 srt3
 	sh $0 local
 	;;
 
@@ -274,6 +276,10 @@ diskwatch*)
 
 vlan*)
 	mk vlan${unit} c 105 $unit 600 wheel
+	;;
+
+srt*)
+	mk srt${unit} c 109 $unit 600 wheel
 	;;
 
 local)
