@@ -58,6 +58,7 @@
 #include "raid.h"
 /* No cdev for md */
 #include "pdisk.h"
+#include "ed.h"
 
 bdev_decl(ccd);
 bdev_decl(cd);
@@ -69,6 +70,7 @@ bdev_decl(st);
 bdev_decl(sw);
 bdev_decl(vnd);
 bdev_decl(pdisks);
+bdev_decl(ed);
 
 struct bdevsw	bdevsw[] =
 {
@@ -94,7 +96,7 @@ struct bdevsw	bdevsw[] =
 	bdev_lkm_dummy(),		/* 19 */
 	bdev_disk_init(NRAID,raid), 	/* 20: RAIDframe disk driver */
 	bdev_disk_init(NPDISK,pdisks), 	/* 21: pseudo disk */
-	bdev_notdef(),			/* 22 */
+	bdev_disk_init(NED,ed),		/* 22: encrypted disk */
 	bdev_notdef(),			/* 23 */
 	bdev_notdef(),			/* 24 */
 	bdev_notdef(),			/* 25 */
@@ -162,6 +164,8 @@ cdev_decl(zsc);
 cdev_decl(scsibus);
 cdev_decl(pdisks);
 cdev_decl(pdiskm);
+cdev_decl(ed);
+cdev_decl(edctl);
 cdev_decl(encap);
 cdev_decl(vlan);
 cdev_decl(srt);
@@ -245,8 +249,8 @@ struct cdevsw	cdevsw[] =
 	cdev__ocrwip_init(NPFW,pfw),	/* 54: reflex packet filtering */
 	cdev__oci_init(NENCAP,encap),	/* 55: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 56: srt interfaces */
-	cdev_notdef(),			/* 57 */
-	cdev_notdef(),			/* 58 */
+	cdev_disk_init(NED,ed),		/* 57: encrypted disk */
+	cdev__ocrwip_init(NED,edctl),	/* 58: encrypted disk control */
 	cdev_notdef(),			/* 59 */
 	cdev_notdef(),			/* 60 */
 	cdev_notdef(),			/* 61 */
@@ -386,7 +390,7 @@ static int chrtoblktab[] = {
 	/* 54 */	NODEV,
 	/* 55 */	NODEV,
 	/* 56 */	NODEV,
-	/* 57 */	NODEV,
+	/* 57 */	22,
 	/* 58 */	NODEV,
 	/* 59 */	NODEV,
 	/* 60 */	NODEV,

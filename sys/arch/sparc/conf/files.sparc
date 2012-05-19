@@ -304,6 +304,7 @@ file	netns/ns_cksum.c		ns
 
 file	arch/sparc/dev/md_root.c	memory_disk_hooks
 
+major {ed = 27}
 # Removed pending figuring out how to do pdisk/pdisks/pdiskm right.
 # major {pdisks = 26}
 attach pseudo at mainbus

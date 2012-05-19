@@ -59,6 +59,7 @@
 #include "vcoda.h"
 #include "vnd.h"
 #include "pdisk.h"
+#include "ed.h"
 
 /* No cdev for md */
 
@@ -73,6 +74,7 @@ bdev_decl(st);
 bdev_decl(sw);
 bdev_decl(vnd);
 bdev_decl(pdisks);
+bdev_decl(ed);
 
 struct bdevsw	bdevsw[] =
 {
@@ -99,7 +101,7 @@ struct bdevsw	bdevsw[] =
 	bdev_disk_init(NRAID,raid),	/* 20: RAIDframe disk driver */
 	bdev_disk_init(NFD, fd),	/* 21: Sony floppy disk */
 	bdev_disk_init(NPDISK,pdisks),	/* 22: pseudo disk */
-	bdev_notdef(),			/* 23 */
+	bdev_disk_init(NED,ed),		/* 23: encrypted disk */
 	bdev_notdef(),			/* 24 */
 	bdev_notdef(),			/* 25 */
 	bdev_notdef(),			/* 26 */
@@ -191,6 +193,8 @@ cdev_decl(ethc);
 cdev_decl(pfw);
 cdev_decl(pdisks);
 cdev_decl(pdiskm);
+cdev_decl(ed);
+cdev_decl(edctl);
 cdev_decl(ptapes);
 cdev_decl(ptapem);
 cdev_decl(vlan);
@@ -260,8 +264,8 @@ struct cdevsw	cdevsw[] =
 	cdev__ocrwip_init(NPFW,pfw),	/* 56: reflex packet filtering */
 	cdev__oci_init(NENCAP,encap),	/* 57: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 58: srt interfaces */
-	cdev_notdef(),			/* 59 */
-	cdev_notdef(),			/* 60 */
+	cdev_disk_init(NED,ed),		/* 59: encrypted disk */
+	cdev__ocrwip_init(NED,edctl),	/* 60: encrypted disk control */
 	cdev_notdef(),			/* 61 */
 	cdev_notdef(),			/* 62 */
 	cdev_notdef(),			/* 63 */
@@ -401,7 +405,7 @@ static int chrtoblktab[] = {
 	/* 56 */	NODEV,
 	/* 57 */	NODEV,
 	/* 58 */	NODEV,
-	/* 59 */	NODEV,
+	/* 59 */	23,
 	/* 60 */	NODEV,
 	/* 61 */	NODEV,
 	/* 62 */	NODEV,

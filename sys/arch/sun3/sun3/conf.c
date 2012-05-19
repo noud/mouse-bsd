@@ -204,6 +204,11 @@ bdev_decl(pdisks);
 cdev_decl(pdisks);
 cdev_decl(pdiskm);
 
+#include "ed.h"
+bdev_decl(ed);
+cdev_decl(ed);
+cdev_decl(edctl);
+
 /* Block devices */
 struct bdevsw	bdevsw[] =
 {
@@ -234,7 +239,7 @@ struct bdevsw	bdevsw[] =
 	bdev_lkm_dummy(),		/* 24 */
 	bdev_disk_init(NRAID,raid),	/* 25: RAIDframe disk driver */
 	bdev_disk_init(NPDISK,pdisks),	/* 26: pseudo disk */
-	bdev_notdef(),			/* 27 */
+	bdev_disk_init(NED,ed),		/* 27: encrypted disk */
 	bdev_notdef(),			/* 28 */
 	bdev_notdef(),			/* 29 */
 	bdev_notdef(),			/* 30 */
@@ -359,8 +364,8 @@ struct cdevsw	cdevsw[] =
 	cdev__ocrwip_init(NPFW,pfw),	/* 107: reflex packet filtering */
 	cdev__oci_init(NENCAP,encap),	/* 108: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 109: srt interfaces */
-	cdev_notdef(),			/* 110 */
-	cdev_notdef(),			/* 111 */
+	cdev_disk_init(NED,ed),		/* 110: encrypted disk */
+	cdev__ocrwip_init(NED,edctl),	/* 111: encrypted disk control */
 	cdev_notdef(),			/* 112 */
 	cdev_notdef(),			/* 113 */
 	cdev_notdef(),			/* 114 */
@@ -528,7 +533,7 @@ static int chrtoblktbl[] = {
 	/* 107 */	NODEV,
 	/* 108 */	NODEV,
 	/* 109 */	NODEV,
-	/* 110 */	NODEV,
+	/* 110 */	27,
 	/* 111 */	NODEV,
 	/* 112 */	NODEV,
 	/* 113 */	NODEV,

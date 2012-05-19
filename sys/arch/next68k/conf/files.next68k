@@ -109,5 +109,6 @@ include "compat/linux/arch/m68k/files.linux_m68k"
 # OSS audio driver compatibility
 include "compat/ossaudio/files.ossaudio"
 
+major {ed = 22}
 # Removed pending figuring out how to do pdisk/pdisks/pdiskm right.
 # major {pdisks = 21}

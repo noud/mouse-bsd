@@ -63,6 +63,7 @@
 #	vnd*	file pseudo-disks
 #	wd*	IDE disks
 #	fd*	PC-style floppy disks
+#	ed*	encrypting pseudo-disk
 #
 # Terminals:
 #	ttyB?	DEC 3000 ZS8530 ("scc") serial ports
@@ -125,6 +126,7 @@ all)
 	sh $0 st0 st1 ch0 cd0 cd1 vnd0 vnd1 vnd2 vnd3
 	sh $0 ccd0 ccd1 ccd2 ccd3 md0 md1 ss0 ss1 uk0 uk1
 	sh $0 raid0 raid1 raid2 raid3
+	sh $0 ed0 edctl
 	sh $0 bpf0 bpf1 bpf2 bpf3 bpf4 bpf5 bpf6 bpf7
 	sh $0 tun0 tun1 tun2 tun3
 	sh $0 ttyB0 ttyB1 ttyC0 ttyC1 lkm
@@ -301,7 +303,7 @@ md*)
 	chmod 640 md${unit}? #rmd${unit}?
 	;;
 
-ccd*|cd*|fd*|raid*|sd*|vnd*|wd*|pdisks*)
+ccd*|cd*|fd*|raid*|sd*|vnd*|wd*|pdisks*|ed[0-9]*)
 	case $i in
 	ccd*)	name=ccd;	unit=${i#ccd};	blk=7; chr=27;;
 	cd*)	name=cd;	unit=${i#cd};	blk=3; chr=13;;
@@ -311,6 +313,7 @@ ccd*|cd*|fd*|raid*|sd*|vnd*|wd*|pdisks*)
 	vnd*)	name=vnd;	unit=${i#vnd};	blk=9; chr=9;;
 	wd*)	name=wd;	unit=${i#wd};	blk=4; chr=36;;
 	pdisks*)name=pdisks;	unit=${i#pdisks};blk=17;chr=81;;
+	ed*)	name=ed;	unit=${i#ed};	blk=18; chr=84;;
 	esac
 	rm -f $name$unit? r$name$unit?
 	off=0
@@ -321,6 +324,13 @@ ccd*|cd*|fd*|raid*|sd*|vnd*|wd*|pdisks*)
 	done
 	chgrp operator ${name}${unit}[a-p] r${name}${unit}[a-p]
 	chmod 640 ${name}${unit}[a-p] r${name}${unit}[a-p]
+	;;
+
+edctl)
+	rm -f edctl
+	mknod edctl c 85 0
+	chown root.wheel edctl
+	chmod 600 edctl
 	;;
 
 ttyEcfg)

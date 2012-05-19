@@ -58,6 +58,7 @@
 #	ccd*	concatenated disk devices
 #	raid*	RAIDframe disk driver
 #	md*	memory pseudo-disk devices
+#	ed*	encrypting pseudo-disk
 # Pseudo terminals:
 #	pty*	set of 16 master and slave pseudo terminals
 # Special purpose devices:
@@ -106,6 +107,7 @@ all)
 	sh -$- $0 audio0 audio1 audio2 audio3
 	sh -$- $0 pty0 vnd0 vnd1 vnd2 vnd3 audio tun0 tun1 tun2 tun3
 	sh -$- $0 ccd0 ccd1 ccd2 ccd3 raid0 raid1 raid2 raid3
+	sh -$- $0 ed0 edctl
 	sh -$- $0 bpf0 bpf1 bpf2 bpf3 bpf4 bpf5 bpf6 bpf7
 	sh -$- $0 bwtwo0 cgtwo0 cgthree0 cgfour0 cgsix0
 	sh -$- $0 cgeight0 tcx0
@@ -343,7 +345,7 @@ md*)
 	chmod 640 md${unit}? #rmd${unit}?
 	;;
 
-ccd*|fd*|sd*|xd*|xy*|cd*|vnd*|raid*|pdisks*)
+ccd*|fd*|sd*|xd*|xy*|cd*|vnd*|raid*|pdisks*|ed[0-9]*)
 	case $i in
 	ccd*)	name=ccd;	unit=${i#ccd};	blk=9;	chr=23;;
 	fd*)	name=fd;	unit=${i#fd};	blk=16;	chr=54;;
@@ -354,6 +356,7 @@ ccd*|fd*|sd*|xd*|xy*|cd*|vnd*|raid*|pdisks*)
 	raid*)	name=raid;	unit=${i#raid};	blk=25;	chr=121;;
 	vnd*)	name=vnd;	unit=${i#vnd};	blk=8;	chr=110;;
 	pdisks*)name=pdisks;	unit=${i#pdisks};blk=26;chr=136;;
+	ed*)	name=ed;	unit=${i#ed};	blk=27;	chr=144;;
 	esac
 	case $unit in
 	0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15)
@@ -371,6 +374,13 @@ ccd*|fd*|sd*|xd*|xy*|cd*|vnd*|raid*|pdisks*)
 		echo bad unit for disk in: $i
 		;;
 	esac
+	;;
+
+edctl)
+	rm -f edctl
+	mknod edctl c 143 0
+	chown root.wheel edctl
+	chmod 600 edctl
 	;;
 
 pdiskm)	mknod pdiskm c 137 0

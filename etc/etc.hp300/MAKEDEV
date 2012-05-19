@@ -56,6 +56,7 @@
 #	rd*	HP300 HP-IB disks
 #	sd*	HP300 SCSI disks
 #	vnd*	"file" pseudo-disks
+#	ed*	encrypting pseudo-disk
 # Terminal multiplexors:
 #	dca*	HP200/300 single port serial interface
 #	dcm*	HP200/300 4 port serial mux interface
@@ -92,6 +93,7 @@ case $i in
 all)
 	sh $0 std fd ct0 ct1 st0 st1 ccd0 ccd1 ccd2 rd0 rd1 rd2
 	sh $0 sd0 sd1 sd2 pty0 vnd0 vnd1 vnd2 vnd3 raid0 raid1 raid2 raid3
+	sh $0 ed0 edctl
 	sh $0 hil grf0 ite0 dca0 dcm0 dcm1 dcm2 dcm3 apci0
 	sh $0 bpf0 bpf1 bpf2 bpf3 bpf4 bpf5 bpf6 bpf7
 	sh $0 tun0 tun1 tun2 tun3 lkm ipl random
@@ -237,7 +239,7 @@ md*)
 	chmod 640 md${unit}? #rmd${unit}?
 	;;
 
-ccd*|fd*|raid*|rd*|sd*|vnd*|pdisks*)
+ccd*|fd*|raid*|rd*|sd*|vnd*|pdisks*|ed[0-9]*)
 	case $i in
 	rd*) name=rd; unit=${i#rd}; blk=2; chr=9;;
 	sd*) name=sd; unit=${i#sd}; blk=4; chr=8;;
@@ -245,6 +247,7 @@ ccd*|fd*|raid*|rd*|sd*|vnd*|pdisks*)
 	raid*) name=raid; unit=${i#raid}; blk=15; chr=35;;
 	vnd*) name=vnd; unit=${i#vnd}; blk=6; chr=19;;
 	pdisks*) name=pdisks; unit=${i#pdisks}; blk=25; chr=53;;
+	ed*) name=ed; unit=${i#ed}; blk=26; chr=58;;
 	esac
 	case $unit in
 	0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|\
@@ -273,6 +276,13 @@ ccd*|fd*|raid*|rd*|sd*|vnd*|pdisks*)
 		echo bad unit for disk in: $i
 		;;
 	esac
+	;;
+
+edctl)
+	rm -f edctl
+	mknod edctl c 59 0
+	chown root.wheel edctl
+	chmod 600 edctl
 	;;
 
 dca*)

@@ -366,6 +366,7 @@ include "dev/usb/files.usb"
 
 include "arch/i386/pnpbios/files.pnpbios"
 
+major {ed = 20}
 # Removed pending figuring out how to do pdisk/pdisks/pdiskm right.
 # major {pdisks = 19}
 attach pseudo at mainbus

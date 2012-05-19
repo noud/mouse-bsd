@@ -49,6 +49,7 @@
 #	vnd*	"file" pseudo-disks
 #	raid*	RAIDframe disk driver
 #	ccd*	contatenated disk devices
+#	ed*	encrypting pseudo-disk
 #
 # Console ports:
 #	ttyE*	wscons
@@ -113,6 +114,7 @@ all)
 	sh $0 bpf0 bpf1 bpf2 bpf3 bpf4 bpf5 bpf6 bpf7
 	sh $0 tun0 tun1 ipl usbs
 	sh $0 lkm nvram local raid0 raid1 raid2 raid3
+	sh $0 ed0 edctl
 	sh $0 scsibus0 scsibus1 scsibus2 scsibus3
 	sh $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
 	sh $0 ptape ptape0 ptape1 ptape2 ptape3
@@ -241,7 +243,7 @@ ss*)
 	chmod 640 $name$unit n$name$unit en$name$unit
 	;;
 
-ccd*|fd*|raid*|sd*|vnd*|wd*|pdisks*)
+ccd*|fd*|raid*|sd*|vnd*|wd*|pdisks*|ed[0-9]*)
 	case $i in
 	ccd*) name=ccd;	unit=${i#ccd};	blk=3;	chr=26;;
 #	fd*) name=fd;	unit=${i#fd};	blk=2;	chr=27;;
@@ -250,6 +252,7 @@ ccd*|fd*|raid*|sd*|vnd*|wd*|pdisks*)
 	vnd*) name=vnd;	unit=${i#vnd};	blk=2;	chr=25;;
 	wd*) name=wd;	unit=${i#wd};	blk=10;	chr=30;;
 	pdisks*) name=pdisks; unit=${i#pdisks}; blk=13; chr=46;;
+	ed*) name=ed;	unit=${i#ed};	blk=14; chr=57;;
 	esac
 	rm -f $name$unit? r$name$unit?
 	mknod ${name}${unit}a	b $blk $(($unit * 16 + 0))
@@ -270,6 +273,13 @@ ccd*|fd*|raid*|sd*|vnd*|wd*|pdisks*)
 	mknod r${name}${unit}h	c $chr $(($unit * 16 + 7))
 	chgrp operator $name$unit? r$name$unit?
 	chmod 640 $name$unit? r$name$unit?
+	;;
+
+edctl)
+	rm -f edctl
+	mknod edctl c 58 0
+	chown root.wheel edctl
+	chmod 600 edctl
 	;;
 
 pdiskm)	mknod pdiskm c 47 0

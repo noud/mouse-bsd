@@ -101,6 +101,7 @@
 #include "diskwatch.h"
 #include "ptape.h"
 #include "pdisk.h"
+#include "ed.h"
 #include "encap.h"
 #include "vlan.h"
 #include "srt.h"
@@ -143,7 +144,7 @@ struct bdevsw	bdevsw[] =
 	bdev_lkm_dummy(),		/* 24 */
 	bdev_disk_init(NRAID,raid),	/* 25: RAIDframe disk driver */
 	bdev_disk_init(NPDISK,pdisks),	/* 26: pseudo disk */
-	bdev_notdef(),			/* 27 */
+	bdev_disk_init(NED,ed),		/* 27: encrypted disk */
 	bdev_notdef(),			/* 28 */
 	bdev_notdef(),			/* 29 */
 	bdev_notdef(),			/* 30 */
@@ -300,8 +301,8 @@ struct cdevsw	cdevsw[] =
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 140: disk watching */
 	cdev_notdef(),			/* 141 */
 	cdev_notdef(),			/* 142 */
-	cdev_notdef(),			/* 143 */
-	cdev_notdef(),			/* 144 */
+	cdev__ocrwip_init(NED,edctl),	/* 143: encrypted disk control */
+	cdev_disk_init(NED,ed),		/* 144: encrypted disk */
 	cdev__ocrwip_init(NSBITI,sbiti),/* 145: IOtech,sbiti IEEE488 card */
 	cdev_tty_init(NSPTTY,sptty),	/* 146: spif tty */
 	cdev_gen_init(NSPBPP,spbpp),	/* 147: spif bpp */
@@ -490,7 +491,7 @@ static int chrtoblktbl[] = {
 	/*141 */	NODEV,
 	/*142 */	NODEV,
 	/*143 */	NODEV,
-	/*144 */	NODEV,
+	/*144 */	27,
 	/*145 */	NODEV,
 	/*146 */	NODEV,
 	/*147 */	NODEV,

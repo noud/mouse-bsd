@@ -54,6 +54,7 @@
 #	ccd*	concatenated disk driver
 #	raid*	RAIDframe disk driver
 #	md*	memory pseudo-disk devices
+#	ed*	encrypting pseudo-disk
 # Pseudo terminals:
 #	pty*	set of 16 master and slave pseudo terminals
 # Special purpose devices:
@@ -102,6 +103,7 @@ all)
 	sh $0 std fd pty0
 	sh $0 bwtwo0 cgtwo0 cgfour0
 	sh $0 raid0 raid1 raid2 raid3
+	sh $0 ed0 edctl
 	sh $0 sd0 sd1 sd2 sd3 sd4 sd5 sd6
 	sh $0 cd0 cd1 st0 st1 st2 fd0
 	sh $0 xd0 xd1 xd2 xd3
@@ -207,7 +209,7 @@ pty*)
         chmod 666 tty$name? pty$name?
 	;;
 
-ccd*|cd*|fd*|sd*|xd*|xy*|vnd*|raid*|pdisks*)
+ccd*|cd*|fd*|sd*|xd*|xy*|vnd*|raid*|pdisks*|ed[0-9]*)
 	case $arg in
 	  ccd*) name=ccd; blk=9; chr=33;;
 	  cd*) name=cd; blk=18; chr=58;;
@@ -218,6 +220,7 @@ ccd*|cd*|fd*|sd*|xd*|xy*|vnd*|raid*|pdisks*)
 	  xd*) name=xd; blk=10; chr=42;;
 	  xy*) name=xy; blk=3; chr=9 ;;
 	  vnd*) name=vnd; blk=5; chr=19;;
+	  ed*) name=ed; blk=27; chr=110;;
 	esac
 	case $unit in
 	  [0-9]|1[0-5]) offset=$(($unit * 16));;
@@ -234,6 +237,10 @@ ccd*|cd*|fd*|sd*|xd*|xy*|vnd*|raid*|pdisks*)
 		mk r$name$unit$1 c $chr $minor 640 operator
 	)
 	done
+	;;
+
+edctl)
+	mk edctl c 111 0 600 wheel
 	;;
 
 st*)

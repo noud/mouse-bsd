@@ -37,6 +37,7 @@
 #	sd*	SCSI disks
 #	cd*	SCSI CD-ROM
 #	md*	memory pseudo-disk devices
+#	ed*	encrypting pseudo-disk
 # Terminal multiplexors:
 #	dz*	unibus dz11 and dz32
 #	dh*	unibus dh11 and emulations (e.g. Able dmax, Emulex cs-11)
@@ -90,6 +91,7 @@ all)
 	sh $0 mt0 mt1 ts0 ts1 st0 st1 uk0 ss0 cd0 vt0
 	sh $0 ra0 ra1 ra2 ra3 hp0 hp1 hp2 hp3 sd0 sd1 sd2 sd3 rd0 rd1 rd2
 	sh $0 dz0 dl0 dhu0 rx0 rx1 raid0 raid1 raid2 raid3
+	sh $0 ed0 edctl
 	sh $0 scsibus0 scsibus1 scsibus2 scsibus3
 	sh $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
 	sh $0 ptape ptape0 ptape1 ptape2 ptape3
@@ -223,7 +225,7 @@ random)
 	chmod 644 urandom
 	;;
 
-hp*|hk*|up*|ra*|rl*|rb*|ccd*|vnd*|rd*|sd*|rx*|raid*|pdisks*)
+hp*|hk*|up*|ra*|rl*|rb*|ccd*|vnd*|rd*|sd*|rx*|raid*|pdisks*|ed[0-9]*)
 	umask 2
 	case $i in
 	hp*) name=hp;	unit=${i#hp};	blk=0; chr=4;;
@@ -239,6 +241,7 @@ hp*|hk*|up*|ra*|rl*|rb*|ccd*|vnd*|rd*|sd*|rx*|raid*|pdisks*)
 	rd*) name=rd;	unit=${i#rd};	blk=19; chr=58;;
 	sd*) name=sd;	unit=${i#sd};	blk=20; chr=59;;
 	pdisks*) name=pdisks; unit=${i#pdisks}; blk=30; chr=78;;
+	ed*) name=ed;	unit=${i#ed};	blk=31; chr=86;;
 	esac
 	case $unit in
 	[0-9]|[12][0-9]|3[01])
@@ -267,6 +270,13 @@ hp*|hk*|up*|ra*|rl*|rb*|ccd*|vnd*|rd*|sd*|rx*|raid*|pdisks*)
 		;;
 	esac
 	umask 77
+	;;
+
+edctl)
+	rm -f edctl
+	mknod edctl c 87 0
+	chown root.wheel edctl
+	chmod 600 edctl
 	;;
 
 cd*)

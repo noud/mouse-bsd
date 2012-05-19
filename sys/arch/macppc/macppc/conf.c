@@ -58,6 +58,8 @@ bdev_decl(md);
 bdev_decl(wd);
 #include "pdisk.h"
 bdev_decl(pdisks);
+#include "ed.h"
+bdev_decl(ed);
 
 struct bdevsw bdevsw[] = {
 	bdev_notdef(),			/* 0: Openfirmware disk */
@@ -74,7 +76,7 @@ struct bdevsw bdevsw[] = {
 	bdev_lkm_dummy(),		/* 11 */
 	bdev_disk_init(NRAID,raid),	/* 12: RAIDframe disk driver */
 	bdev_disk_init(NPDISK,pdisks),	/* 13: pseudo disk driver */
-	bdev_notdef(),			/* 14 */
+	bdev_disk_init(NED,ed),		/* 14: encrypted disk */
 	bdev_notdef(),			/* 15 */
 	bdev_notdef(),			/* 16 */
 	bdev_notdef(),			/* 17 */
@@ -147,6 +149,8 @@ cdev_decl(ofc);
 cdev_decl(nvram);
 cdev_decl(pdisks);
 cdev_decl(pdiskm);
+cdev_decl(ed);
+cdev_decl(edctl);
 
 #include "diskwatch.h"
 cdev_decl(diskwatch);
@@ -255,8 +259,8 @@ struct cdevsw cdevsw[] = {
 	cdev__ocrwip_init(NPFW,pfw),	/* 54: reflex packet filtering */
 	cdev__oci_init(NENCAP,encap),	/* 55: encap interfaces */
 	cdev__oci_init(NSRT,srt),	/* 56: srt interfaces */
-	cdev_notdef(),			/* 57 */
-	cdev_notdef(),			/* 58 */
+	cdev_disk_init(NED,ed),		/* 57: encrypted disk */
+	cdev__ocrwip_init(NED,edctl),	/* 58: encrypted disk control */
 	cdev_notdef(),			/* 59 */
 	cdev_notdef(),			/* 60 */
 	cdev_notdef(),			/* 61 */
@@ -389,7 +393,7 @@ static int chrtoblktbl[] = {
 	/* 54 */	NODEV,
 	/* 55 */	NODEV,
 	/* 56 */	NODEV,
-	/* 57 */	NODEV,
+	/* 57 */	14,
 	/* 58 */	NODEV,
 	/* 59 */	NODEV,
 	/* 60 */	NODEV,

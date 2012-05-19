@@ -192,5 +192,6 @@ include "dev/pcmcia/files.pcmcia"
 
 file arch/macppc/macppc/rbus_machdep.c		cardbus
 
+major {ed = 14}
 # Removed pending figuring out how to do pdisk/pdisks/pdiskm right.
 # major {pdisks = 13}

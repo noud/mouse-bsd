@@ -48,6 +48,7 @@
 #	ccd*	concatenated disk driver
 #	md*	memory pseudo-disk devices
 #	fd*	floppy disk drives (3 1/2")
+#	ed*	encrypting pseudo-disk
 #
 # Terminal ports:
 #	ttye*	ite consoles
@@ -103,6 +104,7 @@ all)
 	sh $0 std fd sd0 sd1 sd2 sd3 tty0 tty1 pty0 pty1
 	sh $0 st0 st1 ch0 cd0 cd1 fd0 fd1 vnd0 vnd1 vnd2 vnd3
 	sh $0 ccd0 ccd1 ccd2 ccd3 md0 ss0 uk0 uk1 raid0 raid1 raid2 raid3
+	sh $0 ed0 edctl
 	sh $0 ttye0 adb grf0 grf1 grf2 grf3
 	sh $0 bpf0 bpf1 bpf2 bpf3 bpf4 bpf5 bpf6 bpf7
 	sh $0 bpf8 bpf9 bpf10 bpf11 random
@@ -242,7 +244,7 @@ ss*)
 	chmod 640 $name$unit n$name$unit en$name$unit
 	;;
 
-sd*|fd*|vnd*|ccd*|raid*|pdisks*)
+sd*|fd*|vnd*|ccd*|raid*|pdisks*|ed[0-9]*)
 	case $i in
 	ccd*) name=ccd;	unit=${i#ccd};	blk=9;	chr=20;;
 	fd*) name=fd;	unit=${i#fd};	blk=21;	chr=43;;
@@ -250,6 +252,7 @@ sd*|fd*|vnd*|ccd*|raid*|pdisks*)
 	raid*) name=raid; unit=${i#raid}; blk=20; chr=42;;
 	sd*) name=sd;	unit=${i#sd};	blk=4;	chr=13;;
 	vnd*) name=vnd;	unit=${i#vnd};	blk=8;	chr=19;;
+	ed*) name=ed;	unit=${i#ed};	blk=23;	chr=59;;
 	esac
 	rm -f $name$unit? r$name$unit?
 	mknod ${name}${unit}a	b $blk $(($unit * 8 + 0))
@@ -270,6 +273,13 @@ sd*|fd*|vnd*|ccd*|raid*|pdisks*)
 	mknod r${name}${unit}h	c $chr $(($unit * 8 + 7))
 	chgrp operator $name$unit? r$name$unit?
 	chmod 640 $name$unit? r$name$unit?
+	;;
+
+edctl)
+	rm -f edctl
+	mknod edctl c 60 0
+	chown root.wheel edctl
+	chmod 600 edctl
 	;;
 
 tty*)

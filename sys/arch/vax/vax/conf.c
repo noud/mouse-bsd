@@ -133,6 +133,9 @@ bdev_decl(md);
 #include "pdisk.h"
 bdev_decl(pdisks);
 
+#include "ed.h"
+bdev_decl(ed);
+
 struct bdevsw	bdevsw[] =
 {
 	bdev_disk_init(NHP,hp),		/* 0: RP0?/RM0? */
@@ -166,7 +169,7 @@ struct bdevsw	bdevsw[] =
 	bdev_notdef(),			/* 28 */
 	bdev_notdef(),			/* 29 */
 	bdev_disk_init(NPDISK,pdisks),	/* 30: pseudo disk */
-	bdev_notdef(),			/* 31 */
+	bdev_disk_init(NED,ed),		/* 31: encrypted disk */
 	bdev_notdef(),			/* 32 */
 	bdev_notdef(),			/* 33 */
 	bdev_notdef(),			/* 34 */
@@ -299,6 +302,8 @@ cdev_decl(sd);
 cdev_decl(st);
 cdev_decl(pdisks);
 cdev_decl(pdiskm);
+cdev_decl(ed);
+cdev_decl(edctl);
 
 #include "ct.h"
 cdev_decl(ct);
@@ -534,8 +539,8 @@ struct cdevsw	cdevsw[] =
 	cdev__oci_init(NENCAP,encap),	/* 83: encap interfaces */
 	cdev__ocrwip_init(NDISKWATCH,diskwatch), /* 84: disk watching */
 	cdev__oci_init(NSRT,srt),	/* 85: srt interfaces */
-	cdev_notdef(),			/* 86 */
-	cdev_notdef(),			/* 87 */
+	cdev_disk_init(NED,ed),		/* 86: encrypted disk */
+	cdev__ocrwip_init(NED,edctl),	/* 87: encrypted disk control */
 	cdev_notdef(),			/* 88 */
 	cdev_notdef(),			/* 89 */
 	cdev_notdef(),			/* 90 */
@@ -651,7 +656,7 @@ int	chrtoblktbl[] = {
 	NODEV,	/* 83 */
 	NODEV,	/* 84 */
 	NODEV,	/* 85 */
-	NODEV,	/* 86 */
+	31,	/* 86 */
 	NODEV,	/* 87 */
 	NODEV,	/* 88 */
 	NODEV,	/* 89 */
