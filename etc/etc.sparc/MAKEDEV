@@ -48,6 +48,7 @@
 # Tapes:
 #	st*	SCSI tape
 # Disks:
+#	wd*	ATA disks
 #	sd*	SCSI disks
 #	cd*	SCSI cdrom drives
 #	ch*	SCSI changer
@@ -102,7 +103,7 @@ case $i in
 
 all)
 	sh -$- $0 std ttya ttyb ttyc ttyd
-	sh -$- $0 fd sd0 sd1 sd2 sd3 sd4 xd0 xd1 xd2 xd3 xy0 xy1 xy2 xy3
+	sh -$- $0 fd sd0 sd1 sd2 sd3 sd4 xd0 xd1 xd2 xd3 xy0 xy1 xy2 xy3 wd0 wd1
 	sh -$- $0 cd0 st0 st1 fd0
 	sh -$- $0 audio0 audio1 audio2 audio3
 	sh -$- $0 pty0 vnd0 vnd1 vnd2 vnd3 audio tun0 tun1 tun2 tun3
@@ -345,7 +346,7 @@ md*)
 	chmod 640 md${unit}? #rmd${unit}?
 	;;
 
-ccd*|fd*|sd*|xd*|xy*|cd*|vnd*|raid*|pdisks*|ed[0-9]*)
+ccd*|fd*|sd*|xd*|xy*|cd*|vnd*|raid*|wd*|pdisks*|ed[0-9]*)
 	case $i in
 	ccd*)	name=ccd;	unit=${i#ccd};	blk=9;	chr=23;;
 	fd*)	name=fd;	unit=${i#fd};	blk=16;	chr=54;;
@@ -355,6 +356,7 @@ ccd*|fd*|sd*|xd*|xy*|cd*|vnd*|raid*|pdisks*|ed[0-9]*)
 	cd*)	name=cd;	unit=${i#cd};	blk=18;	chr=58;;
 	raid*)	name=raid;	unit=${i#raid};	blk=25;	chr=121;;
 	vnd*)	name=vnd;	unit=${i#vnd};	blk=8;	chr=110;;
+	wd*)	name=wd;	unit=${i#wd};	blk=0;	chr=4;;
 	pdisks*)name=pdisks;	unit=${i#pdisks};blk=26;chr=136;;
 	ed*)	name=ed;	unit=${i#ed};	blk=27;	chr=144;;
 	esac

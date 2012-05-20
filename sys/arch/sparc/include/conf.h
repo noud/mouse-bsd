@@ -103,6 +103,9 @@ cdev_decl(zx);
 
 cdev_decl(p9100);	/* pnozz */
 
+bdev_decl(wd);
+cdev_decl(wd);
+
 bdev_decl(xd);
 cdev_decl(xd);
 

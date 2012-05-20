@@ -94,6 +94,7 @@
 
 #include "xd.h"
 #include "xy.h"
+#include "wd.h"
 #include "md.h"
 #include "ipfilter.h"
 #include "rnd.h"
@@ -118,7 +119,7 @@ cdev_decl(vc_nb_);
 
 struct bdevsw	bdevsw[] =
 {
-	bdev_notdef(),			/* 0 */
+	bdev_disk_init(NWD,wd),		/* 0: ATA disk */
 	bdev_notdef(),			/* 1 */
 	bdev_notdef(),			/* 2 */
 	bdev_disk_init(NXY,xy),		/* 3: SMD disk */
@@ -163,7 +164,7 @@ struct cdevsw	cdevsw[] =
 	cdev_tty_init(NKBD,kd), 	/* 1: Sun keyboard/display */
 	cdev_ctty_init(1,ctty),		/* 2: controlling terminal */
 	cdev_mm_init(1,mm),		/* 3: /dev/{null,mem,kmem,...} */
-	cdev_notdef(),			/* 4 */
+	cdev_disk_init(NWD,wd),		/* 4: ATA disk */
 	cdev_notdef(),			/* 5: tapemaster tape */
 	cdev_notdef(),			/* 6: systech/versatec */
 	cdev_swap_init(1,sw),		/* 7: /dev/drum (swap pseudo-device) */
