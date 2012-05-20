@@ -15,6 +15,12 @@ anyone else.
 Until, that is, this file disappears or states otherwise, as I said
 above.
 
+I have now gitified all my changes.  However, I'm not sure enough I
+haven't broken anything; I still need to do test builds on the various
+arches covered before I'll consider this `done' (and in particular,
+before I no longer consider it appropriate to do things like rewinding
+and replaying commits).
+
 /~\ The ASCII				  Mouse
 \ / Ribbon Campaign
  X  Against HTML		mouse@rodents-montreal.org
