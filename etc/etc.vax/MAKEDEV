@@ -1,5 +1,5 @@
 #!/bin/sh -
-#	$NetBSD: MAKEDEV,v 1.30 2000/01/21 12:28:29 tsutsui Exp $
+#	$NetBSD: MAKEDEV,v 1.34 2000/11/07 23:17:41 matt Exp $
 #
 #	@(#)MAKEDEV	8.1 (Berkeley) 6/9/93
 #
@@ -86,11 +86,11 @@ do
 case $i in
 
 all)
-	sh $0 std fd vnd0 ccd0 pty0 pty1 lkm random
+	sh $0 std fd vnd0 ccd0 pty0 pty1 pty2 pty3 lkm random
 	sh $0 bpf0 bpf1 bpf2 bpf3 bpf4 bpf5 bpf6 bpf7
 	sh $0 mt0 mt1 ts0 ts1 st0 st1 uk0 ss0 cd0 vt0
 	sh $0 ra0 ra1 ra2 ra3 hp0 hp1 hp2 hp3 sd0 sd1 sd2 sd3 rd0 rd1 rd2
-	sh $0 dz0 dl0 dhu0 rx0 rx1 raid0 raid1 raid2 raid3
+	sh $0 dz0 dl0 dhu0 rx0 rx1 raid0 raid1 raid2 raid3 md0 md1
 	sh $0 ed0 edctl
 	sh $0 scsibus0 scsibus1 scsibus2 scsibus3
 	sh $0 diskwatch0 diskwatch1 diskwatch2 diskwatch3
@@ -149,14 +149,37 @@ fd)
 	chmod 666 fd/*
 	;;
 
-ht*|tm*|mt*|ts*|ut*|st*)
+st*)
+	case $i in
+	st*) name=st;	unit=${i#st};	blk=21; chr=60;;
+	esac
+	rm -f $name$unit n$name$unit e$name$unit en$name$unit \
+	r$name$unit nr$name$unit er$name$unit enr$name$unit
+	mknod ${name}${unit}	b $blk $(($unit * 16+ 0))
+	mknod n${name}${unit}	b $blk $(($unit * 16+ 1))
+	mknod e${name}${unit}	b $blk $(($unit * 16+ 2))
+	mknod en${name}${unit}	b $blk $(($unit * 16+ 3))
+	mknod r${name}${unit}	c $chr $(($unit * 16+ 0))
+	mknod nr${name}${unit}	c $chr $(($unit * 16+ 1))
+	mknod er${name}${unit}	c $chr $(($unit * 16+ 2))
+	mknod enr${name}${unit} c $chr $(($unit * 16+ 3))
+	chgrp operator ${name}${unit} n${name}${unit} \
+		e$name$unit en$name$unit \
+		r${name}${unit} nr${name}${unit} \
+		er${name}${unit} enr${name}${unit}
+	chmod 660 ${name}${unit} n${name}${unit} \
+		e$name$unit en$name$unit \
+		r${name}${unit} nr${name}${unit} \
+		er${name}${unit} enr${name}${unit}
+	;;
+
+ht*|tm*|mt*|ts*|ut*)
 	case $i in
 	ht*) name=ht;	unit=${i#ht};	blk=1; chr=5 ;;
 	mt*) name=mt;	unit=${i#mt};	blk=15;	chr=38;;
 	tm*) name=tm;	unit=${i#tm};	blk=5; chr=14;;
 	ts*) name=ts;	unit=${i#ts};	blk=6; chr=16;;
 	ut*) name=ut;	unit=${i#ut};	blk=10; chr=17;;
-	st*) name=st;	unit=${i#st};	blk=21; chr=60;;
 	esac
 	case $unit in
 	[0-7])
@@ -285,9 +308,9 @@ cd*)
 	esac
 	rm -f $name$unit? r$name$unit?
 	mknod ${name}${unit}a   b $blk $(($unit * 8 + 0))
-	mknod ${name}${unit}d   b $blk $(($unit * 8 + 3))
+	mknod ${name}${unit}c   b $blk $(($unit * 8 + 2))
 	mknod r${name}${unit}a  c $chr $(($unit * 8 + 0))
-	mknod r${name}${unit}d  c $chr $(($unit * 8 + 3))
+	mknod r${name}${unit}c  c $chr $(($unit * 8 + 2))
 	chgrp operator $name$unit? r$name$unit?
 	chmod 640 $name$unit? r$name$unit?
 	;;
