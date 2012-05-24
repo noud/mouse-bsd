@@ -366,4 +366,5 @@ include "dev/usb/files.usb"
 
 include "arch/i386/pnpbios/files.pnpbios"
 
-major {pdisks = 19}
+# Removed pending figuring out how to do pdisk/pdisks/pdiskm right.
+# major {pdisks = 19}

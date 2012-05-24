@@ -372,4 +372,5 @@ include "compat/vax1k/files.vax1k"
 #arch/vax/if/if_vv.c          optional vv device-driver
 #arch/vax/if/raw_hy.c         optional hy device-driver
 
-major {pdisks = 30}
+# Removed pending figuring out how to do pdisk/pdisks/pdiskm right.
+# major {pdisks = 30}
