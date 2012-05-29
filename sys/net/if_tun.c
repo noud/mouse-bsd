@@ -427,6 +427,11 @@ tunioctl(dev, cmd, data, flag, p)
 		case IFF_POINTOPOINT:
 		case IFF_BROADCAST:
 			s = splimp();
+			if ( ((tp->tun_if.if_flags ^ *(int *)data) &
+				(IFF_BROADCAST|IFF_POINTOPOINT)) == 0) {
+				splx(s);
+				break;
+			}
 			if (tp->tun_if.if_flags & IFF_UP) {
 				splx(s);
 				return (EBUSY);
