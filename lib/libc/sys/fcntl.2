@@ -133,6 +133,15 @@ is interpreted as a process ID.
 The argument
 .Fa arg
 is interpreted as an int.
+.It Dv F_CLOSEM
+Close all descriptors greater than or equal to
+.Fa fd .
+.It Dv F_MAXFD
+Return the maximum file descriptor number currently open by the process
+.Pf ( Fa fd
+and
+.Fa arg
+are ignored).
 .El
 .Pp
 The flags for the

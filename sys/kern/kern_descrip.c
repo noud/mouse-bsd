@@ -217,6 +217,20 @@ sys_fcntl(p, v, retval)
 	struct flock fl;
 	int newmin;
 
+	cmd = SCARG(uap, cmd);
+
+ switch (cmd)
+  { case F_CLOSEM:
+       if (fd < 0) return(EBADF);
+       while (fdp->fd_lastfile >= fd) fdrelease(p,fdp->fd_lastfile);
+       return(0);
+       break;
+    case F_MAXFD:
+       *retval = fdp->fd_lastfile;
+       return(0);
+       break;
+  }
+
 	if ((u_int)fd >= fdp->fd_nfiles ||
 	    (fp = fdp->fd_ofiles[fd]) == NULL ||
 	    (fp->f_iflags & FIF_WANTCLOSE) != 0)
@@ -224,7 +238,6 @@ sys_fcntl(p, v, retval)
 
 	FILE_USE(fp);
 
-	cmd = SCARG(uap, cmd);
 	if ((cmd & F_FSCTL)) {
 		error = fcntl_forfs(fd, p, cmd, SCARG(uap, arg));
 		goto out;
