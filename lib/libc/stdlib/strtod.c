@@ -599,7 +599,7 @@ lo0bits
 	if (!(x & 1)) {
 		k++;
 		x >>= 1;
-		if (!x & 1)
+		if (! x)
 			return 32;
 		}
 	*y = x;
