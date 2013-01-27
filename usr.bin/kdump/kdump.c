@@ -543,7 +543,7 @@ static void print_data_text(const void *data, int len, int maxlen, int screenwid
  printf("       \"");
  col = 8;
  for (dp=data;n>0;n--,dp++)
-  { vis(&visbuf[0],*dp,VIS_CSTYLE,dp[1]);
+  { vis(&visbuf[0],*dp,VIS_CSTYLE,(n>1)?dp[1]:'\0');
     cp = &visbuf[0];
     if (col == 0)
      { putchar('\t');
