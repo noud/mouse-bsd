@@ -245,6 +245,7 @@ static void *malloc_brk;
 static struct pgfree *px;
 
 /* compile-time options */
+char *_malloc_options;
 char *malloc_options;
 
 /* Name of the current public function */
@@ -408,7 +409,8 @@ malloc_init (void)
 	} else if (i == 1) {
 	    p = getenv("MALLOC_OPTIONS");
 	} else {
-	    p = malloc_options;
+	    p = _malloc_options;
+	    if (! p) p = malloc_options;
 	}
 	for (; p && *p; p++) {
 	    switch (*p) {

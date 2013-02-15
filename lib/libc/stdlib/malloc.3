@@ -64,6 +64,8 @@
 .Ft void
 .Fn free "void *ptr"
 .Ft char *
+.Va _malloc_options ;
+.Ft char *
 .Va malloc_options ;
 .Sh DESCRIPTION
 The
@@ -146,8 +148,13 @@ The ``name'' of the file referenced by the symbolic link named
 the value of the environment variable
 .Ev MALLOC_OPTIONS ,
 and the string pointed to by the global variable
-.Va malloc_options
+.Va _malloc_options
 will be interpreted, in that order, character by character as flags.
+(For compatability, if
+.Va _malloc_options
+is nil but
+.Va malloc_options
+isn't, the latter is used instead.)
 .Pp
 Most flags are single letters,
 where uppercase indicates that the behavior is set, or on,
@@ -216,8 +223,8 @@ core (using
 This option should be set at compile time by including the following in
 the source code:
 .Bd -literal -offset indent
-extern char *malloc_options;
-malloc_options = "X";
+extern char *_malloc_options;
+_malloc_options = "X";
 .Ed
 .It Z
 This option implicitly sets the
@@ -254,8 +261,8 @@ ln -s 'A<' /etc/malloc.conf
 To specify in the source that a program does no return value checking
 on calls to these functions:
 .Bd -literal -offset indent
-extern char *malloc_options;
-malloc_options = "X";
+extern char *_malloc_options;
+_malloc_options = "X";
 .Ed
 .Sh ENVIRONMENT
 The following environment variables affect the execution of the allocation
