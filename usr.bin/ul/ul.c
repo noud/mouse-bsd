@@ -83,6 +83,7 @@ int	mode;
 int	halfpos;
 int	upln;
 int	iflag;
+int	sflag;
 
 int	main __P((int, char **));
 void	filter __P((FILE *));
@@ -115,7 +116,7 @@ main(argc, argv)
 	termtype = getenv("TERM");
 	if (termtype == NULL || (argv[0][0] == 'c' && !isatty(1)))
 		termtype = "lpr";
-	while ((c=getopt(argc, argv, "it:T:")) != -1)
+	while ((c=getopt(argc, argv, "ist:T:")) != -1)
 		switch(c) {
 
 		case 't':
@@ -125,10 +126,13 @@ main(argc, argv)
 		case 'i':
 			iflag = 1;
 			break;
+		case 's':
+			sflag = 1;
+			break;
 
 		default:
 			fprintf(stderr,
-				"usage: %s [ -i ] [ -tTerm ] file...\n",
+				"usage: %s [ -i ] [ -s ] [ -tTerm ] file...\n",
 				argv[0]);
 			exit(1);
 		}
@@ -244,7 +248,6 @@ filter(f)
 			obuf[col].c_mode |= UNDERL | mode;
 		else
 			obuf[col].c_char = '_';
-	case ' ':
 		col++;
 		if (col > maxcol)
 			maxcol = col;
@@ -258,6 +261,14 @@ filter(f)
 		flushln();
 		putchar('\f');
 		continue;
+
+	case ' ':
+		if (sflag) {
+			col ++;
+			if (col > maxcol) maxcol = col;
+			continue;
+		}
+		/* fall through */
 
 	default:
 		if (c < ' ')	/* non printing */
