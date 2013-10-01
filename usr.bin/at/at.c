@@ -473,7 +473,7 @@ list_jobs()
 
 		runtimer = 60 * (time_t) ctm;
 		runtime = *localtime(&runtimer);
-		strftime(timestr, TIMESIZE, "%Y-%m-%d %H:%M:%S", &runtime);
+		strftime(timestr, TIMESIZE, "%Y-%m-%d %H:%M", &runtime);
 		if (first) {
 			(void)printf("Date\t\t\tOwner\tQueue\tJob#\tName\n");
 			first = 0;
