@@ -475,7 +475,7 @@ list_jobs()
 		runtime = *localtime(&runtimer);
 		strftime(timestr, TIMESIZE, "%Y-%m-%d %H:%M", &runtime);
 		if (first) {
-			(void)printf("Date\t\t\tOwner\tQueue\tJob#\tName\n");
+			(void)printf("When\t\t\tOwner\tQueue\tJob#\tName\n");
 			first = 0;
 		}
 		pw = getpwuid(buf.st_uid);
