@@ -606,7 +606,9 @@ nfs_write(v)
 	if (p && uio->uio_offset + uio->uio_resid >
 	      p->p_rlimit[RLIMIT_FSIZE].rlim_cur) {
 		psignal(p, SIGXFSZ);
-		return (EFBIG);
+		if (uio->uio_offset + uio->uio_resid >
+		    p->p_rlimit[RLIMIT_FSIZE].rlim_max)
+			return (EFBIG);
 	}
 	/*
 	 * I use nm_rsize, not nm_wsize so that all buffer cache blocks

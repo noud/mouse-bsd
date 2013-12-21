@@ -233,7 +233,9 @@ ext2fs_write(v)
 		uio->uio_offset + uio->uio_resid >
 		p->p_rlimit[RLIMIT_FSIZE].rlim_cur) {
 		psignal(p, SIGXFSZ);
-		return (EFBIG);
+		if (uio->uio_offset + uio->uio_resid >
+		    p->p_rlimit[RLIMIT_FSIZE].rlim_max)
+			return (EFBIG);
 	}
 
 	resid = uio->uio_resid;
