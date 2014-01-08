@@ -332,7 +332,7 @@ iszerodev(dev)
 	return (major(dev) == mem_no && minor(dev) == 12);
 }
 
-static int chrtoblktab[] = {
+static int chrtoblktbl[] = {
 	/* XXXX This needs to be dynamic for LKMs. */
 	/*VCHR*/	/*VBLK*/
 	/*  0 */	NODEV,
@@ -447,7 +447,7 @@ chrtoblk(dev)
 		panic("chrtoblktbl too small for cdevsw");
 	if (major(dev) >= nchrdev)
 		return NODEV;
-	blkmaj = chrtoblktab[major(dev)];
+	blkmaj = chrtoblktbl[major(dev)];
 	if (blkmaj == NODEV)
 		return NODEV;
 	return (makedev(blkmaj, minor(dev)));
