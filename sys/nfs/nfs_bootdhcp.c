@@ -336,11 +336,14 @@ bootpcheck(m, context)
 	}
 
 	/*
-	 * don't make first checks more expensive than necessary
+	 * don't make first checks more expensive than necessary; we
+	 *  check bp_op, bp_hlen, bp_xid, and bp_chaddr, so pull up to
+	 *  the offset of the first field that's after the last of
+	 *  those ("last" in the sense of struct ordering).
 	 */
 #define ofs(what, elem) ((int)&(((what *)0)->elem))
-	if (m->m_len < ofs(struct bootp, bp_secs)) {
-		m = m_pullup(m, ofs(struct bootp, bp_secs));
+	if (m->m_len < ofs(struct bootp, bp_sname)) {
+		m = m_pullup(m, ofs(struct bootp, bp_sname));
 		if (m == NULL)
 			return (-1);
 	}
