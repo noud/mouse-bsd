@@ -1235,12 +1235,14 @@ while(0)
 
 #define INITIALIZE_TRAMPOLINE(TRAMP, FNADDR, CXT)			\
 {									\
+  rtx a1;								\
+  a1 = force_reg(SImode,TRAMP);						\
   emit_move_insn (gen_rtx_MEM (HImode, TRAMP), GEN_INT(0x207C));	\
   emit_move_insn (gen_rtx_MEM (SImode, plus_constant (TRAMP, 2)), CXT); \
   emit_move_insn (gen_rtx_MEM (HImode, plus_constant (TRAMP, 6)),	\
 		  GEN_INT(0x4EF9));					\
   emit_move_insn (gen_rtx_MEM (SImode, plus_constant (TRAMP, 8)), FNADDR); \
-  FINALIZE_TRAMPOLINE(TRAMP);						\
+  emit_insn(gen_trampcachefix(a1));					\
 }
 
 /* This is the library routine that is used
