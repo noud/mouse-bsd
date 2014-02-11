@@ -83,8 +83,6 @@ static	void	do_resaddflags	P((struct sockaddr_in *, struct interface *, struct r
 static	void	do_ressubflags	P((struct sockaddr_in *, struct interface *, struct req_pkt *));
 static	void	do_unrestrict	P((struct sockaddr_in *, struct interface *, struct req_pkt *));
 static	void	do_restrict	P((struct sockaddr_in *, struct interface *, struct req_pkt *, int));
-static	void	mon_getlist_0	P((struct sockaddr_in *, struct interface *, struct req_pkt *));
-static	void	mon_getlist_1	P((struct sockaddr_in *, struct interface *, struct req_pkt *));
 static	void	reset_stats	P((struct sockaddr_in *, struct interface *, struct req_pkt *));
 static	void	reset_peer	P((struct sockaddr_in *, struct interface *, struct req_pkt *));
 static	void	do_key_reread	P((struct sockaddr_in *, struct interface *, struct req_pkt *));
@@ -134,8 +132,6 @@ static	struct req_proc xntp_codes[] = {
 	{ REQ_RESADDFLAGS, AUTH, sizeof(struct conf_restrict), do_resaddflags },
 	{ REQ_RESSUBFLAGS, AUTH, sizeof(struct conf_restrict), do_ressubflags },
 	{ REQ_UNRESTRICT,  AUTH, sizeof(struct conf_restrict), do_unrestrict },
-	{ REQ_MON_GETLIST,	NOAUTH,	0,	mon_getlist_0 },
-	{ REQ_MON_GETLIST_1,	NOAUTH,	0,	mon_getlist_1 },
 	{ REQ_RESET_STATS, AUTH, sizeof(struct reset_flags), reset_stats },
 	{ REQ_RESET_PEER,  AUTH, sizeof(struct conf_unpeer), reset_peer },
 	{ REQ_REREAD_KEYS,	AUTH,	0,	do_key_reread },
@@ -1502,103 +1498,6 @@ do_restrict(srcadr, inter, inpkt, op)
 	}
 
 	req_ack(srcadr, inter, inpkt, INFO_OKAY);
-}
-
-
-/*
- * mon_getlist - return monitor data
- */
-static void
-mon_getlist_0(srcadr, inter, inpkt)
-	struct sockaddr_in *srcadr;
-	struct interface *inter;
-	struct req_pkt *inpkt;
-{
-	register struct info_monitor *im;
-	register struct mon_data *md;
-	extern struct mon_data mon_mru_list;
-	extern int mon_enabled;
-
-#ifdef DEBUG
-	if (debug > 2)
-		printf("wants monitor 0 list\n");
-#endif
-	if (!mon_enabled) {
-		req_ack(srcadr, inter, inpkt, INFO_ERR_NODATA);
-		return;
-	}
-
-	im = (struct info_monitor *)prepare_pkt(srcadr, inter, inpkt,
-	    sizeof(struct info_monitor));
-	for (md = mon_mru_list.mru_next; md != &mon_mru_list && im != 0;
-	    md = md->mru_next) {
-		im->lasttime = htonl((u_int32)(current_time - md->lasttime));
-		im->firsttime = htonl((u_int32)(current_time - md->firsttime));
-		if (md->lastdrop)
-			im->lastdrop = htonl((u_int32)(current_time - md->lastdrop));
-		else
-			im->lastdrop = 0;
-		im->count = htonl((u_int32)md->count);
-		im->addr = md->rmtadr;
-		im->port = md->rmtport;
-		im->mode = md->mode;
-		im->version = md->version;
-		im = (struct info_monitor *)more_pkt();
-	}
-	flush_pkt();
-}
-
-/*
- * mon_getlist - return monitor data
- */
-static void
-mon_getlist_1(srcadr, inter, inpkt)
-	struct sockaddr_in *srcadr;
-	struct interface *inter;
-	struct req_pkt *inpkt;
-{
-	register struct info_monitor_1 *im;
-	register struct mon_data *md;
-	extern struct mon_data mon_mru_list;
-	extern int mon_enabled;
-
-#ifdef DEBUG
-	if (debug > 2)
-		printf("wants monitor 1 list\n");
-#endif
-	if (!mon_enabled) {
-		req_ack(srcadr, inter, inpkt, INFO_ERR_NODATA);
-		return;
-	}
-
-	im = (struct info_monitor_1 *)prepare_pkt(srcadr, inter, inpkt,
-	    sizeof(struct info_monitor_1));
-	for (md = mon_mru_list.mru_next; md != &mon_mru_list && im != 0;
-	    md = md->mru_next) {
-		im->lasttime = htonl((u_int32)(current_time - md->lasttime));
-		im->firsttime = htonl((u_int32)(current_time - md->firsttime));
-		if (md->lastdrop)
-			im->lastdrop = htonl((u_int32)(current_time - md->lastdrop));
-		else
-			im->lastdrop = 0;
-		im->count = htonl((u_int32)md->count);
-		im->addr = md->rmtadr;
-		im->daddr =
-		  (md->cast_flags == MDF_BCAST)
-		  ? md->interface->bcast.sin_addr.s_addr
-		  : (md->cast_flags
-		     ? (md->interface->sin.sin_addr.s_addr
-			? md->interface->sin.sin_addr.s_addr
-			: md->interface->bcast.sin_addr.s_addr
-			)
-		     : 4);
-		im->flags = md->cast_flags;
-		im->port = md->rmtport;
-		im->mode = md->mode;
-		im->version = md->version;
-		im = (struct info_monitor_1 *)more_pkt();
-	}
-	flush_pkt();
 }
 
 /*
