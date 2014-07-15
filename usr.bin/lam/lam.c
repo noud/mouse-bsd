@@ -116,7 +116,8 @@ getargs(av)
 	P = S = F = T = 0;		/* capitalized options */
 	while ((p = *++av) != NULL) {
 		if (*p != '-' || !p[1]) {
-			morefiles++;
+			if (++morefiles >= MAXOFILES)
+				errx(1, "too many input files");
 			if (*p == '-')
 				ip->fp = stdin;
 			else if ((ip->fp = fopen(p, "r")) == NULL)
