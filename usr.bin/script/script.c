@@ -71,12 +71,13 @@ int	master, slave;
 int	child, subchild;
 int	outcc;
 char	*fname;
+static char *cmd = 0;
 
 struct	termios tt;
 
 void	done __P((void));
 void	dooutput __P((void));
-void	doshell __P((void));
+void	docmd (void);
 void	fail __P((void));
 void	finish __P((int));
 int	main __P((int, char **));
@@ -94,10 +95,13 @@ main(argc, argv)
 	char ibuf[BUFSIZ];
 
 	aflg = 0;
-	while ((ch = getopt(argc, argv, "a")) != -1)
+	while ((ch = getopt(argc, argv, "ac:")) != -1)
 		switch(ch) {
 		case 'a':
 			aflg = 1;
+			break;
+		case 'c':
+			cmd = optarg;
 			break;
 		case '?':
 		default:
@@ -141,7 +145,7 @@ main(argc, argv)
 		if (child)
 			dooutput();
 		else
-			doshell();
+			docmd();
 	}
 
 	(void)fclose(fscript);
@@ -205,21 +209,23 @@ scriptflush(signo)
 	}
 }
 
-void
-doshell()
+void docmd(void)
 {
-	char *shell;
+ char *shell;
 
-	shell = getenv("SHELL");
-	if (shell == NULL)
-		shell = _PATH_BSHELL;
-
-	(void)close(master);
-	(void)fclose(fscript);
-	login_tty(slave);
-	execl(shell, shell, "-i", NULL);
-	warn("execl %s", shell);
-	fail();
+ shell = getenv("SHELL");
+ if (! shell) shell = _PATH_BSHELL;
+ close(master);
+ fclose(fscript);
+ login_tty(slave);
+ if (cmd)
+  { execl(shell,shell,"-c",cmd,(char *)0);
+  }
+ else
+  { execl(shell,shell,"-i",(char *)0);
+  }
+ warn("execl %s",shell);
+ fail();
 }
 
 void
