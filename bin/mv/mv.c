@@ -71,7 +71,8 @@ __RCSID("$NetBSD: mv.c,v 1.24 1999/12/14 17:30:11 jdolecek Exp $");
 typedef enum {
 	  OP_DEFAULT = 1,
 	  OP_FORCE,
-	  OP_INTERACTIVE
+	  OP_INTERACTIVE,
+	  OP_ERROR
 	  } OPMODE;
 
 typedef enum {
@@ -102,8 +103,11 @@ main(argc, argv)
 
 	(void)setlocale(LC_ALL, "");
 
-	while ((ch = getopt(argc, argv, "fiR")) != -1)
+	while ((ch = getopt(argc, argv, "efiR")) != -1)
 		switch (ch) {
+		case 'e':
+			opmode = OP_ERROR;
+			break;
 		case 'f':
 			opmode = OP_FORCE;
 			break;
@@ -223,6 +227,10 @@ do_move(from, to)
 	  else
 	   { ask = 0;
 	   }
+	  break;
+       case OP_ERROR:
+	  warnx("%s exists",to);
+	  return(1);
 	  break;
        default:
 	  abort();
@@ -404,8 +412,8 @@ copy(from, to)
 void
 usage()
 {
-	(void)fprintf(stderr, "usage: mv [-fi] source target\n");
-	(void)fprintf(stderr, "       mv [-fi] source ... directory\n");
+	(void)fprintf(stderr, "usage: mv [-efi] source target\n");
+	(void)fprintf(stderr, "       mv [-efi] source ... directory\n");
 	(void)fprintf(stderr, "       mv -R source target\n");
 	exit(1);
 	/* NOTREACHED */
