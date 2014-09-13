@@ -77,7 +77,8 @@ typedef enum {
 
 typedef enum {
 	  FM_NONE = 1,
-	  FM_RENAME
+	  FM_RENAME,
+	  FM_LINK
 	  } FORCEMODE;
 
 static OPMODE opmode = OP_DEFAULT;
@@ -104,7 +105,7 @@ main(argc, argv)
 
 	(void)setlocale(LC_ALL, "");
 
-	while ((ch = getopt(argc, argv, "efixR")) != -1)
+	while ((ch = getopt(argc, argv, "efixLR")) != -1)
 		switch (ch) {
 		case 'e':
 			opmode = OP_ERROR;
@@ -117,6 +118,9 @@ main(argc, argv)
 			break;
 		case 'x':
 			xflg = 1;
+			break;
+		case 'L':
+			forcemode = FM_LINK;
 			break;
 		case 'R':
 			forcemode = FM_RENAME;
@@ -135,6 +139,17 @@ main(argc, argv)
   { case FM_RENAME:
        if (rename(argv[0],argv[1]) < 0)
 	{ warn("rename %s to %s",argv[0],argv[1]);
+	  exit(1);
+	}
+       exit(0);
+       break;
+    case FM_LINK:
+       if (link(argv[0],argv[1]) < 0)
+	{ warn("link %s to %s",argv[0],argv[1]);
+	  exit(1);
+	}
+       if (unlink(argv[0]) < 0)
+	{ warn("unlink %s",argv[0]);
 	  exit(1);
 	}
        exit(0);
@@ -419,6 +434,7 @@ usage()
 	(void)fprintf(stderr, "usage: mv [-efix] source target\n");
 	(void)fprintf(stderr, "       mv [-efix] source ... directory\n");
 	(void)fprintf(stderr, "       mv -R source target\n");
+	(void)fprintf(stderr, "       mv -L source target\n");
 	exit(1);
 	/* NOTREACHED */
 }

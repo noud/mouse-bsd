@@ -52,6 +52,9 @@
 .Nm ""
 .Fl R
 .Ar source target
+.Nm ""
+.Fl L
+.Ar source target
 .Sh DESCRIPTION
 .Pp
 In its first form, the
@@ -116,6 +119,23 @@ and
 options; it also means that
 .Fl x
 is implicitly in effect.
+.It Fl L
+Requires that exactly two arguments be given and attempts to use
+.Xr link 2
+and
+.Xr unlink 2
+to replace the second with the first.  Like
+.Fl R ,
+this suppresses all checks for directory-hood and permission bits, and
+ignores the
+.Fl f
+and
+.Fl i
+options; it also means that
+.Fl x
+and something effectively much like
+.Fl e
+are implicitly in effect.
 .El
 .Pp
 The last of any
