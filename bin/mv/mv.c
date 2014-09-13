@@ -82,6 +82,7 @@ typedef enum {
 
 static OPMODE opmode = OP_DEFAULT;
 static FORCEMODE forcemode = FM_NONE;
+static int xflg = 0;
 static int stdin_ok;
 
 int	copy __P((char *, char *));
@@ -103,7 +104,7 @@ main(argc, argv)
 
 	(void)setlocale(LC_ALL, "");
 
-	while ((ch = getopt(argc, argv, "efiR")) != -1)
+	while ((ch = getopt(argc, argv, "efixR")) != -1)
 		switch (ch) {
 		case 'e':
 			opmode = OP_ERROR;
@@ -113,6 +114,9 @@ main(argc, argv)
 			break;
 		case 'i':
 			opmode = OP_INTERACTIVE;
+			break;
+		case 'x':
+			xflg = 1;
 			break;
 		case 'R':
 			forcemode = FM_RENAME;
@@ -261,7 +265,7 @@ do_move(from, to)
 	if (!rename(from, to))
 		return (0);
 
-	if (errno != EXDEV) {
+	if (xflg || (errno != EXDEV)) {
 		warn("rename %s to %s", from, to);
 		return (1);
 	}
@@ -412,8 +416,8 @@ copy(from, to)
 void
 usage()
 {
-	(void)fprintf(stderr, "usage: mv [-efi] source target\n");
-	(void)fprintf(stderr, "       mv [-efi] source ... directory\n");
+	(void)fprintf(stderr, "usage: mv [-efix] source target\n");
+	(void)fprintf(stderr, "       mv [-efix] source ... directory\n");
 	(void)fprintf(stderr, "       mv -R source target\n");
 	exit(1);
 	/* NOTREACHED */
