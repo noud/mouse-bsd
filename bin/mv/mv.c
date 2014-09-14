@@ -378,7 +378,6 @@ copy(from, to)
 void
 usage()
 {
-
 	(void)fprintf(stderr, "usage: mv [-fi] source target\n");
 	(void)fprintf(stderr, "       mv [-fi] source ... directory\n");
 	(void)fprintf(stderr, "       mv -R source target\n");
