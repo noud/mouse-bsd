@@ -90,15 +90,15 @@ main(argc, argv)
 
 	(void)setlocale(LC_ALL, "");
 
-	while ((ch = getopt(argc, argv, "ifR")) != -1)
+	while ((ch = getopt(argc, argv, "fiR")) != -1)
 		switch (ch) {
-		case 'i':
-			fflg = 0;
-			iflg = 1;
-			break;
 		case 'f':
 			iflg = 0;
 			fflg = 1;
+			break;
+		case 'i':
+			fflg = 0;
+			iflg = 1;
 			break;
 		case 'R':
 			Rflg = 1;
