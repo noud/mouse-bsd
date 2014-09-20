@@ -1157,7 +1157,15 @@ parseredir: {
 			break;
 
 		case '>':
-			np->type = NFROMTO;
+			switch ((c = pgetc())) {
+			case '+':
+				np->type = NFTPLUS;
+				break;
+			default:
+				np->type = NFROMTO;
+				pungetc();
+				break;
+			}
 			break;
 
 		default:

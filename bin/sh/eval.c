@@ -439,6 +439,7 @@ expredir(n)
 		oexitstatus = exitstatus;
 		switch (redir->type) {
 		case NFROMTO:
+		case NFTPLUS:
 		case NFROM:
 		case NTO:
 		case NAPPEND:

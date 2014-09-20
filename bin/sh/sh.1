@@ -259,7 +259,7 @@ operators (their meaning is discussed later). Following is a list of operators:
 .It "Control operators:"
 .Dl &  &&  (  )  ;  ;; | || <newline>
 .It "Redirection operator:"
-.Dl <  >  >|  <<  >>  <&  >&  <<-  <>
+.Dl <  >  >|  <<  >>  <&  >&  <<-  <>  <>+
 .El
 .Ss Quoting
 Quoting is used to remove the special meaning of certain characters or
@@ -391,7 +391,12 @@ Duplicate standard output (or n1) from n2.
 .It [n] Ns >&-
 Close standard output (or n).
 .It [n] Ns <> file
-Open file for reading and writing on standard input (or n).
+Open file for reading and writing on standard input (or n).  Existing
+file contents are destroyed.
+.It [n] Ns <>+ file
+Open file for reading and writing on standard input (or n).  Existing
+file contents are preserved; the descriptor is initially positioned at
+the beginning of the file.
 .El
 .Pp
 The following redirection is often called a
