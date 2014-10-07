@@ -57,12 +57,10 @@
 
 #include "include.h"
 
-int	main __P((int, char **));
+int	main(int, char **);
 
 int
-main(argc, argv)
-	int     argc;
-	char  **argv;
+main(int argc, char **argv)
 {
 	bool    noheader = FALSE;	/* set if don't want header */
 	bool    headeronly = FALSE;	/* set if only want header */

@@ -8,9 +8,9 @@
 #include <fcntl.h>
 #include "include.h"
 
-int main __P((int, char *[]));
-void Error __P((const char *, const char *)) __attribute__((__noreturn__));
-double drandom __P((void));
+int main(int, char *[]);
+void Error(const char *, const char *) __attribute__((__noreturn__));
+double drandom(void);
 
 /**/
 /************************************************************************
