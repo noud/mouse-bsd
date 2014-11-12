@@ -163,7 +163,7 @@ strtime(t)
 	char *p = buf;
 
 	if (t->tv_sec > 60*60) {
-		(void) sprintf(p, "%ld:", (long int)t->tv_sec / (60*60));
+		(void) sprintf(p, "%ld:", (long int)(t->tv_sec / (60*60)));
 		while (*p++)
 			;
 		p--;
@@ -171,7 +171,7 @@ strtime(t)
 		fill++;
 	}
 	if (t->tv_sec > 60) {
-		(void) sprintf(p, fill ? "%02ld:" : "%ld:", t->tv_sec / 60);
+		(void) sprintf(p, fill ? "%02ld:" : "%ld:", (long int)(t->tv_sec / 60));
 		while (*p++)
 			;
 		p--;
@@ -179,7 +179,7 @@ strtime(t)
 		fill++;
 	}
 	(void) sprintf(p, fill ? "%02ld.%02ld" : "%ld.%02ld",
-		t->tv_sec, t->tv_usec / 10000);
+		(long int)t->tv_sec, (long int)(t->tv_usec / 10000));
 	return buf;
 }
 
