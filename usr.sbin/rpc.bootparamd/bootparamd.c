@@ -130,7 +130,7 @@ main(argc, argv)
 	if (!svc_register(transp, BOOTPARAMPROG, BOOTPARAMVERS, bootparamprog_1,
 	    IPPROTO_UDP))
 		errx(1, "unable to register BOOTPARAMPROG version %ld, udp",
-		    BOOTPARAMVERS);
+		    (long int) BOOTPARAMVERS);
 
 	svc_run();
 	errx(1, "svc_run returned");
