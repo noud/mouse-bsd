@@ -141,6 +141,7 @@ int	tcp_keepintvl = TCPTV_KEEPINTVL;
 int	tcp_keepcnt = TCPTV_KEEPCNT;		/* max idle probes */
 int	tcp_maxpersistidle = TCPTV_KEEP_IDLE;	/* max idle time in persist */
 int	tcp_maxidle;
+int	tcp_force_keepalives = 0;
 
 struct tcp_delack_head tcp_delacks;
 
@@ -469,10 +470,8 @@ tcp_timers(tp, timer)
 		else if (tp->t_in6pcb)
 			so = tp->t_in6pcb->in6p_socket;
 #endif
-		if (
-#ifndef FORCE_TCP_KEEPALIVES
-		    so->so_options & SO_KEEPALIVE &&
-#endif
+		if ( ( tcp_force_keepalives ||
+		       (so->so_options & SO_KEEPALIVE) ) &&
 		    tp->t_state <= TCPS_CLOSE_WAIT) {
 		    	if ((tcp_maxidle > 0) &&
 			    (tp->t_idle >= tcp_keepidle + tcp_maxidle))

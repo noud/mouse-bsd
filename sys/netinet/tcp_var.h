@@ -536,7 +536,8 @@ struct	tcpstat {
 #define	TCPCTL_NEWRENO		21	/* NewReno Congestion Control */
 #define TCPCTL_LOG_REFUSED	22	/* Log refused connections */
 #define	TCPCTL_RSTRATELIMIT	23	/* RST rate limit */
-#define	TCPCTL_MAXID		24
+#define	TCPCTL_FORCEKEEP	24	/* force use of keepalives */
+#define	TCPCTL_MAXID		25
 
 #define	TCPCTL_NAMES { \
 	{ 0, 0 }, \
@@ -563,6 +564,7 @@ struct	tcpstat {
 	{ "newreno",	CTLTYPE_INT }, \
 	{ "log_refused",CTLTYPE_INT }, \
 	{ "rstratelimit", CTLTYPE_INT }, \
+	{ "forcekeep", CTLTYPE_INT }, \
 }
 
 #ifdef _KERNEL
@@ -619,7 +621,8 @@ extern	u_long syn_cache_count;
 	{ 1, 1, 0, PR_SLOWHZ },			\
 	{ 1, 0, &tcp_do_newreno },		\
 	{ 1, 0, &tcp_log_refused },		\
-	{ 1, 1, 0, 0 }				\
+	{ 1, 1, 0, 0 }, /* special-cased */	\
+	{ 1, 0, &tcp_force_keepalives }		\
 }
 
 int	 tcp_attach __P((struct socket *));
