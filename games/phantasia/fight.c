@@ -551,7 +551,7 @@ monsthits()
 			mvprintw(Lines++, 0,
 			    "%s flew away, and left you to contend with one of its friends.",
 			    Enemyname);
-			Whichmonster = 55 + (drandom() > 0.5) ? 22 : 0;
+			Whichmonster = 55 + ((drandom() > 0.5) ? 22 : 0);
 			longjmp(Fightenv, 0);
 			/* NOTREACHED */
 
