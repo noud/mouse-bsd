@@ -547,7 +547,7 @@ monsthits()
 
 		case SM_JABBERWOCK:
 			/* fly away, and leave either a Jubjub bird or
-			 * Bonnacon */
+			 * a Bandersnatch */
 			mvprintw(Lines++, 0,
 			    "%s flew away, and left you to contend with one of its friends.",
 			    Enemyname);
