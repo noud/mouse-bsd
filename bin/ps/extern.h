@@ -35,6 +35,8 @@
  *	@(#)extern.h	8.3 (Berkeley) 4/2/94
  */
 
+#include <kvm.h>
+
 struct kinfo;
 struct nlist;
 struct var;
@@ -56,7 +58,7 @@ int	 donlist __P((void));
 void	 evar __P((KINFO *, VARENT *));
 void	 fmt_puts __P((char *, int *));
 void	 fmt_putc __P((int, int *));
-double	 getpcpu __P((KINFO *));
+double	 getpcpu __P((const KINFO *));
 double	 getpmem __P((KINFO *));
 void	 logname __P((KINFO *, VARENT *));
 void	 longtname __P((KINFO *, VARENT *));
@@ -88,4 +90,5 @@ void	 uname __P((KINFO *, VARENT *));
 void	 uvar __P((KINFO *, VARENT *));
 void	 vsize __P((KINFO *, VARENT *));
 void	 wchan __P((KINFO *, VARENT *));
+void sort_hierarchical(KINFO *, int, int (*)(const void *, const void *));
 __END_DECLS

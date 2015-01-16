@@ -547,9 +547,7 @@ cputime(k, ve)
 	(void)printf("%*s", v->width, obuff);
 }
 
-double
-getpcpu(k)
-	KINFO *k;
+double getpcpu(const KINFO *k)
 {
 	struct proc *p;
 	static int failure;

@@ -85,6 +85,7 @@ int	sumrusage;		/* -S */
 int	dontuseprocfs=0;	/* -K */
 int	termwidth;		/* width of screen (0 == infinity) */
 int	totwidth;		/* calculated width of requested variables */
+int hierarchical;
 
 int	needuser, needcomm, needenv, commandonly, use_procfs;
 uid_t	myuid;
@@ -93,7 +94,6 @@ enum sort { DEFAULT, SORTMEM, SORTCPU } sortby = DEFAULT;
 
 static KINFO	*getkinfo_kvm __P((kvm_t *, int, int, int *, int));
 static char	*kludge_oldps_options __P((char *));
-static int	 pscomp __P((const void *, const void *));
 static void	 saveuser __P((KINFO *));
 static void	 scanvars __P((void));
 static void	 usage __P((void));
@@ -108,6 +108,50 @@ char ufmt[] = "user pid %cpu %mem vsz rss tt state start time command";
 char vfmt[] = "pid state time sl re pagein vsz rss lim tsiz %cpu %mem command";
 
 kvm_t *kd;
+
+static int pscomp(const void *a, const void *b)
+{
+ int i;
+#ifdef NEWVM
+#define VSIZE(k) (KI_EPROC(k)->e_vm.vm_dsize + KI_EPROC(k)->e_vm.vm_ssize + \
+		  KI_EPROC(k)->e_vm.vm_tsize)
+#else
+#define VSIZE(k) ((k)->ki_p->p_dsize + (k)->ki_p->p_ssize + (k)->ki_e->e_xsize)
+#endif
+
+ switch (sortby)
+  { case SORTCPU:
+       i = getpcpu((const KINFO *)b) - getpcpu((const KINFO *)a);
+       if (i) return(i);
+       break;
+    case SORTMEM:
+       i = VSIZE((const KINFO *)b) - VSIZE((const KINFO *)a);
+       if (i) return(i);
+       break;
+    default:
+       break;
+  }
+ i = KI_EPROC((const KINFO *)a)->e_tdev - KI_EPROC((const KINFO *)b)->e_tdev;
+ if (i) return(i);
+ i = KI_PROC((const KINFO *)a)->p_pid - KI_PROC((const KINFO *)b)->p_pid;
+ return(i);
+#undef VSIZE
+}
+
+static void sort_traditional(KINFO *vec, int len, int (*cmp)(const void *, const void *))
+{
+ qsort(vec,len,sizeof(KINFO),cmp);
+}
+
+static void sort_kinfo(int n)
+{
+ if (hierarchical) sort_hierarchical(kinfo,n,&pscomp); else sort_traditional(kinfo,n,&pscomp);
+}
+
+static void print_prefix(int depth)
+{
+ for (;depth>0;depth--) printf("| ");
+}
 
 int
 main(argc, argv)
@@ -139,7 +183,7 @@ main(argc, argv)
 	flag = myuid = getuid();
 	memf = nlistf = swapf = NULL;
 	while ((ch = getopt(argc, argv,
-	    "acCeghjKLlM:mN:O:o:p:rSTt:U:uvW:wx")) != -1)
+	    "acCeghHjKLlM:mN:O:o:p:rSTt:U:uvW:wx")) != -1)
 		switch((char)ch) {
 		case 'a':
 			what = KERN_PROC_ALL;
@@ -158,6 +202,9 @@ main(argc, argv)
 			break;			/* no-op */
 		case 'h':
 			prtheader = ws.ws_row > 5 ? ws.ws_row : 22;
+			break;
+		case 'H':
+			hierarchical = 1;
 			break;
 		case 'j':
 			parsefmt(jfmt);
@@ -371,24 +418,30 @@ main(argc, argv)
 	printheader();
 	if (nentries == 0)
 		exit(0);
-	/*
-	 * sort proc list
-	 */
-	qsort(kinfo, nentries, sizeof(KINFO), pscomp);
+
+	sort_kinfo(nentries);
+
 	/*
 	 * for each proc, call each variable output function.
 	 */
 	for (i = lineno = 0; i < nentries; i++) {
 		KINFO *ki = &kinfo[i];
+		int realtw;
 
 		if (xflg == 0 && (KI_EPROC(ki)->e_tdev == NODEV ||
 		    (KI_PROC(ki)->p_flag & P_CONTROLT ) == 0))
 			continue;
+		realtw = termwidth;
+		if (hierarchical) {
+			print_prefix(ki->indent);
+			termwidth -= 2 * ki->indent;
+		}
 		for (vent = vhead; vent; vent = vent->next) {
 			(vent->var->oproc)(ki, vent);
 			if (vent->next != NULL)
 				(void)putchar(' ');
 		}
+		termwidth = realtw;
 		(void)putchar('\n');
 		if (prtheader && lineno++ == prtheader - 4) {
 			(void)putchar('\n');
@@ -468,28 +521,6 @@ saveuser(ki)
 		usp->u_valid = 0;
 }
 
-static int
-pscomp(a, b)
-	const void *a, *b;
-{
-	int i;
-#ifdef NEWVM
-#define VSIZE(k) (KI_EPROC(k)->e_vm.vm_dsize + KI_EPROC(k)->e_vm.vm_ssize + \
-		  KI_EPROC(k)->e_vm.vm_tsize)
-#else
-#define VSIZE(k) ((k)->ki_p->p_dsize + (k)->ki_p->p_ssize + (k)->ki_e->e_xsize)
-#endif
-
-	if (sortby == SORTCPU)
-		return (getpcpu((KINFO *)b) - getpcpu((KINFO *)a));
-	if (sortby == SORTMEM)
-		return (VSIZE((KINFO *)b) - VSIZE((KINFO *)a));
-	i =  KI_EPROC((KINFO *)a)->e_tdev - KI_EPROC((KINFO *)b)->e_tdev;
-	if (i == 0)
-		i = KI_PROC((KINFO *)a)->p_pid - KI_PROC((KINFO *)b)->p_pid;
-	return (i);
-}
-
 /*
  * ICK (all for getopt), would rather hide the ugliness
  * here than taint the main code.
@@ -558,7 +589,7 @@ usage()
 
 	(void)fprintf(stderr,
 	    "usage:\t%s\n\t   %s\n\t%s\n",
-	    "ps [-aChjKlmrSTuvwx] [-O|o fmt] [-p pid] [-t tty]",
+	    "ps [-aChHjKlmrSTuvwx] [-O|o fmt] [-p pid] [-t tty]",
 	    "[-M core] [-N system] [-W swap] [-U username]",
 	    "ps [-L]");
 	exit(1);

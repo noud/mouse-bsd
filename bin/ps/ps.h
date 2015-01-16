@@ -35,6 +35,9 @@
  *	@(#)ps.h	8.1 (Berkeley) 5/31/93
  */
 
+#include <sys/time.h>
+#include <sys/resource.h>
+
 #define	UNLIMITED	0	/* unlimited terminal width */
 enum type {
 	CHAR, UCHAR, SHORT, USHORT, INT, UINT, LONG, ULONG, KPTR, KPTR24,
@@ -55,6 +58,8 @@ struct usave {
 typedef struct kinfo {
 	struct kinfo_proc *ki_p;	/* proc structure */
 	struct usave ki_u;	/* interesting parts of user */
+	int indent;
+	int order;
 } KINFO;
 
 /* Variables. */
