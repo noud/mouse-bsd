@@ -105,7 +105,7 @@ canhit(i, c)
 		if (board[j] * a > 0) {
 			diff = abs(j - i);
 			addon = place + ((board[j] * a > 2 || j == b) ? 5 : 0);
-			if ((j == b && menstuck == 1) &&
+			if ((j == b && menstuck == 1) ||
 			    (j != b && menstuck == 0))
 				for (k = 1; k < diff; k++)
 					if (k < 7 && diff - k < 7 &&
