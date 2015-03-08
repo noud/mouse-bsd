@@ -838,13 +838,19 @@ neatstuff()
 	case 8:
 		mvaddstr(4, 0, "You've met a Guru. . .");
 		if (drandom() * Player.p_sin > 1.0)
-			addstr("You disgusted him with your sins!\n");
+			addstr( (drandom() < .5) ?
+				"You disgusted him with your sins!\n" :
+				"You disgusted her with your sins!\n"  );
 		else
 			if (Player.p_poison > 0.0) {
-				addstr("He looked kindly upon you, and cured you.\n");
+				addstr( (drandom() < .5) ?
+					"He looked kindly upon you, and cured you.\n" :
+					"She looked kindly upon you, and cured you.\n"  );
 				Player.p_poison = 0.0;
 			} else {
-				addstr("He rewarded you for your virtue.\n");
+				addstr( (drandom() < .5) ?
+					"He rewarded you for your virtue.\n" :
+					"She rewarded you for your virtue.\n"  );
 				Player.p_mana += 50.0;
 				Player.p_shield += 2.0;
 			}
