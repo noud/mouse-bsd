@@ -400,7 +400,7 @@ main(argc, argv)
 						if (tflag) {
 							if (pnum) {
 								buflush();
-								sleep(MVPAUSE);
+								intsleep(MVPAUSE);
 							}
 						}
 						nexturn();
@@ -446,7 +446,7 @@ main(argc, argv)
 					writel(*colorptr);
 					writel(cantmv);
 					buflush();
-					sleep(MVPAUSE);
+					intsleep(MVPAUSE);
 					nexturn();
 					continue;
 				}

@@ -178,11 +178,11 @@ move(okay)
 			wrhit(g[i]);
 	/* get ready for next move */
 	nexturn();
+	fixtty(&raw);		/* no more tty interrupt */
 	if (!okay) {
 		buflush();
-		sleep(3);
+		intsleep(3);
 	}
-	fixtty(&raw);		/* no more tty interrupt */
 }
 
 void

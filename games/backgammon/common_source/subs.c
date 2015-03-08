@@ -42,6 +42,8 @@ __RCSID("$NetBSD: subs.c,v 1.13 1999/10/04 23:26:59 lukem Exp $");
 #endif
 #endif /* not lint */
 
+#include <poll.h>
+
 #include "back.h"
 
 int     buffnum;
@@ -508,4 +510,18 @@ roll()
 	D0 = rnum(6) + 1;
 	D1 = rnum(6) + 1;
 	d0 = 0;
+}
+
+void intsleep(int secs)
+{
+ struct pollfd pfd;
+ int n;
+ char junk;
+
+ if (tflag)
+  { pfd.fd = 0;
+    pfd.events = POLLIN | POLLRDNORM;
+    n = poll(&pfd,1,secs*1000);
+    if (n > 0) read(0,&junk,1);
+  }
 }
