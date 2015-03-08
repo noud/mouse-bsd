@@ -44,8 +44,7 @@ __RCSID("$NetBSD: allow.c,v 1.4 1997/10/10 08:59:41 lukem Exp $");
 
 #include "back.h"
 
-int
-movallow()
+static int movallow_(void)
 {
 	int     i, m, iold;
 	int     r;
@@ -114,4 +113,23 @@ movallow()
 	}
 	movback(i);
 	return (iold > i ? iold : i);
+}
+
+int movallow(void)
+{
+ int a1;
+ int w1;
+ int a2;
+ int w2;
+
+ a1 = movallow_();
+ w1 = (*offptr == 15);
+ if (! d0) swap;
+ d0 = 0;
+ a2 = movallow_();
+ w2 = (*offptr == 15);
+ if (! d0) swap;
+ d0 = 0;
+ if (w1 && w2 && (((a1 == 1) && (a2 == 2)) || ((a1 == 2) && (a2 == 1)))) return(1);
+ return((a1>a2)?a1:a2);
 }
