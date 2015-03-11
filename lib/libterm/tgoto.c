@@ -213,7 +213,7 @@ t_goto(struct tinfo *info, const char *CM, int destcol, int destline,
 			 * because some terminals use ^I for other things,
 			 * like nondestructive space.
 			 */
-			if (which == 0 || which == CTRL('d') || 
+			if (which == 0 || which == CTRL('d') ||
 			    /* which == '\t' || */ which == '\n') {
 				if (oncol || UP) { /* Assumption: backspace works */
 					char *add = oncol ? (BC ? BC : "\b") : UP;
