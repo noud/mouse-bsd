@@ -421,9 +421,11 @@ out:
 #ifdef MALLOCLOG
 	domlog(va, size, type, 1, file, line);
 #endif
+#ifdef DIAGNOSTIC
  curallocs ++;
  totallocs += curallocs;
  cntallocs ++;
+#endif
 	splx(s);
 	return ((void *) va);
 }
@@ -474,9 +476,11 @@ free(addr, type)
 	size = 1 << kup->ku_indx;
 	kbp = &bucket[kup->ku_indx];
 	s = splmem();
+#ifdef DIAGNOSTIC
  curallocs --;
  totallocs += curallocs;
  cntallocs ++;
+#endif
 #ifdef MALLOCLOG
 	domlog(addr, 0, type, 2, file, line);
 #endif
