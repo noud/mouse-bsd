@@ -400,7 +400,14 @@ tradingpost()
 void
 displaystats()
 {
-	mvprintw(0, 0, "%s%s\n", Player.p_name, descrlocation(&Player, FALSE));
+	const char *ds;
+	const char *dl;
+	int w;
+
+	ds = displaystring();
+	dl = descrlocation(&Player, FALSE);
+	w = strlen(Player.p_name) + strlen(dl);
+	mvprintw(0,0,"%s%s%*.*s\n",Player.p_name,dl,COLS-2-w,COLS-2-w,ds);
 	mvprintw(1, 0, "Level :%7.0f   Energy  :%9.0f(%9.0f)  Mana :%9.0f  Users:%3d\n",
 	    Player.p_level, Player.p_energy, Player.p_maxenergy + Player.p_shield,
 	    Player.p_mana, Users);

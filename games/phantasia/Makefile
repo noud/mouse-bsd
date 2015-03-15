@@ -4,7 +4,7 @@
 .include <bsd.own.mk>		# for UNPRIVILEGED
 
 PROG=	phantasia
-SRCS=	fight.c gamesupport.c interplayer.c io.c main.c misc.c phantglobs.c
+SRCS=	displays.c fight.c gamesupport.c interplayer.c io.c main.c misc.c phantglobs.c
 
 DPADD=	${LIBM} ${LIBCURSES}
 LDADD=	-lm -lcurses

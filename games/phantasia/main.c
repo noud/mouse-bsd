@@ -415,6 +415,10 @@ procmain()
 		ch = ' ';
 
 	switch (ch) {
+	case 'D':
+		changedisplays();
+		break;
+
 	case 'K':		/* move up/north */
 	case 'N':
 		x = Player.p_x;
