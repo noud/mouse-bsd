@@ -728,6 +728,8 @@ static EXPR *expr_parse(const char *s)
 {
  parse_str = s;
  parse_str0 = s;
+ skipwhite();
+ if (! *parse_str) return(expr_err_simple("Empty expression"));
  return(parse_top());
 }
 
@@ -921,7 +923,12 @@ static int xedit_edit(SCH *sch)
  while <"edit"> (1)
   { edit_run(&edit_expr);
     eb_nulterm(&xb);
-    x = expr_parse(eb_ptr(&xb,0));
+    if (eb_len(&xb) > 0)
+     { x = expr_parse(eb_ptr(&xb,0));
+     }
+    else
+     { x = expr_parse("");
+     }
     if (x->op == XOP_ERR)
      { while (1)
 	{ move(LINES-4,0);
