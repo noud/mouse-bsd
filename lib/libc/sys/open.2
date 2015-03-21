@@ -117,6 +117,12 @@ with
 .Dv O_DSYNC
 only, or specifying it without any other synchronized I/O integrity
 completion flag set, has no further effect.
+.It Dv O_DIRECTORY
+Error if the path names a non-directory.  It is invalid to combine this
+bit with
+.Dv O_CREAT
+or
+.Dv O_TRUNC .
 .El
 .Pp
 Opening a file with
@@ -196,7 +202,9 @@ returns the current system limit.
 The named file is opened unless:
 .Bl -tag -width Er
 .It Bq Er ENOTDIR
-A component of the path prefix is not a directory.
+A component of the path prefix is not a directory, or
+.Dv O_DIRECTORY
+is specified and the path does not name a directory.
 .It Bq Er ENAMETOOLONG
 A component of a pathname exceeded
 .Dv {NAME_MAX}

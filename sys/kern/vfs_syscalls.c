@@ -999,7 +999,8 @@ sys_open(p, v, retval)
 	struct nameidata nd;
 
 	flags = FFLAGS(SCARG(uap, flags));
-	if ((flags & (FREAD | FWRITE)) == 0)
+	if ( ((flags & (FREAD | FWRITE)) == 0) ||
+	     ((flags & O_DIRECTORY) && (flags & (O_CREAT | O_TRUNC))) )
 		return (EINVAL);
 	/* falloc() will use the file descriptor for us */
 	if ((error = falloc(p, &fp, &indx)) != 0)
