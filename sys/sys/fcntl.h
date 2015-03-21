@@ -111,7 +111,7 @@
 #endif
 
 /* defined by POSIX 1003.1; BSD default, but required to be bitwise distinct */
-#define	O_NOCTTY	0x008000	/* don't assign controlling terminal */
+#define	O_NOCTTY	0x00008000	/* don't assign controlling terminal */
 
 #ifdef _KERNEL
 /* convert from open() flags to/from fflags; convert O_RD/WR to FREAD/FWRITE */
