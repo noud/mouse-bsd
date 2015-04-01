@@ -91,14 +91,14 @@ msgq(sp, mt, fmt, va_alist)
 		gp = sp->gp;
 		switch (mt) {
 		case M_BERR:
-			if (F_ISSET(sp, SC_VI) && !O_ISSET(sp, O_VERBOSE)) {
+			if (F_ISSET(sp, SC_VI) && !o_ISSET(sp, o_VERBOSE)) {
 				F_SET(gp, G_BELLSCHED);
 				return;
 			}
 			mt = M_ERR;
 			break;
 		case M_VINFO:
-			if (!O_ISSET(sp, O_VERBOSE))
+			if (!o_ISSET(sp, o_VERBOSE))
 				return;
 			mt = M_INFO;
 			/* FALLTHROUGH */
@@ -451,7 +451,7 @@ msgq_rpt(sp)
 	 */
 #define	ARSIZE(a)	sizeof(a) / sizeof (*a)
 #define	MAXNUM		25
-	rptval = O_VAL(sp, O_REPORT);
+	rptval = o_VAL(sp, o_REPORT);
 	for (cnt = 0, total = 0; cnt < ARSIZE(action); ++cnt)
 		total += sp->rptlines[cnt];
 	if (total == 0)
@@ -577,7 +577,7 @@ msgq_status(sp, lno, flags)
 		p += len;
 		needsep = 1;
 	}
-	if (O_ISSET(sp, O_READONLY)) {
+	if (o_ISSET(sp, o_READONLY)) {
 		if (needsep) {
 			*p++ = ',';
 			*p++ = ' ';

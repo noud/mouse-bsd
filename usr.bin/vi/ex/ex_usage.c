@@ -166,7 +166,7 @@ ex_viusage(sp, cmdp)
 			goto nokey;
 
 		/* Special case: ~ command. */
-		if (key == '~' && O_ISSET(sp, O_TILDEOP))
+		if (key == '~' && o_ISSET(sp, o_TILDEOP))
 			kp = &tmotion;
 		else
 			kp = &vikeys[key];
@@ -183,7 +183,7 @@ nokey:			(void)ex_printf(sp,
 	case 0:
 		for (key = 0; key <= MAXVIKEY && !INTERRUPTED(sp); ++key) {
 			/* Special case: ~ command. */
-			if (key == '~' && O_ISSET(sp, O_TILDEOP))
+			if (key == '~' && o_ISSET(sp, o_TILDEOP))
 				kp = &tmotion;
 			else
 				kp = &vikeys[key];

@@ -124,7 +124,7 @@ main(argc, argv)
 
 	/*
 	 * XXX
-	 * Reset the O_MESG option.
+	 * Reset the o_MESG option.
 	 */
 	if (clp->tgw != TGW_UNKNOWN)
 		(void)cl_omesg(NULL, clp, clp->tgw == TGW_SET);

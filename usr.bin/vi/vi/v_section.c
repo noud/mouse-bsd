@@ -73,7 +73,7 @@ v_sectionf(sp, vp)
 	char *p, *list, *lp;
 
 	/* Get the macro list. */
-	if ((list = O_STR(sp, O_SECTIONS)) == NULL)
+	if ((list = o_STR(sp, o_SECTIONS)) == NULL)
 		return (1);
 
 	/*
@@ -187,7 +187,7 @@ v_sectionb(sp, vp)
 	}
 
 	/* Get the macro list. */
-	if ((list = O_STR(sp, O_SECTIONS)) == NULL)
+	if ((list = o_STR(sp, o_SECTIONS)) == NULL)
 		return (1);
 
 	cnt = F_ISSET(vp, VC_C1SET) ? vp->count : 1;

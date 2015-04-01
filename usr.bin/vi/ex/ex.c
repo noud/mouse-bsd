@@ -100,9 +100,9 @@ ex(spp)
 		(void)ex_fflush(sp);
 
 		/* Set the flags the user can reset. */
-		if (O_ISSET(sp, O_BEAUTIFY))
+		if (o_ISSET(sp, o_BEAUTIFY))
 			LF_SET(TXT_BEAUTIFY);
-		if (O_ISSET(sp, O_PROMPT))
+		if (o_ISSET(sp, o_PROMPT))
 			LF_SET(TXT_PROMPT);
 
 		/* Clear any current interrupts, and get a command. */
@@ -511,7 +511,7 @@ skip_srch:	if (ecp->cmd == &cmds[C_VISUAL_EX] && F_ISSET(sp, SC_VI))
 			goto unknown;
 
 		/* Secure means no shell access. */
-		if (F_ISSET(ecp->cmd, E_SECURE) && O_ISSET(sp, O_SECURE)) {
+		if (F_ISSET(ecp->cmd, E_SECURE) && o_ISSET(sp, o_SECURE)) {
 			ex_emsg(sp, ecp->cmd->name, EXM_SECURE);
 			goto err;
 		}
@@ -568,7 +568,7 @@ skip_srch:	if (ecp->cmd == &cmds[C_VISUAL_EX] && F_ISSET(sp, SC_VI))
 	 * command was entered, e.g. <CR>'s after the set didn't change to
 	 * the new format, but :1p would.
 	 */
-	if (O_ISSET(sp, O_NUMBER)) {
+	if (o_ISSET(sp, o_NUMBER)) {
 		F_SET(ecp, E_OPTNUM);
 		FL_SET(ecp->iflags, E_C_HASH);
 	} else
@@ -906,7 +906,7 @@ two_addr:	switch (ecp->addrcnt) {
 	if (ecp->cmd == &cmds[C_SCROLL]) {
 		ecp->addrcnt = 2;
 		ecp->addr1.lno = sp->lno + 1;
-		ecp->addr2.lno = sp->lno + O_VAL(sp, O_SCROLL);
+		ecp->addr2.lno = sp->lno + o_VAL(sp, o_SCROLL);
 		ecp->addr1.cno = ecp->addr2.cno = sp->cno;
 		if (db_last(sp, &lno))
 			goto err;
@@ -1435,7 +1435,7 @@ addr_verify:
 		LF_INIT(FL_ISSET(ecp->iflags, E_C_HASH | E_C_LIST | E_C_PRINT));
 		if (!LF_ISSET(E_C_HASH | E_C_LIST | E_C_PRINT | E_NOAUTO) &&
 		    !F_ISSET(sp, SC_EX_GLOBAL) &&
-		    O_ISSET(sp, O_AUTOPRINT) && F_ISSET(ecp, E_AUTOPRINT))
+		    o_ISSET(sp, o_AUTOPRINT) && F_ISSET(ecp, E_AUTOPRINT))
 			LF_INIT(E_C_PRINT);
 
 		if (LF_ISSET(E_C_HASH | E_C_LIST | E_C_PRINT)) {

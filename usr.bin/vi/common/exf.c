@@ -177,10 +177,10 @@ file_init(sp, frp, rcv_name, flags)
 	 */
 	oname = frp->name;
 	if (LF_ISSET(FS_OPENERR) || oname == NULL || stat(oname, &sb)) {
-		if (opts_empty(sp, O_DIRECTORY, 0))
+		if (opts_empty(sp, o_DIRECTORY, 0))
 			goto err;
 		(void)snprintf(tname, sizeof(tname),
-		    "%s/vi.XXXXXX", O_STR(sp, O_DIRECTORY));
+		    "%s/vi.XXXXXX", o_STR(sp, o_DIRECTORY));
 		if ((fd = mkstemp(tname)) == -1) {
 			msgq(sp, M_SYSERR,
 			    "237|Unable to create temporary file");
@@ -385,9 +385,9 @@ file_init(sp, frp, rcv_name, flags)
 	    !F_ISSET(frp, FR_NEWFILE) &&
 	    (!(sb.st_mode & (S_IWUSR | S_IWGRP | S_IWOTH)) ||
 	    access(frp->name, W_OK)))
-		O_SET(sp, O_READONLY);
+		o_SET(sp, o_READONLY);
 	else
-		O_CLR(sp, O_READONLY);
+		o_CLR(sp, o_READONLY);
 
 	/* Switch... */
 	++ep->refcnt;
@@ -492,7 +492,7 @@ file_cinit(sp)
 			/* If returning to a file in vi, center the line. */
 			 F_SET(sp, SC_SCR_CENTER);
 		} else {
-			if (O_ISSET(sp, O_COMMENT))
+			if (o_ISSET(sp, o_COMMENT))
 				file_comment(sp);
 			else
 				sp->lno = 1;
@@ -680,7 +680,7 @@ file_write(sp, fm, tm, name, flags)
 		noname = 0;
 
 	/* Can't write files marked read-only, unless forced. */
-	if (!LF_ISSET(FS_FORCE) && noname && O_ISSET(sp, O_READONLY)) {
+	if (!LF_ISSET(FS_FORCE) && noname && o_ISSET(sp, o_READONLY)) {
 		msgq(sp, M_ERR, LF_ISSET(FS_POSSIBLE) ?
 		    "244|Read-only file, not written; use ! to override" :
 		    "245|Read-only file, not written");
@@ -688,7 +688,7 @@ file_write(sp, fm, tm, name, flags)
 	}
 
 	/* If not forced, not appending, and "writeany" not set ... */
-	if (!LF_ISSET(FS_FORCE | FS_APPEND) && !O_ISSET(sp, O_WRITEANY)) {
+	if (!LF_ISSET(FS_FORCE | FS_APPEND) && !o_ISSET(sp, o_WRITEANY)) {
 		/* Don't overwrite anything but the original file. */
 		if ((!noname || F_ISSET(frp, FR_NAMECHANGE)) &&
 		    !stat(name, &sb)) {
@@ -746,8 +746,8 @@ file_write(sp, fm, tm, name, flags)
 	    (LF_ISSET(FS_APPEND) ? O_APPEND : O_TRUNC);
 
 	/* Backup the file if requested. */
-	if (!opts_empty(sp, O_BACKUP, 1) &&
-	    file_backup(sp, name, O_STR(sp, O_BACKUP)) && !LF_ISSET(FS_FORCE))
+	if (!opts_empty(sp, o_BACKUP, 1) &&
+	    file_backup(sp, name, o_STR(sp, o_BACKUP)) && !LF_ISSET(FS_FORCE))
 		return (1);
 
 	/* Open the file. */
@@ -1106,7 +1106,7 @@ file_m1(sp, force, flags)
 	 * there's another open screen on this file.
 	 */
 	if (F_ISSET(sp->ep, F_MODIFIED))
-		if (O_ISSET(sp, O_AUTOWRITE)) {
+		if (o_ISSET(sp, o_AUTOWRITE)) {
 			if (!force && file_aw(sp, flags))
 				return (1);
 		} else if (sp->ep->refcnt <= 1 && !force) {
@@ -1193,7 +1193,7 @@ file_aw(sp, flags)
 {
 	if (!F_ISSET(sp->ep, F_MODIFIED))
 		return (0);
-	if (!O_ISSET(sp, O_AUTOWRITE))
+	if (!o_ISSET(sp, o_AUTOWRITE))
 		return (0);
 
 	/*
@@ -1205,7 +1205,7 @@ file_aw(sp, flags)
 	 * me (e.g. the principle of least surprise is violated if readonly is
 	 * set and vi writes the file), so I'm compatible with System V.
 	 */
-	if (O_ISSET(sp, O_READONLY)) {
+	if (o_ISSET(sp, o_READONLY)) {
 		msgq(sp, M_INFO,
 		    "266|File readonly, modifications not auto-written");
 		return (1);
@@ -1289,7 +1289,7 @@ file_lock(sp, name, fdp, fd, iswrite)
 	char *name;
 	int *fdp, fd, iswrite;
 {
-	if (!O_ISSET(sp, O_LOCKFILES))
+	if (!o_ISSET(sp, o_LOCKFILES))
 		return (LOCK_SUCCESS);
 
 #ifdef HAVE_LOCK_FLOCK			/* Hurrah!  We've got flock(2). */

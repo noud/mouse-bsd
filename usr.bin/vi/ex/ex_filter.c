@@ -62,7 +62,7 @@ ex_filter(sp, cmdp, fm, tm, rp, cmd, ftype)
 		rp->lno = 1;
 
 	/* We're going to need a shell. */
-	if (opts_empty(sp, O_SHELL, 0))
+	if (opts_empty(sp, o_SHELL, 0))
 		return (1);
 
 	/*
@@ -138,13 +138,13 @@ err:		if (input[0] != -1)
 		(void)close(output[0]);
 		(void)close(output[1]);
 
-		if ((name = strrchr(O_STR(sp, O_SHELL), '/')) == NULL)
-			name = O_STR(sp, O_SHELL);
+		if ((name = strrchr(o_STR(sp, o_SHELL), '/')) == NULL)
+			name = o_STR(sp, o_SHELL);
 		else
 			++name;
 
-		execl(O_STR(sp, O_SHELL), name, "-c", cmd, NULL);
-		msgq_str(sp, M_SYSERR, O_STR(sp, O_SHELL), "execl: %s");
+		execl(o_STR(sp, o_SHELL), name, "-c", cmd, NULL);
+		msgq_str(sp, M_SYSERR, o_STR(sp, o_SHELL), "execl: %s");
 		_exit (127);
 		/* NOTREACHED */
 	default:			/* Parent-reader, parent-writer. */

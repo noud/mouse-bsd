@@ -42,9 +42,9 @@ vs_column(sp, colp)
 
 	vip = VIP(sp);
 
-	*colp = (O_ISSET(sp, O_LEFTRIGHT) ?
+	*colp = (o_ISSET(sp, o_LEFTRIGHT) ?
 	    vip->sc_smap->coff : (vip->sc_smap->soff - 1) * sp->cols) +
-	    vip->sc_col - (O_ISSET(sp, O_NUMBER) ? O_NUMBER_LENGTH : 0);
+	    vip->sc_col - (o_ISSET(sp, o_NUMBER) ? o_NUMBER_LENGTH : 0);
 	return (0);
 }
 
@@ -52,7 +52,7 @@ vs_column(sp, colp)
  * vs_screens --
  *	Return the screens necessary to display the line, or if specified,
  *	the physical character column within the line, including space
- *	required for the O_NUMBER and O_LIST options.
+ *	required for the o_NUMBER and o_LIST options.
  *
  * PUBLIC: size_t vs_screens __P((SCR *, recno_t, size_t *));
  */
@@ -65,7 +65,7 @@ vs_screens(sp, lno, cnop)
 	size_t cols, screens;
 
 	/* Left-right screens are simple, it's always 1. */
-	if (O_ISSET(sp, O_LEFTRIGHT))
+	if (o_ISSET(sp, o_LEFTRIGHT))
 		return (1);
 
 	/*
@@ -128,8 +128,8 @@ done:		if (diffp != NULL)		/* XXX */
 	}
 
 	/* Store away the values of the list and leftright edit options. */
-	listset = O_ISSET(sp, O_LIST);
-	leftright = O_ISSET(sp, O_LEFTRIGHT);
+	listset = o_ISSET(sp, o_LIST);
+	leftright = o_ISSET(sp, o_LEFTRIGHT);
 
 	/*
 	 * Initialize the pointer into the buffer and screen and current
@@ -138,9 +138,9 @@ done:		if (diffp != NULL)		/* XXX */
 	p = lp;
 	curoff = scno = 0;
 
-	/* Leading number if O_NUMBER option set. */
-	if (O_ISSET(sp, O_NUMBER))
-		scno += O_NUMBER_LENGTH;
+	/* Leading number if o_NUMBER option set. */
+	if (o_ISSET(sp, o_NUMBER))
+		scno += o_NUMBER_LENGTH;
 
 	/* Macro to return the display length of any signal character. */
 #define	CHLEN(val) (ch = *(u_char *)p++) == '\t' &&			\
@@ -179,7 +179,7 @@ done:		if (diffp != NULL)		/* XXX */
 				break;
 		}
 
-	/* Add the trailing '$' if the O_LIST option set. */
+	/* Add the trailing '$' if the o_LIST option set. */
 	if (listset && cnop == NULL)
 		scno += KEY_LEN(sp, '$');
 
@@ -248,8 +248,8 @@ vs_colpos(sp, lno, cno)
 		return (0);
 
 	/* Store away the values of the list and leftright edit options. */
-	listset = O_ISSET(sp, O_LIST);
-	leftright = O_ISSET(sp, O_LEFTRIGHT);
+	listset = o_ISSET(sp, o_LIST);
+	leftright = o_ISSET(sp, o_LEFTRIGHT);
 
 	/* Discard screen (logical) lines. */
 	off = cno / sp->cols;

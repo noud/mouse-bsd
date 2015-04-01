@@ -78,7 +78,7 @@ ex_read(sp, cmdp)
 			which = R_FILTER;
 
 			/* Secure means no shell access. */
-			if (O_ISSET(sp, O_SECURE)) {
+			if (o_ISSET(sp, o_SECURE)) {
 				ex_emsg(sp, cmdp->cmd->name, EXM_SECURE_F);
 				return (1);
 			}

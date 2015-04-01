@@ -132,9 +132,9 @@ ex_optchange(sp, offset, str, valp)
 	u_long *valp;
 {
 	switch (offset) {
-	case O_CDPATH:
+	case o_CDPATH:
 		return (ex_cdalloc(sp, str));
-	case O_TAGS:
+	case o_TAGS:
 		return (ex_tagf_alloc(sp, str));
 	}
 	return (0);
@@ -219,7 +219,7 @@ ex_exrc(sp)
 	if (F_ISSET(sp, SC_EXIT | SC_EXIT_FORCE))
 		return (0);
 
-	if (O_ISSET(sp, O_EXRC)) {
+	if (o_ISSET(sp, o_EXRC)) {
 		switch (exrc_isok(sp, &lsb, _PATH_NEXRC, 0, 0)) {
 		case NOEXIST:
 			if (exrc_isok(sp, &lsb, _PATH_EXRC, 0, 0) == RCOK &&

@@ -58,9 +58,9 @@ ex_z(sp, cmdp)
 		cnt = cmdp->count;
 	else
 #ifdef HISTORIC_PRACTICE
-		cnt = O_VAL(sp, O_SCROLL) * 2;
+		cnt = o_VAL(sp, o_SCROLL) * 2;
 #else
-		cnt = O_VAL(sp, O_WINDOW) - 1;
+		cnt = o_VAL(sp, o_WINDOW) - 1;
 #endif
 
 	equals = 0;

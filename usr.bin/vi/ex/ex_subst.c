@@ -169,20 +169,20 @@ subagain:	return (ex_subagain(sp, cmdp));
 	/*
 	 * Get the replacement string.
 	 *
-	 * The special character & (\& if O_MAGIC not set) matches the
+	 * The special character & (\& if o_MAGIC not set) matches the
 	 * entire RE.  No handling of & is required here, it's done by
 	 * re_sub().
 	 *
-	 * The special character ~ (\~ if O_MAGIC not set) inserts the
+	 * The special character ~ (\~ if o_MAGIC not set) inserts the
 	 * previous replacement string into this replacement string.
 	 * Count ~'s to figure out how much space we need.  We could
 	 * special case nonexistent last patterns or whether or not
-	 * O_MAGIC is set, but it's probably not worth the effort.
+	 * o_MAGIC is set, but it's probably not worth the effort.
 	 *
 	 * QUOTING NOTE:
 	 *
 	 * Only toss an escape character if it escapes a delimiter or
-	 * if O_MAGIC is set and it escapes a tilde.
+	 * if o_MAGIC is set and it escapes a tilde.
 	 *
 	 * !!!
 	 * If the entire replacement pattern is "%", then use the last
@@ -219,10 +219,10 @@ subagain:	return (ex_subagain(sp, cmdp));
 					++len;
 				} else if (p[1] == '~') {
 					++p;
-					if (!O_ISSET(sp, O_MAGIC))
+					if (!o_ISSET(sp, o_MAGIC))
 						goto tilde;
 				}
-			} else if (p[0] == '~' && O_ISSET(sp, O_MAGIC)) {
+			} else if (p[0] == '~' && o_ISSET(sp, o_MAGIC)) {
 tilde:				++p;
 				memmove(t, sp->repl, sp->repl_len);
 				t += sp->repl_len;
@@ -374,12 +374,12 @@ s(sp, cmdp, s, re, flags)
 	/*
 	 * !!!
 	 * Historically, the 'g' and 'c' suffices were always toggled as flags,
-	 * so ":s/A/B/" was the same as ":s/A/B/ccgg".  If O_EDCOMPATIBLE was
+	 * so ":s/A/B/" was the same as ":s/A/B/ccgg".  If o_EDCOMPATIBLE was
 	 * not set, they were initialized to 0 for all substitute commands.  If
-	 * O_EDCOMPATIBLE was set, they were initialized to 0 only if the user
+	 * o_EDCOMPATIBLE was set, they were initialized to 0 only if the user
 	 * specified substitute/replacement patterns (see ex_s()).
 	 */
-	if (!O_ISSET(sp, O_EDCOMPATIBLE))
+	if (!o_ISSET(sp, o_EDCOMPATIBLE))
 		sp->c_suffix = sp->g_suffix = 0;
 
 	/*
@@ -912,11 +912,11 @@ re_compile(sp, ptrn, ptrnp, lenp, rep, flags)
 	/* Set RE flags. */
 	reflags = 0;
 	if (!LF_ISSET(RE_C_CSCOPE | RE_C_TAG)) {
-		if (O_ISSET(sp, O_EXTENDED))
+		if (o_ISSET(sp, o_EXTENDED))
 			reflags |= REG_EXTENDED;
-		if (O_ISSET(sp, O_IGNORECASE))
+		if (o_ISSET(sp, o_IGNORECASE))
 			reflags |= REG_ICASE;
-		if (O_ISSET(sp, O_ICLOWER)) {
+		if (o_ISSET(sp, o_ICLOWER)) {
 			for (p = ptrn; *p != '\0'; ++p)
 				if (isupper(*p))
 					break;
@@ -997,10 +997,10 @@ re_compile(sp, ptrn, ptrnp, lenp, rep, flags)
  * There are three conversions we make to make vi's RE's (specifically
  * the global, search, and substitute patterns) work with POSIX RE's.
  *
- * 1: If O_MAGIC is not set, strip backslashes from the magic character
+ * 1: If o_MAGIC is not set, strip backslashes from the magic character
  *    set (.[*~) that have them, and add them to the ones that don't.
- * 2: If O_MAGIC is not set, the string "\~" is replaced with the text
- *    from the last substitute command's replacement string.  If O_MAGIC
+ * 2: If o_MAGIC is not set, the string "\~" is replaced with the text
+ *    from the last substitute command's replacement string.  If o_MAGIC
  *    is set, it's the string "~".
  * 3: The pattern \<ptrn\> does "word" searches, convert it to use the
  *    new RE escapes.
@@ -1040,7 +1040,7 @@ re_conv(sp, ptrnp, replacedp)
 				needlen += sizeof(RE_WSTOP);
 				break;
 			case '~':
-				if (!O_ISSET(sp, O_MAGIC)) {
+				if (!o_ISSET(sp, o_MAGIC)) {
 					magic = 1;
 					needlen += sp->repl_len;
 				}
@@ -1048,7 +1048,7 @@ re_conv(sp, ptrnp, replacedp)
 			case '.':
 			case '[':
 			case '*':
-				if (!O_ISSET(sp, O_MAGIC)) {
+				if (!o_ISSET(sp, o_MAGIC)) {
 					magic = 1;
 					needlen += 1;
 				}
@@ -1058,7 +1058,7 @@ re_conv(sp, ptrnp, replacedp)
 			}
 			break;
 		case '~':
-			if (O_ISSET(sp, O_MAGIC)) {
+			if (o_ISSET(sp, o_MAGIC)) {
 				magic = 1;
 				needlen += sp->repl_len;
 			}
@@ -1066,7 +1066,7 @@ re_conv(sp, ptrnp, replacedp)
 		case '.':
 		case '[':
 		case '*':
-			if (!O_ISSET(sp, O_MAGIC)) {
+			if (!o_ISSET(sp, o_MAGIC)) {
 				magic = 1;
 				needlen += 2;
 			}
@@ -1102,7 +1102,7 @@ re_conv(sp, ptrnp, replacedp)
 				t += sizeof(RE_WSTOP) - 1;
 				break;
 			case '~':
-				if (O_ISSET(sp, O_MAGIC))
+				if (o_ISSET(sp, o_MAGIC))
 					*t++ = '~';
 				else {
 					memmove(t, sp->repl, sp->repl_len);
@@ -1112,7 +1112,7 @@ re_conv(sp, ptrnp, replacedp)
 			case '.':
 			case '[':
 			case '*':
-				if (O_ISSET(sp, O_MAGIC))
+				if (o_ISSET(sp, o_MAGIC))
 					*t++ = '\\';
 				*t++ = *p;
 				break;
@@ -1122,7 +1122,7 @@ re_conv(sp, ptrnp, replacedp)
 			}
 			break;
 		case '~':
-			if (O_ISSET(sp, O_MAGIC)) {
+			if (o_ISSET(sp, o_MAGIC)) {
 				memmove(t, sp->repl, sp->repl_len);
 				t += sp->repl_len;
 			} else
@@ -1131,7 +1131,7 @@ re_conv(sp, ptrnp, replacedp)
 		case '.':
 		case '[':
 		case '*':
-			if (!O_ISSET(sp, O_MAGIC))
+			if (!o_ISSET(sp, o_MAGIC))
 				*t++ = '\\';
 			*t++ = *p;
 			break;
@@ -1370,7 +1370,7 @@ re_sub(sp, ip, lbp, lbclenp, lblenp, match)
 	for (rp = sp->repl, rpl = sp->repl_len, p = lb + lbclen; rpl--;) {
 		switch (ch = *rp++) {
 		case '&':
-			if (O_ISSET(sp, O_MAGIC)) {
+			if (o_ISSET(sp, o_MAGIC)) {
 				no = 0;
 				goto subzero;
 			}
@@ -1382,7 +1382,7 @@ re_sub(sp, ip, lbp, lbclenp, lblenp, match)
 			switch (ch = *rp) {
 			case '&':
 				++rp;
-				if (!O_ISSET(sp, O_MAGIC)) {
+				if (!o_ISSET(sp, o_MAGIC)) {
 					no = 0;
 					goto subzero;
 				}

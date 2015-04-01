@@ -133,7 +133,7 @@ struct _scr {
 	u_int8_t c_suffix;		/* Edcompatible 'c' suffix value. */
 	u_int8_t g_suffix;		/* Edcompatible 'g' suffix value. */
 
-	OPTION	 opts[O_OPTIONCOUNT];	/* Ex/vi: Options. */
+	OPTION	 opts[o_OPTIONCOUNT];	/* Ex/vi: Options. */
 
 /*
  * Screen flags.

@@ -157,8 +157,8 @@ ex_init(sp)
 	if (sp->gp->scr_screen(sp, SC_EX))
 		return (1);
 
-	sp->rows = O_VAL(sp, O_LINES);
-	sp->cols = O_VAL(sp, O_COLUMNS);
+	sp->rows = o_VAL(sp, o_LINES);
+	sp->cols = o_VAL(sp, o_COLUMNS);
 
 	F_CLR(sp, SC_VI);
 	F_SET(sp, SC_EX | SC_SCR_EX);

@@ -234,9 +234,9 @@ cl_optchange(sp, opt, str, valp)
 	u_long *valp;
 {
 	switch (opt) {
-	case O_COLUMNS:
-	case O_LINES:
-	case O_TERM:
+	case o_COLUMNS:
+	case o_LINES:
+	case o_TERM:
 		/*
 		 * Changing the columns, lines or terminal require that
 		 * we restart the screen.
@@ -244,7 +244,7 @@ cl_optchange(sp, opt, str, valp)
 		F_SET(sp->gp, G_SRESTART);
 		F_CLR(sp, SC_SCR_EX | SC_SCR_VI);
 		break;
-	case O_MESG:
+	case o_MESG:
 		cl_omesg(sp, CLP(sp), !*valp);
 		break;
 	}
@@ -364,7 +364,7 @@ cl_ssize(sp, sigwinch, rowp, colp, changedp)
 		 * ignore the signal if there's no change.
 		 */
 		if (sp != NULL &&
-		    row == O_VAL(sp, O_LINES) && col == O_VAL(sp, O_COLUMNS)) {
+		    row == o_VAL(sp, o_LINES) && col == o_VAL(sp, o_COLUMNS)) {
 			if (changedp != NULL)
 				*changedp = 0;
 			return (0);

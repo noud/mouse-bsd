@@ -113,7 +113,7 @@ cl_screen(sp, flags)
 		 */
 		if (F_ISSET(sp, SC_EX) && clp->cup != NULL)
 			tputs(tgoto(clp->cup,
-			    0, O_VAL(sp, O_LINES) - 1), 1, cl_putchar);
+			    0, o_VAL(sp, o_LINES) - 1), 1, cl_putchar);
 	} else {
 		if (cl_vi_init(sp))
 			return (1);
@@ -203,9 +203,9 @@ cl_vi_init(sp)
 	}
 
 	/* We'll need a terminal type. */
-	if (opts_empty(sp, O_TERM, 0))
+	if (opts_empty(sp, o_TERM, 0))
 		return (1);
-	ttype = O_STR(sp, O_TERM);
+	ttype = o_STR(sp, o_TERM);
 
 	/*
 	 * XXX
@@ -227,9 +227,9 @@ cl_vi_init(sp)
 	o_term = getenv("TERM");
 	cl_putenv("TERM", ttype, 0);
 	o_lines = getenv("LINES");
-	cl_putenv("LINES", NULL, (u_long)O_VAL(sp, O_LINES));
+	cl_putenv("LINES", NULL, (u_long)o_VAL(sp, o_LINES));
 	o_cols = getenv("COLUMNS");
-	cl_putenv("COLUMNS", NULL, (u_long)O_VAL(sp, O_COLUMNS));
+	cl_putenv("COLUMNS", NULL, (u_long)o_VAL(sp, o_COLUMNS));
 
 	/*
 	 * We don't care about the SCREEN reference returned by newterm, we

@@ -46,7 +46,7 @@ ex_visual(sp, cmdp)
 	char buf[256];
 
 	/* If open option off, disallow visual command. */
-	if (!O_ISSET(sp, O_OPEN)) {
+	if (!o_ISSET(sp, o_OPEN)) {
 		msgq(sp, M_ERR,
 	    "175|The visual command requires that the open option be set");
 		return (1);
@@ -97,10 +97,10 @@ ex_visual(sp, cmdp)
 	 */
 	switch (FL_ISSET(cmdp->iflags, E_C_HASH | E_C_LIST | E_C_PRINT)) {
 	case E_C_HASH:
-		O_SET(sp, O_NUMBER);
+		o_SET(sp, o_NUMBER);
 		break;
 	case E_C_LIST:
-		O_SET(sp, O_LIST);
+		o_SET(sp, o_LIST);
 		break;
 	case E_C_PRINT:
 		break;

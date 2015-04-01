@@ -224,7 +224,7 @@ v_tagpush(sp, vp)
 	EXCMD cmd;
 
 #ifdef GTAGS
-	if (O_ISSET(sp, O_GTAGSMODE) && vp->m_start.cno == 0)
+	if (o_ISSET(sp, o_GTAGSMODE) && vp->m_start.cno == 0)
 		ex_cinit(&cmd, C_RTAG, 0, OOBLNO, 0, 0, ap);
 	else
 #endif
@@ -429,7 +429,7 @@ v_ex(sp, vp)
 				break;
 
 			/* Log the command. */
-			if (O_STR(sp, O_CEDIT) != NULL && v_ecl_log(sp, tp))
+			if (o_STR(sp, o_CEDIT) != NULL && v_ecl_log(sp, tp))
 				return (1);
 
 			/* Push a command on the command stack. */

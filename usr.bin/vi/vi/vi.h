@@ -140,7 +140,7 @@ struct _vikeys {			/* Underlying function. */
 #define	V_MOVE		0x00400000	/* Command defines movement. */
 #define	V_OBUF		0x00800000	/* Buffer (optional, leading). */
 #define	V_RBUF		0x01000000	/* Buffer (required, trailing). */
-#define	V_SECURE	0x02000000	/* Permission denied if O_SECURE set. */
+#define	V_SECURE	0x02000000	/* Permission denied if o_SECURE set. */
 	u_int32_t flags;
 	char	*usage;			/* Usage line. */
 	char	*help;			/* Help line. */
@@ -196,7 +196,7 @@ int	cs_prev __P((SCR *, VCS *));
  * long lines, the screen map will tend to be staggered, e.g., 1:1, 1:2, 1:3,
  * 2:1, 3:1, etc.  If doing left-right scrolling, the off field is the screen
  * column offset into the lines, and can take on any value, as it's adjusted
- * by the user set value O_SIDESCROLL.
+ * by the user set value o_SIDESCROLL.
  */
 typedef struct _smap {
 	recno_t  lno;		/* 1-N: Physical file line number. */
@@ -316,10 +316,10 @@ typedef struct _vi_private {
 /* Vi private area. */
 #define	VIP(sp)	((VI_PRIVATE *)((sp)->vi_private))
 
-#define	O_NUMBER_FMT	"%7lu "			/* O_NUMBER format, length. */
-#define	O_NUMBER_LENGTH	8
+#define	o_NUMBER_FMT	"%7lu "			/* o_NUMBER format, length. */
+#define	o_NUMBER_LENGTH	8
 #define	SCREEN_COLS(sp)				/* Screen columns. */	\
-	((O_ISSET(sp, O_NUMBER) ? (sp)->cols - O_NUMBER_LENGTH : (sp)->cols))
+	((o_ISSET(sp, o_NUMBER) ? (sp)->cols - o_NUMBER_LENGTH : (sp)->cols))
 
 /*
  * LASTLINE is the zero-based, last line in the screen.  Note that it is correct
@@ -351,7 +351,7 @@ typedef struct _vi_private {
  * positions when <esc> is entered.  I believe that nvi does tabs correctly,
  * but there are some historical incompatibilities.
  */
-#define	TAB_OFF(c)	COL_OFF((c), O_VAL(sp, O_TABSTOP))
+#define	TAB_OFF(c)	COL_OFF((c), o_VAL(sp, o_TABSTOP))
 
 /* If more than one screen being shown. */
 #define	IS_SPLIT(sp)							\

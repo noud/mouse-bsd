@@ -313,7 +313,7 @@ vs_sm_delete(sp, lno)
 	 * which display any part of the deleted line.
 	 */
 	for (p = HMAP; p->lno != lno; ++p);
-	if (O_ISSET(sp, O_LEFTRIGHT))
+	if (o_ISSET(sp, o_LEFTRIGHT))
 		cnt_orig = 1;
 	else
 		for (cnt_orig = 1, t = p + 1;
@@ -417,7 +417,7 @@ vs_sm_reset(sp, lno)
 	 * If so, repaint, otherwise do it the hard way.
 	 */
 	for (p = HMAP; p->lno != lno; ++p);
-	if (O_ISSET(sp, O_LEFTRIGHT)) {
+	if (o_ISSET(sp, o_LEFTRIGHT)) {
 		t = p;
 		cnt_orig = cnt_new = 1;
 	} else {
@@ -586,7 +586,7 @@ vs_sm_up(sp, rp, count, scmd, smp)
 	 * Check to see if movement is possible.
 	 *
 	 * Get the line after the map.  If that line is a new one (and if
-	 * O_LEFTRIGHT option is set, this has to be true), and the next
+	 * o_LEFTRIGHT option is set, this has to be true), and the next
 	 * line doesn't exist, and the cursor doesn't move, or the cursor
 	 * isn't even on the screen, or the cursor is already at the last
 	 * line in the map, it's an error.  If that test succeeded because
@@ -706,7 +706,7 @@ vs_sm_up(sp, rp, count, scmd, smp)
 		if (echanged) {
 			rp->lno = smp->lno;
 			rp->cno = vs_colpos(sp, smp->lno,
-			    (O_ISSET(sp, O_LEFTRIGHT) ?
+			    (o_ISSET(sp, o_LEFTRIGHT) ?
 			    smp->coff : (smp->soff - 1) * sp->cols) +
 			    sp->rcm % sp->cols);
 		}
@@ -822,7 +822,7 @@ vs_sm_down(sp, rp, count, scmd, smp)
 
 	/* Check to see if movement is possible. */
 	if (HMAP->lno == 1 &&
-	    (O_ISSET(sp, O_LEFTRIGHT) || HMAP->soff == 1) &&
+	    (o_ISSET(sp, o_LEFTRIGHT) || HMAP->soff == 1) &&
 	    (scmd == CNTRL_Y || scmd == Z_CARAT || smp == HMAP)) {
 		v_sof(sp, NULL);
 		return (1);
@@ -849,7 +849,7 @@ vs_sm_down(sp, rp, count, scmd, smp)
 				if (vs_sm_prev(sp, &s1, &s2))
 					return (1);
 				if (s2.lno == 1 &&
-				    (O_ISSET(sp, O_LEFTRIGHT) || s2.soff == 1))
+				    (o_ISSET(sp, o_LEFTRIGHT) || s2.soff == 1))
 					break;
 			}
 			HMAP[0] = s2;
@@ -861,7 +861,7 @@ vs_sm_down(sp, rp, count, scmd, smp)
 		for (; count &&
 		    sp->t_rows != sp->t_maxrows; --count, ++sp->t_rows) {
 			if (HMAP->lno == 1 &&
-			    (O_ISSET(sp, O_LEFTRIGHT) || HMAP->soff == 1))
+			    (o_ISSET(sp, o_LEFTRIGHT) || HMAP->soff == 1))
 				break;
 			++TMAP;
 			if (vs_sm_1down(sp))
@@ -878,7 +878,7 @@ vs_sm_down(sp, rp, count, scmd, smp)
 	for (ychanged = zset = 0; count; --count) {
 		/* If the line doesn't exist, we're done. */
 		if (HMAP->lno == 1 &&
-		    (O_ISSET(sp, O_LEFTRIGHT) || HMAP->soff == 1))
+		    (o_ISSET(sp, o_LEFTRIGHT) || HMAP->soff == 1))
 			break;
 
 		/* Scroll the screen and cursor down one logical line. */
@@ -942,7 +942,7 @@ vs_sm_down(sp, rp, count, scmd, smp)
 		if (ychanged) {
 			rp->lno = smp->lno;
 			rp->cno = vs_colpos(sp, smp->lno,
-			    (O_ISSET(sp, O_LEFTRIGHT) ?
+			    (o_ISSET(sp, o_LEFTRIGHT) ?
 			    smp->coff : (smp->soff - 1) * sp->cols) +
 			    sp->rcm % sp->cols);
 		}
@@ -1055,7 +1055,7 @@ vs_sm_next(sp, p, t)
 	size_t lcnt;
 
 	SMAP_FLUSH(t);
-	if (O_ISSET(sp, O_LEFTRIGHT)) {
+	if (o_ISSET(sp, o_LEFTRIGHT)) {
 		t->lno = p->lno + 1;
 		t->coff = p->coff;
 	} else {
@@ -1083,7 +1083,7 @@ vs_sm_prev(sp, p, t)
 	SMAP *p, *t;
 {
 	SMAP_FLUSH(t);
-	if (O_ISSET(sp, O_LEFTRIGHT)) {
+	if (o_ISSET(sp, o_LEFTRIGHT)) {
 		t->lno = p->lno - 1;
 		t->coff = p->coff;
 	} else {
@@ -1238,7 +1238,7 @@ vs_sm_nlines(sp, from_sp, to_lno, max)
 {
 	recno_t lno, lcnt;
 
-	if (O_ISSET(sp, O_LEFTRIGHT))
+	if (o_ISSET(sp, o_LEFTRIGHT))
 		return (from_sp->lno > to_lno ?
 		    from_sp->lno - to_lno : to_lno - from_sp->lno);
 

@@ -37,7 +37,7 @@ ex_open(sp, cmdp)
 	EXCMD *cmdp;
 {
 	/* If open option off, disallow open command. */
-	if (!O_ISSET(sp, O_OPEN)) {
+	if (!o_ISSET(sp, o_OPEN)) {
 		msgq(sp, M_ERR,
 	    "140|The open command requires that the open option be set");
 		return (1);

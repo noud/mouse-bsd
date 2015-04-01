@@ -130,7 +130,7 @@ vs_split(sp, new, ccl)
 			sp->t_minrows = sp->t_maxrows;
 
 		/* Fix the child screen. */
-		new->t_minrows = new->t_rows = O_VAL(sp, O_WINDOW);
+		new->t_minrows = new->t_rows = o_VAL(sp, o_WINDOW);
 		if (new->t_rows > new->t_maxrows)
 			new->t_rows = new->t_maxrows;
 		if (new->t_minrows > new->t_maxrows)
@@ -140,11 +140,11 @@ vs_split(sp, new, ccl)
 
 		/*
 		 * The new screen may be a small screen, even if the parent
-		 * was not.  Don't complain if O_WINDOW is too large, we're
+		 * was not.  Don't complain if o_WINDOW is too large, we're
 		 * splitting the screen so the screen is much smaller than
 		 * normal.
 		 */
-		new->t_minrows = new->t_rows = O_VAL(sp, O_WINDOW);
+		new->t_minrows = new->t_rows = o_VAL(sp, o_WINDOW);
 		if (new->t_rows > new->rows - 1)
 			new->t_minrows = new->t_rows =
 			    IS_ONELINE(new) ? 1 : new->rows - 1;
@@ -388,7 +388,7 @@ vs_swap(csp, nsp, name)
 	 * than the new screen sizes.
 	 */
 	if (issmallscreen) {
-		sp->t_minrows = sp->t_rows = O_VAL(sp, O_WINDOW);
+		sp->t_minrows = sp->t_rows = o_VAL(sp, o_WINDOW);
 		if (sp->t_rows > csp->t_maxrows)
 			sp->t_rows = sp->t_maxrows;
 		if (sp->t_minrows > csp->t_maxrows)

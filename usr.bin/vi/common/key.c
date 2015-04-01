@@ -255,11 +255,11 @@ v_key_name(sp, ach)
 	ch = ach;
 
 	/* See if the character was explicitly declared printable or not. */
-	if ((chp = O_STR(sp, O_PRINT)) != NULL)
+	if ((chp = o_STR(sp, o_PRINT)) != NULL)
 		for (; *chp != '\0'; ++chp)
 			if (*chp == ch)
 				goto pr;
-	if ((chp = O_STR(sp, O_NOPRINT)) != NULL)
+	if ((chp = o_STR(sp, o_NOPRINT)) != NULL)
 		for (; *chp != '\0'; ++chp)
 			if (*chp == ch)
 				goto nopr;
@@ -292,7 +292,7 @@ nopr:	if (iscntrl(ch) && (ch < 0x20 || ch == 0x7f)) {
 		sp->cname[0] = '^';
 		sp->cname[1] = ch == 0x7f ? '?' : '@' + ch;
 		len = 2;
-	} else if (O_ISSET(sp, O_OCTAL)) {
+	} else if (o_ISSET(sp, o_OCTAL)) {
 #define	BITS	(sizeof(CHAR_T) * 8)
 #define	SHIFT	(BITS - BITS % 3)
 #define	TOPMASK	(BITS % 3 == 2 ? 3 : 1) << (BITS - BITS % 3)
@@ -655,10 +655,10 @@ newmap:	evp = &gp->i_event[gp->i_next];
 	 * loses over PPP links where the latency is greater than 100Ms.
 	 */
 	if (ispartial) {
-		if (O_ISSET(sp, O_TIMEOUT))
+		if (o_ISSET(sp, o_TIMEOUT))
 			timeout = (evp->e_value == K_ESCAPE ?
-			    O_VAL(sp, O_ESCAPETIME) :
-			    O_VAL(sp, O_KEYTIME)) * 100;
+			    o_VAL(sp, o_ESCAPETIME) :
+			    o_VAL(sp, o_KEYTIME)) * 100;
 		else
 			timeout = 0;
 		goto loop;
@@ -697,7 +697,7 @@ not_digit:	argp->e_c = CH_NOT_DIGIT;
 		goto retry;
 
 	/* If remapping characters... */
-	if (O_ISSET(sp, O_REMAP)) {
+	if (o_ISSET(sp, o_REMAP)) {
 		/*
 		 * Periodically check for interrupts.  Always check the first
 		 * time through, because it's possible to set up a map that

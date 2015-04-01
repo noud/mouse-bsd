@@ -240,9 +240,9 @@ ex_aci(sp, cmdp, cmd)
 	 * change and insert.
 	 */
 	LF_INIT(TXT_DOTTERM | TXT_NUMBER);
-	if (!FL_ISSET(cmdp->iflags, E_C_FORCE) && O_ISSET(sp, O_AUTOINDENT))
+	if (!FL_ISSET(cmdp->iflags, E_C_FORCE) && o_ISSET(sp, o_AUTOINDENT))
 		LF_SET(TXT_AUTOINDENT);
-	if (O_ISSET(sp, O_BEAUTIFY))
+	if (o_ISSET(sp, o_BEAUTIFY))
 		LF_SET(TXT_BEAUTIFY);
 
 	/*

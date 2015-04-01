@@ -26,7 +26,7 @@
  * in the screen's value field.  This is set up when the options are first
  * initialized.
  */
-#define	O_V(sp, o, fld)							\
+#define	o_V(sp, o, fld)							\
 	(F_ISSET(&(sp)->opts[(o)], OPT_GLOBAL) ?			\
 	    (sp)->gp->opts[(sp)->opts[(o)].o_cur.val].fld :		\
 	    (sp)->opts[(o)].fld)
@@ -52,21 +52,21 @@ struct _option {
 		u_long	 val;		/* Value or boolean. */
 		char	*str;		/* String. */
 	} o_cur;
-#define	O_CLR(sp, o)		o_set(sp, o, 0, NULL, 0)
-#define	O_SET(sp, o)		o_set(sp, o, 0, NULL, 1)
-#define	O_STR(sp, o)		O_V(sp, o, o_cur.str)
-#define	O_VAL(sp, o)		O_V(sp, o, o_cur.val)
-#define	O_ISSET(sp, o)		O_VAL(sp, o)
+#define	o_CLR(sp, o)		o_set(sp, o, 0, NULL, 0)
+#define	o_SET(sp, o)		o_set(sp, o, 0, NULL, 1)
+#define	o_STR(sp, o)		o_V(sp, o, o_cur.str)
+#define	o_VAL(sp, o)		o_V(sp, o, o_cur.val)
+#define	o_ISSET(sp, o)		o_VAL(sp, o)
 
 	union {
 		u_long	 val;		/* Value or boolean. */
 		char	*str;		/* String. */
 	} o_def;
-#define	O_D_CLR(sp, o)		o_set(sp, o, OS_DEF, NULL, 0)
-#define	O_D_SET(sp, o)		o_set(sp, o, OS_DEF, NULL, 1)
-#define	O_D_STR(sp, o)		O_V(sp, o, o_def.str)
-#define	O_D_VAL(sp, o)		O_V(sp, o, o_def.val)
-#define	O_D_ISSET(sp, o)	O_D_VAL(sp, o)
+#define	o_D_CLR(sp, o)		o_set(sp, o, OS_DEF, NULL, 0)
+#define	o_D_SET(sp, o)		o_set(sp, o, OS_DEF, NULL, 1)
+#define	o_D_STR(sp, o)		o_V(sp, o, o_def.str)
+#define	o_D_VAL(sp, o)		o_V(sp, o, o_def.val)
+#define	o_D_ISSET(sp, o)	o_D_VAL(sp, o)
 
 #define	OPT_GLOBAL	0x01		/* Option is global. */
 #define	OPT_SELECTED	0x02		/* Selected for display. */

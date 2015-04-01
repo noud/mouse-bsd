@@ -179,10 +179,10 @@ argv_exp2(sp, excp, cmd, cmdlen)
 	 * the meta characters looking for characters that aren't expected
 	 * to be there, and then we can ignore them in the user's argument.
 	 */
-	if (opts_empty(sp, O_SHELL, 1) || opts_empty(sp, O_SHELLMETA, 1))
+	if (opts_empty(sp, o_SHELL, 1) || opts_empty(sp, o_SHELLMETA, 1))
 		n = 0;
 	else {
-		for (p = mp = O_STR(sp, O_SHELLMETA); *p != '\0'; ++p)
+		for (p = mp = o_STR(sp, o_SHELLMETA); *p != '\0'; ++p)
 			if (isblank(*p) || isalnum(*p))
 				break;
 		if (*p != '\0') {
@@ -492,13 +492,13 @@ argv_sexp(sp, bpp, blenp, lenp)
 	char *bp, *p, *sh, *sh_path;
 
 	/* Secure means no shell access. */
-	if (O_ISSET(sp, O_SECURE)) {
+	if (o_ISSET(sp, o_SECURE)) {
 		msgq(sp, M_ERR,
 "289|Shell expansions not supported when the secure edit option is set");
 		return (1);
 	}
 
-	sh_path = O_STR(sp, O_SHELL);
+	sh_path = o_STR(sp, o_SHELL);
 	if ((sh = strrchr(sh_path, '/')) == NULL)
 		sh = sh_path;
 	else

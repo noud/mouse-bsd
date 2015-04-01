@@ -170,13 +170,13 @@ next:		if (v_event_get(sp, &ev, 0, 0))
 		 */
 		p += vp->m_start.cno + cnt;
 		len -= vp->m_start.cno + cnt;
-		if (len != 0 && O_ISSET(sp, O_AUTOINDENT))
+		if (len != 0 && o_ISSET(sp, o_AUTOINDENT))
 			for (; len && isblank(*p); --len, ++p);
 
 		if ((tp = text_init(sp, p, len, len)) == NULL)
 			goto err_ret;
 
-		if (len != 0 && O_ISSET(sp, O_AUTOINDENT)) {
+		if (len != 0 && o_ISSET(sp, o_AUTOINDENT)) {
 			if (v_txt_auto(sp, vp->m_start.lno, NULL, 0, tp))
 				goto err_ret;
 			vp->m_stop.cno = tp->ai ? tp->ai - 1 : 0;

@@ -34,10 +34,10 @@ static const char sccsid[] = "@(#)ex_bang.c	10.32 (Berkeley) 5/18/96";
  * ex_bang -- :[line [,line]] ! command
  *
  * Pass the rest of the line after the ! character to the program named by
- * the O_SHELL option.
+ * the o_SHELL option.
  *
  * Historical vi did NOT do shell expansion on the arguments before passing
- * them, only file name expansion.  This means that the O_SHELL program got
+ * them, only file name expansion.  This means that the o_SHELL program got
  * "$t" as an argument if that is what the user entered.  Also, there's a
  * special expansion done for the bang command.  Any exclamation points in
  * the user's argument are replaced by the last, expanded ! command.
@@ -104,10 +104,10 @@ ex_bang(sp, cmdp)
 	if (cmdp->addrcnt == 0) {
 		msg = NULL;
 		if (F_ISSET(sp->ep, F_MODIFIED))
-			if (O_ISSET(sp, O_AUTOWRITE)) {
+			if (o_ISSET(sp, o_AUTOWRITE)) {
 				if (file_aw(sp, FS_ALL))
 					return (0);
-			} else if (O_ISSET(sp, O_WARN) &&
+			} else if (o_ISSET(sp, o_WARN) &&
 			    !F_ISSET(sp, SC_EX_SILENT))
 				msg = msg_cat(sp,
 				    "303|File modified since last write.",

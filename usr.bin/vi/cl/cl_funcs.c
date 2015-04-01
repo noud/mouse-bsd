@@ -169,7 +169,7 @@ cl_bell(sp)
 		 * Vi has an edit option which determines if the terminal
 		 * should be beeped or the screen flashed.
 		 */
-		if (O_ISSET(sp, O_FLASH))
+		if (o_ISSET(sp, o_FLASH))
 			(void)flash();
 		else
 			(void)beep();

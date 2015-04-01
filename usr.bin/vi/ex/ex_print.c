@@ -191,7 +191,7 @@ ex_scprint(sp, fp, tp)
 	size_t col, len;
 
 	col = 0;
-	if (O_ISSET(sp, O_NUMBER)) {
+	if (o_ISSET(sp, o_NUMBER)) {
 		p = "        ";
 		if (ex_prchars(sp, p, &col, 8, 0, 0))
 			return (1);
@@ -231,10 +231,10 @@ ex_prchars(sp, p, colp, len, flags, repeatc)
 	GS *gp;
 	size_t col, tlen, ts;
 
-	if (O_ISSET(sp, O_LIST))
+	if (o_ISSET(sp, o_LIST))
 		LF_SET(E_C_LIST);
 	gp = sp->gp;
-	ts = O_VAL(sp, O_TABSTOP);
+	ts = o_VAL(sp, o_TABSTOP);
 	for (col = *colp; len--;)
 		if ((ch = *p++) == '\t' && !LF_ISSET(E_C_LIST))
 			for (tlen = ts - col % ts;

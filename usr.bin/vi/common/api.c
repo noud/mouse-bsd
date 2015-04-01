@@ -402,20 +402,20 @@ api_opts_get(sp, name, value)
 	case OPT_1BOOL:
 		MALLOC_RET(sp, *value, char *, strlen(op->name) + 2 + 1);
 		(void)sprintf(*value,
-		    "%s%s", O_ISSET(sp, offset) ? "" : "no", op->name);
+		    "%s%s", o_ISSET(sp, offset) ? "" : "no", op->name);
 		break;
 	case OPT_NUM:
 		MALLOC_RET(sp, *value, char *, 20);
-		(void)sprintf(*value, "%ld", (u_long)O_VAL(sp, offset));
+		(void)sprintf(*value, "%ld", (u_long)o_VAL(sp, offset));
 		break;
 	case OPT_STR:
-		if (O_STR(sp, offset) == NULL) {
+		if (o_STR(sp, offset) == NULL) {
 			MALLOC_RET(sp, *value, char *, 2);
 			value[0] = '\0';
 		} else {
 			MALLOC_RET(sp,
-			    *value, char *, strlen(O_STR(sp, offset)) + 1);
-			(void)sprintf(*value, "%s", O_STR(sp, offset));
+			    *value, char *, strlen(o_STR(sp, offset)) + 1);
+			(void)sprintf(*value, "%s", o_STR(sp, offset));
 		}
 		break;
 	}

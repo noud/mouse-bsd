@@ -108,7 +108,7 @@ vs_line(sp, smp, yp, xp)
 	 * be displayed.
 	 */
 	cols_per_screen = sp->cols;
-	if (O_ISSET(sp, O_LEFTRIGHT)) {
+	if (o_ISSET(sp, o_LEFTRIGHT)) {
 		skip_screens = 0;
 		skip_cols = smp->coff;
 	} else {
@@ -116,32 +116,32 @@ vs_line(sp, smp, yp, xp)
 		skip_cols = skip_screens * cols_per_screen;
 	}
 
-	list_tab = O_ISSET(sp, O_LIST);
+	list_tab = o_ISSET(sp, o_LIST);
 	if (F_ISSET(sp, SC_TINPUT_INFO))
 		list_dollar = 0;
 	else {
 		list_dollar = list_tab;
 
 		/*
-		 * If O_NUMBER is set, the line doesn't exist and it's line
+		 * If o_NUMBER is set, the line doesn't exist and it's line
 		 * number 1, i.e., an empty file, display the line number.
 		 *
-		 * If O_NUMBER is set, the line exists and the first character
+		 * If o_NUMBER is set, the line exists and the first character
 		 * on the screen is the first character in the line, display
 		 * the line number.
 		 *
 		 * !!!
-		 * If O_NUMBER set, decrement the number of columns in the
+		 * If o_NUMBER set, decrement the number of columns in the
 		 * first screen.  DO NOT CHANGE THIS -- IT'S RIGHT!  The
 		 * rest of the code expects this to reflect the number of
 		 * columns in the first screen, regardless of the number of
 		 * columns we're going to skip.
 		 */
-		if (O_ISSET(sp, O_NUMBER)) {
-			cols_per_screen -= O_NUMBER_LENGTH;
+		if (o_ISSET(sp, o_NUMBER)) {
+			cols_per_screen -= o_NUMBER_LENGTH;
 			if ((!dne || smp->lno == 1) && skip_cols == 0) {
 				nlen = snprintf(cbuf,
-				    sizeof(cbuf), O_NUMBER_FMT, smp->lno);
+				    sizeof(cbuf), o_NUMBER_FMT, smp->lno);
 				(void)gp->scr_addstr(sp, cbuf, nlen);
 			}
 		}
@@ -150,7 +150,7 @@ vs_line(sp, smp, yp, xp)
 	/*
 	 * Special case non-existent lines and the first line of an empty
 	 * file.  In both cases, the cursor position is 0, but corrected
-	 * as necessary for the O_NUMBER field, if it was displayed.
+	 * as necessary for the o_NUMBER field, if it was displayed.
 	 */
 	if (dne || len == 0) {
 		/* Fill in the cursor. */
@@ -253,7 +253,7 @@ empty:					(void)gp->scr_addstr(sp,
 	offset_in_char = 0;
 
 	/* Do it the hard way, for leftright scrolling screens. */
-	if (O_ISSET(sp, O_LEFTRIGHT)) {
+	if (o_ISSET(sp, o_LEFTRIGHT)) {
 		for (; offset_in_line < len; ++offset_in_line) {
 			chlen = (ch = *(u_char *)p++) == '\t' && !list_tab ?
 			    TAB_OFF(scno) : KEY_LEN(sp, ch);
@@ -379,9 +379,9 @@ display:
 				*xp = scno - chlen;
 			else
 				*xp = scno - 1;
-			if (O_ISSET(sp, O_NUMBER) &&
+			if (o_ISSET(sp, o_NUMBER) &&
 			    !F_ISSET(sp, SC_TINPUT_INFO) && skip_cols == 0)
-				*xp += O_NUMBER_LENGTH;
+				*xp += o_NUMBER_LENGTH;
 
 			/* If the line is on the screen, quit. */
 			if (is_cached)
@@ -424,7 +424,7 @@ display:
 		smp->c_eboff = len - 1;
 
 		/*
-		 * If not the info/mode line, and O_LIST set, and at the
+		 * If not the info/mode line, and o_LIST set, and at the
 		 * end of the line, and the line ended on this screen,
 		 * add a trailing $.
 		 */
@@ -489,7 +489,7 @@ vs_number(sp)
 	(void)gp->scr_cursor(sp, &oldy, &oldx);
 	for (smp = HMAP; smp <= TMAP; ++smp) {
 		/* Numbers are only displayed for the first screen line. */
-		if (O_ISSET(sp, O_LEFTRIGHT)) {
+		if (o_ISSET(sp, o_LEFTRIGHT)) {
 			if (smp->coff != 0)
 				continue;
 		} else
@@ -504,7 +504,7 @@ vs_number(sp)
 			break;
 
 		(void)gp->scr_move(sp, smp - HMAP, 0);
-		len = snprintf(nbuf, sizeof(nbuf), O_NUMBER_FMT, smp->lno);
+		len = snprintf(nbuf, sizeof(nbuf), o_NUMBER_FMT, smp->lno);
 		(void)gp->scr_addstr(sp, nbuf, len);
 	}
 	(void)gp->scr_move(sp, oldy, oldx);

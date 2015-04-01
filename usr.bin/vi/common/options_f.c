@@ -41,7 +41,7 @@ f_altwerase(sp, op, str, valp)
 	u_long *valp;
 {
 	if (!*valp)
-		O_CLR(sp, O_TTYWERASE);
+		o_CLR(sp, o_TTYWERASE);
 	return (0);
 }
 
@@ -115,22 +115,22 @@ f_lines(sp, op, str, valp)
 	 * Set the value, and the related scroll value.  If no window
 	 * value set, set a new default window.
 	 */
-	o_set(sp, O_LINES, 0, NULL, *valp);
+	o_set(sp, o_LINES, 0, NULL, *valp);
 	if (*valp == 1) {
 		sp->defscroll = 1;
 
-		if (O_VAL(sp, O_WINDOW) == O_D_VAL(sp, O_WINDOW) ||
-		    O_VAL(sp, O_WINDOW) > *valp) {
-			o_set(sp, O_WINDOW, 0, NULL, 1);
-			o_set(sp, O_WINDOW, OS_DEF, NULL, 1);
+		if (o_VAL(sp, o_WINDOW) == o_D_VAL(sp, o_WINDOW) ||
+		    o_VAL(sp, o_WINDOW) > *valp) {
+			o_set(sp, o_WINDOW, 0, NULL, 1);
+			o_set(sp, o_WINDOW, OS_DEF, NULL, 1);
 		}
 	} else {
 		sp->defscroll = (*valp - 1) / 2;
 
-		if (O_VAL(sp, O_WINDOW) == O_D_VAL(sp, O_WINDOW) ||
-		    O_VAL(sp, O_WINDOW) > *valp) {
-			o_set(sp, O_WINDOW, 0, NULL, *valp - 1);
-			o_set(sp, O_WINDOW, OS_DEF, NULL, *valp - 1);
+		if (o_VAL(sp, o_WINDOW) == o_D_VAL(sp, o_WINDOW) ||
+		    o_VAL(sp, o_WINDOW) > *valp) {
+			o_set(sp, o_WINDOW, 0, NULL, *valp - 1);
+			o_set(sp, o_WINDOW, OS_DEF, NULL, *valp - 1);
 		}
 	}
 	return (0);
@@ -285,7 +285,7 @@ f_ttywerase(sp, op, str, valp)
 	u_long *valp;
 {
 	if (!*valp)
-		O_CLR(sp, O_ALTWERASE);
+		o_CLR(sp, o_ALTWERASE);
 	return (0);
 }
 
@@ -362,8 +362,8 @@ f_window(sp, op, str, valp)
 	char *str;
 	u_long *valp;
 {
-	if (*valp >= O_VAL(sp, O_LINES) - 1 &&
-	    (*valp = O_VAL(sp, O_LINES) - 1) == 0)
+	if (*valp >= o_VAL(sp, o_LINES) - 1 &&
+	    (*valp = o_VAL(sp, o_LINES) - 1) == 0)
 		*valp = 1;
 	return (0);
 }

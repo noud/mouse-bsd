@@ -117,11 +117,11 @@ v_optchange(sp, offset, str, valp)
 	u_long *valp;
 {
 	switch (offset) {
-	case O_PARAGRAPHS:
-		return (v_buildps(sp, str, O_STR(sp, O_SECTIONS)));
-	case O_SECTIONS:
-		return (v_buildps(sp, O_STR(sp, O_PARAGRAPHS), str));
-	case O_WINDOW:
+	case o_PARAGRAPHS:
+		return (v_buildps(sp, str, o_STR(sp, o_SECTIONS)));
+	case o_SECTIONS:
+		return (v_buildps(sp, o_STR(sp, o_PARAGRAPHS), str));
+	case o_WINDOW:
 		return (vs_crel(sp, *valp));
 	}
 	return (0);

@@ -92,7 +92,7 @@ v_exaddr(sp, vp, dir)
 	/* Get the search pattern. */
 	if (v_tcmd(sp, vp, dir == BACKWARD ? CH_BSEARCH : CH_FSEARCH,
 	    TXT_BS | TXT_CR | TXT_ESCAPE | TXT_PROMPT |
-	    (O_ISSET(sp, O_SEARCHINCR) ? TXT_SEARCHINCR : 0)))
+	    (o_ISSET(sp, o_SEARCHINCR) ? TXT_SEARCHINCR : 0)))
 		return (1);
 
 	tp = sp->tiq.cqh_first;

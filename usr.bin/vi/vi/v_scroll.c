@@ -370,7 +370,7 @@ v_pagedown(sp, vp)
 	 * least one line.
 	 */
 	offset = (F_ISSET(vp, VC_C1SET) ? vp->count : 1) * (IS_SPLIT(sp) ?
-	    MIN(sp->t_maxrows, O_VAL(sp, O_WINDOW)) : O_VAL(sp, O_WINDOW));
+	    MIN(sp->t_maxrows, o_VAL(sp, o_WINDOW)) : o_VAL(sp, o_WINDOW));
 	offset = offset <= 2 ? 1 : offset - 2;
 	if (vs_sm_scroll(sp, &vp->m_stop, offset, CNTRL_F))
 		return (1);
@@ -423,7 +423,7 @@ v_pageup(sp, vp)
 	 * least one line.
 	 */
 	offset = (F_ISSET(vp, VC_C1SET) ? vp->count : 1) * (IS_SPLIT(sp) ?
-	    MIN(sp->t_maxrows, O_VAL(sp, O_WINDOW)) : O_VAL(sp, O_WINDOW));
+	    MIN(sp->t_maxrows, o_VAL(sp, o_WINDOW)) : o_VAL(sp, o_WINDOW));
 	offset = offset <= 2 ? 1 : offset - 2;
 	if (vs_sm_scroll(sp, &vp->m_stop, offset, CNTRL_B))
 		return (1);

@@ -364,7 +364,7 @@ txt_prompt(sp, tp, prompt, flags)
 		(void)printf("%c", prompt);
 
 	/* Display the line number. */
-	if (LF_ISSET(TXT_NUMBER) && O_ISSET(sp, O_NUMBER))
+	if (LF_ISSET(TXT_NUMBER) && o_ISSET(sp, o_NUMBER))
 		(void)printf("%6lu  ", (u_long)tp->lno);
 
 	/* Print out autoindent string. */
@@ -388,8 +388,8 @@ txt_dent(sp, tp)
 	u_long sw, ts;
 	size_t cno, off, scno, spaces, tabs;
 
-	ts = O_VAL(sp, O_TABSTOP);
-	sw = O_VAL(sp, O_SHIFTWIDTH);
+	ts = o_VAL(sp, o_TABSTOP);
+	sw = o_VAL(sp, o_SHIFTWIDTH);
 
 	/* Get the current screen column. */
 	for (off = scno = 0; off < tp->len; ++off)

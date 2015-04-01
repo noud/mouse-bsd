@@ -170,7 +170,7 @@ vi(spp)
 		}
 
 		/* Check for security setting. */
-		if (F_ISSET(vp->kp, V_SECURE) && O_ISSET(sp, O_SECURE)) {
+		if (F_ISSET(vp->kp, V_SECURE) && o_ISSET(sp, o_SECURE)) {
 			ex_emsg(sp, KEY_NAME(sp, vp->key), EXM_SECURE);
 			goto err;
 		}
@@ -417,7 +417,7 @@ ret:		rval = 1;
 }
 
 /*
- * The O_TILDEOP option makes the ~ command take a motion instead
+ * The o_TILDEOP option makes the ~ command take a motion instead
  * of a straight count.  This is the replacement structure we use
  * instead of the one currently in the VIKEYS table.
  *
@@ -554,7 +554,7 @@ v_cmd(sp, dp, vp, ismotion, comcountp, mappedp)
 		return (GC_ERR);
 
 	/* The tildeop option makes the ~ command take a motion. */
-	if (key == '~' && O_ISSET(sp, O_TILDEOP))
+	if (key == '~' && o_ISSET(sp, o_TILDEOP))
 		kp = &tmotion;
 
 	vp->kp = kp;
@@ -645,7 +645,7 @@ v_cmd(sp, dp, vp, ismotion, comcountp, mappedp)
 		if (vp->key != key) {
 usage:			if (ismotion == NULL)
 				s = kp->usage;
-			else if (ismotion->key == '~' && O_ISSET(sp, O_TILDEOP))
+			else if (ismotion->key == '~' && o_ISSET(sp, o_TILDEOP))
 				s = tmotion.usage;
 			else
 				s = vikeys[ismotion->key].usage;
@@ -939,9 +939,9 @@ v_init(sp)
 	 *	t_maxrows is the maximum rows to display (rows - 1)
 	 *	t_rows is the rows currently being displayed
 	 */
-	sp->rows = vip->srows = O_VAL(sp, O_LINES);
-	sp->cols = O_VAL(sp, O_COLUMNS);
-	sp->t_rows = sp->t_minrows = O_VAL(sp, O_WINDOW);
+	sp->rows = vip->srows = o_VAL(sp, o_LINES);
+	sp->cols = o_VAL(sp, o_COLUMNS);
+	sp->t_rows = sp->t_minrows = o_VAL(sp, o_WINDOW);
 	if (sp->rows != 1) {
 		if (sp->t_rows > sp->rows - 1) {
 			sp->t_minrows = sp->t_rows = sp->rows - 1;

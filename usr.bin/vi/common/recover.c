@@ -144,9 +144,9 @@ rcv_tmp(sp, ep, name)
 	 * would have permission to remove other user's recovery files.  If
 	 * the sticky bit has the BSD semantics, that too will be impossible.
 	 */
-	if (opts_empty(sp, O_RECDIR, 0))
+	if (opts_empty(sp, o_RECDIR, 0))
 		goto err;
-	dp = O_STR(sp, O_RECDIR);
+	dp = o_STR(sp, o_RECDIR);
 	if (stat(dp, &sb)) {
 		if (errno != ENOENT || mkdir(dp, 0)) {
 			msgq(sp, M_SYSERR, "%s", dp);
@@ -297,9 +297,9 @@ rcv_sync(sp, flags)
 	 */
 	rval = 0;
 	if (LF_ISSET(RCV_SNAPSHOT)) {
-		if (opts_empty(sp, O_RECDIR, 0))
+		if (opts_empty(sp, o_RECDIR, 0))
 			goto err;
-		dp = O_STR(sp, O_RECDIR);
+		dp = o_STR(sp, o_RECDIR);
 		(void)snprintf(buf, sizeof(buf), "%s/vi.XXXXXX", dp);
 		if ((fd = rcv_mktemp(sp, buf, dp, S_IRUSR | S_IWUSR)) == -1)
 			goto err;
@@ -359,9 +359,9 @@ rcv_mailfile(sp, issync, cp_path)
 		return (1);
 	}
 
-	if (opts_empty(sp, O_RECDIR, 0))
+	if (opts_empty(sp, o_RECDIR, 0))
 		return (1);
-	dp = O_STR(sp, O_RECDIR);
+	dp = o_STR(sp, o_RECDIR);
 	(void)snprintf(mpath, sizeof(mpath), "%s/recover.XXXXXX", dp);
 	if ((fd = rcv_mktemp(sp, mpath, dp, S_IRUSR | S_IWUSR)) == -1)
 		return (1);
@@ -499,9 +499,9 @@ rcv_list(sp)
 	char *p, *t, file[MAXPATHLEN], path[MAXPATHLEN];
 
 	/* Open the recovery directory for reading. */
-	if (opts_empty(sp, O_RECDIR, 0))
+	if (opts_empty(sp, o_RECDIR, 0))
 		return (1);
-	p = O_STR(sp, O_RECDIR);
+	p = o_STR(sp, o_RECDIR);
 	if (chdir(p) || (dirp = opendir(".")) == NULL) {
 		msgq_str(sp, M_SYSERR, p, "recdir: %s");
 		return (1);
@@ -604,9 +604,9 @@ rcv_read(sp, frp)
 	char *name, *p, *t, *rp, *recp, *pathp;
 	char file[MAXPATHLEN], path[MAXPATHLEN], recpath[MAXPATHLEN];
 
-	if (opts_empty(sp, O_RECDIR, 0))
+	if (opts_empty(sp, o_RECDIR, 0))
 		return (1);
-	rp = O_STR(sp, O_RECDIR);
+	rp = o_STR(sp, o_RECDIR);
 	if ((dirp = opendir(rp)) == NULL) {
 		msgq_str(sp, M_ERR, rp, "%s");
 		return (1);

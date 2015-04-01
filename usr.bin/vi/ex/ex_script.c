@@ -96,7 +96,7 @@ sscr_init(sp)
 	char *sh, *sh_path;
 
 	/* We're going to need a shell. */
-	if (opts_empty(sp, O_SHELL, 0))
+	if (opts_empty(sp, o_SHELL, 0))
 		return (1);
 
 	MALLOC_RET(sp, sc, SCRIPT *, sizeof(SCRIPT));
@@ -179,7 +179,7 @@ err:		if (sc->sh_master != -1)
 		(void)close(sc->sh_slave);
 
 		/* Assumes that all shells have -i. */
-		sh_path = O_STR(sp, O_SHELL);
+		sh_path = o_STR(sp, o_SHELL);
 		if ((sh = strrchr(sh_path, '/')) == NULL)
 			sh = sh_path;
 		else

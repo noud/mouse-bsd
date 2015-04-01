@@ -22,18 +22,18 @@ typedef enum {
  * Message types.
  *
  * !!!
- * In historical vi, O_VERBOSE didn't exist, and O_TERSE made the error
- * messages shorter.  In this implementation, O_TERSE has no effect and
- * O_VERBOSE results in informational displays about common errors, for
+ * In historical vi, o_VERBOSE didn't exist, and o_TERSE made the error
+ * messages shorter.  In this implementation, o_TERSE has no effect and
+ * o_VERBOSE results in informational displays about common errors, for
  * naive users.
  *
  * M_NONE	Display to the user, no reformatting, no nothing.
  *
- * M_BERR	Error: M_ERR if O_VERBOSE, else bell.
+ * M_BERR	Error: M_ERR if o_VERBOSE, else bell.
  * M_ERR	Error: Display in inverse video.
  * M_INFO	 Info: Display in normal video.
  * M_SYSERR	Error: M_ERR, using strerror(3) message.
- * M_VINFO	 Info: M_INFO if O_VERBOSE, else ignore.
+ * M_VINFO	 Info: M_INFO if o_VERBOSE, else ignore.
  *
  * The underlying message display routines only need to know about M_NONE,
  * M_ERR and M_INFO -- all the other message types are converted into one

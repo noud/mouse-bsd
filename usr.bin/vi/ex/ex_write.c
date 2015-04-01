@@ -156,7 +156,7 @@ exwr(sp, cmdp, cmd)
 	/* If "write !" it's a pipe to a utility. */
 	if (cmdp->argc != 0 && cmd == WRITE && *p == '!') {
 		/* Secure means no shell access. */
-		if (O_ISSET(sp, O_SECURE)) {
+		if (o_ISSET(sp, o_SECURE)) {
 			ex_emsg(sp, cmdp->cmd->name, EXM_SECURE_F);
 			return (1);
 		}

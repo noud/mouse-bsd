@@ -48,14 +48,14 @@ ex_shell(sp, cmdp)
 	char buf[MAXPATHLEN];
 
 	/* We'll need a shell. */
-	if (opts_empty(sp, O_SHELL, 0))
+	if (opts_empty(sp, o_SHELL, 0))
 		return (1);
 
 	/*
 	 * XXX
 	 * Assumes all shells use -i.
 	 */
-	(void)snprintf(buf, sizeof(buf), "%s -i", O_STR(sp, O_SHELL));
+	(void)snprintf(buf, sizeof(buf), "%s -i", o_STR(sp, o_SHELL));
 
 	/* If we're stil in a vi screen, move out explicitly. */
 	rval = ex_exec_proc(sp, cmdp, buf, NULL, !F_ISSET(sp, SC_SCR_EXWROTE));
@@ -88,7 +88,7 @@ ex_exec_proc(sp, cmdp, cmd, msg, need_newline)
 	pid_t pid;
 
 	/* We'll need a shell. */
-	if (opts_empty(sp, O_SHELL, 0))
+	if (opts_empty(sp, o_SHELL, 0))
 		return (1);
 
 	/* Enter ex mode. */
@@ -114,12 +114,12 @@ ex_exec_proc(sp, cmdp, cmd, msg, need_newline)
 		msgq(sp, M_SYSERR, "vfork");
 		return (1);
 	case 0:				/* Utility. */
-		if ((name = strrchr(O_STR(sp, O_SHELL), '/')) == NULL)
-			name = O_STR(sp, O_SHELL);
+		if ((name = strrchr(o_STR(sp, o_SHELL), '/')) == NULL)
+			name = o_STR(sp, o_SHELL);
 		else
 			++name;
-		execl(O_STR(sp, O_SHELL), name, "-c", cmd, NULL);
-		msgq_str(sp, M_SYSERR, O_STR(sp, O_SHELL), "execl: %s");
+		execl(o_STR(sp, o_SHELL), name, "-c", cmd, NULL);
+		msgq_str(sp, M_SYSERR, o_STR(sp, o_SHELL), "execl: %s");
 		_exit(127);
 		/* NOTREACHED */
 	default:			/* Parent. */
