@@ -90,6 +90,7 @@
 #define KEY_8     0x25
 #define KEY_9     0x26
 #define KEY_0     0x27
+#define KEY_s     0x4e
 #define KEY_k     0x54
 #define KEY_m     0x6a
 #define KEY_SPACE 0x79
@@ -430,6 +431,7 @@ static void kmmux_input_raw(SOFTC *km, unsigned char c)
 	     case KEY_8: switchto(m,7); break;
 	     case KEY_9: switchto(m,8); break;
 	     case KEY_0: switchto(m,9); break;
+	     case KEY_s: if (m->ms) kmmux_switch_speed(m->ms); m->flags &= ~KMMF_SWITCHING; break;
 	     case KEY_k: m->flags = (m->flags & ~KMMF_SWITCH_M) | KMMF_SWITCH_K; break;
 	     case KEY_m: m->flags = (m->flags & ~KMMF_SWITCH_K) | KMMF_SWITCH_M; break;
 	     default: switchto(m,-1); break;
