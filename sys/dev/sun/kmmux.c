@@ -312,6 +312,28 @@ static void clear_bit(PAIR *p, unsigned int bit)
  p->flags &= ~bit;
 }
 
+static void kmmux_switch_speed(SOFTC *km)
+{
+ int s;
+
+ switch (km->baud)
+  { default:
+       km->baud = 9600;
+       break;
+    case 2400: case 4800: case 9600:
+       km->baud >>= 1;
+       break;
+  }
+ s = splzs();
+ zs_set_speed(km->zcs,km->baud);
+ zs_loadchannelregs(km->zcs);
+ splx(s);
+ /* normally would spltty and do km->rget=km->rput here, but
+    we're called only from kmmux_zs_softint, already at spltty and
+    with the equivalent of that assignment being done soon. */
+ log(LOG_WARNING,"%s: trying %d baud\n",km->dev.dv_xname,km->baud);
+}
+
 static void kmmux_input_raw(SOFTC *km, unsigned char c)
 {
  MUX *m;
@@ -649,28 +671,6 @@ static void kmmux_reset_real(SOFTC *km)
  m = km->mux;
  queue_output(km,KBD_CMD_RESET);
  start_output(km);
-}
-
-static void kmmux_switch_speed(SOFTC *km)
-{
- int s;
-
- switch (km->baud)
-  { default:
-       km->baud = 9600;
-       break;
-    case 2400: case 4800: case 9600:
-       km->baud >>= 1;
-       break;
-  }
- s = splzs();
- zs_set_speed(km->zcs,km->baud);
- zs_loadchannelregs(km->zcs);
- splx(s);
- /* normally would spltty and do km->rget=km->rput here, but
-    we're called only from kmmux_zs_softint, already at spltty and
-    with the equivalent of that assignment being done soon. */
- log(LOG_WARNING,"%s: trying %d baud\n",km->dev.dv_xname,km->baud);
 }
 
 static void end_holdown(void *kmv)
