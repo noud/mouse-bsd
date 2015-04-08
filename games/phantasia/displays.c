@@ -44,6 +44,7 @@ typedef enum {
 	  XVAR_MIGHT,
 	  XVAR_STRENGTH,
 	  XVAR_GOLD,
+	  XVAR_GEMS,
 	  } XVAR;
 
 typedef enum {
@@ -639,6 +640,7 @@ static EXPR *parse_unary(void)
        break;
     case 'g':
        if (!strncmp(parse_str,"gold",4)) { var = XVAR_GOLD; adv = 4; }
+       if (!strncmp(parse_str,"gems",4)) { var = XVAR_GEMS; adv = 4; }
        break;
     case 'l':
        if (!strncmp(parse_str,"level",5)) { var = XVAR_LEVEL; adv = 5; }
@@ -808,6 +810,7 @@ static VAL expr_eval(EXPR *e)
 	  case XVAR_MIGHT: return(VAL_NUM(Player.p_might)); break;
 	  case XVAR_STRENGTH: return(VAL_NUM(Player.p_strength+Player.p_sword)); break;
 	  case XVAR_GOLD: return(VAL_NUM(Player.p_gold)); break;
+	  case XVAR_GEMS: return(VAL_NUM(Player.p_gems)); break;
 	  default: abort(); break;
 	}
        break;
