@@ -156,29 +156,30 @@ __RCSID("$NetBSD: ping6.c,v 1.12 2000/02/16 00:37:02 itojun Exp $");
 #define	CLR(bit)	(A(bit) &= (~B(bit)))
 #define	TST(bit)	(A(bit) & B(bit))
 
-#define	F_FLOOD		0x0001
-#define	F_INTERVAL	0x0002
-#define	F_NUMERIC	0x0004
-#define	F_PINGFILLED	0x0008
-#define	F_QUIET		0x0010
-#define	F_RROUTE	0x0020
-#define	F_SO_DEBUG	0x0040
-#define	F_VERBOSE	0x0100
+#define	F_FLOOD		0x00000001
+#define	F_INTERVAL	0x00000002
+#define	F_NUMERIC	0x00000004
+#define	F_PINGFILLED	0x00000008
+#define	F_QUIET		0x00000010
+#define	F_RROUTE	0x00000020
+#define	F_SO_DEBUG	0x00000040
+#define	F_VERBOSE	0x00000100
 #ifdef IPSEC
 #ifdef IPSEC_POLICY_IPSEC
-#define	F_POLICY	0x0400
+#define	F_POLICY	0x00000400
 #else
-#define F_AUTHHDR	0x0200
-#define F_ENCRYPT	0x0400
+#define F_AUTHHDR	0x00000200
+#define F_ENCRYPT	0x00000400
 #endif /*IPSEC_POLICY_IPSEC*/
 #endif /*IPSEC*/
-#define F_NODEADDR	0x0800
-#define F_FQDN		0x1000
-#define F_INTERFACE	0x2000
-#define F_SRCADDR	0x4000
+#define F_NODEADDR	0x00000800
+#define F_FQDN		0x00001000
+#define F_INTERFACE	0x00002000
+#define F_SRCADDR	0x00004000
 #ifdef IPV6_REACHCONF
-#define F_REACHCONF	0x8000
+#define F_REACHCONF	0x00008000
 #endif
+#define F_ONCE		0x00010000
 u_int options;
 
 #define IN6LEN		sizeof(struct in6_addr)
@@ -286,12 +287,12 @@ main(argc, argv)
 	preload = 0;
 	datap = &outpack[ICMP6ECHOLEN + ICMP6ECHOTMLEN];
 #ifndef IPSEC
-	while ((ch = getopt(argc, argv, "a:b:c:dfh:I:i:l:np:qRS:s:vwW")) != EOF)
+	while ((ch = getopt(argc, argv, "a:b:c:dfh:I:i:l:nop:qRS:s:vwW")) != EOF)
 #else
 #ifdef IPSEC_POLICY_IPSEC
-	while ((ch = getopt(argc, argv, "a:b:c:dfh:I:i:l:np:qRS:s:vwWP:")) != EOF)
+	while ((ch = getopt(argc, argv, "a:b:c:dfh:I:i:l:nop:qRS:s:vwWP:")) != EOF)
 #else
-	while ((ch = getopt(argc, argv, "a:b:c:dfh:I:i:l:np:qRS:s:vwWAE")) != EOF)
+	while ((ch = getopt(argc, argv, "a:b:c:dfh:I:i:l:nop:qRS:s:vwWAE")) != EOF)
 #endif /*IPSEC_POLICY_IPSEC*/
 #endif
 		switch(ch) {
@@ -383,6 +384,9 @@ main(argc, argv)
 			break;
 		case 'n':
 			options |= F_NUMERIC;
+			break;
+		case 'o':
+			options |= F_ONCE;
 			break;
 		case 'p':		/* fill buffer with user pattern */
 			options |= F_PINGFILLED;
@@ -873,7 +877,8 @@ main(argc, argv)
 		}
 
 		pr_pack(packet, cc, &m);
-		if (npackets && nreceived >= npackets)
+		if ( (npackets && (nreceived >= npackets)) ||
+		     ((nreceived > 0) && (options & F_ONCE)) )
 			break;
 	}
 	summary();
