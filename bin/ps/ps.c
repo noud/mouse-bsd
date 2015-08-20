@@ -434,7 +434,8 @@ main(argc, argv)
 		realtw = termwidth;
 		if (hierarchical) {
 			print_prefix(ki->indent);
-			termwidth -= 2 * ki->indent;
+			if (termwidth != UNLIMITED)
+				termwidth -= 2 * ki->indent;
 		}
 		for (vent = vhead; vent; vent = vent->next) {
 			(vent->var->oproc)(ki, vent);
