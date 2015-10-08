@@ -91,6 +91,13 @@
 
 #include "opt_md.h"
 
+/*
+ * This needs to be defined in _one_ .c file which includes fcntl.h,
+ *  preferably one which doesn't use FFLAGS()/OFLAGS(); this seems like
+ *  the perfect one to pick.
+ */
+#define LIBRARY_FFLAGS_OFLAGS
+
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/proc.h>

@@ -999,7 +999,7 @@ sys_open(p, v, retval)
 	struct nameidata nd;
 
 	flags = FFLAGS(SCARG(uap, flags));
-	if ( ((flags & (FREAD | FWRITE)) == 0) ||
+	if ( ((flags & (FREAD | FWRITE | O_DIRECTORY)) == 0) ||
 	     ((flags & O_DIRECTORY) && (flags & (O_CREAT | O_TRUNC))) )
 		return (EINVAL);
 	/* falloc() will use the file descriptor for us */
@@ -1133,8 +1133,6 @@ sys_fhopen(p, v, retval)
 		return (error);
 
 	flags = FFLAGS(SCARG(uap, flags));
-	if ((flags & (FREAD | FWRITE)) == 0)
-		return (EINVAL);
 	if ((flags & O_CREAT))
 		return (EINVAL);
 	/* falloc() will use the file descriptor for us */
