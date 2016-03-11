@@ -85,7 +85,7 @@ CODE prioritynames[] = {
 	{ "panic", 	LOG_EMERG },		/* DEPRECATED */
 	{ "warn",	LOG_WARNING },		/* DEPRECATED */
 	{ "warning",	LOG_WARNING },
-	{ NULL,		-1 }
+	{ 0,		-1 }
 };
 #endif
 
@@ -142,7 +142,7 @@ CODE facilitynames[] = {
 	{ "local5",	LOG_LOCAL5 },
 	{ "local6",	LOG_LOCAL6 },
 	{ "local7",	LOG_LOCAL7 },
-	{ NULL,		-1 }
+	{ 0,		-1 }
 };
 #endif
 
