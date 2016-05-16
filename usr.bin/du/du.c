@@ -75,14 +75,14 @@ main(argc, argv)
 	FTSENT *p;
 	long blocksize, totalblocks;
 	int ftsoptions, listdirs, listfiles;
-	int Hflag, Lflag, Pflag, aflag, ch, cflag, kflag, notused, rval, sflag;
+	int Hflag, Lflag, Pflag, aflag, ch, cflag, eflag, kflag, notused, rval, sflag;
 	char **save;
 
 	save = argv;
-	Hflag = Lflag = Pflag = aflag = cflag = kflag = sflag = 0;
+	Hflag = Lflag = Pflag = aflag = cflag = eflag = kflag = sflag = 0;
 	totalblocks = 0;
 	ftsoptions = FTS_PHYSICAL;
-	while ((ch = getopt(argc, argv, "HLPackrsx")) != -1)
+	while ((ch = getopt(argc, argv, "HLPacekrsx")) != -1)
 		switch (ch) {
 		case 'H':
 			Hflag = 1;
@@ -101,6 +101,9 @@ main(argc, argv)
 			break;
 		case 'c':
 			cflag = 1;
+			break;
+		case 'e':
+			eflag = 1;
 			break;
 		case 'k':
 			blocksize = 1024;
@@ -169,8 +172,8 @@ main(argc, argv)
 		case FTS_D:			/* Ignore. */
 			break;
 		case FTS_DP:
-			p->fts_parent->fts_number +=
-			    p->fts_number += p->fts_statp->st_blocks;
+			p->fts_number += p->fts_statp->st_blocks;
+			if (! eflag) p->fts_parent->fts_number += p->fts_number;
 			if (cflag)
 				totalblocks += p->fts_statp->st_blocks;
 			/*

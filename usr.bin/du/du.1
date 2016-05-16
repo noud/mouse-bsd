@@ -43,7 +43,7 @@
 .Nm
 .Op Fl H | Fl L | Fl P
 .Op Fl a | Fl s
-.Op Fl ckrx
+.Op Fl cekrx
 .Op Ar file ...
 .Sh DESCRIPTION
 The
@@ -65,6 +65,9 @@ All symbolic links are followed.
 No symbolic links are followed.
 .It Fl a
 Display an entry for each file in the file hierarchy.
+.It Fl e
+When displaying the space used by a directory, do not include the space
+used by any subdirectories it may contain.
 .It Fl k
 By default,
 .Nm
