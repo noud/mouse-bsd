@@ -42,14 +42,15 @@
 .Os
 .Sh NAME
 .Nm strtoul ,
-.Nm strtouq
-.Nd "convert a string to an unsigned long or uquad_t integer"
+.Nm strtouq ,
+.Nm strtoull
+.Nd "convert a string to an unsigned long, uquad_t, or unsigned long long integer"
 .Sh LIBRARY
 .Lb libc
 .Sh SYNOPSIS
 .Fd #include <stdlib.h>
 .Fd #include <limits.h>
-.Ft unsigned long
+.Ft unsigned long int
 .Fn strtoul "const char *nptr" "char **endptr" "int base"
 
 .Fd #include <sys/types.h>
@@ -57,6 +58,11 @@
 .Fd #include <limits.h>
 .Ft u_quad_t
 .Fn strtouq "const char *nptr" "char **endptr" "int base"
+
+.Fd #include <stdlib.h>
+.Fd #include <limits.h>
+.Ft unsigned long long int
+.Fn strtoull "const char *nptr" "char **endptr" "int base"
 .Sh DESCRIPTION
 The
 .Fn strtoul
@@ -64,7 +70,7 @@ function
 converts the string in
 .Fa nptr
 to an
-.Em unsigned long
+.Em unsigned long int
 value.
 The
 .Fn strtouq
@@ -73,6 +79,14 @@ converts the string in
 .Fa nptr
 to a
 .Em u_quad_t
+value.
+The
+.Fn strtoull
+function
+converts the string in
+.Fa nptr
+to an
+.Em unsigned long long int
 value.
 The conversion is done according to the given
 .Fa base ,
@@ -100,7 +114,10 @@ is taken as 10 (decimal) unless the next character is
 in which case it is taken as 8 (octal).
 .Pp
 The remainder of the string is converted to an
-.Em unsigned long
+.Em unsigned long int ,
+.Em u_quad_t ,
+or
+.Em unsigned long long int
 value in the obvious manner,
 stopping at the end of the string
 or at the first character that does not produce a valid digit
@@ -116,13 +133,11 @@ representing 35.)
 .Pp
 If
 .Fa endptr
-is non nil,
-.Fn strtoul
-stores the address of the first invalid character in
+is non nil, these functions store the address of the first invalid
+character in
 .Fa *endptr .
-If there were no digits at all, however,
-.Fn strtoul
-stores the original value of
+If there were no digits at all, however, they store the original value
+of
 .Fa nptr
 in
 .Fa *endptr .
@@ -137,17 +152,18 @@ is
 on return, the entire string was valid.)
 .Sh RETURN VALUES
 The
-.Fn strtoul
-function
-returns either the result of the conversion
+.Fn strtoul ,
+.Fn strtouq ,
+and
+.Fn strtoull
+functions
+return either the result of the conversion
 or, if there was a leading minus sign,
 the negation of the result of the conversion,
 unless the original (non-negated) value would overflow;
-in the latter case,
-.Fn strtoul
-returns
-.Dv ULONG_MAX
-and sets the global variable
+in the latter case, they return the maximum value for the type (eg,
+.Dv ULONG_MAX )
+and set the global variable
 .Va errno
 to
 .Er ERANGE .

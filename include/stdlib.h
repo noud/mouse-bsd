@@ -235,6 +235,8 @@ quad_t	 qabs __P((quad_t));
 qdiv_t	 qdiv __P((quad_t, quad_t));
 quad_t	 strtoq __P((const char *, char **, int));
 u_quad_t strtouq __P((const char *, char **, int));
+long long int strtoll(const char *, char **, int);
+unsigned long long int strtoull(const char *, char **, int);
 
 int	 l64a_r __P((long, char *, int));
 #endif /* !_POSIX_C_SOURCE && !_XOPEN_SOURCE */

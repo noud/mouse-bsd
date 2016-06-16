@@ -47,6 +47,8 @@
 #define inet_pton	_inet_pton
 #define strtoq		_strtoq
 #define strtouq		_strtouq
+#define strtoll		_strtoll
+#define strtoull	_strtoull
 #define sys_errlist	_sys_errlist
 #define sys_nerr	_sys_nerr
 #define sys_siglist	_sys_siglist

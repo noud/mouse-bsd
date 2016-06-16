@@ -11,7 +11,8 @@ SRCS+=	_rand48.c _strtoq.c _strtouq.c a64l.c abort.c atexit.c atof.c \
 	nrand48.c putenv.c qabs.c qdiv.c qsort.c radixsort.c rand.c \
 	rand_r.c random.c seed48.c setenv.c srand48.c strtod.c \
 	strtol.c strtoq.c strtoq.c strtoul.c strtouq.c system.c \
-	tdelete.c tfind.c tsearch.c twalk.c
+	tdelete.c tfind.c tsearch.c twalk.c \
+	_strtoll.c _strtoull.c strtoll.c strtoull.c
 
 # machine-dependent stdlib sources
 # m-d Makefile.inc must include sources for:
@@ -36,6 +37,6 @@ MLINKS+=rand48.3 drand48.3 rand48.3 erand48.3 rand48.3 lrand48.3
 MLINKS+=rand48.3 mrand48.3 rand48.3 nrand48.3 rand48.3 jrand48.3
 MLINKS+=rand48.3 srand48.3 rand48.3 seed48.3 rand48.3 lcong48.3
 MLINKS+=random.3 initstate.3 random.3 setstate.3 random.3 srandom.3
-MLINKS+=strtol.3 strtoq.3
-MLINKS+=strtoul.3 strtouq.3
+MLINKS+=strtol.3 strtoq.3 strtol.3 strtoll.3
+MLINKS+=strtoul.3 strtouq.3 strtoul.3 strtoull.3
 MLINKS+=tsearch.3 tfind.3 tsearch.3 twalk.3 tsearch.3 tdelete.3
