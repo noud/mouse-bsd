@@ -80,14 +80,6 @@ struct sockinet {
 static char *ip6_sa2str __P((struct sockaddr_in6 *, char *, int));
 #endif
 
-#define ENI_NOSOCKET 	0
-#define ENI_NOSERVNAME	1
-#define ENI_NOHOSTNAME	2
-#define ENI_MEMORY	3
-#define ENI_SYSTEM	4
-#define ENI_FAMILY	5
-#define ENI_SALEN	6
-
 int
 getnameinfo(sa, salen, host, hostlen, serv, servlen, flags)
 	const struct sockaddr *sa;
@@ -110,10 +102,10 @@ getnameinfo(sa, salen, host, hostlen, serv, servlen, flags)
 	char numaddr[512];
 
 	if (sa == NULL)
-		return ENI_NOSOCKET;
+		return EAI_FAIL;
 
 	if (sa->sa_len != salen)
-		return ENI_SALEN;
+		return EAI_FAIL;
 
 	family = sa->sa_family;
 	for (i = 0; afdl[i].a_af; i++)
@@ -121,11 +113,11 @@ getnameinfo(sa, salen, host, hostlen, serv, servlen, flags)
 			afd = &afdl[i];
 			goto found;
 		}
-	return ENI_FAMILY;
+	return EAI_FAMILY;
 
  found:
 	if (salen != afd->a_socklen)
-		return ENI_SALEN;
+		return EAI_FAIL;
 
 	port = ((struct sockinet *)sa)->si_port; /* network byte order */
 	addr = (char *)sa + afd->a_off;
@@ -146,12 +138,12 @@ getnameinfo(sa, salen, host, hostlen, serv, servlen, flags)
 		}
 		if (sp) {
 			if (strlen(sp->s_name) > servlen)
-				return ENI_MEMORY;
+				return EAI_MEMORY;
 			strcpy(serv, sp->s_name);
 		} else {
 			snprintf(numserv, sizeof(numserv), "%d", ntohs(port));
 			if (strlen(numserv) > servlen)
-				return ENI_MEMORY;
+				return EAI_MEMORY;
 			strcpy(serv, numserv);
 		}
 	}
@@ -204,13 +196,13 @@ getnameinfo(sa, salen, host, hostlen, serv, servlen, flags)
 
 		/* NUMERICHOST and NAMEREQD conflicts with each other */
 		if (flags & NI_NAMEREQD)
-			return ENI_NOHOSTNAME;
+			return EAI_NONAME;
 		if (inet_ntop(afd->a_af, addr, numaddr, sizeof(numaddr))
 		    == NULL)
-			return ENI_SYSTEM;
+			return EAI_SYSTEM;
 		numaddrlen = strlen(numaddr);
 		if (numaddrlen + 1 > hostlen) /* don't forget terminator */
-			return ENI_MEMORY;
+			return EAI_MEMORY;
 		strcpy(host, numaddr);
 #if defined(INET6) && defined(NI_WITHSCOPEID)
 		if (afd->a_af == AF_INET6 &&
@@ -231,7 +223,7 @@ getnameinfo(sa, salen, host, hostlen, serv, servlen, flags)
 
 				scopelen = strlen(scopebuf);
 				if (scopelen + 1 + numaddrlen + 1 > hostlen)
-					return ENI_MEMORY;
+					return EAI_MEMORY;
 
 #if 0
 				/*
@@ -269,17 +261,17 @@ getnameinfo(sa, salen, host, hostlen, serv, servlen, flags)
 				if (p) *p = '\0';
 			}
 			if (strlen(hp->h_name) > hostlen) {
-				return ENI_MEMORY;
+				return EAI_MEMORY;
 			}
 			strcpy(host, hp->h_name);
 		} else {
 			if (flags & NI_NAMEREQD)
-				return ENI_NOHOSTNAME;
+				return EAI_NONAME;
 			if (inet_ntop(afd->a_af, addr, numaddr, sizeof(numaddr))
 			    == NULL)
-				return ENI_NOHOSTNAME;
+				return EAI_NONAME;
 			if (strlen(numaddr) > hostlen)
-				return ENI_MEMORY;
+				return EAI_MEMORY;
 			strcpy(host, numaddr);
 		}
 	}
