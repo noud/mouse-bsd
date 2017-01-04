@@ -181,7 +181,8 @@ lla_snprintf(adrp, len)
 	u_int8_t *adrp;
 	int len;
 {
-	static char buf[16*3];
+ static char bufs[4][16*3];
+ static int bufx = 0;
 	static const char hexdigits[] = {
 	    '0','1','2','3','4','5','6','7',
 	    '8','9','a','b','c','d','e','f'
@@ -189,8 +190,11 @@ lla_snprintf(adrp, len)
 
 	int i;
 	char *p;
+ char *p0;
 
-	p = buf;
+ p0 = &bufs[bufx][0];
+ p = p0;
+ bufx = ((bufx > 0) ? : (sizeof(bufs)/sizeof(bufs[0]))) - 1;
 
 	*p++ = hexdigits[(*adrp)>>4];
 	*p++ = hexdigits[(*adrp++)&0xf];
@@ -202,7 +206,7 @@ lla_snprintf(adrp, len)
 	}
 
 	*p = 0;
-	return buf;
+ return(p0);
 }
 
 struct protosw arpsw[] = {
