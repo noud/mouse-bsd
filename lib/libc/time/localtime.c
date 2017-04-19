@@ -1134,6 +1134,7 @@ const time_t * const	timep;
 struct tm *		tm;
 {
 	rwlock_rdlock(&lcl_lock);
+	tzset_unlocked();
 	localsub(timep, 0L, tm);
 	rwlock_unlock(&lcl_lock);
 	return tm;
