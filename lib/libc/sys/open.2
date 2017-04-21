@@ -127,6 +127,13 @@ bit with
 .Dv O_CREAT
 or
 .Dv O_TRUNC .
+(The test is performed on the object that would be opened; if the path
+names a symbolic link, it is the target of the link that is tested.)
+.It Dv O_PLAIN
+Error if the path names an object other than a plain file.  (Like
+.Dv O_DIRECTORY ,
+the test is performed on the object that would be opened; a symbolic
+link pointing to a plain file is accepted.)
 .El
 .Pp
 Opening a file with
@@ -307,6 +314,10 @@ points outside the process's allocated address space.
 and
 .Dv O_EXCL
 were specified and the file exists.
+.It Bq Er ENOTPLAIN
+.Dv O_PLAIN
+was specified and the operation would have opened an object other than
+a plain file.
 .It Bq Er EOPNOTSUPP
 An attempt was made to open a socket (not currently implemented).
 .El
@@ -334,8 +345,9 @@ and
 are extensions defined in
 .St -p1003.1b-93 .
 .Dv O_NOACCESS ,
+.Dv O_DIRECTORY ,
 and
-.Dv O_DIRECTORY
+.Dv O_PLAIN
 are further extensions.
 .Sh HISTORY
 An

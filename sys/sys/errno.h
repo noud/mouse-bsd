@@ -159,7 +159,10 @@
 #define	EIDRM		82		/* Identifier removed */
 #define	ENOMSG		83		/* No message of desired type */
 #define	EOVERFLOW	84		/* Value too large to be stored in data type */
-#define	ELAST		84		/* Must equal largest errno */
+
+#define ENOTPLAIN	85		/* Not a plain file */
+
+#define	ELAST		85		/* Must equal largest errno */
 #endif /* _POSIX_SOURCE */
 
 #ifdef _KERNEL

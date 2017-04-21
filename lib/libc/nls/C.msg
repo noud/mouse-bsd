@@ -167,6 +167,8 @@ $ ENOMSG
 83 No message of desired type
 $ EOVERFLOW
 84 Value too large to be stored in data type
+$ ENOTPLAIN
+85 Not a plain file
 $set 2
 $ SIGHUP
 1 Hangup

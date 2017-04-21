@@ -154,5 +154,7 @@ const char *const _sys_errlist[] = {
 	"Identifier removed",			/* 82 - EIDRM */
 	"No message of desired type",		/* 83 - ENOMSG */
 	"Value too large for data type",	/* 84 - EOVERFLOW */
+
+	"Not a plain file",			/* 85 - ENOTPLAIN */
 };
 const int _sys_nerr = { sizeof _sys_errlist/sizeof _sys_errlist[0] };
