@@ -149,5 +149,10 @@ const char *const _sys_errlist[] = {
 	"Function not implemented",		/* 78 - ENOSYS */
 
 	"Inappropriate file type or format",	/* 79 - EFTYPE */
+	"Authentication error",			/* 80 - EAUTH */
+	"Need authenticator",			/* 81 - ENEEDAUTH */
+	"Identifier removed",			/* 82 - EIDRM */
+	"No message of desired type",		/* 83 - ENOMSG */
+	"Value too large for data type",	/* 84 - EOVERFLOW */
 };
 const int _sys_nerr = { sizeof _sys_errlist/sizeof _sys_errlist[0] };
