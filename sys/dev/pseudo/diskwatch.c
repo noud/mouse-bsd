@@ -24,10 +24,11 @@ struct softc {
 #define SF_DOPEN 0x00000002
 #define SF_ISREADY(flags) (((flags)&(SF_COPEN|SF_DOPEN))==(SF_COPEN|SF_DOPEN))
 #define SF_SET   0x00000004
-#define SF_RATE  0x00000018
-#define SF_RATE_OFF 0x00000000
-#define SF_RATE_LO  0x00000008
-#define SF_RATE_HI  0x00000010
+#define SF_MODE  0x00000018
+#define SF_MODE_OFF 0x00000000
+#define SF_MODE_WLO 0x00000008
+#define SF_MODE_WHI 0x00000010
+#define SF_MODE_RW  0x00000018
 #define SF_NBIO  0x00000020
 #define SF_HEAD  0x00000040
   dev_t cdev;
@@ -37,7 +38,7 @@ struct softc {
   int ringh;	/* head */
   int ringt;	/* tail */
   int ringn;	/* packet count */
-  int ringd;	/* PKT_DATA packet count */
+  int ringd;	/* PKT_WDATA packet count */
   unsigned char *blocks;
   struct selinfo rsel;
   int freehand;
@@ -47,10 +48,11 @@ struct softc {
 
 struct pkt {
   unsigned char type;
-#define PKT_FREE 1
-#define PKT_DATA 2
-#define PKT_NUM  3
-#define PKT_STOP 4
+#define PKT_FREE  1
+#define PKT_RNUM  2
+#define PKT_WNUM  3
+#define PKT_WDATA 4
+#define PKT_STOP  5
   daddr_t blk;
   void *data;
   } ;
@@ -127,12 +129,13 @@ static void drop_tail_packet(SOFTC *sc)
   { case PKT_FREE:
        panic("drop_tail_packet: dropping free packet");
        break;
-    case PKT_DATA:
+    case PKT_WDATA:
        if (sc->ringd < 1) panic("drop_tail_packet: dropping nonexistent data");
        put_data_block(sc,sc->ring[sc->ringt].data);
        sc->ringd --;
        break;
-    case PKT_NUM:
+    case PKT_RNUM:
+    case PKT_WNUM:
     case PKT_STOP:
        break;
     default:
@@ -202,7 +205,7 @@ static int set_device(SOFTC *sc, dev_t dev)
 
  if (sc->flags & SF_SET) clr_device(sc);
  sc->cdev = dev;
- sc->flags = (sc->flags & ~(SF_RATE|SF_HEAD)) | SF_SET;
+ sc->flags = (sc->flags & ~(SF_MODE|SF_HEAD)) | SF_SET | SF_MODE_OFF;
  for (i=ndiskwatch-1;i>=0;i--)
   { sc2 = &softcv[i];
     if ((sc2 != sc) && (sc2->flags & SF_SET) && (sc2->cdev == dev))
@@ -259,19 +262,19 @@ static void queue_stop(SOFTC *sc)
  p->type = PKT_STOP;
 }
 
-static void queue_nums(SOFTC *sc, daddr_t blk, int nblks)
+static void queue_nums(SOFTC *sc, daddr_t blk, int nblks, unsigned char type)
 {
  PKT *p;
 
  for (;nblks>0;nblks--)
   { p = queue_pkt(sc);
-    p->type = PKT_NUM;
+    p->type = type;
     p->blk = blk;
     blk ++;
   }
 }
 
-static void queue_data(SOFTC *sc, daddr_t blk, int nblks, char *data)
+static void queue_wdata(SOFTC *sc, daddr_t blk, int nblks, char *data)
 {
  PKT *p;
  void *buf;
@@ -280,13 +283,13 @@ static void queue_data(SOFTC *sc, daddr_t blk, int nblks, char *data)
   { buf = get_data_block(sc);
     p = queue_pkt(sc);
     if (buf)
-     { p->type = PKT_DATA;
+     { p->type = PKT_WDATA;
        p->data = buf;
        bcopy(data,buf,512);
        sc->ringd ++;
      }
     else
-     { p->type = PKT_NUM;
+     { p->type = PKT_WNUM;
      }
     p->blk = blk;
     blk ++;
@@ -301,8 +304,8 @@ static void discard_ring_data(SOFTC *sc)
 
  h = sc->ringt;
  for (i=sc->ringn;i>0;i--)
-  { if (sc->ring[h].type == PKT_DATA)
-     { sc->ring[h].type = PKT_NUM;
+  { if (sc->ring[h].type == PKT_WDATA)
+     { sc->ring[h].type = PKT_WNUM;
        put_data_block(sc,sc->ring[h].data);
        sc->ringd --;
      }
@@ -409,7 +412,7 @@ DEVSW_SCLASS int diskwatchclose(dev_t dev, int flag, int mode, PROCTYPE p)
        break;
   }
  if (sc->flags & SF_SET) clr_device(sc);
- sc->flags &= ~SF_RATE;
+ sc->flags = (sc->flags & ~SF_MODE) | SF_MODE_OFF;
  check_ring(sc);
  WAKEUP_SELECT(sc);
  wakeup(sc);
@@ -438,11 +441,12 @@ DEVSW_SCLASS int diskwatchread(dev_t dev, struct uio *uio, int ioflag)
 	   { if (diskwatch_verbose) printf("diskwatchread: %d/%d EIO (!ready)\n",u,k);
 	     return(EIO);
 	   }
-	  switch (sc->flags & SF_RATE)
-	   { case SF_RATE_OFF: c = '0'; break;
-	     case SF_RATE_LO:  c = '1'; break;
-	     case SF_RATE_HI:  c = '2'; break;
-	     default: panic("diskwatchread: bad rate"); break;
+	  switch (sc->flags & SF_MODE)
+	   { case SF_MODE_OFF: c = '0'; break;
+	     case SF_MODE_WLO: c = '1'; break;
+	     case SF_MODE_WHI: c = '2'; break;
+	     case SF_MODE_RW:  c = '3'; break;
+	     default: panic("diskwatchread: bad mode"); break;
 	   }
 	  if (diskwatch_verbose) printf("diskwatchread: %d/%d returning %c\n",u,k,c);
 	  return(uiomove(&c,1,uio));
@@ -472,12 +476,16 @@ DEVSW_SCLASS int diskwatchread(dev_t dev, struct uio *uio, int ioflag)
 	  unsigned long long int hdr;
 	  p = &sc->ring[sc->ringt];
 	  switch (p->type)
-	   { case PKT_DATA:
-		if (diskwatch_verbose) printf("diskwatchread: %d/%d data\n",u,k);
+	   { case PKT_WDATA:
+		if (diskwatch_verbose) printf("diskwatchread: %d/%d wdata\n",u,k);
 		us = sizeof(hdr) + 512;
 		break;
-	     case PKT_NUM:
-		if (diskwatch_verbose) printf("diskwatchread: %d/%d num\n",u,k);
+	     case PKT_RNUM:
+		if (diskwatch_verbose) printf("diskwatchread: %d/%d rnum\n",u,k);
+		us = sizeof(hdr);
+		break;
+	     case PKT_WNUM:
+		if (diskwatch_verbose) printf("diskwatchread: %d/%d wnum\n",u,k);
 		us = sizeof(hdr);
 		break;
 	     case PKT_STOP:
@@ -494,14 +502,17 @@ DEVSW_SCLASS int diskwatchread(dev_t dev, struct uio *uio, int ioflag)
 	     return(done?0:EMSGSIZE);
 	   }
 	  switch (p->type)
-	   { case PKT_DATA:
+	   { case PKT_WDATA:
 		hdr = 0x0000000000000000ULL | p->blk;
 		break;
-	     case PKT_NUM:
+	     case PKT_WNUM:
 		hdr = 0x0100000000000000ULL | p->blk;
 		break;
 	     case PKT_STOP:
 		hdr = 0x0200000000000000ULL | p->blk;
+		break;
+	     case PKT_RNUM:
+		hdr = 0x0300000000000000ULL | p->blk;
 		break;
 	     default:
 		panic("reading impossible packet type");
@@ -512,7 +523,7 @@ DEVSW_SCLASS int diskwatchread(dev_t dev, struct uio *uio, int ioflag)
 	   { if (diskwatch_verbose) printf("diskwatchread: %d/%d %d (uiomove)\n",u,k,e);
 	     return(e);
 	   }
-	  if (p->type == PKT_DATA)
+	  if (p->type == PKT_WDATA)
 	   { e = uiomove(p->data,512,uio);
 	     if (e)
 	      { if (diskwatch_verbose) printf("diskwatchread: %d/%d %d (uiomove data)\n",u,k,e);
@@ -644,23 +655,28 @@ DEVSW_SCLASS int diskwatchwrite(dev_t dev, struct uio *uio, int ioflag)
 		break;
 	     case '0':
 		 { unsigned int r;
-		   r = SF_RATE_OFF;
+		   r = SF_MODE_OFF;
 		   if (0)
 		    {
 	     case '1':
-		      r = SF_RATE_LO;
+		      r = SF_MODE_WLO;
 		    }
 		   if (0)
 		    {
 	     case '2':
-		      r = SF_RATE_HI;
+		      r = SF_MODE_WHI;
 		    }
-		   if (diskwatch_verbose) printf("diskwatchwrite: %d/%d rate %c\n",u,k,cmd);
+		   if (0)
+		    {
+	     case '3':
+		      r = SF_MODE_RW;
+		    }
+		   if (diskwatch_verbose) printf("diskwatchwrite: %d/%d mode %c\n",u,k,cmd);
 		   if (! (sc->flags & SF_SET))
 		    { if (diskwatch_verbose) printf("diskwatchwrite: %d/%d EIO (!set)\n",u,k);
 		      return(EIO);
 		    }
-		   sc->flags = (sc->flags & ~SF_RATE) | r;
+		   sc->flags = (sc->flags & ~SF_MODE) | r;
 		 }
 		break;
 	   }
@@ -769,6 +785,7 @@ void diskwatch_watch(int u, struct buf *bp)
  SOFTC *sc;
  int nblks;
  int loops;
+ unsigned char nt;
 
  if ((u < 0) || (u >= ndiskwatch)) panic("diskwatch_watch: impossible unit %d",u);
  sc = watchptrs[u];
@@ -780,30 +797,42 @@ void diskwatch_watch(int u, struct buf *bp)
   { if (! SF_ISREADY(sc->flags)) panic("diskwatch_watch: unready unit %d",u);
     if (bp->b_bcount & 511) panic("diskwatch_watch: unaligned size %lu",(unsigned long int)bp->b_bcount);
     nblks = bp->b_bcount >> 9;
-    switch (sc->flags & SF_RATE)
-     { case SF_RATE_OFF:
+    switch (sc->flags & SF_MODE)
+     { case SF_MODE_OFF:
 	  break;
-       case SF_RATE_HI:
+       case SF_MODE_WHI:
+	  if ((bp->b_flags & (B_READ|B_WRITE)) != B_WRITE) break;
 	  if (sc->ringd+nblks > RING_MAXDATA)
 	   { discard_ring_data(sc);
-	     sc->flags = (sc->flags & ~SF_RATE) | SF_RATE_LO;
-       case SF_RATE_LO:
+	     sc->flags = (sc->flags & ~SF_MODE) | SF_MODE_WLO;
+       case SF_MODE_WLO:
+	     if ((bp->b_flags & (B_READ|B_WRITE)) != B_WRITE) break;
+	     nt = PKT_WNUM;
+	     if (0)
+	      {
+       case SF_MODE_RW:
+		switch (bp->b_flags & (B_READ|B_WRITE))
+		 { case B_READ:  nt = PKT_RNUM; break;
+		   case B_WRITE: nt = PKT_WNUM; break;
+		   default: panic("impossible buf direction"); break;
+		 }
+	      }
 	     if (sc->ringn+nblks >= RING_SIZE)
-	      { sc->flags = (sc->flags & ~SF_RATE) | SF_RATE_OFF;
+	      { sc->flags = (sc->flags & ~SF_MODE) | SF_MODE_OFF;
 		if (sc->ringn < RING_SIZE) queue_stop(sc);
 	      }
 	     else
-	      { queue_nums(sc,bp->b_blkno,nblks);
+	      { queue_nums(sc,bp->b_blkno,nblks,nt);
 	      }
 	   }
 	  else
-	   { queue_data(sc,bp->b_blkno,nblks,bp->b_data);
+	   { queue_wdata(sc,bp->b_blkno,nblks,bp->b_data);
 	   }
 	  WAKEUP_SELECT(sc);
 	  wakeup(sc);
 	  break;
        default:
-	  panic("diskwatch_watch: impossible rate");
+	  panic("diskwatch_watch: impossible mode %#x",sc->flags&SF_MODE);
 	  break;
      }
     sc = sc->flink;

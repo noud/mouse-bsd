@@ -651,8 +651,7 @@ ccdstrategy(bp)
 			goto done;
 
 #if NDISKWATCH > 0
-	if ( cs->watchunit &&
-	     ((bp->b_flags & (B_READ|B_WRITE)) == B_WRITE) ) {
+	if (cs->watchunit) {
 		int p;
 		p = DISKPART(bp->b_dev);
 		if (cs->watchunit[p] >= 0)

@@ -532,6 +532,9 @@ void edstrategy(struct buf *bp)
  o = bp->b_blkno / (label->d_secsize / DEV_BSIZE);
  o += label->d_partitions[part].p_offset;
  o *= label->d_secsize;
+#if NDISKWATCH > 0
+ if (sc->watchunit[part] >= 0) diskwatch_watch(sc->watchunit[part],bp);
+#endif
  switch (bp->b_flags & (B_READ|B_WRITE))
   { case B_READ:
        subb = getphysbuf();
@@ -556,9 +559,6 @@ void edstrategy(struct buf *bp)
        bp->b_resid = subb->b_resid;
        break;
     case B_WRITE:
-#if NDISKWATCH > 0
-       if (sc->watchunit[part] >= 0) diskwatch_watch(sc->watchunit[part],bp);
-#endif
        encrypt_data(bp->b_data,data,bp->b_bcount,&sc->keydata,o>>9);
        subb = getphysbuf();
        subb->b_flags = B_BUSY | B_PHYS | B_RAW | B_WRITE;
