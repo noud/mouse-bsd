@@ -79,7 +79,7 @@ ENTRY(__setjmp14)
 	t	ST_SYSCALL
 	ld	[%sp + 0x50], %o0	/* foo.ss_flags */
 	and	%o0, 1, %o1	/* onstack = foo.ss_flags & 1; */
-	st	%o0, [%o2 + 0]	/* sc.sc_onstack = current onstack; */
+	st	%o1, [%o2 + 0]	/* sc.sc_onstack = current onstack; */
 	st	%sp, [%o2 + 8]	/* sc.sc_sp = sp (both ours and caller's) */
 	add	%o7, 8, %o0
 	st	%o0, [%o2 + 12]	/* sc.sc_pc = return_pc */
