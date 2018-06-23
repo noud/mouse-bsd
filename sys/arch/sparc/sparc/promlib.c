@@ -976,3 +976,35 @@ prom_init()
 		prom_init_opf();
 	}
 }
+
+/*
+ * The integer property "get-unum" on the root device is the address
+ * of a callable function in the PROM that takes a physical address
+ * (in lo/hipart format) and returns a string identifying the chip
+ * location of the corresponding memory cell.
+ */
+const char *prom_pa_location(u_int32_t phys_lo, u_int32_t phys_hi)
+{
+ static char *(*unum)(u_int32_t, u_int32_t);
+ char *str;
+
+ switch (prom_version())
+  { case PROM_OLDMON:
+    case PROM_OPENFIRM:
+       // XXX implement?
+       /* fall through */
+    default:
+       break;
+    case PROM_OBP_V0:
+    case PROM_OBP_V2:
+    case PROM_OBP_V3:
+       if (! unum)
+	{ unum = (char *(*)(u_int,u_int))(u_long)getpropint(prom_findroot(),"get-unum",0);
+	  if (! unum) break;
+	}
+       str = (*unum)(phys_lo,phys_hi);
+       if (str) return(str);
+       break;
+  }
+ return("<Unknown>");
+}

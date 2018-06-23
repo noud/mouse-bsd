@@ -142,6 +142,7 @@ memecc_error()
 	printf("\tMBus transaction: %s\n",
 		bitmask_snprintf(efar0, ECC_AFR_BITS, bits, sizeof(bits)));
 	printf("\taddress: 0x%x%08x\n", efar0 & ECC_AFR_PAH, efar1);
+	printf("\tmodule location: %s\n",prom_pa_location(efar1,efar0&ECC_AFR_PAH));
 
 	/* Unlock registers and clear interrupt */
 	bus_space_write_4(memecc_sc->sc_bt, bh, ECC_FSR_REG, efsr);

@@ -124,6 +124,7 @@ int	getpropint	__P((int node, char *name, int deflt));
 char	*getpropstring	__P((int node, char *name));
 char	*getpropstringA	__P((int node, char *name, char *, size_t));
 void	prom_printf	__P((const char *, ...));
+extern const char *prom_pa_location(u_int32_t, u_int32_t);
 
 int	prom_findroot	__P((void));
 int	prom_findnode	__P((int, const char *));
