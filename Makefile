@@ -34,6 +34,9 @@
 #	into RELEASEDIR, in release(7) format. (See etc/Makefile for
 #	more information on this.)
 #   snapshot: a synonym for release.
+#
+# Use cleandir to clean out built files.  clean removes most, but not
+#  all, of them (eg, it leaves .depend and .catN files).
 
 .include <bsd.own.mk>			# for configuration variables.
 
