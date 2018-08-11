@@ -1,4 +1,4 @@
-/*	$NetBSD: lstAtFront.c,v 1.7 1997/09/28 03:31:17 lukem Exp $	*/
+/*	$NetBSD: lstAtFront.c,v 1.12 2006/10/25 20:17:40 dsl Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990, 1993
@@ -15,11 +15,7 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *	This product includes software developed by the University of
- *	California, Berkeley and its contributors.
- * 4. Neither the name of the University nor the names of its contributors
+ * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
@@ -36,15 +32,15 @@
  * SUCH DAMAGE.
  */
 
-#ifdef MAKE_BOOTSTRAP
-static char rcsid[] = "$NetBSD: lstAtFront.c,v 1.7 1997/09/28 03:31:17 lukem Exp $";
+#ifndef MAKE_NATIVE
+static char rcsid[] = "$NetBSD: lstAtFront.c,v 1.12 2006/10/25 20:17:40 dsl Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)lstAtFront.c	8.1 (Berkeley) 6/6/93";
 #else
-__RCSID("$NetBSD: lstAtFront.c,v 1.7 1997/09/28 03:31:17 lukem Exp $");
+__RCSID("$NetBSD: lstAtFront.c,v 1.12 2006/10/25 20:17:40 dsl Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -71,12 +67,10 @@ __RCSID("$NetBSD: lstAtFront.c,v 1.7 1997/09/28 03:31:17 lukem Exp $");
  *-----------------------------------------------------------------------
  */
 ReturnStatus
-Lst_AtFront (l, d)
-    Lst		l;
-    ClientData	d;
+Lst_AtFront(Lst l, ClientData d)
 {
-    register LstNode	front;
+    LstNode	front;
 
-    front = Lst_First (l);
-    return (Lst_Insert (l, front, d));
+    front = Lst_First(l);
+    return (Lst_InsertBefore(l, front, d));
 }

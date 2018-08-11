@@ -1,4 +1,4 @@
-/*	$NetBSD: lstAppend.c,v 1.7 1997/09/28 03:31:16 lukem Exp $	*/
+/*	$NetBSD: lstAppend.c,v 1.12 2006/10/27 21:37:25 dsl Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990, 1993
@@ -15,11 +15,7 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *	This product includes software developed by the University of
- *	California, Berkeley and its contributors.
- * 4. Neither the name of the University nor the names of its contributors
+ * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
@@ -36,15 +32,15 @@
  * SUCH DAMAGE.
  */
 
-#ifdef MAKE_BOOTSTRAP
-static char rcsid[] = "$NetBSD: lstAppend.c,v 1.7 1997/09/28 03:31:16 lukem Exp $";
+#ifndef MAKE_NATIVE
+static char rcsid[] = "$NetBSD: lstAppend.c,v 1.12 2006/10/27 21:37:25 dsl Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)lstAppend.c	8.1 (Berkeley) 6/6/93";
 #else
-__RCSID("$NetBSD: lstAppend.c,v 1.7 1997/09/28 03:31:16 lukem Exp $");
+__RCSID("$NetBSD: lstAppend.c,v 1.12 2006/10/27 21:37:25 dsl Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -58,8 +54,13 @@ __RCSID("$NetBSD: lstAppend.c,v 1.7 1997/09/28 03:31:16 lukem Exp $");
 
 /*-
  *-----------------------------------------------------------------------
- * Lst_Append --
+ * Lst_InsertAfter --
  *	Create a new node and add it to the given list after the given node.
+ *
+ * Input:
+ *	l		affected list
+ *	ln		node after which to append the datum
+ *	d		said datum
  *
  * Results:
  *	SUCCESS if all went well.
@@ -73,14 +74,11 @@ __RCSID("$NetBSD: lstAppend.c,v 1.7 1997/09/28 03:31:16 lukem Exp $");
  *-----------------------------------------------------------------------
  */
 ReturnStatus
-Lst_Append (l, ln, d)
-    Lst	  	l;	/* affected list */
-    LstNode	ln;	/* node after which to append the datum */
-    ClientData	d;	/* said datum */
+Lst_InsertAfter(Lst l, LstNode ln, ClientData d)
 {
-    register List 	list;
-    register ListNode	lNode;
-    register ListNode	nLNode;
+    List 	list;
+    ListNode	lNode;
+    ListNode	nLNode;
 
     if (LstValid (l) && (ln == NILLNODE && LstIsEmpty (l))) {
 	goto ok;
@@ -91,8 +89,8 @@ Lst_Append (l, ln, d)
     }
     ok:
 
-    list = (List)l;
-    lNode = (ListNode)ln;
+    list = l;
+    lNode = ln;
 
     PAlloc (nLNode, ListNode);
     nLNode->datum = d;
@@ -121,3 +119,4 @@ Lst_Append (l, ln, d)
 
     return (SUCCESS);
 }
+

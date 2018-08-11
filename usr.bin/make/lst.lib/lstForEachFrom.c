@@ -1,4 +1,4 @@
-/*	$NetBSD: lstForEachFrom.c,v 1.7 1997/09/28 03:31:26 lukem Exp $	*/
+/*	$NetBSD: lstForEachFrom.c,v 1.15 2008/02/15 21:29:50 christos Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990, 1993
@@ -15,11 +15,7 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *	This product includes software developed by the University of
- *	California, Berkeley and its contributors.
- * 4. Neither the name of the University nor the names of its contributors
+ * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
@@ -36,15 +32,15 @@
  * SUCH DAMAGE.
  */
 
-#ifdef MAKE_BOOTSTRAP
-static char rcsid[] = "$NetBSD: lstForEachFrom.c,v 1.7 1997/09/28 03:31:26 lukem Exp $";
+#ifndef MAKE_NATIVE
+static char rcsid[] = "$NetBSD: lstForEachFrom.c,v 1.15 2008/02/15 21:29:50 christos Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)lstForEachFrom.c	8.1 (Berkeley) 6/6/93";
 #else
-__RCSID("$NetBSD: lstForEachFrom.c,v 1.7 1997/09/28 03:31:26 lukem Exp $");
+__RCSID("$NetBSD: lstForEachFrom.c,v 1.15 2008/02/15 21:29:50 christos Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -73,21 +69,18 @@ __RCSID("$NetBSD: lstForEachFrom.c,v 1.7 1997/09/28 03:31:26 lukem Exp $");
  *-----------------------------------------------------------------------
  */
 /*VARARGS2*/
-void
-Lst_ForEachFrom (l, ln, proc, d)
-    Lst	    	    	l;
-    LstNode    	  	ln;
-    register int	(*proc) __P((ClientData, ClientData));
-    register ClientData	d;
+int
+Lst_ForEachFrom(Lst l, LstNode ln, int (*proc)(ClientData, ClientData),
+		ClientData d)
 {
-    register ListNode	tln = (ListNode)ln;
-    register List 	list = (List)l;
-    register ListNode	next;
+    ListNode	tln = ln;
+    List 	list = l;
+    ListNode	next;
     Boolean 	    	done;
     int     	    	result;
 
     if (!LstValid (list) || LstIsEmpty (list)) {
-	return;
+	return 0;
     }
 
     do {
@@ -98,20 +91,28 @@ Lst_ForEachFrom (l, ln, proc, d)
 
 	next = tln->nextPtr;
 
+	/*
+	 * We're done with the traversal if
+	 *  - the next node to examine is the first in the queue or
+	 *    doesn't exist and
+	 *  - nothing's been added after the current node (check this
+	 *    after proc() has been called).
+	 */
+	done = (next == NilListNode || next == list->firstPtr);
+
 	(void) tln->useCount++;
 	result = (*proc) (tln->datum, d);
 	(void) tln->useCount--;
 
 	/*
-	 * We're done with the traversal if
-	 *  - nothing's been added after the current node and
-	 *  - the next node to examine is the first in the queue or
-	 *    doesn't exist.
+	 * Now check whether a node has been added.
+	 * Note: this doesn't work if this node was deleted before
+	 *       the new node was added.
 	 */
-	done = (next == tln->nextPtr &&
-		(next == NilListNode || next == list->firstPtr));
-
-	next = tln->nextPtr;
+	if (next != tln->nextPtr) {
+		next = tln->nextPtr;
+		done = 0;
+	}
 
 	if (tln->flags & LN_DELETED) {
 	    free((char *)tln);
@@ -119,4 +120,6 @@ Lst_ForEachFrom (l, ln, proc, d)
 	tln = next;
     } while (!result && !LstIsEmpty(list) && !done);
 
+    return result;
 }
+

@@ -1,4 +1,4 @@
-#	$NetBSD: Makefile.boot,v 1.11 1999/04/03 04:50:16 gwr Exp $
+#	$NetBSD: Makefile.boot,v 1.17 2004/05/07 00:04:38 ross Exp $
 #
 # a very simple makefile...
 #
@@ -6,22 +6,23 @@
 #
 # modify MACHINE and MACHINE_ARCH as appropriate for your target architecture
 #
-CC=gcc -O
+CC=gcc -O -g
 
 .c.o:
 	${CC} ${CFLAGS} -c $< -o $@
 
-MACHINE=sun
-MACHINE_ARCH=sparc
-CFLAGS= -I.\
-	-DTARGET_MACHINE=\"${MACHINE}\" \
+MACHINE=i386
+MACHINE_ARCH=i386
+# tested on HP-UX 10.20
+#MAKE_MACHINE=hp700
+#MAKE_MACHINE_ARCH=hppa
+CFLAGS= -DTARGET_MACHINE=\"${MACHINE}\" \
 	-DTARGET_MACHINE_ARCH=\"${MACHINE_ARCH}\" \
-	-DMACHINE=\"${MACHINE}\" \
-	-DMAKE_BOOTSTRAP
+	-DMAKE_MACHINE=\"${MACHINE}\"
 LIBS=
 
 OBJ=arch.o buf.o compat.o cond.o dir.o for.o hash.o job.o main.o make.o \
-    parse.o str.o suff.o targ.o var.o util.o
+    parse.o str.o suff.o targ.o trace.o var.o util.o
 
 LIBOBJ= lst.lib/lstAppend.o lst.lib/lstAtEnd.o lst.lib/lstAtFront.o \
 	lst.lib/lstClose.o lst.lib/lstConcat.o lst.lib/lstDatum.o \

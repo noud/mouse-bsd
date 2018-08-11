@@ -1,4 +1,4 @@
-/*	$NetBSD: lstInit.c,v 1.7 1997/09/28 03:31:27 lukem Exp $	*/
+/*	$NetBSD: lstInit.c,v 1.11 2006/10/27 21:37:25 dsl Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990, 1993
@@ -15,11 +15,7 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *	This product includes software developed by the University of
- *	California, Berkeley and its contributors.
- * 4. Neither the name of the University nor the names of its contributors
+ * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
@@ -36,15 +32,15 @@
  * SUCH DAMAGE.
  */
 
-#ifdef MAKE_BOOTSTRAP
-static char rcsid[] = "$NetBSD: lstInit.c,v 1.7 1997/09/28 03:31:27 lukem Exp $";
+#ifndef MAKE_NATIVE
+static char rcsid[] = "$NetBSD: lstInit.c,v 1.11 2006/10/27 21:37:25 dsl Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)lstInit.c	8.1 (Berkeley) 6/6/93";
 #else
-__RCSID("$NetBSD: lstInit.c,v 1.7 1997/09/28 03:31:27 lukem Exp $");
+__RCSID("$NetBSD: lstInit.c,v 1.11 2006/10/27 21:37:25 dsl Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -61,6 +57,9 @@ __RCSID("$NetBSD: lstInit.c,v 1.7 1997/09/28 03:31:27 lukem Exp $");
  * Lst_Init --
  *	Create and initialize a new list.
  *
+ * Input:
+ *	circ		TRUE if the list should be made circular
+ *
  * Results:
  *	The created list.
  *
@@ -70,10 +69,9 @@ __RCSID("$NetBSD: lstInit.c,v 1.7 1997/09/28 03:31:27 lukem Exp $");
  *-----------------------------------------------------------------------
  */
 Lst
-Lst_Init(circ)
-    Boolean		circ;	/* TRUE if the list should be made circular */
+Lst_Init(Boolean circ)
 {
-    register List	nList;
+    List	nList;
 
     PAlloc (nList, List);
 
@@ -83,5 +81,5 @@ Lst_Init(circ)
     nList->isCirc = circ;
     nList->atEnd = Unknown;
 
-    return ((Lst)nList);
+    return (nList);
 }

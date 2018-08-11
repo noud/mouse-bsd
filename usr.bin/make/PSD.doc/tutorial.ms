@@ -1,8 +1,36 @@
-.\"	$NetBSD: tutorial.ms,v 1.4 1999/11/19 22:29:25 kristerw Exp $
-.\" Copyright (c) 1988, 1989 by Adam de Boor
-.\" Copyright (c) 1989 by Berkeley Softworks
+.\"	$NetBSD: tutorial.ms,v 1.10 2004/06/27 19:12:33 uwe Exp $
 .\" Copyright (c) 1988, 1989, 1993
 .\"	The Regents of the University of California.  All rights reserved.
+.\"
+.\" This code is derived from software contributed to Berkeley by
+.\" Adam de Boor.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\" Copyright (c) 1988, 1989 by Adam de Boor
+.\" Copyright (c) 1989 by Berkeley Softworks
 .\"
 .\" This code is derived from software contributed to Berkeley by
 .\" Adam de Boor.
@@ -81,7 +109,7 @@
 .ne 0.5i
 .po -0.5i
 .br
-.mk
+.mk 
 .nr g3 \\n(.f
 .nr g4 \\n(.s
 .sp -1
@@ -106,7 +134,7 @@
 \D't 3u'\D's -1u'
 .br
 .po
-.rt
+.rt 
 .ft \\n(g3
 .ps \\n(g4
 ..
@@ -149,7 +177,7 @@ be familiar. PMake's most important feature is its ability to run
 several different jobs at once, making the creation of systems
 considerably faster. It also has a great deal more functionality than
 Make. Throughout the text, whenever something is mentioned that is an
-important difference between PMake and Make (i.e.  something that will
+important difference between PMake and Make (i.e. something that will
 cause a makefile to fail if you don't do something about it), or is
 simply important, it will be flagged with a little sign in the left
 margin, like this:
@@ -245,7 +273,7 @@ mutually exclusive. Their exact semantics are as follows:
 .Ix 0 def operator colon
 .Ix 0 def :
 If a colon is used, a target on the line is considered to be
-``out-of-date'' (and in need of creation) if
+``out-of-date'' (and in need of creation) if 
 .RS
 .IP \(bu 2
 any of the sources has been modified more recently than the target, or
@@ -349,29 +377,29 @@ following things:
 .IP \fB{}\fP
 These enclose a comma-separated list of options and cause the pattern
 to be expanded once for each element of the list. Each expansion
-contains a different element. For example,
+contains a different element. For example, 
 .CW src/{whiffle,beep,fish}.c
 expands to the three words
 .CW src/whiffle.c ,
 .CW src/beep.c ,
-and
+and 
 .CW src/fish.c .
 These braces may be nested and, unlike the other wildcard characters,
 the resulting words need not be actual files. All other wildcard
 characters are expanded using the files that exist when PMake is
 started.
 .IP \fB*\fP
-This matches zero or more characters of any sort.
+This matches zero or more characters of any sort. 
 .CW src/*.c
-will expand to the same three words as above as long as
+will expand to the same three words as above as long as 
 .CW src
-contains those three files (and no other files that end in
+contains those three files (and no other files that end in 
 .CW .c ).
 .IP \fB?\fP
 Matches any single character.
 .IP \fB[]\fP
 This is known as a character class and contains either a list of
-single characters, or a series of character ranges
+single characters, or a series of character ranges 
 .CW a-z , (
 for example means all characters between a and z), or both. It matches
 any single character contained in the list. E.g.
@@ -526,7 +554,7 @@ ci $(SRCS) < /dev/tty
 .DE
 This would force the program's input to come from the terminal. If you
 can't do this for some reason, your only other alternative is to use
-PMake in its fullest compatibility mode. See
+PMake in its fullest compatibility mode. See 
 .B Compatibility
 in chapter 4.
 .Ix 0 ref compatibility
@@ -580,7 +608,7 @@ VARIABLE != shell-command
 .DE
 .Ix 0 def variable assignment shell-output
 .Ix 0 def !=
-In this case,
+In this case, 
 .I shell-command
 has all its variables expanded (see below) and is passed off to a
 shell to execute. The output of the shell is then placed in the
@@ -598,7 +626,7 @@ likely freeze if you execute something that produces thousands of
 bytes of output (8 Kb is the limit on many UNIX systems).
 .LP
 The value of a variable may be retrieved by enclosing the variable
-name in parentheses or curly braces and preceeding the whole thing
+name in parentheses or curly braces and preceding the whole thing
 with a dollar sign.
 .LP
 For example, to set the variable CFLAGS to the string
@@ -619,7 +647,7 @@ Unlike Make, PMake will not expand a variable unless it knows
 the variable exists. E.g. if you have a
 .CW "${i}"
 in a shell command and you have not assigned a value to the variable
-.CW i
+.CW i 
 (the empty string is considered a value, by the way), where Make would have
 substituted the empty string, PMake will leave the
 .CW "${i}"
@@ -752,7 +780,7 @@ variable assignment as one of the arguments. For example,
 .DS
 pmake "CFLAGS = -I/sprite/src/lib/libc -O"
 .DE
-would make
+would make 
 .CW CFLAGS
 be a command-line variable with the given value. Any assignments to
 .CW CFLAGS
@@ -1384,7 +1412,7 @@ global variables.
 .Ix 0 ref MFLAGS
 .IP "\fB\-D\fP \fIvariable\fP"
 .Ix 0 def flags -D
-Allows you to define a variable to have
+Allows you to define a variable to have 
 .CW 1 '' ``
 as its value.  The variable is a global variable, not a command-line
 variable. This is useful mostly for people who are used to the C
@@ -1425,7 +1453,7 @@ the screen from being filled with garbage even more indecipherable
 than you usually see. PMake has two ways of doing this, one of which
 provides for much cleaner output and a clear separation between the
 output of different jobs, the other of which provides a more immediate
-response so one can tell what is really happpening. The former is done
+response so one can tell what is really happening. The former is done
 by notifying you when the creation of a target starts, capturing the
 output and transferring it to the screen all at once when the job
 finishes. The latter is done by catching the output of the shell (and
@@ -1529,7 +1557,7 @@ using the
 .Ix 0 ref !=
 .Ix 0 ref variable assignment shell-output
 operator.  Variables may be expanded (their value inserted) by enclosing
-their name in parentheses or curly braces, prceeded by a dollar sign.
+their name in parentheses or curly braces, preceded by a dollar sign.
 A dollar sign may be escaped with another dollar sign. Variables are
 not expanded if PMake doesn't know about them. There are seven local
 variables:
@@ -1595,7 +1623,7 @@ suffix is usually a text file to be processed by Troff with the \-ms
 macro package, and so on.
 One of the best aspects of both Make and PMake comes from their
 understanding of how the suffix of a file pertains to its contents and
-their ability to do things with a file based soley on its suffix. This
+their ability to do things with a file based solely on its suffix. This
 ability comes from something known as a transformation rule. A
 transformation rule specifies how to change a file with one suffix
 into a file with another suffix.
@@ -1635,7 +1663,7 @@ above:
 .RS
 .IP 1)
 The
-.CW .IMPSRC
+.CW .IMPSRC 
 variable.
 .Ix 0 def variable local .IMPSRC
 .Ix 0 def .IMPSRC
@@ -1660,7 +1688,7 @@ variable to contain
 and PMake would take care of the rest.
 .RE
 .LP
-To give you a quick example, the makefile in 2.3.4
+To give you a quick example, the makefile in 2.3.4 
 .Rm 3 2.3.4
 could be changed to this:
 .DS
@@ -1887,7 +1915,7 @@ and searches for transformations accordingly.
 The suffix it chooses is the source for the
 .CW .NULL
 .Ix 0 ref .NULL
-target mentioned later. In the system makefile,
+target mentioned later. In the system makefile, 
 .CW .out
 is chosen as the ``null suffix''
 .Ix 0 def suffix null
@@ -2602,7 +2630,7 @@ unless the
 .CW g
 flag is given at the end, in which case all occurrences of the string
 are replaced. The substitution is performed on each word in the
-variable in turn. If
+variable in turn. If 
 .I search-string
 begins with a
 .CW ^ ,
@@ -2611,7 +2639,7 @@ the string must match starting at the beginning of the word. If
 ends with a
 .CW $ ,
 the string must match to the end of the word (these two may be
-combined to force an exact match). If a backslash preceeds these two
+combined to force an exact match). If a backslash precedes these two
 characters, however, they lose their special meaning. Variable
 expansion also occurs in the normal fashion inside both the
 .I search-string
@@ -2636,7 +2664,7 @@ character is replaced by the
 unless it is preceded by a backslash.
 You are allowed to use any character except
 colon or exclamation point to separate the two strings. This so-called
-delimiter character may be placed in either string by preceeding it
+delimiter character may be placed in either string by preceding it
 with a backslash.
 .IP T
 .Ix 0 def :T
@@ -2870,7 +2898,7 @@ specifies the file
 in the archive
 .CW libdix.a .
 You may also use wildcards to specify the members of the archive. Just
-remember that most the wildcard characters will only find
+remember that most the wildcard characters will only find 
 .I existing
 files.
 .LP
@@ -2932,17 +2960,17 @@ archived in
 a table of contents placed in the archive and the newly-archived
 object files to be removed.
 .LP
-All this is used in the
+All this is used in the 
 .CW makelib.mk
 system makefile to create a single library with ease. This makefile
 looks like this:
 .DS
 .SM
 #
-# Rules for making libraries. The object files that make up the library are
-# removed once they are archived.
+# Rules for making libraries. The object files that make up the library
+# are removed once they are archived.
 #
-# To make several libararies in parallel, you should define the variable
+# To make several libraries in parallel, you should define the variable
 # "many_libraries". This will serialize the invocations of ranlib.
 #
 # To use, do something like this:
@@ -2966,19 +2994,19 @@ ARFLAGS		?= crl
 
 #
 # Re-archive the out-of-date members and recreate the library's table of
-# contents using ranlib. If many_libraries is defined, put the ranlib off
-# til the end so many libraries can be made at once.
+# contents using ranlib. If many_libraries is defined, put the ranlib
+# off til the end so many libraries can be made at once.
 #
 MAKELIB		: .USE .PRECIOUS
 	ar $(ARFLAGS) $(.TARGET) $(.OODATE)
 #ifndef no_ranlib
 # ifdef many_libraries
 	...
-# endif many_libraries
+# endif /* many_libraries */
 	ranlib $(.TARGET)
-#endif no_ranlib
+#endif /* no_ranlib */
 
-#endif _MAKELIB_MK
+#endif /* _MAKELIB_MK */
 .DE
 .xH 2 On the Condition...
 .Rd 1
@@ -3066,8 +3094,8 @@ identify the system on which PMake is being run.
 The syntax is
 .CW exists( \fIfile\fP\c
 .CW )
-and is true if the file can be found on the global search path (i.e.
-that defined by
+and is true if the file can be found on the global search path
+(i.e. that defined by
 .CW .PATH
 targets, not by
 .CW .PATH \fIsuffix\fP
@@ -3180,7 +3208,7 @@ FORMATTER	= ditroff -Plaser_printer
 FORMATTER	= nroff -Pdot_matrix_printer
 #endif
 .DE
-would wreak havok if you tried
+would wreak havoc if you tried
 .CW "pmake draft print" '' ``
 since you would use the same formatter for each target. As I said,
 this all gets somewhat complicated.
@@ -3301,7 +3329,7 @@ within that loop will be printed, etc. The specification runs like
 this:
 .DS
 #
-# This is a shell specification to have the bourne shell echo
+# This is a shell specification to have the Bourne shell echo
 # the commands just before executing them, rather than when it reads
 # them. Useful if you want to see how variables are being expanded, etc.
 #
@@ -3321,7 +3349,7 @@ It tells PMake the following:
 The shell is located in the file
 .CW /bin/sh .
 It need not tell PMake that the name of the shell is
-.CW sh
+.CW sh 
 as PMake can figure that out for itself (it's the last component of
 the path).
 .Bp
@@ -3332,7 +3360,7 @@ The command to start echoing is
 .CW "set -x" .
 .Bp
 When the echo off command is executed, the shell will print
-.CW "+ set - "
+.CW "+ set - " 
 (The `+' comes from using the
 .CW \-x
 flag (rather than the
@@ -3524,14 +3552,14 @@ The most important thing to know about how PMake uses this graph is
 that the traversal is breadth-first and occurs in two passes.
 .LP
 After PMake has parsed the makefile, it begins with the nodes the user
-has told it to make (either on the command line, or via a
+has told it to make (either on the command line, or via a 
 .CW .MAIN
 target, or by the target being the first in the file not labeled with
 the
 .CW .NOTMAIN
 attribute) placed in a queue. It continues to take the node off the
 front of the queue, mark it as something that needs to be made, pass
-the node to
+the node to 
 .CW Suff_FindDeps
 (mentioned earlier) to find any implicit sources for the node, and
 place all the node's children that have yet to be marked at the end of
@@ -3595,7 +3623,7 @@ ec.objec.exe .obj.exe :
 .DE
 .IP (3.2)
 The trick to this one lies in the ``:='' variable-assignment operator
-and the ``:S'' variable-expansion modifier.
+and the ``:S'' variable-expansion modifier. 
 .Ix 0 ref variable assignment expanded
 .Ix 0 ref variable expansion modified
 .Ix 0 ref modifier substitute
@@ -3681,7 +3709,7 @@ and
 .CW .TARGET ,
 .CW .PREFIX ,
 .CW .ARCHIVE ,
-and
+and 
 .CW .MEMBER
 may be used on dependency lines to create ``dynamic sources.''
 .Gp "makefile"

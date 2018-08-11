@@ -1,4 +1,4 @@
-/*	$NetBSD: lstEnQueue.c,v 1.7 1997/09/28 03:31:22 lukem Exp $	*/
+/*	$NetBSD: lstEnQueue.c,v 1.12 2006/10/25 20:17:40 dsl Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990, 1993
@@ -15,11 +15,7 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *	This product includes software developed by the University of
- *	California, Berkeley and its contributors.
- * 4. Neither the name of the University nor the names of its contributors
+ * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
@@ -36,15 +32,15 @@
  * SUCH DAMAGE.
  */
 
-#ifdef MAKE_BOOTSTRAP
-static char rcsid[] = "$NetBSD: lstEnQueue.c,v 1.7 1997/09/28 03:31:22 lukem Exp $";
+#ifndef MAKE_NATIVE
+static char rcsid[] = "$NetBSD: lstEnQueue.c,v 1.12 2006/10/25 20:17:40 dsl Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)lstEnQueue.c	8.1 (Berkeley) 6/6/93";
 #else
-__RCSID("$NetBSD: lstEnQueue.c,v 1.7 1997/09/28 03:31:22 lukem Exp $");
+__RCSID("$NetBSD: lstEnQueue.c,v 1.12 2006/10/25 20:17:40 dsl Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -62,7 +58,7 @@ __RCSID("$NetBSD: lstEnQueue.c,v 1.7 1997/09/28 03:31:22 lukem Exp $");
  *	Add the datum to the tail of the given list.
  *
  * Results:
- *	SUCCESS or FAILURE as returned by Lst_Append.
+ *	SUCCESS or FAILURE as returned by Lst_InsertAfter.
  *
  * Side Effects:
  *	the lastPtr field is altered all the time and the firstPtr field
@@ -71,13 +67,12 @@ __RCSID("$NetBSD: lstEnQueue.c,v 1.7 1997/09/28 03:31:22 lukem Exp $");
  *-----------------------------------------------------------------------
  */
 ReturnStatus
-Lst_EnQueue (l, d)
-    Lst	    	  l;
-    ClientData	  d;
+Lst_EnQueue(Lst l, ClientData d)
 {
     if (LstValid (l) == FALSE) {
 	return (FAILURE);
     }
 
-    return (Lst_Append (l, Lst_Last(l), d));
+    return (Lst_InsertAfter(l, Lst_Last(l), d));
 }
+

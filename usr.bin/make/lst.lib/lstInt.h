@@ -1,4 +1,4 @@
-/*	$NetBSD: lstInt.h,v 1.7 1996/11/06 17:59:44 christos Exp $	*/
+/*	$NetBSD: lstInt.h,v 1.16 2008/10/06 22:09:21 joerg Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990, 1993
@@ -15,11 +15,7 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *	This product includes software developed by the University of
- *	California, Berkeley and its contributors.
- * 4. Neither the name of the University nor the names of its contributors
+ * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
@@ -45,13 +41,13 @@
 #ifndef _LSTINT_H_
 #define _LSTINT_H_
 
-#include	  "make.h"
-#include	  "lst.h"
+#include	  "../make.h"
+#include	  "../lst.h"
 
 typedef struct ListNode {
 	struct ListNode	*prevPtr;   /* previous element in list */
 	struct ListNode	*nextPtr;   /* next in list */
-	short	    	useCount:8, /* Count of functions using the node.
+	unsigned int	useCount:8, /* Count of functions using the node.
 				     * node may not be deleted until count
 				     * goes to 0 */
  	    	    	flags:8;    /* Node status flags */
@@ -68,7 +64,7 @@ typedef enum {
     Head, Middle, Tail, Unknown
 } Where;
 
-typedef struct	{
+typedef struct	List {
 	ListNode  	firstPtr; /* first node in list */
 	ListNode  	lastPtr;  /* last node in list */
 	Boolean	  	isCirc;	  /* true if the list should be considered
@@ -90,24 +86,24 @@ typedef struct	{
  * PAlloc (var, ptype) --
  *	Allocate a pointer-typedef structure 'ptype' into the variable 'var'
  */
-#define	PAlloc(var,ptype)	var = (ptype) emalloc (sizeof (*var))
+#define	PAlloc(var,ptype)	var = (ptype) bmake_malloc(sizeof *(var))
 
 /*
  * LstValid (l) --
  *	Return TRUE if the list l is valid
  */
-#define LstValid(l)	(((Lst)l == NILLST) ? FALSE : TRUE)
+#define LstValid(l)	((Lst)(l) != NILLST)
 
 /*
  * LstNodeValid (ln, l) --
  *	Return TRUE if the LstNode ln is valid with respect to l
  */
-#define LstNodeValid(ln, l)	((((LstNode)ln) == NILLNODE) ? FALSE : TRUE)
+#define LstNodeValid(ln, l)	((ln) != NILLNODE)
 
 /*
  * LstIsEmpty (l) --
  *	TRUE if the list l is empty.
  */
-#define LstIsEmpty(l)	(((List)l)->firstPtr == NilListNode)
+#define LstIsEmpty(l)	(((List)(l))->firstPtr == NilListNode)
 
-#endif _LSTINT_H_
+#endif /* _LSTINT_H_ */

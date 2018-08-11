@@ -1,4 +1,4 @@
-/*	$NetBSD: lstDupl.c,v 1.8 1997/09/28 03:31:21 lukem Exp $	*/
+/*	$NetBSD: lstDupl.c,v 1.14 2006/10/27 21:37:25 dsl Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990, 1993
@@ -15,11 +15,7 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *	This product includes software developed by the University of
- *	California, Berkeley and its contributors.
- * 4. Neither the name of the University nor the names of its contributors
+ * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
@@ -36,15 +32,15 @@
  * SUCH DAMAGE.
  */
 
-#ifdef MAKE_BOOTSTRAP
-static char rcsid[] = "$NetBSD: lstDupl.c,v 1.8 1997/09/28 03:31:21 lukem Exp $";
+#ifndef MAKE_NATIVE
+static char rcsid[] = "$NetBSD: lstDupl.c,v 1.14 2006/10/27 21:37:25 dsl Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)lstDupl.c	8.1 (Berkeley) 6/6/93";
 #else
-__RCSID("$NetBSD: lstDupl.c,v 1.8 1997/09/28 03:31:21 lukem Exp $");
+__RCSID("$NetBSD: lstDupl.c,v 1.14 2006/10/27 21:37:25 dsl Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -63,6 +59,10 @@ __RCSID("$NetBSD: lstDupl.c,v 1.8 1997/09/28 03:31:21 lukem Exp $");
  *	Duplicate an entire list. If a function to copy a ClientData is
  *	given, the individual client elements will be duplicated as well.
  *
+ * Input:
+ *	l		the list to duplicate
+ *	copyProc	A function to duplicate each ClientData
+ *
  * Results:
  *	The new Lst structure or NILLST if failure.
  *
@@ -71,20 +71,17 @@ __RCSID("$NetBSD: lstDupl.c,v 1.8 1997/09/28 03:31:21 lukem Exp $");
  *-----------------------------------------------------------------------
  */
 Lst
-Lst_Duplicate (l, copyProc)
-    Lst     	  l;	    	 /* the list to duplicate */
-    /* A function to duplicate each ClientData */
-    ClientData	  (*copyProc) __P((ClientData));
+Lst_Duplicate(Lst l, DuplicateProc *copyProc)
 {
-    register Lst 	nl;
-    register ListNode  	ln;
-    register List 	list = (List)l;
+    Lst 	nl;
+    ListNode  	ln;
+    List 	list = l;
 
     if (!LstValid (l)) {
 	return (NILLST);
     }
 
-    nl = Lst_Init (list->isCirc);
+    nl = Lst_Init(list->isCirc);
     if (nl == NILLST) {
 	return (NILLST);
     }
@@ -92,10 +89,10 @@ Lst_Duplicate (l, copyProc)
     ln = list->firstPtr;
     while (ln != NilListNode) {
 	if (copyProc != NOCOPY) {
-	    if (Lst_AtEnd (nl, (*copyProc) (ln->datum)) == FAILURE) {
+	    if (Lst_AtEnd(nl, copyProc(ln->datum)) == FAILURE) {
 		return (NILLST);
 	    }
-	} else if (Lst_AtEnd (nl, ln->datum) == FAILURE) {
+	} else if (Lst_AtEnd(nl, ln->datum) == FAILURE) {
 	    return (NILLST);
 	}
 

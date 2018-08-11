@@ -1,7 +1,38 @@
-/*	$NetBSD: buf.c,v 1.12 1999/09/15 04:16:31 mycroft Exp $	*/
+/*	$NetBSD: buf.c,v 1.22 2008/10/06 22:09:21 joerg Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990 The Regents of the University of California.
+ * All rights reserved.
+ *
+ * This code is derived from software contributed to Berkeley by
+ * Adam de Boor.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. Neither the name of the University nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
+ *    without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+/*
  * Copyright (c) 1988, 1989 by Adam de Boor
  * Copyright (c) 1989 by Berkeley Softworks
  * All rights reserved.
@@ -38,15 +69,15 @@
  * SUCH DAMAGE.
  */
 
-#ifdef MAKE_BOOTSTRAP
-static char rcsid[] = "$NetBSD: buf.c,v 1.12 1999/09/15 04:16:31 mycroft Exp $";
+#ifndef MAKE_NATIVE
+static char rcsid[] = "$NetBSD: buf.c,v 1.22 2008/10/06 22:09:21 joerg Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)buf.c	8.1 (Berkeley) 6/6/93";
 #else
-__RCSID("$NetBSD: buf.c,v 1.12 1999/09/15 04:16:31 mycroft Exp $");
+__RCSID("$NetBSD: buf.c,v 1.22 2008/10/06 22:09:21 joerg Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -74,7 +105,7 @@ __RCSID("$NetBSD: buf.c,v 1.12 1999/09/15 04:16:31 mycroft Exp $");
 #define BufExpand(bp,nb) \
  	while (bp->left < (nb)+1) {\
 	    int newSize = (bp)->size * 2; \
-	    Byte  *newBuf = (Byte *) erealloc((bp)->buffer, newSize); \
+	    Byte  *newBuf = (Byte *)bmake_realloc((bp)->buffer, newSize); \
 	    \
 	    (bp)->inPtr = newBuf + ((bp)->inPtr - (bp)->buffer); \
 	    (bp)->outPtr = newBuf + ((bp)->outPtr - (bp)->buffer);\
@@ -99,13 +130,11 @@ __RCSID("$NetBSD: buf.c,v 1.12 1999/09/15 04:16:31 mycroft Exp $");
  *-----------------------------------------------------------------------
  */
 void
-Buf_OvAddByte (bp, byte)
-    register Buffer bp;
-    int    byte;
+Buf_OvAddByte(Buffer bp, int byte)
 {
     int nbytes = 1;
     bp->left = 0;
-    BufExpand (bp, nbytes);
+    BufExpand(bp, nbytes);
 
     *bp->inPtr++ = byte;
     bp->left--;
@@ -130,15 +159,12 @@ Buf_OvAddByte (bp, byte)
  *-----------------------------------------------------------------------
  */
 void
-Buf_AddBytes (bp, numBytes, bytesPtr)
-    register Buffer bp;
-    int	    numBytes;
-    const Byte *bytesPtr;
+Buf_AddBytes(Buffer bp, int numBytes, const Byte *bytesPtr)
 {
 
-    BufExpand (bp, numBytes);
+    BufExpand(bp, numBytes);
 
-    memcpy (bp->inPtr, bytesPtr, numBytes);
+    memcpy(bp->inPtr, bytesPtr, numBytes);
     bp->inPtr += numBytes;
     bp->left -= numBytes;
 
@@ -162,12 +188,10 @@ Buf_AddBytes (bp, numBytes, bytesPtr)
  *-----------------------------------------------------------------------
  */
 Byte *
-Buf_GetAll (bp, numBytesPtr)
-    register Buffer bp;
-    int	    *numBytesPtr;
+Buf_GetAll(Buffer bp, int *numBytesPtr)
 {
 
-    if (numBytesPtr != (int *)NULL) {
+    if (numBytesPtr != NULL) {
 	*numBytesPtr = bp->inPtr - bp->outPtr;
     }
 
@@ -188,9 +212,7 @@ Buf_GetAll (bp, numBytesPtr)
  *-----------------------------------------------------------------------
  */
 void
-Buf_Discard (bp, numBytes)
-    register Buffer bp;
-    int	    numBytes;
+Buf_Discard(Buffer bp, int numBytes)
 {
 
     if (bp->inPtr - bp->outPtr <= numBytes) {
@@ -217,8 +239,7 @@ Buf_Discard (bp, numBytes)
  *-----------------------------------------------------------------------
  */
 int
-Buf_Size (buf)
-    Buffer  buf;
+Buf_Size(Buffer buf)
 {
     return (buf->inPtr - buf->outPtr);
 }
@@ -228,6 +249,9 @@ Buf_Size (buf)
  * Buf_Init --
  *	Initialize a buffer. If no initial size is given, a reasonable
  *	default is used.
+ *
+ * Input:
+ *	size		Initial size for the buffer
  *
  * Results:
  *	A buffer to be given to other functions in this library.
@@ -239,18 +263,17 @@ Buf_Size (buf)
  *-----------------------------------------------------------------------
  */
 Buffer
-Buf_Init (size)
-    int	    size; 	/* Initial size for the buffer */
+Buf_Init(int size)
 {
     Buffer bp;	  	/* New Buffer */
 
-    bp = (Buffer)emalloc(sizeof(*bp));
+    bp = bmake_malloc(sizeof(*bp));
 
     if (size <= 0) {
 	size = BUF_DEF_SIZE;
     }
     bp->left = bp->size = size;
-    bp->buffer = (Byte *)emalloc(size);
+    bp->buffer = bmake_malloc(size);
     bp->inPtr = bp->outPtr = bp->buffer;
     *bp->inPtr = 0;
 
@@ -262,6 +285,10 @@ Buf_Init (size)
  * Buf_Destroy --
  *	Nuke a buffer and all its resources.
  *
+ * Input:
+ *	buf		Buffer to destroy
+ *	freeData	TRUE if the data should be destroyed
+ *
  * Results:
  *	None.
  *
@@ -271,21 +298,23 @@ Buf_Init (size)
  *-----------------------------------------------------------------------
  */
 void
-Buf_Destroy (buf, freeData)
-    Buffer  buf;  	/* Buffer to destroy */
-    Boolean freeData;	/* TRUE if the data should be destroyed as well */
+Buf_Destroy(Buffer buf, Boolean freeData)
 {
 
     if (freeData) {
-	free ((char *)buf->buffer);
+	free(buf->buffer);
     }
-    free ((char *)buf);
+    free(buf);
 }
 
 /*-
  *-----------------------------------------------------------------------
  * Buf_ReplaceLastByte --
  *     Replace the last byte in a buffer.
+ *
+ * Input:
+ *	buf		buffer to augment
+ *	byte		byte to be written
  *
  * Results:
  *     None.
@@ -297,9 +326,7 @@ Buf_Destroy (buf, freeData)
  *-----------------------------------------------------------------------
  */
 void
-Buf_ReplaceLastByte (buf, byte)
-    Buffer buf;	/* buffer to augment */
-    int byte;	/* byte to be written */
+Buf_ReplaceLastByte(Buffer buf, int byte)
 {
     if (buf->inPtr == buf->outPtr)
         Buf_AddByte(buf, byte);

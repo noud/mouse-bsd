@@ -1,4 +1,4 @@
-/*	$NetBSD: lstDestroy.c,v 1.8 1997/09/28 03:31:21 lukem Exp $	*/
+/*	$NetBSD: lstDestroy.c,v 1.15 2006/10/27 21:37:25 dsl Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990, 1993
@@ -15,11 +15,7 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *	This product includes software developed by the University of
- *	California, Berkeley and its contributors.
- * 4. Neither the name of the University nor the names of its contributors
+ * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
@@ -36,15 +32,15 @@
  * SUCH DAMAGE.
  */
 
-#ifdef MAKE_BOOTSTRAP
-static char rcsid[] = "$NetBSD: lstDestroy.c,v 1.8 1997/09/28 03:31:21 lukem Exp $";
+#ifndef MAKE_NATIVE
+static char rcsid[] = "$NetBSD: lstDestroy.c,v 1.15 2006/10/27 21:37:25 dsl Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)lstDestroy.c	8.1 (Berkeley) 6/6/93";
 #else
-__RCSID("$NetBSD: lstDestroy.c,v 1.8 1997/09/28 03:31:21 lukem Exp $");
+__RCSID("$NetBSD: lstDestroy.c,v 1.15 2006/10/27 21:37:25 dsl Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -72,13 +68,11 @@ __RCSID("$NetBSD: lstDestroy.c,v 1.8 1997/09/28 03:31:21 lukem Exp $");
  *-----------------------------------------------------------------------
  */
 void
-Lst_Destroy (l, freeProc)
-    Lst	    	  	l;
-    register void	(*freeProc) __P((ClientData));
+Lst_Destroy(Lst l, FreeProc *freeProc)
 {
-    register ListNode	ln;
-    register ListNode	tln = NilListNode;
-    register List 	list = (List)l;
+    ListNode	ln;
+    ListNode	tln = NilListNode;
+    List 	list = l;
 
     if (l == NILLST || ! l) {
 	/*
@@ -92,22 +86,22 @@ Lst_Destroy (l, freeProc)
     if (list->lastPtr != NilListNode)
 	list->lastPtr->nextPtr = NilListNode;
     else {
-	free ((Address)l);
+	free(l);
 	return;
     }
 
     if (freeProc) {
 	for (ln = list->firstPtr; ln != NilListNode; ln = tln) {
 	     tln = ln->nextPtr;
-	     (*freeProc) (ln->datum);
-	     free ((Address)ln);
+	     freeProc(ln->datum);
+	     free(ln);
 	}
     } else {
 	for (ln = list->firstPtr; ln != NilListNode; ln = tln) {
 	     tln = ln->nextPtr;
-	     free ((Address)ln);
+	     free(ln);
 	}
     }
 
-    free ((Address)l);
+    free(l);
 }

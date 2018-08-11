@@ -1,8 +1,38 @@
-/*	$NetBSD: str.c,v 1.17 1998/11/06 23:31:09 christos Exp $	*/
+/*	$NetBSD: str.c,v 1.29 2008/10/06 22:09:21 joerg Exp $	*/
 
 /*-
  * Copyright (c) 1988, 1989, 1990, 1993
  *	The Regents of the University of California.  All rights reserved.
+ *
+ * This code is derived from software contributed to Berkeley by
+ * Adam de Boor.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. Neither the name of the University nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
+ *    without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+/*-
  * Copyright (c) 1989 by Berkeley Softworks
  * All rights reserved.
  *
@@ -38,15 +68,15 @@
  * SUCH DAMAGE.
  */
 
-#ifdef MAKE_BOOTSTRAP
-static char rcsid[] = "$NetBSD: str.c,v 1.17 1998/11/06 23:31:09 christos Exp $";
+#ifndef MAKE_NATIVE
+static char rcsid[] = "$NetBSD: str.c,v 1.29 2008/10/06 22:09:21 joerg Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char     sccsid[] = "@(#)str.c	5.8 (Berkeley) 6/1/90";
 #else
-__RCSID("$NetBSD: str.c,v 1.17 1998/11/06 23:31:09 christos Exp $");
+__RCSID("$NetBSD: str.c,v 1.29 2008/10/06 22:09:21 joerg Exp $");
 #endif
 #endif				/* not lint */
 #endif
@@ -62,19 +92,17 @@ __RCSID("$NetBSD: str.c,v 1.17 1998/11/06 23:31:09 christos Exp $");
  *	the resulting string in allocated space.
  */
 char *
-str_concat(s1, s2, flags)
-	char *s1, *s2;
-	int flags;
+str_concat(const char *s1, const char *s2, int flags)
 {
-	register int len1, len2;
-	register char *result;
+	int len1, len2;
+	char *result;
 
 	/* get the length of both strings */
 	len1 = strlen(s1);
 	len2 = strlen(s2);
 
 	/* allocate length plus separator plus EOS */
-	result = emalloc((u_int)(len1 + len2 + 2));
+	result = bmake_malloc((u_int)(len1 + len2 + 2));
 
 	/* copy first string into place */
 	memcpy(result, s1, len1);
@@ -91,11 +119,6 @@ str_concat(s1, s2, flags)
 	/* copy second string plus EOS into place */
 	memcpy(result + len1, s2, len2 + 1);
 
-	/* free original strings */
-	if (flags & STR_DOFREE) {
-		(void)free(s1);
-		(void)free(s2);
-	}
 	return(result);
 }
 
@@ -105,22 +128,24 @@ str_concat(s1, s2, flags)
  *	spaces) taking quotation marks into account.  Leading tabs/spaces
  *	are ignored.
  *
+ * If expand is TRUE, quotes are removed and escape sequences
+ *  such as \r, \t, etc... are expanded.
+ *
  * returns --
- *	Pointer to the array of pointers to the words.  To make life easier,
- *	the first word is always the value of the .MAKE variable.
+ *	Pointer to the array of pointers to the words.
+ *      Memory containing the actual words in *buffer.
+ *		Both of these must be free'd by the caller.
+ *      Number of words in *store_argc.
  */
 char **
-brk_string(str, store_argc, expand, buffer)
-	register char *str;
-	int *store_argc;
-	Boolean expand;
-	char **buffer;
+brk_string(const char *str, int *store_argc, Boolean expand, char **buffer)
 {
-	register int argc, ch;
-	register char inquote, *p, *start, *t;
+	int argc, ch;
+	char inquote, *start, *t;
+	const char *p;
 	int len;
 	int argmax = 50, curlen = 0;
-    	char **argv = (char **)emalloc((argmax + 1) * sizeof(char *));
+    	char **argv = bmake_malloc((argmax + 1) * sizeof(char *));
 
 	/* skip leading space chars. */
 	for (; *str == ' ' || *str == '\t'; ++str)
@@ -128,7 +153,7 @@ brk_string(str, store_argc, expand, buffer)
 
 	/* allocate room for a copy of the string */
 	if ((len = strlen(str) + 1) > curlen)
-		*buffer = emalloc(curlen = len);
+		*buffer = bmake_malloc(curlen = len);
 
 	/*
 	 * copy the string; at the same time, parse backslashes,
@@ -151,6 +176,8 @@ brk_string(str, store_argc, expand, buffer)
 				/* Don't miss "" or '' */
 				if (start == NULL && p[1] == inquote) {
 					start = t + 1;
+					p++;
+					inquote = '\0';
 					break;
 				}
 			}
@@ -179,11 +206,11 @@ brk_string(str, store_argc, expand, buffer)
 			*t++ = '\0';
 			if (argc == argmax) {
 				argmax *= 2;		/* ramp up fast */
-				argv = (char **)erealloc(argv,
+				argv = (char **)bmake_realloc(argv,
 				    (argmax + 1) * sizeof(char *));
 			}
 			argv[argc++] = start;
-			start = (char *)NULL;
+			start = NULL;
 			if (ch == '\n' || ch == '\0')
 				goto done;
 			continue;
@@ -192,6 +219,8 @@ brk_string(str, store_argc, expand, buffer)
 				if (!start)
 					start = t;
 				*t++ = '\\';
+				if (*(p+1) == '\0') // catch '\' at end of line
+					continue;
 				ch = *++p;
 				break;
 			}
@@ -225,13 +254,17 @@ brk_string(str, store_argc, expand, buffer)
 			start = t;
 		*t++ = (char) ch;
 	}
-done:	argv[argc] = (char *)NULL;
+done:	argv[argc] = NULL;
 	*store_argc = argc;
 	return(argv);
 }
 
 /*
  * Str_FindSubstring -- See if a string contains a particular substring.
+ *
+ * Input:
+ *	string		String to search.
+ *	substring	Substring to find in string.
  *
  * Results: If string contains substring, the return value is the location of
  * the first matching instance of substring in string.  If string doesn't
@@ -241,11 +274,9 @@ done:	argv[argc] = (char *)NULL;
  * Side effects: None.
  */
 char *
-Str_FindSubstring(string, substring)
-	register char *string;		/* String to search. */
-	char *substring;		/* Substring to find in string */
+Str_FindSubstring(const char *string, const char *substring)
 {
-	register char *a, *b;
+	const char *a, *b;
 
 	/*
 	 * First scan quickly through the two strings looking for a single-
@@ -259,13 +290,13 @@ Str_FindSubstring(string, substring)
 		a = string;
 		for (;;) {
 			if (*b == 0)
-				return(string);
+				return UNCONST(string);
 			if (*a++ != *b++)
 				break;
 		}
 		b = substring;
 	}
-	return((char *) NULL);
+	return NULL;
 }
 
 /*
@@ -280,9 +311,7 @@ Str_FindSubstring(string, substring)
  * Side effects: None.
  */
 int
-Str_Match(string, pattern)
-	register char *string;		/* String */
-	register char *pattern;		/* Pattern */
+Str_Match(const char *string, const char *pattern)
 {
 	char c2;
 
@@ -375,6 +404,11 @@ thisCharOK:	++pattern;
  * Str_SYSVMatch --
  *	Check word against pattern for a match (% is wild),
  *
+ * Input:
+ *	word		Word to examine
+ *	pattern		Pattern to examine against
+ *	len		Number of characters to substitute
+ *
  * Results:
  *	Returns the beginning position of a match or null. The number
  *	of characters matched is returned in len.
@@ -385,19 +419,16 @@ thisCharOK:	++pattern;
  *-----------------------------------------------------------------------
  */
 char *
-Str_SYSVMatch(word, pattern, len)
-    char	*word;		/* Word to examine */
-    char	*pattern;	/* Pattern to examine against */
-    int		*len;		/* Number of characters to substitute */
+Str_SYSVMatch(const char *word, const char *pattern, int *len)
 {
-    char *p = pattern;
-    char *w = word;
-    char *m;
+    const char *p = pattern;
+    const char *w = word;
+    const char *m;
 
     if (*p == '\0') {
 	/* Null pattern is the whole string */
 	*len = strlen(w);
-	return w;
+	return UNCONST(w);
     }
 
     if ((m = strchr(p, '%')) != NULL) {
@@ -411,7 +442,7 @@ Str_SYSVMatch(word, pattern, len)
 	if (*++p == '\0') {
 	    /* No more pattern, return the rest of the string */
 	    *len = strlen(w);
-	    return w;
+	    return UNCONST(w);
 	}
     }
 
@@ -421,7 +452,7 @@ Str_SYSVMatch(word, pattern, len)
     do
 	if (strcmp(p, w) == 0) {
 	    *len = w - m;
-	    return m;
+	    return UNCONST(m);
 	}
     while (*w++ != '\0');
 
@@ -445,24 +476,20 @@ Str_SYSVMatch(word, pattern, len)
  *-----------------------------------------------------------------------
  */
 void
-Str_SYSVSubst(buf, pat, src, len)
-    Buffer buf;
-    char *pat;
-    char *src;
-    int   len;
+Str_SYSVSubst(Buffer buf, char *pat, char *src, int len)
 {
     char *m;
 
     if ((m = strchr(pat, '%')) != NULL) {
 	/* Copy the prefix */
-	Buf_AddBytes(buf, m - pat, (Byte *) pat);
+	Buf_AddBytes(buf, m - pat, (Byte *)pat);
 	/* skip the % */
 	pat = m + 1;
     }
 
     /* Copy the pattern */
-    Buf_AddBytes(buf, len, (Byte *) src);
+    Buf_AddBytes(buf, len, (Byte *)src);
 
     /* append the rest */
-    Buf_AddBytes(buf, strlen(pat), (Byte *) pat);
+    Buf_AddBytes(buf, strlen(pat), (Byte *)pat);
 }

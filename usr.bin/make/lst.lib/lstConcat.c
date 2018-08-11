@@ -1,4 +1,4 @@
-/*	$NetBSD: lstConcat.c,v 1.8 1997/09/28 03:31:19 lukem Exp $	*/
+/*	$NetBSD: lstConcat.c,v 1.15 2006/10/27 21:37:25 dsl Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990, 1993
@@ -15,11 +15,7 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *	This product includes software developed by the University of
- *	California, Berkeley and its contributors.
- * 4. Neither the name of the University nor the names of its contributors
+ * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
@@ -36,15 +32,15 @@
  * SUCH DAMAGE.
  */
 
-#ifdef MAKE_BOOTSTRAP
-static char rcsid[] = "$NetBSD: lstConcat.c,v 1.8 1997/09/28 03:31:19 lukem Exp $";
+#ifndef MAKE_NATIVE
+static char rcsid[] = "$NetBSD: lstConcat.c,v 1.15 2006/10/27 21:37:25 dsl Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)lstConcat.c	8.1 (Berkeley) 6/6/93";
 #else
-__RCSID("$NetBSD: lstConcat.c,v 1.8 1997/09/28 03:31:19 lukem Exp $");
+__RCSID("$NetBSD: lstConcat.c,v 1.15 2006/10/27 21:37:25 dsl Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -66,26 +62,28 @@ __RCSID("$NetBSD: lstConcat.c,v 1.8 1997/09/28 03:31:19 lukem Exp $");
  *	If LST_CONCLINK is specified, the second list is destroyed since
  *	its pointers have been corrupted and the list is no longer useable.
  *
+ * Input:
+ *	l1		The list to which l2 is to be appended
+ *	l2		The list to append to l1
+ *	flags		LST_CONCNEW if LstNode's should be duplicated
+ *			LST_CONCLINK if should just be relinked
+ *
  * Results:
  *	SUCCESS if all went well. FAILURE otherwise.
  *
  * Side Effects:
- *	New elements are created and appended the the first list.
+ *	New elements are created and appended the first list.
  *-----------------------------------------------------------------------
  */
 ReturnStatus
-Lst_Concat (l1, l2, flags)
-    Lst    	  	l1; 	/* The list to which l2 is to be appended */
-    Lst    	  	l2; 	/* The list to append to l1 */
-    int	   	  	flags;  /* LST_CONCNEW if LstNode's should be duplicated
-				 * LST_CONCLINK if should just be relinked */
+Lst_Concat(Lst l1, Lst l2, int flags)
 {
-    register ListNode  	ln;     /* original LstNode */
-    register ListNode  	nln;    /* new LstNode */
-    register ListNode  	last;   /* the last element in the list. Keeps
+    ListNode  	ln;     /* original LstNode */
+    ListNode  	nln;    /* new LstNode */
+    ListNode  	last;   /* the last element in the list. Keeps
 				 * bookkeeping until the end */
-    register List 	list1 = (List)l1;
-    register List 	list2 = (List)l2;
+    List 	list1 = l1;
+    List 	list2 = l2;
 
     if (!LstValid (l1) || !LstValid (l2)) {
 	return (FAILURE);
@@ -127,7 +125,7 @@ Lst_Concat (l1, l2, flags)
 	    list1->firstPtr->prevPtr = list1->lastPtr;
 	    list1->lastPtr->nextPtr = list1->firstPtr;
 	}
-	free ((Address)l2);
+	free(l2);
     } else if (list2->firstPtr != NilListNode) {
 	/*
 	 * We set the nextPtr of the last element of list 2 to be nil to make
@@ -184,3 +182,4 @@ Lst_Concat (l1, l2, flags)
 
     return (SUCCESS);
 }
+

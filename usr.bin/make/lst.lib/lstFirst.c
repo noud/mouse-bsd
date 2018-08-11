@@ -1,4 +1,4 @@
-/*	$NetBSD: lstFirst.c,v 1.7 1997/09/28 03:31:24 lukem Exp $	*/
+/*	$NetBSD: lstFirst.c,v 1.11 2006/10/27 21:37:25 dsl Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990, 1993
@@ -15,11 +15,7 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *	This product includes software developed by the University of
- *	California, Berkeley and its contributors.
- * 4. Neither the name of the University nor the names of its contributors
+ * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
@@ -36,15 +32,15 @@
  * SUCH DAMAGE.
  */
 
-#ifdef MAKE_BOOTSTRAP
-static char rcsid[] = "$NetBSD: lstFirst.c,v 1.7 1997/09/28 03:31:24 lukem Exp $";
+#ifndef MAKE_NATIVE
+static char rcsid[] = "$NetBSD: lstFirst.c,v 1.11 2006/10/27 21:37:25 dsl Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)lstFirst.c	8.1 (Berkeley) 6/6/93";
 #else
-__RCSID("$NetBSD: lstFirst.c,v 1.7 1997/09/28 03:31:24 lukem Exp $");
+__RCSID("$NetBSD: lstFirst.c,v 1.11 2006/10/27 21:37:25 dsl Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -70,12 +66,12 @@ __RCSID("$NetBSD: lstFirst.c,v 1.7 1997/09/28 03:31:24 lukem Exp $");
  *-----------------------------------------------------------------------
  */
 LstNode
-Lst_First (l)
-    Lst	l;
+Lst_First(Lst l)
 {
     if (!LstValid (l) || LstIsEmpty (l)) {
 	return (NILLNODE);
     } else {
-	return ((LstNode)((List)l)->firstPtr);
+	return (l->firstPtr);
     }
 }
+
