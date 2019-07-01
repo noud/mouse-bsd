@@ -119,11 +119,12 @@ __RCSID("$NetBSD: main.c,v 1.69 1999/11/28 06:32:05 lukem Exp $");
 #include <sys/socket.h>
 
 #include <err.h>
+#include <pwd.h>
 #include <errno.h>
 #include <netdb.h>
 #include <paths.h>
-#include <pwd.h>
 #include <stdio.h>
+#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
