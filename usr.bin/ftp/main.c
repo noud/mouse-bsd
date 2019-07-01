@@ -139,10 +139,7 @@ __RCSID("$NetBSD: main.c,v 1.69 1999/11/28 06:32:05 lukem Exp $");
 static void	setupoption __P((char *, char *, char *));
 int		main __P((int, char **));
 
-int
-main(argc, argv)
-	int argc;
-	char *argv[];
+int main(int argc, char **argv)
 {
 	int ch, rval;
 	struct passwd *pw = NULL;
@@ -503,8 +500,7 @@ main(argc, argv)
 /*
  * Generate a prompt
  */
-char *
-prompt()
+char *prompt(void)
 {
 	static char	**prompt;
 	static char	  buf[MAXPATHLEN];
@@ -524,8 +520,7 @@ prompt()
 /*
  * Generate an rprompt
  */
-char *
-rprompt()
+char *rprompt(void)
 {
 	static char	**rprompt;
 	static char	  buf[MAXPATHLEN];
@@ -545,8 +540,7 @@ rprompt()
 /*
  * Command parser.
  */
-void
-cmdscanner()
+void cmdscanner(void)
 {
 	struct cmd	*c;
 	char		*p;
@@ -643,9 +637,7 @@ cmdscanner()
 	(void)xsignal(SIGPIPE, lostpeer);
 }
 
-struct cmd *
-getcmd(name)
-	const char *name;
+struct cmd *getcmd(const char *name)
 {
 	const char *p, *q;
 	struct cmd *c, *found;
@@ -681,8 +673,7 @@ getcmd(name)
 
 int slrflag;
 
-void
-makeargv()
+void makeargv(void)
 {
 	char *argp;
 
@@ -724,8 +715,7 @@ makeargv()
  * implemented with FSM to
  * handle quoting and strings
  */
-char *
-slurpstring()
+char *slurpstring(void)
 {
 	int got_one = 0;
 	char *sb = stringbase;
@@ -856,10 +846,7 @@ OUT:
  * Help/usage command.
  * Call each command handler with argc == 0 and argv[0] == name.
  */
-void
-help(argc, argv)
-	int argc;
-	char *argv[];
+void help(int argc, char **argv)
 {
 	struct cmd *c;
 	char *nargv[1], *p, *cmd;
@@ -910,9 +897,7 @@ help(argc, argv)
 	}
 }
 
-struct option *
-getoption(name)
-	const char *name;
+struct option *getoption(const char *name)
 {
 	const char *p;
 	struct option *c;
@@ -926,9 +911,7 @@ getoption(name)
 	return (NULL);
 }
 
-char *
-getoptionvalue(name)
-	const char *name;
+char *getoptionvalue(const char *name)
 {
 	struct option *c;
 
@@ -940,9 +923,7 @@ getoptionvalue(name)
 	errx(1, "getoptionvalue() invoked with unknown option `%s'", name);
 }
 
-static void
-setupoption(name, value, defaultvalue)
-	char *name, *value, *defaultvalue;
+static void setupoption(char *name, char *value, char *defaultvalue)
 {
 	char *nargv[3];
 	int overbose;
@@ -956,8 +937,7 @@ setupoption(name, value, defaultvalue)
 	verbose = overbose;
 }
 
-void
-usage()
+void usage(void)
 {
 	(void)fprintf(stderr,
 "usage: %s [-AadefginpRtvV] [-o outfile] [-P port] [-r retry] [-T dir,max[,inc]\n"
