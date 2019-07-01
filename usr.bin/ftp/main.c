@@ -137,8 +137,21 @@ __RCSID("$NetBSD: main.c,v 1.69 1999/11/28 06:32:05 lukem Exp $");
 #define	NO_PROXY	"no_proxy"	/* env var with list of non-proxied
 					 * hosts, comma or space separated */
 
+typedef struct isrc ISRC;
+
+struct isrc {
+  ISRC *link;
+  char *name;
+  FILE *f;
+  int savetty;
+  } ;
+
 static void	setupoption __P((char *, char *, char *));
 int		main __P((int, char **));
+
+static ISRC *at_stack;
+
+#define Cisspace(x) isspace((unsigned char)(x))
 
 int main(int argc, char **argv)
 {
@@ -494,6 +507,7 @@ int main(int argc, char **argv)
 	(void)sigsetjmp(toplevel, 1);
 	(void)xsignal(SIGINT, intr);
 	(void)xsignal(SIGPIPE, lostpeer);
+ at_stack = 0;
 	for (;;)
 		cmdscanner();
 }
@@ -538,6 +552,50 @@ char *rprompt(void)
 	return (buf);
 }
 
+static FILE *inputf(void)
+{
+ return(at_stack?at_stack->f:stdin);
+}
+
+static int pop_at_stack(void)
+{
+ ISRC *i;
+
+ i = at_stack;
+ if (i)
+  { at_stack = i->link;
+    fromatty = i->savetty;
+    fclose(i->f);
+    free(i->name);
+    free(i);
+    return(1);
+  }
+ return(0);
+}
+
+static void push_at_stack(char *rest)
+{
+ ISRC *i;
+ FILE *f;
+
+ if (! *rest)
+  { fprintf(ttyout,"@ must be followed by a filename\n");
+    return;
+  }
+ f = fopen(rest,"r");
+ if (! f)
+  { fprintf(ttyout,"@: can't open `%s'\n",rest);
+    return;
+  }
+ i = malloc(sizeof(ISRC));
+ i->name = strdup(rest);
+ i->f = f;
+ i->savetty = fromatty;
+ fromatty = 0;
+ i->link = at_stack;
+ at_stack = i;
+}
+
 /*
  * Command parser.
  */
@@ -549,7 +607,7 @@ void cmdscanner(void)
 
 	for (;;) {
 #ifndef NO_EDITCOMPLETE
-		if (!editing) {
+		if (at_stack || !editing) {
 #endif /* !NO_EDITCOMPLETE */
 			if (fromatty) {
 				fputs(prompt(), ttyout);
@@ -558,7 +616,8 @@ void cmdscanner(void)
 					fprintf(ttyout, "%s ", p);
 				(void)fflush(ttyout);
 			}
-			if (fgets(line, sizeof(line), stdin) == NULL) {
+			if (fgets(line, sizeof(line), inputf()) == NULL) {
+									   if (pop_at_stack()) break;
 				if (fromatty)
 					putc('\n', ttyout);
 				quit(0, 0);
@@ -599,6 +658,12 @@ void cmdscanner(void)
 			history(hist, &ev, H_ENTER, buf);
 		}
 #endif /* !NO_EDITCOMPLETE */
+
+		   // Very special case for @
+		   if (line[0] == '@')
+		    { push_at_stack(line+1);
+		      break;
+		    }
 
 		makeargv();
 		if (margc == 0)
