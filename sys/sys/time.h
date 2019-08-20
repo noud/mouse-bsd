@@ -67,8 +67,8 @@ struct timespec {
 }
 
 /*
- * Note: timezone is obsolete. All timezone handling is now in
- * userland. Its just here for back compatibility.
+ * Note: timezone is obsolete.  All timezone handling is now in
+ * userland.  It's here for just back compatibility.
  */
 struct timezone {
 	int	tz_minuteswest;	/* minutes west of Greenwich */
