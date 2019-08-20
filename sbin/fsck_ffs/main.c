@@ -94,7 +94,7 @@ main(argc, argv)
 		(void) setrlimit(RLIMIT_DATA, &r);
 	}
 	sync();
-	skipclean = 0;
+	skipclean = 1;
 	markclean = 1;
 	endian = 0;
 	while ((ch = getopt(argc, argv, "B:b:c:dfm:npyz")) != -1) {
