@@ -430,7 +430,12 @@ static int timer_set(PCB *pcb, struct mbuf *m)
  m = m_pullup(m,sizeof(struct itimerval));
  if (m == 0) return(EINVAL);
  if (pcb->flags & TPF_RUNNING) timer_halt(pcb);
- itv = *mtod(m,struct itimerval *);
+ if ((long int)mtod(m,void *) & 7)
+  { bcopy(mtod(m,void *),&itv,sizeof(itv));
+  }
+ else
+  { itv = *mtod(m,struct itimerval *);
+  }
  m_freem(m);
  e = itimerfix(&itv.it_value);
  if (e) return(e);
