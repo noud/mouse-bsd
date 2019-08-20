@@ -168,7 +168,7 @@ struct fs {
 	ufs_daddr_t fs_dblkno;		/* offset of first data after cg */
 	int32_t	 fs_cgoffset;		/* cylinder group offset in cylinder */
 	int32_t	 fs_cgmask;		/* used to calc mod fs_ntrak */
-	time_t 	 fs_time;		/* last time written */
+	int32_t	 fs_old_time;		/* last time written */
 	int32_t	 fs_size;		/* number of blocks in fs */
 	int32_t	 fs_dsize;		/* number of data blocks in fs */
 	int32_t	 fs_ncg;		/* number of cylinder groups */
@@ -232,8 +232,10 @@ struct fs {
 	int32_t	 *fs_maxcluster;	/* max cluster in each cyl group */
 	int32_t	 fs_cpc;		/* cyl per cycle in postbl */
 	int16_t	 fs_opostbl[16][8];	/* old rotation block list head */
-	int32_t	 fs_sparecon[49];	/* reserved for future constants */
-	time_t	 fs_fscktime;		/* last time fsck(8)ed */
+	int32_t	 fs_sparecon[45];	/* reserved for future constants */
+	uint64_t fs_time;
+	uint64_t fs_fscktime;
+	int32_t  fs_old_fscktime;	/* last time fsck(8)ed */
 	int32_t	 fs_contigsumsize;	/* size of cluster summary array */
 	int32_t	 fs_maxsymlinklen;	/* max length of an internal symlink */
 	int32_t	 fs_inodefmt;		/* format of on-disk inodes */
@@ -331,7 +333,7 @@ struct fs {
 struct cg {
 	int32_t	 cg_firstfield;		/* historic cyl groups linked list */
 	int32_t	 cg_magic;		/* magic number */
-	time_t	 cg_time;		/* time last written */
+	int32_t  cg_old_time;		/* time last written */
 	int32_t	 cg_cgx;		/* we are the cgx'th cylinder group */
 	int16_t	 cg_ncyl;		/* number of cyl's this cg */
 	int16_t	 cg_niblk;		/* number of inode blocks this cg */
@@ -349,7 +351,8 @@ struct cg {
 	int32_t	 cg_clustersumoff;	/* (u_int32) counts of avail clusters */
 	int32_t	 cg_clusteroff;		/* (u_int8) free cluster map */
 	int32_t	 cg_nclusterblks;	/* number of clusters this cg */
-	int32_t	 cg_sparecon[13];	/* reserved for future use */
+	int32_t	 cg_sparecon[11];	/* reserved for future use */
+	uint64_t cg_time;
 	u_int8_t cg_space[1];		/* space for cylinder group maps */
 /* actually longer */
 };
@@ -396,7 +399,7 @@ struct cg {
 struct ocg {
 	int32_t	 cg_firstfield;		/* historic linked list of cyl groups */
 	int32_t	 cg_unused_1;		/*     used for incore cyl groups */
-	time_t	 cg_time;		/* time last written */
+	int32_t  cg_time;		/* time last written */
 	int32_t	 cg_cgx;		/* we are the cgx'th cylinder group */
 	int16_t	 cg_ncyl;		/* number of cyl's this cg */
 	int16_t	 cg_niblk;		/* number of inode blocks this cg */

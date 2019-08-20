@@ -73,7 +73,7 @@ ffs_sb_swap(o, n, ns)
 		n32[i] = bswap32(o32[i]);
 
 	n->fs_cpc = bswap32(o->fs_cpc);
-	n->fs_fscktime = bswap32(o->fs_fscktime);
+	n->fs_fscktime = bswap64(o->fs_fscktime);
 	n->fs_contigsumsize = bswap32(o->fs_contigsumsize);
 	n->fs_maxsymlinklen = bswap32(o->fs_maxsymlinklen);
 	n->fs_inodefmt = bswap32(o->fs_inodefmt);
