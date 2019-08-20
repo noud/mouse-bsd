@@ -159,7 +159,7 @@ parsekinfo(path, ki)
 	/* Make sure the buffer is terminated. */
 	buff[nbytes] = '\0';
 
-	sscanf(buff, "%s %d %d %d %d %d,%d %s %ld,%ld %ld,%ld %ld,%ld %s %d",
+	sscanf(buff, "%s %d %d %d %d %d,%d %s %lld,%ld %lld,%ld %lld,%ld %s %d",
 	    kp->kp_proc.p_comm, &kp->kp_proc.p_pid,
 	    &kp->kp_eproc.e_ppid, &kp->kp_eproc.e_pgid,
 	    &kp->kp_eproc.e_sid, &devmajor, &devminor,

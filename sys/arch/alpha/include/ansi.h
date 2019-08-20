@@ -51,7 +51,7 @@
 #define	_BSD_PTRDIFF_T_		long		/* ptr1 - ptr2 */
 #define	_BSD_SIZE_T_		unsigned long	/* sizeof() */
 #define	_BSD_SSIZE_T_		long		/* byte count or error */
-#define	_BSD_TIME_T_		int		/* time() */
+#define	_BSD_TIME_T_		long long int	/* time() */
 typedef struct {
 	char *__base;
 	int __offset;

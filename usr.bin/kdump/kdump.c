@@ -344,7 +344,7 @@ dumpheader(kth)
 			prevtime = kth->ktr_time;
 		} else
 			temp = kth->ktr_time;
-		(void)printf("%ld.%06ld ", temp.tv_sec, temp.tv_usec);
+		(void)printf("%lld.%06ld ", temp.tv_sec, temp.tv_usec);
 	}
 	(void)printf("%s  ", type);
 }

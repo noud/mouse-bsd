@@ -1530,7 +1530,7 @@ build_corename(dst)
 				    curproc->p_pgrp->pg_session->s_login);
 				break;
 			case 't':
-				i = snprintf(d, MAXPATHLEN - 1 - len, "%ld",
+				i = snprintf(d, MAXPATHLEN - 1 - len, "%lld",
 				    curproc->p_stats->p_start.tv_sec);
 				break;
 			default:

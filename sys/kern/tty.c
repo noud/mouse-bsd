@@ -2009,7 +2009,7 @@ ttyinfo(tp)
 			utime.tv_sec += 1;
 			utime.tv_usec -= 1000000;
 		}
-		ttyprintf(tp, "%ld.%02ldu ", utime.tv_sec,
+		ttyprintf(tp, "%lld.%02ldu ", utime.tv_sec,
 		    utime.tv_usec / 10000);
 
 		/* Round up and print system time. */
@@ -2018,7 +2018,7 @@ ttyinfo(tp)
 			stime.tv_sec += 1;
 			stime.tv_usec -= 1000000;
 		}
-		ttyprintf(tp, "%ld.%02lds ", stime.tv_sec,
+		ttyprintf(tp, "%lld.%02lds ", stime.tv_sec,
 		    stime.tv_usec / 10000);
 
 #define	pgtok(a)	(((u_long) ((a) * NBPG) / 1024))

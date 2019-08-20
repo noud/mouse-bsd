@@ -2706,7 +2706,7 @@ logcmd(command, bytes, file1, file2, elapsed, error)
 
 	if (elapsed != NULL) {
 		len += snprintf(buf + len, sizeof(buf) - len,
-		    " in %ld.%.03d seconds", elapsed->tv_sec,
+		    " in %lld.%.03d seconds", elapsed->tv_sec,
 		    (int)(elapsed->tv_usec / 1000));
 	}
 

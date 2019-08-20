@@ -270,8 +270,8 @@ hi(dummy)
 	if (notimeout)
 		(void)printf("lock: type in the unlock key.\n");
 	else if (!gettimeofday(&timval, (struct timezone *)NULL))
-(void)printf("lock: type in the unlock key. timeout in %ld:%ld minutes\n",
-	    (nexttime - timval.tv_sec) / 60, (nexttime - timval.tv_sec) % 60);
+(void)printf("lock: type in the unlock key. timeout in %lld:%d minutes\n",
+	    (nexttime - timval.tv_sec) / 60, (int)((nexttime - timval.tv_sec) % 60));
 }
 
 void

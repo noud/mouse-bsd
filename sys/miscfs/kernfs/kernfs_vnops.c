@@ -210,7 +210,7 @@ kernfs_xread(kt, off, bufp, len)
 		struct timeval tv;
 
 		microtime(&tv);
-		sprintf(*bufp, "%ld %ld\n", tv.tv_sec, tv.tv_usec);
+		sprintf(*bufp, "%lld %ld\n", tv.tv_sec, tv.tv_usec);
 		break;
 	}
 

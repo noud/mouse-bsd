@@ -105,7 +105,7 @@ procfs_dostatus(curp, p, pfs, uio)
 		ps += sprintf(ps, "noflags");
 
 	if (p->p_flag & P_INMEM)
-		ps += sprintf(ps, " %ld,%ld",
+		ps += sprintf(ps, " %lld,%ld",
 			p->p_stats->p_start.tv_sec,
 			p->p_stats->p_start.tv_usec);
 	else
@@ -115,7 +115,7 @@ procfs_dostatus(curp, p, pfs, uio)
 		struct timeval ut, st;
 
 		calcru(p, &ut, &st, (void *) 0);
-		ps += sprintf(ps, " %ld,%ld %ld,%ld",
+		ps += sprintf(ps, " %lld,%ld %lld,%ld",
 			ut.tv_sec,
 			ut.tv_usec,
 			st.tv_sec,

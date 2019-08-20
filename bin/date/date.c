@@ -95,7 +95,7 @@ main(argc, argv)
 			break;
 		case 'r':		/* user specified seconds */
 			rflag = 1;
-			tval = atol(optarg);
+			tval = strtoll(optarg,0,0);
 			break;
 		case 'u':		/* do everything in UTC */
 			(void)putenv("TZ=UTC0");

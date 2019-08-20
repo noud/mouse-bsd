@@ -278,7 +278,7 @@ wtmp()
 						    timesize, timesize,
 						    asctime(gmtime(&delta))+11);
 					else
-						printf(" (%ld+%*.*s)\n",
+						printf(" (%lld+%*.*s)\n",
 						    delta / SECSPERDAY,
 						    timesize, timesize,
 						    asctime(gmtime(&delta))+11);

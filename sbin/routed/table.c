@@ -2110,11 +2110,11 @@ age(naddr bad_gate)
 		if (ifp->int_act_time != NEVER
 		    && now.tv_sec - ifp->int_act_time > EXPIRE_TIME) {
 			msglog("remote interface %s to %s timed out after"
-			       " %ld:%ld",
+			       " %lld:%d",
 			       ifp->int_name,
 			       naddr_ntoa(ifp->int_dstaddr),
 			       (now.tv_sec - ifp->int_act_time)/60,
-			       (now.tv_sec - ifp->int_act_time)%60);
+			       (int)((now.tv_sec - ifp->int_act_time)%60));
 			if_sick(ifp);
 		}
 

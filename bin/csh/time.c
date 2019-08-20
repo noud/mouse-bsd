@@ -188,18 +188,18 @@ prusage(r0, r1, e, b)
 		break;
 
 	    case 'X':		/* (average) shared text size */
-		(void) fprintf(cshout, "%ld", t == 0 ? 0L :
+		(void) fprintf(cshout, "%lld", t == 0 ? 0L :
 			       (r1->ru_ixrss - r0->ru_ixrss) / t);
 		break;
 
 	    case 'D':		/* (average) unshared data size */
-		(void) fprintf(cshout, "%ld", t == 0 ? 0L :
+		(void) fprintf(cshout, "%lld", t == 0 ? 0L :
 			(r1->ru_idrss + r1->ru_isrss -
 			 (r0->ru_idrss + r0->ru_isrss)) / t);
 		break;
 
 	    case 'K':		/* (average) total data memory used  */
-		(void) fprintf(cshout, "%ld", t == 0 ? 0L :
+		(void) fprintf(cshout, "%lld", t == 0 ? 0L :
 			((r1->ru_ixrss + r1->ru_isrss + r1->ru_idrss) -
 			 (r0->ru_ixrss + r0->ru_idrss + r0->ru_isrss)) / t);
 		break;

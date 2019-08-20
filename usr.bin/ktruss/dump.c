@@ -302,8 +302,8 @@ dumpheader(kth, buff, buffsz, lenp)
 			prevtime = kth->ktr_time;
 		} else
 			temp = kth->ktr_time;
-		(void)snprintf(bp, buffsz - *lenp, "%ld.%06ld ", temp.tv_sec,
-			temp.tv_usec);
+		(void)snprintf(bp, buffsz - *lenp, "%lld.%06ld ",
+			temp.tv_sec, temp.tv_usec);
 		*lenp += strlen(bp);
 	}
 }

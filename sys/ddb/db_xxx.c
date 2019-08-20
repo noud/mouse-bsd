@@ -171,7 +171,7 @@ db_show_all_procs(addr, haddr, count, modif)
 				    p->p_emul->e_name,p->p_priority);
 				calcru(p, tv+0, tv+1, tv+2);
 				for(i = 0; i < 2; ++i) {
-					db_printf("%4ld.%1ld", tv[i].tv_sec,
+					db_printf("%4lld.%1ld", tv[i].tv_sec,
 					    tv[i].tv_usec/100000);
 				}
 				if(p->p_wchan && p->p_wmesg) {

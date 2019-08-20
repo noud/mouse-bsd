@@ -1489,6 +1489,18 @@ const int		do_norm_secs;
 	*/
 	bits = TYPE_BIT(time_t) - 1;
 	/*
+	 * Unfortunately, we can't just use the above; that makes other
+	 *  things overflow.  The limiting thing seems to be that
+	 *  timesub() divides it by SECSPERDAY and stores the result in
+	 *  a (signed) long.  So, since long is only 32 bits on many
+	 *  arches, we have to restrict this to
+	 *  floor(lg(((1<<31)-1)*SECSPERDAY)).  ((1<<31)-1)*SECSPERDAY
+	 *  is 185542587100800, which lies between 1<<47,
+	 *  140737488355328, and 1<<48, 281474976710656.  So we
+	 *  restrict bits to 47.
+	 */
+	if (bits > 47) bits = 47;
+	/*
 	** If time_t is signed, then 0 is just above the median,
 	** assuming two's complement arithmetic.
 	** If time_t is unsigned, then (1 << bits) is just above the median.

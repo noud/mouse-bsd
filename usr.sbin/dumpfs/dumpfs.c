@@ -271,6 +271,7 @@ dumpcg(name, fd, c)
 {
 	off_t cur;
 	int i, j;
+	time_t cgt;
 
 	printf("\ncg %d:\n", c);
 	if ((cur = lseek(fd, (off_t)(fsbtodb(&afs, cgtod(&afs, c))) * dev_bsize,
@@ -282,10 +283,11 @@ dumpcg(name, fd, c)
 	}
 	if (needswap)
 		swap_cg(&acg);
+	cgt = acg.cg_time;
 	printf("magic\t%x\ttell\t%qx\ttime\t%s",
 	    afs.fs_postblformat == FS_42POSTBLFMT ?
 	    ((struct ocg *)&acg)->cg_magic : acg.cg_magic,
-	    (long long)cur, ctime(&acg.cg_time));
+	    (long long)cur, ctime(&cgt));
 	printf("cgx\t%d\tncyl\t%d\tniblk\t%d\tndblk\t%d\n",
 	    acg.cg_cgx, acg.cg_ncyl, acg.cg_niblk, acg.cg_ndblk);
 	printf("nbfree\t%d\tndir\t%d\tnifree\t%d\tnffree\t%d\n",

@@ -229,7 +229,7 @@ main(argc, argv)
 		timeout = rtadvd_check_timer();
 
 		syslog(LOG_DEBUG,
-		       "<%s> set timer to %ld:%ld. waiting for inputs "
+		       "<%s> set timer to %lld:%ld. waiting for inputs "
 		       "or timeout",
 		       __FUNCTION__,
 		       timeout->tv_sec, timeout->tv_usec);
@@ -1319,7 +1319,7 @@ ra_timer_update(void *data, struct timeval *tm)
 	tm->tv_usec = 0;
 
 	syslog(LOG_DEBUG,
-	       "<%s> RA timer on %s is set to %ld:%ld",
+	       "<%s> RA timer on %s is set to %lld:%ld",
 	       __FUNCTION__, rai->ifname, tm->tv_sec, tm->tv_usec);
 
 	return;

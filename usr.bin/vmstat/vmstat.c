@@ -1142,7 +1142,7 @@ hist_dodump(histp)
 			}
 			fn[fnlen] = '\0';
 
-			printf("%06ld.%06ld ", e->tv.tv_sec, e->tv.tv_usec);
+			printf("%06lld.%06ld ", e->tv.tv_sec, e->tv.tv_usec);
 			printf("%s#%ld: ", fn, e->call);
 			printf(fmt, e->v[0], e->v[1], e->v[2], e->v[3]);
 			printf("\n");

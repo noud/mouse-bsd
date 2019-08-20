@@ -354,7 +354,7 @@ static void timer_tick(void *arg __attribute__((__unused__)))
 	  timeradd(&t->itv.it_value,&t->itv.it_interval,&t->itv.it_value);
 	} while (tvcmp(&t->itv.it_value,<=,&time));
        if (heap_add(t)) panic("timer_tick heap_add");
-       if (timerdebug) printf("timer_tick %p reinstalled %lu.%06lu\n",(void *)t,t->itv.it_value.tv_sec,t->itv.it_value.tv_usec);
+       if (timerdebug) printf("timer_tick %p reinstalled %llu.%06lu\n",(void *)t,t->itv.it_value.tv_sec,t->itv.it_value.tv_usec);
      }
     else
      { timer_gentick(t);
@@ -439,7 +439,7 @@ static int timer_set(PCB *pcb, struct mbuf *m)
  if (timerisset(&itv.it_value))
   { timeradd(&time,&itv.it_value,&pcb->itv.it_value);
     pcb->itv.it_interval = itv.it_interval;
-    if (timerdebug) printf("timer_set %p start %lu.%06lu+%lu.%06lu=%lu.%06lu\n",(void *)pcb,time.tv_sec,time.tv_usec,itv.it_value.tv_sec,itv.it_value.tv_usec,pcb->itv.it_value.tv_sec,pcb->itv.it_value.tv_usec);
+    if (timerdebug) printf("timer_set %p start %llu.%06lu+%llu.%06lu=%llu.%06lu\n",(void *)pcb,time.tv_sec,time.tv_usec,itv.it_value.tv_sec,itv.it_value.tv_usec,pcb->itv.it_value.tv_sec,pcb->itv.it_value.tv_usec);
     timer_start(pcb);
   }
  else

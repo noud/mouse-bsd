@@ -5982,13 +5982,19 @@ NOP_ON_4_4C_1:
 #endif
 
 2:
-	ldd	[%g2+%lo(_C_LABEL(time))], %o2	! time.tv_sec & time.tv_usec
-	ld	[%g3], %o4			! usec counter
-	ldd	[%g2+%lo(_C_LABEL(time))], %g4	! see if time values changed
-	cmp	%g4, %o2
-	bne	2b				! if time.tv_sec changed
-	 cmp	%g5, %o3
-	bne	2b				! if time.tv_usec changed
+	ld	[%g2+%lo(_C_LABEL(time))], %o1		! tv_sec, high
+	ld	[%g2+%lo(_C_LABEL(time))+4], %o2	! tv_sec, low
+	ld	[%g2+%lo(_C_LABEL(time))+8], %o3	! tv_usec
+	ld	[%g3], %o4				! usec counter
+	ld	[%g2+%lo(_C_LABEL(time))+8], %g5	! changed?
+	ld	[%g2+%lo(_C_LABEL(time))+4], %g4
+	ld	[%g2+%lo(_C_LABEL(time))], %o5
+	cmp	%g5, %o3
+	bne	2b					! tv_usec changed?
+	 cmp	%g4, %o2
+	bne	2b					! tv_sec low changed?
+	 cmp	%o5, %o1
+	bne	2b					! tv_sec high changed?
 	 tst	%o4
 
 	bpos	3f				! reached limit?
@@ -6003,13 +6009,16 @@ NOP_ON_4_4C_1:
 	set	1000000, %g5			! normalize usec value
 	cmp	%o3, %g5
 	bl,a	4f
-	 st	%o2, [%o0]			! (should be able to std here)
-	add	%o2, 1, %o2			! overflow
+	 st	%o2, [%o0+4]
+	addcc	%o2, 1, %o2			! overflow
+	addx	%o5, %g0, %o5
 	sub	%o3, %g5, %o3
-	st	%o2, [%o0]			! (should be able to std here)
+	st	%o2, [%o0+4]
 4:
+	st	%o5, [%o0]
+	st	%o3, [%o0+8]
 	retl
-	 st	%o3, [%o0+4]
+	 st	%g0, [%o0+12]
 
 /*
  * delay function

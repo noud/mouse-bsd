@@ -365,8 +365,8 @@ clean_loop(fsp, nsegs, options)
 		   && fsp->fi_cip->clean < max_free_segs * IDLE_LIM) {
 			if(debug) {
 				syslog(LOG_DEBUG, "Cleaner Running  at %s: "
-				       "fs idle time %ld sec; %d of %lu segments available)",
-				       ctime(&now), (long)now-fsp->fi_fs_tstamp,
+				       "fs idle time %lld sec; %d of %lu segments available)",
+				       ctime(&now), now-fsp->fi_fs_tstamp,
 				       fsp->fi_cip->clean, max_free_segs);
 				syslog(LOG_DEBUG, "  filesystem idle since %s", ctime(&(fsp->fi_fs_tstamp)));
 			}

@@ -94,8 +94,8 @@ MDTimeTrial()
 	 * Be careful that endTime-startTime is not zero.
 	 * (Bug fix from Ric * Anderson, ric@Artisoft.COM.)
 	 */
-	printf("Speed = %ld bytes/second\n",
-	    (long) TEST_BLOCK_LEN * (long) TEST_BLOCK_COUNT /
+	printf("Speed = %lld bytes/second\n",
+	    (TEST_BLOCK_LEN * 1LL * TEST_BLOCK_COUNT) /
 	    ((endTime - startTime) != 0 ? (endTime - startTime) : 1));
 }
 
