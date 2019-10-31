@@ -929,6 +929,10 @@ arptfree(la)
 
 /*
  * Lookup or enter a new address in arptab.
+ *
+ * Don't complain about "not on local network" if the RTF_GATEWAY route
+ *  is also RTF_REJECT; such routes are typically there to block
+ *  communication and do not deserve complaining about.
  */
 static struct llinfo_arp *arplookup(struct in_addr *addr, int create, struct ifnet *proxyif)
 {
@@ -945,9 +949,11 @@ static struct llinfo_arp *arplookup(struct in_addr *addr, int create, struct ifn
 		why = "rtalloc1 failed";
 	else {
 		rt->rt_refcnt--;
-		if (rt->rt_flags & RTF_GATEWAY)
+		if (rt->rt_flags & RTF_GATEWAY) {
+			if (rt->rt_flags & RTF_REJECT)
+				return(0);
 			why = "host is not on local network";
-		else if ((rt->rt_flags & RTF_LLINFO) == 0)
+		} else if ((rt->rt_flags & RTF_LLINFO) == 0)
 			why = "could not allocate llinfo";
 		else if (rt->rt_gateway->sa_family != AF_LINK)
 			why = "gateway route is not ours";
