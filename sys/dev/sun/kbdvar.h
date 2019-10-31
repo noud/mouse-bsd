@@ -102,7 +102,18 @@ struct kbd_softc {
 	 */
 	int	k_isopen;		/* set if open has been done */
 	int	k_evmode;		/* set if we should produce events */
-	struct	evvar k_events;		/* event queue state */
+	union {
+		struct {
+			struct	evvar k_events;		/* event queue state */
+		} ev;
+		struct {
+			volatile unsigned int h;
+			volatile unsigned int t;
+			unsigned char ring[KBD_RX_RING_SIZE];
+#define KB_RING_ADV(v) (((v)<1)?KBD_RX_RING_SIZE-1:(v)-1)
+			struct selinfo rsel;
+		} raw;
+	} u;
 
 	/*
 	 * ACSI translation state
@@ -134,6 +145,11 @@ struct kbd_softc {
 	u_int	k_rbget;	/* ring buffer `get' index */
 	volatile u_int	k_rbput;	/* ring buffer `put' index */
 	u_short	k_rbuf[KBD_RX_RING_SIZE]; /* rr1, data pairs */
+
+	unsigned int flags;
+#define KBF_OPEN 0x00000001
+#define KBF_RAW  0x00000002
+#define KBF_NBIO 0x00000004
 
 };
 

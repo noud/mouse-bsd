@@ -628,6 +628,7 @@ static void kmmux_setup_kbd(struct kbd_softc *k)
  if (m->kids[i]->kbd) panic("kmmux duplicate keyboard attach");
  k->k_private = m->kids[i];
  m->kids[i]->kbd = k;
+ k->flags = 0;
  if (k->k_isconsole)
   { m->kcur = i;
     m->mcur = i;
