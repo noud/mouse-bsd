@@ -83,6 +83,11 @@ struct ms_softc {
 	struct	device ms_dev;		/* required first: base device */
 	void	*ms_private;
 
+	unsigned int flags;
+#define MSF_OPEN 0x00000001
+#define MSF_RAW  0x00000002
+#define MSF_NBIO 0x00000004
+
 	/* Flags to communicate with ms_softintr() */
 	volatile int ms_intr_flags;
 #define	INTR_RX_OVERRUN 1
@@ -99,7 +104,7 @@ struct ms_softc {
 	/*
 	 * State of input translator
 	 */
-	short	ms_byteno;		/* input byte number, for decode */
+	signed char ms_state;		/* decoder state */
 	char	ms_mb;			/* mouse button state */
 	char	ms_ub;			/* user button state */
 	int	ms_dx;			/* delta-x */
@@ -109,7 +114,18 @@ struct ms_softc {
 	 * State of upper interface.
 	 */
 	volatile int ms_ready;		/* event queue is ready */
-	struct	evvar ms_events;	/* event queue state */
+	union {
+		struct {
+			struct	evvar ms_events;	/* event queue state */
+		} ev;
+		struct {
+			volatile unsigned int h;
+			volatile unsigned int t;
+			unsigned char ring[MS_RX_RING_SIZE];
+#define MS_RING_ADV(v) (((v)<1)?MS_RX_RING_SIZE-1:(v)-1)
+			struct selinfo rsel;
+		} raw;
+	} u;
 };
 
 /* front-end call back for mouse input */
