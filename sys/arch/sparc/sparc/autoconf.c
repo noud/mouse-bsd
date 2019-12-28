@@ -964,7 +964,7 @@ extern struct sparc_bus_space_tag mainbus_space_tag;
 		 * These are _root_ devices to ignore. Others must be handled
 		 * elsewhere.
 		 */
-		"SUNW,sx",		/* XXX: no driver for SX yet */
+//		"SUNW,sx",		/* XXX: no driver for SX yet */
 		"virtual-memory",
 		"aliases",
 		"memory",

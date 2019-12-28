@@ -373,6 +373,8 @@ badtrap:
 		uprintf("%s[%d]: unimplemented software trap 0x%x\n",
 			p->p_comm, p->p_pid, type);
 #endif
+		printf("%s[%d]: SIGILL for software trap 0x%x\n",
+			p->p_comm, p->p_pid, type);
 		trapsignal(p, SIGILL, type);
 		break;
 

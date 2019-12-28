@@ -349,6 +349,9 @@ sun4_notsup:
 #define	SYSCALL		b _C_LABEL(_syscall); mov %psr, %l0; nop; nop
 #define	WINDOW_OF	b window_of; mov %psr, %l0; nop; nop
 #define	WINDOW_UF	b window_uf; mov %psr, %l0; nop; nop
+/* Extra-special custom window-info probing trap */
+#define GETWIM		b getwim; nop; nop; nop
+
 #ifdef notyet
 #define	ZS_INTERRUPT	b zshard; mov %psr, %l0; nop; nop
 #else
@@ -541,7 +544,7 @@ trapbase_sun4:
 	STRAP(0xad)
 	STRAP(0xae)
 	STRAP(0xaf)
-	STRAP(0xb0)
+	GETWIM
 	STRAP(0xb1)
 	STRAP(0xb2)
 	STRAP(0xb3)
@@ -802,7 +805,7 @@ trapbase_sun4c:
 	STRAP(0xad)
 	STRAP(0xae)
 	STRAP(0xaf)
-	STRAP(0xb0)
+	GETWIM
 	STRAP(0xb1)
 	STRAP(0xb2)
 	STRAP(0xb3)
@@ -1063,7 +1066,7 @@ trapbase_sun4m:
 	STRAP(0xad)
 	STRAP(0xae)
 	STRAP(0xaf)
-	STRAP(0xb0)
+	GETWIM
 	STRAP(0xb1)
 	STRAP(0xb2)
 	STRAP(0xb3)
@@ -4353,6 +4356,20 @@ ENTRY(write_user_windows)
 	retl
 	 nop
 
+/* Get %wim, %wim, and %psr */
+getwim:
+	/* We're running with traps disabled, in the trap window. */
+	rd	%wim, %i0
+	mov	%psr, %i2
+	xnor	%g0, %g0, %i1
+	wr	%i1, 0, %wim
+	rd	%wim, %i1
+	wr	%i0, 0, %wim
+	/* We just fiddled %wim; wait three instructions before returning */
+	mov	%l2, %l1
+	add	%l2, 4, %l2
+	nop
+	RETT
 
 	.comm	_C_LABEL(want_resched),4
 	.comm	_C_LABEL(want_ast),4

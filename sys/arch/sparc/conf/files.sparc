@@ -11,6 +11,10 @@ maxusers 2 8 1024
 device mainbus {}
 attach mainbus at root
 
+device sx {}
+attach sx at mainbus
+file	arch/sparc/dev/sx.c			sx
+
 device iommu {}
 attach iommu at mainbus
 file	arch/sparc/sparc/iommu.c		iommu

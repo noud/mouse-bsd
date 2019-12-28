@@ -121,6 +121,7 @@
 #define T_SVR4_GETHRVTIME	0xa5
 #define T_SVR4_GETHRESTIME	0xa7
 
+#define T_GETWIM		0xb0
 
 #ifdef _KERNEL			/* pseudo traps for locore.s */
 #define	T_RWRET		-1	/* need first user window for trap return */
