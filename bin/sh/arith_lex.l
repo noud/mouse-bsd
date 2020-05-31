@@ -51,7 +51,7 @@ __RCSID("$NetBSD: arith_lex.l,v 1.10 1999/02/05 07:52:52 christos Exp $");
 #include "error.h"
 #include "expand.h"
 
-extern int yylval;
+extern long long int yylval;
 extern char *arith_buf, *arith_startbuf;
 #undef YY_INPUT
 #define YY_INPUT(buf,result,max) \
@@ -61,7 +61,7 @@ extern char *arith_buf, *arith_startbuf;
 
 %%
 [ \t\n]	{ ; }
-[0-9]+	{ yylval = atol(yytext); return(ARITH_NUM); }
+[0-9]+	{ yylval = strtoll(yytext,0,0); return(ARITH_NUM); }
 "("	{ return(ARITH_LPAREN); }
 ")"	{ return(ARITH_RPAREN); }
 "||"	{ return(ARITH_OR); }

@@ -349,12 +349,11 @@ removerecordregions(endoff)
  * Expand arithmetic expression.  Backup to start of expression,
  * evaluate, place result in (backed up) result, adjust string position.
  */
-void
-expari(flag)
-	int flag;
+void expari(int flag)
 {
 	char *p, *start;
-	int result;
+	long long int result;
+	int adjustment;
 	int begoff;
 	int quotes = flag & (EXP_FULL | EXP_CASE);
 	int quoted;
@@ -371,10 +370,9 @@ expari(flag)
 	 * have to rescan starting from the beginning since CTLESC
 	 * characters have to be processed left to right.
 	 */
-#if INT_MAX / 1000000000 >= 10 || INT_MIN / 1000000000 <= -10
-#error "integers with more than 10 digits are not supported"
-#endif
-	CHECKSTRSPACE(12-2, expdest);
+/* SPACE_NEEDED is enough for all digits, plus possible "-", plus 2 (why?) */
+#define SPACE_NEEDED ((sizeof(long long int) * CHAR_BIT + 2) / 3 + 1 + 2)
+	CHECKSTRSPACE(SPACE_NEEDED-2, expdest);
 	USTPUTC('\0', expdest);
 	start = stackblock();
 	p = expdest - 1;
@@ -396,15 +394,15 @@ expari(flag)
 	if (quotes)
 		rmescapes(p+2);
 	result = arith(p+2);
-	fmtstr(p, 12, "%d", result);
+	fmtstr(p, SPACE_NEEDED, "%lld", result);
 
 	while (*p++)
 		;
 
 	if (quoted == 0)
 		recordregion(begoff, p - 1 - start, 0);
-	result = expdest - p + 1;
-	STADJUST(-result, expdest);
+	adjustment = expdest - p + 1;
+	STADJUST(-adjustment, expdest);
 }
 
 

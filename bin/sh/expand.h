@@ -69,7 +69,7 @@ void rmescapes __P((char *));
 int casematch __P((union node *, char *));
 
 /* From arith.y */
-int arith __P((const char *));
+extern long long int arith(const char *);
 int expcmd __P((int , char **));
 void arith_lex_reset __P((void));
 int yylex __P((void));
