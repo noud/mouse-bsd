@@ -628,6 +628,7 @@ static void kmmux_setup_kbd(struct kbd_softc *k)
  if (m->kids[i]->kbd) panic("kmmux duplicate keyboard attach");
  k->k_private = m->kids[i];
  m->kids[i]->kbd = k;
+ k->flags = 0;
  if (k->k_isconsole)
   { m->kcur = i;
     m->mcur = i;
@@ -648,6 +649,7 @@ static void kmmux_setup_ms(struct ms_softc *ms)
  if (m->kids[i]->ms) panic("kmmux duplicate mouse attach");
  ms->ms_private = m->kids[i];
  m->kids[i]->ms = ms;
+ ms->flags = 0;
 }
 
 static int already_bonded(SOFTC *km, int bond)
@@ -925,7 +927,7 @@ static void ms_attach_kmmux(struct device *parent, struct device *self, void *au
  m = (void *) self;
  aa = aux;
  printf("\n");
- m->ms_byteno = -1;
+ m->ms_state = -1;
  kmmux_setup_ms(m);
 }
 

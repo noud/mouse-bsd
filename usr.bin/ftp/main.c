@@ -119,11 +119,12 @@ __RCSID("$NetBSD: main.c,v 1.69 1999/11/28 06:32:05 lukem Exp $");
 #include <sys/socket.h>
 
 #include <err.h>
+#include <pwd.h>
 #include <errno.h>
 #include <netdb.h>
 #include <paths.h>
-#include <pwd.h>
 #include <stdio.h>
+#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -136,13 +137,23 @@ __RCSID("$NetBSD: main.c,v 1.69 1999/11/28 06:32:05 lukem Exp $");
 #define	NO_PROXY	"no_proxy"	/* env var with list of non-proxied
 					 * hosts, comma or space separated */
 
+typedef struct isrc ISRC;
+
+struct isrc {
+  ISRC *link;
+  char *name;
+  FILE *f;
+  int savetty;
+  } ;
+
 static void	setupoption __P((char *, char *, char *));
 int		main __P((int, char **));
 
-int
-main(argc, argv)
-	int argc;
-	char *argv[];
+static ISRC *at_stack;
+
+#define Cisspace(x) isspace((unsigned char)(x))
+
+int main(int argc, char **argv)
 {
 	int ch, rval;
 	struct passwd *pw = NULL;
@@ -496,6 +507,7 @@ main(argc, argv)
 	(void)sigsetjmp(toplevel, 1);
 	(void)xsignal(SIGINT, intr);
 	(void)xsignal(SIGPIPE, lostpeer);
+ at_stack = 0;
 	for (;;)
 		cmdscanner();
 }
@@ -503,8 +515,7 @@ main(argc, argv)
 /*
  * Generate a prompt
  */
-char *
-prompt()
+char *prompt(void)
 {
 	static char	**prompt;
 	static char	  buf[MAXPATHLEN];
@@ -524,8 +535,7 @@ prompt()
 /*
  * Generate an rprompt
  */
-char *
-rprompt()
+char *rprompt(void)
 {
 	static char	**rprompt;
 	static char	  buf[MAXPATHLEN];
@@ -542,11 +552,54 @@ rprompt()
 	return (buf);
 }
 
+static FILE *inputf(void)
+{
+ return(at_stack?at_stack->f:stdin);
+}
+
+static int pop_at_stack(void)
+{
+ ISRC *i;
+
+ i = at_stack;
+ if (i)
+  { at_stack = i->link;
+    fromatty = i->savetty;
+    fclose(i->f);
+    free(i->name);
+    free(i);
+    return(1);
+  }
+ return(0);
+}
+
+static void push_at_stack(char *rest)
+{
+ ISRC *i;
+ FILE *f;
+
+ if (! *rest)
+  { fprintf(ttyout,"@ must be followed by a filename\n");
+    return;
+  }
+ f = fopen(rest,"r");
+ if (! f)
+  { fprintf(ttyout,"@: can't open `%s'\n",rest);
+    return;
+  }
+ i = malloc(sizeof(ISRC));
+ i->name = strdup(rest);
+ i->f = f;
+ i->savetty = fromatty;
+ fromatty = 0;
+ i->link = at_stack;
+ at_stack = i;
+}
+
 /*
  * Command parser.
  */
-void
-cmdscanner()
+void cmdscanner(void)
 {
 	struct cmd	*c;
 	char		*p;
@@ -554,7 +607,7 @@ cmdscanner()
 
 	for (;;) {
 #ifndef NO_EDITCOMPLETE
-		if (!editing) {
+		if (at_stack || !editing) {
 #endif /* !NO_EDITCOMPLETE */
 			if (fromatty) {
 				fputs(prompt(), ttyout);
@@ -563,7 +616,8 @@ cmdscanner()
 					fprintf(ttyout, "%s ", p);
 				(void)fflush(ttyout);
 			}
-			if (fgets(line, sizeof(line), stdin) == NULL) {
+			if (fgets(line, sizeof(line), inputf()) == NULL) {
+									   if (pop_at_stack()) break;
 				if (fromatty)
 					putc('\n', ttyout);
 				quit(0, 0);
@@ -605,6 +659,12 @@ cmdscanner()
 		}
 #endif /* !NO_EDITCOMPLETE */
 
+		   // Very special case for @
+		   if (line[0] == '@')
+		    { push_at_stack(line+1);
+		      break;
+		    }
+
 		makeargv();
 		if (margc == 0)
 			continue;
@@ -643,9 +703,7 @@ cmdscanner()
 	(void)xsignal(SIGPIPE, lostpeer);
 }
 
-struct cmd *
-getcmd(name)
-	const char *name;
+struct cmd *getcmd(const char *name)
 {
 	const char *p, *q;
 	struct cmd *c, *found;
@@ -681,8 +739,7 @@ getcmd(name)
 
 int slrflag;
 
-void
-makeargv()
+void makeargv(void)
 {
 	char *argp;
 
@@ -724,8 +781,7 @@ makeargv()
  * implemented with FSM to
  * handle quoting and strings
  */
-char *
-slurpstring()
+char *slurpstring(void)
 {
 	int got_one = 0;
 	char *sb = stringbase;
@@ -856,10 +912,7 @@ OUT:
  * Help/usage command.
  * Call each command handler with argc == 0 and argv[0] == name.
  */
-void
-help(argc, argv)
-	int argc;
-	char *argv[];
+void help(int argc, char **argv)
 {
 	struct cmd *c;
 	char *nargv[1], *p, *cmd;
@@ -910,9 +963,7 @@ help(argc, argv)
 	}
 }
 
-struct option *
-getoption(name)
-	const char *name;
+struct option *getoption(const char *name)
 {
 	const char *p;
 	struct option *c;
@@ -926,9 +977,7 @@ getoption(name)
 	return (NULL);
 }
 
-char *
-getoptionvalue(name)
-	const char *name;
+char *getoptionvalue(const char *name)
 {
 	struct option *c;
 
@@ -940,9 +989,7 @@ getoptionvalue(name)
 	errx(1, "getoptionvalue() invoked with unknown option `%s'", name);
 }
 
-static void
-setupoption(name, value, defaultvalue)
-	char *name, *value, *defaultvalue;
+static void setupoption(char *name, char *value, char *defaultvalue)
 {
 	char *nargv[3];
 	int overbose;
@@ -956,8 +1003,7 @@ setupoption(name, value, defaultvalue)
 	verbose = overbose;
 }
 
-void
-usage()
+void usage(void)
 {
 	(void)fprintf(stderr,
 "usage: %s [-AadefginpRtvV] [-o outfile] [-P port] [-r retry] [-T dir,max[,inc]\n"

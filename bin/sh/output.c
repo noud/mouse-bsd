@@ -322,12 +322,11 @@ fmtstr(va_alist)
  * Formatted output.  This routine handles a subset of the printf formats:
  * - Formats supported: d, u, o, p, X, s, and c.
  * - The x format is also accepted but is treated like X.
- * - The l and q modifiers are accepted.
- * - The - and # flags are accepted; # only works with the o format.
+ * - The l and ll (aka q) modifiers are accepted.
+ * - The - and # flags are accepted; # works with only the o format.
  * - Width and precision may be specified with any format except c.
  * - An * may be given for the width or precision.
- * - The obsolete practice of preceding the width with a zero to get
- *   zero padding is not supported; use the precision field.
+ * - The 0 flag (to get zero padding) is not supported.
  * - A % may be printed by writing %% in the format string.
  */
 
@@ -406,6 +405,11 @@ doformat(dest, f, ap)
 		if (*f == 'l') {
 			islong++;
 			f++;
+			if (*f == 'l') {
+				islong--;
+				isquad++;
+				f++;
+			}
 		} else if (*f == 'q') {
 			isquad++;
 			f++;

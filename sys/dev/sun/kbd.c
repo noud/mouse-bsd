@@ -68,6 +68,7 @@
 #include <sys/syslog.h>
 #include <sys/select.h>
 #include <sys/poll.h>
+#include <sys/fcntl.h>
 
 #include <dev/ic/z8530reg.h>
 #include <machine/z8530var.h>
@@ -97,6 +98,10 @@ cdev_decl(kbd);	/* open, close, read, write, ioctl, stop, ... */
 
 extern struct cfdriver kbd_cd;
 
+#define UNIT_UNIT(u) ((u)&0xf)
+#define UNIT_FLAGS(u) ((u)&0xf0)
+#define UNIT_FLAG_RAW 0x10
+
 /****************************************************************
  *  Entry points for /dev/kbd
  *  (open,close,read,write,...)
@@ -107,40 +112,54 @@ extern struct cfdriver kbd_cd;
  * Check exclusion, open actual device (_iopen),
  * setup event channel, clear ASCII repeat stuff.
  */
-int
-kbdopen(dev, flags, mode, p)
-	dev_t dev;
-	int flags, mode;
-	struct proc *p;
+int kbdopen(dev_t dev, int flags, int mode, struct proc *p)
 {
-	struct kbd_softc *k;
-	int error, unit;
+ struct kbd_softc *k;
+ int error;
+ int unit;
+ unsigned int kflags;
 
-	unit = minor(dev);
-	if (unit >= kbd_cd.cd_ndevs)
-		return (ENXIO);
-	k = kbd_cd.cd_devs[unit];
-	if (k == NULL)
-		return (ENXIO);
-
-	/* Exclusive open required for /dev/kbd */
-	if (k->k_events.ev_io)
-		return (EBUSY);
-	k->k_events.ev_io = p;
-
-	if ((error = kbd_iopen(unit)) != 0) {
-		k->k_events.ev_io = NULL;
-		return (error);
-	}
-	ev_init(&k->k_events);
-	k->k_evmode = 1;	/* XXX: OK? */
-
-	if (k->k_repeating) {
-		k->k_repeating = 0;
-		untimeout(kbd_repeat, k);
-	}
-
-	return (0);
+ unit = minor(dev);
+ kflags = UNIT_FLAGS(unit);
+ unit = UNIT_UNIT(unit);
+ if (unit >= kbd_cd.cd_ndevs) return (ENXIO);
+ k = kbd_cd.cd_devs[unit];
+ if (! k) return(ENXIO);
+ // Exclusive open required for /dev/kbd
+ if (k->flags & KBF_OPEN) return(EBUSY);
+ k->flags |= KBF_OPEN;
+ if (kflags & UNIT_FLAG_RAW)
+  { if (flags & O_NONBLOCK) k->flags |= KBF_NBIO; else k->flags &= ~KBF_NBIO;
+    error = kbd_iopen(unit);
+    if (error)
+     { k->flags &= ~(KBF_OPEN|KBF_RAW|KBF_NBIO);
+       return(error);
+     }
+    k->u.raw.h = 0;
+    k->u.raw.t = 0;
+    // XXX What's the right way to initialize a struct selinfo?
+     { static const struct selinfo selinit;
+       k->u.raw.rsel = selinit;
+     }
+    k->flags |= KBF_RAW;
+  }
+ else
+  { k->flags &= ~KBF_RAW;
+    k->u.ev.k_events.ev_io = p;
+    error = kbd_iopen(unit);
+    if (error)
+     { k->u.ev.k_events.ev_io = 0;
+       k->flags &= ~KBF_OPEN;
+       return(error);
+     }
+    ev_init(&k->u.ev.k_events);
+    k->k_evmode = 1;	/* XXX: OK? */
+    if (k->k_repeating)
+     { k->k_repeating = 0;
+       untimeout(kbd_repeat,k);
+     }
+  }
+ return(0);
 }
 
 /*
@@ -148,38 +167,60 @@ kbdopen(dev, flags, mode, p)
  * Turn off event mode, dump the queue, and close the keyboard
  * unless it is supplying console input.
  */
-int
-kbdclose(dev, flags, mode, p)
-	dev_t dev;
-	int flags, mode;
-	struct proc *p;
+int kbdclose(dev_t dev, int flags, int mode, struct proc *p)
 {
-	struct kbd_softc *k;
+ struct kbd_softc *k;
 
-	k = kbd_cd.cd_devs[minor(dev)];
-	k->k_evmode = 0;
-	ev_fini(&k->k_events);
-	k->k_events.ev_io = NULL;
-	return (0);
+ k = kbd_cd.cd_devs[UNIT_UNIT(minor(dev))];
+ k->k_evmode = 0;
+ if (k->flags & KBF_RAW)
+  { k->flags &= ~KBF_RAW;
+  }
+ else
+  { ev_fini(&k->u.ev.k_events);
+    k->u.ev.k_events.ev_io = 0;
+  }
+ k->flags &= ~KBF_OPEN;
+ return(0);
 }
 
-int
-kbdread(dev, uio, flags)
-	dev_t dev;
-	struct uio *uio;
-	int flags;
+int kbdread(dev_t dev, struct uio *uio, int flags)
 {
-	struct kbd_softc *k;
+ struct kbd_softc *k;
+ int s;
 
-	k = kbd_cd.cd_devs[minor(dev)];
-	return (ev_read(&k->k_events, uio, flags));
+ k = kbd_cd.cd_devs[UNIT_UNIT(minor(dev))];
+ if (k->flags & KBF_RAW)
+  { unsigned int h;
+    unsigned int t;
+    int n;
+    n = 0;
+    while (uio->uio_resid)
+     { s = splhigh();
+       h = k->u.raw.h;
+       t = k->u.raw.t;
+       splx(s);
+       if (h == t)
+	{ int e;
+	  if ((n > 0) || (k->flags & KBF_NBIO)) return(0);
+	  e = tsleep(k,PZERO|PCATCH,"kbraw",0);
+	  if (e) return(e);
+	  continue;
+	}
+       uiomove(&k->u.raw.ring[t],1,uio);
+       n ++;
+       s = splhigh();
+       k->u.raw.t = KB_RING_ADV(t);
+       splx(s);
+     }
+    return(0);
+  }
+ else
+  { return(ev_read(&k->u.ev.k_events,uio,flags));
+  }
 }
 
-int
-kbdwrite(dev, uio, flags)
-	dev_t dev;
-	struct uio *uio;
-	int flags;
+int kbdwrite(dev_t dev, struct uio *uio, int flags)
 {
 	struct kbd_softc *k;
 	char c;
@@ -201,18 +242,31 @@ out:;
 	return(error);
 }
 
-int
-kbdpoll(dev, events, p)
-	dev_t dev;
-	int events;
-	struct proc *p;
+int kbdpoll(dev_t dev, int events, struct proc *p)
 {
-	struct kbd_softc *k;
+ struct kbd_softc *k;
+ int revents;
+ int s;
+ int any;
 
-	k = kbd_cd.cd_devs[minor(dev)];
-	return (ev_poll(&k->k_events, events, p));
+ k = kbd_cd.cd_devs[UNIT_UNIT(minor(dev))];
+ if (k->flags & KBF_RAW)
+  { revents = events & (POLLOUT | POLLWRNORM);
+    s = splhigh();
+    any = (k->u.raw.h != k->u.raw.t);
+    splx(s);
+    if (any)
+     { revents |= events & (POLLIN | POLLRDNORM);
+     }
+    else
+     { selrecord(p,&k->u.raw.rsel);
+     }
+    return(revents);
+  }
+ else
+  { return(ev_poll(&k->u.ev.k_events,events,p));
+  }
 }
-
 
 static int kbd_iockeymap __P((struct kbd_state *ks,
 	u_long cmd, struct kiockeymap *kio));
@@ -233,107 +287,84 @@ static void kiocbell_stop(void *arg __attribute__((__unused__)))
 }
 #endif
 
-int
-kbdioctl(dev, cmd, data, flag, p)
-	dev_t dev;
-	u_long cmd;
-	register caddr_t data;
-	int flag;
-	struct proc *p;
+int kbdioctl(dev_t dev, u_long cmd, caddr_t data, int flag, struct proc *p)
 {
-	struct kbd_softc *k;
-	struct kbd_state *ks;
-	int error = 0;
+ struct kbd_softc *k;
+ struct kbd_state *ks;
+ int error;
 
-	k = kbd_cd.cd_devs[minor(dev)];
-	ks = &k->k_state;
-
-	switch (cmd) {
-
-	case KIOCTRANS: 	/* Set translation mode */
-		/* We only support "raw" mode on /dev/kbd */
-		if (*(int *)data != TR_UNTRANS_EVENT)
-			error = EINVAL;
-		break;
-
-	case KIOCGTRANS:	/* Get translation mode */
-		/* We only support "raw" mode on /dev/kbd */
-		*(int *)data = TR_UNTRANS_EVENT;
-		break;
-
-#ifdef	KIOCGETKEY
-	case KIOCGETKEY:	/* Get keymap entry (old format) */
-		error = kbd_oldkeymap(ks, cmd, (struct okiockey *)data);
-		break;
-#endif	KIOCGETKEY */
-
-	case KIOCSKEY:  	/* Set keymap entry */
-		/* fallthrough */
-	case KIOCGKEY:  	/* Get keymap entry */
-		error = kbd_iockeymap(ks, cmd, (struct kiockeymap *)data);
-		break;
-
-	case KIOCCMD:	/* Send a command to the keyboard */
-		error = kbd_docmd(*(int *)data, 1);
-		break;
-
-	case KIOCTYPE:	/* Get keyboard type */
-		*(int *)data = ks->kbd_id;
-		break;
-
-	case KIOCSDIRECT:	/* where to send input */
-		k->k_evmode = *(int *)data;
-		break;
-
-	case KIOCLAYOUT:	/* Get keyboard layout */
-		*(int *)data = ks->kbd_layout;
-		break;
-
-	case KIOCSLED:
-		error = kbd_iocsled(k, (char *)data);
-		break;
-
-	case KIOCGLED:
-		*(char *)data = ks->kbd_leds;
-		break;
-
+ error = 0;
+ k = kbd_cd.cd_devs[UNIT_UNIT(minor(dev))];
+ ks = &k->k_state;
+ switch (cmd)
+  { case KIOCTRANS: 	/* Set translation mode */
+       /* We only support "raw" mode on /dev/kbd */
+       if (*(int *)data != TR_UNTRANS_EVENT) error = EINVAL;
+       break;
+    case KIOCGTRANS:	/* Get translation mode */
+       /* We only support "raw" mode on /dev/kbd */
+       *(int *)data = TR_UNTRANS_EVENT;
+       break;
+#ifdef KIOCGETKEY
+    case KIOCGETKEY:	/* Get keymap entry (old format) */
+       error = kbd_oldkeymap(ks,cmd,(struct okiockey *)data);
+       break;
+#endif KIOCGETKEY
+    case KIOCSKEY:  	/* Set keymap entry */
+       /* fall through */
+    case KIOCGKEY:  	/* Get keymap entry */
+       error = kbd_iockeymap(ks,cmd,(struct kiockeymap *)data);
+       break;
+    case KIOCCMD:	/* Send a command to the keyboard */
+       error = kbd_docmd(*(int *)data,1);
+       break;
+    case KIOCTYPE:	/* Get keyboard type */
+       *(int *)data = ks->kbd_id;
+       break;
+    case KIOCSDIRECT:	/* where to send input */
+       k->k_evmode = *(int *)data;
+       break;
+    case KIOCLAYOUT:	/* Get keyboard layout */
+       *(int *)data = ks->kbd_layout;
+       break;
+    case KIOCSLED:
+       error = kbd_iocsled(k,(char *)data);
+       break;
+    case KIOCGLED:
+       *(char *)data = ks->kbd_leds;
+       break;
 #ifdef KIOCBELL
-	case KIOCBELL:
-		{
-			int s;
-			int ms;
-			ms = * (int *) data;
-			s = splsoftclock();
-			error = kbd_docmd(KBD_CMD_BELL,1);
-			if (! error) {
-				if (ringing)
-					untimeout(kiocbell_stop,0);
-				timeout(kiocbell_stop,0,((ms*hz)+999)/1000);
-				ringing = 1;
-			}
-			splx(s);
-		}
-		break;
-#endif
-
-	case FIONBIO:		/* we will remove this someday (soon???) */
-		break;
-
-	case FIOASYNC:
-		k->k_events.ev_async = *(int *)data != 0;
-		break;
-
-	case TIOCSPGRP:
-		if (*(int *)data != k->k_events.ev_io->p_pgid)
-			error = EPERM;
-		break;
-
-	default:
-		error = ENOTTY;
-		break;
+    case KIOCBELL:
+	{ int s;
+	  int ms;
+	  ms = *(int *)data;
+	  s = splsoftclock();
+	  error = kbd_docmd(KBD_CMD_BELL,1);
+	  if (! error)
+	   { if (ringing) untimeout(kiocbell_stop,0);
+	     timeout(kiocbell_stop,0,((ms*hz)+999)/1000);
+	     ringing = 1;
+	   }
+	  splx(s);
 	}
-
-	return (error);
+       break;
+#endif
+    case FIONBIO:		/* we will remove this someday (soon???) */
+       if (k->flags & KBF_RAW)
+	{ if (*(int *)data) k->flags |= KBF_NBIO; else k->flags &= ~KBF_NBIO;
+	}
+       break;
+    case FIOASYNC:
+       k->u.ev.k_events.ev_async = *(int *)data != 0;
+       break;
+    case TIOCSPGRP:
+       if (*(int *)data != k->u.ev.k_events.ev_io->p_pgid) error = EPERM;
+       break;
+    default:
+       error = ENOTTY;
+       break;
+  }
+ return(error);
 }
 
 /****************************************************************
@@ -711,125 +742,131 @@ kbd_repeat(arg)
 	splx(s);
 }
 
+static void kb_queue_event(struct kbd_softc *k, int c)
+{
+ struct kbd_state *ks;
+ struct firm_event *fe;
+ int put;
+ int keysym;
+
+ ks = &k->k_state;
+ /*
+  * If /dev/kbd is not connected in event mode, translate and send
+  *  upstream (to console).
+  */
+ if (! k->k_evmode)
+  { /* Any input stops auto-repeat (i.e. key release). */
+    if (k->k_repeating)
+     { k->k_repeating = 0;
+       untimeout(kbd_repeat,k);
+     }
+    /* Translate this code to a keysym */
+    keysym = kbd_code_to_keysym(ks,c);
+    /* Pass up to the next layer. */
+    if (kbd_input_keysym(k,keysym))
+     { log(LOG_WARNING,"%s: code=0x%x with mod=0x%x produced unexpected keysym 0x%x\n",&k->k_dev.dv_xname[0],c,ks->kbd_modbits,keysym);
+       /* No point in auto-repeat here. */
+       return;
+     }
+    /* Does this symbol get auto-repeat? */
+    if (KEYSYM_NOREPEAT(keysym)) return;
+    /* Setup for auto-repeat after initial delay. */
+    k->k_repeating = 1;
+    k->k_repeatsym = keysym;
+    timeout(kbd_repeat,k,k->k_repeat_start);
+    return;
+  }
+ /*
+  * IDLEs confuse the MIT X11R4 server badly, so we must drop them.
+  *  This is bad as it means the server will not automatically resync
+  *  on all-up IDLEs, but I did not drop them before, and the server
+  *  goes crazy when it comes time to blank the screen....
+  */
+ if (c == KBD_IDLE) return;
+ /*
+  * Keyboard is generating events.  Turn this keystroke into an event
+  *  and put it in the queue.  If the queue is full, the keystroke is
+  *  lost (sorry!).
+  */
+ put = k->u.ev.k_events.ev_put;
+ fe = &k->u.ev.k_events.ev_q[put];
+ put = (put + 1) % EV_QSIZE;
+ if (put == k->u.ev.k_events.ev_get)
+  { log(LOG_WARNING,"%s: event queue overflow\n",&k->k_dev.dv_xname[0]); /* ??? */
+    return;
+  }
+ fe->id = KEY_CODE(c);
+ fe->value = KEY_UP(c) ? VKEY_UP : VKEY_DOWN;
+ fe->time = time;
+ k->u.ev.k_events.ev_put = put;
+ EV_WAKEUP(&k->u.ev.k_events);
+}
+
+static void kb_queue_raw(struct kbd_softc *k, int c)
+{
+ int h;
+ int t;
+ int nh;
+
+ if (! k->k_isopen) return;
+ h = k->u.raw.h;
+ t = k->u.raw.t;
+ nh = KB_RING_ADV(h);
+ if (nh != t)
+  { k->u.raw.ring[h] = c;
+    k->u.raw.h = nh;
+  }
+ wakeup(k);
+ selwakeup(&k->u.raw.rsel);
+}
+
 /*
  * Called by our kbd_softint() routine on input,
  * which passes the raw hardware scan codes.
  * Called at spltty()
  */
-void
-kbd_input_raw(k, c)
-	struct kbd_softc *k;
-	register int c;
+void kbd_input_raw(struct kbd_softc *k, int c)
 {
-	struct kbd_state *ks = &k->k_state;
-	struct firm_event *fe;
-	int put, keysym;
+ struct kbd_state *ks;
 
-	/* XXX - Input errors already handled. */
-
-	/* Are we expecting special input? */
-	if (ks->kbd_expect) {
-		if (ks->kbd_expect & KBD_EXPECT_IDCODE) {
-			/* We read a KBD_RESET last time. */
-			ks->kbd_id = c;
-			kbd_was_reset(k);
-		}
-		if (ks->kbd_expect & KBD_EXPECT_LAYOUT) {
-			/* We read a KBD_LAYOUT last time. */
-			ks->kbd_layout = c;
-			kbd_new_layout(k);
-		}
-		ks->kbd_expect = 0;
-		return;
-	}
-
-	/* Is this one of the "special" input codes? */
-	if (KBD_SPECIAL(c)) {
-		switch (c) {
-		case KBD_RESET:
-			ks->kbd_expect |= KBD_EXPECT_IDCODE;
-			/* Fake an "all-up" to resync. translation. */
-			c = KBD_IDLE;
-			break;
-
-		case KBD_LAYOUT:
-			ks->kbd_expect |= KBD_EXPECT_LAYOUT;
-			return;
-
-		case KBD_ERROR:
-			log(LOG_WARNING, "%s: received error indicator\n",
-				k->k_dev.dv_xname);
-			return;
-
-		case KBD_IDLE:
-			/* Let this go to the translator. */
-			break;
-		}
-	}
-
-	/*
-	 * If /dev/kbd is not connected in event mode,
-	 * translate and send upstream (to console).
-	 */
-	if (!k->k_evmode) {
-
-		/* Any input stops auto-repeat (i.e. key release). */
-		if (k->k_repeating) {
-			k->k_repeating = 0;
-			untimeout(kbd_repeat, k);
-		}
-
-		/* Translate this code to a keysym */
-		keysym = kbd_code_to_keysym(ks, c);
-
-		/* Pass up to the next layer. */
-		if (kbd_input_keysym(k, keysym)) {
-			log(LOG_WARNING, "%s: code=0x%x with mod=0x%x"
-				" produced unexpected keysym 0x%x\n",
-				k->k_dev.dv_xname, c,
-				ks->kbd_modbits, keysym);
-			/* No point in auto-repeat here. */
-			return;
-		}
-
-		/* Does this symbol get auto-repeat? */
-		if (KEYSYM_NOREPEAT(keysym))
-			return;
-
-		/* Setup for auto-repeat after initial delay. */
-		k->k_repeating = 1;
-		k->k_repeatsym = keysym;
-		timeout(kbd_repeat, k, k->k_repeat_start);
-		return;
-	}
-
-	/*
-	 * IDLEs confuse the MIT X11R4 server badly, so we must drop them.
-	 * This is bad as it means the server will not automatically resync
-	 * on all-up IDLEs, but I did not drop them before, and the server
-	 * goes crazy when it comes time to blank the screen....
-	 */
-	if (c == KBD_IDLE)
-		return;
-
-	/*
-	 * Keyboard is generating events.  Turn this keystroke into an
-	 * event and put it in the queue.  If the queue is full, the
-	 * keystroke is lost (sorry!).
-	 */
-	put = k->k_events.ev_put;
-	fe = &k->k_events.ev_q[put];
-	put = (put + 1) % EV_QSIZE;
-	if (put == k->k_events.ev_get) {
-		log(LOG_WARNING, "%s: event queue overflow\n",
-			k->k_dev.dv_xname); /* ??? */
-		return;
-	}
-	fe->id = KEY_CODE(c);
-	fe->value = KEY_UP(c) ? VKEY_UP : VKEY_DOWN;
-	fe->time = time;
-	k->k_events.ev_put = put;
-	EV_WAKEUP(&k->k_events);
+ ks = &k->k_state;
+ /* XXX - Input errors already handled. */
+ /* Are we expecting special input? */
+ if (ks->kbd_expect)
+  { if (ks->kbd_expect & KBD_EXPECT_IDCODE)
+     { /* We read a KBD_RESET last time. */
+       ks->kbd_id = c;
+       kbd_was_reset(k);
+     }
+    if (ks->kbd_expect & KBD_EXPECT_LAYOUT)
+     { /* We read a KBD_LAYOUT last time. */
+       ks->kbd_layout = c;
+       kbd_new_layout(k);
+     }
+    ks->kbd_expect = 0;
+    return;
+  }
+ /* Is this one of the "special" input codes? */
+ if (KBD_SPECIAL(c))
+  { switch (c)
+     { case KBD_RESET:
+	  ks->kbd_expect |= KBD_EXPECT_IDCODE;
+	  /* Fake an "all-up" to resync. translation. */
+	  c = KBD_IDLE;
+	  break;
+       case KBD_LAYOUT:
+	  ks->kbd_expect |= KBD_EXPECT_LAYOUT;
+	  return;
+	  case KBD_ERROR:
+	  log(LOG_WARNING,"%s: received error indicator\n",k->k_dev.dv_xname);
+	  return;
+	  break;
+       case KBD_IDLE:
+	  /* Let this go to the translator. */
+	  break;
+     }
+  }
+ if (k->flags & KBF_RAW) kb_queue_raw(k,c); else kb_queue_event(k,c);
 }
 
 /****************************************************************

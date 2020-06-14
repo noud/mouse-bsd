@@ -147,7 +147,7 @@ struct filed {
 		char	f_fname[MAXPATHLEN];
 	} f_un;
 	char	f_prevline[MAXSVLINE];		/* last message logged */
-	char	f_lasttime[16];			/* time of last occurrence */
+	char	f_lasttime[20];			/* time of last occurrence */
 	char	f_prevhost[MAXHOSTNAMELEN+1];	/* host from which recd. */
 	int	f_prevpri;			/* pri of f_prevline */
 	int	f_prevlen;			/* length of f_prevline */
@@ -213,6 +213,8 @@ void	wallmsg __P((struct filed *, struct iovec *));
 int	main __P((int, char *[]));
 void	logpath_add __P((char ***, int *, int *, char *));
 void	logpath_fileadd __P((char ***, int *, int *, char *));
+
+#define Cisdigit(x) isdigit((unsigned char )(x))
 
 int
 main(argc, argv)
@@ -623,19 +625,37 @@ logmsg(pri, msg, from, flags)
 	/*
 	 * Check to see if msg looks non-standard.
 	 */
-	msglen = strlen(msg);
-	if (msglen < 16 || msg[3] != ' ' || msg[6] != ' ' ||
-	    msg[9] != ':' || msg[12] != ':' || msg[15] != ' ')
+ msglen = strlen(msg);
+ if ( (msglen < 20) ||
+      !Cisdigit(msg[0]) || !Cisdigit(msg[1]) || !Cisdigit(msg[2]) || !Cisdigit(msg[3]) ||
+      (msg[4] != '-') ||
+      !Cisdigit(msg[5]) || !Cisdigit(msg[6]) ||
+      (msg[7] != '-') ||
+      !Cisdigit(msg[8]) || !Cisdigit(msg[9]) ||
+      (msg[10] != ' ') ||
+      !Cisdigit(msg[11]) || !Cisdigit(msg[12]) ||
+      (msg[13] != ':') ||
+      !Cisdigit(msg[14]) || !Cisdigit(msg[15]) ||
+      (msg[16] != ':') ||
+      !Cisdigit(msg[17]) || !Cisdigit(msg[18]) ||
+      (msg[19] != ' ') )
 		flags |= ADDDATE;
 
 	(void)time(&now);
-	if (flags & ADDDATE)
-		timestamp = ctime(&now) + 4;
-	else {
-		timestamp = msg;
-		msg += 16;
-		msglen -= 16;
-	}
+ if (flags & ADDDATE)
+  { static char synthstamp[20];
+    int n;
+    struct tm *tm;
+    tm = localtime(&now);
+    n = strftime(&synthstamp[0],sizeof(synthstamp),"%Y-%m-%d %H:%M:%S",tm);
+    if (n != 19) sprintf(&synthstamp[0],"?""?""? n=%d ?""?""?",n);
+    timestamp = &synthstamp[0];
+  }
+ else
+  { timestamp = msg;
+    msg += 20;
+    msglen -= 20;
+  }
 
 	/* extract facility and priority level */
 	if (flags & MARK)
@@ -675,7 +695,7 @@ logmsg(pri, msg, from, flags)
 		if ((flags & MARK) == 0 && msglen == f->f_prevlen &&
 		    !strcmp(msg, f->f_prevline) &&
 		    !strcmp(from, f->f_prevhost)) {
-			(void)strncpy(f->f_lasttime, timestamp, 15);
+			(void)strncpy(f->f_lasttime, timestamp, 19);
 			f->f_prevcount++;
 			dprintf("msg repeated %d times, %ld sec of %d\n",
 			    f->f_prevcount, (long)(now - f->f_time),
@@ -696,7 +716,7 @@ logmsg(pri, msg, from, flags)
 				fprintlog(f, 0, (char *)NULL);
 			f->f_repeatcount = 0;
 			f->f_prevpri = pri;
-			(void)strncpy(f->f_lasttime, timestamp, 15);
+			(void)strncpy(f->f_lasttime, timestamp, 19);
 			(void)strncpy(f->f_prevhost, from,
 					sizeof(f->f_prevhost));
 			if (msglen < MAXSVLINE) {
@@ -737,7 +757,7 @@ fprintlog(f, flags, msg)
 		v++;
 	} else {
 		v->iov_base = f->f_lasttime;
-		v->iov_len = 15;
+		v->iov_len = 19;
 		v++;
 		v->iov_base = " ";
 		v->iov_len = 1;

@@ -181,7 +181,7 @@ vsyslog(pri, fmt, ap)
 	DEC();
 
 	tzset(); /* strftime() implies tzset(), localtime_r() doesn't. */
-	prlen = strftime(p, tbuf_left, "%h %e %T ", localtime_r(&now, &tmnow));
+	prlen = strftime(p, tbuf_left, "%Y-%m-%d %H:%M:%S ", localtime_r(&now, &tmnow));
 	DEC();
 
 	if (LogStat & LOG_PERROR)
