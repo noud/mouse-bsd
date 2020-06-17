@@ -116,13 +116,13 @@ struct m_hdr {
 	int	mh_len;			/* amount of data in this mbuf */
 	short	mh_type;		/* type of data in this mbuf */
 	short	mh_flags;		/* flags; see below */
-};
+} __attribute__((__aligned__(__alignof__(long long int))));
 
 /* record/packet header in first mbuf of chain; valid if M_PKTHDR set */
 struct	pkthdr {
 	struct	ifnet *rcvif;		/* rcv interface */
 	int	len;			/* total packet length */
-};
+} __attribute__((__aligned__(__alignof__(long long int))));
 
 /* description of external storage mapped into mbuf, valid if M_EXT set */
 struct m_ext {
