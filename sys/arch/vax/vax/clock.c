@@ -127,11 +127,11 @@ inittodr(fs_time)
 
 	default: /* System clock OK, no warning if we don't want to. */
 		if (time.tv_sec > fs_time + 3 * SEC_PER_DAY) {
-			printf("Clock has gained %ld days",
+			printf("Clock has gained %lld days",
 			    (time.tv_sec - fs_time) / SEC_PER_DAY);
 			rv = CLKREAD_WARN;
 		} else if (time.tv_sec + SEC_PER_DAY < fs_time) {
-			printf("Clock has lost %ld day(s)",
+			printf("Clock has lost %lld day(s)",
 			    (fs_time - time.tv_sec) / SEC_PER_DAY);
 			rv = CLKREAD_WARN;
 		}
