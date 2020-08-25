@@ -71,6 +71,13 @@ static int emitrules __P((FILE *));
 static int emitload __P((FILE *));
 static int emitincludes __P((FILE *));
 
+typedef struct fl FL;
+
+struct fl {
+  FL *link;
+  struct files *f;
+  } ;
+
 int
 mkmakefile()
 {
@@ -232,6 +239,44 @@ emitdefs(fp)
 	return (0);
 }
 
+static FL *sort_fl(FL *list)
+{
+ FL *a;
+ FL *b;
+ FL *t;
+ FL **lp;
+
+ if (!list || !list->link) return(list);
+ a = 0;
+ b = 0;
+ while ((t = list))
+  { list = t->link;
+    t->link = a;
+    a = b;
+    b = t;
+  }
+ a = sort_fl(a);
+ b = sort_fl(b);
+ lp = &list;
+ while (1)
+  { if (a && (!b || (strcmp(a->f->fi_base,b->f->fi_base) < 0)))
+     { t = a;
+       a = a->link;
+     }
+    else if (b)
+     { t = b;
+       b = b->link;
+     }
+    else
+     { break;
+     }
+    *lp = t;
+    lp = &t->link;
+  }
+ *lp = 0;
+ return(list);
+}
+
 static int
 emitobjs(fp)
 	FILE *fp;
@@ -239,14 +284,28 @@ emitobjs(fp)
 	struct files *fi;
 	struct objects *oi;
 	int lpos, len, sp;
+ FL *list;
+ FL *f;
 
-	if (fputs("OBJS=", fp) < 0)
+	if (fputs("OBJS =", fp) < 0)
 		return (1);
 	sp = '\t';
 	lpos = 7;
-	for (fi = allfiles; fi != NULL; fi = fi->fi_next) {
-		if ((fi->fi_flags & FI_SEL) == 0)
-			continue;
+ list = 0;
+ for (fi=allfiles;fi;fi=fi->fi_next)
+  { if (fi->fi_flags & FI_SEL)
+     { f = malloc(sizeof(FL));
+       f->f = fi;
+       f->link = list;
+       list = f;
+     }
+  }
+ list = sort_fl(list);
+ while (list)
+  { f = list;
+    list = f->link;
+    fi = f->f;
+    free(f);
 		len = strlen(fi->fi_base) + 2;
 		if (lpos + len > 72) {
 			if (fputs(" \\\n", fp) < 0)
@@ -258,7 +317,7 @@ emitobjs(fp)
 			return (1);
 		lpos += len + 1;
 		sp = ' ';
-	}
+  }
 	for (oi = allobjects; oi != NULL; oi = oi->oi_next) {
 		if ((oi->oi_flags & OI_SEL) == 0)
 			continue;
@@ -322,14 +381,28 @@ emitfiles(fp, suffix)
 	int lpos, len, sp;
 	const char *fpath;
 	char swapname[100];
+ FL *list;
+ FL *f;
 
-	if (fprintf(fp, "%cFILES=", toupper(suffix)) < 0)
+	if (fprintf(fp, "%cFILES =", toupper(suffix)) < 0)
 		return (1);
-	sp = '\t';
-	lpos = 7;
-	for (fi = allfiles; fi != NULL; fi = fi->fi_next) {
-		if ((fi->fi_flags & FI_SEL) == 0)
-			continue;
+	sp = ' ';
+	lpos = 8;
+ list = 0;
+ for (fi=allfiles;fi;fi=fi->fi_next)
+  { if (fi->fi_flags & FI_SEL)
+     { f = malloc(sizeof(FL));
+       f->f = fi;
+       f->link = list;
+       list = f;
+     }
+  }
+ list = sort_fl(list);
+ while (list)
+  { f = list;
+    list = f->link;
+    fi = f->f;
+    free(f);
 		if ((fpath = srcpath(fi)) == NULL)
                         return (1);
 		len = strlen(fpath);
@@ -362,7 +435,7 @@ emitfiles(fp, suffix)
 		}
 		lpos += len + 1;
 		sp = ' ';
-	}
+  }
 	/*
 	 * The allfiles list does not include the configuration-specific
 	 * C source files.  These files should be eliminated someday, but
